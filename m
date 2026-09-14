@@ -1,153 +1,154 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B7646A600
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 13:42:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F463472F7F
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 13:46:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789393345; cv=none; b=aTSaxukBtWDZxZovYoWISCt1vaTcD7yIrZtMVvmRh0fM/+h8WM6YGIGGvSbiCxYO5r0HEDoZdqM6w+2FPIMJUs62C+6VR/Bw3426SagDU/opwqicg9TZE+L1S8Zv2NWgwZ/bifrj9SOSV6CzhlcTjALCw4DepD/VjROdImxf074=
+	t=1789393599; cv=none; b=LqkJbrQ7ZRx0dY2Pn44KFDaqjXwVH/bs57sVGnMfFwjFdtyTec+fuwFUGR3nIqr/gYRnLrtxie+oMC46p0Krk1N2quaCVln/ZTlGAWFqOEdrXywNmBFdDnzMrz7xq+X8uMVGs37FdjM8QmvwjtR7oNiFEz4rNmq4hMO+nymrFhc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789393345; c=relaxed/simple;
-	bh=+onlGpa1hiO1MNd5qR3jYCkVSL71ELpSzMUjHSHRwDg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jsgjKoU450NFd8V0eJz7vnfBnM085HO5k4I0h4gF9k3faYQmv6xRK8Jqn+12sLRrSeutl8Sw+ZFYcQX7+PaAoH20cNpNGHYNPGta9Ol42b76jTp7s3afTITSrB2y5JtYUtoek4bX15/0KwnSRLEzWSjJYaJiRoQ/6RyYuK1c0ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pM6/oTPU; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789393599; c=relaxed/simple;
+	bh=37/I50gHD62uU09PTix/xJg2/GrSVvG3mPPsk36PprA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=D7BUu5LJB75Djjlh45iuHgVH5M57ZZj1azzwbKVnKM4beigNeApM3CHrsP0tjlX+M87vV5dKC5mV/pgMIHUpYfB+O1zcD7becVkCNJfZ8SRdcOp/dFpANdv1r0PBSFu6kEM6a2QJOiYbisOiapQKb176c0tG+a5rlQ7ANaAejhM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UFmhgXLx; arc=none smtp.client-ip=198.175.65.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pM6/oTPU"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a34907so1882003b3a.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 06:42:23 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789393343; x=1789998143; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bakTp6stDBZ5NtOXw79DszktYHeILhkNYFFO9zeitSo=;
-        b=pM6/oTPU/Jyt3RiKGegbgFCR6vO/srv8K/CfRb0x1Y6R5oAXt7uQm/gc2/e7UUgqa/
-         mO5oEm6z/TB0ZiENTmNdJg2AtrxJW6vMZA4pOPPDGPtFMSoG3YaS2SXhhmclNXu13Ngv
-         goC0RFl1AaTq+xHy6ND35dXdlAN33xUNCvgrAh/m8+PWKFUo1IQpu9n6/KDmXsWSXOAz
-         MvcXT72oKk+kst/YjPjzgY8jizxmfekUQ/Mgua5LHS21wfcMnT3FMpNL+PX0pCm+tkcf
-         kdgTEdIRv+j6S7rl2K3vK/seHNJmebEjW1BUYM2ndybg2amZWxjAUOI9dZo6P0NMEp0u
-         6MYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789393343; x=1789998143;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bakTp6stDBZ5NtOXw79DszktYHeILhkNYFFO9zeitSo=;
-        b=ZdHICe6LrYi/GZVEvAehuOBDgOso4f8euXWtg+EGchFopWiPQqQ/8XfhsASUpn0GYX
-         JF5RIB9jqSPC6BV3Ihnt5XtiVQU0mS/rqlFDhOcSo1ZVVcfj2gXyjcMxCOaW5HA/2IhE
-         tU1XNujd92vi8Lv2Hs/fd9cRWV9SJWdneuxD8Od0PdtrbJ3q/TLtvpQbzYT7+MhSetwE
-         j1WwUy/KvfVLYy+smgvXL/yrCZHKgHiZbBNth3/wrtd0cnhBCx/fODuv373d7j8D9DyY
-         E/ak02OzQFwGIDgXKCgktCWUbj6Zq0UOOCwVxvx4OzZ4BKEQGQKXOw6Esx7gT1Ddq74y
-         fRBw==
-X-Forwarded-Encrypted: i=1; AKwUvByVghN6+a9uncAqLICIxNxL9cDPjSptkU3v9qpiU3ncnK3UWWsPJzvkHrQd34a//KRKgatyJuI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l/IsLKJIzusb/3uWIrzi2jaH63H4jlukY2+/Tmyoqxs8YfdEAJ
-	vVrojAEvt8ZecocE8AxElRK32p8202aDcM3WGuh9TpxavZkWKP6nPe1C
-X-Gm-Gg: AYBFou25NnJbOGcUAYd7v5G7smh+o1YSWdJs+cEQQzPLhuT7Z8ayXJt4ZzFWfp9Jl/d
-	wa2NG1vpUzhIhwEAyCN/a3NfpvqwqheCOgdrtjOF1wLamfWXUi2/+vR/FpX3z3CigHNNe6z853b
-	glgth6lDHaQhm75UACx7gVB/yerQNCWwcbeqX5/0hDTLkG/tdhBrvPuLyYpvEil3Rfu1g9FIcaE
-	Fzuapn5pa1bYs4hQ92fuu1H01E0kVA84mS5bMvBty34Oiq2T70SZ5+ZLXJ36QbY/baufawpCIAi
-	I1YTJU1bEufis6OwKQOi4W0EVqcU+xduiTQ6aqT/5Vqs0Z7qz9h2bgNZnTOuTed/Bs/rGUVkasg
-	2VDDnMNO2X7GNTQ3ETDyqjVOEh75l8KcGM4MeCEF+dyLX1gm1rDdNkcHkqLhVonM8xmtzpZTuOb
-	ufzFKIOLlXesepvS5T3/oJx/tMTdCFgho+9lmL/s0LbrSH9E72Jo1NGA==
-X-Received: by 2002:a05:6a00:1c93:b0:851:b03a:fcb with SMTP id d2e1a72fcca58-86f84b1da7emr5036133b3a.14.1789393342959;
-        Mon, 14 Sep 2026 06:42:22 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29dc09d4sm4536921b3a.47.2026.09.14.06.42.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 06:42:22 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Thomas Gleixner <tglx@kernel.org>,
-	Radu Rendec <radu@rendec.net>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Joakim Zhang <qiangqing.zhang@nxp.com>,
-	Marc Zyngier <maz@kernel.org>,
-	linux-kernel@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UFmhgXLx"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789393597; x=1820929597;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=37/I50gHD62uU09PTix/xJg2/GrSVvG3mPPsk36PprA=;
+  b=UFmhgXLxLecZ+6ap/0z/1jBTFakkPw2i2poEFxXDbVnOzWBDMPiWgn4i
+   1t4eShUV0EAXrkE2Sx1B/Uljfezv58hNgoKlWn30/6AQbZTTWyrHh1Shm
+   Lc3a4IfT/bih90AJk1diuDq+U8KYyZM94gD721VoWxmBTmRZP1ZWsXSmW
+   VLEGa4VOWOhjrWuT4Eu9aqaG5KXWFFcpwDDqzyztdKkX2LXxVqMQKkBbb
+   FJj1X3nkEeisua1gSL87dIK/A/+51388CB8iZjX6IU0+h/HrrdpWRxiI9
+   0WuC8Snx7bS26B8/OHJjesoZZEnY+6ndj108RZIsrbOxgb4UL1Mdisn6D
+   Q==;
+X-CSE-ConnectionGUID: P8oPVGJkSJqQ1RpnZg2Hyw==
+X-CSE-MsgGUID: F93zEYOpRkyZQdPcNlC6NA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11904"; a="89786698"
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="89786698"
+Received: from orviesa001.jf.intel.com ([10.64.159.141])
+  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:46:36 -0700
+X-CSE-ConnectionGUID: p0ibdEcpRIyq/hYTks3olw==
+X-CSE-MsgGUID: hmmk0UGCSiGZWhvZEXYn7A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,102,1787036400"; 
+   d="scan'208";a="310917857"
+Received: from pgcooper-mobl3.ger.corp.intel.com (HELO fedora) ([10.245.245.65])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 06:46:35 -0700
+From: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>
+To: intel-xe@lists.freedesktop.org
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Matthew Auld <matthew.auld@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] irqchip/imx-intmux: fix runtime PM teardown on remove
-Date: Mon, 14 Sep 2026 21:42:11 +0800
-Message-ID: <20260914134211.1734163-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] drm/xe: Fix shrinker accounting double-subtraction on nested external pins
+Date: Mon, 14 Sep 2026 15:45:40 +0200
+Message-ID: <20260914134540.385186-1-thomas.hellstrom@linux.intel.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-imx_intmux_probe() enables the IPG clock and then drops its runtime PM
-reference with pm_runtime_put(). With CONFIG_PM enabled, the runtime
-suspend callback disables the IPG clock. With CONFIG_PM disabled, the
-clock remains enabled after probe.
+xe_bo_pin_external() and xe_bo_unpin_external() support nested pins,
+since the underlying ttm_bo_pin()/ttm_bo_unpin() maintain a pin_count
+refcount rather than a boolean. However, the shrinker accounting calls
+xe_ttm_tt_account_subtract() and xe_ttm_tt_account_add() are invoked
+unconditionally on every pin_external()/unpin_external() call, instead
+of only on the transition into and out of the pinned state.
 
-imx_intmux_remove() accesses the CHANIER registers without first making
-sure that the device is runtime active. The device may therefore be
-runtime suspended with the IPG clock disabled when these registers are
-accessed. In addition, the remove path only calls pm_runtime_disable()
-and does not balance the clock enable when CONFIG_PM is disabled.
+An external BO (dma-buf) can be pinned more than once while already
+pinned, for example when it has multiple attachments/importers, each
+independently calling xe_bo_pin_external(). Each such nested pin
+subtracts the BO's pages from the shrinker's accounting again, even
+though the BO's pages were already removed from consideration by the
+first pin. Symmetrically, each nested unpin adds them back again
+before the BO is actually unpinned. This desynchronizes the
+shrinker's page and object counts from reality, and since they are
+declared as signed long but interpreted as unsigned long in
+xe_shrinker_count(), the underflow can turn into an enormous
+shrinkable/purgeable page count, causing the shrinker to be invoked
+excessively under memory pressure.
 
-Resume the device and acquire a runtime PM reference before accessing
-the registers. If resume fails, skip the register accesses but still
-tear down the chained handlers and IRQ domains. Disable runtime PM
-afterwards, drop the acquired reference without triggering another
-runtime suspend, and explicitly disable the IPG clock.
+Guard the accounting calls with the same pin-count transition checks
+already used to guard the pinned_link list maintenance, so accounting
+is only updated on the outermost pin and the final unpin.
 
-This keeps the clock enabled while the hardware registers are accessed
-and balances the clk_prepare_enable() performed during probe for both
-CONFIG_PM configurations.
-
-This issue was found by manual code inspection.
-
-Fixes: bb403111e017 ("irqchip/imx-intmux: Implement intmux runtime power management")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: 00c8efc3180f ("drm/xe: Add a shrinker for xe bos")
+Cc: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Matthew Auld <matthew.auld@intel.com>
+Cc: Rodrigo Vivi <rodrigo.vivi@intel.com>
+Cc: intel-xe@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.15+
+Assisted-by: LLM
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 ---
- drivers/irqchip/irq-imx-intmux.c | 15 ++++++++++++---
- 1 file changed, 12 insertions(+), 3 deletions(-)
+ drivers/gpu/drm/xe/xe_bo.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/irqchip/irq-imx-intmux.c b/drivers/irqchip/irq-imx-intmux.c
-index 47c2681d138a..de2a8f98f625 100644
---- a/drivers/irqchip/irq-imx-intmux.c
-+++ b/drivers/irqchip/irq-imx-intmux.c
-@@ -288,12 +288,16 @@ static int imx_intmux_probe(struct platform_device *pdev)
- static void imx_intmux_remove(struct platform_device *pdev)
+diff --git a/drivers/gpu/drm/xe/xe_bo.c b/drivers/gpu/drm/xe/xe_bo.c
+index 9f3f0cb95afa..f46ff260be9b 100644
+--- a/drivers/gpu/drm/xe/xe_bo.c
++++ b/drivers/gpu/drm/xe/xe_bo.c
+@@ -3141,12 +3141,13 @@ uint64_t vram_region_gpu_offset(struct ttm_resource *res)
+ int xe_bo_pin_external(struct xe_bo *bo, bool in_place, struct drm_exec *exec)
  {
- 	struct intmux_data *data = platform_get_drvdata(pdev);
--	int i;
-+	int i, ret;
-+
-+	ret = pm_runtime_resume_and_get(&pdev->dev);
-+	if (ret < 0)
-+		dev_warn(&pdev->dev, "failed to resume device: %d\n", ret);
+ 	struct xe_device *xe = xe_bo_device(bo);
++	bool first_pin = !xe_bo_is_pinned(bo);
+ 	int err;
  
- 	for (i = 0; i < data->channum; i++) {
- 		/* disable all interrupt sources of this channel */
--		writel_relaxed(0, data->regs + CHANIER(i));
--
-+		if (ret >= 0)
-+			writel_relaxed(0, data->regs + CHANIER(i));
- 		irq_set_chained_handler_and_data(data->irqchip_data[i].irq,
- 						 NULL, NULL);
+ 	xe_assert(xe, !bo->vm);
+ 	xe_assert(xe, xe_bo_is_user(bo));
  
-@@ -301,6 +305,11 @@ static void imx_intmux_remove(struct platform_device *pdev)
+-	if (!xe_bo_is_pinned(bo)) {
++	if (first_pin) {
+ 		if (!in_place) {
+ 			err = xe_bo_validate(bo, NULL, false, exec);
+ 			if (err)
+@@ -3159,7 +3160,7 @@ int xe_bo_pin_external(struct xe_bo *bo, bool in_place, struct drm_exec *exec)
  	}
  
- 	pm_runtime_disable(&pdev->dev);
-+	if (ret >= 0) {
-+		pm_runtime_put_noidle(&pdev->dev);
-+		clk_disable_unprepare(data->ipg_clk);
-+		pm_runtime_set_suspended(&pdev->dev);
-+	}
- }
+ 	ttm_bo_pin(&bo->ttm);
+-	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
++	if (first_pin && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
+ 		xe_ttm_tt_account_subtract(xe, bo->ttm.ttm);
  
- #ifdef CONFIG_PM
+ 	/*
+@@ -3242,18 +3243,19 @@ int xe_bo_pin(struct xe_bo *bo, struct drm_exec *exec)
+ void xe_bo_unpin_external(struct xe_bo *bo)
+ {
+ 	struct xe_device *xe = xe_bo_device(bo);
++	bool last_unpin = bo->ttm.pin_count == 1;
+ 
+ 	xe_assert(xe, !bo->vm);
+ 	xe_assert(xe, xe_bo_is_pinned(bo));
+ 	xe_assert(xe, xe_bo_is_user(bo));
+ 
+ 	spin_lock(&xe->pinned.lock);
+-	if (bo->ttm.pin_count == 1 && !list_empty(&bo->pinned_link))
++	if (last_unpin && !list_empty(&bo->pinned_link))
+ 		list_del_init(&bo->pinned_link);
+ 	spin_unlock(&xe->pinned.lock);
+ 
+ 	ttm_bo_unpin(&bo->ttm);
+-	if (bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
++	if (last_unpin && bo->ttm.ttm && ttm_tt_is_populated(bo->ttm.ttm))
+ 		xe_ttm_tt_account_add(xe, bo->ttm.ttm);
+ 
+ 	/*
 -- 
-2.43.0
+2.55.0
 
