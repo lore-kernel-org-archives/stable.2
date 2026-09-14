@@ -1,139 +1,189 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm1-f51.google.com (mail-wm1-f51.google.com [209.85.128.51])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A7A3443E43
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 12:15:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9FC54443E43
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 12:19:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.51
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789388158; cv=none; b=cLwHEPQQ207tfjSQa9WTutdHkle85PQ08PfCfBJBVTHzvXSr5d4ShuGaUumyg7Od4QEPrX1wZMMx/usJ8yC/qYGBx2uCfreCCQhrv8PZy6sxg8mJyiLoo9w3VhAGLmuSXkAO4KNwb9mT7B2DeIGZvVq6uL2EZtGdUzjzunEpFlI=
+	t=1789388361; cv=none; b=aPLWKC7VIbiI2x/+Ww66NOFdHTuT0WLLuvVXh6w2xeRMlAdC6E36RxbvDf42IvqWc53H+6xz8txuBuaKIxryMRRAOYpBSpzBPTpNE5zwrLqlhOYnLtUeHqM1exZY3gyIN4JI6+cDXBqC2l0S1tiDzArNSWB6oJxSu3drMyPEvbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789388158; c=relaxed/simple;
-	bh=gErqX5CkJ3k5ZE0RlQFl1YtciVW68CeEp9/eczdgOiU=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=EsV0e7KLVIkC1FOIrAvMSgiO4n/7+4LXm2vzeYv681JDUEjvVqqsNq2UhGtrAZA9XHJfVhtym0/BaYMmcX9w0frXSduehR29z+Zz/88EtZx6LJDFh1gt+jcJ1ZMOBzIpHW0L/jLiX2yhUwHURBzv5wfvpoBiGKaNen3CTeIpqYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=ltcMcIpu; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789388361; c=relaxed/simple;
+	bh=w0NPZ2B16PTKXd/UrN0ohc5GgWHynSlyLqxyyFQZ+pU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=cGs7cOuQQx0rBDDy2UkIKFgv3arfC8gw/RnOd0g6MkT7LflYObGnrGczYZWTFhWTcYBW5nTCIFGfsGthf7MZTmWNbrz+ciWKcTLs0QRNMJHjaDqvs23PGWQ31M6j9CG6YlB1sluVte+Q4M0mYOllISyzmbcV4AhGfzW2alqGdgY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=R96rEyoM; arc=none smtp.client-ip=209.85.128.51
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="ltcMcIpu"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 815A4C6220A;
-	Mon, 14 Sep 2026 12:16:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 62FF960323;
-	Mon, 14 Sep 2026 12:15:54 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A183E11C7AF9D;
-	Mon, 14 Sep 2026 14:15:47 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789388149; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=c/j2KSqoeXBO/q3tfC1ALuuQTrGhFj6j1QP0rTOkUU8=;
-	b=ltcMcIpu7KTkiliv/Sa0/XOryVq+Iy4OOrpOQXGT2bqQF6+9WInj1c1ZBbTrmJ5ot6lWQm
-	Stl2p/qa3c0UzIiZzikOiSv/uzemiocQXjLBEt1EkLLiruLlvqQ+xAHPTeyfy0Kkbh+SBi
-	yPgJEoV3KwEtUjjvPKieD5XEoBZ4Gn9GNI1wcgbpIYFeMIDKOM6a1+MGA342Omian1E5s8
-	yCWPVI9SpOZ0q0y7DspWzcMTCFSND9Q6X5KNJO8+QhCtIFUvVDm42CtmqCHUYu2+4E8XVa
-	2xir+AEUZ4JBCqTSyMywT/x5Lujn6FuOnvy1rJD3quvJ/q78zI0DFjucYACBgg==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
-To: Itai Handler <itai.handler@gmail.com>
-Cc: mwalle@kernel.org,  pratyush@kernel.org,  linux-kernel@vger.kernel.org,
-  linux-mtd@lists.infradead.org,  vigneshr@ti.com,  richard@nod.at,
-  takahiro.kuwano@infineon.com,  stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/3] mtd: spi-nor: take the flash lock in
- spi_nor_shutdown()
-In-Reply-To: <20260914081149.1916589-3-itai.handler@gmail.com> (Itai Handler's
-	message of "Mon, 14 Sep 2026 11:11:48 +0300")
-References: <20260914081149.1916589-1-itai.handler@gmail.com>
-	<20260914081149.1916589-3-itai.handler@gmail.com>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Mon, 14 Sep 2026 14:15:46 +0200
-Message-ID: <87fqzcowp9.fsf@bootlin.com>
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="R96rEyoM"
+Received: by mail-wm1-f51.google.com with SMTP id 5b1f17b1804b1-49e73611928so5555475e9.1
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 05:19:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=suse.com; s=google; t=1789388358; x=1789993158; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Mtb9frUiqPz4ISU8sxRxKOZ4uH5pILeNk9x+K4a1PXU=;
+        b=R96rEyoMomxICdRlZcz8tjGUzYF8Gnpctwj8T5BimfgvzxmDV3VB4uNfgLWuo2nzTu
+         NqZyVV1E0CeDoVgzLN/ykHIDaJ+TdEEBusD6PheoMW/J8GWALrcQtwjVpNX8k0DIDSW7
+         jl+XawgQkZpbXIpiVa25Yftr/ZH+Se5N4AUXdKcKyb3xdSi0iyf3et8lL6gzpEIYPU3d
+         xlxs7NWFhsqWl/gpK1dcLfNYbBnpMQVVK34g9qq6Qfqi+HbkZTkN9+tcE8E/6BE0GGf5
+         Alz3MdE8RBWfRyo5dGFWg+1Zscp2vlDSZL3tZ/Yd2zsEiok3CB25I/QPaBWJSI9YAD7Y
+         2c8Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789388358; x=1789993158;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Mtb9frUiqPz4ISU8sxRxKOZ4uH5pILeNk9x+K4a1PXU=;
+        b=MCxSwa25XIfWFTM8kKDA8Qz9yj1bJIS3nKFQC04FxasMnMEWFhw8xn438+Ygt9dRri
+         +kF07JtlkmB8GPLn6EOdzZw5AvuUcZvN+bIyGQv205Z3deI5Zn7i8mv9sF3ZxC1mKHPa
+         1ijG5ASckYvmCylWsylCFzo6s3DL4r2hyo1gPjlE65+omJfrO407xiL/djFDcmbnfYGP
+         pCJLNlulMtOEVnYsX/lzQyh7NbFnIVeren0cZp/F5+N0G75mhzN+JoI+TIWJ41pOYkhd
+         ALtFT+buOFZlX9l0o6/g9Alba9Db6M3rUg3VuBQm8GLhSOLowvkZ0eVwMECuC7pUljyO
+         x+lw==
+X-Forwarded-Encrypted: i=1; AKwUvByuZKZHcXiuX5epJAnQ9nrlwYjc4CNMEzPT7dRaUrhFU57M0ZUnGCpsYqUfPGdY3DZH67VumSM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAAZoTrkVtxYNNRZ17q2PEe4DGVEA5/ym7XtCNqZwTZ3dLrNjt
+	LizV+3ntp5/OlRKuo+PI2SNf2WJGjOJ+ynTzEIlMt7FXegB6/4JonKQ1Ij0kdd1vWZ0=
+X-Gm-Gg: AYBFou1PVzZo0PPEifAFgGG82mifsCE0mQldz3d2g1DUu5dJq3TohGanAoZTRA5GZ32
+	cMRe9W1uVkxZP+e2fSJ1VaU+oXMqG0YKn1ul8hac8sh+R4bOkAQYXFRKF5WReWdE7VHQBMUFoeh
+	nAmA/kNBpzBsjeZNTvnos+qS/zr/HuJA+bhy2aUXfA6SSQ52wWUvyRptls8jLJglVUFBZh+Lmrz
+	oYKv1SXTaJtGbvfcxNXBj3hozdTRZT/tc5HU2zyesT8OGTjNH8adiDkQ8wdM61DM6xeHWFbGLMg
+	nbIPaCJk0IQof8877X54V13gmBRMElm/d/4JOTHeBrRsmCKgqCPRf1N3zDgNSdthrIPtq91bkCO
+	YXB0ZhSRH6W4qpZdLcFA/WrcOth7RPMQgJbY9M6+EX+i0grv2i+BE38TnDnbxUPSWsXCQbb+Ol8
+	18gPHKR1mc6KhWBx187obJIi+cKK0Jby+Hko7WuLzRNQZPGU/YqcgumGkaUPfgag==
+X-Received: by 2002:a7b:cb87:0:b0:49e:718f:4f2e with SMTP id 5b1f17b1804b1-49e76021236mr49712805e9.3.1789388357764;
+        Mon, 14 Sep 2026 05:19:17 -0700 (PDT)
+Received: from localhost.cz ([2001:af0:8000:1409:193:86:92:181])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb2ecf2esm26768289f8f.2.2026.09.14.05.19.17
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 05:19:17 -0700 (PDT)
+From: =?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>
+To: Tejun Heo <tj@kernel.org>,
+	cgroups@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Dan Schatzberg <dschatzberg@meta.com>,
+	Peter Zijlstra <peterz@infradead.org>,
+	=?UTF-8?q?Michal=20Koutn=C3=BD?= <mkoutny@suse.com>,
+	stable@vger.kernel.org,
+	Noah Elias Feldt <N.Feldt@mittwald.de>,
+	Salvatore Bonaccorso <carnil@debian.org>,
+	Johannes Weiner <hannes@cmpxchg.org>
+Subject: [PATCH v3] cgroup: Avoid iteration of dying tasks with zero refcount
+Date: Mon, 14 Sep 2026 14:19:10 +0200
+Message-ID: <20260914121911.98132-1-mkoutny@suse.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 14/09/2026 at 11:11:48 +03, Itai Handler <itai.handler@gmail.com> wrote:
+The commit 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from
+cgroup_task_release() to cgroup_task_free()") extended the lifetime of
+tasks on the dying_tasks list.
+The iterators have provision to go through dying_tasks because of
+dying threadgroup leaders or explicit CSS_TASK_ITER_WITH_DEAD, however,
+it was expected that such tasks can obtain a new reference (that is
+possible before cgroup_task_release()/put_task_struct_rcu_user()).
+The tasks after cgroup_task_release() and before cgroup_task_free()
+are subject to race when they may or may not have ->usage count > 0.
 
-> spi_nor_shutdown() calls spi_nor_restore() to put the flash back into
-> 3-byte addressing before the system reboots or kexecs. It does so
-> without taking nor->lock, which every other path that talks to the chip
-> acquires through spi_nor_prep_and_lock().
->
-> device_shutdown() does not freeze userspace and does not stop kernel
-> threads; it walks the device list calling ->shutdown with all CPUs
-> online. Another thread can therefore be in the middle of an operation,
-> with the restore running concurrently with it. A write and a read are
-> both damaged, in different ways.
->
-> A program or erase leaves the flash busy, and a busy flash accepts only
-> status register reads and ignores everything else, including the EX4B
-> that spi_nor_restore() sends. Neither spi_nor_write_enable() nor
-> spi_nor_set_4byte_addr_mode() reads anything back, so the restore
-> reports success while the flash is left in 4-byte addressing. The next
-> boot stage then addresses it with 3 bytes and reads the wrong data,
-> which is the failure commit 59b356ffd0b0 ("mtd: m25p80: restore the
-> status of SPI flash when exiting") introduced this restore to prevent.
->
-> A read, by contrast, does not ignore the restore - it is corrupted by
-> it. spi_nor_read() holds the lock across a loop that issues one
-> spi_nor_read_data() per chunk, each using nor->addr_nbytes.
-> spi_nor_set_4byte_addr_mode() updates nor->params->addr_nbytes and not
-> nor->addr_nbytes, so a restore landing between two chunks switches the
-> chip to 3-byte addressing while the driver carries on sending 4 address
-> bytes. The rest of the transfer is addressed wrongly and returns wrong
-> data, and nothing reports an error. A restore may also soft reset the
-> chip in the middle of that same read.
->
-> Take nor->lock for the restore, so it runs between operations instead of
-> during one: a program or erase has finished waiting on the chip, and a
-> read has issued its last chunk. This is a locking fix rather than a
-> missing wait - each operation already waits for completion at the site
-> that started it.
->
-> This narrows the race without closing it. The restore still runs while
-> MTD users are attached, so an operation that starts after it has
-> completed will address a chip that is now in 3-byte mode while
-> nor->addr_nbytes is still 4. Closing that as well would mean having MTD
-> stop accepting operations before ->shutdown runs, which is a larger
-> change; serialising against the operations already in flight is what
-> keeps the restore itself from being issued into a busy chip.
+The race window is between css_task_iter_next() invocations
+when css_set_lock is released and we may arrive at a new ->task_pos.
+The iterator should not attempt to resurrect tasks whose ->usage count
+dropped to zero. (When that happens, __put_task_struct_rcu_cb() is
+already imminent and the returned task_struct would could be used
+after free.)
 
-6 paragraphs to tell "Accesses to the flash should be
-serialized". Please reduce it.
+As for the fix, we cannot simply check the signal->live count of a task
+on the dying list because that won't distinguish regular zombies waiting
+to be reaped from RCU remnant tasks that are going to be free'd.
+Therefore add an extra check to rule out ->usage==0 tasks from any
+iteration.
 
-> Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when e=
-xiting")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Itai Handler <itai.handler@gmail.com>
-> ---
->  drivers/mtd/spi-nor/core.c | 13 +++++++++++++
->  1 file changed, 13 insertions(+)
->
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index 8bc117b46e02..647bf8dce719 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -3862,8 +3862,21 @@ static int spi_nor_remove(struct spi_mem *spimem)
->  static void spi_nor_shutdown(struct spi_mem *spimem)
->  {
->  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
-> +	int ret;
-> +
-> +	/*
-> +	 * Wait for an operation started by another thread to finish.
-> +	 * device_shutdown() runs with MTD users still active: a busy flash
-> +	 * ignores the commands spi_nor_restore() issues, leaving it in
-> +	 * 4-byte address mode, and a restore landing mid-read changes the
-> +	 * chip's address width under the transfer.
-> +	 */
+The repeat: loop in css_task_iter_advance() doesn't consider ->usage
+count, so add a new loop to css_task_iter_next() to skip de-used tasks
+on the dying_list.
 
-I'm fine with the diff, but please drop this comment.
+Rough illustration of the possible race
 
-Thanks,
-Miqu=C3=A8l
+  R (reader of cgroup.procs)         T (thread)                       L (group leader)
+  ---------------------------------  -------------------------------- --------------------------------
+                                                                      L exits, signal->live > 0
+                                                                      cgroup_task_dead(L)
+                                                                        css_set_skip_task_iters() // skips only cset->tasks
+                                                                        list_add_tail(&L->cg_list, &cset->dying_tasks)
+  css_task_iter_next()
+    take css_set_lock
+    css_task_iter_advance()
+      leader && signal->live != 0
+      => it->task_pos = &L->cg_list
+    release css_set_lock
+                                     T exits
+                                     --signal->live == 0
+				     cgroup_task_dead(T) // css_set_lock
+                                     release_task(T)
+                                       cgroup_task_release(T)
+                                       release_task(L) // zap_leader
+                                         cgroup_task_release(L)
+                                         put_task_struct_rcu_user(L)
+                                         ...RCU...
+                                         put_task_struct(L)
+                                           L->usage = 0
+                                           /* L still on dying_tasks */
+                                           ...RCU...
+                                           __put_task_struct(L)
+  css_task_iter_next() // another iteration
+    take css_set_lock
+    it->task_pos = &L->cg_list
+    get_task_struct(L)
+      => addition on 0
+    drop css_set_lock
+                                           cgroup_task_free(L)
+                                             css_set_skip_task_iters() // dying skip comes too late
+                                           free_task(L)
+  cgroup_procs_show()
+    task_pid_vnr(L)
+
+Fixes: 260fbcb92bbea ("cgroup: Move dying_tasks cleanup from cgroup_task_release() to cgroup_task_free()")
+Cc: stable@vger.kernel.org # v6.19+
+Link: https://lists.debian.org/debian-kernel/2026/08/msg00220.html
+Reported-by: Noah Elias Feldt <N.Feldt@mittwald.de>
+Reported-by: Salvatore Bonaccorso <carnil@debian.org>
+Tested-by: Salvatore Bonaccorso <carnil@debian.org>
+Signed-off-by: Michal Koutný <mkoutny@suse.com>
+---
+ kernel/cgroup/cgroup.c | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
+
+Changes from v2 (https://lore.kernel.org/r/20260907170345.45316-1-mkoutny@suse.com)
+- return to tryget_task_struct() variant not to break CSS_TASK_ITER_WITH_DEAD
+- append Tested-by: from v1
+- reword commit message
+
+diff --git a/kernel/cgroup/cgroup.c b/kernel/cgroup/cgroup.c
+index c3a12fee7528f..112d68fe28778 100644
+--- a/kernel/cgroup/cgroup.c
++++ b/kernel/cgroup/cgroup.c
+@@ -5303,10 +5303,13 @@ struct task_struct *css_task_iter_next(struct css_task_iter *it)
+ 	if (it->flags & CSS_TASK_ITER_SKIPPED)
+ 		css_task_iter_advance(it);
+ 
+-	if (it->task_pos) {
++	while (it->task_pos && !it->cur_task) {
+ 		it->cur_task = list_entry(it->task_pos, struct task_struct,
+ 					  cg_list);
+-		get_task_struct(it->cur_task);
++		/* a task on dying_tasks with zero refcount is only valid for
++		 * RCU readers, not even interesting for
++		 * CSS_TASK_ITER_WITH_DEAD, find another one */
++		it->cur_task = tryget_task_struct(it->cur_task);
+ 		css_task_iter_advance(it);
+ 	}
+ 
+-- 
+2.55.0
 
