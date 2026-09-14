@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D91DF35E93B;
-	Mon, 14 Sep 2026 04:40:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9897E379990;
+	Mon, 14 Sep 2026 04:52:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789360829; cv=none; b=lEPvmTheFvYzYea8qbtnCnLKVklCfZSMKp5lSPxbdSGoBHHkjDYDEcyMo/lHS66SMQEuKzdX03P8bJLMoZk334Y26Ukuj5/AwWe5IxXW/he/rUhJsFdgG1jmgusk4TeZYMBf1Ik73qBIwNwX6CWClflG6pEDPNluwSsp57s7gN8=
+	t=1789361567; cv=none; b=Rxfdhx4qRfppkvi5sgUDnH2WH5Kt2luUD7rf3i0mW9SUMfV8ZjTdbgbyWPnWcD6rLmajDoEaZ31V5UIDRCfYeDpGRBkyCNhUPYhjT62igRIAfFZbLHydr2VZorgZ7wiuGgO0UxiH5e4q9aDLpbaNzSCKE1H3JGrw2K204QQkTvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789360829; c=relaxed/simple;
-	bh=Y82kSJ098fXQWOwBdDrAUJmCV8kyPqaLqBXI9WjFeTM=;
+	s=arc-20240116; t=1789361567; c=relaxed/simple;
+	bh=6jRdwrWeOpVYyl/KdScpfvKA6VsaIFWLYXoGttNFLt8=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=cIIYpwNEGfjdDMWaQYnaJnu65xlUinmeIjWgepvFOp0e1zKIq/LxL9wIHunEaSPIlLYAip8Pk6d96/Gk/tpCDHuUP9NbOHuZWzKhditcbzbyJWaJ1W7YxYC8ER16yRpVekYMtK71p/w0ivPIUEnCsGRVDQ2fud3ZtEKopJJg9Xc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ek5y+Z3k; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=VOA4ttwk1HuBfGdxAl17Itc8GuEzNOdFO1Ak/dMgPyIjBGXeDo7lqJvA8SmVnAWd7HnNZ47zTVNp/fCp0NShI8s0OGiirk0CfKTO1pUGA/d/YOBicgbXUT2UcGeJdWuf/57yMPQZujW9+LshLMWf6FF3wfkLZAqFxjwZVaEzEDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R5DfjGBL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ek5y+Z3k"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D294E1F000FF;
-	Mon, 14 Sep 2026 04:40:26 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R5DfjGBL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9570E1F000FF;
+	Mon, 14 Sep 2026 04:52:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789360827;
-	bh=jG0B12XgCRxXgcOPPpKSxX/lA7abyk4jEZxMska5KdQ=;
+	s=k20260515; t=1789361565;
+	bh=yVisc9vF2tG8Ho6qyXlYRnHc54j42DIkE1I/ylQ34Zw=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ek5y+Z3kbOMZuyIDwDAN3nflZzHVXsiy/iLLhqjSDndXW7xUXIFHkPF8qxC9lm2oM
-	 ltrWEx2lc7o8C1l60tZa/Ok6nQIAWjPd7JsyUgdmO7pP8IxscwHkgGly4n9REGeCxW
-	 uzPgscujhJBa+v4UX+bmAonYah7JvcoUFP1Jd6mUf1SKV88Xq9CPSfWqXv+cBqIYzR
-	 r6ktI/rOGIbvMk6q/nyAxeV0+fzC/TIOXuAG6Az1WG1vK/2ZIAqboRG3ycHntBH0Hh
-	 NXdw88xcmT5CF3iv7fyyhOgej2Zm4yEVR7ZQnku8r/pbs7SsriOC6YyBz0l+ZApduT
-	 tnZiC9iZUc16w==
-Subject:
- Re: [PATCH net] dm9000: free the wake IRQ before releasing board resources
+	b=R5DfjGBLC87YoLcO0DPsq1Jqpu1xe7wwJL8dfc2wUA74ofo8GlzWnTydgCdphBSHc
+	 BZTImZBW+e/+nQ+FN765r6/Zf8FmSx34w7TDEZMLCR3NDtLQL1H0zsxNe2ye0XJa0V
+	 5lFBmCjvOZ8p6raEqu22rLqnbvqQ6FD6WzUARxecbQjBN4cKzOGGM+k6NX/3TqyPJp
+	 52TyQRBHw/kYTP5PEhd47TPvAvJN+W8VchqLyRcHBIOlP+7nQ6T0M6Xo4IrWbqsPqB
+	 6KK15zf0CTYuEDEos076ujDER/tXiJj3nsvdJrqdmS0MQiHvBZt4GfNTHFuCuL/OEV
+	 Za4y+vfIUmLrA==
+Subject: Re: [PATCH net] tipc: reject invalid and unexpected GRP_ACK_MSG to
+ prevent bc_ackers underflow
 From: netdev-bot+sashiko@kernel.org
-To: mhun512@gmail.com
-Cc: netdev@vger.kernel.org, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, ben-linux@fluff.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, ae878000@gmail.com
-Date: Mon, 14 Sep 2026 04:40:26 +0000
-Message-ID: <178936082640.22033.13106626657282829765@kernel.org>
-In-Reply-To: <20260913035557.19347-1-mhun512@gmail.com>
-References: <20260913035557.19347-1-mhun512@gmail.com>
-X-sashiko-severity: High
+To: edumazet@google.com
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, eric.dumazet@gmail.com, jamesburton@meta.com,
+ stable@vger.kernel.org, security@1seal.org, tung.quang.nguyen@est.tech,
+ jmaloy@redhat.com
+Date: Mon, 14 Sep 2026 04:52:44 +0000
+Message-ID: <178936156410.22033.16977639465746131797@kernel.org>
+In-Reply-To: <20260913044233.193927-1-edumazet@google.com>
+References: <20260913044233.193927-1-edumazet@google.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -47,214 +48,164 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 2 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider:
 
-Critical: 0 · High: 1 (1) · Medium: 1 (1) · Low: 0
+Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
 
-- [High] The shared wake IRQ handler is live before its MMIO mappings
-  exist, and the patch's new free_irq() makes that window…
-- [Medium] dm9000_release_board() now frees the wake IRQ action
-  (drivers/net/ethernet/davicom/dm9000.c:806-807) but nothing ever…
+- [Medium] Incomplete ACK accounting in tipc_group_proto_rcv()
+  (net/tipc/group.c:799-808): the new validation gates the decrement of…
 
 Pre-existing issues:
-- [High] This problem wasn't introduced by this patch, but dm9000_probe()
-  ignores register_netdev() failure: at…
-- [Medium] This problem wasn't introduced by this patch, but
-  dm9000_probe() treats an -EPROBE_DEFER result for the optional wake…
+- [Medium] Pre-existing (not introduced or claimed by this patch): in
+  tipc_send_group_bcast() (net/tipc/socket.c:1131-1137) the packets…
 
 --
 
-dm9000: free the wake IRQ before releasing board resources
+tipc: reject invalid and unexpected GRP_ACK_MSG to prevent bc_ackers underflow
 
-The patch adds a wake_irq_requested bit to struct board_info so that a
-successful request_irq() for the optional wake interrupt is tracked
-separately from wake_supported, and frees that IRQ from
-dm9000_release_board() before the register windows are unmapped.  This
-covers both the probe unwind path and driver removal.
+This tightens the GRP_ACK_MSG path in tipc_group_proto_rcv() so that the
+message is dropped when grp->bc_ackers is zero, and so that only an ACK
+whose value equals grp->bc_snd_nxt (and which is not a repeat of the
+member's own last ACK) is allowed to decrement grp->bc_ackers.
 
-> diff --git a/drivers/net/ethernet/davicom/dm9000.c b/drivers/net/ethernet/davicom/dm9000.c
-> index b87eaf0c250ce..c8ff07fe31a5b 100644
-> --- a/drivers/net/ethernet/davicom/dm9000.c
-> +++ b/drivers/net/ethernet/davicom/dm9000.c
+> diff --git a/net/tipc/group.c b/net/tipc/group.c
+> index 14e6732624e28..74f6d3dac0784 100644
+> --- a/net/tipc/group.c
+> +++ b/net/tipc/group.c
+> @@ -797,10 +797,10 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
+>  		tipc_group_open(m, usr_wakeup);
+>  		return;
+>  	case GRP_ACK_MSG:
+> -		if (!m)
+> +		if (!m || !grp->bc_ackers)
+>  			return;
+>  		acked = msg_grp_bc_acked(hdr);
+> -		if (less_eq(acked, m->bc_acked))
+> +		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
+>  			return;
+>  		m->bc_acked = acked;
+>  		if (--grp->bc_ackers)
 
-[ ... ]
+[Severity: Medium]
+The new test gates the decrement on the sequence value and on per-member
+duplication.  Does it also need to check that the acking member was one of
+the members actually counted into grp->bc_ackers for the current round?
 
-> @@ -802,6 +803,9 @@ dm9000_poll_work(struct work_struct *w)
->  static void
->  dm9000_release_board(struct platform_device *pdev, struct board_info *db)
->  {
-> +	if (db->wake_irq_requested)
-> +		free_irq(db->irq_wake, db->ndev);
-> +
->  	/* unmap our resources */
->  
->  	iounmap(db->io_addr);
+tipc_group_update_bc_members() counts and re-arms receivers only:
 
-[Severity: High]
-Can this free_irq() call dm9000_wol_interrupt() while db->io_addr and
-db->io_data are still NULL?
-
-In dm9000_probe() the wake IRQ is requested well before the register
-windows are mapped:
-
-	ret = request_irq(db->irq_wake, dm9000_wol_interrupt,
-			  IRQF_SHARED, dev_name(db->dev), ndev);
+net/tipc/group.c:tipc_group_update_bc_members() {
+	u16 prev = grp->bc_snd_nxt - 1;
 	...
-	db->addr_req = request_mem_region(...);
-	db->io_addr = ioremap(db->addr_res->start, iosize);
-	...
-	db->io_data = ioremap(db->data_res->start, iosize);
+	for (n = rb_first(&grp->members); n; n = rb_next(n)) {
+		m = container_of(n, struct tipc_member, tree_node);
+		if (tipc_group_is_receiver(m)) {
+			tipc_group_update_member(m, len);
+			m->bc_acked = prev;
+			ackers++;
+		}
+	}
 
-db comes from netdev_priv() of a freshly alloc_etherdev()'d device, so
-both __iomem pointers are NULL at request time, and the handler starts
-with MMIO access:
-
-dm9000_wol_interrupt() {
-	nsr = ior(db, DM9000_NSR);
-	wcr = ior(db, DM9000_WCR);
-
-ior() {
-	writeb(reg, db->io_addr);
-	return readb(db->io_data);
+	/* Mark number of acknowledges to expect, if any */
+	if (ack)
+		grp->bc_ackers = ackers;
+	grp->bc_snd_nxt++;
 }
 
-With CONFIG_DEBUG_SHIRQ, __free_irq() calls the handler once after
-unregistering a shared action:
+A member in MBR_JOINING or MBR_LEAVING is therefore neither summed into
+ackers nor re-armed, so it keeps a stale m->bc_acked.  The same holds for a
+member created after the round was published, since
+tipc_group_create_member() sets:
 
-kernel/irq/manage.c:__free_irq() {
-	if (action->flags & IRQF_SHARED) {
-		local_irq_save(flags);
-		action->handler(irq, dev_id);
-		local_irq_restore(flags);
+	m->bc_acked = grp->bc_snd_nxt - 1;
+
+In both cases m->bc_acked differs from grp->bc_snd_nxt, so a GRP_ACK_MSG
+from that member passes both new conditions and still executes
+--grp->bc_ackers although it contributed no increment.  The lookup on this
+path, tipc_group_find_member(), applies no state filter.
+
+Can that let grp->bc_ackers reach zero while a counted receiver still owes
+an ACK?  The number of accepted decrements per round looks bounded by
+grp->member_cnt rather than by the counted acker set.
+
+If bc_ackers is cleared early, tipc_group_bc_cong() stops reporting
+congestion:
+
+net/tipc/group.c:tipc_group_bc_cong() {
+	/* If prev bcast was replicast, reject until all receivers have acked */
+	if (grp->bc_ackers) {
+		*grp->open = false;
+		return true;
 	}
 
-So every probe failure that reaches the out: label before or between the
-two ioremap() calls (addr_req == NULL, io_addr == NULL, data_req == NULL,
-io_data == NULL) now runs dm9000_wol_interrupt() -> ior() ->
-writeb(reg, NULL) from the new cleanup.
+so the sender releases the next group broadcast while the previous replicast
+round is still outstanding, which is the ordering guarantee from
+2f487712b893, one of the Fixes tags on this patch.  The zero-transition
+branch also runs list_del_init(&m->small_win) and *m->group->open = true for
+the acking member, which need not be a receiver, and the genuine acker's
+later ACK is then swallowed by the new !grp->bc_ackers guard, so its
+small_win / tipc_group_update_member() bookkeeping never runs.
 
-Independently of the debug config, since the action is IRQF_SHARED, can
-the line be asserted by a co-owner (or by a DM9000 whose NSR_WAKEST is
-already latched across a warm reboot) during the sleeping
-request_mem_region()/ioremap() calls, with the same result?  The same
-window also lets the handler's index/data two-cycle register protocol
-interleave with the unlocked ior()/iow() sequences in dm9000_reset(), the
-VID/PID retry loop and the EEPROM reads, since dm9000_probe() never takes
-db->lock.
+The commit message states that "each member can acknowledge at most once per
+round" - that part holds per member, but does it cover members that were
+never counted for the round?
 
-Would it be preferable to move the request_irq() and the
-irq_set_irq_wake() capability test to after the register windows are
-mapped, dm9000_set_io() has run and the chip has been reset?  That
-ordering also makes the unwind natural and removes the need for the new
-wake_irq_requested bit in the shared cleanup helper.
+Would a per-round marker set in tipc_group_update_bc_members(), or accepting
+only members whose m->bc_acked == grp->bc_snd_nxt - 2, close the remaining
+gap?
+
+The u16 wrap to 65535 itself does look closed by the new !grp->bc_ackers
+guard, so what is left here is the premature clearing of the counter that
+item 2 of the commit message also mentions.
 
 [Severity: Medium]
-Does this teardown leak the interrupt wake reference taken by
-dm9000_set_wol()?
+This is a pre-existing issue and was not introduced by this patch - the
+patch strictly improves the path - but the same permanent congestion is
+still reachable from tipc_send_group_bcast() in net/tipc/socket.c, where the
+packets are transmitted before the round state is published:
 
-When userspace enables WAKE_MAGIC, the reference is taken here:
+net/tipc/socket.c:tipc_send_group_bcast() {
+	/* Send message */
+	rc = tipc_mcast_xmit(net, &pkts, method, dsts, &tsk->cong_link_cnt);
+	if (unlikely(rc))
+		return rc;
 
-dm9000_set_wol() {
-	if (dm->wake_state != opts) {
-		/* change in wol state, update IRQ state */
+	/* Update broadcast sequence number and send windows */
+	tipc_group_update_bc_members(tsk->group, blks, ack);
+}
 
-		if (!dm->wake_state)
-			irq_set_irq_wake(dm->irq_wake, 1);
-		else if (dm->wake_state && !opts)
-			irq_set_irq_wake(dm->irq_wake, 0);
+The error return skips the publication entirely, and the failure can happen
+after partial delivery:
+
+net/tipc/bcast.c:tipc_rcast_xmit() {
+	list_for_each_entry_safe(dst, tmp, &dests->list, list) {
+		dnode = dst->node;
+		if (!tipc_msg_pskb_copy(dnode, pkts, &_pkts))
+			return -ENOMEM;
+
+		if (tipc_node_xmit(net, &_pkts, dnode, selector) == -ELINKCONG)
+			(*cong_link_cnt)++;
 	}
+}
 
-That is the only place the reference is dropped, and only on a
-wake_state 1 -> 0 transition driven by ethtool.  dm9000_stop(),
-dm9000_shutdown(), dm9000_release_board() and dm9000_drv_remove() do not
-clear db->wake_state and do not call irq_set_irq_wake(db->irq_wake, 0).
+Peers that already received seqno S advance m->bc_rcv_nxt to S + 1 while the
+sender's grp->bc_snd_nxt stays at S.  The next broadcast reuses S, and those
+peers drop it at the head of tipc_group_filter_msg():
 
-desc->wake_depth and IRQD_WAKEUP_STATE are maintained only by
-irq_set_irq_wake(), and __free_irq() does not touch them, so after
-	ethtool -s ethX wol g
-	echo ... > unbind   (or rmmod)
-the descriptor keeps wake_depth > 0 and IRQD_WAKEUP_STATE set with no
-handler attached.  Because the line was requested IRQF_SHARED, a co-owner
-that later does its own enable/disable pair only brings wake_depth back
-to 1, so set_irq_wake_real(irq, 0) is never reached and the co-owner can
-no longer turn the wake source off.
+	if (less(msg_grp_bc_seqno(hdr), m->bc_rcv_nxt))
+		goto drop;
 
-Should the new cleanup drop that reference, for example
-irq_set_irq_wake(db->irq_wake, 0) when db->wake_state is set, before the
-free_irq()?
+which is before ack = msg_grp_bc_ack_req(hdr) is evaluated, so they can never
+emit the ACK the sender is waiting for and grp->bc_ackers never returns to
+zero.  tipc_group_bc_cong() then keeps *grp->open false for the lifetime of
+that socket.
 
-> @@ -1519,6 +1523,7 @@ dm9000_probe(struct platform_device *pdev)
->  		if (ret) {
->  			dev_err(db->dev, "cannot get wakeup irq (%d)\n", ret);
->  		} else {
-> +			db->wake_irq_requested = 1;
->  
->  			/* test to see if irq is really wakeup capable */
->  			ret = irq_set_irq_wake(db->irq_wake, 1);
+Before this patch the same desynchronization additionally wrapped
+grp->bc_ackers through the unguarded --grp->bc_ackers, so this change does
+remove that part.
 
-[Severity: High]
-This isn't a bug introduced by this patch, but since the patch extends the
-out: unwind in dm9000_probe(), is the registration failure path reaching it
-at all?  Near the end of dm9000_probe():
-
-	platform_set_drvdata(pdev, ndev);
-	ret = register_netdev(ndev);
-
-	if (ret == 0) {
-		...
-	}
-	return 0;
-
-The return value is only used to gate the success printk and then 0 is
-returned unconditionally, so a failed register_netdev() reports probe
-success.  The driver core records a successful bind, the out: unwind that
-now calls free_irq()/dm9000_release_board() is never taken, and the board
-keeps its mapped registers plus the newly tracked wake IRQ attached to an
-unregistered net_device.
-
-Removal then calls unregister_netdev() on that device:
-
-net/core/dev.c:unregister_netdevice_many_notify() {
-		if (dev->reg_state == NETREG_UNINITIALIZED) {
-			...
-			WARN_ON(1);
-			list_del(&dev->unreg_list);
-			continue;
-		}
-		dev->dismantle = true;
-		BUG_ON(dev->reg_state != NETREG_REGISTERED);
-
-In the common case register_netdevice() has rolled back to
-NETREG_UNINITIALIZED and this is the WARN_ON(1).  If registration instead
-failed via the NETDEV_REGISTER notifier path, which internally
-unregisters the device and clears needs_free_netdev, reg_state is no
-longer NETREG_UNINITIALIZED and the later unregister_netdev() reaches the
-BUG_ON(dev->reg_state != NETREG_REGISTERED).
-
-Would "if (ret) goto out;" be the intended control flow here?
-
-[Severity: Medium]
-This is a pre-existing issue and not introduced by this patch, but a few
-lines above this hunk dm9000_probe() folds -EPROBE_DEFER into "the
-optional interrupt is absent":
-
-	db->irq_wake = platform_get_irq_optional(pdev, 1);
-	if (db->irq_wake >= 0) {
-
-platform_get_irq_optional() forwards to platform_get_irq_affinity(),
-which explicitly propagates the deferral:
-
-drivers/base/platform.c:platform_get_irq_affinity() {
-		ret = of_irq_get(to_of_node(fwnode), num);
-		if (ret > 0 || ret == -EPROBE_DEFER)
-			goto out;
-
-So when the second interrupt is described in DT but its irqchip has not
-probed yet, probe silently continues and returns success, wake_supported
-stays 0, and ethtool set_wol returns -EOPNOTSUPP for the lifetime of the
-binding with no retry.  Should -EPROBE_DEFER be propagated out of
-dm9000_probe() instead?
+Should the round state be published atomically with the transmission, or
+rolled back when tipc_mcast_xmit() fails after partial delivery?
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913035557.19347-1-mhun512%40gmail.com
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260913044233.193927-1-edumazet%40google.com
