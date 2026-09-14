@@ -1,71 +1,71 @@
-Received: from mail-oo2-f40.google.com (mail-oo2-f40.google.com [74.125.231.168])
+Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EECC7415F06
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 21:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.168
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59D424A0F0F
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 21:10:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789420209; cv=none; b=hsjmbv0R9J/E6y+iDRwbv3mB7HRyJg0TBH15eDSioxLU1hHmTsbFAbkzr8OPFWtEqqwP0KPOvntIyDPRUfTNN/LVOgePNptYzld1m3sHAwNAcsfDF9OKOF1thUecX4ZeTtrEj81KpyVbgYPu7f9649XLf300pRKpF++wcVK+EmI=
+	t=1789420212; cv=none; b=dRzfCJPv3DAuMM7cpOpX4mz3vDkLnvIWhF31CkDdgm6IigzVxByQ6YuS8rWpgNwYMu5z6sLpM1yKxDk4IxD8sjmVD8475oZfVxnQ01CG2N6rHCIdvAonN0JCdnJdElKWW5elDjfMf/GdeiBGOndvVAen/BiXEMM18YErIEOJT2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789420209; c=relaxed/simple;
-	bh=+EYozN7O+JBkDeCx/hgJ+s4q3FbwEjbXAk835pOjKgM=;
+	s=arc-20240116; t=1789420212; c=relaxed/simple;
+	bh=ovOsliEdUhvhRoeaXGSGPM3LycBRMZNPRXeHkTBG1HM=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pjz5CvoRQiKABZlg9l95P7I82w166Owu0wCJ1Ek1vq4MfyUm8HYIaRL6nseB5+pCs1u4JcagORGf196QcYglI6bRunnOxRa+QPE15dyfohmZF1Q6Z/SYnr+qWO5iP5DCa+7LVlBudTPi4bmoeX1Ay5AQeo87qBmJS7EU7rxty4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=i7vsc+j0; arc=none smtp.client-ip=74.125.231.168
+	 In-Reply-To:To:Cc; b=QGozeuqsTw0Q3Sz2AMXT2VodRRu5oX7yy/RV5XEpWXNxE6RRR9GFgAvWBdzT8FSScnYwD5aRpQ4whkQLROOhJtvW4na5ULmz7tKbQtioNtRMHVb6whyU8Mowu6df5qPT8idRTz3MmIJjQyywR+OgrQtT1o6RBGNlrfXjvwKzB1I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OML/24vV; arc=none smtp.client-ip=74.125.231.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="i7vsc+j0"
-Received: by mail-oo2-f40.google.com with SMTP id 46e09a7af769-7f4f0d05c12so1827737a34.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:10:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OML/24vV"
+Received: by mail-oi2-f12.google.com with SMTP id 5614622812f47-4b37a3ed714so1543460b6e.0
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:10:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789420202; x=1790025002; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789420205; x=1790025005; darn=vger.kernel.org;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5tiLR7FZzQsyTOBW2MGeS5ZnHrzID+Jy7EEHyMHP5gI=;
-        b=i7vsc+j0MDzwuy9p8HQ+0B6fX7YeN/OFLSqJ0wix6aKQhWXH7HfuJLbURyJ8YgAGrd
-         qeDei1149SAby/vSYf18AEnUaKfPQti759XTfUMCyKH9IO/qpjnhjiu0arn7ravO+7Yq
-         +DHCbpphQg5V5X968xFadqFfKcmx9AWWnXERirILenvHCfExLXJo+HRBQk4BcgRRxBnp
-         WVvwDPyjJmjN59nC+Cl+UZn7pExjeZVQJP6h3yEAGf+7GoPFuZ/dem9mKTYq619ghJAx
-         DoyoJoBNq5UyPANXN7VskMoQywwqhiBntzftlzs2hu0JOTAmzS9EUiYZgeS9jQAv8+sD
-         xXhA==
+        bh=b70jsSBwLMejAy7LligcsivCdZpJr/KiRJCHlaFZ8JI=;
+        b=OML/24vVZv7p98bMsaWSMckNEo8krsuDwaP3JaMi7Rk/boUDNRGM1eBeZS5QG/85ne
+         zMslfwYd4FmRsarS6mSaT9zhS5Wi1b3q2ixkTzxyNGuJmDFSisM1ja/jEj2e5x71P/P9
+         SI3tK2vC1mW87wHJtGRiOXc3YuFluFz28ZbV2NvbP1kmNqONUs286hk+V4OUQVBIApFk
+         BUyBjPY8KndVfPCvysDfGTsogC9gNflskOTQp/k3W+Ei+P+Wb4AD0wLQMgWnKEtOrLML
+         bPtRa7eYPpXrMyQj1EM5HbhBkwCPq7qS7l0O39A3vkRyyfQm5stZkaoRjo5PMKl63fuV
+         c1FQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789420202; x=1790025002;
+        d=1e100.net; s=20260707; t=1789420205; x=1790025005;
         h=cc:to:in-reply-to:references:message-id:content-transfer-encoding
          :content-type:mime-version:subject:date:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=5tiLR7FZzQsyTOBW2MGeS5ZnHrzID+Jy7EEHyMHP5gI=;
-        b=sUInu/LbJmJ11ehCFZ8YsE1Y0EDkV4OvO/Y6+cZdN1Znb/p5ZdgJJGSBEtaIJEZa/g
-         QPsL/nxvwgwaHYbGvX0vKFNMijW55oNM7wLkh74I2Jy5ETg5cZM3t1nCHgpqz+8Air4c
-         1IMdKb48KVlgVIWykVZ/Irdr9rFdf3miu3lQM/NG0FRnTQ9mFhm02DJNutkt7fenp364
-         UjOKmgL4EqxqL6lUZTpI+XrG/AcAG95qc0ZP6uSZWidp7H9bMgVJTAG80+iW9cA0OGJT
-         FTaufsbAvFpabTZSd1j4iH7eit5QkMoJr1/IVE3ClWliL/WAEBg1t+pQdfagXWPwUumH
-         pbdg==
-X-Forwarded-Encrypted: i=1; AKwUvBwQkoFnmhW9m1aRDiO1kbdod3gw3STx/HjcUh5dVhgV/ns4YvJxgmmaTWF9Wlp/X9pdBVVb4Fo=@vger.kernel.org
-X-Gm-Message-State: AFuF++kWbqtx4UN3q7hhyEMHxWEgXvoCwm2eEmJgapj+02l6EkSY3gwQ
-	gKTekTUYJF6/Un24syDSCEx5ONqDVHjFqA1GKbtP+x80q8oG9D9TWdT+
-X-Gm-Gg: AYBFou25tdcOakVX/zEUGNU2Hzf6P7/URh2v70l2wZVPm2Urhc2ryLDUiAajbJIkHOd
-	E4KwS2gpNF4IDpXC/fOLGE5UqBkNrjcP/J8R2hPlajNHGesqYPsvUMnNSUZyAE3aQ6wFmUvNQv+
-	tAqQqCXpj7SlVXOKg3P0TMdbBIVkjmgREd6IUG8xiJ3qZ57/yw9iTC7TM/W6SwVRaRaNbXY1zVc
-	jrG4ihabPuGhxZO21NWcYUVNKn06mLs1VvAWXsVHmoPkVrXRAxbh5cCOqUsrtA1YRnrGhAa8c5M
-	aG+YHijAgo4GLTCIKcTXe2grAgJ/kAKCM0JfucTM8k5PSdev/j0TZtvnNEuMcE1qZF95cJ/+Ipl
-	+zzPpBIBQE3dth8h7x+NIRuMpLe5fXn152R3Tni3cf7EXW1ksPAEvTkSuOcEUqHMDzVjsKotBL5
-	6LRkCrpSlOlJffbd7ch46zrrDhrnV0gOzGZMzbn0LKJxsC1jECgOrgnTbuxLgQ/+XttjalU2KeQ
-	qp0B/6R1nnu6L8huIPl4iqvOPpScU56iP7DL2z6yQVZXTnrcmJlc8atkiyulKIR4/pgT/P71pUL
-	QrYFY8jQhpKCrDNyYoEAjQbDTTF7ijThbbX/G5yeXo/yh1FR3gz5uSLLu3gYkyNZdENOncCA6IK
-	1wKh7AFUEd5rjQRFolPpTuZGhjJ33ZQ==
-X-Received: by 2002:a05:6820:80c7:b0:6b1:b33a:db69 with SMTP id 006d021491bc7-6c53fb6bf40mr4489299eaf.15.1789420202250;
-        Mon, 14 Sep 2026 14:10:02 -0700 (PDT)
+        bh=b70jsSBwLMejAy7LligcsivCdZpJr/KiRJCHlaFZ8JI=;
+        b=HN//lehDCJjZexBGg/EmlqMyjEA2IKL5rhVbt0GUKWIr04nejXHRjCJEMpNEtR/zj2
+         IHr7q8MAScnzq3uR7NyoMffSE1YXmhoAKSP5ejcIF/n95jD8nOPAbcF5GzaWiFJYjDMB
+         YseY4OE7GbpVBEH2k49faA9gqtEgHGL/ilMc5yn05NhzNpB7zU34V7yC6rMQvHYpjtUw
+         TodiCgMMxlcy2mMKVBhY4OUzQrWlpD7FhVPoE0kzEXhw/kQpChx6V52/WMrGLnerRKFF
+         RdBCIjI6IHhxenUKt5h6B632mHMVEX3SJSc5n+MAzfUF8uxd0DCXz9any6d+myKHViFg
+         Plzw==
+X-Forwarded-Encrypted: i=1; AKwUvByIazgUpypEFzfbehRM5Tsa10UmQBGB+TbqSqdJt2VOVQ+dOvaEB4RQ9Rl4kRoaxWHAwDU3W6k=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZJmOSQOvOKgnkoYg/U2zeLE1Pj82d/1bA/T0Nfm8w66sE3C96
+	vs1KW7Uqt0sQ4HMc0Lf69tKjH2ccjES/T0CYOJoYlfY7FfRY0vX/ESN7
+X-Gm-Gg: AYBFou2WzqAPntYAO05vrs46ZnC2/32lwgfOm2zSz94D4mq7+oLOHDGrNaEc0vAAlbP
+	ZwRAQx5Dx9P5mQET/VqESFurEhVDs50JTkWd2KIK4xO2sfXt086ClRG2N8StJ2Q+F7AahHF1mCS
+	PPaHeT3RJovUu6OLhRtP5vBN0DQgbLz0eNZvVkRlR/BeUJsYWADqpOrjY1h+MP2Ds+xUvDNgX+A
+	vbur+pXTchy0n0BtGWpyz654bi0bMaz48I/Xu5nKg+BRu7xPomAXouw+U4TcPr09UjISVSEQvNm
+	0unNbiQst0qUw5dB9jNAO0CdoWZH9h+Laov6x/b9UYW2YZP45nyFNdletFTHpfp4pmnjd5SNJQf
+	d02OgEqVC16KYCAS4UijEy+BCQAgRNeLR0lHdLjA5bcgSlJnMOe4QMVAwIGFRQlgxMOquOqoSQl
+	f0qFUadDAjInMj/Se60dDY2quVhMmNbDIloZGXGWOjspi5FH+ndRDomMOnBeqCDUbgg9bdOVebN
+	/ujpqiNMYqKQXqMDMJiVsP8yURRawp4fxeOyb3BgiUkxKKztyILReMUROa0eiUzqv7oa6Niwtgb
+	63BJSG/hpAHlt9apPwKTz7aqbXKX0BmEtWDm2KCNHOIv3hrxbSwZxkqLORDbS+TU3K/pMwPcq9e
+	Igsct17+AULhw3I6MAts50LEJf8Nh
+X-Received: by 2002:a05:6820:1626:b0:6b6:93d6:afcd with SMTP id 006d021491bc7-6c540b66d8bmr2665520eaf.26.1789420204843;
+        Mon, 14 Sep 2026 14:10:04 -0700 (PDT)
 Received: from [127.0.1.1] (184-96-157-145.hlrn.qwest.net. [184.96.157.145])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c45bfc3fe9sm4698544eaf.15.2026.09.14.14.10.00
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c45bfc3fe9sm4698544eaf.15.2026.09.14.14.10.03
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 14:10:01 -0700 (PDT)
+        Mon, 14 Sep 2026 14:10:04 -0700 (PDT)
 From: James Hilliard <james.hilliard1@gmail.com>
-Date: Mon, 14 Sep 2026 15:09:51 -0600
-Subject: [PATCH v6 05/18] mtd: rawnand: sunxi: select the pattern ID for
- the current ECC step
+Date: Mon, 14 Sep 2026 15:09:53 -0600
+Subject: [PATCH v6 07/18] mtd: rawnand: sunxi: avoid a second program
+ confirm for OOB writes
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,7 +74,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-5-2fb084fe0751@gmail.com>
+Message-Id: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-7-2fb084fe0751@gmail.com>
 References: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
 In-Reply-To: <20260914-submit-sunxi-nand-vendor-oob-layout-v1-v6-0-2fb084fe0751@gmail.com>
 To: Miquel Raynal <miquel.raynal@bootlin.com>, 
@@ -93,38 +93,44 @@ Cc: linux-mtd@lists.infradead.org, devicetree@vger.kernel.org,
  stable@vger.kernel.org
 X-Mailer: b4 0.15.2
 
-The pattern ID register has one bit per hardware ECC step, distinguishing
-all-zero from all-ones data. The correction helper checks the current
-step's pattern-found bit but always reads pattern ID bit zero.
+The hardware-ECC OOB writer delegates to the page writer, which already
+issues PAGEPROG, waits for completion and checks the NAND status. The OOB
+wrapper then calls nand_prog_page_end_op() again, sending an extra program
+confirm without a corresponding program setup. An error on this redundant
+operation is returned even though the page writer has already succeeded.
 
-PIO reuses hardware step zero, so this works there. DMA processes several
-steps at once: a later all-ones step can be filled with zeros and reported
-as a successful read if pattern ID bit zero is clear. Conversely, a later
-all-zero step can be treated as erased when bit zero is set.
+Return the page writer's result directly. This leaves both PIO and DMA
+responsible for completing their own program operation and preserves their
+error results, including for bad-block-marker writes.
 
-Use the current hardware step's pattern ID bit, matching the error and
-pattern-found bits already checked by the helper.
-
-Fixes: 614049a8d904 ("mtd: nand: sunxi: add support for DMA assisted operations")
+Fixes: 25f815f66a14 ("mtd: nand: force drivers to explicitly send READ/PROG commands")
 Cc: stable@vger.kernel.org
 Signed-off-by: James Hilliard <james.hilliard1@gmail.com>
 ---
- drivers/mtd/nand/raw/sunxi_nand.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/mtd/nand/raw/sunxi_nand.c | 7 +------
+ 1 file changed, 1 insertion(+), 6 deletions(-)
 
 diff --git a/drivers/mtd/nand/raw/sunxi_nand.c b/drivers/mtd/nand/raw/sunxi_nand.c
-index 5d88ad3b8f70..3f506d0666a1 100644
+index 72b79f893e29..41d6560d7df7 100644
 --- a/drivers/mtd/nand/raw/sunxi_nand.c
 +++ b/drivers/mtd/nand/raw/sunxi_nand.c
-@@ -1117,7 +1117,7 @@ static int sunxi_nfc_hw_ecc_correct(struct nand_chip *nand, u8 *data, u8 *oob,
- 	if (pattern_found & BIT(step)) {
- 		u8 pattern;
+@@ -1843,15 +1843,10 @@ static int sunxi_nfc_hw_ecc_write_oob(struct nand_chip *nand, int page)
+ {
+ 	struct mtd_info *mtd = nand_to_mtd(nand);
+ 	u8 *buf = nand_get_data_buf(nand);
+-	int ret;
  
--		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & 0x1))) {
-+		if (unlikely(!(readl(nfc->regs + NFC_REG_PAT_ID(nfc)) & BIT(step)))) {
- 			pattern = 0x0;
- 		} else {
- 			pattern = 0xff;
+ 	memset(buf, 0xff, mtd->writesize);
+-	ret = nand->ecc.write_page(nand, buf, 1, page);
+-	if (ret)
+-		return ret;
+ 
+-	/* Send command to program the OOB data */
+-	return nand_prog_page_end_op(nand);
++	return nand->ecc.write_page(nand, buf, 1, page);
+ }
+ 
+ static const struct sunxi_nfc_timings sun4i_a10_nfc_timings = {
 
 -- 
 2.53.0
