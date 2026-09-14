@@ -1,72 +1,72 @@
-Received: from mail-pg1-f182.google.com (mail-pg1-f182.google.com [209.85.215.182])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271CC4779A4
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:55:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.182
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A25F2481AB7
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:55:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789397711; cv=none; b=cXGtzNNpFG61EDFFhIhcsIwwHrwIpiYE4Y1lqaw9quSO2U1CFaIPMTnGIHFuYI5DzSqBBsDanXi1DkAHVWnl7uDCfYtXWK+TmWsKMrdASXNZJjs86CXok/OvaqPF6a2BJHGUz608+CKSi2AccKJjRabzOWuPS1+2UCmzietIQ+Q=
+	t=1789397715; cv=none; b=H1DC+xm6G7qhcHztybU5FZEatn67tGeyvQm4bUW4IzgoeF9DU8cXHEkb6eQmsTUo5FsZyoTftHbRZ1za/0trTBq381vdJk4LUghnsAgvKs+hb/rAa+1XXw3Qr4yyw9azFnDGfkU6r4Ecveef+iWIXlLgeqW/2wWALoFGXj4ihzI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789397711; c=relaxed/simple;
-	bh=eYMKmu0TspLLrpI7Dq/rAwnjuVZWjXe2BfIsHDWlOMs=;
+	s=arc-20240116; t=1789397715; c=relaxed/simple;
+	bh=7RPJv7BhuOaAk+Mo0IOhmSNSIZQ5l94dLDpG1fs2pa0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UDSKqev/s6WtI4bJFI59RYVj9sC9xMyNM/emD/oKWv34M5Eyf5YuAu4VeNSw7BWC/2HviMu3SVr2+J736wdwk3tByr4YCq9JTc21UDRj97Do92WsRGfEOzYsuMgBlDqIlVi5E2ocOplJu5U3TjL/o6wyo4DnT0MHxIXJrhBZAro=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=g0I3EdtH; arc=none smtp.client-ip=209.85.215.182
+	 MIME-Version; b=l8QFzxTjatb6SbfdceSfEpn28F34Lod/Pqr1qWGsbUnA/swnjODoXSpgfboI3LjAGl2rhzyHnO3Urf+sgUvh5hNQYgcn7LsRE05LFJWAIoMkk2KjGLID1W2LGTtXxU1U2tAu4cao9O2i18Nb56Z53FGO+Ijr52QRgITjZfIM7EQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=V5k7ZkI1; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="g0I3EdtH"
-Received: by mail-pg1-f182.google.com with SMTP id 41be03b00d2f7-cc4d03f95dfso1942312a12.2
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 07:55:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="V5k7ZkI1"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469b2e1d7so1720539b3a.0
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 07:55:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789397709; x=1790002509; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789397713; x=1790002513; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=K40D55+QEw0tJrishTnnZFQc54eXC6WooG3rrnRojok=;
-        b=g0I3EdtHJEOecnsphh05qTqrPZnm8t9vaNGW2qPUrPdtKmCV6z1pFyMmBq0MkpvWOH
-         MjIoGj2HhKrijaRRRLrrC+YPw1ZKUBJsXIhuy/ZMKscTixDS0oYiPxKUKI/Cv/1c25PO
-         sp89qp/hboCTlyLCL0xuUia6cvdoFqkkA33hdFQchL3BZwAeKzB1Wmv7D91b7vMIHk2X
-         ZD7L9/6vkvqGFZQXOJabJBl5tfoKGQyMzAVgFX6C7+tN229Ai6dh8SWScdhsNLt+dsiL
-         hgu6EWqmL70MRTmctMZg4qpOIkq8CidZkVqUJR1KkolcHA1/TjgrT9POn7pxTwaeQ6bL
-         I1Zg==
+        bh=mmvklgvi0ef/+u5dzaWwSRR1qwVq3sDKvk1AzDRlDKI=;
+        b=V5k7ZkI1exdUJwB0QQ1Mamh3QBtnjzpKGTJWi1tE8mRHrgf/KWYsJLBixMnJrWNjZT
+         Ewa3m5PzP4hbPv06vOMq8W40FPR7j79Dy5gZS1VBshz7PLzuGIn+OgEGVwRHeO3G6SDe
+         edAYhvqxbrsQXK5huw9QNASL/kmuYBRovLFoeEDVG4fjwtpYV+jtnJUExz8uFWT6RM3/
+         B3BC3R5WH1jlDteHRv4l8lOT97RQ4xopf4OJD2zOWNBEkn2UR2jnH9X3K0Z3QnJnEsz9
+         4pKCFbyWx9EaNaKgXdguJHVYLFjJVAMihpJodGgHipRp+tC6NGuYSfpNGofuDT6XSuIe
+         Z0Fw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789397709; x=1790002509;
+        d=1e100.net; s=20251104; t=1789397713; x=1790002513;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=K40D55+QEw0tJrishTnnZFQc54eXC6WooG3rrnRojok=;
-        b=kt8XJ1cWGqmsl2QWrxVbLf7Oc/NeN7fC8ewi/jUviLkRHa+xARHoHDlYRXRMFdx627
-         TtBdtvULdXec+KI1aFVlIW09UvdY4aJ6lamMxqIxOGT0nR625pIgnMRpQ6xFcTHCtARM
-         pZUBtU0etaNEaUju8W3cTHl3VUZyAIThTAEesascHEQvvgHY26s9x5xaLYH9RiLH6MiZ
-         Hcne6MzIH+QuV/za8d1I9AGJW8KhnpS3Go/CGNo0V+l+klwr0M6Xv7pNgTTieaTxZltm
-         6Au2IErQp1zvFbt2hIBsVN0ISwYS9/e078KQgWRbmcEcGm5/giW4NGSlEVP5yvCn3uIt
-         2zeg==
-X-Forwarded-Encrypted: i=1; AKwUvBw7uT8f5nuovCBkXwxAY0iTBqL7dVphT+5rBrqCxC9LMCQQqo73//Lx4itfrk544+hpqy0j+uc=@vger.kernel.org
-X-Gm-Message-State: AFuF++mUCvbwk1B80IdhXx5D8VxYbrSczduNg8r41PYRNFqte8FOdt96
-	3CcARGeP4ju3mA/mio8D6If8E8xCeoOFERcXs/AHF2UwG4Of4MNI1ipL6x/i4LsH
-X-Gm-Gg: AYBFou1xbb30LODwKXaCgcl5yuzuxH6JayYbHJ6bvYDHDksdtWIqw1GAIxqKtjRH8RC
-	Df7HRQgoYK8tWFyj3xqvXOU5puqX4DaooK9GkSBUx+sXFVX+rk1JvfnPrBAuEwSksKDTdbvZAcq
-	mV0Iuh85OtTWhhH0KgrYcrYmeiziTFCIQ3XxtxWgd4d1eRVqQ8gIpJA9VLBxLH9pqWKlgUQIcWP
-	LFsxELYEaXoqA9MWoYXUSs+3rb051jh0ifMhiHQN8xLEuAOK2IvMG8VfUNcOYliRcEee1FrcxDI
-	iVPDvX72lbEB0fc52osl9rRARvca0rR8rqDczeULwcDCDAEIMn1O411Wwf/HY09EZjhryQ14Cym
-	TsD7Q3AqQcSfvUBe8ry2UO1ZsJfjs+5HU/8XJi2gAnurr67ru1/xU1FfNSH88TW7wezlIW+aHwC
-	vz75j4s7/xEjQlgZEzpPX5AiA8sg9vbyl+jNHCVtIOCgC7NOxVaCQDlsl4crDdIrSrGjfXee8pA
-	frnhvlR+e4Ngw23EAk3KRRn7BbC5ILcwicsD+U=
-X-Received: by 2002:a05:6a20:c88b:b0:3d1:c0e2:936b with SMTP id adf61e73a8af0-3db404269e1mr7176490637.7.1789397709022;
-        Mon, 14 Sep 2026 07:55:09 -0700 (PDT)
+        bh=mmvklgvi0ef/+u5dzaWwSRR1qwVq3sDKvk1AzDRlDKI=;
+        b=fVJuGyghlapklEx/MorclGlmG4QdAz/RRQm1OQSimW0+lHBLRuv7YwE388QlgSh7uf
+         skCQOz7KUiBAnC2GoEI0AtNDgeA/193Rckz4M0u4D7e+EnwnbF6fb8t82RAXrPVemIai
+         t4BKi7AnRelQdvKyoto5/S7jvrtlwDHTlPlFwZnfmDqZqP68aP/tXZBui0P9+0cXh1ID
+         7LDpZND9LL3cBXiURK6yzP4iqpk/PI/3RFwUkS6EeWw48FB95zv7qWshNWdLvmTO5TQy
+         0Wu8OIQRSygagmXz8rAKOoW6g6QdswdS6aR4MU89Y73xsEzhXcyAcGIhxXyi+OmhE15/
+         n1YQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwrYhpX7LENuqu35XflD9GjziJOns2xXg6UQekhmZ1PXmxDq7OuQX9G59bfKQhav3C9N0mkXm8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldQ1VQBxuRJzd+0pYP1ZJD5/LPT9Bdq4+aJzz1GEVTH5OH+olZ
+	dt4QDH8gnS4oY8CsENLN8T7IE4/hDFGTbt4MY3x6B1JdBm1gX1qhHKxe
+X-Gm-Gg: AYBFou3L/AdO8LP7zy7LgC3aYBeaWvb74vslISQVc55Shwi66piFCUZHU6QYavagylI
+	lVHQGalqyb0L+EqGzNoM90GU6Ust17aP/jRALhAgJY3SAtjI+4P6Z+taqLfrVppFACUfBrplntC
+	oR6r+TG54UB2iOg3Ifzj8uXM2ckzPTUYjbP/5pvtqd9UNtiFVw3Dxlwb1gBU+ULgklgogCR/qmE
+	JhfzLqmpmjU257QaUALWnvJxej+xnyoASkIBgUUNy44vk+Ys2t6lZI+emeLsV5DCitzwqvDnUy1
+	FN25Yae8ac/RDsbtimvkchT+nGZs0epFWAFr0jdrzV6B1iInoXljhi0ulZQc8BZ9D1CclJXu1eu
+	dt+39375hVEvU5CUQFIl8YMFuh0WT9xV7aK8XuzzIvqa3lZkzi6xPPosKHzX+KaXzfr4nyrkvlt
+	qRJ1QJcOB8q3INLFbqD0PDGpwRBNgI/2+IZpIaCIzOuvyf9z4yz7zcWKpuETjV/Y4J+2cVyp8uK
+	qIhCn+yWd0JJjwrbKOAUQFFFqtM+it/5CP6raA=
+X-Received: by 2002:a05:6a20:a105:b0:3d0:ba81:79b9 with SMTP id adf61e73a8af0-3db4052bebcmr5751503637.12.1789397712639;
+        Mon, 14 Sep 2026 07:55:12 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.247])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c615a65bsm5338805a12.3.2026.09.14.07.55.06
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c615a65bsm5338805a12.3.2026.09.14.07.55.09
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 07:55:08 -0700 (PDT)
+        Mon, 14 Sep 2026 07:55:12 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Miri Korenblit <miriam.rachel.korenblit@intel.com>
 Cc: linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/3] wifi: iwlwifi: mvm: defer freeing PTK PN state on key failure
-Date: Mon, 14 Sep 2026 22:54:31 +0800
-Message-ID: <20260914145433.42830-2-enderaoelyther@gmail.com>
+Subject: [PATCH 2/3] wifi: iwlwifi: mld: defer freeing PTK PN state on key failure
+Date: Mon, 14 Sep 2026 22:54:32 +0800
+Message-ID: <20260914145433.42830-3-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260914145433.42830-1-enderaoelyther@gmail.com>
 References: <20260914145433.42830-1-enderaoelyther@gmail.com>
@@ -87,27 +87,27 @@ immediately frees the state while an RX reader may still hold it.
 Defer the free until after an RCU grace period, matching the normal key
 removal path.
 
-Fixes: d066a530af8e ("wifi: iwlwifi: mvm: fix ptk_pn memory leak")
+Fixes: d1e879ec600f ("wifi: iwlwifi: add iwlmld sub-driver")
 Cc: stable@vger.kernel.org
 Assisted-by: Codex:gpt-6-astra
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
- drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c | 2 +-
+ drivers/net/wireless/intel/iwlwifi/mld/mac80211.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
-index 5bd246e37943..b0c4f245c88f 100644
---- a/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
-+++ b/drivers/net/wireless/intel/iwlwifi/mvm/mac80211.c
-@@ -4385,7 +4385,7 @@ static int __iwl_mvm_mac_set_key(struct ieee80211_hw *hw,
- 			key->hw_key_idx = STA_KEY_IDX_INVALID;
- 			if (ptk_pn) {
- 				RCU_INIT_POINTER(mvmsta->ptk_pn[keyidx], NULL);
--				kfree(ptk_pn);
-+				kfree_rcu(ptk_pn, rcu_head);
- 			}
- 			/*
- 			 * can't add key for RX, but we don't need it
+diff --git a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
+index 3a4c8fda68d0..693f2092a781 100644
+--- a/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
++++ b/drivers/net/wireless/intel/iwlwifi/mld/mac80211.c
+@@ -2265,7 +2265,7 @@ static int iwl_mld_set_key_add(struct iwl_mld *mld,
+ 	if (ret) {
+ 		if (ptk_pn) {
+ 			RCU_INIT_POINTER(mld_sta->ptk_pn[keyidx], NULL);
+-			kfree(ptk_pn);
++			kfree_rcu(ptk_pn, rcu_head);
+ 		}
+ 
+ 		return -EOPNOTSUPP;
 -- 
 2.55.0
 
