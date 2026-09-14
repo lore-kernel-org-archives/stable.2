@@ -1,44 +1,76 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74BFF449B2C
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:07:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54DD0476074
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 14:07:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789394852; cv=none; b=OrKnxeFZ1vh5aWS90KgZ7HU+Gjwxv5hZGnK122tYq/XpbLeqPD8UaaDIUDv1l8zgT+Lta/J4W59w+IpLJr3jyZc2hVuH29IhF3LBY3rk3LSETtf8neLlJv5xUVUJIQnoarG1z2cWj62y65RZ/qGPTT+kYogS390SvWast6bBrJA=
+	t=1789394877; cv=none; b=JJdThoO8JDUDY0rXa/A03B78yTYK+7l5ewNqkvhCsZC2utDkvPuST9MTzAjTwp1JaFg9WIh54tLasbEyLyFAeWvi0atePyp+dJgxttNO3+UR2omz8VErpBKmpTRBMQapzg4e5uFPK8GHKMdd8mZdMzkSKuL6O6PALg8bV0ke33o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789394852; c=relaxed/simple;
-	bh=O7LCf1ElwApOKCyRY9k3LQuLkP6dz8qZCbXDrNW+O9E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rI7dKVPwVq2gLMHd3QSmAjZXVOJ6kf/MBLOXl85sZXDM5SWh1teESad9yamh1iXCqPcTQRch0qg6U2BCg4Kkauyfmr9FPZn8fanj7vgHEdDfGLyr8QW61UQDVP8cisbXdLAC8TBTaR0FKYyJGCRG/kZ1GG5xSj5XvJUlagk8dTg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YIK1yThB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789394877; c=relaxed/simple;
+	bh=w3nbycRZy4N0v2pnsC5aQmqMbjC6uQsqsHNscNi2z2s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MtH0wi/TcQ+FZxD0F3yb/WDdbnwfJAy7KwN5xiyVGLoDosPuqArh0qrPeVJVbPuWGx712O+fV5b5mVxEF26J1opnAmFiRpQtUTXI05yP5vAkbYrLHLVpT8vjQ319Y9G7+UwZWpQGHGZ4qHJFcpxiG2DZ/u1FrKV5t9P9iHoHWyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MN2RFvrr; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YIK1yThB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1D0A1F00898;
-	Mon, 14 Sep 2026 14:07:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789394851;
-	bh=V1vGg7r4B9lDSgepWrDwNnsUBhfJAQQX4qe63vo5nzg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YIK1yThB1qcjFHrp0s8C0QIkhX8RzbvvVQCjFzjm6CyFqOYFohiS0e3xgaCV0AQ0+
-	 7oVpN8AeJH4pngby9gUme6r/y93V0pmzcU+6sXmKMJnU9Ahu+EP6Ytw/BHilthk75y
-	 z8COf6cOr+UGVuyDqFODDLNGO4tPa1NuIShQWgrCAcuPnh1eCjfatjRvHQORWPw106
-	 BCi30mEFEcnnEBK7IJm3c3fC4qFv4ElynJp7W2lG+ckKduwel9YFJfnvM6tm+AHud3
-	 kv01eO0Mt0h6rVF0bEU1r7LWvzNqoA8Af0tPTAH9JYSnRgHBFpsygqQDoi25HIYq/F
-	 4+6lMnmTs7yhg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Namjae Jeon <linkinjeon@kernel.org>,
-	Kanishka De Silva <kpskanna1915@gmail.com>,
-	Farhad Alemi <farhad.alemi@berkeley.edu>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/2] ksmbd: prevent out-of-bounds reads in share config responses
-Date: Mon, 14 Sep 2026 10:07:28 -0400
-Message-ID: <20260914140728.52182-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914140728.52182-1-sashal@kernel.org>
-References: <2026091410-parole-marigold-985e@gregkh>
- <20260914140728.52182-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MN2RFvrr"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50db3so1056510a12.1
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 07:07:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789394874; x=1789999674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=YM0k3Nqm6YopFOe2WFYov7ptT49bk5DMlzEF9na4+KY=;
+        b=MN2RFvrrXRc7giyk/ACrue2FsuQnAfJkEg68aWiTvwjGU39PgLnpP4ir0QK9t9HXJv
+         b0Rw9xuMcQw6V3lXybJ+Sd3S+PZN4rP+xQC3/Kpz835Bj+2laJNkGlknV5lXcsGfh1AR
+         zhqKRQmbaMXvCuMjbhsNfBgWedzuuV7K2+fFMWFWu+wWCqp2Sz9HjcZxPBJZKNd6TlMs
+         mlZ+XTNlcCms+agCkMIP0AtneFITT11epBWyEWEunoznrABdlBvvjfZY1IcB7tyUTozW
+         +W6fmdWvukWFM+IdC7H4S7YezwjjujV4Uadg/TvARoM3Ckugkj1pYaBPlPpRzPdtBgyT
+         xXDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20251104; t=1789394874; x=1789999674;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YM0k3Nqm6YopFOe2WFYov7ptT49bk5DMlzEF9na4+KY=;
+        b=WxNlAJhyQCPW7/90hsaXzwsPvzwDsHjIdUnLIgdfJaArqhXawxJCM+jbKYiv63eLl1
+         MV3arqG2oD4jSp8nUxFUzzhYQv8sn+u91cCpqKUxhmxt3rCWe6H4ULxOkLxTmJuAyQus
+         BddylqCbl+Hrb2qBjKRehdm37SsUrL7SE0UV3mAjlR+2G/+Vz/nmpXumbvVMUOYz6QWP
+         KMeYOGb8+YaNB4DN20c7rjgESBjOHN0Taol4FqM8axK7fgBHXpaMGHDvfNgMH3v8hg1t
+         mvZAAjMCxn3sqXOy/XLWAI5Exd6Q27m/LwZcDeXiYHzyp+KxITZRgtC/HtidvHxH0eVJ
+         2APA==
+X-Gm-Message-State: AFuF++nfx4DAJoWTKFUS7V0CKkEQLK0exnmCz5FeCyJIHbnF9EER7iW1
+	4ZvtN22I86vOoTKmG7BTl64n/XojJ56jm7P6XJi1Yuyx0bkbezF8HaXk
+X-Gm-Gg: AYBFou04sd2RNJLkl8+4XyAclmk5DPjVv3fVtEaRH5JCljEeQ17EE+4HRmHbazpVZsg
+	sjnt7Pby3dX0GCAk906HwqR2DnCmhKYnvoddWuXGUpxSO50GZvB1itCS413kw/8RunhvP2Ur+0v
+	xEyiC0OWZP3Cbc9zNqFMLEz7qTQxZmSHUt55aUfuHH04P2xQtpEGh4+f9MsEZSGahPz+X0eR4GT
+	IlNGAggIQNEUgrKNpvY0Oi+PoXi9z9nBlcEjA0R6C1izO9CUf2o3NULfnFFdEMC6Q8gBAr54N3e
+	BJgSHmj2QRKqoqul72fS7JxrgqY/lP3UPZPC/Z2v31AT/TCQDuzOJxpalCA/9da1n6Et3W0MEOd
+	OdRkP7eLq0WAUhKmMOK7Hz2vNbIzcgh7gw7LzqEe3mTtPJajz+2LqeYGmhfqmXtC9SWXgZ+4aBS
+	ep6WlLsqKqVskXfYObj5/V9DWFA6GNmnrOwtqb1NtFFwEKg3rG2WK3fw==
+X-Received: by 2002:a05:6a21:648a:b0:3d3:ad3c:49aa with SMTP id adf61e73a8af0-3db4066205dmr5987851637.24.1789394874230;
+        Mon, 14 Sep 2026 07:07:54 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c65a8120sm5210341a12.30.2026.09.14.07.07.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 14 Sep 2026 07:07:53 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Armin Wolf <W_Armin@gmx.de>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Abdel Alkuor <alkuor@gmail.com>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] leds: ncp5623: release multi-led fwnode on remove
+Date: Mon, 14 Sep 2026 22:07:42 +0800
+Message-ID: <20260914140742.1743052-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,139 +79,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Namjae Jeon <linkinjeon@kernel.org>
+ncp5623_probe() obtains a reference to the multi-led firmware node with
+device_get_named_child_node(). This reference must remain valid after
+probe because led_classdev_register_ext() associates the node with the
+LED class device using device_set_node(), which does not acquire an
+additional reference.
 
-[ Upstream commit f25e93768fcc5d8287e50b1ec52a42e4c276df34 ]
+The probe error paths correctly release mc_node, while the successful
+path intentionally keeps the reference alive for the lifetime of the
+registered LED device. However, ncp5623_remove() unregisters the LED
+class device without subsequently dropping that reference, leaking the
+firmware node on driver unbind.
 
-Validate IPC share configuration payload sizes before consuming
-variable-length fields. Bound veto list parsing and account for
-the separator byte when deriving the path length.
+Save the firmware node pointer before unregistering the LED device and
+drop its reference afterwards, when the LED device can no longer use
+it.
 
-Fixes: a677ebd8ca2f ("ksmbd: validate payload size in ipc response")
-Reported-by: Kanishka De Silva <kpskanna1915@gmail.com>
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+This issue was found by manual code inspection.
+
+Fixes: 7b7e50f8f5e0 ("leds: Add NCP5623 multi-led driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- fs/smb/server/mgmt/share_config.c | 40 +++++++++++++++++++++----------
- fs/smb/server/transport_ipc.c     | 21 ++++++++++------
- 2 files changed, 41 insertions(+), 20 deletions(-)
+ drivers/leds/rgb/leds-ncp5623.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
-index 2099beb426f47..632ce807775bb 100644
---- a/fs/smb/server/mgmt/share_config.c
-+++ b/fs/smb/server/mgmt/share_config.c
-@@ -88,9 +88,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
- 
- static int parse_veto_list(struct ksmbd_share_config *share,
- 			   char *veto_list,
--			   int veto_list_sz)
-+			   size_t veto_list_sz)
+diff --git a/drivers/leds/rgb/leds-ncp5623.c b/drivers/leds/rgb/leds-ncp5623.c
+index f2528f06507d..f96f15b7e9a1 100644
+--- a/drivers/leds/rgb/leds-ncp5623.c
++++ b/drivers/leds/rgb/leds-ncp5623.c
+@@ -227,6 +227,8 @@ static int ncp5623_probe(struct i2c_client *client)
+ static void ncp5623_remove(struct i2c_client *client)
  {
--	int sz = 0;
-+	size_t sz;
+ 	struct ncp5623 *ncp = i2c_get_clientdata(client);
++	struct fwnode_handle *mc_node =
++		dev_fwnode(ncp->mc_dev.led_cdev.dev);
  
- 	if (!veto_list_sz)
- 		return 0;
-@@ -98,7 +98,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 	while (veto_list_sz > 0) {
- 		struct ksmbd_veto_pattern *p;
+ 	mutex_lock(&ncp->lock);
+ 	ncp->delay = 0;
+@@ -234,6 +236,7 @@ static void ncp5623_remove(struct i2c_client *client)
  
--		sz = strlen(veto_list);
-+		sz = strnlen(veto_list, veto_list_sz);
- 		if (!sz)
- 			break;
+ 	ncp5623_write(client, NCP5623_DIMMING_TIME_REG, 0);
+ 	led_classdev_multicolor_unregister(&ncp->mc_dev);
++	fwnode_handle_put(mc_node);
+ 	mutex_destroy(&ncp->lock);
+ }
  
-@@ -106,7 +106,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 		if (!p)
- 			return -ENOMEM;
- 
--		p->pattern = kstrdup(veto_list, KSMBD_DEFAULT_GFP);
-+		p->pattern = kstrndup(veto_list, sz, KSMBD_DEFAULT_GFP);
- 		if (!p->pattern) {
- 			kfree(p);
- 			return -ENOMEM;
-@@ -114,6 +114,9 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 
- 		list_add(&p->list, &share->veto_list);
- 
-+		if (sz == veto_list_sz)
-+			break;
-+
- 		veto_list += sz + 1;
- 		veto_list_sz -= (sz + 1);
- 	}
-@@ -165,17 +168,28 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
- 	}
- 
- 	if (!test_share_config_flag(share, KSMBD_SHARE_FLAG_PIPE)) {
--		int path_len = PATH_MAX;
--
--		if (resp->payload_sz)
--			path_len = resp->payload_sz - resp->veto_list_sz;
-+		size_t path_len;
- 
--		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
--				      KSMBD_DEFAULT_GFP);
--		if (!share->path) {
--			ret = -ENOMEM;
-+		if (resp->payload_sz <= resp->veto_list_sz) {
-+			ret = -EINVAL;
- 		} else {
--			ret = 0;
-+			path_len = resp->payload_sz - resp->veto_list_sz;
-+			if (resp->veto_list_sz)
-+				path_len--;
-+
-+			if (!path_len) {
-+				ret = -EINVAL;
-+			} else {
-+				share->path = kstrndup(
-+					ksmbd_share_config_path(resp),
-+					path_len, KSMBD_DEFAULT_GFP);
-+				if (!share->path)
-+					ret = -ENOMEM;
-+				else
-+					ret = 0;
-+			}
-+		}
-+		if (share->path) {
- 			share->path_sz = strlen(share->path);
- 			while (share->path_sz > 1 &&
- 			       share->path[share->path_sz - 1] == '/')
-diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
-index 225f6459f3780..7c30b50f23f04 100644
---- a/fs/smb/server/transport_ipc.c
-+++ b/fs/smb/server/transport_ipc.c
-@@ -524,14 +524,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
- 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
- 			return -EINVAL;
- 
--		if (resp->payload_sz) {
--			if (resp->payload_sz < resp->veto_list_sz)
--				return -EINVAL;
-+		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
-+		    sizeof(resp->share_name))
-+			return -EINVAL;
- 
--			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
--					       resp->payload_sz, &msg_sz))
--				return -EINVAL;
--		}
-+		if (resp->veto_list_sz > resp->payload_sz)
-+			return -EINVAL;
-+
-+		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
-+		    !(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
-+		    resp->payload_sz <= resp->veto_list_sz)
-+			return -EINVAL;
-+
-+		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
-+				       resp->payload_sz, &msg_sz))
-+			return -EINVAL;
- 		break;
- 	}
- 	case KSMBD_EVENT_LOGIN_REQUEST_EXT:
 -- 
-2.53.0
+2.43.0
 
