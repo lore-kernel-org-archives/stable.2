@@ -1,75 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 652823659FD;
-	Mon, 14 Sep 2026 09:47:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 728DD41CB2E;
+	Mon, 14 Sep 2026 09:51:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789379253; cv=none; b=ROzeaEosrm8pWStgFQkS/6ZdnMDjP9wTDi3dBD41E8pOafCI4ZJ4+Q1ujYLccr6Oi675t/oHsRQE7NZzqnszEk1+ezdiX2YiDHnYmSl9qfabdEcTqTVhU4MNXiw5D8ZLOuldDp3YQavkoiwdu/3yLpx0r45plaxLdm/cnjIlMII=
+	t=1789379484; cv=none; b=tTkf3iQ/rKOr8Sgu40HVHfsbaOty6ZHh3xor9ZM4xRK7FlZ8+9JG1zJphg/oBLVnbRoEM1jrx+bbSi5J8qzxQhSDduLEn4GgEaRMlvs0dx2cuRUmTlvBKRk9rnjQbSU2rvfr+bDUJsW1237OcRjm1Yy0AMaDWVFFmMbFPS+H5Q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789379253; c=relaxed/simple;
-	bh=irNNsT8iKCdzudLKleyMornqIv1Z90Ab8V9lrVpvlP8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZLU3mG6G8XL2w6ypl2m3xdMHQrMXIJtdQwrbkOG93i5U1vVW7/NyVRXyVN6XE7847U6jcMHRoqoIw5qNH/3o5aYS+hmLJMr10EEB5Coe6aGBwVaYHJCBbG1tZrtug2cyn77a6v6ISVIuItwnV/cC3ZlfWzMHb4EVx29eSHCd2/s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1lfV1fiT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789379484; c=relaxed/simple;
+	bh=8BCaZdYq61JSIUsOMSYMjfA9ubrpUWHHUd4Rb1x1cIE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cawHZ2gbIfpXavVW0C8GHLm8w8ltj/5MAuyunfuQQ9UiJQmAXoPmRUBTApQbpdvUtyGTkXL5AGiZzUaMlx0RuO6rOF2NPbnB5fceq2AnKmx8VczRfzAirDwRv6QQGT1vdvWwjdAijBa/Fmne0w89xsqt1O61EN7w+b0cRccZVLA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=SrQ3Z3De; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1lfV1fiT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 73B8D1F00893;
-	Mon, 14 Sep 2026 09:47:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789379252;
-	bh=7dtvjOSlcTcT7bJyUrCOWXgHk0cz7zz4GmfHdeVHrGE=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=1lfV1fiTowEAx28pjC0cUZdFBI77m5iTURGxOPRAZ5ujGu0xQH4+IcuEaRRR4aoAb
-	 5Y8hN6B/BycYyKvwA2hgJ2zEOOMTJ2u2pzW9gV+IUREG3ByKOGdgRLlbKe39uvUIMe
-	 vOoPy2QEgsBBdKjXLyou0T8L48RM4gMr4H63bDVI=
-Date: Mon, 14 Sep 2026 11:47:22 +0200
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: Jon Hunter <jonathanh@nvidia.com>
-Cc: Pavel Machek <pavel@nabladev.com>, stable@vger.kernel.org,
-	patches@lists.linux.dev, linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org, akpm@linux-foundation.org,
-	linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
-	lkft-triage@lists.linaro.org, f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
-	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
-	sr@sladewatkins.com
-Subject: Re: [PATCH 6.12 0000/1376] 6.12.110-rc1 review
-Message-ID: <2026091413-drizzly-guy-9d8e@gregkh>
-References: <20260912065607.535295758@linuxfoundation.org>
- <aqWnzsSIMkyM46NV@duo.ucw.cz>
- <f8e1fe51-03f1-4158-80cd-2b462624da3a@nvidia.com>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="SrQ3Z3De"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=cZ
+	7qRsvM0rK8gijokvP/+6QqwVeMaIOvetKgBTJ481w=; b=SrQ3Z3DeaVSkV/ax49
+	0FBE1jr+XyM1+iJUNopOfeF1kecIsNYZcrBfKEks4QPH9CEG0O7dvV2ipLkMTVtk
+	PQfQOfMKY8/Y6hUTuF/zuPasUvFT8/rw84ThcDSwYfVsk2B1YoNobZqvkv0rwXxy
+	F5BnE5lInvXIyQm3Lj3oZOxfM=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wBXdB9Sw6dqGhJgAg--.50136S4;
+	Mon, 14 Sep 2026 17:50:34 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: srini@kernel.org,
+	lgirdwood@gmail.com,
+	broonie@kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	vkoul@kernel.org
+Cc: linux-sound@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: wcd9335: Fix device reference leak in wcd9335_slim_status()
+Date: Mon, 14 Sep 2026 17:50:09 +0800
+Message-ID: <20260914095009.12049-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <f8e1fe51-03f1-4158-80cd-2b462624da3a@nvidia.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wBXdB9Sw6dqGhJgAg--.50136S4
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJrWUtF1UKrWDZrW3Xr1rCrg_yoW8WF15p3
+	yqkFZIkrWrKr4fCF1YyFWUJa4Y9FW2kw4fJr18t348KFs8Ja4Sy3y8t34jvFW3trZ5C3W3
+	JF9rZa4kGr45Jr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0piGjg7UUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC9gqPmmqnw2oR6AAA30
 
-On Sun, Sep 13, 2026 at 12:59:10PM +0100, Jon Hunter wrote:
-> 
-> On 12/09/2026 20:28, Pavel Machek wrote:
-> > Hi!
-> > 
-> > > This is the start of the stable review cycle for the 6.12.110 release.
-> > > There are 1376 patches in this series, all will be posted as a response
-> > > to this one.  If anyone has any issues with these being applied, please
-> > > let me know.
-> > 
-> > We get build errors in -cip testing:
-> > 
-> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/pipelines/2842911949
-> > https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/16461797877
-> > 
-> > drivers/soc/ti/knav_qmss_queue.c: In function 'knav_queue_probe':
-> > drivers/soc/ti/knav_qmss_queue.c:1874:9: error: 'knav_qdev' undeclared (first use in this function); did you mean 'knav_queue'?
-> I am seeing the same for 6.12 and 6.18. Appears to be this commit ...
-> 
-> # first bad commit: [4e91398b6ae1dde1824bcf3d19b4237773f31e68] soc: ti: knav_qmss: Remove debugfs file on teardown
+wcd9335_slim_status() obtains the SLIM interface device with
+of_slim_get_device(), which uses device_find_child() internally and
+returns the device with a reference held.  As the device_find_child()
+documentation says: you will need to drop the reference with
+put_device() after use. The reference is stored in wcd->slim_ifc_dev
+and never dropped, so the SLIM interface device cannot be released.
+Fix it by using devm_add_action_or_reset() or put_device() respectively.
 
-Sasha fixed this up, thanks.
+Found by code review.
 
-greg k-h
+Fixes: 20aedafdf492 ("ASoC: wcd9335: add support to wcd9335 codec")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+---
+ sound/soc/codecs/wcd9335.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
+
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index 40de279a9750..9332082092c7 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -5096,6 +5096,13 @@ static int wcd9335_slim_probe(struct slim_device *slim)
+ 	return 0;
+ }
+ 
++static void wcd9335_put_device_action(void *data)
++{
++	struct device *dev = data;
++
++	put_device(dev);
++}
++
+ static int wcd9335_slim_status(struct slim_device *sdev,
+ 			       enum slim_device_status status)
+ {
+@@ -5120,6 +5127,11 @@ static int wcd9335_slim_status(struct slim_device *sdev,
+ 		return -EINVAL;
+ 	}
+ 
++	ret = devm_add_action_or_reset(dev, wcd9335_put_device_action,
++			&wcd->slim_ifc_dev->dev);
++	if (ret)
++		return ret;
++
+ 	slim_get_logical_addr(wcd->slim_ifc_dev);
+ 
+ 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
+-- 
+2.43.0
+
