@@ -1,88 +1,78 @@
-Received: from mail-wr2-f0.google.com (mail-wr2-f0.google.com [74.125.225.64])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B1713B19B5
-	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:06:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB2873E4C90
+	for <stable@vger.kernel.org>; Mon, 14 Sep 2026 08:07:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789373162; cv=none; b=uRo8wkLs0k7Co1Q2qAXaPeIULvs5dUdKUz+tMk1ReTkGmsuNUPBDOnsI1i4S/ddlrbMROv+WxyAiqmRqGBWySwgil4rhltyOf2f6jEFSE1+FjD+e6oodOjSdGx7tPHEvhvoUEmoCIBucTZx5ONRP6vk9QcZ5h+gOqIpQBmoK4dY=
+	t=1789373225; cv=none; b=fQuwfiGp3hl0FmFu8cTXTm5l2nd2LD22tZUrD1Ianxpqen+z2VvUsBSKu2APweNpLZlsiviq84nchQY6nCZ75BvzsJCJQn+qx0QvBMqB7HdXsdeAHkUu8Sf3R9Vk0LJLzqyCDnYIy2j4OFL+0eQkQCMbfj5/ZTy2CSAnxhz7Hvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789373162; c=relaxed/simple;
-	bh=y//kUZXKT1lm5smHXcQPc8RjdKiy2djCT6Sh2UKuGrM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=WbdPpUq3oFc/TIKtD4RY0O+Df8tdPiKPfj1Pv+crV6Xr/7GJ/9NEQgTRN7TZsjm9Ex9eAabL3jADLzZ97TjlugOr958fV4waSdliX5Wj/ngibVGnYNEa7JoJAOj85VonJZGXk2j0rtUNpMf6PUv0u0QL8MuXTEmJr80c7bTtn0k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=DIboSOHp; arc=none smtp.client-ip=74.125.225.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789373225; c=relaxed/simple;
+	bh=0rpz5RcfyLg/UdQ9j0n/J8aYvsCqteq/E6T+2rgP4EI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=egOqtRGcnzac46dSs0lDAYLHjPYmqgvYWK++Zf4ApRLcn2CpdSoIuZPDRs86ZdmJNVJTT9RC7hDTpg0o56SM19APiuYtoJqbPNzUa5j1VUV80OplCQcxIymODXdq1zK7Kheret9t//Ma/KGCzK4u5ZY9nIhMQRpPFoawGzAoGqE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=nHvPkgvw; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="DIboSOHp"
-Received: by mail-wr2-f0.google.com with SMTP id ffacd0b85a97d-48437cc1b11so677457f8f.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:06:00 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="nHvPkgvw"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso24277736d6.1
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 01:07:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789373159; x=1789977959; darn=vger.kernel.org;
+        d=mojatatu.com; s=google; t=1789373221; x=1789978021; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=4pyHVI/MA8Y1XwfEMB96UsVZKJ18D0ODeQhP8/x0ooA=;
-        b=DIboSOHp71g+gAidKhoHoI5DlXHYyoMald+oKM6BEJ+y7FDhb4OIjryImgf5/0CfR+
-         rNjl7cgZIcTh6dvuR8eN/Kx2n+s3JAbz/jv8HeR6Tdh2m3/eD7imdwRAsKC6pgNH0/CE
-         p+hGbSeQ9XQCERylsGU7jf8M7K/xzwCRiVy+gs6p6DTEkDLgVh0Kpp8yNBZXUmWVTS7M
-         Zp0rF2okHEccyG+s95Gp2ifoM8RoEs7G8631Bm6cM1bEnqbwPL9gb7RySawbCZ1tXYqA
-         XePztLKBBP//uB0vsRNLKKE1iOQBcXLEvy8xwxqoYPPb78y9ahAxmJphLU0tOzHMee7b
-         K+dw==
+        bh=7pT3kEPEgpbWBj+9NNyMg+ukyMM8ao5jiiq0DN4Mn8A=;
+        b=nHvPkgvwrtg/l3l6ShWepyXGQ6YfbIJp4dhIHLL2SvZ8ZKxfTBGmrpId9NDQSSJ0v1
+         Zv8eOSra/j0lpOS0PRINQs4b8E9wZAm1B7Dq+kFidJNNdNpYuCBiOck3oN7BC4UAflUi
+         KUseDPT8LQbl8QUs0IVjNqibXsycNqRAYt87Q=
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20251104; t=1789373159; x=1789977959;
+        d=1e100.net; s=20251104; t=1789373221; x=1789978021;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=4pyHVI/MA8Y1XwfEMB96UsVZKJ18D0ODeQhP8/x0ooA=;
-        b=VgulG6VGUN7htbBkW5YT9vtKY//ON9FMzZaAlcS2OTl2HoJOme8zNsrb2OEE1whM3C
-         NGDxWPCwBIr2gMuuYGkujKwcUErUmZEaJwVLJ0w5V0u8fUOXU5rqqUnIz2q9VBHEyn8y
-         hvFT73ElwXs6JMCJREjXCdC8BMdFRzXwHd/5OfR1jGrrZ/yPldNaEEEM6+eC57jfXZLz
-         PCAciA4vRioPkdCPeQjORNwo61DyfeGQa4Qjq9dnHtIIYDLsXtQmLeNOYhdjtzg9oG8j
-         +wrx54vyVX6F2ze1w50NdXdyrOqxnQB9kWicDtvmt7ZOI1pRgf2CTigvymZBXXctaK2Y
-         9jEA==
-X-Gm-Message-State: AFuF++n+Cpyc6APsYnKrfGurGHejNJf2D2MY30nPbciLrH8u6+JALp2Y
-	1SOCUS65e0nq70xB0OZWZ71wFSj4fhwMJEPLrSR1VuFDsjmJSOnSWdFcOgELX3kuwhQ=
-X-Gm-Gg: AYBFou307WxE7XPI6x3SiL5wAcmxxvugh4oJif+cnuc0CvCrGVj+mLdRM5jyx3kvDiq
-	v5GNHT17L24uIJ/Cmk6pghCPYFtvAm7KsR/fcUNQ8a3Ldf9q9C3rDfZ24l6kxb1tNhrVzklveUZ
-	3QF5UQn3nj5zxEuacniTDP8cvTUDDhfK2Cm5RHClMvfM+1LLSwahnlCBRoiUsbiD/AB7OMrWMti
-	wPSnE0HzXB/nDG+Edr1Xhh+eCYM1uZPbws0UJWigADZx0EMvihUBNlzTm8ud+UUd6PHVETmslS5
-	SzH2EC1/0FyufFtoQdo18AV9rrKuKvjVPmt9HtZKOey++vULqK8ToO7KgphoAD1RG67MpEdHr2T
-	XlbTNQ9sCgLTO5tsSU9/zjE5m2kjfmRKav2cJ7Frxel47F9Jd5yCL+lpQNYsg+Coy6U+Tskz+2Q
-	eiq4KdsR+aYkU8B4Agyv/sR4WJNrsr6yMDSfH1v8E4g1drUlCqMdB13N1wGt4Z0tXioQOv+PSVJ
-	CgfldYAm47yxpzN
-X-Received: by 2002:a05:6000:4281:b0:485:8c17:9761 with SMTP id ffacd0b85a97d-48702aff858mr1622347f8f.35.1789373158956;
-        Mon, 14 Sep 2026 01:05:58 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-486eb32e6f1sm24339329f8f.6.2026.09.14.01.05.57
+        bh=7pT3kEPEgpbWBj+9NNyMg+ukyMM8ao5jiiq0DN4Mn8A=;
+        b=DPSD/sm5cQDKAlNG/Mw8AnPSSTt5eyF30u1pUwBS4Xs0R6heCThL0CMhb0MAW46nRW
+         h7IjtOcoq8oXK6L8xmpby/wB1+zAVeiSkQaAEgF2xID63Te4q8C+NSeLz5va+awKx8xS
+         TkBPgJSW78r3bzfVvDSBdlww0jvNmN75Ka4MViRoe7P9Im/bf+CwNkB3L5Od47N16ULd
+         yvWNgO+wKpcEckKcX8TEIKihtKoF/5QZ/Awwu0bC665Alaa6h05ZEjRMRKixNFUe1YwZ
+         L3RHbga+naQpgnxk8Shy5RanW8QCi+KeYS20EpVj4xeqOTvOC6wVfByJp/ji4/9Z7ykA
+         iiuQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz5cV86X6RX1TRZRjAToKHjzgQUxizl3Y1PCWNlr8Tgl8DD1x7dUNpmLj6bGV9WHOnN9y+LC2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lxog1OzMWlYpkdPwV3sbAxxizyQdWCucV8rkcvGYV4e3iBHvYP
+	sDoFAbIGO6o+HH9VxIET5b4O+IgjOi7EBTF4y8SWxo/enzM+Xpg9HyXiT9sDocxOqQ==
+X-Gm-Gg: AYBFou1kl5NTOn0LoPWEfHLRVCN3itIRGg9ULY/sk3yhIoKqisIgbduaMxvsSkNluAA
+	EnlCox10Uc4hh3ix6jtxVrlWbxWGntEwHQdyjfit7YeI65r4JYeXWJDItOSik7MN2ffBZZ3wX6P
+	Muo84ujmeUN8VwV8iVRjbS4o8Nx9HsJ/B6QgM8HIa4turkKo31MOZzAreGVViZh7bEC8GRI+93q
+	CGkH/iRqDCVmSpRBOvOhZyZDCAR/7NL9ATLtHe1vAqMp6wcPmgWktXU2/ABMjwklhtBKrLFzqIT
+	etHTDuLSWkfgD9euwI67fWZmW+rB2O8dPH5AZdzY2DANTk/kEd8iFhVrCsXNXqdUhFNL6bWqWjh
+	QKPedq/jrqqgz2g7BW7JAAMrA1lj+8cfELyTb+LI4y+H1CN45SuKSGpSuReZSsSwNDkWTfPlalB
+	ieWNPAOGW8cqk0cR0M/qlltet2CD7tYD9/pQzdXrqQ7pQJlTDh4s9vhaNMdCY5lupu1z69Bxjzy
+	xXrmECEjT4x/APlAK4gd0KNfsaVR/NiOjgIijOWsxWCtaJ4d/c8dhl4xXMPnYgQl13nZeONwifF
+	1ESroR4TSrJa2UYRzIns5x8=
+X-Received: by 2002:a05:6214:1945:b0:910:34c8:ac46 with SMTP id 6a1803df08f44-9122e657768mr23016236d6.25.1789373221522;
+        Mon, 14 Sep 2026 01:07:01 -0700 (PDT)
+Received: from majuu.waya (pool-174-112-106-84.cpe.net.cable.rogers.com. [174.112.106.84])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d51ffsm90187336d6.45.2026.09.14.01.06.59
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 01:05:58 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	Sasha Levin <sashal@kernel.org>,
-	Tim Guttzeit <t.guttzeit@tuxedocomputers.com>,
-	Werner Sembach <wse@tuxedocomputers.com>,
-	Kailang Yang <kailang@realtek.com>,
-	Zhang Heng <zhangheng@kylinos.cn>,
-	Sean Rhodes <sean@starlabs.systems>,
-	Damien Dagorn <damien.dagorn29@gmail.com>,
-	Martin Hamilton <m@martinh.net>,
-	Bharat Dev Burman <bharat.singh7924@gmail.com>,
-	Lei Huang <huanglei@kylinos.cn>,
-	Stefan Binding <sbinding@opensource.cirrus.com>,
-	Lucas Tanure <tanureal@opensource.cirrus.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Denis Arefev <arefev@swemel.ru>,
-	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 6.1] ALSA: hda: Fix missing pointer check in hda_component_manager_init function
-Date: Mon, 14 Sep 2026 11:05:45 +0300
-Message-ID: <20260914080546.11947-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+        Mon, 14 Sep 2026 01:07:01 -0700 (PDT)
+From: Jamal Hadi Salim <jhs@mojatatu.com>
+To: netdev@vger.kernel.org
+Cc: Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Victor Nogueira <victor@mojatatu.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	hybris <hybris@mojatatu.ai>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 1/2] net/sched: sch_hfsc: bound the classify inner-filter walk with a drift budget
+Date: Mon, 14 Sep 2026 04:06:55 -0400
+Message-Id: <QDISC-CTUU.v2.20260913192614@mojatatu.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -92,59 +82,103 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Denis Arefev <arefev@swemel.ru>
+hfsc_classify() applies the "filter may only point downwards" level
+check only when the filter result carries no bound class. A filter
+created with a flowid gets res.class set once at bind time, so the
+check never runs for it during classification. hfsc_adjust_levels() can
+later raise a class's level without revalidating existing bindings,
+leaving two binds that were each legal at bind time pointing at each
+other; the classify walk then bounces between two interior classes
+forever with the qdisc lock held and BH disabled — a soft lockup from a
+single packet.
 
-commit 1cf11d80db5df805b538c942269e05a65bcaf5bc upstream.
+Bound the traversal, mirroring HTB: count only the non-descending hops,
+which a legitimate walked tree can only take by level drift after bind
+time; anything beyond a small budget is a cycle.
+Drop the packet with a rate-limited warning when the budget is
+exhausted. Descending hops never consume budget, so legitimately deep
+trees are unaffected, and a terminating lateral chain (the level-drift
+false-positive family) still classifies normally.
 
-The __component_match_add function may assign the 'matchptr' pointer
-the value ERR_PTR(-ENOMEM), which will subsequently be dereferenced.
+Conditions to recreate the bug:
+- CONFIG_NET_SCHED, CONFIG_NET_SCH_HFSC, CONFIG_NET_CLS_U32,
+  CONFIG_LOCKUP_DETECTOR.
+- Build a cycle with two legal-at-bind-time flowid binds and a level
+  drift: class X 1:1 (child of root) with leaf child 1:10; class Y 1:2
+  (sibling of X) with children 1:20 and 1:200; root u32 filter flowid
+  1:1; filter on X flowid 1:2 (legal when Y is a leaf); after Y's level
+  rises to 2, filter on Y flowid 1:1 (legal then). Send one packet (ping
+  on the device). Unfixed kernel: classify spins with the qdisc lock
+  held; with softlockup_panic=1 it panics.
+- Reachable from unprivileged user via unshare -Urn (CAP_NET_ADMIN).
 
-The call stack leading to the error looks like this:
-
-hda_component_manager_init
-|-> component_match_add
-    |-> component_match_add_release
-        |-> __component_match_add ( ... ,**matchptr, ... )
-            |-> *matchptr = ERR_PTR(-ENOMEM);       // assign
-|-> component_master_add_with_match( ...  match)
-    |-> component_match_realloc(match, match->num); // dereference
-
-Add IS_ERR() check to prevent the crash.
-
-Found by Linux Verification Center (linuxtesting.org) with SVACE.
-
-Fixes: ae7abe36e352 ("ALSA: hda/realtek: Add CS35L41 support for Thinkpad laptops")
+Fixes: a2f79227138c ("net_sched: sch_hfsc: fix classification loops")
+Reported-by: Sashiko (gemini + nipa) <sashiko-bot@kernel.org>
+Link: https://sashiko.dev/#/patchset/QDISC-CTUU.v1.20260908094501@mojatatu.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Denis Arefev <arefev@swemel.ru>
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-[Roman: Instead of modifying hda_component_manager_init() (which does not
-yet exist in version 6.1), a check needs to be added to the
-cs35l41_generic_fixup() function—the very function introduced by the
-offending commit, which calls component_match_add() without verifying its
-successful completion.]
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+Reviewed-by: Victor Nogueira <victor@mojatatu.com>
+Tested-by: hybris <hybris@mojatatu.ai>
+Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
 ---
-Backport fix for BDU:2026-03984
+v2 changes:
+   -  Replace the absolute hop bound (root->level) with a budget that
+      counts only non-descending hops, so a legal lateral level
+      chain still classifies. (Sashiko)
+   -  Reword the "strict descent" changelog claim (Sashiko).
 
- sound/pci/hda/patch_realtek.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ net/sched/sch_hfsc.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 7b4fd95c66f9..9e6846a37d67 100644
---- a/sound/pci/hda/patch_realtek.c
-+++ b/sound/pci/hda/patch_realtek.c
-@@ -7021,6 +7021,11 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
- 			spec->comps[i].codec = cdc;
- 			component_match_add(dev, &spec->match,
- 					    comp_match_cs35l41_dev_name, rec);
-+			if (IS_ERR(spec->match)) {
-+				codec_err(cdc, "Fail to add component %ld\n",
-+					  PTR_ERR(spec->match));
-+				return;
-+			}
- 		}
- 		ret = component_master_add_with_match(dev, &comp_master_ops, spec->match);
- 		if (ret)
+diff --git a/net/sched/sch_hfsc.c b/net/sched/sch_hfsc.c
+index e87f5021a199..b073efaf2bf5 100644
+--- a/net/sched/sch_hfsc.c
++++ b/net/sched/sch_hfsc.c
+@@ -386,6 +386,12 @@ cftree_update(struct hfsc_class *cl)
+ #define	SM_MASK		((1ULL << SM_SHIFT) - 1)
+ #define	ISM_MASK	((1ULL << ISM_SHIFT) - 1)
+ 
++/*
++ * bound on consecutive non-descending (lateral / upward) hops in a
++ * classify walk, mirroring htb's TC_HTB_MAXDEPTH headroom
++ */
++#define	HFSC_CLASSIFY_MAX_DRIFT	8
++
+ static inline u64
+ seg_x2y(u64 x, u64 sm)
+ {
+@@ -1133,6 +1139,7 @@ hfsc_classify(struct sk_buff *skb, struct Qdisc *sch, int *qerr)
+ 	struct hfsc_class *head, *cl;
+ 	struct tcf_result res;
+ 	struct tcf_proto *tcf;
++	unsigned int drift;
+ 	int result;
+ 
+ 	if (TC_H_MAJ(skb->priority ^ sch->handle) == 0 &&
+@@ -1142,6 +1149,7 @@ hfsc_classify(struct sk_buff *skb, struct Qdisc *sch, int *qerr)
+ 
+ 	*qerr = NET_XMIT_SUCCESS | __NET_XMIT_BYPASS;
+ 	head = &q->root;
++	drift = HFSC_CLASSIFY_MAX_DRIFT;
+ 	tcf = rcu_dereference_bh(q->root.filter_list);
+ 	while (tcf && (result = tcf_classify_qdisc(skb, tcf, &res, false)) >= 0) {
+ #ifdef CONFIG_NET_CLS_ACT
+@@ -1167,6 +1175,16 @@ hfsc_classify(struct sk_buff *skb, struct Qdisc *sch, int *qerr)
+ 		if (cl->level == 0)
+ 			return cl; /* hit leaf class */
+ 
++		/*
++		 * flowid binds skip the level check above (res.class is set
++		 * at bind time and levels drift after), so a walk can follow
++		 * lateral hops without descending; bound them here.
++		 */
++		if (cl->level >= head->level && drift-- == 0) {
++			pr_warn_ratelimited("hfsc: classify loop detected, dropping packet\n");
++			return NULL;
++		}
++
+ 		/* apply inner filter chain */
+ 		tcf = rcu_dereference_bh(cl->filter_list);
+ 		head = cl;
 -- 
-2.53.0
+2.43.0
 
