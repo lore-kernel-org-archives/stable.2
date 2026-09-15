@@ -1,213 +1,114 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87994472F9B
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:42:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50C7A483BC8;
+	Tue, 15 Sep 2026 11:06:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468925; cv=none; b=ORs6ojMzn0esVerashCkWlLr2a6lzqycccjUrxC7juaBvu2CDv0XdTFBMkDk5B4AlSj5T6QA1rjeCNeUbWZzWIPQrRJFma2onj7vkdsowcL+Q7BlPPehVZHdb7WfvDQrOuGcR217Cepdx+ykGFVnY5oxu1FJxU80MLTjLWgVdLQ=
+	t=1789470396; cv=none; b=XL9OsrsKnpVmBA1sGUAnk5tf94cKEI8CZYZ/VinGMhgL2QvBcmLYZo24mGypnfOipJqb2OiIUoc/JR65OKxg/Xyt50ElqWb7K0qILR3D4QIXSXAlZmruC7R3XDsXBo+n0pZ97Hb597Ms+MwbQzWfoOg02KVP4nE3qBJUpATqJhA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468925; c=relaxed/simple;
-	bh=PjiVsf5uMkbDp66AlJHnffbUEZZ1EH/IIrYenWWjkEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hnKcCGBWM4gqMFK2bJRwzeE54t5mVgtS8oiXp9xaNccg4Qv860Ddg7ryvM0YcDdGYtGswgrwqIbj9eil0nL00SU00QHNC6pRRqhHnw2nibi+g+TvqTFx1t5ySIZGMpx2H0CwqJbLzNgEby1JYC33btc7RTcKcj+3OSVqcBTu5nI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IiYok/zJ; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789470396; c=relaxed/simple;
+	bh=V13g0+Uke6D4CA3CcJ2M/uZwFY+U6Dxry5wlbo/vs48=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=aheKtz5mGSOhiPFVF9ku4vRVk6abyiIG/LXB0BQi3/jtAh2l71KAPqeAHwFfcyiRQLsLbSxiFoydYTI5AtgAJ4EQkhVlhzwvBF6ZcJa4QxMgXgFWQk7hVregdNQp6f6g7Lg8qLaCnentGjCm4Cn00iy1ycpD6ytP8FFPaDE2EcA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hnRqQJ3l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IiYok/zJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789468922;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=hQizjq4Fv6xotoUqHmRQLNrfXJfgBpEXbkCd1IuA4Bk=;
-	b=IiYok/zJafNmYmKNOHxq4MMZ5E643/NWz9j6OdFwtqnMohZG0yma74iesjULrq8lndl+JL
-	XNwMCE7qKDwkih0yb0AXTLK4C6bl25DOJpOpxlccleDhEYX/FyK8QpoNk2+/csDobFSo5C
-	S5ZeD+IO0L1m8jwNBpe42PPsVPG+PRY=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-447-qM3KhJf6MTulpLWTFi-Gsw-1; Tue,
- 15 Sep 2026 06:41:59 -0400
-X-MC-Unique: qM3KhJf6MTulpLWTFi-Gsw-1
-X-Mimecast-MFC-AGG-ID: qM3KhJf6MTulpLWTFi-Gsw_1789468917
-Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A62D5192DD6E;
-	Tue, 15 Sep 2026 10:41:56 +0000 (UTC)
-Received: from gerbillo.redhat.com (unknown [10.44.48.83])
-	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E61BA1800446;
-	Tue, 15 Sep 2026 10:41:50 +0000 (UTC)
-From: Paolo Abeni <pabeni@redhat.com>
-To: mhun512@gmail.com
-Cc: qiang.zhao@nxp.com,
-	khc@pm.waw.pl,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	horms@kernel.org,
-	adiupina@astralinux.ru,
-	chleroy@kernel.org,
-	ae878000@gmail.com,
-	netdev@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net v3 3/4] net: wan: hdlc: close active devices before protocol detach
-Date: Tue, 15 Sep 2026 12:41:44 +0200
-Message-ID: <20260915104144.122643-1-pabeni@redhat.com>
-In-Reply-To: <f5f0519e82a7b8bbf314dc137470f7cf931e320b.1788128904.git.mhun512@gmail.com>
-References: <f5f0519e82a7b8bbf314dc137470f7cf931e320b.1788128904.git.mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hnRqQJ3l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1E4F1F000FF;
+	Tue, 15 Sep 2026 11:06:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789470394;
+	bh=Uvb5cxcO7eMkL843RdmqZjWRFbWi3Vw/jEhdtXm7mm8=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=hnRqQJ3luuJg20LS6BMVWqJJWDatC0RXOD49BI9u66fBvGejUqzjolS8YbWqtz14h
+	 ipvSB6KppLhnJsNNizkHBukfRwj1G3ZuRAsdy/pst6Nms7/tuDiS7bIsirFzsZqOyl
+	 VXwW1eWggV/yFn8t0GjNyAjZ2PQeFTyihgSSXw9vBivV9dCjTTmvzQW8s38h//niFN
+	 S36N5GHkD/0xV0LhB0k+MTZc6REumaGK0RVYFz08muHkThXgp5bfiM7yJb8Ep4lYh2
+	 TTxu47FeoOT2BerbisF1euvDg2QRhWe9C6/qUMavkw/byJBK76aBB6ROhf3jNAUHJo
+	 h6O9mjEKCyFyg==
+Message-ID: <7b6dd295-602c-488c-a3c0-b0fefc5c2cd2@kernel.org>
+Date: Tue, 15 Sep 2026 13:06:27 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: i2c: ov2735: fix power cleanup on remove
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
+ Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
+ Sakari Ailus <sakari.ailus@linux.intel.com>,
+ Mauro Carvalho Chehab <mchehab@kernel.org>,
+ Hans Verkuil <hverkuil+cisco@kernel.org>, linux-media@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260915085031.2331315-1-lgs201920130244@gmail.com>
+From: Krzysztof Kozlowski <krzk@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ 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
+In-Reply-To: <20260915085031.2331315-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/
----
-net: wan: hdlc: close active devices before protocol detach
+On 15/09/2026 10:50, Guangshuo Li wrote:
+> ov2735_probe() explicitly powers on the sensor before enabling runtime
+> PM. The probe failure paths call ov2735_power_off(), but the remove path
+> does not perform the corresponding power-off operation.
+> 
+> The managed runtime PM helpers only clean up the runtime PM state.
+> devm_pm_runtime_set_active_enabled() disables runtime PM and restores
+> the suspended state during device resource release, while
+> devm_pm_runtime_get_noresume() drops the runtime PM usage reference.
+> Neither helper invokes ov2735_power_off().
 
-This adds a dev_close() call to unregister_hdlc_device() so that an up
-HDLC device runs its ndo_stop and protocol close callbacks before
-detach_hdlc_protocol() clears IFF_UP via hdlc_setup_dev(). The
-detach-before-unregister order introduced by ff3516442768 is kept.
+AGAIN, you send patch by one, instead of grouping them in a patchset.
+I already asked you to stop this and fix your workflow.
 
-Link: https://lore.kernel.org/r/20260806020541.2011936-2-kuba@kernel.org
+Please read submitting patches document.
 
-> diff --git a/drivers/net/wan/hdlc.c b/drivers/net/wan/hdlc.c
-> index cbed10b1d862e..a38f90d3006ed 100644
-> --- a/drivers/net/wan/hdlc.c
-> +++ b/drivers/net/wan/hdlc.c
-> @@ -263,6 +263,7 @@ EXPORT_SYMBOL(alloc_hdlcdev);
->  void unregister_hdlc_device(struct net_device *dev)
->  {
->  	rtnl_lock();
-> +	dev_close(dev);
-
-[Severity: High]
-This isn't a bug introduced by this patch, but the new dev_close() makes
-the remove path call into ixp4xx_hss's ndo_stop, and hss_hdlc_close()
-sleeps inside a spin_lock_irqsave() section:
-
-drivers/net/wan/ixp4xx_hss.c:hss_hdlc_close() {
-	spin_lock_irqsave(&npe_lock, flags);
-	ports_open--;
-	qmgr_disable_irq(port->rxq);
-	netif_stop_queue(dev);
-	napi_disable(&port->napi);
-	...
-	free_irq(...);
-	spin_unlock_irqrestore(&npe_lock, flags);
-}
-
-napi_disable() reaches napi_disable_locked(), which begins with
-might_sleep() and loops on usleep_range(20, 200); free_irq() also calls
-might_sleep() and takes desc->request_mutex.
-
-Can that produce a "sleeping function called from invalid context" splat
-here, and if the scheduler is actually entered, can the CPU leave npe_lock
-held while hss_hdlc_dcd_irq() -> hss_hdlc_set_carrier() spins on the same
-lock?
-
-The same path is already reachable via "ip link set hss0 down", but the
-commit message lists ixp4xx_hss among the audited-safe users:
-
-    Audit all current users: c101, n2, pc300too, pci200syn, wanxl,
-    ixp4xx_hss, fsl_qmc_hdlc and farsync unregister before releasing the
-    resources used by their close callbacks.
-
-Should the audit note this, given the remove path now runs
-hss_hdlc_close() where it previously did not?
-
->  	detach_hdlc_protocol(dev);
-
-[Severity: High]
-Does dev_close() close the window this relies on for the RX path?
-
-detach_hdlc_protocol() sets hdlc->proto = NULL and kfree()s hdlc->state
-while the netdev is still registered, so hdlc_rcv() can still be reached
-from NET_RX softirq for frames already queued on a per-CPU
-input_pkt_queue:
-
-drivers/net/wan/hdlc.c:hdlc_rcv() {
-	...
-	BUG_ON(!hdlc->proto->netif_rx);
-	return hdlc->proto->netif_rx(skb);
-}
-
-The only barrier that drops backlogged skbs for the device runs later,
-inside unregister_netdevice():
-
-net/core/dev.c:unregister_netdevice_many_notify() {
-	...
-	flush_all_backlogs();
-
-	synchronize_net();
-	...
-}
-
-__dev_close_many() does not touch the RX backlog, so a frame handed to
-netif_rx() before ndo_stop and still sitting in another CPU's queue can
-reach hdlc_rcv() after hdlc->proto became NULL. The
-"if (!(dev->priv_flags & IFF_WAN_HDLC))" test in hdlc_rcv() does not
-filter it out, since hdlc_setup_dev() re-sets priv_flags to
-IFF_WAN_HDLC.
-
-Can that hit the BUG_ON above, or use the freed hdlc->state inside
-fr_rx()/cisco_rx()/ppp_rx() if proto was already read?
-
-[Severity: Medium]
-This is a pre-existing issue and not introduced by this patch, but the
-return value of detach_hdlc_protocol() is dropped while
-unregister_netdevice() runs unconditionally.
-
-detach_hdlc_protocol() returns early when a NETDEV_PRE_TYPE_CHANGE
-notifier refuses the type change, skipping both release points:
-
-drivers/net/wan/hdlc.c:detach_hdlc_protocol() {
-	...
-		if (err) {
-			netdev_err(dev, "Refused to change device type\n");
-			return err;
-		}
-	...
-		module_put(hdlc->proto->module);
-	...
-	kfree(hdlc->state);
-	...
-}
-
-The refusal is reachable: hdlc_raw_eth's raw_eth_ioctl() calls
-ether_setup(), so dev->type becomes ARPHRD_ETHER and a VLAN can be
-stacked on it, after which
-
-net/8021q/vlan.c:vlan_device_event() {
-	case NETDEV_PRE_TYPE_CHANGE:
-		/* Forbid underlaying device to change its type. */
-		if (vlan_uses_dev(dev))
-			return NOTIFY_BAD;
-}
-
-returns NOTIFY_BAD. lapbether_device_event() refuses the same way.
-
-Does this leak the kmalloc'ed hdlc->state and the hdlc_raw_eth module
-reference, given every caller then calls free_netdev() and loses the only
-pointer to that state?
-
->  	unregister_netdevice(dev);
->  	rtnl_unlock();
--- 
-This is an AI-generated review.
-
+Best regards,
+Krzysztof
