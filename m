@@ -1,60 +1,43 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from out30-97.freemail.mail.aliyun.com (out30-97.freemail.mail.aliyun.com [115.124.30.97])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C02837649D
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:13:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16F93E3C53;
+	Tue, 15 Sep 2026 15:14:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.97
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789485219; cv=none; b=llHTQD5/KyywPXXee5Ru9P14jMUUsIotQ4dD4FmOh9Nutp/ifp+j7Qd9K4dvzd+04WY2YyLSOAXIJjFIOMwSO78Bs4eKrpkdF9Wf3KXEyjzoQZYkHrscDuuk/2vxSWskAzRekvwb+udRPubMccG/A+JplQzcqcPd2Jv9D4j4XTU=
+	t=1789485247; cv=none; b=r64R6Y6Nl2kYHmZ/krbmfn4CeD3AqpMX55jUS3TPTrwWw+xaLqn9Ze9ypPz+STdJRvgrYD/GOrDOA+3Wtuz2DPYCmkNgp+8pZrhRT2dgoIoSKyZi6fN8KtTTff+vTga0iAgirtJ9dHtnpY+YYLXtqvkLPTEX4Tex2v/AIm/j/jU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789485219; c=relaxed/simple;
-	bh=w/u0UQqr96ksP7+IOvfVgzfyz1BCqZGCs0myHyR3JIo=;
+	s=arc-20240116; t=1789485247; c=relaxed/simple;
+	bh=Vq7DJ6VGCA/n8dT3LDyD6vG78Mde7Hkg1JRXE/US32U=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gJ6+EyvPOwkzImFs5aNrj0e/wUiMhiq0IaCV0+w6M4rkAGe+JDr6KyHjYshVDiFOx/9uGxQgNmd/JO6g441KCXj2fiEIqvCtNtMusxQnVyRSDDsH7B9/zGRLE93etC2rJgIy23W81L0Yp2s2SLyMEK2eb2zC9o28d4cClUYakhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WPZhyR6j; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=lSkJQzX4Mq1W1mKJeqS8BSK+HaVFVU56QYEHN4gKUOzn2LNczfpWimcxJCwkKs21aRrqLJDwcxsRj2MZyA/dizqimJ4Kv2U8YomA4S86hGmxKIQ4/MQ6yVoHghUOZPEa6HxfHcO2OAb2B8uH5vxPOVGoJ0iEcB/GREYFCx2X0e0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=Nxm02UYr; arc=none smtp.client-ip=115.124.30.97
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WPZhyR6j"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789485217;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=U2PJAn/L7ZQjvu205LAClwiudMULOGyRoDYDF+juhzk=;
-	b=WPZhyR6jc+JBs1yWu9HAKje4PWBe5lGN3Cv5K+MPduNvh0TqbNB3ukGfUmOwyWdElLN3xW
-	sofuim/NfWIrDO6OPGN3KpgqG2guUxHUje22opgAWNmWjco3810qI1knfPHOM9enHL7wtZ
-	Tzu8Wgn2OR9ufjbsrSrBvA3YXdSwTiQ=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-412-exUphlHtMCWEYxi51V94Vw-1; Tue,
- 15 Sep 2026 11:13:32 -0400
-X-MC-Unique: exUphlHtMCWEYxi51V94Vw-1
-X-Mimecast-MFC-AGG-ID: exUphlHtMCWEYxi51V94Vw_1789485210
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 0BAB7185FCDD;
-	Tue, 15 Sep 2026 15:13:30 +0000 (UTC)
-Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 81D7A3004188;
-	Tue, 15 Sep 2026 15:13:26 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Tue, 15 Sep 2026 17:13:29 +0200 (CEST)
-Date: Tue, 15 Sep 2026 17:13:25 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
-	io-uring@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 3/6] coredump: hold RCU while releasing parked threads
-Message-ID: <aqlglWwVeh4rwL0q@redhat.com>
-References: <20260915-work-coredump-fixes-v1-0-f354ca41780c@kernel.org>
- <20260915-work-coredump-fixes-v1-3-f354ca41780c@kernel.org>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="Nxm02UYr"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789485239; h=Date:From:To:Subject:Message-ID:MIME-Version:Content-Type;
+	bh=9kholIoURhJxPvvf2Bgb1Hw65r9rF5ZS2z73QbfwEac=;
+	b=Nxm02UYrICjgnmitLGKNFu68bLKVzGxFZcNlr4NBKVQnntqN50Kpp+ngdkW8UwYLRMLUtHW98I7Z/2+wLDkZgybTXZuRb/DSEITQu+O117/vMjlHqwjdEHE84OEHvI8nHh0QjIhNnujogIzu2qeHZWabo761PSv0aqJuFu2zbYo=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033037033178;MF=dust.li@linux.alibaba.com;NM=1;PH=DS;RN=17;SR=0;TI=SMTPD_---0XB21F99_1789485238;
+Received: from localhost(mailfrom:dust.li@linux.alibaba.com fp:SMTPD_---0XB21F99_1789485238 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 15 Sep 2026 23:13:58 +0800
+Date: Tue, 15 Sep 2026 23:13:57 +0800
+From: Dust Li <dust.li@linux.alibaba.com>
+To: Mahanta Jambigi <mjambigi@linux.ibm.com>, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, alibuda@linux.alibaba.com, sidraya@linux.ibm.com
+Cc: pasic@linux.ibm.com, horms@kernel.org, tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com, hidayath@linux.ibm.com,
+	stable@vger.kernel.org, netdev@vger.kernel.org,
+	linux-s390@vger.kernel.org, linux-rdma@vger.kernel.org
+Subject: Re: [PATCH net v4] net/smc: fix lgr/lnk lifetime vs diag reader race
+Message-ID: <aqlgtaEk3kNcg-Yp@linux.alibaba.com>
+Reply-To: dust.li@linux.alibaba.com
+References: <20260911090906.1949163-1-mjambigi@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -63,43 +46,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915-work-coredump-fixes-v1-3-f354ca41780c@kernel.org>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+In-Reply-To: <20260911090906.1949163-1-mjambigi@linux.ibm.com>
 
-On 09/15, Christian Brauner wrote:
+On 2026-09-11 11:09:06, Mahanta Jambigi wrote:
+>The diag dump walks the socket hash table under a read_lock and dereferences
+>conn->lgr and conn->lnk.  Two terminal teardown paths drop those references via
+>smc_conn_free() while the socket is still hashed:
 >
-> When coredump_finish() releases the threads the wakeup neither holds a
-> reference on the task nor is it inside rcu.
+>  - smc_conn_kill() -> smc_close_active_abort() -> smc_conn_free()
+>  - smc_close_passive_work() -> smc_conn_free()
 >
-> The threads don't necessarily need a wakeup to exit. If it gets
-> preempted or was woken for other reasons it sees ->task cleared and
-> exits. So only rcu keeps such a task_struct alive.
+>This allows the diag reader to dereference a freed lgr or lnk.
 >
-> If the coredump client is preempted between the store and
-> wake_up_process() for longer then try_to_wake_up() takes pi_lock() in
-> freed memory.
+>Fix it by unhashing the socket before smc_conn_free() is called at each of these
+>two sites.  Any socket visible to the diag reader under the hash read_lock then
+>has valid conn->lgr and conn->lnk pointers.
 >
-> Hold the rcu across the loop.
->
-> Fixes: a94e2d408eae ("coredump: kill mm->core_done")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+>Fixes: f16a7dd5cf27 ("smc: netlink interface for SMC sockets")
+>Fixes: 9dbe086c69b8 ("net/smc: fix invalid link access in dumping SMC-R connections")
+>Signed-off-by: Mahanta Jambigi <mjambigi@linux.ibm.com>
+>---
+>Changes in v4:
+>- dropped smc_conn_unhash() wrapper, conn->unhashed flag, and all
+>  changes to af_smc.c, smc.h, smc_core.c and smc_core.h; smc_unhash_sk()
+>  is already idempotent via sk_hashed(), so direct calls at the two
+>  teardown sites in smc_close.c are sufficient
+>- dropped the __smc_release() hunk: it needs no change since the
+>  subsequent unhash there is already a safe no-op
+>- fixed premature-unhash issue present in v3: smc_conn_free() must not
+>  unhash because smc_conn_abort() calls it before smc_switch_to_fallback()
+>  in both smc_listen_decline() and smc_connect_rdma() error paths;
+>  unhashing there would make live fallback sockets invisible to smcss
+>- likewise, the ISM/RDMA retry loops (smc_find_ism_v2_device_serv(),
+>  smc_find_rdma_v2_device_serv()) call smc_conn_abort() on a failed
+>  attempt and then smc_conn_create() on the next device; unhashing in
+>  smc_conn_free() would permanently hide the established connection from
+>  smc_diag since smc_conn_create() does not re-hash the socket
 
-Aah, thanks...
+Hi Mahanta,
 
-Acked-by: Oleg Nesterov <oleg@redhat.com>
+This version looks clean. And you explained why we can't call unhash in
+smc_conn_abort() well. But smc_conn_abort() still calls smc_conn_free(),
+when the smc_sk is still hashed, is there still a race window with dump ?
 
-
-But to be honest the changelog looks a bit confusing to me...
-
-	curr->task = NULL;
-	wake_up_process(task);
-
-So wake_up_process(task) is not safe, task can exit after a spurious
-wakeup if it sees ->task == NULL.
-
-And perhaps a short comment above "curr->task = NULL;" makes sense?
-The reason for guard(rcu) is not obvious at all.
-
-Oleg.
+Best regards,
+Dust
 
