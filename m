@@ -1,108 +1,152 @@
-Received: from szxga01-in.huawei.com (szxga01-in.huawei.com [45.249.212.187])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 225CF34027B
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 03:36:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.249.212.187
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 967F32E6CA6;
+	Tue, 15 Sep 2026 03:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789443368; cv=none; b=lH9CjFhCMKVLfY3CpIz+tYEHFQ2cqQr4AkYA7nUqdhfqnhzquQU8Frdaax4zadKb3QyOoc8a19reiGyrdyN4xo8yNRNpyJXOvejq94280/8WyDPrsYV7EZpdzfOM97oI8kCdhQom5Xg6QPJqopyCA3Hbm8SYoV1ecvsA0DZxmBA=
+	t=1789443569; cv=none; b=V07TaDMgTL9CXXdW/xnZme0SIhQ4l20S2gSkFZNlTlswRkiSOHIZp/69wAtirxA7ve6Gy5Bx8qKcIc+vPlVJRokGIrJ0WRFXWyv6DoM5UOPr6hLzjD4NOS2/MFKFw+vUpHUTTF1Wcj9Sny22JdnkJhQTCkuvW6f9eBweZD7Yxn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789443368; c=relaxed/simple;
-	bh=o5Peldxcu+TpkfyFny8QiSsqRNWT4bQlIsYkv/SpECM=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=tUXpA/zyK0RuspCIJKDGCt994L/0cce0oVkCZyTglat0DIuJoeejVGYsXUOBxazIiOkPLNQJU/lPCKXrtJGPP8ls930eYs7VHpap0cY+D2s+u76obVO611OXQotyoldEukz9r7fx8DonjdLFnc6RJd7+cgXB5k4QUY/+xURbxFk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=xTiHF7vm; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=xTiHF7vm; arc=none smtp.client-ip=45.249.212.187
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789443569; c=relaxed/simple;
+	bh=ksNqJqY+HI9rtCVP3xRhanSbEy2ZA051zgWZvnUpPTo=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=i+K3q+enzIBNOxXvGFOj7K1du8ksK73rPfcY3sRA5G4YWooLD/CGF1EWnE5LV31EV4TpxBuf7KpOling+pBThYv/l5Cdd8yrxe9FgvzP9USHAqwlQwb0SbcT7JfH2YJvAoJvuxybPYTATaOzTJ4/LOwBfSCdxIXnrwjlz44Of5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=TUmRXjMR; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="xTiHF7vm";
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="xTiHF7vm"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7NTM2zmOCGtafXQP+f8KiANnjbAkowGc6QwTs++MkL4=;
-	b=xTiHF7vmWimFekKKNOP8ZtFrf3rDf700+FBfewZOqJ9uVvrY4s5TE6c+XceL1BEmL55tB/PnC
-	QV0mNV7sB4Z9F03tAClbi8Jw43BRuWjF5tC3koagbR36Fc562RKAn7oxEKo7f2FnqXxnRkbF+br
-	d2QF/9Om+OmoZIkzwu77xLA=
-Received: from canpmsgout07.his.huawei.com (unknown [172.19.92.160])
-	by szxga01-in.huawei.com (SkyGuard) with ESMTPS id 4hkSM43H7Hz1BG2b
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:34:56 +0800 (CST)
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=7NTM2zmOCGtafXQP+f8KiANnjbAkowGc6QwTs++MkL4=;
-	b=xTiHF7vmWimFekKKNOP8ZtFrf3rDf700+FBfewZOqJ9uVvrY4s5TE6c+XceL1BEmL55tB/PnC
-	QV0mNV7sB4Z9F03tAClbi8Jw43BRuWjF5tC3koagbR36Fc562RKAn7oxEKo7f2FnqXxnRkbF+br
-	d2QF/9Om+OmoZIkzwu77xLA=
-Received: from mail.maildlp.com (unknown [172.19.163.163])
-	by canpmsgout07.his.huawei.com (SkyGuard) with ESMTPS id 4hkS7K1Vh2zLlSh;
-	Tue, 15 Sep 2026 11:24:45 +0800 (CST)
-Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
-	by mail.maildlp.com (Postfix) with ESMTPS id 1A6FB4048B;
-	Tue, 15 Sep 2026 11:35:43 +0800 (CST)
-Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
- kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Tue, 15 Sep 2026 11:35:42 +0800
-From: Xie Yuanbin <xieyuanbin1@huawei.com>
-To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>, <linusw@kernel.org>,
-	<rmk+kernel@armlinux.org.uk>
-CC: <bigeasy@linutronix.de>, <lisongze2@huawei.com>, <ljs@kernel.org>,
-	<patches@lists.linux.dev>, <stable@vger.kernel.org>, <wangbing6@huawei.com>,
-	<xieyuanbin1@huawei.com>, <xiqi2@huawei.com>
-Subject: Re: [PATCH 5.10 613/798] ARM: 9485/1: mm: acquire mmap write lock around show_pte() for user faults
-Date: Tue, 15 Sep 2026 11:35:19 +0800
-Message-ID: <20260915033519.16922-1-xieyuanbin1@huawei.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <daily-reply-0010-re-arm-user-fault-irq-enable@kernel.org>
-References: <daily-reply-0010-re-arm-user-fault-irq-enable@kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="TUmRXjMR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=AR+a6NnnWTjFz9AMsycnfyj4oHN9dzhv3lnEPgJyEY8=;
+	b=TUmRXjMRsA848RuHwc/2jXcH2ViqcsoESEbBypkyKuBJIy/knWb90wkNA3oo8Z
+	6s/AwCpDV5c6SY7Ps8hrYeQjjJwoCej9d0ztnjCz8u4e0WMcZ8G1jtGDGHvfDCBU
+	cEMc44YRQ6K0QTA/awWK2VETT3nvM/RWa/o3LlENDaXjc=
+Received: from [IPV6:2409:8900:1e93:14fb:93e6:4816:3b13:f1ac] (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnD7jLvahqLHQEAw--.54802S2;
+	Tue, 15 Sep 2026 11:38:53 +0800 (CST)
+Message-ID: <c1c96d2a-2b0f-41fc-a40f-b2cc8748630a@163.com>
+Date: Tue, 15 Sep 2026 11:38:51 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ntfs: mount hibernated volumes read-only regardless of
+ errors=
+To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
+ hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260915023820.621797-1-zenghongling@kylinos.cn>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260915023820.621797-1-zenghongling@kylinos.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems200001.china.huawei.com (7.221.188.67) To
- kwepemk300012.china.huawei.com (7.202.194.175)
+X-CM-TRANSID:_____wDnD7jLvahqLHQEAw--.54802S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxJFW7KFy7CFy3XF18trWDJwb_yoWrJF4xp3
+	srGF4Dtr18tr10k3Z7tay2qw1a93s2ka1UKry8Aw1xXa95tFn8GasIgr1F9rWfK3y3Wa1x
+	XF4jyrZxGrW7ZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UTKZAUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwQ1nMmqovc1xdgAA3s
 
-On Mon, 14 Sep 2026 22:03:26 -0400, Sasha Levin wrote:
->> This commit depends on commit e79ca91165d4fd18549c ("ARM: 9484/1: enable
->> interrupts when unhandled user faults are triggered"), otherwise,
->> mmap_write_lock() may trigger a might_sleep() WARNING.
->
-> Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks for flagging it.
->
-> Could you send a 5.15 and 5.10 version that places the enable after the
-> hardening call? The other option is to take fd2dee1c6e22 ("ARM: fix branch
-> predictor hardening") on those two first, after which it applies unmodified.
 
-I suggest that merging all these patches into the linux-5.10.y:
-1. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
-2. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
-3. commit 59e4f3b45b96a24fc9b7 ("ARM: ensure interrupts are enabled in
-   __do_user_fault()")
-4. commit e79ca91165d4fd18549c ("ARM: 9484/1: enable interrupts when
-   unhandled user faults are triggered")
-5. commit 1039bffd6ae9c75b42b7 ("ARM: 9485/1: mm: acquire mmap write lock
-   around show_pte() for user faults"): this patch is already merged.
-I tried, and the patches can be applied with very simple adaptation.
 
-In the upstream version, the following patches are a patch set:
-a. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
-   is_translation_fault()")
-b. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to report
-   execution of memory faults")
-c. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault"):
-   which is 1.
-d. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening"):
-   which is 2.
-The fixed issues by this patch set also exist in linux-5.10,
-but a. and b. do not need to be backported.
+在 2026/9/15 10:38, Hongling Zeng 写道:
+> The hibernation check in load_system_files() only converts the
+> superblock to read-only under errors=remount-ro.  With the default
+> errors=continue (and with errors=panic), a hibernated volume is
+> mounted read-write and the mount-time $LogFile emptying writes to it,
+> although a hibernated volume must not be written to at all.
+> 
+> Drop the on_errors term so that a hibernated volume, or a volume whose
+> hibernation state cannot be determined, always mounts read-only.
+> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+> remounts to read-write, and the $LogFile emptying is skipped by its
+> !sb_rdonly() check.
+> 
+> Also change the ntfs_error() calls inside
+> check_windows_hibernation_status() to ntfs_warning(): they run before
+> SB_RDONLY is set, so errors=panic could panic there, while the warnings
+> preserve diagnostics for already read-only mounts.  The read-only
+> fallback message is logged unconditionally: with SB_RDONLY set, or on
+> an already read-only mount, ntfs_error() cannot panic, and the reason
+> for NVolErrors() stays visible.
+> 
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 
-After the preceding patch set is merged, 3., 4. and 5. can be safely
-patched.
+Hi Hongling,
+The patch looks good to me. One suggestion: please add the following 
+Fixes tag:
+Fixes: 6251f0b0de7d ("ntfs: update super block operations")
 
-Cc to Russell King:
-Cc: Russell King <rmk+kernel@armlinux.org.uk>
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+
+> 
+> ---
+> Changes in v3:
+>   -Use ntfs_warning() for the hibernation diagnostics so that
+>    errors=panic cannot fire on this path.
+>   -Always log the read-only fallback message, including on already
+>    read-only mounts.
+> ---
+>   fs/ntfs/super.c | 19 ++++++++++++-------
+>   1 file changed, 12 insertions(+), 7 deletions(-)
+> 
+> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+> index f4a73e45773d..d1edf1a891e8 100644
+> --- a/fs/ntfs/super.c
+> +++ b/fs/ntfs/super.c
+> @@ -1169,7 +1169,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
+>   			return 0;
+>   		}
+>   		/* A real error occurred. */
+> -		ntfs_error(vol->sb, "Failed to find inode number for hiberfil.sys.");
+> +		ntfs_warning(vol->sb, "Failed to find inode number for hiberfil.sys.");
+>   		return ret;
+>   	}
+>   	/* Get the inode. */
+> @@ -1177,7 +1177,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
+>   	if (IS_ERR(vi)) {
+>   		if (!IS_ERR(vi))
+>   			iput(vi);
+> -		ntfs_error(vol->sb, "Failed to load hiberfil.sys.");
+> +		ntfs_warning(vol->sb, "Failed to load hiberfil.sys.");
+>   		return IS_ERR(vi) ? PTR_ERR(vi) : -EIO;
+>   	}
+>   	if (unlikely(i_size_read(vi) < NTFS_HIBERFIL_HEADER_SIZE)) {
+> @@ -1188,7 +1188,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
+>   
+>   	folio = read_mapping_folio(vi->i_mapping, 0, NULL);
+>   	if (IS_ERR(folio)) {
+> -		ntfs_error(vol->sb, "Failed to read from hiberfil.sys.");
+> +		ntfs_warning(vol->sb, "Failed to read from hiberfil.sys.");
+>   		ret = PTR_ERR(folio);
+>   		goto iput_out;
+>   	}
+> @@ -1581,11 +1581,16 @@ static bool load_system_files(struct ntfs_volume *vol)
+>   		const char *es1;
+>   
+>   		es1 = err < 0 ? es1a : es1b;
+> -		/* If a read-write mount, convert it to a read-only mount. */
+> -		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+> +		/*
+> +		 * A Windows hibernation image is not a filesystem error, so
+> +		 * this is a safety interlock rather than something the
+> +		 * errors= policy may downgrade: always convert a read-write
+> +		 * mount to read-only.
+> +		 */
+> +		if (!sb_rdonly(sb))
+>   			sb->s_flags |= SB_RDONLY;
+> -			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+> -		}
+> +
+> +		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+>   		NVolSetErrors(vol);
+>   	}
+>   
+
