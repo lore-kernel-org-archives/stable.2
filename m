@@ -1,124 +1,167 @@
-Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBD3A33936A
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:05:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60D6D35A93C;
+	Tue, 15 Sep 2026 14:07:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481127; cv=none; b=ACx+HRKEoYa5OyflcGrXavzaHQGUX4d1Bco+6+RihE2R3rS1u5NEHrVRpUlUrijJtmUuK9y7cM9cZB/VsZx4Fx2QxmhJEIsVun7gygpfbYtgji4QS69TEVJAuXEEFk4O6VpiTu5buqzF+pUa82+TGy/qc/bcKtdcMjVZZPhjgtk=
+	t=1789481230; cv=none; b=IwsS1mCHPS86dbrhX2VSSORXUfVQrJfpSvWT+5lsuSY9xwdy5vAcN1TL69fr1ydJpQe8a/70AMKWcd1a1508QhXiWaDQyQUpsbmV+40VMMxlxkWDt87mKHEnx1MxwZ6ky/bsM/tM7xDHaWbJNzehePZ4OYNUBv0kfQeqUXs6T/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481127; c=relaxed/simple;
-	bh=l1MSFdroio9w5UUZCK7+2//D7579OK4nRstZyOaDeE8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=RjUk1KG78bE9QKIyUUdM98PdPUkQMZjUnMEz5ALM7zycngS+SjDT/YtVTo8Op2CteQZeO5TgmlNGZ4M0AjfWEflAbUne7IepvJb9j4FoCUm4ywpjIMEhGaF95jaLSUY3eFvBroGQ1f14jriOb08UlYJIkOQr7z3kJeQCI6u6nKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=efANzoMp; arc=none smtp.client-ip=74.125.231.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789481230; c=relaxed/simple;
+	bh=I40wY3GFOz1DkySg9G045B+2Ds/eVZ5D5aNVa2uapnM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=ThQidw8+RIkDq8/B5XHRgM9d0v+zu8gKSUmu12VGO0VOz5AcCggVELRS3Yj9ldkY/EiFzHtI0mRoWbMsGhB5FGeJtJ5HcUwf+/6/UYwgMzooP6XotS8CjMh0FgnqKoKR/A0wMYw3hTKguFGC6946VkFpCOOqoFu80kFY6VJom8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lFbPpyUd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="efANzoMp"
-Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-47bc923fe6aso269013fac.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:05:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789481124; x=1790085924; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4/dvc0f8jIgO60uW57rTwjvHY9CDCgJCM89WrVhajN4=;
-        b=efANzoMpspjN+nI7BjiTg8E5Ixhw/qAu3h8y6dh64dS3y4VzNCEv/5meX8p5YZF3DX
-         AuxJWZbOSeavGPqGH6kuJnXVpmxes79+PM+9Ufz9t0cAn9/PIeG4pJmiPHb6iiJPDz8Y
-         JlkdQH1er8EGAtoUKNyNyse3679/0R8FR2JX+6IMK8rn4JHZ4LPLhSwUvB2MztDa/uW5
-         NmPvkDZVXazApkjhMPC9aIW7uI5xWwfrj7ydtlGJ5ZKFfVlm2+UOALBrXKIamTH7pKSU
-         9i5vB0njf4YXM6NydtEZneyO7a8vYo26WLQMoF4a81cl2BBhW+1B96RQwSAkBpYxQr4g
-         QEFA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789481124; x=1790085924;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4/dvc0f8jIgO60uW57rTwjvHY9CDCgJCM89WrVhajN4=;
-        b=O9+9crlow1sKgAMwAaVFgfg1tSCyuZzbl0mmvV/Z5iscoA5w9WaGzdP4JhmDVDNsQF
-         ANTKU2HpC+2iFwlvcBlJZwBcX/FVGWy/RGEkHic6gJJ8bKGffxzUxtFRNbeo7wbfjGi0
-         GksjsCVgciAqFUv89d0msqnPRJWw3YmJM36cmUKlp8lFKGb4C6BxKlJTaNUWoornuRMh
-         CPOESBaq+MO4SMvv9qX3lC7PgDQoioChIR8JzuFILkvx4ex/gMyecnTxhSNsdSKyMO8v
-         o+VyMAa8HIwd1XYFLFE8vnN3yfls19Jbgy+AFqZSErW+tPiDGLhrYcte4K1Hjzb1EFQh
-         lWUQ==
-X-Forwarded-Encrypted: i=1; AKwUvBznWfGo4tWnWDhV1gsq290Np90P1l9tLz2lqg/dBq/94RDX8R7RKPLCHWAHMa+LWpRKX1xZCLI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nfZmcS6yMB5cP6SRDSnyNw0zkyKUqUD1DrmWxT79mL+JnYGAv4
-	tUqSoViL08jUN+8/fEQaVmMYCS5Gjuf2Eme2D46woeagn941EVwpJHVk
-X-Gm-Gg: AYBFou3hliiCKdZy+xA/jKQphoVtgh2HzCzGM84zwJnsY/+V8rxn+BkPvPqTKKL99iT
-	2ULltf+nH5gVTqAiIDBuOl5aBll8/UBWAQVUO2UGNgUTcLmKKSa7q+B+yow21wJA0pM4o5Ix7ZL
-	z5n2K45B2bU9ipCpyTSMQIk0mWQKciGT5mQSummKTEpLn9e6EiEDFBOOBwT46w55/1MPUko68y+
-	xHWfiRjZsO4fII1iFkFQlfBbttNEmM5TeiKVn5D5vxVjhm3nrdcf8X4mdodlyACCUmBPd0YPg9U
-	SQ08n7R+khy03NxAN5pCc0gg8iQMEtg3JxMBgsKph+oGiI9UONx5VcSr7MAz1LMlaOx1GjJfOm9
-	68gBdTW4VFLbOmDokLn+3D49A3dr08TdjO72hXb7KfI97ckaKS3wdkBSZR0KkEEECj4OeuX9Sa7
-	iDvEWw47m2AW9jcI2Esfdt3eNzdoEtZOghQjJEJQvMGcO0SCST8iw8+w==
-X-Received: by 2002:a05:6820:8c7:b0:6b8:1306:8567 with SMTP id 006d021491bc7-6c739c76dc5mr719865eaf.57.1789481124343;
-        Tue, 15 Sep 2026 07:05:24 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc4c6036fd7sm7020010a12.0.2026.09.15.07.05.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:05:23 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Detlev Casanova <detlev.casanova@collabora.com>,
-	Ezequiel Garcia <ezequiel@vanguardiasur.com.ar>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Heiko Stuebner <heiko@sntech.de>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: rkvdec: do not destroy borrowed SRAM pool
-Date: Tue, 15 Sep 2026 22:05:11 +0800
-Message-ID: <20260915140511.2429792-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lFbPpyUd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57941F000FF;
+	Tue, 15 Sep 2026 14:07:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789481229;
+	bh=kUIpQJBe/rvVMC0HTZygXoU+NTwMte1oixn3by3XUZU=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=lFbPpyUdcQhmGTF0C6P0i5iY5PeU+ELUljyxDW14y0XQGql121J6r4k9Y5Jd20elU
+	 J1Eg7aUyMKeh/m1Qw0V1OFLmDmiOWTJBP954cVF7bYZzrRaROf9TaY+wfwOS6fLMjt
+	 o+VzobJfm4TYmQpOQuilz5SzjwpAnqtESvpBgAoLalDPjDAIKw5eFf9wGN+nymkRPw
+	 PfylP/pga28zsFOdyjUeqz05ErMc6DGRST1cmM7D6YQzq0Li9ZqxsgtrpgMN9UhOPw
+	 fX77MqAcagyGwmh+f8lTGJd6UU/7TczJtQ8sz1RDBBYyrHGtINZLMsXuKyCCVGmTgC
+	 ygNUh/fw1rKzg==
+Date: Tue, 15 Sep 2026 16:07:04 +0200
+From: Benjamin Tissoires <bentiss@kernel.org>
+To: markdamirkan@gmail.com
+Cc: Jiri Kosina <jikos@kernel.org>, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, bpf@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] HID: bpf: reject oversized device events before copying
+Message-ID: <aqlGkhF3ntBnhEM5@beelink>
+References: <20260913-b4-send-hid-bpf-event-bounds-v1-1-614fb56a0635@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260913-b4-send-hid-bpf-event-bounds-v1-1-614fb56a0635@gmail.com>
 
-rkvdec_probe() obtains a provider-owned SRAM pool with
-of_gen_pool_get(), but its error path incorrectly destroys the borrowed
-pool with gen_pool_destroy().
+Hi Mark,
 
-of_gen_pool_get() returns a pool managed by the SRAM provider. The pool
-is not created or owned by the rkvdec driver and is destroyed by the
-provider when its own managed resources are released.
+Couple of comments:
 
-Destroying it when rkvdec_v4l2_init() fails can invalidate the pool
-while the provider and other consumers still reference it, and can also
-result in the provider attempting to destroy it again later.
+On Sep 13 2026, Mark Amirkan via B4 Relay wrote:
+> From: Mark Amirkan <markdamirkan@gmail.com>
+> 
+> HID-BPF allocates its device-event buffer from the largest report in the
+> device's parsed report descriptor.  dispatch_hid_bpf_device_event() then
+> copies the transport-provided report into that buffer before checking its
+> size.
+> 
+> An input report larger than the allocated event buffer therefore causes
+> a heap out-of-bounds write when a device-event program is attached.  The
+> later check of the BPF program's return value cannot prevent the initial
+> copy.
+> 
+> Reject reports that exceed either the transport buffer or the persistent
+> HID-BPF event buffer before clearing or copying the data.
+> 
+> With a 64-byte event allocation, a same-file KUnit test produced a
+> one-byte KASAN out-of-bounds write for a 65-byte report in three runs.
+> The 64-byte boundary remained clean.  After this change, both cases were
+> clean in three runs and the oversized report returned -EINVAL.  The test
+> exercised the production dispatch function but not the complete UHID and
+> BPF attachment path.
 
-Remove the incorrect gen_pool_destroy() call from the probe failure
-path.
+As mentioned by the bpf bot: if you already have tests, why not upstream
+them? And even better: there are already selftests at
+tools/testing/selftests/hid/hid_bpf.c -> why not add some more here as
+well?
 
-This issue was found by manual code inspection.
+> 
+> Fixes: 658ee5a64fcf ("HID: bpf: allocate data memory for device_event BPF programs")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM Symbolic
+> Signed-off-by: Mark Amirkan <markdamirkan@gmail.com>
+> ---
+>  drivers/hid/bpf/hid_bpf_dispatch.c | 3 +++
+>  1 file changed, 3 insertions(+)
+> 
+> diff --git a/drivers/hid/bpf/hid_bpf_dispatch.c b/drivers/hid/bpf/hid_bpf_dispatch.c
+> index 536f6d01fd..06ba833eb9 100644
+> --- a/drivers/hid/bpf/hid_bpf_dispatch.c
+> +++ b/drivers/hid/bpf/hid_bpf_dispatch.c
+> @@ -50,6 +50,9 @@ dispatch_hid_bpf_device_event(struct hid_device *hdev, enum hid_report_type type
+>  	if (!hdev->bpf.device_data)
+>  		return data;
+>  
+> +	if (*size > *buf_size || *size > ctx_kern.ctx.allocated_size)
 
-Fixes: e5640dbb991c ("media: rkvdec: Add RCB and SRAM support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/platform/rockchip/rkvdec/rkvdec.c | 3 ---
- 1 file changed, 3 deletions(-)
+I had a hard time figuring out why `*size > *buf_size` wasn't there in
+the first place. You can call it overlooked, but:
+- when the call chain of dispatch_hid_bpf_device_event() contains
+	hid_input_report() -> *size == *buf_size
+- when the call chain contains hid_safe_input_report(), the bufsize and
+	size are forwarded from the lower transport drivers.
 
-diff --git a/drivers/media/platform/rockchip/rkvdec/rkvdec.c b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-index 061281f903f3..4541ef9ee3b9 100644
---- a/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-+++ b/drivers/media/platform/rockchip/rkvdec/rkvdec.c
-@@ -1857,9 +1857,6 @@ static int rkvdec_probe(struct platform_device *pdev)
- 	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	pm_runtime_disable(&pdev->dev);
- 
--	if (rkvdec->sram_pool)
--		gen_pool_destroy(rkvdec->sram_pool);
--
- 	return ret;
- }
- 
--- 
-2.43.0
+We only have 3 callers of hid_safe_input_report():
+- uhid.c -> min_t(size_t, ev->u.input.size, UHID_DATA_MAX) is present
+- i2c-hid-core.c -> size can'be greater than bufsize because it either
+	truncate the input report when I2C_HID_QUIRK_BAD_INPUT_SIZE is set or
+	plainly reject too long size
+- usbhid/hid-core.c -> we rely on usb to set the size and the transfer
+	buffer, so it should be OK
 
+Regarding `*size > ctx_kern.ctx.allocated_size`:
+- usbhid/i2c-hid: both are allocating their transfert buffer through the
+	exact same call to hid_report_len() and finding the biggest of all reports
+	-> so they are not affected
+- uhid: here we don't control really what's going on, because size is a
+	user provided parameter.
+
+All in all: the first test is IMO probably redundant. Maybe we can just
+add a comment in hid_safe_input_report() that the caller must ensure
+`size <= bufsize`.
+
+The second one matters only for the uhid case, so technically yes, we
+can demonstrate a malicious OOB with uhid (but you should already be
+root to create/controll a uhid device).
+
+> +		return ERR_PTR(-EINVAL);
+
+The whole point of hid-bpf is to fix bogus devices. So plainly returning
+-EINVAL means we don't even let the user the chance to fix the device.
+
+Later, hid_report_raw_event() has a similar check and when size is too
+big, it would also break the processing but at least give a warning in
+the dmesg.
+
+So, how about we conditionally memcpy the size to min(*size,
+allocated_size), and let the bpf change the size later on by itself ?
+This should allow a HID-BPF program to amend the provided size on a
+given device. This works because hid_bpf_get_data() doesn't know about
+.size, but only .allocated_size, so the kernel will prevent a BPF to
+access beyond the allocated_size.
+
+
+TL;DR: please,
+- make a decision regarding "*size > *buf_size"
+- change memcpy(size) into memcpy(min(size, allocated_size))
+- add tests in selftests
+
+Cheers,
+Benjamin
+
+> +
+>  	memset(ctx_kern.data, 0, hdev->bpf.allocated_data);
+>  	memcpy(ctx_kern.data, data, *size);
+>  
+> 
+> ---
+> base-commit: 9cdc7e6dc7a99ad7311ad5e7c145f2b9ce4e24b0
+> change-id: 20260913-b4-send-hid-bpf-event-bounds-4d0e8170ceb4
+> 
+> Best regards,
+> --  
+> Mark Amirkan <markdamirkan@gmail.com>
+> 
+> 
+> 
