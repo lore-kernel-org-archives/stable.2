@@ -1,153 +1,184 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288154A1DEF
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:49:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771B1374E42
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789483759; cv=none; b=QbLH+03AAhaOoWA38R6z7AYSH1Eq3RVsxbkCcwBFUknRAEoNzbbnCg8V7qol68oU0ySw9RXsAx3Cs61moIpTXpCUo1L9XkMBkAEgBNwn45/RL2I6wSA2INWd/BK6nuYlSo2hQnJuOzw6K5nGoY2HYDYXNAATKdTXXpUpenrdtuo=
+	t=1789483971; cv=none; b=lidXQ38hIE8nTi64z9wcvHjpvM44fFNGSksNTQgRL+CjxwMamCaWyeqLi3pUEBfZ6EjmfL0QzxHiBAFDr/AG1WHAyZXogZFzV38BvifhvVHEUIobTEURdIVWSJnAGxhnPoLtFQVHXO9a7II2aeWcPuQbzMhsGIaxsW0Wg7jS+sw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789483759; c=relaxed/simple;
-	bh=n6QVcrbQsKxEDcR1En1veCZJL63QddQckjX1cUBufHA=;
-	h=From:Date:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=FWp1r4Ci8vSTOc5797auGu+2/xmx93l0YAJf3krBxJsXANbjZkxO6hskinrOwQqBDfVvNT1WJhKUZ6IAHaVFGF08itWbwVRJJGygEwswPntjNi/dPm8pwpJ1r00qKEb9QItZDkLNDUGcaihVDiXbDz55J8Z9CpvZqlGP/XiZQRE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=D3ZuY9DV; arc=none smtp.client-ip=74.125.228.76
+	s=arc-20240116; t=1789483971; c=relaxed/simple;
+	bh=YhMG3fUk/XjIoLHujEEjCo8Xx/HTzgB3tQ6DnSl55zI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HjMq+wuTqBXGQW2KFfWue7gY3YoxfMU+fsJtOzbvnddLsoXZFINqDPgqDMsQaH/ahyuvHY5HmXEQMpniv9hNkpN6BZkTxz92KAb+1WS4B41m+Cw5vBzwXQZYINJ9/sjxSp9v4GE/2B7odNFBBWKTtsF1HiWx0F32idPZfqHxI4w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=MSIbLynl; arc=none smtp.client-ip=74.125.227.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="D3ZuY9DV"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99cd5115bso5632380a12.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:49:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="MSIbLynl"
+Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c7e8a176c1so1457694e0c.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:52:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789483756; x=1790088556; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=NtxVeAruzSzBSt8uXIvYAlTRCQtPNr3FqdWRr27iP+4=;
-        b=D3ZuY9DVzo9GAm3od7TUBoBgQHpH9z4zr7T4RZuVOAMNGp1+MQFVOLKyGSucaSSc4R
-         uVGic1c4jFrLyLw7q3ViGOeYPD5/BVGB5p7w2pmXGfmqgBdZrxVywQLTdp6Dt7g5XPQR
-         1bB9vSVkwSj48C78nYuvvnXfVchIHF2dIN22kyF1ZmStlxWY+Gj7wyAwsJ17K+ydk6fW
-         z/If5Rz4NbXxlzKqGrR108/jvZlhPQz1qQBT7vlEf5Ltf765qYYvGnM4OFQQNlEm2Gxg
-         M49PTzh5zaOcqDRzVYGj83wX3jKMRaCKohbMUgfLPMCASCGaE4UlRGD7ARWro+X5GYt3
-         x/mw==
+        d=gmail.com; s=20251104; t=1789483968; x=1790088768; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F87Nj6cbUlhN8QRz95TtuecHNAPdmCP6EjjN+M7wdxM=;
+        b=MSIbLynlHZ8B6MpNrb7NQ6YMUvpug/Afg25eeHj/I7tIl0u2A2YF6P03IwZIz9vkKy
+         5mdaHLXYsvZzkQ6SeKHbiQig+r2TSywFGB6Zy3nwqyeGrKndSxCjImmcc92bH/bRPpQb
+         HF4VDGWwGmFkuO46L+8I5uyTKhI3TkyyQurPuQn+NzThChPDkEwY0QpC+w6bB59mSk0n
+         Mfd5h/wD/kV8NipVGntbIy3tbkWgKsSf2KmZ2C/PMdXLLKQIK7XvI/ufyZv7rLSJ5wg0
+         JKfjGDSzl91+zO5WiExCBP6QIf+H+ceypuQ4yIrnyPkNzxhDziDTMiesQUH1UtgaZy/N
+         sZ/Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789483756; x=1790088556;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:date:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=NtxVeAruzSzBSt8uXIvYAlTRCQtPNr3FqdWRr27iP+4=;
-        b=23fIQ7sS/fK2zpchlKcoWajJ49wcuKLCBs/b8TY6vWL7QVYTQnu7HZ9hBZYnGsmhti
-         HPdrRg3z8iYXNkOOdPWgR/hDFjzg3rk9+ySS+vswgpRgjSPhZTpnXaYobZM5xoeoXcgX
-         TptE/m9dCcOTUaOazWPXT6P/gi+tO4vDNvCAkdzZcitNeXYCfiZoUokpmZGrMW+uE/Bu
-         1x9gRT879j3Yd47fEptM+Yx56vjcvIMmKObLE3c+tjy98rRpMviHsSLNetRYyb3A+SH6
-         1mQhRJx0q/cBcFHpFOEqdxjRqp7Adhd8PB4p4bHB6NAoXWWNDV6HF4H4+7S2kDPYP9xM
-         gWbg==
-X-Forwarded-Encrypted: i=1; AKwUvBxZirek4s2dhnixmnCy9Txwan2zmLCeQDlPgeuP/Xe1kbNVbsybuqKewRYhqBNP3NZ3oktzkcM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjb1cvB6rBiJ4G6kwG2+xmvuSjPhvGz+CnaIPObQfGF0pv5fXD
-	NWmx5j7OoCKSSufM0YO2csdCsk3rnXE8Vd9pj2pDRnlzAuJMQKh5HepN
-X-Gm-Gg: AYBFou1jYvCr0MaSdT6kkzCXhWmJ5ejWhm53iYHXEtTw7LgfTBlXYJ9ETNQkjD6Nu2O
-	BkM2rm5XcZRvNYMZObnqBiv/BAW0lD7KsROgKv1Cgugioju4675Zv5ugfEkYK1FPGnJSD+KaXB5
-	rih3/tKkpbFEtubkjmQ3ammOHs6WCsqRQejYtsGtsnpAHJXiwMIhgLioHUK2KSeYMVPa/C0Bmpk
-	ovybtu5FiCAPnsuq0p1WeQOAsBXOQ+iBT9y7FdUG2/b/aSKNJ/whC8FCEvQlG1U88WMGrloLfHv
-	CKImsLtev2/KGoULnMa+dqjOtYmybMG69FYc2iDG3zkxK6krQrbrItdKF8D5pfnihohSy1/1aTk
-	7ZuXbSy4THgA8SPJ8WAQUcLSQMqMgDEoPCI9U5sEsdVE05WgSe2JNQi6e/QfKrzxb9z0n4Y4pu6
-	tk+kxwLQ4awzbc0+M8G2/mVOKUYofT3kNR9jvs8w==
-X-Received: by 2002:a05:6402:a510:20b0:6aa:80c:e67f with SMTP id 4fb4d7f45d1cf-6aa080ce811mr1509941a12.39.1789483756171;
-        Tue, 15 Sep 2026 07:49:16 -0700 (PDT)
-Received: from milan ([2001:9b1:d5a0:a500::24b])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9d0ef7228sm4345063a12.9.2026.09.15.07.49.14
+        d=1e100.net; s=20260707; t=1789483968; x=1790088768;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F87Nj6cbUlhN8QRz95TtuecHNAPdmCP6EjjN+M7wdxM=;
+        b=guk4bsKrf9mqbeJpGT6TjlB2LojJ2WSVSZQtGuDVUhMNwOeZxGB5Si8ZHF24oWylRO
+         O24KZn5PoTA07vBRWHwu/MFnZkYPcwE3jtShcbBbW3i4i2JLTW9vZU4ingE93bJW9QUG
+         XLhV66o4FRLBjuHmrW98/et42dZzpRdTMAG0kvDHczrgAgNaeqzTb6d2swa/56gFQGwZ
+         9Ak0GK7iDRWQ8Q101Vd4rZbp9jEbNyROAQEYllGvUCa60X+4TtvbyRLvSrnIqYxdZ04+
+         SVkuboBboh7Ui4LblvXoJU8zWiI8h8Y7x/gA4+aMgCnkJlZ+vsE2vNCn/bDPDJ8sAAvU
+         2VEw==
+X-Forwarded-Encrypted: i=1; AKwUvBysFBBxRbYDbMwxRC2sFNDl4Wo2CmojuRrquBlTCVO198kXYZW2gU8Rd+3uk7hmJkE83bEWSZg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDuVZRdQn1dn+9Xt3DCDg4cyfrpfMl0jFV4/AsV4CmhU+BLXS2
+	705NEfpSARAO0XsIQmo/n06mqpFBpG61FPkz9sfW5Lqtywub25JHNpTUB+ZRsxNC5zM=
+X-Gm-Gg: AYBFou2pv5oVJ7ultlu8j5mAQMN4EiQKptTMNGP/36lAkh58s4us3GMeUi3k7yzXAJh
+	VSzVtKAXLZkaDx1+ScJJs4BcK3zL8H3aJRU02ibo7x7IfkmvtvNDm6xUM/CZMrOZmBdeU7/He5S
+	AJsdDpCfcMOA8rm4JK70sXDl6JgOA+JzueOlM7iJXsoMrAWm9XTtumkvDbz0qPX39gUl63KvWNz
+	D+41bl3Q7Ej/WMjJQ56APRCtrfzm0q2fWtMQ1cOgLbbPNbTI95VFQW/j2D1nXLbNxIw0lgynE6P
+	ncp0AXb5E/Tzu7JA81BNj1pbSxXwG17omPoKSQM1LLptaWVGax7xVSVUEb2MbXAVsCGEhSDclcY
+	2lfJ3CoOD+e052lKkmd+kJjTeQiEEh1FXP4Xt9BGeLLXMqM75NRQKxzv2Z9WfYBbWnax1S5clEx
+	DPfvNA5vyeWKBinwCLS0kf2goR4QwsXIRigy9/KNtd0MRrLx4ofw5Y0zwtaxbfhkIZ
+X-Received: by 2002:a05:6122:4f91:b0:5c6:58df:5826 with SMTP id 71dfb90a1353d-5c981d5fca1mr10648335e0c.5.1789483968151;
+        Tue, 15 Sep 2026 07:52:48 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c84714c380sm15063108e0c.15.2026.09.15.07.52.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:49:15 -0700 (PDT)
-From: Uladzislau Rezki <urezki@gmail.com>
-X-Google-Original-From: Uladzislau Rezki <urezki@milan>
-Date: Tue, 15 Sep 2026 16:49:12 +0200
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	Shaobo Huang <huangshaobo3@xiaomi.com>
-Cc: Shaobo Huang <huangshaobo3@xiaomi.com>, mingo@redhat.com,
-	peterz@infradead.org, juri.lelli@redhat.com,
-	vincent.guittot@linaro.org, akpm@linux-foundation.org,
-	david@kernel.org, kees@kernel.org, dietmar.eggemann@arm.com,
-	rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de,
-	vschneid@redhat.com, kprateek.nayak@amd.com, liam@infradead.org,
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com,
-	mhocko@suse.com, ryabinin.a.a@gmail.com, glider@google.com,
-	andreyknvl@gmail.com, dvyukov@google.com, vincenzo.frascino@arm.com,
-	kasan-dev@googlegroups.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Uladzislau Rezki <urezki@gmail.com>
-Subject: Re: [PATCH v2] fork: reset pointer tag of vmapped thread stack
- before vfree
-Message-ID: <aqla6CyhEPihIznP@milan>
-References: <20260806123020.90869-1-huangshaobo3@xiaomi.com>
- <20260914093300.100495-1-huangshaobo3@xiaomi.com>
- <aqfBDEkiRmlb0WWZ@gremlin>
+        Tue, 15 Sep 2026 07:52:47 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Jiri Kosina <jikos@kernel.org>,
+	Benjamin Tissoires <bentiss@kernel.org>
+Cc: Ping Cheng <ping.cheng@wacom.com>,
+	Jason Gerecke <jason.gerecke@wacom.com>,
+	linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v3] HID: wacom: avoid overflows in sequence number tracking
+Date: Tue, 15 Sep 2026 11:52:29 -0300
+Message-ID: <20260915145229.3036596-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915111448.2726869-1-qwe.aldo@gmail.com>
+References: <20260915111448.2726869-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqfBDEkiRmlb0WWZ@gremlin>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 10:44:26AM +0100, Lorenzo Stoakes (ARM) wrote:
-> +cc Ulad for vmalloc stuff.
-> 
-> Please don't send a v2 in-reply-to a v1 or any other email.
-> 
-> Send the patch entirely separately.
-> 
-> I really need to write a bot to say this :)...
-> 
-> On Mon, Sep 14, 2026 at 05:33:00PM +0800, Shaobo Huang wrote:
-> > thread_stack_free_rcu() frees the vmalloc'd thread stack via
-> > vfree(vm_area->addr).  In RCU callback context, vfree() routes to
-> > vfree_atomic(), which calls llist_add((struct llist_node *)addr, ...)
-> > and writes 8 bytes to the base of the region being freed.
-> >
-> > With KASAN_SW_TAGS, vm_area->addr carries a random tag.  If
-> > kasan_unpoison_task_stack_below() has rewritten the shadow covering
-> > [base, sp] to KASAN_TAG_KERNEL (0xff) -- which it does on every CPU
-> > resume for the current task's stack -- the llist_add store checks
-> > shadow[base] (0xff) against the pointer tag (random) and reports an
-> > invalid-access, although writing to the base of a stack queued for
-> > deferred free is legitimate.
-> >
-> > Reset the pointer tag to KASAN_TAG_KERNEL before vfree() so that
-> > kasan_check_range() short-circuits the check, the same way the task
-> > accesses its own stack at runtime via sp.  The vmalloc lookup is safe:
-> > __find_vmap_area() resets the tag before comparing against va_start.
-> >
-> > Fixes: 9f7d416c3612 ("kprobes: Unpoison stack in jprobe_return() for KASAN")
-> > Cc: stable@vger.kernel.org
-> > Assisted-by: zhipuai:glm-5.2
-> 
-> Thanks for adding this!
-> 
-> New convention is to say:
-> 
-> 	Assisted-by: LLM
-> 
-> Rather than to list the agent.
-> 
-> See https://docs.kernel.org/process/coding-assistants.html
-> 
-> > Signed-off-by: Shaobo Huang <huangshaobo3@xiaomi.com>
-> 
-> Looks reasonable to me so, with nits addressed:
-> 
-> Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-> 
-> But I would like Ulad's input on this from vmalloc side.
-> 
-Makes sense to me even though we do it in the __find_vmap_area()
-but we also use an "addr" in other paths.
+The dropped-packet calculation derives the sequence range in signed int
+arithmetic. A sequence field whose logical range spans all 32-bit values
+makes the range calculation wrap to zero, so the following modulo triggers
+a divide exception.
 
-LGTM:
+Normalize the maximum and current value according to the HID parser's
+signedness rule, and keep the sequence state and arithmetic in s64. Use
+div64_s64() for the remainder to avoid __moddi3 link failures on 32-bit
+architectures. This also avoids overflowing value + 1 at the logical
+maximum.
 
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
+Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 16-bit")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
+
+Changes in v3:
+  - Replace raw s64 modulo with div64_s64()-based remainder to avoid
+    __moddi3 link failure on 32-bit architectures (i386, arm32).
+    Reported by Sashiko AI review.
+
+Changes in v2:
+  - Normalize logical_maximum/value as unsigned when logical_minimum >= 0,
+    matching HID parser signedness. Store sequence state as s64.
+    Fixes unsigned 0..UINT32_MAX range that broke v1.
+
+ drivers/hid/wacom_wac.c | 33 ++++++++++++++++++++++++---------
+ drivers/hid/wacom_wac.h |  2 +-
+ 2 files changed, 25 insertions(+), 10 deletions(-)
+
+diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
+index da1f0ea856..af94f59a5d 100644
+--- a/drivers/hid/wacom_wac.c
++++ b/drivers/hid/wacom_wac.c
+@@ -7,6 +7,7 @@
+ #include "wacom.h"
+ #include <linux/input/mt.h>
+ #include <linux/jiffies.h>
++#include <linux/math64.h>
+
+ /* resolution for penabled devices */
+ #define WACOM_PL_RES		20
+@@ -2527,18 +2528,33 @@ static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_field *field
+ 	case WACOM_HID_WD_BARRELSWITCH3:
+ 		wacom_wac->hid_data.barrelswitch3 = value;
+ 		return;
+-	case WACOM_HID_WD_SEQUENCENUMBER:
+-		if (wacom_wac->hid_data.sequence_number != value &&
++	case WACOM_HID_WD_SEQUENCENUMBER: {
++		s64 sequence_minimum = field->logical_minimum;
++		s64 sequence_maximum = sequence_minimum < 0 ?
++			(s64)field->logical_maximum :
++			(s64)(u32)field->logical_maximum;
++		s64 sequence_value = sequence_minimum < 0 ?
++			(s64)value : (s64)(u32)value;
++
++		if (wacom_wac->hid_data.sequence_number != sequence_value &&
+ 		    wacom_wac->hid_data.sequence_number >= 0) {
+-			int sequence_size = field->logical_maximum - field->logical_minimum + 1;
+-			int drop_count = (value - wacom_wac->hid_data.sequence_number) % sequence_size;
+-			hid_warn(hdev, "Dropped %d packets", drop_count);
++			s64 sequence_size = sequence_maximum -
++					    sequence_minimum + 1;
++			s64 drop_count = sequence_value -
++					 wacom_wac->hid_data.sequence_number;
++
++			drop_count -= div64_s64(drop_count, sequence_size) *
++				      sequence_size;
++			if (drop_count < 0)
++				drop_count += sequence_size;
++			hid_warn(hdev, "Dropped %lld packets",
++				 (long long)drop_count);
+ 		}
+-		wacom_wac->hid_data.sequence_number = value + 1;
+-		if (wacom_wac->hid_data.sequence_number > field->logical_maximum)
+-			wacom_wac->hid_data.sequence_number = field->logical_minimum;
++		if (sequence_value >= sequence_maximum)
++			wacom_wac->hid_data.sequence_number = sequence_minimum;
++		else
++			wacom_wac->hid_data.sequence_number = sequence_value + 1;
+ 		return;
+ 	}
++	}
+
+ 	/* send pen events only when touch is up or forced out
+ 	 * or touch arbitration is off
+diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
+index 126bec6e5c..74e7c5a04a 100644
+--- a/drivers/hid/wacom_wac.h
++++ b/drivers/hid/wacom_wac.h
+@@ -324,7 +324,7 @@ struct hid_data {
+ 	int bat_connected;
+ 	int ps_connected;
+ 	bool pad_input_event_flag;
+-	int sequence_number;
++	s64 sequence_number;
+ 	ktime_t time_delayed;
+ };
 
 --
-Uladzislau Rezki
+2.43.0
