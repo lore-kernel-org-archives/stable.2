@@ -1,84 +1,71 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sipsolutions.net (s3.sipsolutions.net [168.119.38.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8174B3B83FC;
-	Tue, 15 Sep 2026 13:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C680925B2F4;
+	Tue, 15 Sep 2026 13:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=168.119.38.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477271; cv=none; b=XTZnPwEptEj8u5EP9KUGskgHoEQ5yyIIDzh2x7RbNp2hANdxRZz7trS5ZCaj/ECfjlc0/q43GhL+s/iKGIPXtbQAMLXn9X7Jzv98K8laalIcwLtXBUBwcGe5IytIhHm3ys4rcFZIv2ftlqSFythJk++QckE00dOTCbjWt5hVsWQ=
+	t=1789478577; cv=none; b=TH+AbBuq1RYwkGcHmQQVIdHBM2vMBrVUH1tfGXuloxplhOcRsCoFMixCu3vgLV2tOK6eW4uW5FHpt2kEGPqHcz8VQommM84QVNSR07U+GU8sM1j6NwAQ/9FHaxMCBjx+XQueBufRxV1gpl0FLqKMXBRIAeYFjlz14TsEPV21bsQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477271; c=relaxed/simple;
-	bh=X3yu9EpBrkDnQC2rpNCvAHoyo2oI73MPTKB/tYAsvrI=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=SbHvC3g1a9ISH8Vk3LK8QKN9McMCeP4Q+puxHeOxh5vvdKwUEl+LoAOrst8S/8IiLAlKQV0xKNrjb1xdLbWY7yZu0L/x9vdZWW8VnApssShlNqGY5Sjx80oVqUVCuEGMmLr2EbSgoDBKS4InOn2ID7d3Kft4FEZ0anvcLJnYErI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jM6hoDYf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789478577; c=relaxed/simple;
+	bh=JMXomYmsfmIoISdAio4INXjT/EiwXOv/5nZ607WuGTw=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=neR5rso1viuDKKJXsj5bR5+vLy+eFEYZbtBFRIf60fYId9q9n9frBNq2AEikv9nqAauHWW2W3xcwQJDvgkKOuFYaB+MKRQ85x8h6Vf/wfoEbd4cqjohe9B3j98JquJUDoA/NofgSpNria7rRdQqkfgMna0LKMZ1cDwi0/xJ8qcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net; spf=pass smtp.mailfrom=sipsolutions.net; dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b=kH4lbsDH; arc=none smtp.client-ip=168.119.38.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=permerror header.from=sipsolutions.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=sipsolutions.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jM6hoDYf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E17F1F000FF;
-	Tue, 15 Sep 2026 13:01:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789477270;
-	bh=DwrNzdpZsdBICzQS3joCbAAZTICEFFGqUOqLpF4/IqE=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=jM6hoDYf7e3eYetsZv3kATelJT+mn44wj8+tKPT/+GFteMnHS4mYNgAHXLxZjuRR2
-	 rHrfOlBP0eAZKBU5vKV8aRii/GUpkCJnskMoA7nibhyI6YB5rcVkzYps4RcFuIxvDe
-	 NaJEUQJeB2jUyOjJsavaAXmVRm7/myfhuSHXycE5rH6qPG0Wk/5jaTxbER1Ql9QdCj
-	 EPVB2/ewiTpSBeo82J5sBFQV95BScAZqzqgYznz9lJZuD25XV3mGTcjeXNLAibcjLI
-	 j1zgI7fQxjGotlwtzIglHrotpqpyZNldrcDYsjKqDCl41hvUudybrX7Op3W5UYBCzm
-	 3yAO4Z2s+ikKQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A2539263A4;
-	Tue, 15 Sep 2026 13:00:06 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	dkim=pass (2048-bit key) header.d=sipsolutions.net header.i=@sipsolutions.net header.b="kH4lbsDH"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=sipsolutions.net; s=mail; h=MIME-Version:Content-Transfer-Encoding:
+	Content-Type:References:In-Reply-To:Date:Cc:To:From:Subject:Message-ID:Sender
+	:Reply-To:Content-ID:Content-Description:Resent-Date:Resent-From:Resent-To:
+	Resent-Cc:Resent-Message-ID; bh=JMXomYmsfmIoISdAio4INXjT/EiwXOv/5nZ607WuGTw=;
+	t=1789478575; x=1790688175; b=kH4lbsDHlCBeFhkOfS3xi30PFs02tsg0dC6FYXscLOmPZ/e
+	7UTlMsCplQTKTIPcJe1sT2JusuMdGmwc6wayMpgBWSIG0gjHpm0StGBKwP+/QFrgXy/WrLFt6+al+
+	5WO/PNHO1HV/k+JgpAg0HkiC8PbqNb+I6e2XGo9NSxIGS+4OQ8JObON0PWrq/hURF20B/UgKAufuu
+	zn2HzOOB8pVv/TSTtdykXdWosylC1Ii1cuOGDx4hOkZOyj7hPI8tmF/vtn2zqOeo8GGVZdRGjXXk9
+	67RXW9OgmZeUhGMPpQW3uTGXSN8DfJo8dEcpwoupCK5XTAafnyYvqJN8UwHVAylw==;
+Received: by sipsolutions.net with esmtpsa (TLS1.3:ECDHE_X25519__ECDSA_SECP256R1_SHA256__AES_256_GCM:256)
+	(Exim 4.98.2)
+	(envelope-from <johannes@sipsolutions.net>)
+	id 1x6T7b-0000000H0Ft-1FNg;
+	Tue, 15 Sep 2026 15:22:51 +0200
+Message-ID: <3422e0b3b7d4889d2a728c41b0b02f6c80fa71bf.camel@sipsolutions.net>
+Subject: Re: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for
+ 4-way HS offload
+From: Johannes Berg <johannes@sipsolutions.net>
+To: Janne Grunau <j@jannau.net>, Arend van Spriel
+ <arend.vanspriel@broadcom.com>,  Hante Meuleman <meuleman@broadcom.com>,
+ "Gautam Shukla (Gautam Kumar)" <gautams@broadcom.com>, Kalle Valo	
+ <kvalo@kernel.org>, Pieter-Paul Giesberts <pieterpg@broadcom.com>
+Cc: Jason Huang <jason.huang2@infineon.com>, linux-wireless@vger.kernel.org,
+ 	brcm80211@lists.linux.dev, brcm80211-dev-list.pdl@broadcom.com, 
+	asahi@lists.linux.dev, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Tue, 15 Sep 2026 15:22:50 +0200
+In-Reply-To: <20260912-brcmfmac-4way-handshake-offload-authenticated-event-v1-1-e41a6a8281a2@jannau.net>
+References: 
+	<20260912-brcmfmac-4way-handshake-offload-authenticated-event-v1-1-e41a6a8281a2@jannau.net>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-2.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net 1/2] net/sched: hhf: cap hh_flows_limit at change time
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178947720466.1607766.7479529593447485027.git-patchwork-notify@kernel.org>
-Date: Tue, 15 Sep 2026 13:00:04 +0000
-References: <QDISC-B855.v1.20260911153152@mojatatu.com>
-In-Reply-To: <QDISC-B855.v1.20260911153152@mojatatu.com>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- vtlam@google.com, stable@vger.kernel.org, victor@mojatatu.com,
- hybris@mojatatu.ai, sashiko-bot@kernel.org
+X-malware-bazaar: not-scanned
 
-Hello:
+On Sat, 2026-09-12 at 11:40 +0200, Janne Grunau wrote:
+>=20
+> This will conflict with the "brcmfmac: add FT/OKC roaming offload
+> support" [3] series but is written in a way to easily resolve the
+> conflicts.
 
-This series was applied to netdev/net.git (main)
-by Paolo Abeni <pabeni@redhat.com>:
+I ... no, I'm not going to take that conflict, and I applied the FT/OKC
+series to wireless-next. Please create this patch on top of wireless-
+next, if needed at all, and then you can backport something later to
+stable if needed.
 
-On Sat, 12 Sep 2026 14:09:19 -0400 you wrote:
-> hhf_change() stores TCA_HHF_HH_FLOWS_LIMIT with no upper bound. A huge
-> hh_flows_limit lets each new heavy-hitter flow pass the
-> hh_flows_current_cnt check in alloc_new_hh() and forces a fixed-size
-> kzalloc(GFP_ATOMIC) per flow under spoofed traffic, for unbounded memory
-> growth.
-> 
-> Bound the attribute with NLA_POLICY_MAX() at 2*HH_FLOWS_CNT (the
-> hhf_init() default) and report the rejected value via extack. The
-> deprecated nested parse is kept: legacy tc does not set NLA_F_NESTED on
-> TCA_OPTIONS. Configs relying on hh_limit above the default were relying
-> on unbounded, unsafe behaviour and are not supported going forward.
-> 
-> [...]
-
-Here is the summary with links:
-  - [net,1/2] net/sched: hhf: cap hh_flows_limit at change time
-    https://git.kernel.org/netdev/net/c/2cef2588c995
-  - [net,2/2] selftests/tc-testing: add hhf hh_limit cap tests
-    https://git.kernel.org/netdev/net/c/0654f4dba1fb
-
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+johannes
