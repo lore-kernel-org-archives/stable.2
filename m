@@ -1,184 +1,144 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F1C74AA56A
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:31:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6ECD523645D
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:32:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493481; cv=none; b=pTKmVfk/BHYtELpbsts9FElGG4hWDwc4nG937X8rkOmSXGvjFaljPvcs/ZIXVfHM3nL4KpWe1zcpPyq3Fhjca02m5iryVcWCG06aOIeFDEn3V/whqxfk/U2pHqU/eQLYH89Su6hvdbJbsPzyG/QXKWaDwd10qiMrVejhO5DrfA8=
+	t=1789493529; cv=none; b=lRjODhvhO2qp9F4iiSOXRJrITeeiyiq53O64ZMvle6OVwe46fL6FONWD9o7tD4+KdkbE3jYBOzyxheYzlC3DHf9NgfbMi+gIUi6t0x91cq8G+XhgqC5bizCu5h5X8GPlTYukqkfm4VDn9ZTQ+ZdwvTqqX16G3yrdxcfPPB+RPqQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493481; c=relaxed/simple;
-	bh=o9xq46vXu5Tdoa925A4y5EdPo5VNKEplp1aJ/lym32Q=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JlQ3mcBIiud7UDbbYMnxAYbFzS3X7+1EZyrcV98CLyLPfnooaiZjFF6Cn2ggSnWh6s1ysh4JSnJiU/axZNmW+NslF3dIHonZErG/yPQyJypzZQj9cF/x86PlnPQCp/J23nQUyQtYzv/3vCyrqkmXy+a2CRcPGFJDxNGbi9Vg5Hs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CJqWvuh/; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+	s=arc-20240116; t=1789493529; c=relaxed/simple;
+	bh=lywlvxyNF5ZYqpbb5YtEFG35Q3vRqvrSIjvw4XwxHtA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cXzC7Yyxa4nEWmXMW/G70sDq8EajNSYmmMzsNylg/xShYxrPrUCsAlAzNssS0gA2wVuKyz+ZAf2SpHQoLcipU+DVmNZU+Bygs0uVMJ+Cs0TbGEPhh7glZSVDrhxy0clQQoTwp6lJpkgcFdZVyEu94obhUyG0XA+RHcYTlx6b1Lc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GMSQ3Yse; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CJqWvuh/"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso3553968a91.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:31:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GMSQ3Yse"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469d249c5so2903295b3a.3
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:32:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789493477; x=1790098277; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Ybh+8iD5mGNcd8ks8NS+pX/Np+RtyJxn1trRvhxScPk=;
-        b=CJqWvuh/GZHITGkwwN1wlA/gXya0cBi6C0thJSOcBJcPo6268fvWrxtTe1yvEEahjC
-         afJJgvv3SMj7mZx0vWibFbS3vGoRFuZgumC6s34WxzDqUJnsvGpr8wmmu3fRbk/L9wVf
-         5TvYuHNUGxeJK8HxOGUmNE6smHZ63hQl9f+EsDiHq00R7IUIpMgRh+Ul2BofEJDrswrZ
-         q6j82SwlJjhK7omnW9RFbF8MX6GngyVBNNP9HF62wRyUH6v4Xy6Dflr2kBEKLA3cCIvk
-         kVKp7E0JxVcI+P2EzxQuwdl75isUmSkxR5VbFsu68mIzB9/uGaK1dyDy/xupBfL1NQon
-         wBrQ==
+        d=gmail.com; s=20251104; t=1789493527; x=1790098327; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=TllSv8C91B6/5oyiPgB3bIf4ptvSZ4N3RPUetFlm1DM=;
+        b=GMSQ3YseyO3ssrgNLENHYQyCxYXWFenrCK5YT1QUl86Hje4Qur/vhErzLNzlRch7fE
+         J2SFNhfc+D+z1CjZOggzqatuJcG1HCLxmGTciMWzZop+7x29/uKfEij8/L+i80ujkT6K
+         ZLHQRivU6CrE+mWFTZK2aojjTjW94IaDof87/ohoUJ0IIeoPKxNayjnEvcfVoD1Yvtxp
+         EyuOANU4P/KdtOKXTwzFybiEdk0GP9xsTJRhQZ++Pr0gZmGVpzOuBBJnO6DCI+IU18Na
+         PFXz7MrF58Mvc12R7KJAp7aIxbYtt5UxNlF1NwgbNujoc1WqOUSZdchrVNtkdaV8g//D
+         Gl1g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789493477; x=1790098277;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:sender:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Ybh+8iD5mGNcd8ks8NS+pX/Np+RtyJxn1trRvhxScPk=;
-        b=dN5h0C6kcszpCM70My1H+p8DVjcWvpURGxWRWRcRh6j/f42POV7rw2DbQzRavZbp3l
-         N135jFFcJSHXd4YJrR9pdZrLMD5h6xwe/kWWXyzHLFKb0n+2ksoU8/Qk5YgDf9igv7Xh
-         fwWiTQX/xU3lguPks4Y5BLXSX2hDBOfWv4WzJ1EiIQ3Bd54WfO37NRdIrk+iYL6O2Ih+
-         hqHgk3MdQOfTqPkQOcO9Pm00O1rDfuucZy+XH+k7jbiWh7VQXWMkA3SqdyqinD8XO4tw
-         gvJmSXV+bniBBDg9yn7CrXt8zL789U45PNcbZtPLYjh3lTBGjfYZ7IPmzOO7gjqOtNq7
-         vHmw==
-X-Forwarded-Encrypted: i=1; AKwUvBxX+eYkIlF3gaBRKdDUeOyAgnSL3EA/Ou8JhAZrjvcTHpnsVD3ytt8vel5TNtoQLDpmfdNJzfU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMKOk2XEiwzxoiA4lZSZOTDbwoMbda4hCzpeJQ0oSSWEbyPCKv
-	US3fQZQglOmuDLf1MrBlPFzekKvRHDX7/X/VNgKVsOpRCqxqsyuzzBZb
-X-Gm-Gg: AYBFou0jfeGlfWGteskqeIcrAEGhKs1ae4HliCCIpOQf0nTqRXo+Zt5rbJPtTH4XNOD
-	9OwAMoNWbJLK1n0IZZP+zvVeQmkbUAqWhEp8QDhZpqNVfnDqLxwnAxqUChGU0q54Afhksamf28t
-	i1JDya+uT9veiHAcRmDXDpTV8ojpO3etH3WepsvO8v84aTpcioFQe2ICMHtlOkc0rTz9+BBNYvH
-	jWqOvjMZV1mY8wOv/R5zTTSKxF8JL4x08xcyYpM60lPy50DR1KzRU9QiZ09hNLD19q3fby6kzuM
-	U9sQOIVC23jHfO9Nq1EM7JnogfW2beXXcih0awlSArjtOvvUChgXnay/pDVxdvBe3/vOb6ErLWq
-	NPjYxuECHbk05oY8MeVS+8Fov3yOa2Ir/yJH/OO+4OT7rcFQQtcCZEeRxDmbziTYEI49OGICnuH
-	5Nk1wvUPj8/3OM5UGKKmWYbOliNVK5lwSUMv18uau2a7wHJVBUR1KvsBUObayVmZXaW+3L4WMO4
-	630VPFHi/mmSvioopZaGiX6wMbnnLtxucQFNwOOpOH5qrFM
-X-Received: by 2002:a17:90b:50c8:b0:39d:f773:37b5 with SMTP id 98e67ed59e1d1-39df7733906mr14510340a91.0.1789493472947;
-        Tue, 15 Sep 2026 10:31:12 -0700 (PDT)
-Received: from ?IPV6:2600:1700:e321:62f0:da43:aeff:fecc:bfd5? ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfbb55b01sm2153011a91.4.2026.09.15.10.31.11
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 10:31:12 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Message-ID: <64518f1b-9c17-4fa7-8582-dc399728111a@roeck-us.net>
-Date: Tue, 15 Sep 2026 10:31:10 -0700
+        d=1e100.net; s=20260707; t=1789493527; x=1790098327;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=TllSv8C91B6/5oyiPgB3bIf4ptvSZ4N3RPUetFlm1DM=;
+        b=ezAGT9by5VNQ6LAj3LaJ20hpXbYZ8XmF9pU49l0s7DF6SrMiexsotwD+tf1pxbuWE8
+         3qkCr8uMRhg6JvrTaNJ6ijpjW3NQ4/F33M6aKCxSUPGzB5Sz5CU498o91IpXji/xhOVa
+         0lVi8zq4+uEHEpTzRtaPWPt8McftURPpKJy2wTJ3lo5OrzXH09l6QjF18oEkzAXTmHw2
+         gbIAtiVLRKCthoCpTBq3VniqFeC/aC7ds0NDH1fy+JDB+FGnCNHSZ0kO5VsJ0MT2sWUb
+         2YhjVEAj5vCXnZwVH4Otq/o9ovFn44ZzyhygZabyrILEyjPPnKTltJLXTjtxE22bRYAi
+         Lb/w==
+X-Gm-Message-State: AFuF++lWoQtSJ+BoO3af4lE5sDVC/VjElkiPzrYMfxC+HL0/76HvdIZ+
+	GOPv3Z1jfnoz9ZEN/nZ/ukyUBKU6CQzAEX84Y4pUzhb+Ep1IKeFTPwzB
+X-Gm-Gg: AYBFou2OHpJwYmd1D7umYiR4Jsx1L5TN4vthjKYVDAE3vLJjfa5CZTTK4BTqRVBTOit
+	qwvu4vtV8V5qVUQrdmErkXhyPUKjax+86GcB/ivafSmied10L+ZvAimub9H3yexOW5zEMw4xfkx
+	opnN83r5rMbzhI8eb7WoD59wz71rIP6d9DMXKXSS4EoypUU1S1R7X2+KwnlDnpOuIgIp2qdmNPe
+	56X6fa1XBLjW7//+PfhpvovU61qzLnNzAD8rfFuwGeb9qZ08foBo+j2x6LYlDYPCVOS59j9aJut
+	ijVtDYvmhGEfAyT9s1CrfpqSTFf2bpjp+gwXBedGlMiT+6Rt4iBaG7ra6+RZ5QQPnKA7b5a3f3u
+	CqKaJ+hfGaFZu338kArntvKrUqoNJjujNfC7KPS+lbDkxG/HxULrhktgvitPv2OwLV3zn/86GE0
+	mljzwV+QpYR7Vpcg+wknzQwDGRZeavPR0bpfyoZLF6TN1U/9s9a0c+0w==
+X-Received: by 2002:a05:6a00:4fcc:b0:871:9e1b:8a75 with SMTP id d2e1a72fcca58-8719e1b8ef7mr2506620b3a.20.1789493526504;
+        Tue, 15 Sep 2026 10:32:06 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29bbdca0sm6609486b3a.45.2026.09.15.10.32.03
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:32:06 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Marc Kleine-Budde <mkl@pengutronix.de>,
+	Vincent Mailhol <mailhol@kernel.org>,
+	=?UTF-8?q?St=C3=A9phane=20Grosjean?= <s.grosjean@peak-system.fr>,
+	Kees Cook <kees@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Wolfgang Grandegger <wg@grandegger.com>,
+	linux-can@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] can: peak_pci: fix PCIeC cleanup on probe failure
+Date: Wed, 16 Sep 2026 01:31:57 +0800
+Message-ID: <20260915173157.2510375-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
- decoding
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>,
- Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
- Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-Cc: "linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
- "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
- "linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
- "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
- Sanman Pradhan <psanman@juniper.net>,
- "stable@vger.kernel.org" <stable@vger.kernel.org>
-References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
- <20260915164823.160977-2-sanman.pradhan@hpe.com>
-Content-Language: en-US
-From: Guenter Roeck <linux@roeck-us.net>
-Autocrypt: addr=linux@roeck-us.net; keydata=
- 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
- np3900V20aS7eD9K8GTU0TGC1pyz6IVJwIE=
-In-Reply-To: <20260915164823.160977-2-sanman.pradhan@hpe.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-Hi,
+peak_pci_probe() initializes the PCIeC resources before registering the
+SJA1000 network device.
 
-On 9/15/26 09:48, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
-> 
-> tps53676_identify() reads the USER_DATA_03 phase configuration to count
-> the phases assigned to each channel and derive the number of PMBus pages.
-> In each 16-bit phase descriptor the channel (PAGE) is encoded in bit 4 and
-> the firing order in bits 3:0, but the code tested bit 3 (0x08), which is
-> part of the firing-order field.
-> 
-> TPS53676 supports up to seven phases, so firing-order bit 3 is never set.
-> As a result the existing test classifies every enabled phase as channel A.
-> On a dual-channel configuration the phases assigned to channel B are
-> therefore miscounted as channel A and page 1 is not exposed.
-> 
-> Test the PAGE field (bit 4) instead.
-> 
+On the probe error path, the registered channels are freed with
+free_sja1000dev() before peak_pciec_remove() is called. Since chan is
+part of the netdev private data, accessing chan->pciec_card after
+free_sja1000dev() results in a use-after-free.
 
-tps53676_identify() has a second problem: It does not set the current page
-to 0 for single-page systems. If the BIOS/ROMMON had selected page 1 for
-some reason, the page register is never updated because pmbus_set_page()
-does not set the page number if the number of pages is 1. Please fix that
-as well.
+There is also a similar cleanup issue when peak_pciec_probe() succeeds
+for the first channel but register_sja1000dev() subsequently fails. In
+that case, the netdev is freed without releasing the PCIeC resources.
 
-Thanks,
-Guenter
+Clean up the PCIeC resources before freeing the first channel, matching
+the ordering used by peak_pci_remove(), and also release them when
+registration of the first channel fails.
 
-> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
-> ---
->   drivers/hwmon/pmbus/tps53679.c | 2 +-
->   1 file changed, 1 insertion(+), 1 deletion(-)
-> 
-> diff --git a/drivers/hwmon/pmbus/tps53679.c b/drivers/hwmon/pmbus/tps53679.c
-> index fa0fdf1e3e6c9..680339a6b90fe 100644
-> --- a/drivers/hwmon/pmbus/tps53679.c
-> +++ b/drivers/hwmon/pmbus/tps53679.c
-> @@ -188,7 +188,7 @@ static int tps53676_identify(struct i2c_client *client,
->   		return -EIO;
->   	for (i = 0; i < 2 * TPS53676_MAX_PHASES; i += 2) {
->   		if (buf[i + 1] & 0x80) {
-> -			if (buf[i] & 0x08)
-> +			if (buf[i] & BIT(4))
->   				phases_b++;
->   			else
->   				phases_a++;
+This issue was found by manual code inspection.
+
+Fixes: e6d9c80b7ca1 ("can: peak_pci: add support of some new PEAK-System PCI cards")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/net/can/sja1000/peak_pci.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/net/can/sja1000/peak_pci.c b/drivers/net/can/sja1000/peak_pci.c
+index 69c61ccf621d..28b94e642170 100644
+--- a/drivers/net/can/sja1000/peak_pci.c
++++ b/drivers/net/can/sja1000/peak_pci.c
+@@ -697,6 +697,8 @@ static int peak_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	return 0;
+ 
+ failure_free_dev:
++if (!chan->prev_dev && chan->pciec_card)
++	peak_pciec_remove(chan->pciec_card);
+ 	pci_set_drvdata(pdev, chan->prev_dev);
+ 	free_sja1000dev(dev);
+ 
+@@ -704,20 +706,18 @@ static int peak_pci_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 	/* Disable interrupts */
+ 	writew(0x0, cfg_base + PITA_ICR + 2);
+ 
+-	chan = NULL;
+ 	for (dev = pci_get_drvdata(pdev); dev; dev = prev_dev) {
+ 		priv = netdev_priv(dev);
+ 		chan = priv->priv;
+ 		prev_dev = chan->prev_dev;
+ 
++		/* do that only for first channel */
++		if (!prev_dev && chan->pciec_card)
++			peak_pciec_remove(chan->pciec_card);
+ 		unregister_sja1000dev(dev);
+ 		free_sja1000dev(dev);
+ 	}
+ 
+-	/* free any PCIeC resources too */
+-	if (chan && chan->pciec_card)
+-		peak_pciec_remove(chan->pciec_card);
+-
+ 	pci_iounmap(pdev, reg_base);
+ 
+ failure_unmap_cfg_base:
+-- 
+2.43.0
 
