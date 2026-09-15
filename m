@@ -1,78 +1,35 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 580683C3BEE
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:26:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECFF36728B;
+	Tue, 15 Sep 2026 04:27:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789446362; cv=none; b=gth3PD1o1kPjm+yE+cWH2dKJVk310Qjn5MCuJbG/xh15mBXu7ALhMwmMLsRGAcJbMxYsYu1h4EWP1g4khrKOKl9H4U2oKU6tqPNInQMSTsRo3zEpTlapfnYeoTc9Cq3r8RP89KM7jAyAppFBIZbWM+Kcv4QfBsNdGVL8K8SKmr0=
+	t=1789446439; cv=none; b=lzPPGzoc1pCwy0ktRYqzPgKqPAR8SasVFiIi5+rV5i3NEYkb+nErsrWVB4nrD/oXRWzr1pybMwCceAcNpLk6L45CpDcSX8iFPT6EQvd99CLS0j6/flkzaIHisJ3sEGNP3aGxi0TEFp/n8axs2XW64JDeRtnf5cLp1c0tmDhseXg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789446362; c=relaxed/simple;
-	bh=goGTypsi29JZv923WshNeFTqi7KVaLuvDV7JqWYQbF0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MImn05tvU++6ibL7Ceo2S5l+EuxIqeBX3MerDqbp5IO+QW7z/LWKskkChyJUENt6b1ehRCykQbno8P/rzzPyMPwG+rWU173qem2JGD2PJ1acvY/emOtMSwSB2sQUlHtjl2jgV7cftPjrPJbCdtJ6COvdRXF/hdPO6baHnPao+G8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UZuuuQPA; arc=none smtp.client-ip=74.125.227.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UZuuuQPA"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e5059faso725870e0c.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 21:26:00 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789446359; x=1790051159; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xgksxHZM5YdiC9WvlT9cN3WzyS9QqUuMDDleGgoWHKM=;
-        b=UZuuuQPA6Qlo0gkEqBrOZn0itUkGeSpcCdDculk8DEHH9whyEc+HdMu3XKcK/T/hre
-         4LRIOKa6XuWhbue/cKrE7engVZDUdpzuoiX3U59+lvuXOLn3CDXFQNfBuPSLcqxMi+2I
-         sn1T6TAZyLU1SFWDJydgeTt3T8LnNQucSyBSfIMA5GyM0ZUwoNbP7MMDmhFUObJ7Msnw
-         tV5XXzMSCLbL40Jumlw+zXTVeoS1MhP6EZyilfwz5E9rmqEQlxWqGyguxKC6p/1Y2DMc
-         KRwfFHO7lP6KyJb6lxmwDom3BwKa6kd6KSVNww+H/JIDVs7YC2iDlCTS3b1N3eHoCF9Q
-         rCLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789446359; x=1790051159;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xgksxHZM5YdiC9WvlT9cN3WzyS9QqUuMDDleGgoWHKM=;
-        b=NKuPS2xXaTLqAD5cf/9/KxQXR8EaDlcPIoO9HpJfeti+LMhwvOVoP+JC/tlfA7rM2Z
-         pa5ojTDK7zR67J3SmKzMR9Qu6pJJUFnh4G2YmM+OZ6thRAejmnp5nN/A3ni8S0sLlakW
-         b8f9XkRWBa9qCftEh5MGQ5qTo/0Y3Pe568Gk0mRmR46av+Tt4jCWjzD6+0pr2ZMhot/N
-         u6KKoTX1wq2eJFcKdRyQ/7jTsX97PyreyYqOKf6Go5XvPNlgyF2MhFjdic67JC9fadiW
-         x60hsnPY7IZRXJapAC05/dtqE+s9WrEwXc46znY7RYn3TrSn0hdWXnHik/HQs3JJXRcT
-         0Ymg==
-X-Forwarded-Encrypted: i=1; AKwUvBxCU7uT7NXYbGi0+6fgr63/dGhQGmlHkW556BzIxSdD/D+5Q4wMDc1g2nhbb/+4CeVjjTuzp68=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYC0o5QqAC0mBIO3KBWmrFsIKdk7QOTNfYI3qV8NNTfG5uH6U4
-	zfZ997OQlPtwXTrcnUQhSfr8exi4hQSQeGvJ+ILRUKFC8Fo+bHkWpFXkygv3TX2IwaTCSA==
-X-Gm-Gg: AYBFou26EO6vCnFC+W5mOT2/yQrjIchcyenmOSXEAJdR1j9XNrKW7RV60s+xECePE6p
-	GJv2tnXdlSoVgnxVSj4XPvlzLbTOtgTn3/xJcqOSsIWj7gp/DEFoM2a23bGVU8ogmRPuuLpzMi7
-	gS6TuyRxBVUbYyOzKhkoJgXswIYNEhjMGmxX221qDhe5CKGwJtQImKbrAsd4reDNxSQWFtcqlBV
-	VAqQhRYaXt9OPq+l0EMFUl12iPuFgpmqOEDRzkTb2H6VaqloXznFh55trbNId9gIJntNV/ikEwl
-	WdNXiiFjEoF+mUhG8o6zA/UGTQPwAginOvikFViVkZGB/6oqXg0ysKg0Ma8sH1K3/hrh6sKZazD
-	bENj2U1WiNJzUDpghtIhAeGnbHu7mmAxflhsXVSsdhy1K94xWNWvk2howVA2IIsSdOL3hQw1779
-	OuMPuahwGg8I3o2vM45PLk5rBwNcLWX4/N3ute1HMeVZzskVqiIU04Q4BOTpd2yB/3
-X-Received: by 2002:a05:6122:e266:b0:5bf:a179:b2be with SMTP id 71dfb90a1353d-5c9820e55eamr8036213e0c.7.1789446359087;
-        Mon, 14 Sep 2026 21:25:59 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470e7ef4sm14528090e0c.9.2026.09.14.21.25.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 21:25:58 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v2] HID: wacom: validate battery range before scaling
-Date: Tue, 15 Sep 2026 01:25:46 -0300
-Message-ID: <20260915042546.2454238-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915041248.2432629-1-qwe.aldo@gmail.com>
-References: <20260915041248.2432629-1-qwe.aldo@gmail.com>
+	s=arc-20240116; t=1789446439; c=relaxed/simple;
+	bh=1cGlGsui+FK1n1e021N5yj+H8XNT8jo/XA/DoEycxFw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ih1oSBqdEBvBaAg05Sr2eHlAmZCAUzQOZm8koVtMN6Hbzmhr4ZEHSwiN4nGIwodU5VAj/wQ/gvXUANCnwYB5O1hkqi6nqy0UM0vnDYhKPs8FxHh70MMgGdYYHTbwbHH+vZQ91HFKxbKgxTI8XnWEEiMtUl3n4oudfYRgkmcsoqs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowADnvPAfyahqm5cICA--.51484S2;
+	Tue, 15 Sep 2026 12:27:11 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Yuantian.Tang@nxp.com
+Cc: linux-kernel@vger.kernel.org,
+	linux-pm@vger.kernel.org,
+	rafael@kernel.org,
+	scottwood@nxp.com,
+	viresh.kumar@linaro.org,
+	lkml@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/6] cpufreq: qoriq: Fix clock reference leak in qoriq_cpufreq_cpu_init() error paths
+Date: Tue, 15 Sep 2026 04:26:42 +0000
+Message-Id: <20260915042642.1725537-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,82 +37,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADnvPAfyahqm5cICA--.51484S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww1xCFW8tF4DCFy3Jr1UZFb_yoW8WrW5pF
+	W5WrZ0yrWrZa1qkw1DGF4UW3ZYva1vyFWUGry8Jwnavwn3Ja45Zan8GFyUuFWrCFZ5Jan2
+	yr1Dtayxtrs5Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUwT5lUU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMLA2qowpAaBgAAsA
 
-Battery events divide by the difference between the logical maximum
-and minimum without validating the range.  A malformed HID descriptor
-with equal limits can therefore trigger a divide-by-zero exception.
+qoriq_cpufreq_cpu_init() obtains a consumer clock with of_clk_get() and
+stores it in policy->clk.  If the allocation of data->pclk or of the
+frequency table fails afterwards, the error paths jump to err_nomem2 or
+err_pclk, which only free the allocated memory and drop the CPU node
+reference; the reference obtained by of_clk_get() is never released,
+leaking a clock reference on each failed init.
 
-Move percentage conversion to a helper that widens the arithmetic,
-rejects non-positive ranges, and accounts for a nonzero logical
-minimum.  Clamp the result to [0, 100] instead of rejecting
-out-of-range values, so that real hardware whose ADC occasionally
-reports slightly beyond its declared limits still registers its
-battery and updates capacity normally.
+Add an err_clk label that releases policy->clk with clk_put() before
+falling through to err_nomem2.  The path on which of_clk_get() itself
+fails keeps jumping straight to err_nomem2, as policy->clk is only an
+error pointer there and must not be put.
 
-Fixes: 37d160193834 ("HID: wacom: generic: Scale battery capacity measurements to percentages")
+Fixes: b1e9a64972bf ("cpufreq: qoriq: Don't look at clock implementation details")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
+ drivers/cpufreq/qoriq-cpufreq.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-Changes in v2:
-  - Clamp the computed percentage to [0, 100] instead of returning
-    false, so that slightly out-of-range ADC values do not prevent
-    battery registration (WACOM_QUIRK_BATTERY) or silently drop
-    updates.  Reported by Sashiko AI review.
+diff --git a/drivers/cpufreq/qoriq-cpufreq.c b/drivers/cpufreq/qoriq-cpufreq.c
+index 42edb41ad459..13d3333e68d8 100644
+--- a/drivers/cpufreq/qoriq-cpufreq.c
++++ b/drivers/cpufreq/qoriq-cpufreq.c
+@@ -183,7 +183,7 @@ static int qoriq_cpufreq_cpu_init(struct cpufreq_policy *policy)
+ 
+ 	data->pclk = kzalloc_objs(struct clk *, count);
+ 	if (!data->pclk)
+-		goto err_nomem2;
++		goto err_clk;
+ 
+ 	table = kzalloc_objs(*table, count + 1);
+ 	if (!table)
+@@ -217,6 +217,8 @@ static int qoriq_cpufreq_cpu_init(struct cpufreq_policy *policy)
+ 
+ err_pclk:
+ 	kfree(data->pclk);
++err_clk:
++	clk_put(policy->clk);
+ err_nomem2:
+ 	kfree(data);
+ err_np:
+-- 
+2.34.1
 
- drivers/hid/wacom_wac.c | 23 +++++++++++++++++++++--
- 1 file changed, 21 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index da1f0ea85..XXXXXXX 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -7,6 +7,7 @@
- #include "wacom.h"
- #include <linux/input/mt.h>
- #include <linux/jiffies.h>
-+#include <linux/math64.h>
-
- /* resolution for penabled devices */
- #define WACOM_PL_RES		20
-@@ -1937,6 +1938,22 @@ static void wacom_wac_battery_usage_mapping(struct hid_device *hdev,
- 	return;
- }
-
-+static __s32 wacom_wac_battery_percentage(struct hid_field *field, __s32 value)
-+{
-+	s64 range = (s64)field->logical_maximum - field->logical_minimum;
-+	s64 result;
-+
-+	if (range <= 0)
-+		return 0;
-+
-+	result = div64_s64(((s64)value - field->logical_minimum) * 100,
-+			   range);
-+
-+	return clamp_val(result, 0, 100);
-+}
-+
- static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *field,
- 		struct hid_usage *usage, __s32 value)
- {
-@@ -1950,7 +1967,8 @@ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *f
- 			wacom_wac->hid_data.bat_status = POWER_SUPPLY_STATUS_UNKNOWN;
- 		}
- 		else {
--			value = value * 100 / (field->logical_maximum - field->logical_minimum);
-+			value = wacom_wac_battery_percentage(field, value);
- 			wacom_wac->hid_data.battery_capacity = value;
- 			wacom_wac->hid_data.bat_connected = 1;
- 			wacom_wac->hid_data.bat_status = WACOM_POWER_SUPPLY_STATUS_AUTO;
-@@ -1958,7 +1976,8 @@ static void wacom_wac_battery_event(struct hid_device *hdev, struct hid_field *f
- 		wacom_wac->features.quirks |= WACOM_QUIRK_BATTERY;
- 		break;
- 	case WACOM_HID_WD_BATTERY_LEVEL:
--		value = value * 100 / (field->logical_maximum - field->logical_minimum);
-+		value = wacom_wac_battery_percentage(field, value);
- 		wacom_wac->hid_data.battery_capacity = value;
- 		wacom_wac->hid_data.bat_connected = 1;
- 		wacom_wac->hid_data.bat_status = WACOM_POWER_SUPPLY_STATUS_AUTO;
---
-2.43.0
