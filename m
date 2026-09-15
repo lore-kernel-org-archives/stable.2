@@ -1,119 +1,124 @@
-Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088CA367F41
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 06:49:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67150352022;
+	Tue, 15 Sep 2026 06:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454953; cv=none; b=iDZeednOe+GE1MK97zMAmR1KoQPPqQhlPkwKHKL7exT54f1eQx9a+KCQ2vv0b1yWzXdKCd3jO0gYDKJsgkcWfVHxcvghpLHjmOh6hmefqHROQ010vl9aSgd4UYLTn54XTIipvKAA4O56wqcWaAOrCXD4czKEUi10Jk0JvgW/qwE=
+	t=1789455031; cv=none; b=rgXBzebuRU15X5VKolOpgln9fOGypFusBFeDDzFJTq7Jq38hZfmorLzP62KUzEKclunIXicHv+jHliqrWyDS50EmvehxRfbTBNdok6mBDlZwoResLZMFzHhaWPZgyreu39/87Brtp/hkEHqGe9xkwUTpSkZkr/Z4M0B6D2Fjow0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454953; c=relaxed/simple;
-	bh=Ub1Z+fC8ATvBz9aNkiPwbnYMyJIDvxEuYy7hYJjpVvE=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=sdIfolNjzLekmXuwq29kvW1bGegza+pWcIgUyK4XAcv3NUae8YwzHo1kOJM5EJZTJylEbnq8jxVXpVXHVYVZj3xIfUM2+k9BXDcLgxIn9pImHgEGBj6cxTwdkvnN0oyOWn1Wq1V1c/I6pMQj4vA6VXrJPCYDARcBMI8gNig4Lf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zKqn5pJd; arc=none smtp.client-ip=185.246.84.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789455031; c=relaxed/simple;
+	bh=vVfFMXWFIKCa7TUacLMmOUEwUf+WoT9zwsVFEb9qZf8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cjHEyOTVaWgZUNa1tKGSniu49GL+5N+Ar+6Mv/XNOa6lY2viq9Bobg6ZOdfkexwb3LGv4JnCW4C4n49wtkSE/IInvMhAh7M5oDKebau4Of9jf+2eLA3QXfaEOAKLgnUmCOY652YGL/4t/J9dqKQ+ELnrCSfrc9ccHJUJQEEM/4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m89d+Fb/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zKqn5pJd"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-02.galae.net (Postfix) with ESMTPS id D58351A07A8;
-	Tue, 15 Sep 2026 06:49:08 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A486560498;
-	Tue, 15 Sep 2026 06:49:08 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C090511C7AFC3;
-	Tue, 15 Sep 2026 08:49:00 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789454947; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=VLW0tQXbJ6VXlwE1uH7g9161GhszLpuSt0iZmAj4OOE=;
-	b=zKqn5pJdXQotx+YOBLGMEThjQ4r44d0cafD+N3WJ3uLuvz2GndWl+Vc5ZcTlylyRGNehE7
-	CKr4h2bxljbKT48WLgANKVLrLOuI2HPirCggeLpsvORoEJYpBogJp4ewMQwlYXRxz3d1EC
-	IvoRd5XmuB39YTsD0YE/CHCg2lXBMgy+K8+e8PcjHVnQgFPQ2eCXXFGF8mTHW0DsbQmjBN
-	FMWsv6xirCGv3oKwO4B2YMaSmkXqxGoGnDkM+A71TB64PL/GQ0Us7B3MCqCzRn+ekET2OI
-	4AGH3ocn+yEAdZu4Rybow5FeckxlzpqLPmw6lnHj9XCJ9GRLTWCLoIJLT6ZNyw==
-Date: Tue, 15 Sep 2026 08:48:59 +0200
-From: Herve Codina <herve.codina@bootlin.com>
-To: Matti Vaittinen <mazziesaccount@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
- patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com, Geert Uytterhoeven
- <geert+renesas@glider.be>, Kalle Niemi <kaleposti@gmail.com>
-Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
-Message-ID: <20260915084859.44acb12f@bootlin.com>
-In-Reply-To: <d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
-References: <20260722142834.868902312@linuxfoundation.org>
-	<d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
-Organization: Bootlin
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m89d+Fb/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C707D1F00893;
+	Tue, 15 Sep 2026 06:50:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789455030;
+	bh=PfpFJrFJqJOm/t95RYZqbpWAhj05M8B1QD4+wWm0lrI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=m89d+Fb/7ut5BSBLySdppucBtFAmbfZlviV5V5qlguiHLYYWuBFZLiT0BzFVGXiKE
+	 fQmxx07mesoddT6vHWhDrFs80wrgMCQPuE+fDU33FduB97Px6K17b2Ql+yZ6yNzVld
+	 HLpfJc30B8DAQ+6DAJAWiEisEmIobIj7Cnv161Al3HqtU6Y3Qz/zYsMCDd8n8lqAwy
+	 66MHHydWFl9Tbrgd1egT3s/A88PinXXYy13iI4amlWrkeo0R6F8pqlw/AwepInTJZ0
+	 CK9jajnqvWFoPz1DaDr+IXnEdZxujgwWxekvYh4b7den+9w2bLwplsnG2YHq3UgDD+
+	 WJKAjjSGi/QFw==
+Date: Tue, 15 Sep 2026 08:50:24 +0200
+From: Michael Grzeschik <mgr@kernel.org>
+To: Qi Zhang <marsy12010123@gmail.com>
+Cc: Eric Van Hensbergen <ericvh@kernel.org>, 
+	Latchesar Ionkov <lucho@ionkov.net>, Dominique Martinet <asmadeus@codewreck.org>, 
+	Christian Schoenebeck <linux_oss@crudebyte.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	v9fs@lists.linux.dev, linux-kernel@vger.kernel.org, 
+	Chengfeng Ye <nicoyip.dev@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] net/9p/usbg: clear stale request context after abort
+Message-ID: <aqjqkBjTGt5S0azU@line.checkpat.ch>
+References: <20260802152148.810390-1-marsy12010123@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260802152148.810390-1-marsy12010123@gmail.com>
 
-Hi Matti,
+On Sun, Aug 02, 2026 at 11:21:48PM +0800, Qi Zhang wrote:
+> From: Chengfeng Ye <nicoyip.dev@gmail.com>
+> 
+> usb9pfs_clear_tx() serializes access to the active TX request with
+> usb9pfs->lock, but leaves in_req->context pointing at the request after
+> p9_client_cb() drops the transport reference.  A later teardown path can
+> therefore retrieve the same request after it has been freed:
+> 
+>   CPU 0 (p9_usbg_close)        CPU 1 (usb9pfs_disable)
+>   lock(usb9pfs->lock)
+>   req = in_req->context
+>   p9_client_cb(client, req)
+>     p9_req_put(client, req)
+>   unlock(usb9pfs->lock)
+>   request reaches zero refs
+>     kmem_cache_free(req)
+>                                 lock(usb9pfs->lock)
+>                                 req = in_req->context
+>                                 read req->t_err
+> 
+> The lock orders the two callbacks, but cannot protect a pointer that
+> remains published after its reference has been released.  KASAN reported:
+> 
+>   BUG: KASAN: slab-use-after-free in usb9pfs_clear_tx+0x166/0x1b0
+>   Read of size 4 at addr ffff88810e7420f4 by task poc/94
+>   Call Trace:
+>    usb9pfs_clear_tx+0x166/0x1b0
+>    usb9pfs_disable+0x1d/0x30
+>    reset_config+0x9d/0x200
+>    __composite_disconnect+0xa7/0x140
+>   Allocated by task 93:
+>    kmem_cache_alloc_noprof+0x141/0x370
+>    p9_tag_alloc+0x8f/0x5b0
+>    p9_client_prepare_req+0xff/0x350
+>    p9_client_rpc+0x1a5/0xac0
+>   Freed by task 0:
+>    slab_free_after_rcu_debug+0xa6/0x1e0
+>    rcu_core+0x50a/0x1850
+>   Last potentially related work creation:
+>    kmem_cache_free+0x1db/0x3d0
+>    p9_req_put+0x164/0x1f0
+>    usb9pfs_clear_tx+0x120/0x1b0
+>    p9_usbg_close+0x7e/0x150
+> 
+> Clear in_req->context after the callback while still holding the lock.
+> This matches the consume-and-clear pattern in usb9pfs_tx_complete(), so
+> subsequent teardown calls return without touching the released request.
+> The existing callback and error ordering remain unchanged.
+> 
+> Fixes: a3be076dc174 ("net/9p/usbg: Add new usb gadget function transport")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+> Signed-off-by: Qi Zhang <marsy12010123@gmail.com>
 
-On Mon, 14 Sep 2026 11:13:54 +0300
-Matti Vaittinen <mazziesaccount@gmail.com> wrote:
+Acked-by: Michael Grzeschik <mgr@kernel.org>
 
-> On 22/07/2026 17:31, Greg Kroah-Hartman wrote:
-> > This is the start of the stable review cycle for the 6.12.97 release.
-> > There are 1202 patches in this series, all will be posted as a response
-> > to this one.  If anyone has any issues with these being applied, please
-> > let me know.
-> > 
-> > Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
-> > Anything received after that time might be too late.  
+> ---
+>  net/9p/trans_usbg.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
-> Oh, time flies. :) Well, statement understood...
+> diff --git a/net/9p/trans_usbg.c b/net/9p/trans_usbg.c
+> index 419cda13a7b5..9a83dff6f3dd 100644
+> --- a/net/9p/trans_usbg.c
+> +++ b/net/9p/trans_usbg.c
+> @@ -439,6 +439,7 @@ static void usb9pfs_clear_tx(struct f_usb9pfs *usb9pfs)
+>  		req->t_err = -ECONNRESET;
+>  
+>  	p9_client_cb(usb9pfs->client, req, REQ_STATUS_ERROR);
+> +	usb9pfs->in_req->context = NULL;
+>  }
+>  
+>  static void p9_usbg_close(struct p9_client *client)
+> -- 
+> 2.43.0
 > 
-> ... Still, even though I know I am late - I am seeing our tests failing 
-> for stable 6.12.x. Other stables as well as mainline releases and 
-> linux-next are passing.
-> 
-> The actual failure seems identical to one discussed here:
-> https://lore.kernel.org/all/072dde7c-a53c-4525-83ac-57ea38edc0b5@gmail.com/
-> 
-> I believe above was fixed by Herve.
-> 
-> Bisecting stable points the:
-> 
-> > Saravana Kannan <saravanak@google.com>
-> >      Revert "treewide: Fix probing of devices in DT overlays"  
-> which matches the issue in discussion.
-> 
-> Maybe the 6.12 stable is missing Herve's latest fix(es)?
-> 
-> As explained in original report, the issue is seen with our out-of-tree 
-> device-tree overlay stuff. I have no idea if there is any in-tree stuff 
-> impacted but I guess the overlay stuff Geert has in Renesas tree might 
-> also be impacted - if it was based on 6.12.
-> 
-> I believe there is an "existing easy fix", in a form of a patch which is 
-> already applied to other stables. Unfortunately I lost track of the 
-> relevant fixes during the discussion so I can't point the relevant one.
-> 
-> Herve, do you happen to know what might be missing?
-
-I haven't check 6.12 stable but needed commits available mainline are:
-  - 81e7c6befa36c ("of: dynamic: Fix overlayed devices not probing because of
-    fw_devlink")
-
-  - aaf08c52df9a1 ("Revert "treewide: Fix probing of devices in DT overlays")
-
-The related series:
-  https://lore.kernel.org/all/20260511155755.34428-1-herve.codina@bootlin.com/
-
-Best regards,
-Hervé
