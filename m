@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE5873BB9E0;
-	Tue, 15 Sep 2026 12:40:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 483D73B8D7E;
+	Tue, 15 Sep 2026 12:40:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476036; cv=none; b=YXoptCsXpVd91jZGnjaIc8oSADNcL09dIBB6G9VLuyK0vXpKnwpeRQ2owOFSOqvdw57NDpHPFeGBTfnl64FBNKzSdf+JfxJfwwC3ojIYRSVRVmCpAVkkRjcRXdoGU/3NqLE4qHJNdiZgiaVKhPioJqiyLonCEwTe0/DJ+Nz5C1Y=
+	t=1789476036; cv=none; b=Mrfr9iWlgXKgofvgEuSPjfuRCxQ3JpcI2mIUhTqCkMT4eCEFqx5L8sSwvIZEYh3eVtvpOhXAX3RT2PcJN2gscO2cZsozcOVi+kTVy3c2NmFMVsjbDSHQtMeeGrMoUOalZW3W3nKAT4PWz56hokbA5xD00tEaxaU4pbT3F6SPFvw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789476036; c=relaxed/simple;
-	bh=BJT96WdpoTYg1mrvs2FJBIkYL9ipWM4ZwsTWOOa+HiQ=;
+	bh=snT6Yz9RSt19k2+lENWpwl0vksvJTAQQkBH3UvjeBWE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UsipktNvDGtUXb+CCgdYfoPFwuAzAfNqNYA91NRc0IsITrlLaIg1kIMZcNvFwuALQhXrFc4EqGc1lpbUGLvoO9EO5Xck6cvRuaLklV5fSgVaj6QuJk11ACSZGMV2upEADYxXGAe8Tg1PEIReX4GCTaSblA1K8k0tIu3N1/x3JY0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtCS7682; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NJ7SfNKWN7n/iVa7zFyP0qDwPVogiDPExu6lc+CEjIFy1BSsekczpglh2/vi7uhJcJjOZgnG1Piv3Ki3D3s2ogAA/cg9CSvXVUDOWmk5qUFA6OhTyMeFuZQDQp/3y5Ea401GhUBE9PZqPFKLyOh/U/dwpSJsbkU8KkKpL8r5KcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KE5xeMCb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtCS7682"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B87601F000FF;
-	Tue, 15 Sep 2026 12:40:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KE5xeMCb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0D51F00898;
+	Tue, 15 Sep 2026 12:40:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789476034;
-	bh=LjLl7wY41qwcnZfUWfKo1m3T60O9v0bsQzCwwo7kMBQ=;
+	s=k20260515; t=1789476035;
+	bh=5kziq8mwhiUUnzUkkV2DS+y2m3ZeYHn6bUEVx6OwQWQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QtCS7682CH3DlD1hVH2QgNx5f731gmblH01hXHupM5KEKbYKy8MIeTYpqiqICfF8h
-	 Akhli9YuyjJY5voQfnQEcMjew5RlyFr87hTxsMZ1G1z7LcNiGHlhFRobdxvPMTgpoG
-	 q1/i8ZDR8G8ZhX9RPRZaWUI15R64CD8Ps+xXV9Ea/2pQs8SUvwpfnZsoFzNPm/h098
-	 iY/q4x/kf/AH2o4yuyqsrWFI7bAkQ1AG62d2KD9EI/31m9P/FXPrQemI2WST8mLGzO
-	 XOOyfFaxten5xgL4hmN1jNJVa0pV4blikKeaji25Dai5+fVoWEvhcGzXALY3nW55Rt
-	 5xuhdvNuLgc+g==
+	b=KE5xeMCbR/Vk0h6jiSGr9UWEWm5APziOdEjfyicr9wAlRPmQfNAGELW3Uk4y4sHzX
+	 r89RA8GcNJhgdOAtU8xJTiYj05nHch6r6gLj38LczFrS+S6A1n71T0kQc9nmiu0oUB
+	 s9PDmikKMtTfwg6WfPRScNQm5hNTNYsELI+Oo1htuMuMIEqeSAIL90bjcQZ652yxpg
+	 g5jE34XccdtaLoQ0s3eIT+PKKCJMr03jVCAye4w5jQsE+5dFhtbxj+795vY9nXHogJ
+	 np8msI3Zz8SGPokp4wSCEIbh4cFAGtxkQfTdTQ/PqoJnuiB7JN8ylb0lrsEtzFHP1E
+	 3k/0SjHLC6psg==
 Received: from johan by xi.lan with local (Exim 4.99.4)
 	(envelope-from <johan@kernel.org>)
-	id 1x6SSc-00000005fOp-1UyE;
+	id 1x6SSc-00000005fOs-1Y24;
 	Tue, 15 Sep 2026 14:40:30 +0200
 From: Johan Hovold <johan@kernel.org>
 To: Johan Hovold <johan@kernel.org>
@@ -37,9 +37,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] USB: serial: ssu100: fix baud rate overflow
-Date: Tue, 15 Sep 2026 14:40:11 +0200
-Message-ID: <20260915124012.1350748-2-johan@kernel.org>
+Subject: [PATCH 2/2] USB: serial: quatech2: fix baud rate overflow
+Date: Tue, 15 Sep 2026 14:40:12 +0200
+Message-ID: <20260915124012.1350748-3-johan@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260915124012.1350748-1-johan@kernel.org>
 References: <20260915124012.1350748-1-johan@kernel.org>
@@ -54,45 +54,50 @@ Content-Transfer-Encoding: 8bit
 The requested baud rate is incorrectly truncated to 16 bits so that
 line speeds above 65535 bps cannot be set.
 
-Use 32 bits for the rate and remainder while rejecting rates outside of
-[50,460800] to avoid having the divisor or remainder overflow.
+Use 32 bits for the rate while rejecting rates outside of
+[50,921600] to avoid having the 16-bit divisor overflow.
 
-This issue was flagged by an LLM.
-
-Fixes: 52af95459939 ("USB: add USB serial ssu100 driver")
-Cc: stable@vger.kernel.org	# 2.6.36
+Fixes: f7a33e608d9a ("USB: serial: add quatech2 usb to serial driver")
+Cc: stable@vger.kernel.org	# 3.5
 Cc: Bill Pemberton <wfp5p@virginia.edu>
-Assisted-by: LLM
 Signed-off-by: Johan Hovold <johan@kernel.org>
 ---
- drivers/usb/serial/ssu100.c | 18 ++++++++++++++++--
- 1 file changed, 16 insertions(+), 2 deletions(-)
+ drivers/usb/serial/quatech2.c | 19 ++++++++++++++++---
+ 1 file changed, 16 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/serial/ssu100.c b/drivers/usb/serial/ssu100.c
-index b0d51558b73c..8c5b9ef708b3 100644
---- a/drivers/usb/serial/ssu100.c
-+++ b/drivers/usb/serial/ssu100.c
-@@ -32,6 +32,7 @@
- 
- #define  SERIAL_EVEN_PARITY         (UART_LCR_PARITY | UART_LCR_EPAR)
+diff --git a/drivers/usb/serial/quatech2.c b/drivers/usb/serial/quatech2.c
+index dc2b39810a26..3b4df3ac7c73 100644
+--- a/drivers/usb/serial/quatech2.c
++++ b/drivers/usb/serial/quatech2.c
+@@ -52,6 +52,7 @@
+ #define QT2_XMIT_FLUSH      0x05  /* no following info */
+ #define QT2_CONTROL_ESCAPE  0xff  /* pass through previous 2 control bytes */
  
 +#define  MIN_BAUD_RATE              50
- #define  MAX_BAUD_RATE              460800
+ #define  MAX_BAUD_RATE              921600
+ #define  DEFAULT_BAUD_RATE          9600
  
- #define ATC_DISABLED                0x00
-@@ -217,9 +218,10 @@ static void ssu100_set_termios(struct tty_struct *tty,
+@@ -156,7 +157,7 @@ static inline int calc_baud_divisor(int baudrate)
+ 
+ static inline int qt2_set_port_config(struct usb_device *dev,
+ 				      unsigned char port_number,
+-				      u16 baudrate, u16 lcr)
++				      speed_t baudrate, u16 lcr)
  {
+ 	int divisor = calc_baud_divisor(baudrate);
+ 	u16 index = ((u16) (lcr << 8) | (u16) (port_number));
+@@ -257,9 +258,9 @@ static void qt2_set_termios(struct tty_struct *tty,
  	struct usb_device *dev = port->serial->dev;
+ 	struct qt2_port_private *port_priv;
  	struct ktermios *termios = &tty->termios;
--	u16 baud, divisor, remainder;
-+	speed_t baud, remainder;
+-	u16 baud;
  	unsigned int cflag = termios->c_cflag;
- 	u16 urb_value = 0; /* will hold the new flags */
-+	u16 divisor;
- 	int result;
+ 	u16 new_lcr = 0;
++	speed_t baud;
+ 	int status;
  
- 	if (cflag & PARENB) {
-@@ -235,6 +237,18 @@ static void ssu100_set_termios(struct tty_struct *tty,
+ 	port_priv = usb_get_serial_port_data(port);
+@@ -277,6 +278,18 @@ static void qt2_set_termios(struct tty_struct *tty,
  	if (!baud)
  		baud = 9600;
  
@@ -108,18 +113,18 @@ index b0d51558b73c..8c5b9ef708b3 100644
 +			baud = 9600;
 +	}
 +
- 	dev_dbg(&port->dev, "%s - got baud = %d\n", __func__, baud);
- 
- 
-@@ -310,7 +324,7 @@ static int ssu100_open(struct tty_struct *tty, struct usb_serial_port *port)
- 		dev_dbg(&port->dev, "%s - set uart failed\n", __func__);
+ 	status = qt2_set_port_config(dev, port_priv->device_port, baud,
+ 				     new_lcr);
+ 	if (status < 0)
+@@ -373,7 +386,7 @@ static int qt2_open(struct tty_struct *tty, struct usb_serial_port *port)
+ 	port_priv->device_port = (u8) device_port;
  
  	if (tty)
--		ssu100_set_termios(tty, port, &tty->termios);
-+		ssu100_set_termios(tty, port, NULL);
+-		qt2_set_termios(tty, port, &tty->termios);
++		qt2_set_termios(tty, port, NULL);
  
- 	return usb_serial_generic_open(tty, port);
- }
+ 	return 0;
+ 
 -- 
 2.55.0
 
