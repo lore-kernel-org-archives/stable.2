@@ -1,34 +1,35 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288531F91F6;
-	Tue, 15 Sep 2026 04:50:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BBA363AA9E2;
+	Tue, 15 Sep 2026 04:52:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789447836; cv=none; b=DVgqe0a4/BfM6Qpkom9Ue99PHptsO3gNG61HJYo5qtfmLNzlRo/gP1TAhAIb88jckJim6d9AAm0mJgpeYDz5VIgxo2TreQfYKHHkEQ+V9+bZv9MhZmpItYb63HzCh919BVAxo2wrTPWolf8AV+OvT0gC7SkXC16pCW7vTXxmvaQ=
+	t=1789447934; cv=none; b=dz9aG53IRIMdauo2hFOyTeUb6hFtEf7gb6HzTNMi+NVGiNz9pjgi1HWA9UDdpyzrJVLkDWJGavZ8wtnXcK/yR3gs/rtw4a1jZuwdt+dWzp0aFtE20OfySenMXNSxZoi5f46JvyzK1H151Vp28/F1ojkgsCRpCU81IQq9WOjwGG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789447836; c=relaxed/simple;
-	bh=2Icb5uM80dKZA+gLNYd5HXR42EUBP0K7T68BBNTxNCI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fvylYHv5zW41+dKxVPMSsqwNL+nK+rkk8L1yVE4VeadZAlLL/q0Ojj27HJL2M1xm+OMCF1/c9cMzuXy6TwYBz+mhAiojTp0fpnggr0tqNUCr2SQDPXcjyxiIp3g765oaRT4fHB29gCqoDLVRQYhG0NVoiclEONKZCmXuTMXo1AM=
+	s=arc-20240116; t=1789447934; c=relaxed/simple;
+	bh=ruTOlUWRjC+XHH5P8xlcScCD8eqQ3g3XNdzFW2uRuKY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mqsyNWCUF4ZAgTctPPqcEYExuZBfG7rK7IQi/XV3pNW3xpDOGsaL8sA0G387iWOWSxjM29FRYy8Gl8mpsnGaeFN8bPPgOizSlRNpS9e6rJ8ykh2/UviiXPvcgN0FP5SgvBfntOm5EzpPZBdArkM+ppyD/5fBuKSsU4Nuoj9Q0g8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowADHn_OUzqhqCREJCA--.50396S2;
-	Tue, 15 Sep 2026 12:50:28 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowADnvPDxzqhqoRoJCA--.51839S2;
+	Tue, 15 Sep 2026 12:52:01 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: daniel.lezcano@kernel.org
-Cc: krzk@kernel.org,
+To: alexandre.belloni@bootlin.com
+Cc: claudiu.beznea@tuxon.dev,
+	daniel.lezcano@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux@rempel-privat.de,
+	nicolas.ferre@microchip.com,
 	tglx@kernel.org,
 	lkml@vger.kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] clocksource/drivers/asm9260: Fix clk reference leak in error paths
-Date: Tue, 15 Sep 2026 04:49:59 +0000
-Message-Id: <20260915044959.1726508-1-vulab@iscas.ac.cn>
+Subject: [PATCH] clocksource/drivers/atmel-st: Fix sclk reference leak in error paths
+Date: Tue, 15 Sep 2026 04:51:32 +0000
+Message-Id: <20260915045132.1726602-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,62 +38,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADHn_OUzqhqCREJCA--.50396S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4ktF45WF43Cr13GFW3Jrb_yoW8GFWUpw
-	s7GrW5tr1rur4I9F4vqr4vyr95tw4jkFy3Ww4Sk3Z5ZrsxJFyUXayrGry29F4DArs5Zw43
-	tFn5AFykZ3WDAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:qwCowADnvPDxzqhqoRoJCA--.51839S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFWktF1kAFW8Jr43AF1xAFb_yoW8Zw1xp3
+	yxK3yayr1kWayIgrsFvFWDJF9Yya9FkFyUGFWrKas7ZrsxJryUtFWfJr9FqFWUAF97Zw47
+	try8tFn8uF18ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r
-	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
-	tVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
-	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
-	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
-	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
-	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU78u4UU
-	UUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRULA2qowd0lzwABsh
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VU19Xo7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAILA2qowzMrUAABsO
 
-asm9260_timer_init() obtains a clock reference with of_clk_get() but
-never calls clk_put(). If clk_prepare_enable() fails, the reference is
-leaked directly, and if request_irq() fails the error path only calls
-clk_disable_unprepare(), which releases the prepare/enable state but not
-the reference obtained from of_clk_get().
+atmel_st_timer_init() obtains the slow clock with of_clk_get() but never
+releases the reference on error. If clk_prepare_enable() fails the
+reference is leaked directly, and if the clock rate is invalid or
+clocksource_register_hz() fails the error paths return without disabling
+or putting the already enabled clock.
 
-Add the missing clk_put() calls on both error paths so the clock
-reference is no longer leaked. The success path keeps the clock enabled
-for the lifetime of the timer and is left untouched.
+Add the missing cleanup to the three error paths: clk_put() when
+prepare+enable fails, and clk_disable_unprepare() followed by clk_put()
+when aborting after the clock has been enabled. The success path keeps
+the slow clock enabled for the lifetime of the system timer and is left
+untouched.
 
-Fixes: 8d8bd7be8bf0 ("ARM: clocksource: Add asm9260_timer driver")
+Fixes: adbaf5254152 ("clocksource/drivers/atmel-st: Convert init function to return error")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/clocksource/asm9260_timer.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/clocksource/timer-atmel-st.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/clocksource/asm9260_timer.c b/drivers/clocksource/asm9260_timer.c
-index 8f97ab0b01ec..f0ba19c9e0cf 100644
---- a/drivers/clocksource/asm9260_timer.c
-+++ b/drivers/clocksource/asm9260_timer.c
-@@ -202,6 +202,7 @@ static int __init asm9260_timer_init(struct device_node *np)
- 	ret = clk_prepare_enable(clk);
+diff --git a/drivers/clocksource/timer-atmel-st.c b/drivers/clocksource/timer-atmel-st.c
+index 73e8aee445da..e333916f8236 100644
+--- a/drivers/clocksource/timer-atmel-st.c
++++ b/drivers/clocksource/timer-atmel-st.c
+@@ -222,12 +222,15 @@ static int __init atmel_st_timer_init(struct device_node *node)
+ 	ret = clk_prepare_enable(sclk);
  	if (ret) {
- 		pr_err("Failed to enable clk!\n");
-+		clk_put(clk);
+ 		pr_err("Could not enable slow clock\n");
++		clk_put(sclk);
  		return ret;
  	}
  
-@@ -211,6 +212,7 @@ static int __init asm9260_timer_init(struct device_node *np)
- 	if (ret) {
- 		pr_err("Failed to setup irq!\n");
- 		clk_disable_unprepare(clk);
-+		clk_put(clk);
- 		return ret;
+ 	sclk_rate = clk_get_rate(sclk);
+ 	if (!sclk_rate) {
+ 		pr_err("Invalid slow clock rate\n");
++		clk_disable_unprepare(sclk);
++		clk_put(sclk);
+ 		return -EINVAL;
  	}
+ 	timer_latch = (sclk_rate + HZ / 2) / HZ;
+@@ -244,7 +247,14 @@ static int __init atmel_st_timer_init(struct device_node *node)
+ 					2, AT91_ST_ALMV);
  
+ 	/* register clocksource */
+-	return clocksource_register_hz(&clk32k, sclk_rate);
++	ret = clocksource_register_hz(&clk32k, sclk_rate);
++	if (ret) {
++		clk_disable_unprepare(sclk);
++		clk_put(sclk);
++		return ret;
++	}
++
++	return 0;
+ }
+ TIMER_OF_DECLARE(atmel_st_timer, "atmel,at91rm9200-st",
+ 		       atmel_st_timer_init);
 -- 
 2.34.1
 
