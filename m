@@ -1,101 +1,84 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93A9D3911C7;
-	Tue, 15 Sep 2026 13:00:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8174B3B83FC;
+	Tue, 15 Sep 2026 13:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789477223; cv=none; b=S/4mbKNRSJbCosqDYudbRMYez3sSPKscTZCH5JFlspIYsm+l89iEOOws+M6yz+que1l17B970YLgFpnp6fYoHd2pANjwbkhdDJp4MNvW9GQVK6sk1e/SlaKlb3CYQgWJYE9wkLLW+06Jp0AgtTS42QzZ9upmQo4UwG9JsYai4B8=
+	t=1789477271; cv=none; b=XTZnPwEptEj8u5EP9KUGskgHoEQ5yyIIDzh2x7RbNp2hANdxRZz7trS5ZCaj/ECfjlc0/q43GhL+s/iKGIPXtbQAMLXn9X7Jzv98K8laalIcwLtXBUBwcGe5IytIhHm3ys4rcFZIv2ftlqSFythJk++QckE00dOTCbjWt5hVsWQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789477223; c=relaxed/simple;
-	bh=XsWsPGuQxBgmDgDWkT+nmlfS6wXT6E4HKkgq+vWo7VM=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=XI86QvYRn4E4i1JvafSRohEZ/sPypDpp+FSE07Ov86mOg8fSxdS9XD0EgbOmnsT73AfYneiGu5MAEIs6A03pE5y2KApbWgEPTqMldcr2CdMMDUXC13fQLhpLPv6xI+4HUnMf5wSqwSWx1tlSJIjSRpQ9sdGunqq6NX5npWPNEj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=TRHiaEub; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789477271; c=relaxed/simple;
+	bh=X3yu9EpBrkDnQC2rpNCvAHoyo2oI73MPTKB/tYAsvrI=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=SbHvC3g1a9ISH8Vk3LK8QKN9McMCeP4Q+puxHeOxh5vvdKwUEl+LoAOrst8S/8IiLAlKQV0xKNrjb1xdLbWY7yZu0L/x9vdZWW8VnApssShlNqGY5Sjx80oVqUVCuEGMmLr2EbSgoDBKS4InOn2ID7d3Kft4FEZ0anvcLJnYErI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jM6hoDYf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="TRHiaEub"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id B9CAE4E4064A;
-	Tue, 15 Sep 2026 13:00:18 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 8451C60498;
-	Tue, 15 Sep 2026 13:00:18 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 4CB2711C7AF9D;
-	Tue, 15 Sep 2026 15:00:05 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789477213; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:content-language:in-reply-to:references;
-	bh=3snnb/Y2y8ku4fecmXgJCGMJyog3YWcxnfWoyeQCnlU=;
-	b=TRHiaEubLE5oQobB1fmn+oYjmR1BkpQZqLjnBwaWlpotIe5gwLAV57O5QUx16xTPYRVh8G
-	Id6vudvenu3cT+5W4nCU2JemFRNRjlk3ZCWyR+qk/PdyWPpjJtWOtg41lcJw6fCb40Dbqn
-	mwPtLdfOPyrb6gPtL3bXVaABxLQYl08Np2kAi4e7pAbxvQ2FbEfErksHQoMoVVGW5KTJXD
-	XI7LU4vrnv+W/vcO5ZcCPM6RjKu/t/UA8Cbtf4PW9TLJx6MM+wwWYx80gyI7JmrNVfzvv/
-	cnf+XqeC9Qi2FbVUiGTUof/d4zgjkelydhYtROHTbZYpbDxGMFOLECMvau4KRA==
-Message-ID: <823f66b1-5a3c-4ca2-812a-de2c5281c49e@bootlin.com>
-Date: Tue, 15 Sep 2026 15:00:05 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jM6hoDYf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3E17F1F000FF;
+	Tue, 15 Sep 2026 13:01:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789477270;
+	bh=DwrNzdpZsdBICzQS3joCbAAZTICEFFGqUOqLpF4/IqE=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=jM6hoDYf7e3eYetsZv3kATelJT+mn44wj8+tKPT/+GFteMnHS4mYNgAHXLxZjuRR2
+	 rHrfOlBP0eAZKBU5vKV8aRii/GUpkCJnskMoA7nibhyI6YB5rcVkzYps4RcFuIxvDe
+	 NaJEUQJeB2jUyOjJsavaAXmVRm7/myfhuSHXycE5rH6qPG0Wk/5jaTxbER1Ql9QdCj
+	 EPVB2/ewiTpSBeo82J5sBFQV95BScAZqzqgYznz9lJZuD25XV3mGTcjeXNLAibcjLI
+	 j1zgI7fQxjGotlwtzIglHrotpqpyZNldrcDYsjKqDCl41hvUudybrX7Op3W5UYBCzm
+	 3yAO4Z2s+ikKQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19A2539263A4;
+	Tue, 15 Sep 2026 13:00:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6.1.y 4/4] ipv4: start using dst_dev_rcu()
-From: Miguel Gazquez <miguel.gazquez@bootlin.com>
-To: Greg KH <greg@kroah.com>
-Cc: stable@vger.kernel.org, "David S. Miller" <davem@davemloft.net>,
- Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>,
- Paolo Abeni <pabeni@redhat.com>, Wei Wang <weiwan@google.com>,
- Martin KaFai Lau <kafai@fb.com>, Hideaki YOSHIFUJI
- <yoshfuji@linux-ipv6.org>, David Ahern <dsahern@kernel.org>,
- Steffen Klassert <steffen.klassert@secunet.com>,
- Herbert Xu <herbert@gondor.apana.org.au>,
- Pablo Neira Ayuso <pablo@netfilter.org>,
- Jozsef Kadlecsik <kadlec@netfilter.org>, Florian Westphal <fw@strlen.de>,
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, netfilter-devel@vger.kernel.org,
- coreteam@netfilter.org
-References: <20260821-cve-2025-40074-6-1-v1-0-cad5cf499b76@bootlin.com>
- <20260821-cve-2025-40074-6-1-v1-4-cad5cf499b76@bootlin.com>
- <2026082454-jacket-gravity-6ddc@gregkh>
- <2d335ef9-baeb-4672-bcb3-c00bd988c83a@bootlin.com>
-Content-Language: en-US
-In-Reply-To: <2d335ef9-baeb-4672-bcb3-c00bd988c83a@bootlin.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-Last-TLS-Session-Version: TLSv1.3
+Subject: Re: [PATCH net 1/2] net/sched: hhf: cap hh_flows_limit at change time
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178947720466.1607766.7479529593447485027.git-patchwork-notify@kernel.org>
+Date: Tue, 15 Sep 2026 13:00:04 +0000
+References: <QDISC-B855.v1.20260911153152@mojatatu.com>
+In-Reply-To: <QDISC-B855.v1.20260911153152@mojatatu.com>
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, jiri@resnulli.us, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ vtlam@google.com, stable@vger.kernel.org, victor@mojatatu.com,
+ hybris@mojatatu.ai, sashiko-bot@kernel.org
 
-Hi.
+Hello:
 
-Le 31/08/2026 à 18:08, Miguel Gazquez a écrit :
-> Hi.
+This series was applied to netdev/net.git (main)
+by Paolo Abeni <pabeni@redhat.com>:
+
+On Sat, 12 Sep 2026 14:09:19 -0400 you wrote:
+> hhf_change() stores TCA_HHF_HH_FLOWS_LIMIT with no upper bound. A huge
+> hh_flows_limit lets each new heavy-hitter flow pass the
+> hh_flows_current_cnt check in alloc_new_hh() and forces a fixed-size
+> kzalloc(GFP_ATOMIC) per flow under spoofed traffic, for unbounded memory
+> growth.
 > 
-> Le 24/08/2026 à 15:47, Greg KH a écrit :
->>
->> We need a working 6.6.y version first, before we can take this one.
+> Bound the attribute with NLA_POLICY_MAX() at 2*HH_FLOWS_CNT (the
+> hhf_init() default) and report the rejected value via extack. The
+> deprecated nested parse is kept: legacy tc does not set NLA_F_NESTED on
+> TCA_OPTIONS. Configs relying on hh_limit above the default were relying
+> on unbounded, unsafe behaviour and are not supported going forward.
 > 
-> I sent the backport for the 6.6.y version
+> [...]
 
-The 6.6 backport were merged in 6.6.157. Would it be possible to merge 
-the 6.1 version ?
+Here is the summary with links:
+  - [net,1/2] net/sched: hhf: cap hh_flows_limit at change time
+    https://git.kernel.org/netdev/net/c/2cef2588c995
+  - [net,2/2] selftests/tc-testing: add hhf hh_limit cap tests
+    https://git.kernel.org/netdev/net/c/0654f4dba1fb
 
-Thanks,
-Miguel Gazquez
-
-> 
->>
->> thanks,
->>
->> greg k-h
-> 
-> 
-> Thanks,
-> Miguel Gazquez
-
+You are awesome, thank you!
 -- 
-Miguel Gazquez, Bootlin
-Embedded Linux and Kernel engineering
-https://bootlin.com
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
 
