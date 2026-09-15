@@ -1,133 +1,127 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20CED4ACC74;
-	Tue, 15 Sep 2026 23:23:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE78B4AD4A8
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 23:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789514603; cv=none; b=HuUd/RJUv27I1Kn4bHuvyjKa3bbMOexsqJc1GwIuk/M+7CbODq5wBK9gLeH4lntqzRwsjNzmB5YM8HIHfSHab5oBVn44t2tgcwftqM6OTwNdbb7sjYuY2k0fdK8QQg9QvaNEVevEOiMImIL4zRKHTVWQof76q7Q8bLuBDcVuts8=
+	t=1789516435; cv=none; b=He/IidZMZfKPGnwzUegoTdh5zfmIVytIcrqfBmryaAYYiHFvOI9zSyTX4UG4OjGJPYFJcRhqu5hnewzAi2X6C90SO0E0ObZamQjZIwlbLD+culmPJqix5lPpeQ75CKHpXs7DXw7q2SKOW+YZASc4Ojx5TE8gAQ4cfohtXj8sKj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789514603; c=relaxed/simple;
-	bh=lJn14TKtFaPel9ILnOOEgYYszwZ2dyMnSntaunP61Pc=;
-	h=Date:To:From:Subject:Message-Id; b=Vye6tOjliZgUBgZB4nt6xCOrp+qxxLOkWASyMwMDku/QZtM/EA96GJw95TTTLG3x4K/7DviDumTSFd8hNNeLzE5H0ZqHAqNR0kcoiryeIEAdBz6bHmDiVcUOXeFPY3H0Q+SpplNnlBHHaAL7vRR5gGJlyZyfXqgZ38UskhiAmf4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=h+aRH24p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789516435; c=relaxed/simple;
+	bh=9YCR2jAyq8jwYN4sL1CNBLWNLklyjMJf+GSPFtbaEnw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NuE9eLatyADJFITCln+AAbhf8OuIDfUgx49B/w+Up45NPwfOGgY7GrmTduEIT+1SchDfX7WUo8wAFLQ/d70d0Zeg8CJnEMOwlU2w1sPMSp5+z/x8QsNGIDVBbXs9KSTH03UwbULA5w84pCEHEKOTngstlAv2VoTNv9dsrNypyIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GnMi3DtJ; arc=none smtp.client-ip=74.125.231.169
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="h+aRH24p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 876B71F000FF;
-	Tue, 15 Sep 2026 23:23:21 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GnMi3DtJ"
+Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b1ae740487so250110eaf.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 16:53:52 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789514601;
-	bh=lvoRibTBbn6rTgKwf3Y0/fL2PNuRey6x1ijoZVeQAKc=;
-	h=Date:To:From:Subject;
-	b=h+aRH24pWu/sdP6kdX3cI+Xy9FoeENMzYEyy5SzNxHnVwAHmbHA9xoSiaM3mLVviR
-	 du+yDmB/qBzG5HXn2dYrUdAoJ0FA3C9xzWJe1bxdN3DphiC9wutPMfLE7ama/12tAH
-	 ZRNF4kKFFM8jzE/16Z5btuDic3+GqRYTp2jOnXJ4=
-Date: Tue, 15 Sep 2026 16:23:21 -0700
-To: mm-commits@vger.kernel.org,vschneid@redhat.com,vincenzo.frascino@arm.com,vincent.guittot@linaro.org,vbabka@kernel.org,urezki@gmail.com,surenb@google.com,stable@vger.kernel.org,ryabinin.a.a@gmail.com,rppt@kernel.org,rostedt@goodmis.org,peterz@infradead.org,mingo@redhat.com,mhocko@suse.com,mgorman@suse.de,ljs@kernel.org,liam@infradead.org,kprateek.nayak@amd.com,kees@kernel.org,juri.lelli@redhat.com,glider@google.com,dvyukov@google.com,dietmar.eggemann@arm.com,david@kernel.org,bsegall@google.com,andreyknvl@gmail.com,huangshaobo3@xiaomi.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + fork-reset-pointer-tag-of-vmapped-thread-stack-before-vfree.patch added to mm-nonmm-unstable branch
-Message-Id: <20260915232321.876B71F000FF@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1789516431; x=1790121231; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vDEJrVWlib24T1D7GSE0HjYSZrsnYM8lK5GMEYYnFBc=;
+        b=GnMi3DtJLlFbZSrzObalzSREnowPAJcdNyp8UAI69vJyXatuwaNjAutFeNFhqgjdXF
+         b/i6VyBHkGq0p89KxMo7UXEjIfNVPUtvA7xRT30HG6LQjC05s4Q41T+ObIUyLWNjxuue
+         ZrpUTN8K5ZoLfGcbo4BLLRLNq0ynBV1lhD7CtqK6G6inkyL6axBP4sqT6m0EAKSyG6z6
+         1c20MA6DB+5Vx9aiP4YQfBeyB17XwIcL7+jKTIK/U+GsirefECdauEzsb+BQvwIbyXv8
+         BRGKAM3mqzXKZdEnCtTkqUCw4tOkac+FC+93/TtD0He3JWOHFvjaB9ln+S6hYoc7eaDq
+         tyow==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789516431; x=1790121231;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vDEJrVWlib24T1D7GSE0HjYSZrsnYM8lK5GMEYYnFBc=;
+        b=ISy2fls0MfRxnS00Zw8CK8TmOq2kyLxKm6dlPm1oKlo5PnWnI5vk2Bkj3a/muifkQl
+         6fRJnD9b4Lu7jRyXiQvjBk8Rm3HNL4V59dwAkenpMAiilCzrqacjv5KUY7y48X3Yr5mv
+         2//7jjM/P1n+qC2i3aDFmjKcLJEDZiHjs3+J8pOmW4tphRBx+1UerEv48xIt8sSSh9vv
+         RBEaJwyq0dDgawKoCpzIyKRAIH17RWo8MdSreXzTwSEih2io/J0JNu2/m0CzwvYB4Km6
+         ihXFguiX81rslWkF3HyaLT6ULgCk38bxB4oJmWU1pBdHjhkK3S0y0hTGpuO8AjEeoh6T
+         1vyQ==
+X-Forwarded-Encrypted: i=1; AKwUvBymku3mb8CB8uYobxprdoMi38pysqig6LZIp+AObCLLMyDjmbhAPQuEp11ge6e4MuxsfpPDQ44=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJzMTiohSz7NZmpYTfZmleSwuTDaOHRDfYgnKsD5Q4kpdU7fv2
+	GxNrI8tk/t/jikCgDKFtod+6LNcCKU3VKFCknQymtxc5fZ/SG2kIfvd4lNGwVg==
+X-Gm-Gg: AYBFou2atLsfweyS8GY7J25GuqGB9aSP1H67rwKFLiLT5WyMMR8seFeXoxvVb94TNV/
+	yBH40Dvzc7bV6+03X9eyBseJtR8Utle6ddphLCv21FEBPIK6sl1ZJKcfcdDWFdSPQovryQnfMVN
+	ggdL1NkKeyWOuoAFoVepraQDY7vSx7F3YKj7b+ZfkAI7m3rikT+ONewHsKBYy415UbRMtPTftPs
+	HNLM2zKSzA9l9/kE09mFxSMRVpCSTdA7GcP7626ygPABKZTv3n3PLuwXRFuKCpLyNU01MSQKRef
+	6g5dtJ0mfnf/btbsexCFoWkGZfGq7I5QBzyV4EWNwMHK8PNyYIdIPZlA2+GJ4/aGKRhJ5ZIgrQ0
+	uY8qnn22+ZRzmqbo2xRtv89jnPlkdXg2sEJJG0sFhMlN5BX7VvQ90aIspPyCgZhmXZ8r0R4ArvU
+	4Wv+B5CkyYv0yC/Q8NJugIlhh0Zjs4rnVWd28sBykPjQPzuCIhQqke2mxo6/Nve1VpMMeRYC2oR
+	JQ1sqvvoFz30xMTbEXMd+n6abfz7s4t1msoJ66zaDCOeK/OlYg=
+X-Received: by 2002:a05:6820:290a:b0:6b7:8415:d78c with SMTP id 006d021491bc7-6c7d32fdf98mr609849eaf.55.1789516431352;
+        Tue, 15 Sep 2026 16:53:51 -0700 (PDT)
+Received: from localhost ([2a03:2880:ff:73::])
+        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c7a061a054sm1420639eaf.0.2026.09.15.16.53.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 16:53:50 -0700 (PDT)
+From: Joanne Koong <joannelkoong@gmail.com>
+To: miklos@szeredi.hu
+Cc: fuse-devel@lists.linux.dev,
+	stable@vger.kernel.org
+Subject: [PATCH] fuse: don't drop destination page cache on a zero byte copy reply
+Date: Tue, 15 Sep 2026 16:53:41 -0700
+Message-ID: <20260915235341.523416-1-joannelkoong@gmail.com>
+X-Mailer: git-send-email 2.52.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+__fuse_copy_file_range() clears the destination page cache after the
+server replies:
 
-The patch titled
-     Subject: fork: reset pointer tag of vmapped thread stack before vfree
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     fork-reset-pointer-tag-of-vmapped-thread-stack-before-vfree.patch
+	truncate_inode_pages_range(inode_out->i_mapping,
+				   ALIGN_DOWN(pos_out, PAGE_SIZE),
+				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/fork-reset-pointer-tag-of-vmapped-thread-stack-before-vfree.patch
+A server may legitimately reply that it copied nothing, eg if the source
+file turns out to be shorter than the size the kernel has cached for it.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
+which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
+as its end of file sentinel, so rather than clearing nothing it drops
+every folio in the destination mapping.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+That is not only a cache drop. truncate_cleanup_folio() calls
+folio_cancel_dirty(), and fuse_writeback_range() only wrote back
+[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
+file is discarded without ever reaching the server.
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+Skip the call when the server copied nothing, since there is nothing
+stale to clear in that case.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Shaobo Huang <huangshaobo3@xiaomi.com>
-Subject: fork: reset pointer tag of vmapped thread stack before vfree
-Date: Mon, 14 Sep 2026 17:33:00 +0800
-
-thread_stack_free_rcu() frees the vmalloc'd thread stack via
-vfree(vm_area->addr).  In RCU callback context, vfree() routes to
-vfree_atomic(), which calls llist_add((struct llist_node *)addr, ...) and
-writes 8 bytes to the base of the region being freed.
-
-With KASAN_SW_TAGS, vm_area->addr carries a random tag.  If
-kasan_unpoison_task_stack_below() has rewritten the shadow covering [base,
-sp] to KASAN_TAG_KERNEL (0xff) -- which it does on every CPU resume for
-the current task's stack -- the llist_add store checks shadow[base] (0xff)
-against the pointer tag (random) and reports an invalid-access, although
-writing to the base of a stack queued for deferred free is legitimate.
-
-Reset the pointer tag to KASAN_TAG_KERNEL before vfree() so that
-kasan_check_range() short-circuits the check, the same way the task
-accesses its own stack at runtime via sp.  The vmalloc lookup is safe:
-__find_vmap_area() resets the tag before comparing against va_start.
-
-Link: https://lore.kernel.org/20260914093300.100495-1-huangshaobo3@xiaomi.com
-Fixes: 9f7d416c3612 ("kprobes: Unpoison stack in jprobe_return() for KASAN")
-Assisted-by: zhipuai:glm-5.2
-Signed-off-by: Shaobo Huang <huangshaobo3@xiaomi.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Reviewed-by: Uladzislau Rezki (Sony) <urezki@gmail.com>
-Cc: Alexander Potapenko <glider@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-Cc: Ben Segall <bsegall@google.com>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Dietmar Eggemann <dietmar.eggemann@arm.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Juri Lelli <juri.lelli@redhat.com>
-Cc: Kees Cook <kees@kernel.org>
-Cc: K Prateek Nayak <kprateek.nayak@amd.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Mel Gorman <mgorman@suse.de>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Steven Rostedt <rostedt@goodmis.org>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Valentin Schneider <vschneid@redhat.com>
-Cc: Vincent Guittot <vincent.guittot@linaro.org>
-Cc: Vincenzo Frascino <vincenzo.frascino@arm.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org>
+Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
+Cc: stable@vger.kernel.org
+Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
 ---
+ fs/fuse/file.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
- kernel/fork.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/kernel/fork.c~fork-reset-pointer-tag-of-vmapped-thread-stack-before-vfree
-+++ a/kernel/fork.c
-@@ -280,7 +280,7 @@ static void thread_stack_free_rcu(struct
- 	if (try_release_thread_stack_to_cache(vm_stack->stack_vm_area))
- 		return;
+diff --git a/fs/fuse/file.c b/fs/fuse/file.c
+index 3bf7cb590538..2aa575a02e05 100644
+--- a/fs/fuse/file.c
++++ b/fs/fuse/file.c
+@@ -3062,9 +3062,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
+ 		goto out;
+ 	}
  
--	vfree(vm_area->addr);
-+	vfree(kasan_reset_tag(vm_area->addr));
- }
+-	truncate_inode_pages_range(inode_out->i_mapping,
+-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
+-				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
++	if (bytes_copied)
++		truncate_inode_pages_range(inode_out->i_mapping,
++					   ALIGN_DOWN(pos_out, PAGE_SIZE),
++					   ALIGN(pos_out + bytes_copied,
++						 PAGE_SIZE) - 1);
  
- static void thread_stack_delayed_free(struct task_struct *tsk)
-_
-
-Patches currently in -mm which might be from huangshaobo3@xiaomi.com are
-
-fork-reset-pointer-tag-of-vmapped-thread-stack-before-vfree.patch
+ 	file_update_time(file_out);
+ 	fuse_write_update_attr(inode_out, pos_out + bytes_copied, bytes_copied);
+-- 
+2.52.0
 
