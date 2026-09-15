@@ -1,72 +1,35 @@
-Received: from mail-ua1-f45.google.com (mail-ua1-f45.google.com [209.85.222.45])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8539441A4E7
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:07:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B42333D0900;
+	Tue, 15 Sep 2026 04:08:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789445275; cv=none; b=nUIkAKUvbJ1TbvKC9giosbB/VAFkUZG4dlWaMTqaFySm1Z7TCeFbaPx62VyUn2mtUUOZ+fK74ycjnmJAxWxeGcMIke1MDc+cVFAmE7Imy6wUV9z3hK22+HI+B+zKZYn5z4Mtrl0CD4MJHg5cddOrUR8Bpwsq6NVMHsZ6QbxCfyc=
+	t=1789445325; cv=none; b=FyFdqEIrJ9RM5cZMwXhoqt37IvSWgyAj+YvBcafm6DZrmAxlO7YwV06/4TCIHNB8GXJg4UArd75mMkl5WpTmE6tllX5jgV33qUb9Xgm1PW3MrcndwFIevo3Ijyiz4RSJQRLt5yHHZuN9jyaOdEPJEJVCsAziY1my36AtzOjajOI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789445275; c=relaxed/simple;
-	bh=cKIa06wIrW0ac3Zj9WiXKI6LjS+pD0AlCBrNRRwWLsY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ldUDrhYFZcCd/DWc69E/bhFTskuwHR1FWfuLlJQuq2tqFsHPMrNhk0avFPUt7cfflLz8m8Eg7UcygxkZYaURv7zoL4odsdU1xVdksuuRmrOfHVona/Hyf8WkERA+Y3o6uWr8nlnBIAie+FzNwxCwGRUas4mbjdtgNCSPXmI3EDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fg15JcM5; arc=none smtp.client-ip=209.85.222.45
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fg15JcM5"
-Received: by mail-ua1-f45.google.com with SMTP id a1e0cc1a2514c-97e9c0da212so2965175241.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 21:07:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789445273; x=1790050073; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=xladwkSFDEGqZk+H5BcCxNk/qet3/6nEXAvoznyM27E=;
-        b=fg15JcM5StdBi9FUhdKwvOxNXA3txpwL/qHwrCto3UcypGyJ8v3W3HAngvwEAGpZys
-         7QMLLsrNc4UNtWIxtt84JbYpnySvZebegEewerS7t4/9umIUUcjDF5r24i97YHHjlOV3
-         5fJbXlsjelwmt30bay/DpzbaPOuyLSryr3v4ogStCZoAhtCXi8FjM4PeD0XtvYIWOTXj
-         LJGNv97+quNGrkTV7ohBGkBATy0iqKtK6gVITiFadRhoUVwlpYUrctK16nGUcJRB7sst
-         2/noNAZh+2Um43el7aQ07jSYonkGYf+gE+oAjENgRPVfypspeaYtx1ummYOoO67K6fEZ
-         rWxA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789445273; x=1790050073;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=xladwkSFDEGqZk+H5BcCxNk/qet3/6nEXAvoznyM27E=;
-        b=CghEQ0U+lpwvq0IiZF7Ppt52wa+5joAOhJKmYCOqtpAe4bcNpUNd9kA/aT3n4Mr6xT
-         sIIG0nWIjtyxWKiWk+gc8Y8rcB5ap2UaRt13oAPvm7SuqQ7PrJPuU+H+OEufjDsjhK56
-         vdP15k6igxs4Kl2UIV4EGlOJdPF2bg/DLH+cIR6Gs+blPNGS3rzDGNU6X3UjdA3asn9I
-         5RNhfHsGStULKpOXm7AUUxxqmnrrdL7ZKUA18TjfELiBT2+F7zs4AB0ec1KIkughwCil
-         1+21XMfBDyVqzxfigAsZbd9RGa6QwNZ3fF3BZFt/DgToQ5sL1ubLzHBs5qkUoYYlujar
-         qFuA==
-X-Forwarded-Encrypted: i=1; AKwUvBxEn0dK54xlH1uzvOAR7ArOVmDcRjrkXpuekFVvAlIcjLJ8/ApEb2di3xpaMHGSu7NP2Ihf0wE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mIGNuehgMAxC0skBOmHyE5/KuO3b++4xD3yjhiP9qVUCb5ydKM
-	/7rsMIlKZVKHeCDGstIyeJhtoYjKq9ld5UWvFJdMN7+l3dMJMoYnf90/
-X-Gm-Gg: AYBFou3KHW0SjdDCAb33nH7wuoGVkJW2mlZe0wZwZTGVvYgXKIfuEQ12Dlxc7sfVyFk
-	kKsadS/zBJrELKy3UZwmpC+T9WEXTvUNnTwFdH9s655K8qxM7KFe6Bb82S0+d+vJV9jd+a/4YUv
-	5q7Y0kAtHDyV+nrcQHaZWejSdvJZQ4XDrhEupVG6J3/r3oXMtFYGfl593Gybw4IUHEVyVLr+2ol
-	KiviaOZxpKkjen8mp9hDr4fDb/2dfbatHcfvMUJ3mvtxM4u6Zv0sKUGZReETs8qfgPd100dIb4Q
-	+cWkggLNjmD4j/GJvEVgNhHjVcYz5cDFnmxaH+HXXYHhfHOdPn5CHSbbVKuVYUT1/pOhCwwLtMO
-	OL6lrCan0qpTqPv2inESjK+6jBL+WVM1Xc910DiY8VnsRyyFnMY6u8wam+BjtSGNsaJqHHZRh3b
-	OuyhIQnCdwrH4MFrEK3Yi/XvKB21dHpChWFrVV4dUyzm8PEN3sBdMI6jnyokL+8plP
-X-Received: by 2002:a05:6122:21a9:b0:5c2:c0b2:9880 with SMTP id 71dfb90a1353d-5c981adc33fmr6838000e0c.1.1789445268666;
-        Mon, 14 Sep 2026 21:07:48 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470d78casm13754001e0c.7.2026.09.14.21.07.46
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 14 Sep 2026 21:07:48 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: linux-usb@vger.kernel.org,
+	s=arc-20240116; t=1789445325; c=relaxed/simple;
+	bh=RA1bTM7mXeLI4gDcroHUteQG5DGlkm2hWIvDoYTss5U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=AdO+zk2e+hyZqP7NyqS2Re26irkHXmZaUJudrGyI0ACAYut8DzYx/MXKczUMTBlw/RihKXe0gb40TJAFh3G267Nhq8vZSi4gZqL0kZVqWGrNGwfBZiNKvZZ5Ot9HyIxcNdLUm6MZ5cqzakwERPTseGd5tmT91j/93V0/alwaqtc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowAB3TvLExKhqehYICA--.49463S2;
+	Tue, 15 Sep 2026 12:08:37 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: dri-devel@lists.freedesktop.org
+Cc: farah.kassabri@intel.com,
+	koby.elbaz@intel.com,
+	konstantin.sinyuk@intel.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Bingquan Chen <patzilla007@gmail.com>
-Subject: [PATCH] usb: gadget: configfs: zero-terminate Unicode property data
-Date: Tue, 15 Sep 2026 01:07:25 -0300
-Message-ID: <20260915040725.2421387-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	ogabbay@kernel.org,
+	lkml@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/4] accel/habanalabs: fix ctx refcount leak in hl_direct_io() on vzalloc failure
+Date: Tue, 15 Sep 2026 04:08:08 +0000
+Message-Id: <20260915040808.1724806-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,41 +37,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowAB3TvLExKhqehYICA--.49463S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw4DWFyfAry3Zw18Jw4DXFb_yoW8Gw4DpF
+	WDKFySyr9xG342ga4jvF1kuFyFkanxKry3GF129w45ur1rX34xZFy5u3Wqqrn8CrZ5C3Wq
+	vF1kGryru3WUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
+	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VU1go2U
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwELA2qowpAKpgAAsy
 
-Unicode extended properties account for a trailing UTF-16 NUL in
-data_len.  The show and descriptor paths consequently consume one more
-source byte than ext_prop_data_store() allocates, exposing the byte
-immediately after the allocation.
+hl_direct_io() takes a reference on the context through
+hl_dio_get_iopath() before allocating the bio vector.  If vzalloc()
+fails, the function returns -ENOMEM directly instead of going through
+the cleanup label, so the context reference taken by
+hl_dio_get_iopath() is never released by hl_dio_put_iopath() (and the
+inflight IO counter is left incremented).
 
-Allocate an additional zeroed byte for the source string.  This preserves
-the descriptor length, supplies the terminator expected by both consumers,
-and prevents the one-byte out-of-bounds read.
+Jump to the cleanup label so the iopath reference is dropped and the
+counter balanced on the failure path too.
 
-Fixes: 7419485f197c ("usb: gadget: configfs: OS Extended Properties descriptors support")
-Reported-by: Bingquan Chen <patzilla007@gmail.com>
-Link: https://lore.kernel.org/all/20260421141010.5607-1-patzilla007@gmail.com/
+Fixes: 8cbacc9a2703 ("accel/habanalabs: add NVMe Direct I/O (HLDIO) infrastructure")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/usb/gadget/configfs.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/accel/habanalabs/common/hldio.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/usb/gadget/configfs.c b/drivers/usb/gadget/configfs.c
-index 183a25f65a..2041b97ffd 100644
---- a/drivers/usb/gadget/configfs.c
-+++ b/drivers/usb/gadget/configfs.c
-@@ -1351,9 +1351,10 @@ static ssize_t ext_prop_data_store(struct config_item *item,
+diff --git a/drivers/accel/habanalabs/common/hldio.c b/drivers/accel/habanalabs/common/hldio.c
+index c33c817a962a..0577dd8ec59d 100644
+--- a/drivers/accel/habanalabs/common/hldio.c
++++ b/drivers/accel/habanalabs/common/hldio.c
+@@ -248,8 +248,10 @@ static ssize_t hl_direct_io(struct hl_device *hdev, struct hl_direct_io *io)
+ 	 * closest one.
+ 	 */
+ 	io->bv = vzalloc(npages * sizeof(struct bio_vec));
+-	if (!io->bv)
+-		return -ENOMEM;
++	if (!io->bv) {
++		rc = -ENOMEM;
++		goto cleanup;
++	}
  
- 	if (page[len - 1] == '\n' || page[len - 1] == '\0')
- 		--len;
--	new_data = kmemdup(page, len, GFP_KERNEL);
-+	new_data = kzalloc(len + 1, GFP_KERNEL);
- 	if (!new_data)
- 		return -ENOMEM;
-+	memcpy(new_data, page, len);
- 
- 	if (desc->opts_mutex)
- 		mutex_lock(desc->opts_mutex);
+ 	for (i = 0, device_va = io->device_va; i < npages ; ++i, device_va += PAGE_SIZE) {
+ 		io->bv[i].bv_page = hl_dio_va2page(hdev, io->f.ctx, device_va);
 -- 
-2.43.0
+2.34.1
 
