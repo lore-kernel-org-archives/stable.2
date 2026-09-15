@@ -1,68 +1,74 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72E0E3B9D9A;
-	Tue, 15 Sep 2026 06:11:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E128351C20;
+	Tue, 15 Sep 2026 06:25:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789452680; cv=none; b=cG0DHMrTzer5c9odraDw6KVbflCa8OTcY1pmTtVf8hOGc/QpSnjwL5i2SzuQUggzx+QoUOhiDMX4i69rMG6NiibXr3kHPX1n6M38GcSVhc+AAMRnja/PyUj0JqodaCaNg35w1EoQuN8XQveEwJHKX/XqtLdNNxHjEzgcrjJZJQQ=
+	t=1789453522; cv=none; b=NTozS0x5f3JwtgFCR+LdRIbULoHHgl/2MwmEEcBVSwNXXAqoiTW4VGZpyLgBeMBiYXqFmNLH8PDlUP54no5Aq2QryN/fiUs6ZczhXwrJQvllnfOeZshUAJWttO/X3mMNi5VfM/jUl4ya/kU2si0BibwYumrqQCeB5nPXVTuk8d0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789452680; c=relaxed/simple;
-	bh=Pyi+YCESKx1JA4T3QEG+sxaewdJpycnVcgEzTRgWgFE=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=l2zUqwWd0Asg6b3yaIh045Ge0pO1U2wOml/t61B2E/RXgY7PWNK6Splkb2ouR9tOOGb34Ijq7195koYWxUZOr0ZR2edCQOIeaGg0kA6m3kKSemUWpPZvQWSalWYIk6ByTeaJ1HqetZpDTAm4vyN5j200lDv4KTZEllzw50c4iT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=yUydxAS4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789453522; c=relaxed/simple;
+	bh=UaLL7E8exdKkDGIKN5bJ+zF+vWOQ/w3PoxG2NF1d3dE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=F17feV8Vi/3REr9v4+58DKDoCEzFjLCJJNUb93K7eSAjrAhB9bbPkn/DgTgRYtJZdpbsmu/Lb11DyA7PhHj+iNz+KBMXowhRe6/gRioODADlZKcD7Bg4t+pLYLpQpr13b3UMQ5RTnTjfT3n480mBZF/PFRKoW4nu0lYxYq9Tugs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=AHDWeyxJ; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="yUydxAS4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AEB11F000FF;
-	Tue, 15 Sep 2026 06:11:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789452679;
-	bh=xCk5bN9SaRWwllaiJGSLIbTGPxtbvtj0ZCgGZJ1Msns=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=yUydxAS4vHPqlkHac9gwWXo4taASQ50/J9468zWaAbLsONKUVHdztIvnzYOPtAmF9
-	 O6spzgv9H5BW8L8d2rCRVaZzuFds6hvGdRP2Ct3QPBpWELIu1r6ss8/scHsd87tvr1
-	 d56QkOORK0havknyiEvujnExWzU0m6e2ggNB9JCY=
-Date: Mon, 14 Sep 2026 23:11:18 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
- linux-kernel@vger.kernel.org, kernel-team@meta.com, liam@infradead.org,
- ljs@kernel.org, vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
- peterx@redhat.com, jgg@ziepe.ca, david@kernel.org, sashiko-bot
- <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] proc/task_mmu: handle special PMDs in clear_refs and
- pagemap
-Message-Id: <20260914231118.ac170fb8c2c105412adfedd3@linux-foundation.org>
-In-Reply-To: <aqjS0xWes7fhhI9A@gourry-fedora-PF4VCD3F>
-References: <20260912122822.3348978-1-gourry@gourry.net>
-	<20260914214910.a22cfcdc250bfbb6b14edaf8@linux-foundation.org>
-	<aqjS0xWes7fhhI9A@gourry-fedora-PF4VCD3F>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="AHDWeyxJ"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=9ehzz/wfXd/1cWI7Md2WGXkhf6JVZJJR+sQLls9I0eE=; b=AHDWeyxJNCoytIdMAnYg8diZXA
+	vssDI5zr9x6AVMe5AuHXG7VF9GdGPOJK0kCA0CvPQDXT2cVxscyaLrkCZhHeJPFpv6rj9TyZOLSKn
+	Kf2378bjKDLzA8RdRhmkR/32uHgAOMHeG2sspQuJVHsKPrn8zF6SYiRo4uQah5rt1TOU3sllOS86f
+	X6umuMsmKnYrf7hMH2K1ujnBW8N97ubqiM1N7tNQNjoEpm+ghEPil8MQXkaClIK/8BwIsCHGu+PIJ
+	SIYP6z7mSKiW84+X0PcdT0Ki7r5UrjVp2Zi1mbZleLlVfrz6dSr/mbXxDri2a+0lDwIB0l3VJgpzy
+	sV/HL1Rw==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6MbU-00000005LHZ-0PsC;
+	Tue, 15 Sep 2026 06:25:16 +0000
+Date: Mon, 14 Sep 2026 23:25:16 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 01/11] xfs: always call xfs_qm_adjust_dqlimits during
+ quotacheck repair
+Message-ID: <aqjkzGLzYfjrWI3Q@infradead.org>
+References: <178945048435.3061055.16384804993810925544.stgit@frogsfrogsfrogs>
+ <178945048522.3061055.5283654279910692050.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178945048522.3061055.5283654279910692050.stgit@frogsfrogsfrogs>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Tue, 15 Sep 2026 01:19:50 -0400 Gregory Price <gourry@gourry.net> wrote:
-
-> > > Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-> > > Cc: <stable@vger.kernel.org> # v6.19+
-> > 
-> > Why cc:stable?  Is a crafted test driver the only way of hitting this?
-> > 
+On Mon, Sep 14, 2026 at 10:36:49PM -0700, Darrick J. Wong wrote:
+> From: Darrick J. Wong <djwong@kernel.org>
 > 
-> Technically reachable via mshv_vtl_low, so i tagged it stable.
+> LOLLM notices that everywhere else in the kernel, a call to
+> xfs_qm_adjust_dqlimits precedes every call to xfs_qm_adjust_dqtimers.
+> In particular, mount-time quotacheck does this.
+> 
+> Looking at xfs_qm_adjust_dqlimits, that function is in charge of
+> conveying default limits to a dquot if that dquot's limits have been
+> zeroed.  That's quite possible in a repair, so let's follow what
+> everyone else does and set it.  This requires us to add a new predicate
+> to decide if xfs_qm_adjust_dqlimits is likely to reset any of the
+> dquot's limits, and to set the dirty flag to true if so.
 
-I have no idea what this means, but I pasted it in ;)
+I'd vote for merging the two functions as they clearly always should
+be called together instead.
 
-> It's hard to make a judgment call on some of these - so I err on the
-> side of backporting.  Feel free to drop stable if you think it's not
-> worth it.
+> A different LOLLM noticed that we have no way to force xchk_commit_dquot
+> to call xfs_qm_adjust_dqtimers, so pack that in at the same time.
 
-I retained the cc:stable.  It's disturbing to leave known bugs in there
-because we *think* nobody can reach them.  What if we're wrong about that?
+This feels completely unrelated, and could also use a much more
+detailed explanation why we'd want that.
+
