@@ -1,163 +1,131 @@
-Received: from mail-vs2-f15.google.com (mail-vs2-f15.google.com [74.125.227.15])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3683E38E5E9
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:16:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 804CE37DAA2
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:17:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789481801; cv=none; b=tqUJtN0y5Ph+d7ICE1cra6Of9nM//0vvULPTl05JfBxNHkZq2clORsre19/LgBmGshRXeYugXRUEFIt3Rk9DuNQ/vArlwmTl/C5bEGb5G0wLI/EtG/F/1aoI/2Ge3YIQEQj4xJoWxLLjrASDBuHGA0MZiuiQqgPybYSlsezbIBI=
+	t=1789481845; cv=none; b=cZXSXcdV9OiIck4AkS/dbH72Q6iOnkvX8DBT+PP8TV8764NnbarJ91s9V4q8s1a04u8atB51jf9hpRZg+7QY/GvDLAvv2WR0C09qPJXKa8ZdCXClEdIvzydfpMJZAd/cLFqNXi1Obt9YDWFeW8dxgTz4RzX5YSyAwBxppz4jMzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789481801; c=relaxed/simple;
-	bh=ZGcIqnBUb+2WGa9UWiN5MGaIiQ5CNl6v15OMyE1yvh8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VzlfwWqDvi/qb6tzuPhvCncnigAzGd92b0j8n+2qMVMwGtBqQTkOjMYo3dkQt07In9CsNOj/QIc9jMU8BoLx3jWx+//n7o10se43ua0JJXzxQWvwupmNb+Poq8vGP/LZxACxtBaI3xVQ8xnkB7dvjsnyaSnZStYcsToMp2ojYHE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fyN+53+N; arc=none smtp.client-ip=74.125.227.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789481845; c=relaxed/simple;
+	bh=qoUybKolGpMVSrpKPnSxjyM3WuM7fg6PJ5WlGQw4DUk=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=btBLKE30ZXqJ9O7O3cAkdcYO/XMkuakSdSCgZaz4kEeRPAe8N1SrBUya/lXwUWQ7qFOLTuWOc1+IxQAixyZAB+R7O2kb0ptmI1lWvnVqDNNssvAWQC1s9SQyj2TnlIqIEJXDxI0NEbEqXNkjSy1vJ1w7FSZeIUQH2aonoDe/kBE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=ZdWWWKWA; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fyN+53+N"
-Received: by mail-vs2-f15.google.com with SMTP id 71dfb90a1353d-5c981b0d59cso230824e0c.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:16:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789481799; x=1790086599; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4vy7TxtxABNySXdH9M9RGQIeskiOhNozoxbsdlpLAGo=;
-        b=fyN+53+Ns8gVbQXCSiWXtU3xLEoKpYUpkgHEuasxSFQdXn7rf2kzpE6YzCF2XG5hvv
-         ar/hc/B/BPjE01V0SciseYaJ7FFqbtuvDsdkIULMtDTBFk2aymkM0eVpLBC8w+5emlp4
-         6juWNPduSJKv2JARdQsaoVkNEzPV/WSvZULv/Wu0ruxDXT/JGnoX/gV+HhqDolZgQhs1
-         K1EI//wTi6vIRtwxvD74qd6LNHFsdgq7l1f3hBK1cvUqSshR/2ZLz5v2JTcmOwhuptm6
-         7t6KfN9loGEp2DTeF8V3HERTvfZt49Pt/eSqGl1zX39e2W7Yhm/GqvuqTxC76pfKZIx3
-         fmYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789481799; x=1790086599;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4vy7TxtxABNySXdH9M9RGQIeskiOhNozoxbsdlpLAGo=;
-        b=tI0qbnUSa5B3PfhCjbSlNTTJEluT4JW2TP5BrI8Al7vfo78IsodqGo4OlZrQsBKIyA
-         YUAdqEWg577AHg8yMaYNTlLhon44+sa4cWhpo8oEu7c+ISm1nGSvgUUradEaw11HR5I8
-         othnymS0IDgGUX0eqjKR9zjVBDovCF7mD4kL1csFAjBWBJzx8ZrnNAPs93wYRA4HGIX0
-         4cAH3DHfSxIiSzlfN9VK79cp7IefGmQY9hNnIE2BEV682TIicIQyKrpeg41iy2zdUEbE
-         uOKR+w7xgCyRbmJhUg05tG5MsY0VMsAxcCwB5e3qkjwg7Yk16igtDLF/AnrDPQeD5ERL
-         iuwA==
-X-Forwarded-Encrypted: i=1; AKwUvBxEG6ivcVozt+sMhdypb1wbnsdcYMuW6/y4mYLw4RJt1t1jMaZHfYweU8ptcLadlyRjcqJfrDk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSpQTAQ30b1/eNbDJg6dHvAbOKcaQ9ACIs+G6uvkRv5bnCQT4j
-	nieWEXQpdQYDeCCCaZYA1duIsMEwSCuMRDl1HDg2zHCjygjAMGSHxxzk
-X-Gm-Gg: AYBFou1/y8UwegsLxwXxEfJM0liW6TZbWBOc7jiBWxZvkGP1//Ty3DZzWb3sYxW5Xkc
-	mbZGQe3Tpy3jlnn7nJSXY1j+lJFnBLcXP4rWhzzLzfaj/ExiFhPRYy1/XuzoqiHLIxwub0a3igK
-	vK+1OpuO0Kqnno09mtqob3cOn5L4E3TExyqZFmnS0+Fl6EwGvDeXc+cgtfe6q4OvkQJ2zWVIZRs
-	DLVnNQrkg17mOld0ptttkYZ7dafsKt82c2s0CuOJnuSnAgrT13h9iMePDt6V/FH1R+3YdYRqmda
-	g0Lk/3HfNpp5dAohQWh5a8O+GpT8+ZtU/cR07CZ+DL305kv7vdonlmIq2Nt3maNdjCzGnUXlPuC
-	ne10G6214P+p2vKs85ejO4MvMJJIV0QsJtTTIgvU7HY4U16scc2CKhyllKy6CKNSitwoUVJfW51
-	WtWOG9G0TRkqnYu8TgFaZrOV3j4Xtx+7ch9ISqblmifak1/YXLSq5uBuy3Qa21b3Na
-X-Received: by 2002:a05:6122:3402:b0:5c8:228:5ea6 with SMTP id 71dfb90a1353d-5c993acb5b3mr2115305e0c.5.1789481796316;
-        Tue, 15 Sep 2026 07:16:36 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c8470d661bsm15018810e0c.8.2026.09.15.07.16.33
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 07:16:35 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v2] HID: wacom: avoid overflows in sequence number tracking
-Date: Tue, 15 Sep 2026 11:16:21 -0300
-Message-ID: <20260915141621.3011011-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260915111448.2726869-1-qwe.aldo@gmail.com>
-References: <20260915111448.2726869-1-qwe.aldo@gmail.com>
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="ZdWWWKWA"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hkkcH3C1VzKmJ9;
+	Tue, 15 Sep 2026 16:17:19 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789481839; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=qoUybKolGpMVSrpKPnSxjyM3WuM7fg6PJ5WlGQw4DUk=;
+	b=ZdWWWKWAwwVvTwg3DG9y6HRFrPQvVvFCflhZlxEBY3eZcoJ9HlEgt0YwmRkVUknQf4/TxT
+	ifYLmn5xLUaPa+x1w7S/o8FJieMJX9IR2f1QFJWJajOumis6bnKHM+wzANxWZkzFF5brkg
+	kBxSKSl88p/kDmKZqsUAuEZJFkq93Dhk8GrsM+ZUBoj0u6rscuNXf0jq3xv6p7HAcMUQ/3
+	RNr93oJzqr1v8oGRbTtGMlC0Hp0jinJIHbYVvo0AoARIvGL8GW7pDzmOEUU6OeUTDe2f+T
+	Veb8rw3ztsxW6QiyP70YlScK+UYDGQnW5qi3nIIOmsvCk+QQkjLq27yMpWyjvA==
+Message-ID: <aa8db13d6133855cee5a76cb8b77b05c3eec9807.camel@mailbox.org>
+Subject: Re: [PATCH] drm/sched: Do not restore unsaved virtual runtime
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>, phasta@kernel.org, 
+	amd-gfx@lists.freedesktop.org, dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Pierre-Eric Pelloux-Prayer
+ <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>, Vitaly Prosyak	 <vitaly.prosyak@amd.com>,
+ stable@vger.kernel.org, Michel Daenzer	 <mdaenzer@redhat.com>
+Date: Tue, 15 Sep 2026 16:17:11 +0200
+In-Reply-To: <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
+References: <20260907130527.52530-1-tvrtko.ursulin@igalia.com>
+	 <ad1382b98d5c6cb258658e8e85156a0ccd8dd7cf.camel@mailbox.org>
+	 <35456574-5fc6-4270-85f9-940201998116@igalia.com>
+	 <2958b5de0ab4ee1c46e2068eeb7448d6e2072ee6.camel@mailbox.org>
+	 <acfea48c-dd63-4352-917e-a97a10a8b810@igalia.com>
+	 <28a236dcae3e2cac75b4f5afc091136db04134e7.camel@mailbox.org>
+	 <0766f89f-380f-49ef-a55b-dda1d3bedeac@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-MBO-RS-META: p43c91dk7ogw8pydrfzy6i1m848dauj1
+X-MBO-RS-ID: 3d384f5940539f8fe9c
 
-The dropped-packet calculation derives the sequence range in signed int
-arithmetic. A sequence field whose logical range spans all 32-bit values
-makes the range calculation wrap to zero, so the following modulo triggers
-a divide exception.
+On Mon, 2026-09-14 at 13:31 +0100, Tvrtko Ursulin wrote:
+> On 14/09/2026 10:37, Philipp Stanner wrote:
 
-Normalize the maximum and current value according to the HID parser's
-signedness rule, and keep the sequence state and arithmetic in s64. This
-also avoids overflowing value + 1 at the logical maximum.
+[=E2=80=A6]
 
-Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 16-bit")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
- drivers/hid/wacom_wac.c | 32 ++++++++++++++++++++++++--------
- drivers/hid/wacom_wac.h |  2 +-
- 2 files changed, 25 insertions(+), 9 deletions(-)
+> > I took another look and I think my only issue is basically just that
+> > the patch addresses something which we should have done regardless of
+> > the bug at hands. So I'd be already happy if the commit just had a
+> > different title and slightly extended commit message, like:
+> >=20
+> > "drm/sched: Fix vruntime race by extending locking"
+> >=20
+> > plus sth like
+> >=20
+> > "this simultaneously serves as a preparational step to replace the
+> > spsc_queue as a whole".
+>=20
+> As I think it is fine as is I would prefer not to spend time on a respin=
+=20
+> unless you insist.
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index da1f0ea856..428ac7077a 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -2527,18 +2527,34 @@ static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_field *field
- 	case WACOM_HID_WD_BARRELSWITCH3:
- 		wacom_wac->hid_data.barrelswitch3 = value;
- 		return;
--	case WACOM_HID_WD_SEQUENCENUMBER:
--		if (wacom_wac->hid_data.sequence_number != value &&
-+	case WACOM_HID_WD_SEQUENCENUMBER: {
-+		s64 sequence_minimum = field->logical_minimum;
-+		s64 sequence_maximum = sequence_minimum < 0 ?
-+			(s64)field->logical_maximum :
-+			(s64)(u32)field->logical_maximum;
-+		s64 sequence_value = sequence_minimum < 0 ?
-+			(s64)value : (s64)(u32)value;
-+
-+		if (wacom_wac->hid_data.sequence_number != sequence_value &&
- 		    wacom_wac->hid_data.sequence_number >= 0) {
--			int sequence_size = field->logical_maximum - field->logical_minimum + 1;
--			int drop_count = (value - wacom_wac->hid_data.sequence_number) % sequence_size;
--			hid_warn(hdev, "Dropped %d packets", drop_count);
-+			s64 sequence_size = sequence_maximum -
-+					    sequence_minimum + 1;
-+			s64 drop_count = sequence_value -
-+					 wacom_wac->hid_data.sequence_number;
-+
-+			drop_count %= sequence_size;
-+			if (drop_count < 0)
-+				drop_count += sequence_size;
-+			hid_warn(hdev, "Dropped %lld packets",
-+				 (long long)drop_count);
- 		}
--		wacom_wac->hid_data.sequence_number = value + 1;
--		if (wacom_wac->hid_data.sequence_number > field->logical_maximum)
--			wacom_wac->hid_data.sequence_number = field->logical_minimum;
-+		if (sequence_value >= sequence_maximum)
-+			wacom_wac->hid_data.sequence_number = sequence_minimum;
-+		else
-+			wacom_wac->hid_data.sequence_number = sequence_value + 1;
- 		return;
- 	}
-+	}
- 
- 	/* send pen events only when touch is up or forced out
- 	 * or touch arbitration is off
-diff --git a/drivers/hid/wacom_wac.h b/drivers/hid/wacom_wac.h
-index 126bec6e5c..74e7c5a04a 100644
---- a/drivers/hid/wacom_wac.h
-+++ b/drivers/hid/wacom_wac.h
-@@ -324,7 +324,7 @@ struct hid_data {
- 	int bat_connected;
- 	int ps_connected;
- 	bool pad_input_event_flag;
--	int sequence_number;
-+	s64 sequence_number;
- 	ktime_t time_delayed;
- };
- 
--- 
-2.43.0
+As I see it every patch that fixes something by moving or adding a lock
+solves a race condition. So we should call the child by the name. By
+calling it that we also publicly agree on our desire to extend locking
+and document in the log that drm_sched is moving towards that goal.
 
+If the effort bothers you too much, I could also apply it and thereby
+rephrase a bit.
+
+We can then request backmerge into misc-next and base the followup-
+cleanups on it.
+
+>=20
+> > > > Is there a plan btw as to how you would like to proceed with CFS?
+> > >=20
+> > > So for me the most typical and useful plan, and in the context of the
+> > > desired spsc removal, is:
+> > >=20
+> > > =C2=A0=C2=A0 - Merge this fix so it gets into 7.2
+> > > =C2=A0=C2=A0 - Spsc removal RFC for some upcoming release N.
+> > > =C2=A0=C2=A0 - Remove experimental status from fair policy for kernel=
+ release >=3D N.
+> > > =C2=A0=C2=A0 - Switch fair to default at >=3D N+1.
+> >=20
+> > Couldn't it be enabled first for dedicated users? AFAIK it was
+> > developed with Steam's gaming platforms in mind. Can their OS devs be
+> > asked to switch it on or test it downstream?
+>=20
+> It wasn't quite developed for single game use cases, but with the wider=
+=20
+> goal of improving the code base and DRM landscape in general.
+>=20
+> Also, I think it could give us false confidence since the matrix of=20
+> hardware + kernel setups is quite small. Even this bug wasn't caught on=
+=20
+> an official platform, neither could I repro it on a Steam Deck. So I=20
+> would say a release or two after it is set as default is quite safe=20
+> since it can be easily reverted with a one line change.
+
+OK.
+
+
+P.
