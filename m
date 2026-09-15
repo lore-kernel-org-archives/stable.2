@@ -1,118 +1,116 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 654F543B3C9;
-	Tue, 15 Sep 2026 07:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B36943A05C2
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:45:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789458135; cv=none; b=VHXGGCZRKWqlA0f4tH/ZPpciz9XgorvHy6uY51ZwNcGzCygZWNKNl17VbCu3pkogChy3KtCqftNnUehycKv+y1qTaZY7zkZacUDw94J6kmAdLGUCeeb6Lznp/gqEkv2ug6s8LDb2iGJXPz15Lide6jNjTMey71dj+HRY2QCdkdo=
+	t=1789458344; cv=none; b=PY181o3Cdu0B7mB1KfyPHNNPx0nO2MWpKJ8755NLEBdi+uIB5LJGWtAtqmmNFHrgDm5/eZOu7D6ck11jWb0dfCDJd05KPJ7nzXLYDjzzTk4Scx4hQWQOAn3S8/1MtGtKoc43gT0euJDjiIJFKJCMIso0mKM/5/LJCZPJngoOAyE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789458135; c=relaxed/simple;
-	bh=O89gakJys6wPQGXYejH/dKowwbeP7xrfUSMJnFD+AGk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=d5vSPYfVW4W4Q1WQFmK80KgYR2BBySyiI1ZbdZlm2QAMUI/KRD18zWcJ+Alq3KBGwj/s/60ZMhzXtHBLjp01DShItn76eTEs7fYzegWuvrwANQnrEl+g1fF2eNyPhsn0ClddOrrO9E923aBjILJeGNoWgG9eLYofT0lVlkw1AVU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: f28fd274b0d811f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:b152c5bd-7a2f-4ada-813a-7530dbb6c21a,IP:0,U
-	RL:5,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:c92542d2913318dabd5ee757778a38e8,BulkI
-	D:nil,BulkQuantity:0,SF:80|81|82|83|102|865|898,TC:nil,Content:0|15|50|99,
-	EDM:-3,IP:nil,URL:99|11|95|82|1,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,CO
-	L:0,OSI:0,OSA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR,TF_CID_SPAM_ULN
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: f28fd274b0d811f19a56ed5b684f684d-20260915
-X-User: liuqiqi@kylinos.cn
-Received: from kylin-pc [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <liuqiqi@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 281404417; Tue, 15 Sep 2026 15:42:05 +0800
-Date: Tue, 15 Sep 2026 15:42:02 +0800
-From: Qiqi Liu <liuqiqi@kylinos.cn>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Cc: surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
-	hannes@cmpxchg.org, ziy@nvidia.com, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] mm/page_alloc: apply per-task GFP context in bulk
- allocator
-Message-ID: <20260915074202.GA246486@kylin-pc>
-References: <20260914080451.294896-1-liuqiqi@kylinos.cn>
- <b932c690-7ab0-4521-a7d2-5ed5130379b8@kernel.org>
+	s=arc-20240116; t=1789458344; c=relaxed/simple;
+	bh=0q5TYPEfU84TUtHIpVpq1q9mIMVjpkW5D5F84PgxMEs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M4EfvwG/tEPHky7IoploZ/o8BtUpAmZ04yUL0Btt+tBzA7yxXcH9gsOSVmDAeWEaKq7SngIEGxM4o6bWDKkQYKLsP3o2YdTJF1YhhcIeQ0KOiVT/EsfHZyEg6JdsXv2t7acUDaFT668KgrEoh7VyyKl/psAz6mJfF8IsZoFcjWQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=raA+ysyO; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="raA+ysyO"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469a34907so2856814b3a.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:45:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789458342; x=1790063142; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=l9ECc5+a41AFo2eBSy7WthuxX+hdHIx1RiULVK1OybM=;
+        b=raA+ysyOwHeDc1rUo95GLLwd+Q0lmvXPXgPMeREeLP2DFOoDL/KMUwRt+AfPk7Z+W4
+         +HB1W1PZGQRSpLZj5tWMlsLmumSnPEwgU/y7Nd/YDGIo4VOYgP/NUydL8fGjp5aVJM3S
+         niNOk4R1h9pW75DKtpxE4GvHJu2QJsPdZT497t7xhhWWbT9mosFQVTPat0m4f2pmdP39
+         vKILU6Oz6rurbBVmZ7OJ00ZSqXKvaGVY2YIncyAoWfoX3GvbLjPw9lZ/LxDYeC9pXSBd
+         OefjGfRGqnAEeNUw2GqEUoyb3ge7Ccb7DUHdP+2QF7RdStNSWojTT/AYoIunskNbzkzo
+         zcdA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789458342; x=1790063142;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=l9ECc5+a41AFo2eBSy7WthuxX+hdHIx1RiULVK1OybM=;
+        b=R0mTQrurLqCY56HHSaGDlp5XLtYfeOWBhIg00+sy04JUAJHhmF3UHxpLsZJIg2n9P8
+         XyDkioUXXoqclxT4or3zmvSQPTh+yfGmjuqrvrMXVnwRla4M9sQ8P8lGFkRGHwSrh8jO
+         VUikYeO3+kCXtKDxGBz2Ua/0ZgPEoyUQ3owZjG6IEoQBBlwG+zQ1BoztfCfGaf0/4Pl+
+         eHdf/VCu4U1VcQ0Who1XGm3oRXW/XCOWA1dblhSSbS1XqwPwr+J3KdpxaGCPHUWV7KRg
+         XYJX/hzmANfREykcZOTYy63zVnhiuLSs5ZI6XZUy4ZXFdJDny3flwxdRs7KGQWYg2U1Y
+         QKxw==
+X-Forwarded-Encrypted: i=1; AKwUvBwLnFoN0TbPnCa51zw5LIezUTiF180Nji2e5chDS6xBWuZOtJ11sdQYdGb2wXL5ZmUcFa8gDYM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mvy+ldN2w3B8gZNqxG4eIEF0KOb+U2LyEimHv9DnAUcv/1nqFD
+	4j2CLJpZqnWhUSmw4NzHulXHsp2FV9jaHPZNaY2FwmdSpNdWtkbEMvve
+X-Gm-Gg: AYBFou3ZfFLHxsPn4VArDcIhNUFsuJdxwSw3yYCB1eZQrH59Bzb90SHfE8WXH1lyMIT
+	o8wxn/72tGogjG56Q9gXHZUkDAX3A3dida0ZM9WqudfdRnElEGq7r5mKQs9PbAbpUXaISl+eKQw
+	HlBRjZT3pHGhn548XUQTUs/vjogGBcbUX4sOpd2gs7nHKztVyJI+RFPjr2zsWnryi0iCHIdaJpG
+	zSNE+/K0XybDXoJm4+I8AnpZ5ELkwapqd8zE7WuonbD2PvNtim+1K9uVQ1ZY3w3koN/UkpmPmlp
+	v85Tf5SyLIb4+xYXPEyh5Y62JBrd5SVbSIkWzqBKG0W6LJnFwY655sWhiW+x6nxdN6UDMwZvoA1
+	ExquLseil3raFC2T858p0lwuVdrKuR2jWbX04FFEpovUgRMpSLVnYV0Fa5qUFRAgzdvt6k+wmVf
+	jV6BiqEGfQYct4o1n4zLCo3T5pDGdO6yYuyP03JlM7EDHJUXQVoY9YYQ==
+X-Received: by 2002:a05:6a00:44c3:b0:848:62ab:7b7 with SMTP id d2e1a72fcca58-86f84b1d7d7mr12325942b3a.16.1789458341946;
+        Tue, 15 Sep 2026 00:45:41 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b4c39ebfbsm5795970b3a.54.2026.09.15.00.45.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 00:45:41 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Tommaso Merciai <tomm.merciai@gmail.com>,
+	Martin Hecht <mhecht73@gmail.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: alvium-csi2: balance runtime PM usage count on remove
+Date: Tue, 15 Sep 2026 15:45:30 +0800
+Message-ID: <20260915074530.2081225-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <b932c690-7ab0-4521-a7d2-5ed5130379b8@kernel.org>
+Content-Transfer-Encoding: 8bit
 
-Thanks for the suggestion. I'll fold this into the commit message and send v3.
+alvium_probe() increments the runtime PM usage count with
+pm_runtime_get_noresume() before enabling runtime PM. The probe error
+path correctly balances this reference with pm_runtime_put_noidle(),
+but the normal remove path only disables runtime PM.
 
-Best regards,
-Qiqi
+pm_runtime_disable() does not decrement the usage count, so a
+successful probe followed by driver removal leaves the runtime PM
+usage count unbalanced.
 
-On Mon, Sep 14, 2026 at 03:01:14PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/14/26 10:04, Qiqi Liu wrote:
-> > alloc_pages_bulk_noprof() does not call current_gfp_context(), so
-> > per-task scoped allocation constraints (PF_MEMALLOC_NOIO,
-> > PF_MEMALLOC_NOFS, PF_MEMALLOC_PIN) are not applied on the bulk fast
-> > path.
-> > 
-> > The most direct consequence is PF_MEMALLOC_PIN: without clearing
-> 
-> I'd say ignoring PF_MEMALLOC_NOFS/PF_MEMALLOC_NOIO also can have a direct
-> consequence?
-> 
-> Let's replace the line above with:
-> 
-> By ignoring PF_MEMALLOC_NOIO and PF_MEMALLOC_NOFS, the allocation can
-> theoretically result in a deadlock.
-> 
-> Ignoring PF_MEMALLOC_PIN also has consequences: without clearing ...
-> 
-> > __GFP_MOVABLE, prepare_alloc_pages() selects MIGRATE_MOVABLE for
-> > the PCP list, and a task with PF_MEMALLOC_PIN set receives movable
-> > pages from the bulk allocator.  Once pinned, these pages can no
-> > longer be migrated but remain in MOVABLE pageblocks, violating the
-> > mobility contract.  This can increase fragmentation and interfere
-> > with compaction or contiguous-memory allocations, eventually
-> > surfacing as higher allocation latency or allocation failures under
-> > memory pressure.
-> > 
-> > Found via review of the bulk allocation tracepoint hooks [1].
-> > 
-> > [1] https://lore.kernel.org/all/20260907120949.418450-1-liuqiqi@kylinos.cn/
-> > Link: https://sashiko.dev/#/patchset/20260907120949.418450-1-liuqiqi%40kylinos.cn
-> > Fixes: 387ba26fb1cb ("mm/page_alloc: add a bulk page allocator")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
-> 
-> LGTM.
-> 
-> Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-> 
-> > ---
-> >  mm/page_alloc.c | 1 +
-> >  1 file changed, 1 insertion(+)
-> > 
-> > diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> > index 12fac9084c48..3be7288a1aa7 100644
-> > --- a/mm/page_alloc.c
-> > +++ b/mm/page_alloc.c
-> > @@ -5207,6 +5207,7 @@ unsigned long alloc_pages_bulk_noprof(gfp_t gfp, int preferred_nid,
-> >  
-> >  	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
-> >  	gfp &= gfp_allowed_mask;
-> > +	gfp = current_gfp_context(gfp);
-> >  	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
-> >  		goto out;
-> >
+Add the missing pm_runtime_put_noidle() to the remove path, matching
+the existing probe error cleanup.
+
+This issue was found by manual code inspection.
+
+Fixes: 0a7af872915e ("media: i2c: Add support for alvium camera")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/i2c/alvium-csi2.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/i2c/alvium-csi2.c b/drivers/media/i2c/alvium-csi2.c
+index f51f9b987759..f218999e0ed9 100644
+--- a/drivers/media/i2c/alvium-csi2.c
++++ b/drivers/media/i2c/alvium-csi2.c
+@@ -2523,6 +2523,7 @@ static void alvium_remove(struct i2c_client *client)
+ 	 * make sure to turn power off manually.
+ 	 */
+ 	pm_runtime_disable(dev);
++	pm_runtime_put_noidle(dev);
+ 	if (!pm_runtime_status_suspended(dev))
+ 		alvium_set_power(alvium, false);
+ 	pm_runtime_set_suspended(dev);
+-- 
+2.43.0
+
