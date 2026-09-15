@@ -1,125 +1,126 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C8BF47532F;
-	Tue, 15 Sep 2026 10:00:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3371395240
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:18:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789466407; cv=none; b=KMIjMGJ0uNoDaTAnXVgeIDicAGBAh41AA8bUEoK/hSyLajUzdXKpKCgIp4EunCsD4LaYr9qw/7eztTg5BH72pwJTvLVvJEOA2L6DHPCgg/2em+rnHyk7y1ihAvVknwkkjgXPbSC2NY59HTVdgkfR6C8TMwkJ1ltW0d9fLYtm+tA=
+	t=1789467486; cv=none; b=pQUPweztopA/U/F5iLWLeSpo4Eo95UW/QP412kNyrJVa6Z31UF5kFkpzh1GYAoPYLf6zs5UHfydLVWFotrTZIzTrkN5I1CPf+IZiuRbUchXtCVTkbTE6nb9/udfNuoVje62ZLf7lCSLBcIr47k8txGRTvybVYNtO5ipqmcsZ5B8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789466407; c=relaxed/simple;
-	bh=LiU/3F+j9Tm4C+3VL+M8nX1B9ZAJjIYNo3laMA7xP8Q=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=E6/azosVA+kcDUWb6zKIJJk4SRYRhi36RQXrbVBGLj8CeMcvNAmfuumqDjUZltZyPSbjB9F3LyE438rp/XHHE8dgIRfmleH3pyEaQCccIBbrqcQwZ9NcRCM7jDiCEXJ3qJtE0HiDKqcYeTdbC53XN2gRYjwz47cnMiSUqNIvwuc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mXirkans; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789467486; c=relaxed/simple;
+	bh=PU0+/z0noS4XEBYFsQsHfYbK4ZLCfrbXdbuDxbnay4E=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OO8bbu8oTz6Jxi1B2PJs6UboBh9khQZK3uGOaG1KkJUVdCm2HHYqPW9wRhjB7FpMAkpYXEhj37HYR3/Es29yNvsRJAUneAP/EIBemZPbNQ9MSf4mcJDlP+ggOmrEvz/pbqppDcwynhUCJE2wFRFBa4fMzaYHwjbPFhe9nxF89II=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QnXEkvFJ; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mXirkans"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789466405; x=1821002405;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=LiU/3F+j9Tm4C+3VL+M8nX1B9ZAJjIYNo3laMA7xP8Q=;
-  b=mXirkansGGyRjQRpN3QuUnF7PUWCpy5194S+2RhoH7P7xoVD+GKRyf8P
-   OLlHpFM5Pwekg0YevhcBO1OjiUfwz++gTHxoEOgEchthpKHTo6WmxtNfp
-   RX9skxdiaruPRa+bqXeY9CEE4iPZUwbQCxXSZjlstKuA132LkdOR5yp4b
-   djSzrmSd8LJxJAsMHyovqgZ0O6LG0xHOtBUlICxH4Z3XWk3zJrntu76MG
-   WSOtWkCwGLkeuyQ8sfWjZuVYs6JCgRlTyjVz5s3Gs3wKDf5vuzQXCPgOs
-   hfRt6FWtfMqMNw39TgS1TAVcF9lb0HTHyTaNIEK5xSfpDZtJ2VHof251K
-   Q==;
-X-CSE-ConnectionGUID: w+21EhKHTw+KeEgxuj3hAA==
-X-CSE-MsgGUID: vMrh7Ym8TdKPhkmUdmRmwg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89585005"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89585005"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:00:04 -0700
-X-CSE-ConnectionGUID: TsARHpq3SBSlzcPPc8Ra1w==
-X-CSE-MsgGUID: WDXxPhEuQ/WMy+gmxc99ow==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1334482"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.227])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 03:00:02 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 82FD411FB58;
-	Tue, 15 Sep 2026 13:00:08 +0300 (EEST)
-Date: Tue, 15 Sep 2026 13:00:08 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Bingbu Cao <bingbu.cao@amd.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QnXEkvFJ"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f38so32943815ad.2
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 03:18:04 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789467484; x=1790072284; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ZlgVVcfg+Lh0mL+x/J2QZQKzTvoTZ7CiYthVXrC/8n4=;
+        b=QnXEkvFJbvESuvcvqpdQCbm6qcG5rLvn8f82RpyQ7bmr6jLlwjT91/yMDSLhXnAHsW
+         aj+AEdebMowTXyj+eiaAZcTg5XcHX0UxePBPV74Fnck1fYbA13kimg4daieD6r7NlTSd
+         BgpFZqJ32I39MXgTpvgu+TtG1wOiNNN3EdOwJD11e+C5j3APSjXonyWJSyTKYWb9AZ+S
+         3QLGODJyPrvcDS+Vc9qdLTzZ0FnAxkX4owLhYrzL7Y0MfaR2MPpq+1ULC5AlvcHsseR4
+         yJg0mfZNLQpbztRdi29uWoMC8Ms6xbtZmCoq6d0woExj1P+K+AHmYQq0ComFwM/9GcM5
+         nBjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789467484; x=1790072284;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ZlgVVcfg+Lh0mL+x/J2QZQKzTvoTZ7CiYthVXrC/8n4=;
+        b=AywvB8Gou0cNfhF6l4fqZUX2S5iz0chB3jnPzGTwYkXlitex3sBLdFZESQQWW5i8Cc
+         Woh4tv3FzBHVNfvTpQHc8w2yRboy0/x3w1l+4ldrXOurqY78BK5oFJx5DEIHRIXjrupr
+         jb8TFlMiWv5tl8tS3XUrXDl4Gf6jwFcEk8Yt7t1U43Lhu+4u5oUSZMHNKSnUxnhN0iEf
+         ZOM8i3015rxbJDnVUnAqEHEIFO+dKE0P/I5jB5bRydRgIgXxLTxzSfTBrykhoigP4a+V
+         4e7qOTxi4wne+sXvVAUHtT1dGhxIYfGWaddJmk+YSl4nz6HGoThwSN9RYTHj+CTV8PT2
+         72wA==
+X-Forwarded-Encrypted: i=1; AKwUvBzrcVFbqvo5lIh6e0mGjZhq6M+50iGPUAQbtpT1o6OB48CcsWsuB/3hF/nOgocVIOrobqFEjM8=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgJGS4mSw6ASilEa6Norxeb/L7wf/eZTI+C4DozZKd3s3gR8N+
+	XnZGQZNXDcydByouVaUUc6N6Ud88eeIBE383q/14LCXc5wSA76SfqimYDSGOVv/a
+X-Gm-Gg: AYBFou2p9FG8PEJBOBqQjm8h84/NsPg0wYeMBPjQwHIq8syYMEDGcKEUMyczVxJRP1E
+	PtSxdgR2bnf2ZPXRWlJW9ZOg9qOlSmsLRApox72pmxBIqmcccLv8UchcbrHMgugEXGCfduOmDxb
+	SaTkZbbHXV4AwevAMy+uuL7La19Nan3C2e8N+Rn7AZOx+CNtJIxIJFdKnAYuybBPjhkHT2tPD5a
+	E4GTXIQSeqTN6jnfA5WKqJlzTw/nDTk5F+dy6hRFYsbfIeba5r4CD+vff7BEuVjuPbjMrbITA3Z
+	taoGviw1OJerdPWN+5Wnn5+HgDC6oy9zM5I3SHMTnKaqYN2MeYPLSda5RkWYhA78JDTqMq9gFBT
+	kqYH0LPgVrguMu1kymeIxibCZUgyD+hSAnzlTtDLeu1Og05xuiHn7EKzJCXEuii+E0Noac+cNB4
+	p5YLIkLZ5nrCtZX+wfjaHJoOPahSe3vV+vtwJv7kVo8kpO/RYvP+Y1Ll4=
+X-Received: by 2002:a17:902:e88c:b0:2d8:d4cc:be62 with SMTP id d9443c01a7336-2dd6c7129dbmr131186545ad.15.1789467483499;
+        Tue, 15 Sep 2026 03:18:03 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd44ad5d5bsm53441335ad.75.2026.09.15.03.18.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 03:18:03 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
+	Sylvain Petinot <sylvain.petinot@foss.st.com>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
 	Hans Verkuil <hverkuil@kernel.org>,
-	Hans de Goede <hansg@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov2740: fix power cleanup on remove
-Message-ID: <aqkXKF8AW3k6LdN6@kekkonen.localdomain>
-References: <20260915085903.2337086-1-lgs201920130244@gmail.com>
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: vd55g1: fix runtime PM cleanup on probe failure
+Date: Tue, 15 Sep 2026 18:17:53 +0800
+Message-ID: <20260915101753.2356900-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915085903.2337086-1-lgs201920130244@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 04:59:02PM +0800, Guangshuo Li wrote:
-> ov2740_remove() disables runtime PM without powering off the sensor if
-> it is still runtime active or updating the runtime PM state to
-> suspended.
-> 
-> pm_runtime_disable() prevents further runtime PM callbacks and waits for
-> pending operations, but it does not force the runtime suspend callback
-> to run. If the sensor is active when the driver is removed, the reset
-> and powerdown GPIOs can remain deasserted and the clock and regulators
-> can remain enabled.
-> 
-> After disabling runtime PM, call ov2740_suspend() if the device is not
-> already runtime suspended, and then mark the runtime PM state as
-> suspended. Checking the runtime status avoids disabling the hardware
-> resources a second time when runtime PM has already suspended the
-> sensor.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 1a140854bc8c ("media: ov2740: Add support for reset GPIO")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/media/i2c/ov2740.c | 5 +++++
->  1 file changed, 5 insertions(+)
-> 
-> diff --git a/drivers/media/i2c/ov2740.c b/drivers/media/i2c/ov2740.c
-> index 39003c1632ad..a5346adf2281 100644
-> --- a/drivers/media/i2c/ov2740.c
-> +++ b/drivers/media/i2c/ov2740.c
-> @@ -1198,6 +1198,8 @@ static int ov2740_check_hwcfg(struct ov2740 *ov2740)
->  	return ret;
->  }
->  
-> +static int ov2740_suspend(struct device *dev);
-> +
->  static void ov2740_remove(struct i2c_client *client)
->  {
->  	struct v4l2_subdev *sd = i2c_get_clientdata(client);
-> @@ -1207,6 +1209,9 @@ static void ov2740_remove(struct i2c_client *client)
->  	v4l2_subdev_cleanup(sd);
->  	v4l2_ctrl_handler_free(sd->ctrl_handler);
->  	pm_runtime_disable(&client->dev);
-> +	if (!pm_runtime_status_suspended(&client->dev))
-> +		ov2740_suspend(&client->dev);
-> +	pm_runtime_set_suspended(&client->dev);
+vd55g1_probe() takes a runtime PM reference with
+pm_runtime_get_noresume() and drops it with pm_runtime_put_autosuspend()
+before initializing and registering the V4L2 subdevice.
 
-This, too, need to be called conditionally.
+If either of those later operations fails, the error path calls
+pm_runtime_put_noidle() again even though the runtime PM reference has
+already been released. The extra put has no matching get operation.
 
->  }
->  
->  static int ov2740_nvmem_read(void *priv, unsigned int off, void *val,
+The autosuspend request may also have suspended the device before the
+probe failure path is reached. In that case, unconditionally calling
+vd55g1_power_off() can disable the clock and regulators a second time.
 
+Drop the unmatched pm_runtime_put_noidle(), only power off the sensor
+when it is not already runtime suspended, and set the runtime PM state
+to suspended afterwards. This also makes the probe failure cleanup
+consistent with the driver remove path.
+
+This issue was found by manual code inspection.
+
+Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/i2c/vd55g1.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
+index 6f458f611f63..eb5a601cb22e 100644
+--- a/drivers/media/i2c/vd55g1.c
++++ b/drivers/media/i2c/vd55g1.c
+@@ -2055,9 +2055,10 @@ static int vd55g1_probe(struct i2c_client *client)
+ 	vd55g1_subdev_cleanup(sensor);
+ err_power_off:
+ 	pm_runtime_disable(dev);
+-	pm_runtime_put_noidle(dev);
++	if (!pm_runtime_status_suspended(dev))
++		vd55g1_power_off(dev);
++	pm_runtime_set_suspended(dev);
+ 	pm_runtime_dont_use_autosuspend(dev);
+-	vd55g1_power_off(dev);
+ 
+ 	return ret;
+ }
 -- 
-Sakari Ailus
+2.43.0
+
