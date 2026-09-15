@@ -1,140 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 989B617BCA;
-	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A6F637F8AF
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 22:31:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511158; cv=none; b=U8C5f4kPvFTa75JizOyOdp7TvwRXhha6HRZG36Zk/awR0hECk2iGdvCBjY5N7gaeX24wtIQOn9lrFHNEnV7vDXR0/uuNK5wwsMPXY358S71yG59FNos37AHXIgndFtMEB3+H71ORqfnzj2lD+qW+8IpsaMpmGVBAWtnTViMA060=
+	t=1789511509; cv=none; b=WEoXKERiy/3Rkp40Y5nPv2QY3+VUSzgn1i8SLH3rOlOxqZyYIpB+Bu2123Er7faoBBKE6OpLTWCPt4XHGKHCbs3rLppBNl7xM4ybgSmYAkXimE0VyXO7QzTuxBjoMZryq6CvBLgDRHfp+ZPjDEsr1zXN7wRyP1zIubfVZLMgUFQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511158; c=relaxed/simple;
-	bh=9ffJgZmCJOwn886/X/q+wxpKU/Y3qMLflYJ6qhCUcJQ=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=cVDNFusp28hKWbYbHVx1hUxK/SnEBrwgQJactqSPmuOMq0o8YorhLY660Tk1qtwU+KrAgKYKrzOEcEDm1TK4SBIz2zL6S5neibrkTdcOVbQEN74N2fVJthEbxghuZrZSNxo901ZRwTQIr6p55C3OV8Rr6tFZ1nDiTIwPI6WK5xU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdSQ0I6W; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789511509; c=relaxed/simple;
+	bh=a2CRC0suMp5REApEy8/qcsXbL30zSop8JFr3EtNrZjk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=otnrvoCfLWBtTYdJw1j8lnJOwPGYN5eCVKVmsXPlidGaaizV9+bpdMrVLS7kQBJ0H9CUMVkkI6Ijiho5N6IJqKiZD9YGxdfftBdup5pZA4s+x1cuv+VqDTuTj2TXALurRHEOm/V4idwEoAKE03H3oitRl/w9rxvadt2CbqVq8yg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=d18diZVD; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdSQ0I6W"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 3044AC2BCF5;
-	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789511156;
-	bh=9ffJgZmCJOwn886/X/q+wxpKU/Y3qMLflYJ6qhCUcJQ=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=bdSQ0I6WxTxMx64XTvP4jPqf07d1xDNaxabtE+4F+UAFzVau8Bk1q67AiI5Y2iO1x
-	 PKQdVszR3r5It8WZbgu50Se/1GATfPcEKIRl3EZ8pRCVFBMsUR4sMu2u9WnDx8mDoH
-	 P0xuizRa285Kn6kE9ylUh1Q9NSfM5QOI3DgKILWzWdu9YCALZjiibvSBsbEg4hPN4o
-	 qUpADcYVaszDz+aNFHGlV+nMOdfUqIK/ZokELOEq9UBsA/Sre/3bDMJ6aJ6vlWfkBY
-	 7JuF0KhE/nqN2L4QxnLy/kVlZisp+s9UBeeIiZNsqpgX+e/UysrN4HGX/tdsTvXZ6w
-	 Pcfm9cb3eAD5A==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id 10F2EC88E77;
-	Tue, 15 Sep 2026 22:25:56 +0000 (UTC)
-From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
-Date: Wed, 16 Sep 2026 00:25:47 +0200
-Subject: [PATCH 2/2] arm64: dts: qcom: sdm845-xiaomi-polaris: Extend the
- xbl_mem region
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="d18diZVD"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f01363so2403155ad.2
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:31:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789511506; x=1790116306; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UCjk7rkFTyN2WMYlt7IlI6BX3j091q/yk2Leouece6E=;
+        b=d18diZVDu3zBfyDsv11X0qvCm/KRttkDeNNbjRSwAJy5BQW32dtQ+8eN5G7D5LbP0+
+         escZSextj1qlTkVXvX1CWBWczZk2X7aEt5eAn4amT1hVPSK5R7qVvzSeR/nixssdfCLB
+         Q8Dvyn2bF1femPWtyee9Bc9vVBRWCp8SJs7uQL9TxfxUoYu7m5Crzh98l/6Smt1Wki3M
+         pcnTaVIJs0I+L2NvboeQsQWmrNcuTMLfF21/RfQdEu6qbVBXZ70p/jBRo2OPASMqhDQj
+         Gc8TK9oYc7osCmcpniuiuh0qXldP937Y0aDRSLnbpZH8rFgtqPHEhUT7U9JWJeKTyiP3
+         pLhw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789511506; x=1790116306;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UCjk7rkFTyN2WMYlt7IlI6BX3j091q/yk2Leouece6E=;
+        b=MaSWTLIEWWh3LZHC8gQtmyhjwiKCvhi1CdjyNo1M/IVhi9hgJ9+EBmjtOb75JMITYx
+         dXuB6J95iWNt8EpfIIKcjexI/p0IwHwe2iyP0HN1Nqca10YbBZGGBHujAKTSnJnPBYPL
+         q0fBzxaVZ4Qk/Vi2ulIrcTxEW7Em84ERlSODCfngIFuPIWi+eWPTesDemPRK1gk/ljRX
+         EMvB6+6czR0m0Q+JDjGamZdWyI1A9FTktqhX/rpZ8y2ODnaJKIInZQv5kVcfjeqH22pK
+         +uur+hLbMh8k7gW8vsWf8UFsjNo6xTSj/9kAnj9FZnxHgTbyPZkcuP26Ka7yZGoJDCEI
+         +Ewg==
+X-Forwarded-Encrypted: i=1; AKwUvBy1bByVnuaMNeBct1zsKI/c+V5Lsvrq6t+9NTT0oHf9yxMXxPQ3h5GHbmm85Il68OmPmGh75Cs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nuRM32zmaaXgSBt2Z8Ler8Z+dXkTo+FpCtfPJiBrR9i85ooGWF
+	Pl8cDz2bcc0TCt6biRLYIBqi8CHZDUGlBgk/rH6D6E9N7eP9eTuCmMA=
+X-Gm-Gg: AYBFou0dck89ZD0ERI2VKWbnbcF3q5xedzupz31vp24KqCTjzLorrcGLiEFr6PWzFN9
+	UbEDlOPpgbmXPS3gg4hVTGGUa08Cd7vPuTSbTF3QQW5Okeyk4cpGd+E5vutJ34mgd7+ZAfKedgl
+	+syDLaV4LE1GrWnyXlki2smzkp3wYdFtRNxWpUZ/4kZTl0XWgtMGrmLKeMzXO6rrYInE/1EuMSX
+	ZH9TbaeeRm/dOPpLjpigayCb8rGyt6tpg1G7pm3bm6pxIy2ykJjeMmUqm/S8dnQYYkPjkdqJ8xc
+	S4elOXWiG1WFIuPWbhdch3xlpHhQWiJSljLrugsf4qTe4t1K4QKo6hz/kN5axv0VeWrzQB019ge
+	zxMa7o3FY+glQErR8ArDULrK/YsERFiZFZBPQqrLRwwMie+ZAAK4gkfK1UGdhPZq7uerAjY9riH
+	4ba5F/5A1eAEO77EVpc63WotppR/fxKntDIrw03aEdqJq6OWI3yqupdQvhaUULFbHBOgmkGtRfo
+	c0M6LuFVk7qIgrt2S7YXBe2TA==
+X-Received: by 2002:a17:90b:2e83:b0:39d:f61d:4b93 with SMTP id 98e67ed59e1d1-39e1e441e9amr779736a91.13.1789511506341;
+        Tue, 15 Sep 2026 15:31:46 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:556:537c:f7cd:8a1b])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1c337e97sm208036a91.2.2026.09.15.15.31.41
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 15:31:45 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: Andrew Lunn <andrew@lunn.ch>,
+	Heiner Kallweit <hkallweit1@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Russell King <linux@armlinux.org.uk>,
+	Daniel Golle <daniel@makrotopia.org>,
+	Rosen Penev <rosenp@gmail.com>,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Sashiko <sashiko-bot@kernel.org>,
+	netdev@vger.kernel.org,
+	linux-arm-msm@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: [PATCH net v3 0/2] net: phy: qca808x: fix the active-high LED polarity mode
+Date: Wed, 16 Sep 2026 07:31:36 +0900
+Message-ID: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-sdm845-xbl-mem-v1-2-6e3c88507997@ixit.cz>
-References: <20260916-sdm845-xbl-mem-v1-0-6e3c88507997@ixit.cz>
-In-Reply-To: <20260916-sdm845-xbl-mem-v1-0-6e3c88507997@ixit.cz>
-To: Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Amit Pundir <amit.pundir@linaro.org>, 
- Molly Sophia <mollysophia379@gmail.com>, 
- Petr Hodina <petr.hodina@protonmail.com>
-Cc: Konrad Dybcio <konradybcio@gmail.com>, linux-arm-msm@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- David Heidelberg <david@ixit.cz>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1740; i=david@ixit.cz;
- h=from:subject:message-id;
- bh=KhYtwAwwEEXXn9tBUw2nXm8/lwiJ0Ak0iHOYARf9L+U=;
- b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqqcXyLbC8CHVLLesOcCo2SCkcuNpN3GjL6x/rH
- u2kBTerxUWJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCaqnF8gAKCRBgAj/E00kg
- cuOKD/9jiRMig1oJLnCMIdmnE/PzVhRMa+SIv9Af4gTT+JywSfkc8vPV53MqqutyT1vvV7kqB8e
- YyvzSUhRnh8wKVEvqjy/XQPOK66YyKpeO4upTv0UsIwHjxK7EKBAxRRZP1ybhgKOrXcT5rUz7TG
- GNEjBVsAuvevgZ9vFAO3V2Iw9NNBuZkPhnYrXcEuVvdcLg+pMkUXaOc7uwl/wDpdL2k0PgNO+pH
- g0Ukyv+5HqycK9ekwogknYL/47aQQI36OY3dsdyHRVr3ObRsqZFUbX9XR/3Ne3Z5936I6C0Q5qd
- TAoZeC8N7Y7xMYh6BLt8HaP43otEwJ2ZfRjkB2hk6yuaDSEjiKuoOaaoku8DLax/j4dSVYiYNli
- yDQv+azssGsM3eqGNVwJY8DdkBAZ4xY+1uxahj8TTekzSc0Bu+Z8U4k/9sY9VTV3JcKgm8B/ea9
- Uv2k0Iif+FRpuwRrtgUAmqbs9ILTqTaSmCSYtLuSNGWPVSz1VW1Jfx/QUwsXVi6ET/7/bHxYhQ7
- UFxxOtfrR7PyW3RpdSScspGg+pXwgs34oxLUzWsohUXCbe32Vb/oQAz1LBY4obwQZyFQaQXELfN
- mD7MLjKYvasHwx5KHecZomdvI6dlc8QLYQWLXo2bWWN1sg4QBibtCXTQlZ4zh8DoHMczuLzs+0E
- RVVZkLUoU9AJPBA==
-X-Developer-Key: i=david@ixit.cz; a=openpgp;
- fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
-X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
-X-Original-From: David Heidelberg <david@ixit.cz>
-Reply-To: david@ixit.cz
+Content-Transfer-Encoding: 8bit
 
-From: David Heidelberg <david@ixit.cz>
+A QCA8081 with an 'active-high' LED node does not work today, in two
+separate ways, so this is now two patches: qca808x_led_polarity_set()
+rejects the mode outright, and once it stops doing that
+qca808x_config_init() still will not put the bit back after the reset
+phy_init_hw() runs.
 
-Xiaomi's Oreo-era tree still had the CAF 1 MiB region, the 2 MiB version
-arrived with the Pie import. This isn't a board-layout quirk, it tracks
-the firmware. The later XBL wants one extra MiB below the old region.
+Tested in QEMU against a synthetic MDIO bus that answers as a QCA8081 and
+emulates MMD7 0x901a, with the reset clearing BIT(6) as f203c8c77c76
+describes. One kernel, one harness, three arms, x86_64, 7.3.0-rc2+:
 
-Cc: stable@vger.kernel.org
-Fixes: be497abe19bf ("arm64: dts: qcom: Add support for Xiaomi Mi Mix2s")
+  DT node            base      1/2 only   1/2 + 2/2
+  active-high        -EINVAL   inverted   correct
+  active-low         correct   correct    correct
+  no polarity node   correct   correct    correct
+  high-impedance     -EINVAL   -EINVAL    -EINVAL
 
-Signed-off-by: David Heidelberg <david@ixit.cz>
----
- arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts | 6 ++++++
- 1 file changed, 6 insertions(+)
+Still no QCA808x hardware here; the harness emulates the one register, so
+a confirmation on a real board would be welcome.
 
-diff --git a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-index d3162e4444532..a782023d0dcb3 100644
---- a/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-+++ b/arch/arm64/boot/dts/qcom/sdm845-xiaomi-polaris.dts
-@@ -27,16 +27,17 @@
- /delete-node/ &adsp_mem;
- /delete-node/ &wlan_msa_mem;
- /delete-node/ &mpss_region;
- /delete-node/ &venus_mem;
- /delete-node/ &cdsp_mem;
- /delete-node/ &mba_region;
- /delete-node/ &slpi_mem;
- /delete-node/ &spss_mem;
-+/delete-node/ &xbl_mem;
- 
- / {
- 	model = "Xiaomi Mi MIX 2S";
- 	compatible = "xiaomi,polaris", "qcom,sdm845";
- 	chassis-type = "handset";
- 
- 	/* required for bootloader to select correct board */
- 	qcom,msm-id = <QCOM_ID_SDM845 0x20001>;
-@@ -58,16 +59,21 @@ key-vol-up {
- 			label = "Volume Up";
- 			linux,code = <KEY_VOLUMEUP>;
- 			gpios = <&pm8998_gpios 6 GPIO_ACTIVE_LOW>;
- 			debounce-interval = <15>;
- 		};
- 	};
- 
- 	reserved-memory {
-+		xbl-mem@85d00000 {
-+			reg = <0 0x85d00000 0 0x200000>;
-+			no-map;
-+		};
-+
- 		adsp_mem: memory@8c500000 {
- 			reg = <0 0x8c500000 0 0x1e00000>;
- 			no-map;
- 		};
- 
- 		wlan_msa_mem: memory@8e300000 {
- 			reg = <0 0x8e300000 0 0x100000>;
- 			no-map;
+Changes since v2: https://lore.kernel.org/netdev/20260914214720.2467586-1-donggeunyoo.kernel@gmail.com/
+  - Split in two, one defect each, per Christian Marangi.
+  - Add QCA808X_PHY_LED_UNSET and express the condition as
+    PHY_LED_ACTIVE_LOW instead of bare -1/0/1, per Christian Marangi.
+  - Tested rather than compile-tested; see the table above.
+
+Donggeun Yoo (2):
+  net: phy: qca808x: accept the active-high LED polarity mode
+  net: phy: qca808x: keep an explicit active-high LED across the reset
+
+ drivers/net/phy/qcom/qca808x.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
 -- 
-2.55.0
-
+2.53.0
 
