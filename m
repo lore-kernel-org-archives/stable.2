@@ -1,50 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453943CF1ED;
-	Tue, 15 Sep 2026 02:03:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0EC43D1CB0
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 02:03:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437831; cv=none; b=ESzzbTa/y7wrPLRGnZIsNMEfWpqd/byH8x+SK6YnOXN4AI74vXZEWZVCB/l5DnJhmo0qVNYhWay9R0fb5LrhY6v/RfWfD6FcXthTULa/L0//Vkm/OXRUspxGNdI8H6CyjsUvUIeG5RjP0iEVIad847vfFo1MFE+dX+8GYH4pEKQ=
+	t=1789437831; cv=none; b=mc7GbaNqOo29nVnMB/eBD+qk3QZlz3f4swDcmM2IK0yJ5cmBMlhnFx8XQqz9W4kx+NFqLB86aR7KF37rPbEUSPw6raplvKYTGjNAPqXtEmQDJ8/9HOKQMfhXyvadIK7fPNyPcDBUbMS5EXg8EaHMXa7EjYhuS+XMu+/mxTFhZQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789437831; c=relaxed/simple;
-	bh=WhC2bj5kb6iEqBerXQhQIWB0A7Iyf7r3pO97PkxW5wY=;
+	bh=WOZSbR7t3xq9lZvNQNRKllJu9VSvQkF2wvX+zt24eHA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dxQ60RB4lL/zBEowGroyVSWIKDDfjxbdpoXThyIad2kos0JKf6ya7g0sc5WmEeb3VZn/AA2HsVEP5af8kPfm+ernE8IDe5c2HjIhkDPt0Fal+lJWvE0FurrYghcSFz3GgeIQ3Uw7Je6tQQuqaYcz0N5/RGQD9mcpBjAKNTE6XMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMgNxZFO; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ckvy6jvWMV0u9N6gurNjios5VpmxywewLMfeVXzZljoAbJ6Y6uLLdywq+G8+gR+//TwejQfPK+cOPz+X220wHBENFI4tKc2Y1PIEnzzSizjZ8wNylbgGDfD173Te8AS+trwjmB/kq3Jj9rCCJ6lTkjfnx2wtIZ5gqRH6PzHzC2c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GJMHeIP1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMgNxZFO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A669F1F000FF;
-	Tue, 15 Sep 2026 02:03:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GJMHeIP1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1B68F1F00893;
+	Tue, 15 Sep 2026 02:03:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437829;
-	bh=3PZlCzXAeVDKpiVMf4wbPUmBmc5EvcNg5hQfnwFiiM4=;
+	s=k20260515; t=1789437830;
+	bh=ugKhROXtqN46cWUD7MPMMYkJ5vmwHkr7W0HWw6nEXes=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=VMgNxZFOzJBW0OBIYIh/yk9eytzT3NzaHnRx9qlgY7Ga0dIzq+td532aGHWBslCm3
-	 aGREh99+xoCXmgiqiSCshwExOhWZqdhO0lTfVex2CvuBkHkA1G5k1wpWuiLoyg/7gn
-	 SRS3rGs0p/OI6tkSythiYpgxdTqVT7oXbl1SM/l8npZEYTEbS7mULFUFhwx+A3F9QM
-	 A63ESy78B9HV22KT/L/ttzalh7aYcyFxMxLlS0NBJ/SKxNzFeoTR2tmtg3AY+O6HO1
-	 Kf7VFmi1b2MTxs4RzvF/FaeltxYv7B155QfS+GEL0mY5S7cBPI0pFdYaSYqAeTbfRc
-	 AQvzLCx7X8LGg==
+	b=GJMHeIP1LW40Hdxx+VKpUKAn1UoI8I9JS6c7o7DIMK74veHmogYARQXT92Ab4kQsS
+	 2Zi8Z2ma0vo9Emd8GX0tkgzJYmyrWT8tf9fccSS0Ms3AS4J/z1ozhJspvMGDFxX0yI
+	 3tSkxGD7wqh7B4b/lYKe/uWiwiFZnnCGVLMcSodKSGwbt5pa4fayilhjF+92htnyEP
+	 pMjkEfP3CG0kPrjt6JhfKyQzd0Exgs/BnmEnVwWpt7Rmnwh0fv+gAMjCHyD4dYqjPo
+	 ZFa/105+kUirdAR5TJNpZlMzrV9d5jghkWa5HL4jpbnpRMKJmz9INsnes/FdIg9563
+	 T/fTutBeg1q/Q==
 From: Sasha Levin <sashal@kernel.org>
-To: gregkh@linuxfoundation.org
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linusw@kernel.org,
-	ljs@kernel.org,
-	patches@lists.linux.dev,
-	rmk+kernel@armlinux.org.uk,
-	stable@vger.kernel.org,
-	xieyuanbin1@huawei.com,
-	xiqi2@huawei.com,
-	bigeasy@linutronix.de,
-	wangbing6@huawei.com,
-	lisongze2@huawei.com
-Subject: Re: [PATCH 5.10 613/798] ARM: 9485/1: mm: acquire mmap write lock around show_pte() for user faults
-Date: Mon, 14 Sep 2026 22:03:26 -0400
-Message-ID: <daily-reply-0010-re-arm-user-fault-irq-enable@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Artem Dinaburg <artem@trailofbits.com>
+Subject: Re: Please consider post-v7.1 CVE fixes for 6.1.y, 6.6.y, 6.12.y, and 6.18.y
+Date: Mon, 14 Sep 2026 22:03:27 -0400
+Message-ID: <daily-reply-0011-re-cve-batch-post-v7-1@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260914024820.11063-1-xieyuanbin1@huawei.com>
-References: <20260914024820.11063-1-xieyuanbin1@huawei.com>
+In-Reply-To: <20260914055341.86197-1-artem@trailofbits.com>
+References: <20260914055341.86197-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,15 +45,18 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This commit depends on commit e79ca91165d4fd18549c ("ARM: 9484/1: enable
-> interrupts when unhandled user faults are triggered"), otherwise,
-> mmap_write_lock() may trigger a might_sleep() WARNING.
+> Could you please queue these commits for the trees shown?
 
-Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks for flagging it.
+Queued for 6.18, 6.12, 6.6 and 6.1 as requested, with one exception.
 
-Could you send a 5.15 and 5.10 version that places the enable after the
-hardening call? The other option is to take fd2dee1c6e22 ("ARM: fix branch
-predictor hardening") on those two first, after which it applies unmodified.
+7dc3680b7ffe ("drm/vc4: hvs/v3d: Fix null dereference in unbind") is queued for
+6.18 and 6.12 but not for 6.6 or 6.1. The NULL it guards against only appears
+once 013d382d11a2 ("drm/vc4: Call drm_atomic_helper_shutdown() at shutdown
+time") is in the tree, and that one is absent from both. On 6.6 and 6.1
+dev_get_drvdata(master) equals data on every path, so the patch changes nothing
+there.
+
+Everything else on the list is queued.
 
 -- 
 Thanks,
