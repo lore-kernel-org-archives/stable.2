@@ -1,208 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pg1-f178.google.com (mail-pg1-f178.google.com [209.85.215.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D37233939D;
-	Tue, 15 Sep 2026 01:23:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789435430; cv=none; b=FSQTghQ5Zmfe5Moeh9nyBRy5Lbe9F87LPqzFzhD/zAg251zglHT4ZQcwHy1QNJOB+gDFSE1/akirE/x4rNpODYJ1SrYT2ZXh2cKAGwd3STgsC1dF1jp090n/RtHRLI3d60MtR77vTU8LRhIZd4kdw3UN+Mg1JE1tcERNaab2vUM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789435430; c=relaxed/simple;
-	bh=d+yXnOdp9lzBACQFYM1yA3cXybUA9iMgSujImK3F1PY=;
-	h=Date:To:From:Subject:Message-Id; b=dFhQDOeX7zDTDIYV7bLyWNmTnAZhCmVXAKClPFmUBidtwCEQSGUlz8mw5ssieIPazhEBcPGA5sNNHHjcmYuv1AqdeuuV+pL+ioJOeqyjvL9ZLEcEkEDUFXC5xwNQk4kpjCncsFLF+z6WDNRdz0OKHYAOUcBd8ZX3O/c2tQeppAE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=kPYheJqk; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBF673115AE
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:24:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.215.178
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789435473; cv=pass; b=lYRehRuuX5Ss2H6R8K9fTxDjtpuWJnOuTmoPMNWGg+bVoP657nPVJ033TNLuZ37O/+UFrLHLKYiep3Pm/hVNkwosNn24pN193b2UawMA7wAu6NJJj3OqSp1Dc+AnzACe6XCGarVD2daFKa7FFT9ZwvdXD3nsBeCMXjPH41ieUhg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789435473; c=relaxed/simple;
+	bh=dEdzdraQ8e1FJjlgNNKbv0UpkqZqqFvCuPQNVi2/Eds=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=eXJBkxNpZAVT96BBjB3jh8JbrCCr5rXdrXnFTuHXvC/ktBNxnUut2NtKX1xPGpp8kxaK0DFA8vYxgqWNFCeBj1rOwdDV54Ts3mo/adf93Dt8iXydE3aw+5SMxUx6zT1D3KrRL87h+UrKUbzcKSuzQ31EiBlV5OmaNDtfNjr33z0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H+ZaIgDX; arc=pass smtp.client-ip=209.85.215.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="kPYheJqk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45A381F000FF;
-	Tue, 15 Sep 2026 01:23:48 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H+ZaIgDX"
+Received: by mail-pg1-f178.google.com with SMTP id 41be03b00d2f7-cc4aa02a269so3201632a12.2
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:24:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789435471; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Zayar1mNdImpGuAbDzSrY8f51c6SoTk+Ii3t08aWnUfyex2zPnTLPEtvSVssLIsb/B
+         V5V/NCh0ifrb7Q02Oxrb82kbuP+1KetP3OVCd7gm7OVx/VSkYBgRaY6CYUJEH29Owf7I
+         3zl6fKJFVlDUWD1TWPttxsVaspP/ihXB+GTohRp7r8hS/eut+7e7QKC9e8U8yKblhK2r
+         ZwA7rnJfvT3PQJ3sROSSOXqNR4KMBIvyCZMrAS0/XeIFmULpdJukCP4xJHqt/x/FvmAz
+         aqm/+wQehGeKZ5prfLpFXM/N6AkM1FXKHoVQtW0T8bILMm7s/cqB7TXpFiPU/ss3RXVE
+         Gyyg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=nj9AuGJ3R4rBf2c5qZk9ZmLjhMDoMpxuJOp7rXF1jN0=;
+        fh=esTr6BHEeAdFLmiqNHqYWp+shV899vMaLw7BB+c9U7s=;
+        b=KLuPlEYpKdatQGal94Ift46mhKZaJlVZfey0iv6+aYvTytWfuqPnSAwcZyq0OgLFXE
+         4OkJHt2ddm9+a5maTdh0PnYn41m2zJrsRjaMN7UyESiTlKOEhtiozY0qU8OnkRr1nxPj
+         dHiZzXOasGPf8xWhQs8ZCXoxsK42Xq5VCthLed7pJnqQjkuQiY0eGrEEQHNusV45SLKU
+         99vMA2xqwv63yHYBcL6xXXlx/9Xrl+tyPn+y0zQP7g6gIdXW6G0Rs3eFEzZECkBABXKB
+         oAbB6VJ/p9GskNN67Zt4lPfneTp5ruqZJXtb+oRPNZR23Mv+ejjok+ANybCT6His8NQj
+         I/Mg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789435428;
-	bh=v7oY6WcwnuFu91ql6tG3sVezH+fl2GjJ6ieCdcuzNbg=;
-	h=Date:To:From:Subject;
-	b=kPYheJqke1mt7eQjHmUh4eEyvnUCnoJfRrM7weurPLVfmMgVPcrFYCMNUGlYqRSUP
-	 rxLR9smpeTXD+kVdYOufCg6doTxG3GTIBSDrDxfk2kz0nuXuazwbrRHjl05RgqzTs0
-	 t1MnJvneyh36NN2vA1Mn3yEhO5jN14R4n4YUzwBg=
-Date: Mon, 14 Sep 2026 18:23:47 -0700
-To: mm-commits@vger.kernel.org,usamaarif642@gmail.com,stable@vger.kernel.org,davidgow@davidgow.net,brendan.higgins@linux.dev,sj@kernel.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-core-kunit-test-invalid-damos-filter-commits.patch added to mm-new branch
-Message-Id: <20260915012348.45A381F000FF@smtp.kernel.org>
+        d=gmail.com; s=20251104; t=1789435471; x=1790040271; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=nj9AuGJ3R4rBf2c5qZk9ZmLjhMDoMpxuJOp7rXF1jN0=;
+        b=H+ZaIgDXR1OOh9z9s7gtWQMr+4hsfPs/nWxz6zdZo9NzeJ1qKzAj5/MNvFqdo97axS
+         ALap//yKjSjZ2zVD0bqczCGUBlqFTD11RlME6vWd8YR47dTVVZvbCe/7L8VPg9g/CJ/t
+         +JdNbTyl58QN4NPGUVWlJ+IBKwZZHoCVQL9jPogegNIVNK1gk3PD07bHXWVfOK4xBW8R
+         YyA4AQvOnGQqV2lvVO+iZM3nXDo9x7diQPGqAGAsYcGrucyANK7+47VQ+K5q33v9Uin7
+         iaxkBKhaRW2wVnMMnTBzuTvQgg7Fn0Zj57atv1X9cb0y/y7SE7qVZxEbNUZyXIEmRe5l
+         Ajsw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789435471; x=1790040271;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=nj9AuGJ3R4rBf2c5qZk9ZmLjhMDoMpxuJOp7rXF1jN0=;
+        b=1q+UiGJgScmS8mhRc+bvuzlDzpQUZPD9aPEqzYfI9jwfGcOdISjiE7sMMxzg3kIXzN
+         /3PeMsxUAhsjduypZqEYt+eqZfgBOZSqhcqYXV2VmA86qZ/cqKlrJd8Z0y/hmlKNWXzp
+         DPGgG9gjGnFpSIOU7WOlbwubmP+mZ4zuEw6H/fyMJ6tjmO/ze2JtusDJG4ciKpqCS6+c
+         bKSbWvlp7pz0TQiPcDwDXMEKDKghkPyfvD2jmZn8ddG+C4ame9NQbBHZiq5KMuNWRSXq
+         dZR18mC2+uwGa12XoCCO2VXiPaJXH72kVGKRv2dJLCvXKi5JQ6JAOHQs9b80kU/eamYP
+         6nMQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxrSRygAgJCa6ij561IBL78Ap8Bl/3JSwo6SX7ug1n1+BtkydQm1KOqQcP885CqtZXkSDbTKDs=@vger.kernel.org
+X-Gm-Message-State: AFuF++nI3vk+BdDdp83TWsR+j9jU72rhX7NkhiDqLD/kI8PFGcYrt19H
+	vzlwQ3WQtfpiJps7TpuFUbFuw9uE3LGkk33xX6IX0p5nb/wP4a/eRNDStQgYYfhUYxhyevewAXi
+	32JSqgqp8VMG6vNtTQfc77Fq0Eac1vA==
+X-Gm-Gg: AYBFou0OKpqpJq2DfG2mumPhQFkx0LYSL2wVM2RiTuT3ntKFR7g+kwKMQp4d18kP+Yu
+	TO4AdwUWtyRWRACbG8XJvmsQaN2M6R3GKbtspCmR7NhP6G83I0OzSIOsVgysxgCfEpp3HyKKn5N
+	8akhQbjspkcYj4iRdUNSStBNUT9XdLNf0Zl6rIhAWc7QNCz1RuouyZOuXo6bl0n2oLn3/AlOT/m
+	L2QGGcI25nooNAVyqGinBkLaTYSm+mfJeAZknBcRNbWJX4f+DrtwCjFCHhNVHpUCLJuDUjCnUM0
+	/ami+9wPwsWqh2akhnjjxWmVBgSgI2NK97BU53icU3+ao9rw/RAYHIBssbskFAaHMAA4gPNXMty
+	AsrgwX64Qa9pmHgY+iv4KLeUCFza5rY9567vTVEQy7cITGSbz530DUO+w8ue30ORBQ9cC
+X-Received: by 2002:a05:6a20:ce4a:b0:3cc:92d9:80cb with SMTP id
+ adf61e73a8af0-3db4046c09bmr11645431637.12.1789435471071; Mon, 14 Sep 2026
+ 18:24:31 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+References: <20260524155735.13865-1-mhun512@gmail.com> <CAMeQTsYVf_YRyuXx2XpBG822N=nMhnRbKnUNRu8OrsSthzrMrg@mail.gmail.com>
+In-Reply-To: <CAMeQTsYVf_YRyuXx2XpBG822N=nMhnRbKnUNRu8OrsSthzrMrg@mail.gmail.com>
+From: Myeonghun Pak <mhun512@gmail.com>
+Date: Mon, 14 Sep 2026 21:24:14 -0400
+X-Gm-Features: AcwNN1XGN3vWYnZMelCtuY0mzPxTvaG2W81_3N9COhlxDNULIMfbhXD5Z_s9EoM
+Message-ID: <CAGEsz8E6oZRuLS2kXTw6bnYBCAmg_OvLDrhqXBDUC--qV-5x8Q@mail.gmail.com>
+Subject: Re: [PATCH] drm/gma500: clean up modeset on backlight init failure
+To: Patrik Jakobsson <patrik.r.jakobsson@gmail.com>
+Cc: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	Thomas Zimmermann <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
+	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
+Hi Patrik,
 
-The patch titled
-     Subject: mm/damon/core-kunit: test invalid damos filter commits
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-core-kunit-test-invalid-damos-filter-commits.patch
+Thanks for the feedback. I'll address this and submit v2.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-kunit-test-invalid-damos-filter-commits.patch
+Thanks,
+Myeonghun
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: SJ Park <sj@kernel.org>
-Subject: mm/damon/core-kunit: test invalid damos filter commits
-Date: Mon, 14 Sep 2026 07:23:25 -0700
-
-Add test cases for testing the validation of damos filter arguments in
-commit time.
-
-Link: https://lore.kernel.org/20260914142327.92510-9-sj@kernel.org
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <davidgow@davidgow.net>
-Cc: Usama Arif <usamaarif642@gmail.com>
-Cc: <stable@vger.kernel.org>
----
-
- mm/damon/tests/core-kunit.h |   14 ++++++++++++++
- 1 file changed, 14 insertions(+)
-
---- a/mm/damon/tests/core-kunit.h~mm-damon-core-kunit-test-invalid-damos-filter-commits
-+++ a/mm/damon/tests/core-kunit.h
-@@ -1186,6 +1186,13 @@ static void damos_test_commit_filter(str
- 			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
-+			.type = DAMOS_FILTER_TYPE_HUGEPAGE_SIZE,
-+			.matching = false,
-+			.allow = false,
-+			.sz_range = {.min = 456, .max = 123},
-+			}, true);
-+	damos_test_commit_filter_for(test, &dst,
-+			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_UNMAPPED,
- 			.matching = true,
- 			.allow = true,
-@@ -1199,6 +1206,13 @@ static void damos_test_commit_filter(str
- 			}, false);
- 	damos_test_commit_filter_for(test, &dst,
- 			&(struct damos_filter){
-+			.type = DAMOS_FILTER_TYPE_ADDR,
-+			.matching = false,
-+			.allow = false,
-+			.addr_range = {.start = 567, .end = 456},
-+			}, true);
-+	damos_test_commit_filter_for(test, &dst,
-+			&(struct damos_filter){
- 			.type = DAMOS_FILTER_TYPE_TARGET,
- 			.matching = true,
- 			.allow = true,
-_
-
-Patches currently in -mm which might be from sj@kernel.org are
-
-mm-damon-vaddr-avoid-hw-driven-pte-updates-during-damon_hugetlb_mkold.patch
-mm-damon-core-reset-invalid-quota-charge_target_from.patch
-mm-damon-core-skip-applying-scheme-if-region-split-for-quota-fails.patch
-mm-damon-paddr-respect-folio-end-for-damos_stat.patch
-mm-damon-paddr-respect-folio-end-for-damos-actions-except-stat.patch
-mm-damon-vaddr-respect-folio-end-for-damos_stat.patch
-mm-damon-vaddr-respect-folio-end-for-damos_migrate_hotcold.patch
-mm-damon-core-handle-extreme-memory-state-in-damon_get_node_mem_bp.patch
-mm-damon-core-handle-extreme-memory-state-in-get_node_memcg_used_bp.patch
-mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch
-mm-damon-core-introduce-damon_filter_type_pgidle_unset.patch
-mm-damon-paddr-support-pgidle_unset-probe-filter-type.patch
-mm-damon-sysfs-support-pgidle_unset-probe-filter-type.patch
-docs-mm-damon-design-document-pgidle_unset-probe-filter-type.patch
-mm-damon-core-introduce-damon_prep-struct.patch
-mm-damon-core-commit-preps.patch
-mm-damon-core-introduce-damon_operations-prep_probes.patch
-mm-damon-paddr-support-damon_prep.patch
-mm-damon-sysfs-implement-preps-directory.patch
-mm-damon-sysfs-implement-preps-nr_preps-file.patch
-mm-damon-sysfs-create-directories-for-nr_preps-writes.patch
-mm-damon-sysfs-implement-prep_action-file.patch
-mm-damon-sysfs-pass-preps-to-damon-core.patch
-selftests-damon-sysfssh-test-probe-prep-sysfs-files.patch
-docs-mm-damon-design-document-probe-preps.patch
-docs-admin-guide-mm-damon-usage-document-probe-preps-sysfs-files.patch
-docs-abi-damon-document-probe-prep-sysfs-files.patch
-mm-damon-tests-core-kunit-test-committing-psi-goal-to-psi-goal.patch
-mm-damon-core-handle-uninitialized-damos_quota_goal-last_psi_total.patch
-mm-damon-core-copy-nid-for-eligible_mem_bp-damos-quota-goal-commit.patch
-mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
-mm-damon-tests-core-kunit-test-damon_commit_filter.patch
-mm-damon-tests-core-kunit-add-damon_commit_probes-test.patch
-selftests-damon-_damon_sysfs-implement-damonprobes.patch
-selftests-damon-drgn_dump_damon_status-dump-probes.patch
-selftests-damon-sysfspy-extend-commit-assertion-function-for-probes.patch
-selftests-damon-sysfspy-test-damon-probes.patch
-mm-damon-core-use-damon_nr_samples_per_aggr-for-max-merge-threshold.patch
-mm-damon-core-remove-debug-messages.patch
-mm-damon-core-remove-debug-messages-fix.patch
-mm-damon-vaddr-remove-a-debug-message.patch
-mm-damon-core-validate-number-of-probes-in-valid_probe_params.patch
-mm-damon-sysfs-remove-probes-number-validation.patch
-mm-damon-tests-core-kunit-extend-set_regions-test-for-error-case.patch
-mm-damon-tests-core-kunit-test-=0-size-damon_set_regions-inputs.patch
-mm-damon-tests-core-kunit-test-overlapping-ranges-for-set_regions.patch
-mm-damon-tests-core-kunit-test-damon_nr_samples_per_aggr.patch
-selftests-damon-sysfssh-test-hugepage_mem_bp-quota-goal.patch
-docs-mm-damon-maintainer-profile-update-ai-review-for-sashiko-replies.patch
-docs-abi-damon-recommend-subsystem-doc-instead-of-admin-guide.patch
-mm-damon-core-error-damos_commit_quota_goal-for-zero-target_value.patch
-revert-mm-damon-lru_sort-error-out-for-10000-active_mem_bp.patch
-revert-samples-damon-mtier-error-out-for-zero-quota-goal-target-values.patch
-mm-damon-core-handle-null-ctx-parameter-in-damon_call.patch
-mm-damon-core-set-ctx-call_controls_obsolete-in-damon_new_ctx.patch
-mm-damon-reclaim-remove-unnecessary-damon_call-param-validation.patch
-mm-damon-lru_sort-remove-unnecessary-damon_call-param-validation.patch
-mm-damon-vaddr-support-prep_probes.patch
-mm-damon-paddr-move-probe-filter-handling-to-ops-common.patch
-mm-damon-vaddr-support-apply_probe.patch
-mm-damon-vaddr-extend-apply_probes-for-hugetlb.patch
-mm-damon-vaddr-support-pgidle_unset-probe-filter-type.patch
-mm-damon-api-introduce-damon_filter_type_pgidle_set.patch
-mm-damon-paddr-support-damon_filter_type_pgidle_set.patch
-mm-damon-vaddr-support-damon_filter_type_pgidle_set.patch
-mm-damon-sysfs-support-damon_filter_type_pgidle_set.patch
-docs-mm-damon-design-update-for-pgidle_set-probe-filter.patch
-mm-damon-api-introduce-damos_filter_type_probe_hits_wsum.patch
-mm-damon-api-introduce-damos_filter_type_probe_hits_wsum-fix.patch
-mm-damon-core-extend-probe_hits_wsum-for-moving-sum-based-calculation.patch
-mm-damon-core-support-probe_hits_wsum-damos-core-filter.patch
-mm-damon-sysfs-schemes-rename-sysfs_filter-sz_range-to-range_minmax.patch
-mm-damon-sysfs-schemes-support-probe_hits_wsum-damos-core-filter.patch
-docs-mm-damon-design-update-for-probe_hits_wsum-damos-core-filter.patch
-docs-admin-guide-mm-damon-usage-update-for-probe_hits_wsum-damos-filter.patch
-mm-damon-sysfs-schemes-read-sysfs_filter-addr_range-only-once.patch
-mm-damon-sysfs-schemes-read-sysfs_filter-sz_range-only-once.patch
-mm-damon-core-return-an-error-from-damos_commit_filter_arg.patch
-mm-damon-core-disallow-max-min-damos-filter-range-arguments-commit.patch
-mm-damon-sysfs-schemes-drop-centralized-filter-range-arg-validations.patch
-mm-damon-sysfs-schemes-use-switch-case-in-add_scheme_filters.patch
-mm-damon-core-kunit-extend-damos_commit_filter_for-for-wrong-input.patch
-mm-damon-core-kunit-test-invalid-damos-filter-commits.patch
-
+2026=EB=85=84 6=EC=9B=94 1=EC=9D=BC (=EC=9B=94) =EC=98=A4=EC=A0=84 5:50, Pa=
+trik Jakobsson <patrik.r.jakobsson@gmail.com>=EB=8B=98=EC=9D=B4 =EC=9E=91=
+=EC=84=B1:
+>
+> On Sun, May 24, 2026 at 5:57=E2=80=AFPM Myeonghun Pak <mhun512@gmail.com>=
+ wrote:
+> >
+> > psb_driver_load() initializes KMS polling before it attempts to
+> > initialize backlight support. If gma_backlight_init() fails, the
+> > function returns directly and skips psb_driver_unload(), leaving
+> > drm_kms_helper_poll_fini() uncalled.
+> >
+> > Use the existing error path so the partially initialized modeset state
+> > is unwound before probe fails.
+>
+> Hi,
+> Yes the existing code is faulty but calling psb_driver_unload() to
+> unwind the init could call backlight_device_unregister() on an ERR_PTR
+> backlight_device which is guaranteed to fail.
+>
+> The correct fix would be to convert psb_driver_load() to use devm
+> and/or goto unwind pattern.
+>
+> -Patrik
+>
+> >
+> > This issue was identified during our ongoing static-analysis research w=
+hile
+> > reviewing kernel code.
+> >
+> > Fixes: 1f90b1232773 ("drm/gma500: Refactor backlight support (v2)")
+> > Cc: stable@vger.kernel.org
+> > Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> > Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> > ---
+> >  drivers/gpu/drm/gma500/psb_drv.c | 2 +-
+> >  1 file changed, 1 insertion(+), 1 deletion(-)
+> >
+> > diff --git a/drivers/gpu/drm/gma500/psb_drv.c b/drivers/gpu/drm/gma500/=
+psb_drv.c
+> > index 005ab7f535..7218026fe2 100644
+> > --- a/drivers/gpu/drm/gma500/psb_drv.c
+> > +++ b/drivers/gpu/drm/gma500/psb_drv.c
+> > @@ -406,7 +406,7 @@ static int psb_driver_load(struct drm_device *dev, =
+unsigned long flags)
+> >         drm_connector_list_iter_end(&conn_iter);
+> >
+> >         if (ret)
+> > -               return ret;
+> > +               goto out_err;
+> >         psb_intel_opregion_enable_asle(dev);
+> >
+> >         return devm_add_action_or_reset(dev->dev, psb_device_release, d=
+ev);
+> > --
+> > 2.47.1
+> >
