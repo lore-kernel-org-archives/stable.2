@@ -1,102 +1,89 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFBB0433E7C;
-	Tue, 15 Sep 2026 04:32:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D62C3D5C0C;
+	Tue, 15 Sep 2026 04:33:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789446731; cv=none; b=JfC3/VDEzPHqduca2JrxLIRgg/iQYWVfPMaiemqwuDQGvPdRlFY3+saWHBF8/LnGgl5W0p0gtdq2IHSNKzR7+L7qLyAXsrd4NVZbMote9FFIyTOJ7K7LqB3mAS9kenj8TrRam7jj6F400B+WDpLOVlAIahmuWDk0tXwIaEVmd0M=
+	t=1789446791; cv=none; b=ZQUlxGYxn5wtSgyLzRgZDLA1ntEkOkrxetBqYTV0Q2ZEfoKhhmVein9dXr2sECtZ9XhWStZ9aONdMpma5OBh4bKRFH//ZchTT+9aQcnu/yELbJ00A5ij7wDcVUmuaj+vMWa9EYFvSvCy960Bm87bkiR+q7KZvDlnJVvSIOFxQKY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789446731; c=relaxed/simple;
-	bh=nkzg3a8+LvTNt/8oYVAeAj+HXIyWYCIf+6oPPLRiOuQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=O3Ij1KWsELSUfzhWhWUIxPRPF+wDnqy2iSea59W+Ldv0uZ//QsKzEfhOFUwuUD6yIYzsc6EYGS52caapKW1bohQ17NezVWGBvBHZHOwflf5hwdKfcjhWmihFtooF/TQwOH5a0WZ0oElvynaGb7M66TXemhYi4M4AhFK17s4cqAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowACnfvI8yqhqTa4ICA--.59909S2;
-	Tue, 15 Sep 2026 12:31:56 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy.tang@nxp.com
-Cc: bmasney@redhat.com,
-	linux-clk@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	mturquette@baylibre.com,
-	oss@buserror.net,
-	robh@kernel.org,
-	sboyd@kernel.org,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 3/6] clk: qoriq: Fix clock reference leak in input_clock_by_name()
-Date: Tue, 15 Sep 2026 04:31:27 +0000
-Message-Id: <20260915043127.1725773-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789446791; c=relaxed/simple;
+	bh=F1EZz1gvYL2yeAGTnSSdkFhbs1XU9gNCm7qgfr7UKiI=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=WQSemXgWsb5krcqLNhU0y5YsWa4j/IRrqRENXto9Uxq44fq+yuq22MGdLejR2qWXVV+KUSQM28z2BriTr0+jq3vBetnXhojUUsuwSttqjTrbsBuQTiKJKgcyJI2dVRhdoqZUZ7+ApMaHVc8TZP1R7FcTADE0BAbmOY90WCb4DLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=h07fm6tJ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="h07fm6tJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 775951F000FF;
+	Tue, 15 Sep 2026 04:33:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789446789;
+	bh=AA0z69BlegLX4MyUvkz8G6syjEXB6PXFlXmYSSb0GhU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=h07fm6tJXrCqhq4PwvmHRpvDl+sUxOxl6I6ZrPCJWuiBiA643R48Jp1WiUlccMvs3
+	 Auo/ZmAHF7j4dAzffmHVyj+cPG3dFspg4gpG+Z8UbvFqkmLp6l89vphOxgr8BysQN7
+	 kLXyiir1xpVduYvt/uRV1xcgR6LSjMq8a0k9RQkQ=
+Date: Mon, 14 Sep 2026 21:33:09 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: James Kim <james010kim@gmail.com>
+Cc: Matt Porter <mporter@kernel.crashing.org>, Alexandre Bounine
+ <alex.bou9@gmail.com>, Dan Carpenter <dan.carpenter@linaro.org>, Greg
+ Kroah-Hartman <gregkh@linuxfoundation.org>, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] rapidio: mport_cdev: fix use-after-free in
+ mport_mm_close()
+Message-Id: <20260914213309.4caf81cbb1794b774e1ad7b6@linux-foundation.org>
+In-Reply-To: <20260914042327.49798-1-james010kim@gmail.com>
+References: <20260914042327.49798-1-james010kim@gmail.com>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACnfvI8yqhqTa4ICA--.59909S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF1rAFyxZryDJw15tw45trb_yoW8Gw47pF
-	Z5A34Yvw17Ar4DuF17tF4UuFnI9w48CFy3K3y8Can7ZF13W34xJF1rCFyYvFs0y3yfWw4j
-	qFW2yF48CF4kArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_Cr1j6rxdM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
-	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
-	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU19Xo7UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRULA2qowd0d1AABsC
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-input_clock_by_name() obtains a consumer clock with of_clk_get_by_name()
-and hands it to input_clock(), which only uses __clk_get_name() to read
-the clock name and then registers a new fixed factor clock.  The
-consumer clock itself is discarded without clk_put(), so the reference
-returned by of_clk_get_by_name() is never released.
+On Mon, 14 Sep 2026 13:23:27 +0900 James Kim <james010kim@gmail.com> wrote:
 
-Release the reference with clk_put() once input_clock() is done with
-the clock, mirroring the pattern used by of_clk_get_parent_name().
+> A use-after-free vulnerability was identified in mport_mm_close() in
+> drivers/rapidio/devices/rio_mport_cdev.c, identical to the pattern
+> previously addressed in dma_req_free().
+> 
+> This is observable from userspace when an application creates an mmap
+> mapping via the RapidIO character device and subsequently unmaps it
+> (or terminates, triggering exit_mmap()). During munmap, mport_mm_close()
+> is invoked and drops the mapping reference via kref_put().
+> 
+> If kref_put() drops the last reference, mport_release_mapping() is called,
+> which frees the underlying rio_mport_mapping structure. The subsequent
+> mutex_unlock() then dereferences map->md to unlock buf_mutex, leading to
+> a use-after-free:
+> 
+>    mport_mm_close()
+>      -> mutex_lock(&map->md->buf_mutex);
+>      ...
+>      -> kref_put(&map->ref, mport_release_mapping); /* map is freed */
+>      -> mutex_unlock(&map->md->buf_mutex);          /* UAF: map used */
+> 
+> Fix this by caching map->md before kref_put() and using the cached
+> pointer for mutex unlocking, ensuring that freed memory is not accessed.
+> 
 
-Fixes: 80b4ae7acea4 ("clk: qoriq: Separate root input clock for core PLLs on ls1012a")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/clk/clk-qoriq.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+Thanks.
 
-diff --git a/drivers/clk/clk-qoriq.c b/drivers/clk/clk-qoriq.c
-index 2ed8f93bc861..d0091b388cef 100644
---- a/drivers/clk/clk-qoriq.c
-+++ b/drivers/clk/clk-qoriq.c
-@@ -1124,13 +1124,16 @@ static struct clk __init *input_clock(const char *name, struct clk *clk)
- static struct clk __init *input_clock_by_name(const char *name,
- 					      const char *dtname)
- {
--	struct clk *clk;
-+	struct clk *clk, *ret;
- 
- 	clk = of_clk_get_by_name(clockgen.node, dtname);
- 	if (IS_ERR(clk))
- 		return clk;
- 
--	return input_clock(name, clk);
-+	ret = input_clock(name, clk);
-+	clk_put(clk);
-+
-+	return ret;
- }
- 
- static struct clk __init *input_clock_by_index(const char *name, int idx)
--- 
-2.34.1
+> Note for Andrew:
+> Following up on the Sashiko review results you shared in the dma_req_free()
+> thread (https://sashiko.dev/#/patchset/20260615070530.371640-1-james010kim@gmail.com),
+> I audited the reported pre-existing flaws and verified that this UAF in
+> mport_mm_close() is a genuine bug with the identical locking pattern.
+> 
+
+Thanks again.
+
+Sashiko blew another fuse over the rapidio driver:
+
+	https://sashiko.dev/#/patchset/20260914042327.49798-1-james010kim@gmail.com
+
 
