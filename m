@@ -1,87 +1,36 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 368E63BB67B
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 13:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E6B83CDBD3
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 13:43:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.121
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789479416; cv=none; b=MbmR7Ae24NhLqjv2pERvBu/OFagss+lwUMvewwpxSXH3t5YDE83WJOGU8HO7NU2/aS5gSyIm/7aZ3F8tO3U1X0FY4qDKlBi0diau03OHf6Rt+TwO57eM4EmTqg4KdRhm+QCx2fNr/uRSdTC10MeeR23ZobO61D6Cqkz1iCM6WLE=
+	t=1789479809; cv=none; b=bOmL4I2eT2OIT5CO7g0cKBigoFZ/r3OefwGmFL0/Ud8uCEFljtHsi4iMn7SJmQUU8lVNFiBv0wZ63KBTH9MiznUjU14F/jV2lvxgpoCJh4YCnFxSehbl34gOa7x4Xr7V8708LUoB0IvhFTpxrOevFVXZj4YAOma+vK7meyEZrD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789479416; c=relaxed/simple;
-	bh=BnBs6v+SnWmcSFsMdor+R9mxm4jTxF4rgmv5gJ31rBw=;
+	s=arc-20240116; t=1789479809; c=relaxed/simple;
+	bh=6HudDoiUDG0qD8sOY5Dvp2rvFR5U8GAkB5GWE5aD+1M=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=WKRpRZRbM9nWqcESptBLZiRg/adflWFveh30dCP59AdBCKS8kcLvSUXoIqvTMNx4HlRIw36AYjO+9JFH46AtX1YTZtprOE0hd11WihDhZ1L4noXtqPHzh0KJyj9zekzmoh1r/RbI010xXsfFIfdHZJv0iG+Lw6PdsrgRxVyWYDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WqJ64hh4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=T+uKnfpa; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 In-Reply-To:Content-Type; b=D9vW1QtrwLzCdgERKqcV9jb+yxZtPTzQMxe2guAl5pTXBPGjXL8AiZ0+fM3ybxcp1aJotbWXyxxFzTIcFP1TzrTNc/EV0Kn5RV3NDgcq5Vo4B6375UePTkgGLhdRpTkG7BmxPpk1kXpCHpXmy0C+lMX8MNdNTIW3a8YhQsrPkEA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vGPc+Z92; arc=none smtp.client-ip=91.218.175.121
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WqJ64hh4";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="T+uKnfpa"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789479414;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=o7NY/1C4E5sXjTjMfgvwiOAvJ9n5lroYv/zvI5y40+U=;
-	b=WqJ64hh4iRS0hIilV+KOIhu/EQpa2b4IPK5SdqB58Ce4sYB3yPApD+28zaF0jGVSpVD/8l
-	Kz1VTYDXBtWGBKRFF6oab731Fh4/wBzAf1tg/36Sx3iVp/s7q/CmZUtDdaDF/7wZWb/dTX
-	VluIjXwOefJbO3VWNp0s7Wq0ruYH63g=
-Received: from mail-qk1-f197.google.com (mail-qk1-f197.google.com
- [209.85.222.197]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-280-ysCUsgAsOniI-PbofVny1w-1; Tue, 15 Sep 2026 09:36:52 -0400
-X-MC-Unique: ysCUsgAsOniI-PbofVny1w-1
-X-Mimecast-MFC-AGG-ID: ysCUsgAsOniI-PbofVny1w_1789479412
-Received: by mail-qk1-f197.google.com with SMTP id af79cd13be357-93a082c014aso241983385a.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 06:36:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789479412; x=1790084212; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=o7NY/1C4E5sXjTjMfgvwiOAvJ9n5lroYv/zvI5y40+U=;
-        b=T+uKnfpamV0GORVexlx+aXwrZuB3YVRRDy1eDNScl6/Lj/3D5aQsY3LkfSo0iBp5Dh
-         mMfZTlwn8KYOOWjfTkv6jvWUMgjdNIsBypgiKl83YslxlBg6nAN1XXgjmEl2XTbgBRAv
-         RcnyoYBFIkBD5wBSq+YsZOKEPmKdMwxg7k2Yv28nlDSNSFAtT4nXM9QLOQ41+srSJmap
-         QHwdAKVbGbWfdImm9alyNtDJJKcOCyROvcWeWvcSb1pMaqKEbOBjIrfHHKCOYnYAmlw9
-         vXZgGXPlS0WKhQS5W3e1UBNYmWjvyrUXGVLBlcmQt5vWxFCnCqHiDTgHs3dcFAi5HZHO
-         u0eQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789479412; x=1790084212;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=o7NY/1C4E5sXjTjMfgvwiOAvJ9n5lroYv/zvI5y40+U=;
-        b=ktB96Hw89UAmWL2DO2Pj8rs5RxWwO4MBKvJUGUtSMwaitRdi0vN1FsU2Wj/fbeTFia
-         PrP3K2FgCvquS7tAkh6Mo5W4J42qBviFiRsW/N1kKHjkuvQU3CeTbKykw5m7f9iQ+gtg
-         +u6MPYn6LtNOE0NkI8UMKKJSTAmHNvfW4xc+wVHwwffj3NvErTZTfmA3Kgy/cWPVBllc
-         bJ/7PWL4kgnmBIkUY+hBEnBeEWicHSg8+HxveFLouBqayaGsx50sm60kwiNd52no8tyL
-         ArBGR1H3kZZG77V8/M6wUjb9I7qbc+vdypJRVnWiqya0iV9apVWn1mECQBGLl9u5zhZl
-         jiSQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzUEhz4PwoKLhAZwr6ws5UTALOwPrR/FxcUIIvdAZvMVq7nIySU48SvVM9fBgWWdEWXoCmikGY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k7Ucx+Vei0SKV9GbbtkNMpcoHACir0MiPMc2MokSBLTsLjAS3A
-	7sT63QmT1fBGOybs8p7+R710KA81AtTlZoSwbUtXuQQJLMOfq0xry2eCyH+4bKoxYDjwrlde73s
-	3lTLpliCW+w6JExkBMpkqHyMJ1XoNcF8idbZhgha+I+1fWUcOeUHLU65Fhw==
-X-Gm-Gg: AYBFou0vQUxR+3MGAR50D+2c+pnx9BE9yC1HofqTslMaQdN3pYaDI3Njdy/O+TcljFB
-	bPiPUElEqY4Obu0aFWR73YwrAsBk9bGNtaD1Xv5k9XF5fOGOLpj7xENojCL5pQPvBEKRsnrVa2a
-	ybjbjsBpRGp0tFeEKPU75ujH3vVRFP4U3nE6nI9w5LiDglMjtbUJy2fxRYTXnV6ElW0RCZSMhzM
-	9Pt3lEjzdNURS6CH0wQEtPDAAcxTX/r22n336Tr1VXbWcFensN0XCWZfDNQYCx7q5x00tZFtMmV
-	hhOhvmg5J0npSQH57IBREeg+r5lxsMFYF4BuuF4CR0gT9tee9MD3K/A4NBubRV/z7vCNYJdc/ve
-	prNMK8+U5uC1js2AkmZyf0hEtHL7UHuZyJ+csFt1ZM/G5BAfyC9xzcTg6GBCkogmo7VPOVc9DUA
-	==
-X-Received: by 2002:a05:620a:414c:b0:939:72cb:baed with SMTP id af79cd13be357-93a34728f09mr497059085a.36.1789479412049;
-        Tue, 15 Sep 2026 06:36:52 -0700 (PDT)
-X-Received: by 2002:a05:620a:414c:b0:939:72cb:baed with SMTP id af79cd13be357-93a34728f09mr497053485a.36.1789479411468;
-        Tue, 15 Sep 2026 06:36:51 -0700 (PDT)
-Received: from [192.168.188.218] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-939e7f18628sm1258848285a.13.2026.09.15.06.36.48
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 06:36:50 -0700 (PDT)
-Message-ID: <229fb007-8f00-455f-ab92-4d15d6b90d0f@redhat.com>
-Date: Tue, 15 Sep 2026 15:36:47 +0200
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vGPc+Z92"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6HudDoiUDG0qD8sOY5Dvp2rvFR5U8GAkB5GWE5aD+1M=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789479804; v=1; x=1790084604;
+ b=vGPc+Z92QfmYlv0I08b8/LRhcYnsPy6z35SiQ4jrED23UugUlek7Z4JMvHtx5DvOEE1Kg/Cy
+ IJoObSEawkgGIYk/nI+8LeG2zT64D9bj0dBWndB2mRTbgH2058moz1XmfEASVVy/vOgfYWD/hub
+ oxndnVdWm1uVTzlb1PcgT8/Y=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id abc51d4308209202;
+	Tue, 15 Sep 2026 13:43:23 +0000
+X-Mizu-Trace-ID: abc51d4308209202
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <30bcc70c-be07-4237-9bb1-554aa5b5c5c2@linux.dev>
+Date: Tue, 15 Sep 2026 21:43:15 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,37 +38,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v10 01/14] rxrpc: Fix lack of short-send handling in
- rxrpc_kernel_send_data()
-To: David Howells <dhowells@redhat.com>, netdev@vger.kernel.org
-Cc: Marc Dionne <marc.dionne@auristor.com>, Jakub Kicinski <kuba@kernel.org>,
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>,
- Simon Horman <horms@kernel.org>, linux-afs@lists.infradead.org,
- linux-kernel@vger.kernel.org, David Laight <david.laight.linux@gmail.com>,
- stable@vger.kernel.org
-References: <20260914151340.3227501-1-dhowells@redhat.com>
- <20260914151340.3227501-2-dhowells@redhat.com>
+Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
+ PMDs
+To: Andrew Morton <akpm@linux-foundation.org>,
+ Kiryl Shutsemau <kas@kernel.org>, "David Hildenbrand (Arm)"
+ <david@kernel.org>
+Cc: ziy@nvidia.com, baolin.wang@linux.alibaba.com, liam@infradead.org,
+ nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
+ baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, surenb@google.com,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
+ <20260913072312.52111-1-lance.yang@linux.dev> <aqfRCPheDYTgTdAk@thinkstation>
+ <f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
+ <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
 Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <20260914151340.3227501-2-dhowells@redhat.com>
-Content-Type: text/plain; charset=UTF-8
+From: Lance Yang <lance.yang@linux.dev>
+In-Reply-To: <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/14/26 5:13 PM, David Howells wrote:
-> @@ -816,15 +814,29 @@ int rxrpc_kernel_send_data(struct socket *sock, struct rxrpc_call *call,
->  	ASSERTCMP(msg->msg_name, ==, NULL);
->  	ASSERTCMP(msg->msg_control, ==, NULL);
->  
-> -	mutex_lock(&call->user_mutex);
-> +	for (;;) {
-> +		mutex_lock(&call->user_mutex);
 
-FTR coccinelle can't digest the lock inside the loop:
 
-https://netdev-ctrl.bots.linux.dev/build/cocci/results/823484/stderr
+On 2026/9/15 02:19, Andrew Morton wrote:
+> On Mon, 14 Sep 2026 16:29:00 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
+> 
+>> On 9/14/26 12:59, Kiryl Shutsemau wrote:
+>>> On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
+>>>>
+>>>> On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
+>>>>>
+>>>>>
+>>>>> That's the sort of thing we'd prefer to avoid.
+>>>>>
+>>>>>
+>>>>> How real is this?  Is there a reported-by:?  Do you have a reproducer?
+>>>>
+>>>> Yes, I reproduced it on x86 with a small test module. It sets
+>>>> VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
+>>>> huge_zero_pfn, without touching the page tables directly. A full-PMD
+>>>> munmap() crashes before the split series[1] as well.
+>>>
+>>> Ah. So there's no real bug upstream, right?
+>>
+>> Matches my understanding.
+> 
+> Thanks.  I'll remove cc:stable, move this into mm-unstable as a
+> next-merge-window thing.
 
-but AFAICS the report is a false positive, and I can't think of an easy
-way to avoid it.
+Sounds good to me, thanks, Andrew!
 
-/P
+Kiryl, David, would you prefer the validation for raw-PFN mappings
+of the huge zero page as a separate follow-up, or should that
+validation replace this patch? wdyt
 
+Cheers, Lance
