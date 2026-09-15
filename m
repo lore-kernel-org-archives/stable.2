@@ -1,214 +1,121 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazon11012049.outbound.protection.outlook.com [52.101.66.49])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021043BA225;
-	Tue, 15 Sep 2026 16:16:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.66.49
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488979; cv=fail; b=EWWCgmHQkEGcC0kKMZJ+v0VaT5CSSgcsRstfftBOBYRcT1XTw6G0Y0AQ9nKyjGYywQw6ll+h3JpcZHXYFwW67r9g8GnV71+VPmaD4msa7LLbROh9G7M6NluTGUKa7AnZseIHo30CBGJ38SKudpPVT4I4xCWDhWA/AIdrOIdRwwg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488979; c=relaxed/simple;
-	bh=t/7mppWEF2dmNmmDlTr8yECZz4rIeyoh8QBvtKmYub8=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:To:CC; b=aAAJ8xsPUbvgZUF0rSyRQm94juygf6y8WWk5yDTZA1MNnA+mMbl4sPJ6lFMnNhzF8l/hxtep3lBG/O0L/DAcstrOs286cBfCZ+fHAOtkJ9+RMQytOFsaEQ3fKx5NYmCyipqFPKFn8mK4skvNlLZbxSXza4Vqy0zcE5i79OX58fQ=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=QARPcK0y; arc=fail smtp.client-ip=52.101.66.49
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017B04119F9
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 16:17:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789489060; cv=none; b=NQLm+DHGdWOBb707UTg0mQilaGv7xoatcGg9D9kFIuLTu/iUthiub1nxiyQhvdpTwP/m54lrZ+xIYibgWBr2wr6xzpiSj716RAmrRtbMBe3nDGbVU91twN7wvXMbx9YbbzHOJ7WP9wDnIof2zHE4gdoKMEnlAMzrxf6PLhspb4w=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789489060; c=relaxed/simple;
+	bh=cJFv5mLfQ+9Fzjda7I53xSLIzgCeDtC5OhcBV6QuJ1A=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=egFfKoGNBLpJcQHjud07u1ZVZutBu26Z7+GPsSGQtixeC4Lc0p/fwstTegkmRTifTVcpAFZRlf26t0fQsblMTohmBAufdh1Wbq1Gs4ZiyY+tv4Y8OtWxTDhmg2PxWv9JJk38ppGrZppomnEneUerIjIW0pbvQsNDL7McaxIYmxk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=fS188pRZ; arc=none smtp.client-ip=209.85.222.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="QARPcK0y"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=FxsxzoOh+ef8nv0WwCNY4HTO2DNj/2uLzQhdx+ijboyDlf2RnQgMgI5kZYDQys5pMddOSACzvgCq1a1ZMEA2/TEqURsKj/JdRQG8o8EmYYPSg2nC2tpHmSj8+6nuayb2amORD5dDt1mmGVpR5oIODI4p+0DztWelawMZCuvesqkYeXh1XRi02KTAbki3hzj878E0xlNBl3Xys2Dv23OAjg1fsItoudI70PltJnnJcqbAEsecdDmtZskDWrV4S+pinhs3z4J6XDIWHUA9K9/di5v25SArX7NDZ3cv0go/YbPaE4Fwe1PC879EbUHFeexCnGonDGYdIvnLOsgMlUuxAw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=FfOxCoq6hjlnfJuev3I+tSYLzdUN0CTcRjc6zwTeUSQ=;
- b=glABRBwU5NesFOlDIxoVN/yjM47bsETux/VvjG7aIdoz1pSE65Wr7DrAT7d20MeUxzpHuvHCzDJV5tKqiGR/uq2PQtZyuhxEFoV5Cc4lsKyvhsubqSUXKxpY3ywL1aQ05yDWcFuBsgsAR28WqQcQDwCY1GOm+khD67mT6+zNxtgWyDJuhc21Ju4axQqWKAkc31QLwcFYMarQQps+qKylnP19t8EWxjJV/VgKWp/gMjuj5CJuhOj82/jNnj0S4MEJ0N4wvH3AHhDDjbDNAdPXZllOyM0CrNmTL/LOTL0hIFDbKJNRIDv0my8H6VFSki+QhrABoGws2dETbrjyYD3AzA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.60) smtp.rcpttodomain=st-md-mailman.stormreply.com
- smtp.mailfrom=foss.st.com; dmarc=fail (p=none sp=none pct=100) action=none
- header.from=foss.st.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=FfOxCoq6hjlnfJuev3I+tSYLzdUN0CTcRjc6zwTeUSQ=;
- b=QARPcK0ywgoZHg6GCek6yhamiuXZINtqPStF9CaY/RewEy6WinBLciLVXCwU2nPcz/hRBjWOzY/j4Wbtth7XA4PCBiNduOIyF97qHopI3+boFLfjeAd6adxFFzLeOwmnkBDhCSSTK11tdBPpFXh9vsgKwHDzQiEATQYd6oLZAFpBHM7mHwn1NQaCu6kdWVgxahtFRm0v02063UYaXzw6CQ4NjRYwQpwdMQ3Exw7X97pJ0eLznPsPSBdkmhmlvljiAwlzhYvBX0GYNpUB6CWJ9n2Lfn554LjzZggvHZ8hwI3sTn0PZNn4oTUhR6lZg6v/bKfkgw3rgJrLeTpyVtmHgg==
-Received: from GVZP280CA0046.SWEP280.PROD.OUTLOOK.COM (2603:10a6:150:273::17)
- by DU0PR10MB7381.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:10:447::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
- 2026 16:16:12 +0000
-Received: from WA1PEPF000099D2.eurprd04.prod.outlook.com
- (2603:10a6:150:273:cafe::10) by GVZP280CA0046.outlook.office365.com
- (2603:10a6:150:273::17) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
- Sep 2026 16:16:11 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.60)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.60 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.60; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.60) by
- WA1PEPF000099D2.mail.protection.outlook.com (10.167.242.26) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 16:16:11 +0000
-Received: from STKDAG1NODE2.st.com (10.75.128.133) by smtpO365.st.com
- (10.250.44.72) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 18:21:40 +0200
-Received: from localhost (10.48.86.251) by STKDAG1NODE2.st.com (10.75.128.133)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 18:16:09 +0200
-From: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Date: Tue, 15 Sep 2026 18:15:49 +0200
-Subject: [PATCH] iio: adc: stm32-adc: fix check on internal channel
- availability
+	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="fS188pRZ"
+Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93a10f9a2easo94272085a.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 09:17:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cmpxchg.org; s=google; t=1789489056; x=1790093856; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dXoaSOzLcSniPHeJqnrgZd+b23tx7/MvhGFOoQXutdY=;
+        b=fS188pRZsdThyEpLvlNZN99q+hwl3CD+Kr2Wcvt/OecrNMB6fo474ehP2cESjPm/GR
+         ruEMIrrjiBE5+BG/jlseEmTdlx9lOKKM9IAPmrK/sdqftum3P1otF9eO0XhT2ITE9d/o
+         KC2XYTJutZa5vsEHhm69/g4W7CH9TesEMUU9dsBndWo0W8RaY/r4g49ULSc6SpQ1M34V
+         FpgwcjBi+gujZZJny/7+PkxWQy/tZWYRWAVo6hpzF4P/tDKoAKUe9tdOzHuvcIB0LF0E
+         YGHtdrmbl89RPPk2qN4bPBZvcO/iMoYthZo/+vkJW9VEfehRrtCfcOFcehK7mW1C1YT6
+         RkWA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789489056; x=1790093856;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dXoaSOzLcSniPHeJqnrgZd+b23tx7/MvhGFOoQXutdY=;
+        b=y7Ks4jczSLv1C5T1KoFvC7KiksOVTfv4iWlTAw5DZtBbH0g89V0w4fq/+OZG2K81AF
+         JgwKtPjBAifGZ6xWEFkBt9qNFQXkHfmRFJJT5lxkMWiyl/C2vGguca6Vhv3S+v0v+s6l
+         Oqb/vdxqBagYYXJ3LY8I34TwhwMF+Q2ZW3403jhpgmJKTVI4WeezxSkPYwlAZkMszWqf
+         1qBT0YvGEOhtDa0q0LncwLMTiGR1g0G9qaxHzvuP0OnQDc9LTLhKVHwErvSQyIQgVnH3
+         kGBd64/n3BvMnpkfFKYvjnAgeQxgHs97zM4VEtyTNriPdga6fvjNYv/LgdP/6Da1rHs/
+         xLFQ==
+X-Forwarded-Encrypted: i=1; AKwUvByZUDy2ny5niM3dLcEyo5mewlfH6sd6aQac40oABIR9d0gLg7u9gAnCTu9dwShZVF0yak23ESQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++nVJJCmDfzltG6udS0VotWVJHLMx+mAhX8YEsS1sIuCWfTJasSN
+	YSIuf2S0MgBSktQ8gaU6zBTosVybFQ9X/x8+rKsYOdfORHjq0agMaHZsiQL1YmutEO8=
+X-Gm-Gg: AYBFou0MJ5vlwaZuv3pEYXveFH7PJx/qKrfDwiF0CrCukQa1PObbO4e08N0wAASoLNj
+	yWmrSJZUu8bB/DWCu5nWf7zWVxx13xYw0+7N0UXk/Q0QvJ8F9WBgp8QaREs5mDhsS/Bi1lvA3IZ
+	aGJI0qaTIV7riiof650X9RlUe/Jt04lSUbK/K7s58I1hATUOC7xDX2Qbdr7bWfYMIbA/RmzunoJ
+	sZb488dMHDVp8e/+k/ZkXPCDigGR4nbz8v31N7+iYh0yp6lzObq09SH+Wq4whFvIGq9f+ZCDqlU
+	Qe2ds7heVs5SeSr5WQSOBhSetz+PoeFe0ASqLuHS5vsl0jKGLX34EhP+upx0YxPprm+636uiWdK
+	dYNiitMsloMeWtJFAaZpkA93uCJL1Pw2vf0cb2ifTwEU+g7TAe3Mez5q0BQt38tRtFv4ZAVnlBV
+	/bkovS9pGJdtgeC5bzHAoztZLvNLnSGQ9830gp2+6j4zP5XY0S5crq6tsMX8SdvUvvTY9MVg==
+X-Received: by 2002:a05:620a:2607:b0:939:b7f4:c7dd with SMTP id af79cd13be357-93a3477ff9cmr603922085a.47.1789489055702;
+        Tue, 15 Sep 2026 09:17:35 -0700 (PDT)
+Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bddd5e1sm2362876d6.3.2026.09.15.09.17.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 09:17:35 -0700 (PDT)
+Date: Tue, 15 Sep 2026 12:17:34 -0400
+From: Johannes Weiner <hannes@cmpxchg.org>
+To: Salvatore Dipietro <dipiets@amazon.it>
+Cc: akpm@linux-foundation.org, abuehaze@amazon.com, alisaidi@amazon.com,
+	blakgeof@amazon.com, brauner@kernel.org, brendan.jackman@linux.dev,
+	david@redhat.com, dgc@kernel.org, dipietro.salvatore@gmail.com,
+	djwong@kernel.org, hch@infradead.org, hch@lst.de,
+	jackmanb@google.com, linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
+	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
+	vbabka@kernel.org, vbabka@suse.cz, willy@infradead.org,
+	ziy@nvidia.com
+Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
+Message-ID: <aqlvnm8AKp5f_UhG@cmpxchg.org>
+References: <20260911093209.d9181d5950778897935f6bcb@linux-foundation.org>
+ <20260915160042.1265958-1-dipiets@amazon.it>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com>
-X-B4-Tracking: v=1; b=H4sIADVvqWoC/yWMQQ5AMBAAvyJ7tklLCL4iDrVdrENJi0jE3xXHS
- WbmgsBeOECTXOD5kCCLi6DTBGgybmQUGxkylZWq1gUaSzjIieK2V8BDY27ZmoqY+kJBDFfP0fi
- mbfdz2PuZaXtPcN8PoBPj1XYAAAA=
-X-Change-ID: 20260915-adc-fix-intchan-v1-3deda8cecb50
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan
-	<olivier.moysan@foss.st.com>
-CC: <linux-iio@vger.kernel.org>, <linux-stm32@st-md-mailman.stormreply.com>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	Jonathan Cameron <jic23@kernel.org>, Sashiko <sashiko-bot@kernel.org>,
-	<stable@vger.kernel.org>, Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-X-Mailer: b4 0.16.0
-X-ClientProxiedBy: STKCAS1NODE1.st.com (10.75.128.134) To STKDAG1NODE2.st.com
- (10.75.128.133)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: WA1PEPF000099D2:EE_|DU0PR10MB7381:EE_
-X-MS-Office365-Filtering-Correlation-Id: b6eee13e-4c5c-43f4-c7f6-08df1344a870
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|376014|7416014|1800799024|23010399003|36860700016|18002099003|13003099007|10067099003|56012099006|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	7Diy54/Qs7Z3gv9ct/wZgbbqWyE6l4/NW34jrNQk511mPcaU9+GiPoBOPTGU4h61yQSxqTiJhGMBymX8wd1UlFsVJBBg1+ocfQ7YJ2W2NLSDunGgvbyfvVq5ZyZ6quq98yIUYM6BwkTgoMisMuhjGrs3/4u7oxefXBHfmT9CqXB0f65ZUrLSs9DclRdBYhEQ80cLmYi7IGd0Hw3eyRiBlCM7YbyotK07KsmT8xY+eX5/Mn+sgubnwvFody614WtOWHNQJg7H16vEi9LALXK13r5w8B+aBtw4rkJmgpK9m5qjK17T0q1PgKt2SvrAvMkPpJOFyqmHeqU7jWwD8d+qnd/tleC21PRqniWbgeGfZjdoEZ9fYzwINUyB8QsuG5+qQd3TmjITVzqDFe73zUl+Q32B5b/gNMWrFZm87iVLUxw66MgdT553dBmlP9OvI+GCjbShsCg3jtbdO1CWnVbfQvHusrcjmaaaJ5niMK/7L+W5212iec6ENsl8BuhfG4TZDOEP6RaTtpWtt9pJvhJe0uRfXErXZb3ll/NN/B4/fq5vwnJM3ljbfb02Fe6IVrJiKvqZMrBi+iZl2jCzF65Be+XiBU9XEkxqCD/JXXybmZApFfA4lg8cMnsJkVfGn7kTTQIkAfjd7vbNaUsZafkfR1qVeNTlkDGP/z4Smmp1gRJQbL7Lw/ctzGGZBSd6jsEbE7EEfkobIAV18RLxxfde0w==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.60;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(376014)(7416014)(1800799024)(23010399003)(36860700016)(18002099003)(13003099007)(10067099003)(56012099006)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	Tjo4EfdeWqVdKvsP+59ypwWXc7sbXFHPLMC/l+PcFmhsDBONne8bP/Efs+zFVmm8z5gEBSabuW8kIdhxrbKGpJWgExWMwlYV1gpboI2QoDe1rA/70jwR/4ckuzU0gqcPYVIH6seLE9MeoZRxCCh/30YU2mxwHiQ1QALMkVH/lEXaZVsDg7cF1RLzau0b+l0qmmZrwlGVOypc5SbgdekjLxmKpEdvuxStPKsW+N7a6WcpceYMdDpwQYscsDZkTPiWcoB1NeSYQnIgTKljbbsMj4bLTPWdH9geDszzhhOodYxI8Dw9bghqWjZBPkH8vF2n+eA3LdAgc36PP6H+sbm+DOXaGdPldh2yQtzO2PDbC1EIdcq3jQ//W7xn5i1y5mwBSLImBciajaJhrk9Dne+2LCq/+6zFTMZLZD6klspqUn99qR25HCRR1PZyHJMkOxz4
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 16:16:11.3537
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: b6eee13e-4c5c-43f4-c7f6-08df1344a870
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.60];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	WA1PEPF000099D2.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: DU0PR10MB7381
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915160042.1265958-1-dipiets@amazon.it>
 
-If an unsupported internal channel like vddgpu is requested, the driver
-prints a warning but falls through and assigns it a valid int_ch below.
+On Tue, Sep 15, 2026 at 04:00:42PM +0000, Salvatore Dipietro wrote:
+> 
+> On Fri, 11 Sep 2026 09:32:00 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
+> 
+> > does any of this look real?
+> 
+> The mechanism seems real, but it only shows up with vm.defrag_mode=1,
+> which is off by default.
+> 
+> With defrag_mode=1, a costly __GFP_NORETRY allocation that used to fail
+> cleanly can now succeed by fragmenting another migratetype's pageblock,
+> which seems like the wrong trade for a caller whose premise is a cheap
+> lower-order fallback. Johannes, do we want to keep it strict?
 
-This causes a problem later during setup:
-stm32_adc_int_ch_enable() {
-    ...
-    case STM32_ADC_INT_CH_VDDGPU:
-        stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
-                           adc->cfg->regs->or_vddgpu.mask);
-    ...
-}
+Yes, avoiding the fallback is a good idea. The user already
+communicated they can handle failure and have fallback options.
 
-Because the register offset is uninitialized (0), this performs a
-read-modify-write on offset 0, which corresponds to the ISR register.
+> If so, we could add a condition like below. It is equally
+> applicable to v4 and v5. Happy to send it separately or in v6.
+> 
+> 	/*
+> 	 * Reclaim/compaction cannot run, so defrag_mode's strategy
+> 	 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
+> 	 * fallbacks rather than failing the allocation outright.
+> 	 * Not for costly __GFP_NORETRY: those have a cheap lower
+> 	 * order fallback, so failing beats fragmenting.
+> 	 */
+> 	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
+> 	    !(costly_order && (gfp_mask & __GFP_NORETRY)) &&
 
-Fix this by returning before a valid int_ch is assigned.
-Choice is made to just warn about the channel name as it could
-be confusing, rather than making the probe fail.
-
-Fixes: cf0fb80ae167 ("iio: adc: stm32-adc: add stm32mp13 support")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://lore.kernel.org/all/20260911162602.D323F1F000FF@smtp.kernel.org/
-Cc: stable@vger.kernel.org
-Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
----
- drivers/iio/adc/stm32-adc.c | 27 ++++++++++++++++-----------
- 1 file changed, 16 insertions(+), 11 deletions(-)
-
-diff --git a/drivers/iio/adc/stm32-adc.c b/drivers/iio/adc/stm32-adc.c
-index 5c6c06b269be..87fafdd4698b 100644
---- a/drivers/iio/adc/stm32-adc.c
-+++ b/drivers/iio/adc/stm32-adc.c
-@@ -2259,7 +2259,7 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
- {
- 	struct stm32_adc *adc = iio_priv(indio_dev);
- 	u16 vrefint;
--	int i, ret;
-+	int i, ret = 0;
- 
- 	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
- 		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
-@@ -2267,31 +2267,36 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
- 			switch (i) {
- 			case STM32_ADC_INT_CH_VDDCORE:
- 				if (!adc->cfg->regs->or_vddcore.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+					ret = -ENOENT;
- 				break;
- 			case STM32_ADC_INT_CH_VDDCPU:
- 				if (!adc->cfg->regs->or_vddcpu.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+					ret = -ENOENT;
- 				break;
- 			case STM32_ADC_INT_CH_VDDQ_DDR:
- 				if (!adc->cfg->regs->or_vddq_ddr.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+					ret = -ENOENT;
- 				break;
- 			case STM32_ADC_INT_CH_VREFINT:
- 				if (!adc->cfg->regs->ccr_vref.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+					ret = -ENOENT;
- 				break;
- 			case STM32_ADC_INT_CH_VBAT:
- 				if (!adc->cfg->regs->ccr_vbat.reg)
--					dev_warn(&indio_dev->dev,
--						 "%s channel not available\n", ch_name);
-+					ret = -ENOENT;
- 				break;
- 			}
- 
-+			if (ret) {
-+				/*
-+				 * Confusing channel label matches an internal STM32 ADC channel.
-+				 * Just warn about it, as there's normally no restriction on the
-+				 * name but that's not among supported internal channels.
-+				 */
-+				dev_warn(&indio_dev->dev, "no %s internal channel\n", ch_name);
-+				return 0;
-+			}
-+
- 			if (stm32_adc_ic[i].idx != STM32_ADC_INT_CH_VREFINT) {
- 				adc->int_ch[i] = chan;
- 				break;
-
----
-base-commit: 8d3ae59288f1e7d58d76558a6ee96d533bc5019f
-change-id: 20260915-adc-fix-intchan-v1-3deda8cecb50
-
-Best regards,
---  
-Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-
+It would be possible to remove the costly_order gate here and just
+bail on __GFP_NORETRY. But no strong feelings.
