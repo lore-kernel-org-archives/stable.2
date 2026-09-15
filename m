@@ -1,61 +1,63 @@
 Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 624284D5A1
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:13:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E7A4499A4
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:13:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456416; cv=none; b=OUuKfhKAZr/zpFJkkTcSkxg2K7dABq4zo7wPVcAIdzYt9DtZqPatigwQslCZvW5Wnq3MWWR43WFPzqZeXH+wWag/G5aSJWL3uM/UxnR5McmvtL7pyT+zkOrU+20yZWUcQc8ZPzHHwNIQUdgoE0vFQ33SborbYvdzev3HQ3lZbyQ=
+	t=1789456418; cv=none; b=S2T3WG7G/H5lFevSwnMO/biWlkfNaYDDh2QLitDgkpGo0bHtrDcrmd3NKNIRqnPEa+0Wt6BIuqyY82978mj1D8ZyLUjbr7GQWaq8eKfCherh1kNCE+KTW5Snhtrl0iXOmUXw4sMx5+Anf47aAOB1S/vHqvzXmHvFBIZb9Sp1S8g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456416; c=relaxed/simple;
-	bh=UTsJbixj5f5upm1yDL4v2oYlqoNy1xwwPfF04Oakgjo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bBqGoqAEBt5uStARD0IGqFTDWPRQwSMRonWsw031bC0sKx3ETHwqdcEpzcI/xb8M+XyCxvw2W+yoQjluCiMKphPZQSdev4WGn01OUPX6lDNLHzJIhbgxWc7/iXDnpit+Og12XgYHiMDaiY2FbYW/2jLsDqV9aHjTGnbI69EK0L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TdeQMyLY; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1789456418; c=relaxed/simple;
+	bh=VJPiA57oY/5vyoJkrmWgpCXvfp7VtHP7Ct2Mll3e6pM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bZPhw7SArOX5fBOKpKYmcQg8Gw4byJWUIaKfmHrTw/me+SA/c/mVCXf4rcyeHPhwtbBJpTorwTp8r7VdA5DtEJLmg6TVUGKRSDubosnyJKGr4xTBq8bbYljHWuqRIuujhPfNCNmz0Ex4QeiMU63QIVrwL8SPPrAT8U0kSEAYh+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HrYP5Coz; arc=none smtp.client-ip=209.85.128.45
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TdeQMyLY"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49e6bad7b79so26302165e9.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:13:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HrYP5Coz"
+Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so31221175e9.3
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:13:35 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789456412; x=1790061212; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3/q6Adnz7lpVRwZWpJQefNRmiB7gYNF+Y1dkZ8i2uhk=;
-        b=TdeQMyLY483Qp3Ir6tu8G6PkGn6zU2tSNhUlJuxdPVNh6QrxeOSx0ZvzVGn3YZaE2i
-         jsXLQpnqLRsGCnCCl+SWQz2U36ut6w/rJp2DPnwcSnIuKg9m02l+CS9DvG5IOD88bmnJ
-         804fzUEtb/ji/A5EsdGcWuLSO7IxCSO9vo3gYwkvRgPyUg7hNRiObI9uKfGRY8KmXVmU
-         lVVzBNjmh4mH+Y7hz1z0Sbq5Lc5+Gjdi/6W9/42Yotkzi0P08HGaXlg0W9PUQozt+ZFw
-         x4jiZcyA6inmc60uXUgXidAfiaerZU2bcmEgwvf5z1PmgroC1/U3JylX2a/flHzKcuB/
-         5+JA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789456412; x=1790061212;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789456414; x=1790061214; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3/q6Adnz7lpVRwZWpJQefNRmiB7gYNF+Y1dkZ8i2uhk=;
-        b=vCCyt0iHwoVywVItyDPBuM1dfTp6kVJmQ1Ob5gec1oTS1rcP1l0wJm2sK18M6oXaaM
-         yCD9XOVvMsAjTr1RhCJlXblZD/gGbt9yOlltp5tJQn207IK1F5W46CgKxqg3N37EwMYe
-         X5XKxcwDd1HDPlAOTze/6lSu1ElftDLHMaNojmmx4gVXI4Hlt94XB+YkxkOHU5Ru5TN3
-         Ss5LG6aIUEXfEwwRFgk28f8G18il6WIjc/7kVaU5Zftywdeaeuz06D+fpQ3o7e1vVZXY
-         n2qv6ryhqPzD3raTlpyUchn6zfC6DKPRkG7bVMFmIqmIEr2F03xbJSdD2k8q+wftZP6A
-         bqJw==
-X-Forwarded-Encrypted: i=1; AKwUvBxuUlqwi5WN2Ylrpztg4dKU4FQYCAMaOsv5NB4GRk1wjkWHKB/gtIyKNZx+WCw23mw8ZSl4wYM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n8CkRcoWaNqpCsUtHGij3xORCszFKN0tRVpGtDHcYeyYcgMKQd
-	BRis/3NDMYshyV+nkLgnB1lgKcD2/FgfQq8zW29NLNqLvc+sVapaF+gTU1NCV+3Z
-X-Gm-Gg: AYBFou2+HXVSn+E2TCDpglsNaECds4gZnskjb7XBN8HCxL1kGR6hLPthYRpoBnyJgYg
-	cTmdix2k99x/NJoobRR/Ho1K9yxKOWqgEgeLfOyC3gUPjgfuhdozsgfd7ZJm7e3x95joGbgze+U
-	8HprQPBWiz3sSAVeS4gCOqlm3/f3v3OcwQRMoh9v+8P6bLu4P8e3wiIk1eGy9hp0W5RVw5WNsKo
-	Zcylo7h5kWWXi0CeKkgVusuYTq8hLv/UwNwok9oY/ONqFeX3aQz0vuI3OHCOB3nq45OEQzF2OQ7
-	mx0/Bqs/jNs3WbMe+GIp4jq6cADvSu7COHUgmQvEWxqydQ8OAf5oDhAhFJZHpp6IsCHzV6SWgst
-	faFEmgQAYx7GRsQ+37gt7TfuJkav3XsFTdx0Rxfw5nkk8qkNK9wOOk9sjlzHdP5X182m4bdA5ft
-	RJj5GQNZiH/cYWLRBDoyDJ1oLwN+zHOt47XIxo373TYphV4qACINTG/Fqy6rwOPnW7KPx8nZaiT
-	bHYPOsl1APLPag+JbyGGGGeCE3C5TPOgBEiYewxerr4KLoHSf12madD8T6fQ/DYi3DVYnMoFo9r
-	5dylt+pbTJOfMp0rsg==
-X-Received: by 2002:a05:600c:3586:b0:49e:747e:c00e with SMTP id 5b1f17b1804b1-49e7a64e729mr82091545e9.9.1789456411633;
-        Tue, 15 Sep 2026 00:13:31 -0700 (PDT)
+        bh=velMxIt+642lquxYVKbrnSVvPRt1SpQzIuYolRQYJw0=;
+        b=HrYP5CoznF8vgUi3JCmujnTnNjVljxzsH/hWlebMlSfTOqXBdY2QbsFWdOXlLungB1
+         QnE9UaPv1FgVCrMyYpK3xZmJQHtzM6jMGAX7SkXA2efeyQoIH3bHBnYNWyTrW1rtcHro
+         +3hk0tgALDfb6giikhzTK71it21pLTngv7N3/UiZp5YTwoVHlSbwzHdOvddOCTgVuQib
+         6bGigJxAVd3/qc1ECbVEOvtsgSabxi5s+S6NVLNjvxXS4QjJbVVpM7jsJqPSmF3FhjXM
+         aUZ9uadZiNhC02GGM78bDfAzK2hELwQAqAxATZTqCmX3QNORZCYjawO+LUn33D2qDUrC
+         8GvQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789456414; x=1790061214;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=velMxIt+642lquxYVKbrnSVvPRt1SpQzIuYolRQYJw0=;
+        b=S0Eo1wO7F1wper87SbsQuMbp99c5Z158hWt+QzL5x2rke8gPrRPGPk7JAkKS8xIgvA
+         bE1ed8JpqTXpMrWGVX4T28m5c/XCX/XfjhTMKoPv1XdbZKCbub+CHQCWOLgaBidugosa
+         jgNJkGRrLW52vNrK3Zfuh8nRmNAQTLv8Z2dIDX2a5n6aGNOb/7AfWBzHr7wEiUB5ASl+
+         1UsFjZ/0lwLHremk2Ptfoz647DPp1bGUN80QKKC0U6E8ziagfFkP0r9k5ZYnuDaRs5ct
+         5GxerOKhLI0+zxpOFmhPdUXANljShEKoUUacKa8NUmZMrPgmgkKJOVxNv4yDFNpJc8LG
+         6MRw==
+X-Forwarded-Encrypted: i=1; AKwUvBwR2dmKniGcDG51wdaw8BXoWbpKBNTx4ka4vRmtsgi7fbE3hQZpFqJ6rCG0fgG2xWhzQHGRMEE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kMzV0OLi7OhcAr/ZymVMdRWt1RlOPkQ/kNhfo7s4dbsFmoqgGo
+	7vbu/RYHe01WN81x1glW6RkjXTNprGbYpOF+LW7hdYAWyRS7XFnyP1OS
+X-Gm-Gg: AYBFou1jTcpqdIQ3lFO4CCW82vvKLedljps0jFlhDkky6+IMLrl9OErQ0ICxzzsT4NL
+	HRPNA+AFXi03vfi8jeyhKwrzEXyf4nnhNGMdiPpOcD0K+lOhKS9OnMzC3wHqcu5geMu790uImZq
+	9Btu7KCOuC+6VLzgVvvnsjznOj4NwrSpvfSxr5CIUfsEPI+alsol1wHi5CpSs1XyTN7qgko8H3k
+	yUIRAfg8WSgUnfgeEXWhd3ho1BTLrYTSOwZPDzraFx+mbWM8uxgl7vJ69jtWOoKbtAJMVO+hrdQ
+	H8GaGgWIDmtrhmaUs+eYibwX18Sok3V9qEO2ZN8CXgEos4X3W7sWT7uE1qcop47RH/m6y/anf7c
+	GnnFwgC5WVMnbPMPJFjvHvPVBPYMtYi5sSoJ+q7LSBCoTZM/2J6ncCvFg2aKPsWOLdjXMj2LhUg
+	EWL/15xmfcDNjyCk9vxJOoWLXhuHDJ9s0mRUfNQeyhOnN/hiHNvkniIez6zRd4+p5+Aoa6ht2TX
+	6lETx87dxzClvwNSkaCFbKWdZzPDpBJqzRyOULzaJ2KlLSA8H6u/mqli8BjWKosXwR9i4YAMcfB
+	NHpQbeNex7sNphxE
+X-Received: by 2002:a05:600c:4e4a:b0:49c:dc14:d681 with SMTP id 5b1f17b1804b1-49e7a63a784mr80413585e9.3.1789456412284;
+        Tue, 15 Sep 2026 00:13:32 -0700 (PDT)
 Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef735cesm42941345e9.6.2026.09.15.00.13.30
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef735cesm42941345e9.6.2026.09.15.00.13.31
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
         Tue, 15 Sep 2026 00:13:31 -0700 (PDT)
 From: Orgad Shaneh <orgads@gmail.com>
@@ -65,10 +67,12 @@ Cc: linux-mips@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	osalvador@suse.de,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] MIPS: mm: align hugetlb mappings in arch_get_unmapped_area()
-Date: Tue, 15 Sep 2026 07:13:24 +0000
-Message-ID: <20260915071329.15125-1-orgads@gmail.com>
+Subject: [PATCH 2/2] MIPS: mm: do not write a huge TLB entry when the probe misses
+Date: Tue, 15 Sep 2026 07:13:25 +0000
+Message-ID: <20260915071329.15125-2-orgads@gmail.com>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260915071329.15125-1-orgads@gmail.com>
+References: <20260915071329.15125-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,56 +81,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Since hugetlb mappings were made to go through the architecture's
-arch_get_unmapped_area{,_topdown}(), every architecture that implements
-those has to align hugetlb files itself. The generic implementation and
-loongarch do it with huge_page_mask_align(); MIPS was left out.
+__update_tlb() probes for the 8K pair at the address it is given and,
+for a huge pmd, writes the huge entry with tlbwi at the probed index or
+with tlbwr when the probe misses. That works only if the caller passes
+the faulting address, so that the probe finds the 4K entry the refill
+handler loaded for the faulting page and the huge entry replaces it.
 
-A non-MAP_FIXED mmap() of a hugetlbfs file therefore returns an address
-that is only SHMLBA aligned, and the kernel then installs 2 MB PMDs for
-a VMA that starts in the middle of a PMD. The consequences on an
-Octeon (CN63XX) board running a process that links libhugetlbfs with
-HUGETLB_ELFMAP=R and HUGETLB_MORECORE=yes, all within a minute of
-start: the neighbouring 4 KB page table is clobbered, the TLB ends up
-with overlapping entries ("Caught Machine Check exception - caused by
-multiple matching entries in the TLB"), process exit trips
-BUG_ON(start & ~huge_page_mask(h)) in __unmap_hugepage_range(), and
-freed pages leak into unrelated kernel structures (oopses in the irq
-maple tree, in pte_offset_map, ...).
+update_mmu_cache_pmd() is not called that way. do_set_pmd() has always
+passed the huge-aligned address, and since commit ebcfc63d6bca ("mm:
+abstract THP allocation") the anonymous THP fault path does too
+(map_anon_folio_pmd()). The probe then misses the stale 4K entry, which
+sits at the faulting page somewhere else in the 2 MB range, tlbwr adds
+a huge entry next to it, and the TLB holds two entries matching the
+faulting address. Octeon raises "Machine Check exception - caused by
+multiple matching entries in the TLB" on the next refill of that page;
+a process on a CN63XX board died this way within a second of start, on
+the first anonymous THP of its bss.
 
-Do what loongarch does in commit 3109d5ff484b ("LoongArch: Set hugetlb
-mmap base address aligned with pmd size"): when the file is a hugetlb
-file, use its page mask as the search alignment instead of the cache
-colour mask.
+Skip the write when the probe misses. The refill and TLBL/TLBS handlers
+probe the faulting address themselves and rewrite the stale entry with
+the huge one (they also set the software young bit), so the entry is
+installed on the next access at the cost of one exception.
 
-Fixes: 7bd3f1e1a9ae ("mm: make hugetlb mappings go through mm_get_unmapped_area_vmflags")
-Cc: stable@vger.kernel.org # 6.13+
+Fixes: fd062c847a8c ("MIPS: TLB support for hugetlbfs.")
+Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
-diff --git a/arch/mips/mm/mmap.c b/arch/mips/mm/mmap.c
---- a/arch/mips/mm/mmap.c
-+++ b/arch/mips/mm/mmap.c
-@@ -9,6 +9,7 @@
- #include <linux/compiler.h>
- #include <linux/elf-randomize.h>
- #include <linux/errno.h>
-+#include <linux/hugetlb.h>
- #include <linux/mm.h>
- #include <linux/mman.h>
- #include <linux/export.h>
-@@ -72,8 +73,11 @@ static unsigned long arch_get_unmapped_area_common(struct file *filp,
+diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
+--- a/arch/mips/mm/tlb-r4k.c
++++ b/arch/mips/mm/tlb-r4k.c
+@@ -332,6 +332,19 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
+ 	/* this could be a huge page  */
+ 	if (pmd_leaf(*pmdp)) {
+ 		unsigned long lo;
++
++		/*
++		 * The probe above only covers the 8K pair at @address, and
++		 * a huge mapping is installed with the huge-aligned address
++		 * while the refill that started the fault left a 4K entry
++		 * for the faulting page elsewhere in the range. Writing the
++		 * huge entry to a random index would leave two entries
++		 * matching the faulting address; leave it to the refill and
++		 * TLBL/TLBS handlers, which probe the faulting address.
++		 */
++		if (idx < 0)
++			goto out;
++
+ 		write_c0_pagemask(PM_HUGE_MASK);
+ 		ptep = (pte_t *)pmdp;
+ 		lo = pte_to_entrylo(pte_val(*ptep));
+@@ -339,10 +352,7 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
+ 		write_c0_entrylo1(lo + (HPAGE_SIZE >> 7));
+ 
+ 		mtc0_tlbw_hazard();
+-		if (idx < 0)
+-			tlb_write_random();
+-		else
+-			tlb_write_indexed();
++		tlb_write_indexed();
+ 		tlbw_use_hazard();
+ 		write_c0_pagemask(PM_DEFAULT_MASK);
+ 	} else
+@@ -380,6 +390,7 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
+ 			tlb_write_indexed();
  	}
+ 	tlbw_use_hazard();
++out:
+ 	htw_start();
+ 	flush_micro_tlb_vm(vma);
  
- 	info.length = len;
--	info.align_mask = do_color_align ? (PAGE_MASK & shm_align_mask) : 0;
- 	info.align_offset = pgoff << PAGE_SHIFT;
-+	if (filp && is_file_hugepages(filp))
-+		info.align_mask = huge_page_mask_align(filp);
-+	else
-+		info.align_mask = do_color_align ? (PAGE_MASK & shm_align_mask) : 0;
- 
- 	if (dir == DOWN) {
- 		info.flags = VM_UNMAPPED_AREA_TOPDOWN;
 -- 
 2.47.0
