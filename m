@@ -1,63 +1,45 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EAA73B42C9;
-	Tue, 15 Sep 2026 09:46:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F48142BEAA;
+	Tue, 15 Sep 2026 09:49:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465610; cv=none; b=gUEy8V1SAqJUOMXquB7oTWH2owiGfG1lwswm9IvHAT354xOf3MIjr/hGgFu3hfacMrsyH4bhIj4a4ni7q+vrA8FvupkfMcH6jfIQW+bq9HsZMLrT2aSBzXbkyT7zIYQt+BPQ96/lWOEqhmrbOK7JsrS7UlAzxwvO3WIGLq71dpw=
+	t=1789465794; cv=none; b=ifADOsTJcufM2iAX5dNGApUF3pa9McO8XoNCbrRgETPPvMmKPZTXUR7AmVMZne7e8IWfVFgtRmtRPtLNefFug1MqbdnXpoESpmfBBVdfo3RcZmUHYwb7wDbZZMubqcwdjuf+vXXVx46DsYoOOZHfIqz6HWumFACaiI0AwdYMdAw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465610; c=relaxed/simple;
-	bh=1q5dv6Vrxtkj8evu/VjYKuCf2t54zRo341nxUJ7nfuk=;
+	s=arc-20240116; t=1789465794; c=relaxed/simple;
+	bh=Tvidg9IblJT1e2OPxJ2x1ggZYLbakwMurf67tnZl6fM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jTQxKK8FMEHMEyHk34CpKlNzOlh44dp6d+zEKkMkBK7oAxrhBu77FSdWfywgWERNTMasxo5nsaTMTua2fWy3iYl7HhyOHtkXaKsxv1EL50FSuWTd2XRFp4indusfCZDsHhi8U7PIKPF3wFyuLqVRu2l5vTr757TDQEl7C9NwgLA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LndAkwqy; arc=none smtp.client-ip=192.198.163.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=A95TnE3FCZ5svlowQQvLAqk7m9NNvxUJx06ARz0pJh8gOzhzCrSxInyecYWkkPB/xQxRXFbuT+7XlhCAGnsX0Py7BEIih8NuWUQ9st/JpEoiDP+WvwlfdRSJ5/1iz3/mgPqX+umAfEYR2DYIFqvuCYenqXOXakQnCBM+n+XfEfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jQui7bFz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LndAkwqy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789465608; x=1821001608;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=1q5dv6Vrxtkj8evu/VjYKuCf2t54zRo341nxUJ7nfuk=;
-  b=LndAkwqyMXpssuOK44ue3J7tQJ7O5aCj772F/sRahill5/NDSH1TsZhn
-   m8e4FTu71GTVOk7FdYGzR4GT89HO6qZN7wOg/Rliuvd7G/LoGe8kwEUwt
-   W/uaazJFUFGBtf8BuzbU0VE61g9j8Jwsk2w3znRaKdoFUGcHXjCgWgdN0
-   SQ6pA+zG9XAahzVj8Qb3DFrG5ght6zeF5AdEgewDbkZRVoH1zAg1e3UE3
-   grymICBulBhhBIF+fJGZC2bWasYG5WXBVD0BqInunB6A6tWDloMBQXUvb
-   uEqKh1/tUHOINR7zbGyf+SVnDvqp6zV7eRDV+OEnkBtTlBOq9VdSHG9ew
-   w==;
-X-CSE-ConnectionGUID: 7Qc1gvzzRJy75XUsKaAKsg==
-X-CSE-MsgGUID: oB2VsmybQA+Qaeaj8LJJGQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89838824"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89838824"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:46:47 -0700
-X-CSE-ConnectionGUID: 8dio+FLkSQuOK5bw0BabTQ==
-X-CSE-MsgGUID: XBIPLSyDQaa3gz7Op/8gdA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="270288882"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.227])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:46:45 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 3C25311FB58;
-	Tue, 15 Sep 2026 12:46:52 +0300 (EEST)
-Date: Tue, 15 Sep 2026 12:46:52 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Arec Kao <arec.kao@intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Bingbu Cao <bingbu.cao@intel.com>, Hans de Goede <hansg@kernel.org>,
-	Hao Yao <hao.yao@intel.com>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: ov13b10: fix power cleanup on remove
-Message-ID: <aqkUDJ03uWCAoSrh@kekkonen.localdomain>
-References: <20260915084436.2329278-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jQui7bFz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6116B1F000FF;
+	Tue, 15 Sep 2026 09:49:51 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789465793;
+	bh=J70Hs3GYYGmVmRppJ1Bo++8Zy/dlo2/65YMV7fl8Unk=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=jQui7bFzO9WyxpW0B5ZuFu7e6HEoxr7pQByWuoIvT+GacXzFH9hkYBE0i9gInRTn8
+	 hJhX1G323zFdE4m8mY5s9CBnHLKbgFXMWgt5H6cq78+Sq7WtA8goXp91rDOz88sYTD
+	 x/Txx7bklnUnVSn10kPLCNZfEHbJG8gKYOrjZbdxK3G/SjNoJwpXFInDlqNHIyUJ5u
+	 6YDQkHNDgeW5RAHXSsFuhCSgtYGh79Yq2tjnNMZ5n81PA3jbapRiwBlHV1UE9ZPgNK
+	 9dhAbmGeBbY5eO4q8WJVVmvqY4z0K6eVYSDQcwS/qmvBr4cj/OpHqVe33+UMX+tQo4
+	 OdxGpoLrTnNvg==
+Date: Tue, 15 Sep 2026 11:49:48 +0200
+From: Niklas Cassel <cassel@kernel.org>
+To: Damien Le Moal <dlemoal@kernel.org>
+Cc: Baokun Li <libaokun1@huawei.com>,
+	Sergei Shtylyov <sergei.shtylyov@gmail.com>,
+	Brian Norris <computersforpeace@gmail.com>, stable@vger.kernel.org,
+	Damien Le Moal <damien.lemoal@opensource.wdc.com>,
+	linux-ide@vger.kernel.org
+Subject: Re: [PATCH v5 3/6] ata: sata_fsl: Fix use-after-free of host_priv on
+ probe() failure
+Message-ID: <aqkUvKT_WswSVVzP@ryzen>
+References: <20260915084127.692494-8-cassel@kernel.org>
+ <20260915084127.692494-11-cassel@kernel.org>
+ <e5245a11-d6a0-42d8-a6ef-1b5ca9622413@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,53 +48,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915084436.2329278-1-lgs201920130244@gmail.com>
+In-Reply-To: <e5245a11-d6a0-42d8-a6ef-1b5ca9622413@kernel.org>
 
-Hi Guangshuo,
-
-On Tue, Sep 15, 2026 at 04:44:36PM +0800, Guangshuo Li wrote:
-> ov13b10_remove() disables runtime PM and marks the device suspended, but
-> does not power off the sensor if it is still runtime active.
+On Tue, Sep 15, 2026 at 03:50:50PM +0700, Damien Le Moal wrote:
+> On 2026/09/15 15:41, Niklas Cassel wrote:
+> > sata_fsl_host_stop() releases hcr_base and host_priv:
+> > 
+> > 	static void sata_fsl_host_stop(struct ata_host *host)
+> > 	{
+> > 		struct sata_fsl_host_priv *host_priv = host->private_data;
+> > 
+> > 		iounmap(host_priv->hcr_base);
+> > 		kfree(host_priv);
+> > 	}
+> > 
+> > ->host_stop() is called by the driver core through the ata_host_stop()
+> > devres action which ata_host_start() registers, so it is called both when
+> > the device is unbound and when probe() fails after the host has been
+> > started.
+> > 
+> > The error_exit_with_cleanup label of sata_fsl_probe() releases hcr_base
+> > and host_priv as well, and it is reachable from the two
+> > device_create_file() calls which are done after the host has been
+> > activated. In that case sata_fsl_host_stop() runs on an already freed
+> > host_priv, resulting in a use-after-free and a double iounmap()/kfree().
+> > 
+> > Add a separate error label for the failures happening after the host has
+> > been activated, which only detaches the host and leaves hcr_base and
+> > host_priv to sata_fsl_host_stop().
+> > 
+> > Note that ata_host_detach() is dropped from error_exit_with_cleanup, as
+> > that label is now only reachable while host is still NULL.
+> > 
+> > Fixes: 6c8ad7e8cf29 ("sata_fsl: fix UAF in sata_fsl_port_stop when rmmod sata_fsl")
+> > Cc: stable@vger.kernel.org
+> > Signed-off-by: Niklas Cassel <cassel@kernel.org>
 > 
-> pm_runtime_disable() prevents further runtime PM callbacks, but does not
-> force the runtime suspend callback to run. If the sensor is active when
-> the driver is removed, pm_runtime_set_suspended() only updates the
-> runtime PM state while the imaging clock and regulators can remain
-> enabled and the reset line can remain deasserted.
+> Looks good.
 > 
-> After disabling runtime PM, check whether the device is already
-> suspended and call ov13b10_power_off() if it is still active. Avoid
-> calling the power-off helper for an already suspended device to prevent
-> unbalanced clock and regulator disable operations.
+> Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 > 
-> This issue was found by manual code inspection.
+> One nit below that is worth fixing I think.
 > 
-> Fixes: 6e28afd152280 ("media: ov13b10: add PM control support based on power resources")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/media/i2c/ov13b10.c | 2 ++
->  1 file changed, 2 insertions(+)
+> > +	/*
+> > +	 * Once the host has been activated, hcr_base and host_priv are
+> > +	 * released by sata_fsl_host_stop(), which is called by the driver core
+> > +	 * through the ata_host_stop() devres action registered by
+> > +	 * ata_host_start(). Releasing them here as well would result in a
+> > +	 * double iounmap() and a use-after-free.
+> > +	 */
+> > +error_exit_detach:
 > 
-> diff --git a/drivers/media/i2c/ov13b10.c b/drivers/media/i2c/ov13b10.c
-> index b0d34141a13a..6d57da39c371 100644
-> --- a/drivers/media/i2c/ov13b10.c
-> +++ b/drivers/media/i2c/ov13b10.c
-> @@ -1688,6 +1688,8 @@ static void ov13b10_remove(struct i2c_client *client)
->  	ov13b10_free_controls(ov13b);
->  
->  	pm_runtime_disable(ov13b->dev);
-> +	if (!pm_runtime_status_suspended(ov13b->dev))
-> +		ov13b10_power_off(ov13b->dev);
->  	pm_runtime_set_suspended(ov13b->dev);
+> The label should really go above the comment block to clearly show this is the
+> explanation for what is done in this label block.
 
-pm_runtime_set_suspended() in fact also needs to be called conditionally,
-depending on the Runtime PM status.
+You are right, that seems to be the convention.
 
->  }
->  
+Will fixup when applying.
 
--- 
-Regards,
 
-Sakari Ailus
+Kind regards,
+Niklas
