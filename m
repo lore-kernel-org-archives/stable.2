@@ -1,78 +1,74 @@
-Received: from mail-wm1-f45.google.com (mail-wm1-f45.google.com [209.85.128.45])
+Received: from mail-wm1-f53.google.com (mail-wm1-f53.google.com [209.85.128.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E7A4499A4
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:13:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.45
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9DF8D44065A
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:13:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456418; cv=none; b=S2T3WG7G/H5lFevSwnMO/biWlkfNaYDDh2QLitDgkpGo0bHtrDcrmd3NKNIRqnPEa+0Wt6BIuqyY82978mj1D8ZyLUjbr7GQWaq8eKfCherh1kNCE+KTW5Snhtrl0iXOmUXw4sMx5+Anf47aAOB1S/vHqvzXmHvFBIZb9Sp1S8g=
+	t=1789456425; cv=none; b=hgJRaVz0zYIXuABUGxJNtBcq+bsNvyT/PQGkEknKIb6Ly8uCjIoRsN+RYq86TiDC2s77WoVggd53EM7OLz1o8cwTXhydVuWNkun35C97ReppUwcnXoIyfzV2rtGpvD3CihuXHv5aXhNKUMVasKed85pPHCUSeipu4xas4z3GIYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456418; c=relaxed/simple;
-	bh=VJPiA57oY/5vyoJkrmWgpCXvfp7VtHP7Ct2Mll3e6pM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bZPhw7SArOX5fBOKpKYmcQg8Gw4byJWUIaKfmHrTw/me+SA/c/mVCXf4rcyeHPhwtbBJpTorwTp8r7VdA5DtEJLmg6TVUGKRSDubosnyJKGr4xTBq8bbYljHWuqRIuujhPfNCNmz0Ex4QeiMU63QIVrwL8SPPrAT8U0kSEAYh+c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HrYP5Coz; arc=none smtp.client-ip=209.85.128.45
+	s=arc-20240116; t=1789456425; c=relaxed/simple;
+	bh=p+iCQyGWiwdNhc8Zk8JYmMuYIZNVJjaJvY9S9XcQQ6c=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=YO+masWtw6Vgn71I6BSWx9/ujhKSvoiPO6KwyAjaO1nBQ2OkgnZ5eh6XJyRKvae4mYKP/7I8uZP44kVUUpiblknyB/xJVv62xgJpMr/2cy1+3EmVCLFIbwNKKQ5QJG7NnKWBY3r4W0ds+b1ZAcKJ+gq05cUmYpFjZK9+S8SMMr0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CCfYnG5I; arc=none smtp.client-ip=209.85.128.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HrYP5Coz"
-Received: by mail-wm1-f45.google.com with SMTP id 5b1f17b1804b1-49cd77e0f95so31221175e9.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:13:35 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CCfYnG5I"
+Received: by mail-wm1-f53.google.com with SMTP id 5b1f17b1804b1-49d05d51553so35142615e9.2
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:13:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789456414; x=1790061214; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=velMxIt+642lquxYVKbrnSVvPRt1SpQzIuYolRQYJw0=;
-        b=HrYP5CoznF8vgUi3JCmujnTnNjVljxzsH/hWlebMlSfTOqXBdY2QbsFWdOXlLungB1
-         QnE9UaPv1FgVCrMyYpK3xZmJQHtzM6jMGAX7SkXA2efeyQoIH3bHBnYNWyTrW1rtcHro
-         +3hk0tgALDfb6giikhzTK71it21pLTngv7N3/UiZp5YTwoVHlSbwzHdOvddOCTgVuQib
-         6bGigJxAVd3/qc1ECbVEOvtsgSabxi5s+S6NVLNjvxXS4QjJbVVpM7jsJqPSmF3FhjXM
-         aUZ9uadZiNhC02GGM78bDfAzK2hELwQAqAxATZTqCmX3QNORZCYjawO+LUn33D2qDUrC
-         8GvQ==
+        d=gmail.com; s=20251104; t=1789456422; x=1790061222; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=x7qaufosLZLxweL4OTJOiBy2CZI8aGJ/EJYf86wkdYM=;
+        b=CCfYnG5IMNtosyxj2oZYbZJRmW5u/trbzNnd2RzoQbMLK1suliraA3hiv7pc+is4le
+         KGVY9YUIEzSf/aWhUknkN/oO4PlPEB/M7Mhvl2Inx5aqjwEvAhtzDZeLphU45dVL6Y9z
+         a8/YgHDjOcrwbcF9xiBRfyPxWDkfzXKy2WgRGai64wr0WYDaJvFfrzVzreFjOcuivCKW
+         1oNS4YWgW5tzIQ4LBKEaoTundLUzppzKNIDZMxL1ubjQ8Wby2w9ufCMlWYQoFjugn8nk
+         c4fqcmeWwc+Dng3gFoW19b4Qa6a2O8A347U4i84sYmgKzRugmmyM63aJLbE6AFKw7rJ9
+         X49w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789456414; x=1790061214;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=velMxIt+642lquxYVKbrnSVvPRt1SpQzIuYolRQYJw0=;
-        b=S0Eo1wO7F1wper87SbsQuMbp99c5Z158hWt+QzL5x2rke8gPrRPGPk7JAkKS8xIgvA
-         bE1ed8JpqTXpMrWGVX4T28m5c/XCX/XfjhTMKoPv1XdbZKCbub+CHQCWOLgaBidugosa
-         jgNJkGRrLW52vNrK3Zfuh8nRmNAQTLv8Z2dIDX2a5n6aGNOb/7AfWBzHr7wEiUB5ASl+
-         1UsFjZ/0lwLHremk2Ptfoz647DPp1bGUN80QKKC0U6E8ziagfFkP0r9k5ZYnuDaRs5ct
-         5GxerOKhLI0+zxpOFmhPdUXANljShEKoUUacKa8NUmZMrPgmgkKJOVxNv4yDFNpJc8LG
-         6MRw==
-X-Forwarded-Encrypted: i=1; AKwUvBwR2dmKniGcDG51wdaw8BXoWbpKBNTx4ka4vRmtsgi7fbE3hQZpFqJ6rCG0fgG2xWhzQHGRMEE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kMzV0OLi7OhcAr/ZymVMdRWt1RlOPkQ/kNhfo7s4dbsFmoqgGo
-	7vbu/RYHe01WN81x1glW6RkjXTNprGbYpOF+LW7hdYAWyRS7XFnyP1OS
-X-Gm-Gg: AYBFou1jTcpqdIQ3lFO4CCW82vvKLedljps0jFlhDkky6+IMLrl9OErQ0ICxzzsT4NL
-	HRPNA+AFXi03vfi8jeyhKwrzEXyf4nnhNGMdiPpOcD0K+lOhKS9OnMzC3wHqcu5geMu790uImZq
-	9Btu7KCOuC+6VLzgVvvnsjznOj4NwrSpvfSxr5CIUfsEPI+alsol1wHi5CpSs1XyTN7qgko8H3k
-	yUIRAfg8WSgUnfgeEXWhd3ho1BTLrYTSOwZPDzraFx+mbWM8uxgl7vJ69jtWOoKbtAJMVO+hrdQ
-	H8GaGgWIDmtrhmaUs+eYibwX18Sok3V9qEO2ZN8CXgEos4X3W7sWT7uE1qcop47RH/m6y/anf7c
-	GnnFwgC5WVMnbPMPJFjvHvPVBPYMtYi5sSoJ+q7LSBCoTZM/2J6ncCvFg2aKPsWOLdjXMj2LhUg
-	EWL/15xmfcDNjyCk9vxJOoWLXhuHDJ9s0mRUfNQeyhOnN/hiHNvkniIez6zRd4+p5+Aoa6ht2TX
-	6lETx87dxzClvwNSkaCFbKWdZzPDpBJqzRyOULzaJ2KlLSA8H6u/mqli8BjWKosXwR9i4YAMcfB
-	NHpQbeNex7sNphxE
-X-Received: by 2002:a05:600c:4e4a:b0:49c:dc14:d681 with SMTP id 5b1f17b1804b1-49e7a63a784mr80413585e9.3.1789456412284;
-        Tue, 15 Sep 2026 00:13:32 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789456422; x=1790061222;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=x7qaufosLZLxweL4OTJOiBy2CZI8aGJ/EJYf86wkdYM=;
+        b=mXrxJFv2RcSvGHby5pyz/WgHFyPqJ945FMIyH1DXrKW/hbFj3bvxTDY1C/noh3lqug
+         rDXMzDLmJ94ebyld1uL1JpIQo7uOfWjAouA/t9jdD1fxHN/j1rHeyXpC2lSPpYB1tZRZ
+         J0SPj2sPzphkv/5oyOjq+42yoNs/hh2uOee7ect9KvUc+d0w+1fUKGQJ77oKnMqtuQRn
+         8PuGfbWoCAfnADVLSPWnSZNDvVlNb2mze12sg+KJ02JRwp+32twiwZsqSBwO5iF2wc17
+         aI71Rc0qOqs+OJLVpk2CvRyTznX3GK7BLr+Go1kL7QUs6m0JcZ5QbH68BXiFolk0DBya
+         yAZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBw5xMj8/vojIXLvRaseBGbYpy7XFXMb4O9NlO5vRCcUPFB8W91AxDV2F3CJcg1HQ7ZJINwwtAg=@vger.kernel.org
+X-Gm-Message-State: AFuF++ldYxE9BeeloD0ZWqSxgbuuYRf2XqaJV7FVihx5HYZJT5iPgDFw
+	fysCFTDgSiZAS1XiPF05TZZ78EaLnn8kn3NhUZO4IUdk4VI1i5GenU5n
+X-Gm-Gg: AYBFou2NPZAxYWMDsNtyTgeGtvdBKHHPlpwWgs2AwifQISBZFZnbBO3vYcX2tvZQDqA
+	J1Os7/j/xIFvymg/F/a5sdOuX3PjBTGE6J2mNsBjiU4lsZg/lfzRDKSbUmIAgIOsg+5X66r1HQg
+	7I7oVIWwb/p15DOw4GXqzZ5n7NatY3uyXZbvQF1gPRp+u4p5h0uWs5RwLaBe19nwAUa5QqOPAvj
+	qShIpe5z+FnRLQmlWA5m8KmHLflP4zC1OI2NrXcetDzDIzKchCEZwbAcOyPWB1hzwAG8CX7h7kf
+	SUCUe1iZUc9ohjQ5rRydFxqkquRSAoDe6bv+ghu40CRcO6tqTBFk7ZfGmFEetnHgjYwaemd8c88
+	g6rfvNIR+BQfRJUxhwipvKcw8p2LCW9zPvq0OmxtIo1QEFL0+yZGKP3NOX/vR1L1kmN88u9KTUy
+	VpRQVXRyPZIdaS7ct3Fk5kfEtvkFh8Et0+EhLk4EcNb93zUhob28oDhniqNfLplCXKX+Yo+jsVz
+	3Sn2W9XOGzmziNqf+jUmFKausRTTjUqoatd8tPToXxOVBTbFtuf+deQNtZtaqS0zXIC8gFFHLbO
+	pteyjbz2esgYNAQl
+X-Received: by 2002:a05:600c:37c4:b0:49e:7862:c09e with SMTP id 5b1f17b1804b1-49e7a656db2mr84113715e9.14.1789456421649;
+        Tue, 15 Sep 2026 00:13:41 -0700 (PDT)
 Received: from center.jhjvjihww5qejoy14qwv1cc4td.frax.internal.cloudapp.net ([131.189.143.225])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef735cesm42941345e9.6.2026.09.15.00.13.31
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7d1f85desm38601675e9.0.2026.09.15.00.13.41
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:13:31 -0700 (PDT)
+        Tue, 15 Sep 2026 00:13:41 -0700 (PDT)
 From: Orgad Shaneh <orgads@gmail.com>
-To: tsbogend@alpha.franken.de
-Cc: linux-mips@vger.kernel.org,
-	linux-mm@kvack.org,
+To: miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com
+Cc: linux-mtd@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	osalvador@suse.de,
 	stable@vger.kernel.org
-Subject: [PATCH 2/2] MIPS: mm: do not write a huge TLB entry when the probe misses
-Date: Tue, 15 Sep 2026 07:13:25 +0000
-Message-ID: <20260915071329.15125-2-orgads@gmail.com>
+Subject: [PATCH] mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an 8-bit bus
+Date: Tue, 15 Sep 2026 07:13:37 +0000
+Message-ID: <20260915071339.15172-1-orgads@gmail.com>
 X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260915071329.15125-1-orgads@gmail.com>
-References: <20260915071329.15125-1-orgads@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,75 +77,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-__update_tlb() probes for the 8K pair at the address it is given and,
-for a huge pmd, writes the huge entry with tlbwi at the probed index or
-with tlbwr when the probe misses. That works only if the caller passes
-the faulting address, so that the probe finds the 4K entry the refill
-handler loaded for the faulting page and the huge entry replaces it.
+The word count of the Write to Buffer command is a single bus word, so
+on an 8-bit bus a chunk can hold at most 256 bytes regardless of the
+buffer size the chip advertises.
 
-update_mmu_cache_pmd() is not called that way. do_set_pmd() has always
-passed the huge-aligned address, and since commit ebcfc63d6bca ("mm:
-abstract THP allocation") the anonymous THP fault path does too
-(map_anon_folio_pmd()). The probe then misses the stale 4K entry, which
-sits at the faulting page somewhere else in the 2 MB range, tlbwr adds
-a huge entry next to it, and the TLB holds two entries matching the
-faulting address. Octeon raises "Machine Check exception - caused by
-multiple matching entries in the TLB" on the next refill of that page;
-a process on a CN63XX board died this way within a second of start, on
-the first anonymous THP of its bss.
+A Micron M29EW (an x16 part wired in x8 mode) advertises a 512-byte
+write buffer. cfi_amdstd_write_buffers() used the full 512, CMD(511)
+truncated the count to 0xff on the way out, and the chip aborted the
+program on the 257th data byte. Every full-size chunk failed while the
+partial ones at the start of a write went through:
 
-Skip the write when the probe misses. The refill and TLBL/TLBS handlers
-probe the faulting address themselves and rewrite the stale entry with
-the huge one (they also set the software young bit), so the entry is
-installed on the next access at the cost of one exception.
+  MTD do_write_buffer_wait(): software timeout, address:0x03278bff.
+  jffs2: Write of 4164 bytes at 0x02c789b4 failed. returned -5, retlen 68
+  jffs2: No space for garbage collection. Aborting GC thread
 
-Fixes: fd062c847a8c ("MIPS: TLB support for hugetlbfs.")
+Clamp MaxBufWriteSize in the write-buffer fixup when the bank is one
+byte wide, and keep mtd->writebufsize (computed before the fixups run)
+consistent with it.
+
+The bug predates the git history, so there is no Fixes: tag.
+
 Cc: stable@vger.kernel.org
 Assisted-by: Claude:claude-opus-5
 Signed-off-by: Orgad Shaneh <orgads@gmail.com>
 ---
-diff --git a/arch/mips/mm/tlb-r4k.c b/arch/mips/mm/tlb-r4k.c
---- a/arch/mips/mm/tlb-r4k.c
-+++ b/arch/mips/mm/tlb-r4k.c
-@@ -332,6 +332,19 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
- 	/* this could be a huge page  */
- 	if (pmd_leaf(*pmdp)) {
- 		unsigned long lo;
-+
-+		/*
-+		 * The probe above only covers the 8K pair at @address, and
-+		 * a huge mapping is installed with the huge-aligned address
-+		 * while the refill that started the fault left a 4K entry
-+		 * for the faulting page elsewhere in the range. Writing the
-+		 * huge entry to a random index would leave two entries
-+		 * matching the faulting address; leave it to the refill and
-+		 * TLBL/TLBS handlers, which probe the faulting address.
-+		 */
-+		if (idx < 0)
-+			goto out;
-+
- 		write_c0_pagemask(PM_HUGE_MASK);
- 		ptep = (pte_t *)pmdp;
- 		lo = pte_to_entrylo(pte_val(*ptep));
-@@ -339,10 +352,7 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
- 		write_c0_entrylo1(lo + (HPAGE_SIZE >> 7));
- 
- 		mtc0_tlbw_hazard();
--		if (idx < 0)
--			tlb_write_random();
--		else
--			tlb_write_indexed();
-+		tlb_write_indexed();
- 		tlbw_use_hazard();
- 		write_c0_pagemask(PM_DEFAULT_MASK);
- 	} else
-@@ -380,6 +390,7 @@ void __update_tlb(struct vm_area_struct * vma, unsigned long address, pte_t pte)
- 			tlb_write_indexed();
+diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_cmdset_0002.c
+--- a/drivers/mtd/chips/cfi_cmdset_0002.c
++++ b/drivers/mtd/chips/cfi_cmdset_0002.c
+@@ -283,6 +283,17 @@ static void fixup_use_write_buffers(struct mtd_info *mtd)
+ 		pr_debug("Using buffer write method\n");
+ 		mtd->_write = cfi_amdstd_write_buffers;
  	}
- 	tlbw_use_hazard();
-+out:
- 	htw_start();
- 	flush_micro_tlb_vm(vma);
++
++	/*
++	 * The word count of the Write to Buffer command is a single bus
++	 * word, so on an 8-bit bus a chunk holds at most 256 bytes no
++	 * matter how large a buffer the chip advertises.
++	 */
++	if (map_bankwidth_is_1(map) && cfi->cfiq->MaxBufWriteSize > 8) {
++		cfi->cfiq->MaxBufWriteSize = 8;
++		mtd->writebufsize = cfi_interleave(cfi) <<
++				    cfi->cfiq->MaxBufWriteSize;
++	}
+ }
+ #endif /* !FORCE_WORD_WRITE */
  
 -- 
 2.47.0
