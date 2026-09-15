@@ -1,44 +1,29 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F419374E5A;
-	Tue, 15 Sep 2026 06:34:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49BB3217723;
+	Tue, 15 Sep 2026 06:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454058; cv=none; b=bZEB6bOJ1vxNjoiCPOp2pcWGTBcInqNfIiI4UVUl2SbGYBi3JZ+/vzMG/b4LcKH6B4oFUwvUEuBXkeIwiAVUQTQ85jLaa+EFL+y37DBFdIfwiGWMS7pAEdyASYO6g4X2qpDLUJrvGYLs2n3h7DeiHVL1ctlEIunkkMkSzZkz3wU=
+	t=1789454367; cv=none; b=pAGw04bfAq1E84fcd9Tf51w5pq73a5eUKQASTDjlj0j7MgD3IMghdfI52GFedwWQ4geJXl0mNNwgcHiQh4mWWvxt1NfRq3o6iFj2m8bCkENJbIoehGVO/R8B2VNWJ1hGnX3uOgTfcjcOc/vx9LNz2RG6oOAkw3UP+7D5vhD6+sI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454058; c=relaxed/simple;
-	bh=Ser9KmsN1N57Rla+KhmDHZ+zORwXgQxdfa4OX3xOa08=;
+	s=arc-20240116; t=1789454367; c=relaxed/simple;
+	bh=ymuOc6ZkV3PbxOLugLkkCRimy3zoBZq7/eJaiFb5vdI=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iSIGoe0ioXGNQZK0yxtYK7Qzjg/IpeN8nCLJoKxJ+es8YHvgfkIluf1EWvULrJguuFzwb2hVEuT2Qk/n+ROTPWuPwG+mtTqKvatWhiWwMD2fqG+fGn++iolFmclN9OZZ5VdJKEahiWhu5IyVrcRluNe1vbDvj2smUwBjU4a8bGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doVFDbsy; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doVFDbsy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D711F000FF;
-	Tue, 15 Sep 2026 06:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789454056;
-	bh=au+l37rDlIofO/OyR7zRhhJQrP7Rz6WCu1SPKN84omM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=doVFDbsyA1x4Gktsi+LtE/9eA53BBBxG2OJTRDljpLjv3g4G0uyqepGyb09SBztm0
-	 y84HnfhYZ9vsUKve49uoNNmKPZ2rE6YA2ceLSMjc/+oK8ZrNQAmYTbhnOOtmfHyf2u
-	 yh+cMis66E5vBzGGPyoQ8XnvBZvQ/vwYXedqnlrtSxbOzYwoVAoS31M3Uv3Iy0SHUw
-	 EzQPvyZUKn+O9F7A++5iYqsp/rqtz4K+L8X/pT9e1ofl/k3hnM0xIP5rUfaMJrAZ0u
-	 bwS62p2H4uQllEm0v8OCZDOioiWzTI+6ygP8M0BEPXyGKgndvU7q5N+hSVM7FtgHWa
-	 VoVRn/Jc8Q95g==
-Date: Mon, 14 Sep 2026 23:34:14 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Thierry Reding <thierry.reding@kernel.org>,
-	Jonathan Hunter <jonathanh@nvidia.com>,
-	Dmitry Osipenko <digetx@gmail.com>, linux-usb@vger.kernel.org,
-	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
-Subject: Re: [PATCH] usb: chipidea: tegra: disable runtime PM on resume
- failure
-Message-ID: <aqjm5m4NhLCeGSJY@hu-petche-lv.qualcomm.com>
-References: <20260913041033.25144-1-mhun512@gmail.com>
+	 Content-Type:Content-Disposition:In-Reply-To; b=Vz2Y4IUlgjNwvo/nD2WbskU71GrSI8+squD3bTmrz2n7Of7m/41IWcZUla/pNlemUf6M3jAMYQIpOd+wcwFNTAyMohbWiaJAyaaw+Eke2H224QYmcSVeDNnGxcm8gNDxPIxllb5QqiTgjphyYs6BBLmPQVA9+4kcGnyRCjuPtjI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 0ADE268C4E; Tue, 15 Sep 2026 08:39:23 +0200 (CEST)
+Date: Tue, 15 Sep 2026 08:39:22 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: Christoph Hellwig <hch@lst.de>, cem@kernel.org, stable@vger.kernel.org,
+	linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 6/6] xfs: check di_forkoff correctly in scrub
+Message-ID: <20260915063922.GB13345@lst.de>
+References: <178910161988.174887.8958318922224347752.stgit@frogsfrogsfrogs> <178910162147.174887.15828411239184280666.stgit@frogsfrogsfrogs> <20260911150745.GA26822@lst.de> <20260911155919.GG6265@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,53 +32,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260913041033.25144-1-mhun512@gmail.com>
+In-Reply-To: <20260911155919.GG6265@frogsfrogsfrogs>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On 26-09-13 00:10:33, Myeonghun Pak wrote:
-> tegra_usb_probe() enables runtime PM before resuming the device. If
-> pm_runtime_resume_and_get() fails, probe returns without disabling runtime
-> PM. The later error paths reach pm_runtime_force_suspend(), but this early
-> return bypasses that cleanup.
+On Fri, Sep 11, 2026 at 08:59:19AM -0700, Darrick J. Wong wrote:
+> On Fri, Sep 11, 2026 at 05:07:45PM +0200, Christoph Hellwig wrote:
+> > On Thu, Sep 10, 2026 at 10:54:58PM -0700, Darrick J. Wong wrote:
+> > > The di_forkoff check in xchk_dinode is incorrect, according to LOLLM.
+> > > XFS_DFORK_BOFF returns a byte count relative to the start of the literal
+> > > area, not the start of the inode.  Therefore, this check won't flag
+> > > di_forkoff values that are larger than the literal area but not the
+> > > inode size itself.  Fix this check; sadly the old APTR code was correct.
+> > 
+> > The fi looks good, but I really which we could encapsulate this
+> > magic >> 3 a bit better (here and elsewhere).
 > 
-> Disable runtime PM before returning the resume error. Do not use the
-> fail_power_off path: the failed resume did not retain a usage reference,
-> so its pm_runtime_put_sync_suspend() would be unbalanced.
+> I /did/ think about adding a cleanup to do:
 > 
-> This issue was identified during our ongoing static-analysis research while
-> reviewing kernel code.
+> #define XFS_B_TO_FORKOFF(b)	((b) >> 3)
+> #define XFS_FORKOFF_TO_B(f)	((f) << 3)
 > 
-> Fixes: 8b85e11c1a7a ("usb: chipidea: tegra: Add runtime PM and OPP support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: OpenAI:GPT-5.6
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+> and then code like this:
 
-Acked-by: Peter Chen <peter.chen@kernel.org>
+That would be nice.  Especially with a comment explaining the odd
+encoding a bit more.
 
-Peter
-> ---
->  drivers/usb/chipidea/ci_hdrc_tegra.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chipidea/ci_hdrc_tegra.c
-> index 372788f0f..26225b034 100644
-> --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
-> +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
-> @@ -306,8 +306,10 @@ static int tegra_usb_probe(struct platform_device *pdev)
->  
->  	pm_runtime_enable(&pdev->dev);
->  	err = pm_runtime_resume_and_get(&pdev->dev);
-> -	if (err)
-> +	if (err) {
-> +		pm_runtime_disable(&pdev->dev);
->  		return err;
-> +	}
->  
->  	if (device_property_present(&pdev->dev, "nvidia,needs-double-reset"))
->  		usb->needs_double_reset = true;
-
--- 
-
-Thanks,
-Peter Chen
