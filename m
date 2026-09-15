@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8F393DAAC2;
-	Tue, 15 Sep 2026 04:07:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BF5D418A28;
+	Tue, 15 Sep 2026 04:07:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789445222; cv=none; b=r+ACuHoThI2sHfxpUOCCiKyz9zmyxilLNTnwgFOom+i8Q5vBmgDl4hXQg9q9Cjzi5yy4RmY73UGlzF/rjIN4pVye56uVCwOH1Y0XV4SqUk/ATEAwe7LLea3Tp+Xr/z5nxxamuXL1Yj2+ZIWYuTKyL939vT3TGFD2FSfEBM8jxyI=
+	t=1789445274; cv=none; b=RYYmmVAm09b4jyiFszYm0AtFDLNfc+Zqb2vYRKsfm44u2k0LM7cOv89MfkElhxOJrt8YyWj3Sce7yrKPndA4FAehj4j4wXjve8Io8UlM3U0nRo+ZO6yFJYSwhYAq12JbzqMJDaMm+pLR3p2DDubHZwyEwyaVopp79pzeBYq64mo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789445222; c=relaxed/simple;
-	bh=7Fo7l6verIL/puW8eR53W5uNpEX8RrPVi8YlPy9tKG4=;
+	s=arc-20240116; t=1789445274; c=relaxed/simple;
+	bh=AjrBRAPt4szZhd3i6BHq+eBZov+LNQZSwKbU1n4DQXM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=lTJaLW/L6YFw0OxS0QKtxxvMUIfBsXuNVZ2qw53t8VZ1zmxwEl5LvjJTdyW4uEVhEKKyH3s477UsvRGiBb870irmUa2++SsmV33D4RKB/tfCuIKNCWCuW9cgz5P/1Zt/kauFQIjDMeO6miBcrYx9GtqFR2QqI//jB11lES1I6CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V3WIY/JB; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=C+YjHGxQJYn46usvqoNk3IBSC6m1qezEFkNs3MFVWz5WvQqNvP7ZLQxgicI1A29nY90Mi1mV5EApji+rJfXjkfQD4txK//4W9InFXv6DXVC/n8GK+AsB22Iu/sLxXOYOaBYP6T6T5h+gaYIT2/k+G9UXDVouK9jY1bOLl3ihGIw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=A4ySrZP+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V3WIY/JB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B2E81F000FF;
-	Tue, 15 Sep 2026 04:06:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="A4ySrZP+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91B0B1F000FF;
+	Tue, 15 Sep 2026 04:07:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789445220;
-	bh=vfrtWY0UDRmyD3fJyuOsDkazcCTD6zqJGRqC5eNWrMg=;
+	s=k20260515; t=1789445272;
+	bh=WTAZXMBVQbTdFy1g90yzcNOhidUJU9Bb2EItIW1QGsA=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=V3WIY/JBiLn5zBUujPIXZJV9+8gaA0NNbZ+rOc6ENkvfDuv0sFTmjs1lCzHkL1/ui
-	 lPuXpNJNuEjW9AfwaFlijBxfD6d7SanFe5TtjPIABJ2zzeTd2fuuxs9puz7sY3d2P5
-	 i4t82MzWaZ2WeHpbPt7y1uFZ9BCG48CLHaNniX8ezOzjNhMsYVP1WwH/ywwI6KvO5Z
-	 Rt3fTi2PzqztX03Q1M3P2XzJMTY71Y46tp1J9vs3ZDPA7apvYtjTvyYSGVcZVkKDyT
-	 PZw5BRAw+X6INDG2rh1/6SeZz2trA6u0AExjtto8M1YCLk7vaU2nlGwJ6ezIeTQm61
-	 3M4CNdHqY9+Qg==
-Message-ID: <34709b8b-71e9-46d2-8732-a802e544701e@kernel.org>
-Date: Tue, 15 Sep 2026 11:06:55 +0700
+	b=A4ySrZP+pLiepK3WGXOMButg8VeGb3mKO8MHi4UpHPZ+um+z4/vemAmDL8krGIcBo
+	 S36Sz5/2yFuXDxjWUij08SNEilqzhLllvoTp7R8fPsWyn+hsr3AF++CPNEU0klYJwG
+	 znP/ltS7bf2yqlDm+xZMKxRxEHJ7pVQh29FjRNHzbloE25O2+mqLhrV+vK1b4dNyyx
+	 SfHkXZZhtpoJ/lExV7oK7ZiBtJ76au8x8MVgAMS1Je5GjeaAx1L49I68LQS069PUOY
+	 uBEnqhdfDd8fmBuOXHDEqzBAXYJqDrTpAFbEzFq3iryiYemt0zAsH1rpchkwwaTPpy
+	 BGNo9JgxrqY6g==
+Message-ID: <b88d6534-208b-47a6-b52e-0eadd8e91d1e@kernel.org>
+Date: Tue, 15 Sep 2026 11:07:47 +0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,123 +35,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 2/5] ata: sata_fsl: Fix use-after-free of host_priv on
- probe() failure
-To: Niklas Cassel <cassel@kernel.org>, Baokun Li <libaokun1@huawei.com>,
- Sergei Shtylyov <sergei.shtylyov@gmail.com>
+Subject: Re: [PATCH v4 3/5] ata: libahci: Free the IRQs when activating a
+ multi-IRQ host fails
+To: Niklas Cassel <cassel@kernel.org>, Tejun Heo <tj@kernel.org>,
+ Dan Williams <djbw@kernel.org>
 Cc: Brian Norris <computersforpeace@gmail.com>, stable@vger.kernel.org,
- Damien Le Moal <damien.lemoal@opensource.wdc.com>, linux-ide@vger.kernel.org
+ linux-ide@vger.kernel.org
 References: <20260910171406.131211-7-cassel@kernel.org>
- <20260910171406.131211-9-cassel@kernel.org>
+ <20260910171406.131211-10-cassel@kernel.org>
 From: Damien Le Moal <dlemoal@kernel.org>
 Content-Language: en-US
 Organization: Western Digital Research
-In-Reply-To: <20260910171406.131211-9-cassel@kernel.org>
+In-Reply-To: <20260910171406.131211-10-cassel@kernel.org>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 2026/09/11 0:14, Niklas Cassel wrote:
-> sata_fsl_host_stop() releases hcr_base and host_priv:
+> ahci_host_activate_multi_irqs() requests one IRQ per port, but it does
+> not free them when requesting one of them, or when registering the host,
+> fails. The IRQs are only freed by the driver core, when it releases the
+> devres of the device after probe() has returned, while the caller of
+> ahci_host_activate() releases the resources of the host in its probe()
+> error path, e.g. ahci_probe() disables the clocks, regulators, resets and
+> PHYs of the host. An IRQ handler running in that window would access the
+> MMIO of a host which is no longer clocked.
 > 
-> 	static void sata_fsl_host_stop(struct ata_host *host)
-> 	{
-> 		struct sata_fsl_host_priv *host_priv = host->private_data;
+> ahci_host_activate_multi_irqs() did free the IRQs until commit
+> 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs"), which
+> removed the explicit free because devm makes it unnecessary. That is true
+> for freeing the IRQs as such, but not for the window described above:
+> devres is only released after probe() has returned, i.e. after the error
+> path of the caller has released the resources of the host.
 > 
-> 		iounmap(host_priv->hcr_base);
-> 		kfree(host_priv);
-> 	}
+> Note that this window cannot be hit with the current users: the only user
+> of AHCI_HFLAG_MULTI_MSI is the AHCI PCI driver, which does not release
+> any resource in its probe() error path, and the ports of the host are
+> still frozen, i.e. their interrupts are masked, when ata_host_register()
+> fails.
 > 
-> ->host_stop() is called by the driver core through the ata_host_stop()
-> devres action which ata_host_start() registers, so it is called both
-> when the device is unbound and when probe() fails after
-> ata_host_activate() has started the host.
+> Free the IRQs explicitly again, like ata_host_activate() does, so that
+> the IRQ handlers cannot run once ahci_host_activate() has failed.
 > 
-> The error_exit_with_cleanup label in sata_fsl_probe() releases hcr_base
-> and host_priv as well, and it is reachable from the two
-> device_create_file() calls done after ata_host_activate(). In that case
-> sata_fsl_host_stop() runs on an already freed host_priv, resulting in a
-> use-after-free and a double iounmap()/kfree().
-> 
-> sata_fsl_probe() also ignores the return value of ata_host_activate(),
-> so probe() returns success even if activating the host failed.
-> 
-> Check the return value of ata_host_activate() and, once the host has
-> been activated, leave hcr_base and host_priv to sata_fsl_host_stop().
-> 
-> Note that if ata_host_activate() fails inside ata_host_start(), e.g. if
-> sata_fsl_port_start() fails, ->host_stop() is not registered and
-> hcr_base and host_priv are leaked. Leaking them is preferable to freeing
-> them twice, and this is addressed by a later patch in this series.
-
-I would prefer seeing the leak fixed here too so that we have a self contained
-fix in a single commit.
-
-Or, move the leak fix patch before this one.
-
-> 
-> Fixes: 6c8ad7e8cf29 ("sata_fsl: fix UAF in sata_fsl_port_stop when rmmod sata_fsl")
+> Fixes: 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Niklas Cassel <cassel@kernel.org>
-> ---
->  drivers/ata/sata_fsl.c | 24 +++++++++++++++++-------
->  1 file changed, 17 insertions(+), 7 deletions(-)
-> 
-> diff --git a/drivers/ata/sata_fsl.c b/drivers/ata/sata_fsl.c
-> index 70b210afd291..2123da66dc3c 100644
-> --- a/drivers/ata/sata_fsl.c
-> +++ b/drivers/ata/sata_fsl.c
-> @@ -1490,8 +1490,10 @@ static int sata_fsl_probe(struct platform_device *ofdev)
->  	 * device discovery process, invoking our port_start() handler &
->  	 * error_handler() to execute a dummy Softreset EH session
->  	 */
-> -	ata_host_activate(host, irq, sata_fsl_interrupt, SATA_FSL_IRQ_FLAG,
-> -			  &sata_fsl_sht);
-> +	retval = ata_host_activate(host, irq, sata_fsl_interrupt,
-> +				   SATA_FSL_IRQ_FLAG, &sata_fsl_sht);
-> +	if (retval)
-> +		return retval;
->  
->  	host_priv->intr_coalescing.show = fsl_sata_intr_coalescing_show;
->  	host_priv->intr_coalescing.store = fsl_sata_intr_coalescing_store;
-> @@ -1500,7 +1502,7 @@ static int sata_fsl_probe(struct platform_device *ofdev)
->  	host_priv->intr_coalescing.attr.mode = S_IRUGO | S_IWUSR;
->  	retval = device_create_file(host->dev, &host_priv->intr_coalescing);
->  	if (retval)
-> -		goto error_exit_with_cleanup;
-> +		goto error_exit_detach;
->  
->  	host_priv->rx_watermark.show = fsl_sata_rx_watermark_show;
->  	host_priv->rx_watermark.store = fsl_sata_rx_watermark_store;
-> @@ -1510,16 +1512,24 @@ static int sata_fsl_probe(struct platform_device *ofdev)
->  	retval = device_create_file(host->dev, &host_priv->rx_watermark);
->  	if (retval) {
->  		device_remove_file(&ofdev->dev, &host_priv->intr_coalescing);
-> -		goto error_exit_with_cleanup;
-> +		goto error_exit_detach;
->  	}
->  
->  	return 0;
->  
-> -error_exit_with_cleanup:
-> +	/*
-> +	 * Once the host has been activated, hcr_base and host_priv are
-> +	 * released by sata_fsl_host_stop(), which is called by the driver core
-> +	 * through the ata_host_stop() devres action registered by
-> +	 * ata_host_start(). Releasing them here as well would result in a
-> +	 * double iounmap() and a use-after-free.
-> +	 */
-> +error_exit_detach:
-> +	ata_host_detach(host);
->  
-> -	if (host)
-> -		ata_host_detach(host);
-> +	return retval;
->  
-> +error_exit_with_cleanup:
->  	if (hcr_base)
->  		iounmap(hcr_base);
->  	kfree(host_priv);
 
+Looks OK to me.
+
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
 -- 
 Damien Le Moal
