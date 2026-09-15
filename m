@@ -1,62 +1,62 @@
-Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
+Received: from mail-lr2-f9.google.com (mail-lr2-f9.google.com [74.125.230.73])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD23372B57
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:53:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.69
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FF64A99CF
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:54:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.73
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473237; cv=none; b=T8V6c0bCBMac64xAcWyICXmRrPEgPi0YwWfgsjAQtgdUnPpdfVnvrrKaZZcdiBZfS0WCNzOCPEme8Op06Ot0eMrBH++DvGW60j1IXqFwx9+JlTa3r61d7tnw7CG9EsAS8caQfzgUMVE9LUg4ceS1gkNYi9mKrMDYmQ5A6FvFwz0=
+	t=1789473272; cv=none; b=Fhf+LcIxOnHilIoZ+p1hO4WRLKJm6bIoZ20dyJufIoP/wAhLO6Wjjtk9Vme3ydMzzcTtZpw9pB/gTms31rQZZuX5khSjEqlzoCsUjSUQYvqqtHZ85r8UpuWdixS4UO35I24f2Q3+N48ejvOQ7mEQ75kEnvP2Od31zS+j02K+jpk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473237; c=relaxed/simple;
-	bh=qgr/p3hceS3VtgKFOnDdhJhC8P/qNGt2W9yjpLkmnOQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Hg6IJrva1hw5xnftQ7cVf9+tynPdetlwieBwqcucZbnG3afnLJC4rQzWefUkxZdaplSk9tJBO7faeQxB5N7RJYbBIH2IcSN7JWejx/8djxs1SP7RtnyEItXZTcim0Qh2KjzKLOQ9qvuiEl1czT7TVbL8tPfAPLXsApIY1rGXlUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N7rYIU+3; arc=none smtp.client-ip=74.125.230.69
+	s=arc-20240116; t=1789473272; c=relaxed/simple;
+	bh=4XUMdGNNDdDpAAwbuOPgfyiNEZsB2ALa50w4MMtVLVI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=j1AH50lJr279YXJEJd3v5U311hHC7RDf0zMS1Rif7IvM8dNOyiSstlfXtXLpjv898LotI7XQfkccut092ZxOOI1Cc/u9DpVPZat3Dl3G1Ac8uwiJxwD1MPrkOMW0WjW1/KzgqZpi1oB3QICSgrNGHMkGQfijOa11Zr6ekKVCwo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FigqRK52; arc=none smtp.client-ip=74.125.230.73
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N7rYIU+3"
-Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3a20b70da4cso24274951fa.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:53:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FigqRK52"
+Received: by mail-lr2-f9.google.com with SMTP id 38308e7fff4ca-3a2ebc73ee1so24935891fa.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:54:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789473232; x=1790078032; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789473269; x=1790078069; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=SP8o/AX4s37clPQoDD9t4nYTrUrCAlJE0QLNgt9QK14=;
-        b=N7rYIU+3peTYpJ6+Eo+6/R4yh4LZxpwXDBZxezGYcAFt4k4g0hU+/R6BO+6Mmwt7UX
-         wq+WBy7M0I8E2uJoz3Iq4uJktYwWxTokY8YouPPFtmN8mb/ObYRKWEI3Hzp7dSCR6HSp
-         uZytBroAVqYbDBdDmZruoQ8COCo69G9NdHIzNboxSv7KdccbEqZ7tjCI9BBMFKFm0Ofj
-         1NdMC9VhMoGb0CRwuYwfLOuB/416ZFCnedSMcdPwu6XZ15UsVfbhcQQWJZWhn1Cw3c4P
-         AGVhlMdZBwk06MdT2XjFsqq+0VpWuyZcDp1wdzFD20xUz3z3SL6uIgrCpyHFGYxLh+zV
-         ugiA==
+        bh=xOQoh1y5NM/04T86C2Jn4EMNc9+KHCfk34Vs3gnxreo=;
+        b=FigqRK52Rn2Y8/VXB1shDMAozSXPXg9xWtWgfLoPoUHkP0Lb45WjwlmCYNsXceluIw
+         YWBH4+KZXnpFYeMgLzUoiG5cyMmX0dX8Xb7d3g046ehJCH0pyPAxMllY1Z39YPRaweoT
+         Yud8YIm3GZOApFDqxtve9Aly4+A8TjVIbWtqRjt9SJpVnYDYrIJ4beLAalYiJ18ty7rg
+         ti2MH4bChR0hH4FGGskn6cf/NBxFDnI1WayX2IaukVDyTMyDIXz1nVigJgcyhGhFAqbx
+         kLuizIlbBRoYG7YrDzyyHjrtPOjz1HqIcuSDMkBaqnBJXhS0BR3MqQALmpSUev9BWiNQ
+         fHww==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789473232; x=1790078032;
+        d=1e100.net; s=20260707; t=1789473269; x=1790078069;
         h=content-transfer-encoding:content-type:mime-version:message-id:date
          :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=SP8o/AX4s37clPQoDD9t4nYTrUrCAlJE0QLNgt9QK14=;
-        b=2lpBlZTw4FZu8fmKnqYbFiS1C4c6ix8DTUo3JBpJUNAFru9C3HAXeBw3LwPb7JISTC
-         Bh6IuDtBXGiNOuLyZKca7ASeUbQn7TYohTs9H++Dsp7ojJ6QeW/yH+xLfOGj/cszHiPv
-         BA2d2yT5E48CfnM1Co5JdcBVOzFBYLHTIfw8OY+XGT4SXdLvri7k397O5Ny595dDjNSh
-         L2cnuzwQcc4XQNn9UqvNWOSEkgi0bwGBAYox0woQuQDb4ojuSKt9kxD/ioCYVBs0+6Rw
-         AWxD1Y+zLOL5Y/9egFUyTLHKJTPpaxqDCa+BynP5tTqIbmuHnQ1O6BpiLUyZpl7B2/Fy
-         Etbw==
-X-Gm-Message-State: AFuF++ml9qz583n4ErC4sh3sqyN2PPOpQLI3j0wh+BY7Thl0rlnaZZ1t
-	+v/5yxC3CPPEVwshIdnvxX7hV4RRjEihv0WeEn6SsJYxnT6tO/ZxZkPDfZ56jjYEjUs=
-X-Gm-Gg: AYBFou2gi6OWPhhlSfNfqn01cHbddO+Os8tM7MQhAq3cqLrUHrrH+R+sdZR9dNGgtEx
-	sllDP8YW3z0a+/w1UqZz9NJZyZjCRCW1dHYBBAqNtLDSLztodi660BCopxxL2AlLhbWtoxruaQD
-	UD1TokNL0Xj1/t1CKjxbIHWQO41LULPPiGVdjMFrzyZyUddIZOIwZ4qpPDH/RPyyGuDklL6FkJN
-	covj/99lO+ehNTlqQwIQ4Qkkq8huCARD0tcODkKV/9nF1vrKfdKemr8IOZdPVg5wMCTEF+jfIec
-	b+DJkvode/riqte0Z1dOpdICxpV/P8+kTIR0T40mgQLDjh/FnEeQsUq//Qx0PJBnTCEVdojkdMe
-	CcrqQY86EbUNDsVlr/d67Tk5bRoknEhTIS+d5UQqqoer3QBJmgbAsrpk32ZvS+lXCA4m+NSFPC3
-	FoJdoYE8ZAjLyewo012nIWutTvZsaZ8zB3r0Zj66jajuQrXzhxDTe/UOazPsZKNagucoega32Yl
-	DEaS+rklYQbOsUnlw==
-X-Received: by 2002:a05:6512:15a8:b0:5b7:6107:eb77 with SMTP id 2adb3069b0e04-5b8ae6afaf4mr1574809e87.33.1789473231548;
-        Tue, 15 Sep 2026 04:53:51 -0700 (PDT)
+        bh=xOQoh1y5NM/04T86C2Jn4EMNc9+KHCfk34Vs3gnxreo=;
+        b=PGZA7WZZ+jiTkKW6mggy63/gjzYiLxmNrxz4tWH5jV27Hy+QkSkWRMxU7VkbHlOT/O
+         KALt8UXaD69VWlfMgJRNXoI0Hwjvt5rS6CO/MZGyi/1KSqxXD/oUs9D7OVpWOq5Eqgko
+         0lZik6pSTQ4uKqCSb3ui7z2VHEfML81LfaTHy077Qfuoi8XIphEPDurLRc2eAaM90VkW
+         2coVuEpKC0BQLvNnNXEyOHL5kajXiNI0GB92E+TqVN0kc2jbfSW2ER2bwTQcdVRq/fsF
+         R9I6n6BNiLkMtQKnVuWqK4LxpaFTAHT5Clg7IfWxwKdyeIFONJBTd3J4/g8P6cz6T1Fl
+         fC8g==
+X-Gm-Message-State: AFuF++lkF/prlRv+snuPg5trt8jhSAQ8JvdzS0fjm77COlnSMLwAMnBb
+	Br0IPeNjnwxjru21H5g13QFRiXN4/iFjg0iyymkwLtrlFLgLJDfixp6za8exfZFoVfs=
+X-Gm-Gg: AYBFou0rkZg+yjkhVLhYDG/pi07eZuOTSCvj4gNNa8fsu3P9+6wwqSKdUqFHD+lUCb4
+	eBJ8URwFbyfbZIWhJPX0eQC+j/WEgs965vuPRUD8EHDoYiKDw5zfKF5+Huw13VDXx2pjxG2opM2
+	X08e3v2K5CtgIbzd3yGq41rSpLxdYZYLRmOXEW8i+N0gRrvZr9Kt7iw+E+Ad0yG8X3WilqelsfH
+	ith7pYB7hCQTvnWLIPBLfSOgj88Jd4kfaMPM3JBzZSKBL5m1Yi7tWTFLtoJ4trz08fD42FnqZBU
+	GZ83NOzkI7A2FUM6AgeFaXAPUTRB5ZSDDkP1blZVlukZwWH82VDPMKgH6xGlEmWYWMiUmUYTlBF
+	OnYLLLlSVUYuClNvMyx54wntnkiYNmZwoufDNi66u+Prbv5Ztj7hVprfsVHW44IqlTr+Iq9j+Se
+	HIkZ1qU3qa/ErvieR7cRIaxaobPC0lMBRD5Tp3SHbmP8TbdF+04IyKdy1Wy/nAZTgRzw0D7oInH
+	m2oVonJR4q7EqbxhBg/4X0UC4M=
+X-Received: by 2002:a05:6512:110b:b0:5b5:e7a8:9b1d with SMTP id 2adb3069b0e04-5b8ae68dbafmr4041728e87.13.1789473268925;
+        Tue, 15 Sep 2026 04:54:28 -0700 (PDT)
 Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0457238sm3216340e87.16.2026.09.15.04.53.50
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5a334bae0sm33906521fa.24.2026.09.15.04.54.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:53:51 -0700 (PDT)
+        Tue, 15 Sep 2026 04:54:28 -0700 (PDT)
 From: Roman Demidov <roman.demidov.nn@gmail.com>
 To: stable@vger.kernel.org,
 	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
@@ -80,9 +80,9 @@ Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
 	lvc-project@linuxtesting.org,
 	Denis Arefev <arefev@swemel.ru>,
 	Takashi Iwai <tiwai@suse.de>
-Subject: [PATCH 6.1 v2] ALSA: hda: Fix missing pointer check in hda_component_manager_init function
-Date: Tue, 15 Sep 2026 14:53:39 +0300
-Message-ID: <20260915115340.105976-1-roman.demidov.nn@gmail.com>
+Subject: [PATCH 6.6 v2] ALSA: hda: Fix missing pointer check in hda_component_manager_init function
+Date: Tue, 15 Sep 2026 14:54:08 +0300
+Message-ID: <20260915115410.106036-1-roman.demidov.nn@gmail.com>
 X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -118,10 +118,11 @@ Fixes: ae7abe36e352 ("ALSA: hda/realtek: Add CS35L41 support for Thinkpad laptop
 Signed-off-by: Denis Arefev <arefev@swemel.ru>
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 [Roman: Instead of modifying hda_component_manager_init() (which does not
-yet exist in version 6.1), a check needs to be added to the
+yet exist in version 6.6), a check needs to be added to the
 cs35l41_generic_fixup() function—the very function introduced by the
 offending commit, which calls component_match_add() without verifying its
-successful completion.]
+successful completion. A check should also be added to
+tas2781_generic_fixup]
 Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
 ---
 Backport fix for CVE-2025-40097
@@ -134,24 +135,36 @@ cs35l41_generic_fixup() one.
 Send a v2 covering 6.6, both call sites, and 6.1 
 as Sasha Levin <sashal@kernel.org> suggested.
 
- sound/pci/hda/patch_realtek.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ sound/pci/hda/patch_realtek.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
 diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
-index 7b4fd95c66f9..9e6846a37d67 100644
+index 937f3fdbab25..a020e824fbb2 100644
 --- a/sound/pci/hda/patch_realtek.c
 +++ b/sound/pci/hda/patch_realtek.c
-@@ -7021,6 +7021,11 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
+@@ -7052,6 +7052,11 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
  			spec->comps[i].codec = cdc;
  			component_match_add(dev, &spec->match,
  					    comp_match_cs35l41_dev_name, rec);
 +			if (IS_ERR(spec->match)) {
 +				codec_err(cdc, "Fail to add component %ld\n",
-+					  PTR_ERR(spec->match));
++					PTR_ERR(spec->match));
 +				return;
 +			}
  		}
  		ret = component_master_add_with_match(dev, &comp_master_ops, spec->match);
+ 		if (ret)
+@@ -7084,6 +7089,11 @@ static void tas2781_generic_fixup(struct hda_codec *cdc, int action,
+ 		spec->comps[0].codec = cdc;
+ 		component_match_add(dev, &spec->match,
+ 			comp_match_tas2781_dev_name, rec);
++			if (IS_ERR(spec->match)) {
++				codec_err(cdc, "Fail to add component %ld\n",
++					PTR_ERR(spec->match));
++				return;
++			}
+ 		ret = component_master_add_with_match(dev, &comp_master_ops,
+ 			spec->match);
  		if (ret)
 -- 
 2.53.0
