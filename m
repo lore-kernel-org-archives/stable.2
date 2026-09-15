@@ -1,157 +1,89 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 364BE395AC7;
-	Tue, 15 Sep 2026 19:53:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3B2D435515
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789502007; cv=none; b=Id55WZp8HaI2qpAaOhCFeH2fYKrnFGtWPfopEeGZGDZRebIsh5IeLsseZotIm3y5tj3BjGKcDCkF+3Epuv9Q339Ngrl/7UTm1MwTEcA5O041UBIDSbSLGdOrkUP5AzjwWy8JPazTvs4MtbyZW+qXx4itYXqUXR0KLh+5c99Eha0=
+	t=1789502225; cv=none; b=OM5fTqONjA1Q51tTDkVfClNIBsoC5krzffsF7DpsM9zlDgZPUf4qxeG/p1x/MxlccQTD/wlxv8cPriNwe4gl1BLx21+0pZ9nkYxxaejWvTv6NHvz+vjNI6Wqh9j5mKTp02q5SUuFqRXGXqmEYSiX3TIlMthR2CvpMCzmrkEYCEY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789502007; c=relaxed/simple;
-	bh=5vrLOBOf2DsC8q3DxMNW2WwQdoteFseLhphXDCc/qH0=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=LOB63rYMsE/OV5WJi44j+CVeSIpQTSPqyn7JjHM2Dmoxfu2XKotOqjRwUGJgIbg55PqmGU6bG1BHk1833Ai+JM0X8Uk0ba5tg6KBP4mtvxKpV++0BhTGw8HvsFEgRW4I7+XbMGSrW3WCUMoGt4S/RtTFqBn2u86WaEevgVV9xZo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aQwiGmnw; arc=none smtp.client-ip=198.175.65.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789502225; c=relaxed/simple;
+	bh=5+nwfIuz8ZbjkA7MsPGWMFLzJnQRW6j0etOXe9L5Lho=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=CRnqgJxYcZMo9MziHjto1tyhbA3VvOY8cQhxMu3WYvasGwCN7Knu+NARijpqUolnb0oO2JBlgOUeGnvcZkKixvZY092SDehDxoSUlbTnBdViqbXrsFzpXOmzxl3lyTqdjZY/owfanwkmAuTDHC4PVgBRilSE65lFB/zQ2i27UWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YV3/vzTH; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aQwiGmnw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789502006; x=1821038006;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=5vrLOBOf2DsC8q3DxMNW2WwQdoteFseLhphXDCc/qH0=;
-  b=aQwiGmnwClcw04hnUYoGeLU5cvBnsHPf9XXIlDofmcWALfTGs6faeo7L
-   yNx7+uOe1KoduYBssgHOcla9sh04PSVYW95ez8idv4ZqvARd7uQe5DeJU
-   g4yeb+oMtbVmDtGORkkGNRbiz9dyS/n4r59eocXW+aZh/JifzqyPNW0qH
-   jlookZzI8sYgkkec3gds+KT+vl3mTyhdUXvNP6PKku9B2380nVgVOZB/U
-   /pUhKJbaz0xqqrKJsHvZP8nWtXrBXIIPQe9kShjql+UOtU3cenxtvteWe
-   q5jSLrgIGPVx0MVgsAZ5pvmDKSbHqNJ6s2cclDkhm4ztsNbFRM8O1M2/D
-   A==;
-X-CSE-ConnectionGUID: 40GmM/M0QFWPYxslYjsJgA==
-X-CSE-MsgGUID: cTBNcLfdQXWDWWk1UeW0fA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107245789"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="107245789"
-Received: from fmviesa012.fm.intel.com ([10.60.135.152])
-  by orvoesa102.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 12:53:24 -0700
-X-CSE-ConnectionGUID: P2HGi6J3Tfmiu8ue4BFa+g==
-X-CSE-MsgGUID: VtJuuZSBRA682d3X8dKKvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1344636"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 12:53:22 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 22:53:18 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: Jorge Lopez <jorge.lopez2@hp.com>, Hans de Goede <hansg@kernel.org>, 
-    =?ISO-8859-15?Q?Thomas_Wei=DFschuh?= <linux@weissschuh.net>, 
-    platform-driver-x86@vger.kernel.org, LKML <linux-kernel@vger.kernel.org>, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86: hp-bioscfg: fix slab-out-of-bounds
- write in hp_convert_hexstr_to_str
-In-Reply-To: <20260915174615.63924-1-meatuni001@gmail.com>
-Message-ID: <0380b8d6-cff5-383f-b47f-700d1d17fefa@linux.intel.com>
-References: <20260915174615.63924-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YV3/vzTH"
+Received: by mail-vs2-f42.google.com with SMTP id 71dfb90a1353d-5c8319dd4a5so78674e0c.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:57:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789502222; x=1790107022; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=5+nwfIuz8ZbjkA7MsPGWMFLzJnQRW6j0etOXe9L5Lho=;
+        b=YV3/vzTHWkDzLHi7R5YtsXD4SrxE+7/SJ1yi2Dof0gOwjnCi6fdN9Am4mODDBoDU1+
+         K0gQS070F7xeJutbZE6FnVR4OoFdkQaUmlBYPiA41FAST3q2AMX8FtvXtygPBa0xxVvj
+         +a1JYtoBunMPnFyoyZ43Z7GKklxXU7TQwkjqCFWAIFQujlf6/JVPwIqE+u754Kc+0urS
+         yGy2mnf5SFtIqZowusUiDMTabftiqLB4HnhQ9rhvxso2FwPABkwvYDw0dso0IEM4zR1Z
+         BTnat+RjpXk0uVPw5b54eU6H4sP0GA+6uDKzFKvT548vyrwKsq5g05mbtahL+1XT1Ebe
+         kOwQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789502222; x=1790107022;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=5+nwfIuz8ZbjkA7MsPGWMFLzJnQRW6j0etOXe9L5Lho=;
+        b=1JuUdZah0XLe5wzaJ/cVVFhxgq/NmiWNqBdwbdIbS9lVvCWe4uaHlSIkFNU0b86beC
+         kH4moFJZtilf0IR8Up1Fht8PzOXXhOitCbPFn2+pzF0lOKjcLnPAjD8ibAv0rYhynw45
+         DiYV1/ZwuTQaChGFwlLVVuMFjCoX98WAGViCxc7QWKqhG36lHmP7U6F19zA3tHGssgzx
+         y2m+2seWEuNurzrhfiJ5Vi4uFfF84xXZI0Z22h7ID7lesylf0GJucDU9X754DmTnCVbe
+         P+tJu8/OTDIfO3AERkRGZAMG/M3obhDSwGjj2C0ZiqyCT6sikYvbFTymPEhRbAoNnHpm
+         wvtw==
+X-Forwarded-Encrypted: i=1; AKwUvBynYnow4MORJc6xw3Ay15zLkYgTbMJjDOM3lPGuiGrsTZ4IafNqpgmqA1LvqMUAkuKoDT4C4vQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kt3y+heOLd9vXK/nDgdJ8PD3gZ4sQI33XZAF/jKPTLdqX4lz/9
+	nBKtiWTnFb5iz98YqkkJU92m9b/zyHdzf25P5ZwSTVHH9o6DwNcGcXT1
+X-Gm-Gg: AYBFou27UkC0FOKpTX44V0yHjFplY8L/S/CY0VvzyKEcqMzjeDkk+o+FMGS8mAs8lHW
+	eep1jafcImASlM41VALc+rKPc/4b60DSVaAmzhh6d0lNDZNPJgW4lqbUkz9tp2+VkHwT8uaCged
+	jE7eYUZMUJ3wsr3aP3j/wSg71I6A5TOo8O/q9idifuewt6M8OPGFt5KLHc4+UfvVzjE4jyPi2IO
+	FIKrZBHcDuE2LGu2qbAcbZEz/nQmDDkfkf8H/qPuX4burfuxxztwIMiRd9Tgh9AOYrj5k5AdHsr
+	iNgErVEheHJJE1t7fkuC3pkOnNRDm9LfxybllyUuecia7a3oF21RDca9WGn7vJvHjo60tNGCFjy
+	8bbvwHOH25VJ11wZNjmhOKBoea+5G347pxF3A3w+jdw/FN0EA3cTXvX457RjhRx3FP/PGfr5brM
+	Ic6FsOrz/Y9Wy2GuD8hbaYOqY7K8W1TenfpIJu2pVgMRa1mZ5pZW9hkuSqws3INPmI
+X-Received: by 2002:a05:6122:e266:b0:5c8:4409:602a with SMTP id 71dfb90a1353d-5c981e978a6mr14043087e0c.8.1789502222518;
+        Tue, 15 Sep 2026 12:57:02 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c998a6b665sm566060e0c.8.2026.09.15.12.57.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 12:57:02 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
+Date: Tue, 15 Sep 2026 16:56:51 -0300
+Message-ID: <20260915195651.3335615-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915111351.2726334-1-qwe.aldo@gmail.com>
+References: <20260915111351.2726334-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-1934819062-1789501998=:1365"
-
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
-
---8323328-1934819062-1789501998=:1365
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
+Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026, Muhammad Bilal wrote:
+Hi Slava,
 
-> hp_convert_hexstr_to_str() decodes an ACPI string made up of
-> space-separated ASCII hex-byte tokens of the form "0xHH". For
-> example, the four-byte input "0x41" decodes to the single
-> character 'A', and the nine-byte input "0x09 0x41" decodes to
-> "\tA": each token is read in a five-byte step (four characters for
-> the token, one for the trailing delimiter), and produces one output
-> byte, or two if that byte is '\\', '\r', '\n', or '\t', which are
-> written back out as a backslash followed by the matching letter.
->=20
-> The output buffer is sized with kmalloc(input_len, GFP_KERNEL), the
-> raw encoded length of the input, not the decoded length. For
-> well-formed input this is generous, since five input bytes never
-> decode to more than two output bytes. But input_len comes directly
-> from the ACPI string length reported by firmware and isn't
-> guaranteed to respect the five-byte encoding, so a short input_len
-> can undersize the allocation. With input_len =3D=3D 1, only one byte is
-> allocated, yet decoding still produces at least one output byte
-> plus the NUL terminator written unconditionally afterwards, so two
-> bytes are needed. That terminator write then lands one byte past
-> the end of the allocation.
+Right, -EIO is more appropriate for corrupt on-disk metadata. Will
+fix in v2.
 
-Thanks, very clear now.
-
-I've applied this to the review-ilpo-next branch now, but please see=20
-below for one additional thing.
-
-> KASAN caught exactly this during BIOS attribute enumeration on
-> boot, triggered by a one-byte encoded input value:
->=20
-> BUG: KASAN: slab-out-of-bounds in hp_convert_hexstr_to_str+0x6d8/0x710 [h=
-p_bioscfg]
-> Write of size 1 at addr ffff8881032e5d81 by task (udev-worker)/520
-> The buggy address is located 0 bytes to the right of
-> allocated 1-byte region [ffff8881032e5d80, ffff8881032e5d81)
->=20
-> Size the allocation to the worst-case decoded length instead of the
-> raw input length: two output bytes for every five-byte input chunk
-> (DIV_ROUND_UP(input_len, 5)), plus one byte for the terminator.
->=20
-> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> v2: Expand the commit message to spell out the hex-token input
->     format and decoded output with a worked example, and explain
->     exactly how a short input_len undersizes the allocation, per
->     Ilpo J=C3=A4rvinen's review. No code change from v1.
->=20
->  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platf=
-orm/x86/hp/hp-bioscfg/bioscfg.c
-> index 22c198680903..42331cf90581 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> @@ -442,7 +442,7 @@ int hp_convert_hexstr_to_str(const char *input, u32 i=
-nput_len, char **str, int *
->  =09*len =3D 0;
->  =09*str =3D NULL;
-> =20
-> -=09new_str =3D kmalloc(input_len, GFP_KERNEL);
-> +=09new_str =3D kmalloc(2 * DIV_ROUND_UP(input_len, 5) + 1, GFP_KERNEL);
->  =09if (!new_str)
->  =09=09return -ENOMEM;
-> =20
->=20
-
-I think the buffer should be allocated with kzalloc() to ensure there's no=
-=20
-potential leakage when/if the output buffer is filled only partially=20
-which seems well possible given your description. So it would warrant=20
-another patch on top of this change (as I've applied this now).
-
-
-And your other patches are not forgotten, I'll get to them while=20
-processing the rest of the patch queue.
-
-
---=20
- i.
-
---8323328-1934819062-1789501998=:1365--
+Aldo
