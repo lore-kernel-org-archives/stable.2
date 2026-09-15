@@ -1,127 +1,115 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2F2045C701
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 07:16:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D0092390212;
+	Tue, 15 Sep 2026 07:30:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789456586; cv=none; b=b/q1z3OFiYezrp9Z2bi4XJutIPWIzeOpfK1kkpUkpBLsg+HWO9HcXx6AD4YMkmpTLanAKydvud3AXa6x3t2imC29fL469/r7rTALGEdmr2Vw926Zmq6Y3E+kv2rMOhvfMZalRRUT8fDHOlQ5bfN+wj1u9KaxHh8gMNqCQkattYk=
+	t=1789457436; cv=none; b=j5P06gQF0dUlCg4lsKDxz+85mj7qBMMjBSpraitcXsZa8+vxmnI6GBZSE2qWlN2g5BTsyGmNWao1D7p3b3nL6FZOZHQX5uc8z2jXo/JlSSiaalf6tCr8RRRwdiNy2OMstrkV0z1e+F9bJ3WvY2fSsx/p0TM7Snejf75Y0EwtOCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789456586; c=relaxed/simple;
-	bh=0OEldKzHhvkbzoc57SjOq6JvGavLCHquBbc6Yq5zze0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KBV9EbD6fm3WMnXq4tB/vWS1/gOjGxYgcfQeaJ4Y27QBH6JjA035LH5EoH8/PVcgJDXYoyZO/G9r9jncwlsKxtIsMdPLqonf4DkRKUe66Jq2HKqrlFkYmmX3n8HznnKlyLsZnPPn7E7RNydl+wxm32YLYoNnb9ljTn7n+0tlFFM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Hq0qtWYa; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789457436; c=relaxed/simple;
+	bh=mR9/lwyEnnhes5Rs53Qbjz9K+oUJyi/GqF3aEAiZkFE=;
+	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
+	 Message-Id; b=lapFVdCY4Ri94lwM79tWgT3ShUOk/ijo+z76ttVdT5g3g3NuNjBCTyj1qS8rc9LFLgB0U4E/XgIMpNWiEp86sc3sFh2YYpA0pKXlX0SNYCCvqwTMnC62DvGVlES7tJbFt26Ckg/CbvAh4bXMYL9KPO0y+EbQXbbwgdxKB8ct80c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ian72JLd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Hq0qtWYa"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a6063d7dc4so4404399a12.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:16:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789456580; x=1790061380; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W+PRomH3eBPy4oMEKXIP3fH6Wa2h0KkiuNEK9e340p8=;
-        b=Hq0qtWYaKxMcGScWSb4W4GIoFRYwCWnxQY6BfK32sxrCGPJj5n7v3iWpw+cyPQ8aN5
-         ctafwXNTKj9a/C6qYpMS757///HMhMWlRua7XqWSj2RKvqV1cwHvK9JlDEd1yfDu8Tj0
-         y1OutLwvT5+VaDKbBKYT6c3ffZu5Q7n2OvrSvh/onUG9poi83WNfmkgZOzahuVJxO1g/
-         5XK+P0xKnCnczTiSkwM3HuEBK2FI3S6tx/RVxSWZj09z6RTG8NqsV1JSN+gJBYH14tIi
-         jcO2VHeZhGdpwSiH1CaoMy3zituJFlBeiRQTt3kkLef+nV0l2v3so9A1J4Nly5FWcimj
-         UJRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789456580; x=1790061380;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W+PRomH3eBPy4oMEKXIP3fH6Wa2h0KkiuNEK9e340p8=;
-        b=juFcM9+926uiQa4LpFNEYEIoV2pOiXxAgv87GitE1X0BTIdWeL4D4Gpyw/Fjqi3d02
-         Z2v2gKtcWB//uFppAdTout9eZNsN+G+J1g9uFJtd4w1+Hl/ebiVIqfk+JyVjdZmb7gAl
-         nNMjXUXsW0QCk2tcDG1FCSUU2bTBYJlUT0OeoRPddoxCSuSQcG5R6q1Vo1EGh7OFe7Mv
-         9guqpvDPCkHo6NiB7qLKHuHk9JNzw/BXwDW+MFd0315ARxJ+HOTvv7offrYY6QgyIub8
-         JpyN21wwycZlZKaGX+UQ6DQTMY2DSa1XKMkS5/iVUzcQhFrmEZrH38jCS3gXcPGOO9so
-         SPYA==
-X-Forwarded-Encrypted: i=1; AKwUvBwodLeOIURc2EsxZ09fCo5IgZ5PqxEx+BV6nD7F9l3wqmJnW4uR1KsAu4dv383wlFHMr7I0PYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++nUqTqCz9iHyuVlYaSHU0Jd1cWWtiGSVV3+Vb+f/akIePWyC8lJ
-	XeA/LA7EjiUoPWwR1eCdIr9BKVwyEm6jI+uNi5V+BHK5axBgTEiBRdBIiermfoSWTw==
-X-Gm-Gg: AYBFou0CDpAZo69DDfOQNI9aWufnE56Emgpyk3Q2jcVpSmhaHelmuf1dOCze4iQAkL9
-	ga0nxmT5KONsUFWNcPG6x1X5N1BuUcETPXNT/qyywpYL1/Y2uA92C+naJqVlo/2l7zBqwZC29GO
-	Ky3Gd+8vuF93S1npNTOg16EBbCsi2LtJwJZL+JnMPesUmm+cEIi2aNn9evAdLLiBDUtS/+h4VA+
-	UA4sBP48Y+paHypfF1hiEdBy85mPA5J/jv6x8q8hTtCK4SPAtC/z3vOplKl4jHuORk+QepehMhr
-	UPSavC99POa+gYbe+0wHw8hWLBeK1SDC+t/2S6WkxOaun171D0BJxcxAQzjySqN2huCYf814aWJ
-	QpKt+cZaie7qNp6d/LCgrzdKrPv3QrzMXdPJ9AWMoPapLjFALgZYbPPFONIJwVla8LklGHP9iiN
-	J4RZlp7ezcW3AOv3+wVmnk+9Es4fzSYyBN9/tZ364JKSSx6iJweusdYwKai6kJ4FXwl72avLBSb
-	Uy1xgJgUZdF3Q6/QraIdWLz/fBzWMh3noc1b7Vxs2s=
-X-Received: by 2002:a05:6402:4617:b0:6a5:f4eb:df3 with SMTP id 4fb4d7f45d1cf-6a9f61e4e87mr7464066a12.2.1789456579785;
-        Tue, 15 Sep 2026 00:16:19 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9d0ef7228sm3569166a12.9.2026.09.15.00.16.18
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 00:16:18 -0700 (PDT)
-Date: Tue, 15 Sep 2026 08:16:15 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] ring-buffer: Take cpus_read_lock() when changing the
- subbuf order
-Message-ID: <aqjwvznfLPcN1G-J@google.com>
-References: <20260914182850.21449-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ian72JLd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 269261F000FF;
+	Tue, 15 Sep 2026 07:30:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789457434;
+	bh=lKRIjL8U68hpYB4JrL02iKgw2lAfaABiPkDTv+XGsr8=;
+	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
+	b=ian72JLd0nsExFvCUXUX5ap90mqaVMjO+AQVR9GH3tiDjqjc3KOXZcKpqMTd+R5OV
+	 Faan1Qz/WR6RrfVSbI9ArEukF9DTn3VBfHJ1Edijm4K56UD0kbK3qo0nfKdqXiJTzm
+	 36Zyx9VENt+kU6ssvtKWZo8nkuXPgOt5xErQQlMXx7BeAdvClST0k42e3EXZHp+/GP
+	 OeXKnLIxmW6WaTQAqMHcO6RP5iKJo52No+4cAtf6Bghosh+Z505Fvrw4Vd02o6Bpqq
+	 wjSG1tCcyGvJWmvWbLy/eGbk94LT19q1UtkmOa1rQvQ+lOO6SFxB8RItW6NPREVreh
+	 tFT0Rw6wKJJBA==
+From: sashiko-bot@kernel.org
+Subject: Re: [PATCH] mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256
+ bytes on an 8-bit bus
+Reply-To: sashiko-reviews@lists.linux.dev
+To: "Orgad Shaneh" <orgads@gmail.com>, vigneshr@ti.com, miquel.raynal@bootlin.com, richard@nod.at
+Cc: linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+In-Reply-To: <20260915071339.15172-1-orgads@gmail.com>
+References: <20260915071339.15172-1-orgads@gmail.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
+Date: Tue, 15 Sep 2026 07:30:33 +0000
+Message-Id: <20260915073034.269261F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914182850.21449-1-devnexen@gmail.com>
 
-On Mon, Sep 14, 2026 at 07:28:43PM +0100, David Carlier wrote:
-> A CPU coming online during ring_buffer_subbuf_order_set() can be added
+Thank you for your contribution! Sashiko AI review found 1 potential issue(=
+s) to consider:
+- [High] mtd: incomplete write-buffer size clamp for interleaved 8-bit chips
+--
 
-nit: a "new" CPU or "A CPU we've never seen before"?
+commit efef65c6e8de323e4294fd157f7f865d12e35292
+Author: Orgad Shaneh <orgads@gmail.com>
 
-Offlined CPUs aren't removed from ->cpumask.
+mtd: cfi_cmdset_0002: cap the write-buffer chunk at 256 bytes on an 8-bit b=
+us
 
-> to buffer->cpumask after the allocation loop, and the install loop then
-> uses its empty new_pages list, corrupting the buffer.
-> 
-> Take cpus_read_lock() as ring_buffer_resize() does.
-> 
-> Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
-> ---
->  kernel/trace/ring_buffer.c | 6 ++++++
->  1 file changed, 6 insertions(+)
-> 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 04bb94c29f58..445931bc9ae0 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -7464,6 +7464,12 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
->  	if (psize > RB_WRITE_MASK + 1)
->  		return -EINVAL;
->  
+This commit limits the write buffer chunk size to 256 bytes when the bank
+width is exactly one byte. It prevents program aborts on 8-bit buses where
+the chip advertises a larger write buffer than the single bus word can hold.
+
+> diff --git a/drivers/mtd/chips/cfi_cmdset_0002.c b/drivers/mtd/chips/cfi_=
+cmdset_0002.c
+> index 517db2f2707f4..64fde81191d15 100644
+> --- a/drivers/mtd/chips/cfi_cmdset_0002.c
+> +++ b/drivers/mtd/chips/cfi_cmdset_0002.c
+> @@ -283,6 +283,17 @@ static void fixup_use_write_buffers(struct mtd_info =
+*mtd)
+[ ... ]
 > +	/*
-> +	 * Keep CPUs from coming online while changing the order to
-> +	 * synchronize with new per CPU buffers being created.
+> +	 * The word count of the Write to Buffer command is a single bus
+> +	 * word, so on an 8-bit bus a chunk holds at most 256 bytes no
+> +	 * matter how large a buffer the chip advertises.
 > +	 */
+> +	if (map_bankwidth_is_1(map) && cfi->cfiq->MaxBufWriteSize > 8) {
+[Severity: High]
+Does this condition properly handle interleaved configurations where multip=
+le
+8-bit chips are used on a wider bus?
 
-Can we drop this comment? cpus_read_lock is self-explanatory.
+The map_bankwidth_is_1() macro checks if the total aggregate system bus wid=
+th
+is 1 byte. If two 8-bit chips are interleaved on a 16-bit bus, the aggregate
+bus width is 2 bytes, causing map_bankwidth_is_1() to evaluate to false and
+bypass the clamp.
 
-> +	guard(cpus_read_lock)();
-> +
->  	/* prevent another thread from changing buffer sizes */
->  	guard(mutex)(&buffer->mutex);
->  
-> -- 
-> 2.55.0
-> 
+When writing a large buffer in an interleaved setup (e.g., MaxBufWriteSize =
+=3D 9
+and interleave =3D 2), cfi_amdstd_write_buffers() will pass up to 1024 byte=
+s to
+do_write_buffer(). The loop divides this by map_bankwidth to compute 512 wo=
+rds.
 
--- 
-Vincent
+It writes a command of 511 (0x1FF) to the bus, which cfi_build_cmd()
+duplicates to 0x1FFFF. This gets truncated to 0xFFFF on the 16-bit bus, so
+each 8-bit chip receives 0xFF (255) as the word count. They will expect exa=
+ctly
+256 words (bytes).
+
+However, the subsequent data loop in do_write_buffer() would write 512 words
+to each chip, causing them to abort the program on the 257th byte.
+
+Should this condition check the per-chip data width instead of the aggregate
+system bus width? For example, checking if
+map_bankwidth(map) / cfi_interleave(cfi) =3D=3D 1?
+
+> +		cfi->cfiq->MaxBufWriteSize =3D 8;
+> +		mtd->writebufsize =3D cfi_interleave(cfi) <<
+> +				    cfi->cfiq->MaxBufWriteSize;
+> +	}
+>  }
+
+--=20
+Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915071339.1517=
+2-1-orgads@gmail.com?part=3D1
