@@ -1,106 +1,120 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF0B43B6BEE
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:04:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073B73CA497
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:05:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459480; cv=none; b=SmuGJBJnxaB193UEr5ZmzYvHo1uZWEztyrrJ83LyUiHwp/sK43FNgqYCh0ziglOabtM6Zhl1ErJrZmjcjtf9c+FVttc3lpu/y29p8HXg0lVO9PMT/+pdnqsf/kEjJ1BAhz0zac980Oaplfnpf9hBH5GNQCE5mrfFZFpqKAxNqoQ=
+	t=1789459516; cv=none; b=Kzsiy7rdLMactduRf15QYhx4XSkgqiO/BR0EDb7U7vCcU7hV5DqET0GY9t4H9IDgwpBlsO5zDBq4o36VC6mU6xi5OnoWSqRzRP8sjtf73OSLdbjBh8b/CsARqPQzbsTbgjo4UEKGUougTFl08EzIJZskfRvEwSw9wvvfra9IiJw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459480; c=relaxed/simple;
-	bh=MrgS91ShigTmW6eO46xSubcaE3kR1feFb31hbEANW+E=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=tFWF8iLvQm6XHmS8hSbA+lkLkTuE8Rm8pCbyOsM4Kvu+AujrRL4eB/0O8cSkW7Qc97WtiNB0CjJtVEMFUZB0aD7KSx/jDwg4H6rYWSC0ts3EmnHeWTyaO+bN+Uz2BiK/6vNNwoAcZ49XeLhB6myybN4enrgo8WJWWu3E7tujg/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ionagze+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789459516; c=relaxed/simple;
+	bh=oZ0N0PsuEqbDomR5sP8cO8KR7NnXA59aOg2GPCnVdzM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DmYE5BWgXS+LYHs+7INUlQ6s8kzDE0w7McL5d0i6bTzr/7aZD7ZvG9h/SCv/Za7tmc4CyQlhxiHkxNMsf9xVFM4O8YphOuhgzO5MnaqCBx32Pk40m7fevLaztNX5mafTyGsIuqsCuNsirqhQdBBBhMydZhz+7F7JAPRh07+1798=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YvUHXw09; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ionagze+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 729EC1F00893
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:04:39 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789459479;
-	bh=rsG00H3X29c/2KMDCujSblcz4vgqgpQDzlk45QaDBZc=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=Ionagze+rDB8EyNkY8VHTNtJMcsROcNXHMeukzeG0xymUV+zRFL/CvraJSSX6rpmj
-	 rjI6lGa7ZRBH1VPxMrSeZvNCGxc1Qh08m2XcFEQTHfDIJYfh94hc++tH2yJW/8hZmL
-	 OYpshaUQMQhqOkUkx029RmOw4gyD4sduVpQXuLwR9LWPW9NOYN+Za7sVtwESrGtL/E
-	 v6lrx8S4/vwGCCv+9BWfCr7T9ES3gy352El+KXafwpAtcoJNYBmcLIKJ9ZEaG6Oq0d
-	 tad3PwnKgzXhr4d/mmt2fUNHyckrNkfgeeip2hziLYICBeOnCMUu5JzAY7ffWNTPdM
-	 MG11fv0q7YjrQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f1b846so13453e87.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:04:39 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwQidWVOjnB7OhTH6GIjG/9a4+CgLj3Qsn1uRNAlzB1/ukTAyloY1TPXjhYOh2pGFudK5mdWlc=@vger.kernel.org
-X-Gm-Message-State: AFuF++kCxTjqiCesH5qJw0rI3CbXTgpQtW0/EvwUfnD6kEF0VQ+r6QFR
-	q2RmtRkzB8lrzeBv2LITb+FYdiFj9EE7CLkUX4Qm+nngz7p1INnSJB+7tbyIdMKY7/cV9oNS8l9
-	wU5Nqn52QjjoDdb1Oj2dwpewyqT9Y2dp2tVi5Nrvnkw==
-X-Received: by 2002:a05:651c:a382:10b0:3a3:a3:3560 with SMTP id
- 38308e7fff4ca-3a5d836a18dmr196901fa.6.1789459478071; Tue, 15 Sep 2026
- 01:04:38 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Sep 2026 03:04:37 -0500
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Tue, 15 Sep 2026 03:04:37 -0500
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260915051948.1727882-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YvUHXw09"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso861013a91.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:05:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789459513; x=1790064313; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8oXVOqLbDDmDiQXcRbmwevDgD4MKWOik8Fi0EZ/eGXA=;
+        b=YvUHXw097GpnOeKx3RqOvXwHCDuOFBisU2oZR8wSUAlVg587FR5RKspun6BYboviEE
+         JJWC8Xl3JaAoNWvSFokP4axbLJ3T5W0lojiJku32hZen8xx0MIzsgYD91x/zaOuUXri2
+         AygA/0kn6SgQVCrUtNpq8KGevX+FuAv2Y4pSwwJxDc4h6YVyH2y4T7iVHjv9a0LfN13i
+         Wj7R3U00jJaeOhnhFPeMAR3O6WrWc13Y2N9zg3KMgajXP4pe1bD2YX/ngwaMPcJJldya
+         RNRqh5ZbVnlSCtGPyGNH21tvL+8cflMvBD05v2t9Sj9ceYgqTEmaVosiyfY9829iWW7/
+         Ocog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789459513; x=1790064313;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8oXVOqLbDDmDiQXcRbmwevDgD4MKWOik8Fi0EZ/eGXA=;
+        b=ZHd12Ey3wvCuB4gBroeh/wMLH2QSg0s+073uiFXJzzlYZzU+BaWfoTv5vynquI5+FT
+         O3SVUT9+VaXMpcgAT4FipaI0b9lx73BZJbo+vx3W13+Uouav5F7qNB2I62L0xgSZpRZO
+         oONtntXBScFK7u0eBcNyUTjEWS9z8M9J0oKdJ7usnVHBjDWGc845+hDICZksQ97KmtQI
+         WiUeXY9Erfe4pYaC4bvjx7xkNqdHZ426OiPSMQVW9oGv/ypw7JBZduv1Ho7NdtF2Gk4A
+         owdCZGiqrxgff5nRvV3VhGJMVU99bbq8fGGfoOYBKRQtPd0Ds14Y+w8cOmyM9npKwObp
+         sfEA==
+X-Forwarded-Encrypted: i=1; AKwUvBwG9RaxXiiBjuFovjp7TOLBjmMy3CMVcpiBJvTJbQYhQMifegFd8fmSkF8em0y1HLUn/h/hkIM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n0wfBk614rCV8x+L1X68M7JidzN1oVmYIKJ/69KhxO1iglDMmK
+	SI/r3Qp6smYcZawOGxdZwVv8TXxAIE33pz3XMifZSUvSNinEHpbtRDNo
+X-Gm-Gg: AYBFou1gN1J8B8bHA0y+sCWgOMBTKNn2VsCvHyIDS81BGUWmgjL76Uu2mn4zsgNizke
+	/xGIC8bbyQPLp1u8UAMyZd3DcU/68MQYWEfCAurg9TrMT2nIMa+er3+d6QBcVsthnCzkB7v5qv4
+	3U3xB6kymZuiCsXlHYoN+PucvPDJStqlznkLIgnVW96iQTfOMRfgnyGH+tNtf6R3YsHoRH3uCvM
+	QGii1lsAFTUckyWr4J83V4epOEbrCfl4hX2lvcQRkEBYpMm+kWGGZqApyVfaIkTEeb2AB2mStlE
+	h7scB8pBvjVVzo7xC2XR2PCPw+bqDJ5djfunR2Du3zO86iuY10aXYKJvx6oKwHfgQQps0RqV3Sw
+	l9/g1/8xIGsWqkpXw7B8NIZV/1x/yYOoXbFPWmZK+2gEbtenQHNSKLEsE64xwx2wQCSD6vJxGmF
+	pe5kE31z9FpkwU0sDzr/VlzRFLyEH5Pqpz6Rsl/BzrTsvrmh/D+tlA0w==
+X-Received: by 2002:a17:90b:314c:b0:398:9bd3:d6d6 with SMTP id 98e67ed59e1d1-39dfe1901e4mr2977305a91.16.1789459513101;
+        Tue, 15 Sep 2026 01:05:13 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfddc2759sm3727034a91.17.2026.09.15.01.05.07
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 01:05:12 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Sebastian Reichel <sre@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: i2c: gc0308: drop runtime PM reference after probe
+Date: Tue, 15 Sep 2026 16:05:01 +0800
+Message-ID: <20260915080501.2164892-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915051948.1727882-1-vulab@iscas.ac.cn>
-Date: Tue, 15 Sep 2026 03:04:37 -0500
-X-Gmail-Original-Message-ID: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
-X-Gm-Features: AcwNN1XW7NfnANW-I2Zs8w7V-vdvlDVqSq069SE8R4u2kbHCng7fsug6QCK_Y7Y
-Message-ID: <CAMRc=Mc3Gu129N9w67NzcPjK=EGgrB76922JiC3bg5NP9yzrTA@mail.gmail.com>
-Subject: Re: [PATCH 4/6] clocksource/drivers/davinci: Fix clock reference leak
- in of_davinci_timer_register
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org, tglx@kernel.org, 
-	lkml@vger.kernel.org, stable@vger.kernel.org, brgl@kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-On Tue, 15 Sep 2026 07:19:48 +0200, Wentao Liang <vulab@iscas.ac.cn> said:
-> of_davinci_timer_register() looks up the timer clock with of_clk_get(),
-> which takes a reference on the clock, and passes it to
-> davinci_timer_register(). That function enables the clock and keeps it
-> enabled for the lifetime of the timer, but it never takes ownership of
-> the reference and never calls clk_put(); only the error paths of
-> of_davinci_timer_register() dropped the reference, so on success the
-> reference obtained by of_clk_get() leaked.
->
-> Drop the reference unconditionally after davinci_timer_register()
-> returns: on failure the clock has already been disabled and unprepared
-> by davinci_timer_register(), and on success the clock stays enabled
-> while the consumer reference is released.
->
-> Fixes: 721154f972aa ("clocksource/drivers/davinci: Add support for clockevents")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/clocksource/timer-davinci.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/clocksource/timer-davinci.c b/drivers/clocksource/timer-davinci.c
-> index 16ee0687ef31..54700738fcd4 100644
-> --- a/drivers/clocksource/timer-davinci.c
-> +++ b/drivers/clocksource/timer-davinci.c
-> @@ -376,8 +376,11 @@ static int __init of_davinci_timer_register(struct device_node *np)
->  	}
->
->  	rv = davinci_timer_register(clk, &timer_cfg);
-> -	if (rv)
-> -		clk_put(clk);
-> +	/*
-> +	 * The clock is left enabled on success, but the consumer reference
-> +	 * taken by of_clk_get() is not needed anymore in either case.
-> +	 */
-> +	clk_put(clk);
->
->  	return rv;
->  }
+gc0308_probe() powers the sensor manually and takes a runtime PM
+reference with pm_runtime_get_noresume() before enabling runtime PM and
+autosuspend.
 
-I'm not following. If we keep the clock enabled, we must keep the reference. We
-just never disable it anywhere, so you correctly don't see the clk_put() in
-success path.
+The probe error path correctly drops this reference with
+pm_runtime_put_noidle(), but the successful probe path never releases
+it. As a result, the runtime PM usage count remains non-zero for the
+entire lifetime of the bound driver, preventing the sensor from
+runtime-suspending when idle.
 
-Bart
+Drop the initial runtime PM reference with
+pm_runtime_put_autosuspend() after the V4L2 subdevice has been
+successfully registered. This allows the usage count to reach zero and
+the sensor to enter runtime suspend after the configured autosuspend
+delay.
+
+This issue was found by manual code inspection.
+
+Fixes: 3ae52083b533 ("media: i2c: gc0308: new driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/i2c/gc0308.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/media/i2c/gc0308.c b/drivers/media/i2c/gc0308.c
+index 15900d5414cf..266f737f9c5d 100644
+--- a/drivers/media/i2c/gc0308.c
++++ b/drivers/media/i2c/gc0308.c
+@@ -1385,6 +1385,7 @@ static int gc0308_probe(struct i2c_client *client)
+ 		dev_err_probe(dev, ret, "failed to register v4l subdev\n");
+ 		goto fail_rpm;
+ 	}
++	pm_runtime_put_autosuspend(dev);
+ 
+ 	return 0;
+ 
+-- 
+2.43.0
+
