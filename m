@@ -1,32 +1,66 @@
-Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazon11013034.outbound.protection.outlook.com [52.101.83.34])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6174471CF2;
-	Tue, 15 Sep 2026 09:27:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464428; cv=none; b=i4NJtLRsFYY48gpCZZOz3iKO1PxNko3jovGxDFr9J6LkJAxOBpOrXQ5092ObMo2JfG77IaYh0DpJUqWiiQRKb5vTb6bxb3isKXTHxwNk+FFSCZlfwRpD66aG4kCXMdsAlk/vovFiBPyFupjEQsgSZijp5GYjUXym2hi49nc3Mik=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464428; c=relaxed/simple;
-	bh=jrav296c2HpTz0k20Kl+5LAjON8gv8iFrRCvB255baQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=NgJbGHEK5BTMUupBHx94cfst9KGOvD6auCS2yOxQS1gvu4a2++y5DWIJntdYR0edNqc8vwugsNl+OqEBMJ3frHZTxrF7VboXVxnr2rT0n+opSoSM7fzb3l4vo81gsPHLwGtEv/FfSz28768Bl+e4n1qZGJml0cWN7gI7jsMbcNY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=d8dIyBcA; arc=none smtp.client-ip=115.124.30.118
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF81B46EC61;
+	Tue, 15 Sep 2026 09:28:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.83.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789464531; cv=fail; b=JyLuwp7kWg4V0KLUh5OkaSqF2K8W7vcO3pVhEJBM7wVr3h3oWfVekTDvRs5JiMFB9nGaRFqln27zKocUBEVgDFi3bRwAmzZPCCE1Ii3St/ZSBPOxf5IgOB+ptY2+1WID4d1n2Fq8QNf40XGCj2FUMjf2wXtxq8ldRm86z5cqimA=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789464531; c=relaxed/simple;
+	bh=en4VwktEestKc7wi3+hokhbYX57OBOWo+QQukZXdliQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
+	 In-Reply-To:Content-Type; b=FJcTqFKPN/ZDy0HaFUFvS7ihFQJFIrlbzZenqkFiE5wv05kFv+fFjdWwfoWxdLt9+B5LsQ38ycFEUKfrcFCee9CuhJUGuTFFsjy/1cF7U3FrdPt4YuAK7HBU9WUiCBO9fgYzW2KuR8vUI///pWOfTQPzx7DFXYx1/zwIpj9EWwI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=kKTLWv1F; arc=fail smtp.client-ip=52.101.83.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="d8dIyBcA"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789464420; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
-	bh=0OZtua8DFLNJVs4PID79pkEn6QrqMiWm6otoJFtXXVc=;
-	b=d8dIyBcAtd/cSg8QhK+EGJgF5E8xuHWFDNEIWvSoTHIG8/WbfwPdgvzvwCqiFuOnA88Kid/YEvcXGU57Tj6eTv6UPMaj9wxGurRgB242z9L6UyqfDhmXKOFEA/ZWAjDRkASuD3d3alkBEjAkSIzXa3pxdeSz12MbM7o49u1LYeM=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XB1Au2f_1789464419;
-Received: from 30.166.1.13(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XB1Au2f_1789464419 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Tue, 15 Sep 2026 17:27:00 +0800
-Message-ID: <aeb6c68d-5c76-4e0d-b49b-d5a14345aa79@linux.alibaba.com>
-Date: Tue, 15 Sep 2026 17:26:59 +0800
+	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="kKTLWv1F"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wKeJZaW1UFN/RaYWtrzBR7/CLc77uBr25rk46eoy50JiYrZYyvEr+tE4yAoKgNy1fV41WpRhNJbT5W/o0DD382G4N12CylPicjkAp1ln5Xd0WqvnG5GgjxqzvucoNBjWn0qXAnX9GCpFTrGcU/MP2tbJkAKZ6rgd2s+50cbkmuwB14lI475mEDuXdK94C8Zt4j1W/SaPNxPpvYXTpivX9NR5LsblpOHibgNqldyXi0ROT+2V9/1KJNnRyRkrfJd8fPWTELaGa7FWienQbUP3l5cF9nz6dwXVANk/G/X5bwnAvxO8s7A1YqI18+AFjyixyeiDXaQXkFckVdOAGa/HVg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=aJu9pMXbUu/S5XtdMwkglNmdfanvW2z8asg04Ck3FsU=;
+ b=Y+eRefpJZKSX2Hpq6PJ+r8X5fz5z319Ypna1Vp2lluJJThIUHZNBZ5QFr6JBdBxI36aR0Dc8gTR03WK8aEf6xwgEEO5nX5yC/4f7SFfsjaJnzsXMz8A188iQQYV6pos1wvm+25h+PIrCFCBJEkkqYbIzYldzTzV0V0w8o7CLo+XOfh6xtO0wRpwWBvr6DTNzrehT9R+SAAUFEWdLJyR2J7oRN6NV28blHDQJ+dxF42Uq5u3CCBbapSt9wRAL9UVL2LJdA/q6d3U5KDSDASQnqTFYkED/XNbAE33aStPkME7WNAJlm3wULARMiEwOeC1lAzQhfALj3b/rG59sFYW43w==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
+ 164.130.1.59) smtp.rcpttodomain=iscas.ac.cn smtp.mailfrom=foss.st.com;
+ dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=aJu9pMXbUu/S5XtdMwkglNmdfanvW2z8asg04Ck3FsU=;
+ b=kKTLWv1F3xhk8Kl6BSTopIiMTc5CkJSmZ3fS4WKqT6Xrm08aqjTVu6iWEuqnuQdP2rEgtkfi4ty/wt7QeX0iRk6jGwHoSS0p9EU/QXr/WLUhg+Cmv9bGB33+J4k+TPom0dqD+LIlG3kI3WBiZFoivLUjgvVvZnYOA6oUapGrvlCN/FWlsTL3mS1a7APSneZgrK7ScD9lp9sYqpLjQDJb2vjb5APc6i0PoomQ/0dNpWWR7c4euMs9HKjwLw2hvX2PLEqC8OZI1aRXoOyUmlW+4lUP8WuWx5NyfO5wFkmA+tzP/NlWyfwd7uMBMBY8G4X50hKLPt2h5pjC5bV1B7EfmQ==
+Received: from WA2P291CA0003.POLP291.PROD.OUTLOOK.COM (2603:10a6:1d0:1e::7) by
+ AM7PR10MB3254.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:de::8) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.406.12; Tue, 15 Sep 2026 09:28:44 +0000
+Received: from WA1PEPF00009B3B.eurprd05.prod.outlook.com
+ (2603:10a6:1d0:1e:cafe::40) by WA2P291CA0003.outlook.office365.com
+ (2603:10a6:1d0:1e::7) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
+ Sep 2026 09:28:44 +0000
+X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
+ smtp.mailfrom=foss.st.com; dkim=none (message not signed)
+ header.d=none;dmarc=fail action=none header.from=foss.st.com;
+Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
+ designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
+ client-ip=164.130.1.59; helo=smtpO365.st.com;
+Received: from smtpO365.st.com (164.130.1.59) by
+ WA1PEPF00009B3B.mail.protection.outlook.com (10.167.242.41) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 09:28:42 +0000
+Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
+ (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
+ 2026 11:34:46 +0200
+Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
+ (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
+ 2026 11:28:41 +0200
+Message-ID: <cce8b6fb-eeb8-427e-b002-38ec6e8c9e60@foss.st.com>
+Date: Tue, 15 Sep 2026 11:28:39 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,89 +68,88 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ocfs2: fix chunk number of the first chunk in a local
- quota file
-To: Jiaming Zhang <r772577952@gmail.com>,
- Andrew Morton <akpm@linux-foundation.org>
-Cc: jlbec@evilplan.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev,
- linux-kernel@vger.kernel.org, syzkaller@googlegroups.com,
- stable@vger.kernel.org
-References: <CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com>
- <20260914034940.4070970-1-r772577952@gmail.com>
-From: Joseph Qi <joseph.qi@linux.alibaba.com>
-In-Reply-To: <20260914034940.4070970-1-r772577952@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH] clocksource/drivers/st_lpc: Fix clock reference leaks
+To: Wentao Liang <vulab@iscas.ac.cn>, <daniel.lezcano@kernel.org>
+CC: <lee@kernel.org>, <linux-arm-kernel@lists.infradead.org>,
+	<linux-kernel@vger.kernel.org>, <tglx@kernel.org>, <stable@vger.kernel.org>
+References: <20260915054804.1729741-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Patrice CHOTARD <patrice.chotard@foss.st.com>
+In-Reply-To: <20260915054804.1729741-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
+ (10.75.128.132)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: WA1PEPF00009B3B:EE_|AM7PR10MB3254:EE_
+X-MS-Office365-Filtering-Correlation-Id: 86f79c6d-383e-4249-0281-08df130bbbcb
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|36860700016|376014|82310400026|23010399003|1800799024|6133799003|10067099003|56012099006|11063799006|5023799004|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	Fvj4VIC2leO+WFhw7zJaPoRvHjyO8f/KUJmRrzqe23HmLbap0K0ZZ/PeP4K+/8PZcPkV53UOC+bJj+ETiaDHVatZb7UDqt80UUpeVgTNO12lMNDJL1nkRW3P0xejHf7hN6i+r1kOQWjfV3EoTmi8uQp90tfValxt871pgCoMiX7SjHXaGMpT/1w9JAM0/rCPy194Vi0aVK6Nd22+bkU1gsMqacllia8kfiKF58ebUZTAwnFiKdnwMDQU7hHKYqIrmmURObwfAChGF6gSWE1cQVUbNeu0C6eWoBGAGCWrmBpAoC20emQbHK/c6RnITn4PCXaoNoKy+zV1ZPL3KE6FBmtIVPo+rlpPmem7KJp5fLV61X6h35wvVmfNN7hx2DEurZwOT1wHnlyR2RaVDsPmmI3cdoIwQa1dZPIVxUJpR9N5sS6U1npW+DHm9ufA3e59ecOGz21CZGvGsCsTyCcUz2Nfp0a1+WUqqlYG09keUYKkzbPPyZum0XHeksndw2g7vwkuXUjX0kXhhQipw5+4gjCLiRuh5mZ4OrDLYP+F1h0sYR97q6Dwjr2Jte1XBtISfBJ11N2GlCoGI1U1lJV/F1JH7E8eTOKvALv2Lhi+o0PZkvL7/yqoTl56m+4wAbLo31ZISb/jSU/pG0diD5kPcagWe21xAuXWIfA0gEqaoxg/NfeMqCfvc4BbjL7fQt/CR/yZw3b73o4DbcKJgk0vjA==
+X-Forefront-Antispam-Report:
+	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(36860700016)(376014)(82310400026)(23010399003)(1800799024)(6133799003)(10067099003)(56012099006)(11063799006)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	/IvJuYR2nyXY+cqyqT8MJfypgQswKcsnDJyoTA95upFHfVcLPFoU1Nz3gfCFYeZ6dvbMcXdUYJRqXHnE9NsfI2yaUXwPCWuZ8mU/gqhOrmWnJ60DpY7wcSK0DVrP6sdapn9qrj9J4GOv9AY7GH+cXPHYD5wQMCy1tZ3Y+53AqNzu74JPEIMIO0QveaWnAYgF19W2Zh1hGlo/MTog2dR6wfLCqqSyrNKGH+95vIWzvrqKfk7013GbTUudJ+CamrUJxhvAIYqIXQF1P1FOW5qAcDSKHuLSFgoi0W4GleWMzdxUyBcaqSAbXR/O1l025B7IMOcDh+79O/waTFkbUf25PgALH66G/JwJw87dsq5q4PPeU56m2GwidTUJanWU11k5433SRw/RrJkrKmYVn57PARRYxWf1xqIeh5QL4R0/rqBiC6I8JF2MqkeyhAUUJNX9
+X-OriginatorOrg: foss.st.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:28:42.5078
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 86f79c6d-383e-4249-0281-08df130bbbcb
+X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	WA1PEPF00009B3B.eurprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM7PR10MB3254
 
 
 
-On 9/14/26 11:49 AM, Jiaming Zhang wrote:
-> The local quota file in OCFS2 is divided into chunks, and each chunk
-> begins with a header block holding a bitmap of the quota entries that
-> chunk has handed out.  Chunks are numbered from zero, and that number is
-> used to convert the file offset of an entry back into a bit position in
-> the bitmap. ocfs2_local_quota_add_chunk() appends a new chunk to the
-> in-memory list and numbers it one past the chunk that was last:
+On 9/15/26 07:48, Wentao Liang wrote:
+> st_clksrc_setup_clk() obtains the LPC clock with of_clk_get() but
+> leaks the consumer reference on two error paths: the
+> clk_prepare_enable() failure path returns without any release, and the
+> clk_get_rate() == 0 path only does clk_disable_unprepare() without
+> clk_put().
 > 
-> 	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
-> 	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
-> 				   struct ocfs2_quota_chunk,
-> 				   qc_chunk)->qc_num + 1;
+> Add the missing clk_put() calls, mirroring the release already done in
+> st_clksrc_of_register() error handling.
 > 
-> The predecessor is looked up after the new chunk is added to the list,
-> so if the list was empty, the prev pointer is the list head itself.  The
-> head is the dqi_chunk member of struct ocfs2_mem_dqinfo and is not a
-> chunk, so reading qc_num through it lands 16 bytes past the start of the
-> head, on the dqi_gqinode pointer that follows it.  The first chunk of
-> the file is then numbered with the lower half of a kernel pointer
-> instead of 0.
-> 
-> The list is empty when the local quota file header claims the file has
-> no chunks.  ocfs2_local_read_info() takes dqi_chunks from that header
-> without validating it, so an image with dqi_chunks == 0 takes this path
-> when the first quota entry is allocated.
-> 
-> ocfs2_create_local_dquot() turns the bad number into a file offset with
-> ol_dqblk_off(), which shifts a 32-bit block number left by the block
-> size bits, so the top bits of such a large block number are lost.
-> ocfs2_local_release_dquot() turns the offset back into a bit index with
-> ol_dqblk_chunk_off(), using the full chunk number, so the lost bits push
-> that index far outside the bitmap, and clearing it corrupts unrelated
-> memory.
-> 
-> Compute the chunk number before putting the chunk on the list, and use 0
-> when the list is empty.
-> 
-> Fixes: 9e33d69f553a ("ocfs2: Implementation of local and global quota file handling")
-> Closes: https://lore.kernel.org/lkml/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com/
+> Fixes: 70bef01c0f1c ("clocksource: sti: Provide support for the ST LPC Clocksource IP")
 > Cc: stable@vger.kernel.org
-> Assisted-by: Claude Code:claude-opus-5
-> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  fs/ocfs2/quota_local.c | 9 ++++++---
->  1 file changed, 6 insertions(+), 3 deletions(-)
+>  drivers/clocksource/clksrc_st_lpc.c | 2 ++
+>  1 file changed, 2 insertions(+)
 > 
-> diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
-> index f55810c59b1b..d351cda9211f 100644
-> --- a/fs/ocfs2/quota_local.c
-> +++ b/fs/ocfs2/quota_local.c
-> @@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk *ocfs2_local_quota_add_chunk(
->  		goto out;
+> diff --git a/drivers/clocksource/clksrc_st_lpc.c b/drivers/clocksource/clksrc_st_lpc.c
+> index 419a886876e4..574b966eeb34 100644
+> --- a/drivers/clocksource/clksrc_st_lpc.c
+> +++ b/drivers/clocksource/clksrc_st_lpc.c
+> @@ -74,12 +74,14 @@ static int __init st_clksrc_setup_clk(struct device_node *np)
+>  
+>  	if (clk_prepare_enable(clk)) {
+>  		pr_err("clksrc-st-lpc: Failed to enable LPC clock\n");
+> +		clk_put(clk);
+>  		return -EINVAL;
 >  	}
 >  
-> +	if (list_empty(&oinfo->dqi_chunk))
-> +		chunk->qc_num = 0;
-> +	else
-> +		chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
-> +					   struct ocfs2_quota_chunk,
-> +					   qc_chunk)->qc_num + 1;
->  	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
-> -	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
-> -				   struct ocfs2_quota_chunk,
-> -				   qc_chunk)->qc_num + 1;
->  	chunk->qc_headerbh = bh;
->  	*offset = 0;
->  	return chunk;
+>  	if (!clk_get_rate(clk)) {
+>  		pr_err("clksrc-st-lpc: Failed to get LPC clock rate\n");
+>  		clk_disable_unprepare(clk);
+> +		clk_put(clk);
+>  		return -EINVAL;
+>  	}
+>  
 
+
+Hi Haotian
+
+Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+
+Thanks
+Patrice
