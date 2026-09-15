@@ -1,95 +1,117 @@
-Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 338D9341ABB;
-	Tue, 15 Sep 2026 04:41:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7214837E5D7;
+	Tue, 15 Sep 2026 04:49:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789447303; cv=none; b=Q5M62MLVkZj+EotquW7MsdB86aQiD3PgCR8SaGgBdAQYGbbLPW8FhGD8FBicHYnb0gNzLxXe1dyRrP04K95FBY3CLwnRYuyQVLhd4aeId2aNGtZIMJfwJOJ4D14x5jmeMLICv0LbkdgC8MfGa7egJXNVB/gr/n2J0ibvfOX1Zvg=
+	t=1789447752; cv=none; b=uTjFmo6zp7uv4uqyedqqdI7bDCERvQ3+r/7QK0t207aJLVkqAFeRdxZHxgResEscSOHZ5XYMzZwIUZe9Yo6OOD+lAo0ZitW5uVJogL/k9dxVbmud/rlrXX8fPrwnET0VZv5XMJeK3Vf7+YgZ67q9AZGAOVgyE4198BPTBGv+ACw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789447303; c=relaxed/simple;
-	bh=Ju8eEBCVHgcYCSDtTSvxH8+HI9wZGttAxQSi45Bswoc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=q0+AQmJHIuT5LOS5d091qcSya2lACkfWep/BlzhkLLU5Ch4Xu8fHoi2TYRUBvYQm1pnd6IRjg4/KUE3AITdjs7I7qAOH+FWxvUX43RsKpc5J6x4WVvm7HHseuoQ4/1ikPcFHjhlxgTDb6SfdWSSwvVTIObK4ylcZr9ObFRtd1pY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=YjiJYm9A; arc=none smtp.client-ip=13.77.154.182
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+	s=arc-20240116; t=1789447752; c=relaxed/simple;
+	bh=vdkCvwfXIzsD0cJPJGZ7snyCG8l/wtQ6Xc3k96wpsF4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=J1RRKxvAxSZI37M/iSB0uhdUmxd0zvKwGpiSlufnNUkFQjeoi80zdnSQcMkQ3vtA/w1+CaBO39/c8E/3G4M+f1lblS4XhraX0QBeGhcdJr91dWqxq+yGQ/Dbd2LrvJMjA/UyyYPFnb6so8e5LKWSi28YmXYUwdS3+tG+L3P4/qw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Y1XOSA9m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="YjiJYm9A"
-Received: from [192.168.1.22] (unknown [4.194.122.162])
-	by linux.microsoft.com (Postfix) with ESMTPSA id DA0AA20B716B;
-	Mon, 14 Sep 2026 21:40:54 -0700 (PDT)
-DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com DA0AA20B716B
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
-	s=default; t=1789447257;
-	bh=1sQehgbLWYGj+S+yUfXvdCI2TMes99MZjrcGwUzDaFs=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=YjiJYm9AWuNLhyRL5alheaXn+Bfd/lmJegRMmM3/oMbFAQdJmoZY6JQNOeRrLs7eL
-	 TG7KgQK7NncaysFM54SosVXffPki99wIxld/ueer5CBY0IvZvk/hh360emaosVYhx6
-	 iTK31cg1lUAzqxVZ+OEgL1OdI5E0aJFPvV+NDZns=
-Message-ID: <3f771293-f5df-4e74-aca7-5d34966d00e0@linux.microsoft.com>
-Date: Tue, 15 Sep 2026 10:11:36 +0530
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Y1XOSA9m"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72F641F000FF;
+	Tue, 15 Sep 2026 04:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789447751;
+	bh=SBi1oH0/CTNATCkjFwhK+8zaxvaVE7CGcZmLnTYGtxo=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Y1XOSA9m0nN9zLzax/SfzWcFsuLnMJKkYnksyk08t120nLnejZYf5YU5lNLBJWkHB
+	 eTboNh/c/oQJHhNFJBFoXaPY5X3tRDxtwiwMY94sW+i8jtMoCiWgsfQV82syPf1Fsd
+	 o32hT4L6yqA8zPT1Dl1pVl80dSp+UXQmqVu8VcJ4=
+Date: Mon, 14 Sep 2026 21:49:10 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com, liam@infradead.org,
+ ljs@kernel.org, vbabka@kernel.org, jannh@google.com, pfalcato@suse.de,
+ peterx@redhat.com, jgg@ziepe.ca, david@kernel.org, sashiko-bot
+ <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] proc/task_mmu: handle special PMDs in clear_refs and
+ pagemap
+Message-Id: <20260914214910.a22cfcdc250bfbb6b14edaf8@linux-foundation.org>
+In-Reply-To: <20260912122822.3348978-1-gourry@gourry.net>
+References: <20260912122822.3348978-1-gourry@gourry.net>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] mshv_vtl: Check per-CPU register page before mmap
-To: Hardik Garg <hargar@linux.microsoft.com>, kys@microsoft.com,
- haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com
-Cc: mhklinux@outlook.com, ssengar@linux.microsoft.com,
- romank@linux.microsoft.com, linux-hyperv@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260911175146.1370148-1-hargar@linux.microsoft.com>
-Content-Language: en-US
-From: Naman Jain <namjain@linux.microsoft.com>
-In-Reply-To: <20260911175146.1370148-1-hargar@linux.microsoft.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
+On Sat, 12 Sep 2026 08:28:22 -0400 Gregory Price <gourry@gourry.net> wrote:
 
-
-On 9/11/2026 11:21 PM, Hardik Garg wrote:
-> Register-page setup is optional for each CPU. If allocation or
-> registration fails, mshv_vtl_configure_reg_page() warns and leaves that
-> CPU's reg_page NULL, but initial context setup continues successfully.
-> Meanwhile, successful setup on another CPU sets the global
-> mshv_has_reg_page flag.
+> mshv_vtl_low can install a special PMD from a PFN supplied in the mmap file
+> offset.  That PFN need not have a memmap entry.  Reading /proc/PID/pagemap
+> or writing /proc/PID/clear_refs for such a mapping oopses the kernel.
 > 
-> mshv_vtl_fault() checks this global flag before selecting the requested
-> CPU's register page. With mixed setup results across online CPUs, the
-> check passes even for a CPU with no register page, reaching
-> get_page(NULL) when userspace faults in that mapping.
+> With a test driver mapping the PFN at the 1 TiB mark:
 > 
-> Check the selected per-CPU register page before taking its reference and
-> return VM_FAULT_SIGBUS if it is absent.
+>   echo 1 > /proc/self/clear_refs
 > 
-> Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
-> ---
->   drivers/hv/mshv_vtl_main.c | 3 +++
->   1 file changed, 3 insertions(+)
+>   BUG: unable to handle page fault for address: fffffb5b80000008
+>   #PF: supervisor read access in kernel mode
+>   #PF: error_code(0x0000) - not-present page
+>   RIP: 0010:clear_refs_pte_range+0xb1/0x1e0
+>   Call Trace:
+>    walk_pgd_range+0x50a/0xad0
+>    __walk_page_range+0x6a/0x1d0
+>    walk_page_range_mm_unsafe+0x193/0x230
+>    clear_refs_write+0x18e/0x3f0
 > 
-> diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
-> index fc993560a45c..3296ab5c0243 100644
-> --- a/drivers/hv/mshv_vtl_main.c
-> +++ b/drivers/hv/mshv_vtl_main.c
-> @@ -912,6 +912,9 @@ static vm_fault_t mshv_vtl_fault(struct vm_fault *vmf)
->   		return VM_FAULT_NOPAGE;
->   	}
->   
-> +	if (!page)
-> +		return VM_FAULT_SIGBUS;
-> +
->   	get_page(page);
->   	vmf->page = page;
->   
+>   pread(pagemap_fd, buf, 512 * 8, addr / PAGE_SIZE * 8)
+> 
+>   BUG: unable to handle page fault for address: fffff57840000008
+>   RIP: 0010:pagemap_pmd_range+0x3cf/0x6b0
+>   Call Trace:
+>    walk_pgd_range+0x50a/0xad0
+>    __walk_page_range+0x6a/0x1d0
+>    walk_page_range_mm_unsafe+0x193/0x230
+>    pagemap_read+0x1dc/0x350
+> 
+> clear_refs_pte_range() passes the PMD to pmd_folio(), while
+> pagemap_pmd_range_thp() uses pmd_page() followed by page_folio().
+> 
+> Both paths assume the PFN has a struct page and dereference bad address.
+> 
+> Use vm_normal_folio_pmd() and vm_normal_page_pmd() so clear_refs skips
+> folio operations and pagemap skips folio-derived flags for special PMDs.
+> This matches the PTE paths, which already use vm_normal_folio() and
+> vm_normal_page().
+> 
+> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+> Cc: <stable@vger.kernel.org> # v6.19+
+
+Why cc:stable?  Is a crafted test driver the only way of hitting this?
 
 
-LGTM. Thanks.
+> --- a/fs/proc/task_mmu.c
+> +++ b/fs/proc/task_mmu.c
+> @@ -1671,7 +1671,9 @@ static int clear_refs_pte_range(pmd_t *pmd, unsigned long addr,
+>  		if (!pmd_present(*pmd))
+>  			goto out;
+>  
+> -		folio = pmd_folio(*pmd);
+> +		folio = vm_normal_folio_pmd(vma, addr, *pmd);
+> +		if (!folio)
+> +			goto out;
+>  
+>  		/* Clear accessed and referenced bits. */
+>  		pmdp_test_and_clear_young(vma, addr, pmd);
+> @@ -1991,7 +1993,7 @@ static int pagemap_pmd_range_thp(pmd_t *pmdp, unsigned long addr,
+>  		goto populate_pagemap;
+>  
+>  	if (pmd_present(pmd)) {
+> -		page = pmd_page(pmd);
+> +		page = vm_normal_page_pmd(vma, addr, pmd);
+>  
+>  		flags |= PM_PRESENT;
+>  		if (pmd_soft_dirty(pmd))
 
-Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
-
-Regards,
-Naman
