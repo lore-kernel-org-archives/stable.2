@@ -1,43 +1,44 @@
-Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2E8E3839A1;
-	Tue, 15 Sep 2026 06:33:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F419374E5A;
+	Tue, 15 Sep 2026 06:34:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454006; cv=none; b=ocXPDTCHa+K2HG5zFo9Qxx7am6+bMzT2KBnZj5Lo4o5bD7VLwLLup/1I9U2FcYAq2pRzPPtvXHld7TZyHpPq8paEEgw7dAt2Z51P+F9mFWC8zqP2nfDVuVPw8IiHGVzqZt8NagaEO+AwJYU2rDp1VGbDvlyJqXF9zcUnc0mXkoE=
+	t=1789454058; cv=none; b=bZEB6bOJ1vxNjoiCPOp2pcWGTBcInqNfIiI4UVUl2SbGYBi3JZ+/vzMG/b4LcKH6B4oFUwvUEuBXkeIwiAVUQTQ85jLaa+EFL+y37DBFdIfwiGWMS7pAEdyASYO6g4X2qpDLUJrvGYLs2n3h7DeiHVL1ctlEIunkkMkSzZkz3wU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454006; c=relaxed/simple;
-	bh=wmbkmz5elqXH+Ee6bCo5UGfkcslESAKS3yI1/cEiXho=;
+	s=arc-20240116; t=1789454058; c=relaxed/simple;
+	bh=Ser9KmsN1N57Rla+KhmDHZ+zORwXgQxdfa4OX3xOa08=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=VYuQevQOudwEVnUhlkFwyMTRBXOjlB0znVDujQ6ZgIWKaZDs5TxM3w9ZzNPtyVbMxM5vUd5Vwzz1efWat5TpEoDS2z66BHUjU25sh3YEbD+8ptqzdoE+W/cL4ncttMVXhY9lVuAfBkOWBKgLHSiM4322ajdk2BYQrSlYBQdWVSE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=T8M1b4Oh; arc=none smtp.client-ip=198.137.202.133
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
+	 Content-Type:Content-Disposition:In-Reply-To; b=iSIGoe0ioXGNQZK0yxtYK7Qzjg/IpeN8nCLJoKxJ+es8YHvgfkIluf1EWvULrJguuFzwb2hVEuT2Qk/n+ROTPWuPwG+mtTqKvatWhiWwMD2fqG+fGn++iolFmclN9OZZ5VdJKEahiWhu5IyVrcRluNe1vbDvj2smUwBjU4a8bGo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=doVFDbsy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="T8M1b4Oh"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
-	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=CgzcBpZknaxw2d108gJra5McxdciI70P9szsLpVMkVY=; b=T8M1b4OhQUKhMSHljz37VAv5t3
-	Cfvivc06wP0B8kJPXlgQgk1DyBM7cLBF5mcChLpKkixq7l+HNHWb9crtD5r4gd4Zvk5tilmsEcAWT
-	7MY/YM+lJ+7UNVYFlpeniBPN/umIDyAJhjrNZeSmkzoVvNFRnrqGLaypcCIYWtdd7I9A5s1Cqi/Xv
-	4AMx5+NmAy5gY+4LtWD219AQJXdWN6qrRIgimbhOCPOBOofRcGPEKANLsTZawTQGZ9mvvVVxfYosk
-	BeVsCc6CUAfPV1p82uenkIu42ahvMGtIoedVRtCkSJENIJLMptcBF/uFbNGbfWwCYRcqko3HlKICw
-	kwHfcyaw==;
-Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x6MjN-00000005M0q-00Y3;
-	Tue, 15 Sep 2026 06:33:25 +0000
-Date: Mon, 14 Sep 2026 23:33:24 -0700
-From: Christoph Hellwig <hch@infradead.org>
-To: "Darrick J. Wong" <djwong@kernel.org>
-Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Subject: Re: [PATCH 11/11] xfs: fix wild memcpy access when formatting ondisk
- rtrefcount btree roots
-Message-ID: <aqjmtJCMRkYfpbZ9@infradead.org>
-References: <178945048435.3061055.16384804993810925544.stgit@frogsfrogsfrogs>
- <178945048731.3061055.2062919508652373941.stgit@frogsfrogsfrogs>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="doVFDbsy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63D711F000FF;
+	Tue, 15 Sep 2026 06:34:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789454056;
+	bh=au+l37rDlIofO/OyR7zRhhJQrP7Rz6WCu1SPKN84omM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=doVFDbsyA1x4Gktsi+LtE/9eA53BBBxG2OJTRDljpLjv3g4G0uyqepGyb09SBztm0
+	 y84HnfhYZ9vsUKve49uoNNmKPZ2rE6YA2ceLSMjc/+oK8ZrNQAmYTbhnOOtmfHyf2u
+	 yh+cMis66E5vBzGGPyoQ8XnvBZvQ/vwYXedqnlrtSxbOzYwoVAoS31M3Uv3Iy0SHUw
+	 EzQPvyZUKn+O9F7A++5iYqsp/rqtz4K+L8X/pT9e1ofl/k3hnM0xIP5rUfaMJrAZ0u
+	 bwS62p2H4uQllEm0v8OCZDOioiWzTI+6ygP8M0BEPXyGKgndvU7q5N+hSVM7FtgHWa
+	 VoVRn/Jc8Q95g==
+Date: Mon, 14 Sep 2026 23:34:14 -0700
+From: Peter Chen <peter.chen@kernel.org>
+To: Myeonghun Pak <mhun512@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Thierry Reding <thierry.reding@kernel.org>,
+	Jonathan Hunter <jonathanh@nvidia.com>,
+	Dmitry Osipenko <digetx@gmail.com>, linux-usb@vger.kernel.org,
+	linux-tegra@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Ijae Kim <ae878000@gmail.com>
+Subject: Re: [PATCH] usb: chipidea: tegra: disable runtime PM on resume
+ failure
+Message-ID: <aqjm5m4NhLCeGSJY@hu-petche-lv.qualcomm.com>
+References: <20260913041033.25144-1-mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,19 +47,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <178945048731.3061055.2062919508652373941.stgit@frogsfrogsfrogs>
-X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
+In-Reply-To: <20260913041033.25144-1-mhun512@gmail.com>
 
-On Mon, Sep 14, 2026 at 10:39:25PM -0700, Darrick J. Wong wrote:
-> From: Darrick J. Wong <djwong@kernel.org>
+On 26-09-13 00:10:33, Myeonghun Pak wrote:
+> tegra_usb_probe() enables runtime PM before resuming the device. If
+> pm_runtime_resume_and_get() fails, probe returns without disabling runtime
+> PM. The later error paths reach pm_runtime_force_suspend(), but this early
+> return bypasses that cleanup.
 > 
-> LOLLM noticed that the inode btree root formatting methods copy too many
-> bytes -- there's only one set of keys in node blocks, not two.  This
-> causes memory corruption of whatever's beyond the buffers.
+> Disable runtime PM before returning the resume error. Do not use the
+> fail_power_off path: the failed resume did not retain a usage reference,
+> so its pm_runtime_put_sync_suspend() would be unbalanced.
+> 
+> This issue was identified during our ongoing static-analysis research while
+> reviewing kernel code.
+> 
+> Fixes: 8b85e11c1a7a ("usb: chipidea: tegra: Add runtime PM and OPP support")
+> Cc: stable@vger.kernel.org
+> Assisted-by: OpenAI:GPT-5.6
+> Co-developed-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Ijae Kim <ae878000@gmail.com>
+> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 
-Eeek.
+Acked-by: Peter Chen <peter.chen@kernel.org>
 
-Looks good:
+Peter
+> ---
+>  drivers/usb/chipidea/ci_hdrc_tegra.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/usb/chipidea/ci_hdrc_tegra.c b/drivers/usb/chipidea/ci_hdrc_tegra.c
+> index 372788f0f..26225b034 100644
+> --- a/drivers/usb/chipidea/ci_hdrc_tegra.c
+> +++ b/drivers/usb/chipidea/ci_hdrc_tegra.c
+> @@ -306,8 +306,10 @@ static int tegra_usb_probe(struct platform_device *pdev)
+>  
+>  	pm_runtime_enable(&pdev->dev);
+>  	err = pm_runtime_resume_and_get(&pdev->dev);
+> -	if (err)
+> +	if (err) {
+> +		pm_runtime_disable(&pdev->dev);
+>  		return err;
+> +	}
+>  
+>  	if (device_property_present(&pdev->dev, "nvidia,needs-double-reset"))
+>  		usb->needs_double_reset = true;
 
-Reviewed-by: Christoph Hellwig <hch@lst.de>
+-- 
 
+Thanks,
+Peter Chen
