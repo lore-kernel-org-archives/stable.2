@@ -1,142 +1,162 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 311F136167B;
-	Tue, 15 Sep 2026 02:38:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DB93233958;
+	Tue, 15 Sep 2026 02:43:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789439921; cv=none; b=IpUCRmYzF4vavTkEIEd16hl9Ev1p8pb4xEjEKkuPDLhHZbwU/kJGdhBJwYBtao530C8I2p/3YXE+LBI3dqUX33GIpsq4S0tAF65FTb0L8oPrZ1XylZHrVGUfc/W7vZc/rXjBbpIDB06UDAbjDzELU+gW/+XY54WGuHQBeQNNYQc=
+	t=1789440210; cv=none; b=EGFcpoCBHBgycnupuI2MJ3GQq+zRlmgVhlf4yQfWd8gbF+00aLU6klHOmrV0w2U15k/AicMENIcbj38fA3cyXZct9fwGxWdo306ui/NZ+1Y6xQhnKigsy39BxEiXGALh8ufhFWvYCxbteXevyeONw6XrkpAbcCBONT+irF/x0OE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789439921; c=relaxed/simple;
-	bh=sD0CbVZjYfuUt/1x+eCqpicKdhNo1b84q+U0C9cb7is=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BAVpMFECJJ5jH3xaiEMRDxWWUEOMF8GsA/o9Ywt+HURULP/1Dq3G8QolEqXrBHZI2NQrI+nAs0furlJc1TwXatihLFgNelnZ2lLQMGK42Ecem42VYi1JKSFCLE4QhwjbXaQfSOHikxoWRVgKbnb8hO3JssbftOO73Hw7A/Q/mQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 861834d0b0ae11f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:81b7f636-eab6-4434-a11c-21b69845b48c,IP:0,U
-	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
-	:release,TS:-5
-X-CID-META: VersionHash:7db8b62,CLOUDID:bebd3ff60e7db9e85ad101ac9f87eb23,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 861834d0b0ae11f19a56ed5b684f684d-20260915
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 319589923; Tue, 15 Sep 2026 10:38:24 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] ntfs: mount hibernated volumes read-only regardless of errors=
-Date: Tue, 15 Sep 2026 10:38:20 +0800
-Message-Id: <20260915023820.621797-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1789440210; c=relaxed/simple;
+	bh=wQmMUfPkFNNsvwVLzhLC++Mp3JUvq1kVIkUfOYmIDW4=;
+	h=Date:To:From:Subject:Message-Id; b=f4VR0WQ16srzus/jBivzzNo/hBwQArK3KvarsorVI/JdflE93PEfbafM38wYLForzcbqkJ8bLr7lFoIcQM0tnqDCC27sRYYm+icL4Y7i2BrmtTWNZ7P8mXZZ9LoURpWmH6y6A2PtUPDivsHmLUOJimWaDoQxdI8KnBI1a83w/PI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ODoHg3K2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ODoHg3K2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E51A11F00893;
+	Tue, 15 Sep 2026 02:43:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789440209;
+	bh=u+22RNZwjGRUscc1nVfzg5P3Aox836hLNSgLSB2hL8c=;
+	h=Date:To:From:Subject;
+	b=ODoHg3K2B8JLM27kAFSdZYdMkhSAfcbJEqJBQF0s5BD0dn1GIYnPDJHqqm78C+t0v
+	 E8U5rfI+pqJoLD5kfmVsDi02VVZSNygwIE7pmdNDVyIoh1Swv9tZ3pK7xLnlLbMLcR
+	 67GPdGn0BjyjXKFGdDeezGZfKq1/xlD2jsCX73CQ=
+Date: Mon, 14 Sep 2026 19:43:28 -0700
+To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,stable@vger.kernel.org,ryan.roberts@arm.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,dev.jain@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,baohua@kernel.org,ngocthang2710.1999@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [failures] khugepaged-hold-invalidate_lock-across-collapse_file-readahead.patch removed from -mm tree
+Message-Id: <20260915024328.E51A11F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The hibernation check in load_system_files() only converts the
-superblock to read-only under errors=remount-ro.  With the default
-errors=continue (and with errors=panic), a hibernated volume is
-mounted read-write and the mount-time $LogFile emptying writes to it,
-although a hibernated volume must not be written to at all.
 
-Drop the on_errors term so that a hibernated volume, or a volume whose
-hibernation state cannot be determined, always mounts read-only.
-NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-remounts to read-write, and the $LogFile emptying is skipped by its
-!sb_rdonly() check.
+The quilt patch titled
+     Subject: khugepaged: hold invalidate_lock across collapse_file() readahead
+has been removed from the -mm tree.  Its filename was
+     khugepaged-hold-invalidate_lock-across-collapse_file-readahead.patch
 
-Also change the ntfs_error() calls inside
-check_windows_hibernation_status() to ntfs_warning(): they run before
-SB_RDONLY is set, so errors=panic could panic there, while the warnings
-preserve diagnostics for already read-only mounts.  The read-only
-fallback message is logged unconditionally: with SB_RDONLY set, or on
-an already read-only mount, ntfs_error() cannot panic, and the reason
-for NVolErrors() stays visible.
+This patch was dropped because it had testing failures
 
-Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+------------------------------------------------------
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Subject: khugepaged: hold invalidate_lock across collapse_file() readahead
+Date: Sun, 13 Sep 2026 23:36:44 +0700
 
+collapse_file() calls page_cache_sync_readahead() to fault in missing
+pages before collapsing them into a THP.  That helper takes
+mapping->invalidate_lock itself for the duration of the call, then drops
+it -- but truncate (e.g.  ext4_setattr() -> truncate_pagecache()) takes
+invalidate_lock and then waits on each page's folio lock while holding it.
+If collapse_file() has already locked one of those folios by the time
+truncate reaches it, and then tries to acquire invalidate_lock again (e.g.
+on the first readahead call, since invalidate_lock is not yet held at
+that point), the two paths can deadlock/hang on each other's lock:
+truncate blocked on the folio lock collapse holds, and collapse blocked
+waiting for invalidate_lock that truncate holds.
+
+Reproducing this over ~150,000 collapse iterations with truncate racing
+concurrently reliably hits hung_task: blocked tasks within about 20
+seconds on an unpatched kernel.
+
+Fix it by taking invalidate_lock_shared once for the whole scan, after
+alloc_charge_folio() succeeds and before locking any folio, and using
+page_cache_ra_unbounded() directly in the readahead call site instead of
+page_cache_sync_readahead(), since the latter would try to retake the lock
+we already hold.  page_cache_ra_unbounded() does not clamp to EOF like the
+helper it replaces, so clamp the requested range explicitly.
+
+730633f0b7f9 added invalidate_lock acquisition around readahead but missed
+collapse_file(), which already locks pages while calling readahead; later
+filesystem conversions made the deadlock reachable by taking
+invalidate_lock before waiting on page locks during truncate.
+
+Link: https://lore.kernel.org/20260913163644.122133-1-ngocthang2710.1999@gmail.com
+Fixes: 730633f0b7f9 ("mm: Protect operations adding pages to page cache with invalidate_lock")
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: syzbot+16bf7cd0ebeb1de93aa5@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=16bf7cd0ebeb1de93aa5
+Tested-by: Lance Yang <lance.yang@linux.dev>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Barry Song <baohua@kernel.org>
+Cc: David Hildenbrand <david@kernel.org>
+Cc: Dev Jain <dev.jain@arm.com>
+Cc: Liam R. Howlett <liam@infradead.org>
+Cc: Lorenzo Stoakes <ljs@kernel.org>
+Cc: Matthew Wilcox (Oracle) <willy@infradead.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
+Cc: Zi Yan <ziy@nvidia.com>
+Cc: <stable@vger.kernel.org>
 ---
-Changes in v3:
- -Use ntfs_warning() for the hibernation diagnostics so that
-  errors=panic cannot fire on this path.
- -Always log the read-only fallback message, including on already
-  read-only mounts.
----
- fs/ntfs/super.c | 19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f4a73e45773d..d1edf1a891e8 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -1169,7 +1169,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
- 			return 0;
- 		}
- 		/* A real error occurred. */
--		ntfs_error(vol->sb, "Failed to find inode number for hiberfil.sys.");
-+		ntfs_warning(vol->sb, "Failed to find inode number for hiberfil.sys.");
- 		return ret;
- 	}
- 	/* Get the inode. */
-@@ -1177,7 +1177,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
- 	if (IS_ERR(vi)) {
- 		if (!IS_ERR(vi))
- 			iput(vi);
--		ntfs_error(vol->sb, "Failed to load hiberfil.sys.");
-+		ntfs_warning(vol->sb, "Failed to load hiberfil.sys.");
- 		return IS_ERR(vi) ? PTR_ERR(vi) : -EIO;
- 	}
- 	if (unlikely(i_size_read(vi) < NTFS_HIBERFIL_HEADER_SIZE)) {
-@@ -1188,7 +1188,7 @@ static int check_windows_hibernation_status(struct ntfs_volume *vol)
+ mm/khugepaged.c |   28 +++++++++++++++++++++++++---
+ 1 file changed, 25 insertions(+), 3 deletions(-)
+
+--- a/mm/khugepaged.c~khugepaged-hold-invalidate_lock-across-collapse_file-readahead
++++ a/mm/khugepaged.c
+@@ -2251,6 +2251,7 @@ static enum scan_result collapse_file(st
+ 	enum scan_result result = SCAN_SUCCEED;
+ 	int nr_none = 0;
+ 	bool is_shmem = shmem_file(file);
++	bool need_unlock = false;
  
- 	folio = read_mapping_folio(vi->i_mapping, 0, NULL);
- 	if (IS_ERR(folio)) {
--		ntfs_error(vol->sb, "Failed to read from hiberfil.sys.");
-+		ntfs_warning(vol->sb, "Failed to read from hiberfil.sys.");
- 		ret = PTR_ERR(folio);
- 		goto iput_out;
- 	}
-@@ -1581,11 +1581,16 @@ static bool load_system_files(struct ntfs_volume *vol)
- 		const char *es1;
+ 	/*
+ 	 * MADV_COLLAPSE ignores shmem huge config, so do not check shmem
+@@ -2265,6 +2266,15 @@ static enum scan_result collapse_file(st
+ 	if (result != SCAN_SUCCEED)
+ 		goto out;
  
- 		es1 = err < 0 ? es1a : es1b;
--		/* If a read-write mount, convert it to a read-only mount. */
--		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
-+		/*
-+		 * A Windows hibernation image is not a filesystem error, so
-+		 * this is a safety interlock rather than something the
-+		 * errors= policy may downgrade: always convert a read-write
-+		 * mount to read-only.
-+		 */
-+		if (!sb_rdonly(sb))
- 			sb->s_flags |= SB_RDONLY;
--			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
--		}
++	/*
++	 * Take invalidate_lock before any folio lock: the readahead below
++	 * needs it, and truncate holds it while waiting on folio locks.
++	 */
++	if (!is_shmem) {
++		filemap_invalidate_lock_shared(mapping);
++		need_unlock = true;
++	}
 +
-+		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
- 		NVolSetErrors(vol);
- 	}
+ 	mapping_set_update(&xas, mapping);
  
--- 
-2.25.1
+ 	__folio_set_locked(new_folio);
+@@ -2331,10 +2341,20 @@ static enum scan_result collapse_file(st
+ 			}
+ 		} else {	/* !is_shmem */
+ 			if (!folio || xa_is_value(folio)) {
++				DEFINE_READAHEAD(ractl, file, &file->f_ra,
++						  mapping, index);
++				pgoff_t eof = DIV_ROUND_UP(i_size_read(mapping->host),
++							    PAGE_SIZE);
++
+ 				xas_unlock_irq(&xas);
+-				page_cache_sync_readahead(mapping, &file->f_ra,
+-							  file, index,
+-							  end - index);
++				/*
++				 * invalidate_lock held above; don't retake it.
++				 * page_cache_ra_unbounded(), unlike the readahead
++				 * helper this replaces, does not clamp to EOF.
++				 */
++				if (index < eof)
++					page_cache_ra_unbounded(&ractl,
++						min(end, eof) - index, 0);
+ 				/* drain lru cache to help folio_isolate_lru() */
+ 				lru_add_drain();
+ 				folio = filemap_lock_folio(mapping, index);
+@@ -2666,6 +2686,8 @@ rollback:
+ 	folio_unlock(new_folio);
+ 	folio_put(new_folio);
+ out:
++	if (need_unlock)
++		filemap_invalidate_unlock_shared(mapping);
+ 	VM_BUG_ON(!list_empty(&pagelist));
+ 	trace_mm_khugepaged_collapse_file(mm, new_folio, index, addr, is_shmem, file, HPAGE_PMD_NR, result);
+ 	return result;
+_
+
+Patches currently in -mm which might be from ngocthang2710.1999@gmail.com are
+
 
