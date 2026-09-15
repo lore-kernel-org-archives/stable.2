@@ -1,73 +1,76 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4194A38DC44
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:35:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7426137B01F
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:39:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789436149; cv=none; b=EAZ4e7RpIrsRrxHCbc/18f/Lo47LOuz/WRb8s8/NjPxKeFNCZxmSIbO22P+rZVllKN9P+9CqGZYtbENbMxmg4VCtVc0RGrA9vtXaGRS391fhn8if2xv2DbiZLbBAhu1W8KayFR0yNiFIBTFYCH3HHBQPvlOFXIYDFFUlTQPGg4s=
+	t=1789436399; cv=none; b=iskzavoGc1DIYyg+YIYozviRLuzFiqvVt+ZCnaTFhg1aArGk/dM1eEoL9qzll9doXZ3ATiOqIDecv2MLC36GPBgt9+M7AsbhxbwS+tTW79zgCtEoOydBdZx9XnIIDuxKwQ/I2xidomUwON95SYloJH68rlPA1u7KS4rtU668o0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789436149; c=relaxed/simple;
-	bh=6Ks+xsuYG7cTmaDMBguFljJXWFMHILbuZCCXEhp3hz8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=izgluP5mh3J14pv3j/+Ctjmff2bFCWy2ZJ5HibEgAffn2ifk/bG4EVh/dUR5eRAsrERKd/k+DGrkR0nrcxp18H9KOaCO8Jh7JIiT1FcVZQW0xKv29jo89P2R1Uig0YvmSZQ5Lh+Hr4GoMwrDYPmqQbOTTUvEWpxhLUbRO1195+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YYRZXE2Y; arc=none smtp.client-ip=74.125.230.205
+	s=arc-20240116; t=1789436399; c=relaxed/simple;
+	bh=vGrgc1V20xnDibYfrrIi8qa8Tu+oEf6Obx12JO0LlVU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=EMaXtMceDCGbC/f9PyD5OHJF6htoIvM57Y4hbY3lK25TMHXxo1wC6kKY8YTCbIa4iwDH8dBT1BL/PbU6b9SEFqdJlf5V08Y4Cl58eV8cuB0jT5auxUCzikI5P1/frscHrjLtvUkXTCVrKFn/7pHheaap0WS6z3ti0GrdGxaz+1k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NwtIoB9u; arc=none smtp.client-ip=74.125.230.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YYRZXE2Y"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530fa0716f6so25234281cf.3
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:35:46 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NwtIoB9u"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0bso35423036d6.3
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:39:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789436146; x=1790040946; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789436397; x=1790041197; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=OYSdJ3BpaBA99mybiSOcxyeplaGMmUigodcgqfqpRMM=;
-        b=YYRZXE2YfGN6AWFt47nNnux8MA6K+niA4xbntiuOuNcsUQL3TNCtm+XlCv5Vxe+QKs
-         /anhC+UE2x2kkpT+mK8BATKxCOoHBgYzYrb5nxQgqv3839HBKAn880usg3nkl2LGrD6N
-         MAuTolgIkq2O9dr3u0aR2ntTql6oSYyyIo7eioVXB6kj3+ACfCHAQ2Nku8kvhT4CPhQz
-         p8QgZ4zg5BAxdTYsssXSNloSAW4Z3A8etBDfbmaKcxykr7hK+Dg13xBfFyyHDESMMkSE
-         hgjSfenwmIiaOmDL3TNA1yshuqfJCtVwAAYrH8aBzYChaHSI4uigN4qTuUaF10DLQ4jQ
-         bUPA==
+        bh=jA+Gm6Df8SoCPT+Ci3PSWeT1OW/hMiB/+pCm2kOG6rI=;
+        b=NwtIoB9uBCJBStw43FF00dz/JUW8IcbSJkZDvVoj37TxtTAHnCCQjj938SAgjT9z4Z
+         7HEKgUy7qeh+K6qUGSNqi3sfjTQien7T2sm/cVYNu5fI11NYgiSpGCjcfB0Oe4NNGEmi
+         ok9s5EGBps2fliKtRo0bcB1Mc3PMY7bzh0AkJGtT5mjpK5MvweehQemXzyJuhN5YcKVK
+         7TVtV3ucjGm4/ERWdbOJ4/qB/vV7RbkN5LM/27BTn+bFCUnIF4xRsT8KUdpb4wbyvY/s
+         hYNDJbwaS8hVyWXf5258gdZ5RfS7QCcU5E4m5ue3simD8y3dk//pmf1sw9ESEIOnPZnR
+         2lyw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789436146; x=1790040946;
+        d=1e100.net; s=20260707; t=1789436397; x=1790041197;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=OYSdJ3BpaBA99mybiSOcxyeplaGMmUigodcgqfqpRMM=;
-        b=iOFzyiWkbzcn42n7QEeFz57LEGpg0g+zJXI999Kw1hvVlis38dLOcW9H58WDdyTL2Z
-         g/4fIsBAhgFlMg7tQxFVSks/EXHkH4V9Pi9s1Ou2KfkJ8SAHCiI8L8mui+vW7uZG94QE
-         mcWkAt8v1W99uYWKet91lEjMCS/jVqyr8qdfcU/ZyBPrUXEzyd4aIuc1d4v6DUHHABIy
-         X728Nszgovp6qAp4AP6m+Krfks0JGjOWSn7DO/Y6J7hZoHM8cRovCsh783D08VDnwX/m
-         7d8x6xXtj9woHLsbI8DQEHLPi6FMSj6V/xRkyDmaog+WrY4qU0qSGtz/2OjbR4a2pQAp
-         cL6w==
-X-Forwarded-Encrypted: i=1; AKwUvBxwkuGVLVk3il3sBfBu/8R2yYHIJLL2P5Bh/jAlJJV6W4ZwEe84FFTHZFVyh8zzjkFLTPCvqSE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLPyMXvdp6NVTYtP9ynD70dTi6eqdw/HmUoATPK8Cni8fBqBm2
-	5yBokOF7dlsm1B8rAllFX8qKCn81v8W3u2HdCuHiwu8HbneY83F++A4=
-X-Gm-Gg: AYBFou1x/TIpiJHL7PMnx1FUroam/N9bPrvGoal1tddlF3NCzfU5BEq1iNAw0m+3VCi
-	QXpYda1YteDFuGUtasI743pnQSe233OxrEdxqGmkMHWudJEOvq3iHtf9/ppGJJ7D+/YouBoC8y1
-	Kx/7OGUGxgdEHMbyMj3VIicnCR9fg+QXYd5aUZAVSLV+ERwzCoJMDHwY73xdnBaGZ/8eIQ52HKD
-	mhpn6ZRKeantSRiRh1p0z6HSLNJzhM4LADObK+C/Kfy9kly7p6jzMGw0tmQryXZJ+mXT7tzoXZK
-	/mjgPcnTbRoUdMhT44VZ7q5PUYWxf3sHPusc9fKu35hQnKMNjjZa96hfyjv/R3KNpQwBigxMbKI
-	Zl5Sj4FuVhR2oMPtjb4G4q9ZBjaMlcVZ5nyScDq+a952ua6k3zHur6tgWKSMMBJxlXePKw///ud
-	H4qfwPit+z/j6+dGMi8Dcgwbda1uTTLl20lD1zNSDNZ8e04utQGRFwwZWyMPOEii5HloUp8dbDJ
-	N6Bshm337aHRgQCMYO+m5E8zkn36xuLkVxdCnNO+alDoGHmdGBnAqUmettnJNA2GDHNPPs4Us+2
-	gRpEGv9BgMk+NlRb20eMrdCjrB49Gm8+9wKd4YkLSr/DJR4Nz4zUmTqS5g7ySX+7p0cAIw==
-X-Received: by 2002:ac8:5a51:0:b0:530:e1b1:eaeb with SMTP id d75a77b69052e-5310cf60669mr78434021cf.21.1789436145940;
-        Mon, 14 Sep 2026 18:35:45 -0700 (PDT)
+        bh=jA+Gm6Df8SoCPT+Ci3PSWeT1OW/hMiB/+pCm2kOG6rI=;
+        b=Fn8hJFq1tx2cu8JNl/dVfyg6bdcvMD0qWI6LeFPAMehbSGCmGXiWQ1Pq0vmEctwsMU
+         bTqBaCejkbaIX6UR4wIiEbRxTGk7Amupu6WHBv7yfMCHtq6GEK9yGwbIJnquMLPLT2Te
+         i1242bH+tke3cJ5lg2PtXlG2fUj4CjEqJbdeeFXROy+pQxMF9MJCbTXCYb1NpERUcLtV
+         hT/fiz6R2ins4NOyBN+ZetljFTSeqCX3t/Pob4lUC44lc5vb+o4KfmfbjA0Fwq0d6xMD
+         08bobjmgvnFla/5fd7sF+xIHQ05vIkcPScoaOMB4qOKde8yS4zPJFEbI0auwN2pNFpkD
+         vuOQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx/eshsaTsc4hVuhghha07XTaE4CcO5uOGkcX2drJukN267NP0PqyZ9W2BP8gxXylxhxoWwyIw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lBOI5meHVzAkrv6PPkZq5z7JhlIAQFQ36c7rCBEiCgLZWZ5G6e
+	kZWrQ03eKoUmoQCT5S4c9wdP1E7PC2vkVthliZCo35J39n6D5KweFzs=
+X-Gm-Gg: AYBFou1KodWXY0si22MZ5xvXgaNTTu96bnd69YnfLPvtmfa1LLuGvQ87O194HqMYjAS
+	oINBs78mYjMuDu9WQozcL6P7yVCLQfGxBPo0f7wCYc+f9DpyKlolF2wh0GlqNNUMy/ToaMuxIKg
+	Ml+wScrNiA2Ei//8PcSy0D1YbeXWSb51e00eSDM4npNQ4phTdxdvlZJ7pWinawtoJDRXJvvZIPx
+	1M4c7hqIWFaD3KrH2Lpu6k7GxcwqD3Mp0WLr5WVrQefHVd+MPlgCG+KOtn0JhP9fM8WQZD8qKxs
+	7K54FR6kB1zBkMcXKWBpkNrD09ArCSUzyZsg6JAlcoP/CbpXzWkb67Z6gLQRIKXrzJaQbrUSKWB
+	cE78bI+9rA/nkadurMrZIfUNqCF7g0alMSLEOEHIPYpRLpnvtYO14o2vmYP7h01Aa8dmo+QcjW7
+	H4x9wlDM742cZssb7XcvEWJplP2sWskjKC+RkbREfmsVQCyflvWsWdpC8kvKWXmRhXf6czu9ToZ
+	DQJEC8XobVuidQB8g6zdKV1tF1qsRYHt5DmpTAiZfnpfYaG6kx7KGGn9eBmkJod3bvU/XekG5v0
+	7k3SA3jbLTiHKpuzMCELFSSSR/dSZ1cIAPlQ4iYX8W2UTvhexsMXv7EBwRA+20gJosG8kQ==
+X-Received: by 2002:a05:6214:5f05:b0:910:6339:1888 with SMTP id 6a1803df08f44-9122e4d4ab3mr103911166d6.2.1789436394569;
+        Mon, 14 Sep 2026 18:39:54 -0700 (PDT)
 Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-530f9b99fc7sm66059601cf.30.2026.09.14.18.35.44
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4787eesm108637906d6.21.2026.09.14.18.39.52
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 18:35:44 -0700 (PDT)
+        Mon, 14 Sep 2026 18:39:53 -0700 (PDT)
 From: Myeonghun Pak <mhun512@gmail.com>
-To: "Arvind R." <arvino55@gmail.com>
-Cc: Borislav Petkov <bp@alien8.de>,
-	Tony Luck <tony.luck@intel.com>,
-	linux-edac@vger.kernel.org,
+To: Michael Grzeschik <mgr@kernel.org>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] EDAC/i82975x: Balance PCI ownership on probe and module exit
-Date: Mon, 14 Sep 2026 21:35:37 -0400
-Message-ID: <20260915013537.71211-1-mhun512@gmail.com>
+Subject: [PATCH net 1/2] net: arcnet: com20020-pci: clean up failed channels
+Date: Mon, 14 Sep 2026 21:39:45 -0400
+Message-ID: <20260915013946.73963-1-mhun512@gmail.com>
 X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,79 +80,93 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-i82975x_init_one() leaves its PCI enable reference behind on failure
-and removal. Also, the fallback probe is never removed at module exit:
-i82975x_registered is initialized to one and never changed.
+After com20020_found() registers a netdev and requests its IRQ, seven
+allocation or LED-registration failure paths free the netdev without
+unregistering it or freeing the IRQ. The unfinished channel is not yet
+on list_dev, so the common remove path cannot clean it up.
 
-Balance PCI enablement and track successful fallback initialization so
-module exit removes controllers that are not bound to the PCI driver.
-Only remember a normally probed device after successful initialization,
-and release the saved device reference on both normal and fallback exit.
+Route those failures through unregister_netdev() and free_irq() before
+free_arcdev(). Keep failures before successful com20020_found() on the
+existing free-only path.
 
 This issue was identified during our ongoing static-analysis research
 while reviewing kernel code.
 
-Fixes: 420390f06a5a ("drivers/edac: new i82975x driver")
+Fixes: 6b17a597fc2f ("arcnet: restoring support for multiple Sohard Arcnet cards")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Co-developed-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Ijae Kim <ae878000@gmail.com>
 Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
 ---
- drivers/edac/i82975x_edac.c | 13 +++++++++----
- 1 file changed, 9 insertions(+), 4 deletions(-)
+ drivers/net/arcnet/com20020-pci.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/edac/i82975x_edac.c b/drivers/edac/i82975x_edac.c
---- a/drivers/edac/i82975x_edac.c
-+++ b/drivers/edac/i82975x_edac.c
-@@ -233,7 +233,7 @@ static struct pci_dev *mci_pdev;
- 					 * already registered driver
- 					 */
- 
--static int i82975x_registered = 1;
-+static bool i82975x_fallback;
- 
- static void i82975x_get_error_info(struct mem_ctl_info *mci,
- 		struct i82975x_error_info *info)
-@@ -597,6 +597,10 @@ static int i82975x_init_one(struct pci_dev *pdev,
- 		return -EIO;
- 
- 	rc = i82975x_probe1(pdev, ent->driver_data);
-+	if (rc) {
-+		pci_disable_device(pdev);
-+		return rc;
-+	}
- 
- 	if (mci_pdev == NULL)
- 		mci_pdev = pci_dev_get(pdev);
-@@ -620,6 +624,7 @@ static void i82975x_remove_one(struct pci_dev *pdev)
- 		iounmap( pvt->mch_window );
- 
- 	edac_mc_free(mci);
-+	pci_disable_device(pdev);
- }
- 
- static const struct pci_device_id i82975x_pci_tbl[] = {
-@@ -670,6 +675,7 @@ static int __init i82975x_init(void)
- 			pci_rc = -ENODEV;
- 			goto fail1;
+diff --git a/drivers/net/arcnet/com20020-pci.c b/drivers/net/arcnet/com20020-pci.c
+--- a/drivers/net/arcnet/com20020-pci.c
++++ b/drivers/net/arcnet/com20020-pci.c
+@@ -243,7 +243,7 @@ static int com20020pci_probe(struct pci_dev *pdev,
+ 				    GFP_KERNEL);
+ 		if (!card) {
+ 			ret = -ENOMEM;
+-			goto err_free_arcdev;
++			goto err_unregister_netdev;
  		}
-+		i82975x_fallback = true;
- 	}
  
- 	return 0;
-@@ -688,10 +694,9 @@ static void __exit i82975x_exit(void)
+ 		card->index = i;
+@@ -256,14 +256,14 @@ static int com20020pci_probe(struct pci_dev *pdev,
+ 							dev->dev_id, i);
+ 			if (!card->tx_led.default_trigger) {
+ 				ret = -ENOMEM;
+-				goto err_free_arcdev;
++				goto err_unregister_netdev;
+ 			}
+ 			card->tx_led.name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
+ 							"pci:green:tx:%d-%d",
+ 							dev->dev_id, i);
+ 			if (!card->tx_led.name) {
+ 				ret = -ENOMEM;
+-				goto err_free_arcdev;
++				goto err_unregister_netdev;
+ 			}
+ 			card->tx_led.dev = &dev->dev;
+ 			card->recon_led.brightness_set = led_recon_set;
+@@ -272,24 +272,24 @@ static int com20020pci_probe(struct pci_dev *pdev,
+ 							dev->dev_id, i);
+ 			if (!card->recon_led.default_trigger) {
+ 				ret = -ENOMEM;
+-				goto err_free_arcdev;
++				goto err_unregister_netdev;
+ 			}
+ 			card->recon_led.name = devm_kasprintf(&pdev->dev, GFP_KERNEL,
+ 							"pci:red:recon:%d-%d",
+ 							dev->dev_id, i);
+ 			if (!card->recon_led.name) {
+ 				ret = -ENOMEM;
+-				goto err_free_arcdev;
++				goto err_unregister_netdev;
+ 			}
+ 			card->recon_led.dev = &dev->dev;
  
- 	pci_unregister_driver(&i82975x_driver);
+ 			ret = devm_led_classdev_register(&pdev->dev, &card->tx_led);
+ 			if (ret)
+-				goto err_free_arcdev;
++				goto err_unregister_netdev;
  
--	if (!i82975x_registered) {
-+	if (i82975x_fallback)
- 		i82975x_remove_one(mci_pdev);
--		pci_dev_put(mci_pdev);
--	}
-+	pci_dev_put(mci_pdev);
- }
+ 			ret = devm_led_classdev_register(&pdev->dev, &card->recon_led);
+ 			if (ret)
+-				goto err_free_arcdev;
++				goto err_unregister_netdev;
  
- module_init(i82975x_init);
--- 
-2.51.0
+ 			dev_set_drvdata(&dev->dev, card);
+ 			devm_arcnet_led_init(dev, dev->dev_id, i);
+@@ -299,6 +299,9 @@ static int com20020pci_probe(struct pci_dev *pdev,
+ 		list_add(&card->list, &priv->list_dev);
+ 		continue;
+ 
++err_unregister_netdev:
++		unregister_netdev(dev);
++		free_irq(dev->irq, dev);
+ err_free_arcdev:
+ 		free_arcdev(dev);
+ 		break;
