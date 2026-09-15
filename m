@@ -1,131 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.20])
+Received: from out30-118.freemail.mail.aliyun.com (out30-118.freemail.mail.aliyun.com [115.124.30.118])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95E1133065D;
-	Tue, 15 Sep 2026 09:25:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.20
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6174471CF2;
+	Tue, 15 Sep 2026 09:27:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464316; cv=none; b=VwaMy7GUmU11FWys0e8+byguTnADn1CBlwPOEdrj900gPu3pJxRH8a3LsQIXogUarJd6BU63FxR3oPE6DlfVzos8ffUu9g9Uw6bCVr3HO4ja4Md+JaVaJ+zDAmehw4VA5PxvllF6xInPD5e6A3XRmqv8y/kgOU83HYopq1LpmmI=
+	t=1789464428; cv=none; b=i4NJtLRsFYY48gpCZZOz3iKO1PxNko3jovGxDFr9J6LkJAxOBpOrXQ5092ObMo2JfG77IaYh0DpJUqWiiQRKb5vTb6bxb3isKXTHxwNk+FFSCZlfwRpD66aG4kCXMdsAlk/vovFiBPyFupjEQsgSZijp5GYjUXym2hi49nc3Mik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464316; c=relaxed/simple;
-	bh=kpB3SAVgIZOoK1y/EZ07VrHDFw4+00eyojP3H2DblKY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=P5PzPtSIvKLXggB6uTrb7xXTrghnza67C85n6zeQ8X8H77OC8ROK0YfDnYVHl2zTe/7+uNyNFt47zsSIZVmy3tqatiWWMu9Gg1QAozV28JEG0T+AF0PFRO/H+Ny1BDCuTOjT5MHwGZ86v0GXZ1u/HNE5o7DbWcIGo6WmFOfPmoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=HV5wXS6B; arc=none smtp.client-ip=198.175.65.20
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789464428; c=relaxed/simple;
+	bh=jrav296c2HpTz0k20Kl+5LAjON8gv8iFrRCvB255baQ=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=NgJbGHEK5BTMUupBHx94cfst9KGOvD6auCS2yOxQS1gvu4a2++y5DWIJntdYR0edNqc8vwugsNl+OqEBMJ3frHZTxrF7VboXVxnr2rT0n+opSoSM7fzb3l4vo81gsPHLwGtEv/FfSz28768Bl+e4n1qZGJml0cWN7gI7jsMbcNY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=d8dIyBcA; arc=none smtp.client-ip=115.124.30.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="HV5wXS6B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789464314; x=1821000314;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=kpB3SAVgIZOoK1y/EZ07VrHDFw4+00eyojP3H2DblKY=;
-  b=HV5wXS6Bkwq4f1BH08/GI5A15HqQOH8eupTy7/EBETT0v4MXVF5fgkOF
-   Iv+4gv7RnXTZ8vEzUpPn2XzdOTRCCVv8Eby5yGfQluX2raoDyCxplKO8F
-   curB39Enm2GZ0nJrUuxv3PHXVfP77nQfColSTYBGyho8ZkXTbkPFXiTlo
-   GSXAFGKn7iuQEUIbFF3Xg2lawoC1WaY6bFMsKPQqKTStoR6d7T39SG26k
-   1ksLtswh9d33vNVXBL0mzksWLMxyDxCDLFre5Y9DBvmMgNKf2j3qUwD9D
-   WWzmPDKc8l39pxZyiDhL3FFkm65qdH/YJvwMLKLsXhP0VjfA9/f0Kv7tL
-   A==;
-X-CSE-ConnectionGUID: jrO74pTBRnK+Sk9ZcKooqQ==
-X-CSE-MsgGUID: +MUrYCVMRbCTRUqGiPqCQA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89581627"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89581627"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa112.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:25:14 -0700
-X-CSE-ConnectionGUID: DbiWeQEaRPe436dI3olGvQ==
-X-CSE-MsgGUID: nHoWyeIaQ5SbzmFXY1h2Bw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1118026"
-Received: from conormcd-mobl2.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.227])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 02:25:12 -0700
-Received: from kekkonen.localdomain (localhost [IPv6:::1])
-	by kekkonen.fi.intel.com (Postfix) with SMTP id 2C5E511FB58;
-	Tue, 15 Sep 2026 12:25:19 +0300 (EEST)
-Date: Tue, 15 Sep 2026 12:25:19 +0300
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
-From: Sakari Ailus <sakari.ailus@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Manivannan Sadhasivam <mani@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Benjamin Bara <benjamin.bara@skidata.com>,
-	linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] media: i2c: imx290: fix runtime PM reference handling on
- probe errors
-Message-ID: <aqkO_5jknMbFe3IW@kekkonen.localdomain>
-References: <20260915082229.2235439-1-lgs201920130244@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="d8dIyBcA"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux.alibaba.com; s=default;
+	t=1789464420; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type;
+	bh=0OZtua8DFLNJVs4PID79pkEn6QrqMiWm6otoJFtXXVc=;
+	b=d8dIyBcAtd/cSg8QhK+EGJgF5E8xuHWFDNEIWvSoTHIG8/WbfwPdgvzvwCqiFuOnA88Kid/YEvcXGU57Tj6eTv6UPMaj9wxGurRgB242z9L6UyqfDhmXKOFEA/ZWAjDRkASuD3d3alkBEjAkSIzXa3pxdeSz12MbM7o49u1LYeM=
+X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R451e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033032089153;MF=joseph.qi@linux.alibaba.com;NM=1;PH=DS;RN=8;SR=0;TI=SMTPD_---0XB1Au2f_1789464419;
+Received: from 30.166.1.13(mailfrom:joseph.qi@linux.alibaba.com fp:SMTPD_---0XB1Au2f_1789464419 cluster:ay36)
+          by smtp.aliyun-inc.com;
+          Tue, 15 Sep 2026 17:27:00 +0800
+Message-ID: <aeb6c68d-5c76-4e0d-b49b-d5a14345aa79@linux.alibaba.com>
+Date: Tue, 15 Sep 2026 17:26:59 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915082229.2235439-1-lgs201920130244@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] ocfs2: fix chunk number of the first chunk in a local
+ quota file
+To: Jiaming Zhang <r772577952@gmail.com>,
+ Andrew Morton <akpm@linux-foundation.org>
+Cc: jlbec@evilplan.org, mark@fasheh.com, ocfs2-devel@lists.linux.dev,
+ linux-kernel@vger.kernel.org, syzkaller@googlegroups.com,
+ stable@vger.kernel.org
+References: <CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com>
+ <20260914034940.4070970-1-r772577952@gmail.com>
+From: Joseph Qi <joseph.qi@linux.alibaba.com>
+In-Reply-To: <20260914034940.4070970-1-r772577952@gmail.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Hi Guangshuo,
 
-On Tue, Sep 15, 2026 at 04:22:29PM +0800, Guangshuo Li wrote:
-> imx290_probe() takes an initial runtime PM reference with
-> pm_runtime_get_noresume(). Historically, the probe error path balanced
-> that reference with pm_runtime_put_noidle().
+
+On 9/14/26 11:49 AM, Jiaming Zhang wrote:
+> The local quota file in OCFS2 is divided into chunks, and each chunk
+> begins with a header block holding a bitmap of the quota entries that
+> chunk has handed out.  Chunks are numbered from zero, and that number is
+> used to convert the file offset of an entry back into a bit position in
+> the bitmap. ocfs2_local_quota_add_chunk() appends a new chunk to the
+> in-memory list and numbers it one past the chunk that was last:
 > 
-> The change that moved the successful-path pm_runtime_put_autosuspend()
-> into imx290_subdev_init() made the initial runtime PM reference get
-> dropped once imx290_subdev_init() is called.
+> 	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+> 	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+> 				   struct ocfs2_quota_chunk,
+> 				   qc_chunk)->qc_num + 1;
 > 
-> The longest probe error path, however, still falls through to err_pm
-> and calls pm_runtime_put_noidle(). Failures from imx290_subdev_init()
-> or v4l2_async_register_subdev() therefore decrement the runtime PM
-> usage count a second time.
+> The predecessor is looked up after the new chunk is added to the list,
+> so if the list was empty, the prev pointer is the list head itself.  The
+> head is the dqi_chunk member of struct ocfs2_mem_dqinfo and is not a
+> chunk, so reading qc_num through it lands 16 bytes past the start of the
+> head, on the dqi_gqinode pointer that follows it.  The first chunk of
+> the file is then numbered with the lower half of a kernel pointer
+> instead of 0.
 > 
-> Move pm_runtime_put_noidle() to the imx290_stop_streaming() failure
-> path, which is the only error path taken before imx290_subdev_init()
-> drops the initial runtime PM reference.
+> The list is empty when the local quota file header claims the file has
+> no chunks.  ocfs2_local_read_info() takes dqi_chunks from that header
+> without validating it, so an image with dqi_chunks == 0 takes this path
+> when the first quota entry is allocated.
 > 
-> This issue was found by manual code inspection.
+> ocfs2_create_local_dquot() turns the bad number into a file offset with
+> ol_dqblk_off(), which shifts a 32-bit block number left by the block
+> size bits, so the top bits of such a large block number are lost.
+> ocfs2_local_release_dquot() turns the offset back into a bit index with
+> ol_dqblk_chunk_off(), using the full chunk number, so the lost bits push
+> that index far outside the bitmap, and clearing it corrupts unrelated
+> memory.
 > 
-> Fixes: a92651b8e288 ("media: i2c: imx290: Avoid communication during probe()")
+> Compute the chunk number before putting the chunk on the list, and use 0
+> when the list is empty.
+> 
+> Fixes: 9e33d69f553a ("ocfs2: Implementation of local and global quota file handling")
+> Closes: https://lore.kernel.org/lkml/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com/
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Assisted-by: Claude Code:claude-opus-5
+> Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
+
+Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
 > ---
->  drivers/media/i2c/imx290.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  fs/ocfs2/quota_local.c | 9 ++++++---
+>  1 file changed, 6 insertions(+), 3 deletions(-)
 > 
-> diff --git a/drivers/media/i2c/imx290.c b/drivers/media/i2c/imx290.c
-> index 21cbc81cb2ed..c2cdb1557dea 100644
-> --- a/drivers/media/i2c/imx290.c
-> +++ b/drivers/media/i2c/imx290.c
-> @@ -1634,6 +1634,7 @@ static int imx290_probe(struct i2c_client *client)
->  	ret = imx290_stop_streaming(imx290);
->  	if (ret) {
->  		ret = dev_err_probe(dev, ret, "Could not initialize device\n");
-> +		pm_runtime_put_noidle(dev);
-
-Don't add extra error handling here.
-
-Please do the same as for gc0308: drop getting and putting references
-altogether, and call pm_runtime_idle() at the end of probe().
-
->  		goto err_pm;
+> diff --git a/fs/ocfs2/quota_local.c b/fs/ocfs2/quota_local.c
+> index f55810c59b1b..d351cda9211f 100644
+> --- a/fs/ocfs2/quota_local.c
+> +++ b/fs/ocfs2/quota_local.c
+> @@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk *ocfs2_local_quota_add_chunk(
+>  		goto out;
 >  	}
 >  
-> @@ -1662,7 +1663,6 @@ static int imx290_probe(struct i2c_client *client)
->  	imx290_subdev_cleanup(imx290);
->  err_pm:
->  	pm_runtime_disable(dev);
-> -	pm_runtime_put_noidle(dev);
->  	imx290_power_off(imx290);
->  	return ret;
->  }
+> +	if (list_empty(&oinfo->dqi_chunk))
+> +		chunk->qc_num = 0;
+> +	else
+> +		chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
+> +					   struct ocfs2_quota_chunk,
+> +					   qc_chunk)->qc_num + 1;
+>  	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
+> -	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
+> -				   struct ocfs2_quota_chunk,
+> -				   qc_chunk)->qc_num + 1;
+>  	chunk->qc_headerbh = bh;
+>  	*offset = 0;
+>  	return chunk;
 
--- 
-Regards,
-
-Sakari Ailus
