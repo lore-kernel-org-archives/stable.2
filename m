@@ -1,116 +1,82 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 601E72C11DF
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3016B29A9C3;
+	Tue, 15 Sep 2026 01:03:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789434156; cv=none; b=Q4VK1S2wwKReZDvS+kWED13wTI7EH1WOvkiuvRjU1njiZZS5ZCHJrF1JJiexmt8KgfC799jAJdFpuYuJOe7CJ3B9kO1VCOMBwj9FUNR15rKPCTFgi2VUNqLU1fDNWSL5KUECfMIzL/IldV2n17CwCIzdx6MZW9wiBNDEOJ1o66U=
+	t=1789434205; cv=none; b=TeVBu2TD50UUcYBn+X9qKBoerDAQiX8PKQREY0lhXcuhPFcTWRgTwEUGEibMkmdOdNRuqjDfj9LbJYRlyPf7w8Snb7zk3CtCb2TeqgbVHKCtmHx3+D+YEUjumyzhoCZf9v4Nt13OuiznMkEJ5M9gfO6AyVWxtr6DELCJjHxoQ5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789434156; c=relaxed/simple;
-	bh=3AjDIB7EWMAVyxipcTRH5OCK7onXDuyQbUsnnxBTwFs=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dESn3UDM4LtQkcXH5indTzGeCq4KzhLgEPQcLfDrpyvF/ppkbfpy3aAk7BUHpM67oATc3GkaX1GfH1fqOcoPKBph9RVGAa7u2sSMrpNCL0++mN569qib2OeJQusGDzn5+3k6UxmvkoMXtJvdQHjGD/Y7tsppN8/2msgNsVyujk4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=oTi2vJ2g; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789434205; c=relaxed/simple;
+	bh=ikx6CZu4sJTUdT4YtO8hSIjEY9iSEDOe7wD07BmcRmA=;
+	h=Content-Type:MIME-Version:Message-Id:In-Reply-To:References:
+	 Subject:From:To:Cc:Date; b=G8OArOLeP0YodB4sf9eBBkYtpKI0HIe7Avwt6EiYn8oDGCidUKSna1IL36BTjPlq92uK44OJiLNW9QUbtr84NMZlDkVVjUof42wUNUCkNbXkWnnlJPi4nCwDtlFktethbrjGYZ2jYSaZdDvUulxf8gwYgGBQY59bFZXCTg/wRbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nixbaqla; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="oTi2vJ2g"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0aso34475936d6.1
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 18:02:35 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789434154; x=1790038954; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=VPCy7DFPSTAzIsYv8xVVBEwv2TCCDPqTTW4KAZaR2co=;
-        b=oTi2vJ2gosfgW99S4eXgzmp4t7GytrGlM0wyr4ENrAYlNNreuItA5WPuMeK0KixFbz
-         RO7ZLj/dsyoGgRpUtTcuD8RgkMILKFnULh2kmCscQlSJD6mLpo896kb02a7I5Mjw54vl
-         GWlx/V37WRb6z0Df/0/1sEXTZa/IpG/PxoRvBvrGWJMAZ9lKIol/9+Q+UHIzp16HNwXd
-         4uN7MjP08Y7QGRbC/Ao+4q4ezb8/Qf4m52rKFtbA4GhBge3zimOVm612frSiSZt5wKva
-         tdUX2oSkfZTuplDHXrCUtlOQKtUZGjL5RcTdti7G4cbboIhf4tD1EwvAB9nuQJ4jcpuR
-         xd5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789434154; x=1790038954;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=VPCy7DFPSTAzIsYv8xVVBEwv2TCCDPqTTW4KAZaR2co=;
-        b=FZdVEnUbeQVmcEqHfxUv7hkB//km8EAFn+0Wj71vhtzpIdLh5T0Omy0AzbU4lHU8AM
-         IlBY5nfns/vNyFFfKPTs0+rVJaQVh/qwfqSn3zyx24IjVBZUXdcib3E9ahKpQs+O9Anw
-         TVvz3LbN9DHYDYwXf07fskZqUTv8GUx+e3HDjg65kOpwBqlg/n7u0ywvrDV2QQpehTdP
-         vqjHixBr9TgbgcRu07d2N2tEF+pxvc05AmONcsnaFIoANRJxemEuPc9TXWNxexgh2M2c
-         7nRLlKTHijY+n/0V+M3Q3kYMCp+5AldHYB5GB2hK0s12OgIlQbm+l2vYpF19ho+jmtNX
-         srTQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxmNTmfU3JGp3ajqgd592gesYGEsjRViM5LtZP1PzhrTQVPrv/IiC4c0fFj5jsRk2EA3fXUcrk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSuj7oRwVNy48PiDkDfrf6O5P6A3huM3FYX1dIz4TP0IEQO8k/
-	R1ZmDhb+IDiW5oYklN6CoSXkRzL3u1LdEB9gblBWsb94kWTjyPvbamo=
-X-Gm-Gg: AYBFou1PM+rw+IzLfLWM7ttMI4TMQJW4uqK+fBoc60IJzhb/OYTaf1vfXy0eQMR9BrQ
-	HOxSvxkJvxPq0ib0/Lr/glseS/q7Pm+nPZqtbLZglaG0Ese9KQCcFOhAiNbW3hmQdpRXKvQqAm9
-	WxrNVxv4k6Cenf4pdUgBHeE/VJPf4Hs5SRy2W9jmI/zL+xNCuUmQsrPsqCGPAjt8qceRD5a88nN
-	FhH1jllzhAzvw0y32AojfNqmG3KKPvh1/JjXiV799Zsz3oPSCFEpIBCH9kT+GlklLXRTXtjClLH
-	jHnDWxTBvivRZ8zmn8pYx16GV+6sXcq83MkhGvxWdcIMkaIkwTQjlRX3aFLlQQVVrmzJsMljPLz
-	NWxrrzNRCnxiAP04QAQXrNLfurQ/gRthaxuZInAMwdu/YERw7V3bq5fCTJguiol2CGvVjKguZ42
-	v5epG0kjoHAYDuzDkQAsuWSgiwQn6i0ZC/OzOlzb0OhbyOr/vPwsvXX24jbnPmVXtQ/NRl/5Pck
-	epBdqhDdovsBMN5nGQND3dLbO2A5RdDvHsnRWzaTEBjkHj1JZEjinzo5g816VQ6MX5bsDBSvnyM
-	nOdX9pWZd9bZsgYYCZiI+4fioot6zBMer5mQvs5LQW3e59bya22RZD15UYOHbxy+lvGZFw==
-X-Received: by 2002:ad4:5ae7:0:b0:90e:95d0:927a with SMTP id 6a1803df08f44-9122e4d4aecmr105329926d6.6.1789434149663;
-        Mon, 14 Sep 2026 18:02:29 -0700 (PDT)
-Received: from 6e-wmo5420-02.ad.psu.edu.net (6e-wmo5420-02.ad.psu.edu. [104.39.213.233])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9120f4d51ffsm110574986d6.45.2026.09.14.18.02.28
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 14 Sep 2026 18:02:29 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Hannes Reinecke <hare@suse.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <mkp@kernel.org>
-Cc: linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH 2/2] scsi: aic79xx: Disable PCI on configuration failure
-Date: Mon, 14 Sep 2026 21:02:09 -0400
-Message-ID: <20260915010209.53250-2-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
-In-Reply-To: <20260915010209.53250-1-mhun512@gmail.com>
-References: <20260915010209.53250-1-mhun512@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nixbaqla"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 325AB1F000FF;
+	Tue, 15 Sep 2026 01:03:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789434203;
+	bh=adINl+VeAlKEA1FJgDE6kAnLYhmVWeMHTKgjiVxWSJQ=;
+	h=In-Reply-To:References:Subject:From:To:Cc:Date;
+	b=Nixbaqla5/ouYSM5Dc1Yf2FI8n8GKmffvMBwG2rn5SAkwW3vOb5+VyXAlxgiEVhvz
+	 dORQiTzZ9AHVeuY1iFUMJxAfDsltE8Y7RQx+79N8VRlA6K+1r3hEGGF+6Fv97NjUn7
+	 CcZ4TYXbteIoFkgi76MLHElcDEbAR8M31eNzZQMe6oYIhOAe9ttTW8AwHFzW54ElyZ
+	 yk+QIa1S9nzWG211ACN4EyxEZLJZdNbAQHyRMLCMsKSP+GxI1AqaSVDxjJ8TfRnq6J
+	 2no2ZwLB586ZAFTqyfcuTSv25HGoBIPdB6OfdXjtdb5r1KhgXJliZblzIgoc3d9eqL
+	 IwhsPTckeaN9A==
+Content-Type: multipart/mixed; boundary="===============2740431078445834191=="
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Message-Id: <904eb79ba4ec6f898754f9ad8dbafd08c82b1333929038fa9cd7dc4d8a188d16@mail.kernel.org>
+In-Reply-To: <20260913-b4-send-hid-bpf-event-bounds-v1-1-614fb56a0635@gmail.com>
+References: <20260913-b4-send-hid-bpf-event-bounds-v1-1-614fb56a0635@gmail.com>
+Subject: Re: [PATCH] HID: bpf: reject oversized device events before copying
+From: bot+bpf-ci@kernel.org
+To: markdamirkan@gmail.com,jikos@kernel.org,bentiss@kernel.org
+Cc: linux-input@vger.kernel.org,linux-kernel@vger.kernel.org,bpf@vger.kernel.org,stable@vger.kernel.org,markdamirkan@gmail.com,ast@kernel.org,andrii@kernel.org,daniel@iogearbox.net,martin.lau@kernel.org,eddyz87@gmail.com,yonghong.song@linux.dev,mason@kernel.org,ihor.solodrai@linux.dev
+Date: Tue, 15 Sep 2026 01:03:23 +0000 (UTC)
 
-ahd_linux_pci_dev_probe() enables the PCI device before calling
-ahd_pci_config(). If configuration fails, ahd_free() releases the
-controller resources but leaves the PCI enable reference outstanding.
-The remove callback is not called for a failed probe.
+--===============2740431078445834191==
+Content-Type: text/plain; charset="us-ascii"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
 
-Disable the PCI device after ahd_free() on this error path. The
-imbalance already exists in the initial Git import.
+> HID-BPF allocates its device-event buffer from the largest report in the
+> device's parsed report descriptor.  dispatch_hid_bpf_device_event() then
+> copies the transport-provided report into that buffer before checking its
+> size.
+>
+> An input report larger than the allocated event buffer therefore causes
+> a heap out-of-bounds write when a device-event program is attached.  The
+> later check of the BPF program's return value cannot prevent the initial
+> copy.
+>
+> Reject reports that exceed either the transport buffer or the persistent
+> HID-BPF event buffer before clearing or copying the data.
+>
+> With a 64-byte event allocation, a same-file KUnit test produced a
+> one-byte KASAN out-of-bounds write for a 65-byte report in three runs.
+> The 64-byte boundary remained clean.  After this change, both cases were
+> clean in three runs and the oversized report returned -EINVAL.  The test
+> exercised the production dispatch function but not the complete UHID and
+> BPF attachment path.
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+This isn't a bug, but could the last paragraph be trimmed to one
+sentence naming the reproducer, since the KUnit test it refers to is not
+part of the patch? The rest of the message clearly states the problem
+and the fix, and this final paragraph reads more like a test report than
+a changelog - it counts test runs and caveats its own coverage.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+
 ---
- drivers/scsi/aic7xxx/aic79xx_osm_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+AI reviewed your patch. Please fix the bug or email reply why it's not a bug.
+See: https://github.com/kernel-patches/vmtest/blob/master/ci/claude/README.md
 
-diff --git a/drivers/scsi/aic7xxx/aic79xx_osm_pci.c b/drivers/scsi/aic7xxx/aic79xx_osm_pci.c
-index 5fba316..37f4395 100644
---- a/drivers/scsi/aic7xxx/aic79xx_osm_pci.c
-+++ b/drivers/scsi/aic7xxx/aic79xx_osm_pci.c
-@@ -189,6 +189,7 @@ ahd_linux_pci_dev_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- 	error = ahd_pci_config(ahd, entry);
- 	if (error != 0) {
- 		ahd_free(ahd);
-+		pci_disable_device(pdev);
- 		return (-error);
- 	}
- 
+CI run summary: https://github.com/kernel-patches/bpf/actions/runs/34914058900
+--===============2740431078445834191==--
