@@ -1,41 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DCEF3CFF6B
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 02:03:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 453943CF1ED;
+	Tue, 15 Sep 2026 02:03:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437829; cv=none; b=b8Hr69K14QWFSC+RRZChURoZbMKfHLbRorF/TcAa8gYtSYvI0TApWZJMzAN7p/Zv34Sm9w+P/EPU0MNqwUy2LfaNLxc8ZRVPnhVHwbzIUl1CzASSanoUuo43H3AHbSIveOIyLB9xwCQMlHSe3pYD0Y0fozJD40uymIK80UxX31M=
+	t=1789437831; cv=none; b=ESzzbTa/y7wrPLRGnZIsNMEfWpqd/byH8x+SK6YnOXN4AI74vXZEWZVCB/l5DnJhmo0qVNYhWay9R0fb5LrhY6v/RfWfD6FcXthTULa/L0//Vkm/OXRUspxGNdI8H6CyjsUvUIeG5RjP0iEVIad847vfFo1MFE+dX+8GYH4pEKQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437829; c=relaxed/simple;
-	bh=rKlz0q+fiEcco1baF8sNaf99xw/vWbxveYvdcgs3aUM=;
+	s=arc-20240116; t=1789437831; c=relaxed/simple;
+	bh=WhC2bj5kb6iEqBerXQhQIWB0A7Iyf7r3pO97PkxW5wY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h31sMbAqdM9FsW8OhPLJDDvc+lMD7KMvpJWjnbzhzvwFgYIRkzjyu+CRvgO/K68ZJ+gpTO8nnRcSa0v13lxb8u0meg6hsxaP+gXnW8y1d46t+msegdG8DDNKHHaYEKdeXbW9pFSynjSWa2EyT0u7bYraNS/5Ew9l6RwUsxUBLao=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h6QNKLhx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dxQ60RB4lL/zBEowGroyVSWIKDDfjxbdpoXThyIad2kos0JKf6ya7g0sc5WmEeb3VZn/AA2HsVEP5af8kPfm+ernE8IDe5c2HjIhkDPt0Fal+lJWvE0FurrYghcSFz3GgeIQ3Uw7Je6tQQuqaYcz0N5/RGQD9mcpBjAKNTE6XMI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VMgNxZFO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h6QNKLhx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 047901F00893;
-	Tue, 15 Sep 2026 02:03:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VMgNxZFO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A669F1F000FF;
+	Tue, 15 Sep 2026 02:03:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437828;
-	bh=uTOXD0CcNJ3h8OzTcg7A8+b4Jno7zuN5Ic6L5HbkSh0=;
+	s=k20260515; t=1789437829;
+	bh=3PZlCzXAeVDKpiVMf4wbPUmBmc5EvcNg5hQfnwFiiM4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h6QNKLhxfNbs5u+BvVWbA7SUAZZlfUI7xZZ8JnQdwxstqjqf765e//DkQwO819bbq
-	 N+5YDNLpnP7dNm6oTY30+zlsF3HHhs7cnOAGG9VSb+xF407d2HNO/i/1UU1T5Hvknx
-	 CSNdaTbIkrqTOeOgB+OY1PkMoakRWAoMIkhrN31B5Wzazum/aeq79B5WM5B7KFLLKB
-	 hW+hfYohJIVbaRtJ9CyzRenVysYgtAVZYbRj+2XYhhN2xyEkmdzEAMc33NT5aV8QSO
-	 tUNCMU7dhqzrvTJYUg8cPZ2NTYMAP0aRvOhjNThPhIGZkql6KelizHpGR79cXDtC9T
-	 pEh2pyTJbZv1w==
+	b=VMgNxZFOzJBW0OBIYIh/yk9eytzT3NzaHnRx9qlgY7Ga0dIzq+td532aGHWBslCm3
+	 aGREh99+xoCXmgiqiSCshwExOhWZqdhO0lTfVex2CvuBkHkA1G5k1wpWuiLoyg/7gn
+	 SRS3rGs0p/OI6tkSythiYpgxdTqVT7oXbl1SM/l8npZEYTEbS7mULFUFhwx+A3F9QM
+	 A63ESy78B9HV22KT/L/ttzalh7aYcyFxMxLlS0NBJ/SKxNzFeoTR2tmtg3AY+O6HO1
+	 Kf7VFmi1b2MTxs4RzvF/FaeltxYv7B155QfS+GEL0mY5S7cBPI0pFdYaSYqAeTbfRc
+	 AQvzLCx7X8LGg==
 From: Sasha Levin <sashal@kernel.org>
-To: "stable@vger.kernel.org" <stable@vger.kernel.org>
+To: gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Rainer Fiebig <jrf@mailbox.org>
-Subject: Re: 6.18.51, bisected: standby/hibernate problems; rtc_cmos error-message during boot
-Date: Mon, 14 Sep 2026 22:03:25 -0400
-Message-ID: <daily-reply-0009-re-rtc-cmos-irq-6-18@kernel.org>
+	linusw@kernel.org,
+	ljs@kernel.org,
+	patches@lists.linux.dev,
+	rmk+kernel@armlinux.org.uk,
+	stable@vger.kernel.org,
+	xieyuanbin1@huawei.com,
+	xiqi2@huawei.com,
+	bigeasy@linutronix.de,
+	wangbing6@huawei.com,
+	lisongze2@huawei.com
+Subject: Re: [PATCH 5.10 613/798] ARM: 9485/1: mm: acquire mmap write lock around show_pte() for user faults
+Date: Mon, 14 Sep 2026 22:03:26 -0400
+Message-ID: <daily-reply-0010-re-arm-user-fault-irq-enable@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <8f2a6bee-9357-57e8-22ee-fd04637494a5@mailbox.org>
-References: <8f2a6bee-9357-57e8-22ee-fd04637494a5@mailbox.org>
+In-Reply-To: <20260914024820.11063-1-xieyuanbin1@huawei.com>
+References: <20260914024820.11063-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,16 +53,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Sep 13 23:20:40 LUX kernel: [    0.533984] rtc_cmos PNP0B00:00: error
-> -ENXIO: IRQ index 0 not found
->
-> Bisecting between 6.18.50/51 produced this:
->
-> ec2d81115485de3f604f86edc4d9119a213a59bf is the first bad commit
+> This commit depends on commit e79ca91165d4fd18549c ("ARM: 9484/1: enable
+> interrupts when unhandled user faults are triggered"), otherwise,
+> mmap_write_lock() may trigger a might_sleep() WARNING.
 
-Thanks for the bisect, that is exactly right.
+Queued for 6.18, 6.12, 6.6, 6.1, 5.15 and 5.10, thanks for flagging it.
 
-Queued the fix for 6.18.
+Could you send a 5.15 and 5.10 version that places the enable after the
+hardening call? The other option is to take fd2dee1c6e22 ("ARM: fix branch
+predictor hardening") on those two first, after which it applies unmodified.
 
 -- 
 Thanks,
