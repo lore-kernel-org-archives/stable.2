@@ -1,78 +1,69 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9F1E747ACC6
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:39:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87994472F9B
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:42:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789468798; cv=none; b=PnSBCLUfSKWvkGgjCc4bsW3WvCNNlh4QQLEcdOzUnoApQ1Ra9hCKR6+JwdQwtTfUgq1aXT3V5mog+kLf5OblYU7pQdBMU4nVnOtJKgHhvJ1ftFT/0+Vo7oAAbbyw9hIYwZr7UCqKkB7nr/GS9/5E9VZFVa6QgjaVBFMRo3a3uzY=
+	t=1789468925; cv=none; b=ORs6ojMzn0esVerashCkWlLr2a6lzqycccjUrxC7juaBvu2CDv0XdTFBMkDk5B4AlSj5T6QA1rjeCNeUbWZzWIPQrRJFma2onj7vkdsowcL+Q7BlPPehVZHdb7WfvDQrOuGcR217Cepdx+ykGFVnY5oxu1FJxU80MLTjLWgVdLQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789468798; c=relaxed/simple;
-	bh=tcI931i4u8P1ZSsYrMD8we1x90i3T/XXK/hoYTAcaIw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s5ecLCudl8gM5Z7HDWH15CwoktJDQ8uGB3XzbARxtQBrgLb41fC7BAuxWxypMGysfHuIlFGPORZo/SycJyNYEJb/nbzupPMDVf9pG2f+7o+qT923iFAkWovylR4QlCRMM9UuceFhhK0oFIVJFfSU0bRYvAKCWloeJUOVGdcH1vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lpRjl+LS; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789468925; c=relaxed/simple;
+	bh=PjiVsf5uMkbDp66AlJHnffbUEZZ1EH/IIrYenWWjkEc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hnKcCGBWM4gqMFK2bJRwzeE54t5mVgtS8oiXp9xaNccg4Qv860Ddg7ryvM0YcDdGYtGswgrwqIbj9eil0nL00SU00QHNC6pRRqhHnw2nibi+g+TvqTFx1t5ySIZGMpx2H0CwqJbLzNgEby1JYC33btc7RTcKcj+3OSVqcBTu5nI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=IiYok/zJ; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lpRjl+LS"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so2572483a91.2
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 03:39:56 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789468796; x=1790073596; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Dq59aTjp4HFxyWvEqbSyMP71FWosCOm3vRvqmE7kBIk=;
-        b=lpRjl+LSw9SaFhIabK5+7xPhJIRPBRhNhcgD1IE8+GrqQQEsZt0TQhDPvm2tvm3Ext
-         crE0CutV0BfxGzqPpnPlCmW5WnluCz6txvyCOWKyim/dk+mtTdt8gxwZgZ/cFLOagXiw
-         L+4yWKZ4Yw2LT1tnMRREJ1pZo7BmXfrphLj1oL+fAKAu9EZLAzRJDsIlpstQB/JH+myN
-         LC0duOS1hUlpbG4cMiCITf8UW4d0v6NtrOFmXIlpk5binqSohMWsh8vbSnJTGCFUQQPA
-         PIvruf79icAM17ncCvCLKrd86F/k+dxu2rtmOg7ez4DSVIQUkCkP0vTfYvz9Rzp2W0df
-         0kMA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789468796; x=1790073596;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Dq59aTjp4HFxyWvEqbSyMP71FWosCOm3vRvqmE7kBIk=;
-        b=NTntVjWpFTXK2xADF5MD/AomBEU/rMYskkgPMxi3GlaIFMEviihxKcDoloaxCamKBa
-         zovJFm+MPcRvqDRXkWGLzBznXoTmBUuspFjD+tePIkiI2pCdvU04M9JtkYwz1QjVCEaK
-         rYKYXhvSG/Hw6kADFgRVbrmNxB4gCqqvoE/pkYXBgZT9qay29fXGMSP8+4Kwrcsc0pUB
-         r5vemIl0NtIX8ZnAn+TcoXB4aitmYKryxjj8bZgjvc/0LDaLQ5N28Aj6DrdpQqQjmDf7
-         pl2MxaMn29qYij7SZ6xbVJuKPEgdqAJhRAWDnrao+e7EZPc8dY6+Kc+d5+JUimShRG9y
-         UlTQ==
-X-Gm-Message-State: AFuF++k98y7dKQEKgn6S4Y6Bf4oGrwBGmq/oVRu5c2KhQ62epxVZTIFk
-	AW17sJwtWw6c/Qcw64AZf15dtDBotIpUs8gCFnSPvE87lZJ3CCcDgPBL
-X-Gm-Gg: AYBFou3JkGVRuzGThSPbG4XFON39umqb6E5Ft1CE15Np3TvK/OItMsjuPSiTP9KJBx0
-	G0cf5KK7uTl12p+zv5LxPdlsb08nPyM01T/ZIuGQ7GxIfoLf4GPcCvW0M69kbAePO+6PxdVm82v
-	mW5OXxwSmIe2r4kNFv7cK+yefZn43Yrk37AGhMaQ5lY8QMvLK6GE5gWYPaU0M4oTOmclNUeWo3w
-	2B8JM/XuQcOsvUpXzc4qIh2U6fRuPDERrLQEbf7vrJ9IEloygQI2snIcBc3JSUZAsMF7QqnVGY1
-	3McXoQLLGFxRG15QMMSABIX95lVXl+aBxSJxMZz1S98ROHIZ9wpw0D/uQUR4Cf06DJus2uN2UDN
-	yOat6K1Q0VtdABB/FPpFhqIWQ4wzO+o3BGfHIJDAErrtnWLJwDDv1epWRJ0ZCfZShqksxpO3RZc
-	NFPWSmGrnAhJWpag3zO7A9N1Lx9Nxj40R1hwD4naa4bT6Oh9H5cpj+4A==
-X-Received: by 2002:a17:90b:134e:b0:396:4cbf:45bc with SMTP id 98e67ed59e1d1-39dec04fa58mr13238735a91.16.1789468795714;
-        Tue, 15 Sep 2026 03:39:55 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfb8b7561sm1924883a91.1.2026.09.15.03.39.50
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:39:55 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
-	Zhaoyang Yu <2426767509@qq.com>,
-	Sean Young <sean@mess.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@oss.qualcomm.com>,
-	=?UTF-8?q?Uwe=20Kleine-K=C3=B6nig=20=28The=20Capable=20Hub=29?= <u.kleine-koenig@baylibre.com>,
-	"Igor M. Liplianin" <liplianin@me.by>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] media: dm1105: unregister GPIO I2C adapter on remove
-Date: Tue, 15 Sep 2026 18:39:45 +0800
-Message-ID: <20260915103945.2364107-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="IiYok/zJ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789468922;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=hQizjq4Fv6xotoUqHmRQLNrfXJfgBpEXbkCd1IuA4Bk=;
+	b=IiYok/zJafNmYmKNOHxq4MMZ5E643/NWz9j6OdFwtqnMohZG0yma74iesjULrq8lndl+JL
+	XNwMCE7qKDwkih0yb0AXTLK4C6bl25DOJpOpxlccleDhEYX/FyK8QpoNk2+/csDobFSo5C
+	S5ZeD+IO0L1m8jwNBpe42PPsVPG+PRY=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-447-qM3KhJf6MTulpLWTFi-Gsw-1; Tue,
+ 15 Sep 2026 06:41:59 -0400
+X-MC-Unique: qM3KhJf6MTulpLWTFi-Gsw-1
+X-Mimecast-MFC-AGG-ID: qM3KhJf6MTulpLWTFi-Gsw_1789468917
+Received: from mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.111])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id A62D5192DD6E;
+	Tue, 15 Sep 2026 10:41:56 +0000 (UTC)
+Received: from gerbillo.redhat.com (unknown [10.44.48.83])
+	by mx-prod-int-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id E61BA1800446;
+	Tue, 15 Sep 2026 10:41:50 +0000 (UTC)
+From: Paolo Abeni <pabeni@redhat.com>
+To: mhun512@gmail.com
+Cc: qiang.zhao@nxp.com,
+	khc@pm.waw.pl,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	adiupina@astralinux.ru,
+	chleroy@kernel.org,
+	ae878000@gmail.com,
+	netdev@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3 3/4] net: wan: hdlc: close active devices before protocol detach
+Date: Tue, 15 Sep 2026 12:41:44 +0200
+Message-ID: <20260915104144.122643-1-pabeni@redhat.com>
+In-Reply-To: <f5f0519e82a7b8bbf314dc137470f7cf931e320b.1788128904.git.mhun512@gmail.com>
+References: <f5f0519e82a7b8bbf314dc137470f7cf931e320b.1788128904.git.mhun512@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -80,40 +71,143 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.111
 
-dm1105_probe() registers two I2C adapters, the regular adapter and a
-GPIO bit-banged adapter. The probe failure paths unregister both
-adapters, but dm1105_remove() only unregisters the regular adapter.
-
-As a result, removing the device leaves the GPIO I2C adapter registered
-after the dm1105 device structure containing it is freed. This can
-leave the I2C core with references to an adapter whose backing memory
-has already been released.
-
-Unregister the GPIO I2C adapter during remove, matching the cleanup
-performed by the probe failure paths.
-
-This issue was found by manual code inspection.
-
-Fixes: 0017505de0d28 ("[media] dm1105: GPIO handling added, I2C on GPIO added, LNB control through GPIO reworked")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+This is an AI-generated review of your patch. The human sending this
+email has considered the AI review valid, or at least plausible.
+Full review at: https://netdev-ai.bots.linux.dev/sashiko/
 ---
- drivers/media/pci/dm1105/dm1105.c | 1 +
- 1 file changed, 1 insertion(+)
+net: wan: hdlc: close active devices before protocol detach
 
-diff --git a/drivers/media/pci/dm1105/dm1105.c b/drivers/media/pci/dm1105/dm1105.c
-index ae4544042a74..ae7954cced0c 100644
---- a/drivers/media/pci/dm1105/dm1105.c
-+++ b/drivers/media/pci/dm1105/dm1105.c
-@@ -1195,6 +1195,7 @@ static void dm1105_remove(struct pci_dev *pdev)
- 	dvb_dmxdev_release(&dev->dmxdev);
- 	dvb_dmx_release(dvbdemux);
- 	dvb_unregister_adapter(dvb_adapter);
-+	i2c_del_adapter(&dev->i2c_bb_adap);
- 	i2c_del_adapter(&dev->i2c_adap);
- 
- 	dm1105_hw_exit(dev);
+This adds a dev_close() call to unregister_hdlc_device() so that an up
+HDLC device runs its ndo_stop and protocol close callbacks before
+detach_hdlc_protocol() clears IFF_UP via hdlc_setup_dev(). The
+detach-before-unregister order introduced by ff3516442768 is kept.
+
+Link: https://lore.kernel.org/r/20260806020541.2011936-2-kuba@kernel.org
+
+> diff --git a/drivers/net/wan/hdlc.c b/drivers/net/wan/hdlc.c
+> index cbed10b1d862e..a38f90d3006ed 100644
+> --- a/drivers/net/wan/hdlc.c
+> +++ b/drivers/net/wan/hdlc.c
+> @@ -263,6 +263,7 @@ EXPORT_SYMBOL(alloc_hdlcdev);
+>  void unregister_hdlc_device(struct net_device *dev)
+>  {
+>  	rtnl_lock();
+> +	dev_close(dev);
+
+[Severity: High]
+This isn't a bug introduced by this patch, but the new dev_close() makes
+the remove path call into ixp4xx_hss's ndo_stop, and hss_hdlc_close()
+sleeps inside a spin_lock_irqsave() section:
+
+drivers/net/wan/ixp4xx_hss.c:hss_hdlc_close() {
+	spin_lock_irqsave(&npe_lock, flags);
+	ports_open--;
+	qmgr_disable_irq(port->rxq);
+	netif_stop_queue(dev);
+	napi_disable(&port->napi);
+	...
+	free_irq(...);
+	spin_unlock_irqrestore(&npe_lock, flags);
+}
+
+napi_disable() reaches napi_disable_locked(), which begins with
+might_sleep() and loops on usleep_range(20, 200); free_irq() also calls
+might_sleep() and takes desc->request_mutex.
+
+Can that produce a "sleeping function called from invalid context" splat
+here, and if the scheduler is actually entered, can the CPU leave npe_lock
+held while hss_hdlc_dcd_irq() -> hss_hdlc_set_carrier() spins on the same
+lock?
+
+The same path is already reachable via "ip link set hss0 down", but the
+commit message lists ixp4xx_hss among the audited-safe users:
+
+    Audit all current users: c101, n2, pc300too, pci200syn, wanxl,
+    ixp4xx_hss, fsl_qmc_hdlc and farsync unregister before releasing the
+    resources used by their close callbacks.
+
+Should the audit note this, given the remove path now runs
+hss_hdlc_close() where it previously did not?
+
+>  	detach_hdlc_protocol(dev);
+
+[Severity: High]
+Does dev_close() close the window this relies on for the RX path?
+
+detach_hdlc_protocol() sets hdlc->proto = NULL and kfree()s hdlc->state
+while the netdev is still registered, so hdlc_rcv() can still be reached
+from NET_RX softirq for frames already queued on a per-CPU
+input_pkt_queue:
+
+drivers/net/wan/hdlc.c:hdlc_rcv() {
+	...
+	BUG_ON(!hdlc->proto->netif_rx);
+	return hdlc->proto->netif_rx(skb);
+}
+
+The only barrier that drops backlogged skbs for the device runs later,
+inside unregister_netdevice():
+
+net/core/dev.c:unregister_netdevice_many_notify() {
+	...
+	flush_all_backlogs();
+
+	synchronize_net();
+	...
+}
+
+__dev_close_many() does not touch the RX backlog, so a frame handed to
+netif_rx() before ndo_stop and still sitting in another CPU's queue can
+reach hdlc_rcv() after hdlc->proto became NULL. The
+"if (!(dev->priv_flags & IFF_WAN_HDLC))" test in hdlc_rcv() does not
+filter it out, since hdlc_setup_dev() re-sets priv_flags to
+IFF_WAN_HDLC.
+
+Can that hit the BUG_ON above, or use the freed hdlc->state inside
+fr_rx()/cisco_rx()/ppp_rx() if proto was already read?
+
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch, but the
+return value of detach_hdlc_protocol() is dropped while
+unregister_netdevice() runs unconditionally.
+
+detach_hdlc_protocol() returns early when a NETDEV_PRE_TYPE_CHANGE
+notifier refuses the type change, skipping both release points:
+
+drivers/net/wan/hdlc.c:detach_hdlc_protocol() {
+	...
+		if (err) {
+			netdev_err(dev, "Refused to change device type\n");
+			return err;
+		}
+	...
+		module_put(hdlc->proto->module);
+	...
+	kfree(hdlc->state);
+	...
+}
+
+The refusal is reachable: hdlc_raw_eth's raw_eth_ioctl() calls
+ether_setup(), so dev->type becomes ARPHRD_ETHER and a VLAN can be
+stacked on it, after which
+
+net/8021q/vlan.c:vlan_device_event() {
+	case NETDEV_PRE_TYPE_CHANGE:
+		/* Forbid underlaying device to change its type. */
+		if (vlan_uses_dev(dev))
+			return NOTIFY_BAD;
+}
+
+returns NOTIFY_BAD. lapbether_device_event() refuses the same way.
+
+Does this leak the kmalloc'ed hdlc->state and the hdlc_raw_eth module
+reference, given every caller then calls free_netdev() and loses the only
+pointer to that state?
+
+>  	unregister_netdevice(dev);
+>  	rtnl_unlock();
 -- 
-2.43.0
+This is an AI-generated review.
 
