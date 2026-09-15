@@ -1,173 +1,164 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79C3A47F3DB
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 22:31:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29C984252D5
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 22:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789511521; cv=none; b=fdbPCeR2BFoTgiuDzZZksegqD29laT+rZ6zmklo2bsDF3zDThEHL1GdsrGf21GT2hIpmOsSMvVSs+r9MW89pv5ae33UfSdIF8z1nEviNh6F6+44p+m0TSgdmOpYnp3apglJVcWdENY9AysmjHzbYOKxk3ArEy+j4spcGJV58ZH0=
+	t=1789511560; cv=none; b=GVa7//E4k92czgLAZ+rQNuB8IuGtp0wGAUDUy29h1x7rV6vHsfI1m1LPpoUXWHFA52i7Hfy3GE/YsdwoB2I/og+A7D2OCCPrtMPPySBBO2B6XEfa4JBdBlIH5AmARN85wCuIVBhK4K8ta0Ru25i16BvxdFm+hcoXYnolZQatxj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789511521; c=relaxed/simple;
-	bh=S2XZh3VaVySPUgw4QBLbbko84fncUIEkPW+FJJvR2HE=;
+	s=arc-20240116; t=1789511560; c=relaxed/simple;
+	bh=GzTLop++KI4rIrrgZnzAuT0dfgzVAoCkRLISOpHLns4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e6uWP9QDWLczD616v2HcYllM2GEqCZ1UIONFKxWGvFKmGFt79xsLTLYC3Dl/7GYj8u+PKm5kSFDjnCUzvKmnu2vo+mXs2cXqMk3clhwHtaEN82L0tunOLtvFgXCdIy3KtNfBqfSw7kUxI9TVUFhptOYV4LbIVWwRSG5ZQ3hFIbk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LNkeHs8j; arc=none smtp.client-ip=74.125.227.170
+	 MIME-Version:Content-Type; b=LxhvYSfnIgKMxW37lmvKE9wmQOsmbYbHsBUcJ0VFZwPKPmwP0jQWYdkj7WX6RR0FmOOW3Pkoixvy28piirhkiG7brhpXnHwPuR0U4W+m1Zw2j1GtEEvqPG5O9JtfjhdL6em6q2P5pGVPEgsDKc8oc6jL0Lm6Kqp5itCaBxSN8XU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iFYifaDW; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LNkeHs8j"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39b350c69b4so212716a91.2
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:31:59 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iFYifaDW"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747eb79f7so2123455ad.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:32:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789511519; x=1790116319; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zK0dUXrqiJhS7PWIeZXjl74BNkmdl+RVL7V4FpfahtM=;
-        b=LNkeHs8jkAWzaqimW1OpBHWwQNsm+sLb77nTBTJGV5LR3jTczF2e0+CkQCZhlzUlbj
-         iS7n+9Hw/z2HXrDHgVPOrJ6PppGzEE7iZU49fIDqiETzZMvGt+toBGcYbqythvErLwiQ
-         V89wTt3b4I5AncYD+eZ/DaTqPxiADZTO91PNXLk7bkmg+WDhS9V15mjPEgrnIEWXEHgb
-         wOc97lFR7JANpZSLumUNVVUxCet264RrsI9W5mUP1ynWcXiZNo0zrgA9919724XfToEG
-         kIOQnNamI86owC9HRLibIW/OOkT3SrSnlgmyuSQ5/2l1C8guaytIteW1wa7C51WFZp8F
-         sLVw==
+        d=gmail.com; s=20251104; t=1789511558; x=1790116358; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oAaufJPLhvNq8yuCsSv2xM1qq27Ru9xLaw02eoo87UA=;
+        b=iFYifaDW9E9swlgMsLswBzibolQ2SmndVeltmZO+lqYTeM9vWXIWTE7bHvlPA+uDZX
+         FY+WaB5CA0txY+Ip2qH7951N3mPVw0aiuXOPc/6EmCVaY2vk3Ohcf8He8po9L2KHLcvw
+         sqUaQP8qdLcmyXeQ8OizDh3cEMT32nxE5b2Ro76Ep0qAQX6jNmZSJi7g5D6AD13BWnaI
+         3gKqPubrswh01gZHxFhZrn+5P3yYimVprqd+lEYXqYhBZh/fHsRO9+tsy19d1vyXC0qp
+         iH8MpnAEEkGABxaLrOTbzbLjL35Kwz3033koXIfCkhAEgnS169Ne8GoqGQkJ6aIpxO63
+         DORA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789511519; x=1790116319;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zK0dUXrqiJhS7PWIeZXjl74BNkmdl+RVL7V4FpfahtM=;
-        b=bxNEMZjgfC4Okf2Aar8DcufE1567n2DWYZnvsrq/AgN3V3h09Fo9m9qg99nWXlAmGd
-         Ga2hjNYl8LPmj6wPb/KfSVxUgqUCgptLgWyjKmRfpkxxDh/M52DGpI219w2HceCSh9Po
-         Pn3ZqHJLuExJLeDDt5Hjb8ZtTwQx6H1+/CNXRjFffgHJ+FvUp+0LSFUM76tzTs0tmAfw
-         56UNVC2DtZnUSAjXUV6o8b+x5DVqioD0zN3deuqJNceEO9FJTJmev3nMFQZNGpX1O4rw
-         VUO4jwoxyvfGyeq3o+oAqCvLKVQncLdFqW6J7kEbsZnWd4phabRZpfhW5UVmzddm8nn9
-         wDAA==
-X-Forwarded-Encrypted: i=1; AKwUvBwkMaQ2ZH9DIeQAI1ZWTsJqYiB9qxmv5ApchwL3RVonnDoOHzBKK29eBW0tI8C2uJ8fULgjS1c=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSCyDWyUuV8NlxpeyUV1/wpVeMAKBx5LevqAQE2irtGhbk0Yy+
-	RGJM2xmqvMQAyVuwgew3Xz4rwzNiWhyNlKXSVqCiimXdpnqwdsHo838=
-X-Gm-Gg: AYBFou37CbN8QHpa/RTxBtubq7Ybp7Xz/OPqRphx0LKLzFoB32ucGl0rQ0O2TqH+1qA
-	qFnm645LeKgq3qOHiQgNlzcq4qY9eTzZ3oGvtDcSh+GsgrukMbmj0L1dtW98bx6O2zLg5KGtj1Z
-	Z7N57ObIrWZPNpJnDdXfF32RvZ7XdKXW+6bOjoADsiT/0L5EEW7NAHb0tECHahmj0LLkSjAVA1h
-	j/HexcUyPMZl5BI+HTinUEpWmg+cmMU9c6aJCqpVTKDD0jXAa1rBPYT7pzVy/Yp4XtJftuVnF0V
-	9W8yOA/FggGkFt3E9BAy1S6YOF/0dlcsxPHzoQz3NDMOFucgOvj4clZ53jfZ+tpvumn4ecl+96G
-	vJX+qp3Im2Nlm9dhEsJI57zEjlg7ZPg5RxfGESOLJvD/QKFTKYGh0jXfV33gYh9TRdahB6zsGUH
-	8wt7sI0ApSjyCGGgX/TW54bcHEbsctJZcX61Nbl8hYiL0LIHw8db2aDttKBivm1Y+UgZmXwACkd
-	9cS5ZC6Uok3u0vZrifD8GUmxg==
-X-Received: by 2002:a17:90a:d650:b0:39d:f7dd:4e4f with SMTP id 98e67ed59e1d1-39e1e300ab8mr779291a91.10.1789511518725;
-        Tue, 15 Sep 2026 15:31:58 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789511558; x=1790116358;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oAaufJPLhvNq8yuCsSv2xM1qq27Ru9xLaw02eoo87UA=;
+        b=BoNgI0nHMeSdy6dlv6AQpUXS/q8KWl7VVazYKAmtET+lReUDsKh86rBeD5q+DuO9rF
+         Q3Q5bVyZ6pKhVDxdiV2I/bpjiOkEsHF8KtFgD73IZMkAgxDRqnN6rHozoNGnqq6ZVIUq
+         69e5RTM2xIHJHQExOpg8IOuUL1mqfZPsRZ3c1CxRxAcrEJ24ujdCRwLoS2xLiBF6Roi/
+         vb/i21vI6dp8q6/JBClDwo3EFi81C22HTDgqLKPjB3zTb7pcMSTXmpAMMtxUGSBvyL4W
+         JMuEmu8A+eWAZsPr1dSzNCPadkvzrxTgx6KCVm8CYBI23dJmiOMG1Oz4u5gSH1LAw8+b
+         pdqw==
+X-Forwarded-Encrypted: i=1; AKwUvBwIL4tFeS+AZhsBaWi1zq9bfZcxASuvEixQ/MA/sq8gRA38nt2IINqM0g9PvWgtJprailodGDI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMUIjRfMsL5kub5aPXo/w2HhBN7ehlLUnsWBxINPsjTsianjkW
+	XMJIjFr3iGd8of7b/7AsxJvYmEVQoGdoCMsP2Mh9qVo3eD6lITLAHoE=
+X-Gm-Gg: AYBFou3FU25B155QasIjPelloRyb5jqngP7ubBE2TjQJR7myWdLGNoz3zNuBvLkYmQn
+	HBTtdhdHIa2r3AhegdvvSN+yqjHBmv7Q2JAhp9aobt2uET4QEXGbe6/8b+JZ+azsQ5xLNcMsZMX
+	KtL0rUBmnAPJUPlZiHhEOu7ASwjE1+vxbbFXaUKL+yXXg3/KTTwj6Vspu4ArUfeGnYkL1rxLAQs
+	VXPsGJk+TIvZ1+pL9wAox7bfuJE0GTvBY6f+TTgk5Ts6xzJgjfYi8/RxoSTkd/XUAgG7kIGMBJv
+	rc8S2B5/rrDWE68P2Ahjkj7FS3/NX1GRQz1jsPpFURnPo4LUcb5jPugVRgfscoy2soz6U4H3F3q
+	P04rS3jyi6nSUKD2EtayuQsfASq3SCFYFPsa8ENqHNtFr8nsX6czwsBiWD0gLUT0/Mar8ngkNVS
+	6/VgPDXgIUNtgL+VttLIJk5U41eHsyYqK5UnWAm4aaMwXlD6FJIbu54Ds1kacPSNmBqI3eaC+6t
+	jR20ryfLm87ELeCOHFxjkeIKA==
+X-Received: by 2002:a17:902:d552:b0:2d6:df31:5bd0 with SMTP id d9443c01a7336-2dd8e40117dmr5012515ad.10.1789511558421;
+        Tue, 15 Sep 2026 15:32:38 -0700 (PDT)
 Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:556:537c:f7cd:8a1b])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1c337e97sm208036a91.2.2026.09.15.15.31.52
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89e9345dsm1900175ad.24.2026.09.15.15.32.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 15:31:58 -0700 (PDT)
+        Tue, 15 Sep 2026 15:32:37 -0700 (PDT)
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: Andrew Lunn <andrew@lunn.ch>,
+To: Christian Marangi <ansuelsmth@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>,
 	Heiner Kallweit <hkallweit1@gmail.com>,
 	"David S . Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Russell King <linux@armlinux.org.uk>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Russell King <linux@armlinux.org.uk>,
 	Daniel Golle <daniel@makrotopia.org>,
 	Rosen Penev <rosenp@gmail.com>,
-	Christian Marangi <ansuelsmth@gmail.com>,
 	Sashiko <sashiko-bot@kernel.org>,
 	netdev@vger.kernel.org,
 	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: [PATCH net v3 2/2] net: phy: qca808x: keep an explicit active-high LED across the reset
-Date: Wed, 16 Sep 2026 07:31:38 +0900
-Message-ID: <20260915223138.321307-3-donggeunyoo.kernel@gmail.com>
+Subject: Re: [PATCH net v2] net: phy: qca808x: handle the active-high LED polarity mode
+Date: Wed, 16 Sep 2026 07:32:30 +0900
+Message-ID: <20260915223230.321441-1-donggeunyoo.kernel@gmail.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
-References: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <CA+_ehUwT_RYztjGJ0P_czx++wxNShT3Zv3JhjQ_eBbaoGQoNRA@mail.gmail.com>
+References: <20260914214720.2467586-1-donggeunyoo.kernel@gmail.com> <CA+_ehUwT_RYztjGJ0P_czx++wxNShT3Zv3JhjQ_eBbaoGQoNRA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
 Content-Transfer-Encoding: 8bit
 
-With the previous patch an 'active-high' LED node is accepted, so
-led_polarity_mode can now hold 0. qca808x_config_init() only re-asserts
-QCA808X_LED_ACTIVE_HIGH when the mode is -1, the value that means device
-tree asked for nothing, so an explicit active-high does not reach the
-register.
+On Tue, Sep 15, 2026 at 12:25:54PM +0200, Christian Marangi (Ansuel) wrote:
+> The commit description looks a bit "dense" and took me well 2-3 minutes to
+> parse the english and understand the change. Was also the commit description
+> assisted by LLM?
 
-That matters because the bit does not survive a reset. phy_init_hw() runs
-.soft_reset before .config_init on every attach and resume, and
-commit f203c8c77c76 ("net: phy: qcom: qca808x: default to LED active High if not set")
-records why: "on PHY reset, the Active High bit is not set resulting in
-the LED driven as active-low". The polarity written from device tree
-during phy_probe() is therefore gone by the time the link comes up, and
-the LED runs inverted.
+Yes, drafted with AI help - that is what the Assisted-by: trailer records -
+and reviewed carefully before sending. Which part cost you the most to get
+through? I would rather fix that than guess at it.
 
-Re-assert the bit for anything other than an explicit active-low, which
-is the one case that wants it clear and gets that from the reset for
-free. Name the unset value while here: led_polarity_mode otherwise
-holds a PHY_LED_ACTIVE_* value, so spelling the comparison
-PHY_LED_ACTIVE_LOW says what it means where -1, 0 and 1 did not.
+> > -       /* Default to LED Active High if active-low not in DT */
+> > +       /* Set LED Active High unless active-low was requested in DT */
+>
+> Why the comment was changed if it does say exactly the same thing?
 
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908105959.70453-1-donggeunyoo.kernel%40gmail.com
-Cc: stable@vger.kernel.org
-Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Assisted-by: Claude:claude-fable-5
----
-Tested in QEMU against a synthetic MDIO bus answering as a QCA8081, with
-the reset clearing BIT(6). With only 1/2 applied an 'active-high' node
-comes up inverted; see the cover letter.
+Because after this patch it no longer does. Until now that branch ran only
+when DT said nothing about polarity, so "Default to" was exact. It now also
+runs when DT asks for active-high explicitly, and there the driver is
+following an instruction rather than applying a default.
 
- drivers/net/phy/qcom/qca808x.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+> This change is O.K but I would ask you to better clarify this. -1, 0 and 1
+> is very confusing here.
+>
+> I would introduce a simple define like
+> #define QCA808X_PHY_LED_UNSET -1
+>
+> And set this in probe and change the condition here to directly check
+> for the macro PHY_LED_ACTIVE_LOW.
 
-diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808x.c
-index 3ba58f14e248..bab26e4c6140 100644
---- a/drivers/net/phy/qcom/qca808x.c
-+++ b/drivers/net/phy/qcom/qca808x.c
-@@ -87,6 +87,9 @@
- 
- #define QCA8081_PHY_ID				0x004dd101
- 
-+/* led_polarity_mode otherwise holds a PHY_LED_ACTIVE_* value */
-+#define QCA808X_PHY_LED_UNSET			-1
-+
- MODULE_DESCRIPTION("Qualcomm Atheros QCA808X PHY driver");
- MODULE_AUTHOR("Matus Ujhelyi");
- MODULE_LICENSE("GPL");
-@@ -187,8 +190,7 @@ static int qca808x_probe(struct phy_device *phydev)
- 	if (!priv)
- 		return -ENOMEM;
- 
--	/* Init LED polarity mode to -1 */
--	priv->led_polarity_mode = -1;
-+	priv->led_polarity_mode = QCA808X_PHY_LED_UNSET;
- 
- 	phydev->priv = priv;
- 
-@@ -200,8 +202,8 @@ static int qca808x_config_init(struct phy_device *phydev)
- 	struct qca808x_priv *priv = phydev->priv;
- 	int ret;
- 
--	/* Default to LED Active High if active-low not in DT */
--	if (priv->led_polarity_mode == -1) {
-+	/* Set LED Active High unless active-low was requested in DT */
-+	if (priv->led_polarity_mode != PHY_LED_ACTIVE_LOW) {
- 		ret = phy_set_bits_mmd(phydev, MDIO_MMD_AN,
- 				       QCA808X_MMD7_LED_POLARITY_CTRL,
- 				       QCA808X_LED_ACTIVE_HIGH);
-@@ -615,7 +617,7 @@ static int qca808x_led_polarity_set(struct phy_device *phydev, int index,
- 	 * To detect this, check if last requested polarity mode
- 	 * match the new one.
- 	 */
--	if (priv->led_polarity_mode >= 0 &&
-+	if (priv->led_polarity_mode != QCA808X_PHY_LED_UNSET &&
- 	    priv->led_polarity_mode != active_low) {
- 		phydev_err(phydev, "PHY polarity is global. Mismatched polarity on different LED\n");
- 		return -EINVAL;
--- 
-2.53.0
+Done in v3. The >= 0 test in qca808x_led_polarity_set() took the define
+too.
 
+> The only problem is that I feel it would be better to split this patch in 2
+> different commits.
+>
+> This really addresses 2 different problems and splitting also makes the commit
+> description easier to understand.
+>
+> One doesn't account the case where phy is reset, the other doesn't account
+> the mode in led_polarity set.
+
+Agreed, and v3 is split that way:
+
+  1/2 qca808x_led_polarity_set(): accept PHY_LED_ACTIVE_HIGH, so the PHY
+      binds at all.
+  2/2 qca808x_config_init(): re-assert the bit for an explicit
+      active-high, carrying QCA808X_PHY_LED_UNSET and the comment.
+
+Both Fixes: a274465cc3be and Cc: stable, so they backport together. After
+1/2 alone an 'active-high' node binds and the LED comes up active-low,
+which is still ahead of today, where led_polarity_set() returns -EINVAL,
+phy_probe() fails and the PHY falls back to genphy.
+
+It is no longer compile-tested only. I put a synthetic MDIO bus behind
+phylib that answers as a QCA8081 and emulates MMD7 0x901a, with the reset
+clearing BIT(6) as your f203c8c77c76 describes, and ran the same harness
+over all three arms:
+
+  DT node            base      1/2 only   1/2 + 2/2
+  active-high        -EINVAL   inverted   correct
+  active-low         correct   correct    correct
+  no polarity node   correct   correct    correct
+  high-impedance     -EINVAL   -EINVAL    -EINVAL
+
+The middle column is the reason the second patch exists. A confirmation on
+a real QCA8081 would still be worth more than an emulated register, if you
+have one to hand.
+
+v3: https://lore.kernel.org/netdev/20260915223138.321307-1-donggeunyoo.kernel@gmail.com/
+
+Thanks for the review.
