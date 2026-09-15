@@ -1,44 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-vs2-f42.google.com (mail-vs2-f42.google.com [74.125.227.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EA043D6491
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:48:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A65A3B2FCA
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:56:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476519; cv=none; b=K98LPyzsBuKgAZ5myT47fMgx9S2q/mOaasEpZtiWK+2BGh3l8AemDlQCqGq6XLAw0DRbYuxUBvotiK75YVV+GHldGByj7GjwHKFkOigM5pqRFnHEWUpGl1lRLSAseigm3LtM4hiHfoXCVZQOBhmINFAUV0iGtxGyCWsfH3rs84s=
+	t=1789477015; cv=none; b=luLGt1di1zO45lirGb6QbHSj479DBwOzzNl0pt4Ab90iktw99W47KDEDn5DrViK6u/gUACg02YaehJkNAIKbKbN2cxlfMKRV5uCmtGY2ltgcqQsYHvfheyt8BrM4YTInwoTyY8P343G7ljBRElGuZpF2q0KsHo3jUxmFquWCNcg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476519; c=relaxed/simple;
-	bh=fqig8+pqp5U/diL1W/BOTTUREzMP8XLN0PMl44CxvgY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=oz/ptXdUuVrDwE+41ZCSQ/buU9E5HFOXP/acvIpU/69GoWGORJcvf0TjvleM6Nd3CNfFim3IjUTERN6ApC6TkCqIOTiWcbrQUYownNnarumPKg9WktJ0pr9k5fLl7PEHDh6cHTSnCrXs3+/tZAggs6j5QNAdaGAP0KAHXjJXAEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k5ZRbbC3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789477015; c=relaxed/simple;
+	bh=3x2XNScpLA7pdu8iUE5GPOaaChTsijxgHbzAPrI9O+0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=M4QFTxKXW8P8BB049wtAccJQLOlU/DZfJUS+RcivXPXmmSlNCfWB/CwCwl+gMEI5OOPykrafIeYJ1md5ceSeZ+qAfTlWTI2oQe318oEMTt9NYEASAPsnqCDDNMs9/R3bEm5CJlqQY2G1WzLeMmVMtBGNDQCwfmKXpVwr9xGHUNg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=kHK+461N; arc=none smtp.client-ip=74.125.227.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k5ZRbbC3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42D911F000FF;
-	Tue, 15 Sep 2026 12:48:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789476518;
-	bh=g6p2VyzpYow1o3y1WboDAc1oMTOo3h1PhohgYgq5ojc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k5ZRbbC38AFDAFOy1EiKCabpnorvVQxlFpFXudiXmIrMrRx42s3iIZ5gi50EzLhr/
-	 jmuAa5Q1PFnhFgqWHHqVy5N+jWfm9MJET2qltsup/hWFenRyR9YJKNtD8L0I6WNFVQ
-	 6bSsM984hnogYxWaXyqyHi5NjgxVsUL3o/e1M/RXckCIdOYe+QHLxkf8fHxH7IT15J
-	 hddrusCzVKVXPoWgdgCuXXN2ncZeJWRCrmZqi302EzXQTGyi39eXztTR+dS1CveIyo
-	 yKdSJvWixaHXbnDQlUPZJL7J942nwguA7RMK4Jh6fyRWj8mqyKLEcsBKaahKU5/BOE
-	 PcCJbch+wdXrQ==
-From: Namjae Jeon <linkinjeon@kernel.org>
-To: stable@vger.kernel.org
-Cc: gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Kanishka De Silva <kpskanna1915@gmail.com>,
-	Farhad Alemi <farhad.alemi@berkeley.edu>
-Subject: [PATCH 7.1.y] ksmbd: prevent out-of-bounds reads in share config responses
-Date: Tue, 15 Sep 2026 21:48:08 +0900
-Message-Id: <20260915124808.6052-6-linkinjeon@kernel.org>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260915124808.6052-1-linkinjeon@kernel.org>
-References: <20260915124808.6052-1-linkinjeon@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="kHK+461N"
+Received: by mail-vs2-f42.google.com with SMTP id ada2fe7eead31-7954fbd0ffaso944214137.3
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 05:56:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789477011; x=1790081811; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=bDZF9JSId7CCV6qo5hkoNAYzi1vRwU33Ad5zVuVmN2o=;
+        b=kHK+461N4eamGh90QLwK5yBx1QBIaLqgqDpYLw4IofPRhk7aS8e6GMSlw1jmHHZqQe
+         fc42e+JrJIi3JkDOvqQetv7rQB0GnwP17tPIZka5PpX8gGkmeXxpgj9egY8FQfjIyaSc
+         OvQsIFHZ14ZdxjhaePA5VsIbyswtUycFjL2eRuL9aigSTX5tGURxT4Mo3vRiHVRAzZy4
+         U7x7GRj3+97hF76YF3xL+fEMcmkP+etDw/kj2CdTPkmn/tckGO5UU72rpI3IPiRt29R9
+         FDI2MDVnigBy/mWLOcpBd408ZroW6Styr9iIxmd5DM19WhCg5P1y91Sx8OFAd1GjtaQ4
+         jx6g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789477011; x=1790081811;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=bDZF9JSId7CCV6qo5hkoNAYzi1vRwU33Ad5zVuVmN2o=;
+        b=RtbQmeslQOeV1i0YzQ99ZVbAxp/84HwTaYT353X5X7u1j0+dwK1kPiTpbHaGTLSAn8
+         8Ds2wE8M9xnPHdPW4KluUVjOZZXr2R9LwRhoLH9dqWI+OCUqHckd/ss6z3dKHJuuMvds
+         f0JFaIQqmdx4Toe95s9vJE0dLnBA+UHjpSmRLw3fKCYFs29YEVfTjlDyQ7GpcUf/FXap
+         fWePJEFkWxLbGGVFKPXZgN5AK/7ZfoVceV9l4CIxPKzn2PXWp0pp1c8W3RXuvTsyvx/U
+         K05xGVwyS2os8J/ux5F5C8xxn5BoL8wI0ZYIOeaU6PCWRdkBeZ0hgj2nLDMskdRqqTAY
+         eDRg==
+X-Forwarded-Encrypted: i=1; AKwUvBylkjI6E0yrLcXQfxAFHrbnGxc3uOZOp0iTe5JWrXvmyKILQu/azpT3X35/DMl3bFIbT014WIE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzZHHF1gtWAiZk38t09QXKwP+qKeGbw6WfGWKFrHij/1MYsltt
+	Avhj6JZKZ4KuYhDzHTv9Tnf1DvnwI34bnzEkqqbDF4ewjZuz0yPCS74V
+X-Gm-Gg: AYBFou3XEJdxpmVsC71JyQVDPeoGu8rRPsdjqPDhnIlk801d31r3Wht4Id2pukuv6KI
+	ZVsA3AG+w1fbxkoasum74X+h6/N10CTc9TfHUeGaec/CxGt3DxhirHXQ8brKHW+KSBYURr2Gq23
+	RtxXR/4u1uA+aX8e/EaG7KSj9SFgZmRmyLHuUJW+5znWigjFtf+IyFtJ4lVUfgJ4MukeI43flam
+	ePmp6zCDjEH2Oi+l7jI80sFq8u+p6XtJXxedLUA+MFeVGO+G62NI41auqaDIVbG3KpDMjJPfoBK
+	ueLEEIrCSvlAMCbfldDudIIR7uD/tx+UsITZS09JgsfJ6zihFN4YUmcZEmlPkhrAmwjf5XGPiQg
+	SkfOwoMoZLkg/le2igqAITvP+hTi1AKWuA1NFu3rrIFb8sUCtr6CsxrvO4hzslsBx0BB+8PxVug
+	n+R6y7UKTzz0IqVLbhyvpHKz5XDwsakFYCic6nglJ+xa1dWRQOiATr/O2Ef0xhRsil
+X-Received: by 2002:a05:6102:3f0d:b0:79d:5bad:4c7a with SMTP id ada2fe7eead31-79d5bad6c78mr2752414137.9.1789477010891;
+        Tue, 15 Sep 2026 05:56:50 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7927eb824absm13220097137.8.2026.09.15.05.56.49
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 05:56:50 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>
+Cc: linux-nfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH] nfsd: propagate SETXATTR value decode errors
+Date: Tue, 15 Sep 2026 09:56:36 -0300
+Message-ID: <20260915125636.2849626-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,139 +75,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-[ Upstream commit f25e93768fcc5d8287e50b1ec52a42e4c276df34 ]
+nfsd4_decode_setxattr() stores the status returned while assembling a
+non-empty attribute value, but then unconditionally returns nfs_ok. An
+allocation failure can therefore leave a NULL value buffer paired with a
+non-zero length and allow compound processing to continue.
 
-Validate IPC share configuration payload sizes before consuming
-variable-length fields. Bound veto list parsing and account for
-the separator byte when deriving the path length.
+Return the decoder status so that the operation stops on the original
+error.
 
-Fixes: a677ebd8ca2f ("ksmbd: validate payload size in ipc response")
-Reported-by: Kanishka De Silva <kpskanna1915@gmail.com>
-Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+Fixes: 403366a7e8e2 ("NFSD: Replace READ* macros in nfsd4_decode_setxattr()")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- fs/smb/server/mgmt/share_config.c | 40 +++++++++++++++++++++----------
- fs/smb/server/transport_ipc.c     | 24 +++++++++++++------
- 2 files changed, 44 insertions(+), 20 deletions(-)
+ fs/nfsd/nfs4xdr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
-index 6f97f8d39657..01fcee669194 100644
---- a/fs/smb/server/mgmt/share_config.c
-+++ b/fs/smb/server/mgmt/share_config.c
-@@ -88,9 +88,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
- 
- static int parse_veto_list(struct ksmbd_share_config *share,
- 			   char *veto_list,
--			   int veto_list_sz)
-+			   size_t veto_list_sz)
- {
--	int sz = 0;
-+	size_t sz;
- 
- 	if (!veto_list_sz)
- 		return 0;
-@@ -98,7 +98,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 	while (veto_list_sz > 0) {
- 		struct ksmbd_veto_pattern *p;
- 
--		sz = strlen(veto_list);
-+		sz = strnlen(veto_list, veto_list_sz);
- 		if (!sz)
- 			break;
- 
-@@ -106,7 +106,7 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 		if (!p)
- 			return -ENOMEM;
- 
--		p->pattern = kstrdup(veto_list, KSMBD_DEFAULT_GFP);
-+		p->pattern = kstrndup(veto_list, sz, KSMBD_DEFAULT_GFP);
- 		if (!p->pattern) {
- 			kfree(p);
- 			return -ENOMEM;
-@@ -114,6 +114,9 @@ static int parse_veto_list(struct ksmbd_share_config *share,
- 
- 		list_add(&p->list, &share->veto_list);
- 
-+		if (sz == veto_list_sz)
-+			break;
-+
- 		veto_list += sz + 1;
- 		veto_list_sz -= (sz + 1);
+diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
+index e17488a911..27c1b42384 100644
+--- a/fs/nfsd/nfs4xdr.c
++++ b/fs/nfsd/nfs4xdr.c
+@@ -2435,7 +2435,7 @@ nfsd4_decode_setxattr(struct nfsd4_compoundargs *argp,
+ 						&setxattr->setxa_buf, size);
  	}
-@@ -160,17 +163,28 @@ static struct ksmbd_share_config *share_config_request(struct ksmbd_work *work,
- 	share->name = kstrdup(name, KSMBD_DEFAULT_GFP);
  
- 	if (!test_share_config_flag(share, KSMBD_SHARE_FLAG_PIPE)) {
--		int path_len = PATH_MAX;
--
--		if (resp->payload_sz)
--			path_len = resp->payload_sz - resp->veto_list_sz;
-+		size_t path_len;
+-	return nfs_ok;
++	return status;
+ }
  
--		share->path = kstrndup(ksmbd_share_config_path(resp), path_len,
--				      KSMBD_DEFAULT_GFP);
--		if (!share->path) {
--			ret = -ENOMEM;
-+		if (resp->payload_sz <= resp->veto_list_sz) {
-+			ret = -EINVAL;
- 		} else {
--			ret = 0;
-+			path_len = resp->payload_sz - resp->veto_list_sz;
-+			if (resp->veto_list_sz)
-+				path_len--;
-+
-+			if (!path_len) {
-+				ret = -EINVAL;
-+			} else {
-+				share->path = kstrndup(
-+					ksmbd_share_config_path(resp),
-+					path_len, KSMBD_DEFAULT_GFP);
-+				if (!share->path)
-+					ret = -ENOMEM;
-+				else
-+					ret = 0;
-+			}
-+		}
-+		if (share->path) {
- 			share->path_sz = strlen(share->path);
- 			while (share->path_sz > 1 &&
- 			       share->path[share->path_sz - 1] == '/')
-diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
-index 0c581b9624d3..a58c6e4a72c7 100644
---- a/fs/smb/server/transport_ipc.c
-+++ b/fs/smb/server/transport_ipc.c
-@@ -514,14 +514,24 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
- 	{
- 		struct ksmbd_share_config_response *resp = entry->response;
- 
--		if (resp->payload_sz) {
--			if (resp->payload_sz < resp->veto_list_sz)
--				return -EINVAL;
-+		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
-+			return -EINVAL;
- 
--			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
--					       resp->payload_sz, &msg_sz))
--				return -EINVAL;
--		}
-+		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
-+		    sizeof(resp->share_name))
-+			return -EINVAL;
-+
-+		if (resp->veto_list_sz > resp->payload_sz)
-+			return -EINVAL;
-+
-+		if (resp->flags != KSMBD_SHARE_FLAG_INVALID &&
-+		    !(resp->flags & KSMBD_SHARE_FLAG_PIPE) &&
-+		    resp->payload_sz <= resp->veto_list_sz)
-+			return -EINVAL;
-+
-+		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
-+				       resp->payload_sz, &msg_sz))
-+			return -EINVAL;
- 		break;
- 	}
- 	case KSMBD_EVENT_LOGIN_REQUEST_EXT:
+ static __be32
 -- 
-2.34.1
+2.43.0
 
