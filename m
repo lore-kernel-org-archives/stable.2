@@ -1,44 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC41D3CCFAF
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 02:03:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA83B3B47F9;
+	Tue, 15 Sep 2026 02:03:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437825; cv=none; b=Wnv2ASz+c1ZMUnx3iYVX8J4fFyy2waaVGz7zuMPi4FzT3JQKgWRBaXYyE5Z9fMj9d3+AVCTe9ZIPxHn/Jfa/kZPEKdnvRSELpSpNHRP6COE4CVTQ+62xZlGyQ9GPnTH9oDI658Jayg2H6rVqw6AF85yjucM9GhkV8N+O56jxZls=
+	t=1789437826; cv=none; b=RokoyfS7qPNCxSSURlm4GoLR1Vr54s3pvybMlpDTZegTVGgI4hdbIoKlGB6tDQq/BwbePyJSghiKHhVTKi0MEYWBggDZNHQpfCu5x5wFTk53wsFGYrsiwdjrii+TLTRyzdDF+7U99FKMnlBYVG4qOrUqLsGjnX+E5POukjPMPjQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437825; c=relaxed/simple;
-	bh=QYENcU15IoGy2Pztz/OWOhTlH0U5HKaG19XNehQpPgM=;
+	s=arc-20240116; t=1789437826; c=relaxed/simple;
+	bh=ARPdD6jzXyD68nnDCytZZ4lQuExUHU2X5Mv8/74aIKU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tryh16IOH1sUfILKDwTfZhWwGHBcN45u9c4hM5KO01E2MD1GJo+Uv4z+kUx6QIupbogZdPR7MLAXr7WDwpS4dS/URX5P3M1TewRTj8arx1ZEba9AJb96Rp/cTiRJ054WqtloCUmXA1FHYgbuW8n69qQMJMtPM58lH41c2K+0Wgs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIZaa6ON; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cmygpEk+vO7If0tCS+8Wvb4ehYw5bi738UIXuCLZ+LilBm1hdgXW4032SmjkugrCcAU3k1yoZIhvUHL5g71UXRHQZ9w7lIYZyNUGAxzjwSamKuP6P4MSVbTJ5AxTdDQRm6s06ePLyJyCYb8ZYEPIi4Qo6SAqpmoM8/wBFMDtHOg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BLKDX8F4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIZaa6ON"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E397B1F000FF;
-	Tue, 15 Sep 2026 02:03:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BLKDX8F4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D10DE1F00899;
+	Tue, 15 Sep 2026 02:03:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437824;
-	bh=ls5S5uzCCxEpZqmfX7qcpvQXG7BnUgseqFa6gIuPnpw=;
+	s=k20260515; t=1789437825;
+	bh=UNOHjiPcNsc80Nsl2qAOyLD5hrfkaVWOAAQI1V04SOo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UIZaa6ONrf/Mw4FcDAEIDpK3XNkZwsGSdXUgyDXlvXtqobR8RvAkAxtca/Upa2ANs
-	 Szf1BbSo4/ipT2M3EH+hURkiksrhUJovdR6SR+8yGU7Ac0Onbdw5TdT6ecBOnWsuSK
-	 mZmL53eLbEGCIN+27fGTyQfQjmMFxTuK2s/BjU6KB69woBFQkhGPQIiMqgm/53pyWB
-	 i4ifXgUvu9fhUxCEQGCDDQeia7Dv/IzaSULkALfF2EI0Am2QA6X0Q1ldTxDZzbq9wv
-	 Lu1UTwR42jGVX0D22OjwTjuTOBqTQfLZLz3XqVkwyyjMq0t+7yEKB7Nt1ZliX8yCZm
-	 rTV7cfuKqemew==
+	b=BLKDX8F4FaRUtxZxbxPptOUqOE3yw2MM8JrHFCS1j4cKV1dcoabPOLazyk4kqNPdT
+	 A1riH2O0989lwY4IgiAIfTxRDUPncvka4SHw3Qn7N8uZ+GYPUEYh8haUsWWXR8vHES
+	 k1hfvHM9MEPz/cImXlvgOkDv6ggfOEXYHbdtlfp/PeWHODPCEKHm0irUVajIonpoPV
+	 1QX20QQpkQ5agtmZYQc71PqKEZzmt6UUh87y/jVFOT6VqN36gSjpNlJvXMEFW1XoNO
+	 ZX64SN9JOgfECls9bPrwy0/4LHGUTqC/O3SwDYE4L5VDd/EQEgYxCH2zZb0LjIJEuA
+	 WwLpdJeydM6ng==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Tvrtko Ursulin <tursulin@ursulin.net>,
-	Thadeu Lima de Souza Cascardo <cascardo@igalia.com>
-Subject: Re: [PATCH 6.18.y 1/2] drm/ttm: Tidy usage of local variables a little bit
-Date: Mon, 14 Sep 2026 22:03:21 -0400
-Message-ID: <daily-reply-0005-re-ttm-bo-resource-uaf-6-18@kernel.org>
+	Paolo Bonzini <pbonzini@redhat.com>,
+	Peter Xu <peterx@redhat.com>,
+	David Matlack <dmatlack@google.com>,
+	Kenta Akagi <k@mgml.me>
+Subject: Re: [PATCH 5.15.y v3 3/7] KVM: x86/mmu: Derive shadow MMU page role from parent
+Date: Mon, 14 Sep 2026 22:03:22 -0400
+Message-ID: <daily-reply-0006-re-kvm-mmu-derive-child-role-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aqW40lwCEnQ8NuPH@quatroqueijos.cascardo.eti.br>
-References: <aqW40lwCEnQ8NuPH@quatroqueijos.cascardo.eti.br>
+In-Reply-To: <20260913155523.7423-4-k@mgml.me>
+References: <20260913155523.7423-4-k@mgml.me>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,14 +49,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> You need to apply 91d7e9df4259 ("drm/ttm: Fix bo resource use-after-free")
-> too, otherwise this introduces a UAF.
+> -	role.direct = direct;
+> -	if (role.direct)
+> -		role.gpte_is_8_bytes = true;
+> [...]
+> +	if (!role.gpte_is_8_bytes) {
+> +		struct kvm_mmu_page *parent_sp = sptep_to_sp(sptep);
+> +		role.quadrant = (sptep - parent_sp->spt) % 2;
 
-Agreed, and thanks for catching it. 91d7e9df4259 ("drm/ttm: Fix bo resource
-use-after-free") fixes c06da4b3573a ("drm/ttm: Tidy usage of local variables a
-little bit"), which is not in 6.18.y yet, so it has nothing to apply against
-today. I will take it together with the series rather than on its own, so the
-two land in the same release.
+The "if (role.direct) role.gpte_is_8_bytes = true;" that kvm_mmu_get_page()
+used to do is removed here, and kvm_mmu_child_role() does not put it back.
+
+That works upstream because the field there is has_4_byte_gpte, which
+defaults to 0. On 5.15 the field is gpte_is_8_bytes, the inverse, so the
+translation flips: for a non-paging guest
+kvm_calc_shadow_root_page_role_common() leaves gpte_is_8_bytes at 0 while
+kvm_calc_shadow_mmu_root_page_role() sets direct to 1, and a direct shadow
+page ends up with a quadrant stamped onto it.
+
+Keeping "if (role.direct) role.gpte_is_8_bytes = true;" in
+kvm_mmu_child_role() preserves the upstream behaviour. The alternative is to
+backport the upstream role-computation change first so the field carries the
+mainline sense.
 
 -- 
 Thanks,
