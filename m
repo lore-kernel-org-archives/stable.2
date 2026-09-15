@@ -1,73 +1,78 @@
-Received: from mail-pz2-f28.google.com (mail-pz2-f28.google.com [74.125.228.28])
+Received: from mail-oa1-f46.google.com (mail-oa1-f46.google.com [209.85.160.46])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9A75463B9F
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:22:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.28
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 655F33D45F7
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:32:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.46
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789460564; cv=none; b=apEIn9rL/L84vIU1A2QHSA3Vq61yxQE1ztdbkpP2xN4RFo5934vxhhqWjVmPKKTdbAwBUfEk53TLhtir2k3n1JX1TXUxGuTMHZmT1dru+Ji58FdcSTS07m98PPiuTXm/0VFHwbmIbKGiysojWeouSULTh4+tSO57YjJ9CEh32UI=
+	t=1789461126; cv=none; b=U9oAxtxWe9WZFaCWHduMPrwdbifvJ5RIpy3d4MZ+9sAxhIOQQseTD2vlw2VaaHdovi7sl2I9kHrcy9PPVw84dHqFoLtq8zTLRjyIfM1N3dk+gkIcouMIan4nT1mSCqZzUJLHd9gqYJO5eRY5hd/VZO1M22RuBdufD0RwgdAegGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789460564; c=relaxed/simple;
-	bh=C9KYtPlI7ZMCyFQ9z0YFTlmCZFRzUMM33buNbWt5z4U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WPn1KCNqNjBCTwrkcQ+X4xPKwSPeACdR5qiTs5oi1YYhx5HaDfH7pt+5MhhShq4I0r9d0UQX+9ys36nA27otIkI7jxzXRKJDCyGwgDnIeIwU4ihXX04Cx7t9RCcweZIOlb6JY6+tDAcL9pbcGkwGx6F3N/PdrAWA72Bggl5wkzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ELK0ebjI; arc=none smtp.client-ip=74.125.228.28
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789461126; c=relaxed/simple;
+	bh=Kyljv4Ok0VOKC1521YIj/5MqOlgJleHDXLfDK8e9KT4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XAldiIrN9E6u2oHnOr1rYiGHMfbHu4qYBXFTzhNvrDYi8mj0mXgJ78eUx8WFFDfoW+N0nhuylo7PZUuHOaguXFC4/BTq6ccZ+i4C+GSX9J+At+ZUjlhi/VWm7PK2aWIYOWKzHMDFTltoneK1ZjKieI5Rqn5Qg3VxU0zNljgYo6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=Rnt5tVig; arc=none smtp.client-ip=209.85.160.46
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ELK0ebjI"
-Received: by mail-pz2-f28.google.com with SMTP id 41be03b00d2f7-cc4ab4fe290so713381a12.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:22:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="Rnt5tVig"
+Received: by mail-oa1-f46.google.com with SMTP id 586e51a60fabf-478622cd851so2099598fac.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:32:05 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789460561; x=1790065361; darn=vger.kernel.org;
+        d=asu.edu; s=google; t=1789461124; x=1790065924; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vnJp0gFL0rnbjTXBsTtZtrnRTdihrTDqa0f0ZnMfF0M=;
-        b=ELK0ebjIerWSvbTWmvxCOMc++ii+a61Ul0rJ1Z8Arju0vBNDUk3FS1CD2LKG8PvkRq
-         f3qFcDs8GnIk+DSQJW38UXFMyE3euIlVR0E8/BWBjTAzmHV1DJCDyV6YoxWquL69hL2c
-         218vBGhDlb8jEgAG12xuGkUWuVwtrtOdTN8xBNMJgou9ke2V3dvBzjM+VIzEbgyOpj0o
-         lfmh1QGBkgSsca0VyrDiGAvpqI62mKsyICApKjxTp+UJSg0bqx9xXqxAfZQUbZ3T0uiB
-         juBwC+NUuKqEODdkVxBM8HLHAiVn4T8XJTjyp4vvbuqG7CcEdULzDoYJdtvpU25Ji1To
-         FpEg==
+        bh=nfGU+d0Ce1ol/Tm6wjF345/Jrj4e+fpsFxiynd3zRTo=;
+        b=Rnt5tVigCJj0q/pFXAwYDku7SgTsY3dWgTxjngrf7YNBsk1tCg/+rtVgmmaWCJqDjH
+         NLDhhTElv7TslHWuELgFXkuUgARszo1kR/eFg5CM5W5786Oc/9U9KudzH3XeAjMu1Gxh
+         CSqJzZe/1w6H+8rW7Fc11WXWAMrujwIoXC9eXw936LXRuM/ruRv+APnrGUFlpUzhb4Qn
+         +2QSnG4Id6X0AtyWnk42yARftwNOCtKKqPSIwMlk42xAoxEUVN2Wli379CX43la5wrZT
+         CzIBotBiAQ4aJU/Wfb/ed3yNjm0YkBwjVDeJ+O0u2Kj1qqVWxy+KoS3QwNkd991HJeWs
+         dKjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789460561; x=1790065361;
+        d=1e100.net; s=20260707; t=1789461124; x=1790065924;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=vnJp0gFL0rnbjTXBsTtZtrnRTdihrTDqa0f0ZnMfF0M=;
-        b=C4VqMmbH4wDBUHRGYUxpWdDi1HOubpS+sBEk4bH7GsgF+FxjAOOQhclRPdRlz3Ha+5
-         79zymYOmlxZD6rb2LH7D3XEBO6cRUIFigQO1PUVJi3auuOqRA1yavTiq/MjvxTlhZoiV
-         mEFmXVVPiTFAwRb2/e8lD4Vhx6zwxv4VumCic/yGM+6y0Lfg3TbWU+Si+HXGbbYo9c9N
-         AcYK9VLblvg8BiC8r7l2MTxXVM9qB9/LuOE24vihnM986TwzfgX+wiOiD2vZxQDW2Jhl
-         G84LxPbbcMzFcNMlhh+7rgrvbRMFmc3kI2C0cOoCLoRNHvmCUeIs3PKCNPaT9OaDxedy
-         JTvg==
-X-Forwarded-Encrypted: i=1; AKwUvBxkEuZnLvsorIUh9yoMkKN8JUTCCLXj0CCec0QxPmNvRlPLClJijDcdMnfUOK3xgr8vHRd8fjM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nh6WeEu7CuzsFEridLP0G894naz27Yy6yOMVi5FiMb7maMHCrm
-	1NiTjiPgejU/LKKUK7wbe8eXVjxnyEAeSvKAum2RQFSlU0rY0E3fgnQWlNgq3RRk
-X-Gm-Gg: AYBFou0MfHG3PPNHbbLt2iX4SIHYgt3JhmnfEn/xEDESpKZUqDos1rE5oMKhCFj6Xxa
-	hgDl+YaYU5vlfpBztKD605xChMhwLrd/yGABZB4m5rGDxxAVsCPofAKBkJB5KbcP5Mdn8qRAGzt
-	b+7qZY+7YKxIOAYwna29sqwDw+zOw+FwOVHnnI7kTCt7HlPThcsIOaIkc7iyD+80wYBB208J8Vp
-	dFI0uu4XLwUB+0aTT0Y276rRHHMS5wFf9raytIWg1Po6y58Cnwa4c5F4o6JSKIeJyI2EEPp3hJ7
-	y3oUaWEK75VuKndF65mZTptjt5AG3MsKSimYj9o/5Jt8ArDJjj+t7JfYtoXeWGlgDzGwQ/5XatT
-	qMJPMeY5OBOm4rMVlEp9Fs6sgtzv4yfxv1qFKtX6vFgyKdj22mKmM7eJijAP0wBv9rzakKzvxsN
-	RY2vFBOXOYrV/lyGfj4UlFTxAnyhhqukPzAfleiwhCCtnhUbDpJGlwlA==
-X-Received: by 2002:a17:902:ebd1:b0:2db:2c05:5d92 with SMTP id d9443c01a7336-2dd764ea0abmr38594445ad.8.1789460561120;
-        Tue, 15 Sep 2026 01:22:41 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2cca26cdsm63466485ad.7.2026.09.15.01.22.38
+        bh=nfGU+d0Ce1ol/Tm6wjF345/Jrj4e+fpsFxiynd3zRTo=;
+        b=SyP4qmoO7IMCM64a8dOjWmOABrFEMs5ECN2ABKxGFcM22rUGxN273/mMQv9qbYgC2r
+         YClNXzwa7ZeFTpWSmLEiGqu5HH7ZYgKLA8bNjWncCQ/mfhIsRmbyoCNGvA/vRaO6HkBJ
+         I6IF8WTpjcfBWoc3/A7xNdV4nsuUmUejORtPkK5yE+ZZPxeR3KQH3y0F15DZZrwXIOha
+         ObWUZSxEzuy5p+U6RWb4Qh4+83a38/dLKleBeI5NAyvKOcnAlUZy/cCR2MXf1voDF/wV
+         66Pbx0zEw01XPwzG1oxVxbY6TMJt8k3kQLMeL+QA30xSSIYPz6A+N87uTd7Lj/d9vjSj
+         E3eQ==
+X-Forwarded-Encrypted: i=1; AKwUvByafLKgfk2fn8iw/VSY8+bI+ZOCS0VKArsPg5PVnNDoc9A63b/rpMHdH3GEiaIZjYVzAgCkWko=@vger.kernel.org
+X-Gm-Message-State: AFuF++kOT3YHhARsrzOdg8bhT/4fGwFEaZth7WwfVuuGfr0nNjpMA/Kb
+	UEQ1fNrPOrUZw0HLcMomt1box5mj1sIzJcl2q+7jqn5GnjfcVcqOenhMPZOmkN560Q==
+X-Gm-Gg: AYBFou2fa8VYFsctaJMX8wfHx1NHsM3vHCWkn9To3mxd+Hb87+XGrHTF5HHX+JS7qVz
+	9UdhrUePei5p+Nmyk5UUSCsKPsqirN1ZFOgiIC3Amrpef/AyLJSM9aN8CpQV5+HYf6cbWLaId3J
+	Wgf9v4FDiMzRFljhH7616Sn1LqSEHXuhuT1lrvXqXMIuYlpOypEN53aVFeroq9fghKSUGlRky0a
+	DHcqewG+VOmYaHvAHpvBO17iUBIoEd5JwaLtW4Phj7hEm9DoEPlu7HzQMbR1MlSKHxC5SedvxBX
+	qEjTCGeBYtRq0FhnjoQplf/Uj14duY9HY71MDFdW2guBdWj5Ozp9aCxrHEuls/kGXqUc1n5Sfcy
+	1Tk0NOplpQsI7TkYxDhHJV+VP4CalCjG/DZbBLrppQsFG2dTF6dDeNZ+hAGC6CVFh4/kiGIhode
+	zsI4jmRLVTaDE1Fpdw5M3x426gOVNJhUTFM9utnWDg8WXVarnhf7DL7JluvoJ73uE/wlwjkz3X6
+	vG3xm7Pq24HZpPitzxTMjm9c66PHivvRulzgr/CsVldU5Wps1ELFn8H
+X-Received: by 2002:a05:6820:190b:b0:6b7:83d6:2925 with SMTP id 006d021491bc7-6c5423435dbmr3269444eaf.40.1789461119455;
+        Tue, 15 Sep 2026 01:31:59 -0700 (PDT)
+Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14382741839sm13579723c88.6.2026.09.15.01.31.58
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:22:40 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Manivannan Sadhasivam <mani@kernel.org>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Benjamin Bara <benjamin.bara@skidata.com>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: imx290: fix runtime PM reference handling on probe errors
-Date: Tue, 15 Sep 2026 16:22:29 +0800
-Message-ID: <20260915082229.2235439-1-lgs201920130244@gmail.com>
+        Tue, 15 Sep 2026 01:31:59 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: netdev@vger.kernel.org,
+	bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	jakub@cloudflare.com,
+	Xiang Mei <xmei5@asu.edu>,
+	stable@vger.kernel.org,
+	co+0ea1ac045375cf05@bugs.sh
+Subject: [PATCH net] vlan: require the MAC header to be present in __vlan_insert_inner_tag()
+Date: Tue, 15 Sep 2026 01:31:52 -0700
+Message-ID: <20260915083152.705309-1-xmei5@asu.edu>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,52 +82,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-imx290_probe() takes an initial runtime PM reference with
-pm_runtime_get_noresume(). Historically, the probe error path balanced
-that reference with pm_runtime_put_noidle().
+__vlan_insert_inner_tag() only guarantees head room via skb_cow_head(),
+never that mac_len bytes of MAC header are present.  Its ETH_HLEN
+wrappers - __vlan_insert_tag() under skb_vlan_push(), and
+vlan_insert_tag() under validate_xmit_vlan() on the generic transmit
+path - therefore rewrite the first 16 bytes at skb->data: a 12-byte
+memmove plus two 2-byte stores at +12 and +14.  No caller supplies the
+bound, while the pop helpers use skb_ensure_writable()/pskb_may_pull().
 
-The change that moved the successful-path pm_runtime_put_autosuspend()
-into imx290_subdev_init() made the initial runtime PM reference get
-dropped once imx290_subdev_init() is called.
+An IFF_TUN device has hard_header_len == 0, so packet_snd() accepts a
+one-byte AF_PACKET/SOCK_RAW frame.  The first vlan push only sets a
+hwaccel tag; the next - clsact "action vlan push" or
+bpf_skb_vlan_push() - enters the helper with skb->len still 1.  The
+head comes from skbuff_small_head without __GFP_ZERO, so each push
+drags bytes from beyond skb->tail into the frame.  After three the
+one-byte send leaves as 13 bytes carrying 11 bytes of uninitialised
+slab:
 
-The longest probe error path, however, still falls through to err_pm
-and calls pm_runtime_put_noidle(). Failures from imx290_subdev_init()
-or v4l2_async_register_subdev() therefore decrement the runtime PM
-usage count a second time.
+  0000: 5a b3 62 12 80 88 ff ff 00 b3 62 12 81
+           `------------------------------'
+  only 0x5a was sent; the rest is slab, here the top 56 bits of a
+  linear-map address
 
-Move pm_runtime_put_noidle() to the imx290_stop_streaming() failure
-path, which is the only error path taken before imx290_subdev_init()
-drops the initial runtime PM reference.
+Require the MAC header the helper rewrites to be present, so such a
+frame is dropped rather than transmitted.
 
-This issue was found by manual code inspection.
-
-Fixes: a92651b8e288 ("media: i2c: imx290: Avoid communication during probe()")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Reported-by: co+0ea1ac045375cf05@bugs.sh
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
 ---
- drivers/media/i2c/imx290.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ include/linux/if_vlan.h | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/media/i2c/imx290.c b/drivers/media/i2c/imx290.c
-index 21cbc81cb2ed..c2cdb1557dea 100644
---- a/drivers/media/i2c/imx290.c
-+++ b/drivers/media/i2c/imx290.c
-@@ -1634,6 +1634,7 @@ static int imx290_probe(struct i2c_client *client)
- 	ret = imx290_stop_streaming(imx290);
- 	if (ret) {
- 		ret = dev_err_probe(dev, ret, "Could not initialize device\n");
-+		pm_runtime_put_noidle(dev);
- 		goto err_pm;
- 	}
+diff --git a/include/linux/if_vlan.h b/include/linux/if_vlan.h
+index 20cc16ea4e5a..4846032bf4ff 100644
+--- a/include/linux/if_vlan.h
++++ b/include/linux/if_vlan.h
+@@ -365,6 +365,9 @@ static inline int __vlan_insert_inner_tag(struct sk_buff *skb,
+ 	const u8 meta_len = mac_len > ETH_TLEN ? skb_metadata_len(skb) : 0;
+ 	struct vlan_ethhdr *veth;
  
-@@ -1662,7 +1663,6 @@ static int imx290_probe(struct i2c_client *client)
- 	imx290_subdev_cleanup(imx290);
- err_pm:
- 	pm_runtime_disable(dev);
--	pm_runtime_put_noidle(dev);
- 	imx290_power_off(imx290);
- 	return ret;
- }
++	if (unlikely(!pskb_may_pull(skb, mac_len)))
++		return -EINVAL;
++
+ 	if (skb_cow_head(skb, meta_len + VLAN_HLEN) < 0)
+ 		return -ENOMEM;
+ 
 -- 
 2.43.0
 
