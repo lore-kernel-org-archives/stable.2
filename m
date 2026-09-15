@@ -1,43 +1,53 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7323D7D6C;
-	Tue, 15 Sep 2026 02:04:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EEFB53D0BE9
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 02:04:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437842; cv=none; b=tD8BCUKZnhswGsYQjXiLJbriEChMoHylqPP/78fbiBXZe1FkxTliBbh+ohvznNUFN42kOszmcWEom//9i3pQz+FI689YMbye3/vHama8yCyTbmtnLsrmWHVV/Tok5umvRWR8jplUeNNoidSt1IgfQP6bTz76Dq6IHCz1vZ9VwQA=
+	t=1789437844; cv=none; b=ZsBkE0i8Hkmmp6nbjtr0hOqwl2ByYTk5wrrk6Aq55HDR1dk8fuQYc7auzDEMZ2UVtY0qpzeMMCwwR3KVgv+em9rhaP1B5HUNM7S8RMTbe+odVNObJifg8DL6uO1bpcyJx5p9/0ycXnKWl1XwfJq2hJTLXY2jpR2+UhZ3W5SNo7I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437842; c=relaxed/simple;
-	bh=xgknFQhI6Gi9FL+RBgQK0JznXAMYNBAeel35EE3vNco=;
+	s=arc-20240116; t=1789437844; c=relaxed/simple;
+	bh=Gv6tN3a6Q6P65CXBa5Wpv7Esikf/enVC2dc40ZVRgmc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IiHaEB0cFbSkSd/Q/V4cTS/1vAs++jdcrz0MXugiIU2YLJxzINJutFBoIINAJeAj2Jh/leijotOtzpZmnGxUKlOUKqHjyYUq7HjLO4KyB2+ZgdCPcBofb7FWHdK8v7Eqy11Ce+Jjwf/nEFp4kJw0oKja8MpoCZmUTxRFq4IqgW4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNh83LG0; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=pQJtka5yIKdkBMoC5VEjW4DgGXUNVop6Q5GMWNbkcaOklWXCB2hEqlOwFdLz+PVtTNbSdtKfb+t3Xf+cEdaxn0VlzfbNgc37yHDfHltjpCjcMsBhzpy6X6NcviXE4wR4cVKcUd+toFHBNn4o9Qn+SVnBm1kac0fAixm+p6Sgau8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EjvrVayF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNh83LG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E55AB1F00898;
-	Tue, 15 Sep 2026 02:03:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EjvrVayF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0A351F0089C;
+	Tue, 15 Sep 2026 02:04:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437840;
-	bh=2ExXhYw4140NQhYA7NJ57bnziNBZPppsMFWVZ83+lTQ=;
+	s=k20260515; t=1789437842;
+	bh=K3ISQMo/SQBwlYFqO2e+0Esnhs8jBO7YspRnICa6F3s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BNh83LG0DIQB1ESdDkT1rarha7yVCWZHZkcXBckw9hojvmxaQfbNbJ+l71CvRBYjy
-	 JbO0b8+kDI5VjH9BEZ7/lRilKXwINegOmx9sDJpc3b68wDBDP8nQklsHtOBgaW3D2z
-	 H48Xxq9JvzlsQvURnUTFUpNf9jwG/Kp8VETRrWpEFLMXyl7Qt97Oy8FKl5A3e+l9EN
-	 RzK4a5v6pR1Tu2J5RDbzxVOa9TlGbrAPblozPRcTv4oOe2Ckkzl6vGrxAUxiDsqeFz
-	 SS7Gv7jypkU6TwYCif2SlgVcIO6ki2Su3HW+JjAtUx4s/PfQ6JbBunGclUM7kOpSf8
-	 noweQMIgp8CfA==
+	b=EjvrVayFJTgOPeZRvkutZQvzsonL829fC3KyyhbbpQeUUjrEi52qbZmRrrZt7jYll
+	 eq75xLle8Fw+nJEfI9ChYqwoIwyU/AhlTfOhuGLWaD9doGPaFYDAc+tkNnElv8hYlB
+	 Q/anq0WosR2EZiMU+6rdF9Q2AIzPla1dBMaUxXPn18mGZ5N+UJ4QBZI897PuLBFI0q
+	 ZYB3TvYf4M22fb2mwRu3XxoyZhDyR+gYvgqWEPZREA+pXtshgbwXjDBqbamnKqaAgT
+	 ASxlSaXvq9LyKEWRdmcem5vmApQ68wELVr0LEiGKJiqI25+6TQId/8BF2NEGhpGN2c
+	 MjGBm351ksLlw==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Johannes Weiner <hannes@cmpxchg.org>
 Cc: Sasha Levin <sashal@kernel.org>,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.18.y] mm/damon/core: avoid infinite kdamond_merge_regions() internal loop
-Date: Mon, 14 Sep 2026 22:03:33 -0400
-Message-ID: <daily-reply-0017-re-damon-merge-regions-remaining@kernel.org>
+	stable@vger.kernel.org,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Lorenzo Stoakes <ljs@kernel.org>,
+	Barry Song <baohua@kernel.org>,
+	David Hildenbrand <david@kernel.org>,
+	Dev Jain <dev.jain@arm.com>,
+	Lance Yang <lance.yang@linux.dev>,
+	"Liam R . Howlett" <liam@infradead.org>,
+	Matthew Wilcox <willy@infradead.org>,
+	Ryan Roberts <ryan.roberts@arm.com>,
+	William Kucharski <william.kucharski@oracle.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Zi Yan <ziy@nvidia.com>
+Subject: Re: [PATCH 6.6.y] mm/huge_memory: use folio's memcg inside __folio_split()
+Date: Mon, 14 Sep 2026 22:03:34 -0400
+Message-ID: <daily-reply-0018-re-huge-memory-folio-split-6-6@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911135003.96395-1-sj@kernel.org>
-References: <20260911135003.96395-1-sj@kernel.org>
+In-Reply-To: <DLDJWF5NE46Z.3JBTVOKAYOYGU@nvidia.com>
+References: <DLDJWF5NE46Z.3JBTVOKAYOYGU@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,11 +56,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> > Once that lands, the other four branches are ready to go.
->
-> Cool, let me know if there is anything that I can help!
+> Done. See https://lore.kernel.org/all/20260912182926.1326147-1-ziy@nvidia.com/
 
-Queued for 6.12, 6.6, 6.1 and 5.15, thanks.
+Queued for 6.12 and 6.6, thanks.
+
+> BTW, I see you also sent one[1], but it seems that it is using a
+> non-existing get_mem_cgroup_from_folio(). What is that for? Thanks.
+
+That one was generated against a tree that has the helper and should not
+have gone out for 6.6.y. Please ignore it, yours is what is queued.
 
 -- 
 Thanks,
