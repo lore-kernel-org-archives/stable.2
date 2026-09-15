@@ -1,78 +1,84 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-qv1-f53.google.com (mail-qv1-f53.google.com [209.85.219.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D30B634A3A5
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:01:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 752C9372673
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:02:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.219.53
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484498; cv=none; b=lP83WwiAXDZhoa2kSwBSxXHYLrt8kOOGRrM0uf+e7i48EM6bCxgfcY1B5iQFKnjicpF7mZYINLGyD0CvY0h+Y+lgmB9aJ4OkXFVzT7pMv2b3D2Xx1nlSlQCqTF1cUnKcCbpgKT52QLrRcI9Zg9MS6KUzFz+umoXndfsDcF5AANw=
+	t=1789484531; cv=none; b=oh7kfU4tCZQHT/wOmrd8lxGF9B0lzxdlvVu6gBEfvHrq49PYWGFlaXQKKr00ZrnmeQ/BqSoadsONOaqb7kaPBM1Ng5PJb1BXgmMiySJE1svcysHU/fHOGT+KpWpR9jM8f3BUHj9QqQ9vS/Pwwk5Opr38pva16V+LI8oA/1xdXMI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484498; c=relaxed/simple;
-	bh=1fbdwqra8hcU7hJAomibU8hl7s8ORH+jeNUHHdUh8m8=;
+	s=arc-20240116; t=1789484531; c=relaxed/simple;
+	bh=/fHR+cBcwXjSOEnwm9YuzA0ScboREtQG9KUAT8U1sYY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=pR+4M6P/YEHdoyyHLcOyhwoiF91B4UIiFa/Pp9PcJIUmAqM4ULcUOUE5dGNL11vq6NvByYRKp+OYr7KbbKqSyuv0KkUuU9YajCCloglRwaGo3w4uqlkmlw2s4qK1rcfpYF0pwcyzt8DaNqchY1dJ37Reb4CiYh/JCCqzRxoJA8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=WTU6DjiR; arc=none smtp.client-ip=74.125.230.205
+	 Content-Type:Content-Disposition:In-Reply-To; b=NTCRJxqXvXp/s4IVbhsD04PiM48wBQ/KiqD6LqvoEsX1wreASJ++impR3yagb+zp3/FzRI5YDM//nbiyQqo4TPUZmHuQiywYJ3c/G0FmZ516xRQoh7RibbA6An2zzFDuoXKZ5lMBDnTC0bzwYfSSoUUejifAsGg9vEQlRGLpK+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu; spf=fail smtp.mailfrom=g.harvard.edu; dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b=GRmufUme; arc=none smtp.client-ip=209.85.219.53
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=rowland.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=g.harvard.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="WTU6DjiR"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-5310b91044aso2578731cf.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:01:36 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=rowland.harvard.edu header.i=@rowland.harvard.edu header.b="GRmufUme"
+Received: by mail-qv1-f53.google.com with SMTP id 6a1803df08f44-90e9ad1a373so8202786d6.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:02:09 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=rowland.harvard.edu; s=google; t=1789484496; x=1790089296; darn=vger.kernel.org;
+        d=rowland.harvard.edu; s=google; t=1789484528; x=1790089328; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=g9rzR4FHW24jqWw2J2lJ2bk+jLthZKfD8kBK912Z0ag=;
-        b=WTU6DjiR+wcEQtib1n2Jn+NHwfCFueZ5gcOzxaBTsYmCsABGQRSp500/lYpukcCQ8Z
-         F3qZWXieZUQMk8PUiPl4wRTOtSPMS7B+i4XdnHmL7oUn5Atph3AeBSaoDP6sBFqbd8n/
-         FQ7uYGLC2ghWJqKE7t7ycs20ywSBNM5EYPUqu/uO+o/dVsphYn4NquJaS32Oaqkqxfjl
-         95VazU7SViBjOFgp0ocZSjkEiL2hkeyVAEW32oLAq/44rIaHw/OPxCwi+/5iTpRFq/eH
-         iR8WP5xYJEF1NgyitAfWQCrt8MLCsgQg2eeTyS02txeJOjHD6X501x3akjb5+khaQMIS
-         /DVw==
+        bh=62dnS9UB1nI/BR4/ltxJuhKZokBySflA5rnVbV11GGc=;
+        b=GRmufUmeDJRCz1H4sU2sB5+nYIz9F3ZpjBW/DPSD9AlkWV1AW+Ugy/HSyhA5kSzpls
+         VdAceIPlX5LgqLbfnOZvT51MXxwm3GBr/sNcAm5/0GqiLXL9dIW/9LmQrpH1Y3rLEnAs
+         vtzrKi89biOFblena4jK4X6UIV85JDNp2JE2guNjDMuR5ndWAoWJWpeMgGrd34xGjBal
+         iUt2UH9xirX1Kf+1yLaQyJ3z+bRTdTyxCyfyytpxhImSL4ubCE595H5wtr9Cf0hGwMvA
+         4fBP+QVfHgPXPAH1EdoJqahTIuf2LzAL+FG2fTfonr1AHAwjSNKWJkERlinkSM9DL+r3
+         BMzA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484496; x=1790089296;
+        d=1e100.net; s=20260707; t=1789484528; x=1790089328;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=g9rzR4FHW24jqWw2J2lJ2bk+jLthZKfD8kBK912Z0ag=;
-        b=BGvI8DV5/CyrNfoDSdIzlC/s5mOXybuYk7iRmRK4RO6glY4M0fPHWby41fwmTDXpEb
-         yTJecq7XNGtvCMIQEKAIL5D4u2iMYD0MBuCdTEjMawI3I4eRH0URvWz8Io5dfPvYzmyE
-         BCb229pdQaU6JkOXzLOYR6QY9LIeoYIp8qA1aUdh82HiFrcggmuMr4imGeJJ/TeRB5hr
-         KErpVVFKiUtpEbVnHXIQgbQjEqQWj3spdX9sfiYxJ1qwkW2Dpp7R87SL0A4QC0qgJ5MB
-         AwVlKi1DRs+4NG8bScuAgiqgc9sFp7Q/aJawZ66zmT+crfZU71Uybv7D5TyMULGfqlzZ
-         bUMg==
-X-Forwarded-Encrypted: i=1; AKwUvBwhB+0gDOUyd4MD2CrqRGR7YaaVSXVCYNxFnTRFaEjGPNO5mefcjkFMskaKHXbZVs3smiRWcFM=@vger.kernel.org
-X-Gm-Message-State: AFuF++m7bjxvNdTaUc7Bh1p0kwdFHuNPor+zOPo93vYpXd1drkLnvFiv
-	YedLwYABIIDjqav0g69GzXgIzsgU/TtWF5x5zcv3+vTSwrj1ayz0fJwWPIz8KvWJLA==
-X-Gm-Gg: AYBFou3slyQ2ynd2LQFwbD+50FYvG29FyL98NPZLfKnTwDXpvLpOqGmsU6jn0G+sQ4F
-	pbMvAQYxbHHE+vKyVbO3xokgT/UsP5Hfmqf4+eOhYXSmQjbhFmA2+XKqGNZjI2A740ZO/+wiV9B
-	ELW0TLv2qcTo/qyv/dngEyic404NRX566OQMtSj6nOLoW4hw5RSBV1AGqSnSqdV4WOelL05rvrN
-	ToHZEHtB5kehpVlVE4Ztgl/PJlLx3FOB5x/nCwQ4iUZWM2VL+zXysRMb8kXx0p4SJaeLvIhV1YC
-	AGX2Jm86S3kbcMsF8vfRnmscCZYwOss1RFR4Im/DjRUaKY/SLLF3rFQR28t+xYwf+MqavkAthUa
-	zFOL89HrKj3TfaRTAklTX5ps8lM+k/ITQen7yWJGzLFS2g7OSNEB7Tt5cSXXTSwwKrl4uJXco0b
-	dMnCOSQLROVK5WkmEUmksqWVPfTaf1jCXjL9zrpVE4LrJT/12liHvlsGdaektgeUaCubywX62o
-X-Received: by 2002:a05:622a:1dcf:b0:530:e7aa:ef4e with SMTP id d75a77b69052e-5312626d895mr19384701cf.16.1789484495571;
-        Tue, 15 Sep 2026 08:01:35 -0700 (PDT)
+        bh=62dnS9UB1nI/BR4/ltxJuhKZokBySflA5rnVbV11GGc=;
+        b=H1+u/H2fPYSiSul+ddTsj50ogk3dZYPS9p2noNdn2RwnWIcZG/dWYoNV4h81TIiW2b
+         uYxpyk8vcl9VUeWwKgmNTpreuftqbmjR2Ga+iqxgNEc5seyg5xxlSrD/TUqC48t7fJR8
+         GInkxKhRB+st4bkoCogTxYcdVktOTTpT6ZakmaT6SuJR7mXt8HOWK6Kj5qt7B9U+0+vl
+         okQBTvPORd6T21ocSptC5YLg0vTAz8cuJqeherBFYMKfByTlAoxs5TQbG/k2vVUdJ3Au
+         ofNyEv31hzeTK2MoWqeeGGWjHm9sjGiYuASIQyYSS7o7WsZEyQNumihRtDOFrgzrIWvR
+         DqUg==
+X-Forwarded-Encrypted: i=1; AKwUvBwzLvEbCHt9l8d+JXlWDTsnwUfWljRHLiURT7MV4UtAUqveVu44+Po3T40s/3voGWkiOAqcG4I=@vger.kernel.org
+X-Gm-Message-State: AFuF++nXYKyi60Um1PvgvGnPnNqor/S7O3SWJ+EPtZKyk3eGhinlOXkj
+	Bc5QtBpNxHlg6W8N43JVw58lB39q6aEwPQihp+9oMRp8vgMEYjeKbTI/FqVeUXdHrQ==
+X-Gm-Gg: AYBFou0403h4fQY61NrBbKvpHwsDJXTlEOcluD5+CtkgKI+5/89CgyvCDq0w2Db3W/8
+	GO/Nr4axYZ2stoxVfzOyB9Du4X4nF5nd9YeyvN+IB/hhiysLvHkiOW/oHLI/VFw2P5i06DHf9Ol
+	pkFbcgwSjP+VOvdt0kkQn6wWZ3EhCE0+d1z6lCWj4iOsSE7e5XbQf0fJ6DpcIJplHCmMrJqExEG
+	Ksv1d+ydf2DcSDegAPgBtQeRJyusFgnBODXU4h8LfyTU2oQu0yumINdrrfLImdODmkADl/R6PQ3
+	tx+b76G5tC4CeSOSx3FhzklsZvs0yo1dy52gg+i6ZDGYOyOuPcJhUjPQ8+FfJ2jlM08MUSCUjcY
+	55BAsSgM9bKv434l6PistltOsYjvFdEks8YRPds9NxmQL9OKj4e1+/m1QcedbikE4Mt21Ms7zcC
+	CqotJeCKtrOAjFnbC1AKCRupQnmQV0aISof2xJalm4n1by6UrtyCXtHnon8cwwEsLAABmUFAyEE
+	1XsGbfZo+U=
+X-Received: by 2002:ad4:5e8b:0:b0:8e9:cd74:87bb with SMTP id 6a1803df08f44-912343f272emr52165806d6.18.1789484526773;
+        Tue, 15 Sep 2026 08:02:06 -0700 (PDT)
 Received: from rowland.harvard.edu ([2601:19b:d01:d210::7544])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53116090064sm34071481cf.5.2026.09.15.08.01.34
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bec51c7sm381356d6.38.2026.09.15.08.02.05
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 08:01:34 -0700 (PDT)
-Date: Tue, 15 Sep 2026 11:01:32 -0400
+        Tue, 15 Sep 2026 08:02:06 -0700 (PDT)
+Date: Tue, 15 Sep 2026 11:02:03 -0400
 From: Alan Stern <stern@rowland.harvard.edu>
-To: Myeonghun Pak <mhun512@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Patrice Chotard <patrice.chotard@foss.st.com>,
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
 	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
 	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 0/4] usb: ohci: Balance controller wakeup on cleanup
-Message-ID: <c65da485-90f3-4393-8836-3b793047bfc4@rowland.harvard.edu>
-References: <20260915012011.61874-1-mhun512@gmail.com>
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] usb: core: add missing
+ pm_runtime_dont_use_autosuspend() call
+Message-ID: <e2404a51-3480-4c93-8d31-6b796879ff6f@rowland.harvard.edu>
+References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
+ <20260915090223.1346-2-joshua.crofts1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,25 +87,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915012011.61874-1-mhun512@gmail.com>
+In-Reply-To: <20260915090223.1346-2-joshua.crofts1@gmail.com>
 
-On Mon, Sep 14, 2026 at 09:20:07PM -0400, Myeonghun Pak wrote:
-> These four independent fixes disable controller wakeup after HCD removal
-> in the DA8xx, S3C2410, SPEAr and ST drivers. DA8xx also needs the same
-> cleanup when notifier registration fails after the HCD is added.
+On Tue, Sep 15, 2026 at 09:02:18AM +0000, Joshua Crofts wrote:
+> The fail label in usb_new_device() disables pm_runtime on failure, but
+> doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.
 > 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
+> Add the missing pm_runtime_dont_use_autosuspend() call.
 > 
-> Assisted-by: LLM
+> Found using Coccinelle.
 > 
-> Myeonghun Pak (4):
->   usb: ohci-da8xx: disable controller wakeup on cleanup
->   usb: ohci-s3c2410: disable controller wakeup on removal
->   usb: ohci-spear: disable controller wakeup on removal
->   usb: ohci-st: disable controller wakeup on removal
-
-For all four patches:
+> Fixes: fcc4a01eb866 ("USB: use the runtime-PM autosuspend implementation")
+> Cc: <stable@vger.kernel.org>
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> ---
+>  drivers/usb/core/hub.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 3345b3298daf..dec6d5c49759 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -2745,6 +2745,7 @@ int usb_new_device(struct usb_device *udev)
+>  fail:
+>  	usb_set_device_state(udev, USB_STATE_NOTATTACHED);
+>  	pm_runtime_disable(&udev->dev);
+> +	pm_runtime_dont_use_autosuspend(&udev->dev);
+>  	pm_runtime_set_suspended(&udev->dev);
+>  	return err;
+>  }
+> -- 
+> 2.47.3
 
 Acked-by: Alan Stern <stern@rowland.harvard.edu>
-
