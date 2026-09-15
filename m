@@ -1,143 +1,136 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from CY3PR05CU001.outbound.protection.outlook.com (mail-westcentralusazon11013047.outbound.protection.outlook.com [40.93.201.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E2840681D
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:46:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789494393; cv=none; b=hGpYjzif3i2y2i5g20QLfF6mBxUt48sxotnN7gl6n11gmX/CNaSrM23sqVOLpmNaqodRSPCD627ShiGd1d47RtXLG6vOrzbD1u+Cx6wDYnZDAnR8cuUe/zNNwJp82PLM/Ki0F9Aygzhj4Dg57KWwivKi0dTz7VpB8NvQtiMRTSs=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789494393; c=relaxed/simple;
-	bh=WlQBNU+LBHOTy12vRSd1ePrcpVEBbXkmEd6JKJ3g0u0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EiDShrmbNt+0f4AiqHrWNVSqPXtdiKw+BHRR4xiphC10BV33AHj8I9HLxTeSwNo8l+lgBbnYXwyS8OtmeEjwhXOSyQzXI2TFVEkX/qTbiOWQcaXDNXf61v6OPv4mnJM9E6Vg1tuQL1rYGheH29p72xT2cqSlWCuWcLeOjGeTNP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NCDBC/8O; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F6873B6C1C
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 18:02:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.201.47
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789495340; cv=fail; b=pL74wT2uLTaC/y69Pa9lNoIIAs5BicBlxwuN3B9wjytcq/mtjsTNN+q8yNKBP0M25M6GNcNgMfQnwrb/J6AVNU6rUSOncYoAnP+CYs4SJ9xdWA5EFaoPhy2L/zpl5Ibnb+C0C6+tq+4MzaeQZDSsRwYHNNkj/2ZlMzOvrnk0Dko=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789495340; c=relaxed/simple;
+	bh=dNxWal+kSPh9F5lvQLYRmWOoHLLMkE/Ay7DpJqCfBiU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gr3jOd6RAVFDnQq5PwO8Yf9oBDrrmE+MN0uzBlbEk8lfrRFMxwWUEguC+oKiG4ogq7tVHLze376UReAI/V5utffbjxToXfi3lBqUVO/lPay8tpg06xs33TW5nvS1zbZM/QZDYRxJoqbDH2ELiwNvvAS8og303B5cwt5HsCQmbyk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=dM81Lxph; arc=fail smtp.client-ip=40.93.201.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NCDBC/8O"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so497115e9.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:46:31 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789494389; x=1790099189; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=4kHhQGy3vIUJSO4i7ji0MZ5Fg5auge9rgj23eZwGEys=;
-        b=NCDBC/8OzeEsXDsKqGiYKWY0M67SdVEOP+jHaM+EbBm4wpV5Uh0p31rg3UE/NJMnpJ
-         pRIETjBmOdgrRnE4YwBvc2JcenbXic6PPLBF9HWhg5x8eIlRYxEFXUyj/3CBvQ/Jr0n4
-         cMPWrrFBfHFDOCDLh2b+fx1E1FmcEh15YzTLuTwFitosgm5dspjAm9wD4dM9pbt2hRBq
-         f2bZ4yeRK/ZQZf5re6AJX3+pcU4btcfnLf6Rt0zxy5jVWfMoiwOR07fwPhtScDxdnA4r
-         eDITvnakX74wbLOcoT3AEqGJzsA5GHqMqkzltG7meBoE7DWdE66Gsjf1wCDN+YUiOMjM
-         hdyQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789494389; x=1790099189;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=4kHhQGy3vIUJSO4i7ji0MZ5Fg5auge9rgj23eZwGEys=;
-        b=0usl/CtOL/6/oTt9qZc4d4o0Vl0HkUC4vJYlD8TLo9wjvbOAv/pqakGN386xvUTcb7
-         1WfoQELn2hspRwixoVKiDTH4WVOeUyys9yK4WA4/LV9Kl8p+Mu55Y7A9eRunOqmXrPNQ
-         TBfZomNfwBOoAwudmUilC1T31vGBA9yxQ0+hMJA+s+BK0UilocPOUT8tYc963xC3pat6
-         Dgrbz+dqTvKtG5MaX94cY1FC/RC4l918FKLdQeHKIbijMq0Xuw7+tNrywYxyEgT77kVc
-         T5MWQica2gdEpcvQvNu6ScGyIcPaR6Gl9remZReDIpc9EPyBOIjrQ/Tva3nR6E8oVEMy
-         nQfQ==
-X-Forwarded-Encrypted: i=1; AKwUvBy/6yI7oQsyVBaQjUclfxBppELaP2THMHWLGZyyBVwTSdlKazGWjsikFp6nltelXWPM9aPG5b0=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2U1af64SUEpOO3GSau6PFJyjQWpOpi8TuwzUCIkUzF+GIlBzL
-	jtUSZtLspCD0pgdGd4YuInZsbVW7vY7UT8DWhiwSP0YZsHdlOfW3XdQE
-X-Gm-Gg: AYBFou0H4Yj9tm4oTvzog8BZbU1k1yXCNW5nVIUFRo/bajyYiwoCEFQZtCpsaSPu82Z
-	DpuwizV8FFzB9tC18q390dYrJnC2PeIqwXm1qRmTgw/cMXxWRS8DvhGDQMxwJ6uiue8wGiJM9ds
-	KOWDUPpVPPsu5yLjZXCOSYNtm98R90BfZJV3nqvSXmJcWBbKpTiqzbSDgVOd2JItFsDTLMHkHSm
-	D00KA/PKr6OlLqgBJdEFdFFvT1j6X5xM4wqho+Te3Yhz8Yf98dOf8uhwMextv2fFNLCCEm+5OD9
-	3espjSSBTBxr42Rrihmy0QLs2haBPhwxZ6Q/tbjdYFSCv/piWxAoqnmo88m5TCR44aUkMzBpsnb
-	tOveU3xMwrUc7Ch/LwK66E/laZ5+RuoyHpEncvcIi8fpvScNaIYTH4LcB7n3zwgj/ZYvVP68Uu6
-	NawMEyyuqyKOB2F5y3IRhm/hcnwxAMhC299RxufsbfZGj4go2vmtvYJsHrKEGQVC6Sw2WxS0jh3
-	zMaYVt7sCtBY7CyJBEcajIQOP4G4XI2S/+pjMs6jJi//M29dryH
-X-Received: by 2002:a05:600c:860b:b0:49c:fea1:f792 with SMTP id 5b1f17b1804b1-49e7a64889amr101393015e9.12.1789494389380;
-        Tue, 15 Sep 2026 10:46:29 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83fc3da0sm3415955e9.1.2026.09.15.10.46.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:46:28 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] platform/x86: hp-bioscfg: fix slab-out-of-bounds write in hp_convert_hexstr_to_str
-Date: Tue, 15 Sep 2026 22:46:15 +0500
-Message-ID: <20260915174615.63924-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="dM81Lxph"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wPtrtX+4GrrdQEMjm12qCYjjEKGYYZ8+0JQpPV2e+sEwFiMB9hN7jsmYZuUWtHjpQdb3WJ45cXI1iGi8NHNt0GfT5YMCM/GhFwIvrHUsaH/7G0xiI6kyQc+8n0l8NtkxKWyT3Chgu4pXmg+gztZdAyK/8BNpc7DzQNxdrzQ0uVGnLhZTUCC7JzJGAr8Zetdbt0yZrYioApjwp47XyXpaC/u+8wkA9uS3yPCuUq3jPQH7NzmchbO29BOGy49x3ZpH2FWwBTGstKwojblbWf4vNzfWcMZ1nqZS64xg/yUkv40kerqjEFvXpmCuVR8eLQ9jAalqNvK39N7HNPK1Lp5i7A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=HECQPV+7L8WHKXY0rIEL+166Fv5D62wx6PIpJQkIhr8=;
+ b=KyiGNCokk4guqnPiALsC0Fh9DKxfEdzhQCKMqTx47f2vvR9NM/EpwdYzpukYUxyhUl9SLfkm3TE3BniGSt/u2pN3WzhRPTintxH0us3W/w1ir7vcAEiy8yihx5yFvGZCZIzSElE51yqYENhDh3rjgpcuKwrF92Sj4axVeiT/ggQn0Avfzzcmvwj9p5wRFpI59mqg1rwPxueKwSoH/tzd4+JWFXjclHcyZmK0MYx9AQRC/NCR6gxThGF25l+2ymsnkFFgwzxtOnm2gLuMpRrd2KBoqDGpZysU5em9SDOPJnx2vSC6Mjt3/IHy7eYc6TaP4pi1+4pQpZmCqwT8SoRLiQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.freedesktop.org smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=HECQPV+7L8WHKXY0rIEL+166Fv5D62wx6PIpJQkIhr8=;
+ b=dM81Lxphsvu8FZn/wrZd5AqoG1D23fXAyAQLIUuy2Gr5GSsBieUbCbJeMF7x/qVjKNKvN8hPcnvxal/DNGoEArgNSUxCd7RkJsrZUmrSDq5TU6m4sI4z9JR13XT2lE+Ck8jQc9emw4oEfQvbeq5Dz+ZxefP7L0EVAwXvvkBKl5E=
+Received: from BY1P220CA0001.NAMP220.PROD.OUTLOOK.COM (2603:10b6:a03:59d::14)
+ by IA0PR12MB8974.namprd12.prod.outlook.com (2603:10b6:208:488::21) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.11; Tue, 15 Sep
+ 2026 18:02:14 +0000
+Received: from BY1PEPF0002695A.namprd05.prod.outlook.com
+ (2603:10b6:a03:59d:cafe::1c) by BY1P220CA0001.outlook.office365.com
+ (2603:10b6:a03:59d::14) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Tue,
+ 15 Sep 2026 18:02:13 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BY1PEPF0002695A.mail.protection.outlook.com (10.167.244.171) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 18:02:13 +0000
+Received: from aus0006770c4n-lx01.amd.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Tue, 15 Sep 2026 13:02:12 -0500
+From: Mario Limonciello <mario.limonciello@amd.com>
+To: <amd-gfx@lists.freedesktop.org>
+CC: Mario Limonciello <mario.limonciello@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH] drm/amdgpu: Skip KFD mapping clear before initialization
+Date: Tue, 15 Sep 2026 13:01:49 -0500
+Message-ID: <20260915180149.2162871-1-mario.limonciello@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BY1PEPF0002695A:EE_|IA0PR12MB8974:EE_
+X-MS-Office365-Filtering-Correlation-Id: c72dd32c-3143-4cef-2dae-08df13537851
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|23010399003|36860700016|82310400026|376014|13003099007|6133799003|10067099003|11063799006|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	eAQlLJWk4KjtqyIsOo7cIhT8njA0Py+R5NTU6DzYEFP8TJx7kgOsPOIIFm1JCCT56RXIFEpwvpkclmkn81+kh6nP4Qade7drkVCFixpUaCZ75/X7fjzOEoycVKBjMhcKpyaebE0kans7HarNHgRRzU5MJTCDNqNzRHeu7MiGhaLmR/3pA4BCQt5Wqsp//1yzMoq8NpnrJrDQPEfQUHmZoV5K0SZYoC5ULTiEadJTfknJK5+vJ2NejfMBrXvqzBDTcG/i9yrDgI+O7zkOy3oO+M4Ftv5I50rpa+LucTh5jkCTKPGvTnlqY1T+c0Fpj4rcGP7poen61fcEAnfzVop7fFoLWdfBugDLRWrlOIO+94vH7PAKCZM/gjLmUJaOacYov5JmEO4dBAPB6U2vIOxh9O+tYpz7D52O/c/4+D4gPrmBF3iuyzkwlZwHhgjGaJVHpc9lRxiGuSfC1TL7H5OQ1tvetTI2uz3TG0cpOujfSmuZ1V6U8tJNTCPGo5ZAPSHrH+B7/G5jioR+7Gjp9Uv/xT6ILwuNeQL51yhL2rJH2X/jXxo3h3MXkeTPVy1GJEFmVZLz5TTA9H808FPMDGunvcfaiZ6XMF962thDsGontEtLYnTpSzcMz+hoTrrk1eIg7bb1S3Yghs8FE4wZRdSBVA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(1800799024)(23010399003)(36860700016)(82310400026)(376014)(13003099007)(6133799003)(10067099003)(11063799006)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	sXcEIdVDTRdI8orxf98neAC31ICF34VyQl5JJ1UAxdPW0UHHLTo3eu1mDLfNwwYBXdP1ibzq3IbmZ4oW2tvfQ2cAtI5wpJ+k3Wjljn2khwGA06F5+R1i5yEDibaKBuERF8YIsRrIWKkEsY75V4Ee9MHs+LoWz2lkHLmnZdl5xE0ExxfEZfQfqeibBDigolQfB34yoQOYrhBQBYQ8XddRy1Tu6sbWcO16vMggDSpZ5tqURRQGfv+RmSBYNyjhMAM2zoxLPJltpz+gJfC8OIZPqsmZxc6gVcFYLMZF00477MnNl17XJsfRHgNz1c64Wvo8jrpgbt5X5EqrqXgR640tDju0mPjg9IbW6FveLhtuijyOCwFkOGRbvYvsd+t7rUtrKslJ8ro/nuHjeLqDfPHS+0g9rQ+f9+ziPgiB+ZPcmQT9yffWaMx4dF471AMs9LuE
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 18:02:13.0419
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: c72dd32c-3143-4cef-2dae-08df13537851
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BY1PEPF0002695A.namprd05.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA0PR12MB8974
 
-hp_convert_hexstr_to_str() decodes an ACPI string made up of
-space-separated ASCII hex-byte tokens of the form "0xHH". For
-example, the four-byte input "0x41" decodes to the single
-character 'A', and the nine-byte input "0x09 0x41" decodes to
-"\tA": each token is read in a five-byte step (four characters for
-the token, one for the trailing delimiter), and produces one output
-byte, or two if that byte is '\\', '\r', '\n', or '\t', which are
-written back out as a backslash followed by the matching letter.
+amdgpu_amdkfd_clear_kfd_mapping() assumes that a non-NULL kfd_dev
+has a fully populated node array. This is not true when KFD device
+initialization fails after probe.
 
-The output buffer is sized with kmalloc(input_len, GFP_KERNEL), the
-raw encoded length of the input, not the decoded length. For
-well-formed input this is generous, since five input bytes never
-decode to more than two output bytes. But input_len comes directly
-from the ACPI string length reported by firmware and isn't
-guaranteed to respect the five-byte encoding, so a short input_len
-can undersize the allocation. With input_len == 1, only one byte is
-allocated, yet decoding still produces at least one output byte
-plus the NUL terminator written unconditionally afterwards, so two
-bytes are needed. That terminator write then lands one byte past
-the end of the allocation.
+For example, kgd2kfd_device_init() sets num_nodes before checking
+PCIe atomics support. On a host system without the required atomics,
+it returns before allocating nodes[0], but the kfd_dev remains attached
+to the amdgpu device. A later GPU reset then dereferences nodes[0]->id.
 
-KASAN caught exactly this during BIOS attribute enumeration on
-boot, triggered by a one-byte encoded input value:
+Require the authoritative KFD initialization flag before walking the
+node array, matching the existing KFD reset and teardown paths.
 
-BUG: KASAN: slab-out-of-bounds in hp_convert_hexstr_to_str+0x6d8/0x710 [hp_bioscfg]
-Write of size 1 at addr ffff8881032e5d81 by task (udev-worker)/520
-The buggy address is located 0 bytes to the right of
-allocated 1-byte region [ffff8881032e5d80, ffff8881032e5d81)
-
-Size the allocation to the worst-case decoded length instead of the
-raw input length: two output bytes for every five-byte input chunk
-(DIV_ROUND_UP(input_len, 5)), plus one byte for the terminator.
-
-Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+Fixes: 353f7430d1ec ("drm/amdgpu: unmap all user mappings of framebuffer and doorbell before mode1 reset")
+Closes: https://gitlab.freedesktop.org/drm/amd/-/work_items/5833
 Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
 ---
-v2: Expand the commit message to spell out the hex-token input
-    format and decoded output with a worked example, and explain
-    exactly how a short input_len undersizes the allocation, per
-    Ilpo Järvinen's review. No code change from v1.
-
- drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 2 +-
+ drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-index 22c198680903..42331cf90581 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-@@ -442,7 +442,7 @@ int hp_convert_hexstr_to_str(const char *input, u32 input_len, char **str, int *
- 	*len = 0;
- 	*str = NULL;
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+index 09feb45584bab..17365cd0a997f 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_amdkfd.c
+@@ -330,7 +330,7 @@ void amdgpu_amdkfd_clear_kfd_mapping(struct amdgpu_device *adev)
+ 	struct kfd_dev *kfd = adev->kfd.dev;
+ 	unsigned int i;
  
--	new_str = kmalloc(input_len, GFP_KERNEL);
-+	new_str = kmalloc(2 * DIV_ROUND_UP(input_len, 5) + 1, GFP_KERNEL);
- 	if (!new_str)
- 		return -ENOMEM;
+-	if (!kfd)
++	if (!kfd || !kfd->init_complete)
+ 		return;
  
+ 	for (i = 0; i < kfd->num_nodes; i++) {
 -- 
-2.55.0
+2.43.0
 
