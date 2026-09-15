@@ -1,124 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 60DC13C98B7
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 13:52:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBCC63C1D49
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 13:54:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789480339; cv=none; b=dYAycPl4BQ8VQ41bnOwo+UMLw7ktDXrYv8ETyxKMnV+Pzei1sne7ZvevRjAZuoz6jsxo5n3ud6RYHI0NZ4s1YbJnYMn0opbjjNdszdwFR9Q6cCL9XC7ODcp252AHltn2YVNr8snyZ9iRBMTN4d6gzrAcBXz0xjYlxuAO0P/mQco=
+	t=1789480461; cv=none; b=uLHJLr0+0D1qdx8WzssT42Mh3zzFKY4UDA2RmanNCMvmnFBdYmTPllymw4nLHRoDtMn7iLQUxUOmhyVk/Cs+drgrHa666MnxxSxy0s/B+eaRdkIF81KJmmkkRGPzujJTjZ6KM+/OsbzX35EkcWBBDkbbeetXWN4psfxMPyejTEk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789480339; c=relaxed/simple;
-	bh=ZAms6xLFIiVySZXmTurNlRNYz1fQZdQMmujTnwJtQkU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iuP7Y48r73XAmK8lRmo1GRVAnTBzG89slXHzQYpVpyv0lXo6/0AZFlPOxaoUJjmW3gYnoWdgy+ISY7x6WzalJ1Q2qyrzmoY5OTuzt+94yPvhfPZu2qQx0W7nawwlL4qgfMUaV+Z7c0el7EvhjmzX0wSntb4vINCaalVd5+9x8ag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=it4mEL39; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789480461; c=relaxed/simple;
+	bh=Ag5tfz00fBg6YXo3im7agg0lkNAqHNZutLBmML/rBjs=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JltK61Lgec9HRsmajtb2f9NxPgTteQ5CEaDh009V9c1liKSjhRFMbA77RhamZk7lkV7jZ2xBLzNLxEH4zj5+xTid99SISAU/3AccEGXu174wepdyZTNETx6ELMPEZooBV19U/CxhI4VBt/5GwvLOxSPBCfP9eb0wqfuvr6YpcOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=H0mwRs89; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="it4mEL39"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C9331F00898;
-	Tue, 15 Sep 2026 13:52:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789480338;
-	bh=5JZvciHOubNz1++8I3c/2N9YUlCfXc/5f861xiy4ft0=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=it4mEL392VOylMtWKucJN1H/SF3DAnw0vMuOMuzOxgyrfVosMCtYFPEOzDYEmBrW2
-	 W+hJM+/RR/gY7ErtRBZSwl+WlJhSXohUCn6o1XeZ5ycAVGIW3kJ6OjOCPHwu/L+pGK
-	 3ewVonc7r4UoKGfvtY6i8NU2P25btpAx/REc/e00UQY7GKiqtjsugzZ0EDzQXqhGbx
-	 DTQLHHJXWC7QgdC95T0OSpDwm2v9UDD/SPGVZgjCkxcnGnPS+6Bj6wVpNIvstFD8Uf
-	 JqsdvI//38sC3gA3EB0fPBHDwi5qqkPzu8hm4b42Ytx76sVcEa8g/ceU/zcGffVBHK
-	 0czi5YHXvhY1A==
-Received: from phl-compute-01.internal (phl-compute-01.internal [10.202.2.41])
-	by mailfauth.ams.internal (Postfix) with ESMTP id 20534198003A;
-	Tue, 15 Sep 2026 09:52:13 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-01.internal (MEProxy); Tue, 15 Sep 2026 09:52:15 -0400
-X-ME-Sender: <xms:jE2pahuaU0yPr89PNnwihMvtUDzatVBlf1o7bmhFX_fvdotrRxPNaw>
-    <xme:jE2pasyD6rPQU-T7SmzLq9z7dbjbsLYjkbKjXrtQhdyq-J4_MxeCC2WM7ITBa4AqI
-    FODCsVl6oZ-jRmH8MiPOJhi-AazrWCFj-aOKBwuMtiU815RWzjoBZhDkA>
-X-ME-Received: <xmr:jE2pajfDJtIrKyv_BSRFJVrRzGMsmE7J7J3okImqThKeGQ6jl3GvpHylMds>
-X-ME-Proxy-Cause: dmFkZTGFaXHpQBoGzjJpzXuLzZEpEDoJVlEK8qfTCGlpZSscY902ocbS+NTIbNE8tMLKHV
-    Kw+V8ruiMZ5vcsUwLmFvicjQ5fT2dEGX6BR2ofYNuwhWcszZXWDOzUPFZV9Kf2hTY0XyYu
-    jgPRsVUGCvAoUBVHrbjcyoU/B85MGHEOvmNw+eGSCdPHSF+WLKvCB+LRHaJjwhCDtr3onu
-    9t7U2m3RKVIfG63unn994NKXoenEEAMJlO4Bca8sh/2dGdJkRJfrRO11fJi78OFB2d6mXQ
-    f6/BbV5VWGgDSXWO0Q4c80Vk7TllbENgzRJLLQpIDfQ0PD5mAXpy4gZfEHx7Mr9L/IT0K6
-    qh4TshP2kn6kCNLC26NFy23vTdqmsw8g3megqLyVsGqfTaooE+RYvVeuOIYZy7Gn/syAK/
-    mNQESXCErDbA14ZJWZl10saMPTrc6xf8XeOzvS/LSSWkGC977QeRJhhixrzJbfu+n81g9e
-    1UH9yXgjzdTmINJ0W1c/2l/8tsZ5SsrH+DBIDUf7x1iNg5JRg4E76mGNLhLbU0PpzmXwuz
-    fxsbi5T4JDhLZVv7EnZRfeABl7Tvmoe5VcDJ5trMTr/Py6Jb0oHqYqPMt54lsK/cZ45fqp
-    eYKlOCmUSIfa9v0foUvG1fSeSBnE2eyER4tyPwmWpyxheKzoGzIAZR2ZhruA
-X-ME-Proxy: <xmx:jE2palKexW_56iZGYRl_E5d3Cu6P3XzpWFLsyln1PPKWwAz8EhzrtQ>
-    <xmx:jE2pavkxi9ChIIU-0-VW8D515yeU6YlXXf4pRnSrH_EjKz4cAJAgkQ>
-    <xmx:jE2pagWthQlpbluzBQjzPidj4ZNuzeY1gW-HZYMmAX7jFVQ98KShdw>
-    <xmx:jE2pahs_bggCtIocE9mX-k2TRJSv5vXt2OxUFTUW0cPEs59A6Q52Ew>
-    <xmx:jE2pak0I-NiCjXIwieGMDtqxkNU6lajCAf3ySXrSuRVN2imtLk7w-USU>
-Feedback-ID: i10464835:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Tue,
- 15 Sep 2026 09:52:12 -0400 (EDT)
-Date: Tue, 15 Sep 2026 14:52:11 +0100
-From: Kiryl Shutsemau <kas@kernel.org>
-To: Lance Yang <lance.yang@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, 
-	"David Hildenbrand (Arm)" <david@kernel.org>, ziy@nvidia.com, baolin.wang@linux.alibaba.com, 
-	liam@infradead.org, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, usama.arif@linux.dev, ljs@kernel.org, surenb@google.com, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
- PMDs
-Message-ID: <aqlMvfIhr8nD9RHB@thinkstation>
-References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
- <20260913072312.52111-1-lance.yang@linux.dev>
- <aqfRCPheDYTgTdAk@thinkstation>
- <f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
- <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
- <30bcc70c-be07-4237-9bb1-554aa5b5c5c2@linux.dev>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="H0mwRs89"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso3290634a91.2
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 06:54:19 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789480459; x=1790085259; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
+        b=H0mwRs89+UPb/DZtvXtW8tJ20Ms+Ff2SLVKSuZT+nARB6Ady+AbKw5jJno08CkCoKz
+         YzPdklCHVLFOWbKc8Mucu7fCEGzR+RcfikB6msm9o5MP1gtuw+3J0//uPLTXlMPmgCIT
+         LeqdVVvUrvHH81iyaMwADOZizOjW8ddC4QrN0UEpNg4TJ2bToX75cHcdycb8L3pvas3M
+         V1eF3OwY3ykCg7nLieG2uaHDq5b8OcYW5nNaIDb01fUP0t2X7by+SVwNUUD+cF3et6io
+         tjzFL4CYZkOGYAHSFXcLQAVood0pF87e2j6+OvcwoHP8Xt21ihO4sy5ATv34hh8h9mFU
+         qCDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789480459; x=1790085259;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=whXzJHNF2cPXx+i5FgzKhan4wYJW9EK7frxKYSb7wNI=;
+        b=ZG2/Ddn2Ew4uBiHceAm2D5WDcVb1kbpAdo1mbZjTs6bCnww//iLn9Q1KM4EARtYqZX
+         N3KA9oPbILTxsPGiOQsDCfmQ8/1iN9/Km5cstfeCGcpwzGiRmxFXbYgJ6MTWqWs4/2lz
+         ueagakKNIa852/3vc7CZOtqCPJ9oe6bvbtCiLZonRh/3AsJE7AjItRNn6i3T7S+qiUBR
+         TqkEvEx8pq6Su1RviU3Mf5oPiFwzmht7ejdCrDP/tKVnakGodpbJjiddd12fHJnCrZ6o
+         dHZw8h3K3FY5+0HT4grIuUbvdo2lUP2BTsSz8niixJfM1l2yTMitd2jOrwFb7Txd4CrV
+         pGlA==
+X-Forwarded-Encrypted: i=1; AKwUvBxR76W4GDWkbSTYSnO2k3MAE3R/Tn/yZhAmRsKlqP1mMtTVl9jTOO/96cZL9ecjtvSlBkc76zE=@vger.kernel.org
+X-Gm-Message-State: AFuF++mafIgGDdtGzEj51kB2ksFEd0XIeqOuwmx9Hv2h3SI1t6Tt+y2X
+	o+pbm7Z/qxxt412ysgOzBMEpIFNvkuBH7bnB8u9amcC173VGji4xVvu5
+X-Gm-Gg: AYBFou1+5IB+1FerMhRVXHDx6NKXQ7MgALLu7wpeJcIU3YT7WwscW4luExU0hG/wR5v
+	E87r6V2BTQRqn0B9K4/z4+3hHjLfMqDOyFUmFa6TjDA/qbDsW6tLQAyaNWjirKe7duB0VTE4Xrl
+	04xRI/Mae/NQH+7Aaz+oEmc+NjwNqz3F0ov1xKwkCxluDCO8bHlx8SKcrrwVF2YXuRMCjZdquDX
+	mn2fm5Eoc6XP7aqVUeYSUdaCy5DqSzMBsRV2eje6Xepyoo5GnSA12JbNi9NE49B7HPHrttN1CZK
+	zXOCMExXGw1L6ylxoNzCtLJtrfi4Ihdy2/ZFMUtaT4nBSgVebHt3Q2aisbqMz/nge+NKf0VX9q0
+	fGGA1ZBYoA6ZPvGP8+J7FRgCfir2i2yQIoQ5GvwOnnDMV6vpgPUQYsRpIbaMK9vMjtmR/590/8I
+	skd8tbWqrMEqpoCTkuOZlOPNfUYpDxee9J3nSu3T4uKYj0PLHhumC6bcY=
+X-Received: by 2002:a17:90b:39ac:b0:39e:261:4e0d with SMTP id 98e67ed59e1d1-39e026159e9mr5815662a91.25.1789480458971;
+        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd0ba9bsm5533757a91.7.2026.09.15.06.54.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 06:54:18 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Jacopo Mondi <jacopo@jmondi.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Laurent Pinchart <laurent.pinchart@ideasonboard.com>,
+	linux-media@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: renesas: ceu: free device data if video device is unregistered
+Date: Tue, 15 Sep 2026 21:54:06 +0800
+Message-ID: <20260915135406.2423337-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <30bcc70c-be07-4237-9bb1-554aa5b5c5c2@linux.dev>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 09:43:15PM +0800, Lance Yang wrote:
-> 
-> 
-> On 2026/9/15 02:19, Andrew Morton wrote:
-> > On Mon, 14 Sep 2026 16:29:00 +0200 "David Hildenbrand (Arm)" <david@kernel.org> wrote:
-> > 
-> > > On 9/14/26 12:59, Kiryl Shutsemau wrote:
-> > > > On Sun, Sep 13, 2026 at 03:23:12PM +0800, Lance Yang wrote:
-> > > > > 
-> > > > > On Sat, Sep 12, 2026 at 11:46:35PM -0700, Andrew Morton wrote:
-> > > > > > 
-> > > > > > 
-> > > > > > That's the sort of thing we'd prefer to avoid.
-> > > > > > 
-> > > > > > 
-> > > > > > How real is this?  Is there a reported-by:?  Do you have a reproducer?
-> > > > > 
-> > > > > Yes, I reproduced it on x86 with a small test module. It sets
-> > > > > VM_MIXEDMAP | VM_HUGEPAGE and calls vmf_insert_pfn_pmd() with
-> > > > > huge_zero_pfn, without touching the page tables directly. A full-PMD
-> > > > > munmap() crashes before the split series[1] as well.
-> > > > 
-> > > > Ah. So there's no real bug upstream, right?
-> > > 
-> > > Matches my understanding.
-> > 
-> > Thanks.  I'll remove cc:stable, move this into mm-unstable as a
-> > next-merge-window thing.
-> 
-> Sounds good to me, thanks, Andrew!
-> 
-> Kiryl, David, would you prefer the validation for raw-PFN mappings
-> of the huge zero page as a separate follow-up, or should that
-> validation replace this patch? wdyt
+ceu_probe() allocates ceudev, while ceu_remove() does not free it if the
+video device has not been registered.
 
-I think this patch can be useful for graceful recovery if we somehow ended up
-with a zero page in a mapping where we shouldn't have one.
+The video device is registered from the async notifier complete
+callback, and its release callback is responsible for freeing ceudev.
+If the device is removed before the notifier completes, or before video
+device registration succeeds, video_unregister_device() does not invoke
+the release callback and the ceudev allocation is leaked.
 
-A separate patch with validation would be great.
+Check whether the video device was registered during remove. Unregister
+it normally when registered so that its release callback handles the
+final free, otherwise free ceudev directly.
 
+This issue was found by manual code inspection.
+
+Fixes: 32e5a70dc8f4 ("media: platform: Add Renesas CEU driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/media/platform/renesas/renesas-ceu.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/media/platform/renesas/renesas-ceu.c b/drivers/media/platform/renesas/renesas-ceu.c
+index 65f7659a9e02..5015b7837381 100644
+--- a/drivers/media/platform/renesas/renesas-ceu.c
++++ b/drivers/media/platform/renesas/renesas-ceu.c
+@@ -1705,7 +1705,10 @@ static void ceu_remove(struct platform_device *pdev)
+ 
+ 	v4l2_device_unregister(&ceudev->v4l2_dev);
+ 
+-	video_unregister_device(&ceudev->vdev);
++	if (video_is_registered(&ceudev->vdev))
++		video_unregister_device(&ceudev->vdev);
++	else
++		kfree(ceudev);
+ }
+ 
+ static const struct dev_pm_ops ceu_pm_ops = {
 -- 
-  Kiryl Shutsemau / Kirill A. Shutemov
+2.43.0
+
