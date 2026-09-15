@@ -1,164 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E3A9B43B3EA;
-	Tue, 15 Sep 2026 17:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB6CA439908
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:16:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789492521; cv=none; b=H0DbZ4MfEfWFxAKpe4IWDrsu04HqIsn3qgBNqbeopFDF4k2VH3IsNU/STuagbEHijuVL2WGqcYVxUKrK1qllAb//jKRB40FuAfjU8qJhqpULc3mZNcO4CkcdIn2KEZoF+dR5QmMTMIEzq7zyS5XMZhe1F5lgkVYwO6e5gbAQjWE=
+	t=1789492601; cv=none; b=bqoBa4pvJaC/6oYtzlmQbxQf+yqqUrI/hlIXZZ628tKzgE03XAtKUg6+sXTzS7aiSV0thx40tMNGgxWsiL8xCfub9XVhpPYhScpS7POxhecRwIO8WnL5ENPH2Dy6yVJ2wRMEOx4p0/z4Rj6YYyUeMAo5BMY11Q/GiYVUbwaqajk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789492521; c=relaxed/simple;
-	bh=unMy31IdG5khzUOUmIkpeDX6j7oGeu5JtyZsrcaovK4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=kvgEZf/X4J8lGoBFEgeJUx2cjCNzRX8Z7Cgm8Bu5Kuyvk5Rf8/BnR2ilPx3Ppw0HGU3G0NDL7YEEhM4GAulWFvPxsTtxf8hmPrat8DaKReQ0AWaNJR0h1UH03BvLcoacDuIhvj2bFtPgq/xZw+794pvHI2zSXbsaK8VgENX6rS8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k03JjuG0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789492601; c=relaxed/simple;
+	bh=NnAg2IqiYPZJtutky7T34AojRmXsQp7qqdWDe84q+Fg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=t7V2+4cBykwP5CcoDSJSppzWFE80TgQCzZulBnaoLOcSU7dAVt6QzuYCUONnt1gCzyPskX9xdPNe0rCJXIS+s95e1OUfWG5sgAro0kTasoZcWee+SPBIEPX0O4ZbTQC5SQLSrsHkm0YSX3/CzbM/L7VK7aYuvqt4l56HRJN1vn0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=Epb7KtAN; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k03JjuG0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055E21F000FF;
-	Tue, 15 Sep 2026 17:15:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789492519;
-	bh=K++Zi4/bTTk6/7EYbeuTRbzck4cD6j5m6E2jjL9wd5A=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=k03JjuG0gToM+n9r6AsX60YUewohiJl+4Jnm2aBupZenvJdlW8o8sRJ0m0Y/Vk4eu
-	 qJzKT4xXCuGNKIYBgqhmIDB4F+A6ia8H6u9UY8UsyqSvE/0iAj5oBQ12rTb+7fjhmb
-	 8Qh+xa4E+9cE0ypU+tOXOI+MTYVJio7Bwy24eU2g5ILXB7aSzwc+cQafzD8UPFawld
-	 /5V7XeZtUzQZgwxoo6nKpe5FCmpQfNKSADk9PX1cLSQfYf8txyeMFnWaEkzv21CahJ
-	 H0Vou3olKOqMTuat5ITX52WF1aZHzbGqzyC8s6obonwfBZFjwOqYO5v9GUSUcr/xYE
-	 xD6DJy73ewVbA==
-Message-ID: <88d95708cf53eb1a79240ffb92ef54193a9a076a.camel@kernel.org>
-Subject: Re: [PATCH] nfsd: clear XDR padding in GETXATTR replies
-From: Jeff Layton <jlayton@kernel.org>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Chuck Lever
-	 <chuck.lever@oracle.com>
-Cc: linux-nfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Tue, 15 Sep 2026 13:15:17 -0400
-In-Reply-To: <20260915160119.3105745-1-qwe.aldo@gmail.com>
-References: <20260915160119.3105745-1-qwe.aldo@gmail.com>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=mQINBE6V0TwBEADXhJg7s8wFDwBMEvn0qyhAnzFLTOCHooMZyx7XO7dAiIhDSi7G1NPxw
- n8jdFUQMCR/GlpozMFlSFiZXiObE7sef9rTtM68ukUyZM4pJ9l0KjQNgDJ6Fr342Htkjxu/kFV1Wv
- egyjnSsFt7EGoDjdKqr1TS9syJYFjagYtvWk/UfHlW09X+jOh4vYtfX7iYSx/NfqV3W1D7EDi0PqV
- T2h6v8i8YqsATFPwO4nuiTmL6I40ZofxVd+9wdRI4Db8yUNA4ZSP2nqLcLtFjClYRBoJvRWvsv4lm
- 0OX6MYPtv76hka8lW4mnRmZqqx3UtfHX/hF/zH24Gj7A6sYKYLCU3YrI2Ogiu7/ksKcl7goQjpvtV
- YrOOI5VGLHge0awt7bhMCTM9KAfPc+xL/ZxAMVWd3NCk5SamL2cE99UWgtvNOIYU8m6EjTLhsj8sn
- VluJH0/RcxEeFbnSaswVChNSGa7mXJrTR22lRL6ZPjdMgS2Km90haWPRc8Wolcz07Y2se0xpGVLEQ
- cDEsvv5IMmeMe1/qLZ6NaVkNuL3WOXvxaVT9USW1+/SGipO2IpKJjeDZfehlB/kpfF24+RrK+seQf
- CBYyUE8QJpvTZyfUHNYldXlrjO6n5MdOempLqWpfOmcGkwnyNRBR46g/jf8KnPRwXs509yAqDB6sE
- LZH+yWr9LQZEwARAQABtCVKZWZmIExheXRvbiA8amxheXRvbkBwb29jaGllcmVkcy5uZXQ+iQI7BB
- MBAgAlAhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAUCTpXWPAIZAQAKCRAADmhBGVaCFc65D/4
- gBLNMHopQYgG/9RIM3kgFCCQV0pLv0hcg1cjr+bPI5f1PzJoOVi9s0wBDHwp8+vtHgYhM54yt43uI
- 7Htij0RHFL5eFqoVT4TSfAg2qlvNemJEOY0e4daljjmZM7UtmpGs9NN0r9r50W82eb5Kw5bc/r0km
- R/arUS2st+ecRsCnwAOj6HiURwIgfDMHGPtSkoPpu3DDp/cjcYUg3HaOJuTjtGHFH963B+f+hyQ2B
- rQZBBE76ErgTDJ2Db9Ey0kw7VEZ4I2nnVUY9B5dE2pJFVO5HJBMp30fUGKvwaKqYCU2iAKxdmJXRI
- ONb7dSde8LqZahuunPDMZyMA5+mkQl7kpIpR6kVDIiqmxzRuPeiMP7O2FCUlS2DnJnRVrHmCljLkZ
- Wf7ZUA22wJpepBligemtSRSbqCyZ3B48zJ8g5B8xLEntPo/NknSJaYRvfEQqGxgk5kkNWMIMDkfQO
- lDSXZvoxqU9wFH/9jTv1/6p8dHeGM0BsbBLMqQaqnWiVt5mG92E1zkOW69LnoozE6Le+12DsNW7Rj
- iR5K+27MObjXEYIW7FIvNN/TQ6U1EOsdxwB8o//Yfc3p2QqPr5uS93SDDan5ehH59BnHpguTc27Xi
- QQZ9EGiieCUx6Zh2ze3X2UW9YNzE15uKwkkuEIj60NvQRmEDfweYfOfPVOueC+iFifbQgSmVmZiBM
- YXl0b24gPGpsYXl0b25AcmVkaGF0LmNvbT6JAjgEEwECACIFAk6V0q0CGwMGCwkIBwMCBhUIAgkKC
- wQWAgMBAh4BAheAAAoJEAAOaEEZVoIViKUQALpvsacTMWWOd7SlPFzIYy2/fjvKlfB/Xs4YdNcf9q
- LqF+lk2RBUHdR/dGwZpvw/OLmnZ8TryDo2zXVJNWEEUFNc7wQpl3i78r6UU/GUY/RQmOgPhs3epQC
- 3PMJj4xFx+VuVcf/MXgDDdBUHaCTT793hyBeDbQuciARDJAW24Q1RCmjcwWIV/pgrlFa4lAXsmhoa
- c8UPc82Ijrs6ivlTweFf16VBc4nSLX5FB3ls7S5noRhm5/Zsd4PGPgIHgCZcPgkAnU1S/A/rSqf3F
- LpU+CbVBDvlVAnOq9gfNF+QiTlOHdZVIe4gEYAU3CUjbleywQqV02BKxPVM0C5/oVjMVx3bri75n1
- TkBYGmqAXy9usCkHIsG5CBHmphv9MHmqMZQVsxvCzfnI5IO1+7MoloeeW/lxuyd0pU88dZsV/riHw
- 87i2GJUJtVlMl5IGBNFpqoNUoqmvRfEMeXhy/kUX4Xc03I1coZIgmwLmCSXwx9MaCPFzV/dOOrju2
- xjO+2sYyB5BNtxRqUEyXglpujFZqJxxau7E0eXoYgoY9gtFGsspzFkVNntamVXEWVVgzJJr/EWW0y
- +jNd54MfPRqH+eCGuqlnNLktSAVz1MvVRY1dxUltSlDZT7P2bUoMorIPu8p7ZCg9dyX1+9T6Muc5d
- Hxf/BBP/ir+3e8JTFQBFOiLNdFtB9KZWZmIExheXRvbiA8amxheXRvbkBzYW1iYS5vcmc+iQI4BBM
- BAgAiBQJOldK9AhsDBgsJCAcDAgYVCAIJCgsEFgIDAQIeAQIXgAAKCRAADmhBGVaCFWgWD/0ZRi4h
- N9FK2BdQs9RwNnFZUr7JidAWfCrs37XrA/56olQl3ojn0fQtrP4DbTmCuh0SfMijB24psy1GnkPep
- naQ6VRf7Dxg/Y8muZELSOtsv2CKt3/02J1BBitrkkqmHyni5fLLYYg6fub0T/8Kwo1qGPdu1hx2BQ
- RERYtQ/S5d/T0cACdlzi6w8rs5f09hU9Tu4qV1JLKmBTgUWKN969HPRkxiojLQziHVyM/weR5Reu6
- FZVNuVBGqBD+sfk/c98VJHjsQhYJijcsmgMb1NohAzwrBKcSGKOWJToGEO/1RkIN8tqGnYNp2G+aR
- 685D0chgTl1WzPRM6mFG1+n2b2RR95DxumKVpwBwdLPoCkI24JkeDJ7lXSe3uFWISstFGt0HL8Eew
- P8RuGC8s5h7Ct91HMNQTbjgA+Vi1foWUVXpEintAKgoywaIDlJfTZIl6Ew8ETN/7DLy8bXYgq0Xzh
- aKg3CnOUuGQV5/nl4OAX/3jocT5Cz/OtAiNYj5mLPeL5z2ZszjoCAH6caqsF2oLyAnLqRgDgR+wTQ
- T6gMhr2IRsl+cp8gPHBwQ4uZMb+X00c/Amm9VfviT+BI7B66cnC7Zv6Gvmtu2rEjWDGWPqUgccB7h
- dMKnKDthkA227/82tYoFiFMb/NwtgGrn5n2vwJyKN6SEoygGrNt0SI84y6hEVbQlSmVmZiBMYXl0b
- 24gPGpsYXl0b25AcHJpbWFyeWRhdGEuY29tPokCOQQTAQIAIwUCU4xmKQIbAwcLCQgHAwIBBhUIAg
- kKCwQWAgMBAh4BAheAAAoJEAAOaEEZVoIV1H0P/j4OUTwFd7BBbpoSp695qb6HqCzWMuExsp8nZjr
- uymMaeZbGr3OWMNEXRI1FWNHMtcMHWLP/RaDqCJil28proO+PQ/yPhsr2QqJcW4nr91tBrv/MqItu
- AXLYlsgXqp4BxLP67bzRJ1Bd2x0bWXurpEXY//VBOLnODqThGEcL7jouwjmnRh9FTKZfBDpFRaEfD
- FOXIfAkMKBa/c9TQwRpx2DPsl3eFWVCNuNGKeGsirLqCxUg5kWTxEorROppz9oU4HPicL6rRH22Ce
- 6nOAON2vHvhkUuO3GbffhrcsPD4DaYup4ic+DxWm+DaSSRJ+e1yJvwi6NmQ9P9UAuLG93S2MdNNbo
- sZ9P8k2mTOVKMc+GooI9Ve/vH8unwitwo7ORMVXhJeU6Q0X7zf3SjwDq2lBhn1DSuTsn2DbsNTiDv
- qrAaCvbsTsw+SZRwF85eG67eAwouYk+dnKmp1q57LDKMyzysij2oDKbcBlwB/TeX16p8+LxECv51a
- sjS9TInnipssssUDrHIvoTTXWcz7Y5wIngxDFwT8rPY3EggzLGfK5Zx2Q5S/N0FfmADmKknG/D8qG
- IcJE574D956tiUDKN4I+/g125ORR1v7bP+OIaayAvq17RP+qcAqkxc0x8iCYVCYDouDyNvWPGRhbL
- UO7mlBpjW9jK9e2fvZY9iw3QzIPGKtClKZWZmIExheXRvbiA8amVmZi5sYXl0b25AcHJpbWFyeWRh
- dGEuY29tPokCOQQTAQIAIwUCU4xmUAIbAwcLCQgHAwIBBhUIAgkKCwQWAgMBAh4BAheAAAoJEAAOa
- EEZVoIVzJoQALFCS6n/FHQS+hIzHIb56JbokhK0AFqoLVzLKzrnaeXhE5isWcVg0eoV2oTScIwUSU
- apy94if69tnUo4Q7YNt8/6yFM6hwZAxFjOXR0ciGE3Q+Z1zi49Ox51yjGMQGxlakV9ep4sV/d5a50
- M+LFTmYSAFp6HY23JN9PkjVJC4PUv5DYRbOZ6Y1+TfXKBAewMVqtwT1Y+LPlfmI8dbbbuUX/kKZ5d
- dhV2736fgyfpslvJKYl0YifUOVy4D1G/oSycyHkJG78OvX4JKcf2kKzVvg7/Rnv+AueCfFQ6nGwPn
- 0P91I7TEOC4XfZ6a1K3uTp4fPPs1Wn75X7K8lzJP/p8lme40uqwAyBjk+IA5VGd+CVRiyJTpGZwA0
- jwSYLyXboX+Dqm9pSYzmC9+/AE7lIgpWj+3iNisp1SWtHc4pdtQ5EU2SEz8yKvDbD0lNDbv4ljI7e
- flPsvN6vOrxz24mCliEco5DwhpaaSnzWnbAPXhQDWb/lUgs/JNk8dtwmvWnqCwRqElMLVisAbJmC0
- BhZ/Ab4sph3EaiZfdXKhiQqSGdK4La3OTJOJYZphPdGgnkvDV9Pl1QZ0ijXQrVIy3zd6VCNaKYq7B
- AKidn5g/2Q8oio9Tf4XfdZ9dtwcB+bwDJFgvvDYaZ5bI3ln4V3EyW5i2NfXazz/GA/I/ZtbsigCFc
- 8ftCBKZWZmIExheXRvbiA8amxheXRvbkBrZXJuZWwub3JnPokCOAQTAQIAIgUCWe8u6AIbAwYLCQg
- HAwIGFQgCCQoLBBYCAwECHgECF4AACgkQAA5oQRlWghUuCg/+Lb/xGxZD2Q1oJVAE37uW308UpVSD
- 2tAMJUvFTdDbfe3zKlPDTuVsyNsALBGclPLagJ5ZTP+Vp2irAN9uwBuacBOTtmOdz4ZN2tdvNgozz
- uxp4CHBDVzAslUi2idy+xpsp47DWPxYFIRP3M8QG/aNW052LaPc0cedYxp8+9eiVUNpxF4SiU4i9J
- DfX/sn9XcfoVZIxMpCRE750zvJvcCUz9HojsrMQ1NFc7MFT1z3MOW2/RlzPcog7xvR5ENPH19ojRD
- CHqumUHRry+RF0lH00clzX/W8OrQJZtoBPXv9ahka/Vp7kEulcBJr1cH5Wz/WprhsIM7U9pse1f1g
- Yy9YbXtWctUz8uvDR7shsQxAhX3qO7DilMtuGo1v97I/Kx4gXQ52syh/w6EBny71CZrOgD6kJwPVV
- AaM1LRC28muq91WCFhs/nzHozpbzcheyGtMUI2Ao4K6mnY+3zIuXPygZMFr9KXE6fF7HzKxKuZMJO
- aEZCiDOq0anx6FmOzs5E6Jqdpo/mtI8beK+BE7Va6ni7YrQlnT0i3vaTVMTiCThbqsB20VrbMjlhp
- f8lfK1XVNbRq/R7GZ9zHESlsa35ha60yd/j3pu5hT2xyy8krV8vGhHvnJ1XRMJBAB/UYb6FyC7S+m
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="Epb7KtAN"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c08393b0so26200a12.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:16:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789492599; x=1790097399; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Z07CFjx8H2xq9rRTGNurbKjB49jEqOcwktaCUE8S8Vs=;
+        b=Epb7KtAN7muNepDJlDUtJ/y+yrCzxXGFf4+P+BOqMLhmYXIi4Cz5wdm1pM9VtVzTSS
+         z3SlljsH++YrqOm2KlmmbrhiRp3GnRpjs6wgjOPIBVtd+tUYQNAeeiVioo2thCm2aR8z
+         v986OfTj8tVh25sgoazk/WStGnH4RV/eL3BWo=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789492599; x=1790097399;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=Z07CFjx8H2xq9rRTGNurbKjB49jEqOcwktaCUE8S8Vs=;
+        b=lk5aHfFbnzGMSjiuAnQe/1VzRwvw+6r7dkS6KPoflWAZwwpS8uBzt+mn9crs9J428Y
+         Y/rQHnkrdK2Lrtt7Abn5TsDTZ8Kh0V2o+e16Qu5z5kECZU9d6MK2rtScUcYLSwyG1lXJ
+         LXOrPAmQDo2UgOWfIffNyuAStNRUBLkpMJzDcOomhUezs0TGCm6PF0josnEpOuvRj8Vj
+         uyYThIwPDi/nBPxfaBH1F/8OqkQnVKdCrMlusc5yE3HEPsC0F3qwokXeI+SLX5FaL7pt
+         cPAd98AvERtCfeGfvj+beQslQ0nEZFz3dtm7H0HJcIgQGDlkx6UaK9qqIB10hHx26qty
+         nnLw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDh5A149OHgue5ebPfHSB8da1GfqPzlokEPCkY7Dd+g/nc28/xswJd5OJrRLcQoNY+EM6NkOk=@vger.kernel.org
+X-Gm-Message-State: AFuF++lAj3i4vKE7HrH3yQC/4erRyauFgvxTwVevBVLU0nwrLyYJDr2y
+	GBSiH+UlTxPWnmg8R+8PszYd+mnUaWVzmla487XyeA+FKXfkEAPIHS7nI2KnSzuRkg==
+X-Gm-Gg: AYBFou3C7VRXAlVxdlytJMJeEdefW0+vtfq+TVEj4IClWOAs6B0Jn5K8bLngYx1GFro
+	+nsWFEtPp7iqU1lkXY5et1tcNPAE1cZ4IfPqybnBjGa1TLHL6qNZd3VIguC5L0AVkExu/OnZRkA
+	t/xa7gcGRV474Bg4ler8tcrGhzWhqe6Jou+7kTd10Bg8UODzOAPIO2GvFHFWHBQnn6xJi0aSdwh
+	Kmo/Bt753ZFwt+n4IjyTjvOQuOIIgZNxJKUGTErQap9JVchxemtVQg8HJ4kArtT1+3shELB5t+7
+	jLeCqdyQVjA4gbrMVTzAXe8oOCxdTz0IobktuSzSH+RCToyILYtRTpSkJN4ihjIfdXuGaZbg8AZ
+	1C753kzLgrS5LaN15BsafI/8HPxLNXf2gUkXbx+YAuc5YGvkSK9Lu0Tm8iNN/aFJyQfPl5dYqiI
+	KS4TTLY46kb5CPeCFS/BXIYbRRvxhHbdwG2r1Fw1IGKv+4Yi5JyCaKcIlUfUrDDaJ/w5uuA1oA5
+	q+RXBCKxYACNpF8hFmjT19A7JKNq51NsYSA2Q==
+X-Received: by 2002:a17:90b:5784:b0:39d:f7dc:61e4 with SMTP id 98e67ed59e1d1-39df7dc6273mr11488160a91.9.1789492598902;
+        Tue, 15 Sep 2026 10:16:38 -0700 (PDT)
+Received: from localhost ([2a00:79e0:2e7c:8:60c4:eed3:a48a:b9f4])
+        by smtp.gmail.com with UTF8SMTPSA id 98e67ed59e1d1-39dfdd0baaasm6317988a91.9.2026.09.15.10.16.37
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 10:16:37 -0700 (PDT)
+Date: Tue, 15 Sep 2026 10:16:35 -0700
+From: Brian Norris <briannorris@chromium.org>
+To: Guixin Liu <kanie@linux.alibaba.com>
+Cc: Bjorn Helgaas <helgaas@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>,
+	Uwe =?iso-8859-1?Q?Kleine-K=F6nig?= <u.kleine-koenig@baylibre.com>,
+	Jonathan Cameron <jic23@kernel.org>, Lukas Wunner <lukas@wunner.de>,
+	Ilpo =?iso-8859-1?Q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Kees Cook <kees@kernel.org>, Darshit Shah <darnshah@amazon.de>,
+	Kuppuswamy Sathyanarayanan <sathyanarayanan.kuppuswamy@linux.intel.com>,
+	linux-pci@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] PCI/DPC: Honor "pcie_ports=native" when enabling DPC
+Message-ID: <aql9c-XzjPKee9bv@google.com>
+References: <20260903230537.GA2273943@bhelgaas>
+ <58ea18fe-6e7d-49ab-b6cf-992db4aae732@linux.alibaba.com>
+ <44256f8c-5087-4550-a522-34a828c40c1c@linux.alibaba.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <44256f8c-5087-4550-a522-34a828c40c1c@linux.alibaba.com>
 
-On Tue, 2026-09-15 at 13:01 -0300, Aldo Ariel Panzardo wrote:
-> nfsd4_vbuf_to_stream() uses a raw memcpy() for the first fragment of an
-> attribute value. xdr_reserve_space() aligns the reservation but does not
-> initialize the extra bytes. If the complete value fits in that fragment,
-> the loop that clears padding for the final fragment is never entered.
->=20
-> A remote client reading an attribute whose length is not a multiple of
-> four can therefore receive one to three stale bytes from the response
-> page.
->=20
-> Encode the first fragment with xdr_encode_opaque_fixed(), matching the
-> final-fragment path and ensuring that any XDR padding is zeroed.
->=20
-> Fixes: 23e50fe3a5e6 ("nfsd: implement the xattr functions and en/decode l=
-ogic")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->  fs/nfsd/nfs4xdr.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->=20
-> diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-> index e17488a911..51ab68ffdf 100644
-> --- a/fs/nfsd/nfs4xdr.c
-> +++ b/fs/nfsd/nfs4xdr.c
-> @@ -5953,7 +5953,7 @@ nfsd4_vbuf_to_stream(struct xdr_stream *xdr, char *=
-buf, u32 buflen)
->  	if (!p)
->  		return nfserr_resource;
-> =20
-> -	memcpy(p, buf, cplen);
-> +	xdr_encode_opaque_fixed(p, buf, cplen);
->  	buf +=3D cplen;
->  	buflen -=3D cplen;
-> =20
+Hi Guixin,
 
-Looks good. There is another memcpy() inside the loop just after this
-that probably ought to be converted this way too, but it's not strictly
-required to fix this bug. Maybe send a follow-on patch if you're
-inclined?
+(I've rearranged the quoting a bit, to follow bottom-posting properly)
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+On Mon, Sep 14, 2026 at 07:01:16PM +0800, Guixin Liu wrote:
+> 
+> 在 2026/9/4 10:34, Guixin Liu 写道:
+> > 
+> > 在 2026/9/4 07:05, Bjorn Helgaas 写道:
+> > > So I think we should resurrect that series and update it as needed and
+> > > solve the problem that way.  I dug out the links just for
+> > > completeness, but we should probably just start with the most recent
+> > > ones (v11 or v12):
+> > > 
+[...]
+> > >    # v12
+> > > https://lore.kernel.org/r/20201126011816.711106-1-helgaas@kernel.org/
+> > Yeah, this series is better than mine, wait for your to recover them.
+> 
+> Hi Bjorn, still not see you resurrect this series.
+
+In general, I believe the Linux community tends to move by people doing
+the work and sending patches, not as much by asking someone else to do
+something for you. Maintainers may provide advice, suggestions, tips,
+reviews, etc., but that doesn't mean those suggestions translate to
+work items the maintainer will do. So...
+
+I'm not Bjorn, but I interpret the above "I think we should resurrect
+that series" as, "if somebody wants this problem solved, they should try
+reworking and resending that series again". i.e., you should do this, if
+you want this problem solved.
+
+That's just my interpretation. I hope it's helpful to you.
+
+Regards,
+Brian
