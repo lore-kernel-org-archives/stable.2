@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B3548095B;
-	Tue, 15 Sep 2026 08:42:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C3BD4825BD;
+	Tue, 15 Sep 2026 08:42:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461740; cv=none; b=pDIetub63AjeoayJoXAC8ZM23zDbkLwjF7hBz14kEXfMMsGi8PnkM+iZ0u1eEQ/TSFwNfLNCc+R3+jYYIWgCWvkLNSaxuIK/XWHNbQ6o9iPDXU/CXJ2DOxGEg59jn9z3Blnv9Sxu/Caw4JI1A5E0WkQsB6DjxiyJ36xj8LANB7Q=
+	t=1789461743; cv=none; b=RBwDKp1zTWwKvbJvNMnh8u4xqpr8Juq9d9lYNsxknxuPl8dnxtkLZ+bKF0sQhT1j0GgnZwa69hzPJlHCjVTYTaIqaUKmK04MRH8AKIDLKzUqEZhrABPyBylVyz2EzXwq0mWjlSJ7hKRb/TvIHhsVH/d9AMEZ0s52p7Zw/iCgAZE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461740; c=relaxed/simple;
-	bh=8EJ68XPeVuYFp1C8oU4jQJaTpagNyLdBOct1BN5hd4g=;
+	s=arc-20240116; t=1789461743; c=relaxed/simple;
+	bh=/p6nqis/yT87ggT5a29DCidGjMeHdZXri/7vNueZdCw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W2uSNDiCmvCYmOqC7Yudgdkjxw3QchzF0590dhUWkruZI+LQkAPhVleKk74gjhJ+SAPVzyxTE6iPE0bGtrra64RipgIqoTVKcAatckEgPtcXLycsXHe/+CzvT1YzmzJ6Flf+D7x8PZq6HJGs/38s1ERcfuzeoAvaaiShfHL4WlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AblIf0o/; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=nK1lUyZjecp/In2i4lM8wrZKL64+YPb5pVYQVObcUGHtyqiJWDezduWHTBCR6V3iOBj/x2s0L/AHIrv87okdLJXZoS0/ckyWK1mCRHp8tt0BwAsuHb1NUTHxUGcnCUx4saxmGv8pMj8At9Bk36zTkYRDAdvoWYMWnsU5uAj1eJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nxv+yxsa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AblIf0o/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A521A1F008A7;
-	Tue, 15 Sep 2026 08:42:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nxv+yxsa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 418F81F008BF;
+	Tue, 15 Sep 2026 08:42:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789461738;
-	bh=YLzTTSKqcUGI5YoRs66MDTCcZ6UV130NH8vDO7DaOrk=;
+	s=k20260515; t=1789461740;
+	bh=nOJ9I0NPYql3ZuPXM/ZFNaEp/YGYo1vqCGkpGV+SUy0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AblIf0o/gnNCCRA1xWIISgtF5uBZy2TjI+UMwTFBJ6YH93WA9rnzCOND1Nh0TG5Ln
-	 bcGtBocqr2+UbUPCXqome6W/pINimZY0eOefGP3oqwCUQtVENM8GNGTIk08b8boNop
-	 zErQO6IbGRPTK6MineBP0kRKeX2jTDCGV5FordkCiM8Y9qQ/Pgk+rGj3OeV6Sbu9Y7
-	 kh484t0ZriNdQxW8BrM3y8ey2S1QfvlJTUUufvtycfurzk+bVcFrgsa1vRVeDtxwFu
-	 9KjXJWdLBo+EwQ8yBSaw0X0NavjXPtVhlvf2z3wDjZ8K/m0wDx1lJzLsLp3PbYueTQ
-	 /8MSXB3gngVxQ==
+	b=Nxv+yxsa/y63gdVh2vbZxM4NN+rXeYyxQDw9ClNyiB+EV7d2E3jPPCAENNWeTadO9
+	 SASrnjLW4aH9pLzZ2tzteGvaGZqYdmQemFMzCNP4PPhr/wM1hexNPxHvOoETa4iARc
+	 VCypjjesSgr8paqMsO4wAa7oTfy1Cc+Xowap44FhuxrMgMwIuj7px8ZBUTEaThm8EM
+	 gvaFWjdbqGHIV+d+o2cM19EX/X+r+Jrk3dS3ykK7nhyKCH1xR+nwEDm00NINTW9hVS
+	 scI5q1LBeTIAptnL0Rowrg4+Lh29ICWUt/TAtbXUBqy/wntEvbG277jfEFTiyMLDDe
+	 lSnzvsj79N2jg==
 From: Niklas Cassel <cassel@kernel.org>
 To: Damien Le Moal <dlemoal@kernel.org>,
 	Niklas Cassel <cassel@kernel.org>,
-	Baokun Li <libaokun1@huawei.com>,
-	Sergei Shtylyov <sergei.shtylyov@gmail.com>
+	Tejun Heo <tj@kernel.org>,
+	Dan Williams <djbw@kernel.org>
 Cc: Brian Norris <computersforpeace@gmail.com>,
 	stable@vger.kernel.org,
-	Damien Le Moal <damien.lemoal@opensource.wdc.com>,
 	linux-ide@vger.kernel.org
-Subject: [PATCH v5 3/6] ata: sata_fsl: Fix use-after-free of host_priv on probe() failure
-Date: Tue, 15 Sep 2026 10:41:29 +0200
-Message-ID: <20260915084127.692494-11-cassel@kernel.org>
+Subject: [PATCH v5 4/6] ata: libahci: Free the IRQs when activating a multi-IRQ host fails
+Date: Tue, 15 Sep 2026 10:41:30 +0200
+Message-ID: <20260915084127.692494-12-cassel@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260915084127.692494-8-cassel@kernel.org>
 References: <20260915084127.692494-8-cassel@kernel.org>
@@ -47,87 +46,83 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2874; i=cassel@kernel.org; h=from:subject; bh=8EJ68XPeVuYFp1C8oU4jQJaTpagNyLdBOct1BN5hd4g=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLJWsuzNsuUXlnw0+fL8k085GqV0e0qahZl4jtvGCOUsn 8y1vrmjo5SFQYyLQVZMkcX3h8v+4m73KccV79jAzGFlAhnCwMUpABNpXszwh6+ueBXzs4o3C3Pm rs/hOy0h9Porv9EBJvZpj9TmZGkvD2f4K328UIhdr45vilPA37nt3dfmPbtwT+pz0baHqie4uIr EOQA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2724; i=cassel@kernel.org; h=from:subject; bh=/p6nqis/yT87ggT5a29DCidGjMeHdZXri/7vNueZdCw=; b=owGbwMvMwCV2MsVw8cxjvkWMp9WSGLJWsuy1/pdy2+wLR9d/7/qFqSJcnhcKlxp938C8K+Gwq KZGTuWljlIWBjEuBlkxRRbfHy77i7vdpxxXvGMDM4eVCWQIAxenAExkSQnD/+jn37eErby2Pujt wUcf1h56HeKddM9PfcGi2qlr++9drz/LyLCldG/4t3DPa5N6HVgO6922/yNlc0ut8yhznDqnJBf LYn4A
 X-Developer-Key: i=cassel@kernel.org; a=openpgp; fpr=5ADE635C0E631CBBD5BE065A352FE6582ED9B5DA
 Content-Transfer-Encoding: 8bit
 
-sata_fsl_host_stop() releases hcr_base and host_priv:
+ahci_host_activate_multi_irqs() requests one IRQ per port, but it does
+not free them when requesting one of them, or when registering the host,
+fails. The IRQs are only freed by the driver core, when it releases the
+devres of the device after probe() has returned, while the caller of
+ahci_host_activate() releases the resources of the host in its probe()
+error path, e.g. ahci_probe() disables the clocks, regulators, resets and
+PHYs of the host. An IRQ handler running in that window would access the
+MMIO of a host which is no longer clocked.
 
-	static void sata_fsl_host_stop(struct ata_host *host)
-	{
-		struct sata_fsl_host_priv *host_priv = host->private_data;
+ahci_host_activate_multi_irqs() did free the IRQs until commit
+0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs"), which
+removed the explicit free because devm makes it unnecessary. That is true
+for freeing the IRQs as such, but not for the window described above:
+devres is only released after probe() has returned, i.e. after the error
+path of the caller has released the resources of the host.
 
-		iounmap(host_priv->hcr_base);
-		kfree(host_priv);
-	}
+Note that this window cannot be hit with the current users: the only user
+of AHCI_HFLAG_MULTI_MSI is the AHCI PCI driver, which does not release
+any resource in its probe() error path, and the ports of the host are
+still frozen, i.e. their interrupts are masked, when ata_host_register()
+fails.
 
-->host_stop() is called by the driver core through the ata_host_stop()
-devres action which ata_host_start() registers, so it is called both when
-the device is unbound and when probe() fails after the host has been
-started.
+Free the IRQs explicitly again, like ata_host_activate() does, so that
+the IRQ handlers cannot run once ahci_host_activate() has failed.
 
-The error_exit_with_cleanup label of sata_fsl_probe() releases hcr_base
-and host_priv as well, and it is reachable from the two
-device_create_file() calls which are done after the host has been
-activated. In that case sata_fsl_host_stop() runs on an already freed
-host_priv, resulting in a use-after-free and a double iounmap()/kfree().
-
-Add a separate error label for the failures happening after the host has
-been activated, which only detaches the host and leaves hcr_base and
-host_priv to sata_fsl_host_stop().
-
-Note that ata_host_detach() is dropped from error_exit_with_cleanup, as
-that label is now only reachable while host is still NULL.
-
-Fixes: 6c8ad7e8cf29 ("sata_fsl: fix UAF in sata_fsl_port_stop when rmmod sata_fsl")
+Fixes: 0a142b26921c ("ahci: cleanup ahci_host_activate_multi_irqs")
 Cc: stable@vger.kernel.org
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 Signed-off-by: Niklas Cassel <cassel@kernel.org>
 ---
- drivers/ata/sata_fsl.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ drivers/ata/libahci.c | 26 ++++++++++++++++++++++++--
+ 1 file changed, 24 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/ata/sata_fsl.c b/drivers/ata/sata_fsl.c
-index 70b210afd291..4037dd758f87 100644
---- a/drivers/ata/sata_fsl.c
-+++ b/drivers/ata/sata_fsl.c
-@@ -1500,7 +1500,7 @@ static int sata_fsl_probe(struct platform_device *ofdev)
- 	host_priv->intr_coalescing.attr.mode = S_IRUGO | S_IWUSR;
- 	retval = device_create_file(host->dev, &host_priv->intr_coalescing);
- 	if (retval)
--		goto error_exit_with_cleanup;
-+		goto error_exit_detach;
+diff --git a/drivers/ata/libahci.c b/drivers/ata/libahci.c
+index 6d72eb017b49..9f479daa89b0 100644
+--- a/drivers/ata/libahci.c
++++ b/drivers/ata/libahci.c
+@@ -2723,11 +2723,33 @@ static int ahci_host_activate_multi_irqs(struct ata_host *host,
+ 				0, pp->irq_desc, host->ports[i]);
  
- 	host_priv->rx_watermark.show = fsl_sata_rx_watermark_show;
- 	host_priv->rx_watermark.store = fsl_sata_rx_watermark_store;
-@@ -1510,16 +1510,24 @@ static int sata_fsl_probe(struct platform_device *ofdev)
- 	retval = device_create_file(host->dev, &host_priv->rx_watermark);
- 	if (retval) {
- 		device_remove_file(&ofdev->dev, &host_priv->intr_coalescing);
--		goto error_exit_with_cleanup;
-+		goto error_exit_detach;
+ 		if (rc)
+-			return rc;
++			goto free_irqs;
+ 		ata_port_desc_misc(host->ports[i], irq);
  	}
  
- 	return 0;
- 
--error_exit_with_cleanup:
+-	return ata_host_register(host, sht);
++	rc = ata_host_register(host, sht);
++	if (rc)
++		goto free_irqs;
++
++	return 0;
++
++free_irqs:
 +	/*
-+	 * Once the host has been activated, hcr_base and host_priv are
-+	 * released by sata_fsl_host_stop(), which is called by the driver core
-+	 * through the ata_host_stop() devres action registered by
-+	 * ata_host_start(). Releasing them here as well would result in a
-+	 * double iounmap() and a use-after-free.
++	 * Free the IRQs which have been requested, so that the handlers can no
++	 * longer access the MMIO of the host once we return, e.g. after the
++	 * caller has disabled the clocks of the host.
 +	 */
-+error_exit_detach:
-+	ata_host_detach(host);
++	while (--i >= 0) {
++		struct ahci_port_priv *pp = host->ports[i]->private_data;
++
++		if (!pp)
++			continue;
++
++		devm_free_irq(host->dev, hpriv->get_irq_vector(host, i),
++			      host->ports[i]);
++	}
++
++	return rc;
+ }
  
--	if (host)
--		ata_host_detach(host);
-+	return retval;
- 
-+error_exit_with_cleanup:
- 	if (hcr_base)
- 		iounmap(hcr_base);
- 	kfree(host_priv);
+ /**
 -- 
 2.55.0
 
