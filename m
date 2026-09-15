@@ -1,271 +1,210 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from GVXPR05CU001.outbound.protection.outlook.com (mail-swedencentralazolkn19013086.outbound.protection.outlook.com [52.103.35.86])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9674C8C5F
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 18:49:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789498171; cv=none; b=MXewlhihA6zI7PAjobye4CD60xKDPnNGrdmkqMSJlBcHOEKjXweQvK9RJYsLkh+W6pIm9DhkVCqUVarjWFrAXAQSgKzAoR3ofMPTp4NfOt4mdagoK7icpxzON6DoZAPQnSgDWDYeSlD+AYlWW7T8Lm1j7iQ5wDZXqeAlNs0H1kk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789498171; c=relaxed/simple;
-	bh=dn0nYsAAmXuOK3R+wRJqX7TPcEmhQYGi/QPpsB0ZaEQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=StyKcuDKpXACQkzjdDU0Z1ZjSDeruIXNOeXEpfE2jM5RZUuHdIpDLu7jvffHFTyQIKxsjtQOzEvkzpJt/051rz94bvu5hYLviouX9K7tYl4c0To4/KEseH0omqZ550bPFPoTpf7Ou2cfDvdHYXB3XgHkIsybLvp0YDJ3YIJGsk0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=MSrt+0bs; arc=none smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4FDC64CC271;
+	Tue, 15 Sep 2026 18:54:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.35.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789498478; cv=fail; b=FKay94vYfLrbxcWXfAos2rVChcd4+XkKyr22KqeOvovJPhWVkqSSTYVnNayTXP/lfI3+aSip3hxqGLRG7kuFV7I8vWaY2uQzGFNJyxcq6+fW9pRJZCPOWI0SBWr5NNOiO9uc8LLdhtGp+szEjo4zcDQXcCOvFR+jbD4j8eCcvNw=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789498478; c=relaxed/simple;
+	bh=3g/GJzvqKUMk9j4vL1puMBP0KjCRaSIj4HV3Gr7jTWI=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=tw6FA7tDpAG5tXmWHty+D+DhlxwtwNliIX38yH9UUvuJbfukBGoS5uRV1Ls5XcdsZGPfsS4dYSvf9KRItIDOEESpLfabcOB3XgOlhIRQcXIwjnT5Ti1HWHAcPgUb/zLUC+gNAIUU+WwmCCgYcUmc8Ln0yByHnJR3ttRIF0tw7sM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=EwpvNRui; arc=fail smtp.client-ip=52.103.35.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="MSrt+0bs"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab1ef11so137294d50.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:49:28 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789498167; x=1790102967; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8sOdqh+xMVjOPfQTmb4GlIFWW+djME37k9ELcXIHIfs=;
-        b=MSrt+0bsGkmYdM+x4/yC1LLmriZQ3N7OkDhwkkO+SHphTgw41hTRGswJvMaprNluLh
-         w1LoN3rEiv87JPHt4pUfbaPBIm9UabC/Q7p+2ep2YJ+AFXqhBvXDXTSZBmc/tu+4azkw
-         M1YzAagkIyFNMtfplLR5vfXDA2ejRqM7X/JTVD1b4ZbBh9bB9CSZDlLRzSoPm97xi2AQ
-         7MW0VS4Ooo3H9YzTp9ozdD6jLR0/N5wvOzJ/2HhVpnHVcb7Te88lgc8ZcMW+GWIybDqr
-         bvdQiFkYKxNlD+YkTuzWF+amwWcQLA9WSsjAcz1uvV7KMi60Z06O538GfOnBSyhA19Ml
-         7aCw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789498167; x=1790102967;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=8sOdqh+xMVjOPfQTmb4GlIFWW+djME37k9ELcXIHIfs=;
-        b=KJwOqUkzbu66EV5Pm/MrpkZilLvkiTgL2mjZNCpHvZ+CwNmUukO7rxXN7L49QyttJO
-         3bKPDf+xRfrSVe15cibmiuDfTC7OfZk98RvBxAapNZqqfu+9rCibQKqy73OZhaT1Ghpf
-         jEqNTHipdkLBNFa8JS+H114RIuoJLG/78ySeUkM4/XLtBkxR0cqZYo+VskQiA8ZegBfn
-         i2r0q1mKiwR/Wdc5sfMA2z4dZiECPEDh68TouyrSckAhjNgXSXVQ4YziNuHA5V32VtBm
-         4n9ORlTaJ+lDDQ8rDyGaoFDLngrXfpwA7cjZV7o7dfMnubzYvcCiLbGRKoXMkgkAul9J
-         JmiA==
-X-Forwarded-Encrypted: i=1; AKwUvBzXaiO7Dak85ZQzx1IkRcvdFi+CtqXMTHOGdIOtlaDPCOOSdkKAaELSQA8nIiucCfUeFI90fRY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nB0DuaCPBXpH6rHfMiNO+dg9kZ3HKhDIOJUFcH55n8x1RJMb1D
-	KqMAWFfSs1q889EukVBL30GNl5wa9HAh/I6a9ReGFLsTtkQvsUCQRcPC4AqIuP/NIBg=
-X-Gm-Gg: AYBFou1uGcSGP2UssY4hWGHfyPgV4w1stcU5GtOUP/L4DwkIotFP9gyWWzWo8S0vMAb
-	ucLCA6E0+sKiT1Q0DmDoVqhY5vZZ3UOVwME2v/U2eDqAAHdRLDuHCMEMt+La/t71DCJ8n1z30H8
-	p4OnyhNhffzTY6AAzWWqktDM/EUeHlhYcLwJle8Py1rxGEDa0yE0Mgh/Epbx0203a48ZJoP3Xnc
-	nusQUTJMXY8uYwXj6nYaYhwtxd/KB73kERcG8H4ULQjGKJ6xHBetGAscTyANWRl27xVhBEfsrv/
-	5DQ6JbESgELNyr+KDKScDD3qassI7DgdELx0T9gJbyMut46wMwS88GTPmWmPhcPTRAevA+dlWow
-	UmE+5GFFWf3Ozy3PX4yby5/5EA8DZIAPKShmGc1KPA6ihSh1eOPKG0CYGSpk2gB3b+P1qxKaWJI
-	yXQyTwNX7rU6j3J6K659wvVyn0gS1v03aVHdAjx44ZzwLrDpLgPY2663u2U4Unua2iNapVk2Nu8
-	wXulmCpEtW8B50r5lJ9EAsx9BUCzcUJJ3x+xJlwUzHEk93YjUHD+gq6sefmu1tcRbHOYxEITh6x
-	5mmDlUHj3mjR+v9n03BEC+j8Tw4QGYopAxCNCIne3V79QV7SIx6TJJ+mkTyh5koO
-X-Received: by 2002:a05:690e:1208:b0:671:2d6e:b7ec with SMTP id 956f58d0204a3-6715c93e52cmr1270970d50.0.1789498167258;
-        Tue, 15 Sep 2026 11:49:27 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:e9c6:4a77:70a9:9f1d? ([2600:1700:6476:1430:e9c6:4a77:70a9:9f1d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-891ee4a536asm509227b3.10.2026.09.15.11.49.26
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 11:49:26 -0700 (PDT)
-Message-ID: <e4f31d1ee16d537368a65c916597cdc1f28e32c1.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: fix checkpoint root lifetime on sysfs errors
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
-	 <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="EwpvNRui"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=yyA3EjIoI2or4G/lOheTLgmB2dr/COJAewC/EYfFL+1Fdld4r7JIFzYnq+HNBjKoJ1lZ/Zuum1+sfw9QAMWAGhO47N10LZX+wQQrw0CNYDF8YPSX/PrsSg89JFOEWI8Y4RVHNO0nSIXUSesCvUXuZckfy8MfhIVbb0/SDQfHVSqiNC1sgZuh/iOLx68KIadx9X7Ewts7quEnsigsJOSDZdUVPKFYS/IBeDAoO7/gwBte0cI9addQ/e7GKbB9RNi9riCzvhcR7fLXizYzxhF3Gbcsy1HitdUlzgxSx0o4R6zat37+y5ysC1EIhqV8MfIxjxkjB0HFi59JanIK8JChFA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=IozRiobq81BxsL5XdhKZrOBqQX4kW8gz8BLCjX3oiwo=;
+ b=kNXyA/TNhNuzG8j2eNAgAs5k0bLQUx3OKt78vOwjSuXekywbbG+e5iRd7tv9RVVxaBeVyRyofyKh/k052C9qYFnb8rT6pBUZ/B1LwITr8zjBddLqKlFX72hukACivNS6gCxtaPM1Wkf440w3GOgzsAvclKy+vIM3wMXwf+VEwWqN6lRtF6BPDRVGLp86RsWzfEFH/95JW4oM3/kdijLQ46XyNYLGmODAR+zXctwMFVYkRxC5D0iC5qPYi0axEhUnMLiIQ/Slr85GImf7Hkp6OEBch1aynpnPB84uPDADJOtwLYZmFoK/a3+qPnbYyVBPkqfBrG1JK+qlxZIIkKIAZA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=IozRiobq81BxsL5XdhKZrOBqQX4kW8gz8BLCjX3oiwo=;
+ b=EwpvNRuikkMhsWaMC9H5sDIz5g4Ln1CPdz4GupKmdZ/+sgM/H3ajUhsAXHSTwatfC4V0DyCwXMrxRRc77RY5hNtXSgFEtIIztfq+cwzZ+siUJZ1FDQwV1qGdoYpv+2LTDw6/QCS7SWyQ1/0hDmSxFtwTj6862MQNsbeRq1PfbKSCst++fY+1oDBud00oJPG0T8Dwm2XIM/HoNCfKJoMbQycYxA0fwrinQ8wYYzYlhGMPFWDmqHoBQ7T7UtEgjOJ15RMPvqIHc/0fZCgXFjMY0bnVc4pr6o8Yf/xMiEzPiDdRFSRusErFD7WdcWVRmXg7LNn7ip1H4rKcDuthUwYYAw==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by GV1P251MB0954.EURP251.PROD.OUTLOOK.COM (2603:10a6:150:9d::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Tue, 15 Sep
+ 2026 18:54:32 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0428.008; Tue, 15 Sep 2026
+ 18:54:32 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: David Heidelberg <david@ixit.cz>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	Samuel Ortiz <sameo@linux.intel.com>,
+	"John W. Linville" <linville@tuxdriver.com>,
+	oe-linux-nfc@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
 	stable@vger.kernel.org
-Date: Tue, 15 Sep 2026 11:49:25 -0700
-In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
-References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+Subject: [PATCH net v2] nfc: llcp: drop truncated I/RR/RNR PDUs in nfc_llcp_recv_hdlc()
+Date: Tue, 15 Sep 2026 19:54:27 +0100
+Message-ID:
+ <AS8P251MB0001789BBF04B72745C7D96BC8BA2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.53.0.windows.1
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: LO4P265CA0316.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:390::20) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260915185428.11326-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GV1P251MB0954:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8ca78685-6175-4bc2-de2e-08df135ac74e
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|25010399006|6090799003|25031999004|5072599009|19110799012|4140399003|12121999013|8060799015|24021099003|23021999003|41001999006|15080799012|55001999006|5062599005|37011999003|51005399006|4302099013|440099028|3412199025|26104999009|1602099012|40105399003|2607281247196008|10035399007|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?utf-8?B?aWFabDRTL2VTdU93M00xdlp6U1Yvb3VmTlZDZllzalQzMEswdTJMQXY4N2x3?=
+ =?utf-8?B?a2wwcy84WHJTbGVoUyt0eGR0cjFJWFcyaU85QWNXak1KYS96OG1YMlpHcVNs?=
+ =?utf-8?B?ankyZ2lGMm1tM1VSNTFGVDdhWlVQeUp3Q1pPY3A4NHVBUUE0RFBTbkd5ems0?=
+ =?utf-8?B?QTl3MDFBbjl1T3YvUkoyRmpLbkQ3THVUMlFKZTdNMGpxR1pNN0JrUnZOdWhQ?=
+ =?utf-8?B?YmoxRW9SeDF3bFBDL3NtT2tmc0dYSmNZQlFVMW1UZjYvMkNBOW52RDRHdHkx?=
+ =?utf-8?B?SWl3T2NlM2tKdCs4S0FpNzRGdWR1Rm1UQm10RDdwKzZIU2FVcGRHSVBKTjhv?=
+ =?utf-8?B?TDFOYVJxL1JxTmlKN1JJRVgrMURIUGlydzVQL3ZSMVA5a0hIVjNHSFRTcFFt?=
+ =?utf-8?B?ZG5Kb01mbTNpeTNndnhCMXNCNndmYWJqNityV1Ura0dIYlVuMnVkbWM2SEtO?=
+ =?utf-8?B?aVQvN2pJSHBLKzhhQU9BTUFxOUgrU0VRVlJqUjN1ZXlDZW5zSnZyTEp0Ly96?=
+ =?utf-8?B?V3VRUW8zVUloeHk1dGpkaUdLb0xPWUxGWGFFTUl5bU9NV1dkYmR0VTM0aFps?=
+ =?utf-8?B?RUo4UjkwQytpOUZjMXM1d0dicnorOWpJMzBQZnNFa2RrQ2dXYmdFekJtT0xG?=
+ =?utf-8?B?d3dReFdpM1ZZYWNvbjVacjY2Q0diRnFtY0x4QUlrVE5lSGFPZHEvVDl1KzVC?=
+ =?utf-8?B?Nk1pVmdnZnBJTTJOUCt2YlNZNlVMMGpUSVlqb3pSaVJjQk5OTEtCU25abDNZ?=
+ =?utf-8?B?M1VqVERKM3JXTWZPYjl4VjJweURzalBkeFN2RGNIN3g2VGdFcnJZcXdTM1R5?=
+ =?utf-8?B?alMrWUdZcDgzazc1Y3F1YmlBK2Foa0ZvblBCQTRGU25uajVzWWVxK3R3K3A1?=
+ =?utf-8?B?VzQ3QjlxdzA0ZkU5c3Btc3AydEVRaTJlRFFjd3c3OGtWcTVObE1BTFhCN3NN?=
+ =?utf-8?B?REk4RFJxdzF6YXVZUUFqbGNQZktsNHVCemlId2dJVzl4Q3JpdUdKMDBxdTRv?=
+ =?utf-8?B?MnFid09idXdLaXpJRkFJNXUzYnlXcXgybUpJOWxvOExhMzhIRm5kNnhqdWFW?=
+ =?utf-8?B?c2dmY2xIWGFTaDc1RXVYckh4T0VXSURyZ21ncHhYWURuMExkeHpmTFk3MU9s?=
+ =?utf-8?B?RHJyZTM4YkR0bXd1ZlVlekdIR1hnU09QSlNjaUNvQW8yU0d6ckhlN0JWZlN6?=
+ =?utf-8?B?SUx4V0hKTW1BMzkwN1gxMWVCVHhSa1llOGNrY2xFaGVkZVJ4Ymh6Y05sQ1hU?=
+ =?utf-8?B?ZzliMXZNODVZZ2szNjUvNWQ0dkQvOTQ1ZVcvLzhxUXVTOTBmaWZFdXRVN1Rl?=
+ =?utf-8?B?WFI4Rnd3c1JLTmpiZzZ4Qmw1dU81MUM2SWpuUlVlREZKTjgybUI3V3FLZDVF?=
+ =?utf-8?B?T2syY3JYVTNVZFA4YTRoZWl4cWwzWjV2dVp3bGw4OGZPVUdvbVF5MmtUSW01?=
+ =?utf-8?B?T2VHTndGOFJBVnZuUzlLQXE4K0ZlVm9UeVorZnEwY0JXTmNrMW1SQnpwWmJ1?=
+ =?utf-8?B?VnNWTXg4NTJ5QkswTjMyRGFWcXdSd1QzTUVzdlppMS9DWGZ5SXJJK0l2SFRK?=
+ =?utf-8?B?a0tyMEZ5ZVlyR2R4UzVRQ2JSeUZRYTdsNEpuV0I4OXJuWTNMYXdyUHpqSGli?=
+ =?utf-8?B?RjgvUnVWYlJPMGpwTWsvcWE2ZnJTNjI3SWlNSVBkSWM5MUdjYjJmK1dDbTRH?=
+ =?utf-8?B?eGhaNmlCSzNhL2FIQ0hkVVBycDVHcjZGOHNLcUJiMnVCUkhhcnNESllRPT0=?=
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?utf-8?B?Ky9JcFpXc1c2c1lZSDhXdUJsMW9zTk92bWd6QnVSaXJ4WU9xdG9UdXpvc1p5?=
+ =?utf-8?B?KzBiSUo2YmZjTElmT3NxSGR5SWFvVjNIYWx3eDR2ZS9zeHh6U2tzK2ZJSjJk?=
+ =?utf-8?B?L1Rwd1VPMExnRC9wTFNCc0hJb0E5TC9EZkZvSFBwRUh0dTNUMk5JUVVFTmZ6?=
+ =?utf-8?B?NGpoZXEyM0tOdzB1ZFhqRzFTSEM0TU1KdVhvdXlKUm5seWd4TnRraTRPMlZO?=
+ =?utf-8?B?dEhXcm5lZE1UdzJyZFQyMitjcUZZWW9KZTJmV21tVno1S0RzV00vVGxyNHFQ?=
+ =?utf-8?B?Tm5Pcnl1ZXlRYUFmdWF4WUNWTXIxaVVCUnNUbkxNWENPb3d3SktUL3VJUDYr?=
+ =?utf-8?B?czdRM0orR0paWWdTSVpJSW9YM0VkY0E0dG92aUgrZXIxSnZPb2lldXU3cThk?=
+ =?utf-8?B?Tm54R2twcUxqcHR2dEZWenF0Mjd1VC9QMCtDZjZIQ0E2ZjBkMFQ5TFd5L1hw?=
+ =?utf-8?B?UHY1bXhGZUFhSml3eWtTSG1uWTljNllEY2RReG1CS1ZQaXljQVVnSkZwS0pF?=
+ =?utf-8?B?dDlpaXBNK0pnaEhQam1pM1BwZkdDS3BJcnJLVm12ZkRoNHdrV08wbDdkd0JC?=
+ =?utf-8?B?VGJhbHNKb3Z4b0JWS3pFRTRaYitlYkZyYnV2S0NFSlQvNVBYSFV5VFQ2Zllh?=
+ =?utf-8?B?R2hyeCt6NkdnWkxIODJScURsV1RET00vRzllSjU3MjdQSDVWVUI4K3FkMThN?=
+ =?utf-8?B?YnFPM3E5TkdIYyttaXkwQnFhMW1xWVJYMkZreXVZVGdhdU9WdXg1eUJRR2Qw?=
+ =?utf-8?B?TkVLenFuR0xUYTkrNVcrS2pUTnBmVG1tSkZ5R25FdmFheURFWkhpa3Q4eTVQ?=
+ =?utf-8?B?eEw5SEcvdVAxbDlTYjdXRnpOV0VtZ1BCSjBLOXhNVU1UUURQVmxwM1Q0WVhl?=
+ =?utf-8?B?MjVIY1dMWk1yVGZXdDIrRFJHakdOeUhGbVBHUTU1cVhuUEVFbjQxb2dGWkg3?=
+ =?utf-8?B?RVQ2dTFoWDJBRUl2TTlCWFE4ekxvZHVad2FPWktyUVZyaXBoL2tySmtyQmJW?=
+ =?utf-8?B?SGZOdGFORUNWWjhQUVI0WlN5RTltWjZ4TWszUFR5RzlJOGNUUmVoQXBkSk1k?=
+ =?utf-8?B?VTJETHM0MXlMSVNFZkRYN3c3RFNML2YzVnBFVCtDeTUvby9tMDhOd3dSMTRM?=
+ =?utf-8?B?am9qUDhQU0ZIOURhOHFZOWJHM3pwVHhTMzg4YWowb0p4bFVRSkdVUGtLa3Zy?=
+ =?utf-8?B?YWNFZkFtd0NVem5uNXNScEhjbnI1cFdWeERjbjZVdldZSlNFci9USlF2SXFW?=
+ =?utf-8?B?Ni8rSWxrMjNmMkN3ZnkzbG5OTklCSm5KR25NWk9Wa1Q4NlVXSGZYclprU1Fn?=
+ =?utf-8?B?ZkEveWd5TlpCaFZLZ1lTMkpaSy9TMkkzYzJsQVhwL1paTStuZTVzdjBFTHlp?=
+ =?utf-8?B?VzBuczliK1lHMXZ0S1hnOEJJYW4wc3ZRczltS2RhbnFpZGJEZ1ZlNG5GZ0ky?=
+ =?utf-8?B?eTgza0J0QWUyS1ZLc3VCQVB0ZUZ1Zi82Ymg0eG1JUlJ6N2R5YWRXL0ZkSFFo?=
+ =?utf-8?B?Q3J3SUFOZnptRnUzN1ZPSy8vN1NGUFJBU1BiWjFMV2ppNFc0UmV3Q0dWN0Fz?=
+ =?utf-8?B?M2xBUDBsY2lja050NmJIOFhRN3lVWmFkM1VtVnlRc2tPZWdRRVR0dUk2Wktn?=
+ =?utf-8?B?dGlSLzFNSUpYR1RCaGdNRHNSS01DdWJEaEMvZ2RSRFZudzdRN1VwdWl5NHdP?=
+ =?utf-8?B?RDRmZ0VXSHRRc3V0WWhjWHk1N3FKbTlrVFo5RHVPL0lEYS85ZjNWVnJhMjJp?=
+ =?utf-8?B?eUgyYjNtSHErQ2tGUTdwWlovQmNOb1ZMZmNienRkVTN0azVWOFFRL0cwek5j?=
+ =?utf-8?B?aGUrK0dDS2dKaGg2enJabGdvOXJEbTJmSTFvSjY3djllWSs4RXRob3AxRzFC?=
+ =?utf-8?B?SCtIQlE5RFc0RzV3L29YQkIvS05PZDdNQzZIWVpwSHhRamppb0thRU9mYko2?=
+ =?utf-8?Q?YCgyNdotjwIE0SKQBZGWMMxIQdMPDN8q?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8ca78685-6175-4bc2-de2e-08df135ac74e
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 18:54:32.7746
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV1P251MB0954
 
-On Tue, 2026-09-15 at 01:12 -0300, Aldo Ariel Panzardo wrote:
-> nilfs_find_or_create_root() publishes a new root in the checkpoint
-> tree before creating its sysfs object.=C2=A0 If sysfs registration fails,
-> the root is freed while it is still reachable from the tree.=C2=A0 Merely
-> erasing it in the error path is insufficient because a concurrent
-> lookup may already hold a reference.
->=20
-> Serialize root creation and removal, finish sysfs registration before
-> publishing the root, and wait for the embedded kobject release before
-> freeing its container.=C2=A0 The wait also makes normal root removal safe
-> when kobject release is delayed.
->=20
-> Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
-> =C2=A0fs/nilfs2/the_nilfs.c | 38 +++++++++++++++++++++++++-------------
-> =C2=A0fs/nilfs2/the_nilfs.h |=C2=A0 3 +++
-> =C2=A02 files changed, 28 insertions(+), 13 deletions(-)
->=20
-> diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-> index 7b23e373a..01389dba2 100644
-> --- a/fs/nilfs2/the_nilfs.c
-> +++ b/fs/nilfs2/the_nilfs.c
-> @@ -71,6 +71,7 @@ struct the_nilfs *alloc_nilfs(struct super_block
-> *sb)
-> =C2=A0	spin_lock_init(&nilfs->ns_last_segment_lock);
-> =C2=A0	nilfs->ns_cptree =3D RB_ROOT;
-> =C2=A0	spin_lock_init(&nilfs->ns_cptree_lock);
-> +	mutex_init(&nilfs->ns_cptree_mutex);
-> =C2=A0	init_rwsem(&nilfs->ns_segctor_sem);
-> =C2=A0	nilfs->ns_sb_update_freq =3D NILFS_SB_FREQ;
-> =C2=A0
-> @@ -881,8 +882,15 @@ nilfs_find_or_create_root(struct the_nilfs
-> *nilfs, __u64 cno)
-> =C2=A0	if (!new)
-> =C2=A0		return NULL;
-> =C2=A0
-> -	spin_lock(&nilfs->ns_cptree_lock);
-> +	new->cno =3D cno;
-> +	new->ifile =3D NULL;
-> +	new->nilfs =3D nilfs;
-> +	refcount_set(&new->count, 1);
-> +	atomic64_set(&new->inodes_count, 0);
-> +	atomic64_set(&new->blocks_count, 0);
-> =C2=A0
-> +	mutex_lock(&nilfs->ns_cptree_mutex);
-> +	spin_lock(&nilfs->ns_cptree_lock);
-> =C2=A0	p =3D &nilfs->ns_cptree.rb_node;
-> =C2=A0	parent =3D NULL;
-> =C2=A0
-> @@ -897,29 +905,28 @@ nilfs_find_or_create_root(struct the_nilfs
-> *nilfs, __u64 cno)
-> =C2=A0		} else {
-> =C2=A0			refcount_inc(&root->count);
-> =C2=A0			spin_unlock(&nilfs->ns_cptree_lock);
-> +			mutex_unlock(&nilfs->ns_cptree_mutex);
-> =C2=A0			kfree(new);
-> =C2=A0			return root;
-> =C2=A0		}
-> =C2=A0	}
-> -
-> -	new->cno =3D cno;
-> -	new->ifile =3D NULL;
-> -	new->nilfs =3D nilfs;
-> -	refcount_set(&new->count, 1);
-> -	atomic64_set(&new->inodes_count, 0);
-> -	atomic64_set(&new->blocks_count, 0);
-> -
-> -	rb_link_node(&new->rb_node, parent, p);
-> -	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
-> -
-> =C2=A0	spin_unlock(&nilfs->ns_cptree_lock);
-> =C2=A0
-> =C2=A0	err =3D nilfs_sysfs_create_snapshot_group(new);
-> =C2=A0	if (err) {
-> +		mutex_unlock(&nilfs->ns_cptree_mutex);
-> +		wait_for_completion(&new->snapshot_kobj_unregister);
-> =C2=A0		kfree(new);
-> -		new =3D NULL;
-> +		return NULL;
-> =C2=A0	}
-> =C2=A0
-> +	spin_lock(&nilfs->ns_cptree_lock);
-> +	rb_link_node(&new->rb_node, parent, p);
-> +	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
-> +
-> +	spin_unlock(&nilfs->ns_cptree_lock);
-> +	mutex_unlock(&nilfs->ns_cptree_mutex);
-> +
-> =C2=A0	return new;
-> =C2=A0}
-> =C2=A0
-> @@ -927,13 +934,18 @@ void nilfs_put_root(struct nilfs_root *root)
-> =C2=A0{
-> =C2=A0	struct the_nilfs *nilfs =3D root->nilfs;
-> =C2=A0
-> +	mutex_lock(&nilfs->ns_cptree_mutex);
-> =C2=A0	if (refcount_dec_and_lock(&root->count, &nilfs-
-> >ns_cptree_lock)) {
-> =C2=A0		rb_erase(&root->rb_node, &nilfs->ns_cptree);
-> =C2=A0		spin_unlock(&nilfs->ns_cptree_lock);
-> =C2=A0
-> =C2=A0		nilfs_sysfs_delete_snapshot_group(root);
-> +		mutex_unlock(&nilfs->ns_cptree_mutex);
-> +		wait_for_completion(&root-
-> >snapshot_kobj_unregister);
-> =C2=A0		iput(root->ifile);
-> =C2=A0
-> =C2=A0		kfree(root);
-> +	} else {
-> +		mutex_unlock(&nilfs->ns_cptree_mutex);
-> =C2=A0	}
-> =C2=A0}
-> diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
-> index 4776a70f0..72affad9e 100644
-> --- a/fs/nilfs2/the_nilfs.h
-> +++ b/fs/nilfs2/the_nilfs.h
-> @@ -68,6 +68,7 @@ enum {
-> =C2=A0 * @ns_sufile: segusage file inode
-> =C2=A0 * @ns_cptree: rb-tree of all mounted checkpoints (nilfs_root)
-> =C2=A0 * @ns_cptree_lock: lock protecting @ns_cptree
-> + * @ns_cptree_mutex: mutex serializing checkpoint root creation and
-> removal
-> =C2=A0 * @ns_dirty_files: list of dirty files
-> =C2=A0 * @ns_inode_lock: lock protecting @ns_dirty_files
-> =C2=A0 * @ns_gc_inodes: dummy inodes to keep live blocks
-> @@ -151,6 +152,8 @@ struct the_nilfs {
-> =C2=A0	/* Checkpoint tree */
-> =C2=A0	struct rb_root		ns_cptree;
-> =C2=A0	spinlock_t		ns_cptree_lock;
-> +	/* Serialize root creation and removal. */
-> +	struct mutex		ns_cptree_mutex;
+nfc_llcp_recv_hdlc() reads the sequence byte skb->data[2], via
+nfc_llcp_ns()/nfc_llcp_nr(), before any length check. The receive path
+only guarantees the two-byte LLCP header -- __nfc_llcp_recv() checks it
+with pskb_may_pull() and nfc_llcp_recv_agf() admits two-byte inner PDUs
+-- so a two-byte I, RR or RNR PDU reads one byte of uninitialised skb
+tailroom. The byte becomes N(R)/N(S); a peer can already set those with
+a well-formed PDU, so this is acting on uninitialised memory, not new
+peer control.
 
-Do we really need another lock here? If the ns_cptree_lock is not good
-enough, then, maybe, we need to change the lock type? But adding the
-another lock for ns_cptree looks strange for my taste.
+Guard the read with pskb_may_pull(), as commit 95674f506c63 ("nfc: llcp:
+reject PDUs shorter than the LLCP header") did for the two-byte header,
+so the sequence byte is present and linear before it is read. RR and RNR
+PDUs are LLCP_HEADER_SIZE + LLCP_SEQUENCE_SIZE bytes and an I PDU is
+longer, so no valid frame is rejected; a truncated PDU is malformed, so
+return without a DM reply.
 
-Thanks,
-Slava.
+Fixes: d646960f7986 ("NFC: Initial LLCP support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+---
 
-> =C2=A0
-> =C2=A0	/* Dirty inode list */
-> =C2=A0	struct list_head	ns_dirty_files;
+Notes:
+    v2:
+      - scope to nfc_llcp_recv_hdlc() only; the recv_dm() half duplicated
+        Lekë Hapçiu's pending fix (20260729011547.19191-2-snowwlake@icloud.com)
+      - return silently instead of answering DM(NOCONN) as v1 did, which would
+        close an established peer connection (Sashiko)
+      - guard with pskb_may_pull(), matching commit 95674f506c63
+      - add Assisted-by, target net, Cc the right lists, reword the changelog
+    v1: https://lore.kernel.org/netdev/AS8P251MB0001E8602F36054CDD8979A2C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+    
+    Built net/nfc/llcp_core.o on v7.3-rc1 with KASAN and W=1, no warnings.
+    No NFC hardware; not runtime-tested.
+
+ net/nfc/llcp_core.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
+index cac1b54..c553123 100644
+--- a/net/nfc/llcp_core.c
++++ b/net/nfc/llcp_core.c
+@@ -1074,6 +1074,9 @@ static void nfc_llcp_recv_hdlc(struct nfc_llcp_local *local,
+ 	struct sock *sk;
+ 	u8 dsap, ssap, ptype, ns, nr;
+ 
++	if (!pskb_may_pull(skb, LLCP_HEADER_SIZE + LLCP_SEQUENCE_SIZE))
++		return;
++
+ 	ptype = nfc_llcp_ptype(skb);
+ 	dsap = nfc_llcp_dsap(skb);
+ 	ssap = nfc_llcp_ssap(skb);
+-- 
+2.53.0.windows.1
+
