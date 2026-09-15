@@ -1,216 +1,101 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 79B9B4A92ED
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:07:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BD4367F58;
+	Tue, 15 Sep 2026 12:10:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474064; cv=none; b=fpG5J0qXwsWKMkkAYTVUFto3Qw67a0qAFTkouAeU/jiInCR8yj0hElpOz+p1tSsmIbWaqaPMfK0MlnSQs9tn5MFS4jgu9KVp7krB4hF1qvSKRO9Xn7tqqbXGMJQdNzvVx0F5zoTAg24s8DiCooRZxuqtVLFZAjXvipSEOdzLk/4=
+	t=1789474230; cv=none; b=ZWpkEPgozk8HKX+F5Y05n6PxaUTkqTSVpHaf4sTJqznMRtbfnnXXwqeZaurtxz79WbPUtTLx5MHxVaZ6FKpp+Kid7UOZG8gkhvLUC9ECxVdRfTVkTVcRd27OH9FbjC56564nOG5gNP1aNv3BXCRQuAiAjavfJnDWbHriaOo4CRY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474064; c=relaxed/simple;
-	bh=NkaK2Y3o+sxwMHp2P5k5Vew61TmbzoHNUWz0zBsRtOM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BFDn9jvfyDKQGG9qBgZ9zS5iCZBekDVBOAHSYPDKA55JJ+m7IAVL0ZQ3zl7e0V5UL2kh+8dv2KDXc/8UuNFvs+ESQbX0q6Y0IDYb2dXVOFZK6mv6na/1Yu9xz2lvG2jk0zP56KDigL93iylAJvAmpY7bTOiuT8wYYSug6SJiJzg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=CFAdFPo3; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789474230; c=relaxed/simple;
+	bh=ZGYe6w2pPCKtnhvFXoWByjdANZZAKeh6RT4pCiKErwM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PyO69HHw1hotA7ydeIjgsjtuF+fSebWNQpYYvQgphuwdqGTxMYJOtiHoqCP+KeJeBPB2PVmOCNjBCJaKP7nTEDOIGgE/iJmAgUx6lf3JlDd1PTMTwIMaw5U7F6vvI6PZRAa3rWTbe/kT4mGHrtyDgMSblm7q0zy62Y46O5MPqLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XMDz9J0i; arc=none smtp.client-ip=220.197.31.2
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="CFAdFPo3"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 62463152B;
-	Tue, 15 Sep 2026 05:07:38 -0700 (PDT)
-Received: from [10.0.152.207] (unknown [10.0.152.207])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 9A9863F882;
-	Tue, 15 Sep 2026 05:07:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789474062; bh=NkaK2Y3o+sxwMHp2P5k5Vew61TmbzoHNUWz0zBsRtOM=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
-	b=CFAdFPo3BKQ6eXhEoHs6KB9L2l+97P3jrDv/9D5JM7H44vw3H4tNzMyYa69gBKxWN
-	 +i3HXrfHGnIVWdG169zFzD91EH+Jslmj+LELtzl3EY9p0CuzlBRPTBet6yuxCR5oVH
-	 fKpPwVNOEDOO10ds8phUkxuQbMZ8GB3mI4+oHjI8=
-Message-ID: <f9112506-2444-41e9-b38d-7bf0b445a552@arm.com>
-Date: Tue, 15 Sep 2026 13:07:36 +0100
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XMDz9J0i"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=aE
+	PJwYLN1OZnlAgx3iNSRwk/r3LrjTJvf045dXFvlQI=; b=XMDz9J0isqY5XLTW+3
+	AWHx1by/oCOU5sfGA52zb7FD9GqhZKOPeiaraKsyTLyuPB4c5qJsIKWnvdgAcfXZ
+	qMHkTb7WogWOw7ucmPA/tk3FbvWnSzZ3PqKaHSNFYx7tdP+io5AtlCQ3kPZgZ97H
+	MvCHE538kA2iu7t/tiaY4Bsyg=
+Received: from ubuntu.. (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnL7mNNalqxvxTAw--.38045S4;
+	Tue, 15 Sep 2026 20:09:52 +0800 (CST)
+From: Ma Ke <make_ruc2021@163.com>
+To: Shyam-sundar.S-k@amd.com,
+	hansg@kernel.org,
+	ilpo.jarvinen@linux.intel.com,
+	mario.limonciello@amd.com
+Cc: platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	akpm@linux-foundation.org,
+	Ma Ke <make_ruc2021@163.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] platform/x86/amd/pmc: Fix RTC reference leak in amd_pmc_verify_czn_rtc()
+Date: Tue, 15 Sep 2026 20:09:43 +0800
+Message-ID: <20260915120943.3988720-1-make_ruc2021@163.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 18/21] arm64: percpu: Implement preemptible XCHG ops
-To: Mark Rutland <mark.rutland@arm.com>, linux-arm-kernel@lists.infradead.org
-Cc: ada.coupriediaz@arm.com, ardb@kernel.org, catalin.marinas@arm.com,
- cl@gentwo.org, david@kernel.org, david.laight.linux@gmail.com,
- james.morse@arm.com, ljs@kernel.org, maz@kernel.org, peterz@infradead.org,
- ruanjinjie@huawei.com, ryan.roberts@arm.com, stable@vger.kernel.org,
- usama.anjum@arm.com, will@kernel.org, yang@os.amperecomputing.com
-References: <20260908151741.394589-1-mark.rutland@arm.com>
- <20260908151741.394589-19-mark.rutland@arm.com>
-Content-Language: en-GB
-From: Vladimir Murzin <vladimir.murzin@arm.com>
-In-Reply-To: <20260908151741.394589-19-mark.rutland@arm.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wDnL7mNNalqxvxTAw--.38045S4
+X-Coremail-Antispam: 1Uf129KBjvJXoW7CFW7ArWUGrW3tr1kuF4Durg_yoW8XFWkpa
+	nxCF4fGrZ8CF4UG3WxW3Wqya1Uury2vr4jkFyY9w1ava4SqFn3J3sY9w1aqr1DArWkCF17
+	XFZxt395ZFs8W3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0JUfwIhUUUUU=
+X-CM-SenderInfo: 5pdnvshuxfjiisr6il2tof0z/xtbC0xF2gWqpNZEZFwAA3c
 
-On 9/8/26 16:17, Mark Rutland wrote:
-> Use the PCPU GPR infrastructure to implement all of the xchg ops
-> 
-> Test case:
-> 
-> | u64 outline_xchg_name(u64 *p, u64 v)
-> | {
-> | 	return xchg(p, v);
-> | }
-> 
-> Generated code before this patch (v7.2-rc4):
-> 
-> | <outline_this_cpu_xchg_u64>:
-> |        paciasp
-> |        stp     x29, x30, [sp, #-32]!
-> |        mrs     x3, sp_el0
-> |        mov     x29, sp
-> |        ldr     w2, [x3, #8]
-> |        add     w2, w2, #0x1
-> |        str     w2, [x3, #8]
-> |        mov     x2, x0
-> |        mrs     x4, tpidr_el1
-> |        add     x2, x2, x4
-> |        prfm    pstl1strm, [x2]
-> | 1:     ldxr    x0, [x2]
-> |        stxr    w5, x1, [x2]
-> |        cbnz    w5, 1b
-> |        ldr     x1, [x3, #8]
-> |        sub     x1, x1, #0x1
-> |        str     w1, [x3, #8]
-> |        cbz     x1, 2f
-> |        ldr     x1, [x3, #8]
-> |        cbnz    x1, 3f
-> | 2:     str     x0, [sp, #24]
-> |        bl      preempt_schedule_notrace
-> |        ldr     x0, [sp, #24]
-> | 3:     ldp     x29, x30, [sp], #32
-> |        autiasp
-> |        ret
-> 
-> Generated code after this patch:
-> 
-> | <outline_this_cpu_xchg_u64>:
-> |        mrs     x3, sp_el0
-> |        mov     w5, #0x10a0
-> |        strh    w5, [x3, #20]
-> |        mrs     x5, tpidr_el1
-> |        add     x4, x0, x5
-> |        prfm    pstl1strm, [x4]
-> | 1:     ldxr    x2, [x4]
-> |        stxr    w6, x1, [x4]
-> |        cbnz    w6, 1b
-> |        strh    wzr, [x3, #20]
-> |        mov     x0, x2
-> |        ret
-> 
-> Signed-off-by: Mark Rutland <mark.rutland@arm.com>
-> Tested-by: Muhammad Usama Anjum <usama.anjum@arm.com>
-> Cc: Ada Couprie Diaz <ada.coupriediaz@arm.com>
-> Cc: Ard Biesheuvel <ardb@kernel.org>
-> Cc: Catalin Marinas <catalin.marinas@arm.com>
-> Cc: James Morse <james.morse@arm.com>
-> Cc: Jinjie Ruan <ruanjinjie@huawei.com>
-> Cc: Marc Zyngier <maz@kernel.org>
-> Cc: Peter Zijlstra <peterz@infradead.org>
-> Cc: Vladimir Murzin <vladimir.murzin@arm.com>
-> Cc: Will Deacon <will@kernel.org>
-> Cc: Yang Shi <yang@os.amperecomputing.com>
-> ---
->  arch/arm64/include/asm/percpu.h | 57 ++++++++++++++++++++++++++++++---
->  1 file changed, 53 insertions(+), 4 deletions(-)
-> 
-> diff --git a/arch/arm64/include/asm/percpu.h b/arch/arm64/include/asm/percpu.h
-> index 9fe44d04c871b..820340c61d70f 100644
-> --- a/arch/arm64/include/asm/percpu.h
-> +++ b/arch/arm64/include/asm/percpu.h
-> @@ -269,6 +269,50 @@ PERCPU_RET_OP(add, add, ldadd)
->  #undef PERCPU_OP
->  #undef PERCPU_RET_OP
->  
-> +#define PERCPU_XCHG_OP(w, sfx, sz)					\
-> +static inline unsigned long						\
-> +__percpu_xchg_case_##sz(void __percpu *pcp, u##sz val)			\
-> +{									\
-> +	u16 *gprs = &current_thread_info()->pcpu_gprs;			\
-> +	unsigned long addr;						\
-> +	unsigned long off;						\
-> +	unsigned int loop;						\
-> +	unsigned long ret;						\
-> +									\
-> +	asm volatile (							\
-> +	__PCPU_GPRS_BEGIN("%[gprs]", "%[pcp]", "%[off]", "%[addr]")	\
-> +	ARM64_LSE_ATOMIC_INSN(						\
-> +	/* LL/SC */							\
-> +	"	prfm	pstl1strm, [%[addr]]\n"				\
-> +	"1:	ldxr" #sfx "\t%" #w "[ret], [%[addr]]\n"		\
-> +	"	stxr" #sfx "\t%w[loop], %" #w "[val], [%[addr]]\n"	\
-> +	"	cbnz	%w[loop], 1b\n"					\
-> +	,								\
-> +	/* LSE atomics */						\
-> +	"	swp" #sfx "\t%" #w "[val], %" #w "[ret], [%[addr]]\n"	\
-> +		__nops(3)						\
-> +	)								\
-> +	__PCPU_GPRS_END("%[gprs]")					\
-> +	: [gprs] "=Qo" (*gprs),						\
-> +	  [addr] "=&r" (addr),						\
-> +	  [off] "=&r" (off),						\
-> +	  [loop] "=&r" (loop),						\
-> +	  [ret] "=&r" (ret)						\
-> +	: [pcp] "r" (pcp),						\
-> +	  [val] "r" (val)						\
-> +	: "memory"							\
-> +	);								\
-> +									\
-> +	return ret;							\
-> +}
-> +
-> +PERCPU_XCHG_OP(w, b, 8)
-> +PERCPU_XCHG_OP(w, h, 16)
-> +PERCPU_XCHG_OP(w,  , 32)
-> +PERCPU_XCHG_OP(x,  , 64)
-> +
-> +#undef PERCPU_XCHG_OP
-> +
->  /*
->   * It would be nice to avoid the conditional call into the scheduler when
->   * re-enabling preemption for preemptible kernels, but doing that in a way
-> @@ -306,6 +350,11 @@ PERCPU_RET_OP(add, add, ldadd)
->  	(typeof(pcp))op(&(pcp), ##args);				\
->  })
->  
-> +#define _pcp_wrap_xchg(op, pcp, val)					\
-> +({									\
-> +	(typeof(pcp))op(&(pcp), (unsigned long)(val));			\
-> +})
-> +
->  #define this_cpu_read_1(pcp)		\
->  	_pcp_wrap_return(__percpu_read_8, pcp)
->  #define this_cpu_read_2(pcp)		\
-> @@ -361,13 +410,13 @@ PERCPU_RET_OP(add, add, ldadd)
->  	_pcp_wrap(__percpu_or_case_64, pcp, val)
->  
->  #define this_cpu_xchg_1(pcp, val)	\
-> -	_pcp_protect_return(xchg_relaxed, pcp, val)
-> +	_pcp_wrap_xchg(__percpu_xchg_case_8, pcp, val)
->  #define this_cpu_xchg_2(pcp, val)	\
-> -	_pcp_protect_return(xchg_relaxed, pcp, val)
-> +	_pcp_wrap_xchg(__percpu_xchg_case_16, pcp, val)
->  #define this_cpu_xchg_4(pcp, val)	\
-> -	_pcp_protect_return(xchg_relaxed, pcp, val)
-> +	_pcp_wrap_xchg(__percpu_xchg_case_32, pcp, val)
->  #define this_cpu_xchg_8(pcp, val)	\
-> -	_pcp_protect_return(xchg_relaxed, pcp, val)
-> +	_pcp_wrap_xchg(__percpu_xchg_case_64, pcp, val)
->  
->  #define this_cpu_cmpxchg_1(pcp, o, n)	\
->  	_pcp_protect_return(cmpxchg_relaxed, pcp, o, n)
-> -- 2.30.2
-> 
+amd_pmc_verify_czn_rtc() opens the RTC with rtc_class_open(), which
+takes both a device reference and a module reference on the RTC
+driver. rtc_class_close() is the matching release, but it is not
+called.
 
-FWIW,
+Use a __free() to cleanup call on the declaration
 
-Reviewed-by: Vladimir Murzin <vladimir.murzin@arm.com>
+Found by code review.
+
+Fixes: 59348401ebed ("platform/x86: amd-pmc: Add special handling for timer based S0i3 wakeup")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ma Ke <make_ruc2021@163.com>
+---
+Changes in v2:
+- modified the patch, thanks for developer's suggestions.
+---
+ drivers/platform/x86/amd/pmc/pmc.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+index 6792aa2c6187..b1ad79b22c07 100644
+--- a/drivers/platform/x86/amd/pmc/pmc.c
++++ b/drivers/platform/x86/amd/pmc/pmc.c
+@@ -14,6 +14,7 @@
+ #include <linux/array_size.h>
+ #include <linux/bitfield.h>
+ #include <linux/bits.h>
++#include <linux/cleanup.h>
+ #include <linux/debugfs.h>
+ #include <linux/delay.h>
+ #include <linux/dmi.h>
+@@ -646,9 +647,11 @@ static int amd_pmc_wa_irq1(struct amd_pmc_dev *pdev)
+ 	return 0;
+ }
+ 
++DEFINE_FREE(rtc_class_close, struct rtc_device *, rtc_class_close(_T));
++
+ static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev *pdev, u32 *arg)
+ {
+-	struct rtc_device *rtc_device;
++	struct rtc_device *rtc_device __free(rtc_class_close) = NULL;
+ 	time64_t then, now, duration;
+ 	struct rtc_wkalrm alarm;
+ 	struct rtc_time tm;
+-- 
+2.43.0
 
