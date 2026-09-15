@@ -1,98 +1,119 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 512832F8E98;
-	Tue, 15 Sep 2026 06:41:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 088CA367F41
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 06:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789454503; cv=none; b=HkaHy3+4Aq7CpRkeMqnQ9eoiTEux7P6VGT1ToWjpTksw3QXfpdBb4+s662651CH4H4s3DgmA8PNgnKj4gJcOxqL26wP7Hjc7gTZSC61wYbKamFQWmA0taZVg4LWzKZuxH/Wr7RC2ddVQJI+kVWTa+8mCheuhPfCcFNQKYqD65J4=
+	t=1789454953; cv=none; b=iDZeednOe+GE1MK97zMAmR1KoQPPqQhlPkwKHKL7exT54f1eQx9a+KCQ2vv0b1yWzXdKCd3jO0gYDKJsgkcWfVHxcvghpLHjmOh6hmefqHROQ010vl9aSgd4UYLTn54XTIipvKAA4O56wqcWaAOrCXD4czKEUi10Jk0JvgW/qwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789454503; c=relaxed/simple;
-	bh=8xsDiHnrTVHnMEPDXfmMj6XBJcFRIj24SgEwMPFYk0Y=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=rrqvhk1NHCL28Jglh8vuTa+N11uiqioDpqVlHpOecR6GFrGSMNiWDgQOYaRuJDpascp22wX8/yFbClAxrFXM/q/cgo0oUoSkqmvsjGkb7YiHUp44OjBLNIGvkE7ZtRU7QeG8yH2wV1A1YWAkHzkamdFGit+9vjjR+3M/DowPQsY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=bEsL92r9; arc=none smtp.client-ip=192.198.163.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789454953; c=relaxed/simple;
+	bh=Ub1Z+fC8ATvBz9aNkiPwbnYMyJIDvxEuYy7hYJjpVvE=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=sdIfolNjzLekmXuwq29kvW1bGegza+pWcIgUyK4XAcv3NUae8YwzHo1kOJM5EJZTJylEbnq8jxVXpVXHVYVZj3xIfUM2+k9BXDcLgxIn9pImHgEGBj6cxTwdkvnN0oyOWn1Wq1V1c/I6pMQj4vA6VXrJPCYDARcBMI8gNig4Lf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=zKqn5pJd; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="bEsL92r9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789454500; x=1820990500;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=8xsDiHnrTVHnMEPDXfmMj6XBJcFRIj24SgEwMPFYk0Y=;
-  b=bEsL92r9VMWgPzN6szjdkKWUOHv+007r3Z+eq31uVYfA8TLwzibuwt9e
-   HM8sq1Zh3M2Ek6SUW0T6NlTE0ALoiZsVzAkxIecg1iqup4QGC0ZzvDEm6
-   0FqyAS8yaGfIaWp3sPjR9te/Ofs4ee5TlDy1a0wZ+FRzi36rUNSqpChgH
-   OEwipUI6R9byZ74Cq4iMpD3nxHNMs8XUT86vSVWOfbp2aRitQYbLzkTye
-   ebcjDhijpr8kMbm6K/PAWf6zEv0eoSdjWwHaXiHnGIMMwgB3KNXK7F+K/
-   FeTEblDcd01bPV7RcD4wz5GPqYd+dOj0I6dTc8EG0nk4wZDoXP62UAPJ+
-   Q==;
-X-CSE-ConnectionGUID: Sai7WhFrRX23tyti5JCJmw==
-X-CSE-MsgGUID: uwMSRZbeQ6eyLLVgXgq4zg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93632883"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93632883"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 14 Sep 2026 23:41:40 -0700
-X-CSE-ConnectionGUID: VznnDdlgTX+jg4YVBXqBAw==
-X-CSE-MsgGUID: sOZgthxqQaW0wQlBHLf1rA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1255241"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa013.fm.intel.com with ESMTP; 14 Sep 2026 23:41:37 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x6MrF-0000000048U-2nsv;
-	Tue, 15 Sep 2026 06:41:33 +0000
-Date: Tue, 15 Sep 2026 14:40:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Zihan Xi <zihanx@nebusec.ai>, dhowells@redhat.com,
-	marc.dionne@auristor.com
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev, zihanx@nebusec.ai,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, horms@kernel.org, linux-afs@lists.infradead.org,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Vega <vega@nebusec.ai>,
-	Luxing Yin <root@tr0jan.top>
-Subject: Re: [PATCH net v5 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-Message-ID: <202609151453.yX0JDG4h-lkp@intel.com>
-References: <d38b683f6d583cbbc23ee149b50b15b6e4efc567.1789273347.git.zihanx@nebusec.ai>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="zKqn5pJd"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id D58351A07A8;
+	Tue, 15 Sep 2026 06:49:08 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id A486560498;
+	Tue, 15 Sep 2026 06:49:08 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C090511C7AFC3;
+	Tue, 15 Sep 2026 08:49:00 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789454947; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=VLW0tQXbJ6VXlwE1uH7g9161GhszLpuSt0iZmAj4OOE=;
+	b=zKqn5pJdXQotx+YOBLGMEThjQ4r44d0cafD+N3WJ3uLuvz2GndWl+Vc5ZcTlylyRGNehE7
+	CKr4h2bxljbKT48WLgANKVLrLOuI2HPirCggeLpsvORoEJYpBogJp4ewMQwlYXRxz3d1EC
+	IvoRd5XmuB39YTsD0YE/CHCg2lXBMgy+K8+e8PcjHVnQgFPQ2eCXXFGF8mTHW0DsbQmjBN
+	FMWsv6xirCGv3oKwO4B2YMaSmkXqxGoGnDkM+A71TB64PL/GQ0Us7B3MCqCzRn+ekET2OI
+	4AGH3ocn+yEAdZu4Rybow5FeckxlzpqLPmw6lnHj9XCJ9GRLTWCLoIJLT6ZNyw==
+Date: Tue, 15 Sep 2026 08:48:59 +0200
+From: Herve Codina <herve.codina@bootlin.com>
+To: Matti Vaittinen <mazziesaccount@gmail.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org,
+ patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com, Geert Uytterhoeven
+ <geert+renesas@glider.be>, Kalle Niemi <kaleposti@gmail.com>
+Subject: Re: [PATCH 6.12 0000/1202] 6.12.97-rc2 review
+Message-ID: <20260915084859.44acb12f@bootlin.com>
+In-Reply-To: <d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
+References: <20260722142834.868902312@linuxfoundation.org>
+	<d601964b-e437-4990-bbdd-0337bba49102@gmail.com>
+Organization: Bootlin
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-redhat-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <d38b683f6d583cbbc23ee149b50b15b6e4efc567.1789273347.git.zihanx@nebusec.ai>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Zihan,
+Hi Matti,
 
-kernel test robot noticed the following build errors:
+On Mon, 14 Sep 2026 11:13:54 +0300
+Matti Vaittinen <mazziesaccount@gmail.com> wrote:
 
-[auto build test ERROR on net/main]
+> On 22/07/2026 17:31, Greg Kroah-Hartman wrote:
+> > This is the start of the stable review cycle for the 6.12.97 release.
+> > There are 1202 patches in this series, all will be posted as a response
+> > to this one.  If anyone has any issues with these being applied, please
+> > let me know.
+> > 
+> > Responses should be made by Fri, 24 Jul 2026 14:26:57 +0000.
+> > Anything received after that time might be too late.  
+> 
+> Oh, time flies. :) Well, statement understood...
+> 
+> ... Still, even though I know I am late - I am seeing our tests failing 
+> for stable 6.12.x. Other stables as well as mainline releases and 
+> linux-next are passing.
+> 
+> The actual failure seems identical to one discussed here:
+> https://lore.kernel.org/all/072dde7c-a53c-4525-83ac-57ea38edc0b5@gmail.com/
+> 
+> I believe above was fixed by Herve.
+> 
+> Bisecting stable points the:
+> 
+> > Saravana Kannan <saravanak@google.com>
+> >      Revert "treewide: Fix probing of devices in DT overlays"  
+> which matches the issue in discussion.
+> 
+> Maybe the 6.12 stable is missing Herve's latest fix(es)?
+> 
+> As explained in original report, the issue is seen with our out-of-tree 
+> device-tree overlay stuff. I have no idea if there is any in-tree stuff 
+> impacted but I guess the overlay stuff Geert has in Renesas tree might 
+> also be impacted - if it was based on 6.12.
+> 
+> I believe there is an "existing easy fix", in a form of a patch which is 
+> already applied to other stables. Unfortunately I lost track of the 
+> relevant fixes during the discussion so I can't point the relevant one.
+> 
+> Herve, do you happen to know what might be missing?
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Zihan-Xi/rxrpc-fix-encap_rcv-skb-accounting-exhaustion/20260914-130912
-base:   net/main
-patch link:    https://lore.kernel.org/r/d38b683f6d583cbbc23ee149b50b15b6e4efc567.1789273347.git.zihanx%40nebusec.ai
-patch subject: [PATCH net v5 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
-config: x86_64-randconfig-073-20260915 (https://download.01.org/0day-ci/archive/20260915/202609151453.yX0JDG4h-lkp@intel.com/config)
-compiler: clang version 22.1.3 (https://github.com/llvm/llvm-project e9846648fd6183ee6d8cbdb4502213fcf902a211)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260915/202609151453.yX0JDG4h-lkp@intel.com/reproduce)
+I haven't check 6.12 stable but needed commits available mainline are:
+  - 81e7c6befa36c ("of: dynamic: Fix overlayed devices not probing because of
+    fw_devlink")
 
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609151453.yX0JDG4h-lkp@intel.com/
+  - aaf08c52df9a1 ("Revert "treewide: Fix probing of devices in DT overlays")
 
-All errors (new ones prefixed by >>, old ones prefixed by <<):
+The related series:
+  https://lore.kernel.org/all/20260511155755.34428-1-herve.codina@bootlin.com/
 
->> ERROR: modpost: net/rxrpc/rxrpc.ko: symbol 'sysctl_rmem_default' undefined!
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Best regards,
+Hervé
