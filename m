@@ -1,154 +1,175 @@
-Received: from PA4PR04CU001.outbound.protection.outlook.com (mail-francecentralazon11013042.outbound.protection.outlook.com [40.107.162.42])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B46C480941;
-	Tue, 15 Sep 2026 09:35:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.162.42
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789464909; cv=fail; b=gwQbq7Hm4ZsJ3e9HrYX1Ipkj6bMq2MXwjs2E2hgsPx460danJBqEadwucXediYTonwidukFb2YcZebhUT2ex+GlcptfvR8+b62WQ7z5cpTjihbwi3RwVTNKjNmhmzdflnyq1fkXbXcBoxKRGBMKMXEFGCd8vzDyWsXNl71visj8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789464909; c=relaxed/simple;
-	bh=rcRnBoejtHzQkxdMGdonyf4WcQWjp1CZYXcuXaij3oU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=MebdLW95E8tZ79gMSow1dgk3ZgiFxZ9V1HCl8YHi4wbXRgB2SAiQfZTwxvK5Y5Ij04rcPMGj+S+FFyt18qt9H+EYjMWE1uBz6OF0uWD7SRpwJPg0tZxabRZGlPGWnxpSyeGkZnhoMN1tX1JKpSZYFmr/0hJbCESpb82X4hfqNd8=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com; spf=pass smtp.mailfrom=foss.st.com; dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b=H15hngsu; arc=fail smtp.client-ip=40.107.162.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=foss.st.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=foss.st.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 089554746D4;
+	Tue, 15 Sep 2026 09:39:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789465163; cv=none; b=gbmyAbHjEej0shBTl2Pc4g70hv4oehrpuOjpus45vyeOptPmrDkhDQBnVagXXQ3wbuGriCo0iXmXZIQA7p960WW5CkCkqnN5bamZxgbafe2XOGYX5ElbLe+t1cwrZ9CBCZgP3PTTMRPCdWo/JWBi5LisZSU/oGp/eFDaZ3ztGuk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789465163; c=relaxed/simple;
+	bh=noYAqu5xMjXDOTIOkXkUYkfPFO4k5elaJ4Dn1+myvNE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=LzpExvyAt2+K5JSUBVmRduEnYIOu70MicXxRuYFaNUrfJ2FMytoKwT428U+GuTMBhxUJ707knV9GfOvOfULdqLDr0SWqPWtO4xD8b5m3eQaNDOFzzr8KfLLRGNSCXyzWC3VE7BVBo8KJj5lQwk9VaKJkN5N8tSXROsIjKbTjY2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=UwkVdtU4; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=foss.st.com header.i=@foss.st.com header.b="H15hngsu"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=OdjvdyFtvTVN4Iw7W2IEAzqqhxUu5dQlbcY4sErJG+HeLCeDFIxenhnYHfXKptb8CWNLd2MvszI7Iy0LnxmtfcJZt+FMzVVBoTy2J7OeEyJsrPHcqY61X4yAOYe+x8U5mhK3yEw5pKwq+exGjC3A7hKDJInGtFOWspN4zj5BcITt2ybqGqvFrXKSBBb4BcjJRNVpYriNwCjLAB0wVYxDgHaGgee37eOsFCTYyx+2g5TZ9dDAWm4NPszZc4x6gUs6BSIhadPS/0U1F2qnp27SJUvttn0+pFKDUIhp7DTXvyPAg/4JlKJUVu0qunwGBDfP+FJ42SxNCwExLr7ds2NtwQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=rTbcXClwwsu10AbW2WQ4gz0c4Cr6/fUav+mNCCmUa4w=;
- b=cyfJKwWfskF4I/GiI3wwLx+QQAN/RBN2zbNMuTxIZBckAG83w/HeSBd3iFes5P1VvtGxsxWqU5s1GlN9E3sMCHAyNmE0cwZawY+gCN1l9RGhKfNxRZc8pVol8r3p0hQ83EwUATL1CDiv8gE9mK+UYuwTDw71U0dbw5GH57GAP12DowhME8vr5k3xKaAyMCinXt8ZFfklGRkxLwG+TIWUwP0zaCPJ6T+t9P4mRSfbphiOkeqXO9SXWJ1hM1yQ+ETB+hoC0ja0ySdhUGR8KG176wgqlHgivMh661yzplGEN80lsqVODFUvWCBmN/URxFwcRQL8tOCpEvEGYl8MZKchIw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=fail (sender ip is
- 164.130.1.59) smtp.rcpttodomain=gmail.com smtp.mailfrom=foss.st.com;
- dmarc=fail (p=none sp=none pct=100) action=none header.from=foss.st.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=foss.st.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=rTbcXClwwsu10AbW2WQ4gz0c4Cr6/fUav+mNCCmUa4w=;
- b=H15hngsu1shgYCuP5tIghBCPAwgJ1ZQNtU3sYuG4WMZiTBCjnvN7CJKhRV0h8A5QVESXzItmxhAda6jDu+sym+JuGD0svY58Vl99I1pQLPNKyT/pPg0MzTsp05puDpQA+GuTTBJNZ1jA4YAPxd9D0luC408y6xZ4OPnn84f6WWHYUqhlWpefngj7+Jih6h3DbU7qq+BUxxkLIV1Rf54QpiDckUjAjC9gOnrU9ydTK49FLmxChyRS45anOh31LW6ZtXAGin7w2aUNRcY+d2ngVD9fsS/dpFnuwQFqEy8xa+oTg7JfDE97paR52oyvm18VassI4Wun3CdxZVi9iwQbcw==
-Received: from DU2PR04CA0216.eurprd04.prod.outlook.com (2603:10a6:10:2b1::11)
- by AM8PR10MB4003.EURPRD10.PROD.OUTLOOK.COM (2603:10a6:20b:1e0::16) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Tue, 15 Sep
- 2026 09:35:02 +0000
-Received: from MAD0EPF000008AA.eurprd04.prod.outlook.com
- (2603:10a6:10:2b1:cafe::59) by DU2PR04CA0216.outlook.office365.com
- (2603:10a6:10:2b1::11) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.9 via Frontend Transport; Tue, 15
- Sep 2026 09:35:02 +0000
-X-MS-Exchange-Authentication-Results: spf=fail (sender IP is 164.130.1.59)
- smtp.mailfrom=foss.st.com; dkim=none (message not signed)
- header.d=none;dmarc=fail action=none header.from=foss.st.com;
-Received-SPF: Fail (protection.outlook.com: domain of foss.st.com does not
- designate 164.130.1.59 as permitted sender) receiver=protection.outlook.com;
- client-ip=164.130.1.59; helo=smtpO365.st.com;
-Received: from smtpO365.st.com (164.130.1.59) by
- MAD0EPF000008AA.mail.protection.outlook.com (10.167.241.182) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Tue, 15 Sep 2026 09:35:01 +0000
-Received: from STKDAG1NODE1.st.com (10.75.128.132) by smtpo365.st.com
- (10.250.44.71) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 11:41:04 +0200
-Received: from [10.48.87.93] (10.48.87.93) by STKDAG1NODE1.st.com
- (10.75.128.132) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Tue, 15 Sep
- 2026 11:34:59 +0200
-Message-ID: <94c33607-00e7-4e2e-8e98-3466bc522fbf@foss.st.com>
-Date: Tue, 15 Sep 2026 11:34:58 +0200
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="UwkVdtU4"
+Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68F71SFK150546;
+	Tue, 15 Sep 2026 09:39:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=pp1; bh=ezRQPvyWo9HKe4O3lW/Kc1sT6/UBrv
+	tIblzKloT6GXk=; b=UwkVdtU4opqwdFfSknr0pPx0f2W1OgSrqwTI0oT0vseHc3
+	qRwd0BBLLRqRWQzPOO/ELCFjsUJSHiBkAtm9ejHaU0qsYbgPoN/3Ds5f7PCf2eJR
+	RPzoa5BPijOlTQmvKTYDzKt4pf6W3f230qyjSLZZU7QDxSHg9duE0Tp/s6cuUq4z
+	44K09F3dXH8pjIli6V9XJY88DxZOqRqRdUVFY0N/aoYuEEr3cov0ZPe99TBdX027
+	9E7Joy56vDqHWJuz/1Vqs+5/ycyEkRcL2e3jR6xGTZsvzkNjwz71dahDaeDzKd5d
+	foWVbjDqHCNaYbsHxNoWDGXbyaPOwcE1/Vw4zbFg==
+Received: from ppma12.dal12v.mail.ibm.com (dc.9e.1632.ip4.static.sl-reverse.com [50.22.158.220])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf4xb19-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 09:39:02 +0000 (GMT)
+Received: from pps.filterd (ppma12.dal12v.mail.ibm.com [127.0.0.1])
+	by ppma12.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68F6ZG1j3594819;
+	Tue, 15 Sep 2026 09:39:02 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma12.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gq03v8q7n-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Tue, 15 Sep 2026 09:39:02 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (smtpav06.fra02v.mail.ibm.com [10.20.54.105])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68F9cwbB17826142
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Tue, 15 Sep 2026 09:38:58 GMT
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 55BD42004E;
+	Tue, 15 Sep 2026 09:38:58 +0000 (GMT)
+Received: from smtpav06.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3D66420049;
+	Tue, 15 Sep 2026 09:38:56 +0000 (GMT)
+Received: from dhcp-9-123-3-18.bl1-in.ibm.com (unknown [9.123.3.18])
+	by smtpav06.fra02v.mail.ibm.com (Postfix) with ESMTPS;
+	Tue, 15 Sep 2026 09:38:56 +0000 (GMT)
+Date: Tue, 15 Sep 2026 15:08:53 +0530
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: Narayana Murty N <nnmlinux@linux.ibm.com>
+Cc: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, tpearson@raptorengineering.com,
+        linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] KVM: PPC: Book3S HV: Avoid triggering an extra interrupt
+ for a vCPU
+Message-ID: <aqkSLYpdCLpccFAR@dhcp-9-123-3-18.bl1-in.ibm.com>
+References: <20260915060146.33410-1-gautam@linux.ibm.com>
+ <647f3494-1e79-43ea-a8ed-157b3f0e6c54@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 4/4] usb: ohci-st: disable controller wakeup on removal
-To: Myeonghun Pak <mhun512@gmail.com>, Alan Stern <stern@rowland.harvard.edu>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-CC: Krzysztof Kozlowski <krzk@kernel.org>, Peter Griffin
-	<peter.griffin@linaro.org>, Alim Akhtar <alim.akhtar@samsung.com>,
-	<linux-usb@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
-	<linux-arm-kernel@lists.infradead.org>, <linux-samsung-soc@vger.kernel.org>,
-	<stable@vger.kernel.org>
-References: <20260915012011.61874-1-mhun512@gmail.com>
- <20260915012011.61874-5-mhun512@gmail.com>
-Content-Language: en-US
-From: Patrice CHOTARD <patrice.chotard@foss.st.com>
-In-Reply-To: <20260915012011.61874-5-mhun512@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: ENXCAS1NODE2.st.com (10.75.128.138) To STKDAG1NODE1.st.com
- (10.75.128.132)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: MAD0EPF000008AA:EE_|AM8PR10MB4003:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2686f930-bb19-4efb-c41f-08df130c9ddc
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|7416014|1800799024|23010399003|82310400026|376014|36860700016|18002099003|22082099003|5023799004|4143699003|11063799006|10067099003|56012099006;
-X-Microsoft-Antispam-Message-Info:
-	SnLCPi1AV6OuOA3sbCCYJHyj6QTCtntGCsJBjGalHTvOAx20/CeLlT5AWM2EcUMgfXC9gdvpgY4zbygABtKwp+N0fLqB4FTHFdWUOfZs/kpp3jDK9PdcDIAL0ZV6g0MySDmPv4cxNmPxhaT7RBGFFOVPPTqT8mDEVagGyQBqW8LzGTBeNZpEoUHkBuw+DNoB3iP2pfYnXE8eQ592ovBiXhYspzG9B6l+8erJdWDqfHl5ZywIkjcRpNxt5mQs1Jzec2csTxSuGDFAA+PAKWFlGx/gw3McMlwECrYRJKevvayQZ2EPRoid+PBRf2U346PMjfwq8Is/S9SO5qxLUw2+pF9IxD4rVWJrhmGoOe21yW9fk0tYdQMGWiuwmouGlWdNnogCUtuPbhMkRHvAI6+TcvyCJkdIMcHZc5wZJi51KrpBMvWZ0nPTnAbL7G8aEP3AcuuurAFWFOd22cyS9vXgUM7E4tmfKomZhStUsAUE1hab6eUdAbxo8e56ek7ge9drtRmzrmbVmlGjqi1INYjQE8dELgHsS06h4V8kBFe+bvoU1TrRbOSUaEmfHrgYqAN9x9KCNOwHAsy7nNC5V4qrQype3KZeHyoz2pM+TPNISOXmudLJWkOVRRFAVw0wrUhVQ3kITbWHjvn5pepR2yGhmJsRHrcDaI0HsEkCVpZe3BmqlD+W9Z+94wjCab7bRBT92deDmJS63WcrMZY7x0eivA==
-X-Forefront-Antispam-Report:
-	CIP:164.130.1.59;CTRY:IT;LANG:en;SCL:1;SRV:;IPV:CAL;SFV:NSPM;H:smtpO365.st.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(7416014)(1800799024)(23010399003)(82310400026)(376014)(36860700016)(18002099003)(22082099003)(5023799004)(4143699003)(11063799006)(10067099003)(56012099006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	xmjSmNdjAUCkM6JK0SqS/wfq+emg7iF+kklTHMQ6Cw24bhtvIM1tsdiF/SP/9kHrOiwyUatcMF1+ns840pMfJ2qdFMpH/rRsTD5s57tnXDY9A9A8jEDr8Z/oywh3pzEHG4/z8T2WLvjiq2fBx/ISQwCUOtQkfGNLzwIPRSvo2cQ0woG/XozO1BW/HDOCMPrT4b61jk0L/aYnZUMF02LzHHk7GXBz3v9OUfOAkD5En9uqqMZB6wGcIsY/VejmNorBy/3Ga3pMKmIFECtjIRjZiN7bBoM7ojSRWtyvI9P/DNqxPgIE6GGk4knf/3GsiqEBMBY9E1QMsuKXNF+2+SfA6n+RrioRweHEupONQM/EoC/AKK3K4mjtbB5aRja9vNLvCggaNB8vqMKM7Y61JvOyXizHM9IvYi40G4qmlcGej8C7ETvdpGkbTXFdNliQL8KG
-X-OriginatorOrg: foss.st.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 15 Sep 2026 09:35:01.7759
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2686f930-bb19-4efb-c41f-08df130c9ddc
-X-MS-Exchange-CrossTenant-Id: 75e027c9-20d5-47d5-b82f-77d7cd041e8f
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=75e027c9-20d5-47d5-b82f-77d7cd041e8f;Ip=[164.130.1.59];Helo=[smtpO365.st.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	MAD0EPF000008AA.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: AM8PR10MB4003
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <647f3494-1e79-43ea-a8ed-157b3f0e6c54@linux.ibm.com>
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-GUID: ENni7bObFnMqkn-srT6ImvacDnsnq4DT
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE1MDEzNyBTYWx0ZWRfXziwMaQTv+bS9
+ fUEDYoOzbUTpX/EE7CwbcBn+e8ZeT9BbBBbbGFT/hsrs4sdr8FyNPQnG7rD3dyXU/F4cxXPd6nc
+ 0vEBjUzJ9SXCqqidZ5JtmlB4ksbk5MM=
+X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aa91237 cx=c_pps
+ a=bLidbwmWQ0KltjZqbj+ezA==:117 a=bLidbwmWQ0KltjZqbj+ezA==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VwQbUJbxAAAA:8
+ a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8 a=VnNF1IyMAAAA:8 a=gj-Ntr6HeOcHXmKXbbwA:9
+ a=CjuIK1q_8ugA:10 a=6M1ixcW_PCWoKiWyFx5v:22 a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-ORIG-GUID: uu7ZSZFdrprEij4rEY3SnoNd3XkCBrpz
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE1MDEzNyBTYWx0ZWRfX+yQM9tETzD0Y
+ Yd/XxhYxvLf5Ar9u1v8mkkRR5TuY8nE6hE0uVsgFvS3mU5va1PA4SxA9BC7AGJ/vz8ke51Af4cn
+ e1wNuGqZrDVTnz8PfmKR0OMKPd0p3kcX/EjV/DigwBSxotSm7v1NkePfgSD5AjGDXZpL9xxo2Q4
+ TI078ubQ12wSVstWy3Vq3xFN9EPfW7iAPNq/nIP3+KzJT9wihPTPOqwdy25nqvdDSH/ZEeVvblo
+ qmedcRi848EuI3uQQLyzPaOTQLNXK2Yr6Y4EzqmQ5QXVKlxOIVja/HTcfrvEpa85W7urwZrAWjG
+ a6cOt3mA/LyJm5UlmXDze6MErnLA5nJ6qusDL4dIvgR0SdDTY8aDajig5WgZEGgRHz/IBk6Ldpk
+ uXPl4pPIJ3A8qLifD0pKeysurd11Ga8rc9w7BylWAyy/CNyAyJieJR9ThacBqOnq9HpPOBTqUNY
+ DcIP8HqaGkRGOTaL2Iw==
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_02,2026-09-14_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ malwarescore=0 lowpriorityscore=0 clxscore=1015 priorityscore=1501
+ suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
+ adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609150137
 
-
-
-On 9/15/26 03:20, Myeonghun Pak wrote:
-> Probe enables controller wakeup after the OHCI core marks controllers with
-> RemoteWakeupConnected as wakeup-capable. Removal does not undo this, so the
-> wakeup source can remain attached after driver unbind.
+On Tue, Sep 15, 2026 at 02:08:28PM +0530, Narayana Murty N wrote:
+> Hi Gautam,
 > 
-> Disable controller wakeup after removing the HCD.
-> 
-> This issue was identified during our ongoing static-analysis research
-> while reviewing kernel code.
-> 
-> Fixes: d115837259ad ("usb: host: ohci-st: Add OHCI driver support for ST STB devices")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Co-developed-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Ijae Kim <ae878000@gmail.com>
-> Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-> ---
->  drivers/usb/host/ohci-st.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/usb/host/ohci-st.c b/drivers/usb/host/ohci-st.c
-> --- a/drivers/usb/host/ohci-st.c
-> +++ b/drivers/usb/host/ohci-st.c
-> @@ -235,6 +235,7 @@
->  	int clk;
->  
->  	usb_remove_hcd(hcd);
-> +	device_wakeup_disable(hcd->self.controller);
->  
->  	if (pdata->power_off)
->  		pdata->power_off(dev);
-Hi Myeonghun
+> On 15/09/26 11:31 AM, Gautam Menghani wrote:
+> > A huge number of spurious interrupts can be seen immediately after a KVM
+> > on PowerNV guest boots up in XIVE mode.
+> > 
+> > $ cat /proc/interrupts  | grep SPU
+> > SPU:     223705     192439     273526     147623   Spurious interrupts
+> > 
+> > This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+> > Handle pending exceptions on guest entry with MSR_EE"). The root cause
+> > is that when there is an interrupt pending for a vCPU
+> > (xive_interrupt_pending() returns true) and MSR_EE is disabled for the
+> > vCPU, LPCR_MER ends up getting set for the VCPU. When the vCPU starts
+> > running, the XIVE hardware presents the pending interrupt to the vCPU
+> > (since the KVM guest has native XIVE support) and then a second spurious
+> > interrupt gets presented to the vCPU due to the LPCR_MER bit being set.
+> I agree that we should avoid setting LPCR_MER when the pending interrupt
+> will already be delivered natively by XIVE on PowerNV.
+> > 
+> > Fix this behaviour by not queuing up any extra interrupts with LPCR_MER
+> > if there is an interrupt already pending in the case of KVM on PowerNV.
+> > This reduces the number of spurious interrupts drastically.
+> > 
+> > Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+> > Cc: stable@vger.kernel.org #6.8+
+> > Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+> > Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+> > Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+> > ---
+> >   arch/powerpc/kvm/book3s_hv.c | 5 ++---
+> >   1 file changed, 2 insertions(+), 3 deletions(-)
+> > 
+> > diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+> > index 7667563fb9ff..fda3767ebc9e 100644
+> > --- a/arch/powerpc/kvm/book3s_hv.c
+> > +++ b/arch/powerpc/kvm/book3s_hv.c
+> > @@ -4937,9 +4937,8 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
+> >   	if (!nested) {
+> >   		kvmppc_core_prepare_to_enter(vcpu);
+> The current code handles two different indications of an external interrupt:
+> > -		if (test_bit(BOOK3S_IRQPRIO_EXTERNAL,
+> > -			     &vcpu->arch.pending_exceptions) ||
+> > -		    xive_interrupt_pending(vcpu)) {
+> > +		if (!xive_interrupt_pending(vcpu) && test_bit(BOOK3S_IRQPRIO_EXTERNAL,
+> > +							      &vcpu->arch.pending_exceptions)) {
+> >   			/*
+> >   			 * For nested HV, don't synthesize but always pass MER,
+> >   			 * the L0 will be able to optimise that more
+> This means xive_interrupt_pending() now gates the entire block, including
+> the BOOK3S_IRQPRIO_EXTERNAL handling, rather than only avoiding the LPCR_MER
+> which causes the duplicate interrupt.
 
-Reviewed-by: Patrice Chotard <patrice.chotard@foss.st.com>
+Yes valid point. If both conditions are true, we'll never get inside the
+if block, which is undesirable. I'll fix this in v2.
 
-Thanks
-Patrice
+> 
+> Also, the changelog describes the issue as specific to KVM on PowerNV, while
+> this condition also affects the pSeries/nested handling in the same block.
+
+No, xive_interrupt_pending() always returns false for KVM on Pseries. So
+effectively, we end up only checking for the BOOK3S_IRQPRIO_EXTERNAL
+bit. So this is not a problem for KVM on LPAR / nested guests on
+PowerNV.
+
+> 
+> Thanks,
+> Narayana Murty N
