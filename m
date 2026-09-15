@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C389A3BBFC3
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:48:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E56E3BBFC3
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:48:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476515; cv=none; b=crLc8uVinGcqyyKMK35dxd1W7GzIwbuRQdoQ8b5lklajLksj+EjPbVPlKwhzyqd5PRG5UpCj9bLIIL8+ZzgauW4ohkfAjQQw+svhDFGJTkpEMeLttNluYsRSTjFHNph+tnz192A3pNlCJjkaS7buravsraZU3mglxMw8hPPa2DA=
+	t=1789476517; cv=none; b=ECgu/vKac4Eq/7KxWkyWeDWEPEQU9jFgc4CbhCSq05zwsmiXZLo42z7UhOuKnZMGEvnaTUDXVbqpXr/zLl8NKylrqlhwUhG6DhGsfAreQxDRLatzk3uSPQL8cMpFGPGD+vUQWPC0l1GxK9LnbtkFUajuG27bdBy/ingw70HS5Jg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476515; c=relaxed/simple;
-	bh=3WNS/j8DOkullMQv/rtEYARImI1J863lTyB2wAwDeHM=;
+	s=arc-20240116; t=1789476517; c=relaxed/simple;
+	bh=Ov39xb1tDUYAia6NNswYwexV29YYWtdyuX9jkdbg9D4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=FbsIDYKfKXwEG1sk+DvT1f5aTSfHAimJYTqJCg5WIwlhh2vtG1Z8tGJF6XRosvnw0j6vNGQn9/mV7kjB9OSkYP/BAQmlJbeO43TIOG1U02VLPZGA2/1eIHMGh9TP+ukjUWEpDcJIxYKKT0vEINRniMxUygtaPsQCbji/K6CGf6I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Jy/M9wwU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=B94I2J6Y4ohUig8lUDylEdd+J/tuqYPat+0DOyOmYdpaU7DhuJGcyn9N52m/JWBpV/IgDrdLRBADo81+QyqkjQz/D1RktgsrqRBBl6Q/w8FvaC37KOGWDv06vg3vtwK+Bx/sCApHGD55+2Vo4zr/3S4VzKwnqxtQGN74OlkGrtg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AlbEhUpH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Jy/M9wwU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 759DA1F000FF;
-	Tue, 15 Sep 2026 12:48:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AlbEhUpH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D73C21F00893;
+	Tue, 15 Sep 2026 12:48:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789476513;
-	bh=qNTFZEQSUqSFLvDFB4CRtMGPhuT1YinBLkhbB29RVT0=;
+	s=k20260515; t=1789476516;
+	bh=flnjti8HfOwhr3jtIFh4zxgdNpoNgAG6Ar/Tpbidxn4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Jy/M9wwUM/eFzVe0SBgE0pvSydsBJLePwPXYQtIH6McIYzMCBhmcmPB+pughvJllN
-	 XQ+4+V0xYj4EM+nnfYENQ/XdtIHZrggGd2MX0DEuU6uieviwXGc6UawpvKghP2k4iV
-	 m6QfEzCtHBUKbmggxPNVLjiAfxoOwRJtc3TEK2gciBtH/GMiLnHx3BKMwI9MN+UNFH
-	 wmXaj2F94Cr26Kph/cMSY602YFOs8fUHyHKBiEQYMCc45XEG4LTj8xk3/z/10a9Ccb
-	 YyAwA3ye0JLUa2ErnesSgRZ4zCuDM2q126IYJ/MDvNsR4feCwB9fgm5b7Phhy8cwQh
-	 nNu8EDz4I5wKw==
+	b=AlbEhUpHrhOk/PHZp65MNI7pj0Igf1JdAOSEmzRVNo/IPbGU94gqur1kqPJakU3hf
+	 bTBuuA5oKmJWE61lQPl6Wr89LeoC5+nNqv2vHfKhAHaEiRchYjH2TcZ2jQpxGgcLzG
+	 DQRjgKhtro2ezQEsI3oNbDSlwToMmiKn0TUtFI4uotPcEGIP6XdEZHLRWjS+Awz+RD
+	 xt0XnKEzFr3+3jALdvpfEDsi8+LL0qEe0c2jjygdSYe/m5wJqatw+bZAQsVEK0zGRg
+	 6AzCX8U7d9JIz6KJ3Hoqfh2JC741CVGbkIWXbfJktgh8rMXVUinhdK70GM+TOOab1z
+	 xRiIwa2Z0q5qg==
 From: Namjae Jeon <linkinjeon@kernel.org>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -33,9 +33,9 @@ Cc: gregkh@linuxfoundation.org,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Kanishka De Silva <kpskanna1915@gmail.com>,
 	Farhad Alemi <farhad.alemi@berkeley.edu>
-Subject: [PATCH 6.1.y] ksmbd: prevent out-of-bounds reads in share config responses
-Date: Tue, 15 Sep 2026 21:48:06 +0900
-Message-Id: <20260915124808.6052-4-linkinjeon@kernel.org>
+Subject: [PATCH 6.6.y] ksmbd: prevent out-of-bounds reads in share config responses
+Date: Tue, 15 Sep 2026 21:48:07 +0900
+Message-Id: <20260915124808.6052-5-linkinjeon@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260915124808.6052-1-linkinjeon@kernel.org>
 References: <20260915124808.6052-1-linkinjeon@kernel.org>
@@ -59,8 +59,8 @@ Reported-by: Farhad Alemi <farhad.alemi@berkeley.edu>
 Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
 ---
  fs/smb/server/mgmt/share_config.c | 38 +++++++++++++++++++++++--------
- fs/smb/server/transport_ipc.c     | 24 ++++++++++++++-----
- 2 files changed, 46 insertions(+), 16 deletions(-)
+ fs/smb/server/transport_ipc.c     | 21 +++++++++++------
+ 2 files changed, 42 insertions(+), 17 deletions(-)
 
 diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
 index d8d03070ae44..7db7345f1af9 100644
@@ -150,23 +150,24 @@ index d8d03070ae44..7db7345f1af9 100644
  				      resp->veto_list_sz);
  		if (!ret && share->path) {
 diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
-index ed423d0ca99d..89fae5e1886a 100644
+index bbe039a05b1c..80fd1316d176 100644
 --- a/fs/smb/server/transport_ipc.c
 +++ b/fs/smb/server/transport_ipc.c
-@@ -487,13 +487,25 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
- 	} else if (entry->type == KSMBD_EVENT_SHARE_CONFIG_REQUEST) {
- 		struct ksmbd_share_config_response *resp = entry->response;
+@@ -524,14 +524,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
+ 		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
+ 			return -EINVAL;
  
 -		if (resp->payload_sz) {
 -			if (resp->payload_sz < resp->veto_list_sz)
 -				return -EINVAL;
-+		if (entry->msg_sz < sizeof(struct ksmbd_share_config_response))
-+			return -EINVAL;
-+
 +		if (strnlen(resp->share_name, sizeof(resp->share_name)) ==
 +		    sizeof(resp->share_name))
 +			return -EINVAL;
-+
+ 
+-			if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
+-					       resp->payload_sz, &msg_sz))
+-				return -EINVAL;
+-		}
 +		if (resp->veto_list_sz > resp->payload_sz)
 +			return -EINVAL;
 +
@@ -178,13 +179,9 @@ index ed423d0ca99d..89fae5e1886a 100644
 +		if (check_add_overflow(sizeof(struct ksmbd_share_config_response),
 +				       resp->payload_sz, &msg_sz))
 +			return -EINVAL;
- 
--			msg_sz = sizeof(struct ksmbd_share_config_response) +
--					resp->payload_sz;
--		}
+ 		break;
  	}
- 
- 	return entry->msg_sz != msg_sz ? -EINVAL : 0;
+ 	case KSMBD_EVENT_LOGIN_REQUEST_EXT:
 -- 
 2.34.1
 
