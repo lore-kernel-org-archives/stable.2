@@ -1,185 +1,103 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27151199947
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 21:09:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789506571; cv=pass; b=oOfpvRfRMZWiAvc8W1hONdXUJHRnc6C/M4GzoSKXdvXRSyd2DOmL1BmonMx4vz5qHIjGF2QtjLQZ9w7i09/wJfQSlQdYpa6KyCnuFMOg96LmgCMcwC4NVlTpCIaXt7Ha8yBRVA87u5rExCPC7BdlSo45eIgXuPY5Sv4ZzsmmYvE=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789506571; c=relaxed/simple;
-	bh=1QRE8JagBvXkhtro25uEoq7Fl1riQZiJGjJXvowWF9s=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=qCqRQ+Sg2QrsAQadN60vZyfSWj6osbHACedAIM1PwCNvyjrOrL7i3JGo85eJXHfNin8F4dJQQB/9gdZTk4Tc6nmE6vUJ+Qjj8oNtGVkfsm6z0qMEZtbYeLka12QBi1l8uswZNfHR2ZNCHimGjOpgqMUUFWHdxVy29DZuqWmYXdo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=tEKHDM6F; arc=pass smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9F73DA7D4
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 21:35:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789508133; cv=none; b=eKoxCc1ePhcIfxgAAdazczvePgkOTj2Eht6QTKjAuvfrI7/+nMc5cue+XMBepMTzNXees/KOUDuPpL2IazfG4uCpOwL9QZG1WCPlNUjohkKeG0i80FgaI0oeVHTF73Oe51kWIiNQO6T5ErnHGzzfuoALT+Ac2y5I/aK8zD5hwHk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789508133; c=relaxed/simple;
+	bh=o7h3INURFTfXK6QgTDQq4IGKVSWPwgcwVnzFukZs7QU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=FKUT4SMQ4+gv3wqpRliURb7pGkzuJW/OHmDOLpLgqhX6LV9iPTZmxnwnKOESnJHzy0my6/sQuTRcT3bZ1kxJO0QUq6s0vskThVqmuVT0qqa+Gy2iUyngd7aaUB9OcDMcvSppSHGe+OiXWjtEGWHAC1nkK2bWKoQz3r0XwBEwXB4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=F85KWzCT; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="tEKHDM6F"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-53012819c04so26681cf.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:09:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789506569; cv=none;
-        d=google.com; s=arc-20260327;
-        b=lRI9T3gB1SHbOTmBkO2Nrm9vstDiKQwZm9cDQ6ZAwZaZCAX53QZpU9dVn61MRQ4tX0
-         3fNNCN8axKMiXaasexhTTUKJl+1DkPBDTvIu7KvkJG/+c938XzflXaO2hZgzd/N5+cwt
-         stW+/JEXV8uvyXgzJIzIM7DfGNa0DP1jCXK0yGjZJE4eu9fjPOhPqk3EGyan+hbvCV+Q
-         e7NusUVVh5NWLzCyCxWtUa+qGcyzVsv2+LF7xUulagL+/MtSTMRZlurLqzg7hISn/pze
-         pR16dyRVPPsJzEqlJpJ/MRHGfJurp9eeppVoSqBxMcC+eGqaVqaZUHHtxteSoMOb6eU+
-         YGyA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=OAM/MHo0tjYo/TgHknUbcGsVAWd3749MCucVMwwVJms=;
-        fh=Z3nnXMoGMSv3omM6g0LkAKii+AUUqSQA5gleUVdHZ1E=;
-        b=gTWKtHPOmD7O4SwgNj9QVXxcZL+iZTttGP4gbMmkT9t/lBPjw/VErVijRCX9pO7p3O
-         YHZcVPuiUEyT9Y7Fx8peHXXE830+tYKQYWvyy37nCVxi6541EkcvQFfVdnQfTaJnz6hO
-         eyi1+NVlRz8IIWeDHbpPcRYqCKDjyIKtQRVTWlArsOQxVBztQp3TuFkACQ16SZKbtih0
-         ybwGEk2u+Mnez8hbmXK0Vw0sthJnOBHHoXMvAXD6KbFUdaTSHrdWy3T/cOv2nUPFdyV2
-         dzMRYCkh6216iX7yTwrbhw6Yw/Y3Sz7dul4bdwJ5Wt1tUp3H3wsEj+Jztg008H9DxaRw
-         sJIg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="F85KWzCT"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so101931f8f.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:35:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789506569; x=1790111369; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789508130; x=1790112930; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=OAM/MHo0tjYo/TgHknUbcGsVAWd3749MCucVMwwVJms=;
-        b=tEKHDM6FifXwjFChe+TECRqENPdukEsPyRb9Ex50YFNTMwwTo6lTa27mxkxkEUYbGB
-         gyHW7LFPO2k7FoJiraqCA70QZXHRE5jff3cg05yrvcs+vATQXBC1yLJWhitxMwyF/1kE
-         cPJHdLc+AyhMvg/hwRauCuupEuVxzG8R73oOMQ3AziF2k5W4TjCGGftn4muqaTesk6SB
-         nKaSGid6l7Lk9YW6oILo+A/iuqGXQEFlPo0BWNtwghj02TLreoyV9FhMknuBFR52cVX/
-         noS13iL//5U4R/jij3Cvv0Ob403g9ZGHP4+9avqendkE7XgeqEeFFXzeSFXdCUDoDVHK
-         pvWQ==
+        bh=lIdvdTzoCaqdSuezaWsjFH+gv+z5XekzXwYZss6OlpQ=;
+        b=F85KWzCTp0WTEznDsdYJru0PPAEkJEf2yur/XqR2Ny3tOaTXw9L6rsHgH2WUaWSmEi
+         T+RIP1/hoMrimn2/nyFwN71bbAqBL4ttnK4EGsgDmYEfcZNf7ojieWqo1NGfyRnWphJY
+         4CnjOgJDukdiS5nxd9LAjZeDuE3YZq081j3HSA4w+aLgqOd0Zk6WYrpGoCK/D/1dlu6I
+         judXfDcvhgQg3dkua0i8UA5tc48lwBpYO1tB1vI0TBUwsvNCfIgO7fh7AIsA4OKBuAuQ
+         UOqeahj7K/2rXo7ULPJJddM3PzO8uQXlpR9kXomUryJeHN/RbxSuiQFg99OVOCtOLMe9
+         fnew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789506569; x=1790111369;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789508130; x=1790112930;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=OAM/MHo0tjYo/TgHknUbcGsVAWd3749MCucVMwwVJms=;
-        b=yx0Xfmw/bXeNYyPH7uKTpAjMgIGfLvfQdNPDzQnJ5rCAVJJgAm8gU7lOHxJIZ9qYiO
-         zod/L1qfbRVZBWnZJa2tqMJlSW5HT0LXnZ9MZ3cYV+Ng4MjZWg1sBrbx1TPzI7MjNQM0
-         EeQHc1uiYbLbXAhILQV4XYCXebUrRRAUZ64IroggPFxbv8GB5115l5byK7CSbDN516i5
-         2AIVNao8UcOm2V+4Ia2lLpjNt6rS5xPCOi/A/hPZpvd6wpBqogZattDprF7QGv1gbpbY
-         XUQL9pVLeatsBxzI2PLXcTIvs44eiBLrFoZtutpsnPK3R3l5m7WfyO5IE4h5aDDQ3eeB
-         5PKQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwwKEfHvn3Pyg6wxsf3puYCcBhbI6UqTz50WPynIlRviCNfwW67tVHDZ/ee167p9F9qf/K5u8A=@vger.kernel.org
-X-Gm-Message-State: AFuF++lCOrJDAZ3GgOR8S8MEvtY7jnSR4GNm9roqEGZHi2QHCneVbyy/
-	aklzs1yKzqigsqglgHwYwOttOvqQ5F0RJ8n8N+OAgQbmaCaWc0K7+MpPJtGmX09tbgJTLzjkvrY
-	8Gn/UTQTQPjjYwKIVwIEVEGjjh5nENiywZeCNBWSuyZzS3YwmV8WmgRy765g=
-X-Gm-Gg: AYBFou34k4NKBNOnoGVmFvG7UDDGwusqiq+OPrHrh+o9VScgoGW7e7H4jIkhiOTM8i3
-	HQBHAhOulGU/IeKIM8f0qjTZ+8umCaKcLzow2HYg6O3kFXdbX+aKaYSLAbSVeS2EafRl9Bz57pi
-	YHpGsN5iWXMNBQIei2thREqDFIuGKhTuK/eM1SgUQFbh1gV+ZNDxMsj47C3f26SRlXmIlnC0zG+
-	0LjcjD//EAxvwJI0o2iTH1hGZIs1khbHlNueZJLThHseXpzZJVjpVmp1j341hRf0jOnxLcqVDKH
-	tGGYqsfz16fssGGprsI33nJ+6UlTM3l2K/P4X93OcWKSR/AuMaigCEWHaL4GcPV5indKLAdqcdU
-	Q92eYHpTXDOaQYC1TTW1A
-X-Received: by 2002:ac8:6f0f:0:b0:52f:9ed4:8d75 with SMTP id
- d75a77b69052e-5327ea623fbmr753851cf.15.1789506568256; Tue, 15 Sep 2026
- 14:09:28 -0700 (PDT)
+        bh=lIdvdTzoCaqdSuezaWsjFH+gv+z5XekzXwYZss6OlpQ=;
+        b=1zDSGKt92zasrklM8zmtco7RnbO8l4TZKOPzw2OIHKPgIJhfoqRAmjl2ByFyebX7kh
+         etB7wEsPz9bZeZ/N2RelvpidVv6b62hSS3+Qby4y7zr6xcakM+0y0Gh7w/1RIlSLzTmQ
+         gdojVz0nNyAVT8sqUBa++XyhKcuKMKqqCcMrTp3L6nbTq5YrO28Ac29BjkxJ6VW9IJNw
+         au4Xzszfbb7Zu+/10mm4TtEUhtTCZy+CiievmKk0v8YAh4fUDyvyZLZgYlrsDTkPCVMa
+         4mu3soYM+crfBd9BchpA6Xjp7u1uM4UKww1e8tgLj8n1GEomZ7QNglu6NsyCnGvGeSJj
+         bkiQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzJqqNtFHd8/YRXvLwFCMb1IjVq/65LoAeSA5VlF9DDOQr1LRynfVBcbES4QDDp2JyEyScpJGM=@vger.kernel.org
+X-Gm-Message-State: AFuF++n7COeUQW1HLdRhgGn3SiMovyqLmIBLcqEobUD8vE9WBY6Bb6Tj
+	f2b3MU8cX3HuLhFhlzON8hBdOaohbUUGsdUactCu4T8Czw7c+N/we+Oz
+X-Gm-Gg: AYBFou3CYu9W8gEioGCBRng7MFCEfmXWo8CfS4CsBXUWWwDYx9Xa8d2DwWZPxq6QNwT
+	xEGXEezm9yte4RwYw60iAwL2LryrE0q1BaMvkBG/9xLCxqSgi6TtPA0v2DRI9gJp987BR7mRhMO
+	u6N0T96LEADcTAC6WVv013fBdKU2z871zuBCwL9sbMxQ1bzjotTyEfqlUAUqgOC9dEtZcKp6unQ
+	yZAyPbXQMorZ6KRhBqrXqx3x4hNyA7bhyi9QEdZSpMRqQZ6dlZBzy5VuWVYoSGmurJhJu20aTGP
+	GJhsgtJicjPwt9N6edxVcLaidRIVcJW77X0cfSuDEprkmTWDfdYXZU27GjOGRzcbAOl2J9a30CD
+	IAmH02yvNydISbGuVsO84IJkjR/ZU63p3tRKhsa6YgNMudO2USicdlbxk8jdFooLrRGG//jEFcs
+	9v/dxId7K3He7GTHe3gcPHaQHmUHODZg+MJ9oJXuRbC/+9k4qwc+errcJrfttH+ZJpsp0I5nCwg
+	KMQbUZvlxQ8YtdWWaRadC0p0LcK2XniuyhvPqLerjPY4ZST60C4n9Cd5oIed4Ws2Kqk6qHvh1rS
+	Y6pRKhz/pGAKKT32dtn+TIW3vq8H1ILWIeTQwsEA8jlbCQZX7KOXDJAu+hKgJLtLfa9Q7lI=
+X-Received: by 2002:a05:6000:4383:b0:487:8ec:1fc with SMTP id ffacd0b85a97d-4870cf09c40mr288821f8f.12.1789508129738;
+        Tue, 15 Sep 2026 14:35:29 -0700 (PDT)
+Received: from MBP-von-Karl (dynamic-2a02-3100-afd5-c801-ec9e-1a2a-2fc8-3f88.310.pool.telefonica.de. [2a02:3100:afd5:c801:ec9e:1a2a:2fc8:3f88])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf344fcsm2047321f8f.26.2026.09.15.14.35.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 14:35:28 -0700 (PDT)
+Date: Tue, 15 Sep 2026 23:35:27 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	stable@vger.kernel.org, patches@lists.linux.dev, Edward Adam Davis <eadavis@qq.com>, 
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>, syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com
+Subject: Re: [PATCH 5.15 879/935] bluetooth/l2cap: sync sock recv cb and
+ release
+Message-ID: <aqm57oNzuXR8EvN-@gmail.com>
+References: <20260913202907.3100-1-kmehltretter@gmail.com>
+ <daily-reply-0008-re-l2cap-recv-cb-deadlock@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915070001.113559-1-hao.ge@linux.dev> <20260915070001.113559-3-hao.ge@linux.dev>
-In-Reply-To: <20260915070001.113559-3-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Tue, 15 Sep 2026 14:09:16 -0700
-X-Gm-Features: AcwNN1W8v3TTrRxzwemLVzpv82f0jC7eBKsciqbn6XlLizQdqhzOL-UqObB-lQI
-Message-ID: <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Kent Overstreet <kent.overstreet@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <daily-reply-0008-re-l2cap-recv-cb-deadlock@kernel.org>
 
-On Mon, Sep 14, 2026 at 11:59=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
->
-> The reservation is already stored in the maple tree when
-> vm_module_tags_populate() fails. A failed load never unloads the
-> module, so nothing releases the entry. Release it and roll
-> module_tags.size back. Without the rollback a concurrent load that
-> already passed needs_section_mem() can reuse the freed gap, skip
-> vm_module_tags_populate() and write to unmapped memory.
->
-> vmap_pages_range() may have installed some PTEs before failing. A
-> retry to populate the same range would BUG on them, so undo them,
-> but only if vmap actually ran.
->
-> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
-ion")
-> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as neede=
-d")
+On Mon, Sep 14, 2026 at 10:03:24PM +0100, Sasha Levin wrote:
+> > Please hold this patch unless the applicable L2CAP hunks from upstream
+> > commit f1a8f402f13f ("Bluetooth: L2CAP: Fix deadlock") can also be
+> > included.
+> 
+> Separately, while looking at this: both 5.15 and 5.10 carry c531e63871c0
+> ("Bluetooth: l2cap: always unlock channel in l2cap_conless_channel()") without
+> its prerequisite, so l2cap_conless_channel() calls l2cap_chan_unlock() on a
+> mutex it never acquired.
+> 
 
-If a patch fixes two other patches, it likely needs to be split so
-that each part fixes one patch only. But read on please. I'm not sure
-if one of the fixes is correct.
+Good point regarding the unbalanced locking.
 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> ---
->  mm/alloc_tag.c | 10 ++++++++++
->  1 file changed, 10 insertions(+)
->
-> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> index 2070e682fe10..95ddf5b743d0 100644
-> --- a/mm/alloc_tag.c
-> +++ b/mm/alloc_tag.c
-> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
->                                      next_page, PAGE_SHIFT) < 0) {
->                         release_pages_arg arg =3D { .pages =3D next_page =
-};
->
-> +                       /*
-> +                        * vmap_pages_range() only runs once all pages we=
-re
-> +                        * allocated, and it may have installed some mapp=
-ings
-> +                        * before failing. Undo them.
+I believe a backport of the applicable L2CAP hunks from f1a8f402f13f also
+fixes what you found in l2cap_conless_channel(). I will test and submit
+that for 5.15.y and 5.10.y soon.
 
-If vmap_pages_range() failed to map the range, why should we need to
-undo it? If it indeed leaves some partial mapping when failing then I
-would argue that vmap_pages_range() should be undoing these partial
-mappings itself before returning the error.
-
-> +                        */
-> +                       if (nr =3D=3D more_pages)
-> +                               vunmap_range(phys_end, phys_end + (nr << =
-PAGE_SHIFT));
->                         /* Clean up and error out */
->                         release_pages(arg, nr);
->                         return -ENOMEM;
-> @@ -947,6 +954,7 @@ static void *reserve_module_tags(struct module *mod, =
-unsigned long size,
->                 return ret;
->
->         if (module_tags.size < offset + size) {
-> +               unsigned long prev_size =3D module_tags.size;
->                 int grow_res;
->
->                 module_tags.size =3D offset + size;
-> @@ -961,6 +969,8 @@ static void *reserve_module_tags(struct module *mod, =
-unsigned long size,
->                         shutdown_mem_profiling(true);
->                         pr_err("Failed to allocate memory for allocation =
-tags in the module %s. Memory allocation profiling is disabled!\n",
->                                mod->name);
-> +                       release_module_tags(mod, false);
-> +                       module_tags.size =3D prev_size;
-
-Yes, this one is a valid fix. It fixes 0f9b685626da commit.
-
->                         return ERR_PTR(grow_res);
->                 }
->         }
-> --
-> 2.25.1
->
+Thanks,
+Karl
