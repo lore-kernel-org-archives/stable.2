@@ -1,186 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059C838AC75;
-	Tue, 15 Sep 2026 04:50:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 288531F91F6;
+	Tue, 15 Sep 2026 04:50:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789447805; cv=none; b=gvmC/p34v0pHWENKMNJz5Mh68pPKO3MOQRXYsVUTkW9Kn56ASR7GXqmw3tlrwPuADC45VUqcTDMP687b5FLsoK8yxxgGiVpdJm8FbQBAcb+xcOFCvDNlqb56GUDFRx/5ByoilTje4zU0f+xSHx+n901UvTzPfBHRI1KxKsxGFDQ=
+	t=1789447836; cv=none; b=DVgqe0a4/BfM6Qpkom9Ue99PHptsO3gNG61HJYo5qtfmLNzlRo/gP1TAhAIb88jckJim6d9AAm0mJgpeYDz5VIgxo2TreQfYKHHkEQ+V9+bZv9MhZmpItYb63HzCh919BVAxo2wrTPWolf8AV+OvT0gC7SkXC16pCW7vTXxmvaQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789447805; c=relaxed/simple;
-	bh=TzyRZL+V0z/kpT3qq0mKVdZ0Uum0CuldLTmmlm7sEo8=;
-	h=Date:To:From:Subject:Message-Id; b=DgF24GwgVKKEBrkOZnAzP1vfvq2js/kJ0LgzFB4eEu3Ojvg4O6o17snhXyDski6xtx7IskZoFO+K1DmO7kAVflmfUICMCAsQGzp85ZAjXq30mBfnd5L5xzlFLZnw/ounkzALizLS+DqPPi48WQl5+G/WKY8i9poWLl4ZcA+zaq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=r0pTFch2; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="r0pTFch2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8CAF41F000FF;
-	Tue, 15 Sep 2026 04:50:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789447803;
-	bh=t3XS3u+iEoIxfloVXwl4UdV97GNtiwhXVGFz4U9t6Zg=;
-	h=Date:To:From:Subject;
-	b=r0pTFch2h+LnqENFtQkp4k5O2nCYbwOk2168irK+yuuOv7B03cjqr/GZDImDh+NIo
-	 UgAD1hunLaGNGM0tw+end2a3tmg3+j7b7fDFr2GDD5LT9qxVX6zSOB/l3/wM7aAHql
-	 6lNNMk7mWS6m/OjIP1nNuu+Ejzg5y21LqEzPUwrg=
-Date: Mon, 14 Sep 2026 21:50:03 -0700
-To: mm-commits@vger.kernel.org,vbabka@kernel.org,stable@vger.kernel.org,sashiko-bot@kernel.org,pfalcato@suse.de,peterx@redhat.com,ljs@kernel.org,liam@infradead.org,jgg@ziepe.ca,jannh@google.com,david@kernel.org,gourry@gourry.net,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap.patch added to mm-new branch
-Message-Id: <20260915045003.8CAF41F000FF@smtp.kernel.org>
+	s=arc-20240116; t=1789447836; c=relaxed/simple;
+	bh=2Icb5uM80dKZA+gLNYd5HXR42EUBP0K7T68BBNTxNCI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=fvylYHv5zW41+dKxVPMSsqwNL+nK+rkk8L1yVE4VeadZAlLL/q0Ojj27HJL2M1xm+OMCF1/c9cMzuXy6TwYBz+mhAiojTp0fpnggr0tqNUCr2SQDPXcjyxiIp3g765oaRT4fHB29gCqoDLVRQYhG0NVoiclEONKZCmXuTMXo1AM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowADHn_OUzqhqCREJCA--.50396S2;
+	Tue, 15 Sep 2026 12:50:28 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: daniel.lezcano@kernel.org
+Cc: krzk@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux@rempel-privat.de,
+	tglx@kernel.org,
+	lkml@vger.kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] clocksource/drivers/asm9260: Fix clk reference leak in error paths
+Date: Tue, 15 Sep 2026 04:49:59 +0000
+Message-Id: <20260915044959.1726508-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowADHn_OUzqhqCREJCA--.50396S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr4ktF45WF43Cr13GFW3Jrb_yoW8GFWUpw
+	s7GrW5tr1rur4I9F4vqr4vyr95tw4jkFy3Ww4Sk3Z5ZrsxJFyUXayrGry29F4DArs5Zw43
+	tFn5AFykZ3WDAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	tVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4U
+	MIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU78u4UU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRULA2qowd0lzwABsh
 
+asm9260_timer_init() obtains a clock reference with of_clk_get() but
+never calls clk_put(). If clk_prepare_enable() fails, the reference is
+leaked directly, and if request_irq() fails the error path only calls
+clk_disable_unprepare(), which releases the prepare/enable state but not
+the reference obtained from of_clk_get().
 
-The patch titled
-     Subject: proc/task_mmu: handle special PMDs in clear_refs and pagemap
-has been added to the -mm mm-new branch.  Its filename is
-     proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap.patch
+Add the missing clk_put() calls on both error paths so the clock
+reference is no longer leaked. The success path keeps the clock enabled
+for the lifetime of the timer and is left untouched.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap.patch
-
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Gregory Price <gourry@gourry.net>
-Subject: proc/task_mmu: handle special PMDs in clear_refs and pagemap
-Date: Sat, 12 Sep 2026 08:28:22 -0400
-
-mshv_vtl_low can install a special PMD from a PFN supplied in the mmap file
-offset.  That PFN need not have a memmap entry.  Reading /proc/PID/pagemap
-or writing /proc/PID/clear_refs for such a mapping oopses the kernel.
-
-With a test driver mapping the PFN at the 1 TiB mark:
-
-  echo 1 > /proc/self/clear_refs
-
-  BUG: unable to handle page fault for address: fffffb5b80000008
-  #PF: supervisor read access in kernel mode
-  #PF: error_code(0x0000) - not-present page
-  RIP: 0010:clear_refs_pte_range+0xb1/0x1e0
-  Call Trace:
-   walk_pgd_range+0x50a/0xad0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   clear_refs_write+0x18e/0x3f0
-
-  pread(pagemap_fd, buf, 512 * 8, addr / PAGE_SIZE * 8)
-
-  BUG: unable to handle page fault for address: fffff57840000008
-  RIP: 0010:pagemap_pmd_range+0x3cf/0x6b0
-  Call Trace:
-   walk_pgd_range+0x50a/0xad0
-   __walk_page_range+0x6a/0x1d0
-   walk_page_range_mm_unsafe+0x193/0x230
-   pagemap_read+0x1dc/0x350
-
-clear_refs_pte_range() passes the PMD to pmd_folio(), while
-pagemap_pmd_range_thp() uses pmd_page() followed by page_folio().
-
-Both paths assume the PFN has a struct page and dereference bad address.
-
-Use vm_normal_folio_pmd() and vm_normal_page_pmd() so clear_refs skips
-folio operations and pagemap skips folio-derived flags for special PMDs.
-This matches the PTE paths, which already use vm_normal_folio() and
-vm_normal_page().
-
-User-facing notes:
- - Pagemap still reports PM_PRESENT and the PFN to a CAP_SYS_ADMIN reader.
-
- - For a special PMD backed by a valid memmap entry and for the huge
-   zero PMD, PM_FILE changes from set to clear.
-
- - PM_MMAP_EXCLUSIVE is already clear in both cases.
-
- - The output for an anonymous THP is unchanged.
-
-Tested in QEMU with the test driver on broken and fixed kernels.  Both proc
-operations oops before the fix and return 0 after it.
-
-Link: https://lore.kernel.org/20260912122822.3348978-1-gourry@gourry.net
-Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-Signed-off-by: Gregory Price <gourry@gourry.net>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260912034833.2952750-1-gourry%40gourry.net
-Assisted-by: LLM
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Jann Horn <jannh@google.com>
-Cc: Jason Gunthorpe <jgg@ziepe.ca>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Pedro Falcato <pfalcato@suse.de>
-Cc: Peter Xu <peterx@redhat.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: <stable@vger.kernel.org> # v6.19+
+Fixes: 8d8bd7be8bf0 ("ARM: clocksource: Add asm9260_timer driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
+ drivers/clocksource/asm9260_timer.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
- fs/proc/task_mmu.c |    6 ++++--
- 1 file changed, 4 insertions(+), 2 deletions(-)
-
---- a/fs/proc/task_mmu.c~proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap
-+++ a/fs/proc/task_mmu.c
-@@ -1673,7 +1673,9 @@ static int clear_refs_pte_range(pmd_t *p
- 		if (!pmd_present(*pmd))
- 			goto out;
+diff --git a/drivers/clocksource/asm9260_timer.c b/drivers/clocksource/asm9260_timer.c
+index 8f97ab0b01ec..f0ba19c9e0cf 100644
+--- a/drivers/clocksource/asm9260_timer.c
++++ b/drivers/clocksource/asm9260_timer.c
+@@ -202,6 +202,7 @@ static int __init asm9260_timer_init(struct device_node *np)
+ 	ret = clk_prepare_enable(clk);
+ 	if (ret) {
+ 		pr_err("Failed to enable clk!\n");
++		clk_put(clk);
+ 		return ret;
+ 	}
  
--		folio = pmd_folio(*pmd);
-+		folio = vm_normal_folio_pmd(vma, addr, *pmd);
-+		if (!folio)
-+			goto out;
+@@ -211,6 +212,7 @@ static int __init asm9260_timer_init(struct device_node *np)
+ 	if (ret) {
+ 		pr_err("Failed to setup irq!\n");
+ 		clk_disable_unprepare(clk);
++		clk_put(clk);
+ 		return ret;
+ 	}
  
- 		/* Clear accessed and referenced bits. */
- 		pmdp_test_and_clear_young(vma, addr, pmd);
-@@ -1993,7 +1995,7 @@ static int pagemap_pmd_range_thp(pmd_t *
- 		goto populate_pagemap;
- 
- 	if (pmd_present(pmd)) {
--		page = pmd_page(pmd);
-+		page = vm_normal_page_pmd(vma, addr, pmd);
- 
- 		flags |= PM_PRESENT;
- 		if (pmd_soft_dirty(pmd))
-_
-
-Patches currently in -mm which might be from gourry@gourry.net are
-
-mm-mempolicy-take-a-cpuset-cookie-for-the-interleave-node-count.patch
-mm-mempolicy-use-srcu-for-the-weighted-interleave-state.patch
-mm-mempolicy-stop-copying-the-nodemask-in-the-interleave-paths.patch
-mm-huge_memory-skip-zone-device-folios-in-madvise_free_huge_pmd.patch
-mm-madvise-skip-zone-device-folios-in-cold-pageout-pmd-range.patch
-mm-mempolicy-skip-zone-device-folios-when-queueing-folios.patch
-mm-memory_hotplug-factor-out-node_is_memoryless.patch
-mm-mempolicy-use-vm_normal_folio_pmd-in-queue_folios_pmd.patch
-mm-madvise-use-vm_normal_folio_pmd-in-cold-pageout-pmd-range.patch
-mm-refactor-find_next_best_node-to-find_next_best_node_in.patch
-mm-page_alloc-refactor-build_node_zonelist-out-of-build_zonelists.patch
-proc-task_mmu-handle-special-pmds-in-clear_refs-and-pagemap.patch
+-- 
+2.34.1
 
