@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26FEE3B9D81
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:48:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83BEC3BB126
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:48:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789476510; cv=none; b=nG9Pdr1K6WKFb1+cPlLiCWeqKWtsKB141DR+si1Z2Zzmeg5HCxRBCokGKJFD1PzxU4A/d1TFcG2LjFXxmamC1V3eaPibxnKTMLpTPG4yDNLZw9YenoMRrZJb1pkZ2OTS0yyGIae0cENUd4g4pN++LMtti/3ijjA5lLs321xY1OM=
+	t=1789476512; cv=none; b=X5UhAG46h7C5IBVgIWA5EvG3Vndtcqsca9u6tI/Y8NA163ApcjZVKS1LwYtJzE+Qt7bIDE96nPZEOoI836ULtYiMwoPKPYxkCtGT3Ncvyp50j+vSN20SSUfKHRjNSVYw+A+4WryDzTLHrK+WDbwTaw7KmTmd9fFs2ShkK/7tvbk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789476510; c=relaxed/simple;
-	bh=cM3S2a4ElfPFttTVlHwI+ELMGB/KzKCG4aL7cShzEEs=;
+	s=arc-20240116; t=1789476512; c=relaxed/simple;
+	bh=G6SPaP8N664mlxej6ynSmb7FI9nGnGd3GQk2ofVcpiM=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CEQK9wjTN5EJyUmrWAWlszICaRam9p1i4Mp9zN8U1f/8GSndbMq0dLP1CNO6qYNYt4TLoMcXmz1gnJDRLT7tuU4jJxHKRE1ZtKjfZhhWO3WVwYxCIamvrwWWPHbSlh04TipPfF1tjvrGGIXSPCbPPeSCb1tqNmadm8SYFzbBmWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=au/dbztw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WGB496F+f9YLPTwnYLvEsVj+obp4+ltIwLMU/eqMtUD/t2V4w5o0ynkC3ixLhtuH8jFclM4U/B+IYF4UzxJo1knWSGJAmrbKh8zq9y0yDkYrUvJpDijBaqvCpfG6auWFoP2oxP+Fjy5BGez3Dv3azKuKvvgmPwKrbYaqslEZ5ak=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CyGJ2VBL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="au/dbztw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96C471F000FF;
-	Tue, 15 Sep 2026 12:48:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CyGJ2VBL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17C481F00893;
+	Tue, 15 Sep 2026 12:48:29 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789476508;
-	bh=CnGF2zvVYsaR6GNtB/l4jseQxUIGtuVZKh8i8URq9c4=;
+	s=k20260515; t=1789476511;
+	bh=ByDyyyjB7/WNvEPhSp5HsvWbNGJh9fGN/4LGbn+za+Q=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=au/dbztw4RpZA2fiEqZSi+UEYBkkzYGWzq8oEXzUuCdldDUkipHW/ms3doTOEXWXc
-	 Q7GvSDQ16cNvHQfwC6+CnZeeXfLTs9vMgqZ0pgCOGtaGEL2HKMfYC/upzs0ZVs8QhH
-	 SCP/vCoJT/hdWQWEcptCTktWm4PSAz3wOTbV7tJoXLVlzR4BiaLNLLDKTLND0pSauX
-	 Sk9KUP7HeS9A/lmIOfW4ps2288s+wYrh3him/QbzMqfMalkGj561DnjQw9lzcjNOPT
-	 1JBa17F585JzMTiDWSAWLJMG7GUClbjDJg4/Uhu6fdIkNjO23EhdaFTwG7NWPwtFW4
-	 J0psCqrr5pfwg==
+	b=CyGJ2VBLTU2Fxa2HRM3qG8SLJLkUK/nf95hsY0r8hEYOlMdmAoxAlyLSsDi8ZMTdZ
+	 gecrZj4KUEkVY2pgd/lkAENmYnl+/theT0Z8K/zWfS85aVescS+JLtVuk0flf0pQf+
+	 dj3mq6gsO6rMxHAIJCfZz3pG2v48GVcBf2pGALEB6sWEfaAUtqq2U0feb/bpxEGPHS
+	 h7KPRpbH/ut6fh9C7PK/48w91FRTNOzQnBcI149RpcW9JEDWPvNdNn5j/3DkZur/Ul
+	 jz9LN5LwyAvM899Qx5gfhKBv/pzk0y9xD+9p3kXCbN6v1m+TerbX6QfFnoTklL2K8s
+	 9t/iSWbCtHdAw==
 From: Namjae Jeon <linkinjeon@kernel.org>
 To: stable@vger.kernel.org
 Cc: gregkh@linuxfoundation.org,
@@ -33,9 +33,9 @@ Cc: gregkh@linuxfoundation.org,
 	Namjae Jeon <linkinjeon@kernel.org>,
 	Kanishka De Silva <kpskanna1915@gmail.com>,
 	Farhad Alemi <farhad.alemi@berkeley.edu>
-Subject: [PATCH 6.12.y] ksmbd: prevent out-of-bounds reads in share config responses
-Date: Tue, 15 Sep 2026 21:48:04 +0900
-Message-Id: <20260915124808.6052-2-linkinjeon@kernel.org>
+Subject: [PATCH 6.18.y] ksmbd: prevent out-of-bounds reads in share config responses
+Date: Tue, 15 Sep 2026 21:48:05 +0900
+Message-Id: <20260915124808.6052-3-linkinjeon@kernel.org>
 X-Mailer: git-send-email 2.25.1
 In-Reply-To: <20260915124808.6052-1-linkinjeon@kernel.org>
 References: <20260915124808.6052-1-linkinjeon@kernel.org>
@@ -63,7 +63,7 @@ Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
  2 files changed, 42 insertions(+), 17 deletions(-)
 
 diff --git a/fs/smb/server/mgmt/share_config.c b/fs/smb/server/mgmt/share_config.c
-index 4a5bc3c14428..04e8c11e865e 100644
+index 1e90fd30bd77..8813a81ca662 100644
 --- a/fs/smb/server/mgmt/share_config.c
 +++ b/fs/smb/server/mgmt/share_config.c
 @@ -88,9 +88,9 @@ static struct ksmbd_share_config *__share_lookup(const char *name)
@@ -150,7 +150,7 @@ index 4a5bc3c14428..04e8c11e865e 100644
  				      resp->veto_list_sz);
  		if (!ret && share->path) {
 diff --git a/fs/smb/server/transport_ipc.c b/fs/smb/server/transport_ipc.c
-index a0b9b3def334..10847d1cda4a 100644
+index 225f6459f378..7c30b50f23f0 100644
 --- a/fs/smb/server/transport_ipc.c
 +++ b/fs/smb/server/transport_ipc.c
 @@ -524,14 +524,21 @@ static int ipc_validate_msg(struct ipc_msg_table_entry *entry)
