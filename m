@@ -1,53 +1,62 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA94B4779A8;
-	Tue, 15 Sep 2026 08:33:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6651E47A882;
+	Tue, 15 Sep 2026 08:33:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461189; cv=none; b=ia1IJWDE34KDq9E5o5XiyiiUfBuPQm89f9JmOQI8TqU8UJaScjZfFPGdHJViVAnPAkNTQeBTpIaHTjP+QGYCnjPV3yAyC7fn5BDJ6b0S9VywbZicvsql82ejtjAPj2YIRtVTY2HaPT3nMbwQepitGMbfZSKtrtYOaeQLMRstgHg=
+	t=1789461189; cv=none; b=XWGekEN9QUnvqVHyr1XUUxmS9G2s1t5M8qz0xPYDOVD60vzRsl3S4e16g3TC1Y6C8Ac5BS3WPuOd9ja2d3sYXjXFtb2f8LOaOTyOvszkXYYnb2zQwD/LlFX70V7nlLxIaa0Rnq/qCHjAWPXILIqQt9qY+R73kdE/td26PXtLqFE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789461189; c=relaxed/simple;
-	bh=NnznJM9rr0VkukETqdSVD6fqwodHLDPuYDL1DGyN704=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=fsaZiT4132+4SC6f/Ii7d80xn8LTPUoJZ91n4d4C0J/2CpQS4FWnOaQJLiFC3W9IAFB9rFn2YhZBN9VjhlRwKYmMqSVuv9fMvARy8SAIkcLmW+a6ZlKO2yHeZqyCqShPjJfl6G/RyM+ltQd51/M+0geqqFYvLLmy8q3wZ5oPa0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 0fc9a110b0e011f19a56ed5b684f684d-20260915
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:c26330cd-db19-4233-b287-a6abf0d00313,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:c353a45abad57fe56ed8692e727afc35,BulkI
-	D:nil,BulkQuantity:0,SF:81|82|102|850|865|898,TC:nil,Content:0|15|50|99,ED
-	M:-3,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,OSA:
-	0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 0fc9a110b0e011f19a56ed5b684f684d-20260915
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 712537831; Tue, 15 Sep 2026 16:33:00 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	Baolin Liu <liubaolin@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v13 5/7] ntfs: do not clear the volume dirty bit during sync
-Date: Tue, 15 Sep 2026 16:32:50 +0800
-Message-Id: <20260915083252.812126-6-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
-In-Reply-To: <20260915083252.812126-1-zenghongling@kylinos.cn>
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
+	bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sA8JJxEu/H2fgrRhV58kTeKfvQho6F3ylzdJu/dVKxDVDt7DudGMwgxvhZIYZDaa2wmTEgOXMhrWwf/VDWHGWNY4wabWrG2PE3gQoI575QFW4EMiXeaMrME7CE3bxM0TEn58t6/0v75iGFBG5V0sX28RFz5fwn5qn8Sn948gbgs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=I0mvEOmB; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=pYcarSRL; arc=none smtp.client-ip=92.243.27.206
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="I0mvEOmB";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="pYcarSRL"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461186; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=I0mvEOmB7mGobLOKOQCnqhwjwKDXVhyrdyiN7/CRe/pKSVpIEC4Y/JBFV/Bt2LqlG
+	 gObVAusXm76Mjlb69wGiOREpQMo5htg5KyRcdbk3qS8obv2rQjBJpyzlcMWmP9dcfU
+	 wCKCsJT3nlbY/IPX2afYwX32e9bsEyzCOjcKOI/OYWbhQ6kAvUr+kqZ+yfIAxhu04m
+	 U4UbQVhNHROUJIaSIpgNEEAqI2kUD1R8n3HVqPxII8irHNdY6WSnwa86YHA/gxvEvK
+	 ZtGQEYfKKo7QsD3T3C+MH/k+lOao1SWjgvuDsU2hNf1INZOIGXP3ONb1H0OZOoYW1P
+	 Dktct+yGSDEcw==
+Received: by extorris.mess.org (Postfix, from userid 1004)
+	id 0AD0440BA7; Tue, 15 Sep 2026 09:33:06 +0100 (BST)
+X-Spam-Level: 
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
+	t=1789461185; bh=Za8UtDCRpcoLldjKGS5+rPnf9qprec85BjwFh0wyNAA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=pYcarSRLvr3C7I9mNCESy8WYR/lLoBTUDFXzAsqFYr8+0T/IA0P9A8SriV1Hs4bqE
+	 siUGWxzxq4i/UsT91DFLdpbjp7EMfS4kzXD0VVwQjjxuAhyDmOL3HLD7nFBKaLwWpG
+	 ee4hqnyzvnoaMXFvFFAJokQr6rwiEexKtOjOqu+p67feQe/J1rCMgPLIhVWfVG2PRB
+	 W8OEi3hxClsCZBC5vz3IKqFaGkKf5mGDPM2gqwnc1Mxq+jMg/78nALa8cppemBdMCj
+	 Ir1IzA5RplvR3BW51+fhqjI9nB1pZs2s23If4M3vdASLFMV9JTnq7nCnF/gvOV4LP4
+	 ftP4gEkmC3h0A==
+Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
+	(No client certificate requested)
+	by extorris.mess.org (Postfix) with ESMTPSA id 438D440B71;
+	Tue, 15 Sep 2026 09:33:05 +0100 (BST)
+From: Sean Young <sean@mess.org>
+To: linux-media@vger.kernel.org,
+	Sean Young <sean@mess.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: Rik van Riel <riel@surriel.com>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH v5 07/20] media: rc: mce_kbd: Fix inconsistent locking of keylock
+Date: Tue, 15 Sep 2026 09:32:17 +0100
+Message-ID: <4f56b84535b67c38bdf1dc7858ef60197c059b97.1789460680.git.sean@mess.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <cover.1789460680.git.sean@mess.org>
+References: <cover.1789460680.git.sean@mess.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -56,122 +65,55 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ntfs_sync_fs() clears VOLUME_IS_DIRTY while the volume is still mounted
-read-write, so a sync running concurrently with an in-flight metadata
-modification can clear and persist a bit that was just set: the
-modification then lands on a volume that is clean on disk, and a crash
-does not run chkdsk.
+data->keylock is taken with spin_lock() in ir_mce_kbd_decode(), which
+runs in the raw IR decode kthread with local interrupts enabled, but
+with spin_lock_irqsave() in mce_kbd_rx_timeout(), the rx_timeout timer
+callback, which runs in softirq context.
 
-Stop clearing the bit in ntfs_sync_fs() and leave the clearing to the
-remount-to-read-only path, which the VFS reaches only after
-sb_prepare_remount_readonly() has drained in-flight writers, and to
-ntfs_put_super(), which runs after evict_inodes() on a quiesced
-filesystem.  A mounted read-write volume now keeps the dirty bit until
-it is dismounted cleanly, which matches the NTFS semantics; the cost is
-a needless chkdsk if the machine crashes between a sync and the unmount.
+If the decode kthread is holding keylock via spin_lock() when a timer
+interrupt fires on the same CPU and the softirq runs
+mce_kbd_rx_timeout(), the softirq spins forever waiting for a lock
+that only the now-preempted kthread can release, while the kthread
+cannot run again until the softirq gives up the CPU. This deadlocks
+the CPU.
 
-A recorded error state is still persisted right away when the
-filesystem is synced: with NVolErrors() set,
-ntfs_sync_volume_dirty_state() can only set the bit, never clear it,
-so it cannot lose a modification the way the old unconditional call
-did.  This keeps the error report from being lost to a crash on a
-volume that has seen no modification; an error recorded after the
-last sync is still only persisted at the next quiescent transition.
-
-sync_blockdev() and blkdev_issue_flush() are both called and the first
-error is returned, so a writeback failure neither hides a flush failure
-nor skips it.
-
-A RWF_NOWAIT write still blocks in the marking when the volume looks
-clean, as it already did on the base; a non-blocking marking is
-follow-up work.
-
-Reported-by: Baolin Liu <liubaolin@kylinos.cn>
+Fixes: 53a62800efb2 ("media: rc: mce_kbd decoder: fix race condition")
+Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- fs/ntfs/file.c  |  7 ++++---
- fs/ntfs/super.c | 31 ++++++++++++++++++++++++-------
- 2 files changed, 28 insertions(+), 10 deletions(-)
+ drivers/media/rc/ir-mce_kbd-decoder.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
 
-diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-index cfc7b36b7dff..99a2c7a5cf81 100644
---- a/fs/ntfs/file.c
-+++ b/fs/ntfs/file.c
-@@ -621,9 +621,10 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
+diff --git a/drivers/media/rc/ir-mce_kbd-decoder.c b/drivers/media/rc/ir-mce_kbd-decoder.c
+index bb2d7c37c263..d1c9263511b0 100644
+--- a/drivers/media/rc/ir-mce_kbd-decoder.c
++++ b/drivers/media/rc/ir-mce_kbd-decoder.c
+@@ -219,6 +219,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
+ 	struct mce_kbd_dec *data = &dev->raw->mce_kbd;
+ 	u32 scancode;
+ 	unsigned long delay;
++	unsigned long flags;
+ 	struct lirc_scancode lsc = {};
  
- 	/*
- 	 * The volume must be marked dirty before the modification is made,
--	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
--	 * can clear the bit concurrently and the modification would then
--	 * land on a volume that is clean on disk.
-+	 * without an unlocked check of the in-memory flag: the dirty bit
-+	 * is only cleared at the quiescent transitions, under the same
-+	 * $Volume mrec_lock this call takes, so an unlocked skip could
-+	 * lose the set to one of them.
- 	 */
- 	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
- 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index 3574c224fe28..463050ae1b0e 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -486,8 +486,9 @@ int ntfs_set_volume_flags(struct ntfs_volume *vol, __le16 flags)
-  * This is the single point that persists the in-memory error state to disk.
-  * The runtime error paths only record NVolErrors() because they run under a
-  * variety of ntfs locks the dirty-bit write cannot be taken under (runlist
-- * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); the first
-- * ntfs_sync_fs(), a remount, or the unmount then persists the flag here.
-+ * locks, vol->lcnbmp_lock, vol->mftbmp_lock, mrec_locks); a sync of a
-+ * volume with recorded errors, a remount to read-only, or the unmount,
-+ * then persists the flag here.
-  *
-  * A hibernated volume is not written from these persistence paths:
-  * resuming Windows from a modified image corrupts it, so the dirty bit
-@@ -1955,7 +1956,7 @@ static void ntfs_shutdown(struct super_block *sb)
- static int ntfs_sync_fs(struct super_block *sb, int wait)
- {
- 	struct ntfs_volume *vol = NTFS_SB(sb);
--	int err = 0;
-+	int ret, err = 0;
- 
- 	if (NVolShutdown(vol))
- 		return -EIO;
-@@ -1963,14 +1964,30 @@ static int ntfs_sync_fs(struct super_block *sb, int wait)
- 	if (!wait)
- 		return 0;
- 
--	/* If there are some dirty buffers in the bdev inode */
--	if (ntfs_sync_volume_dirty_state(vol)) {
-+	/*
-+	 * The volume dirty bit is deliberately not cleared here: a sync
-+	 * running concurrently with an in-flight modification could clear
-+	 * and persist a bit that was just set, leaving the modification
-+	 * on a volume that is clean on disk.  The bit is only cleared at
-+	 * the quiescent state transitions, remounting read-only and clean
-+	 * unmount.  A recorded error state, however, is persisted right
-+	 * away so that it is not lost to a crash on a volume that has
-+	 * seen no modification; with NVolErrors() set this can only set
-+	 * the bit, never clear it.
-+	 */
-+	if (NVolErrors(vol) &&
-+	    ntfs_sync_volume_dirty_state(vol)) {
- 		ntfs_warning(sb, "Failed to sync dirty bit in volume information flags.  Run chkdsk.");
- 		err = -EIO;
- 	}
- 	sync_inodes_sb(sb);
--	sync_blockdev(sb->s_bdev);
--	blkdev_issue_flush(sb->s_bdev);
-+	ret = sync_blockdev(sb->s_bdev);
-+	if (ret && !err)
-+		err = ret;
-+
-+	ret = blkdev_issue_flush(sb->s_bdev);
-+	if (ret && !err)
-+		err = ret;
- 	return err;
- }
- 
+ 	if (!is_timing_event(ev)) {
+@@ -319,7 +320,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
+ 			scancode = data->body & 0xffffff;
+ 			dev_dbg(&dev->dev, "keyboard data 0x%08x\n",
+ 				data->body);
+-			spin_lock(&data->keylock);
++			spin_lock_irqsave(&data->keylock, flags);
+ 			if (scancode) {
+ 				delay = usecs_to_jiffies(dev->timeout) +
+ 					msecs_to_jiffies(100);
+@@ -329,7 +330,7 @@ static int ir_mce_kbd_decode(struct rc_dev *dev, struct ir_raw_event ev)
+ 			}
+ 			/* Pass data to keyboard buffer parser */
+ 			ir_mce_kbd_process_keyboard_data(dev, scancode);
+-			spin_unlock(&data->keylock);
++			spin_unlock_irqrestore(&data->keylock, flags);
+ 			lsc.rc_proto = RC_PROTO_MCIR2_KBD;
+ 			break;
+ 		case MCIR2_MOUSE_NBITS:
 -- 
-2.25.1
+2.55.0
 
