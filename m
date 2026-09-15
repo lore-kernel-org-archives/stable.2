@@ -1,61 +1,60 @@
 Received: from extorris.mess.org (extorris.mess.org [92.243.27.206])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A9D23B5847;
-	Tue, 15 Sep 2026 08:33:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56978477280;
+	Tue, 15 Sep 2026 08:33:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=92.243.27.206
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789461185; cv=none; b=lyN3rwxP1A5I1z92IY8BBgspxf/GlwN5OSqWQy32MvCsFA6o9+gu0q7cMl6WmZTBjoYQCyzhfWr5i+SVeZXA8656L/3C/Z27pDTNZEAKn+HRRg/ZZar/t7OJTguuYNouTt79LJEsLpxOgEchUtCU/vLBeN5xGAzJQ/nZ3L0vFDw=
+	t=1789461188; cv=none; b=f55iW6ERSx+hunFutnV2jT3oNYg7dgMdJdHrjSwXjj7L7wfjaZF5p7O9dfKEU0ifrvzlE+TKNPZggZObbY/6YkC6WQniM5jk3/swkCRr7HWAwUlH5MCuqfgN0Z9zGT6gKEUS9VcsmnWZHyLmEFl1qNMlqPLcQ9+IO0tT2QLBIDY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789461185; c=relaxed/simple;
-	bh=IV0F/ZsBMLGaivPyKxE7H+GRnEb/wEfIq68wwpyW9iE=;
+	s=arc-20240116; t=1789461188; c=relaxed/simple;
+	bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QUB2j0bue7XR8oW8os8dyPFpLeungzaM/mF5h1izn2+kT5aeIv/YgTT0DvmdE/q2XBWibADkoiHULgd9tTAwYUjKCB+OjxCvrWmA4IDPgmw+t63Y6UCUQdnGMm09mF8xXCbbVvrUT0kmrqmSIYKwedgmaQHg3NWN35PgoyF4nMM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=exaVWxMU; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=LndwBNVH; arc=none smtp.client-ip=92.243.27.206
+	 MIME-Version; b=e68eH/674/LdpkYHcPLSWwh5DbrjXPogQGNlMzIjBtV9i6WoxwRNcoWSJMYUSYXvSAarsQozgOCpy8/B8v/UhBolezhoi79j3oTxwfnpRPPIfQxmIfY2eKg0ZQ8RPWx2DgyMgPS7zftDNrxw+2XzBfHCBMMVSMciXzvSDH/i4V4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org; spf=pass smtp.mailfrom=mess.org; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=qKeFMEZi; dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b=RpPSKvPo; arc=none smtp.client-ip=92.243.27.206
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=mess.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mess.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="exaVWxMU";
-	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="LndwBNVH"
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="qKeFMEZi";
+	dkim=pass (2048-bit key) header.d=mess.org header.i=@mess.org header.b="RpPSKvPo"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461177; bh=IV0F/ZsBMLGaivPyKxE7H+GRnEb/wEfIq68wwpyW9iE=;
+	t=1789461179; bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=exaVWxMUyzNhekp+iovdQCfR7P3ZKoJ5j5DW6KW3yTV6qMa5coKg1KWcq+vP+dt1N
-	 3KVlA21nFqRbeD8b8SC0bDaYVG63x3kxancLYdkJeFzjcp847NiIudL/QkoR0vs2cR
-	 PUIlkcKRCFfGYVOZTvqwFnqaaKWEIbuSHhg79t/AuY4GKBStfjedNwCTQAAy6BtYdp
-	 a26lG5YR9mE4OpsvdAlE6ybqJjYg278tgQyV/0aHsWPBeqaJuHVohAjwbD3UUOooJv
-	 7qjK0q3QzKspt6P75Dbczmo9AWzTa9wlpECUy52svLtx8o9duZsMRnTIb6ePG7qeKU
-	 WPb3sareczzVw==
+	b=qKeFMEZiutJi9+qhpHW8QF6F92//epP25uhEVkcSQoxlxk78s3Inq4WpcHtIyGTOh
+	 17IZ7JnWa9GYNRkuShIPUyJxZmFFhgjMbZk/cl7qVxicm9O5tqBJQmFUy5onNASHHy
+	 Lc+jnN7Wy8g5XSOf/X9HXTxQgDmT14RDZqQyOQcrM3am5yqV1I4VlBnmsxmobu/x5h
+	 FlSXaFYVzAHMYe4g0N6MG0Xtc2cIDbaZ3j1j/4okdHl9wzJtPlHDsBPzUeoDGTwMl4
+	 pG/0vEr8YZsIdA4/h33ZLRGUyjdHf0eRFYgwWlxGeNEnbZJlu1G3M+6cn0yDnhN7SC
+	 A4+vmqpsoSF2w==
 Received: by extorris.mess.org (Postfix, from userid 1004)
-	id 2525E40BA7; Tue, 15 Sep 2026 09:32:57 +0100 (BST)
+	id 3B77340BA2; Tue, 15 Sep 2026 09:32:59 +0100 (BST)
 X-Spam-Level: 
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=mess.org; s=2020;
-	t=1789461176; bh=IV0F/ZsBMLGaivPyKxE7H+GRnEb/wEfIq68wwpyW9iE=;
+	t=1789461178; bh=54wSBEW+EhzqVtFbaMH00jb+rHZnRFDdB1tI01AWQGg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=LndwBNVHWyXjEf/c98o1Pbs7LKpYbEDkSQbsxINLhHPnWtL46x0h6W19eH3j2GhPF
-	 j1cINVK74Cqk8H5URSaDAxZzprhWK9ardVHUJgm9cZh+3T2hCAgj/Y9guZIYV5LuMt
-	 8otVs65MZbMvWL+HPuJIBl0eesZyAReinEtqML1mkGVybF9//hFZPpDgg73crpVpv3
-	 J/ScGJpp54JhIttapFhEhAjaOOoyp4BxOKoIbx+sSOYFiIYlI599mgvCCHlx7IIVo4
-	 urQQZx2T8negccrVsyDg+/tSp6asaot7P9xp1AySnUuZaZBj12sh8bbklxodB9b6/Q
-	 xsODUFX4NQH8A==
+	b=RpPSKvPoeKQgvNZ3PKjEcR3weba/zZwDm9C/jeFPc8sEHLIBNRRQTvyLjhiJjrKFJ
+	 iOolR3yMzJovi+F/S1jtpqeb2CI+EcSR5R0w0QLiGsfJsg1RuzwbB+PRMTIHkRH69X
+	 zvC0A/i0NdRC+YnrKcddprTrTNCqfD9MDNFt3/pUH9Aj1EI9oQKgemAHatP5lxTlxO
+	 VECMgVkyhGKwqqaZwENgbRVIscWm4T6JhU0pB2rZc2nQiqnG1o9qUDi7eRIoq9Vxxb
+	 xyOQlPe01+eI3O6MVKahcxH5tdrRnLQ/DHTYxk8JR2aXkVCLCvnHjonsZTYmhY2jdv
+	 VXTIhkGkr303g==
 Received: from maru.home (host81-158-254-226.range81-158.btcentralplus.com [81.158.254.226])
 	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
 	 key-exchange x25519 server-signature ECDSA (prime256v1) server-digest SHA256)
 	(No client certificate requested)
-	by extorris.mess.org (Postfix) with ESMTPSA id B4B0E40155;
-	Tue, 15 Sep 2026 09:32:56 +0100 (BST)
+	by extorris.mess.org (Postfix) with ESMTPSA id 2291340155;
+	Tue, 15 Sep 2026 09:32:58 +0100 (BST)
 From: Sean Young <sean@mess.org>
 To: linux-media@vger.kernel.org,
 	Sean Young <sean@mess.org>,
 	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Patrice Chotard <patrice.chotard@foss.st.com>
+	Heiner Kallweit <hkallweit1@gmail.com>
 Cc: Rik van Riel <riel@surriel.com>,
 	stable@vger.kernel.org,
 	linux-kernel@vger.kernel.org
-Subject: [PATCH v5 02/20] media: rc: Ensure that rc_unregister_device() does not free input device
-Date: Tue, 15 Sep 2026 09:32:12 +0100
-Message-ID: <21f237a3987b33ff532a23b14b6aa6ac60d0d0f3.1789460680.git.sean@mess.org>
+Subject: [PATCH v5 03/20] media: rc: Fix ABBA deadlock by making locks more fine grained
+Date: Tue, 15 Sep 2026 09:32:13 +0100
+Message-ID: <e0950481292d002958cc28e744742f0a84444e14.1789460680.git.sean@mess.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1789460680.git.sean@mess.org>
 References: <cover.1789460680.git.sean@mess.org>
@@ -67,52 +66,123 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-During or after rc_unregister_device(), IR may still be reported which
-results in a input event being reported. This could result in a null
-pointer deref in rc_keydown() or a use-after-free of the input device if
-the pointer was read before it is set to NULL.
+The ir_raw_event_unregister() function takes the ir_raw_handler_lock
+first and then the rc_dev->lock. Other functions like change_protocol
+do this in the reverse order.
 
-Fixes: dccc0c3ddf8f ("media: rc: fix race between unregister and urb/irq callbacks")
+This means that an ir decoder module unload and writing to the protocol
+sysfs file can cause a deadlock.
+
+ir_raw_handler_lock protects the client list, amongst other things.
+Split this out into a separate lock so we can ensure the locking
+order is always the same.
+
+Fixes: 93cffffc18f6 ("[media] media: rc: fix decoder module unloading")
 Signed-off-by: Sean Young <sean@mess.org>
 Cc: stable@vger.kernel.org
 ---
- drivers/media/rc/rc-main.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/media/rc/rc-ir-raw.c | 39 ++++++++++++++++++++++--------------
+ 1 file changed, 24 insertions(+), 15 deletions(-)
 
-diff --git a/drivers/media/rc/rc-main.c b/drivers/media/rc/rc-main.c
-index 930d45517229..d4baaae3a834 100644
---- a/drivers/media/rc/rc-main.c
-+++ b/drivers/media/rc/rc-main.c
-@@ -1753,7 +1753,7 @@ void rc_free_device(struct rc_dev *dev)
- 	if (!dev)
- 		return;
+diff --git a/drivers/media/rc/rc-ir-raw.c b/drivers/media/rc/rc-ir-raw.c
+index 54b323becb1f..75dee4a483d4 100644
+--- a/drivers/media/rc/rc-ir-raw.c
++++ b/drivers/media/rc/rc-ir-raw.c
+@@ -10,7 +10,8 @@
+ #include <linux/sched.h>
+ #include "rc-core-priv.h"
  
--	input_free_device(dev->input_dev);
-+	input_put_device(dev->input_dev);
+-/* Used to keep track of IR raw clients, protected by ir_raw_handler_lock */
++/* Used to keep track of IR raw clients, protected by ir_raw_client_lock */
++static DEFINE_MUTEX(ir_raw_client_lock);
+ static LIST_HEAD(ir_raw_client_list);
  
- 	put_device(&dev->dev);
- 
-@@ -1865,6 +1865,8 @@ static int rc_setup_rx_device(struct rc_dev *dev)
- 	if (rc)
- 		return rc;
- 
-+	input_get_device(dev->input_dev);
-+
- 	/*
- 	 * Default delay of 250ms is too short for some protocols, especially
- 	 * since the timeout is currently set to 250ms. Increase it to 500ms,
-@@ -1891,10 +1893,8 @@ static void rc_free_rx_device(struct rc_dev *dev)
- 	if (!dev)
- 		return;
- 
--	if (dev->input_dev) {
-+	if (dev->input_dev)
- 		input_unregister_device(dev->input_dev);
--		dev->input_dev = NULL;
--	}
- 
- 	ir_free_table(&dev->rc_map);
+ /* Used to handle IR raw handler extensions */
+@@ -273,13 +274,6 @@ static int change_protocol(struct rc_dev *dev, u64 *rc_proto)
+ 	return 0;
  }
+ 
+-static void ir_raw_disable_protocols(struct rc_dev *dev, u64 protocols)
+-{
+-	mutex_lock(&dev->lock);
+-	dev->enabled_protocols &= ~protocols;
+-	mutex_unlock(&dev->lock);
+-}
+-
+ /**
+  * ir_raw_gen_manchester() - Encode data with Manchester (bi-phase) modulation.
+  * @ev:		Pointer to pointer to next free event. *@ev is incremented for
+@@ -615,15 +609,18 @@ int ir_raw_event_register(struct rc_dev *dev)
+ {
+ 	struct task_struct *thread;
+ 
++	/* Holding dev->lock could result in a dead-lock */
++	lockdep_assert_not_held(&dev->lock);
++
+ 	thread = kthread_run(ir_raw_event_thread, dev->raw, "rc%u", dev->minor);
+ 	if (IS_ERR(thread))
+ 		return PTR_ERR(thread);
+ 
+ 	dev->raw->thread = thread;
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_add_tail(&dev->raw->list, &ir_raw_client_list);
+-	mutex_unlock(&ir_raw_handler_lock);
++	mutex_unlock(&ir_raw_client_lock);
+ 
+ 	return 0;
+ }
+@@ -656,16 +653,19 @@ void ir_raw_event_unregister(struct rc_dev *dev)
+ 	kthread_stop(dev->raw->thread);
+ 	timer_delete_sync(&dev->raw->edge_handle);
+ 
+-	mutex_lock(&ir_raw_handler_lock);
++	mutex_lock(&ir_raw_client_lock);
+ 	list_del(&dev->raw->list);
++
++	mutex_lock(&ir_raw_handler_lock);
+ 	list_for_each_entry(handler, &ir_raw_handler_list, list)
+ 		if (handler->raw_unregister &&
+ 		    (handler->protocols & dev->enabled_protocols))
+ 			handler->raw_unregister(dev);
+ 
+ 	lirc_bpf_free(dev);
+-
+ 	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ 
+ /*
+@@ -688,15 +688,24 @@ void ir_raw_handler_unregister(struct ir_raw_handler *ir_raw_handler)
+ 	struct ir_raw_event_ctrl *raw;
+ 	u64 protocols = ir_raw_handler->protocols;
+ 
++	mutex_lock(&ir_raw_client_lock);
++
+ 	mutex_lock(&ir_raw_handler_lock);
+ 	list_del(&ir_raw_handler->list);
++	atomic64_andnot(protocols, &available_protocols);
++	mutex_unlock(&ir_raw_handler_lock);
++
+ 	list_for_each_entry(raw, &ir_raw_client_list, list) {
++		mutex_lock(&raw->dev->lock);
++		mutex_lock(&ir_raw_handler_lock);
+ 		if (ir_raw_handler->raw_unregister &&
+ 		    (raw->dev->enabled_protocols & protocols))
+ 			ir_raw_handler->raw_unregister(raw->dev);
+-		ir_raw_disable_protocols(raw->dev, protocols);
++		raw->dev->enabled_protocols &= ~protocols;
++		mutex_unlock(&ir_raw_handler_lock);
++		mutex_unlock(&raw->dev->lock);
+ 	}
+-	atomic64_andnot(protocols, &available_protocols);
+-	mutex_unlock(&ir_raw_handler_lock);
++
++	mutex_unlock(&ir_raw_client_lock);
+ }
+ EXPORT_SYMBOL(ir_raw_handler_unregister);
 -- 
 2.55.0
 
