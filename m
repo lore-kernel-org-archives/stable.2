@@ -1,125 +1,143 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07AF0481A91
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:39:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E2840681D
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:46:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493956; cv=none; b=KBcZZ0PQVGkKpGR5Pxq3ZCKZSTjGUcrvP2BPUFqYboQ2aZMOqOwEObQlJDfFyy/QEGCLEz86b8z8iwRYdtKoKdm9mCaiFyF/ky3h7fYnoJQAMF5HVwZ6Me/pjVbPl/P1DGhYUTkVok+HHM5acVWZWL5bxZFB6DH68j18iim8b2U=
+	t=1789494393; cv=none; b=hGpYjzif3i2y2i5g20QLfF6mBxUt48sxotnN7gl6n11gmX/CNaSrM23sqVOLpmNaqodRSPCD627ShiGd1d47RtXLG6vOrzbD1u+Cx6wDYnZDAnR8cuUe/zNNwJp82PLM/Ki0F9Aygzhj4Dg57KWwivKi0dTz7VpB8NvQtiMRTSs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493956; c=relaxed/simple;
-	bh=NzS0LEAs3S9whvb62gdHLrrOa6NfF7zRiqGXtQrWDwE=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GLSTpQABij1MnOmv/EoQVBqG2S5Q3sVypt2yH5arT0xmacLtfubcjJXo3G7LCP9W127yfTMvcdIA4TFASmnDPExwGlqNLeQxYUcxi6/A5lpklAkbWiigV+MpkYoM5ffXqJvfQQH3mJMxGja6p9d/vGj7d/4ROzjA3ptrpp4PLN4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I7lYTC/j; arc=none smtp.client-ip=74.125.227.12
+	s=arc-20240116; t=1789494393; c=relaxed/simple;
+	bh=WlQBNU+LBHOTy12vRSd1ePrcpVEBbXkmEd6JKJ3g0u0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=EiDShrmbNt+0f4AiqHrWNVSqPXtdiKw+BHRR4xiphC10BV33AHj8I9HLxTeSwNo8l+lgBbnYXwyS8OtmeEjwhXOSyQzXI2TFVEkX/qTbiOWQcaXDNXf61v6OPv4mnJM9E6Vg1tuQL1rYGheH29p72xT2cqSlWCuWcLeOjGeTNP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NCDBC/8O; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I7lYTC/j"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e4d9197so14098e0c.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:39:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NCDBC/8O"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6598dd44so497115e9.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:46:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789493954; x=1790098754; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iwEMIxUcVqGwd0ywmsmxiy74tjlp/vlHo04q60UyVfc=;
-        b=I7lYTC/jdd5GQF/Jon1ayHYWQyAcrlQsE7Lq3dmAxbovrTxfSHObUqZEsQ7gPFWjzt
-         mgMFoO20GESuyiakabaEYHuPMZVRRCDTzBGvImeTvLsehkoowALCTTkk2d6ga5rdjEBW
-         F1CQkSzVhzcsbgu1lxKJ2//862c+tp7Y7pqYDzNeWNp9A3vHEuNARu5JMcLx+PBhdjvO
-         BB9s2gZ8WG86hxZBtDIoqaHg8wShWEFpRpb2gWxIKkN4BoSB3UBldWSCsf/ePJKU8EXd
-         AgggcBzh+ol5iZOkFdlOJZl26CABEdm33iFw2Sm5hi+jRR+gwVqUq82PYpojNSA4wSNS
-         mphQ==
+        d=gmail.com; s=20251104; t=1789494389; x=1790099189; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=4kHhQGy3vIUJSO4i7ji0MZ5Fg5auge9rgj23eZwGEys=;
+        b=NCDBC/8OzeEsXDsKqGiYKWY0M67SdVEOP+jHaM+EbBm4wpV5Uh0p31rg3UE/NJMnpJ
+         pRIETjBmOdgrRnE4YwBvc2JcenbXic6PPLBF9HWhg5x8eIlRYxEFXUyj/3CBvQ/Jr0n4
+         cMPWrrFBfHFDOCDLh2b+fx1E1FmcEh15YzTLuTwFitosgm5dspjAm9wD4dM9pbt2hRBq
+         f2bZ4yeRK/ZQZf5re6AJX3+pcU4btcfnLf6Rt0zxy5jVWfMoiwOR07fwPhtScDxdnA4r
+         eDITvnakX74wbLOcoT3AEqGJzsA5GHqMqkzltG7meBoE7DWdE66Gsjf1wCDN+YUiOMjM
+         hdyQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789493954; x=1790098754;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iwEMIxUcVqGwd0ywmsmxiy74tjlp/vlHo04q60UyVfc=;
-        b=GKM1d1sDBPPDXH6kyP2iNulh+xN/3rKvh8k1Sl2jBQLDFXbJnWBzhJl+WGCzVSTH1/
-         7K1yl/hBNwdh2C7WZhe4SEU3daCWIDT0TwOo/vN91wH9sT+4MivGcCkivpJZba45dtKm
-         SBUA6x78uijo5eFocP2G3BD4Hgwauumq7PjfXCZKw9jdAbnu4ACHgfaU7//VtlGeGnAH
-         4DhXHaCM5/qjLvkgL5WnHBWmSKPcJAUidgLX3eI/2gqGjrlWOHXjVvkV/IhsXSY0fsVP
-         l7RT1jb+M1YE2JFf6i/2jLMYHECsBg2ifUALIBjszVp8bEZraFApruUF/EQD7VjW/24U
-         YANg==
-X-Forwarded-Encrypted: i=1; AKwUvBzy7/dklWqhChtC6bBA7L0XvpHvqmCDjAEO2U9OBWMHle/oUtn7RfJqg7Qx6bMWuAjRW+VwezI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lur8O5RVK55kmq5b9nQ7g0YIDM13EZwY9ei3X0EAsL911ul/kP
-	shtEoxyrm5Q+4SaY/tcB8iVfIou+dZsRkU0V5Wcz2BsJmYKPVaaBpKV1
-X-Gm-Gg: AYBFou3KVcbvbzFUvGuu5EfauwuQgCx4OeKxWTpbjTZy9MNFAUxfNJ+E/Zlr3eokG0V
-	2w2NHC9BZtpDlxTMiSSg2d+ofmX8U1DYIdwAGWpbo5u09U2Wq2WWqg/3JztfX1QXzOP+Rt5h38C
-	GFtW6rci5rQi7BcupMbWRxI7oWsMfz4h9yYQghqiYuBuWjscZK8dJgxyd8rnvxQ7OxF3K2ZlCFq
-	EIftgxS6+ypVYx5yxaSd/iCZqLZeV8rykUh++Vsje2pDyrD+Og78xyEbxbQ5WJP6faNO8EM5XB4
-	TSfzMM32xJxC6mOTRYxdOnpY5OQGWBKHOK+DGVi3wlumqE/NO99L6jCKyKAgiux0pwKACV0SN0/
-	Svg8sK0JhSMGXJT5abiKsozJI4NLar2uPYK3yfW7Rm+fepS7YZYV2r3Y/ZyS3+NWMtm/z8viPXU
-	WeB9khpaWDrZAy1zI2ljITBleW3FhrS/CrClcpcu+8dqUePWFwLV3DlIQO8MvoEFNgKvZd0IlSb
-	O0=
-X-Received: by 2002:a05:6122:130c:b0:5c6:7f44:b001 with SMTP id 71dfb90a1353d-5c981883794mr5305885e0c.0.1789493953887;
-        Tue, 15 Sep 2026 10:39:13 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9989fa82esm176933e0c.4.2026.09.15.10.39.12
+        d=1e100.net; s=20260707; t=1789494389; x=1790099189;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=4kHhQGy3vIUJSO4i7ji0MZ5Fg5auge9rgj23eZwGEys=;
+        b=0usl/CtOL/6/oTt9qZc4d4o0Vl0HkUC4vJYlD8TLo9wjvbOAv/pqakGN386xvUTcb7
+         1WfoQELn2hspRwixoVKiDTH4WVOeUyys9yK4WA4/LV9Kl8p+Mu55Y7A9eRunOqmXrPNQ
+         TBfZomNfwBOoAwudmUilC1T31vGBA9yxQ0+hMJA+s+BK0UilocPOUT8tYc963xC3pat6
+         Dgrbz+dqTvKtG5MaX94cY1FC/RC4l918FKLdQeHKIbijMq0Xuw7+tNrywYxyEgT77kVc
+         T5MWQica2gdEpcvQvNu6ScGyIcPaR6Gl9remZReDIpc9EPyBOIjrQ/Tva3nR6E8oVEMy
+         nQfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/6yI7oQsyVBaQjUclfxBppELaP2THMHWLGZyyBVwTSdlKazGWjsikFp6nltelXWPM9aPG5b0=@vger.kernel.org
+X-Gm-Message-State: AFuF++l2U1af64SUEpOO3GSau6PFJyjQWpOpi8TuwzUCIkUzF+GIlBzL
+	jtUSZtLspCD0pgdGd4YuInZsbVW7vY7UT8DWhiwSP0YZsHdlOfW3XdQE
+X-Gm-Gg: AYBFou0H4Yj9tm4oTvzog8BZbU1k1yXCNW5nVIUFRo/bajyYiwoCEFQZtCpsaSPu82Z
+	DpuwizV8FFzB9tC18q390dYrJnC2PeIqwXm1qRmTgw/cMXxWRS8DvhGDQMxwJ6uiue8wGiJM9ds
+	KOWDUPpVPPsu5yLjZXCOSYNtm98R90BfZJV3nqvSXmJcWBbKpTiqzbSDgVOd2JItFsDTLMHkHSm
+	D00KA/PKr6OlLqgBJdEFdFFvT1j6X5xM4wqho+Te3Yhz8Yf98dOf8uhwMextv2fFNLCCEm+5OD9
+	3espjSSBTBxr42Rrihmy0QLs2haBPhwxZ6Q/tbjdYFSCv/piWxAoqnmo88m5TCR44aUkMzBpsnb
+	tOveU3xMwrUc7Ch/LwK66E/laZ5+RuoyHpEncvcIi8fpvScNaIYTH4LcB7n3zwgj/ZYvVP68Uu6
+	NawMEyyuqyKOB2F5y3IRhm/hcnwxAMhC299RxufsbfZGj4go2vmtvYJsHrKEGQVC6Sw2WxS0jh3
+	zMaYVt7sCtBY7CyJBEcajIQOP4G4XI2S/+pjMs6jJi//M29dryH
+X-Received: by 2002:a05:600c:860b:b0:49c:fea1:f792 with SMTP id 5b1f17b1804b1-49e7a64889amr101393015e9.12.1789494389380;
+        Tue, 15 Sep 2026 10:46:29 -0700 (PDT)
+Received: from fedora ([202.47.63.86])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83fc3da0sm3415955e9.1.2026.09.15.10.46.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 10:39:13 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Chuck Lever <chuck.lever@oracle.com>,
-	Jeff Layton <jlayton@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
+        Tue, 15 Sep 2026 10:46:28 -0700 (PDT)
+From: Muhammad Bilal <meatuni001@gmail.com>
+To: Jorge Lopez <jorge.lopez2@hp.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
+	platform-driver-x86@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] nfsd: use xdr_encode_opaque_fixed for all GETXATTR fragments
-Date: Tue, 15 Sep 2026 14:39:01 -0300
-Message-ID: <20260915173902.3184534-1-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	Muhammad Bilal <meatuni001@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] platform/x86: hp-bioscfg: fix slab-out-of-bounds write in hp_convert_hexstr_to_str
+Date: Tue, 15 Sep 2026 22:46:15 +0500
+Message-ID: <20260915174615.63924-1-meatuni001@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-nfsd4_vbuf_to_stream() already uses xdr_encode_opaque_fixed() when the
-final fragment is shorter than a page, but the preceding memcpy() in the
-loop body does not clear XDR padding.
+hp_convert_hexstr_to_str() decodes an ACPI string made up of
+space-separated ASCII hex-byte tokens of the form "0xHH". For
+example, the four-byte input "0x41" decodes to the single
+character 'A', and the nine-byte input "0x09 0x41" decodes to
+"\tA": each token is read in a five-byte step (four characters for
+the token, one for the trailing delimiter), and produces one output
+byte, or two if that byte is '\\', '\r', '\n', or '\t', which are
+written back out as a backslash followed by the matching letter.
 
-When the last fragment happens to be exactly PAGE_SIZE the short-fragment
-branch is never entered, and the loop exits through the normal buflen
-path.  If that final page-sized reservation is not word-aligned within
-the XDR stream, its padding bytes are left stale.
+The output buffer is sized with kmalloc(input_len, GFP_KERNEL), the
+raw encoded length of the input, not the decoded length. For
+well-formed input this is generous, since five input bytes never
+decode to more than two output bytes. But input_len comes directly
+from the ACPI string length reported by firmware and isn't
+guaranteed to respect the five-byte encoding, so a short input_len
+can undersize the allocation. With input_len == 1, only one byte is
+allocated, yet decoding still produces at least one output byte
+plus the NUL terminator written unconditionally afterwards, so two
+bytes are needed. That terminator write then lands one byte past
+the end of the allocation.
 
-Convert the loop memcpy to xdr_encode_opaque_fixed() and drop the now
-redundant short-fragment padding block, matching the first-fragment fix.
+KASAN caught exactly this during BIOS attribute enumeration on
+boot, triggered by a one-byte encoded input value:
 
-Suggested-by: Jeff Layton <jlayton@kernel.org>
+BUG: KASAN: slab-out-of-bounds in hp_convert_hexstr_to_str+0x6d8/0x710 [hp_bioscfg]
+Write of size 1 at addr ffff8881032e5d81 by task (udev-worker)/520
+The buggy address is located 0 bytes to the right of
+allocated 1-byte region [ffff8881032e5d80, ffff8881032e5d81)
+
+Size the allocation to the worst-case decoded length instead of the
+raw input length: two output bytes for every five-byte input chunk
+(DIV_ROUND_UP(input_len, 5)), plus one byte for the terminator.
+
+Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
 ---
- fs/nfsd/nfs4xdr.c | 10 +---------
- 1 file changed, 1 insertion(+), 9 deletions(-)
+v2: Expand the commit message to spell out the hex-token input
+    format and decoded output with a worked example, and explain
+    exactly how a short input_len undersizes the allocation, per
+    Ilpo Järvinen's review. No code change from v1.
 
-diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-index XXXXXXX..XXXXXXX 100644
---- a/fs/nfsd/nfs4xdr.c
-+++ b/fs/nfsd/nfs4xdr.c
-@@ -5963,15 +5963,7 @@ nfsd4_vbuf_to_stream(struct xdr_stream *xdr, char *buf, u32 buflen)
- 		if (!p)
- 			return nfserr_resource;
+ drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
--		memcpy(p, buf, cplen);
--
--		if (cplen < PAGE_SIZE) {
--			/*
--			 * We're done, with a length that wasn't page
--			 * aligned, so possibly not word aligned. Pad
--			 * any trailing bytes with 0.
--			 */
--			xdr_encode_opaque_fixed(p, NULL, cplen);
--			break;
--		}
-+		xdr_encode_opaque_fixed(p, buf, cplen);
-+		if (cplen < PAGE_SIZE)
-+			break;
+diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+index 22c198680903..42331cf90581 100644
+--- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
++++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+@@ -442,7 +442,7 @@ int hp_convert_hexstr_to_str(const char *input, u32 input_len, char **str, int *
+ 	*len = 0;
+ 	*str = NULL;
+ 
+-	new_str = kmalloc(input_len, GFP_KERNEL);
++	new_str = kmalloc(2 * DIV_ROUND_UP(input_len, 5) + 1, GFP_KERNEL);
+ 	if (!new_str)
+ 		return -ENOMEM;
+ 
+-- 
+2.55.0
 
- 		buflen -= PAGE_SIZE;
- 		buf += PAGE_SIZE;
-
---
-2.43.0
