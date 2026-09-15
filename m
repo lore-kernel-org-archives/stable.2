@@ -1,158 +1,94 @@
-Received: from mail-m49197.qiye.163.com (mail-m49197.qiye.163.com [45.254.49.197])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A544034D90D;
-	Tue, 15 Sep 2026 15:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.197
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BEA2D4AEBCB;
+	Tue, 15 Sep 2026 15:47:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789486749; cv=none; b=pXSOvuyavbz4znbDz5g9bYOHHhA7BcgK6lO9D7yzaqK3EsAJfxZPp9KxBl8lrbr8itaBzF/hRNBSo9CbsRveUJT27pttzFnOKQ/fDcIFcz4umNThaMbXxJV3LCxOvdt50sSQSB0P8tk1oPfKmPeeOg5pyICCQKHgqvcNvVe/FAc=
+	t=1789487242; cv=none; b=ivP2tsiTJXK0kykduvQOs0V4LHFuPqMZNIohfrvvOypxzT9yyB2x1+lV4hAA3xyLywyra99gDr1hFmID7dCn4PW77HQ8GaXbbcXfV4i0R0StLNXQ+t1Km2Bzun6QjxgBi1+R2TFhme72pgw88Z8rP01WfiI/Fkggixsa9EnQPFY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789486749; c=relaxed/simple;
-	bh=sK1U2pcBRXSUG4hPLCv+k6RdkddJEp/+87Nhj5sEvK0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EAATa7DnW9ShnXTTETfuGxzXdcAtPWcEdjRdnH8IWay1I5fCbF487D4I0uIklmLGHdjv+0pgasHMHUHIWexhoQocSDpry+D9fJtYlDQA7dAfGn/ezVAiEMvkMH1MY30y2qzruHDhl4iIwAyHnWf8nYF+ALOmYUd7V+clCDb01Ow=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=l4KoP7F1; arc=none smtp.client-ip=45.254.49.197
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789487242; c=relaxed/simple;
+	bh=zY4CZInE9nLBGNkxeghMCLlB9OdPxGnlo1CTH0VAYCk=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=qvw5ia5rT3UkHRte6Y3zrNyslOkVHSRz2Z2ASGP82fCtzm8eKwRSSWy9QgcSdb4yrUtvOdHOGITTH4VLkBT2uv2GQgTLuYfxD8aelUAvnz2e50J9rOWgWYCG0dRkD9Zhi9MO7jBDZ6zmXoS0YFUBnk1Bge1mjAHPj0vRyULXu1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Y79Px71l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="l4KoP7F1"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4ddda0bb6;
-	Tue, 15 Sep 2026 23:38:57 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	bruce.w.allan@intel.com,
-	jgarzik@redhat.com,
-	intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	aleksandr.loktionov@intel.com,
-	runyu.xiao@seu.edu.cn,
-	jianhao.xu@seu.edu.cn
-Subject: [PATCH net v2] e1000e: roll back registered MSI-X IRQs on failure
-Date: Tue, 15 Sep 2026 23:38:50 +0800
-Message-Id: <20260915153850.1704903-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Y79Px71l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D5531F00893;
+	Tue, 15 Sep 2026 15:47:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789487237;
+	bh=cJVzqwsaXl7vbHKq/ephxVNEzhNEsZjIGYsDCEghqJc=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc;
+	b=Y79Px71lo3t8omhG8TiAqRvEkdxZFuVL99AWyBrTJdDBbp92DJK/Eu3RxjcalLb1l
+	 CpgfENCvqxgvfJw/eZ3UtLHRpOSsSExou6kn1paL+Lq0UMxrH2314kHkkqOj7touSQ
+	 2+qRH4iwWt4LHORD0Hf6FphARDN83B9+9+OKsjEvjLnQdaNfHYVSwnYR7gtynMYh7d
+	 vHbOO3Gnt13lJOJ19UO+s1LWArIK6tsXImnydiAxbzjqpLG0Y/ILsLEi54oeRnXadI
+	 bgSy1jB9BPWlMXmoZ8reqA73bRBiXgWqMQyMOXDFv20Kv57JNdBMzOea2Cua9C9WEz
+	 2VVbHVX+km+/A==
+From: Benjamin Tissoires <bentiss@kernel.org>
+Date: Tue, 15 Sep 2026 17:46:57 +0200
+Subject: [PATCH 1/2] HID: bpf: cast size to ssize_t when checking
+ hid_bpf_hw_request
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0a5b8aa0b03a1kunmde9de9ca2e1844
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlCQhpCVkkaSxgaSkpPGUweH1YeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=l4KoP7F1ccZ19J9s9emNvOtdcSGqFZ0nySjWd4Axv+n8q/+epu5SUdlj8eLSOMI9y0H2LLDeIb0TvP1+GT4MwrN0lw5krh9nTY+TvHkTM/6AxeKqXcolZNN/PiGr+kPsc6FJUEKeXz0S8pDBQP5/tKrUMD4DcdnA+nnEMB9fbWo=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=rmJRg/Am0hi7AntLZKSZ2ty+PuBbNEcVd9oFLNxQpA0=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-wip-bpf-signed_size-v1-1-6bc8f3d09f5b@kernel.org>
+References: <20260915-wip-bpf-signed_size-v1-0-6bc8f3d09f5b@kernel.org>
+In-Reply-To: <20260915-wip-bpf-signed_size-v1-0-6bc8f3d09f5b@kernel.org>
+To: Jiri Kosina <jikos@kernel.org>, Shuah Khan <shuah@kernel.org>
+Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-kselftest@vger.kernel.org, Benjamin Tissoires <bentiss@kernel.org>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789487234; l=1438;
+ i=bentiss@kernel.org; s=20230215; h=from:subject:message-id;
+ bh=zY4CZInE9nLBGNkxeghMCLlB9OdPxGnlo1CTH0VAYCk=;
+ b=pAJRBdsTq3rYaU9G3i6YPDYntJCSwF8MujODJ6FvlWbaYWHycuQNReb4yWoY9LqzrtiQ2t/4H
+ 8qdufqfnPFiBpfcOn7PIER7zMrf7OXf3muwMROzq7y5tqLB6n5mX21g
+X-Developer-Key: i=bentiss@kernel.org; a=ed25519;
+ pk=7D1DyAVh6ajCkuUTudt/chMuXWIJHlv2qCsRkIizvFw=
 
-e1000_request_msix() requests the RX, TX, and other-cause interrupt
-handlers sequentially. If a later request_irq() fails, the function
-returns without releasing handlers that were registered earlier. The
-caller then disables MSI-X and falls back to MSI or legacy interrupts,
-leaving those handlers registered against disabled MSI-X vectors.
+As reported by Sashiko:
+If a transport driver encounters a hardware error and returns a negative
+error code such as -EPIPE, ret is implicitly promoted to size_t when
+compared against size. This causes the negative error code to evaluate
+as a large positive number, making the (ret > size) condition true.
 
-Free all handlers registered before the failing request in reverse order
-before returning the error. The failed vector is not freed, and the
-existing fallback path can then disable MSI-X without retaining stale
-handlers.
+This silently converts the hardware error into a success return value
+and copies the unmodified buffer back, which could leave BPF programs
+operating on uninitialized or stale data.
 
-This can be reproduced with a QEMU e1000e device and a kernel built with
-CONFIG_E1000E=y, CONFIG_FAULT_INJECTION=y, CONFIG_FAILSLAB=y,
-CONFIG_FAULT_INJECTION_DEBUG_FS=y,
-CONFIG_FAULT_INJECTION_STACKTRACE_FILTER=y, and CONFIG_KALLSYMS_ALL=y.
-Start QEMU with an e1000e device, for example using the
--device e1000e option, then run the following commands as root inside
-the guest. Replace <e1000e-iface> with the actual interface name, such
-as enp0s3:
+Fix this by casting size into ssize_t to return the actual negative
+error code.
 
-    mount -t debugfs none /sys/kernel/debug
-    ip link set <e1000e-iface> down
-    failslab=/sys/kernel/debug/failslab
-    req=$(awk '$3 == "request_threaded_irq" { print $1; exit }' \
-        /proc/kallsyms)
-    req_end=$(printf '%x' $((0x$req + 0x2000)))
-    echo N > "$failslab/ignore-gfp-wait"
-    echo 0 > "$failslab/probability"
-    echo 0 > "$failslab/interval"
-    echo 0 > "$failslab/times"
-    echo 32 > "$failslab/stacktrace-depth"
-    echo "0x$req" > "$failslab/require-start"
-    echo "0x$req_end" > "$failslab/require-end"
-    echo 3 > "$failslab/interval"
-    echo 1 > "$failslab/times"
-    echo 100 > "$failslab/probability"
-    echo 2 > "$failslab/verbose"
-    ip link set <e1000e-iface> up
-    dmesg | grep -E 'remove_proc_entry|WARNING: fs/proc/generic.c'
-
-The third qualifying allocation in request_threaded_irq() then fails,
-after the RX and TX handlers have been installed. On an unfixed kernel,
-the last command reports a warning such as:
-
-    remove_proc_entry: removing non-empty directory 'irq/<n>'
-    WARNING: fs/proc/generic.c:<line> at remove_proc_entry
-
-The fixed kernel reaches the MSI or legacy interrupt fallback without
-this warning. The failure is deliberately injected to exercise the
-error path; it does not claim that a third request_irq() failure occurs
-spontaneously during normal operation.
-
-Fixes: 4662e82b2cb4 ("e1000e: add support for new 82574L part")
+Link: https://lore.kernel.org/all/20260904130354.A79471F00A3D@smtp.kernel.org/
+Fixes: 2b658c1c442e ("HID: bpf: prevent buffer overflow in hid_hw_request")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM Codex
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-
+Signed-off-by: Benjamin Tissoires <bentiss@kernel.org>
 ---
-v2:
-- Add exact QEMU/failslab reproduction steps and the expected warning.
----
- drivers/net/ethernet/intel/e1000e/netdev.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ drivers/hid/bpf/hid_bpf_dispatch.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
-index 844f31ab37ad4..f55aec340342b 100644
---- a/drivers/net/ethernet/intel/e1000e/netdev.c
-+++ b/drivers/net/ethernet/intel/e1000e/netdev.c
-@@ -2139,7 +2139,7 @@ static int e1000_request_msix(struct e1000_adapter *adapter)
- 			  e1000_intr_msix_tx, 0, adapter->tx_ring->name,
- 			  netdev);
- 	if (err)
--		return err;
-+		goto err_irq;
- 	adapter->tx_ring->itr_register = adapter->hw.hw_addr +
- 	    E1000_EITR_82574(vector);
- 	adapter->tx_ring->itr_val = adapter->itr;
-@@ -2148,11 +2148,16 @@ static int e1000_request_msix(struct e1000_adapter *adapter)
- 	err = request_irq(adapter->msix_entries[vector].vector,
- 			  e1000_msix_other, 0, netdev->name, netdev);
- 	if (err)
--		return err;
-+		goto err_irq;
+diff --git a/drivers/hid/bpf/hid_bpf_dispatch.c b/drivers/hid/bpf/hid_bpf_dispatch.c
+index b1de1dd0f21d..ece2c7c45ea6 100644
+--- a/drivers/hid/bpf/hid_bpf_dispatch.c
++++ b/drivers/hid/bpf/hid_bpf_dispatch.c
+@@ -453,7 +453,7 @@ hid_bpf_hw_request(struct hid_bpf_ctx *ctx, __u8 *buf, size_t buf__sz,
+ 					      (u64)(long)ctx,
+ 					      true); /* prevent infinite recursions */
  
- 	e1000_configure_msix(adapter);
- 
- 	return 0;
-+
-+err_irq:
-+	while (vector)
-+		free_irq(adapter->msix_entries[--vector].vector, netdev);
-+	return err;
- }
- 
- /**
+-	if (ret > size)
++	if (ret > (ssize_t)size)
+ 		ret = size;
+ 	if (ret > 0)
+ 		memcpy(buf, dma_data, ret);
+
 -- 
-2.34.1
+2.55.0
 
