@@ -1,79 +1,39 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F951477E31
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 09:51:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+Received: from azure-sdnproxy.icoremail.net (azure-sdnproxy.icoremail.net [13.75.44.102])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 36329472084;
+	Tue, 15 Sep 2026 09:52:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.75.44.102
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789465906; cv=none; b=WcYFjXVfd+0Gu7baLKkwG+KSIdi1W2tVvGV0/65BLnHphFj5nb0ePDCGDSbYWCRAkwKFpjuPJQxr2Tc8MbkPVbqXPa0blPBOFRfF9jM5NL9APDjUZLNn3MZz1VE/zIBFFTvJsqQjDVxw3/VnhPY0kPFRgo0TKbIQ1fQWqIv93x8=
+	t=1789465950; cv=none; b=DkPDhjCn85wLuX/6g3ag6yQZhy9o3pXL22DHdcmKNR9c5KjFuDS6kVogtp7/JBRi21G7zI+EATTWrDbt+IJBPGY6RIrwAiHiD8j7qUngsmykhXXgMtsnwT03dEQzVYSSLoN2Vru5C1X3Pea8f92J/evIW0QPunVJojEILH9uWEw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789465906; c=relaxed/simple;
-	bh=SjnPd3F4xaIZYIfBs7KNh1DDK816y1zDiNw5ZDtQAPk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jnN+Kc8DUig1MNdoQ6tkyguGFWl3XMooJEIx8Hukv5+C+SUInXyMhisSsUCxR5XQzTAUNrOdBODoLEOmXr3bkRuJlz8iHdi9+HAJYeVjtLzleyO+Eic8ds3mQCIB4+qyT4ZSPyA9e7LDsmLxg+tFiUgBb+FB+W77nwwA6mj4SkM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FeNI27/T; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FeNI27/T"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1e1b51234so197351a12.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 02:51:44 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789465904; x=1790070704; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=zczTvM2RkZrNADCe5tPZcKwAKp4jsVncoMtfbJjwrvY=;
-        b=FeNI27/TAYWdUo/oMlN1jpikw1GJKysuU7I6dQ0T4qes5BycbsveuVYZ7XKodMuhOi
-         +uZWpKhVIw7fO+uTp31bU7EUCQPV6l7cgGdYK+E6YiyvGeWGkNY0VhY5poWSm1HvjlLw
-         AY+F8dSGOJ+hXBVKT6pT83rzgaVfpm4QTErlilhJaUcKuE9yDTOOjrxOwSe+Zmx9A6CT
-         oS8xMhApQreYSOyLrLAlzRoP4s9v5e0S9bc0xApqbQ2N40pkEXLZl8RVEqvLKvH/+t7K
-         iazTiqhxYyRPmDPAOTamrTPTBZkr8pnnkgUyAM3gKmfHcY4G3GskgY0zBwhdyDDSLlt3
-         e1Sw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789465904; x=1790070704;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=zczTvM2RkZrNADCe5tPZcKwAKp4jsVncoMtfbJjwrvY=;
-        b=YUmbwrRImUElpj3U6IWLI98CEQSrip0UdHbHP1iWWig7XbO+5TyQ358ifwV9BEhkfV
-         8956tu4NYGx5y/3jx+Ub3SbAdqTgt6J0vatbcvxG48eYh0sZEYy8NhRm2X3EApoRGqfE
-         buWjMVF/V5Tz8EqX6rfJLVc1I5yb7Rjl1zO8i2HEun/PYl3dXMf2mmM1zsTN1hWTfbRZ
-         ByS1MN69c4xOzRV6ImOxDCSWtUpnN024qVMuEZUQN2JPXX8V5DIMjZVrH3saLkrGjirf
-         +sD5yGiQHpk9TWKdAqg1sh14Khvgwh7H7bFQUSOz6tiQbpZ046tZsMDasi35in+Gmz4v
-         q4XA==
-X-Forwarded-Encrypted: i=1; AKwUvBzZiVmzaHGDMo2b564hHBdhGxycCUAkAX8p6mHzR7RDAGLSfxCyQiRfqaUhmjEowMijLhvfs2A=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJVHLJwwc9sQ4iHOFd6HaIQKKKV2UC4qm92aNde0oakVI9Ero7
-	9Uq4hwVD6MNRS1oKvzNqgy5+HFSXFZ6L3ttwAF+PKzqWWhaang/RllEH
-X-Gm-Gg: AYBFou3GPi8Vzc8oHXfTC7jbURm8lcZHK50uDUoyCGL90rFgvB++W47HVtTil7Nzr9l
-	8MKR67R5AdMX1uNWQE7Wqz9I6QHBjTl/LxB0DNCQO4+eBLuj+ULcHozERVWNxsFUrH57m0t8Z55
-	zPpaVEZ/w9pcCaxAZVOd461qwLtIyISjb2u4nicQypECI+/BiH2TI1H1JVlCOXk7E/FrWv6Y8Kv
-	2OyKeIw7BE80vX8QVSO2xZ7OVbm57uJKQk69T6jB29ie2zk34PfR4cUTqo7fpPi5LmX9z7Ijqr/
-	p3LmeNvfHZJ2XffNMN0OyBpH4Gb2ebWc9xyzntHvGbj8ALoB78LX7vTuIGUvNYuDIWzVRWBhZT5
-	5vzezSxikcQqjJsOA2tP6nPJ0555HfJAmHBltmNoeEbzGyDtLezwZXJM2h3ErMiVZDz0SaM1O9T
-	H0YaPP6ZEnHLICQGq08AuixqBuodvwrdsz2Y5vDGrsLFP6+ZyPDDyIwpYmLRcRsTx+z6nqCJ19b
-	q+ocjhTqExzfqgKd+IpvVAO7UbEy4zJWKyhNlh1
-X-Received: by 2002:a17:90b:440c:b0:381:bcfb:e710 with SMTP id 98e67ed59e1d1-39dec137c0emr9047736a91.3.1789465904285;
-        Tue, 15 Sep 2026 02:51:44 -0700 (PDT)
-Received: from localhost.localdomain ([189.1.242.96])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfb8c09cesm1438633a91.1.2026.09.15.02.51.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 02:51:43 -0700 (PDT)
-From: Yiqi Sun <sunyiqixm@gmail.com>
-To: lucien.xin@gmail.com
-Cc: marcelo.leitner@gmail.com,
-	davem@davemloft.net,
-	edumazet@google.com,
-	horms@kernel.org,
-	kuba@kernel.org,
+	s=arc-20240116; t=1789465950; c=relaxed/simple;
+	bh=MIwagPDqD2vprIMEyWjeh2E4J/x0/0hIbqlHGtdB9Yc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version:Content-Type; b=N/bKbxG/JFJjU4T/4//EpkHRNzAyxRzIYWoG7a3dk7bWkvjhDHOhKR5AC6kjGA0omIJ1M02Zlm7Y/F/pj7tpCef3hOKrdSN0n4G4+fl8Ah1EUX5ww9P0DseO5uOPm33Gw13smYVse1WlHAEKGAlyn8FCkoENTzfCFI3UlbbHE+w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=13.75.44.102
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wC3oH5GFalqnIYWAQ--.1237S3;
+	Tue, 15 Sep 2026 17:52:07 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app1 (Coremail) with SMTP id yy_KCgAHnKZEFalqmZWCBA--.58449S2;
+	Tue, 15 Sep 2026 17:52:04 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: mripard@kernel.org
+Cc: dave.stevenson@raspberrypi.com,
+	mcanal@igalia.com,
+	kernel-list@raspberrypi.com,
+	maarten.lankhorst@linux.intel.com,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	eric@anholt.net,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	linux-sctp@vger.kernel.org,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
 	stable@vger.kernel.org,
-	sunyiqixm@hotmai.com,
-	Yiqi Sun <sunyiqixm@gmail.com>
-Subject: [PATCH v3 net] sctp: avoid livelock while updating retransmit path
-Date: Tue, 15 Sep 2026 17:50:17 +0800
-Message-Id: <20260915095017.942213-1-sunyiqixm@gmail.com>
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH v2] drm/vc4: drain the hangcheck timer and works on V3D unbind
+Date: Tue, 15 Sep 2026 09:51:03 +0000
+Message-Id: <20260915095103.156007-1-fanwu01@zju.edu.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -81,66 +41,92 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:yy_KCgAHnKZEFalqmZWCBA--.58449S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?GZTLGAXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfnVCjTgEH9dVomQuWcozCBBGUbBEboUFAL4E/QfBxwz1UIjDBc2PaDGv0BxEDX8Pd2V7p
+	Ht855YS2FQHSRv2QNCGp9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxWF4UCw1fCFWkGw4UuF1kXrc_yoW5Xr4kpF
+	s8CayYgrZ5JFW5twnrXF1xZF95Ja1rtFy7Cry29w43Crn3AryrtF90ka4YgFZrJaykWr43
+	XFs7t3909FyrZ3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JV
+	WxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-sctp_assoc_update_retran_path() can loop forever when every remaining
-transport, including retran_path, is SCTP_UNCONFIRMED: the state check
-runs before the wraparound test, so the loop cannot observe that it has
-completed a full pass.
+Nothing stops the hangcheck timer that submitted jobs arm, or the
+job_done_work that the render-done interrupt queues, at teardown:
+vc4_irq_disable() cancels only overflow_mem_work, and vc4_gem_destroy()
+runs from the drm-managed release, after vc4_v3d_unbind() has already
+uninstalled the V3D interrupt and cleared vc4->v3d. A timer still armed
+by then reads V3D registers through the NULL vc4->v3d pointer, and the
+late callbacks run on the vc4_dev embedding them after it has been
+freed.
 
-Fix this by considering a transport only when it is not UNCONFIRMED,
-then checking whether the walk has returned to retran_path. This makes
-the full-pass termination independent of the transport state while
-preserving the existing fallback selection semantics.
+Drain them in vc4_v3d_unbind(): shut the timer down and cancel
+reset_work before the interrupt is taken down, because its
+vc4_irq_reset() re-enables it, then flush job_done_work so that
+completions queued at teardown still release their jobs.
 
-Also restore the NULL guard around the retran_path assignment. In the
-all-UNCONFIRMED case there is no eligible replacement transport, and
-installing NULL would leave later retransmit-path users and the debug
-print with a NULL path.
+This issue was found by an in-house static analysis tool.
 
-Fixes: 4c47af4d5eb2 ("net: sctp: rework multihoming retransmission path selection to rfc4960")
-Signed-off-by: Yiqi Sun <sunyiqixm@gmail.com>
+Fixes: d5b1a78a772f ("drm/vc4: Add support for drawing 3D frames.")
+Cc: stable@vger.kernel.org # 6.2+
+Link: https://lore.kernel.org/r/20260909053509.657074-1-fanwu01@zju.edu.cn
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
-Changes in v3:
-- Post as a new, independent thread.
-- Drop quoted review discussion and the reproducer attachment claim from
-  the commit message.
-- Link to v2: https://lore.kernel.org/r/20260902025206.phbpyxmpf4zrtdpx@sunyiqi-llm-kernel/
----
- net/sctp/associola.c | 15 ++++++++-------
- 1 file changed, 8 insertions(+), 7 deletions(-)
+Changes in v2 (Maíra Canal, Sashiko review):
 
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index c0512c827d0f..4521be3bd85a 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1289,18 +1289,19 @@ void sctp_assoc_update_retran_path(struct sctp_association *asoc)
- 		/* Manually skip the head element. */
- 		if (&trans->transports == &asoc->peer.transport_addr_list)
- 			continue;
--		if (trans->state == SCTP_UNCONFIRMED)
--			continue;
--		trans_next = sctp_trans_elect_best(trans, trans_next);
--		/* Active is good enough for immediate return. */
--		if (trans_next->state == SCTP_ACTIVE)
--			break;
-+		if (trans->state != SCTP_UNCONFIRMED) {
-+			trans_next = sctp_trans_elect_best(trans, trans_next);
-+			/* Active is good enough for immediate return. */
-+			if (trans_next->state == SCTP_ACTIVE)
-+				break;
-+		}
- 		/* We've reached the end, time to update path. */
- 		if (trans == asoc->peer.retran_path)
- 			break;
- 	}
+- Drop the VC4_GEN_4 guards: vc4_v3d_unbind() only runs on GEN4.
+- State why reset_work must stop before the interrupt is taken down
+  instead of describing the calls.
+- Flush job_done_work instead of cancelling it, so completions queued
+  at teardown still release their jobs.
+- Relax the stable floor to 6.2+ now that vc4->gen is not referenced.
+ drivers/gpu/drm/vc4/vc4_v3d.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+diff --git a/drivers/gpu/drm/vc4/vc4_v3d.c b/drivers/gpu/drm/vc4/vc4_v3d.c
+index f32410420d3e..3f9f43074122 100644
+--- a/drivers/gpu/drm/vc4/vc4_v3d.c
++++ b/drivers/gpu/drm/vc4/vc4_v3d.c
+@@ -9,6 +9,7 @@
+ #include <linux/component.h>
+ #include <linux/platform_device.h>
+ #include <linux/pm_runtime.h>
++#include <linux/timer.h>
  
--	asoc->peer.retran_path = trans_next;
-+	if (trans_next)
-+		asoc->peer.retran_path = trans_next;
+ #include <drm/drm_print.h>
  
- 	pr_debug("%s: association:%p updated new path to addr:%pISpc\n",
- 		 __func__, asoc, &asoc->peer.retran_path->ipaddr.sa);
--- 
-2.34.1
+@@ -497,8 +498,15 @@ static void vc4_v3d_unbind(struct device *dev, struct device *master,
+ 	struct drm_device *drm = data;
+ 	struct vc4_dev *vc4 = to_vc4_dev(drm);
+ 
++	/* A straggler vc4_irq_reset() re-enables the interrupt. */
++	timer_shutdown_sync(&vc4->hangcheck.timer);
++	cancel_work_sync(&vc4->hangcheck.reset_work);
++
+ 	vc4_irq_uninstall(drm);
+ 
++	/* Flush rather than cancel, so queued completions release their jobs. */
++	flush_work(&vc4->job_done_work);
++
+ 	/* Disable the binner's overflow memory address, so the next
+ 	 * driver probe (if any) doesn't try to reuse our old
+ 	 * allocation.
 
