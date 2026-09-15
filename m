@@ -1,126 +1,95 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3371395240
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:18:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1D1473C65;
+	Tue, 15 Sep 2026 10:22:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467486; cv=none; b=pQUPweztopA/U/F5iLWLeSpo4Eo95UW/QP412kNyrJVa6Z31UF5kFkpzh1GYAoPYLf6zs5UHfydLVWFotrTZIzTrkN5I1CPf+IZiuRbUchXtCVTkbTE6nb9/udfNuoVje62ZLf7lCSLBcIr47k8txGRTvybVYNtO5ipqmcsZ5B8=
+	t=1789467759; cv=none; b=n8z45+9L/e8qJyTPciOTlMdcRlmxOSl4YoW4G1B5f1mfJlzchmX7iJ5kh30js6jC+iFIa9W7cVAWCqjY5JhEruQY70is1sueYxIfa14G21f36LV8mKOO5p9xCNuDKpt52CTvcz4r+YCR08+QOrCknE/evKOzXnD8lnZUmM9gq8k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467486; c=relaxed/simple;
-	bh=PU0+/z0noS4XEBYFsQsHfYbK4ZLCfrbXdbuDxbnay4E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OO8bbu8oTz6Jxi1B2PJs6UboBh9khQZK3uGOaG1KkJUVdCm2HHYqPW9wRhjB7FpMAkpYXEhj37HYR3/Es29yNvsRJAUneAP/EIBemZPbNQ9MSf4mcJDlP+ggOmrEvz/pbqppDcwynhUCJE2wFRFBa4fMzaYHwjbPFhe9nxF89II=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QnXEkvFJ; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789467759; c=relaxed/simple;
+	bh=hiV/G4OIpnMoj2ZHNIQVD88dPVpXmhWYk6cNSZeoQ5Y=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=PeUefo6FArANkaaVniKIqerP8lVvCPT8VvI85hVPZPjSRvVkC/Oj/2powO0dVDqm+RpK/pOpTXQiiZU/CeCXBiZUXbgbuS1Ba+N+0h2+fqfP5JbrwpLYPdjN3neTJEoeLHD7Yce1qN89WN91RDzZbUYJ+VzfKfdSXFGTi/JAmFo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZfIkvoHu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QnXEkvFJ"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ee1f38so32943815ad.2
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 03:18:04 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789467484; x=1790072284; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ZlgVVcfg+Lh0mL+x/J2QZQKzTvoTZ7CiYthVXrC/8n4=;
-        b=QnXEkvFJbvESuvcvqpdQCbm6qcG5rLvn8f82RpyQ7bmr6jLlwjT91/yMDSLhXnAHsW
-         aj+AEdebMowTXyj+eiaAZcTg5XcHX0UxePBPV74Fnck1fYbA13kimg4daieD6r7NlTSd
-         BgpFZqJ32I39MXgTpvgu+TtG1wOiNNN3EdOwJD11e+C5j3APSjXonyWJSyTKYWb9AZ+S
-         3QLGODJyPrvcDS+Vc9qdLTzZ0FnAxkX4owLhYrzL7Y0MfaR2MPpq+1ULC5AlvcHsseR4
-         yJg0mfZNLQpbztRdi29uWoMC8Ms6xbtZmCoq6d0woExj1P+K+AHmYQq0ComFwM/9GcM5
-         nBjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789467484; x=1790072284;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ZlgVVcfg+Lh0mL+x/J2QZQKzTvoTZ7CiYthVXrC/8n4=;
-        b=AywvB8Gou0cNfhF6l4fqZUX2S5iz0chB3jnPzGTwYkXlitex3sBLdFZESQQWW5i8Cc
-         Woh4tv3FzBHVNfvTpQHc8w2yRboy0/x3w1l+4ldrXOurqY78BK5oFJx5DEIHRIXjrupr
-         jb8TFlMiWv5tl8tS3XUrXDl4Gf6jwFcEk8Yt7t1U43Lhu+4u5oUSZMHNKSnUxnhN0iEf
-         ZOM8i3015rxbJDnVUnAqEHEIFO+dKE0P/I5jB5bRydRgIgXxLTxzSfTBrykhoigP4a+V
-         4e7qOTxi4wne+sXvVAUHtT1dGhxIYfGWaddJmk+YSl4nz6HGoThwSN9RYTHj+CTV8PT2
-         72wA==
-X-Forwarded-Encrypted: i=1; AKwUvBzrcVFbqvo5lIh6e0mGjZhq6M+50iGPUAQbtpT1o6OB48CcsWsuB/3hF/nOgocVIOrobqFEjM8=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgJGS4mSw6ASilEa6Norxeb/L7wf/eZTI+C4DozZKd3s3gR8N+
-	XnZGQZNXDcydByouVaUUc6N6Ud88eeIBE383q/14LCXc5wSA76SfqimYDSGOVv/a
-X-Gm-Gg: AYBFou2p9FG8PEJBOBqQjm8h84/NsPg0wYeMBPjQwHIq8syYMEDGcKEUMyczVxJRP1E
-	PtSxdgR2bnf2ZPXRWlJW9ZOg9qOlSmsLRApox72pmxBIqmcccLv8UchcbrHMgugEXGCfduOmDxb
-	SaTkZbbHXV4AwevAMy+uuL7La19Nan3C2e8N+Rn7AZOx+CNtJIxIJFdKnAYuybBPjhkHT2tPD5a
-	E4GTXIQSeqTN6jnfA5WKqJlzTw/nDTk5F+dy6hRFYsbfIeba5r4CD+vff7BEuVjuPbjMrbITA3Z
-	taoGviw1OJerdPWN+5Wnn5+HgDC6oy9zM5I3SHMTnKaqYN2MeYPLSda5RkWYhA78JDTqMq9gFBT
-	kqYH0LPgVrguMu1kymeIxibCZUgyD+hSAnzlTtDLeu1Og05xuiHn7EKzJCXEuii+E0Noac+cNB4
-	p5YLIkLZ5nrCtZX+wfjaHJoOPahSe3vV+vtwJv7kVo8kpO/RYvP+Y1Ll4=
-X-Received: by 2002:a17:902:e88c:b0:2d8:d4cc:be62 with SMTP id d9443c01a7336-2dd6c7129dbmr131186545ad.15.1789467483499;
-        Tue, 15 Sep 2026 03:18:03 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd44ad5d5bsm53441335ad.75.2026.09.15.03.18.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 03:18:03 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Benjamin Mugnier <benjamin.mugnier@foss.st.com>,
-	Sylvain Petinot <sylvain.petinot@foss.st.com>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: vd55g1: fix runtime PM cleanup on probe failure
-Date: Tue, 15 Sep 2026 18:17:53 +0800
-Message-ID: <20260915101753.2356900-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZfIkvoHu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D5D31F000FF;
+	Tue, 15 Sep 2026 10:22:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789467757;
+	bh=4wyAN/shpVet1S7FZt5snhxeSjOLcT30h3RcCDyECW8=;
+	h=From:Subject:Date:To:Cc;
+	b=ZfIkvoHuyoWfLphJF9Ux/OT4dkN+zFZQjaLlXaS7GZfJGOmGzf8lg8h+Y74WUt5/e
+	 /BiOGflsUMFI0uhczf1E+CDDNEGIpg2rwutvXVQIErFAYQXheRrIn4OsVfapPO/EFQ
+	 WAfh6gZSe10k4LqAeeZbC+VmbTj7mdl9Hac/TWj+QeSqOOxeiSOxH2zLnvOmRHt/PN
+	 cpE30FHNm/x+Em13Jvt760nDmFNjxbpiIQ/ntoccCY02TX5A3PNPXT/WuBEtn7odIJ
+	 /p1ejqDKWjRRK5WrmqLZF7f9snnNTXxYf1MpylBkFfcQCj6IkjV0KYuXfggss/vOIh
+	 d5xojTxLi9CIA==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH 0/6] coredump & signals: an impossible affair
+Date: Tue, 15 Sep 2026 12:22:15 +0200
+Message-Id: <20260915-work-coredump-fixes-v1-0-f354ca41780c@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/zWMSw7CMAwFr1J5jaO0EpByFcQiH4cGRFrZFJCq3
+ p2kiOXYb2YBIU4kcGoWYHolSWMu0O4a8IPNV8IUCkOnu4Pu2z2+R76jH5nC/Jgwpg8JUoi98UZ
+ HOhoo5sS0PYp4vvxYZncj/6ypunBWCB3b7Id6qlH1j6rNVXUC6/oFe3/HSqIAAAA=
+X-Change-ID: 20260915-work-coredump-fixes-edf98c80fe78
+To: Oleg Nesterov <oleg@redhat.com>, Jens Axboe <axboe@kernel.dk>, 
+ linux-fsdevel@vger.kernel.org
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
+ NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>, 
+ Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org, 
+ io-uring@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1431; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=hiV/G4OIpnMoj2ZHNIQVD88dPVpXmhWYk6cNSZeoQ5Y=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWStlMmI2DN5t9OqdXZvGF6dytFdOf3BmmtVlav9lepWN
+ n7Y2PHjVkcpC4MYF4OsmCKLQ7tJuNxynorNRpkaMHNYmUCGMHBxCsBENO4yMpwremp0rWHm9Fim
+ ry3/o27Z/L70YHK4ftcczW3PkudM2HyAkaHrn9zNuxfNMva9e8Mcdj2V3TZQIfnoEu2jE7jKGPJ
+ ZvzEBAA==
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-vd55g1_probe() takes a runtime PM reference with
-pm_runtime_get_noresume() and drops it with pm_runtime_put_autosuspend()
-before initializing and registering the V4L2 subdevice.
+Hey,
 
-If either of those later operations fails, the error path calls
-pm_runtime_put_noidle() again even though the runtime PM reference has
-already been released. The extra put has no matching get operation.
+I asked Chris (Mason) to look at some of the coredump code with kres and
+he found a couple of things. Some of them I had already found and fixed
+but there's some good stuff in here.
 
-The autosuspend request may also have suspended the device before the
-probe failure path is reached. In that case, unconditionally calling
-vd55g1_power_off() can disable the clock and regulators a second time.
+@Jens, please take a look whether the io_uring fix makes sense. That
+kres thing added some patches but I found them all not very good and so
+came up with other fixes mostly.
 
-Drop the unmatched pm_runtime_put_noidle(), only power off the sensor
-when it is not already runtime suspended, and set the runtime PM state
-to suspended afterwards. This also makes the probe failure cleanup
-consistent with the driver remove path.
+@Oleg, I'm unsure about the freezer and coredump interaction with cgroup
+v2 and specifically fixing it in signal_pending(). Maybe you have a
+clearer picture.
 
-This issue was found by manual code inspection.
+Other parts should be more straightforward (hopefully...).
 
-Fixes: e56616d7b23c ("media: i2c: Add driver for ST VD55G1 camera sensor")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- drivers/media/i2c/vd55g1.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Christian Brauner (6):
+      coredump: don't switch a dumper that has no files table
+      fork: refuse new threads while a coredump is in progress
+      coredump: hold RCU while releasing parked threads
+      signal: only SIGKILL interrupts a coredumping task
+      coredump: parse a snapshot of core_pattern
+      io-wq: order the exit bit against worker creation task work
 
-diff --git a/drivers/media/i2c/vd55g1.c b/drivers/media/i2c/vd55g1.c
-index 6f458f611f63..eb5a601cb22e 100644
---- a/drivers/media/i2c/vd55g1.c
-+++ b/drivers/media/i2c/vd55g1.c
-@@ -2055,9 +2055,10 @@ static int vd55g1_probe(struct i2c_client *client)
- 	vd55g1_subdev_cleanup(sensor);
- err_power_off:
- 	pm_runtime_disable(dev);
--	pm_runtime_put_noidle(dev);
-+	if (!pm_runtime_status_suspended(dev))
-+		vd55g1_power_off(dev);
-+	pm_runtime_set_suspended(dev);
- 	pm_runtime_dont_use_autosuspend(dev);
--	vd55g1_power_off(dev);
- 
- 	return ret;
- }
--- 
-2.43.0
+ fs/coredump.c                | 66 +++++++++++++++++++++++++++++---------------
+ include/linux/sched/signal.h | 17 ++++++++----
+ io_uring/io-wq.c             |  2 ++
+ kernel/fork.c                |  4 +--
+ 4 files changed, 58 insertions(+), 31 deletions(-)
+---
+base-commit: b813a7ec026ca59a444ba0a36c2e17ac823eeed0
+change-id: 20260915-work-coredump-fixes-edf98c80fe78
 
