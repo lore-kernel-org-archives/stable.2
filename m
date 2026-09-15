@@ -1,100 +1,87 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ECFD3AFCF4;
-	Tue, 15 Sep 2026 20:18:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 622ED4D2EDE;
+	Tue, 15 Sep 2026 20:37:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789503517; cv=none; b=alxM8FZZeJct0KhInZ3fF10kc3jTV0gJYYLjElgOO33gLj5NwF96tMLUXsBa0pt8elSGqb+kUbZ9Ddxr0xvuM45/t5iR1/50T2RT3RnM0Gwaw5ncMkB0S8EzdEArMh7nOpKrnDTbDCn6is5xQCZ4zvyzvbK9w9gZpAl3F5rU8ig=
+	t=1789504670; cv=none; b=HO/GvCKdm8nkHbobMnhiAV/CoEnOghAGhlFaUXjFkkBPZNuNoiGp3uOqpCfO264s4YnCb5nrHM0Tc4YK9/Or+c8aIQMeSkwCanPd7bwS1YIKRXuN1zS3H9UfOKeoI4rJHNVZrRIudgeqr2E/U4m4rCkqhpO7GI3fozKuVPhMsh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789503517; c=relaxed/simple;
-	bh=bT83IhvW7mzc/XCol+KPyV/FlnDbWyV/3zsGJkP23MU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Y4VT/7tA3WWb5pISvM0b0xVEd8jGOH+U/TE7t2/3PT0GuoTr3ybN+fqkgwytQBfyV3I+uizK0z0clnSdVNwdcg/GxkiFMghAgkBcD02D11B65H5PQ+XBU8lqBJayM1JqP7afwVux47ee52L64qXIizpDkwytTkShV/DK4HQFfOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=VVrKsw35; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789504670; c=relaxed/simple;
+	bh=TXJmlCK0EV2Vvj7yWZlMK7Wz0K2fRLgslx3tBBCih18=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=DW0lehODyl9kFulZ+TrGXtgPG//BmCuT9wUsiiyL9zSltpdx3o1gKCpsPBWRGQEQxiNqZb+B9eiakV8s2L7Iu9vwVtkkN0TONfEX8EYoPobSKo/kONvs9SPYgoYJ/5tgkZS8LINQeKi+/TkS1KfDMnm6wm0mOaaiZ8onKvILlRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EVRZg1om; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="VVrKsw35"
-Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id DEE2520474;
-	Tue, 15 Sep 2026 22:18:31 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789503512;
-	bh=FoG1DUT/vpsn9oqiqrGQqvrS+j2edBODyPxEbXKHOhk=; h=From:To:Subject;
-	b=VVrKsw35Tg7HaoR68IDepSPGGq4hs2zjN9MUzNMyQAne/DAM5z302kkV50ilgDn1d
-	 Kp1Hi2u12Tu2uPpJ/P2m0AR3eQgCfpSxGNI63OCeqApg+v+/GNNUfbjQy18KqjxnTU
-	 eFcmTuL63jG4pPTUagKm3hltwmPpoQHBGGlBs9vWR2kxz9lJaYKBK+4t8DISlxLCXG
-	 yrz6Xzkgs1bN4zbby0/ttwGZer/xZKYYqLvtqMUNuTEa5n4x7Hskt7RNjncHpGw417
-	 4P85ohtN0jYRhYIsb0UcoqVD9LN42RtzP3Bophpd3R5jC1IG5CcVVPiuKlY9PnuMUQ
-	 9oWTHMyzCdDJg==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1] arm64: dts: freescale: imx95-aquila: fix gpio-line-names padding
-Date: Tue, 15 Sep 2026 22:18:24 +0200
-Message-ID: <20260915201825.24363-1-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EVRZg1om"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4E171F000FF;
+	Tue, 15 Sep 2026 20:37:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789504664;
+	bh=kiNjMCC01tqU55p+3+10vGf6AnbxDnpzENdDXyoyans=;
+	h=From:Subject:Date:To:Cc;
+	b=EVRZg1om6kKHZC+Y2f2t4NXA/LZKlku7rZbd+qpQN5tKhVCjD/1njAr9goXyv32h2
+	 uejQq4ZcqT1WfsnVGM3UdYMAXyVPYKZNdUOZlWKKQumeRrGIHmmPO4l0YKsnL6oP74
+	 DYsfSevcLwq9V/5spFkPFlAQtv5nSavha03VGP4idNGoFe3fnk4VrlccrirsZ74Zmn
+	 imBHkN2WpzYn8ew3R79msSuY1GU9OFEoog97SL7/HZnPMb+BcProvIP7TuHcx9P1sr
+	 npsO3mB6Z3Y+kxUGlqfdl99svvyAgCi5/gQeL9RlpLVIPUv6W/iajar+kt8zblV5cH
+	 kyhkQIUwYHaaw==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Subject: [PATCH net 0/2] mptcp: misc fixes for v7.3-rc4
+Date: Tue, 15 Sep 2026 22:37:31 +0200
+Message-Id: <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-0-a257797dd5d0@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMSw7CMAwFr1J5jaX0G8pVKhbUdYuRGqI4IKSqd
+ 8fQ5Ty9mQ2Uk7DCpdgg8VtUnsGgPBVA91tYGGUyhspVnevLFgNnXGOmiKso4SwfVvRYY6IG2/o
+ 89pNnco0HS8TE/4MVBjATrseor/HBlH9h2Pcv8qs06IUAAAA=
+X-Change-ID: 20260915-net-mptcp-misc-fixes-7-3-rc4-538b9d7ec047
+To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
+ "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+ Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+ Simon Horman <horms@kernel.org>
+Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
+ "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org, 
+ Xinyang Ge <xinyang@anthropic.com>, 
+ Shardul Bankar <shardul.b@mpiricsoftware.com>
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=841; i=matttbe@kernel.org;
+ h=from:subject:message-id; bh=TXJmlCK0EV2Vvj7yWZlMK7Wz0K2fRLgslx3tBBCih18=;
+ b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJWrpnCmWUdHjr/VMH8p3/ERB5s/frjdhZD7mrXZT+jm
+ Dt/e3916ihlYRDjYpAVU2SRbovMn/m8irfEy88CZg4rE8gQBi5OAZhIqw0jw8u7D0r/zbxq9/2f
+ ypqomOs15k2nl69U+7g1YbNrdohXBSPDL+ZVpZ9+5eT4vPy+pPwv58klMrNPh73w0raddHLGAot
+ j2qwA
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
+ fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+Here are two unrelated fixes:
 
-som_gpio_expander_1's gpio-line-names use "AQUILA_C1".."AQUILA_C4"
-instead of the zero-padded "AQUILA_C01".."AQUILA_C04" used by every
-other Cxx entry in this file and by k3-am69-aquila.dtsi, a different
-board implementing the same Aquila Family Specification. The
-zero-padded form is the official pin naming per the Aquila Family
-Specification and the Aquila iMX95 module datasheet.
+- Patch 1: avoid unneeded actions on subflow reset. A fix for another
+  fix introduced in v6.12 and targeting a commit from v5.7.
 
-GPIO line names are meant to be stable across the whole Aquila
-family, so userspace GPIO tooling that looks up a line by name works
-the same on any Aquila SoM.
+- Patch 2: close a possible race when scheduling a closing path. A fix
+  for another fix introduced in v6.0 and targeting v5.10.
 
-Fixes: d5c082ba23db ("arm64: dts: freescale: add Aquila iMX95 support")
-Cc: stable@vger.kernel.org
-Link: https://docs.toradex.com/116801-aquila_family_specification.pdf
-Link: https://docs.toradex.com/117671-aquila_imx95_datasheet.pdf
-Assisted-by: LLM
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- arch/arm64/boot/dts/freescale/imx95-aquila.dtsi | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+Paolo Abeni (2):
+      mptcp: avoid unneeded actions on subflow reset
+      mptcp: close race between scheduler and state change
 
-diff --git a/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi b/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
-index f930965cb341..c5f4cf0541f2 100644
---- a/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx95-aquila.dtsi
-@@ -413,10 +413,10 @@ som_gpio_expander_1: gpio@21 {
- 		#gpio-cells = <2>;
- 		gpio-controller;
- 		gpio-line-names =
--			"AQUILA_C1", /* 0 */
--			"AQUILA_C2",
--			"AQUILA_C3",
--			"AQUILA_C4",
-+			"AQUILA_C01", /* 0 */
-+			"AQUILA_C02",
-+			"AQUILA_C03",
-+			"AQUILA_C04",
- 			"AQUILA_C36",
- 			"AQUILA_B74",
- 			"AQUILA_B75",
--- 
-2.47.3
+ net/mptcp/protocol.c | 4 +++-
+ net/mptcp/protocol.h | 3 ++-
+ net/mptcp/subflow.c  | 8 ++++++++
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+---
+base-commit: 83a945a529d6e002dd7339c532288a931f463dba
+change-id: 20260915-net-mptcp-misc-fixes-7-3-rc4-538b9d7ec047
+
+Best regards,
+--  
+Matthieu Baerts (NGI0) <matttbe@kernel.org>
 
