@@ -1,61 +1,61 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B12A40BCDF
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 16:01:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88A983CEBA7
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 16:01:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789488068; cv=none; b=iRvl5fPJU+8MPG+k1MwsadRWgZRSvYbQnZHILeaDeiqh3vfjLMe93RRsih+yjw5XH1Cj48qnrZxyRNf9oh66nBMb4CfC0arafQhw1+oayTi8zVOh2oLMVfriIArhcZKKxTX6GzQ7+qvHAsKa3w8sj8LN/3xv0la2Gh5x65FXdVo=
+	t=1789488096; cv=none; b=sxk28dhlWYnMNDF0JzIIeblrvYZtJjl9NlYnmg/mDZ7YnnqkeDvj5rYs6JLpTjqGY1AyDWKxnYcF9UCFWXFbDvw3NUpC+OODIWMznz3sjqgle0kQ/+OmJbRw1HuV/BSHD0vI7rGxqZAS5QFkwkOtADj6OEjYwGdh+6KxuQH+edQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789488068; c=relaxed/simple;
-	bh=TP8vzZNqYTvpqyiQsP8/kzXcvof+WkIv9WsLTDcnXlU=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=j5b9YnToBNpIo/cnYhUozPZYnVf7bmG7l9RGKsU5G+RRvV5jHbCNKB4KvyJbc+MI/U1SFSA3ARgbKWb9CSDwCnNLsrjPF4Ff9dM8gNKSU3qIo6I7jGVajFa7Zk8aHzoGx6vLBQALaJtxH63+tMPGs2NIeBNgm43Jqeb/ZYxbjzo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PgNDW5/1; arc=none smtp.client-ip=74.125.227.12
+	s=arc-20240116; t=1789488096; c=relaxed/simple;
+	bh=l1wdurB+pidV4AILXrT+tLTz7zo3y2Q6OKy1w1aG1kQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=S0v5JTAsEmmD0PQI9/8+V+bDOe5oUXc5WIsxc9ZJ0ohA+DboBlRYI3arRHX1iA2YWyK5ylfX42SC6gBdzrBmsQ5BcnO3YXqIUZQs3fiFaOVPCe+9EZfSgjSQqeYSYDZjTrTJna1DC1PELCCI4ff1DW2KTVmQV8pBgwKB5Cuxxy8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hdu+kAFk; arc=none smtp.client-ip=74.125.226.204
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PgNDW5/1"
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-78ffc0e2f23so1087779137.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 09:01:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hdu+kAFk"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-97e8ef5b507so651500241.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 09:01:34 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789488065; x=1790092865; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789488093; x=1790092893; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kHnSyuLANDxKOE15RlXzsARxBU9yDC28z60+XrDSb1o=;
-        b=PgNDW5/1++gfdfkWd8E334FRbkdy7GHOa3tyFNmXzjuT6ndnKM0M1WQLDa4RRY3wkU
-         xSifHRlOj3cNv87VHVspiP2uuiHfqwUyaWHGFZDHDux9TkuFZqZLrK2iHyiyfYF6XRM/
-         Rl+Xq/dsvT4nyyRxyZnvrKODwL6NsvO8v9rnIY8kjvtnZNM9UGJw4ETBJzN4++lM083G
-         ASwWHMhgmLIkHCLgDhM//9lchCnW4oWIat6rvzHgicwWvszFYg0no3daVSToEefyU97M
-         Ds2HT7qSjw/IP0LDdqrMMlgzbKu1W8P6W9WaPDF/SGp0xNkwOb4kk20wlfi9Ve1xwvZp
-         EmUQ==
+        bh=s20q7T542NAQUDk9biMPbZxXmVhh38LLJCMfX8DFltU=;
+        b=hdu+kAFk17kuJfjDPLx2/MBTd28lL+xe7nxB82TLgOJIzSQQ9PflXqtUhltCEi7rv9
+         IpNh+SuqiOwipQMoH8pHplDpAa5y59vFqX/bc3pic9FA1EQXrjM6KgPsgz6U981Gh/7M
+         VC8dqehDfynG9TzXpozl5euKgsgNnN4mqQ/8cgn8NVgLw8iehJVq2o+z2rV1yfDkSCfO
+         aUK3lpL8PVnF6CxZ7XJLnR7f9nmtR+kUn9BeGosQa+HzpGAbXDIsIraJWIn0VKACfMAQ
+         8/JvVgBZc7wm6eEUmeM6GluMW4NJfuu7yVfsWBzdo8LUtegPtlLFlxeOesPdlRc4thGb
+         E0nw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789488065; x=1790092865;
+        d=1e100.net; s=20260707; t=1789488093; x=1790092893;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=kHnSyuLANDxKOE15RlXzsARxBU9yDC28z60+XrDSb1o=;
-        b=QRSkE208EyUKXOFDolq6baUg28/UtkKBeYbVUKOYM0W+p3+iaxj/vLJ+PErFAokgGN
-         eZpq/vcwqHTY9PTAa93ySc8W5IqCvcTJ+xaxTGHn3S3Mf9T8vcYab6ROnFMSowfMIoVz
-         WuCJgWAcHLunrJlQIfwl92E54xtS7FxZ+cHh6iw1IcK8gOomb8x1b8eYaEPJNsdnZ9Yh
-         Cr4RTWVXtXg5bpgTwyrK7R2YyqqLX3JyvUn5Jshui4Gjy04hL5o5VisXo1RR6jARlza+
-         RlTgSC0T/F32SPVtf6Oe7egi2m3bp7ENzfhIk/JHeNz55y1oLVZx1mCxcrKTTwCca+ve
-         Mvrg==
-X-Forwarded-Encrypted: i=1; AKwUvBziS5pubmuSRg0iAfJa673M6xi3rOGIhWimI8PTrVjedGi6KjITyCHWN0Am2FNIRu7xlhUo4XI=@vger.kernel.org
-X-Gm-Message-State: AFuF++njoDEhzEDgcRlklSfIoSIqXcJNW+TTk48xZsLblbwvYDDhXesZ
-	coNqa3uTeGRwm820F2cwZynqRSPeFZbctuU9WzmC/8X5lYYvijO6/WgJ
-X-Gm-Gg: AYBFou0GoIE6S015luxA8E8KSkyguyZOOFl65otcvZRMJDmbZ+73G7dUOlJMvxlhTPT
-	IhLGfpr8PetzZ0BA8U9GCjhBCfmOWHShkMVCVwX8h9gWloXKD7qXkwjNerscHQrk+lJBSz7S8+i
-	bXvxRDRf6e9PAsOFqfMs4Nqi8nDCE8U60QIVCFUNWk4HcumWvX+At/mpD03wkzsFZ93RNOW6i6b
-	n8c752KmXq6aDE38+m/v34xDSOqcOoz/PXPC0Yib8QdCgyuKpbxnaDCn0Xglo/UBHjrfIeOJBkl
-	X6f/etH6LXofgv+j6+j6MN37WPvy84A5ZcanXLSjwMoNyHsMKf2UuQC2bnW25HRHJHSLwQ0z5xa
-	ZSlH9VaKS6gI2zUNjaaHLbxlXokH5xYrzDofjJJ6WMan+oZYgtMGGbdsmpTk4KMbeIIJAkV1A0a
-	eiXPvuPm22PkX3Xs3zDC4Oyc4NbKdPAQu7JjTNGC7DnbZMmSOu/FFPN3Lp4z7sZBEN
-X-Received: by 2002:a05:6102:a184:20b0:79c:cf1:723d with SMTP id ada2fe7eead31-79c0cf17cf0mr7667253137.6.1789488064765;
-        Tue, 15 Sep 2026 09:01:04 -0700 (PDT)
+        bh=s20q7T542NAQUDk9biMPbZxXmVhh38LLJCMfX8DFltU=;
+        b=XH6RWtWNYwJVKnHfTurW1oRhBm7NwOy59r88G/jTfvDE1YOurSvm8drDi9J1ZmwIEH
+         mY6qRjlaWRjPoK1M0A7begZVevNMzaeZYFF1FjZRDEjKd9jX19QPsrlt8yriCPTxYY1d
+         DimvBS4YN24eZPBLnBK3t+0Dy2liHuc9Bho5ln3fvBSRkOO9IECSsCdgSJjkvRDlhEDt
+         5fCOFt07jtxM34Mu9yeHe85bMQ7S2O372RMfGEkJ2csrM0mggDUTTsNy+gf35pSdHiXm
+         u0uAc1edtDBYD8Xd1Wgmihcvdmb4hl8YKv0TI8DyDvjDLWirQIe51+bC45g3flZcY0Kl
+         frCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxGYwpeKjgKCv4U7cUZsLQTMG0gHn912ZqczsTDiSDIoou9pm3aRDTlpaVPh4eAhQNZPgrQJ3Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++l9dLxpiVlWudD1Npwb77qODrMDaAo/5+vmR487CBqlcRoL7m0X
+	IswItubM9F2fm0j427yLsf0r8abQX31xlZyfL8+t5/keXQYHemJv4KnV0ruTvvXDwFA=
+X-Gm-Gg: AYBFou3OV7wm/ft4shc5wMMwW4b+wE+CKnIpxsWmfcCByxh48R8DJJ7QkDuL59oLQ0/
+	eQSDubtmk5BwjxMPjv8MCucvXisgVITZYdOvGmSpiOrf1eerig3nH/9AiO2uDegDfa9zHPfql+i
+	RRSjRQrCwI+ZF0lZEn2/Hi8BdGEjA7QoiHT380huTgm6JlIEA5RWoUuoJXZMdiqB3AXWDox2ff/
+	UBf7M82o+5i3P+lLmc0QFqLww1xyoX6C9ybuaUOqtwIKLGtKacSvgRizWIS90l51bmQ3dzEx6St
+	V6huUtzvCaqZgdQg8riGnsrxSHVi5j9/e7w/+D2oUvw3s4cMsmcyjKCDcnP4pEUBXUQIdQrkrDX
+	+pQvE54XrolFjQPTQQ99U3yz71XojmSdqIXA/Vqw10iTFCRKlL5b7uIgusymoK9u3F3lqTKpg0W
+	kCngCuzuOEEz/0eEyzksMDrhp9Ui/nhNIi8kbyqszkHMYjHMtD22lW7oaGReEs4TUH
+X-Received: by 2002:a05:6102:5f0c:b0:779:328:8a2e with SMTP id ada2fe7eead31-79d24d179bfmr613801137.5.1789488091386;
+        Tue, 15 Sep 2026 09:01:31 -0700 (PDT)
 Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79fb1148f57sm79049137.4.2026.09.15.09.01.03
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-79facab39basm114393137.2.2026.09.15.09.01.29
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:01:04 -0700 (PDT)
+        Tue, 15 Sep 2026 09:01:31 -0700 (PDT)
 From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 To: Chuck Lever <chuck.lever@oracle.com>,
 	Jeff Layton <jlayton@kernel.org>
@@ -63,9 +63,9 @@ Cc: linux-nfs@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] nfsd: zero NFSv4 COMPOUND tag padding
-Date: Tue, 15 Sep 2026 13:00:49 -0300
-Message-ID: <20260915160049.3105481-1-qwe.aldo@gmail.com>
+Subject: [PATCH] nfsd: clear XDR padding in GETXATTR replies
+Date: Tue, 15 Sep 2026 13:01:19 -0300
+Message-ID: <20260915160119.3105745-1-qwe.aldo@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -75,37 +75,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-nfs4svc_encode_compoundres() copies the tag bytes into reserved XDR space
-and skips directly to the aligned end of the field. xdr_reserve_space()
-rounds the reservation up but does not initialize the padding bytes.
+nfsd4_vbuf_to_stream() uses a raw memcpy() for the first fragment of an
+attribute value. xdr_reserve_space() aligns the reservation but does not
+initialize the extra bytes. If the complete value fits in that fragment,
+the loop that clears padding for the final fragment is never entered.
 
-A remote client can choose a tag length that is not a multiple of four,
-causing one to three stale bytes from the response page to be returned in
-the COMPOUND reply.
+A remote client reading an attribute whose length is not a multiple of
+four can therefore receive one to three stale bytes from the response
+page.
 
-Use xdr_encode_opaque_fixed() to copy the tag and clear its XDR padding.
+Encode the first fragment with xdr_encode_opaque_fixed(), matching the
+final-fragment path and ensuring that any XDR padding is zeroed.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: 23e50fe3a5e6 ("nfsd: implement the xattr functions and en/decode logic")
 Cc: stable@vger.kernel.org
 Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 ---
- fs/nfsd/nfs4xdr.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ fs/nfsd/nfs4xdr.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/fs/nfsd/nfs4xdr.c b/fs/nfsd/nfs4xdr.c
-index e17488a911..9377f42dfd 100644
+index e17488a911..51ab68ffdf 100644
 --- a/fs/nfsd/nfs4xdr.c
 +++ b/fs/nfsd/nfs4xdr.c
-@@ -6480,8 +6480,7 @@ nfs4svc_encode_compoundres(struct svc_rqst *rqstp, struct xdr_stream *xdr)
+@@ -5953,7 +5953,7 @@ nfsd4_vbuf_to_stream(struct xdr_stream *xdr, char *buf, u32 buflen)
+ 	if (!p)
+ 		return nfserr_resource;
  
- 	*p++ = resp->cstate.status;
- 	*p++ = htonl(resp->taglen);
--	memcpy(p, resp->tag, resp->taglen);
--	p += XDR_QUADLEN(resp->taglen);
-+	p = xdr_encode_opaque_fixed(p, resp->tag, resp->taglen);
- 	*p++ = htonl(resp->opcnt);
+-	memcpy(p, buf, cplen);
++	xdr_encode_opaque_fixed(p, buf, cplen);
+ 	buf += cplen;
+ 	buflen -= cplen;
  
- 	nfsd4_sequence_done(resp);
 -- 
 2.43.0
 
