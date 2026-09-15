@@ -1,122 +1,165 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41B62369D74
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:30:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789471820; cv=pass; b=Y2hsAY9V3WEohZ+xP4roLU4PIimI4NetNwxmYZ7WQhrlmDLBDZcFXRXS1wBKKq/vFf3Of792yh1ADzm0cDNDbDnIevUeT1sMkUJZ5RTfIJS2Tx6u/Eu0gA4NUvOIHNT5IsKK6p3qWu07Nawcirz+DGq8Qc88PeNHsxyBGag3G24=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789471820; c=relaxed/simple;
-	bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=H2W5desd2haAeCFj2fqcG7hH8WLidxgTgDXoKvQ0c2kR4Cr96xQhYiTyM6am5SWyEMfBVHSRE52lAkwfJY5hssP6czMSbBaXaMAtLjh4nq2yvA6xTJawzvw8LZ+ae8fTQCOi8NGbJmgaMWhzGeUCHeCZ6D15orT4njW3PtAbJ4Q=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=llbUV/Qe; arc=pass smtp.client-ip=74.125.224.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E22B4A64C4
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:38:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789472330; cv=none; b=JAQDkkOUEg/vdM75Fuv9mnH727jiH9Zimx/XIO9IveEyeZOa114zksOJDeeviKm1PBzokWmITtI+ZKngwH0SV1US6QaV6Hd1YjNRMlCXChpoo3+jhPWU3/sZieFD/iHnfgI2ylPhOvbi3MQrxt0Omxvn3gvE7sBQvLSgpg0yj+A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789472330; c=relaxed/simple;
+	bh=gE+Fcg+IgZvXWr4qO2g38IDiaOpjPNINoQFbRMUClhs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RageZof6evByLHBI8hke8KDBJX/6Hl4fZqHzpdHmfcy25rDNdCevbUcl9FoLiaCWyhktCohFhoM3eURDfYRYXe3F8d/4c4A+TuYxzWWR+zz/NF9FqYaX6rX9IjqWhoRI/8ECR6w/3vEoYF8BMHa8md1Q8kA3KMnZZ7cu4btd7+g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BXlbACZS; arc=none smtp.client-ip=74.125.225.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="llbUV/Qe"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20bdfe60so425976d50.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:30:18 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789471817; cv=none;
-        d=google.com; s=arc-20260327;
-        b=bZdca4iJjc3lUaEheP1F/ab6HMoJk/I7HXwrAjirVuiLCrkQS3eEBdJretjKBb8v8I
-         eSrwhVncLBgVAuJUG2ceOUF8uhs765yI9iFEOTpGuGiNhKcK5qnA7iGjNffagjrxUklP
-         04wUDhUmuHvmxsiamrZIiQOKJECL1JNJ5oZRphwwLZ6Pf3gooYHsEP8ZAeTbcuQ/Q0LF
-         nBS15K2oFevwTVyqKF59EN5EOkOiY+MIProVlLihvQMfZbg+BjRK1qjM68ZNlfdgkxt4
-         A65RcogEr2ii4J88+/ikfDMJfkCn/0ZePHPxtyQGW8Akx4Eppu95Vs3kyggWvtKDlQE0
-         IeaA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
-        fh=JnNSKZEEQR2ZPqLm+sQdggglGVHNuAYTq8m9f+Cjai8=;
-        b=IKMqCAEUfko4iBwX7rwzVRGCOUJRAIfjd1TlL7Lfs3VGRp4ckDg2f97GHMBEV1wQFT
-         NLLfJsjv4ExuBX9WIIlgi03jItttXdCUHhrYkxbryY4pWg7y4sYMxetpmtKlDesx82to
-         WhPrNOOhi7lpzAgctN4T+qrV1TGs1dLqNlrFLt4gOjwZpci0HRTXAAkOukaDhdc5Qi2/
-         4eahAnqpaaNvWBlgCKkZ5oaEQohxQGFwffZgMuOTWwvd9QMhwNETTGHiAOomLGuBiw2v
-         TdsB28isFwBZaYHIs0Vx2MuWiAGPjvDwMoFA9YBocFXgKut8dQ7UTO7c2iX0UAZGzS3g
-         H/yw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BXlbACZS"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49c5a927a1fso1318715e9.2
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:38:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789471817; x=1790076617; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
-        b=llbUV/Qe/21I2MRiJL560Pr7jqUDuY6QgOFqdnbeOiDNII5TXqOIsFB0Drca94j2JA
-         ZX2CGSuGp6B/5CYysoEQ1P+k01FCMqiimSqgv3LyVjXekjDtRD+qB0rZ/msX27+x4lUQ
-         5oaQ3EfFdNbaehr8sX58+5tTMliH5IV5ttCCneFc/mPH7O1t9B+hM8zGMx+nUH3y8MkT
-         i6sDVEQjlfvZ/x/fKsfobl1hf8xQ58zUaPZHdUBqReJIJ63ApIQPZOGyB2heKrsDixz/
-         d5aOKSkbKSQgNrXmwLhpzscvQjNKob8T+UNttYn1CMXHwwvKckSfGsDlswjwzYTSiNt5
-         xuNA==
+        d=gmail.com; s=20251104; t=1789472326; x=1790077126; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=P5LU+QL611XVkEd8eqie07UbWEHcEKmuwpDc2acyE/A=;
+        b=BXlbACZSX28MZ0qBAM2GgtcGEuq3aEedxX8aGU3hQ77byo6SsNtFnckUvjTs04hLz9
+         Fmvn3qXpw7wiv00Y2JvVbuHl4KpzjBbgaDDiqRUhgS7RjVXRN0VR3C1VEYsiuts+lS7c
+         UQhp39xnpLfecnQpC7lZR4+lHJR3fIpYRU0QlyuZ7Vt2CuyP55Lkm52VMuIlVlykoxhG
+         KbT+Zh4LKdJAEcwvAI6XqABMI6rKgSthUmRKD5WnYyK6v3QLjSZMehU7pcPlMxNYxrdw
+         +PqbnfIg8f5Q7xNAT5EIV/QeL25g+3q0wYMojs3IEhCMok73yNK9ijuJ7/sB8n9eY6Bt
+         pTsA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789471817; x=1790076617;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ctN51SscDl96yAfOoCtwrpkHTXHsrI3e9yoxIIut26E=;
-        b=PGoDpUjY+jBD57hMXNvynGNRZ/B0ESiiLo3Id6B615mo3ZCsV8lECQ7LVaUrDCWONb
-         b5UzhxuG6vD25QDLypp28GC8LgT8buYbQmEfhndCOCv19YXm2wS1n7sLdamkcuiX0pHC
-         023SnI3txlWO1dIzsrlvyXIsYTBlCLAVqi1OecVVeEaBdn+sXt0sdQt8jShfEDipY9YU
-         OxT0rKZ8OSfcbvevGKK+nOY+OkVG/xJwjeT5bKpw3lxfkxyxWsiWrzAUGyj9UyNSm1KZ
-         XuQWDulB4G3txq4vWT/r+LX9Dwfo9M2vKEbu/c2fRaEYsdbNpnWh974LL5S0neLd785s
-         /bfg==
-X-Forwarded-Encrypted: i=1; AKwUvBxGVglyS5PD2cNyYWZbnSkt9dLQkvB4TYHqQ83u6gYnNoaAMO4/TOp7wcBUSNVP1mteWvXgnsQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUEgoTozVLLAU7+d6GLbF5+Sa5W3wnF67tcElL2ZWZhHWFeZvO
-	2fhqBgsVRPkKYVNzqhTddX4MbtMTk3Ez8KsdX7NrtRzlnelBq84ofrThJ0ZziifrCOp9DjwAz8H
-	jCMJJl79YYm+ywqergphEZqs/kdKMedE=
-X-Gm-Gg: AYBFou02LcgWRJXMLB9v21JGIMcPFQBwzA0shd5fVE06wz3by0rrLArJ7C2Y+RKiv7Q
-	98US7WX8bJ1zz/KmaMwU3vMsy07W3AFUphxKH6B9vPp991BD2271y9GbUmYldYjVUYelTOsHjCE
-	eV7zInAqt9z5/9eigor34H6BpI0oymvKRd3eo4IBQlj1wg40jM+oT8zm1GnfyezyBs0c8PtCuz1
-	P+v50BwlbiXNxddQlfGAd0rOYZbSvIvN7TqWhNx1ZJENchLWnuZMUIC/y+V4qkN9XAxba+LRRSE
-	Ou0n4DdZEDQag+aVkezE1tC55VGOntVrT3kkWZXw/4FaNikcIpXxAN+d
-X-Received: by 2002:a05:690c:630e:b0:870:48aa:473e with SMTP id
- 00721157ae682-88d19058869mr28240767b3.0.1789471816696; Tue, 15 Sep 2026
- 04:30:16 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789472326; x=1790077126;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=P5LU+QL611XVkEd8eqie07UbWEHcEKmuwpDc2acyE/A=;
+        b=TTuFPzkV/SFMgAS4WjxqBV1r8cEZoHLX/xqoR8j1ekNoNI4c1HgfApZtVuiwvOgLDR
+         iCAloY2v7KMIV3sbMiegC//XwBR+InLfIu2E2S9wM9VUbUh5qRtfqZ6ljAePnzfaMezs
+         2/BWDgiygDsVdOssk9G/llsw/tpiejdOSlahJapKjH68lxb+tf8hXgAxrkZTFJ7yDXLI
+         ENYYIUbXd5OC1QyOuyx4dF7qYBNXJooozN57Yg42S2Y78HE9YQkYBlOlVZ7c5G8dCfl1
+         QSSX1DsD0njLE9ZJg6UzgYsEBxIILD1oxvhvzY+bllj+G2ZApV9JN0ZrDq93niPnhzKM
+         cMBQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxB5vDbv52RaYKjSqyPZ75ArTZsojuB6e3sqS6zh7x7IlDunPKkF5W3yv7ovnGfpaeZRS5HwGI=@vger.kernel.org
+X-Gm-Message-State: AFuF++mBHu2xJNyHMY8JIE+r/wINtbw7E4McVuq2Ul9z2ZoxCG8Wb5YU
+	FEo1PLncTU4hMNMCS0JPy3SRbe/mlUgd1dAa/K4hjs54HKYhmLjmG9MB
+X-Gm-Gg: AYBFou1N0GCj7OKt9uGKk/mdUzKQwuXTafyUj8QSEAaUEk3CLulloJELQ/P/EdiSUdj
+	Q/PA0kaeZByzpQKPiivuYUcQ4cIg5VrdadLekIXAoVEHxORQ3qAFUrkYydHCrMvb9BMk4Td4SIU
+	o2OX5yu4DntGgwE9DJfvLXZYdazTIxsqiQ479X+Vk2Gxf5+b1k4SLFpk0ZPmnlw5iKihtTIIm5K
+	+WgkaY597QfE8WGwvCnFmsILY9bwstMFOyddAFwvbKPMcf6VwDsaZ0hHa9TsqN2OrK8xZqbSMHE
+	JcfJ5XBqTR1SI0+Og6uulVf+8OeQqUuy1xBfs1AD/o/8VBqFTRaYe2Ot0+nCU4dNzsTyzWlSFGJ
+	G7W76sszvJf9tSLGYh2hgJg2KKKSJHCEDfHipYI0IQMQgK9reyLJWRDV8kT9P1Hl+fg7fWtEYrG
+	L/cCIbBThkGHEA6p4B9DuXNAgO76pObKbnjEFaVMw75FHpxhIZ1Z5nbzEpcVOnAFjhp4gDrYbGN
+	C0z7Kh5dfB2qSxjlyE=
+X-Received: by 2002:a05:600c:3b9f:b0:499:d95a:41f with SMTP id 5b1f17b1804b1-49e7a5f41a5mr97454745e9.0.1789472326047;
+        Tue, 15 Sep 2026 04:38:46 -0700 (PDT)
+Received: from L-P-ITAIH2-L-RF.rf.local ([193.169.70.108])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e7ef6bbdasm53917485e9.4.2026.09.15.04.38.44
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 04:38:45 -0700 (PDT)
+From: Itai Handler <itai.handler@gmail.com>
+To: mwalle@kernel.org,
+	pratyush@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	vigneshr@ti.com,
+	richard@nod.at,
+	miquel.raynal@bootlin.com,
+	takahiro.kuwano@infineon.com,
+	Itai Handler <itai.handler@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] mtd: spi-nor: take the flash lock around spi_nor_restore()
+Date: Tue, 15 Sep 2026 14:38:11 +0300
+Message-Id: <20260915113811.2429311-1-itai.handler@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260910184452.895485-1-itai.handler@gmail.com>
- <20260910184452.895485-2-itai.handler@gmail.com> <20260910190139.BF6231F000FF@smtp.kernel.org>
- <CAFpOueRqaQ=C3u+br6AsCDPeeFwqVUmCG6JSCu90noowVCfd=Q@mail.gmail.com> <DLEWE24XEKNU.1Q1JD8PFVRJML@kernel.org>
-In-Reply-To: <DLEWE24XEKNU.1Q1JD8PFVRJML@kernel.org>
-From: Itai Handler <itai.handler@gmail.com>
-Date: Tue, 15 Sep 2026 14:30:05 +0300
-X-Gm-Features: AcwNN1XZV_KcXpgrsqVgDP23cMB0wTyq2Xl7FjPYm5C4oFYJ8HJyICxhmV6sUvM
-Message-ID: <CAFpOueSTBSipye_1VmJBBJSXsn-KBYoKUL=JTA4Ker3nMhFPQQ@mail.gmail.com>
-Subject: Re: [PATCH 1/2] mtd: spi-nor: take the flash lock in spi_nor_shutdown()
-To: Michael Walle <mwalle@kernel.org>
-Cc: sashiko-reviews@lists.linux.dev, pratyush@kernel.org, 
-	linux-kernel@vger.kernel.org, takahiro.kuwano@infineon.com, richard@nod.at, 
-	stable@vger.kernel.org, miquel.raynal@bootlin.com, 
-	linux-mtd@lists.infradead.org, vigneshr@ti.com
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Mon, Sep 14, 2026 at 11:31=E2=80=AFAM Michael Walle <mwalle@kernel.org> =
-wrote:
+spi_nor_shutdown() and spi_nor_remove() call spi_nor_restore() without
+nor->lock, which every other path to the chip takes through
+spi_nor_prep_and_lock(). Both run with the MTD device still registered,
+so another thread can be in the middle of an operation.
 
-> So is this now two AI agents chatting with each other?
+A busy flash ignores everything but status reads, so the restore is
+silently dropped and the chip is left in 4-byte mode. A restore landing
+between two chunks of a read switches the chip to 3-byte addressing
+while spi_nor_read() carries on sending four address bytes.
 
-A fair hit. I do use an assistant, and I should have said so up front
-rather than leaving you to guess. Answering the bot on-list at that
-length was a waste of your time as well; sorry for the noise.
+Take the lock, so the restore runs between operations instead of during
+one. This narrows the race rather than closing it: an operation starting
+afterwards still addresses a 3-byte chip with nor->addr_nbytes left at 4.
 
->
-> Sorry, but please be more precise and on point and drop that wall of
-> text.
->
-> And please annotate your commits with the Assisted-by: tag.
+Fixes: 59b356ffd0b0 ("mtd: m25p80: restore the status of SPI flash when exiting")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Itai Handler <itai.handler@gmail.com>
+---
+v2 1/3, the spi_nor_rww_start_exclusive() lock fix, is dropped from this
+series now that it is queued in spi-nor/next. This patch still depends
+on it: it adds the first ->shutdown and ->remove callers of the
+exclusive lock, so an RWW flash would deadlock without it. Please let it
+reach stable first.
 
-Understood, and both are addressed in v3: a single patch, a much
-shorter commit message, and an Assisted-by: tag. I will not reply to
-the bot again.
+Changes in v3:
+- Fold the spi_nor_remove() patch into this one, as requested by
+  Michael Walle. Both call sites now share a small helper.
+- Cut the commit message down.
+- Add an Assisted-by: tag, as requested by Michael Walle.
+- Drop patch 1/3, queued in spi-nor/next.
+- Link to v2:
+  https://lore.kernel.org/r/20260914081149.1916589-1-itai.handler@gmail.com
 
-Thanks,
-Itai
+ drivers/mtd/spi-nor/core.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+index ccf4396cdcd0..c891197ffa5b 100644
+--- a/drivers/mtd/spi-nor/core.c
++++ b/drivers/mtd/spi-nor/core.c
+@@ -3849,11 +3849,26 @@ static int spi_nor_probe(struct spi_mem *spimem)
+ 				   data ? data->nr_parts : 0);
+ }
+ 
++/*
++ * Restore between operations, not during one. Removal and shutdown both run
++ * with MTD users still attached: a busy flash silently ignores the commands
++ * spi_nor_restore() sends, and a restore landing inside a read changes the
++ * chip's address width under the transfer.
++ */
++static void spi_nor_restore_locked(struct spi_nor *nor)
++{
++	if (spi_nor_prep_and_lock(nor))
++		return;
++
++	spi_nor_restore(nor);
++	spi_nor_unlock_and_unprep(nor);
++}
++
+ static int spi_nor_remove(struct spi_mem *spimem)
+ {
+ 	struct spi_nor *nor = spi_mem_get_drvdata(spimem);
+ 
+-	spi_nor_restore(nor);
++	spi_nor_restore_locked(nor);
+ 
+ 	/* Clean up MTD stuff. */
+ 	return mtd_device_unregister(&nor->mtd);
+@@ -3863,7 +3878,7 @@ static void spi_nor_shutdown(struct spi_mem *spimem)
+ {
+ 	struct spi_nor *nor = spi_mem_get_drvdata(spimem);
+ 
+-	spi_nor_restore(nor);
++	spi_nor_restore_locked(nor);
+ }
+ 
+ /*
+
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
+-- 
+2.34.1
+
