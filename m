@@ -1,190 +1,95 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2114450402
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:43:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 036B34483BF
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:44:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789501419; cv=none; b=MJyTHnLUFogOl9BnSSsNMQZDyceSsOpVRXCReni7c7jEajzlNNCmNMEsQKpKbjIlULjFXV+gEOVcnrSe48COR13PsrOYCECWnyJQWloWANmFdLKb/V09e3oyfcguNtOfO0pzXuXsMDnjlu2RkCv9/PKlfD3IqkOr57f2Ssjg1zM=
+	t=1789501471; cv=none; b=rQ1PtXZWSzE4q+TF7SHZqIUzbxPmoMkCfmfsO9gaHU6Xd2OVSTS5pNYV+GvzoUF4n4rekM7XE9acv5w2aVEHeD6DPW0Ha87EXvsLhQA3ptXJRR0bNBt9N3vMkzPo14yoVq3pv0JRxxv4fBPZF/mdAkCEsh6AANZu10qokeo2F/g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789501419; c=relaxed/simple;
-	bh=cQDi/khXp22kaDJp+dEsEBqmjhvlz1g67boyZ/PQrd0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=JsSk22h0Gz4MtozECVFQSzt/6PqWfOFXM0PDQWUUTbmx/Xi6Oi815ZyfuW1021wuYJooRMkqeP87e6lPDUjltZVNBZeWXkpF/ZFp9VHLh/41JL3r25UdyhaSw2GmgdqkzFXh7Gp507pRk9FeXa9q/w11jy+437MBJmyT+47m9n0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=Wc8TZqp2; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1789501471; c=relaxed/simple;
+	bh=urDHZl8WwDf2LHgRSrUhtMBRlsSjHVTZIirmLX8Q1zM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=dYyZeBjikApQLIGyiK1cOKhwPbOeBPT3Tlswmmm9TCwJT9l0M4Sfo3ljXKvoumtwLzDnh8iFBST6LdtbBcuu/ic1a4Q0hKAqi0KB63sU3y2nvpPNFD/Fb1eRO9kfkRVn+UeTEdLLZAA6MoEkMUYfJBecI35Ff7mprChHmGJf9+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N+5ReGLS; arc=none smtp.client-ip=74.125.227.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="Wc8TZqp2"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d4ddd179eso1236187b3.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:43:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N+5ReGLS"
+Received: by mail-vs2-f43.google.com with SMTP id ada2fe7eead31-785686d2764so27791137.2
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:44:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789501416; x=1790106216; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=i2LOI0WXXV1VVEC/9ThlMXobGg1l5GAIdV/ERsV+q64=;
-        b=Wc8TZqp2fPQJ979amKHsD0hu7IeYyfoeXwMFVxXsXH7khIe6lWfHHuf1u1wcTvcw3f
-         ZkFhAfT5M5YPY2afFUKGQ/B7MzILkvkTqIpAo1BHYGdejVJFtNezhvj0GjflPjIl7Frk
-         nP2Vi+AHh+ISr3OlgTqbPAaMeV2ghY/6d3KPcQykLK/SZu04G2UlqQPZ/UaS3Gl8JMzo
-         QeFSL9JUl6q2f168LHzzQdn0aqtL8xQ8LfjQ0Z1qrD26AASbD/qNWoLmIvkwvaxQxv58
-         Kk6GYragnd+eb/W9PcRwoMW4bNXFmXKe5S3yW4iXx9ATzRCNjAlq2Z9HlnrgzZdLoMgJ
-         pjNw==
+        d=gmail.com; s=20251104; t=1789501468; x=1790106268; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=urDHZl8WwDf2LHgRSrUhtMBRlsSjHVTZIirmLX8Q1zM=;
+        b=N+5ReGLSd938RPHUWoSZViAsymxZQKNGC5K7+7+uVDKFPGgHQHBAAxNT8UxWUvFnfy
+         sgCMXmhnB7eJ+pxTqDyF1wMjKDDCGwkbBsh60IqzJxBQezxXGHNw6tLAhsJPa3rc1Uqq
+         EEUxPYopsQX+HI2B6IGC7wmk0j+bQ8UUYhO8KvIvgdz1A1W/HW0UDPBRtOrGG0K6Hm1D
+         okGAV+8pOOTpOUqybj/5tRWqYv7TthnOVos+WV61Z//YDsDkfTINxwLeiSwCaW7YRfc1
+         OiGcsG+UW2XCQ+2nwGzhOGUwzXDOpBKfYsnCKU8IJzgUS4FZdQEdCUuO9bOmEyySFc3q
+         4HGA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789501416; x=1790106216;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=i2LOI0WXXV1VVEC/9ThlMXobGg1l5GAIdV/ERsV+q64=;
-        b=fwV8U2hhL+3jdFXH+tRa6LbW0Ijf6HOMn6PvibuhIrzj/Ea52W2O/luj3UJ/3bdRAf
-         A1uNUDXnyqr1pq8eNIzFGopTRUVmwnkB/Jt0P8PgHdGGNwKpS/BHFCw/x0A2JX7GBnXb
-         +ZJqNFrlugcy7+OtEwZqUZ8ORP0vLq1ondjw67ckoEpr+33OkKUYEs0NOOG3X34v6BTA
-         VNKoRw9SSSPDwg21rLlV7odfpc/9ZJmr8hlF5sSb1pdPlpihb8+BlnMTE2/JAQn2V8vb
-         tCi7nStA+T5E9U7amtu4wIUw8C+DpYXLxnFu39SGCV6MhEGSzSsLZxyYTVuFjC12YPfX
-         ez9w==
-X-Forwarded-Encrypted: i=1; AKwUvBxd5ibhD3jsfHnm2XMlJbORFHkETF10MVTXONK35OXEgNl9Rr9mBhbcGwd+A0efmW1lKgCjXZQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nwKouKyeJAv021S1mEypGU27k7z5i+sQlMmLOfT3dWV/fd3Org
-	TETts3imDNzgTp1YfXLYpJkJ8WQ1YpcOhmo8KmRFSluvfoUSy5GXgo5WIX9WvkT2LN9CsRugtZj
-	yz0b0w7C9Og==
-X-Gm-Gg: AYBFou2UeOeTPbhGgnAPxy2M61qs+6H1dFeddj6ooeX8A2ceCn222osIHGhFeC5rMi4
-	sUN4sLOz+6v3sD7ke3ht3qdYOnfoC3Uhf/qKWrkt/2wDY/Xw31n50p+piLvGoAz9obCUS99ZJfs
-	DKiHW4ofYSt3dxwLOwSmuH5j6EXiqMwlFL0MXmDiTWCK71HlzWB4u6SmjDbmmXJbze5Z915s3DG
-	LtXkn10gFbuYexWCyOqYxdxKjejjJv3B5zdq1hjO/LpVg3ReCBPWLz/RxDiy5S3i0RJm6MdrCu2
-	aoAPjZd8GpDopRXhX3OIHug16WkEbU/X44Rq8joVOk/bidOR2w2RcCFd6ce0oxeel/TcoZEj8Z3
-	SdL73NSxu9SgFKputEW5Y4AWPdV4unlvQ1Ju3as27xwCTc5pZ2AqUaH53+U/+S91I0lZgC+CaAN
-	FFnaqdF14avdgivI6p+vW/1a5UeNGVqQzkTms0BfM0vf1PDftklseeR1Lu1NG/mYvx9g4V/oBhu
-	yi/DbN8I644TXoYqcDbxn694mc/z8IAyekLzII/Oec0OqyFx7q/8i0+YrG2L6RKZbMtF80r/anM
-	I3qX9t7a7ZqkrAbYmxWvsXs1ljQWQOyvbLq9ZbFSQtF7WciiYY6yg7qG7bdvZc0LxULZ/5Pb85E
-	=
-X-Received: by 2002:a05:690c:c511:b0:841:e9e4:8ab9 with SMTP id 00721157ae682-88d234ae9aemr34479907b3.25.1789501416583;
-        Tue, 15 Sep 2026 12:43:36 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:e9c6:4a77:70a9:9f1d? ([2600:1700:6476:1430:e9c6:4a77:70a9:9f1d])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-891ee4a536asm922997b3.10.2026.09.15.12.43.34
+        d=1e100.net; s=20260707; t=1789501468; x=1790106268;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=urDHZl8WwDf2LHgRSrUhtMBRlsSjHVTZIirmLX8Q1zM=;
+        b=HqUKbV5cpZLENFWiHNFNR9PRnmHy45ESqtlzfPzaqS/xRzgA9hywX5T9P2jRGVmu3C
+         SlsjqK08cycYcv82Z0epxdJ6KRWOu/3IqMCSNmSBXFIvx+jNNgF1NVXUTeZEWzcDksua
+         ul5IkHGyhGezPDZD6wiX3kf+cNeiD4IQg0SJpGnm1NZ11NUmK4IhOj7lnmDZZF7xdWcj
+         WRTakS0LlPTOqspsNGP1nCWUHl7gIewW1jtH0ep9SAh8QsoUbceEx+5Krtf7D38xUpDC
+         ZgvIJqjsCsSRaYJGo9eA4xUA/vffii+PXYqy50lCmQp5uuxnTlFVTYByR9qqAzWJwhZ+
+         ErsA==
+X-Forwarded-Encrypted: i=1; AKwUvBzg8eQTbU55rDcGD2YtBUTlyuZi627VPrX8EJ8FgG05nj/zaVE808VJAL9rktWC8u/SGxJ/IGw=@vger.kernel.org
+X-Gm-Message-State: AFuF++l/f80nhu9L/3UdgJ1SdEa/YTICKtV/7c0vdsnl1g4sMTTWDnu9
+	ulO6XtkxcnZkEgZu1Ud6FNIuuZ1O7+hEVhFZq3fDb3xrkdO93JmOWvCQ
+X-Gm-Gg: AYBFou0vxFDjQf4b+ROStxq4Mhk/cKGmytGbtGDKnmmHgNtp2dHtGgJWPMD/JAMWwQN
+	2q9ozYYTmMuGyWv+GfG5j+AgQIAQ2QuSWrqTagz9ayTSqhDRVS2+eLBCnxBcVlNyFhK6O57+Zr8
+	CS5nFpVQ2324jYhwLGtAVLr9VTDCnxIvgfoI4d1k2WQhj5iXaCDExMVfFH7C2M88vfoN/CNWzxu
+	P8rs4pfrvhW8FAL0jr25Fm8RuQje4vaXtadOeQPyUwh7KUfn8ABfCP/JPIr1JgVpew++PtojmHD
+	I4cT4xhhL/Bst36jwjbIVvZgJH7oxsF3ncF7gXkw31V1epFN2QHGARKILKmm4iY8H+RFaA4XeW2
+	FNtqGprBTzHmvCA0usxqIyH+fSt+ZgiHclTaM7+5U/xg034+UvAyHkKRC1E95cdeR+w1smpRw2D
+	Aw3Tx0yJ8FoJz9Su9aMqbOu5O1JBJ8Ox21YEJ9SoXhhO3rgEVVpW9P+qb0S/ctKqVP
+X-Received: by 2002:a05:6102:956:b0:79b:b696:d625 with SMTP id ada2fe7eead31-7a0250c0fe7mr1440137.2.1789501468421;
+        Tue, 15 Sep 2026 12:44:28 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id a1e0cc1a2514c-98314dd7ceasm498589241.1.2026.09.15.12.44.26
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 12:43:35 -0700 (PDT)
-Message-ID: <6423c0290e4a92dd0ad4757b896dfebc570a7aae.camel@dubeyko.com>
-Subject: Re: [PATCH] nilfs2: validate segment number in
- nilfs_sufile_get_suinfo()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
-	 <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Tue, 15 Sep 2026 12:43:34 -0700
-In-Reply-To: <20260915111304.2725651-1-qwe.aldo@gmail.com>
-References: <20260915111304.2725651-1-qwe.aldo@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        Tue, 15 Sep 2026 12:44:27 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+	Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH] nilfs2: fix checkpoint root lifetime on sysfs errors
+Date: Tue, 15 Sep 2026 16:44:13 -0300
+Message-ID: <20260915194413.3314842-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-15 at 08:13 -0300, Aldo Ariel Panzardo wrote:
-> nilfs_sufile_get_suinfo() subtracts the caller-provided segment
-> number
-> from the total number of segments without first checking its range.
-> If
-> the requested number is greater than the total, the unsigned
-> subtraction
-> wraps and the function may process segment numbers outside the
-> filesystem.
->=20
-> Cache the total while holding the metadata semaphore and return no
-> entries
-> when the starting segment number is at or beyond the end.
->=20
-> Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
-> =C2=A0fs/nilfs2/sufile.c | 10 ++++++++--
-> =C2=A01 file changed, 8 insertions(+), 2 deletions(-)
->=20
-> diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-> index eceedca026..e3733d2be1 100644
-> --- a/fs/nilfs2/sufile.c
-> +++ b/fs/nilfs2/sufile.c
-> @@ -864,15 +864,21 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
-> *sufile, __u64 segnum, void *buf,
-> =C2=A0	struct the_nilfs *nilfs =3D sufile->i_sb->s_fs_info;
-> =C2=A0	size_t offset;
-> =C2=A0	void *kaddr;
-> -	unsigned long nsegs, segusages_per_block;
-> +	unsigned long nsegments, nsegs, segusages_per_block;
+Hi Slava,
 
-The nsegments has the same meaning as nsegs. Why not reuse it? I think
-we can do this. I think that introducing another local variable doesn't
-make sense.
+You're right, the extra mutex is unnecessary. I checked and all
+callers of ns_cptree_lock are in process context, so converting it
+to a mutex is safe. nilfs_put_root() can then use
+refcount_dec_and_mutex_lock() instead of refcount_dec_and_lock().
 
-Thanks,
-Slava.=20
+I'll send a v2 that replaces the spinlock with a mutex rather than
+adding a second lock.
 
-> =C2=A0	ssize_t n;
-> =C2=A0	int ret, i, j;
-> =C2=A0
-> =C2=A0	down_read(&NILFS_MDT(sufile)->mi_sem);
-> =C2=A0
-> +	nsegments =3D nilfs_sufile_get_nsegments(sufile);
-> +	if (segnum >=3D nsegments) {
-> +		ret =3D 0;
-> +		goto out;
-> +	}
-> +
-> =C2=A0	segusages_per_block =3D
-> nilfs_sufile_segment_usages_per_block(sufile);
-> =C2=A0	nsegs =3D min_t(unsigned long,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufile) - se=
-gnum,
-> +		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsegments - segnum,
-> =C2=A0		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
-> =C2=A0	for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
-> =C2=A0		n =3D min_t(unsigned long,
+Thanks for the review,
+Aldo
