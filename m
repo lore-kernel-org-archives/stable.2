@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2686F41BA77;
-	Tue, 15 Sep 2026 11:07:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13840485501;
+	Tue, 15 Sep 2026 11:07:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470465; cv=none; b=TD35CRSUluYnG2WwYZLoCQPgV/Byg9eUOHaGZD4F7wYXS0FX9P2QoE257Z01zMXgJ8+KcKYGEAbUQporzr6QsV/89ELIs89gk9WUYeD5vd0fa+MQlXcxuf4okh6ZWL+r6ndownfq5PQSauW+LPMHg/4EaCUYuHK2GI6+s4t0yrg=
+	t=1789470472; cv=none; b=J0V3u53O2GrENpO86D3qBUhVIdSeWaehWBQR5T1e1mp3Y0xeMlpIFUBIjdHGssg4ormzM+HUGIAs1i/oSEtb3J6eLJi2PXlkZjx5QGL/0aiNUpu47ebiwZCOLb6yGSNGcbeBxLqFXm6A3kOYj+vCFNaAUk3VBeEA+zPBS5QYhOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470465; c=relaxed/simple;
-	bh=V44znZTZSHMLUMlZ7X4k0NCaV5VSDG0EHnQZXyemIog=;
+	s=arc-20240116; t=1789470472; c=relaxed/simple;
+	bh=YwXeElKMZZApZRAobMebATWnz2mvTnOf01pv+WonKrk=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=G1wZFpj16q4Lv9bfthovZyclRM5M25A8ibPTNT3ym8qDgHVM633HfVS9QO7LSuEtbP3rb0riwPViAqAAgx0hQvikpaheK2/5bydCoXe2DarCT5exUZKXt6wJdZAX930vmZAxsvGH9xY4rnO6PIsA32kXkVOAIiTZFDCnwsZRnOk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AWIsl7tp; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=L6aV2dnHT1QRoiQ5VmqjIX/Yk1fXCdJJfe7jnQFjwLOkASrkV6nIe3eXDHSH33UPnLUfOXiqZYUOUs2u4CljumffBlgbPvBak0ZGCBv6f8J0TBl2P9jlT3MNTJ8Z7zVd976bnVT3zHMv7HTJJLME3dUvHarz6jE4c2GUd4/9k9E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7gX97sx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AWIsl7tp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8AC91F000FF;
-	Tue, 15 Sep 2026 11:07:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7gX97sx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8B75F1F000FF;
+	Tue, 15 Sep 2026 11:07:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789470463;
-	bh=BNaQApNKWm4F8uykuZUpBWJCbcG6JZzznLtdN/m+AMM=;
+	s=k20260515; t=1789470470;
+	bh=N8aUdlQdF/RsB8XDx2/sEkF1W5Y0p30LeoaSGgy4yCY=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=AWIsl7tpJ0K5UzhW78B3LdxEP3sy2eVFP39wAoqevU/gV1Ge9qr70ynMJAzKa1DBf
-	 j0M9H54HZfP9eRaHUOJizMRuOVz810mddtMvL7cuRjhddcsN8sgAkRiiK0PL1CQYwS
-	 kGwmNb4lnaFpMNnh4raY3f3UdfRUHeAT4riLuHTJGkLSqvDPlFhZcnRcEaeEea5p4v
-	 ruZjjTi2+F/YzBXY1B4eWhya/GnkpQQ2CSD2j/M8ykB81Jaq/MSzIuhl1Wv8y8oHWG
-	 6XKMkVLTSiigXRvCN4vJXP2+Ns4KAWZ2KrrjiHVIGcyDP6vMc4a0BiNn0Fbm9Aeyk+
-	 ZaihZp3LqQqfQ==
-Message-ID: <ce7dc0c9-0764-4fb3-a7f5-a363514aebfb@kernel.org>
-Date: Tue, 15 Sep 2026 13:07:36 +0200
+	b=i7gX97sxv6OOaXTl2+IyAG8mjhGIuzFFTSQRiC9GSHfa/L3sooB7RFdZc3i30MMk5
+	 nzvIiIO0oSsmjRGEJk17oEKfg1xFv3j/MXZbOJFirbYJXP6t9MUivQfLlw5ynzIaZC
+	 DlRxdt9hOsu4GFyK/7W1qh3meItMkIqSrThfqGverAU7uQ8PFX1N/0bNyDIu9n3UOX
+	 FmA3QERQoZnbrQFbhtejk3RgJ+fdvnHpJuR4wl/t8iQx996jpp/TPq2f7obAHZqg9G
+	 dN/Zn66ouGDvWBVcrJ3XbcNC+3hdOvU1Rti5AkyJWZxL5VXmP8+2OEPjq/XNmCwY34
+	 1EmL8dRUT8J5w==
+Message-ID: <bd1dc289-6285-496a-be08-e00d3dbae0e2@kernel.org>
+Date: Tue, 15 Sep 2026 13:07:46 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,17 +35,17 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] i2c: imx-lpi2c: release clocks on remove
+Subject: Re: [PATCH] iio: adc: at91-sama5d2: disable autosuspend on remove
 To: Guangshuo Li <lgs201920130244@gmail.com>,
- Dong Aisheng <aisheng.dong@nxp.com>, Andi Shyti <andi.shyti@kernel.org>,
- Frank Li <Frank.Li@nxp.com>, Sascha Hauer <s.hauer@pengutronix.de>,
- Pengutronix Kernel Team <kernel@pengutronix.de>,
- Fabio Estevam <festevam@gmail.com>, Wolfram Sang <wsa@kernel.org>,
- Fugang Duan <fugang.duan@nxp.com>, linux-i2c@vger.kernel.org,
- imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
- linux-kernel@vger.kernel.org
+ Eugen Hristev <ehristev@kernel.org>, Jonathan Cameron <jic23@kernel.org>,
+ David Lechner <dlechner@baylibre.com>, =?UTF-8?Q?Nuno_S=C3=A1?=
+ <nuno.sa@analog.com>, Andy Shevchenko <andy@kernel.org>,
+ Nicolas Ferre <nicolas.ferre@microchip.com>,
+ Alexandre Belloni <alexandre.belloni@bootlin.com>,
+ Claudiu Beznea <claudiu.beznea@tuxon.dev>, linux-iio@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org
 Cc: stable@vger.kernel.org
-References: <20260914090718.1666333-1-lgs201920130244@gmail.com>
+References: <20260914113422.1689331-1-lgs201920130244@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
@@ -91,41 +91,30 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <20260914090718.1666333-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260914113422.1689331-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 14/09/2026 11:07, Guangshuo Li wrote:
-> lpi2c_imx_probe() prepares and enables the controller clocks before
-> enabling runtime PM. After probe succeeds, clock management is handed
-> over to the runtime PM callbacks.
+On 14/09/2026 13:34, Guangshuo Li wrote:
+> at91_adc_probe() enables runtime PM autosuspend with
+> pm_runtime_use_autosuspend(). The probe error path correctly undoes
+> this setting with pm_runtime_dont_use_autosuspend(), but the normal
+> remove path only disables runtime PM.
 > 
-> However, lpi2c_imx_remove() only disables runtime PM and autosuspend.
-> It does not ensure that the device is active before teardown or drop
-> the clock references acquired during probe.
+> The runtime PM API requires pm_runtime_use_autosuspend() to be undone
+> with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
+> was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
+> set therefore leaves the runtime PM state incompletely cleaned up after
+> the driver is unbound.
 > 
-> For platforms which do not require clock prepare/unprepare in the
-> runtime PM callbacks, runtime suspend only disables the clocks, leaving
-> the prepare references held for the lifetime of the driver. Since the
-> remove path never unprepares them, these references are leaked when the
-> driver is unbound.
-> 
-> For platforms which prepare and unprepare clocks during runtime PM, an
-> unbind while the device is still runtime active can similarly leave
-> the clock prepare and enable references outstanding.
-> 
-> Resume the device before disabling runtime PM so that the clocks are in
-> a known enabled and prepared state. Then drop the temporary runtime PM
-> reference and disable and unprepare the clocks during final teardown.
-> Mark the device suspended after the hardware resources have been
-> released.
+> Add the missing pm_runtime_dont_use_autosuspend() call to the remove
+> path.
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: 13d6eb20fc79 ("i2c: imx-lpi2c: add runtime pm support")
+> Fixes: 75d7556ac0e4 ("iio: adc: at91-sama5d2_adc: add runtime pm support")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-
 
 Nothing improved, you again spammed with multiple independent patches so
 maintainers would need to respond TO EACH one instead of to the thread.
