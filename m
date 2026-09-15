@@ -1,114 +1,113 @@
-Received: from mout-p-201.mailbox.org (mout-p-201.mailbox.org [80.241.56.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-240.mta0.migadu.com [91.218.175.240])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4D5C27A47F;
-	Tue, 15 Sep 2026 00:20:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8B32145B27
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:37:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.240
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789431639; cv=none; b=GjVEmkq8C7OC6qZo6l9yV+eYXZl/2q6CJI9gsLBxSM70LRSJtg5wr9DoPbSySvq7818N5UqCIndNbXSrxQVYlpUsnbVF5aAVtxjGl8i+IvbgjES+qNn6GHk8a6ArOsnFdXjvQsGpE3XDYz8wupyKDHhnFhTUZwwsP1isAzqqGRY=
+	t=1789432665; cv=none; b=qlRamGWd+lFu9pzFiZXVlkNYoY+HTmL7KW5DoGuqCa1jauDCNJTAfhz4YcBdXTRGgKLScrkSy9BKzML/QyCws7bmsjkza9zCb1NiJFFdANE57ZydlUGKSUCGWn66c1qxpk2wL2CEc6gruFmeYFU+lWDkSDQ6zZ+134AN2cknOEA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789431639; c=relaxed/simple;
-	bh=at/mkSwKK/sgDOyC4NiR4P+UYyAD/Db+XedYzMT+8Nw=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=mTW0SWrCoVmBXZ1KpJHxexdR+sYXx4WUadWj1kezOH7Vi0ecBU8NUie1uMAXxGzgN8K+03AZuWJ6Oh2U5K8q96+zKcj1bJcxKAdoFIEt4659we+PGpn3XbRsrM2PTWPRYtDwv+0bi2VPzprBocjDm9SKltvsldrYpfC0I8cMUlc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hauke-m.de; spf=pass smtp.mailfrom=hauke-m.de; dkim=pass (2048-bit key) header.d=hauke-m.de header.i=@hauke-m.de header.b=vpAMK4NQ; arc=none smtp.client-ip=80.241.56.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=hauke-m.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hauke-m.de
+	s=arc-20240116; t=1789432665; c=relaxed/simple;
+	bh=NVj9c5KfMVbzl9XTE7+p3TmQIeowOBJBTPoyqaia5JE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=QtvVjWLZ8xcOeKKNUBr1rHCFhULUw6cvwNPwVznWdnnBZ8G4DpmOx3RaArrAFppXgZxWqZtcTUU7UTRCsCr+6nNZha2JWPAsPBLSFKoiCdypSQ/OYpxBTuUxMCBGKRkc7zcdRw9oZrKBERF18+UrjIPrFctrq+bGa2FhJxl+LQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev; spf=pass smtp.mailfrom=cressey.dev; dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b=TCF9OMgr; arc=none smtp.client-ip=91.218.175.240
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=cressey.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cressey.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=hauke-m.de header.i=@hauke-m.de header.b="vpAMK4NQ"
-Received: from smtp1.mailbox.org (smtp1.mailbox.org [10.196.197.1])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-201.mailbox.org (Postfix) with ESMTPS id 4hkN2g1yQPzMlDk;
-	Tue, 15 Sep 2026 02:20:27 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hauke-m.de; s=MBO0001;
-	t=1789431627;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=CpljDtNike4KVEVL9SOnc0NaK5QukU+03MiOs6oubNA=;
-	b=vpAMK4NQpuPJjWNRu2IbF5PxGH/mGsFUa903es85mBXgrf5Acw6xq1pAQDXysr3sr/+1xM
-	PiaeHDPhkNasXejayqCBD65XVsCzVSRArUnuMIkm5Wrmjkf0FINySXCKjfPyfOcgaxEPzx
-	iSjA3ZXImpWdOk5NO5d5yxvYmrY6v2frNq/DB2CDVM/OhhWoI5myFSxe0zTpRQiJ7MJPaY
-	l28og+B0UzG5yHvegUsIROsYOV7xqKel+qxdw+o2m8WFZ8LbdSHuECDpgE0WAhrSGbf2SL
-	U95OYEGDRHWVZ64ag4KWopNHMs0R76m3EIPAVUxPt/F9LYL+/iuHbhEavQ0MuA==
-Message-ID: <a031049b-ca94-4e11-b7b8-7b4c2acba954@hauke-m.de>
-Date: Tue, 15 Sep 2026 02:20:25 +0200
+	dkim=pass (2048-bit key) header.d=cressey.dev header.i=@cressey.dev header.b="TCF9OMgr"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=NVj9c5KfMVbzl9XTE7+p3TmQIeowOBJBTPoyqaia5JE=;
+ c=simple/simple; d=cressey.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789432660; v=1; x=1790037460;
+ b=TCF9OMgrrQU4xPga/Ip5QTgQsG2LzEd7mZQCTkFz51sekpS/ILm+cdn6CXv2MHzS5LTMQOEv
+ y3xcT8CMNJg4/m0tbR4dVIlzORIRTrbky2jfb+BdQLdsMf/Rd3GElwyGY2F7x6+q6I7lrqW738f
+ /K770Lqx7P/VC3sP2rkyrT0+M89bmvVwXjMW5+7tc+3/iahQV+9Lc2ZaT1SvKerd2qBNIjSAAIP
+ 5WuAVJK7fKkSKSZDEhf3Vb0P1g8rkvhL3uDLAlwShhu9ztq59WJEavZu4kM1bHVNvBTNRIX9nRW
+ hM1SHl2+xDP4zS70r4IDsh4JsepsDjixn4DwiZe1z7k2Q==
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id d0abbf3a478eacdc;
+	Tue, 15 Sep 2026 00:37:40 +0000
+X-Mizu-Trace-ID: d0abbf3a478eacdc
+X-Migadu-Flow: FLOW_OUT
+From: Ben Cressey <ben@cressey.dev>
+Date: Tue, 15 Sep 2026 00:37:35 +0000
+Subject: [PATCH] dm-integrity: fix buffer overflow in inline mode with
+ large tag size
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: network flow offloading broken in 6.18.45+
-To: Pablo Neira Ayuso <pablo@netfilter.org>
-Cc: stable@vger.kernel.org, "netdev@vger.kernel.org"
- <netdev@vger.kernel.org>, netfilter-devel@vger.kernel.org
-References: <7dfa42f6-64c1-4084-bfea-d57500c245cf@hauke-m.de>
- <aqcfvRE3aHoAx8s7@chamomile> <aqcgG0y-nYz4DWz3@chamomile>
- <aqfofgtUfyXlfHLr@chamomile> <aqfqQPP2Y7iG3kM_@chamomile>
-Content-Language: en-US
-From: Hauke Mehrtens <hauke@hauke-m.de>
-In-Reply-To: <aqfqQPP2Y7iG3kM_@chamomile>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+Message-Id: <20260915-dm-integrity-inline-tag-v1-1-3076b1b27454@cressey.dev>
+X-B4-Tracking: v=1; b=H4sIAE+TqGoC/3WNSQ7CMAxFr1J5TdRBTSFcBbFIU5MaSlI5YVLVu
+ 5OUNTs//+/nBQIyYYBjsQDjkwJ5l6DeFWBG7SwKGhJDUzVdpWophrsgF9EyxU+aJnIooraiayX
+ W+0OrlJSQrmfGC7038+n84/Dor2hi1uVGrwOKnrUzY15Nc2n8y/MNudyiP59gXb/5ZCiHtgAAA
+ A==
+X-Change-ID: 20260915-dm-integrity-inline-tag-645e17849955
+To: Alasdair Kergon <agk@redhat.com>, Mike Snitzer <snitzer@kernel.org>, 
+ Mikulas Patocka <mpatocka@redhat.com>, 
+ Benjamin Marzinski <bmarzins@redhat.com>
+Cc: dm-devel@lists.linux.dev, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Ben Cressey <ben@cressey.dev>
+X-Mailer: b4 0.15.2
 
-On 9/14/26 14:36, Pablo Neira Ayuso wrote:
-> On Mon, Sep 14, 2026 at 02:28:49PM +0200, Pablo Neira Ayuso wrote:
->> Hi,
->>
->> On Mon, Sep 14, 2026 at 12:13:50AM +0200, Pablo Neira Ayuso wrote:
->>> On Mon, Sep 14, 2026 at 12:12:16AM +0200, Pablo Neira Ayuso wrote:
->>>> Hi Hauke,
->>>>
->>>> On Wed, Sep 09, 2026 at 06:29:50PM +0200, Hauke Mehrtens wrote:
->>>>> Hi,
->>>>>
->>>>> flow offloading is currently broken in Linux 6.18.45.
->>>>>
->>>>> Since the backport of commit b5964aac51e0 ("netfilter: flowtable:
->>>>> consolidate xmit path") to Linux 6.18.45. This is happening in a router with
->>>>> traffic from wifi to the Ethernet device when mac80211 returns -EOPNOTSUPP.
->>>>>
->>>>> Upstream fixed it in 871df5007eda ("netfilter: flowtable: bail out if
->>>>> forward path cannot be discovered") by not offloading the flow at all.
->>>>> backporting this change looks more complicated.
->>>>>
->>>>> This cam up in a discussion in an OpenWrt PR:
->>>>> https://github.com/openwrt/openwrt/pull/24800
->>>>>
->>>>> An LLM suggested this change: https://github.com/openwrt/openwrt/pull/24800/changes/394d741e6e76ecd172dbbf1d9ba171e378211734
->>>>
->>>> Patch went away.
->>>>
->>>>> It seams to work, but I do not understand this part of the code god enough
->>>>> to judge if this is correct.
->>>>
->>>> Could you attach the patch to this email for review?
->>>
->>> I've found it :)
->>>
->>> https://github.com/openwrt/openwrt/commit/d2b53b8043e17087b877bfc2335cbba87dffb4e0
->>
->> I've proposed the following fix:
->>
->> https://lore.kernel.org/netfilter-devel/20260914122456.1963453-1-pablo@netfilter.org/
-> 
-> Actually, this v2 should work:
-> 
-> https://lore.kernel.org/netfilter-devel/20260914123334.1964397-1-pablo@netfilter.org/
+In inline mode, dm_integrity_check and dm_integrity_inline_recheck
+compute the checksum of each block into an on-stack buffer of
+HASH_MAX_DIGESTSIZE bytes. integrity_sector_checksum pads its result
+with zeroes up to the tag size, so if the tag size is larger than
+HASH_MAX_DIGESTSIZE, the padding runs past the end of the buffer. With
+CONFIG_STACKPROTECTOR the kernel panics in dm_integrity_check on the
+first read.
 
-Hi Pablo,
+Enlarge both buffers to hold MAX_TAG_SIZE bytes, as commit b93b6643e9b5
+("dm integrity: fix a crash with unusually large tag size") did for
+integrity_metadata.
 
-Thank you for looking into this.
+Fixes: fb0987682c62 ("dm-integrity: introduce the Inline mode")
+Cc: stable@vger.kernel.org
+Signed-off-by: Ben Cressey <ben@cressey.dev>
+Assisted-by: LLM
+---
+To reproduce: QEMU nvme-ns with ms=128 and 4096-byte blocks, table
+"0 8192 integrity /dev/nvme0n1 0 100 I 3
+internal_hash:hmac(sha256):<key> fix_hmac block_size:4096", then read
+the device.
 
-I think we have to handle DEV_PATH_MTK_WDMA like we do it with 
-DEV_PATH_DSA in nft_dev_path_info() too.
+For stable: before commit 5076d4599ce1 ("dm-integrity: enable
+asynchronous hash interface") in 6.18, the dm_integrity_check buffer
+was in dm_integrity_end_io.
+---
+ drivers/md/dm-integrity.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-mt7915_net_fill_forward_path() from 
-drivers/net/wireless/mediatek/mt76/mt7915/main.c could also return 
--ENODEV like mac80211 does. Should we backport 871df5007eda to 6.18 instead?
+diff --git a/drivers/md/dm-integrity.c b/drivers/md/dm-integrity.c
+index 92970e12267ab..0862f31b8498d 100644
+--- a/drivers/md/dm-integrity.c
++++ b/drivers/md/dm-integrity.c
+@@ -2721,7 +2721,7 @@ static void dm_integrity_inline_recheck(struct work_struct *w)
+ 	outgoing_data = dio->integrity_payload + PAGE_SIZE;
+ 
+ 	while (dio->bio_details.bi_iter.bi_size) {
+-		char digest[HASH_MAX_DIGESTSIZE];
++		char digest[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
+ 		int r;
+ 		struct bio_integrity_payload *bip;
+ 		struct bio_vec bv;
+@@ -2788,7 +2788,7 @@ static inline bool dm_integrity_check(struct dm_integrity_c *ic, struct dm_integ
+ 	unsigned pos = 0;
+ 
+ 	while (dio->bio_details.bi_iter.bi_size) {
+-		char digest[HASH_MAX_DIGESTSIZE];
++		char digest[MAX_T(size_t, HASH_MAX_DIGESTSIZE, MAX_TAG_SIZE)];
+ 		struct bio_vec bv = bio_iter_iovec(bio, dio->bio_details.bi_iter);
+ 		char *mem = integrity_kmap(ic, bv.bv_page);
+ 		integrity_sector_checksum(ic, &dio->ahash_req, dio->bio_details.bi_iter.bi_sector, mem, bv.bv_offset, digest);
 
-Hauke
+---
+base-commit: df2908090cda368b01ff43709f51890076c56157
+change-id: 20260915-dm-integrity-inline-tag-645e17849955
+
