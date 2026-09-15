@@ -1,140 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33D6E440A24;
-	Tue, 15 Sep 2026 07:02:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BB54440A13;
+	Tue, 15 Sep 2026 07:03:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455729; cv=none; b=aC11+J5aNbMqtLZcCSazbWwDqKN7cV7vFhDAzNFEoWAGhP0ui+FENAArf6kvbUP9xaXPD8mrdJhl2KEbPe9Zt3d2v9U8XlKJfVNy9gwQu4tGkFDvkS862CS3oj6vlFOK8CVqf6WHhTo34x3a0elyztzJeyzcqD1JlOvIUEkr3P4=
+	t=1789455838; cv=none; b=vC3W8P14ZFRA6+QVWGxJ4I9u0BUn8F7AJ5PTAcCpTYphn97PSX7DJq0z4ZsCdWS2AyFoTErNFY6Xdij8wWmyCyUdqPnF6vGZw5UICEzXJ2aBsReanfiN8cUuRgunCo3Tvve51sFyCQaKRW55/HUXhGRP+7ncVxOYbiGAEVrc79E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455729; c=relaxed/simple;
-	bh=5QejxhhhrjxhurF21rR3mtASC9z8/pTldgpDUvKQiWs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Xvnk4b2p5PNrREqbDxOJs6lbkvDIeAd0TRM880c5Z0vIc2fQq88rLLAwzSbI2ksQ1/GrwHGOIVXrdvGcla4kIu+QK8Buao9RMBd1fLp8ueQSCq+lEJhGAMXUOO6gYnurppIIlh9PT8SGisLc1SGCjUR677Fxr5bVc7JlDxO97Kw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FRcf7YWf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FRcf7YWf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 617FC1F000FF;
-	Tue, 15 Sep 2026 07:02:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789455727;
-	bh=BFaFvx45tg9q2foNkycuX3E8yE8Hbpo+wg9dSs9F8fc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FRcf7YWfFN3pOd0uI9YkJQ6MOUV/+BdSYNxxySNLSSfzSy1T5hvaZS+21E41bOdvn
-	 oCAxrqTzib0CSpgD/555UBJtPMr/mpKoUU2sKQIrJQ/Y4NkiukjcJryxCImywuAAq9
-	 QkFjzok3NiIDI/j+THV3avbpJuQeNgtz9XJvNeOLxKl8Wp+H9RLm2N0wfCCEcnQJcL
-	 WeGsPVsYP1GxeUe3mzHrc24kIZdVeHgwK5B9IJqCnxQgI+TsSdwQxxC72rgo9PlgqN
-	 FPRgUn3qocSgopFGgexMIVmRdEjCGmAP6C07kBeLNn6J46ZyQyafydxSru+3eloWQj
-	 ifgVqKFlBQRlg==
-Date: Tue, 15 Sep 2026 00:02:06 -0700
-From: Peter Chen <peter.chen@kernel.org>
-To: Ma Ke <make_ruc2021@163.com>
-Cc: pawell@cadence.com, rogerq@kernel.org, gregkh@linuxfoundation.org,
-	felipe.balbi@linux.intel.com, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, akpm@linux-foundation.org,
+	s=arc-20240116; t=1789455838; c=relaxed/simple;
+	bh=YRkU8KyF0H00Cx9BRK5RyuQ5oPriNisF6tBCyuGf2e0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=arAHozB1VFZTaxC5W2kWmbjGA+7pSWKiouVpWYd4EbwXoucNUkOoPc095YBR9LBgI9aovtpw5Mefvh1OzGWwjlpN+2ebs1yKz3WgCG5tq7wJn0Y4JsGoxTUY29JTW+EU0Zxw2ENmqP0P4lG7TnvW5jUMYxS7KB9oGnSE057a9P0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADX4T_K7ahq+anIBw--.20952S2;
+	Tue, 15 Sep 2026 15:03:39 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bhelgaas@google.com
+Cc: bp@alien8.de,
+	dave.hansen@linux.intel.com,
+	hpa@zytor.com,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	macro@orcam.me.uk,
+	mingo@redhat.com,
+	tglx@kernel.org,
+	x86@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] usb: cdns3: Fix PCI device reference leak in
- cdns3_pci_probe()
-Message-ID: <aqjtblfa0Yt5gT1U@hu-petche-lv.qualcomm.com>
-References: <20260914112320.4176773-1-make_ruc2021@163.com>
+Subject: [PATCH] x86/PCI: Fix device reference leak in pirq_find_router()
+Date: Tue, 15 Sep 2026 07:03:10 +0000
+Message-Id: <20260915070310.1733310-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260914112320.4176773-1-make_ruc2021@163.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADX4T_K7ahq+anIBw--.20952S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xw1DGryUAFy7Ar1xGF1xZrb_yoWkWrg_ua
+	s3Za9rXF48t3Wjkry5tFsxZFZ3u34qvF4kAr4xtFn8K3y5XF1DtFyUAr1rZF13u3yrAr95
+	J3sFqr45Ja1a9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUba8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
+	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
+	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
+	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF
+	4lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWU
+	CwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcS
+	sGvfC2KfnxnUUI43ZEXa7VU11rW7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAALA2qowzOhDQABsb
 
-On 26-09-14 19:23:20, Ma Ke wrote:
-> cdns3_get_second_fun() looks up the second PCI function with
-> pci_get_device(), which returns the device with a reference held, and
-> hands it back to its callers. Neither cdns3_pci_probe() nor
-> cdns3_pci_remove() ever drops that reference, so the second function's
-> pci_dev can never be released.
-> 
-> The cdnsp-pci.c driver handles the same situation correctly:
-> cdnsp_pci_probe() jumps to a 'put_pci:' label that calls
-> pci_dev_put(), and cdnsp_pci_remove() calls pci_dev_put() as well.
-> 
-> While at it, also add the missing NULL check in cdns3_pci_remove().
-> pci_is_enabled() dereferences its argument, so if
-> cdns3_get_second_fun() returns NULL, the current code may crashes.
-> cdnsp_pci_remove() guards with "!func ||".
-> 
-> Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ma Ke <make_ruc2021@163.com>
+pci_get_domain_bus_and_slot() takes a reference on the router device
+looked up from the routing table. If the device is found but no router
+handler probes it successfully, the reference is neither stored in
+pirq_router_dev nor dropped. Put the device reference when the router
+probe fails.
 
-If you have used LLM tools, please add Assisted-by tag for it, otherwise:
+Fixes: ac7cd5e16df8 ("x86/PCI: Handle PIRQ routing tables with no router device given")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ arch/x86/pci/irq.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
 
-Acked-by: Peter Chen <peter.chen@kernel.org>
-
-Peter
-
-> ---
->  drivers/usb/cdns3/cdns3-pci-wrap.c | 16 +++++++++++-----
->  1 file changed, 11 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/usb/cdns3/cdns3-pci-wrap.c b/drivers/usb/cdns3/cdns3-pci-wrap.c
-> index eb5760f75b9d..d18c15fb9365 100644
-> --- a/drivers/usb/cdns3/cdns3-pci-wrap.c
-> +++ b/drivers/usb/cdns3/cdns3-pci-wrap.c
-> @@ -89,7 +89,7 @@ static int cdns3_pci_probe(struct pci_dev *pdev,
->  	err = pcim_enable_device(pdev);
->  	if (err) {
->  		dev_err(&pdev->dev, "Enabling PCI device has failed %d\n", err);
-> -		return err;
-> +		goto put_pci;
->  	}
->  
->  	pci_set_master(pdev);
-> @@ -98,8 +98,10 @@ static int cdns3_pci_probe(struct pci_dev *pdev,
->  		wrap = pci_get_drvdata(func);
->  	} else {
->  		wrap = kzalloc_obj(*wrap);
-> -		if (!wrap)
-> -			return -ENOMEM;
-> +		if (!wrap) {
-> +			err = -ENOMEM;
-> +			goto put_pci;
-> +		}
->  	}
->  
->  	res = wrap->dev_res;
-> @@ -160,11 +162,13 @@ static int cdns3_pci_probe(struct pci_dev *pdev,
->  		if (IS_ERR(wrap->plat_dev)) {
->  			err = PTR_ERR(wrap->plat_dev);
->  			kfree(wrap);
-> -			return err;
-> +			goto put_pci;
->  		}
->  	}
->  
->  	pci_set_drvdata(pdev, wrap);
-> +put_pci:
-> +	pci_dev_put(func);
->  	return err;
->  }
->  
-> @@ -179,8 +183,10 @@ static void cdns3_pci_remove(struct pci_dev *pdev)
->  	if (wrap->devfn == pdev->devfn)
->  		platform_device_unregister(wrap->plat_dev);
->  
-> -	if (!pci_is_enabled(func))
-> +	if (!func || !pci_is_enabled(func))
->  		kfree(wrap);
-> +
-> +	pci_dev_put(func);
->  }
->  
->  static const struct pci_device_id cdns3_pci_ids[] = {
-> -- 
-> 2.43.0
-> 
-
+diff --git a/arch/x86/pci/irq.c b/arch/x86/pci/irq.c
+index 0de436316a1d..2bb80b6bf606 100644
+--- a/arch/x86/pci/irq.c
++++ b/arch/x86/pci/irq.c
+@@ -1312,8 +1312,12 @@ static void __init pirq_find_router(struct irq_router *r)
+ 	if (rt->rtr_vendor) {
+ 		dev = pci_get_domain_bus_and_slot(0, rt->rtr_bus,
+ 						  rt->rtr_devfn);
+-		if (dev && pirq_try_router(r, rt, dev))
+-			pirq_router_dev = dev;
++		if (dev) {
++			if (pirq_try_router(r, rt, dev))
++				pirq_router_dev = dev;
++			else
++				pci_dev_put(dev);
++		}
+ 	} else {
+ 		dev = NULL;
+ 		for_each_pci_dev(dev) {
 -- 
+2.34.1
 
-Thanks,
-Peter Chen
