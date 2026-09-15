@@ -1,33 +1,34 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E96440643;
-	Tue, 15 Sep 2026 05:48:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F28733A718D;
+	Tue, 15 Sep 2026 05:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451322; cv=none; b=VOkqkHfwfjusN6pWXDfOuXauDLALrZt4AbpsdUfnTOgPHnL33aEGfxiQ5KPDaMDJ8XmzSv3x3hn6QOWhHpgY0kBpsaPLnoiwJty/aI2Fa+c6RAKUz5YFUvSznxFk7pQc2G0hSP/5p5hp2tGMc7awZSD/DKe69HMPkE5F889NFbo=
+	t=1789451481; cv=none; b=CUz2e/g3Kfkuz0cK6zpXbiWYECe0hq9FUQ1hz9Uope+vHoYaYODINfrCMSsERMUETO9j8HsDb+WQ5kMCfC8r+GIPp7YtfI+PIVN9pH5WRPs4AKaIMrIB35QtYMRwzNYxFEP4rCzVh5pPsY6GZf9ZGweTlwavRjfC8qQJaKaPnVg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451322; c=relaxed/simple;
-	bh=LqKs0E+W+LDdReQ983V0fIzIIuGbvF2+nbEBAL6rBhE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eV3tRDxLBPDJpi3jEAcKzKpd/SX50gvFnompKElvR2iTq/oy+d50LmXL5iMSHHRzHF6NufUsnXj275oaVQTSCyg4pO9eZKLQZd4MsiZH+d1hcS+9xJKJcqClvTLqaYUjc0zVNsu4QOUk8THp1NhKdHNtslGUo/qu7EPZWmfezc4=
+	s=arc-20240116; t=1789451481; c=relaxed/simple;
+	bh=ESxk9Z/7FRaHCqQ8q4uTTzh04t+wN6Jr4ts20xyS1uE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=P0uwrtehPW0eSXbmVpwjWDiNnN8Ea6RBnCCmfliheZmno905G7AoxIyx3aYws3/lXUURG8HBZanqxJcD5ca+dL8PEFsSl7DFj2LkZn7QIID4ERv2OUiuk8AND5HScHfJnP6R/K03vHPWabsqUqGhjHrF0G21XSACySbf/8lypJA=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowADnu+8x3Khq2iAKCA--.40502S2;
-	Tue, 15 Sep 2026 13:48:33 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowAAX7O_Q3KhqNDMKCA--.62423S2;
+	Tue, 15 Sep 2026 13:51:12 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: daniel.lezcano@kernel.org
-Cc: lee@kernel.org,
+To: alexandre.torgue@foss.st.com
+Cc: daniel.lezcano@kernel.org,
 	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	patrice.chotard@foss.st.com,
+	linux-stm32@st-md-mailman.stormreply.com,
+	mcoquelin.stm32@gmail.com,
 	tglx@kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] clocksource/drivers/st_lpc: Fix clock reference leaks
-Date: Tue, 15 Sep 2026 05:48:04 +0000
-Message-Id: <20260915054804.1729741-1-vulab@iscas.ac.cn>
+Subject: [PATCH] clocksource/drivers/armv7m_systick: Fix clock reference leak
+Date: Tue, 15 Sep 2026 05:50:43 +0000
+Message-Id: <20260915055043.1729896-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -36,60 +37,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADnu+8x3Khq2iAKCA--.40502S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4rKrW3uw45tw18CFWkCrg_yoW8JF4kpr
-	1kKw4rAr1Uu3yIgrs0qrWvyr9Y9ayqkFy3G3y3K3ZrZr45GFW5uayfXayIvF4DArWxCw47
-	t3W5AFZ5ZF1DuFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
-	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmeH
-	gUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAILA2qowzNWfwABsc
+X-CM-TRANSID:qwCowAAX7O_Q3KhqNDMKCA--.62423S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Wr1fGF43Gw4Uury5ZFyfCrg_yoWkWrc_Ka
+	1v9r97Gr9akrnxKr1qkw15Z390kFnrZry8uFWIv3W3J3y7Zr45uw13urn3ur97Wayftas8
+	ArW7Cw4rZw1fWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1P
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMLA2qowR1hdAAAsG
 
-st_clksrc_setup_clk() obtains the LPC clock with of_clk_get() but
-leaks the consumer reference on two error paths: the
-clk_prepare_enable() failure path returns without any release, and the
-clk_get_rate() == 0 path only does clk_disable_unprepare() without
-clk_put().
+system_timer_of_register() obtains the timer clock with of_clk_get()
+and enables it, but on the success path the local clock reference is
+simply dropped without clk_put(), leaking the consumer reference. The
+error labels already release the clock.
 
-Add the missing clk_put() calls, mirroring the release already done in
-st_clksrc_of_register() error handling.
+Release the reference with clk_put() before returning success. The
+clock remains prepared and enabled, so the timer keeps running.
 
-Fixes: 70bef01c0f1c ("clocksource: sti: Provide support for the ST LPC Clocksource IP")
+Fixes: 4958ebb3d027 ("clocksource/drivers/armv7m_systick: Add ARM System timer driver")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/clocksource/clksrc_st_lpc.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/clocksource/armv7m_systick.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/drivers/clocksource/clksrc_st_lpc.c b/drivers/clocksource/clksrc_st_lpc.c
-index 419a886876e4..574b966eeb34 100644
---- a/drivers/clocksource/clksrc_st_lpc.c
-+++ b/drivers/clocksource/clksrc_st_lpc.c
-@@ -74,12 +74,14 @@ static int __init st_clksrc_setup_clk(struct device_node *np)
+diff --git a/drivers/clocksource/armv7m_systick.c b/drivers/clocksource/armv7m_systick.c
+index 7e78074480e4..1810f811bb2a 100644
+--- a/drivers/clocksource/armv7m_systick.c
++++ b/drivers/clocksource/armv7m_systick.c
+@@ -69,6 +69,9 @@ static int __init system_timer_of_register(struct device_node *np)
  
- 	if (clk_prepare_enable(clk)) {
- 		pr_err("clksrc-st-lpc: Failed to enable LPC clock\n");
+ 	pr_info("ARM System timer initialized as clocksource\n");
+ 
++	if (clk)
 +		clk_put(clk);
- 		return -EINVAL;
- 	}
++
+ 	return 0;
  
- 	if (!clk_get_rate(clk)) {
- 		pr_err("clksrc-st-lpc: Failed to get LPC clock rate\n");
- 		clk_disable_unprepare(clk);
-+		clk_put(clk);
- 		return -EINVAL;
- 	}
- 
+ out_clk_disable:
 -- 
 2.34.1
 
