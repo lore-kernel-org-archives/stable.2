@@ -1,114 +1,194 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fanzine2.igalia.com (fanzine2.igalia.com [213.97.179.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110A23D9DC8
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:03:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18D163DA5B4
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:06:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.97.179.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484612; cv=none; b=mI48mcqy3W8xSwdp0LuBaH/NsPURk17U+FP6ByTMK+idVRXGatuoeRp5ZIpC1pLZQHLf4ImTphhVErM2TXPYBfJj2MSOaoVN7UPdAk6bxAdO9m7c9x8om8/sq7gGDapLTsnss6RJDECFOaOZDd44EGrDkmHnlSLePPqxcKo5hfQ=
+	t=1789484788; cv=none; b=jUQsmEZFdtJZngyNYR8N2OMiyFcl1gkGqv0s57Bau9Fax/Jh/AEV04S77puFzI890mBqYPpHcg8deEdriUEBeIbZkBbelh96enr7S5/VwyWTo2Twhmne8j7akXCYNIsdFXIx9fWatFhgE+DfxBxgQjDobneb3WSzudtKYfeN/wI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484612; c=relaxed/simple;
-	bh=ZxcOEZm2h5gq0oopxQGQnrU+9rOuzRx+cCXYve5p7C8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n/ZA52zYwWdq81ANRO7diJJbphSAE0ZaT7R5KUriJl+Vyu5lFwxAmtxE8fKMkzOyCgIfgLnBr7uNUIeXqc9QxcI/3ga+ngAHY/eXuf3bJdY6oI2hfyJreIxNyCJ7Llxg9klbF47xXNTMglbE1i1mVMQAU/vszoOmQxkgGv2lZWo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bYhj57al; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789484788; c=relaxed/simple;
+	bh=kcqRBFFRNAmgMbd6Niri4H9ErHE+3XfmkouG16Gpokc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=AwW55UjnTURM0XHQuMSz3X1eMzrRipr8LLo77YXryDkG4e7IpJAw/hxN6dgJEKCNf+lDGIwNHi7rehnmTDSwLqVI3hBTlsjhQzKwwk7ho+jwraKd2vkakIChCcbI3QIv6lw+mjyfrc6o9+UP5Ki0mlw0EfrZ/pwwPL7+Os4RG10=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com; spf=pass smtp.mailfrom=igalia.com; dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b=rchspFkY; arc=none smtp.client-ip=213.97.179.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=igalia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=igalia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bYhj57al"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfd1so2582583a12.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:03:30 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789484610; x=1790089410; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=RnoFATftpooOx4JQEkcutKyMZ8fnscChHfdP4CjfQ0g=;
-        b=bYhj57almlknnku1zHJDxN6L0ktJqknCYE2luWkbj0WtkZKfchZHnaWCFYtjSVjo84
-         15mCIodT7vPcKb2OzRh/z/qAGUdGMwAUFMexLSiKQtDfatMjCO60qZQ1a0ntlVLGyoP9
-         C5kw1icnocUtPun0vvZrv3wO3KoOMFc4ZpGhegm5/utFnqwqUohHZJXlt5q6XZRlVTHt
-         wdI/hHfN/bKucntbbMtd5z9DOsJBUrB2Qidg1Bei/VIA5XP28npgMzKvN3T+Lxr/YvCM
-         Sw4RxJW3yThVYVJvMuqjyybVWE0w6WjMz+hcki/HfDCTfBYsk1Jml9jl4jx4dgf9eM1O
-         znog==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789484610; x=1790089410;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=RnoFATftpooOx4JQEkcutKyMZ8fnscChHfdP4CjfQ0g=;
-        b=vc74N0joY6fSdtRngZj1RozTjrC8gRfHcVa6eTRIkQ3ct3YX9DjWvT2b/HJPwJYnee
-         MPjUSkvs2T9WeaHJPAACpp7Jb1x9t3DEnts8OgMaKi11TJZmY0llOSQPCR4nYmk9D6fB
-         m5z7CcVZIZAl1LbK5AaZkKNzxhFkKWzslH8c9qFJHwMSGNiPWMSqdEY0UNCwO6VutKhl
-         IFAwfChCArGoxddSnc9HWiiZUGUIjrRXzjJx3eGHhLFL/3tatlF+2KUswshxuysLf2pp
-         nseCfGQ98K5qN5KVEHD7y/0lGSYsFqDBvucKruP1573/hQxsaN0H1lOcR2fnhTvYUPOC
-         5vvw==
-X-Gm-Message-State: AFuF++kB3REllbPQsHmVTAbt7Dx+EbGSDDcoVIFmVM1LLTJvXa+rkyVm
-	Zh+p2V8ytb2FBbMWgydvfRXspLym2C4K5E+iw3/XodMsCI6NM8bHb5o0
-X-Gm-Gg: AYBFou1IDbW0tN04nLaCPaRevSmn5oGQoUXaH32KTobnQPQzdClMr9IiphOiuxJXSh4
-	egqFHChqsKZZVpQPqHujnjZCIBK3/8xygdeGcmB0wmEH7dJUSE5JUW3u2t9kT1h5/4v+oHFSJjB
-	H7z+muKHV4YUptnYyDQdEqo3npHydV8Z6ou9MHZosg07TdtSnF+zBpOeLJtNBbRNRezJT4rt7zu
-	CnzQezAKfnkXU33UDYt8faB8Xqc0HlL55SRmpdFzXFOlLGQHmkLOVBrUaT/sIjaSXK94QHoR5A4
-	3gNDIvscwwX7W87I/uXNT0EG/D41unt+0v1V82yYT0MaLjwl0jxzEoeMSyO6UeV+3Q0rDM1g+vP
-	J2b3/H5CJcFL9u3jBtntV7aISsaBjnbGh+cRfwqCsXMjGcsZvDeWcQSZU+M+thseuveiLxn8kKx
-	j22zfKCDiKuEYtNeufwOedRNgTshdVXSKw2eHPjud7wgZHWCcx4GrefQre63ypnVsKMw==
-X-Received: by 2002:a17:90b:2789:b0:39d:f2a1:2a with SMTP id 98e67ed59e1d1-39df2a103d6mr15547653a91.19.1789484610100;
-        Tue, 15 Sep 2026 08:03:30 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda8bdf4sm6105716a91.12.2026.09.15.08.03.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 08:03:29 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Maxim Levitsky <maximlevitsky@gmail.com>,
-	Alex Dubov <oakad@yahoo.com>,
-	Ulf Hansson <ulfh@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Maoyi Xie <maoyixie.tju@gmail.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	linux-mmc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] memstick: ms_block: destroy io_queue workqueue on removal
-Date: Tue, 15 Sep 2026 23:03:17 +0800
-Message-ID: <20260915150317.2444609-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=igalia.com header.i=@igalia.com header.b="rchspFkY"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=igalia.com;
+	s=20170329; h=Content-Transfer-Encoding:Content-Type:MIME-Version:Message-ID:
+	Date:Subject:Cc:To:From:From:Reply-To;
+	bh=PiSyqhvGSz2PDFqBbXkGWNO7TnAMaaznX9h6SJLmVzw=; b=rchspFkYc1pi3jD/hBSPFPlaIO
+	OKp5wrTVAx4+GwEiDs/PfkEnMgE/7r5OPCGfyM3diJnkZWYEPmBcgV+X6KymATgMFasrKj2Shhj2J
+	kCWE3vbnpdrr49n4L8ixKiCJEq0PRpNpB3LY4QnIt3cvzuTkRsanODXAdUyTBSpGz9icWRcszUYxx
+	WmD4So2vOGOMtasqF/WkR/oxwQo9nPqQKWD59kf+4KLtDaI0AOapX/hWGK/kBg8LcBXYFb9Uuq+rd
+	/1Q4Ya7v3lZKyksALKqElbCRJ5/NLkcRAirwTei9VttmKbwk7B6U52RF7Lf9DlsAD98PZmZoOms+N
+	YUgqH3OQ==;
+Received: from [81.79.79.1] (helo=localhost)
+	by fanzine2.igalia.com with esmtpsa 
+	(Cipher TLS1.3:ECDHE_SECP256R1__RSA_PSS_RSAE_SHA256__AES_256_GCM:256) (Exim)
+	id 1x6UjW-002VAq-He; Tue, 15 Sep 2026 17:06:06 +0200
+From: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+To: amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com,
+	Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+	Luke.Wildhardt@proton.me,
+	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
+	Danilo Krummrich <dakr@kernel.org>,
+	Philipp Stanner <phasta@kernel.org>,
+	Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
+	Matthew Brost <matthew.brost@intel.com>,
+	Vitaly Prosyak <vitaly.prosyak@amd.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] drm/sched: Do not restore unsaved virtual runtime
+Date: Tue, 15 Sep 2026 16:05:57 +0100
+Message-ID: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-msb_init_disk() allocates msb->io_queue with alloc_ordered_workqueue(),
-while msb_remove() does not destroy the workqueue.
+Prevent pushing a new job to an entity seeing it being the first in the
+queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
+side in drm_sched_entity_pop_job() has just de-queued the job but not yet
+updated the saved virtual time.
 
-The probe failure path releases the workqueue with destroy_workqueue(),
-but the normal removal path only flushes it through msb_stop(). Flushing
-a workqueue does not release the workqueue itself, so each card
-insert/remove cycle leaks the workqueue and its worker.
+Restoring the unsaved virtual time, which is at this point not a delta but
+still an absolute value, pushes the said entity to the rear of the run queue
+for a potentially very long time.
 
-Destroy io_queue during removal after the outstanding work has been
-drained.
+We close this race by pulling the locked sections out to encompass both
+the queue push/pop and corresponding rbtree management.
 
-Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+This is aligned with the future direction to replace the current lockless
+job queue with one of the fully locked standard list primitives.
+
+Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+Suggested-by: Luke.Wildhardt@proton.me # via Claude Opus
+Tested-by: Luke.Wildhardt@proton.me
+Cc: Christian König <christian.koenig@amd.com>
+Cc: Danilo Krummrich <dakr@kernel.org>
+Cc: Philipp Stanner <phasta@kernel.org>
+Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+Cc: Matthew Brost <matthew.brost@intel.com>
+Cc: Vitaly Prosyak <vitaly.prosyak@amd.com>
+Cc: <stable@vger.kernel.org> # v7.2+
 ---
- drivers/memstick/core/ms_block.c | 2 ++
- 1 file changed, 2 insertions(+)
+v2:
+  * More verbose commit text.
+---
+ drivers/gpu/drm/scheduler/sched_entity.c |  8 +++++++-
+ drivers/gpu/drm/scheduler/sched_rq.c     | 20 +++++++++-----------
+ 2 files changed, 16 insertions(+), 12 deletions(-)
 
-diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
-index ce33907bfc24..65154e569a9e 100644
---- a/drivers/memstick/core/ms_block.c
-+++ b/drivers/memstick/core/ms_block.c
-@@ -2204,6 +2204,8 @@ static void msb_remove(struct memstick_dev *card)
- 	msb_data_clear(msb);
- 	mutex_unlock(&msb_disk_lock);
+diff --git a/drivers/gpu/drm/scheduler/sched_entity.c b/drivers/gpu/drm/scheduler/sched_entity.c
+index bf97508a45b9..e4069fcb0272 100644
+--- a/drivers/gpu/drm/scheduler/sched_entity.c
++++ b/drivers/gpu/drm/scheduler/sched_entity.c
+@@ -563,9 +563,10 @@ struct drm_sched_job *drm_sched_entity_pop_job(struct drm_sched_entity *entity)
+ 	 */
+ 	smp_wmb();
  
-+	destroy_workqueue(msb->io_queue);
++	spin_lock(&entity->lock);
+ 	spsc_queue_pop(&entity->job_queue);
+-
+ 	drm_sched_rq_pop_entity(entity);
++	spin_unlock(&entity->lock);
+ 
+ 	/* Jobs and entities might have different lifecycles. Since we're
+ 	 * removing the job from the entities queue, set the jobs entity pointer
+@@ -651,6 +652,9 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 	 * Make sure to set the submit_ts first, to avoid a race.
+ 	 */
+ 	sched_job->submit_ts = submit_ts = ktime_get();
 +
- 	put_disk(msb->disk);
- 	memstick_set_drvdata(card, NULL);
++	spin_lock(&entity->lock);
++
+ 	first = spsc_queue_push(&entity->job_queue, &sched_job->queue_node);
+ 
+ 	/* first job wakes up scheduler */
+@@ -661,5 +665,7 @@ void drm_sched_entity_push_job(struct drm_sched_job *sched_job)
+ 		if (sched)
+ 			drm_sched_wakeup(sched);
+ 	}
++
++	spin_unlock(&entity->lock);
  }
+ EXPORT_SYMBOL(drm_sched_entity_push_job);
+diff --git a/drivers/gpu/drm/scheduler/sched_rq.c b/drivers/gpu/drm/scheduler/sched_rq.c
+index 0464d324d98d..23f46ec610e7 100644
+--- a/drivers/gpu/drm/scheduler/sched_rq.c
++++ b/drivers/gpu/drm/scheduler/sched_rq.c
+@@ -257,19 +257,17 @@ static ktime_t drm_sched_entity_get_job_ts(struct drm_sched_entity *entity)
+ struct drm_gpu_scheduler *
+ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+ {
++	struct drm_sched_rq *rq = entity->rq;
+ 	struct drm_gpu_scheduler *sched;
+-	struct drm_sched_rq *rq;
+ 
+ 	/* Add the entity to the run queue */
+-	spin_lock(&entity->lock);
++	lockdep_assert_held(&entity->lock);
++
+ 	if (entity->stopped) {
+-		spin_unlock(&entity->lock);
+-
+ 		DRM_ERROR("Trying to push to a killed entity\n");
+ 		return NULL;
+ 	}
+ 
+-	rq = entity->rq;
+ 	spin_lock(&rq->lock);
+ 	sched = rq->sched;
+ 
+@@ -289,7 +287,6 @@ drm_sched_rq_add_entity(struct drm_sched_entity *entity, ktime_t ts)
+ 	drm_sched_rq_update_fifo_locked(entity, rq, ts);
+ 
+ 	spin_unlock(&rq->lock);
+-	spin_unlock(&entity->lock);
+ 
+ 	return sched;
+ }
+@@ -343,16 +340,17 @@ drm_sched_rq_next_rr_ts(struct drm_sched_rq *rq,
+  */
+ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+ {
++	struct drm_sched_rq *rq = entity->rq;
+ 	struct drm_sched_job *next_job;
+-	struct drm_sched_rq *rq;
++
++	lockdep_assert_held(&entity->lock);
++
++	spin_lock(&rq->lock);
+ 
+ 	/*
+ 	 * Update the entity's location in the min heap according to
+ 	 * the timestamp of the next job, if any.
+ 	 */
+-	spin_lock(&entity->lock);
+-	rq = entity->rq;
+-	spin_lock(&rq->lock);
+ 	next_job = drm_sched_entity_queue_peek(entity);
+ 	if (next_job) {
+ 		ktime_t ts;
+@@ -375,8 +373,8 @@ void drm_sched_rq_pop_entity(struct drm_sched_entity *entity)
+ 			drm_sched_entity_save_vruntime(entity, min_vruntime);
+ 		}
+ 	}
++
+ 	spin_unlock(&rq->lock);
+-	spin_unlock(&entity->lock);
+ }
+ 
+ /**
 -- 
-2.43.0
+2.55.0
 
