@@ -1,129 +1,114 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E09433D79FD;
-	Tue, 15 Sep 2026 15:03:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 110A23D9DC8
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:03:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789484607; cv=none; b=jIRuyPi58LDi9WicPM+F668w1ogwh2Z4IvgYm85WlnPw59sijcICygUHHH2FD2WF5wd/PIgaFEOAAcJcR4Pd2R20Sh2MfOy1/tgvpJLdr0yQ37W4trvhDJzMVWuOgi8P1VH7t1HW1Mwy/q/CBPc7Aiq4rQFgvUmCYErPGaKBzAY=
+	t=1789484612; cv=none; b=mI48mcqy3W8xSwdp0LuBaH/NsPURk17U+FP6ByTMK+idVRXGatuoeRp5ZIpC1pLZQHLf4ImTphhVErM2TXPYBfJj2MSOaoVN7UPdAk6bxAdO9m7c9x8om8/sq7gGDapLTsnss6RJDECFOaOZDd44EGrDkmHnlSLePPqxcKo5hfQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789484607; c=relaxed/simple;
-	bh=oFxSQPZMIWDu4++0MODGTwZ/8THaG4PIaTNGuy4MUwY=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=R7zX23jNHqPWev/DbjByWejEfN+NDOxQ/UFsUEaAXS2PaMU1MQ+U7KTKcN2YAJ2e3zYOM1kG2R3hqgv/L0/A3+N2U1eMfg3W4Wl6/Py8wGC2Da/kW4z1vovebpIEO+3iXfeMx1qMPwUqgTYdI95blK1zDYnABRMTstHtoi57r1I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hms2AIv0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789484612; c=relaxed/simple;
+	bh=ZxcOEZm2h5gq0oopxQGQnrU+9rOuzRx+cCXYve5p7C8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=n/ZA52zYwWdq81ANRO7diJJbphSAE0ZaT7R5KUriJl+Vyu5lFwxAmtxE8fKMkzOyCgIfgLnBr7uNUIeXqc9QxcI/3ga+ngAHY/eXuf3bJdY6oI2hfyJreIxNyCJ7Llxg9klbF47xXNTMglbE1i1mVMQAU/vszoOmQxkgGv2lZWo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bYhj57al; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hms2AIv0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B00571F000FF;
-	Tue, 15 Sep 2026 15:03:22 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789484606;
-	bh=i3oWpYtarkgkFED8rLFP9I2go+4dZqhBtgLXgfVyojE=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=hms2AIv0m4LISt7wOVbhf6MXwbbQMMTVdw1L8qqFzp6tFpwLxOnoR7yJaL6zHcDAy
-	 aKKVZobhqPHORNsQA8Iz3FLecoAhSNSMQ4wn4CPcXSHchaje3096H5wuxsDBqidko1
-	 30Kq/UUVaTsNQu/56x9vizsgAoCAXplgRDkTCvMjPIgAL1ka23CWh0IWSu3+p1ccNI
-	 DVV5l7rGJNtq1s1rJpBT0S6G+/mOQMglyEMUPc8aZYwY4gIHjV76LmtQ5DG3YCrjQU
-	 d2yE0P0/x6JIAFn3RR7wmcphmKPeemShDqXC5fUu9CWSEeDnB0PRbPXr9cV6g9HwG8
-	 qPJCsWMutOy1Q==
-Message-ID: <1bbac1b4-b03a-4626-b509-c9f3ae36a169@kernel.org>
-Date: Tue, 15 Sep 2026 17:03:19 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bYhj57al"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4bfd1so2582583a12.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:03:30 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789484610; x=1790089410; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=RnoFATftpooOx4JQEkcutKyMZ8fnscChHfdP4CjfQ0g=;
+        b=bYhj57almlknnku1zHJDxN6L0ktJqknCYE2luWkbj0WtkZKfchZHnaWCFYtjSVjo84
+         15mCIodT7vPcKb2OzRh/z/qAGUdGMwAUFMexLSiKQtDfatMjCO60qZQ1a0ntlVLGyoP9
+         C5kw1icnocUtPun0vvZrv3wO3KoOMFc4ZpGhegm5/utFnqwqUohHZJXlt5q6XZRlVTHt
+         wdI/hHfN/bKucntbbMtd5z9DOsJBUrB2Qidg1Bei/VIA5XP28npgMzKvN3T+Lxr/YvCM
+         Sw4RxJW3yThVYVJvMuqjyybVWE0w6WjMz+hcki/HfDCTfBYsk1Jml9jl4jx4dgf9eM1O
+         znog==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789484610; x=1790089410;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=RnoFATftpooOx4JQEkcutKyMZ8fnscChHfdP4CjfQ0g=;
+        b=vc74N0joY6fSdtRngZj1RozTjrC8gRfHcVa6eTRIkQ3ct3YX9DjWvT2b/HJPwJYnee
+         MPjUSkvs2T9WeaHJPAACpp7Jb1x9t3DEnts8OgMaKi11TJZmY0llOSQPCR4nYmk9D6fB
+         m5z7CcVZIZAl1LbK5AaZkKNzxhFkKWzslH8c9qFJHwMSGNiPWMSqdEY0UNCwO6VutKhl
+         IFAwfChCArGoxddSnc9HWiiZUGUIjrRXzjJx3eGHhLFL/3tatlF+2KUswshxuysLf2pp
+         nseCfGQ98K5qN5KVEHD7y/0lGSYsFqDBvucKruP1573/hQxsaN0H1lOcR2fnhTvYUPOC
+         5vvw==
+X-Gm-Message-State: AFuF++kB3REllbPQsHmVTAbt7Dx+EbGSDDcoVIFmVM1LLTJvXa+rkyVm
+	Zh+p2V8ytb2FBbMWgydvfRXspLym2C4K5E+iw3/XodMsCI6NM8bHb5o0
+X-Gm-Gg: AYBFou1IDbW0tN04nLaCPaRevSmn5oGQoUXaH32KTobnQPQzdClMr9IiphOiuxJXSh4
+	egqFHChqsKZZVpQPqHujnjZCIBK3/8xygdeGcmB0wmEH7dJUSE5JUW3u2t9kT1h5/4v+oHFSJjB
+	H7z+muKHV4YUptnYyDQdEqo3npHydV8Z6ou9MHZosg07TdtSnF+zBpOeLJtNBbRNRezJT4rt7zu
+	CnzQezAKfnkXU33UDYt8faB8Xqc0HlL55SRmpdFzXFOlLGQHmkLOVBrUaT/sIjaSXK94QHoR5A4
+	3gNDIvscwwX7W87I/uXNT0EG/D41unt+0v1V82yYT0MaLjwl0jxzEoeMSyO6UeV+3Q0rDM1g+vP
+	J2b3/H5CJcFL9u3jBtntV7aISsaBjnbGh+cRfwqCsXMjGcsZvDeWcQSZU+M+thseuveiLxn8kKx
+	j22zfKCDiKuEYtNeufwOedRNgTshdVXSKw2eHPjud7wgZHWCcx4GrefQre63ypnVsKMw==
+X-Received: by 2002:a17:90b:2789:b0:39d:f2a1:2a with SMTP id 98e67ed59e1d1-39df2a103d6mr15547653a91.19.1789484610100;
+        Tue, 15 Sep 2026 08:03:30 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfda8bdf4sm6105716a91.12.2026.09.15.08.03.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 08:03:29 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Maxim Levitsky <maximlevitsky@gmail.com>,
+	Alex Dubov <oakad@yahoo.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Kees Cook <kees@kernel.org>,
+	Maoyi Xie <maoyixie.tju@gmail.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] memstick: ms_block: destroy io_queue workqueue on removal
+Date: Tue, 15 Sep 2026 23:03:17 +0800
+Message-ID: <20260915150317.2444609-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 1/1] mm/huge_memory: fix pgtable withdrawal for huge zero
- PMDs
-To: Kiryl Shutsemau <kas@kernel.org>, Lance Yang <lance.yang@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, ziy@nvidia.com,
- baolin.wang@linux.alibaba.com, liam@infradead.org, nico.pache@linux.dev,
- ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
- usama.arif@linux.dev, ljs@kernel.org, surenb@google.com, linux-mm@kvack.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <20260912234635.db50397364858aa15f58f4d7@linux-foundation.org>
- <20260913072312.52111-1-lance.yang@linux.dev> <aqfRCPheDYTgTdAk@thinkstation>
- <f76beaf8-351a-4b22-b362-a945a5e1af6a@kernel.org>
- <20260914111940.f7e2c72eac4a2df97a646793@linux-foundation.org>
- <30bcc70c-be07-4237-9bb1-554aa5b5c5c2@linux.dev>
- <aqlMvfIhr8nD9RHB@thinkstation>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aqlMvfIhr8nD9RHB@thinkstation>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/15/26 15:52, Kiryl Shutsemau wrote:
-> On Tue, Sep 15, 2026 at 09:43:15PM +0800, Lance Yang wrote:
->>
->>
->> On 2026/9/15 02:19, Andrew Morton wrote:
->>>
->>>
->>> Thanks.  I'll remove cc:stable, move this into mm-unstable as a
->>> next-merge-window thing.
->>
->> Sounds good to me, thanks, Andrew!
->>
->> Kiryl, David, would you prefer the validation for raw-PFN mappings
->> of the huge zero page as a separate follow-up, or should that
->> validation replace this patch? wdyt
-> 
-> I think this patch can be useful for graceful recovery if we somehow ended up
-> with a zero page in a mapping where we shouldn't have one.
-> 
-> A separate patch with validation would be great.
-> 
+msb_init_disk() allocates msb->io_queue with alloc_ordered_workqueue(),
+while msb_remove() does not destroy the workqueue.
 
-Ack
+The probe failure path releases the workqueue with destroy_workqueue(),
+but the normal removal path only flushes it through msb_stop(). Flushing
+a workqueue does not release the workqueue itself, so each card
+insert/remove cycle leaks the workqueue and its worker.
 
+Destroy io_queue during removal after the outstanding work has been
+drained.
+
+Fixes: 0ab30494bc4f ("memstick: add support for legacy memorysticks")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/memstick/core/ms_block.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/memstick/core/ms_block.c b/drivers/memstick/core/ms_block.c
+index ce33907bfc24..65154e569a9e 100644
+--- a/drivers/memstick/core/ms_block.c
++++ b/drivers/memstick/core/ms_block.c
+@@ -2204,6 +2204,8 @@ static void msb_remove(struct memstick_dev *card)
+ 	msb_data_clear(msb);
+ 	mutex_unlock(&msb_disk_lock);
+ 
++	destroy_workqueue(msb->io_queue);
++
+ 	put_disk(msb->disk);
+ 	memstick_set_drvdata(card, NULL);
+ }
 -- 
-Cheers,
+2.43.0
 
-David
