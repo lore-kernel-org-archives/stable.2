@@ -1,146 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f5.google.com (mail-lr2-f5.google.com [74.125.230.69])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8571C41A504;
-	Tue, 15 Sep 2026 11:52:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DAD23372B57
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:53:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.69
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789473128; cv=none; b=j5spMxV3nXOn+oyk7IfRpqGumzb8S5EY1gsHTCc4YoBYLyw/7sfQUGZ73ORlRYXQYmZ6pF+fHGfIVsPvZsi0XmvvGd0vNsQtJLI5Qd69SIzizWnlCKIp4c5yuJiTlxYymMSqNE2sjtqss9nBCjIlxpZzqK+sLOBwKkwgz4IDNrQ=
+	t=1789473237; cv=none; b=T8V6c0bCBMac64xAcWyICXmRrPEgPi0YwWfgsjAQtgdUnPpdfVnvrrKaZZcdiBZfS0WCNzOCPEme8Op06Ot0eMrBH++DvGW60j1IXqFwx9+JlTa3r61d7tnw7CG9EsAS8caQfzgUMVE9LUg4ceS1gkNYi9mKrMDYmQ5A6FvFwz0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789473128; c=relaxed/simple;
-	bh=xYV/wPCpIvfx2FoorpIIu84nztuuW+0aduAUUjXtr5o=;
-	h=From:Subject:To:Cc:In-Reply-To:References:Content-Type:Date:
-	 Message-Id; b=gwV71HdvnYJRSxJX/pxhjJdcqFB2TtXVnNsU75ihs2z353ZRF8Z7EiYfbJfV4Ly18EOWWoWDIdcXvSt3TpzLbRxYH2bFA2U29y/HuNOc0ygp50p7k/rocS1TGEsFGBBDYai7m8xGZi5H+lQcpC8nJ2SD2DLh7V6awENHZxv0Ke8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IKs/ruNI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789473237; c=relaxed/simple;
+	bh=qgr/p3hceS3VtgKFOnDdhJhC8P/qNGt2W9yjpLkmnOQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=Hg6IJrva1hw5xnftQ7cVf9+tynPdetlwieBwqcucZbnG3afnLJC4rQzWefUkxZdaplSk9tJBO7faeQxB5N7RJYbBIH2IcSN7JWejx/8djxs1SP7RtnyEItXZTcim0Qh2KjzKLOQ9qvuiEl1czT7TVbL8tPfAPLXsApIY1rGXlUA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=N7rYIU+3; arc=none smtp.client-ip=74.125.230.69
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IKs/ruNI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCEE41F000FF;
-	Tue, 15 Sep 2026 11:52:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789473127;
-	bh=minwQhNSeXpWaT0uHf4QAacB8I8tdz+K6aY9uTKMnis=;
-	h=From:Subject:Reply-To:To:Cc:In-Reply-To:References:Date;
-	b=IKs/ruNIjPp8RAB0L1pOI7H22Y8Yiif1iOXio4sxHFjBOsd7iJXA9OfVe0qNrPBeJ
-	 OA9RerOC7J4qNa4U0ZjuDpsiiEbI7qrnvYykxb4tg75ZUbUe+TLGug9LYhaMwholnH
-	 BLQfuJNmYhzUe1fQVl2ccCWjYc8zeFMI8JOv6suA5P1TsqNz2iC5BAu0wTtTnhuogs
-	 Q3o4P47RD0fDdyTAF/zlu5SjTWO+EpgqXFlHy2b9T9gjft9BU5690299V/3BfQq54o
-	 sUzX29eE0BwM1xcuuiEyg6b7RwIAtpHlyPysNIvchn6N60lI8qbXAXfxcqf2/LKfZU
-	 GcjOC3AG+V4zA==
-From: sashiko-bot@kernel.org
-Subject: Re: [PATCH v3] mtd: spi-nor: take the flash lock around
- spi_nor_restore()
-Reply-To: sashiko-reviews@lists.linux.dev
-To: "Itai Handler" <itai.handler@gmail.com>, mwalle@kernel.org, pratyush@kernel.org
-Cc: linux-kernel@vger.kernel.org, vigneshr@ti.com, linux-mtd@lists.infradead.org, takahiro.kuwano@infineon.com, richard@nod.at, stable@vger.kernel.org, miquel.raynal@bootlin.com
-In-Reply-To: <20260915113811.2429311-1-itai.handler@gmail.com>
-References: <20260915113811.2429311-1-itai.handler@gmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
-Date: Tue, 15 Sep 2026 11:52:06 +0000
-Message-Id: <20260915115206.CCEE41F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="N7rYIU+3"
+Received: by mail-lr2-f5.google.com with SMTP id 38308e7fff4ca-3a20b70da4cso24274951fa.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:53:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789473232; x=1790078032; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=SP8o/AX4s37clPQoDD9t4nYTrUrCAlJE0QLNgt9QK14=;
+        b=N7rYIU+3peTYpJ6+Eo+6/R4yh4LZxpwXDBZxezGYcAFt4k4g0hU+/R6BO+6Mmwt7UX
+         wq+WBy7M0I8E2uJoz3Iq4uJktYwWxTokY8YouPPFtmN8mb/ObYRKWEI3Hzp7dSCR6HSp
+         uZytBroAVqYbDBdDmZruoQ8COCo69G9NdHIzNboxSv7KdccbEqZ7tjCI9BBMFKFm0Ofj
+         1NdMC9VhMoGb0CRwuYwfLOuB/416ZFCnedSMcdPwu6XZ15UsVfbhcQQWJZWhn1Cw3c4P
+         AGVhlMdZBwk06MdT2XjFsqq+0VpWuyZcDp1wdzFD20xUz3z3SL6uIgrCpyHFGYxLh+zV
+         ugiA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789473232; x=1790078032;
+        h=content-transfer-encoding:content-type:mime-version:message-id:date
+         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=SP8o/AX4s37clPQoDD9t4nYTrUrCAlJE0QLNgt9QK14=;
+        b=2lpBlZTw4FZu8fmKnqYbFiS1C4c6ix8DTUo3JBpJUNAFru9C3HAXeBw3LwPb7JISTC
+         Bh6IuDtBXGiNOuLyZKca7ASeUbQn7TYohTs9H++Dsp7ojJ6QeW/yH+xLfOGj/cszHiPv
+         BA2d2yT5E48CfnM1Co5JdcBVOzFBYLHTIfw8OY+XGT4SXdLvri7k397O5Ny595dDjNSh
+         L2cnuzwQcc4XQNn9UqvNWOSEkgi0bwGBAYox0woQuQDb4ojuSKt9kxD/ioCYVBs0+6Rw
+         AWxD1Y+zLOL5Y/9egFUyTLHKJTPpaxqDCa+BynP5tTqIbmuHnQ1O6BpiLUyZpl7B2/Fy
+         Etbw==
+X-Gm-Message-State: AFuF++ml9qz583n4ErC4sh3sqyN2PPOpQLI3j0wh+BY7Thl0rlnaZZ1t
+	+v/5yxC3CPPEVwshIdnvxX7hV4RRjEihv0WeEn6SsJYxnT6tO/ZxZkPDfZ56jjYEjUs=
+X-Gm-Gg: AYBFou2gi6OWPhhlSfNfqn01cHbddO+Os8tM7MQhAq3cqLrUHrrH+R+sdZR9dNGgtEx
+	sllDP8YW3z0a+/w1UqZz9NJZyZjCRCW1dHYBBAqNtLDSLztodi660BCopxxL2AlLhbWtoxruaQD
+	UD1TokNL0Xj1/t1CKjxbIHWQO41LULPPiGVdjMFrzyZyUddIZOIwZ4qpPDH/RPyyGuDklL6FkJN
+	covj/99lO+ehNTlqQwIQ4Qkkq8huCARD0tcODkKV/9nF1vrKfdKemr8IOZdPVg5wMCTEF+jfIec
+	b+DJkvode/riqte0Z1dOpdICxpV/P8+kTIR0T40mgQLDjh/FnEeQsUq//Qx0PJBnTCEVdojkdMe
+	CcrqQY86EbUNDsVlr/d67Tk5bRoknEhTIS+d5UQqqoer3QBJmgbAsrpk32ZvS+lXCA4m+NSFPC3
+	FoJdoYE8ZAjLyewo012nIWutTvZsaZ8zB3r0Zj66jajuQrXzhxDTe/UOazPsZKNagucoega32Yl
+	DEaS+rklYQbOsUnlw==
+X-Received: by 2002:a05:6512:15a8:b0:5b7:6107:eb77 with SMTP id 2adb3069b0e04-5b8ae6afaf4mr1574809e87.33.1789473231548;
+        Tue, 15 Sep 2026 04:53:51 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8a0457238sm3216340e87.16.2026.09.15.04.53.50
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 04:53:51 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Sasha Levin <sashal@kernel.org>,
+	Tim Guttzeit <t.guttzeit@tuxedocomputers.com>,
+	Werner Sembach <wse@tuxedocomputers.com>,
+	Kailang Yang <kailang@realtek.com>,
+	Zhang Heng <zhangheng@kylinos.cn>,
+	Sean Rhodes <sean@starlabs.systems>,
+	Damien Dagorn <damien.dagorn29@gmail.com>,
+	Martin Hamilton <m@martinh.net>,
+	Bharat Dev Burman <bharat.singh7924@gmail.com>,
+	Lei Huang <huanglei@kylinos.cn>,
+	Stefan Binding <sbinding@opensource.cirrus.com>,
+	Lucas Tanure <tanureal@opensource.cirrus.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Denis Arefev <arefev@swemel.ru>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 6.1 v2] ALSA: hda: Fix missing pointer check in hda_component_manager_init function
+Date: Tue, 15 Sep 2026 14:53:39 +0300
+Message-ID: <20260915115340.105976-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential issue(=
-s) to consider:
-- [High] mtd: spi-nor: skipped flash restore on fatal signal breaks boot
-- [High] mtd: spi-nor: shutdown hang due to ongoing erase operation
---
+From: Denis Arefev <arefev@swemel.ru>
 
-commit c0578fac7581b63c39bfd99ac3a6f934256685d3
-Author: Itai Handler <itai.handler@gmail.com>
+commit 1cf11d80db5df805b538c942269e05a65bcaf5bc upstream.
 
-mtd: spi-nor: take the flash lock around spi_nor_restore()
+The __component_match_add function may assign the 'matchptr' pointer
+the value ERR_PTR(-ENOMEM), which will subsequently be dereferenced.
 
-This commit changes spi_nor_shutdown() and spi_nor_remove() to acquire
-nor->lock around spi_nor_restore(). It aims to prevent operations like
-reads from overlapping with the restore, which could leave the chip in
-3-byte addressing mode.
+The call stack leading to the error looks like this:
 
-> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
-> index ccf4396cdcd04..c891197ffa5b3 100644
-> --- a/drivers/mtd/spi-nor/core.c
-> +++ b/drivers/mtd/spi-nor/core.c
-> @@ -3849,11 +3849,26 @@ static int spi_nor_probe(struct spi_mem *spimem)
->  				   data ? data->nr_parts : 0);
->  }
-> =20
-> +/*
-> + * Restore between operations, not during one. Removal and shutdown both=
- run
-> + * with MTD users still attached: a busy flash silently ignores the comm=
-ands
-> + * spi_nor_restore() sends, and a restore landing inside a read changes =
-the
-> + * chip's address width under the transfer.
-> + */
-> +static void spi_nor_restore_locked(struct spi_nor *nor)
-> +{
-> +	if (spi_nor_prep_and_lock(nor))
-> +		return;
+hda_component_manager_init
+|-> component_match_add
+    |-> component_match_add_release
+        |-> __component_match_add ( ... ,**matchptr, ... )
+            |-> *matchptr = ERR_PTR(-ENOMEM);       // assign
+|-> component_master_add_with_match( ...  match)
+    |-> component_match_realloc(match, match->num); // dereference
 
-[Severity: High]
-Does this code silently skip the flash restore if a fatal signal breaks the
-lock acquisition?=20
+Add IS_ERR() check to prevent the crash.
 
-For example, if a privileged user runs rmmod while an erase or read operati=
-on
-is actively holding the RWW lock, and the rmmod process receives SIGKILL,
-spi_nor_prep_and_lock() (via wait_event_killable()) will return -ERESTARTSY=
-S:
+Found by Linux Verification Center (linuxtesting.org) with SVACE.
 
-drivers/mtd/spi-nor/core.c:spi_nor_prep_and_lock() {
-    ...
-    if (!spi_nor_use_parallel_locking(nor))
-        mutex_lock(&nor->lock);
-    else
-        ret =3D wait_event_killable(nor->rww.wait,
-                                  spi_nor_rww_start_exclusive(nor));
+Fixes: ae7abe36e352 ("ALSA: hda/realtek: Add CS35L41 support for Thinkpad laptops")
+Signed-off-by: Denis Arefev <arefev@swemel.ru>
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+[Roman: Instead of modifying hda_component_manager_init() (which does not
+yet exist in version 6.1), a check needs to be added to the
+cs35l41_generic_fixup() function—the very function introduced by the
+offending commit, which calls component_match_add() without verifying its
+successful completion.]
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2025-40097
+v2: 6.6 is missing 1cf11d80db5d ("ALSA: hda: Fix missing pointer check in
+hda_component_manager_init function") as well, and it is the newer tree,
+so 6.1 cannot go first here.
+A 6.6 version also needs one more hunk than this: 6.6 has a second
+unguarded component_match_add() in tas2781_generic_fixup() alongside the
+cs35l41_generic_fixup() one.
+Send a v2 covering 6.6, both call sites, and 6.1 
+as Sasha Levin <sashal@kernel.org> suggested.
 
-    return ret;
-}
+ sound/pci/hda/patch_realtek.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-Bypassing the hardware teardown path here leaves the flash in 4-byte addres=
-sing
-mode. This might cause the bootloader to fail to read the kernel on the next
-reboot, soft-bricking the device until a power cycle.
+diff --git a/sound/pci/hda/patch_realtek.c b/sound/pci/hda/patch_realtek.c
+index 7b4fd95c66f9..9e6846a37d67 100644
+--- a/sound/pci/hda/patch_realtek.c
++++ b/sound/pci/hda/patch_realtek.c
+@@ -7021,6 +7021,11 @@ static void cs35l41_generic_fixup(struct hda_codec *cdc, int action, const char
+ 			spec->comps[i].codec = cdc;
+ 			component_match_add(dev, &spec->match,
+ 					    comp_match_cs35l41_dev_name, rec);
++			if (IS_ERR(spec->match)) {
++				codec_err(cdc, "Fail to add component %ld\n",
++					  PTR_ERR(spec->match));
++				return;
++			}
+ 		}
+ 		ret = component_master_add_with_match(dev, &comp_master_ops, spec->match);
+ 		if (ret)
+-- 
+2.53.0
 
-> +
-> +	spi_nor_restore(nor);
-> +	spi_nor_unlock_and_unprep(nor);
-> +}
-> +
-
-[ ... ]
-
-> @@ -3863,7 +3878,7 @@ static void spi_nor_shutdown(struct spi_mem *spimem)
->  {
->  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
-> =20
-> -	spi_nor_restore(nor);
-> +	spi_nor_restore_locked(nor);
-
-[Severity: High]
-Could this hang the system indefinitely during shutdown if an erase operati=
-on
-is ongoing?
-
-Erase operations (like spi_nor_erase_multi_sectors) hold nor->lock
-continuously for their entire duration, looping over spi_nor_wait_till_read=
-y()
-with cond_resched(). A large chip erase can take several minutes.
-
-Because device_shutdown() iterates devices synchronously without a timeout,
-this synchronous wait for nor->lock could hang the reboot process until the
-erase finishes, forcing the user to hard-reset the machine.
-
->  }
-> =20
->  /*
-
---=20
-Sashiko AI review =C2=B7 https://sashiko.dev/#/patchset/20260915113811.2429=
-311-1-itai.handler@gmail.com?part=3D1
