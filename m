@@ -1,121 +1,118 @@
-Received: from mail-qk1-f170.google.com (mail-qk1-f170.google.com [209.85.222.170])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 017B04119F9
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 16:17:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2CA4078F1
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 16:19:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789489060; cv=none; b=NQLm+DHGdWOBb707UTg0mQilaGv7xoatcGg9D9kFIuLTu/iUthiub1nxiyQhvdpTwP/m54lrZ+xIYibgWBr2wr6xzpiSj716RAmrRtbMBe3nDGbVU91twN7wvXMbx9YbbzHOJ7WP9wDnIof2zHE4gdoKMEnlAMzrxf6PLhspb4w=
+	t=1789489198; cv=none; b=qPAKz9lR8tD0zGtTsY4+J9R7LY7LAI1Wke4Hz20n6EkALeLTJYopNkiJc3fWNtKivM7wM3JEwQrpIIvitfAt9DDJIUkgqNhyo9giDRAieJ2ubbkhx8pc7YIaQa/MAtlWM+wMtuRUhFktSsm2aZDETwm2SDljKreJzm7nAwYiyQM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789489060; c=relaxed/simple;
-	bh=cJFv5mLfQ+9Fzjda7I53xSLIzgCeDtC5OhcBV6QuJ1A=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=egFfKoGNBLpJcQHjud07u1ZVZutBu26Z7+GPsSGQtixeC4Lc0p/fwstTegkmRTifTVcpAFZRlf26t0fQsblMTohmBAufdh1Wbq1Gs4ZiyY+tv4Y8OtWxTDhmg2PxWv9JJk38ppGrZppomnEneUerIjIW0pbvQsNDL7McaxIYmxk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=fS188pRZ; arc=none smtp.client-ip=209.85.222.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1789489198; c=relaxed/simple;
+	bh=MdD/9MYz7M1wCbFAHiD7DEgcogkOmiRDU7stj2S7jz4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KYvrfcWsEM1Rpe81aKm+OmFrc8gGAbzHXebSsUK1K0jSA9BNhhCHnmAqiyRR2qsxmODe7igjhnJ0q2IFwI4Dx9PjgT67NqXQFmXMd+MLbo0JCyXL6ROTGtHNKrWmjEQKRxyWR/wDm5s9kbu0Fhp8Ce2bC6SnS3Sc7OPk1BZQmZg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EluP/tf2; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="fS188pRZ"
-Received: by mail-qk1-f170.google.com with SMTP id af79cd13be357-93a10f9a2easo94272085a.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 09:17:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EluP/tf2"
+Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85a4329731cso452476b3a.3
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 09:19:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1789489056; x=1790093856; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=dXoaSOzLcSniPHeJqnrgZd+b23tx7/MvhGFOoQXutdY=;
-        b=fS188pRZsdThyEpLvlNZN99q+hwl3CD+Kr2Wcvt/OecrNMB6fo474ehP2cESjPm/GR
-         ruEMIrrjiBE5+BG/jlseEmTdlx9lOKKM9IAPmrK/sdqftum3P1otF9eO0XhT2ITE9d/o
-         KC2XYTJutZa5vsEHhm69/g4W7CH9TesEMUU9dsBndWo0W8RaY/r4g49ULSc6SpQ1M34V
-         FpgwcjBi+gujZZJny/7+PkxWQy/tZWYRWAVo6hpzF4P/tDKoAKUe9tdOzHuvcIB0LF0E
-         YGHtdrmbl89RPPk2qN4bPBZvcO/iMoYthZo/+vkJW9VEfehRrtCfcOFcehK7mW1C1YT6
-         RkWA==
+        d=gmail.com; s=20251104; t=1789489196; x=1790093996; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T+yVuHLs29GzY4fkqZIEiSlSvIN7JcAqD7l0flOonVQ=;
+        b=EluP/tf2hPRnIdpQMBMje/7WuKoGH9VF2LNmKp0WooFSfBLZBmTvJqsj3+wPnnZlHk
+         jF+St8/AFemJ1to3hDfWlg3twq3GhD8SIpQrVBXm8/eIOW8JXm8krkQY3lnmizex7DgP
+         1S5zGP5EI8YZIytShlTPyfec/CP3H655XxMOfpMh+PLtV8mxdMj5IbN71GpFbjZeFZlc
+         Bn4XOrFYQ+whdIrJh/Azgvf7EkQ1g2SSTbQXgZJypRRcR1/nOvJKxQ4M3Xng7hlpuac/
+         AOvukcELhNOsFWxMboDS2l8SxH3wOT03ostTVPRMehyJHarhgqvhmjx+Qx0gq6j57N0/
+         DjpQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789489056; x=1790093856;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=dXoaSOzLcSniPHeJqnrgZd+b23tx7/MvhGFOoQXutdY=;
-        b=y7Ks4jczSLv1C5T1KoFvC7KiksOVTfv4iWlTAw5DZtBbH0g89V0w4fq/+OZG2K81AF
-         JgwKtPjBAifGZ6xWEFkBt9qNFQXkHfmRFJJT5lxkMWiyl/C2vGguca6Vhv3S+v0v+s6l
-         Oqb/vdxqBagYYXJ3LY8I34TwhwMF+Q2ZW3403jhpgmJKTVI4WeezxSkPYwlAZkMszWqf
-         1qBT0YvGEOhtDa0q0LncwLMTiGR1g0G9qaxHzvuP0OnQDc9LTLhKVHwErvSQyIQgVnH3
-         kGBd64/n3BvMnpkfFKYvjnAgeQxgHs97zM4VEtyTNriPdga6fvjNYv/LgdP/6Da1rHs/
-         xLFQ==
-X-Forwarded-Encrypted: i=1; AKwUvByZUDy2ny5niM3dLcEyo5mewlfH6sd6aQac40oABIR9d0gLg7u9gAnCTu9dwShZVF0yak23ESQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nVJJCmDfzltG6udS0VotWVJHLMx+mAhX8YEsS1sIuCWfTJasSN
-	YSIuf2S0MgBSktQ8gaU6zBTosVybFQ9X/x8+rKsYOdfORHjq0agMaHZsiQL1YmutEO8=
-X-Gm-Gg: AYBFou0MJ5vlwaZuv3pEYXveFH7PJx/qKrfDwiF0CrCukQa1PObbO4e08N0wAASoLNj
-	yWmrSJZUu8bB/DWCu5nWf7zWVxx13xYw0+7N0UXk/Q0QvJ8F9WBgp8QaREs5mDhsS/Bi1lvA3IZ
-	aGJI0qaTIV7riiof650X9RlUe/Jt04lSUbK/K7s58I1hATUOC7xDX2Qbdr7bWfYMIbA/RmzunoJ
-	sZb488dMHDVp8e/+k/ZkXPCDigGR4nbz8v31N7+iYh0yp6lzObq09SH+Wq4whFvIGq9f+ZCDqlU
-	Qe2ds7heVs5SeSr5WQSOBhSetz+PoeFe0ASqLuHS5vsl0jKGLX34EhP+upx0YxPprm+636uiWdK
-	dYNiitMsloMeWtJFAaZpkA93uCJL1Pw2vf0cb2ifTwEU+g7TAe3Mez5q0BQt38tRtFv4ZAVnlBV
-	/bkovS9pGJdtgeC5bzHAoztZLvNLnSGQ9830gp2+6j4zP5XY0S5crq6tsMX8SdvUvvTY9MVg==
-X-Received: by 2002:a05:620a:2607:b0:939:b7f4:c7dd with SMTP id af79cd13be357-93a3477ff9cmr603922085a.47.1789489055702;
-        Tue, 15 Sep 2026 09:17:35 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123bddd5e1sm2362876d6.3.2026.09.15.09.17.34
+        d=1e100.net; s=20260707; t=1789489196; x=1790093996;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T+yVuHLs29GzY4fkqZIEiSlSvIN7JcAqD7l0flOonVQ=;
+        b=VAgF5W14lYRekk9cjN3wwh/kRA+ODoEbU30gNkyEaN6S6RhoqCEWq8VFkJ1d/QYpKV
+         lUN2kPiwIMB0AcxsM5dHs+FiXgRD6pQmym2vMfE6eSy8NkNVKt97On2ytHDPEpWAuk1G
+         wAANHzLYnoNEeDNh5pRnlHf2qN4bKLow7f8jtFE6BRcA2xwqYRXUydiogBojJ8zGDqGC
+         1y5TpdWaezukdzpfPXk7SD9lSaKyUb7lulF0TsOzxLyTDH6n0xc+ATsPl7hheHAOFGIM
+         ieo7G7JMgD2lFnhwU5O2US/PfmvLptT4E8LPNj0HbwEYiWC5+997bnnqch1FyBGXdyta
+         TSXQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxHNNRBRcWQKHr/Ehn6hEVVn3buo87jVImQEyiLoJB5p+XosNE0J7CjgtfGymqYHMtXTvmoR2U=@vger.kernel.org
+X-Gm-Message-State: AFuF++kBs42+qEXbtZX3GvNlg8kCPa4KC+A67y3frDVwE7TH1mNPIhiy
+	pQmgIOTA/iOvUKyLjdDGQLf3asCIvzYoe0IXITzMJe6xgOTkwefAsDAj
+X-Gm-Gg: AYBFou3Z+/TDrqw8zKAhmpYn5qeclQCO+AqLuom4r2krjmn10hlSOD+/bh2pxSPcfu6
+	qsntKG6CEdM5qfFYaKpmDDmciG25DHvuF8VCRFr/tKnbMxg9yrmHpvgO6DUMqLf6fcbciulZ2GO
+	HgzjNitJ9tMEi4FovzHTuL9ToUXwDksxzofpw3Ma3p9k5d8W6EdhI8O3sXIszkRWwR2DhanD6yT
+	7OFcOX/yvZuVsDKKr3MqLNXksuSRQ0XIsRXQi/yO1kUBxQYXHq+Qj0zmW3xayS9TrY8ay3Hl8rR
+	hUT7u4fCZLfbqkLDBPf+LU9ZOcb42jUexEcKO00+rttp7JizKMi/W0Ga6orCWDnsA5N5GfKtvrJ
+	kLdixaYU5pwU1PgpQf53CENE7QLeXLeiuSy/BGZXjhqc82Ffzhf2GXu+JKDi1dGxzpJplI6Gitw
+	0L3YKzhSM6KV7nuyDeMWwCknd9fCC7RDS8FOVLS4SRR9+XOiVPJ0esQw==
+X-Received: by 2002:a05:6a00:1da1:b0:871:13f7:9c41 with SMTP id d2e1a72fcca58-8717efc888amr3300275b3a.14.1789489195671;
+        Tue, 15 Sep 2026 09:19:55 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b29dc09d4sm6446021b3a.47.2026.09.15.09.19.52
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 09:17:35 -0700 (PDT)
-Date: Tue, 15 Sep 2026 12:17:34 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: Salvatore Dipietro <dipiets@amazon.it>
-Cc: akpm@linux-foundation.org, abuehaze@amazon.com, alisaidi@amazon.com,
-	blakgeof@amazon.com, brauner@kernel.org, brendan.jackman@linux.dev,
-	david@redhat.com, dgc@kernel.org, dipietro.salvatore@gmail.com,
-	djwong@kernel.org, hch@infradead.org, hch@lst.de,
-	jackmanb@google.com, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	vbabka@kernel.org, vbabka@suse.cz, willy@infradead.org,
-	ziy@nvidia.com
-Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly
- __GFP_NORETRY allocations
-Message-ID: <aqlvnm8AKp5f_UhG@cmpxchg.org>
-References: <20260911093209.d9181d5950778897935f6bcb@linux-foundation.org>
- <20260915160042.1265958-1-dipiets@amazon.it>
+        Tue, 15 Sep 2026 09:19:55 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Adrian Hunter <adrian.hunter@intel.com>,
+	Ulf Hansson <ulfh@kernel.org>,
+	Orson Zhai <orsonzhai@gmail.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Chunyan Zhang <zhang.lyra@gmail.com>,
+	linux-mmc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] mmc: sdhci-sprd: disable runtime PM on remove
+Date: Wed, 16 Sep 2026 00:19:47 +0800
+Message-ID: <20260915161947.2479111-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915160042.1265958-1-dipiets@amazon.it>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 04:00:42PM +0000, Salvatore Dipietro wrote:
-> 
-> On Fri, 11 Sep 2026 09:32:00 -0700 Andrew Morton <akpm@linux-foundation.org> wrote:
-> 
-> > does any of this look real?
-> 
-> The mechanism seems real, but it only shows up with vm.defrag_mode=1,
-> which is off by default.
-> 
-> With defrag_mode=1, a costly __GFP_NORETRY allocation that used to fail
-> cleanly can now succeed by fragmenting another migratetype's pageblock,
-> which seems like the wrong trade for a caller whose premise is a cheap
-> lower-order fallback. Johannes, do we want to keep it strict?
+sdhci_sprd_probe() enables runtime PM, while sdhci_sprd_remove() does
+not perform the corresponding runtime PM cleanup.
 
-Yes, avoiding the fallback is a good idea. The user already
-communicated they can handle failure and have fallback options.
+The probe failure path disables runtime PM before disabling the clocks,
+but the normal remove path directly disables clocks that are also
+managed by the runtime PM callbacks. If the device is runtime
+suspended, those clocks may already be disabled.
 
-> If so, we could add a condition like below. It is equally
-> applicable to v4 and v5. Happy to send it separately or in v6.
-> 
-> 	/*
-> 	 * Reclaim/compaction cannot run, so defrag_mode's strategy
-> 	 * of enforcing ALLOC_NOFRAGMENT cannot be fulfilled. Allow
-> 	 * fallbacks rather than failing the allocation outright.
-> 	 * Not for costly __GFP_NORETRY: those have a cheap lower
-> 	 * order fallback, so failing beats fragmenting.
-> 	 */
-> 	if (defrag_mode && (alloc_flags & ALLOC_NOFRAGMENT) &&
-> 	    !(costly_order && (gfp_mask & __GFP_NORETRY)) &&
+Resume the device before removal, disable runtime PM and drop the
+temporary runtime PM reference before disabling the clocks.
 
-It would be possible to remove the costly_order gate here and just
-bail on __GFP_NORETRY. But no strong feelings.
+This issue was found by manual code inspection.
+
+Fixes: fb8bd90f83c4 ("mmc: sdhci-sprd: Add Spreadtrum's initial host controller")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/mmc/host/sdhci-sprd.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/drivers/mmc/host/sdhci-sprd.c b/drivers/mmc/host/sdhci-sprd.c
+index 3584a2b314a9..0c8f389fe584 100644
+--- a/drivers/mmc/host/sdhci-sprd.c
++++ b/drivers/mmc/host/sdhci-sprd.c
+@@ -890,6 +890,10 @@ static void sdhci_sprd_remove(struct platform_device *pdev)
+ 	struct sdhci_host *host = platform_get_drvdata(pdev);
+ 	struct sdhci_sprd_host *sprd_host = TO_SPRD_HOST(host);
+ 
++	pm_runtime_get_sync(&pdev->dev);
++	pm_runtime_disable(&pdev->dev);
++	pm_runtime_put_noidle(&pdev->dev);
++
+ 	sdhci_remove_host(host, 0);
+ 
+ 	clk_disable_unprepare(sprd_host->clk_sdio);
+-- 
+2.43.0
+
