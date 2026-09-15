@@ -1,96 +1,86 @@
-Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69735364052;
-	Tue, 15 Sep 2026 03:56:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EA1093D6CDE;
+	Tue, 15 Sep 2026 04:00:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789444606; cv=none; b=qD4+DzR7GpFQ23FDZGB0/A2KpUWDPaOQv1rGlzy45IW+2TqUfHxLRTE17sGmm3cfa7l1aFzxPMeTofNdHONQFM4J/XXYlIlultzkzkseyKohV/k4+7sKhTdV2ECDU+ATy+A20NYKU37GhSCVhNdfkE+Xc541jwmDOLiK7JeSo7c=
+	t=1789444820; cv=none; b=GAtSJuuGmu/kSBv8B+hkYsiE5ugvpUc5kstCJmAbb2wosz3r2hPiwIH50X1zrwPU3WorFrodvjwKjDpoqjCADAr4GRlhybrqR4j54h+gDLLDOAUbYkB5LvRkQPQliPbjHkxWm3giZDcJXXDWe4YL/NlOuf/qqNKISLOiM4FsGh0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789444606; c=relaxed/simple;
-	bh=sQ/7p6mlglIOpYjoj97REr9pNyp85G66JLD/T43bnGo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V7UJi//qCXcKjKvb7GUQATY8GFXSPbGDWWS8xGZL6SKUqNnv4vvhtpXn70HoqgD/t5fqbZCIyPPOfqHi8+XpRpNG17RCftnESqZ6i90Ae1djG7xW1ogjMqE/kVd3XYY0XsT0VdkwSYjtZIeSA4eejW1s3bl2IICYIi56VJ9OWuE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowADXrPDvwahqtt4HCA--.49278S2;
-	Tue, 15 Sep 2026 11:56:31 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank.Li@kernel.org
-Cc: dmaengine@vger.kernel.org,
-	geert+renesas@glider.be,
-	laurent.pinchart+renesas@ideasonboard.com,
-	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
-	magnus.damm@gmail.com,
-	vkoul@kernel.org,
-	lkml@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 4/4] dmaengine: rcar-dmac: Fix runtime PM leak in error path of channel alloc
-Date: Tue, 15 Sep 2026 03:56:02 +0000
-Message-Id: <20260915035602.1724403-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789444820; c=relaxed/simple;
+	bh=fH8KNsTlhwxJVcCjqxppQyJG1OIc0ZghqeI32d3fg2A=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=hMgPaNXm8rWQjapWshJwLv7cCgz4ctX4RHZRM3e911HszAUicp1duSYK5BF0c7b09GiFXwOdV1tdMw8slqyth1Me8J4ddbztRFcgyBzYPg1M3NIqqwuAA+EHAiK5V6hJTeH89LoamhxGUybNDE2mOv4/zc8pqjsRIHDF7QzUyqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VTz0/iKu; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VTz0/iKu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2C3DD1F000FF;
+	Tue, 15 Sep 2026 04:00:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789444817;
+	bh=bOGviD23LIx9itgkTZT1I56y223hTDE9oauoFAaTHLY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=VTz0/iKuOlxNIORnSR8CuhF+WTbfOZ9IQ6sNACa+BhbsvUi5Yjs3aXS1d2jc6z/eL
+	 NyxLWxxKcByY9bs5VR74ChBQYe63zeaSbxZF6mZvAAGXP/PAL0zj2yYsJBA3hNbru9
+	 u1S4c8nDC9un1+OYBLtAUkKDX6UxIbV09M5F8USMVdFcsi/jZ0kSUVa481hwsGkRCe
+	 V5dernqc5o0A1SevCkPBWxECHJ4B1UJJJS4g9U33b/r7Tnj2hHBVJLcVjEzzkIPv/B
+	 orGYptUx7f0KJTDg6MkHyp/JM+cWcrACFYHe5JstDNuix8qaU3APNSdtmziRqHcZ2K
+	 xBMiaqXYvSY1w==
+Message-ID: <4f4941e6-1e51-4fc7-b452-e7f77cfca4bf@kernel.org>
+Date: Tue, 15 Sep 2026 11:00:11 +0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowADXrPDvwahqtt4HCA--.49278S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cr18XFyfGr1xZw4ruFWfKrg_yoW8Gw4fpF
-	4fJ3y7Aryjqr45GFs8tr4UZFy5u39rJ3y7Kayftas8ua1xGa42y34rX34jqa18CryDA3Wj
-	y3yDJr1rCF1kAFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9F14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4UJVW0owA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcS
-	sGvfC2KfnxnUUI43ZEXa7VU1go2UUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMLA2qowd0AVQAAsZ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v4 1/5] ata: ahci_st: Assert the power down reset in the
+ probe() error path
+To: Niklas Cassel <cassel@kernel.org>,
+ Patrice Chotard <patrice.chotard@foss.st.com>,
+ Philipp Zabel <p.zabel@pengutronix.de>, Tejun Heo <tj@kernel.org>,
+ Alexandre Torgue <alexandre.torgue@st.com>, Lee Jones <lee@kernel.org>
+Cc: Brian Norris <computersforpeace@gmail.com>, stable@vger.kernel.org,
+ linux-arm-kernel@lists.infradead.org, linux-ide@vger.kernel.org
+References: <20260910171406.131211-7-cassel@kernel.org>
+ <20260910171406.131211-8-cassel@kernel.org>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20260910171406.131211-8-cassel@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-rcar_dmac_alloc_chan_resources() ends with
-"return pm_runtime_get_sync(chan->device->dev);".  Even when
-pm_runtime_get_sync() fails, it leaves the device's runtime PM
-usage count incremented, and the negative return value propagates
-straight to the dmaengine core, which aborts the channel
-allocation without ever calling device_free_chan_resources().  The
-balanced pm_runtime_put() only happens later in
-rcar_dmac_free_chan_resources(), so the reference is leaked
-whenever resuming the device fails.
+On 2026/09/11 0:14, Niklas Cassel wrote:
+> st_ahci_probe_resets() deasserts the "pwr-dwn" reset, but the probe()
+> error path of st_ahci_probe() only releases the host resources, so the
+> SATA IP is left powered up when probe() fails after
+> st_ahci_probe_resets() has succeeded, e.g. when
+> ahci_platform_enable_resources() fails.
+> 
+> The reset is asserted by st_ahci_host_stop(), however ->host_stop() is
+> only called through the ata_host_stop() devres action registered by
+> ata_host_start(), so it does not cover any failure happening before the
+> host has been started.
+> 
+> Factor the assert out into st_ahci_assert_pwrdwn() and call it from both
+> probe() error paths. The "pwr-dwn" reset control is an exclusive one, so
 
-Use pm_runtime_resume_and_get() instead, which drops the reference
-again on failure and returns 0 on success.
+from both probe() error path *and* ... ?
 
-Fixes: 87244fe5abdf ("dmaengine: rcar-dmac: Add Renesas R-Car Gen2 DMA Controller (DMAC) driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/dma/sh/rcar-dmac.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+> asserting it once more from st_ahci_host_stop() is harmless.
+> 
+> No functional change intended for ->host_stop() and st_ahci_suspend().
+> 
+> Fixes: 76884cb2f7da ("ahci: st: Add support for ST's SATA IP")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Niklas Cassel <cassel@kernel.org>
 
-diff --git a/drivers/dma/sh/rcar-dmac.c b/drivers/dma/sh/rcar-dmac.c
-index 44eab2d21d54..2d2baa36feea 100644
---- a/drivers/dma/sh/rcar-dmac.c
-+++ b/drivers/dma/sh/rcar-dmac.c
-@@ -1068,7 +1068,7 @@ static int rcar_dmac_alloc_chan_resources(struct dma_chan *chan)
- 	if (ret < 0)
- 		return -ENOMEM;
- 
--	return pm_runtime_get_sync(chan->device->dev);
-+	return pm_runtime_resume_and_get(chan->device->dev);
- }
- 
- static void rcar_dmac_free_chan_resources(struct dma_chan *chan)
+Other that the nit above, looks good.
+
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+
 -- 
-2.34.1
-
+Damien Le Moal
+Western Digital Research
