@@ -1,217 +1,315 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-124.mta0.migadu.com [91.218.175.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A258443C0F;
-	Tue, 15 Sep 2026 06:59:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0482443E43
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 06:59:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789455562; cv=none; b=fmou+gO7SjKArFlkLfmv740oEl7asCtu4B15ji9/7IEokTkwW7srt6TdHDZLYFuCKeyABgIAbw9TLM+uuctwLfZbWfu5SxmKuYzta+HQ58VipE6zKl+clkj7Dn9ztbc9tKcg1hEGYIxlS6cpdi2zwf0g7DLfs9lWAqoyi5HbcPw=
+	t=1789455569; cv=none; b=K7bUJtlM6saZsYIRG7iT7AbLuI7B4O7UArXq5X8I2dpAG+3DK9o0BOQEcS6/tfF6D9hJ3D4Dis9X58eOYr2R6wHGm52cZkm4TT1sbkLkqZwfc0I7ikXz5JeY1HB/RHr8r080xG/0I/CMeH5cRbK44/r4TSIB+2gaYwudKEZGllA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789455562; c=relaxed/simple;
-	bh=QoNhRJ0ifh4MlXQ/EaKw+bICgR998M7jGjdHx74eHC8=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
-	 MIME-Version:Message-ID; b=d42TMsFVH1TGiAHd1OoDkcR9CiuEF2TYp7li42DFbNJejGkMI66vUxOngSP+bMz5lvcxgqqflphbaMgoAAL29rMRvRT3cCRHLOMZ5sRQ/s5XOmhE++uEzd0m26hZxswF7HQV2Zwkks+7p+p8zw9bnBXUvdY4GA4aI2O7Zaiu6zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=cVn/ewRT; arc=none smtp.client-ip=220.197.31.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789455569; c=relaxed/simple;
+	bh=JlOTHViXIUCNUHaVGMaJ96xltazLuZ70o/39P8cGYqY=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=OzY7xlB7rzBQhxEzLoIMDzGGmmIUnb5qQj+SoIDDND9Yq17b+uCE1azPvCwuDE6aGVza8beEpIdIApb4pySmhQDkyMuoGKFGvRSVCgcdFloHuFn4m9+cEyorJ/4gmE/pfPmzI937pZCS0/NmefFQSwlQ1ZcQ+3DCcRbrHZx5j18=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=eX8qA/FQ; arc=none smtp.client-ip=91.218.175.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="cVn/ewRT"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
-	Message-ID; bh=QoNhRJ0ifh4MlXQ/EaKw+bICgR998M7jGjdHx74eHC8=; b=c
-	Vn/ewRTXD2DknOiR+ceH/fgYMLer5T11klHZ66SQhTP50SrnUYu7+6W3zau7XMo3
-	MwgsL7ObbMVrZzOjJKE3x3JXAXoIIR/rbUGO4TMC5P/uOuA6FKg3rUlsPVJWkOnf
-	XlOtG97lj7aAMCu+i20KPZgZsuStltSgriO7x1OVZM=
-Date: Tue, 15 Sep 2026 14:58:52 +0800 (CST)
-From: dd  <zhongling0719@126.com>
-To: "Hyunchul Lee" <hyc.lee@gmail.com>
-Cc: "Hongling Zeng" <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
-	ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
-	"Baolin Liu" <liubaolin@kylinos.cn>, stable@vger.kernel.org
-Subject: Re:Re: [PATCH v12 6/6] ntfs: check the dirty-state commit on
- remount and unmount
-X-Priority: 3
-X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
- 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 126com
-In-Reply-To: <CANFS6baYPAN8WS+5Fh8gSr-0iFraaKE2KTft6oFZPP+m3A_RZw@mail.gmail.com>
-References: <20260914083741.146689-1-zenghongling@kylinos.cn>
- <20260914083741.146689-7-zenghongling@kylinos.cn>
- <CANFS6baYPAN8WS+5Fh8gSr-0iFraaKE2KTft6oFZPP+m3A_RZw@mail.gmail.com>
-X-NTES-SC: AL_Qu2TC/ieuk0o5CWZYukWk00RgOk9WsG1vfQi24NQP500ly728SsKQVxoP37pze6IFy6zkCWzdid8y9xQVLVEVZqWjo2bnwBeo7S1RR//mRes
-Content-Transfer-Encoding: base64
-Content-Type: text/plain; charset=UTF-8
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="eX8qA/FQ"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=JlOTHViXIUCNUHaVGMaJ96xltazLuZ70o/39P8cGYqY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789455565; v=1; x=1790060365;
+ b=eX8qA/FQMAqQ1y9V0POhTCcGwZthmYQxTlnAsZJG+OaRuI4+ogmno1eG/AV6dDSEY4RyeKes
+ lHjiOaxfYJlV5sAYxPByFS4RKMlAWHXhGl+P1cpNjm626+qshAIXbAsfQEqlvki4Yh6+yCc2TCl
+ iqEQF3zM0n/R5iCVaBawJcoY=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 5cc9afbad426c8d5;
+	Tue, 15 Sep 2026 06:59:25 +0000
+X-Mizu-Trace-ID: 5cc9afbad426c8d5
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Luis Chamberlain <mcgrof@kernel.org>,
+	Petr Pavlu <petr.pavlu@suse.com>,
+	Daniel Gomez <da.gomez@kernel.org>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Aaron Tomlin <atomlin@atomlin.com>,
+	Suren Baghdasaryan <surenb@google.com>,
+	Kent Overstreet <kent.overstreet@linux.dev>,
+	Hao Ge <hao.ge@linux.dev>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-modules@vger.kernel.org,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v10 3/6] module: introduce SH_ENTSIZE_STANDALONE for separately allocated sections
+Date: Tue, 15 Sep 2026 14:59:58 +0800
+Message-Id: <20260915070001.113559-4-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
+In-Reply-To: <20260915070001.113559-1-hao.ge@linux.dev>
+References: <20260915070001.113559-1-hao.ge@linux.dev>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Message-ID: <5cc0dc45.49c8.1a0a3dc81ec.Coremail.zhongling0719@126.com>
-X-Coremail-Locale: zh_CN
-X-CM-TRANSID:dikvCgD3H5qs7KhqYJVAAA--.58381W
-X-CM-SenderInfo: x2kr0wpolqwiqxrzqiyswou0bp/xtbBrwwr+2qo7Ky-7QAA3j
-X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
+Content-Transfer-Encoding: 8bit
 
-CkF0IDIwMjYtMDktMTUgMTM6Mzg6NDEsICJIeXVuY2h1bCBMZWUiIDxoeWMubGVlQGdtYWlsLmNv
-bT4gd3JvdGU6Cj5IaSBIb25nbGluZywKPgo+MjAyNuuFhCA57JuUIDE07J28ICjsm5QpIOyYpO2b
-hCA1OjM3LCBIb25nbGluZyBaZW5nIDx6ZW5naG9uZ2xpbmdAa3lsaW5vcy5jbj7ri5jsnbQg7J6R
-7ISxOgo+Pgo+PiBUaGUgcmVtb3VudC10by1yZWFkLW9ubHkgcGF0aCBjb21taXRzIHRoZSB1cGRh
-dGVkIHZvbHVtZSBmbGFncyB3aXRoCj4+IG50ZnNfY29tbWl0X2lub2RlKCksIGEgdm9pZCB3cmFw
-cGVyIGFyb3VuZCBfX250ZnNfd3JpdGVfaW5vZGUoKSwgYW5kCj4+IGlnbm9yZXMgdGhlIGJsa2Rl
-dl9pc3N1ZV9mbHVzaCgpIHJldHVybiB2YWx1ZSwgc28gYSBmYWlsZWQgY29tbWl0IG9yCj4+IGZs
-dXNoIGlzIHJlcG9ydGVkIGFzIHN1Y2Nlc3MuICBPbmNlIHRoZSByZW1vdW50IGhhcyBzdWNjZWVk
-ZWQgbm8KPj4gcGVyc2lzdGVuY2UgcG9pbnQgaXMgZXZlciByZWFjaGVkIGFnYWluOiBudGZzX3B1
-dF9zdXBlcigpIHNraXBzCj4+IHJlYWQtb25seSBzdXBlcmJsb2NrcyBhbmQgdGhlIFZGUyBuZXZl
-ciBzeW5jcyBvbmUsIHNvIGZhaWwgdGhlCj4+IHJlbW91bnQgdW5sZXNzIHRoZSBjb21taXQgYW5k
-IHRoZSBmbHVzaCBzdWNjZWVkLiAgVGhlIHN1cGVyYmxvY2sKPj4gdGhlbiBzdGF5cyByZWFkLXdy
-aXRlIGFuZCBudGZzX3B1dF9zdXBlcigpIHJldHJpZXMgdGhlIHBlcnNpc3RlbmNlCj4+IGF0IHVu
-bW91bnQuICBUaGUgZXJyb3JzPXJlbW91bnQtcm8gZG93bmdyYWRlIGRvZXMgbm90IGdvIHRocm91
-Z2gKPj4gbnRmc19yZWNvbmZpZ3VyZSgpIGFuZCBpcyB1bmNoYW5nZWQuCj4+Cj4+IEEgemVyby1y
-ZXR1cm4gY29tbWl0IGlzIG5vdCB0cnVzdGVkIGJsaW5kbHk6IHdyaXRlX21mdF9yZWNvcmQoKQo+
-PiByZWRpcnRpZXMgdGhlIHJlY29yZCBvbiBhbGxvY2F0aW9uIGZhaWx1cmUgYW5kIHJlcG9ydHMg
-c3VjY2Vzcywgc28KPj4gdGhlICRWb2x1bWUgaW5vZGUgaXMgcmVxdWlyZWQgdG8gYmUgY2xlYW4g
-YWZ0ZXJ3YXJkcy4KPj4KPj4gbnRmc19wdXRfc3VwZXIoKSBkaXNjYXJkcyB0aGUgc2FtZSBjb21t
-aXQgZXJyb3IuICBDYWxsCj4+IF9fbnRmc193cml0ZV9pbm9kZSgpIHRoZXJlIHdpdGggdGhlIHNh
-bWUgZGlydHkgcmUtY2hlY2sgYW5kIHdhcm4gb24KPj4gZmFpbHVyZSwgYXMgcHV0X3N1cGVyKCkg
-Y2Fubm90IHJldHVybiBhbiBlcnJvci4gIFRoZSBjb21taXQgaXMKPj4gc2tpcHBlZCB3aGVuIHRo
-ZSBkaXJ0eS1zdGF0ZSBzeW5jIGl0c2VsZiBmYWlsZWQsIGFzIHRoYXQgY291bGQgd3JpdGUKPj4g
-YmFjayBhbiBpbmNvbnNpc3RlbnQgZmxhZyBzdGF0ZTsgYSByZWNvcmQgbGVmdCBkaXJ0eSBieSBh
-biBlYXJsaWVyCj4+IHVwZGF0ZSBpcyBzdGlsbCBjb21taXR0ZWQgYXQgZXZpY3QgdGltZS4KPj4K
-Pj4gTlZvbEVycm9ycygpIGlzIGRlbGliZXJhdGVseSBub3QgdXNlZCB0byBkZXRlY3QgdGhlIGZh
-aWx1cmU6IGl0IGlzCj4+IHN0aWNreSBmb3IgdGhlIGxpZmV0aW1lIG9mIHRoZSBtb3VudCwgc28g
-aXQgY2Fubm90IGRpc3Rpbmd1aXNoIGEKPj4gZnJlc2ggY29tbWl0IGZhaWx1cmUgZnJvbSBlcnJv
-cnMgcmVjb3JkZWQgYmVmb3JlIHRoZSByZW1vdW50Lgo+Pgo+PiBIaWJlcm5hdGVkIHZvbHVtZXM6
-IG50ZnNfc3luY192b2x1bWVfZGlydHlfc3RhdGUoKSBpcyBhIG5vLW9wIGZvcgo+PiB0aGVtIGFu
-ZCBuZXZlciBkaXJ0aWVzIHRoZSAkVm9sdW1lIGlub2RlIG9uIHN1Y2ggYSBtb3VudCwgc2luY2Ug
-dGhlCj4+IG9uLWRpc2sgZmxhZ3MgYXJlIGFscmVhZHkgZGlydHkgYW5kIG50ZnNfc2V0X3ZvbHVt
-ZV9mbGFncygpIGhhcwo+PiBub3RoaW5nIHRvIGNoYW5nZS4gIFRoZSBjb21taXQgb25seSBydW5z
-IGlmIHNvbWV0aGluZyBkaXJ0aWVkIHRoZQo+PiBpbm9kZSBpbmRlcGVuZGVudGx5LCBhcyBiZWZv
-cmUgdGhpcyBwYXRjaDsgbW91bnRpbmcgaGliZXJuYXRlZAo+PiB2b2x1bWVzIHJlYWQtb25seSBy
-ZW1vdmVzIGV2ZW4gdGhhdC4KPj4KPj4gUmVwb3J0ZWQtYnk6IEJhb2xpbiBMaXUgPGxpdWJhb2xp
-bkBreWxpbm9zLmNuPgo+PiBDYzogc3RhYmxlQHZnZXIua2VybmVsLm9yZwo+PiBTaWduZWQtb2Zm
-LWJ5OiBIb25nbGluZyBaZW5nIDx6ZW5naG9uZ2xpbmdAa3lsaW5vcy5jbj4KPj4gLS0tCj4+ICBm
-cy9udGZzL3N1cGVyLmMgfCA3NiArKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKysrKy0t
-LS0tLS0tLS0tLS0tCj4+ICAxIGZpbGUgY2hhbmdlZCwgNTQgaW5zZXJ0aW9ucygrKSwgMjIgZGVs
-ZXRpb25zKC0pCj4+Cj4+IGRpZmYgLS1naXQgYS9mcy9udGZzL3N1cGVyLmMgYi9mcy9udGZzL3N1
-cGVyLmMKPj4gaW5kZXggNDYzMDUwYWUxYjBlLi4wMjI4ZDc0Mjk1OTYgMTAwNjQ0Cj4+IC0tLSBh
-L2ZzL250ZnMvc3VwZXIuYwo+PiArKysgYi9mcy9udGZzL3N1cGVyLmMKPj4gQEAgLTI2OCw2ICsy
-NjgsNyBAQCBzdGF0aWMgaW50IG50ZnNfcmVjb25maWd1cmUoc3RydWN0IGZzX2NvbnRleHQgKmZj
-KQo+PiAgewo+PiAgICAgICAgIHN0cnVjdCBzdXBlcl9ibG9jayAqc2IgPSBmYy0+cm9vdC0+ZF9z
-YjsKPj4gICAgICAgICBzdHJ1Y3QgbnRmc192b2x1bWUgKnZvbCA9IE5URlNfU0Ioc2IpOwo+PiAr
-ICAgICAgIGludCBlcnI7Cj4+Cj4+ICAgICAgICAgbnRmc19kZWJ1ZygiRW50ZXJpbmcgd2l0aCBy
-ZW1vdW50Iik7Cj4+Cj4KPgo+VGhlIGluaXRpYWwgc3luY19maWxlc3lzdGVtKCkgY2FsbCBpbiB0
-aGlzIGZ1bmN0aW9uICBzdGlsbCBpZ25vcmVzCj50aGUgcmV0dXJuIHZhbHVlLgo+Cj5BbmQgdGhl
-IGVtZXJnZW5jeSByZW1vdW50KFNCX0ZPUkNFKSBkb2VzIG5vdCBkcmFpbiB3cml0ZXJzCj50aGF0
-IGFyZSBhbHJlYWR5IGluIHByb2dyZXNzLiBUaGlzIGZ1bmN0aW9uIGNhbiBjb21taXQgdGhlCj5j
-bGVhbiBmbGFnIHdoaWxlIGEgd3JpdGVyIGlzIHN0aWxsIG1vZGlmeWluZyBtZXRhZGF0YS4KPgo+
-SXQgc2VlbXMgZmluZSBub3QgdG8gY2xlYXIgdGhlIGZsYWcgZm9yIFNCX0ZPUkNFLgo+CkhpIEh5
-dW5jaHVsLCAKClRoYW5rcyBmb3IgdGhlIHJldmlldy4gIEJvdGggcG9pbnRzIGFyZSB2YWxpZCBh
-bmQgYXJlIGFkZHJlc3NlZCBieSB0aGUgCmFwcGVuZGVkIDcvNyBwYXRjaC4KVGhlIHN5bmNfZmls
-ZXN5c3RlbSgpIGVycm9yIGlzIG5vdyByZXR1cm5lZCBhbmQgZmFpbHMgdGhlIHJlbW91bnQsIHNv
-CnRoZSB1bm1vdW50IGNhbiByZXRyeS4gIEl0IGlzIG9ubHkgY2hlY2tlZCBpbiB0aGUgcmVhZC1v
-bmx5IGRpcmVjdGlvbiwKYXMgZXh0NCBkb2VzLgoKRm9yIFNCX0ZPUkNFIHRoZSBkaXJ0eSBiaXQg
-aXMgbmV2ZXIgY2xlYXJlZC4gIFRoZSBzeW5jIHJ1bnMgb25seSB3aGVuIAplcnJvcnMgYXJlIHJl
-Y29yZGVkLCB3aGVyZSBpdCBjYW4gb25seSBzZXQgdGhlIGJpdDsgdGhlIGNvbW1pdCBhbmQgCnRo
-ZSBmbHVzaCBzdGF5LCBzaW5jZSBhIHdyaXRlciBtYXJraW5nIHRoZSB2b2x1bWUgY29uY3VycmVu
-dGx5IGNhbgpvbmx5IG1ha2UgdGhlIG9uLWRpc2sgYml0IG1vcmUgc2V0LCBub3QgbGVzcy4gIE5v
-dGUgdGhhdCBhIGZvcmNlZCAKcmVtb3VudCBpZ25vcmVzIHRoZSByZXR1cm5lZCBlcnJvciBhbmQg
-dHVybnMgdGhlIHN1cGVyYmxvY2sgcmVhZC1vbmx5IAphbnl3YXksIHNvIHRoZSByZXR1cm4gdmFs
-dWUgbWF0dGVycyBmb3IgdGhlIHJlZ3VsYXIgcmVtb3VudCBvbmx5LgoKVGhhbmtzLCAKSG9uZ2xp
-bmcKCj4+IEBAIC0zMjQsMTQgKzMyNSwzOSBAQCBzdGF0aWMgaW50IG50ZnNfcmVjb25maWd1cmUo
-c3RydWN0IGZzX2NvbnRleHQgKmZjKQo+PiAgICAgICAgICAgICAgICAgICogYW5kIG50ZnNfcHV0
-X3N1cGVyKCkgc2tpcHMgdGhlbSwgc28gdGhlIG9ubHkgcmVtYWluaW5nCj4+ICAgICAgICAgICAg
-ICAgICAgKiB3cml0ZSB3b3VsZCBiZSB0aGUgZXZpY3QtdGltZSBjb21taXQgYXQgdW5tb3VudCwg
-d2hpY2gKPj4gICAgICAgICAgICAgICAgICAqIGEgY3Jhc2ggbmV2ZXIgcmVhY2hlcy4gIEFuIGVy
-cm9yIHJlY29yZGVkIG9ubHkgYWZ0ZXIKPj4gLSAgICAgICAgICAgICAgICAqIHRoZSByZW1vdW50
-IGlzIHN0aWxsIG5ldmVyIHBlcnNpc3RlZC4KPj4gKyAgICAgICAgICAgICAgICAqIHRoZSByZW1v
-dW50IGlzIHN0aWxsIG5ldmVyIHBlcnNpc3RlZDsgYSBmYWlsZWQgY29tbWl0Cj4+ICsgICAgICAg
-ICAgICAgICAgKiBvciBmbHVzaCBmYWlscyB0aGUgcmVtb3VudCwgbGVhdmluZyB0aGUgc3VwZXJi
-bG9jawo+PiArICAgICAgICAgICAgICAgICogcmVhZC13cml0ZSBzbyBudGZzX3B1dF9zdXBlcigp
-IHJldHJpZXMgYXQgdW5tb3VudC4KPj4gICAgICAgICAgICAgICAgICAqLwo+PiAtICAgICAgICAg
-ICAgICAgaWYgKG50ZnNfc3luY192b2x1bWVfZGlydHlfc3RhdGUodm9sKSkgewo+PiArICAgICAg
-ICAgICAgICAgZXJyID0gbnRmc19zeW5jX3ZvbHVtZV9kaXJ0eV9zdGF0ZSh2b2wpOwo+PiArICAg
-ICAgICAgICAgICAgaWYgKGVycikgewo+PiAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dh
-cm5pbmcoc2IsCj4+ICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIkZhaWxlZCB0byB1
-cGRhdGUgZGlydHkgYml0IGluIHZvbHVtZSBpbmZvcm1hdGlvbiBmbGFncy4gIFJ1biBjaGtkc2su
-Iik7Cj4+IC0gICAgICAgICAgICAgICB9IGVsc2UgaWYgKE5Jbm9EaXJ0eShOVEZTX0kodm9sLT52
-b2xfaW5vKSkpIHsKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgbnRmc19jb21taXRfaW5vZGUo
-dm9sLT52b2xfaW5vKTsKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgYmxrZGV2X2lzc3VlX2Zs
-dXNoKHNiLT5zX2JkZXYpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gZXJyOwo+
-PiArICAgICAgICAgICAgICAgfQo+PiArICAgICAgICAgICAgICAgaWYgKE5Jbm9EaXJ0eShOVEZT
-X0kodm9sLT52b2xfaW5vKSkpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgLyogbnRmc19j
-b21taXRfaW5vZGUoKSB3b3VsZCBkaXNjYXJkIHRoZSBlcnJvci4gKi8KPj4gKyAgICAgICAgICAg
-ICAgICAgICAgICAgZXJyID0gX19udGZzX3dyaXRlX2lub2RlKHZvbC0+dm9sX2lubywgMSk7Cj4+
-ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChlcnIpIHsKPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICBudGZzX3dhcm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgICAgICAgICAgICAiRmFpbGVkIHRvIGNvbW1pdCB2b2x1bWUgaW5mb3JtYXRpb24gZmxh
-Z3MuICBSdW4gY2hrZHNrLiIpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIHJl
-dHVybiBlcnI7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgIH0KPj4gKyAgICAgICAgICAgICAg
-ICAgICAgICAgLyoKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICogd3JpdGVfbWZ0X3JlY29y
-ZCgpIHJlZGlydGllcyB0aGUgcmVjb3JkIG9uCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAq
-IC1FTk9NRU0gYW5kIHN0aWxsIHJlcG9ydHMgc3VjY2Vzcy4KPj4gKyAgICAgICAgICAgICAgICAg
-ICAgICAgICovCj4+ICsgICAgICAgICAgICAgICAgICAgICAgIGlmIChOSW5vRGlydHkoTlRGU19J
-KHZvbC0+dm9sX2lubykpKSB7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgbnRm
-c193YXJuaW5nKHNiLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-IlZvbHVtZSBpbmZvcm1hdGlvbiBmbGFncyByZW1haW4gZGlydHkgYWZ0ZXIgY29tbWl0LiAgUnVu
-IGNoa2Rzay4iKTsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICByZXR1cm4gLUVJ
-TzsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgfQo+PiArICAgICAgICAgICAgICAgICAgICAg
-ICBlcnIgPSBibGtkZXZfaXNzdWVfZmx1c2goc2ItPnNfYmRldik7Cj4+ICsgICAgICAgICAgICAg
-ICAgICAgICAgIGlmIChlcnIpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBu
-dGZzX3dhcm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAiRmFpbGVkIHRvIGZsdXNoIHZvbHVtZSBpbmZvcm1hdGlvbiBmbGFncy4gIFJ1biBjaGtkc2su
-Iik7Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgcmV0dXJuIGVycjsKPj4gKyAg
-ICAgICAgICAgICAgICAgICAgICAgfQo+PiAgICAgICAgICAgICAgICAgfQo+PiAgICAgICAgIH0K
-Pj4KPj4gQEAgLTE4NzYsMjYgKzE5MDIsMzIgQEAgc3RhdGljIHZvaWQgbnRmc19wdXRfc3VwZXIo
-c3RydWN0IHN1cGVyX2Jsb2NrICpzYikKPj4gICAgICAgICAgICAgICAgIGlmIChudGZzX3N5bmNf
-dm9sdW1lX2RpcnR5X3N0YXRlKHZvbCkpIHsKPj4gICAgICAgICAgICAgICAgICAgICAgICAgbnRm
-c193YXJuaW5nKHNiLAo+PiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICJGYWlsZWQg
-dG8gc3luYyBkaXJ0eSBiaXQgaW4gdm9sdW1lIGluZm9ybWF0aW9uIGZsYWdzLiAgUnVuIGNoa2Rz
-ay4iKTsKPj4gLSAgICAgICAgICAgICAgIH0gZWxzZSBpZiAoTlZvbEVycm9ycyh2b2wpKSB7Cj4+
-ICsgICAgICAgICAgICAgICB9IGVsc2Ugewo+PiAgICAgICAgICAgICAgICAgICAgICAgICAvKgo+
-PiAtICAgICAgICAgICAgICAgICAgICAgICAgKiBUaGUgZGlydHkgYml0IGlzIG9uIGRpc2sgbm93
-OyBvbmx5IHdhcm4gd2hlbiB0aGUKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICogc3luYyBh
-Y3R1YWxseSBzdWNjZWVkZWQsIG9yIHRoaXMgbWVzc2FnZSB3b3VsZAo+PiAtICAgICAgICAgICAg
-ICAgICAgICAgICAgKiBjb250cmFkaWN0IHRoZSBvbmUgYWJvdmUuCj4+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAqIF9fbnRmc193cml0ZV9pbm9kZSgpLCBub3QgdGhlIHZvaWQKPj4gKyAgICAg
-ICAgICAgICAgICAgICAgICAgICogbnRmc19jb21taXRfaW5vZGUoKSB3cmFwcGVyOiB0aGUgZXJy
-b3IgY2FuIG9ubHkKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICogYmUgd2FybmVkIGFib3V0
-IGhlcmUuICBUaGUgbWlycm9yIGlub2RlIGlzIG9ubHkKPj4gKyAgICAgICAgICAgICAgICAgICAg
-ICAgICogcmVsZWFzZWQgYmVsb3c6IHdyaXRpbmcgdGhlICRWb2x1bWUgcmVjb3JkIChtZnQKPj4g
-KyAgICAgICAgICAgICAgICAgICAgICAgICogcmVjb3JkIG51bWJlciAzLCBiZWxvdyB2b2wtPm1m
-dG1pcnJfc2l6ZSkgbWlycm9ycwo+PiArICAgICAgICAgICAgICAgICAgICAgICAgKiBpdCB0aHJv
-dWdoIG50ZnNfc3luY19tZnRfbWlycm9yKCksIHdoaWNoIGZhaWxzCj4+ICsgICAgICAgICAgICAg
-ICAgICAgICAgICAqIHdpdGggLUVJTyBvbmNlIHZvbC0+bWZ0bWlycl9pbm8gaXMgZ29uZS4KPj4g
-ICAgICAgICAgICAgICAgICAgICAgICAgICovCj4+IC0gICAgICAgICAgICAgICAgICAgICAgIG50
-ZnNfd2FybmluZyhzYiwKPj4gLSAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiVm9sdW1l
-IGhhcyBlcnJvcnMuICBMZWF2aW5nIHZvbHVtZSBtYXJrZWQgZGlydHkuICBSdW4gY2hrZHNrLiIp
-Owo+PiArICAgICAgICAgICAgICAgICAgICAgICBpZiAoX19udGZzX3dyaXRlX2lub2RlKHZvbC0+
-dm9sX2lubywgMSkpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dh
-cm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiRmFp
-bGVkIHRvIGNvbW1pdCB2b2x1bWUgaW5mb3JtYXRpb24gZmxhZ3MuICBSdW4gY2hrZHNrLiIpOwo+
-PiArICAgICAgICAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKE5Jbm9EaXJ0eShOVEZTX0kodm9s
-LT52b2xfaW5vKSkpIHsKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dh
-cm5pbmcoc2IsCj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiVm9s
-dW1lIGluZm9ybWF0aW9uIGZsYWdzIHJlbWFpbiBkaXJ0eSBhZnRlciBjb21taXQuICBSdW4gY2hr
-ZHNrLiIpOwo+PiArICAgICAgICAgICAgICAgICAgICAgICB9IGVsc2UgaWYgKE5Wb2xFcnJvcnMo
-dm9sKSkgewo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIC8qCj4+ICsgICAgICAg
-ICAgICAgICAgICAgICAgICAgICAgICAgICogT25seSB3YXJuIG9uY2UgdGhlIGNvbW1pdCBoYXMg
-c3VjY2VlZGVkLAo+PiArICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAqIG9yIHRoaXMg
-Y291bGQgY29udHJhZGljdCBhIGZhaWx1cmUKPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgICAgKiByZXBvcnRlZCBhYm92ZS4KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAg
-ICAgKi8KPj4gKyAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICBudGZzX3dhcm5pbmcoc2Is
-Cj4+ICsgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAiVm9sdW1lIGhhcyBl
-cnJvcnMuICBMZWF2aW5nIHZvbHVtZSBtYXJrZWQgZGlydHkuICBSdW4gY2hrZHNrLiIpOwo+PiAr
-ICAgICAgICAgICAgICAgICAgICAgICB9Cj4+ICAgICAgICAgICAgICAgICB9Cj4+IC0gICAgICAg
-ICAgICAgICAvKgo+PiAtICAgICAgICAgICAgICAgICogQ29tbWl0cyB0aGUgdXBkYXRlZCB2b2x1
-bWUgZmxhZ3MgaWYgdGhleSB3ZXJlIHdyaXR0ZW4uCj4+IC0gICAgICAgICAgICAgICAgKiBUaGUg
-bWZ0IG1pcnJvciBtdXN0IHN0aWxsIGJlIGFyb3VuZCBmb3IgdGhpczogdGhlCj4+IC0gICAgICAg
-ICAgICAgICAgKiAkVm9sdW1lIHJlY29yZCAobWZ0IHJlY29yZCBudW1iZXIgMywgYmVsb3cKPj4g
-LSAgICAgICAgICAgICAgICAqIHZvbC0+bWZ0bWlycl9zaXplKSBpcyBtaXJyb3JlZCBieSB3cml0
-ZV9tZnRfcmVjb3JkKCkKPj4gLSAgICAgICAgICAgICAgICAqIHRocm91Z2ggbnRmc19zeW5jX21m
-dF9taXJyb3IoKSwgd2hpY2ggZmFpbHMgd2l0aCAtRUlPCj4+IC0gICAgICAgICAgICAgICAgKiBh
-bmQgbGVhdmVzIHRoZSBtaXJyb3Igc3RhbGUgb25jZSB2b2wtPm1mdG1pcnJfaW5vIGlzCj4+IC0g
-ICAgICAgICAgICAgICAgKiBnb25lLCBzbyB0aGUgbWlycm9yIGlub2RlIGlzIG9ubHkgcmVsZWFz
-ZWQgYWZ0ZXIgdGhpcwo+PiAtICAgICAgICAgICAgICAgICogY29tbWl0Lgo+PiAtICAgICAgICAg
-ICAgICAgICovCj4+IC0gICAgICAgICAgICAgICBudGZzX2NvbW1pdF9pbm9kZSh2b2wtPnZvbF9p
-bm8pOwo+PiAgICAgICAgIH0KPj4KPj4gICAgICAgICAvKgo+PiAtLQo+PiAyLjI1LjEKPj4KPgo+
-Cj4tLSAKPlRoYW5rcywKPkh5dW5jaHVsCg==
+SHF_ALLOC means, per the ELF spec, that a section occupies memory
+during process execution. Some module sections occupy memory
+outside the regular module layout, for example the percpu section
+with its per-CPU allocations. The loader currently excludes such
+a section from the layout by clearing its SHF_ALLOC, which
+overloads the flag with a loader-internal meaning.
+apply_relocations() needs a special case for the section, and
+find_sec(".data..percpu") returns different results before and
+after layout_and_allocate().
+
+Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
+allocation. The percpu section is its first user. layout_sections()
+and move_module() skip marked sections, and apply_relocations() goes
+back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
+
+.data..percpu keeps SHF_ALLOC, so it would now show up under
+/sys/module/*/sections/. The section has one instance per CPU and no
+single address to report, and the entry never existed before, so
+skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
+array and skips it too. No functional change otherwise.
+
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
+Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+Cc: stable@vger.kernel.org
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+---
+ include/linux/module.h   |  2 ++
+ kernel/module/internal.h |  8 ++++++++
+ kernel/module/kallsyms.c | 13 +++----------
+ kernel/module/main.c     | 32 +++++++++++++++++---------------
+ kernel/module/sysfs.c    | 17 +++++++++++++----
+ 5 files changed, 43 insertions(+), 29 deletions(-)
+
+diff --git a/include/linux/module.h b/include/linux/module.h
+index 96cc98568eea..0c6f32ddcbf2 100644
+--- a/include/linux/module.h
++++ b/include/linux/module.h
+@@ -325,6 +325,8 @@ enum mod_mem_type {
+ 	MOD_INIT_RODATA,
+ 
+ 	MOD_MEM_NUM_TYPES,
++
++	MOD_STANDALONE = -2,
+ 	MOD_INVALID = -1,
+ };
+ 
+diff --git a/kernel/module/internal.h b/kernel/module/internal.h
+index 061161cc79d9..4c738074a27b 100644
+--- a/kernel/module/internal.h
++++ b/kernel/module/internal.h
+@@ -29,6 +29,14 @@
+ #define SH_ENTSIZE_TYPE_MASK	((1UL << SH_ENTSIZE_TYPE_BITS) - 1)
+ #define SH_ENTSIZE_OFFSET_MASK	((1UL << (BITS_PER_LONG - SH_ENTSIZE_TYPE_BITS)) - 1)
+ 
++/*
++ * Marker for sections with a separate allocation, which are not placed
++ * into mod->mem[].
++ */
++#define SH_ENTSIZE_STANDALONE					\
++	(((unsigned long)MOD_STANDALONE & SH_ENTSIZE_TYPE_MASK)	\
++	 << SH_ENTSIZE_TYPE_SHIFT)
++
+ /* Maximum number of characters written by module_flags() */
+ #define MODULE_FLAGS_BUF_SIZE (TAINT_FLAGS_COUNT + 4)
+ 
+diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
+index f23126d804b2..0dca6d40160e 100644
+--- a/kernel/module/kallsyms.c
++++ b/kernel/module/kallsyms.c
+@@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const struct load_info *info)
+ }
+ 
+ static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+-			   unsigned int shnum, unsigned int pcpundx)
++			   unsigned int shnum)
+ {
+ 	const Elf_Shdr *sec;
+ 	enum mod_mem_type type;
+@@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+ 	    !src->st_name)
+ 		return false;
+ 
+-#ifdef CONFIG_KALLSYMS_ALL
+-	if (src->st_shndx == pcpundx)
+-		return true;
+-#endif
+-
+ 	sec = sechdrs + src->st_shndx;
+ 	type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
+ 	if (!(sec->sh_flags & SHF_ALLOC)
+@@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct load_info *info)
+ 	/* Compute total space required for the core symbols' strtab. */
+ 	for (ndst = i = 0; i < nsrc; i++) {
+ 		if (i == 0 || is_livepatch_module(mod) ||
+-		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+-				   info->index.pcpu)) {
++		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+ 			strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
+ 			ndst++;
+ 		}
+@@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const struct load_info *info)
+ 	for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
+ 		kallsyms->typetab[i] = elf_type(src + i, info);
+ 		if (i == 0 || is_livepatch_module(mod) ||
+-		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+-				   info->index.pcpu)) {
++		    is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+ 			ssize_t ret;
+ 
+ 			mod->core_kallsyms.typetab[ndst] =
+diff --git a/kernel/module/main.c b/kernel/module/main.c
+index c1b34dc1e89a..ae2678ac7840 100644
+--- a/kernel/module/main.c
++++ b/kernel/module/main.c
+@@ -1619,12 +1619,13 @@ static int apply_relocations(struct module *mod, const struct load_info *info)
+ 
+ 		/*
+ 		 * Don't bother with non-allocated sections.
+-		 * An exception is the percpu section, which has separate allocations
+-		 * for individual CPUs. We relocate the percpu section in the initial
+-		 * ELF template and subsequently copy it to the per-CPU destinations.
++		 *
++		 * Note that .data..percpu has separate allocations for
++		 * individual CPUs. We relocate the section in the
++		 * initial ELF template and subsequently copy it to the
++		 * per-CPU destinations.
+ 		 */
+-		if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC) &&
+-		    (!infosec || infosec != info->index.pcpu))
++		if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC))
+ 			continue;
+ 
+ 		if (info->sechdrs[i].sh_flags & SHF_RELA_LIVEPATCH)
+@@ -1715,7 +1716,7 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
+ 
+ 			if ((s->sh_flags & masks[m][0]) != masks[m][0]
+ 			    || (s->sh_flags & masks[m][1])
+-			    || s->sh_entsize != ~0UL
++			    || s->sh_entsize != ~0UL /* offset or standalone */
+ 			    || is_init != module_init_layout_section(sname))
+ 				continue;
+ 
+@@ -1745,16 +1746,10 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
+ /*
+  * Lay out the SHF_ALLOC sections in a way not dissimilar to how ld
+  * might -- code, read-only data, read-write data, small data.  Tally
+- * sizes, and place the offsets into sh_entsize fields: high bit means it
+- * belongs in init.
++ * sizes, and place the offsets into sh_entsize fields.
+  */
+ static void layout_sections(struct module *mod, struct load_info *info)
+ {
+-	unsigned int i;
+-
+-	for (i = 0; i < info->hdr->e_shnum; i++)
+-		info->sechdrs[i].sh_entsize = ~0UL;
+-
+ 	pr_debug("Core section allocation order for %s:\n", mod->name);
+ 	__layout_sections(mod, info, false);
+ 
+@@ -2822,7 +2817,8 @@ static int move_module(struct module *mod, struct load_info *info)
+ 		Elf_Shdr *shdr = &info->sechdrs[i];
+ 		const char *sname;
+ 
+-		if (!(shdr->sh_flags & SHF_ALLOC))
++		if (!(shdr->sh_flags & SHF_ALLOC)
++		    || shdr->sh_entsize == SH_ENTSIZE_STANDALONE)
+ 			continue;
+ 
+ 		sname = info->secstrings + shdr->sh_name;
+@@ -2954,6 +2950,7 @@ core_param(module_blacklist, module_blacklist, charp, 0400);
+ static struct module *layout_and_allocate(struct load_info *info, int flags)
+ {
+ 	struct module *mod;
++	unsigned int i;
+ 	int err;
+ 
+ 	/* Allow arches to frob section contents and sizes.  */
+@@ -2967,8 +2964,13 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
+ 	if (err < 0)
+ 		return ERR_PTR(err);
+ 
++	/* Repurpose sh_entsize to track where each section is allocated. */
++	for (i = 0; i < info->hdr->e_shnum; i++)
++		info->sechdrs[i].sh_entsize = ~0UL;
++
+ 	/* We will do a special allocation for per-cpu sections later. */
+-	info->sechdrs[info->index.pcpu].sh_flags &= ~(unsigned long)SHF_ALLOC;
++	if (info->index.pcpu)
++		info->sechdrs[info->index.pcpu].sh_entsize = SH_ENTSIZE_STANDALONE;
+ 
+ 	/*
+ 	 * Mark relevant sections as SHF_RO_AFTER_INIT so layout_sections() can
+diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
+index 01c65d608873..15c6baeb39c4 100644
+--- a/kernel/module/sysfs.c
++++ b/kernel/module/sysfs.c
+@@ -62,6 +62,15 @@ static void free_sect_attrs(struct module_sect_attrs *sect_attrs)
+ 	kfree(sect_attrs);
+ }
+ 
++/*
++ * .data..percpu has a separate allocation per CPU and no single
++ * address to report.
++ */
++static bool sect_visible(const struct load_info *info, unsigned int i)
++{
++	return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
++}
++
+ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+ {
+ 	struct module_sect_attrs *sect_attrs;
+@@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+ 
+ 	/* Count loaded sections and allocate structures */
+ 	for (i = 0; i < info->hdr->e_shnum; i++)
+-		if (!sect_empty(&info->sechdrs[i]))
++		if (sect_visible(info, i))
+ 			nloaded++;
+ 	sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
+ 	if (!sect_attrs)
+@@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+ 	for (i = 0; i < info->hdr->e_shnum; i++) {
+ 		Elf_Shdr *sec = &info->sechdrs[i];
+ 
+-		if (sect_empty(sec))
++		if (!sect_visible(info, i))
+ 			continue;
+ 		sysfs_bin_attr_init(sattr);
+ 		sattr->attr.name =
+@@ -159,7 +168,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
+ 	/* Count notes sections and allocate structures.  */
+ 	notes = 0;
+ 	for (i = 0; i < info->hdr->e_shnum; i++)
+-		if (!sect_empty(&info->sechdrs[i]) &&
++		if (sect_visible(info, i) &&
+ 		    info->sechdrs[i].sh_type == SHT_NOTE)
+ 			++notes;
+ 
+@@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
+ 
+ 	nattr = &notes_attrs->attrs[0];
+ 	for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
+-		if (sect_empty(&info->sechdrs[i]))
++		if (!sect_visible(info, i))
+ 			continue;
+ 		if (info->sechdrs[i].sh_type == SHT_NOTE) {
+ 			sysfs_bin_attr_init(nattr);
+-- 
+2.25.1
+
