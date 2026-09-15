@@ -1,73 +1,77 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-pl1-f176.google.com (mail-pl1-f176.google.com [209.85.214.176])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 06783489860
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 431064A0151
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:25:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.176
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789470900; cv=none; b=HSCpDGRgjr0cjQZaJYlw3op/14vNrwfBw+OSlR+9emX/RzC+cgME3YtPmSn6wmBgKD1Yf+X6Fo/jJRzs5BZ5l9BecejaZx/TriQu4IfG3XDXRseJ6i7AGm4V1wc9f3fS654GamRf5uhdcx78MN33Z/4x75BNyCnqjFoOlFmnY7I=
+	t=1789471524; cv=none; b=GJg3UXAShM+CcnqPm/Q5oiuZyM1q/om1jFlobgMWaJVsNglwrIbpGkVNieOU2DJHx8LJpGc6kJkZQBqQKx2g+xQKC1iwf1yEm+CVZ6340WMVAVxPBe29hQNUFFSCA7fsQrwRzBt0+cuTCbWFv3cAZrRTJxJf+fkflg9gGn6gHyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789470900; c=relaxed/simple;
-	bh=5AHgHgB6VH4XZX3hvyx2pZkcJi0cNjv4poJfNW/ay0k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fna5z85dAscbAdamYnLrnmQ4skBTlrEGGTgMBNahFfMFjbRViVZdvSTWk4u/+72iGa0p/KWrnD4c9OJjsNLuLfLoinzMvpoNbIaQJ+WV7v01hQYSw+69cLsEy5TiqZqhLBKjNqaKnelqeJZuMfAgGeysxdo52xsSwgpDcZRNhuw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sbY9B1GQ; arc=none smtp.client-ip=74.125.227.12
+	s=arc-20240116; t=1789471524; c=relaxed/simple;
+	bh=JciKneq+ovpdv8gqUDVuoYPtwcnhOaSHeZQ1sy8ZmKA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Usa/4BDQwllsJYVlRLTQqU0fEDWFtPZlRTdlu3dWfKQHwp26srVLmOeh/1tWdh3TUi2K2b+eFtUjYw/ownoyt40HKJa58+98iZ+Ty5XW+lwxhPtbUDSH+qtCMaU8VdMDENo7mLW5wnGJ58DVjIBjWmlzWEz1bKQVfQOKlK5TB4g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EK4hMLH4; arc=none smtp.client-ip=209.85.214.176
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sbY9B1GQ"
-Received: by mail-vs2-f12.google.com with SMTP id 71dfb90a1353d-5c67e52ff5dso106961e0c.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:14:58 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EK4hMLH4"
+Received: by mail-pl1-f176.google.com with SMTP id d9443c01a7336-2db710396ffso6915635ad.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 04:25:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789470898; x=1790075698; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789471521; x=1790076321; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=lCdw27tCyzyXJY8Xvi6GCDTblnDPWCBRkFu5Pb3g100=;
-        b=sbY9B1GQAYWt8J0WtYrDr8cwkrGAD5VL1ltK8gS8fIhdf7VyzejtTmqUuNeo7bV5/7
-         UAjFx7+JO/GJH/T8+VfFFfga+6EReTR2lSOiKodaPLlfKw/82vJvEjKRqNzavpvrvfC3
-         S/M73QmH18u61P1/njNb2yzsttBwPonQRr4WxT4GKZ/RNp/V7vaI+AfecPqSf0osGUUV
-         OJDQ9/L41LEkbs4mQd2AY6jXC1qKYMWLSv5O/AT2MtSWFvRPwmjOHBIIodjftlI1u7Zl
-         muTV86X989k5PtV32bv0LTTnCYyIX8HWgADRewgghUCO+IHphgXVCOLDZ+96QsTP7UTQ
-         UwkA==
+        bh=B9svfT9glpJgkoC//MjvMoYEtW7Hx9VQdKaO91u+NqI=;
+        b=EK4hMLH4cGnKtlrKDEkmEerJfGpwumN1S/S429PvkQJxJFfXtEVFo3RXbiib3faFx3
+         V0PXSPlrhij+kWFxCSvNk+8qQacW59ziL7EMT3tN8O0ekPEO6W78svt4mXjgUu/2iSK0
+         W5EHoNvx+RlxdVzU7nK5giM6av0ezYGayOitnbhUprkIeEvCx5BU7jhRBiq8WL33F+P7
+         E8LsiBprmyDxKv7q2MfpJiQnCzIM1arKgsa09m0z3or5aMy0cDsHGbKGkyc0iH10GqR8
+         yxNS+5XvRbIq+s0jLhqa6DooPjMXLmpdFj4jm6j+Tmg5x4KSWGhkK8KQauR6nNMdO+66
+         oTmw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789470898; x=1790075698;
+        d=1e100.net; s=20260707; t=1789471521; x=1790076321;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=lCdw27tCyzyXJY8Xvi6GCDTblnDPWCBRkFu5Pb3g100=;
-        b=eilzgATWtwd78hSMehKD5E3h+fg++xLmrztDqLLNGbA7cL3/oBh0/xCkfcdNec2j8G
-         GigHIDGjj2PWRSoKThfYGiALB6FqsPMZDPW2fJ8eraaq0xiNfRek6JsJzf6gRxZmUHQs
-         DLxIRjQPfsklZ8z10DEOfYpEmFa+Ue3xCt6+af2OdLY+KqUxq+nTg6nCTvvrUaChhr6T
-         nY0oN1EGLC5oYOl1+LXibSegifuE2DIDhZSLifaGtrShL8oM3U+kGzI+lOoEiFxS51eR
-         AfFTCK91UtWZoB082b1sIG3j/nL+NMkxhEZsxInBr3JQmRSFm2q/LZDJWmAC4dIALwyy
-         jMHA==
-X-Forwarded-Encrypted: i=1; AKwUvBwuQbwps/cxyHkGWTo5b2MfIakCrfM7/WoVOFaIkdwjkufsfBsMTYhewistYy/lxXUbqFLegYE=@vger.kernel.org
-X-Gm-Message-State: AFuF++l3lBicv9U2vGQG5h9R40h3mbf9rGfIFV10WkGZOSK4qt7GSx9D
-	iXSFhDztQa2Dj8/GijgDuo/862nNaE37i1M9T/dXI2akS1IZlWoNHdy/
-X-Gm-Gg: AYBFou3Rg+Ok0cum2fc3ZijlM82KBtbxDISJuBALIClF0qT259kTduGOYwLVh8lRX9F
-	1H4psKCLBUijiYKCIBMwcvMsFDZ+PoArmHCRJRIpudqJe83RK9/4b9lzlQqvKf5x22ZeZkRXPad
-	cJVNlJXJ5j37hDegTb6nhziOC1ULscyP5aC8PZKb8Qo428dUMbJiKrlyKiYtGdlIBeryT8bFgyN
-	uU9ZHQVcxcoeYcURM8ZT5FUoM0DlEyrK6hhzv1p8t2QK98Gmi7kF5F/JRqdHuSpl2GT7Lk+H11S
-	WBWGGX+W45kSJjEVhuqB+6WfNrFfC1zbgk4Jb+tE53j1MhGUma+hvMahALzipcus8oiiFOLubKz
-	8d8XBlVTl77Z5ugl41mYXlV24UU5bpE86i1q6lsgICNiRAhFmWv1/s62v8GVC3JtroioyYHkSiI
-	hZEM0YunbqSzdW5M17Iz21bOqvKEAC4XqysHX2+6G2I4NJwxfYpaqv3mzMllHcaEwU
-X-Received: by 2002:a05:6122:1d93:b0:5bd:a5e1:c7c7 with SMTP id 71dfb90a1353d-5c99393b389mr389978e0c.1.1789470897998;
-        Tue, 15 Sep 2026 04:14:57 -0700 (PDT)
-Received: from beelink.. ([187.13.206.89])
-        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c99149d764sm739548e0c.3.2026.09.15.04.14.55
+        bh=B9svfT9glpJgkoC//MjvMoYEtW7Hx9VQdKaO91u+NqI=;
+        b=ne3Bs99RTJcPGWJ3eK5Y4SNGAJcKHghv0j9qwRfxYWyFGYv1KcTXK5FXvNtAZuhtOp
+         IkjtZEGgsa6VSxLu9CE+xf8uaf+kHOFIuGb3RB1ZUzTRZn+StOLp8yon5yE/FvVqd+8Y
+         ICXM3+fAUxKxlGAxjjcwz9vpUVQ4t2T2mXcRgdGdPuErxxiuYPxE0D5G20kXnm7745ln
+         QY6Hjy/JPKs9+jergexWNg+Ru2/Z9MeX4wdNUZx+y5j6voExHfcfSuaNhYNlG/+5VUcH
+         qV2AohAQBzRx0wZq+O8QWFs35scvWHmYdUTik6GqtCFVdpvxdmEwzdmMvrunWSZd6wsP
+         8sJA==
+X-Forwarded-Encrypted: i=1; AKwUvBy1Y6UrxB6jz2SIb7MkryujkFKqagZ0RhXgXT7Ej/YDkgo2RmdcSYvN2843U7ASTUgasWSa26k=@vger.kernel.org
+X-Gm-Message-State: AFuF++kjcdfHqtS+UQe9cwQdw9kvFbH5fWyYUCqCEYAHNVZmy1ePdlO4
+	cPTvc26ERgVMeYx2l1+DYR1AP0H/dtD53ObcSA+Ma7HpoaXV0D1o8nDu
+X-Gm-Gg: AYBFou2J3H/NtBG3HiMwDWhDWOzV5iZ7CCPJj9dOZfLEIHOjmHMVhy9nmT20ugd4TcG
+	sljPrYzjKiT43NKfuqsETUCKPMk48DV2OLj8A5m4y4A6lVHWn5S0bsc07K/t/OuCVyp4V55OuTS
+	g9RFcG+p3LWIlMYG1y/Dz2DPymPXYdDQQdxxGoQD0aT02sGBsxyoDcweD1ARAv6lVzIgR4Unvsu
+	R7+zsOrN5F8kJaDlwGm32VCShG748HflB7nyVKArKpMdzYjEs3XHnceO2TowGk+qXlcELqnNWd4
+	WPT2mwCg5EuEwRX6nLjU01QKn4ejxC/DEKr7nOEMHaZKOZ0+QVLxj0x/vkOcKUYvCeSmwJO0vEY
+	Y1ncc+H+RQ/KLOVIIHlgubVMt3/siXbjF/tL3vpHotIBf5lDDoBLwjj61xD+HIA2XMUfL/6WjT4
+	asc3OG+inNt+1x/18rYOqZpRmTPwxuSMiNitmXGSEj+oKLDiDUVZ7NxQ==
+X-Received: by 2002:a17:902:db0c:b0:2bd:2c3a:2a36 with SMTP id d9443c01a7336-2dd763da77fmr44939985ad.0.1789471521158;
+        Tue, 15 Sep 2026 04:25:21 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd2d2565d2sm65391005ad.15.2026.09.15.04.25.16
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 04:14:57 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	linux-input@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH] HID: wacom: avoid overflows in sequence number tracking
-Date: Tue, 15 Sep 2026 08:14:47 -0300
-Message-ID: <20260915111448.2726869-1-qwe.aldo@gmail.com>
+        Tue, 15 Sep 2026 04:25:20 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Eugen Hristev <ehristev@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Nicolas Ferre <nicolas.ferre@microchip.com>,
+	Alexandre Belloni <alexandre.belloni@bootlin.com>,
+	Claudiu Beznea <claudiu.beznea@tuxon.dev>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] media: atmel-isi: release unregistered video device on remove
+Date: Tue, 15 Sep 2026 19:25:10 +0800
+Message-ID: <20260915112511.2397941-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -77,52 +81,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The dropped-packet calculation derives the sequence range in signed
-int arithmetic. A sequence field whose logical range spans all signed
-32-bit values makes the range calculation wrap to zero, so the following
-modulo triggers a divide exception.
+atmel_isi_probe() allocates the video device before registering the
+V4L2 async notifier. The video device is registered later from the
+notifier complete callback once the remote subdevice has been bound.
 
-Do the range and delta calculations in s64, and normalize the delta after
-the modulo. Also avoid overflowing value + 1 when the received value is at
-the logical maximum.
+The remove path relies on the notifier unbind callback to unregister
+the video device. However, if the remote subdevice is never bound, or
+the complete callback fails before video_register_device() succeeds,
+the video device remains unregistered. In that case the unbind path
+does not release the object allocated by video_device_alloc(), and the
+remove path leaks it.
 
-Fixes: 359673ea3a20 ("HID: wacom: Support sequence numbers smaller than 16-bit")
+Only unregister the video device from the unbind callback when it has
+actually been registered, and clear the driver pointer afterwards.
+After unregistering and cleaning up the notifier, release the video
+device directly if the pointer is still present. This covers devices
+that were allocated but never registered while avoiding a second
+release of successfully registered devices.
+
+This issue was found by manual code inspection.
+
+Fixes: d12c9088c0b2a ("[media] atmel-isi: remove dependency of the soc-camera framework")
 Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/hid/wacom_wac.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ drivers/media/platform/atmel/atmel-isi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index da1f0ea856..39ffe5e7c7 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -2530,13 +2530,21 @@ static void wacom_wac_pen_event(struct hid_device *hdev, struct hid_field *field
- 	case WACOM_HID_WD_SEQUENCENUMBER:
- 		if (wacom_wac->hid_data.sequence_number != value &&
- 		    wacom_wac->hid_data.sequence_number >= 0) {
--			int sequence_size = field->logical_maximum - field->logical_minimum + 1;
--			int drop_count = (value - wacom_wac->hid_data.sequence_number) % sequence_size;
--			hid_warn(hdev, "Dropped %d packets", drop_count);
-+			s64 sequence_size = (s64)field->logical_maximum -
-+					    field->logical_minimum + 1;
-+			s64 drop_count = (s64)value -
-+					 wacom_wac->hid_data.sequence_number;
+diff --git a/drivers/media/platform/atmel/atmel-isi.c b/drivers/media/platform/atmel/atmel-isi.c
+index a05a744cbb75..6a7e240c5b18 100644
+--- a/drivers/media/platform/atmel/atmel-isi.c
++++ b/drivers/media/platform/atmel/atmel-isi.c
+@@ -1121,10 +1121,13 @@ static void isi_graph_notify_unbind(struct v4l2_async_notifier *notifier,
+ {
+ 	struct atmel_isi *isi = notifier_to_isi(notifier);
+ 
++	if (!video_is_registered(isi->vdev))
++		return;
 +
-+			drop_count %= sequence_size;
-+			if (drop_count < 0)
-+				drop_count += sequence_size;
-+			hid_warn(hdev, "Dropped %lld packets",
-+				 (long long)drop_count);
- 		}
--		wacom_wac->hid_data.sequence_number = value + 1;
--		if (wacom_wac->hid_data.sequence_number > field->logical_maximum)
-+		if (value >= field->logical_maximum)
- 			wacom_wac->hid_data.sequence_number = field->logical_minimum;
-+		else
-+			wacom_wac->hid_data.sequence_number = value + 1;
- 		return;
- 	}
+ 	dev_dbg(isi->dev, "Removing %s\n", video_device_node_name(isi->vdev));
+ 
+-	/* Checks internally if vdev have been init or not */
+ 	video_unregister_device(isi->vdev);
++	isi->vdev = NULL;
+ }
+ 
+ static int isi_graph_notify_bound(struct v4l2_async_notifier *notifier,
+@@ -1323,6 +1326,8 @@ static void atmel_isi_remove(struct platform_device *pdev)
+ 	pm_runtime_disable(&pdev->dev);
+ 	v4l2_async_nf_unregister(&isi->notifier);
+ 	v4l2_async_nf_cleanup(&isi->notifier);
++	if (isi->vdev)
++		video_device_release(isi->vdev);
+ 	v4l2_device_unregister(&isi->v4l2_dev);
+ }
  
 -- 
 2.43.0
