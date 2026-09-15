@@ -1,84 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86F783F4118;
-	Tue, 15 Sep 2026 05:39:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31753D525F;
+	Tue, 15 Sep 2026 05:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789450767; cv=none; b=NQ5IvrfMZFhyhYgy38ZRqf7OZnofffhLd+vk2elY68Y9HBquENiZ5MhM5tUDY6du6YK6rXaabeTvdT4ZCzFRTfJ/MLUr9FgIqKALC7pt/BqmUJwo9PwMKBDPGpz30qfcUjWy8w8Zc5u5uUhQcGALEG3Ut7P1nODjzcPBfnOAZe8=
+	t=1789451058; cv=none; b=PKB/w149FIgPBJOIvxcB6VJ1ZY7dhHxlSKM0lP5lSbdct29yyVEM8VoIORnv1woIg44+44uVAPojn6mI5o74Jdaxuog61gf+LGjEQVlGwWjVxU6fQfZYGLwqrQ+npr2cUcqyB9nux3R2BIPnlP3WhgwtLfV4rvhYjpbIBHZnv6I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789450767; c=relaxed/simple;
-	bh=k36TUeJ4LPohYVuTOUVTtqz/laZZ8LiNX9lXo1lYpYs=;
-	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=kJUcxmly1Z9ep0BhEfbU+O50Kj9DBkFgYh731yhY7QAL4xO3ZRPFfGethXbw1Upl9+QgqY4io/e2DyiWtNjdZWZmsyPOqtQSBj+IA2d/tn3T5cKbABAJKhD6DL1fATFkU+4rnJRzD0vYBGJgcHC3NoT7xK0hSid6eFvWwraP2cg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eMWJ4r3i; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eMWJ4r3i"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 5E6A21F000FF;
-	Tue, 15 Sep 2026 05:39:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789450766;
-	bh=AOaizP4fS70hxRpmokHCzkJIDTJVRkqFl4gDV+A8QtU=;
-	h=Date:Subject:From:To:Cc:In-Reply-To:References;
-	b=eMWJ4r3iB5xFgi2ttTStAh/foHMdZkqEz1ykpz+fk30bwmwhI8jcUsGEhGhBsEGw+
-	 uBB9/dYc07UTMubF5DPg0DbDWHoKKolxgj2GgScg/NVY5CK9B1Iai4gVF8v16OeL52
-	 /q92hR9BWO9kaSiSTBSv13kOt5u/IRsiH4YDajVGzZHnvrEQ3KKIbiV5qLKk9CCX0J
-	 7AMCygPS/plE/V3jZ+2QcSgGHcneXxisKqKu8dk99aJMdQvX0Fc+2HRyhG6G6lrKKK
-	 NSveMHXxGkjsPPpNAv13cOrhbcBL9M/xlREsS7Ov0I98tlBbOzYEjhglmSeX25BaxG
-	 Lko5ftrnK/ZfQ==
-Date: Mon, 14 Sep 2026 22:39:25 -0700
-Subject: [PATCH 11/11] xfs: fix wild memcpy access when formatting ondisk
- rtrefcount btree roots
-From: "Darrick J. Wong" <djwong@kernel.org>
-To: djwong@kernel.org, cem@kernel.org
-Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-Message-ID: <178945048731.3061055.2062919508652373941.stgit@frogsfrogsfrogs>
-In-Reply-To: <178945048435.3061055.16384804993810925544.stgit@frogsfrogsfrogs>
-References: <178945048435.3061055.16384804993810925544.stgit@frogsfrogsfrogs>
+	s=arc-20240116; t=1789451058; c=relaxed/simple;
+	bh=JxEGlL2Fe4sOoBlicNb9mbOHCZrVz3d/Ivv2x7t83n4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BON3uiYRdKGcJVMWghXNl2wD2otDgNCBhmffolMkl3FvnkqRjSydQLhocRxzo9y25hhgX1XmwEvaq5aytwtFTDOcc9RxSjRdTNOoxVEo1HdAuZ0P+PvQunC0SyZtSSP4zNp+IKVXpYd0oaJxD3RVHVu0d+Ug/kqWzQXoRFkyEk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-01 (Coremail) with SMTP id qwCowACneu4u26hq_QgKCA--.60433S2;
+	Tue, 15 Sep 2026 13:44:14 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: daniel.lezcano@kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	robert.jarzmik@free.fr,
+	tglx@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] clocksource/drivers/timer-pxa: Fix clock reference leak
+Date: Tue, 15 Sep 2026 05:43:45 +0000
+Message-Id: <20260915054345.1729471-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:qwCowACneu4u26hq_QgKCA--.60433S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CrW3ur1kZFWfXw48ZrWxXrb_yoW8Wr18pr
+	Z5CayYyr13Wr4Igw48tF4DJF9Ikw1xCFy7G3yFkF929rs3CryUAFW2vFyjvF4YkFs7uw43
+	tr4Fy3WkuFyUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbmhF3
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgALA2qowR1bvgAAs1
 
-From: Darrick J. Wong <djwong@kernel.org>
+pxa_timer_dt_init() obtains the timer clock with of_clk_get() but never
+releases the consumer reference: the clk_prepare_enable() failure path,
+the irq_of_parse_and_map() failure path and the success path all return
+without clk_put(), leaking the reference on each init attempt.
 
-LOLLM noticed that the inode btree root formatting methods copy too many
-bytes -- there's only one set of keys in node blocks, not two.  This
-causes memory corruption of whatever's beyond the buffers.
+Call clk_put() on all three paths. The clock is left prepared and
+enabled, so the timer behaviour is unchanged.
 
-Cc: <stable@vger.kernel.org> # v6.14
-Fixes: f0415af60f482a ("xfs: wire up a new metafile type for the realtime refcount")
-Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
+Fixes: ab5354c48d58 ("clocksource: pxa: Add device-tree support for PXA timer")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/xfs/libxfs/xfs_rtrefcount_btree.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/clocksource/timer-pxa.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-
-diff --git a/fs/xfs/libxfs/xfs_rtrefcount_btree.c b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-index e2950dbe20681b..dcc89b8e149b05 100644
---- a/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-+++ b/fs/xfs/libxfs/xfs_rtrefcount_btree.c
-@@ -617,7 +617,7 @@ xfs_rtrefcountbt_from_disk(
- 		fpp = xfs_rtrefcount_droot_ptr_addr(dblock, 1, maxrecs);
- 		tpp = xfs_rtrefcount_broot_ptr_addr(mp, rblock, 1, rblocklen);
- 		numrecs = be16_to_cpu(dblock->bb_numrecs);
--		memcpy(tkp, fkp, 2 * sizeof(*fkp) * numrecs);
-+		memcpy(tkp, fkp, sizeof(*fkp) * numrecs);
- 		memcpy(tpp, fpp, sizeof(*fpp) * numrecs);
- 	} else {
- 		frp = xfs_rtrefcount_droot_rec_addr(dblock, 1);
-@@ -703,7 +703,7 @@ xfs_rtrefcountbt_to_disk(
- 		fpp = xfs_rtrefcount_broot_ptr_addr(mp, rblock, 1, rblocklen);
- 		tpp = xfs_rtrefcount_droot_ptr_addr(dblock, 1, maxrecs);
- 		numrecs = be16_to_cpu(rblock->bb_numrecs);
--		memcpy(tkp, fkp, 2 * sizeof(*fkp) * numrecs);
-+		memcpy(tkp, fkp, sizeof(*fkp) * numrecs);
- 		memcpy(tpp, fpp, sizeof(*fpp) * numrecs);
- 	} else {
- 		frp = xfs_rtrefcount_rec_addr(rblock, 1);
+diff --git a/drivers/clocksource/timer-pxa.c b/drivers/clocksource/timer-pxa.c
+index 7ad0e5adb2ff..8bb473b75b48 100644
+--- a/drivers/clocksource/timer-pxa.c
++++ b/drivers/clocksource/timer-pxa.c
+@@ -195,6 +195,7 @@ static int __init pxa_timer_dt_init(struct device_node *np)
+ 	ret = clk_prepare_enable(clk);
+ 	if (ret) {
+ 		pr_crit("Failed to prepare clock\n");
++		clk_put(clk);
+ 		return ret;
+ 	}
+ 
+@@ -202,10 +203,14 @@ static int __init pxa_timer_dt_init(struct device_node *np)
+ 	irq = irq_of_parse_and_map(np, 0);
+ 	if (irq <= 0) {
+ 		pr_crit("%pOFn: unable to parse OS-timer0 irq\n", np);
++		clk_put(clk);
+ 		return -EINVAL;
+ 	}
+ 
+-	return pxa_timer_common_init(irq, clk_get_rate(clk));
++	ret = pxa_timer_common_init(irq, clk_get_rate(clk));
++	clk_put(clk);
++
++	return ret;
+ }
+ TIMER_OF_DECLARE(pxa_timer, "marvell,pxa-timer", pxa_timer_dt_init);
+ 
+-- 
+2.34.1
 
