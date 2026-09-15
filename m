@@ -1,173 +1,188 @@
-Received: from mail-pl1-f181.google.com (mail-pl1-f181.google.com [209.85.214.181])
+Received: from mail-ej2-f43.google.com (mail-ej2-f43.google.com [74.125.228.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3969035292A
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 21:40:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.181
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DFF4429000
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 22:16:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789508440; cv=none; b=cZoYdSVmFOP2TSzSg3Rt/Zy9C7ER2fhDYuFY2tvzw6VBhnJrgSfyvr/YxzN0Zv0MnSbFGlnzPWQ2IJ+MSnStBwP8MdXBBa9QU+jXJpom0V3b68cln7lKeYkCY4cf5h5ROBX2J8xqkDlDaQr40wLYC9vteDztutUC2EI2iCS0QzI=
+	t=1789510589; cv=none; b=frMwHf9CZ3NUVIAdRGqgCzNnZDOJkCbCxRU9uBGrnmDNcOfDHi94v7idShaMTPOjYo/Ru1BEkoNI3A5g08JrLHiRphLwStdibR2zMJG4l9tRuDFyAr+9zhikhNgctdv8XDQe3FE2xNuKlKX8mEUClKkqyqC5jH6gMyyo9srgzLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789508440; c=relaxed/simple;
-	bh=3vMP89IgAq10Nq+Ss39mGCvVdYNolsX9+u7Nd5404Pk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pzugFOisN7rnB+lFNLLNPcpl6NXSX8P+uKupug7ZTvLA1ibaQ3ZiN7PhprmGGaKfGQrY3GvTGu0oyw6boyWIP0GRyQyOanGHLX4/CyTBByXfWzuFyNYbiSS7+2n2j5uN5LraNB0TcV7f4lAP1mfFUg0AJTWEO+wP8BghOfvbhdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=N/SkJXHy; arc=none smtp.client-ip=209.85.214.181
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789510589; c=relaxed/simple;
+	bh=BscXMGV65r6C0wAvido3gq8cHiLKzPO2AoHVF6iNN/U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ELLrsL2cWoivzyiMW5o8ODzNhuT3J9n9ZF/4DlazSrhHhXmb6E5VpZBREGb4UJqU8mEu3J1464h3ogffFoU7p4a7DRMMzPQQ+bOYtYwHmPCBo3L4stC0iR6CuWFP7BDnhWcRGhqUwlz3ISA/pU1Ud2p0aznG/aXtzhW2rDjhq7M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=cRnmxZfI; arc=none smtp.client-ip=74.125.228.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="N/SkJXHy"
-Received: by mail-pl1-f181.google.com with SMTP id d9443c01a7336-2caced6038eso15783955ad.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 14:40:39 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="cRnmxZfI"
+Received: by mail-ej2-f43.google.com with SMTP id a640c23a62f3a-c254f9f0b20so58688466b.3
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 15:16:26 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789508438; x=1790113238; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=+c8xCF6msCY4/3EPPq3dq+wZSxF7xobbUNc2NOhYkXM=;
-        b=N/SkJXHyDCLRfE4hjeyQRwz6Kg+vG35x52LvhN70VuJ524O8jZodMFxV5ZLkfl2RvC
-         ZzkRqqBZnM3lSzY4/wvQ2wbFBBMSSlkAWYfJbLa20q10ekK8fuXAK8s6hPrjQbgF/134
-         D1umsx1ukt3dLIrD6TKVoOVwYaIT9+hWkIAqbJOj1W8p6LeSEFF5NMMtg08DwhCUkPuU
-         gLPSJc4jk5Q+/6+ptveAJue6l91cRPWeNCrjsj1Z6JVgOWGA6aNCWJLYHuHwy0WVQHvz
-         Wly3gqo7tUI02jgPiXHPxiM/PemsmoHD/kwoIyq+JMYrlaHJOA/PYr+6Q3seJhaua3nT
-         y2dQ==
+        d=suse.com; s=google; t=1789510584; x=1790115384; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=B9iru7KgswTEjr/v16lnpjqFs9qEkV6VbmccCC179Ho=;
+        b=cRnmxZfI8S1fMpUk2vN/Gjl6ie3f33e/3rwOwNsnQdUEM4IsV0u8kODS5JFKq0adXX
+         kCT5dnJhT8Vb4saTjwMoM6/POIHLVV+eX3i2bkiD7mGxpwenTdhUiAVRThEFoaWh1YLR
+         Jnm8tGmC0JIQM2nWaxDzDIS+Xta2/D7byhlBxYCgnhZwjz4f9Lz2QGp30mEPNMUGgjnP
+         MiGL0v8lO08f8bvzu/kmdvAWvjTi3XbdOuCyF+on+cgelfWAN6gDo7m2wi1TL0+XCAnX
+         s5s6gzZN8jztekLOEfzkXG3XBKzieor5v6tzZTOvrSYfq9NQfAEFrKtsHheDHREOd+oY
+         ypCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789508438; x=1790113238;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789510584; x=1790115384;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=+c8xCF6msCY4/3EPPq3dq+wZSxF7xobbUNc2NOhYkXM=;
-        b=om4f9nGVHNdmY4LEr+h/z3x8hciX0UPR7v2lmI7YTQvj/8ikLer/Oc/yuGTG8A2U/k
-         91hW+xH0csAXWKIrLCYAdrUzdG39JWTIE3fDIqvIuyB2XtbLKch/huxvaAx44SnQu/5y
-         CnExLw+Xsih8/aZL+rQ7DL4pWKNT5MFanbFWkdPiC7Gglny0Nzbm3GrKnC4JPFuNz1yF
-         zkcT9zRkqBRD7ufVCSC+4eivG6puKDVguZBRASL8sLzrICaVLd4kMl34KKN045GgmVBi
-         QyQiDcJwRf8aHsNEtj0w1e4brClMR4DimnomHNqwAaiwW8p3Cs+WVvYQ70JD2PAfaZSZ
-         lzpA==
-X-Forwarded-Encrypted: i=1; AKwUvBzYocs3GeHk2R6WJigUqxs0wuIKE8o9u3yagvMZZpGlTWrrORCqgBBIAKQAPQX8pHf7IU+o7uc=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9Oa7YLFqpy3dTUPYFIOJAnji370OmQnf40jCGOKOULRX0PRUi
-	BmQirPud3MuGFz++vCYQrb0FYdpIRDHRWAUzr6d+bwq7Kd1escYkEHf0L2ck5b5jwCNoGnn9/jW
-	iMBuaYg==
-X-Gm-Gg: AYBFou34RnvBNeKdkycCS9mi/MIFwIPpAB3FJ0KH53vkUQeFESUsvuS9BNlJV45ZBOb
-	cXZelEe0zY0+n0q/hxG8rY04Tp0vBG7Kb9NFSbMVN4qkGDdhODZji6XqX/S6aRC82QSW+g02cyN
-	5slTa1maEcYcJqPHHThi3/mWO0CIIcMMxxIDT+oLJeeBY/2uSsSau0xw/BmgrbRoNzbEXiXXVt4
-	hqOaGcDyT0d4OasEc42eC0uBL4QQqr8n4QIhpYuCzxRJOekSNYazed32Z7Q8ky+4jYOeQBgON7+
-	Jj8Fq5A9aPizHWSIMGvRv90POlyf+6yiZUu5IJBtHCM30tGYv4gL8jA9Lt8XjzMTpY0SBXLIQGR
-	6707rgbN04OI+9J4dAZWpN2bQLDDPCiNGh0JLi2hi3Pcy5Mz8zUaSlC6CI/mCixFKNYePiDc4Zo
-	+2DZH+ZXECw2s+cJe9pFmhsBbtt13GxFUKU+C/uUMAXwdYeHYZz9mdh1aRuL5q7nGXPuvyr8Gz4
-	lGPg+/v4DR1Zf0xQE+ZvAK/89J57DYukgzY4w==
-X-Received: by 2002:a17:902:d58a:b0:2d6:ee34:c043 with SMTP id d9443c01a7336-2dd76519cf2mr74246805ad.11.1789508438632;
-        Tue, 15 Sep 2026 14:40:38 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ad6b9dsm1682223eec.21.2026.09.15.14.40.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 14:40:38 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: idryomov@gmail.com,
-	amarkuze@redhat.com,
-	slava@dubeyko.com,
-	ceph-devel@vger.kernel.org
-Cc: sage@newdream.net,
-	co+ecaada42f806f629@bugs.sh,
-	stable@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH] ceph: fix integer overflow in the snap trace bounds check
-Date: Tue, 15 Sep 2026 14:40:27 -0700
-Message-ID: <20260915214027.1415623-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+        bh=B9iru7KgswTEjr/v16lnpjqFs9qEkV6VbmccCC179Ho=;
+        b=Q26796nxUXy2vN/QVJ6331wUZ8oOyNDHcdzYktwrNcpemqkouMTQAMKBZ/a53i7nsb
+         8SViKygPmiTCgY6H3suwBC7IJ5Cj1qyrGgL5SGbaIxPPCKpAbGrtSG+A73anW7TXPNVR
+         NWaQLwnQNeGvEvYT4eGofmCq57uRcx5fyFig81I0+B2CcugvuF6K7s/A514QNeSDw/cR
+         9GGAs+cnZpvZ/GuBl42SOeHedYHp9k0adzX262ivQLs6C8TKFdMh0VO/RH1q3dC1ADvu
+         9ifIudqWscg9sR5FmWb3MYcqhnOARMsCST5ljhSELXMjS6RgjBJUW0WSynI59uVJ0sTH
+         oK2Q==
+X-Forwarded-Encrypted: i=1; AKwUvBw6dY/BMPFZsOxgbBOlwoCiXXn+a2DQB0Ab03KFcOTJ+6C4rU1DbHK9T/sFnD/Nr7V68N7YOIk=@vger.kernel.org
+X-Gm-Message-State: AFuF++n4To3e6wR1Ne99npeZbAEVybnNPlWCwcNJO8CMG0Ltkl2RXnnO
+	z2EFDEx9jkRKa203BNjJw2uK9VfAEeF9Q/1gWcDAH0/S1xsoh1IqJagLCNHTmItl+dc=
+X-Gm-Gg: AYBFou2IdVk/Z8t2Crmxsc+dUedjIB8btTFLHVf9Qv/TV7flO9dA8jrIKzDM0Lve5w3
+	yw6hCYLpmGoFkq+MCagX+EhCTwcGDqIvWjl2yAVI/UzCC8O0ex2NFpEVUokJr5zX0e8bSVraUp9
+	CgeCqbimkJc8FqXfa0Kj7I+kYQ7OpyegYcMefapBPn8Oxx6t0Yrt7xLzWNyOKUnhhnuXqlaaRQa
+	tcsmPv1mYiBQVVd+esA+DSxOy5nWwL5cvYPo6ipzF3VERG1sXFyQbvHNTuO1vnyYz1gGcbWh4Xq
+	BnsEmgjOmBAj8ijwdLU4ruPXz87QKHLif3CQvQpNKUyiSam0tBmZf1kMnLRTFimGqFJFv0I8mec
+	4XWivzF9CkGBkTLWVR9ZN1cTOawBdW3m7HWa/WhdqeApnSMHV4b8oHvPeW/7jF54MxMMJH2CLvk
+	0SjkAMzRx6+4gdt/ni6zzO0d6EwbPNaVtJofPpOhH3Oha0kTIBhqSJNQq0wQb4QXo=
+X-Received: by 2002:a17:907:9491:b0:c25:504a:1e25 with SMTP id a640c23a62f3a-c29e5275ee3mr7132966b.13.1789510584048;
+        Tue, 15 Sep 2026 15:16:24 -0700 (PDT)
+Received: from [172.16.0.229] ([159.196.52.54])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89e94383sm1809675ad.18.2026.09.15.15.16.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Tue, 15 Sep 2026 15:16:22 -0700 (PDT)
+Message-ID: <17a03645-fce6-48ff-b95c-5fff0466b9d3@suse.com>
+Date: Wed, 16 Sep 2026 07:46:17 +0930
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] btrfs: clear free space tree state on rebuild failure
+To: Guanghui Yang <3497809730@qq.com>, linux-btrfs@vger.kernel.org
+Cc: dsterba@suse.com, mason@kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
+Content-Language: en-US
+From: Qu Wenruo <wqu@suse.com>
+Autocrypt: addr=wqu@suse.com; keydata=
+ xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
+ 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
+ 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
+ 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
+ gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
+ AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
+ FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
+ Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
+ fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
+ 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
+ V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
+ rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
+ rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
+ Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
+ E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
+ vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
+ g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
+ AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
+ cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
+ qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
+ /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
+ o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
+ JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
+In-Reply-To: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-ceph_update_snap_trace() bounds the two encoded snapid arrays that follow a
-struct ceph_mds_snap_realm with sizeof(u64) * (num_snaps +
-num_prior_parent_snaps).  Both counts come straight off the wire as __le32,
-so the addition is evaluated in unsigned int and wraps before sizeof(u64)
-promotes it to size_t: an MDS sending num_snaps = 1 and
-num_prior_parent_snaps = 0xffffffff makes the sum zero and the check
-degenerates to ceph_decode_need(&p, e, 0, bad), which always passes.
-dup_array() then reads num_snaps * 8 bytes past the end of the message
-front, which ceph_msg_new2() allocates at exactly front_len bytes.  An
-unsolicited CEPH_MSG_CLIENT_SNAP reaches this from a malicious or
-compromised MDS with no client-side action, as do the snaptraces carried in
-an MDS reply and in a cap import.
 
-Compute the length with size_add()/size_mul() so it saturates at SIZE_MAX
-instead of wrapping, in the style fs/ceph/mdsmap.c already uses for
-num_export_targets.
 
-  BUG: KASAN: slab-out-of-bounds in dup_array (include/linux/unaligned.h:28 fs/ceph/snap.c:500)
-  Read of size 8 at addr ffff8880102a16c8 by task kworker/1:2/129
-  Workqueue: ceph-msgr ceph_con_workfn
-  Call Trace:
-   dump_stack_lvl (lib/dump_stack.c:94 lib/dump_stack.c:120)
-   print_report (mm/kasan/report.c:378 mm/kasan/report.c:482)
-   kasan_report (mm/kasan/report.c:595)
-   dup_array (include/linux/unaligned.h:28 fs/ceph/snap.c:500)
-   ceph_update_snap_trace (fs/ceph/snap.c:836)
-   ceph_handle_snap (fs/ceph/snap.c:1155)
-   mds_dispatch (fs/ceph/mds_client.c:7234)
-   ceph_con_process_message (net/ceph/messenger.c:1424)
-   ceph_con_v1_try_read (net/ceph/messenger_v1.c:1430)
-   ceph_con_workfn (net/ceph/messenger.c:1576)
-   process_one_work (kernel/workqueue.c:3396)
-   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
-  ...
-  The buggy address is located 0 bytes to the right of
-   allocated 72-byte region [ffff8880102a1680, ffff8880102a16c8)
+在 2026/9/16 00:18, Guanghui Yang 写道:
+> btrfs_rebuild_free_space_tree() sets
+> BTRFS_FS_CREATING_FREE_SPACE_TREE and
+> BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED before rebuilding the free space
+> tree. Several error paths return without clearing these flags.
+> 
+> This leaves the flags set on the live filesystem and affects delayed
+> reference processing and free-space caching.
 
-Cc: stable@vger.kernel.org
-Fixes: 963b61eb041e ("ceph: snapshot management")
-Reported-by: <co+ecaada42f806f629@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
----
-The same (n + 1) shape exists at fs/ceph/mdsmap.c:289, in the pg_pools
-loop of ceph_mdsmap_decode():
+What kind of effect?
 
-	ceph_decode_32_safe(p, end, n, bad);
-	m->m_data_pg_pools = kcalloc(n, sizeof(u64), GFP_NOFS);
-	if (!m->m_data_pg_pools)
-		goto nomem;
-	ceph_decode_need(p, end, sizeof(u64)*(n+1), bad);
+> Clear both flags on all
+> free space tree rebuild failure paths.
+> 
+> Fixes: 1d6a4fc85717 ("btrfs: make clear_cache mount option to rebuild FST without disabling it")
+> Cc: stable@vger.kernel.org # 6.4+
+> Assisted-by: Codex:gpt-5
+> Tested: make -j$(nproc) fs/btrfs/free-space-tree.o
 
-That one is not reachable: n is a signed int, so the only value making
-n + 1 wrap to 0 is -1, and kcalloc(-1, 8) promotes to SIZE_MAX, fails
-check_mul_overflow() in kmalloc_array() and returns NULL, so the decode
-takes goto nomem before reaching the bounds check.  Left alone here
-rather than mixed into a fix for a reachable bug.
+That's not helpful, you should run the full fstests instead.
 
- fs/ceph/snap.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+> Signed-off-by: Guanghui Yang <3497809730@qq.com>
+> ---
+>   fs/btrfs/free-space-tree.c | 15 +++++++++++----
+>   1 file changed, 11 insertions(+), 4 deletions(-)
+> 
+> diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
+> index 1b3d82ae3de8..1410da2766a9 100644
+> --- a/fs/btrfs/free-space-tree.c
+> +++ b/fs/btrfs/free-space-tree.c
+> @@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+>   	if (unlikely(ret)) {
+>   		btrfs_abort_transaction(trans, ret);
+>   		btrfs_end_transaction(trans);
+> -		return ret;
+> +		goto out_clear;
+>   	}
+>   
+>   	node = rb_first_cached(&fs_info->block_group_cache_tree);
+> @@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+>   		if (unlikely(ret)) {
+>   			btrfs_abort_transaction(trans, ret);
+>   			btrfs_end_transaction(trans);
+> -			return ret;
+> +			goto out_clear;
+>   		}
+>   next:
+>   		if (btrfs_should_end_transaction(trans)) {
+>   			btrfs_end_transaction(trans);
+>   			trans = btrfs_start_transaction(free_space_root, 1);
+> -			if (IS_ERR(trans))
+> -				return PTR_ERR(trans);
+> +			if (IS_ERR(trans)) {
+> +				ret = PTR_ERR(trans);
+> +				goto out_clear;
+> +			}
+>   		}
+>   		node = rb_next(node);
+>   	}
+> @@ -1390,6 +1392,11 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+>   	ret = btrfs_commit_transaction(trans);
+>   	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
+>   	return ret;
+> +
+> +out_clear:
+> +	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
+> +	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
 
-diff --git a/fs/ceph/snap.c b/fs/ceph/snap.c
-index 9b79a5eaca93..5ba325aa147c 100644
---- a/fs/ceph/snap.c
-+++ b/fs/ceph/snap.c
-@@ -788,6 +788,7 @@ int ceph_update_snap_trace(struct ceph_mds_client *mdsc,
- 	struct ceph_snap_realm *first_realm = NULL;
- 	struct ceph_snap_realm *realm_to_rebuild = NULL;
- 	struct ceph_client *client = mdsc->fsc->client;
-+	size_t snaps_len;
- 	int rebuild_snapcs;
- 	int err = -ENOMEM;
- 	int ret;
-@@ -802,8 +803,10 @@ int ceph_update_snap_trace(struct ceph_mds_client *mdsc,
- 	ceph_decode_need(&p, e, sizeof(*ri), bad);
- 	ri = p;
- 	p += sizeof(*ri);
--	ceph_decode_need(&p, e, sizeof(u64)*(le32_to_cpu(ri->num_snaps) +
--			    le32_to_cpu(ri->num_prior_parent_snaps)), bad);
-+	snaps_len = size_mul(size_add(le32_to_cpu(ri->num_snaps),
-+				      le32_to_cpu(ri->num_prior_parent_snaps)),
-+			     sizeof(u64));
-+	ceph_decode_need(&p, e, snaps_len, bad);
- 	snaps = p;
- 	p += sizeof(u64) * le32_to_cpu(ri->num_snaps);
- 	prior_parent_snaps = p;
--- 
-2.43.0
+The free space tree is not properly rebuilt, thus we can not trust it 
+anymore.
+
+Why you want to clear the UNTRUSTED flag?
+
+> +	return ret;
+>   }
+>   
+>   static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
+> 
+> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
 
