@@ -1,143 +1,198 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
+Received: from mail-ej1-f53.google.com (mail-ej1-f53.google.com [209.85.218.53])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9610F7DA66
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:17:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789431470; cv=none; b=if4SvNE7gQdhauUkl2sPSg3tI1T0I0YkGvhbBiiLmbIzehiLAYrawdd3v0BRHR2B6vF2QaqIGv5tScUJ+amhNwHPNYuZjdWlFF+RT30MLJp0kljf4XLnP0Tb5CgXRVALy3YEZCdb8IxSHUhXsL4JzjaYnqYQqXKzCMCjSkkUhKE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789431470; c=relaxed/simple;
-	bh=7oHzNDjQwBTrxSh0/2XmZfHLhvLvLS12Vo9uoLTUqOc=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDBDA25C804
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 00:19:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.53
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789431586; cv=pass; b=McJk0+lfEwIs8HYLWFc7Em1JpMz7IsZAtBSIN3ZfqSj7oUbxct4FZ+dzKYWFIxqQWJ8GyQ57f9h9u6jqEBiGUEwPxIaistCY1a2RnQPmYp32YG2tzcWR6qzCjsfQAyXzJVSFMRLEbOcmCf0rhJF7r9dLHXXj6681zZCYFOU85Tc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789431586; c=relaxed/simple;
+	bh=EdKInOD+E6jqh6viJs2EtgOk8z4C7E9EBNp/xGdSPnw=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=k/ceOJrhvJAYrqBwvlkTKgjc9w6CEjJnK5gGiXGaKRfn1BdsMPKHEM6EzANC4ATMQgvqlp1Ag6TA/7+/xe3B6SbVe+Q1cMHvMfhzO8E5OdQxJkhWtME0iAMcKCfTPgEU/DYaeIr9D+ET3gRteEs8zfxEsM3gDEkS0ht0FHKJqdI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kJ0Pk7m+; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	 To:Cc:Content-Type; b=gRcRL6aajMIgvSvhHwwPTpO6IknxwEKe1cJz2GNdeikmrtw/oZncNFut4auHsJUUEM9lBJe9bYYbAx4fU4KQGpBvjwtVe5Y2lCnbXTWoGw5agvylS7StbvHNSjmH18IwEVhPXJjvV9KV+8tZ7gSw4er9Mcfwuumt3+vD4QoMT6Q=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bs0lTwvi; arc=pass smtp.client-ip=209.85.218.53
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kJ0Pk7m+"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a9984f9adcso5253382a12.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 17:17:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bs0lTwvi"
+Received: by mail-ej1-f53.google.com with SMTP id a640c23a62f3a-c29667ed561so490205666b.2
+        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 17:19:44 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789431583; cv=none;
+        d=google.com; s=arc-20260327;
+        b=MVSinqgEAZiEKwlEqR6vYaIrUwJYCIMMRbJ+NozlJe2OmEfNxgFuqoHWSM9s9CL2oU
+         Z62DUZ/Az+dr8zHKwYEBZfO4QCxPAdp+IxW5twH5eUXiWPBGlFpX2tSI48+Ur6zxxYgi
+         U2VJSuIxocLwg9asI7hLm+D259buflJWaPc517dNYqJC6DwX6lqp6Gf56/GmwF9XuB/2
+         JOp7ahbziuSekZvgR3jeRsub0UOufKDTWqRZkAkTsdK17JW4e28UuLAZHBpbFunO7+Oz
+         CcjKGyp2GJNeHoIhPaoU5ufiUa34zw1iL//IjlxYvchCFIgA/LM3bEJ3cpdIV3V5qoiQ
+         o6IQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=fhSnpJaF0zIlzRRxfxVLp3csW4mX+RohYNQStTeeaVI=;
+        fh=2DPzUgFl/YQraR+xz6ylxt7DYiE42EX/RoVCVHw/oJ0=;
+        b=QuXQUvhLc3vKf+ib0DbmULs+aypm7Lj3ieUJxUcGi/UFiNt6LWUVkb5dbpqBF6T/7z
+         Na006Eszj/DIzN8iF8MKdDEWbj/BfzlevgiRPPP4FDtv21g403ku3qclOj9/zuXCPz8x
+         +OYgjci7neD5xd0XGPBi4prD3dNy95E8VCzrWnXv6xyyjHDPCfnY+YC+jLauNHrkUg3d
+         s4VZTVsVEW7ggroXkylvT7ICf4H8QiWOJwMcE4z5SYl/yOAkkqqRAp5dYpNxszdSMePW
+         ub3HlHjRBgCKVFaL/TAs89LDyxv9VuqtNi+mOEYu7B7YDQKWSlyj07pzr0eFDhds4sjU
+         6GOQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789431467; x=1790036267; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789431583; x=1790036383; darn=vger.kernel.org;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=fSVVYlw+xnmQhzMBOcvIbDbXL6WijAmubWvEw4BRZOc=;
-        b=kJ0Pk7m+OxF99z27CoJyWOiEKtEYfc0mFO1yLjtDIwxD6BBsgJ+c4AJUWTSu9cXWJG
-         Pb9RFmM6Bab9LiBDJ3pIWA+j8C1q7UaqgC/ka0doQEs1GnA77cbRyqSS9J7FsTImrQs/
-         h4Thsz46whyB7wYgpgEoUwXWtZHSRK/LHVKhg=
+        bh=fhSnpJaF0zIlzRRxfxVLp3csW4mX+RohYNQStTeeaVI=;
+        b=bs0lTwviMi/7oiOjjHHoDId/9KLD2tEHe6j+XUdo3m5DIgyWvZtShT05Ahhc9p1l8o
+         Tnn/Bg6YASjpgK9l472Ez4jT6SEAsOZkIy7fFsvimRYjr1dqB/ud/z8w+vZpc7ZwkbH7
+         YjcrS6y16fBvkEMbwdV6tPraAbRXPFb2pMA6W4y6tT7bwNMSFrSO7eaj0IHQGm8XKP6h
+         S8Lhg0vPMx80Z+AxKNtTzi0LkWTOaj1dJnJyxEsExODbSScEDyUm/VIpC9zaA5DKGGFi
+         GdDbEOQKDrFmhfl32TVvBUEZmo3Pv9/K9LjLJZOPKhTjYflHgC5j//88rCG2pHMzacx4
+         aJCA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789431467; x=1790036267;
+        d=1e100.net; s=20260707; t=1789431583; x=1790036383;
         h=content-transfer-encoding:content-type:cc:to:subject:message-id
          :date:from:in-reply-to:references:mime-version:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fSVVYlw+xnmQhzMBOcvIbDbXL6WijAmubWvEw4BRZOc=;
-        b=kA5nNfsEdq+n48jpzj45SThVv82iHG46LkNHu2A/i4oruOPwhGpUO4CLDZF/EytWRJ
-         2qB4M7KOC9W1azYaDemtLKb1wdetjtxKaEYc03K5htFGVVt+IreXKQCrJWFIOLOnTDAa
-         FzfJVtjEc5gSTzGXneEmum7d+NzcFBq9J11n9uQyuUQ/wj1/WoRIjR2WCmc03ke5k6ds
-         LO/q2XHEK2FeN3pwGJNZ4yXMHlFcV+yzgtoscoAUGh31yYGbnGBN9HXC0ml5cv9AiUQH
-         PhgoYL50rxH+wBBnLbSWphtahtYq2VnK1kZt9PALMHoVLnJPq+KcCgDx4kVyEiLbK8Gy
-         Vbwg==
-X-Forwarded-Encrypted: i=1; AKwUvBz7DKkxsOgVtAtEtY/pqU8s+NTM9RoXWlH+/nrL99SJ4DK+lZSnx7x8JeNyHm4tP36QUW73OGg=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJJNHA87dVeZYr1BGOrc1YFsg7pcDYzBjp/wRr11x4FAwCgI6y
-	oz55oE+NFcnHTmtMNEPcYSmp6Jw0ssLZlxreK1OTAFEe/OXU+M+vTO+CSPHBcHR0whlcY66NSgB
-	SrSO4dw==
-X-Gm-Gg: AYBFou1gxLqXYNVWXBCQ6ZM648DliMRlxNifSNaJCuUoPiMpzpHOH7rAWmR8fpZT+OR
-	lhc9O2xAfqAd5Pix4U2CCuh05B0UVpezTGQX8IS3JigkNQ/b1nxlpH5gzFEKDRllqgh5VBoyHJa
-	lImcziOcU/x0I6aUc8aKC+UBJoNi2tqRyk90ImSp+iM9AyifraTmk7A/aGNh/9mzCDgNqJEL4Sv
-	/8/F94Qj0Q3sZAJ8c+gS0rTNr3Eiy36ZwtNx0Mr0VSQ92DrQVq4caZXN06yctUuir+Rg0GFQ2co
-	UlX75GVAmBNdi2VJkOX5jl0Y/W7/L5OO7RhfkDKn8rlCV66kMldUS6mnfShSZXo9Tc3owm3qFdm
-	57P1oj5PL6nGZoyb+Ra71WEGwJJLr/wFn1UddAK/t+eSWRU53GWLIgpNcPUtHZ/T0peY/lMpBL2
-	+WvzL6/0Y0ILXRjylqIoYP4OR3jPX8W3oR3xvIGbgFx5/HDIOiu0jwe5qAjVGY3aj6WAsVd6Dz5
-	OAjrO/xjzbgdED58vNU/l7UMvFtBqd6UInqBA==
-X-Received: by 2002:a05:6402:46cc:b0:6a9:b3b0:6cf3 with SMTP id 4fb4d7f45d1cf-6a9f63dfcffmr2599199a12.34.1789431466903;
-        Mon, 14 Sep 2026 17:17:46 -0700 (PDT)
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com. [74.125.225.76])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6a9b59644f2sm4470934a12.29.2026.09.14.17.17.44
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 14 Sep 2026 17:17:45 -0700 (PDT)
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843172bff4so1270875f8f.0
-        for <stable@vger.kernel.org>; Mon, 14 Sep 2026 17:17:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwIKXGZWPMUGDu1umebfN1hsd/weeJ6c6PUNoBgA++dc2Bi9OqsFnY2rmvZnTzNRbBBRVkJ7Uk=@vger.kernel.org
-X-Received: by 2002:a5d:6f09:0:b0:485:ac96:7273 with SMTP id
- ffacd0b85a97d-48702aae62bmr6377643f8f.10.1789431464064; Mon, 14 Sep 2026
- 17:17:44 -0700 (PDT)
+        bh=fhSnpJaF0zIlzRRxfxVLp3csW4mX+RohYNQStTeeaVI=;
+        b=T8QeQhvvQxTbDi5NWpSWiHdu1nKFMf464E50p2k9KUXPwKDDJNUZjjBtp5QkNp1J6o
+         BUaAIW/XD0Sc0sHlqhR8LyD6E2dJ2rpOdExZ5D7lk5EusiXFRlq9vV9fsenHGOQhTkNq
+         u3M5cWcgPNGofNhI3Y1zbV9gmrwdqmaFo7ELDuUC33gUmy2s40+RbVouF62WrW4qhRXA
+         zyaXfIu1+8FC4h8tvmHN+pUmH2ArA9dPUCcS2T0E7a4KqfcUybPJpxEzEFUALxDJTOcM
+         k8AQ6ptKQw/IFwtmmiQIXcLGLCKj2And3InXDtOZM1V9YIFmapkdUncE099ZlzlcxSm/
+         MStA==
+X-Forwarded-Encrypted: i=1; AKwUvBwZsyrvy309kStl3ARDDEUYqNNNDEUs08ipgHDpEUB+JAJdU/DsTE4GnzZRo5VloHBOpb8X/hE=@vger.kernel.org
+X-Gm-Message-State: AFuF++n10SS/m3oihv7ATI5qh8i5yJoj771w4ekcCcY9ShKDhfOPLk86
+	M3f4Td5XqPambPbRDoDWQ11FzDB+Ors6OgbevVgyxAKCIoOUIQckHA+rP1WbmLpJMqsRkicW1VD
+	aQJKY7htSRVeiKzmDQPgq2vVaK03MKk4=
+X-Gm-Gg: AYBFou3aw4E8UyJe5tOt+VDeGo9jGEbQxB/Sv5QwPBzWWhYGe7F5Xawq/H7Cj2h2fin
+	WDXx0RbU+6HDGQwGxRXT1paZW/r2aI32Bnv1UHrAqsDPcakrWeTquJaxe+Rj0KvzvJseRvi+jJw
+	IgXqeZC2UI+awRL6c/Tdm36u8nwNN162Vp9NAgrbZtnLWF4dVtmEpRJ7DT6+D+66D/m0MJmBfBX
+	25JdBLXo2tfdz23meqFfF/EF629YrWCfYkvh9Eqzp07L6mmYDfDR6ELtTE9LGNYFprUsXjLnPkd
+	6jdmRysnGlBpSAAcSzs56IGxTcOzy1b6+/fHi4f/qjLOD8aG26OEcZJjlxxMoO64HnkK30ity9M
+	jCjMz9oK7HiNRbKC7uSd+nBTlCCecto8Ye3LOPf6v7Fmz586sf7sxftbaB0FzK/NnVAam4ttVVE
+	IMKSHnJhmTIQwfDC44/F0VGnMKAmHAy91ZoCGetkQBXhW9Wp+aacs41bRekQ6q/NQDXQ==
+X-Received: by 2002:a17:907:7245:b0:c29:566f:531c with SMTP id
+ a640c23a62f3a-c29b870633dmr347632066b.31.1789431583089; Mon, 14 Sep 2026
+ 17:19:43 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260914180344.15485-1-fangxy@xiaopeng.com>
-In-Reply-To: <20260914180344.15485-1-fangxy@xiaopeng.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Mon, 14 Sep 2026 17:17:32 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=V1-gNZ8yTsC+D8inePWv=A+9H09hWJojQf5NRpcNvK+Q@mail.gmail.com>
-X-Gm-Features: AcwNN1UDclOTfyQ0nueNq6l7CP6C6qRUFPzUdlWRrChZOd77wqGX1Xz-KPSTk3o
-Message-ID: <CAD=FV=V1-gNZ8yTsC+D8inePWv=A+9H09hWJojQf5NRpcNvK+Q@mail.gmail.com>
-Subject: Re: [PATCH] kgdb: Fix buffer overflow in the 'm' packet handler
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: jason.wessel@windriver.com, danielt@kernel.org, 
-	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+References: <20260914214720.2467586-1-donggeunyoo.kernel@gmail.com>
+In-Reply-To: <20260914214720.2467586-1-donggeunyoo.kernel@gmail.com>
+From: Rosen Penev <rosenp@gmail.com>
+Date: Mon, 14 Sep 2026 17:19:31 -0700
+X-Gm-Features: AcwNN1U5EfGdgTc1xsFDmc6062Wi3vW51HrhRuGo76kBeV0qilCmtX4PEonDaJg
+Message-ID: <CAKxU2N-h7ooJ8BOhFz2HqaxJfAs6=9W4oEef_9C11kNMcm61qA@mail.gmail.com>
+Subject: Re: [PATCH net v2] net: phy: qca808x: handle the active-high LED
+ polarity mode
+To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>, 
+	"David S . Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Russell King <linux@armlinux.org.uk>, Daniel Golle <daniel@makrotopia.org>, 
+	Christian Marangi <ansuelsmth@gmail.com>, Sashiko <sashiko-bot@kernel.org>, netdev@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org, 
 	stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-Hi,
+On Mon, Sep 14, 2026 at 2:47=E2=80=AFPM Donggeun Yoo
+<donggeunyoo.kernel@gmail.com> wrote:
+>
+> Commit a274465cc3be ("net: phy: support 'active-high' property for PHY
+> LEDs") added PHY_LED_ACTIVE_HIGH but did not cover qca808x, so
+> qca808x_led_polarity_set() returns -EINVAL for it. phy_probe() propagates
+> that, leaving the mdio device unbound and phy_attach_direct() falling bac=
+k
+> to the genphy driver.
+>
+> Accepting the mode alone is not enough: led_polarity_mode records
+> active_low, so an explicit 'active-high' node stores 0, while
+> qca808x_config_init() re-asserts QCA808X_LED_ACTIVE_HIGH only for -1. The
+> bit does not survive the reset phy_init_hw() runs first, so the LED would
+> come up active-low.
+>
+> An 'active-low' node needs nothing here: the bit is clear after the reset=
+,
+> which is the polarity it asks for.
+>
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2026090810595=
+9.70453-1-donggeunyoo.kernel%40gmail.com
+> Cc: stable@vger.kernel.org
+> Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LE=
+Ds")
+> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+> Assisted-by: Claude:claude-fable-5 sparse
+> ---
+> v2:
+>   - No code change.  Rebased onto net/main.
+>   - Cc Rosen Penev and Christian Marangi, per Andrew Lunn -- they may hav=
+e
+>     QCA808x hardware.
 
-On Mon, Sep 14, 2026 at 11:04=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> =
-wrote:
+In my case, qca8k controls the LEDs. I don't think I have any devices
+that control LEDs through qca808x.
+
+>     Christian wrote f203c8c77c76 ("net: phy: qcom:
+>     qca808x: default to LED active High if not set"), the default this
+>     patch extends.  If either of you can put an 'active-high' LED node on
+>     a QCA8081 and confirm the LED comes up the right way round, I would
+>     appreciate it.
+>   - Say why an 'active-low' node needs nothing in qca808x_config_init().
+> v1: https://lore.kernel.org/netdev/20260912012819.2072067-1-donggeunyoo.k=
+ernel@gmail.com/
+>   - Supersedes [PATCH net v3 3/3],
+>     20260908105959.70453-4-donggeunyoo.kernel@gmail.com, whose
+>     Reviewed-by from Andrew Lunn is dropped: that version only accepted
+>     the mode, this one also makes it survive the reset.
 >
-> gdb_cmd_memread() passes the length of the 'm' packet straight to
-> kgdb_mem2hex(), which hex-encodes the reply into
-> remcom_out_buffer[BUFMAX] without checking that the reply fits. A
-> client on the KGDB I/O console can ask for a read of any size, and
-> the hex encoding runs off the end of the buffer. kgdb_mem2hex() takes
-> that length as an int count, so 2^31 truncates to a negative value
-> and copy_from_kernel_nofault() is handed buf + count as its
-> destination.
+> Compile-tested only (W=3D1, sparse).  I have no QCA808x hardware, and the=
+re is
+> no KUnit suite or MDIO mock under drivers/net/phy to exercise the MMD7 wr=
+ite
+> without it.
 >
-> On x86 BUFMAX is 1024, so a read of 512 bytes overruns by the single
-> byte that terminates the hex string:
+>  drivers/net/phy/qcom/qca808x.c | 7 +++++--
+>  1 file changed, 5 insertions(+), 2 deletions(-)
 >
->   BUG: KASAN: global-out-of-bounds in kgdb_mem2hex+0x1dd/0x230
->   Write of size 1 at addr ffffffff87651780 by task sh/1
->   ...
->   The buggy address belongs to the variable:
->    remcom_out_buffer+0x400/0x420
+> diff --git a/drivers/net/phy/qcom/qca808x.c b/drivers/net/phy/qcom/qca808=
+x.c
+> index 8eb51b1a006c..68fd4d0fe31b 100644
+> --- a/drivers/net/phy/qcom/qca808x.c
+> +++ b/drivers/net/phy/qcom/qca808x.c
+> @@ -200,8 +200,8 @@ static int qca808x_config_init(struct phy_device *phy=
+dev)
+>         struct qca808x_priv *priv =3D phydev->priv;
+>         int ret;
 >
-> Bounds check the length before the hex encoding:
->
->                 if (length > (BUFMAX - 1) / 2) {
->                         error_packet(remcom_out_buffer, -EINVAL);
->                         return;
+> -       /* Default to LED Active High if active-low not in DT */
+> -       if (priv->led_polarity_mode =3D=3D -1) {
+> +       /* Set LED Active High unless active-low was requested in DT */
+> +       if (priv->led_polarity_mode !=3D 1) {
+>                 ret =3D phy_set_bits_mmd(phydev, MDIO_MMD_AN,
+>                                        QCA808X_MMD7_LED_POLARITY_CTRL,
+>                                        QCA808X_LED_ACTIVE_HIGH);
+> @@ -603,6 +603,9 @@ static int qca808x_led_polarity_set(struct phy_device=
+ *phydev, int index,
+>                 case PHY_LED_ACTIVE_LOW:
+>                         active_low =3D true;
+>                         break;
+> +               case PHY_LED_ACTIVE_HIGH:
+> +                       active_low =3D false;
+> +                       break;
+>                 default:
+>                         return -EINVAL;
 >                 }
 >
-> gdbstub_msg_write() already bounds the count it hex-encodes
-> against BUFMAX. Reads over the limit never returned valid data,
-> so an error reply loses nothing.
+> base-commit: e6b6078ea1731b05b3b552497b3bce4bf8b014ae
+> --
+> 2.53.0
 >
-> Fixes: dc7d55270521 ("kgdb: core")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Hawkeye:GLM-5.3-flash
-> Assisted-by: Qoder:Qwen3.8-Max
-> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
-
-Looks like a good fix to me.
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
-
-
-> The scanner is a taint-style review of the packet handlers in
-> kernel/debug/gdbstub.c. write_mem_msg() ('M' and 'X' packets) trusts
-> the same length field and looks like the same class of problem; I can
-> send that separately if there is interest.
-
-Yeah, my AI also says 'M' and 'X' packets likely have the same bug. It
-also claims qRcmd packet may have similar issues. Sending a patch to
-fix would be great.
-
--Doug
