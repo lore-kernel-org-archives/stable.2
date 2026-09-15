@@ -1,127 +1,77 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-43.mta0.migadu.com [91.218.175.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2FF94A8A33;
-	Tue, 15 Sep 2026 12:17:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85AE93C65FD
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:24:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789474672; cv=none; b=TILoVF+RnYO6Lkg0kTg+8YqLVUtgHszHTV/BxNXM99/8u+sAJydUp2oZ4ThSpepkBtg2Lm7baiv7sDDV1O/7Iuf+nYGgjYfaNlpVyQT1ZV0suHLVG47CmZRn2FJOCf0QsSPP8JrJBZ1DUd0khnwUjazy23nwX4jaL/ra7rZpOHM=
+	t=1789475076; cv=none; b=etWhJyl+0bGxXscjLsvkvZUDZI1gF0VS6RwFzZ4hHVq2um9O7hlOPEtwMPyU95X/Z2q/W8lYwfrdtCI6D3rjXBr9gAxR9+yZ3w11Y6zoJkBnW8hkHkjcnDVnd9/C1PIyzrDp1z4pFkjw/xV02kHb92HdqA9dpa863tDOIWBFIU4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789474672; c=relaxed/simple;
-	bh=QWIzsJE0Kai3KownbKrQWHTGaGpa7cST5QF1p4oyIVc=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=Dw9CF+88WHv0odmUKPucod+nyy06lS775r0dpChd8bxw7H1x2V0Wg1IaejiLfmM98Z2GZJa+1wnImEA9rX1953DGongdNBCtYKqphf86gk2lEts27DAcCWy2fJiNJwHUszEuO3oWW+qtyrX+ZuEYpVrKih077lnHHsZKPohWcTo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Mv+l42g+; arc=none smtp.client-ip=198.175.65.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789475076; c=relaxed/simple;
+	bh=xuQwE5igrAW6hukl2lXyxMqN9/4oMkU4kL5kbKNUvls=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WzYwrz+UfK4qEwLBpJntvJ0iDAdtOikU7NX9o/00W3/hz5P6nnhrOaE/binc7BjFsLHJXBUWlgx4uo1H00wtcCHSZL6McLIG/Fp3QYpx81hCJJDWwEl0k9weQTML2/zUY0iqqPggPY9URhynL3jXL1hd0AKmZPAxANTU5UZSa5Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=kdxEDSk2; arc=none smtp.client-ip=91.218.175.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Mv+l42g+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789474671; x=1821010671;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=QWIzsJE0Kai3KownbKrQWHTGaGpa7cST5QF1p4oyIVc=;
-  b=Mv+l42g+Gg25jwIJEjupqXVPAQxbRGdPD0THbF3LaiQxmyKgTBxM3aLZ
-   SrTaRkOv5kBGGAzpQFYPY7gE6MBLvoUdCcFkeAy1hatrlbR6nQiRSIi96
-   0pWwvSqiYK7FAYkW/QVkpHKyYTHJLpLVDlh+5bMumkk4RBuC8VJvQQ9vu
-   rAByw+RjCKGrQGZpo8JNc26oU3h5bc8K+5wiIQNmED5J394w7a7u7xqHT
-   XTSo9oVCvvPl6OyJDxWCKWG/ZdmZIBvPqkhiE4BhO1tPOyQgY9VZYjhkk
-   yMC9RPNSzllvDofaQ4rG4oL0OLn5hZdVq3kdQioiwboR/K6gD+2LJvgfl
-   w==;
-X-CSE-ConnectionGUID: rjGcIv2MQIGNPhYpMu1Rcg==
-X-CSE-MsgGUID: fPMX3L7fTZ+iFVcoM8rUqA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112604460"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="112604460"
-Received: from orviesa004.jf.intel.com ([10.64.159.144])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:17:50 -0700
-X-CSE-ConnectionGUID: TnyOsk/mR3ieOxzN4m1p0g==
-X-CSE-MsgGUID: 8U7stX10R/6Ese6/vpmuIg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="276755304"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.24])
-  by orviesa004-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 05:17:47 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Tue, 15 Sep 2026 15:17:42 +0300 (EEST)
-To: Ma Ke <make_ruc2021@163.com>
-cc: Shyam-sundar.S-k@amd.com, Hans de Goede <hansg@kernel.org>, 
-    mario.limonciello@amd.com, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, akpm@linux-foundation.org, 
-    stable@vger.kernel.org
-Subject: Re: [PATCH v2] platform/x86/amd/pmc: Fix RTC reference leak in
- amd_pmc_verify_czn_rtc()
-In-Reply-To: <20260915120943.3988720-1-make_ruc2021@163.com>
-Message-ID: <c6096e2c-0112-81d0-1940-35ba54a66305@linux.intel.com>
-References: <20260915120943.3988720-1-make_ruc2021@163.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="kdxEDSk2"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xuQwE5igrAW6hukl2lXyxMqN9/4oMkU4kL5kbKNUvls=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789475072; v=1; x=1790079872;
+ b=kdxEDSk2jOWadpLRN/n6ReQZfWugJFFwwzg19XMGJeoOmt+0HkvUMnn0dqrDqN38k//MDqtu
+ krQN9AZxCxJLH4CZ+02rlKndkKUv3mUB1lxupI5otnwdCX6Wd2fIfQqbS0+2MCuw9+u0xqcjsoL
+ 3X90Hnf5S9VVnM8U75xazyg0=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta12.migadu.com with ESMTPS id 91ab6dea17195cd1;
+	Tue, 15 Sep 2026 12:24:32 +0000
+X-Mizu-Trace-ID: 91ab6dea17195cd1
+X-Migadu-Flow: FLOW_OUT
+Date: Tue, 15 Sep 2026 20:24:22 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dsahern@kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	idosch@nvidia.com, alex.aring@gmail.com, justin.iurman@gmail.com,
+	bestswngs@gmail.com, stefano.salsano@uniroma2.it, xmei5@asu.edu,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] ipv6: rpl: fix NULL dereference of idev in
+ ipv6_rpl_srh_rcv()
+Message-ID: <aqk49jT8tGsqn61d@fedora>
+References: <20260817132644.2223-1-andrea.mayer@uniroma2.it>
+ <aqjflqdySFG51YEa@fedora>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqjflqdySFG51YEa@fedora>
 
-On Tue, 15 Sep 2026, Ma Ke wrote:
-
-> amd_pmc_verify_czn_rtc() opens the RTC with rtc_class_open(), which
-> takes both a device reference and a module reference on the RTC
-> driver. rtc_class_close() is the matching release, but it is not
-> called.
+On Tue, Sep 15, 2026 at 02:03:12PM +0800, Hangbin Liu wrote:
+> Hi Andrea,
 > 
-> Use a __free() to cleanup call on the declaration
+> While reviewing the SRv6 code, I noticed you added an `idev` check in
+> `ipv6_rthdr_rcv()`. I’m wondering whether it makes sense to also halt
+> processing for `IPV6_SRCRT_TYPE_2` when `!idev`, given that IPv6 is
+> disabled on that device.
 > 
-> Found by code review.
-> 
-> Fixes: 59348401ebed ("platform/x86: amd-pmc: Add special handling for timer based S0i3 wakeup")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ma Ke <make_ruc2021@163.com>
-> ---
-> Changes in v2:
-> - modified the patch, thanks for developer's suggestions.
-> ---
->  drivers/platform/x86/amd/pmc/pmc.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
-> index 6792aa2c6187..b1ad79b22c07 100644
-> --- a/drivers/platform/x86/amd/pmc/pmc.c
-> +++ b/drivers/platform/x86/amd/pmc/pmc.c
-> @@ -14,6 +14,7 @@
->  #include <linux/array_size.h>
->  #include <linux/bitfield.h>
->  #include <linux/bits.h>
-> +#include <linux/cleanup.h>
->  #include <linux/debugfs.h>
->  #include <linux/delay.h>
->  #include <linux/dmi.h>
-> @@ -646,9 +647,11 @@ static int amd_pmc_wa_irq1(struct amd_pmc_dev *pdev)
->  	return 0;
->  }
->  
-> +DEFINE_FREE(rtc_class_close, struct rtc_device *, rtc_class_close(_T));
+> If so, could we drop the skb early at the entry point of `ipv6_rthdr_rcv()`?
+> The downside is that subsequent processing and `__IP6_INC_STATS()` would be
+> skipped.
 
-I'm sorry, I only now realize this is not a local thing at all so it would 
-below to the header defining rtc_class_open/close().
+Oh, another behavior change. At present, if !idev, we can still process the
+IPV6_SRCRT_TYPE_2 message. And the process will be skipped if we return early.
+I'm not sure if this kind of change is acceptable or not in kernel.
 
-More importantly, rtc_class_close() does not handle NULL inputs so 
-this DEFINE_FREE() should have the if (_T) boilerplate.
+But on the other hand, is it correct to accept and forward SRCRT Type 2
+packets on device that IPv6 is disabled?
 
-> +
->  static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev *pdev, u32 *arg)
->  {
-> -	struct rtc_device *rtc_device;
-> +	struct rtc_device *rtc_device __free(rtc_class_close) = NULL;
-
-Please move this to where the actual assignment to rtc_device occurs as 
-explained in the long comment in cleanup.h.
-
->  	time64_t then, now, duration;
->  	struct rtc_wkalrm alarm;
->  	struct rtc_time tm;
-> 
-
--- 
- i.
-
+Thanks
+Hangbin
