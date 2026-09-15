@@ -1,51 +1,89 @@
-Received: from mta-64-227.siemens.flowmailer.net (mta-64-227.siemens.flowmailer.net [185.136.64.227])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0807D39CCE3
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:59:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.136.64.227
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B9E3ACA7E
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 09:02:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462778; cv=none; b=fKWOBmf+imu9R0AFXwN67CXu/eeugFN19gwERrHDOX2Cs+VFT0BNAB9WG1OJQxzKMdFhoKzVH5aE8NIJKMjCkvgoCiaR00zBXtRW8hrAOXkv58msmIhXNj0Ek/C2e04fqF07BOJqZWqGu2/YGJmHu8xnDQSY7IDBqv4FiPbVYsc=
+	t=1789462979; cv=none; b=hv7MGFm/R9mojhpfH7OIbXUeBEB6rQ/472avPpc/YiDj009Qhq5eVX9Cp4JLt2Zhu2rkVYAXWzUpSleTMWbu0s31niPTrlJknKY7zdwEitIDZ0VlLuUdIjmImNQY66D4d8N9wRh/IwLH5Ygg454D5lyqQsaYW/LrdMWXnohIWEs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462778; c=relaxed/simple;
-	bh=A0vcz/anUTqKA8U9nxe1W0s1MZUfEUEUs257tPocHx0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QrG3yHN5+CnZn62EmOHkuIjitEp19Wnj3BdeKMX4xHQe+r+gmKgtZw9AuvyIQVteXEXh6IaXG/Fxq+hMfN+GjcR9rg9rbnIo/U0t7WPqWwxTXLnx0ZjvjOJ8jkTjiDCUDCXEYFxbQhco9hMi/pYnNU3DzqoW7mE5Z0ZDgjuP6mo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com; dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b=otM285Sr; arc=none smtp.client-ip=185.136.64.227
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=siemens.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rts-flowmailer.siemens.com
+	s=arc-20240116; t=1789462979; c=relaxed/simple;
+	bh=WHzBXw3Vfp/jx3HNdEqzwg/ei+fttabtBIAcfjiy6Kc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IDJWOi3VupKaONJp+l4AdFnIA3Zm/hdJ0sqn/ByEG8wh/QVjGsedqNUkJxZJYKhyVxT+oWxyppxTzBYdcyaxuElOBVfFES5QCsiT+hQoQ7nnFcPGuSkI2xjI9gO+5iMqcnIaZ/q7Sk0HbmBpH2oe2Tq0+xnwBididgCqSMc/1zw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AfK7t6Sq; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=siemens.com header.i=alexander.sverdlin@siemens.com header.b="otM285Sr"
-Received: by mta-64-227.siemens.flowmailer.net with ESMTPSA id 20260915085930d15d56755200020777
-        for <stable@vger.kernel.org>;
-        Tue, 15 Sep 2026 10:59:30 +0200
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; s=fm1;
- d=siemens.com; i=alexander.sverdlin@siemens.com;
- h=Date:From:Subject:To:Message-ID:MIME-Version:Content-Type:Content-Transfer-Encoding:Cc;
- bh=xd4P+RrevLs4CoPLOVTqkeJlnxio5pegTJyDPNxyVAE=;
- b=otM285Sr/vohmqP25+aN/0LrV3PRtJquHPqrqYiaahBXuLeLvwNWfT/zNtaMBY/615kZ+E
- 4ibekxdzHRINCjsvps3GvtMOQAOcAy6VLxZidd/0xqpgG32KvrtGQ54VC0re+YJMieokK+w2
- EkePLFX/5HnhnmuooVFIEFOwLZy5buZogX8mzZl3EBMD1vHfItJkybtmhrR8iJwZFuOgc3KJ
- jzG1TC9Ft0EOny/2/cAY9tOz7urrdbNEnVY1epfik6dUxKxWAK/kZ1qG2xTGJwcwTHPYF9KB
- VYauv6R8CYxxnEZtZLR/haNdGNTYs0tE6PP+xW41deGYcRWAMFQAHvPQ==;
-From: "A. Sverdlin" <alexander.sverdlin@siemens.com>
-To: netdev@vger.kernel.org
-Cc: Alexander Sverdlin <alexander.sverdlin@siemens.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Heiner Kallweit <hkallweit1@gmail.com>,
-	Russell King <linux@armlinux.org.uk>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AfK7t6Sq"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa650c8so7963166b.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 02:02:56 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789462975; x=1790067775; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=chLjM5CTnb50HHVQx65I0WAjKAwm9kU8MWpPfnwKwJY=;
+        b=AfK7t6SqrhvJNGvaT5XeMxcFQ7vRkJOrN8YQ1NATGlhuZ5sBt2jPARvZe6RNeka2At
+         29/6fWT/Wr02orRNuebvHyZMyz/WynCUvdLyteq2rCn4e0lfB7Yj9I7bm3qHZmckoeXc
+         +5AEZvMmwr0xjhndzUZeHYM8KwfsXqDsaRehdoJoDYBn10h1wYCHG9Wl9EiYtx37spn7
+         ZkO1y4Rs3+0UiCH7taognZx1+sbF1UEgIryTredC0xTaFXEBPaNkp5WoaopnBPZEgM4r
+         /J/KRVAk7UaPbpgS4fhFen9rEP1i/S2tLd0lQ2/Db1Z/QwlAga3MPaHXUOTLT4t6ZuMA
+         iO2A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789462975; x=1790067775;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=chLjM5CTnb50HHVQx65I0WAjKAwm9kU8MWpPfnwKwJY=;
+        b=OVV5ZML/sNsxOVqt71ucPzOhXPGg6HVn9EX277A48omNptrTyr5M6jis4oQN1xXZ1P
+         YdUrZjnpOfHB6dyMbC0ZbvgUkB1uxEPwBZTnZN3ZB77YcZk+sKDKne64JEDTcGDBTCYb
+         YSKbZvc4HYZKTUro3DZs3ec/7/gHAo+0IY00Ilmu6SiiMieWfZ9pERwM3dZbn4Asqk5Q
+         bVwjXLc+wLS2r0HmLi/M4dwTpLD0XQFfRLp7JFDK+gaOv6/4qdhZ26KEsVH3Hy3oTF0G
+         TDCl+5IcL1MmNXLaEWKMQLrkKg4B8ZoCW4nantx85FbuAl26pnQte2pSV3EX1AA5XB6G
+         j/RQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzFN/gHJlVrCAeQEkr2kugighPH6VbEJowK+ZQg4tQxknRLK2pcMBPAkY0/Ug3k0ohlOYxgDPo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMF6uCPs8LnCPN4xBdjAO2wuv00r0iahCW4u7AOdOgPNJddfjv
+	EQ/yStlpa6O7ElvowmumBMe3K13yKlKbPLxkJPwVEiykg+xMIIZFFx5M
+X-Gm-Gg: AYBFou0e8Da8VAiFnOXqzOxVp/5wR7hY6ozcahgmO3QsL8aLEa8EIZJGmsIQQ4mPuBk
+	4KY4YPnyEGiF0zzHRDKGnRuKdLRN1+bzhUqRFlamIEYPksEGzT5r2gbDeSQTbaHDVGe+7SAmJqG
+	at5AyISeTq5Fojwid2Grq+GAvV3JHbM6s5fZc9lt1mv9423vCRFt6UCHkZwoxbNwRshvwRrrIv8
+	rIBLPcVvKRQQewbkj99R8V2dLRR1CVUf87D4G923TQekshUQVHksjG1NlkB27+2Xd6y8/spU2y0
+	HeGu5gS1FFAaNfEJiLkO+fDUHFU7YgqMJbyX52uYYKq87mitTL7bG084mHOa09b6pqyoUbTWMN/
+	5ugGl3/hSJXS/F4VKpMxssopmGGTl1NF9Ru2httqAi+hA70ZntETObLOseQEPt3apWOHSbs9bby
+	59AGTkXNNOoHGh2z07Ej156Bmu9gg3TcI2y2KWTSdNvRp0qkU/fJsPQqxhyOU9cV9OIhDdNXiZO
+	zGeJMRq1sgVHsy06kxwT3hMePTw48Dx3DwXag+JFS0nFxp6eKlefvKnaGLocFTfKrKBar23EYeq
+	BpAsB8Pak3cx6SkVePlDN3w1QRiBH/nKRvoKVczZnzYbcfoH+aPMxHeE1oAk0O6nKwUetV+Chkz
+	S9gfeIhUsBLsMuoh5d6jfEn23jnqslZV5+YAwfLn0x2HcyBmG74BPnvUEd4Pm8SFNXKz3rBkvLX
+	nwV2JbnfbJ9pn144SCBxdCAsXv33G0ngVtTW0P3GZ5cqcPOWptjACdCQDLTldujIja7dFN7KQvw
+	53puUM0ybE=
+X-Received: by 2002:a17:907:948c:b0:c29:49fd:c98 with SMTP id a640c23a62f3a-c29d7926fbfmr13664366b.32.1789462974448;
+        Tue, 15 Sep 2026 02:02:54 -0700 (PDT)
+Received: from cs-280612103108-default.europe-west4-b.c.oa7bb030819b2a894-tp.internal (88.71.12.34.bc.googleusercontent.com. [34.12.71.88])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2965c4cf01sm546369266b.1.2026.09.15.02.02.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 02:02:54 -0700 (PDT)
+From: Joshua Crofts <joshua.crofts1@gmail.com>
+To: Peter Chen <peter.chen@kernel.org>,
+	Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: linux-usb@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	"Aleksander Jan Bajkowski" <olek2@wp.pl>,
-	Daniel Golle <daniel@makrotopia.org>,
-	John Crispin <john@phrozen.org>,
-	Hauke Mehrtens <hauke@hauke-m.de>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org,
 	stable@vger.kernel.org
-Subject: [PATCH] net: phy: intel-xway: workaround 100BASE-TX Link-Up issue
-Date: Tue, 15 Sep 2026 10:59:17 +0200
-Message-ID: <20260915085921.1354706-1-alexander.sverdlin@siemens.com>
+Subject: [PATCH 1/6] usb: core: add missing pm_runtime_dont_use_autosuspend() call
+Date: Tue, 15 Sep 2026 09:02:18 +0000
+Message-ID: <20260915090223.1346-2-joshua.crofts1@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915090223.1346-1-joshua.crofts1@gmail.com>
+References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -53,86 +91,33 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-Flowmailer-Platform: Siemens
-Feedback-ID: 519:519-456497:519-21489:flowmailer
 
-From: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+The fail label in usb_new_device() disables pm_runtime on failure, but
+doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.
 
-MaxLinear GSW12x/GSW14x Ethernet Switch Errata Sheet states:
-"An issue has been sporadically observed after device power-on on the first
-link-up attempt in 100BASE-TX mode resulting in either the link-up taking a
-long time, or failing to link-up altogether...
+Add the missing pm_runtime_dont_use_autosuspend() call.
 
-Workaround:
-After power-on, enable Cable Diagnostic Mode for all ports and disable
-it..."
+Found using Coccinelle.
 
-Implement the proposed workaround unconditionally in the Intel XWAY driver
-(MaxLinear GSW1xx switches incorporate Intel XWAY PHYs) because the
-diagnostic bits have the same meaning even in older integral PHYs such as
-GPY111/PEF7071/PHY11G. So it's not clear how to distinguish the affected
-newer integrated PHYs, but the workaround should not hurt the older PHYs.
-
-Cc: stable@vger.kernel.org
-Signed-off-by: Alexander Sverdlin <alexander.sverdlin@siemens.com>
+Fixes: fcc4a01eb866 ("USB: use the runtime-PM autosuspend implementation")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
 ---
- drivers/net/phy/intel-xway.c | 29 ++++++++++++++++++++++++++++-
- 1 file changed, 28 insertions(+), 1 deletion(-)
+ drivers/usb/core/hub.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/net/phy/intel-xway.c b/drivers/net/phy/intel-xway.c
-index afbcec7117443..3cee31bb931f2 100644
---- a/drivers/net/phy/intel-xway.c
-+++ b/drivers/net/phy/intel-xway.c
-@@ -16,6 +16,11 @@
- #define XWAY_MDIO_ISTAT			0x1A	/* interrupt status */
- #define XWAY_MDIO_LED			0x1B	/* led control */
- 
-+#define XWAY_MDIO_GCTRL_TM_MASK		GENMASK(15, 13)
-+#define XWAY_MDIO_GCTRL_TM(mode)	FIELD_PREP(XWAY_MDIO_GCTRL_TM_MASK, (mode))
-+#define XWAY_MDIO_GCTRL_TM_NOP		XWAY_MDIO_GCTRL_TM(0)	/* Normal operation */
-+#define XWAY_MDIO_GCTRL_TM_CDIAG	XWAY_MDIO_GCTRL_TM(6)	/* Cable diagnostics */
-+
- #define XWAY_MDIO_ERRCNT_SEL		GENMASK(11, 8)
- #define XWAY_MDIO_ERRCNT_COUNT		GENMASK(7, 0)
- #define XWAY_MDIO_ERRCNT_SEL_RXERR	0
-@@ -326,6 +331,28 @@ static int xway_gphy_probe(struct phy_device *phydev)
- 	return 0;
+diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+index 3345b3298daf..dec6d5c49759 100644
+--- a/drivers/usb/core/hub.c
++++ b/drivers/usb/core/hub.c
+@@ -2745,6 +2745,7 @@ int usb_new_device(struct usb_device *udev)
+ fail:
+ 	usb_set_device_state(udev, USB_STATE_NOTATTACHED);
+ 	pm_runtime_disable(&udev->dev);
++	pm_runtime_dont_use_autosuspend(&udev->dev);
+ 	pm_runtime_set_suspended(&udev->dev);
+ 	return err;
  }
- 
-+static int xway_11g_int_config_init(struct phy_device *phydev)
-+{
-+	int err;
-+
-+	/* An issue has been sporadically observed after device power-on on the
-+	 * first link-up attempt in 100BASE-TX mode resulting in either the
-+	 * link-up taking a long time, or failing to link-up altogether.
-+	 *
-+	 * Workaround:
-+	 * After power-on, enable Cable Diagnostic Mode for all ports and
-+	 * disable it.
-+	 */
-+	err = phy_modify(phydev, MII_CTRL1000, XWAY_MDIO_GCTRL_TM_MASK, XWAY_MDIO_GCTRL_TM_CDIAG);
-+	if (err)
-+		return err;
-+	err = phy_modify(phydev, MII_CTRL1000, XWAY_MDIO_GCTRL_TM_MASK, XWAY_MDIO_GCTRL_TM_NOP);
-+	if (err)
-+		return err;
-+
-+	return xway_gphy_config_init(phydev);
-+}
-+
- static int xway_gphy14_config_aneg(struct phy_device *phydev)
- {
- 	int reg, err;
-@@ -735,7 +762,7 @@ static struct phy_driver xway_gphy[] = {
- 		.phy_id_mask	= 0xffffffff,
- 		.name		= "Intel XWAY PHY11G (xRX v1.2 integrated)",
- 		/* PHY_GBIT_FEATURES */
--		.config_init	= xway_gphy_config_init,
-+		.config_init	= xway_11g_int_config_init,
- 		.probe		= xway_gphy_probe,
- 		.handle_interrupt = xway_gphy_handle_interrupt,
- 		.config_intr	= xway_gphy_config_intr,
 -- 
-2.55.0
+2.47.3
 
