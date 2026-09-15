@@ -1,99 +1,54 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bombadil.infradead.org (bombadil.infradead.org [198.137.202.133])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A249D379C5C;
-	Tue, 15 Sep 2026 06:32:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 640F9404BE9;
+	Tue, 15 Sep 2026 06:32:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.137.202.133
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789453931; cv=none; b=sCPQ0gwtQ/lf6RVNqr3yDmilGK374DMXpY7jg1PRU806ZHjdfukjQNVFPkPfwdrFnteTSVbx1WDDrOZB+A1tqrcOdkxXMjgiMX0rgVAgb4tGmW7XK/tn04PQSeeYDg/0R+O2FwA8vj1uCfQXHo7EPFEi9d3YWAUOye8gp6wwSdw=
+	t=1789453945; cv=none; b=WBes5tDL9qkQpf/3fjVCBXY3ymroD6Y/ULqn4kZrnIgbLgPwxjGeeoDwFKoQ8s1Iyp7Nikp6ZAxPiI/EMb0zDQ43EjtpH199KSp/xpZxgcNJD+fc4QuSv5ySDBHM9LYRuVaVJ4pl/sVHwaPz61eJVqFYILpd3cdw0PjcxnJ8DJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789453931; c=relaxed/simple;
-	bh=AT7vWTodiZ6yGcWLQpP6M0t3ZRxY3YR+cyh51bhGn80=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=OK/qZyXkoCG5YY1uIFc+Bl9BW3PgPqgoR+YCxdratKm7ilG1U5Os1NqKTGT3980rI4bqWWDSyb8OoKrF8rNvsz3wmA3k00K9xJcEJ+SAFcTy56HKF3xBoxTfb4fWjF2UUG1mwFQji9w7E75a13+0P69C6nHgtOPnp4jHd3L3zSw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=w+mQa4vO; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789453945; c=relaxed/simple;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Q0N1eGSyXVFp8LKANDJizEG+XRAgbqOIUSoEC/DQu+4Xow6QiLaiCieVQwBdullc/+xH037l/toLz9znkTyLGCa5g2HO+yUPtWGf5WMZkVn/X5O+eet8Q1U1WS5pWUVZgkM6kCYhzD1iFie5gmKdB7R8ln5JAbo+wwod8JdwmZo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=FqPVMkNi; arc=none smtp.client-ip=198.137.202.133
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=bombadil.srs.infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="w+mQa4vO"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0E011F000FF;
-	Tue, 15 Sep 2026 06:32:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789453930;
-	bh=5llc/XFrwgAZPw+/nwYOk6K5xOZoxnoq0F02YLYa//A=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=w+mQa4vOvtao461etFNy2bwuQJ+upJnsGwE652+hpGOEoMlk/nYky6EIgrV6KXRUy
-	 1cbKTVEQtCFd10rtBgeGldl1NksNKCc9FNi+T7C7F2GF9AA69QyHCrBJJxrwrLvFDK
-	 PlNehJyAmx3ZMc8TvdW3h/3/+TR1fL97TQ1ZPl6s=
-Date: Mon, 14 Sep 2026 23:32:09 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org,
- jannh@google.com, wangjiexun@tinylab.org, sashiko-bot
- <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart
- fails
-Message-Id: <20260914233209.3fd5a6e848ee82d13e43a301@linux-foundation.org>
-In-Reply-To: <20260912110832.3203902-1-gourry@gourry.net>
-References: <20260912110832.3203902-1-gourry@gourry.net>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="FqPVMkNi"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=bombadil.20210309; h=In-Reply-To:Content-Type:MIME-Version
+	:References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=; b=FqPVMkNidJNLfTfmNoYZSG2WVv
+	K64k8QbJP+75vXkeWczK2GX9v5qTTXxORB6dDCrn5mhpoO0ggIQnEvQosezV0731HVBwHeuuM9Gr8
+	9WZ8WNzQTrp2NYjUWV0vFbmxZ6ePXPkfU7v1v2eiEZPeZMx8Boh6HrAoiRUR9MLFRbmmQPTTk+6VC
+	A0K/zE9nMjHaErMAYygqgPOOgzOI7lh+WkQyZkqku7n9Q3l3qtnnsgmZ1tjer4UbcZxJ8XTO2RNNl
+	hK5O5kAf9tWalBWAW+njjzXVXahDsVKIC29R9a44ptF/DkdXZnGK0qGZ61fDCAiXkeZwawmzn1E3I
+	XHYF1UgQ==;
+Received: from hch by bombadil.infradead.org with local (Exim 4.99.1 #2 (Red Hat Linux))
+	id 1x6MiN-00000005Li8-1hdg;
+	Tue, 15 Sep 2026 06:32:23 +0000
+Date: Mon, 14 Sep 2026 23:32:23 -0700
+From: Christoph Hellwig <hch@infradead.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
+Cc: cem@kernel.org, stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Subject: Re: [PATCH 09/11] xfs: drop dquot flush lock when we can't find a
+ buffer to flush
+Message-ID: <aqjmdwtGTm-zX1ea@infradead.org>
+References: <178945048435.3061055.16384804993810925544.stgit@frogsfrogsfrogs>
+ <178945048690.3061055.7567460343709434849.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <178945048690.3061055.7567460343709434849.stgit@frogsfrogsfrogs>
+X-SRS-Rewrite: SMTP reverse-path rewritten from <hch@infradead.org> by bombadil.infradead.org. See http://www.infradead.org/rpr.html
 
-On Sat, 12 Sep 2026 07:08:32 -0400 Gregory Price <gourry@gourry.net> wrote:
+Looks good:
 
-> MADV_PAGEOUT collects isolated folios on a local list before reclaiming
-> them after the PTE walk.  The reschedule path drops the PTE lock and then
-> restarts the mapping with pte_offset_map_lock().
-> 
-> A concurrent operation can remove or replace the PTE table while the lock
-> is dropped, causing pte_offset_map_lock() to return NULL.  Returning directly
-> in that case bypasses reclaim_pages(), leaving the collected folios off the
-> LRU with elevated references.
-
-aw man, you got so close then left us hanging.
-
-So what happened next?  Machine crashed?  Permanent leak?
-
-> Route the failure through the existing cleanup path so any isolated folios
-> are reclaimed or put back.
-> 
-> Simplest userland pseudo-code reproducer:
-> 
-> p = mmap(PMD_SIZE, ANONYMOUS);
-> touch_every_page(p, PMD_SIZE);
-> parallel {
->    while (1) madvise(p, PMD_SIZE, MADV_PAGEOUT);
->    while (1) {
->        madvise(p, PMD_SIZE, MADV_DONTNEED);
->        touch_every_page(p, PMD_SIZE);
->    }
-> }
-> 
-> Reproduced in qemu trivially with some explicit widening of the race window.
-
-How was the failure observed form userspace?  (repeating myself)
-
-> 
-> Fixes: b2f557a21bc8 ("mm/madvise: add cond_resched() in madvise_cold_or_pageout_pte_range()")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260821150912.183976-1-gourry@gourry.net
-> Cc: <stable@vger.kernel.org>
-
-#include "Documentation/process/stable-kernel-rules.rst"
-
-(sorry, getting snarky.  I'm saying this stuff 100x/day at present and
-it just isn't sticking).
-
-> Assisted-by: LLM
-
-Can I suggest you update LLM's prompts so it checks that the changelog
-includes userspace-visible runtime effects and so that it checks that
-the patch is approximately compliant with stable-kernel-rules?
-
-If you do, please share that prompt with me and I'll put it in ~/.signature
+Reviewed-by: Christoph Hellwig <hch@lst.de>
