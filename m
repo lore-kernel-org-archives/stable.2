@@ -1,120 +1,118 @@
-Received: from mail-pg1-f169.google.com (mail-pg1-f169.google.com [209.85.215.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B44A48CD48
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:50:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2870348EBE8;
+	Tue, 15 Sep 2026 08:50:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789462243; cv=none; b=tN84/Z7+ior9czXVeaURpK6KEakAPMVK3BVWuqmEr6Y9DOLWb4j7AENg1sCoWCssWL/zd5weU52ANBvpnSZ0Fjd0BnYKRXmjk/HRJoM5FVxYotvjlKbiWlSfkr+oXNGFHssO0Otmajk4gKk5F7PDFkRO/GlC5qQ+eCr2l3pJjGQ=
+	t=1789462257; cv=none; b=dGse1sCR8vbCKb/ng0AphAsse0fufDY2Zij9XtLWXDaB9aA3KcvHD9hK4QtpgE1n11oTInucokappookeuNRb04FYbp19AcaHOka62ayGqwl20v0p0wF9IgYMnxgNN/ay6DSWc3zfuvQnWgjM8SOkBCgv8qA0HpHCvrVjlyUwA8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789462243; c=relaxed/simple;
-	bh=aOycPQPzW1hoyp3VFb8uVa68Tk1zbSs3hp8DysdIXZ4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=V0lBH/EUafcVWEMP+iENQzLulmyB1uqcY6+5ZVigvyojYwFjzLHug4lrpth+VnTsV1B693Qyc4ygLnqSrtKk8aqy6bfGTUutq92iaiY+Gvqu2lhlcLaobau1C2SuQoBgQ3qx+H86XuAj+NJNemrBBMa9xyOUWtTJu7KrROIu3qI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=akwQ9mg8; arc=none smtp.client-ip=209.85.215.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789462257; c=relaxed/simple;
+	bh=+UddRaKfdPLpZemHcLnvLEu/UoE3vLbztsJrXCqkNKg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DCLzBwOmrPpITQdGZdNzzbgvNUc2cUgtYGs30P93OJ7YhDAlUlURNOf4dAJAjLMOLSHZqiyBtQpcqpj9q9tgqxR12z91HCzYQVoafdd9UKzIZQDEulmwbNLXXy3YY+4Ieto1HmH2FUYNBek/i/2MDHIH8edWtPQU/TLCtyOUuCk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d/KxsUTY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="akwQ9mg8"
-Received: by mail-pg1-f169.google.com with SMTP id 41be03b00d2f7-cc4be0e5351so2948245a12.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:50:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789462241; x=1790067041; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EZwK4GxS0mTkcXMKP8dTYTElQEtFXQdtakQVWZWGWY8=;
-        b=akwQ9mg89ZrMDBRUKanD+mVGTGgNbzRxMKlQScviLHR+k5NbO7kffI7WvuaaZsp8U1
-         eqVWdTJhZ8zac9hWolYcpYW/ppph/8i9GVwd9WwhZWj02rf+scQyXw62AKheVW5UnDJA
-         5jy4f2In7M/8YJthjEcVaX3ypism7aJnQG8mvqk0UiZhAo1vk4WSuyYrBJ46+Qv7jl6O
-         qV9hGrFpY7CAm363jHF3B07QaiwfPg9jp/VSCaxZTkKIO2z9XPVwm2TjYgGlUK5iNl3V
-         X/kCna+FJEKS/MDg90QIodyA4+27mnIYGc47RTugoH/6l04GbtFkNd0w10Uzv3HlRBbe
-         FBig==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789462241; x=1790067041;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=EZwK4GxS0mTkcXMKP8dTYTElQEtFXQdtakQVWZWGWY8=;
-        b=WoskVgjp59iU2Yl5dlM1ZRL9gx2ZDC9xhMJ8tH5gTKxqFahyJJgLE8k9W0dpxpNgq4
-         KfAQPUO++YIVA3Af7gfO+NbeYbtD7M7oefBDamDDxxTuchyvgPHGx8pUfX3fbH+fvP/1
-         pVwtB2oeeBPpc4HmtPBQCZCFdlXKozACRGpiyUUucyEi78WloIyy30rXZctOe6AnSd+w
-         FoFMjY8e7UBo7mPi+E4n1T4tIiHC7Whjp0tTYC2iejRgWbBUuosNjsCtFubdfT7YoWvm
-         rFybVAkQv/b3Q5N0OfwR5gzJyuD7PlcqCjzJSqsg36yi/uN4tD0v1GTgzcZK22qcDGDu
-         7eMw==
-X-Forwarded-Encrypted: i=1; AKwUvBzcQarCVNPMtz8axNVB8naApnH1mxZUpouYGouSQCjbetg0W7iZwfC6VAxdFrnV51sDGo5HLKI=@vger.kernel.org
-X-Gm-Message-State: AFuF++m57WlM7fne1T8KQEVjZ38gs3ccRSeW/CBKiBHBNv9ybJmxFL1z
-	kmscke/7eFJuXyTJxGLVHFsIHjdKKoUaPdh+AIknKqyhbwuJeA/wHty1
-X-Gm-Gg: AYBFou0XjWF32FrFFGDchmlAcvsgMKH58/dijIXEkDJkShd9BcTFJbifuC8yb+IEjpW
-	yxhn9x4hYjoXfqnEgIvZrJil4mGepWSAiF6i0z3J04ZdfztUdGnFUB0aN2ohLvsDPskD8TfvyQd
-	IkYegGLblHYk6Re1PmDPSAvKRY3C5IgKmCUEJJlmaVmrDodXl4yPCMtRHTfjf4+yPQEuiFZ35HV
-	48021ozY2Cprn6TAmN/MQmkAZPi07iBuywJWUVzvMoa3vikYyqU1a8udzmVqJCY34LxpoFaGSVa
-	pPj8cmo/vCXGpQavn5VCGAYVCKj014AvKUpP1PP0gMgQF6Iv5b3C0gutswdip8rZT2geTUj+ZPE
-	5XIzvRHNsZTafxvHNMC4tVQGeaELwA9Ty0erGhPTk6l+eWHu+k85bWvLeGMp0wgcB8+LSQn0CIG
-	SbbSsCwoDvYbhr4q2AgbzT7t7oyu5StfDLrLot0iU1uAWVAv2HD7Ty7b0MlHa3dD4i
-X-Received: by 2002:a17:90a:d88b:b0:39d:8794:5564 with SMTP id 98e67ed59e1d1-39dec08fa53mr12246257a91.12.1789462240654;
-        Tue, 15 Sep 2026 01:50:40 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfdd28acbsm4003559a91.10.2026.09.15.01.50.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:50:40 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Hardevsinh Palaniya <hardevsinh.palaniya@siliconsignals.io>,
-	Himanshu Bhavani <himanshu.bhavani@siliconsignals.io>,
-	Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: ov2735: fix power cleanup on remove
-Date: Tue, 15 Sep 2026 16:50:31 +0800
-Message-ID: <20260915085031.2331315-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d/KxsUTY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A49F51F000FF;
+	Tue, 15 Sep 2026 08:50:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789462255;
+	bh=1jPFi2lVcMWz3e2hk3E7/egt63of8YGWwsrqy1MR89w=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=d/KxsUTYlvTPMklQJzpKpL1oovi8+JPAiso+ktI9INYlanwTe4sewrIgu4AvNnxmS
+	 4l4KAA6lCNBq5J1p8N6E7p2MCxyKiLCIMpugFXRuXjtKip8pNgsqKJS+U/xvOkACH0
+	 /hZSmavKIn3VaP6G6Ros1qjYN2u30eqn9IOj4qxTk3LHznwbSQBmmjN+jBUmXfdBd/
+	 R9DGTSkLO63d5afPNjYU0b5FbTslndYN7/fe2PQ5t15/4hJwabV/D5/H0Zey5Y85x1
+	 ujZG+w6SiVksoNUK0YX2ZzHf9FlnvbJGu6cKdpWBCdWqDBLNQCCXPgJDFePJKB4c4E
+	 0ArGUT+nq6Cuw==
+Message-ID: <e5245a11-d6a0-42d8-a6ef-1b5ca9622413@kernel.org>
+Date: Tue, 15 Sep 2026 15:50:50 +0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5 3/6] ata: sata_fsl: Fix use-after-free of host_priv on
+ probe() failure
+To: Niklas Cassel <cassel@kernel.org>, Baokun Li <libaokun1@huawei.com>,
+ Sergei Shtylyov <sergei.shtylyov@gmail.com>
+Cc: Brian Norris <computersforpeace@gmail.com>, stable@vger.kernel.org,
+ Damien Le Moal <damien.lemoal@opensource.wdc.com>, linux-ide@vger.kernel.org
+References: <20260915084127.692494-8-cassel@kernel.org>
+ <20260915084127.692494-11-cassel@kernel.org>
+From: Damien Le Moal <dlemoal@kernel.org>
+Content-Language: en-US
+Organization: Western Digital Research
+In-Reply-To: <20260915084127.692494-11-cassel@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-ov2735_probe() explicitly powers on the sensor before enabling runtime
-PM. The probe failure paths call ov2735_power_off(), but the remove path
-does not perform the corresponding power-off operation.
+On 2026/09/15 15:41, Niklas Cassel wrote:
+> sata_fsl_host_stop() releases hcr_base and host_priv:
+> 
+> 	static void sata_fsl_host_stop(struct ata_host *host)
+> 	{
+> 		struct sata_fsl_host_priv *host_priv = host->private_data;
+> 
+> 		iounmap(host_priv->hcr_base);
+> 		kfree(host_priv);
+> 	}
+> 
+> ->host_stop() is called by the driver core through the ata_host_stop()
+> devres action which ata_host_start() registers, so it is called both when
+> the device is unbound and when probe() fails after the host has been
+> started.
+> 
+> The error_exit_with_cleanup label of sata_fsl_probe() releases hcr_base
+> and host_priv as well, and it is reachable from the two
+> device_create_file() calls which are done after the host has been
+> activated. In that case sata_fsl_host_stop() runs on an already freed
+> host_priv, resulting in a use-after-free and a double iounmap()/kfree().
+> 
+> Add a separate error label for the failures happening after the host has
+> been activated, which only detaches the host and leaves hcr_base and
+> host_priv to sata_fsl_host_stop().
+> 
+> Note that ata_host_detach() is dropped from error_exit_with_cleanup, as
+> that label is now only reachable while host is still NULL.
+> 
+> Fixes: 6c8ad7e8cf29 ("sata_fsl: fix UAF in sata_fsl_port_stop when rmmod sata_fsl")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Niklas Cassel <cassel@kernel.org>
 
-The managed runtime PM helpers only clean up the runtime PM state.
-devm_pm_runtime_set_active_enabled() disables runtime PM and restores
-the suspended state during device resource release, while
-devm_pm_runtime_get_noresume() drops the runtime PM usage reference.
-Neither helper invokes ov2735_power_off().
+Looks good.
 
-As a result, removing the driver after a successful probe can leave the
-sensor clock and regulators enabled and the GPIOs in the powered state.
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
 
-Call ov2735_power_off() from ov2735_remove() to match the successful
-ov2735_power_on() performed during probe.
+One nit below that is worth fixing I think.
 
-This issue was found by manual code inspection.
+> +	/*
+> +	 * Once the host has been activated, hcr_base and host_priv are
+> +	 * released by sata_fsl_host_stop(), which is called by the driver core
+> +	 * through the ata_host_stop() devres action registered by
+> +	 * ata_host_start(). Releasing them here as well would result in a
+> +	 * double iounmap() and a use-after-free.
+> +	 */
+> +error_exit_detach:
 
-Fixes: fa9e6df636fb ("media: i2c: add ov2735 image sensor driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/media/i2c/ov2735.c | 1 +
- 1 file changed, 1 insertion(+)
+The label should really go above the comment block to clearly show this is the
+explanation for what is done in this label block.
 
-diff --git a/drivers/media/i2c/ov2735.c b/drivers/media/i2c/ov2735.c
-index dcb1add1fd9f..2defcaa8b795 100644
---- a/drivers/media/i2c/ov2735.c
-+++ b/drivers/media/i2c/ov2735.c
-@@ -1081,6 +1081,7 @@ static void ov2735_remove(struct i2c_client *client)
- 	v4l2_subdev_cleanup(&ov2735->sd);
- 	media_entity_cleanup(&sd->entity);
- 	v4l2_ctrl_handler_free(ov2735->sd.ctrl_handler);
-+	ov2735_power_off(ov2735->dev);
- }
- 
- static DEFINE_RUNTIME_DEV_PM_OPS(ov2735_pm_ops,
+> +	ata_host_detach(host);
+>  
+> -	if (host)
+> -		ata_host_detach(host);
+> +	return retval;
+>  
+> +error_exit_with_cleanup:
+>  	if (hcr_base)
+>  		iounmap(hcr_base);
+>  	kfree(host_priv);
+
+
 -- 
-2.43.0
-
+Damien Le Moal
+Western Digital Research
