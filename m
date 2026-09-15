@@ -1,70 +1,61 @@
-Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com [35.155.198.111])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE78B4AD4A8
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 23:53:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C53D93515D0;
+	Tue, 15 Sep 2026 23:58:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=35.155.198.111
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789516435; cv=none; b=He/IidZMZfKPGnwzUegoTdh5zfmIVytIcrqfBmryaAYYiHFvOI9zSyTX4UG4OjGJPYFJcRhqu5hnewzAi2X6C90SO0E0ObZamQjZIwlbLD+culmPJqix5lPpeQ75CKHpXs7DXw7q2SKOW+YZASc4Ojx5TE8gAQ4cfohtXj8sKj8=
+	t=1789516720; cv=none; b=mNN+A7CLIUrtSo7wNNxOjXuyuXUfn9Vl7IuleBXhgGw0EpV8AYQ1RVqJikUDQ/ge1ttX+m/5eIH6HBfrukflSKRKam2aWNT54BNjlzwCKJl5YXt6JFCJvZU7fUanGtWpQp5JKuSakZMEX/tPflTpkD1RhMLwm6d/cU9izjLuspk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789516435; c=relaxed/simple;
-	bh=9YCR2jAyq8jwYN4sL1CNBLWNLklyjMJf+GSPFtbaEnw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NuE9eLatyADJFITCln+AAbhf8OuIDfUgx49B/w+Up45NPwfOGgY7GrmTduEIT+1SchDfX7WUo8wAFLQ/d70d0Zeg8CJnEMOwlU2w1sPMSp5+z/x8QsNGIDVBbXs9KSTH03UwbULA5w84pCEHEKOTngstlAv2VoTNv9dsrNypyIc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GnMi3DtJ; arc=none smtp.client-ip=74.125.231.169
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789516720; c=relaxed/simple;
+	bh=DCvst1yYbdhpjU7c/fmVI2EYWBw5faQnvtGB/RGBgQU=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=gB0Ww59dO4fi6D6Bb+ojcpk+rcdvrAgT37/lMmf9m2/EbnVqrofq5ACiw/UyUo2iBNE9X4LoFv9lrKosokZuzyLxAbOqTQOxzPDq50PLv1oEd/nyLz/rVMg2JTPFOZfkHuiAqlJ8HgHZGd8OHOoLbkfPr5DWZmo+4I7wXONrmGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=mBVtjrbh; arc=none smtp.client-ip=35.155.198.111
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GnMi3DtJ"
-Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b1ae740487so250110eaf.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 16:53:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="mBVtjrbh"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789516431; x=1790121231; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vDEJrVWlib24T1D7GSE0HjYSZrsnYM8lK5GMEYYnFBc=;
-        b=GnMi3DtJLlFbZSrzObalzSREnowPAJcdNyp8UAI69vJyXatuwaNjAutFeNFhqgjdXF
-         b/i6VyBHkGq0p89KxMo7UXEjIfNVPUtvA7xRT30HG6LQjC05s4Q41T+ObIUyLWNjxuue
-         ZrpUTN8K5ZoLfGcbo4BLLRLNq0ynBV1lhD7CtqK6G6inkyL6axBP4sqT6m0EAKSyG6z6
-         1c20MA6DB+5Vx9aiP4YQfBeyB17XwIcL7+jKTIK/U+GsirefECdauEzsb+BQvwIbyXv8
-         BRGKAM3mqzXKZdEnCtTkqUCw4tOkac+FC+93/TtD0He3JWOHFvjaB9ln+S6hYoc7eaDq
-         tyow==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789516431; x=1790121231;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vDEJrVWlib24T1D7GSE0HjYSZrsnYM8lK5GMEYYnFBc=;
-        b=ISy2fls0MfRxnS00Zw8CK8TmOq2kyLxKm6dlPm1oKlo5PnWnI5vk2Bkj3a/muifkQl
-         6fRJnD9b4Lu7jRyXiQvjBk8Rm3HNL4V59dwAkenpMAiilCzrqacjv5KUY7y48X3Yr5mv
-         2//7jjM/P1n+qC2i3aDFmjKcLJEDZiHjs3+J8pOmW4tphRBx+1UerEv48xIt8sSSh9vv
-         RBEaJwyq0dDgawKoCpzIyKRAIH17RWo8MdSreXzTwSEih2io/J0JNu2/m0CzwvYB4Km6
-         ihXFguiX81rslWkF3HyaLT6ULgCk38bxB4oJmWU1pBdHjhkK3S0y0hTGpuO8AjEeoh6T
-         1vyQ==
-X-Forwarded-Encrypted: i=1; AKwUvBymku3mb8CB8uYobxprdoMi38pysqig6LZIp+AObCLLMyDjmbhAPQuEp11ge6e4MuxsfpPDQ44=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJzMTiohSz7NZmpYTfZmleSwuTDaOHRDfYgnKsD5Q4kpdU7fv2
-	GxNrI8tk/t/jikCgDKFtod+6LNcCKU3VKFCknQymtxc5fZ/SG2kIfvd4lNGwVg==
-X-Gm-Gg: AYBFou2atLsfweyS8GY7J25GuqGB9aSP1H67rwKFLiLT5WyMMR8seFeXoxvVb94TNV/
-	yBH40Dvzc7bV6+03X9eyBseJtR8Utle6ddphLCv21FEBPIK6sl1ZJKcfcdDWFdSPQovryQnfMVN
-	ggdL1NkKeyWOuoAFoVepraQDY7vSx7F3YKj7b+ZfkAI7m3rikT+ONewHsKBYy415UbRMtPTftPs
-	HNLM2zKSzA9l9/kE09mFxSMRVpCSTdA7GcP7626ygPABKZTv3n3PLuwXRFuKCpLyNU01MSQKRef
-	6g5dtJ0mfnf/btbsexCFoWkGZfGq7I5QBzyV4EWNwMHK8PNyYIdIPZlA2+GJ4/aGKRhJ5ZIgrQ0
-	uY8qnn22+ZRzmqbo2xRtv89jnPlkdXg2sEJJG0sFhMlN5BX7VvQ90aIspPyCgZhmXZ8r0R4ArvU
-	4Wv+B5CkyYv0yC/Q8NJugIlhh0Zjs4rnVWd28sBykPjQPzuCIhQqke2mxo6/Nve1VpMMeRYC2oR
-	JQ1sqvvoFz30xMTbEXMd+n6abfz7s4t1msoJ66zaDCOeK/OlYg=
-X-Received: by 2002:a05:6820:290a:b0:6b7:8415:d78c with SMTP id 006d021491bc7-6c7d32fdf98mr609849eaf.55.1789516431352;
-        Tue, 15 Sep 2026 16:53:51 -0700 (PDT)
-Received: from localhost ([2a03:2880:ff:73::])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6c7a061a054sm1420639eaf.0.2026.09.15.16.53.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 16:53:50 -0700 (PDT)
-From: Joanne Koong <joannelkoong@gmail.com>
-To: miklos@szeredi.hu
-Cc: fuse-devel@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH] fuse: don't drop destination page cache on a zero byte copy reply
-Date: Tue, 15 Sep 2026 16:53:41 -0700
-Message-ID: <20260915235341.523416-1-joannelkoong@gmail.com>
-X-Mailer: git-send-email 2.52.0
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789516718; x=1821052718;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=odap5gdV04/t27HraMBx8bD0KEBu67w6nTFvWHfmhCA=;
+  b=mBVtjrbhR5PioGNRrlJNElT9YQZXMBU/q+mPv3PUIopssizOpEDB9mIC
+   P/uZCWf/mmo1aSwMbUjk2YoV1odDKo3LCkBQaXygm6xj/0+nKrsJm+Nic
+   edca3W7GZpFrmEUG8Ws3xsYvUNNK/twxt2Ob8UF07aE6dYv1zxlWrBRMb
+   d2oS0wO3KHMBXiOo5f2A2cY33gVee3y7D6YHyogveoCr7pM8Ik5yFP+aB
+   uASQsRK5Ug8cF4p2LofPU0cc929vy/0HXPKr9gNihNyVCAY78QPu/501e
+   +2DZYT+Q5yJOOSNlUeOEpDjKktIwYw6dceJuYdPRzePvVqOPnMJrEoNNL
+   Q==;
+X-CSE-ConnectionGUID: BXyKZk6ESEyWgZe6FrLc7g==
+X-CSE-MsgGUID: GHdLMXppRBODiNyDAC1VGA==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="28676298"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-009.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 23:58:38 +0000
+Received: from EX19MTAUWC002.ant.amazon.com [205.251.233.111:29530]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.43.236:2525] with esmtp (Farcaster)
+ id 7fd5a7e0-7d17-4795-9a70-a21049c45c2c; Tue, 15 Sep 2026 23:58:38 +0000 (UTC)
+X-Farcaster-Flow-ID: 7fd5a7e0-7d17-4795-9a70-a21049c45c2c
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWC002.ant.amazon.com (10.250.64.143) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Tue, 15 Sep 2026 23:58:38 +0000
+Received: from dev-dsk-surajjs-2c-afd24e6d.us-west-2.amazon.com
+ (10.189.247.117) by EX19D001UWA001.ant.amazon.com (10.13.138.214) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46; Tue, 15 Sep 2026
+ 23:58:37 +0000
+From: Suraj Jitindar Singh <surajjs@amazon.com>
+To: <stable@vger.kernel.org>
+CC: <gregkh@linuxfoundation.org>, <chenyichong@uniontech.com>,
+	<andrii@kernel.org>, <bpf@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<regressions@lists.linux.dev>
+Subject: [REGRESSION] 5.15.221 & 6.1.188: bpftool: redefinition of 'free_btf_vmlinux'
+Date: Tue, 15 Sep 2026 23:58:34 +0000
+Message-ID: <20260915235834.20559-1-surajjs@amazon.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -72,56 +63,85 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: EX19D037UWC004.ant.amazon.com (10.13.139.254) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-__fuse_copy_file_range() clears the destination page cache after the
-server replies:
+Hi Greg, all,
 
-	truncate_inode_pages_range(inode_out->i_mapping,
-				   ALIGN_DOWN(pos_out, PAGE_SIZE),
-				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
+Building bpftool from the v6.1.188 and v5.15.221 stable tags fails with a
+duplicate function definition:
 
-A server may legitimately reply that it copied nothing, eg if the source
-file turns out to be shorter than the size the kernel has cached for it.
+  tools/bpf/bpftool/map.c: error: redefinition of 'free_btf_vmlinux'
+  note: previous definition of 'free_btf_vmlinux' was here
 
-If pos_out is 0 as well, the end of the range is ALIGN(0, PAGE_SIZE) - 1,
-which is -1. lend is a uoff_t and truncate_inode_pages_range() takes -1
-as its end of file sentinel, so rather than clearing nothing it drops
-every folio in the destination mapping.
+This is a stable-only regression caused by a bad backport (the fix is
+correct in mainline). It affects only the current head of each series:
 
-That is not only a cache drop. truncate_cleanup_folio() calls
-folio_cancel_dirty(), and fuse_writeback_range() only wrote back
-[pos_out, pos_out + len - 1], so dirty data elsewhere in the destination
-file is discarded without ever reaching the server.
+  Tree     Broken      Last good
+  5.15.y   v5.15.221   v5.15.220
+  6.1.y    v6.1.188    v6.1.187
 
-Skip the call when the server copied nothing, since there is nothing
-stale to clear in that case.
+6.6.y, 6.12.y, 6.18.y and 7.2.y are NOT affected -- those trees already
+carried free_btf_vmlinux() in its current (btf_vmlinux = NULL) form
+before this cycle, so the backport deduplicated cleanly there.
 
-Fixes: 9b46418c40fe ("fuse: copy_file_range should truncate cache")
-Cc: stable@vger.kernel.org
-Signed-off-by: Joanne Koong <joannelkoong@gmail.com>
----
- fs/fuse/file.c | 8 +++++---
- 1 file changed, 5 insertions(+), 3 deletions(-)
+Root cause
+----------
+In 6.1.y the backport of
 
-diff --git a/fs/fuse/file.c b/fs/fuse/file.c
-index 3bf7cb590538..2aa575a02e05 100644
---- a/fs/fuse/file.c
-+++ b/fs/fuse/file.c
-@@ -3062,9 +3062,11 @@ static ssize_t __fuse_copy_file_range(struct file *file_in, loff_t pos_in,
- 		goto out;
- 	}
- 
--	truncate_inode_pages_range(inode_out->i_mapping,
--				   ALIGN_DOWN(pos_out, PAGE_SIZE),
--				   ALIGN(pos_out + bytes_copied, PAGE_SIZE) - 1);
-+	if (bytes_copied)
-+		truncate_inode_pages_range(inode_out->i_mapping,
-+					   ALIGN_DOWN(pos_out, PAGE_SIZE),
-+					   ALIGN(pos_out + bytes_copied,
-+						 PAGE_SIZE) - 1);
- 
- 	file_update_time(file_out);
- 	fuse_write_update_attr(inode_out, pos_out + bytes_copied, bytes_copied);
--- 
-2.52.0
+  660a19e46942 ("tools/bpf/bpftool: Reset vmlinux BTF after map commands")
+  [mainline 66d7e39e49b0]
 
+*adds* a free_btf_vmlinux() definition. But 6.1.y still carried the older
+definition that mainline had already removed, so the result is two
+identical-signature static definitions in map.c and the build breaks.
+
+The same happens in 5.15.221, where two commits applied in the same
+release collide:
+
+  a9e2496111aa ("tools/bpf/bpftool: Reset vmlinux BTF after map commands")
+  44f58f0c5202 ("bpftool: Use libbpf_get_error() to check error")
+
+the latter keeping the old guarded form (if (!libbpf_get_error(...)))
+while the former adds the new form.
+
+Reproducer (no kernel build / .config needed)
+---------------------------------------------
+  git checkout v6.1.188   # or v5.15.221
+  gcc -fsyntax-only tools/bpf/bpftool/map.c \
+      -Itools/bpf/bpftool -Itools/include -Itools/include/uapi \
+      -Itools/lib -Itools/bpf/bpftool/../../include
+
+  => map.c: error: redefinition of 'free_btf_vmlinux'
+
+Suggested fix
+-------------
+Drop the stale pre-existing definition and keep the one introduced by the
+backport (which also resets btf_vmlinux = NULL, matching mainline
+66d7e39e49b0). For 6.1.y:
+
+  --- a/tools/bpf/bpftool/map.c
+  +++ b/tools/bpf/bpftool/map.c
+  @@ -817,11 +817,6 @@ static void free_map_kv_btf(struct btf *btf)
+   		btf__free(btf);
+   }
+
+  -static void free_btf_vmlinux(void)
+  -{
+  -	btf__free(btf_vmlinux);
+  -}
+  -
+   static int
+   map_dump(int fd, struct bpf_map_info *info, json_writer_t *wtr,
+
+For 5.15.y the same fix applies -- remove the older
+libbpf_get_error()-guarded free_btf_vmlinux() definition, keeping the
+one that resets btf_vmlinux = NULL.
+
+Happy to send this as a formal patch per-tree if you prefer.
+
+#regzbot introduced: 660a19e46942
+
+Thanks,
+Suraj
