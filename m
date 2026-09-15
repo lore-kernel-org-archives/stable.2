@@ -1,42 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E98B11FB1
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 02:03:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 152253CF1E1;
+	Tue, 15 Sep 2026 02:03:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789437821; cv=none; b=HSAMoReHrO4r6tGYMdZXEZaw2LwKMhoaeQk4rCiO4aHZAXuY2JeRikqf2HhrQwFQ5JOtjSGNnK4DkKaNGl2AbsgjHK67PdJwLAMDjYR7cnPs+VTZaw2TJNHVxfPUWG65Hw0Jp34IiQIxko1mfxau1vsUitnixg5dqki22jXoKXU=
+	t=1789437823; cv=none; b=Cck1ofk/H+fG7I0IKX7x/hjx8nV3ZgVCljjZXUDExdAAmA2gQMmfZOO/B2Bc384rGiJBR+/8Naa3mf0hb/Za1WuEiZ6qZuApayFgufNCnoCuKld0ZvBN9oNffHHCDOMYuuEWKD+uEIt/cxFs3Zm5zp8nL1VLLm+wnd/AnrbJVno=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789437821; c=relaxed/simple;
-	bh=+c3CH9d8KGS/XUp65zZBRlrEGeqeKegUWcA3yfzFrxI=;
+	s=arc-20240116; t=1789437823; c=relaxed/simple;
+	bh=8K0PN0ZkAqLfx1mZCsb0Vi1gzMqnVfYQ+WOAf5zCBFw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kFskMBmfpG2tLTLzOPpZLg86NRy8FjqFiY2N0n4e946ZMzNOGyN+JtDLyhZb3dJnZ/mSaimiLnHVfow+eCpWqI/qw2jW0ApUQuSvzDb4oSd16HT4WL/MirD2S7Nfc9HBviOgKAuKxkd/k4ldMVlGvmRAMQGQ9ufGU3ttSQ93ksc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nIxtui9C; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h1XHIIZLeCAyCWJjGQT+8SusDKeZxRwZWYe80zA78qgxnIV24h7ljuAb23TQeZoULvw7d0sA4I/1gzyDeYTGV3Em5qgiksHfNGyf23c5gIa/+5PnR/mE5VYWCPmJCKUMe/OUoBsxC2Pw8qMkd4U00HBthcr/BkivOu1gqw/d6Co=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EBD4jLFm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nIxtui9C"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 498401F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EBD4jLFm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10C9D1F0089A;
 	Tue, 15 Sep 2026 02:03:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789437820;
-	bh=CkfEMlFLhN/sbxL71ojsPKcieKhsUXtz6jDCBkdB4Y0=;
+	s=k20260515; t=1789437822;
+	bh=eyKJJNm6fkd+sD32UCaMAOk8bYp1i6k4SgGq2ch9Gr0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nIxtui9CIfF2rK+hNkvMECzx6UKJfxw7lkBsNSlFTW33XEJK2VhORJAOWx620m5Cb
-	 yMKDgILWACHVsmSwi8eOyzWG+6XlF5YwXDuan+UbwGsekK8spz39xsTNiZo65UlOUD
-	 ik2URpZSYkFnaGcZw6wdUOyt1+5EyJlt6q5VvyEgptgNYUFT5AyXEyzQJUZlVjxoGd
-	 LZ2YIc0xbVtVfEGfupEqjcN1sHQTJMd0q8D2q5w80ts2N9KKcBZsWfieAiF4ZaBku4
-	 RCDFV56YXQp2ETElCZVuil2pDp429mr1jyo3rqENdP0NmAmx5Aiu16AYsLFyZPyUAm
-	 6ZMeruP0lUebA==
+	b=EBD4jLFmg1oiqPwy1AWJh0KT/2j1Y9Eqk0SpL1NVV3KiIfKAXdnBPHQp6vHUEX7fX
+	 +iAKHeiFy1r4yFzbfT5WzAxQpJjQaAlUXRGbpm1qIsJk7gmsrGJaRjPDiwFJR2q3X0
+	 LIlPbiMDcqpF8ixTlFeCZPgwymRY4wvPu8p8QaJRqsE/zknEv+dYHZZ7v/1Uk5RAbu
+	 pU3jhtLCxkh3aySaP5u2BvtQ+OvnPsOrhoJg4aq7qcui+A7QcZDsInNHDTyXcFAPcb
+	 tOAS5NDnoxhzzns7fgfzM3389EZZyKVr1nwn72orKiWTWhd0U7tOE/RUsWk2eNQx8w
+	 xGDC9sfOVDmbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	linkinjeon@kernel.org,
-	Abdifatah Suruur <suruurism@gmail.com>
-Subject: Re: [PATCH 6.18.y] ksmbd: defer oplock break until m_lock is released
-Date: Mon, 14 Sep 2026 22:03:18 -0400
-Message-ID: <daily-reply-0002-re-ksmbd-defer-oplock-break-6-18@kernel.org>
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Laxman Acharya Padhya <acharyalaxman8848@gmail.com>,
+	Felix Fietkau <nbd@nbd.name>,
+	Mikhail Gavrilov <mikhail.v.gavrilov@gmail.com>,
+	linux-wireless@vger.kernel.org,
+	Junjie Cao <junjie.cao@intel.com>
+Subject: Re: [PATCH 7.2 0862/1815] wifi: mt76: mt7921: validate CLC firmware records
+Date: Mon, 14 Sep 2026 22:03:19 -0400
+Message-ID: <daily-reply-0003-re-mt7921-clc-followup@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260911151056.27965-1-suruurism@gmail.com>
-References: <20260911151056.27965-1-suruurism@gmail.com>
+In-Reply-To: <20260914054209.635949-1-junjie.cao@intel.com>
+References: <20260914054209.635949-1-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,15 +50,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Port the deferred break machinery (oplock_break_add() and
-> oplock_break_drain_none()) from the newer stable branches and make
-> the three walks collect the breaks and drain them after releasing
-> ci->m_lock, matching the 7.2.y and 6.12.y shape of the fix.
+> Please queue it with 9417c5818a01 for 7.2, 6.18, 6.12, 6.6 and 6.1.
 
-The code is fine, but Namjae's Ack came with a condition on how this is
-presented: keep the upstream subject and describe it as a backport of
-27a9bc968d4a ("ksmbd: don't hold ci->m_lock while waiting for a lease break
-ack").
+Queued both for 7.2, 6.18, 6.12, 6.6 and 6.1, thanks.
 
 -- 
 Thanks,
