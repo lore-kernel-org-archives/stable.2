@@ -1,184 +1,271 @@
-Received: from mail-ej1-f52.google.com (mail-ej1-f52.google.com [209.85.218.52])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA0094BFE6E
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 18:36:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.218.52
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789497404; cv=pass; b=TzfvKavAw38srVKXvzwpAsdQn5kq8uRNUMG7M6RiLao7LY0JjFxvtu5B/DJhovsdaP6ofRpmBCGiLFCqXNPU2Ah+Nuju8ZWSbwodq4jpUE9FbscWWu2v6AdhVwidXEQUiC5nBO9YQa/WZKcjAH51qDgk6TSgkWxQTRSFTenWx14=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789497404; c=relaxed/simple;
-	bh=0fAJ96KToGBaJVYivQxfXHrnlsaMATy4LRpTL6ELZ7o=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QbLqOP2xU9I/hkNdCxDmxxMalbC23hrdFLhwPzd2IOhp9vfYvO+B7HoeLsANciGZTtdrOawQsdelJsrRabl/HAshCV7ZZdCuxKTvxxfggdvrY/xmJ2dAWoV4rvIPH67ndDdJOU/NYIyZJ9VAfSR/e6U6IK8Qu54nrm/rsSLLX7M=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=imblA3iD; arc=pass smtp.client-ip=209.85.218.52
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C9674C8C5F
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 18:49:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789498171; cv=none; b=MXewlhihA6zI7PAjobye4CD60xKDPnNGrdmkqMSJlBcHOEKjXweQvK9RJYsLkh+W6pIm9DhkVCqUVarjWFrAXAQSgKzAoR3ofMPTp4NfOt4mdagoK7icpxzON6DoZAPQnSgDWDYeSlD+AYlWW7T8Lm1j7iQ5wDZXqeAlNs0H1kk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789498171; c=relaxed/simple;
+	bh=dn0nYsAAmXuOK3R+wRJqX7TPcEmhQYGi/QPpsB0ZaEQ=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=StyKcuDKpXACQkzjdDU0Z1ZjSDeruIXNOeXEpfE2jM5RZUuHdIpDLu7jvffHFTyQIKxsjtQOzEvkzpJt/051rz94bvu5hYLviouX9K7tYl4c0To4/KEseH0omqZ550bPFPoTpf7Ou2cfDvdHYXB3XgHkIsybLvp0YDJ3YIJGsk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=MSrt+0bs; arc=none smtp.client-ip=74.125.224.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="imblA3iD"
-Received: by mail-ej1-f52.google.com with SMTP id a640c23a62f3a-c294ad260fdso186343666b.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:36:37 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789497393; cv=none;
-        d=google.com; s=arc-20260327;
-        b=C2lrE6rwnj0VJ0UPxJ6r/9dlcq55NujlQswr0gq3ZFn3y5rztO6Bnt2uwdUmfV2AdA
-         CM+u4gECw222jQgSUAiY3gWZE6x4VlBnLEpDarHCOHNnyArNtAjWrBI9dqSiKKWpYe8z
-         TsZU321TdNfUArTpzzWCNiQgvc+rY33R+S7T5lWbZNAuBWdDIlVxnm9Yn+Z10f7cLnVw
-         XX9Ujc0decVvqwFBzXl/SbbgZ5l3S1S0WpLQSNEfemCCJleGkxSYGdRUv6VjGGWiLAbZ
-         HiLYFTTjG0Vv04ES23us0VAUYL2lksZuY4dxXrR0UcUEiXUvSQ93vyLxeg8xyJqtGvmX
-         0gmw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=gIXlRpFwzAqF+gXj9N4lNHJj37A+1bZjmxnWxX0j5Uc=;
-        fh=ODXfZ9++47dGO2IYNp+lISxoaDDqNPmvas8LncGPjMU=;
-        b=IdAeOCXITxu37WPkaUzUoncrWmQFWsZ4zan0fz6MDyLrBJfSwQtR4IJsIFx+DC8iwl
-         zXxRB5Y7WS94hoyPhkAGfKKXey83t5B0JlS4LRvFFTzcULsG5E+iDogYhMs71p04sBel
-         YWGmjhHJ3ia2pyxoQx6s5OTwgyHghECxXN0bXbO4ctHLXamuJD3cuCmmWSP6rgf0dln+
-         s3a7A0oA/DIFjsBkmCaVMWeRTf1ZH3W3/bL+xh+attoovBpt6OLpvQ/8pi0t/XD4YiVK
-         yUI/ASYqS90bSWoGdNUewuN9z5A3zYXP7RaHwPXY9xJWzVGOKKti2msY/4BEmN/IklGr
-         5oMg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="MSrt+0bs"
+Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab1ef11so137294d50.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 11:49:28 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789497393; x=1790102193; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=gIXlRpFwzAqF+gXj9N4lNHJj37A+1bZjmxnWxX0j5Uc=;
-        b=imblA3iDClAKSsVa2bgWVIUxEPPlq3RSc9OuP5ZY7CURKGVC/HGgz3MIldEi/rr4YN
-         ZUm+jBo5nbanqCuCwKJnTGfGlhqlcLBBZQkRP0828Mfe8KSMEHe6cIjHDP6MXL2+qr2J
-         Q8luU/6AvQ17yIa5idPBk775lNVjxzCWgrj5y8KXKM3o/avD+W9CkpacPSpFwNROOZga
-         FHF1rzCWwEpU2EAplRJXu073Zm6sxKuIlVaG/+7zzrx3B2Hqo8FxFnRTULzWdQwb41SJ
-         6VVru0zdOjUJStmjcZQzpXsxMA85i0oke/Z0PTFq1J7qOTxUqB8Tuf7iFVeVCWE1OB+t
-         FxjQ==
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789498167; x=1790102967; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8sOdqh+xMVjOPfQTmb4GlIFWW+djME37k9ELcXIHIfs=;
+        b=MSrt+0bsGkmYdM+x4/yC1LLmriZQ3N7OkDhwkkO+SHphTgw41hTRGswJvMaprNluLh
+         w1LoN3rEiv87JPHt4pUfbaPBIm9UabC/Q7p+2ep2YJ+AFXqhBvXDXTSZBmc/tu+4azkw
+         M1YzAagkIyFNMtfplLR5vfXDA2ejRqM7X/JTVD1b4ZbBh9bB9CSZDlLRzSoPm97xi2AQ
+         7MW0VS4Ooo3H9YzTp9ozdD6jLR0/N5wvOzJ/2HhVpnHVcb7Te88lgc8ZcMW+GWIybDqr
+         bvdQiFkYKxNlD+YkTuzWF+amwWcQLA9WSsjAcz1uvV7KMi60Z06O538GfOnBSyhA19Ml
+         7aCw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789497393; x=1790102193;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=gIXlRpFwzAqF+gXj9N4lNHJj37A+1bZjmxnWxX0j5Uc=;
-        b=uX3V0GGKsqUgk0hsySwASe8zZhySDOtF0esOWIp1QJf55d9dLDcHjbjnx92lY+G7xm
-         9+5BWL2X5BKhey4zbOnhXMZjPX+dKM1LhYGEkOQcWzKuZLD0KmwP4aMvWJCUK7V9yFMw
-         n/ibVTsb+jPYv1FGpXIlSHbEEwC//Z7f3VcRtfDXQgycc11SVqC+yTssmWaQ8xkiIMVn
-         ugiG/ePQ5jGzXa8YRrZMmRQKt6eJunR2kDJid+8WcK+AYwyPEQSrocKOU9NNRBbce2EV
-         R1yKAN5sAMkpEYRK/7HUoBpJpvTvp3Lv9RJCmQkWqsEcamWHa3Nbc/2qt4ip+WbaMO+l
-         AEzw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0W2ydP/9L9HHswgb4J7uV/5HCqj/C+MbkvpeR7FsnfdkQ8Cm7zzbT8fbUaceP8VQ1cr8Mn64=@vger.kernel.org
-X-Gm-Message-State: AFuF++kM67M3RdrA6tOiFwmySQw+DeA7trpc1lIPElSvQrXDpWWZfyun
-	OjF6QEv0J8iNX0tUd0PbxN5CiCZbSsb1CSzkkmJV+sLuiZS/z5Kppx9cRI1zbQ11mpJ2Bi5KHlo
-	wUss9sVMtcbCxqppXDz6Wb66bWIcgCW0=
-X-Gm-Gg: AYBFou1lofGYYbjxQTv+eyMMtrq9RKYYLFYwfcgqhrCVi1CuvaxEk0gw6Lslz3RSJnj
-	355hnvi9V2PSuEw6dmLpNvNk/Tgv1Hr1Iv2Sd8vduxXiRNkbbLqbC2xP+G8HEaFq33imi4WQ0BK
-	MdNuCGE1Y0QqcWMtZ8CUeHsleGjsqhU33mwrTSXvDKmcW64dT6xOkeS1L6wHJ04gKJtLiAuK5Kk
-	rc6sDGfsah40GWODJqar6ded5mTWGECldxxqLWqRrNs4mOH5AoNXTIbcZ4gREVF1UUnjgdWvVps
-	EB1lfFuug/cVekD4VNgtS+rg3H98hDqdEvVq9LblLn1JFlMVz4np4Eqq/i5Ki6AY0hx1vEDPWhR
-	XhnNMr2h8U8+R9nmeE6ZwqRJFTrhJofI2qT2sQatK
-X-Received: by 2002:a17:907:c0f:b0:c25:f7dc:2d3 with SMTP id
- a640c23a62f3a-c29c8b917c2mr383788566b.20.1789497393092; Tue, 15 Sep 2026
- 11:36:33 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789498167; x=1790102967;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=8sOdqh+xMVjOPfQTmb4GlIFWW+djME37k9ELcXIHIfs=;
+        b=KJwOqUkzbu66EV5Pm/MrpkZilLvkiTgL2mjZNCpHvZ+CwNmUukO7rxXN7L49QyttJO
+         3bKPDf+xRfrSVe15cibmiuDfTC7OfZk98RvBxAapNZqqfu+9rCibQKqy73OZhaT1Ghpf
+         jEqNTHipdkLBNFa8JS+H114RIuoJLG/78ySeUkM4/XLtBkxR0cqZYo+VskQiA8ZegBfn
+         i2r0q1mKiwR/Wdc5sfMA2z4dZiECPEDh68TouyrSckAhjNgXSXVQ4YziNuHA5V32VtBm
+         4n9ORlTaJ+lDDQ8rDyGaoFDLngrXfpwA7cjZV7o7dfMnubzYvcCiLbGRKoXMkgkAul9J
+         JmiA==
+X-Forwarded-Encrypted: i=1; AKwUvBzXaiO7Dak85ZQzx1IkRcvdFi+CtqXMTHOGdIOtlaDPCOOSdkKAaELSQA8nIiucCfUeFI90fRY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nB0DuaCPBXpH6rHfMiNO+dg9kZ3HKhDIOJUFcH55n8x1RJMb1D
+	KqMAWFfSs1q889EukVBL30GNl5wa9HAh/I6a9ReGFLsTtkQvsUCQRcPC4AqIuP/NIBg=
+X-Gm-Gg: AYBFou1uGcSGP2UssY4hWGHfyPgV4w1stcU5GtOUP/L4DwkIotFP9gyWWzWo8S0vMAb
+	ucLCA6E0+sKiT1Q0DmDoVqhY5vZZ3UOVwME2v/U2eDqAAHdRLDuHCMEMt+La/t71DCJ8n1z30H8
+	p4OnyhNhffzTY6AAzWWqktDM/EUeHlhYcLwJle8Py1rxGEDa0yE0Mgh/Epbx0203a48ZJoP3Xnc
+	nusQUTJMXY8uYwXj6nYaYhwtxd/KB73kERcG8H4ULQjGKJ6xHBetGAscTyANWRl27xVhBEfsrv/
+	5DQ6JbESgELNyr+KDKScDD3qassI7DgdELx0T9gJbyMut46wMwS88GTPmWmPhcPTRAevA+dlWow
+	UmE+5GFFWf3Ozy3PX4yby5/5EA8DZIAPKShmGc1KPA6ihSh1eOPKG0CYGSpk2gB3b+P1qxKaWJI
+	yXQyTwNX7rU6j3J6K659wvVyn0gS1v03aVHdAjx44ZzwLrDpLgPY2663u2U4Unua2iNapVk2Nu8
+	wXulmCpEtW8B50r5lJ9EAsx9BUCzcUJJ3x+xJlwUzHEk93YjUHD+gq6sefmu1tcRbHOYxEITh6x
+	5mmDlUHj3mjR+v9n03BEC+j8Tw4QGYopAxCNCIne3V79QV7SIx6TJJ+mkTyh5koO
+X-Received: by 2002:a05:690e:1208:b0:671:2d6e:b7ec with SMTP id 956f58d0204a3-6715c93e52cmr1270970d50.0.1789498167258;
+        Tue, 15 Sep 2026 11:49:27 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:e9c6:4a77:70a9:9f1d? ([2600:1700:6476:1430:e9c6:4a77:70a9:9f1d])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-891ee4a536asm509227b3.10.2026.09.15.11.49.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 11:49:26 -0700 (PDT)
+Message-ID: <e4f31d1ee16d537368a65c916597cdc1f28e32c1.camel@dubeyko.com>
+Subject: Re: [PATCH] nilfs2: fix checkpoint root lifetime on sysfs errors
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
+	 <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Tue, 15 Sep 2026 11:49:25 -0700
+In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260826103012.240453-1-meatuni001@gmail.com>
-In-Reply-To: <20260826103012.240453-1-meatuni001@gmail.com>
-From: Muhammad Bilal <meatuni001@gmail.com>
-Date: Tue, 15 Sep 2026 23:36:20 +0500
-X-Gm-Features: AcwNN1WcJfuWtzktYvt8Aa0_L2cgMeEC3hDziX2ljeuoLSbyMQO8ELH7LkNEO_U
-Message-ID: <CADqcGBnQMBwAHLfeg_1Jvr5A_w5D-MmNJpCBHVMisiBp7mqfNA@mail.gmail.com>
-Subject: Re: [PATCH v2] platform/x86: hp-wmi: fix heap OOB read and memory
- corruption in hp_wmi_perform_query()
-To: hdegoede@redhat.com, ilpo.jarvinen@linux.intel.com
-Cc: platform-driver-x86@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-ping.
-
-On Wed, Aug 26, 2026 at 3:30=E2=80=AFPM Muhammad Bilal <meatuni001@gmail.co=
-m> wrote:
->
-> hp_wmi_perform_query() evaluates an ACPI WMI method and expects a
-> struct bios_return header in the returned buffer. However, it only
-> checks that the ACPI object type is ACPI_TYPE_BUFFER without verifying
-> that obj->buffer.length is at least sizeof(*bios_return) (8 bytes).
->
-> If the firmware or ACPI method returns a buffer shorter than 8 bytes:
->
-> 1. bios_return->return_code at offset 4 reads out of bounds from the
->    allocated ACPI buffer slab.
->
-> 2. If return_code evaluates to 0 and outsize is non-zero,
->    (int)(obj->buffer.length - sizeof(*bios_return)) evaluates to a
->    negative integer (e.g. -8 for a 0-length buffer). actual_outsize is
->    set to this negative value and passed to memcpy(buffer, ...,
->    actual_outsize), where the signed negative value is cast to
->    size_t (e.g. 0xfffffffffffffff8), attempting to copy ~18 Exabytes
->    and triggering an immediate kernel crash. Additionally,
->    memset(buffer + actual_outsize, ...) performs an out-of-bounds
->    write before buffer.
->
-> Fix this by ensuring obj->buffer.length is at least sizeof(*bios_return)
-> before accessing the return code, and compute actual_outsize safely
-> using min_t(u32, ...), which is sound specifically because the guard
-> above already rules out obj->buffer.length being smaller than
-> sizeof(*bios_return) by the time that subtraction runs.
->
-> Fixes: c3021ea1beee ("hp-wmi: allow setting input and output buffer sizes=
- separately")
+On Tue, 2026-09-15 at 01:12 -0300, Aldo Ariel Panzardo wrote:
+> nilfs_find_or_create_root() publishes a new root in the checkpoint
+> tree before creating its sysfs object.=C2=A0 If sysfs registration fails,
+> the root is freed while it is still reachable from the tree.=C2=A0 Merely
+> erasing it in the error path is insufficient because a concurrent
+> lookup may already hold a reference.
+>=20
+> Serialize root creation and removal, finish sysfs registration before
+> publishing the root, and wait for the embedded kobject release before
+> freeing its container.=C2=A0 The wait also makes normal root removal safe
+> when kobject release is delayed.
+>=20
+> Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 > ---
-> v2: Rebased onto current platform-drivers-x86.git 'fixes' (confirmed
->     matching current mainline, blob b2773fc1aca414792b99406315496a2c3a64d=
-d06).
->     v1 was diffed against a stale local copy of hp-wmi.c that predated
->     a batch of unrelated upstream changes (GPU MUX switch support, new
->     OMEN/Victus board IDs), so its hunks no longer applied. The fix
->     itself is unchanged, only the base and line numbers moved. Also
->     correcting the recipient list: Hans de Goede's address is
->     hdegoede@redhat.com, not hansg@kernel.org as v1 had it.
->
->  drivers/platform/x86/hp/hp-wmi.c | 7 ++++---
->  1 file changed, 4 insertions(+), 3 deletions(-)
->
-> diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/h=
-p-wmi.c
-> index b2773fc..d7ad206 100644
-> --- a/drivers/platform/x86/hp/hp-wmi.c
-> +++ b/drivers/platform/x86/hp/hp-wmi.c
-> @@ -691,8 +691,9 @@ static int hp_wmi_perform_query(int query, enum hp_wm=
-i_command command,
->                 goto out_free;
->         }
->
-> -       if (obj->type !=3D ACPI_TYPE_BUFFER) {
-> -               pr_warn("query 0x%x returned an invalid object 0x%x\n", q=
-uery, ret);
-> +       if (obj->type !=3D ACPI_TYPE_BUFFER ||
-> +           obj->buffer.length < sizeof(*bios_return)) {
-> +               pr_warn("query 0x%x returned wrong type or too small buff=
-er\n", query);
->                 ret =3D -EINVAL;
->                 goto out_free;
->         }
-> @@ -711,7 +712,7 @@ static int hp_wmi_perform_query(int query, enum hp_wm=
-i_command command,
->         if (!outsize)
->                 goto out_free;
->
-> -       actual_outsize =3D min(outsize, (int)(obj->buffer.length - sizeof=
-(*bios_return)));
-> +       actual_outsize =3D min_t(u32, outsize, obj->buffer.length - sizeo=
-f(*bios_return));
->         memcpy(buffer, obj->buffer.pointer + sizeof(*bios_return), actual=
-_outsize);
->         memset(buffer + actual_outsize, 0, outsize - actual_outsize);
->
-> --
-> 2.55.0
->
+> =C2=A0fs/nilfs2/the_nilfs.c | 38 +++++++++++++++++++++++++-------------
+> =C2=A0fs/nilfs2/the_nilfs.h |=C2=A0 3 +++
+> =C2=A02 files changed, 28 insertions(+), 13 deletions(-)
+>=20
+> diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+> index 7b23e373a..01389dba2 100644
+> --- a/fs/nilfs2/the_nilfs.c
+> +++ b/fs/nilfs2/the_nilfs.c
+> @@ -71,6 +71,7 @@ struct the_nilfs *alloc_nilfs(struct super_block
+> *sb)
+> =C2=A0	spin_lock_init(&nilfs->ns_last_segment_lock);
+> =C2=A0	nilfs->ns_cptree =3D RB_ROOT;
+> =C2=A0	spin_lock_init(&nilfs->ns_cptree_lock);
+> +	mutex_init(&nilfs->ns_cptree_mutex);
+> =C2=A0	init_rwsem(&nilfs->ns_segctor_sem);
+> =C2=A0	nilfs->ns_sb_update_freq =3D NILFS_SB_FREQ;
+> =C2=A0
+> @@ -881,8 +882,15 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0	if (!new)
+> =C2=A0		return NULL;
+> =C2=A0
+> -	spin_lock(&nilfs->ns_cptree_lock);
+> +	new->cno =3D cno;
+> +	new->ifile =3D NULL;
+> +	new->nilfs =3D nilfs;
+> +	refcount_set(&new->count, 1);
+> +	atomic64_set(&new->inodes_count, 0);
+> +	atomic64_set(&new->blocks_count, 0);
+> =C2=A0
+> +	mutex_lock(&nilfs->ns_cptree_mutex);
+> +	spin_lock(&nilfs->ns_cptree_lock);
+> =C2=A0	p =3D &nilfs->ns_cptree.rb_node;
+> =C2=A0	parent =3D NULL;
+> =C2=A0
+> @@ -897,29 +905,28 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0		} else {
+> =C2=A0			refcount_inc(&root->count);
+> =C2=A0			spin_unlock(&nilfs->ns_cptree_lock);
+> +			mutex_unlock(&nilfs->ns_cptree_mutex);
+> =C2=A0			kfree(new);
+> =C2=A0			return root;
+> =C2=A0		}
+> =C2=A0	}
+> -
+> -	new->cno =3D cno;
+> -	new->ifile =3D NULL;
+> -	new->nilfs =3D nilfs;
+> -	refcount_set(&new->count, 1);
+> -	atomic64_set(&new->inodes_count, 0);
+> -	atomic64_set(&new->blocks_count, 0);
+> -
+> -	rb_link_node(&new->rb_node, parent, p);
+> -	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+> -
+> =C2=A0	spin_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0
+> =C2=A0	err =3D nilfs_sysfs_create_snapshot_group(new);
+> =C2=A0	if (err) {
+> +		mutex_unlock(&nilfs->ns_cptree_mutex);
+> +		wait_for_completion(&new->snapshot_kobj_unregister);
+> =C2=A0		kfree(new);
+> -		new =3D NULL;
+> +		return NULL;
+> =C2=A0	}
+> =C2=A0
+> +	spin_lock(&nilfs->ns_cptree_lock);
+> +	rb_link_node(&new->rb_node, parent, p);
+> +	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+> +
+> +	spin_unlock(&nilfs->ns_cptree_lock);
+> +	mutex_unlock(&nilfs->ns_cptree_mutex);
+> +
+> =C2=A0	return new;
+> =C2=A0}
+> =C2=A0
+> @@ -927,13 +934,18 @@ void nilfs_put_root(struct nilfs_root *root)
+> =C2=A0{
+> =C2=A0	struct the_nilfs *nilfs =3D root->nilfs;
+> =C2=A0
+> +	mutex_lock(&nilfs->ns_cptree_mutex);
+> =C2=A0	if (refcount_dec_and_lock(&root->count, &nilfs-
+> >ns_cptree_lock)) {
+> =C2=A0		rb_erase(&root->rb_node, &nilfs->ns_cptree);
+> =C2=A0		spin_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0
+> =C2=A0		nilfs_sysfs_delete_snapshot_group(root);
+> +		mutex_unlock(&nilfs->ns_cptree_mutex);
+> +		wait_for_completion(&root-
+> >snapshot_kobj_unregister);
+> =C2=A0		iput(root->ifile);
+> =C2=A0
+> =C2=A0		kfree(root);
+> +	} else {
+> +		mutex_unlock(&nilfs->ns_cptree_mutex);
+> =C2=A0	}
+> =C2=A0}
+> diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
+> index 4776a70f0..72affad9e 100644
+> --- a/fs/nilfs2/the_nilfs.h
+> +++ b/fs/nilfs2/the_nilfs.h
+> @@ -68,6 +68,7 @@ enum {
+> =C2=A0 * @ns_sufile: segusage file inode
+> =C2=A0 * @ns_cptree: rb-tree of all mounted checkpoints (nilfs_root)
+> =C2=A0 * @ns_cptree_lock: lock protecting @ns_cptree
+> + * @ns_cptree_mutex: mutex serializing checkpoint root creation and
+> removal
+> =C2=A0 * @ns_dirty_files: list of dirty files
+> =C2=A0 * @ns_inode_lock: lock protecting @ns_dirty_files
+> =C2=A0 * @ns_gc_inodes: dummy inodes to keep live blocks
+> @@ -151,6 +152,8 @@ struct the_nilfs {
+> =C2=A0	/* Checkpoint tree */
+> =C2=A0	struct rb_root		ns_cptree;
+> =C2=A0	spinlock_t		ns_cptree_lock;
+> +	/* Serialize root creation and removal. */
+> +	struct mutex		ns_cptree_mutex;
+
+Do we really need another lock here? If the ns_cptree_lock is not good
+enough, then, maybe, we need to change the lock type? But adding the
+another lock for ns_cptree looks strange for my taste.
+
+Thanks,
+Slava.
+
+> =C2=A0
+> =C2=A0	/* Dirty inode list */
+> =C2=A0	struct list_head	ns_dirty_files;
