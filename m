@@ -1,35 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91E37265621;
-	Tue, 15 Sep 2026 10:22:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E599A395240;
+	Tue, 15 Sep 2026 10:22:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789467764; cv=none; b=jMJTJQUZ6xwFH+DR6IWYKe1ExhMsNvP7EsqEdG1VGYutyEeju4q4Lwa8orYiwk1r2oRthWOcaKpWJWoyIg9jY0d5XywlnkvdlrJSPWXeCE3oNuPWvkoNpxt6+03W9waR1XvCNh31GZEsj3++gS906hBvI+AfOVdcn569FKUjSDw=
+	t=1789467768; cv=none; b=n0/BufOn5Tbn34a6wTl7qKNd2IcywkNxgjCrLGgA1jz9KVA9SXC5CDILe/7/TXUKcMHwIQEhZ2ckSZF1f1DkD+wOCjX9nGHxhvxOvy/p0UtmZZ/C0pI/qX/9tuvOJcUuzFGb86a13q5Kp2eDXLqn1tQTh+e+3+xRjz1z7gxI+28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789467764; c=relaxed/simple;
-	bh=0nhmnE3MPCAqDO8OmaNk6DjHrGuxEq925OsDr2QuZ50=;
+	s=arc-20240116; t=1789467768; c=relaxed/simple;
+	bh=4ZTB5yNEhzFeYRPm7RO+Hv5mIE3RCIsFcZAFiThZ+rg=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=pIfbs21f5XkLjxXpUjm6rCDe5suxM8W5UXQpFsVeXcDxX8tualMARLqNIPwscmub5ly3pWpubbZdQk2zHD/YQT/bzBsVOzGNUDbQ9ilDUiC4hSR/kCqzisdtLCb73C7HEMUbzxpWTYcFwHq/CJs3VUHuGMcDCJEzPC+90mJHlDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZMY7TSfw; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=YnXQw04af+6FnyVVqGg+mvhqF4jRr/j/48SUUdYG5TsIjZJElu0Nl1uPTMyHhx6+0lY93VNbzdJom5ttlV2fCQ5oRdJVxitiZHRLl9Yc/QIUU90g9FD9kR3AOcescSFPkKYHX5fBbsOhOjFCLOyRN44YZ5hIbytiEijsHCJfClE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oQejdY96; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZMY7TSfw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C58D11F000FF;
-	Tue, 15 Sep 2026 10:22:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oQejdY96"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3E0C1F00893;
+	Tue, 15 Sep 2026 10:22:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789467763;
-	bh=PBKg7LMufS9h1DDpU8LEKELjTVcUgWSpF559w+ek458=;
+	s=k20260515; t=1789467766;
+	bh=FD0usaDv/+Lu82oshcV7j/hEpSlA+eSeMjmlzM+oZoA=;
 	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=ZMY7TSfwxPX6+XSJWE5fNaiAdImONMSHR4JKIBL9dbXG4+Tvc2LMW3F5zDJ0MfGfX
-	 VNrNXXwcg0lSAO5YKig0GrnNBoUgFnfaZhimWL6gIdSUMXt5T9GKPPrAYsSJ8pb0NH
-	 6IPKGwzqetVi9M530y+Y84bK0ov21BxOT/RkB1Ni6fH15COtBeGCwvyWXlHcJOFcAH
-	 9N9eLKQztQ2SWOlE70fhb8sCMygtpKZZoKg0O0GWHSTrEJBLdYGUfzWqi0bQffkEp9
-	 DKMB6H7x+QWAstvZU6S/cHAQ8mLzNcKngyxtNCWZicirDj1MYUP+vF5eNBV/1yXyU1
-	 UuYev70ct89ZQ==
+	b=oQejdY96kS0xDsfpwi0u/8CNcZshfIEcghMbq5EHuhdKdZOZd5dm8x5NoCxMA4QJ8
+	 1tVhOQNfcGdgzFkcb7ICrok85RIer0HXOnjE+ZozSow/Ote97fP1TOdja1mH1yvyBS
+	 RSgIK9/EgtyJqDr/CqhxB+w5HUgoNiKCwwk/N9Xil0sAHDAY33meJquZzcN/izHJJC
+	 WjbKqynoKiDnHI07kaNPPaDLHXlW/dGUxJQioKFp7J7OZWE3w2CDAdfVcivicABUYa
+	 gWiWpQZFDZRKpn3GL4ByTn3Fdh1zP+EIu4R5zms3xAr/T1svYeZ8aQCnqumZjkOd+m
+	 PGOU/L+HP2+2Q==
 From: Christian Brauner <brauner@kernel.org>
-Date: Tue, 15 Sep 2026 12:22:17 +0200
-Subject: [PATCH 2/6] fork: refuse new threads while a coredump is in
- progress
+Date: Tue, 15 Sep 2026 12:22:18 +0200
+Subject: [PATCH 3/6] coredump: hold RCU while releasing parked threads
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,7 +37,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260915-work-coredump-fixes-v1-2-f354ca41780c@kernel.org>
+Message-Id: <20260915-work-coredump-fixes-v1-3-f354ca41780c@kernel.org>
 References: <20260915-work-coredump-fixes-v1-0-f354ca41780c@kernel.org>
 In-Reply-To: <20260915-work-coredump-fixes-v1-0-f354ca41780c@kernel.org>
 To: Oleg Nesterov <oleg@redhat.com>, Jens Axboe <axboe@kernel.dk>, 
@@ -49,64 +48,48 @@ Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
  io-uring@vger.kernel.org, 
  "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
 X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2194; i=brauner@kernel.org;
- h=from:subject:message-id; bh=0nhmnE3MPCAqDO8OmaNk6DjHrGuxEq925OsDr2QuZ50=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWStlMkQXnC5/zjzWkZfr9+1i9cEmr1+rpId8bt23f9ww
- T0Nc2v3d5SyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzkaiwjw7du/ydccQujotYe
- sZgb4pfA1GlaYnxNeV3ihw6z2H+CTQx/5QJPevocMbnNssx55u/KzBxdQ9kbIXOrvzAvjZcyujO
- DAwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1174; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=4ZTB5yNEhzFeYRPm7RO+Hv5mIE3RCIsFcZAFiThZ+rg=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWStlMm4We52yWHKuhsh1+4en2LDcv2Rs99O4xW/JD/P0
+ P2XHBG2vqOUhUGMi0FWTJHFod0kXG45T8Vmo0wNmDmsTCBDGLg4BWAihn2MDE2Fnw1CM1z0uIN3
+ 2JqtOFIfLr/rx8G48ws5TV3vtrV/YmNkuOw6Z5HCZO7cfUHz173WlpTR2auVcfpOl5tRt42LfmQ
+ XKwA=
 X-Developer-Key: i=brauner@kernel.org; a=openpgp;
  fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
-Say a SQPOLL thread is a member of a thread-group that coredumps.
-The coredump code uses zap_process() and sends SIGKILL. The SQPOLL
-thread uses io_sqd_handle_event() and calls get_signal(). It removes
-SIGKILL from the pending set and returns. The SQPOLL thread breaks out
-of the loop and drains its own task work.
+When coredump_finish() releases the threads the wakeup neither holds a
+reference on the task nor is it inside rcu.
 
-Any pending io_req_task_submit() with REQ_F_FORCE_ASYNC creates a new
-worker when no other worker is free. So it ends up calling
-create_io_thread() from a thread whose fatal signal is gone. That means
-copy_process() allows the creation. It's also possible for an exiting
-io-wq worker to push new work onto the SQPOLL thread.
+The threads don't necessarily need a wakeup to exit. If it gets
+preempted or was woken for other reasons it sees ->task cleared and
+exits. So only rcu keeps such a task_struct alive.
 
-zap_threads() counts the number of coredumping threads. The coredump
-client waits in coredump_wait_inactive() untill all threads in the
-thread-group are parked. The new thread that was created via SQPOLL
-exits immediately since it got PF_SIGNALED from the parent. The problem
-is that it sees signal->core_state, links itself onto core_state->tasks
-and decrements "threads_remaining".
+If the coredump client is preempted between the store and
+wake_up_process() for longer then try_to_wake_up() takes pi_lock() in
+freed memory.
 
-But zap_process() never actually counted the new thread. So the count
-goes to zero too early. So either the coredump misses the thread or it
-dumps a thread that is still alive.
+Hold the rcu across the loop.
 
-Close that gap and refuse creating a thread while signal->core_state is
-set. Both sides protect it via siglock so copy_process() and
-zap_processes() are sure to see each otehr.
-
-Fixes: 3bfe6106693b ("io-wq: fork worker threads from original task")
+Fixes: a94e2d408eae ("coredump: kill mm->core_done")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
 ---
- kernel/fork.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/coredump.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/kernel/fork.c b/kernel/fork.c
-index 10be4a0ecb3f..bd97fc7b885b 100644
---- a/kernel/fork.c
-+++ b/kernel/fork.c
-@@ -2491,8 +2491,8 @@ __latent_entropy struct task_struct *copy_process(
- 		goto bad_fork_core_free;
- 	}
+diff --git a/fs/coredump.c b/fs/coredump.c
+index 791a9268ed96..78ab6cb78be8 100644
+--- a/fs/coredump.c
++++ b/fs/coredump.c
+@@ -602,6 +602,8 @@ static void coredump_finish(enum coredump_state state)
+ 	current->signal->core_state = NULL;
+ 	spin_unlock_irq(&current->sighand->siglock);
  
--	/* Let kill terminate clone/fork in the middle */
--	if (fatal_signal_pending(current)) {
-+	/* Let kill or a coredump in progress terminate clone/fork */
-+	if (fatal_signal_pending(current) || current->signal->core_state) {
- 		retval = -EINTR;
- 		goto bad_fork_core_free;
- 	}
++	/* A released thread may exit and be freed before it is woken. */
++	guard(rcu)();
+ 	while ((curr = next) != NULL) {
+ 		next = curr->next;
+ 		task = curr->task;
 
 -- 
 2.53.0
