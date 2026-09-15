@@ -1,74 +1,77 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-oo2-f41.google.com (mail-oo2-f41.google.com [74.125.231.169])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 073B73CA497
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:05:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0003359A70
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 08:05:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.169
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789459516; cv=none; b=Kzsiy7rdLMactduRf15QYhx4XSkgqiO/BR0EDb7U7vCcU7hV5DqET0GY9t4H9IDgwpBlsO5zDBq4o36VC6mU6xi5OnoWSqRzRP8sjtf73OSLdbjBh8b/CsARqPQzbsTbgjo4UEKGUougTFl08EzIJZskfRvEwSw9wvvfra9IiJw=
+	t=1789459549; cv=none; b=Tl3MNEpNgujtfJGalZRfq4+xaxqI53FBbKU+JeSzOCDxhpFe4SdkwjTUbvrHWdaxSjfm2ZJm2wiQiaqDCbh32S/iN/k2NFssshIeuKg/kfglcuF8w/h4CSQKiNuyPgFJoceB6oVYZDXH7Z3+/SB2bPtG48J6y5pZEwuPIUZpECY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789459516; c=relaxed/simple;
-	bh=oZ0N0PsuEqbDomR5sP8cO8KR7NnXA59aOg2GPCnVdzM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DmYE5BWgXS+LYHs+7INUlQ6s8kzDE0w7McL5d0i6bTzr/7aZD7ZvG9h/SCv/Za7tmc4CyQlhxiHkxNMsf9xVFM4O8YphOuhgzO5MnaqCBx32Pk40m7fevLaztNX5mafTyGsIuqsCuNsirqhQdBBBhMydZhz+7F7JAPRh07+1798=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YvUHXw09; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789459549; c=relaxed/simple;
+	bh=5IK3FxgV24djvTZ27qsfexgDP3v5xGlhYgnjilnpCzo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AZ5jSkQKQolh9xveS/rzWb/LP/zm1yJM/6sfAONxOqmysSg2q1H01wigulKezK9S949Q8IEqgC6/8JBNry2uqm7NZDEWEUj3EHyCrJwL67zH7wkGnIgLXExvNexXxHYKndvGnY+pFc//39UtRfTptr3pWBwTvDYP17oDBXYMGIE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZZ3qn34/; arc=none smtp.client-ip=74.125.231.169
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YvUHXw09"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd78e6eso861013a91.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:05:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZZ3qn34/"
+Received: by mail-oo2-f41.google.com with SMTP id 006d021491bc7-6b4bff33d18so1194037eaf.3
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 01:05:44 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789459513; x=1790064313; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789459543; x=1790064343; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=8oXVOqLbDDmDiQXcRbmwevDgD4MKWOik8Fi0EZ/eGXA=;
-        b=YvUHXw097GpnOeKx3RqOvXwHCDuOFBisU2oZR8wSUAlVg587FR5RKspun6BYboviEE
-         JJWC8Xl3JaAoNWvSFokP4axbLJ3T5W0lojiJku32hZen8xx0MIzsgYD91x/zaOuUXri2
-         AygA/0kn6SgQVCrUtNpq8KGevX+FuAv2Y4pSwwJxDc4h6YVyH2y4T7iVHjv9a0LfN13i
-         Wj7R3U00jJaeOhnhFPeMAR3O6WrWc13Y2N9zg3KMgajXP4pe1bD2YX/ngwaMPcJJldya
-         RNRqh5ZbVnlSCtGPyGNH21tvL+8cflMvBD05v2t9Sj9ceYgqTEmaVosiyfY9829iWW7/
-         Ocog==
+        bh=8y3BbK3AOzFDW1qQRhNYfeabqJLNEeHv6A39ZBXCEoc=;
+        b=ZZ3qn34/kQzlTzanorqJ45WsrkRzTbjvGHfKd2UbCsW+Jrc2WkAXs769J+K0EH+arq
+         7QL0ou2fnxU84TlV59LMLSt9L10+uqYLy43+AysPOkdpOxXx5tA+SL1ESWHEPpBRCeQd
+         qfiUO/GVGxJW2nfovupLrTl4C1t5j/bf5qasIh4AFaZs2U/vWK0x2tItwJsr+dJYJaZY
+         nQmW5tLbUOlX6YirPaYManQnzx7lxhfu5pYRqDXcKiIo0Y8ibrQK/nGi+1vtPoinbBOQ
+         0GdHXlfvjSN5bmMFgeLzqHWDe1p3s88EtyZdC2L0Gef/9i89FO3REgC9YVXlodar3itq
+         oPOQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789459513; x=1790064313;
+        d=1e100.net; s=20260707; t=1789459543; x=1790064343;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=8oXVOqLbDDmDiQXcRbmwevDgD4MKWOik8Fi0EZ/eGXA=;
-        b=ZHd12Ey3wvCuB4gBroeh/wMLH2QSg0s+073uiFXJzzlYZzU+BaWfoTv5vynquI5+FT
-         O3SVUT9+VaXMpcgAT4FipaI0b9lx73BZJbo+vx3W13+Uouav5F7qNB2I62L0xgSZpRZO
-         oONtntXBScFK7u0eBcNyUTjEWS9z8M9J0oKdJ7usnVHBjDWGc845+hDICZksQ97KmtQI
-         WiUeXY9Erfe4pYaC4bvjx7xkNqdHZ426OiPSMQVW9oGv/ypw7JBZduv1Ho7NdtF2Gk4A
-         owdCZGiqrxgff5nRvV3VhGJMVU99bbq8fGGfoOYBKRQtPd0Ds14Y+w8cOmyM9npKwObp
-         sfEA==
-X-Forwarded-Encrypted: i=1; AKwUvBwG9RaxXiiBjuFovjp7TOLBjmMy3CMVcpiBJvTJbQYhQMifegFd8fmSkF8em0y1HLUn/h/hkIM=@vger.kernel.org
-X-Gm-Message-State: AFuF++n0wfBk614rCV8x+L1X68M7JidzN1oVmYIKJ/69KhxO1iglDMmK
-	SI/r3Qp6smYcZawOGxdZwVv8TXxAIE33pz3XMifZSUvSNinEHpbtRDNo
-X-Gm-Gg: AYBFou1gN1J8B8bHA0y+sCWgOMBTKNn2VsCvHyIDS81BGUWmgjL76Uu2mn4zsgNizke
-	/xGIC8bbyQPLp1u8UAMyZd3DcU/68MQYWEfCAurg9TrMT2nIMa+er3+d6QBcVsthnCzkB7v5qv4
-	3U3xB6kymZuiCsXlHYoN+PucvPDJStqlznkLIgnVW96iQTfOMRfgnyGH+tNtf6R3YsHoRH3uCvM
-	QGii1lsAFTUckyWr4J83V4epOEbrCfl4hX2lvcQRkEBYpMm+kWGGZqApyVfaIkTEeb2AB2mStlE
-	h7scB8pBvjVVzo7xC2XR2PCPw+bqDJ5djfunR2Du3zO86iuY10aXYKJvx6oKwHfgQQps0RqV3Sw
-	l9/g1/8xIGsWqkpXw7B8NIZV/1x/yYOoXbFPWmZK+2gEbtenQHNSKLEsE64xwx2wQCSD6vJxGmF
-	pe5kE31z9FpkwU0sDzr/VlzRFLyEH5Pqpz6Rsl/BzrTsvrmh/D+tlA0w==
-X-Received: by 2002:a17:90b:314c:b0:398:9bd3:d6d6 with SMTP id 98e67ed59e1d1-39dfe1901e4mr2977305a91.16.1789459513101;
-        Tue, 15 Sep 2026 01:05:13 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39dfddc2759sm3727034a91.17.2026.09.15.01.05.07
+        bh=8y3BbK3AOzFDW1qQRhNYfeabqJLNEeHv6A39ZBXCEoc=;
+        b=U6BNs8aOa8XX4f/rxl/+SPHf1vqRVAWlWDe4CUwKbkIbp5OmirEoVsgDY8OWYRNAXJ
+         u/2sBdP56ZvXTa0oQGh1i9RRbvK0pfJ8xGspkZBTqhp5HDfBwjiAGBQGXVcg8j752fxz
+         Pg76JdtKu81dN/5H2QH32M6KSHtfaNQ7hFahQsOJhRQeb+Gicejhl1SR35jzsJQTRdLv
+         qHJjOg0V69TZ/c1d38MKFvadwd6eAWmVOuNBG42VhHsW+GQ4XheaVRnVHaj07AUFKvQy
+         vc/IN58njK8oi0j05vZ+bAD3jF0TzHX/tHuwbWV0fstVe8auvJcEU4P4kRhW5m+td3xc
+         +p5A==
+X-Forwarded-Encrypted: i=1; AKwUvBw1OQMkeR6PMuMQEHHTnAcMmr75xkpQplzoL86hwrGPbCk/RAxZHhwpgmaFFbKKLqMorVjcrtw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mSXYAO/E6sDdHqCAp1Ia8ddzdZ6odbgYWEfo15P815o97LXuvI
+	6m5qxxL7DExBdIaY/6We68qMPnMmIuEM+dCv0KZwfr5r0QwN0Q3l5qZn
+X-Gm-Gg: AYBFou0g82sqRWfHm1bO+Qw/swaaizkgrZxjxOZFfAGbdznGXfLueHH7VRUSXzNfbmD
+	jqtw9lPCNZa30y3WKegUSp1Ds1DHcdaiq2OIpJZedSwqhj2Si2lYb8VtNHqedN5X8DUziaOhYo1
+	WqL7tswzwlW/bZJMpaP2tGAXS2YmV7OKy8qmZH1JGBwM1doTLjyay4Od3M0nksKW7WlW3qVndme
+	nATE9KxPtOy40VdmzpuCxFEbs3cNRq3CNDo+2Zi3uFAOP37ZNA/Xl371nFcqLle+Uw4S5Fd93NG
+	gJ7YbtcHaNGjDTVIhO/YGYDn9WnwP4tkZWNcWTaqRoo9gR2I3ILuz2y5Metb3ZWWf9P0S4FWR7n
+	sCf6+Ka9cXMCPgz9g5jQugHzQbG2hDQFLdYwF0lvSEow9wfzcC89EAIJMJyt2DIGooRPZa1PvvK
+	HKFgETZnLQOj0z3pqOeVWiGzx1191sJpxrzVnEvDeDdNBCBPFF9DGfUsXyJMRRuyxVGT5lkpM1s
+	wnK3ko=
+X-Received: by 2002:a05:6820:198b:b0:6c2:10e7:e044 with SMTP id 006d021491bc7-6c54214b2c9mr3748286eaf.64.1789459543377;
+        Tue, 15 Sep 2026 01:05:43 -0700 (PDT)
+Received: from user.. ([2405:201:c052:b00b:2d66:72bd:41df:2efc])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33be92873b7sm3615552eec.21.2026.09.15.01.05.38
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 01:05:12 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Sakari Ailus <sakari.ailus@linux.intel.com>,
-	Sebastian Reichel <sre@kernel.org>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Jacopo Mondi <jacopo.mondi@ideasonboard.com>,
-	Hans Verkuil <hverkuil@kernel.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+        Tue, 15 Sep 2026 01:05:42 -0700 (PDT)
+From: pavankumaryalagada@gmail.com
+To: gregkh@linuxfoundation.org
+Cc: michael.christie@oracle.com,
+	nab@linux-iscsi.org,
+	mkp@kernel.org,
+	leitao@debian.org,
+	skhan@linuxfoundation.org,
+	linux-usb@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>,
+	syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com,
 	stable@vger.kernel.org
-Subject: [PATCH] media: i2c: gc0308: drop runtime PM reference after probe
-Date: Tue, 15 Sep 2026 16:05:01 +0800
-Message-ID: <20260915080501.2164892-1-lgs201920130244@gmail.com>
+Subject: [PATCH v2] usb: gadget: f_tcm: avoid NULL dereference in usbg_make_tpg()
+Date: Tue, 15 Sep 2026 13:35:23 +0530
+Message-ID: <20260915080523.15979-1-pavankumaryalagada@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -78,43 +81,52 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-gc0308_probe() powers the sensor manually and takes a runtime PM
-reference with pm_runtime_get_noresume() before enabling runtime PM and
-autosuspend.
+From: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 
-The probe error path correctly drops this reference with
-pm_runtime_put_noidle(), but the successful probe path never releases
-it. As a result, the runtime PM usage count remains non-zero for the
-entire lifetime of the bound driver, preventing the sensor from
-runtime-suspending when idle.
+usbg_make_tpg() can race with creation of USB gadget function
+instance. tcm_alloc_inst() adds the function instance to
+tpg_instances before configfs links the item to its parent group.
 
-Drop the initial runtime PM reference with
-pm_runtime_put_autosuspend() after the V4L2 subdevice has been
-successfully registered. This allows the usage count to reach zero and
-the sensor to enter runtime suspend after the configured autosuspend
-delay.
+As a result, usbg_make_tpg() can find the instance while its
+ci_group is still NULL. Passing this item to
+configfs_depend_item_unlocked() then causes a NULL pointer
+dereference.
 
-This issue was found by manual code inspection.
+Verify that ci_group is set before calling configfs_depend_item_unlocked()
+and fail TPG creation if the item has not been linked yet.
 
-Fixes: 3ae52083b533 ("media: i2c: gc0308: new driver")
+keep this validation in f_tcm instead of changing the configfs API to
+accept unlinked items.
+
+Reported-by: syzbot+a9efa71b884a23e74153@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=a9efa71b884a23e74153
+Fixes: 4bb8548df632 ("usb: gadget: f_tcm: add configfs support")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Yalagada Pavan Kumar <pavankumaryalagada@gmail.com>
 ---
- drivers/media/i2c/gc0308.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+ - Move the NULL check from configfs to f_tcm.
+ - Restore configfs_depend_item_unlocked() to its original behaviour
 
-diff --git a/drivers/media/i2c/gc0308.c b/drivers/media/i2c/gc0308.c
-index 15900d5414cf..266f737f9c5d 100644
---- a/drivers/media/i2c/gc0308.c
-+++ b/drivers/media/i2c/gc0308.c
-@@ -1385,6 +1385,7 @@ static int gc0308_probe(struct i2c_client *client)
- 		dev_err_probe(dev, ret, "failed to register v4l subdev\n");
- 		goto fail_rpm;
- 	}
-+	pm_runtime_put_autosuspend(dev);
- 
- 	return 0;
- 
+v1: https://lore.kernel.org/all/20260914094426.25595-1-pavankumaryalagada@gmail.com/T/
+---
+ drivers/usb/gadget/function/f_tcm.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/usb/gadget/function/f_tcm.c b/drivers/usb/gadget/function/f_tcm.c
+index 9e6d4f39900a..2c2cf1164edf 100644
+--- a/drivers/usb/gadget/function/f_tcm.c
++++ b/drivers/usb/gadget/function/f_tcm.c
+@@ -1682,6 +1682,9 @@ static struct se_portal_group *usbg_make_tpg(struct se_wwn *wwn,
+ 		if (!try_module_get(opts->dependent))
+ 			goto unlock_inst;
+ 	} else {
++		if (!READ_ONCE(opts->func_inst.group.cg_item.ci_group))
++			goto unlock_inst;
++
+ 		/*
+ 		 * configfs_depend_item_unlocked() may acquire the configfs
+ 		 * root inode lock when the target belongs to a different
 -- 
 2.43.0
 
