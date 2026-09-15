@@ -1,263 +1,106 @@
-Received: from mail-vs2-f12.google.com (mail-vs2-f12.google.com [74.125.227.12])
+Received: from mail-vs2-f43.google.com (mail-vs2-f43.google.com [74.125.227.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A827C4028C4
-	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:29:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.12
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789493389; cv=pass; b=F2NKRNQHj6CXkaiCtUnX64p1ZCfdPW6UrK0sgT2KhfZ/2lV1KosmnmJ1pAkJMPEWKhXCCOqmDHjAnPJMPRv1uhe6mEPw3RENUsfRs7R1gB0W4aujIJFpMrZALnCyn1P68NHXGxLSAvT10Y9dvXjb9PPdo3BI4m29L+/9bb/eSzM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789493389; c=relaxed/simple;
-	bh=sVq64p+ed8U5wY6zQYm0z4iQZCflWAgAFn5l6JcNE44=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=QLIUtO2HDvL3FTQiNYv5r/igwh09/Qd26UI2oHbqa5yiD3GL9p6T0vOpdYMCs3B57Jrlg2lypBLvFO0JHP2VClXGoLGkObTqHgoxe6yTXbHn6czQQMtpjbH0ZsDBuWObh5V6ff0hnDnrXdUvh4eD4F9kVPpQiBZb3jysgYLEe3I=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=p3XBysA3; arc=pass smtp.client-ip=74.125.227.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4E5B94B5CC9
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:30:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789493417; cv=none; b=XKCLWD5iYdM1bImrbifVhrq2uxBU8GIv6iKi1YWd/LFGeV0OLBmiB/6MHhQi3cvI2/li7wNqHcUwDjqX65XJIx3S2Rolm14Hd2rmSuDdnYe/JhQDwLelR5K5Y4xy3uwE9F7mOim/NQhvmLjZEM2TS21uPh5uWS6kb6Uny6ro2DI=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789493417; c=relaxed/simple;
+	bh=VwBUcuZPFg1BLZxP9DxF8spw7i/So+6y5IlyEFSLMuc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Zk/ycY6eAvdXGQd7yZc3ezHNoX9r5UpSIJWSOklpV1BOWEX+1cprzDRuLxTDtnpKqcH6q4uu9Xg2LeL5kxillz17hERa6mo+jjXkMUw300iGamWjK+MTg1o+HysQFFyv7/XteBa7rdounakRkYqgNyiRL6wcBt8QAnTB3k6igis=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q7Wn94Bz; arc=none smtp.client-ip=74.125.227.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="p3XBysA3"
-Received: by mail-vs2-f12.google.com with SMTP id ada2fe7eead31-781d5f20ed2so172687137.3
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:29:47 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789493386; cv=none;
-        d=google.com; s=arc-20260327;
-        b=RS0YMjEL1AQOr5lMUsvPHIoWNzHZ+Ptk6pXvG+B83PCEDLqtKIDPayqNPDmggXCGOD
-         wwlTS3KMKcJUmIatsIPyXU1OvrHRYxnDBKSg6Xciknj0Iqrdf6ZRJNwIKsKoLMPDXGMp
-         3FJ8mRVbOpVfim2tE8g4/UsshbHForQ9v5DFaaB9E2x84QZYgW9f/P4l8tQKAL+Z3jDV
-         U00pW9aDyfZ5A9LtGwXcAvV+FozxSYMsKsjkZAwOoMgINOXq0ilqo4UzSNNKyFKF2NYU
-         9Dogv+65tiUBWaNsf24noKnkqx7vvkMGH3ZNZU2jp/8CgTW2KFWhKtFzvgOiFMFQRvcu
-         0ODg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
-        fh=eqsoh3+7YRyLLfElrs9w50plIQ2HKiXA6SkK3pdzgDo=;
-        b=X/rE8738Y3D68vNp0DeMWOj4VwOvdlN43K2wU/1u/0SeH4n8d2a+8bJQs4Ye8uSWLR
-         pFe7BhkUxJMdtUj+fdYnWoFgNVC01JRhxBx/9RYoX+syOCTA6lliaQwgaEkgsk/sHCBp
-         X5bzlMP9bW72WVnzWx82YOsOEWEBhzwxXuCi7UUvJ7IvGRapXV48CnUSkaC3j9y0s6Lr
-         MtgtFDTkK3TML3LDKMUkv7X3sb8iro9NYdf6kEr+Rtbo7iYFBw7mN/601nsN3/pqX4rC
-         PmCQeng4LV5MiAeOrcBq2pdA3WAYvhR7Mq26hzUEA0tnScsQh/MYBvwxJd1ggXboHapO
-         2ZqA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q7Wn94Bz"
+Received: by mail-vs2-f43.google.com with SMTP id 71dfb90a1353d-5c83be8db39so2697912e0c.3
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 10:30:16 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789493386; x=1790098186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+        d=gmail.com; s=20251104; t=1789493415; x=1790098215; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
-        b=p3XBysA3fS+dSv/BGI3UNhRtHdDSr9atOw3vZUdEXf2C4ZEr/n1iG9/Oiky0CH44CN
-         e7SiWsJ/YqcuWmBx2gcRhS2bvi14v6NeFrby52hazyi0yJ/H04eK1cJm8DT7fE0+Ac1/
-         MZ8VqKJmJBfWei2xrJvpxhC/Pc2BFk2hSiQe0vUT3M5Dc3IbBxoyBnKa54GKhXmNUSNd
-         HJNLq49dfuzaFM3DXZUb5ky4VlrJJvIrEsyWpeGebZWLfOGbOqmzewXsy+SEA3L3eIS5
-         rbGW1g4gJHMoiBipkfzyTart0kcRSXMGUG1xIrQAZgn0tQIPCSLtRqwa4tGXiDA5O6U1
-         bH/Q==
+        bh=VwBUcuZPFg1BLZxP9DxF8spw7i/So+6y5IlyEFSLMuc=;
+        b=Q7Wn94Bzkc0cPJ3WhAjY6HMdYj55Ak99kYmdFGRsQ/RnUKkkAUhbWXHtaybCdDWVe9
+         I19BbxSTX7foWh5AoY9YQVQ4nwoGn35AoabaS5ctUSbsnvDfk/nkbwplYCvqG0rSM+pq
+         EQ/84oF8P4tQIf47narpkWTTB6yE1MaGsoVOLLgxG7rBNgieObAE39WOnbqtGIVCXOyn
+         yq5D4xp2hcnD8jm3G/rfg9gqvj0DT2Sl/zQlTq8ejzQZmHyvS5zxm5sdgT1xyYTXrXWm
+         xNGmj/zJ+S7+MRpSwsOn3N1fp+/pvRpHQOl8+hCWarQng7vZ5sEmEmHCgBgU0C/Eun3q
+         z0qA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789493386; x=1790098186;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789493415; x=1790098215;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=PRIZ0SbJpIKYCW1C7yb08vaQ3wYoz2PXRv2Ia1mtPl0=;
-        b=PbPN8jxEMG4aH5dmIqQZ3idghIWSwO2628jky175mhbpt8DJKq1XPQi6qrGqaiEb3d
-         jIkHjEjrpoowUvsVDJ97E9u3FYtTWs8BBki3Z/twqImHBCWT9r1XMXHFoqQUnmiS4XdL
-         MOYtzZ0+4yVDtrB742Z9jxeACxLRaWscbOUgGQiKxhi/RPc4ZdOIO0P2yajkB+IyarDz
-         xM2hLzHccOCHZsxshku/HC1JJtalBSn8Y4XJDE7kZHpFfMwyQGcOB6uGz9+5eWvYk0Eh
-         OPq+mARkKornYhHgN6b+eVAdHX3QT/1elPaYA9MdqLa+ytt1SGtJXkHh7W4EB2D5CgtD
-         BOAA==
-X-Forwarded-Encrypted: i=1; AKwUvBxSA+xgUqzrI23h8HV9KzqivrXic7L4Ao2BUUXrYXtamusd5OgfjYYIqXnNe/Wr8KLjRZ9D8QU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kLbTMdNYeNDd7TMeeQSTGF41zeXrPBLTwGv/4fBZ6hJTqRPB0L
-	yE3jztWipxe563WbHVqwjO9NqVhHY4m+OoEfyBZSupqE0xUNgkp1Fujinn9S+jGHTnNt2odQHrD
-	O+3CHujyJiMriuHLGsLiXNIDqd7ky7DbxrA==
-X-Gm-Gg: AYBFou2FER920YblpGO0F67O1zB0wg+r+x0APo4DCzAqeInfzHWN4IBmQBZ1dtILXQB
-	C55Riyvyz632EMYwHF4mvej3yE6mo5eKNfNLeQYZpvuE9QCiPvKah940kvo+J1wKHG3oOSZJRPJ
-	p0K5D0pS1Te96A+uQqLbK1pFIiamMgxVVd5AFDSulntZHCiV6PjL3CimcpMxFKaPl3cwSoHUk3E
-	e9HOj7CPCHgUQCZPQgDXu2xy0elsGnCQ9sCVCprsE5eHS2DhzQ+3ShmTW5GIj3Gfqaslm6wUJXA
-	G9iUNPym02URzchWtJs4/FOwLYaFXa3fcN50YEypZFNuKHNQyCIyWEttqWEbfiiUtXPL3Qx6yUp
-	DMLDA1wSe0PvkSD3qLk9D8c6MjTGH93t/Iy6hEF43Q5AdO0WRsitn0w==
-X-Received: by 2002:a05:6102:54a9:b0:797:bbf2:197 with SMTP id
- ada2fe7eead31-79b58c77125mr3303718137.1.1789493386428; Tue, 15 Sep 2026
- 10:29:46 -0700 (PDT)
+        bh=VwBUcuZPFg1BLZxP9DxF8spw7i/So+6y5IlyEFSLMuc=;
+        b=yRDj617Ev1D1a9aN0m7UEEfCeSJYaCLy88qzW5wftvfCCGrv5g6LcceKOxNU9Iu3OB
+         aA82cRWNtfDGGooqtruuCFrK991NYr9Q/16UxtZ/tbhLVKleIhL6pINUN7wsyzFj4O+I
+         4qq9SZ/561sgxA7bkWG4XCXRAe4WqG2qrOYHHwiREp5u3XOgF+BwzkwbcxIV7VHBiFgp
+         Avbh00L48Zzt7xC854X2G+inzpkVtblBs7t8oZXh2rW0tlV2Brzk3ccdUrwPT3xIhbzP
+         Y48n1pZYO/W8tvA1k5mZrrfOMEBCXSLsshIYrh/HIYwo3NCnlNYfe8p4iaAmgFaiuEJa
+         16CA==
+X-Forwarded-Encrypted: i=1; AKwUvBwh3GvxyPqBlEJDwLjMRhf1BWqPY0iN5jF4b975zqcExfrB9PDuKvcGRMQuFQ51XeGkaNwGXU8=@vger.kernel.org
+X-Gm-Message-State: AFuF++nDinTjnH3x2ZP150MGd3b+QF9dzbOyc+1iNvZPPp9TX8RrpZfl
+	kvvBilVLc6hpYPTKWAaudJvulZpIW/8/mdPEcc8CYTMPZxH915jxW9fJ
+X-Gm-Gg: AYBFou13C4iYdkc81aIyF37UtQu1mjZ6uguF5BIDGM9RI0T/xHbUYvSUBCO4/HkTugt
+	8q3HEICDffiAI0S4t1D5w08UA/tdF8k8UdCb5SkXEblS1aplfwGhbCAVud4I0M6/Cyvohc2vo9t
+	eJilnyZX68mu/CRDRyW2GuhSGHwr0JwnwI23ii7gZ62JNlhr/fYqLc9keWbEhUrX0YGwLDo3kve
+	dinJYV7tUvCgFLNqDE3T6ighn193S5biCpaDnc4XFHH3zqRhi2vOku3rWQG0hXdO633PVNoztPs
+	dzrq+vqmNYiH0x/hhpPms6q0Yt3g1HIytwjnpBqztz66eZf54/+YfAIpR0IXnmnc9L9Chn/wimu
+	9aFcwO45bRVu23HNOWn/tHLz/ABRILWnpKFgSmWH39imvX+ug77Qrtj/Ybuwf8Vj/ZAnjbHUIMd
+	tf1bZBUTh0K6AXzjFvZ0VjdmpPOS/0nH180Gk80pSYx6ZHhOhrnZvN78ZZHBXYKi2r
+X-Received: by 2002:a05:6122:894:b0:5c7:ebed:1018 with SMTP id 71dfb90a1353d-5c981d87e33mr5580194e0c.8.1789493415229;
+        Tue, 15 Sep 2026 10:30:15 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id 71dfb90a1353d-5c9989fa82esm153202e0c.4.2026.09.15.10.30.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 10:30:14 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Luigi Leonardi <leonardi@redhat.com>,
+	Stefano Garzarella <sgarzare@redhat.com>
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	virtualization@lists.linux.dev,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: Re: [PATCH v2] vsock: ignore empty child namespace mode writes
+Date: Tue, 15 Sep 2026 14:29:33 -0300
+Message-ID: <20260915172952.3174810-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915141547.3010692-1-qwe.aldo@gmail.com>
+References: <20260915141547.3010692-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915160932.2118978-1-mario.limonciello@amd.com>
-In-Reply-To: <20260915160932.2118978-1-mario.limonciello@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Tue, 15 Sep 2026 13:29:33 -0400
-X-Gm-Features: AcwNN1WggCnKhZSO4Q2ivnkdYn-qdPXO1O6WPVPWUs8MPC-asbPgH8ecQ9WrDuE
-Message-ID: <CADnq5_PJ6vrxctfaPVUu8DomnhvY0rUWv7YfqPEb0dLsVu3STg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: Fix GPU PCIe link capability reporting
-To: Mario Limonciello <mario.limonciello@amd.com>
-Cc: amd-gfx@lists.freedesktop.org, =?UTF-8?B?TWFyZWsgT2zFocOhaw==?= <maraeo@gmail.com>, 
-	Lijo Lazar <lijo.lazar@amd.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 12:09=E2=80=AFPM Mario Limonciello
-<mario.limonciello@amd.com> wrote:
->
-> Commit eb53125a7ad9 ("drm/amd: Add dedicated helper for
-> amdgpu_device_find_parent()") made amdgpu_device_gpu_bandwidth() query
-> the first device outside the dGPU. That is the host side of the
-> physical link, not the GPU side.
->
-> As a result, the ASIC and platform capability masks can both be based
-> on the host port. drm_amdgpu_info_device then exposes the host
-> capabilities to userspace, such as Gen5 x16 for a Gen4 x8 GPU.
->
-> Cache both ends of the physical link during device initialization.
-> Use link_dev for the GPU capability and link_partner for the platform
-> capability and _PR3 detection.
->
-> Reported-by: "Marek Ol=C5=A1=C3=A1k" <maraeo@gmail.com>
-> Closes: https://lore.kernel.org/amd-gfx/CAAxE2A4VhsAzzO1QjBjUg+NgnbD04ZzM=
-yN6xsUJxjKJHH6hxiw@mail.gmail.com/
-> Suggested-by: Lijo Lazar <lijo.lazar@amd.com>
-> Fixes: eb53125a7ad9 ("drm/amd: Add dedicated helper for amdgpu_device_fin=
-d_parent()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+Hi Luigi, Stefano,
 
-Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
+Thanks for taking a look.
 
-> ---
->  drivers/gpu/drm/amd/amdgpu/amdgpu.h        |  3 ++
->  drivers/gpu/drm/amd/amdgpu/amdgpu_device.c | 48 ++++++++--------------
->  2 files changed, 20 insertions(+), 31 deletions(-)
->
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu.h b/drivers/gpu/drm/amd/am=
-dgpu/amdgpu.h
-> index 79b69d74eb2e5..3bad7b8f621cc 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu.h
-> @@ -626,6 +626,9 @@ enum amdgpu_enforce_isolation_mode {
->  struct amdgpu_device {
->         struct device                   *dev;
->         struct pci_dev                  *pdev;
-> +       /* The two ends of the physical PCIe link outside the device. */
-> +       struct pci_dev                  *link_dev;
-> +       struct pci_dev                  *link_partner;
->         struct drm_device               ddev;
->
->  #ifdef CONFIG_DRM_AMD_ACP
-> diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c b/drivers/gpu/drm=
-/amd/amdgpu/amdgpu_device.c
-> index 44091ac12fa9c..0d277516fd55e 100644
-> --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_device.c
-> @@ -1959,18 +1959,17 @@ static void amdgpu_uid_fini(struct amdgpu_device =
-*adev)
->         adev->uid_info =3D NULL;
->  }
->
-> -static struct pci_dev *amdgpu_device_find_parent(struct amdgpu_device *a=
-dev)
-> +static void amdgpu_device_init_pcie_links(struct amdgpu_device *adev)
->  {
-> -       struct pci_dev *parent =3D adev->pdev;
-> +       adev->link_dev =3D adev->pdev;
-> +       adev->link_partner =3D pci_upstream_bridge(adev->link_dev);
->
-> -       /* skip upstream/downstream switches internal to dGPU */
-> -       while ((parent =3D pci_upstream_bridge(parent))) {
-> -               if (parent->vendor =3D=3D PCI_VENDOR_ID_ATI)
-> -                       continue;
-> -               break;
-> +       /* Skip upstream/downstream switches internal to the dGPU. */
-> +       while (adev->link_partner &&
-> +              adev->link_partner->vendor =3D=3D PCI_VENDOR_ID_ATI) {
-> +               adev->link_dev =3D adev->link_partner;
-> +               adev->link_partner =3D pci_upstream_bridge(adev->link_dev=
-);
->         }
-> -
-> -       return parent;
->  }
->
->  /**
-> @@ -1986,7 +1985,6 @@ static struct pci_dev *amdgpu_device_find_parent(st=
-ruct amdgpu_device *adev)
->  static int amdgpu_device_ip_early_init(struct amdgpu_device *adev)
->  {
->         struct amdgpu_ip_block *ip_block;
-> -       struct pci_dev *parent;
->         bool total, skip_bios, early_full_gpu_access =3D false;
->         uint32_t bios_flags;
->         int i, r;
-> @@ -2082,10 +2080,9 @@ static int amdgpu_device_ip_early_init(struct amdg=
-pu_device *adev)
->             !dev_is_removable(&adev->pdev->dev))
->                 adev->flags |=3D AMD_IS_PX;
->
-> -       if (!(adev->flags & AMD_IS_APU)) {
-> -               parent =3D amdgpu_device_find_parent(adev);
-> -               adev->has_pr3 =3D parent ? pci_pr3_present(parent) : fals=
-e;
-> -       }
-> +       if (!(adev->flags & AMD_IS_APU))
-> +               adev->has_pr3 =3D adev->link_partner &&
-> +                       pci_pr3_present(adev->link_partner);
->
->         adev->pm.pp_feature =3D amdgpu_pp_feature_mask;
->         if (amdgpu_sriov_vf(adev) || sched_policy =3D=3D KFD_SCHED_POLICY=
-_NO_HWS)
-> @@ -3783,6 +3780,7 @@ int amdgpu_device_init(struct amdgpu_device *adev,
->
->         adev->shutdown =3D false;
->         adev->flags =3D flags;
-> +       amdgpu_device_init_pcie_links(adev);
->
->         if (amdgpu_force_asic_type >=3D 0 && amdgpu_force_asic_type < CHI=
-P_LAST)
->                 adev->asic_type =3D amdgpu_force_asic_type;
-> @@ -5880,11 +5878,9 @@ static void amdgpu_device_partner_bandwidth(struct=
- amdgpu_device *adev,
->         *width =3D PCIE_LNK_WIDTH_UNKNOWN;
->
->         if (amdgpu_device_pcie_dynamic_switching_supported(adev)) {
-> -               struct pci_dev *parent =3D amdgpu_device_find_parent(adev=
-);
-> -
-> -               if (parent) {
-> -                       *speed =3D pcie_get_speed_cap(parent);
-> -                       *width =3D pcie_get_width_cap(parent);
-> +               if (adev->link_partner) {
-> +                       *speed =3D pcie_get_speed_cap(adev->link_partner)=
-;
-> +                       *width =3D pcie_get_width_cap(adev->link_partner)=
-;
->                 }
->         } else {
->                 /* use the current speeds rather than max if switching is=
- not supported */
-> @@ -5906,21 +5902,11 @@ static void amdgpu_device_gpu_bandwidth(struct am=
-dgpu_device *adev,
->                                         enum pci_bus_speed *speed,
->                                         enum pcie_link_width *width)
->  {
-> -       struct pci_dev *parent =3D adev->pdev;
-> -
->         if (!speed || !width)
->                 return;
->
-> -       /* use the device itself */
-> -       *speed =3D pcie_get_speed_cap(adev->pdev);
-> -       *width =3D pcie_get_width_cap(adev->pdev);
-> -
-> -       /* use the link outside the device */
-> -       parent =3D amdgpu_device_find_parent(adev);
-> -       if (parent) {
-> -               *speed =3D pcie_get_speed_cap(parent);
-> -               *width =3D pcie_get_width_cap(parent);
-> -       }
-> +       *speed =3D pcie_get_speed_cap(adev->link_dev);
-> +       *width =3D pcie_get_width_cap(adev->link_dev);
->  }
->
->  /**
-> --
-> 2.43.0
->
+Luigi — nothing fancy, I was just reading sysctl handlers and
+noticed that __vsock_net_mode_string() bails early on a zero-length
+write without touching new_mode. Since the child mode can only be
+set once, an empty write that sneaks through locks it with whatever
+was on the stack. CONFIG_INIT_STACK_ALL_ZERO hides the whole thing,
+which is probably why nobody hit it in practice.
+
+Stefano — yeah, makes more sense to bail before calling the helper
+at all. Fixed in v3, and I added the CCs I missed.
+
+Cheers,
+Aldo
