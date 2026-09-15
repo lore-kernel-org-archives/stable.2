@@ -1,31 +1,33 @@
 Received: from cstnet.cn (smtp21.cstnet.cn [159.226.251.21])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A31753D525F;
-	Tue, 15 Sep 2026 05:44:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82E96440643;
+	Tue, 15 Sep 2026 05:48:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.21
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789451058; cv=none; b=PKB/w149FIgPBJOIvxcB6VJ1ZY7dhHxlSKM0lP5lSbdct29yyVEM8VoIORnv1woIg44+44uVAPojn6mI5o74Jdaxuog61gf+LGjEQVlGwWjVxU6fQfZYGLwqrQ+npr2cUcqyB9nux3R2BIPnlP3WhgwtLfV4rvhYjpbIBHZnv6I=
+	t=1789451322; cv=none; b=VOkqkHfwfjusN6pWXDfOuXauDLALrZt4AbpsdUfnTOgPHnL33aEGfxiQ5KPDaMDJ8XmzSv3x3hn6QOWhHpgY0kBpsaPLnoiwJty/aI2Fa+c6RAKUz5YFUvSznxFk7pQc2G0hSP/5p5hp2tGMc7awZSD/DKe69HMPkE5F889NFbo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789451058; c=relaxed/simple;
-	bh=JxEGlL2Fe4sOoBlicNb9mbOHCZrVz3d/Ivv2x7t83n4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BON3uiYRdKGcJVMWghXNl2wD2otDgNCBhmffolMkl3FvnkqRjSydQLhocRxzo9y25hhgX1XmwEvaq5aytwtFTDOcc9RxSjRdTNOoxVEo1HdAuZ0P+PvQunC0SyZtSSP4zNp+IKVXpYd0oaJxD3RVHVu0d+Ug/kqWzQXoRFkyEk4=
+	s=arc-20240116; t=1789451322; c=relaxed/simple;
+	bh=LqKs0E+W+LDdReQ983V0fIzIIuGbvF2+nbEBAL6rBhE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eV3tRDxLBPDJpi3jEAcKzKpd/SX50gvFnompKElvR2iTq/oy+d50LmXL5iMSHHRzHF6NufUsnXj275oaVQTSCyg4pO9eZKLQZd4MsiZH+d1hcS+9xJKJcqClvTLqaYUjc0zVNsu4QOUk8THp1NhKdHNtslGUo/qu7EPZWmfezc4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.21
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-01 (Coremail) with SMTP id qwCowACneu4u26hq_QgKCA--.60433S2;
-	Tue, 15 Sep 2026 13:44:14 +0800 (CST)
+	by APP-01 (Coremail) with SMTP id qwCowADnu+8x3Khq2iAKCA--.40502S2;
+	Tue, 15 Sep 2026 13:48:33 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: daniel.lezcano@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	robert.jarzmik@free.fr,
+Cc: lee@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	patrice.chotard@foss.st.com,
 	tglx@kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] clocksource/drivers/timer-pxa: Fix clock reference leak
-Date: Tue, 15 Sep 2026 05:43:45 +0000
-Message-Id: <20260915054345.1729471-1-vulab@iscas.ac.cn>
+Subject: [PATCH] clocksource/drivers/st_lpc: Fix clock reference leaks
+Date: Tue, 15 Sep 2026 05:48:04 +0000
+Message-Id: <20260915054804.1729741-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -34,67 +36,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:qwCowACneu4u26hq_QgKCA--.60433S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrW3ur1kZFWfXw48ZrWxXrb_yoW8Wr18pr
-	Z5CayYyr13Wr4Igw48tF4DJF9Ikw1xCFy7G3yFkF929rs3CryUAFW2vFyjvF4YkFs7uw43
-	tr4Fy3WkuFyUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:qwCowADnu+8x3Khq2iAKCA--.40502S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr4rKrW3uw45tw18CFWkCrg_yoW8JF4kpr
+	1kKw4rAr1Uu3yIgrs0qrWvyr9Y9ayqkFy3G3y3K3ZrZr45GFW5uayfXayIvF4DArWxCw47
+	t3W5AFZ5ZF1DuFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUkE14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
-	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r106r15McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbmhF3
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgALA2qowR1bvgAAs1
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUmeH
+	gUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAILA2qowzNWfwABsc
 
-pxa_timer_dt_init() obtains the timer clock with of_clk_get() but never
-releases the consumer reference: the clk_prepare_enable() failure path,
-the irq_of_parse_and_map() failure path and the success path all return
-without clk_put(), leaking the reference on each init attempt.
+st_clksrc_setup_clk() obtains the LPC clock with of_clk_get() but
+leaks the consumer reference on two error paths: the
+clk_prepare_enable() failure path returns without any release, and the
+clk_get_rate() == 0 path only does clk_disable_unprepare() without
+clk_put().
 
-Call clk_put() on all three paths. The clock is left prepared and
-enabled, so the timer behaviour is unchanged.
+Add the missing clk_put() calls, mirroring the release already done in
+st_clksrc_of_register() error handling.
 
-Fixes: ab5354c48d58 ("clocksource: pxa: Add device-tree support for PXA timer")
+Fixes: 70bef01c0f1c ("clocksource: sti: Provide support for the ST LPC Clocksource IP")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/clocksource/timer-pxa.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ drivers/clocksource/clksrc_st_lpc.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/clocksource/timer-pxa.c b/drivers/clocksource/timer-pxa.c
-index 7ad0e5adb2ff..8bb473b75b48 100644
---- a/drivers/clocksource/timer-pxa.c
-+++ b/drivers/clocksource/timer-pxa.c
-@@ -195,6 +195,7 @@ static int __init pxa_timer_dt_init(struct device_node *np)
- 	ret = clk_prepare_enable(clk);
- 	if (ret) {
- 		pr_crit("Failed to prepare clock\n");
-+		clk_put(clk);
- 		return ret;
- 	}
+diff --git a/drivers/clocksource/clksrc_st_lpc.c b/drivers/clocksource/clksrc_st_lpc.c
+index 419a886876e4..574b966eeb34 100644
+--- a/drivers/clocksource/clksrc_st_lpc.c
++++ b/drivers/clocksource/clksrc_st_lpc.c
+@@ -74,12 +74,14 @@ static int __init st_clksrc_setup_clk(struct device_node *np)
  
-@@ -202,10 +203,14 @@ static int __init pxa_timer_dt_init(struct device_node *np)
- 	irq = irq_of_parse_and_map(np, 0);
- 	if (irq <= 0) {
- 		pr_crit("%pOFn: unable to parse OS-timer0 irq\n", np);
+ 	if (clk_prepare_enable(clk)) {
+ 		pr_err("clksrc-st-lpc: Failed to enable LPC clock\n");
 +		clk_put(clk);
  		return -EINVAL;
  	}
  
--	return pxa_timer_common_init(irq, clk_get_rate(clk));
-+	ret = pxa_timer_common_init(irq, clk_get_rate(clk));
-+	clk_put(clk);
-+
-+	return ret;
- }
- TIMER_OF_DECLARE(pxa_timer, "marvell,pxa-timer", pxa_timer_dt_init);
+ 	if (!clk_get_rate(clk)) {
+ 		pr_err("clksrc-st-lpc: Failed to get LPC clock rate\n");
+ 		clk_disable_unprepare(clk);
++		clk_put(clk);
+ 		return -EINVAL;
+ 	}
  
 -- 
 2.34.1
