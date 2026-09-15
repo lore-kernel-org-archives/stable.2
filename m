@@ -1,112 +1,163 @@
-Received: from mail-106117.protonmail.ch (mail-106117.protonmail.ch [79.135.106.117])
+Received: from smtp-relay-internal-0.canonical.com (smtp-relay-internal-0.canonical.com [185.125.188.122])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD22D3CAA3C;
-	Tue, 15 Sep 2026 12:25:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.117
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ECD723CAA3C
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:25:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.122
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789475112; cv=none; b=YuAy50BCPs+/E+XJS5R+lwoxhBBnl8lI6uom/ny2Kt/O3QfgDC2oGHJPbTcTJx8aU/tmATOzk4l4Qw1zESUq116WzOYqBb6dU1paTyVjaYqAXz8D9bfat9PXUgM3Bwq2wbauoF7h1q54aixyXkxlWj6dZnM17AwpaSdFDMm5NdU=
+	t=1789475150; cv=none; b=CVjJYVP+jbeRDcjTFnnmMhTpexMCa2rSli+Hephs2gF6FG4yV9QteDyyJ4kTFfxEMf5lh7mIiAvJSi/I4FBL82sy2ctBLIY6gGPxHapK7d0oOmLYLyn3oJpVs4Rvaa/rqj6c6udLTaMvHRqORQ0Ip186zV7uMsZE9SnB2oJ7iiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789475112; c=relaxed/simple;
-	bh=dQwY+fJdZSq7f2R1G4MVjrIF2+KddO9Z6wzUzNnLF84=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=u40iF9GLR6RUcDVjjeio1vmllT0krhq8tXpM0TMbFftIyg1xSKLVWnVyvYzUXGT5/62srQmbeVX2AB6uSatyzDDYOL0AJFNivQ8fBChBqijbRB1FQI+k5jyC+lYkISrGZhwwmh9fGFBxxkblSCz+A/3meSdmOVZWyxAyvFdU/ZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=danielfernau.com; spf=pass smtp.mailfrom=danielfernau.com; dkim=pass (2048-bit key) header.d=danielfernau.com header.i=@danielfernau.com header.b=FG9g4kVf; arc=none smtp.client-ip=79.135.106.117
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=danielfernau.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=danielfernau.com
+	s=arc-20240116; t=1789475150; c=relaxed/simple;
+	bh=TSGU6OJ0h4fUfeq573U3yF+hws662Cowi5xUNxY/Plc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=QaJ+Lvxmn/Ddbsd1Ego7xBuoYrfYgAaATxoQOU7iS7JHavPOKMhffqzqiDqCejkUaF0PtLucH2OvPajdCxNjv0QY+AfylmiWOQIvhi2vP9AwaQUd9OLTQHfB1wcR1YCx9FmFfYW9j/mpEkjgB+RRDOIDE2KhHLX74PHFv0NGMKU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=Yp8lsIWW; arc=none smtp.client-ip=185.125.188.122
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=danielfernau.com header.i=@danielfernau.com header.b="FG9g4kVf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=danielfernau.com;
-	s=protonmail; t=1789475106; x=1789734306;
-	bh=92rny1zNwUdZet6IQ9calXezSfCPdzK7V6o7gfAiUqM=;
-	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
-	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
-	 Message-ID:BIMI-Selector;
-	b=FG9g4kVfcjG/b9RtK29o2Gfd/KqWicum2xw1xYQLhEt6Q6SP+AmcgJDXWI67nuHXw
-	 MXN9CJ2gJ0IrBgLlBJE9r/eGgozkJwlRPoh72W/5e/JwwxMQk3A/Kr7/WzzBJx5P4Z
-	 qSHzsBKg6kJD8+Ud4CnTYHrWsU+UxovMwQI7ecNC9DrXNZLaoiIHRCHRzsM/Xq0ELC
-	 vTm4cwK1fzp/f1b0alqv+8XFq6gUkcwDc3MnufJDTgXZV4MKbSFHSpx11Q9MG0kyWG
-	 gwy/7siRdIcSMsM6G8AhFM1287BF6DPH8ygbMbUBUziU0ljTxA33zf/ZFNoJ+zbL1A
-	 pxrsegApParMQ==
-Date: Tue, 15 Sep 2026 12:24:58 +0000
-To: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-From: Daniel Fernau <mail@danielfernau.com>
-Cc: Kashyap Desai <kashyap.desai@broadcom.com>, Sumit Saxena <sumit.saxena@broadcom.com>, Shivasharan S <shivasharan.srikanteshwara@broadcom.com>, Chandrakanth patil <chandrakanth.patil@broadcom.com>, megaraidlinux.pdl@broadcom.com, Thomas Lamprecht <t.lamprecht@proxmox.com>, "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, linux-scsi@vger.kernel.org, linux-kernel@vger.kernel.org, Damien Le Moal <dlemoal@kernel.org>, Jens Axboe <axboe@kernel.dk>, Keith Busch <kbusch@kernel.org>, Ranjan Kumar <ranjan.kumar@broadcom.com>, Thorsten Leemhuis <regressions@leemhuis.info>, regressions@lists.linux.dev, Lukasz Magiera <me@magik.net>, Mira Limbeck <m.limbeck@proxmox.com>, Mats Topstad <Mats.topstad@intility.no>, stable@vger.kernel.org
-Subject: Re: [PATCH] scsi: megaraid_sas: Limit NVMe request size to the PRP chain frame
-Message-ID: <k5_uJWSlVpSwhVugTUyBfaq9oFVqFfpeuk_765JDKLtq_vKNO8mXI6TznKe4bX9WisARpHFxQYZ6i7W8YBT02KYaHL5d3LKSfyfCkNAh1jc=@danielfernau.com>
-In-Reply-To: <178840472610.670675.12272571379596581093.b4-ty@b4>
-References: <20260827175743.734593-1-t.lamprecht@proxmox.com> <178840472610.670675.12272571379596581093.b4-ty@b4>
-Feedback-ID: 131378921:user:proton
-X-Pm-Message-ID: cedc9534f7bd132ab88023fdca5b51ac4853a55e
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="Yp8lsIWW"
+Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-0.canonical.com (Postfix) with ESMTPS id 295343F442
+	for <stable@vger.kernel.org>; Tue, 15 Sep 2026 12:25:45 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1789475145;
+	bh=OWz2Oh+f3I45WPvVMwnriAaMSjFo7OhzWowmJMieGyI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:In-Reply-To;
+	b=Yp8lsIWWV5r/jk8wC5l3ns4glaXn1V7ailoRvVoygRt5YgPYNFMFzi1fpyZcM4pcN
+	 OGWv1N3u8SETrNTKbwJIspLVWZAHhl5wOURtL79VGOvgN5INb0Bf9pu1vAumfjTqIg
+	 M6cwPFZ94UQhFSwjtK537WPgnFD1PIWFWcN4vY5DitDtVo+QP7jHmbX3jzjjn7bTMf
+	 2wcA0zY0tPlc9PJoS6t0RLv1LoXiZGuIwvESeE3cKiWv0GgnjEIeRXUAKB/ONGjZ2N
+	 jc8umcnc+qR4AfcWx2jDOoObiTuaexsRaYkI5CWTm8RvWGABgs8nKsSeTSFwy8jt7e
+	 SzjGQqPUHi7skt0owxiwb+Dwhz8dP6iui7LtOZx5D8JWEHiOVMpKJySKUCP8evgm5+
+	 Cv8/JW718vjFgwjaNqhZiMCmMH5SbKBD29yeaP3DOVhoaImKzX7BP/2JnkD4Qxob9z
+	 +2yLzzy44Kd+8IWqvdhHyERWte+zRmFn9XBGa+o0gPQUvjKqoKATaNW5ZhysSgoRsd
+	 yQbLC+wGBmfbqvknGsdFj9LK+Ipui1hGXUeynHfrRi0ypiUTmkEglLw9HKYn6DBPtB
+	 R9QsZScim/GiadeJLHk0szOBb8C7UoWADs3doNqZwWnURwrYvHX67eSwua/jASUCKq
+	 hIyJaf35uyti1xTIyYPbV7K0=
+Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8688139460bso4304099b3a.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 05:25:45 -0700 (PDT)
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789475143; x=1790079943;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=OWz2Oh+f3I45WPvVMwnriAaMSjFo7OhzWowmJMieGyI=;
+        b=C6dKlrR1Mi3Bn0+U3vKOZxr3Rdi/U8Sgu1KNqfM+hE3uSR2OKmn1/UL87OR/p9D8u1
+         8YIPTKvbA8P7COshI0Y+Ir3aPwSp4yByxiBAtv9V2QNdxKJAJQ3ta9Rcx74Skq9vyp88
+         59DaxKPe0tvUsyW6dZlvkSLcwHtzCOBRRaMaMtKmOLK9e4L9o9UBlMazNDfFTByunco9
+         syW4Vh29siUasMdHa7/9K18z37GMTjUbRm2m5RzkEJvJNyuojKVHUriPuMQ748cABrpX
+         QKdJHZ3tqfZ4Iq8n0qJXe2K29UeUmGlaK5k29m5ITUEU+bTjieYcTm/+/M2Ax/PQ11ac
+         lp+g==
+X-Forwarded-Encrypted: i=1; AKwUvByJmwQKXLnhmIfyC8M/vNZh9t8wQMNMgrnc3zSgdDOyf8TjoopvraGwFe8iHnHC5wVSin3pYxk=@vger.kernel.org
+X-Gm-Message-State: AFuF++naAle4WfPluBH3I6yiZm9ktaA7f59hZBKaAsdjBVxwDrHI6PvD
+	AUHSz+7kDpEeZbPgrFwtr7StOwLjjcAPxwb/K+SksVK1QwWmgH7CkDZITnulBPCcAG39HNcvFKQ
+	9rluEqj5xHdLWHrDAKby2m2ZHsoOC9SzLzwGwI3NqcMdeMABYjD4/Xi31xPY25KqlUyKCYELTYQ
+	==
+X-Gm-Gg: AYBFou3OL/TRb1Kkp6urtVlJujXjB32cQhMu8/YLVkBHbZJAOaL/SKTg+yE0SimFDFN
+	TZyDB97QndzIFUsHfCqPpVRQ09fkHMskG/s6YJEFWdz7jn9v179j25Eck8g80g0BHZMTpAPuwrF
+	KJ90IezVlUa9ErBfJnXTN0Msirg4e3bZjCJA35KLHwJaXySCynrgzmKAihM1RxtI/r25PFCkBW8
+	HK1rKbhIzIsLr5Wg4fPu4hb9xFj+WVCqIZypN3+5skAJgRGhD5Mme3LLxDOnLpMBZH+kwFm7GxM
+	oJdgB+TuiYXIifTZIrwpwHReQv6jc7yAnSEwJhS1ll+aa/LiaK/vURgmZB9K8HUKAWkZ/65qxml
+	nDcRdD0zJcLjO2tpc89jwCwPFliUaxjSWY+9pxY6DsS8rcZeYEJwP
+X-Received: by 2002:a05:6a00:4c9c:b0:85f:b00b:8760 with SMTP id d2e1a72fcca58-86f82a5efbamr14761135b3a.5.1789475143128;
+        Tue, 15 Sep 2026 05:25:43 -0700 (PDT)
+X-Received: by 2002:a05:6a00:4c9c:b0:85f:b00b:8760 with SMTP id d2e1a72fcca58-86f82a5efbamr14761047b3a.5.1789475142601;
+        Tue, 15 Sep 2026 05:25:42 -0700 (PDT)
+Received: from acelan-Precision-5480 (220-135-95-34.hinet-ip.hinet.net. [220.135.95.34])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-86b28fc129csm6022017b3a.25.2026.09.15.05.25.40
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 05:25:42 -0700 (PDT)
+Date: Tue, 15 Sep 2026 20:25:37 +0800
+From: "Chia-Lin Kao (AceLan)" <acelan.kao@canonical.com>
+To: Mario Limonciello <mario.limonciello@amd.com>
+Cc: Shyam-sundar.S-k@amd.com, hansg@kernel.org, 
+	ilpo.jarvinen@linux.intel.com, Daniel Gibson <daniel@gibson.sh>, stable@vger.kernel.org, 
+	platform-driver-x86@vger.kernel.org
+Subject: Re: [PATCH] platform/x86/amd: Stop counting intermediate cycles with
+ metrics table
+Message-ID: <aqk464fQ6JqlcCUX@acelan-Precision-5480>
+References: <20260914141734.2703545-1-mario.limonciello@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260914141734.2703545-1-mario.limonciello@amd.com>
 
-Follow-up from our earlier note on pinning 6.8.12-4-pve.
+On Mon, Sep 14, 2026 at 09:17:32AM -0500, Mario Limonciello wrote:
+> The metrics table doesn't increment for all cases that can cause an
+> intermediate wakeup if the cycle is very fast.  This can make the intent
+> from commit 9f5595d5f03fd ("platform/x86/amd: pmc: Require at least 2.5
+> seconds between HW sleep cycles") not work properly.
+>
+> That commit originally was measured to work properly, but it was
+> accidental due to a logic error.  The logic error was fixed in
+> commit 4dbd11796f3a8 ("platform/x86/amd: pmc: Clear metrics table at
+> start of cycle") but this now masked the table doesn't always update.
+>
+> Since that code was introduced, Daniel Gibson added a number of changes
+> to the logic which includes a state variable introduced in
+> commit 037f0b03c663a ("platform/x86/amd/pmc: Don't log during
+> intermediate wakeups").
+>
+> Utilize that state variable to instead decide if a single sequence has
+> started.
+This patch fixes my resume issue with TB4 dock.
+Thanks.
 
-We have now been running the HPE MR416i-o Gen11 cluster on Proxmox
-kernel 7.0.14-15-pve without the previous megasas_make_prp_nvme
-overflow.
+Tested-by: Chia-Lin Kao (AceLan) <acelan.kao@canonical.com>
 
-Hardware / firmware
-- HPE MR416i-o Gen11 (Broadcom PCI 0x1000:0x10e2)
-- HPE FW package 52.32.3-6333 / controller FW 5.320.03-4207
-- megaraid_sas 07.734.00.00-rc1
-- KIOXIA NVMe behind the controller
-
-7.0.14-15-pve includes
-"scsi: megaraid_sas: Limit NVMe request size to the PRP chain frame"
-(pve-kernel 46a6f4f). That is the driver-side max_hw_sectors cap
-Martin suggested and the megaraid equivalent of Damien's
-04631f55afc5 ("scsi: mpt3sas: Limit NVMe request size to 2 MiB"),
-not Lukasz's original bounds check in megasas_make_prp_nvme().
-
-On this hardware the cap is enough. We no longer need the
-max_sectors_kb udev workaround, and we do not see the page-boundary
-ptr_sgl fault (RAX=3D0x200 / 512th PRP slot) under production load.
-
-Thanks,
-Daniel
-=20
-
-
-
-On Thursday, September 3rd, 2026 at 5:10 AM, Martin K. Petersen (Oracle) <m=
-kp@kernel.org> wrote:
-
-> On Thu, 27 Aug 2026 19:24:24 +0200, Thomas Lamprecht wrote:
->=20
-> > megasas_make_prp_nvme() builds a command's PRP list in cmd->sg_frame, a
-> > DMA pool buffer of instance->max_chain_frame_sz bytes, spending one ent=
-ry
-> > per NVMe page of the transfer plus one per page of the buffer for the
-> > chain pointer. The loop runs until the transfer is described and never
-> > checks the buffer bound.
-> >
-> > max_hw_sectors comes straight from the MDTS the firmware reports for th=
-e
-> > drive. On drives with a large MDTS the only thing keeping the list insi=
-de
-> > the buffer was the block layer default of 1280 KiB, which needs 320
-> > entries, which fit into a 4 KiB frame as that holds 512. But since comm=
-it
-> > 9b8b84879d4a ("block: Increase BLK_DEF_MAX_SECTORS_CAP") that default i=
-s
-> > 4 MiB, and such a transfer needs 1025 entries, so the list runs a full
-> > page past the end of the frame:
-> >
-> > [...]
->=20
-> Applied to 7.3/scsi-fixes, thanks!
->=20
-> [1/1] scsi: megaraid_sas: Limit NVMe request size to the PRP chain frame
->       https://git.kernel.org/mkp/scsi/c/af8c27375733
->=20
+>
+> Cc: Daniel Gibson <daniel@gibson.sh>
+> Cc: stable@vger.kernel.org # 7.1.y: 037f0b03c663a platform/x86/amd/pmc: Don't log during intermediate wakeups
+> Cc: stable@vger.kernel.org # 6.18.y: 037f0b03c663a platform/x86/amd/pmc: Don't log during intermediate wakeups
+> Fixes: 4dbd11796f3a8 ("platform/x86/amd: pmc: Clear metrics table at start of cycle")
+> Signed-off-by: Mario Limonciello <mario.limonciello@amd.com>
+> ---
+>  drivers/platform/x86/amd/pmc/pmc.c | 15 +--------------
+>  1 file changed, 1 insertion(+), 14 deletions(-)
+>
+> diff --git a/drivers/platform/x86/amd/pmc/pmc.c b/drivers/platform/x86/amd/pmc/pmc.c
+> index 6792aa2c61874..e384b56d67559 100644
+> --- a/drivers/platform/x86/amd/pmc/pmc.c
+> +++ b/drivers/platform/x86/amd/pmc/pmc.c
+> @@ -701,19 +701,6 @@ static int amd_pmc_verify_czn_rtc(struct amd_pmc_dev *pdev, u32 *arg)
+>  	return rc;
+>  }
+>
+> -static bool amd_pmc_intermediate_wakeup_need_delay(struct amd_pmc_dev *pdev)
+> -{
+> -	/*
+> -	 * Starting a new HW sleep cycle right after waking from one
+> -	 * can cause electrical problems triggering the over voltage protection.
+> -	 * That is avoided by delaying the next suspend a bit, see also
+> -	 * https://lore.kernel.org/all/20250414162446.3853194-1-superm1@kernel.org/
+> -	 */
+> -	struct smu_metrics table;
+> -
+> -	return get_metrics_table(pdev, &table) == 0 && table.s0i3_last_entry_status;
+> -}
+> -
+>  static bool amd_pmc_want_suspend_delay(struct amd_pmc_dev *pdev)
+>  {
+>  	/*
+> @@ -804,7 +791,7 @@ static void amd_pmc_s2idle_check(void)
+>  	struct amd_pmc_dev *pdev = &pmc;
+>  	int rc;
+>
+> -	if (amd_pmc_intermediate_wakeup_need_delay(pdev) ||
+> +	if (!pdev->is_first_check_after_suspend ||
+>  	    amd_pmc_want_suspend_delay(pdev))
+>  		msleep(2500);
+>
 > --
-> Martin K. Petersen
-> 
+> 2.43.0
+>
