@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 271FF4CEE6D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49EAC4D6C36
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573300; cv=none; b=J0YGYyj4Jq7dWnyJQwnJDUiPpQ3u9+bdq6ueerInDUcF/pu35ui3o6JlXXo5K0WkiU/A3HnD/4iE3TWcvzjANuuuqCCHGXiuUuwX58LIKhiFmmf2aI4PgkoKEyy7SHEaz3zpM3ivy8+HCDRic9pFh2Kws2X0/iujDGZFS93MkDg=
+	t=1789573303; cv=none; b=G74oRYzeVG5qTqpxQnqtHE14rirRf1PQdtvtDgRumqOk1FFqUBhqHfMx9xfJA0SOoUjLTyoHKqCznsCvn8NDWJLZjW6eBT3Toow7NuQzxnFeV8Y/TfJMU2KR5Cxn6TCb4ts0rHqYtuIIsHZDeFLKewx+QzbcN2t/Um+8g2xkupM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573300; c=relaxed/simple;
-	bh=VvJLfaFK7+kmnDTsG502PaS3LdKqtbVnAKpNXbc/tZU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=hG1ejHB3zx34aAgBr5FJfRwKHVDNL++InlqFDq3gguvaHRAgHH06i99DKoa5zykusEdKX4dK/dLe7hUpsyS5Skg/tTr3VI61c5MG1Pxsy1+9eoLllF7RnRTjrPCrDnNzNHMEyZg8aY4VNVBktwG+jlWBwkCVwEdmIc885J5a5pk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jjoXbcfy; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573303; c=relaxed/simple;
+	bh=oKgg39L4dXJ4rp8fY+iJbtNC9fYtVz23cX8I3tLS5Ow=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CXByMwEkPUm6WHgX2kyWogwtCfurDzR6bk02JB9yJJcPfn8WmL0vemVLcTqJCYn0avXyEHz45yXCjDESH0nKYwGp0Tsstw3fYJeQZVeoVnD3VYrnqNGS83HR9+0zPMQaTu4MocyKhl0FQwwgyBHeUFAkHZHq5fpGv2NysnYyAB8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LKRCbseQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jjoXbcfy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0040B1F000FF;
-	Wed, 16 Sep 2026 15:41:36 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LKRCbseQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B4A71F00893;
+	Wed, 16 Sep 2026 15:41:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789573297;
-	bh=EMydG2c5UH40lyy+8UU2+uaOTa1fOEt4qaxP1toSYco=;
+	s=korg; t=1789573300;
+	bh=/eSIeG6+hucA1WomfHA2yf4SSd8b95HlIgPvUqJHyd8=;
 	h=Subject:To:Cc:From:Date;
-	b=jjoXbcfy+PLnap/fjVUGM5QHbdtM2vNN2FloSIzMK+EUweVjoSTHzV3W6Gnc7ccXg
-	 oILxqD3a0fTuGX8WeqT/JOJUNP14owyiZCyIJlPGwYQLGss6noZESateN8QpCJy9gG
-	 SdKfpZZdpLK0Xo43NXkkQxihtZCzlHpXsewZWPYk=
-Subject: FAILED: patch "[PATCH] netfilter: nf_log: unregister loggers before per-net teardown" failed to apply to 5.10-stable tree
-To: nicoyip.dev@gmail.com,pablo@netfilter.org
+	b=LKRCbseQ81h/VCetWG6+CAagvA3k/tmFa/gF2vPPUej0Ps/0TjtVcfklDrHmd+XfX
+	 IMWNyn8EZ41MtQXy8g0r8t5ZVeYIAP5dIM6ajkzHXrSnlb/t2dONVE7t//+6T0zR/r
+	 6BJjE26Vs6F//gP6EB07NdG9nPSPYOE+zsXSNvvI=
+Subject: FAILED: patch "[PATCH] ring-buffer: Acquire the lock with irqsave in" failed to apply to 5.15-stable tree
+To: bigeasy@linutronix.de,rostedt@goodmis.org,vdonnefort@google.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:33:09 +0100
-Message-ID: <2026091608-unstaffed-playpen-7696@gregkh>
+Date: Wed, 16 Sep 2026 16:37:40 +0100
+Message-ID: <2026091640-capacity-finalize-8fbc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2c018cc4842c33f0c732962e2ab58635e8ae5823
+git cherry-pick -x 815e07c8fe885a87751c2496a30ae0dcd4118210
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091608-unstaffed-playpen-7696@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091640-capacity-finalize-8fbc@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,86 +62,51 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2c018cc4842c33f0c732962e2ab58635e8ae5823 Mon Sep 17 00:00:00 2001
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
-Date: Mon, 24 Aug 2026 01:05:38 +0800
-Subject: [PATCH] netfilter: nf_log: unregister loggers before per-net teardown
+From 815e07c8fe885a87751c2496a30ae0dcd4118210 Mon Sep 17 00:00:00 2001
+From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Date: Fri, 11 Sep 2026 12:21:52 +0200
+Subject: [PATCH] ring-buffer: Acquire the lock with irqsave in
+ rb_wake_up_waiters()
 
-nf_log_syslog and nfnetlink_log unregister their per-network namespace
-operations before unregistering their global logger backends. This
-leaves a window where a sysctl or netlink writer can rebind the still-
-registered logger after the per-net pre-exit callback cleared the old
-selection.
+rb_wake_up_waiters() is a irq_work callback which is initialized with
+init_irq_work(). As such it will be invoked in thread context on
+PREEMPT_RT. Invoking the callback in IRQ context on PREEMPT_RT is not an
+option due its usage of wake_up_all().  Since this callback may run in
+thread context, it needs to acquire ring_buffer_per_cpu::reader_lock with
+disabling interrupts and may not assume that they are disabled.
 
-The race looks like this:
+Use raw_spinlock_irqsave() to acquire ring_buffer_per_cpu::reader_lock.
 
-  CPU 0                                 CPU 1
-  ----                                  ----
-  unregister_pernet_subsys()
-    nf_log_unset(net, logger)
-      net->nf.nf_loggers[pf] = NULL
-
-                                        lock nf_log_mutex
-                                        find logger in loggers[][]
-                                        net->nf.nf_loggers[pf] = logger
-                                        unlock nf_log_mutex
-
-  nf_log_unregister(logger)
-    lock nf_log_mutex
-    loggers[pf][type] = NULL
-    unlock nf_log_mutex
-    synchronize_rcu()
-  module exit returns
-  module core frees backend memory
-
-Later, a sysctl read or packet logging operation can dereference the
-stale per-net logger pointer.
-
-Fix this by unregistering the global logger backends before tearing down
-per-net state. Once the global registrations are gone, later writers can
-no longer rebind the logger. unregister_pernet_subsys() already waits
-for an RCU grace period after the pre-exit callback clears the per-net
-selection, while nf_log_unregister() continues to cover readers of the
-global logger table.
-
-Apply this ordering fix to both nf_log backends that combine per-net
-teardown with global logger registration.
-
-Fixes: 5b023fc8d8e0 ("netfilter: enable per netns support for nf_loggers")
 Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Link: https://patch.msgid.link/20260911102152.YEtwkBj9@linutronix.de
+Fixes: 68282dd930ea3 ("ring-buffer: Fix resetting of shortest_full")
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/net/netfilter/nf_log_syslog.c b/net/netfilter/nf_log_syslog.c
-index f24288088c0d..c3fd398ffcd7 100644
---- a/net/netfilter/nf_log_syslog.c
-+++ b/net/netfilter/nf_log_syslog.c
-@@ -1073,12 +1073,12 @@ static int __init nf_log_syslog_init(void)
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 0e30c7bd6045..9bc8ce8c5676 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -904,14 +904,13 @@ static void rb_wake_up_waiters(struct irq_work *work)
+ 		struct ring_buffer_per_cpu *cpu_buffer =
+ 			container_of(rbwork, struct ring_buffer_per_cpu, irq_work);
  
- static void __exit nf_log_syslog_exit(void)
- {
--	unregister_pernet_subsys(&nf_log_syslog_net_ops);
- 	nf_log_unregister(&nf_ip_logger);
- 	nf_log_unregister(&nf_arp_logger);
- 	nf_log_unregister(&nf_ip6_logger);
- 	nf_log_unregister(&nf_netdev_logger);
- 	nf_log_unregister(&nf_bridge_logger);
-+	unregister_pernet_subsys(&nf_log_syslog_net_ops);
- }
+-		/* Called from interrupt context */
+-		raw_spin_lock(&cpu_buffer->reader_lock);
+-		rbwork->wakeup_full = false;
+-		rbwork->full_waiters_pending = false;
++		scoped_guard(raw_spinlock_irqsave, &cpu_buffer->reader_lock) {
++			rbwork->wakeup_full = false;
++			rbwork->full_waiters_pending = false;
  
- module_init(nf_log_syslog_init);
-diff --git a/net/netfilter/nfnetlink_log.c b/net/netfilter/nfnetlink_log.c
-index 6c7fa2ed34f5..9d7fec570abe 100644
---- a/net/netfilter/nfnetlink_log.c
-+++ b/net/netfilter/nfnetlink_log.c
-@@ -1233,8 +1233,8 @@ static void __exit nfnetlink_log_fini(void)
- {
- 	nfnetlink_subsys_unregister(&nfulnl_subsys);
- 	netlink_unregister_notifier(&nfulnl_rtnl_notifier);
--	unregister_pernet_subsys(&nfnl_log_net_ops);
- 	nf_log_unregister(&nfulnl_logger);
-+	unregister_pernet_subsys(&nfnl_log_net_ops);
- }
+-		/* Waking up all waiters, they will reset the shortest full */
+-		cpu_buffer->shortest_full = 0;
+-		raw_spin_unlock(&cpu_buffer->reader_lock);
++			/* Waking up all waiters, they will reset the shortest full */
++			cpu_buffer->shortest_full = 0;
++		}
  
- MODULE_DESCRIPTION("netfilter userspace logging");
+ 		wake_up_all(&rbwork->full_waiters);
+ 	}
 
