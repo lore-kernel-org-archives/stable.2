@@ -1,156 +1,162 @@
-Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA374CDA25;
-	Wed, 16 Sep 2026 10:55:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556159; cv=pass; b=lFtIN+40MOFXM8Kvgweynl4B8KsN2nsj3kc2d0O48c04oZYQeeB03GJ3Lb+XdA4fCmmeGDD+0ZtmN7H7cH2GktOH4kMbdUqGgQUZZeN+eUnKAVoAWrPNOUkQC7Vj17mhoryCRPGL7NQar7163eTb9EuvDQpeqwR3/U9U63H8LM8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556159; c=relaxed/simple;
-	bh=h7hwrBNm9KgLCgtXSIfqFteBSYkIeeEyEYqo+xhafss=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E7A44A403;
+	Wed, 16 Sep 2026 11:00:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789556424; cv=none; b=QusT0QhcI0DYbCLqfxTXKq8SAChSTbAfCthUo4jcqFA+rRFz5Di9GZkPsVBOmI/aLy4e0boDRGdJhKZr0LVa5AvWRoy5Te1vcePVVGz8mk9RHLFMqfS7nlpdDP/8PLc1LoZKAGTuhz+x20S7gKVtSQ+IQ7DtARvSPFwQjgahVYo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789556424; c=relaxed/simple;
+	bh=jKMCZsqefUPFu4iT0IUKJlmYzNOQK5RGDlACcK0O1Uc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DWwtoM1qs2nga6CR5dw7qSkfFmbFxccOEk1AFzzWJ1SCYUCMyxBgNHnLRmHcjeXoaXLuwKdzK3M8HxPEAlyYKjlgXT14JQclqdOpOoq06iw7FG3PrSnBmJwKxz+icYKUEc/7VVmmzoK7yWmgRA1zzLpCAEu0MqeWk3zJQQ5Q9w0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=kaM1Hf24; arc=pass smtp.client-ip=165.173.182.11
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=UMCMRD7QDbhhI3GOSgOHagIOWnkD7sYBiUBz42JV5/FkgmhLaAofCdTaCXXpcxVqlyR8QcrFLpVKjStfFpxCKPyKidEws8bBSPf1QNIKBpCzBwWB0ZhaULMETWP5DJMbskQ4sB+U8oPOydGXE6kYEth7r0cT7pXGlZMqA3aJP/8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=deXaoumG; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="kaM1Hf24"
-ARC-Seal: i=1; a=rsa-sha256; t=1789556121; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=jEaBHBWW5yD1J0TV/UbG5j9Ewwl04zZ0anGKtYuxZaxWTDAnAaAn9hIMaKxRayNED76FPKo9p4NTfRBSMdROVlzvQ8TJazYtmd9JoZffPyuH8Ys6Ryl7awiwFy0rutLa6WlEAaob6pyrymdltl3Sf1UC+CoeOu0EpWOGZwCu7OA=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789556121; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=Uva0NgB3KxuwVZLkt485f87mZRbvUkG56Nz1XWwQ3aQ=; 
-	b=ZBAYs5YLuR0GEBF34x5oeX6OxtXp/UjG18mSMlftfgaxj3TTDJ9YyL/Jpba/oammHpNpGGF5XPhCfv8YoZdGWcKbyoSBCrWVAfVAuuN15TjyZdwuNAn16r1DMYQuKU5lFtLBxZHf4xjfiatE58u9aqr0pGegHFXo9ycFJPy04bc=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
-	dmarc=pass header.from=<sebastian.reichel@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789556121;
-	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
-	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
-	bh=Uva0NgB3KxuwVZLkt485f87mZRbvUkG56Nz1XWwQ3aQ=;
-	b=kaM1Hf24gWrC/DYDPNrI1n9Mt7jEguW0zimgpIshelsPRysqaJLfZKM+rwO/tiPl
-	Q06kEQNpxhH8w/ZzLv5vXZ31v0cgwiyrNMTY6XH8pWKqVCuU/fROC9nVNp7ellxtBM0
-	UCW+fqrJkMfkzireW/BhnOYPIWmXGVWmgklpDe34=
-Received: by mx.zohomail.com with SMTPS id 1789556120046516.7994642098594;
-	Wed, 16 Sep 2026 03:55:20 -0700 (PDT)
-Received: by venus (Postfix, from userid 1000)
-	id EBB86180918; Wed, 16 Sep 2026 12:55:15 +0200 (CEST)
-Date: Wed, 16 Sep 2026 12:55:15 +0200
-From: Sebastian Reichel <sebastian.reichel@collabora.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andriy.shevchenko@linux.intel.com, brgl@kernel.org, heiko@sntech.de, 
-	linusw@kernel.org, linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, ye.zhang@rock-chips.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] gpio: rockchip: Fix bank clock leak in
- rockchip_get_bank_data()
-Message-ID: <aqpxJaYqJ5NHG1No@venus>
-References: <20260916102258.2018689-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="deXaoumG"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789556416; x=1821092416;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=jKMCZsqefUPFu4iT0IUKJlmYzNOQK5RGDlACcK0O1Uc=;
+  b=deXaoumGaJWr5Yk12NJiVyddJH3CTSXQpJ/vUB5l+PtGgkZGWyK1xgou
+   /tto8bZ4b3Xf26sTz/Y0en9yZtV653elfBObrDwQqmn3ChYpdyglNtsJ+
+   Oyha5ehQrTgjdS0h7m0rm1NREhUYdn0LHWAuJc4nfGEim/HtCymOkWH6H
+   6k8HtaXBv95kpO7LjtpIkpw5rNwdI7lo8erxdgHr1yBSZr3CG8rU2lraQ
+   zazPwGdooRssMyML9dZ6Kdiq5783Zfj7KSJBv3oylVFwlRMrqqapVYOK1
+   jKL16Ay3v3vVTvx2BfTrwaoPB7+Xd4T735UQttt/QLIZ1F5XVXale+WzB
+   A==;
+X-CSE-ConnectionGUID: ONZYN/WjRUqLQgloBxVVjw==
+X-CSE-MsgGUID: Zq5gIkNESw6DB2kHTteWyg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100595042"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100595042"
+Received: from orviesa005.jf.intel.com ([10.64.159.145])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:09 -0700
+X-CSE-ConnectionGUID: QxgxPO6ORc2kH+0xVscjdg==
+X-CSE-MsgGUID: Rw6uQNYZRCentKvYux1vGw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="277432941"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:06 -0700
+Date: Wed, 16 Sep 2026 14:00:03 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: stm32-adc: fix possible division by zero in
+ processed channel
+Message-ID: <aqp2s5TjgIZS7i-L@ashevche-desk.local>
+References: <20260915-adc-fix-div0-v1-1-7daed9e52f2f@foss.st.com>
+ <aqpGy9oQkDC-xZGW@ashevche-desk.local>
+ <bd47e39c-18e0-46ba-8cdf-9ba35f387793@foss.st.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="pceyosqab754y6el"
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916102258.2018689-1-vulab@iscas.ac.cn>
-X-Zoho-Virus-Status: 1
-X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.544.40
-X-ZohoMailClient: External
+In-Reply-To: <bd47e39c-18e0-46ba-8cdf-9ba35f387793@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
+
+On Wed, Sep 16, 2026 at 12:23:38PM +0200, Fabrice Gasnier wrote:
+> 
+> On 9/16/26 09:35, Andy Shevchenko wrote:
+> > On Tue, Sep 15, 2026 at 06:10:40PM +0200, Fabrice Gasnier wrote:
+> >> In case the conversion has failed or returned zero, processing *val
+> >> can lead to a division by zero.
+> >> Need to check for errors, or converted value is zero, before processing
+> >> the data.
+> >> In case converted value is zero, e.g. the Vrefint channel, this should
+> >> be considered as invalid in all case.
+> > 
+> > Something went very wrong with the indentation of the above.
+> 
+> Hi Andy,
+> 
+> Euh, sorry but I don't understand what's wrong with indentation in the
+> commit message ? Could you clarify ?
+
+Each sentence seems to be a separate paragraph. Paragraphs are delimited
+by a blank lines. But are they (sentences) really so independent?
+
+Compare to:
+
+  In case the conversion has failed or returned zero, processing *val
+  can lead to a division by zero. Need to check for errors, or converted
+  value is zero, before processing the data. In case converted value
+  is zero, e.g. the Vrefint channel, this should be considered as invalid
+  in all cases.
+
+(also I fixed the typo, should be plural for 'cases' at the end).
+
+...
+
+> >> -		if (mask == IIO_CHAN_INFO_PROCESSED)
+> >> -			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
+> >> +		if (mask == IIO_CHAN_INFO_PROCESSED) {
+> >> +			if (ret >= 0 && *val)
+> >> +				*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
+> >> +			else
+> >> +				ret = ret < 0 ? ret : -EINVAL;
+> >> +		}
+> > 
+> > Reuse of the *val makes code harder to follow. Add a temporary variable for
+> > this and do something like this (also note other simplifications)
+> > 
+> > 		tmp_choose_good_name = *val;
+> 
+> In case ret is an error; this lead to evaluate (e.g. read) *val from the
+> (maybe uninitialized) stack. Probably not an issue? But would prefer to
+> keep reading it only when ret >= 0, as done currently with the if
+> condition above ? (e.g. evaluate ret, before *val)
+
+> > 		...
+> > 		if (mask == IIO_CHAN_INFO_PROCESSED) {
+> > 			if (ret < 0)
+> > 				return ret;
+
+Then simply move the assignment here
+
+			tmp_choose_good_name = *val;
+
+> > 			if (tmp == 0)
+> > 				return -EINVAL;
+> 
+> I've started with something similar before, but we can't return directly
+> here. Must call iio_device_release_direct() first. This would add more
+> lines.
+> 
+> So I chose to implement above ternary ret = ret < 0 ? ret : -EINVAL, to
+> fall-through.
+> 
+> Please advise on the preferred way,
+
+As per above.
+
+> > 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / tmp;
+> > 		}
+> > 
+> >>  		iio_device_release_direct(indio_dev);
+> >>  		return ret;
+
+-- 
+With Best Regards,
+Andy Shevchenko
 
 
---pceyosqab754y6el
-Content-Type: text/plain; protected-headers=v1; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
-Subject: Re: [PATCH] gpio: rockchip: Fix bank clock leak in
- rockchip_get_bank_data()
-MIME-Version: 1.0
-
-Hi,
-
-On Wed, Sep 16, 2026 at 10:22:58AM +0000, Wentao Liang wrote:
-> rockchip_get_bank_data() obtains the bank clock with of_clk_get() and
-> enables it before reading the GPIO version ID.  The reference returned
-> by of_clk_get() is never dropped on the error paths that follow:
->=20
-> When the debounce clock is missing, the bank clock is disabled with
-> clk_disable_unprepare() but the reference is never released with
-> clk_put().  When the version ID is unsupported, the function returns
-> -ENODEV leaving the bank clock prepared, enabled and referenced.
->=20
-> Drop the reference with clk_put() on both error paths and disable and
-> unprepare the bank clock on the unsupported version path so that probe
-> failures no longer leak the clock.
->=20
-> Fixes: 41209307cad7 ("gpio: rockchip: change the GPIO version judgment lo=
-gic")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
-
-This got fixed in 3e46c18d5d87 ("gpio: rockchip: convert bank->clk
-to devm_clk_get_enabled()") and 950007767823 ("gpio: rockchip:
-teardown bugs and resource leaks") already. Please make sure to use
-latest kernel trees.
-
-Greetings,
-
--- Sebastian
-
->  drivers/gpio/gpio-rockchip.c | 3 +++
->  1 file changed, 3 insertions(+)
->=20
-> diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
-> index 44d7ebd12724..69a7cd8c9a1a 100644
-> --- a/drivers/gpio/gpio-rockchip.c
-> +++ b/drivers/gpio/gpio-rockchip.c
-> @@ -673,6 +673,7 @@ static int rockchip_get_bank_data(struct rockchip_pin=
-_bank *bank)
->  		if (IS_ERR(bank->db_clk)) {
->  			dev_err(bank->dev, "cannot find debounce clk\n");
->  			clk_disable_unprepare(bank->clk);
-> +			clk_put(bank->clk);
->  			return -EINVAL;
->  		}
->  		break;
-> @@ -682,6 +683,8 @@ static int rockchip_get_bank_data(struct rockchip_pin=
-_bank *bank)
->  		break;
->  	default:
->  		dev_err(bank->dev, "unsupported version ID: 0x%08x\n", id);
-> +		clk_disable_unprepare(bank->clk);
-> +		clk_put(bank->clk);
->  		return -ENODEV;
->  	}
-> =20
-> --=20
-> 2.34.1
->=20
-
---pceyosqab754y6el
-Content-Type: application/pgp-signature; name="signature.asc"
-
------BEGIN PGP SIGNATURE-----
-
-iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqqdZAACgkQ2O7X88g7
-+powAQ//a5Z8xeBh85w663VZhDaGQvR2X2ve7juhsvd1Tnd6nC8HkT0qj226YZIg
-RyT32AJg6xMJwpXYFHljIdJURzWF71WB/qIEn+JPwEeYM2pBrqcFK9ULt7fgeJ1N
-Jas1rkSyeFmHajw+9Hq3uWyLAcPLV7qJKZJcuuTFu4EtxDG9gmZTr1WxXk9x/wRe
-bGEAGtgmCqeXUiizIc1OklUVQ+mG3RxxckCd/KrmFQH1MPfTtAElPWI+kCaB018C
-4myy1GtEisUSYe4Oy9j8FR+d1olFCFVz2gtSWE7I/7U6E5zOAH0oJcY3wrdZ2UnQ
-kOtGhlU2lnyUtAvbhCpSx8P3Kv/9/sfBKKNW2g616VsV5ISco2tQMByEc+2f7yF8
-5iDs3ItxwmjTWuV4FTUPhOkjfm55ObQbK8TinY1GseG2ZZchJKuSnzMbkOKsxi2h
-pt62dmxrSpNR8DVL4o9kibM+ro/rjPTgCbWmTjq5oA2bL5/S28rATmewYcxS53Op
-9k1QWa5p+3++gRENV0RyswrGMB0KLbiGjR8lWbI1nrZGtYC7tSDRYfoMWTATx/YM
-R+Sh5hSDEZJXs8uLA0cFCPjWP7sz0FX0mA5VXY2FUhO1zxSWqAynsPNVrIz7MvIa
-r1Vo0ZPa5snWt7h0JRm7eYw64w4/raHcfk2PZlqu9pLwt8392kg=
-=JxUH
------END PGP SIGNATURE-----
-
---pceyosqab754y6el--
