@@ -1,40 +1,54 @@
-Received: from out28-51.mail.aliyun.com (out28-51.mail.aliyun.com [115.124.28.51])
+Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 560AE44CAE6;
-	Wed, 16 Sep 2026 08:03:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.51
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673E446C4BC;
+	Wed, 16 Sep 2026 08:04:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545806; cv=none; b=LfU5HhvaWkqwkBe3lHk3jQr+/saUFnziKD7cqAYEkIwdYgQ7Fb+A9xDxPP3YyY/fJ3URF8ZeBLJWxCaBW9X7YUPDhRpB6R7dAw226oZ7N/RYXJplpLrN+QsHsDQgCbfFx/vTMsrF98NStm/UuQbMW0Fv4zfdNdbBiFZ45oDkXY0=
+	t=1789545867; cv=none; b=CCA0smYAxUSODosY+r3AUCiIRO30ALrxI4fAFgFE63WtCmQZgz0LvKEuTTyXiG2i4lBiJK15AVBWacC62y8pMR8EcS97rfAkdrPScFi8KUJlpDGbXZ3mbhCZbZTFQM6u9usdR7SIDBfwbyIeSz3qRfjjSkZKvWHunEl6ctMr6zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545806; c=relaxed/simple;
-	bh=HqUvY0ZRxu7yr/271rlZhwEy6ylM0oF7i+iuJuYq4kY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AcHkmU9s49PriHI6Vq52RrcAG5WSbQWMo39VC1j4pLW5DqMlzn5CJfn3ayZx/DwvwRecMdv2+mVPKgzdTcvDbNh0Z1IlB/6mxoK+s4WzE/9BcVtt5w8nbBaYQOWNfgShyeNTM3ejdydQ9ZOs1XKXmkKtqpI/S8AOEwsRma1+4oE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=K93T+V+t; arc=none smtp.client-ip=115.124.28.51
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789545867; c=relaxed/simple;
+	bh=d4d6oleAEESSodKUXQ7H4/1eWU0GujX1j9FiMqddfuQ=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WGW/nwZslhB+t4dZyN2AnHOyU4wSsd+10ILtDqFAVbjHXcY4fHKtI51A5yFT2gcjU1c5KDVNuwNGjdXwA1gA476PNuohMXO4jArTlJSWx+pjTJ3fsg2oUO54pVhdlKtE2PgOONrIH7OLMPHj8g8v065pYrfNjJ+XyfxzIq0TOrg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gb9qahvl; arc=none smtp.client-ip=113.46.200.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="K93T+V+t"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789545789; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=piWT4Fdm8qXDNU3x92GE1Ob7uadSEs7T0wVRUiAk+HM=;
-	b=K93T+V+t4gZFMaLgJ/r/lWtCIRpEQ88ZWvuU6d785hIZnRo/OQV3Lgz6Y7d2WGp6JvebIMREG3dx+u1ZLZI6miVLyxhpIsotSb4MQr65Oj4r/42iSZu/UNY4TWysacCQA43/U4nncbT27HnWKH/7rqMcGEab1zn0P8ZiIQ9+qJk=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04598084|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00790162-0.000227329-0.991871;FP=4936357443640301694|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jErWOVc_1789545787;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jErWOVc_1789545787 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 16:03:08 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: jason.wessel@windriver.com,
-	danielt@kernel.org,
-	dianders@chromium.org
-Cc: kgdb-bugreport@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] kgdb: Fix buffer overflow in the 'M' and 'X' packet handlers
-Date: Wed, 16 Sep 2026 16:03:06 +0800
-Message-ID: <20260916080306.13395-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gb9qahvl"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=Jq/o5YCc64Ell41XdScaZncbRs5gyCGI3NZ9mDBN+X4=;
+	b=gb9qahvlhgpwoOgsN3DCkIlfVDrUdNvcesk0KR7XYQu0a8OPAb6gUwB4sCoUXJh1kcgEDJjNB
+	4NF9XtmNqywiiwzt/pKoIv7vnFexE8FFwL2/sLkCfbhuExnSgiRfWNDr3LJjJBqKR6S/3ZrxyOd
+	VhmRvyQz/k/hJy1FPrG9B2M=
+Received: from mail.maildlp.com (unknown [172.19.163.104])
+	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hlB1q5GSgz1T4LY;
+	Wed, 16 Sep 2026 15:52:31 +0800 (CST)
+Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
+	by mail.maildlp.com (Postfix) with ESMTPS id 22AD74057F;
+	Wed, 16 Sep 2026 16:04:13 +0800 (CST)
+Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
+ kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 16 Sep 2026 16:04:12 +0800
+From: Xie Yuanbin <xieyuanbin1@huawei.com>
+To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
+	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
+	<rostedt@goodmis.org>, <rmk+kernel@armlinux.org.uk>, <linusw@kernel.org>,
+	<kuninori.morimoto.gx@renesas.com>, <arnd@arndb.de>, <xiqi2@huawei.com>,
+	<ljs@kernel.org>, <wozizhi@huaweicloud.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
+	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
+	Xie Yuanbin <xieyuanbin1@huawei.com>
+Subject: [PATCH 5.10.y/5.15.y 2/4] ARM: fix branch predictor hardening
+Date: Wed, 16 Sep 2026 16:00:09 +0800
+Message-ID: <20260916080011.170295-2-xieyuanbin1@huawei.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916080011.170295-1-xieyuanbin1@huawei.com>
+References: <20260916080011.170295-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,102 +56,166 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk300012.china.huawei.com (7.202.194.175)
 
-write_mem_msg() passes the length of an 'M' or 'X' packet straight to
-kgdb_hex2mem() or kgdb_ebin2mem(). Both decode the payload in place at a
-pointer into remcom_in_buffer[BUFMAX], and neither checks that the length
-fits. A client on the KGDB I/O console can claim any length, regardless of
-how much payload it actually sent, so the decode runs off the end of the
-buffer and then copies the decoded bytes to the address the client chose.
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 
-On x86 BUFMAX is 1024, so a write that claims 512 bytes overruns
-remcom_in_buffer during the in-place hex decode:
+From: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-  BUG: KASAN: global-out-of-bounds in kgdb_hex2mem+0x131/0x160
-  Read of size 1 at addr ffffffff87651bb5 by task sh/1
-  ...
-  kgdb_hex2mem+0x131/0x160
-  write_mem_msg+0x308/0x3e0
-  gdb_serial_stub+0xd8b/0x3490
-  ...
-  The buggy address belongs to the variable:
-   remcom_in_buffer+0x415/0x420
+[ Upstream commit fd2dee1c6e2256f726ba33fd3083a7be0efc80d3 ]
 
-Bounds check the length against the space left in the input buffer:
+__do_user_fault() may be called with indeterminent interrupt enable
+state, which means we may be preemptive at this point. This causes
+problems when calling harden_branch_predictor(). For example, when
+called from a data abort, do_alignment_fault()->do_bad_area().
 
-		if (length > (BUFMAX - (ptr - remcom_in_buffer)) / 2)
-			return -EINVAL;
+Move harden_branch_predictor() out of __do_user_fault() and into the
+calling contexts.
 
-gdb_cmd_memwrite() and gdb_cmd_binwrite() already turn a non-zero return
-into an error reply, and a write over the limit never decoded valid data,
-so an error reply loses nothing.
+Moving it into do_kernel_address_page_fault(), we can be sure that
+interrupts will be disabled here.
 
-Fixes: dc7d55270521 ("kgdb: core")
-Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Converting do_translation_fault() to use do_kernel_address_page_fault()
+rather than do_bad_area() means that we keep branch predictor handling
+for translation faults. Interrupts will also be disabled at this call
+site.
+
+do_sect_fault() needs special handling, so detect user mode accesses
+to kernel-addresses, and add an explicit call to branch predictor
+hardening.
+
+Finally, add branch predictor hardening to do_alignment() for the
+faulting case (user mode accessing kernel addresses) before interrupts
+are enabled.
+
+This should cover all cases where harden_branch_predictor() is called,
+ensuring that it is always has interrupts disabled, also ensuring that
+it is called early in each call path.
+
+[ Xie Yuanbin: At the upstream, the following patches are a patch set:
+  1. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
+     is_translation_fault()")
+  2. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to
+     report execution of memory faults")
+  3. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
+  4. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
+  patch 1. and 2. is unneeded for 5.10.y and 5.15.y . This patch backports
+  patch 4. and simply adapts to the context differences. ]
+
+Reviewed-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Tested-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
+ arch/arm/mm/alignment.c |  4 ++++
+ arch/arm/mm/fault.c     | 39 ++++++++++++++++++++++++++-------------
+ 2 files changed, 30 insertions(+), 13 deletions(-)
 
-This is the write-side sibling of the 'm' memread overflow in
-gdb_cmd_memread() (remcom_out_buffer); both handlers trust the same
-unvalidated length field. The read-side fix was posted separately
-(<20260914180344.15485-1-fangxy@xiaopeng.com>).
-
-Reproducer: attach to a kgdboc console and send an 'M' packet whose length
-is above the (BUFMAX - header) / 2 limit but whose payload is short, e.g.
-"M<addr>,200:4142434445464748" on x86. The stub decodes 2 * 512 bytes at
-ptr regardless of the 8 bytes sent, so the in-place hex conversion runs off
-remcom_in_buffer[1024]. Before this change KASAN reports a
-global-out-of-bounds read in kgdb_hex2mem and the guest dies; after it the
-stub answers E22 and the guest resumes.
-
-The 'X' (binary) path through kgdb_ebin2mem() needs the same / 2 divisor,
-not a looser one. It decodes in place at ptr and reads a second input byte
-for every 0x7d escape marker it sees, so a claimed length of N bytes reads
-up to 2 * N bytes at ptr, exactly like the hex path. Giving 'X' a divisor
-of 1 would let an escaped payload run off remcom_in_buffer, which is the
-overflow this patch removes.
-
-Both cases were run on 704340f1cd0d (v7.3-rc4): x86_64 defconfig plus
-CONFIG_KASAN_GENERIC, gcc 13.2.0, QEMU under TCG. The two kernels are built
-from byte-identical .config files and differ only by this patch.
-
-CONFIG_KGDB_KDB has to be off: dbg_kdb_mode starts at 1, so with kdb built
-in a sysrq-g break lands in kdb_stub() and the packet is never parsed.
-
-A minimal over-the-limit length reproduces better than a large one. The
-trailing copy_to_kernel_nofault() copies through raw asm accessors that
-KASAN does not instrument, so a huge length smashes .bss past the buffer
-with no report and the kernel simply stops answering. length = 0x200 keeps
-the in-place decode just past remcom_in_buffer[1024], which gives the
-report above.
-
-TCG note: an unrelated early-boot "wild-memory-access in _raw_spin_lock"
-sometimes fires under TCG + KASAN during identify_cpu and reboots the guest
-before it reaches the break-in. That is not this bug; re-running the boot
-clears it and the packet then lands as described.
-
- kernel/debug/gdbstub.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
-index e271a43..a67ca1a 100644
---- a/kernel/debug/gdbstub.c
-+++ b/kernel/debug/gdbstub.c
-@@ -373,6 +373,12 @@ static int write_mem_msg(int binary)
+diff --git a/arch/arm/mm/alignment.c b/arch/arm/mm/alignment.c
+index bcefe3f51744..758504a28c13 100644
+--- a/arch/arm/mm/alignment.c
++++ b/arch/arm/mm/alignment.c
+@@ -23,6 +23,7 @@
+ #include <asm/cp15.h>
+ #include <asm/system_info.h>
+ #include <asm/unaligned.h>
++#include <asm/system_misc.h>
+ #include <asm/opcodes.h>
  
- 	if (kgdb_hex2long(&ptr, &addr) > 0 && *(ptr++) == ',' &&
- 	    kgdb_hex2long(&ptr, &length) > 0 && *(ptr++) == ':') {
-+		/*
-+		 * The in-place decode touches 2 * length bytes at ptr,
-+		 * inside remcom_in_buffer[BUFMAX].
-+		 */
-+		if (length > (BUFMAX - (ptr - remcom_in_buffer)) / 2)
-+			return -EINVAL;
- 		if (binary)
- 			err = kgdb_ebin2mem(ptr, (char *)addr, length);
- 		else
+ #include "fault.h"
+@@ -809,6 +810,9 @@ do_alignment(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ 	int thumb2_32b = 0;
+ 	int fault;
+ 
++	if (addr >= TASK_SIZE && user_mode(regs))
++		harden_branch_predictor();
++
+ 	if (interrupts_enabled(regs))
+ 		local_irq_enable();
+ 
+diff --git a/arch/arm/mm/fault.c b/arch/arm/mm/fault.c
+index 094137cd29c8..4afb076383a8 100644
+--- a/arch/arm/mm/fault.c
++++ b/arch/arm/mm/fault.c
+@@ -145,9 +145,6 @@ __do_user_fault(unsigned long addr, unsigned int fsr, unsigned int sig,
+ {
+ 	struct task_struct *tsk = current;
+ 
+-	if (addr > TASK_SIZE)
+-		harden_branch_predictor();
+-
+ #ifdef CONFIG_DEBUG_USER
+ 	if (((user_debug & UDBG_SEGV) && (sig == SIGSEGV)) ||
+ 	    ((user_debug & UDBG_BUS)  && (sig == SIGBUS))) {
+@@ -255,8 +252,10 @@ do_kernel_address_page_fault(struct mm_struct *mm, unsigned long addr,
+ 		/*
+ 		 * Fault from user mode for a kernel space address. User mode
+ 		 * should not be faulting in kernel space, which includes the
+-		 * vector/khelper page. Send a SIGSEGV.
++		 * vector/khelper page. Handle the branch predictor hardening
++		 * while interrupts are still disabled, then send a SIGSEGV.
+ 		 */
++		harden_branch_predictor();
+ 		__do_user_fault(addr, fsr, SIGSEGV, SEGV_MAPERR, regs);
+ 	} else {
+ 		/*
+@@ -421,16 +420,20 @@ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+  * We enter here because the first level page table doesn't contain
+  * a valid entry for the address.
+  *
+- * If the address is in kernel space (>= TASK_SIZE), then we are
+- * probably faulting in the vmalloc() area.
++ * If this is a user address (addr < TASK_SIZE), we handle this as a
++ * normal page fault. This leaves the remainder of the function to handle
++ * kernel address translation faults.
+  *
+- * If the init_task's first level page tables contains the relevant
+- * entry, we copy the it to this task.  If not, we send the process
+- * a signal, fixup the exception, or oops the kernel.
++ * Since user mode is not permitted to access kernel addresses, pass these
++ * directly to do_kernel_address_page_fault() to handle.
+  *
+- * NOTE! We MUST NOT take any locks for this case. We may be in an
+- * interrupt or a critical region, and should only copy the information
+- * from the master page table, nothing more.
++ * Otherwise, we're probably faulting in the vmalloc() area, so try to fix
++ * that up. Note that we must not take any locks or enable interrupts in
++ * this case.
++ *
++ * If vmalloc() fixup fails, that means the non-leaf page tables did not
++ * contain an entry for this address, so handle this via
++ * do_kernel_address_page_fault().
+  */
+ #ifdef CONFIG_MMU
+ static int __kprobes
+@@ -496,7 +499,8 @@ do_translation_fault(unsigned long addr, unsigned int fsr,
+ 	return 0;
+ 
+ bad_area:
+-	do_bad_area(addr, fsr, regs);
++	do_kernel_address_page_fault(current->mm, addr, fsr, regs);
++
+ 	return 0;
+ }
+ #else					/* CONFIG_MMU */
+@@ -516,7 +520,16 @@ do_translation_fault(unsigned long addr, unsigned int fsr,
+ static int
+ do_sect_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ {
++	/*
++	 * If this is a kernel address, but from user mode, then userspace
++	 * is trying bad stuff. Invoke the branch predictor handling.
++	 * Interrupts are disabled here.
++	 */
++	if (addr >= TASK_SIZE && user_mode(regs))
++		harden_branch_predictor();
++
+ 	do_bad_area(addr, fsr, regs);
++
+ 	return 0;
+ }
+ #endif /* CONFIG_ARM_LPAE */
 -- 
-2.50.1 (Apple Git-155)
+2.55.0
 
