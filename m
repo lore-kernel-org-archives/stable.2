@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE3F4BF940
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 432F94D7976
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:38:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789587533; cv=none; b=fCA07ipCd7e3aR43a7s7J+wtKXpXV0GLr6GHVN7vleyEnh1/j9NmO3IobBDRMSDI0VoEoxM5yNk9RuxpYD8KbZ7jPInxv2V1QVvtc/IfDlNx5L9zm+gwWHhP4R+SF1N641/sL7L+Yrc8nC5NOvAvMCbtFZfDWhV1Itx9jc2Gbns=
+	t=1789587538; cv=none; b=QkNJBwB3w2ZD1PJdcTlcvuRO2ybLqefl1t+dGu3OspWdoAfuD9XST/f/nZDbZI7nieTZViZTYWjQLkiQLyWg/dw/jGS59r9wqQJ+Hiu2kC8kGOS97JymHFbbmzXz6kkOHXqlWnDD7uLMDFii24LQm3Zuan3PuY9YWvaXTal6V7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789587533; c=relaxed/simple;
-	bh=tLKiDYbEBvKwx1+t2yh9qx3SqyKPnhmimFU3OAqchN8=;
+	s=arc-20240116; t=1789587538; c=relaxed/simple;
+	bh=ilw1SB6la13Ug3youe8i2CB50w62E/CBmKDv+j7CDhA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ob7DLl/CqsPSUCAzrXAGpZ26HElRgMMu1vLZ8FH4FweCYqB4xWfdVyVbf/31hCQOMyDokHXG7sw13GCwBQxEiwInbvVJLMDor69tNQrnAiBEg8kMdk3zs8XzrScwUoaMR0raHQEQzskmPvZoec+j6zBofzw+IMhACiY2H77KG5Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RzcYTizx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eO0B+PWhbMAX438fuVUol6tmkuEEODZCtIFmdeJa5FQrB9nPtBH9/bo/W20ob6a+bTK8JptYEdmBX7ftD8XLpBMHs2HExg5oeqbhEx1nPQFfHvCKileHFiiA2cVcqMRXZiBdr3InJhgOIm9r7UZ50WrWJ1h/XTvr7kx9M8YDWdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aCBDgu0T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RzcYTizx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC8D1F00899;
-	Wed, 16 Sep 2026 19:38:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aCBDgu0T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DB7F51F00898;
+	Wed, 16 Sep 2026 19:38:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789587511;
-	bh=l43Bhd/2Av7eFZ3GmsTFJcRBbL9F2AqTf3hphGp1ihE=;
+	s=k20260515; t=1789587512;
+	bh=wf4ouioXFJVicOtBIVKJjmi5ayrItmQ251SIiyh9b2E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RzcYTizxq24+x6Ejik51ePuHCmOA3ajTRHTGi4DnohRygb0QSKefHgGWvetZXXQou
-	 1QqbZBU9Nre59TETkO5XKVY9EoimAUUR0BIEkOZ9/8gn5J04UC/JWChyefmwVKhuJ7
-	 LyVYjCj0qfQlXspAO6aH45eHm41zuEFgfBNer0qzfmZKBZAG3su1knmrOW3OVakq2m
-	 FZV1hf/0nNot5nK7k57r1g/b3MBITcmxmotMjjanUhRw5YPLjL1BMNWyictR3RTX6i
-	 NhE/d8a43R6gngWnBUsVOR7zwqR5pKSThepLt3rNRahr/DVrQ3nZ3C7uYhFhtwmv5H
-	 Q2DjcWpKIloKA==
+	b=aCBDgu0TgneDIKo9P/ItCCoESCJXAW22jXKzDjJPVivaM0P+jke9MPkb+4O9q22R+
+	 HL+aRbXZbee0ZApDvp+SzbIti1lCF+fDRVF8yCCEgprniDZFIbNXXdx8EaG8KiYV9S
+	 BRGnEQGdkgbgu2VaKgDqO/PbNWiKxRw8D2u2GhQtYEcUphxA+OGtrEdxKmRb4ZV92f
+	 XytUsuX1xDoXshDEcOf/YLHEoyIVmns7jtqznS7MiVjDZg/LVkmcUonWnZFef4lIx1
+	 GxVGKskj1ECUouA2HcOF7/AQQuoMwRZrK306zg1x8yIZwYKlRZFhewwv+lD08PhqpP
+	 HYYUt0IA8IJKA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Dinh Nguyen <dinguyen@kernel.org>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
+Cc: Xu Rao <raoxu@uniontech.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] EDAC/altera: Use parent device for devres in altr_portb_setup()
-Date: Wed, 16 Sep 2026 15:38:28 -0400
-Message-ID: <20260916193828.2327223-2-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
+Date: Wed, 16 Sep 2026 15:38:29 -0400
+Message-ID: <20260916193829.2327507-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916193828.2327223-1-sashal@kernel.org>
-References: <2026091619-brownnose-rake-f034@gregkh>
- <20260916193828.2327223-1-sashal@kernel.org>
+In-Reply-To: <20260916193829.2327507-1-sashal@kernel.org>
+References: <2026091652-sanding-chuck-ede3@gregkh>
+ <20260916193829.2327507-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,77 +48,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Dinh Nguyen <dinguyen@kernel.org>
+From: Xu Rao <raoxu@uniontech.com>
 
-[ Upstream commit 9868f5c077dfe0b606331f2e782484f91a5789a5 ]
+[ Upstream commit f5a427b16e45210dee656b0860728f3d496dee85 ]
 
-Anchor the devres group and the devm-managed IRQ requests in altr_portb_setup()
-to the actual parent device (device->edac->dev) instead of the embedded struct
-device inside the copied per-port altr_edac_device_dev.
+The command and ACL RPMsg endpoints store struct btqcomsmd as their
+callback private data. The receive callbacks dereference btq->hdev
+without taking an hci_dev reference.
 
-This keeps devres_open_group(), devm_request_irq(), devres_remove_group() and
-devres_release_group() all referring to the same long-lived device so the
-group and the resources allocated inside it are torn down together.
+The current teardown order frees the hci_dev before destroying the RPMsg
+endpoints in both the hci_register_dev() error path and the driver remove
+path. If WCNSS delivers data in that window, the endpoint callback can
+run with an already freed hci_dev and pass it to the Bluetooth core.
 
-Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
-Closes: https://sashiko.dev/#/patchset/20260503212558.2811480-1-dbgh9129%40gmail.com
-Assisted-by: LLM
-Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
-Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+For qcom_smd endpoints, rpmsg_destroy_ept() closes the channel and clears
+the callback under the channel recv_lock. The receive path holds the same
+lock while invoking the callback, so destroying the endpoints first both
+prevents new callbacks and serializes with any callback already running.
+
+Destroy the command and ACL endpoints before hci_free_dev(). Keep
+hci_unregister_dev() first during remove so the HCI core stops issuing
+operations before the transport endpoints are shut down. In the full
+registration-error cleanup path, return directly after freeing the hci_dev
+to avoid falling through to the partial-construction labels and destroying
+the endpoints twice.
+
+Fixes: 5052de8deff5 ("soc: qcom: smd: Transition client drivers from smd to rpmsg")
+Fixes: 9a39a927be01 ("Bluetooth: btqcomsmd: Fix a resource leak in error handling paths in the probe function")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260617164303.585555-1-dinguyen@kernel.org
+Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/edac/altera_edac.c | 10 +++++-----
- 1 file changed, 5 insertions(+), 5 deletions(-)
+ drivers/bluetooth/btqcomsmd.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
-index b7325d4a2dbbb..ef99e59c73245 100644
---- a/drivers/edac/altera_edac.c
-+++ b/drivers/edac/altera_edac.c
-@@ -1534,7 +1534,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 	altdev = dci->pvt_info;
- 	*altdev = *device;
- 
--	if (!devres_open_group(&altdev->ddev, altr_portb_setup, GFP_KERNEL))
-+	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
- 		return -ENOMEM;
- 
- 	/* Update PortB specific values */
-@@ -1562,7 +1562,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 		rc = -ENODEV;
- 		goto err_release_group_1;
- 	}
--	rc = devm_request_irq(&altdev->ddev, altdev->sb_irq,
-+	rc = devm_request_irq(device->edac->dev, altdev->sb_irq,
- 			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
- 			      ecc_name, altdev);
- 	if (rc) {
-@@ -1584,7 +1584,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 			rc = -ENODEV;
- 			goto err_release_group_1;
- 		}
--		rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
-+		rc = devm_request_irq(device->edac->dev, altdev->db_irq,
- 				      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
- 				      ecc_name, altdev);
- 		if (rc) {
-@@ -1604,13 +1604,13 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
- 
- 	list_add(&altdev->next, &altdev->edac->a10_ecc_devices);
- 
--	devres_remove_group(&altdev->ddev, altr_portb_setup);
-+	devres_remove_group(device->edac->dev, altr_portb_setup);
- 
+diff --git a/drivers/bluetooth/btqcomsmd.c b/drivers/bluetooth/btqcomsmd.c
+index 88dbb2f3fabf9..4ce8354ebb86b 100644
+--- a/drivers/bluetooth/btqcomsmd.c
++++ b/drivers/bluetooth/btqcomsmd.c
+@@ -188,7 +188,10 @@ static int btqcomsmd_probe(struct platform_device *pdev)
  	return 0;
  
- err_release_group_1:
- 	edac_device_free_ctl_info(dci);
--	devres_release_group(&altdev->ddev, altr_portb_setup);
-+	devres_release_group(device->edac->dev, altr_portb_setup);
- 	edac_printk(KERN_ERR, EDAC_DEVICE,
- 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
- 	return rc;
+ hci_free_dev:
++	rpmsg_destroy_ept(btq->cmd_channel);
++	rpmsg_destroy_ept(btq->acl_channel);
+ 	hci_free_dev(hdev);
++	return ret;
+ destroy_cmd_channel:
+ 	rpmsg_destroy_ept(btq->cmd_channel);
+ destroy_acl_channel:
+@@ -202,10 +205,11 @@ static void btqcomsmd_remove(struct platform_device *pdev)
+ 	struct btqcomsmd *btq = platform_get_drvdata(pdev);
+ 
+ 	hci_unregister_dev(btq->hdev);
+-	hci_free_dev(btq->hdev);
+ 
+ 	rpmsg_destroy_ept(btq->cmd_channel);
+ 	rpmsg_destroy_ept(btq->acl_channel);
++
++	hci_free_dev(btq->hdev);
+ }
+ 
+ static const struct of_device_id btqcomsmd_of_match[] = {
 -- 
 2.53.0
 
