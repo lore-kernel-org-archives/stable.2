@@ -1,37 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498614E50C1;
-	Wed, 16 Sep 2026 18:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DB8B49A3C9
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:03:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585164; cv=none; b=OeVJLK7l8SdqISKkNq8pcX5P/KvyMO8K8jHJCJQCPMpvD84N4hOw5kdvvq8lZSPVUSimFKV79J+FeN8vZIxEUSriLFHSkj30JBrdxiOHtlMlu8x+OQkBVAvQYiRlvqsbmjfMWr7Gnmim2DOlaSPL1IfEnKwWFsVCXoSxbTRTr5U=
+	t=1789585403; cv=none; b=fmbd2aTpPv1z2HY08N6qGMu78Mj3QeIcCPsoPCI1I6kFyVTRL++cjbadRZQzYwd47jy+qz8AqSNlXR8xbM9jKpxCgBr1SCpgfAGtbXPuFbrl16xyZvZp/90uADlpioH4yFU32liJtmotn0jrpfgXwRrohzOKBhjVi+EnTkX27TE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585164; c=relaxed/simple;
-	bh=FQ5/IXI6ngyKjEXmTzOIjn8L5yo3/n8SygYFq+HbAbU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hzXvLnmFiMEjfGB2rTy8KOK4OFa50Q/+2iMBkkn+jHCO0eXX+X+P1r4U5MxWYM4FddCYqhdgqZWi+C/wh9FLxB/CuZYjwJY4VDXUhcS+4wdGmWBeKXeZ/O4jy2gukJk7JAGrKFyADdQa4/3MigzwgAM9SYaAG37Eascpm0elxd4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnVD_Y5qpqnvtvCA--.24836S2;
-	Thu, 17 Sep 2026 02:58:32 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: iommu@lists.linux.dev
-Cc: jgg@ziepe.ca,
-	joro@8bytes.org,
-	linux-kernel@vger.kernel.org,
-	robin.murphy@arm.com,
-	suravee.suthikulpanit@amd.com,
-	vasant.hegde@amd.com,
-	wei.huang2@amd.com,
-	will@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iommu/amd: Fix PCI device reference leak in iommu_call_iopf_notifier()
-Date: Wed, 16 Sep 2026 18:58:04 +0000
-Message-Id: <20260916185804.2093996-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789585403; c=relaxed/simple;
+	bh=JANXJXx5m1Ah1imMF9RWG1v6LgFhWYqsTxU80qax0Fo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Eeg67IKL9ijFAnVxqZxayWcA65HxB7U39ha9x6bkGcRPX1i9ISJL/1K61yeAyTMN9kmZNh7GGIlHNelZNTaw4fcCl3TypuyU6DZARZ7LrEHxLrb0usOCJYfYqX1/OwBH4oGASEj1kqDR0EUwNgag5vI2sc9/dKnU/XI+GH+4v4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lTk+0jPn; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lTk+0jPn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5364F1F000FF;
+	Wed, 16 Sep 2026 19:03:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789585396;
+	bh=fv/Y5bSJCFY6V//fea01af/TvzIZle/P/PjI1GQ9Arg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lTk+0jPns4hXGnijwF1yg/2xJ+OHvANqxnrYOBe/5KSGJdB5PI6oNV9WOFdMTssbp
+	 YvzY1S5qQpkOqnlbFlcVcDues0DdgOPYPJMMP7LgWMBG8moAahe4FsuVQAdIqZx0jH
+	 6ypT3KiSRYsOcVJeWTuJZUg5voJEhiDnB5GHB3UHNO2Ge/SqV8aStwY8I8zVKWgIVu
+	 953TQR9jF+ap9PX1YpBq5tgHiL3KhaWfsRlz+zewd4lZ8QBQlL4dqj7tJgbf4BGEOl
+	 eQkCbHkT2NlnbXvc88+y6kTISlRse2PrufpyZxUNzQQcw0VRCMCf8Jl43w+8RXQZks
+	 bPmCKfDKliKsg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] tracing: Constify struct event_trigger_ops
+Date: Wed, 16 Sep 2026 15:03:10 -0400
+Message-ID: <20260916190313.1928103-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091637-demise-concert-d461@gregkh>
+References: <2026091637-demise-concert-d461@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,58 +46,319 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnVD_Y5qpqnvtvCA--.24836S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XF48JF1fWr4xtr4rKFWxJFb_yoWkurcE9F
-	4rZas7Xw15Ar4qyr4UtFZFvr9Iv3ZruF1kZFZFg3s3G34YvF10vw45XFZ8Jw47W3yUJasr
-	Kwn8WF13X39rujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbakFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
-	IYCTnIWIevJa73UjIFyTuYvjfUFhL0UUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozWPWQAAsV
 
-pci_get_domain_bus_and_slot() returns a PCI device with an elevated
-reference count, but iommu_call_iopf_notifier() never drops it, neither
-when the page request has been reported nor on the abort path.
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-Put the device reference on both exits.
+[ Upstream commit 502d2e71a89fa706843fa9277f4d6de1947072c8 ]
 
-Fixes: 978d626b8f1a ("iommu/amd: Add IO page fault notifier handler")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+'event_trigger_ops mwifiex_if_ops' are not modified in these drivers.
+
+Constifying these structures moves some data to a read-only section, so
+increase overall security, especially when the structure holds some
+function pointers.
+
+On a x86_64, with allmodconfig, as an example:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  31368	   9024	   6200	  46592	   b600	kernel/trace/trace_events_trigger.o
+
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  31752	   8608	   6200	  46560	   b5e0	kernel/trace/trace_events_trigger.o
+
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Link: https://lore.kernel.org/66e8f990e649678e4be37d4d1a19158ca0dea2f4.1741521295.git.christophe.jaillet@wanadoo.fr
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: 0fe23b8eaba0 ("tracing: Take the reference before publishing the named histogram trigger")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iommu/amd/ppr.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/trace/trace.h                |  4 +--
+ kernel/trace/trace_eprobe.c         |  6 ++---
+ kernel/trace/trace_events_hist.c    | 20 +++++++--------
+ kernel/trace/trace_events_trigger.c | 38 ++++++++++++++---------------
+ 4 files changed, 34 insertions(+), 34 deletions(-)
 
-diff --git a/drivers/iommu/amd/ppr.c b/drivers/iommu/amd/ppr.c
-index 1f8d2823bea4..1e4392b17bd8 100644
---- a/drivers/iommu/amd/ppr.c
-+++ b/drivers/iommu/amd/ppr.c
-@@ -151,6 +151,7 @@ static void iommu_call_iopf_notifier(struct amd_iommu *iommu, u64 *raw)
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 176e493f79db8..327c01655585d 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1698,7 +1698,7 @@ struct event_trigger_data {
+ 	unsigned long			count;
+ 	int				ref;
+ 	int				flags;
+-	struct event_trigger_ops	*ops;
++	const struct event_trigger_ops	*ops;
+ 	struct event_command		*cmd_ops;
+ 	struct event_filter __rcu	*filter;
+ 	char				*filter_str;
+@@ -1941,7 +1941,7 @@ struct event_command {
+ 	int			(*set_filter)(char *filter_str,
+ 					      struct event_trigger_data *data,
+ 					      struct trace_event_file *file);
+-	struct event_trigger_ops *(*get_trigger_ops)(char *cmd, char *param);
++	const struct event_trigger_ops *(*get_trigger_ops)(char *cmd, char *param);
+ };
  
- 	/* Submit event */
- 	iommu_report_device_fault(&pdev->dev, &event);
-+	pci_dev_put(pdev);
- 
- 	return;
- 
-@@ -159,6 +160,7 @@ static void iommu_call_iopf_notifier(struct amd_iommu *iommu, u64 *raw)
- 	amd_iommu_complete_ppr(&pdev->dev, PPR_PASID(raw[0]),
- 			       IOMMU_PAGE_RESP_FAILURE,
- 			       PPR_TAG(raw[0]) & 0x1FF);
-+	pci_dev_put(pdev);
+ /**
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index e3dd6551c4689..06436fe0786e8 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -479,7 +479,7 @@ static void eprobe_trigger_func(struct event_trigger_data *data,
+ 	__eprobe_trace_func(edata, rec);
  }
  
- void amd_iommu_poll_ppr_log(struct amd_iommu *iommu)
+-static struct event_trigger_ops eprobe_trigger_ops = {
++static const struct event_trigger_ops eprobe_trigger_ops = {
+ 	.trigger		= eprobe_trigger_func,
+ 	.print			= eprobe_trigger_print,
+ 	.init			= eprobe_trigger_init,
+@@ -508,8 +508,8 @@ static void eprobe_trigger_unreg_func(char *glob,
+ 
+ }
+ 
+-static struct event_trigger_ops *eprobe_trigger_get_ops(char *cmd,
+-							char *param)
++static const struct event_trigger_ops *eprobe_trigger_get_ops(char *cmd,
++							      char *param)
+ {
+ 	return &eprobe_trigger_ops;
+ }
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index f3899430a2fb5..96d7091995793 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6326,7 +6326,7 @@ static void event_hist_trigger_free(struct event_trigger_data *data)
+ 	free_hist_pad();
+ }
+ 
+-static struct event_trigger_ops event_hist_trigger_ops = {
++static const struct event_trigger_ops event_hist_trigger_ops = {
+ 	.trigger		= event_hist_trigger,
+ 	.print			= event_hist_trigger_print,
+ 	.init			= event_hist_trigger_init,
+@@ -6356,15 +6356,15 @@ static void event_hist_trigger_named_free(struct event_trigger_data *data)
+ 	}
+ }
+ 
+-static struct event_trigger_ops event_hist_trigger_named_ops = {
++static const struct event_trigger_ops event_hist_trigger_named_ops = {
+ 	.trigger		= event_hist_trigger,
+ 	.print			= event_hist_trigger_print,
+ 	.init			= event_hist_trigger_named_init,
+ 	.free			= event_hist_trigger_named_free,
+ };
+ 
+-static struct event_trigger_ops *event_hist_get_trigger_ops(char *cmd,
+-							    char *param)
++static const struct event_trigger_ops *event_hist_get_trigger_ops(char *cmd,
++								  char *param)
+ {
+ 	return &event_hist_trigger_ops;
+ }
+@@ -6961,38 +6961,38 @@ hist_enable_count_trigger(struct event_trigger_data *data,
+ 	hist_enable_trigger(data, buffer, rec, event);
+ }
+ 
+-static struct event_trigger_ops hist_enable_trigger_ops = {
++static const struct event_trigger_ops hist_enable_trigger_ops = {
+ 	.trigger		= hist_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops hist_enable_count_trigger_ops = {
++static const struct event_trigger_ops hist_enable_count_trigger_ops = {
+ 	.trigger		= hist_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops hist_disable_trigger_ops = {
++static const struct event_trigger_ops hist_disable_trigger_ops = {
+ 	.trigger		= hist_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops hist_disable_count_trigger_ops = {
++static const struct event_trigger_ops hist_disable_count_trigger_ops = {
+ 	.trigger		= hist_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ hist_enable_get_trigger_ops(char *cmd, char *param)
+ {
+-	struct event_trigger_ops *ops;
++	const struct event_trigger_ops *ops;
+ 	bool enable;
+ 
+ 	enable = (strcmp(cmd, ENABLE_HIST_STR) == 0);
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 1e4e699c25478..d153a10ae50e1 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -849,7 +849,7 @@ struct event_trigger_data *trigger_data_alloc(struct event_command *cmd_ops,
+ 					      void *private_data)
+ {
+ 	struct event_trigger_data *trigger_data;
+-	struct event_trigger_ops *trigger_ops;
++	const struct event_trigger_ops *trigger_ops;
+ 
+ 	trigger_ops = cmd_ops->get_trigger_ops(cmd, param);
+ 
+@@ -1391,38 +1391,38 @@ traceoff_trigger_print(struct seq_file *m, struct event_trigger_data *data)
+ 				   data->filter_str);
+ }
+ 
+-static struct event_trigger_ops traceon_trigger_ops = {
++static const struct event_trigger_ops traceon_trigger_ops = {
+ 	.trigger		= traceon_trigger,
+ 	.print			= traceon_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops traceon_count_trigger_ops = {
++static const struct event_trigger_ops traceon_count_trigger_ops = {
+ 	.trigger		= traceon_count_trigger,
+ 	.print			= traceon_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops traceoff_trigger_ops = {
++static const struct event_trigger_ops traceoff_trigger_ops = {
+ 	.trigger		= traceoff_trigger,
+ 	.print			= traceoff_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops traceoff_count_trigger_ops = {
++static const struct event_trigger_ops traceoff_count_trigger_ops = {
+ 	.trigger		= traceoff_count_trigger,
+ 	.print			= traceoff_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ onoff_get_trigger_ops(char *cmd, char *param)
+ {
+-	struct event_trigger_ops *ops;
++	const struct event_trigger_ops *ops;
+ 
+ 	/* we register both traceon and traceoff to this callback */
+ 	if (strcmp(cmd, "traceon") == 0)
+@@ -1515,21 +1515,21 @@ snapshot_trigger_print(struct seq_file *m, struct event_trigger_data *data)
+ 				   data->filter_str);
+ }
+ 
+-static struct event_trigger_ops snapshot_trigger_ops = {
++static const struct event_trigger_ops snapshot_trigger_ops = {
+ 	.trigger		= snapshot_trigger,
+ 	.print			= snapshot_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops snapshot_count_trigger_ops = {
++static const struct event_trigger_ops snapshot_count_trigger_ops = {
+ 	.trigger		= snapshot_count_trigger,
+ 	.print			= snapshot_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ snapshot_get_trigger_ops(char *cmd, char *param)
+ {
+ 	return param ? &snapshot_count_trigger_ops : &snapshot_trigger_ops;
+@@ -1610,21 +1610,21 @@ stacktrace_trigger_print(struct seq_file *m, struct event_trigger_data *data)
+ 				   data->filter_str);
+ }
+ 
+-static struct event_trigger_ops stacktrace_trigger_ops = {
++static const struct event_trigger_ops stacktrace_trigger_ops = {
+ 	.trigger		= stacktrace_trigger,
+ 	.print			= stacktrace_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops stacktrace_count_trigger_ops = {
++static const struct event_trigger_ops stacktrace_count_trigger_ops = {
+ 	.trigger		= stacktrace_count_trigger,
+ 	.print			= stacktrace_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ stacktrace_get_trigger_ops(char *cmd, char *param)
+ {
+ 	return param ? &stacktrace_count_trigger_ops : &stacktrace_trigger_ops;
+@@ -1735,28 +1735,28 @@ void event_enable_trigger_free(struct event_trigger_data *data)
+ 	}
+ }
+ 
+-static struct event_trigger_ops event_enable_trigger_ops = {
++static const struct event_trigger_ops event_enable_trigger_ops = {
+ 	.trigger		= event_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops event_enable_count_trigger_ops = {
++static const struct event_trigger_ops event_enable_count_trigger_ops = {
+ 	.trigger		= event_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops event_disable_trigger_ops = {
++static const struct event_trigger_ops event_disable_trigger_ops = {
+ 	.trigger		= event_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops event_disable_count_trigger_ops = {
++static const struct event_trigger_ops event_disable_count_trigger_ops = {
+ 	.trigger		= event_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+@@ -1940,10 +1940,10 @@ void event_enable_unregister_trigger(char *glob,
+ 		data->ops->free(data);
+ }
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ event_enable_get_trigger_ops(char *cmd, char *param)
+ {
+-	struct event_trigger_ops *ops;
++	const struct event_trigger_ops *ops;
+ 	bool enable;
+ 
+ #ifdef CONFIG_HIST_TRIGGERS
 -- 
-2.34.1
+2.53.0
 
