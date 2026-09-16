@@ -1,117 +1,147 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E48E49B450
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:37:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 955564AAC44
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573083; cv=none; b=RZ/TSuTaVg5u7BtOsjl05qg4z96pZf6gTj2IuLmngKj2mWKTNB8vNPcFksvuyp2MUSy9cDJ98I7EUK+Vx7xyLKHon0uYXTLrz7sgVdq36f+Ja+nHitqtR1V/qXjPo2m8qH7tdsAygUVL8Dl1wu2FxWFcWUQgyja+0FUYSoaQQSM=
+	t=1789573136; cv=none; b=Q1u2asOIyZxefV1x6vOTC5bs7mkyIpWqY9BGi9D3zKirPk3ow6oGVaEX/3A8arRLAQozenR40hosQbNb92+SklT+zl3iSB07pIZkHh7XbZcipJXdT91W/8t8cV0DOnz3jgzwdkGyjoSpFd5PXaBB6yNa8TCy6MbEOCYv+l0YrL8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573083; c=relaxed/simple;
-	bh=MSZm3L3WgvS/uJlzKYruSiBeiKAhMp7kcFZ+8BvZD9Q=;
+	s=arc-20240116; t=1789573136; c=relaxed/simple;
+	bh=huEs+LEHo8cFHfOkkR7JHzzpk8mAxFJ2h/PPE9NkvtA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NUK2J7HR89yT4DNJGjz1QEqL2dcpiWd/Ft8H1CvurnnbKLYY7/QKhVyPZ+X57b/KE+/OWvNwM9G7/bTWBikdGGSHe1UOe3WNUIqic3m1dAnNsYiGsqoyFA6DYLWXsas9cJjSLPdWbQGgAT+aD75RzAVNpR9JVEFqU726hxa75c0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=lVH7kz77; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=Lw5qlWchvZvlaB/usmu/qAA1mKz0DUikQZ8FVgr9rZGSbmytMuW/5pFrCvdRlB3P4aYNbx67Q635Jkne71O7iTL9PIoU0ee9Cb6zN2tg4AZgTKUpsEygElMIcL9+9JNtuGTWJ5BCPPBy+6xeXJ/79/z+1VeTDxhuOrlOrmi4nPw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=bhJDkRgu; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=cOe2/Vn1; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="lVH7kz77"
-Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb76bcb1fso9950741cf.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:37:54 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="bhJDkRgu";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="cOe2/Vn1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789573124;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=QJCqqA6Q4AOgIHS7UBKFb/3fKqTDi7g5pa0Z96svO8U=;
+	b=bhJDkRgujq0iWc9JPmHM0rD7BoafFpOkDfsW/CHeLT/A99pLbMQp5Nj6kU18QScFiyA3hq
+	PCyUu2zVOQQqC3VsPClc8/rsYy1UOgLK0SQawtWDOxKN6c8SyTY5lmh6Q1Oia8x7Zeq8cf
+	ZDWskb+i1dSydTGijN0hXFlgHkvKNT8=
+Received: from mail-wr1-f70.google.com (mail-wr1-f70.google.com
+ [209.85.221.70]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-628-piOLPy3WMuWMxpOvWWs-fQ-1; Wed, 16 Sep 2026 11:38:42 -0400
+X-MC-Unique: piOLPy3WMuWMxpOvWWs-fQ-1
+X-Mimecast-MFC-AGG-ID: piOLPy3WMuWMxpOvWWs-fQ_1789573121
+Received: by mail-wr1-f70.google.com with SMTP id ffacd0b85a97d-472c330e555so2611749f8f.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:38:42 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789573071; x=1790177871; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1789573121; x=1790177921; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=yrYalls8fAkvyVlQP9FlmP4RxEorGFK72anR8WExHtQ=;
-        b=lVH7kz77hihe5ypICQsHpzMV0gmdhgnMWDxPSnat6p8LoLZoD0peFsMgsC7lrVs4Ik
-         WRGJt9zs7PWX/FzihOoaCp+CxDpROSMhHhfwlxOBLQPdgK/xlJE2Wul9UigMRQV53Rqs
-         nESg6VHg1fq90zHyqiVDsLEKGz6mbyiLJqxbEz4cPGDNP6SeDWjMxRMSmRLshEfuU+dx
-         CBH1LaPUTGjc5vXhlZHM6mP6IKOksDhLzZPg85D7k8JfWI+CHEuZTydHjLuR2hB+V44S
-         ov6llVPikUwNwOjVLHVbuLVcIJdmC2XHOPsIPt7DG/RWF9cQYj+X2Pb8O3x7RGrdvt+p
-         xyYg==
+        bh=QJCqqA6Q4AOgIHS7UBKFb/3fKqTDi7g5pa0Z96svO8U=;
+        b=cOe2/Vn170kHRte8QHpTEwRT0IGE6bNpHwsgcDSTrDNKlxg1DaMWVpOopu8uj/JNY2
+         4q7Lv3421UqsGckKANvR3YbYA+CrzqYL+MC8vvBx8UdFQwrwDAwlpJnYTEq0Shr+0PMn
+         fqtmDzko+Xu+fCdbLWSafAAWBBdx/oYBl23qCChtL72+6NFHUXMSlQxzrwfHl/l2WbVz
+         jJs4vBlUMPN3lEkzmHxFTamcl0dgzXm9hSnabfXsQk/lNPVC0uuoDil59R6y8Iatw6VT
+         sYHYWzQ4fzyQkEIbhK8Tllwe2Q2jzJGNaHsN4OYv8YYYE+IJ75eCtcg7KT2Lhwxz7PnV
+         SDYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789573071; x=1790177871;
+        d=1e100.net; s=20260707; t=1789573121; x=1790177921;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=yrYalls8fAkvyVlQP9FlmP4RxEorGFK72anR8WExHtQ=;
-        b=wigV/tHbJw72wlpDpQjf4VE6EqmGLABVeYZHhTkNy/Ut2V/aIXt5+vvkyxa/7VS3+x
-         b6aKLGIIH+JBh5jkctp7Z3Z4lHpDfc7Sc8KivM62eGubYGPynNeF+FtbsRvSL+JW2UuI
-         EDb8STX+UvoLONmRsNTRiYLr4yfufF82k781A3+t+9eOzwRHDYRsmv0qh2GScDUI7MPg
-         /VsRrBe6NwKWp7kgwyakhGtmrHXZJdZItor0D4hSkTS04L5hfG0ZOPM1Tr5gWGMnZ0/u
-         fbj6Vs7zLTd/IM8xKznIjw1cCmrzS/6mZmrtdUmRuu5LDiv17gvORgePQUfdNO/IVHOE
-         GscA==
-X-Forwarded-Encrypted: i=1; AKwUvBzDr0IOUf/3b+B2Xt75OimohUL53LjmrJB5HZPR2H6XdaRFiW1K3vGXp4zU7l0A8a6wucm5U6w=@vger.kernel.org
-X-Gm-Message-State: AFuF++lHVmas9M95xCC8C6JZfsbaA17Vv9FwK1/TFUqX06Y93SpFSD/y
-	srx5TkD7bHV7vKADN+Ndlbkv5lfZ7DQz0Mh6Z8KBd62pEz5YGTJTUHaTT/ek5oErA68=
-X-Gm-Gg: AYBFou3JA6TYnWqolFSRd3D+9LUKnGhLyz5Y155pPqQJQb+se5qG4qrytqdgtZm/d7U
-	cEQD8Dc2rAQcbel/zlboxwBtrhi1Adg/FSmeAGBAtQGH8S9zvWEk6h3uY6Z7EqOE4YRKGLAwmKU
-	wLSHJbfAyMe/Xb4IZ9bpgs04Pe8egMc/oJGBU5fMEdwRBR5/4PemOsOtih8d0uQEI6G3IFQR+D8
-	7EgP8VSIwp7MmF62c2zd7BDQKGxFyGlmryoMlcVzlxE5x0CKQcu3jxMfAH5PpGUK2/9eOsYs5qV
-	BJNHToiW8Oq3mEutebj5MwAjVXZKLoJN+7o7MWg4tYNPop0XzcK42xDrsjHuX15DbxM9EqT1TVU
-	Ues0shFuednbyrPzZoicxi+rj1w0zNsCtoq9FsSYd6CL59At3seVBAScRF6J40iafi7QpiS7ccc
-	21n/JqmPhR1DLusQW9+Ym7v9cWDryvKCgkknTvnED+r0JeqksxvHI7imqXbIjjwLVMbbegJ5JEE
-	SQoI2EYcf8N5yqqilQLaqnDPv7IUU6D/cAEqmVw7WPggGv2kXoOVE0=
-X-Received: by 2002:ac8:6f0d:0:b0:530:cbf7:6bb7 with SMTP id d75a77b69052e-5327f201bdemr54089991cf.49.1789573071567;
-        Wed, 16 Sep 2026 08:37:51 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53262024a94sm24407431cf.15.2026.09.16.08.37.47
+        bh=QJCqqA6Q4AOgIHS7UBKFb/3fKqTDi7g5pa0Z96svO8U=;
+        b=0Z5Kq2bqGc3JRxnoLAqOMWqSQvoGxAqyutvbio6EcDgO3FkWeluRJqK7d38JiLHjj8
+         CgRh7U+ktuRMKLmuf3xH+YEjfyg4fxvdEBDiah/1R+6nEDB6LmcqPlK2c6nSoew49tY2
+         Cy10+9urarEbQAZS4Xbebqj8Bd8Y+yL6dFn9k9tdchyaQdLZTWmDlOviJ3wiAMhFVxhM
+         TkG/RmPGb8rhGYjMxuXi7JYTIqflAZ4nVDJWoKXDOE1YkJMHJTVqBSEAaugQEkj5QRkW
+         IMuKUblBtQPr8CjVPFVGi4xxybcuG1kZuomoSUzvrAhKmQ7hlzSgqRbkP+k0mMPjZEK6
+         +NFA==
+X-Forwarded-Encrypted: i=1; AKwUvBwG6h+hbYDe44U4V7xm3J3LNGK91Tfv+9E8/JToWOsTx0v7Ma+7BJrLm5SS/swapSVs/pqPW7E=@vger.kernel.org
+X-Gm-Message-State: AFuF++nLNcOG1btDelYo0KXa7eH/MNPMm0vCPI278PCTZ0s3rh48Iz0/
+	Cysy0OtKFyabYEXTPh8VKvuw0ZIaspl5gN4mekHNTRkI3iKekFGTjr+c8cTtPtbe0OfXF37psVm
+	rSLJFT5r1clxa6lzx/fmEiNSMWgVsxAYn8IILqX4J27Zd4jf36D8V4/xMNg==
+X-Gm-Gg: AYBFou28GaXgAcRT/bvmvV77h09SkotL6mwQo3f40qVHxIFoTZJLD3sxDo/sjn0oxCM
+	I2l7VlgXtYbQb69ufJ+wmVayGiX1wL3fU9GObi4LGg9kWnySTkjskon0wUy6sYBDLbUgjbEHWY4
+	tpsjKRe8KtcmttdPFJ5biqhQtj75cXweGhCdbgn7hROXybo08CAMim2qqUUBnlGy2H6voE6/uyX
+	LDxiVJZQC/zaALu6FxzWHBKUQXHLFEd/wbe9boWS3wnIzYXwhOkkt59JPCQP72A8jVEDMEeQric
+	GdKgZ6cZRJ/6X1v6oJwFcdiqe5GBSoCobAec/vMnkLxSwQk4usg6S1szi+q28xHZFFv7giKmkh6
+	joJXKFKX2B8FqTHqAOU81bMAOgc4cJ22RnvXStz9aArk4sA==
+X-Received: by 2002:a05:6000:4711:b0:487:fb0:9ff with SMTP id ffacd0b85a97d-4870fb00af5mr2913411f8f.22.1789573121105;
+        Wed, 16 Sep 2026 08:38:41 -0700 (PDT)
+X-Received: by 2002:a05:6000:4711:b0:487:fb0:9ff with SMTP id ffacd0b85a97d-4870fb00af5mr2913360f8f.22.1789573120615;
+        Wed, 16 Sep 2026 08:38:40 -0700 (PDT)
+Received: from sgarzare-redhat (host-79-53-30-11.retail.telecomitalia.it. [79.53.30.11])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf1fad3sm7165977f8f.12.2026.09.16.08.38.39
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:37:49 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:37:46 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
-	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
-	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aqq23i9824-GWdhg@gourry-fedora-PF4VCD3F>
-References: <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
- <aqqTbGMJL86TzDrf@gremlin>
- <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
- <aqqjW5dpyznijYLh@gremlin>
- <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
- <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
- <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
- <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
- <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
- <4fadcda7-d96a-4cd9-9b0f-5d387b6f82af@kernel.org>
+        Wed, 16 Sep 2026 08:38:40 -0700 (PDT)
+Date: Wed, 16 Sep 2026 17:38:28 +0200
+From: Stefano Garzarella <sgarzare@redhat.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Cc: Bobby Eshleman <bobbyeshleman@meta.com>, 
+	Luigi Leonardi <leonardi@redhat.com>, davem@davemloft.net, edumazet@google.com, kuba@kernel.org, 
+	pabeni@redhat.com, horms@kernel.org, virtualization@lists.linux.dev, 
+	netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3] vsock: ignore empty child namespace mode writes
+Message-ID: <aqq3t5p0hN2jsSpT@sgarzare-redhat>
+References: <20260915141547.3010692-1-qwe.aldo@gmail.com>
+ <20260915173050.3176344-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=us-ascii; format=flowed
 Content-Disposition: inline
-In-Reply-To: <4fadcda7-d96a-4cd9-9b0f-5d387b6f82af@kernel.org>
+In-Reply-To: <20260915173050.3176344-1-qwe.aldo@gmail.com>
 
-On Wed, Sep 16, 2026 at 05:24:43PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/16/26 17:19, Gregory Price wrote:
-> > On Wed, Sep 16, 2026 at 04:59:32PM +0200, David Hildenbrand (Arm) wrote:
-> >>>
-> >>> LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
-> >>
-> >> No schlop like that please, I don't want to hate my life
-> >>
-> > 
-> > You missed this part:
-> > 
-> > "I'm trying to be careful about not causing a bigger maintenance burden"
-> > 
-> > I wouldn't do that to you :]
-> 
-> I just wanted to make it very clear that I don't need another schlopped gigantic
-> patch series in my inbox that I'll mostly have to ignore because it's
-> un-reviewable ;)
-> 
+On Tue, Sep 15, 2026 at 02:30:50PM -0300, Aldo Ariel Panzardo wrote:
+>__vsock_net_mode_string() returns success without updating new_mode when
+>the transfer length is zero. Its caller then reads the uninitialized enum
+>and may permanently store a stack-derived value in the write-once child
+>mode.
+>
+>Return before calling __vsock_net_mode_string() when *lenp is zero so
+>that the helper is never invoked with nothing to parse and new_mode is
+>never read uninitialized. This also prevents an empty write from
+>locking the current mode.
+>
+>Fixes: eafb64f40ca4 ("vsock: add netns to vsock core")
+>Cc: stable@vger.kernel.org
+>Reviewed-by: Luigi Leonardi <leonardi@redhat.com>
+>Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+>---
+>
+>Changes in v3:
+>  - Move the !*lenp early return before __vsock_net_mode_string()
+>    instead of after it, as suggested by Stefano Garzarella.
+>  - Add missing maintainer CCs per get_maintainer.pl.
+>  - Add Luigi's Reviewed-by.
+>
+>Changes in v2:
+>  - Return early instead of initializing new_mode to the current
+>    value, which would silently consume the write-once transition.
+>
+> net/vmw_vsock/af_vsock.c | 3 +++
+> 1 file changed, 3 insertions(+)
+>
+>diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+>index 622dbd0467..XXXXXXX 100644
+>--- a/net/vmw_vsock/af_vsock.c
+>+++ b/net/vmw_vsock/af_vsock.c
+>@@ -2879,6 +2879,9 @@ static int vsock_net_child_mode_string(const struct ctl_table *table, int write,
+>
+> 	net = container_of(table->data, struct net, vsock.child_ns_mode);
+>
+>+	if (!*lenp)
+>+		return 0;
+>+
 
-I would never :]
+I would have moved it even before the net assignmet, but in any case, it 
+doesn't make much difference:
 
-But *motions generally at madvise* if this isn't schlop i don't know
-what is lol.
+Reviewed-by: Stefano Garzarella <sgarzare@redhat.com>
 
-~Gregory
