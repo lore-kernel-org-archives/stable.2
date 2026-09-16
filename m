@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04CA4AB3B5
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 71A6C4CEE6D
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573280; cv=none; b=Betpps5YeetPk/NuXUXFE3PSybaSKJ6cOCea2J9d9HO/T/wCieG9NKVYFTCoNww63Nkwu05hpsi15eeU02zWEsp+uYlOA5nZti6sz7V7H1POTDujuqmrknG8x1MAgqPsfUiJ9nAaARM7Ga4hI+sVtLBpztoXcwTGSrRvoRJ4QX8=
+	t=1789573285; cv=none; b=rxld999Wd9I/5jvLI1VQnOlR4Vai1t13J48v3z5naqr/bFJSVEcWvR7u9M512JsqPh7e9YwbQY17v/O8bSAxUpQ3sdQlWK8D5/j2KMJhhmVfAwQ3B/X23gffyzSvmEiCDFewW6F5RsJ4S7/pBvcApSEIX7nM+lUbiZvy25H4tr8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573280; c=relaxed/simple;
-	bh=PqLpabq8cfezDnmPibE/PIaBHId8F3Q3z0trzQugYH4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=W5SbBpjFgTKH7AmMldMtYMRLJHIxwJJStmWosrFCKx49kCZd3Q7Ip6ltJ+p3HR7lY2opeEB78nW8C2mhDmXNBC158CmVfeQpVwfYAc38O3wUEeKmi9E/R2O0zUc0ywfPGQnKgi5W/57AsNhVxLtvkBHZtJzEePDp1tWh8rKDu6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2ksXLuH/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573285; c=relaxed/simple;
+	bh=VTxvGzLS5E4t4M1yItwz4g0pngokJp/MkT2E0zUy69I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=fb+yoiXCSg7ab5VXygtEfzkLGtQQGGayIN6qqMW8ZkRI5b8AVqxMxrgOeNK4vU8KJ/mMu5xBYPi60AE/t587tM3sYQXdkagCOfJHSIIowUT9QQGgN2fXfVB3vS62GQfZDheWDoNHJUa1B2TevAwhVmxm29dGlPcIVY4WmQfGupk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kv2CjpMY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2ksXLuH/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFED71F000FF;
-	Wed, 16 Sep 2026 15:41:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kv2CjpMY"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C59B21F000FF;
+	Wed, 16 Sep 2026 15:41:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789573279;
-	bh=91es3qsErtd9bo5eZUeKfzSBVADxxNePPDhkc2XJFXw=;
+	s=korg; t=1789573282;
+	bh=WdnbNsmhiyvc9+FYkJFtZ2TPQLbXxhf+7q/pAOkryog=;
 	h=Subject:To:Cc:From:Date;
-	b=2ksXLuH/nBVaxWewSL2etZXSYpgd4rbcgjk73aZqBIwv2ihW7FmsCJZN8/zYYJixv
-	 O2Safy+RrDfOSsuZuqQY6FkKsAFfyBPj/QJ6O95Xdm09Ql+HqeE4i3aw07oMRgMN2V
-	 kiNnps6HoUuc936Q4ddCzErxeCVp/YTSBaGqKVNU=
-Subject: FAILED: patch "[PATCH] net: mana: Reserve extra CQ slot for the fence completion CQE" failed to apply to 6.1-stable tree
-To: sahilchandna@linux.microsoft.com,haiyangz@microsoft.com,kuba@kernel.org
+	b=kv2CjpMYhRujQvRgrj/eEeq0PvDnnSYFz4zF5JftyDemK0QhDVgy+9j/Vm0JIhRf5
+	 zQr4if6TqRE9iA/GVWJny4ZMNQcY85JTMuUAMMkQNApPMQ6rJP3jjsi6FVOQY51tvm
+	 yubrCz4+t74KP28sIrHEaC/VI/rzslhpbyaBnmBE=
+Subject: FAILED: patch "[PATCH] netfilter: cttimeout: prevent UAF during module unload" failed to apply to 6.18-stable tree
+To: nicoyip.dev@gmail.com,pablo@netfilter.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:31:23 +0100
-Message-ID: <2026091623-upstairs-protrude-105f@gregkh>
+Date: Wed, 16 Sep 2026 16:32:39 +0100
+Message-ID: <2026091639-unmade-pouch-5365@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 80dd7e754b3aa9637a0758ad93fa209f9650ec48
+git cherry-pick -x fec9b1de0d02de8dafa3cc344bcb91cf28660643
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091623-upstairs-protrude-105f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091639-unmade-pouch-5365@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,51 +62,68 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 80dd7e754b3aa9637a0758ad93fa209f9650ec48 Mon Sep 17 00:00:00 2001
-From: Sahil Chandna <sahilchandna@linux.microsoft.com>
-Date: Tue, 1 Sep 2026 07:17:58 -0500
-Subject: [PATCH] net: mana: Reserve extra CQ slot for the fence completion CQE
+From fec9b1de0d02de8dafa3cc344bcb91cf28660643 Mon Sep 17 00:00:00 2001
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
+Date: Mon, 24 Aug 2026 20:12:38 +0800
+Subject: [PATCH] netfilter: cttimeout: prevent UAF during module unload
 
-The RX completion queue is sized to hold exactly one CQE per posted RX WQE.
-MANA_FENCE_RQ makes hardware post an additional CQE_RX_OBJECT_FENCE after
-the packet CQEs. The current sizing reserves no extra slot for it and in
-rare cases, CQ has no guaranteed slot for the fence CQE when it is full of
-packet CQEs. This can lead to dropping the fence completion while the
-driver waits holding RTNL lock throughout the timeout duration.
-Reserve one extra CQE slot for CQE_RX_OBJECT_FENCE. mana_gd_alloc_memory()
-requires queue_size to be a power-of-two and at least MANA_PAGE_SIZE;
-the reservation pushes cq_size past a power-of-two, so round up the CQ size
-in mana_create_rxq().
+nf_ct_set_timeout() protects the timeout hook dereference and policy lookup
+with rcu_read_lock(). cttimeout_exit(), however, unregisters the per-net
+operations before it clears the hook.
 
+This allows the following interleaving:
+
+  CPU 0                              CPU 1
+  cttimeout_exit()                   nf_ct_set_timeout()
+    unregister_pernet_subsys()         rcu_read_lock()
+      kfree(pernet)                     h = nf_ct_timeout_hook
+                                        h->timeout_find_get()
+                                          nfct_timeout_pernet()
+
+The hook still points to ctnl_timeout_find_get() when CPU 1 looks up the
+already freed per-net timeout list. KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in ctnl_timeout_find_get
+  Read of size 8 by task poc/90
+  Call Trace:
+   ctnl_timeout_find_get+0x271/0x2a0 [nfnetlink_cttimeout]
+   nf_ct_set_timeout+0x7b/0x3c0
+   xt_ct_tg_check+0x724/0xb20
+   xt_check_target+0x234/0xa90
+   do_ipt_set_ctl+0x570/0x1270
+  Allocated by task 89:
+   __kmalloc_noprof+0x16e/0x460
+   ops_init+0x6d/0x420
+   register_pernet_operations+0x2f6/0x670
+  Freed by task 91:
+   kfree+0x131/0x390
+   ops_undo_list+0x3d4/0x730
+   unregister_pernet_operations+0x232/0x490
+   unregister_pernet_subsys+0x1c/0x30
+   cttimeout_exit+0x52/0x970 [nfnetlink_cttimeout]
+
+Clear the hook and wait for existing readers before unregistering the
+per-net operations. This blocks new policy lookups and ensures readers that
+observed the hook finish before the per-net storage is freed.
+
+Fixes: ebfbe67568a7 ("netfilter: cttimeout: use net_generic infra")
 Cc: stable@vger.kernel.org
-Fixes: 6cc74443a773 ("net: mana: Add RX fencing")
-Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
-Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
-Link: https://patch.msgid.link/20260901121837.3503240-1-sahilchandna@linux.microsoft.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 
-diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
-index 7a1ac853e3ab..45a7520491a6 100644
---- a/drivers/net/ethernet/microsoft/mana/mana_en.c
-+++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
-@@ -2986,6 +2986,10 @@ static int mana_alloc_rx_wqe(struct mana_port_context *apc,
- 		*cq_size += COMP_ENTRY_SIZE;
- 	}
+diff --git a/net/netfilter/nfnetlink_cttimeout.c b/net/netfilter/nfnetlink_cttimeout.c
+index 66c2016f6049..132c02ac7c4e 100644
+--- a/net/netfilter/nfnetlink_cttimeout.c
++++ b/net/netfilter/nfnetlink_cttimeout.c
+@@ -652,9 +652,9 @@ static void __exit cttimeout_exit(void)
+ {
+ 	nfnetlink_subsys_unregister(&cttimeout_subsys);
  
-+	/* Reserve an extra slot for Fence completion
-+	 * event (CQE_RX_OBJECT_FENCE) in case RX CQ is full.
-+	 */
-+	*cq_size += COMP_ENTRY_SIZE;
- 	return 0;
+-	unregister_pernet_subsys(&cttimeout_ops);
+ 	RCU_INIT_POINTER(nf_ct_timeout_hook, NULL);
+ 	synchronize_net();
++	unregister_pernet_subsys(&cttimeout_ops);
  }
  
-@@ -3080,7 +3084,7 @@ static struct mana_rxq *mana_create_rxq(struct mana_port_context *apc,
- 		goto out;
- 
- 	rq_size = MANA_PAGE_ALIGN(rq_size);
--	cq_size = MANA_PAGE_ALIGN(cq_size);
-+	cq_size = MANA_PAGE_ALIGN(roundup_pow_of_two(cq_size));
- 
- 	/* Create RQ */
- 	memset(&spec, 0, sizeof(spec));
+ module_init(cttimeout_init);
 
