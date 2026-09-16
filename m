@@ -1,181 +1,251 @@
-Received: from mail-yx2-f43.google.com (mail-yx2-f43.google.com [74.125.224.171])
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BABBE495AF1
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.171
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585589; cv=none; b=QB3fnx8NeX6i0Y6pP6Zqv1KJVSrb+GMGkF1V36FZm5a9JetXraSGFXiKA866DZrVHcUjrEq8tanqWnYQFx82xuqHdtuXBOOoB82G3/sFL7ZyVad2YmmZlk7kHsb3nK0w8bVIE01zaeGWX/5L3duLWOKjjapVTxjrW+WPBrz9i2w=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585589; c=relaxed/simple;
-	bh=at37MEHK1PoDpKTrPGD29SbuwXSfyiMebXazPTAKj48=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=N+2ys+GnbcsESe77t3UwyX7vCiHr4WKJuQa4p5+1jtMdTF/awZTfXVIFQfTkk5KJnW7eNavh1icSjAQxDxrvP8OZ5YLiNosAQb0E1Go7hFUH7qIf7kMBtioT0zJD0CoaOvbjMo6fQP8n4iNvlcuO1WOa+Z50DMUF9RbaRMEBiNc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=FMHFlIdV; arc=none smtp.client-ip=74.125.224.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FE135CB91
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:07:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789585654; cv=pass; b=mTxmncul3+s8C4VXZaPoUOkMjlH9ZAGpVM95G5zUiK5FjpiJ+dMoCA0PylIAzZZy3S7YEuatU40nZMAvrWaDRPIZgL6wW/7jD1oIqG1TVGbXokiLSz9/mlk6sy/10g2k3d/XkRoWI2hc9F1O9kqPRbOmLL058YP091pS/xRthDI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789585654; c=relaxed/simple;
+	bh=KPU7IzR69Ng/j6m8YHFvvjb5SqAkfnaH0qbM64QKGw8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=o8PUbMlN7oBmZAuIWbhF5/mNqi7feC7A/whc0WEjKdwemxzmZPlIhhSrlipfzKd4lTQrkWSnlkpOSChqxg5QS25cOsWc7WkPeK90pIz7qsfMGQD2Jdk+Qpfkiif0LPJX20AwT5H+sd9JZ1ZPc02Zd3yQwp3Avwnk4bkwjAGxXPo=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CMnwcelI; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="FMHFlIdV"
-Received: by mail-yx2-f43.google.com with SMTP id 956f58d0204a3-67109935888so20845d50.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:06:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CMnwcelI"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d5fc2cd8so7051cf.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:07:17 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789585635; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Dqj4Ell08Gvk6XQDWs7w71HOiCLQLp84Mpzo/KNpccqXDl++woD57wVCIUAD7pTTLW
+         ewfd+2DPO2gVXvnqAxWglUlAEnqIdhZ31k4hQTIhwxTQzPh5izvJUFDg3i8pXD6XWX5y
+         YyQQcgi7PgVbuq1sWKjfMXjFf++nOvECha8iQ3PEm1E3ajdZw80PtO3A4x7Vm+y11VPU
+         nids4VMB+MOIPMqrLc2MBDHJMDIhmWRL1hzjJXUAaDyIi0nuHlebgqsKY/WBeVkYDL8t
+         fRS2R/pjCV/ZnStegPbiYk1IM9Fdye6WyJmF5ZNWV1OStE80nZObhYpUTJa4Fq1UjhP2
+         +CUQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=yHbOQrPgVkpK3KZeBIodImpdgvuoykZQvSNB9/nSIAA=;
+        fh=3DFXAnsKddIS6PHnz/9D8zqlQ6GyXVcVilMAQm12G94=;
+        b=kBxlf2SnnU/oXQW1gHV08brtbuf8sxnb5gY9fkHdzssWOHgTCsqSZcaiGNGLGHIiLI
+         65ueDAbMFSyZ+Vf3S1FZoEobSK8zH1N1fWtjfqDjt32afWTTlQ4K0pLAQrEsE1Jt2V6h
+         Wo952v0hS2jlRv36QvW4AOtlubHbUstf7nOiHkHeGSpZD87uIyRIUdLwirnbpsSrtqev
+         nWNj6322issekf5ojEg3vWLu6sJMYtUxzkU52i/6aEPpKiSkkgldbYlO6ln/JukekTBa
+         kfbKAcJUqkMVKWQfpyxcJ9YWcrJMPPw4nFrCyEEw7CuyQsgGyouPCpQz3JC9tgrARJcP
+         8zJw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789585580; x=1790190380; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Ca4yrRqL6+DdXUu9p1R9aXY14Me7n+gPWyjhGW+2Sug=;
-        b=FMHFlIdVI8Es+9oD00reBuLNkm8HT9JaW/cOr8zKkzIpcj3Mzh/TTyrMxqtrv7aB+S
-         ueO2iHI6db2h5J5DNUsiq2OKGXTn5jEglCdTVqJ9MiOCDcCYeZndLnAQ1nMaR6iz0DBS
-         gMd+gMIl3+OeIdwNzwN0Oche5igdQIb2innc5aRHbp67giMPmPbkVnfn9FDuPVof4v0W
-         qlGdXv9XyLSJF8NQrVRm5qJ61Bd5Y9g2kibJevDhU87hWc0fAZMx5KpjyAEqtXMeO+tM
-         bPYLdZrmed52fowoKk5M8fkXVA0PbUDpwnZQjb6GTeakwHfZAwoFkHNYIBblQXz1PVac
-         gqHA==
+        d=google.com; s=20251104; t=1789585635; x=1790190435; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yHbOQrPgVkpK3KZeBIodImpdgvuoykZQvSNB9/nSIAA=;
+        b=CMnwcelIDyTuiaLuMFiKWIa46IsxWJ4KWE9fsZXIAQSidAShgdI/KaW/IVr7HtoC2S
+         0vZDyOvkUTEsb+tvmR6ABoA7KdFaUhVVSJGcQNs4asTkCGd6EG02plpR32tBIT+kHQmk
+         SSFEsgciRvORBxi1Rn2bSrxwANGb/aFprTORpICWh0L0M41AUYVeFTxSVeEHjLi8CQrI
+         azO40xSF15FI6YZJyksiuxIKWRnWY4Tm69IKkbGZjfofxlDCLxAoLNlBj5HxVN166FKB
+         w7juyQjYBlR8Bn546PFYQa4wAEY96rjQHZYe+51sl+pyEfpamHPuqtYdPZOnWnkJgNQ8
+         ODjg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789585580; x=1790190380;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=Ca4yrRqL6+DdXUu9p1R9aXY14Me7n+gPWyjhGW+2Sug=;
-        b=rnU40Sn56eRz7/G5Jh4Bzt5VjT3809JtZpO6oPA93JXSYtbN/p+i6L0bu2UXvgksOO
-         PRY4QWIHf/CU9Pw3wX6BElbdyy2CPNEXakeGO1gTTLd3ZjYAQTFaVwH1R/dZpj/yeQCx
-         5qM2mZvIbSjc0gNDBhefbl/17IPaF1GMY0x1sv2VWMf+dKtTlbtczEsWee2MHsJg5mxo
-         g1VvQZigC9bwIbyhvayUW085kTWmsX9rXFT+eiNC0KR78Jkiw2FmDhS9qEduWgJVrpVO
-         llnbBmKHTI/f6uszWCxJ646S45GiUVMVNUg9qoLZ3ET2nqQxHm3slCctDWC1eOD21a6u
-         2H7g==
-X-Forwarded-Encrypted: i=1; AKwUvBxIkuz1VbVoFjeByMz5v0PvKJQyctuKHWVesc4UwqbV/LeRNIVdaB/8zyvXBPCthe/ZDTIb/sw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mer8NFp96Qsuo15vFTkGsXDo8WD4sSvrcznj/g8Xrz2mMn3wR6
-	CFkcGuIZpWYyK+rvHlGYAO2hwvubCFK6B0J9I1nTKnHll8gEDz8kF+nQ8CreNcJhi6A=
-X-Gm-Gg: AYBFou2L6+1e77Sv/V/4NJjksoxoTlqVjkWwNFd4FJs3hDRWG1BngTFP3x/DLvSgXlM
-	FOhMTJ/ybK8P5t0Rt6wa2NecZLbN7tYZFExbawcmihQZ4jmCwG1fgrwzWjrUnvLJcZQJccXI3MM
-	rI321BtnTlXYOMNg7Ele967vuWPiTMClvdZ/KSwBGPKLUTJjM478gmXRiVpOlBPBeLVjXaJGc3v
-	zh+WqRlWkHqru5fdlFQOJJ3FfffKCUX8KRz/8kuKD1dt4yU5t4cjF6HoaPI+EL/mueWFFJ9pjZ6
-	7IYxlOnMJr+SKNnEY8QH6iJMYJr99G/qx4Ue+6SPH4BAlr/KwgtBKnLD8OtmAXnFA9W65oqM76z
-	II09qwogPJz+r7aama7M9lQVzmbxeF//4u0B313LA8U07TLA7ThZFpfl50W39ngJ/aezNgkEYrI
-	a6kfyskQwPfFLRTUDhs223kjRyh0pD5/qkOKemDzSfRhYMFbzwdk96CMsOXxbADdE2xlo7ZkO9V
-	ICyppcQJQOnroF0UyzlFarw2sVY3BNWXyZJzdQMUmxKhkS5qDzKi5lbDakysQ1Ju0MK16XjKxcu
-	uamRAcZcF3vRqyEzSrYAGqx2Whwp303qCocUDH6kWYqA9E6+IjKZIOdbpho/wPtw
-X-Received: by 2002:a05:690e:4391:b0:671:70d2:5285 with SMTP id 956f58d0204a3-67170d2542fmr87564d50.72.1789585579861;
-        Wed, 16 Sep 2026 12:06:19 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:f547:a2c0:72f7:6671? ([2600:1700:6476:1430:f547:a2c0:72f7:6671])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f79ca1asm1651972d50.21.2026.09.16.12.06.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 12:06:18 -0700 (PDT)
-Message-ID: <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
-Subject: Re: [PATCH v2] nilfs2: validate segment number in
- nilfs_sufile_get_suinfo()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
-	 <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 12:06:16 -0700
-In-Reply-To: <20260915195223.3331909-1-qwe.aldo@gmail.com>
-References: <MSG-ID-sufile-v1> <20260915195223.3331909-1-qwe.aldo@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1789585635; x=1790190435;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yHbOQrPgVkpK3KZeBIodImpdgvuoykZQvSNB9/nSIAA=;
+        b=dtI/YSjN8Gdy57N97E/winna10fgW5yiFDVOwZzhqrh54EQFdGKp4xOQSxtz7MT2Lz
+         4yQ7jg22d/PdOWVZAGG9/2A04aAbCxSqVVwgm+Sk5xzcFoXtAn3jsS18RxWkGB46DiRA
+         unD0BvagxRCA3h/ketgU/Rw4CLRIhD4TQ8dvTYZCpsILmpRa1fBIizeSo1K/lA2m3o2R
+         UGECRNgSzcs17lNLhotMFAY0bJZG4f87wBpqfCLFO8ItI1k86wZMXy6lZ5JKLxygoo1V
+         0xoKeJ2VS/Z2B0r41kUavu0UjuoXpGaxZZWgQ6qoOTN9cWxf+htdcTeTh1DL3FHn8d+V
+         lMIw==
+X-Forwarded-Encrypted: i=1; AKwUvBw8GtxDgHJrjjGLAy/9zxR/2Bbqp/WCAM1SnpQqnHluZ6ZfeiMw1x/QHEdjuPLSaqewzrnRa6I=@vger.kernel.org
+X-Gm-Message-State: AFuF++lyNvXm9CDOBDUDPT2xJXIR3H6k2zwQxP4Pv7ybRwFhRDVGqBt6
+	4Hndok7qIygTxZWzex+FNrP05cRuEadJcRgfaTsGrJrQ7Dyf2dVL+qRtYLqK2RPYIYS/D0LX6T7
+	2v5mnEy7aUKb/eUrVcBjrxrhTIF/Mbt1iOITgJNYK
+X-Gm-Gg: AYBFou15CQ4NaF1HRtSh9n9jmWHMGeVfEMT9wQec3e5Jir3rLa8cYvQ+/sopOR53hGe
+	K9wOeVNwDE/O+pTvOFt5rlpZcLtCaKuJx6LgPIdyq3PuF0gWt++i233VVId+0nakfILPer02ik7
+	O/IKJ8nXZlVsnh/MPGZxCvXOskGShFFsUNcJrNnlqwNT1MPwCRmDMNqBMenAJwR3iAa1gpe3YvI
+	p61D6QdhbmCsCNibVd+cvvGCJ+0vwHR7ZLL/SvDuTP3Mn4f95U5tQYFhplGiNM3aKNk6mAU03EG
+	MqVOvTdIImu0wkKByeJJ5elVp8hbK2owbOt9Mmy4cYd/Opq7PjZZB1EbO4A5ktbdyK8+SGM7nTs
+	VNMNHJ9wJyQ==
+X-Received: by 2002:ac8:5d10:0:b0:532:858d:e791 with SMTP id
+ d75a77b69052e-5328dc0bc4fmr2243931cf.8.1789585634800; Wed, 16 Sep 2026
+ 12:07:14 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260915070001.113559-1-hao.ge@linux.dev> <20260915070001.113559-3-hao.ge@linux.dev>
+ <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
+ <60642a7f-2949-428a-8290-40d69c989a77@linux.dev> <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
+In-Reply-To: <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
+From: Suren Baghdasaryan <surenb@google.com>
+Date: Wed, 16 Sep 2026 12:07:03 -0700
+X-Gm-Features: AcwNN1U77eJFNHkPfe6Ppe6tyXfOBb0DKmw4ydlFrQQ2j_8G2MzMCljaOX2F-Do
+Message-ID: <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
+Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
+To: Hao Ge <hao.ge@linux.dev>, "David Hildenbrand (Red Hat)" <david@kernel.org>, 
+	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
+	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
+	Aaron Tomlin <atomlin@atomlin.com>, Kent Overstreet <kent.overstreet@linux.dev>, 
+	Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org, 
+	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
-> nilfs_sufile_get_suinfo() subtracts the caller-provided segment
-> number
-> from the total number of segments without first checking its range.
-> If
-> the requested number is greater than the total, the unsigned
-> subtraction
-> wraps and the function may process segment numbers outside the
-> filesystem.
->=20
-> Cache the total while holding the metadata semaphore and return no
-> entries
-> when the starting segment number is at or beyond the end.
->=20
-> Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
-> =C2=A0fs/nilfs2/sufile.c | 10 +++++++---
-> =C2=A01 file changed, 7 insertions(+), 3 deletions(-)
->=20
-> diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-> index eceedca026..573646c5f7 100644
-> --- a/fs/nilfs2/sufile.c
-> +++ b/fs/nilfs2/sufile.c
-> @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
-> *sufile, __u64 segnum, void *buf,
-> =C2=A0
-> =C2=A0	down_read(&NILFS_MDT(sufile)->mi_sem);
-> =C2=A0
-> +	nsegs =3D nilfs_sufile_get_nsegments(sufile);
-> +	if (segnum >=3D nsegs) {
-> +		ret =3D 0;
-> +		goto out;
-> +	}
-> +
-> =C2=A0	segusages_per_block =3D
-> nilfs_sufile_segment_usages_per_block(sufile);
-> -	nsegs =3D min_t(unsigned long,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufile) - se=
-gnum,
-> -		=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
-> +	nsegs =3D min_t(unsigned long, nsegs - segnum, nsi);
-> =C2=A0	for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
-> =C2=A0		n =3D min_t(unsigned long,
-> =C2=A0			=C2=A0 segusages_per_block -
+On Wed, Sep 16, 2026 at 9:31=E2=80=AFAM Suren Baghdasaryan <surenb@google.c=
+om> wrote:
+>
+> On Tue, Sep 15, 2026 at 11:00=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
+> >
+> > Hi Suren
+> >
+> > Thanks for you review.
+> >
+> > On 2026/9/16 05:09, Suren Baghdasaryan wrote:
+> > > On Mon, Sep 14, 2026 at 11:59=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wr=
+ote:
+> > >>
+> > >> The reservation is already stored in the maple tree when
+> > >> vm_module_tags_populate() fails. A failed load never unloads the
+> > >> module, so nothing releases the entry. Release it and roll
+> > >> module_tags.size back. Without the rollback a concurrent load that
+> > >> already passed needs_section_mem() can reuse the freed gap, skip
+> > >> vm_module_tags_populate() and write to unmapped memory.
+> > >>
+> > >> vmap_pages_range() may have installed some PTEs before failing. A
+> > >> retry to populate the same range would BUG on them, so undo them,
+> > >> but only if vmap actually ran.
+> > >>
+> > >> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag com=
+pression")
+> > >> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as =
+needed")
+> > >
+> > > If a patch fixes two other patches, it likely needs to be split so
+> > > that each part fixes one patch only. But read on please. I'm not sure
+> > > if one of the fixes is correct.
+> > >
+> >
+> > Kept them in one patch because they only make sense together.
+> >
+> > After a failed populate the reservation is released and the
+> > size rolled back, so the next load takes the same gap and calls
+> > vm_module_tags_populate() again, and that retry would trip over
+> > the PTEs the failed vmap left behind.
+> >
+> > Without the rollback a load that already passed needs_section_mem()
+> > just reuses the gap, skips populate and writes to unmapped memory.
+> > So splitting them leaves each half broken.
+>
+> Yeah, that's why I think vmap_pages_range() cleanup should be a
+> completely separate patch with vmap_pages_range() doing cleanup
+> itself.
+>
+> >
+> > >> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> > >> Cc: stable@vger.kernel.org
+> > >> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> > >> ---
+> > >>  mm/alloc_tag.c | 10 ++++++++++
+> > >>  1 file changed, 10 insertions(+)
+> > >>
+> > >> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+> > >> index 2070e682fe10..95ddf5b743d0 100644
+> > >> --- a/mm/alloc_tag.c
+> > >> +++ b/mm/alloc_tag.c
+> > >> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
+> > >>                                      next_page, PAGE_SHIFT) < 0) {
+> > >>                         release_pages_arg arg =3D { .pages =3D next_=
+page };
+> > >>
+> > >> +                       /*
+> > >> +                        * vmap_pages_range() only runs once all pag=
+es were
+> > >> +                        * allocated, and it may have installed some=
+ mappings
+> > >> +                        * before failing. Undo them.
+> > >
+> > > If vmap_pages_range() failed to map the range, why should we need to
+> > > undo it? If it indeed leaves some partial mapping when failing then I
+> > > would argue that vmap_pages_range() should be undoing these partial
+> > > mappings itself before returning the error.
+> > >
+> > Yeah it does - none of the paths under vmap_pages_range() undo themselv=
+es on error.
+>
+> Hmm. I wonder if this behavior is intentional or requires a fix. The
+> only possible reason I can think of is performance but I can't imagine
+> a failure to map is a performance-critical case.
+>
+> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
 
-Looks good to me.
+Huh, my gmail thinks you are still at your previous companies :)
 
-Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-
-Thanks,
-Slava.
+> guys think? Shouldn't vmap_pages_range() undo its possible partial
+> mapping when it fails?
+>
+>
+> > pcpu_map_pages does perform cleanup on its own as well. There may be ot=
+her similar sites.
+> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
+> > so I did the same here.
+> >
+> > If we really want vmap_pages_range() to handle this cleanup internally,=
+ I believe that would
+> > be a relatively large change, and we would need to consider many more c=
+ases. So I think we keep
+> > the current behaviour for now.
+>
+> Yeah, I understand it would require a deeper cut but if that's the
+> right way to handle this we might as well do that. Let's see what MM
+> folks think.
+>
+> >
+> > Thanks
+> > Best Regards
+> > Hao
+> >
+> > >> +                        */
+> > >> +                       if (nr =3D=3D more_pages)
+> > >> +                               vunmap_range(phys_end, phys_end + (n=
+r << PAGE_SHIFT));
+> > >>                         /* Clean up and error out */
+> > >>                         release_pages(arg, nr);
+> > >>                         return -ENOMEM;
+> > >> @@ -947,6 +954,7 @@ static void *reserve_module_tags(struct module *=
+mod, unsigned long size,
+> > >>                 return ret;
+> > >>
+> > >>         if (module_tags.size < offset + size) {
+> > >> +               unsigned long prev_size =3D module_tags.size;
+> > >>                 int grow_res;
+> > >>
+> > >>                 module_tags.size =3D offset + size;
+> > >> @@ -961,6 +969,8 @@ static void *reserve_module_tags(struct module *=
+mod, unsigned long size,
+> > >>                         shutdown_mem_profiling(true);
+> > >>                         pr_err("Failed to allocate memory for alloca=
+tion tags in the module %s. Memory allocation profiling is disabled!\n",
+> > >>                                mod->name);
+> > >> +                       release_module_tags(mod, false);
+> > >> +                       module_tags.size =3D prev_size;
+> > >
+> > > Yes, this one is a valid fix. It fixes 0f9b685626da commit.
+> > >
+> > >>                         return ERR_PTR(grow_res);
+> > >>                 }
+> > >>         }
+> > >> --
+> > >> 2.25.1
+> > >>
