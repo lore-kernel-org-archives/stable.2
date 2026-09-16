@@ -1,124 +1,176 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A36B03BCD25
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5CE4DA9D6;
+	Wed, 16 Sep 2026 20:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591296; cv=none; b=RkPeg4lxDZXBuim7KxQ7seaq6FCHczb/JeWvK3Np64S+segW9wWqGCci6RLTGuXlCGyXshVmbkmU23aLVkR7dz8GzwlG8YL97FyniMfsuQf5gc687cNwBq7uVTcwuoUWeTdi8wCJSoea1FWE5naPyAOGZqIVMB9qATKt3MwFrVc=
+	t=1789591551; cv=none; b=PGM6EfMJpZc5fTaYotuHfe/YZYZwbWZcke4hLXuz/lgCH/HNaTBy7tcutLuajiwa8sbMLD/bnBL4ayJaikYmmFxAZRdYkMMe2dPy7a6gQGcAqPl4JZht82fWgvBEM8MAlfMdToGWBER634Ol943qmq31s6PAOvZ1WAvPa3wgGu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591296; c=relaxed/simple;
-	bh=enDS/I9jA5iIZRk7kRx9pMw3RyCwrLrt7VBA20R0mZo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=mKUmWo6lSI5EOJmtVDOJ50GDSx/fQwNcYCtwHRbpyQWKtPAtZo9lUkHhFwWzTDwGv45hFDBfZuFAMT+VUtifqc0B75vj5F/9tm8Kas6+S/5DHBHUBKNEnRsK6a/iWq3KndWbdH9QkcbLvROzAkFK85yMLOj9hvcX6DImcAGgYUI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MJeAi4vw; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789591551; c=relaxed/simple;
+	bh=zGv5N28Q3Fuh+0z5UF4wmzmXO9E45q6BaSZkfbNfhsA=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=sAV9hSTgXmoOa/T3e23M3+nvtDgJWoYzQ5Ezn02KGgeTx7dgdPoGubxKEyPE3kCgY6bL1ia/xeUEAYIkDkkBhHpmeqTV4GStKZbB3pJK0fK5nBeIUnfDeX8enQgdXre8L6CyBq5totyqwnsrqXAzmKnKLV52L/8Ux+kGh2JUJjw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSaIU6CZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MJeAi4vw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0641F000FF;
-	Wed, 16 Sep 2026 20:41:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSaIU6CZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28DF1F0089A;
+	Wed, 16 Sep 2026 20:45:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789591279;
-	bh=Q36LpJ9/kSr6W+7Y4dAHLmZiF8LyXUgAi0gEqzizfiQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MJeAi4vwa9VqrazUuqSJ7Teg+uXPlz7tIYAKQ1iaWskvqxUeTbj+F4ZHphRFBzOlU
-	 w2vF8+JrKlF1k6pJfD7NeTP7y1UGDOztOsr/h+L5xY+cNwXquRbhOXcHeKplqSsTpn
-	 3IT2zil/WH71UOK1YBN3O8ImlRg5+ljXvL21Hwo8lCIjM0EaI8X+kEvTpgnB0CA3IO
-	 8mBmQ/8LxgHtbx7M+wgSKdXMHt0EvFqflBJ/jIj8qAKGYUB5IGJ/VkTXQNOdNe0WZL
-	 8rKbtX+N+G6GcG+/7/mN1dZrUtyVjXtZJUARVGq5cJYpUqXqi5/iExlpncD5mFVdqL
-	 Vagg/cYAGQLow==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Leonardo Costa <leonardo.costa@toradex.com>,
-	Francesco Dolcini <francesco.dolcini@toradex.com>,
-	Swamil Jain <s-jain1@ti.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] drm/bridge: tc358768: Enforce input bus flags via atomic_check
-Date: Wed, 16 Sep 2026 16:41:17 -0400
-Message-ID: <20260916204117.2702377-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091614-swiftly-blade-d3f1@gregkh>
-References: <2026091614-swiftly-blade-d3f1@gregkh>
+	s=k20260515; t=1789591537;
+	bh=QtbilFSd1lPNt3KCGiD9EVPlQo3LDxjHZ/yK5Hh1vHo=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=kSaIU6CZUguBMdke6wYGVGu+GUOw+U9VyY482vGlT3bqCyFTsIxg86GCycNCAdBk7
+	 rikjjp54I9rlezyYnKwUQY2wd7+Dg7MnAdXFYwtR0cbowVgf/t21PFaK7O4k94w1AY
+	 HdRu3DL8AYvms+U9eHVqyWktSSzs0ZskACHeoHPqG4BNjSRbz1APcxpkUxuXCYMuuN
+	 ri17QakmJBxjN1cJP1DfIlJy9Oyn+amVZHA6EFPG3dnRHB2SzZPA88HQB7GQW+TI7Y
+	 WssIckt8wZbgU7HZDE3K/AtMFxZmyPartu/3Orm8FKbvcdY7kThMFsCO05CyHZs8bd
+	 K7NF2S40xNf9A==
+Subject:
+ Re: [PATCH net 2/2] mptcp: close race between scheduler and state change
+From: netdev-bot+sashiko@kernel.org
+To: matttbe@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, stable@vger.kernel.org,
+ shardul.b@mpiricsoftware.com, xinyang@anthropic.com
+Date: Wed, 16 Sep 2026 20:45:36 +0000
+Message-ID: <178959153630.22033.1222004531183755077@kernel.org>
+In-Reply-To:
+ <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-2-a257797dd5d0@kernel.org>
+References:
+ <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-2-a257797dd5d0@kernel.org>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
 
-From: Leonardo Costa <leonardo.costa@toradex.com>
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-[ Upstream commit ed761e0693950fcb4f6b0f60387a3961b972adf3 ]
+Critical: 0 · High: 1 · Medium: 0 · Low: 0
 
-The tc358768 declares static bridge timings requiring pixel data to be
-sampled on the positive clock edge.
+- [High] Incomplete fix: the identical `mss_now == 0` divide-by-zero that
+  the patch guards in `mptcp_push_release()` (net/mptcp/protocol.c:1667)…
 
-However, the DRM core default propagation simply copies the output-side
-bus flags, coming from the next bridge, connector or panel, to the
-input side. If the propagated flags are incompatible with the bridge
-ones, the data is wrongly sampled, typically resulting in visual
-artifacts on the panel.
+--
 
-Implement the atomic_check hook, replacing the mutually exclusive
-mode_fixup, and set the bridge state input bus flags to the ones
-required by the tc358768. The sync polarity defaulting previously done
-in mode_fixup is carried over into atomic_check unchanged.
+mptcp: close race between scheduler and state change
 
-Fixes: ff1ca6397b1d ("drm/bridge: Add tc358768 driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Leonardo Costa <leonardo.costa@toradex.com>
-Reviewed-by: Francesco Dolcini <francesco.dolcini@toradex.com>
-Reviewed-by: Swamil Jain <s-jain1@ti.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Link: https://patch.msgid.link/20260706132440.1594239-1-leoreis.costa@gmail.com
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-[ Adjusted callback-table context to retain Linux 6.12’s legacy enable/disable callbacks. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/gpu/drm/bridge/tc358768.c | 15 ++++++++++-----
- 1 file changed, 10 insertions(+), 5 deletions(-)
+The patch guards the tcp_push() call in mptcp_push_release() with a check
+for info->mss_now being non-zero, so that a subflow which failed
+transmission (leaving mss_now at 0) is not used for a divide operation.
 
-diff --git a/drivers/gpu/drm/bridge/tc358768.c b/drivers/gpu/drm/bridge/tc358768.c
-index bb1750a3dab0d..d3c851c1445bb 100644
---- a/drivers/gpu/drm/bridge/tc358768.c
-+++ b/drivers/gpu/drm/bridge/tc358768.c
-@@ -1143,10 +1143,13 @@ tc358768_atomic_get_input_bus_fmts(struct drm_bridge *bridge,
- 	return input_fmts;
- }
- 
--static bool tc358768_mode_fixup(struct drm_bridge *bridge,
--				const struct drm_display_mode *mode,
--				struct drm_display_mode *adjusted_mode)
-+static int tc358768_bridge_atomic_check(struct drm_bridge *bridge,
-+					struct drm_bridge_state *bridge_state,
-+					struct drm_crtc_state *crtc_state,
-+					struct drm_connector_state *conn_state)
- {
-+	struct drm_display_mode *adjusted_mode = &crtc_state->adjusted_mode;
-+
- 	/* Default to positive sync */
- 
- 	if (!(adjusted_mode->flags &
-@@ -1157,13 +1160,15 @@ static bool tc358768_mode_fixup(struct drm_bridge *bridge,
- 	      (DRM_MODE_FLAG_PVSYNC | DRM_MODE_FLAG_NVSYNC)))
- 		adjusted_mode->flags |= DRM_MODE_FLAG_PVSYNC;
- 
--	return true;
-+	bridge_state->input_bus_cfg.flags = bridge->timings->input_bus_flags;
-+
-+	return 0;
- }
- 
- static const struct drm_bridge_funcs tc358768_bridge_funcs = {
- 	.attach = tc358768_bridge_attach,
- 	.mode_valid = tc358768_bridge_mode_valid,
--	.mode_fixup = tc358768_mode_fixup,
-+	.atomic_check = tc358768_bridge_atomic_check,
- 	.pre_enable = tc358768_bridge_pre_enable,
- 	.enable = tc358768_bridge_enable,
- 	.disable = tc358768_bridge_disable,
+Closes: https://lore.kernel.org/20260525194828.1137119-1-shardul.b@mpiricsoftware.com
+
+> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+> index 0098e28309318..709610db3ce9d 100644
+> --- a/net/mptcp/protocol.c
+> +++ b/net/mptcp/protocol.c
+> @@ -1664,7 +1664,9 @@ struct sock *mptcp_subflow_get_send(struct mptcp_sock *msk)
+>  
+>  static void mptcp_push_release(struct sock *ssk, struct mptcp_sendmsg_info *info)
+>  {
+> -	tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle, info->size_goal);
+> +	if (info->mss_now)
+> +		tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle,
+> +			 info->size_goal);
+>  	release_sock(ssk);
+>  }
+
+[Severity: High]
+Should the same guard also be added to the second tcp_push() call site, in
+__mptcp_subflow_push_pending()?
+
+That function starts with a zeroed info:
+
+net/mptcp/protocol.c:__mptcp_subflow_push_pending() {
+	struct mptcp_sendmsg_info info = {
+		.data_lock_held = true,
+	};
+	...
+	int copied = 0;
+
+and info.mss_now is only ever assigned inside mptcp_sendmsg_frag(), after
+the early return the commit message refers to:
+
+	if (unlikely(!__tcp_can_send(ssk)))
+		return -EAGAIN;
+
+	/* compute send limit */
+	...
+	info->mss_now = tcp_send_mss(ssk, &info->size_goal, info->flags);
+
+In the non-first iteration, the return value is accumulated into copied
+without filtering negatives:
+
+net/mptcp/protocol.c:__mptcp_subflow_push_pending() {
+		if (READ_ONCE(subflow->scheduled)) {
+			mptcp_subflow_set_scheduled(subflow, false);
+			ret = __subflow_push_pending(sk, ssk, &info);
+			if (ret <= 0)
+				keep_pushing = false;
+			copied += ret;
+		}
+
+__subflow_push_pending() passes mptcp_sendmsg_frag()'s -EAGAIN through
+verbatim when the first frag fails, so copied becomes -EAGAIN, which is
+non-zero, while info.mss_now is still 0:
+
+out:
+	if (copied) {
+		tcp_push(ssk, 0, info.mss_now, tcp_sk(ssk)->nonagle,
+			 info.size_goal);
+
+Can that reach the divide the patch is trying to avoid?  With a non-empty
+subflow write queue, tcp_push() does not take the autocork early return
+(it requires skb->len < size_goal, i.e. skb->len < 0), so it calls
+__tcp_push_pending_frames(sk, 0, nonagle), which only bails for TCP_CLOSE.
+For FIN_WAIT1/FIN_WAIT2/CLOSING/LAST_ACK it continues into
+tcp_write_xmit(sk, 0, ...) and tcp_tso_segs() -> tcp_tso_autosize():
+
+net/ipv4/tcp_output.c:tcp_tso_autosize() {
+	return max_t(u32, bytes / mss_now, min_tso_segs);
+
+tcp_set_skb_tso_segs() has the same shape with
+DIV_ROUND_UP(skb->len, mss_now).
+
+Is the "scheduled but no longer sendable" state reachable on this path?
+mptcp_sched_get_send() returns early without re-validating sendability if
+any subflow already has the flag set:
+
+net/mptcp/sched.c:mptcp_sched_get_send() {
+	mptcp_for_each_subflow(msk, subflow) {
+		if (READ_ONCE(subflow->scheduled))
+			return 0;
+	}
+
+and __mptcp_subflow_push_pending() itself leaves the flag set on the
+subflows it delegates via mptcp_subflow_delegate().  The tree also comments
+on leftover flags elsewhere ("there could be left-over scheduled subflows;
+clear them all or later xmit could use bad ones"), and
+__mptcp_push_pending() already anticipates -EAGAIN together with
+FIN_WAIT1/FIN_WAIT2 - which are exactly the states where
+__tcp_push_pending_frames() does not bail out.
+
+The entry point with first == false is __mptcp_check_push():
+
+	if (!sock_owned_by_user(sk))
+		__mptcp_subflow_push_pending(sk, ssk, false);
+
+reached from ack_update_msk() in net/mptcp/options.c on incoming DSS acks,
+so this runs in softirq context on peer-supplied input.
+
+A second, smaller question on the same statement: since copied mixes byte
+counts with negative errnos, can a positive count followed by an error that
+sums to exactly zero (for example 11 bytes then -EAGAIN) make the
+if (copied) test false and skip both the flush and
+mptcp_reset_rtx_timer() even though data was queued?
+
 -- 
-2.53.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-net-mptcp-misc-fixes-7-3-rc4-v1-0-a257797dd5d0%40kernel.org
