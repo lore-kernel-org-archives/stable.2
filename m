@@ -1,53 +1,35 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AEDA4B0E31;
-	Wed, 16 Sep 2026 16:29:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C0CC5581F2;
+	Wed, 16 Sep 2026 16:30:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576196; cv=none; b=VovMw8Jz+pL6h4ZnLuxUDYlilRtYd4Z6Qzx1F4FyS+TqXJpUG/Flg7gvOZb67jD14nWWtaHngfA/Tv2WFY0hoMBgMdkjC30jsAS92Qt8kmGjSdky3BWhjf41M0x1jYj55xTvD7in+9lBi9pBn6WJl3K+tXs8TFay+upB3hycnJg=
+	t=1789576227; cv=none; b=rQJ4n1H2RC8Da+spGhTyybctZ84I9IsZ04lrfGui2YZ8QvQ2vZctQ31veLcmHny4BqA5YZuIS7i1PrSZhpRd1L2AiRNdV8hQ2R7FZrqVqiT5c6uqxGHHX7BfJdkVIm+10oEXPlTk43dXBORx86amdTv3fbg9kwvcpqzcXmIO2F0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576196; c=relaxed/simple;
-	bh=OZWfpTyT7uZEWROIRYQLwAcWJTQahP/VB7g7gAmdjO4=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=VL/vCoAnijReE4I88VkPh+1dkX40mqusTctPINe9DC0lfrxRnb3tciP1+gEcmgQvOtsudUwf5ffDLh3YXAbcdcuHgOYZGbA/OnCw3ESQsLcFGVR+4FMitx6hD5X61U/RFoapBfJmj+thCcEXX7KiL30xCwT7McG0FWrFykEBIXk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=p/jASRT2; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="p/jASRT2"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 847B81F02;
-	Wed, 16 Sep 2026 09:29:47 -0700 (PDT)
-Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 738823F7B4;
-	Wed, 16 Sep 2026 09:29:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789576191; bh=OZWfpTyT7uZEWROIRYQLwAcWJTQahP/VB7g7gAmdjO4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=p/jASRT2PbYFAZYxX+09BPsxSYYt2bE3KBXUk1PPQqpWbdn7T3Iy2jul0ie2vhWSQ
-	 UqCM1NKIR9rqXGX5IImzZJxc3i406ZyAbEJH40alJZgEZsgcgHBq9VuhjWSHxRWoh0
-	 ZRdrvPvo0Vy/pI8MQKQxWZ6Q4a/Gx+cnvDNMgjH0=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
+	s=arc-20240116; t=1789576227; c=relaxed/simple;
+	bh=dDk6+kVp7i2/7e3H9+Qgr9nD4/ygnU27ul2HOZpHVCc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rNiRTC/ZyNUDOe0a1QUtj1M1X7Qn6e2vVKf0lN3r499xYzlRJAb3EbGU26n0b4VpCfZbZwxDFPTiG06qplraE7azEJ3YIU/zxWakCaadLCjVUNgqxKm4VO6+teZBmBqUssr5Gpp8MdlLQ8Kn3sHODAgqiVwbKRyFLdMMUQeO0BE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABXh0EYxKpqB65tCA--.22179S2;
+	Thu, 17 Sep 2026 00:30:16 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andy@kernel.org
+Cc: dlechner@baylibre.com,
+	jic23@kernel.org,
+	linusw@kernel.org,
+	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Len Brown <lenb@kernel.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Lifeng Zheng <zhenglifeng1@huawei.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>,
-	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>,
+	nuno.sa@analog.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 20/20] cpufreq: CPPC: Create the FIE worker before enabling PCC callbacks
-Date: Wed, 16 Sep 2026 17:28:05 +0100
-Message-Id: <20260916162805.1039247-21-christian.loehle@arm.com>
+Subject: [PATCH] iio: gyro: mpu3050: Fix runtime PM leak in mpu3050_drdy_trigger_set_state()
+Date: Wed, 16 Sep 2026 16:29:49 +0000
+Message-Id: <20260916162949.2083791-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
-References: <20260916162805.1039247-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,129 +37,101 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABXh0EYxKpqB65tCA--.22179S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WF1UGFy5KF48JryDJFW5KFg_yoW8KF4xpr
+	4IgF9IkFykXr4ftr4vyF1qqFy5Cr4fJrZ5WrWxK3sava13CF4jkF1jvFWaqF1fZrWkWF1U
+	Jr47GFZxuF47taDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
+	o5l5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqozVQtwACsh
 
-cppc_freq_invariance_init() creates the PCC worker only if an online CPU
-currently has PCC counters. A shared policy can also initialize an offline
-PCC member. When that CPU comes online, its callback queues work through
-the missing kworker_fie and dereferences NULL. A later hot-added PCC policy
-can encounter the same missing worker.
+The enable path of the trigger state callback called
+pm_runtime_get_sync() and returned early on every following register
+access failure without releasing the runtime PM reference, leaving
+the device powered permanently. Use pm_runtime_resume_and_get() to
+propagate resume errors without bumping the usage count, and release
+the reference on all error paths before returning.
 
-Create the worker when policy initialization encounters PCC counters,
-before initializing their work and publishing any callbacks. Serialize
-creation and reuse the worker until driver teardown. This covers offline
-policy members and later PCC policies without creating an unused deadline
-worker on direct-counter-only systems.
-
-If worker allocation or scheduling setup fails, leave FIE unregistered for
-that policy. Keep the global FIE setting unchanged so direct-counter
-policies remain independent of worker setup and existing policies still
-drain their initialized work during teardown. Publish kworker_fie only
-after successful setup, allowing a later policy initialization to retry.
-
-Fixes: 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
+Fixes: 3904b28efb2c ("iio: gyro: Add driver for the MPU-3050 gyroscope")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/cpufreq/cppc_cpufreq.c | 39 ++++++++++++++++++++--------------
- 1 file changed, 23 insertions(+), 16 deletions(-)
+ drivers/iio/gyro/mpu3050-core.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index c0fa9073e4d3..09e55bfdca88 100644
---- a/drivers/cpufreq/cppc_cpufreq.c
-+++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -18,6 +18,7 @@
- #include <linux/cpufreq.h>
- #include <linux/irq_work.h>
- #include <linux/kthread.h>
-+#include <linux/mutex.h>
- #include <linux/time.h>
- #include <linux/vmalloc.h>
- #include <uapi/linux/sched/types.h>
-@@ -50,10 +51,12 @@ struct cppc_freq_invariance {
- 
- static DEFINE_PER_CPU(struct cppc_freq_invariance, cppc_freq_inv);
- static struct kthread_worker *kworker_fie;
-+static DEFINE_MUTEX(cppc_fie_lock);
- 
- static int cppc_perf_from_fbctrs(u64 reference_perf,
- 				 struct cppc_perf_fb_ctrs *fb_ctrs_t0,
- 				 struct cppc_perf_fb_ctrs *fb_ctrs_t1);
-+static int cppc_fie_kworker_init(void);
- 
- /**
-  * __cppc_scale_freq_tick - CPPC arch_freq_scale updater for frequency invariance
-@@ -162,6 +165,9 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
- 		cppc_fi->cpu = cpu;
- 		cppc_fi->cpu_data = policy->driver_data;
- 		if (cppc_perf_ctrs_in_pcc_cpu(cpu)) {
-+			if (cppc_fie_kworker_init())
-+				return;
+diff --git a/drivers/iio/gyro/mpu3050-core.c b/drivers/iio/gyro/mpu3050-core.c
+index d84e04e4b431..aab2984a0c09 100644
+--- a/drivers/iio/gyro/mpu3050-core.c
++++ b/drivers/iio/gyro/mpu3050-core.c
+@@ -988,20 +988,23 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 		return 0;
+ 	} else {
+ 		/* Else we're enabling the trigger from this point */
+-		pm_runtime_get_sync(mpu3050->dev);
++		ret = pm_runtime_resume_and_get(mpu3050->dev);
++		if (ret)
++			return ret;
 +
- 			kthread_init_work(&cppc_fi->work, cppc_scale_freq_workfn);
- 			init_irq_work(&cppc_fi->irq_work, cppc_irq_work);
- 			cppc_fi->pcc_work_initialized = true;
-@@ -216,8 +222,9 @@ static void cppc_cpufreq_cpu_fie_exit(struct cpufreq_policy *policy)
+ 		mpu3050->hw_irq_trigger = true;
+ 
+ 		/* Disable all things in the FIFO */
+ 		ret = regmap_write(mpu3050->map, MPU3050_FIFO_EN, 0);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		/* Reset and enable the FIFO */
+ 		ret = regmap_set_bits(mpu3050->map, MPU3050_USR_CTRL,
+ 				      MPU3050_USR_CTRL_FIFO_EN |
+ 				      MPU3050_USR_CTRL_FIFO_RST);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		mpu3050->pending_fifo_footer = false;
+ 
+@@ -1013,12 +1016,12 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 				   MPU3050_FIFO_EN_GYRO_ZOUT |
+ 				   MPU3050_FIFO_EN_FOOTER);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		/* Configure the sample engine */
+ 		ret = mpu3050_start_sampling(mpu3050);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
+ 
+ 		/* Clear IRQ flag */
+ 		ret = regmap_read(mpu3050->map, MPU3050_INT_STATUS, &val);
+@@ -1037,10 +1040,14 @@ static int mpu3050_drdy_trigger_set_state(struct iio_trigger *trig,
+ 
+ 		ret = regmap_write(mpu3050->map, MPU3050_INT_CFG, val);
+ 		if (ret)
+-			return ret;
++			goto err_pm_put;
  	}
+ 
+ 	return 0;
++
++err_pm_put:
++	pm_runtime_put_autosuspend(mpu3050->dev);
++	return ret;
  }
  
--static void cppc_fie_kworker_init(void)
-+static int cppc_fie_kworker_init(void)
- {
-+	struct kthread_worker *worker;
- 	struct sched_attr attr = {
- 		.size		= sizeof(struct sched_attr),
- 		.sched_policy	= SCHED_DEADLINE,
-@@ -233,23 +240,28 @@ static void cppc_fie_kworker_init(void)
- 	};
- 	int ret;
- 
--	kworker_fie = kthread_run_worker(0, "cppc_fie");
--	if (IS_ERR(kworker_fie)) {
-+	guard(mutex)(&cppc_fie_lock);
-+
-+	if (kworker_fie)
-+		return 0;
-+
-+	worker = kthread_run_worker(0, "cppc_fie");
-+	if (IS_ERR(worker)) {
- 		pr_warn("%s: failed to create kworker_fie: %ld\n", __func__,
--			PTR_ERR(kworker_fie));
--		fie_disabled = FIE_DISABLED;
--		kworker_fie = NULL;
--		return;
-+			PTR_ERR(worker));
-+		return PTR_ERR(worker);
- 	}
- 
--	ret = sched_setattr_nocheck(kworker_fie->task, &attr);
-+	ret = sched_setattr_nocheck(worker->task, &attr);
- 	if (ret) {
- 		pr_warn("%s: failed to set SCHED_DEADLINE: %d\n", __func__,
- 			ret);
--		kthread_destroy_worker(kworker_fie);
--		fie_disabled = FIE_DISABLED;
--		kworker_fie = NULL;
-+		kthread_destroy_worker(worker);
-+		return ret;
- 	}
-+
-+	kworker_fie = worker;
-+	return 0;
- }
- 
- static void __init cppc_freq_invariance_init(void)
-@@ -264,11 +276,6 @@ static void __init cppc_freq_invariance_init(void)
- 			fie_disabled = FIE_ENABLED;
- 		}
- 	}
--
--	if (fie_disabled || !perf_ctrs_in_pcc)
--		return;
--
--	cppc_fie_kworker_init();
- }
- 
- static void cppc_freq_invariance_exit(void)
+ static const struct iio_trigger_ops mpu3050_trigger_ops = {
 -- 
 2.34.1
 
