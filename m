@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 593072DC792
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDD7A2F8E8E
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:47:08 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570029; cv=none; b=p7WLH7yMKLdhfDA5QfMidLNhJ1CBYaL3LGg/p2KVsxTogWQB8FhkJlvJ59He0C53+wN1NR0A5x/SmEu7n1NBRkuP6+ussT2QWi+04MP8GxP39fr9R6I5S+gK58BTo2JnBhShT11/RoDLUKNipYIV2HlE8dABhDz3drWIrD4d86c=
+	t=1789570030; cv=none; b=dabuOFcUDXSvi3pnke6z4dsfJUNHEB+4j8ksYZsfEgU8MPRdIaHikoWDrI5LenV3OimCpSw2mmbNuj5mURWoMPI9GO4wNM2vSaB6YXcLZKvULxxjbfGH/TjzceDU8+0r2sRlkLvrKssZ3vjZoL9um+EBYHBl/g5z47gik2gHyZw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570029; c=relaxed/simple;
-	bh=ZyEgeqrmj/4VPpxeZQ8HanuvLx83KqmUKGlFYw610XU=;
+	s=arc-20240116; t=1789570030; c=relaxed/simple;
+	bh=AhDvQecNs4QT4IpR3mWN5DBG7m6kmcgXQmDK7NsJ4Fk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MfkSvYqMXrHdVCFIZe5nb14khuyNVg0ua/iurYaAvKItp+yC6/o9hnyrqLumdmP0qDRwpYMewu5ENv6tMdmfwNBgnVinr1cefuxnW+lnxFqqxz6Hw1hyPdcEiGoqTF0i+ixtyRflrDW6Jqfclf9n4wcPPWF1Dg4auY1DbkbgHBs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=E+HDR9Xo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=STOR0iINQJtl31OH0RImx/lFfLLDqtkiMgP7zOlnopzfjsCvkh7BHiA1YnvVCCf5dEbft5UsPgpEkAguNRyfUzZcN5JPVWx0PR91oHLpjfCsdjrtD0+mHKbVkovWh6I3EMaOvZUercS3kXdxF5zGbyMDZEzcMaZ3djuYlV99PhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=az2UhLeT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="E+HDR9Xo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 577F51F000FF;
-	Wed, 16 Sep 2026 14:47:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="az2UhLeT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31BAA1F00893;
+	Wed, 16 Sep 2026 14:47:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570027;
-	bh=Z2rQ1L7Sb25HTZUvitDHbpcMKj8TuSQcOS0QQcKde74=;
+	s=k20260515; t=1789570028;
+	bh=Pc4CeDesRo/cmuoDpntW+lI/k1qwa/RCKuAwqD/rO4Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=E+HDR9XoFv+Z0Oct42oeB8Vef8SL94+fQkTsdj9qptiWvb3gSjnFAViacaxt+GcKq
-	 FjPaCYLucgQThchEAv4wYk81TUZXsHX1OhoGJWx0Z+uLBHXFYaW9tgcRsbRYygMMnW
-	 H164nmk/pDR+Duup16G98jjcDHxsoUyMzR1S6DdJ7tPIjbU1//R73fZRdndSdQI1Vg
-	 MmOcAEgVnu3yH4o32LkG9UM1Fi/H0FqLNNdv2m86GfRkqfbNrAsS/Z5dXa3Y7q8Rzs
-	 0EMXwja6slrPf0l+NVnFosDe8ebJlbtDTtWT82pTGd3iTpITrytQMNKs0Ioud+6zW+
-	 Qc18aSN/EOmYw==
+	b=az2UhLeTcVyrE+kEqMUk/nT4gp/fdSnpkbT+KLkqpA/Jf76ZjYlQrs7jG7r8NxQc1
+	 tF3TjNsEo0J2s7ua3GLGEjZvxzid8v8BROohwpYoULRcbckwVdUd6HqusDP80uWiwH
+	 eUzR3YyG3/Nr8s1gSCcAv3jWFWUjX9Bq2HBxyiDdllKl2Pjux8MFcGPWUFy8xFbRHc
+	 r3qFK2Ma4kBc+kGkCq+KrKRI6keDiCcJWUKYqL0fkQDEfLGC716ikyolMXbJ4Gwrax
+	 26wxtP0Iq5LOLbFNWt1zPdAZ/ztACG9EkohjbiUmtRn2Zh1Xeo2qaB2QWEdDpT7+Fq
+	 pmbY2aOcvb0JQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Dave Hansen <dave.hansen@intel.com>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] x86/mm/pat: Convert split_large_page() to use ptdescs
-Date: Wed, 16 Sep 2026 10:47:03 -0400
-Message-ID: <20260916144705.3627256-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/3] x86/mm/pat: Don't gate cpa_lock on debug_pagealloc_enabled()
+Date: Wed, 16 Sep 2026 10:47:04 -0400
+Message-ID: <20260916144705.3627256-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091615-lankiness-vowed-5e5d@gregkh>
+In-Reply-To: <20260916144705.3627256-1-sashal@kernel.org>
 References: <2026091615-lankiness-vowed-5e5d@gregkh>
+ <20260916144705.3627256-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,66 +47,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-[ Upstream commit e751303e0ad2e998f421d104193f6904df3516d1 ]
+[ Upstream commit 5fce67641a3ed9a0782eaa228ddece526461a367 ]
 
-Use the ptdesc APIs for all page table allocation and free sites to
-allow their separate allocation from struct page in the future.
+The splitting and merging of kernel page table mappings between small and
+large is protected by cpa_lock. The merging is relatively new but the
+splitting is ancient.
 
-Update split_large_page() to allocate a ptdesc instead of allocating a
-page for use as a page table.
+The splitting has a locking optimization: since DEBUG_PAGEALLOC forces all
+mappings to 4k, there are no large pages to split. So the code that *might*
+cause a split can just skip the locking (and a few other things).
 
-Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+This is entertaining, but it adds complexity and makes for weird locking
+rules. Plus it's all for a debugging feature which makes the kernel super
+slow in the first place. Optimizing something which is already super slow
+and not used in production is not the best way to spend our complexity
+budget.
+
+Stop gating cpa_lock on debug_pagealloc_enabled() to simplify the code
+and the locking rules.
+
+[ dhansen: flesh out changelog ]
+
+Suggested-by: Dave Hansen <dave.hansen@intel.com>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Link: https://patch.msgid.link/20260303194828.1406905-5-vishal.moola@gmail.com
+Link: https://patch.msgid.link/20260715144519.934289-1-rppt@kernel.org
+Link: https://lore.kernel.org/all/aab44f08-89f8-47fe-bee4-0ab6b25968c6@intel.com/
 Stable-dep-of: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ arch/x86/mm/pat/set_memory.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
 diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index de74be2e69bf7..3621532fccb61 100644
+index 3621532fccb61..5dc322409888f 100644
 --- a/arch/x86/mm/pat/set_memory.c
 +++ b/arch/x86/mm/pat/set_memory.c
-@@ -1125,9 +1125,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
+@@ -62,10 +62,9 @@ enum cpa_warn {
+ static const int cpa_warn_level = CPA_PROTECT;
  
- static int
- __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
--		   struct page *base)
-+		   struct ptdesc *ptdesc)
- {
- 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
-+	struct page *base = ptdesc_page(ptdesc);
- 	pte_t *pbase = (pte_t *)page_address(base);
- 	unsigned int i, level;
- 	pgprot_t ref_prot;
-@@ -1232,18 +1233,18 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
- static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
- 			    unsigned long address)
- {
--	struct page *base;
-+	struct ptdesc *ptdesc;
+ /*
+- * Serialize cpa() (for !DEBUG_PAGEALLOC which uses large identity mappings)
+- * using cpa_lock. So that we don't allow any other cpu, with stale large tlb
+- * entries change the page attribute in parallel to some other cpu
+- * splitting a large page entry along with changing the attribute.
++ * Serialize cpa() using cpa_lock so that we don't allow any other cpu, with
++ * stale large tlb entries, to change the page attribute in parallel to some
++ * other cpu splitting a large page entry along with changing the attribute.
+  */
+ static DEFINE_SPINLOCK(cpa_lock);
  
- 	if (!debug_pagealloc_enabled())
- 		spin_unlock(&cpa_lock);
--	base = alloc_pages(GFP_KERNEL, 0);
-+	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
- 	if (!debug_pagealloc_enabled())
- 		spin_lock(&cpa_lock);
--	if (!base)
-+	if (!ptdesc)
+@@ -1235,11 +1234,9 @@ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
+ {
+ 	struct ptdesc *ptdesc;
+ 
+-	if (!debug_pagealloc_enabled())
+-		spin_unlock(&cpa_lock);
++	spin_unlock(&cpa_lock);
+ 	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
+-	if (!debug_pagealloc_enabled())
+-		spin_lock(&cpa_lock);
++	spin_lock(&cpa_lock);
+ 	if (!ptdesc)
  		return -ENOMEM;
  
--	if (__split_large_page(cpa, kpte, address, base))
--		__free_page(base);
-+	if (__split_large_page(cpa, kpte, address, ptdesc))
-+		pagetable_free(ptdesc);
+@@ -2011,11 +2008,9 @@ static int __change_page_attr_set_clr(struct cpa_data *cpa, int primary)
+ 		if (cpa->flags & (CPA_ARRAY | CPA_PAGES_ARRAY))
+ 			cpa->numpages = 1;
  
- 	return 0;
- }
+-		if (!debug_pagealloc_enabled())
+-			spin_lock(&cpa_lock);
++		spin_lock(&cpa_lock);
+ 		ret = __change_page_attr(cpa, primary);
+-		if (!debug_pagealloc_enabled())
+-			spin_unlock(&cpa_lock);
++		spin_unlock(&cpa_lock);
+ 		if (ret)
+ 			goto out;
+ 
 -- 
 2.53.0
 
