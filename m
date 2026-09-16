@@ -1,98 +1,109 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C239327442;
-	Wed, 16 Sep 2026 16:41:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2C774AB3B7
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576891; cv=none; b=Vq2cpKu3JReTsZnJZINPnC6lxsTbjZAVDW9U1D96IWHC9e2iWP21ulipeLQIAJ2YJGfT8GbAEu7f8Xo3KB+kBXUOHT4lUXIGZkhBhNJ1JyoNiVd4zbr9nWnEPm3W86WtEmJ/NHrYsUuzSkMPRq0fq0BUyjwVgjs9FIKQNJt2hfM=
+	t=1789576929; cv=none; b=nyv7UxM7BO+4J3qzxWt4WMERpc8d6EL3rHUPJPaRbNIXpLu4yHlofb1eFVBtzESpV/wjTmsYXj5Gld5fEdC5DbD31T4KEa6flzZQjNegEt6JqGdMr8VRPzM/SYHhP4ZLhOksZZdP1qlL4x+0Wg0WbNgZlaj1Znb6n6pQ5vPtqOA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576891; c=relaxed/simple;
-	bh=vuid5HPFu0HvA9QmTcinB24UO1+C9roSwlu+ZS61u0A=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rpAbg1LGWwY051KUqngpwAGL9f3qqEnPpbB6F9f8VnR76P1d248niu+N8q4JMoQIhvTdeRh1+71Ay8F/MffUSD1u3b30Su98KtWG/nJ4XzgXN1rM2EfN12baB31mMyzfJHj7osltNWZg+pub/UbVSXvKD5vU1+a2vz5GlU2zTVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADHMTynxqpq+NRtCA--.21805S2;
-	Thu, 17 Sep 2026 00:41:11 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: abhashkumarjha123@gmail.com
-Cc: andy@kernel.org,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	songqiang1304521@gmail.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: proximity: vl53l0x: Fix trigger reference leak in vl53l0x_probe()
-Date: Wed, 16 Sep 2026 16:40:43 +0000
-Message-Id: <20260916164043.2084494-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789576929; c=relaxed/simple;
+	bh=QVs9tgQNAZY8mAI7lTXMcZv5t5TQyR+tlKpLDd86yRw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=U7swQO93WzUgj+cAzi9ldXw+3kgNsRn0r9JBPqnZVjzXwbP4nWj+r4hQHkzXDckMpjPucyl/HeeovpvlGc9okFPIVNxt0c4kLb5Hcv8e5lkX6kSHY+taba2isJs+ofJjXoohM5oS1qp6JAgoxoLeJScWw4b6pSBfxktzgux7Djo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UPZzR+OR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UPZzR+OR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5B2F71F0089A;
+	Wed, 16 Sep 2026 16:42:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789576923;
+	bh=qH8T8zL8x2AUUFmdmZop+OssqjCUL9VOrV5aeYSRQy8=;
+	h=Subject:To:Cc:From:Date;
+	b=UPZzR+ORH5t+mVXcMpmSss86VE/PN4S1AhcI5CUroN9FV9Xm+U7LLC4YSePJnxlD0
+	 yY97cagBHvlNpQCT/rGfyZMCn0IG+EREoFixzd8W/8WsfJ4d4+RgXl7+dMxJWgwxkH
+	 43fxB0NsQtI/fOTTqKhjCE6vx02ohaYmGX8iFToI=
+Subject: FAILED: patch "[PATCH] mptcp: prevent race between disconnect() and rtx" failed to apply to 6.6-stable tree
+To: pabeni@redhat.com,kuba@kernel.org,matttbe@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 17:34:21 +0100
+Message-ID: <2026091621-borough-happiness-9e59@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADHMTynxqpq+NRtCA--.21805S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw45ArWfur1xGF4fKFykKrg_yoW8Gry8pF
-	s3trW7ta4DXr1xGF4q9Fn09ryaqFZxtrZ5ur4UZ347u3y5Za1Y9F1Yvw1agw1kXFyxCr4U
-	XrZ7ta9Yka1jyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
-	UvcSsGvfC2KfnxnUUI43ZEXa7VUbo5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIMA2qqpO9NxwAEsE
 
-The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
-vl53l0x_configure_irq() or of triggered buffer setup returns before
-that mode is set and leaks the reference acquired for
-indio_dev->trig. Move the iio_trigger_get() after those setup steps
-succeed.
 
-Fixes: 762186c6e7b1 ("iio: proximity: vl53l0x-i2c: Added continuous mode support")
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 85c580b0d8590520ae00a15c29e9fb9c99427a3e
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091621-borough-happiness-9e59@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 85c580b0d8590520ae00a15c29e9fb9c99427a3e Mon Sep 17 00:00:00 2001
+From: Paolo Abeni <pabeni@redhat.com>
+Date: Tue, 8 Sep 2026 16:07:11 +0200
+Subject: [PATCH] mptcp: prevent race between disconnect() and rtx
+
+Sashiko noted that the two event can race, leading to inconsistent
+status. Prevent the race using the synchronous timer stop operation.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/iio/proximity/vl53l0x-i2c.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Fixes: b29fcfb54cd7 ("mptcp: full disconnect implementation")
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-6-df1de70348b6@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/drivers/iio/proximity/vl53l0x-i2c.c b/drivers/iio/proximity/vl53l0x-i2c.c
-index ad3e46d47fa8..abef4129e645 100644
---- a/drivers/iio/proximity/vl53l0x-i2c.c
-+++ b/drivers/iio/proximity/vl53l0x-i2c.c
-@@ -374,8 +374,6 @@ static int vl53l0x_probe(struct i2c_client *client)
- 		if (ret)
- 			return ret;
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index be59651e708e..d611af2eb74f 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -3588,6 +3588,7 @@ static void mptcp_destroy_common(struct mptcp_sock *msk)
  
--		indio_dev->trig = iio_trigger_get(data->trig);
--
- 		ret = vl53l0x_configure_irq(client, indio_dev);
- 		if (ret)
- 			return ret;
-@@ -387,6 +385,8 @@ static int vl53l0x_probe(struct i2c_client *client)
- 					&iio_triggered_buffer_setup_ops);
- 		if (ret)
- 			return ret;
-+
-+		indio_dev->trig = iio_trigger_get(data->trig);
- 	}
+ static int mptcp_disconnect(struct sock *sk, int flags)
+ {
++	struct inet_connection_sock *icsk = inet_csk(sk);
+ 	struct mptcp_sock *msk = mptcp_sk(sk);
  
- 	return devm_iio_device_register(&client->dev, indio_dev);
--- 
-2.34.1
+ 	/* We are on the fastopen error path. We can't call straight into the
+@@ -3600,8 +3601,13 @@ static int mptcp_disconnect(struct sock *sk, int flags)
+ 	mptcp_check_listen_stop(sk);
+ 	mptcp_set_state(sk, TCP_CLOSE);
+ 
+-	mptcp_stop_rtx_timer(sk);
+-	mptcp_stop_tout_timer(sk);
++	/* The later subflow close can not kick again the tout timer,
++	 * as the msk is already in closed status.
++	 */
++	msk->timer_ival = icsk->icsk_rto_min;
++	sk_stop_timer_sync(sk, &sk->mptcp_retransmit_timer);
++	icsk->icsk_mtup.probe_timestamp = 0;
++	sk_stop_timer_sync(sk, &icsk->mptcp_tout_timer);
+ 
+ 	mptcp_pm_connection_closed(msk);
+ 
 
