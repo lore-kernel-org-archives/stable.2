@@ -1,35 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4684E4E50DA;
-	Wed, 16 Sep 2026 18:53:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9CAE53D3002
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:55:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584840; cv=none; b=GegAj5WLWd9t3ChhpZ56eNxz9qTpE9NFQDGhjmZdFNbOWwUw4Rk4p0ynle1SbNhlaXcQVG4o2YzS8qCm1dlNzggWZq/86bJ8Xtl8bmTj6bZTDv3uIrNZgMS7ZQJWailzXOLLOKYg9V1TJ3a811cYI8G1UR/xjjuXssKw8pEFFT0=
+	t=1789584961; cv=none; b=DbNWMPfPFcoXu2ULLqwjZKffHmy+ykqN0VwQvn6/6WoAF6SVqqTUHvOHlezOVa35tMkpaqin65Rxjq2Bs/RtQVH7u9QVALRboh6xqxSpu8jQF/PZ7EDMYQ/hb7Vk8Ye6u/ULW9ZOYvgs8Nia25alvk7WxFxB4AMG0+Qcx+pqgMM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584840; c=relaxed/simple;
-	bh=oZ74DBm5ryiVX5dnrDePlI2yqZz3F2DEUP8ILajCMyU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=q2GL5lxel1g3i18Blq74cyWa06mqxbFvrd536G4cbnqUBvsYU02vzBD6AsdyNE2a8HpNurZTX2hXxCwy95BNkP4LLwBtS9vNbBQYcYmk91p+nARqfsmQHvNfZHUJScU1QEjsJ+7F1BOiEhSq5c46ajKY9+PSvsKMyDyZa6w9yAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAD3J0Ky5apqU+pvCA--.24921S2;
-	Thu, 17 Sep 2026 02:53:38 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: iommu@lists.linux.dev
-Cc: joro@8bytes.org,
-	linux-kernel@vger.kernel.org,
-	mingo@elte.hu,
-	robin.murphy@arm.com,
-	suravee.suthikulpanit@amd.com,
-	will@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iommu/amd: Fix IOMMU PCI device reference leak in iommu_init_pci()
-Date: Wed, 16 Sep 2026 18:53:10 +0000
-Message-Id: <20260916185310.2093691-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789584961; c=relaxed/simple;
+	bh=0A7JailQG/+PeSDsS0GjmqkIrg7nitoMwFIek97zWr4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bseMpGCjt/tFd81Rl5ha2Q9NiecPpfM1K5vODPeaCIwi6Gj+Avb07MvR096EhR/kjgrvfmGVoc8rS86MDDpsizMuMD0FuyYdeOJvU5YdFxxDmzfMvWGMA5aP2R7Iu0ZTeYayZ0JexXDXcZU4ODiOt+cIGgzAeBMSCsOskE9/peM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cZT6nGRW; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cZT6nGRW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C21241F00898;
+	Wed, 16 Sep 2026 18:55:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789584944;
+	bh=0mJPyi2G/34IMkDRJPdAec8C7E2MNFJh7cYML1At2xs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=cZT6nGRWwRFqlLg1xCG+dXntDuRd1165fEepHnKjo2a1VV0Yn3yrcif0pqsZpX062
+	 Iqm+0jb9Ez68lauMg3r2hIs72l/5v1WHm1eA3TTT90uGrO/KBW/q0qAHqgmbSv/XfC
+	 0cMBFpd2ULUn8bibjzsX/hDaf6u22NB3u/JxgBmKr/cwIb78BPhHxYkysGYyStBw68
+	 MFtqP1d1qix9vXo15PkzMTm4XDB8x+opKxpJVjPGa7oJ4SvAMjakLFqDuIm2rj1UdO
+	 DqtPWMHVDi8Fa6d0VHrfKHeyMpkEJZtuVbSJHbFIhoBbWU09Ank+GR2DKtT6gYu08i
+	 w0E4UdzI+JNVw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Andrzej Kacprowski <Andrzej.Kacprowski@intel.com>,
+	Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>,
+	Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/5] accel/ivpu: Update VPU FW API headers
+Date: Wed, 16 Sep 2026 14:55:38 -0400
+Message-ID: <20260916185541.1885084-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916185541.1885084-1-sashal@kernel.org>
+References: <2026091601-reply-pointy-7e61@gregkh>
+ <20260916185541.1885084-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,53 +46,65 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAD3J0Ky5apqU+pvCA--.24921S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKr4kCryUAFWxWw13tFykuFg_yoWDtwc_Cr
-	W0qFn7Xry5Ga1jkw1qqr93Zr1DKa4DZFn7XrW0kwsYy34S9F4UJ34Yvr98GFW7Ww4YyF9F
-	yr1DGay3J3srZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_
-	Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0JUCNt
-	xUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQMA2qqpO+GbQABsm
 
-iommu_init_pci() takes a reference on the IOMMU's PCI device with
-pci_get_domain_bus_and_slot() and keeps it for the lifetime of the
-IOMMU, but free_iommu_one() frees the IOMMU without ever dropping that
-reference.  It is leaked whenever an IOMMU is torn down again on an
-init error path.
+From: Andrzej Kacprowski <Andrzej.Kacprowski@intel.com>
 
-Release the reference in free_iommu_one(), after the sysfs device that
-uses it as parent has been removed.
+[ Upstream commit a4293cc75348409f998c991c48cbe5532c438114 ]
 
-Fixes: 3eaf28a1cd26 ("AMD IOMMU: save pci_dev instead of devid")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+This commit bumps:
+  - Boot API from 3.24.0 to 3.26.3
+  - JSM API from 3.16.0 to 3.25.0
+
+Signed-off-by: Andrzej Kacprowski <Andrzej.Kacprowski@intel.com>
+Co-developed-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+Reviewed-by: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240930195322.461209-2-jacek.lawrynowicz@linux.intel.com
+Signed-off-by: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+
+Backport to 6.6: retain only the tracing-header read_wrap_count member
+needed by the firmware log printing changes preceding 0724afc55c77.
+Replace one reserved u32 so the tracing header size and subsequent field
+offsets stay unchanged.
+
+Drop the unrelated Boot/JSM version bumps, scheduling, native-fence and
+power-management updates, together with the job queue conversion and
+message-name changes. This tree has older API definitions and lacks
+ivpu_jsm_msg_type_to_str(); importing those changes is unnecessary for
+firmware log metadata validation. No functions are added.
+
+The separate firmware logging refactors and BO accessor changes are still
+required before the unmodified upstream target can apply to this tree.
+
+[ sashal: Reduced backport -- upstream a4293cc753484 touches 4 file(s), this
+  backport carries 1. Not backported here:
+  drivers/accel/ivpu/ivpu_job.c
+  drivers/accel/ivpu/ivpu_jsm_msg.c
+  drivers/accel/ivpu/vpu_jsm_api.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 0724afc55c77 ("accel/ivpu: Validate firmware log buffer metadata")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/iommu/amd/init.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/accel/ivpu/vpu_boot_api.h | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
-index 3bdb380d23e9..4b155970151d 100644
---- a/drivers/iommu/amd/init.c
-+++ b/drivers/iommu/amd/init.c
-@@ -1810,6 +1810,7 @@ static void __init free_iommu_one(struct amd_iommu *iommu)
- 	free_ga_log(iommu);
- 	iommu_unmap_mmio_space(iommu);
- 	amd_iommu_iopf_uninit(iommu);
-+	pci_dev_put(iommu->dev);
- }
+diff --git a/drivers/accel/ivpu/vpu_boot_api.h b/drivers/accel/ivpu/vpu_boot_api.h
+index 88345070a9965..7d302693f4562 100644
+--- a/drivers/accel/ivpu/vpu_boot_api.h
++++ b/drivers/accel/ivpu/vpu_boot_api.h
+@@ -301,7 +301,9 @@ struct vpu_tracing_buffer_header {
+ 	u32 host_canary_start;
+ 	/* offset from start of buffer for trace entries */
+ 	u32 read_index;
+-	u32 pad_to_cache_line_size_0[14];
++	/* keeps track of wrapping on the reader side */
++	u32 read_wrap_count;
++	u32 pad_to_cache_line_size_0[13];
+ 	/* End of first cache line */
  
- static void __init free_iommu_all(void)
+ 	/**
 -- 
-2.34.1
+2.53.0
 
