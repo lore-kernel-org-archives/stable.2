@@ -1,72 +1,36 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF894F6469;
-	Wed, 16 Sep 2026 13:22:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 267974F55C5
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 13:25:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789564945; cv=none; b=qSzH6hfKMJEaqZpBl7PpCWhL+rih6FSfTSkDAVq+pGE66yphHN310eGq0S2zLYoYCT1KkoYIX+QMUtSce5SJ0BMLl/dgnK9PiPXxCpyQ1zVIAUsH4A5txmmCw9dAwLZuKq/lmTEHNDrLyPl++7p/nM0klox0t07Tt9YmNMdEAv0=
+	t=1789565132; cv=none; b=IZKdOMaMm8U+aPy34s7nInEIVoByaikOe2vMe1HV5NssTjsVTpN0XiDxdC8S/VbPYw6jIJ6i9wkMnlAnicmRZ5dHxOhvZJVGbLBHAERYw18GR6zD6/RlMo2y8V6IlFC6XPQa6UxnIZsRQRFsLqOlJrPUZxyAXPHpkgHBEnWPhRo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789564945; c=relaxed/simple;
-	bh=tyXBv/ktYjbJt+dv+PJO6PzGdQvZ4YLO63q7qyqRd38=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CiFebE+fwCPpWcOAMbpEmmZ04nSH/zv6v/5T9KoHXbTuGaxENGVP/dIkAfNfx3t8huD8AsSEAnV0OnS32vTLKbaxtwH6Go0vk4+GOfvsYRw576/lvoidwj4hBD/0dm0GaoB/6T/xuljyeRupId4mHpdrq+Y9PQFxZV3j0y3Mo+8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=ToySopMt; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789565132; c=relaxed/simple;
+	bh=9MrfUzBbRxO3K/j5gxi6S7iy4qoB+aIJE60TUfbvLEQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ehXbSsDmeBmk7RMzw3kV2ZFCdZvJGMwzoOjCUoNvEOuZCxCfqUQMjp16cEODiNCGH+taDp7zlzBuN93MAnIh3R/W5aMpqvYc3cL+BCR5RBBAK/fKFF0PjH6sbN737XmfcONCjhoLbd7tU/ldAMB8eGcHji0kQjxzIJdhlX5Z7ng=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=NG/5bSgI; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="ToySopMt"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCVhmx1882538;
-	Wed, 16 Sep 2026 13:22:08 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:date:from:in-reply-to:message-id
-	:mime-version:references:subject:to; s=pp1; bh=LxnGU5zy8vm3KBXgD
-	+dvszvZxK+B0vPtl2ErdV79rZA=; b=ToySopMti0ukfDChxdJ2F1qZP7Y4G16RJ
-	47fP5xlGFaxqlXkb370CeD2ZYPfCzoMSEHEXnguKrnoFIFnK4abGiEfslY3yPV5o
-	oVAz+8OdDQzidIj/0jdfviM+spZeMC21uKeDdDVdcvdIRf4GjmEz0jd2MjyM4E4v
-	hjwIO1T6l8NWAUKNpXcpPDSiDYshT4hZOoGQ/8FNAgOHK94fulXmTP/ImZNg5BHo
-	NW+Z7X52Yqk0JNOehiYLMIwN6EgcIRVQRvEr27AR1AWRF4docgvLoFBYLeHN+T2n
-	Hl0+WGzRDZtMAfsgljCYoT73HceT9D8cOSpG2KwEZrQ48mxZKnhiA==
-Received: from ppma11.dal12v.mail.ibm.com (db.9e.1632.ip4.static.sl-reverse.com [50.22.158.219])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxdqcpve-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 13:22:07 +0000 (GMT)
-Received: from pps.filterd (ppma11.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma11.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GCZInG2376627;
-	Wed, 16 Sep 2026 13:22:06 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma11.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gpw6d71ns-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 13:22:06 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (smtpav04.fra02v.mail.ibm.com [10.20.54.103])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GDM2E645154746
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Wed, 16 Sep 2026 13:22:03 GMT
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CE5E32004B;
-	Wed, 16 Sep 2026 13:22:02 +0000 (GMT)
-Received: from smtpav04.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 8967120040;
-	Wed, 16 Sep 2026 13:22:02 +0000 (GMT)
-Received: from t83lp71.lnxne.boe (unknown [9.87.84.240])
-	by smtpav04.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Wed, 16 Sep 2026 13:22:02 +0000 (GMT)
-From: Nagamani PV <nagamani@linux.ibm.com>
-To: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-        kuba@kernel.org, pabeni@redhat.com
-Cc: wintera@linux.ibm.com, aswin@linux.ibm.com, hca@linux.ibm.com,
-        gor@linux.ibm.com, agordeev@linux.ibm.com, borntraeger@linux.ibm.com,
-        svens@linux.ibm.com, kees@kernel.org, linux-s390@vger.kernel.org,
-        netdev@vger.kernel.org, Nagamani PV <nagamani@linux.ibm.com>,
-        stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
-Subject: [PATCH net v2 2/2] s390/ctcm: Fix use-after-free in channel_remove()
-Date: Wed, 16 Sep 2026 15:21:49 +0200
-Message-ID: <20260916132149.4185912-3-nagamani@linux.ibm.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916132149.4185912-1-nagamani@linux.ibm.com>
-References: <20260907144511.3810194-1-nagamani@linux.ibm.com>
- <20260916132149.4185912-1-nagamani@linux.ibm.com>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="NG/5bSgI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=mU
+	eWvQyELQ91Zo7gd0quF0DPhsMTPLIThzQR0sZzvog=; b=NG/5bSgI2WFIFDjnkw
+	kyTZztWkEStp+3mkiIZA7NdtwBCUcrrSHIQhM3H53YM4v4Jz0IJcD/anBGNknvyJ
+	V/N/UBN/G9Mk59WQ2zGmUns9w/FVHHYq4hTSbCUc4ZA88GvdVryUBA/48cDsz1tG
+	cKaGNfjWyC7KT861iRDBZibjY=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g0-1 (Coremail) with SMTP id _____wD338+3mKpq6oZjBQ--.13440S2;
+	Wed, 16 Sep 2026 21:25:12 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: xiaolinkui@kylinos.cn
+Cc: stable@vger.kernel.org
+Subject: [Intel-wired-lan] [PATCH net] igb: unregister the i2c adapter when register_netdev() fails
+Date: Wed, 16 Sep 2026 21:25:09 +0800
+Message-Id: <20260916132509.1000840-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -74,88 +38,82 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Reinject: loops=2 maxloops=12
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDE3NCBTYWx0ZWRfX5GfdOOnBZtzh
- NDGFi9u6wHWBkhPgIU8Jr6ey71HDV7dJ7/1uArG9+1bjIGwBhNglN484K2WQxx+EhG+h5wL9tHG
- Pk1UXgwMvZvSd9OG+jV1EWPFiNdmkbo3XDwDMtURVCL/gk1ISKQ7vQPNQmv/pMGWfmmTjrCI92d
- fegNhCjHPi+MGZcxJtD1YQwFp57fm8EWUAkQGKpmk719T+tBjfeRfkImO3s11xiBce9knpNSvDA
- V+7oJEQHihlyPyGBAvpxfoTbQLMsPS6y8OGF0Qt+aBcu6WY4/a0sUhHS1JWH/Ncc1IdafYJsk3u
- OMIxc9R8k5CwLTmvHiFi26fGDpNfdIt+07H6SQeOQZFl1VkGBSARZOSFPNFMCbg8pk1ofDEeI5F
- 96X0Z6xqVg95Llao+yfSc9YWJ9UMDK4DmykS8edr9zGAyqVHx9b1zZNcmprHlx/bkk55r5iN1EX
- ND1iMlhroQviXIOw7mw==
-X-Proofpoint-GUID: ts1csgUY5ESGtZPaXa5PB3U-Fk06qYN6
-X-Authority-Analysis: v=2.4 cv=DobDa2/+ c=1 sm=1 tr=0 ts=6aaa97ff cx=c_pps
- a=aDMHemPKRhS1OARIsFnwRA==:117 a=aDMHemPKRhS1OARIsFnwRA==:17
- a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
- a=uAbxVGIbfxUO_5tXvNgY:22 a=c92rfblmAAAA:8 a=VnNF1IyMAAAA:8 a=VwQbUJbxAAAA:8
- a=lm3vwLJbPXUmvxTiMesA:9 a=GvGzcOZaWPEFPQC_NcjD:22
-X-Proofpoint-ORIG-GUID: BcD1n5l4LtNLdzjQbQuzzidkCX-Ot8wa
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDE3NCBTYWx0ZWRfX9kPa5Al+JpwG
- Nc7gZwxcfxNplSlEl3wjBEvA4Jfx+dW1nodNFtYeCQRMKN514Spo9izl6zmbiPIqgvDD4Pbn790
- e1jWvXDouXyEA/YE8suwmR2n92qrW9M=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_02,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160174
+X-CM-TRANSID:_____wD338+3mKpq6oZjBQ--.13440S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGr17Wr45XF17Ar4DAw4Utwb_yoW5GF4xpF
+	4DAa4fCr4jqrnFga1DJ3W0yFyYkaySk3yYka17Zw4fWFn8tryDXryYyFyYyFyrKrZ5u3Zx
+	tr4qvw15Cr1UAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UaNtxUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlBiZcGqqmLh5aAAA3U
 
-channel_remove() calls fsm_deltimer() which internally uses
-timer_delete(), then immediately frees the channel structure:
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-  fsm_deltimer(&ch->timer);
-  kfree_fsm(ch->fsm);       /* freed while callback may still run */
-  kfree(ch);
+igb_probe() sets up the bit-banging i2c adapter with igb_init_i2c()
+before it registers the netdev, but the err_register path only zeroes
+adapter->i2c_adap instead of unregistering the adapter. On i350 parts,
+where igb_init_i2c() really registers the bus, the adapter is therefore
+still registered when free_netdev() releases the memory that embeds it.
+The i2c core keeps pointing at the freed adapter, so any later access to
+that bus dereferences freed memory, and the adapter number is leaked.
 
-timer_delete() returns immediately even if the timer callback is
-currently executing on another CPU, creating a window where
-fsm_expire_timer() accesses this->fi (which points to ch->fsm)
-after it has been freed by kfree_fsm().
+Call igb_remove_i2c() instead, the same way igb_remove() tears the bus
+down. Move the helper next to igb_init_i2c() so that it is in scope for
+igb_probe(). i2c_del_adapter() returns early for an adapter that was
+never registered, so the parts without i2c support are unaffected.
 
-Fix this by calling timer_delete_sync() directly on the underlying
-timer_list fields before freeing, instead of going through
-fsm_deltimer(). timer_delete_sync() is used rather than
-timer_shutdown_sync() because the channel is fully torn down by
-channel_remove() and the timer is never re-armed after this point,
-making the re-arm prevention of timer_shutdown_sync() unnecessary.
-This cannot be fixed in fsm_deltimer() itself because FSM action
-functions triggered by CTC_EVENT_TIMER call fsm_deltimer() from within
-the timer callback chain, which would cause a self-deadlock in
-timer_delete_sync().
-
-Fixes: 293d984f0e36 ("ctcm: infrastructure for replaced ctc driver")
+Fixes: 441fc6fdb47a ("igb: Add i2c interface to igb.")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Link: https://sashiko.dev/#/patchset/20260803182736.2356374-1-nagamani@linux.ibm.com?part=1
-Reviewed-by: Aswin Karuvally <aswin@linux.ibm.com>
-Tested-by: Aswin Karuvally <aswin@linux.ibm.com>
-Signed-off-by: Nagamani PV <nagamani@linux.ibm.com>
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
-Changes in v2:
-- add Fixes: and Cc: stable@vger.kernel.org tags (Sashiko netdev-bot)
----
- drivers/s390/net/ctcm_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/net/ethernet/intel/igb/igb_main.c | 22 +++++++++++-----------
+ 1 file changed, 11 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/s390/net/ctcm_main.c b/drivers/s390/net/ctcm_main.c
-index 8b0d76a47d9f..63f8832f9b14 100644
---- a/drivers/s390/net/ctcm_main.c
-+++ b/drivers/s390/net/ctcm_main.c
-@@ -211,9 +211,9 @@ static void channel_remove(struct channel *ch)
- 	while (*c) {
- 		if (*c == ch) {
- 			*c = ch->next;
--			fsm_deltimer(&ch->timer);
-+			timer_delete_sync(&ch->timer.tl);
- 			if (IS_MPC(ch))
--				fsm_deltimer(&ch->sweep_timer);
-+				timer_delete_sync(&ch->sweep_timer.tl);
+diff --git a/drivers/net/ethernet/intel/igb/igb_main.c b/drivers/net/ethernet/intel/igb/igb_main.c
+index d4a897a8c82c..f965ca144f42 100644
+--- a/drivers/net/ethernet/intel/igb/igb_main.c
++++ b/drivers/net/ethernet/intel/igb/igb_main.c
+@@ -3190,6 +3190,16 @@ static s32 igb_init_i2c(struct igb_adapter *adapter)
+ 	return status;
+ }
  
- 			kfree_fsm(ch->fsm);
- 			clear_normalized_cda(&ch->ccw[4]);
++/**
++ *  igb_remove_i2c - Cleanup  I2C interface
++ *  @adapter: pointer to adapter structure
++ **/
++static void igb_remove_i2c(struct igb_adapter *adapter)
++{
++	/* free the adapter bus structure */
++	i2c_del_adapter(&adapter->i2c_adap);
++}
++
+ /**
+  *  igb_probe - Device Initialization Routine
+  *  @pdev: PCI device information struct
+@@ -3657,7 +3667,7 @@ static int igb_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 
+ err_register:
+ 	igb_release_hw_control(adapter);
+-	memset(&adapter->i2c_adap, 0, sizeof(adapter->i2c_adap));
++	igb_remove_i2c(adapter);
+ err_eeprom:
+ 	if (!igb_check_reset_block(hw))
+ 		igb_reset_phy(hw);
+@@ -3849,16 +3859,6 @@ static int igb_enable_sriov(struct pci_dev *pdev, int num_vfs, bool reinit)
+ }
+ 
+ #endif
+-/**
+- *  igb_remove_i2c - Cleanup  I2C interface
+- *  @adapter: pointer to adapter structure
+- **/
+-static void igb_remove_i2c(struct igb_adapter *adapter)
+-{
+-	/* free the adapter bus structure */
+-	i2c_del_adapter(&adapter->i2c_adap);
+-}
+-
+ /**
+  *  igb_remove - Device Removal Routine
+  *  @pdev: PCI device information struct
 -- 
-2.53.0
+2.25.1
 
