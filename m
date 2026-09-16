@@ -1,184 +1,301 @@
-Received: from mx0a-0002e601.pphosted.com (mx0a-0002e601.pphosted.com [148.163.150.75])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 459CC4E50D9;
-	Wed, 16 Sep 2026 18:57:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.150.75
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585071; cv=fail; b=VZQITdDIiyoOMG0XRkVC8IBXkTDyfOP7hZwcoTK+e+Vc5N339YZrU3wKZnOCiD+FtimIe6uQzfcxAVZdiIjNsqigCvrXMSYm4i55jjdbEQ0wSJ965yK4Jr5ErOTgJS5NqTbFxltknyzWxylzN5iIeFWZyRBsXR8mC28FB5PmuOM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585071; c=relaxed/simple;
-	bh=0GZ2UipZXN07VPosOrQUH03cYtqh45urJydwlxqy7dc=;
-	h=Message-ID:Date:MIME-Version:Subject:To:CC:References:From:
-	 In-Reply-To:Content-Type; b=OBLT5BOHC23s47VFaiIF7kaLD3bjWUxq1oAaNnjyL8XlFQa+BNMcrpQOOSAbpzPdGby1bHQKQU9lD18CdbijqZayPSd/c/bV0A9fQefACbJIEAyQqrytued0d9dvP/+fPcH6IT/+PNYUZ8GDyQp8L3PvH0yz/2MhwqPcKnpHX4w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com; spf=pass smtp.mailfrom=ti.com; dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b=Vf8bxWJj; dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b=QSnW8R8O; arc=fail smtp.client-ip=148.163.150.75
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=ti.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ti.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D5A36F91D
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:58:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789585147; cv=none; b=k2ort2bdznNLLKgIqp92sEY0tFU0trrxqfofHe6eOOfbj4V5lMEoR5a1pnA3tqgxIW2nwAcrKGvYjgB+GDB3X6zjYlBmGrLjB/RfnWvvRgZ/4yNUvWB7XZduOfqp/nxHwEG05d0fjaZ9+pPth1/6fTG4497UL25paq9nGKMwrKU=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789585147; c=relaxed/simple;
+	bh=WRP/MO4i9glSYOkSVQEB6SJj29aypyMJe5xqMLEn+bo=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=qTYbfK7LvHGSf+VkF2aZefLrgQMyxUYCBvo+5xK37XaPgbUP5E+W8gd0K8bMsG5+LRrMJr5A3G1MOGHLXDq+aNeSrLL9wCn1mtN3SewEUcIAFMq57Jevb/nyYrZ7Jl282tU/ipWeG1T7RCcTqfMp4IP+uChGoNfLVdLP00v72xg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=sd9i1Zaj; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ti.com header.i=@ti.com header.b="Vf8bxWJj";
-	dkim=pass (1024-bit key) header.d=ti.com header.i=@ti.com header.b="QSnW8R8O"
-Received: from pps.filterd (m0384305.ppops.net [127.0.0.1])
-	by m0384305.ppops.net (8.18.1.11/8.18.1.11) with ESMTP id 68GIjAjc1017587;
-	Wed, 16 Sep 2026 13:57:11 -0500
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=
-	proofpoint-05-2026; bh=A5CZvAHr+ZC2n2j02rCddukx8njUDbyClBRCHEb2g
-	N0=; b=Vf8bxWJjjLS8GnOky33B8w2w+IAjMHdslTMdbSgLcATgEdh/+OjGBP6pG
-	O039OToCLNtwpQtSM60LR0O2SBuC1tX1wzSuXNUJFvLIJaJuKyKFiIGci9sc7k3L
-	0bgEqTg7RCu8NlQkdjNK7uXAt4riL1ui6wDYsmuem5NheEC9VCZ9G17dtQchSHEz
-	G7e8WydfjRuOf1LG7EGsw4rAnkbl+RUwX5N8M6g6PLU9Ik3O8SzUIhkWVKKK/n3c
-	vQJ2hv0cLd54er9hAPzJdU+vCh210i+o6k9b4+ayYROyzUGKeWv9Q4lc/hnLr7GU
-	LPOc+EqFMbZv8/4ayya5hSWE+J+Kg==
-Received: from mw6pr02cu001.outbound.protection.outlook.com (mail-westus2azon11012011.outbound.protection.outlook.com [52.101.48.11])
-	by m0384305.ppops.net (PPS) with ESMTPS id 4gqxfp98dv-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Wed, 16 Sep 2026 13:57:11 -0500 (CDT)
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=jpt4B61PV0KAHaIJPwo8EPvbSLoG2aPXZVS9nyGsgfi1RHyZr6dXFLIitMrM6LGAtQFyWdr4Xvp7AvON8VTp5rttCII0NWetfFNApJ2PcQNCBsdgfay3RsLy1YnZOn1P0BxGk0/A7UNFLXqox+ZXaUoOx6wLFqkxucbKxQ3PTR0zHS3BW/Pix+O7tkQZn5jqEMzrKrs4PoNyiw1ssnrIBhJz+bP7ICU62WGvW9OO12HkbmY23HyStKiqIqwTBsw3+T+13Z4e1IE2v3YPdRYh/r/I6TRXvfV/TcM+j6SabOZk0tR5fAVD8zHKMVrJDiRfo58ReuH/4Cy4DTFshzh5hw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=A5CZvAHr+ZC2n2j02rCddukx8njUDbyClBRCHEb2gN0=;
- b=pG7SptP9vidn/Rhfj4n+xD6hmfMlD+5jlYL5XecFHyFjYzxVTpZ+x2Je7VWYNARR/xhzgFHaHSKvg8kOCZwF17LkqRwDUobSpp6p/pfTCfVTZceRPIypdStoC+hSOp3ScGZJxwvUufKJWWDLuPjAhvyOzXlhxI3lbUQ9VcqlKYR/3R4tKWQC68WHhNdRi71lZJusXjxaf7HrGxH4cMPl6YspBSaB9Y1PhYvjEtiMc0CEl6KqLXk4y0V9XlUjqPsZpbgWZVB7OVsWHEGmMQXBtKaF0UHgaC3NsOdCeMQUA81eDZMW7pe2im2Q4iWWN7rEgaFHYz1A+x1pwvaQzMHaHw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 198.47.23.194) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=ti.com;
- dmarc=pass (p=quarantine sp=none pct=100) action=none header.from=ti.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ti.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=A5CZvAHr+ZC2n2j02rCddukx8njUDbyClBRCHEb2gN0=;
- b=QSnW8R8OfRhrSYlMFvYnZsb+fQbnJAmFAJIqA1n1HwSEO6Pr5BRnhu+pI9NL6alz7bHsg/wST7H7/863GUaBkHlLVPkmC1mc7OFHsc8PQlxxSRi5tkX6Ph+eXB8KxufPz1HhIoBQ5V1OfVhJfwzm+GFJJY4id78Kv94sxuHvHmA=
-Received: from CH0PR03CA0264.namprd03.prod.outlook.com (2603:10b6:610:e5::29)
- by MN2PR10MB4222.namprd10.prod.outlook.com (2603:10b6:208:198::9) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 18:57:08 +0000
-Received: from BN2PEPF0000449F.namprd02.prod.outlook.com
- (2603:10b6:610:e5:cafe::4e) by CH0PR03CA0264.outlook.office365.com
- (2603:10b6:610:e5::29) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Wed,
- 16 Sep 2026 18:57:08 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 198.47.23.194)
- smtp.mailfrom=ti.com; dkim=none (message not signed) header.d=none;dmarc=pass
- action=none header.from=ti.com;
-Received-SPF: Pass (protection.outlook.com: domain of ti.com designates
- 198.47.23.194 as permitted sender) receiver=protection.outlook.com;
- client-ip=198.47.23.194; helo=lewvzet200.ext.ti.com; pr=C
-Received: from lewvzet200.ext.ti.com (198.47.23.194) by
- BN2PEPF0000449F.mail.protection.outlook.com (10.167.243.150) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.428.7 via Frontend Transport; Wed, 16 Sep 2026 18:57:08 +0000
-Received: from DLEE213.ent.ti.com (157.170.170.116) by lewvzet200.ext.ti.com
- (10.4.14.103) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
- 2026 13:56:58 -0500
-Received: from DLEE204.ent.ti.com (157.170.170.84) by DLEE213.ent.ti.com
- (157.170.170.116) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45; Wed, 16 Sep
- 2026 13:56:58 -0500
-Received: from lelvem-mr05.itg.ti.com (10.180.75.9) by DLEE204.ent.ti.com
- (157.170.170.84) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.45 via Frontend
- Transport; Wed, 16 Sep 2026 13:56:58 -0500
-Received: from [128.247.75.46] (ltpf5gwk6l.dhcp.ti.com [128.247.75.46])
-	by lelvem-mr05.itg.ti.com (8.18.1/8.18.1) with ESMTP id 68GIuwMC2500259;
-	Wed, 16 Sep 2026 13:56:58 -0500
-Message-ID: <52c7da0e-a8c3-44bb-b3c5-9df082f7c7aa@ti.com>
-Date: Wed, 16 Sep 2026 13:56:58 -0500
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="sd9i1Zaj"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43db0c17so16148917b3.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:58:57 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789585135; x=1790189935; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oZ3GEBBVBD1DUVzmqbpLzdMfAqjtMlGIV3/p1MK/Rhw=;
+        b=sd9i1ZajQG/6MGO0DnRj122geLgl1a+ljCMSudiGETDteRRA/S2pATCVkApgq2JtKo
+         YmjkN3ANI8AgDHHI0/C/FgroclBaI7GrtlBQ/AfQRY7M0x6M78Vo7oUfGC4dCoGns1LN
+         vbdeK8YGlHIeyc4n27VUHQwhbLzWoeHPRTJ0W1t2P40UDCvmnmOsd4hTr630Jt4IZ1Rx
+         8X2fA4zEnZNgFE+5alEnLrxHpEhVY02g91jM+P03luzXKYZnLbfFkGI4q65j+n9CM4Q1
+         6gY3EzdkUkXMXpia3ZvZJGUaC3lpvhrkq0P380FQ7cX91ROBdXsN41xIwetzoX1MJiu0
+         zAcQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789585135; x=1790189935;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=oZ3GEBBVBD1DUVzmqbpLzdMfAqjtMlGIV3/p1MK/Rhw=;
+        b=hOgMTHLnvmlp0XpBVTRFK3IxKpatzMMba0PVUJhc7OFC0T7U1ubDnbV0yk4GFJ1m29
+         Y1S3uHE5Z5uRk8Y/B1JtFUsYWVbE17So+pG6fPEV8Hv3iTQyQ991fkcd7iQcW4EXToeS
+         sNg6zNnULDJKDXUEZZk80hg8LzD7gisrRqxhKajC3q9zk30fCZWZWYUgD09D+YGRf3ub
+         PfeG4++EW6p4sVtUyBuJp2TPP/vgl/yqehLlv7lbEikgZMrzfAMCV6ulxMVwQhGOxN+L
+         AZIcRAFdSgdWSLZTHyKWdMFSdhXU0apETPmYEpOOJ4lYQ9olTRG+21pvu/TZpJfFteft
+         bHqA==
+X-Forwarded-Encrypted: i=1; AKwUvBxiVa9alzDOt/+qdA0Z4t0KSQ1oux+AKHKf7uFzT7+w9fRkcyxmy0rFXLo4tT8HxUxxiiHfvJU=@vger.kernel.org
+X-Gm-Message-State: AFuF++ljLplMSvDRUZr5/l6jSXh6wHy/cwJWks9LfzudLPDuhhm182WL
+	62dYzyrv8p5mbeHweYEc9mRumGJ9khnH80HYuNw0zu2VfETzcgvQkdwOwOLkx4mHtNU=
+X-Gm-Gg: AYBFou0rXRlGmSUQ1ep25RIDehyoqoF7nOuKkBpKbTjk1FkUuh+LtVWQIVD+/cx00K2
+	zoOAarGRlgUtAi1QkPoICNOAhoJxpYnZ1OVVaQxhkM75b6Vq7m8Kk6G1aovJuTJc6pbw8ruyrqs
+	FiPTgFJJu9qKMG7aHL7GCKuXXnKcQK/3abbqcbUoGnTmWLF571zgyJ+tB0JoH6AM0jlgXz2zegA
+	7JUVkNs4X0DbN4OE1at334BMMAeQbBzOH7K+oRd43qLONPbDp5TAH9vb20nus+/xZ1nCpRyXuAQ
+	sXqe4yQCMs7Y2JwGC4SojiIVNEFGKDzST5EJ/0Azglr7Lqj/5urtknyALy4DEUewsULbNleViwP
+	ZwnCAIsR0gjdyl3XwcambbStf1kfhVSJnbuBNIi7KrY3enSl/ee7LddgOIk0m9FTVr8ACs4aJ5M
+	TBfHZIAOjZiXp8WwcOwFiTPzscJ5BocD+dKABKfL0WtrwfTFAB3gdnWsyVGlcDfY+IGoKU8Y78+
+	e2UuXPY2hlGGvXcPPcZVP3ZdhleBRSo0baLQCsZcbRALuLiEJpxmND59O3vsFfkCs41faGweyj4
+	pTMGnTTTWPYhlBhHEKiF6+KZYj0Ucw5Ok2RdiyyZ5KqT+GIAOqqPjRdqJMycJoel
+X-Received: by 2002:a05:690c:4dc7:b0:856:b8a6:5e79 with SMTP id 00721157ae682-89224b8ff83mr9859577b3.23.1789585135542;
+        Wed, 16 Sep 2026 11:58:55 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:f547:a2c0:72f7:6671? ([2600:1700:6476:1430:f547:a2c0:72f7:6671])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-891f1b27c35sm10936237b3.46.2026.09.16.11.58.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 11:58:55 -0700 (PDT)
+Message-ID: <149f405e0e854092e6aa6470ac7e77f222d90fa0.camel@dubeyko.com>
+Subject: Re: [PATCH v2] nilfs2: fix checkpoint root lifetime on sysfs errors
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
+	 <konishi.ryusuke@gmail.com>
+Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 11:58:50 -0700
+In-Reply-To: <20260915194958.3329611-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+	 <20260915194958.3329611-1-qwe.aldo@gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] ASoC: ti: davinci-mcasp: Fix runtime PM imbalance in
- __davinci_mcasp_set_clkdiv()
-To: Wentao Liang <vulab@iscas.ac.cn>, <broonie@kernel.org>
-CC: <lgirdwood@gmail.com>, <linux-kernel@vger.kernel.org>,
-        <linux-sound@vger.kernel.org>, <perex@perex.cz>, <tiwai@suse.com>,
-        <zonque@gmail.com>, <stable@vger.kernel.org>
-References: <20260916073136.1971673-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: "Wang, Sen" <sen@ti.com>
-In-Reply-To: <20260916073136.1971673-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF0000449F:EE_|MN2PR10MB4222:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6d2ec1ad-f828-4984-cea7-08df14244eec
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|23010399003|1800799024|82310400026|36860700016|56012099006|22082099003|18002099003|10067099003;
-X-Microsoft-Antispam-Message-Info:
-	zqbC+IR5tzeYRW89Btrihxobw/sK/DiF2mtPHduC7SlA9yvTAcTDNLgeFVaw4VCsTB4D4u5CCfp3g/mvcKbdhm75q5FWsoEkX9csQ1eiDyVS8epG2yi2ML+24p/yeR6GSAlNy7AScHaAT7feTmMakbCmPf/NeHRi7C2lns9pcM0/G+0X+WH/a2l5phj0gVd+QSLmH3jtlOT91IJYqPbSAcMAvyNxuo7HmOb0N3tQ7+2czeEeMg2J0SM3/6dXbfMVibn0xGhKXnvFOmIk2C2xMFute3oTv825zv9FDUUAbEsNu5ffcpDuJGATAXeV17uoI925tOM4sTO4rtfR5nv5GRCD6hWiY+5ORo1du+naISx4QxuIbQW+1n/SfbpziVkyAeO2rKoyvK/c7xIBnZvP80U8V5TYjsklD4DWA5qtCCP2cxtMfSwlLprdZwFGdGOa74UbVf14hkSYxtczdhKHSrvuE5RkF7CSYEF0bi6EZQ/HomaIouU1Dv3hOn6rCuIzua1sNgS4TUCWkM61HkasTmhcWFjrxYCTP98u2mrb1GVDLvHbE/yL2oMolWI1LEqWMwMeIPePGfK1pNDQlmqJSeMfHRbAOvuQYHosp7BoHvvsWL73/WYsW/OU5+hg6cIDjWt77qKNGXoeKXu80YE1UjtSpVxTSWsvUOQqtKI4TVnE3Oio+sfwY74TBTi16j2xOhvLHg+Wh2ieLwDy5MsJzw==
-X-Forefront-Antispam-Report:
-	CIP:198.47.23.194;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:lewvzet200.ext.ti.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(82310400026)(36860700016)(56012099006)(22082099003)(18002099003)(10067099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	MOs9EAZXzZwAXXARNVifsPotnIdUqWOnjpffL6o/ZJx5Iw2M309zetJW/WKCtjsD8Np5GlvcSt0vb355NAURZ9RWl2JZwD9l/Ry++obe8VVPOaZCvgsyRq34mB3SCDtpho0YuSMb/nIs1uw3r0eRLH2wRl8dwDozASK23UFNtifR2mzQ0qkX4uPdQ8swK3cNsBQgyRVyF9ohNcyaTwbJ4StHnvKGGcZYEMzA6FIHXlthIa4+jaTdFijS0fbpMxvnqfgOHRtDyexKDvRv1a0Y+EjKs/dXfJvqZlWEFXCjTw5aJNsi7W/hXUsa4OIUGZgfOstXo2xihY6XNAp1l7/rpZEvj52kr2iRlgwKOIoyj26qEC6HlkkVw2X1SdoaNy0eBfuze7nD3weLDYA4Ou1GHU2IItWH7NcxaaNwUn45U5e55LJbeMAHdigumYi8yOAr
-X-Exchange-RoutingPolicyChecked:
-	HDZbEt+CHdzLr24+giZbuOl8HvFv30u9CW/vkhzqfJnUuM6g0Pw+BXwxVg7d9zzIq4+u+dLv6dHOaNlKlQvNq8fNG+hp4Ovi+hblDjbkQZ9kFyxCcRt+BAqYc6UOIWy1cClED/1dvA5zxJUUSUsY3Jsbo167qW52Mxn9QP5g1qZtWgd3f6dcNju68EE8mNE2jmJOhqKp8ycaPRRqp9SPSnhmlVT+hKzZjzkdefpOXVt1H+PioFs+4vqRa28ldiwbPlj2K2s0bo2voB52LSHQ7MEdJcFMqelPtW1NbCYVGmIkGZkgpOZjBwPedzniiysCuFfPV6AKXKXxW8LCy3GAqA==
-X-OriginatorOrg: ti.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 18:57:08.4154
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6d2ec1ad-f828-4984-cea7-08df14244eec
-X-MS-Exchange-CrossTenant-Id: e5b49634-450b-4709-8abb-1e2b19b982b7
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=e5b49634-450b-4709-8abb-1e2b19b982b7;Ip=[198.47.23.194];Helo=[lewvzet200.ext.ti.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF0000449F.namprd02.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: MN2PR10MB4222
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI2MSBTYWx0ZWRfX4cDvq+YAj75z
- GPmO+DXkZFEfxXKO/bzi4UZtEAg/lHO6dnxEV/t+SJJ36KUYDuh3oj2TYYxTTXuC1ZU7BsKBerB
- TpfOVIXFz75+iPqciJXle5G/t7OE0JQ=
-X-Authority-Analysis: v=2.4 cv=HaWB3SE8 c=1 sm=1 tr=0 ts=6aaae687 cx=c_pps
- a=AgKHDJP192gAOy1PpHj/Qg==:117 a=WotqVVQAdb04rnGuttW3Kw==:17
- a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=s63m1ICgrNkA:10 a=V5UXEbMT0ywA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=Z8NIEmU8O1QQgoT56wFK:22 a=taLDd7a_hP9WKsMzeGRc:22 a=VwQbUJbxAAAA:8
- a=sozttTNsAAAA:8 a=QAaHeU8HhuINRdRyLMcA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-GUID: nNo1i8gq6xBEJHJgngXSk9vkHKoLSXrh
-X-Proofpoint-ORIG-GUID: nNo1i8gq6xBEJHJgngXSk9vkHKoLSXrh
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI2MSBTYWx0ZWRfX/4nNJDN7ai/z
- T3VMZyVgB904uOBS8z8UnIFVrcj8b9Bo5dRqaqg19fxhShabV/iAoqbESS/cDM+azgBQS5hid5w
- 7/0bWJ01NE5Bm4y/xtjKdc2zOfFdNT3AxkJvTYxEBy9qWop4PD1VJQkTDkWsELqpTtWMH7yWU6Y
- 3b6bcZKmhRcohOo+Ch78Y02t1FiqEvETjodMhbWPjXoCvnG7dHN2MloeTJVuYT8K8YuhIYJADC4
- vbMU+8kHLGUXPBaCqY10U4RfykgvwCNkwqLfSregBGIpPyoM5r8CXYqY8tvIJqvOm7NBahGsHyo
- SwHM4hBCUGOCNjpi5cjs+EXfdgv1wK3IUgR2jFtrwJeirNZE6DiQitfkO1pfhhTPkLJKEsj/7qA
- 4WjG0419mGQWVA0zykFY6UWhZaZ761HNSf0+RdUQ/jl+3+OsVzuY885YTUZ6oTMgcGCroKGaj3y
- /XkJaolGL8hAW9kva+g==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- spamscore=0 adultscore=0 impostorscore=0 malwarescore=0 bulkscore=0
- suspectscore=0 clxscore=1011 lowpriorityscore=0 priorityscore=1501
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160261
 
-On 9/16/2026 2:31 AM, Wentao Liang wrote:
-> In __davinci_mcasp_set_clkdiv(), pm_runtime_get_sync() is called at the
-> entry of the function. If an invalid div_id is provided, the function
-> hits the default switch case and directly returns -EINVAL without calling
-> pm_runtime_put(), resulting in a runtime PM reference leak.
-> 
-> Add pm_runtime_put() in the default case before returning -EINVAL.
-> 
-> Fixes: 4ed8c9b737b6 ("ASoC: McASP: add support for clock dividers")
+On Tue, 2026-09-15 at 16:49 -0300, Aldo Ariel Panzardo wrote:
+> nilfs_find_or_create_root() publishes a new root in the checkpoint
+> tree before creating its sysfs object.=C2=A0 If sysfs registration fails,
+> the root is freed while it is still reachable from the tree.=C2=A0 A
+> concurrent nilfs_lookup_root() can then dereference freed memory.
+>=20
+> The fix needs the lock to be held across the sysfs call, but
+> nilfs_sysfs_create_snapshot_group() can sleep, so the existing
+> spinlock is not suitable.
+>=20
+> Convert ns_cptree_lock from a spinlock to a mutex.=C2=A0 All existing
+> callers are in process context (mount, lookup, segctor, recovery),
+> and nilfs_put_root() can use refcount_dec_and_mutex_lock() as the
+> atomic decrement-and-acquire primitive.
+>=20
+> With the mutex, nilfs_find_or_create_root() can hold it across the
+> sysfs registration and only insert the root into the rbtree after
+> sysfs succeeds.=C2=A0 On failure, the root was never visible and can be
+> freed after waiting for the kobject release callback to complete.
+>=20
+> Both the creation error path and the normal removal path must wait
+> for the embedded kobject release via wait_for_completion() before
+> freeing the container, because kobject_put() does not guarantee
+> synchronous release (CONFIG_DEBUG_KOBJECT_RELEASE defers it).
+>=20
+> Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Hi Wentao, thanks for the catch!
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>=20
+> Changes in v2:
+> =C2=A0 - Convert ns_cptree_lock from spinlock to mutex instead of adding
+> =C2=A0=C2=A0=C2=A0 a second lock, as suggested by Viacheslav Dubeyko.=C2=
+=A0 Use
+> =C2=A0=C2=A0=C2=A0 refcount_dec_and_mutex_lock() in nilfs_put_root().
+>=20
+> =C2=A0fs/nilfs2/the_nilfs.c | 35 +++++++++++++++++++----------------
+> =C2=A0fs/nilfs2/the_nilfs.h |=C2=A0 2 +-
+> =C2=A02 files changed, 20 insertions(+), 17 deletions(-)
+>=20
+> diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+> index 7b23e373a1..5bfa853471 100644
+> --- a/fs/nilfs2/the_nilfs.c
+> +++ b/fs/nilfs2/the_nilfs.c
+> @@ -70,7 +70,7 @@ struct the_nilfs *alloc_nilfs(struct super_block
+> *sb)
+> =C2=A0	spin_lock_init(&nilfs->ns_inode_lock);
+> =C2=A0	spin_lock_init(&nilfs->ns_last_segment_lock);
+> =C2=A0	nilfs->ns_cptree =3D RB_ROOT;
+> -	spin_lock_init(&nilfs->ns_cptree_lock);
+> +	mutex_init(&nilfs->ns_cptree_lock);
+> =C2=A0	init_rwsem(&nilfs->ns_segctor_sem);
+> =C2=A0	nilfs->ns_sb_update_freq =3D NILFS_SB_FREQ;
+> =C2=A0
+> @@ -846,7 +846,7 @@ struct nilfs_root *nilfs_lookup_root(struct
+> the_nilfs *nilfs, __u64 cno)
+> =C2=A0	struct rb_node *n;
+> =C2=A0	struct nilfs_root *root;
+> =C2=A0
+> -	spin_lock(&nilfs->ns_cptree_lock);
+> +	mutex_lock(&nilfs->ns_cptree_lock);
+> =C2=A0	n =3D nilfs->ns_cptree.rb_node;
+> =C2=A0	while (n) {
+> =C2=A0		root =3D rb_entry(n, struct nilfs_root, rb_node);
+> @@ -857,11 +857,11 @@ struct nilfs_root *nilfs_lookup_root(struct
+> the_nilfs *nilfs, __u64 cno)
+> =C2=A0			n =3D n->rb_right;
+> =C2=A0		} else {
+> =C2=A0			refcount_inc(&root->count);
+> -			spin_unlock(&nilfs->ns_cptree_lock);
+> +			mutex_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0			return root;
+> =C2=A0		}
+> =C2=A0	}
+> -	spin_unlock(&nilfs->ns_cptree_lock);
+> +	mutex_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0
+> =C2=A0	return NULL;
+> =C2=A0}
+> @@ -881,7 +881,7 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0	if (!new)
+> =C2=A0		return NULL;
+> =C2=A0
+> -	spin_lock(&nilfs->ns_cptree_lock);
+> +	mutex_lock(&nilfs->ns_cptree_lock);
+> =C2=A0
+> =C2=A0	p =3D &nilfs->ns_cptree.rb_node;
+> =C2=A0	parent =3D NULL;
+> @@ -896,7 +896,7 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0			p =3D &(*p)->rb_right;
+> =C2=A0		} else {
+> =C2=A0			refcount_inc(&root->count);
+> -			spin_unlock(&nilfs->ns_cptree_lock);
+> +			mutex_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0			kfree(new);
+> =C2=A0			return root;
+> =C2=A0		}
+> @@ -909,17 +909,19 @@ nilfs_find_or_create_root(struct the_nilfs
+> *nilfs, __u64 cno)
+> =C2=A0	atomic64_set(&new->inodes_count, 0);
+> =C2=A0	atomic64_set(&new->blocks_count, 0);
+> =C2=A0
+> -	rb_link_node(&new->rb_node, parent, p);
+> -	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+> -
+> -	spin_unlock(&nilfs->ns_cptree_lock);
+> -
+> =C2=A0	err =3D nilfs_sysfs_create_snapshot_group(new);
+> =C2=A0	if (err) {
+> +		mutex_unlock(&nilfs->ns_cptree_lock);
+> +		wait_for_completion(&new->snapshot_kobj_unregister);
+> =C2=A0		kfree(new);
+> -		new =3D NULL;
+> +		return NULL;
+> =C2=A0	}
+> =C2=A0
+> +	rb_link_node(&new->rb_node, parent, p);
+> +	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+> +
+> +	mutex_unlock(&nilfs->ns_cptree_lock);
+> +
+> =C2=A0	return new;
+> =C2=A0}
+> =C2=A0
+> @@ -927,13 +929,14 @@ void nilfs_put_root(struct nilfs_root *root)
+> =C2=A0{
+> =C2=A0	struct the_nilfs *nilfs =3D root->nilfs;
+> =C2=A0
+> -	if (refcount_dec_and_lock(&root->count, &nilfs-
+> >ns_cptree_lock)) {
+> +	if (refcount_dec_and_mutex_lock(&root->count,
+> +					&nilfs->ns_cptree_lock)) {
+> =C2=A0		rb_erase(&root->rb_node, &nilfs->ns_cptree);
+> -		spin_unlock(&nilfs->ns_cptree_lock);
+> -
+> =C2=A0		nilfs_sysfs_delete_snapshot_group(root);
+> -		iput(root->ifile);
+> +		wait_for_completion(&root-
+> >snapshot_kobj_unregister);
 
-Manual runtime PM reference is quite tedious and results in reference 
-leak like you've pinpointed, maybe it's better to convert to a 
-guard()/ACQUIRE() based approach in the future...
+Is it right behavior that we are waiting completion under the lock?
+Could we have potential deadlock here? I am feeling slightly bad about
+waiting something under the lock.
 
-Assuming you took Greg's input if you need to submit a V2:
+> +		mutex_unlock(&nilfs->ns_cptree_lock);
+> =C2=A0
+> +		iput(root->ifile);
+> =C2=A0		kfree(root);
+> =C2=A0	}
+> =C2=A0}
+> diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
+> index 4776a70f01..074644c64a 100644
+> --- a/fs/nilfs2/the_nilfs.h
+> +++ b/fs/nilfs2/the_nilfs.h
+> @@ -150,7 +150,7 @@ struct the_nilfs {
+> =C2=A0
+> =C2=A0	/* Checkpoint tree */
+> =C2=A0	struct rb_root		ns_cptree;
+> -	spinlock_t		ns_cptree_lock;
+> +	struct mutex		ns_cptree_lock; /* Protects
+> ns_cptree */
 
-Tested-by: Sen Wang <sen@ti.com>
+I assume that you prefer mutex because of exclusive lock nature. Could
+we improve something for the case of rw_semaphore?
+
+Thanks,
+Slava.
+
+> =C2=A0
+> =C2=A0	/* Dirty inode list */
+> =C2=A0	struct list_head	ns_dirty_files;
