@@ -1,39 +1,39 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D554DAF8D;
-	Wed, 16 Sep 2026 17:36:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C2D04C33F9;
+	Wed, 16 Sep 2026 17:37:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580200; cv=none; b=iR9x8hmufBXbqnOhhyzevdDp0D9MxkHZYthQ79y6rzKXxQ79TXD+4FQd6NFZSG+8KEIqo0A3PZ1fHVMSYSYerf2PuULKtBRUKjAcZaYjMWpdZTqJvIN0EYJLbypBd/uFDsFB42TsfQ7FS72IM0nBz5h+3J9cFbFVGbYHaKSkrho=
+	t=1789580280; cv=none; b=sYjlNzyD3R/CeI8wcnPQV/MYSlnVrioIDou7fCBKFnwhDAtqBK+UllUHKwB5QoksiqbBMN8+o+b5x81tb0RABD3zgdEssGlRPYrEZuXi8ZuXiVMkA0FlWQn4UV65G2r7HH9xSXbGg7TdTcAxG1vAZWmKyCjQkfN3KpOBnS2P0Nw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580200; c=relaxed/simple;
-	bh=NWJmNT1Fvyd7kqwcYs8QnnYpWQJJEBXHyPmEH70TqNQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Tf9AlgRiU/LUFh6/5vLnBVm3nt+6ANhf3NuD/e0L48vq+V+vRu5OBetD6OWcC78aEeMwXp8DZtQ8/+WQlK39d5kXG9LutFDRwgIe7vqr02VhnQMWPYUp3ZtTa2HBoXo2RV51wbxPhIiOft9hSjWAfjGttvkg3jq1wE4iGtrU36E=
+	s=arc-20240116; t=1789580280; c=relaxed/simple;
+	bh=tRrBB94Ac1vBCVngbQmmsX/+qgVZH0H6u3dnhVrD+1A=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pXlixvHD8Q2Os1UOUPIOZDw8bloDcgkz1sLcmH6/oRvMvviB4dHHiYIO6nv0FrgSTEr0DPX6REBKY60fhDJ9H9jALF40456vDadosFebidAQ6lsFAlEdCtLJjBjQa/zMGtuutKOwzklsokncPsDEWzHcIIIavYYMGD0LHJ0tEkI=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnUDud06pq_bluCA--.22964S2;
-	Thu, 17 Sep 2026 01:36:29 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAAHcz3r06pqir9uCA--.23200S2;
+	Thu, 17 Sep 2026 01:37:47 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: John.C.Harrison@Intel.com
-Cc: airlied@gmail.com,
-	daniele.ceraolospurio@intel.com,
+To: airlied@gmail.com
+Cc: changbin.du@intel.com,
 	dri-devel@lists.freedesktop.org,
 	intel-gfx@lists.freedesktop.org,
 	jani.nikula@linux.intel.com,
 	joonas.lahtinen@linux.intel.com,
 	linux-kernel@vger.kernel.org,
-	matthew.brost@intel.com,
 	rodrigo.vivi@intel.com,
 	simona@ffwll.ch,
 	tursulin@ursulin.net,
+	zhenyuw.linux@gmail.com,
+	zhi.wang.linux@gmail.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/guc: Fix sched_engine reference leak in guc_create_virtual()
-Date: Wed, 16 Sep 2026 17:36:01 +0000
-Message-Id: <20260916173601.2088347-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/i915/gvt: Fix mm reference leak in handle_g2v_notification()
+Date: Wed, 16 Sep 2026 17:37:20 +0000
+Message-Id: <20260916173720.2088455-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -42,50 +42,61 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnUDud06pq_bluCA--.22964S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKFyUtF1xJF48CryDAryfCrg_yoWkWFb_Ca
-	4Yvr93GFy7AFn3Cw12yrnxZrWvkFyUZr4Fyw18t3yrA3yjvr4UXwsI9F98Xr13KF4UJFWD
-	Aa18uF1fAFn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb-8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
-	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
-	1UYxBIdaVFxhVjvjDU0xZFpf9x0JUtgA7UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqpO9oaQAAsK
+X-CM-TRANSID:zQCowAAHcz3r06pqir9uCA--.23200S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7trWDur4xZF4DAFWxtw13Jwb_yoW8Ww4rp3
+	98WryYyFZ8AF4IvFW3C3Wjv3Wav3WIgFWfCrZrG3s0g3ZIya4Utr1Fv34UtFyUArZ3GF1a
+	qr45GFW5Cw42v3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
+	7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
+	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
+	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
+	1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJV
+	WxJrUvcSsGvfC2KfnxnUUI43ZEXa7VU1go2UUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2qqozVvFAAAs+
 
-guc_create_virtual() takes a reference on guc->sched_engine for the
-virtual engine, mirroring execlists, but the GuC destroy path never
-drops it; rcu_virtual_context_destroy() does. Release the reference in
-__guc_context_destroy() alongside the breadcrumbs reference.
+intel_vgpu_get_ppgtt_mm() returns a reference the caller must drop, but
+the PPGTT page table create path only inspected the result. A page
+table that is already tracked gained an extra reference which nothing
+would ever drop. Skip the lookup-get for an already registered mm; a
+newly created mm keeps its initial registration reference.
 
-Fixes: 556120256ecd ("drm/i915/guc: GuC virtual engines")
+Fixes: e6e9c46fd235 ("drm/i915/gvt: Factor out intel_vgpu_{get, put}_ppgtt_mm interface")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/i915/gvt/handlers.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 788e59cdfac9..7b88e081c76d 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -3487,6 +3487,8 @@ static void __guc_context_destroy(struct intel_context *ce)
- 
- 		if (ve->base.breadcrumbs)
- 			intel_breadcrumbs_put(ve->base.breadcrumbs);
-+		if (ve->base.sched_engine)
-+			i915_sched_engine_put(ve->base.sched_engine);
- 
- 		kfree(ve);
- 	} else {
+diff --git a/drivers/gpu/drm/i915/gvt/handlers.c b/drivers/gpu/drm/i915/gvt/handlers.c
+index a34f56630af9..3d7aae6c5cf1 100644
+--- a/drivers/gpu/drm/i915/gvt/handlers.c
++++ b/drivers/gpu/drm/i915/gvt/handlers.c
+@@ -1506,7 +1506,17 @@ static int handle_g2v_notification(struct intel_vgpu *vgpu, int notification)
+ 		root_entry_type = GTT_TYPE_PPGTT_ROOT_L3_ENTRY;
+ 		fallthrough;
+ 	case VGT_G2V_PPGTT_L4_PAGE_TABLE_CREATE:
+-		mm = intel_vgpu_get_ppgtt_mm(vgpu, root_entry_type, pdps);
++		/*
++		 * A newly created mm keeps its initial reference as the
++		 * registration reference, dropped by the DESTROY
++		 * notification. A duplicate CREATE for an already tracked
++		 * mm must not take an extra reference that nothing drops.
++		 */
++		mm = intel_vgpu_find_ppgtt_mm(vgpu, pdps);
++		if (mm)
++			return 0;
++
++		mm = intel_vgpu_create_ppgtt_mm(vgpu, root_entry_type, pdps);
+ 		return PTR_ERR_OR_ZERO(mm);
+ 	case VGT_G2V_PPGTT_L3_PAGE_TABLE_DESTROY:
+ 	case VGT_G2V_PPGTT_L4_PAGE_TABLE_DESTROY:
 -- 
 2.34.1
 
