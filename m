@@ -1,83 +1,82 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-qv2-f25.google.com (mail-qv2-f25.google.com [74.125.230.153])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9349935C687
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:56:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E735F364058
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:58:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.153
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570589; cv=none; b=dNRTi/9PYpox3AbiaZH6QDhEOgS9l9tXDrCxRXkujIf0TFN5x9VkbMsZHMHe297BVBf4HWB+K4qkJ9uJG77Zipvbao7DprN/smtteCoHwf1/xJRW+FdwU86MuppnEFtBQv5JpTaXzAJgqpXJsH5tVirH4NpZsGk6juDbi8JpofY=
+	t=1789570709; cv=none; b=bkn3DaT4C0JFqG4VIlq38uwlUbSqQOOnEgNe1JXSqwWIhed3gOOeQvQ5+r9e2G/D+OyStCc3NCXnI4sRtSJAehSBYuGgjQwCRJsDuJVgx9yCWso3YU33ia2QWeDIwcWKGAH9dUkig7rWOTE78VMPCG2lIC+/xwNe3O5NeIl8mzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570589; c=relaxed/simple;
-	bh=w5hmfYQd5qS6jmp5if4MTfMkG4gKJAqCpM+ctVlrJx8=;
+	s=arc-20240116; t=1789570709; c=relaxed/simple;
+	bh=zqbHumWXTgyPSnBiFG7tdNAOB274jQFr/Oh4RdNiJOo=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WRMGE5DH2m8DblVR0BOAOYSXquYVRGZp7U7CYAyV6Q74sLhYgWXlkATeRktiYXDzB7udRvz+LLTsNIb0OcovTMwqjoena2DNHj+nfGDe7Z9QOq1xtuAggSssoHlUOzvuh62JP3UUfjerqGq+1aVbjApkVPYDf6GbDJgasjWiIcE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gpsB+0pX; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=ArDySGsHveCoTzCXcXWNCICGA7AWatD4qe00ic4tByF66NohTkwvaH/HockTC7hbqFDXohiwu6EiTWZM1bI0ueEFH4E730X+SAZ+uPOJ4214m1eqJSKrwP03xUzByFyxencYWZzIhJlYPt3A/32BZrj/hV0ITxhiQMRoe3FpYwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=u5PPQc5X; arc=none smtp.client-ip=74.125.230.153
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gpsB+0pX"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d9004a1ac0so7645175ad.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:56:27 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="u5PPQc5X"
+Received: by mail-qv2-f25.google.com with SMTP id 6a1803df08f44-90cdfcb5cb3so10339006d6.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:58:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789570587; x=1790175387; darn=vger.kernel.org;
+        d=gourry.net; s=google; t=1789570707; x=1790175507; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=fOtt4epAjEgetEW4Rf7UpxEkjN1u8RJ270fhKCbRhRQ=;
-        b=gpsB+0pXhV5Fpk8oz8ZAIm1e0F4oG/SJmYb8KutcgEoeU5P5gRBEKrOTTOmuVSszWx
-         /sgU9r4nBZP6Ne3OZjTW0ZJNsMaGgR3HYblsJ8JyO9V/bcATeox1PrPLWL6XihGJ12Xo
-         U0gemKPW3fIh5pvfnbrYk9orM+IzDKn3hN/2A8Luoc73QZpAITuQ/U+Lyp6AghAt13P9
-         323JOe8rt8BB0Q+5IpCDQnnVOJFFN83tHNSt4D2xayA7VQCOxZOiMEpijOypzwSjrMRu
-         CV0YVG+9j8Y507nBIm4Hp1LmqNh9sKlMnulMvMb1wWKZlzj0Bhg/MU8TkUgHnkhDvyYw
-         YQpg==
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=wJ/7KRGCLt2483GTzu4rmQfCVmqSHc3OynN8gOawIhg=;
+        b=u5PPQc5XgfkDEu7rParCFg56Eg75TdIjeZscdjXJx2o/l7J7dPRigdTIzSvwlbeX45
+         Mrmaqg5qvMT2owAWbS2jLqWkMJqG4MWW18xIhE9LHXL1RCw/W8lfqf+FCYPDxj2yd6gF
+         RVLwA2s43htz4Gotc9/zlcaT5MKWU3naAOgmyqe60UaX2B4d2H4SjpVMlbrcF2qnD9+N
+         P01b5J9u1StgXPH4nIuPyQ5L2LywEtep96cQX7UpfaLpBhlwt+Cv0awroneDD1tz1bTY
+         1kdWIqeA5/KkYiSfXTqMEomc+3SmixhcCTnzFihpPKhBrppali26VfFJxNkOGBnvYwKe
+         /c7g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570587; x=1790175387;
+        d=1e100.net; s=20260707; t=1789570707; x=1790175507;
         h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=fOtt4epAjEgetEW4Rf7UpxEkjN1u8RJ270fhKCbRhRQ=;
-        b=qbuznsiDsV96UQeZ808S1u9VogSTXrhGMUsfjrEOoXSOCaYtpq6F0lVh8rol6+k/bh
-         WHrGS20eDAGsuSrhDh4ydmVzBjIXKzeNb4f4V39jB60LcIdMUddxPm/wnCOus7OGwyZU
-         uxBWx6ix75wPIoIQQrv9JbV5/yzr5s+JsqR+nT/fELxR32K2cKyF7ILlH8y6Sd2dyKSm
-         Qt81UkI7f7FpXeLljqAF5gyc1cVHBY0OsdX9Gcwper85FvoV8Sn0rqydkJJoAhYPk+SU
-         X9Yz30rN3/H55UkcNqhkdbUuxY3gEKooWH1n0HYydd4e297xjFK/1bRFofSHIhM3u0EH
-         eiRw==
-X-Forwarded-Encrypted: i=1; AKwUvBzN5gChkLVr/jWlJnsnDAyBXxBPLgeZL7CRLRUs/TmW4i8uMEZiphjDxQjZtgbr8+ZhyEPXdlw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mZxgSNRN/A9wOD1H98EPItwrYxGQBGGNJ8lPX7AH1RhYvvtKEL
-	HoRQ/KjPg21QdpG4UheI1Lvm6v4Ot2xEQIOXqFmUxgQNXmhgchXuaKUPPbWDIiqk
-X-Gm-Gg: AYBFou0s2vSxu15Nd7gpi9M/UpRm+K1o3PY8gSOQU9NvaX3Jw5lY14MLW0RY82pPoE/
-	ZO/m/mDBhUpLBBunzZQblTevTZdETGDX53cUP1DTyz18pWBB/PgodYwJYMcVU6ahqDzMySUI/ee
-	bxV52E0Ipz7SZO27bOPU6DLuEkp5C0WJx59o1Zg5ifT42KnwdLiOwhzFzVDFiZfhEXrIGhWY1+O
-	3738LDmyC7JJCjzevif44PSefPMizKOaMP2s3csVC63gUzaXfmZYLnzEep1PIV2xvZ2BzBM+TLy
-	JfIcN1NLFc/yj4gDvtHnpK8gefqycjZPSNIv+UXuLnJNfXmimoTjjE/E+zcNtKK4C4Djkpnhb5h
-	V/FC+kVW+n51Vzv2FM0QNobwmz1niMYffFBQWCRvtwC52NRzQ0raHxyjnTiFeFrWml9zsd2H0VG
-	0a90DLVIsaShy2ZpbkVmTo3ErNxwgP2b5+yPne/30i3hucVG5RCQZ1GzAcSnGCaoXHV7sMvz2w8
-	X21SNyFt/jM
-X-Received: by 2002:a17:902:d588:b0:2dd:7593:8634 with SMTP id d9443c01a7336-2dd8e412565mr65993445ad.13.1789570586585;
-        Wed, 16 Sep 2026 07:56:26 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8fe00sm13413325ad.12.2026.09.16.07.56.25
+        bh=wJ/7KRGCLt2483GTzu4rmQfCVmqSHc3OynN8gOawIhg=;
+        b=IyUfqDEODNf3XYVjcD3A1iDkv8qlC7gTzjv4v+mxERZYBV9Asuop6q2G7uoA4jd6JO
+         MJI+MeHxtbv9OKKUbWrLX1JTSA+W3gE9gracUdn5kTpE7UlHeXbRHj8hEuO8fq1NWiN8
+         lNuNIu7/tcmfaqJXv58OhJ5wmpWLAI/6wO0LHUeMjq4/BOvWFw+Lb8fQecaiNNsTZ+Yo
+         FiEd/InQoqyDQ1qfq0g7Ft05UFaXyNnOhgAbVmBKyy8IexxTgABPC7w4Or7lOx/DkOzK
+         lfiwUhaDogxWwLahQzymeCkPk0aSmZpfRkYhHCDZkAl9CpKI4zYIobPWWjkglfTqNwrL
+         a3TQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwR+a2qLe5N45CeKjkcz3kn/0uRxUvShb7u318Ej6YeQG54CvQpkCf1rl10+Aw7LViBKxH7zJc=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6/Yi1nk9sKacKkGJt1n1wwCnivBzGfrl5dLZ0W1m2NUikNGcA
+	kP0vdmUgM0hqXSfxGndcgonqnJqyl4OApixIyNZJxVzhNmQ8yIcO5ApGbLR3YUU9/TA=
+X-Gm-Gg: AYBFou2wBB23FrK5eoSJQZtZsH7TDhXoC/oqBO/l27SKwqoO0QZREReBzXY8EyaGalu
+	AgO370K2uh0i+TOkMcIrz4WhnUqjZKFFPTwgHXSleecrDJCvFNRzX9sWFqTfJAY5tSu+mEpQX1+
+	+tdpx3MpxYrnVIShXBnyX0DvecE4yTvFN0k2w83TEiJTkX77+7UPsP5J0CckVtoe7nEa92ugT/2
+	YRkHsKiwhU3fiBt98ozQMoDBnFvjccXjkkb6e5HEWPwGsb/NNrHkvmfLW7FVVOLWriDiIZ+D857
+	anmBhsceDQpzsBY+1GBAfR7V/1LE7TZc05xFq2GdZRWzZUBuQ7dMrIbBccWgT54/K+MimNkZptk
+	ZAOKOM0nTzAIhY5CLzCRgN5Uij9VLoNl/EuUA2aMmhtxxHvja9B0VYog5z8rQD7dNWvdAkoaG9B
+	lL0yJLTPEOZy1INDpzT/53xiN0BrmsJCyfVd/iJ+6+65g/6QVwVNUDgnN7jCBGHyr2PBORIEeGj
+	riDJXYMJ08HV5YtxAmeh5O2DwQNBkSnXGtmgQUIvhSv8Wt2q2heDtziYAQlJpJmBw==
+X-Received: by 2002:a05:6214:21c2:b0:910:47af:7b5b with SMTP id 6a1803df08f44-9123d7ace93mr52499256d6.20.1789570706029;
+        Wed, 16 Sep 2026 07:58:26 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123beeec67sm27942276d6.48.2026.09.16.07.58.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:56:26 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 07:56:25 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
-Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
-	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
-	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	Sanman Pradhan <psanman@juniper.net>,
-	"stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
- decoding
-Message-ID: <c0a3c877-eeab-4cff-ab2a-bb567f0dc3d1@roeck-us.net>
-References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
- <20260915164823.160977-2-sanman.pradhan@hpe.com>
+        Wed, 16 Sep 2026 07:58:25 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:58:23 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin>
+ <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin>
+ <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+ <aqqjW5dpyznijYLh@gremlin>
+ <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
+ <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,31 +85,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260915164823.160977-2-sanman.pradhan@hpe.com>
+In-Reply-To: <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
 
-On Tue, Sep 15, 2026 at 04:48:35PM +0000, Pradhan, Sanman wrote:
-> From: Sanman Pradhan <psanman@juniper.net>
+On Wed, Sep 16, 2026 at 04:48:04PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/16/26 16:42, Gregory Price wrote:
+> > On Wed, Sep 16, 2026 at 03:12:53PM +0100, Lorenzo Stoakes (ARM) wrote:
+> >>>
+> >>> Going to spend a little more time testing and tweaking before I post it.
+> >>>
+> >>> I've been working on a making more extensive unit tests for certain
+> >>> parts of mm/ and this might be a good time to look at whether I can
+> >>> introduce a piece of it.
+> >>
+> >> Nice, curious as to how?
+> >>
+> >> Have you tried the userland VMA tests btw? Not tooting my own horn so to
+> >> speak :P but it's nice, though it comes at a bit of a cost in how the files
+> >> have to be set up...
+> >>
+> > 
+> > Yes, in fact I used that as a start for exploring how I might make other
+> > components testable the same way.
+> > 
+> > "Stubs... stubs everywhere"
+> > 
+> > There's basically 4 testing mechanisms i explored:
+> > 
+> > 1) selftest
+> > 2) Usermode Linux (UML)
+> > 3) Userland stuff like VMA
+> > 4) Linux Test Project (for syscall and ABI testing)
+> > 
+> > selftests are really limited and actually create a maintenance burden,
+> > they're not real unit tests and are highly dependent on the actual
+> > machine configuration which is super annoying.
+> > 
+> > But, lets take the page allocator as an example.
+> > 
+> > The only piece of the page allocator that "should" (cough, simplifying
+> > here a bit) be machine specific is zone and node configurations... but
+> > I'm not convinced that this should require a full VM to unit-test.
 > 
-> tps53676_identify() reads the USER_DATA_03 phase configuration to count
-> the phases assigned to each channel and derive the number of PMBus pages.
-> In each 16-bit phase descriptor the channel (PAGE) is encoded in bit 4 and
-> the firing order in bits 3:0, but the code tested bit 3 (0x08), which is
-> part of the firing-order field.
+> I told Brendan exactly that (try stubbing it) and he tried ... and had to give
+> up at some point because it just wasn't feasible. ;)
 > 
-> TPS53676 supports up to seven phases, so firing-order bit 3 is never set.
-> As a result the existing test classifies every enabled phase as channel A.
-> On a dual-channel configuration the phases assigned to channel B are
-> therefore miscounted as channel A and page 1 is not exposed.
-> 
-> Test the PAGE field (bit 4) instead.
-> 
-> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
 
-Applied.
+LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
 
-I'll fix the other problem separately.
+I'll try to clean up my current pile and see what I can pull out for
+some select components.  Something is better than literally nothing.
 
-Thanks,
-Guenter
+I'm trying to be careful about not causing a bigger maintenance burden
+while also having some confidence in my own code.
+
+~Gregory
