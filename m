@@ -1,151 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17CFD3C1D4A
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972784A2A58
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598809; cv=none; b=mQwflPJEXGGWxA5yXcWhsTvix2s8hWzTS6pwATsjPtWz83ADUqwAuUK88F2gHvhHN6jfMYDOXRJSw7b9+eX7wR8+E8urwYMKxHqGpxi3ptzA0hqGQb8rNCH/PF69ZuaJUZeypcy4dYUyTwwny7mPa2hX9k6dmaAg9r12SDS+HUo=
+	t=1789598813; cv=none; b=uMTalWM1MbsEGBhTw9GV/9KKIrQv61/Tca116ZQwUVljIirm0iJjPuxPXkMpRqu9fpNXODOWzZVDAOdZIWHz/AJ+7XeCsnx7dJc/t86ox3ijUR5d76g94EQVxWtlMhbIawlKi6SK+d6WRB1fa47csL5CgVJGQCUMfZLAVkbY3yI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598809; c=relaxed/simple;
-	bh=9yJasCiYaRf7RJYnO5TkFG76S9z43HiaKHxgBny6iAg=;
+	s=arc-20240116; t=1789598813; c=relaxed/simple;
+	bh=q/ONyTjg7HZXYhrEWB+lnbkajoNVd4eYlZJcoRgSMac=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HUEEr0BW6w6EEhwdvbao7xNfDIO2c7rk5rlpTNLsiH/I66m4H8v4D1ujSvOB136n5+fdDtHu+ZXeBwC31kiJWNLhVzwxhj5SH9WAFsXzuqnzGMgdb93tfCaHiVQKQEVNebzcnDGccUKDdyIofFlBPAqzjqj5zTR+htW97UfembI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mqsuMymw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=D8mKuUcXVrzr+AH63idKop8IhBjbqqMcQUSg0mk0Xj1l04tQpD7rwFefZM0081XDHjh1Ys/lbi5yKzy26cV89HHIj6axfdLzOw5aXZD9KGDy8mgmimK4jhSwTaHeW0Hmci9D0WMy5s8l0O9AEzV8MRT6RNUdTXIf6DlwWgMnm+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dsNpuDm9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mqsuMymw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BE7BB1F00899;
-	Wed, 16 Sep 2026 22:46:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dsNpuDm9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A891F00893;
+	Wed, 16 Sep 2026 22:46:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598803;
-	bh=r6tUTEF5Sseky+tuDAtG16hbjlRhXN7vuVi9VvJ++As=;
+	s=k20260515; t=1789598800;
+	bh=dJX+VM3osdkdzkR4l62B88q+VDg+sRgZuFRzYdxWgLo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mqsuMymwt5rxOqqChYiEzh0m7znhBf4QCrCgTyp/UEApp0oahC4drdTsSe5awEmM3
-	 baz68s92zs17JOt8kVfQhd3XPCsuZk5Sqe4VSibz+s9j9qBN1D7wY3kpG12BK58+8f
-	 rZVRUA8A+rmPLtY5HJPdcEbmfXySOxlU6CS527f9Xm0CSilUYFLIJKYY1nfsSfw2wB
-	 CleJfTRBowX9skn2hUL+V3hzlTdLGRK1KgSvXYSGiu/dv+6BpGxsbkIAWFvo/ZpfDE
-	 W9wocSiaA9gIVhHUo5XikLyk4PP+6vvwmE+at2BxmH90FjAz1JqqTICszUHDg1CAmZ
-	 sV4V9BqagzlMg==
+	b=dsNpuDm9biw22jdeoIlqihWcpBixWCqWvF/iuiLtoi3pxrt55iBZ7HxxMELbgm1XB
+	 6u0hB26YF1zjv9DbeRoCbUhxRSbqgBFcKHnirI76h6Ab7Ng4osIOQo+UfjHGL6BJ1n
+	 aU3D2TjDgVNeyCPADXRP+/ea+9JvULFLEoCcnIolg6iwhQA1dkMVOCsYvIZoiSJOBZ
+	 d24ErTvk7ev0FqrSlAqMsvmB0hYu/kIaTncc+fJpJfHihBNsNARziTFX53FJTPppva
+	 OgzG074Vu0WloElGmjnkDwo5BnhkytPYFglC/lGNv3quFrlV/lBinzwt5Vm6L+jJhj
+	 mv1Y9Z15FIUag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Sashiko AI <sashiko-bot@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] bootconfig: Fix integer overflow in initrd size check
-Date: Wed, 16 Sep 2026 18:46:41 -0400
-Message-ID: <20260916224641.3199092-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] tracing: Undo the registration when enabling the histogram trigger fails
+Date: Wed, 16 Sep 2026 18:46:38 -0400
+Message-ID: <20260916224638.3198228-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091616-ricotta-character-82bc@gregkh>
-References: <2026091616-ricotta-character-82bc@gregkh>
+In-Reply-To: <2026091607-wriggly-finite-bb4f@gregkh>
+References: <2026091607-wriggly-finite-bb4f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit 7812d6dab0698001e50e8c2f901e17da3eb6f429 ]
+[ Upstream commit 92383cef66791a0c63a2f27755cadbdb2fbf270b ]
 
-Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-arithmetic:
+Commit 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers
+list") described how a trigger that is registered but not on file->triggers
+ends up freed while still on the global named_triggers list, and moved the
+registration down so that hist_trigger_enable() follows it immediately. One
+path still gets there. hist_trigger_enable() adds the trigger and takes it
+straight back out when the event cannot be enabled:
 
-    data = ((void *)hdr) - size;
+	list_add_tail_rcu(&data->list, &file->triggers);
 
-to wrap around on 32-bit systems (or when pointer subtraction overflows).
-Because data wraps around, the subsequent bounds check:
+	update_cond_flag(file);
 
-    if ((unsigned long)data < initrd_start)
+	if (trace_event_trigger_enable_disable(file, 1) < 0) {
+		list_del_rcu(&data->list);
+		update_cond_flag(file);
+		ret--;
+	}
 
-evaluates to false, bypassing the check. The kernel then calls
-xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-hitting unmapped pages and triggering a fatal kernel page fault during
-early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-unbounded 32-bit size can similarly bypass the initrd_start check.
+so the list walk in hist_unregister_trigger() matches nothing, test stays
+NULL, and the ->free() that would call del_named_trigger() is skipped.
+out_unreg falls through to out_free, which frees the trigger anyway:
 
-Fix this by:
-1. Ensuring the initrd is at least large enough to contain the bootconfig
-   footer and verifying hdr is within the initrd bounds.
-2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
-   the available space between initrd_start and hdr before performing
-   pointer subtraction.
+ BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
+ Read of size 8 at addr ffff8880091d3160 by task init/1
+  find_named_trigger+0xac/0xc0
+  hist_register_trigger+0xc1/0xa00
+  event_hist_trigger_parse+0x3146/0x6af0
+  event_trigger_write+0xce/0x160
+ Freed by task 69:
+  kfree+0x154/0x420
+  trigger_kthread_fn+0xfd/0x160
 
-Link: https://lore.kernel.org/all/178905333479.213925.1358412668943562406.stgit@devnote2/
+Leave the trigger where hist_unregister_trigger() can find it and let that
+undo the registration, which is the only code that knows all of what
+cmd_ops->init() took: the named list entry, the hist_pad reference, the
+reference on the trigger a named histogram is shared with, and the copied
+cmd_ops. It also pairs the failed trace_event_trigger_enable_disable(),
+whose sm_ref and buffered event reference are otherwise left behind.
 
-Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
+Since ->free() releases trigger_data and, for a trigger that does not share
+its histogram, hist_data with it, out_unreg can no longer fall through to
+out_free. For a trigger that does share, hist_register_trigger() has
+already destroyed the caller's hist_data, so the fall-through was reading
+freed memory there as well.
+
+Move the enable_timestamps check in hist_unregister_trigger() above the
+->free() call for the same reason: hist_data does not outlive it once the
+trigger being removed is the one that owns it.
+
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-[ Adjusted context to preserve the existing u32 *hdr pointer and le32_to_cpu() header reads. ]
+Fixes: 067fe038e70f ("tracing: Add variable reference handling to hist triggers")
+Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F00A3D@smtp.kernel.org/
+Link: https://patch.msgid.link/20260907124420.607097-3-donggeunyoo.kernel@gmail.com
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ adapted cleanup to 5.15’s older trigger callbacks and registration order. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- init/main.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ kernel/trace/trace_events_hist.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
 
-diff --git a/init/main.c b/init/main.c
-index df9db4d47868a..638e16048cc3c 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -270,7 +270,8 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 	u32 *hdr;
- 	int i;
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 5ecc78916431d..2fa1bc786f2a8 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -5676,11 +5676,12 @@ static int hist_trigger_enable(struct event_trigger_data *data,
  
--	if (!initrd_end)
-+	if (!initrd_end || initrd_end < initrd_start ||
-+	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
- 		return NULL;
+ 	update_cond_flag(file);
  
- 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-@@ -287,16 +288,26 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 
- found:
- 	hdr = (u32 *)(data - 8);
-+	if ((unsigned long)hdr < initrd_start)
-+		return NULL;
-+
- 	size = le32_to_cpu(hdr[0]);
- 	csum = le32_to_cpu(hdr[1]);
- 
--	data = ((void *)hdr) - size;
--	if ((unsigned long)data < initrd_start) {
--		pr_err("bootconfig size %d is greater than initrd size %ld\n",
-+	if (size > XBC_DATA_MAX) {
-+		pr_err("bootconfig size %u is greater than max size %d\n",
-+			size, XBC_DATA_MAX);
-+		return NULL;
-+	}
-+
-+	if (size > ((unsigned long)hdr - initrd_start)) {
-+		pr_err("bootconfig size %u is greater than initrd size %lu\n",
- 			size, initrd_end - initrd_start);
- 		return NULL;
- 	}
- 
-+	data = ((void *)hdr) - size;
-+
- 	if (xbc_calc_checksum(data, size) != csum) {
- 		pr_err("bootconfig checksum failed\n");
- 		return NULL;
-@@ -399,12 +410,6 @@ static void __init setup_boot_config(void)
- 		return;
- 	}
- 
--	if (size >= XBC_DATA_MAX) {
--		pr_err("bootconfig size %ld greater than max size %d\n",
--			(long)size, XBC_DATA_MAX);
--		return;
+-	if (trace_event_trigger_enable_disable(file, 1) < 0) {
+-		list_del_rcu(&data->list);
+-		update_cond_flag(file);
++	/*
++	 * On failure the caller undoes the registration, and
++	 * hist_unregister_trigger() can only find the trigger here.
++	 */
++	if (trace_event_trigger_enable_disable(file, 1) < 0)
+ 		ret--;
 -	}
+ 
+ 	return ret;
+ }
+@@ -5759,13 +5760,13 @@ static void hist_unregister_trigger(char *glob, struct event_trigger_ops *ops,
+ 		}
+ 	}
+ 
+-	if (unregistered && test->ops->free)
+-		test->ops->free(test->ops, test);
 -
- 	ret = xbc_init(data, size, &msg, &pos);
- 	if (ret < 0) {
- 		if (pos < 0)
+ 	if (hist_data->enable_timestamps) {
+ 		if (!hist_data->remove || unregistered)
+ 			tracing_set_filter_buffering(file->tr, false);
+ 	}
++
++	if (unregistered && test->ops->free)
++		test->ops->free(test->ops, test);
+ }
+ 
+ static bool hist_file_check_refs(struct trace_event_file *file)
+@@ -5964,8 +5965,11 @@ static int event_hist_trigger_func(struct event_command *cmd_ops,
+ 		goto out_unreg;
+ enable:
+ 	ret = hist_trigger_enable(trigger_data, file);
+-	if (ret)
+-		goto out_unreg;
++	if (ret) {
++		cmd_ops->unreg(glob+1, trigger_ops, trigger_data, file);
++		/* The unregister frees trigger_data, skip out_free */
++		goto out;
++	}
+ 
+ 	se_name = trace_event_name(file->event_call);
+ 	se = find_synth_event(se_name);
 -- 
 2.53.0
 
