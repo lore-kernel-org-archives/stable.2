@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 578DC367B99;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D58B23C10BB;
 	Wed, 16 Sep 2026 01:52:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789523573; cv=none; b=sy6kjwyOkRr/RX/CkbiB/l436fM+r/YAdVyc52OkcQ5EFSW5j3DZyO1CV1UAnmNmX53g4rl920F8xmmze9TH1++qU87tEvWdpWrUrwdN5P+C2F3bf1R1SauJ+8TQ85z3SiryaHtc/p5FSqd/+5onbeKRcmAK6rgSvv4lFn2+WTU=
+	t=1789523574; cv=none; b=OWzvQgPsXWQ+A08leuhPs1C8F57db9nlqPUbR1XSiL1yIkrtxeDvoQ2BLU0YUAhSF8YkHNf0ie1LuHV9yhcX1ACIgNktaDs3SIRXE/QYLgjAxV+nmgT7xSel4x8jaBcBaWDmGxrFz2pSpxWGwZo0CVh5xMtiHc+ymrrTswnhmFw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789523573; c=relaxed/simple;
-	bh=FR8I3QcybVNh23QeHn636r2tRiWGu+RwgXT4dQMY4ys=;
+	s=arc-20240116; t=1789523574; c=relaxed/simple;
+	bh=93DDrKyF+t10Dxjufc0Db3GcFHvMOdZPrO+XQxcj+XM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bwIU4RrFHqxY5tNFsCYAyFxgSKmuIFK1cf8xbfdJCHPgexrzOE5cnSibKKLQgXdcsyGaZcOBElbIDhfgSq+RwYggLGkW0Tb4zk+KhLlkBH6romHTPT6cl25HREAl52mRgJo5fp6A5ajtCwOWlrjcpdRhp0OuJ1mHLqVDfgt2GwY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gn7V7tVT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=h2WZBvWPxafCTUxjf3k/ouRisGpU9cBLxRX714GBLrXFZ1C3jV+ruJNd5p+hnBM7mSkZxEKcaDoGEEOLUP45H+kMU8SDsg+eMIKgn/uQiZobBoyAh4UZSXbrRVDKjgcrcaaAn9sNNuin4LltPkOZYNkkfbCI0wUeufqdvm1V3hA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oACRQOxM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gn7V7tVT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DEC6A1F008A0;
-	Wed, 16 Sep 2026 01:52:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oACRQOxM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F05BA1F008A2;
+	Wed, 16 Sep 2026 01:52:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789523558;
-	bh=MBwSgvxC4e+2C4tf7uicIHIowDdMKsen7ohoo1IJv7w=;
+	s=k20260515; t=1789523557;
+	bh=VbVlSsyAHUKQkdxhiOzhIEaDN/XzapJHF+uYGXyqdpc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gn7V7tVTjYTM+QF18Tx6a8BE3KhmlVy5cSsoSbQj83+9yXO8E4wAP+NlhfZ5UW7vX
-	 z/XZqgA+4H/abPLXypDzCKgrUJC87xunNCgf1/4XzYeIOYzktEjoAi5z7OpBgceOBF
-	 vl7H1OMWCUaH/Mdc9KUnjExky+i786SvhLoBUolRNHGW/YYdAiY5iX0OuyfK7mPE9f
-	 n+zk7RF+XHlViLfi4rVJTk67X4YomPKJsb3mizZUGIT5JQGmB2qzRFmB4YeFPZSng+
-	 4RwzrJ3x0xDZizzEvcKuX3uVafVYaYLHorIFt5GIn2t9v9rKsGkN+nxgf1Bmzy12J1
-	 nNcFZni1ZKIPQ==
+	b=oACRQOxMio3vvkvWTz6nWYwdBGEUQ1uhp0W3VAnUj8dcYj0B31LKtQnR7zYGY+7WX
+	 B1Ws+xMmXsHiEQs8zAuRwHxvsHp0Yj5H/C+CI4ZScal5kVfJQWDUx/W7RPghsBHC66
+	 gq2i+0VLhtmlfQWoMY7NAgk+sxK7sp/hiEVAQfSB8r/jOm4tMkfeYsbvuPOOuX1SZ7
+	 TUo+tVnPzeG1E9RexKxbSBTGR6nfw+5YbIoKv93Ue+bhX4iaTDarK1A/UsrztuVvgd
+	 lN28DDl6krtcLcuirTKjh5xvzkjouh7/S6a+1VcMIOl3e8gsQKxIjhdUckK3Li1zXD
+	 QEgt/L153vc+w==
 From: Sasha Levin <sashal@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
 	patches@lists.linux.dev,
-	Edward Adam Davis <eadavis@qq.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
-	syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Subject: Re: [PATCH 5.15 879/935] bluetooth/l2cap: sync sock recv cb and release
-Date: Tue, 15 Sep 2026 21:52:17 -0400
-Message-ID: <daily-reply-20260915-0012-re-l2cap-recv-cb-5-10-revert@kernel.org>
+	Lee Jones <lee@kernel.org>,
+	Manuel Fombuena <fombuena@outlook.com>
+Subject: Re: [PATCH 7.2 0292/1815] leds: st1202: Stop pattern sequence before reprogramming
+Date: Tue, 15 Sep 2026 21:52:16 -0400
+Message-ID: <daily-reply-20260915-0011-re-leds-st1202-validate-pattern@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091453-unwary-delete-b272@gregkh>
-References: <2026091453-unwary-delete-b272@gregkh>
+In-Reply-To: <GV1PR08MB84973FE9321D2874451D5DBDC5BB2@GV1PR08MB8497.eurprd08.prod.outlook.com>
+References: <GV1PR08MB84973FE9321D2874451D5DBDC5BB2@GV1PR08MB8497.eurprd08.prod.outlook.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,16 +47,15 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Now dropped from 5.10.y and 5.15.y as for some reason this is marked as
-> adep of something that is not actually in the queue.
+> I do not anticipate any issues with the series being applied without
+> that commit, but I have not tested that configuration. I therefore
+> wanted to make you aware of this, in case you consider it advisable to
+> backport fd2529ba8f as well.
 
-5.15 dropped it, but 5.10 did not: the backport of 89e856e124f9
-("bluetooth/l2cap: sync sock recv cb and release") is in v5.10.270. So
-the recursive chan->lock deadlock Karl reproduced is live in a released
-5.10 kernel. I have queued a revert for 5.10.
-
-f1a8f402f13f ("Bluetooth: L2CAP: Fix deadlock") cannot fill the gap on
-either tree, since hci_sync.c and hci_sync.h do not exist there.
+Thanks for flagging it. fd2529ba8fb4 ("leds: st1202: Validate pattern
+input before stopping the sequence") is queued for 7.2 and 6.18 alongside
+the rest of the series, so both trees match the configuration you
+actually tested. No older tree is taking this series.
 
 -- 
 Thanks,
