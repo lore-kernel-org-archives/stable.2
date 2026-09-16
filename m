@@ -1,82 +1,82 @@
 Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0F4D499F37
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 21:34:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9464D48A8C2
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 21:34:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789594480; cv=none; b=qyya0O9NE20+ydI2WA6DIbA8hcZl4rjUXSatHkszz3Njb5iyp8PqPzoHmxqqGMDPCMOWDUAIb/FR3LLk571H5MQA/VRdEu+UEON7JXqqqx4B/SwKBtdsdCVNGxkf/3674CLFtu6weZZ+qau3pr7o6JFoWsKL+zO8LHi9l1UpiTY=
+	t=1789594513; cv=none; b=TTgtGgNJ56TYgf4UHJOGKkXeLkEEAnPI9gwddoAYRY28RQKZ4f4JZdrcQvt4vfvi0PfqlHVOnDOfSzfJEG1ItQ28TBBh87vhfmitj65jUghHYlXsGJjjOaiSSvowpSe+yLyikbU630OkDwuWgNTrQFILXelyIuk7QjJsghXTJ0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789594480; c=relaxed/simple;
-	bh=nqfoL6Sp1nIQ19/slQDnpcHsImhTyPT0s8L8U0rdTI0=;
+	s=arc-20240116; t=1789594513; c=relaxed/simple;
+	bh=Sj36XIv5xMRsbs/wOZ+6qit3KbIBL5gKeu9FcM1KgZc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gdzTHbNaVxLtCiUa4aa4qK/yM0s/nqhfkSNz5nRs5ijmWhujKiuU9Rn/TejC4jz7qndzDYOWgSnImj7wNaUZP+duSjMuZoQQo1lbh5D4dmNPIsDRPYt2+Ocz0yZN3xklhIsHyzuJvq1P0D5AAVXIdVbaY/ktCXRAUCyaeuVd2zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=WziT30g4; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=f9KLW3eH; arc=none smtp.client-ip=170.10.133.124
+	 MIME-Version; b=LYAnOsS52XKdbYhME9mxsJrpg80ozXQi2b9O63CSW2b6ah+OHfIhuRhz0LiNMc1vAe6lMazFUpEIv+l1xbzOjl7usJortHfpEnoogOpUBCXrLSkKq7xj+WNYti/Rc3dFuhunBOPrU229y0jKYKy+SXuJvS5471DR7V7d5vIZ9Hc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=VCMj0XYv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AOFHv1O9; arc=none smtp.client-ip=170.10.133.124
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="WziT30g4";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="f9KLW3eH"
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="VCMj0XYv";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AOFHv1O9"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789594461;
+	s=mimecast20190719; t=1789594468;
 	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
 	 to:to:cc:cc:mime-version:mime-version:
 	 content-transfer-encoding:content-transfer-encoding:
 	 in-reply-to:in-reply-to:references:references;
-	bh=ABM2woyIBHuSZR/C0pNttPA7KR8KLBv44FjWRfwZWUU=;
-	b=WziT30g4vzLcLgYhyYp/Z72xTNSFlpbflim7zDFxImISre0yOsAQFzUUYXy9QdYFmktgJW
-	ZTCQRBCvZMi8v8c8xVmZl3J/2g5wNIVLxOCUdWlXQY9r9cAcr1EboM6qu39Ot0c3rjYytx
-	nzIOQ27YwFaM3D6EKZ8SaK+IYrKupOQ=
-Received: from mail-qt1-f197.google.com (mail-qt1-f197.google.com
- [209.85.160.197]) by relay.mimecast.com with ESMTP with STARTTLS
+	bh=ZWuq6vDDxC9a57mHhVLz+GoF6OV48cjZqu3A8mCuPWU=;
+	b=VCMj0XYv4+o0VRiSyxYQ8oie1P/uWIcdgz1q4Sa0qFIFBZqw4gtJYU5QuOYso5pYpl1KDw
+	N4nMz4GeRGMLmK8el4odtkEbI8jdGp0hCoJSnbDHuUpxHvrzjX46KAQ602uW4/Ozjwt/9D
+	p87Yt2mCKxCutzF1V06CICpzDaTihGc=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
  (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-414-82A9SEfJM6-ZATGy4XZ0Ww-1; Wed, 16 Sep 2026 17:34:19 -0400
-X-MC-Unique: 82A9SEfJM6-ZATGy4XZ0Ww-1
-X-Mimecast-MFC-AGG-ID: 82A9SEfJM6-ZATGy4XZ0Ww_1789594459
-Received: by mail-qt1-f197.google.com with SMTP id d75a77b69052e-530256c61b4so1633831cf.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:34:19 -0700 (PDT)
+ us-mta-522-s8vRlHMuN2G1BWWi-iR37g-1; Wed, 16 Sep 2026 17:34:27 -0400
+X-MC-Unique: s8vRlHMuN2G1BWWi-iR37g-1
+X-Mimecast-MFC-AGG-ID: s8vRlHMuN2G1BWWi-iR37g_1789594466
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530e89b584cso1329071cf.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:34:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789594459; x=1790199259; darn=vger.kernel.org;
+        d=redhat.com; s=google; t=1789594466; x=1790199266; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=ABM2woyIBHuSZR/C0pNttPA7KR8KLBv44FjWRfwZWUU=;
-        b=f9KLW3eH22J34clq06grgOcshS7N+qoY4Y1roPOhyiEVWGsf8R/gcnJHSy1pxDiC/F
-         +djJa3ezyVHZVAxC0Y1s+hPIXpvOCO5qTPs6yCsPFVXkDS8Ku1zVKOx5t1TLbrL2Xjj+
-         MxCINbtaFvQIkPYNLN7953RwkbMD5B4K13zBBr4lMXw9yuzQHo/jvsW9YKX4vYkH/Z0K
-         f/4sTIw4B7T3ZLiZdgJvhQuqL1h8sEaSNBjvR9y31NouGksEzpcLJNq/zadJ7FgeOv4s
-         awutUfVmuI7BxnLFUN8FcYrJCC30ypOLHO37/FX0tdloEXfY7IGtty0/ZL9tTBWg3H0j
-         fMqg==
+        bh=ZWuq6vDDxC9a57mHhVLz+GoF6OV48cjZqu3A8mCuPWU=;
+        b=AOFHv1O99acR78ioweWCdpNcVQf87yKqTPpsULQFgfx5fsCsrzk8/i7Yy8mfcaC02J
+         wNyM1JePFTCS2XAVEh1gDJRcFP4vE+3ivny8BIqkAJZ4tkSJmIyKQ7pKPMffPr8nAgpr
+         6j9LwRqmFkDOZzXsxItqCBJGkKAisyl+8CAroxhlYURfOkQrMK8ELWdrIR8Y6m3TMpnL
+         ZJw/N12V2y4wg/5B9Megpc94FBhOOVniXcrS6F8EPoAiii5J2Ou/YR+6CwEPb6poH5AM
+         FXDFVZAX8eAUq3HSxk8c8h3Kji/MA4v5vOFtHRiOU+iXAILAkke1H8SYyi5HIHlKg4+3
+         Y6Mw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789594459; x=1790199259;
+        d=1e100.net; s=20260707; t=1789594466; x=1790199266;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ABM2woyIBHuSZR/C0pNttPA7KR8KLBv44FjWRfwZWUU=;
-        b=1oKJsvwkXDszMJ6NeeV6q9hj1Yin3kA+siZokX4blL6t1a+HpWjT020/WPAtmsS881
-         RBD7/4flyA96zzNn6Mj6QDue9s56bsl9V3NinjrfudOV2L8BZWwh8zCP1NLsNOm1Br3e
-         rBMqtZ6IAKY6rduhwN05jorkU8dw3rlqqP0Fu39ceN/uaFk0+z0h0T3odARsUTJ9/upM
-         LLtptEj95mXZO7mwbn2IMkKrDFEp33gJ8j1lDRcGtR6Om1XGIuH6RChezzjuvEreANGk
-         5wn4pDb6ajPRFBNatptEPlVrKb3sU+L/cYL91X6k+frhoyxJXnNambTUofy71dJT6NNH
-         ScDg==
-X-Forwarded-Encrypted: i=1; AKwUvBy6Jr+Z3kg5f8+EkPB2WWFrfZymJMQnZmhHo4EP2fViLWwITHvHaArL8N0UvWCQs/LYaq6Vhz8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nb7z2q6G5Z4cawh3iv4InadYO4bYDfOZql9G8vQ53oTlfJHZKS
-	JVA3E+VLD6rT24Z2epycZA9+uJvvT1VR0AMqHqwKWaPpmLwAV6nN8K2lvXRFPMBskvmq7IF7sIp
-	Ib8BiDlmIetSjOfGhlOqeyuImSfmIWbtzLS4God+J5nKnn0Kp4CknPCeiwA==
-X-Gm-Gg: AYBFou2k8sRLZdWo312Vm58dXqVGQBNtCO66OZ2Qkfw7LDQutlqjpbgAdYp+9cBqAOg
-	u00h4ZhmGAztt4TLBvMFpL1kt7Hwms40U7bwAERTBwtIwua+BragmGxPkl0NRh1MHq6ONWsyFqk
-	MtEB9iYcWOR7W40PiYlbrNnvo8gHRDl+Rwy0R3e5k233rxBee7C24Jl627u9lZM7+IkKOv4ccbo
-	7fMlCEiS4UKn+OX6Dp4bN+7uh3Q9p3HKQ/Ibs3JoQVH3wq8oqS34pFLfPc0Nt3BgGiJQkbfbRVR
-	LBHOJ4jso8PbmWZhDGGriI4iP2Ux37Ee5H3aSB0XDmTtBDg46oeXseLPzkx55LcgRj7oZgHTsg9
-	OH5J3K8UrtSpp4576j8y3D2TykFPjXyBzwx2XYTGD55JKFFnb2nhKLn9HdYAeS2rPuA==
-X-Received: by 2002:a05:622a:e19a:10b0:532:8c34:2e3c with SMTP id d75a77b69052e-5328c342fabmr21013541cf.40.1789594459199;
-        Wed, 16 Sep 2026 14:34:19 -0700 (PDT)
-X-Received: by 2002:a05:622a:e19a:10b0:532:8c34:2e3c with SMTP id d75a77b69052e-5328c342fabmr21013201cf.40.1789594458689;
-        Wed, 16 Sep 2026 14:34:18 -0700 (PDT)
+        bh=ZWuq6vDDxC9a57mHhVLz+GoF6OV48cjZqu3A8mCuPWU=;
+        b=cLbmrNBiJCH2p0fdgDduyYuSh+u3CHbnXcmmj7lOSI1pvTu7EPwwfZZ/xJtVnaCahz
+         EHcIHaaKDafLuwBMm2Da2Q9epIhPOTNXKCIfKx92vqhFL4OKC9uKw6qQnQ73upukxGIv
+         rUc7FdPEb5kqYNroKaWZ2Hd3wWnyLg278snyUH9f0rMfmj9O3yAXBP8N/XocQkOP5gT7
+         XvJ9ZYSMjlQ7tOoS6MiNbXw4+YHNjp9/0gHHrNxHhX19ZL47ewsXEeFYc9cuhSPbNn13
+         +D+coDUMawp9k39amK/Zf7VUnV2TXda7gSJ8omkfXE93MdcWRmbvNEcqqmSnO6YWHfRa
+         el4A==
+X-Forwarded-Encrypted: i=1; AKwUvByL/gPNxpDnRjygKvFG6mH12mRG8PtBUeOZPC7o5hXLEo7HUgJI7N0O03L0J3kl1hWiksDtssM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nCjIPmD3cfR3TO8ZsPfwVetWwiRrW/BAQIMlngIx81pcjc9UDL
+	ek22A/aH4sEbiIrOkLYD/slxl9jKiA21I4o+s+ZvY0GrHDb5+CT+hWG9blO2Qohx/hSzYT8brkj
+	n1DK3Fk0L0EBG6lbOIqdJGjaT7GMJwGJ3yrUKiXTRCeQU9ecacksHAbtpog==
+X-Gm-Gg: AYBFou3mgnXjjDEFrQjFlYw/0BZAovOSqvApzcmGjUpaBS9oJ44T8LPVHOoP2pdKxR0
+	PS7wY47X4yndk6hqxdAkLksANNefd/5x6HsNdSVpDNioXqG0e9RiBa//iJ+Nn0IoAMrsEHrgZok
+	EpkOUi/IFTbLQFE4XSCZiHaGKfze8UP2tlHsK0ACGXMRBP1AuLV8QtR9HXNeIWS30TWutwlSQmN
+	J/MM6R0//SPOkti8X2/bz38uSynAiuLvNsayVmuTBZ2G9i6WjRdziVCJlDc6aXJI4OjbqlqLNZu
+	SZ7QKF3V+yeT4wn+ZnbJV86/STcdGLeZtkoDxcuLeOHH/EMS7doMWQ8IYSjzjrCyyParOxeCqHC
+	60EuCAgdk3xDQ/9RZ8tkKdBZBscHInilBQKHfV2V1N5w62BHbQIQC1rQrZ1JyeqffgA==
+X-Received: by 2002:ac8:5dce:0:b0:532:7ea5:f35f with SMTP id d75a77b69052e-5327f260c84mr75271261cf.24.1789594466553;
+        Wed, 16 Sep 2026 14:34:26 -0700 (PDT)
+X-Received: by 2002:ac8:5dce:0:b0:532:7ea5:f35f with SMTP id d75a77b69052e-5327f260c84mr75270711cf.24.1789594466160;
+        Wed, 16 Sep 2026 14:34:26 -0700 (PDT)
 Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532620d4cbbsm32447431cf.28.2026.09.16.14.34.16
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532620d4cbbsm32447431cf.28.2026.09.16.14.34.21
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 14:34:17 -0700 (PDT)
+        Wed, 16 Sep 2026 14:34:22 -0700 (PDT)
 From: Frank Sorenson <sorenson@redhat.com>
 To: linux-cifs@vger.kernel.org,
 	pc@manguebit.org
@@ -86,9 +86,9 @@ Cc: linkinjeon@kernel.org,
 	tom@talpey.com,
 	bharathsm@microsoft.com,
 	stable@vger.kernel.org
-Subject: [PATCH v5 6/9] smb: client: fix OOB struct field reads in move_smb2_ea_to_cifs()
-Date: Wed, 16 Sep 2026 16:33:57 -0500
-Message-ID: <20260916213406.1496960-7-sorenson@redhat.com>
+Subject: [PATCH v5 9/9] smb: client: fix reparse buffer bounds in cifs_query_reparse_point()
+Date: Wed, 16 Sep 2026 16:34:00 -0500
+Message-ID: <20260916213406.1496960-10-sorenson@redhat.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916213406.1496960-1-sorenson@redhat.com>
 References: <20260916213406.1496960-1-sorenson@redhat.com>
@@ -100,88 +100,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In move_smb2_ea_to_cifs(), the while (src_size > 0) loop condition is
-insufficient. It allows iteration to continue even if the remaining
-src_size is too small to contain a complete smb2_ea_info structure.
-Consequently, reads of ea_name_length and ea_value_length can occur
-out-of-bounds.
+In cifs_query_reparse_point(), the start >= end check before casting to
+struct reparse_data_buffer * only ensures the start pointer is within the
+response. It fails to verify that there is enough space remaining for the
+fixed 8-byte header of the structure.
 
-Fix this by ensuring src_size >= sizeof(*src) before attempting to read
-any structure fields. Additionally, reject any next_entry_offset that is
-smaller than sizeof(*src) or that would advance the pointer beyond the
-available buffer.
+If a server provides a DataOffset that leaves less than 8 bytes remaining,
+the check passes, but subsequent reads of ReparseTag and ReparseDataLength
+will occur out-of-bounds.
 
-Note that for calls where the server returns a malformed EA list, the
-error returned to userspace changes from -ENODATA (getxattr) or
--ERANGE (listxattr) to -EIO. This correctly signals a server protocol
-error rather than misleadingly indicating "attribute not present" or
-"output buffer too small".
+Fix this by ensuring the remaining space is at least the size of the
+reparse_data_buffer structure before accessing its fields.
 
-Fixes: 95907fea4fd8 ("cifs: Add support for reading attributes on SMB2+")
+Fixes: c13b779d26b3 ("cifs: Fix validation of SMB1 query reparse point response")
 Cc: stable@vger.kernel.org
 Signed-off-by: Frank Sorenson <sorenson@redhat.com>
 ---
- fs/smb/client/smb2ops.c | 25 +++++++++++++++++--------
- fs/smb/client/trace.h   |  1 +
- 2 files changed, 18 insertions(+), 8 deletions(-)
+ fs/smb/client/cifssmb.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
-index bda940cb3784..ee3c98e3f316 100644
---- a/fs/smb/client/smb2ops.c
-+++ b/fs/smb/client/smb2ops.c
-@@ -1053,8 +1053,9 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
- 	char *name, *value;
- 	size_t buf_size = dst_size;
- 	size_t name_len, value_len, user_name_len;
-+	u32 next_off;
+diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
+index f9aff0712794..6dddbd84b93b 100644
+--- a/fs/smb/client/cifssmb.c
++++ b/fs/smb/client/cifssmb.c
+@@ -3080,7 +3080,7 @@ int cifs_query_reparse_point(const unsigned int xid,
  
--	while (src_size > 0) {
-+	while (src_size >= sizeof(*src)) {
- 		name_len = (size_t)src->ea_name_length;
- 		value_len = (size_t)le16_to_cpu(src->ea_value_length);
- 
-@@ -1110,14 +1111,22 @@ move_smb2_ea_to_cifs(char *dst, size_t dst_size,
- 		if (!src->next_entry_offset)
- 			break;
- 
--		if (src_size < le32_to_cpu(src->next_entry_offset)) {
--			/* stop before overrun buffer */
--			rc = -ERANGE;
--			break;
-+		next_off = le32_to_cpu(src->next_entry_offset);
-+		if (next_off < sizeof(*src) || src_size < next_off) {
-+			cifs_dbg(FYI, "EA next_entry_offset %u out of range [%zu, %zu]\n",
-+				 next_off, sizeof(*src), src_size);
-+			rc = smb_EIO2(smb_eio_trace_ea_next_offset,
-+				      next_off, src_size);
-+			goto out;
-+		}
-+		src_size -= next_off;
-+		src = (void *)((char *)src + next_off);
-+		if (src_size > 0 && src_size < sizeof(*src)) {
-+			cifs_dbg(FYI, "EA next_entry_offset %u left truncated entry (%zu bytes)\n",
-+				 next_off, src_size);
-+			rc = smb_EIO2(smb_eio_trace_ea_next_offset, next_off, src_size);
-+			goto out;
- 		}
--		src_size -= le32_to_cpu(src->next_entry_offset);
--		src = (void *)((char *)src +
--			       le32_to_cpu(src->next_entry_offset));
- 	}
- 
- 	/* didn't find the named attribute */
-diff --git a/fs/smb/client/trace.h b/fs/smb/client/trace.h
-index b442cccd1530..bb8d0197cb54 100644
---- a/fs/smb/client/trace.h
-+++ b/fs/smb/client/trace.h
-@@ -27,6 +27,7 @@
- 	EM(smb_eio_trace_copychunk_overcopy_c,		"copychunk_overcopy_c") \
- 	EM(smb_eio_trace_create_rsp_too_small,		"create_rsp_too_small") \
- 	EM(smb_eio_trace_dfsref_no_rsp,			"dfsref_no_rsp") \
-+	EM(smb_eio_trace_ea_next_offset,		"ea_next_offset") \
- 	EM(smb_eio_trace_ea_overrun,			"ea_overrun") \
- 	EM(smb_eio_trace_extract_will_pin,		"extract_will_pin") \
- 	EM(smb_eio_trace_forced_shutdown,		"forced_shutdown") \
+ 	end = 2 + get_bcc(&io_rsp->hdr) + (__u8 *)&io_rsp->ByteCount;
+ 	start = (__u8 *)&io_rsp->hdr.Protocol + data_offset;
+-	if (start >= end) {
++	if (start >= end || (size_t)(end - start) < sizeof(*buf)) {
+ 		rc = smb_EIO2(smb_eio_trace_qreparse_data_area,
+ 			      (unsigned long)start - (unsigned long)io_rsp,
+ 			      (unsigned long)end - (unsigned long)io_rsp);
 -- 
 2.55.0
 
