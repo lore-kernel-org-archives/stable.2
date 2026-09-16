@@ -1,98 +1,138 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167FC4ACC6D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:47:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CEF4DD3C3;
+	Wed, 16 Sep 2026 23:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602477; cv=none; b=YhOaA/5k1F4l9sLrJ9i1PD+XBMD4H524WN0HWrn9fnH0yxnKL+31HJC01cJ6wp5ex8eqSZuTOjgQB0zoIN8QCSwj5S/3RUL0pjvNMVc4Wf0bR291m8w1GCj//KGCjVRiqSuPwS0RvOWrR0cu1TbTE9UFzD3sLSoQZeXRgj38Eks=
+	t=1789602566; cv=none; b=sXfHeO6ZPb5J/4qUj8S9qiG5w5aoijUPVVsZH1V5saBz9YbQ8iYAr30XY0p+s0grqoe399FlzJFY3emseS6Vuc1aKqD+R5ZhjgCeighkWZIJ7pNo7nYCWD3X/3tewUhXtrn1YImNim0nAqJ1KXTC+3YxD/nqnvn2hS5mpCpi4Z4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602477; c=relaxed/simple;
-	bh=8ZZmEzmRY5l1Bk+XRrbRnE93cR7GfxYZTezIz2U6scs=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=GQw1mkxqnpPXAm8Um2vEoMCi9feDKQJ1GjltnvttmuBjk3p8gUvCegOFMhqY72FVqCQ3Ij4DIDvaBbunqbY6+uajfz1F6mf/2ePsXWAudqvxGzy7VqafLjTmNjOHhamPUDU9mHSZlSLr8aT1mScwbmP+P1ButuQTlsEK0ybjjz4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=AuhR4CaE; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789602566; c=relaxed/simple;
+	bh=3VICl/PljwfMNqlFD4r491TYryV5qL4xLUt/1jbDk4U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IzO8CYESTlrwdzEEUnvkf+R77EYy5YgsIm6xFiqGQSvxKaMGM+g6nneKOvFzvOM/2ir4A2OQYaWirszMAJ0mxbyleAXkPtPvMAMzQDkch8XCZIrXMArGApvVZZH0xCx28s8d5rScPjCB2EIHP2yktvsk4b+g2eYdufjEDc3ezbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Z7WHNe1r; arc=none smtp.client-ip=117.135.210.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="AuhR4CaE"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb74fso222503a91.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:47:55 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789602475; x=1790207275; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8ZZmEzmRY5l1Bk+XRrbRnE93cR7GfxYZTezIz2U6scs=;
-        b=AuhR4CaEQLs6pHHrXZ1fJX0VwJHDwk8ESqCuamxrr5LsbfM/OPxm1+1RkeGst14S5R
-         P5bdUHRvCwIhMDr+2NAr2xYn0iE2TiBtVn+qQ/v5MLDXvQmB96sJ8FNhU9I4sBBjtI93
-         8aHI4FuaCNUuICbTmBiAVl5UCJZ8oX09N2I4iPACHCGj3P19avuDyWO9uHCIwV5FTSCi
-         kyglARG9Jcdi86P54OjhehZK8+MTetAEBUgpOjv2U2+43GQIpiQ3hx9Q82f7jv6PM8K/
-         ge82122gmdyNeuze2J+K6C0jzZD2JQ+y3qqi2/DwlPhBKa+u5is/oT3PR9ATgifCSlJq
-         lFZw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789602475; x=1790207275;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=8ZZmEzmRY5l1Bk+XRrbRnE93cR7GfxYZTezIz2U6scs=;
-        b=MKhqZC5s+WAlvrnvSjUO4mqjzDAWO75aRraIpeXFQJD5+8I+9KC54BjjP2Iu8/QOdY
-         S7GF8L0UIB/J3vykzVDrYAgCdRmUf9Cc4D53offQ5DIc/g70ohM+qdvwUqgA16aGAQyV
-         4XC9xwMobNcs3pSRQiG568/3mPbpAIcJThWUtF+752kL6zdcs2n00t5QquMQ4AMPiIOI
-         JUhXfr7uO4fbBW5NKB3OlHxK1ig7S2tjOT5YSCbxXgFZggrYacM/+ljQmTMM5EyptIBT
-         85nX7IUm+qPXUgXWNKr2hrX+qPiKimjtmT3gGQdPLF73hKNHgxQ/F3NWE8z0OQL0B1ee
-         9ZjA==
-X-Gm-Message-State: AFuF++ng0nqO4WE3uTbHOtZMJFJGfjji/QPSxGa1JCyLRCY7DeyJTNYz
-	L4Xh2IOlRtHc2XCkVeKF0qpe5AQFBoB/B9rYGi0TH4NdSI+iUNnHocsYIj5RjDcZZYGFKKzzV8H
-	An31ZXw==
-X-Gm-Gg: AYBFou1Sab5vtxaXn9kmZAqf7JMXK9QKM3Kwbcp4cOmoihIi1/FxUUnpz5aS64D4uy9
-	0FaPTKG/g79LKMEq7WXl5yBYAzKhYw9EaFu0qVYf0rZe2TAwkbiDEkIKEHewOpA3MeGHtRB5Ej/
-	j0kuGPl6puhzfRquzyXzd4vSlW5ULIFzi2Ye4MHn/6ueL7a2F2wmCQvFV0ddlmjI9btOBfBbvWQ
-	3iEKKb1srW9MWNzHcLoLf2/dsmUKQU1CQybCrkcvNjnLfpZAQalnRNvHZWW5gaPcx/k+Q+kMefw
-	37BJ9LPE0DcESZgu4OHmbp6+vY99e5s1r1qNlFsqsA84LOi3nlA1OYWn1YjiRQGMHGDVEWRr7n6
-	zHut9N/R1F95C6HSMdEr0hWu+xhuysn3jgi5I921p4CkhIlB1b1MC007i3XMCyex/3pO7Vq2P83
-	uU4p53Xi6nGcH/hvZfTrmY+cQ+dq+mo9NxcpNSUUcnZSKCJJC2AtsXh5NxIv4QJ5sMJ6E72ZbKg
-	8kUZjigWH+bQJc4h365NiM+3WxiDglm7sQ=
-X-Received: by 2002:a17:90b:5624:b0:39e:b7:cbef with SMTP id 98e67ed59e1d1-39e1e5612d3mr14829775a91.25.1789602475478;
-        Wed, 16 Sep 2026 16:47:55 -0700 (PDT)
-Received: from p1 (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395d5d0f3sm9085370c88.12.2026.09.16.16.47.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 16:47:55 -0700 (PDT)
-Date: Wed, 16 Sep 2026 16:47:53 -0700
-From: Xiang Mei <xmei5@asu.edu>
-To: stable@vger.kernel.org
-Cc: rafael@kernel.org, maciej.wieczor-retman@intel.com, 
-	pawel.chmielewski@intel.com, lenb@kernel.org, linux-acpi@vger.kernel.org, 
-	acpica-devel@lists.linux.dev, bestswngs@gmail.com
-Subject: [STABLE REQUEST] ACPICA: Fix NULL pointer dereference in
- acpi_ns_custom_package()
-Message-ID: <ztqdpwmbpfusfens334indnsykgejamscwhv6dylk6xckr5uyg@scsb6egwneel>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Z7WHNe1r"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=AkC4/63UwswKlo+NGzzlx9i4qj+7xSP0MGqUjBcBcKI=;
+	b=Z7WHNe1rSzhkp+MnDOMQkuJs1Hd6r6FUPltsUOVYnwxgdUzafeo1Ys+E6Px8fa
+	YTljf77xn1JgpTuWP49DejPXgYnRlOvjjmB/HrWf64axGoE+cr2Uod1qrs7DwXHC
+	lfUf6xEKPJ1WOVJTzzoCmrqFiWTWmhuJZSRpbtlWCTEMw=
+Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
+	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3F_rmKqtqlwSDBA--.51140S2;
+	Thu, 17 Sep 2026 07:48:56 +0800 (CST)
+Message-ID: <a2280318-0604-4318-a3b6-01cd4a72d781@163.com>
+Date: Thu, 17 Sep 2026 07:48:54 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v3] ntfs: mount hibernated volumes read-only regardless of
+ errors=
+To: Namjae Jeon <linkinjeon@kernel.org>,
+ Hongling Zeng <zenghongling@kylinos.cn>
+Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
+ zhongling0719@126.com, stable@vger.kernel.org
+References: <20260915023820.621797-1-zenghongling@kylinos.cn>
+ <CAKYAXd-Pz0WCKNyOdoxKyfgE_rx7GVDRmtidfjsx-x0C-AA1RA@mail.gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <CAKYAXd-Pz0WCKNyOdoxKyfgE_rx7GVDRmtidfjsx-x0C-AA1RA@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wD3F_rmKqtqlwSDBA--.51140S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXw1DAF1Dur1fAr4DXF45trb_yoW5Kw47pF
+	9rKw4Dtr4kKr1akrn2vay0q3WFkr93Aa1UGrn5CF47A3s5KF13trWfKw1a9F4SkrW5ta1x
+	XF409343Wa1DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UaYLPUUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6ghKFWqrKujH-wAA3G
 
-Hi stable team,
 
-Could you please consider backporting upstream commit
 
-f8d14b7bb0063bbbd86c0e4d73edb8cea7b362bc
-("ACPICA: Fix NULL pointer dereference in acpi_ns_custom_package()")
+在 2026/9/16 19:57, Namjae Jeon 写道:
+> On Tue, Sep 15, 2026 at 11:38 AM Hongling Zeng <zenghongling@kylinos.cn> wrote:
+>>
+>> The hibernation check in load_system_files() only converts the
+>> superblock to read-only under errors=remount-ro.  With the default
+>> errors=continue (and with errors=panic), a hibernated volume is
+>> mounted read-write and the mount-time $LogFile emptying writes to it,
+>> although a hibernated volume must not be written to at all.
+>>
+>> Drop the on_errors term so that a hibernated volume, or a volume whose
+>> hibernation state cannot be determined, always mounts read-only.
+>> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+>> remounts to read-write, and the $LogFile emptying is skipped by its
+>> !sb_rdonly() check.
+>>
+>> Also change the ntfs_error() calls inside
+>> check_windows_hibernation_status() to ntfs_warning(): they run before
+>> SB_RDONLY is set, so errors=panic could panic there, while the warnings
+>> preserve diagnostics for already read-only mounts.  The read-only
+>> fallback message is logged unconditionally: with SB_RDONLY set, or on
+>> an already read-only mount, ntfs_error() cannot panic, and the reason
+>> for NVolErrors() stays visible.
+> errors=panic can still panic before the read-only fallback.
+> ntfs_lookup_inode_by_name() and ntfs_iget() in
+> check_windows_hibernation_status() can call ntfs_error() internally.
 
-for 6.18.y, 6.12.y, 6.6.y, 6.1.y, 5.15.y, and 5.10.y.
+Hi Namjae and Hongling,
 
-It prevents a NULL pointer dereference when firmware supplies a _BIX
-package containing an unresolvable first element.
+   Namjae,thank you for catching this, and sorry I missed those internal 
+ntfs_error() calls in my earlier review.
 
-The fix has been in mainline since May 27 but is still absent from the
-longterm branches.
+   Changing the ntfs_error() calls in the shared lookup and 
+inode-loading helpers to ntfs_warning() would affect other callers as 
+well, so I would prefer to avoid that.
 
-The upstream commit applies cleanly to all of these branches.
+   Would it make sense to temporarily set SB_RDONLY before calling 
+check_windows_hibernation_status()?
+Since ntfs_handle_error() returns immediately for a read-only 
+superblock, this would prevent the nested calls from triggering 
+errors=panic, while preserving the existing error diagnostics. With this 
+approach, the direct ntfs_error() calls in the hibernation check could 
+also remain unchanged.load_system_files() is only called during the 
+initial mount, before the filesystem is exposed to userspace.
+
+The basic idea would be:
+
+   bool temporary_ro = false;
+
+   if (!sb_rdonly(sb)) {
+   	sb->s_flags |= SB_RDONLY;
+   	temporary_ro = true;
+   }
+
+   err = check_windows_hibernation_status(vol);
+
+   if (temporary_ro && !err && !NVolErrors(vol))
+   	sb->s_flags &= ~SB_RDONLY;
+
+   If Windows is hibernated or the check fails, we would leave the 
+volume read-only, call NVolSetErrors(vol), and log the fallback message 
+unconditionally. A volume that was already read-only before the check 
+would remain read-only.
+
+   The reason for adding !NVolErrors(vol) is that 
+ntfs_read_locked_inode() can continue after an error looking up 
+AT_EA_INFORMATION. The underlying code may have already reported a 
+metadata error and set NVolErrors(), while the hibernation check can 
+still return zero. Checking !err alone could therefore restore 
+read-write access despite the detected error. This additional condition 
+is conservative: it would also keep volumes with previously recorded 
+errors read-only, and that case would need a corresponding diagnostic.
+
+   Namjae and Hongling,I would appreciate your thoughts on this 
+approach, particularly on the condition for restoring read-write access.
+   If you both agree that this approach is reasonable, Hongling, could 
+you please update your patch based on this approach and send a new version?
 
 Thanks,
-Xiang
+Baolin.
+
