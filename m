@@ -1,123 +1,99 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com (pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com [52.26.1.71])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 696D53D411D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 05:31:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F40B364934;
+	Wed, 16 Sep 2026 05:44:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.26.1.71
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789536690; cv=none; b=UoG7tgHQEX108YJX6ZGndVbDNhPFsPkMD+C4wsgIGse9DVTQzt2kaUvmk3sOl/qiGqJmkd+yXMaAgu7yhd3ZB5EUiL6YFQLIRODvBUM5lFAq3G8q6jxmh5nUcbmjuPZB0SEfBun7ZxuGSEsysK+fzZA2NBmU/tqQrzjm+JwkzFg=
+	t=1789537456; cv=none; b=ZXU9Wlfgz+AgemtDuD2giaZrXfMpgnqVIHFKLii864/AFzzFVAE5C05CEV6qPT0Ovd7ND1FqC5AtUxwUiEstT8tOTsQiCxLj7I9wKKZulp/p/2yhdNmLrVg4QKvi8s/iGK8opN2FOqBaORo5T7iROvx8LQymmV3VPeTEsqVTaZQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789536690; c=relaxed/simple;
-	bh=l4i84PKR2XfXpPetEwc9C5l680POO9YxAJH41F03t0U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CJwLTaBSfnw9ggwKbLt3GBXIC3c3CFvbG/izfGo6pHfJ9Bez4Hss/n6HLODnvujf4zslKKrYpwCMSQjXNZWMKO4OsUuwkZSU5j/SqLecWZuSJp/8wQgimqul/tiqoR9/zMws1ZoUmpZXonkOlH+KTyrV3w4yIrRc8YV7xKqqBVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AMHGLY1s; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789537456; c=relaxed/simple;
+	bh=2GAP0TSdQjwy3Iz5z9+xG0FChzdAkaPelMGPuWjJl1s=;
+	h=MIME-Version:Content-Type:Subject:From:To:CC:In-Reply-To:
+	 References:Date:Message-ID; b=GwQET+g5z25Bo2jNVa/IJyUS+LKlNF6+pMfSSoMdduWbIsYhDQq/ktlv5NekemIb6fbaVt85iSoL7N846UJgut0CDFl2UqSCCUzIlP22wM/R44V+vzCWxRtZmJDK7ChyJh7R1L0O90GAihsDzO9ynh3ZoeEA9rCkEJoT2JPn9b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com; spf=pass smtp.mailfrom=amazon.com; dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b=t4kTDsK2; arc=none smtp.client-ip=52.26.1.71
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amazon.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=amazon.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AMHGLY1s"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc50bcf87b2so364688a12.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 22:31:29 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=amazon.com header.i=@amazon.com header.b="t4kTDsK2"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789536688; x=1790141488; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KIE08YFw4kaft37+7mxF/frk9TC2//zqhyYMu0YvGkI=;
-        b=AMHGLY1sTO1OvpAgVJo8euKs4P1A957RqR6Q+rWrU7Jh8aVBmHCFm2q4zrvEvWc/5m
-         dFExyh+6hvjNQyk2bLH42ckYhgFRiG0blMWelH74ujeiy2wASffZpPmTQhXb1eDI1p/Q
-         YLb7YLjbuqO2TCLinrZ73VmRXqxw99FvQJ8I6P5+AFND/92B3+HofcKgNGTYSF7maESH
-         s9+6QdNATx/F37qJ3baVk8CrTu3Pw6wxa9MO54MfY8G0U9jlsplq10fe3pCQXzxAJOiA
-         75SLTlisoQK+cEcMHX5qcSQ8pcY3EREgxXa7FPDegQ+6kFHt76tOYmx+TzntCZJscn38
-         bpFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789536688; x=1790141488;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KIE08YFw4kaft37+7mxF/frk9TC2//zqhyYMu0YvGkI=;
-        b=l/5CTMQ2F8IuxuboIls0TIBcmzmKEVjJeAXMm/hukE3SYfs+fZvzc2lJbn9mR8vhpr
-         Q0bL/3WOeleic6wVK8YIHG3sqPU7K2dzq3BGKdq2iG+hWpxH5BbCaq7ty0Mx7OeBfgvC
-         E2gXEYZ0ISYv/qbSrwhUmGfXuwV20f8qkTZ8/mOQ2Fs7SamT7t9jf4JKedSqDrIz3zSv
-         3puauBHk/6aIOZXnEHU+YH67exQUaihZyfP2NFXdKVp8S6aXMFAT7pDDGuKs25TSkLiU
-         j1LYfCs2OlAFkMsKWLYt3SrWdXOyK4zli2OmRUyGl09fC49Nfd23ZSjGoEl312Xr28ID
-         cylQ==
-X-Gm-Message-State: AFuF++khPEIInHnrfqfKpaWY9+ZdsUFLM94r0tYIkm5h8U4MDMmukWI6
-	fMMR0T71SWOcymydS/hOi0H3Qb08gw4VakOHt9wtswg6RfKjlOuXqonR
-X-Gm-Gg: AYBFou0ZJLzb/fkWTOqqjJYQpLWijvAvOP02VowfqszgwVY0uQJVF4dTTBOyxQQSUqd
-	BIQ3TNXNU6e1mw5Ng9UR7BFS3e+J+91qH4wE/xaWGecakjvspZACWoGHQHFcERTvsxlIUZf0gkH
-	Al0kx0jPOGSKTBENTgweYzIp5ioBGus//x6sLWHfgbvP7glhh+XKQzty64IyRj0DcoMCedfC+M8
-	rJOy470p65OqTUb2VAVKU9rwAJNO9DBS42FpL8zKS9Z6yExISQGk58A2uSAVHxyk0Sn8THB0V+Z
-	WGWNCTHWwJS6UyVdRQFd4enVjSR8IQ+pnLs8UhLJNaXya3C9Zgm1hUPQYa5VLbHydJDRvCAtOp6
-	6Y+Q3/6FE6OwogwQ4z1vDeRWJ/bmTH62o0BkhuzgI4AItE4tAMbPj6nvlVwZSBnwdo/SUrsk6om
-	uiEjLDRfWRL3OSWGu8YXpEmAgcBcRmZFvAOHrr3y+NeQyyTTcNlSMKMg==
-X-Received: by 2002:a17:90b:280a:b0:39d:f60b:8121 with SMTP id 98e67ed59e1d1-39e1e4d39damr3369964a91.17.1789536688567;
-        Tue, 15 Sep 2026 22:31:28 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbfdd49sm2504124a91.11.2026.09.15.22.31.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 22:31:28 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Brett Creeley <brett.creeley@amd.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Takashi Iwai <tiwai@suse.de>,
-	Vivian Wang <wangruikang@iscas.ac.cn>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Shannon Nelson <sln@onemain.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] net: ionic: free VF resources on remove
-Date: Wed, 16 Sep 2026 13:31:17 +0800
-Message-ID: <20260916053117.2906446-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+  d=amazon.com; i=@amazon.com; q=dns/txt; s=amazoncorp2;
+  t=1789537455; x=1821073455;
+  h=mime-version:content-transfer-encoding:subject:from:to:
+   cc:in-reply-to:references:date:message-id;
+  bh=lMly06yvXJw368HvsLkeEKdmRrbzT1Mb+UvQ7yEb718=;
+  b=t4kTDsK2ab1UgD0bynVBpF6X5WA82pTUUthKsZq6iZ3w6M/qrgimtQWA
+   HUsoVy+IcGBxLG72J8vuCssFf3UBY2EjpwNV/vV9/ry+bXNtOMBT65Egl
+   0PIBxHPnGTA8DfeNUdaNrwELd9VxZLQKFOWjfOxs1vPN6Fs+qbR1kUIYh
+   g/wV/juEpfTPIs/ShvM4y/RCDB9phXNL265jeHKewIbw8jB8PrtAXsidx
+   ObLuUbTxxL6SgtRYEgYZ4oCmbl5nuXKg9EHypopNQ9K6S5rzP8+sE1KBz
+   Vs2oErTOFrSrU7LiNV89JlGldFBll/OZTOaWVNt9YXaNBXIEWinmCBPQ3
+   Q==;
+X-CSE-ConnectionGUID: MEiWN9uLRICXJUjhMSoeng==
+X-CSE-MsgGUID: 46+o4USfTQm+e5ExoXzW/w==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787011200"; 
+   d="scan'208";a="28830891"
+Received: from ip-10-5-6-203.us-west-2.compute.internal (HELO smtpout.naws.us-west-2.prod.farcaster.email.amazon.dev) ([10.5.6.203])
+  by internal-pdx-out-006.esa.us-west-2.outbound.mail-perimeter.amazon.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 05:44:12 +0000
+Received: from EX19MTAUWA002.ant.amazon.com [205.251.233.178:11501]
+ by smtpin.naws.us-west-2.prod.farcaster.email.amazon.dev [10.0.22.113:2525] with esmtp (Farcaster)
+ id 280a168c-da7d-476c-a87a-4478e80f6ebb; Wed, 16 Sep 2026 05:44:12 +0000 (UTC)
+X-Farcaster-Flow-ID: 280a168c-da7d-476c-a87a-4478e80f6ebb
+Received: from EX19D001UWA001.ant.amazon.com (10.13.138.214) by
+ EX19MTAUWA002.ant.amazon.com (10.250.64.202) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 16 Sep 2026 05:44:12 +0000
+Received: from dev-dsk-akiyano-1c-2138b29d.eu-west-1.amazon.com (172.19.83.6)
+ by EX19D001UWA001.ant.amazon.com (10.13.138.214) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA) id 15.2.2562.46;
+ Wed, 16 Sep 2026 05:44:10 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Subject: Re: [PATCH] net: ena: fix PHC cleanup on probe failure
+From: Arthur Kiyanovski <akiyano@amazon.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+CC: Arthur Kiyanovski <akiyano@amazon.com>, David Arinzon
+	<darinzon@amazon.com>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+	<davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski
+	<kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Sang-Heon Jeon
+	<ekffu200098@gmail.com>, =?utf-8?q?Niklas_S=C3=B6derlund?=
+	<niklas.soderlund+renesas@ragnatech.se>, Dawei Feng <dawei.feng@seu.edu.cn>,
+	Amit Bernstein <amitbern@amazon.com>, <netdev@vger.kernel.org>,
+	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>
+In-Reply-To: <20260916022954.2690322-1-lgs201920130244@gmail.com>
+References: <20260916022954.2690322-1-lgs201920130244@gmail.com>
+Date: Wed, 16 Sep 2026 05:44:00 +0000
+Message-ID: <178953744017.13037.8123570146284827976.b4-review@b4>
+X-Mailer: b4 0.15.2
+X-ClientProxiedBy: EX19D039UWB001.ant.amazon.com (10.13.138.119) To
+ EX19D001UWA001.ant.amazon.com (10.13.138.214)
 
-ionic_probe() allocates VF tracking data and maps a statistics buffer
-for each already enabled VF with ionic_vf_alloc().
+On Wed, 16 Sep 2026 10:29:54 +0800, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+> diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> index ea89619039d8..5f0864d16dd3 100644
+> --- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> +++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> @@ -4122,6 +4122,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+>  err_device_destroy:
+>  	ena_com_delete_host_info(ena_dev);
+>  	ena_com_admin_destroy(ena_dev);
+> +	ena_phc_destroy(adapter);
+>  ena_devlink_destroy:
+>  	ena_devlink_free(devlink);
+>  err_metrics_destroy:
 
-The probe failure path releases these resources with
-ionic_vf_dealloc(). However, after a successful probe, ionic_remove()
-tears down the LIF and device without releasing the VF resources.
+Thank you for the patch.
+It looks correct.
 
-This leaves the VF tracking allocation and statistics DMA mappings
-behind when the PF driver is removed.
+Please resend this together with "net: ena: fix MMIO read buffer leak on
+probe failure" as one two-patch series - both insert a line into the same
+hunk, so they conflict with each other.
 
-Call ionic_vf_dealloc() before deinitializing the LIF so the VF
-statistics addresses can be cleared and the associated DMA mappings
-and tracking data released.
-
-This issue was found by manual code inspection.
-
-Fixes: fbb39807e9ae ("ionic: support sr-iov operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
-index 05f19489ec5c..666efe972de7 100644
---- a/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
-+++ b/drivers/net/ethernet/pensando/ionic/ionic_bus_pci.c
-@@ -424,6 +424,7 @@ static void ionic_remove(struct pci_dev *pdev)
- 		ionic_auxbus_unregister(ionic->lif);
- 		ionic_lif_unregister(ionic->lif);
- 		ionic_devlink_unregister(ionic);
-+		ionic_vf_dealloc(ionic);
- 		ionic_lif_deinit(ionic->lif);
- 		ionic_lif_free(ionic->lif);
- 		ionic->lif = NULL;
 -- 
-2.43.0
-
+Arthur Kiyanovski <akiyano@amazon.com>
