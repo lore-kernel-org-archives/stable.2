@@ -1,138 +1,241 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ua2-f12.google.com (mail-ua2-f12.google.com [74.125.226.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9CEF4DD3C3;
-	Wed, 16 Sep 2026 23:49:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 808D5501F54
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:50:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.226.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602566; cv=none; b=sXfHeO6ZPb5J/4qUj8S9qiG5w5aoijUPVVsZH1V5saBz9YbQ8iYAr30XY0p+s0grqoe399FlzJFY3emseS6Vuc1aKqD+R5ZhjgCeighkWZIJ7pNo7nYCWD3X/3tewUhXtrn1YImNim0nAqJ1KXTC+3YxD/nqnvn2hS5mpCpi4Z4=
+	t=1789602638; cv=none; b=sPpouLWFDtuBPoqxrppCzUElUNJe3hUeJXgD4DCQBGBbJDUcZvHso+s2f6j2KlyNHkKwOT/ow/lvrsGw3RhTlAjZNTjVRtU0rn/t+CPfOuB3+LLgy3TDnltv+Q7zC6OnpOQVDf1j89bh/nNaO63deJOmbrKCw7QvYt0dWyjGd1s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602566; c=relaxed/simple;
-	bh=3VICl/PljwfMNqlFD4r491TYryV5qL4xLUt/1jbDk4U=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=IzO8CYESTlrwdzEEUnvkf+R77EYy5YgsIm6xFiqGQSvxKaMGM+g6nneKOvFzvOM/2ir4A2OQYaWirszMAJ0mxbyleAXkPtPvMAMzQDkch8XCZIrXMArGApvVZZH0xCx28s8d5rScPjCB2EIHP2yktvsk4b+g2eYdufjEDc3ezbg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=Z7WHNe1r; arc=none smtp.client-ip=117.135.210.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789602638; c=relaxed/simple;
+	bh=VGpc1VGo/Rid6j2yd7798v5BZCQYyZlxZiprXTOuxOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=dRyEgae93k14ENBMEREVAvD9e2QLVSLTp9JhCQcqJlENEJ4cpJHBc3O0R5VjcC8HBDSFW89eKn9JQ/OBTSlt+iEEUIyPLVoTzEgoz5a7PmP0wNh1y4tMkDp7eOcBoGL83NebLzwYkSEPwH2NDJXlth0oDX7L23SlOopnNf5sMhc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jODA/oi9; arc=none smtp.client-ip=74.125.226.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="Z7WHNe1r"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=AkC4/63UwswKlo+NGzzlx9i4qj+7xSP0MGqUjBcBcKI=;
-	b=Z7WHNe1rSzhkp+MnDOMQkuJs1Hd6r6FUPltsUOVYnwxgdUzafeo1Ys+E6Px8fa
-	YTljf77xn1JgpTuWP49DejPXgYnRlOvjjmB/HrWf64axGoE+cr2Uod1qrs7DwXHC
-	lfUf6xEKPJ1WOVJTzzoCmrqFiWTWmhuJZSRpbtlWCTEMw=
-Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3F_rmKqtqlwSDBA--.51140S2;
-	Thu, 17 Sep 2026 07:48:56 +0800 (CST)
-Message-ID: <a2280318-0604-4318-a3b6-01cd4a72d781@163.com>
-Date: Thu, 17 Sep 2026 07:48:54 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jODA/oi9"
+Received: by mail-ua2-f12.google.com with SMTP id a1e0cc1a2514c-9809f3af20cso91074241.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:50:36 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789602635; x=1790207435; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=8j5a7WFfG0NuSv/XKgDsxGhXHDIsTdHKd7Yxxjneaq0=;
+        b=jODA/oi9lzvmBRJjutgkgASJHmP2FMxGPbhQmA7aYeurqKVI6v8imThy/PDO98g+wW
+         I8/ChEhMjKjB4X1DyNSx6eO9lh6Gn2gRVowpxvPtchyGqvpaPhXPzCQc8asybXw0CWBa
+         uyyswcqO4YaTgkZZwfHieOlf2wvdgMMUHZUMBrKZ9BCQ5AU1ng6cRG9rmHX8isHRxtfi
+         ZhI+LKFbbPFzSjekxEjoNm2THwSvw02xsjIa6Dh/BiDhDxVusnIVgs3YPKzLOtb7zQPG
+         l0EVM2FJExgQq7TgL19k0JlIggdZcDydxmg4v9sCjWE7d9iw9ZRjhgtQg/qRF783+aZN
+         /YMg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789602635; x=1790207435;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=8j5a7WFfG0NuSv/XKgDsxGhXHDIsTdHKd7Yxxjneaq0=;
+        b=wADGhOraVztS4LGsJIpunCegouXxnq6ec/iBABdjpyraUPtsqBvYez3r74g7ZVAxpI
+         Q56Wy/+26ZMylo8E1XqzGv+x/0KqL4nSKSjcjQYGa7fqhm8LekgpAtROyOYe6ezN6fki
+         4A9hnJ3ZN/+oRLa6hw2NtKDG0RTUDQQZQNZ0/pHRaPbCxZ4DfQgjWhyES3cYWh37eqi4
+         lxAKqa0oQNX02glLLe0JOHUX51+90wXVS6wuUBRVoUK7FIjabrR3DzzzAhQs13d3435N
+         WgsdP38jYSasg2ocUUm0uREPDqWaV4fkB0r5/ubNtEeWcJV8hg7T5u7uORS9jrvZ0fww
+         +lsQ==
+X-Forwarded-Encrypted: i=1; AKwUvBx3iOCTv050wEtqQAPvbGF1dGa2VUDbLuOXxKRjrrR97JoGdTREPhEd+xE7FQ/03k0sxwdMza8=@vger.kernel.org
+X-Gm-Message-State: AFuF++ns1XWfNo3vG/yNj3MV9anCxYzWyB9ouuVY9Dpin5YcZ4aob9Ln
+	1HCZIaulSrLeeGcgkQPeDAM5PTi1aq1Y+Ko2CEIjIs7OGrgXDL6fLUTP
+X-Gm-Gg: AYBFou37S8zbJZjEX7Dwc3833WbamzKZlA99Hs5ZupRAnOsiuESlpe9hNP3l755V07z
+	atY4DGmtpeQwYdw9eeS6FvjoGka05oOJcWyB5gpTAR9qICEfSmzIWNgYSly6lvr2+bwgk0B7WNP
+	06+dcnkhEte5BjsyRjgzHT6WGZ8+XmDUFr3i7mfJKAdVUzuUJtkkvG0xEl+Z/+xdxPaAeXJNnbk
+	vh28eb+L1YrtDTKM4yAvE0RO4onM1Rw2jzNYwBIHDyUpd4IaFTF+niRDYvS3Aagb/oHpWPZzDak
+	zmcBIfUx6Vp90GoZckVYI6gW68aWmdGk/E243pVO6BA3r/nsgUypk3aFwZBMGX2SISN2DVQvELi
+	eFMtPtYKf6q1vZcQU5K+DHytD0unw6DGkwP5xyMAqN3VEo52s7F2avvaatyNbWwrpYcXBFzo8I3
+	V5pusZ5YaI2+G66beU5oGZJbxZRhaKXgNMGdTHvlHTwwfrQJopkCDVm5OvTvSowVaY
+X-Received: by 2002:a05:6102:8511:20b0:7a1:43d2:bb72 with SMTP id ada2fe7eead31-7a143d2c168mr2974538137.13.1789602634592;
+        Wed, 16 Sep 2026 16:50:34 -0700 (PDT)
+Received: from beelink.. ([187.13.206.89])
+        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a1e334979asm1533796137.10.2026.09.16.16.50.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 16:50:34 -0700 (PDT)
+From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: Viacheslav Dubeyko <slava@dubeyko.com>,
+	linux-nilfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+Subject: [PATCH v3] nilfs2: fix checkpoint root lifetime on sysfs errors
+Date: Wed, 16 Sep 2026 20:50:25 -0300
+Message-ID: <20260916235025.379600-1-qwe.aldo@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260915041206.2430937-1-qwe.aldo@gmail.com>
+References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3] ntfs: mount hibernated volumes read-only regardless of
- errors=
-To: Namjae Jeon <linkinjeon@kernel.org>,
- Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, stable@vger.kernel.org
-References: <20260915023820.621797-1-zenghongling@kylinos.cn>
- <CAKYAXd-Pz0WCKNyOdoxKyfgE_rx7GVDRmtidfjsx-x0C-AA1RA@mail.gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <CAKYAXd-Pz0WCKNyOdoxKyfgE_rx7GVDRmtidfjsx-x0C-AA1RA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3F_rmKqtqlwSDBA--.51140S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxXw1DAF1Dur1fAr4DXF45trb_yoW5Kw47pF
-	9rKw4Dtr4kKr1akrn2vay0q3WFkr93Aa1UGrn5CF47A3s5KF13trWfKw1a9F4SkrW5ta1x
-	XF409343Wa1DZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UaYLPUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6ghKFWqrKujH-wAA3G
 
+nilfs_find_or_create_root() publishes a new root in the checkpoint
+tree before creating its sysfs object.  If sysfs registration fails,
+the root is freed while it is still reachable from the tree.  A
+concurrent nilfs_lookup_root() can then dereference freed memory.
 
+The fix needs the lock to be held across the sysfs call, but
+nilfs_sysfs_create_snapshot_group() can sleep, so the existing
+spinlock is not suitable.
 
-在 2026/9/16 19:57, Namjae Jeon 写道:
-> On Tue, Sep 15, 2026 at 11:38 AM Hongling Zeng <zenghongling@kylinos.cn> wrote:
->>
->> The hibernation check in load_system_files() only converts the
->> superblock to read-only under errors=remount-ro.  With the default
->> errors=continue (and with errors=panic), a hibernated volume is
->> mounted read-write and the mount-time $LogFile emptying writes to it,
->> although a hibernated volume must not be written to at all.
->>
->> Drop the on_errors term so that a hibernated volume, or a volume whose
->> hibernation state cannot be determined, always mounts read-only.
->> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
->> remounts to read-write, and the $LogFile emptying is skipped by its
->> !sb_rdonly() check.
->>
->> Also change the ntfs_error() calls inside
->> check_windows_hibernation_status() to ntfs_warning(): they run before
->> SB_RDONLY is set, so errors=panic could panic there, while the warnings
->> preserve diagnostics for already read-only mounts.  The read-only
->> fallback message is logged unconditionally: with SB_RDONLY set, or on
->> an already read-only mount, ntfs_error() cannot panic, and the reason
->> for NVolErrors() stays visible.
-> errors=panic can still panic before the read-only fallback.
-> ntfs_lookup_inode_by_name() and ntfs_iget() in
-> check_windows_hibernation_status() can call ntfs_error() internally.
+Convert ns_cptree_lock from a spinlock to a mutex.  All existing
+callers are in process context (mount, lookup, segctor, recovery),
+and nilfs_put_root() can use refcount_dec_and_mutex_lock() as the
+atomic decrement-and-acquire primitive.
 
-Hi Namjae and Hongling,
+With the mutex, nilfs_find_or_create_root() can hold it across the
+sysfs registration and only insert the root into the rbtree after
+sysfs succeeds.  On failure, the root was never visible and can be
+freed after waiting for the kobject release callback to complete.
 
-   Namjae,thank you for catching this, and sorry I missed those internal 
-ntfs_error() calls in my earlier review.
+Both the creation error path and the normal removal path must wait
+for the embedded kobject release via wait_for_completion() before
+freeing the container, because kobject_put() does not guarantee
+synchronous release (CONFIG_DEBUG_KOBJECT_RELEASE defers it).
 
-   Changing the ntfs_error() calls in the shared lookup and 
-inode-loading helpers to ntfs_warning() would affect other callers as 
-well, so I would prefer to avoid that.
+Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+---
 
-   Would it make sense to temporarily set SB_RDONLY before calling 
-check_windows_hibernation_status()?
-Since ntfs_handle_error() returns immediately for a read-only 
-superblock, this would prevent the nested calls from triggering 
-errors=panic, while preserving the existing error diagnostics. With this 
-approach, the direct ntfs_error() calls in the hibernation check could 
-also remain unchanged.load_system_files() is only called during the 
-initial mount, before the filesystem is exposed to userspace.
+Changes in v3:
+  - Move wait_for_completion() after mutex_unlock() in
+    nilfs_put_root() to avoid holding the lock during an
+    unbounded wait, as noted by Viacheslav Dubeyko.
+    After rb_erase() the root is no longer in the tree
+    and the refcount is zero, so no concurrent path can
+    reach it.
 
-The basic idea would be:
+Changes in v2:
+  - Convert ns_cptree_lock from spinlock to mutex instead of adding
+    a second lock, as suggested by Viacheslav Dubeyko.  Use
+    refcount_dec_and_mutex_lock() in nilfs_put_root().
 
-   bool temporary_ro = false;
+ fs/nilfs2/the_nilfs.c | 37 ++++++++++++++++++++-----------------
+ fs/nilfs2/the_nilfs.h |  2 +-
+ 2 files changed, 21 insertions(+), 18 deletions(-)
 
-   if (!sb_rdonly(sb)) {
-   	sb->s_flags |= SB_RDONLY;
-   	temporary_ro = true;
-   }
+diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+index 7b23e373a1..XXXXXXX 100644
+--- a/fs/nilfs2/the_nilfs.c
++++ b/fs/nilfs2/the_nilfs.c
+@@ -70,7 +70,7 @@ struct the_nilfs *alloc_nilfs(struct super_block *sb)
+ 	spin_lock_init(&nilfs->ns_inode_lock);
+ 	spin_lock_init(&nilfs->ns_last_segment_lock);
+ 	nilfs->ns_cptree = RB_ROOT;
+-	spin_lock_init(&nilfs->ns_cptree_lock);
++	mutex_init(&nilfs->ns_cptree_lock);
+ 	init_rwsem(&nilfs->ns_segctor_sem);
+ 	nilfs->ns_sb_update_freq = NILFS_SB_FREQ;
 
-   err = check_windows_hibernation_status(vol);
+@@ -846,7 +846,7 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
+ 	struct rb_node *n;
+ 	struct nilfs_root *root;
 
-   if (temporary_ro && !err && !NVolErrors(vol))
-   	sb->s_flags &= ~SB_RDONLY;
+-	spin_lock(&nilfs->ns_cptree_lock);
++	mutex_lock(&nilfs->ns_cptree_lock);
+ 	n = nilfs->ns_cptree.rb_node;
+ 	while (n) {
+ 		root = rb_entry(n, struct nilfs_root, rb_node);
+@@ -857,11 +857,11 @@ struct nilfs_root *nilfs_lookup_root(struct the_nilfs *nilfs, __u64 cno)
+ 			n = n->rb_right;
+ 		} else {
+ 			refcount_inc(&root->count);
+-			spin_unlock(&nilfs->ns_cptree_lock);
++			mutex_unlock(&nilfs->ns_cptree_lock);
+ 			return root;
+ 		}
+ 	}
+-	spin_unlock(&nilfs->ns_cptree_lock);
++	mutex_unlock(&nilfs->ns_cptree_lock);
 
-   If Windows is hibernated or the check fails, we would leave the 
-volume read-only, call NVolSetErrors(vol), and log the fallback message 
-unconditionally. A volume that was already read-only before the check 
-would remain read-only.
+ 	return NULL;
+ }
+@@ -881,7 +881,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 	if (!new)
+ 		return NULL;
 
-   The reason for adding !NVolErrors(vol) is that 
-ntfs_read_locked_inode() can continue after an error looking up 
-AT_EA_INFORMATION. The underlying code may have already reported a 
-metadata error and set NVolErrors(), while the hibernation check can 
-still return zero. Checking !err alone could therefore restore 
-read-write access despite the detected error. This additional condition 
-is conservative: it would also keep volumes with previously recorded 
-errors read-only, and that case would need a corresponding diagnostic.
+-	spin_lock(&nilfs->ns_cptree_lock);
++	mutex_lock(&nilfs->ns_cptree_lock);
 
-   Namjae and Hongling,I would appreciate your thoughts on this 
-approach, particularly on the condition for restoring read-write access.
-   If you both agree that this approach is reasonable, Hongling, could 
-you please update your patch based on this approach and send a new version?
+ 	p = &nilfs->ns_cptree.rb_node;
+ 	parent = NULL;
+@@ -896,7 +896,7 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 			p = &(*p)->rb_right;
+ 		} else {
+ 			refcount_inc(&root->count);
+-			spin_unlock(&nilfs->ns_cptree_lock);
++			mutex_unlock(&nilfs->ns_cptree_lock);
+ 			kfree(new);
+ 			return root;
+ 		}
+@@ -909,17 +909,19 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
+ 	atomic64_set(&new->inodes_count, 0);
+ 	atomic64_set(&new->blocks_count, 0);
 
-Thanks,
-Baolin.
+-	rb_link_node(&new->rb_node, parent, p);
+-	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+-
+-	spin_unlock(&nilfs->ns_cptree_lock);
+-
+ 	err = nilfs_sysfs_create_snapshot_group(new);
+ 	if (err) {
++		mutex_unlock(&nilfs->ns_cptree_lock);
++		wait_for_completion(&new->snapshot_kobj_unregister);
+ 		kfree(new);
+-		new = NULL;
++		return NULL;
+ 	}
 
++	rb_link_node(&new->rb_node, parent, p);
++	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
++
++	mutex_unlock(&nilfs->ns_cptree_lock);
++
+ 	return new;
+ }
+
+@@ -927,14 +929,15 @@ void nilfs_put_root(struct nilfs_root *root)
+ {
+ 	struct the_nilfs *nilfs = root->nilfs;
+
+-	if (refcount_dec_and_lock(&root->count, &nilfs->ns_cptree_lock)) {
++	if (refcount_dec_and_mutex_lock(&root->count,
++					&nilfs->ns_cptree_lock)) {
+ 		rb_erase(&root->rb_node, &nilfs->ns_cptree);
+-		spin_unlock(&nilfs->ns_cptree_lock);
+-
+ 		nilfs_sysfs_delete_snapshot_group(root);
+-		iput(root->ifile);
++		mutex_unlock(&nilfs->ns_cptree_lock);
+
++		wait_for_completion(&root->snapshot_kobj_unregister);
++		iput(root->ifile);
+ 		kfree(root);
+ 	}
+ }
+diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
+index 4776a70f01..074644c64a 100644
+--- a/fs/nilfs2/the_nilfs.h
++++ b/fs/nilfs2/the_nilfs.h
+@@ -150,7 +150,7 @@ struct the_nilfs {
+
+ 	/* Checkpoint tree */
+ 	struct rb_root		ns_cptree;
+-	spinlock_t		ns_cptree_lock;
++	struct mutex		ns_cptree_lock; /* Protects ns_cptree */
+
+ 	/* Dirty inode list */
+ 	struct list_head	ns_dirty_files;
+--
+2.43.0
