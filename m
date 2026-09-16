@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6A74D0CFD
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81EC24B827A
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577328; cv=none; b=Q9epugztCNjBoArgY+ToHac7IwkWE67m/RRFXO1Asg55dAPN7rQqBQlD2eko7IOXZWOV25Px33wv+bNHqbTBr6dXhZ158hpu1PvIeN+akgGj4Q/g5eaLaXdrnkP6++TcKfNWb8NOzdbkjnApNTSrsNfu/vh/7E9Hd5EcaG88ToU=
+	t=1789577331; cv=none; b=ugW+x2eaRq2/iq0xQilS9M6VfCcD7lvpA8xikwjIxUr0vJKuOFIswHEWpMlztt4KP/wRTKrbhWX8i/rXcRG2NQU3rLVcghQWNovXHTBUCWggmxVh3dGsJbFUAjww0are1XEaFfhGi+pFwB9/ZlW+C2KCmYCgEhabDJWijZtE0c4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577328; c=relaxed/simple;
-	bh=IXpi16kJCRF/fFUeRjC7m7bBaAA0ogIwbRyMPYw/0KE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Bs/Yisrp+0mTs3sO5suO9oU1Ng9cT/ALiLfXCbQu6T/mZZPjC4dQu09Mwx/TCXfCV5Vx37AIhg0QOxD77z32TLvJbx0OZGkG+JD0qxTCsFW/7Bw6CPkJV3j2tQhqCMnteWNiKipy8hVP5H7cKz2uBMdaUOLPIJOjloKoc1KJ0Js=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KEUQzFPl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577331; c=relaxed/simple;
+	bh=cY5FQohl0TXo/mWRqXlPPFGFjV9I0JwRXcSPD4K+ZWE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=b5GeEpbJZIhRhfETFk8E85treO5Sb+oeOfn/6BqszCldV+/hRUXdaSKOcnEilYjbzaN19v7mpxb4fMDN9Wki+KnGFzNjhs6h2FLFXjNDRgAmDZG01iLB3cadShhpAY1Uh+4NUcgZs3x2CSGbZOOTVMft6Iyrn6LsKu6ZRnc4gNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TR7b/9fw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KEUQzFPl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC3001F00898;
-	Wed, 16 Sep 2026 16:48:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TR7b/9fw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC5FC1F00899;
+	Wed, 16 Sep 2026 16:48:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577324;
-	bh=fZSXnpUw5Yy4NUu/S8VMxsR1HU2dwtg7SQ3tiuYkCcE=;
+	s=korg; t=1789577321;
+	bh=fowo5Ff+eavx/ctmc4mhet6Oyp42Z8CLMy7KbbVtzjs=;
 	h=Subject:To:Cc:From:Date;
-	b=KEUQzFPlKKpOO0R1LqEqbiWsy70ihAtDB4gtkTZ5DSREbCFVR77g3Ou3Pq0RQV1UB
-	 jbOLIPeTdt2BHAum4iHcIK7hc5LLlb7H4SYxaL2X3LK6IWYeTwKi0CCIZQHTHTzjS/
-	 6SGLgztH5gFcBGW5lT5aj2psAbFpqV0qgvRjd6q8=
-Subject: FAILED: patch "[PATCH] smb: client: fix cifsFileInfo reference leak in deferred" failed to apply to 6.6-stable tree
+	b=TR7b/9fwMRotCsKJaqIK2008tHaX46lmdHjK6Erh9bmw7saSEhd8tUheBbYYC/i9Z
+	 Bf8EikH553bMH51OKLpYzyTA2Gooq25jC8euIWvfrhFfCLOXqEcXHnlbGqHGFXFdWp
+	 Zy2oqpdKb01Pik2ksZKF7BOv+tHqGaLTytuTp1Ww=
+Subject: FAILED: patch "[PATCH] smb: client: fix cifsFileInfo reference leak in deferred" failed to apply to 6.18-stable tree
 To: fanwu01@zju.edu.cn,pc@manguebit.org,songl@zju.edu.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:43:16 +0100
-Message-ID: <2026091616-concrete-scabby-841b@gregkh>
+Date: Wed, 16 Sep 2026 17:43:15 +0100
+Message-ID: <2026091615-dilation-nuclei-5a78@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
 git cherry-pick -x 5520e89a5a4f834bced64cf2ac927001cc513a40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091616-concrete-scabby-841b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091615-dilation-nuclei-5a78@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
