@@ -1,90 +1,139 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70C34E80C0;
-	Wed, 16 Sep 2026 11:31:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDAC4EBACA
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:37:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558275; cv=none; b=DP+LGn4G4dq8gpxkFKyloxfFHaBK69ZD46C6SyrbPkwhAhCRZoplREK9RJcud0iNLrkXcr3rzeUCuqEFQfB9njb/yTLLBfO+dGDPSPjlLMjCR83igwYhwdyve9fgYYYkfujRpln+4cOGvEJnDwh14gOm0XJxJdrwJQV5yOVOEvQ=
+	t=1789558647; cv=none; b=eDk4u9LsfehfURsObA2dOuiY7NU301Z/NFBb0ZFuIDVopH0ltzGlu7Om8piaRcm3WLqR+/c7PoOPtikJTYjG22IZVH43gr3FVdvqreCx/5ob1/+I56P1KfdEZA0/uhPkiDmdn1fDOLaFRLSO47PWlBWXXaK0Gjs+OLsbp7GvdqE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558275; c=relaxed/simple;
-	bh=DJLTl1Cq+69Qn/Uf5a1VBdcbpPjUviqgT037jU5s9f0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H8XNfWk59vJCZv2kNSJDtzKtHroQuL9SNSWtbYjWS6Ejje9WcvOLInXWiObAdKPUbsT8TiW2sWJCOGVLmEDaNENZP34EIZIOOOGeURcgG2Vt6YGkp0b0L99AL2qgkyJ65qSI83pCpScPO8uEuPSK1xRsg97y3cGda40EmN5Vi+w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JInK15Ne; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789558647; c=relaxed/simple;
+	bh=3uaObKhY36qkdLUb4pvRy/Y7taGooeBUyJJlfhXMPyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PPoqs2oDqrsdYX/+eXvNS4v6wEAzyD0NmxljX+a7eX/IaTvpgSBBgFeRJYoI9gYuqWBGB+V2uMbCOykHFH5px7UOjw5LqPEFBuZUSqUslAQMaGtr13O7DXoiGQJvuyn54b7LQ6M7Xj85a2ThmcprIfPyCb+3gkbvaMpgp6mc4RQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8N5Jcs3; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JInK15Ne"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D870B1F000FF;
-	Wed, 16 Sep 2026 11:31:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789558264;
-	bh=d3aQ/RHXKAOVlFbFC1F/OA3OtXmrvIqiX5Vn/+TjVtg=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JInK15NePnHwnp5y0aeKVDsmdAWQ8ljldVfQpVz0MS0LQJtQw6xAdjqUcD11+caw5
-	 j04ipBiOhLho3PxcawONN/CNz5rKhn3QLdRjSMjrFCR9qfLuG2i6ir8g/hV+P/B/kO
-	 7lluvELFD+ej13n46WiWLJSF2G77vOKF744TzZHuWT/HW4vElneAba8jl6gsZ1t0cm
-	 LGmel36amcsfpCcrvO+h9UCuoB3H5dtwncIjPLSIeJ42cn64gluNG1XGbhZwAzKzDX
-	 AnDRxeXd7PuKQyiz9pwLE5C/8PblfNiwJA+38zoHGRbM6g0KTfrCbY0d4meDIcxuZ1
-	 wZtv5VHieRyCA==
-Date: Wed, 16 Sep 2026 13:30:59 +0200
-From: Christian Brauner <brauner@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, NeilBrown <neil@brown.name>, 
-	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org, 
-	io-uring@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH 3/6] coredump: hold RCU while releasing parked threads
-Message-ID: <20260916-aufrechnung-urnen-jenen-519900ff6667@brauner>
-References: <20260915-work-coredump-fixes-v1-0-f354ca41780c@kernel.org>
- <20260915-work-coredump-fixes-v1-3-f354ca41780c@kernel.org>
- <aqlglWwVeh4rwL0q@redhat.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8N5Jcs3"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f01363so6464235ad.2
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 04:37:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789558638; x=1790163438; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=oOQF8lSD7wdJvBSJlzI6UX4BPG3ivMWDQsQe23mQk7c=;
+        b=X8N5Jcs3hPDyXmeaSlRypDxXcs9LPre+NLB/t6soDQBJyMteLrs00qojbyXgS3gjIQ
+         353omtc5s0xw4Tg/EKD9jPpIkoPccKwqDzAqnrVjPGOexvVO1Lkufq5V9XzL7FEMKjCc
+         up5//J5YvW1fYOW71km9urGjABEhVqvK5NGzpwwU+mMpKJxJ/6l2hbLPOLX6iCAMzGQ5
+         PiF7m+8vUcopxDQV2qjQNhZNxEu9M6DCgs2vmWfh2E3M2DWda3+Lo9B0oSqVIjgD5p9c
+         c2IWu6S6/aIHMDXzJlylkMCI7Op2QMY2/7u8Rs+Ur35ZE4vY86Rskasa0W2iazpydER1
+         dk3Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789558638; x=1790163438;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=oOQF8lSD7wdJvBSJlzI6UX4BPG3ivMWDQsQe23mQk7c=;
+        b=ny0ofUcCMI3rgByii1aCpbvp1Pt706F3LAn8/yL6hmlGkNGHPASHsU4MAfylJbplLb
+         d4pimSKsTo/rGnmPToErwUIzqqs0L8xlHkmK6ECXTfrsg3m0SfMsZSWcqzI/IFLezDmD
+         QMZNiLOoMYznbLB+de33cgn2krtiKZ03qp/oO08pGPAHzgQ5gpp1wV/Qr59v6Hbvs3t6
+         QDQR8cNQ+YT2zlGpHmEj/g7Qdv/UF/BwpUtDX3u9e6QCTig8duoPPC8VJUETGNwS31bb
+         fmX7m40iZVdVbZBMB5ZFBAScZ04H+yRz/n0SmkazNS4+vYcSKCfeu8Yn1d6sGd/5AUG6
+         9t/w==
+X-Forwarded-Encrypted: i=1; AKwUvBzylChsSGSvsD4aUlL8Hne9h+ESsVjo1cp2PkyKmDlxnFbeGw/l4jIZK7pfOi2zUh3M4qJ6x2I=@vger.kernel.org
+X-Gm-Message-State: AFuF++kgYxL01eFpB8q9DKg1M+3+D+Cklxy+m82Bu4pPxGocINpfFAc0
+	Yzqfx/6WIA5aaBdTBWzwOW5fhDFsT58ePxcZl0rjKDaRDmDinETwMPrd
+X-Gm-Gg: AYBFou1lk90uzWQhnuPQZ4hY74ecvgfMGGuRmw+j101ZKAlibnoXY/KnLM5XltIcY1n
+	IaMRkt6UPxFCX2amXU/FJ6tjGgM6LXmGXrmD0kNjzBS6crtdZ38td9a95WtXfvkxM+uNICB7OI7
+	YCHK52/HwpMf/8w0Mck0ntuR0LwxGKdH8o+8+jYfgnRLd8e2np7LkGMiCcDTuBpzLliZD0PL8Sk
+	WTOMEE+wi4epAG8XQMRdCGyNsgurbGzCAqv/XhPOcrZhGVBfN2dRK01tsgldKTPKt1slYJsohfO
+	UR0yTtoO0XqpNAnwZnQ17be1SQDAUo2kgg28MamnvWgatBsrH93p/30q2LLff5sHGW7wpt8wFTD
+	bOU1Y+NNeNdCfzvskuqHP3m20f9b9XYo3sSzJo9+H6rw49hGzfJmWvl2BmGBL0n8Ae3RIPvEnD7
+	sBZsM55PdsQ8ZKev8aoUuQsoDrkELq7bTxF1Fd0STvfiXgf/CB93naVS9k+AO6KXDWRfPtnDPju
+	Mlom0JL//fcby1oZqDBEMKzFuZweMTJHA==
+X-Received: by 2002:a17:903:46c7:b0:2db:8ae7:a5d2 with SMTP id d9443c01a7336-2dd8e026db9mr44702525ad.9.1789558638056;
+        Wed, 16 Sep 2026 04:37:18 -0700 (PDT)
+Received: from KRHW1CJW23.bytedance.net ([139.177.225.247])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f02fc2sm9927045ad.59.2026.09.16.04.37.11
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Wed, 16 Sep 2026 04:37:17 -0700 (PDT)
+From: Zhao Li <enderaoelyther@gmail.com>
+To: Johannes Berg <johannes@sipsolutions.net>
+Cc: Bob Copeland <me@bobcopeland.com>,
+	linux-wireless@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] wifi: mac80211: release mesh path quota on failed additions
+Date: Wed, 16 Sep 2026 19:36:48 +0800
+Message-ID: <20260916113649.28315-2-enderaoelyther@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916113649.28315-1-enderaoelyther@gmail.com>
+References: <20260916113649.28315-1-enderaoelyther@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqlglWwVeh4rwL0q@redhat.com>
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 05:13:25PM +0200, Oleg Nesterov wrote:
-> On 09/15, Christian Brauner wrote:
-> >
-> > When coredump_finish() releases the threads the wakeup neither holds a
-> > reference on the task nor is it inside rcu.
-> >
-> > The threads don't necessarily need a wakeup to exit. If it gets
-> > preempted or was woken for other reasons it sees ->task cleared and
-> > exits. So only rcu keeps such a task_struct alive.
-> >
-> > If the coredump client is preempted between the store and
-> > wake_up_process() for longer then try_to_wake_up() takes pi_lock() in
-> > freed memory.
-> >
-> > Hold the rcu across the loop.
-> >
-> > Fixes: a94e2d408eae ("coredump: kill mm->core_done")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-> 
-> Aah, thanks...
-> 
-> Acked-by: Oleg Nesterov <oleg@redhat.com>
-> 
-> 
-> But to be honest the changelog looks a bit confusing to me...
-> 
-> 	curr->task = NULL;
-> 	wake_up_process(task);
-> 
-> So wake_up_process(task) is not safe, task can exit after a spurious
-> wakeup if it sees ->task == NULL.
-> 
-> And perhaps a short comment above "curr->task = NULL;" makes sense?
+Repeated failed or duplicate mesh path additions can exhaust
+MESH_MAX_MPATHS while the path table holds fewer paths, which stops new
+paths to reachable destinations from being created.
 
-Yep.
+mesh_path_add() reserves a slot before allocating and inserting a path.
+If allocation fails, the function returns without releasing the slot. If
+the rhashtable insertion reports an error or an existing destination, the
+function discards its candidate but retains the reservation. No new path
+is installed in any of these cases.
 
-> The reason for guard(rcu) is not obvious at all.
+Release the reservation whenever the candidate is not installed.
 
-Ok, will change.
+Fixes: ae76eef027f7 ("mac80211: return new mpath from mesh_path_add()")
+Fixes: 60854fd94573 ("mac80211: mesh: convert path table to rhashtable")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM sparse kasan
+Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
+---
+Validation:
+- GCC W=1 and Sparse C=2 produced no diagnostics.
+- A controlled production-helper matrix reproduced the allocation,
+  insertion, and duplicate reservation leaks. Allocation and insertion
+  errors used test-only fault injection; 24/24 concurrent same-destination
+  trials leaked a reservation before the fix and 0/24 after. That case used
+  no forced-failure hook.
+- A two-point hwsim 802.11s run reached production mesh_path_add() from
+  mesh_nexthop_resolve() and hwmp_route_info_get() during PREQ/PREP
+  processing. No physical-radio or layer-3 success is claimed.
+
+ net/mac80211/mesh_pathtbl.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
+
+diff --git a/net/mac80211/mesh_pathtbl.c b/net/mac80211/mesh_pathtbl.c
+index 03171cf00855..770fc16b439b 100644
+--- a/net/mac80211/mesh_pathtbl.c
++++ b/net/mac80211/mesh_pathtbl.c
+@@ -694,8 +694,10 @@ struct mesh_path *mesh_path_add(struct ieee80211_sub_if_data *sdata,
+ 		return ERR_PTR(-ENOSPC);
+ 
+ 	new_mpath = mesh_path_new(sdata, dst, GFP_ATOMIC);
+-	if (!new_mpath)
++	if (!new_mpath) {
++		atomic_dec(&sdata->u.mesh.mpaths);
+ 		return ERR_PTR(-ENOMEM);
++	}
+ 
+ 	tbl = &sdata->u.mesh.mesh_paths;
+ 	spin_lock_bh(&tbl->walk_lock);
+@@ -708,6 +710,7 @@ struct mesh_path *mesh_path_add(struct ieee80211_sub_if_data *sdata,
+ 
+ 	if (mpath) {
+ 		kfree(new_mpath);
++		atomic_dec(&sdata->u.mesh.mpaths);
+ 
+ 		if (IS_ERR(mpath))
+ 			return mpath;
+-- 
+2.55.0
