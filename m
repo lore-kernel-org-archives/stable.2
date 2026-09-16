@@ -1,170 +1,130 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 898EC3B9931
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:58:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A022C370ADF;
+	Wed, 16 Sep 2026 15:59:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574328; cv=none; b=l6N0+FDTtOM7YqA3BBanqe1VO4Pcp5g7kO7HFSjFMJqJVvcZ1DWkv2QYUYHG5ydS6uzSz/m8wXr9lNGu3MbKjHUhzfE/S/2QkvcIaocmySCdP8MZCvXiEQOVqEJctuZaA4q/mcCqZ6qKBHmhRceaqULL8KlZFfZlYPFMH6Q2dt0=
+	t=1789574364; cv=none; b=ru+m8qMyiQnTT8LwgDbK8L99awqU9vPcda6Y8Y3aNgwHCc1syPibNmXFg/WGVt1RF9WNlgh8EV42lpHDJMOz+q2E95y0bEPgzN3dLH+HhyOOhMe83MgkFIUuyzsotqC3QT7vZ8xuBnH6IyIRihvosBQWl07XgPz/xsHkLfoLQUc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574328; c=relaxed/simple;
-	bh=+6aMjHH+Jl+Ml/kjCyAc+ni40OSaFZs1senFwZLmkis=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k1ueYTAGxekFcshxL7RQTLnhpYQ1XeZL1CxCEWVUy+ex6RN+7fFbyOEuXooPEdVehA4/+yu64MIPRQYjPO+mBysnEXeHzGu79/vzskGr0EtTuYQ+wSbdyDMR4MC/vpkEY+5eOSDbuaaqFSGLAxofNeE5hVMA1fhTscVz6soB78w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=mxy947Qa; arc=none smtp.client-ip=74.125.230.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="mxy947Qa"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfcbe208so11092416d6.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:58:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1789574314; x=1790179114; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=bjcBGUR39i2CtxsYZA+y8R1kv00jh+PXwHXxQnV1eiQ=;
-        b=mxy947Qail07AL9t2Ag0dSp7kFCQr+bAzVIypiyzW0zASsfINssXUmISG1WGaiaxL9
-         zMAIp6+RhmhTn4fPH+98BVQ7RIBBHGYvMJyFE+4/n6rubXroqjT1ofD3x7gSLqKAsZIL
-         Sq92DQFsU8zhBvSCtlYaBNSrEQh18Awe6Omn32t82761kFBwE7EL0rqpnQ4QvucznX+z
-         o8o1c48JZ+9pIgd8xih/5XrUvEGwFXbv3XaphihX05pMeqPSiqKen08/YeZdeXsOBFdD
-         Tvnxc2uOOrhqL56m59ngfpsIWwWFEH4NN1GvRoGx6uZ82TmniIt7+/aD/m5d6CO3Xwhi
-         bGRQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789574314; x=1790179114;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bjcBGUR39i2CtxsYZA+y8R1kv00jh+PXwHXxQnV1eiQ=;
-        b=SfRpwonJb3el7f9AcW69+M1tx17Uakx8jukKbyvPEYZV2AmKuUncm2J64JcI5ufYPK
-         DlOW8BhWZluh5lVvjONfd2zv+gEQFyFEyBt6SV0PDrlXKyHQeqtjuM/5n3P8FwjUiWlA
-         6/hTewIXUF4lZPy7pPjuNwk5FO3yysGWHgMeQYjJLNkgY8hNzeptcFySX/iUONRulXyX
-         Q2vUhyPT3ukugSmEQObDc0AzIj8hDOwbWPnOWY+DlX8vGamGy+ZZdq+Cu/+bXEwX9Qrm
-         lYQX4sDgHQYnMD+c3kWXq7MQSOmoSGJ8p/Y7tkTJSC9jdpkeuEnJxi/ttUUyTpW54MqV
-         DhAA==
-X-Forwarded-Encrypted: i=1; AKwUvBxLCEZUJlQEYZmv5fxcX7s9sLlIFAU0yTMPSoac/YyTByEBQStdaoNWqsWclv3AvwGezVHoIrI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lejRkngLcKWobDu0L6w/fHPIpWUQQx8yUJ3gdZsx5J+CyVXHkB
-	EKQeepGNhMUlyO/zeknp4Q1b+oGVLY1B1ubBPz4EGF+n2YUAdfSSarceQfCWAOPvu5E=
-X-Gm-Gg: AYBFou1+XW5qW0/Fl4mPvxYU3vDDaj5zipYKlOwj50LEKHaMCDQWPbM9RfQSja+Iiai
-	fdoWtt5dA1q1XZvhejWV2qaG1Q6+G0vRcS36FgCFLBiSy/1NdtLurhfyQXNsGuJqVSGVxe4S10d
-	BQ2A+o/zqm1tM98XYPHGJpZBJeuwcwc1hN/mIqHPopOYoihXDxAblol4PdwraUBHsTdn2fhd1e6
-	6p1lT+oKr2Bi+aJnQR2hUvc20duo1f17xjaob7+Bac3R0G1hLWaG+npN8cNfX+yVPH6MR9aymy9
-	iZ8SnaPdS1cweaIm8kXxffxXIqXAholwNd1CwNIUbf88xRg691tMSuSiCihab88NPsa8wpbQS4F
-	5eNS4IAFrn7ZOSJs9TmOjk7VY9oiWm9SMjvY8uhPvba3raItuOjwkoKFcS6lVDvMHCDfET/vQWT
-	Y6Q38al8oHkV8VfvPBtztaS+cvsPvDiEYgin1q22oaIZEdUVPap47cEQfqD2HFLGM8P0zx4Q==
-X-Received: by 2002:a05:6214:1248:b0:90e:96d1:40d3 with SMTP id 6a1803df08f44-9123d7a5b32mr54271566d6.20.1789574313980;
-        Wed, 16 Sep 2026 08:58:33 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123be609dcsm28537916d6.15.2026.09.16.08.58.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 08:58:32 -0700 (PDT)
-Date: Wed, 16 Sep 2026 11:58:29 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org,
-	abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
-	brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
-	dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
-	hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	willy@infradead.org, ziy@nvidia.com
-Subject: Re: [PATCH v4] mm/page_alloc: avoid direct compaction for costly
- __GFP_NORETRY allocations
-Message-ID: <aqq8pWI0u1IZNWHT@cmpxchg.org>
-References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
- <20260910114602.926944-1-dipiets@amazon.it>
- <aqQlUr-1h07G8JWM@cmpxchg.org>
- <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
+	s=arc-20240116; t=1789574364; c=relaxed/simple;
+	bh=rQznw9Pm2MppyI1WQ5TE0CYYBdHXTT7LuTpGCd9NBcM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=n1YAkksSiwn7QGkW5vvgWf/anLHebJ82QbnZ1z3LnWCA8P537iKs2f8VnZ1bxbzl8XfSGIUwEtJVi3AB274ECeo0xXmIikk3i3RaFqSjsus57a1HZ7pZGEoV2FG4E3Ue6qYafYSUjgqI6N/Uu2U7Q29u3Iq4qzTs/FO4P21WMBI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHcz3JvKpqj0RtCA--.21547S2;
+	Wed, 16 Sep 2026 23:59:05 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andi.shyti@kernel.org
+Cc: linux-arm-kernel@lists.infradead.org,
+	linux-i2c@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	piotr.wojtaszczyk@timesys.com,
+	stigge@antcom.de,
+	vz@mleia.com,
+	wsa@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] i2c: pnx: Fix of_node reference leak in i2c_pnx_probe()
+Date: Wed, 16 Sep 2026 15:58:38 +0000
+Message-Id: <20260916155838.2078067-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHcz3JvKpqj0RtCA--.21547S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw1rKry7Xr13Kr4DJr4DCFg_yoW8trW7pa
+	9rGFZIvr4UJFn7KrWkXr1UZFy5tw4ftrW8K3W3uw1kCanxKrWUJr4aqFyFvFWFkFWvq3WY
+	qF1DJFWfuF1kuFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
+	IYCTnIWIevJa73UjIFyTuYvjfUrrWFUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpVg55wADst
 
-On Wed, Sep 16, 2026 at 01:24:31PM +0200, Vlastimil Babka (SUSE) wrote:
-> On 9/11/26 17:59, Johannes Weiner wrote:
-> > The access to
-> > MIGRATE_HIGHATOMIC that it points out is in itself too generous. This
-> > seems like a real but separate bug. It will allow GFP_TRANSHUGE_LIGHT
-> > into the highatomic reserves as well, for example.
-> 
-> I don't follow this part. For ALLOC_HIGHATOMIC you need __GFP_HIGH in
-> alloc_flags_nonblocking(). So GFP_TRANSHUGE_LIGHT won't get the access, no?
+The device node reference taken with of_node_get() for the adapter
+device is never released: the early probe error paths return without
+dropping it, and neither the late error paths nor i2c_pnx_remove() put
+it back. The i2c core does not release the adapter device's of_node
+either.
 
-rmqueue_buddy() has this:
+Route the clock, I/O mapping and clock-enable error paths to a common
+label that drops the node reference, and drop the reference after
+i2c_del_adapter() in the remove path.
 
-			/*
-			 * If the allocation fails, allow OOM handling and
-			 * order-0 (atomic) allocs access to HIGHATOMIC
-			 * reserves as failing now is worse than failing a
-			 * high-order atomic allocation in the future.
-			 */
-			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
-				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+Fixes: b41a216dafe4 ("i2c: Add device tree support to i2c-pnx.c")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/i2c/busses/i2c-pnx.c | 17 ++++++++++++-----
+ 1 file changed, 12 insertions(+), 5 deletions(-)
 
-It says "atomic", but it's checking only ALLOC_NON_BLOCK, which is
-broader than GFP_ATOMIC. alloc_flags_nonblocking();
-
-	if (gfp_mask & __GFP_DIRECT_RECLAIM)
-		return 0;
-
-	if (gfp_mask & __GFP_NOMEMALLOC)
-		return 0;
-
-	alloc_flags |= ALLOC_NON_BLOCK;
-
-	if (order > 0 && (gfp_mask & __GFP_HIGH))
-		alloc_flags |= ALLOC_HIGHATOMIC;
-
-So this can apply to random !direct_reclaim requests, no?
-
-I have to correct myself on GFP_TRANSHUGE_LIGHT because it happens to
-include __GFP_NOMEMALLOC, and so won't actually get ALLOC_NON_BLOCK.
-
-But what about random GFP_NOWAIT and & ~__GFP_DIRECT_RECLAIM sites?
-Those explicitly don't get watermark exemptions already, and weren't
-the intent of the rmqueue_buddy() exemption above.
-
-Something like this?
-
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..c79cc7aa4dff 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -3246,7 +3246,8 @@ struct page *rmqueue_buddy(struct zone *preferred_zone, struct zone *zone,
- 			 * reserves as failing now is worse than failing a
- 			 * high-order atomic allocation in the future.
- 			 */
--			if (!page && (alloc_flags & (ALLOC_OOM|ALLOC_NON_BLOCK)))
-+			if (!page && ((alloc_flags & ALLOC_OOM) ||
-+				      ((alloc_flags & ALLOC_MASK_ATOMIC) == ALLOC_MASK_ATOMIC)))
- 				page = __rmqueue_smallest(zone, order, MIGRATE_HIGHATOMIC);
+diff --git a/drivers/i2c/busses/i2c-pnx.c b/drivers/i2c/busses/i2c-pnx.c
+index 8daa0008bd05..b2a686b132ea 100644
+--- a/drivers/i2c/busses/i2c-pnx.c
++++ b/drivers/i2c/busses/i2c-pnx.c
+@@ -644,20 +644,24 @@ static int i2c_pnx_probe(struct platform_device *pdev)
+ 	}
+ #endif
+ 	alg_data->clk = devm_clk_get(&pdev->dev, NULL);
+-	if (IS_ERR(alg_data->clk))
+-		return PTR_ERR(alg_data->clk);
++	if (IS_ERR(alg_data->clk)) {
++		ret = PTR_ERR(alg_data->clk);
++		goto err_of_node;
++	}
  
- 			if (!page) {
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index b9259deddb59..11714ddca254 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -60,6 +60,9 @@
- /* Flags that allow allocations below the min watermark. */
- #define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ 	snprintf(alg_data->adapter.name, sizeof(alg_data->adapter.name),
+ 		 "%s", pdev->name);
  
-+/* Flag combination from GFP_ATOMIC */
-+#define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
-+
- /*
-  * Structure for holding the mostly immutable allocation parameters passed
-  * between functions involved in allocations, including the alloc_pages*
+ 	/* Register I/O resource */
+ 	alg_data->ioaddr = devm_platform_get_and_ioremap_resource(pdev, 0, &res);
+-	if (IS_ERR(alg_data->ioaddr))
+-		return PTR_ERR(alg_data->ioaddr);
++	if (IS_ERR(alg_data->ioaddr)) {
++		ret = PTR_ERR(alg_data->ioaddr);
++		goto err_of_node;
++	}
+ 
+ 	ret = clk_prepare_enable(alg_data->clk);
+ 	if (ret)
+-		return ret;
++		goto err_of_node;
+ 
+ 	freq = clk_get_rate(alg_data->clk);
+ 
+@@ -707,6 +711,8 @@ static int i2c_pnx_probe(struct platform_device *pdev)
+ 
+ out_clock:
+ 	clk_disable_unprepare(alg_data->clk);
++err_of_node:
++	of_node_put(alg_data->adapter.dev.of_node);
+ 	return ret;
+ }
+ 
+@@ -716,6 +722,7 @@ static void i2c_pnx_remove(struct platform_device *pdev)
+ 
+ 	i2c_del_adapter(&alg_data->adapter);
+ 	clk_disable_unprepare(alg_data->clk);
++	of_node_put(alg_data->adapter.dev.of_node);
+ }
+ 
+ #ifdef CONFIG_OF
+-- 
+2.34.1
 
-> Unless I'm mistaken about that MIGRATE_HIGHATOMIC part, it seems all sashiko
-> concerns can be dismissed and then indeed v4 is the better version.
-
-It looks like a real issue to me, but one that already exists
-independent of Salvatore's change.
