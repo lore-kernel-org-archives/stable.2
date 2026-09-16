@@ -1,297 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DFE4A263F
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:11:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F474FB9B5;
+	Wed, 16 Sep 2026 14:12:59 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567917; cv=none; b=ZsbZUfwX/i9lxEGDGmeiMHRYGvR4gNGIFr0a/uhbPiZvT3FNfi3eR0/NUb47q+cVhbo//sc+YMXA5iRLJ/DfGAtEpVq2K9FoM0V3p60rryUrLU+c0N8+N+8WcGd2Iqjlpw3PMYeRIjAK1xk6Sy4/MIUqBU5MYzcpO8n6yYJecDo=
+	t=1789567980; cv=none; b=vB/ybv5sgmwNqcH3rJ5ccZHQIL3KwVfpskjqAjglEECI+Q8JpZDwS0UxpEl/+AdRm4FrObT6wxs38nyHYH9BDMg8wtq+pByXNp5UiunxaVzlFF5wY2ADuzhdLskgjYh+wMS3LEl70yM/UJSDuskGlm2bQmdcH6JUt64uzx0I3/k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567917; c=relaxed/simple;
-	bh=Cg25EPtJDCmacp8Ln8U5KFemy3Z4iH0v9owqRg8/vJk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lb+MF3b0xEXyEmfqfSYx4NeOOukQmeUBVqa0EcpYv1AF3/emosK98i3xW0zKzxhmZYMXwGMa+v7rfdTbxifKPcAfLDl2MeGjQmIqqNu8MNwExf70shusKgp7Nr6y8uJ/jzznkkurXBTP1KqpM2SGl21pQB9GWtclANCX9mpRtCk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JN2ttm3M; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789567980; c=relaxed/simple;
+	bh=j6zqZiIjusb3tFMWaxthaEG81AzOZdJTSF4ZVYTQVUw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=pnLCLjAZ1vG3XoSiTdpNPPLDp0IKp30LJM3dg7WO5FvN8/6285umPqZ9gGaUOGe8ortOJvu/92jTje/2MxMPcBwC/x8jEDtPQI8NNSJCVfuUgk70xUsJ2OEc2wctUdbuEddSSCyw87S7qLxQGZEBA2ivYCugs/I0JiL7tbgeMzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BNbqf9U+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JN2ttm3M"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7A2831F000FF;
-	Wed, 16 Sep 2026 14:11:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BNbqf9U+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222021F000FF;
+	Wed, 16 Sep 2026 14:12:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789567913;
-	bh=rgCm7b6/4R+4AjOiToYWGtNx2WmSRjMnSJwLNyzNcgw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JN2ttm3MQ2HZX+IllgKBtd98a7faNubbLXuFYKm6FL0x1hE2WrX8Pf/KeG8dgYJtF
-	 Lxauu2NtpPySIwlkgwhzv+Lw4aKVmZ+tO/iEEwgF327QM52CtM77sUpoIr0PVRJtd0
-	 tQEPMVsrnK+5TM8LiOks5+hJixQnNg4TIpzUfG5SdXn/tRwqCnf2iDg/Tpd7arX6g9
-	 roEIpjDcl4MusskRlAfCWZ+9t9e8OiUIG5O0vHETk+wS5JsaNM9tH/jPsN7Sa2sQW/
-	 m9xBs3BnTJaSD32XGkAyvThhtot2z3MB83lbY9pLeASogj8HxGyX4CC2RXoX3KNY84
-	 NuAMd1gBAC6iw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Oleg Nesterov <oleg@redhat.com>,
-	Alexey Gladkov <legion@kernel.org>,
-	Bradley Morgan <include@grrlz.net>,
-	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
-	Joel Granados <joel.granados@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
-Date: Wed, 16 Sep 2026 10:11:50 -0400
-Message-ID: <20260916141151.2995957-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091653-fester-trodden-026e@gregkh>
-References: <2026091653-fester-trodden-026e@gregkh>
+	s=k20260515; t=1789567979;
+	bh=V9BvKqoMA2UwcJ0p6bue8Tv/N7Zz0zZu76H109sCcw0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=BNbqf9U+xd8eNMek3w+m7W2aF6pGr2mM9pbehi4DYkeN5VFbz4RQIYK8fUqx2s2sE
+	 G9twMG102Bf+0PhP/gvNWqXQ0aumAMk0RA3b4IPVBZhpVgpJdAWis5SDpuHjKq9gt3
+	 4OR9r793/aLxM5Fkixycul6E3yfKLZ1Iq9hVvBX+ejNZklHC4GfyXT3Gdv1G5JtCa2
+	 oHZcSzM2RxqDxKSGhX1hSWGhQt2oPBqoiS87ylpDSOOkj5qSu56zo5eK+j88BdWWzv
+	 fKN3+qtZ9bpaE/ruSk1gKdvfHlLSmO7GzLw67qHtoioFaqVkE7uLExXCEld0Bp8xFD
+	 6hd1xpAE9km1w==
+Date: Wed, 16 Sep 2026 15:12:53 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqqjW5dpyznijYLh@gremlin>
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin>
+ <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin>
+ <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
 
-From: Oleg Nesterov <oleg@redhat.com>
+On Wed, Sep 16, 2026 at 09:57:44AM -0400, Gregory Price wrote:
+> On Wed, Sep 16, 2026 at 02:03:29PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > On Tue, Sep 15, 2026 at 01:12:03PM -0400, Gregory Price wrote:
+> > > On Tue, Sep 15, 2026 at 04:55:47PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > > On Sat, Sep 12, 2026 at 07:08:32AM -0400, Gregory Price wrote:
+> > > > > MADV_PAGEOUT collects isolated folios on a local list before reclaiming
+> > > > > them after the PTE walk.  The reschedule path drops the PTE lock and then
+> > > > > restarts the mapping with pte_offset_map_lock().
+> > > >
+> > > > Is this reschedule path even necessary? It's pretty bloody sketchy.
+> > > >
+> > > > I thought the modern approach (TM) was to not do cond_resched() and friends so
+> > > > can we actually look at removing this?
+> > > >
+> > >
+> > > Sorry - meant to reply to this.
+> > >
+> > > Honestly there's so much jammed into this function i can't give you a
+> > > straight answer. I can take a short detour to figure out if we can
+> > > rework this as a whole.
+> >
+> > s/short detour/long journey through hell/ perhaps? :P ;)
+> >
+>
+> Not as much as you'd think.
+>
+> I did it yesterday and left an agent to validate it overnight with
+> existing in-tree tests, LTP tests, and added some new tests.
+>
+> The naming could use some work (cold_or_pageout -> lru_op, bleh),
+> but new call graph / pseudo-code:
+>
+> • walk_page_range_vma()
+>   └── madvise_lru_op_pmd()              [PMD callback]
+>       │
+>       ├── PMD is a huge mapping
+>       │   └── madvise_lru_op_huge_pmd()
+>       │       ├── acquire PMD lock
+>       │       ├── madvise_lru_op_huge_pmd_locked()
+>       │       │   ├── process whole folio, or
+>       │       │   └── return locked+referenced split candidate
+>       │       ├── release PMD lock
+>       │       └── split folio / reclaim isolated folios
+>       │
+>       └── PMD points to a PTE table
+>           └── madvise_lru_op_ptes()
+>               ├── map PTE table and acquire PTL
+>               ├── madvise_lru_op_pte_range_locked()
+>               │   └── madvise_lru_op_pte_batch_locked()
+>               │       ├── process one folio/PTE batch, or
+>               │       └── return locked+referenced split candidate
+>               ├── leave lazy-MMU mode
+>               ├── unmap PTE table and release PTL
+>               ├── split candidate if necessary
+>               ├── reclaim isolated folios
+>               └── reschedule and restart from current address if necessary
+>
+> Looks like a normal table walk now.  Significantly easier to review and
+> doesn't make my eyes vomit. (there's still an ifdef wart, but it's not
+> mid-function anymore... so that's nice).
 
-[ Upstream commit 7170ca01623b399c97f2ae9d3e228badc1f25ea3 ]
+OK nice, I will have to see the code to comment intelligently though I
+think :)
 
-cad_pid is global, and kill_cad_pid() is only used in the root namespace.
+>
+> Going to spend a little more time testing and tweaking before I post it.
+>
+> I've been working on a making more extensive unit tests for certain
+> parts of mm/ and this might be a good time to look at whether I can
+> introduce a piece of it.
 
-However, due to pid_table_root_permissions(), a non-root user can unshare
-pid/user namespaces and modify it from the child namespace. This makes no
-sense and is simply wrong.
+Nice, curious as to how?
 
-Move it to kern_reboot_table[] where it logically belongs; this ensures
-that only GLOBAL_ROOT_UID can read/modify this sysctl.
+Have you tried the userland VMA tests btw? Not tooting my own horn so to
+speak :P but it's nice, though it comes at a bit of a cost in how the files
+have to be set up...
 
-Note that this patch doesn't preserve "#ifdef CONFIG_PROC_SYSCTL" around
-the "cad_pid"; CONFIG_PROC_SYSCTL selects CONFIG_SYSCTL, so it is always
-set when kern_reboot_table[] is compiled.
+I always feel like I should do more with it but don't have the time
+atm. May set the LLM on it though...
 
-Cc: stable@vger.kernel.org
-Fixes: e054bcbe7e7a ("sysctl: move cad_pid into kernel/pid.c")
-Signed-off-by: Oleg Nesterov <oleg@redhat.com>
-Acked-by: Alexey Gladkov <legion@kernel.org>
-Reviewed-by: Bradley Morgan <include@grrlz.net>
-Reviewed-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
-Signed-off-by: Joel Granados <joel.granados@kernel.org>
+>
+> ~Gregory
 
-[6.12 dependency adaptation]
-The stable tree still keeps cad_pid in the global kernel/sysctl.c table;
-it does not have the upstream per-PID-namespace table. Move the existing
-handler and entry directly from kernel/sysctl.c to kernel/reboot.c, using
-proc_dointvec() with a local table copy because __do_proc_dointvec() is
-private to sysctl.c. Leave kernel/pid.c unchanged and retain the mutable
-ctl_table required by the stable registration API.
-
-Make the existing kernel_reboot_sysctls_init() an independent late initcall
-outside CONFIG_SYSFS so cad_pid remains available with PROC_SYSCTL=y and
-SYSFS=n, and does not depend on sysfs object allocation succeeding.
-
-Prepare context for 5a88f78df753 without importing newer scheduler or timer
-implementations: move the existing kick_process() declaration/stub before
-cad_pid and expand the empty stub, and guard the existing POSIX-only
-sigqueue helpers with CONFIG_POSIX_TIMERS using the upstream comment.
-No new functions are introduced, and the target's RCU fix is left for the
-target commit.
-
-[ sashal: Reduced backport -- upstream 7170ca01623b3 touches 2 file(s), this
-  backport carries 4. Not backported here:
-  kernel/pid.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 5a88f78df753 ("reboot: fix cad_pid use-after-free race")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/sched.h | 14 ++++++++------
- kernel/reboot.c       | 40 +++++++++++++++++++++++++++++++++++-----
- kernel/signal.c       | 12 +++++-------
- kernel/sysctl.c       | 31 -------------------------------
- 4 files changed, 48 insertions(+), 49 deletions(-)
-
-diff --git a/include/linux/sched.h b/include/linux/sched.h
-index 7b97f1ec1bc0a..c7d475b0f3b47 100644
---- a/include/linux/sched.h
-+++ b/include/linux/sched.h
-@@ -1675,6 +1675,14 @@ static inline char task_state_to_char(struct task_struct *tsk)
- 	return task_index_to_char(task_state_index(tsk));
- }
- 
-+#ifdef CONFIG_SMP
-+extern void kick_process(struct task_struct *tsk);
-+#else
-+static inline void kick_process(struct task_struct *tsk)
-+{
-+}
-+#endif
-+
- extern struct pid *cad_pid;
- 
- /*
-@@ -1953,12 +1961,6 @@ extern int wake_up_state(struct task_struct *tsk, unsigned int state);
- extern int wake_up_process(struct task_struct *tsk);
- extern void wake_up_new_task(struct task_struct *tsk);
- 
--#ifdef CONFIG_SMP
--extern void kick_process(struct task_struct *tsk);
--#else
--static inline void kick_process(struct task_struct *tsk) { }
--#endif
--
- extern void __set_task_comm(struct task_struct *tsk, const char *from, bool exec);
- 
- static inline void set_task_comm(struct task_struct *tsk, const char *from)
-diff --git a/kernel/reboot.c b/kernel/reboot.c
-index d6ee090eda943..8ca5590a6d601 100644
---- a/kernel/reboot.c
-+++ b/kernel/reboot.c
-@@ -1280,7 +1280,32 @@ static struct attribute *reboot_attrs[] = {
- 	NULL,
- };
- 
-+#endif /* CONFIG_SYSFS */
-+
- #ifdef CONFIG_SYSCTL
-+static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
-+			   size_t *lenp, loff_t *ppos)
-+{
-+	struct ctl_table tmp_table = *table;
-+	struct pid *new_pid;
-+	pid_t tmp_pid;
-+	int r;
-+
-+	tmp_pid = pid_vnr(cad_pid);
-+	tmp_table.data = &tmp_pid;
-+
-+	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
-+	if (r || !write)
-+		return r;
-+
-+	new_pid = find_get_pid(tmp_pid);
-+	if (!new_pid)
-+		return -ESRCH;
-+
-+	put_pid(xchg(&cad_pid, new_pid));
-+	return 0;
-+}
-+
- static struct ctl_table kern_reboot_table[] = {
- 	{
- 		.procname       = "poweroff_cmd",
-@@ -1296,16 +1321,23 @@ static struct ctl_table kern_reboot_table[] = {
- 		.mode           = 0644,
- 		.proc_handler   = proc_dointvec,
- 	},
-+	{
-+		.procname	= "cad_pid",
-+		.maxlen		= sizeof(int),
-+		.mode		= 0600,
-+		.proc_handler	= proc_do_cad_pid,
-+	},
- };
- 
--static void __init kernel_reboot_sysctls_init(void)
-+static int __init kernel_reboot_sysctls_init(void)
- {
- 	register_sysctl_init("kernel", kern_reboot_table);
-+	return 0;
- }
--#else
--#define kernel_reboot_sysctls_init() do { } while (0)
-+late_initcall(kernel_reboot_sysctls_init);
- #endif /* CONFIG_SYSCTL */
- 
-+#ifdef CONFIG_SYSFS
- static const struct attribute_group reboot_attr_group = {
- 	.attrs = reboot_attrs,
- };
-@@ -1325,8 +1357,6 @@ static int __init reboot_ksysfs_init(void)
- 		return ret;
- 	}
- 
--	kernel_reboot_sysctls_init();
--
- 	return 0;
- }
- late_initcall(reboot_ksysfs_init);
-diff --git a/kernel/signal.c b/kernel/signal.c
-index a11c3c9afd2b4..a665afdccecdd 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -1936,14 +1936,10 @@ int kill_pid(struct pid *pid, int sig, int priv)
- }
- EXPORT_SYMBOL(kill_pid);
- 
-+#ifdef CONFIG_POSIX_TIMERS
- /*
-- * These functions support sending signals using preallocated sigqueue
-- * structures.  This is needed "because realtime applications cannot
-- * afford to lose notifications of asynchronous events, like timer
-- * expirations or I/O completions".  In the case of POSIX Timers
-- * we allocate the sigqueue structure from the timer_create.  If this
-- * allocation fails we are able to report the failure to the application
-- * with an EAGAIN error.
-+ * These functions handle POSIX timer signals. POSIX timers use
-+ * preallocated sigqueue structs for sending signals.
-  */
- struct sigqueue *sigqueue_alloc(void)
- {
-@@ -2043,6 +2039,8 @@ int send_sigqueue(struct sigqueue *q, struct pid *pid, enum pid_type type)
- 	return ret;
- }
- 
-+#endif /* CONFIG_POSIX_TIMERS */
-+
- void do_notify_pidfd(struct task_struct *task)
- {
- 	struct pid *pid = task_pid(task);
-diff --git a/kernel/sysctl.c b/kernel/sysctl.c
-index de58128fa5212..6a9040fdefe51 100644
---- a/kernel/sysctl.c
-+++ b/kernel/sysctl.c
-@@ -1322,28 +1322,6 @@ int proc_dointvec_ms_jiffies(const struct ctl_table *table, int write, void *buf
- 				do_proc_dointvec_ms_jiffies_conv, NULL);
- }
- 
--static int proc_do_cad_pid(const struct ctl_table *table, int write, void *buffer,
--		size_t *lenp, loff_t *ppos)
--{
--	struct pid *new_pid;
--	pid_t tmp;
--	int r;
--
--	tmp = pid_vnr(cad_pid);
--
--	r = __do_proc_dointvec(&tmp, table, write, buffer,
--			       lenp, ppos, NULL, NULL);
--	if (r || !write)
--		return r;
--
--	new_pid = find_get_pid(tmp);
--	if (!new_pid)
--		return -ESRCH;
--
--	put_pid(xchg(&cad_pid, new_pid));
--	return 0;
--}
--
- /**
-  * proc_do_large_bitmap - read/write from/to a large bitmap
-  * @table: the sysctl table
-@@ -1760,15 +1738,6 @@ static struct ctl_table kern_table[] = {
- 		.mode		= 0644,
- 		.proc_handler	= sysrq_sysctl_handler,
- 	},
--#endif
--#ifdef CONFIG_PROC_SYSCTL
--	{
--		.procname	= "cad_pid",
--		.data		= NULL,
--		.maxlen		= sizeof (int),
--		.mode		= 0600,
--		.proc_handler	= proc_do_cad_pid,
--	},
- #endif
- 	{
- 		.procname	= "threads-max",
--- 
-2.53.0
-
+--
+Cheers, Lorenzo
