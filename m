@@ -1,72 +1,76 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B07913A5440
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:06:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 848413911D3
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:09:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789524371; cv=none; b=fNcG91AMcTk3STcavnxeIbD0Op0H/7Hn+0Aivz5WMuWbCsyVQvXM/t9khyscdkUN/KeEia+VQ5uRsAF3BtZFQJJr65IjLH8F3Bnw4uTAMlQm8HJGZmvGgpa+Y93kxztiQMCRQB4NmmXTCxyG2m50XYAJby5M7oeGy8Q5gzFzBYI=
+	t=1789524594; cv=none; b=PafZ2VOHvrg2HOmM/O3PHOwtraWSdUeqiBHOARLJ9RJM9aejLVe986XdpJJ8GN0pGNBV1+NdilVpGnyjX9XNzMiZ2boHrFWgRt9X33f83YdVpVUD1En1j4cHt6K//ZumNU+o3Y6Fq92CgMxu+SxWzee0KZMca0S0vl9bmz6GIww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789524371; c=relaxed/simple;
-	bh=VzBQstYI9n5foWER42pPugcCV7m9/kLwe0mcjHJaVsg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=P55DMewukPM7GqchkhIUBSKsCOgfjhT9djAMMnofBav3+SystnaIEuVdJT7JPs/ibKRuHYiIjadMwfx9jQwewN1AkV0ENI5vCG/3uk/9mxXe9WhHpGjNLYJNN4GVWIinR+CnqRMPrMPIvySVeJSoZKBIw/tQEJCyV4QRbl1qaB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=reRlfq+g; arc=none smtp.client-ip=74.125.227.140
+	s=arc-20240116; t=1789524594; c=relaxed/simple;
+	bh=YG4COEKulNp769D/BH1fCYynnVil3u1ZWIifJ+zRmkU=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JefDX8WHy5ObIQ24dCkvPpOlBXWh7sZhrSCCQxlDeWsqoVNNlQtQidz+dnMx7ar70ABT86loeNtvQnV9+UI8lkNypBpmfKLr3WUr3Kv9z4lraX4W/uXYWFKZMVG3eVccy3zsO1qMA5WCBb7ldEuBM0hTiLvPcCheNL4rAKb2uO8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=FcPv8o/x; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="reRlfq+g"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747ed6d6eso3477835ad.2
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:06:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="FcPv8o/x"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469f20513so319755b3a.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:09:47 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789524363; x=1790129163; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789524580; x=1790129380; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V1xqHMghnX/wz4hUAHEyQvIQaxwHg9qWI/SSHwusRwE=;
-        b=reRlfq+giMYhMSli8ydtNL6mCWi41jbsa1Ruyp63VSED7Pi4nUBSXVI2zQBd/vj66w
-         wKi73eo76YEPQGhVFw39XA3FbY1c8fbi0uuDUW4XmG2vjeJA4TPAh9bsNhoM93K6Riea
-         Gst3LNgmUR3JMXT3XzB5GVPpKUMucAUcbPCEWv2F2GfwCTfcOcbhZeA/RwSlQZ8V8r9H
-         r3c75uAeFMdFi5y3uJB302H4E5DP3ZM25uQ8/bsDtK2uoOh+7pRi3MwJSJyRdPyXh85i
-         dTVE/SzwN71PbJxOtcYbKkW3aApSHK9+7gPFTOSGWf1TLw5qnnnwfrqyR3z1OAllTa8p
-         GUBQ==
+        bh=wm31bZPNQbk147CGwUHP23ZCay3Kn8INjT2oDuzYLtc=;
+        b=FcPv8o/xNEeDJ15f/ck+7wOxyuQ2vkXb07FBv5bMzvikGrllRPat9zjKwyIOLs+PI8
+         eDahLH9sOQfC0PRkZ/FshyIVzJA9coonZkbh80KwlFcAWMoy04H//EiyOFIvoHgTBarc
+         llqXpc46GUK9EuP8zXQuwe9K1HAdGa59XW1BibI0XAGjs11vgCIuW3Ws4w73m7MVjO+S
+         bLy9kJY6uM6ZaClAuaI7+Vc+AGFVb1hhS2uV6VOEHAYcasKHlLuqSLV3cvh4IqEyGCxx
+         KOv+sSDHpFdYFZHU8ZqCu8YFqcF3BfPPDBDtX4oqxW8zpgDVaWB/sH7YRjfFXRswjBpB
+         IwjA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789524363; x=1790129163;
+        d=1e100.net; s=20260707; t=1789524580; x=1790129380;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=V1xqHMghnX/wz4hUAHEyQvIQaxwHg9qWI/SSHwusRwE=;
-        b=G/EkgFjnTzyHSZ4wPDVM5+3Whv9+kCcSMLJkNiH1tpXQ0agfYnHd71ZjVUdmw4d5eH
-         pelX1iqpkRECKfH49PtAjJCrrkbZF+h1MrUShi3HPhkoNHlGM/m5ylcrpxrFJhmZItXd
-         dgT5vnbISWsZKCuV7/DiukMix/qTn6zOHvnXHVx+edoAsV4fLA6S09OOj9yJCLv1Xlie
-         ijBp/WoPTkMxAZcvYTUKMeiPR1RK2KeCw6pyregryhiVqjHU3jgoigUr6R0/gyHM35cb
-         3fpF+9a4h6Pebd+lIgt8hbY7ttp+A/vg9x+NpmhZsLgmPi4ZdSyn6kp0Tq39dStejdg0
-         pQPA==
-X-Gm-Message-State: AFuF++nlM4kvrWGL/Z4jXdLD3h7OmXEfeRFF9WQssSqtMxZgeLiB1OZJ
-	N2kdaDzi9nrZwEJVioLlfqi1IkHYUl6p9OtqTMMK6jzOgKaLKYu8ZiNT
-X-Gm-Gg: AYBFou3qKmlUwEI95ukIgHd7x+r39gnGmazLMTpO+a/XZGTOT6EigaYerQeNc2qzX6W
-	+TeqvNuDQ7e98O2orsiMwBRL2ZBOHRhI+n4UMwkdvyVeKwVOpRETz0QK8qagks4j6KENPnhfbYj
-	vgEnS8dJqhzFGoG4JQVa7zc/2kqMU3hG//QrWJxRcB2q9sIMUGjadGpwbLgI4AGMcPqjTyVrDSC
-	NeMczfP3IOGlYZRz7k5OrKcZgu17bQpg9W9gO/hzb+/XM8vPUOIDoSy36m9JbLhKXFKDRA/+5X0
-	ecSoyDUvZtXgikD5R6FvGYuzN8J/SeC5CAQhs28CKuG/UFIWCltHpnc1I9HJBQzwQAW4//h8YKA
-	I28ScXYC0Y2NiqYfW51vu+kq85AC0xSKt2WrzdmLE+Ek3f5R0cOBb3TV8bZPKGs9xw3Eox9D5uC
-	mteJqvfFkeUZr6wJ8MSsKKHl0Rz8xI62QI2NlRtoLsuxpErmNuowprpRR2wn/Ux8G5M/p5
-X-Received: by 2002:a17:902:db09:b0:2d6:3c2f:6a4 with SMTP id d9443c01a7336-2dd8e40c22fmr14836915ad.13.1789524362973;
-        Tue, 15 Sep 2026 19:06:02 -0700 (PDT)
-Received: from fedora ([2607:fb92:3080:83e3:3c6f:fd76:69b:10ff])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f244c9sm3246075ad.76.2026.09.15.19.06.00
+        bh=wm31bZPNQbk147CGwUHP23ZCay3Kn8INjT2oDuzYLtc=;
+        b=C5KCMX0n2ncNfK+MyZdXZa7jPn2T7jtVvyHjs027M7giQF9vTHVXJcGclh9jRnijRa
+         tDsGdmQGBYg8k5BkPnxqTybQbIsKttsopdBriBkYS4p3TAnxZ+k71zohDlRVBOgLQIbv
+         kh8DuBCoT4BqOvCCjWfueePpj0edeULsSJDIZAvHvDAUs6v4XXvBk2OwHeUjq51+Sbot
+         iM+Ot7HTc8GA7AEt0mhdwzEXhYe6NgChqziRqakrga1s7SGtxuzLTj+T0HZskY2p8aji
+         Ez/Vl1+WAQW6zo16MwFxrxqO2ZO06FANTzz56/pZfeJG26p7627izpvZTdqnbU84n6uO
+         +v9g==
+X-Gm-Message-State: AFuF++nDjB0saCupZjsXJgRdcp+woOMjZ9vK2aCmbUmOl7RNKVNsZliS
+	pI5GM9C+F9N6Ts8KpIFdi+/RQUSDw59HWFDIIIU8E55+3ufuWrYC0dFz
+X-Gm-Gg: AYBFou1jOprub8V1CZYyvZS6UVUpF68a4pgGWdDrwHwR60JL/faCNoSpY+cm2Jj9SrR
+	o0390xVmXfkk9ip+uTzneDVYq3jaGSSXb1qG8DjeZwA4Iu8zVijDY4tlqNJVqKmyzWO77DkUPUY
+	YW+nyeiWpD6DlmX8gToZHIZGsrun5+N7hN5856g6BGGfkLzFZzoTA1m1wlWpc/PE8IJLfsZVEzz
+	61/ArNJXnlX8uhwdQ+mPcZFHrQrgFTnn5ZMedQy8ogssjh6SayKCAeEgfhX1KoVc8hq/g5Cdv0L
+	wv+YJQ4F37sdNs3fTNctOXcxxiiY0ojp5Y96b1Cqv+emTEHGOt2hjmeM5XQ4T4LfbCG4mYREfg/
+	yKbqDDaDXyKAOjpin5Ck2EB1m0d+NMm0vYwcY+qujWD8ZF5kHBFkMwDAMHJd2rTP1CoaTbUJWRR
+	LyQ6YnR/ksFOfGDAsYimpqw4dtxYpBYE34x/v36q6XP2mrqD0vFVx1Xw==
+X-Received: by 2002:a17:90b:1845:b0:39d:f259:3363 with SMTP id 98e67ed59e1d1-39e1e491d27mr2086478a91.12.1789524580108;
+        Tue, 15 Sep 2026 19:09:40 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbfdd49sm1508988a91.11.2026.09.15.19.09.35
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 19:06:01 -0700 (PDT)
-From: Ping Cheng <pinglinux@gmail.com>
-X-Google-Original-From: Ping Cheng <ping.cheng@wacom.com>
-To: lee@kernel.org,
-	jikos@kernel.org,
-	bentiss@kernel.org,
-	linux-input@vger.kernel.org
-Cc: stable@vger.kernel.org,
-	Ping Cheng <ping.cheng@wacom.com>
-Subject: [PATCH 2/2] Setup SW_MUTE_DEVICE according to the order of input registration
-Date: Tue, 15 Sep 2026 19:05:58 -0700
-Message-ID: <20260916020558.24308-1-ping.cheng@wacom.com>
-X-Mailer: git-send-email 2.55.0
+        Tue, 15 Sep 2026 19:09:39 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	John Crispin <john@phrozen.org>,
+	Ralph Hempel <ralph.hempel@lantiq.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] net: lantiq: fix netdev leak on remove
+Date: Wed, 16 Sep 2026 10:09:30 +0800
+Message-ID: <20260916020930.2606675-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,62 +79,38 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Ping Cheng <ping.cheng@wacom.com>
+ltq_etop_probe() allocates the network device with alloc_etherdev_mq(),
+but the remove path does not call the matching free_netdev() after
+unregistering the device.
 
-The refactored SW_MUTE_DEVICE code assumed that stylus will be the
-first regiestered input. In reality, touch can be registered
-before stylus, such as the Wacom Cintiq Pro 13 and 16.
+The probe failure path releases the allocated network device with
+free_netdev(). However, after a successful probe, ltq_etop_remove()
+only unregisters the network device and leaves the allocation alive.
 
-This patch covers both touch-first and stylus-first cases.
+Call free_netdev() after unregister_netdev() to release the network
+device during driver removal.
 
+This issue was found by manual code inspection.
+
+Fixes: 504d4721ee8e ("MIPS: Lantiq: Add ethernet driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Ping Cheng <ping.cheng@wacom.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/hid/wacom_wac.c | 22 +++++++++++++++++++---
- 1 file changed, 19 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/lantiq_etop.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/hid/wacom_wac.c b/drivers/hid/wacom_wac.c
-index c4cd87b781c4..9520296cb349 100644
---- a/drivers/hid/wacom_wac.c
-+++ b/drivers/hid/wacom_wac.c
-@@ -3977,10 +3977,12 @@ int wacom_setup_touch_input_capabilities(struct input_dev *input_dev,
+diff --git a/drivers/net/ethernet/lantiq_etop.c b/drivers/net/ethernet/lantiq_etop.c
+index 83ce3bfefa5c..ecf2f3cbf4d9 100644
+--- a/drivers/net/ethernet/lantiq_etop.c
++++ b/drivers/net/ethernet/lantiq_etop.c
+@@ -711,6 +711,7 @@ static void ltq_etop_remove(struct platform_device *pdev)
+ 		ltq_etop_hw_exit(dev);
+ 		ltq_etop_mdio_cleanup(dev);
+ 		unregister_netdev(dev);
++		free_netdev(dev);
+ 	}
+ }
  
- 	if (features->type == HID_GENERIC) {
- 		hid_dbg(hdev, "generic touch setup\n");
--		if (wacom_wac->has_mute_touch_switch ||
--		    (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch))) {
-+
-+		/* setup touch switch for those devices that report pen interface first
-+		 * can only be done here since we only call this routine once
-+		 */
-+		if (wacom_wac->shared && READ_ONCE(wacom_wac->shared->has_mute_touch_switch)) {
- 			input_set_capability(input_dev, EV_SW, SW_MUTE_DEVICE);
--			wacom_wac->has_mute_touch_switch = true;
- 		}
- 		/* setup has already been done */
- 		return 0;
-@@ -4403,7 +4405,21 @@ int wacom_setup_pad_input_capabilities(struct input_dev *input_dev,
- 		break;
- 
- 	case INTUOSHT3_BT:
-+		break;
-+
- 	case HID_GENERIC:
-+		if (wacom_wac->shared) {
-+			/*
-+			 * setup touch switch capability can only be done here
-+			 * for those devices that have touch input registered
-+			 * before stylus and pad inputs.
-+			 */
-+			if (wacom_wac->has_mute_touch_switch &&
-+			    wacom_wac->shared->touch_input) {
-+				input_set_capability(wacom_wac->shared->touch_input,
-+				    EV_SW, SW_MUTE_DEVICE);
-+			}
-+		}
- 		break;
- 
- 	default:
 -- 
-2.55.0
+2.43.0
 
