@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDFCA38F253
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:47:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F33225A655
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:47:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577253; cv=none; b=DCxSgrN8opY4cBeDD/+NU7ZgeaIQbLAWEAhFNBxCoTAU2U/uOnuQROomRbWzlRTcZXrQgfaWyHLE0gfgk8J63Kwrzzl8eYXnp4iLjD6UT7yDM+PK64cxrOIY2/V4wwgm+Zi5kdQH6ncZsWeXfu5U+z9CO43L87JOARv65HiuV94=
+	t=1789577265; cv=none; b=IXchZlMG7wbKxVEBJr6VCJk+ZuLgvE2+ZiIjmo0pAWCM78IUt4K6YS7GG458cyaoU02mCAX0kecqRZ528HH1ya5B0eanVVn4tkWyxL8OmSDrrNfwuRcMXVnhTALfkMquedYCc7FX7frkRcZ+9SR4Avs73OBKUa6nXSW33ydaSUM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577253; c=relaxed/simple;
-	bh=pW8zYD8hPJXpbsDQ8BpMkyzZkIb35iPZS8WJ4R+2zyk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jl8DgJgeXjWjzWa9Eoq23q42nRd8sfPxrdquhttakiXoCaJrU5eU5olsZreYCHEwGP7VGoRw1svnK0ClFfdFjuXoJ1Wa3APgmNFAAeCr5R47vUs6vO204wTZvVONK9Pzo8b9jV4iBvEAEekJLBjwxO/Nzu1gn49OHGB+gpwh2xI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hrNnu4Vt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577265; c=relaxed/simple;
+	bh=ubceLk1nU4YAXtXAZkprR/kFdyEWDWdOG9QgBY4VJmw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=CfiD5Tgud4hsBrn10yvSicJonYEg5pA5+kD4nWrwv1VhsXqbtLNwtLGaFUCZY4YRAI1O3cEs4crrCmhQ90kaj0qV53J2uhZefqqK4479lgJJrLOFGxXZuTZ1w2g/LQqwI1rjUrVaujF/15plU7pQoAvm8rLXVZVtfnBTz625fj8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=O8GzRqM8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hrNnu4Vt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 74B601F00898;
-	Wed, 16 Sep 2026 16:47:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="O8GzRqM8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C28F21F000FF;
+	Wed, 16 Sep 2026 16:47:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577226;
-	bh=hTnWnsqkYfg6bLn41eb+u0FxMunNGlNUpyq9O+A3xy4=;
+	s=korg; t=1789577253;
+	bh=+neaib+yFg/RHAImIGAB6ZkphD1CL2vQp/QvZQe2NMA=;
 	h=Subject:To:Cc:From:Date;
-	b=hrNnu4VtZyGngEfeykpGmUAI+obvkzwuf7TdJ24qV1Coa/xEDri126ArSPrCsb5PF
-	 msiuIW0r0VoDG7zFdkODsxAPXy1q2TTHfRir1LTRYlw5W5Rs79dpKlyXiLDs26QvN2
-	 2G30pTyrTmTVEofYygCrV3Xa6kvz+PeTskubPFbY=
-Subject: FAILED: patch "[PATCH] smb: client: reject short READ responses in CIFSSMBRead()" failed to apply to 5.15-stable tree
-To: diego@bynar.io,dhowells@redhat.com,pc@manguebit.org
+	b=O8GzRqM8CNy2p2NyhKFzWi1W4V45MAVBZffS9srG3pCbsT6oai4OJN0ggaCalOByT
+	 dh2G2/1PLVpC3Q0zK3HqkDds7ED5vgc6d+MQjab2iRDscAd5zVBQCKdRPTU9/80YG2
+	 4B5kAce/XQPdEX34SLX1To1E2lptq6UwmaVr+r9c=
+Subject: FAILED: patch "[PATCH] smb: client: pin DFS superblock in iterator callback" failed to apply to 6.1-stable tree
+To: kmehltretter@gmail.com,pc@manguebit.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:40:05 +0100
-Message-ID: <2026091605-amino-petticoat-fd86@gregkh>
+Date: Wed, 16 Sep 2026 17:41:43 +0100
+Message-ID: <2026091643-unscathed-ocean-b2de@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e6142a8bfc230c7263eb8b0475249c958ce49367
+git cherry-pick -x d806d5a85dcbe2a0f181b2f0f9f61ddfbefa1818
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091605-amino-petticoat-fd86@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091643-unscathed-ocean-b2de@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,49 +62,67 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e6142a8bfc230c7263eb8b0475249c958ce49367 Mon Sep 17 00:00:00 2001
-From: Diego Oliva <diego@bynar.io>
-Date: Wed, 2 Sep 2026 11:42:06 +0100
-Subject: [PATCH] smb: client: reject short READ responses in CIFSSMBRead()
+From d806d5a85dcbe2a0f181b2f0f9f61ddfbefa1818 Mon Sep 17 00:00:00 2001
+From: Karl Mehltretter <kmehltretter@gmail.com>
+Date: Wed, 2 Sep 2026 20:28:14 +0200
+Subject: [PATCH] smb: client: pin DFS superblock in iterator callback
 
-CIFSSMBRead() reads DataLengthHigh, DataLength and DataOffset out of
-the READ_RSP returned by the server without first checking that a
-whole READ_RSP was actually received. The length of the response is
-recorded in rsp_iov.iov_len, but nothing constrains it to be at least
-read_rsp_size before those fields are dereferenced.
+tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
+takes its active reference only after iterate_supers_type() has dropped
+s_umount and its passive reference. Concurrent DFS automount expiry can
+therefore free the superblock before cifs_sb_active() uses it.
 
-A malicious or compromised SMB1 server can return a response shorter
-than the READ_RSP header, so that parsing the header itself reads past
-the end of the receive buffer. SMB1 is not negotiated by default;
-reaching this code requires an explicit vers=1.0 mount.
+A deterministic KASAN test reproduces the race as:
 
-Reject the response unless it is at least read_rsp_size bytes long.
+  BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Suggested-by: Paulo Alcantara <pc@manguebit.org>
-Cc: stable@vger.kernel.org # 6.19.x
-Assisted-by: Bynario AI
-Signed-off-by: Diego Oliva <diego@bynar.io>
-Reviewed-by: David Howells <dhowells@redhat.com>
+The same test passes with this change applied.
+
+Take the active reference in the callback while iterate_supers_type()
+still holds s_umount shared. cifs_put_tcp_super() remains the matching
+release.
+
+Fixes: bacd704a95ad ("cifs: handle prefix paths in reconnect")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/cifssmb.c b/fs/smb/client/cifssmb.c
-index f8aa9e7b4bc6..be13ab37039d 100644
---- a/fs/smb/client/cifssmb.c
-+++ b/fs/smb/client/cifssmb.c
-@@ -1719,6 +1719,14 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
- 	pSMBr = (READ_RSP *)rsp_iov.iov_base;
- 	if (rc) {
- 		cifs_dbg(VFS, "Send error in read = %d\n", rc);
-+	} else if (rsp_iov.iov_len < tcon->ses->server->vals->read_rsp_size) {
-+		/* check that the received response can hold a whole READ_RSP */
-+		cifs_dbg(FYI, "%s: server returned short header. got=%zu expected=%zu\n",
-+			 __func__, rsp_iov.iov_len,
-+			 tcon->ses->server->vals->read_rsp_size);
-+		rc = smb_EIO2(smb_eio_trace_read_rsp_short,
-+			      rsp_iov.iov_len, tcon->ses->server->vals->read_rsp_size);
-+		*nbytes = 0;
- 	} else {
- 		int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
- 		data_length = data_length << 16;
+diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
+index 46e1382e8e04..d4db3f91a91f 100644
+--- a/fs/smb/client/misc.c
++++ b/fs/smb/client/misc.c
+@@ -891,8 +891,14 @@ static void tcon_super_cb(struct super_block *sb, void *arg)
+ 	     t1->ses->dfs_root_ses == t2->ses->dfs_root_ses) &&
+ 	    t1->ses->server == t2->ses->server &&
+ 	    t2->origin_fullpath &&
+-	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath))
++	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath)) {
++		/*
++		 * Take the active reference while iterate_supers_type() still
++		 * holds s_umount shared.
++		 */
++		cifs_sb_active(sb);
+ 		sd->sb = sb;
++	}
+ 	spin_unlock(&t2->tc_lock);
+ }
+ 
+@@ -909,15 +915,8 @@ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void
+ 
+ 	for (; *fs_type; fs_type++) {
+ 		iterate_supers_type(*fs_type, f, &sd);
+-		if (sd.sb) {
+-			/*
+-			 * Grab an active reference in order to prevent automounts (DFS links)
+-			 * of expiring and then freeing up our cifs superblock pointer while
+-			 * we're doing failover.
+-			 */
+-			cifs_sb_active(sd.sb);
++		if (sd.sb)
+ 			return sd.sb;
+-		}
+ 	}
+ 	pr_warn_once("%s: could not find dfs superblock\n", __func__);
+ 	return ERR_PTR(-EINVAL);
 
