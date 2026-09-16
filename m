@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DF7E3BCD34
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CAD1371867
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574828; cv=none; b=t3y11dCQa4NRD20eCCn9nWVV5XUFMyV6eCkQqDnT6ZsxkncKpPSVcdHomP/WChuKcrohQPRAcxA8EZs+Kz98/f6pWzPvzv9FGxiwQ4KiVgu2BcCkYROitbIVn05YC5jNm6GRbT3LiVB+Np5cjn/Yg/J9CIfoCXRngK9teYRS/Jw=
+	t=1789574831; cv=none; b=QxTDloz9bK7GwSw2fWeDeEKx4xbh2oeG83MtUphye5dnDCUnLRKy8UKvf2gZaEd4At21NsrM9RH+hUVTTySfhf2+/Sd6FFUTGMebI/EDMYHTw2bFxI21udYMpMDevARNOA/RJm38o5XwY3vTQbFe9qHbWC9aLh2a3UeYS4xrNYM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574828; c=relaxed/simple;
-	bh=fi7bLisD2fTUze5Xemc0WwWqgp9VKXx8s+PGs02BBJ8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=EF/JgMTBBrlS3m1wPm0ou3U1NqjPo+e7Xubu5a0fy/nyAi44r5/WQOtKopwPdfjtbChNf3bKkuKqJ6KoJ7zSqKR1ly3ph8NbxfloMbJQmfLEV6BRcQ4NFKHQgy6O/Yc5cOy2Z9EVVAHzBiePsdpDllt5gMEJ36MCWsr6Ma2aP60=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v1267S/X; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574831; c=relaxed/simple;
+	bh=3a+HD7639kNg7ZJX3lzjyQZXNX0ziD8BXe+sGKI624E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=sqFxJyf4P4IyUeb2wcps4vIfs98gQxE1/g9n7AGsPsQQNsCdmLD5ZYPGuDslcj2VaT6t7QU9eAfV93XoRCQPG0x1lObJ9ZXCr9TbzhpOtNCbPnZk+8sIBZ5vBdJAPOAmk2cOEhJQCByPpnjmvvIhh7092n6YYF7Hg09Pnmfdq+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gu35q+Qt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v1267S/X"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 547C11F000FF;
-	Wed, 16 Sep 2026 16:07:06 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gu35q+Qt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D2C91F000FF;
+	Wed, 16 Sep 2026 16:07:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574826;
-	bh=8dyrAO+H9QLIiaoNYTCgi69lMvOOHYyicrkvtpkn+Jw=;
+	s=korg; t=1789574830;
+	bh=DWM3whVWUYqmjuWKvxPDhAi9Lk48ZsrgacuxGj9IHic=;
 	h=Subject:To:Cc:From:Date;
-	b=v1267S/X2sFxVCa/xPcOQzIchku5F3/D3rj9Wb8FGJhUeNolgU1GDOBW4XEwIrgKq
-	 PKMaGSePVeImt3C2ymdVppEPEnceq7Hb8QP7JhqoOfVuH006dwA5lbS9L6q2vvcNtl
-	 8NiuqzS0fCuTC+tbexHlLSIaFyIzfD6vXiB4JNK4=
-Subject: FAILED: patch "[PATCH] landlock: Fix use-after-free of the source's parent directory" failed to apply to 6.18-stable tree
+	b=gu35q+Qt6q5Ef2sQhBayqq8fVTYxP8LxieQkIbMu9J0uOMoGhhlCH5qL0MJ9F56HL
+	 FvTrevMrmRo4h2r/Un5Cff2EFtfdCqB58ZE6dcFWxtWA72QVUtN5CyvL+4OxlDCV4a
+	 H/4SdWjCF/XFslmDH0R/5cvtO3xA49jmUStjOnnA=
+Subject: FAILED: patch "[PATCH] landlock: Fix use-after-free of the source's parent directory" failed to apply to 6.12-stable tree
 To: norbert@doyensec.com,gnoack3000@gmail.com,mic@digikod.net
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:46:39 +0100
-Message-ID: <2026091639-trophy-refract-3155@gregkh>
+Date: Wed, 16 Sep 2026 16:46:42 +0100
+Message-ID: <2026091642-android-strode-2706@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 2c6dc792538260a8087ac5b22c31b3b8e47c85d6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091639-trophy-refract-3155@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091642-android-strode-2706@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
