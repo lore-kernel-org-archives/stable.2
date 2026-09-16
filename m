@@ -1,83 +1,54 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from canpmsgout02.his.huawei.com (canpmsgout02.his.huawei.com [113.46.200.217])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD3439A078
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:47:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A1F934519BA;
+	Wed, 16 Sep 2026 08:48:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.217
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548454; cv=none; b=lV4wW6AYi6NOZAycO0GazjjSIXx9Hi2WZ80Ouwtotr8XVmhCW5H4M1pSBRaRlGV03Bs0hXXsluu1UerbRUWKfNa8gOTBYXtd0yNOxvZrHOqUvlaCiCDm1Qg+PBufU5iLy67N2p/aGcIDQEdXScYccxjQC8n/Nv6VB0wDqDLEhno=
+	t=1789548500; cv=none; b=coQSa2RSEzb9RwCUl3ho0tIn/eTsOQEqQhH3NyUUCs4oCHXYVG3/3hEV43hRR2LVnHOrQtjpvezJ+5WLCLOMldL+zVmrM+alkJbVXXqEp7iGBVVM/XdvFv1p/LqKS5xQwB16bHHQ0LRgw7BXVC8BayL/zssPBYMg1RmvxwJt2Ew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548454; c=relaxed/simple;
-	bh=jJcSGXRLoyAX6cOyjXBA3x0CsP9kGy7jE7wrjeXLFDE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HEm0r6srjVHRP+vBJEpT3/mJLLq7p089JZ4TfEOwd0CwyfksW2FGRJ27P7QRMoRoVAc04CkkzmqJ9Ni4ydmd8Vbb6VFCYPAZ5YtkcOouYfO4SUcabyesFpexxNl+6CGyqUhpd/UGxSZHvZMPAQeSMkJSp6A32t5Jpz9F1JkbEOs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YQ4OytTh; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789548500; c=relaxed/simple;
+	bh=HJfF8atFf+EtkQ0oArlq2aMYpWd3JdC3DOPSxbMrx9A=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=K0S94/+7zkVwtecD8/j7SxRtR/+fVgYL+9by7OtV5/+rqoFNyNSjtBalSpIL+jvC9w9iNrv8Co8c9raPda9lkEkXISQY1jmNlk4LrdrS8oO6Th0YKH2sg0u+r9At1TonztvFFYZLQcDyLwzAHeWrDeog/ay0FuxdAQlK8v12nb4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pwFpmz5v; arc=none smtp.client-ip=113.46.200.217
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YQ4OytTh"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb652d7so562537a91.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 01:47:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789548452; x=1790153252; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=Nt3TtR6D8MLcyrkfRup1NcE0sH1AfJOXgLL4PDCV9cM=;
-        b=YQ4OytThbXe3cc7YtSToK3dg3uHlTZGk2Zc+ZYwTfGWXKPRgQpMZu0foRlE9BbimA1
-         irlyDRfEif9HrqWsFKwsbq3q0DGBkUm5nSsH+nvRASvHUlaW0nWpJJ4I+4yMz73aiGDX
-         EyaE4kPyEb8noVyGxwGF72kH3eTK5zIGAWXaVumw5odS2WcI3eFFKslwcZpFillN4qG8
-         gKwptg2Om9DFrWdxSPMcJvjtvq1RtzSHQly/SpgTp2NnxqPuU4TmNDghQAr3viUEiHI2
-         9jJrWB/srFv0oHf+V7hDEfq4ijQxLyCSF45BnHHxoLSoIoykKyR1VabYdXa23VrKQl5e
-         nGvQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789548452; x=1790153252;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=Nt3TtR6D8MLcyrkfRup1NcE0sH1AfJOXgLL4PDCV9cM=;
-        b=Xolnkv4kH7cgAjS5TmWbnI9BgpD3hjYzSJE5Wjcv/HbI1eb2SRnRYjkG/B1nZ5leDD
-         ve7iHyrA15Hb3bnzMxC6DR4GTWC+tX6tno5miIxwLR8jfDX0aKzYYJMBrxuO59Op49CY
-         Q3FEMLZGhREPhdZjx2gAq6lTZ60F3FWewuqg1hVQIG3fxatCsTV0MsMmweK9Uy3VcLuI
-         PbQAhGmjaeGumxuaR4PUzirMu2rokX9ftzRFp1ahE6Dvqls4igzF71hNc9Bcd4VJX1Iq
-         xM04nMLbuCHa6bRHr4xk7NKqaH4pOIzDNyVZZFComtYhUSnL/pCUN61RiOcQbklbMt8J
-         IE0g==
-X-Forwarded-Encrypted: i=1; AKwUvBx2y5vUSmDiQIOKEqixuBrfMlmesPjQGp0ijO7+mPbf5JXNmWdb0++b/eN6OcqXng1R0CqE/1E=@vger.kernel.org
-X-Gm-Message-State: AFuF++k1JXr4hDmAU44wNaBsMJ/fl+TXIt6/Dz24kj56k6Dl+5GAGFhO
-	5eRquDyQlR5dBJMx7ErWcjy939NaxBzhTqcZ3snpFutv0jo2pial9Ki9
-X-Gm-Gg: AYBFou3lzhRxQZG7O9nhB7APWWDF3gNdIArxPxr7tByxeC4gU4ntn34wUAJ5G790g+R
-	/LAzVtp5n8DsjfDbK/V62+nJxDLdCmDGioZ6GefZQsG+JsANUEDJwqJT6CdAN8TR1xp3eoftl63
-	Y2kC7brRhCbjfM62MtoGVl5QzO2WP67DzmY2wr97WWiINkjwaz8ktlgDbU8H2ocsRvaNeQupo3K
-	Y7SFTsqVo460kKRnDRHeXrTyQbdEgDci5KjmHOt4DTvyBXP9dNQw9AWRe4wFvLVMeWPuQS4wCSw
-	9+BELRpR+Z+d3kVfmjdfsnUtPHJGZUfY33pSx/pJsHleaqkQomQFs63ugom06HN21hfvpAKDdru
-	dWgaXZN97LlO8rbhKQnje7bJIniSK22QNNbUaK88i/EZC7Zi8FN8sVnDZ0S7h/WCS2iico/ZQRn
-	DuocaXC/1HABU1Xn7r6HLDPwkZxucplQ+6dt/Sk38APxq0iRwQb3Ic48lfQ1OpaZl/H4VBW6Mi5
-	ID5+lLGvg==
-X-Received: by 2002:a17:90a:1c82:b0:39e:2065:5f60 with SMTP id 98e67ed59e1d1-39e20655f80mr2496696a91.18.1789548452224;
-        Wed, 16 Sep 2026 01:47:32 -0700 (PDT)
-Received: from ustb520lab-MS-7E07.. ([115.25.44.221])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b6991c4sm3480351a91.6.2026.09.16.01.47.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 01:47:31 -0700 (PDT)
-From: Jiaming Zhang <r772577952@gmail.com>
-To: linux-ext4@vger.kernel.org,
-	tytso@mit.edu
-Cc: r772577952@gmail.com,
-	adilger.kernel@dilger.ca,
-	jack@suse.cz,
-	libaokun@linux.alibaba.com,
-	linux-kernel@vger.kernel.org,
-	ojaswin@linux.ibm.com,
-	ritesh.list@gmail.com,
-	syzkaller@googlegroups.com,
-	yi.zhang@huawei.com,
-	stable@vger.kernel.org
-Subject: [PATCH] ext4: clear in-inode xattr space before adding the first xattr
-Date: Wed, 16 Sep 2026 16:47:23 +0800
-Message-ID: <20260916084723.877552-1-r772577952@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com>
-References: <CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pwFpmz5v"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=gLsBgp6/np47MXvoT7Gy3Dsz1JT/6o4ck60MxFMEbMs=;
+	b=pwFpmz5vgTArTKuy9hoBMaxXTwMiImRuPfz1SMKaEY4dU87GFBeCYZzKgiyt7j3nWyPocpbir
+	dGC4zhwfvAOZ8QlKI51gBGvKxSAC5Z4WcbRSxg+ABFESZINwusMyW9RiN1NR7O2pIqCAUmdsEhQ
+	CSnC4mKrHAUWQRrBnVCTpNc=
+Received: from mail.maildlp.com (unknown [172.19.162.140])
+	by canpmsgout02.his.huawei.com (SkyGuard) with ESMTPS id 4hlC1B1LZ8zcb3J;
+	Wed, 16 Sep 2026 16:37:02 +0800 (CST)
+Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
+	by mail.maildlp.com (Postfix) with ESMTPS id 87A952017D;
+	Wed, 16 Sep 2026 16:48:13 +0800 (CST)
+Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
+ kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Wed, 16 Sep 2026 16:48:12 +0800
+From: Xie Yuanbin <xieyuanbin1@huawei.com>
+To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
+	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
+	<rostedt@goodmis.org>, <rmk+kernel@armlinux.org.uk>, <linusw@kernel.org>,
+	<kuninori.morimoto.gx@renesas.com>, <arnd@arndb.de>, <xiqi2@huawei.com>,
+	<ljs@kernel.org>, <wozizhi@huaweicloud.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
+	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
+	Xie Yuanbin <xieyuanbin1@huawei.com>
+Subject: [PATCH 5.10.y/5.15.y 0/4] ARM: fix might_sleep() WARNING for mmap_write_lock() around show_pte()
+Date: Wed, 16 Sep 2026 16:48:07 +0800
+Message-ID: <20260916084807.176359-1-xieyuanbin1@huawei.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916080011.170295-1-xieyuanbin1@huawei.com>
+References: <20260916080011.170295-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,71 +56,35 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems500002.china.huawei.com (7.221.188.17) To
+ kwepemk300012.china.huawei.com (7.202.194.175)
 
-An inode can hold extended attributes in the space that follows its extra
-fields, whose size is given by i_extra_isize.  When ext4 loads an inode,
-ext4_iget_extra_inode() validates that space only if it starts with the
-xattr magic, and only then sets EXT4_STATE_XATTR.  Without the magic, the
-space is treated as empty and is not checked.
+On linux-5.10.y and linux-5.15.y, commit 07e4d5380f2a844ab7a1 ("ARM:
+9485/1: mm: acquire mmap write lock around show_pte() for user faults")
+introduces a might_sleep() WARNING when using mmap write lock. This is
+due to the lack of upstream commit 59e4f3b45b96a24fc9b7 ("ARM: ensure
+interrupts are enabled in __do_user_fault()") and
+commit e79ca91165d4fd18549c ("ARM: 9484/1: enable interrupts when
+unhandled user faults are triggered") .
 
-ext4_xattr_ibody_set() passes the space to ext4_xattr_set_entry() whether
-or not EXT4_STATE_XATTR is set.  ext4_xattr_set_entry() walks the entries
-there to find min_offs, the lowest value offset.  That offset decides
-whether the new value fits and where the value is copied:
+This series backports all these upstream patches into the linux-5.10.y:
+1. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
+2. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
+3. commit 59e4f3b45b96a24fc9b7 ("ARM: ensure interrupts are enabled in
+   __do_user_fault()")
+4. commit e79ca91165d4fd18549c ("ARM: 9484/1: enable interrupts when
+   unhandled user faults are triggered")
 
-	free = min_offs - ((void *)last - s->base) - sizeof(__u32);
-	...
-	void *val = s->base + min_offs - new_size;
-
-A crafted image can leave non-zero bytes in that space without the magic
-where ext4 looks for it, for example by shrinking i_extra_isize.  Those
-bytes are parsed as entries, and an entry that claims an in-inode value at
-offset 0 sets min_offs to 0.  Because free is a size_t, the subtraction
-then wraps around to a huge value, and the free space check passes although
-the value does not fit.  The value is copied new_size bytes before the
-start of the space, over the inode's own fields and, for a large value, the
-memory in front of the inode.
-
-On a kernel without KASAN, the copy corrupts memory: it overwrites the
-inode's own fields and, for a large value, also the memory in front of the
-inode.  The bytes and their length are decided by the setxattr() caller.
-Nothing is freed and reused here, so the use-after-free in the report only
-reflects where the write happened to land.
-
-Triggering this issue requires mounting a crafted image, which needs
-CAP_SYS_ADMIN or automounting of removable media; after that, any
-setxattr() on the file reaches this path.  The issue was found by fuzzing
-and has not been seen in production; a reproducer is available in the
-linked report.
-
-Clear the space in ext4_xattr_ibody_set() before calling
-ext4_xattr_set_entry() when EXT4_STATE_XATTR is not set, so that the walk
-starts from the empty entry list.
-
-Fixes: ac27a0ec112a ("[PATCH] ext4: initial copy of files from ext3")
-Closes: https://lore.kernel.org/lkml/CANypQFZzxTAH=4QRRDoqH6VAw1daAq88NDWiQKoM7QTOnP40sg@mail.gmail.com/
-Cc: stable@vger.kernel.org
-Assisted-by: Claude Code:claude-opus-5
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
----
- fs/ext4/xattr.c | 4 ++++
- 1 file changed, 4 insertions(+)
-
-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-index 5c310747b965..2e5f39b710bd 100644
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -2274,6 +2274,10 @@ int ext4_xattr_ibody_set(handle_t *handle, struct inode *inode,
- 		if (IS_ERR(ea_inode))
- 			return PTR_ERR(ea_inode);
- 	}
-+
-+	if (!ext4_test_inode_state(inode, EXT4_STATE_XATTR))
-+		memset(s->first, 0, s->end - (void *)s->first);
-+
- 	error = ext4_xattr_set_entry(i, s, handle, inode, ea_inode,
- 				     false /* is_block */);
- 	if (error) {
--- 
-2.43.0
-
+In the upstream version, the following patches are a patch set:
+a. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
+   is_translation_fault()")
+b. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to report
+   execution of memory faults")
+c. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault"):
+   which is 1.
+d. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening"):
+   which is 2.
+The fixed issues by this patch set also exist in linux-5.10 && linux-5.15.
+a. and b. do not need to be backported, and after c. and d.
+is backported, 3. and 4. can be safely patched.
