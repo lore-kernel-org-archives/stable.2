@@ -1,222 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from sender5-op-o11.zoho.com (sender5-op-o11.zoho.com [165.173.182.11])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B214C4E80DA;
-	Wed, 16 Sep 2026 10:54:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556060; cv=none; b=qO/WS70+zdFtCSg1Ybhgu9CM5MAltIppVZC0p+ilvPbFD8gyCAsSnO22ptV0dgBZgvcIjEX+0w6vRG/Sq/45HSuUrPnK/lkHdcYi/BVstrltOxVfgKZHf2tbWbZGa95Eqo0oJDhT1LIibXEn1v94p/G59OSjWrljAE8Oy8ccy/0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556060; c=relaxed/simple;
-	bh=pWq26uk36Fa3vaxgg5PlpdHHNdiXgXw4Jez39b9S7yY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA374CDA25;
+	Wed, 16 Sep 2026 10:55:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.182.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789556159; cv=pass; b=lFtIN+40MOFXM8Kvgweynl4B8KsN2nsj3kc2d0O48c04oZYQeeB03GJ3Lb+XdA4fCmmeGDD+0ZtmN7H7cH2GktOH4kMbdUqGgQUZZeN+eUnKAVoAWrPNOUkQC7Vj17mhoryCRPGL7NQar7163eTb9EuvDQpeqwR3/U9U63H8LM8=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789556159; c=relaxed/simple;
+	bh=h7hwrBNm9KgLCgtXSIfqFteBSYkIeeEyEYqo+xhafss=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=I8yRnjhYCLEfiXK6HFlK9RoLvxXjCASNZfDfWcsaCRXmwm0Yf7TRHTR6chzcROb5trFoQtrBOFc81xAI+LKYbXIiZ7fUotwVjJd1r6PuLuz+q7nVB9PW0tgX6QVOm4z1Hbc4NOvQ2QNIGjatO5vXvZFhdcUMGvw3CohV8kKOcnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HmVxjWAI; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=DWwtoM1qs2nga6CR5dw7qSkfFmbFxccOEk1AFzzWJ1SCYUCMyxBgNHnLRmHcjeXoaXLuwKdzK3M8HxPEAlyYKjlgXT14JQclqdOpOoq06iw7FG3PrSnBmJwKxz+icYKUEc/7VVmmzoK7yWmgRA1zzLpCAEu0MqeWk3zJQQ5Q9w0=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b=kaM1Hf24; arc=pass smtp.client-ip=165.173.182.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HmVxjWAI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57CB51F00898;
-	Wed, 16 Sep 2026 10:54:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789556046;
-	bh=Lk85xeNcSE092LkOlJCMQ/OGCYgiaRkt+beVhCe3upM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=HmVxjWAI/6i5FoXl7rUite4rysWcEEQDdkTWX9veRxbkCPUBQRW4yRQPavj6GyaiC
-	 qnTvgs5NZhGjxQppVb8aqE4tAutWQoMp+9vYiQuCgqIpTp2SI0HQ1+Djv8ai3/QQih
-	 6HcOCKtn1YR3ZOtKQYjcpltUEWEEqi+8g2PmODGmZ89S2lpW4LEMtciuNosj1bm7c+
-	 oL7AYPKNo9yWbdDQ6mG40BdlSXVUg2VPj21bZ9O2X5GEFJYqAngksppgV2WhE3hEu3
-	 vXwFUmQGi3Qs/RIkbKCZD9YDnoGFrqUaSsuSqCYWWg2XiLRT0+qCb1moi4oHGMuOc/
-	 nkKuYhImINXxA==
-Date: Wed, 16 Sep 2026 11:53:58 +0100
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
-	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
-	apopple@nvidia.com, peterx@redhat.com, jgg@ziepe.ca, 
-	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/2] mm/mempolicy: use vm_normal_folio_pmd() in
- queue_folios_pmd()
-Message-ID: <aqpyp7ouLyxGhJDK@gremlin>
-References: <20260912034833.2952750-1-gourry@gourry.net>
- <20260912034833.2952750-2-gourry@gourry.net>
+	dkim=pass (1024-bit key) header.d=collabora.com header.i=sebastian.reichel@collabora.com header.b="kaM1Hf24"
+ARC-Seal: i=1; a=rsa-sha256; t=1789556121; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=jEaBHBWW5yD1J0TV/UbG5j9Ewwl04zZ0anGKtYuxZaxWTDAnAaAn9hIMaKxRayNED76FPKo9p4NTfRBSMdROVlzvQ8TJazYtmd9JoZffPyuH8Ys6Ryl7awiwFy0rutLa6WlEAaob6pyrymdltl3Sf1UC+CoeOu0EpWOGZwCu7OA=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789556121; h=Content-Type:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=Uva0NgB3KxuwVZLkt485f87mZRbvUkG56Nz1XWwQ3aQ=; 
+	b=ZBAYs5YLuR0GEBF34x5oeX6OxtXp/UjG18mSMlftfgaxj3TTDJ9YyL/Jpba/oammHpNpGGF5XPhCfv8YoZdGWcKbyoSBCrWVAfVAuuN15TjyZdwuNAn16r1DMYQuKU5lFtLBxZHf4xjfiatE58u9aqr0pGegHFXo9ycFJPy04bc=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=collabora.com;
+	spf=pass  smtp.mailfrom=sebastian.reichel@collabora.com;
+	dmarc=pass header.from=<sebastian.reichel@collabora.com>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789556121;
+	s=zohomail; d=collabora.com; i=sebastian.reichel@collabora.com;
+	h=Date:Date:From:From:To:To:Cc:Cc:Subject:Subject:Message-ID:MIME-Version:Content-Type:In-Reply-To:Message-Id:Reply-To;
+	bh=Uva0NgB3KxuwVZLkt485f87mZRbvUkG56Nz1XWwQ3aQ=;
+	b=kaM1Hf24gWrC/DYDPNrI1n9Mt7jEguW0zimgpIshelsPRysqaJLfZKM+rwO/tiPl
+	Q06kEQNpxhH8w/ZzLv5vXZ31v0cgwiyrNMTY6XH8pWKqVCuU/fROC9nVNp7ellxtBM0
+	UCW+fqrJkMfkzireW/BhnOYPIWmXGVWmgklpDe34=
+Received: by mx.zohomail.com with SMTPS id 1789556120046516.7994642098594;
+	Wed, 16 Sep 2026 03:55:20 -0700 (PDT)
+Received: by venus (Postfix, from userid 1000)
+	id EBB86180918; Wed, 16 Sep 2026 12:55:15 +0200 (CEST)
+Date: Wed, 16 Sep 2026 12:55:15 +0200
+From: Sebastian Reichel <sebastian.reichel@collabora.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andriy.shevchenko@linux.intel.com, brgl@kernel.org, heiko@sntech.de, 
+	linusw@kernel.org, linux-arm-kernel@lists.infradead.org, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, ye.zhang@rock-chips.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] gpio: rockchip: Fix bank clock leak in
+ rockchip_get_bank_data()
+Message-ID: <aqpxJaYqJ5NHG1No@venus>
+References: <20260916102258.2018689-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="pceyosqab754y6el"
 Content-Disposition: inline
-In-Reply-To: <20260912034833.2952750-2-gourry@gourry.net>
+In-Reply-To: <20260916102258.2018689-1-vulab@iscas.ac.cn>
+X-Zoho-Virus-Status: 1
+X-Zoho-AV-Stamp: zmail-av-0.2.13.1.5.4/289.544.40
+X-ZohoMailClient: External
 
-On Fri, Sep 11, 2026 at 11:48:32PM -0400, Gregory Price wrote:
-> mmap a VM_PFNMAP region whose ->huge_fault installs a PMD through
-> vmf_insert_pfn_pmd() - a vfio-pci MMIO BAR does this - then
->
-> 	mbind(p, len, MPOL_BIND, &mask, maxnode, MPOL_MF_STRICT);
->
-> With a stand-in module for the driver:
->
->   BUG: unable to handle page fault for address: fffff96dc0000008
->   RIP: 0010:queue_folios_pte_range+0xaf/0x440
->    walk_pgd_range+0x52b/0xaf0
->    __walk_page_range+0x6a/0x1d0
->    walk_page_range_mm_unsafe+0x193/0x230
->    queue_pages_range+0x64/0xa0
->    do_mbind+0x25e/0x640
->
-> queue_folios_pmd(), inlined above, calls pmd_folio() on that PMD.  The pfn
 
-This makes me wonder if pmd_folio() is just generally defunct in favour of
-vm_normal_folio_pmd()?
+--pceyosqab754y6el
+Content-Type: text/plain; protected-headers=v1; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
+Subject: Re: [PATCH] gpio: rockchip: Fix bank clock leak in
+ rockchip_get_bank_data()
+MIME-Version: 1.0
 
-> is raw MMIO with no memmap entry, so the folio lands in unpopulated
-> vmemmap.  Neither guard stops the walk:
->
->   walk_page_test()         skips VM_PFNMAP, but queue_pages_walk_ops
->                            supplies ->test_walk, so it never runs
->   queue_pages_test_walk()  honours vma_migratable(), but only while
->                            MPOL_MF_STRICT is clear
->
-> A VM_MIXEDMAP vma needs neither flag, being vma_migratable(), so plain
-> mbind(MPOL_MF_MOVE) reaches this too - and there the bad folio carries on
-> into migrate_folio_add() and folio_isolate_lru().  mshv_vtl_low is such a
-> mapping.
->
-> Use vm_normal_folio_pmd() and skip on NULL, as the PTE loop in
-> queue_folios_pte_range() already does with vm_normal_folio().  On the NULL
-> path, retain ACTION_CONTINUE handling for the huge zero PMD.
->
-> mbind(MPOL_MF_STRICT) over a PMD mapped VM_PFNMAP region now returns 0
-> rather than -EIO.  The PTE loop already returned 0 there.
->
-> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
-> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+Hi,
+
+On Wed, Sep 16, 2026 at 10:22:58AM +0000, Wentao Liang wrote:
+> rockchip_get_bank_data() obtains the bank clock with of_clk_get() and
+> enables it before reading the GPIO version ID.  The reference returned
+> by of_clk_get() is never dropped on the error paths that follow:
+>=20
+> When the debounce clock is missing, the bank clock is disabled with
+> clk_disable_unprepare() but the reference is never released with
+> clk_put().  When the version ID is unsupported, the function returns
+> -ENODEV leaving the bank clock prepared, enabled and referenced.
+>=20
+> Drop the reference with clk_put() on both error paths and disable and
+> unprepare the bank clock on the unsupported version path so that probe
+> failures no longer leak the clock.
+>=20
+> Fixes: 41209307cad7 ("gpio: rockchip: change the GPIO version judgment lo=
+gic")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
-> Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  mm/mempolicy.c | 16 +++++++++-------
->  1 file changed, 9 insertions(+), 7 deletions(-)
->
-> diff --git a/mm/mempolicy.c b/mm/mempolicy.c
-> index 2ad0a5f18280..8fc8a975657e 100644
-> --- a/mm/mempolicy.c
-> +++ b/mm/mempolicy.c
-> @@ -667,7 +667,8 @@ static inline bool queue_folio_required(struct folio *folio,
->  	return node_isset(nid, *qp->nmask) == !(flags & MPOL_MF_INVERT);
->  }
->
-> -static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
-> +static void queue_folios_pmd(pmd_t *pmd, unsigned long addr,
-> +			     struct mm_walk *walk)
->  {
->  	struct folio *folio;
->  	struct queue_pages *qp = walk->private;
-> @@ -678,13 +679,14 @@ static void queue_folios_pmd(pmd_t *pmd, struct mm_walk *walk)
->  			qp->nr_failed++;
->  		return;
+
+This got fixed in 3e46c18d5d87 ("gpio: rockchip: convert bank->clk
+to devm_clk_get_enabled()") and 950007767823 ("gpio: rockchip:
+teardown bugs and resource leaks") already. Please make sure to use
+latest kernel trees.
+
+Greetings,
+
+-- Sebastian
+
+>  drivers/gpio/gpio-rockchip.c | 3 +++
+>  1 file changed, 3 insertions(+)
+>=20
+> diff --git a/drivers/gpio/gpio-rockchip.c b/drivers/gpio/gpio-rockchip.c
+> index 44d7ebd12724..69a7cd8c9a1a 100644
+> --- a/drivers/gpio/gpio-rockchip.c
+> +++ b/drivers/gpio/gpio-rockchip.c
+> @@ -673,6 +673,7 @@ static int rockchip_get_bank_data(struct rockchip_pin=
+_bank *bank)
+>  		if (IS_ERR(bank->db_clk)) {
+>  			dev_err(bank->dev, "cannot find debounce clk\n");
+>  			clk_disable_unprepare(bank->clk);
+> +			clk_put(bank->clk);
+>  			return -EINVAL;
+>  		}
+>  		break;
+> @@ -682,6 +683,8 @@ static int rockchip_get_bank_data(struct rockchip_pin=
+_bank *bank)
+>  		break;
+>  	default:
+>  		dev_err(bank->dev, "unsupported version ID: 0x%08x\n", id);
+> +		clk_disable_unprepare(bank->clk);
+> +		clk_put(bank->clk);
+>  		return -ENODEV;
 >  	}
-> -	folio = pmd_folio(pmdval);
-> -	if (folio_is_zone_device(folio))
-> -		return;
-> -	if (is_huge_zero_folio(folio)) {
-> -		walk->action = ACTION_CONTINUE;
-> +	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
-> +	if (!folio) {
-> +		if (is_huge_zero_pmd(pmdval))
-> +			walk->action = ACTION_CONTINUE;
+> =20
+> --=20
+> 2.34.1
+>=20
 
-Since you've already identified that this is a leaf PMD, is there really any
-difference between setting walk->action to ACTION_CONTINUE or not?
+--pceyosqab754y6el
+Content-Type: application/pgp-signature; name="signature.asc"
 
-There's nothing to descend to in the subtree here so either way you continue to
-the next PMD entry don't you?
+-----BEGIN PGP SIGNATURE-----
 
-So there's a pmd_entry specified for both set of walk ops:
+iQIzBAABCgAdFiEE72YNB0Y/i3JqeVQT2O7X88g7+poFAmqqdZAACgkQ2O7X88g7
++powAQ//a5Z8xeBh85w663VZhDaGQvR2X2ve7juhsvd1Tnd6nC8HkT0qj226YZIg
+RyT32AJg6xMJwpXYFHljIdJURzWF71WB/qIEn+JPwEeYM2pBrqcFK9ULt7fgeJ1N
+Jas1rkSyeFmHajw+9Hq3uWyLAcPLV7qJKZJcuuTFu4EtxDG9gmZTr1WxXk9x/wRe
+bGEAGtgmCqeXUiizIc1OklUVQ+mG3RxxckCd/KrmFQH1MPfTtAElPWI+kCaB018C
+4myy1GtEisUSYe4Oy9j8FR+d1olFCFVz2gtSWE7I/7U6E5zOAH0oJcY3wrdZ2UnQ
+kOtGhlU2lnyUtAvbhCpSx8P3Kv/9/sfBKKNW2g616VsV5ISco2tQMByEc+2f7yF8
+5iDs3ItxwmjTWuV4FTUPhOkjfm55ObQbK8TinY1GseG2ZZchJKuSnzMbkOKsxi2h
+pt62dmxrSpNR8DVL4o9kibM+ro/rjPTgCbWmTjq5oA2bL5/S28rATmewYcxS53Op
+9k1QWa5p+3++gRENV0RyswrGMB0KLbiGjR8lWbI1nrZGtYC7tSDRYfoMWTATx/YM
+R+Sh5hSDEZJXs8uLA0cFCPjWP7sz0FX0mA5VXY2FUhO1zxSWqAynsPNVrIz7MvIa
+r1Vo0ZPa5snWt7h0JRm7eYw64w4/raHcfk2PZlqu9pLwt8392kg=
+=JxUH
+-----END PGP SIGNATURE-----
 
-static const struct mm_walk_ops queue_pages_walk_ops = {
-	.hugetlb_entry		= queue_folios_hugetlb,
-	.pmd_entry		= queue_folios_pte_range,
-	.test_walk		= queue_pages_test_walk,
-	.walk_lock		= PGWALK_RDLOCK,
-};
-
-static const struct mm_walk_ops queue_pages_lock_vma_walk_ops = {
-	.hugetlb_entry		= queue_folios_hugetlb,
-	.pmd_entry		= queue_folios_pte_range,
-	.test_walk		= queue_pages_test_walk,
-	.walk_lock		= PGWALK_WRLOCK,
-};
-
-But no pte_entry or install_pte handlers.
-
-Reading walk_pmd_range() in mm/pagewalk.c:
-
-static int walk_pmd_range(pud_t *pud, unsigned long addr, unsigned long end,
-			  struct mm_walk *walk)
-{
-	bool has_handler = ops->pte_entry;
-	...
-	bool has_install = ops->install_pte;
-	...
-
-	do {
-again:
-		walk->action = ACTION_SUBTREE;
-		...
-		if (ops->pmd_entry)
-			err = ops->pmd_entry(pmd, addr, next, walk);
-		if (err)
-			break;
-
-		if (walk->action == ACTION_AGAIN)
-			goto again;
-		if (walk->action == ACTION_CONTINUE)
-			continue;
-
-		if (!has_handler) { /* No handlers for lower page tables. */
-			if (!has_install)
-				continue; /* Nothing to do. */
-			...
-		}
-	...
-	} while (pmd++, addr = next, addr != end);
-	...
-}
-
-It seems that setting ACTION_CONTINUE or not makes no difference.
-
-This is really just a long way of saying maybe you could just do:
-
-	folio = vm_normal_folio_pmd(walk->vma, addr, pmdval);
-	if (!folio)
-		return;
-
-? :)
-
->  		return;
->  	}
-> +	if (folio_is_zone_device(folio))
-> +		return;
->  	if (!queue_folio_required(folio, qp))
->  		return;
->  	if (!(qp->flags & (MPOL_MF_MOVE | MPOL_MF_MOVE_ALL)) ||
-> @@ -717,7 +719,7 @@ static int queue_folios_pte_range(pmd_t *pmd, unsigned long addr,
->
->  	ptl = pmd_trans_huge_lock(pmd, vma);
->  	if (ptl) {
-> -		queue_folios_pmd(pmd, walk);
-> +		queue_folios_pmd(pmd, addr, walk);
->  		spin_unlock(ptl);
->  		goto out;
->  	}
-> --
-> 2.55.0
->
-
---
-Cheers, Lorenzo
+--pceyosqab754y6el--
