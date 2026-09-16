@@ -1,86 +1,74 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pg1-f181.google.com (mail-pg1-f181.google.com [209.85.215.181])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D19F53AAF54
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 03:33:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9EA233F5BE
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 03:45:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.181
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789529635; cv=none; b=qYkFDbEydEnthcjRR+7hdMdJMkLhI3zUknzmSiMr/65lkWR4UPgnWh29MLioh2cphBS8/UlQStWl+WhJwR4d0pVdB2kKkf9e4nfpS87dBApznpUINDkhcl+xDMU+24jT6eccUIv8qMXtHv7XvrXcKQNJLRF8BPcAPZmsez6yDcw=
+	t=1789530339; cv=none; b=QPFtzZvsLSk9DjDFJlzFnezW8pMwq0ziwHw32FMZvg3MfaOv55Jf0lRy97xuumnPTSYoCxalEm2uWrK0W1hN43aCdyLsUx7bReSYXVO2qUGx3OzzEvpWNT3kYcXhd2nQeHZ5V8qJQ3Jxy5E0R0AFDEna9luVqHH2E5wrb7uUSRM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789529635; c=relaxed/simple;
-	bh=qbPaYJBirbvT7ihHw211bCHk6KPsVXJrTqNHUfJUxcw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=UXXzzU4pXeJsmf4qWo5dLswq3InX9hQI1sevYPRg5wcXGs6vMEAM3mt2SJ1oSVaiylHhai67JI6mDifkffedPQu4uuQhSbrk4pkSi4BQLTbkFXyHy6yaXCshfBk8pk81m72Jk1uLtUzr1sljBdtYTTHlil0s0LXXbeOy5qOragA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=kvIesZli; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789530339; c=relaxed/simple;
+	bh=kj+jwfz2ESgc5zFDsF3Qm12OZV92X1W7h3OVHgPgo7Q=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=SD3Q33ZrkeXKJCy3ECUL4YU7MdZvYR8Atq/tjqShu4WMqfwcXDyCRpt/9o5qmDJmN9AeEK3ATG4JpokKgC+2+NhIjWL9jk4v26tPMtfoZWhXlCiAhC8FkcfXcgslf4gA7rZVXMXs+zc4Fc6hSqMqxHCpdXCPWywjb13Cx8DCtpg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=rKlYr2eA; arc=none smtp.client-ip=209.85.215.181
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="kvIesZli"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso387832a91.2
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 20:33:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="rKlYr2eA"
+Received: by mail-pg1-f181.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso1159222a12.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 20:45:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789529633; x=1790134433; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=nb71HvzDE3B3FVkEVJ/TFE9xXljAPx+xdoqH1xLqTX8=;
-        b=kvIesZliLjWNXzHIbikndyYWX6AZIuvM9NpRYKinjzwsZC1mYu3mREPcgUBO/ObfAa
-         oQMpf0EvItVU3xxVhnwYmy+sJgq3lHONVft3CiuSptIMv8w/UeWjqxxqHY7EFNeN6q1b
-         evBmEbb2uHhMvpclthnhlIz8Zg9Ae2/B5l5Yc=
+        d=asu.edu; s=google; t=1789530337; x=1790135137; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=G8OBnZpdkznSDHoOVDOJgOwhfNo4gWFfvtnI5e7GBu8=;
+        b=rKlYr2eAUhKC02NildikSqpZUTltbAtlFj8cRVwAWM/zt1x1Etb/5wA1cSKN0fbSWl
+         2XF0CRkek3auZZVQNszH/ceTS0wRxShcOseNnMIO3rLjEvSU7MgM6Aq3684/WoMtNwkC
+         3FcmKKAjTUbdwH1mz1pmmZM/CVGCDNtZO+QhY6Rvtl/aoxBZYjs2Rb754rfQdJhqWiR/
+         LffFB56cX2XirC2dU+3hX/3TKIbNHYAS6K9mFOc+SW1nQVafgSEzwxaQbuNyTytj+rcv
+         tuCU5iVSGo7hXAbE45W5q0QoYP72LctF7zdJSuBlD92+UNz/ckuzFzWSbL5csCjfv25f
+         jgNA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789529633; x=1790134433;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=nb71HvzDE3B3FVkEVJ/TFE9xXljAPx+xdoqH1xLqTX8=;
-        b=wFpzws1MZpZrdrmDiiZaeS+4WZrD7tFJoX+Cf6FhTYMs5BrIVae4RztH5fGD+gcVSU
-         FxgrMUbOPcfpdV+7zwyNUe9i8IOnkGBIW3Rmp9W+VSNrjWkzW0A2pnDelHY0pJVlYGLh
-         4biDllk/rkMm23oupT/hC7fnsZ/p4wnmrJgW4+HptDSlr2utoNxDycAthmJIR8TltAZ3
-         STnP55n/FD4p2y5zMnDFA2kjcmyBFeyHcnyN/t8HZgtND+cA7fq1xpErB0vUvqNqz1Sc
-         XAzFk3KQqXmSUOX6/wwOygctfk6Iio7tOzHIVW6wjYvUKPK817BNpHgabP+9hqlFe/7K
-         KAvw==
-X-Forwarded-Encrypted: i=1; AKwUvBzNO1cf95k0UyHUmPVRffBspl4RhQP86k40mUN43wmnGPhF/7g591AJuM8atmLYzTFcfOBQoxw=@vger.kernel.org
-X-Gm-Message-State: AFuF++m8QJNrFNagoHjoV80e3+UYprulM52jX3vlEdGYralrnvqWiPhA
-	dEU74haXH4j5YpXb9lb9pZHpCMoCVv/xJ+BV3S+aclyHYar+TWpzOTi5OpEg1DQNVQ==
-X-Gm-Gg: AYBFou0gYZrCxAu4L+/j7YC0jKtVY1IIaPlGUConpW0s9QsgxIAmr3Zp3elHeIGaOPU
-	Sa2gnl9EP3Ghe0at7KleevtMoF0TmlISqGrGFQwoXC7vDsONTpaAm5mHIaogHi7hAxmVI80io4o
-	/OPAUwTA8mqjknJqRCYIPAHF1eqefxnef3J9sjC0QPMdKIge1mLyyFQWjazdBdnG3/6O1P5yASN
-	hYT3tDtGiamNK7gLwRx1q4z06ixVnKHuNfX0hwtlfLkxKy4+YHvEXTylfdxR/POiPjTtA9b/VzW
-	4YfmibF36o/oseMjnF+0Pb0WdspRD30RbuaGovu/EAyAvMEMUPaZLdfu1x2GgIFKk050DB2orle
-	0bVRRiVweyOYrF9A1869Brcja7s44XjzO/j84SAsLGZ3FQQoAk5ldRko9ATbXsKH3uG2HPrn/WE
-	W8B40QAeRi3u5/9WkcxhlkLWphEssy2JeW9Hwh5EAcCFIBg4qJAniiveTuRWc/dV++lpYBE6nv4
-	WYl22qoG73ZFcs5qlHUqxIrzyO5+R8QCLFUNkL+EQ3UMt920fcz7pykQA==
-X-Received: by 2002:a17:90b:582b:b0:39e:f1:b2de with SMTP id 98e67ed59e1d1-39e1e4c54fcmr2477670a91.20.1789529633211;
-        Tue, 15 Sep 2026 20:33:53 -0700 (PDT)
-Received: from wenst-7875.tpe.corp.google.com ([2a00:79e0:203d:7:1f62:7622:5d61:2578])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bbe3e62sm1833477a91.10.2026.09.15.20.33.49
+        d=1e100.net; s=20260707; t=1789530337; x=1790135137;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=G8OBnZpdkznSDHoOVDOJgOwhfNo4gWFfvtnI5e7GBu8=;
+        b=UBWg8BEz90QKgk4Hjwen9diKlTEb23swEHT7FIFrz5pPXJRULMdvADl36wZKwKXjIV
+         1z4o1w8VgLceBhEMlqs8+/lqLaL9ZG7XTf3LSQ/mr2/N6aj2VZ1eOb6VR7GTjKMnBt/h
+         GosSiviTjXYoHh/h06pOGCiQkNKrr5lGYt3wFWvR8vRACMbre82QBEE45UrsSr5NnnxF
+         YJogJtS8WobkTQVi58ZdW9IfmSDIJrUYL5bS0+hwSpOrUi86XkG/gTLkBadOgvrEpi2s
+         i3NIFKBYijkbvDNFSuJ6pyUltkHQvTRiKpykhAfAwNjjC5dutIm96Tqz8l5QsQnBYC5Q
+         ytbQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxMk6OEfTP/0LavM5pOIJn6juduYE7z7jWDRNOL2Z4Vu7feVXMbaeBqGII+B7QitbCjiA4WIIE=@vger.kernel.org
+X-Gm-Message-State: AFuF++lnP+i09+aIJhVt2wUfLJ+z1cFzOx5lHa/INI/WsZuwmpwDq1as
+	5m0JJVkrM7AXoIZf03QtMmXJhZD++JgYMFf5nDlPe4qMWLO3TV1VH77r8hITi4OzeQ==
+X-Gm-Gg: AYBFou1u1Er1lR0W34LShwsNCOq3aMDInw4gdGDB5pfeTh4i1dPVMlgUEJHztOpQdUC
+	I+/K5h/GyoFBdyvqFetVBwuTNB1mPs4nZ+WsfcORBYdfWZkIw9fZmc1AyeU3nBmf+R6vltM974e
+	Lo7/N41py5sRsJMyvCLcuT4AGfMPi3Tf9KcyxcZ5wJ2QVuzAt+s4TQPHq+IYhGdfEyI7uEknctq
+	HBySBxvE+/uzGHNTtI0SWcc1q5bmNK01d3lT7wKoXgXWfd2vLIBrycaywU9INNSob7Anzs8iymZ
+	VKE1YlxTk3dGdBtost4DP1tFx4TJxikH1cirjysUZ0qyBGWz2c9I95JuVMfIAN7hUXQRZGpdzi/
+	D17mxbyDK8AFQTNgYN6b+vvLZ5bnWQwexUT1fxlj65afhjQY5JDKVWLMQXqRTmnu/uIyYKzReUT
+	03EjO7tZGyBdunNH7fGxP0kViTWsbpdiD0V5Q6FZ9Hrj6Fk7YDww5tzlrhdb7SXQtUT/9qDDdCX
+	lsajO+bf3pSEOUwYP9INp/VnnLdhujfR8X9jc5sfxp8j80TcQtlWLqN
+X-Received: by 2002:a17:90b:35cb:b0:39e:1e25:c6fd with SMTP id 98e67ed59e1d1-39e1e25f48cmr1670277a91.30.1789530336957;
+        Tue, 15 Sep 2026 20:45:36 -0700 (PDT)
+Received: from xps.tailc0aff1.ts.net (149-169-99-5.nat.asu.edu. [149.169.99.5])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b2753csm6953812eec.31.2026.09.15.20.45.36
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 20:33:52 -0700 (PDT)
-From: Chen-Yu Tsai <wenst@chromium.org>
-To: Liu Ying <victor.liu@nxp.com>,
-	Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Chen-Yu Tsai <wens@kernel.org>,
-	Jernej Skrabec <jernej@kernel.org>,
-	Samuel Holland <samuel@sholland.org>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Maxime Ripard <mripard@kernel.org>,
-	Thomas Zimmermann <tzimmermann@suse.de>
-Cc: Chen-Yu Tsai <wenst@chromium.org>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	linux-sunxi@lists.linux.dev,
-	imx@lists.linux.dev,
-	dri-devel@lists.freedesktop.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH RFT v2 4/5] drm/imx/dc: plane: Switch to drm_fb_dma_get_gem_clipped_addr()
-Date: Wed, 16 Sep 2026 11:33:25 +0800
-Message-ID: <20260916033327.3054126-5-wenst@chromium.org>
-X-Mailer: git-send-email 2.55.0.1032.g73a4cd73de-goog
-In-Reply-To: <20260916033327.3054126-1-wenst@chromium.org>
-References: <20260916033327.3054126-1-wenst@chromium.org>
+        Tue, 15 Sep 2026 20:45:36 -0700 (PDT)
+From: Xiang Mei <xmei5@asu.edu>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org,
+	linux-media@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	co+ac0ebfcd53bd2316@bugs.sh,
+	stable@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>
+Subject: [PATCH] media: go7007: only set audio_enabled if go7007_snd_init() succeeded
+Date: Tue, 15 Sep 2026 20:45:34 -0700
+Message-ID: <20260916034534.863732-1-xmei5@asu.edu>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,43 +77,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The hardware is programmed with clipped source and destination dimensions,
-but the framebuffer address is calculated using drm_fb_dma_get_gem_addr(),
-which uses the full source dimensions. This will not match the source
-offset if the top and/or left sides are clipped.
+go7007_register_encoder() sets go->audio_enabled before calling
+go7007_snd_init() and discards its return value.  go7007_snd_init()
+assigns go->snd_context only on success, so a failed ALSA setup leaves
+audio_enabled set with snd_context still NULL.  The disconnect path tests
+audio_enabled and calls go7007_snd_remove(), which dereferences
+snd_context unconditionally.
 
-Switch to the new drm_fb_dma_get_gem_clipped_addr(), which provides the
-buffer address starting at the clipped boundary.
+go7007_snd_init() returns -ENODEV once its never-decremented static card
+counter reaches SNDRV_CARDS, so SNDRV_CARDS attach/detach cycles arm the
+next attach; no memory pressure is needed.
 
-Fixes: 711a3b878366 ("drm/imx: Add i.MX8qxp Display Controller KMS")
-Cc: <stable@vger.kernel.org> # Needs drm_fb_dma_get_gem_clipped_addr()
-Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+Set go->audio_enabled only once go7007_snd_init() has succeeded.
+
+  Oops: general protection fault, probably for non-canonical address ...
+  KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
+  Workqueue: usb_hub_wq hub_event
+  RIP: 0010:go7007_snd_remove (drivers/media/usb/go7007/snd-go7007.c:273)
+  Call Trace:
+   go7007_usb_disconnect (drivers/media/usb/go7007/go7007-usb.c:1336)
+   usb_unbind_interface (drivers/usb/core/driver.c:461)
+   device_remove (drivers/base/dd.c:618)
+   device_release_driver_internal (drivers/base/dd.c:1349)
+   bus_remove_device (drivers/base/bus.c:664)
+   device_del (drivers/base/core.c:3965)
+   usb_disable_device (drivers/usb/core/message.c:1478)
+   usb_disconnect
+   hub_event (drivers/usb/core/hub.c:5966)
+   process_one_work (kernel/workqueue.c:3396)
+   worker_thread (kernel/workqueue.c:3560)
+   kthread (kernel/kthread.c:436)
+   ret_from_fork (arch/x86/kernel/process.c:158)
+   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+  Kernel panic - not syncing: Fatal exception
+
+Cc: stable@vger.kernel.org
+Fixes: 866b8695d67e ("Staging: add the go7007 video driver")
+Reported-by: <co+ac0ebfcd53bd2316@bugs.sh>
+Assisted-by: LLM
+Signed-off-by: Xiang Mei <xmei5@asu.edu>
 ---
- drivers/gpu/drm/imx/dc/dc-plane.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/media/usb/go7007/go7007-driver.c | 5 ++---
+ 1 file changed, 2 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/gpu/drm/imx/dc/dc-plane.c b/drivers/gpu/drm/imx/dc/dc-plane.c
-index 62dd0576fadc..35eb5039f5ac 100644
---- a/drivers/gpu/drm/imx/dc/dc-plane.c
-+++ b/drivers/gpu/drm/imx/dc/dc-plane.c
-@@ -65,7 +65,7 @@ static int dc_plane_check_max_source_resolution(struct drm_plane_state *state)
- static int dc_plane_check_fb(struct drm_plane_state *state)
- {
- 	struct drm_framebuffer *fb = state->fb;
--	dma_addr_t baseaddr = drm_fb_dma_get_gem_addr(fb, state, 0);
-+	dma_addr_t baseaddr = drm_fb_dma_get_gem_clipped_addr(fb, state, 0);
+diff --git a/drivers/media/usb/go7007/go7007-driver.c b/drivers/media/usb/go7007/go7007-driver.c
+index 453ab5c3aa03..7db2440886b0 100644
+--- a/drivers/media/usb/go7007/go7007-driver.c
++++ b/drivers/media/usb/go7007/go7007-driver.c
+@@ -306,10 +306,9 @@ int go7007_register_encoder(struct go7007 *go, unsigned num_i2c_devs)
+ 	if (ret < 0)
+ 		goto err_free_controls;
  
- 	/* base address alignment */
- 	if (baseaddr & 0x3) {
-@@ -146,7 +146,7 @@ dc_plane_atomic_update(struct drm_plane *plane, struct drm_atomic_commit *state)
- 	src_w = drm_rect_width(&new_state->src) >> 16;
- 	src_h = drm_rect_height(&new_state->src) >> 16;
+-	if (go->board_info->flags & GO7007_BOARD_HAS_AUDIO) {
++	if ((go->board_info->flags & GO7007_BOARD_HAS_AUDIO) &&
++	    go7007_snd_init(go) == 0)
+ 		go->audio_enabled = 1;
+-		go7007_snd_init(go);
+-	}
+ 	return 0;
  
--	baseaddr = drm_fb_dma_get_gem_addr(fb, new_state, 0);
-+	baseaddr = drm_fb_dma_get_gem_clipped_addr(fb, new_state, 0);
- 
- 	fu_ops = dc_fu_get_ops(dplane->fu);
- 
+ err_free_controls:
 -- 
-2.55.0.1032.g73a4cd73de-goog
+2.43.0
 
