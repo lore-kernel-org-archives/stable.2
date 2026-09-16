@@ -1,47 +1,42 @@
-Received: from out198-10.us.a.mail.aliyun.com (out198-10.us.a.mail.aliyun.com [47.90.198.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF6BF389E1A;
-	Wed, 16 Sep 2026 17:48:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=47.90.198.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8644389E1A;
+	Wed, 16 Sep 2026 17:49:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580934; cv=none; b=SAI7JrVOwF0TuGJ/nC6VIBQf5Z7qHPQ0X7BuBnH9hcOFiFJxTeGfEuekqiCzM2fciXwLiBTRI7ETI1cKXTl4Ke1kCu/TlNbW+/fhn1vogFwKVHDVCgDaHgV++LQ7BrSUJAH4ObDuC03f7lCAZQuo8tpPQqjkml+UPswPy0jyx+0=
+	t=1789580969; cv=none; b=FZX7ybc6WLIv+bDmmGYH9b6mBA19jILA9rBX6iLXWuGN4mVV3d8zFXUpZ3yQhwRKzfdvhOhHmuxwFMUtHsCO9dF/EXnA/U3f3U4LW8GcQoIxC20RbPoqN2P7/U6iOO3o30Cv1f0pkFecmsQtsQOBB2dx9PZtoU/8n9AbKk9tsHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580934; c=relaxed/simple;
-	bh=k33fXF4XusNxY5ulRNWOjlV64rtCPhIW66nonQLKaoY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uvynvH3ZK0A0GIcC4UXObm2Loae7LU8kI7qLPHuhtdpfhq3c4/imc66ZekrAt7jn9j9ugUJ6/evmvDq/V5r9Oc0cxlgLbjTdSyf48CBM1a64jjZ9RyQimDZZWKtCuGxwMFyi6Gffll9+PHGc3eI/pwk6KKWOYKnKq56ELuMTMwE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=NaFB7E9g; arc=none smtp.client-ip=47.90.198.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="NaFB7E9g"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789580876; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=Zx1QEPZrMvacbciA8Pq0PrXq/rwJg/pG0xocikRHfbE=;
-	b=NaFB7E9g7Cz1b98erf7uf1QlfHCBMmiJzN6Pz3F6IByvXrQYoC/U4kGGJzWzF0MBlic/umkMXKD3QQCJzVbhRh/4RelEfKMMxdx6Y0suZpNZJ/n4sJB7bxRFYCRKG6BM+qQrOdX0QFtRjDiVBXudyz2He0v2NIpH7/e9pp2kRvc=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436481|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00685537-0.000624417-0.99252;FP=3450452327357023579|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jFIg.Ue_1789580875;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jFIg.Ue_1789580875 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 01:47:56 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: mcgrof@kernel.org,
-	petr.pavlu@suse.com,
-	da.gomez@kernel.org,
-	samitolvanen@google.com,
-	atomlin@atomlin.com
-Cc: mmaurer@google.com,
-	masahiroy@kernel.org,
-	linux-modules@vger.kernel.org,
+	s=arc-20240116; t=1789580969; c=relaxed/simple;
+	bh=fuD3CdZr8I5VHiDP5SDUDPglDILp1CKYBcDBteOxMyk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cyBq/AT7ft2CrNd896EhP2rKSK+ewbk2g27jA28Ez2PSKOoAQpeqE+WN9NERWTc8+i4hLflIJj3iw4uMzvYp+9SaEmHB60s093umTn5TM07sv5CG+gByb9aATmJcJvYWU1+LyLhIykmrK2HxIjlai0axcXmq2pGFyI+YNbQZ9bw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABn0TuT1qpqQOZuCA--.23890S2;
+	Thu, 17 Sep 2026 01:49:07 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: dri-devel@lists.freedesktop.org,
+	jbrunet@baylibre.com,
+	khilman@baylibre.com,
+	linux-amlogic@lists.infradead.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	martin.blumenstingl@googlemail.com,
+	mripard@kernel.org,
+	neil.armstrong@linaro.org,
+	sam@ravnborg.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] module: Sanitize the undefined sh_name of SHT_NULL sections
-Date: Thu, 17 Sep 2026 01:47:52 +0800
-Message-ID: <20260916174753.14870-2-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260916174753.14870-1-fangxy@xiaopeng.com>
-References: <20260916174753.14870-1-fangxy@xiaopeng.com>
+Subject: [PATCH] drm/meson: Fix platform device reference leak in meson_encoder_hdmi_probe()
+Date: Wed, 16 Sep 2026 17:48:39 +0000
+Message-Id: <20260916174839.2089240-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,100 +44,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABn0TuT1qpqQOZuCA--.23890S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZryDCFWrGr4UZF1rWw18uFg_yoWktrXEgw
+	10kas7ur1xKFs7Kw17ArW3uFs2yFnxuay09rsFqFWfta4rZr9rXFW7CrykXr4ava4fCayD
+	J340gF1FgFn7KjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
+	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
+	W0obIYCTnIWIevJa73UjIFyTuYvjfUw5l8UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIMA2qqpO9tdQAAsS
 
-elf_validity_cache_secstrings() skips the sh_name bounds check for a
-SHT_NULL section:
+of_find_device_by_node() takes a reference on the HDMI transceiver
+device, but the successful probe path never releases it; the reference
+is only dropped when cec_notifier_conn_register() fails. The CEC
+notifier keeps the device as a lookup key without taking a reference of
+its own, so put the device right after the registration.
 
-	for (i = 0; i < info->hdr->e_shnum; i++) {
-		shdr = &info->sechdrs[i];
-		/* SHT_NULL means sh_name has an undefined value */
-		if (shdr->sh_type == SHT_NULL)
-			continue;
-		if (shdr->sh_name >= strhdr->sh_size) {
-
-A SHT_NULL section may then carry an sh_name past the end of
-.shstrtab. The name lookups that run afterwards do not skip SHT_NULL.
-This is find_any_unique_sec(), which load_module() uses to locate
-".modinfo":
-
-	for (i = 1; i < info->hdr->e_shnum; i++) {
-		if (strcmp(info->secstrings + info->sechdrs[i].sh_name,
-			   name) == 0) {
-
-so the out-of-bounds sh_name is read as a string. A module carrying a
-crafted SHT_NULL section reads past its in-memory copy:
-
-  BUG: KASAN: vmalloc-out-of-bounds in strcmp+0xb0/0xc0
-  Read of size 1 at addr ffa00000005436e0 by task insmod/81
-  ...
-   strcmp+0xb0/0xc0
-   find_any_unique_sec+0x103/0x190
-   load_module+0x5c4/0x8600
-
-sh_name has no defined value for SHT_NULL, so give it one that is in
-bounds: the empty string at index 0. The walkers then compare against
-"" and, as before, ignore the section, so no valid module is affected.
-
-Fixes: 3c5700aeabd8 ("module: Factor out elf_validity_cache_secstrings")
+Fixes: 0af5e0b41110 ("drm/meson: encoder_hdmi: switch to bridge DRM_BRIDGE_ATTACH_NO_CONNECTOR")
 Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
+ drivers/gpu/drm/meson/meson_encoder_hdmi.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Found by reading the section-name walkers in kernel/module/main.c after
-9a5ff4568932 tightened the string-table types. elf_validity_cache_secstrings()
-skips the sh_name bounds check for a SHT_NULL section, but find_any_unique_sec()
-still resolves every section's name as secstrings + sh_name, so the skip leaves
-one path where an unchecked sh_name is read as a string. Patch 2/2 fixes the
-matching SHT_NOBITS gap on __version_ext_names; the two are independent.
-
-Reproducer: build an otherwise valid .ko and add a SHT_NULL section whose
-sh_name is past the end of .shstrtab (0x2000 in the run below, aimed at the
-redzone after the in-memory module copy). insmod it. Before the change the name
-lookup reads out of bounds; after it the SHT_NULL section resolves to "" and, as
-before, is ignored, so the module loads with rc=0.
-
-Both cases ran on 704340f1cd0d (v7.3-rc4): x86_64 defconfig plus
-CONFIG_KASAN_GENERIC and CONFIG_KASAN_VMALLOC, gcc 13.2.0, QEMU under TCG. The
-unpatched and patched kernels are built from byte-identical .config files and
-differ only by this patch. The tree already contains 9a5ff4568932, so this is
-the gap that commit left, not a re-report of it.
-
-One setup detail is not obvious. The payload has to match the kernel's
-vermagic to reach load_module()'s name walkers, so the patched kernel is built
-with LOCALVERSION pinned to keep the release string byte-identical to the
-unpatched one; otherwise insmod fails on the version magic before the buggy
-lookup ever runs and the run proves nothing.
-
- kernel/module/main.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0b..e36bfe4 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2060,9 +2060,18 @@ static int elf_validity_cache_secstrings(struct load_info *info)
+diff --git a/drivers/gpu/drm/meson/meson_encoder_hdmi.c b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+index 1abb0572bb5f..8e727f0a7a8c 100644
+--- a/drivers/gpu/drm/meson/meson_encoder_hdmi.c
++++ b/drivers/gpu/drm/meson/meson_encoder_hdmi.c
+@@ -472,6 +472,9 @@ int meson_encoder_hdmi_probe(struct meson_drm *priv)
+ 		}
  
- 	for (i = 0; i < info->hdr->e_shnum; i++) {
- 		shdr = &info->sechdrs[i];
--		/* SHT_NULL means sh_name has an undefined value */
--		if (shdr->sh_type == SHT_NULL)
-+		/*
-+		 * SHT_NULL means sh_name has an undefined value. The section
-+		 * name walkers that follow (find_any_unique_sec(),
-+		 * module_mark_ro_after_init(), ...) look the name up as
-+		 * secstrings + sh_name for every section, so give the undefined
-+		 * value a safe in-bounds meaning instead of skipping the check:
-+		 * the empty string at index 0.
-+		 */
-+		if (shdr->sh_type == SHT_NULL) {
-+			shdr->sh_name = 0;
- 			continue;
-+		}
- 		if (shdr->sh_name >= strhdr->sh_size) {
- 			pr_err("Invalid ELF section name in module (section %u type %u)\n",
- 			       i, shdr->sh_type);
+ 		meson_encoder_hdmi->cec_notifier = notifier;
++
++		/* The notifier keeps the device only as a lookup key */
++		put_device(&pdev->dev);
+ 	}
+ 
+ 	priv->encoders[MESON_ENC_HDMI] = meson_encoder_hdmi;
 -- 
-2.50.1 (Apple Git-155)
+2.34.1
 
