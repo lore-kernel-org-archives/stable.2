@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FCEE52E053
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:28:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F33E534448
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:28:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572511; cv=none; b=kjTlEZvCMfaFTRMqKWnshduHvBGEQn3WGd1RUZ5KKlpkymgdjSFk1QQ/wB5Y1paWH+hSF5DIuijjSeoHcgjE+0qjkZEb/MxczRUGbXLylCwGDkTkkpwdPciRWe96hyeYT+EFjCGUEs18HYruPu0ocKBhOjRuQ95iwNOLAkNnSI0=
+	t=1789572514; cv=none; b=WqIGAqzTtJ26CQBu4w/TYQKKp/BQgNyFXny3k+CrsGtnvKQjcfVD/npXIApwIqX8CHRLG5tBf2+bXniSQTOJBlKnXaZWxIlE00UIR4kA7fGaS1uRMhxNGM/AuZaJ5/y1A01QBC3r9iTnZLehH2zDsWlUZ/1xaB36a0+bhP6lj1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572511; c=relaxed/simple;
-	bh=HVg5XnrKHJ6j2S/S+q+YVG+SvZggZgbzhU/Bfvq1UXk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WSAWdSP8O1rBViItsF9g5C/NVcEaJDWvmf6q9H0OrZq1oZSF8VtDIAAGoanwgk9SXzgQTYgroAh0u9Imkl+5nKU0VhtdRmDVgf+KGYXiJShlWr9uiI4hgXr6INeWkUaUK1CkJi6LSLHuaPL3ECNorVUxDlOLdyrF5cT5UkA1BAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JKzaPMAl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572514; c=relaxed/simple;
+	bh=8cE/X5jopaSHzTTt5DRNi2zlrTCXmTYxOXoNGby+0wE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IfhcvLyVvKiip6qMnwjYKelTtBFedXjhBObl+lQZjGm5e92NmrfBNLsNrqO0G4Pbu3tzzYcACg8yO6/d2GuP8RUhSFX4mvD4oSWQAbTsGHUQP4Oj/5MTmfHMdQ/QkMqGx6AVBk4geEkKIJHZDNan9K8kKFkNGgskSae7bZvxDGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gK4xIYsM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JKzaPMAl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 221161F0089A;
-	Wed, 16 Sep 2026 15:28:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gK4xIYsM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B4A1F000FF;
+	Wed, 16 Sep 2026 15:28:31 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789572505;
-	bh=l5EfZpLBagMxePdyN9UtB6usxfqB1GvJXpOBxVwfQ6g=;
+	s=korg; t=1789572511;
+	bh=vRCN43j9yw0BHRelQ4e9ViOkHKbLb7Z7IhiCDdvU23g=;
 	h=Subject:To:Cc:From:Date;
-	b=JKzaPMAl4k7z528R5Hj6OenAJGZTZSoNcY5Z3HV/kxDODS06X/Ez/aaYQBYEQMjhY
-	 lqos+76p7tYnnB1fhar/NsfVbDI75I0FpqG2hPIMn7vyhjmwck2AYSpagNXwYljaJD
-	 8dtCAyM0tnttAPOrQ4Bv+VTszDxSsW3zOSAdCr4w=
-Subject: FAILED: patch "[PATCH] exit: hold a reference to thread_pid across proc_flush_pid" failed to apply to 6.18-stable tree
-To: 4ncienth@gmail.com,brads@mainlining.org,brauner@kernel.org,oleg@redhat.com
+	b=gK4xIYsMCUu8ATSO0AQ5gYda0ntqhnJEeIc8uY/p57HK8wbWrqknZs/jqkTDWQYSo
+	 FimBa2JrvsZXuCWnRetr/0A8s8e9Np3tsnMx4HP3LXFc8JDmUMIcJAFWf7KLDeCK3k
+	 PeaRsBd2PzIADVh5G3nFw42vZRXdCuvN28q8oTU0=
+Subject: FAILED: patch "[PATCH] genetlink: pin family module during policy dump" failed to apply to 6.18-stable tree
+To: v3rdant.xiang@gmail.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:16:58 +0100
-Message-ID: <2026091657-curry-myself-be92@gregkh>
+Date: Wed, 16 Sep 2026 16:17:31 +0100
+Message-ID: <2026091631-uneven-moneywise-f841@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x cdd812d0683dee14ead02c9eded568685e61b23f
+git cherry-pick -x 6a1094c34d176827b2b173e163dcc964a13af93f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091657-curry-myself-be92@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091631-uneven-moneywise-f841@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,106 +62,102 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From cdd812d0683dee14ead02c9eded568685e61b23f Mon Sep 17 00:00:00 2001
-From: Daehyeon Ko <4ncienth@gmail.com>
-Date: Mon, 31 Aug 2026 09:12:21 +0900
-Subject: [PATCH] exit: hold a reference to thread_pid across proc_flush_pid
+From 6a1094c34d176827b2b173e163dcc964a13af93f Mon Sep 17 00:00:00 2001
+From: XingWang Xiang <v3rdant.xiang@gmail.com>
+Date: Wed, 2 Sep 2026 17:43:17 +0900
+Subject: [PATCH] genetlink: pin family module during policy dump
 
-Commit 0a36bad01731 ("release_task: kill the no longer needed
-get/put_pid(thread_pid)") removed the reference around proc_flush_pid().
-It assumed that free_pids(post.pids) at the end of release_task() would
-keep thread_pid alive until then.
+The generic netlink controller's policy dump keeps pointers to the target
+family's operation and policy tables in its callback state.  A dump may be
+split across multiple skbs and remain pending after the initial request.
 
-That assumption is wrong.  __change_pid() only records a detached PID in
-post.pids when pid_has_task() is false for every PIDTYPE.  If another task
-still uses the exiting task's PID as its process group or session ID,
-__unhash_process() removes the exiting task's PIDTYPE_PID link but leaves
-the PID out of post.pids.  release_task() therefore holds no reference to
-it after dropping tasklist_lock.
+Netlink pins the module which owns the dump callback, but in this case
+that is the controller's owner rather than the target family's owner.  The
+target family can consequently be unregistered and its module unloaded
+while a policy dump is pending.  Advancing the dump then dereferences
+policy memory from the unloaded module.
 
-The other task can then remove the remaining PIDTYPE links.  Its
-free_pids() call schedules delayed_put_pid(), and the RCU callback can free
-the PID before the first release_task() reaches proc_flush_pid().
+Take a reference to the target family's module when the dump starts.
+Drop it from the error and done paths.  This matches the lifetime for which
+the dump context retains the family and policy pointers.
 
-An unprivileged reproducer races wait4(-1) against setsid() to trigger this
-ordering.  Three of three fresh v7.2 KASAN boots reported:
+Fixes: d07dcf9aadd6 ("netlink: add infrastructure to expose policies to userspace")
+Cc: stable@vger.kernel.org
+Signed-off-by: XingWang Xiang <v3rdant.xiang@gmail.com>
+Link: https://patch.msgid.link/20260902084317.4092542-1-v3rdant.xiang@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-    BUG: KASAN: slab-use-after-free in
-    proc_invalidate_siblings_dcache+0x3e2/0x3f0
-    Read of size 8 by task h7_pid_reaper/1921
-
-    Call Trace:
-     proc_invalidate_siblings_dcache
-     release_task
-     wait_consider_task
-     __do_wait
-     do_wait
-     kernel_wait4
-
-    Freed by task 0:
-     kmem_cache_free
-     put_pid
-     delayed_put_pid
-     rcu_core
-
-    Last potentially related work creation:
-     __call_rcu_common
-     free_pids
-     ksys_setsid
-
-KASAN identified a 144-byte object from the pid cache and located the bad
-read 80 bytes into the freed object, matching pid->inodes.  With an
-explicit reference, three of three fresh boots completed without a KASAN
-report.  The concurrent RCU callback dropped its reference while
-proc_flush_pid() was protected, and the balancing put_pid() performed the
-final free afterward.
-
-Take a reference before __unhash_process() clears p->thread_pid and release
-it after proc_flush_pid() completes.
-
-A tested source reproducer is available privately on request.  No
-controlled read or write, information leak, or privilege escalation is
-claimed.  The mainline patch applies directly to v6.19.y and newer;
-v6.16.y through v6.18.y need a context-adjusted backport.
-
-Fixes: 0a36bad01731 ("release_task: kill the no longer needed get/put_pid(thread_pid)")
-Reported-by: syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=0aee5e8066eddbbe7397
-Reported-by: syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com
-Link: https://syzkaller.appspot.com/bug?extid=e8b3520b53e78e90034e
-Cc: stable@vger.kernel.org # see patch description, needs adjustments for 6.16.y-6.18.y
-Signed-off-by: Daehyeon Ko <4ncienth@gmail.com>
-Link: https://patch.msgid.link/20260831001221.3755948-1-4ncienth@gmail.com
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
-
-diff --git a/kernel/exit.c b/kernel/exit.c
-index 182c06671c78..e12072f1507c 100644
---- a/kernel/exit.c
-+++ b/kernel/exit.c
-@@ -261,8 +261,11 @@ void release_task(struct task_struct *p)
- 	pidfs_exit(p);
- 	cgroup_task_release(p);
+diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
+index 0da39eaed255..41d37442f186 100644
+--- a/net/netlink/genetlink.c
++++ b/net/netlink/genetlink.c
+@@ -1513,6 +1513,7 @@ struct ctrl_dump_policy_ctx {
+ 	struct netlink_policy_dump_state *state;
+ 	const struct genl_family *rt;
+ 	struct genl_op_iter *op_iter;
++	struct module *owner;
+ 	u32 op;
+ 	u16 fam_id;
+ 	u8 dump_map:1,
+@@ -1555,6 +1556,9 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 		return -ENOENT;
  
--	/* Retrieve @thread_pid before __unhash_process() may set it to NULL. */
--	thread_pid = task_pid(p);
-+	/*
-+	 * Pin @thread_pid before __unhash_process() clears it. The last
-+	 * PIDTYPE detach can otherwise free it before proc_flush_pid().
-+	 */
-+	thread_pid = get_pid(task_pid(p));
+ 	ctx->rt = rt;
++	ctx->owner = rt->module;
++	if (!try_module_get(ctx->owner))
++		return -ENOENT;
  
- 	write_lock_irq(&tasklist_lock);
- 	ptrace_release_task(p);
-@@ -291,8 +294,8 @@ void release_task(struct task_struct *p)
+ 	if (tb[CTRL_ATTR_OP]) {
+ 		struct genl_split_ops doit, dump;
+@@ -1565,7 +1569,7 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 		err = genl_get_cmd_both(ctx->op, rt, &doit, &dump);
+ 		if (err) {
+ 			NL_SET_BAD_ATTR(cb->extack, tb[CTRL_ATTR_OP]);
+-			return err;
++			goto err_put_owner;
+ 		}
+ 
+ 		if (doit.policy) {
+@@ -1583,16 +1587,20 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 				goto err_free_state;
+ 		}
+ 
+-		if (!ctx->state)
+-			return -ENODATA;
++		if (!ctx->state) {
++			err = -ENODATA;
++			goto err_put_owner;
++		}
+ 
+ 		ctx->dump_map = 1;
+ 		return 0;
  	}
  
- 	write_unlock_irq(&tasklist_lock);
--	/* @thread_pid can't go away until free_pids() below */
- 	proc_flush_pid(thread_pid);
-+	put_pid(thread_pid);
- 	exit_cred_namespaces(p);
- 	add_device_randomness(&p->se.sum_exec_runtime,
- 			      sizeof(p->se.sum_exec_runtime));
+ 	ctx->op_iter = kmalloc_obj(*ctx->op_iter);
+-	if (!ctx->op_iter)
+-		return -ENOMEM;
++	if (!ctx->op_iter) {
++		err = -ENOMEM;
++		goto err_put_owner;
++	}
+ 
+ 	genl_op_iter_init(rt, ctx->op_iter);
+ 	ctx->dump_map = genl_op_iter_next(ctx->op_iter);
+@@ -1624,6 +1632,8 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 	netlink_policy_dump_free(ctx->state);
+ err_free_op_iter:
+ 	kfree(ctx->op_iter);
++err_put_owner:
++	module_put(ctx->owner);
+ 	return err;
+ }
+ 
+@@ -1760,6 +1770,7 @@ static int ctrl_dumppolicy_done(struct netlink_callback *cb)
+ 
+ 	kfree(ctx->op_iter);
+ 	netlink_policy_dump_free(ctx->state);
++	module_put(ctx->owner);
+ 	return 0;
+ }
+ 
 
