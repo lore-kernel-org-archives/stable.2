@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEBBB47D925
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 247274CEE63
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573761; cv=none; b=CUJfKQD3oOU7wyQjzubO1F6F5SW4Htz86utdi1Q0lqStlDOZW9HJkLvbNr7w178MmDyw/CX3qiBWx9ytCb5NB9Xj+ygnjgnx6Ann8prU+yJed/IKI2dJFITWEg72PZyPxHA3ErZB4EovpOFywrZiQEDy1sviEoOiq3Oe8b3xKh0=
+	t=1789573762; cv=none; b=jd8CJQVPjOYSuNVPAM9Pa73xeNBw6nSt0v3kU0hgJCvZOX0p46zT9IprLEhI2feMu8U6cpRONiYJEoa2ckXyO6ZiYS93VgSmx3alzPE/tcTGVLbXuBdkoUN0gteSFM9LdzF5wd7qpKl4P9urhMQe55q9otHFo82JvuBboxgOsjM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573761; c=relaxed/simple;
-	bh=iBkJ6VwcF95GwL42lkPVut7HLAjaRcYgREjWLjw0pyg=;
+	s=arc-20240116; t=1789573762; c=relaxed/simple;
+	bh=Z0KIfUevhMIR1zhY6f9veziWlLGTEmrRd+jYBkiOjQI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qPAp0yAJGwLpFgmrbghKdFgrqxt9GtSMUKPbIHKlSrM2xBCcBWLTiN92ZFOB+AS1AIBiwjOpj+QuCBVICT7GrJvdVhMYSMVPF9A4KYoSMdlZ7UuRvaQP3LZMYqdPk9/a6dk/zIPnUQM+dI3o+mRTZb1UQyshQ9vzDXRbXKlTs2A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dR8KNxP8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=LJk4LxeCEZn0xwPWgVS+mU7ih6AGQD4S16d+UF3jQqCOr0HMFZV5nUdOHI2ZhvTeMLZXkuLVn80M4PsjJ9aS7+H62yhNwcA7SnieGFWutXlUHr6/40ts7tEf5wMAdCRPAKZS+Q+1kp6qK7T6sLy2zLk3m9tTOXSERatYAeajwe4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RI8NGtET; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dR8KNxP8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3297C1F0089A;
-	Wed, 16 Sep 2026 15:49:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RI8NGtET"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A0201F000FF;
+	Wed, 16 Sep 2026 15:49:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789573759;
-	bh=hHSSJ2+k2v0BUACTwB9KLzvSJz+uK/qcaYq3ceEOelw=;
+	s=k20260515; t=1789573760;
+	bh=Xo00tS4XMWBvGEq2zWUkvgqyH6QnwB96Ki/8WpnI65k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dR8KNxP8DVmQqNbRWvtC5Q6TxuZ0yeQxMLiqd6piGml6feNR2z1TaBqp2S/E85zZu
-	 yhkuf0Tkq7Nd+/j72cshNCBxv9dgzvdk+1QAaNksC1h6k2x6/YlNUiBOJvbHXNa2TM
-	 gfudivuhC9wV73mq/eFQero09YhP/VpEWJxk9z3STgndbA/swMtWCTbWThi7qidOrG
-	 2AVu+WrkIasEsWYAATzQCfvFbXRQELto2mR7QyNCnMTvUrQJz+angzsfrBq7dU4C2x
-	 z6FJiZeN5Q5HnK7CDIp+s13Uinhk4H/bVHMMDZyQzPQWeBpZMDqFtf/XEw/ryP3xkV
-	 nZlTsYvQqgKIA==
+	b=RI8NGtETAlQqrD2qkdU+DdzQI5Z+Vul3U3q29L/Tg+QvgEH+9fZfroFRvUPhifDLk
+	 y5iRNU3e2x4it/cjisxGFdJEfvMPfk3s0apoP4tiSZjZZsaEg9UpKzVge5g01b6TBw
+	 xAavKHfzrIh3FsRdrtvrz/h8QUADbv3AQ2FBnGg7DFtLdABNm6ZX93c9WjnfOn8DqS
+	 JTSIYBugIaT2uVJT2yJoTppFeXVkXw+z4LpKdChygAPkBYdAbAnYVWZWcUtn2IbJ+T
+	 ZjIc0Zky6N9nerpi9WHRz5IKaW0PxT4BCuSBROUpX3NfB/yrIOTQmOvbNs5tJGM5mG
+	 OU4hshtvSQDdw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Atish Patra <atishp@meta.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
+Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
+	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 4/4] x86/mm/pat: Allocate split page tables as kernel page tables
-Date: Wed, 16 Sep 2026 11:49:14 -0400
-Message-ID: <20260916154914.4167599-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/4] tracing: Constify struct event_trigger_ops
+Date: Wed, 16 Sep 2026 11:49:15 -0400
+Message-ID: <20260916154918.4168110-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916154914.4167599-1-sashal@kernel.org>
-References: <2026091605-rehire-self-1650@gregkh>
- <20260916154914.4167599-1-sashal@kernel.org>
+In-Reply-To: <2026091625-wrongful-sensuous-63b5@gregkh>
+References: <2026091625-wrongful-sensuous-63b5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,142 +47,318 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
 
-[ Upstream commit 9e4a3ec3411bb6bb59e3c1f29b75609f1e87aac4 ]
+[ Upstream commit 502d2e71a89fa706843fa9277f4d6de1947072c8 ]
 
-A PTE is allocated directly without going through the standard page table
-allocation routines (such as pte_alloc_one_kernel()) when the CPA code
-splits a large page (__split_large_page()).
+'event_trigger_ops mwifiex_if_ops' are not modified in these drivers.
 
-This means the page table constructor is never called nor is the page table
-marked as a kernel page table.
+Constifying these structures moves some data to a read-only section, so
+increase overall security, especially when the structure holds some
+function pointers.
 
-The former results in the folio associated with the page table not being
-marked as a page table (__pagetable_ctor() is never called thus neither is
-__folio_set_pgtable()) nor are statistics updated to reflect
-it (lruvec_stat_add_folio() is never called).
+On a x86_64, with allmodconfig, as an example:
+Before:
+======
+   text	   data	    bss	    dec	    hex	filename
+  31368	   9024	   6200	  46592	   b600	kernel/trace/trace_events_trigger.o
 
-The latter issue of failing to mark the page table as a kernel page
-table (ptdesc_set_kernel() is never called) is far more problematic.
+After:
+=====
+   text	   data	    bss	    dec	    hex	filename
+  31752	   8608	   6200	  46560	   b5e0	kernel/trace/trace_events_trigger.o
 
-Since commit:
-
-  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-
-kernel page table freeing has been batched and since the
-subsequent commit:
-
-  e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries for kernel address space")
-
-IOTLB cache entries for kernel page tables have been invalidated upon
-being freed.
-
-Since split page tables are freed without this invalidation, the IOTLB
-can contain stale entries for them.
-
-Resolve the issue by using the ordinary PTE allocation API at split time.
-
-This results in these kernel page tables invoking a page table constructor,
-and thus requires a page table destructor.
-
-Destructors are not always present, like for early allocated direct map
-page tables). Conditionally call pagetable_dtor_free() if the PG_table
-folio flag for the ptdesc is set, otherwise we free the page table via
-pagetable_free().
-
-Regardless of which path is taken page tables marked as kernel page tables,
-which now includes split page tables, take the correct route through
-pagetable_free_kernel().
-
-There is a user-visible side effect in that split page tables will appear
-in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
-allocated after early boot), however this is a positive change.
-
-This issue started being markedly problematic after commit:
-
-  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-
-so choose this as the Fixes target.
-
-[ dhansen: rephrase in imperative mood ]
-
-Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Acked-by: Vishal Moola <vishal.moola@gmail.com>
-Tested-by: Atish Patra <atishp@meta.com>
-Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-4-39b4ff90f91d@kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>
+Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Link: https://lore.kernel.org/66e8f990e649678e4be37d4d1a19158ca0dea2f4.1741521295.git.christophe.jaillet@wanadoo.fr
+Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
+Stable-dep-of: 6ede78d0563a ("tracing: Set the trace clock before registering the histogram trigger")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ kernel/trace/trace.h                |  4 +--
+ kernel/trace/trace_eprobe.c         |  6 ++---
+ kernel/trace/trace_events_hist.c    | 20 +++++++--------
+ kernel/trace/trace_events_trigger.c | 38 ++++++++++++++---------------
+ 4 files changed, 34 insertions(+), 34 deletions(-)
 
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index 560e9e4d8c21e..71708a0eba78b 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -433,7 +433,15 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 176e493f79db8..327c01655585d 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -1698,7 +1698,7 @@ struct event_trigger_data {
+ 	unsigned long			count;
+ 	int				ref;
+ 	int				flags;
+-	struct event_trigger_ops	*ops;
++	const struct event_trigger_ops	*ops;
+ 	struct event_command		*cmd_ops;
+ 	struct event_filter __rcu	*filter;
+ 	char				*filter_str;
+@@ -1941,7 +1941,7 @@ struct event_command {
+ 	int			(*set_filter)(char *filter_str,
+ 					      struct event_trigger_data *data,
+ 					      struct trace_event_file *file);
+-	struct event_trigger_ops *(*get_trigger_ops)(char *cmd, char *param);
++	const struct event_trigger_ops *(*get_trigger_ops)(char *cmd, char *param);
+ };
  
- 	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
- 		list_del(&ptdesc->pt_list);
--		pagetable_free(ptdesc);
-+		/*
-+		 * Only early alloc'd direct map should not be flagged PG_table
-+		 * here and those shouldn't be collapsed. However be abundantly
-+		 * cautious and handle the !PG_table case too.
-+		 */
-+		if (PageTable((ptdesc_page(ptdesc))))
-+			pagetable_dtor_free(ptdesc);
-+		else
-+			pagetable_free(ptdesc);
- 	}
- 
- 	spin_unlock(&cpa_lock);
-@@ -1125,11 +1133,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
- 
- static int
- __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
--		   struct ptdesc *ptdesc)
-+		   pte_t *pbase)
- {
- 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
--	struct page *base = ptdesc_page(ptdesc);
--	pte_t *pbase = (pte_t *)page_address(base);
-+	struct page *base = virt_to_page(pbase);
- 	unsigned int i, level;
- 	pgprot_t ref_prot;
- 	bool nx, rw;
-@@ -1233,20 +1240,20 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
- static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
- 			    unsigned long address)
- {
--	struct ptdesc *ptdesc;
-+	pte_t *pte;
- 
- 	spin_unlock(&cpa_lock);
- 	if (cpa->init_mm_read_locked)
- 		mmap_read_unlock(&init_mm);
--	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
-+	pte = pte_alloc_one_kernel(&init_mm);
- 	if (cpa->init_mm_read_locked)
- 		mmap_read_lock(&init_mm);
- 	spin_lock(&cpa_lock);
--	if (!ptdesc)
-+	if (!pte)
- 		return -ENOMEM;
- 
--	if (__split_large_page(cpa, kpte, address, ptdesc))
--		pagetable_free(ptdesc);
-+	if (__split_large_page(cpa, kpte, address, pte))
-+		pte_free_kernel(&init_mm, pte);
- 
- 	return 0;
+ /**
+diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
+index e3dd6551c4689..06436fe0786e8 100644
+--- a/kernel/trace/trace_eprobe.c
++++ b/kernel/trace/trace_eprobe.c
+@@ -479,7 +479,7 @@ static void eprobe_trigger_func(struct event_trigger_data *data,
+ 	__eprobe_trace_func(edata, rec);
  }
+ 
+-static struct event_trigger_ops eprobe_trigger_ops = {
++static const struct event_trigger_ops eprobe_trigger_ops = {
+ 	.trigger		= eprobe_trigger_func,
+ 	.print			= eprobe_trigger_print,
+ 	.init			= eprobe_trigger_init,
+@@ -508,8 +508,8 @@ static void eprobe_trigger_unreg_func(char *glob,
+ 
+ }
+ 
+-static struct event_trigger_ops *eprobe_trigger_get_ops(char *cmd,
+-							char *param)
++static const struct event_trigger_ops *eprobe_trigger_get_ops(char *cmd,
++							      char *param)
+ {
+ 	return &eprobe_trigger_ops;
+ }
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index f3899430a2fb5..96d7091995793 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6326,7 +6326,7 @@ static void event_hist_trigger_free(struct event_trigger_data *data)
+ 	free_hist_pad();
+ }
+ 
+-static struct event_trigger_ops event_hist_trigger_ops = {
++static const struct event_trigger_ops event_hist_trigger_ops = {
+ 	.trigger		= event_hist_trigger,
+ 	.print			= event_hist_trigger_print,
+ 	.init			= event_hist_trigger_init,
+@@ -6356,15 +6356,15 @@ static void event_hist_trigger_named_free(struct event_trigger_data *data)
+ 	}
+ }
+ 
+-static struct event_trigger_ops event_hist_trigger_named_ops = {
++static const struct event_trigger_ops event_hist_trigger_named_ops = {
+ 	.trigger		= event_hist_trigger,
+ 	.print			= event_hist_trigger_print,
+ 	.init			= event_hist_trigger_named_init,
+ 	.free			= event_hist_trigger_named_free,
+ };
+ 
+-static struct event_trigger_ops *event_hist_get_trigger_ops(char *cmd,
+-							    char *param)
++static const struct event_trigger_ops *event_hist_get_trigger_ops(char *cmd,
++								  char *param)
+ {
+ 	return &event_hist_trigger_ops;
+ }
+@@ -6961,38 +6961,38 @@ hist_enable_count_trigger(struct event_trigger_data *data,
+ 	hist_enable_trigger(data, buffer, rec, event);
+ }
+ 
+-static struct event_trigger_ops hist_enable_trigger_ops = {
++static const struct event_trigger_ops hist_enable_trigger_ops = {
+ 	.trigger		= hist_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops hist_enable_count_trigger_ops = {
++static const struct event_trigger_ops hist_enable_count_trigger_ops = {
+ 	.trigger		= hist_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops hist_disable_trigger_ops = {
++static const struct event_trigger_ops hist_disable_trigger_ops = {
+ 	.trigger		= hist_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops hist_disable_count_trigger_ops = {
++static const struct event_trigger_ops hist_disable_count_trigger_ops = {
+ 	.trigger		= hist_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ hist_enable_get_trigger_ops(char *cmd, char *param)
+ {
+-	struct event_trigger_ops *ops;
++	const struct event_trigger_ops *ops;
+ 	bool enable;
+ 
+ 	enable = (strcmp(cmd, ENABLE_HIST_STR) == 0);
+diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
+index 1e4e699c25478..d153a10ae50e1 100644
+--- a/kernel/trace/trace_events_trigger.c
++++ b/kernel/trace/trace_events_trigger.c
+@@ -849,7 +849,7 @@ struct event_trigger_data *trigger_data_alloc(struct event_command *cmd_ops,
+ 					      void *private_data)
+ {
+ 	struct event_trigger_data *trigger_data;
+-	struct event_trigger_ops *trigger_ops;
++	const struct event_trigger_ops *trigger_ops;
+ 
+ 	trigger_ops = cmd_ops->get_trigger_ops(cmd, param);
+ 
+@@ -1391,38 +1391,38 @@ traceoff_trigger_print(struct seq_file *m, struct event_trigger_data *data)
+ 				   data->filter_str);
+ }
+ 
+-static struct event_trigger_ops traceon_trigger_ops = {
++static const struct event_trigger_ops traceon_trigger_ops = {
+ 	.trigger		= traceon_trigger,
+ 	.print			= traceon_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops traceon_count_trigger_ops = {
++static const struct event_trigger_ops traceon_count_trigger_ops = {
+ 	.trigger		= traceon_count_trigger,
+ 	.print			= traceon_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops traceoff_trigger_ops = {
++static const struct event_trigger_ops traceoff_trigger_ops = {
+ 	.trigger		= traceoff_trigger,
+ 	.print			= traceoff_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops traceoff_count_trigger_ops = {
++static const struct event_trigger_ops traceoff_count_trigger_ops = {
+ 	.trigger		= traceoff_count_trigger,
+ 	.print			= traceoff_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ onoff_get_trigger_ops(char *cmd, char *param)
+ {
+-	struct event_trigger_ops *ops;
++	const struct event_trigger_ops *ops;
+ 
+ 	/* we register both traceon and traceoff to this callback */
+ 	if (strcmp(cmd, "traceon") == 0)
+@@ -1515,21 +1515,21 @@ snapshot_trigger_print(struct seq_file *m, struct event_trigger_data *data)
+ 				   data->filter_str);
+ }
+ 
+-static struct event_trigger_ops snapshot_trigger_ops = {
++static const struct event_trigger_ops snapshot_trigger_ops = {
+ 	.trigger		= snapshot_trigger,
+ 	.print			= snapshot_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops snapshot_count_trigger_ops = {
++static const struct event_trigger_ops snapshot_count_trigger_ops = {
+ 	.trigger		= snapshot_count_trigger,
+ 	.print			= snapshot_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ snapshot_get_trigger_ops(char *cmd, char *param)
+ {
+ 	return param ? &snapshot_count_trigger_ops : &snapshot_trigger_ops;
+@@ -1610,21 +1610,21 @@ stacktrace_trigger_print(struct seq_file *m, struct event_trigger_data *data)
+ 				   data->filter_str);
+ }
+ 
+-static struct event_trigger_ops stacktrace_trigger_ops = {
++static const struct event_trigger_ops stacktrace_trigger_ops = {
+ 	.trigger		= stacktrace_trigger,
+ 	.print			= stacktrace_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops stacktrace_count_trigger_ops = {
++static const struct event_trigger_ops stacktrace_count_trigger_ops = {
+ 	.trigger		= stacktrace_count_trigger,
+ 	.print			= stacktrace_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_trigger_free,
+ };
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ stacktrace_get_trigger_ops(char *cmd, char *param)
+ {
+ 	return param ? &stacktrace_count_trigger_ops : &stacktrace_trigger_ops;
+@@ -1735,28 +1735,28 @@ void event_enable_trigger_free(struct event_trigger_data *data)
+ 	}
+ }
+ 
+-static struct event_trigger_ops event_enable_trigger_ops = {
++static const struct event_trigger_ops event_enable_trigger_ops = {
+ 	.trigger		= event_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops event_enable_count_trigger_ops = {
++static const struct event_trigger_ops event_enable_count_trigger_ops = {
+ 	.trigger		= event_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops event_disable_trigger_ops = {
++static const struct event_trigger_ops event_disable_trigger_ops = {
+ 	.trigger		= event_enable_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+ 	.free			= event_enable_trigger_free,
+ };
+ 
+-static struct event_trigger_ops event_disable_count_trigger_ops = {
++static const struct event_trigger_ops event_disable_count_trigger_ops = {
+ 	.trigger		= event_enable_count_trigger,
+ 	.print			= event_enable_trigger_print,
+ 	.init			= event_trigger_init,
+@@ -1940,10 +1940,10 @@ void event_enable_unregister_trigger(char *glob,
+ 		data->ops->free(data);
+ }
+ 
+-static struct event_trigger_ops *
++static const struct event_trigger_ops *
+ event_enable_get_trigger_ops(char *cmd, char *param)
+ {
+-	struct event_trigger_ops *ops;
++	const struct event_trigger_ops *ops;
+ 	bool enable;
+ 
+ #ifdef CONFIG_HIST_TRIGGERS
 -- 
 2.53.0
 
