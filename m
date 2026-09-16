@@ -1,176 +1,204 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF5CE4DA9D6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9A94DA9D3;
 	Wed, 16 Sep 2026 20:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591551; cv=none; b=PGM6EfMJpZc5fTaYotuHfe/YZYZwbWZcke4hLXuz/lgCH/HNaTBy7tcutLuajiwa8sbMLD/bnBL4ayJaikYmmFxAZRdYkMMe2dPy7a6gQGcAqPl4JZht82fWgvBEM8MAlfMdToGWBER634Ol943qmq31s6PAOvZ1WAvPa3wgGu4=
+	t=1789591551; cv=none; b=ILQFU4uwesGQZ6/Xa5YTvaMFyy+kvCuL0AKUaeSZTEqTS/Xj0n7CdwDJlUcT2Qmv+tAHBgl4PYRlEMQvhlnn8W/HHA8JrWvy20QSduyo81rw2FrVfeVxHL8K25sqdgYQyE7O37ZmzEMUYxM4/3MTyrFVX2ZYGpe7IgsWouGAVGA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789591551; c=relaxed/simple;
-	bh=zGv5N28Q3Fuh+0z5UF4wmzmXO9E45q6BaSZkfbNfhsA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=sAV9hSTgXmoOa/T3e23M3+nvtDgJWoYzQ5Ezn02KGgeTx7dgdPoGubxKEyPE3kCgY6bL1ia/xeUEAYIkDkkBhHpmeqTV4GStKZbB3pJK0fK5nBeIUnfDeX8enQgdXre8L6CyBq5totyqwnsrqXAzmKnKLV52L/8Ux+kGh2JUJjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kSaIU6CZ; arc=none smtp.client-ip=100.103.45.18
+	bh=WGrPZAXt0NSIL1j0P0toEtUnAZYxZC2mHWPH1s854V8=;
+	h=Date:To:From:Subject:Message-Id; b=WuQq57nS3owIyUo7SBRIfvbR2KY5JSGT6LwH1Ua6f7/Pcuf/Q/gbMfB0Ttg7X2odqdg5A/wU+4/GmMcWYo5lImwSGpriPwD5HMo4Z9R44PdBe8YkexxS3fFQaXEnaUEpgNBkAiVsdW973IR7y6KZ91PY9swEUJnvfYm3ZcnhD1U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=2Cixrhsq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kSaIU6CZ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B28DF1F0089A;
-	Wed, 16 Sep 2026 20:45:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789591537;
-	bh=QtbilFSd1lPNt3KCGiD9EVPlQo3LDxjHZ/yK5Hh1vHo=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=kSaIU6CZUguBMdke6wYGVGu+GUOw+U9VyY482vGlT3bqCyFTsIxg86GCycNCAdBk7
-	 rikjjp54I9rlezyYnKwUQY2wd7+Dg7MnAdXFYwtR0cbowVgf/t21PFaK7O4k94w1AY
-	 HdRu3DL8AYvms+U9eHVqyWktSSzs0ZskACHeoHPqG4BNjSRbz1APcxpkUxuXCYMuuN
-	 ri17QakmJBxjN1cJP1DfIlJy9Oyn+amVZHA6EFPG3dnRHB2SzZPA88HQB7GQW+TI7Y
-	 WssIckt8wZbgU7HZDE3K/AtMFxZmyPartu/3Orm8FKbvcdY7kThMFsCO05CyHZs8bd
-	 K7NF2S40xNf9A==
-Subject:
- Re: [PATCH net 2/2] mptcp: close race between scheduler and state change
-From: netdev-bot+sashiko@kernel.org
-To: matttbe@kernel.org
-Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
- netdev@vger.kernel.org, mptcp@lists.linux.dev, stable@vger.kernel.org,
- shardul.b@mpiricsoftware.com, xinyang@anthropic.com
-Date: Wed, 16 Sep 2026 20:45:36 +0000
-Message-ID: <178959153630.22033.1222004531183755077@kernel.org>
-In-Reply-To:
- <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-2-a257797dd5d0@kernel.org>
-References:
- <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-2-a257797dd5d0@kernel.org>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="2Cixrhsq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0E21F0089B;
+	Wed, 16 Sep 2026 20:45:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789591537;
+	bh=kXg6pw4Yqsf7MZWgDC4mlXdVWuGwLcguQERjMhFndxo=;
+	h=Date:To:From:Subject;
+	b=2CixrhsqNmiZ2IPEsf+YFbQMkbFIFxpWHZYhPQmPAdZFOhFzpS7I7a4xou4FpBKgn
+	 HeRAI8tZCR46upK3bUyXZvyEneFFyncG9D78JFUliLlDDPe1Kw7G9akyxk1zu5y5dV
+	 E6EmRE4xBixz9FxU+Tbf3MP74NXiBlzsShHE8RPw=
+Date: Wed, 16 Sep 2026 13:45:37 -0700
+To: mm-commits@vger.kernel.org,wim@linux-watchdog.org,wangjinchao600@gmail.com,stable@vger.kernel.org,sashiko-bot@kernel.org,pmladek@suse.com,linux@roeck-us.net,brads@mainlining.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch added to mm-nonmm-unstable branch
+Message-Id: <20260916204537.9D0E21F0089B@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+The patch titled
+     Subject: panic: fix redirect CPU race in panic_try_force_cpu()
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch
 
-- [High] Incomplete fix: the identical `mss_now == 0` divide-by-zero that
-  the patch guards in `mptcp_push_release()` (net/mptcp/protocol.c:1667)…
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch
 
---
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-mptcp: close race between scheduler and state change
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-The patch guards the tcp_push() call in mptcp_push_release() with a check
-for info->mss_now being non-zero, so that a subflow which failed
-transmission (leaving mss_now at 0) is not used for a divide operation.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-Closes: https://lore.kernel.org/20260525194828.1137119-1-shardul.b@mpiricsoftware.com
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-> index 0098e28309318..709610db3ce9d 100644
-> --- a/net/mptcp/protocol.c
-> +++ b/net/mptcp/protocol.c
-> @@ -1664,7 +1664,9 @@ struct sock *mptcp_subflow_get_send(struct mptcp_sock *msk)
->  
->  static void mptcp_push_release(struct sock *ssk, struct mptcp_sendmsg_info *info)
->  {
-> -	tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle, info->size_goal);
-> +	if (info->mss_now)
-> +		tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle,
-> +			 info->size_goal);
->  	release_sock(ssk);
->  }
+------------------------------------------------------
+From: Bradley Morgan <brads@mainlining.org>
+Subject: panic: fix redirect CPU race in panic_try_force_cpu()
+Date: Wed, 16 Sep 2026 18:29:52 +0000
 
-[Severity: High]
-Should the same guard also be added to the second tcp_push() call site, in
-__mptcp_subflow_push_pending()?
+Patch series "panic: fix panic_force_cpu= redirect races and NMI bypass",
+v7.
 
-That function starts with a zeroed info:
+The panic_force_cpu= parameter redirects a panic to a specific CPU so the
+crash kernel runs there.  The redirect code in panic_try_force_cpu() had
+two races and an NMI bypass, all found by Sashiko.  This series closes
+them and kills one more hack that the rework turned up.
 
-net/mptcp/protocol.c:__mptcp_subflow_push_pending() {
-	struct mptcp_sendmsg_info info = {
-		.data_lock_held = true,
-	};
-	...
-	int copied = 0;
+Panic from NMI still goes through the redirect path first, so the crash
+kernel ends up on the CPU the admin asked for.  The redirect buffer is a
+static 1KB now, no initcall, no fallback message.
 
-and info.mss_now is only ever assigned inside mptcp_sendmsg_frag(), after
-the early return the commit message refers to:
 
-	if (unlikely(!__tcp_can_send(ssk)))
-		return -EAGAIN;
+This patch (of 6):
 
-	/* compute send limit */
-	...
-	info->mss_now = tcp_send_mss(ssk, &info->size_goal, info->flags);
+The cmpxchg() in panic_try_force_cpu() makes sure that only one CPU tries
+to redirect panic() to the requested CPU.  It is similar to the cmpxchg()
+in panic_try_start() which makes sure that only one CPU does the panic(). 
+In both situations, only the winner of cmpxchg() should proceed further. 
+Other CPUs should go offline.
 
-In the non-first iteration, the return value is accumulated into copied
-without filtering negatives:
+There is a bug because the cmpxchg loser returns false and falls through
+into vpanic().  Two non-target CPUs A and B panic, the requested CPU is C:
 
-net/mptcp/protocol.c:__mptcp_subflow_push_pending() {
-		if (READ_ONCE(subflow->scheduled)) {
-			mptcp_subflow_set_scheduled(subflow, false);
-			ret = __subflow_push_pending(sk, ssk, &info);
-			if (ret <= 0)
-				keep_pushing = false;
-			copied += ret;
-		}
+             cpu A                          cpu B
+          ----------                     ----------
+    panic()                              panic()
+    vpanic()                             vpanic()
+    panic_try_force_cpu()                panic_try_force_cpu()
+        cmpxchg wins                        cmpxchg fails
+        redirect = A                        old_cpu = A
+        IPI -> C                            return false      <- BUG
+        return true                     panic_try_start() wins
+    panic_smp_self_stop()                __crash_kexec() on B
+    (A stops)                            (target C bypassed)
 
-__subflow_push_pending() passes mptcp_sendmsg_frag()'s -EAGAIN through
-verbatim when the first frag fails, so copied becomes -EAGAIN, which is
-non-zero, while info.mss_now is still 0:
+The loser must stop, not fall through.  It cannot just return true,
+though.  A CPU that already won the redirect cmpxchg can reenter
+panic_try_force_cpu() on the same CPU, for example a nested NMI during the
+message formatting, before the IPI is sent:
 
-out:
-	if (copied) {
-		tcp_push(ssk, 0, info.mss_now, tcp_sk(ssk)->nonagle,
-			 info.size_goal);
+             cpu A (1st)                  cpu A (nested)
+          ----------                     ----------
+    panic()
+    vpanic()
+    panic_try_force_cpu()
+        cmpxchg wins (redirect = A)
+        vsnprintf(msg) ...
+            <-- NMI, nested panic -->
+                                     panic()
+                                     vpanic()
+                                     panic_try_force_cpu()
+                                         cmpxchg fails
+                                         old_cpu == A (this CPU)
+                                         return true   <- would halt
+                                     panic_smp_self_stop()
+                                     (IPI never sent, panic abandoned)
 
-Can that reach the divide the patch is trying to avoid?  With a non-empty
-subflow write queue, tcp_push() does not take the autocork early return
-(it requires skb->len < size_goal, i.e. skb->len < 0), so it calls
-__tcp_push_pending_frames(sk, 0, nonagle), which only bails for TCP_CLOSE.
-For FIN_WAIT1/FIN_WAIT2/CLOSING/LAST_ACK it continues into
-tcp_write_xmit(sk, 0, ...) and tcp_tso_segs() -> tcp_tso_autosize():
+Check old_cpu against this_cpu so a second call from the same CPU returns
+false and falls through to panic_try_start() instead.
 
-net/ipv4/tcp_output.c:tcp_tso_autosize() {
-	return max_t(u32, bytes / mss_now, min_tso_segs);
+Also fix the panic_in_progress() check.  We must not redirect when
+panic_cpu is already assigned.  Return true to stop when the panic is on
+another CPU, false to proceed when it is this one.
 
-tcp_set_skb_tso_segs() has the same shape with
-DIV_ROUND_UP(skb->len, mss_now).
+Update the panic_try_force_cpu() doc comment for the new return value
+semantics.
 
-Is the "scheduled but no longer sendable" state reachable on this path?
-mptcp_sched_get_send() returns early without re-validating sendability if
-any subflow already has the flag set:
+Link: https://lore.kernel.org/20260916182957.7788-1-brads@mainlining.org
+Link: https://lore.kernel.org/20260916182957.7788-2-brads@mainlining.org
+Fixes: 2e171ab29f91 ("panic: add panic_force_cpu= parameter to redirect panic to a specific CPU")
+Signed-off-by: Bradley Morgan <brads@mainlining.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260705164123.18746-1-include@grrlz.net
+Closes: https://sashiko.dev/#/patchset/20260707172252.4842-1-include@grrlz.net
+Reviewed-by: Petr Mladek <pmladek@suse.com>
+Cc: Guenetr Roeck <linux@roeck-us.net>
+Cc: Wang Jinchao <wangjinchao600@gmail.com>
+Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
+Cc: <stable@vger.kernel.org>
+---
 
-net/mptcp/sched.c:mptcp_sched_get_send() {
-	mptcp_for_each_subflow(msk, subflow) {
-		if (READ_ONCE(subflow->scheduled))
-			return 0;
-	}
+ kernel/panic.c |   19 ++++++++++++-------
+ 1 file changed, 12 insertions(+), 7 deletions(-)
 
-and __mptcp_subflow_push_pending() itself leaves the flag set on the
-subflows it delegates via mptcp_subflow_delegate().  The tree also comments
-on leftover flags elsewhere ("there could be left-over scheduled subflows;
-clear them all or later xmit could use bad ones"), and
-__mptcp_push_pending() already anticipates -EAGAIN together with
-FIN_WAIT1/FIN_WAIT2 - which are exactly the states where
-__tcp_push_pending_frames() does not bail out.
+--- a/kernel/panic.c~panic-fix-redirect-cpu-race-in-panic_try_force_cpu
++++ a/kernel/panic.c
+@@ -371,8 +371,9 @@ int __weak panic_smp_redirect_cpu(int ta
+  * for the crash kernel to function correctly. This function redirects
+  * panic handling to the CPU specified via the panic_force_cpu= boot parameter.
+  *
+- * Returns false if panic should proceed on current CPU.
+- * Returns true if panic was redirected.
++ * Returns true when this CPU must stop: the panic was redirected or is
++ * already running on another CPU.
++ * Returns false when panic() should proceed on this CPU.
+  */
+ __printf(1, 0)
+ static bool panic_try_force_cpu(const char *fmt, va_list args)
+@@ -396,16 +397,20 @@ static bool panic_try_force_cpu(const ch
+ 		return false;
+ 	}
+ 
+-	/* Another panic already in progress */
++	/*
++	 * Don't redirect when a panic is already in progress. Stop this
++	 * CPU when it's another one, proceed when it's this one.
++	 */
+ 	if (panic_in_progress())
+-		return false;
++		return panic_on_other_cpu();
+ 
+ 	/*
+-	 * Only one CPU can do the redirect. Use atomic cmpxchg to ensure
+-	 * we don't race with another CPU also trying to redirect.
++	 * Only one CPU can do the redirection. Others should go offline.
++	 * Continue with panic() when we already tried the redirection
++	 * from this CPU before, for example via nmi_panic().
+ 	 */
+ 	if (!atomic_try_cmpxchg(&panic_redirect_cpu, &old_cpu, this_cpu))
+-		return false;
++		return old_cpu != this_cpu;
+ 
+ 	/*
+ 	 * Use dynamically allocated buffer if available, otherwise
+_
 
-The entry point with first == false is __mptcp_check_push():
+Patches currently in -mm which might be from brads@mainlining.org are
 
-	if (!sock_owned_by_user(sk))
-		__mptcp_subflow_push_pending(sk, ssk, false);
+taskstats-copy-signal-stats-under-siglock-in-taskstats_exit.patch
+mailmap-update-email-address-for-bradley-morgan.patch
+taskstats-drop-the-unused-cpu_dont_care-enum-member.patch
+panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch
+panic-flatten-nmi_panic-control-flow.patch
+panic-fix-va_list-reuse-in-panic_try_force_cpu.patch
+panic-restore-variable-arguments-to-nmi_panic.patch
+panic-allow-force_cpu-redirect-from-an-nmi.patch
+panic-kill-the-buffer-unavailable-redirect-fallback.patch
 
-reached from ack_update_msk() in net/mptcp/options.c on incoming DSS acks,
-so this runs in softirq context on peer-supplied input.
-
-A second, smaller question on the same statement: since copied mixes byte
-counts with negative errnos, can a positive count followed by an error that
-sums to exactly zero (for example 11 bytes then -EAGAIN) make the
-if (copied) test false and skip both the flush and
-mptcp_reset_rtx_timer() even though data was queued?
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-net-mptcp-misc-fixes-7-3-rc4-v1-0-a257797dd5d0%40kernel.org
