@@ -1,251 +1,190 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66FE135CB91
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:07:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585654; cv=pass; b=mTxmncul3+s8C4VXZaPoUOkMjlH9ZAGpVM95G5zUiK5FjpiJ+dMoCA0PylIAzZZy3S7YEuatU40nZMAvrWaDRPIZgL6wW/7jD1oIqG1TVGbXokiLSz9/mlk6sy/10g2k3d/XkRoWI2hc9F1O9kqPRbOmLL058YP091pS/xRthDI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585654; c=relaxed/simple;
-	bh=KPU7IzR69Ng/j6m8YHFvvjb5SqAkfnaH0qbM64QKGw8=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o8PUbMlN7oBmZAuIWbhF5/mNqi7feC7A/whc0WEjKdwemxzmZPlIhhSrlipfzKd4lTQrkWSnlkpOSChqxg5QS25cOsWc7WkPeK90pIz7qsfMGQD2Jdk+Qpfkiif0LPJX20AwT5H+sd9JZ1ZPc02Zd3yQwp3Avwnk4bkwjAGxXPo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=CMnwcelI; arc=pass smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E9414B1D1B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:07:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789585665; cv=none; b=qFtDkfdO2UcsIaJnGiGjTbdQwvipFUvrhlEimBqmWAS3/QgvgYN3NywKTNmayH4YKY8rMGJGlm7XHKlMKkR1Yk2ZNQGe4isVe877EfFhuxni1zRO9Y/0sFEJ4OzSnB3TDEpjpG7GaAMBU0Hq77dw87Qmcp4knEm17i/DDSZoL7A=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789585665; c=relaxed/simple;
+	bh=B0BdSaCDPkx4WRgi3+vlokUd3ar6k8DeHkGl/Bio3fc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=FDBGeov/e1P68HL0Ve8Mwg0lKlBWoJFuOebAZAQsT7m7Vcu9qbeZOZBr6n5mXYUBS42Pwq8xOC/0XlJjA6oJYSjAOO0ILdAtX/6xOqePYjC4I8MtPMiEVvMEfPWmKATtqBhTrE6gA2ewdjOqX+VyGBNRtPLbDVg4lTxrdxWNtxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lgECEVah; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="CMnwcelI"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-530d5fc2cd8so7051cf.1
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:07:17 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789585635; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Dqj4Ell08Gvk6XQDWs7w71HOiCLQLp84Mpzo/KNpccqXDl++woD57wVCIUAD7pTTLW
-         ewfd+2DPO2gVXvnqAxWglUlAEnqIdhZ31k4hQTIhwxTQzPh5izvJUFDg3i8pXD6XWX5y
-         YyQQcgi7PgVbuq1sWKjfMXjFf++nOvECha8iQ3PEm1E3ajdZw80PtO3A4x7Vm+y11VPU
-         nids4VMB+MOIPMqrLc2MBDHJMDIhmWRL1hzjJXUAaDyIi0nuHlebgqsKY/WBeVkYDL8t
-         fRS2R/pjCV/ZnStegPbiYk1IM9Fdye6WyJmF5ZNWV1OStE80nZObhYpUTJa4Fq1UjhP2
-         +CUQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=yHbOQrPgVkpK3KZeBIodImpdgvuoykZQvSNB9/nSIAA=;
-        fh=3DFXAnsKddIS6PHnz/9D8zqlQ6GyXVcVilMAQm12G94=;
-        b=kBxlf2SnnU/oXQW1gHV08brtbuf8sxnb5gY9fkHdzssWOHgTCsqSZcaiGNGLGHIiLI
-         65ueDAbMFSyZ+Vf3S1FZoEobSK8zH1N1fWtjfqDjt32afWTTlQ4K0pLAQrEsE1Jt2V6h
-         Wo952v0hS2jlRv36QvW4AOtlubHbUstf7nOiHkHeGSpZD87uIyRIUdLwirnbpsSrtqev
-         nWNj6322issekf5ojEg3vWLu6sJMYtUxzkU52i/6aEPpKiSkkgldbYlO6ln/JukekTBa
-         kfbKAcJUqkMVKWQfpyxcJ9YWcrJMPPw4nFrCyEEw7CuyQsgGyouPCpQz3JC9tgrARJcP
-         8zJw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789585635; x=1790190435; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=yHbOQrPgVkpK3KZeBIodImpdgvuoykZQvSNB9/nSIAA=;
-        b=CMnwcelIDyTuiaLuMFiKWIa46IsxWJ4KWE9fsZXIAQSidAShgdI/KaW/IVr7HtoC2S
-         0vZDyOvkUTEsb+tvmR6ABoA7KdFaUhVVSJGcQNs4asTkCGd6EG02plpR32tBIT+kHQmk
-         SSFEsgciRvORBxi1Rn2bSrxwANGb/aFprTORpICWh0L0M41AUYVeFTxSVeEHjLi8CQrI
-         azO40xSF15FI6YZJyksiuxIKWRnWY4Tm69IKkbGZjfofxlDCLxAoLNlBj5HxVN166FKB
-         w7juyQjYBlR8Bn546PFYQa4wAEY96rjQHZYe+51sl+pyEfpamHPuqtYdPZOnWnkJgNQ8
-         ODjg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789585635; x=1790190435;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=yHbOQrPgVkpK3KZeBIodImpdgvuoykZQvSNB9/nSIAA=;
-        b=dtI/YSjN8Gdy57N97E/winna10fgW5yiFDVOwZzhqrh54EQFdGKp4xOQSxtz7MT2Lz
-         4yQ7jg22d/PdOWVZAGG9/2A04aAbCxSqVVwgm+Sk5xzcFoXtAn3jsS18RxWkGB46DiRA
-         unD0BvagxRCA3h/ketgU/Rw4CLRIhD4TQ8dvTYZCpsILmpRa1fBIizeSo1K/lA2m3o2R
-         UGECRNgSzcs17lNLhotMFAY0bJZG4f87wBpqfCLFO8ItI1k86wZMXy6lZ5JKLxygoo1V
-         0xoKeJ2VS/Z2B0r41kUavu0UjuoXpGaxZZWgQ6qoOTN9cWxf+htdcTeTh1DL3FHn8d+V
-         lMIw==
-X-Forwarded-Encrypted: i=1; AKwUvBw8GtxDgHJrjjGLAy/9zxR/2Bbqp/WCAM1SnpQqnHluZ6ZfeiMw1x/QHEdjuPLSaqewzrnRa6I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lyNvXm9CDOBDUDPT2xJXIR3H6k2zwQxP4Pv7ybRwFhRDVGqBt6
-	4Hndok7qIygTxZWzex+FNrP05cRuEadJcRgfaTsGrJrQ7Dyf2dVL+qRtYLqK2RPYIYS/D0LX6T7
-	2v5mnEy7aUKb/eUrVcBjrxrhTIF/Mbt1iOITgJNYK
-X-Gm-Gg: AYBFou15CQ4NaF1HRtSh9n9jmWHMGeVfEMT9wQec3e5Jir3rLa8cYvQ+/sopOR53hGe
-	K9wOeVNwDE/O+pTvOFt5rlpZcLtCaKuJx6LgPIdyq3PuF0gWt++i233VVId+0nakfILPer02ik7
-	O/IKJ8nXZlVsnh/MPGZxCvXOskGShFFsUNcJrNnlqwNT1MPwCRmDMNqBMenAJwR3iAa1gpe3YvI
-	p61D6QdhbmCsCNibVd+cvvGCJ+0vwHR7ZLL/SvDuTP3Mn4f95U5tQYFhplGiNM3aKNk6mAU03EG
-	MqVOvTdIImu0wkKByeJJ5elVp8hbK2owbOt9Mmy4cYd/Opq7PjZZB1EbO4A5ktbdyK8+SGM7nTs
-	VNMNHJ9wJyQ==
-X-Received: by 2002:ac8:5d10:0:b0:532:858d:e791 with SMTP id
- d75a77b69052e-5328dc0bc4fmr2243931cf.8.1789585634800; Wed, 16 Sep 2026
- 12:07:14 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lgECEVah"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D3D81F00898;
+	Wed, 16 Sep 2026 19:07:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789585658;
+	bh=H0vl2R6m6s37TJAau7MoylmqerpmNelJg9GjiZuIpzM=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=lgECEVah4tYjFeOj8w7A9RwQUNq1rZC+AqY59m0ISUw+copVGle6Kk2cbEBvuRXlm
+	 d3NxoWDx98QY20XoRGRliHKD/znldYqG8b+mBaqnJmfy0uVI0KL0KJYOw0FW2eV1Eu
+	 yZbg9p4cyEJ4mBbcIRn6WO3+28LN52naxD8XQMNGkKp8Fv0oXPWycY620F8VSjzrKk
+	 gg2hOLxRz0e52DMjK9aIaFJxfYXsu2+8w9AcTpXWN4ECb2PdAEhgFQvThO04l7VNnR
+	 J02HGBBKoRN/8ijjWAvey+fT62xnSSg6eCMEf3FCWD0oDR8UDBo6agrJf8dhRl0EPL
+	 oabhup2yGu8FQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
+	"Steven Rostedt (VMware)" <rostedt@goodmis.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/7] bootconfig: Change array value to use child node
+Date: Wed, 16 Sep 2026 15:07:30 -0400
+Message-ID: <20260916190735.1968203-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916190735.1968203-1-sashal@kernel.org>
+References: <2026091617-cackle-deeply-2ea2@gregkh>
+ <20260916190735.1968203-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915070001.113559-1-hao.ge@linux.dev> <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
- <60642a7f-2949-428a-8290-40d69c989a77@linux.dev> <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
-In-Reply-To: <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Wed, 16 Sep 2026 12:07:03 -0700
-X-Gm-Features: AcwNN1U77eJFNHkPfe6Ppe6tyXfOBb0DKmw4ydlFrQQ2j_8G2MzMCljaOX2F-Do
-Message-ID: <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-To: Hao Ge <hao.ge@linux.dev>, "David Hildenbrand (Red Hat)" <david@kernel.org>, 
-	"Lorenzo Stoakes (Oracle)" <ljs@kernel.org>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>, 
-	Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>, 
-	Aaron Tomlin <atomlin@atomlin.com>, Kent Overstreet <kent.overstreet@linux.dev>, 
-	Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org, 
-	linux-mm@kvack.org, linux-kernel@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 9:31=E2=80=AFAM Suren Baghdasaryan <surenb@google.c=
-om> wrote:
->
-> On Tue, Sep 15, 2026 at 11:00=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wrote:
-> >
-> > Hi Suren
-> >
-> > Thanks for you review.
-> >
-> > On 2026/9/16 05:09, Suren Baghdasaryan wrote:
-> > > On Mon, Sep 14, 2026 at 11:59=E2=80=AFPM Hao Ge <hao.ge@linux.dev> wr=
-ote:
-> > >>
-> > >> The reservation is already stored in the maple tree when
-> > >> vm_module_tags_populate() fails. A failed load never unloads the
-> > >> module, so nothing releases the entry. Release it and roll
-> > >> module_tags.size back. Without the rollback a concurrent load that
-> > >> already passed needs_section_mem() can reuse the freed gap, skip
-> > >> vm_module_tags_populate() and write to unmapped memory.
-> > >>
-> > >> vmap_pages_range() may have installed some PTEs before failing. A
-> > >> retry to populate the same range would BUG on them, so undo them,
-> > >> but only if vmap actually ran.
-> > >>
-> > >> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag com=
-pression")
-> > >> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as =
-needed")
-> > >
-> > > If a patch fixes two other patches, it likely needs to be split so
-> > > that each part fixes one patch only. But read on please. I'm not sure
-> > > if one of the fixes is correct.
-> > >
-> >
-> > Kept them in one patch because they only make sense together.
-> >
-> > After a failed populate the reservation is released and the
-> > size rolled back, so the next load takes the same gap and calls
-> > vm_module_tags_populate() again, and that retry would trip over
-> > the PTEs the failed vmap left behind.
-> >
-> > Without the rollback a load that already passed needs_section_mem()
-> > just reuses the gap, skips populate and writes to unmapped memory.
-> > So splitting them leaves each half broken.
->
-> Yeah, that's why I think vmap_pages_range() cleanup should be a
-> completely separate patch with vmap_pages_range() doing cleanup
-> itself.
->
-> >
-> > >> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> > >> Cc: stable@vger.kernel.org
-> > >> Signed-off-by: Hao Ge <hao.ge@linux.dev>
-> > >> ---
-> > >>  mm/alloc_tag.c | 10 ++++++++++
-> > >>  1 file changed, 10 insertions(+)
-> > >>
-> > >> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> > >> index 2070e682fe10..95ddf5b743d0 100644
-> > >> --- a/mm/alloc_tag.c
-> > >> +++ b/mm/alloc_tag.c
-> > >> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
-> > >>                                      next_page, PAGE_SHIFT) < 0) {
-> > >>                         release_pages_arg arg =3D { .pages =3D next_=
-page };
-> > >>
-> > >> +                       /*
-> > >> +                        * vmap_pages_range() only runs once all pag=
-es were
-> > >> +                        * allocated, and it may have installed some=
- mappings
-> > >> +                        * before failing. Undo them.
-> > >
-> > > If vmap_pages_range() failed to map the range, why should we need to
-> > > undo it? If it indeed leaves some partial mapping when failing then I
-> > > would argue that vmap_pages_range() should be undoing these partial
-> > > mappings itself before returning the error.
-> > >
-> > Yeah it does - none of the paths under vmap_pages_range() undo themselv=
-es on error.
->
-> Hmm. I wonder if this behavior is intentional or requires a fix. The
-> only possible reason I can think of is performance but I can't imagine
-> a failure to map is a performance-critical case.
->
-> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
+From: Masami Hiramatsu <mhiramat@kernel.org>
 
-Huh, my gmail thinks you are still at your previous companies :)
+[ Upstream commit ca24306d83a125df187ad53eddb038fe0cffb8ca ]
 
-> guys think? Shouldn't vmap_pages_range() undo its possible partial
-> mapping when it fails?
->
->
-> > pcpu_map_pages does perform cleanup on its own as well. There may be ot=
-her similar sites.
-> > https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
-> > so I did the same here.
-> >
-> > If we really want vmap_pages_range() to handle this cleanup internally,=
- I believe that would
-> > be a relatively large change, and we would need to consider many more c=
-ases. So I think we keep
-> > the current behaviour for now.
->
-> Yeah, I understand it would require a deeper cut but if that's the
-> right way to handle this we might as well do that. Let's see what MM
-> folks think.
->
-> >
-> > Thanks
-> > Best Regards
-> > Hao
-> >
-> > >> +                        */
-> > >> +                       if (nr =3D=3D more_pages)
-> > >> +                               vunmap_range(phys_end, phys_end + (n=
-r << PAGE_SHIFT));
-> > >>                         /* Clean up and error out */
-> > >>                         release_pages(arg, nr);
-> > >>                         return -ENOMEM;
-> > >> @@ -947,6 +954,7 @@ static void *reserve_module_tags(struct module *=
-mod, unsigned long size,
-> > >>                 return ret;
-> > >>
-> > >>         if (module_tags.size < offset + size) {
-> > >> +               unsigned long prev_size =3D module_tags.size;
-> > >>                 int grow_res;
-> > >>
-> > >>                 module_tags.size =3D offset + size;
-> > >> @@ -961,6 +969,8 @@ static void *reserve_module_tags(struct module *=
-mod, unsigned long size,
-> > >>                         shutdown_mem_profiling(true);
-> > >>                         pr_err("Failed to allocate memory for alloca=
-tion tags in the module %s. Memory allocation profiling is disabled!\n",
-> > >>                                mod->name);
-> > >> +                       release_module_tags(mod, false);
-> > >> +                       module_tags.size =3D prev_size;
-> > >
-> > > Yes, this one is a valid fix. It fixes 0f9b685626da commit.
-> > >
-> > >>                         return ERR_PTR(grow_res);
-> > >>                 }
-> > >>         }
-> > >> --
-> > >> 2.25.1
-> > >>
+It is not possible to put an array value with subkeys under
+a key node, because both of subkeys and the array elements
+are using "next" field of the xbc_node.
+
+Thus this changes the array values to use "child" field in
+the array case. The reason why split this change is to
+test it easily.
+
+Link: https://lkml.kernel.org/r/162262193838.264090.16044473274501498656.stgit@devnote2
+
+Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
+Signed-off-by: Steven Rostedt (VMware) <rostedt@goodmis.org>
+Stable-dep-of: 462d0b066b61 ("tools/bootconfig: Fix integer overflow and truncation in size checks")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/proc/bootconfig.c       |  2 +-
+ include/linux/bootconfig.h |  6 +++---
+ lib/bootconfig.c           | 23 +++++++++++++++++++----
+ tools/bootconfig/main.c    |  2 +-
+ 4 files changed, 24 insertions(+), 9 deletions(-)
+
+diff --git a/fs/proc/bootconfig.c b/fs/proc/bootconfig.c
+index d82dae133243b..2e244ada1f970 100644
+--- a/fs/proc/bootconfig.c
++++ b/fs/proc/bootconfig.c
+@@ -51,7 +51,7 @@ static int __init copy_xbc_key_value_list(char *dst, size_t size)
+ 				else
+ 					q = '"';
+ 				ret = snprintf(dst, rest(dst, end), "%c%s%c%s",
+-					q, val, q, vnode->next ? ", " : "\n");
++					q, val, q, xbc_node_is_array(vnode) ? ", " : "\n");
+ 				if (ret < 0)
+ 					goto out;
+ 				dst += ret;
+diff --git a/include/linux/bootconfig.h b/include/linux/bootconfig.h
+index 39d2e2468c237..2c5f0b2484caa 100644
+--- a/include/linux/bootconfig.h
++++ b/include/linux/bootconfig.h
+@@ -71,7 +71,7 @@ static inline __init bool xbc_node_is_key(struct xbc_node *node)
+  */
+ static inline __init bool xbc_node_is_array(struct xbc_node *node)
+ {
+-	return xbc_node_is_value(node) && node->next != 0;
++	return xbc_node_is_value(node) && node->child != 0;
+ }
+ 
+ /**
+@@ -140,7 +140,7 @@ static inline struct xbc_node * __init xbc_find_node(const char *key)
+  */
+ #define xbc_array_for_each_value(anode, value)				\
+ 	for (value = xbc_node_get_data(anode); anode != NULL ;		\
+-	     anode = xbc_node_get_next(anode),				\
++	     anode = xbc_node_get_child(anode),				\
+ 	     value = anode ? xbc_node_get_data(anode) : NULL)
+ 
+ /**
+@@ -171,7 +171,7 @@ static inline struct xbc_node * __init xbc_find_node(const char *key)
+  */
+ #define xbc_node_for_each_array_value(node, key, anode, value)		\
+ 	for (value = xbc_node_find_value(node, key, &anode); value != NULL; \
+-	     anode = xbc_node_get_next(anode),				\
++	     anode = xbc_node_get_child(anode),				\
+ 	     value = anode ? xbc_node_get_data(anode) : NULL)
+ 
+ /**
+diff --git a/lib/bootconfig.c b/lib/bootconfig.c
+index f6bede03c6926..36146607912e8 100644
+--- a/lib/bootconfig.c
++++ b/lib/bootconfig.c
+@@ -432,6 +432,14 @@ static inline __init struct xbc_node *xbc_last_sibling(struct xbc_node *node)
+ 	return node;
+ }
+ 
++static inline __init struct xbc_node *xbc_last_child(struct xbc_node *node)
++{
++	while (node->child)
++		node = xbc_node_get_child(node);
++
++	return node;
++}
++
+ static struct xbc_node * __init xbc_add_sibling(char *data, u32 flag)
+ {
+ 	struct xbc_node *sib, *node = xbc_add_node(data, flag);
+@@ -582,17 +590,20 @@ static int __init xbc_parse_array(char **__v)
+ 	char *next;
+ 	int c = 0;
+ 
++	if (last_parent->child)
++		last_parent = xbc_node_get_child(last_parent);
++
+ 	do {
+ 		c = __xbc_parse_value(__v, &next);
+ 		if (c < 0)
+ 			return c;
+ 
+-		node = xbc_add_sibling(*__v, XBC_VALUE);
++		node = xbc_add_child(*__v, XBC_VALUE);
+ 		if (!node)
+ 			return -ENOMEM;
+ 		*__v = next;
+ 	} while (c == ',');
+-	node->next = 0;
++	node->child = 0;
+ 
+ 	return c;
+ }
+@@ -680,8 +691,12 @@ static int __init xbc_parse_kv(char **k, char *v, int op)
+ 
+ 	if (op == ':' && child) {
+ 		xbc_init_node(child, v, XBC_VALUE);
+-	} else if (!xbc_add_sibling(v, XBC_VALUE))
+-		return -ENOMEM;
++	} else {
++		if (op == '+' && child)
++			last_parent = xbc_last_child(child);
++		if (!xbc_add_sibling(v, XBC_VALUE))
++			return -ENOMEM;
++	}
+ 
+ 	if (c == ',') {	/* Array */
+ 		c = xbc_parse_array(&next);
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index 6862afd66cfd3..b276fb75065e4 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -27,7 +27,7 @@ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+ 			q = '\'';
+ 		else
+ 			q = '"';
+-		printf("%c%s%c%s", q, val, q, node->next ? ", " : eol);
++		printf("%c%s%c%s", q, val, q, xbc_node_is_array(node) ? ", " : eol);
+ 		i++;
+ 	}
+ 	return i;
+-- 
+2.53.0
+
