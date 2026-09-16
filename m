@@ -1,203 +1,166 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f174.google.com (mail-pl1-f174.google.com [209.85.214.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EAAD4AEBD9
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:57:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C22A4B0C83
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:57:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552637; cv=none; b=oRLKkWJyv9mR6vgnxXRaGoEmqbZGP9n5oJOrDoRBQMmJjT9ZTOxLfn0UbyEk0Y09Iv1mIpAPqJd7Jp86lH/kG366DOcvjPnIR46SnYKOoloRjJGBY7bI2QQ+x//rmMyi6JC20NxtIZJS8cjv60G5quuuyzfwomGYEnzBWLM34mA=
+	t=1789552656; cv=none; b=djCCuBEMX/wCDkYu5bM9HoTNeMfTpIcvRcNnPnQUyrlG1tjSLY5JoPKPxABvFdquXWYZhTvuMgxslLe8H9/tDxC63RM1gSMWyr/+QOSkObjBE8Khewf4mGmGIpZ9rY8i2FdYZLcFXdyzzcJSoXz7xrJNXQXSvNuljy+ooSXziQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552637; c=relaxed/simple;
-	bh=9WzHIAv4+zGjiiNZyV6DfLgFv2m9+CZ7DYDWVGUfu0c=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=qV+fAUn/XkcJcx9boNKB+jDxErV1N+4n0htM6Uu4hHJ7It/mIswnxQ7GbS5vy/+lvMpGhmeH7ex39e1Big0CGQhWFRBpDfx5LnhePBTBdVSg0LLnekVK/t/05CBm82T3jvTPb3LNxkIDbDFSJDkdMWZNvOI9zvMNWEDrxsqpH+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=WKlMMfkn; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZCCLgjYj; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789552656; c=relaxed/simple;
+	bh=r4MxKVUpVOphBodMJ8sw/Wpc7j8tML5z/BSxDV9WLps=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CYf+Vf0ajrmWWnbJtTixSml2aXOFv4Fb0wKtoIy1ySY8/taVsymnfzfZzV88pGHuOjCmTNVzaLj0O58w/erfZ6s8IBxKbWsc5Xl93HwFKLb39RsQmqcy9IaEG3aSXfYTyQIUnNNy77kLaNJRYO4afgTPK3X3MTYRoQ3C6nF+itM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=lpYnGQHd; arc=none smtp.client-ip=209.85.214.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="WKlMMfkn";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZCCLgjYj"
-Received: from pps.filterd (m0279870.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G92fu52477683
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:57:01 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:message-id
-	:mime-version:subject:to; s=qcppdkim1; bh=EjEYqVUMD/QfVns9KH5KAf
-	c1J0WZ0Tcq9NRHRiudLcA=; b=WKlMMfknpOc0OUE3Ieh6CT8HELyebpo8/OSzKK
-	SiB7WBbZ+Txs6YRXRHErbV8RGHrDi9vPQaVzOiMgBIT270swPMmul6Cuq2XeK1o3
-	yjny79ErlKcXeTY5Fv9ihRKFcZV/bhfbJFlfGIgU3gD0XAs8XIgeKRVP+emk6tCj
-	x5JUQBpifNlLCYwqjm7iFtByXR2lpRLO95BzBDRCqQydFX2yeIyltKFmAQ6qb4fz
-	QghjPVse9FFzIc3bOmFp3e0xVNCy01Qcbf77tlelDL8fYyFRVh/YFaswTg++/iVd
-	XZ2jU8srqRnHZSg+y9wP7oqJheqGUbbRKRYm7GtBjyPtBhIQ==
-Received: from mail-pg1-f200.google.com (mail-pg1-f200.google.com [209.85.215.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gqjcksqak-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:57:00 +0000 (GMT)
-Received: by mail-pg1-f200.google.com with SMTP id 41be03b00d2f7-cc1eb205d31so7768470a12.2
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:57:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="lpYnGQHd"
+Received: by mail-pl1-f174.google.com with SMTP id d9443c01a7336-2dd1dcdcf95so16483835ad.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:57:18 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789552620; x=1790157420; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=EjEYqVUMD/QfVns9KH5KAfc1J0WZ0Tcq9NRHRiudLcA=;
-        b=ZCCLgjYjGNr2eWD31V9FHpg1BzzuzlRWrV8c6/ZH+AsOP0qFT/6m+pYTnwffthoWBd
-         HOLt+pI5yif2AV0hSoLXrLG2/115D9eQZkEMIz0bEbXMPxHJjyXhGlRpCJFEJ9Ddqqmr
-         k1VFzbMkvSmpLCYn1yGMKTTFek47QMYFe7rM8PW3WR1rIQArDtPmerObgKJxsxOOisc2
-         +q/HeKgLpAUBWlt/1vY7Ac8PdK6YRXFF2EYRTdwpDElc6bESrGVqIcLeQcB3vVLXngbJ
-         HhAIv43WdF0ltIbyhugzvSgY2SKGDIOCztcIgCBja4lnq/y2fO7hRYnuXYg0P6irZxbc
-         DE1A==
+        d=gmail.com; s=20251104; t=1789552634; x=1790157434; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=y4XoxT2FpvN2jeEt9ImVCB0YUQFanB/NfCBuFC1HNkg=;
+        b=lpYnGQHduFTTV7st20ooBUvZxZrLiQeq5wY/nXzzMKQoREiRPg4kLklBctdPLQy8+U
+         LW28usYqtsHb1xd9nmVlsp068ez6077IZzcfjGOz6CIWwZXVXnoCXrKwdyJdltgMCh12
+         6kDuDu10dmtnjQhhs/0uAUditbVSYRCEAOXn9q0w5QJ9KkJQZWT4Zrw3YxTg1aPOHVsd
+         4O74WMaRKtnCrql1IY3tch0dMVqRqw7E2dmN6F9SYfdzTDt1Jk0UPU/0RNB5zbuzv3TG
+         13B4NluSDogZ1Jov9hz0Gsa2vtFry1Dwf000UpyO2+Ip0YozCIx+Wm2eZABRskB80Nxc
+         S7EQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789552620; x=1790157420;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=EjEYqVUMD/QfVns9KH5KAfc1J0WZ0Tcq9NRHRiudLcA=;
-        b=bMZb8b6DNLVojNuFp4NL00yj7JIDj0cgEr6qUVdxW9cgo4kbHuotPAMHJtSwYVAQ8u
-         91IOpf8+uwQNFgH/kRmLf7B5C1uk/Ar/gioUt/1QcS/ZyWXAh7p4x0rjIQIAjbuQFe0r
-         n2GvajEMKqjkniw8wyjSBMTqp4lJSVXKJe7oqFMuMhzzgcmoWfcxYI0Mps2RhGAprUQH
-         XQbXWKMITsmPo0pR7Or8jpi3ozkg3QydF9uESeK6l/EVMwaf1RnIer9QKyIdb5rubX5l
-         DxYNjulr7Tptgznfwybc2Ios5OEbzfzFMVGQKiuxnazcy8RB3rfkr62+qaUGBTU/pGmX
-         cxBg==
-X-Forwarded-Encrypted: i=1; AKwUvBz3qlJFIZ5z9WJxDj6/uWuPR/oL6v0d6wy/QNkaaw3gP49qVv0xN9bQpXVPblOqv09kzub3cqM=@vger.kernel.org
-X-Gm-Message-State: AFuF++kE42+RChgJQdv/GuL98odn4dRWUZi9pw9g8E059AwNpm0DXHfY
-	XX9OnTkAh4eLElUsBiosLrsHrmjySLwgGMO3EZmjdqzv5wmfAI0Mc8lzXcpvLxNpN0azNJapY95
-	bCjPb9scmwhMKBukti06TeX8vLesfTgQXm4bUs9qh2tQd9z17RVs0i0oTjUw=
-X-Gm-Gg: AYBFou3UtbX0/6V5qossgjpVtH0oxfOzlPgjkOukx3wXInxtUvXAMzt2hksZmptRiVn
-	Y1r3fYAl7rGD1rUP1LA/OD/CtpMor1pMw/r++Ad2/Vf9gVx1/Vd16FPdU69hVtCwvcqJRPdW1IZ
-	QBrVTQ+bzddVcE3mBMFIgfn+6JMzV3AQRliqPXtJy8eWa4+7OAUyZoMLt/pGR1YyCVDLX8pAerX
-	jasT9PC1eslMsYRrhnP5GStO0eGp5CYGq8xLSgHJDk6U5+T8leedby0T/Q0X2P+ai5b75A2nxa/
-	Dw54o8/jBEWhzBOo3hV1ZEoc8i8wuqnDnDdAhsnL7EWxRUqCaJ0hTn4V3HZTrvh7+gWe/jDEV0z
-	cz/oolddY80xfCEZHdn+XSN4Ac5wP9CRYO8S8Gg==
-X-Received: by 2002:a05:6a21:138f:b0:3d3:ae0f:5268 with SMTP id adf61e73a8af0-3dd5f72a0e8mr5268074637.20.1789552619944;
-        Wed, 16 Sep 2026 02:56:59 -0700 (PDT)
-X-Received: by 2002:a05:6a21:138f:b0:3d3:ae0f:5268 with SMTP id adf61e73a8af0-3dd5f72a0e8mr5268010637.20.1789552619480;
-        Wed, 16 Sep 2026 02:56:59 -0700 (PDT)
-Received: from hu-anupvish-hyd.qualcomm.com ([202.46.23.25])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5b0520asm6990313eec.27.2026.09.16.02.56.56
+        d=1e100.net; s=20260707; t=1789552634; x=1790157434;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=y4XoxT2FpvN2jeEt9ImVCB0YUQFanB/NfCBuFC1HNkg=;
+        b=nmPMlorkQlGKt076luT+8WwfARSc6lwzXvEu7DxTF9zz2YjWrt7RLeMJKZbfOfdILj
+         1pgVF3CZAt9o2sM/dn9ANC3soTP/kwgbmRL0xDqf57LS41mcLjzUMrMB/qC+yN0gplnE
+         sRgNnQ1pjMcPtz1R/iOxi9/KsPU4BynGgq2aE4Kcz2jdRHe5nyy1hhKimJuJ+t7Bcgku
+         tlQs01z/p20TaqD65KalYy7YRyVbj5uYcqlY9fUiyw7k/q5hNFn0cv2oYtJI/0i8ZIdF
+         jHJwbROSVeP7+qyWfZWApmn2o3+5MM0+xZMRvSKoC2skUYO/D7p55kUyS+k3x4f1DcVh
+         b5Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBwKNLMi9MfI4bla8tpPzUFP8730U//nqyZ9A1LBHxfzL+50uo3pk8n9ts4GJOGXMaUGh8uRwTw=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVrIUx9/5xqsNVOHIIsS/1uUJrudZKs1DmNcKVh1w9+i1TvlWj
+	Ui/urTQbZ9GiEOAZKM+O8V+htOhh6GKW70CGv0Enyd0JOtEkTTb0bO0R
+X-Gm-Gg: AYBFou1T5Or/7NDnniWwz4R+LZiRjqVJxvCfBr6yfzgf1n4yGGwv7MKzagiiNXgMCAs
+	VU+cSo26bvJ2OM4EYiZvzmMsVIDyK27Y8lalKCzBYctMu5Bo0MW9LsFxOU4IdpzAAwVs0nyZ+ou
+	UZpQcHS8N9XD46TQI4OpFl3QtEkR30Q7qa0Q68CqmxpkgzKXm+bJBPpNpSNDcPg/UTPUwyAkIf2
+	tMkE1rAHajmiSUriX+cVuF00dNVurOWfKOGh9vOU4UZuEw4f4jpp4nIcW4UivCbC5VUhv8hWj8+
+	MMXXg8QmQp/MX+SNnhhlalBV1E9XUjvDiEb0GJoftBkC83PBXinHFgq51FXcNF8m6fB0Fm5L9Sw
+	+j8KEa6b9TaVnIRZWQAqQFk0niubpGRi6YlQhIg7akH8hLGC23mTKFMneexTfJa+3KmAWXMmkCj
+	RYGQSMdIvjCLXrlxoh+TOQYu+wLO1hyI0yJbBxiXSpcsw+8f3WmfpZZkIQz5uUmxZoYz1VoQ==
+X-Received: by 2002:a17:903:324b:b0:2da:e553:c6ff with SMTP id d9443c01a7336-2dd764c1b47mr95237755ad.9.1789552634365;
+        Wed, 16 Sep 2026 02:57:14 -0700 (PDT)
+Received: from localhost ([2001:19f0:8000:3e6e:5400:6ff:fe38:3d01])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f34921sm8679235ad.84.2026.09.16.02.57.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 02:56:59 -0700 (PDT)
-From: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-Date: Wed, 16 Sep 2026 15:26:53 +0530
-Subject: [PATCH] mailbox: qcom-ipcc: Guard against NULL con_priv in
- send_data()
+        Wed, 16 Sep 2026 02:57:13 -0700 (PDT)
+Date: Wed, 16 Sep 2026 17:56:31 +0800
+From: Inochi Amaoto <inochiama@gmail.com>
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, "Anton D. Stavinskii" <stavinsky@gmail.com>, 
+	Inochi Amaoto <inochiama@gmail.com>, Chen Wang <chen.wang@linux.dev>, Sasha Levin <sashal@kernel.org>, 
+	Vegard Nossum <vegard.nossum@oracle.com>
+Subject: Re: [PATCH 6.12 0889/1376] riscv: dts: sophgo: cv180x: Allow the DMA
+ multiplexer to set channel number for DMA controller
+Message-ID: <aqpnHyo8p2ygP1-8@inochi.infowork>
+References: <20260912065607.535295758@linuxfoundation.org>
+ <20260912065627.376202771@linuxfoundation.org>
+ <812a006e-a7ad-4a66-ab8b-45865cbe47f4@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-b4-ipcc_send_data_null_check_upstream-v1-1-bfc61f5056a3@oss.qualcomm.com>
-X-B4-Tracking: v=1; b=H4sIAORnqmoC/yXNTQrCMBBA4auUWRtIi8boVURCfqZ2tKYhk4hQe
- nejLr/NeyswZkKGc7dCxhcxLbGh33XgJxtvKCg0wyAHJU+9Em4vKHlvGGMwwRZrYp1n4yf0D1M
- Tl4z2KeRxcFoflNJyhNZKGUd6/z6X699c3R19+cZh2z4mkZJRiQAAAA==
-X-Change-ID: 20260916-b4-ipcc_send_data_null_check_upstream-072b8856680f
-To: Manivannan Sadhasivam <mani@kernel.org>,
-        Jassi Brar <jassisinghbrar@gmail.com>,
-        Sibi Sankar <sibi.sankar@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>
-Cc: Jassi Brar <jaswinder.singh@linaro.org>, linux-arm-msm@vger.kernel.org,
-        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-        Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789552616; l=2110;
- i=anup.vishwakarma@oss.qualcomm.com; s=20260805; h=from:subject:message-id;
- bh=9WzHIAv4+zGjiiNZyV6DfLgFv2m9+CZ7DYDWVGUfu0c=;
- b=elEIKGjpOqengBZjU8VqAN91IcqocVSmYBFJqzsmVj88/XsCQ8QIjN/s8SfXD31UVru1Xp/MC
- TxBfsDsQP0hBpnW82LiJbGiLcNklTYFs1x6q4grePfNBV+nnkyHbe1B
-X-Developer-Key: i=anup.vishwakarma@oss.qualcomm.com; a=ed25519;
- pk=Y9ilCu91UQrzHOM14SG2IjnmQ1QSroH5uVeBSWEmEDM=
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDEyOSBTYWx0ZWRfXximGmWwtxliE
- ecRtwF0Nxzxv08J5OSonkc8pNvUyAAe1EsTm9t6nymqaWNTsKUf81ewyA+Wp+dwElyYa78OrgTI
- mkkoytRUeae6G8cg7ktpPps10uZw6jY=
-X-Authority-Analysis: v=2.4 cv=PsIG/AM3 c=1 sm=1 tr=0 ts=6aaa67ec cx=c_pps
- a=oF/VQ+ItUULfLr/lQ2/icg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=gowsoOTTUOVcmtlkKump:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=uR8SbD86SFq7i-S2JZEA:9 a=QEXdDO2ut3YA:10
- a=3WC7DwWrALyhR5TkjVHa:22
-X-Proofpoint-ORIG-GUID: PIOIKxrapRJCFur-1GU5oZ9OSsWJewYD
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDEyOSBTYWx0ZWRfXxiL4iGa72JGY
- ZqLgcSElOQgGQ09KKN6GA+A7HBHZhUTfhHVNo/p6ny3hxMEXBNoaLz2w5tF/xGbAT0QCgukFMf5
- BU6MHnnKcXn4vRaBXVqwJNkyZQ6BQD3PIcFSRxVMYCP5fHZJvcnROMcsd+4kkTGek8dL1G0hgQB
- ZhtXEBgoH4629UHLZmW/o6kHTd/c1QcyBfoXDVK9OQ1lckvlsqROl2ZttI3Fyya5SYvOLzKYKKb
- SWFGygc/ncZr59a9469rKipNprUZxQjiCtrYj8DHuoh1gd7/2cEnIjMSMSklROfuH9W0b2+XGMS
- VQQw5x4a/Xi5GjxewPg0/JVh+uXdvYdLmIa/MK9kGd+s5VIm/ZPjwNa/zf9tnkeAgtd4NQhOeW3
- OQeqOnwWmk6dRQoaucjnjt+gOvE7iOndZ+UlMV1LMF1qrt4LZODomOcHUaEkur0mYjwhj3wawhq
- 1SqyEAi8tnpgIuw7PNg==
-X-Proofpoint-GUID: PIOIKxrapRJCFur-1GU5oZ9OSsWJewYD
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- impostorscore=0 lowpriorityscore=0 adultscore=0 priorityscore=1501
- phishscore=0 spamscore=0 clxscore=1015 suspectscore=0 bulkscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609160129
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <812a006e-a7ad-4a66-ab8b-45865cbe47f4@oracle.com>
 
-qcom_ipcc_mbox_shutdown() clears chan->con_priv with no locking.
-qcom_ipcc_mbox_send_data() dereferences the same field without
-checking for NULL first, so a send racing a concurrent shutdown can
-crash:
+On Wed, Sep 16, 2026 at 01:30:56PM +0530, Harshit Mogalapalli wrote:
+> Hi Greg/Sasha,
+> 
+> On 12/09/26 12:25 pm, Greg Kroah-Hartman wrote:
+> > 6.12-stable review patch.  If anyone has any objections, please let me know.
+> > 
+> > ------------------
+> > 
+> > From: Inochi Amaoto <inochiama@gmail.com>
+> > 
+> > [ Upstream commit 5011466bade64483bb52bc4a926719d6794e6dab ]
+> > 
+> > Change the DMA controller compatible to the sophgo,cv1800b-axi-dma,
+> > which supports setting DMA channel number in DMA phandle args.
+> > 
+> > This dts change does not break backward compatibility as a fallback
+> > compatiable string is added.
+> > 
+> > Fixes: 514951a81a5e ("riscv: dts: sophgo: cv18xx: add DMA controller")
+> > Reported-by: Anton D. Stavinskii <stavinsky@gmail.com>
+> > Closes: https://github.com/sophgo/linux/issues/9
+> > Tested-by: Anton D. Stavinskii <stavinsky@gmail.com>
+> > Link: https://patch.msgid.link/20260511063818.463877-3-inochiama@gmail.com
+> > Signed-off-by: Inochi Amaoto <inochiama@gmail.com>
+> > Signed-off-by: Chen Wang <chen.wang@linux.dev>
+> > Signed-off-by: Sasha Levin <sashal@kernel.org>
+> > ---
+> >   arch/riscv/boot/dts/sophgo/cv18xx.dtsi | 2 +-
+> >   1 file changed, 1 insertion(+), 1 deletion(-)
+> > 
+> > diff --git a/arch/riscv/boot/dts/sophgo/cv18xx.dtsi b/arch/riscv/boot/dts/sophgo/cv18xx.dtsi
+> > index b8063ba6d6d7f..e519a72c093d1 100644
+> > --- a/arch/riscv/boot/dts/sophgo/cv18xx.dtsi
+> > +++ b/arch/riscv/boot/dts/sophgo/cv18xx.dtsi
+> > @@ -298,7 +298,7 @@ sdhci0: mmc@4310000 {
+> >   		};
+> >   		dmac: dma-controller@4330000 {
+> > -			compatible = "snps,axi-dma-1.01a";
+> > +			compatible = "sophgo,cv1800b-axi-dma", "snps,axi-dma-1.01a";
+> 
+> 
+> I ran an AI-assisted backport review, and I have verified the report. It
+> looks valid to me.
+> 
+> The patch adds the Sophgo CV1800B DMA compatible, but 6.12 lacks the
+> matching driver support from b49c70273801. The generic fallback
+> therefore matches and still calls dma_get_any_slave_channel(), so the
+> phandle channel number is not honored. The branch also lacks the CV1800B
+> mux driver db7d07b5add4 and its syscon/mux DTS integration from
+> 126a1b3c61cb.
+> 
+> Upstream driver code after b49c70273801:
+> 
+>     if (dw->hdata->use_handshake_as_channel_number)
+>             dchan = dma_get_slave_channel(&chan->vc.chan);
+>     else
+>             dchan = dma_get_any_slave_channel(&dw->dma);
+> 
+> Downstream 6.12.y code:
+> 
+>     compatible = "sophgo,cv1800b-axi-dma",
+>                  "snps,axi-dma-1.01a";
+>     dchan = dma_get_any_slave_channel(&dw->dma);
+> 
+> Downstream falls back to the generic match and ignores the channel ID.
+> 
+> Maybe we should be dropping this or reverting this.
+> 
+> thanks,
+> Harshit
+> 
+> >   			reg = <0x04330000 0x1000>;
+> >   			interrupts = <29 IRQ_TYPE_LEVEL_HIGH>;
+> >   			clocks = <&clk CLK_SDMA_AXI>, <&clk CLK_SDMA_AXI>;
+> 
 
-  mchan = chan->con_priv;
-  ...
-  hwirq = qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
+I think this fix does not change something as we already have the
+fallback compatiable, even if we does not backport the driver fix.
+As this does not change the behavior, I think this could be kept.
 
-Add the same NULL guard mbox_send_message() already uses for
-chan->cl, and bail out before dereferencing a cleared con_priv.
-
-To close the remaining race where send_data() reads con_priv a moment
-before a concurrent shutdown clears it, acquire the spinlock in
-qcom_ipcc_mbox_shutdown() using the modern guard(spinlock_irqsave)
-primitive before setting con_priv to NULL.
-
-Fixes: d6fbfdbc1274 ("mailbox: qcom-ipcc: Fix IPCC mbox channel exhaustion")
-Cc: stable@vger.kernel.org
-Signed-off-by: Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
----
- drivers/mailbox/qcom-ipcc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
-
-diff --git a/drivers/mailbox/qcom-ipcc.c b/drivers/mailbox/qcom-ipcc.c
-index 185b63f724d4..387aa72aeedf 100644
---- a/drivers/mailbox/qcom-ipcc.c
-+++ b/drivers/mailbox/qcom-ipcc.c
-@@ -10,6 +10,7 @@
- #include <linux/mailbox_controller.h>
- #include <linux/module.h>
- #include <linux/platform_device.h>
-+#include <linux/spinlock.h>
- 
- #include <dt-bindings/mailbox/qcom-ipcc.h>
- 
-@@ -151,6 +152,9 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan *chan, void *data)
- 	struct qcom_ipcc_chan_info *mchan = chan->con_priv;
- 	u32 hwirq;
- 
-+	if (!mchan)
-+		return -EINVAL;
-+
- 	hwirq = qcom_ipcc_get_hwirq(mchan->client_id, mchan->signal_id);
- 	writel(hwirq, ipcc->base + IPCC_REG_SEND_ID);
- 
-@@ -159,6 +163,8 @@ static int qcom_ipcc_mbox_send_data(struct mbox_chan *chan, void *data)
- 
- static void qcom_ipcc_mbox_shutdown(struct mbox_chan *chan)
- {
-+	guard(spinlock_irqsave)(&chan->lock);
-+
- 	chan->con_priv = NULL;
- }
- 
-
----
-base-commit: e6e35979777d646fe3c7c94dca7dd32fb25d45f4
-change-id: 20260916-b4-ipcc_send_data_null_check_upstream-072b8856680f
-
-Best regards,
---  
-Anup Vishwakarma <anup.vishwakarma@oss.qualcomm.com>
-
+Regards,
+Inochi
