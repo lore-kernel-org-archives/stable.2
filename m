@@ -1,67 +1,77 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.9])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB48B4C957B;
-	Wed, 16 Sep 2026 23:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6963D4D0A05;
+	Wed, 16 Sep 2026 23:26:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601186; cv=none; b=IEzBoHoOEutqKBgk+Wb8dxe+cFvRDEBdbNZ/Xa7Vcp9pQL1dRDVI0mUm9EOEPiZCelp+ulCFOyEvj+bXcOeL38map0y7FPdGB4sCAbHoBSgE65QLp3LPQ4C5iybKs7Mjp5SToqO8vdSSdQqIacSNGIdu/LselWbuoCEhMdySf+o=
+	t=1789601209; cv=none; b=E5D751v60JLaRUeEvbiDdIv2niku6dN/d3jxIJuqTca1jYq041tBM0+vNOBC5NqlcrW9tNnBUc1rONUsDzAaQ1A4pMcY2/ChUbf7z+NniP9uFPK2BY9E213KCdcxF4wRFtTDukO3as200ezUYBgUZSut+qEcZ6++tUD9R4/GQQA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601186; c=relaxed/simple;
-	bh=iAECNsv0Lwxzy8dLjWkZQlyTMj+r/7qE9/C97BfwrHw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cs+fp93HVj2ep5zBxMuXHRSCGq0p2hGWuzYBY2iKGjLQtF05QMOde3c0Easq38Y72WLlpL59aOcARQQyaABe9hzxT08q+893pGLPd6Z12DK2tzz3oCdTOpatrs8r68T2lw/a6GtPtNGpbEorq43Xy8CKB+mxbXrKXrcZ30Pf0o0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=htexgVkY; arc=none smtp.client-ip=198.175.65.9
+	s=arc-20240116; t=1789601209; c=relaxed/simple;
+	bh=IENOVcYtYsbWwSqusBc7BQfxm1iixDKMq7rNodyy1DM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JSIgxkfDu9RPhy5Tf6W/7AA1ib5NW20j81MlUYvykryTLlcRix1uUTDQS+X3NNaQWdfX3GGkYxIz2vXxK6cf1eY9Y+ulWe+oZA8NzmmngVnixpvXd9hht+uMRT02eAHab0znw55rfV96wJEY/DhfdToL5X+lO6+1ZYVtOrgLBvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C3TnrklC; arc=none smtp.client-ip=198.175.65.17
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="htexgVkY"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C3TnrklC"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789601185; x=1821137185;
-  h=from:to:cc:subject:date:message-id:in-reply-to:
-   references:mime-version:content-transfer-encoding;
-  bh=iAECNsv0Lwxzy8dLjWkZQlyTMj+r/7qE9/C97BfwrHw=;
-  b=htexgVkYZwOTqCLy48nq3cLKmcnz0ucMafxQcVeLaaDnbcJUbQAVngnU
-   dkaDdMeRLmNrH0tc2dH4XTU5aSnrIXgVwfOYmUPillm033kbmP+0BhBzP
-   tZu3wPUVLiPfYKrDa0WqGUMzcGSmyWEe0QZ+vGD50pgMuv5DeaH3ZA7Do
-   wn+9iVFOxHk+IQXNxSHySx4jk66Y2M/rOJCJFzHla+lnBN0k5CVRgIp4q
-   NZWssJdLBaxabMRfrv8P7TbcSm4VLXTV4OHzqPFQz/rW8OmkjFDam6Cct
-   YvL1PYqulqZ2CE0NiFzjMuEJEiupulGRQFvS020YiRto7azh5beRx6prb
-   g==;
-X-CSE-ConnectionGUID: 87n4lvSDRTChcGfP48214Q==
-X-CSE-MsgGUID: a65iJeOkT+GDwO6ONEQlwQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="112756636"
+  t=1789601209; x=1821137209;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=IENOVcYtYsbWwSqusBc7BQfxm1iixDKMq7rNodyy1DM=;
+  b=C3TnrklCrKzoW3nWRQTWGOGLIm37t9AeykLPORiKCKyrq/cMXK42Sram
+   9QYvRj9r8N4Rw9fTrmPJ9SxvwNTkXbyMtzC0jrmWbXqCnfx1mdcnQQ9pe
+   Xkr8TsY6G2zWslbAr7Up7V/uASrU+D92wviV6iEv+4+0UKNI6DJZBKqd3
+   yrHg/E3q7auQf5KHW7xsUqZNH1Qn4YtxggAwJASq8uJuqNMf2tqDd9wS6
+   1Y3VUx/fmh5D5EhkccCV7JRDRBqKgMLi6E64m/42F1OY6eHHS3PpcGmAJ
+   AZC8wkydoLsBGxmP5CQ9PWbjnDoq2AYfgNil+zJ1uA1nZ13PS1cGV9IMk
+   w==;
+X-CSE-ConnectionGUID: rFtaU3pdQA+hHw7tTknu5w==
+X-CSE-MsgGUID: Y3Mn/XwvTtOb1E4MzOgJxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90008527"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="112756636"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa101.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:26:24 -0700
-X-CSE-ConnectionGUID: hCOZOQCFQ1CGz9GLoa3Bsg==
-X-CSE-MsgGUID: pNN7kIJCTz+MdsTRp4upVw==
+   d="scan'208";a="90008527"
+Received: from orviesa007.jf.intel.com ([10.64.159.147])
+  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:26:48 -0700
+X-CSE-ConnectionGUID: M9kAp7mCScKqJ296OMLjmw==
+X-CSE-MsgGUID: 1Fj8XpchQQiTMPSOCo9kvg==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1697194"
+   d="scan'208";a="273457098"
 Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by fmviesa011.fm.intel.com with ESMTP; 16 Sep 2026 16:26:24 -0700
+  by orviesa007.jf.intel.com with ESMTP; 16 Sep 2026 16:26:47 -0700
 From: "Chang S. Bae" <chang.seok.bae@intel.com>
 To: linux-kernel@vger.kernel.org
 Cc: x86@kernel.org,
+	rust-for-linux@vger.kernel.org,
 	tglx@kernel.org,
 	mingo@redhat.com,
 	bp@alien8.de,
 	dave.hansen@linux.intel.com,
 	hpa@zytor.com,
-	andrew.cooper3@citrix.com,
-	arjan.van.de.ven@intel.com,
-	sohil.mehta@intel.com,
+	ojeda@kernel.org,
+	nathan@kernel.org,
+	boqun@kernel.org,
+	gary@garyguo.net,
+	bjorn3_gh@protonmail.com,
+	lossin@kernel.org,
+	a.hindborg@kernel.org,
+	aliceryhl@google.com,
+	tmgross@umich.edu,
+	dakr@kernel.org,
+	daniel.almeida@collabora.com,
+	tamird@kernel.org,
+	acourbot@nvidia.com,
+	work@onurozkan.dev,
 	chang.seok.bae@intel.com,
+	Omar Avelar <omar.avelar@intel.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v3] x86/microcode/intel: Reject problematic loading on Granite Rapids systems
-Date: Wed, 16 Sep 2026 22:59:39 +0000
-Message-ID: <20260916225939.1144524-1-chang.seok.bae@intel.com>
+Subject: [PATCH v3] x86/build/64: Prevent native builds from generating EGPR use
+Date: Wed, 16 Sep 2026 23:00:03 +0000
+Message-ID: <20260916230003.1144622-1-chang.seok.bae@intel.com>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260908223209.916758-1-chang.seok.bae@intel.com>
-References: <20260908223209.916758-1-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -70,82 +80,121 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Microcode updates can usually jump revisions. However, there is an
-erratum on Granite Rapids systems. If they "jump over" revision
-0x1000405, they result in #MC. Avoid it.
+Omar reported this broad concern to me, when resolving a separate issue
+with his custom module. CONFIG_X86_NATIVE_CPU=y allows builds to
+opportunistically emit instructions using %r16-%r31 (EGPRs) when the
+build host supports APX since the commit:
 
+  ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+
+But the kernel is not yet prepared to use new registers internally. For
+example, there is no context-switch support for general in-kernel use.
+
+Explicitly disable EGPR use when building with -march=native.
+
+For C, since GCC 14 and Clang 18, both compilers support suppressing EGPR
+use with -mno-apx-features=egpr, whose availability can be detected via
+cc-option.
+
+For Rust, pass features=-apxf through the generated JSON to avoid
+unstable-feature warnings [1]. Note Rust only accepts the option to
+disable APX instructions entirely or not.
+
+Support for this gating also depends on the Rust/LLVM combination. Rust
+1.88 introduced the `apxf` feature option, but versions prior to 1.93 may
+emit an `apxf` attribute to the backend that only LLVM 23 or later can
+interpret. Restrict native Rust builds accordingly.
+
+Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
+Reported-by: Omar Avelar <omar.avelar@intel.com>
 Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
 Cc: <stable@vger.kernel.org>
+Link: https://github.com/rust-lang/rust/issues/139284 [1]
 ---
 V2 -> V3:
-* Shorten the changelog and rename the function (Boris)
-* Reduce the code comment (Dave)
-* Allow 0x1000405 loading. Thanks to Andrew, this fix got attention.
-* Collect Dave review tag. Thanks, Dave!
+ * Specify to avoid EGPR use for C compilers.
+ * Add a link to track Rust APX support (Miguel Ojeda)
+ * Clarify the commit in the changelog (Miguel Ojeda)
+ * Then, collect Ojeda's Ack tag
+ * Massage changelog and comments
 
-Note:
-* GNR98 currently describes loading 0x1000405 itself is unsafe, but it
-  will be updated to say okay with that. I will watch out the GNR98
-  changes.
-* Jumping from < 0x1000380 to 0x1000405 was identified as an issue, but
-  0x1000380 is the first revision as GNR products. So loading 0x1000405
-  in production systems should be okay.
+Test for the C compiler sub-option:
+ * Ensured apx-features= from the sample code [1], first
+ * Earliest versions for the native builds were chosen to check EGPR emits.
+ * Check EGPR strings appearance from kernel builds, like before [2].
+   Nothing was found.
+ * Note PUSH2 as new instructions are not much found, either. But
+   regardless of the amount of APX bring-up to legacy GPR use,
+   mno-apx-features=egpr seems to just be fine for avoiding EGPR use
+
+[1] https://gcc.gnu.org/git/?p=gcc.git;a=tree;f=gcc/testsuite/gcc.target/i386
+[2] https://lore.kernel.org/all/fbbe2b57-19de-4480-b0c6-f44a6007a38f@intel.com/
 ---
- arch/x86/kernel/cpu/microcode/intel.c | 26 ++++++++++++++++++++++++++
- 1 file changed, 26 insertions(+)
+ arch/x86/Kconfig.cpu            | 11 +++++++++++
+ arch/x86/Makefile               |  5 +++++
+ scripts/generate_rust_target.rs |  5 +++++
+ 3 files changed, 21 insertions(+)
 
-diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
-index 1142183c950c..30a22388d4b1 100644
---- a/arch/x86/kernel/cpu/microcode/intel.c
-+++ b/arch/x86/kernel/cpu/microcode/intel.c
-@@ -309,6 +309,26 @@ static void save_microcode_patch(struct microcode_intel *patch)
- 		pr_err("Unable to allocate microcode memory size: %u\n", size);
- }
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index e4654388d794..6e7a366f0798 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -204,10 +204,21 @@ config CC_HAS_MARCH_NATIVE
+ 	# usage warnings that only appear wth '-march=native'.
+ 	depends on CC_IS_GCC || CLANG_VERSION >= 190100
  
-+static bool revision_is_safe(struct cpu_signature *sig, u32 rev)
-+{
-+	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
++config RUSTC_HAS_APXF
++	# The kernel isn't ready for in-kernel APX instructions. Without
++	# explicit frontend gating of APX, the backend may emit those
++	# instructions in native builds.
++	#
++	# Rust 1.88 added the `apxf` feature option, but versions before 1.93
++	# emit an `apxf` target attribute that only LLVM 23+ can interpret.
++	def_bool (RUSTC_VERSION >= 108800 && RUSTC_LLVM_MAJOR_VERSION >= 23) || \
++		 RUSTC_VERSION >= 109300
 +
-+	/*
-+	 * Erratum GNR98 can cause #MC's if "jumping over" revision 0x1000405.
-+	 * Avoid the jumps.
-+	 */
-+	if (vfm == INTEL_GRANITERAPIDS_X &&
-+	    x86_stepping(sig->sig) == 1 &&
-+	    sig->pf & 0x95 &&
-+	    sig->rev < 0x1000405 &&
-+	    rev > 0x1000405) {
-+		pr_err_once("Erratum GNR98: skipping revision 0x%x.\n", rev);
-+		return false;
-+	}
-+
-+	return true;
-+}
-+
- /* Scan blob for microcode matching the boot CPUs family, model, stepping */
- static __init struct microcode_intel *scan_microcode(void *data, size_t size,
- 						     struct ucode_cpu_info *uci,
-@@ -330,6 +350,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
- 		if (!intel_find_matching_signature(data, &uci->cpu_sig))
- 			continue;
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
+ 	depends on CC_HAS_MARCH_NATIVE
++	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+ 	  Optimize for the current CPU used to compile the kernel.
+ 	  Use this option if you intend to build the kernel for your
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index 598f178102ee..8af6b80cffdd 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -161,6 +161,11 @@ else
  
-+		if (!revision_is_safe(&uci->cpu_sig, mc_header->rev))
-+			continue;
+ ifdef CONFIG_X86_NATIVE_CPU
+         KBUILD_CFLAGS += -march=native
++        # Prevent the compiler from generating EGPR use. The kernel is
++        # not yet prepared for general in-kernel use.
++        KBUILD_CFLAGS += $(call cc-option,-mno-apx-features=egpr)
 +
- 		/*
- 		 * For saving the early microcode, find the matching revision which
- 		 * was loaded on the BSP.
-@@ -878,6 +901,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
- 		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
- 			continue;
- 
-+		if (!revision_is_safe(&uci->cpu_sig, mc_header.rev))
-+			continue;
-+
- 		is_safe = ucode_validate_minrev(&mc_header);
- 		if (force_minrev && !is_safe)
- 			continue;
++        # generate_rust_target.rs handles Rust APX gating.
+         KBUILD_RUSTFLAGS += -Ctarget-cpu=native
+ else
+         KBUILD_CFLAGS += -march=x86-64 -mtune=generic
+diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
+index 3bf296581a88..7687b0dd5474 100644
+--- a/scripts/generate_rust_target.rs
++++ b/scripts/generate_rust_target.rs
+@@ -224,6 +224,11 @@ fn main() {
+             features += ",+harden-sls-ijmp";
+             features += ",+harden-sls-ret";
+         }
++        if cfg.has("X86_NATIVE_CPU") {
++            // Prevent the backend from generating APX instructions. The kernel is not yet prepared
++            // for general in-kernel EGPR use.
++            features += ",-apxf";
++        }
+         ts.push("features", features);
+         ts.push("llvm-target", "x86_64-linux-gnu");
+         ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
 -- 
 2.53.0
 
