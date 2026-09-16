@@ -1,71 +1,220 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oa2-f12.google.com (mail-oa2-f12.google.com [74.125.231.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 450304229D9;
-	Wed, 16 Sep 2026 19:29:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 469D7411FB3
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:29:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586969; cv=none; b=P8y5H+/dEOwy42Ujcd3knciroZhgX8Xrq29GxEirHzApoG4wWVgwoRLSLudJCx3lBQzHtJrO0KG8B2EATQH2r2aYXNLLWaSmbAbWCDISGGm+KfVZTSPI2NpzN6Z7j/hq4XMMyJKI4LZeswSHqWdQKjzYCxQ719xYSBho1GRckiA=
+	t=1789586972; cv=none; b=gjiSg4fX1BeGJLUzUvfE9w1vFoKnqIgoEFVyMgBq1QRYKruhjMpWHM2b51yCFrzCGC2OanoZAJJ4QpXD4Ak85t/LgcQdPRsIoU2dybopvvRjLI/3GnwGKMPgr/Ro0fMYgi+qT6VPFs9NGEwkT0Nl5JCUD/K8fmtRxJdAhwoF0uw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586969; c=relaxed/simple;
-	bh=aCZZZD3k7IF1Uuy2EWw7k6uEDkBgpzq6rxXQoAindh4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jiSjA/i/ENNaXMCw0ahjVXHKKsFqfUTEeGX2sIc3mRNAm6vuQv2ejaYmR+NEXWkTHFP/TMXZhg+TX6zGrcL2A9/6c1VHqm85kvo9TMAwSG9IRg3qMyzcfGvK9Uslpninc77z5cqXpyWHOzfS+36gXD87ezPKi0Lzmfy0VvP7tFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXq0tO92; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789586972; c=relaxed/simple;
+	bh=saChfygPBPZCwZj+26yeCgdLy1eoyR+hdw8SI1Rs/bE=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc:
+	 In-Reply-To:References; b=mtm3INEpJ1C1PtwJNPcBjznZUSnSIzZX1SV0dg7pHi+qtTDGKajqqwcqKiEl727FPNKlhk+F4ElgchFQ89axBouPAI+eR0Aue6c+BYFnUn1Z9lKmvPXyNh3DYNh3FEpxm0XzPqa5WgFgFNiWlH+qC/cdM/DI6bndccS27btiu3w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com; spf=pass smtp.mailfrom=peridio.com; dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b=Eo9aPGc0; arc=none smtp.client-ip=74.125.231.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=peridio.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=peridio.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXq0tO92"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D4D41F008A3;
-	Wed, 16 Sep 2026 19:28:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586929;
-	bh=k8Z4RnHg0/AK4gUCjUPauHxKKRQpx+zycIOMOXjQopA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QXq0tO92ic5XWSuBONIva75RMHAKSDgOkJYztdYjxSWMARZSCyOA1yb0qmMnzcUMN
-	 dAAqf7Lw/0nqxpfUAvwyQ9uDpJmcN0lR5Th/55h/RmSuzOQrZo04IlG+CPqODsxC8Z
-	 rRgTfPFibHt6yYphBgMsS795ZOIwjv20pHr3PLer4KfEdgGTK1LSD/yE3FcgZ16vF6
-	 j8CdzoBBNxT2COHqJVfG2XB2xjmEi3yMEkfEKlljoJyi90CyTuzhIhJByBRvwbVIYG
-	 zrqaNJnX+1bm/TwbHCz1d1vAhu5Zmt4TrYEvOc2AbVuKf22e/+1UyV5KVs8HDHomnc
-	 h+MRPLIYZS19A==
-From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
-Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Sebastian Andrzej Siewior <bigeasy@linutronix.de>,
-	Ankur Arora <ankur.a.arora@oracle.com>,
-	Shrikanth Hegde <sshegde@linux.ibm.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Vegard Nossum <vegard.nossum@oracle.com>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 1269/1376] powerpc: Add preempt lazy support
-Date: Wed, 16 Sep 2026 15:28:09 -0400
-Message-ID: <daily-reply-20260916-0019-re-powerpc-preempt-lazy@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <0de39bd3-3575-4955-963c-b528f81b7fa6@oracle.com>
-References: <0de39bd3-3575-4955-963c-b528f81b7fa6@oracle.com>
+	dkim=pass (2048-bit key) header.d=peridio.com header.i=@peridio.com header.b="Eo9aPGc0"
+Received: by mail-oa2-f12.google.com with SMTP id 586e51a60fabf-47badeb3316so101949fac.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:29:23 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=peridio.com; s=google; t=1789586961; x=1790191761; darn=vger.kernel.org;
+        h=references:in-reply-to:cc:to:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:feedback-id:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=htHAlqVBMvpBkvqZZm0DecavHNdfRcLr3Ni8/kU+LTM=;
+        b=Eo9aPGc0uQ2nKndJwIQt4Dl6joAgd/Q4TqVbA6GrYEW1J+K0C2qOridhu6X5z7WPJN
+         O6vIO6xL+0mqp17L20zq5nJxw7AU8r7yrIAguqwt+Xmq0770wWNXaHiNG/wHLlekXXWH
+         fSVWkuT3MlB1puauVjQx6cKNVw4d3u2TpCMSHSloYUhBxjQ7VdQzaVJSMpNEDg1t5OmQ
+         DrkG4W8FqM4/pXCX6s2r5uTS6MdJsRTOdx7Tp2hR6tTuvrlzYZ84KOS/2cdtSTD1FZGu
+         M+YtRGdjtJV5GkXmIJbFxAh1Mnd8ajqyEXrYTo7BolqMqT+wkJPiG4x2zqRzvcGGucUv
+         aPSA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789586961; x=1790191761;
+        h=references:in-reply-to:cc:to:message-id:content-transfer-encoding
+         :content-type:mime-version:subject:date:from:feedback-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=htHAlqVBMvpBkvqZZm0DecavHNdfRcLr3Ni8/kU+LTM=;
+        b=pMkXHwz9vN27b9LeNSRCCVX+OtXOPtt3HugPWyL5hmth/WgFvp5aVmF6nOEj8Qo1LU
+         7hsBBu7Bs1x+3YyMUf5ga8j8SA93n0v+h7tQh/E4T20hoz5Zs6rqUBk/oYaX6HKB4fJS
+         h/CBWIwBaBF0v6c7yKOBM+PLEmwtjLcUaijDC8Re8/Qjxmo/8KzCXT/p4Q4VkUH0Br2L
+         j7/DP8lVevbStjlbJvUtDRy2ckNojTUm4hqiMpkGTVXzHl9DEY1h3rWpj4gGxn81mKRh
+         cZxIkwMo8jBUGXCEMpxaFTQc6wjRAutH/WUCzY27kmWwmjZkhc+Shyl2Ani1R0MJcz7w
+         i/2g==
+X-Gm-Message-State: AFuF++lAHQdFf+X9y9TEsCNHprDY0O+wmTQuyjilxZyDn+fCsuQ9CP3T
+	zqU9pH0JF1KG8kkn2quBv3jPxWiPDnJRrlHSSxycmuSuvtftgVf/lO/RWXQzYFrHE6g=
+X-Gm-Gg: AYBFou1aJtcHYKLe1bGaCwuWBA50lBvKpqP+vrHiF/rajUSHKr4oYZ9vaG3o0IgZjh+
+	tZMwDf0lFZ+lhApY5wSgWu0/s9J/laHV2lI24TU+euJ+1PsdGHG3oB66WbKXx/fFV8eZEmJxYU6
+	X0f4SYuMw1b2CnwTrghWe7WBUdoQM+S8sKoZ/ey1ukTjXls6e7ciIsJx9VJiT7DVQhrDJ5c760K
+	fbKpzqetU2exWifw1gsYb01PLz8PtlR2vRNERzbAunkoDO6eukbKUl/CgoJEe8GDtpVO8Q1IEYx
+	kc2jh9l2FyzjTzsG321ueMKqLq54Ub7mW9BwZ8iptZPLm6886wxpD81ZL5hIlTr4MLuU1+TVyAp
+	LhO8T+WeQ2+DrNL+asorNK57jKoFjiZVSwY5RtMPxaPsGucuQ+DFByAZ8d7RCU3niNuZdBkxUE4
+	S6ckv5frpNshYhshZGgXl/N8a5J7lG5dwi02Hz64qIm/rSawGs1mzElGld33yoK+A/dWO/uCG0i
+	XZHLMLdnH78v2O4OPDqsZmpG3/xmWu/vP90mEaDa/VNE2vgu/OAT//qnYN/
+X-Received: by 2002:a05:6808:c412:b0:497:d23f:e621 with SMTP id 5614622812f47-4ca4a804a43mr3720529b6e.2.1789586960849;
+        Wed, 16 Sep 2026 12:29:20 -0700 (PDT)
+Received: from fauth-b1-smtp.messagingengine.com (fauth-b1-smtp.messagingengine.com. [202.12.124.200])
+        by smtp.gmail.com with ESMTPSA id 5614622812f47-4cb6d16d9f5sm693078b6e.11.2026.09.16.12.29.19
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 12:29:20 -0700 (PDT)
+Received: from stl-compute-03.internal (stl-compute-03.internal [10.204.2.63])
+	by mailfauth.stl.internal (Postfix) with ESMTP id 30CD0780043;
+	Wed, 16 Sep 2026 15:29:19 -0400 (EDT)
+Received: from stl-imap-04 ([10.204.2.95])
+  by stl-compute-03.internal (MEProxy); Wed, 16 Sep 2026 15:29:19 -0400
+X-ME-Sender: <xms:Du6qagBNn4qHUpqwKH-c3zjrnLedjNtUjos1fCByZprUrsq0CJzBxg>
+    <xme:Du6qatWckPy_wS6ZFESRu788Ar24tOEWR63rdVbDcnw4tBDG-dv73C5bvPb6F3-HQ
+    FWqk-Iph81C41_GzUUr6svlglTmvMWYdfE8IpNBT7c2OHpnVTiw3FGi>
+X-ME-Proxy-Cause: dmFkZTGZOrpWno14ldsmdVuj5n1/4PSwjPZ5SbfZThQnGK1J0rCU1WpCWBZ1bzoLhA/f79
+    X4kUbqA0tfVB6n6bQYNGCSPCfBhUTmprSL8E03RgOA2sIFK5kSbQIfB6kdSI7ntaTrEcOQ
+    2FE1+CN2W3T/hOVhItFDTOqm880m+DSTR+pnE/IEjTnQphBLgiYDz+loMGvkg/NILI/ZYq
+    Wz1MF3vpqTVs0mrZPnNmSzLUUaVC2UqPr9NYoxDUhyy9EERDNoTJvsSn8zqvlWl+2Hzxw5
+    cyGk5XjRdWIl8ihA0TKhFA+f1aphYpxqCyLZBHBWTHHc2X0xWJvLSDmYy6Mmxb9kuVRWlK
+    vgH8w67VAzi1d4vnjAqNmcS588C2zda+88L301ZjrP5NVuJUK1URojqxDjJHuYCJrq4CA9
+    RpXd+VFSb1vHEZt6h/Ei3rVdM9kzGFgEiJboSo54iuqyt8jhD1R9jSqCQ8r6lgskPa0pXQ
+    7JpA82dvsvnRFlBfuhxU0BsFM9Je9qaAqcS5FLP3EA3kd7KYA+WKQGXjEa2cDFfD7IjEXA
+    e18uUJmgWH/BFECDJr0+EmEH2ykIIsJ7hz6krtYvAWyhG+uewdGMUWkq39oEuOtpudBHEy
+    THPXpi9shnbT8O+XFy1mbLOxup0o6hcLhhAc7AM3ncHLKCUBzI1L2Nt9nUBw
+X-ME-Proxy: <xmx:D-6qanP-cb9Q2uHT0-lkwYEa4eRhSr9uzppQfvP9YGjOlY5FvwMIFQ>
+    <xmx:D-6qaq4CJT7udng32uu76AXSFZLWSBs7maxvGkDZNamuq9vqsfRmLg>
+    <xmx:D-6qah3Ay2iTXnSb6UGYJMCO7pVb41_cVRhsfSBRA9YZ743XrRXs7w>
+    <xmx:D-6qarwbiOWiZPYkc-DmoZJ-55XEUJKTX7rZidBo4E92jAXu0RC-Iw>
+    <xmx:D-6qarsR8uXqTzLcncszRUMW0KgPFPzB5-0By5XqSvQyj6WU67mmWHvv>
+Feedback-ID: if7264b73:Fastmail
+Received: by mailuser.stl.internal (Postfix, from userid 501)
+	id D2DEC80066; Wed, 16 Sep 2026 15:29:18 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
+From: Javier Tia <javier@peridio.com>
+Date: Wed, 16 Sep 2026 13:24:05 -0600
+Subject: [PATCH 6.18.y] xfs: initialise args->total for parent pointer
+ updates
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-backport-pptr-total-612-v1-1-dfcc0698a166@peridio.com>
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMQQ7CIBAAv9Ls2W26HBb1K8YD4KKoKQRWo2n6d
+ 1GPM8nMAk1qkgb7YYEqz9RSnjvQZoBwcfNZMJ06g5kMTzti9C7cSq6KpWhFzeruyGTQG2s5mBi
+ 9Jeh1qRLT63c+AI+0Hd9w/Pv28FcJ+t3Cun4A1oO0kIMAAAA=
+X-Change-ID: 20260916-backport-pptr-total-612-b2776c2ffb71
+To: stable@vger.kernel.org
+Cc: "Darrick J. Wong" <djwong@kernel.org>, Carlos Maiolino <cem@kernel.org>, 
+ Javier Tia <javier@peridio.com>,
+ linux-xfs@vger.kernel.org
+In-Reply-To: <2026091609-donator-dumpling-82dd@gregkh>
+References: <2026091609-donator-dumpling-82dd@gregkh>
+X-Mailer: b4 0.15.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3714; i=javier@peridio.com;
+ h=from:subject:message-id; bh=saChfygPBPZCwZj+26yeCgdLy1eoyR+hdw8SI1Rs/bE=;
+ b=owEB7QES/pANAwAKAbXuwwuoZ3cfAcsmYgBqquzUxjrJ1jS7GO0kiStoqJ/iBh1VKQSJtQ0gQ
+ zy7yxUlAcOJAbMEAAEKAB0WIQSbE7ILzw7eI0VKk8m17sMLqGd3HwUCaqrs1AAKCRC17sMLqGd3
+ H8XEC/wKIvRWaxWxyTKL4z94bt0kp5cAwjMMXPMETesTijPfqGSGTgPxQmIKU37SuipjyL0m5dO
+ tor/n5BLFfY7m0Toc8vp9E7xouirF0gY2Svhgcgg1NA3K+rTJWtqBi4yJtYVZksEWDkjc47BVij
+ QtJACUB//zT+fr9HO48hg4gAhEr24fefAePp4wsZts8zaf5PzEoZ5BFtxyf8KDgdUyGBN+lH40D
+ vQs98cPZgkO+NzC3ZdAWKwrmp7b+9/OCgezVAfY5EU7AD8W/Xnzd0Afvcv9ZDrak9yJqIlmla09
+ 5+MUjaGkJYY2wxdFOy8mLn0D/MJuXLaEAyRkGa7u8ABkArZGxo9fp5NyXMcSQHw9ZMlLQeX3ZIP
+ dkerZEmdfVmUZ6RCzoZReW8ALcTpUX2/0damWr6ZQ+vna5RANBnPtUfzi1Vd03xwf3STtGVjtEm
+ nBYx6KhW05QcgvfFOyHLSylUeyXZxQQQ85dAkzEmXt56yC0I/7fti6nkwzgGRotxV7FLs=
+X-Developer-Key: i=javier@peridio.com; a=openpgp;
+ fpr=9B13B20BCF0EDE23454A93C9B5EEC30BA867771F
 
-> This is a broad scheduler feature rather than an isolated stable fix. 
-> Mayeb we should revert this. Thoughts?
+commit 8e4ebb6afaa34bd2e8ce52da231003d24111c2d6 upstream.
 
-The pieces you name are indeed absent, and that is what makes the commit inert
-on 6.12 rather than incomplete. ARCH_HAS_PREEMPT_LAZY is not defined there,
-kconfig silently ignores a select of an undefined symbol, and nothing on the
-tree ever sets TIF_NEED_RESCHED_LAZY, so none of the guarded code compiles.
+xfs_parent_da_args_init() builds an xfs_da_args from a zeroed
+xfs_parent_args (kmem_cache_zalloc), leaving args->total == 0.
+xfs_da_grow_inode_int() treats that field as a running block reservation
+and subtracts from it; because it is an xfs_extlen_t (uint32_t), the
+first attr-fork growth wraps it to ~0U.  That defeats the free-space
+check in xfs_alloc_space_available(), and when it coincides with an AG
+that has exactly zero available blocks the allocation is clamped to
+maxlen 0 and returns -ENOSPC, which xfs_defer_finish_noroll() escalates
+to a filesystem shutdown.
 
-It arrived as a dependency walker false positive, a Kconfig context line next
-to "select ARCH_HAS_PTDUMP" in the hunk taken for 902caade3cfd ("arm64: ptdump:
-Make note_page_flush() range aware"), not as a real prerequisite.
+Set args->total the way the log recovery path does
+(xfs_attri_recover_work(), xfs_attr_item.c:706), in the add and replace
+paths that can grow the fork.  Removals and lookups never grow it, so
+they leave the field alone, matching that switch.
 
-Since it is released and does nothing observable, I am keeping it rather than
-adding a revert.
+[ Backported to 6.12.y and 6.18.y, whose fs/xfs/libxfs/xfs_parent.c are
+  byte-identical.  These trees queue the operation with
+  xfs_attr_defer_add() instead of calling xfs_attr_setname() and
+  xfs_attr_replacename() directly, and spell the inode number
+  child->i_ino rather than I_INO(child), so the upstream hunks do not
+  apply as-is.  The defect is unchanged: xfs_attr_defer_add() stores a
+  pointer to this same xfs_da_args, and xfs_attr_finish_item() resets
+  only args->trans, so the zeroed total still reaches
+  xfs_da_grow_inode_int().  The assignment therefore goes in the same
+  place, before the operation is queued.  xfs_attr_calc_size() needs no
+  new include: it is declared in xfs_attr.h, which xfs_parent.c already
+  includes. ]
 
--- 
-Thanks,
-Sasha
+Fixes: b7c62d90c12c ("xfs: parent pointer attribute creation")
+Cc: stable@vger.kernel.org # v6.10
+Signed-off-by: Javier Tia <floss@jetm.me>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Signed-off-by: Javier Tia <javier@peridio.com>
+---
+ fs/xfs/libxfs/xfs_parent.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/fs/xfs/libxfs/xfs_parent.c b/fs/xfs/libxfs/xfs_parent.c
+index 69366c44a701..f47dda640c0e 100644
+--- a/fs/xfs/libxfs/xfs_parent.c
++++ b/fs/xfs/libxfs/xfs_parent.c
+@@ -193,7 +193,7 @@ xfs_parent_addname(
+ 	const struct xfs_name	*parent_name,
+ 	struct xfs_inode	*child)
+ {
+-	int			error;
++	int			error, local;
+ 
+ 	error = xfs_parent_iread_extents(tp, child);
+ 	if (error)
+@@ -202,6 +202,11 @@ xfs_parent_addname(
+ 	xfs_inode_to_parent_rec(&ppargs->rec, dp);
+ 	xfs_parent_da_args_init(&ppargs->args, tp, &ppargs->rec, child,
+ 			child->i_ino, parent_name);
++
++	/* Growing the attr fork needs a real reservation in args->total. */
++	ppargs->args.total = xfs_attr_calc_size(&ppargs->args, &local);
++	ASSERT(local);
++
+ 	xfs_attr_defer_add(&ppargs->args, XFS_ATTR_DEFER_SET);
+ 	return 0;
+ }
+@@ -239,7 +244,7 @@ xfs_parent_replacename(
+ 	const struct xfs_name	*new_name,
+ 	struct xfs_inode	*child)
+ {
+-	int			error;
++	int			error, local;
+ 
+ 	error = xfs_parent_iread_extents(tp, child);
+ 	if (error)
+@@ -249,6 +254,10 @@ xfs_parent_replacename(
+ 	xfs_parent_da_args_init(&ppargs->args, tp, &ppargs->rec, child,
+ 			child->i_ino, old_name);
+ 
++	/* Growing the attr fork needs a real reservation in args->total. */
++	ppargs->args.total = xfs_attr_calc_size(&ppargs->args, &local);
++	ASSERT(local);
++
+ 	xfs_inode_to_parent_rec(&ppargs->new_rec, new_dp);
+ 	ppargs->args.new_name = new_name->name;
+ 	ppargs->args.new_namelen = new_name->len;
+
+---
+base-commit: 833291ee77846538926c990bcb468f6f54e9af50
+change-id: 20260916-backport-pptr-total-612-b2776c2ffb71
+
+Best regards,
+--  
+Javier Tia <javier@peridio.com>
+
