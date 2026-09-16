@@ -1,46 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6480C3769E8;
-	Wed, 16 Sep 2026 01:52:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7B2481AA1D5
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 01:52:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789523553; cv=none; b=IgelERf5Jaagtf2ad3VjogoLwLjrCdCoC+x+q8PEGjJfAlVXPa5QlEFWthy6+dMSwuyV13QNh8pmjDes/n7zMdThSju00LKPvpMct0IwTzXW+23whULrDJr0AYm3zYBJXE5+iGcIWDRceZBjuvbF+nMAiiStgN1apZKi1mnBnFg=
+	t=1789523558; cv=none; b=B5BblLc6fbrwSK/XMmo0gmIJ5hnRJVwkMQQbsahpE0WqFOuxr76JkNYRG5Kzuqwp/sb1nkYHONKUr/a7xfsQVAKifFV3mpPPo9fZdVJx2oTJIAdlxg+rmI9Kfe/BVV0pLa3EZIg2nu/SOjj4GO7j7HjJDqxDKf9FMEivxb8kniw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789523553; c=relaxed/simple;
-	bh=3bCDk9sTfNVbpPCE/XoEkPyCPGaah2mAPqcTMpZ8Dvs=;
+	s=arc-20240116; t=1789523558; c=relaxed/simple;
+	bh=z16pDzFFQ+7ZX+4kqdeH8dfpJRyCNl30UPmf76JhgKQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=BPXb4MfZHfX79JGI9xkAw4VXuI7twXgvkhFmks8LfCmHJWdbqhRHXVnAV2PbK21q8PPp34XS8Y/WeV5IsEiqc6TQkfSiTN461s2RPAgG7NZL/nA8g2VsnjRpqZdEgzSiqcht/xnE4cNQJooSPV/EBkMHhI6ClUtCBTXA2hSkpnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ioEyMJF5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=SgtGVp6mvZ+1fi8r5mRwv4DMoWqMxF5MiIpnfTvqmBnQejej+h8BCgsqGTI1wl7fY/bJUIqUnFoMJ+R3BBGcdhGww/XiaqAD7ysxVljnOI6IRKI9YqaMRkYhygjfeXCwld+1zIZSRUp6rYV597I17JchMqBNHVYwQV4Qf8fiOLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyjlsGu2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ioEyMJF5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53A9F1F000FF;
-	Wed, 16 Sep 2026 01:52:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyjlsGu2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A30E51F00898;
+	Wed, 16 Sep 2026 01:52:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789523541;
-	bh=vdrdBjWTvsZNXTVui2WucyGiZG4Bik57Fez2TRhq+QU=;
+	s=k20260515; t=1789523546;
+	bh=Vop5iZGNWeXFJGlq9orr7nuOzfMmaXMOwjz9MtdlYK4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ioEyMJF5TUkmetU7i5qKwsxS1jqo6CJz3tOGQbzRsK6nVtZSUPshE0IrZFf1Hx9NQ
-	 jbJp4sNV1ONj27RR1DqBeNS6ZBJ9oo3EeUtEU1BQpPVHu/Vo+q7cVm0i4i22sdqjyU
-	 coDKC+YCraxvO6dENvLUjgfwVzc/Kvq5Em7qAkj09R+TbquSBhikE1b7NAfvhvqzBi
-	 iyVGo8pkpK2QDYhZi/SbwIySnLEDt+u3JL4Qu3zlGyilktF8mDNRZnIYk5WgUIMpF9
-	 r3n+4aAMIWDe/xNky/sN4McGyNgUrB4WXLcFeUgAozpza5W9Y0YNx3VDBMS7S3mMxH
-	 aTeSUQK1yPqoA==
+	b=oyjlsGu23mgOLn8Y58TkXSQTHMONR5qnro+8M8IV5Ndq8Q4vWpRIezBJHrVPXPBOs
+	 dmIeCLZKRFp+zPsqa0usMO0ekMqL4z9BWgIgeQkK5bVBwGpAFvgN2ysfEA9KjOfROI
+	 1u0skgvUF7niysJ4b5AuekBeKCDO3l2S3+B3vyWCQcCQsenEz+Yc+42DJJy6azemEe
+	 pZXULbHywrxeBxtWrAVTqjSBodFUT59chUiOQpF1SPcxYMJi0T0L07j+vMi4ev05wg
+	 i2qe686/5LtTtfMm4kTzaWgaUDnmEQcfSDvnVYOnhQx97nDhM4/F4eSAELNh0VZtio
+	 6kPeARRD9fYJQ==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Benjamin Block <bblock@linux.ibm.com>,
-	stable@vger.kernel.org,
-	Bart Van Assche <bvanassche@acm.org>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Linux kernel regressions list <regressions@lists.linux.dev>,
-	Thorsten Leemhuis <regressions@leemhuis.info>
-Subject: Re: [regression] 'scsi: core: Register sysfs attributes earlier' in 5.15.221 broke booting
-Date: Tue, 15 Sep 2026 21:52:06 -0400
-Message-ID: <daily-reply-20260915-0001-re-scsi-sysfs-5-15-revert@kernel.org>
+	gregkh@linuxfoundation.org,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Kanishka De Silva <kpskanna1915@gmail.com>,
+	Farhad Alemi <farhad.alemi@berkeley.edu>
+Subject: Re: [PATCH 5.15.y] ksmbd: prevent out-of-bounds reads in share config responses
+Date: Tue, 15 Sep 2026 21:52:09 -0400
+Message-ID: <daily-reply-20260915-0004-re-ksmbd-share-config-oob@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <4a76bd61-13a2-4010-81b7-bcea325b9c63@leemhuis.info>
-References: <4a76bd61-13a2-4010-81b7-bcea325b9c63@leemhuis.info>
+In-Reply-To: <20260915124808.6052-1-linkinjeon@kernel.org>
+References: <20260915124808.6052-1-linkinjeon@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,21 +47,11 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> This 5.15.y change according to
-> https://bugzilla.kernel.org/show_bug.cgi?id=222016#c5 broke booting on
-> sata devices for two people; the second reporter indentified it to be
-> the culprit:
+> Validate IPC share configuration payload sizes before consuming
+> variable-length fields. Bound veto list parsing and account for
+> the separator byte when deriving the path length.
 
-I have reverted it on 5.15, together with the rest of the chain it came in
-with, so the tree is back to its pre 5.15.221 state for the SCSI core sysfs
-registration and smartpqi. 6.1 and newer are unaffected, they carry the
-upstream follow-up in their base release.
-
-One consequence worth stating here: this also takes 225548863f0a ("scsi:
-smartpqi: Fix AIO retry marker cleared by SCSI core between dispatches.") back
-out of 5.15, since that fix is what pulled the chain in. It does not apply on
-its own on that tree, so 5.15 needs a purpose built backport before it can
-return.
+Queued for 6.18, 6.12, 6.6, 6.1 and 5.15, thanks.
 
 -- 
 Thanks,
