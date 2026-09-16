@@ -1,138 +1,253 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69662529403
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:35:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806C54E236C
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:35:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580112; cv=none; b=HDSOkfyNeZfUvjiqgIL+tONHuzLSRuoa1Ui23I4OM1bmcaMa0RWAgTkQ3uIF6A5MzaYVjNt0ReQ6LV5VOauRDi4Pp8Rhs4mUA+znAo7xdhBPdQBoB9K5Njpxnkf2ndHxWIArZyhyv5l9PznPG4Y0MC7xbLoc+gcByrU+Be8dLfM=
+	t=1789580114; cv=none; b=VX6jzysYtQUJxkAFbLb15aRi2Wnk4IO39DNVr81UMaZmwrGGT1R677AsgVHMfnyxCTT3r1vsacTuCwCycHwJU5Cb8102J7iBW0vv1TjhaThjAUO9eMjVTQsUPjM1oPfprPhpAVCbSCHdCYnDSdpbIh0KE8cu4s36UnKIWcMOgxc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580112; c=relaxed/simple;
-	bh=KWCpG34KyqAnvyuRqbNnwyRXDlC20SikAHO8mzPoWQc=;
+	s=arc-20240116; t=1789580114; c=relaxed/simple;
+	bh=lVP0kK+jxEwtjyAYstjcRLqQCbLKMP7aqPzFA0o1UWs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aJq6ekcgISqM4rCfp4ZtgRAir1CCG8VOIqfbF1gB04k3j3VIc1pu2sDI7HHVc2PDCP1hucbj28kUWH0ehtumphXDSfa+H+TpHfRjL2u51OYstqSIFXzfOgVtWfHKLj7QlZZU9uySuHR1tHYuoIfI7j9MS6aCIvbzFO1zx0bpCjM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AOcLYAdK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=WJK2WKOiETdIdyF5DDsjY7bnffrpdf5KYUTk2v7fK54oJmcYKCrRzdB+YLV8pAxf8KmstiTGpXPYLdaWELNp4CoTx+xLR/x67+ptu9vVbc3m3d+5lNYMPO/sdfAfWOvAu4FJblN5afPXY82VYMQ8MgJB+RXZAd2hTnVIV4txox8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PuMWZdBK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AOcLYAdK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D2CEC1F00899;
-	Wed, 16 Sep 2026 17:35:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PuMWZdBK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B67C1F000FF;
+	Wed, 16 Sep 2026 17:34:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580109;
-	bh=ig9KDk5xY+NfQL06sm+eOH4YHYtF3rR1wssIeJsTK3E=;
+	s=k20260515; t=1789580099;
+	bh=dXn4t4UTQmbsAW5WZlAIGjMMCE+Z2VX3Mjza49Evzfg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AOcLYAdKxHkenmMRdJkkicntTaGN6dvkx+SimrUetiX/RRsC+IDRfDu58zzcSCps6
-	 Z/FfvujgBxCYNxcxdzdo+6rAh+C3eftQLTVuNm6eP/t3cTZ0ACcQimWU7uzDo7S6PG
-	 RPtjbcmevjhhpQIVD32v+7sKZRj7RikzWBrXtW24i28UiD0c+QmVHrn0JTpUt2RTCE
-	 jW/bbm9pm7FeFFXXA2WdOEeLWzf3m4wtDns9YHmB+khpuKEPrpdPSfaG74IrSHXOk8
-	 qFLrOCpAbv55r4TOFma6hVzVY/vzuKvzR5mrFNvFst6rZR62u58blnUrU7yGJo1v/0
-	 dJQ0fkmTRhXaw==
+	b=PuMWZdBKaC78Nl5ehmtR/lHbUuxCZF5AIUDlUPov5Ti1Lb6EhgB5S0dlaRwYlzNas
+	 rz6VB8smTjayGhBYqL4JDDK+w+KDmNBhH5IqHn1rspeuXsIH0tUFkSeC5nK78kRG3Y
+	 5Gp0b+//DEpJrAkHtfzTbrAsyt5WjDbXR+1ALJCf9hdxeQsGzpLl21UkUxAHXv9462
+	 W6yrwS24T8HAz0CNszJKF/hzAEWuAFBv13wALnb24K8tcMxfnglGMoG57btk+AnuCK
+	 bSyhO/UNH8zSrjthDEiQBtMbbOwsAZhbBQ8yEhS392z8hjRbsCbfSWKf33SM5RLxbF
+	 N4v2CcTz8t8qg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Henry Martin <bsdhenrymartin@gmail.com>,
-	Beau Belgrave <beaub@linux.microsoft.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	=?UTF-8?q?=E6=9C=B1=E6=81=BA=E4=B9=BE?= <zhukaiqian@xiaomi.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	=?UTF-8?q?=E5=88=98=E6=9C=AF=E9=AB=98?= <liushugao@xiaomi.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] tracing/user_events: Don't destroy fields when event removal fails
-Date: Wed, 16 Sep 2026 13:35:07 -0400
-Message-ID: <20260916173507.1134396-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] tick/broadcast: Plug clockevents replacement race
+Date: Wed, 16 Sep 2026 13:34:57 -0400
+Message-ID: <20260916173457.1131871-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091633-hardening-washed-5fd8@gregkh>
-References: <2026091633-hardening-washed-5fd8@gregkh>
+In-Reply-To: <2026091601-elevating-dragonfly-758f@gregkh>
+References: <2026091601-elevating-dragonfly-758f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Henry Martin <bsdhenrymartin@gmail.com>
+From: Thomas Gleixner <tglx@linutronix.de>
 
-[ Upstream commit 2deb753127d7b7035e893955c5e91875e767d1f8 ]
+[ Upstream commit 113a9796effe3376d2ec5aabcca1fef4fef4cd62 ]
 
-destroy_user_event() destroys the event's fields before attempting to
-remove the trace event call. If user_event_set_call_visible() fails,
-e.g. because the event is still enabled and trace_remove_event_call()
-returns -EBUSY, the event is left registered with an irreversibly
-destroyed field list. Any subsequent interaction with the event then
-operates on an empty field list while it is still fully visible in
-tracefs.
+朱恺乾 reported and decoded the following race condition when a broadcast
+device is replaced:
 
-Move the field destruction after the call removal, and splice the
-field list back onto the event when the removal fails so the event
-remains in a consistent state.
+CPUA					CPUB
+ __tick_broadcast_oneshot_control()
+   bc = tick_broadcast_device.evtdev;
+					tick_install_broadcast_device(dev)
+        				clockevents_exchange_device(cur, dev)
+					   shutdown(cur);
+					   detach(cur);
+					   cur->handler = noop;
+					   tick_broadcast_device.evtdev = dev;
 
+  tick_broadcast_set_event(bc, next_event); <- FAIL: arms a detached device.
+
+If the original broadcast device has a restricted interrupt affinity mask
+and the last CPU in that mask goes offline then the BUG() in
+tick_cleanup_dead_cpu() triggers because the clockevent device is not in
+detached state.
+
+The reason for this is that tick_install_broadcast_device() is not
+serialized vs. tick broadcast operations.
+
+The obvious cure is to serialize tick_install_broadcast_device() with
+tick_broadcast_lock against a concurrent tick broadcast operation.
+
+That requires to split clockevents_exchange_device() into two parts, one
+which does the exchange, shutdown and detach operation and the other which
+drops the module reference count. This is required because the module
+reference cannot be dropped while holding tick_broadcast_lock.
+
+Let clockevents_exchange_device() do both operations as before, but let the
+broadcast device code take the two step approach and do the device
+exchange under tick_broadcast_lock and drop the module reference count
+after releasing it.
+
+Fixes: f8381cba04ba ("[PATCH] tick-management: broadcast functionality")
+Reported-by: 朱恺乾 <zhukaiqian@xiaomi.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Tested-by: 刘术高 <liushugao@xiaomi.com>
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260904115223.2976446-1-bsdhenrymartin@gmail.com
-Fixes: 7f5a08c79df35 ("user_events: Add minimal support for trace_event into ftrace")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Reviewed-by: Beau Belgrave <beaub@linux.microsoft.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ Adjusted context for the missing lockdep_assert_held(&event_mutex) in destroy_user_event(). ]
+Link: https://patch.msgid.link/87cymdsu0r.ffs@tglx
+[ replaced scoped_guard() with a nested guard() block for GNU89 compatibility. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_user.c | 26 ++++++++++++++++++++------
- 1 file changed, 20 insertions(+), 6 deletions(-)
+ kernel/time/clockevents.c    | 33 ++++++++++++++++++++-------------
+ kernel/time/tick-broadcast.c | 34 ++++++++++++++++++++++------------
+ kernel/time/tick-internal.h  |  2 ++
+ 3 files changed, 44 insertions(+), 25 deletions(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index bff699fe9e712..6186474c027fa 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -430,10 +430,9 @@ static void user_event_destroy_validators(struct user_event *user)
+diff --git a/kernel/time/clockevents.c b/kernel/time/clockevents.c
+index f5490222e134a..49861ae3fc785 100644
+--- a/kernel/time/clockevents.c
++++ b/kernel/time/clockevents.c
+@@ -558,34 +558,41 @@ void clockevents_handle_noop(struct clock_event_device *dev)
+ {
+ }
+ 
+-/**
+- * clockevents_exchange_device - release and request clock devices
+- * @old:	device to release (can be NULL)
+- * @new:	device to request (can be NULL)
+- *
+- * Called from various tick functions with clockevents_lock held and
+- * interrupts disabled.
+- */
+-void clockevents_exchange_device(struct clock_event_device *old,
+-				 struct clock_event_device *new)
++void __clockevents_exchange_device(struct clock_event_device *old,
++				   struct clock_event_device *new)
+ {
+ 	/*
+ 	 * Caller releases a clock event device. We queue it into the
+ 	 * released list and do a notify add later.
+ 	 */
+ 	if (old) {
+-		module_put(old->owner);
+ 		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
+ 		list_del(&old->list);
+ 		list_add(&old->list, &clockevents_released);
+ 	}
+ 
+ 	if (new) {
+-		BUG_ON(!clockevent_state_detached(new));
++		WARN_ON(!clockevent_state_detached(new));
+ 		clockevents_shutdown(new);
  	}
  }
  
--static void user_event_destroy_fields(struct user_event *user)
-+static void user_event_destroy_fields(struct list_head *head)
++/**
++ * clockevents_exchange_device - release and request clock devices
++ * @old:	device to release (can be NULL)
++ * @new:	device to request (can be NULL)
++ *
++ * Called from various tick functions with clockevents_lock held and
++ * interrupts disabled.
++ */
++void clockevents_exchange_device(struct clock_event_device *old,
++				 struct clock_event_device *new)
++{
++	__clockevents_exchange_device(old, new);
++	if (old)
++		module_put(old->owner);
++}
++
+ /**
+  * clockevents_suspend - suspend clock devices
+  */
+@@ -651,7 +658,7 @@ void tick_cleanup_dead_cpu(int cpu)
+ 		if (cpumask_test_cpu(cpu, dev->cpumask) &&
+ 		    cpumask_weight(dev->cpumask) == 1 &&
+ 		    !tick_is_broadcast_device(dev)) {
+-			BUG_ON(!clockevent_state_detached(dev));
++			WARN_ON(!clockevent_state_detached(dev));
+ 			list_del(&dev->list);
+ 		}
+ 	}
+diff --git a/kernel/time/tick-broadcast.c b/kernel/time/tick-broadcast.c
+index dc3838c00d6c7..35351b7fe486b 100644
+--- a/kernel/time/tick-broadcast.c
++++ b/kernel/time/tick-broadcast.c
+@@ -93,20 +93,30 @@ static bool tick_check_broadcast_device(struct clock_event_device *curdev,
+  */
+ void tick_install_broadcast_device(struct clock_event_device *dev)
  {
- 	struct ftrace_event_field *field, *next;
--	struct list_head *head = &user->fields;
+-	struct clock_event_device *cur = tick_broadcast_device.evtdev;
++	struct clock_event_device *cur;
  
- 	list_for_each_entry_safe(field, next, head, link) {
- 		list_del(&field->link);
-@@ -821,15 +820,30 @@ static int user_event_set_call_visible(struct user_event *user, bool visible)
+-	if (!tick_check_broadcast_device(cur, dev))
+-		return;
++	{
++		guard(raw_spinlock_irqsave)(&tick_broadcast_lock);
  
- static int destroy_user_event(struct user_event *user)
- {
-+	LIST_HEAD(fields);
- 	int ret = 0;
+-	if (!try_module_get(dev->owner))
+-		return;
++		cur = tick_broadcast_device.evtdev;
++		if (!tick_check_broadcast_device(cur, dev))
++			return;
++
++		if (!try_module_get(dev->owner))
++			return;
  
--	/* Must destroy fields before call removal */
--	user_event_destroy_fields(user);
-+	/*
-+	 * Detach the fields before removing the call. Removing the event
-+	 * frees the field list memory (trace_destroy_fields() is run on
-+	 * successful removal and kmem_cache_free()s the fields), but the
-+	 * fields here are allocated and owned by user_events. Destroy
-+	 * them separately once removal has succeeded.
-+	 */
-+	list_splice_init(&user->fields, &fields);
- 
- 	ret = user_event_set_call_visible(user, false);
- 
--	if (ret)
-+	if (ret) {
-+		/*
-+		 * Removal failed and the event stays registered, recover
-+		 * the fields so it is left in a consistent state.
-+		 */
-+		list_splice(&fields, &user->fields);
- 		return ret;
+-	clockevents_exchange_device(cur, dev);
++		__clockevents_exchange_device(cur, dev);
++		if (cur)
++			cur->event_handler = clockevents_handle_noop;
++		WRITE_ONCE(tick_broadcast_device.evtdev, dev);
++		if (!cpumask_empty(tick_broadcast_mask))
++			tick_broadcast_start_periodic(dev);
 +	}
 +
-+	user_event_destroy_fields(&fields);
++	/* Module release must be outside of the lock */
+ 	if (cur)
+-		cur->event_handler = clockevents_handle_noop;
+-	tick_broadcast_device.evtdev = dev;
+-	if (!cpumask_empty(tick_broadcast_mask))
+-		tick_broadcast_start_periodic(dev);
++		module_put(cur->owner);
++
+ 	/*
+ 	 * Inform all cpus about this. We might be in a situation
+ 	 * where we did not switch to oneshot mode because the per cpu
+@@ -1009,7 +1019,7 @@ int tick_broadcast_oneshot_active(void)
+  */
+ bool tick_broadcast_oneshot_available(void)
+ {
+-	struct clock_event_device *bc = tick_broadcast_device.evtdev;
++	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
  
- 	dyn_event_remove(&user->devent);
+ 	return bc ? bc->features & CLOCK_EVT_FEAT_ONESHOT : false;
+ }
+@@ -1017,7 +1027,7 @@ bool tick_broadcast_oneshot_available(void)
+ #else
+ int __tick_broadcast_oneshot_control(enum tick_broadcast_state state)
+ {
+-	struct clock_event_device *bc = tick_broadcast_device.evtdev;
++	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
  
-@@ -1360,7 +1374,7 @@ static int user_event_parse(struct user_event_group *group, char *name,
- put_user_lock:
- 	mutex_unlock(&event_mutex);
- put_user:
--	user_event_destroy_fields(user);
-+	user_event_destroy_fields(&user->fields);
- 	user_event_destroy_validators(user);
- 	kfree(user->call.print_fmt);
- 	kfree(user);
+ 	if (!bc || (bc->features & CLOCK_EVT_FEAT_HRTIMER))
+ 		return -EBUSY;
+diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
+index e61c1244e7d46..0204523af663d 100644
+--- a/kernel/time/tick-internal.h
++++ b/kernel/time/tick-internal.h
+@@ -48,6 +48,8 @@ static inline void clockevent_set_state(struct clock_event_device *dev,
+ }
+ 
+ extern void clockevents_shutdown(struct clock_event_device *dev);
++extern void __clockevents_exchange_device(struct clock_event_device *old,
++					  struct clock_event_device *new);
+ extern void clockevents_exchange_device(struct clock_event_device *old,
+ 					struct clock_event_device *new);
+ extern void clockevents_switch_state(struct clock_event_device *dev,
 -- 
 2.53.0
 
