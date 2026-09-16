@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 429AC4CEE57
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A04CA4AB3B5
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573278; cv=none; b=QjbGUXQumeiM1ol7vURCVSii9E/RToYa6jzVFaaUhnUvfGADP2nYdkxHgKGpd6eOei/5rA8XkC8ffSbcq6bmQgol6PJuneaLIVPFaE8M4+XJVfiTY2E5i+vomWt29+hRLTYWywbwyRXebEYb8EsFNdjxsVm9VyRJFPhZGcqOpuo=
+	t=1789573280; cv=none; b=Betpps5YeetPk/NuXUXFE3PSybaSKJ6cOCea2J9d9HO/T/wCieG9NKVYFTCoNww63Nkwu05hpsi15eeU02zWEsp+uYlOA5nZti6sz7V7H1POTDujuqmrknG8x1MAgqPsfUiJ9nAaARM7Ga4hI+sVtLBpztoXcwTGSrRvoRJ4QX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573278; c=relaxed/simple;
-	bh=jjW8KEmZHMeMBvWR3porxo1OtORgpsCALJbx385olS4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=OuiEjECGqxFmUboco6/8AtxYRoOXWha1ZRqB90Lypoa8nzGm8YH/xbsOq8xeZlJ5mIkxuKZJHkoxVfFRY3OWyxVNQQL5820idyD+uN8dL6SL5jas2+mjrh4nBSmA7kYVLLjojI0N0h89Zsv25/Q796hU+ZGiCn6E1A4WhnDvKrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qh1cPNwa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573280; c=relaxed/simple;
+	bh=PqLpabq8cfezDnmPibE/PIaBHId8F3Q3z0trzQugYH4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=W5SbBpjFgTKH7AmMldMtYMRLJHIxwJJStmWosrFCKx49kCZd3Q7Ip6ltJ+p3HR7lY2opeEB78nW8C2mhDmXNBC158CmVfeQpVwfYAc38O3wUEeKmi9E/R2O0zUc0ywfPGQnKgi5W/57AsNhVxLtvkBHZtJzEePDp1tWh8rKDu6U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2ksXLuH/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qh1cPNwa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 952C81F000FF;
-	Wed, 16 Sep 2026 15:41:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2ksXLuH/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFED71F000FF;
+	Wed, 16 Sep 2026 15:41:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789573276;
-	bh=vXxPnGkgkJLh19+UKi8dQcRtD4dcEmaFZgdHw3KzqrE=;
+	s=korg; t=1789573279;
+	bh=91es3qsErtd9bo5eZUeKfzSBVADxxNePPDhkc2XJFXw=;
 	h=Subject:To:Cc:From:Date;
-	b=Qh1cPNwaYtg5+0NwkG68pErwPF5kAkdv0bUCJddXIA+hrrbZo6h0zw//AbWi2Mfb7
-	 Omunw6UbH4Ioh+Kb8u6TVI37VwuBtZ/2PlgrpKljVd3iQCwwmfOPVXA7cp8QYrAQ7D
-	 R9bqfpWgeEi2Rns39rRxpcZnL0tWIY14Cka7E7D8=
-Subject: FAILED: patch "[PATCH] net: macb: initialize PTP state before registering clock" failed to apply to 5.10-stable tree
-To: runyu.xiao@seu.edu.cn,kuba@kernel.org,theo.lebrun@bootlin.com,vadim.fedorenko@linux.dev
+	b=2ksXLuH/nBVaxWewSL2etZXSYpgd4rbcgjk73aZqBIwv2ihW7FmsCJZN8/zYYJixv
+	 O2Safy+RrDfOSsuZuqQY6FkKsAFfyBPj/QJ6O95Xdm09Ql+HqeE4i3aw07oMRgMN2V
+	 kiNnps6HoUuc936Q4ddCzErxeCVp/YTSBaGqKVNU=
+Subject: FAILED: patch "[PATCH] net: mana: Reserve extra CQ slot for the fence completion CQE" failed to apply to 6.1-stable tree
+To: sahilchandna@linux.microsoft.com,haiyangz@microsoft.com,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:30:49 +0100
-Message-ID: <2026091649-armoire-absurd-8a42@gregkh>
+Date: Wed, 16 Sep 2026 16:31:23 +0100
+Message-ID: <2026091623-upstairs-protrude-105f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x e1406330d70e56dd44fa6fbafc86e77e5c80c122
+git cherry-pick -x 80dd7e754b3aa9637a0758ad93fa209f9650ec48
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091649-armoire-absurd-8a42@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091623-upstairs-protrude-105f@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,70 +62,51 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e1406330d70e56dd44fa6fbafc86e77e5c80c122 Mon Sep 17 00:00:00 2001
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Date: Tue, 8 Sep 2026 18:39:24 +0800
-Subject: [PATCH] net: macb: initialize PTP state before registering clock
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 80dd7e754b3aa9637a0758ad93fa209f9650ec48 Mon Sep 17 00:00:00 2001
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Date: Tue, 1 Sep 2026 07:17:58 -0500
+Subject: [PATCH] net: mana: Reserve extra CQ slot for the fence completion CQE
 
-gem_ptp_init() registers the PTP clock before initializing
-bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
-publishes the PTP character device, userspace may invoke PTP callbacks
-before the lock and hardware are ready.
+The RX completion queue is sized to hold exactly one CQE per posted RX WQE.
+MANA_FENCE_RQ makes hardware post an additional CQE_RX_OBJECT_FENCE after
+the packet CQEs. The current sizing reserves no extra slot for it and in
+rare cases, CQ has no guaranteed slot for the fence CQE when it is full of
+packet CQEs. This can lead to dropping the fence completion while the
+driver waits holding RTNL lock throughout the timeout duration.
+Reserve one extra CQE slot for CQE_RX_OBJECT_FENCE. mana_gd_alloc_memory()
+requires queue_size to be a power-of-two and at least MANA_PAGE_SIZE;
+the reservation pushes cq_size past a power-of-two, so round up the CQ size
+in mana_create_rxq().
 
-In addition, gem_ptp_init() is called from both the interface open and
-resume paths. Reinitializing tsu_clk_lock there can reset the lock while
-timestamp processing is using it.
-
-This race is theoretical and has not been observed in practice.
-
-Initialize tsu_clk_lock once during probe and initialize the TSU before
-registering the PTP clock.
-
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
 Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260904030439.3994047-1-runyu.xiao@seu.edu.cn/
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260908103924.607033-1-runyu.xiao@seu.edu.cn
+Fixes: 6cc74443a773 ("net: mana: Add RX fencing")
+Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+Link: https://patch.msgid.link/20260901121837.3503240-1-sahilchandna@linux.microsoft.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 77dec2d6e3fb..4cb5d7088d43 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -5883,6 +5883,7 @@ static int macb_probe(struct platform_device *pdev)
- 	}
- 	spin_lock_init(&bp->lock);
- 	spin_lock_init(&bp->stats_lock);
-+	spin_lock_init(&bp->tsu_clk_lock);
- 
- 	/* setup capabilities */
- 	macb_configure_caps(bp, macb_config);
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index e5195d7dac1d..6d9166389988 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -334,6 +334,7 @@ void gem_ptp_init(struct net_device *netdev)
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
- 	gem_ptp_init_timer(bp);
-+	gem_ptp_init_tsu(bp);
- 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
- 	if (IS_ERR(bp->ptp_clock)) {
- 		pr_err("ptp clock register failed: %ld\n",
-@@ -345,10 +346,6 @@ void gem_ptp_init(struct net_device *netdev)
- 		return;
+diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+index 7a1ac853e3ab..45a7520491a6 100644
+--- a/drivers/net/ethernet/microsoft/mana/mana_en.c
++++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+@@ -2986,6 +2986,10 @@ static int mana_alloc_rx_wqe(struct mana_port_context *apc,
+ 		*cq_size += COMP_ENTRY_SIZE;
  	}
  
--	spin_lock_init(&bp->tsu_clk_lock);
--
--	gem_ptp_init_tsu(bp);
--
- 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
- 		 GEM_PTP_TIMER_NAME);
++	/* Reserve an extra slot for Fence completion
++	 * event (CQE_RX_OBJECT_FENCE) in case RX CQ is full.
++	 */
++	*cq_size += COMP_ENTRY_SIZE;
+ 	return 0;
  }
+ 
+@@ -3080,7 +3084,7 @@ static struct mana_rxq *mana_create_rxq(struct mana_port_context *apc,
+ 		goto out;
+ 
+ 	rq_size = MANA_PAGE_ALIGN(rq_size);
+-	cq_size = MANA_PAGE_ALIGN(cq_size);
++	cq_size = MANA_PAGE_ALIGN(roundup_pow_of_two(cq_size));
+ 
+ 	/* Create RQ */
+ 	memset(&spec, 0, sizeof(spec));
 
