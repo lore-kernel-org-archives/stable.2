@@ -1,204 +1,254 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C9A94DA9D3;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AF9C4DD3DA;
 	Wed, 16 Sep 2026 20:45:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591551; cv=none; b=ILQFU4uwesGQZ6/Xa5YTvaMFyy+kvCuL0AKUaeSZTEqTS/Xj0n7CdwDJlUcT2Qmv+tAHBgl4PYRlEMQvhlnn8W/HHA8JrWvy20QSduyo81rw2FrVfeVxHL8K25sqdgYQyE7O37ZmzEMUYxM4/3MTyrFVX2ZYGpe7IgsWouGAVGA=
+	t=1789591551; cv=none; b=qdzzuy1GID6d7tRNKuleu2bbppPeI0R9hcO3CiU6TLABXSf6WdUM5y3er5KfpS8TI9jaawETzZEEGysCKh0HrHdjEg34TDraOq5NqPBFi1mW9wdXAIi+uK8gW90SGWELjypsOO9olJZ6Ri9Q9p90DZJqG9wum7Gel017++feHrg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789591551; c=relaxed/simple;
-	bh=WGrPZAXt0NSIL1j0P0toEtUnAZYxZC2mHWPH1s854V8=;
-	h=Date:To:From:Subject:Message-Id; b=WuQq57nS3owIyUo7SBRIfvbR2KY5JSGT6LwH1Ua6f7/Pcuf/Q/gbMfB0Ttg7X2odqdg5A/wU+4/GmMcWYo5lImwSGpriPwD5HMo4Z9R44PdBe8YkexxS3fFQaXEnaUEpgNBkAiVsdW973IR7y6KZ91PY9swEUJnvfYm3ZcnhD1U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=2Cixrhsq; arc=none smtp.client-ip=100.103.45.18
+	bh=CWKuP5r8xDTe6E0qb7CyJ+VJFunqCa1RY3vZrTo+tmY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=C6JT/d2cR6aTtsQ3IJpKhMNlHG8OLcx+SHp1s3BDh9ble3j/9+Qy76/sH3QAJArsK4z4cts4krkoFScqU3iiWL3Y0DC5z226HuHfySh+//CE/7Xbfi+QpL9DtaDDTrdFQSn9qQ+GgGrGHg/eW2RHtQXVswwIxAhEeobXapFnEO4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GmQZ/0Gu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="2Cixrhsq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D0E21F0089B;
-	Wed, 16 Sep 2026 20:45:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789591537;
-	bh=kXg6pw4Yqsf7MZWgDC4mlXdVWuGwLcguQERjMhFndxo=;
-	h=Date:To:From:Subject;
-	b=2CixrhsqNmiZ2IPEsf+YFbQMkbFIFxpWHZYhPQmPAdZFOhFzpS7I7a4xou4FpBKgn
-	 HeRAI8tZCR46upK3bUyXZvyEneFFyncG9D78JFUliLlDDPe1Kw7G9akyxk1zu5y5dV
-	 E6EmRE4xBixz9FxU+Tbf3MP74NXiBlzsShHE8RPw=
-Date: Wed, 16 Sep 2026 13:45:37 -0700
-To: mm-commits@vger.kernel.org,wim@linux-watchdog.org,wangjinchao600@gmail.com,stable@vger.kernel.org,sashiko-bot@kernel.org,pmladek@suse.com,linux@roeck-us.net,brads@mainlining.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch added to mm-nonmm-unstable branch
-Message-Id: <20260916204537.9D0E21F0089B@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GmQZ/0Gu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6735E1F000FF;
+	Wed, 16 Sep 2026 20:45:35 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789591536;
+	bh=JENMVUe9HN/FgEP03O39GozF7pCmLG3+StFuKHHviLk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=GmQZ/0Guo2nM7SdlmGlE+oDalH+m9A/YsSgcaa7FCjj98s6AsfifOcnT1imR6OP5x
+	 UklXWtSPGxkKhPlh1z/103cMwqn0Gxenq8mOBwrzqh3B7VxNe4ueF+7/oTXb4IIN3n
+	 v5J4dMbioV6zcAXc5QQFohDjhDQKLdLiaBwIdMNrG+p99tJd8D712B/ydJUEOGYqpa
+	 n2fcLywX84h9zgvF3xhEO6Sqgo+OqaaeT3F0ITiXt53y6310rDh9w0w4C12bKDus4w
+	 pzeRR6Pn9ZopSTpQzLaT5iD82vt/u0zUyWXxIau+vMDxlszLMlly7B9QoG84a2NV5c
+	 kZHHQ+gpFrUyg==
+Subject: Re: [PATCH net 1/2] mptcp: avoid unneeded actions on subflow reset
+From: netdev-bot+sashiko@kernel.org
+To: matttbe@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+ netdev@vger.kernel.org, mptcp@lists.linux.dev, stable@vger.kernel.org,
+ shardul.b@mpiricsoftware.com, xinyang@anthropic.com
+Date: Wed, 16 Sep 2026 20:45:34 +0000
+Message-ID: <178959153492.22033.1944011998010756543@kernel.org>
+In-Reply-To:
+ <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-1-a257797dd5d0@kernel.org>
+References:
+ <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-1-a257797dd5d0@kernel.org>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
 
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-The patch titled
-     Subject: panic: fix redirect CPU race in panic_try_force_cpu()
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch
+Critical: 0 · High: 2 · Medium: 1 · Low: 0
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch
+- [High] The new unconditional `if (subflow->resetting) return;` in
+  subflow_state_change() (net/mptcp/subflow.c:1891) removes the last…
+- [High] mptcp: data race in bitfield resetting and close_event_done
+- [Medium] The new early return in subflow_state_change()
+  (net/mptcp/subflow.c:1891) is justified by an in-code comment claiming…
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+--
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+mptcp: avoid unneeded actions on subflow reset
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+This adds a new subflow->resetting bit, set in mptcp_subflow_reset() before
+tcp_done(), and uses it to return early from subflow_state_change() so the
+nested mptcp_data_ready() recursion is broken. The early return also skips
+the data-available check, the error report and subflow_sched_work_if_closed().
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+> diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+> index 01db7edce18a6..cbe227d218449 100644
+> --- a/net/mptcp/subflow.c
+> +++ b/net/mptcp/subflow.c
+> @@ -438,6 +438,7 @@ void mptcp_subflow_reset(struct sock *ssk)
+>  	/* must hold: tcp_done() could drop last reference on parent */
+>  	sock_hold(sk);
+>  
+> +	subflow->resetting = 1;
+>  	mptcp_send_active_reset_reason(ssk);
+>  	tcp_done(ssk);
+>  	if (!test_and_set_bit(MPTCP_WORK_CLOSE_SUBFLOW, &mptcp_sk(sk)->flags))
 
-------------------------------------------------------
-From: Bradley Morgan <brads@mainlining.org>
-Subject: panic: fix redirect CPU race in panic_try_force_cpu()
-Date: Wed, 16 Sep 2026 18:29:52 +0000
+[Severity: High]
+The new bit is carved out of the same 32-bit bitfield word as
+closeing/close_event_done/mpc_drop, and a C bitfield store is a
+read-modify-write of that whole word, not of the single bit.  So the
+question is whether that word is only ever written under one lock.
 
-Patch series "panic: fix panic_force_cpu= redirect races and NMI bypass",
-v7.
+mptcp_subflow_reset() now writes subflow->resetting.  On the
+mptcp_mp_fail_no_response() path the caller is mptcp_worker(), which
+holds the msk socket lock and then lock_sock_fast(ssk), so both locks
+are held.  But the DSS-corruption path -- mptcp_dss_corruption() ->
+mptcp_subflow_reset() -- runs from get_mapping_status() /
+mptcp_subflow_data_available() in the ssk receive path, i.e. with only
+the subflow socket lock (and possibly in BH context).  Meanwhile
+mptcp_close_ssk() writes subflow->close_event_done = true holding only
+the msk socket lock.  Those two locks do not exclude each other, so
+the two load/or/store sequences can interleave on the same word.
 
-The panic_force_cpu= parameter redirects a panic to a specific CPU so the
-crash kernel runs there.  The redirect code in panic_try_force_cpu() had
-two races and an NMI bypass, all found by Sashiko.  This series closes
-them and kills one more hack that the rework turned up.
+If the msk-side store wins, the resetting = 1 store is silently
+dropped, subflow_state_change() takes the old path and we are back to
+the recursive mptcp_data_ready() and the data lock re-acquisition this
+patch is meant to break -- the failure mode is the same deadlock, just
+rarer and harder to reproduce.  If the reset-side store wins,
+close_event_done is lost and the post-close event handling runs twice.
+KCSAN should be able to flag this write/write pair.
 
-Panic from NMI still goes through the redirect path first, so the crash
-kernel ends up on the CPU the admin asked for.  The redirect buffer is a
-static 1KB now, no initcall, no fallback message.
+Is there serialization here that I am missing for the
+mptcp_dss_corruption() caller?  If not, would you consider keeping
+resetting out of the msk-owned bitfield word -- a plain bool next to
+data_avail/scheduled, or a bit in a flags word updated with set_bit()
+-- so that setting it under the ssk lock cannot clobber bits owned by
+the msk lock?
 
+[ ... ]
 
-This patch (of 6):
+> @@ -1883,6 +1884,13 @@ static void subflow_state_change(struct sock *sk)
+>  
+>  	__subflow_state_change(sk);
+>  
+> +	/* Rx queue processing is unneeded, error reporting will take place at
+> +	 * __mptcp_close_ssk() time and subflow reset can't happen in case of
+> +	 * fallback: subflow_sched_work_if_closed() would be a no-op.
+> +	 */
+> +	if (subflow->resetting)
+> +		return;
+> +
 
-The cmpxchg() in panic_try_force_cpu() makes sure that only one CPU tries
-to redirect panic() to the requested CPU.  It is similar to the cmpxchg()
-in panic_try_start() which makes sure that only one CPU does the panic(). 
-In both situations, only the winner of cmpxchg() should proceed further. 
-Other CPUs should go offline.
+[Severity: High]
+Can a reset subflow with a non-empty ssk->sk_receive_queue still get
+cleaned up after this early return?
 
-There is a bug because the cmpxchg loser returns false and falls through
-into vpanic().  Two non-target CPUs A and B panic, the requested CPU is C:
+mptcp_subflow_reset() calls tcp_done(ssk), and tcp_set_state(TCP_CLOSE)
+unhashes the socket, so subflow_data_ready() cannot fire again for this
+ssk.  That makes the tcp_done() -> sk_state_change() ->
+subflow_state_change() path the last remaining entry into
+mptcp_subflow_data_available() for this subflow, and the new return skips
+it.
 
-             cpu A                          cpu B
-          ----------                     ----------
-    panic()                              panic()
-    vpanic()                             vpanic()
-    panic_try_force_cpu()                panic_try_force_cpu()
-        cmpxchg wins                        cmpxchg fails
-        redirect = A                        old_cpu = A
-        IPI -> C                            return false      <- BUG
-        return true                     panic_try_start() wins
-    panic_smp_self_stop()                __crash_kexec() on B
-    (A stops)                            (target C bypassed)
+The flush that exists for exactly this case lives in validate_data_csum():
 
-The loser must stop, not fall through.  It cannot just return true,
-though.  A CPU that already won the redirect cmpxchg can reenter
-panic_try_force_cpu() on the same CPU, for example a nested NMI during the
-message formatting, before the IPI is sent:
+net/mptcp/subflow.c:validate_data_csum() {
+	...
+	if (skb_queue_is_last(&ssk->sk_receive_queue, skb)) {
+		/* if this subflow is closed, the partial mapping
+		 * will be never completed; flush the pending skbs, so
+		 * that subflow_sched_work_if_closed() can kick in
+		 */
+		if (unlikely(ssk->sk_state == TCP_CLOSE))
+			while ((skb = skb_peek(&ssk->sk_receive_queue)))
+				sk_eat_skb(ssk, skb);
 
-             cpu A (1st)                  cpu A (nested)
-          ----------                     ----------
-    panic()
-    vpanic()
-    panic_try_force_cpu()
-        cmpxchg wins (redirect = A)
-        vsnprintf(msg) ...
-            <-- NMI, nested panic -->
-                                     panic()
-                                     vpanic()
-                                     panic_try_force_cpu()
-                                         cmpxchg fails
-                                         old_cpu == A (this CPU)
-                                         return true   <- would halt
-                                     panic_smp_self_stop()
-                                     (IPI never sent, panic abandoned)
+		/* not enough data to validate the csum */
+		return MAPPING_EMPTY;
+	}
+	...
+}
 
-Check old_cpu against this_cpu so a second call from the same CPU returns
-false and falls through to panic_try_start() instead.
+With the skbs left in place, does __mptcp_close_subflow() keep skipping
+the subflow forever?
 
-Also fix the panic_in_progress() check.  We must not redirect when
-panic_cpu is already assigned.  Return true to stop when the panic is on
-another CPU, false to proceed when it is this one.
+net/mptcp/protocol.c:__mptcp_close_subflow() {
+	...
+		/* 'subflow_data_ready' will re-sched once rx queue is empty */
+		if (!skb_queue_empty_lockless(&ssk->sk_receive_queue))
+			continue;
 
-Update the panic_try_force_cpu() doc comment for the new return value
-semantics.
+		mptcp_close_ssk(sk, ssk, subflow);
+	...
+}
 
-Link: https://lore.kernel.org/20260916182957.7788-1-brads@mainlining.org
-Link: https://lore.kernel.org/20260916182957.7788-2-brads@mainlining.org
-Fixes: 2e171ab29f91 ("panic: add panic_force_cpu= parameter to redirect panic to a specific CPU")
-Signed-off-by: Bradley Morgan <brads@mainlining.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://sashiko.dev/#/patchset/20260705164123.18746-1-include@grrlz.net
-Closes: https://sashiko.dev/#/patchset/20260707172252.4842-1-include@grrlz.net
-Reviewed-by: Petr Mladek <pmladek@suse.com>
-Cc: Guenetr Roeck <linux@roeck-us.net>
-Cc: Wang Jinchao <wangjinchao600@gmail.com>
-Cc: Wim Van Sebroeck <wim@linux-watchdog.org>
-Cc: <stable@vger.kernel.org>
----
+mptcp_worker() has already cleared MPTCP_WORK_CLOSE_SUBFLOW at that point,
+and recvmsg() only spools msk->backlog_list in mptcp_move_skbs() /
+__mptcp_move_skbs(), so it never touches ssk->sk_receive_queue.
 
- kernel/panic.c |   19 ++++++++++++-------
- 1 file changed, 12 insertions(+), 7 deletions(-)
+A concrete path with net.mptcp.checksum_enabled=1: a bad DSS csum arms
+subflow->fail_tout in mptcp_subflow_fail(); a later partially received
+mapping returns MAPPING_EMPTY leaving skbs queued on msk->first; the
+MP_FAIL echo never arrives, so mptcp_worker() calls
+mptcp_mp_fail_no_response():
 
---- a/kernel/panic.c~panic-fix-redirect-cpu-race-in-panic_try_force_cpu
-+++ a/kernel/panic.c
-@@ -371,8 +371,9 @@ int __weak panic_smp_redirect_cpu(int ta
-  * for the crash kernel to function correctly. This function redirects
-  * panic handling to the CPU specified via the panic_force_cpu= boot parameter.
-  *
-- * Returns false if panic should proceed on current CPU.
-- * Returns true if panic was redirected.
-+ * Returns true when this CPU must stop: the panic was redirected or is
-+ * already running on another CPU.
-+ * Returns false when panic() should proceed on this CPU.
-  */
- __printf(1, 0)
- static bool panic_try_force_cpu(const char *fmt, va_list args)
-@@ -396,16 +397,20 @@ static bool panic_try_force_cpu(const ch
- 		return false;
- 	}
- 
--	/* Another panic already in progress */
-+	/*
-+	 * Don't redirect when a panic is already in progress. Stop this
-+	 * CPU when it's another one, proceed when it's this one.
-+	 */
- 	if (panic_in_progress())
--		return false;
-+		return panic_on_other_cpu();
- 
- 	/*
--	 * Only one CPU can do the redirect. Use atomic cmpxchg to ensure
--	 * we don't race with another CPU also trying to redirect.
-+	 * Only one CPU can do the redirection. Others should go offline.
-+	 * Continue with panic() when we already tried the redirection
-+	 * from this CPU before, for example via nmi_panic().
- 	 */
- 	if (!atomic_try_cmpxchg(&panic_redirect_cpu, &old_cpu, this_cpu))
--		return false;
-+		return old_cpu != this_cpu;
- 
- 	/*
- 	 * Use dynamically allocated buffer if available, otherwise
-_
+net/mptcp/protocol.c:mptcp_mp_fail_no_response() {
+	...
+	slow = lock_sock_fast(ssk);
+	mptcp_subflow_reset(ssk);
+	WRITE_ONCE(mptcp_subflow_ctx(ssk)->fail_tout, 0);
+	unlock_sock_fast(ssk, slow);
+}
 
-Patches currently in -mm which might be from brads@mainlining.org are
+fail_tout is then cleared, and since __mptcp_close_ssk() is never reached,
+mptcp_start_tout_timer() is never called either.  Does that leave the msk
+in TCP_ESTABLISHED with its only, dead subflow, no pending timer, and a
+reader blocked in mptcp_recvmsg() that is never woken with EOF or an
+error?
 
-taskstats-copy-signal-stats-under-siglock-in-taskstats_exit.patch
-mailmap-update-email-address-for-bradley-morgan.patch
-taskstats-drop-the-unused-cpu_dont_care-enum-member.patch
-panic-fix-redirect-cpu-race-in-panic_try_force_cpu.patch
-panic-flatten-nmi_panic-control-flow.patch
-panic-fix-va_list-reuse-in-panic_try_force_cpu.patch
-panic-restore-variable-arguments-to-nmi_panic.patch
-panic-allow-force_cpu-redirect-from-an-nmi.patch
-panic-kill-the-buffer-unavailable-redirect-fallback.patch
+The same early return also appears to leave reset join subflows (the
+'reset:' label in check_fully_established() and __mptcp_flush_join_list())
+with their context and queued skbs pinned on msk->conn_list.
 
+For reference, the DSS-corruption path itself looks unaffected, because
+__mptcp_move_skbs_from_subflow() re-calls mptcp_subflow_data_available(ssk)
+in its own loop.
+
+[Severity: Medium]
+The comment states "subflow reset can't happen in case of fallback:
+subflow_sched_work_if_closed() would be a no-op".  Is that premise
+enforced anywhere?
+
+mptcp_mp_fail_no_response() resets msk->first purely on fail_tout expiry,
+with no __mptcp_check_fallback() test.  fail_tout is armed by
+mptcp_subflow_fail() while the msk is not yet in fallback, and nothing
+seems to clear it when a later fallback succeeds: __mptcp_try_fallback()
+only touches allow_subflows / MPTCP_FALLBACK_DONE, and the pm.c side clears
+fail_tout only on an MP_FAIL echo.
+
+With net.mptcp.checksum_enabled=1: a middlebox mangles the MPTCP options,
+MAPPING_BAD_CSUM with valid_csum_seen sends MP_FAIL and arms
+fail_tout = jiffies + TCP_RTO_MAX; the echo never arrives; a subsequent
+MAPPING_NODSS on the same first subflow makes mptcp_try_fallback() succeed,
+so MPTCP_FALLBACK_DONE is set while fail_tout is still armed.  The tout
+timer then runs mptcp_worker() -> mptcp_mp_fail_no_response() ->
+mptcp_subflow_reset(msk->first) with __mptcp_check_fallback(msk) true.
+
+In that state tcp_done() sets SHUTDOWN_MASK/TCP_CLOSE, so subflow_is_done(ssk)
+is true and msk->first == ssk, which is precisely the branch that is not a
+no-op:
+
+net/mptcp/subflow.c:subflow_sched_work_if_closed() {
+	...
+	/* when the fallback subflow closes the rx side, trigger a 'dummy'
+	 * ingress data fin, so that the msk state will follow along
+	 */
+	if (__mptcp_check_fallback(msk) && subflow_is_done(ssk) &&
+	    msk->first == ssk &&
+	    mptcp_update_rcv_data_fin(msk, subflow->map_seq +
+				      subflow->map_data_len, true))
+		mptcp_schedule_work(sk);
+}
+
+Skipping that call means mptcp_update_rcv_data_fin() is never invoked, the
+msk never moves to CLOSE_WAIT/RCV_SHUTDOWN, and blocked readers get no EOF
+until the close timeout (net.mptcp.close_timeout, 60 s by default) fires
+and mptcp_do_fastclose() sets TCP_CLOSE and purges the backlog instead of
+delivering a clean EOF.  Should the comment be qualified, or should the
+check be narrowed so the fallback DATA_FIN injection still runs?
+
+>  	/* as recvmsg() does not acquire the subflow socket for ssk selection
+>  	 * a fin packet carrying a DSS can be unnoticed if we don't trigger
+>  	 * the data available machinery here.
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915-net-mptcp-misc-fixes-7-3-rc4-v1-0-a257797dd5d0%40kernel.org
