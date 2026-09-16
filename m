@@ -1,130 +1,109 @@
-Received: from out28-125.mail.aliyun.com (out28-125.mail.aliyun.com [115.124.28.125])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 384CE3876B8;
-	Wed, 16 Sep 2026 15:18:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.125
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A6E2377A8D
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789571891; cv=none; b=fG8gBF2lWCBvYqzKoq6jRz1vW0+dqsNPo5GthkgA9xlNTd7y4yTYzz3UCByl4quhhgcQk3KiYml9GpUjVPhH4CckoDJQ3Kddf2E/O9XV+DaWAY1Gb5z4PTqSTB0nf+pWWQBfx7XquRPRxJA6+IsAAX7OLaGvVBWhHsCCxRP6gPk=
+	t=1789571981; cv=none; b=FzhbFyZMwBhk1F+Pfx/15SCFoax0mR0/eJaEvdW/K2WwNBcJRZPb114HBuQIctCoXVj2iFWyosVWQDZ1J+eIBHpd36hoiNtkOpTRn/aB86QfWqRhLzX9D7jD9nTCH+qitpi8uiw8x8clQj73YM5G75ODBtkfxsmZoU4VFuZlpu4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789571891; c=relaxed/simple;
-	bh=MNllaWs4NKlPsGCBsJvdYfAYKbs2Di5P3yh0L73BqDo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bTsX0VNdghsOTn5ift4uue//XbTZ5C6yUFLgDCpPVygEx9vThVCNcDyiw/ylALPToN1asxpwuQY/tEP+M5oQVmfSSiG/J7oXkFEumLlqbDpe2R/vNnQMCRefmEFdc1sDwm1xKAJQ9A7D1YzjNQ39dPQgmxuljYRzEhpD+zH5HRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=QZwcorNz; arc=none smtp.client-ip=115.124.28.125
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789571981; c=relaxed/simple;
+	bh=Bd04q5qs6Pp42KGej2Kz0loIBOnLQGooaDFK4aZEIJM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gecI9dquIwW7h5IXmhCrVNW5H22w5O/ncNqkFICxgAfeJG9+V2cJyDYVfGU4iuxbzVmIOzy4KDRdIR4KpHgzUsd4J9ob5K5RqzwjoRIrdJPLd18Jn/cV4dRQIvJLtMMj5hPTmMil6psmP41F2dz2eokwi0c2tnF3OQAhkrOttf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=BACNNE0X; arc=none smtp.client-ip=74.125.230.235
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="QZwcorNz"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789571876; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=dh2KdX53HxMnPh9VZw4i391Trb+WLmCiZOva80G9K6s=;
-	b=QZwcorNzS5X1H0CaYWdSca/WCFJuc07MMWB8jr5IWXOqx2gfECz0fKrnLrvD/0k7L/mg6msuzqNEaB6b0Hgb4rBg27t1w4KbEXZ/pn1PbtO/aZfFc6Uc8b+oq6vtmXrk9KTOQpbs7KfqtnE/1A/DNxjDKc1YTbvYIXjYW0Glj3Y=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.05100505|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0011901-0.0002448-0.998565;FP=14314196981793757438|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037071049;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jFCC89n_1789571874;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jFCC89n_1789571874 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 23:17:55 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: jason.wessel@windriver.com,
-	danielt@kernel.org,
-	dianders@chromium.org
-Cc: kgdb-bugreport@lists.sourceforge.net,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] kgdb: Fix buffer overflow in the qRcmd packet handler
-Date: Wed, 16 Sep 2026 23:17:53 +0800
-Message-ID: <20260916151753.6722-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="BACNNE0X"
+Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-530e28a62abso13094441cf.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:19:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789571978; x=1790176778; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=VpNPb1TxYXca1d4OZUk8cPR+2lzT1yr8aN9KjQ5b67k=;
+        b=BACNNE0Xqy/Rl6Bfr/VLgJYpoONgFWFRN5s4uaN6JJXD6Qri79ws+Azw5u7E0YD5M5
+         9Uob73NNG+cWlVvnsEJigtih0YfuG7m3VyV+KlDpqP8SfxXtF3kvENbkzUD4NfDw6FDX
+         Wv+GXA8G0SfFJP+pH22OoJxYPowJVPXPzKNG4yt+zJbdt8uQsG6h0a5R33CaX86FEQok
+         H2idjs4XNSGSwMYwwQjSstlYE0cruav/qGcjewr1yyet9r57ab3hoYLYh1zu5yIMHWNn
+         NatKYiY8u/d8VdOkNLNIqHAJWGjP91VjGYyv/G7p4FgQQz8oPf/AMOtKoWW+TPWXVSlN
+         l9iQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789571978; x=1790176778;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=VpNPb1TxYXca1d4OZUk8cPR+2lzT1yr8aN9KjQ5b67k=;
+        b=yvXvMiKqcIVMo55BVpQg/QvU7NLi+q7Q6+DeHc8pF7tRPU8NcHMgIVfOU9O4wa913C
+         CgI7wLwltKr03EmVgGCBOjaNQW9LsBfyzz5wT4XrT82cbK18OwvoQNknZnqimXyzLwHJ
+         DFw04qV0JLpc8r1PKnYFLT8VAJ50IcI2bKav/4uylgToqJCIruJDpAzPL0mWZSA9a+hv
+         9PtRF42x7JzxNVh6x+MNujAMlqa0O/WK1RwuBlonyk0gy2QU6iEwFwDZnPAfQBoDDerO
+         ind+Qa+h54paeefQmRzoO89F8sgGY6bMzyxHaAljZCn+stV6N+bqbQTaIkiFrqDYE3Md
+         sFdw==
+X-Forwarded-Encrypted: i=1; AKwUvByScXLlgmo5zitjoe4Jt7YGRQeo0gs9x2vpSNPomj+KyX/iY9XxewH17rFw0iQfJZhKx6SmWA8=@vger.kernel.org
+X-Gm-Message-State: AFuF++n/T+S9YAN1k0BHvt5mU3f4/THyiVN+RKGCQkUMfcAEcrq9OVD0
+	DjT/Z7DgO6levtenjgUS8SRb6QWnJywr3MPaE9ZeTh7Vj+d4Dc/7TnjaHwNhSY4vAag=
+X-Gm-Gg: AYBFou2damHZE0uYMXq21aeaHyqTXuHe2t4ZwgNOYXgFBS+TkC97jZpIp/oxNEanTZN
+	9cDTmo9Tr+oolWpu9BsR5QrwHDAzX3axEKyX+mRbTV4KvcgfkKFiC6GE8tEhgBW4s45priI4nap
+	3E5cCEe4tOiPhpjSp63Y3+GL6OUIaDlCij72z+CJovmKBpH/fSBdO6auNei3yJeDHk/bjyK4kut
+	vQ4XgDRQJiYYCajlx8aHKzAXKMkESWxE01aqMeFl7F4kfzu7Bi/hprxV/e4JiFlQI1/u0skOJTK
+	RXy/FBh4tHyl2F8bnTsuCW885SmymWNy66dHDesL/DqsySKG8R+e8/8ipm3DxI6B1GK6/EBLNY5
+	Hlj/imCt4A4gX7FoOye1pMTRfRcAzd9vu6//bWYkvlyA0HcZdA2Lx3zS/+rWnDmCGJ3h+7qh3/F
+	dgMPLvYutA0I7VfGocqhdJc+tFIb7+sUt222tl8AzUQ2vyMwYsYK7SgqUG9oThODnO4A22IJe/i
+	tD4xt/WawB798lXtF7MyAY9RzpBt0xXoF4lmCikiMQRPv4BIY7dhiU=
+X-Received: by 2002:ac8:5f0e:0:b0:531:2154:becc with SMTP id d75a77b69052e-5327eead6e2mr49713181cf.22.1789571977900;
+        Wed, 16 Sep 2026 08:19:37 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-53262024a94sm24051881cf.15.2026.09.16.08.19.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 08:19:37 -0700 (PDT)
+Date: Wed, 16 Sep 2026 11:19:35 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org, 
+	linux-kernel@vger.kernel.org, kernel-team@meta.com, akpm@linux-foundation.org, 
+	liam@infradead.org, vbabka@kernel.org, jannh@google.com, wangjiexun@tinylab.org, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin>
+ <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin>
+ <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+ <aqqjW5dpyznijYLh@gremlin>
+ <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
+ <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
+ <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+ <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
 
-gdb_cmd_query() decodes the hex payload of a qRcmd packet (the GDB
-"monitor" command passthrough to kdb) into remcom_out_buffer and hands
-it to kdb_parse(). It sizes the decode with strlen() of the payload:
+On Wed, Sep 16, 2026 at 04:59:32PM +0200, David Hildenbrand (Arm) wrote:
+> >>
+> >> I told Brendan exactly that (try stubbing it) and he tried ... and had to give
+> >> up at some point because it just wasn't feasible. ;)
+> >>
+> > 
+> > LLM go brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr
+> 
+> No schlop like that please, I don't want to hate my life
+> 
 
-	int len = strlen(remcom_in_buffer + 6);
-	...
-	kgdb_hex2mem(remcom_in_buffer + 6,
-		     remcom_out_buffer, len);
-	len = len / 2;
+You missed this part:
 
-kgdb_hex2mem() takes count as the number of bytes to produce and
-decodes them in place at buf, reading and writing 2 * count bytes
-there. len here is the hex character count, twice the decoded size,
-so the decode runs over 2 * len bytes at remcom_in_buffer + 6, off
-the end of the buffer. On x86 BUFMAX is 1024, so a 256-byte monitor
-command (512 hex characters) overruns remcom_in_buffer during the
-in-place decode:
+"I'm trying to be careful about not causing a bigger maintenance burden"
 
-  BUG: KASAN: global-out-of-bounds in kgdb_hex2mem+0x131/0x160
-  Read of size 1 at addr ffffffff8765ef05 by task sh/1
-  ...
-  kgdb_hex2mem+0x131/0x160
-  gdb_serial_stub+0x16d4/0x3170
-  kgdb_cpu_enter+0xb68/0x1520
-  ...
-  The buggy address belongs to the variable:
-   remcom_in_buffer+0x405/0x420
+I wouldn't do that to you :]
 
-Halve len before the call so kgdb_hex2mem() gets the decoded byte count.
-It then reads the len hex characters already in remcom_in_buffer and
-writes len / 2 bytes, all inside the buffer, and remcom_out_buffer holds
-the same command as before.
-
-Fixes: a0de055cf613 ("kgdb: gdb "monitor" -> kdb passthrough")
-Cc: stable@vger.kernel.org
-Suggested-by: Douglas Anderson <dianders@chromium.org>
-Link: https://lore.kernel.org/all/CAD=FV=V1-gNZ8yTsC+D8inePWv=A+9H09hWJojQf5NRpcNvK+Q@mail.gmail.com/
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
-
-This is the third in a family of unvalidated-length decodes in the kgdb
-gdbstub; the 'm' memread and 'M'/'X' memwrite fixes were sent separately.
-Unlike those two, there is no attacker-claimed length field here. len is
-the real hex-character count bounded by get_packet(), so the only defect
-is passing the hex length instead of half of it to kgdb_hex2mem().
-Halving it is sufficient; no separate bounds check is needed.
-
-Reproducer: attach to a kgdboc console, break in, run kdb's "kgdb"
-command to switch to gdb mode, then send a qRcmd packet with an even
-hex payload of 510 or more characters, e.g. "qRcmd," + "41"*256 on x86.
-Before the fix, KASAN reports a global-out-of-bounds read in
-kgdb_hex2mem(): the decode runs to remcom_in_buffer+0x405, past
-BUFMAX=0x400, and the guest dies. After the fix the decode stays
-in-bounds, the command reaches kdb_parse() and the handler answers OK.
-The patched run does print kdb_parse()'s own "command buffer overflow,
-command ignored" for a 256-byte command; that is kdb's length limit on
-the decoded string, not this bug.
-
-Tested on mainline 704340f1cd0d (git describe v7.3-rc3-9-g704340f1cd0d):
-x86_64 defconfig plus CONFIG_KGDB_KDB and CONFIG_KASAN_GENERIC, gcc
-13.2.0, QEMU under TCG. Both kernels were built from byte-identical
-.config files and differ only by this patch.
-
- kernel/debug/gdbstub.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/debug/gdbstub.c b/kernel/debug/gdbstub.c
-index e271a43..41e344e 100644
---- a/kernel/debug/gdbstub.c
-+++ b/kernel/debug/gdbstub.c
-@@ -778,9 +778,9 @@ static void gdb_cmd_query(struct kgdb_state *ks)
- 				strscpy(remcom_out_buffer, "E01");
- 				break;
- 			}
-+			len = len / 2;
- 			kgdb_hex2mem(remcom_in_buffer + 6,
- 				     remcom_out_buffer, len);
--			len = len / 2;
- 			remcom_out_buffer[len++] = 0;
- 
- 			kdb_common_init_state(ks);
--- 
-2.50.1 (Apple Git-155)
-
+~Gregory
