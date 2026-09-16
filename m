@@ -1,59 +1,80 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.16])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D07B43F4AA;
-	Wed, 16 Sep 2026 07:55:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E9104749E2
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:00:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545360; cv=none; b=VrWxI3OZTX40K/OrImwx6UO5vBNv3cL/iTPypUwWdtYYi7uno4mMyeSFrPH2CsYzLyev+INq/46sfgsdv2ITShSL24DxNfzLk5mIJQ+D/9OQhs/7PR7qiP62woTR/qSdddFchadkygkdu03AAEBjn+Qerw0hAj3u5j4fU68P76c=
+	t=1789545657; cv=none; b=Ym9xVJA0GxFjVjiA1hQXqSrNlWHKExAmpuVjCh1zUSS8FMV+ad53nb8w1EgRucG5J7IR5jMNQu+PY82f24SxehY06kme+tib7mi7CDNlejEE2kl+9bW0sqUOO2rvc681T/zgC9gwYBIEWbv9GQoudYYGbzFLxtmyCsdahAOdb/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545360; c=relaxed/simple;
-	bh=XBBONHfl4IjnRSNasfx5ax9/pFvU396KZ3iIK2ZniTc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=bnlr4KZDOfRNQ4kK9G2Aim3l9JL8ELntEgp8LyZdJ2tkc/XVowT0m41Hv2KIly37CEc2g+1rr8TMW1+v++lkEZFa99mvOdp/Vs+TXBs82fRQ17cLa8Kpw/FXiCgWWx+MV0YXhbx9O0taG+9wERCIwczB1/BOvnYx2SxwfiENrZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FgGzJaBj; arc=none smtp.client-ip=198.175.65.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789545657; c=relaxed/simple;
+	bh=7WdeUDfNtz3w/kOVanMS/2G8C33ZGTEc6MZvYgIdotc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tvteGL5XyMIOHk5c9owOLoHHeoS42ZqHcBqdEGqbglLgRRNd3/ozSjkRwVGWRh0iIU/l+Fn8UjLsgSsv1pOgbQmYzglFWz4Z7SSzoSx+U8eOWnMIzyX3HRT+awPZdfPrKNETuXEZ36PfHN8Ufsu70QxsZ2kmnRuZxXzqxxGrBPA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rc2IrysV; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FgGzJaBj"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789545346; x=1821081346;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=XBBONHfl4IjnRSNasfx5ax9/pFvU396KZ3iIK2ZniTc=;
-  b=FgGzJaBjC77prA7Ez6tiv22MRnrCwLW6biLnslC/VMpPIhboae1ouRCP
-   U7gy2hiVLuW55aCO8/j7Uv7sR40j3lWbKV1zWXdfcn1z0ftpDriax6Y6e
-   QTFrO/xwO+m5GrIQoifAoigBXLJLS/1e8Kv+QYbgpDFY+3BPvU9P1bt9K
-   iEZxVX8uE6eoS4+KYj2HA5AwXHEmtjF+n2gSfrkQZSGhaCKB5LtNiaFGW
-   w79YYPzTg1iq00jl0kmP8XG2ESZYxaSVuz6GKhKjvgixH/+9fdOhiwebG
-   dwO02wH0aNDNiIDr1pufCDNAuM6v1A9YCGAjVz7V3TSdFn15A3UOmORDx
-   Q==;
-X-CSE-ConnectionGUID: 28HwBOK+ToSAfXzEjA8oSA==
-X-CSE-MsgGUID: 4GnQOwFKRl6mtJr9cuRjEg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90128060"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90128060"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by orvoesa108.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:55:42 -0700
-X-CSE-ConnectionGUID: cN0I8x6jQaO/kUIVZ02JUw==
-X-CSE-MsgGUID: yPZ5olTpSMefGlUy4ZzjYQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1491290"
-Received: from dmr-bkc.iind.intel.com ([10.49.111.58])
-  by fmviesa011.fm.intel.com with ESMTP; 16 Sep 2026 00:55:40 -0700
-From: Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>
-To: herbert@gondor.apana.org.au
-Cc: linux-crypto@vger.kernel.org,
-	qat-linux@intel.com,
-	Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>,
-	stable@vger.kernel.org,
-	Giovanni Cabiddu <giovanni.cabiddu@intel.com>,
-	Ahsan Atta <ahsan.atta@intel.com>
-Subject: [PATCH] crypto: qat - fix error source for QAT GEN6 transmit interface faults
-Date: Wed, 16 Sep 2026 07:55:36 +0000
-Message-ID: <20260916075536.1361895-1-suman.kumar.chakraborty@intel.com>
-X-Mailer: git-send-email 2.52.0
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rc2IrysV"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccb65437so440057a91.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 01:00:45 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789545644; x=1790150444; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=1EPm1x0mUz5Pn3Ms5F/txa8My4xRSy/NJkkZxCzQIKM=;
+        b=Rc2IrysVTWRJemrkQFAJ+8O3jN9JCMqD1N9yqqquQyj6TlRv9kewSW8gyY2qHtfAsi
+         3MoemnLsawnXPlNQiZdT9WQ/j2fgFuQs6GGjXr67ea7pup3AfnO+slXc0gL9CVTkAjjC
+         7JkrglkkWb5GahF7TW2iJWoJBXli/RlDOVCn62og3FwBMqa9G84h7RuY5WaODWrmvvcm
+         7zkPKeD98W1JnTy7ahY3MeNIHKiqQPi5bAdt0pgcqq+3PRGLR8PyRA4ZkOTHllPZ6bh7
+         U8G2vE0RJXj7fg10MWPUPX2tKsGrOaMhvNIGgiIjVUn2W9hSIXRlPehPRwmKoQnTWaaj
+         LztA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789545644; x=1790150444;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=1EPm1x0mUz5Pn3Ms5F/txa8My4xRSy/NJkkZxCzQIKM=;
+        b=KdYv8fjdrsrDjFWo+/oEeWG/O6zTm0fxVH15xq4ZOvgHhFTXdhu8PXArzmRLBJdcPm
+         amy15BFN7UP+gYD5xoLJS4/31erhn6X04Hm/zEyc2M5xAp/84oT37n1C/2Cb/Vc9979y
+         E6zMUhvGvJVYaXjZEWwPCIQkCKe+SsGMaL76IzAysDW5Xd2wMGkGDOgg7M5MCgkqdiEJ
+         9sTTGhSpL6D7cgiEDp45lLUUcEAM5b5t8xBoPznPIGix/V12Xug0l9oouFqlqUfvS0Mx
+         SRL6XcRiwSPuuuiyREchvH4GlQZKYCsjyuwhbzuk0GHHn4gBidsPpzK0SLTEMeZCdBiD
+         CxyQ==
+X-Gm-Message-State: AFuF++l804Ka+rEuCSjgcMg9sQaZ4gUnmsn+YiRIIFkH/T4yRUFfIdCD
+	bt1zTfKACDrLvBZJyXpsXJWe0SvrEuAdSPhMU+oq4VLATK3ZIbJVFNaV
+X-Gm-Gg: AYBFou1uQ8F+iumrI6FgVaW/bZUSf8HcXk/mafSOdlg9sdABQVRX+lDWWwzErq/CuDV
+	3pNJWfgqi/zq0yOGSlpYRNN/BqTOxyluxgN9kysqyIC6Rn4TWwt2CXZcnkpMHHbK8PBDsL5kJX3
+	5Y67iS1yDWI5N8+T0nbifBfQeLScJHRhtoFm4AP/48lQJR9T1qsjsxKZrFVeopWj73kDwU2xPdv
+	JDD2xFUW4Xkp5DJiWCu/p7QMKSQw8ZasQQGcDi3JzpsLQFG6xDqofGDfVagB+JMtRyE/BhtUWVi
+	WAUNRZK/A76aJ1DoeFYmvqvs9X/eSmvuEEVM+mxkl7A7jm9Z4EYeddHRP5068yTUSKmNvKX+Pmv
+	jlP/qxt1bkjP3qcH0JRZARRUE3SU/Scu0+ZhTutUZubr0X0ZlK24h1N+NUY2ML9kMLT/VPP2nIP
+	z6tU/Y9zt1tRypDwdRhWxTSXrEdoNPwwCA+aEKQ8tWIFNH8jUcWfQGHQ==
+X-Received: by 2002:a17:90b:2681:b0:39e:1a00:bec4 with SMTP id 98e67ed59e1d1-39e1e2e1d8amr4275979a91.6.1789545644489;
+        Wed, 16 Sep 2026 01:00:44 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e19fd8ecasm995716a91.1.2026.09.16.01.00.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 01:00:43 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Marek Vasut <marek.vasut+renesas@mailbox.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Yuho Choi <dbgh9129@gmail.com>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH] PCI: keystone: deinitialize endpoint on remove
+Date: Wed, 16 Sep 2026 16:00:30 +0800
+Message-ID: <20260916080030.2960608-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -62,134 +83,51 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-TI_CD_PAR_STS faults were being decoded under ERRSOU1, which is
-incorrect for QAT GEN6 devices. They are actually raised on ERRSOU3.
+ks_pcie_probe() initializes the DesignWare PCIe endpoint with
+dw_pcie_ep_init(). The probe failure path calls dw_pcie_ep_deinit()
+when endpoint register initialization fails, but the remove path does
+not perform the corresponding endpoint teardown after a successful
+probe.
 
-Move the handling of TI_CD_PAR_STS faults as part of the ERRSOU3 logic
-and split the status bits by their actual source:
+The successful endpoint initialization also calls pci_epc_init_notify().
+Without the matching teardown on removal, the EPC initialization state
+and resources allocated by the DesignWare endpoint core are left
+active after the driver is removed.
 
- - Bits 0-18 (TI_INT_ERR_DEVHALT) handled when a DEVHALT is signalled
-   and are counted once as ADF_RAS_FATAL.
- - Bit 19 (TIMISCSTS) handled separately and counted as ADF_RAS_UNCORR.
+Notify the endpoint framework about deinitialization and call
+dw_pcie_ep_deinit() before disabling runtime PM and the PHYs.
 
-Previously, a TI_INT_ERR_DEVHALT fault also incremented ADF_RAS_UNCORR
-in addition to ADF_RAS_FATAL. Since a DEVHALT is already fatal, remove
-the redundant increment.
+This issue was found by manual code inspection.
 
-Bits 20-25 of TI_CD_PAR_STS are unused/reserved on QAT GEN6. Remove them
-from the mask.
-
+Fixes: 23284ad677a9 ("PCI: keystone: Add support for PCIe EP in AM654x Platforms")
 Cc: stable@vger.kernel.org
-Fixes: 7f3401d0a506 ("crypto: qat - enable RAS support for GEN6 devices")
-Signed-off-by: Suman Kumar Chakraborty <suman.kumar.chakraborty@intel.com>
-Reviewed-by: Giovanni Cabiddu <giovanni.cabiddu@intel.com>
-Reviewed-by: Ahsan Atta <ahsan.atta@intel.com>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- .../intel/qat/qat_common/adf_gen6_ras.c       | 20 +++++++++++++---
- .../intel/qat/qat_common/adf_gen6_ras.h       | 24 ++++++++++---------
- 2 files changed, 30 insertions(+), 14 deletions(-)
+ drivers/pci/controller/dwc/pci-keystone.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.c b/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.c
-index 967253082a98..902c4b1a23e3 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.c
-+++ b/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.c
-@@ -323,14 +323,26 @@ static void adf_handle_ti_cd_par_sts(struct adf_accel_dev *accel_dev, void __iom
- 	u32 ti_cd_par_sts;
- 
- 	ti_cd_par_sts = ADF_CSR_RD(csr, ADF_GEN6_TI_CD_PAR_STS);
--	ti_cd_par_sts &= ADF_GEN6_TI_CD_PAR_STS_MASK;
-+	ti_cd_par_sts &= ADF_GEN6_TI_CD_PAR_STS_TI_INT_ERR_DEVHALT_MASK;
- 	if (ti_cd_par_sts) {
- 		dev_err(&GET_DEV(accel_dev), "TI CD parity error: %#x\n", ti_cd_par_sts);
--		ADF_RAS_ERR_CTR_INC(accel_dev->ras_errors, ADF_RAS_UNCORR);
- 		ADF_CSR_WR(csr, ADF_GEN6_TI_CD_PAR_STS, ti_cd_par_sts);
- 	}
- }
- 
-+static void adf_handle_ti_misc_cd_par_sts(struct adf_accel_dev *accel_dev, void __iomem *csr)
-+{
-+	u32 ti_misc_cd_par_sts;
-+
-+	ti_misc_cd_par_sts = ADF_CSR_RD(csr, ADF_GEN6_TI_CD_PAR_STS);
-+	ti_misc_cd_par_sts &= ADF_GEN6_TI_CD_PAR_STS_TI_MISC_MASK;
-+	if (ti_misc_cd_par_sts) {
-+		dev_err(&GET_DEV(accel_dev), "TI MISC CD parity error: %#x\n", ti_misc_cd_par_sts);
-+		ADF_RAS_ERR_CTR_INC(accel_dev->ras_errors, ADF_RAS_UNCORR);
-+		ADF_CSR_WR(csr, ADF_GEN6_TI_CD_PAR_STS, ti_misc_cd_par_sts);
-+	}
-+}
-+
- static void adf_handle_ti_trnsb_par_sts(struct adf_accel_dev *accel_dev, void __iomem *csr)
+diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
+index 602516239a57..35787e727c5c 100644
+--- a/drivers/pci/controller/dwc/pci-keystone.c
++++ b/drivers/pci/controller/dwc/pci-keystone.c
+@@ -1349,9 +1349,17 @@ static void ks_pcie_remove(struct platform_device *pdev)
  {
- 	u32 ti_trnsb_par_sts;
-@@ -367,7 +379,6 @@ static void adf_handle_ti_err(struct adf_accel_dev *accel_dev, void __iomem *csr
- 	adf_handle_ti_ci_par_sts(accel_dev, csr);
- 	adf_handle_ti_pullfub_par_sts(accel_dev, csr);
- 	adf_handle_ti_pushfub_par_sts(accel_dev, csr);
--	adf_handle_ti_cd_par_sts(accel_dev, csr);
- 	adf_handle_ti_trnsb_par_sts(accel_dev, csr);
- 	adf_handle_iosfp_cmd_parerr(accel_dev, csr);
- }
-@@ -591,6 +602,8 @@ static void adf_handle_timiscsts(struct adf_accel_dev *accel_dev, void __iomem *
- 	if (!(errsou & ADF_GEN6_ERRSOU3_TIMISCSTS_BIT))
- 		return;
+ 	struct keystone_pcie *ks_pcie = platform_get_drvdata(pdev);
+ 	struct device_link **link = ks_pcie->link;
++	struct dw_pcie *pci = ks_pcie->pci;
++	const struct ks_pcie_of_data *data;
+ 	int num_lanes = ks_pcie->num_lanes;
+ 	struct device *dev = &pdev->dev;
  
-+	adf_handle_ti_misc_cd_par_sts(accel_dev, csr);
++	data = of_device_get_match_data(dev);
++	if (data->mode == DW_PCIE_EP_TYPE) {
++		pci_epc_deinit_notify(pci->ep.epc);
++		dw_pcie_ep_deinit(&pci->ep);
++	}
 +
- 	timiscsts = ADF_CSR_RD(csr, ADF_GEN6_TIMISCSTS);
- 	if (timiscsts) {
- 		dev_err(&GET_DEV(accel_dev), "Fatal error in transmit interface: %#x\n",
-@@ -730,6 +743,7 @@ static void adf_handle_ti_int_err_devhalt(struct adf_accel_dev *accel_dev, void
- 	if (!(errsou & ADF_GEN6_ERRSOU3_TI_INT_ERR_DEVHALT_BIT))
- 		return;
- 
-+	adf_handle_ti_cd_par_sts(accel_dev, csr);
- 	dev_err(&GET_DEV(accel_dev), "DEVHALT due to a TI internal memory error\n");
- 	ADF_RAS_ERR_CTR_INC(accel_dev->ras_errors, ADF_RAS_FATAL);
- }
-diff --git a/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.h b/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.h
-index 66ced271d173..11f7b2986f56 100644
---- a/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.h
-+++ b/drivers/crypto/intel/qat/qat_common/adf_gen6_ras.h
-@@ -170,23 +170,25 @@ struct adf_ras_ops;
- #define ADF_GEN6_TI_CD_PAR_ERR_MASK			0x500638
- 
- /*
-- * TI CD parity status mask
-+ * TI CD parity status mask - TI_INT_ERR_DEVHALT bits
-  * BIT(0) - BIT(15) - CtxMdRam[0:15]_sts parity status
-  * BIT(16) - Leaf2ClusterRam_sts parity status
-  * BIT(17) - BIT(18) - Ring2LeafRam[0:1]_sts parity status
-- * BIT(19) - VirtualQ_sts parity status
-- * BIT(20) - DtRdQ_sts parity status
-- * BIT(21) - DtWrQ_sts parity status
-- * BIT(22) - RiCmdQ_sts parity status
-- * BIT(23) - BypassQ_sts parity status
-- * BIT(24) - DtRdQ_sc_sts parity status
-- * BIT(25) - DtWrQ_sc_sts parity status
-  */
--#define ADF_GEN6_TI_CD_PAR_STS_MASK \
-+#define ADF_GEN6_TI_CD_PAR_STS_TI_INT_ERR_DEVHALT_MASK \
- 	(BIT(0) | BIT(1) | BIT(2) | BIT(3) | BIT(4) | BIT(5) | BIT(6) | \
- 	 BIT(7) | BIT(8) | BIT(9) | BIT(10) | BIT(11) | BIT(12) | BIT(13) | \
--	 BIT(14) | BIT(15) | BIT(16) | BIT(17) | BIT(18) | BIT(19) | BIT(20) | \
--	 BIT(21) | BIT(22) | BIT(23) | BIT(24) | BIT(25))
-+	 BIT(14) | BIT(15) | BIT(16) | BIT(17) | BIT(18))
-+
-+/*
-+ * TI CD parity status mask - TIMISCSTS bit
-+ * BIT(19) - VirtualQ_sts parity status
-+ */
-+#define ADF_GEN6_TI_CD_PAR_STS_TI_MISC_MASK		BIT(19)
-+
-+#define ADF_GEN6_TI_CD_PAR_STS_MASK \
-+	(ADF_GEN6_TI_CD_PAR_STS_TI_INT_ERR_DEVHALT_MASK | \
-+	 ADF_GEN6_TI_CD_PAR_STS_TI_MISC_MASK)
- 
- /* TI TRNSB parity status */
- #define ADF_GEN6_TI_TRNSB_PAR_STS			0x500648
-
-base-commit: af8be97e74cd57ea3a5699bc03a0c79096fd907b
+ 	pm_runtime_put(dev);
+ 	pm_runtime_disable(dev);
+ 	ks_pcie_disable_phy(ks_pcie);
 -- 
-2.52.0
+2.43.0
 
