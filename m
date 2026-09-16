@@ -1,79 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39BD4DAF98
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:35:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52D554DAF8D;
+	Wed, 16 Sep 2026 17:36:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580125; cv=none; b=nJLEqf0ZFI4EKBqgs4lnui4AT8/eMiIBhry9U+OpykRAJbWFcPyIHWjZmt7N5w2+jLxcY6W+mCoI9q/r/cbFhFzJ6G3cDYSGrWAU033s/f9jUtgsveW1kU7zdOTG8iYacAqOnenOYUVeXkdBio8O+NU0j88naRtphpsOD5rkH1Y=
+	t=1789580200; cv=none; b=iR9x8hmufBXbqnOhhyzevdDp0D9MxkHZYthQ79y6rzKXxQ79TXD+4FQd6NFZSG+8KEIqo0A3PZ1fHVMSYSYerf2PuULKtBRUKjAcZaYjMWpdZTqJvIN0EYJLbypBd/uFDsFB42TsfQ7FS72IM0nBz5h+3J9cFbFVGbYHaKSkrho=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580125; c=relaxed/simple;
-	bh=N7/VEIjgndUyqBDVO40aU7cqvnPepfWlnv91dKj0m/I=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ihVC3r3oph2/Fp42jgUzCYHyZZFm/MheqnfhJyeueEk2HVYRyLzl9Fx6puqF4Swt25PMRCcaWsYNdjJi8pARvOobAiSDpUkQqYN58orzppfxkQSifbwRIWFEfvl77MKBj1Wg3WvqYfzvjwOTYJPyNQtcHCJXnRfOcGQ5QEIIpAU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDriWnEq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDriWnEq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9219B1F0089B
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:35:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580110;
-	bh=N7/VEIjgndUyqBDVO40aU7cqvnPepfWlnv91dKj0m/I=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kDriWnEqD6+yfiIJi0v4uFjHkwdoBRJ6Ap9TZn1rQkG1VYFbeG3BbxA0UDfD33UVj
-	 XeaH3d4rOniVOrXxh7d9xVgcW29o3Zrhgok+rF3/h4M/K6/bDoo+trz0rZisQHvfn5
-	 bbbW6tmJN21l7vhj36rNXb40f61ipkg4MrV/WnwFBxQiO7Esf8BDtDS3JVvLYQGuz6
-	 U4Iy6VXIvLmxqjezvLc+XQQGwyVcqXvwTUrekY23/JWg8aOF5V553eJDkSk3RyDDVj
-	 zbABjTvueMjPsPHrc0HVbrWHZ7dpzchkFKQ8XCTzv47D9w4xFsBJnhc2im9JfLWejn
-	 ogIk0c9BeyYNw==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso1391477e87.1
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:35:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwcL1tf9/TSYL5TN3qaB6cASXqDVmGsTkFVjhlLqei9N7NEFjk+C24AyK1cyP/t/at//0CIjJw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kYNvSP1+m5jp7smI3sjz+B5ABJ4S91IKuanAGEX6BMkQITAWcv
-	tcTEqRAJ/kMiO24pTKvJDbWmf7mZHwDRKKsKJbJ8XwKXROaKvnKNDrkC4j2tpUrZ860fauC6ucS
-	IVvldC+fU1dtJylsg3HGeI65AkbL07YA=
-X-Received: by 2002:a05:6512:1089:b0:5b6:186e:b79d with SMTP id
- 2adb3069b0e04-5b8b6664ed4mr983208e87.57.1789580109346; Wed, 16 Sep 2026
- 10:35:09 -0700 (PDT)
+	s=arc-20240116; t=1789580200; c=relaxed/simple;
+	bh=NWJmNT1Fvyd7kqwcYs8QnnYpWQJJEBXHyPmEH70TqNQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Tf9AlgRiU/LUFh6/5vLnBVm3nt+6ANhf3NuD/e0L48vq+V+vRu5OBetD6OWcC78aEeMwXp8DZtQ8/+WQlK39d5kXG9LutFDRwgIe7vqr02VhnQMWPYUp3ZtTa2HBoXo2RV51wbxPhIiOft9hSjWAfjGttvkg3jq1wE4iGtrU36E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnUDud06pq_bluCA--.22964S2;
+	Thu, 17 Sep 2026 01:36:29 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: John.C.Harrison@Intel.com
+Cc: airlied@gmail.com,
+	daniele.ceraolospurio@intel.com,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	matthew.brost@intel.com,
+	rodrigo.vivi@intel.com,
+	simona@ffwll.ch,
+	tursulin@ursulin.net,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/guc: Fix sched_engine reference leak in guc_create_virtual()
+Date: Wed, 16 Sep 2026 17:36:01 +0000
+Message-Id: <20260916173601.2088347-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916163646.2084234-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916163646.2084234-1-vulab@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:34:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmJ_t1DVkDfRwbTQ23w9AJ9wpB3yqcCCTXqe6H8A_-D9g@mail.gmail.com>
-X-Gm-Features: AcwNN1WWyvCAlUuXsylbp30V6rpjRIwZU0ilKLYM1MPAZf8OJdK-TPSZPz3xV6A
-Message-ID: <CAD++jLmJ_t1DVkDfRwbTQ23w9AJ9wpB3yqcCCTXqe6H8A_-D9g@mail.gmail.com>
-Subject: Re: [PATCH] iio: light: gp2ap002: Fix runtime PM leak in gp2ap002_read_raw()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org, 
-	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com, 
-	xc-racer2@live.ca, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnUDud06pq_bluCA--.22964S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFyUtF1xJF48CryDAryfCrg_yoWkWFb_Ca
+	4Yvr93GFy7AFn3Cw12yrnxZrWvkFyUZr4Fyw18t3yrA3yjvr4UXwsI9F98Xr13KF4UJFWD
+	Aa18uF1fAFn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Cr
+	1j6rxdM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
+	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
+	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
+	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
+	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr
+	1UYxBIdaVFxhVjvjDU0xZFpf9x0JUtgA7UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMMA2qqpO9oaQAAsK
 
-On Wed, Sep 16, 2026 at 6:37=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
+guc_create_virtual() takes a reference on guc->sched_engine for the
+virtual engine, mirroring execlists, but the GuC destroy path never
+drops it; rcu_virtual_context_destroy() does. Release the reference in
+__guc_context_destroy() alongside the breadcrumbs reference.
 
-> pm_runtime_get_sync() increments the usage counter even on failure,
-> so every successful call must be paired with a put. A failure of
-> gp2ap002_get_lux() returned early and skipped the paired
-> pm_runtime_put_autosuspend(), permanently preventing runtime
-> suspend. Jump to the common exit that releases the reference.
->
-> Fixes: f6dbf83c17cb ("iio: light: gp2ap002: Take runtime PM reference on =
-light read")
-> Cc: stable@vger.kernel.org
+Fixes: 556120256ecd ("drm/i915/guc: GuC virtual engines")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-IMO not stable material.
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+index 788e59cdfac9..7b88e081c76d 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
+@@ -3487,6 +3487,8 @@ static void __guc_context_destroy(struct intel_context *ce)
+ 
+ 		if (ve->base.breadcrumbs)
+ 			intel_breadcrumbs_put(ve->base.breadcrumbs);
++		if (ve->base.sched_engine)
++			i915_sched_engine_put(ve->base.sched_engine);
+ 
+ 		kfree(ve);
+ 	} else {
+-- 
+2.34.1
 
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-
-Reviewed-by: Linus Walleij <linusw@kernel.org>
-
-Yours,
-Linus Walleij
