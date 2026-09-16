@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B44134AB3AB
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 851F54AB3C7
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574838; cv=none; b=jB+WnbPfpSSABjXmZiXgpv6gb4axEhF72uLDKrDgdVHrdddTAZIaQzZ5WoY99FRhT/X8QuHwz7mJA/idyWkjF6Yap6qUpUvsySTA/Uyd+ZHwIvUR9o6FAgp5wf83h98hlcIVaYXtWlq8lxbcjm86vIB5htGVSakgOKPqrrg0BQc=
+	t=1789574842; cv=none; b=nz5/Os2cTfYG9laNu8yI2Dqaop59yDFfok7bihJCl7q2DHRcQPc1e9BysEMbTLUjOOOZyV+rAJ6GwNS4fn9f5TBcvW9ee1dkoqrWq8NYfv1B5PooqgOVaDhHqDjszBvacbeADMIDebepwc+CfEzaFoh9JkG0R+QPjiVB4BSlb/s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574838; c=relaxed/simple;
-	bh=QZfE/6qdAFYCxJoLYHPc0vgdVqk2PHOdkXZBEj+6GHY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YVSJmXKtbj6NJLcLu0W1OdhEXWvZIvDzUNUvGSYbu58p4wa0HewdJArIgQv33F26TRk3AhbjsJGCnnhjakDaUnB5XxEO/Ns8yForNFPwxKYKkue8Y5n4FFSOYAi0sTiZ4nmSsdXRctqg+hY8lYyo6Pbxk2tzDPoMp2+0xaomZts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pgCivs6q; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574842; c=relaxed/simple;
+	bh=0QOH68fAcds4vRxTkV/BXg+D8LVqblkoHd6mYDVex4s=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tMUEeZiUzKKF9PWu5zy8iLDKVrKUxp7nRUpV13u5IVj2XAt6sBIvtol0TseR/9WE9rc8HtLHmsMOAAVDO7ndmSHTvT99ARQ7Y7TX1dPHgVLihIcfxv7Dr3UicMdJf45T7EVyzjqo1KnPUXQ4VS2VSRRCKaV6+dovxNVftmAcw58=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ovtSx3fQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pgCivs6q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D85E71F000FF;
-	Wed, 16 Sep 2026 16:07:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ovtSx3fQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 02D911F000FF;
+	Wed, 16 Sep 2026 16:07:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574836;
-	bh=POcpGONv+gJrRkPOJ2f94dggR5vZE/GqiKYCMje4Np4=;
+	s=korg; t=1789574839;
+	bh=VZquzRTy+PBTqQUzYlp1iO4T6BpE8WsmW0PXNFKihT0=;
 	h=Subject:To:Cc:From:Date;
-	b=pgCivs6qBGqdSKeaWD7T9BBw7g0zCcmAy49T8C9IjRmRnoOYS58EF6xFheqPODJqP
-	 uCMAvug9FDJGRvb8RFymwkscH8TPQDw1xlm/jZvsyAz4pVvtdfcU/cc7nIxNfVjjv0
-	 EGz6yRKz4Nk7gj84ZM+zMoaRFOOXqA9ZNFSRdXgQ=
-Subject: FAILED: patch "[PATCH] landlock: Fix use-after-free of the source's parent directory" failed to apply to 6.1-stable tree
-To: norbert@doyensec.com,gnoack3000@gmail.com,mic@digikod.net
+	b=ovtSx3fQopm8YPUkwTDk/p4ajHe8MHrm6R6GIuXyqy/nJ/JGAXAsDZN+jXgrRuzvu
+	 SWNAxdPrYpSSRUExr1b8zNJCqfMHMcimVuR8c41PpKPVs0ouWYVZTmipNYI9w9Rc0s
+	 pAEuspAOJY3I5Y32HAS/UiyJZkyB36CZ4AdK1Ud4=
+Subject: FAILED: patch "[PATCH] s390/pai: Support CPU hotplug for PMU PAI" failed to apply to 7.2-stable tree
+To: tmricht@linux.ibm.com,gor@linux.ibm.com,hca@linux.ibm.com,japo@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:46:45 +0100
-Message-ID: <2026091645-slogan-afterglow-e44a@gregkh>
+Date: Wed, 16 Sep 2026 16:47:43 +0100
+Message-ID: <2026091643-probably-sprinkled-c1c7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2c6dc792538260a8087ac5b22c31b3b8e47c85d6
+git cherry-pick -x 9ecc4d033879f7761f2df07e20cd2fbec00fd90b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091645-slogan-afterglow-e44a@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091643-probably-sprinkled-c1c7@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,108 +62,363 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2c6dc792538260a8087ac5b22c31b3b8e47c85d6 Mon Sep 17 00:00:00 2001
-From: Norbert Szetei <norbert@doyensec.com>
-Date: Sat, 22 Aug 2026 14:29:00 +0200
-Subject: [PATCH] landlock: Fix use-after-free of the source's parent directory
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+From 9ecc4d033879f7761f2df07e20cd2fbec00fd90b Mon Sep 17 00:00:00 2001
+From: Thomas Richter <tmricht@linux.ibm.com>
+Date: Tue, 1 Sep 2026 14:33:20 +0200
+Subject: [PATCH] s390/pai: Support CPU hotplug for PMU PAI
 
-current_check_refer_path() reads old_dentry->d_parent without holding a
-reference nor a lock on it, and then dereferences it in
-collect_domain_accesses() and in the audit record.
+The command 'perf stat -e pai_crypto/CRYPTO_ALL/ -- <command>'
+crashes the kernel when CPUs are hotplug added during that run.
 
-A reference on a child does not pin its parent: __d_move() reassigns
-dentry->d_parent and drops the reference the child held on its former
-parent.  hook_path_rename() is not affected because the rename path
-calls lock_rename() before the hook, so the source cannot be reparented
-under it.  hook_path_link() has no such protection: filename_linkat()
-holds a reference on the source dentry but neither locks nor references
-its parent, so a concurrent rename(2) can reparent the source while
-security_path_link() runs, and the former parent can then be removed and
-freed while the hook walks it.
+Root cause is the missing allocation of per-CPU data structures
+for that new CPU. The allocation is dynamic and the first
+event that has task context creates such a structure for
+each online CPU. This is not sufficient. CPUs may be offline
+during event creation and can be set online during the
+perf run time. For example commands
 
-A process can trigger this after entering a Landlock domain that handles
-at least one filesystem access right.  The process can then race a
-linkat(2) loop against rename(2) and rmdir(2):
+ # echo 0 > /sys/devices/system/cpu/cpu1/online
+ # perf stat -e cycles -i -- stress-ng -t10s --matrix X
+ # sleep 1
+ # echo 1 > /sys/devices/system/cpu/cpu1/online
 
-  BUG: KASAN: slab-use-after-free in collect_domain_accesses+0x278/0x290
-  Read of size 4 at addr ffff888160bd53f4 by task llrepro2/549
-   collect_domain_accesses+0x278/0x290
-   current_check_refer_path+0x952/0x1120
-   security_path_link+0x1be/0x320
-   filename_linkat+0x342/0x6d0
-   __x64_sys_linkat+0xfa/0x150
-  Freed by task 562:
-   kmem_cache_free+0x139/0x4c0
-   i_callback+0x4b/0x80
-   rcu_core+0x7dc/0x10a0
+Currently without a CPU hotplug handler, that new CPU has no
+per-CPU data infrastructure. The scheduler runs PMU call back
+function pai_add() to install the PMU support for that CPU before
+the task is being scheduled on that new CPU.
+In pai_add() instructions
 
-Take a reference on the dentry selected as the source parent, using
-dget() for the common-mount-root case and dget_parent() otherwise.
-Release it after the hierarchy walk and synchronous audit logging.
+    mp = this_cpu_ptr(pai_root[idx].mapptr);
+    cpump = mp->mapptr;
 
-Cc: stable@vger.kernel.org
-Fixes: b91c3e4ea756 ("landlock: Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER")
-Signed-off-by: Norbert Szetei <norbert@doyensec.com>
-Reviewed-by: Günther Noack <gnoack3000@gmail.com>
-Tested-by: Günther Noack <gnoack3000@gmail.com>
-Link: https://patch.msgid.link/E9CDD9E6-E960-4DE2-B1AC-5667D52ABB3E@doyensec.com
-[mic: Clarify the caller, reachability, and reference handling]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+return a NULL pointer and the result is a kernel panic as variable
+cpump is used inside that function.
 
-diff --git a/security/landlock/fs.c b/security/landlock/fs.c
-index 30aa6ce13590..330a1871bf94 100644
---- a/security/landlock/fs.c
-+++ b/security/landlock/fs.c
-@@ -1298,11 +1298,12 @@ static int current_check_refer_path(struct dentry *const old_dentry,
- 	/*
- 	 * old_dentry may be the root of the common mount point and
- 	 * !IS_ROOT(old_dentry) at the same time (e.g. with open_tree() and
--	 * OPEN_TREE_CLONE).  We do not need to call dget(old_parent) because
--	 * we keep a reference to old_dentry.
-+	 * OPEN_TREE_CLONE).  Pin the dentry used as old_parent in either case.
-+	 * Otherwise, dget_parent() safely fetches and pins the current parent
-+	 * against a concurrent rename(2).
- 	 */
--	old_parent = (old_dentry == mnt_dir.dentry) ? old_dentry :
--						      old_dentry->d_parent;
-+	old_parent = (old_dentry == mnt_dir.dentry) ? dget(old_dentry) :
-+						      dget_parent(old_dentry);
+Add CPU hotplug support for CPU add and delete and create
+the necessary per-CPU data infrastructure during CPU hotplug
+add processing. Same for CPU hotplug remove.
+This is done when the CPU is offline to ensure the data structures
+are available when CPU is made online and tasks are scheduled on it.
+
+[hca@linux.ibm.com: fixup error path in pai_init()]
+
+Cc: stable@vger.kernel.org # v6.19
+Fixes: 582cc1b28e8c ("s390/pai_ext: Enable per-task and system-wide sampling event")
+Fixes: 9f66572f2889 ("s390/pai_crypto: Enable per-task and system-wide sampling event")
+Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
+Reviewed-by: Jan Polensky <japo@linux.ibm.com>
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
+
+diff --git a/arch/s390/include/asm/pai.h b/arch/s390/include/asm/pai.h
+index 534d0320e2aa..a3456a36aaa7 100644
+--- a/arch/s390/include/asm/pai.h
++++ b/arch/s390/include/asm/pai.h
+@@ -76,7 +76,6 @@ static __always_inline void pai_kernel_exit(struct pt_regs *regs)
+ }
  
- 	/* new_dir->dentry is equal to new_dentry->d_parent */
- 	allow_parent1 = collect_domain_accesses(subject->domain, mnt_dir.dentry,
-@@ -1311,8 +1312,10 @@ static int current_check_refer_path(struct dentry *const old_dentry,
- 	allow_parent2 = collect_domain_accesses(subject->domain, mnt_dir.dentry,
- 						new_dir->dentry,
- 						&layer_masks_parent2);
--	if (allow_parent1 && allow_parent2)
-+	if (allow_parent1 && allow_parent2) {
-+		dput(old_parent);
- 		return 0;
-+	}
+ #define PAI_SAVE_AREA(x)	((x)->hw.event_base)
+-#define PAI_CPU_MASK(x)		((x)->hw.addr_filters)
+ #define PAI_PMU_IDX(x)		((x)->hw.last_tag)
+ #define PAI_SWLIST(x)		(&(x)->hw.tp_list)
  
- 	/*
- 	 * To be able to compare source and destination domain access rights,
-@@ -1324,8 +1327,10 @@ static int current_check_refer_path(struct dentry *const old_dentry,
- 		    subject->domain, &mnt_dir, access_request_parent1,
- 		    &layer_masks_parent1, &request1, old_dentry,
- 		    access_request_parent2, &layer_masks_parent2, &request2,
--		    exchange ? new_dentry : NULL))
-+		    exchange ? new_dentry : NULL)) {
-+		dput(old_parent);
- 		return 0;
-+	}
+diff --git a/arch/s390/kernel/perf_pai.c b/arch/s390/kernel/perf_pai.c
+index c333158cc945..013c3dae21ec 100644
+--- a/arch/s390/kernel/perf_pai.c
++++ b/arch/s390/kernel/perf_pai.c
+@@ -67,6 +67,7 @@ struct pai_mapptr {
  
- 	if (request1.access) {
- 		request1.audit.u.path.dentry = old_parent;
-@@ -1335,6 +1340,7 @@ static int current_check_refer_path(struct dentry *const old_dentry,
- 		request2.audit.u.path.dentry = new_dir->dentry;
- 		landlock_log_denial(subject, &request2);
+ static struct pai_root {		/* Anchor to per CPU data */
+ 	refcount_t refcnt;		/* Overall active events */
++	atomic_t tskctx;		/* Overall per-task events */
+ 	struct pai_mapptr __percpu *mapptr;
+ } pai_root[PAI_PMU_MAX];
+ 
+@@ -93,14 +94,15 @@ struct pai_pmu {			/* Define PAI PMU characteristics */
+ static struct pai_pmu pai_pmu[];	/* Forward declaration */
+ 
+ /* Free per CPU data when the last event is removed. */
+-static void pai_root_free(int idx)
++static void pai_root_free(int idx, int tasks)
+ {
+-	if (refcount_dec_and_test(&pai_root[idx].refcnt)) {
++	if (refcount_sub_and_test(tasks, &pai_root[idx].refcnt)) {
+ 		free_percpu(pai_root[idx].mapptr);
+ 		pai_root[idx].mapptr = NULL;
  	}
-+	dput(old_parent);
+-	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d\n", __func__,
+-			    idx, refcount_read(&pai_root[idx].refcnt));
++	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d tskctx %d\n",
++			    __func__, idx, refcount_read(&pai_root[idx].refcnt),
++			    atomic_read(&pai_root[idx].tskctx));
+ }
  
- 	/*
- 	 * This prioritizes EACCES over EXDEV for all actions, including
+ /*
+@@ -137,20 +139,36 @@ static void pai_free(struct pai_mapptr *mp)
+ 	mp->mapptr = NULL;
+ }
+ 
+-/* Adjust usage counters and remove allocated memory when all users are
+- * gone. Called under mutex_lock.
+- */
+-static void pai_event_destroy_cpu(int idx, int cpu)
++/* Called under mutex_lock */
++static void pai_event_destroy_cpu(int idx, int cpu, bool hotplug)
+ {
+-	struct pai_mapptr *mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
+-	struct pai_map *cpump = mp->mapptr;
++	struct pai_mapptr *mp;
++	struct pai_map *cpump;
++	int tasks = 1;
+ 
+-	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
+-			    __func__, cpump->active_events,
+-			    refcount_read(&cpump->refcnt));
+-	if (refcount_dec_and_test(&cpump->refcnt))
++	/* Check reference count and return when all gone.
++	 * 1. An event is installed on online CPU X.
++	 * 2. CPU x is offlined and the per-CPU data is removed.
++	 * 3. Event is destroyed via close system call.
++	 */
++	if (!refcount_read(&pai_root[idx].refcnt))
++		return;			/* No events at all */
++	mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
++	if (!mp || !mp->mapptr)		/* No events on that CPU */
++		return;
++
++	/* When hotplug is true, invocation is from CPU hotplug callback.
++	 * Delete per-CPU resource and adjust refcnt when per-task events
++	 * are currently active. This can be more than one.
++	 * In this case adjust counters.
++	 */
++	if (hotplug)
++		tasks = atomic_read(&pai_root[idx].tskctx);
++
++	cpump = mp->mapptr;
++	if (refcount_sub_and_test(tasks, &cpump->refcnt))
+ 		pai_free(mp);
+-	pai_root_free(idx);
++	pai_root_free(idx, tasks);
+ }
+ 
+ static void pai_event_destroy(struct perf_event *event)
+@@ -158,17 +176,17 @@ static void pai_event_destroy(struct perf_event *event)
+ 	int cpu = 0, idx = PAI_PMU_IDX(event);
+ 
+ 	free_page(PAI_SAVE_AREA(event));
++	cpus_read_lock();
+ 	mutex_lock(&pai_reserve_mutex);
+ 	if (event->cpu == -1) {
+-		struct cpumask *mask = PAI_CPU_MASK(event);
+-
+-		for_each_cpu(cpu, mask)
+-			pai_event_destroy_cpu(idx, cpu);
+-		kfree(mask);
++		atomic_dec(&pai_root[idx].tskctx);
++		for_each_online_cpu(cpu)
++			pai_event_destroy_cpu(idx, cpu, false);
+ 	} else {
+-		pai_event_destroy_cpu(idx, event->cpu);
++		pai_event_destroy_cpu(idx, event->cpu, false);
+ 	}
+ 	mutex_unlock(&pai_reserve_mutex);
++	cpus_read_unlock();
+ }
+ 
+ static void paicrypt_event_destroy(struct perf_event *event)
+@@ -232,17 +250,25 @@ static u64 paicrypt_getall(struct perf_event *event)
+ 	return sum;
+ }
+ 
+-/* Allocate all per-CPU data structures. This function is called in
+- * process context and can block. In case of error all partly allocated
+- * memory is released and the reference counters adjusted correctly.
+- * Called under mutex_lock.
+- */
+-static int pai_alloc_cpu(int idx, int cpu)
++/* Called under mutex_lock */
++static int pai_alloc_cpu(int idx, int cpu, bool hotplug)
+ {
+ 	struct pai_map *cpump = NULL;
+ 	bool need_paiext_cb = false;
+ 	struct pai_mapptr *mp;
+-	int rc;
++	int tasks = 1, rc = 0;
++
++	/* When hotplug is true, invocation is from CPU hotplug callback.
++	 * Allocate per-CPU resource when per-task events are currently active.
++	 * This can be more than one. In this case adjust all reference
++	 * counters. Otherwise return, this ensures memory is only allocated
++	 * when needed.
++	 */
++	if (hotplug) {
++		tasks = atomic_read(&pai_root[idx].tskctx);
++		if (!tasks)
++			goto out;
++	}
+ 
+ 	/* Allocate root node */
+ 	rc = pai_root_alloc(idx);
+@@ -291,26 +317,42 @@ static int pai_alloc_cpu(int idx, int cpu)
+ 			goto undo;
+ 		}
+ 		INIT_LIST_HEAD(&cpump->syswide_list);
+-		refcount_set(&cpump->refcnt, 1);
++		refcount_set(&cpump->refcnt, tasks);
+ 		rc = 0;
+ 	} else {
+-		refcount_inc(&cpump->refcnt);
++		refcount_add(tasks, &cpump->refcnt);
+ 	}
++	/* If tasks is greater than 1, we are called from CPU hotplug path
++	 * and need to adjust the pai_root[idx].refcnt by the number of
++	 * per-process events. Function pai_root_alloc(idx) already
++	 * incremented by one. Adjust for the rest.
++	 */
++	if (tasks > 1)
++		refcount_add(tasks - 1, &pai_root[idx].refcnt);
+ 
+ undo:
+ 	if (rc) {
+ 		/* Error in allocation of event, decrement anchor. Since
+ 		 * the event in not created, its destroy() function is never
+ 		 * invoked. Adjust the reference counter for the anchor.
++		 * The failure happened in the case of variable
++		 * cpump == NULL branch above. The pai_root[XXX].refcnt has
++		 * been incremented by one. Then the per-CPU allocation
++		 * failed, so decrement it by one, regardless of tasks.
+ 		 */
+-		pai_root_free(idx);
++		pai_root_free(idx, 1);
+ 	}
+ out:
+ 	/* If rc is non-zero, no increment of counter/sampler was done. */
+ 	return rc;
+ }
+ 
+-/* Called under mutex_lock */
++/* Check concurrent access of counting and sampling for PAI events.
++ * This function is called in process context and it is safe to block.
++ * When the event initialization functions fails, no other call back will
++ * be invoked.
++ * Called under mutex_lock.
++ */
+ static int pai_alloc(struct perf_event *event)
+ {
+ 	int idx = PAI_PMU_IDX(event);
+@@ -322,24 +364,20 @@ static int pai_alloc(struct perf_event *event)
+ 		goto out;
+ 
+ 	for_each_online_cpu(cpu) {
+-		rc = pai_alloc_cpu(idx, cpu);
++		rc = pai_alloc_cpu(idx, cpu, false);
+ 		if (rc) {
+ 			for_each_cpu(cpu, maskptr)
+-				pai_event_destroy_cpu(idx, cpu);
+-			kfree(maskptr);
+-			goto out;
++				pai_event_destroy_cpu(idx, cpu, false);
++			goto undo;
+ 		}
+ 		cpumask_set_cpu(cpu, maskptr);
+ 	}
+ 
+-	/*
+-	 * On error all cpumask are freed and all events have been destroyed.
+-	 * Save of which CPUs data structures have been allocated for.
+-	 * Release them in pai_event_destroy call back function
+-	 * for this event.
+-	 */
+-	PAI_CPU_MASK(event) = maskptr;
+ 	rc = 0;
++	/* Trace per-task events for CPU hotplug. */
++	atomic_inc(&pai_root[idx].tskctx);
++undo:
++	kfree(maskptr);
+ out:
+ 	return rc;
+ }
+@@ -387,12 +425,14 @@ static int pai_event_init(struct perf_event *event, int idx)
+ 		}
+ 	}
+ 
++	cpus_read_lock();
+ 	mutex_lock(&pai_reserve_mutex);
+ 	if (event->cpu >= 0)
+-		rc = pai_alloc_cpu(idx, event->cpu);
++		rc = pai_alloc_cpu(idx, event->cpu, false);
+ 	else
+ 		rc = pai_alloc(event);
+ 	mutex_unlock(&pai_reserve_mutex);
++	cpus_read_unlock();
+ 	if (rc) {
+ 		free_page(PAI_SAVE_AREA(event));
+ 		goto out;
+@@ -1237,8 +1277,35 @@ static int __init paipmu_setup(void)
+ 	return install_ok;
+ }
+ 
++static int pai_online_cpu(unsigned int cpu)
++{
++	int rc;
++
++	mutex_lock(&pai_reserve_mutex);
++	rc = pai_alloc_cpu(PAI_PMU_CRYPTO, cpu, true);
++	if (rc)
++		goto out;
++	rc = pai_alloc_cpu(PAI_PMU_EXT, cpu, true);
++	if (rc)
++		pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
++out:
++	mutex_unlock(&pai_reserve_mutex);
++	return rc;
++}
++
++static int pai_offline_cpu(unsigned int cpu)
++{
++	mutex_lock(&pai_reserve_mutex);
++	pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
++	pai_event_destroy_cpu(PAI_PMU_EXT, cpu, true);
++	mutex_unlock(&pai_reserve_mutex);
++	return 0;
++}
++
+ static int __init pai_init(void)
+ {
++	int state, rc;
++
+ 	/* Setup s390dbf facility */
+ 	paidbg = debug_register("pai", 1, 1, 128);
+ 	if (!paidbg) {
+@@ -1247,13 +1314,24 @@ static int __init pai_init(void)
+ 	}
+ 	debug_register_view(paidbg, &debug_sprintf_view);
+ 
+-	if (!paipmu_setup()) {
+-		/* No PMU registration, no need for debug buffer */
+-		debug_unregister_view(paidbg, &debug_sprintf_view);
+-		debug_unregister(paidbg);
+-		return -ENODEV;
+-	}
++	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
++	state = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
++				  pai_online_cpu, pai_offline_cpu);
++	rc = state < 0 ? state : 0;
++	if (rc < 0)
++		goto out_debug;
++
++	rc = -ENODEV;
++	if (!paipmu_setup())
++		goto out_cpuhp;
+ 	return 0;
++
++out_cpuhp:
++	cpuhp_remove_state(state);
++out_debug:
++	debug_unregister_view(paidbg, &debug_sprintf_view);
++	debug_unregister(paidbg);
++	return rc;
+ }
+ 
+ device_initcall(pai_init);
 
