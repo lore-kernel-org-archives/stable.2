@@ -1,107 +1,122 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 444B94D7D24
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3EE3F4BF940
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:38:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789587527; cv=none; b=uuwpJtJzo3L+e5jrNSBvpbtVlY3C8ZN4DusOBH40v7nnOKvsTLC5Wq4jR9e6aAm/VYwxI/UT8Q6NnSV8TM3vwDl61bqLSTMQTlNTANPm62BxFQQse1w82E0bsKGAeNsaL5z6Zv6Ns5ti+wrj7EbVRLVGEePrOlvTeGJjvenomp0=
+	t=1789587533; cv=none; b=fCA07ipCd7e3aR43a7s7J+wtKXpXV0GLr6GHVN7vleyEnh1/j9NmO3IobBDRMSDI0VoEoxM5yNk9RuxpYD8KbZ7jPInxv2V1QVvtc/IfDlNx5L9zm+gwWHhP4R+SF1N641/sL7L+Yrc8nC5NOvAvMCbtFZfDWhV1Itx9jc2Gbns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789587527; c=relaxed/simple;
-	bh=aoudXyBzh8fTBxtLjSq/mvk74M6fjLaG8dTwZGwhkuU=;
+	s=arc-20240116; t=1789587533; c=relaxed/simple;
+	bh=tLKiDYbEBvKwx1+t2yh9qx3SqyKPnhmimFU3OAqchN8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=guXxw4Hcft82hbqvXPFpqKzyvdNpWN8glI97MnKgtQUcpWnZjTGjejUjah1rTV+K0RlP+RwyQDighClEwMCRPbr9cSmEUwXY1j/Pdfyuolr6kY0KKUFBfvUCtcyuLXDsgvTAvaTTWmjPBrf+ZFtiCrZn9LS0myyoytkHGjnbFJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NMt1m66n; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ob7DLl/CqsPSUCAzrXAGpZ26HElRgMMu1vLZ8FH4FweCYqB4xWfdVyVbf/31hCQOMyDokHXG7sw13GCwBQxEiwInbvVJLMDor69tNQrnAiBEg8kMdk3zs8XzrScwUoaMR0raHQEQzskmPvZoec+j6zBofzw+IMhACiY2H77KG5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RzcYTizx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NMt1m66n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 288771F00893;
-	Wed, 16 Sep 2026 19:38:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RzcYTizx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACC8D1F00899;
+	Wed, 16 Sep 2026 19:38:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789587511;
-	bh=ufN6RnXV9j9eXotuwXtTarCFNFL6uYsrCutZJb07s/g=;
+	bh=l43Bhd/2Av7eFZ3GmsTFJcRBbL9F2AqTf3hphGp1ihE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NMt1m66nxaWxpdZRRra/CqBYbVnXN7nfrE/+Z3o9eRSF3ZkYLgaa3nWdS/x0jwfyg
-	 NtwuALFvunVoJib/hsRIF1Z2GAVKjaiiEGoycBC4ghpC+/YSsJOKwpUqEnZ9dkxI5U
-	 AhrAl6NRNULo78qHnv5Z5lbAf6scRUuTtZnBJFkkpD54RFuNxhfTEVP8SxIWOkoZ6Q
-	 2f1pgaWkjgRzyTniLmDJBLoirQGxa8ecyc+axKGCGrMpJf0Zbn7QDEeQziKBVR2JAU
-	 EP6O8gumHW+5mLgN0BJJMickDW3huFjXgdcFPfUUohDX0Mbm1Jr0T4XdPyny326rdH
-	 5e8A2EbUTcZ5Q==
+	b=RzcYTizxq24+x6Ejik51ePuHCmOA3ajTRHTGi4DnohRygb0QSKefHgGWvetZXXQou
+	 1QqbZBU9Nre59TETkO5XKVY9EoimAUUR0BIEkOZ9/8gn5J04UC/JWChyefmwVKhuJ7
+	 LyVYjCj0qfQlXspAO6aH45eHm41zuEFgfBNer0qzfmZKBZAG3su1knmrOW3OVakq2m
+	 FZV1hf/0nNot5nK7k57r1g/b3MBITcmxmotMjjanUhRw5YPLjL1BMNWyictR3RTX6i
+	 NhE/d8a43R6gngWnBUsVOR7zwqR5pKSThepLt3rNRahr/DVrQ3nZ3C7uYhFhtwmv5H
+	 Q2DjcWpKIloKA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] Bluetooth: btqcomsmd: Convert to platform remove callback returning void
+Subject: [PATCH 6.12.y 2/2] EDAC/altera: Use parent device for devres in altr_portb_setup()
 Date: Wed, 16 Sep 2026 15:38:28 -0400
-Message-ID: <20260916193829.2327507-1-sashal@kernel.org>
+Message-ID: <20260916193828.2327223-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091652-sanding-chuck-ede3@gregkh>
-References: <2026091652-sanding-chuck-ede3@gregkh>
+In-Reply-To: <20260916193828.2327223-1-sashal@kernel.org>
+References: <2026091619-brownnose-rake-f034@gregkh>
+ <20260916193828.2327223-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
+From: Dinh Nguyen <dinguyen@kernel.org>
 
-[ Upstream commit 4a62832f565c950d645a4f7b199a0a7985815940 ]
+[ Upstream commit 9868f5c077dfe0b606331f2e782484f91a5789a5 ]
 
-The .remove() callback for a platform driver returns an int which makes
-many driver authors wrongly assume it's possible to do error handling by
-returning an error code. However the value returned is ignored (apart
-from emitting a warning) and this typically results in resource leaks.
+Anchor the devres group and the devm-managed IRQ requests in altr_portb_setup()
+to the actual parent device (device->edac->dev) instead of the embedded struct
+device inside the copied per-port altr_edac_device_dev.
 
-To improve here there is a quest to make the remove callback return
-void. In the first step of this quest all drivers are converted to
-.remove_new(), which already returns void. Eventually after all drivers
-are converted, .remove_new() will be renamed to .remove().
+This keeps devres_open_group(), devm_request_irq(), devres_remove_group() and
+devres_release_group() all referring to the same long-lived device so the
+group and the resources allocated inside it are torn down together.
 
-Trivially convert this driver from always returning zero in the remove
-callback to the void returning variant.
-
-Signed-off-by: Uwe Kleine-König <u.kleine-koenig@pengutronix.de>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-Stable-dep-of: f5a427b16e45 ("Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev")
+Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
+Closes: https://sashiko.dev/#/patchset/20260503212558.2811480-1-dbgh9129%40gmail.com
+Assisted-by: LLM
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260617164303.585555-1-dinguyen@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/bluetooth/btqcomsmd.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+ drivers/edac/altera_edac.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/bluetooth/btqcomsmd.c b/drivers/bluetooth/btqcomsmd.c
-index 11c7e04bf3947..88dbb2f3fabf9 100644
---- a/drivers/bluetooth/btqcomsmd.c
-+++ b/drivers/bluetooth/btqcomsmd.c
-@@ -197,7 +197,7 @@ static int btqcomsmd_probe(struct platform_device *pdev)
- 	return ret;
- }
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index b7325d4a2dbbb..ef99e59c73245 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1534,7 +1534,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	altdev = dci->pvt_info;
+ 	*altdev = *device;
  
--static int btqcomsmd_remove(struct platform_device *pdev)
-+static void btqcomsmd_remove(struct platform_device *pdev)
- {
- 	struct btqcomsmd *btq = platform_get_drvdata(pdev);
+-	if (!devres_open_group(&altdev->ddev, altr_portb_setup, GFP_KERNEL))
++	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
+ 		return -ENOMEM;
  
-@@ -206,8 +206,6 @@ static int btqcomsmd_remove(struct platform_device *pdev)
+ 	/* Update PortB specific values */
+@@ -1562,7 +1562,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		rc = -ENODEV;
+ 		goto err_release_group_1;
+ 	}
+-	rc = devm_request_irq(&altdev->ddev, altdev->sb_irq,
++	rc = devm_request_irq(device->edac->dev, altdev->sb_irq,
+ 			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+ 			      ecc_name, altdev);
+ 	if (rc) {
+@@ -1584,7 +1584,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 			rc = -ENODEV;
+ 			goto err_release_group_1;
+ 		}
+-		rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
++		rc = devm_request_irq(device->edac->dev, altdev->db_irq,
+ 				      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+ 				      ecc_name, altdev);
+ 		if (rc) {
+@@ -1604,13 +1604,13 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
  
- 	rpmsg_destroy_ept(btq->cmd_channel);
- 	rpmsg_destroy_ept(btq->acl_channel);
--
--	return 0;
- }
+ 	list_add(&altdev->next, &altdev->edac->a10_ecc_devices);
  
- static const struct of_device_id btqcomsmd_of_match[] = {
-@@ -218,7 +216,7 @@ MODULE_DEVICE_TABLE(of, btqcomsmd_of_match);
+-	devres_remove_group(&altdev->ddev, altr_portb_setup);
++	devres_remove_group(device->edac->dev, altr_portb_setup);
  
- static struct platform_driver btqcomsmd_driver = {
- 	.probe = btqcomsmd_probe,
--	.remove = btqcomsmd_remove,
-+	.remove_new = btqcomsmd_remove,
- 	.driver  = {
- 		.name  = "btqcomsmd",
- 		.of_match_table = btqcomsmd_of_match,
+ 	return 0;
+ 
+ err_release_group_1:
+ 	edac_device_free_ctl_info(dci);
+-	devres_release_group(&altdev->ddev, altr_portb_setup);
++	devres_release_group(device->edac->dev, altr_portb_setup);
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
+ 	return rc;
 -- 
 2.53.0
 
