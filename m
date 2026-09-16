@@ -1,179 +1,243 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 879AB41834B;
-	Wed, 16 Sep 2026 19:36:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ECFC4BF932
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:38:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789587414; cv=none; b=Y/PKooFjOYB5Qp4cLeyrYpH9flNrExwd8JMcdoPDcRXKPLciHsBRDUxAy/GOcaf/EJkvW6W63VSO3rbCjKsZJ3M1CY643hdR03R5fLjN80S4aUI/0a5aWlSEEpQHy2t/y90Np7IZ5JzbtC3fce3c8nvI9zmrCu23Gcym8bw/x4c=
+	t=1789587525; cv=none; b=CNz+8Ar3WOWXvdyY3AhB/o/tvsRyokAr+OzQEZmQgoapCDQ22RJPUV2oJ5+6tRfwbE3zk/keUTo8/hUhZfrRPHeNt7QTX2cQQjkw7s80Cosbku6ExumXJTgu8tzo1K3WzIx5b8nvMGty3j/UVP9YjR/Z1ZviboIjvwZrW6yYwn0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789587414; c=relaxed/simple;
-	bh=2qxTVfGn6dl1TaHgUSX2Fgd6ae+3OG/BYVvwDXz02rk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=dJ7pM6yFgdJhgPf2EdGHRigmX8spKx2maOI1yjTtbKiV85gpEHJvqF3OJeZABH6F1Ovs/oEcCH1STUsfsSXk8QM4GRrc5FYbalSXDlwGzpgFqcBG4Sg6YIb1+wkTonq6dAWl2Z2JnPtVy2shEVc6ro3dn4kJAMRfiEtNrrOL3r8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=acNvwRyy; arc=none smtp.client-ip=10.30.226.201
+	s=arc-20240116; t=1789587525; c=relaxed/simple;
+	bh=ejVJD937KiT9GpZx3pqb0cPpZ41mxTvp6uF6UT0wHr8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eQuj1LQmpUkHWbq8mAy00xONONFN8CKdguypBGfwbUzVI8tMlh4qwLS/sWoc2w3ahN76GCyO6Fi74uhifTxJ0RsnY+zdD4bfeO3AtO2WFAOL2pZMfwU5gW1m0EYZNr9Os9cZXvM6z20pxJE64rbwybo5Z7Z1M98inBj/BmtuR6Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l8aWBvId; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="acNvwRyy"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id 02015C4AF0B;
-	Wed, 16 Sep 2026 19:36:53 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
-	s=k20201202; t=1789587413;
-	bh=2qxTVfGn6dl1TaHgUSX2Fgd6ae+3OG/BYVvwDXz02rk=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
-	b=acNvwRyy1RCCyRme3LqnSW1PXvLbVQ8yMoGjbuoE64MkeHILauo6Z4zu2hqPhMYUE
-	 55dwW//5rmiPX4tyET5D8kG8QU+MHYlQ9t+hLvaEiFOKuagpk5PEFVnQgNhtu+sSZg
-	 ScMMr8Q4Q+bvCKN55VXkrnvHQxlLoJj/SBPE2d+VxOGZTwF2uZToMlVNK4wFsr88H/
-	 wzzvKUpnRafdS/6rUrHGTQndtbS8O36MdOJy7xMRvLE1hTpt0a1DQZ/np4/1Po+Hhk
-	 3trQ+nTVXsFFZQghDQIXTEwyPW/09alTARpt1ECXyNQHW0rdwK+DnYK9EA/Qxhipe/
-	 jTLYGLgMumRCA==
-Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id D841FC982D1;
-	Wed, 16 Sep 2026 19:36:52 +0000 (UTC)
-From: Jens Glathe via B4 Relay <devnull+jens.glathe.oldschoolsolutions.biz@kernel.org>
-Date: Wed, 16 Sep 2026 21:36:34 +0200
-Subject: [PATCH v3 3/3] usb: typec: mux: ps883x: disable USB4 on incomplete
- USB4 platforms
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l8aWBvId"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6EBB1F000FF;
+	Wed, 16 Sep 2026 19:38:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789587510;
+	bh=n9P5QUuQMmO20wfNhJOAG9MlyAmqz0cwe2mDBsPWXR0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=l8aWBvIdLXCIVs4KxecL86vhFhJLDmBFf/CF5otNlQguczrVOfW9WwLNz2CC8Hirq
+	 q4g4c8ptMvsvUcKmSPwePUlgtlAjbagAnv0m3oSARfbYm9j2LID8FVxzNte+fH5J47
+	 Rbt9ZwVcu6E8Mdgk2wUmRT5UH0UJUCoJE3TOG5irtZNIVTxWgxtdcZ7FATdjWidMkK
+	 UIoqsvrQ9P5Z0RJ3CllGtNI35MuK+u7mxk8Su/HS8aZI83tJzoBgWZvFoAmuWDhaiu
+	 /zVHToT4q8nCG0dcU0UAnzESenvRVWMHPH1ojxfI6uZPrImYcK13snlE5NQ5wwCNJD
+	 ETTKgKjAX3B3A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Rounak Das <rounakdas2025@gmail.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] EDAC/altera: Use ECC manager compatible to select A10/S10 IRQ layout
+Date: Wed, 16 Sep 2026 15:38:27 -0400
+Message-ID: <20260916193828.2327223-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091619-brownnose-rake-f034@gregkh>
+References: <2026091619-brownnose-rake-f034@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-ps883x-disable-usb4-v3-3-8f19386456d0@oldschoolsolutions.biz>
-References: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
-In-Reply-To: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
-To: Heikki Krogerus <heikki.krogerus@linux.intel.com>, 
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
- Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>, 
- Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>
-Cc: linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
- linux-arm-msm@vger.kernel.org, stable@vger.kernel.org, 
- "Dr. David Alan Gilbert" <dave@treblig.org>, 
- Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>, 
- Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-X-Mailer: b4 0.14.3
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789587411; l=3563;
- i=jens.glathe@oldschoolsolutions.biz; s=20240919;
- h=from:subject:message-id;
- bh=LWQBlYVaxNpRJx4oDZ05Vzvdm0+zYNn5AZkQ3g0e6Rk=;
- b=uyr1eY8Z9C/Flb6+h8Zmsm4E8bK5Ifflx2QqC/p8x+7c/i6YeF3zverIVSnZGzKKExZVNZ0sf
- ykyGcn57XHLB0wGoN9qUmSHk/JDeUNtyLcbU3PjX1d0krp9sla30JUn
-X-Developer-Key: i=jens.glathe@oldschoolsolutions.biz; a=ed25519;
- pk=JcRJqJc/y8LsxOlPakALD3juGfOKmFBWtO+GfELMJVg=
-X-Endpoint-Received: by B4 Relay for
- jens.glathe@oldschoolsolutions.biz/20240919 with auth_id=216
-X-Original-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-Reply-To: jens.glathe@oldschoolsolutions.biz
+Content-Transfer-Encoding: 8bit
 
-From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+From: Rounak Das <rounakdas2025@gmail.com>
 
-On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
-retimer, hotplugging USB4-capable docks such as the Lenovo 40B0 can
-result in working USB but no DisplayPort output.
+[ Upstream commit d4486fc3098e176cb4a29fee037216484761f9ca ]
 
-When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
-and forwards it via typec_mux_set(). The qmp-combo PHY then selects
-USB3-only because no classic DP altmode SVID is present in the state,
-leaving the DP transmitter and AUX channel disabled.
+The SDMMC ECC IRQ layout selection uses CONFIG_64BIT to distinguish between
+Arria10 and Stratix10 paths.
 
-Reject USB4 with -EOPNOTSUPP on platforms whose USB4 / DP-tunneling
-stack is not ready yet. The Type-C stack then falls back to USB3 + DP
-Alt Mode. DP altmode configuration continues to use the existing
-ps883x_set() path.
+Detect the SoC once at probe via the device match table (.data) store it in
+struct altr_arria10_edac, and use it instead of CONFIG_64BIT.
 
-Use a machine-compatible table rather than a DT property so the quirk
-stays inside the kernel and can be removed later without creating ABI.
+This keeps the decision correct for every ECC child device (OCRAM, SD/MMC,
+etc.) and avoids any runtime compatible lookup.
 
-Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapati@oss.qualcomm.com
-Assisted-by: Grok(xAI):4.6
-Tested-by: Dr. David Alan Gilbert <dave@treblig.org>
-Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+Link: https://patch.msgid.link/20260708091135.94114-2-rounakdas2025@gmail.com
+Stable-dep-of: 9868f5c077df ("EDAC/altera: Use parent device for devres in altr_portb_setup()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/typec/mux/ps883x.c | 37 +++++++++++++++++++++++++++++++++++++
- 1 file changed, 37 insertions(+)
+ drivers/edac/altera_edac.c | 107 +++++++++++++++++++------------------
+ drivers/edac/altera_edac.h |   1 +
+ 2 files changed, 55 insertions(+), 53 deletions(-)
 
-diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-index 15aee1d613b1a..2ec57cfe748a9 100644
---- a/drivers/usb/typec/mux/ps883x.c
-+++ b/drivers/usb/typec/mux/ps883x.c
-@@ -13,6 +13,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/mutex.h>
-+#include <linux/of.h>
- #include <linux/regmap.h>
- #include <linux/regulator/consumer.h>
- #include <linux/usb/pd.h>
-@@ -42,6 +43,22 @@
- #define CONN_STATUS_2_TBT_UNIDIR_LSRX_ACT_LT	BIT(4)
- #define CONN_STATUS_2_USB4_CONNECTED		BIT(7)
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 6c5fb06976415..b7325d4a2dbbb 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1507,6 +1507,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	int edac_idx, rc;
+ 	struct device_node *np;
+ 	const struct edac_device_prv_data *prv = &a10_sdmmceccb_data;
++	bool is_s10 = device->edac->is_s10;
  
-+/*
-+ * Platforms where the USB4 / DP-tunneling stack is not ready yet. Rejecting
-+ * USB4 here lets the Type-C stack fall back to USB3 + DP Alt Mode instead of
-+ * negotiating USB4 and then failing to drive DisplayPort.
-+ *
-+ * This is a temporary, kernel-contained quirk (not DT ABI). Drop the entries
-+ * once the corresponding USB4 support is complete.
-+ */
-+static const char * const ps883x_disable_usb4_compats[] = {
-+	"qcom,x1e80100",
-+	"qcom,x1p42100",
-+	"qcom,hamoa",
-+	"qcom,purwa",
-+	NULL,
-+};
+ 	rc = altr_check_ecc_deps(device);
+ 	if (rc)
+@@ -1548,15 +1549,14 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 
+ 	/*
+ 	 * Update the PortB IRQs - A10 has 4, S10 has 2, Index accordingly
+-	 *
+-	 * FIXME: Instead of ifdefs with different architectures the driver
+-	 *        should properly use compatibles.
+ 	 */
+-#ifdef CONFIG_64BIT
+-	altdev->sb_irq = irq_of_parse_and_map(np, 1);
+-#else
+-	altdev->sb_irq = irq_of_parse_and_map(np, 2);
+-#endif
 +
- struct ps883x_retimer {
- 	struct i2c_client *client;
- 	struct gpio_desc *reset_gpio;
-@@ -63,8 +80,21 @@ struct ps883x_retimer {
++	/* Using compatibles to determine the IRQ Index */
++	if (is_s10)
++		altdev->sb_irq = irq_of_parse_and_map(np, 1);
++	else
++		altdev->sb_irq = irq_of_parse_and_map(np, 2);
++
+ 	if (!altdev->sb_irq) {
+ 		edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB SBIRQ alloc\n");
+ 		rc = -ENODEV;
+@@ -1570,29 +1570,28 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		goto err_release_group_1;
+ 	}
  
- 	enum typec_orientation orientation;
- 	bool in_reset;
-+	bool disable_usb4;
+-#ifdef CONFIG_64BIT
+-	/* Use IRQ to determine SError origin instead of assigning IRQ */
+-	rc = of_property_read_u32_index(np, "interrupts", 1, &altdev->db_irq);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE,
+-			    "Error PortB DBIRQ alloc\n");
+-		goto err_release_group_1;
+-	}
+-#else
+-	altdev->db_irq = irq_of_parse_and_map(np, 3);
+-	if (!altdev->db_irq) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
+-		rc = -ENODEV;
+-		goto err_release_group_1;
+-	}
+-	rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
+-			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+-			      ecc_name, altdev);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "PortB DBERR IRQ error\n");
+-		goto err_release_group_1;
++	if (is_s10) {
++		/* Use IRQ to determine SError origin instead of assigning IRQ */
++		rc = of_property_read_u32_index(np, "interrupts", 1, &altdev->db_irq);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
++			goto err_release_group_1;
++		}
++	} else {
++		altdev->db_irq = irq_of_parse_and_map(np, 3);
++		if (!altdev->db_irq) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
++			rc = -ENODEV;
++			goto err_release_group_1;
++		}
++		rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
++				      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
++				      ecc_name, altdev);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "PortB DBERR IRQ error\n");
++			goto err_release_group_1;
++		}
+ 	}
+-#endif
+ 
+ 	rc = edac_device_add_device(dci);
+ 	if (rc) {
+@@ -1974,29 +1973,29 @@ static int altr_edac_a10_device_add(struct altr_arria10_edac *edac,
+ 		goto err_release_group1;
+ 	}
+ 
+-#ifdef CONFIG_64BIT
+-	/* Use IRQ to determine SError origin instead of assigning IRQ */
+-	rc = of_property_read_u32_index(np, "interrupts", 0, &altdev->db_irq);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE,
+-			    "Unable to parse DB IRQ index\n");
+-		goto err_release_group1;
+-	}
+-#else
+-	altdev->db_irq = irq_of_parse_and_map(np, 1);
+-	if (!altdev->db_irq) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "Error allocating DBIRQ\n");
+-		rc = -ENODEV;
+-		goto err_release_group1;
+-	}
+-	rc = devm_request_irq(edac->dev, altdev->db_irq, prv->ecc_irq_handler,
+-			      IRQF_TRIGGER_HIGH,
+-			      ecc_name, altdev);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "No DBERR IRQ resource\n");
+-		goto err_release_group1;
++	if (edac->is_s10) {
++		/* Use IRQ to determine SError origin instead of assigning IRQ */
++		rc = of_property_read_u32_index(np, "interrupts", 0, &altdev->db_irq);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE,
++				    "Unable to parse DB IRQ index\n");
++			goto err_release_group1;
++		}
++	} else {
++		altdev->db_irq = irq_of_parse_and_map(np, 1);
++		if (!altdev->db_irq) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error allocating DBIRQ\n");
++			rc = -ENODEV;
++			goto err_release_group1;
++		}
++		rc = devm_request_irq(edac->dev, altdev->db_irq, prv->ecc_irq_handler,
++				      IRQF_TRIGGER_HIGH,
++				      ecc_name, altdev);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "No DBERR IRQ resource\n");
++			goto err_release_group1;
++		}
+ 	}
+-#endif
+ 
+ 	rc = edac_device_add_device(dci);
+ 	if (rc) {
+@@ -2122,6 +2121,8 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, edac);
+ 	INIT_LIST_HEAD(&edac->a10_ecc_devices);
+ 
++	edac->is_s10 = !!device_get_match_data(&pdev->dev);
++
+ 	edac->ecc_mgr_map =
+ 		altr_sysmgr_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 						     "altr,sysmgr-syscon");
+@@ -2207,7 +2208,7 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id altr_edac_a10_of_match[] = {
+ 	{ .compatible = "altr,socfpga-a10-ecc-manager" },
+-	{ .compatible = "altr,socfpga-s10-ecc-manager" },
++	{ .compatible = "altr,socfpga-s10-ecc-manager", .data = (void *)1 },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, altr_edac_a10_of_match);
+diff --git a/drivers/edac/altera_edac.h b/drivers/edac/altera_edac.h
+index 7248d24c4908d..5b26ef0cfe600 100644
+--- a/drivers/edac/altera_edac.h
++++ b/drivers/edac/altera_edac.h
+@@ -395,6 +395,7 @@ struct altr_arria10_edac {
+ 	struct irq_chip		irq_chip;
+ 	struct list_head	a10_ecc_devices;
+ 	struct notifier_block	panic_notifier;
++	bool is_s10;
  };
  
-+static bool ps883x_should_disable_usb4(void)
-+{
-+	const char * const *compat;
-+
-+	for (compat = ps883x_disable_usb4_compats; *compat; compat++) {
-+		if (of_machine_is_compatible(*compat))
-+			return true;
-+	}
-+
-+	return false;
-+}
-+
- static int ps883x_enable_vregs(struct ps883x_retimer *retimer)
- {
- 	struct device *dev = &retimer->client->dev;
-@@ -260,6 +290,9 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
- 			cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
- 			break;
- 		case TYPEC_MODE_USB4:
-+			if (retimer->disable_usb4)
-+				return -EOPNOTSUPP;
-+
- 			eudo_data = state->data;
- 
- 			cfg2 |= CONN_STATUS_2_USB4_CONNECTED;
-@@ -389,6 +422,10 @@ static int ps883x_retimer_probe(struct i2c_client *client)
- 
- 	retimer->client = client;
- 
-+	retimer->disable_usb4 = ps883x_should_disable_usb4();
-+	if (retimer->disable_usb4)
-+		dev_info(dev, "USB4 disabled until platform USB4 support is complete\n");
-+
- 	mutex_init(&retimer->lock);
- 
- 	retimer->regmap = devm_regmap_init_i2c(client, &ps883x_retimer_regmap);
-
+ #endif	/* #ifndef _ALTERA_EDAC_H */
 -- 
 2.53.0
-
 
