@@ -1,84 +1,160 @@
-Received: from out30-119.freemail.mail.aliyun.com (out30-119.freemail.mail.aliyun.com [115.124.30.119])
+Received: from mail-10625.protonmail.ch (mail-10625.protonmail.ch [79.135.106.25])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 356054B0CBB;
-	Wed, 16 Sep 2026 11:14:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.119
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 912E9415B8B;
+	Wed, 16 Sep 2026 11:14:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557284; cv=none; b=fULmQvLQNxzLTGCA50wAPAVr736oNxJJpLq1jzW/uUwMvEIhCrbRLKPCTcODZrZ9vkFEN8hRPWFfngpstHDi6qfHyCq6e5xS4RIidKfw3Jm1MnrWlIdyXNveNRRCRRUF8krUGHOhJZCfdaBonZM5lKvPtRhCkqOfby2QqgY9AEk=
+	t=1789557290; cv=none; b=dahbor0MRNOVjvqCav926ZOp9yHjU+z9jOkdKghagdN7avGqDxon4RT+JM00aY0cXOo5JfelV4evFG8eM0TAz+ou/9u3oxNDhyh8UMQHsBz8kTEQCoHVKStZLfiwo9WxQE2p/kX0h7a3tgZOL/pSvRgeVctK74NSTsjv4mu9Jqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557284; c=relaxed/simple;
-	bh=ErpIMsnziAOCfbktdoYdQ0qID5bjRfutEUyuO+0PJYw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HgXduayw8kOtkyFZ8K3u1trz7rjtMTHxOKz9Ac7zaN3xg46rbv1yxoVD9fW9svc9l6bDlBeQaQ/QU5x5qCIKSp0/YRN8Aa/g9C+HsZjOviu2Wrpaa/7M7Z4mCDkg7X8jgv4NynFgWQHMYNIQEXuoDcm1Zwdw4aFdb8t8LoAFPHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=ICBk4m4r; arc=none smtp.client-ip=115.124.30.119
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789557290; c=relaxed/simple;
+	bh=B9YGmUGz7rBZgMbUehF0UJpdMSsCJn/PsR7VtP8b9vo=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WMDZ73a4z+7S4IN2k3GsO1zcCvckM1O3Do7ljdCDU52p9ygu81CYtWJprhqj1+pyFJELQB3umyYsZHPuP4xebhkJfwKX0C8jQbpmyNVDVtYCCYS2rejEetM/9728ZHj51FyNVEAzOu5n6hsFQZHNB2jaimHqEd8gxV9F/FufGbg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev; spf=pass smtp.mailfrom=httpd.dev; dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b=Hd4D/yzk; arc=none smtp.client-ip=79.135.106.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=httpd.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=httpd.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="ICBk4m4r"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789557260; h=From:To:Subject:Date:Message-ID:MIME-Version:Content-Type;
-	bh=ErpIMsnziAOCfbktdoYdQ0qID5bjRfutEUyuO+0PJYw=;
-	b=ICBk4m4rmZOx4soLkdeDO0pn/beBru341f7cy14eM6LwkIywCFrU0XZP+os+3IccMmK1dbYHNZasAU6VP/JMR+muKGgx+FkJXlmNwHGgzwOokB3ZOR/tjqy5c9XetL04QFsUYu9oG4/9SDAa3xawiVVIiaemCbTOfXTdMfWmlN4=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R141e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam011083073210;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XB4kUmw_1789557248;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XB4kUmw_1789557248 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 19:14:18 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: vbabka@kernel.org
-Cc: akpm@linux-foundation.org,
-	mgorman@techsingularity.net,
-	linux-mm@kvack.org,
-	surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	henry.willard@oracle.com,
-	david@kernel.org,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>
-Subject: Re: [PATCH] mm/page_alloc: do not boost watermarks in kdump capture kernels
-Date: Wed, 16 Sep 2026 19:14:05 +0800
-Message-ID: <20260916111405.3687662-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
-In-Reply-To: <1a859476-36de-49a9-872f-a62f6eacb7f4@kernel.org>
-References: <20260914131142.2984623-1-xiangzao@linux.alibaba.com> <1a859476-36de-49a9-872f-a62f6eacb7f4@kernel.org>
+	dkim=pass (2048-bit key) header.d=httpd.dev header.i=@httpd.dev header.b="Hd4D/yzk"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=httpd.dev;
+	s=protonmail3; t=1789557270; x=1789816470;
+	bh=eZUCmvaO7TAIj3qUPGiLJi/TotpZBP9JAzCiVX0/K1w=;
+	h=Date:To:From:Cc:Subject:Message-ID:In-Reply-To:References:
+	 Feedback-ID:From:To:Cc:Date:Subject:Reply-To:Feedback-ID:
+	 Message-ID:BIMI-Selector;
+	b=Hd4D/yzkl/XA6TfOjLF6IYMYRTt0e7tjxhFP0wlKdsOxWub7hU2gvG49z+GCp88RE
+	 7lL6anjk0ikqybKQSCwZ869d/0av5TapJ38G7KapZ81gHZ5SYDHFO8fJa65UDCowzl
+	 K/QiazQFaBVMTSPqhUoMtZwWaunPQbhHPqGhslagJJxKujJ97brxBwQKHUlvhnGYGF
+	 FmJH1a97izTY4Y6NvcMAEcXrWvvaanaKo3z/vj8QsMpUadl2+l4kSBdHcqDjdQpoVi
+	 uItuZyfpMY9IXIb5krsWhObqN+/kj5vZwgi/EEPf+jrAwcJ51jyuzKJVKiZSp94kzK
+	 z9eEY26kzk6WQ==
+Date: Wed, 16 Sep 2026 11:14:25 +0000
+To: Bjorn Helgaas <helgaas@kernel.org>
+From: Angel J <iamanaws@httpd.dev>
+Cc: Andrea della Porta <andrea.porta@suse.com>, "linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>, "regressions@lists.linux.dev" <regressions@lists.linux.dev>, "stable@vger.kernel.org" <stable@vger.kernel.org>, "linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>, "devicetree@vger.kernel.org" <devicetree@vger.kernel.org>, "linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>, "robh@kernel.org" <robh@kernel.org>, "florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid bridge configuration
+Message-ID: <Tav3crct3HpgoRPBGOe-bfkBEORVT1RkvRbP8B7IXhRvEbUTAi-G6RiSnynkgV2rJ1dOIbCxm-mHUcm1e0MyQG52qswzpxURe4KFJoddhGg=@httpd.dev>
+In-Reply-To: <20260916012115.GA888380@bhelgaas>
+References: <20260916012115.GA888380@bhelgaas>
+Feedback-ID: 163474212:user:proton
+X-Pm-Message-ID: 094e44f9aa91c588aa9c4e73791ecf48b014b478
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; protocol="application/pgp-signature"; micalg=pgp-sha512; boundary="------a9b7216e2949918706075e5a2be417011537498a061203db8d3df343ccefc90b"; charset=utf-8
 
-On 9/15/26 14:02, Vlastimil Babka wrote:
-> Sounds like an oversight and we should deboost watermarks first before going
-> for an oom kill? But I guess at the same time not boosting in the first
-> place in kdump capture kernels makes sense and it's simpler to do.
+This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
+--------a9b7216e2949918706075e5a2be417011537498a061203db8d3df343ccefc90b
+Content-Type: multipart/mixed;boundary=---------------------0c3a1ee94d39a4855b62717ad2d7feb6
 
-Agreed. Deboosting before the OOM kill does look like a separate fix
-worth doing, but it would change the OOM path for normal kernels too, so
-this patch stays limited to the capture kernel.
+-----------------------0c3a1ee94d39a4855b62717ad2d7feb6
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain;charset=utf-8
 
-> Hm while the large pageblocks on 64kb kernels are source of various
-> surprises, this at least seems consistent to me. The check together with the
-> clamp means we limit the boost to 1/4 of the zone regardless of pageblock
-> size, right?
+Hi Bjorn, Andrea,
 
-Yes: the check gives pageblock_nr_pages <= zone_managed_pages/4, and with
-the large pageblocks here the clamp caps a single boost at one pageblock,
-so watermark_boost <= pageblock_nr_pages <= zone_managed_pages/4.
+Thanks, that clears it up. I agree the of_property fix is simpler. If a
+Type 1 device can legitimately have no bus below it, I don't see a reason
+to change its class or header just to avoid that case.
 
-> We should stop mentioning kdump capture kernels here then? They can't reach
-> here anymore.
+The v2 patch is already in the thread. Is there anything you'd like me
+to change?
 
-Right, capture kernels now return earlier, so the comment is stale.
-I'll drop the kdump mention in a v2.
+Thanks,
+Angel J
 
-Thanks for looking at this.
 
-Yuanhe
+
+On Tuesday, September 15th, 2026 at 18:21, Bjorn Helgaas <helgaas@kernel.o=
+rg> wrote:
+
+> On Mon, Sep 14, 2026 at 11:28:45PM +0000, Angel J wrote:
+> > Ok, here it is...
+> >
+> > I tested this quirk on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=3D=
+y,
+> > and it boots without either OF fix. The diff below omits the test logg=
+ing.
+> >
+> > PCI_FIXUP_HEADER runs after the resources have been parsed using the
+> > original header type, and changing hdr_type also affects configuration
+> > restore. I don't know enough about this part of PCI to judge whether
+> > that's safe, so I'll wait for your advice before submitting it as a pa=
+tch.
+> >
+> > Thanks,
+> > Angel J
+> >
+> > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > index de9bbccda..57df88a38 100644
+> > --- a/drivers/pci/quirks.c
+> > +++ b/drivers/pci/quirks.c
+> > @@ -291,6 +291,22 @@ static int __init pci_apply_final_quirks(void)
+> >  }
+> >  fs_initcall_sync(pci_apply_final_quirks);
+> >
+> >
+> > +/*
+> > + * On the Dell XPS 8940, 8086:4c43 reports a PCI-to-PCI bridge but ha=
+s no
+> > + * downstream bus. Use host-bridge class and a normal header so that
+> > + * pci_is_bridge() does not send it through bridge scanning.
+> > + */
+> > +static void quirk_intel_4c43_host_bridge(struct pci_dev *dev)
+> > +{
+> > +	if ((dev->class >> 8) !=3D PCI_CLASS_BRIDGE_PCI ||
+> > +	    dev->hdr_type !=3D PCI_HEADER_TYPE_BRIDGE)
+> > +		return;
+> > +
+> > +	dev->class =3D (PCI_CLASS_BRIDGE_HOST << 8) | (dev->class & 0xff);
+> > +	dev->hdr_type =3D PCI_HEADER_TYPE_NORMAL;
+> > +}
+> > +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4c43, quirk_intel_4c4=
+3_host_bridge);
+> =
+
+
+> I think your of_property patch is better because it removes some
+> assumptions made in the of_pci_make_dev_node() path about what things
+> in the pci_dev are valid.  It's quite legal for a device to have a
+> Type 1 header (so pci_is_bridge() is true), but have no pci_bus below
+> it, e.g., a bridge on bus 0 with Secondary Bus Number also being 0.
+> =
+
+
+> I don't know what happened in this particular case, whether the
+> Secondary Bus Number and Subordinate Bus Numbers are hard-wired to
+> 0xff or what (per spec, both should be read/write).  Maybe the system
+> "lspci -vv" and/or complete dmesg log would have a clue.
+> =
+
+
+> But I do think it's better if we don't assume that every pci_dev with
+> a Type 1 header has a pci_bus allocated.
+> =
+
+
+-----------------------0c3a1ee94d39a4855b62717ad2d7feb6--
+
+--------a9b7216e2949918706075e5a2be417011537498a061203db8d3df343ccefc90b
+Content-Type: application/pgp-signature; name="signature.asc"
+Content-Description: OpenPGP digital signature
+Content-Disposition: attachment; filename="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+Version: ProtonMail
+
+wrsEARYKAG0FgmqqegMJEBoBbwppzUxnRRQAAAAAABwAIHNhbHRAbm90YXRp
+b25zLm9wZW5wZ3Bqcy5vcmdBTq1b8ZUc+gb/I1AJD8UGLeUtvQia/H5qXzQI
+iIboUBYhBEAFf9htFyVnqZzmVhoBbwppzUxnAAA9kAEApIknk8UNcVUwcKBd
+Kq3x5KPCfSCe3yyufvbqxlW7dEUA/2crmFQr79DT5ZLDX38FhnGhEcGQHdTQ
+3lDfWTugakYI
+=CPLW
+-----END PGP SIGNATURE-----
+
+
+--------a9b7216e2949918706075e5a2be417011537498a061203db8d3df343ccefc90b--
+
