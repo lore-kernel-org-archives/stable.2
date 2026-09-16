@@ -1,155 +1,129 @@
-Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3074E80B0
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:22:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561324; cv=pass; b=u73BP2w7QSVS6f2qfkjfkSMMMfqMv5CzpHrOg/Gt4h/GmT+y/O4I7aZAgqKlrBp9HHQ+a8dNj90KMplXcSM9DZ/6eLHqOtBC2EGMcce0adO9NsNGr9/NKb6GU7D0gkQV9aYUrEHrn5jzxT5tt+LNNDz3W44gWesBHyw/DtMQxEM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561324; c=relaxed/simple;
-	bh=Bq881M2dqm6GKoOZGIh/gzGfZPXNikD/fmFhifV/8bA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b2LZsFVxqTYDm5j54IviBJkHqKbezfgFZ+mLE37lpe5BEz0zN6z/z0XYKN3c7Z8MB1rjFByLZfglMP7SwAgN0DryXyE9wCpoh2ps1IuPYfU1iyOQT2/b5iRXFiKG0CywsvChvj1saSkmkE0mzW+IfE+65wUDjp15cfi3fXoca4Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=aDW7G5DV; arc=pass smtp.client-ip=74.125.230.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A392717B425
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:24:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789561492; cv=none; b=QacKgZ2O3Y4bPnzu6WZxScF8qkbXiYd/jfGaDwuq9XfEQMLNA05RcUwE7YWeglA/kh7ZIbOtwR/hJurW8w4Axwk9cwFmhlsQtHmHCH9ZJn4LqdW/4yeXjTD7+L2kVl/Ox00YZmc5EDypJau1UTWdEK8fu2LVbDzu/2DYULOvl8M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789561492; c=relaxed/simple;
+	bh=mv7zdY9WWZxBVn1TBNZp9qz7x8UsaNnhCPEP5ctDH48=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=lf8cdrSIyRrSmrP1JSo2sMdAns6utBL1UrxOFB6XB7FVVPyFkoP3vtPetXtpK3WJbCMrU6d1LBH+leNHyFVIm35wkkvPgMQj62tp5qU6vRwIV0hfqrbwKdO73X4AMxIyI4VBLFHF58ocidGwfoQSotanlusFOrZkjz5kq8kjfLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LEBLtr3s; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="aDW7G5DV"
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso7584291fa.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 05:22:01 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789561319; cv=none;
-        d=google.com; s=arc-20260327;
-        b=sL0YbOSKMh4AVcGEuBVUZUmvtVrmw2E8VhAUhZX7nv8Xl1r0WwhvR0DFDVefuu+3Ks
-         LOMpRZ75AhoM30hbI/voLB5Acxc5gTc6/Mh5bBfk3i/5bcDBOUg6xYocJilVWS1Az5QX
-         7Z17aooF2x8mbbVq8vfN4ZcI7VGyTQOLfWFV/q13k0Ekhf64xdfNgnqJvFIkCyWtqts9
-         WCczggIq6Pv9ms9sxXYTldWfYjpbbeZGIOuVIX9O3vUevL5KJYZv98afOj4OFaV5u4bi
-         m054FojSNq8PH+D2UvvG0HkHDjoPTSRVuxru/3c1MNlrefAVYWBJdSOtMO1Y4Ecb5uZ+
-         aqWQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=WAMMSKRtR5SkKpZeFxgDlMOeMMYKcKQW0S4EL9ByfSk=;
-        fh=hP0vR/eR5wHaGjBiv9fQ52jRJvbgdZJosfp0SkuWYpI=;
-        b=dGK7rs0NFiXZTx6P0vBnUl+xRpN19VgUwxKB0ZndJnlaoZfw7++a+w9kMh3RJSSx9x
-         cLy3aaKDrE6fObnlEgCFe9dFWHmu7pT4HTWRqq9ReMqjdfRl9eCWkNkIZaroWswH3fhB
-         19UVCOtsBLOvH58de8NV+0WQ624RuHibRCe1giiJihLNXqd675wCulqj5CcrIMYQbogA
-         K7HPUmq8VflaO478nRsYe3oCJg/9HfAyAJv7Ku65pfmuO/4Dspk3pB72mBr2QRb8T/Ji
-         4kFeRNiiM0J5dpK3Enw/1z18a38UGcDjuv7OqWdOiHWel6bMILmnMVIym6wEa46CqquT
-         GGpw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LEBLtr3s"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-86212a185dcso812846b3a.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 05:24:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cloud.ionos.com; s=google; t=1789561319; x=1790166119; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=WAMMSKRtR5SkKpZeFxgDlMOeMMYKcKQW0S4EL9ByfSk=;
-        b=aDW7G5DVZIZguqUQAQZ9d6ieMhNF76o1BAJzGf6emv35elRZYmhWyB4tEdqLklciIr
-         5WTgpEoP8+rVGA3a33dzmcpSLqG5mZsZTimKJ+sITg1kQLeXyHkjE/2eItUNrcg97BDl
-         WWeOWHaSUOMH1Inp2MjiK+ZkdyZ5+6LHvEFFBwXyAYBvN0CeRA+fLlon3BBb6slYBU5p
-         NRcsi4p68+CCxatGA7iNASlxvLQ7RuCDj0ybhTHckpuvz77uVwGXsNoMywIZe3wW7705
-         sFEKDwrAgaefhNNBlmNvAGnLn+1P3Gzh8SwWrPncsMUSxY9vsi+OI4Yc8u8oka6s8ei0
-         79dw==
+        d=gmail.com; s=20251104; t=1789561490; x=1790166290; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=hrUZnRAaNnQtdCQz/Of4Jhp25IoStcNrwmd0bgy4cTI=;
+        b=LEBLtr3soWvtuRI02Zvm3fOfhw5TEgNqMZKvqr7pLH4viCYJvYtDWj7tzDtsIonqcE
+         Ah5XlifFYTKdU87/Ov8Nx9Y6aDrpTjGJWH/XmtOUiQBgycVP+c4tzWg/Vziywk3e/x3n
+         elK0dniO7MSoOhE9C1CApWGPGdD6Oph89jA5yhNGCPdvT7HDoOYrOZME1tconGryf1uw
+         1tBimis+TkoGClkcG6czjNrQpx0wXSH66yZmB2ase0QIcCtQIPH0n+1ATpOrg6F7aDv6
+         auffrrKhk02Ogjt6VGZBW+JkklN8E6o7B5hrRtnTmr6t5IaQL5CE2Yr2MhkolL0oy3Ph
+         GJYA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789561319; x=1790166119;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=WAMMSKRtR5SkKpZeFxgDlMOeMMYKcKQW0S4EL9ByfSk=;
-        b=uoM3cMjbozA+bfG59x8TtFJVyqgvByVJoiflfZOAaRg0pcJfwEsC4Bmv8XwVX07XRo
-         S2aU6sppGsbhL9uExALfmiTRbiADPUMWJ7Hl4UEW5G18JZnJ5S49iPFQh0TIVv9rhzrj
-         QiPt2vJTz4fnqeoNWajRwgQFm5Vn9/FCrAx5+8SR39cYbcCik7UPK7pCNXW8I29AT/br
-         TgdegfeeeGwzkMDEyKP2KqMRomzfXxO74vVJ/SuXXXeS6vI6wIlEQed9qO0XMmK9cMrg
-         q52xavYplJaJmeX2TRfXLkuEdrSkJKrFpwmkajnw14QVxwRnVziNu58RrW+6sNhZBQOZ
-         UKMA==
-X-Forwarded-Encrypted: i=1; AKwUvByjb0g5XbMCBoQuJS20mXe06kE00mm7CaGH3UAKHvOjqwjo+YLvbEAYaZpTbLHgmPOIrHpVkI4=@vger.kernel.org
-X-Gm-Message-State: AFuF++ncRBQuwhOGq4wgHvgOFS2p9KNz7c5hEgUJNmy4YwzRGBiErJam
-	l2IoKSd5wXe2Qoki0asTCXCs6DlHswoDJrLXiVrV021yK31uCuLJue3hXIOzjG5o0YyeXHIimJP
-	a54F8VFx9X/uiTf3uOXe3vdnRA3+UnFqKCkEyEqeehA==
-X-Gm-Gg: AYBFou201RXtR+0zjXpkKDDeVz6//H6Yf/9A2BG2ukxoucBvwasmtJ86ZIjmIhBKjB4
-	mjDeOyZylnt7kfSB6HEX3cMTZEo6wilnlP17FNKatLbm3P0P+SpkBE/XcvLEV2OGY7A/dtA0bkv
-	QAxpxhGx3VoGYtraSi9JyPFUkw57BUdDgjKmgnwU4igegJLKk5wSV8TnSFGsLPS6XBVzSkJULHP
-	UbQV+lfu45FFAC+HtTGoawWOeoV+/WCCnFm0pEVgw2QvPm8S5wuUB2IgBdGPHXmQxJ55C55z9sM
-	C1nbydDP5MRd60DipToa2P+L+zR/t9jLXUk7yu5kHFtcbLT7FGnAMTHKtCCwivOULW4I15xAQFq
-	ixdVQc8gkviyRxvuXS3b1SIJSKNCcBalqsaVRhJFD
-X-Received: by 2002:a05:651c:a382:20b0:3a5:b957:d23d with SMTP id
- 38308e7fff4ca-3a5dc9c4523mr7083011fa.6.1789561319145; Wed, 16 Sep 2026
- 05:21:59 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789561490; x=1790166290;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=hrUZnRAaNnQtdCQz/Of4Jhp25IoStcNrwmd0bgy4cTI=;
+        b=aw55bPhm+OTsr5HltLYGzzml2hJ+zQT3KTlXaMlG4+k9omeu/g+Sz8NxDrGPgOOt8z
+         4RyGtwepGWlfnAWpHmN4mifuPWm3rjiGtZLw/3FWtnvgcrk/bEr4lyzjQtvDfsBc7PpD
+         c+JW08Hz+2qbltOUNudN1Dt/0ycd5iljsbu4fMVaCVtgQ7q5AyrDgSKaJjTx/s6mzpnF
+         UHyRBSwy6yaCbUWVhI1Rbk3T+LZXh2Vo7Mj5k5wkK5sMc5nxQpFIXKvaOrXXsIvOZNzS
+         wiUzsmIl9HK9VjJnCqX2mWLdsF0amYyONpOBma0NoVyUPhawBCutrEtHIeEQpUxWxUBm
+         TtTA==
+X-Gm-Message-State: AFuF++kDhHsHDwFQsfLKW7UZpK/Tard+bdn9DlFkxqVKLMSFVO5/c57r
+	uBo2kLs5GmnjEwJJhtf1G6QzAaJXRU9LzQh297LgDYzwu1rYY0Nmib1R9LK3rg==
+X-Gm-Gg: AYBFou3yA0WDVtioWtp/MJx8qJ3bbzwYJJLeFyUwqT7VUL9vfEizydUcNFKnKGCOCTn
+	F5usb4BhvJYw4wQGCus0YU6BUR1QW0nWiAM8EgiMKbTbrSDsTbdmyHhmCb8H+4Z9uCry8lOAiW8
+	fNlmcC9yzQWAUcW7LuORi45nIvB9sghYwvxUpLpyM4JYs6fLxctAZHMA4zTafq8VAa5/UXAMV/m
+	DvGCzfR7JCi2Dtl8XSSpZxc0UPQnz5nTxUASr9eqnaiF1esXFwCcePyTgyN7UEJXglOEwjz4/Rk
+	PXw3MuZh9PBXX7FhgG3hnTbAq7ul1nuJHJJJAunOq/qBQZBT4gfDeqMZeeNXuTmOAI08sI/3cZc
+	4QnuaQoPos1xkG0ZhpPbkMgvePBPRB54GErFAwkwAHTolHi3RCvD57vKnUyKfD9d7t3DhJquWUn
+	o8ArntcHsIb9T24NuqMEyJj7Wh3ATbJjJA7IzXLfPA8TlUMi+nXrIIHiQz7vMBOkNnUQ5coCcZ6
+	5A0EMr/Ug==
+X-Received: by 2002:a05:6a00:9296:b0:871:41fa:d1d6 with SMTP id d2e1a72fcca58-8723cf31f63mr4341374b3a.14.1789561489839;
+        Wed, 16 Sep 2026 05:24:49 -0700 (PDT)
+Received: from hnkz-ubuntu-server ([2404:7a80:860:3300:f22f:74ff:feda:3295])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-871fc14239bsm1166004b3a.0.2026.09.16.05.24.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:24:49 -0700 (PDT)
+From: Kazuki Hanai <hnkz.64@gmail.com>
+To: stable@vger.kernel.org
+Cc: Kazuki Hanai <hnkz.64@gmail.com>,
+	Takashi Iwai <tiwai@suse.de>
+Subject: [PATCH 6.12.y] ALSA: us122l: Prevent write upgrades for read mappings
+Date: Wed, 16 Sep 2026 21:24:37 +0900
+Message-ID: <20260916122437.3439484-1-hnkz.64@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091616-crumpled-gizzard-8ee6@gregkh>
+References: <2026091616-crumpled-gizzard-8ee6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916094817.2007756-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260916094817.2007756-1-vulab@iscas.ac.cn>
-From: Haris Iqbal <haris.iqbal@cloud.ionos.com>
-Date: Wed, 16 Sep 2026 14:21:44 +0200
-X-Gm-Features: AcwNN1Vj5MCCxsybETxa2RMBFpc8N2_N-J2Oave1MHK29JMnf2xnRGfsiC31dsI
-Message-ID: <CAJpMwyia7fYUOq=dj8E2FWnrtjZ9jHjZQSBW2vwB2vRBkbi2eA@mail.gmail.com>
-Subject: Re: [PATCH] rnbd-srv: Fix sess_dev use-after-free in process_msg_close()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: axboe@kernel.dk, bvanassche@acm.org, danil.kipnis@cloud.ionos.com, 
-	jgg@ziepe.ca, jinpu.wang@ionos.com, linux-block@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 11:48=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> w=
-rote:
->
-> process_msg_close() drops the device reference with rnbd_put_sess_dev()
-> before using sess_dev again in rnbd_srv_destroy_dev_session_sysfs().
-> If that put drops the last kref, e.g. when the device is concurrently
-> being torn down through rnbd_srv_sess_dev_force_close(), the waiter in
-> rnbd_destroy_sess_dev() is woken up and frees sess_dev, so the
-> subsequent rnbd_srv_destroy_dev_session_sysfs() call operates on freed
-> memory.
->
-> Move the rnbd_put_sess_dev() call after the sysfs teardown so it is the
-> last access to sess_dev.
->
-> Fixes: 2de6c8de192b ("block/rnbd: server: main functionality")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/block/rnbd/rnbd-srv.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.=
-c
-> index 10e8c438bb43..2ebc2eac384f 100644
-> --- a/drivers/block/rnbd/rnbd-srv.c
-> +++ b/drivers/block/rnbd/rnbd-srv.c
-> @@ -361,10 +361,10 @@ static void process_msg_close(struct rnbd_srv_sessi=
-on *srv_sess,
->         if (IS_ERR(sess_dev))
->                 return;
->
-> -       rnbd_put_sess_dev(sess_dev);
->         mutex_lock(&srv_sess->lock);
->         rnbd_srv_destroy_dev_session_sysfs(sess_dev);
->         mutex_unlock(&srv_sess->lock);
-> +       rnbd_put_sess_dev(sess_dev);
+The hwdep mmap callback rejects read-buffer mappings that are initially
+writable, but leaves VM_MAYWRITE set on mappings created with PROT_READ.
+A process that can open the hwdep node O_RDWR can later use mprotect() to
+make the mapping writable.
 
-Thanks for the patch.
+The read allocation begins with struct usb_stream. Its read_size member is
+used by the fault handler to decide which pages belong to the read buffer.
+The read VMA intentionally remains expandable because pcm_usb_stream uses
+mremap() after reading that size. Changing read_size first can therefore
+map and access pages beyond the allocation. The same member is also
+consumed by usb_stream_free(), where changing it can make
+free_pages_exact() release pages outside the allocation.
 
-Sashiko has critical finding about this change.
-https://sashiko.dev/#/patchset/20260916094817.2007756-1-vulab%40iscas.ac.cn
+Clear VM_MAYWRITE for read-buffer mappings after rejecting an initially
+writable VMA. This keeps the separate output-buffer mapping writable while
+preventing later permission upgrades.
 
-Can you please review that?
+Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+Link: https://patch.msgid.link/20260908110053.2950767-1-hnkz.64@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+(cherry picked from commit 71c610aeb1770302ac9c9e0b9a4ecd37f1311928)
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+---
+ sound/usb/usx2y/us122l.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
->  }
->
->  static int process_msg_open(struct rnbd_srv_session *srv_sess,
-> --
-> 2.34.1
->
+diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
+index ca5fac03ec79..2a107803af88 100644
+--- a/sound/usb/usx2y/us122l.c
++++ b/sound/usb/usx2y/us122l.c
+@@ -201,9 +201,12 @@ static int usb_stream_hwdep_mmap(struct snd_hwdep *hw,
+ 	mutex_lock(&us122l->mutex);
+ 	s = us122l->sk.s;
+ 	read = offset < s->read_size;
+-	if (read && area->vm_flags & VM_WRITE) {
+-		err = -EPERM;
+-		goto out;
++	if (read) {
++		if (area->vm_flags & VM_WRITE) {
++			err = -EPERM;
++			goto out;
++		}
++		vm_flags_clear(area, VM_MAYWRITE);
+ 	}
+ 	/* if userspace tries to mmap beyond end of our buffer, fail */
+ 	if (size > PAGE_ALIGN(read ? s->read_size : s->write_size)) {
+-- 
+2.53.0
 
-
---=20
-
-Regards
--Haris
