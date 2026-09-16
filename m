@@ -1,122 +1,150 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from TY3P286CU002.outbound.protection.outlook.com (mail-japaneastazon11010060.outbound.protection.outlook.com [52.101.229.60])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C34D4DF4DE
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:57:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789603062; cv=none; b=jMxEQWpxts49of0Hwa4crijccw7YdnnGHg+hldo9T/2WR5qEDVTgibqdeZV0/GN3o4yt/sh3SgCDBfHrlcXJtz/v8L7CK6upVrvZbFWbAedPkTbuEVXz8XsYP3OO35LaL/k1tECuNMfy8PoOcmsF+M80lug5BeSuDE9ePCcTYq8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789603062; c=relaxed/simple;
-	bh=HuNThuRtR/b8nPXMJCUZcQGR9ZTengwNPThxjxcEuCc=;
-	h=Message-ID:Date:From:To:Cc:Subject:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WcXj5pApp15/hK9/AAAp5O2w8T1s0Ga2sWVlHGUu1zSmaf/XPzFdr0CHjX4Vuiv5IXn9M+N8k6Mi37zqeg+BHhFYunrG7ULYCVmjDFfkh0IEkTtSnhynRAyLjnygS6U/VHIrQaAHoxWyh20ZJC4Ey7L/+llZqoHaT2MHzNvorjs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NGBsJfFz; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EB4B4457DF;
+	Wed, 16 Sep 2026 23:59:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.229.60
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789603151; cv=fail; b=AEIUeAfOtRmIpfQZHtkwoadJ5NiwcdoW/sjb7kPX7Dt7Xjj9N5ufP+T36bO7/saMjyET5EowvKY+Tpl4rpii4bGzU552w1/Uy8iKO3//gDOjdpsoO9xbIhXOpfvq+mMRDaGHe8eLLxcnBn++7/9CmnZP2bxo6v0Rpcf8R2yv4Ww=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789603151; c=relaxed/simple;
+	bh=UknYgK3+eitZyZkVK+HR+FI8FWE81VjdWBjxiYbAR5w=;
+	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=o7/6N1I7p9H6VFApMxMaeP+boX7ng6hRk3Gz692nXGo/0/rC4B2KWnlHbR2zkukEVSg/7NrerN3mv1umCqHHmboCs4StBtX6hSa4IskC3Jc8g28n7KFIgFxLb6m7vNZaDFq6hWjDD+xPlRM5j11WOK2tKeSxqYANVWet9uzZocc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com; spf=pass smtp.mailfrom=renesas.com; dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b=UOySMT8+; arc=fail smtp.client-ip=52.101.229.60
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=renesas.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=renesas.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NGBsJfFz"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49e69b9e16aso2686295e9.1
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:57:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789603059; x=1790207859; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=i76bBjRt7lWeVEtpRfqzBf+audkyQA+RhPrniCN+9Qc=;
-        b=NGBsJfFz/lcCy8QUv77zpZ1ZV6NviWsbn7L7473f9UL0u31xf3YNyyr8QMleRnXvXR
-         9fVNK0e6/Jl3wdqUtpWQ70fjSauoXGy3HQlOhJ3c0gTjuyjMycuPsmyLnJ0XrY5yk4rq
-         Q2mpUV7ZMG80GTpFsYvRPR3UmA+FZUatedTW9bczCIoP8ZHiJLFTsUrbeTUU3iF0tLS4
-         ZIjWi3noHwU/A67+EnC38cy2XZ+irqK20Xr5bN1APrU1+GQd8hTtXXl9OU1XQHaIIXEu
-         7JpP6ZKFIOm3f46g7Gd0R2yRxGotZzL83Bedn0YWxdGM52nd11a2ZStFweK8go9Ic7P7
-         U9UQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789603059; x=1790207859;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:subject:cc:to:from:date:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=i76bBjRt7lWeVEtpRfqzBf+audkyQA+RhPrniCN+9Qc=;
-        b=bECjuNPuoq30ZQmdCp4rOivh712s8IA2sjAtEEeoE7Qjn9+znyFEG513VZBPY5se+B
-         vR2ydJ1IiEaY2SfZ+z+b9xHWz2UN5euiW2DBsF9kByumq5TPU8ge88lHueGEoXEiEZxC
-         Luw5YGtHN63Zi+QrWUvZ4afuJk332UYGNlS0pu5u7wJPH7dCJbBW27YhagGpIrOt4m/o
-         u65HNfwucIdV5tkgoMNM0EjvkPRsCs+i3bn5VB4qEv7aKyMAaQR2SNWZVWlYy1pfQJvJ
-         xAx0Mzxf9sDOzZBsIuDZFY279sjbHXKpQFMCnuysR3z9qdeCMpVIBSKsFNujC7KARs9I
-         vKrQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxKXe3UwI8xjorjSDc+apkRz6G+km8CSL+CaRA7wAbU5WHMTM1L+thqDrnu55l4UYlxnyM/E80=@vger.kernel.org
-X-Gm-Message-State: AFuF++lg3oNOrrBMPi/4Ap3/lReDxT7mdpr5Bf5r9W8BM6UcyYmUrog2
-	xbksySUqqCWmISmot9I5W06NywRpG5/wiuz542Zpg8f0tZXmDGMKCRfH
-X-Gm-Gg: AYBFou3WUWzte/5J1NWtxgJXyK4WpVWJ2yNvOf1lpRqhO6NfI9+R+EmlxS/VwCgCNkJ
-	8I7VqwuYC9YxM47l93gUeyIzZR+QrKyaiMUCUvee0tB/kKsRkyLzCousjGw6EC6x5P2ajd5fzDh
-	YhYFV2SC9ZPaEY8+Zo4yu8JVQFXjuKkQ8MrmF3iy2a7RsGGjs94fQnTpa8CAme/nMdQjktzmoKQ
-	IcIJOTKm0PQIcj3IOH6TZdp3rdGfzAtCilopKaeyFKN1jUrtkpnyBWmUZoG4P726ii8Gdd2SxXP
-	T/2HO8gRF+qYwdUsY4dpprEk0LGgsyHH5ClzHok1r9Y4BtTNl1QWbzS0D67CnCTUzeW+UXmJzAk
-	Xf9RBYoVoWB3H/4tUGJo7kpOwRjajgzPJUcAjvspHpQEj6yyOOA/ocjEgmMUnVTAEwHlLVIkYRr
-	etTTrM45O+9l7qjZP21dovFANOIP6KCmnrw5QAQetEKvpIbr7uX5BD90ivniS5Mr/adGNgbs8Dg
-	9zk29hArh3YkqZP51MQFBihYaDtmS1StEBoRfr6JMquuss=
-X-Received: by 2002:a05:600c:3150:b0:49d:25b0:cc60 with SMTP id 5b1f17b1804b1-49eb73321d4mr54015475e9.29.1789603059482;
-        Wed, 16 Sep 2026 16:57:39 -0700 (PDT)
-Received: from Ansuel-XPS. (host-79-26-252-140.retail.telecomitalia.it. [79.26.252.140])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd17051fsm30297125e9.0.2026.09.16.16.57.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 16:57:39 -0700 (PDT)
-Message-ID: <6aab2cf3.a47bfe04.3d08b3.8af8@mx.google.com>
-X-Google-Original-Message-ID: <aqss8DLZEsJZLhwf@Ansuel-XPS.>
-Date: Thu, 17 Sep 2026 01:57:36 +0200
-From: Christian Marangi <ansuelsmth@gmail.com>
-To: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Cc: Andrew Lunn <andrew@lunn.ch>, Heiner Kallweit <hkallweit1@gmail.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Daniel Golle <daniel@makrotopia.org>,
-	Rosen Penev <rosenp@gmail.com>, Sashiko <sashiko-bot@kernel.org>,
-	netdev@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v3 2/2] net: phy: qca808x: keep an explicit
- active-high LED across the reset
-References: <20260915223138.321307-1-donggeunyoo.kernel@gmail.com>
- <20260915223138.321307-3-donggeunyoo.kernel@gmail.com>
+	dkim=pass (1024-bit key) header.d=renesas.com header.i=@renesas.com header.b="UOySMT8+"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=eojx+A33rowovGYO+UuMtRphcWEjEZJnwlvBiTmyaAl8Xlsa03z+ITD+R3atawMLGf6q9Qdh7gRMZ4Dep1JnccPYVK7eChIw+eTyoXweuQTWZ9rLsqTyQQYpXAStFicWZn/TyMea3ivG4xVvwNh0QaaPMm6SrTAZK1yvWDar3pbK8zZc6wjeDSujIfJ8qkT5lcLn11zkDqj3NrVAArYULpZzPYRWi8q+KsP9Ih1mvbck89xW4SMDcnki939DfrAtOvia/3u7fCb0d1G1YUhMa4iC8bOpxZNdNoRZRhMxuCx+vnQnxkeVGV0aXAOiKwebdSt0BfutS0p0aUNax+bQRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=DWxVxOo2SGwl2ResFwz+O3479wsd7r0m7mKSfK7aWxk=;
+ b=RBjRD7CJ0M0fqxkyFTWMFa9JTReLpX4tU4j9/Ddt6ZRYCdElcqrrBzZ09y0liWkx1hb6qnEB6A7VZC0zg0nt9bz7/KksNh5hbnSvFR6uUftOenJa3wiSmxVp2sc0Borui8rNmUwB8H+4HbGttft21ULgQHT9+KyfluYINv66LhkoF4s5Gjf0GVDDFjC61krIpq0j5W9R6u8OjFVvLH6puK46Ut33sbACMCm6bGeFEfIxkGB72UXLBvZinwqWdV/zcwa1QZ8hkASzFWthUykTYXo3ikzVpCf92vOn1YKlC2PkWSrRRSTHsi7Tn7xUNApvuunNnFmjWlSvIoVbLa/NnA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=renesas.com; dmarc=pass action=none header.from=renesas.com;
+ dkim=pass header.d=renesas.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=renesas.com;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=DWxVxOo2SGwl2ResFwz+O3479wsd7r0m7mKSfK7aWxk=;
+ b=UOySMT8+n2M2VoB0nHJ8B0mFBwnKh/rpJm46Qc+0FlaOBAaktMm30f3isbKNnBpvPXpPqryGpm0Rm63KnnQAHVyynLHJwL3fMUWb5ugsMiPzp1XZX5G0ViQzJ70GsaSNWryuwNct3fSiQHDXPLgm3RKbB4waLgpph6ZazR5iWE8=
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=renesas.com;
+Received: from OS9PR01MB14121.jpnprd01.prod.outlook.com (2603:1096:604:367::5)
+ by OSZPR01MB8035.jpnprd01.prod.outlook.com (2603:1096:604:1b0::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 23:59:05 +0000
+Received: from OS9PR01MB14121.jpnprd01.prod.outlook.com
+ ([fe80::e5f:713b:1ac1:961c]) by OS9PR01MB14121.jpnprd01.prod.outlook.com
+ ([fe80::e5f:713b:1ac1:961c%4]) with mapi id 15.21.0428.009; Wed, 16 Sep 2026
+ 23:59:04 +0000
+Message-ID: <87fqz8zr22.wl-kuninori.morimoto.gx@renesas.com>
+From: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: broonie@kernel.org,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	tiwai@suse.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 08/20] ASoC: audio-graph-card2: Fix device node leaks in graph_count_c2c()
+In-Reply-To: <20260916071631.1966635-1-vulab@iscas.ac.cn>
+References: <20260916071631.1966635-1-vulab@iscas.ac.cn>
+User-Agent: Wanderlust/2.15.9 Emacs/30.2 Mule/6.0
+Content-Type: text/plain; charset=US-ASCII
+Date: Wed, 16 Sep 2026 23:59:03 +0000
+X-ClientProxiedBy: OS3PR01CA0064.jpnprd01.prod.outlook.com
+ (2603:1096:604:de::15) To OS9PR01MB14121.jpnprd01.prod.outlook.com
+ (2603:1096:604:367::5)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915223138.321307-3-donggeunyoo.kernel@gmail.com>
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: OS9PR01MB14121:EE_|OSZPR01MB8035:EE_
+X-MS-Office365-Filtering-Correlation-Id: fe679055-98c4-4b4c-42ed-08df144e7c56
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|52116014|366016|376014|1800799024|38350700014|10067099003|11063799006|22082099003|56012099006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	15VCT1Ej469RQ4HLB/kiaWJb3amY+15FA1Df4hT4ePxkz9RVgw8To0gIBdCHwmCk0b2cxZp302mJCxqhJAV/7ATZaegiCt55b30kxejlbVS2u1D5WM+PVk8ELx30nvXUDQA3f1wzFRUeAr9wh1xhslU2fRpFHjeWpJOppmGcxgzDoeSam8E+elmjHmg6IhGWbIABeoNE+s09lN5t2tekoctZuOUrlAOYlEM+wMNN2H15FUF9KRGytOFNW66XD6gPvfiYRU1oZQK7es+oEo4mpdNj/+KhypwFCr8uLyzUtacNQAXgHU6aXBKJLk9Bkka9dZTsz6laUl65pwcslZ4r8hcFZv1KMekDdhdOC3qZM2QhQtZAw5gsnfB9i1fwK35Ope7cJeaLO+zSMzmA12Q2MDTSlwIDD3sLUPuHKU+QdI+8m7qE99mrzJxFCxGG2TRtwvGLHtDDQMDNbtrGQywNJ5UZLutjnQ6cefDSxMgM/lABfqPRIyD2XKcz3hMzgQsIecYWKdBiMb/jpbBZg7jiLG0EPuWY/KJm915lU3Qb9gRtifEx4by/gOz9aV1TfU5oAKFx7hJ3qHhkszC/qAkH5Oftnp/JIhdFWljendKykM6nKMt1b+5l7VMo/D5jo8Um5KfSTB60hu4CEuoBjD1pnUhmqHJXnrp9fDcE/Y8N+rL4CLTpREjZb1ZJaI8NvSx83OVW1uD+8iqhlMGVX3g/8vyvA8k4BQXce5JkKGythxw=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:OS9PR01MB14121.jpnprd01.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(52116014)(366016)(376014)(1800799024)(38350700014)(10067099003)(11063799006)(22082099003)(56012099006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?D2vZCpzhWmbzu1/iE1AOOgQEO/vcn1tUVBJwXKOG3YEBRQWQTBdKQlDJ9zfg?=
+ =?us-ascii?Q?CjLM4gAKCq2ZUj+0iM60xnsuA96VFkuczyRJtrvZ5D5A6MKHtl5tw14lExiQ?=
+ =?us-ascii?Q?tXfugkJpwyu1u7NmSi8vKjVxVyX70uO+n1OCIA9iH03rzJWhjOsDvKpI20SQ?=
+ =?us-ascii?Q?/hM8Q8m2eBXDYpcOl2WYVZL9G47jyBgjWFE4ckD+oTMYBfDBNQ8eFuJs22gz?=
+ =?us-ascii?Q?mhiSUJS+UXgcPcsxwSnjD9h8BvZbvtZw9/9aEzy9kcmmY1Ui2Ymb8p0Ktwdz?=
+ =?us-ascii?Q?9tV4kdIdlUhy3N6brkPVkFDo7149S075TF9qv2i+YR4PZ2RpMw3/Dwl0jiX7?=
+ =?us-ascii?Q?XnuKGvJ2WnmdgNywhJeFfJQnDwPGAiBWVTwY6oKRnKYoncCQUlUHSd4v2UhO?=
+ =?us-ascii?Q?BaI2kCGHG9cp5ghqHk3QsCaJAhuh3SOR01ZEUY5WEzrI342XZYlAdnIyMkKG?=
+ =?us-ascii?Q?x2N0QB+z1pjy6IoN2Nyqnw5O5LNQN50je8s627K5XF8zAOIzalbM9b3DUdIr?=
+ =?us-ascii?Q?Wuh6+v8aqRCSPhQ6VvZ7erBc74HY4f2r5Fe9wLfrGHTsin8V6tZTFIhL7Mvp?=
+ =?us-ascii?Q?vPiwdIAvhJFTkYY67UfSuWDDw1igO5q6+3twWSHrbPXtD/IVuNpLWIIoJx+3?=
+ =?us-ascii?Q?XEIFG6xXtjTx9sMJTQPc41+kP2PLZOeSVeJTnR5/F2emHesrxdOUSIJNLNQ4?=
+ =?us-ascii?Q?hGce38e8EX/4o6RaRAhmTEY5RRTBaQJWw1kUL1sB5kwE0IGfp9prIjog7Ocr?=
+ =?us-ascii?Q?EvOQ+WDOVJiLwO9I/Sftromu8lJDSs3nesQ+Ai8KvZ0F0z++T/zcQxD6SnN/?=
+ =?us-ascii?Q?R4JItbE5GHK99EKfA7kpJg5VgAJIXrV5IyFqD0RueHTOhNcW9lDDdn5b0u/H?=
+ =?us-ascii?Q?RhASXlK6xwN9XA5HWDaHnYdtOc4+EIbF3eVihvkD9G4XUAR8xRvGsdaRuz0g?=
+ =?us-ascii?Q?yI7FDwU79/0+a5EHzkoUXtr8XgLP5x3MfyF75hCxVvup8YKvT5kR0afP6Kqf?=
+ =?us-ascii?Q?COc4tQQPP2/iqBXGYNklfPol5C1Ir6rzC9NczWxvK/yJ0rrGzJnJW8L3IcVh?=
+ =?us-ascii?Q?9opt3Nl2npz9XXrHT54f4xVttMS2gmPPsrei36Xh72Vf+2n//G8EISdTqimv?=
+ =?us-ascii?Q?UJu7bCmTooxKyOAvF6TQLEHQJsJoDmDkcW6hnBhISJObqzrU1MIP4dppHRpD?=
+ =?us-ascii?Q?UVcrR9KUbicJCbCWwB/aSOz+hO91tZauwgGpa4/9nt8p3sptGv/Pd2EYFnm+?=
+ =?us-ascii?Q?TIgzXNAeNbxX8FW2Nn215DbYXreIvOCe5KJi8js51j7RkAwuyn0Mw7kH072w?=
+ =?us-ascii?Q?MP4d1AxRAZzCbeHM/DiGWaLo4nGtChw3d9IpDMuAOuI/aQIVo6ZRQPHBn6Xf?=
+ =?us-ascii?Q?+7bwTOlDYozBSn2U54HRZ7yhSbYmZLk+vK6WgdMVW608HlXRRi0WhwVLgTGC?=
+ =?us-ascii?Q?toM35xrJPMB+rE7IKKIQ9MLFUQ6cN2H+WTCeXLcUw/uROmfmv6AbAa9Mdv+V?=
+ =?us-ascii?Q?Bp9nLBBfsKLeKSlb4lY8DHLyk1hAui04wLxzayLFdgiIOr6SbzpJp90pKmQj?=
+ =?us-ascii?Q?+5jH7LwW1Sfw2uKXilsiqc4DYc1XAPl9yeDl3PSO7ui6InF0nknjptDV4uk5?=
+ =?us-ascii?Q?AoGTDSCW3rtoLgxR4fjuHKQrCgTfSR9VCP90cPc0x6ywYbddr1yKv5HiimfB?=
+ =?us-ascii?Q?pV/28P7pPcy/4WbrsMAe5V+Rlt8B7JkEJTJfkTSMBenqw5ZNs/HDfIu6CopS?=
+ =?us-ascii?Q?oe9h7Ja3kw5NQC5/XkkbUeKfdFiS2rblyfDqKb8jeNz45auqbFEP?=
+X-OriginatorOrg: renesas.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: fe679055-98c4-4b4c-42ed-08df144e7c56
+X-MS-Exchange-CrossTenant-AuthSource: OS9PR01MB14121.jpnprd01.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 23:59:03.8976
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 53d82571-da19-47e4-9cb4-625a166a4a2a
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: y8t0HWaa61hHf02+/nEIeAviB2HeU5hQHyZshTgB3QQ3fwgfpal3xXDkFQ7/FF6kAmjlkRnwEHIJ21f1RH0dPsu3E0A3Ui7O34d6WrRsBseWc2VIkrgtkV4yuVK0Feou
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: OSZPR01MB8035
 
-On Wed, Sep 16, 2026 at 07:31:38AM +0900, Donggeun Yoo wrote:
-> With the previous patch an 'active-high' LED node is accepted, so
-> led_polarity_mode can now hold 0. qca808x_config_init() only re-asserts
-> QCA808X_LED_ACTIVE_HIGH when the mode is -1, the value that means device
-> tree asked for nothing, so an explicit active-high does not reach the
-> register.
-> 
-> That matters because the bit does not survive a reset. phy_init_hw() runs
-> .soft_reset before .config_init on every attach and resume, and
-> commit f203c8c77c76 ("net: phy: qcom: qca808x: default to LED active High if not set")
-> records why: "on PHY reset, the Active High bit is not set resulting in
-> the LED driven as active-low". The polarity written from device tree
-> during phy_probe() is therefore gone by the time the link comes up, and
-> the LED runs inverted.
-> 
-> Re-assert the bit for anything other than an explicit active-low, which
-> is the one case that wants it clear and gets that from the reset for
-> free. Name the unset value while here: led_polarity_mode otherwise
-> holds a PHY_LED_ACTIVE_* value, so spelling the comparison
-> PHY_LED_ACTIVE_LOW says what it means where -1, 0 and 1 did not.
-> 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260908105959.70453-1-donggeunyoo.kernel%40gmail.com
-> Cc: stable@vger.kernel.org
-> Fixes: a274465cc3be ("net: phy: support 'active-high' property for PHY LEDs")
-> Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-> Assisted-by: Claude:claude-fable-5
 
-Reviewed-by: Christian Marangi <ansuelsmth@gmail.com>
+Hi Wentao
 
--- 
-	Ansuel
+Thank you for your patch
+
+>  	struct device_node *ports	__free(device_node) = port_to_ports(lnk);
+> -	struct device_node *port0	= of_node_get(lnk);
+> -	struct device_node *port1	= of_node_get(of_graph_get_next_port(ports, of_node_get(port0)));
+> +	struct device_node *port0	__free(device_node) = of_node_get(lnk);
+> +	struct device_node *port1	__free(device_node) =
+> +		of_graph_get_next_port(ports, of_node_get(port0));
+>  	struct device_node *ep0		__free(device_node) = of_graph_get_next_port_endpoint(port0, NULL);
+>  	struct device_node *ep1		__free(device_node) = of_graph_get_next_port_endpoint(port1, NULL);
+
+Ah, it is confusale part, indeed.
+I have confirmed that your code seems correct.
+
+My personally, I like 1 line code for port1
+
+Acked-by: Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>
+
+Thank you for your help !!
+
+Best regards
+---
+Kuninori Morimoto
