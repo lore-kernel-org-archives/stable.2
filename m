@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CAE13C3C11;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB862ED154;
 	Wed, 16 Sep 2026 18:01:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581691; cv=none; b=I2sd63GeIpK/pw4gBFEwxHNQgHEqHP6JRRmG0gKpd1d9YRjmqSCMueaiHP5NTYQzInubde/7GF4W8E7fgICM97e46zISZ9S0LRPMFriZnq+bNkitCUrGMx1GrhAJVcE2SK5PtJYEoH+nvkBbQqOoy1r3PEbSZRWoXyE7Zbi7em4=
+	t=1789581690; cv=none; b=GpfbzhIUMkZ+kpYgIuW2PbJ0XXLly+zWZ7RUqlLRrytLD/zvptnHRTRpw69yy796bxbFYOiBw98ZGGkupejJwOgpHAd23RBzlQL8VM+e1Ngsr1T1H/rrjrdeTT9+8PoPAgXJVi9oDPpmoRxVYqgva8bVbHfyur2WkEUuJQYLVmM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581691; c=relaxed/simple;
-	bh=09Y6NmXOfl+/4OZKcbNE3lImrO2ep5jwmT7KCM4DnX8=;
+	s=arc-20240116; t=1789581690; c=relaxed/simple;
+	bh=AJKCUq9A8Zu+G4x2d7S2wREdOZHWrDmobJLPcTuAvDY=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=u8oCyjoYCrhgD1r+UBinjBoYJnDug8QALjuU+p3WWNKQqT6BmkxG2yektqHaf8o5RsK1p0YgGXKvPeopHkqjmv/q8p4saDwQL15EmMaFiR94MWoN4c6zKg0ug3O7UAlawTMMjY7usu6WTgsh+cFzvpoOLQAgSqBY3PRmTxmo3J4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dh72kNH1; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=PZBwumnJoCCCvhv/Lw91Byc84d3AQgwhu21IGHbDTdoVA0xDueV/zeQQXRuV2GFbRlcAtyAUDqAixuiCkAZ5v2ttVzHHbiNuOVSi3zu16H7njNLcLFFk3dk82SzytM6HqqeS9yh7EvpUijx4wDRjyZVrcNfm9iYdCgEqdbI72Rw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlcAoX7I; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dh72kNH1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 89FA31F00898;
-	Wed, 16 Sep 2026 18:01:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlcAoX7I"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1141F0089B;
+	Wed, 16 Sep 2026 18:01:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789581674;
-	bh=bjU2FuqIuDT3+ZN5mr0JJA3Z8a86wq3MGmrj0zkeERM=;
+	s=k20260515; t=1789581676;
+	bh=4YGfH7wG3boUknue714fwLygUWmZyxq4CTJy7wyKZDQ=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=Dh72kNH1A1ojtJUBruh5E5ICmaHfLWyu4y71S3crBPGOYYhHDGloQAD+3pitiFeGV
-	 fwb25qxORjpoIoWT5O4kjzYAI8Z5+hzFk2N9i1vFmu13spuQ5Oa3JxwlzXAdwa5Akn
-	 wqrLxTpPMeaZH9aU6w2qkXnxR0OjF7C13/SUppTRnitAaNtS6xoy9HBJ4P3B8BNp9B
-	 qFnKDsKOCANXKFfMD9xtMJ9XpT8buYMyUgYWcTdsjnOl5ZbGaspHjbhP3Mz+MnnJFI
-	 WU0lmICTWcquEm9VVkqutB0TIx1D7IEKo9RyOyOjYxAMDBTLKwZBWPJ8nmGczuQxzC
-	 iqoyzlyC0TJWg==
+	b=IlcAoX7ISOGpMihEgMbbLI+/ihA6Z8Jt2+HXnVUfRXVIAPRLb7+QnrOIsuPPeFR4n
+	 p5oz4UHc3q9jeLtjMXvpA9knKuj4a/9VC/nSUvsFxqVObmLlkBN0Gg/Q+UEPX3WX/w
+	 t2QG/bPwf71QyiJZXFkpIpfbpjukU4S2TQaqSCqKjRoLKav09g33qGYMSyGWs8Li0r
+	 F2QyVoxsJJ/zBP27/EfbUZrOluOXCmshS0N3E3QqJH3Y/7x9HfFd2AFwYvhBzp2QCL
+	 nIz9hSNPpZO8gtSxEL+9FpgeLgK/et3gNEHjzp9cNwhzmI0y11+v63cRCa05s+h443
+	 PM0aVaYXmnNfg==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D084E39E8A50;
-	Wed, 16 Sep 2026 18:00:09 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5684039E8A50;
+	Wed, 16 Sep 2026 18:00:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,37 +37,37 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH 1/2] Bluetooth: hci_conn: fix CIS hold ownership on reuse
+Subject: Re: [PATCH v2] Bluetooth: mgmt: fix race in read_unconf_index_list()
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <178958160838.2777538.9118454215553806207.git-patchwork-notify@kernel.org>
-Date: Wed, 16 Sep 2026 18:00:08 +0000
-References: <20260915160430.3108071-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260915160430.3108071-1-qwe.aldo@gmail.com>
+ <178958160987.2777538.5804352292158547567.git-patchwork-notify@kernel.org>
+Date: Wed, 16 Sep 2026 18:00:09 +0000
+References: <20260915155952.3104711-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260915155952.3104711-1-qwe.aldo@gmail.com>
 To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 Cc: luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
 Hello:
 
-This series was applied to bluetooth/bluetooth-next.git (master)
+This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Tue, 15 Sep 2026 13:04:29 -0300 you wrote:
-> Commit 69997d50ec57 ("Bluetooth: ISO: handle bound CIS cleanup via
-> hci_conn") made hci_bind_cis() and hci_connect_cis() return a
-> connection with one hold for the ISO layer.  hci_bind_cis() currently
-> takes that hold only after configuring a CIS, so its BT_CONNECTED and
-> matching BT_BOUND paths return a bare lookup result.  Its configuration
-> failure path can likewise call hci_conn_drop() before taking a hold.
+On Tue, 15 Sep 2026 12:59:52 -0300 you wrote:
+> read_unconf_index_list() counts unconfigured controllers before allocating
+> its response, then checks the device flags again while filling it.
+> 
+> hci_dev_list_lock stabilizes list membership, but it does not serialize the
+> per-device flags. During asynchronous controller setup, the worker can set
+> HCI_UNCONFIGURED and clear HCI_SETUP between the two passes. A controller
+> omitted from the allocation count can then become eligible for the fill
+> pass, causing an out-of-bounds write to rp->index[].
 > 
 > [...]
 
 Here is the summary with links:
-  - [1/2] Bluetooth: hci_conn: fix CIS hold ownership on reuse
-    https://git.kernel.org/bluetooth/bluetooth-next/c/e06d549fcd4a
-  - [2/2] Bluetooth: ISO: release unused CIS holds after channel attach
-    https://git.kernel.org/bluetooth/bluetooth-next/c/0fcd4dad555c
+  - [v2] Bluetooth: mgmt: fix race in read_unconf_index_list()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/b5dbb41b212c
 
 You are awesome, thank you!
 -- 
