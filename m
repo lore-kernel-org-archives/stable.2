@@ -1,179 +1,126 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F366839E16B
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:50:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C26C23AEF55
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:52:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789527060; cv=none; b=t0VOiSYwbzEQabGOhSh0NGevU52+RI5Wy6sEUzcLSn0JDXpPblOdmmDaBB1ljVkjArk49giChBXtgQc3qFIZaEtO/0weEotbqtyrfBfWrIuaLg5SOttrncMthFjbSH2RZ+MaDHGSaqgoPtnRnQl2RA9/6gAl3fy2NnnQ+ObclDc=
+	t=1789527149; cv=none; b=cxrd2VcFCUYm11/jw2qY0YOPQrimA965mZvCK4oK3oByN6gNMqelAaXegUjc50rmDnMCmbELcHsNbygwsvdwIIhpjFbmrNrL46Qa3vBC2RWZOSXLuNBkT+wE1yI6y+bmF8aLoVJz5NZzzIEVsDSosbeFlrOSR4KbZVn0ReOvXNI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789527060; c=relaxed/simple;
-	bh=DciTnBQPff66xkmxfkqD3r4DL7LVWZQu11Ujc1UQytI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=jQkun9viwQCKzLvjSJ7WpkN8kFuOf0vRcjUwFMURm7DXLt5XwMSQKNIdljEJo26MmEmfm87muhVLFcQiRCZdBFILXqgQpVd4XFx54XGmcfD+Ugc1LLLepV5XQlqR8p4NEVbCeTUsTNnPers7Odr7azu+/Lxz+fs8GRMEQ+i/7oU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com; spf=pass smtp.mailfrom=suse.com; dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b=JDjkl5sf; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=suse.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.com
+	s=arc-20240116; t=1789527149; c=relaxed/simple;
+	bh=tX9M+W6f3YXesN8e9sqc2endp/ilgoluGKgnYvWZ2YA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=GNJBw7d8imjjvm2iHZX8lH60bBgxBAlgPAqt2LNfehq6BnnbiKErZSe+tW2RzWgu6KaS4uImOhzIqxbiNTqFobXEXLuMvdxyoRu1ilfC+kNmvfqJzvEd30Q0lFXP1fHnaIlsTwQzWn7iefOySi7cqtYYWxHukjeATeg0LvU5tBc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rUY8FHpt; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=suse.com header.i=@suse.com header.b="JDjkl5sf"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c294af0caa8so66099766b.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:50:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rUY8FHpt"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469a33c9cso464228b3a.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:52:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=suse.com; s=google; t=1789527056; x=1790131856; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=bq6WQNK4QKgsbL83cPnHFCm/4eZH3ABH5Hw/0tLTVSI=;
-        b=JDjkl5sfcsp77VN9Euv9YpEgBKJ63uA4vTVajjvyJ9KnT7lX6JhmSIwGsSzDTYfPl3
-         w8GgR8i6/dIQKfKTb1N1Pabf/zOyd7i/hj6DZPAXZXU2CUgaUT2/KRFVhplcEO2mWxmP
-         b4sE30N0rFp9US8NH2xn+KD4GnyeYyUZwdk/e395IFvi70aw+uWnmgF9anI462TLUf30
-         J6F/bO7rh5pNomiaB3bxvLdYDP0SGi+k0botLIfUEsmLj7go/a0chEfqlSPSkgOEJQhf
-         1bGGhJU+VYpc+xtfI/bB2+nTkL7/F8gyI9uD83PB1/sMBPiru0kUjQEoInyaXtRTDH2I
-         hyWw==
+        d=gmail.com; s=20251104; t=1789527147; x=1790131947; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4i5M/+Fcpjtf5aQ6npx1txWnbcVS6QYJviLzGTvfRwQ=;
+        b=rUY8FHptKrMiwUG9/g2dcbDsRs5GN1MoJKfwS+ruKhBxsaplrnQUPoCL1VtRxbNJrk
+         +axtsUUEMS+O01Oc3S1t5c2S4RoqEdV8QG++LdyCZUJtBBFUSCu1OK1TtTkvF7JxCRum
+         VvJB4EeHxd0eJDKwLCBVmAsQb/H7alYhXyr4gQHjETbGTt30CLe41E6c63VzpDfolKWS
+         3Eo4Oa6Uqc5tdR6uTpnImwCV5+9aVO+3ZzCIYHgNrTo4dUmgeuXKPM4hlUreThujHzhG
+         Bqae+uC+FhITtVyndrG+FcixTDTi/B4YkK+VvwhKBk9oIbfyvETlSJwKDVpQjSPKCdb6
+         CUiQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789527056; x=1790131856;
-        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789527147; x=1790131947;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=bq6WQNK4QKgsbL83cPnHFCm/4eZH3ABH5Hw/0tLTVSI=;
-        b=JCpxobSdNMGZmpsfj/NUngasztWqaLqc3/8DLaaW/aGG6Az8/SoRsIs8whPzXWygDK
-         B+xE3Vc/DvrVW/xuofwuFGbjDZiVdlxhi+7l08JWuS/H+YmAzPE0g4whirRnQ0R17ISt
-         FUeu6KOJniVjZ78YV9f9UX9E9QIPFoWd3ZslYlo2fcnG6r/ec/tcd7TVDfyyDTMksd9t
-         Wuk7tjyNkPUg4QOzsexqy5TY3pTtq8GX14I+vxMRzPvkT5ayfsVXhnpQLPDq7zWQQlad
-         BqBZmLkf0ko2hrLi9La8KPy5u4CAz2n9nm1CEkNcdGnwguQD+noVm5i8f4StsVHw18xn
-         X4zQ==
-X-Forwarded-Encrypted: i=1; AKwUvBz3mkDB+l8V2bbciIHErlB0eiaSJD3tLf2NO94VpJckw7gntyjLsLKJfHtbAtySP0/R3CEnYf4=@vger.kernel.org
-X-Gm-Message-State: AFuF++nP9CZ4Ls8ABwxRfPa53M3wnxaT6rD8/AqhyHFgzXMTsVfgdYLU
-	npdAlR1n/01ATHMg94rwMki56GD0kivTSO76LO5EzfnxFfb+M+o97rigBPj4CFkbLs0=
-X-Gm-Gg: AYBFou2WWvrIvqhKItlzcQZjhsf+NBvyBfCQcEfHDvy9V+5JO8gyudA2muqAqJZLFWb
-	u9Yqosw+HKWldsVfyq+k+qLp8a1AjsjaUU/gEgbOqKliM2m056lGkdQkQShLoy9DoYzWgXVbwxA
-	UgT7z7unNiuNwKxaEnHye+5wA8YavvWjWt98xM+OdFfhJL8cTz7BjpihB9C4Pnk+dGqAEgJpE1R
-	WnPPx4mRuLSqbm7fVIvm/93flNEHWJyEvTWolRSJB2I7NtsZmKFtJadNTM7Tja7EzTqG8ZKfG6n
-	8K5S85zag6cn/Ra9JWx6o1Xi6T33WSL8UB4BYHO4Q7QmkapkHb+lfIny8U6p8q4lWKsYC5diA/e
-	zvE7YmgS9XlZWBML3q1KpK45+trC9POBwTzslXYYbk3xeUIYHjS3ZbZ1VSZo5sdcT/xtmS+7Hzi
-	cEYdFDXiSVsbW/VfCrrwcXgh4qMN4F7c11cvB3UjPF8OLqXKzixHscGcv4V7AQBWw=
-X-Received: by 2002:a17:906:794f:b0:c29:3aef:f2e2 with SMTP id a640c23a62f3a-c29e53e6187mr32460666b.40.1789527056250;
-        Tue, 15 Sep 2026 19:50:56 -0700 (PDT)
-Received: from [172.16.0.229] ([159.196.52.54])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e19b9d95bsm589551a91.0.2026.09.15.19.50.52
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Tue, 15 Sep 2026 19:50:55 -0700 (PDT)
-Message-ID: <03fcead5-80fb-480c-ae6a-6cb0ae5d90d4@suse.com>
-Date: Wed, 16 Sep 2026 12:20:49 +0930
+        bh=4i5M/+Fcpjtf5aQ6npx1txWnbcVS6QYJviLzGTvfRwQ=;
+        b=ZJCHOzUrm6h2nQJmWEIlrxGbruh85yEZ88yuU934NzN1PjCILEgYOJy7+HYwGrOONj
+         BzbwDw/WhG2nzpfyDdHl75MAacU5IFL/30jHMm3z9MvFSk2fJ9J8N5RZrzJKG9UAsjNl
+         Zcx0K/qvPeJI5f8v4E3uzlehkow0ruowRJx0Py5bIdGYnAsnPuDDyAjjVWN8JUf8xzQz
+         Raf8s7eBvO1SUNj7xj5q4kSbSqvO1ttC5QYCAZgK64alTfbRK6PxRC15qYAggGMU4cJd
+         kXMpE4v/MS96mzBjfa14BhLw2yfncIK+ORxFwIBNzpq8vD7RE+EciGSGt6aGUTxKcHW3
+         Nk1g==
+X-Forwarded-Encrypted: i=1; AKwUvBxXxyroY9CoLpqtIBXJJu+r7QPAOmNYlL+1bJfXv9X1g7DJBao593kR4mtmTxiDXzo7VWnbEhU=@vger.kernel.org
+X-Gm-Message-State: AFuF++m6UjV1Hoj3dw6vjhlMmQ/Od4SONNWOyvNwpUEVkAxqpPVgY0Mh
+	j9UauraM5HRO33FkEqLln1A8d6M4abgfTSPfNQs288a2tI1VKGeWoh9y
+X-Gm-Gg: AYBFou0rR33T6Ydaxz+YfnxOgs+y+PC6Y399AKTsc7SuezLVIG883VqcIPUJ24Tu3dr
+	i84kVamHdtqbYAM/746EYGPU250WSoXw/G4D8I5CtRteMlwaZX3Xa/wrQPkzkFO2mpJvc+JcuJd
+	RsLEgm+4gDvDT0K3ANYqb8jd9lbIppX0Ya4JcQuypeNiYXSHJMiCjbrEBQmbyVZA22RbXS7ALBl
+	dxpj3ERVdNx+uizmL1nnccot4/CSQhPYIkO09XeXLT+9FpzHSBiqMUZSQr4INtk2VVFXE5l8DKp
+	LswR1IuUwd7MQsJ4+tJKrOoVoep4FubCoum7Ajj2063dju72J1yDmQEfcJ/RxhRgkvzzmnH84xV
+	exb3bO5CqKFeqmgpNpDLqcN4paEJv1I7UYjg2k3U9DXH8vnJnLNgwN1wr/bF+8sACvyYhTX0ICx
+	dbG1DnviNS2lof80/wEvYOVdRXb8vBWUdw38Bph+fKym+O9f3y7lteNQ==
+X-Received: by 2002:a05:6a00:4613:b0:851:c2a6:172f with SMTP id d2e1a72fcca58-8723b87eadfmr1399876b3a.7.1789527146998;
+        Tue, 15 Sep 2026 19:52:26 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-8720172b126sm414532b3a.38.2026.09.15.19.52.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 19:52:26 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Potnuri Bharat Teja <bharat@chelsio.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Ganesh Goudar <ganeshgr@chelsio.com>,
+	Arjun Vynipadath <arjun@chelsio.com>,
+	Casey Leedom <leedom@chelsio.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] cxgb4: fix FW SGE queue cleanup on remove
+Date: Wed, 16 Sep 2026 10:52:15 +0800
+Message-ID: <20260916025215.2780658-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] btrfs: clear free space tree creation state on rebuild
- failure
-To: Guanghui Yang <3497809730@qq.com>, linux-btrfs@vger.kernel.org
-Cc: boris@bur.io, dsterba@suse.com, mason@kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
- <tencent_705010B6315454003C478AE79E1F215E6E08@qq.com>
-Content-Language: en-US
-From: Qu Wenruo <wqu@suse.com>
-Autocrypt: addr=wqu@suse.com; keydata=
- xsBNBFnVga8BCACyhFP3ExcTIuB73jDIBA/vSoYcTyysFQzPvez64TUSCv1SgXEByR7fju3o
- 8RfaWuHCnkkea5luuTZMqfgTXrun2dqNVYDNOV6RIVrc4YuG20yhC1epnV55fJCThqij0MRL
- 1NxPKXIlEdHvN0Kov3CtWA+R1iNN0RCeVun7rmOrrjBK573aWC5sgP7YsBOLK79H3tmUtz6b
- 9Imuj0ZyEsa76Xg9PX9Hn2myKj1hfWGS+5og9Va4hrwQC8ipjXik6NKR5GDV+hOZkktU81G5
- gkQtGB9jOAYRs86QG/b7PtIlbd3+pppT0gaS+wvwMs8cuNG+Pu6KO1oC4jgdseFLu7NpABEB
- AAHNGFF1IFdlbnJ1byA8d3F1QHN1c2UuY29tPsLAlAQTAQgAPgIbAwULCQgHAgYVCAkKCwIE
- FgIDAQIeAQIXgBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXVgBQkQ/lqxAAoJEMI9kfOh
- Jf6o+jIH/2KhFmyOw4XWAYbnnijuYqb/obGae8HhcJO2KIGcxbsinK+KQFTSZnkFxnbsQ+VY
- fvtWBHGt8WfHcNmfjdejmy9si2jyy8smQV2jiB60a8iqQXGmsrkuR+AM2V360oEbMF3gVvim
- 2VSX2IiW9KERuhifjseNV1HLk0SHw5NnXiWh1THTqtvFFY+CwnLN2GqiMaSLF6gATW05/sEd
- V17MdI1z4+WSk7D57FlLjp50F3ow2WJtXwG8yG8d6S40dytZpH9iFuk12Sbg7lrtQxPPOIEU
- rpmZLfCNJJoZj603613w/M8EiZw6MohzikTWcFc55RLYJPBWQ+9puZtx1DopW2jOwE0EWdWB
- rwEIAKpT62HgSzL9zwGe+WIUCMB+nOEjXAfvoUPUwk+YCEDcOdfkkM5FyBoJs8TCEuPXGXBO
- Cl5P5B8OYYnkHkGWutAVlUTV8KESOIm/KJIA7jJA+Ss9VhMjtePfgWexw+P8itFRSRrrwyUf
- E+0WcAevblUi45LjWWZgpg3A80tHP0iToOZ5MbdYk7YFBE29cDSleskfV80ZKxFv6koQocq0
- vXzTfHvXNDELAuH7Ms/WJcdUzmPyBf3Oq6mKBBH8J6XZc9LjjNZwNbyvsHSrV5bgmu/THX2n
- g/3be+iqf6OggCiy3I1NSMJ5KtR0q2H2Nx2Vqb1fYPOID8McMV9Ll6rh8S8AEQEAAcLAfAQY
- AQgAJgIbDBYhBC3fcuWlpVuonapC4cI9kfOhJf6oBQJnEXWBBQkQ/lrSAAoJEMI9kfOhJf6o
- cakH+QHwDszsoYvmrNq36MFGgvAHRjdlrHRBa4A1V1kzd4kOUokongcrOOgHY9yfglcvZqlJ
- qfa4l+1oxs1BvCi29psteQTtw+memmcGruKi+YHD7793zNCMtAtYidDmQ2pWaLfqSaryjlzR
- /3tBWMyvIeWZKURnZbBzWRREB7iWxEbZ014B3gICqZPDRwwitHpH8Om3eZr7ygZck6bBa4MU
- o1XgbZcspyCGqu1xF/bMAY2iCDcq6ULKQceuKkbeQ8qxvt9hVxJC2W3lHq8dlK1pkHPDg9wO
- JoAXek8MF37R8gpLoGWl41FIUb3hFiu3zhDDvslYM4BmzI18QgQTQnotJH8=
-In-Reply-To: <tencent_705010B6315454003C478AE79E1F215E6E08@qq.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
+init_one() allocates the FW SGE queues with setup_fw_sge_queues()
+before registering the network devices.
 
+The probe failure path releases these queues with
+t4_free_sge_resources(). However, the normal removal path only calls
+t4_free_sge_resources() through cxgb_down() when
+CXGB4_FULL_INIT_DONE is set.
 
-在 2026/9/16 12:08, Guanghui Yang 写道:
-> btrfs_rebuild_free_space_tree() sets
-> BTRFS_FS_CREATING_FREE_SPACE_TREE before rebuilding the free space tree.
-> Several error paths return without clearing this flag.
-> 
-> The transaction restart failure path can leave the flag set on a live
-> filesystem, causing delayed reference processing to be skipped. Clear it
-> on all free space tree rebuild failure paths. Keep
-> BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED set, since a failed rebuild leaves the
-> free space tree untrusted. Callers must fall back to extent-tree caching.
-> 
-> Fixes: 882af9f13e83 ("btrfs: handle free space tree rebuild in multiple transactions")
-> Cc: stable@vger.kernel.org # 6.14+
-> Assisted-by: Codex:gpt-5
-> Tested: make -j$(nproc) fs/btrfs/free-space-tree.o
+If the device is successfully probed and removed before it is fully
+initialized, such as when none of its network interfaces has been
+opened, CXGB4_FULL_INIT_DONE remains clear and the FW SGE queues are
+left allocated.
 
-Just remove the useless tag, and run a proper full fstests.
-> Signed-off-by: Guanghui Yang <3497809730@qq.com>
-> ---
->   fs/btrfs/free-space-tree.c | 14 ++++++++++----
->   1 file changed, 10 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
-> index 1b3d82ae3de8..b7a4a6ade30f 100644
-> --- a/fs/btrfs/free-space-tree.c
-> +++ b/fs/btrfs/free-space-tree.c
-> @@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
->   	if (unlikely(ret)) {
->   		btrfs_abort_transaction(trans, ret);
->   		btrfs_end_transaction(trans);
-> -		return ret;
-> +		goto out_clear;
->   	}
->   
->   	node = rb_first_cached(&fs_info->block_group_cache_tree);
-> @@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
->   		if (unlikely(ret)) {
->   			btrfs_abort_transaction(trans, ret);
->   			btrfs_end_transaction(trans);
-> -			return ret;
-> +			goto out_clear;
->   		}
->   next:
->   		if (btrfs_should_end_transaction(trans)) {
->   			btrfs_end_transaction(trans);
->   			trans = btrfs_start_transaction(free_space_root, 1);
-> -			if (IS_ERR(trans))
-> -				return PTR_ERR(trans);
-> +			if (IS_ERR(trans)) {
-> +				ret = PTR_ERR(trans);
-> +				goto out_clear;
-> +			}
->   		}
->   		node = rb_next(node);
->   	}
-> @@ -1390,6 +1392,10 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
->   	ret = btrfs_commit_transaction(trans);
->   	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
->   	return ret;
-> +
-> +out_clear:
-> +	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
-> +	return ret;
->   }
->   
->   static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
-> 
-> base-commit: 587858367581b9c55c3690f4e63382ad622719d4
+Release any remaining FW SGE queues when removing an adapter which has
+not completed full initialization.
+
+This issue was found by manual code inspection.
+
+Fixes: 843bd7db79c8 ("cxgb4: Setup FW queues before registering netdev")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
+index 1ced6df6eac8..146419c66348 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
++++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
+@@ -7116,6 +7116,9 @@ static void remove_one(struct pci_dev *pdev)
+ 
+ 		if (adapter->flags & CXGB4_FULL_INIT_DONE)
+ 			cxgb_down(adapter);
++		else if (adapter->sge.fw_evtq.desc ||
++			 adapter->sge.intrq.desc)
++			t4_free_sge_resources(adapter);
+ 
+ 		if (adapter->flags & CXGB4_USING_MSIX)
+ 			free_msix_info(adapter);
+-- 
+2.43.0
 
