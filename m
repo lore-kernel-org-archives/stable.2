@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB862ED154;
-	Wed, 16 Sep 2026 18:01:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE88E5C613;
+	Wed, 16 Sep 2026 18:01:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581690; cv=none; b=GpfbzhIUMkZ+kpYgIuW2PbJ0XXLly+zWZ7RUqlLRrytLD/zvptnHRTRpw69yy796bxbFYOiBw98ZGGkupejJwOgpHAd23RBzlQL8VM+e1Ngsr1T1H/rrjrdeTT9+8PoPAgXJVi9oDPpmoRxVYqgva8bVbHfyur2WkEUuJQYLVmM=
+	t=1789581696; cv=none; b=HGJ3M6Wt2SizAEBbLR3IjMIRZs7iZs0ZhLAv/xVz0V8n8eSaOnU8tYsBxCOBYA+bbsjFFk3F7RWU7dnHglXHrAsDDQAXVmaUue+Xn0xs6WSCzqufbolXxUrupwUcPCeWiH7FVt8cHndzWCwtznNtTFWd7L4/rXzdD9Xk4wUxe9M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581690; c=relaxed/simple;
-	bh=AJKCUq9A8Zu+G4x2d7S2wREdOZHWrDmobJLPcTuAvDY=;
+	s=arc-20240116; t=1789581696; c=relaxed/simple;
+	bh=yMZ3u+0AkPZHapINFufKC15hseUa4KBpxCG87lFAXCM=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=PZBwumnJoCCCvhv/Lw91Byc84d3AQgwhu21IGHbDTdoVA0xDueV/zeQQXRuV2GFbRlcAtyAUDqAixuiCkAZ5v2ttVzHHbiNuOVSi3zu16H7njNLcLFFk3dk82SzytM6HqqeS9yh7EvpUijx4wDRjyZVrcNfm9iYdCgEqdbI72Rw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IlcAoX7I; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=XXTeRMKEj9i/U9ljWvHmqC0kHDYz/R4WRHJacglVYhUtytz80upX7lCF0cy6hOQGMCsoVJOgR+khT/O9ZDO1kW+8coWrE053spWrDgVb07tCMcHBjr53VxWV8EkjlDt+hJZm4igSf0TvGa3x+Nde/8sPoZyu6+kTtRRFEjkTML8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DaRc5YyQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IlcAoX7I"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F1141F0089B;
-	Wed, 16 Sep 2026 18:01:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DaRc5YyQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A48D1F0089A;
+	Wed, 16 Sep 2026 18:01:19 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789581676;
-	bh=4YGfH7wG3boUknue714fwLygUWmZyxq4CTJy7wyKZDQ=;
+	s=k20260515; t=1789581679;
+	bh=fP5Jh/A9rg2DuMlKCMCjkdCOYQ2TczRDMVFGcGtlz0w=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=IlcAoX7ISOGpMihEgMbbLI+/ihA6Z8Jt2+HXnVUfRXVIAPRLb7+QnrOIsuPPeFR4n
-	 p5oz4UHc3q9jeLtjMXvpA9knKuj4a/9VC/nSUvsFxqVObmLlkBN0Gg/Q+UEPX3WX/w
-	 t2QG/bPwf71QyiJZXFkpIpfbpjukU4S2TQaqSCqKjRoLKav09g33qGYMSyGWs8Li0r
-	 F2QyVoxsJJ/zBP27/EfbUZrOluOXCmshS0N3E3QqJH3Y/7x9HfFd2AFwYvhBzp2QCL
-	 nIz9hSNPpZO8gtSxEL+9FpgeLgK/et3gNEHjzp9cNwhzmI0y11+v63cRCa05s+h443
-	 PM0aVaYXmnNfg==
+	b=DaRc5YyQHtLHckQgQO2YXqdo6PluvAblKfRgRYUf+sV4mPBaRu2VrU1GgheZUWh+X
+	 DOnXZW61fn8GY+KDmvBQmx/sTWKUEeqnsYODDR4ozHfHJ38g5sfbMcZdSHEp3oZdR0
+	 yHC1f0wdDB5woZ7YAYMLwL3lA5xXZKyyt/wjBFuHzSsZhxoSJ/cZgtIn2u10fbo0F8
+	 jBiEXS9dVmFkJhSRERFYtX8ZzQTTEJbl05JgUc/HlFzaENXYKUc1GVu21VR3IbHubS
+	 /LG525k9miGaRXZPzqGAZdznNmNQq354/fEhXnzT//DqcEMpbvvyCZS6DgyToikBti
+	 FmlqnRK0KbMlQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 5684039E8A50;
-	Wed, 16 Sep 2026 18:00:11 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0AAD39E8A50;
+	Wed, 16 Sep 2026 18:00:14 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,13 +37,13 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH v2] Bluetooth: mgmt: fix race in read_unconf_index_list()
+Subject: Re: [PATCH] Bluetooth: ISO: balance the parent hold in hci_bind_bis()
 From: patchwork-bot+bluetooth@kernel.org
 Message-Id: 
- <178958160987.2777538.5804352292158547567.git-patchwork-notify@kernel.org>
-Date: Wed, 16 Sep 2026 18:00:09 +0000
-References: <20260915155952.3104711-1-qwe.aldo@gmail.com>
-In-Reply-To: <20260915155952.3104711-1-qwe.aldo@gmail.com>
+ <178958161343.2777538.8562575351949671610.git-patchwork-notify@kernel.org>
+Date: Wed, 16 Sep 2026 18:00:13 +0000
+References: <20260915160332.3107274-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260915160332.3107274-1-qwe.aldo@gmail.com>
 To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
 Cc: luiz.dentz@gmail.com, linux-bluetooth@vger.kernel.org,
  linux-kernel@vger.kernel.org, stable@vger.kernel.org
@@ -53,21 +53,23 @@ Hello:
 This patch was applied to bluetooth/bluetooth-next.git (master)
 by Luiz Augusto von Dentz <luiz.von.dentz@intel.com>:
 
-On Tue, 15 Sep 2026 12:59:52 -0300 you wrote:
-> read_unconf_index_list() counts unconfigured controllers before allocating
-> its response, then checks the device flags again while filling it.
+On Tue, 15 Sep 2026 13:03:32 -0300 you wrote:
+> hci_conn_link() takes a lifetime reference to its parent with
+> hci_conn_get(), but only takes an operational hold on the child.
+> hci_conn_unlink() later balances both a hold and a reference on the
+> parent.
 > 
-> hci_dev_list_lock stabilizes list membership, but it does not serialize the
-> per-device flags. During asynchronous controller setup, the worker can set
-> HCI_UNCONFIGURED and clear HCI_SETUP between the two passes. A controller
-> omitted from the allocation count can then become eligible for the fill
-> pass, causing an out-of-bounds write to rp->index[].
+> The SCO and CIS paths pass a parent acquired from a connect helper, so
+> it already has a hold. For an additional BIS, hci_bind_bis() obtains the
+> parent from hci_conn_hash_lookup_big(), which returns a bare pointer.
+> Unlinking the child then drops the parent's existing hold and can
+> schedule it for disconnection while its socket is still using it.
 > 
 > [...]
 
 Here is the summary with links:
-  - [v2] Bluetooth: mgmt: fix race in read_unconf_index_list()
-    https://git.kernel.org/bluetooth/bluetooth-next/c/b5dbb41b212c
+  - Bluetooth: ISO: balance the parent hold in hci_bind_bis()
+    https://git.kernel.org/bluetooth/bluetooth-next/c/4c94557dd025
 
 You are awesome, thank you!
 -- 
