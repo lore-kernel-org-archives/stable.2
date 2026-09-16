@@ -1,77 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FC014D0CD1
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:25:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 174B0442B38
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:25:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579556; cv=none; b=pUpkL9Pc1+NyBOnBlK3An9DOo07obhp+fLYaKNxlwaAzKy7mB3wDb2h8YHLjz1VrKRUZ6C29bku3X3jYPo5BjssfTOY8gtBrr7rCPscitzeFhwuBglW7G+B2BuhrBDUGJ6DC6vgRKmbnglSHkJVdw27jf7rQiZixVcUSWsyu1Ds=
+	t=1789579559; cv=none; b=b8OxlE/M/M2Za9qXoDvsUfESw4UaYyu513x8JE1iKeAFqQO42JIJp3qYvuB7kWsmdpGpiM1WpQhDHEdD8GtfMd/W543DSkHgRKh7CNwbyXyPCBu2Tj5Z7sZrTXd2mzZ8kwYijGQH1Fs776v7Kk3/EzMQVZODkEWjxV+BJpHi2pw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579556; c=relaxed/simple;
-	bh=oIs6fzy+l+1Pv5fYJ/81fnDfgGbi5VGvlBD2/CZN9ek=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=NKp+CVsIwzdwhBB5LAKmhsS6NjO4h3X8uSkLWaFeykIw9GlNrg/tjrnSbwn0FtDXAQYF/nD2YZz0r3fc06EuKDM4QFLpS8wuRGgpnWlmEWPqC123VbllgVEkdXegmVLy7+s4FPzrtDUp5fitnkoLL3oex3mOoehnNznIi6QTwu8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eBetjFx4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789579559; c=relaxed/simple;
+	bh=D0Ii1ent1y9KN6vMaG1eXsWc4CQ2NpyB5YTaHrJmFnM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B34rARDf41aEMzmJqY+vHima+LLAqQRZV2xGxP96MeSxSgkSe+fXHRaKlSXP1sWRL/FA7JfKiZX0PQ0evTxqEAFh+L2RiNXjBpy/AXXBlc/jkr+GF389+dEGcsp2kaQTNviRXX+CsPJ96+C8s5zOyZZXLpnsY8FswCb6mPThzTM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=sr1R75cI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eBetjFx4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC9F81F0089D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:25:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579554;
-	bh=oIs6fzy+l+1Pv5fYJ/81fnDfgGbi5VGvlBD2/CZN9ek=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=eBetjFx4k3JtGQO7sy5AQjaqkBY0p70iFo6+boeVoENF0Aq/orTvbXnhFAh6ZmUOq
-	 8cbGxphcP9hIG/8VcEry9YmJ8JiyUNJpCjKCbIW7JZHhUOL9OFtj8N3P/ZLSwqzXRE
-	 pWVK4+KZ5gOE7eQkpHJ9oWTnVrb/Utor8j/ulyrsPJWL+L8gpM0o5oxZcIBStefH8R
-	 dKv88D2I1OsbxxH3aCX7y6k9rm8pB+rEV4+6yg2Oo67zIqPrN67IUEQG6F4Ck4gz6w
-	 5h2NmGZ9ELWwxM+bKafcwGYj1sVocgg6SeO+wm1OtxqrLl4KRGLQ52s7aaqPUBwNw9
-	 u3YWOYK0MoX+w==
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b8b3c8c4bbso1319996e87.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:25:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxZTFrKJ6fwCtGpCB9Qa3vMsNUVxz+G0tXCjasMQj8S4KGDwQT1l6z/pxLkYU5jznZK6RkLCU8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lfWg2N/bb43kor3Fmw2+YmE7L/tBAsft/6bXMLzdFaVXj/RDIH
-	zK5UQ0mdQa6zFTqlydL/bISsN5hzJRXaKfqz0BGHLROhkEP3615NnkhD1hJA5NbZ5BAGH/fByYe
-	vYHaDz3waP5MRwoXXw2HCY7v1eosWNjU=
-X-Received: by 2002:a19:5518:0:b0:5b1:4c14:9b3d with SMTP id
- 2adb3069b0e04-5b8ba5de63amr78323e87.11.1789579553533; Wed, 16 Sep 2026
- 10:25:53 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="sr1R75cI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 23B601F000FF;
+	Wed, 16 Sep 2026 17:25:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789579557;
+	bh=1rgTQk9j1GzgMsOhw5+0iqbqUgVvvSMYPHkA/YXrBuc=;
+	h=Subject:To:Cc:From:Date;
+	b=sr1R75cI2Z89sKyukqacOzhz6OIbhqdH/1nUhSUyGdRjwM3TTpt+XLSuO+Bq1gbHB
+	 gzhcOpitYhO34tGASroB8UYNcPtScJAFaLGkaammPogO01O4DyiQh/6nsBbV7FSzKD
+	 hLYBUUnUwvUiyQjuhbo1reowrwCkVBXRM0lzJgSY=
+Subject: FAILED: patch "[PATCH] xfs: strengthen the "is cow staging" helpers in scrub" failed to apply to 5.10-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 18:21:09 +0100
+Message-ID: <2026091609-tables-doodle-600b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915070103.1733176-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260915070103.1733176-1-vulab@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:25:39 +0200
-X-Gmail-Original-Message-ID: <CAD++jLns9S7ba9G+wcnsfrDBjtDWbM-qzg+NeW9vHFHKcOz3NQ@mail.gmail.com>
-X-Gm-Features: AcwNN1U5p1jQNWfJDBDBcokXqdBha7CDbxJEl7eNgY0-Nuq3oH3fx3OcCRj68Ks
-Message-ID: <CAD++jLns9S7ba9G+wcnsfrDBjtDWbM-qzg+NeW9vHFHKcOz3NQ@mail.gmail.com>
-Subject: Re: [PATCH] clk: versatile: clk-icst: Fix node reference leak in of_syscon_icst_setup()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: bmasney@redhat.com, linux-arm-kernel@lists.infradead.org, 
-	linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	mturquette@baylibre.com, sboyd@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 9:01=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
 
-> of_get_parent() takes a reference on the syscon parent node. The
-> reference is intentionally kept on the success path, but the error paths
-> return without dropping it, leaking the node reference. Release the
-> reference before returning on the error paths.
->
-> Fixes: d430819d69a5 ("clk: versatile-icst: add device tree support")
-> Cc: stable@vger.kernel.org
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Stable? Really? It's no big deal.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0d43368844a75ad13561a1198a3b027940730756
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091609-tables-doodle-600b@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Possible dependencies:
 
-Yours,
-Linus Walleij
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0d43368844a75ad13561a1198a3b027940730756 Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Wed, 2 Sep 2026 22:51:36 -0700
+Subject: [PATCH] xfs: strengthen the "is cow staging" helpers in scrub
+
+LOLLM pointed out a bug in both of the refcount scrub predicates that
+determine if a range of blocks is marked as CoW staging in the btree.
+While it compares blockcount < len, this isn't enough to determine that
+the CoW staging record is at least as large as the range passed into the
+helper.  Fix both of them.
+
+Cc: stable@vger.kernel.org # v4.16
+Fixes: f6d5fc21fdc713 ("xfs: cross-reference refcount btree during scrub")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
+index f2addaf13c58..f8c51d8fbb3d 100644
+--- a/fs/xfs/scrub/refcount.c
++++ b/fs/xfs/scrub/refcount.c
+@@ -581,8 +581,12 @@ xchk_xref_is_cow_staging(
+ 	if (rc.rc_domain != XFS_REFC_DOMAIN_COW)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+ 
++	/* Can't start after bno */
++	if (rc.rc_startblock > agbno)
++		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
++
+ 	/* Must be at least as long as what was passed in */
+-	if (rc.rc_blockcount < len)
++	if (rc.rc_startblock + rc.rc_blockcount < agbno + len)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+ }
+ 
+diff --git a/fs/xfs/scrub/rtrefcount.c b/fs/xfs/scrub/rtrefcount.c
+index a024d50cf9d2..652d6b78b7a0 100644
+--- a/fs/xfs/scrub/rtrefcount.c
++++ b/fs/xfs/scrub/rtrefcount.c
+@@ -609,8 +609,12 @@ xchk_xref_is_rt_cow_staging(
+ 	if (rc.rc_domain != XFS_REFC_DOMAIN_COW)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sr.refc_cur, 0);
+ 
++	/* Can't start after bno */
++	if (rc.rc_startblock > bno)
++		xchk_btree_xref_set_corrupt(sc, sc->sr.refc_cur, 0);
++
+ 	/* Must be at least as long as what was passed in */
+-	if (rc.rc_blockcount < len)
++	if (rc.rc_startblock + rc.rc_blockcount < bno + len)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sr.refc_cur, 0);
+ }
+ 
+
