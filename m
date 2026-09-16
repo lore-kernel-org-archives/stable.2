@@ -1,169 +1,184 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 972784A2A58
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805A94E13FF
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598813; cv=none; b=uMTalWM1MbsEGBhTw9GV/9KKIrQv61/Tca116ZQwUVljIirm0iJjPuxPXkMpRqu9fpNXODOWzZVDAOdZIWHz/AJ+7XeCsnx7dJc/t86ox3ijUR5d76g94EQVxWtlMhbIawlKi6SK+d6WRB1fa47csL5CgVJGQCUMfZLAVkbY3yI=
+	t=1789598811; cv=none; b=ukn6jDX89bzO2EyKW1jepQIFQEfGbP5cAhZKdz1hN6JfNSQ4TTxt8V39Xgbe/DktKuLp1PbzDir5c8So0BJAG/qcbbCQ6rFjw11lRyhrJjTvruTu2FHDDuqh3qIKYQKKaiX4BNm+5zUH9JCMkem0CIvX5h1EeZH7lVXloAPxv7U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598813; c=relaxed/simple;
-	bh=q/ONyTjg7HZXYhrEWB+lnbkajoNVd4eYlZJcoRgSMac=;
+	s=arc-20240116; t=1789598811; c=relaxed/simple;
+	bh=eLCMoBxLlL0dbSci301UDSivK2YbL94J4DlB+sYGc2g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=D8mKuUcXVrzr+AH63idKop8IhBjbqqMcQUSg0mk0Xj1l04tQpD7rwFefZM0081XDHjh1Ys/lbi5yKzy26cV89HHIj6axfdLzOw5aXZD9KGDy8mgmimK4jhSwTaHeW0Hmci9D0WMy5s8l0O9AEzV8MRT6RNUdTXIf6DlwWgMnm+I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dsNpuDm9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=eGa4nMfK/g7CmWuYRRdZT/rS/YR1am6h4ETzA1e/RLSsW8h7tcteR1RTWv+K5PmyXc79PkfAdJMW3JmXhxWcBjuWcRx30VAbPw8/jR8BGw70JTIJv7JlKIaW8Tbv186DJpJKaX4DTQMekjS+fom9wnmEhxq6De/wogwrQiS26E0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a7uliMDL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dsNpuDm9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85A891F00893;
-	Wed, 16 Sep 2026 22:46:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a7uliMDL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ECA51F000FF;
+	Wed, 16 Sep 2026 22:46:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598800;
-	bh=dJX+VM3osdkdzkR4l62B88q+VDg+sRgZuFRzYdxWgLo=;
+	s=k20260515; t=1789598797;
+	bh=2Kv3rqE8FbY+cCXaAjzymtSbEQhg7Po8WCgNwCh+hms=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dsNpuDm9biw22jdeoIlqihWcpBixWCqWvF/iuiLtoi3pxrt55iBZ7HxxMELbgm1XB
-	 6u0hB26YF1zjv9DbeRoCbUhxRSbqgBFcKHnirI76h6Ab7Ng4osIOQo+UfjHGL6BJ1n
-	 aU3D2TjDgVNeyCPADXRP+/ea+9JvULFLEoCcnIolg6iwhQA1dkMVOCsYvIZoiSJOBZ
-	 d24ErTvk7ev0FqrSlAqMsvmB0hYu/kIaTncc+fJpJfHihBNsNARziTFX53FJTPppva
-	 OgzG074Vu0WloElGmjnkDwo5BnhkytPYFglC/lGNv3quFrlV/lBinzwt5Vm6L+jJhj
-	 mv1Y9Z15FIUag==
+	b=a7uliMDLGzqvz+2gU5XbRdvtec3NQQ90QZ5DoA1LkpLUDQU7wENOLh/NDbqKo85NF
+	 /CCcgUMeSkXRgM/tt7iFbhOrzqir56MB++vrf0PcMk6l5MNiIBp+MoQHzdJAO7+XKU
+	 R8OGwWOzOKp0B5MHh1IwJmNVJDTaI60KDJepwId5vFpVSgRwK7yCLuE26YFvGD+RWQ
+	 bboVVdaIwKa5s0M4xgBj4REXskM6QrUfjS7FgmHR5hNuR8KxfwIujPv0sgsyAU+h79
+	 H50F1Hr1OEk3h7UUU/DcGF1RAULtwOVMtd6w4q0mgWDoAFsk+kPEQRFayzIcNM6k9C
+	 /W5UR6uHFYo9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Sashiko AI <sashiko-bot@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	sashiko-bot@kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] tracing: Undo the registration when enabling the histogram trigger fails
-Date: Wed, 16 Sep 2026 18:46:38 -0400
-Message-ID: <20260916224638.3198228-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] tracing: Take trace_array reference when opening a tracer options file
+Date: Wed, 16 Sep 2026 18:46:35 -0400
+Message-ID: <20260916224635.3198117-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091607-wriggly-finite-bb4f@gregkh>
-References: <2026091607-wriggly-finite-bb4f@gregkh>
+In-Reply-To: <2026091637-crane-grader-8ee4@gregkh>
+References: <2026091637-crane-grader-8ee4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit 92383cef66791a0c63a2f27755cadbdb2fbf270b ]
+[ Upstream commit ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 ]
 
-Commit 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers
-list") described how a trigger that is registered but not on file->triggers
-ends up freed while still on the global named_triggers list, and moved the
-registration down so that hist_trigger_enable() follows it immediately. One
-path still gets there. hist_trigger_enable() adds the trigger and takes it
-straight back out when the event cannot be enabled:
+When a tracer option file is opened, it is passed a descriptor that points
+to an element on the trace_array's topts array. This element has
+information to find the trace array and other information. It uses this
+element to take a reference of the trace_array so that the trace_array
+does not get removed while this file is opened.
 
-	list_add_tail_rcu(&data->list, &file->triggers);
+Unfortunately, there's a race condition where the element itself could be
+freed by the removal of the instance the trace_array represents causing a
+use-after-free as this element that is used to find the trace_array to
+increment its reference counter is also freed when the instance is
+removed.
 
-	update_cond_flag(file);
+To solve this, add a trace_array_tracer_options_get() helper function that
+will take the address of the element that is passed to the open function
+by the inode->i_private pointer and search all the trace_arrays under a
+lock to find the one that the element's address is in the range of the
+trace_arrays topts array elements. When a match happens, that trace_array's
+reference would be increased.
 
-	if (trace_event_trigger_enable_disable(file, 1) < 0) {
-		list_del_rcu(&data->list);
-		update_cond_flag(file);
-		ret--;
-	}
-
-so the list walk in hist_unregister_trigger() matches nothing, test stays
-NULL, and the ->free() that would call del_named_trigger() is skipped.
-out_unreg falls through to out_free, which frees the trigger anyway:
-
- BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
- Read of size 8 at addr ffff8880091d3160 by task init/1
-  find_named_trigger+0xac/0xc0
-  hist_register_trigger+0xc1/0xa00
-  event_hist_trigger_parse+0x3146/0x6af0
-  event_trigger_write+0xce/0x160
- Freed by task 69:
-  kfree+0x154/0x420
-  trigger_kthread_fn+0xfd/0x160
-
-Leave the trigger where hist_unregister_trigger() can find it and let that
-undo the registration, which is the only code that knows all of what
-cmd_ops->init() took: the named list entry, the hist_pad reference, the
-reference on the trigger a named histogram is shared with, and the copied
-cmd_ops. It also pairs the failed trace_event_trigger_enable_disable(),
-whose sm_ref and buffered event reference are otherwise left behind.
-
-Since ->free() releases trigger_data and, for a trigger that does not share
-its histogram, hist_data with it, out_unreg can no longer fall through to
-out_free. For a trigger that does share, hist_register_trigger() has
-already destroyed the caller's hist_data, so the fall-through was reading
-freed memory there as well.
-
-Move the enable_timestamps check in hist_unregister_trigger() above the
-->free() call for the same reason: hist_data does not outlive it once the
-trigger being removed is the one that owns it.
+Note, there's a race where if an admin was deleting and creating trace
+instances at the same time and the memory of the old trace_array's array
+matched the memory of the new trace_array that it could in theory open the
+option from the wrong trace array. But we do not care because it would be
+stupid to perform that kind of action. As long as the only thing that can
+happen is that the option from the wrong trace array is used and doesn't
+crash the kernel it will only make the user confused. But if they are
+doing something stupid like this, they are already confused, so no harm
+done.
 
 Cc: stable@vger.kernel.org
-Fixes: 067fe038e70f ("tracing: Add variable reference handling to hist triggers")
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F00A3D@smtp.kernel.org/
-Link: https://patch.msgid.link/20260907124420.607097-3-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
+Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ adapted cleanup to 5.15’s older trigger callbacks and registration order. ]
+[ replaced __trace_array_get() with direct tr->ref increments under explicit mutex locking using C89-compatible declarations. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ kernel/trace/trace.c | 53 +++++++++++++++++++++++++++++++++++++++++++-
+ kernel/trace/trace.h |  1 +
+ 2 files changed, 53 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 5ecc78916431d..2fa1bc786f2a8 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -5676,11 +5676,12 @@ static int hist_trigger_enable(struct event_trigger_data *data,
- 
- 	update_cond_flag(file);
- 
--	if (trace_event_trigger_enable_disable(file, 1) < 0) {
--		list_del_rcu(&data->list);
--		update_cond_flag(file);
-+	/*
-+	 * On failure the caller undoes the registration, and
-+	 * hist_unregister_trigger() can only find the trigger here.
-+	 */
-+	if (trace_event_trigger_enable_disable(file, 1) < 0)
- 		ret--;
--	}
- 
- 	return ret;
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index ed32d3c4f0e76..cd9b8351264c9 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -8388,12 +8388,62 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
  }
-@@ -5759,13 +5760,13 @@ static void hist_unregister_trigger(char *glob, struct event_trigger_ops *ops,
- 		}
- 	}
  
--	if (unregistered && test->ops->free)
--		test->ops->free(test->ops, test);
--
- 	if (hist_data->enable_timestamps) {
- 		if (!hist_data->remove || unregistered)
- 			tracing_set_filter_buffering(file->tr, false);
- 	}
++static bool tr_option_match(struct trace_array *tr, void *topt)
++{
++	int i;
 +
-+	if (unregistered && test->ops->free)
-+		test->ops->free(test->ops, test);
- }
- 
- static bool hist_file_check_refs(struct trace_event_file *file)
-@@ -5964,8 +5965,11 @@ static int event_hist_trigger_func(struct event_command *cmd_ops,
- 		goto out_unreg;
- enable:
- 	ret = hist_trigger_enable(trigger_data, file);
--	if (ret)
--		goto out_unreg;
-+	if (ret) {
-+		cmd_ops->unreg(glob+1, trigger_ops, trigger_data, file);
-+		/* The unregister frees trigger_data, skip out_free */
-+		goto out;
++	for (i = 0; i < tr->nr_topts; i++) {
++		struct trace_options *tr_topts = &tr->topts[i];
++
++		if (topt >= (void *)&tr_topts->topts[0] &&
++		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
++			return true;
 +	}
++	return false;
++}
++
++/*
++ * The topt is the address of a trace_array->topts[] element that holds the
++ * the tracer options descriptor. But since the trace_array reference has not
++ * been taken yet, it cannot be dereferenced as it could have been freed by
++ * a rmdir of the instance the trace_array represents.
++ *
++ * Search the list of trace_arrays and compare the topt to the address of
++ * the entire trace_array topts array for each trace_array in the list.
++ * If one is matched, then take the reference and return it. If not, the
++ * trace_array no longer exits.
++ */
++static int trace_array_tracer_options_get(void *topt)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	ret = -ENODEV;
++	mutex_lock(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_option_match(tr, topt)) {
++			tr->ref++;
++			ret = 0;
++			break;
++		}
++	}
++	mutex_unlock(&trace_types_lock);
++	return ret;
++}
++
+ static int tracing_open_options(struct inode *inode, struct file *filp)
+ {
+ 	struct trace_option_dentry *topt = inode->i_private;
+ 	int ret;
  
- 	se_name = trace_event_name(file->event_call);
- 	se = find_synth_event(se_name);
+-	ret = tracing_check_open_get_tr(topt->tr);
++	ret = trace_array_tracer_options_get(topt);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -8616,6 +8666,7 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer)
+ 	tr->topts = tr_topts;
+ 	tr->topts[tr->nr_topts].tracer = tracer;
+ 	tr->topts[tr->nr_topts].topts = topts;
++	tr->topts[tr->nr_topts].nr_topts = cnt;
+ 	tr->nr_topts++;
+ 
+ 	for (cnt = 0; opts[cnt].name; cnt++) {
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 8dce0e205c8ed..d62857b0231b5 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -211,6 +211,7 @@ struct array_buffer {
+ struct trace_options {
+ 	struct tracer			*tracer;
+ 	struct trace_option_dentry	*topts;
++	int				nr_topts;
+ };
+ 
+ struct trace_pid_list {
 -- 
 2.53.0
 
