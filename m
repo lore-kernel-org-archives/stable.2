@@ -1,75 +1,83 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C6FC314A65
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:55:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9349935C687
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:56:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570527; cv=none; b=SuXvVjMboaEqkgzmBnoGsm65TELysGQ1QjvTI++syv5wQj8dCltUfo71r/LVe4sHjzOmjYmOMkR1u/PElVsLsvrnDTjdP4nN+JqEXM2h5nQqBBK4f7Qus4wO9Gm4iuYkGi0wwkZ7CWknUUVtxuPC4UvboPDRkRBYPxTGhXrfYU8=
+	t=1789570589; cv=none; b=dNRTi/9PYpox3AbiaZH6QDhEOgS9l9tXDrCxRXkujIf0TFN5x9VkbMsZHMHe297BVBf4HWB+K4qkJ9uJG77Zipvbao7DprN/smtteCoHwf1/xJRW+FdwU86MuppnEFtBQv5JpTaXzAJgqpXJsH5tVirH4NpZsGk6juDbi8JpofY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570527; c=relaxed/simple;
-	bh=JpTFGpyHF/Ma4ZnJDkbrqA5WxX1p6md71/a7atwIJaE=;
+	s=arc-20240116; t=1789570589; c=relaxed/simple;
+	bh=w5hmfYQd5qS6jmp5if4MTfMkG4gKJAqCpM+ctVlrJx8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hxQblcgHleSfezDCzuu0AQ/PO+J4tO6A/SePS87Y9Psue5lyhe1o4tiQ3YuvYNaR+aFCY1PEorZoPmFd1rTmWe+eg7LCm7UFESq9ai0nC+vVIG84SKA5zvIkgO8XPsWLNq+onWcHS3PM8y1JWe3xIFhi0nQwWkA9Qwd363+JmVs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VGph7ymm; arc=none smtp.client-ip=74.125.227.141
+	 Content-Type:Content-Disposition:In-Reply-To; b=WRMGE5DH2m8DblVR0BOAOYSXquYVRGZp7U7CYAyV6Q74sLhYgWXlkATeRktiYXDzB7udRvz+LLTsNIb0OcovTMwqjoena2DNHj+nfGDe7Z9QOq1xtuAggSssoHlUOzvuh62JP3UUfjerqGq+1aVbjApkVPYDf6GbDJgasjWiIcE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=gpsB+0pX; arc=none smtp.client-ip=74.125.227.171
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VGph7ymm"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db18fe459dso6249585ad.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:55:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="gpsB+0pX"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d9004a1ac0so7645175ad.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:56:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789570524; x=1790175324; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789570587; x=1790175387; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:from:to:cc
          :subject:date:message-id:reply-to:content-type;
-        bh=I052qaxrSO7MreL+XHe4B4oMuzy+yJxrtuNLZAmykZ0=;
-        b=VGph7ymm+M4GpBldEmDKNqg7UiXASUxST6iv/RK3uW5Iml1I3DZODHyFZheEm80QEZ
-         DAkSBjmlflA1xqH3SsbG8W4X6hJNB4H7d6yWwhFa+QWQNR+Ppd9/5Z9pNqrglKQq7EQp
-         IiLhm/MyGoidToNDjK+qwb132FfKdIKa2s3rmfMxcHnolbTd9tjuceVx0GddFFGWPEgD
-         sPtWAdXtepby1vCSrowIY0SKKUr/Hgze9NrehIrqDhcvWed9/M9dVZCGQRgJSQbxQmbw
-         jqsH3JXtmBLsj/riPM2cXnb1NEVsRmzRpPUic0YhmMnWq9CV/uXKJ+73V79evzEfv48i
-         R7qQ==
+        bh=fOtt4epAjEgetEW4Rf7UpxEkjN1u8RJ270fhKCbRhRQ=;
+        b=gpsB+0pXhV5Fpk8oz8ZAIm1e0F4oG/SJmYb8KutcgEoeU5P5gRBEKrOTTOmuVSszWx
+         /sgU9r4nBZP6Ne3OZjTW0ZJNsMaGgR3HYblsJ8JyO9V/bcATeox1PrPLWL6XihGJ12Xo
+         U0gemKPW3fIh5pvfnbrYk9orM+IzDKn3hN/2A8Luoc73QZpAITuQ/U+Lyp6AghAt13P9
+         323JOe8rt8BB0Q+5IpCDQnnVOJFFN83tHNSt4D2xayA7VQCOxZOiMEpijOypzwSjrMRu
+         CV0YVG+9j8Y507nBIm4Hp1LmqNh9sKlMnulMvMb1wWKZlzj0Bhg/MU8TkUgHnkhDvyYw
+         YQpg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789570524; x=1790175324;
+        d=1e100.net; s=20260707; t=1789570587; x=1790175387;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=I052qaxrSO7MreL+XHe4B4oMuzy+yJxrtuNLZAmykZ0=;
-        b=V0zR0+NR865wSuFja86YbxBiXv0Hxb1yzXbA0TwejAmhp1nZ3S1IMIbaRTQS8WWSJb
-         aI7SR63MLrqyaUW2maeMHGQcN9FyCzjzHBMkPEDE6GBXulhnfL7RzSNFqD+/5k7mOr84
-         /8qONZwNs2nf53jdr4dMzsDaCFdxfbCzmbtiQUkjbH2q8ShJrRTRVpcqERnTj3vU0g45
-         ASK2iPIBtaDh1c1VzaS7xmeqX3FeHQUBo/3xSQrTXYGeYZvwpfa3iAu7ElRAuODG1a2N
-         YaMk0JHAZ8qnPdHV84QTFo/3fiTvRIlHG9oOWK4fZdKUU25NVlD53p5AfoxVWE0a73Lm
-         GOMQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxgs48TMygxgj47kSYv6I0qqQqUhhdVA4YkIlnQ4sMxKrIg+rm0AyrrtP2S4rWeRFZBpbo2tXI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mDaR3MsYwXjbSHWuzpHwuSrddrTCbrjyq33m9KJj+HTNNeJuhr
-	WFQ9p2XWCKCKiqHsNHd1mnfMpbVXB+WYnexW5V+mIesSWNOh+ci61WKW
-X-Gm-Gg: AYBFou1wVIGL28trn7VXEdh5iARqivTVAJTKCr8MPeWU0hbWgRqJZQ9BI9SGGrzM+26
-	mRMzeYbUslDWmQNW4c+QgJstLBSEPluPFefE6HFgOFeKeLDUvi//w5epksuNR2d+9go7kDXsNxv
-	SLIituDTFA2gkQO2CIeS2Eot/5kqndM64cjYe+zaa7cQUPvrgRY1QuqeLFsgfrcw99jUWu/jCsy
-	lpIfm0gk3Xr6U0MJJeGU3cKhC//ICdiABTbV9qE5MqlL34bGsE8EG3oXiaVm9bTJNi4nPYIWTf7
-	sT1VA4HygdGXZKE3F2BMWK28DB9LrF14PwR91Ib53/Y+ZD/0esygTUnO/4JGmLObjbiNyGpe9V5
-	OOE4VTMk2ryg2ie1mOeJ15RkrYPijN9/E7vFmSoQjwvQeefiId022W9TMM8SXMqxQO0R5plPjiN
-	Cx4o0RSM8IuzZq0+5fo+FVIytBDMxGh/UK9ADIFL1W8yaKC9ISnys1EMvrKV+hkzOvBDcHyXdIE
-	etcdveEAZttCfPVFtLroAU=
-X-Received: by 2002:a17:903:950:b0:2d9:438e:b70d with SMTP id d9443c01a7336-2dd8dc039edmr63405905ad.1.1789570524293;
-        Wed, 16 Sep 2026 07:55:24 -0700 (PDT)
+        bh=fOtt4epAjEgetEW4Rf7UpxEkjN1u8RJ270fhKCbRhRQ=;
+        b=qbuznsiDsV96UQeZ808S1u9VogSTXrhGMUsfjrEOoXSOCaYtpq6F0lVh8rol6+k/bh
+         WHrGS20eDAGsuSrhDh4ydmVzBjIXKzeNb4f4V39jB60LcIdMUddxPm/wnCOus7OGwyZU
+         uxBWx6ix75wPIoIQQrv9JbV5/yzr5s+JsqR+nT/fELxR32K2cKyF7ILlH8y6Sd2dyKSm
+         Qt81UkI7f7FpXeLljqAF5gyc1cVHBY0OsdX9Gcwper85FvoV8Sn0rqydkJJoAhYPk+SU
+         X9Yz30rN3/H55UkcNqhkdbUuxY3gEKooWH1n0HYydd4e297xjFK/1bRFofSHIhM3u0EH
+         eiRw==
+X-Forwarded-Encrypted: i=1; AKwUvBzN5gChkLVr/jWlJnsnDAyBXxBPLgeZL7CRLRUs/TmW4i8uMEZiphjDxQjZtgbr8+ZhyEPXdlw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mZxgSNRN/A9wOD1H98EPItwrYxGQBGGNJ8lPX7AH1RhYvvtKEL
+	HoRQ/KjPg21QdpG4UheI1Lvm6v4Ot2xEQIOXqFmUxgQNXmhgchXuaKUPPbWDIiqk
+X-Gm-Gg: AYBFou0s2vSxu15Nd7gpi9M/UpRm+K1o3PY8gSOQU9NvaX3Jw5lY14MLW0RY82pPoE/
+	ZO/m/mDBhUpLBBunzZQblTevTZdETGDX53cUP1DTyz18pWBB/PgodYwJYMcVU6ahqDzMySUI/ee
+	bxV52E0Ipz7SZO27bOPU6DLuEkp5C0WJx59o1Zg5ifT42KnwdLiOwhzFzVDFiZfhEXrIGhWY1+O
+	3738LDmyC7JJCjzevif44PSefPMizKOaMP2s3csVC63gUzaXfmZYLnzEep1PIV2xvZ2BzBM+TLy
+	JfIcN1NLFc/yj4gDvtHnpK8gefqycjZPSNIv+UXuLnJNfXmimoTjjE/E+zcNtKK4C4Djkpnhb5h
+	V/FC+kVW+n51Vzv2FM0QNobwmz1niMYffFBQWCRvtwC52NRzQ0raHxyjnTiFeFrWml9zsd2H0VG
+	0a90DLVIsaShy2ZpbkVmTo3ErNxwgP2b5+yPne/30i3hucVG5RCQZ1GzAcSnGCaoXHV7sMvz2w8
+	X21SNyFt/jM
+X-Received: by 2002:a17:902:d588:b0:2dd:7593:8634 with SMTP id d9443c01a7336-2dd8e412565mr65993445ad.13.1789570586585;
+        Wed, 16 Sep 2026 07:56:26 -0700 (PDT)
 Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f06a30sm12944355ad.65.2026.09.16.07.55.23
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8fe00sm13413325ad.12.2026.09.16.07.56.25
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:55:23 -0700 (PDT)
+        Wed, 16 Sep 2026 07:56:26 -0700 (PDT)
 Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 07:55:23 -0700
+Date: Wed, 16 Sep 2026 07:56:25 -0700
 From: Guenter Roeck <linux@roeck-us.net>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: James Seo <james@equiv.tech>, linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (hp-wmi-sensors) Fix use-after-free in
- fungible_show()
-Message-ID: <d63a4830-c627-49b8-81c7-f28ca4a41306@roeck-us.net>
-References: <20260916002926.161595-1-meatuni001@gmail.com>
+To: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+Cc: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+	Krzysztof Kozlowski <krzk+dt@kernel.org>,
+	Conor Dooley <conor+dt@kernel.org>,
+	"linux-hwmon@vger.kernel.org" <linux-hwmon@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-doc@vger.kernel.org" <linux-doc@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	Sanman Pradhan <psanman@juniper.net>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
+ decoding
+Message-ID: <c0a3c877-eeab-4cff-ab2a-bb567f0dc3d1@roeck-us.net>
+References: <20260915164823.160977-1-sanman.pradhan@hpe.com>
+ <20260915164823.160977-2-sanman.pradhan@hpe.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,59 +86,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916002926.161595-1-meatuni001@gmail.com>
+In-Reply-To: <20260915164823.160977-2-sanman.pradhan@hpe.com>
 
-On Wed, Sep 16, 2026 at 05:29:26AM +0500, Muhammad Bilal wrote:
-> nsensor->current_state is dynamically replaced as the sensor's state
-> changes. update_numeric_sensor_from_wobj() does this by freeing the
-> old string and installing a new one:
+On Tue, Sep 15, 2026 at 04:48:35PM +0000, Pradhan, Sanman wrote:
+> From: Sanman Pradhan <psanman@juniper.net>
 > 
-> 	if (strcmp(trimmed, nsensor->current_state)) {
-> 		new_string = hp_wmi_strdup(dev, trimmed);
-> 		if (new_string) {
-> 			devm_kfree(dev, nsensor->current_state);
-> 			nsensor->current_state = new_string;
-> 		}
-> 	}
+> tps53676_identify() reads the USER_DATA_03 phase configuration to count
+> the phases assigned to each channel and derive the number of PMBus pages.
+> In each 16-bit phase descriptor the channel (PAGE) is encoded in bit 4 and
+> the firing order in bits 3:0, but the code tested bit 3 (0x08), which is
+> part of the firing-order field.
 > 
-> This function is only ever called from hp_wmi_update_info() while
-> state->lock is held, so the free-and-replace itself is properly
-> serialized against concurrent updates.
+> TPS53676 supports up to seven phases, so firing-order bit 3 is never set.
+> As a result the existing test classifies every enabled phase as channel A.
+> On a dual-channel configuration the phases assigned to channel B are
+> therefore miscounted as channel A and page 1 is not exposed.
 > 
-> fungible_show(), however, reads the same pointer after the lock has
-> already been dropped:
+> Test the PAGE field (bit 4) instead.
 > 
-> 	err = hp_wmi_update_info(state, info);
-> 	if (err)
-> 		return err;
-> 
-> 	switch (prop) {
-> 	...
-> 	case HP_WMI_PROPERTY_CURRENT_STATE:
-> 		seq_printf(seqf, "%s\n", nsensor->current_state);
-> 		break;
-> 
-> hp_wmi_update_info() takes state->lock internally and releases it
-> before returning, so by the time fungible_show() dereferences
-> nsensor->current_state in seq_printf(), no lock is held. Two
-> processes reading a sensor's current_state debugfs entry at
-> overlapping times (or one reading it while another read of the same
-> sensor triggers a refresh) can race: one thread's seq_printf() can
-> be part-way through printing the string at the moment another
-> thread's call into update_numeric_sensor_from_wobj() frees it with
-> devm_kfree() and installs a new pointer, causing a use-after-free
-> read.
-> 
-> Take state->lock around the read in fungible_show() as well, so it
-> can never run concurrently with the free-and-replace in
-> update_numeric_sensor_from_wobj().
-> 
-> Fixes: 23902f98f8d4 ("hwmon: add HP WMI Sensors driver")
+> Fixes: cb3d37b59012 ("hwmon: (pmbus/tps53679) Add support for TI TPS53676")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> Acked-by: James Seo <james@equiv.tech>
+> Signed-off-by: Sanman Pradhan <psanman@juniper.net>
 
 Applied.
+
+I'll fix the other problem separately.
 
 Thanks,
 Guenter
