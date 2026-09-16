@@ -1,38 +1,37 @@
-Received: from canpmsgout01.his.huawei.com (canpmsgout01.his.huawei.com [113.46.200.216])
+Received: from canpmsgout12.his.huawei.com (canpmsgout12.his.huawei.com [113.46.200.227])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673E446C4BC;
-	Wed, 16 Sep 2026 08:04:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7148C2F7EF1;
+	Wed, 16 Sep 2026 08:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.227
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789545867; cv=none; b=CCA0smYAxUSODosY+r3AUCiIRO30ALrxI4fAFgFE63WtCmQZgz0LvKEuTTyXiG2i4lBiJK15AVBWacC62y8pMR8EcS97rfAkdrPScFi8KUJlpDGbXZ3mbhCZbZTFQM6u9usdR7SIDBfwbyIeSz3qRfjjSkZKvWHunEl6ctMr6zY=
+	t=1789545871; cv=none; b=OUILBA9blJuC/SiCdO01LIq2esgmD77T64mkrt/RayNFk7I6HiNZWUWW37QwVzZLTnUECUtLgkNOm0dvsEwfPQlarO8j+Re+vfw4YfFVH0uu46k7to5x5Jv+/W3uAYc8ZgYBO7AjJLCw0ABS2qvsIBxwSacNr1OutUL8BuiW/dQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789545867; c=relaxed/simple;
-	bh=d4d6oleAEESSodKUXQ7H4/1eWU0GujX1j9FiMqddfuQ=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=WGW/nwZslhB+t4dZyN2AnHOyU4wSsd+10ILtDqFAVbjHXcY4fHKtI51A5yFT2gcjU1c5KDVNuwNGjdXwA1gA476PNuohMXO4jArTlJSWx+pjTJ3fsg2oUO54pVhdlKtE2PgOONrIH7OLMPHj8g8v065pYrfNjJ+XyfxzIq0TOrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=gb9qahvl; arc=none smtp.client-ip=113.46.200.216
+	s=arc-20240116; t=1789545871; c=relaxed/simple;
+	bh=EVtdQtbyKISZisfCLgyMuBDn5wVMNYdc1PaPcGT9VKM=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=dHeI4J9QUYYjL+7aL5OzXB1U4VPwGzqizrwDbHFxC6suQjsxpHgTC0af8vounOcElyVXPw2g0Fds1/pKp92Iew9LMrv9tPAcM2GZ+IPe/KPxBhK2vRaqlWLtN2HCuuC1aYtpKGfLVu9JnFpZ7JS07Ol4t+9bzwjlZCsASkDOzfA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=pvhhQ9Xz; arc=none smtp.client-ip=113.46.200.227
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="gb9qahvl"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="pvhhQ9Xz"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=Jq/o5YCc64Ell41XdScaZncbRs5gyCGI3NZ9mDBN+X4=;
-	b=gb9qahvlhgpwoOgsN3DCkIlfVDrUdNvcesk0KR7XYQu0a8OPAb6gUwB4sCoUXJh1kcgEDJjNB
-	4NF9XtmNqywiiwzt/pKoIv7vnFexE8FFwL2/sLkCfbhuExnSgiRfWNDr3LJjJBqKR6S/3ZrxyOd
-	VhmRvyQz/k/hJy1FPrG9B2M=
-Received: from mail.maildlp.com (unknown [172.19.163.104])
-	by canpmsgout01.his.huawei.com (SkyGuard) with ESMTPS id 4hlB1q5GSgz1T4LY;
-	Wed, 16 Sep 2026 15:52:31 +0800 (CST)
+	bh=pQQVbvEcnC9Lm+sZzx/grxmOBr6oGi2Awq2Ra3qApIA=;
+	b=pvhhQ9XzQmtTFcZ+qUvPHQqE0/yDx+295xk09FibQ/2tywlqxP6i55LhfGYWpA1lcXTd/+0cZ
+	MegAjxOjTXil5S59tL6djYCQtRNZPcnbMTIhowgkl9eBNZ093hbHh1jQUoRjyYFsdvdVU+QEHLo
+	rFMOjFYpFo8IXRhRKUBhFkU=
+Received: from mail.maildlp.com (unknown [172.19.163.163])
+	by canpmsgout12.his.huawei.com (SkyGuard) with ESMTPS id 4hlB2R5XkqznTyp;
+	Wed, 16 Sep 2026 15:53:03 +0800 (CST)
 Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
-	by mail.maildlp.com (Postfix) with ESMTPS id 22AD74057F;
-	Wed, 16 Sep 2026 16:04:13 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id D7DF04048B;
+	Wed, 16 Sep 2026 16:04:08 +0800 (CST)
 Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
  kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Wed, 16 Sep 2026 16:04:12 +0800
+ 15.2.2562.45; Wed, 16 Sep 2026 16:04:07 +0800
 From: Xie Yuanbin <xieyuanbin1@huawei.com>
 To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
 	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
@@ -43,12 +42,10 @@ CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
 	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
 	Xie Yuanbin <xieyuanbin1@huawei.com>
-Subject: [PATCH 5.10.y/5.15.y 2/4] ARM: fix branch predictor hardening
-Date: Wed, 16 Sep 2026 16:00:09 +0800
-Message-ID: <20260916080011.170295-2-xieyuanbin1@huawei.com>
+Subject: [PATCH 5.10.y/5.15.y 1/4] ARM: fix hash_name() fault
+Date: Wed, 16 Sep 2026 16:00:08 +0800
+Message-ID: <20260916080011.170295-1-xieyuanbin1@huawei.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916080011.170295-1-xieyuanbin1@huawei.com>
-References: <20260916080011.170295-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -64,35 +61,39 @@ From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 
 From: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 
-[ Upstream commit fd2dee1c6e2256f726ba33fd3083a7be0efc80d3 ]
+[ Upstream commit 7733bc7d299d682f2723dc38fc7f370b9bf973e9 ]
 
-__do_user_fault() may be called with indeterminent interrupt enable
-state, which means we may be preemptive at this point. This causes
-problems when calling harden_branch_predictor(). For example, when
-called from a data abort, do_alignment_fault()->do_bad_area().
+Zizhi Wo reports:
 
-Move harden_branch_predictor() out of __do_user_fault() and into the
-calling contexts.
+"During the execution of hash_name()->load_unaligned_zeropad(), a
+ potential memory access beyond the PAGE boundary may occur. For
+ example, when the filename length is near the PAGE_SIZE boundary.
+ This triggers a page fault, which leads to a call to
+ do_page_fault()->mmap_read_trylock(). If we can't acquire the lock,
+ we have to fall back to the mmap_read_lock() path, which calls
+ might_sleep(). This breaks RCU semantics because path lookup occurs
+ under an RCU read-side critical section."
 
-Moving it into do_kernel_address_page_fault(), we can be sure that
-interrupts will be disabled here.
+This is seen with CONFIG_DEBUG_ATOMIC_SLEEP=y and CONFIG_KFENCE=y.
 
-Converting do_translation_fault() to use do_kernel_address_page_fault()
-rather than do_bad_area() means that we keep branch predictor handling
-for translation faults. Interrupts will also be disabled at this call
-site.
+Kernel addresses (with the exception of the vectors/kuser helper
+page) do not have VMAs associated with them. If the vectors/kuser
+helper page faults, then there are two possibilities:
 
-do_sect_fault() needs special handling, so detect user mode accesses
-to kernel-addresses, and add an explicit call to branch predictor
-hardening.
+1. if the fault happened while in kernel mode, then we're basically
+   dead, because the CPU won't be able to vector through this page
+   to handle the fault.
+2. if the fault happened while in user mode, that means the page was
+   protected from user access, and we want to fault anyway.
 
-Finally, add branch predictor hardening to do_alignment() for the
-faulting case (user mode accessing kernel addresses) before interrupts
-are enabled.
+Thus, we can handle kernel addresses from any context entirely
+separately without going anywhere near the mmap lock. This gives us
+an entirely non-sleeping path for all kernel mode kernel address
+faults.
 
-This should cover all cases where harden_branch_predictor() is called,
-ensuring that it is always has interrupts disabled, also ensuring that
-it is called early in each call path.
+As we handle the kernel address faults before interrupts are enabled,
+this change has the side effect of improving the branch predictor
+hardening, but does not completely solve the issue.
 
 [ Xie Yuanbin: At the upstream, the following patches are a patch set:
   1. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
@@ -102,120 +103,71 @@ it is called early in each call path.
   3. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
   4. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
   patch 1. and 2. is unneeded for 5.10.y and 5.15.y . This patch backports
-  patch 4. and simply adapts to the context differences. ]
+  patch 3. and simply adapts to the context differences. ]
 
+Reported-by: Zizhi Wo <wozizhi@huaweicloud.com>
+Reported-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Link: https://lore.kernel.org/r/20251126090505.3057219-1-wozizhi@huaweicloud.com
 Reviewed-by: Xie Yuanbin <xieyuanbin1@huawei.com>
 Tested-by: Xie Yuanbin <xieyuanbin1@huawei.com>
 Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
 ---
- arch/arm/mm/alignment.c |  4 ++++
- arch/arm/mm/fault.c     | 39 ++++++++++++++++++++++++++-------------
- 2 files changed, 30 insertions(+), 13 deletions(-)
+ arch/arm/mm/fault.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
 
-diff --git a/arch/arm/mm/alignment.c b/arch/arm/mm/alignment.c
-index bcefe3f51744..758504a28c13 100644
---- a/arch/arm/mm/alignment.c
-+++ b/arch/arm/mm/alignment.c
-@@ -23,6 +23,7 @@
- #include <asm/cp15.h>
- #include <asm/system_info.h>
- #include <asm/unaligned.h>
-+#include <asm/system_misc.h>
- #include <asm/opcodes.h>
- 
- #include "fault.h"
-@@ -809,6 +810,9 @@ do_alignment(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
- 	int thumb2_32b = 0;
- 	int fault;
- 
-+	if (addr >= TASK_SIZE && user_mode(regs))
-+		harden_branch_predictor();
-+
- 	if (interrupts_enabled(regs))
- 		local_irq_enable();
- 
 diff --git a/arch/arm/mm/fault.c b/arch/arm/mm/fault.c
-index 094137cd29c8..4afb076383a8 100644
+index c16d6a293b97..094137cd29c8 100644
 --- a/arch/arm/mm/fault.c
 +++ b/arch/arm/mm/fault.c
-@@ -145,9 +145,6 @@ __do_user_fault(unsigned long addr, unsigned int fsr, unsigned int sig,
- {
- 	struct task_struct *tsk = current;
+@@ -247,6 +247,35 @@ __do_page_fault(struct mm_struct *mm, unsigned long addr, unsigned int fsr,
+ 	return fault;
+ }
  
--	if (addr > TASK_SIZE)
--		harden_branch_predictor();
--
- #ifdef CONFIG_DEBUG_USER
- 	if (((user_debug & UDBG_SEGV) && (sig == SIGSEGV)) ||
- 	    ((user_debug & UDBG_BUS)  && (sig == SIGBUS))) {
-@@ -255,8 +252,10 @@ do_kernel_address_page_fault(struct mm_struct *mm, unsigned long addr,
- 		/*
- 		 * Fault from user mode for a kernel space address. User mode
- 		 * should not be faulting in kernel space, which includes the
--		 * vector/khelper page. Send a SIGSEGV.
-+		 * vector/khelper page. Handle the branch predictor hardening
-+		 * while interrupts are still disabled, then send a SIGSEGV.
- 		 */
-+		harden_branch_predictor();
- 		__do_user_fault(addr, fsr, SIGSEGV, SEGV_MAPERR, regs);
- 	} else {
- 		/*
-@@ -421,16 +420,20 @@ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
-  * We enter here because the first level page table doesn't contain
-  * a valid entry for the address.
-  *
-- * If the address is in kernel space (>= TASK_SIZE), then we are
-- * probably faulting in the vmalloc() area.
-+ * If this is a user address (addr < TASK_SIZE), we handle this as a
-+ * normal page fault. This leaves the remainder of the function to handle
-+ * kernel address translation faults.
-  *
-- * If the init_task's first level page tables contains the relevant
-- * entry, we copy the it to this task.  If not, we send the process
-- * a signal, fixup the exception, or oops the kernel.
-+ * Since user mode is not permitted to access kernel addresses, pass these
-+ * directly to do_kernel_address_page_fault() to handle.
-  *
-- * NOTE! We MUST NOT take any locks for this case. We may be in an
-- * interrupt or a critical region, and should only copy the information
-- * from the master page table, nothing more.
-+ * Otherwise, we're probably faulting in the vmalloc() area, so try to fix
-+ * that up. Note that we must not take any locks or enable interrupts in
-+ * this case.
-+ *
-+ * If vmalloc() fixup fails, that means the non-leaf page tables did not
-+ * contain an entry for this address, so handle this via
-+ * do_kernel_address_page_fault().
-  */
- #ifdef CONFIG_MMU
++static int __kprobes
++do_kernel_address_page_fault(struct mm_struct *mm, unsigned long addr,
++			     unsigned int fsr, struct pt_regs *regs)
++{
++	if (user_mode(regs)) {
++		/*
++		 * Fault from user mode for a kernel space address. User mode
++		 * should not be faulting in kernel space, which includes the
++		 * vector/khelper page. Send a SIGSEGV.
++		 */
++		__do_user_fault(addr, fsr, SIGSEGV, SEGV_MAPERR, regs);
++	} else {
++		/*
++		 * Fault from kernel mode. Enable interrupts if they were
++		 * enabled in the parent context. Section (upper page table)
++		 * translation faults are handled via do_translation_fault(),
++		 * so we will only get here for a non-present kernel space
++		 * PTE or PTE permission fault. This may happen in exceptional
++		 * circumstances and need the fixup tables to be walked.
++		 */
++		if (interrupts_enabled(regs))
++			local_irq_enable();
++
++		__do_kernel_fault(mm, addr, fsr, regs);
++	}
++
++	return 0;
++}
++
  static int __kprobes
-@@ -496,7 +499,8 @@ do_translation_fault(unsigned long addr, unsigned int fsr,
- 	return 0;
- 
- bad_area:
--	do_bad_area(addr, fsr, regs);
-+	do_kernel_address_page_fault(current->mm, addr, fsr, regs);
-+
- 	return 0;
- }
- #else					/* CONFIG_MMU */
-@@ -516,7 +520,16 @@ do_translation_fault(unsigned long addr, unsigned int fsr,
- static int
- do_sect_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
  {
+@@ -261,6 +290,12 @@ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ 
+ 	tsk = current;
+ 	mm  = tsk->mm;
 +	/*
-+	 * If this is a kernel address, but from user mode, then userspace
-+	 * is trying bad stuff. Invoke the branch predictor handling.
-+	 * Interrupts are disabled here.
++	 * Handle kernel addresses faults separately, which avoids touching
++	 * the mmap lock from contexts that are not able to sleep.
 +	 */
-+	if (addr >= TASK_SIZE && user_mode(regs))
-+		harden_branch_predictor();
-+
- 	do_bad_area(addr, fsr, regs);
-+
- 	return 0;
- }
- #endif /* CONFIG_ARM_LPAE */
++	if (addr >= TASK_SIZE)
++		return do_kernel_address_page_fault(mm, addr, fsr, regs);
+ 
+ 	/* Enable interrupts if they were enabled in the parent context. */
+ 	if (interrupts_enabled(regs))
 -- 
 2.55.0
 
