@@ -1,147 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F3B0399011;
-	Wed, 16 Sep 2026 06:25:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1321331EA0
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 06:31:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789539907; cv=none; b=manxoMo5SvlEshQTfq2JiiEeiwIx9A2AWfCncQFmqciVmuqoSuyKXxco3BsUJjrDHr7SQERBoEHSaDIE3iiZ+jBlcv1LsQtFX15MeQLeDnh4SYge35jK7TsmN0R2L9xEdSFZJgj6r8bdV1PxvDo2iy/F9shw5ed+wVGZBZ5Do/s=
+	t=1789540290; cv=none; b=gn28BjGQZQAk7WNoP2GbaHrA2K7Ow6mn1UXYhlG2uVuGXs1loNxcKPWtsBLThIweux7axok7qjeKhtVa2T0j+J3+ly3fu8CEVR81FbgAAoRbf92MTcGrRTXUp7snsIxV2TzxCf/kBrHj1eUvlS8KABES3nzTZp2siuX5stNBnHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789539907; c=relaxed/simple;
-	bh=6e0c/U8DotYKPyZ1BxuhomQMELSOBuXE4EzfatbRGHE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H9GhJxKdc8Se8c/0dzZ3Vd2VjjbcKpVgmeuNqxvqQV6N2/mCR2I1Il3KMSokdZ/3e+zCtCXKZC86xxCZkiP1K8L3gigp5UJc4kyYzxg98sAQC8lD/9qcu+fSpaAcekWRJm1Yb7ttHXAyzxEVmNclIFJWRD0NNmS11D+taLE0QLU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PWlWiHbo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789540290; c=relaxed/simple;
+	bh=Ni7Nb/tkSb8xMBveKfixGMHJTCUSsBx41uEaih62Pk4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KUUE8ihTclVhCU4RtNB2p+CER8iDhCQ1AYKjjfWnEsRS8ZoR4mpAjF9pQNqjZMJQGNhZd/Cj2g38+HaT75+f6KNlmMUAcz0h40uRL0oCliHZzGTz6C7nQStRtIBBr+/vqNpBmKj0hCbcy2tgMmvdFX/nBHbK6aFuaLjldPLYUMA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pL6mji5z; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PWlWiHbo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1279B1F000FF;
-	Wed, 16 Sep 2026 06:25:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789539906;
-	bh=WSAK4OewrbYk1s8dXTIrNF8g5vHL0nZd3Hyf6R+tOGI=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=PWlWiHbozNTNPVYdWeMwfblXPsRUHvZ2LxCu4OsQAnqDtZHViQh9tAFFL5FLlmvFd
-	 A65abK9Fy838XvqboO6LTsjyNPDDws1PJJtUQkHbvhFxwi/oaEqBBz+0TMc5mPGQyi
-	 jlTCNEhOtIZJAyU25bUL0ceA9oQCZFT7aS0PHJj+txmfMM2IOChCjT8Qx9GFnjR+FF
-	 fuuyznnPmKDNkXP0SxhiwW39J7+FtF2xD3g/x9SH57za1goAA0kR9kQJ/CAIS/Mgt0
-	 iDoMcXS33MJIclWt1XP6vWMN/GEF9wtzTeEgsmGOK4JIYT5y2PRxAJ6eO+22Xaof72
-	 j7CHcFhNy6w+Q==
-Message-ID: <2f63b25e-71ca-4af6-83d2-70be2388a55a@kernel.org>
-Date: Wed, 16 Sep 2026 08:25:01 +0200
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pL6mji5z"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso597917a91.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 23:31:27 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789540287; x=1790145087; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=WouBy8LrBhobloOGcs5+4K8UnnGyA8XojKOtb+0NfU4=;
+        b=pL6mji5zB5KPC6uoVGtIQKoGi95xo69J3dQwnXgpRGvKy43PT6QS+Prp6zshRB21WX
+         zxDeNFc+GHOasZiROXri90d1Lb25pVhOLM3ksQXd19AZRYVlHU3dgJFtOuQj58+uTRND
+         NFG5na3ozBv2FpuJm6BWdx8ZN1/Jhwgza4s3umrbzcS1CmyG7qNYQzWUzMrEylBOppQk
+         r4Nn8UTteh70kodW7JJu4F7ev+6rHasqQDqUNDeqgahMHLpH93GRb4mv+JklXGvtMplR
+         HEE1Gw5fcm+G/D17Ex5iz3Wx15cSaiQ94n8k8LUkyUlktzmQG1y28x0Solfvi0hjlaia
+         dFPw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789540287; x=1790145087;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=WouBy8LrBhobloOGcs5+4K8UnnGyA8XojKOtb+0NfU4=;
+        b=GrfK47JZVXPW4eg5FpJ/1Vl9C2IrkuaKmhMID8hXHrBWcpovzKpVPn/qExawSTKzFZ
+         z2iLugNdyGqbcD7CNHub/zqbrsIjw7oi+m8QHVh7oV6ZeS+CLH5ziigj0yP8Ae4Y1yDg
+         eLbW9LVIXb2ELQQf+qKrj4lGlDfd1H/zTuAzWqZmTStZpjHRh3q0uO4ztEZACi2wrSDO
+         NnC9WoWS0L+uYIXqGsiZDyqALtQZ9YXg7mYSDgRjAR9MKjh/Q6Bhnp8CCZoM2uRGQYTS
+         NgrRI0xTozqBeumkWDp0HbLTk0HoU0TLC18lbHfUjyt6Udmsmp8rUqVCHJ7V+ysGGd47
+         by5A==
+X-Forwarded-Encrypted: i=1; AKwUvBw0GOSL/QIgMMcUjfj0EzW2dgp9Za+IrM4ra0Hv+DdbAwhBbhMfyiK01Q8ARfxLo4mVHo/tiLQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kp79aaXqig2YSMNoGm2zmdhYFkjsfPvMHVxz/2zYn/ig4ZEhv4
+	yrOjbiG6/pMCZpH0hWNJo0GNdRSpJXljUurRRMHeCgTrTwjsZ9TF+0wt
+X-Gm-Gg: AYBFou0b5MW+N8ansEnuYt/uUhppgBjhOtSpbY6R4BPmL5AruIUYMsh8EzW8LxP2t7i
+	SYnfd67Cjd0duo2f81UAHmOLXIfMbmStVkXQbQaXoGIx8KOiSkUkHZDI0NF2Awu2Y+nVpUxMy+6
+	F0Ip/Y5wU3Fc+0Ua8F8M65Vt+8u4B2W8P+82WpYGyeOf7HfCD19A/JynSzgPWiYUruFOl8XqNpO
+	n8GJZkwSt3aRMmzKSS+OEKfIDyzwSQpW1B80cX1/T3ZZM1pIivFWuPRLk+x+ccv9O82z7P+VAbQ
+	Bm9p2R3lxCpLh5c7Dco7NfngwgxuzUcW26IEqBnYN/KWGRxI0+8w2R1jCpTUf63gr+EduzxZqf2
+	+qvelHiYx4qZznSVpCr/UhQlkXdeF6oYvZJ6G83pqxHODEj2jGLF27sFcTtyqUo84hGXY1BTYd/
+	iMLNfPENLrqQSPYtlArD27mbAdSn0jSyJP/ugKuep5+KlXQhb+ulhuPomD1fns8DAL
+X-Received: by 2002:a17:90b:582b:b0:39e:f1:b2de with SMTP id 98e67ed59e1d1-39e1e4c54fcmr3564649a91.20.1789540287232;
+        Tue, 15 Sep 2026 23:31:27 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b712ea3sm2906637a91.9.2026.09.15.23.31.23
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 23:31:26 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Kevin Curtis <kevin.curtis@farsite.co.uk>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: wan: farsync: disable PCI device on removal
+Date: Wed, 16 Sep 2026 14:31:18 +0800
+Message-ID: <20260916063118.2924049-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [RESEND PATCH] mm/madvise: use folio_trylock() in the
- cold/pageout PMD split
-To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
-Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, liam@infradead.org, ljs@kernel.org,
- vbabka@kernel.org, jannh@google.com, sashiko-bot <sashiko-bot@kernel.org>,
- stable@vger.kernel.org
-References: <20260912110540.3203010-1-gourry@gourry.net>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <20260912110540.3203010-1-gourry@gourry.net>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
 
-On 9/12/26 13:05, Gregory Price wrote:
-> MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
-> madvise_cold_or_pageout_pte_range().  Two threads doing that to
-> the same THP create spurious failures.
-> 
->   CPU0                          CPU1
->   ----                          ----
->   folio_get()
->   spin_unlock(ptl)
->   folio_lock()
->                                 folio_get()
->                                 spin_unlock(ptl)
->                                 folio_lock()  <- blocks, keeps its ref
->   split_folio()
->     folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
->     -EAGAIN
-> 
-> CPU1 cannot drop its reference until it gets the lock CPU0 holds, so CPU0's
-> split always fails.  folio_trylock() makes CPU1 leave without ever taking a
-> reference.  The PTE branch of this same function already does this, as do
-> madvise_free_pte_range() and madvise_free_huge_pmd().
-> 
-> Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
-> of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
-> /proc/vmstat:
-> 
->                      thp_split_page   thp_split_page_failed
->     before                     3186                     860
->     after                      3200                       0
-> 
-> The short before count is rounds where every thread failed and the
-> advice was dropped for that THP entirely.
+fst_add_one() calls pci_enable_device() to enable the PCI device. The
+probe failure paths call pci_disable_device() to release the matching
+enable reference, but fst_remove_one() does not disable the device
+after a successful probe.
 
-While the split now succeeds, one of both calls will just effectively skip
-processing the page table. SO while CPU0 will succeed with the split, CPU1 would
-just skip the page table.
+As a result, the PCI device enable reference remains unbalanced after
+the driver is removed.
 
-And what happened before?
+Call pci_disable_device() after the existing interrupt, tasklet,
+mapping, DMA and PCI region cleanup to release the enable reference.
 
-Split on CPU0 failed and it would skip the page table. Split on CPU1, however,
-would likely have succeeded?
+This issue was found by manual code inspection.
 
-So this is all far from perfect.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/net/wan/farsync.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-... but this matches what we do further down in the PTE scenario.
-
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-
+diff --git a/drivers/net/wan/farsync.c b/drivers/net/wan/farsync.c
+index 6508c53bdc24..0ea637270ad7 100644
+--- a/drivers/net/wan/farsync.c
++++ b/drivers/net/wan/farsync.c
+@@ -2561,6 +2561,7 @@ fst_remove_one(struct pci_dev *pdev)
+ 				  card->tx_dma_handle_card);
+ 	}
+ 	fst_card_array[card->card_no] = NULL;
++	pci_disable_device(pdev);
+ 	kfree(card);
+ }
+ 
 -- 
-Cheers,
+2.43.0
 
-David
