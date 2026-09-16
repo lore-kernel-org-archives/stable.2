@@ -1,44 +1,34 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39264C33D6
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:56:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A96664C6530;
+	Wed, 16 Sep 2026 18:56:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584976; cv=none; b=p+Yn1rc937sCkkA3mC6GkuOCnZAEzu0g/GTshXBjQQhq1qVTuzOpoKSwH4AupHebnTgX8qXEWk3aAdBbeOOPtEYy6nKWgfqkOB3iB0xfarG0FKFoTbTQi5IefadnhxxjrEetJlsJnPpekg1E4wCkcIWCbsGagUP7iByzLHHFkDU=
+	t=1789585007; cv=none; b=qS2pUoC3k58aTrQ3x+/LS5OSUAYWxN+JLgblSqVdHyBw75mzjpD5R+I3t+dEnKW4CWavAiNK7pgKX62qnRYSTf1Raa0yZ3qtxpnoaoMtG1e2V60yKd9twRQOhdESYEaGRNjnCEWSF//511SOwHQ/VlvP71t8fOzvncLqiE7Y1yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584976; c=relaxed/simple;
-	bh=2V4aJIHH1qzuL2ecIZcWBsrOkoDBoMTAbrS9VLBPMPY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=gt+2KhRwwMS9b/skVLWCbGRHJ/A7AJ4RFslR1Caz5RlSQHyJM4u8x//EBmmKL192kDOj/HdeFXmJlYIGtrmSON5YycHQHhIt8fXXoc1JRCDIyLughpwjZOX0+zBR0veHj/HsiVbuFiWeNmUsBD/kadgs7MDSVcNvqM/RwDbnh7M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D73bNlVu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D73bNlVu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 393B51F0089D;
-	Wed, 16 Sep 2026 18:55:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789584946;
-	bh=gG8DnxpykCPGk+wj544Vmdx2ZHVUXMITri3q8xdP3bs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D73bNlVuwt+2OcNFa3rAMH3BxoxkJNTa5NccIDOnatMqkLQQ7rDeGhz0gJlF3czns
-	 tgx21GiGPrELbg4Jixt5g7aNqGjKI9E43qlZorMiif/py0qKTzBUYEqC9XTU8p1qmd
-	 cMxA+9kc+Hmlmb866SmLDZCAz87flg/bDzeTNSOcWs7ox9i/gvA3ffTa7+k8TqiBey
-	 OenOZElvKZAxusIBV20wREIS1IifwvXMzeWCy66DvKQVpXMsz4NEOMuzao92vCKCsT
-	 228zQ017lCcaWC/JdCuSCafU1ioHVaaOtX0WvPJ1UnUpwrqXW6wNIi2fNQ5f+lFS/b
-	 oC4bmhk3qSxFQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Magdalena Schulfer <magdalena.schulfer@intel.com>,
-	Dawid Osuchowski <dawid.osuchowski@linux.intel.com>,
-	Karol Wachowski <karol.wachowski@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 5/5] accel/ivpu: Validate firmware log buffer metadata
-Date: Wed, 16 Sep 2026 14:55:41 -0400
-Message-ID: <20260916185541.1885084-5-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916185541.1885084-1-sashal@kernel.org>
-References: <2026091601-reply-pointy-7e61@gregkh>
- <20260916185541.1885084-1-sashal@kernel.org>
+	s=arc-20240116; t=1789585007; c=relaxed/simple;
+	bh=QdTJHlvPaT0x8kA6SbOWfo+8feXCZi+nl5EPI1AZoO0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YgSHIGRBbSpMhk3gUb4O1itG5zr/A8BLkPhKlKw5ZRNKGDXhGDL/eZVFF4mB0G/j80mctNR8Is7bPIB0zOuBd3IrbbGiwmtDwc08tFRy6Q5dUypaM2zIr2K9StgKlOv+44hK+sLnNH8I8lx/oiWnUZLvXa8JYW+U9sH5yaECGew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHcz1T5qpqTfRvCA--.24691S2;
+	Thu, 17 Sep 2026 02:56:19 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: iommu@lists.linux.dev
+Cc: joro@8bytes.org,
+	linux-kernel@vger.kernel.org,
+	robin.murphy@arm.com,
+	suravee.suthikulpanit@amd.com,
+	will@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iommu/amd: Fix root bridge reference leak in iommu_init_pci()
+Date: Wed, 16 Sep 2026 18:55:51 +0000
+Message-Id: <20260916185551.2093860-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,181 +36,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHcz1T5qpqTfRvCA--.24691S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtryfXF4fJFyfGF4UJr4Utwb_yoWDCrX_CF
+	yrZa4xJrWrGa1jk3Wjqr13Zrn0kas5uFn3WrZ2gw1fAr10v3WUCrya9F95Jw4UGw4FyF9r
+	Kwn5K34rA3srZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_
+	Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYxBIdaVFxhVjvjDU0xZFpf9x0JUW6w
+	tUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpViF-AAAsM
 
-From: Magdalena Schulfer <magdalena.schulfer@intel.com>
+iommu_init_pci() caches a reference to the root bridge in
+iommu->root_pdev so that iommu_apply_resume_quirks() can reprogram the
+IOMMU on resume without calling pci_get_bus_and_slot(), but nothing
+ever drops that reference again, so it is leaked when the IOMMU is
+freed.
 
-[ Upstream commit 0724afc55c77c36c7feb9a7264b02aa7593c5c2d ]
+Release iommu->root_pdev in free_iommu_one() as well.
 
-The tracing log headers parsed by fw_log_print_buffer() reside in
-DMA-shared BOs that the NPU firmware can write to.
-
-fw_log_from_bo() validated log->header_size and log->size, but
-fw_log_print_buffer() re-read those same fields from shared memory
-afterwards, allowing a TOCTOU where firmware changes them between the
-check and the use, and making the host dereference out-of-bounds
-addresses while printing logs.
-
-Snapshot the validated values once with READ_ONCE() and pass them down
-explicitly in a new struct ivpu_fw_log_desc instead of re-reading them
-from the shared struct.
-
+Fixes: c1bf94ec1e12 ("iommu/amd: Cache pdev pointer to root-bridge")
 Cc: stable@vger.kernel.org
-Fixes: d4e4257afa6e ("accel/ivpu: Add firmware tracing support")
-Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
-Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
-Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
-Link: https://patch.msgid.link/20260901125749.404338-3-dawid.osuchowski@linux.intel.com
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/accel/ivpu/ivpu_fw_log.c | 76 +++++++++++++++++++-------------
- 1 file changed, 45 insertions(+), 31 deletions(-)
+ drivers/iommu/amd/init.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
-index 365f2d782cdde..86001beb91cc9 100644
---- a/drivers/accel/ivpu/ivpu_fw_log.c
-+++ b/drivers/accel/ivpu/ivpu_fw_log.c
-@@ -30,10 +30,17 @@ MODULE_PARM_DESC(ivpu_log_level,
- 		 " error=" __stringify(IVPU_FW_LOG_ERROR)
- 		 " fatal=" __stringify(IVPU_FW_LOG_FATAL));
- 
-+struct ivpu_fw_log_desc {
-+	struct vpu_tracing_buffer_header *log;
-+	u32 header_size;
-+	u32 size;
-+};
-+
- static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
--			  struct vpu_tracing_buffer_header **out_log)
-+			  struct ivpu_fw_log_desc *desc)
- {
- 	struct vpu_tracing_buffer_header *log;
-+	u32 header_size, size;
- 
- 	if ((*offset + sizeof(*log)) > ivpu_bo_size(bo))
- 		return -EINVAL;
-@@ -43,26 +50,32 @@ static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *off
- 	if (log->vpu_canary_start != VPU_TRACING_BUFFER_CANARY)
- 		return -EINVAL;
- 
--	if (log->header_size < sizeof(*log) || log->header_size > 1024) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size);
-+	header_size = READ_ONCE(log->header_size);
-+	size = READ_ONCE(log->size);
-+
-+	if (header_size < sizeof(*log) || header_size > 1024) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", header_size);
- 		return -EINVAL;
- 	}
--	if (log->size < log->header_size) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-+	if ((char *)log + size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", size);
- 		return -EINVAL;
- 	}
--	if ((char *)log + log->size > (char *)ivpu_bo_vaddr(bo) + ivpu_bo_size(bo)) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-+	if (size < header_size) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x < header size 0x%x\n",
-+			 size, header_size);
- 		return -EINVAL;
- 	}
- 
--	*out_log = log;
--	*offset += log->size;
-+	desc->log = log;
-+	desc->header_size = header_size;
-+	desc->size = size;
-+	*offset += size;
- 
- 	ivpu_dbg(vdev, FW_BOOT,
- 		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
--		 log->name, log->write_index, log->size, log->wrap_count, log->header_version,
--		 log->header_size, log->format, log->alignment);
-+		 log->name, log->write_index, size, log->wrap_count, log->header_version,
-+		 header_size, log->format, log->alignment);
- 
- 	return 0;
- }
-@@ -98,11 +111,12 @@ static void fw_log_print_lines(char *buffer, u32 size, struct drm_printer *p)
- 		drm_printf(p, "%s", line);
+diff --git a/drivers/iommu/amd/init.c b/drivers/iommu/amd/init.c
+index 4b155970151d..c92f7e64453a 100644
+--- a/drivers/iommu/amd/init.c
++++ b/drivers/iommu/amd/init.c
+@@ -1811,6 +1811,7 @@ static void __init free_iommu_one(struct amd_iommu *iommu)
+ 	iommu_unmap_mmio_space(iommu);
+ 	amd_iommu_iopf_uninit(iommu);
+ 	pci_dev_put(iommu->dev);
++	pci_dev_put(iommu->root_pdev);
  }
  
--static void fw_log_print_buffer(struct vpu_tracing_buffer_header *log, const char *prefix,
-+static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefix,
- 				bool only_new_msgs, struct drm_printer *p)
- {
--	char *log_data = (void *)log + log->header_size;
--	u32 data_size = log->size - log->header_size;
-+	struct vpu_tracing_buffer_header *log = desc->log;
-+	char *log_data = (void *)log + desc->header_size;
-+	u32 data_size = desc->size - desc->header_size;
- 	u32 log_start = only_new_msgs ? READ_ONCE(log->read_index) : 0;
- 	u32 log_end = READ_ONCE(log->write_index);
- 
-@@ -138,45 +152,45 @@ void
- fw_log_print_all_in_bo(struct ivpu_device *vdev, const char *name,
- 		       struct ivpu_bo *bo, bool only_new_msgs, struct drm_printer *p)
- {
--	struct vpu_tracing_buffer_header *log;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next = 0;
- 
--	while (fw_log_from_bo(vdev, bo, &next, &log) == 0)
--		fw_log_print_buffer(log, name, only_new_msgs, p);
-+	while (fw_log_from_bo(vdev, bo, &next, &desc) == 0)
-+		fw_log_print_buffer(&desc, name, only_new_msgs, p);
- }
- 
- void ivpu_fw_log_mark_read(struct ivpu_device *vdev)
- {
--	struct vpu_tracing_buffer_header *log;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next;
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
--		log->read_index = READ_ONCE(log->write_index);
--		log->read_wrap_count = READ_ONCE(log->wrap_count);
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-+		desc.log->read_index = READ_ONCE(desc.log->write_index);
-+		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
- 	}
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
--		log->read_index = READ_ONCE(log->write_index);
--		log->read_wrap_count = READ_ONCE(log->wrap_count);
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-+		desc.log->read_index = READ_ONCE(desc.log->write_index);
-+		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
- 	}
- }
- 
- void ivpu_fw_log_reset(struct ivpu_device *vdev)
- {
--	struct vpu_tracing_buffer_header *log;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next;
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &log) == 0) {
--		log->read_index = 0;
--		log->read_wrap_count = 0;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-+		desc.log->read_index = 0;
-+		desc.log->read_wrap_count = 0;
- 	}
- 
- 	next = 0;
--	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &log) == 0) {
--		log->read_index = 0;
--		log->read_wrap_count = 0;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-+		desc.log->read_index = 0;
-+		desc.log->read_wrap_count = 0;
- 	}
- }
+ static void __init free_iommu_all(void)
 -- 
-2.53.0
+2.34.1
 
