@@ -1,169 +1,337 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1498A52E042
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:42:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B938501F49
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:42:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602165; cv=none; b=t+W+y0dEwf/ecUtmDWqNxhzkXYyLRfAX0sUamfYKTeG0k9W7pPagvoa/WPJOlZAcKCIqBFMkRjUHQN3qiMQzep+cs53Pda+QM7S87orjxAw9pLc/ATROdeIGtnVPnhcdmgjQVxAhBwWC2YOJWeJ3aktFjZoZzpXfwYg8GOweAb0=
+	t=1789602169; cv=none; b=AxOHiRiVQwx23Jl00umTkVB4Cee7V3uhH+lbdwnrkvv7SW8/gGQ1QGO9en3DrSnRYjRU094vmHH6YuXjQiC8AkI11pNTtgUEruoiQ/LB1aBfYgLolXWXw8uuiBCfPGzKHyDiB4t3xkdGg3+eFI7uM9tvsPwSIBxfrw/H+DQjpyI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602165; c=relaxed/simple;
-	bh=0lX5/us043NZuxYJi8c8HlMBF5h37zNPI2Z0rKmEVL0=;
+	s=arc-20240116; t=1789602169; c=relaxed/simple;
+	bh=ikMXcNY3LfKd2TyQJun2c11pjbLx55LvG99waLaXAhw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pWWS39bjHUBzMpuC5FRD/4USIpAvUZg/ru7H62Jvxgu38Gsgb2csHFz1cVjrNUgH2wRHVwdLRds2YRMSq5ofG+GnnLPeBvGUzl8xsoJo37YZbwxY/rYJ7yDLfsGpYZQdnrXR9RpKMHZ/orYrdsSiB8vdaFB6ptvDz8v9fFJNvZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2nqIqfd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Z9m99/gvCL88gbuxeK3DSnbMWlojwwMwMEuvELOmnlkObxSBuzMe3h1XqDAMOFburYp/eK92IvGN+2GkBWhcC4qbypo/gUNRsDpbLNnF7/W6DmUC7Xpq9RGNrf4hBIhNBXyQSG2HYWSVhJP1dono+ovqCNY5JPnSWCkWXm4Q0lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUrMvIh2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2nqIqfd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53CA21F000FF;
-	Wed, 16 Sep 2026 23:42:43 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUrMvIh2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 67D301F000FF;
+	Wed, 16 Sep 2026 23:42:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789602163;
-	bh=oQdhB7fY8huXihn3P3EKBTrQtuYItfBdsZa6G6FBbSI=;
+	s=k20260515; t=1789602167;
+	bh=cDxq8qHgXkbf6AS35wtjMQWiHUti6ptEwkdYd0yqPg4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D2nqIqfdssfZ+zr2PLTSqd5pv4NWdXk39pbJvjCGsKUNUJB5V6FHGLjiZwbMTCEyI
-	 gRYqfO7L/Ubfn4laoUrfgREn59kRjXQYwopqOwLpxcCtAJ4ouzFQnDf5KdscstL+8H
-	 IZAn38DOt6LHArMhTrM5qcFILFO0nk9zdLD7QL+YlyBJHxpAQEDwAHC4vFFXzHpQKK
-	 Y134rm32b3lxZDzPiL5iKZG59BEZIp2ecanmS0BsrZb+zCk+j4Alp4n8XIBojIxs9i
-	 q+M7c1MTE4BJXOyZ17TkdkVnKxqSOodU3zNNKy5hKfvHKcbDc+tLyBGAcjttDaCH6q
-	 mr3CVW+rW2oKQ==
+	b=gUrMvIh2RSFoxgT2oXhP2RPsYa7f6UNjlcrVYeKzuT/5IlV6d9N5ZiKKYroUc8Z+g
+	 wSWCzv+6UNrD1aCt0QY3YPTqkUtI00YYjADeFngxwlY+xg7En9ssp74tBYIlzxSAuY
+	 F2AfxOE3PTXEv3P/ktQlE1khc29GBwgqHqtbKR0xmHY64xi8jckSVPUOLyJVOBVOKR
+	 7J5MepNwRXAY0zO0agEavAHBHTWIQJpENBk525jMMGIfla4hOlICRlIfX2fUtcI1/A
+	 iHimGPoVbgQGDWe+Uz9PHXiQYb+lsTue4nvDU3nq0G2gDJJ0zmXtR256HP8egyMlcP
+	 0pRNhM0EGApqw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Sashiko AI <sashiko-bot@kernel.org>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Yilin Zhu <zylzyl2333@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tracing: Undo the registration when enabling the histogram trigger fails
-Date: Wed, 16 Sep 2026 19:42:41 -0400
-Message-ID: <20260916234241.3299536-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] net: bridge: use option bits for CFM/MRP frame handlers
+Date: Wed, 16 Sep 2026 19:42:44 -0400
+Message-ID: <20260916234244.3300022-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091612-blazer-ambiguity-e8df@gregkh>
-References: <2026091612-blazer-ambiguity-e8df@gregkh>
+In-Reply-To: <2026091647-deceiver-clinking-5d16@gregkh>
+References: <2026091647-deceiver-clinking-5d16@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit 92383cef66791a0c63a2f27755cadbdb2fbf270b ]
+[ Upstream commit 7a49e6b16f36b8e085521699adbca3e321b6dd0c ]
 
-Commit 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers
-list") described how a trigger that is registered but not on file->triggers
-ends up freed while still on the global named_triggers list, and moved the
-registration down so that hist_trigger_enable() follows it immediately. One
-path still gets there. hist_trigger_enable() adds the trigger and takes it
-straight back out when the event cannot be enabled:
+CFM and MRP register a global br_frame_type whose hlist_node is linked
+into the per-bridge frame_type_list when the first MEP/MRP instance is
+created. Enabling the protocol on multiple bridges therefore inserts the
+same node into multiple lists. Unregistering it on one bridge then
+corrupts list state belonging to another.
 
-	list_add_tail_rcu(&data->list, &file->triggers);
+These handlers can only be installed once per bridge, and they are
+uncommon. Track their per-bridge enable state with net_bridge option
+bits, which already live on the Rx hot cache line, and dispatch the
+matching handler directly from the receive path. Check both bits
+together first as an unlikely case.
 
-	update_cond_flag(file);
+Remove the generic frame_type_list and br_frame_type helpers, which
+have had no other users since CFM and MRP were added. That shrinks
+struct net_bridge by 8 bytes and drops the list walk from the fast
+path. When neither protocol is compiled in, BR_CFM_MRP_OPTS is 0 and
+the compiler prunes the branch.
 
-	if (trace_event_trigger_enable_disable(file, 1) < 0) {
-		list_del_rcu(&data->list);
-		update_cond_flag(file);
-		ret--;
-	}
-
-so the list walk in hist_unregister_trigger() matches nothing, test stays
-NULL, and the ->free() that would call del_named_trigger() is skipped.
-out_unreg falls through to out_free, which frees the trigger anyway:
-
- BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
- Read of size 8 at addr ffff8880091d3160 by task init/1
-  find_named_trigger+0xac/0xc0
-  hist_register_trigger+0xc1/0xa00
-  event_hist_trigger_parse+0x3146/0x6af0
-  event_trigger_write+0xce/0x160
- Freed by task 69:
-  kfree+0x154/0x420
-  trigger_kthread_fn+0xfd/0x160
-
-Leave the trigger where hist_unregister_trigger() can find it and let that
-undo the registration, which is the only code that knows all of what
-cmd_ops->init() took: the named list entry, the hist_pad reference, the
-reference on the trigger a named histogram is shared with, and the copied
-cmd_ops. It also pairs the failed trace_event_trigger_enable_disable(),
-whose sm_ref and buffered event reference are otherwise left behind.
-
-Since ->free() releases trigger_data and, for a trigger that does not share
-its histogram, hist_data with it, out_unreg can no longer fall through to
-out_free. For a trigger that does share, hist_register_trigger() has
-already destroyed the caller's hist_data, so the fall-through was reading
-freed memory there as well.
-
-Move the enable_timestamps check in hist_unregister_trigger() above the
-->free() call for the same reason: hist_data does not outlive it once the
-trigger being removed is the one that owns it.
-
+Fixes: 90c628dd47ff ("net: bridge: extend the process of special frames")
+Fixes: dc32cbb3dbd7 ("bridge: cfm: Kernel space implementation of CFM. CCM frame RX added.")
 Cc: stable@vger.kernel.org
-Fixes: 067fe038e70f ("tracing: Add variable reference handling to hist triggers")
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F00A3D@smtp.kernel.org/
-Link: https://patch.msgid.link/20260907124420.607097-3-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ adapted cleanup to 5.15’s older trigger callbacks and registration order. ]
+Reported-by: Vega <vega@nebusec.ai>
+Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
+Co-developed-by: Yilin Zhu <zylzyl2333@gmail.com>
+Signed-off-by: Yilin Zhu <zylzyl2333@gmail.com>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
+Link: https://patch.msgid.link/0345b9d5aa60ba416f6738ff1b87140f0a749cb8.1788417901.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Adjusted bridge option enum context because BROPT_MDB_OFFLOAD_FAIL_NOTIFICATION and BROPT_FDB_LOCAL_VLAN_0 are absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 22 +++++++++++++---------
- 1 file changed, 13 insertions(+), 9 deletions(-)
+ net/bridge/br_cfm.c     | 11 +++--------
+ net/bridge/br_device.c  |  1 -
+ net/bridge/br_input.c   | 35 ++++++++++++++---------------------
+ net/bridge/br_mrp.c     | 13 +++----------
+ net/bridge/br_private.h | 26 +++++++++++++++-----------
+ 5 files changed, 35 insertions(+), 51 deletions(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 32f9ab82a8810..b501b5b00bf0b 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -5545,11 +5545,12 @@ static int hist_trigger_enable(struct event_trigger_data *data,
- 
- 	update_cond_flag(file);
- 
--	if (trace_event_trigger_enable_disable(file, 1) < 0) {
--		list_del_rcu(&data->list);
--		update_cond_flag(file);
-+	/*
-+	 * On failure the caller undoes the registration, and
-+	 * hist_unregister_trigger() can only find the trigger here.
-+	 */
-+	if (trace_event_trigger_enable_disable(file, 1) < 0)
- 		ret--;
--	}
- 
- 	return ret;
+diff --git a/net/bridge/br_cfm.c b/net/bridge/br_cfm.c
+index d76a0440e2b81..534b033a7f726 100644
+--- a/net/bridge/br_cfm.c
++++ b/net/bridge/br_cfm.c
+@@ -367,7 +367,7 @@ static u32 ccm_tlv_extract(struct sk_buff *skb, u32 index,
  }
-@@ -5628,13 +5629,13 @@ static void hist_unregister_trigger(char *glob, struct event_trigger_ops *ops,
+ 
+ /* note: already called with rcu_read_lock */
+-static int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb)
++int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb)
+ {
+ 	u32 mdlevel, interval, size, index, max;
+ 	const struct br_cfm_common_hdr *hdr;
+@@ -489,11 +489,6 @@ static int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb)
+ 	return 1;
+ }
+ 
+-static struct br_frame_type cfm_frame_type __read_mostly = {
+-	.type = cpu_to_be16(ETH_P_CFM),
+-	.frame_handler = br_cfm_frame_rx,
+-};
+-
+ int br_cfm_mep_create(struct net_bridge *br,
+ 		      const u32 instance,
+ 		      struct br_cfm_mep_create *const create,
+@@ -559,7 +554,7 @@ int br_cfm_mep_create(struct net_bridge *br,
+ 	INIT_DELAYED_WORK(&mep->ccm_tx_dwork, ccm_tx_work_expired);
+ 
+ 	if (hlist_empty(&br->mep_list))
+-		br_add_frame(br, &cfm_frame_type);
++		br_opt_toggle(br, BROPT_CFM_ENABLED, true);
+ 
+ 	hlist_add_tail_rcu(&mep->head, &br->mep_list);
+ 
+@@ -588,7 +583,7 @@ static void mep_delete_implementation(struct net_bridge *br,
+ 	kfree_rcu(mep, rcu);
+ 
+ 	if (hlist_empty(&br->mep_list))
+-		br_del_frame(br, &cfm_frame_type);
++		br_opt_toggle(br, BROPT_CFM_ENABLED, false);
+ }
+ 
+ int br_cfm_mep_delete(struct net_bridge *br,
+diff --git a/net/bridge/br_device.c b/net/bridge/br_device.c
+index 3768cc9c8ecb3..59fd588c1a38b 100644
+--- a/net/bridge/br_device.c
++++ b/net/bridge/br_device.c
+@@ -501,7 +501,6 @@ void br_dev_setup(struct net_device *dev)
+ 	spin_lock_init(&br->lock);
+ 	INIT_LIST_HEAD(&br->port_list);
+ 	INIT_HLIST_HEAD(&br->fdb_list);
+-	INIT_HLIST_HEAD(&br->frame_type_list);
+ #if IS_ENABLED(CONFIG_BRIDGE_MRP)
+ 	INIT_HLIST_HEAD(&br->mrp_list);
+ #endif
+diff --git a/net/bridge/br_input.c b/net/bridge/br_input.c
+index e22088b07e70b..24ebe31dd9eac 100644
+--- a/net/bridge/br_input.c
++++ b/net/bridge/br_input.c
+@@ -303,17 +303,25 @@ static int nf_hook_bridge_pre(struct sk_buff *skb, struct sk_buff **pskb)
+ 	return RX_HANDLER_CONSUMED;
+ }
+ 
++#define BR_CFM_MRP_OPTS \
++	((IS_ENABLED(CONFIG_BRIDGE_CFM) ? BIT(BROPT_CFM_ENABLED) : 0UL) | \
++	 (IS_ENABLED(CONFIG_BRIDGE_MRP) ? BIT(BROPT_MRP_ENABLED) : 0UL))
++
+ /* Return 0 if the frame was not processed otherwise 1
+  * note: already called with rcu_read_lock
+  */
+ static int br_process_frame_type(struct net_bridge_port *p,
+ 				 struct sk_buff *skb)
+ {
+-	struct br_frame_type *tmp;
++	struct net_bridge *br = p->br;
++
++	if (skb->protocol == htons(ETH_P_CFM) &&
++	    br_opt_get(br, BROPT_CFM_ENABLED))
++		return br_cfm_frame_rx(p, skb);
+ 
+-	hlist_for_each_entry_rcu(tmp, &p->br->frame_type_list, list)
+-		if (unlikely(tmp->type == skb->protocol))
+-			return tmp->frame_handler(p, skb);
++	if (skb->protocol == htons(ETH_P_MRP) &&
++	    br_opt_get(br, BROPT_MRP_ENABLED))
++		return br_mrp_process(p, skb);
+ 
+ 	return 0;
+ }
+@@ -407,7 +415,8 @@ static rx_handler_result_t br_handle_frame(struct sk_buff **pskb)
  		}
  	}
  
--	if (unregistered && test->ops->free)
--		test->ops->free(test->ops, test);
+-	if (unlikely(br_process_frame_type(p, skb)))
++	if (unlikely((READ_ONCE(p->br->options) & BR_CFM_MRP_OPTS) &&
++		     br_process_frame_type(p, skb)))
+ 		return RX_HANDLER_PASS;
+ 
+ forward:
+@@ -448,19 +457,3 @@ rx_handler_func_t *br_get_rx_handler(const struct net_device *dev)
+ 
+ 	return br_handle_frame;
+ }
 -
- 	if (hist_data->enable_timestamps) {
- 		if (!hist_data->remove || unregistered)
- 			tracing_set_time_stamp_abs(file->tr, false);
- 	}
-+
-+	if (unregistered && test->ops->free)
-+		test->ops->free(test->ops, test);
+-void br_add_frame(struct net_bridge *br, struct br_frame_type *ft)
+-{
+-	hlist_add_head_rcu(&ft->list, &br->frame_type_list);
+-}
+-
+-void br_del_frame(struct net_bridge *br, struct br_frame_type *ft)
+-{
+-	struct br_frame_type *tmp;
+-
+-	hlist_for_each_entry(tmp, &br->frame_type_list, list)
+-		if (ft == tmp) {
+-			hlist_del_rcu(&ft->list);
+-			return;
+-		}
+-}
+diff --git a/net/bridge/br_mrp.c b/net/bridge/br_mrp.c
+index a837ff7d6f36d..79d6bc62179e2 100644
+--- a/net/bridge/br_mrp.c
++++ b/net/bridge/br_mrp.c
+@@ -6,13 +6,6 @@
+ static const u8 mrp_test_dmac[ETH_ALEN] = { 0x1, 0x15, 0x4e, 0x0, 0x0, 0x1 };
+ static const u8 mrp_in_test_dmac[ETH_ALEN] = { 0x1, 0x15, 0x4e, 0x0, 0x0, 0x3 };
+ 
+-static int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb);
+-
+-static struct br_frame_type mrp_frame_type __read_mostly = {
+-	.type = cpu_to_be16(ETH_P_MRP),
+-	.frame_handler = br_mrp_process,
+-};
+-
+ static bool br_mrp_is_ring_port(struct net_bridge_port *p_port,
+ 				struct net_bridge_port *s_port,
+ 				struct net_bridge_port *port)
+@@ -486,7 +479,7 @@ static void br_mrp_del_impl(struct net_bridge *br, struct br_mrp *mrp)
+ 	kfree_rcu(mrp, rcu);
+ 
+ 	if (hlist_empty(&br->mrp_list))
+-		br_del_frame(br, &mrp_frame_type);
++		br_opt_toggle(br, BROPT_MRP_ENABLED, false);
  }
  
- static bool hist_file_check_refs(struct trace_event_file *file)
-@@ -5833,8 +5834,11 @@ static int event_hist_trigger_func(struct event_command *cmd_ops,
- 		goto out_unreg;
- enable:
- 	ret = hist_trigger_enable(trigger_data, file);
--	if (ret)
--		goto out_unreg;
-+	if (ret) {
-+		cmd_ops->unreg(glob+1, trigger_ops, trigger_data, file);
-+		/* The unregister frees trigger_data, skip out_free */
-+		goto out;
-+	}
+ /* Adds a new MRP instance.
+@@ -536,7 +529,7 @@ int br_mrp_add(struct net_bridge *br, struct br_mrp_instance *instance)
+ 	rcu_assign_pointer(mrp->s_port, p);
  
- 	se_name = trace_event_name(file->event_call);
- 	se = find_synth_event(se_name);
+ 	if (hlist_empty(&br->mrp_list))
+-		br_add_frame(br, &mrp_frame_type);
++		br_opt_toggle(br, BROPT_MRP_ENABLED, true);
+ 
+ 	INIT_DELAYED_WORK(&mrp->test_work, br_mrp_test_work_expired);
+ 	INIT_DELAYED_WORK(&mrp->in_test_work, br_mrp_in_test_work_expired);
+@@ -1241,7 +1234,7 @@ static int br_mrp_rcv(struct net_bridge_port *p,
+  * normal forwarding.
+  * note: already called with rcu_read_lock
+  */
+-static int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb)
++int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb)
+ {
+ 	/* If there is no MRP instance do normal forwarding */
+ 	if (likely(!(p->flags & BR_MRP_AWARE)))
+diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
+index 3854ea1a51547..c2d4e127c799e 100644
+--- a/net/bridge/br_private.h
++++ b/net/bridge/br_private.h
+@@ -486,12 +486,13 @@ enum net_bridge_opts {
+ 	BROPT_VLAN_BRIDGE_BINDING,
+ 	BROPT_MCAST_VLAN_SNOOPING_ENABLED,
+ 	BROPT_MST_ENABLED,
++	BROPT_CFM_ENABLED,
++	BROPT_MRP_ENABLED,
+ };
+ 
+ struct net_bridge {
+ 	spinlock_t			lock;
+ 	spinlock_t			hash_lock;
+-	struct hlist_head		frame_type_list;
+ 	struct net_device		*dev;
+ 	unsigned long			options;
+ 	/* These fields are accessed on each packet */
+@@ -919,16 +920,6 @@ int nbp_backup_change(struct net_bridge_port *p, struct net_device *backup_dev);
+ int br_handle_frame_finish(struct net *net, struct sock *sk, struct sk_buff *skb);
+ rx_handler_func_t *br_get_rx_handler(const struct net_device *dev);
+ 
+-struct br_frame_type {
+-	__be16			type;
+-	int			(*frame_handler)(struct net_bridge_port *port,
+-						 struct sk_buff *skb);
+-	struct hlist_node	list;
+-};
+-
+-void br_add_frame(struct net_bridge *br, struct br_frame_type *ft);
+-void br_del_frame(struct net_bridge *br, struct br_frame_type *ft);
+-
+ static inline bool br_rx_handler_check_rcu(const struct net_device *dev)
+ {
+ 	return rcu_dereference(dev->rx_handler) == br_get_rx_handler(dev);
+@@ -2033,6 +2024,7 @@ int br_mrp_parse(struct net_bridge *br, struct net_bridge_port *p,
+ bool br_mrp_enabled(struct net_bridge *br);
+ void br_mrp_port_del(struct net_bridge *br, struct net_bridge_port *p);
+ int br_mrp_fill_info(struct sk_buff *skb, struct net_bridge *br);
++int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb);
+ #else
+ static inline int br_mrp_parse(struct net_bridge *br, struct net_bridge_port *p,
+ 			       struct nlattr *attr, int cmd,
+@@ -2056,6 +2048,11 @@ static inline int br_mrp_fill_info(struct sk_buff *skb, struct net_bridge *br)
+ 	return 0;
+ }
+ 
++static inline int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb)
++{
++	return 0;
++}
++
+ #endif
+ 
+ /* br_cfm.c */
+@@ -2064,6 +2061,7 @@ int br_cfm_parse(struct net_bridge *br, struct net_bridge_port *p,
+ 		 struct nlattr *attr, int cmd, struct netlink_ext_ack *extack);
+ bool br_cfm_created(struct net_bridge *br);
+ void br_cfm_port_del(struct net_bridge *br, struct net_bridge_port *p);
++int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb);
+ int br_cfm_config_fill_info(struct sk_buff *skb, struct net_bridge *br);
+ int br_cfm_status_fill_info(struct sk_buff *skb,
+ 			    struct net_bridge *br,
+@@ -2088,6 +2086,12 @@ static inline void br_cfm_port_del(struct net_bridge *br,
+ {
+ }
+ 
++static inline int br_cfm_frame_rx(struct net_bridge_port *port,
++				  struct sk_buff *skb)
++{
++	return 0;
++}
++
+ static inline int br_cfm_config_fill_info(struct sk_buff *skb, struct net_bridge *br)
+ {
+ 	return -EOPNOTSUPP;
 -- 
 2.53.0
 
