@@ -1,130 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61EC34C33CF
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:54:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E997521203;
+	Wed, 16 Sep 2026 16:54:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577657; cv=none; b=Qbd49nyPQY7sJpgXeiXFnUUXRibqiv+87TOT7dC8IYDUi7VWp12LzF0opHDXDFUH23yjMSBZGbXnv2bm7OnUPXaHUjiqNRPSNBuDMD89SbW4kJdyJNOs1eR7YswCT6TdhX2BiLhITxqaeNLUnWNk3yh6zgyAyG8SL77/cJMMnSk=
+	t=1789577681; cv=none; b=fDuVPOdYjwNhf6QDV7bkkRwnxRCxMpVxe2aJ8OR+UPPdKMzGRWo3oPFVNDwhzcJwZO3qWO+bj3DMtIMy9WgjoM4E4xsB1zBtVlQNGmcwsFg52ZZm1E8LS91nngdS2pzRyQz8sugKY7B3/FwzksTf5nU0PdpaD1DqTZZTLRx9S7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577657; c=relaxed/simple;
-	bh=vMvHqd/dg31Xp5isiPFQGQlRB7ZUl5abb6ZtfNJXziM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UbGc5OUyxRB7dYfbUjRyiaODfC9jBTfyJ9EI0OH40uDoud0Q5v1cUeSYkcF5ZV5JOUND3hlWxMcim5ugLuRrjHgqXruZuo52kx2hLBf969AKnU7vjk+yMsaNw31nAZv72rrl4k4LrDwRYOYE0Xo4ftcZXXzUtoI3kU2jhZie/wg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jYw5t+Wk; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jYw5t+Wk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0F5F21F00893;
-	Wed, 16 Sep 2026 16:54:07 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577648;
-	bh=yZSXWkjE+xWZJs7nIo0hfpXPOzGO3MHSGhf+VqTZOKc=;
-	h=Subject:To:Cc:From:Date;
-	b=jYw5t+WkjF5PfJYWB6YzdEyWFyjXebN144WsqHBTZZRSYGyLrSmOh4glF2kAOUtAp
-	 LbG4UY4a6O0n4XBimwsPuFYkgrj9f9TSk4cEsKi2h+GG+H7qTeZ1/ZMEqhMl7OXsQs
-	 u4CPRo6DldsKSBaANn44QlMMfATJs6BsbcXge9K0=
-Subject: FAILED: patch "[PATCH] smb: client: avoid using uninitialized SIDs in" failed to apply to 6.1-stable tree
-To: pc@manguebit.org,bharathsm@microsoft.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:49:30 +0100
-Message-ID: <2026091629-whiny-coveted-cab9@gregkh>
+	s=arc-20240116; t=1789577681; c=relaxed/simple;
+	bh=6e23mqm25si6H1wh1ucL0DzKHh3dU3bcDqWPZtiZtbw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZYHv0+1Tt1fXjIKuASmuBr1C8naHlhcKjILtJE4UxjhDT86buB3XKfqFMaszBJAi+S05W8hh03aLvACW4Of3l+fFWD0rFJbC3LI+L7EJ1ZN6/fg067zcdIGv4xWiM0b2Xbi96sVAAk9KSibLOF/Rrt/wxM1SdbYOnEO0IkVb/oo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3pkC7yapqoQhuCA--.22465S2;
+	Thu, 17 Sep 2026 00:54:19 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: johan@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	oliver@neukum.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] USB: sierra: Fix urb leak in sierra_submit_delayed_urbs()
+Date: Wed, 16 Sep 2026 16:53:52 +0000
+Message-Id: <20260916165352.2085480-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3pkC7yapqoQhuCA--.22465S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kw45Cw4fWry5Zw13uFWruFg_yoW8GF13pr
+	WYgr4akr1DJF15Aw47Cw15uFyFvanFyr9Ik3y0vrW3ZF15Ja4SgFy8XwsIgr1UA397Ja4a
+	qw42grW5WryqkrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
+	d-PUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEMA2qqpVhUQgAAsi
 
+sierra_submit_delayed_urbs() takes a reference to each delayed urb
+with usb_get_from_anchor() before submitting it. The submit failure
+path releases the reference with usb_free_urb(), but on the success
+path the reference is never dropped: the urb is only anchored in the
+active list and the USB core unanchors it on completion, leaving the
+reference returned by usb_get_from_anchor() dangling so the urb
+object is never freed.
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Drop the reference with usb_put_urb() after a successful submission,
+matching the reference handling in sierra_write() and the sierra_close()
+drain loop. Skip the rest of the loop body with continue on the error
+path, which already frees the urb.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x da6e25842431982d5a53cf00d925b98c690f4467
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091629-whiny-coveted-cab9@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From da6e25842431982d5a53cf00d925b98c690f4467 Mon Sep 17 00:00:00 2001
-From: Paulo Alcantara <pc@manguebit.org>
-Date: Sun, 6 Sep 2026 14:40:39 -0300
-Subject: [PATCH] smb: client: avoid using uninitialized SIDs in
- cifs_posix_to_fattr()
-
-cifs_posix_to_fattr() ignores the return value of posix_info_parse().
-When a malformed POSIX directory entry is encountered (e.g. invalid
-SID lengths from an untrusted server), posix_info_parse() returns -1
-without populating the 'parsed' struct.  The uninitialized stack
-memory in parsed.owner and parsed.group is then passed to
-sid_to_id(), which processes the garbage bytes and passes them to
-request_key() to construct a SID string, potentially leaking kernel
-stack contents to the userspace idmap daemon.
-
-Fix this by checking the return value and skipping the SID-to-id
-mapping when parsing fails.  The remaining fattr fields (timestamps,
-mode, etc.) are populated directly from the 'info' pointer so they
-are unaffected.
-
-Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40manguebit.org
-Closes: https://sashiko.dev/#/patchset/20260906181540.647469-1-pc%40manguebit.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Fixes: e6929a9020ac ("USB: support for autosuspend in sierra while online")
 Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/usb/serial/sierra.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-index 1ea84f4ada39..9530e5b01564 100644
---- a/fs/smb/client/readdir.c
-+++ b/fs/smb/client/readdir.c
-@@ -244,8 +244,9 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- {
- 	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 	struct smb2_posix_info_parsed parsed;
-+	int rc;
+diff --git a/drivers/usb/serial/sierra.c b/drivers/usb/serial/sierra.c
+index 6e443aacae07..c11259a8e66c 100644
+--- a/drivers/usb/serial/sierra.c
++++ b/drivers/usb/serial/sierra.c
+@@ -977,7 +977,9 @@ static int sierra_submit_delayed_urbs(struct usb_serial_port *port)
+ 			spin_lock(&portdata->lock);
+ 			portdata->outstanding_urbs--;
+ 			spin_unlock(&portdata->lock);
++			continue;
+ 		}
++		usb_put_urb(urb);
+ 	}
  
--	posix_info_parse(info, NULL, &parsed);
-+	rc = posix_info_parse(info, NULL, &parsed);
- 
- 	memset(fattr, 0, sizeof(*fattr));
- 	fattr->cf_uniqueid = le64_to_cpu(info->Inode);
-@@ -284,10 +285,15 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 
- 	fattr->cf_uid = cifs_sb->ctx->linux_uid;
- 	fattr->cf_gid = cifs_sb->ctx->linux_gid;
--	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
--		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
--	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
--		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	if (rc < 0) {
-+		cifs_dbg(VFS, "%s: failed to parse SIDs: %d\n",
-+			 __func__, rc);
-+	} else {
-+		if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+			sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-+		if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+			sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	}
- }
- 
- static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
+ 	if (ec)
+-- 
+2.34.1
 
