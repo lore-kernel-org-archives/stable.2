@@ -1,200 +1,112 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.17])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6963D4D0A05;
-	Wed, 16 Sep 2026 23:26:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.17
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601209; cv=none; b=E5D751v60JLaRUeEvbiDdIv2niku6dN/d3jxIJuqTca1jYq041tBM0+vNOBC5NqlcrW9tNnBUc1rONUsDzAaQ1A4pMcY2/ChUbf7z+NniP9uFPK2BY9E213KCdcxF4wRFtTDukO3as200ezUYBgUZSut+qEcZ6++tUD9R4/GQQA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601209; c=relaxed/simple;
-	bh=IENOVcYtYsbWwSqusBc7BQfxm1iixDKMq7rNodyy1DM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=JSIgxkfDu9RPhy5Tf6W/7AA1ib5NW20j81MlUYvykryTLlcRix1uUTDQS+X3NNaQWdfX3GGkYxIz2vXxK6cf1eY9Y+ulWe+oZA8NzmmngVnixpvXd9hht+uMRT02eAHab0znw55rfV96wJEY/DhfdToL5X+lO6+1ZYVtOrgLBvo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=C3TnrklC; arc=none smtp.client-ip=198.175.65.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D55A37BE75
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:29:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.225.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789601370; cv=pass; b=IEyn9GrQZmQYQbaqGbTLbRblrdwVQ/6XH41cVnd+9WwMqVHgb96YiyCWZ2r3uY904urvITiLXikgkvrHl00FNF2niJL9UL8aXvqp8qzhcRWNmE7/PfyTU1a/LE+c0xhhC6oRjjFE0pMycoQtYmREEadCBA3CA0OPk7HWZ8Vt72s=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789601370; c=relaxed/simple;
+	bh=D7Ge9X6Ztqu/7FdccyRhbKVgUi2xAiktn40DLZZXjTk=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=lJ9Fx0pG4dUxfOG9clj4Y7pvLBsam4QeVWnNieEHNGqFjsYjeNUIggZNN+FDEl/YvmSwelXIv3iP5Le01HjhnyxXCCk36dVNhIORa38T6cU/gr05eX9h4t+FyGRi3zZzQft4LrxCKeip5LbESRwKjwkf7vC9U6T73s41bQEbQ4c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=nev/0QPB; arc=pass smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="C3TnrklC"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789601209; x=1821137209;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=IENOVcYtYsbWwSqusBc7BQfxm1iixDKMq7rNodyy1DM=;
-  b=C3TnrklCrKzoW3nWRQTWGOGLIm37t9AeykLPORiKCKyrq/cMXK42Sram
-   9QYvRj9r8N4Rw9fTrmPJ9SxvwNTkXbyMtzC0jrmWbXqCnfx1mdcnQQ9pe
-   Xkr8TsY6G2zWslbAr7Up7V/uASrU+D92wviV6iEv+4+0UKNI6DJZBKqd3
-   yrHg/E3q7auQf5KHW7xsUqZNH1Qn4YtxggAwJASq8uJuqNMf2tqDd9wS6
-   1Y3VUx/fmh5D5EhkccCV7JRDRBqKgMLi6E64m/42F1OY6eHHS3PpcGmAJ
-   AZC8wkydoLsBGxmP5CQ9PWbjnDoq2AYfgNil+zJ1uA1nZ13PS1cGV9IMk
-   w==;
-X-CSE-ConnectionGUID: rFtaU3pdQA+hHw7tTknu5w==
-X-CSE-MsgGUID: Y3Mn/XwvTtOb1E4MzOgJxw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90008527"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90008527"
-Received: from orviesa007.jf.intel.com ([10.64.159.147])
-  by orvoesa109.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 16:26:48 -0700
-X-CSE-ConnectionGUID: M9kAp7mCScKqJ296OMLjmw==
-X-CSE-MsgGUID: 1Fj8XpchQQiTMPSOCo9kvg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="273457098"
-Received: from chang-linux-3.sc.intel.com (HELO chang-linux-3) ([172.25.66.174])
-  by orviesa007.jf.intel.com with ESMTP; 16 Sep 2026 16:26:47 -0700
-From: "Chang S. Bae" <chang.seok.bae@intel.com>
-To: linux-kernel@vger.kernel.org
-Cc: x86@kernel.org,
-	rust-for-linux@vger.kernel.org,
-	tglx@kernel.org,
-	mingo@redhat.com,
-	bp@alien8.de,
-	dave.hansen@linux.intel.com,
-	hpa@zytor.com,
-	ojeda@kernel.org,
-	nathan@kernel.org,
-	boqun@kernel.org,
-	gary@garyguo.net,
-	bjorn3_gh@protonmail.com,
-	lossin@kernel.org,
-	a.hindborg@kernel.org,
-	aliceryhl@google.com,
-	tmgross@umich.edu,
-	dakr@kernel.org,
-	daniel.almeida@collabora.com,
-	tamird@kernel.org,
-	acourbot@nvidia.com,
-	work@onurozkan.dev,
-	chang.seok.bae@intel.com,
-	Omar Avelar <omar.avelar@intel.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v3] x86/build/64: Prevent native builds from generating EGPR use
-Date: Wed, 16 Sep 2026 23:00:03 +0000
-Message-ID: <20260916230003.1144622-1-chang.seok.bae@intel.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="nev/0QPB"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f6350f91so130910f8f.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:29:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789601367; cv=none;
+        d=google.com; s=arc-20260327;
+        b=T9hQX0+GNldQMCRp+36daiqUoxGRvoSJ6vBp89Wsv6Ab4WW0Xk18vMnDVAHPFVAlEN
+         qGeegD60ZXwGyml3uT6Rg01EdQLBIijr6NYzQgW+OjJjnXlmzClIg/EZo9ZmxwSbwI5q
+         RIHO78IV9XZRHjvLAXDInGptUir7qppedLSfbY4o8kb/9Y7auSMP6ixsK1ljjZLr7yHU
+         4cA0kGCbMr/SwTuSxT0hYHmpyGzpsQToDTVj7bJ2GFKtSwtBsqxl05BsWlfBL7MmgQUk
+         Y/gXPf6pZ+rfTcT2ChgrUbAqSDvmvf+K+TOMY8x1MBTBLpKT4F89V5tJW8KqfCjg28iB
+         0Ubw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=D7Ge9X6Ztqu/7FdccyRhbKVgUi2xAiktn40DLZZXjTk=;
+        fh=POOphwEVYGzlHRPIsys3UH85zC88NE35Vq+MDMsU0EY=;
+        b=cPYlQcJiybudMOrhUUyHVej/3BLu2Av+pa6ojRWToC0aRAgMc/iyvIcPYYsBE+aPm4
+         CnjN6PvGG69g9JBpnXeQd/8yswKOsE0rozHg3Ws8N/Fx9NZEg4nElAWaoV/ArEV8uoNi
+         kfJuhJmj+aguhCc7lQ5N7dyansv9cyeYvDmQsvWsXjnc+pVVEKrtZttJjGPSYsw6Ok6y
+         Zh6pgks0zKFv5rjdrJJN9VdAvb1u8cz92vCnjOJYA3P0/6GqQ67wya+IWIdlaDu0lcwE
+         dKQtx7YMZSd6rPkyGpAse8o9d4b+J8ZI4tLnYFu4Qgt7Tv3rT59lexJruVJsG7pyjDAM
+         eTrw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789601367; x=1790206167; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=D7Ge9X6Ztqu/7FdccyRhbKVgUi2xAiktn40DLZZXjTk=;
+        b=nev/0QPB89obwouNCN1NN4bGfl3wgpsyy28lADnEX3Ye8D0rzEQSJ3FogELwuLBsy3
+         LCx9ptU4JJrKEd3LtzzdhoZGurIGhLFLLJKYKi2Rbg+NKcm71xEaFaXDgv6oN8+u7mn1
+         Hk86e+2OxX70Iy6Il6W1H6qwJV+uyPBRxSellixHMyRM3sdumRArJSfnbCbhHyiv6YO0
+         GkayeUVu1OKbp3Av9qj8h/KTbXNcsC9VQJAixfpEYtoqzaD2lMhrymJgzlU1/Eu3yPkQ
+         LCgj+94B7n5a3dkQy4piGCYPRXAHO7IjHt3cn/QJH5MeU2MG5Cb0YGmVB6/0Icu9RbDK
+         4KDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789601367; x=1790206167;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=D7Ge9X6Ztqu/7FdccyRhbKVgUi2xAiktn40DLZZXjTk=;
+        b=VfWe4ZOrTwRuihMA/2J485nGkGeSiApP3r43t6nwjJ+trrcL0ZRWEbd5CB5xZHqZUC
+         UcJHcC8TDy1I+04B3RTur26eiYb0jKp7nUiqhizwCV3OrbzMUDbIT8haTHQa9pe5vlmx
+         HIv/Hbiffea5XCgLnp5430zw84Toj5ezChRRLX/O/TyoF5RxzTfAcafEV57tFvdxel2l
+         Mk7R9JJQzf54Di8HofAaBJRNR/eXE5miVgPjLjGwXfgBA08foMDIvsHql88dMKDgjCwS
+         +Lc7GFwrQJknTR/cFiGYbJSyM24AsTca6DbRm71FGanec6V9P4iMvEKlXiDea/iXX0e+
+         YWCg==
+X-Forwarded-Encrypted: i=1; AKwUvBxR+sIxdOPiznUMFynSFSHaZCrVFz8jRyKM6pTF3P8yc8BknT1TszmjdHae0nRUX7tb1NKPNrM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrnXAbexGHG0Mu9MzGP9W1BmBUFTcy3Xkbtpw56XhGJNP4T+zP
+	i+93XBUyIpU81mzz1SdIF2B1fb2yM7tTuNV6HvMnsPWd7aEzFgc/EefmmTuQGK0RV+E64dZhR2z
+	tz9hY4t3FiypzW7bCTuK+n+Ng4u/1XKV68dFScT3e
+X-Gm-Gg: AYBFou0QQ13GvvhPqPjNlfIL3rdzd5Q4H5YrDDVyImFLe1txTY0DztOulPDi+uap0Kb
+	A/x8oD1XVSh7E2F7vxrz67IRpHEQ0Fz8bhRSYKPpNHeFr32Lhgu6HuRISlP9wefwJmb4ISClLIu
+	mJ0UhZ6u3q30ZwCILcmdRv0PUvM+rPb1aR4/dI5hgQ6Lxt+nbOrbvABlGOZW6zExvjyBbZ9ujQY
+	J026npsPtU0YW6RZK7Fx5Qy1dtmiogSD28khFk0iy3NqmOynp9vavDjjhH0KZiMMWkvlLo/F1oI
+	9jB1Vd3W3Uj+RGfcK0hga4g/JQ6nolIzcpi1YBMUCgnkhvAKptSAoonEdUViSi4+7BMMFvDNmyW
+	UPMUh7fQVAT3XIgdr7NgNKA==
+X-Received: by 2002:a05:6000:26c1:b0:486:f778:6c85 with SMTP id
+ ffacd0b85a97d-4870cf09d5emr5758313f8f.6.1789601366474; Wed, 16 Sep 2026
+ 16:29:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916120833.593407-1-cmllamas@google.com>
+In-Reply-To: <20260916120833.593407-1-cmllamas@google.com>
+From: Alice Ryhl <aliceryhl@google.com>
+Date: Thu, 17 Sep 2026 00:29:13 +0100
+X-Gm-Features: AcwNN1V9N7YXEIm0W9q5OmEBgRhV0s-HOmOy_FIv4QrXWCM7mnZqSF2SW0U7XeE
+Message-ID: <CAH5fLghBWzoVUqQ7oRezwM+5T5j-sMTjNi2w-urNA=YAT9yM2Q@mail.gmail.com>
+Subject: Re: [PATCH] rust_binderfs: add transaction_report feature entry
+To: Carlos Llamas <cmllamas@google.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, =?UTF-8?B?QXJ2ZSBIasO4bm5ldsOlZw==?= <arve@android.com>, 
+	Todd Kjos <tkjos@android.com>, Christian Brauner <brauner@kernel.org>, kernel-team@android.com, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Omar reported this broad concern to me, when resolving a separate issue
-with his custom module. CONFIG_X86_NATIVE_CPU=y allows builds to
-opportunistically emit instructions using %r16-%r31 (EGPRs) when the
-build host supports APX since the commit:
+On Wed, Sep 16, 2026 at 1:08=E2=80=AFPM Carlos Llamas <cmllamas@google.com>=
+ wrote:
+>
+> rust_binderfs is missing the equivalent of commit f37b55ded8ed ("binder:
+> add transaction_report feature entry"), which adds "transaction_report"
+> to the binderfs feature list. This helps userspace determine if the
+> BINDER_CMD_REPORT from the generic netlink API is supported.
+>
+> Cc: stable@vger.kernel.org
+> Fixes: f14e0c8183bc ("rust_binder: report netlink transactions")
+> Signed-off-by: Carlos Llamas <cmllamas@google.com>
 
-  ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
-
-But the kernel is not yet prepared to use new registers internally. For
-example, there is no context-switch support for general in-kernel use.
-
-Explicitly disable EGPR use when building with -march=native.
-
-For C, since GCC 14 and Clang 18, both compilers support suppressing EGPR
-use with -mno-apx-features=egpr, whose availability can be detected via
-cc-option.
-
-For Rust, pass features=-apxf through the generated JSON to avoid
-unstable-feature warnings [1]. Note Rust only accepts the option to
-disable APX instructions entirely or not.
-
-Support for this gating also depends on the Rust/LLVM combination. Rust
-1.88 introduced the `apxf` feature option, but versions prior to 1.93 may
-emit an `apxf` attribute to the backend that only LLVM 23 or later can
-interpret. Restrict native Rust builds accordingly.
-
-Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to locally optimize the kernel with '-march=native'")
-Reported-by: Omar Avelar <omar.avelar@intel.com>
-Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-Reviewed-by: Nathan Chancellor <nathan@kernel.org>
-Acked-by: Miguel Ojeda <ojeda@kernel.org>
-Cc: <stable@vger.kernel.org>
-Link: https://github.com/rust-lang/rust/issues/139284 [1]
----
-V2 -> V3:
- * Specify to avoid EGPR use for C compilers.
- * Add a link to track Rust APX support (Miguel Ojeda)
- * Clarify the commit in the changelog (Miguel Ojeda)
- * Then, collect Ojeda's Ack tag
- * Massage changelog and comments
-
-Test for the C compiler sub-option:
- * Ensured apx-features= from the sample code [1], first
- * Earliest versions for the native builds were chosen to check EGPR emits.
- * Check EGPR strings appearance from kernel builds, like before [2].
-   Nothing was found.
- * Note PUSH2 as new instructions are not much found, either. But
-   regardless of the amount of APX bring-up to legacy GPR use,
-   mno-apx-features=egpr seems to just be fine for avoiding EGPR use
-
-[1] https://gcc.gnu.org/git/?p=gcc.git;a=tree;f=gcc/testsuite/gcc.target/i386
-[2] https://lore.kernel.org/all/fbbe2b57-19de-4480-b0c6-f44a6007a38f@intel.com/
----
- arch/x86/Kconfig.cpu            | 11 +++++++++++
- arch/x86/Makefile               |  5 +++++
- scripts/generate_rust_target.rs |  5 +++++
- 3 files changed, 21 insertions(+)
-
-diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
-index e4654388d794..6e7a366f0798 100644
---- a/arch/x86/Kconfig.cpu
-+++ b/arch/x86/Kconfig.cpu
-@@ -204,10 +204,21 @@ config CC_HAS_MARCH_NATIVE
- 	# usage warnings that only appear wth '-march=native'.
- 	depends on CC_IS_GCC || CLANG_VERSION >= 190100
- 
-+config RUSTC_HAS_APXF
-+	# The kernel isn't ready for in-kernel APX instructions. Without
-+	# explicit frontend gating of APX, the backend may emit those
-+	# instructions in native builds.
-+	#
-+	# Rust 1.88 added the `apxf` feature option, but versions before 1.93
-+	# emit an `apxf` target attribute that only LLVM 23+ can interpret.
-+	def_bool (RUSTC_VERSION >= 108800 && RUSTC_LLVM_MAJOR_VERSION >= 23) || \
-+		 RUSTC_VERSION >= 109300
-+
- config X86_NATIVE_CPU
- 	bool "Build and optimize for local/native CPU"
- 	depends on X86_64
- 	depends on CC_HAS_MARCH_NATIVE
-+	depends on !RUST || RUSTC_HAS_APXF
- 	help
- 	  Optimize for the current CPU used to compile the kernel.
- 	  Use this option if you intend to build the kernel for your
-diff --git a/arch/x86/Makefile b/arch/x86/Makefile
-index 598f178102ee..8af6b80cffdd 100644
---- a/arch/x86/Makefile
-+++ b/arch/x86/Makefile
-@@ -161,6 +161,11 @@ else
- 
- ifdef CONFIG_X86_NATIVE_CPU
-         KBUILD_CFLAGS += -march=native
-+        # Prevent the compiler from generating EGPR use. The kernel is
-+        # not yet prepared for general in-kernel use.
-+        KBUILD_CFLAGS += $(call cc-option,-mno-apx-features=egpr)
-+
-+        # generate_rust_target.rs handles Rust APX gating.
-         KBUILD_RUSTFLAGS += -Ctarget-cpu=native
- else
-         KBUILD_CFLAGS += -march=x86-64 -mtune=generic
-diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
-index 3bf296581a88..7687b0dd5474 100644
---- a/scripts/generate_rust_target.rs
-+++ b/scripts/generate_rust_target.rs
-@@ -224,6 +224,11 @@ fn main() {
-             features += ",+harden-sls-ijmp";
-             features += ",+harden-sls-ret";
-         }
-+        if cfg.has("X86_NATIVE_CPU") {
-+            // Prevent the backend from generating APX instructions. The kernel is not yet prepared
-+            // for general in-kernel EGPR use.
-+            features += ",-apxf";
-+        }
-         ts.push("features", features);
-         ts.push("llvm-target", "x86_64-linux-gnu");
-         ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
--- 
-2.53.0
-
+Reviewed-by: Alice Ryhl <aliceryhl@google.com>
