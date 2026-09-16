@@ -1,151 +1,121 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AA2C5452A8;
-	Wed, 16 Sep 2026 15:39:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939D739FCC8
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:40:35 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573200; cv=none; b=B2A6/808cQeUTMKu4ry4xVAJagOXa6RDSRjlx8+nCkjwlD1oq1lNBble4d90p8bW9nF6OoK0ANulhE6z5zY072Xlmg++EYRJAKGd/WXETPGeVdn+6pzIYQzVNZx385UzD0JhhQZkgg96LlbTUxBOYy9zUIAEXCbM0p8022mPMN0=
+	t=1789573236; cv=none; b=DnAmAN8ttOUSY+sIzTo8IG7tBNJsxj5vw/FsMVQ6exwLN1eblWA0FWEhoMSjOkaxw8Siy6PDh3Ou4G2AqgIF2kMm35jMNolK/x9EqArqMHkrSxlGG1Irl4G+D6acx9t2sTwbtCbdpgI6pJv0hEzKNmfFwzh8a5j1y8ZL2BNpW+s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573200; c=relaxed/simple;
-	bh=do7fs/RqIazZyqQPcXOJDXYuoCBird5b0yM0GMe8rv8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UpwOpO4XPVETn3Jqd+6W5rekrrGZuKG0WZERHKwZ5Dq2h6HpBwOmX9hSLODigtqL8Mlztx8T7hsffnFJu+hGIsol/neaKXlXWxgMDSLkl/inEdOPZd8WHwrVEghcSQp2aZtLq4IH3d+ULbHmEB22e+Igyr8aLMR89WhU6zZdAac=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=K3IiCsvi; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789573236; c=relaxed/simple;
+	bh=FY6RlekvXOj3CAn6xVIkRl6tsSltNfghnE4VO57jWU8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Cq6XMEtZ+sjiiM84Cilyr3ZIes9QOwrU6miA13p3iUCc08vBnsUdTtl+PNJ+dYfbqeUEaWhnLtKQHgKyHuSTEwebg65CAebaYTDAkOIA8kj5kfiULw5oqDLBJagZuySqmNEXFtJrqXY7nMjiA36GSd0DlplKA6nSiYSpHR+hLD8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lffrK9Cm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="K3IiCsvi"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789573198; x=1821109198;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=do7fs/RqIazZyqQPcXOJDXYuoCBird5b0yM0GMe8rv8=;
-  b=K3IiCsviL9TPrGqOrMwG7H+VOH3g32ZNcPCrNt8CPyhHi11m6EjtjEeu
-   XXRfDswXa+OjO5cLSr5cp6rxtE2ydKGFj2JyPiQdT66u2xxYiDcU0YVBX
-   PQbV26Pq4izWhUZqeYFcC8oQ+gLL6pq3rDAb7yvbz202/8FTGGNN14ezZ
-   ldiTMnUmotE5P2c3l8tt2lw6ph/zV3rizZo3j9pFUuRVFYqQmLYLN6Rk4
-   amYohvHVf8BfaKZO0+HqCqVn5kphXGQogye0LhbRcqoVSCyP5Ou419rEj
-   Aqpvfd1vpiK/laLyqL48Mj8rAxwfJrSMqKRId/qIyd24kUE5IRDPNCSdh
-   A==;
-X-CSE-ConnectionGUID: CudlW9+xS6WQIl3ftGdkVQ==
-X-CSE-MsgGUID: YdWqhMKBQI6qpH+yz0aqng==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93656710"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93656710"
-Received: from orviesa008.jf.intel.com ([10.64.159.148])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:39:57 -0700
-X-CSE-ConnectionGUID: hKF6xc+KSeSiJwBW663bRQ==
-X-CSE-MsgGUID: 2yn5LcLKSd+cphrjWLOTJg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="272903448"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:39:54 -0700
-Date: Wed, 16 Sep 2026 18:39:52 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: stm32-adc: fix possible division by zero in
- processed channel
-Message-ID: <aqq4SD2eR9tDQ0aj@ashevche-desk.local>
-References: <20260916-adc-fix-div0-v2-1-f702d3ed782c@foss.st.com>
- <aqqqCf6mQPMoKZRj@ashevche-desk.local>
- <538c8203-3880-47aa-ba4e-014a345b3cb9@foss.st.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lffrK9Cm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAB261F000FF;
+	Wed, 16 Sep 2026 15:40:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789573235;
+	bh=PPnB/LHt++pPbyzjvuFDhzZoeqodMUFo/ZgMHF100do=;
+	h=Subject:To:Cc:From:Date;
+	b=lffrK9Cm0VytV0iK9fYpCUxTq/TU4ZLuzPs1ygt5TtVgMexUEdVvFZjEHr/B2XEi9
+	 ZiDlOxjAnvs6CSMAFsHS0YL+SYnI8sR5ueGMKlRy/s49rsBhe+eMXpxAidrBzictZs
+	 xPAHWwiSnvL7A+K8Nmieae0HyInPeIKoYd1yZFIk=
+Subject: FAILED: patch "[PATCH] net/sched: act_api: release all action references on" failed to apply to 6.6-stable tree
+To: luoxuanqiang@kylinos.cn,jhs@mojatatu.com,kuba@kernel.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 16:29:23 +0100
+Message-ID: <2026091623-census-prorate-fa39@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <538c8203-3880-47aa-ba4e-014a345b3cb9@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 05:20:48PM +0200, Fabrice Gasnier wrote:
-> On 9/16/26 16:39, Andy Shevchenko wrote:
 
-[ snip ]
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-> > Let's look at the current code in this switch-case
-> 
-> Thanks for you suggestions !
-> 
-> Let's keep in the picture the 'normal' raw case:
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Ah, an important detail!
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 478eb5abb51931a152abab068f8a717b7ff480fd
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091623-census-prorate-fa39@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-> 	case IIO_CHAN_INFO_RAW:
-> > 	case IIO_CHAN_INFO_PROCESSED:
-> > 		if (!iio_device_claim_direct(indio_dev))
-> > 			return -EBUSY;
-> > 		if (chan->type == IIO_VOLTAGE)
-> > 			ret = stm32_adc_single_conv(indio_dev, chan, val);
-> > 		else
-> > 			ret = -EINVAL;
-> > 
-> > 		if (mask == IIO_CHAN_INFO_PROCESSED)
-> > 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> > 
-> > 		iio_device_release_direct(indio_dev);
-> > 		return ret;
-> > 
-> > In the previous version you were trying to keep goto-less approach.
-> > However in the current state of affairs I don't think the goto is
-> > too bad (after all we need to backport this to the kernels that may
-> > not have IIO_DEV_ACQUIRE_DIRECT_MODE() macro).
-> > 
-> > Also checking 'ret' under another condition seems unusual.
-> > 
-> > What about
-> > 
-> > 	case IIO_CHAN_INFO_PROCESSED:
-> > 		if (!iio_device_claim_direct(indio_dev))
-> > 			return -EBUSY;
-> > 		if (chan->type == IIO_VOLTAGE)
-> > 			ret = stm32_adc_single_conv(indio_dev, chan, val);
-> > 		else
-> > 			ret = -EINVAL;
-> > 		iio_device_release_direct(indio_dev);
-> > 		if (ret)
-> > 			return ret;
-> > 
-> > 		if (*val == 0)
-> > 			return -EINVAL;
-> 
-> So *val == 0 is normally a valid value, for 'normal' raw channels.
-> 
-> > 		if (mask == IIO_CHAN_INFO_PROCESSED)
-> > 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> 
-> With you suggestion, moving if (*val == 0) to here should be fine ?
+Possible dependencies:
 
-Yep.
 
-> 		if (mask == IIO_CHAN_INFO_PROCESSED) {
-> 			if (*val == 0)
-> 				return -EINVAL;
-> 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> 		}
-> 
-> > 		return 0;
-> > 
-> > ? (Yes, we leave that line untouched, but we get the change cleaner.)
 
--- 
-With Best Regards,
-Andy Shevchenko
+thanks,
 
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 478eb5abb51931a152abab068f8a717b7ff480fd Mon Sep 17 00:00:00 2001
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Date: Wed, 9 Sep 2026 15:03:35 +0800
+Subject: [PATCH] net/sched: act_api: release all action references on
+ NEWACTION failure
+
+When a batched RTM_NEWACTION request replaces an existing action,
+tcf_idr_check_alloc() takes a temporary reference on it. If a later
+action fails to initialize, tcf_action_destroy() uses strict release
+semantics to clean up the actions initialized so far. For an action
+bound to a filter, the strict check returns -EPERM without dropping
+the temporary reference.
+
+This error also makes tcf_action_destroy() return before releasing
+subsequent entries. Any new action initialized between the bound
+action and the failing entry is leaked together with its reserved
+IDR slot, preventing reuse of its index.
+
+Use tcf_idr_release() to drop each reference held by the batch without
+rejecting bound actions. This allows cleanup to continue through all
+initialized entries and preserves the module reference release when
+an action is destroyed. Explicit action deletion and flushing retain
+their separate bind-count checks.
+
+Fixes: 55334a5db5cd ("net_sched: act: refuse to remove bound action outside")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Link: https://patch.msgid.link/20260909070336.32979-2-xuanqiang.luo@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+diff --git a/net/sched/act_api.c b/net/sched/act_api.c
+index 37eced84dfa5..19501dc99464 100644
+--- a/net/sched/act_api.c
++++ b/net/sched/act_api.c
+@@ -1200,18 +1200,13 @@ EXPORT_SYMBOL(tcf_action_exec);
+ 
+ int tcf_action_destroy(struct tc_action *actions[], int bind)
+ {
+-	const struct tc_action_ops *ops;
+ 	struct tc_action *a;
+ 	int ret = 0, i;
+ 
+ 	tcf_act_for_each_action(i, a, actions) {
+ 		actions[i] = NULL;
+-		ops = a->ops;
+-		ret = __tcf_idr_release(a, bind, true);
+-		if (ret == ACT_P_DELETED)
+-			module_put(ops->owner);
+-		else if (ret < 0)
+-			return ret;
++		/* Drop our reference even if the action is still bound to a filter. */
++		ret = tcf_idr_release(a, bind);
+ 	}
+ 	return ret;
+ }
 
