@@ -1,107 +1,158 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.14])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41C75377A8E
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 13:42:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AEEC44F6469
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 13:42:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789566159; cv=none; b=oVZUTVoda5Kv8PJmcfeee6iF6CsN7TB37G58SYIxV8HnbILXOTwduIGpp2zV4f2ubgCNqvx2XvI73eZ2Nv9eMEokGe8hSkydpaprtZ6HvcW7/blkNTbllVSsDrwheIpwj71dF8IEqx6DnQ2SQg0+lY1v6nreR0uy3+V6r28RdmI=
+	t=1789566191; cv=none; b=mokK2c4PmZZAbIeZoqoXZLChyrPVnwgdZQDLGte2Uxr3Q2lJcdDIdb6SNLT3hIHzOKd8cvlRLtxmlNCa6EV1HfRQErnDkl35zWFf6tkBhvGPtJm1+X4x1LbuGBU2NpdYFFGXPD/rC7kHfYSiEQ3sXqYjtGk+N4KFudowRDoxf5Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789566159; c=relaxed/simple;
-	bh=7lB+s5yhRfL8HZrL1Ai8WTa0pZBQe1yrBx4vhLwrhNU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HBm1Aj1tx1jvWShylFlWxxJhxsldcPZ8lCBIZUyYuw9BkXfP26ng2UAM/kbz7O4uO4eHUo/Z8EQ38iIh17Q05bJzeX3rxtBuHwsoym9gg4+h+n3/FUpUri1W5HtfKzmyoiukMXUX9EuKV5pA/IQSajO5j1flw/UUMpjuQXzduz0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R/8A5vHs; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789566191; c=relaxed/simple;
+	bh=lMOHGhqhRC7o8DUWxe2ZtG0eCBNNwQPKpwZSpxZkLjE=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=aEx+ZChZk5GNEeQfgYL1HbSl/u4vTY4haroJRHrbfvu1h7/E3SflRnqHWPkV6+XoKxCXkK0kFLsAGifjcHwSvrFfjVz6/covP2umGa0WC+dVxSq1NKtuWDLJzz63xP/78fmhL5tAanohBvFr+mU3F2VO0Z4nDe5d673NUtgwbFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=MIYhCmzM; arc=none smtp.client-ip=198.175.65.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R/8A5vHs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E33191F000FF;
-	Wed, 16 Sep 2026 13:42:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789566145;
-	bh=aEnjYJNpLHpjzKawEmFO84vCAtGd0ogLcehP9Jh92yw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R/8A5vHs3g4psYS/Zt5QjyKdniW358j7ar/knwHae40MoEI6xbSJ7V9YqlXFnujwL
-	 U4wJn3un8KN/aUKopr1FkEQzTSg1JSsMzC9gx79hbUfFHBGbiGHSH7B4VZ12HuEVD6
-	 j7BWURdejkD8ox6O2XI5GC3ViTCU6G8+1VnhJFRP/VgLOMA1GtFOU3pf7Vhn64+Zwx
-	 4pzRbxfaV4sx5NUIMzouXx6Ch6ciCsV42t7svKPrxNtaHtRWvt77V7YEW8ZQkYqIfi
-	 Xw3usv/WcXGB+uu1o+IUv7GAl5bSQ14OPOMO/P1NcT22edQyloGC1epU/up63JoAgf
-	 ptpfhIrLw3AiA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] tracing: Fix memory corruption from a "STACKTRACE" histogram key
-Date: Wed, 16 Sep 2026 09:42:23 -0400
-Message-ID: <20260916134223.2709969-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091641-chop-science-9213@gregkh>
-References: <2026091641-chop-science-9213@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="MIYhCmzM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789566177; x=1821102177;
+  h=message-id:subject:from:to:cc:date:in-reply-to:
+   references:content-transfer-encoding:mime-version;
+  bh=lMOHGhqhRC7o8DUWxe2ZtG0eCBNNwQPKpwZSpxZkLjE=;
+  b=MIYhCmzMzN7y0XQgtdhWgSXQGnorh5ekSk/aoYSFBHdw4RgTOkk2UBZZ
+   19c2aK3DrNkduGseL96khIvfDZpj1wiGiaL3TBa0BOGG4ReqAAm4nXc9x
+   9V+JN1RVVLbWyI4k5M0HVY8lHLCi5CWlZ0hKcf5PLEUNq7BBrlPAwvWDP
+   gI41b3V2MCM/Wq85BE7LlvLFaVF3LwNjSxl6MEPnjGUNYO1TfapBttTR3
+   Zy/IpQx9v/IuIsL0d7Zd3DkmDVp857NuGse/oR42WTMQNQHl+393FlWwI
+   8MIJ81jVmBnuyI4rYJuWiy1mWd6vmiymVv/Wfi1uBp9gSgfYFtQzRxZC+
+   Q==;
+X-CSE-ConnectionGUID: tHl33Ri7Q0KROdUT6y8r1w==
+X-CSE-MsgGUID: ThyxPO4ESAGee0qcbnoQrw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93814092"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93814092"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by orvoesa106.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 06:42:56 -0700
+X-CSE-ConnectionGUID: 33c8L43rQM+N7DHUEOWbWA==
+X-CSE-MsgGUID: IuQaeLKrSrK4WNC52PKSyQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="303230461"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO [10.245.244.154]) ([10.245.244.154])
+  by orviesa002-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 06:42:55 -0700
+Message-ID: <2efce17e1036dae156f0eb3f8abbce98e754d537.camel@linux.intel.com>
+Subject: Re: [PATCH] drm/xe: Limit sg segment size to PAGE_SIZE on Xen PV
+From: Thomas =?ISO-8859-1?Q?Hellstr=F6m?= <thomas.hellstrom@linux.intel.com>
+To: Szymon =?UTF-8?Q?Aceda=C5=84ski?= <accek@invisiblethingslab.com>, 
+	intel-xe@lists.freedesktop.org
+Cc: dri-devel@lists.freedesktop.org, marmarek@invisiblethingslab.com, 
+	xen-devel@lists.xenproject.org, stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 15:42:52 +0200
+In-Reply-To: <20260820101212.1608543-1-accek@invisiblethingslab.com>
+References: <20260820101212.1608543-1-accek@invisiblethingslab.com>
+Organization: Intel Sweden AB, Registration Number: 556189-6027
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Hi!
 
-[ Upstream commit 7f711e62355bb3123a2ca2f97a2facbfebc678c6 ]
+On Thu, 2026-08-20 at 12:12 +0200, Szymon Aceda=C5=84ski wrote:
+> Fixes display corruption on Xen PV dom0, where DMA buffers are not
 
-"cpu", "CPU", "stacktrace" and "STACKTRACE" are generic fields, defined
-with an offset and a size of zero so that the filter code can match them
-by name. parse_field() maps them onto their common_* equivalents for
-backward compatibility, but unlike the common_* names it hands the
-placeholder back to the caller instead of NULL.
+Please use imperative language in commit messages: "Fix display
+corruption..."
 
-create_hist_field() takes a non-NULL field as a promise that the record
-carries a stacktrace and picks HIST_FIELD_FN_STACK, so the __data_loc
-word is read from offset 0, that is from common_type, and its low 16
-bits are followed as an offset into the record. What is found there
-becomes the length of an unbounded memcpy. Pick an event whose id is
-small enough that the offset stays inside its own record and the length
-is a kernel text address:
+> guaranteed machine-contiguous, in which case bounce buffering kicks
+> in, breaking xe's memory coherency assumptions.
+>=20
+> Apply the same workaround i915 carries in i915_sg_segment_size()
+> since
+> commit 78a07fe777c4 ("drm/i915: stop abusing swiotlb_max_segment").
+>=20
+> Fixes: dd08ebf6c352 ("drm/xe: Introduce a new DRM driver for Intel
+> GPUs")
+> Reported-by: Marek Marczykowski-G=C3=B3recki
+> <marmarek@invisiblethingslab.com>
+> Closes:
+> https://gitlab.freedesktop.org/drm/xe/kernel/-/work_items/8382
+> Link: https://lore.kernel.org/xen-devel/aYtznP_tT6xNPwf-@mail-itl/
+> Link:
+> https://lore.kernel.org/all/20221020110308.1582518-1-hch@lst.de/=C2=A0#
+> i915 counterpart
+> Cc: stable@vger.kernel.org=C2=A0# v6.8+
+> Signed-off-by: Szymon Aceda=C5=84ski <accek@invisiblethingslab.com>
 
-  # cd /sys/kernel/tracing
-  # echo 'hist:keys=STACKTRACE' > events/ftrace/print/trigger
-  # echo hello > trace_marker
+Please also CC the Author of the original i915 patch in case there
+are any updates to the validity of this hack. While there is a
+precedent in i915 authored by Christoph, the patch really relies
+on completely undocumented behaviour....
 
-  Oops: general protection fault, probably for non-canonical address
-  RIP: 0010:rb_next+0x23/0x60
-   </IRQ>
-  RIP: 0010:memcpy+0xc/0x30
-   event_hist_trigger+0x2e7/0x12c0
-  Kernel panic - not syncing: Fatal exception in interrupt
+Otherwise LGTM, Once you have an update I'll forward it to Xe CI.
 
-Leave the field NULL, which is what the comment above the branch says
-the code does and what common_stacktrace already does. FILTER_CPU and
-FILTER_COMM are left alone, their create_hist_field() branches never
-look at the field.
+Thanks,
+Thomas
 
-Cc: stable@vger.kernel.org
-Fixes: 4b512860bdbd ("tracing: Rename stacktrace field to common_stacktrace")
-Link: https://patch.msgid.link/20260907155045.692664-3-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ Adjusted context for the missing FILTER_COMM branch in parse_field(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/trace_events_hist.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index f3899430a2fb5..d5f688a26e4ac 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -2390,6 +2390,7 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
- 				*flags |= HIST_FIELD_FL_CPU;
- 			} else if (field && field->filter_type == FILTER_STACKTRACE) {
- 				*flags |= HIST_FIELD_FL_STACKTRACE;
-+				field = NULL;
- 			} else {
- 				hist_err(tr, HIST_ERR_FIELD_NOT_FOUND,
- 					 errpos(field_name));
--- 
-2.53.0
-
+> ---
+> =C2=A0drivers/gpu/drm/xe/xe_bo.h | 19 +++++++++++++++++++
+> =C2=A01 file changed, 19 insertions(+)
+>=20
+> diff --git a/drivers/gpu/drm/xe/xe_bo.h b/drivers/gpu/drm/xe/xe_bo.h
+> index e8081af..152bfcf 100644
+> --- a/drivers/gpu/drm/xe/xe_bo.h
+> +++ b/drivers/gpu/drm/xe/xe_bo.h
+> @@ -9,6 +9,8 @@
+> =C2=A0#include <drm/drm_prime.h>
+> =C2=A0#include <drm/ttm/ttm_tt.h>
+> =C2=A0
+> +#include <xen/xen.h>
+> +
+> =C2=A0#include "xe_bo_types.h"
+> =C2=A0#include "xe_ggtt.h"
+> =C2=A0#include "xe_macros.h"
+> @@ -575,6 +577,23 @@ static inline unsigned int
+> xe_sg_segment_size(struct device *dev)
+> =C2=A0	struct scatterlist __maybe_unused sg;
+> =C2=A0	size_t max =3D BIT_ULL(sizeof(sg.length) * 8) - 1;
+> =C2=A0
+> +	/*
+> +	 * For Xen PV guests pages aren't contiguous in DMA
+> (machine) address
+> +	 * space.=C2=A0 The DMA API takes care of that both in
+> dma_alloc_* (by
+> +	 * calling into the hypervisor to make the pages contiguous)
+> and in
+> +	 * dma_map_* (by bounce buffering).=C2=A0 But xe (like i915, see
+> commit
+> +	 * 78a07fe777c4) ignores the coherency aspects of the DMA
+> API and thus
+> +	 * can't cope with bounce buffering actually happening, so
+> add a hack
+> +	 * here to force small allocations and mappings when running
+> in PV
+> +	 * mode on Xen.
+> +	 *
+> +	 * Note this will still break if bounce buffering is
+> required for other
+> +	 * reasons, like confidential computing hypervisors or PCIe
+> root ports
+> +	 * with addressing limitations.
+> +	 */
+> +	if (xen_pv_domain())
+> +		return PAGE_SIZE;
+> +
+> =C2=A0	max =3D min_t(size_t, max, dma_max_mapping_size(dev));
+> =C2=A0
+> =C2=A0	/*
+>=20
+> base-commit: b4f95affc66ef76342c1f6bf3849f6c8ade6b9d6
