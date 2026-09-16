@@ -1,116 +1,123 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E1321331EA0
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 06:31:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D61519BC8;
+	Wed, 16 Sep 2026 06:33:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789540290; cv=none; b=gn28BjGQZQAk7WNoP2GbaHrA2K7Ow6mn1UXYhlG2uVuGXs1loNxcKPWtsBLThIweux7axok7qjeKhtVa2T0j+J3+ly3fu8CEVR81FbgAAoRbf92MTcGrRTXUp7snsIxV2TzxCf/kBrHj1eUvlS8KABES3nzTZp2siuX5stNBnHg=
+	t=1789540395; cv=none; b=PsFgvgMmsdvmSSdM0XtRZ1uz3z56YSf8XKLVzsrsXAm3qH+eyln0v3FYWgGRmLd1S2PnTw/DMPXrgwlX+pewRM+15xaSx4QZaomNt0tGottvG035riGR7OUGspjfxsZALur0Zjee9Q+CTNtHU4OVmsRGtJrn5bCtJuLirVHgmGQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789540290; c=relaxed/simple;
-	bh=Ni7Nb/tkSb8xMBveKfixGMHJTCUSsBx41uEaih62Pk4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KUUE8ihTclVhCU4RtNB2p+CER8iDhCQ1AYKjjfWnEsRS8ZoR4mpAjF9pQNqjZMJQGNhZd/Cj2g38+HaT75+f6KNlmMUAcz0h40uRL0oCliHZzGTz6C7nQStRtIBBr+/vqNpBmKj0hCbcy2tgMmvdFX/nBHbK6aFuaLjldPLYUMA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=pL6mji5z; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="pL6mji5z"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccd4f99cso597917a91.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 23:31:27 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789540287; x=1790145087; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=WouBy8LrBhobloOGcs5+4K8UnnGyA8XojKOtb+0NfU4=;
-        b=pL6mji5zB5KPC6uoVGtIQKoGi95xo69J3dQwnXgpRGvKy43PT6QS+Prp6zshRB21WX
-         zxDeNFc+GHOasZiROXri90d1Lb25pVhOLM3ksQXd19AZRYVlHU3dgJFtOuQj58+uTRND
-         NFG5na3ozBv2FpuJm6BWdx8ZN1/Jhwgza4s3umrbzcS1CmyG7qNYQzWUzMrEylBOppQk
-         r4Nn8UTteh70kodW7JJu4F7ev+6rHasqQDqUNDeqgahMHLpH93GRb4mv+JklXGvtMplR
-         HEE1Gw5fcm+G/D17Ex5iz3Wx15cSaiQ94n8k8LUkyUlktzmQG1y28x0Solfvi0hjlaia
-         dFPw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789540287; x=1790145087;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=WouBy8LrBhobloOGcs5+4K8UnnGyA8XojKOtb+0NfU4=;
-        b=GrfK47JZVXPW4eg5FpJ/1Vl9C2IrkuaKmhMID8hXHrBWcpovzKpVPn/qExawSTKzFZ
-         z2iLugNdyGqbcD7CNHub/zqbrsIjw7oi+m8QHVh7oV6ZeS+CLH5ziigj0yP8Ae4Y1yDg
-         eLbW9LVIXb2ELQQf+qKrj4lGlDfd1H/zTuAzWqZmTStZpjHRh3q0uO4ztEZACi2wrSDO
-         NnC9WoWS0L+uYIXqGsiZDyqALtQZ9YXg7mYSDgRjAR9MKjh/Q6Bhnp8CCZoM2uRGQYTS
-         NgrRI0xTozqBeumkWDp0HbLTk0HoU0TLC18lbHfUjyt6Udmsmp8rUqVCHJ7V+ysGGd47
-         by5A==
-X-Forwarded-Encrypted: i=1; AKwUvBw0GOSL/QIgMMcUjfj0EzW2dgp9Za+IrM4ra0Hv+DdbAwhBbhMfyiK01Q8ARfxLo4mVHo/tiLQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kp79aaXqig2YSMNoGm2zmdhYFkjsfPvMHVxz/2zYn/ig4ZEhv4
-	yrOjbiG6/pMCZpH0hWNJo0GNdRSpJXljUurRRMHeCgTrTwjsZ9TF+0wt
-X-Gm-Gg: AYBFou0b5MW+N8ansEnuYt/uUhppgBjhOtSpbY6R4BPmL5AruIUYMsh8EzW8LxP2t7i
-	SYnfd67Cjd0duo2f81UAHmOLXIfMbmStVkXQbQaXoGIx8KOiSkUkHZDI0NF2Awu2Y+nVpUxMy+6
-	F0Ip/Y5wU3Fc+0Ua8F8M65Vt+8u4B2W8P+82WpYGyeOf7HfCD19A/JynSzgPWiYUruFOl8XqNpO
-	n8GJZkwSt3aRMmzKSS+OEKfIDyzwSQpW1B80cX1/T3ZZM1pIivFWuPRLk+x+ccv9O82z7P+VAbQ
-	Bm9p2R3lxCpLh5c7Dco7NfngwgxuzUcW26IEqBnYN/KWGRxI0+8w2R1jCpTUf63gr+EduzxZqf2
-	+qvelHiYx4qZznSVpCr/UhQlkXdeF6oYvZJ6G83pqxHODEj2jGLF27sFcTtyqUo84hGXY1BTYd/
-	iMLNfPENLrqQSPYtlArD27mbAdSn0jSyJP/ugKuep5+KlXQhb+ulhuPomD1fns8DAL
-X-Received: by 2002:a17:90b:582b:b0:39e:f1:b2de with SMTP id 98e67ed59e1d1-39e1e4c54fcmr3564649a91.20.1789540287232;
-        Tue, 15 Sep 2026 23:31:27 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1b712ea3sm2906637a91.9.2026.09.15.23.31.23
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 23:31:26 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Kevin Curtis <kevin.curtis@farsite.co.uk>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: wan: farsync: disable PCI device on removal
-Date: Wed, 16 Sep 2026 14:31:18 +0800
-Message-ID: <20260916063118.2924049-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	s=arc-20240116; t=1789540395; c=relaxed/simple;
+	bh=6NwVT5tyzGKdUksS5LStZZX+lHdyEM0Wn26H98KskgU=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=YghGZdoWjf1KsvxRgMEatnIy13cODTaMtcdVqIVvTkuyJzMDRkEPAu8CBXqx7kIfFmKSU7++8vj364LFIb5GnpiqRGviEbXD2vElOlgkva/MpkP17oN9kKC+KeA+0E6xyiPQr+rgMIF++3x3oAftCmxHagtw9qiNByx0UcXVNdw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from [127.0.1.1] (unknown [223.166.93.127])
+	by APP-03 (Coremail) with SMTP id rQCowAAnKjgUOKpq44zeBw--.39416S2;
+	Wed, 16 Sep 2026 14:32:58 +0800 (CST)
+From: Han Gao <gaohan@iscas.ac.cn>
+Date: Wed, 16 Sep 2026 14:32:44 +0800
+Subject: [PATCH] riscv: mm: Apply T-Head PMA memory-type errata to PUD and
+ P4D entries
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-Id: <20260916-fix-mm-v1-1-297034b4457f@iscas.ac.cn>
+X-B4-Tracking: v=1; b=H4sIAAs4qmoC/6tWKk4tykwtVrJSqFYqSi3LLM7MzwNyDHUUlJIzE
+ vPSU3UzU4B8JSMDIzMDS0Mz3bTMCt3cXF3DtCTLlGQD82RDwxQloOKColSgDNig6NjaWgB86+6
+ MWAAAAA==
+X-Change-ID: 20260916-fix-mm-1fb9dc07c11d
+To: Paul Walmsley <pjw@kernel.org>, Palmer Dabbelt <palmer@dabbelt.com>, 
+ Albert Ou <aou@eecs.berkeley.edu>, Alexandre Ghiti <alex@ghiti.fr>, 
+ Heiko Stuebner <heiko@sntech.de>
+Cc: Palmer Dabbelt <palmer@rivosinc.com>, Han Gao <rabenda.cn@gmail.com>, 
+ linux-riscv@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ stable@vger.kernel.org, Han Gao <gaohan@iscas.ac.cn>
+X-Mailer: b4 0.14.2
+X-CM-TRANSID:rQCowAAnKjgUOKpq44zeBw--.39416S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WFy3XF1UJF43GFWxKr4DJwb_yoW8tw47pF
+	WkJFyF9a95KryIkFW2kF1F9r15A395G39rGwsIk34kC3WYqFs7XFWqkw1UXF1rJFyI93W2
+	yrZrtrs8Cr4ftwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j
+	6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1j6r18McIj6I8E87Iv67AKxVWUJVW8JwAm72CE4IkC6x0Yz7v_Jr0_Gr
+	1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxa
+	n2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbGQ6JUUUUU==
+X-CM-SenderInfo: xjdrxt3q6l2u1dvotugofq/1tbiCRUMDGqqBo7dBwAAsO
 
-fst_add_one() calls pci_enable_device() to enable the PCI device. The
-probe failure paths call pci_disable_device() to release the matching
-enable reference, but fst_remove_one() does not disable the device
-after a successful probe.
+The T-Head memory-type errata injects the PMA type bits via
+ALT_THEAD_PMA() when building a page table entry. It is applied in
+pfn_pte(), pfn_pmd(), pfn_pgd() and pte_modify(), but not in pfn_pud()
+or pfn_p4d().
 
-As a result, the PCI device enable reference remains unbalanced after
-the driver is removed.
+As a result, PUD-level (1GB) and, on sv57, P4D-level (512GB) huge page
+mappings never carry the T-Head PMA memory-type encoding. On cores that
+require the errata, such mappings fall back to the implied/default PMA
+instead of the explicit cacheable type the errata mandates, so their
+memory attributes can differ from every other mapping size. These leaf
+entries are reachable from the linear mapping (create_pud_mapping() with
+PUD_SIZE) and from huge vmap.
 
-Call pci_disable_device() after the existing interrupt, tasklet,
-mapping, DMA and PCI region cleanup to release the enable reference.
+Mirror pfn_pmd() and run ALT_THEAD_PMA() on the protection value in
+pfn_pud() and pfn_p4d() as well.
 
-This issue was found by manual code inspection.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: a35707c3d850 ("riscv: add memory-type errata for T-Head")
+Signed-off-by: Han Gao <gaohan@iscas.ac.cn>
 ---
- drivers/net/wan/farsync.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/riscv/include/asm/pgtable-64.h | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/wan/farsync.c b/drivers/net/wan/farsync.c
-index 6508c53bdc24..0ea637270ad7 100644
---- a/drivers/net/wan/farsync.c
-+++ b/drivers/net/wan/farsync.c
-@@ -2561,6 +2561,7 @@ fst_remove_one(struct pci_dev *pdev)
- 				  card->tx_dma_handle_card);
- 	}
- 	fst_card_array[card->card_no] = NULL;
-+	pci_disable_device(pdev);
- 	kfree(card);
+diff --git a/arch/riscv/include/asm/pgtable-64.h b/arch/riscv/include/asm/pgtable-64.h
+index 6e789fa58514c7dd11ef9c87050a3fa10fd4908d..1329a1ddee072dfb9a97f52bf1aad9f515aa96fe 100644
+--- a/arch/riscv/include/asm/pgtable-64.h
++++ b/arch/riscv/include/asm/pgtable-64.h
+@@ -212,7 +212,11 @@ static inline void pud_clear(pud_t *pudp)
+ 
+ static inline pud_t pfn_pud(unsigned long pfn, pgprot_t prot)
+ {
+-	return __pud((pfn << _PAGE_PFN_SHIFT) | pgprot_val(prot));
++	unsigned long prot_val = pgprot_val(prot);
++
++	ALT_THEAD_PMA(prot_val);
++
++	return __pud((pfn << _PAGE_PFN_SHIFT) | prot_val);
  }
  
+ static inline unsigned long _pud_pfn(pud_t pud)
+@@ -313,7 +317,11 @@ static inline void p4d_clear(p4d_t *p4d)
+ 
+ static inline p4d_t pfn_p4d(unsigned long pfn, pgprot_t prot)
+ {
+-	return __p4d((pfn << _PAGE_PFN_SHIFT) | pgprot_val(prot));
++	unsigned long prot_val = pgprot_val(prot);
++
++	ALT_THEAD_PMA(prot_val);
++
++	return __p4d((pfn << _PAGE_PFN_SHIFT) | prot_val);
+ }
+ 
+ static inline unsigned long _p4d_pfn(p4d_t p4d)
+
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260916-fix-mm-1fb9dc07c11d
+
+Best regards,
 -- 
-2.43.0
+Han Gao <gaohan@iscas.ac.cn>
 
