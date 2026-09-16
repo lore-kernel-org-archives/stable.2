@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91404509F02
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:09:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B288C5013B7
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:10:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567805; cv=none; b=el86LFil/qc4pM2juCcXRHyHIU98MXdfAT3+mb+kqd7nQklXGv+Mo8yqbIiyBtrZ7P3JJiNZVUtdLVg7qcy4pRYcYPZqiCj6YcyYeaBR0VFyV3LmYqaNF8lgB6nLKRaiuCeXtw/eMN5u5zcpOIiOicT2jiFjRmczFZUGVuzFy50=
+	t=1789567806; cv=none; b=e1YDlMwowijLcJ1PpoUUJjPVca+MJ2JjNHAOTSEUpRHNAdUn9ajivJDBSRjSxfSphXM5p1M0/2Ju0tDOeFWY65ZDKom/ZmF2w0dkqzG5Et7TXt+Nyv/mmHtJMb89kNPnr/+cjceTqxViZTWIJXbo2UXi1diYUXoCMHHTA1V7F3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567805; c=relaxed/simple;
-	bh=0t3b0Ja3rumJVPEXwuIU3yfwAfHLdGVN+MyI4ke0aCQ=;
+	s=arc-20240116; t=1789567806; c=relaxed/simple;
+	bh=19DY+NMxUJXOt6kEWRt0S3Is1KniIeNUoq96gNz6Amo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=tXP/xgVNe+QhijTDv/p1ui5zxvSdN0RfWCRTjDrr6cLzaiKny+hRkUumze8csoEiQkVLNv8HVxWRPrEIE/Yn9R2TYPPf3BY/sUU8aBNZpYgkt/55OXjWPh6YuCAihaGrM+ABC4sRvjXuePKMkQzvy1gE8dea31Ja9WVPxE10XKw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Smj6tBew; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ijEKPCqqNuJN9GzB5aCwMhosMIqlguR8FWIJk3tzcpV3OTzgJpuTBNw5g6+/mlrstHJvS4hggsaNe21J9t3690ppy4dCpxARdmYF0ONUe+Fs0mycntjZEyDkZauqJ0dNE/YT37w144wERkCrI9R1PcsjRq0/18JA7HXCFsKCpf0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uti98Vwf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Smj6tBew"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A1D1F00898;
-	Wed, 16 Sep 2026 14:09:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uti98Vwf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C88991F000FF;
+	Wed, 16 Sep 2026 14:10:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789567796;
-	bh=tZd9pKKVDoZNYAWONWb9jIgHwDFHXqeItWn03G6pnvA=;
+	s=k20260515; t=1789567804;
+	bh=eto8ny/F6G6RW0VD1mJSluIrAsIiChGs/hRGEa9EG74=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Smj6tBewyjAxWnY6xIxYXFsJFAJrTQyEj2OxMxM04ByMWy41dbRGaijbjPeNHxyaI
-	 c5hlh/Q64vcn91KtWmwckIMFumFZi3O0cT5yNmlFakRjgvTWBYaWCD01aKxV/DPxk5
-	 8hmGsBj4yfxGold5LgRG6GeIUm4XCuQKFZGRQbNNIh7qXx6b2KqTPAH2S2M2TOmUgL
-	 cxh3ROuybLRmrkl/+Nx5nTj3ZT87g6I9xGTu1Hlhnf4L4E1P8BzmrqeKjHW5yrVa8p
-	 RZNPJckfjCunsQMb4WlmhZUNjfWT/rYIsJXrIDOth5FK08LzM4pCtUnwT9PmLlrOO6
-	 oMFHSeahRpuSw==
+	b=Uti98VwfY8OocXmW1qihIh2ii1rCoECGUuL+VhuDqClxNnPsCU8D+qW5n05kBVMuu
+	 FaHVM/JCN3rGSkD1tDcgJetNHmXXBV6jWUcb+kzinMW4WWcMlH/rmjlOeZ6vHhKzX+
+	 i70GhrnechI5/LhePmZIjVwaRBlim+z75zh1jdBAacveqmHFyvPhzV2D//QrLeKpxr
+	 WixCzcKmvz1ZPcIy5A6evNfIR51V+4o6qzjQFvuDir86noIcidYXLrGYlCATpYh4fo
+	 H1b87G6kQMFx1UgAllD0dtZP5Y9i0TWJ7ZhSGWYQ8URYByF0jstF7xQpanVQyBcsNc
+	 mhfoT2ASj1Xqg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+Cc: "Mike Rapoport (Microsoft)" <rppt@kernel.org>,
+	Dave Hansen <dave.hansen@intel.com>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Vishal Moola <vishal.moola@gmail.com>,
-	Atish Patra <atishp@meta.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 3/3] x86/mm/pat: Allocate split page tables as kernel page tables
-Date: Wed, 16 Sep 2026 10:09:51 -0400
-Message-ID: <20260916140951.2926572-3-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] x86/mm/pat: Don't gate cpa_lock on debug_pagealloc_enabled()
+Date: Wed, 16 Sep 2026 10:10:01 -0400
+Message-ID: <20260916141002.2927195-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916140951.2926572-1-sashal@kernel.org>
-References: <2026091603-illusion-provolone-913f@gregkh>
- <20260916140951.2926572-1-sashal@kernel.org>
+In-Reply-To: <2026091613-lark-dioxide-099d@gregkh>
+References: <2026091613-lark-dioxide-099d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,142 +46,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: "Mike Rapoport (Microsoft)" <rppt@kernel.org>
 
-[ Upstream commit 9e4a3ec3411bb6bb59e3c1f29b75609f1e87aac4 ]
+[ Upstream commit 5fce67641a3ed9a0782eaa228ddece526461a367 ]
 
-A PTE is allocated directly without going through the standard page table
-allocation routines (such as pte_alloc_one_kernel()) when the CPA code
-splits a large page (__split_large_page()).
+The splitting and merging of kernel page table mappings between small and
+large is protected by cpa_lock. The merging is relatively new but the
+splitting is ancient.
 
-This means the page table constructor is never called nor is the page table
-marked as a kernel page table.
+The splitting has a locking optimization: since DEBUG_PAGEALLOC forces all
+mappings to 4k, there are no large pages to split. So the code that *might*
+cause a split can just skip the locking (and a few other things).
 
-The former results in the folio associated with the page table not being
-marked as a page table (__pagetable_ctor() is never called thus neither is
-__folio_set_pgtable()) nor are statistics updated to reflect
-it (lruvec_stat_add_folio() is never called).
+This is entertaining, but it adds complexity and makes for weird locking
+rules. Plus it's all for a debugging feature which makes the kernel super
+slow in the first place. Optimizing something which is already super slow
+and not used in production is not the best way to spend our complexity
+budget.
 
-The latter issue of failing to mark the page table as a kernel page
-table (ptdesc_set_kernel() is never called) is far more problematic.
+Stop gating cpa_lock on debug_pagealloc_enabled() to simplify the code
+and the locking rules.
 
-Since commit:
+[ dhansen: flesh out changelog ]
 
-  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-
-kernel page table freeing has been batched and since the
-subsequent commit:
-
-  e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries for kernel address space")
-
-IOTLB cache entries for kernel page tables have been invalidated upon
-being freed.
-
-Since split page tables are freed without this invalidation, the IOTLB
-can contain stale entries for them.
-
-Resolve the issue by using the ordinary PTE allocation API at split time.
-
-This results in these kernel page tables invoking a page table constructor,
-and thus requires a page table destructor.
-
-Destructors are not always present, like for early allocated direct map
-page tables). Conditionally call pagetable_dtor_free() if the PG_table
-folio flag for the ptdesc is set, otherwise we free the page table via
-pagetable_free().
-
-Regardless of which path is taken page tables marked as kernel page tables,
-which now includes split page tables, take the correct route through
-pagetable_free_kernel().
-
-There is a user-visible side effect in that split page tables will appear
-in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
-allocated after early boot), however this is a positive change.
-
-This issue started being markedly problematic after commit:
-
-  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-
-so choose this as the Fixes target.
-
-[ dhansen: rephrase in imperative mood ]
-
-Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Suggested-by: Dave Hansen <dave.hansen@intel.com>
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Acked-by: Vishal Moola <vishal.moola@gmail.com>
-Tested-by: Atish Patra <atishp@meta.com>
-Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-4-39b4ff90f91d@kernel.org
+Link: https://patch.msgid.link/20260715144519.934289-1-rppt@kernel.org
+Link: https://lore.kernel.org/all/aab44f08-89f8-47fe-bee4-0ab6b25968c6@intel.com/
+Stable-dep-of: d5d8b8662e6e ("x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 25 ++++++++++++++++---------
- 1 file changed, 16 insertions(+), 9 deletions(-)
+ arch/x86/mm/pat/set_memory.c | 19 +++++++------------
+ 1 file changed, 7 insertions(+), 12 deletions(-)
 
 diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index 18f88e578be35..136ce0b8b256c 100644
+index 3b7e807e803c3..6dda81a629d69 100644
 --- a/arch/x86/mm/pat/set_memory.c
 +++ b/arch/x86/mm/pat/set_memory.c
-@@ -442,7 +442,15 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
+@@ -62,10 +62,9 @@ enum cpa_warn {
+ static const int cpa_warn_level = CPA_PROTECT;
  
- 	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
- 		list_del(&ptdesc->pt_list);
--		pagetable_free(ptdesc);
-+		/*
-+		 * Only early alloc'd direct map should not be flagged PG_table
-+		 * here and those shouldn't be collapsed. However be abundantly
-+		 * cautious and handle the !PG_table case too.
-+		 */
-+		if (PageTable((ptdesc_page(ptdesc))))
-+			pagetable_dtor_free(ptdesc);
-+		else
-+			pagetable_free(ptdesc);
- 	}
+ /*
+- * Serialize cpa() (for !DEBUG_PAGEALLOC which uses large identity mappings)
+- * using cpa_lock. So that we don't allow any other cpu, with stale large tlb
+- * entries change the page attribute in parallel to some other cpu
+- * splitting a large page entry along with changing the attribute.
++ * Serialize cpa() using cpa_lock so that we don't allow any other cpu, with
++ * stale large tlb entries, to change the page attribute in parallel to some
++ * other cpu splitting a large page entry along with changing the attribute.
+  */
+ static DEFINE_SPINLOCK(cpa_lock);
  
- 	spin_unlock(&cpa_lock);
-@@ -1131,11 +1139,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
- 
- static int
- __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
--		   struct ptdesc *ptdesc)
-+		   pte_t *pbase)
+@@ -1241,11 +1240,9 @@ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
  {
- 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
--	struct page *base = ptdesc_page(ptdesc);
--	pte_t *pbase = (pte_t *)page_address(base);
-+	struct page *base = virt_to_page(pbase);
- 	unsigned int i, level;
- 	pgprot_t ref_prot;
- 	bool nx, rw;
-@@ -1239,20 +1246,20 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
- static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
- 			    unsigned long address)
- {
--	struct ptdesc *ptdesc;
-+	pte_t *pte;
+ 	struct ptdesc *ptdesc;
  
- 	spin_unlock(&cpa_lock);
- 	if (cpa->init_mm_read_locked)
- 		mmap_read_unlock(&init_mm);
--	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
-+	pte = pte_alloc_one_kernel(&init_mm);
- 	if (cpa->init_mm_read_locked)
- 		mmap_read_lock(&init_mm);
- 	spin_lock(&cpa_lock);
--	if (!ptdesc)
-+	if (!pte)
+-	if (!debug_pagealloc_enabled())
+-		spin_unlock(&cpa_lock);
++	spin_unlock(&cpa_lock);
+ 	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
+-	if (!debug_pagealloc_enabled())
+-		spin_lock(&cpa_lock);
++	spin_lock(&cpa_lock);
+ 	if (!ptdesc)
  		return -ENOMEM;
  
--	if (__split_large_page(cpa, kpte, address, ptdesc))
--		pagetable_free(ptdesc);
-+	if (__split_large_page(cpa, kpte, address, pte))
-+		pte_free_kernel(&init_mm, pte);
+@@ -2029,11 +2026,9 @@ static int __change_page_attr_set_clr(struct cpa_data *cpa, int primary)
+ 		if (cpa->flags & (CPA_ARRAY | CPA_PAGES_ARRAY))
+ 			cpa->numpages = 1;
  
- 	return 0;
- }
+-		if (!debug_pagealloc_enabled())
+-			spin_lock(&cpa_lock);
++		spin_lock(&cpa_lock);
+ 		ret = __change_page_attr(cpa, primary);
+-		if (!debug_pagealloc_enabled())
+-			spin_unlock(&cpa_lock);
++		spin_unlock(&cpa_lock);
+ 		if (ret)
+ 			goto out;
+ 
 -- 
 2.53.0
 
