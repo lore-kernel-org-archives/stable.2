@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B91E44236F
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:49:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91EF7400995
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588192; cv=none; b=tGN7WlC7xxx6dJUX9va15D1T1NaeVBWG8Uhac/c2EBsAI3pa2DGSTyRXPA74sIyKhvmA7WqzEa8zmyl9P7aor6wXPPnNbrnJ5dKq0a/Gr41N33nahzFwR2kIuNmWit30WURBYMB1vnciUtJ/vxL+nhI6qoEcgjziV1A/jhwpeZU=
+	t=1789588198; cv=none; b=THA+d5G7Apifg2kd+NW+WNAHWIkrL58U44ZKXYyZ7gvK8qyQ7D4YmuN+HdL+SJmzfhVMzyDj/ue+FrvslITexKjOQ1uTH4MZ7TgYIXgWPa3noB9MIZ0dqq72hfT4ktnZURgUAysX/fLVL/CZ7ptrDUO8NXGMPk15bbxIvviL3Ws=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588192; c=relaxed/simple;
-	bh=Bwl6rO0VUVIvRFOCUFE/M5J21rfq6jx3Htc2Ffs2H7E=;
+	s=arc-20240116; t=1789588198; c=relaxed/simple;
+	bh=NAKUWwtEwTi2cZrj9XqHTj7UtSGXhPyz3FJoUPE4tZk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=OwweBIUvb8eweD+rYk+4++FGQ+YsZirk6rUCA1EVh85PygzKyMtgOzkGkkArCkehrNGVAGgJMCPnwJkSzC7lT8c4BdJrZQcz9toKFb4uXHA8MpoUM6M90nhUiLSHeRpr8Kta3eQbYbvz3YZ7ukH7Wvwy7xHRjMyGLXpJFxa3qng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Grh5cc39; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MlbR7UZQwn3XA292P5ms32vgnSBP9nv/F8cCb29w2oRhkeZHOyPsHOf71gJ/iXp/DoeGdDvHXMY+wJvHlLcK0PXj2+prLb3ZXRP92WKy/hkB/EG/O7cDNjnoBdU/BlgZyYIrzX/OH0GPaH9VFpmf1F79Y7jpwX+i00KHnIuTdcI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MiOv15oU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Grh5cc39"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E1761F00899;
-	Wed, 16 Sep 2026 19:49:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MiOv15oU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 151161F000FF;
+	Wed, 16 Sep 2026 19:49:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789588178;
-	bh=fJJB9LIjh9b5onPF/9XCXXmbz6+YkqDAof9bm2QlOpE=;
+	s=k20260515; t=1789588173;
+	bh=18qMsCXWlq8XVQq/qaBZOu4n7B/panJE2laWhQTr8nc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Grh5cc39UQkZeH03aby4D+69k2ZqBwei1U3Jqb11N4qaRt9Ad658d03TXMD+FYUcr
-	 ukCF/JyrWHTUCtB3nHjn0rLwQXbmXCnr77NH6xRxI01cA1zxjzAHjrk4YLoTgcKgd5
-	 ghcOxxH6proDpPEnHJ8FDVa8HJB7Jf6fdZwQ3iwN4YMC8HAc87LwnKWCl3sVZbY6sx
-	 Im6aKHnjTXybqJvzqcU9CbV+mikiC5KY0mb/wkROI3+2969RwJEfIfZ87YBtMyAqN1
-	 +q1axXnKGAYwJ5DSH2GWJUlh1XkzR6o5D9v+BKqHXxh7269LL9ARnBC1368ZBqGGQU
-	 7Dgt7OJAXMu1A==
+	b=MiOv15oU5lGf11kVcASuNMnI06cUVLlg1wPR3t8Kk4+XIRcINXq5p4o7lHiUnT8wQ
+	 UY4lQWDVGBU4Tz3RVax2V/H0TXtaDL27t5KuGqHgFjp7OoSFOtyyx85nzNjqcy6/6e
+	 iBoQERAnNtoyF0fH02XTFCKyYSXSGfx/qw6VDPAp+xO91ZBT72OlGWKvXiD6YXnlkA
+	 MHG5TOQwGtY+7fybpPypqqGSwJ7k54MdPg2sa6X2+4QK3SaAXG+iAOYccW6un3OyGQ
+	 D+HC9HnQ2e0azZ4Uq0AqXlKWaWdDaVNq5x+s0arOmhVV9e6O0UIZ6n7ASub2uYCXdK
+	 kTvka5RA4vz/g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christophe JAILLET <christophe.jaillet@wanadoo.fr>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
-	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>,
-	"Steven Rostedt (Google)" <rostedt@goodmis.org>,
+Cc: Rounak Das <rounakdas2025@gmail.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Dinh Nguyen <dinguyen@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] tracing: Constify struct event_trigger_ops
-Date: Wed, 16 Sep 2026 15:49:33 -0400
-Message-ID: <20260916194935.2439878-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] EDAC/altera: Use ECC manager compatible to select A10/S10 IRQ layout
+Date: Wed, 16 Sep 2026 15:49:30 -0400
+Message-ID: <20260916194931.2439646-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091601-uncurled-paddle-226d@gregkh>
-References: <2026091601-uncurled-paddle-226d@gregkh>
+In-Reply-To: <2026091622-impart-roaming-d326@gregkh>
+References: <2026091622-impart-roaming-d326@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,318 +46,198 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
+From: Rounak Das <rounakdas2025@gmail.com>
 
-[ Upstream commit 502d2e71a89fa706843fa9277f4d6de1947072c8 ]
+[ Upstream commit d4486fc3098e176cb4a29fee037216484761f9ca ]
 
-'event_trigger_ops mwifiex_if_ops' are not modified in these drivers.
+The SDMMC ECC IRQ layout selection uses CONFIG_64BIT to distinguish between
+Arria10 and Stratix10 paths.
 
-Constifying these structures moves some data to a read-only section, so
-increase overall security, especially when the structure holds some
-function pointers.
+Detect the SoC once at probe via the device match table (.data) store it in
+struct altr_arria10_edac, and use it instead of CONFIG_64BIT.
 
-On a x86_64, with allmodconfig, as an example:
-Before:
-======
-   text	   data	    bss	    dec	    hex	filename
-  31368	   9024	   6200	  46592	   b600	kernel/trace/trace_events_trigger.o
+This keeps the decision correct for every ECC child device (OCRAM, SD/MMC,
+etc.) and avoids any runtime compatible lookup.
 
-After:
-=====
-   text	   data	    bss	    dec	    hex	filename
-  31752	   8608	   6200	  46560	   b5e0	kernel/trace/trace_events_trigger.o
-
-Cc: Masami Hiramatsu <mhiramat@kernel.org>
-Cc: Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
-Link: https://lore.kernel.org/66e8f990e649678e4be37d4d1a19158ca0dea2f4.1741521295.git.christophe.jaillet@wanadoo.fr
-Signed-off-by: Christophe JAILLET <christophe.jaillet@wanadoo.fr>
-Signed-off-by: Steven Rostedt (Google) <rostedt@goodmis.org>
-Stable-dep-of: 92383cef6679 ("tracing: Undo the registration when enabling the histogram trigger fails")
+Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+Link: https://patch.msgid.link/20260708091135.94114-2-rounakdas2025@gmail.com
+Stable-dep-of: 9868f5c077df ("EDAC/altera: Use parent device for devres in altr_portb_setup()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace.h                |  4 +--
- kernel/trace/trace_eprobe.c         |  6 ++---
- kernel/trace/trace_events_hist.c    | 20 +++++++--------
- kernel/trace/trace_events_trigger.c | 38 ++++++++++++++---------------
- 4 files changed, 34 insertions(+), 34 deletions(-)
+ drivers/edac/altera_edac.c | 107 +++++++++++++++++++------------------
+ drivers/edac/altera_edac.h |   1 +
+ 2 files changed, 55 insertions(+), 53 deletions(-)
 
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 05ac2b5c8e208..cb3b9e3eabead 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -1614,7 +1614,7 @@ struct event_trigger_data {
- 	unsigned long			count;
- 	int				ref;
- 	int				flags;
--	struct event_trigger_ops	*ops;
-+	const struct event_trigger_ops	*ops;
- 	struct event_command		*cmd_ops;
- 	struct event_filter __rcu	*filter;
- 	char				*filter_str;
-@@ -1857,7 +1857,7 @@ struct event_command {
- 	int			(*set_filter)(char *filter_str,
- 					      struct event_trigger_data *data,
- 					      struct trace_event_file *file);
--	struct event_trigger_ops *(*get_trigger_ops)(char *cmd, char *param);
-+	const struct event_trigger_ops *(*get_trigger_ops)(char *cmd, char *param);
- };
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 09b6871151676..8d3eedb55e2dd 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1517,6 +1517,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	int edac_idx, rc;
+ 	struct device_node *np;
+ 	const struct edac_device_prv_data *prv = &a10_sdmmceccb_data;
++	bool is_s10 = device->edac->is_s10;
  
- /**
-diff --git a/kernel/trace/trace_eprobe.c b/kernel/trace/trace_eprobe.c
-index a9be1ed07ae38..c7763d67741cc 100644
---- a/kernel/trace/trace_eprobe.c
-+++ b/kernel/trace/trace_eprobe.c
-@@ -479,7 +479,7 @@ static void eprobe_trigger_func(struct event_trigger_data *data,
- 	__eprobe_trace_func(edata, rec);
- }
+ 	rc = altr_check_ecc_deps(device);
+ 	if (rc)
+@@ -1558,15 +1559,14 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
  
--static struct event_trigger_ops eprobe_trigger_ops = {
-+static const struct event_trigger_ops eprobe_trigger_ops = {
- 	.trigger		= eprobe_trigger_func,
- 	.print			= eprobe_trigger_print,
- 	.init			= eprobe_trigger_init,
-@@ -508,8 +508,8 @@ static void eprobe_trigger_unreg_func(char *glob,
- 
- }
- 
--static struct event_trigger_ops *eprobe_trigger_get_ops(char *cmd,
--							char *param)
-+static const struct event_trigger_ops *eprobe_trigger_get_ops(char *cmd,
-+							      char *param)
- {
- 	return &eprobe_trigger_ops;
- }
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index d7e8018559938..ae70e3007fe10 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6334,7 +6334,7 @@ static void event_hist_trigger_free(struct event_trigger_data *data)
- 	free_hist_pad();
- }
- 
--static struct event_trigger_ops event_hist_trigger_ops = {
-+static const struct event_trigger_ops event_hist_trigger_ops = {
- 	.trigger		= event_hist_trigger,
- 	.print			= event_hist_trigger_print,
- 	.init			= event_hist_trigger_init,
-@@ -6364,15 +6364,15 @@ static void event_hist_trigger_named_free(struct event_trigger_data *data)
+ 	/*
+ 	 * Update the PortB IRQs - A10 has 4, S10 has 2, Index accordingly
+-	 *
+-	 * FIXME: Instead of ifdefs with different architectures the driver
+-	 *        should properly use compatibles.
+ 	 */
+-#ifdef CONFIG_64BIT
+-	altdev->sb_irq = irq_of_parse_and_map(np, 1);
+-#else
+-	altdev->sb_irq = irq_of_parse_and_map(np, 2);
+-#endif
++
++	/* Using compatibles to determine the IRQ Index */
++	if (is_s10)
++		altdev->sb_irq = irq_of_parse_and_map(np, 1);
++	else
++		altdev->sb_irq = irq_of_parse_and_map(np, 2);
++
+ 	if (!altdev->sb_irq) {
+ 		edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB SBIRQ alloc\n");
+ 		rc = -ENODEV;
+@@ -1580,29 +1580,28 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		goto err_release_group_1;
  	}
- }
  
--static struct event_trigger_ops event_hist_trigger_named_ops = {
-+static const struct event_trigger_ops event_hist_trigger_named_ops = {
- 	.trigger		= event_hist_trigger,
- 	.print			= event_hist_trigger_print,
- 	.init			= event_hist_trigger_named_init,
- 	.free			= event_hist_trigger_named_free,
- };
- 
--static struct event_trigger_ops *event_hist_get_trigger_ops(char *cmd,
--							    char *param)
-+static const struct event_trigger_ops *event_hist_get_trigger_ops(char *cmd,
-+								  char *param)
- {
- 	return &event_hist_trigger_ops;
- }
-@@ -6969,38 +6969,38 @@ hist_enable_count_trigger(struct event_trigger_data *data,
- 	hist_enable_trigger(data, buffer, rec, event);
- }
- 
--static struct event_trigger_ops hist_enable_trigger_ops = {
-+static const struct event_trigger_ops hist_enable_trigger_ops = {
- 	.trigger		= hist_enable_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_enable_trigger_free,
- };
- 
--static struct event_trigger_ops hist_enable_count_trigger_ops = {
-+static const struct event_trigger_ops hist_enable_count_trigger_ops = {
- 	.trigger		= hist_enable_count_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_enable_trigger_free,
- };
- 
--static struct event_trigger_ops hist_disable_trigger_ops = {
-+static const struct event_trigger_ops hist_disable_trigger_ops = {
- 	.trigger		= hist_enable_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_enable_trigger_free,
- };
- 
--static struct event_trigger_ops hist_disable_count_trigger_ops = {
-+static const struct event_trigger_ops hist_disable_count_trigger_ops = {
- 	.trigger		= hist_enable_count_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_enable_trigger_free,
- };
- 
--static struct event_trigger_ops *
-+static const struct event_trigger_ops *
- hist_enable_get_trigger_ops(char *cmd, char *param)
- {
--	struct event_trigger_ops *ops;
-+	const struct event_trigger_ops *ops;
- 	bool enable;
- 
- 	enable = (strcmp(cmd, ENABLE_HIST_STR) == 0);
-diff --git a/kernel/trace/trace_events_trigger.c b/kernel/trace/trace_events_trigger.c
-index 3ef1fe15493d3..48db99b7d61cb 100644
---- a/kernel/trace/trace_events_trigger.c
-+++ b/kernel/trace/trace_events_trigger.c
-@@ -833,7 +833,7 @@ struct event_trigger_data *trigger_data_alloc(struct event_command *cmd_ops,
- 					      void *private_data)
- {
- 	struct event_trigger_data *trigger_data;
--	struct event_trigger_ops *trigger_ops;
-+	const struct event_trigger_ops *trigger_ops;
- 
- 	trigger_ops = cmd_ops->get_trigger_ops(cmd, param);
- 
-@@ -1375,38 +1375,38 @@ traceoff_trigger_print(struct seq_file *m, struct event_trigger_data *data)
- 				   data->filter_str);
- }
- 
--static struct event_trigger_ops traceon_trigger_ops = {
-+static const struct event_trigger_ops traceon_trigger_ops = {
- 	.trigger		= traceon_trigger,
- 	.print			= traceon_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops traceon_count_trigger_ops = {
-+static const struct event_trigger_ops traceon_count_trigger_ops = {
- 	.trigger		= traceon_count_trigger,
- 	.print			= traceon_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops traceoff_trigger_ops = {
-+static const struct event_trigger_ops traceoff_trigger_ops = {
- 	.trigger		= traceoff_trigger,
- 	.print			= traceoff_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops traceoff_count_trigger_ops = {
-+static const struct event_trigger_ops traceoff_count_trigger_ops = {
- 	.trigger		= traceoff_count_trigger,
- 	.print			= traceoff_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops *
-+static const struct event_trigger_ops *
- onoff_get_trigger_ops(char *cmd, char *param)
- {
--	struct event_trigger_ops *ops;
-+	const struct event_trigger_ops *ops;
- 
- 	/* we register both traceon and traceoff to this callback */
- 	if (strcmp(cmd, "traceon") == 0)
-@@ -1488,21 +1488,21 @@ snapshot_trigger_print(struct seq_file *m, struct event_trigger_data *data)
- 				   data->filter_str);
- }
- 
--static struct event_trigger_ops snapshot_trigger_ops = {
-+static const struct event_trigger_ops snapshot_trigger_ops = {
- 	.trigger		= snapshot_trigger,
- 	.print			= snapshot_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops snapshot_count_trigger_ops = {
-+static const struct event_trigger_ops snapshot_count_trigger_ops = {
- 	.trigger		= snapshot_count_trigger,
- 	.print			= snapshot_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops *
-+static const struct event_trigger_ops *
- snapshot_get_trigger_ops(char *cmd, char *param)
- {
- 	return param ? &snapshot_count_trigger_ops : &snapshot_trigger_ops;
-@@ -1583,21 +1583,21 @@ stacktrace_trigger_print(struct seq_file *m, struct event_trigger_data *data)
- 				   data->filter_str);
- }
- 
--static struct event_trigger_ops stacktrace_trigger_ops = {
-+static const struct event_trigger_ops stacktrace_trigger_ops = {
- 	.trigger		= stacktrace_trigger,
- 	.print			= stacktrace_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops stacktrace_count_trigger_ops = {
-+static const struct event_trigger_ops stacktrace_count_trigger_ops = {
- 	.trigger		= stacktrace_count_trigger,
- 	.print			= stacktrace_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_trigger_free,
- };
- 
--static struct event_trigger_ops *
-+static const struct event_trigger_ops *
- stacktrace_get_trigger_ops(char *cmd, char *param)
- {
- 	return param ? &stacktrace_count_trigger_ops : &stacktrace_trigger_ops;
-@@ -1708,28 +1708,28 @@ void event_enable_trigger_free(struct event_trigger_data *data)
+-#ifdef CONFIG_64BIT
+-	/* Use IRQ to determine SError origin instead of assigning IRQ */
+-	rc = of_property_read_u32_index(np, "interrupts", 1, &altdev->db_irq);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE,
+-			    "Error PortB DBIRQ alloc\n");
+-		goto err_release_group_1;
+-	}
+-#else
+-	altdev->db_irq = irq_of_parse_and_map(np, 3);
+-	if (!altdev->db_irq) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
+-		rc = -ENODEV;
+-		goto err_release_group_1;
+-	}
+-	rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
+-			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+-			      ecc_name, altdev);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "PortB DBERR IRQ error\n");
+-		goto err_release_group_1;
++	if (is_s10) {
++		/* Use IRQ to determine SError origin instead of assigning IRQ */
++		rc = of_property_read_u32_index(np, "interrupts", 1, &altdev->db_irq);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
++			goto err_release_group_1;
++		}
++	} else {
++		altdev->db_irq = irq_of_parse_and_map(np, 3);
++		if (!altdev->db_irq) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
++			rc = -ENODEV;
++			goto err_release_group_1;
++		}
++		rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
++				      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
++				      ecc_name, altdev);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "PortB DBERR IRQ error\n");
++			goto err_release_group_1;
++		}
  	}
- }
+-#endif
  
--static struct event_trigger_ops event_enable_trigger_ops = {
-+static const struct event_trigger_ops event_enable_trigger_ops = {
- 	.trigger		= event_enable_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_enable_trigger_free,
+ 	rc = edac_device_add_device(dci);
+ 	if (rc) {
+@@ -1985,29 +1984,29 @@ static int altr_edac_a10_device_add(struct altr_arria10_edac *edac,
+ 		goto err_release_group1;
+ 	}
+ 
+-#ifdef CONFIG_64BIT
+-	/* Use IRQ to determine SError origin instead of assigning IRQ */
+-	rc = of_property_read_u32_index(np, "interrupts", 0, &altdev->db_irq);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE,
+-			    "Unable to parse DB IRQ index\n");
+-		goto err_release_group1;
+-	}
+-#else
+-	altdev->db_irq = irq_of_parse_and_map(np, 1);
+-	if (!altdev->db_irq) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "Error allocating DBIRQ\n");
+-		rc = -ENODEV;
+-		goto err_release_group1;
+-	}
+-	rc = devm_request_irq(edac->dev, altdev->db_irq, prv->ecc_irq_handler,
+-			      IRQF_TRIGGER_HIGH,
+-			      ecc_name, altdev);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "No DBERR IRQ resource\n");
+-		goto err_release_group1;
++	if (edac->is_s10) {
++		/* Use IRQ to determine SError origin instead of assigning IRQ */
++		rc = of_property_read_u32_index(np, "interrupts", 0, &altdev->db_irq);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE,
++				    "Unable to parse DB IRQ index\n");
++			goto err_release_group1;
++		}
++	} else {
++		altdev->db_irq = irq_of_parse_and_map(np, 1);
++		if (!altdev->db_irq) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error allocating DBIRQ\n");
++			rc = -ENODEV;
++			goto err_release_group1;
++		}
++		rc = devm_request_irq(edac->dev, altdev->db_irq, prv->ecc_irq_handler,
++				      IRQF_TRIGGER_HIGH,
++				      ecc_name, altdev);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "No DBERR IRQ resource\n");
++			goto err_release_group1;
++		}
+ 	}
+-#endif
+ 
+ 	rc = edac_device_add_device(dci);
+ 	if (rc) {
+@@ -2133,6 +2132,8 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, edac);
+ 	INIT_LIST_HEAD(&edac->a10_ecc_devices);
+ 
++	edac->is_s10 = !!device_get_match_data(&pdev->dev);
++
+ 	edac->ecc_mgr_map =
+ 		altr_sysmgr_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 						     "altr,sysmgr-syscon");
+@@ -2221,7 +2222,7 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id altr_edac_a10_of_match[] = {
+ 	{ .compatible = "altr,socfpga-a10-ecc-manager" },
+-	{ .compatible = "altr,socfpga-s10-ecc-manager" },
++	{ .compatible = "altr,socfpga-s10-ecc-manager", .data = (void *)1 },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, altr_edac_a10_of_match);
+diff --git a/drivers/edac/altera_edac.h b/drivers/edac/altera_edac.h
+index 7248d24c4908d..5b26ef0cfe600 100644
+--- a/drivers/edac/altera_edac.h
++++ b/drivers/edac/altera_edac.h
+@@ -395,6 +395,7 @@ struct altr_arria10_edac {
+ 	struct irq_chip		irq_chip;
+ 	struct list_head	a10_ecc_devices;
+ 	struct notifier_block	panic_notifier;
++	bool is_s10;
  };
  
--static struct event_trigger_ops event_enable_count_trigger_ops = {
-+static const struct event_trigger_ops event_enable_count_trigger_ops = {
- 	.trigger		= event_enable_count_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_enable_trigger_free,
- };
- 
--static struct event_trigger_ops event_disable_trigger_ops = {
-+static const struct event_trigger_ops event_disable_trigger_ops = {
- 	.trigger		= event_enable_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
- 	.free			= event_enable_trigger_free,
- };
- 
--static struct event_trigger_ops event_disable_count_trigger_ops = {
-+static const struct event_trigger_ops event_disable_count_trigger_ops = {
- 	.trigger		= event_enable_count_trigger,
- 	.print			= event_enable_trigger_print,
- 	.init			= event_trigger_init,
-@@ -1913,10 +1913,10 @@ void event_enable_unregister_trigger(char *glob,
- 		data->ops->free(data);
- }
- 
--static struct event_trigger_ops *
-+static const struct event_trigger_ops *
- event_enable_get_trigger_ops(char *cmd, char *param)
- {
--	struct event_trigger_ops *ops;
-+	const struct event_trigger_ops *ops;
- 	bool enable;
- 
- #ifdef CONFIG_HIST_TRIGGERS
+ #endif	/* #ifndef _ALTERA_EDAC_H */
 -- 
 2.53.0
 
