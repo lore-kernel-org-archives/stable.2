@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 449093F1060
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:12:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DABE446067
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:13:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546386; cv=none; b=mfAIoGMG79UIXDyEkIQMJKs4CvqjBU+0P/fDIhi8hCKmitQ7PCqMnZmlgwMLNVbSxhRPSwFBh6dEg9p7qGXeBBUuGiwTopf5ZKytlC8ifW6j9oIFrbnN1MKYBL7IvoyJ5fWG/KFYSjcSzpaoI3H1ApTjaHGuR/rAF68G0Oa44WU=
+	t=1789546391; cv=none; b=SJfE/sBvwqCNhhVT2kmkwXQhC0RQeAcIDezWUOdiJR90/t875WRNZzLm4A45K0kMAl8Rn94J+a57gT9Dd4lh5bF5nHm1TB7epQJvi5Jf0cFDEcK40BGT1yOaCJ8dFarH8WwlxFKreRN1AQJrWE0HZkiRuEK64JdsnskbrLLESew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546386; c=relaxed/simple;
-	bh=jKbbWTf2c75juyMI5Dek4/kgQTxj4FLLCUcsUCmtOD0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=N7f80VvLfghgsNzylpyQ6a9KDFjF08TDEJHNVOMl7fWTEoXwAONGfA+0M8buP/f9RO/CAB+mGGnIbwFy9y4uU/iOFHioVn3+ZraG2YIdr8fFzzNKqxXqgOLns9sPqQ36kerIIPctJ74gz7G4UX3xzUpsJDXXrytWLObEX+PIPa8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=A+oWaXuX; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546391; c=relaxed/simple;
+	bh=vwIrgdOJ4SOgjGPSUI03fy0Fbac9XoGPeKkImcFzkvw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Pe+V6LOA+NlhfpY+gr7y+ZJJ1XvfKW4FN5mHg2osKPhtrr95YC91p4PKgjmvE16BqKXCpB/exiE1kqL2ev7cCo0YZ/J7Nt3ElUcYQ8nnxqnW72Z3AQyLeBbTLj9gKPBmPdbSPlMrzLYQQZjz4pxV/RbcR67UhgXzC4Z56LlVOGU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=re9EJdFv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="A+oWaXuX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99DC41F000FF;
-	Wed, 16 Sep 2026 08:12:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="re9EJdFv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3F531F00893;
+	Wed, 16 Sep 2026 08:12:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789546376;
-	bh=jBk1f0TFdjqyeTGP18/IumyYPsY37ggg4I8U64/NKH4=;
+	s=korg; t=1789546379;
+	bh=n6fDIv7v18pYVGK59HWUfYT1B+8SFc1g4DtghpRYf1U=;
 	h=Subject:To:Cc:From:Date;
-	b=A+oWaXuX8Th+kAxbkP7/fLF2uhEFH9AOfopiKzY4LOV8tiCPqukOHNZraj6hpQlPM
-	 ycGqEqDiXy4Yaz9QQUZfzGBKVjct48qLr7Uveyvl+Btp1swh6y49ALNnpTh8Sdum1y
-	 lXfJ7zBZTaCGVdnbodnlftqmOFZDA/evMM7bQijk=
-Subject: FAILED: patch "[PATCH] ipmr: account multicast table and route memory" failed to apply to 6.18-stable tree
+	b=re9EJdFve5IzOHdPApqueANYT2FM/nHyc8JKlNEDluaoCX7D9mvzUMHSZDfJqAxGe
+	 tMKkbD3Ya8VnA/2gSdSbqlPSloiEfNADJr9/lkemF2bRX3mSCosxdBE60aAkZxX+YX
+	 zuqK/+nNMR/hai4a+KrYH4mPyZmlXJUQxgdX4xkw=
+Subject: FAILED: patch "[PATCH] ipmr: account multicast table and route memory" failed to apply to 6.12-stable tree
 To: zihanx@nebusec.ai,idosch@nvidia.com,kuba@kernel.org,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 09:11:02 +0100
-Message-ID: <2026091602-anaerobic-outskirts-27e7@gregkh>
+Date: Wed, 16 Sep 2026 09:11:03 +0100
+Message-ID: <2026091603-unstuffed-goes-e540@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x b7ee18725f2292ab554aa96a101ae42d45f008bd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091602-anaerobic-outskirts-27e7@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091603-unstuffed-goes-e540@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
