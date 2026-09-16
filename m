@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A54EB3DDB0A
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:07:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 704234A7CBF
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:07:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585674; cv=none; b=JMNBb9jvgJA9QAlkhyx1+FSGNaOq+wFoyf1qySVmiLFv+Ch+TBy0I+za9D3TM4asgOGGpt03WJ9/4DmSBpiYGVOeiEvnr7iYS4zBPe5NXs4lWrfDkALMaV/Mi/2iNuQ2XhMUVeWXzxLVtgSE5pvSCSaNWEmQRNnY1d0Ut//CzpY=
+	t=1789585676; cv=none; b=fpAvsKhom6c+5GGBiWSs5/EaOZ75zF5pA6YUy3r66wYZ1gpH4/H2/h3fEs0JwZE0e7EJ2tZ1+LEN+jv4IqcwHZV55mXUk3+WAsP0fZigoFvBMNMsUJTMm9n1IoP0sP3krGmlxdTvH33oE2rUxRmL/XTk2sT40E81e/R6/JgF7ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585674; c=relaxed/simple;
-	bh=CxMvWIwu1GgVMHsJoBNUEsEeDYxUxeRinp5xcnHKpCs=;
+	s=arc-20240116; t=1789585676; c=relaxed/simple;
+	bh=UNG4yxvPNXH7lITyNZOwCbLhLqn6wXfzKhVnexrWN/E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CratzgKvi8IT4c+h1Tr/tmmZhCRmRoJSSJB3XsZbhVLhlssZr62XnSrshqhN/OguSchkaaMf4fwhr/7Sl4aF/CjHaemuyrruIXkV5w1CSyGgfj5C5IvtZHbNaxDsTyAhYZaqXzSxHSZ7YpyAz6BUzXsPQv8TMu75HTo26c/6/Qw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=I3i32ZVJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dCgY82GoZgBe1HgtmIlaO/SQa0sdJZR3B8HwXsTl5KyB/E/59BJzVp7eSNf9MApC4DoKi3Mcw//RW8UqrR00wh8NAyCWGXkFzJTs07uSWPGWz45ep+j5KznVoQqUtKm4IevkFVBxcXF09y5LomXJ4Doe04t6R90d95EAB44XQIQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nBhA6I4W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="I3i32ZVJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B0C71F00893;
-	Wed, 16 Sep 2026 19:07:37 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nBhA6I4W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9451D1F0089C;
+	Wed, 16 Sep 2026 19:07:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789585657;
-	bh=8iC392c7bBdRVAZYbO1t1gR5fPu12C+zyrr6nI6ud/4=;
+	s=k20260515; t=1789585660;
+	bh=EWkTJ+K8SVeGhOJ5Rn0hGBtk2Z3xEPhnlX9q90aAbqo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=I3i32ZVJb1RcZMQWPUIzgm0gWCgRjH1Oak8CpOGWbklUWsazbHoz3ZkQHxdR9HfVc
-	 Ypv80DWpvqwzeH/eeH0m8O29aWP42tuxx4DcWxFBJl82GX02D3PIvkRGDA3mhTWtZv
-	 iMKwjWmW3rQsomvnLrjcezZTdUzRp5JO+Raoxx8jAXPDj/mKRbzpR2dpKlB3/ta+7s
-	 gqmHdfFB5llReCEU5/inlh1foolnDsuXLao7s1Lt5IGBOuDiarkMHk8cXMzQDp8dab
-	 utFaBesyMRzfkZsib0juVMVKQ5FYUXSZXOpQLfR2VVTXJz+QoVsz9kvJWm97IYP1A5
-	 ZroN7Epksv1/A==
+	b=nBhA6I4WSKvymrMTIfHjgTgYn34hJhx0TIVeG0xpAshVOx7+ip/3qF7EPpE0enkNE
+	 Hej76/J9XORNXgsfnmHAaGGEJAPKco5H8PlhXx9rjaFYhkSwQ6tt6kJlw/tNEMHAJV
+	 4q2CUaxPdkVgBSIncvhB9vp8KGw4YMrTCXx5+eVyqoDZwGSrMvzD+QtxH7dzX0oHSe
+	 8Hq1fWwsDiRqyOyA2jcJcY1uCAGmukd8ASjbMJzfKwBO7/J2XdbE+UwOmsecpqhlAh
+	 Pi1Ak9K5kg9FvagQDoxGPg86lNMo0J5lW0uC8nzfTc4ci3EjEQraeTdkFTV+fNphbG
+	 piy6etfmFhVSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: zuoqilin <zuoqilin@yulong.com>,
-	Masami Hiramatsu <mhiramat@kernel.org>,
+Cc: Masami Hiramatsu <mhiramat@kernel.org>,
 	"Steven Rostedt (VMware)" <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/7] tools/bootconfig: Simplify expression
-Date: Wed, 16 Sep 2026 15:07:29 -0400
-Message-ID: <20260916190735.1968203-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/7] tools/bootconfig: Print all error message in stderr
+Date: Wed, 16 Sep 2026 15:07:32 -0400
+Message-ID: <20260916190735.1968203-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091617-cackle-deeply-2ea2@gregkh>
+In-Reply-To: <20260916190735.1968203-1-sashal@kernel.org>
 References: <2026091617-cackle-deeply-2ea2@gregkh>
+ <20260916190735.1968203-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,41 +46,72 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: zuoqilin <zuoqilin@yulong.com>
+From: Masami Hiramatsu <mhiramat@kernel.org>
 
-[ Upstream commit 30d103f2d4602da07313cf43d7b746e89d7d9c1d ]
+[ Upstream commit 160321b2602ff8e42ea77a09f2e3f1b35e3acfaf ]
 
-It is not necessary to define the variable ret to receive
-the return value of the xbc_node_compose_key() method.
+Print all error message in stderr. This also removes
+unneeded tools/bootconfig/include/linux/printk.h.
 
-Link: https://lkml.kernel.org/r/20210414134647.1870-1-zuoqilin1@163.com
+Link: https://lkml.kernel.org/r/163187298106.2366983.15210300267326257397.stgit@devnote2
 
-Acked-by: Masami Hiramatsu <mhiramat@kernel.org>
-Signed-off-by: zuoqilin <zuoqilin@yulong.com>
+Signed-off-by: Masami Hiramatsu <mhiramat@kernel.org>
 Signed-off-by: Steven Rostedt (VMware) <rostedt@goodmis.org>
 Stable-dep-of: 462d0b066b61 ("tools/bootconfig: Fix integer overflow and truncation in size checks")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/bootconfig/main.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+ tools/bootconfig/include/linux/kernel.h |  2 --
+ tools/bootconfig/include/linux/printk.h | 14 --------------
+ tools/bootconfig/main.c                 |  2 ++
+ 3 files changed, 2 insertions(+), 16 deletions(-)
+ delete mode 100644 tools/bootconfig/include/linux/printk.h
 
+diff --git a/tools/bootconfig/include/linux/kernel.h b/tools/bootconfig/include/linux/kernel.h
+index 2d93320aa3742..c4854b8e70237 100644
+--- a/tools/bootconfig/include/linux/kernel.h
++++ b/tools/bootconfig/include/linux/kernel.h
+@@ -5,8 +5,6 @@
+ #include <stdlib.h>
+ #include <stdbool.h>
+ 
+-#include <linux/printk.h>
+-
+ typedef unsigned short u16;
+ typedef unsigned int   u32;
+ 
+diff --git a/tools/bootconfig/include/linux/printk.h b/tools/bootconfig/include/linux/printk.h
+deleted file mode 100644
+index 036e667596eb1..0000000000000
+--- a/tools/bootconfig/include/linux/printk.h
++++ /dev/null
+@@ -1,14 +0,0 @@
+-/* SPDX-License-Identifier: GPL-2.0 */
+-#ifndef _SKC_LINUX_PRINTK_H
+-#define _SKC_LINUX_PRINTK_H
+-
+-#include <stdio.h>
+-
+-#define printk(fmt, ...) printf(fmt, ##__VA_ARGS__)
+-
+-#define pr_err printk
+-#define pr_warn	printk
+-#define pr_info	printk
+-#define pr_debug printk
+-
+-#endif
 diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 387cb91862dfc..6862afd66cfd3 100644
+index 6b212e9835e07..6dd8afb954e48 100644
 --- a/tools/bootconfig/main.c
 +++ b/tools/bootconfig/main.c
-@@ -84,11 +84,9 @@ static void xbc_show_list(void)
- 	char key[XBC_KEYLEN_MAX];
- 	struct xbc_node *leaf;
- 	const char *val;
--	int ret = 0;
+@@ -15,6 +15,8 @@
+ #include <linux/kernel.h>
+ #include <linux/bootconfig.h>
  
- 	xbc_for_each_key_value(leaf, val) {
--		ret = xbc_node_compose_key(leaf, key, XBC_KEYLEN_MAX);
--		if (ret < 0)
-+		if (xbc_node_compose_key(leaf, key, XBC_KEYLEN_MAX) < 0)
- 			break;
- 		printf("%s = ", key);
- 		if (!val || val[0] == '\0') {
++#define pr_err(fmt, ...) fprintf(stderr, fmt, ##__VA_ARGS__)
++
+ static int xbc_show_value(struct xbc_node *node, bool semicolon)
+ {
+ 	const char *val, *eol;
 -- 
 2.53.0
 
