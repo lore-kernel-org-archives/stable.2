@@ -1,124 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E62B53FD38
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:52:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF7D4C6515;
+	Wed, 16 Sep 2026 16:53:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577571; cv=none; b=sk0NkJzvUdkKR8GYivChMLB1ViT6Iub2Ss5lonu4Mx+9j67lv1hi4NsFfkb8MZrgXtsuLQaRud8A9Aj5Ij8NKophlMM0/CQAPzeMrJSXjz45l/i079mVSoVxEXIlsxBIyk5467RkFGqYQfaWT4a8s4y5YeyYXUX/J/jNmPd/i/U=
+	t=1789577603; cv=none; b=edCnXtJCUWaaaCSsVWly32ZqVXF0zW6rNgkyiTleLJBGMC2eI5bFOiuPv2+BPlO8Esm62VrZlXCv+fbYmzJM8Zs70VFYM8YmwDATiiB9uiyfayPLGMeqUuQL7S1G4HkQder6/lrvMP7O9dBp7ujsIzemxCXGExqWSzDFNhd7g+Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577571; c=relaxed/simple;
-	bh=NL7+3a+16pMNo6tpHNdpdflMGZH6KYOD/wzG7S00GfY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mgee1Yc1LhvBm21+7O5sYZJN020e0aojREnz9fOr9gAU9nwc8bp+y2lbqiMwq+wNQdPlqDhsiw+eajI1lVWeT9R756FRU5c4xQt10JekRMa/Ui32IDP+Q1oCl0a3L6+lUtM2ukjH7cbDxx/pnAi6cFt+fNYRw471rPFBiGKAUQI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JvPwbOg2; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JvPwbOg2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D28F1F00893;
-	Wed, 16 Sep 2026 16:52:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577560;
-	bh=QVTkXzic4WuAz+LMEsBiYiOR+TZYBqWgmGBFxxTqdiA=;
-	h=Subject:To:Cc:From:Date;
-	b=JvPwbOg25aMv+sAyLsNC5rHb6/XNtBtvzOOL7p+ulHEQFWBsnFxx471YAl/XT6v3T
-	 TyHHCM044BlI/jaACnatdbFdkGoWZAfMmXixyIUAHPM+1BmL7/TOOpa6GagNvibzup
-	 kdKw8/v0OOxYCrrcKVcIDqqhOvb/NGzdVRrOfPRg=
-Subject: FAILED: patch "[PATCH] smb: client: fix WSL reparse point uid/gid override" failed to apply to 6.18-stable tree
-To: pc@manguebit.org,bharathsm@microsoft.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:46:52 +0100
-Message-ID: <2026091651-rehydrate-vexingly-f239@gregkh>
+	s=arc-20240116; t=1789577603; c=relaxed/simple;
+	bh=dPZo3LSu9a/yakAaWi7jqjb8hMyJHbQA5bsD2Vijpfg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JpwZpvhVc+vxPWrziV+Q2ERjf0++sjgOBCqgPO1SbQnpeZwbabTdbnL5DwkFgwBKwOlnu8bX6E7NY4OCgFjPh4zIXkaKQ69ApDmnPBW530fpKRxux/S90crUZOftA3oCvkM5phncMTO0Jixx8Z+imm2AxWaZIxR9aWNIUklZ5Pg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXAj14yapq5wNuCA--.21781S2;
+	Thu, 17 Sep 2026 00:53:12 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	yoshihiro.shimoda.uh@renesas.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: renesas_usbhs: Fix runtime PM leak in usbhsc_power_ctrl()
+Date: Wed, 16 Sep 2026 16:52:45 +0000
+Message-Id: <20260916165245.2085374-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXAj14yapq5wNuCA--.21781S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr1kGr1Duw4Dur45XF1rXrb_yoW8Gryfpr
+	4ktFWIyry8JF4jvwsxAr1kZFyrGFWayry3Ar97Ka1kuw13Aa40kFy09F1Y9F1qyrWfJ3Z0
+	qw1vkF9rAF15CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUv014x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
+	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
+	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
+	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
+	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
+	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
+	nmRUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqozVcEwAAsL
 
+usbhsc_power_ctrl() takes a runtime PM usage count with
+pm_runtime_get_sync() when enabling the controller. If the subsequent
+usbhsc_clk_prepare_enable() call fails, the function returns without
+dropping that usage count, so the device's runtime PM usage count is
+leaked and the device can never suspend.
 
-The patch below does not apply to the 6.18-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Put the runtime PM reference back with pm_runtime_put_sync() before
+returning on the clock enable failure path, mirroring the disable path
+of the function.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
-git checkout FETCH_HEAD
-git cherry-pick -x cd2b2b57921d4caa7875e83198bb2aa71254328b
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091651-rehydrate-vexingly-f239@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From cd2b2b57921d4caa7875e83198bb2aa71254328b Mon Sep 17 00:00:00 2001
-From: Paulo Alcantara <pc@manguebit.org>
-Date: Sun, 6 Sep 2026 14:40:23 -0300
-Subject: [PATCH] smb: client: fix WSL reparse point uid/gid override
-
-wsl_to_fattr() unconditionally overwrites cf_uid/cf_gid with values
-from WSL extended attributes ($LXUID/$LXGID), ignoring the forceuid
-and forcegid mount options.
-
-Fix this by initializing cf_uid/cf_gid to the mount defaults and
-gating the $LXUID/$LXGID EA parsing on forceuid/forcegid.
-
-Closes: https://sashiko.dev/#/patchset/20260906190803.667489-1-pc%40manguebit.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Fixes: 3df0e240caba6 ("usb: renesas_usbhs: Add multiple clocks management")
 Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/usb/renesas_usbhs/common.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
-index 5cc5b0410d48..178da801e775 100644
---- a/fs/smb/client/reparse.c
-+++ b/fs/smb/client/reparse.c
-@@ -1137,10 +1137,14 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 			 struct cifs_sb_info *cifs_sb,
- 			 u32 tag, struct cifs_fattr *fattr)
- {
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 	struct smb2_file_full_ea_info *ea;
- 	bool have_xattr_dev = false;
- 	u32 next = 0;
+diff --git a/drivers/usb/renesas_usbhs/common.c b/drivers/usb/renesas_usbhs/common.c
+index 8c93bde4b816..187d6298c265 100644
+--- a/drivers/usb/renesas_usbhs/common.c
++++ b/drivers/usb/renesas_usbhs/common.c
+@@ -412,8 +412,10 @@ static void usbhsc_power_ctrl(struct usbhs_priv *priv, int enable)
+ 		pm_runtime_get_sync(dev);
  
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+
- 	switch (tag) {
- 	case IO_REPARSE_TAG_LX_SYMLINK:
- 		fattr->cf_mode |= S_IFLNK;
-@@ -1177,11 +1181,13 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
- 		nlen = ea->ea_name_length;
- 		v = (void *)((u8 *)ea->ea_data + ea->ea_name_length + 1);
+ 		/* enable clks */
+-		if (usbhsc_clk_prepare_enable(priv))
++		if (usbhsc_clk_prepare_enable(priv)) {
++			pm_runtime_put_sync(dev);
+ 			return;
++		}
  
--		if (!strncmp(name, SMB2_WSL_XATTR_UID, nlen))
--			fattr->cf_uid = wsl_make_kuid(cifs_sb, v);
--		else if (!strncmp(name, SMB2_WSL_XATTR_GID, nlen))
--			fattr->cf_gid = wsl_make_kgid(cifs_sb, v);
--		else if (!strncmp(name, SMB2_WSL_XATTR_MODE, nlen)) {
-+		if (!strncmp(name, SMB2_WSL_XATTR_UID, nlen)) {
-+			if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+				fattr->cf_uid = wsl_make_kuid(cifs_sb, v);
-+		} else if (!strncmp(name, SMB2_WSL_XATTR_GID, nlen)) {
-+			if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+				fattr->cf_gid = wsl_make_kgid(cifs_sb, v);
-+		} else if (!strncmp(name, SMB2_WSL_XATTR_MODE, nlen)) {
- 			/* File type in reparse point tag and in xattr mode must match. */
- 			if (S_DT(fattr->cf_mode) != S_DT(le32_to_cpu(*(__le32 *)v)))
- 				return false;
+ 		/* enable platform power */
+ 		usbhs_platform_call(priv, power_ctrl, pdev, priv->base, enable);
+-- 
+2.34.1
 
