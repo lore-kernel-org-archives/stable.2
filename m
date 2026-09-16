@@ -1,99 +1,256 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 007C54BA1CB;
-	Wed, 16 Sep 2026 17:12:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1F84A6888
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:12:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578747; cv=none; b=htSH381RjTT9oaRYNi5N0Rp6j6+H5+0PBFiK+vii09QC4NxbyTUdDI/uYZKvBFLnFmyypXikxGOqLCZKM1RBI7NHJlElESYgWh8d3bIWjg5zlHr54W7VpBQHxR5Sp67rNG8dAAO8RWVGrojk5JiqZ9IL3dyPVLC5d5QgKL0hUpk=
+	t=1789578748; cv=none; b=cabmnEh3mV88Z769hZq6anMku1RaRIOuaaWPS0QMNp9+o50FLMMXorDMncc9OPUUtu4de5ZgKIxQxzP4xF0zZqs6fuh2JZacUMcCcpS/0aK20+RgGvxf+vNKvg4BD8EjHoD6Uzruras48VmqI6GbWCankdQNOO/ylWU3FkR2N5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578747; c=relaxed/simple;
-	bh=GPfojv92vhGazvyjywr+nW1dfggvUCWkzV2zzDADthE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JeuIduU4mgbXpmH4UWsF9gvjqCmLKZsvZTuCMMv3kgMGVqieVgk95hUkYdIIcadxPBiV+ouyCKLYSGDF2UxLrREY3BvkY39mUtzzssLw2iBJje1IovP+lonk8rPQCc28jmexbNAqV5mVaArsZnVMCQC2X+C2IDVdl9VsIR5YNI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDrpzapqV1xuCA--.22441S2;
-	Thu, 17 Sep 2026 01:12:09 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jiqian.Chen@amd.com
-Cc: jgross@suse.com,
-	linux-kernel@vger.kernel.org,
-	oleksandr_tyshchenko@epam.com,
-	ray.huang@amd.com,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen-pciback: Fix pcistub_device ref leak in pcistub_get_gsi_from_sbdf()
-Date: Wed, 16 Sep 2026 17:11:41 +0000
-Message-Id: <20260916171141.2086627-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789578748; c=relaxed/simple;
+	bh=+ESTaKjnd+lr5mIhhT3CCCNrxAxan+eiEFj/ENV/SIM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=uDfvAQkJSzv1yxWp+tf/nNyMz62DO+hYU1yQ0ey8529MbsnPIfGqLYCyx0dwE00mKxS7lHqWf1ONEeS2piM4s10HPwlyIm1HA/3DFmV6RkEsl49KXeaKvHyWYGzIFbaBw/Dw66tj0Tvevzpl+TO36S9l1dejVrFw9PelA4gE89Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjioVT6T; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjioVT6T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585121F00893;
+	Wed, 16 Sep 2026 17:12:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789578740;
+	bh=UpZFr761NMsICx+MPbkVp4G4RyZRIwGKtrqcZRgh/k0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NjioVT6TamX3kkhEPmRuq6dGSm0GjKoC18FHHMUgQ9dmOsjFW1qcZ4UBhQi7t3M4Y
+	 1pqvyLuO5lCOz1zu2tqRUAaCmq3/jQQ9WexB7tpAmjhiscHSSf81ZFtJii3neI3kKL
+	 glaxpGh3aiBUMewtB/HJjMTSyDfBSj5eua45lPVILz+cW/3krZmb42GXiKSRnaIAqA
+	 26vqRLVJKvNRHLO8qyI7Wyp2LM66JRkFPhZsi4TMis3CWKYRPHxZcgFpnuJfmpDKP1
+	 YUEN9L1MTGaLLMr1LezPPN6/siFkorHnVnns4WicUMiRz6VtsNaGxszsfzbcwiWKZm
+	 Gt1WxNbOCdhHw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Thomas Gleixner <tglx@linutronix.de>,
+	=?UTF-8?q?=E6=9C=B1=E6=81=BA=E4=B9=BE?= <zhukaiqian@xiaomi.com>,
+	Thomas Gleixner <tglx@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	=?UTF-8?q?=E5=88=98=E6=9C=AF=E9=AB=98?= <liushugao@xiaomi.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] tick/broadcast: Plug clockevents replacement race
+Date: Wed, 16 Sep 2026 13:12:17 -0400
+Message-ID: <20260916171217.785123-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091657-yoyo-rekindle-0050@gregkh>
+References: <2026091657-yoyo-rekindle-0050@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDrpzapqV1xuCA--.22441S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKrW8WFWUuF17JF1xKrW7Jwb_yoWkKwcEgr
-	WIvr97urs8tFWxtrW7uwn0vrZav3Z0q395XF1xta4rGw4j9r4UXr1rXF98Wr4Igr45JF13
-	Xr1DCr93Kr4I9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEMA2qqok9l6QAAsp
 
-pcistub_get_gsi_from_sbdf() obtains the stub device with
-pcistub_device_find(), which returns it with its kref incremented, and
-returns psdev->gsi without dropping that reference again.  The caller
-cannot release it either, so every lookup leaks one reference to the
-stub device.
+From: Thomas Gleixner <tglx@linutronix.de>
 
-Release the reference after reading gsi.
+[ Upstream commit 113a9796effe3376d2ec5aabcca1fef4fef4cd62 ]
 
-Fixes: 2fae6bb7be32 ("xen/privcmd: Add new syscall to get gsi from dev")
+朱恺乾 reported and decoded the following race condition when a broadcast
+device is replaced:
+
+CPUA					CPUB
+ __tick_broadcast_oneshot_control()
+   bc = tick_broadcast_device.evtdev;
+					tick_install_broadcast_device(dev)
+        				clockevents_exchange_device(cur, dev)
+					   shutdown(cur);
+					   detach(cur);
+					   cur->handler = noop;
+					   tick_broadcast_device.evtdev = dev;
+
+  tick_broadcast_set_event(bc, next_event); <- FAIL: arms a detached device.
+
+If the original broadcast device has a restricted interrupt affinity mask
+and the last CPU in that mask goes offline then the BUG() in
+tick_cleanup_dead_cpu() triggers because the clockevent device is not in
+detached state.
+
+The reason for this is that tick_install_broadcast_device() is not
+serialized vs. tick broadcast operations.
+
+The obvious cure is to serialize tick_install_broadcast_device() with
+tick_broadcast_lock against a concurrent tick broadcast operation.
+
+That requires to split clockevents_exchange_device() into two parts, one
+which does the exchange, shutdown and detach operation and the other which
+drops the module reference count. This is required because the module
+reference cannot be dropped while holding tick_broadcast_lock.
+
+Let clockevents_exchange_device() do both operations as before, but let the
+broadcast device code take the two step approach and do the device
+exchange under tick_broadcast_lock and drop the module reference count
+after releasing it.
+
+Fixes: f8381cba04ba ("[PATCH] tick-management: broadcast functionality")
+Reported-by: 朱恺乾 <zhukaiqian@xiaomi.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Tested-by: 刘术高 <liushugao@xiaomi.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/87cymdsu0r.ffs@tglx
+[ Replaced scoped_guard() with a block containing guard() for GNU89 compatibility. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/xen/xen-pciback/pci_stub.c | 7 +++++--
- 1 file changed, 5 insertions(+), 2 deletions(-)
+ kernel/time/clockevents.c    | 33 +++++++++++++++++++-------------
+ kernel/time/tick-broadcast.c | 37 ++++++++++++++++++++++--------------
+ kernel/time/tick-internal.h  |  2 ++
+ 3 files changed, 45 insertions(+), 27 deletions(-)
 
-diff --git a/drivers/xen/xen-pciback/pci_stub.c b/drivers/xen/xen-pciback/pci_stub.c
-index 79a2b5dfd694..d1a335233aab 100644
---- a/drivers/xen/xen-pciback/pci_stub.c
-+++ b/drivers/xen/xen-pciback/pci_stub.c
-@@ -234,13 +234,16 @@ static int pcistub_get_gsi_from_sbdf(unsigned int sbdf)
- 	int bus = PCI_BUS_NUM(sbdf);
- 	int slot = PCI_SLOT(sbdf);
- 	int func = PCI_FUNC(sbdf);
-+	int gsi;
- 
- 	psdev = pcistub_device_find(domain, bus, slot, func);
--
- 	if (!psdev)
- 		return -ENODEV;
- 
--	return psdev->gsi;
-+	gsi = psdev->gsi;
-+	pcistub_device_put(psdev);
-+
-+	return gsi;
+diff --git a/kernel/time/clockevents.c b/kernel/time/clockevents.c
+index 003ccf338d201..87892f4c3f293 100644
+--- a/kernel/time/clockevents.c
++++ b/kernel/time/clockevents.c
+@@ -557,33 +557,40 @@ void clockevents_handle_noop(struct clock_event_device *dev)
+ {
  }
- #endif
  
+-/**
+- * clockevents_exchange_device - release and request clock devices
+- * @old:	device to release (can be NULL)
+- * @new:	device to request (can be NULL)
+- *
+- * Called from various tick functions with clockevents_lock held and
+- * interrupts disabled.
+- */
+-void clockevents_exchange_device(struct clock_event_device *old,
+-				 struct clock_event_device *new)
++void __clockevents_exchange_device(struct clock_event_device *old,
++				   struct clock_event_device *new)
+ {
+ 	/*
+ 	 * Caller releases a clock event device. We queue it into the
+ 	 * released list and do a notify add later.
+ 	 */
+ 	if (old) {
+-		module_put(old->owner);
+ 		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
+ 		list_move(&old->list, &clockevents_released);
+ 	}
+ 
+ 	if (new) {
+-		BUG_ON(!clockevent_state_detached(new));
++		WARN_ON(!clockevent_state_detached(new));
+ 		clockevents_shutdown(new);
+ 	}
+ }
+ 
++/**
++ * clockevents_exchange_device - release and request clock devices
++ * @old:	device to release (can be NULL)
++ * @new:	device to request (can be NULL)
++ *
++ * Called from various tick functions with clockevents_lock held and
++ * interrupts disabled.
++ */
++void clockevents_exchange_device(struct clock_event_device *old,
++				 struct clock_event_device *new)
++{
++	__clockevents_exchange_device(old, new);
++	if (old)
++		module_put(old->owner);
++}
++
+ /**
+  * clockevents_suspend - suspend clock devices
+  */
+@@ -650,7 +657,7 @@ void tick_cleanup_dead_cpu(int cpu)
+ 		if (cpumask_test_cpu(cpu, dev->cpumask) &&
+ 		    cpumask_weight(dev->cpumask) == 1 &&
+ 		    !tick_is_broadcast_device(dev)) {
+-			BUG_ON(!clockevent_state_detached(dev));
++			WARN_ON(!clockevent_state_detached(dev));
+ 			list_del(&dev->list);
+ 		}
+ 	}
+diff --git a/kernel/time/tick-broadcast.c b/kernel/time/tick-broadcast.c
+index 13a71a894cc16..5ca420e0f7d35 100644
+--- a/kernel/time/tick-broadcast.c
++++ b/kernel/time/tick-broadcast.c
+@@ -162,23 +162,32 @@ static bool tick_set_oneshot_wakeup_device(struct clock_event_device *newdev,
+  */
+ void tick_install_broadcast_device(struct clock_event_device *dev, int cpu)
+ {
+-	struct clock_event_device *cur = tick_broadcast_device.evtdev;
++	struct clock_event_device *cur;
+ 
+-	if (tick_set_oneshot_wakeup_device(dev, cpu))
+-		return;
++	{
++		guard(raw_spinlock_irqsave)(&tick_broadcast_lock);
+ 
+-	if (!tick_check_broadcast_device(cur, dev))
+-		return;
++		if (tick_set_oneshot_wakeup_device(dev, cpu))
++			return;
+ 
+-	if (!try_module_get(dev->owner))
+-		return;
++		cur = tick_broadcast_device.evtdev;
++		if (!tick_check_broadcast_device(cur, dev))
++			return;
+ 
+-	clockevents_exchange_device(cur, dev);
++		if (!try_module_get(dev->owner))
++			return;
++
++		__clockevents_exchange_device(cur, dev);
++		if (cur)
++			cur->event_handler = clockevents_handle_noop;
++		WRITE_ONCE(tick_broadcast_device.evtdev, dev);
++		if (!cpumask_empty(tick_broadcast_mask))
++			tick_broadcast_start_periodic(dev);
++	}
++
++	/* Module release must be outside of the lock */
+ 	if (cur)
+-		cur->event_handler = clockevents_handle_noop;
+-	tick_broadcast_device.evtdev = dev;
+-	if (!cpumask_empty(tick_broadcast_mask))
+-		tick_broadcast_start_periodic(dev);
++		module_put(cur->owner);
+ 
+ 	if (!(dev->features & CLOCK_EVT_FEAT_ONESHOT))
+ 		return;
+@@ -1205,7 +1214,7 @@ int tick_broadcast_oneshot_active(void)
+  */
+ bool tick_broadcast_oneshot_available(void)
+ {
+-	struct clock_event_device *bc = tick_broadcast_device.evtdev;
++	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
+ 
+ 	return bc ? bc->features & CLOCK_EVT_FEAT_ONESHOT : false;
+ }
+@@ -1213,7 +1222,7 @@ bool tick_broadcast_oneshot_available(void)
+ #else
+ int __tick_broadcast_oneshot_control(enum tick_broadcast_state state)
+ {
+-	struct clock_event_device *bc = tick_broadcast_device.evtdev;
++	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
+ 
+ 	if (!bc || (bc->features & CLOCK_EVT_FEAT_HRTIMER))
+ 		return -EBUSY;
+diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
+index 649f2b48e8f06..52e6fec7377d3 100644
+--- a/kernel/time/tick-internal.h
++++ b/kernel/time/tick-internal.h
+@@ -48,6 +48,8 @@ static inline void clockevent_set_state(struct clock_event_device *dev,
+ }
+ 
+ extern void clockevents_shutdown(struct clock_event_device *dev);
++extern void __clockevents_exchange_device(struct clock_event_device *old,
++					  struct clock_event_device *new);
+ extern void clockevents_exchange_device(struct clock_event_device *old,
+ 					struct clock_event_device *new);
+ extern void clockevents_switch_state(struct clock_event_device *dev,
 -- 
-2.34.1
+2.53.0
 
