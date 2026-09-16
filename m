@@ -1,81 +1,64 @@
-Received: from mail-pj2-f35.google.com (mail-pj2-f35.google.com [74.125.227.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-57-252.mail.qq.com (out162-62-57-252.mail.qq.com [162.62.57.252])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D3D3379989
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51A713A9627;
+	Wed, 16 Sep 2026 02:39:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.57.252
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789525971; cv=none; b=JznbQHDCmKIs70XRxfpaVq3UInyxhNLLknx6xM9Yaox9O4SMW/qu3OzP6NV5+KsQut4bP6aEfAfpIouSSR4ui0qoNwbDroOzh+W7sni+EgssgRQz+v2F6Nxx+c8ATKE57TEojHUYfO6icS/n8gnwAJRzVpizZDF/5vFFRQR6Mlw=
+	t=1789526354; cv=none; b=DzdNgbmvdYHxvyd9FMEEH5VoUYAeG20IM+YSOn/eeEb02Psf0zdSekZHBtBD+g5eAIp7UtOLZpEe9ogGXjkUN38eCU7hlxfLzrcDPTfZL9j+IgIVDCPm4iYKKHnkY+E4CW8+gYNa/gQnLOmS4wRNCtdKzybCEAoLqnkW/nSAyyg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789525971; c=relaxed/simple;
-	bh=SuQIgv0SEoKEEDd+zO2LbMvRV51Ofr7lqHjGiCkVtvI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=WqPXv6TWcjzwAJe570aeIevrRFlY6gF/hdq05FvVS2lL2UBu5HG1Wta+a5CCH6bztOTtI5gS0U6wsISoRkX9L/8nQh13wtoPWlQgk6575jw/5P6XeA1lOl4xi11iE2vTUluQcNbh/lD5MZf8e9GgsVJ+IoVQFfxxP6ck0AwTCw4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XU+wJL22; arc=none smtp.client-ip=74.125.227.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789526354; c=relaxed/simple;
+	bh=VqnS13aNVfY8LA3BWlr9xk8shgeYtWmDWKNkAg4hmwU=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=RZ3OHaHSxDXzYxFgk9yGlp7kL7UKeYzdvN7vlB5VEQNx1bJbGgilMCiSPmR9MFZkKQiCjlot/DJIdQjF022cnEs3CdirWnqdS+etIrfFiQaH/f1c1iUIVS/ZuuxdzWrNUll94US+oAJHbD1Q/2Q63bppen3IiFhAkQHQQw7kljc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=tuSmS5f2; arc=none smtp.client-ip=162.62.57.252
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XU+wJL22"
-Received: by mail-pj2-f35.google.com with SMTP id d9443c01a7336-2dd77300825so4413105ad.1
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 19:32:48 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789525966; x=1790130766; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=KKzmIBjxPsY9wwxZ+pV+iWoGbpiC0lGusYTUQ4D7CLo=;
-        b=XU+wJL22/Nooco/rx5ryPoSHFCHZt/u4d7Y1Tewc4L2QMehWmMJqWcDgYxT6B/yuu9
-         jcv3QLCFV0tWEwUTai0EZZYjmdKD7N2pBdQXGV1oO7+Lkie6ZHMzeIVRaH8LPhHOKGfd
-         tYd+SnrqMUtFxyJ4E9WNuMc5LSNlo4c8oOINJTkVys35TvsoNbSdHAHnhMkrKcfuYibr
-         l+6YEDOx8Oxoi2l4z/fBTeZoBF9d+UD+euft+9Q6iSfSqvMC46FZirsXy8GKrqa4ahJd
-         5YlZ2XmNlr1MhRfHN24V515fRrawxC0A6BLx5nRMdfbbtLDyEn0o3Ey/G1lsX1xj6H8j
-         708Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789525966; x=1790130766;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=KKzmIBjxPsY9wwxZ+pV+iWoGbpiC0lGusYTUQ4D7CLo=;
-        b=ULRqAPiwS5t7fXSIwu1r9ukSBr59aG70aqCuH+8VvBGdaqUfQYVSFT0LK7g5XMerk/
-         G5FNvkTZSMG8Cicg5xY12qo9R8ZdPID3kwjMtpSR2vtl33mKAPTB1coiwerwMgLFKLe3
-         XoWPkfb2qp0hBYDgkvqrblgTHhRFz994xuA9JtUeGMDzEEi7GoEZv5wjnTT8mzcBzjFU
-         wd+DoQc5p1fhHSlqkTpwtHP5S9vxcKtPnexucSK5qaYgV3pehJGHie1rL69v1BI0MRnE
-         BOIbKUZ+vmxzCJ/wFzhFodnW9TSzO6wzCkusYSpUEppJu32LK8oSNZvcDWgZOm2DDV6v
-         koYQ==
-X-Gm-Message-State: AFuF++lsbXYCSkeNUtUNYU0/IY0gvlTEbjzdOEkXeVH9f7N9c8Zpgvrh
-	BzXsi0R1RhtTd2UT9nGsRsuxrCT/2SW473NOH3xBn6MxvUn+Zl5M/2Daf8UkdZXq
-X-Gm-Gg: AYBFou15ZsvVteUVwuKMHA3KFBSqk9XnZcOeL4fh0KjN9cBEchdGOxGf8FOZIuVz0Fz
-	dZcs3e/RNf5TdLy+ji95yx5IbXy5aMCtSYSr5S1uuQ8X7ILUsbOeZbuMIebekUGXBlPPhBGEss3
-	AEFvQvim105YJ1wIUJpQR25tXgVHUBs6A9LuosMZKO9wi7IR19M1wIKhKPi30pYy+hLg9X0aVRB
-	euikb+1v5MF4fzKrjygD1TrYKzvKLEVTDxZ5QaodaJ805WfEAEa9sqImkjOizvAky7n/8PCbx/N
-	KJNNHPKIb4NYk0G80oUYcKUS7LTQNCX+KOCw0o5ammmrrxVRoKLNtgh3psvHcx6BGHjoc5VjbG+
-	+RUWKCcPKKn3a0E7IK7t5017WryfnAwNGUxBjv/WX5ZHqH69puk31+Wipln3Kmvd2PAPlD8R6Z4
-	Njr/Cr9ApLrpWwho1Pd71/3ucAXnqz5BlhXpuyxcVanh4Gcap+O9ZViQ==
-X-Received: by 2002:a17:903:19c5:b0:2db:8019:847a with SMTP id d9443c01a7336-2dd8e012174mr17506605ad.9.1789525966646;
-        Tue, 15 Sep 2026 19:32:46 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89eff35asm3456075ad.58.2026.09.15.19.32.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 19:32:45 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Arthur Kiyanovski <akiyano@amazon.com>,
-	David Arinzon <darinzon@amazon.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
-	=?UTF-8?q?Niklas=20S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>,
-	Ioana Ciornei <ioana.ciornei@nxp.com>,
-	Dawei Feng <dawei.feng@seu.edu.cn>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Netanel Belgazal <netanel@annapurnalabs.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] net: ena: fix MMIO read buffer leak on probe failure
-Date: Wed, 16 Sep 2026 10:32:36 +0800
-Message-ID: <20260916023236.2701485-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="tuSmS5f2"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789526337; bh=GfsLSrxjQLXcbeNbQxgHajKwYkkvuZ1OIYHFlEylIeQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=tuSmS5f2+P/xXLpUUsT0aUSexC1eTw8q4xgoQoYI6uRpOLBmYPHEA3voSRqKXwct7
+	 BLfpxAPYmlaigy3aNvU5Q/MXZWvQNsZDZTVKXAygZgrCPIevefSTBubPOjYlORW2nw
+	 ac/Rj8XDZ0t0a23aDQaYwRHYruenZxxWUfvRJoYA=
+Received: from ubuntu.. ([218.196.207.16])
+	by newxmesmtplogicsvrszc43-0.qq.com (NewEsmtp) with SMTP
+	id 9B6B6CE8; Wed, 16 Sep 2026 10:38:54 +0800
+X-QQ-mid: xmsmtpt1789526334trw61qluc
+Message-ID: <tencent_705010B6315454003C478AE79E1F215E6E08@qq.com>
+X-QQ-XMAILINFO: MmPNY57tR1XnR2Uu41Cpv/l8mOrpdmWbQBdTYSMgo2bGpnQfAbRwCJVMkvkK1g
+	 Qedex/JBl4tUNRuj4ocCC0CETZSQq8rn5ENXgvVTnxVjuRiHT4wVbk/i0RPZEp+3rdw5nw41qlHq
+	 jgUpvppF1RxXT7b7+oLIpuhly87Y15AXAUJ2EoG0eQR/iW4z+QwFI1j2BDcQeVw2tCKNMToMPDxR
+	 IblmqluIcD6gy31LQP25ZwUwzUptfrFqvwtDrB2aLrone1pzH52U+ZfM+U0dQGQtNFcWwgfMsUqg
+	 +OMtPN8RtEZkC0Sm9SgkjI5U72ah938f7MsQVN7727bENUmerjAYInoYVf7AvEyKQnAwENkrPSKF
+	 umM6mMprhTPpaIV5+57uxScZrVhl+KrwPNBffcGTTkqj2QHLAyT5lD7MRxpkMB9v3UTSo9btvLBy
+	 9DFC/wqu9IKDZK/QpmfTrw7l09r6+QBv3G0ovsDXiKOMOKtK5gJF6ZP5ruVyrlpgAsuhHomm1UJL
+	 FliAJjkA1/EsFHZpIJrvunT0b1IUN0yCAkhMS3neRfVCjVkKbUMFun3LURrtzARQ+ZU2699Brj2a
+	 /LOEEJwHdI+X5PM/8Oj4TPqHMFC7H8nKqnXNr70DsaD9M7GrHrNe2M6RdJOISJ+m/UQdCCkafQR3
+	 5VmJu7K00Whokpdm+FwDGutAiDYX2DG0xM7wGAehO1BaU5GhlFG3GIeyzIxKnWVsbEL0C9LbMCbF
+	 JV+LWyniBPfepYSpJb37mtTBtToA2CCGNHgKUsbbu6OpPw3pOUu308014tKxIEoPOsxvORnVoTJG
+	 dexQ7W8FyOTD6AkY5dGgrKIUBnpZhgo9B+gFzdW4UffkbkOCoVguWmsICSfPXm/WTS8BR9gqwIgA
+	 JKlQqEsyBoeql6JJdRJvJXCvcV+b2ATXoBzROK49jkjzwxCjB8ihcnNxk/1BlwcIyCbKZFw3AnvI
+	 rOIfzRkdL7MRASgqXYp9TEvbf1P95I+O0qfjq2QkpPQr/yo2cnYrbNkxx1SOa/UngITysYTrJzu7
+	 Bkutax3t8PWqjowetYCfUxzrJYN+aK0pNAeH9QoDMr5HIk71ggy1EwZL4ikTc6AsL9gf/Mzo76qQ
+	 D+M4xD
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: Guanghui Yang <3497809730@qq.com>
+To: linux-btrfs@vger.kernel.org
+Cc: boris@bur.io,
+	wqu@suse.com,
+	dsterba@suse.com,
+	mason@kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Guanghui Yang <3497809730@qq.com>
+Subject: [PATCH v2] btrfs: clear free space tree creation state on rebuild failure
+Date: Wed, 16 Sep 2026 02:38:43 +0000
+X-OQ-MSGID: <20260916023843.70086-1-3497809730@qq.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
+References: <tencent_F71ECF81628C274CC89FDB3304420C2D1506@qq.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,40 +67,71 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ena_device_init() initializes the MMIO read mechanism with
-ena_com_mmio_reg_read_request_init(), which allocates a coherent DMA
-buffer for MMIO read responses.
+btrfs_rebuild_free_space_tree() sets
+BTRFS_FS_CREATING_FREE_SPACE_TREE before rebuilding the free space tree.
+Several error paths return without clearing this flag.
 
-The normal removal path releases this buffer through
-ena_com_mmio_reg_read_request_destroy(). However, if ena_probe() fails
-after ena_device_init() succeeds, the error path destroys the admin
-resources and eventually frees ena_dev without destroying the MMIO read
-request, leaving the coherent DMA buffer allocated.
+The transaction restart failure path can leave the flag set on a live
+filesystem, causing delayed reference processing to be skipped. Clear it
+on all free space tree rebuild failure paths. Keep
+BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED set, since a failed rebuild leaves the
+free space tree untrusted. Callers must fall back to extent-tree caching.
 
-Call ena_com_mmio_reg_read_request_destroy() in the probe error path
-before releasing the remaining device resources.
-
-This issue was found by manual code inspection.
-
-Fixes: 1738cd3ed342 ("net: ena: Add a driver for Amazon Elastic Network Adapters (ENA)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Fixes: 882af9f13e83 ("btrfs: handle free space tree rebuild in multiple transactions")
+Cc: stable@vger.kernel.org # 6.14+
+Assisted-by: Codex:gpt-5
+Tested: make -j$(nproc) fs/btrfs/free-space-tree.o
+Signed-off-by: Guanghui Yang <3497809730@qq.com>
 ---
- drivers/net/ethernet/amazon/ena/ena_netdev.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/btrfs/free-space-tree.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
-index ea89619039d8..86ffda1c8632 100644
---- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
-+++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
-@@ -4122,6 +4122,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
- err_device_destroy:
- 	ena_com_delete_host_info(ena_dev);
- 	ena_com_admin_destroy(ena_dev);
-+	ena_com_mmio_reg_read_request_destroy(ena_dev);
- ena_devlink_destroy:
- 	ena_devlink_free(devlink);
- err_metrics_destroy:
+diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
+index 1b3d82ae3de8..b7a4a6ade30f 100644
+--- a/fs/btrfs/free-space-tree.c
++++ b/fs/btrfs/free-space-tree.c
+@@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+ 	if (unlikely(ret)) {
+ 		btrfs_abort_transaction(trans, ret);
+ 		btrfs_end_transaction(trans);
+-		return ret;
++		goto out_clear;
+ 	}
+ 
+ 	node = rb_first_cached(&fs_info->block_group_cache_tree);
+@@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+ 		if (unlikely(ret)) {
+ 			btrfs_abort_transaction(trans, ret);
+ 			btrfs_end_transaction(trans);
+-			return ret;
++			goto out_clear;
+ 		}
+ next:
+ 		if (btrfs_should_end_transaction(trans)) {
+ 			btrfs_end_transaction(trans);
+ 			trans = btrfs_start_transaction(free_space_root, 1);
+-			if (IS_ERR(trans))
+-				return PTR_ERR(trans);
++			if (IS_ERR(trans)) {
++				ret = PTR_ERR(trans);
++				goto out_clear;
++			}
+ 		}
+ 		node = rb_next(node);
+ 	}
+@@ -1390,6 +1392,10 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
+ 	ret = btrfs_commit_transaction(trans);
+ 	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
+ 	return ret;
++
++out_clear:
++	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
++	return ret;
+ }
+ 
+ static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
+
+base-commit: 587858367581b9c55c3690f4e63382ad622719d4
 -- 
-2.43.0
+2.34.1
 
