@@ -1,120 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE49C4C33E6
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:49:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C1A48FF83
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:49:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577380; cv=none; b=ToSLDDlSFBZ9dJNcyVfRNkr3PSHZM3aqMFyp6ZCS/dhvKMFehKH2YuGMd3VxLaB4sOuwrPWgcQH5YuTJCpjryg3vqQmPAK52Y3Pue+pC7pSkhiZwgczaXfHUxHM7j/gvYCCnw3B02nSIu1miJFogFfwSooVhPfAWgRaRGm4CGuA=
+	t=1789577387; cv=none; b=j/7GbuH6aADcSHLAylK87eNj6G28vLvzmwqR9G8gm2RDJ2EGNKe5EHPUJ5xQiSHyXfmnJL6k/3ssduH7OykRhSxJP/pSLG7xFsx7Rd2ac69xRaDRGr8JNlWJg9Baj3LaKVJC2z0sa3Iw/WbWOIwSseth7ZyoDP4N4t9tZrayHK0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577380; c=relaxed/simple;
-	bh=zpXkAMn96VjOPCsHUoOxhj0q5uEdqAqE/5zsTJBuPM8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Jurpt23JpxjivZuWF4Q+BbO/mdYYASWLNO5uND+NsvEZE5hC0y4pKT4Ma6HvuW9g9olHNcbcbMvnjh/L+Oqc0f+N3xVVwixMB+xQphpcHKRpbjy7UGDKP2aKkffofI3k9DW9MzmdMiwdjPZkyqT+AoiFfQUBk50VppX1xOIIlNk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=moyZME2N; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577387; c=relaxed/simple;
+	bh=OVTAp+6XZ2J/qX8pJR6/T07c5n9APXt+ppIoweLHw2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=GxRBxWZr8IfW2Ji9DmZfxl6r/O0wiHjqDqQNvb5waDI0i/RW/q374VRHJsw7yvYuDR7uRww1F1C7bejoNAmM/Ki1q6G0ITYfD8Z33hc3GK8+9xGxzVzBYSyKab7+bSvWaKAgWP8gUDYWa7y441idSKnmjIumuqmSWzzXF558JRA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mS5Y8FVg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="moyZME2N"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D7F691F00893;
-	Wed, 16 Sep 2026 16:49:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577372;
-	bh=rE51vi7Knd+GbtkgMRkMTIDFwz9hZymWH+hnIT43FCY=;
-	h=Subject:To:Cc:From:Date;
-	b=moyZME2NSmCUuDI8ZficjLFZUVObj42LfPaRYuZzQ9RqtYchk5i7Q2wjF4ez3NHET
-	 hiJvEMnnphxjDNqkULvQF+H8ttqJDh5RMOvnFLbVGFC9J7drhTBowhbXxNBQc5ZWeA
-	 /3m/qDpzeWmh5Uv729SlsxYfh4Xaz8CQmf+5pQqM=
-Subject: FAILED: patch "[PATCH] smb: client: avoid leaking refcount in" failed to apply to 5.10-stable tree
-To: doebel@amazon.de,linkinjeon@kernel.org,pc@manguebit.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:44:16 +0100
-Message-ID: <2026091616-voicing-bauble-48b0@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mS5Y8FVg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D1951F000FF;
+	Wed, 16 Sep 2026 16:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789577378;
+	bh=tbnPyr/slvdJ3aAR0fUz65Y2d7iCx6WNE3W1FccsBDs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=mS5Y8FVgUzVbf4Vgc1gkbtOAXjRENlBdrVnVCEnduV4GWjA2WseMqr0MhqyVwlRz7
+	 p83p66dMlzkRzBRBPi5CIFxtDOWL1mzoOQpQn88fqBHMbXNmB3111DUIpPXy/lVxe1
+	 JK5C/1z4Jzu1qgD/DgXhvkI8vovNAcXMKF7tXOQKiCWopUYUwmeuzufmlgpCSlvD2W
+	 4ZOhvdZewYYygsyoYaXFhwVNFr6ltIJyF+tTUQdVDrT2kcp4OywbyoQQw4I3Y742s3
+	 tgt0mMCx/7VTDzgT44v4E9SgeL7eQsf1Aumt3E7cUi3H3tK3wHlzMCYkWta+Xqv676
+	 W8DPjxcA+YXaw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/5] ALSA: usx2y: Avoid self-killing
+Date: Wed, 16 Sep 2026 12:49:32 -0400
+Message-ID: <20260916164936.551732-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091646-junkman-leverage-0c14@gregkh>
+References: <2026091646-junkman-leverage-0c14@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Takashi Iwai <tiwai@suse.de>
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit a11aa8537e13dd1082c85b102b98afc2a156a815 ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+The initialization os usx2y driver is multi-staged, and the PCM and
+other device creations are done after the DSP is loaded and
+initialized.  Upon the initialization, when an error happens, the
+driver tries to call snd_card_free().  But this is dangerous, and in
+general, the driver cannot kill itself during its operation.
+Hence better to drop the snd_card_free() call from there.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 9f2e63f1b2d5fc5b5423424902c091123e220e7e
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091616-voicing-bauble-48b0@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+Link: https://lore.kernel.org/r/20210517131545.27252-6-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 8f5ef203abda ("ALSA: usbusx2y: validate URB actual_length in interrupt callback")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/usx2y/usX2Yhwdep.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 9f2e63f1b2d5fc5b5423424902c091123e220e7e Mon Sep 17 00:00:00 2001
-From: Bjoern Doebel <doebel@amazon.de>
-Date: Thu, 3 Sep 2026 21:28:58 +0000
-Subject: [PATCH] smb: client: avoid leaking refcount in
- cifs_queue_oplock_break()
-
-cifs_queue_oplock_break() unconditionally takes a reference on the
-target file before queueing cifs_oplock_break(). Only that work item
-decreases the reference counter again.
-
-If another oplock break arrives while that work is still queued,
-queue_work() will return false and not queue this second work item. As a
-result, we will never reach the point to drop the file reference again
-and are leaking this reference. This can be triggered when interacting
-with a slow-responding server.
-
-As a result, later unmount operations for this file system will fail with
-
-  BUG: Dentry ... still in use (1) [unmount of cifs cifs]
-  VFS: Busy inodes after unmount of cifs (cifs)
-  kernel BUG at fs/super.c:777!
-
-Fix this by only incrementing the reference count if the work has been
-queued successfully. Taking it after queue_work() is safe because all
-three callers hold tcon->open_file_lock across the call and
-_cifsFileInfo_put() decrements under that same lock, so a worker that
-starts the handler in the window cannot drop the reference before it has
-been taken.
-
-Fixes: b98749cac4a69 ("CIFS: keep FileInfo handle live during oplock break")
-Cc: stable@vger.kernel.org
-Assisted-by: Kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-
-diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
-index d4db3f91a91f..945194fe7a97 100644
---- a/fs/smb/client/misc.c
-+++ b/fs/smb/client/misc.c
-@@ -378,10 +378,11 @@ void cifs_queue_oplock_break(struct cifsFileInfo *cfile)
- 	 * open_file_lock to enforce the validity of it for the oplock
- 	 * break handler. The matching put is done at the end of the
- 	 * handler.
-+	 *
-+	 * Only take a reference if the work is actually queued.
- 	 */
--	cifsFileInfo_get(cfile);
--
--	queue_work(cifsoplockd_wq, &cfile->oplock_break);
-+	if (queue_work(cifsoplockd_wq, &cfile->oplock_break))
-+		cifsFileInfo_get(cfile);
- }
- 
- void cifs_done_oplock_break(struct cifsInodeInfo *cinode)
+diff --git a/sound/usb/usx2y/usX2Yhwdep.c b/sound/usb/usx2y/usX2Yhwdep.c
+index eeafe580d0382..0a4da61861ded 100644
+--- a/sound/usb/usx2y/usX2Yhwdep.c
++++ b/sound/usb/usx2y/usX2Yhwdep.c
+@@ -222,7 +222,6 @@ static int snd_usx2y_hwdep_dsp_load(struct snd_hwdep *hw,
+ 		err = usx2y_create_alsa_devices(hw->card);
+ 		if (err) {
+ 			snd_printk(KERN_ERR "usx2y_create_alsa_devices error %i\n", err);
+-			snd_card_free(hw->card);
+ 			return err;
+ 		}
+ 		priv->chip_status |= USX2Y_STAT_CHIP_INIT;
+-- 
+2.53.0
 
