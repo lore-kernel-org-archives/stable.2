@@ -1,176 +1,219 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8378B4CE677
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A0E4DD3BE
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598785; cv=none; b=FrDQOBONb/A66gbNzUTGmyus2jOJTfvPaZBOE+5zbBBpUVpGUbGKhgq+p8+Lx9HV0sxa5pdV+jFf1ln/zGiI8cg6fKYnTFRENsEShLgP4HzHNKVaRtB6I7xj9WLV3CKIQxIAxHAxdORwK2V+RkS5t7PYOkI3OYLdBrYSe629o6I=
+	t=1789598795; cv=none; b=jeb2feFoaAr0r5X5/SZWAXBoa38U+JvQNiZRDXwsCMdmNO6Cb90PnXn3rxvI/qhM/3rO8CgKTITC4a9PcsoJ9DzVt5TopA8+/VDh7BvTrIx9hRHgJiJgRYypv4D+l/juYbUjmkINCPtiH5ufAS5rm8hIvPY24faZ601V7/q+yfU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598785; c=relaxed/simple;
-	bh=zlrGmLQrJrDCQk3JAQ3wUiy3u2OjicB3Z9SHw947c38=;
+	s=arc-20240116; t=1789598795; c=relaxed/simple;
+	bh=o7QSNGG/e7S8phwZ6V55xHAhPD5K/JkAMpoHyX+peGE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=maHj51UZVTC0xEnE1+QeWqbfOhXOHlkYNXwYAy14Z+9hYZF+hAgkjNch8nwPlRNzyeWiLuWGlujR98ODGijUWWkOeqazY8EmBMKiC0PYJB6AjzqzlmlopIwIGIP4gFJWe1sgcd2OhqZ4QzpqX7+e4UrYaX7qogWCkHBYVS3oy6A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=karVF1DM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=M+/xZOb6KxDsBRd4rOOoGQny1pJ/pxcHbPNwhDisMfg0nUdRlXi2tEXEDqi91IxAnwKS0knqac9ZDlNSMuiTrVF36aCAhxM+ieKtlakaio/7M0dgDDTOxJRWyoM8mhML2fn4rtw1lI4S35zfnISw8nH1Di1z0h/KYlwz+MkVJks=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXl1O662; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="karVF1DM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 262791F00893;
-	Wed, 16 Sep 2026 22:46:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXl1O662"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39E371F000FF;
+	Wed, 16 Sep 2026 22:46:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598773;
-	bh=DM3ePNVbGjG+WiTaJP3U53nQ/kTijLigCIr4mV9ljt4=;
+	s=k20260515; t=1789598787;
+	bh=QIXzNk5xyeD8LQTqreN0rPx4B4NPb6kpwotbqb0B7e0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=karVF1DM+Q/ECoYhM3sStTo5LRIYeUy+VGE0OSqZ9AhRDsmOwHOqM89bpe5bJ1HJs
-	 MQ3SbicQbjikY/MZ5QXXB1jdF/6oWksvjvmXPCFaRhVvmx0PhabdkVZjOHy3soXg0M
-	 Z3zajNTZO8Bwq4Xo/GydxGA5JeJY0HaB9skXU87pjIkve7yhOPMzY+/tVmAUz3TACB
-	 IHmio0D+TRtpmCnrXEca/tJWH8YO3DAWB/Jox0zE8rg1QliSdifrDoByAnOM7Lsj6h
-	 K7s6TLlfj5tYHU2QdFjxZOJOQuebzF+Hyxsgr/pk1uqteJlWixfehxmvRReVU/pDB7
-	 oG9JPh27aw1XA==
+	b=QXl1O662z14HNhQqMJ97oOLPwa250bX6JDEl8clcRNB+lYa8RhTVsoEYWoCqRjM3d
+	 NONqEgO6cB0lJDA71qdhFkgKEjTzH4Og8St5Y5DlsVCcTYLr5IW8/L+2m886m9omGU
+	 21/QIIYb2Otg3oRKry9K4IAC3tDXzYNKvnbMl1fm///g2zPRuy2ikEW02f0qXHWOuf
+	 nfZPeiLN88ON0zN/OF0fZIGwQB4mmaE3xVJ0pcB4TLgjNN6tXsGzzoiSOlNThzQlGe
+	 dZNo3w1X+/ih0lEE/NifzsrytFmKgYjjuomW/6oXtvUwO2n1WLTnJy0BIbxb5S72L1
+	 d8qJyV58D2asw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
-	syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com,
+Cc: Gabriel Krisman Bertazi <krisman@suse.de>,
+	Jens Axboe <axboe@kernel.dk>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] io_uring/rw: end write accounting from ->ki_complete
-Date: Wed, 16 Sep 2026 18:46:11 -0400
-Message-ID: <20260916224611.3195603-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] io_uring/net: don't overconsume buffers when using MSG_TRUNC
+Date: Wed, 16 Sep 2026 18:46:25 -0400
+Message-ID: <20260916224625.3197408-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091624-arousal-carton-6a38@gregkh>
-References: <2026091624-arousal-carton-6a38@gregkh>
+In-Reply-To: <2026091649-cussed-imperfect-a5fa@gregkh>
+References: <2026091649-cussed-imperfect-a5fa@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+From: Gabriel Krisman Bertazi <krisman@suse.de>
 
-[ Upstream commit 796aa0547557e63338657ed1c487906f9fac4c73 ]
+[ Upstream commit 6028b543884f8735e057ec9eea4908cd61cab230 ]
 
-Commit b000145e9907 moved both the fsnotify calls and the write
-accounting out of the kiocb completion handler and into the
-io_req_rw_complete() task_work. However, only the fsnotify part actually
-needed to move as it may sleep. Ending the write accounting is just a
-percpu_up_read() on the superblock writers sem.
+When a recv/recvmsg is issued with MSG_TRUNC and the incoming packet is
+larger than the provided buffer, the net layer returns the full length
+of the packet rather than the number of bytes actually copied into the
+buffer.  As a result, io_uring advances more of the provided buffer ring
+than was actually filled.  Use the actual filled region size to consume
+the buffer, but still return the full size to preserve MSG_TRUNC
+semantics.
 
-Deferring it is a problem, because it makes dropping SB_FREEZE_WRITE
-protection depend on the ring owner getting to running task_work. But
-the task may be blocked in freeze_super(), causing it to never get to
-that:
+Take care with multishot, because that seems to already truncate the
+consumption based on the available payload size.
 
-  task                             io-wq worker
-  --------------------------------------------------------------
-  io_write()
-    io_kiocb_start_write()         (takes sb_writers, hidden from
-                                    lockdep by __sb_writers_release)
-    write_iter() -> -EIOCBQUEUED
-  ioctl(FS_IOC_SHUTDOWN)
-    bdev_freeze()
-      freeze_super()
-        percpu_down_write()        <- waits for the reader above
-                                   io_write()
-                                     kiocb_start_write()
-                                       percpu_down_read()  <- queued
-                                                              behind the
-                                                              writer
-  <bio completes>
-    io_complete_rw()
-      queues io_req_rw_complete()  <- never runs, task is in D state
+This was reported in https://github.com/axboe/liburing/issues/1619.
 
-End the write from io_complete_rw() instead, and leave only the fsnotify
-calls in task_work.
-
-Reported-by: syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com
+Fixes: ae98dbf43d75 ("io_uring/kbuf: add support for incremental buffer consumption")
 Cc: stable@vger.kernel.org
-Fixes: b000145e9907 ("io_uring/rw: defer fsnotify calls to task context")
+Link: https://patch.msgid.link/20260728191454.1850326-1-krisman@suse.de
+Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
+Link: https://patch.msgid.link/20260902230041.1320658-3-krisman@suse.de
+[axboe: fold in size_t unsigned fix]
 Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ adapted accounting cleanup to the older completion helper’s retry early return. ]
+[ replaced `len = ret` with `len = iov_iter_count(&kmsg->msg.msg_iter)` because the older buffer-selection helper returns zero on success. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/rw.c | 32 +++++++++++++++-----------------
- 1 file changed, 15 insertions(+), 17 deletions(-)
+ io_uring/net.c | 41 +++++++++++++++++++++++++++++++++--------
+ 1 file changed, 33 insertions(+), 8 deletions(-)
 
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index a74664c4a05ef..d615c61bbbd2e 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -460,31 +460,23 @@ static void io_req_end_write(struct io_kiocb *req)
- 	}
- }
- 
--/*
-- * Trigger the notifications after having done some IO, and finish the write
-- * accounting, if any.
-- */
--static void io_req_io_end(struct io_kiocb *req)
-+/* Trigger the notifications after having done some IO. */
-+static void io_req_io_notify(struct io_kiocb *req)
+diff --git a/io_uring/net.c b/io_uring/net.c
+index f2f2ae1037e9b..eff8587293697 100644
+--- a/io_uring/net.c
++++ b/io_uring/net.c
+@@ -858,7 +858,7 @@ int io_recvmsg_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
+ static inline bool io_recv_finish(struct io_kiocb *req,
+ 				  struct io_async_msghdr *kmsg,
+ 				  struct io_br_sel *sel, bool mshot_finished,
+-				  unsigned issue_flags)
++				  unsigned issue_flags, int consumed)
  {
- 	struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
+ 	struct io_sr_msg *sr = io_kiocb_to_cmd(req, struct io_sr_msg);
+ 	unsigned int cflags = 0;
+@@ -869,7 +869,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
+ 	if (sr->flags & IORING_RECVSEND_BUNDLE) {
+ 		size_t this_ret = sel->val - sr->done_io;
  
--	if (rw->kiocb.ki_flags & IOCB_WRITE) {
--		io_req_end_write(req);
-+	if (rw->kiocb.ki_flags & IOCB_WRITE)
- 		fsnotify_modify(req->file);
--	} else {
-+	else
- 		fsnotify_access(req->file);
--	}
- }
- 
- static bool __io_complete_rw_common(struct io_kiocb *req, long res)
- {
- 	if (unlikely(res != req->cqe.res)) {
- 		if ((res == -EOPNOTSUPP || res == -EAGAIN) && io_rw_should_reissue(req)) {
--			/*
--			 * Reissue will start accounting again, finish the
--			 * current cycle.
--			 */
--			io_req_io_end(req);
-+			/* Reissue bypasses task_work, so notify here. */
-+			io_req_io_notify(req);
- 			req->flags |= REQ_F_REISSUE | REQ_F_BL_NO_RECYCLE;
- 			return true;
+-		cflags |= io_put_kbufs(req, this_ret, sel->buf_list, io_bundle_nbufs(kmsg, this_ret));
++		cflags |= io_put_kbufs(req, consumed, sel->buf_list, io_bundle_nbufs(kmsg, consumed));
+ 		if (sr->retry_flags & IO_SR_MSG_RETRY)
+ 			cflags = req->cqe.flags | (cflags & CQE_F_MASK);
+ 		/* bundle with no more immediate buffers, we're done */
+@@ -888,7 +888,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
+ 			return false;
  		}
-@@ -519,7 +511,7 @@ void io_req_rw_complete(struct io_kiocb *req, struct io_tw_state *ts)
- 		io_req_set_res(req, io_fixup_rw_res(req, res), 0);
+ 	} else {
+-		cflags |= io_put_kbuf(req, sel->val, sel->buf_list);
++		cflags |= io_put_kbuf(req, consumed, sel->buf_list);
  	}
  
--	io_req_io_end(req);
-+	io_req_io_notify(req);
+ 	/*
+@@ -1021,6 +1021,8 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 	int ret, min_ret = 0;
+ 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
+ 	bool mshot_finished = true;
++	int consumed = 0;
++	size_t len;
  
- 	if (req->flags & (REQ_F_BUFFER_SELECTED|REQ_F_BUFFER_RING))
- 		req->cqe.flags |= io_put_kbuf(req, req->cqe.res, NULL);
-@@ -533,6 +525,10 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
- 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
- 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
+ 	sock = sock_from_file(req->file);
+ 	if (unlikely(!sock))
+@@ -1036,9 +1038,8 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
  
-+	/* ring owner may block in freeze_super() before task_work runs */
-+	if (kiocb->ki_flags & IOCB_WRITE)
-+		io_req_end_write(req);
+ retry_multishot:
+ 	sel.buf_list = NULL;
++	len = sr->len;
+ 	if (io_do_buffer_select(req)) {
+-		size_t len = sr->len;
+-
+ 		sel = io_buffer_select(req, &len, issue_flags);
+ 		if (!sel.addr)
+ 			return -ENOBUFS;
+@@ -1059,6 +1060,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 	if (req->flags & REQ_F_APOLL_MULTISHOT) {
+ 		ret = io_recvmsg_multishot(sock, sr, kmsg, flags,
+ 					   &mshot_finished);
++		consumed = ret;
+ 	} else {
+ 		/* disable partial retry for recvmsg with cmsg attached */
+ 		if (flags & MSG_WAITALL && !kmsg->msg.msg_controllen)
+@@ -1066,6 +1068,15 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ 		ret = __sys_recvmsg_sock(sock, &kmsg->msg, sr->umsg,
+ 					 kmsg->uaddr, flags);
++		/*
++		 * With MSG_TRUNC, the net layer will return the full size of
++		 * the packet, even if we only filled part of it in the buffers.
++		 * Adjust the returned size to consume only the real part of the
++		 * buffer.
++		 */
++		consumed = ret;
++		if (ret > 0)
++			consumed = min_t(size_t, ret, len);
+ 	}
+ 
+ 	if (ret < min_ret) {
+@@ -1094,7 +1105,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
+ 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
+ 
+ 	sel.val = ret;
+-	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
++	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
+ 		goto retry_multishot;
+ 
+ 	return sel.val;
+@@ -1175,9 +1186,10 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 	struct io_br_sel sel;
+ 	struct socket *sock;
+ 	unsigned flags;
+-	int ret, min_ret = 0;
++	int ret, min_ret = 0, consumed = 0;
+ 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
+ 	bool mshot_finished;
++	size_t len = 0;
+ 
+ 	if (!(req->flags & REQ_F_POLLED) &&
+ 	    (sr->flags & IORING_RECVSEND_POLL_FIRST))
+@@ -1193,6 +1205,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 
+ retry_multishot:
+ 	sel.buf_list = NULL;
++	len = sr->len;
+ 	if (io_do_buffer_select(req)) {
+ 		sel.val = sr->len;
+ 		ret = io_recv_buf_select(req, kmsg, &sel, issue_flags);
+@@ -1200,6 +1213,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 			kmsg->msg.msg_inq = -1;
+ 			goto out_free;
+ 		}
++		len = iov_iter_count(&kmsg->msg.msg_iter);
+ 		sr->buf = NULL;
+ 	}
+ 
+@@ -1232,6 +1246,17 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 	}
+ 
+ 	mshot_finished = ret <= 0;
 +
- 	if (!kiocb->dio_complete || !(kiocb->ki_flags & IOCB_DIO_CALLER_COMP)) {
- 		if (__io_complete_rw_common(req, res))
- 			return;
-@@ -604,11 +600,13 @@ static int kiocb_done(struct io_kiocb *req, ssize_t ret,
- 		if (!__io_complete_rw_common(req, ret)) {
- 			u32 cflags = 0;
++	/*
++	 * With MSG_TRUNC, the net layer will return the full size of
++	 * the packet, even if we only filled part of it in the buffers.
++	 * Adjust the returned size to consume only the real part of the
++	 * buffer.
++	 */
++	consumed = ret;
++	if (ret > 0)
++		consumed = min_t(size_t, ret, len);
++
+ 	if (ret > 0)
+ 		ret += sr->done_io;
+ 	else if (sr->done_io)
+@@ -1240,7 +1265,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
+ 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
  
-+			if (rw->kiocb.ki_flags & IOCB_WRITE)
-+				io_req_end_write(req);
- 			/*
--			 * Safe to call io_end from here as we're inline
-+			 * Safe to notify from here as we're inline
- 			 * from the submission path.
- 			 */
--			io_req_io_end(req);
-+			io_req_io_notify(req);
- 			if (sel)
- 				cflags = io_put_kbuf(req, ret, sel->buf_list);
- 			io_req_set_res(req, final_ret, cflags);
+ 	sel.val = ret;
+-	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
++	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
+ 		goto retry_multishot;
+ 
+ 	return sel.val;
 -- 
 2.53.0
 
