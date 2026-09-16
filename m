@@ -1,56 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52C844E2349
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:21:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405EE3E7174
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:22:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568472; cv=none; b=XfV8d11cnrjw4VJ4AylSYP3g8uYgb4DMeljHnxrqRvSBgMruDKYQ9F9uMFXFptmMoBjHKE9eVjBqnv1yxdvqjfsjE+D4dIkwhEYxaS8P8YJUHRGpv2sSxEyy6uSsap9Xg4x3w6E257AfQTYqd1b037GhP83Ay2af8iVL08VM+qs=
+	t=1789568574; cv=none; b=pL9HNgHr1cGAxDnuOupJhvFufH7Gu1VzcgKUhYrOjJRdhGsfXUNv8OLn+NUmhZcIpJ4q8QE9Bl+SnZFJrCSPA0RlBmTa0Q2qxZRiQjiD+nLbyT8dgZzboZ2TmaZ/MBzScH4nWbQKt1VrSN3q2NvKRl/40x+GZ0tQ1fENIwQ+P50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568472; c=relaxed/simple;
-	bh=YFF4+J1tOqUpoWnoKfNqWVuhCBrZZHGPBqkjN/+6kWo=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=S73NTHcefXtoBnQklmyIqL2iZQ2+tRDofffSY+LGdnfYgDr5UCqwR/7fQR2iD+HBkzbQhMDR9b1B6hOeKMSZ4cwyGUCFUX5DoI1CpdLccpcqDFcjV86SsfxCQhK+VLLO3Ui83DwziwYniKc5IcZRYQmiXn2kwXEebDNz1hJP6O4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Wcy2PsjS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568574; c=relaxed/simple;
+	bh=asEF5CCAwAv0HbJqQMaxtSsT8hFcqWUzJW0Go1s2dl8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ts4JuUJFPNtY9Tg2oiHaITZTghtQvta/X3KBPBl2WuBxlOAj0xsCOgZKws7YjEOZ4sp8UQTbnbQz8htH9MLqNdWO8f7Ok6VJjuY01tZrYrZR2C0Ym0tSNbF+QecPvg/kRuvi9Ti//lKJFo7rr54dEGCEiYSj8mSv7LWL190+b9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GwcKXYPz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Wcy2PsjS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B9D91F000FF;
-	Wed, 16 Sep 2026 14:21:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GwcKXYPz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403A91F000FF;
+	Wed, 16 Sep 2026 14:22:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789568471;
-	bh=sQsMx9K8hdvUapackjQpYR6kBlwQkbaiRG4Ebfwrhvk=;
+	s=korg; t=1789568572;
+	bh=MZwPuC7bgjqJWvhD+7HCn0v4MiRgj6U/M6vdtZrDSFM=;
 	h=Subject:To:Cc:From:Date;
-	b=Wcy2PsjSXv5Zd2ywJxcI5SsFWAhe93qK563/wIoPJMJLaj9jB5wrnGrHtFqdXxYWW
-	 bEH+K0BRV8IaYqmPVubVne5zfcnbj1fReoJocg6tsjck4ZK9tzDVjx1oquB4bcwIjn
-	 KQ15Ln9squI7UEqRm0SkdTVepWL989UZEfj5vftg=
-Subject: FAILED: patch "[PATCH] tracing: Undo the registration when enabling the histogram" failed to apply to 5.10-stable tree
-To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org,sashiko-bot@kernel.org
+	b=GwcKXYPz/0uZiXiDEes6c500RnJXPyiOVgRn4EP6cyYfU5Ybs/jlWX7/J1kW+0pIB
+	 Hd92lXFDtXRE8JWpIT5jFdC1sDhDrK6FTwlLJqkgdsFUtHeguAgvv4VvCMw635BASy
+	 IWOgpesdlc8DatQXHELyH+L8Gq/mHUVjVQX3oxI0=
+Subject: FAILED: patch "[PATCH] tick/broadcast: Plug clockevents replacement race" failed to apply to 5.15-stable tree
+To: tglx@linutronix.de,brads@mainlining.org,liushugao@xiaomi.com,tglx@kernel.org,zhukaiqian@xiaomi.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 15:19:12 +0100
-Message-ID: <2026091612-blazer-ambiguity-e8df@gregkh>
+Date: Wed, 16 Sep 2026 15:20:58 +0100
+Message-ID: <2026091657-yoyo-rekindle-0050@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 92383cef66791a0c63a2f27755cadbdb2fbf270b
+git cherry-pick -x 113a9796effe3376d2ec5aabcca1fef4fef4cd62
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091612-blazer-ambiguity-e8df@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091657-yoyo-rekindle-0050@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,113 +62,197 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 92383cef66791a0c63a2f27755cadbdb2fbf270b Mon Sep 17 00:00:00 2001
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Date: Mon, 7 Sep 2026 21:44:20 +0900
-Subject: [PATCH] tracing: Undo the registration when enabling the histogram
- trigger fails
+From 113a9796effe3376d2ec5aabcca1fef4fef4cd62 Mon Sep 17 00:00:00 2001
+From: Thomas Gleixner <tglx@linutronix.de>
+Date: Mon, 12 Aug 2024 16:19:48 +0200
+Subject: [PATCH] tick/broadcast: Plug clockevents replacement race
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-Commit 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers
-list") described how a trigger that is registered but not on file->triggers
-ends up freed while still on the global named_triggers list, and moved the
-registration down so that hist_trigger_enable() follows it immediately. One
-path still gets there. hist_trigger_enable() adds the trigger and takes it
-straight back out when the event cannot be enabled:
+朱恺乾 reported and decoded the following race condition when a broadcast
+device is replaced:
 
-	list_add_tail_rcu(&data->list, &file->triggers);
+CPUA					CPUB
+ __tick_broadcast_oneshot_control()
+   bc = tick_broadcast_device.evtdev;
+					tick_install_broadcast_device(dev)
+        				clockevents_exchange_device(cur, dev)
+					   shutdown(cur);
+					   detach(cur);
+					   cur->handler = noop;
+					   tick_broadcast_device.evtdev = dev;
 
-	update_cond_flag(file);
+  tick_broadcast_set_event(bc, next_event); <- FAIL: arms a detached device.
 
-	if (trace_event_trigger_enable_disable(file, 1) < 0) {
-		list_del_rcu(&data->list);
-		update_cond_flag(file);
-		ret--;
-	}
+If the original broadcast device has a restricted interrupt affinity mask
+and the last CPU in that mask goes offline then the BUG() in
+tick_cleanup_dead_cpu() triggers because the clockevent device is not in
+detached state.
 
-so the list walk in hist_unregister_trigger() matches nothing, test stays
-NULL, and the ->free() that would call del_named_trigger() is skipped.
-out_unreg falls through to out_free, which frees the trigger anyway:
+The reason for this is that tick_install_broadcast_device() is not
+serialized vs. tick broadcast operations.
 
- BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
- Read of size 8 at addr ffff8880091d3160 by task init/1
-  find_named_trigger+0xac/0xc0
-  hist_register_trigger+0xc1/0xa00
-  event_hist_trigger_parse+0x3146/0x6af0
-  event_trigger_write+0xce/0x160
- Freed by task 69:
-  kfree+0x154/0x420
-  trigger_kthread_fn+0xfd/0x160
+The obvious cure is to serialize tick_install_broadcast_device() with
+tick_broadcast_lock against a concurrent tick broadcast operation.
 
-Leave the trigger where hist_unregister_trigger() can find it and let that
-undo the registration, which is the only code that knows all of what
-cmd_ops->init() took: the named list entry, the hist_pad reference, the
-reference on the trigger a named histogram is shared with, and the copied
-cmd_ops. It also pairs the failed trace_event_trigger_enable_disable(),
-whose sm_ref and buffered event reference are otherwise left behind.
+That requires to split clockevents_exchange_device() into two parts, one
+which does the exchange, shutdown and detach operation and the other which
+drops the module reference count. This is required because the module
+reference cannot be dropped while holding tick_broadcast_lock.
 
-Since ->free() releases trigger_data and, for a trigger that does not share
-its histogram, hist_data with it, out_unreg can no longer fall through to
-out_free. For a trigger that does share, hist_register_trigger() has
-already destroyed the caller's hist_data, so the fall-through was reading
-freed memory there as well.
+Let clockevents_exchange_device() do both operations as before, but let the
+broadcast device code take the two step approach and do the device
+exchange under tick_broadcast_lock and drop the module reference count
+after releasing it.
 
-Move the enable_timestamps check in hist_unregister_trigger() above the
-->free() call for the same reason: hist_data does not outlive it once the
-trigger being removed is the one that owns it.
-
+Fixes: f8381cba04ba ("[PATCH] tick-management: broadcast functionality")
+Reported-by: 朱恺乾 <zhukaiqian@xiaomi.com>
+Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
+Signed-off-by: Thomas Gleixner <tglx@kernel.org>
+Reviewed-by: Bradley Morgan <brads@mainlining.org>
+Tested-by: 刘术高 <liushugao@xiaomi.com>
 Cc: stable@vger.kernel.org
-Fixes: 067fe038e70f ("tracing: Add variable reference handling to hist triggers")
-Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F00A3D@smtp.kernel.org/
-Link: https://patch.msgid.link/20260907124420.607097-3-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Link: https://patch.msgid.link/87cymdsu0r.ffs@tglx
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 54c95f9bd0a3..53100287466f 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6670,11 +6670,12 @@ static int hist_trigger_enable(struct event_trigger_data *data,
- 
- 	update_cond_flag(file);
- 
--	if (trace_event_trigger_enable_disable(file, 1) < 0) {
--		list_del_rcu(&data->list);
--		update_cond_flag(file);
-+	/*
-+	 * On failure the caller undoes the registration, and
-+	 * hist_unregister_trigger() can only find the trigger here.
-+	 */
-+	if (trace_event_trigger_enable_disable(file, 1) < 0)
- 		ret--;
--	}
- 
- 	return ret;
+diff --git a/kernel/time/clockevents.c b/kernel/time/clockevents.c
+index 0014d163f989..62ad7c000386 100644
+--- a/kernel/time/clockevents.c
++++ b/kernel/time/clockevents.c
+@@ -615,6 +615,24 @@ void clockevents_handle_noop(struct clock_event_device *dev)
+ {
  }
-@@ -6752,13 +6753,13 @@ static void hist_unregister_trigger(char *glob,
+ 
++void __clockevents_exchange_device(struct clock_event_device *old,
++				   struct clock_event_device *new)
++{
++	/*
++	 * Caller releases a clock event device. We queue it into the
++	 * released list and do a notify add later.
++	 */
++	if (old) {
++		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
++		list_move(&old->list, &clockevents_released);
++	}
++
++	if (new) {
++		WARN_ON(!clockevent_state_detached(new));
++		clockevents_shutdown(new);
++	}
++}
++
+ /**
+  * clockevents_exchange_device - release and request clock devices
+  * @old:	device to release (can be NULL)
+@@ -626,20 +644,9 @@ void clockevents_handle_noop(struct clock_event_device *dev)
+ void clockevents_exchange_device(struct clock_event_device *old,
+ 				 struct clock_event_device *new)
+ {
+-	/*
+-	 * Caller releases a clock event device. We queue it into the
+-	 * released list and do a notify add later.
+-	 */
+-	if (old) {
++	__clockevents_exchange_device(old, new);
++	if (old)
+ 		module_put(old->owner);
+-		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
+-		list_move(&old->list, &clockevents_released);
+-	}
+-
+-	if (new) {
+-		BUG_ON(!clockevent_state_detached(new));
+-		clockevents_shutdown(new);
+-	}
+ }
+ 
+ /**
+@@ -699,7 +706,7 @@ void tick_offline_cpu(unsigned int cpu)
+ 		if (cpumask_test_cpu(cpu, dev->cpumask) &&
+ 		    cpumask_weight(dev->cpumask) == 1 &&
+ 		    !tick_is_broadcast_device(dev)) {
+-			BUG_ON(!clockevent_state_detached(dev));
++			WARN_ON(!clockevent_state_detached(dev));
+ 			list_del(&dev->list);
  		}
  	}
+diff --git a/kernel/time/tick-broadcast.c b/kernel/time/tick-broadcast.c
+index 115e0bf01276..bda3d2391a60 100644
+--- a/kernel/time/tick-broadcast.c
++++ b/kernel/time/tick-broadcast.c
+@@ -165,23 +165,31 @@ static bool tick_set_oneshot_wakeup_device(struct clock_event_device *newdev,
+  */
+ void tick_install_broadcast_device(struct clock_event_device *dev, int cpu)
+ {
+-	struct clock_event_device *cur = tick_broadcast_device.evtdev;
++	struct clock_event_device *cur;
  
--	if (test && test->cmd_ops->free)
--		test->cmd_ops->free(test);
--
- 	if (hist_data->enable_timestamps) {
- 		if (!hist_data->remove || test)
- 			tracing_set_filter_buffering(file->tr, false);
- 	}
+-	if (tick_set_oneshot_wakeup_device(dev, cpu))
+-		return;
++	scoped_guard(raw_spinlock_irqsave, &tick_broadcast_lock) {
+ 
+-	if (!tick_check_broadcast_device(cur, dev))
+-		return;
++		if (tick_set_oneshot_wakeup_device(dev, cpu))
++			return;
+ 
+-	if (!try_module_get(dev->owner))
+-		return;
++		cur = tick_broadcast_device.evtdev;
++		if (!tick_check_broadcast_device(cur, dev))
++			return;
+ 
+-	clockevents_exchange_device(cur, dev);
++		if (!try_module_get(dev->owner))
++			return;
 +
-+	if (test && test->cmd_ops->free)
-+		test->cmd_ops->free(test);
++		__clockevents_exchange_device(cur, dev);
++		if (cur)
++			cur->event_handler = clockevents_handle_noop;
++		WRITE_ONCE(tick_broadcast_device.evtdev, dev);
++		if (!cpumask_empty(tick_broadcast_mask))
++			tick_broadcast_start_periodic(dev);
++	}
++
++	/* Module release must be outside of the lock */
+ 	if (cur)
+-		cur->event_handler = clockevents_handle_noop;
+-	tick_broadcast_device.evtdev = dev;
+-	if (!cpumask_empty(tick_broadcast_mask))
+-		tick_broadcast_start_periodic(dev);
++		module_put(cur->owner);
+ 
+ 	if (!(dev->features & CLOCK_EVT_FEAT_ONESHOT))
+ 		return;
+@@ -1218,7 +1226,7 @@ int tick_broadcast_oneshot_active(void)
+  */
+ bool tick_broadcast_oneshot_available(void)
+ {
+-	struct clock_event_device *bc = tick_broadcast_device.evtdev;
++	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
+ 
+ 	return bc ? bc->features & CLOCK_EVT_FEAT_ONESHOT : false;
+ }
+@@ -1226,7 +1234,7 @@ bool tick_broadcast_oneshot_available(void)
+ #else
+ int __tick_broadcast_oneshot_control(enum tick_broadcast_state state)
+ {
+-	struct clock_event_device *bc = tick_broadcast_device.evtdev;
++	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
+ 
+ 	if (!bc || (bc->features & CLOCK_EVT_FEAT_HRTIMER))
+ 		return -EBUSY;
+diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
+index 182974c4f21b..65680db95053 100644
+--- a/kernel/time/tick-internal.h
++++ b/kernel/time/tick-internal.h
+@@ -55,6 +55,8 @@ static inline void clockevent_set_state(struct clock_event_device *dev,
  }
  
- static bool hist_file_check_refs(struct trace_event_file *file)
-@@ -6963,6 +6964,8 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
- 	return ret;
-  out_unreg:
- 	event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
-+	/* The unregister frees trigger_data, skip out_free */
-+	goto out;
-  out_free:
- 	remove_hist_vars(hist_data);
- 
+ extern void clockevents_shutdown(struct clock_event_device *dev);
++extern void __clockevents_exchange_device(struct clock_event_device *old,
++					  struct clock_event_device *new);
+ extern void clockevents_exchange_device(struct clock_event_device *old,
+ 					struct clock_event_device *new);
+ extern void clockevents_switch_state(struct clock_event_device *dev,
 
