@@ -1,38 +1,38 @@
-Received: from mta0.migadu.com (out-121.mta0.migadu.com [91.218.175.121])
+Received: from mta0.migadu.com (out-137.mta0.migadu.com [91.218.175.137])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2722440A1D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.121
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D70A546C854
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:31:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.137
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789547468; cv=none; b=bBPPotZbP8GpLMX+wDEZR8iMCq6pzLTLzTiK+Gkmh1JSoL9QIG4fIrMQ9aMdGFV5bex4Nb60xI/8C5WSVXbzg6WhfpkLE+TxBVB+RsqRvsVPnUmvOFY+1jsaRaA++85jEApIP1wuhOc1m4+CnT0nr/mG+avnWUyDWC5t1xZzZqs=
+	t=1789547475; cv=none; b=frri7YQ7PSE2a/C7IAJE0j5mIiBaxfwfq9YMuMNGieeVdb8f6I/+aQIBzvInSQ8Va5GCyLNx/eGUc9ktUeo6YcDu0Zji+zzZ9MBfhwm/XzmgtKEYGDJtSGs0tjukptZHCEJdcPR4BF2XYS8yOzch+EX4uGFKAcBwUOlZV8yI9vc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789547468; c=relaxed/simple;
-	bh=TGHbP7pqQI5SZE03hOgeWCxnxJhy597Gk2gKdEshORI=;
+	s=arc-20240116; t=1789547475; c=relaxed/simple;
+	bh=ctKy9QzkrwFGINprhmFaQJweDP8zUfKnXLJOi5JxMXU=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=GMkbR17S4odTuNzhJ+4C2r843taCCJBBJMfLZXCTuuyxgz4vjSjDaSqr7VYP+VhmU0Q2Gq/Ok6F3ERdCkc6Nrh4iv/h1OdOIwUYyfrA5HpdRC8ciwPCz+/H3p3+zwTHssMem9UtpiGpLv0yx+5dPhn4Y/EwHtc9/m6dXIidFGm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=FLL9t0V8; arc=none smtp.client-ip=91.218.175.121
+	 In-Reply-To:To:Cc; b=NPHQAO2XcxxKFrcNu8LJCc045UBDHdswIkqWMZogUoX9oSG31RlA134A1nNXzQ5SZ1le2h/AlxN0Nk7dJGmfk6a9MirxIHn5u15R2Dc7gXNZI/wMoy+aMKlA2RYHgdn5ajgZZwYJeNRoHtSJ2BdLvs8QHfFSehCbFZgjhPH7eQw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=AgFNm2Vn; arc=none smtp.client-ip=91.218.175.137
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="FLL9t0V8"
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="AgFNm2Vn"
 X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=TGHbP7pqQI5SZE03hOgeWCxnxJhy597Gk2gKdEshORI=;
+DKIM-Signature: a=rsa-sha256; bh=ctKy9QzkrwFGINprhmFaQJweDP8zUfKnXLJOi5JxMXU=;
  c=simple/simple; d=linux.dev;
  h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789547464; v=1; x=1790152264;
- b=FLL9t0V8sESq5QkZCfhYUAvjsk0orvo7Dx4yuMIaV11t7PJeP6qkrKXjpppb9uxynOvf7Y/M
- 8scrZzryPa5wd0SBeen8S/lj0dapH+kFVu3+hjFvZqpXPyoX1whi9FU0lFjYpU/lWzveuj4O4Zm
- AHDnNLBZbw7P7B2LaTLf6hpE=
+ t=1789547471; v=1; x=1790152271;
+ b=AgFNm2VnNdjkZPK3FoTPXyUYKwnvLAjjx97ROTlgoK00kvbaILlkMr1BMkIYiJwnD+lITBzn
+ 8bI994nBfpEdLvcXScNHy6e4krwFQ6MP1GxtcgOs4TeK0+EFwHGq8hPzAhjTCrJmaPgIb8tgSJ3
+ IJ0sKD2SXm6IbKUjv91IIyYI=
 X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 61064642e84ac2ae;
-	Wed, 16 Sep 2026 08:31:04 +0000
-X-Mizu-Trace-ID: 61064642e84ac2ae
+Received: by smtp.migadu.com with ESMTPS id 31b1eb0a7dd8dbd5;
+	Wed, 16 Sep 2026 08:31:11 +0000
+X-Mizu-Trace-ID: 31b1eb0a7dd8dbd5
 X-Migadu-Flow: FLOW_OUT
 From: Hongfu Li <hongfu.li@linux.dev>
-Date: Wed, 16 Sep 2026 16:30:27 +0800
-Subject: [PATCH 1/2] mm/hugetlb_cgroup: move per-node usage on cross node
- migration
+Date: Wed, 16 Sep 2026 16:30:28 +0800
+Subject: [PATCH 2/2] mm/hugetlb_cgroup: move per-node usage on cgroup
+ reparenting
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,7 +41,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-for-hugetlb-charge-v1-1-70fb708b2e4a@kylinos.cn>
+Message-Id: <20260916-for-hugetlb-charge-v1-2-70fb708b2e4a@kylinos.cn>
 References: <20260916-for-hugetlb-charge-v1-0-70fb708b2e4a@kylinos.cn>
 In-Reply-To: <20260916-for-hugetlb-charge-v1-0-70fb708b2e4a@kylinos.cn>
 To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
@@ -54,86 +54,46 @@ Cc: Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org,
  linux-kernel@vger.kernel.org, Hongfu Li <lihongfu@kylinos.cn>, 
  hongfu.li@linux.dev, stable@vger.kernel.org
 X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789547446; l=2653;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789547446; l=1229;
  i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
- bh=0fLYrT8vMJXLYpA77bYjhh3zAbeCPV8jdpEg+IugFQ0=;
- b=qOh2IG9HEF2gASoSGToGcyD3+c0zMiicyqR7OKOWIpyKxdEfST0DPjrYYV7UBR48lNXzsTAtQ
- zlSi3DCh2gbAP74e0x+Qh+QQJ5X9ZFR6OOOJvp6iCwGthyu1hxlkapL
+ bh=UjdBnpGGbOAqmA9LTLWjpAUbVlww5rMxQAkpfS0ZMyo=;
+ b=ht4ri1aXNFZvYlT+1QIBQBgJWaE7t/rotF/BblSeGXDJHsFmSPTwmcEDqMtwNsXeN8hyCqSqs
+ CQpwPDRXgTiCgE6aVzX9GGGePHdVM0RVWmMMkAvzDA5Qvu7iZRMvggb
 X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
  pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
 From: Hongfu Li <lihongfu@kylinos.cn>
 
-hugetlb.<size>.numa_stat uses folio_nid() to account usage in
-__hugetlb_cgroup_commit_charge() and __hugetlb_cgroup_uncharge_folio().
-hugetlb_cgroup_migrate() only moves hugetlb_cgroup pointers, leaving
-per-node usage behind on the source node during cross-node migration.
+hugetlb_cgroup_css_offline() hands the folios of a dying cgroup over to
+its parent with hugetlb_cgroup_move_parent(), which moves the page_counter
+charges and the hugetlb_cgroup pointer of the folio but not its per-node
+usage.  The parent's hugetlb.<size>.numa_stat is short by that usage while
+they are charged, and underflows once they are freed, exposing incorrect
+per-node usage values to userspace.
 
-When the migrated folio gets uncharged, we subtract usage from the
-destination node counter. This creates stale usage on the source node
-and unsigned long counter underflow on the destination node.
-The hugetlb.<size>.numa_stat interface exposes these incorrect per-node
-usage values to userspace.
-
-Add a hugetlb_cgroup_move_usage() helper which moves the usage from the
-old node to the new node, and call it from hugetlb_cgroup_migrate().
+Move the per-node usage to the parent as well.  The folios keep their node
+here, so only the cgroup which holds the usage changes.
 
 Fixes: f47761999052 ("hugetlb: add hugetlb.*.numa_stat file")
 Cc: stable@vger.kernel.org
 Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
 ---
- mm/hugetlb_cgroup.c | 31 +++++++++++++++++++++++++++++++
- 1 file changed, 31 insertions(+)
+ mm/hugetlb_cgroup.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
 diff --git a/mm/hugetlb_cgroup.c b/mm/hugetlb_cgroup.c
-index ecb6e0b7819a..1040406e7e1d 100644
+index 1040406e7e1d..3f5ec4a06b25 100644
 --- a/mm/hugetlb_cgroup.c
 +++ b/mm/hugetlb_cgroup.c
-@@ -179,6 +179,34 @@ static void hugetlb_cgroup_css_free(struct cgroup_subsys_state *css)
- 	hugetlb_cgroup_free(hugetlb_cgroup_from_css(css));
- }
+@@ -241,6 +241,8 @@ static void hugetlb_cgroup_move_parent(int idx, struct hugetlb_cgroup *h_cg,
+ 	/* Take the pages off the local counter */
+ 	page_counter_cancel(counter, nr_pages);
  
-+static void hugetlb_cgroup_move_usage(struct hugetlb_cgroup *from,
-+				      struct hugetlb_cgroup *to,
-+				      struct folio *from_folio,
-+				      struct folio *to_folio)
-+{
-+	int idx = hstate_index(folio_hstate(from_folio));
-+	unsigned long nr_pages = folio_nr_pages(from_folio);
-+	int from_nid = folio_nid(from_folio);
-+	int to_nid = folio_nid(to_folio);
-+	unsigned long usage;
++	hugetlb_cgroup_move_usage(h_cg, parent, folio, folio);
 +
-+	lockdep_assert_held(&hugetlb_lock);
-+
-+	if (!from || !to)
-+		return;
-+
-+	if (from == to && from_nid == to_nid)
-+		return;
-+
-+	usage = READ_ONCE(from->nodeinfo[from_nid]->usage[idx]);
-+	if (WARN_ON_ONCE(usage < nr_pages))
-+		return;
-+	WRITE_ONCE(from->nodeinfo[from_nid]->usage[idx], usage - nr_pages);
-+
-+	usage = READ_ONCE(to->nodeinfo[to_nid]->usage[idx]);
-+	WRITE_ONCE(to->nodeinfo[to_nid]->usage[idx], usage + nr_pages);
-+}
-+
- /*
-  * Should be called with hugetlb_lock held.
-  * Since we are holding hugetlb_lock, pages cannot get moved from
-@@ -906,6 +934,9 @@ void hugetlb_cgroup_migrate(struct folio *old_folio, struct folio *new_folio)
- 	/* move the h_cg details to new cgroup */
- 	set_hugetlb_cgroup(new_folio, h_cg);
- 	set_hugetlb_cgroup_rsvd(new_folio, h_cg_rsvd);
-+
-+	hugetlb_cgroup_move_usage(h_cg, h_cg, old_folio, new_folio);
-+
- 	list_move(&new_folio->lru, &h->hugepage_activelist);
- 	spin_unlock_irq(&hugetlb_lock);
- }
+ 	set_hugetlb_cgroup(folio, parent);
+ out:
+ 	return;
 
 -- 
 2.54.0
