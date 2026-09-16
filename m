@@ -1,52 +1,43 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C0341BD9D0;
-	Wed, 16 Sep 2026 04:13:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB3DE146A66;
+	Wed, 16 Sep 2026 04:14:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789531989; cv=none; b=oTxePAFhDio5KRHPi0H5W9+I9RCJhZvnIvn85VvH3nyjyHkvFYyKgdyNi3aeHvVAfn7qOfpBfgkNm/wCaoC8zX1HEA8Sf34130Bnpk3bNuB+oJC3YbFrLsS3L3A4IZRItVqBzVrhphNnvxWzyJa2+kUw5Sku9fKknXWYEshymT4=
+	t=1789532059; cv=none; b=RY4VPAo0PJYNxU8no5u+JULNU300KNMgAYUAos1K/LD+SLx85DPYzVrtbQ94FrtaBY3BhUWRr7LlRqeMImG89xKB+sGU+SkEST91NtVeQdBGu7fUUcRGyqR3M3TTgOWRRo86b5JQwFmogt5nJVDL4HegcXOnsevRaU5ksKxe5kk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789531989; c=relaxed/simple;
-	bh=a7oEVieMa9dAEUNzf/Zzh5XILFDThQP2xP8120y0564=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cpbO9JP752StEUo9yAgZ3RU37iSl5RG4T6Lpa7r9ZZPhJfz3/EiGBcMTN2okFNbI9pF69nj55nKZ1x40QG20whewVJBjfDfFcHvY2UAatxd3AHpuQQ435GlE+rVO+sng8JJNshIrC2F10TeCfcq8Xx7Rfd+Q2eKCOCT9kVrm2B4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=WaG3Mh4j; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789532059; c=relaxed/simple;
+	bh=zGV2EXg+EROKRXBQrTq2dzqutSCYjWE+kQU8bPekKec=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cMft+qWK60oVOXGUJ+FCEFOZII5TekZjzbjyvKShJdOaAei2MqRBR1gmXYvXHLr/MVElzVdVGM6dOuu32BXqYoFvPJAfvCAR/6LcDjuIhFOlTi8Zu4F6VcU815rzxRtmi59/cZG/KhjD9LjUkBg7w2Xq60iQBbb5UnlBc1TwvHY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BZJRom/D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="WaG3Mh4j"
-Received: from Hawking.lan (hawking.lan [10.0.1.4])
-	by www.nmnhosting.com (Postfix) with ESMTP id 36717402D9;
-	Wed, 16 Sep 2026 14:06:35 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789531595;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=1rOFYSt3dWLMvD8Z3WKulyEwpJ8SUfri+jConOg3OC4=;
-	b=WaG3Mh4j47c1bTjWuF0PEsEAO8uF5X9UNhJmrX+tc2MqK7SSpXNkySb7JG84QvyBj/3raj
-	cuKK8mV7v6mZDlk2J6S6rW+Ice9bw5bMBGgMeOa6SJmspPctZib+p1ooh/q9ZkHUln9/qm
-	K1iXH/928APzWkMWWT59zaAqCLBHXer2oQ6K3QhDxQjwTXFlUGrySLPTYS59zPMHucl2id
-	/heGUO0tFg2RZGz/JMbOTFM1gBffdsKhE7EM6G3zJXYFMq9fuj7YFR5R9jMRcFINagba0r
-	8BV4izXJWu2I5aI+Yel8HrDG4ll959C7bsn8EyJnXIhjAusDlaTA9rAzsHfAgg==
-X-GPT-Reason: legitimate; the message is a technical software patch
-	(Linux kernel style) which perfectly aligns with the sender's
-	domain (d-silva.org) and the recipient's personal mailbox
-	(alastair@d-silva.org); there are no phishing indicators, urgency
-	tactics, or suspicious links, and the content is highly specific
-	to a known development workflow (wifi: rtw88 driver fix).
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Ping-Ke Shih <pkshih@realtek.com>,
-	Kalle Valo <kvalo@kernel.org>
-Cc: linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BZJRom/D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2AFC21F000FF;
+	Wed, 16 Sep 2026 04:14:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789532058;
+	bh=ngB0o9g4kbXSDf2BCTzrsj2PffWjgQlLeBpYdVht6aM=;
+	h=From:To:Cc:Subject:Date;
+	b=BZJRom/DI/Ux21V7gINb+PGv8pXlzoM2t/8vwmUySYk3k0Pun6FbVEkoOZ1vo/7YD
+	 0fT0RQu9+lG6ss92glHjyMRe1kTS6qGyssu8H3UArPTWLgL6jqC3KX6mgKckwmvKqD
+	 5xnhHRVAlFy36W0a1IE31g8DVwSuEl9pbnBuRx/gAaZ4GtSydqOKTglV7LhI/pQvij
+	 lxl89iGXEPbcmw7V5d2Tp18Zbe9tswws24i8UURFW+BPUy3/3qdHgZCKbIQR9MmRAw
+	 SaULT/+OeNAStLDv/W/EFKt4H7XPfHWjzEwgN8yP9M+wjMU2bl7ySj54xaR0FCnHji
+	 hDwW7v9YpWHaw==
+From: SJ Park <sj@kernel.org>
+To: 
+Cc: SJ Park <sj@kernel.org>,
 	stable@vger.kernel.org,
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>,
-	Alastair D'Silva <alastair@d-silva.org>
-Subject: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt storm
-Date: Wed, 16 Sep 2026 14:06:35 +1000
-Message-ID: <20260916040635.205094-1-alastair@d-silva.org>
-X-Mailer: git-send-email 2.53.0
+	Andrew Morton <akpm@linux-foundation.org>,
+	Kunwu Chan <kunwu.chan@gmail.com>,
+	damon@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	linux-mm@kvack.org
+Subject: [RFC PATCH v2] mm/damon/core: don't skip damos_adjust_quota() while esz is not zero
+Date: Tue, 15 Sep 2026 21:14:08 -0700
+Message-ID: <20260916041409.106926-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -55,49 +46,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In rtw_sdio_handle_interrupt(), the HISR status register is cleared using
-Write-1-to-Clear (W1C) semantics. However, the driver masks out the
-REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before writing
-it back, causing a 0 to be written to that bit.
+DAMOS could unexpectedly stop working when a user disables quota using
+the online parameters commit feature.  Fix it by correcting a wrong
+quota unset check in damos_adjust_quota().
 
-This prevents the RX request interrupt from being acknowledged and
-cleared by the hardware, trapping the CPU core in an infinite interrupt
-storm loop upon receiving packets and triggering RCU stalls and system
-lockups.
+DAMON users could disable all quotas by unsetting time and size quotas,
+and removing all quota goals.  The intention of disabling quotas would
+be making DAMOS run at full speed.  When such quota disabled setup is
+detected, damos_adjust_quota() skips all its work.  The skipped works
+include effective size quota (damos_quota->esz) updates and charged
+quota amount (damos_quota->charged_sz) resets.  The intention is to
+avoid doing unnecessary work when quotas are disabled.
 
-Remove the masking of REG_SDIO_HISR_RX_REQUEST so that the interrupt
-status is correctly written back as a 1 and acknowledged.
+However, users could do the setup while effective size quota is
+non-zero, by doing the disabling with the online DAMON parameters commit
+feature.  In this case, because the effective size quota exists, DAMOS
+will keep working with the quota until it is fully charged.  After the
+effective quota is fully charged, the charged quota amount
+(damos_quota->charged_sz) cannot be reset because damos_adjust_quota()
+skips it.  Then, DAMOS stops working until the quota is newly set or
+DAMON is entirely restarted.
 
-Fixes: 65371a3f14e7 ("wifi: rtw88: sdio: Add HCI implementation for SDIO based chipsets")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Alastair D'Silva <alastair@d-silva.org>
+The problem happens because damos_adjust_quota() assumes the user setup
+for disabling quota immediately disabled it.  In reality, the quota is
+still working until the effective size quota is also updated to zero.
+Other logic for catching that uses damos_quota_is_set(), which
+understands the fact and therefore checks the effective size quota in
+addition to the user setup.  Fix the issue by using damos_quota_is_set()
+in damos_adjust_quota() to determine if its works should be skipped.
+
+The user impact is a non-deterministic and unexpected DAMOS stop
+behavior.  That is, users would disable quotas using the online
+parameters commit feature, expecting DAMOS will run at full speed.
+However, depending on the timing, the setup can be updated while the
+effective size quota is non-zero.  Due to the above mentioned internal
+mechanism, DAMOS stops working instead of running at full speed.  It is
+unexpected behavior.  It is also non-deterministic because sometimes the
+setup is done when the effective size quota is zero, depending on the
+timing.  It doesn't cause critical issues like crashes or leaks.  Users
+can simply set a reasonable quota again, or restart DAMON.  But
+definitely it is an unexpected and non-deterministic behavior that makes
+it difficult to reliably use.  Also investigating the root cause of the
+behavior would be quite difficult.
+
+Fixes: da87878010e5 ("mm/damon/sysfs: support online inputs update")
+Cc: <stable@vger.kernel.org> # 5.19.x
+Cc: Kunwu Chan <kunwu.chan@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
 ---
+Changes from RFC
+- RFC: https://lore.kernel.org/20260912200814.145612-5-sj@kernel.org
+- Split out from the cleanup series for taking hotfix path.
+- Describe the real issue.
 
-Notes:
-    Tested on Mellow Fly-C5 (Allwinner H618) with onboard Realtek RTL8821CS
-    SDIO Wi-Fi under Armbian, resolving immediate RCU stalls upon packet arrival
-    and achieving stable Wi-Fi throughput.
+ mm/damon/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
- drivers/net/wireless/realtek/rtw88/sdio.c | 4 +---
- 1 file changed, 1 insertion(+), 3 deletions(-)
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index e0414d2adcb41..89390897a0d8e 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3330,7 +3330,7 @@ static void damos_adjust_quota(struct damon_ctx *c, struct damos *s)
+ 	unsigned long cumulated_sz, cached_esz;
+ 	unsigned int score, max_score = 0;
+ 
+-	if (!quota->ms && !quota->sz && list_empty(&quota->goals))
++	if (!damos_quota_is_set(quota))
+ 		return;
+ 
+ 	/* First charge window */
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wireless/realtek/rtw88/sdio.c
-index 5b40d74b16ee..73686b462957 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1090,10 +1090,8 @@ static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
- 
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
--	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
--		hisr &= ~REG_SDIO_HISR_RX_REQUEST;
-+	if (hisr & REG_SDIO_HISR_RX_REQUEST)
- 		rtw_sdio_rx_isr(rtwdev);
--	}
- 
- 	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
- 
+base-commit: 191c4a84eef1db85cc7e1a853761e8ce8683afd4
 -- 
-2.53.0
-
+2.47.3
