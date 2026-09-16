@@ -1,143 +1,138 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D123E4B829B
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 329E2495ADA
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:49:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577348; cv=none; b=DijLrIHo6bk5cxAc1qj1vRVoLP2wlALXq7efZb8P+4AODgOH0mXsmr09PPOclSIQvk8FoZ1AKelYneiRISOFaJUrioR4Oi7pgsnPwgO+Bux76/8yMONWiBWjB9mQ7ofunLJ+kFfS2VQEdRiPxxBiltd2RJ268v+smU01n+yB2SA=
+	t=1789577358; cv=none; b=lkZMi1M/iqHIjfPW5jh3+Zrwzkt3dv1vSXT4WvO6kkjxrW17gaU8DGOun6hnKADQ3/cu8pviG0dIg/LNWjC59EOQZLCu1bWbyj8lMd4LkueJlKPo++76vkN+6SK29qsq42UltWQXsmW6kjhM+nkNilvpwzxOlin2vb0bmYVC/4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577348; c=relaxed/simple;
-	bh=aKkhna3O+GtdNCBdQ+eKksQP0Jx3xSXj3EfHh4AckvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CCaGY8gwhqA+aC3JOhfAVdSDu36zTIXsClYFmLls2tqw2FezYMG6w0YdZWXuD0zJhlLDQiijgSCumR9VenN/IjP0x8a0rSt1xkdFERbqDsk+c7wXnycA1Vzndli5zQzF462Ric6FxD1hMaiU2Xc5hY86Ve8jObGO7VNCfc6ggIk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+yYDOoT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577358; c=relaxed/simple;
+	bh=TMmuVXpCT5MxQvaqe/xupjt/S/4GNrVpy4KF/3wuZo4=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NeVjpu2L8fLrVM9B4p+XJ23VU464chIXDZzPLo/amwvryd9Abdo6TzOp1u1OPQ5K2vpH2p+So0qgs3T5+Vi40gnr2YrCD+iq2nYA2sUh2VEbnTcNHNwQz4lrTDBRxIphzM+khIqAF9Kp74oilu0qZpks78kJdtBH9VzXFg/srHg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z/KIu8Mt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+yYDOoT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4F8891F008A0;
-	Wed, 16 Sep 2026 16:48:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577337;
-	bh=k6tbjnWrRhM52F1OhbO7KukYPiuMgblmb4b+o7ClZa4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=k+yYDOoTCLdV+ARSkgVf5rT/NvUkSSXHXCRMsABQybsne0G4+yuWPix+eajF74xGb
-	 sCnj5LrRAIq3suFtJkKZaS/Np1mv0n8EJJAvap5gtZ6NNK6ORcCWV6kGFlbQBpb0to
-	 EWtVGnu442TazwGXtpFfNmdfWWSNHKEc+wxhUZkpMeGbWfMAmoNlu/aX6I6PEiD/5A
-	 ZQKjT6EfV+DeRjJllz+T4O6m57ImCfbyYt5XG0yHrLZZIz4PYEjSYya88CMUMusuKK
-	 oNJQ1jK1revqRTwhBIrZC4xmSh4A84EJkXh+Bdm+3PgdzE/Em9QdxI9E/VUCY/LnKp
-	 76mZ0vkxVBDAg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] tracing: Set the trace clock before registering the histogram trigger
-Date: Wed, 16 Sep 2026 12:48:53 -0400
-Message-ID: <20260916164854.543620-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916164854.543620-1-sashal@kernel.org>
-References: <2026091626-postnasal-annotate-b622@gregkh>
- <20260916164854.543620-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z/KIu8Mt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B6F31F000FF;
+	Wed, 16 Sep 2026 16:49:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789577351;
+	bh=WxhPbv6nAlwgNgy3u+RcAS/H2qRGdzyDF4GnyRE6Lpo=;
+	h=Subject:To:Cc:From:Date;
+	b=Z/KIu8MtGYdDNHH1k4p8GqzaV+DCROUhyVaBdgLgeCqdrB5ycj2/t6HNaJW/6fYy6
+	 UkqLSWQ1LWSGFQsM8j49vWQAkcJHjsRidTkww52bDT3D9r/w1iR4F1jXniawJN/Zh/
+	 X6toWgbRri5e69HmGUFz/At11vztpOHTkdtFDPgY=
+Subject: FAILED: patch "[PATCH] smb: client: fix file type corruption in" failed to apply to 6.6-stable tree
+To: pc@manguebit.org,bharathsm@microsoft.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 17:43:44 +0100
+Message-ID: <2026091644-crazily-attain-0909@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit 6ede78d0563a2a3ae3e46f9c07cedb5d79645429 ]
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-hist_register_trigger() puts the trigger on the global named_triggers
-list in cmd_ops->init(), and only then sets the trace clock:
+To reproduce the conflict and resubmit, you may use the following commands:
 
-	if (data->cmd_ops->init) {
-		ret = data->cmd_ops->init(data);
-		if (ret < 0)
-			goto out;
-	}
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 65d5dbdc089be42fc48a6f77bc6b648307f34b17
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091644-crazily-attain-0909@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
-	if (hist_data->enable_timestamps) {
-		ret = tracing_set_clock(file->tr, hist_data->attrs->clock);
-		if (ret) {
-			hist_err(tr, HIST_ERR_SET_CLOCK_FAIL, errpos(clock));
-			goto out;
-		}
+Possible dependencies:
 
-The clock string is not checked anywhere before that call, so a named
-trigger using common_timestamp with an unknown clock fails after it has
-already become findable. event_hist_trigger_parse() then frees it
-without taking it off the list, and the next lookup by name reads the
-freed object:
 
- ~# cd /sys/kernel/tracing/events/sched/sched_switch
- ~# echo 'hist:name=foo:keys=common_pid:ts=common_timestamp:clock=bogus' > trigger
- bash: echo: write error: Invalid argument
- ~# echo 'hist:name=foo:keys=common_pid' > trigger
 
-  BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
-  Read of size 8 at addr ffff88800915d760 by task init/1
-   find_named_trigger+0xac/0xc0
-   hist_register_trigger+0xc1/0x900
-   event_hist_trigger_parse+0x3146/0x6af0
-   event_trigger_write+0xce/0x160
-  Freed by task 63:
-   kfree+0x154/0x420
-   trigger_kthread_fn+0xfd/0x160
+thanks,
 
-Set the clock before the trigger is registered, so that nothing which
-can fail runs after it is published, the way commit 6f86bdeab633
-("tracing: Fix bad hist from corrupting named_triggers list") moved the
-registration below the rest of the setup.
+greg k-h
 
-tracing_set_filter_buffering() is reference counted, so the init failure
-path has to drop the reference that the clock block now takes first.
+------------------ original commit in Linus's tree ------------------
 
+From 65d5dbdc089be42fc48a6f77bc6b648307f34b17 Mon Sep 17 00:00:00 2001
+From: Paulo Alcantara <pc@manguebit.org>
+Date: Sun, 6 Sep 2026 16:01:16 -0300
+Subject: [PATCH] smb: client: fix file type corruption in
+ posix_reparse_to_fattr()
+
+Setting the file type in cf_mode without clearing the existing S_IFMT
+bits first is wrong as it corrupts the file type when cf_mode already
+has type bits set (e.g. S_IFREG | S_IFCHR == S_IFLNK).
+
+Use a local ftype variable to collect the new file type and apply it
+after validation succeeds, clearing S_IFMT and setting the new type in
+a single assignment.  This avoids stripping cf_mode on malformed
+reparse points where the function returns false early.
+
+Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40manguebit.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
-Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/trace_events_hist.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 08e1027a16b0a..e13ee10d2b2a9 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6567,12 +6567,6 @@ static int hist_register_trigger(char *glob,
- 		data->cmd_ops = cmd_ops;
+diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
+index 8a19dee564b8..616ca2dbfac4 100644
+--- a/fs/smb/client/reparse.c
++++ b/fs/smb/client/reparse.c
+@@ -1212,6 +1212,7 @@ static bool posix_reparse_to_fattr(struct cifs_sb_info *cifs_sb,
+ 				   struct cifs_open_info_data *data)
+ {
+ 	struct reparse_nfs_data_buffer *buf = (struct reparse_nfs_data_buffer *)data->reparse.buf;
++	umode_t ftype;
+ 
+ 	if (buf == NULL)
+ 		return true;
+@@ -1227,7 +1228,7 @@ static bool posix_reparse_to_fattr(struct cifs_sb_info *cifs_sb,
+ 			WARN_ON_ONCE(1);
+ 			return false;
+ 		}
+-		fattr->cf_mode |= S_IFCHR;
++		ftype = S_IFCHR;
+ 		fattr->cf_rdev = reparse_mkdev(buf->DataBuffer);
+ 		break;
+ 	case NFS_SPECFILE_BLK:
+@@ -1235,22 +1236,23 @@ static bool posix_reparse_to_fattr(struct cifs_sb_info *cifs_sb,
+ 			WARN_ON_ONCE(1);
+ 			return false;
+ 		}
+-		fattr->cf_mode |= S_IFBLK;
++		ftype = S_IFBLK;
+ 		fattr->cf_rdev = reparse_mkdev(buf->DataBuffer);
+ 		break;
+ 	case NFS_SPECFILE_FIFO:
+-		fattr->cf_mode |= S_IFIFO;
++		ftype = S_IFIFO;
+ 		break;
+ 	case NFS_SPECFILE_SOCK:
+-		fattr->cf_mode |= S_IFSOCK;
++		ftype = S_IFSOCK;
+ 		break;
+ 	case NFS_SPECFILE_LNK:
+-		fattr->cf_mode |= S_IFLNK;
++		ftype = S_IFLNK;
+ 		break;
+ 	default:
+ 		WARN_ON_ONCE(1);
+ 		return false;
  	}
++	fattr->cf_mode = (fattr->cf_mode & ~S_IFMT) | ftype;
+ 	return true;
+ }
  
--	if (data->cmd_ops->init) {
--		ret = data->cmd_ops->init(data);
--		if (ret < 0)
--			goto out;
--	}
--
- 	if (hist_data->enable_timestamps) {
- 		char *clock = hist_data->attrs->clock;
- 
-@@ -6585,6 +6579,15 @@ static int hist_register_trigger(char *glob,
- 		tracing_set_filter_buffering(file->tr, true);
- 	}
- 
-+	if (data->cmd_ops->init) {
-+		ret = data->cmd_ops->init(data);
-+		if (ret < 0) {
-+			if (hist_data->enable_timestamps)
-+				tracing_set_filter_buffering(file->tr, false);
-+			goto out;
-+		}
-+	}
-+
- 	if (named_data) {
- 		remove_hist_vars(hist_data);
- 		destroy_hist_data(hist_data);
--- 
-2.53.0
 
