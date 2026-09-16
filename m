@@ -1,118 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC9A4B8265
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C86B4D0CFD
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577340; cv=none; b=hmyIYIvjdGUJrENQHoGjXo7phBCOGyfKoQHOw57xqVfntao2QdTtA2HteS0hu8pFN9MG/uRMMdKzAMQ9hBNzFiLNdP7iAsXaGZmHRmd3MQt0oW/G/5RlWwbeidHfwLgLLivrat5WjHSPXNwLn+0jVjyj3fqEQllJo/auk0OXZNo=
+	t=1789577340; cv=none; b=oP1bPg95ra8GAgN4S1a/hqZOphT6hko22ypGdhNAWsmORW3pT5hikkzSjaPP4g+tJc+2afJL1vbC9kxMKFdmcjIiruql2fOHyELuqEGYSxbHob9kJzFw+U2Ls/ECCTAKceIqeKXuHpP7tYoemdvYyTTOtbWMBBpCvtrAdeQ+2mc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789577340; c=relaxed/simple;
-	bh=S/FWPnEZMzRiu83r+fOcewMV9IyR4rbu8ueiMJQrszw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dXaV08T/37AHOTMvzGdYrsEkYOZBSvO8BIUBcw78p61sIsD/Fanyl5nauIsPzc5ABuPiNxj3y4/fEMwxmfrWJCksTcv7i7OHCeuesszSad22A85XUWdivLXMgZFZhGbF96chaVkmwCxi+M+uZP4JaHY1Fm4/63q621nrR10u0VA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EaO+jUih; arc=none smtp.client-ip=100.103.45.18
+	bh=NgXlNSygRekOq70AmjMQrvyrstf7mRKQ7S9NyxU0YFg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=YpJHtnyGswgWD7tUAuTw7u2mswR1M+u4hQdjge7oPoLUiI3DqOABG36XP7/nyR1SoKCKdWMuHIzg0XX8HWEt5T2zMoFF50jQAAVDz2VrXyqGhMmIwy6sx4AxVub1ch6BU6P4G6TVoVY1PcFIv8Vc8icZ7y6juIt1OBs2R4uoKnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UxHiGHwM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EaO+jUih"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1B71F0089F;
-	Wed, 16 Sep 2026 16:48:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577331;
-	bh=qf4rY7brb6DTMGp6vMXcEIQc/yjgI7kh66DjeA8g7A0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EaO+jUihnC1bdKB1/UnD2V248vbxrfwItU1cMfsEs8Mi4mWJ0KK5yOc63l8pSbx5A
-	 8w15YzQ09YFy4ZuVzrC4u/spJti1C29yNaQZnP7K/iyEJiZuil+HixdzhdNqlOFxHR
-	 5sYwe6pVtdVrkV049gAgP+pYsPPsBivtbjqarnaunLYWLa68J2u/Av5OthLyYPq8tQ
-	 b8w8N5WaZjRPcBolYAv/jd6Sd5LRKgGFyCueUzPeQ0xWICwjX8cj+8TtYxrC2mDBdS
-	 O41gW3b2lYxNbmprTLQXhTSXyPjSpEzj9FHhU7O5FSm3jYQABtX6gOHhXtIK5/ExT7
-	 KiOFJISqIEvsg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Xiong Weimin <xiongweimin@kylinos.cn>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] virtio_mmio: disable IRQ wake before free_irq
-Date: Wed, 16 Sep 2026 12:48:48 -0400
-Message-ID: <20260916164848.542476-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916164848.542476-1-sashal@kernel.org>
-References: <2026091637-greeting-apple-1005@gregkh>
- <20260916164848.542476-1-sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UxHiGHwM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E327C1F0089E;
+	Wed, 16 Sep 2026 16:48:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789577330;
+	bh=Ybq8IMmAtti39bb0N14NN2x8yn+4kbBmln1WBDMmerQ=;
+	h=Subject:To:Cc:From:Date;
+	b=UxHiGHwMgpZzixlQ6GbXMGw++z7YKAsQTLsCr+ZzWFzEa3Ps7ujeboaKDqXf7KHXR
+	 z+4nAGdLv1oUKxGCTAUg7CHBkrbaqPKPfrMkXWhMScnHTWXI3Onz4VAuTijZauPk/C
+	 EZdBasTAcJM4D4ns4ve0hcnhG5K46vTXrULGEmCM=
+Subject: FAILED: patch "[PATCH] smb: client: fix cifsFileInfo reference leak in deferred" failed to apply to 6.1-stable tree
+To: fanwu01@zju.edu.cn,pc@manguebit.org,songl@zju.edu.cn
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 17:43:17 +0100
+Message-ID: <2026091617-seventy-tutu-b0ac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Xiong Weimin <xiongweimin@kylinos.cn>
 
-[ Upstream commit d14d693adb055e98ca705822ba6daebc18602d9a ]
+The patch below does not apply to the 6.1-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-When the DT node has "wakeup-source", vm_find_vqs() calls
-enable_irq_wake() on the shared IRQ, but vm_del_vqs() freed that IRQ
-without a matching disable_irq_wake(). That leaves a wake reference
-behind and can warn on later free_irq()/request_irq() cycles.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Record whether enable_irq_wake() succeeded, and disable it in
-vm_del_vqs() before free_irq().
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git checkout FETCH_HEAD
+git cherry-pick -x 5520e89a5a4f834bced64cf2ac927001cc513a40
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091617-seventy-tutu-b0ac@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
-Fixes: 02213273f72a ("virtio_mmio: add support to set IRQ of a virtio device as wakeup source")
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 5520e89a5a4f834bced64cf2ac927001cc513a40 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Fri, 4 Sep 2026 13:48:11 +0000
+Subject: [PATCH] smb: client: fix cifsFileInfo reference leak in deferred
+ close
+
+When cifs_close() defers a close, it hands the cifsFileInfo reference
+of the closing struct file to the queued work. Each execution of
+smb2_deferred_work_close() drops one such reference.
+
+deferred_close_scheduled can be false while the work is pending: the
+workqueue clears PENDING when the callback starts to run, before the
+callback clears the flag under deferred_lock. A close in that
+interval requeues the running work, and the callback then clears the
+flag, leaving the requeued work pending with the flag down. A later
+cifs_open() can reuse the handle and its cifs_close() reaches the
+same branch: queue_delayed_work() fails because the work is still
+pending, but cifs_close() returns without dropping the closing file's
+reference. The cifsFileInfo count stays pinned and its tlink, dentry
+and server handle are leaked.
+
+Check the return value and hand off the reference only when work was
+actually queued. Otherwise, use the shared _cifsFileInfo_put(), like
+the mod_delayed_work() branch above: the pending execution already
+owns its reference.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: c3f207ab29f7 ("cifs: Deferred close for files")
 Cc: stable@vger.kernel.org
-Signed-off-by: Xiong Weimin <xiongweimin@kylinos.cn>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260805032937.1606737-1-xiongweimin@kylinos.cn>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/virtio/virtio_mmio.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/drivers/virtio/virtio_mmio.c b/drivers/virtio/virtio_mmio.c
-index 33da642ea962a..649e9d5aa1329 100644
---- a/drivers/virtio/virtio_mmio.c
-+++ b/drivers/virtio/virtio_mmio.c
-@@ -87,6 +87,9 @@ struct virtio_mmio_device {
- 
- 	void __iomem *base;
- 	unsigned long version;
-+
-+	/* True if enable_irq_wake() succeeded for the shared IRQ. */
-+	bool wake_irq_enabled;
- };
- 
- /* Configuration interface */
-@@ -329,11 +332,17 @@ static void vm_del_vqs(struct virtio_device *vdev)
- {
- 	struct virtio_mmio_device *vm_dev = to_virtio_mmio_device(vdev);
- 	struct virtqueue *vq, *n;
-+	int irq = platform_get_irq(vm_dev->pdev, 0);
- 
- 	list_for_each_entry_safe(vq, n, &vdev->vqs, list)
- 		vm_del_vq(vq);
- 
--	free_irq(platform_get_irq(vm_dev->pdev, 0), vm_dev);
-+	if (vm_dev->wake_irq_enabled) {
-+		disable_irq_wake(irq);
-+		vm_dev->wake_irq_enabled = false;
-+	}
-+
-+	free_irq(irq, vm_dev);
- }
- 
- static void vm_synchronize_cbs(struct virtio_device *vdev)
-@@ -462,8 +471,9 @@ static int vm_find_vqs(struct virtio_device *vdev, unsigned int nvqs,
- 	if (err)
- 		return err;
- 
--	if (of_property_read_bool(vm_dev->pdev->dev.of_node, "wakeup-source"))
--		enable_irq_wake(irq);
-+	if (of_property_read_bool(vm_dev->pdev->dev.of_node, "wakeup-source") &&
-+	    !enable_irq_wake(irq))
-+		vm_dev->wake_irq_enabled = true;
- 
- 	for (i = 0; i < nvqs; ++i) {
- 		if (!names[i]) {
--- 
-2.53.0
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 27b58d907203..1aa4844f8b8a 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -1515,11 +1515,18 @@ int cifs_close(struct inode *inode, struct file *file)
+ 				trace_smb3_close_cached(tcon->tid, tcon->ses->Suid,
+ 						cfile->fid.persistent_fid,
+ 						cifs_sb->ctx->closetimeo);
+-				queue_delayed_work(deferredclose_wq,
+-						&cfile->deferred, cifs_sb->ctx->closetimeo);
+-				cfile->deferred_close_scheduled = true;
+-				spin_unlock(&cinode->deferred_lock);
+-				return 0;
++				/*
++				 * Each queued execution owns one reference.
++				 * If nothing was queued, the reference of
++				 * the closing file is dropped below.
++				 */
++				if (queue_delayed_work(deferredclose_wq,
++						       &cfile->deferred,
++						       cifs_sb->ctx->closetimeo)) {
++					cfile->deferred_close_scheduled = true;
++					spin_unlock(&cinode->deferred_lock);
++					return 0;
++				}
+ 			}
+ 			spin_unlock(&cinode->deferred_lock);
+ 			_cifsFileInfo_put(cfile, true, false);
 
