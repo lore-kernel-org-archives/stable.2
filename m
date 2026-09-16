@@ -1,235 +1,249 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.21])
+Received: from MRWPR03CU001.outbound.protection.outlook.com (mail-francesouthazolkn19011036.outbound.protection.outlook.com [52.103.39.36])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286114BFE7F
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:46:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.21
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E77C24E56C7;
+	Wed, 16 Sep 2026 10:49:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.39.36
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789555631; cv=fail; b=fK+JlKOWvgjhbi/63G6gP9cK8n8JhRRAp+2BHN0bbPvXW4Wr6Abhmcsk7a8WDPksOJoX6DCpUSdiZdCzrEHbn+MpXZiM4U2Z8VCOdPnHPjtq275OGrqcSjyytNsjFuXhsiOV+KdyhylGwq2LxaHRwwmx4xttLuTRdG3xWI6LtAk=
+	t=1789555806; cv=fail; b=I1+xiiu4+oge+B8AIo9aKSpJKO6DkiWMXxmPT2iJSeikJ64ucDeZ6J80MlAHemYapwV9VtU4U0Hfqm5YMRcV/krRCaIdItUuth2JBPBd0W/rxnbBtpxYVraSBH9HIq5Qpz1ioTToag6X20/ZFq0IMd9/La4EOn25nAjEN3Ew2pg=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789555631; c=relaxed/simple;
-	bh=JdmCA7Xutelk6xxzJJ1g54OSkNPHCABKUDzFGr+L9dg=;
-	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
-	 Content-Type:MIME-Version; b=I+W/v8qzQIv9NzGm0dj/DRhhvFLWldHiScW0VdKEx2mmebIoKX8mn8DCqmJH9U6cJfyco9UFT2IhGje+yQwmLXPA/qDTgOddUUSV1UEIApfUlYoz83CGAGACj4lugQY2YBZwA7Jx+QOpc2qG0TCATAogoupFtctG2T+o57BfJN4=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=dy6juJ/B; arc=fail smtp.client-ip=198.175.65.21
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789555806; c=relaxed/simple;
+	bh=PZovdgJLKKrrK4650llKJ32TbTBFmX4NutU7Xt9TPms=;
+	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=udqDDRwxmV4AM+tJq4iK0s5SPQDyOmH/F03WrI3L5qlGH6y81X1EIJ2wAWXFM/N8Z1aQB9J20l5JOT1aFqqZQ/xAXCPXwUluc+nA49ePLr+9qGYquDtsqQ5+3hf/EYghHYan8RgQ05GR2Kw1Mj5jQ1ADqR9K2WeQZCeuKuelAh4=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=FeITsGkI; arc=fail smtp.client-ip=52.103.39.36
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="dy6juJ/B"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789555615; x=1821091615;
-  h=message-id:date:subject:to:cc:references:from:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=JdmCA7Xutelk6xxzJJ1g54OSkNPHCABKUDzFGr+L9dg=;
-  b=dy6juJ/BH3g+8jZ32yhidAi6AympC9uZi+0PIF4yLL951Qsnz4EOMFjH
-   KeY6Y0h+eLRKJAO0wp2TnRha1X18XtvV6KIIwwwwYln5sknJkp66DrNKB
-   ihSskpHLc4VDFGlMv1gUdXFdUmQzE31JbQIyGAfCzehEXs/7m5QfAkJjf
-   KeMikPE2mKSVFgkRohoh301AGesSZ/P3eEAmPuaExFvnn2mfp5AscnnRH
-   N9NIEuMaTekMEK1CZcMSVAtqhHHM5Zw7P2S1lOtCe0iYr4bMajJcuKT+J
-   qfs/Mb0d5ApoGFdRS0mu+tLozfqUO0pmv9Wl1u1IQPB1xCVoicW80YfYk
-   A==;
-X-CSE-ConnectionGUID: hMtK/5qVTeOjAQcXVEm+xQ==
-X-CSE-MsgGUID: dZzSff82RKuWXUNjT2VpoA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89772097"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89772097"
-Received: from orviesa009.jf.intel.com ([10.64.159.149])
-  by orvoesa113.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:46:50 -0700
-X-CSE-ConnectionGUID: fi8TroP0TKWKWl18DFazBw==
-X-CSE-MsgGUID: ndXUh1nCRACWqittC3eZkQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="273847424"
-Received: from fmsmsx902.amr.corp.intel.com ([10.18.126.91])
-  by orviesa009.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:46:50 -0700
-Received: from FMSMSX901.amr.corp.intel.com (10.18.126.90) by
- fmsmsx902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 03:46:49 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 16 Sep 2026 03:46:49 -0700
-Received: from CO1PR03CU002.outbound.protection.outlook.com (52.101.46.68) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 03:46:48 -0700
+	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="FeITsGkI"
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=PDoxiA0ucTSeN0XlQrqsiburcZPKdlDeFDQvZ8k3sFzbAZPsPXieCwWH/jdHexZGUlO3x54DRpMmgW9RNS8c3pnyp/Q3HsY3Bh6k4nNibwgoOZLYtVY9cg99A95cJoHvPmpOYZu30xFsDJtJnu0xn6JkU4M5R1jK4AWemJ8jCz732PvSWr5zmUuy+ADZtVg97D+CkRcUw70cTyR2eLPnookShXINW/4f2Tkf6rdS4wefWtvd3PEa4+2G82/gKjZYjKROzfsbEs4DXN0gdL+EU99l4HcaJhSwYObDrRwlO7A3kT6u/WrRBU+oIXTT9JIcBmoT7LnkKjk7UH1Kup6Q6A==
+ b=iOAHh4eCBwYDVLL4WJLn2j462X3nzdMZwUlKIbi67GnliSa5KEh0Yjg7QDhnJmJbGVkuRnLSXKR7ppGUqe8rs2UYngPXb78sT9Kk3lk91ioI0uLy4p167dSFGboHiuGbrKiyCcZGNxHIs52sGyf8CRRlZW+vR1Ukdn5xYFUdTa31v35z4w/+U+2WJYdmORjGaWH28m0ykOYXiCZq8xRy/kMkzmFkinc6pQTl6PTDP4YohjZmRqUQj2NgPNQOnTVRJb5gl8JPPilXDKT+YtZXcUt2chg/Y/2OOJHry1EU3lrADfns4jXvWM0EZCU3PKuz5elkzIbWdRZPIhOksXY/LA==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=9RsrWCP2q5bvGBnrdTc3PAuFfpp/8UxHfqmEM8m+C9k=;
- b=acZmkRKhxw30RIGe4ggCjGuZ8P8Ciuol+R9cpqVxdh9P+qmJc05mOJ+8pKk0WB4/4zgbkbFskRHqL9lZ7RoInFsKxXiDUPWqCMfA+G1rq1uE9k8nGtk1xgIr9zD8TuPs/f/7lzVyEVRQhfDEYw6/MmNparYz0tRDoSKiqGY2EZTzSKD6o8yZan+FwbtOaFG8/VsS7EIwaFfT6zXC4UVDMLPv6iYo+lOqfTikISxH+3oybhSrasN/+5DxscuogKP2F7aJs7qOEsEv9TLPan0PlSQeLDFVGm41MG4uAEFrH8hrdaFAcY4DS4qfxoGNqRyCUGqIgtZtcPezOS+tZ1wJ6g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-Received: from LV2PR11MB148960.namprd11.prod.outlook.com
- (2603:10b6:408:40f::21) by LV3PR11MB8530.namprd11.prod.outlook.com
- (2603:10b6:408:1b8::6) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 10:46:46 +0000
-Received: from LV2PR11MB148960.namprd11.prod.outlook.com
- ([fe80::9761:b20d:6f27:5460]) by LV2PR11MB148960.namprd11.prod.outlook.com
- ([fe80::9761:b20d:6f27:5460%5]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 10:46:46 +0000
-Message-ID: <c84784c0-0be7-4114-bf41-c668b12fbe46@intel.com>
-Date: Wed, 16 Sep 2026 16:16:38 +0530
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion
- Plus 14-ew1
-To: "Garg, Nemesa" <nemesa.garg@intel.com>, "intel-gfx@lists.freedesktop.org"
-	<intel-gfx@lists.freedesktop.org>, "intel-xe@lists.freedesktop.org"
-	<intel-xe@lists.freedesktop.org>
-CC: "jani.nikula@linux.intel.com" <jani.nikula@linux.intel.com>,
-	"ville.syrjala@linux.intel.com" <ville.syrjala@linux.intel.com>,
-	"annoycc@gmail.com" <annoycc@gmail.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-References: <20260907034555.2753846-1-ankit.k.nautiyal@intel.com>
- <MW4PR11MB6887DEBC313E13C43433B0BAE3B22@MW4PR11MB6887.namprd11.prod.outlook.com>
-Content-Language: en-US
-From: "Nautiyal, Ankit K" <ankit.k.nautiyal@intel.com>
-In-Reply-To: <MW4PR11MB6887DEBC313E13C43433B0BAE3B22@MW4PR11MB6887.namprd11.prod.outlook.com>
-Content-Type: text/plain; charset="UTF-8"; format=flowed
-Content-Transfer-Encoding: 7bit
-X-ClientProxiedBy: MA5PR01CA0044.INDPRD01.PROD.OUTLOOK.COM
- (2603:1096:a01:1d6::14) To LV2PR11MB148960.namprd11.prod.outlook.com
- (2603:10b6:408:40f::21)
+ bh=LxISeNYsdCPhy9m4AawHsiwHLbPj/mJ3BIxnAntxNj0=;
+ b=nlyVerGqlypASmlpUiasH6Q1gDbsWZjgCz4noo559IWh2VIRjCQHKd/sS2pnV7ZJItbDC2QcA1n9t2n9A+wGDEQXrSn29lMFYAGcYr0a7SdgG64QWMC11rBwMEAxP0snQg4B/HmCrXs7OkaWCEia7xWLTQfaBYPOZfOtml3U+b/0yFV+/YJXg3I5dXyTZCAsu5ZesJ9djlc3W4TUNORBIl49Rrkuc6JA2I3sKRV8yYkysF60e2NuVyQu1nwlH8xd2V0UOgl/NlqfTu33+eu7Sis6XR9tmUmAi5gpaw6PkvHJD+VUM8BJ6m74ZmmODqArSL4K/Q6JIE0kQM9pY6oIhg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
+ dkim=none; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
+ s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=LxISeNYsdCPhy9m4AawHsiwHLbPj/mJ3BIxnAntxNj0=;
+ b=FeITsGkIsnMI2/j2tI1d5CqcnT1v6mq/raZFy8oRlHJ7k5M3uIhlG30kMPRpAktAP9YLiOnSbVYqRln3aQc0dmQPTcioSC+2EEq2rAfP9j1Lev+EGGg+5ZZum5bR4xTRxTXUigRJI3QphtjW305iSxbHR5iPhPpEHp1Vmy9JYRZjOXpCh9bgI0GD9sZCaBB0sa4Vd53WyIkl4VIkktmRffn+Sv7E4Wlque/mdwpbgaoUNAvIiumBfENTKKW+bpR5SgZxjkP4+/6BkGy0iMZcMCFgk5SrLOgn93xOjJtkwobO9Ui7xeTslOM+Pe7Wc9otdEdVZZWi8N2I90FZFuDglg==
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
+ by AS4P251MB0798.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:511::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
+ 2026 10:49:30 +0000
+Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
+ 10:49:30 +0000
+From: Aamir Ahmed <elb12345@hotmail.co.uk>
+To: Namjae Jeon <linkinjeon@kernel.org>
+Cc: Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Tom Talpey <tom@talpey.com>,
+	ChenXiaoSong <chenxiaosong@chenxiaosong.com>,
+	Ronnie Sahlberg <lsahlber@redhat.com>,
+	Steve French <stfrench@microsoft.com>,
+	Hyunchul Lee <hyc.lee@gmail.com>,
+	linux-cifs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Aamir Ahmed <elb12345@hotmail.co.uk>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] ksmbd: deny access for an empty DACL instead of granting the request
+Date: Wed, 16 Sep 2026 11:49:27 +0100
+Message-ID:
+ <AS8P251MB000104EEF679ECC44D8791F2C8B92@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-Mailer: git-send-email 2.53.0.windows.1
+Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: LO4P265CA0117.GBRP265.PROD.OUTLOOK.COM
+ (2603:10a6:600:2c3::20) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+ (2603:10a6:20b:344::22)
+X-Microsoft-Original-Message-ID:
+ <20260916104927.18825-1-elb12345@hotmail.co.uk>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: LV2PR11MB148960:EE_|LV3PR11MB8530:EE_
-X-MS-Office365-Filtering-Correlation-Id: 30c7a560-4c09-4849-32eb-08df13dfcd96
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam: BCL:0;ARA:13230040|1800799024|376014|366016|23010399003|3023799007|10067099003|4143699003|56012099006|11063799006|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info: P/0rIT5MFiS97jQuNC2yBkjmb3y9GOoxrG9KGvwAA0ys9WROAE9XirA9uBxw3vABcznjM7DJ9DLRPskBkU/KhXo8KVysn3BYm8FZ5/kt6JsIFl2+6mNtpc79ud06YNlHVBgdb/EJLBhxQA8Ek5t7dv0u0OfCEJpkcgDemzWj+VfM6Nu7C4oEutxD3cn1g0PM9sbikkVJWH1+3QoI6bZsNGb8A39ADidY/6LXlAhOj0RMQ96+DEkc/boG/7EsA9l3DfwiV9wPbis83e/uVDJ9io0wGlD+HYT1OTw6lVB+qTjOuWGK0vOtPRSvRaVm09x828OYw/6k80o+VFMKYm+6foqRvOwsmZaJOSiskM6xt+K2Ujg6PmgG7IJ5zx+HKHeSfhjQWI5IxdN7oRHhdx7GPjWIMZ6JZSrfOOuUHLzq1dCsy/OpBmBbPlu2CGVxl9AW/VkhC1VOzVAT6jhgGTowdRm1OGGmT4vUKUaHx4PfcN6VrDnb4lOw7+jXQFTz4dWZOSy/U+vFmNImjD08JOelGdO4otrg2mr2BZWskTPZWkFqqWwsfFFnGDADhuuKea2+YmReYmNDPWtoX8WzPh0+LInBO3y5lkwQ86zNL9MdnxGzm702wfZHJz3AQrACBy6i
-X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV2PR11MB148960.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(1800799024)(376014)(366016)(23010399003)(3023799007)(10067099003)(4143699003)(56012099006)(11063799006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|AS4P251MB0798:EE_
+X-MS-Office365-Filtering-Correlation-Id: 64158b6e-6db4-4d4e-7125-08df13e02f66
+X-Microsoft-Antispam:
+	BCL:0;ARA:14566002|25010399006|4140399003|55001999006|24021099003|41001999006|51005399006|5072599009|5062599005|15080799012|23021999003|8060799015|19110799012|12121999013|25031999004|37011999003|40105399003|1602099012|10035399007|2607281247196008|4302099013|26104999009|3412199025|440099028|1710799026;
+X-Microsoft-Antispam-Message-Info:
+	=?us-ascii?Q?l6ZRoFvGsk1Ba3Z4cGQYhSytOI9/Gjvjq/Bb4UDwiWQNixqIyoT1oFIlPxwB?=
+ =?us-ascii?Q?BIQN6rt+DipFNjgkWe2KpSs5MVovSV+mtYape8OGuWGbrDklaID60voMmCHh?=
+ =?us-ascii?Q?ivp9XDcvsXaPhajMPuL1ftK/SuoZAfUqyzrWYL3cIBWf8LfczbiwqUrcH5cb?=
+ =?us-ascii?Q?MfeZC6vbDKvTyumQ6GiQX1WCBiLm6yQBkKYC+o2ak5/WT7yJaRfAppJ0Qcm/?=
+ =?us-ascii?Q?TT+6K+ZqtUVZ71pBczng/vZV2tRAb9EvdR7sXtceb6dbH3EGQKIQ46iTX3wq?=
+ =?us-ascii?Q?pvr8qDTYSaG64WtLpqwJrCxiAaQLkwunuk9qk5eODeTBhDZ3tBVy7kp9M28X?=
+ =?us-ascii?Q?ydqZtuY1KA+AoaEw4nrrMssf9HiqjfKEgnOONq+1gQxu0RGNPuUA2gCxhksk?=
+ =?us-ascii?Q?yWRjWWb24tJ2e8TI9feCwbr9c7xxu6QqwrMcz7WCgT5jVeNh4F5N+8plcvOU?=
+ =?us-ascii?Q?byZoSbCjUoVc5Wxu9aSHMJkaZ116Jtr+AVcATqqbbg1bJGN7KxEjKJNo26ky?=
+ =?us-ascii?Q?yVMtBV1YrmeIPjvF51HoJWbNbI5nkQo4DxoTQwa7QJUad4hDmT4DrHD5S/hg?=
+ =?us-ascii?Q?Nk1i2R+1lCm7/NEvAXAUx2frj3sxjTzdrQuLf46cSDrrxmaS9t8rAa0D95OZ?=
+ =?us-ascii?Q?jTzecCREC0ybTCw39tPB34zoOTqc641SL1CMZBVJWIGc7xBMBnxuVr1d4H9C?=
+ =?us-ascii?Q?uhSu7n006FA03wXcGuNQ2JmWAyCHU3vz/eT3U6IJakmMp80spNCo2JaDZpzn?=
+ =?us-ascii?Q?aNpmdEYy+eMyeLJRsG7MWzC04OUj+7D+NT+zOtuhknWvq9nUlOni1CwYJo+O?=
+ =?us-ascii?Q?M21EGYmI81GKAYWR9iI9+ddNGXO2xUX4cbEkOpBHv1C4BjE0jzFc7OBhzZgs?=
+ =?us-ascii?Q?J+VLHjm2HnQFxRbP+5qmdvrmg1rEYndfyZUPEinXQaKhKrnVLwPxbVm4rhTJ?=
+ =?us-ascii?Q?Kkg9yfBejryyEQoQbysZDt7hpaInTR7h3GzFRP9g+edpnDjqDutiV5DsuKP6?=
+ =?us-ascii?Q?kHsaqf0vTMM7kSDtZyDkpO+jVjI7pVcfQRH/Td8dMQmPzAd7C7XL/xwcMxAs?=
+ =?us-ascii?Q?1T91U1/hlVw1Z8RmDt3Ww2aZTn2XIs/ebTeNDT5Hyx44trzLTzdrJ7W+x6Uc?=
+ =?us-ascii?Q?TqYbndW8CfKQfSk+PnulKwXP2k7k1QWPLWLx2U4a6IhEcaC3Zj1YJ16SNlGX?=
+ =?us-ascii?Q?UNclbjChBjMuXAmx03RalL94p0sWBIl4/ywyn2vdtgvJ5tt382LR8meeK8ni?=
+ =?us-ascii?Q?fxFtgRwRG7lO4PogtRg0?=
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?bjVLQ0U1azJSOU91UVB4RXdrRW9XeGpnM1hheFdJTDJsaW51TXRhOFpoNFZ0?=
- =?utf-8?B?YVdsaTJLM3NSUUZaK2kyM2J3RDR0T3FxMCtvcFkrU2dLOWRBb0dYdnB1UGpj?=
- =?utf-8?B?NEgzMGtVZnArVkJIVVM4ckRyajBZVGpsaHNFOTVQS1A5VjFjODZPb2RyL3g2?=
- =?utf-8?B?N0xhREl5VmpsS0Y4YUpTQXNyalJLdWRpZ3BkRVBOYU12TFBXOTkwR3hLY3Vw?=
- =?utf-8?B?a0VXSDZSVUR6M01BZ3IxcUJDQVNQVVR2WnBRV3d0UWplQXR6bjI1SytzSnZ3?=
- =?utf-8?B?TU95MkJxSUlQNHE3cXJDMEhtSTVjSTBKSkNHbzRqcENnTTRMSTZEazJSYTZC?=
- =?utf-8?B?OTJRTnFpelpzbXdRc09GNitxRERtRXJ4YVM2Rmh5RHNzS0x6TEFuMkl6VFo1?=
- =?utf-8?B?Y0JXL1MyUG14QktzYkk3djJlZmZJdkhOb2JTSzNIQWFlNm5PSmh2ek1PNEl2?=
- =?utf-8?B?V3BTV2h4Q2pIeXdiTVR1ang4RkxDaHE0OFU2VkQxc1h1eFQvWUhtWEVZSVVx?=
- =?utf-8?B?aGs3ZUZYQkhTOEQ3RStyZlI3T0MvK0ZLakRHMW1mVitjL0JsYTVhRFEvQVhW?=
- =?utf-8?B?RzVnT095Zkw1MUV4NlBQSG5yanRIajFBNFU4RGFTSndML0JLcHNORi8rbmth?=
- =?utf-8?B?YXV2SU93T3JBZGkxNmJsM1JYMStoYWJzYko5anpMbFNHejhva2FkekFoMXN3?=
- =?utf-8?B?T1A4ZVhJNEZLUXkwbm1JdjlZN1VIL2RxL2t1eTg5L3lmQzlOTGJCVXVaYklh?=
- =?utf-8?B?S0FKUDlyK0xaeWdlNTBWS0xLaHdRaEdXMzd4eE40alJsWHBPcmFobkg5dHNI?=
- =?utf-8?B?TWtRdTlSUklMNVp2Vy9YNFZZYkY4UGJqZFBoelhxUFF0OVBjeVUxN0JpaWxs?=
- =?utf-8?B?YmxMOWw1Ukd2N05hUUl3RVZadk9Ra2lCK2w5VC9KdWNlY0FQUWs2czlUaWpH?=
- =?utf-8?B?U2NhM2JDak9ZbExRTkpVRlBPTzlxalZ3cmowa0czQjNIZGt1MmRRaW11SW1E?=
- =?utf-8?B?UFpMaXlqTDE1cFlaVUtMSGZ3bVNaQzd4VnZaRWlRL0tTK0tjelFvK2JOVGsv?=
- =?utf-8?B?R0RnWmlSNThuVm4yTnRsbEVSejdkYUdaRExGUGZKaklpU2x5cDFMelpqNWVZ?=
- =?utf-8?B?MTZmY3NYT1dtZFFaSjh1c3BTcHp1SUhGUUhrMEZ1QlphZHZtQ1BrZld6cFJP?=
- =?utf-8?B?V2VPVEp0VHJQNWQ1bWx0d2RXZTFiRnlGdkMwZXUrQ0N0WWs2Nlp3RzlLNUNv?=
- =?utf-8?B?bzRuSzUzdWk5ZVhqd1dPVzh3SjU1bjFQR09oeVhkY2I1QTFpT2tyZXFYNkl4?=
- =?utf-8?B?cHdMU1g5MEFBNW1UZFE3dDA5UkttSW5aaS9lYmEwMXRMTkZQdEs3TDFpbWdK?=
- =?utf-8?B?NFNlRlc5RkgvekFLYkx4U2M1ZXZqaHhOTlNSMXE1M0ZpNFROODhHaDA4dEs3?=
- =?utf-8?B?NkltSXFkeVQwVGhnUHQzWmdMUmZQTTVBRFFpNzlLbXZ5YjdPbWlzcUwrMDlV?=
- =?utf-8?B?MS9aOE4rRUZrbWwySG1RRVhuNmhwclBKL085eGZJdHozUVpyZHh4dHQ2cldQ?=
- =?utf-8?B?dlJUUmh4V1REQVBEMG1HT1NzYlgzOGNHam5YZVBMZVFkVnNEV0RFMS9HaEg0?=
- =?utf-8?B?clRJdmhNUlZhSThNdlEvQVVKeTBub1pQUnN4cEdYRlZpcEVNTkRXOXQwNjlI?=
- =?utf-8?B?QlZTblZiTFpBVGpDZmRQTHRZMldKM05vbEszdG9adUpzN1VwOUlLZXJTbmcz?=
- =?utf-8?B?Z093ZmVPWE93RnFwV3N6ZW9URjdxcDlRT1BxbnRCZnVxcFlHcGt2TGJBTWlI?=
- =?utf-8?B?ZVhLbWV1S05QTUlEVk5nM1BBRnJHNnFPb2F6elFQT21kNlUxTkNxVDlUQWh6?=
- =?utf-8?B?ZXhlQjJzUTFnZTNwLzR2NFNhYXdaT1d1dE4wS1l6bW9PM2ZWakhLZUNlejB3?=
- =?utf-8?B?MTFQc2JjVmIrVldmNVphRDFrT1NwNDZuRVh0d1hDTkc4SVZ5eGtsdHpGS1hj?=
- =?utf-8?B?eHVSYTRqQnA3dit3WFlTRk40YkpCc282cnpIY2NoZENhWE9tTUl5em1RMzhu?=
- =?utf-8?B?V3Npb1FNVFZjQnFJc1NieWhYamJuRFpkcmtkSnVUbmxJZUphTlcxU1FpSjZ6?=
- =?utf-8?B?QnF1VldUV3lYZmc4eXRoSERITE5HeTRIbWFNRFpPeUJlbHVHVWVJL0FyYUR6?=
- =?utf-8?B?MmNLZWZEYUVIbW8zOWZPRDlZWXRRdWJ4Wmk1djNGNXRFN1QwWVhxcGJCSGc2?=
- =?utf-8?B?VjVFbGYrcDhWQnMzNzNlRlZtWUZESG5wNGI2RGxGWTZ3NzlLOFc1dkFrOE1n?=
- =?utf-8?B?SHdLdjhnWllMM25VQkRETjhTNnA2c1k1T0hIZWZZa1VZZGo2cUtBcHV0cTZP?=
- =?utf-8?Q?uvIxEMJcz/G/FgGs=3D?=
-X-Exchange-RoutingPolicyChecked: cdZnBoqMHEUNPx/QWfQZ6bSTXQk7n9GgbRQicCNbowKSSJR63witBCLi0yxhLkdDfDK8R/0+FXf+wAPUiyVBZYl9xF3KSYeKnJ+4Nz8COtFMSv/2we8btAz7cpjr2fzOWZPQWxzYUap/yvggkUrqFf3lXqJKTSzMSJ986FR8Rr5FXvzht5upvoXgYQOqsOPzNo4G8iyY8TN0GEuw87Uqu3fvuuwKde/6yE1J6rSHNLNPKLOdrYKT+E/ZzWQZs5442gD4TQ0+wYU0FXjY8NASsY0UQnE4Yg2UyxJxwt3/3fAPLp52E6M4w8I6s1R5x+kEkFhhEsf54Sf36EsuGtIMmQ==
-X-MS-Exchange-CrossTenant-Network-Message-Id: 30c7a560-4c09-4849-32eb-08df13dfcd96
-X-MS-Exchange-CrossTenant-AuthSource: LV2PR11MB148960.namprd11.prod.outlook.com
+X-MS-Exchange-AntiSpam-MessageData-0:
+	=?us-ascii?Q?XTRuTLwCoTyhl8Vyc7ECGdfKDsslz4OxsiMU9IXZac6VeSidFlRIdEaJq/d4?=
+ =?us-ascii?Q?1dQ6v0z/U02W36dh9zT3FoqCtqFtGc/wQ+V9R4AKkyxl9DUWPhJME06HSF8n?=
+ =?us-ascii?Q?AoRNWwv7TTkDY7pUXbMYftENTA33jiue7XMPwbybfywD38bp+eTsCDNJJyEE?=
+ =?us-ascii?Q?u5Ru5wm6FdsBmNWM6ZsSfKkWKEiCZiIZH5+kVWSi8aFOx5dOFPEahsia7NDa?=
+ =?us-ascii?Q?Jqmm+4pqvwDDcRSsHyTY4gM/ab+GBbtthuKZn9GIsq36N7lGRM6Ccb12c+mj?=
+ =?us-ascii?Q?YqJ0cl/470ps4qc3xJGmXlCHrG92KTTSd1qzUeC15bCZFlqQaLExWCrbErWg?=
+ =?us-ascii?Q?UjWzeVdnZwPu5zsFDPliWIYJJX6+/UYttOpee6jX5x1vCcjNSfEv0Sv1mmgW?=
+ =?us-ascii?Q?vpC67KuHESpwXRnX8bb0dZngXT4MF8qZo8wJg8ZPxAATXBW96uREDi3tgsZy?=
+ =?us-ascii?Q?lvbu7dG9xd3HUSuA/RRve4hDLJ6VtlOJr3Il/3XcR2n8kSDkuFk/CbVbwHvD?=
+ =?us-ascii?Q?lqVbz5Ctjj8qQM7I5EuX5wvuj3i2wY2ncPDehC9rr7Lyq2iISkHQdercoKrN?=
+ =?us-ascii?Q?tne5T3WL8L/6dDGCCdt7VpjPmljfQo83yWTAn9FpJjvS6dfS2ffBdtiHrCyQ?=
+ =?us-ascii?Q?e6hnfhTajrvRz8idjqxjuiPL7dpV0/FpQWtaWgCBh216BVs/RzyHi6NgZ+EI?=
+ =?us-ascii?Q?IWiasPe4JSukiIsbaa4lhIuutcUqZhJgONwZnEGbFtqprPCESwG/v/MJpNA3?=
+ =?us-ascii?Q?uFMaCgfA+qjbsV4Guh4qXqEoQUkYKzxg69HK+uoCzR/jFyyo3aHm4S//B6oo?=
+ =?us-ascii?Q?e/UrWQNbNM4fQ1nBZlc24QkWhn07XhLgV5sg7p17ZGwQ31rBWo/3Zl3+LkSP?=
+ =?us-ascii?Q?Z74/6luiCK4NfTbp4gymXL6/Z62i4EV+kChhofNXfTpy0WjcJFdQhT1HStcK?=
+ =?us-ascii?Q?8wnHvBJqwPahMc+5+dOzwlteMil7QtUsa2YXhKncw7sMOSKXe5Es3uZ7PXcG?=
+ =?us-ascii?Q?MOzZDOnPJWV7wsJ/z0TJNHOqpob64RONkkfP87fZJ7NDH/SYdchWn/nlWEDw?=
+ =?us-ascii?Q?E0c84WoUKhGH+DcQylvScJWgo9GquDezxpfTDal5INz+LcgSYSj3WTNCGIBD?=
+ =?us-ascii?Q?Sw8Gg5Debs6NTlZU1s1+F4M/iQAqsrCdcWJ0sI4/hr6Wkg8gq1/mYu/CDDJv?=
+ =?us-ascii?Q?PGj+hmpVcDtjQIbfpKGIR6fvhbHmpT16huq4qBfmrWK/etoBiwTDhmFgXOXk?=
+ =?us-ascii?Q?HMowcBUjAg2IVkVK+7pUSqJCIPzR4AdhE34Hv3Sx71BgJNHig6si/Pu864Sm?=
+ =?us-ascii?Q?8L0iAF7A2h4GpoTA1IwiIXDeVlo+ypN2+pF+D+WKL2TTPXjwGPzTqnkobk2q?=
+ =?us-ascii?Q?njc7EWQ0nTVQKetx7FQF5Zt4tJ1rJmgROdG7R2gy80ju3bAcUDpbSSXkbcr1?=
+ =?us-ascii?Q?tWeGp/UZkE11QIZwhd9iBf2z1QXH6je8?=
+X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
+X-MS-Exchange-CrossTenant-Network-Message-Id: 64158b6e-6db4-4d4e-7125-08df13e02f66
+X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:46:46.0688
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 10:49:30.3585
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: vdTppXHT4ywxM95SqDO1h6Its2uN2982eS+1eTdRHvj2iDJP8BvnoTspmf0DjlndrZ/jh18tg24nXJSErBqIT7VeQDWyY+x9IvkD6EQs1Dw=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: LV3PR11MB8530
-X-OriginatorOrg: intel.com
+X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
+X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
+	00000000-0000-0000-0000-000000000000
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: AS4P251MB0798
 
+smb_check_perm_dacl() returns the access mask it computes to the SMB2
+CREATE handler, which uses it as the granted access for the open. For a
+security descriptor whose DACL is present but contains no ACEs, the
+function is supposed to deny access: an empty (non-NULL) DACL grants no
+access to anyone except the object owner's implicit READ_CONTROL and
+WRITE_DAC (MS-DTYP 2.4.5).
 
-On 9/7/2026 10:46 AM, Garg, Nemesa wrote:
->
->> -----Original Message-----
->> From: Intel-gfx <intel-gfx-bounces@lists.freedesktop.org> On Behalf Of Ankit
->> Nautiyal
->> Sent: Monday, September 7, 2026 9:16 AM
->> To: intel-gfx@lists.freedesktop.org; intel-xe@lists.freedesktop.org
->> Cc: jani.nikula@linux.intel.com; ville.syrjala@linux.intel.com;
->> annoycc@gmail.com; Nautiyal, Ankit K <ankit.k.nautiyal@intel.com>;
->> stable@vger.kernel.org
->> Subject: [PATCH] drm/i915/quirks: Limit eDP rate to HBR2 on HP Pavilion Plus
->> 14-ew1
->>
->> The eDP panel on the HP Pavilion Plus Laptop 14-ew1xxx advertises HBR3
->> while leaving the TPS4 support bit clear. The output however flickers, once
->> link is trained with HBR3.
->>
->> Until commit 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink
->> doesn't support TPS4"") such sinks were capped at HBR2 by the TPS4 check
->> which incidentally kept this panel stable. That check was reverted because
->> other panels legitimately need HBR3 without advertising TPS4, and the per-
->> machine QUIRK_EDP_LIMIT_RATE_HBR2 was introduced to handle the
->> affected machines instead.
->>
->> Add the machine to the list of devices that need the
->> QUIRK_EDP_LIMIT_RATE_HBR2.
->>
->> Fixes: 8c9006283e4b ("Revert "drm/i915/dp: Reject HBR3 when sink doesn't
->> support TPS4"")
->> Reported-by: Annoy Cc <annoycc@gmail.com>
->> Closes: https://gitlab.freedesktop.org/drm/i915/kernel/-/work_items/16743
->> Cc: <stable@vger.kernel.org> # v6.18+
->> Tested-by: Annoy Cc <annoycc@gmail.com>
->> Signed-off-by: Ankit Nautiyal <ankit.k.nautiyal@intel.com>
->> ---
->>   drivers/gpu/drm/i915/display/intel_quirks.c | 3 +++
->>   1 file changed, 3 insertions(+)
->>
->> diff --git a/drivers/gpu/drm/i915/display/intel_quirks.c
->> b/drivers/gpu/drm/i915/display/intel_quirks.c
->> index 33245f44c0d5..7d7db774d8c7 100644
->> --- a/drivers/gpu/drm/i915/display/intel_quirks.c
->> +++ b/drivers/gpu/drm/i915/display/intel_quirks.c
->> @@ -257,6 +257,9 @@ static struct intel_quirk intel_quirks[] = {
->>   	/* Dell XPS 13 7390 2-in-1 */
->>   	{ 0x8a52, 0x1028, 0x08b0, quirk_edp_limit_rate_hbr2 },
->>
->> +	/* HP Pavilion Plus Laptop 14-ew1xxx */
->> +	{ 0x7d55, 0x103c, 0x8c31, quirk_edp_limit_rate_hbr2 },
->> +
-> LGTM,
-> Reviewed-by: Nemesa Garg <nemesa.garg@intel.com>
+The empty-DACL branch only denies when both
 
+  - the DACL has no trailing bytes (pdacl_size == sizeof(struct smb_acl)),
+    and
+  - the request contains bits beyond READ_CONTROL / WRITE_DAC.
 
-Thanks Nemesa for the review, pushed to drm-intel-next.
+In every other case it takes the shared "goto err_out" with rc still 0,
+which returns success without modifying *pdaccess, so the caller grants
+the full requested access. Three problems follow:
 
+  - The READ_CONTROL / WRITE_DAC carve-out models the owner's implicit
+    rights, but the check runs before is_owner is computed, so those
+    rights are handed to *every* caller, not just the owner. For
+    READ_CONTROL the SMB2 CREATE path does not fall back to
+    inode_permission(), so any user can read the security descriptor of
+    an object whose empty DACL is meant to deny them.
 
-Regards,
+  - A request of exactly READ_CONTROL and/or WRITE_DAC is granted to any
+    caller. WRITE_DAC lets the handle rewrite the DACL.
 
-Ankit
+  - A DACL that declares zero ACEs but carries trailing bytes
+    (pdacl_size > sizeof(struct smb_acl)) skips the deny entirely and is
+    granted whatever was requested.
 
->
->>   	/* Xiaomi Book Pro 14 2026 */
->>   	{ 0xb081, 0x1d72, 0x2424, quirk_disable_psr2 },  };
->> --
->> 2.50.1
+On shares where the NT ACL is the authoritative access control -- e.g.
+"force user" shares, where every client maps to one POSIX identity so
+POSIX cannot distinguish users -- this is an access-control bypass.
+
+Compute is_owner before the empty-DACL branch and deny access from an
+empty DACL unless the caller is the owner requesting no more than
+READ_CONTROL / WRITE_DAC.
+
+Fixes: e2f34481b24d ("cifsd: add server-side procedures for SMB3")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
+---
+
+Notes:
+    v2:
+      - add the Assisted-by: LLM tag
+    v1: https://lore.kernel.org/linux-cifs/AS8P251MB000152D9BF4B8E0601640661C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
+    
+    This supersedes both v1 postings; "ksmbd: fix empty DACL handling in
+    smb_check_perm_dacl()" was the same patch sent by mistake and can be
+    dropped.
+    
+    The bug was located by auditing smb_check_perm_dacl() for paths that
+    return success (rc == 0) while leaving *pdaccess unmodified -- the same
+    class as commit 08f41323f549 ("ksmbd: fix maximal access leak when
+    object has no NT ACL"), which fixed one such path for the maximal-access
+    caller. The empty-DACL and malformed-descriptor paths were not covered.
+    
+    Compiled (CC fs/smb/server/smbacl.o) and checkpatch --strict clean; the
+    decision change was cross-checked with a small semantic model of the
+    branch for owner/non-owner x requested-bits x trailing-bytes.
+
+ fs/smb/server/smbacl.c | 24 +++++++++++++++---------
+ 1 file changed, 15 insertions(+), 9 deletions(-)
+
+diff --git a/fs/smb/server/smbacl.c b/fs/smb/server/smbacl.c
+index e752479..3611dc6 100644
+--- a/fs/smb/server/smbacl.c
++++ b/fs/smb/server/smbacl.c
+@@ -1494,21 +1494,27 @@ int smb_check_perm_dacl(struct ksmbd_conn *conn, const struct path *path,
+ 	if (pdacl_size > acl_size || pdacl_size < sizeof(struct smb_acl))
+ 		goto err_out;
+ 
+-	if (!pdacl->num_aces) {
+-		if (!(pdacl_size - sizeof(struct smb_acl)) &&
+-		    *pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)) {
+-			rc = -EACCES;
+-			goto err_out;
+-		}
+-		goto err_out;
+-	}
+-
+ 	if (!uid)
+ 		sid_type = SIDUNIX_USER;
+ 	id_to_sid(uid, sid_type, &sid);
+ 	vfsuid = i_uid_into_vfsuid(idmap, d_inode(path->dentry));
+ 	is_owner = uid == from_kuid(&init_user_ns, vfsuid_into_kuid(vfsuid));
+ 
++	if (!pdacl->num_aces) {
++		/*
++		 * An empty (present, zero-ACE) DACL grants no access to
++		 * anyone except the object owner's implicit READ_CONTROL
++		 * and WRITE_DAC (MS-DTYP 2.4.5). Deny every other caller,
++		 * deny the owner any access beyond those two bits, and do
++		 * not let trailing bytes after a zero-ACE DACL become an
++		 * implicit grant.
++		 */
++		if (!is_owner ||
++		    (*pdaccess & ~(FILE_READ_CONTROL_LE | FILE_WRITE_DAC_LE)))
++			rc = -EACCES;
++		goto err_out;
++	}
++
+ 	if (*pdaccess & FILE_MAXIMAL_ACCESS_LE) {
+ 		ace = (struct smb_ace *)((char *)pdacl + sizeof(struct smb_acl));
+ 		aces_size = pdacl_size - sizeof(struct smb_acl);
+-- 
+2.53.0.windows.1
+
