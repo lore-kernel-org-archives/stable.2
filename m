@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 693AE4D7970
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:06:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4A754B4046
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:06:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574809; cv=none; b=NiG5WvPiUxz6eMv5C+BBIPR1hLBpKUK2429GZq/o5lE0UgLJMgkp7DGhdrvBL2oRqINaOEgOYwjcVe8zKPxHvqDI5vbTG+AfbTwebzhm2dYYHwd3/A2r13UX/fYlvaCHSfdYjWbhTgPcl+wWcC354jTWoTOx//vVDKbew2KoD0U=
+	t=1789574814; cv=none; b=WBPGvuaEUPZORj7BFHn+/LiyHW/g/TfKfDG59fVzPSoRxrozrTeju8Sdk5VbryYHRLeRZ7zbYrw8bZsRWzFfj6O8rcZMxLbLkHjSbGIckx90CVq/QwiNXYzZS3sb9YzYAUVKirjybLzKjThPPNJNBa/L8yRN84pe3cnsQLC1P7o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574809; c=relaxed/simple;
-	bh=I+uTVebGgNhI6f/9rkCnLCoJ87ZvAlXhDkNX7hiNpOM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=UjGjracZfyPhO9FTe57erLRr4jIkrElsQiyxQNXabh6kxFRgqQHEH+OWOAM5Rkw5Go6T+lnd1o48qCQ4OBobDWzNBD3L3q7yL8GX9wymGGs9G/dg2r5TPepVBzuukbmHEoZFIYiF2PtUewqAP03CqbCoBMQu2gKOAwfyFOuVMKM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vPMl9o3O; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574814; c=relaxed/simple;
+	bh=6vrmaHjBx/PNvMK3d961T/a2SywPVeYma7bNRJ/2qUw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IFpZv5aIvtmQVPPsyIXYcT6MXk6ftYWbJqXG6gDkhiqRM4oKAgEB2wK2yFl9bztRfhoGvxeIopUqADrIVLa8kXQbQiLyTo1XsGK5riJmfW2lQLb7SCUtWoI/Srw87bDIIdOUJOCx3gpfkVhgaYZNZlCceJMoStAq5bE/RtVN1qE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nwrLIm8N; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vPMl9o3O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6DA31F000FF;
-	Wed, 16 Sep 2026 16:06:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nwrLIm8N"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4C161F000FF;
+	Wed, 16 Sep 2026 16:06:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574808;
-	bh=CeqkfY5R4TPLQtlu3RSkShmUjehtgqAOh5/IF3njzuA=;
+	s=korg; t=1789574811;
+	bh=z9RoD47lcn8uZAlxXrgO8Atv9UlQAJnji50Lgbs6noo=;
 	h=Subject:To:Cc:From:Date;
-	b=vPMl9o3O/UWc93jomykgM2jyyv10yaI2pGCuX/8OetrpbWTUOAPBVjuAbextrqR8q
-	 4KS1nkSBAuJLkqwm6c9OEUwCJzwerCUDvybNoyi44IxD4W0ua520Ztv53Vv+NXqDGS
-	 18c2HK7l0D7JgRLUyGcaKaU8u67s2PFXsoQVfVaA=
-Subject: FAILED: patch "[PATCH] idpf: disable DIM work before freeing q_vectors" failed to apply to 6.12-stable tree
-To: mhun512@gmail.com,Samuel.salin@intel.com,ae878000@gmail.com,anthony.l.nguyen@intel.com,stable@vger.kernel.org
+	b=nwrLIm8NCiJlR1Oc2yN/LCc/pKJVq8ClYQtH2lLQJCx4AbO7LggDvq0W5X04VBNAo
+	 WhAeMrAUUGyIxwRqUNBPldbjzJaYbRB0slT+oPd1ohgerps+bN9Il8NRBJ1orFZPUE
+	 S8rkjDFy7q6eVR6Vg3wRbv/pzLDaDgO/5bzkov18=
+Subject: FAILED: patch "[PATCH] ieee802154: cc2520: fix FIFOP work use-after-free" failed to apply to 5.15-stable tree
+To: fanwu01@zju.edu.cn,miquel.raynal@bootlin.com,stefan@datenfreihafen.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:43:49 +0100
-Message-ID: <2026091649-mourner-moonlit-9772@gregkh>
+Date: Wed, 16 Sep 2026 16:44:39 +0100
+Message-ID: <2026091638-onstage-ferret-629b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7dd4c829bac2916be98a3e34b41daaba7f42b4c4
+git cherry-pick -x ff5891b266a7fc6a062710836be84f1cc19338b5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091649-mourner-moonlit-9772@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091638-onstage-ferret-629b@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,111 +62,49 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7dd4c829bac2916be98a3e34b41daaba7f42b4c4 Mon Sep 17 00:00:00 2001
-From: Myeonghun Pak <mhun512@gmail.com>
-Date: Mon, 20 Jul 2026 22:58:46 +0900
-Subject: [PATCH] idpf: disable DIM work before freeing q_vectors
+From ff5891b266a7fc6a062710836be84f1cc19338b5 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Wed, 12 Aug 2026 06:17:14 +0000
+Subject: [PATCH] ieee802154: cc2520: fix FIFOP work use-after-free
 
-idpf never drains the Tx/Rx DIM works before freeing the memory they
-live in.  tx_dim and rx_dim are embedded in struct idpf_q_vector, they
-are queued from the NAPI poll via net_dim(), and idpf_vport_intr_rel()
-ends with kfree(rsrc->q_vectors).  Nothing in the driver cancels them.
+The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On removal,
+cc2520_remove() only flushes the work.  The devm-managed FIFOP IRQ
+remains active until after ->remove() returns and can queue the work
+again after that flush, allowing it to run after the private data is
+released.
 
-idpf_tx_dim_work() and idpf_rx_dim_work() then run on freed memory:
-idpf_vport_intr_write_itr() writes the ITR register through
-q_vector->intr_reg.tx_itr / rx_itr, void __iomem pointers loaded out of
-the freed q_vector.  No configuration is needed to get there --
-IDPF_ITR_IS_DYNAMIC() is defined as (itr_mode) and idpf_vport_alloc()
-initialises both modes to IDPF_ITR_DYNAMIC.
+Disable the work with disable_work_sync() instead of flushing it, so
+the handler can no longer queue it once removal begins.  Destroy the
+buffer mutex last, since the worker and the stop callback invoked
+through ieee802154_unregister_hw() both take it.
 
-Draining after idpf_vport_intr_napi_dis_all() is not enough on its own.
-idpf_net_dim() is called from inside the
-"if (napi_complete_done(napi, work_done))" branch of the poll, and
-napi_complete_done() has already cleared NAPIF_STATE_SCHED by then.
-napi_disable_locked() waits only while (val & (NAPIF_STATE_SCHED |
-NAPIF_STATE_NPSVC)), so napi_disable() can return while the poll tail is
-still queueing the work, and a plain cancel_work_sync() would be
-re-armed behind the drain.
+Found by an in-house static analysis tool.
 
-Use disable_work_sync(): schedule_work() on a work with a non-zero
-disable count is dropped by clear_pending_if_disabled() before
-__queue_work() is reached.
+Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
+Cc: stable@vger.kernel.org # v6.10+
+Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://lore.kernel.org/20260812061714.175966-1-fanwu01@zju.edu.cn
+Signed-off-by: Stefan Schmidt <stefan@datenfreihafen.org>
 
-Move idpf_init_dim() to idpf_vport_intr_alloc() so the works are
-initialised on every path that can reach the drain -- the three
-"goto intr_deinit" sites between idpf_vport_intr_init() and
-idpf_vport_intr_ena() get there without the enable side having run.
-Nothing re-enables them: rsrc->q_vectors is freed on every exit from
-idpf_vport_open() and on every idpf_vport_stop(), so the count dies with
-the object.
-
-It is a race, not a deterministic failure -- net_dim() only schedules
-once DIM_NEVENTS events have accumulated and the profile index changes.
-A KASAN ifup/ifdown loop under load is the way to see it.
-
-Fixes: c2d548cad150 ("idpf: add TX splitq napi poll support")
-Fixes: 3a8845af66ed ("idpf: add RX splitq napi poll support")
-Cc: <stable@vger.kernel.org> # see patch description, needs adjustments for <= 6.9
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
-Tested-by: Samuel Salin <Samuel.salin@intel.com>
-Signed-off-by: Tony Nguyen <anthony.l.nguyen@intel.com>
-
-diff --git a/drivers/net/ethernet/intel/idpf/idpf_txrx.c b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-index 24b91be25676..9ba9c2952d78 100644
---- a/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-+++ b/drivers/net/ethernet/intel/idpf/idpf_txrx.c
-@@ -4145,6 +4145,26 @@ static void idpf_vport_intr_ena_irq_all(struct idpf_vport *vport,
- 	writel(rsrc->noirq_dyn_ctl_ena, rsrc->noirq_dyn_ctl);
- }
- 
-+/**
-+ * idpf_vport_intr_dis_dim_all - Disable DIM work for all q_vectors
-+ * @rsrc: pointer to queue and vector resources
-+ *
-+ * The DIM works are embedded in the q_vector array that
-+ * idpf_vport_intr_rel() frees, and the poll arms them after
-+ * napi_complete_done() has already cleared NAPI_STATE_SCHED.  Disable
-+ * rather than just cancel, so that a poll tail still running past
-+ * napi_disable() cannot queue them again behind the drain.
-+ */
-+static void idpf_vport_intr_dis_dim_all(struct idpf_q_vec_rsrc *rsrc)
-+{
-+	for (u16 v_idx = 0; v_idx < rsrc->num_q_vectors; v_idx++) {
-+		struct idpf_q_vector *q_vector = &rsrc->q_vectors[v_idx];
-+
-+		disable_work_sync(&q_vector->tx_dim.work);
-+		disable_work_sync(&q_vector->rx_dim.work);
-+	}
-+}
-+
- /**
-  * idpf_vport_intr_deinit - Release all vector associations for the vport
-  * @vport: main vport structure
-@@ -4155,6 +4175,7 @@ void idpf_vport_intr_deinit(struct idpf_vport *vport,
+diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2520.c
+index 2b7034193a00..abfcfe07246a 100644
+--- a/drivers/net/ieee802154/cc2520.c
++++ b/drivers/net/ieee802154/cc2520.c
+@@ -1156,11 +1156,10 @@ static void cc2520_remove(struct spi_device *spi)
  {
- 	idpf_vport_intr_dis_irq_all(rsrc);
- 	idpf_vport_intr_napi_dis_all(rsrc);
-+	idpf_vport_intr_dis_dim_all(rsrc);
- 	idpf_vport_intr_napi_del_all(rsrc);
- 	idpf_vport_intr_rel_irq(vport, rsrc);
- }
-@@ -4235,7 +4256,6 @@ static void idpf_vport_intr_napi_ena_all(struct idpf_q_vec_rsrc *rsrc)
- 	for (u16 q_idx = 0; q_idx < rsrc->num_q_vectors; q_idx++) {
- 		struct idpf_q_vector *q_vector = &rsrc->q_vectors[q_idx];
+ 	struct cc2520_private *priv = spi_get_drvdata(spi);
  
--		idpf_init_dim(q_vector);
- 		napi_enable(&q_vector->napi);
- 	}
+-	mutex_destroy(&priv->buffer_mutex);
+-	flush_work(&priv->fifop_irqwork);
+-
++	disable_work_sync(&priv->fifop_irqwork);
+ 	ieee802154_unregister_hw(priv->hw);
+ 	ieee802154_free_hw(priv->hw);
++	mutex_destroy(&priv->buffer_mutex);
  }
-@@ -4578,6 +4598,8 @@ int idpf_vport_intr_alloc(struct idpf_vport *vport,
- 		q_coal = &user_config->q_coalesce[v_idx];
- 		q_vector->vport = vport;
  
-+		idpf_init_dim(q_vector);
-+
- 		q_vector->tx_itr_value = q_coal->tx_coalesce_usecs;
- 		q_vector->tx_intr_mode = q_coal->tx_intr_mode;
- 		q_vector->tx_itr_idx = VIRTCHNL2_ITR_IDX_1;
+ static const struct spi_device_id cc2520_ids[] = {
 
