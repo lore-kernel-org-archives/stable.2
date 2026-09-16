@@ -1,79 +1,77 @@
 Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A78FE3BB12D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 03:14:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF21C191F94
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 03:24:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789528466; cv=none; b=I4qurtORqqZ5Vi1FCeF27wgt+qPPKuBWb0lpBoEVSZaacTpWPgHANBmUgvsTySMbgnhZiMVysRNr/Ia1rfOXT3MqwBE13Q+DmY0WYLtaphMxTgk8wkg0g/ZnmvzI22GS05j5aSVCPA+sWunofjj4tbEKGxXWI5QBdlDc3Jn89Ag=
+	t=1789529079; cv=none; b=KgjPI1CqAkTv4R3SXcjOH8bBqmutDLid+qpVYlppDtl3/qHeLufQvhR+kE6/tnhxCBXumtdC1iN6t2Qk4LcDNFXL1s+ueDwEu+F2cFU60/NhMh3b+Q0IHLDyq5WkNu18Sz0QR5hgMTQXNsD3e0zFmgLRj0qO0DfN0BM/m5qqYEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789528466; c=relaxed/simple;
-	bh=XnUgFgPOsUuayrUBKTDQiULxihp3Q0iXhDWve90xbhw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uvxGnfcBAfoJQWmCphG7oJNb5xMTyfIu6LNDsu6t7w6kh8PhYFUIb/dQhZYrotU76jrNJqrYsvf/26k327AWLYr+4sy/6Ox/RM0IigCZFpTU/scJZyWQIiHKolpBHVj9RhRUNIrWnnU45nYUlj590CW+/SEYX7vBHwqQnC3z9Pw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=k3YMtH5k; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789529079; c=relaxed/simple;
+	bh=iDthSQqefFrOLg0kDxpCSPIAK7dnv2RUYvXiwlkwsRI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mggc3N2zAJfSlbOQggLBRIIHk0MHJ6SbzRff2j9eluK4fbEuyonygR+hraji5XCWRdn9oHcHAYE8gKEcIvww+3UOVJAsqZClyKJcbBPIyws8Znx21Ug+EVgbfSdk0LhjAW7VXDixwcETC3GARsJJ6ZMBME6OnFJnsJFzec0gDVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pwsvjzma; arc=none smtp.client-ip=74.125.228.12
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="k3YMtH5k"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebad4afso418630a12.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 20:14:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pwsvjzma"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2cso420495a12.0
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 20:24:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789528465; x=1790133265; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789529077; x=1790133877; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=3x+NS1tTRcfYVoPTJUjaHanPBgcWXbJYc21sQ0pJf9U=;
-        b=k3YMtH5ka6h60UdPOgL0B+L9EDd1PODojlOtZXj4uOyer2EB/G2HxZkKPlc/YmAaMf
-         vlSd1wfwFKuZ0zTSuJNc0FhyqYuyo7jnzoGIzKtDWqSNKkDf9bnKLjgAY2aMvYBBW/V3
-         Dq/l76gH5UTfknGS+phmfIXvDABJVnbZoOUoysto6AIpVNncPDRqXPvtqaJoD3hdEcPx
-         P30OiC9kV8uIOqcoAE9OwZhjJgcaWXB/qcp9fNGCrH79J14HS59371qmEqAcu+rSif9+
-         UUdktKsiWJxJdTetGHFwGU6XMORuseKk3mtnbiq/mkbTsPiSq2BERWgqS13GgsuXKyv4
-         mtRQ==
+        bh=hewLRE41ZIFiAVylPPAMUN536cPkfHAC1jqHJ9IalwI=;
+        b=PwsvjzmabTVUzalQ2cu2esCbIhvgN7baFnMCGdxz8R9HspexJDJaPZTl0zZLaB1ymE
+         1z3erk0KGJyRLR+Vu2iZPETmHfqxJiEvCGXZ5L60fje75hxM4IFKo3kI8CAAX7Z4IhJP
+         75DPW5VT5+wZ7Z5aDCUo+C/n/EsIHuYVAaC/ktoaQ6PET7Xdfl/KmBeyoVsnwwYg8Esa
+         +vNqUNdDeTMlHKsIGXQ6uER8wEHuDv70yjjwAoCjyDH4p1SABDOrdwCqJ4iLZuRceaV+
+         rpJvSYGBbJNwlJddcfnUTA+yTPHmMeoj3Zc3XW5SX/thYB2cngk+D63TJKv8TUx0CUgS
+         Q5Jg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789528465; x=1790133265;
+        d=1e100.net; s=20260707; t=1789529077; x=1790133877;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=3x+NS1tTRcfYVoPTJUjaHanPBgcWXbJYc21sQ0pJf9U=;
-        b=myHCliec/kglJJ/Em8IgkhlcUVSTQGRyOLY3OQBZCecq6k52/OozEGBFgWb8U5Y2z8
-         GImnzGnp+Df/o67agTPw+zBvDyRdlvZcYnd4WBhwNQx57kvNwgaPPGy9fLLrRTn7PGq1
-         x+Ggmq1ScZrB9GwUj8Ti8WGrZhhzJhc+LUkK69V3NIOn+nula3sVN5hfBDFyO2WU1i8n
-         65V9QTetLSNyqW0b+iQijh7lfXYd8+egv8xjvDb+P/rCoEnbrEKyKbKN9SN4Z3j2B8Lg
-         nBAHQOtnKSQEKWaIkDV2aETSSWCMayYEfaGdE00paB6IDaVMMS3wLltH9y2Lxc5bmDGU
-         9VJA==
-X-Forwarded-Encrypted: i=1; AKwUvBz4Pr3vqBrEVqZyyR/BTyxuQR7gKJKbQku5zoIsXmXzux0RIV6py4uW1q/RCreib7v5UJdc0zQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kwasjKjFcM/SHy1HAVhvLF3zzDVvUDmG6eJm8SCp4fUIzOq1bg
-	LVkR0c0XZB7CfmoY00uGZcwsbdbgY0j1+JefmyQrOPOSvLnUI9qi8SRu
-X-Gm-Gg: AYBFou1FkU0Gq9cMit1wUlyCMpfD8ECAS66i0PKRZr0ZJXIPM7kYf/RLking1BUQWkR
-	cMc9kM0AX3+CN5+uzf6k9U+yjuurDP/O2JU5rncKWObwvcil4d+d5P5ElQP4QhQ8S9w1nFm1sM0
-	FUcz19oGlT8X9cK1iBxaxaVLft+DGCPmY06I2+syQFrX7UloGcejXHV1X4Z4vllFZMGPl0I3Pxb
-	Nnn899rad6t+R95h7OFKKAVzIdy7oRs0yhRYVwGDefoLUsddsE9GzhjAjwVDjul0mW7zW6AZFIG
-	cpY9snOVMShW+DpvxVqnkO2mO3ljSPH2dBlElGQcfphtPCXEWMTfQWRL5eEyqQQxwMuE06wipWw
-	Ekv2XnJJ6Ltrms5j9OtmZVENNkbkdmuf7b1VncIDDHulDc+pE1/BdYTW1v7XvOFOfRx3KGDdBkQ
-	mxBr2FXPlvmGcXF2+7i2e5EluYeWGf88QITrNmWe0zvmyV0VkuJvzCqw==
-X-Received: by 2002:a17:90b:3bc8:b0:398:dcfe:968e with SMTP id 98e67ed59e1d1-39e1e504f3fmr2661898a91.20.1789528464931;
-        Tue, 15 Sep 2026 20:14:24 -0700 (PDT)
+        bh=hewLRE41ZIFiAVylPPAMUN536cPkfHAC1jqHJ9IalwI=;
+        b=yRo7l8OuahVOR1aKbX+MgW0G5MFJPAgYpntJwlbPD5JtCAn7GnknyPUH5iWCsDy+FK
+         nnEJOiZAXvMxO4/3x5koAE/vPlqikZHvFhka0IRQHaW67/vOsbKqXOm0CydKfgdY7NY3
+         MaMRO0uL9Su/0KHs9FlZ+fEIoKrT1SHmITxJIodKlmNj9DeJ6mmLaHmhLhpy+woeq8UV
+         KFBqbYGnpssyNqGbQcKJaqxwXNRGaPOOi9nPC7n8QuajK+Amq3M/P8KWETKUAnCYfx/p
+         Ix6FYu1oSxGXnj6s6W9kIYMlPJc2JzDvuxyKPCshi7wbtkOaPLaEFKwV9N4VeWdNXC9L
+         q0Zw==
+X-Forwarded-Encrypted: i=1; AKwUvBwwsGn6cVV0doKB2zOq4DLb52/60BRRs5OR4SXS/+lqqcQM/xB3hvJXgjgMqtaFhECufSdIFRw=@vger.kernel.org
+X-Gm-Message-State: AFuF++mJJy+Dz2xxHTQjwXBczhBX437queb+UECRv5gFdMYC/PxSYBd9
+	hY560hLPh6ZB/01uGJqnv4J+tjYJZfcsgilsm8q8bRq9FxZbmMjPZ40q
+X-Gm-Gg: AYBFou3kd0mG9rbfx+TRydYnGbQYG124lVnyquGPGpe/VXNiM364ndkS/CkMRDgycXZ
+	kWB3UyEsqxviuBQa+hucbajP7h3ASuAv2nN7CKWGD9tng6ORQdShLeHAQUD2ZbtF8etn+OZvkiS
+	mVTyuDui16ssDkd96TPDh180SHY0Ve/sLOwDTXLZZtymAm+mgJfIaBqipxZZ/MCryalfyEv9yYA
+	Ym9/lDolQS78RRLftEiysCMDm9YY2bqyUd2U9XzFDFsMsp9MmgZEN9aJNqgELskyHZLhheM8m8M
+	wg00diWKKHF37RAtGj0Up/Y847rsl0xlhV4S1clNtOnzjiNi5yQK3nWyRY00MUbNT9ncFEcjK+A
+	SUoTHCZksSLijxVeM1Q070QwNmr4CKOJ9yjtVEvN0mVPOuJHsDcigT98piOoCPqgsMLQc1ANA3E
+	CTImCOxSD+g+28L0UryULrvoNxc2v4C0ZIXJYWq8rKCP1rWFxGKtEjyozfP1gIyG1C
+X-Received: by 2002:a17:90b:390e:b0:39e:53a:c8d4 with SMTP id 98e67ed59e1d1-39e1e424a7dmr2098764a91.12.1789529077349;
+        Tue, 15 Sep 2026 20:24:37 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1ae99ca6sm1886986a91.0.2026.09.15.20.14.20
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bb234c3sm1772473a91.6.2026.09.15.20.24.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 20:14:24 -0700 (PDT)
+        Tue, 15 Sep 2026 20:24:36 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Pantelis Antoniou <pantelis.antoniou@gmail.com>,
+To: Fan Gong <gongfan1@huawei.com>,
 	Andrew Lunn <andrew+netdev@lunn.ch>,
 	"David S. Miller" <davem@davemloft.net>,
 	Eric Dumazet <edumazet@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Paolo Abeni <pabeni@redhat.com>,
-	Russell King <linux@armlinux.org.uk>,
-	Jeff Garzik <jeff@garzik.org>,
-	Scott Wood <scottwood@freescale.com>,
-	linuxppc-dev@lists.ozlabs.org,
+	Gur Stavi <gur.stavi@huawei.com>,
+	Xin Guo <guoxin09@huawei.com>,
 	netdev@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: fs_enet: fix platform info memory leak on remove
-Date: Wed, 16 Sep 2026 11:14:14 +0800
-Message-ID: <20260916031414.2875022-1-lgs201920130244@gmail.com>
+Subject: [PATCH] net: hinic3: unregister event callback on remove
+Date: Wed, 16 Sep 2026 11:24:27 +0800
+Message-ID: <20260916032427.2899987-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -83,36 +81,40 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-fs_enet_probe() allocates the platform information structure with
-kzalloc_obj() and stores it in fep->fpi.
+hinic3_nic_probe() registers the NIC event callback with
+hinic3_adev_event_register(). All probe failure paths unregister the
+callback before returning.
 
-The probe failure paths release this allocation with kfree(). However,
-after a successful probe, fs_enet_remove() tears down the network
-device without freeing fep->fpi, leaving the platform information
-structure allocated after driver removal.
+The normal removal path, however, tears down and frees the NIC device
+without calling hinic3_adev_event_unregister(), leaving the auxiliary
+device event callback pointing to hinic3_nic_event().
 
-Free fep->fpi before releasing the network device.
+If an event is delivered after the NIC private data has been released,
+the callback may dereference the freed nic_dev and netdev objects.
+
+Unregister the NIC event callback before starting the device teardown.
 
 This issue was found by manual code inspection.
 
-Fixes: 976de6a8c304 ("fs_enet: Be an of_platform device when CONFIG_PPC_CPM_NEW_BINDING is set.")
+Fixes: 17fcb3dc12bb ("hinic3: module initialization and tx/rx logic")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/net/ethernet/freescale/fs_enet/fs_enet-main.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/net/ethernet/huawei/hinic3/hinic3_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/net/ethernet/freescale/fs_enet/fs_enet-main.c b/drivers/net/ethernet/freescale/fs_enet/fs_enet-main.c
-index d3c772ed5fc9..071e3f3de78c 100644
---- a/drivers/net/ethernet/freescale/fs_enet/fs_enet-main.c
-+++ b/drivers/net/ethernet/freescale/fs_enet/fs_enet-main.c
-@@ -1007,6 +1007,7 @@ static void fs_enet_remove(struct platform_device *ofdev)
- 	fep->ops->cleanup_data(ndev);
- 	dev_set_drvdata(fep->dev, NULL);
- 	phylink_destroy(fep->phylink);
-+	kfree(fep->fpi);
- 	free_netdev(ndev);
- }
+diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_main.c b/drivers/net/ethernet/huawei/hinic3/hinic3_main.c
+index 0a888fe4c975..42e2ad179a9f 100644
+--- a/drivers/net/ethernet/huawei/hinic3/hinic3_main.c
++++ b/drivers/net/ethernet/huawei/hinic3/hinic3_main.c
+@@ -499,6 +499,8 @@ static void hinic3_nic_remove(struct auxiliary_device *adev)
+ 	if (!hinic3_support_nic(nic_dev->hwdev))
+ 		return;
+ 
++	hinic3_adev_event_unregister(adev);
++
+ 	netdev = nic_dev->netdev;
+ 	unregister_netdev(netdev);
  
 -- 
 2.43.0
