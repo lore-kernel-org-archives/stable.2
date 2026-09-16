@@ -1,171 +1,91 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CBA4B3364
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802594DD3AD
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:52:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598818; cv=none; b=W0w419OZQdIgrM+T1HumXG8vqrlPOYe3zkIaf7rQ2g/zYTlL8azM+RnZUokWPl0haH1eRKeDHRX4CgMW4XkK2xqb/P8vnHUuPecVa0hfbrdTqY+hDT/783qGca6hEnqoIT8SYp9lvrT6hLhPQRtA6hP1PqwxftT98KUeVMjCLhw=
+	t=1789599176; cv=none; b=nNwlSUDsKj8Y97VH+d87bwNBQvHqMSG97aJ4j4/npBtRvIc6jk2lyoDbcT3b9WZJVRfH7sQADDoQ4H+aFwnRAqpHfSnANHvxRucW+kn1RmAzNlG8ytNHnwt69i3LJM/UZC5WrotewR8qCAr0miwzBE6dzHkmiQ0X5gaYnJ4ting=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598818; c=relaxed/simple;
-	bh=+iTg2pmkbALBrTH+FcWWyviqSTD3pfdGnkYxin2J1GY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DGMy8xM+K6NeKtjsrKmWeVinfiSXxQXjG2j4ZffSZ8MlSB75x22bJOJTWB63+GYygik33sJz2Kur2E9FXKv9QylQyHGuVLxOJATpn57jo00YTCVltpv4BQg2Rg5XAzcgFPWuAHgqdYBmWca8v9QqAnBAIlbLpto76EaY4eRqtKQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvDkBjg4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789599176; c=relaxed/simple;
+	bh=RemvWGD8fDNAJhodw9Rb4zkKHNonC2YABnYLA+65qEk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q5F2cOrAtY2KZDxXt093W3mvJXcE5f3a7C5yxJ1j7aDoAvMKJkx654OTKs8KG6prtjD1PQsUooEUtFy1Wybahz997KTKt/cYZCzfGploBMOjXAMVba0ZeWnhoqs7qNI6VVM1bmxlU34fkUJM2rF2MMMpVvDS8fYahhd+6y7DXEs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nTDTTw2t; arc=none smtp.client-ip=192.198.163.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvDkBjg4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0761F00898;
-	Wed, 16 Sep 2026 22:46:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598810;
-	bh=2uJ3q9yJV+WlhMKyjXjmLaXtZpQeXXiQudE4abYjjnY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gvDkBjg4Y3QYpaxeAcYfFwuZKz6UEvMDVHYGH84WYk7zHCKySAh1TBBL6orrFNclh
-	 vTD6kfYKgR2+EkILOdkYY2r8/7nVLmQtxfrWNsfIZLxHlXLknZDx3r659htA6bh8aA
-	 DYows/ODt+uLGOZ8d5YhawQw2/D3g41TfibwC0m6nSZctJGBQ0HXDY5ZbPOXUtAHD0
-	 cvehmlzXUAGn+QAT6lAhAAajqTHkUgofpwh8k/Ai3qcg7wasgmG0MZTgEfk2vWauit
-	 lEt9QRVVBFRwWHA9MmqIc77oYNY94mBBgc08At2pzLDz1ZoWb6YW13sOY62NpbQoKX
-	 vIzsvKelk7r3g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
-	Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
-	=?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
-	intel-xe@lists.freedesktop.org,
-	Matthew Auld <matthew.auld@intel.com>,
-	Rodrigo Vivi <rodrigo.vivi@intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/xe: Flush LSC untyped L1 dataport cache after rcs/ccs batches
-Date: Wed, 16 Sep 2026 18:46:47 -0400
-Message-ID: <20260916224647.3200157-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091603-scope-sly-f7cb@gregkh>
-References: <2026091603-scope-sly-f7cb@gregkh>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nTDTTw2t"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789599171; x=1821135171;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=RemvWGD8fDNAJhodw9Rb4zkKHNonC2YABnYLA+65qEk=;
+  b=nTDTTw2tSR9fbbCvdORwuJewQt198Sr5nb61WvkN8zCSDVCA5Kmq1274
+   3p6J4DnXVQ3o20q7NqCpVVgclO0qfGHNAuMQdjYKhOBPISJYI5ABhX9cN
+   pGghSR13TpFqIG+ZZ1n9FNXsag6MLIoh4QGDYwPxZR4w4ck1IEB9X7Qx3
+   wFE+Uu4tKU6HqFlMEA3MZN/Xkx5QPEPe+74sWnHldXCciD2E/Rtd0p5gP
+   bk+0DU3DYIzeDdlgIQSn+x+VfRuP1YkBkZ0rXyMFSDjIYjo9DaCUaqwbY
+   U5cGpM46WKklp3tKcL9sshk3LDzU3quPmd7TfwQ5Cd8O4IrOMtHzyw0HW
+   Q==;
+X-CSE-ConnectionGUID: geLIqoUUTjmT9RFAgdNxRw==
+X-CSE-MsgGUID: nTJF3vQzSp+pDGVp2tDAiQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="77547665"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="77547665"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 15:52:48 -0700
+X-CSE-ConnectionGUID: 6ghXNrN8TraImtp+ZEbBuQ==
+X-CSE-MsgGUID: sHWpiTcaTl+ccLePdNbhtg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="272018129"
+Received: from cdjpc409-it.jer.intel.com ([10.12.50.120])
+  by orviesa010.jf.intel.com with ESMTP; 16 Sep 2026 15:52:47 -0700
+From: Gil Fine <gil.fine@linux.intel.com>
+To: mika.westerberg@linux.intel.com
+Cc: gil.fine@intel.com,
+	gil.fine@linux.intel.com,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] thunderbolt: Do not set up a DisplayPort tunnel when credits are insufficient
+Date: Thu, 17 Sep 2026 01:57:53 +0300
+Message-ID: <20260916225755.45127-1-gil.fine@linux.intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Currently, an excessive DisplayPort tunnel may be set up, even if no
+sufficient credits available. This could lead to malfunctioning
+DisplayPort tunnel.
 
-[ Upstream commit f5fcf7e638b904397ec0f66d3ea6766ef0cfe25b ]
+Fix this and bail out early if this is the case.
 
-emit_render_cache_flush() sets PIPE_CONTROL0_HDC_PIPELINE_FLUSH to
-flush the L2/HDC data cache before fence signalling, but it never
-requests a flush of the LSC untyped L1 data cache via the 'Untyped
-Data-Port Cache Flush Enable' bit in PIPE_CONTROL DWord0[11].
-
-Per the Bspec, in 3D pipeline mode HDC Pipeline Flush is documented to
-also flush/invalidate the untyped L1 cache, but only depending on how
-HDC_CHICKEN0[13:11] is programmed. Starting with MTL, this coupling
-between HDC Pipeline Flush and the untyped L1 cache flush no longer
-holds in practice, regardless of how HDC_CHICKEN0 is programmed, so
-relying on it is not safe on newer platforms such as BMG. Mesa's Vulkan
-driver (anv) has been assuming the kernel flushes both caches between
-submissions, and hit user-visible corruption in apps such as Llama.cpp
-because of this gap; it now works around it by flushing both caches
-again from userspace at the end of every command buffer.
-
-Correctness between submissions on the same queue is userspace's
-responsibility and belongs in Mesa, not the kernel. However, for
-security we must ensure stale data can't leak through the untyped L1
-dataport cache once memory is reclaimed or evicted, which requires the
-KMD to flush it before releasing memory for reuse.
-
-Prior to MTL, HDC_CHICKEN0 could be programmed (as already done for
-DG2 via Wa_22010960976/Wa_14013347512) to reliably keep HDC Pipeline
-Flush coupled to the untyped L1 cache flush, so those platforms are
-unaffected. Mesa's own anv driver found that on MTL the HW
-disconnected the two independently of how HDC_CHICKEN0 is programmed,
-and could not bring the old behavior back even by writing the register
-by hand; see Mesa commit 7c2ff46a4fc3 ("anv: don't prevent L1 untyped
-cache flush in 3D mode"). The kernel can't reliably request the flush
-from the CS on MTL either, so restrict the new PIPE_CONTROL bit to
-GRAPHICS_VERx100 >= 2000 (Xe2 and later), where it can be relied on.
-
-Explicitly set PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH together
-with PIPE_CONTROL0_HDC_PIPELINE_FLUSH in emit_render_cache_flush() on
-Xe2 and later, so the L1 data cache is known clean before memory is
-released for reuse, without depending on undocumented
-platform-specific HDC_CHICKEN0 behavior.
-
-Bspec: 56551
-Link: https://gitlab.freedesktop.org/mesa/mesa/-/commit/7c2ff46a4fc3e537573ac9503057e0cd29b6fff3
-Fixes: 9f8f93bee3ef ("drm/xe: Emit a render cache flush after each rcs/ccs batch")
-Reported-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
-Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8909
-Cc: José Roberto de Souza <jose.souza@intel.com>
-Cc: intel-xe@lists.freedesktop.org
-Cc: <stable@vger.kernel.org> # v6.8+
-Assisted-by: GitHub_Copilot:claude-sonnet-5
-Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
-Reviewed-by: Matthew Auld <matthew.auld@intel.com>
-Link: https://patch.msgid.link/20260903114552.48634-1-thomas.hellstrom@linux.intel.com
-(cherry picked from commit 434514b6fe731e873808297c268fc52cdf4a1ce6)
-Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
-[ replaced emit_pipe_control()'s literal HDC argument with a new flags0 variable. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 6ed541c53edc ("thunderbolt: Allocate credits according to router preferences")
+Cc: stable@vger.kernel.org
+Signed-off-by: Gil Fine <gil.fine@linux.intel.com>
+Assisted-by: LLM
 ---
- .../gpu/drm/xe/instructions/xe_gpu_commands.h    |  1 +
- drivers/gpu/drm/xe/xe_ring_ops.c                 | 16 ++++++++++++++--
- 2 files changed, 15 insertions(+), 2 deletions(-)
+ drivers/thunderbolt/tunnel.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h b/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
-index 8cfcd3360896c..8d05db3fb356d 100644
---- a/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
-+++ b/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
-@@ -41,6 +41,7 @@
+diff --git a/drivers/thunderbolt/tunnel.c b/drivers/thunderbolt/tunnel.c
+index c0342b1d6a8a..7a033df7f916 100644
+--- a/drivers/thunderbolt/tunnel.c
++++ b/drivers/thunderbolt/tunnel.c
+@@ -1582,7 +1582,7 @@ static int tb_dp_init_video_credits(struct tb_path_hop *hop)
+ 		 */
+ 		nfc_credits = port->config.nfc_credits &
+ 				ADP_CS_4_NFC_BUFFERS_MASK;
+-		if (nfc_credits / sw->min_dp_main_credits > max_dp_streams)
++		if (nfc_credits / sw->min_dp_main_credits >= max_dp_streams)
+ 			return -ENOSPC;
  
- #define GFX_OP_PIPE_CONTROL(len)	((0x3<<29)|(0x3<<27)|(0x2<<24)|((len)-2))
- 
-+#define	  PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH	BIT(11)	/* gen12 */
- #define	  PIPE_CONTROL0_L3_READ_ONLY_CACHE_INVALIDATE	BIT(10)	/* gen12 */
- #define	  PIPE_CONTROL0_HDC_PIPELINE_FLUSH		BIT(9)	/* gen12 */
- 
-diff --git a/drivers/gpu/drm/xe/xe_ring_ops.c b/drivers/gpu/drm/xe/xe_ring_ops.c
-index e0082b55e2162..46c71d2889218 100644
---- a/drivers/gpu/drm/xe/xe_ring_ops.c
-+++ b/drivers/gpu/drm/xe/xe_ring_ops.c
-@@ -176,13 +176,25 @@ static int emit_store_imm_ppgtt_posted(u64 addr, u64 value,
- static int emit_render_cache_flush(struct xe_sched_job *job, u32 *dw, int i)
- {
- 	struct xe_gt *gt = job->q->gt;
-+	struct xe_device *xe = gt_to_xe(gt);
- 	bool lacks_render = !(gt->info.engine_mask & XE_HW_ENGINE_RCS_MASK);
--	u32 flags;
-+	u32 flags0, flags;
- 
- 	if (XE_GT_WA(gt, 14016712196))
- 		i = emit_pipe_control(dw, i, 0, PIPE_CONTROL_DEPTH_CACHE_FLUSH,
- 				      LRC_PPHWSP_FLUSH_INVAL_SCRATCH_ADDR, 0);
- 
-+	flags0 = PIPE_CONTROL0_HDC_PIPELINE_FLUSH;
-+	/*
-+	 * Prior to MTL, HDC Pipeline Flush reliably also flushes the LSC
-+	 * untyped L1 dataport cache, provided HDC_CHICKEN0 is programmed
-+	 * correctly. Starting with MTL that coupling no longer holds
-+	 * regardless of how HDC_CHICKEN0 is programmed, but explicitly
-+	 * requesting the flush via PIPE_CONTROL is itself only reliable
-+	 * from Xe2 onward, so only gate it in on Xe2+.
-+	 */
-+	if (GRAPHICS_VERx100(xe) >= 2000)
-+		flags0 |= PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH;
- 	flags = (PIPE_CONTROL_CS_STALL |
- 		 PIPE_CONTROL_TILE_CACHE_FLUSH |
- 		 PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
-@@ -198,7 +210,7 @@ static int emit_render_cache_flush(struct xe_sched_job *job, u32 *dw, int i)
- 	else if (job->q->class == XE_ENGINE_CLASS_COMPUTE)
- 		flags &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
- 
--	return emit_pipe_control(dw, i, PIPE_CONTROL0_HDC_PIPELINE_FLUSH, flags, 0, 0);
-+	return emit_pipe_control(dw, i, flags0, flags, 0, 0);
- }
- 
- static int emit_pipe_control_to_ring_end(struct xe_hw_engine *hwe, u32 *dw, int i)
+ 		hop->nfc_credits = sw->min_dp_main_credits;
 -- 
-2.53.0
+2.43.0
 
