@@ -1,90 +1,181 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AB04457DF;
-	Wed, 16 Sep 2026 07:42:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B12AC44CF25;
+	Wed, 16 Sep 2026 07:45:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544586; cv=none; b=Wmd4o45jn+KASopYvXQOpETMRKde8I8xJcIgzsNiwBWmmHIo9M5zCqaX24gElgO/9JG68xQZEoAFYwB7GeM5XmTXJe2OCQgLQl+fH//F0Fis6is9Hl9Z5QaZq9ihH1ea+Jj70Y3QQIhbew3dy8FHY1VguiHcG/0rqWfF8z28/gY=
+	t=1789544736; cv=none; b=JbokZlszTq/2GKiLVKgCqdo/siwU+N7F4D0pnEt6gBe1nW6H1j6y9s3672Axsr2CPC4rsqwQadb7ftPTw04x3CbSmJl9nGlAVAG1itavVZ9Mhs8HIy2SvTDvtrhDyh20rcHsXHeTlHnolw6mEF2KUdJ8KhSl+uWQoIvj3MbXIc8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544586; c=relaxed/simple;
-	bh=q+eCkQXgLVxQ/U+wIVeeF1Wbo055P4AxAd9+1jYkPqc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Xef05K6npyRmNygb+jtFrehIkqcYKQh0NjITSqFAhNSo3VgqHt40XtFGlIJ3ovEhVlVjfm/7GTbrFOzLUsSO2nPYt1Sd2M/ClMs7ssEgRcCK4Kak1XDMPUPnLqtJlZB/Z1YPLqEa1LCyWYyIkzcjNbRBkMTnF3f1w622/BPgEXw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnqjh0SKpqqELfBw--.41180S2;
-	Wed, 16 Sep 2026 15:42:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Felix.Kuehling@amd.com
-Cc: airlied@gmail.com,
-	alexander.deucher@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	christian.koenig@amd.com,
-	david.yatsin@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	rajneesh.bhardwaj@amd.com,
-	simona@ffwll.ch,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdkfd: Fix file reference leak in criu_restore_devices()
-Date: Wed, 16 Sep 2026 07:42:16 +0000
-Message-Id: <20260916074216.1973191-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789544736; c=relaxed/simple;
+	bh=2oleBu2ZyXTqH7IkiY2FnDAfDfVgurItEBflxV+93NA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DIgXfKDuAHyGiZ1cVzKxTwqekexgZG9dGsV8sKI2PXiLajxGZOMlSMyB6+pU3+MmC2E2mznC3h8x6GiLvEM9Pbz848w2vhEAsBDbZxmzU3OziFIWAorlvRykBiVHviwS6g3zA9BLfNZzLf4jjqTi519C0SXIxHvwnkZ4ak8LlJ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=neiHH7CZ; arc=none smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="neiHH7CZ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789544726; x=1821080726;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=2oleBu2ZyXTqH7IkiY2FnDAfDfVgurItEBflxV+93NA=;
+  b=neiHH7CZ2f2V6X6V3WQnZWUl9zDDtJqEs8Aznk+6VZXQ1AKcaz8XCB3A
+   7zESbcLYSeKcT1CFx2eE6bOr4ln61Aq3HWCKKwYU6/y7nJG87v5/aDGu3
+   zlisxm/tu8KOWKj1PMmqUYDaxFg+KBv3eKssNqMiTWFJ3pWIJuS7BCnr8
+   ZhQbT7I4lbc+h+N4ylG14P9qmZNZZ6NFm6NgO7m0LFJkD893j/+P0HJmg
+   72vTWSXlDfTrJ4ykJYzQdUg1WWTTH/roCb+PEr32kzUIP9MU8UykkaQUS
+   gCJpw6puwXwx5/Chst4udGlmsO/5RPTJwPxbDw+GofCwBlckn2U1gqLFG
+   g==;
+X-CSE-ConnectionGUID: f495BNdiSIi1gypaAS8fgg==
+X-CSE-MsgGUID: LJI3tdTHQFOhfynah/WMyA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100579786"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100579786"
+Received: from orviesa008.jf.intel.com ([10.64.159.148])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:45:20 -0700
+X-CSE-ConnectionGUID: BQV/x/2rRbWb7yalBTZ5Qw==
+X-CSE-MsgGUID: QduNPbCCTtG8DYwiVMlcrg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="272788606"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by orviesa008-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:45:16 -0700
+Date: Wed, 16 Sep 2026 10:45:14 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: stm32-adc: fix check on internal channel
+ availability
+Message-ID: <aqpJCsBNKDSKlfFD@ashevche-desk.local>
+References: <20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACnqjh0SKpqqELfBw--.41180S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XrW8tw1UAF4xZr45tryrJFb_yoWDJwb_G3
-	yUXr9xXry2kF4vqr1F9r4FvrWIyw4UurWkXw48ta1FyFyUZF9rW34Ygr95XF1UJanruFn8
-	X3s5ur1rAwnrCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbakFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
-	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
-	IYCTnIWIevJa73UjIFyTuYvjfUogAwDUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqP4cnwQAAsK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-In criu_restore_devices(), drm_file is obtained using fget(drm_fd). If
-pdd->drm_file is already set, the function returns -EINVAL without
-releasing the acquired reference via fput(drm_file), leading to a file
-reference count leak.
+On Tue, Sep 15, 2026 at 06:15:49PM +0200, Fabrice Gasnier wrote:
+> If an unsupported internal channel like vddgpu is requested, the driver
+> prints a warning but falls through and assigns it a valid int_ch below.
+> 
+> This causes a problem later during setup:
+> stm32_adc_int_ch_enable() {
+>     ...
+>     case STM32_ADC_INT_CH_VDDGPU:
+>         stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
+>                            adc->cfg->regs->or_vddgpu.mask);
+>     ...
+> }
+> 
+> Because the register offset is uninitialized (0), this performs a
+> read-modify-write on offset 0, which corresponds to the ISR register.
+> 
+> Fix this by returning before a valid int_ch is assigned.
+> Choice is made to just warn about the channel name as it could
+> be confusing, rather than making the probe fail.
 
-Fix this by adding fput(drm_file) before returning -EINVAL.
+Are this and the other patch made with AI assistance?
 
-Fixes: bef153b70c6e ("drm/amdkfd: CRIU implement gpu_id remapping")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/amd/amdkfd/kfd_chardev.c | 1 +
- 1 file changed, 1 insertion(+)
+...
 
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-index 03b266b26738..5453fa4ce4fd 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_chardev.c
-@@ -2311,6 +2311,7 @@ static int criu_restore_devices(struct kfd_process *p,
- 		}
- 
- 		if (pdd->drm_file) {
-+			fput(drm_file);
- 			ret = -EINVAL;
- 			goto exit;
- 		}
+>  	struct stm32_adc *adc = iio_priv(indio_dev);
+>  	u16 vrefint;
+> -	int i, ret;
+> +	int i, ret = 0;
+
+No, either assign closer to its first user, or do even better.
+
+>  	for (i = 0; i < STM32_ADC_INT_CH_NB; i++) {
+>  		if (!strncmp(stm32_adc_ic[i].name, ch_name, STM32_ADC_CH_SZ)) {
+> @@ -2267,31 +2267,36 @@ static int stm32_adc_populate_int_ch(struct iio_dev *indio_dev, const char *ch_n
+>  			switch (i) {
+>  			case STM32_ADC_INT_CH_VDDCORE:
+>  				if (!adc->cfg->regs->or_vddcore.reg)
+> -					dev_warn(&indio_dev->dev,
+> -						 "%s channel not available\n", ch_name);
+> +					ret = -ENOENT;
+
+This is a repetition of the same value. Instead add a boolean flag and do here
+
+	bool na;
+	...
+			na = false; // or can be dropped with 'default' case
+			switch (i) {
+			case STM32_ADC_INT_CH_VDDCORE:
+				na = !adc->cfg->regs->or_vddcore.reg;
+
+>  				break;
+>  			case STM32_ADC_INT_CH_VDDCPU:
+>  				if (!adc->cfg->regs->or_vddcpu.reg)
+> -					dev_warn(&indio_dev->dev,
+> -						 "%s channel not available\n", ch_name);
+> +					ret = -ENOENT;
+>  				break;
+>  			case STM32_ADC_INT_CH_VDDQ_DDR:
+>  				if (!adc->cfg->regs->or_vddq_ddr.reg)
+> -					dev_warn(&indio_dev->dev,
+> -						 "%s channel not available\n", ch_name);
+> +					ret = -ENOENT;
+>  				break;
+>  			case STM32_ADC_INT_CH_VREFINT:
+>  				if (!adc->cfg->regs->ccr_vref.reg)
+> -					dev_warn(&indio_dev->dev,
+> -						 "%s channel not available\n", ch_name);
+> +					ret = -ENOENT;
+>  				break;
+>  			case STM32_ADC_INT_CH_VBAT:
+>  				if (!adc->cfg->regs->ccr_vbat.reg)
+> -					dev_warn(&indio_dev->dev,
+> -						 "%s channel not available\n", ch_name);
+> +					ret = -ENOENT;
+>  				break;
+
+Don't you also need a default?
+
+			default:
+				return -EINVAL; // for example...
+
+>  			}
+
+			if (na) {
+				...
+				return 0;
+			}
+
+>  
+> +			if (ret) {
+> +				/*
+> +				 * Confusing channel label matches an internal STM32 ADC channel.
+> +				 * Just warn about it, as there's normally no restriction on the
+> +				 * name but that's not among supported internal channels.
+> +				 */
+> +				dev_warn(&indio_dev->dev, "no %s internal channel\n", ch_name);
+> +				return 0;
+
+My gosh, the ret value is even ignored!
+
+> +			}
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
