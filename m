@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17226525A9B
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:29:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A07D734E764
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:29:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572573; cv=none; b=MfKYHqozvZZtfc7Y5n9Aqu0nCPkatsNzsxtoJTo/YquWigEpNAw4Iyi84DzUo+s8RUr6jpJpGZcL/AlrIAAeJuMRPwUHq9zJyiB9hnAgtlEUOz/pox6umbq7vtBQoflx9uxLqYV9oFjg5BwpdvN2iU1q0e9IalNYKhmVyOhZmaA=
+	t=1789572573; cv=none; b=Q17lLgQT3qVjz4aoGgWwJOzbaBtlkgAArl15GCb3/ktfQA1X6VSmUff0aRSFukbPQ1md1nfYIY543Sa63DEMPtAiB5GQX63i6966EqemPQHMXRZ3JmALWghgdPDezmbXe9uBNHUe5LP4XSYYUTwrcPKo3j77mlJ8uVzy6U33EuA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789572573; c=relaxed/simple;
-	bh=13nl9TrzL6yXpf2VpunQ0dQlJxuafccpC1OP7FMrVk4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZJLObLA+G2eeKjQVyFJC2hp3/PFOQ5NS03FBe33qAYuapdjUvi+TXmUgYBPLOnbHpT9pvqVayRlMLQVUNWOX+L/qg1rQQMVqqEYdacnEzGtvDN/wpJp4RKTvPXelqxZRUXT5Wv3GDdADIdlBszhqk1uAEOW6+n2kkD+M57z5DG4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tGNeBl9x; arc=none smtp.client-ip=100.103.45.18
+	bh=hswcjMaYybidkT43zaGWyS+DJFuNJQLMpLJrQUFAgTc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=S3yee7IcVFlBXLB5LRYJ3of0awMpwYFIYOEkzl3BLYWXxRZGs1wifXCV0fHP9HL6SOyL3lE3r+T3IFc9eNw1696pJ7Z2aKmirqo/t3nNPur3woxzd+ug6m98H3fmVm46Mj2LUMsBHnmwBd0cptGO9JeUjyuPYPNzfwvJFY02hOA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Go3+/Hh7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tGNeBl9x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C1C201F000FF;
-	Wed, 16 Sep 2026 15:29:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Go3+/Hh7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9C5F1F00893;
+	Wed, 16 Sep 2026 15:29:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789572568;
-	bh=cBaz0gTsajHh38oz49jOaGJwj01eKMtymVi/Vz03FkA=;
+	s=korg; t=1789572571;
+	bh=fiHdDCZF8f8bnx0EyEGHic5RMDqZU7Ivps/UIJslVRM=;
 	h=Subject:To:Cc:From:Date;
-	b=tGNeBl9xj8wgWJOUZ5Lixb4wIaffR5mH0f2ow3oblT5Dy4AV+s5YoyuaqZ7MKI5Gl
-	 r5cJI09u6qtvjupbVsqnO/UJozVPyobdH/Zr9nSfA4ZebHs2VoQjx1YYMuoYSF3wES
-	 33bq5VKR7mEdwgigKAB834mKPmbaA/i4YZq2gIko=
-Subject: FAILED: patch "[PATCH] drm/amd/display: Rebuild InfoFrames on output color space" failed to apply to 6.18-stable tree
-To: sroy14@alum.utk.edu,alex.hung@amd.com,alexander.deucher@amd.com,daniel.wheeler@amd.com
+	b=Go3+/Hh76XQwPjztsPIU2FcEDeGlTkUY/RETGT73w35T9W+r5uL/FMzsUEYXi1ZDg
+	 F/1KxEk0HF2hE47FGZEeG5Zwn1gKzOY3lcNMH07dbyRZk/3mktuY5Pk8Ip1iMOuzNg
+	 amcmqglBtIvuZGC2CbOnxR/zatZ8UvmTI1tZbmFM=
+Subject: FAILED: patch "[PATCH] io_uring/rw: end write accounting from ->ki_complete" failed to apply to 6.18-stable tree
+To: axboe@kernel.dk
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:20:05 +0100
-Message-ID: <2026091605-cavalry-polygraph-51d3@gregkh>
+Date: Wed, 16 Sep 2026 16:20:23 +0100
+Message-ID: <2026091623-wrangle-flammable-47de@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8cfd9e22eb5c04b15b82985ff913944f84673d4f
+git cherry-pick -x 796aa0547557e63338657ed1c487906f9fac4c73
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091605-cavalry-polygraph-51d3@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091623-wrangle-flammable-47de@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,61 +62,106 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8cfd9e22eb5c04b15b82985ff913944f84673d4f Mon Sep 17 00:00:00 2001
-From: Satyajit Roy <sroy14@alum.utk.edu>
-Date: Sun, 30 Aug 2026 03:52:13 +0000
-Subject: [PATCH] drm/amd/display: Rebuild InfoFrames on output color space
- changes
+From 796aa0547557e63338657ed1c487906f9fac4c73 Mon Sep 17 00:00:00 2001
+From: Jens Axboe <axboe@kernel.dk>
+Date: Tue, 8 Sep 2026 17:53:20 -0600
+Subject: [PATCH] io_uring/rw: end write accounting from ->ki_complete
 
-resource_build_info_frame() derives colorimetry and RGB quantization from
-stream->output_color_space. A Broadcast RGB-only atomic commit updates
-that field and reprograms the output CSC, but none of the InfoFrame update
-predicates include output_color_space. The sink can therefore retain the
-previous AVI InfoFrame range while the source starts transmitting a
-different pixel range.
+Commit b000145e9907 moved both the fsnotify calls and the write
+accounting out of the kiocb completion handler and into the
+io_req_rw_complete() task_work. However, only the fsnotify part actually
+needed to move as it may sleep. Ending the write accounting is just a
+percpu_up_read() on the superblock writers sem.
 
-Treat an output color space change as an InfoFrame change in update
-classification and in both stream programming paths.
+Deferring it is a problem, because it makes dropping SB_FREEZE_WRITE
+protection depend on the ring owner getting to running task_work. But
+the task may be blocked in freeze_super(), causing it to never get to
+that:
 
-Hardware testing on an HDMI 2.1 television confirmed that its automatic
-black-level selection follows Full to Limited and Limited to Full
-transitions in SDR, HDR, and HDR with VRR active, without a modeset or
-visible link blank.
+  task                             io-wq worker
+  --------------------------------------------------------------
+  io_write()
+    io_kiocb_start_write()         (takes sb_writers, hidden from
+                                    lockdep by __sb_writers_release)
+    write_iter() -> -EIOCBQUEUED
+  ioctl(FS_IOC_SHUTDOWN)
+    bdev_freeze()
+      freeze_super()
+        percpu_down_write()        <- waits for the reader above
+                                   io_write()
+                                     kiocb_start_write()
+                                       percpu_down_read()  <- queued
+                                                              behind the
+                                                              writer
+  <bio completes>
+    io_complete_rw()
+      queues io_req_rw_complete()  <- never runs, task is in D state
 
-Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property")
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit d6faca79f5720893843e649e70aeb19147ee0578)
+End the write from io_complete_rw() instead, and leave only the fsnotify
+calls in task_work.
+
+Reported-by: syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com
 Cc: stable@vger.kernel.org
+Fixes: b000145e9907 ("io_uring/rw: defer fsnotify calls to task context")
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
 
-diff --git a/drivers/gpu/drm/amd/display/dc/core/dc.c b/drivers/gpu/drm/amd/display/dc/core/dc.c
-index a98ed4617a03..519ac878ada1 100644
---- a/drivers/gpu/drm/amd/display/dc/core/dc.c
-+++ b/drivers/gpu/drm/amd/display/dc/core/dc.c
-@@ -3198,6 +3198,7 @@ static struct dc_update_descriptor check_update_surfaces_for_stream(
- 		}
+diff --git a/io_uring/rw.c b/io_uring/rw.c
+index 95106dd1d7eb..3e22f294bdf2 100644
+--- a/io_uring/rw.c
++++ b/io_uring/rw.c
+@@ -517,20 +517,25 @@ static void io_req_end_write(struct io_kiocb *req)
+ 	}
+ }
  
- 		if ((stream_update->hdr_static_metadata && !stream_update->stream->use_dynamic_meta) ||
-+				stream_update->output_color_space ||
- 				stream_update->vrr_infopacket ||
- 				stream_update->vsc_infopacket ||
- 				stream_update->vsp_infopacket ||
-@@ -4188,6 +4189,7 @@ static void commit_planes_do_stream_update_sequence(struct dc *dc,
- 				hwss_add_setup_periodic_interrupt(&seq_state, dc, pipe_ctx);
+-/*
+- * Trigger the notifications after having done some IO, and finish the write
+- * accounting, if any.
+- */
++/* Trigger the notifications after having done some IO. */
++static void io_req_io_notify(struct io_kiocb *req)
++{
++	struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
++
++	if (rw->kiocb.ki_flags & IOCB_WRITE)
++		fsnotify_modify(req->file);
++	else
++		fsnotify_access(req->file);
++}
++
++/* Finish write accounting and notify, for inline completions only. */
+ static void io_req_io_end(struct io_kiocb *req)
+ {
+ 	struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
  
- 			if ((stream_update->hdr_static_metadata && !stream->use_dynamic_meta) ||
-+					stream_update->output_color_space ||
- 					stream_update->vrr_infopacket ||
- 					stream_update->vsc_infopacket ||
- 					stream_update->vsp_infopacket ||
-@@ -4370,6 +4372,7 @@ static void commit_planes_do_stream_update(struct dc *dc,
- 				dc->hwss.setup_periodic_interrupt(dc, pipe_ctx);
+-	if (rw->kiocb.ki_flags & IOCB_WRITE) {
++	if (rw->kiocb.ki_flags & IOCB_WRITE)
+ 		io_req_end_write(req);
+-		fsnotify_modify(req->file);
+-	} else {
+-		fsnotify_access(req->file);
+-	}
++	io_req_io_notify(req);
+ }
  
- 			if ((stream_update->hdr_static_metadata && !stream->use_dynamic_meta) ||
-+					stream_update->output_color_space ||
- 					stream_update->vrr_infopacket ||
- 					stream_update->vsc_infopacket ||
- 					stream_update->vsp_infopacket ||
+ static void __io_complete_rw_common(struct io_kiocb *req, long res)
+@@ -563,7 +568,7 @@ void io_req_rw_complete(struct io_tw_req tw_req, io_tw_token_t tw)
+ {
+ 	struct io_kiocb *req = tw_req.req;
+ 
+-	io_req_io_end(req);
++	io_req_io_notify(req);
+ 
+ 	if (req->flags & (REQ_F_BUFFER_SELECTED|REQ_F_BUFFER_RING))
+ 		req->cqe.flags |= io_put_kbuf(req, max(req->cqe.res, 0), NULL);
+@@ -577,6 +582,10 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
+ 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
+ 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
+ 
++	/* ring owner may block in freeze_super() before task_work runs */
++	if (kiocb->ki_flags & IOCB_WRITE)
++		io_req_end_write(req);
++
+ 	__io_complete_rw_common(req, res);
+ 	io_req_set_res(req, io_fixup_rw_res(req, res), 0);
+ 	req->io_task_work.func = io_req_rw_complete;
 
