@@ -1,92 +1,83 @@
-Received: from k29.k3ae2098.use4.send.mailgun.net (k29.k3ae2098.use4.send.mailgun.net [204.220.183.29])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F06D83BCD3D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 05:23:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=204.220.183.29
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133813033CB;
+	Wed, 16 Sep 2026 05:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789536207; cv=none; b=HUFimBku68gteYmdo+qYXyLZK1yAsboNuz7YFkyRGIVBaMWISmTP+lTwq+DQZmkg21UqL+FidAyHjjH7CJ+hUjxaWGqpC6yt9ldOaI1D+6xXUZnAN3EPwwaDG/rMna7lnUXwaQe/5UHkaj3rMLffb4Obn/AY6wqcZwZBQpGAdlg=
+	t=1789536514; cv=none; b=t+OWu2FTW1pLg0Q3DLHzQULmyZrBVSrU5Eo9GPjgW4xKSvjNVTMiMvXfRnKowrvFwLRPknYA6s6l/rOif4u37oEhwTVv55hGOk7eRTQJ5cnIX67LY5RROHAhKMnFAYdY24+ZRtGUBjp9g6+ROROC9lhWbpy0OeXrrQ18NYO/9jA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789536207; c=relaxed/simple;
-	bh=Oa74gWgM2W4vIl2iw9lcPSh19+09yWW6fQ8K7jFep5o=;
+	s=arc-20240116; t=1789536514; c=relaxed/simple;
+	bh=dkdkd8Lu7qc8W7cHI2YtShJG+Cb5ARVQPtCg3mYi46M=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=PUm+gRE0W8L1TWqQFml/226uczS2w1+Wf7t/ch+LxXAxiHIJlFg7SMLjSS7ZRlsN/kx7S8lKXEfDK9JbyX/OYwsgdWousVhNs52mcqoTUHHND+LgdVsZ3L43zAkMMqPtzTkgZmZzklbACydmWXxMwcTetEBapt129WZdMq/nFus=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech; spf=pass smtp.mailfrom=equiv.tech; dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b=AL1en92u; arc=none smtp.client-ip=204.220.183.29
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=equiv.tech
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=equiv.tech
+	 Content-Type:Content-Disposition:In-Reply-To; b=BBcVpunFSOrv3LzytRjVJ15dHjjQYREngIt2SyJxNFmC+Npxw7NAbdeZ2DC7V4uK6geWKmQLlNeq5v7heec1akE16SubxwUvEJAsnOXxjUeaTgaDgTxYJxx8CbC+k20g0pV4VlfB8QRAPPSEeXzhoA95iJMrFeSB38bVm59Czm8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AYZzAj5z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=equiv.tech header.i=@equiv.tech header.b="AL1en92u"
-DKIM-Signature: a=rsa-sha256; v=1; c=relaxed/relaxed; d=equiv.tech; q=dns/txt; s=pdk1; t=1789536203; x=1789543403;
- h=In-Reply-To: Content-Type: MIME-Version: References: Message-ID: Subject: Subject: Cc: To: To: From: From: Date: Sender: Sender;
- bh=I6hyPxo8FCyVGDysp76cYsc0WHS4NTTZyCqbaacWvWw=;
- b=AL1en92u+jzi+qHQ5AOaAtDovKtyyn/hRv+U1/sSteUPECDkEFbtZc87IWLVom6Fe7jgSasnXu1lgGHXCtrjLQsvj2KlvWTho02ZeDBgvMpr5vwWZ3f563QdYKd52jgoCEeFI3KhhevoZAMgOCoqDC8SWBOptQxMqhE4vZddS/PXyJ57E6savNLU7/gNbfl/VCaW2Sj2ht7qBfhmxXs0kG7rcooLAEYp96Cwu7fT2J/s3H6llcgaxtIrt/sD25ow0DMvYX40Xy+yB/IC8TjRayBsmFmoHsFrJpMXKNZZNmL0EJpgNxYiEIUEaw3WU67zU/SGpMeBAb4Jn1PeBppFJg==
-X-Mailgun-Sid: WyJkYzI5MSIsInN0YWJsZUB2Z2VyLmtlcm5lbC5vcmciLCI5M2Q1YWIiXQ==
-Received: from mail.equiv.tech (equiv.tech [142.93.28.83]) by
- 2589aaaac44761cdf43912c5eb2d540323feac9e05ab4e148d1e2df9c36482b4 with SMTP id
- 6aaa27cb05bd73190797e3db (version=TLS1.2,
- cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256); Wed, 16 Sep 2026 05:23:23 GMT
-X-Mailgun-Sending-Ip: 204.220.183.29
-Sender: james@equiv.tech
-Date: Tue, 15 Sep 2026 22:23:22 -0700
-From: James Seo <james@equiv.tech>
-To: Muhammad Bilal <meatuni001@gmail.com>
-Cc: Guenter Roeck <linux@roeck-us.net>, linux-hwmon@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AYZzAj5z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD5301F000FF;
+	Wed, 16 Sep 2026 05:28:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789536512;
+	bh=66PyGPF5wXahXxW5sg6wPuZ0lhWWMmXUKvHfOKoSdYs=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=AYZzAj5zgFh920pxLpGKuWZ8NFaBVz6NPYkQGl1EIBxUvvkhG8GyY4i53xxm/U6nQ
+	 nLyVV6jbYqY0XmojBX/9D/t9eC1msZQsf/q4508X9g/8PdkVHRolfaIm5e0QrGF7EL
+	 3fqdQ9bNXEh7n6NKwybOOZTqlxm1zGMv+JGQDkGihNzMxVOViYveQL+vR4+/SLbL7k
+	 yZ+nGRgE8+lk3izvSS+jxsbLmCmo7JRkzZOPJeSeWDQvVkOCLWuuS7MvAv59frQu10
+	 WHbdydez2ikJiB0FxpPkRuLPnwAmi9t3ebrIFneJqse6qS+boNZlphsRvVITCnmJjp
+	 mVh4BnFZtNlvA==
+Date: Wed, 16 Sep 2026 07:28:28 +0200
+From: Andi Shyti <andi.shyti@kernel.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Oleksij Rempel <o.rempel@pengutronix.de>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Frank Li <Frank.Li@nxp.com>, 
+	Sascha Hauer <s.hauer@pengutronix.de>, Fabio Estevam <festevam@gmail.com>, 
+	Uwe =?utf-8?Q?Kleine-K=C3=B6nig?= <u.kleine-koenig@pengutronix.de>, Gao Pan <b54642@freescale.com>, 
+	Fugang Duan <B38611@freescale.com>, Wolfram Sang <wsa@kernel.org>, linux-i2c@vger.kernel.org, 
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org, 
 	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] hwmon: (hp-wmi-sensors) Fix use-after-free in
- fungible_show()
-Message-ID: <aqonyobyLatFCaBh@equiv.tech>
-References: <20260916002926.161595-1-meatuni001@gmail.com>
+Subject: Re: [PATCH] i2c: imx: disable autosuspend on remove
+Message-ID: <aqoolBhfLIG1hK8h@zenone.zhora.eu>
+References: <20260914091544.1667137-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916002926.161595-1-meatuni001@gmail.com>
+In-Reply-To: <20260914091544.1667137-1-lgs201920130244@gmail.com>
 
-On Wed, Sep 16, 2026 at 05:29:26AM +0500, Muhammad Bilal wrote:
-> hp_wmi_update_info() takes state->lock internally and releases it
-> before returning, so by the time fungible_show() dereferences
-> nsensor->current_state in seq_printf(), no lock is held. Two
-> processes reading a sensor's current_state debugfs entry at
-> overlapping times (or one reading it while another read of the same
-> sensor triggers a refresh) can race: one thread's seq_printf() can
-> be part-way through printing the string at the moment another
-> thread's call into update_numeric_sensor_from_wobj() frees it with
-> devm_kfree() and installs a new pointer, causing a use-after-free
-> read.
-Thanks for identifying this issue.
+Hi Guangshuo,
 
-> Take state->lock around the read in fungible_show() as well, so it
-> can never run concurrently with the free-and-replace in
-> update_numeric_sensor_from_wobj().
+On Mon, Sep 14, 2026 at 05:15:44PM +0800, Guangshuo Li wrote:
+> i2c_imx_probe() enables runtime PM autosuspend with
+> pm_runtime_use_autosuspend(). The probe error path correctly undoes
+> this setting with pm_runtime_dont_use_autosuspend(), but the normal
+> remove path only disables runtime PM.
 > 
-> Fixes: 23902f98f8d4 ("hwmon: add HP WMI Sensors driver")
+> The runtime PM API requires pm_runtime_use_autosuspend() to be undone
+> with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
+> was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
+> set therefore leaves the runtime PM state incompletely cleaned up after
+> the driver is unbound.
+> 
+> Add the missing pm_runtime_dont_use_autosuspend() call to the remove
+> path.
+> 
+> This issue was found by manual code inspection.
+> 
+> Fixes: 588eb93ea49f ("i2c: imx: add runtime pm support to improve the performance")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
->  drivers/hwmon/hp-wmi-sensors.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/drivers/hwmon/hp-wmi-sensors.c b/drivers/hwmon/hp-wmi-sensors.c
-> index 03c684b..55aee16 100644
-> --- a/drivers/hwmon/hp-wmi-sensors.c
-> +++ b/drivers/hwmon/hp-wmi-sensors.c
-> @@ -1247,7 +1247,9 @@ static int fungible_show(struct seq_file *seqf, enum hp_wmi_property prop)
->  		break;
->  
->  	case HP_WMI_PROPERTY_CURRENT_STATE:
-> +		mutex_lock(&state->lock);
->  		seq_printf(seqf, "%s\n", nsensor->current_state);
-> +		mutex_unlock(&state->lock);
->  		break;
->  
->  	case HP_WMI_PROPERTY_UNIT_MODIFIER:
-> -- 
-> 2.43.0
->
-Fine with me.
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 
-Acked-by: James Seo <james@equiv.tech>
+merged to i2c/i2c-fixes.
+
+I applied this patch only because someone spent some time to
+review it.
+
+Please, follow Krzysztof advice. group all the patches together,
+version them and add a changelog.
+
+Andi
