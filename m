@@ -1,183 +1,1236 @@
-Received: from DUZPR83CU001.outbound.protection.outlook.com (mail-northeuropeazolkn19012010.outbound.protection.outlook.com [52.103.32.10])
+Received: from mx0a-00069f02.pphosted.com (mx0a-00069f02.pphosted.com [205.220.165.32])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52A3480354;
-	Wed, 16 Sep 2026 08:54:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.103.32.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6E2844E05B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:54:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=205.220.165.32
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548847; cv=fail; b=ChY8bWtFBqNfIqHRN+bGoumKnioJ0cCOJnc3jP7Fm79Cxi/mDz6R++/m6vCYvxr+lvUHz0LxEmD8uovsPlrV2te/1bEv5xRjdDTfZFLsqyGXuq14cDgKmuEcpagGp9OyNxuj9NYqNDTE7+B5HnWinIGI7lkP28LggOqr4YfS5Ps=
+	t=1789548900; cv=fail; b=uDbso6hH333R7cucMzVPcSEliDEQILtlGX4lw4tXaJvV4XomsvGHluL1i6QGvhQyBf1typUC2uRQAcwBKLFaUVrpFk5qIsadKiVaIhheb1EjAy6JUE6XR0B1jBw35/I9KZY7ZkWRxoWxt8pxZxU40gpXgwjiAuRzfp1i5kBbvnU=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548847; c=relaxed/simple;
-	bh=EsZP9E8J8RlCEPjFh2idwVI4/r5JpI0E+B6Rydk+5zA=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version; b=HGPyEF0uiEhEWOwgT/SWYXq2+4Rypj7evZq8M3evoSAedRM6G2xYKsS/Egmd28IOVuxM4WRGpogBaNUZEvO0Glt8XQwt7Rfo8FItxCUo+f2QAwuDNut7V9idmJUgOv7r3h/zhVSZu3CqRxVuJBzdoS0a+jdr/iTAsBZUhAmJ/Ig=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk; spf=pass smtp.mailfrom=hotmail.co.uk; dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b=L47bGm7g; arc=fail smtp.client-ip=52.103.32.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=hotmail.co.uk
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hotmail.co.uk
+	s=arc-20240116; t=1789548900; c=relaxed/simple;
+	bh=m4F/TmT6LXcTEO9OUKGAJnyt7ngKu/yG47MEDjKvx8Y=;
+	h=Message-ID:Date:Subject:To:Cc:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=HytovbUqKnH8AF/hwPpL5UjnoS7zhuCpGGXfopJpAcAGR0c+W2O5ZRgWrPXd4DSajAd3r1anjBVWBFnmed7hO1NL1SEVSZlf1WKy2DceKMPIHSLewsekGDHa75NkHipFz5Ng6GyP4Pn7aP7s5t5yAJJe3JbkpMIJeZFFyNceC9A=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com; spf=pass smtp.mailfrom=oracle.com; dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b=kSQLCMtw; dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b=AW+OfBXM; arc=fail smtp.client-ip=205.220.165.32
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oracle.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oracle.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=HOTMAIL.CO.UK header.i=@HOTMAIL.CO.UK header.b="L47bGm7g"
+	dkim=pass (2048-bit key) header.d=oracle.com header.i=@oracle.com header.b="kSQLCMtw";
+	dkim=pass (1024-bit key) header.d=oracle.onmicrosoft.com header.i=@oracle.onmicrosoft.com header.b="AW+OfBXM"
+Received: from pps.filterd (m0246627.ppops.net [127.0.0.1])
+	by mx0b-00069f02.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68G8k5l9008072;
+	Wed, 16 Sep 2026 08:54:14 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=oracle.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=
+	corp-2025-04-25; bh=3wQcXzeNYhp/wWPxtd3cnuUVkw/ydNgmdTy/551+l5E=; b=
+	kSQLCMtw2PyyrFQTKaTy9vY6goMAJUByCfBHuoQxomiTDLD7J89h8JzyaVKyGru0
+	ANp/E2+xj36/+xfmGieCwLk3dRE/mpkiq/lLKk3RJ7mK3Q7V/7F2jtgaNELK8M/O
+	U5feECtWkepCtznBneSO+7gB69gBg1K+UtxqDvIIfjkgNbRMiUU0rB1XpF3OeDJN
+	UEOP6XDY5jVFwneftn86Q4I5OUOSJhHOI6fijpv3vh24WzKTjbTW8fVFzKafCfDt
+	l1xCwt93rNuaKnlhlv+XfFjZLFOvEtRtIMVM26rD9wQ6rzJ62yzfBnKrCimysP4z
+	tzXr+azKZMjjkKyzn1uVpA==
+Received: from iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (iadpaimrmta01.appoci.oracle.com [130.35.100.223])
+	by mx0b-00069f02.pphosted.com (PPS) with ESMTPS id 4gqqvq80d5-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 16 Sep 2026 08:54:13 +0000 (GMT)
+Received: from pps.filterd (iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com [127.0.0.1])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (8.18.1.7/8.18.1.7) with ESMTP id 68G8oMA0000843;
+	Wed, 16 Sep 2026 08:54:12 GMT
+Received: from bl0pr03cu003.outbound.protection.outlook.com (mail-eastusazon11012067.outbound.protection.outlook.com [52.101.53.67])
+	by iadpaimrmta01.imrmtpd1.prodappiadaev1.oraclevcn.com (PPS) with ESMTPS id 4gmw6qawgh-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Wed, 16 Sep 2026 08:54:12 +0000 (GMT)
 ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=P4Y8POTOPwHEeu7CbTB15f/+XL4vm/yodR4kMvVIeksHmDpLQMf5TitKQrKfs8+l87xoSI6JGEdIM2sw6U2+wCZymF/6ps+QwMsaU6q0cao/FjY4hBhZbGIzqPmpknn5lwa5xdn3Wu+L3XJA5it5uR5iPoavpT9Dqfgmgz3NrlNIJAXMTBNXeSAUhhXfEfzIlJ8H3kteLYbeQKBhzRc02MRxb/PfGSv63ZjS3c5Jc6K4czyEudonrFmhVKYZjFD1luVp0YQeqAH7zJ2sOBIGEPgDDUsZvFNk/Ax4wGhes9GgrvcfSn8brdsN1lKKADwscChbcvGY9LHbtSPHqIBgNw==
+ b=mXJpGok8e7b+neujKQAqoUrEyZFEQXYJWov225vgAUzum9bnk++UAKc+YgRRrTZ2L3nx4z78XJsgBHBwvvJK9T+QoVgZkTMj19xle+AplF41CM/6SOPfEjwVAC8nDsElQ45ugihHWfBiZq8NbiNufRiY03qjNmN9Ete/y/IQqI2R3K547tNJUanj+o5KmEed7ii0iDGKBOdeMYa2nkcze4SqCgX4OfS5B75qYvM3kT+e8lur1RACVlYyN3a92pn9y5/J6G1r2MXMElc7h4CkX6b/Nt14tAk+Jya59Qyt99mPu4ufsI8dLxxWtvs4IPW/QQ3oBKO1C1fu8J7Af3LSWQ==
 ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
  s=arcselector10001;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=eXqbQzIJzfgWyR7kifwpYBlmO3djFQ7nIlL1pkgKQj0=;
- b=kKb6nanBIstXRveRqvVu46OZUpylUFRbNopdhM4lT1wC6nYSvtWQiW/bwJpeMlPwXdlhCVa6KT/PMboY858E/875SKapVYqk0H4h8KrgbySYG3mpeD7psysdS97okc4r/SqjNvecEDckBE0DK5r/9EeouWPjR1zOU4gzBOAlDOtniQwBxgbN5WnPCljPkbgR7X6cpBcDPo/cAhqkkp6y/kzUSQJCf4AESeAbvf7xbwSVlMDYrP3M4awmk8N+GZkphBkI5I8YGn0A+4N00irx+B1yCYwJpISlyfCMoPuYnyc+QmB3TPimb1kK1h3dmChVwnwYe9A53Q7yTRXNHxkv5g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=none; dmarc=none;
- dkim=none; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=HOTMAIL.CO.UK;
- s=selector1;
+ bh=3wQcXzeNYhp/wWPxtd3cnuUVkw/ydNgmdTy/551+l5E=;
+ b=lJ0mstvAP55UGzS7ZKzT9BI8jGcPQnmGP5T3g/7JcPs+mQ2EFbDTTtbnHr2iJmApqnIoVtWMx/KZbKJqHmCqemw9uZLiJ+iX1eMvdrlJgHvjjdLJmXsmG/SEXqu2r9aF/r6jlWNAXdJyb1EE05fAY0V2KvTu9CmOPhYmOeXGyFa45W6E7xySIk9zisBtRLJRGw1g6dbjqzjSUXbTwwMAuf0JzDxeEJwSNWKGTredAg6ALn6lp/qUgZUZEo8lxE4fDXU0hdWaqpFU8TzOUcLszyoswku23rFEnUO+mSp12WYRk3+gbLlSMa8BJ3b9yrIZeiVrHtxP4MqibrtEaraAUw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=oracle.com; dmarc=pass action=none header.from=oracle.com;
+ dkim=pass header.d=oracle.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+ d=oracle.onmicrosoft.com; s=selector2-oracle-onmicrosoft-com;
  h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=eXqbQzIJzfgWyR7kifwpYBlmO3djFQ7nIlL1pkgKQj0=;
- b=L47bGm7gH4Oqk30qUQM51U0myjKINk+b1mMHLhvna64LC5ok6EZF7RgHy5x8yPs4btq+3I7wA8wFioEfmB2LY7KGkEc2r3pYvg8h4IP+jtaL5tELImtI2zJt4CWszZWG+5dMC+l4IReWs7rUpW2dXXiKHmyWYqJWBnp9JS99UxRDamSStCbnaHy9+7XJ0pWr0lcwiK8t7qBR3ipVtrswEYhnufG1inNCbc3w7d3d+oHSKHkkabytgvI3rAdYIO4BG4+1sozKtV5nYJnBsbwgtHBlhdG8dTs9vzY8BUYM87jRVwJmkrH7wi16QVuIiPoJkoSu+E0ucc9GbCYcZz1pUA==
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM (2603:10a6:20b:344::22)
- by GV2PPF8E0B748DD.EURP251.PROD.OUTLOOK.COM (2603:10a6:158:401::b5e) with
+ bh=3wQcXzeNYhp/wWPxtd3cnuUVkw/ydNgmdTy/551+l5E=;
+ b=AW+OfBXMKwQwH5MZsXcvFiMRyH7XfDZ1JpeszPETHWibeMmI4TmJy2X0Cmu8fkU4ydVZ2wDKvReuJPgshdPAVDydXUW7/22hZoi96FoFtsODUovXr6o2CtnlJBw4NLC7KWmBaM17TJGtrGwYdIOJ9NKnEquUTgXTgZBx6LzBSUA=
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com (2603:10b6:a03:3ee::16)
+ by BL4PR10MB8229.namprd10.prod.outlook.com (2603:10b6:208:4e6::14) with
  Microsoft SMTP Server (version=TLS1_2,
  cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 08:53:53 +0000
-Received: from AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352]) by AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- ([fe80::2952:d4d0:4ba:8352%3]) with mapi id 15.21.0428.008; Wed, 16 Sep 2026
- 08:53:53 +0000
-From: Aamir Ahmed <elb12345@hotmail.co.uk>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>,
-	Alain Knaff <alain@knaff.lu>,
-	linux-kernel@vger.kernel.org,
-	Aamir Ahmed <elb12345@hotmail.co.uk>,
-	stable@vger.kernel.org
-Subject: [PATCH] lib: decompress_bunzip2: fix integer overflow in run-length decoding
-Date: Wed, 16 Sep 2026 09:53:51 +0100
-Message-ID:
- <AS8P251MB00010FE5E38D253CF98A652AC8B92@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
-X-Mailer: git-send-email 2.53.0.windows.1
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: LO4P123CA0062.GBRP123.PROD.OUTLOOK.COM
- (2603:10a6:600:153::13) To AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
- (2603:10a6:20b:344::22)
-X-Microsoft-Original-Message-ID:
- <20260916085351.16948-1-elb12345@hotmail.co.uk>
+ 2026 08:54:09 +0000
+Received: from SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a]) by SJ0PR10MB5834.namprd10.prod.outlook.com
+ ([fe80::2444:1d33:3ce:d83a%7]) with mapi id 15.21.0406.005; Wed, 16 Sep 2026
+ 08:54:08 +0000
+Message-ID: <08d94b53-e012-4757-9f5b-7b5732391d26@oracle.com>
+Date: Wed, 16 Sep 2026 14:24:00 +0530
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 1291/1376] selftests/mm: report unique test names for
+ each cow test
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, Mark Brown <broonie@kernel.org>,
+        David Hildenbrand <david@redhat.com>,
+        Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
+        Shuah Khan <shuah@kernel.org>,
+        Andrew Morton <akpm@linux-foundation.org>,
+        Sasha Levin <sashal@kernel.org>,
+        Vegard Nossum <vegard.nossum@oracle.com>
+References: <20260912065607.535295758@linuxfoundation.org>
+ <20260912065636.308873205@linuxfoundation.org>
+From: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Content-Language: en-US
+In-Reply-To: <20260912065636.308873205@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-ClientProxiedBy: FR2P281CA0176.DEUP281.PROD.OUTLOOK.COM
+ (2603:10a6:d10:9f::14) To SJ0PR10MB5834.namprd10.prod.outlook.com
+ (2603:10b6:a03:3ee::16)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-Exchange-MessageSentRepresentingType: 1
 X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: AS8P251MB0001:EE_|GV2PPF8E0B748DD:EE_
-X-MS-Office365-Filtering-Correlation-Id: b92e6cdc-40c4-4eb8-51f5-08df13d008f3
+X-MS-TrafficTypeDiagnostic: SJ0PR10MB5834:EE_|BL4PR10MB8229:EE_
+X-MS-Office365-Filtering-Correlation-Id: b9365d06-e777-4cce-9e8b-08df13d011bf
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
 X-Microsoft-Antispam:
-	BCL:0;ARA:14566002|25010399006|23021999003|37011999003|15080799012|25031999004|4140399003|55001999006|41001999006|24021099003|5062599005|8060799015|19110799012|5072599009|40105399003|52005399003|2607281247196008|3412199025|440099028|26104999009|1710799026;
+	BCL:0;ARA:13230040|376014|23010399003|1800799024|366016|6133799003|22082099003|18002099003|3023799007|4143699003|5023799004|10067099003|56012099006;
 X-Microsoft-Antispam-Message-Info:
-	=?us-ascii?Q?/MawxVsu9XLA69lsNUKBY4MN21rh8JtB399WqmA5eOPetgVoUAlzHVfvZGv5?=
- =?us-ascii?Q?BdpzzeTPsn7wGJRdRB/u/2C9TPBkcQkeNCRPrWxYoKP7rBuBs/FXnlFxLqRG?=
- =?us-ascii?Q?lY+SJrwZP4jjbhrf8Wb+/zWpk8BNfWOCMC3diBDhPM+GzatP6hBdI0Q++PtX?=
- =?us-ascii?Q?s6kXhpNZPX4uj4xzsXyNoy7YbcXRWAIMP901jCIS2qubfMs7thF/Yyncqb8C?=
- =?us-ascii?Q?uNR2jN3neGl7UCF3ZrtB2RIn1fs+rBgQDNK7LDwa1E8aLiNFTOM7RZDa3A11?=
- =?us-ascii?Q?ZR3LkT2A/sHFNakwya+jp1cMW8unmYg9nrbK3nCvfM0opMVADpooE+93Vv6M?=
- =?us-ascii?Q?7mx6oZR4rKXx4nrRJJp9H/krCjUm8N7GS8LlvAWUxQ9tvylbCWxuuhNzJE8h?=
- =?us-ascii?Q?ZfjJhzsrh1YZxjiXIulqHZZvWSIy7RuplmaGzMcME7PEcKnjZozygFTIw0U2?=
- =?us-ascii?Q?bOXsWlDHOeKPnMmfymELwammsW/KGRdXWMTkvlR4EOPKUT4yY9gXEHsVP/iI?=
- =?us-ascii?Q?okc2sE6mr/muq41e7DfellgdJo91aYya77RVR5sVxBlRQUL0ZhtTxPzzsyp/?=
- =?us-ascii?Q?NSTAiK9hEAJmIW7ZkZd/IwrUy2kpJ2st+zcXsuhJKhm9EDAvRAYarCgOmvGf?=
- =?us-ascii?Q?6/e9bmK4VhLeVh3V4tIApW3bZ5IGFKyZadSlSH7ahNeCI40OUWyHG825CNP7?=
- =?us-ascii?Q?XP8aXyJOXU3InhC4/gywAUzI4SGJXVJ1Fc8CuYepAucywZ2aoq83k+/FjdSB?=
- =?us-ascii?Q?ZG3NnW2RYXQqSIU1sQNn+PdiT6OD32QVuc9hMsyT1C1UYQkLpZhzUfSR/Iz6?=
- =?us-ascii?Q?s0roJzgzn6AWTcJ7PSxXlrzaZH6ujEalKzUhZBCKbjaAag/umrpjdz1cHVRl?=
- =?us-ascii?Q?GOMhNN3IbkszZQiDn29y3KQ9jbX+smLgnTDcOSYPrXFoXluhlNd/lNH2kY1Q?=
- =?us-ascii?Q?CbSKp/D7mwR4VkvxHNwk+GUaemhg9VWZf9Wyrq46M+01ndomNAIWx8Hp/n+C?=
- =?us-ascii?Q?LbrXRp9dxXP9/M1pngm4TgEv0m9k/xzplBdUy8I9SDAttfBftuL4k99N9Gch?=
- =?us-ascii?Q?hu+UI3KXiWaFMgj0HuNOtmJII7fM9fHK/g9HZqzdMDFKRXAFJCU2WssKRjT0?=
- =?us-ascii?Q?8L96AbWYGoTn?=
+	kuUy+ui2XOXcSkSSXT2FdMCG5zGt0QeM8u1NrByGko83gv3nqLOA22zyJhWnySPbWlf+HOpX+tRTVqtS4LGrwPhzTLsDz9cJ5NKjTsks1mSq/Ps3lpgsBvRvR0TXJzcg3sczvCMonFfmcfPqHqiUbfZGmACpM3M+3MT2OdwxcTH0EJx5iwi/P+JhV47INzF/4493KO0TZ/22Wl9QtGZpNa+72jpKEwmpQwh7ttdefETmBtfxkJBgCwjwe648Hgn5UJFvu74sbU0s1kNjEsKC/VPZLOVnqtaNGsIcdtmPYLcvhYo+2V9MPp3hScWSFahOxdwrWsWqByh7Fi7tQvVH6hImoHElarppYi5b/ybRmFU9usNdiSEJz2u/AfckpKGSR8dziPloE7oBaqKm/5HDRNVeVr2pU3AJFovdC+ey27Gxs66/QWkTAurufZLMv4RKxszdRy+o4lKrYUu2Q+FCWFWqZSb+xL6AQw6dlJnmKNlBgxEXSNzXtbK95w1lScQ8HbBa9ocRdHWPelOpZ81D13O/gBHy6ROsNK8kKrAuyJkdHdSO2PAdVKiKAZu61QvMVJ+M8r5+OzWnGL7enWdpWp6jxgCue8E+ik5ucseZiCC8VD+ukrmjFUtOCW4YP5Tksdim0gRWGUZATjDvjtTzOq+KHqy70WIXdif6Tqrk5I8=
+X-Forefront-Antispam-Report:
+	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:SJ0PR10MB5834.namprd10.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(23010399003)(1800799024)(366016)(6133799003)(22082099003)(18002099003)(3023799007)(4143699003)(5023799004)(10067099003)(56012099006);DIR:OUT;SFP:1101;
 X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
 X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?WBSUxmG48pu/JnGYag3M2uyg6iTwxjYBAh1w2y41VbnbfCoW4FNWpdWYVjIc?=
- =?us-ascii?Q?Ob3rM/um0aC4RYETa0guAvWNuV2poY0K9Zy50Oh/Xq+c3XyNa7RQakz4Kc5p?=
- =?us-ascii?Q?Ht5/A6D4do7RlgHruVTRbjAKJjQOcWKKX6+RmNXO11KB/8Flw042gwYidwxv?=
- =?us-ascii?Q?oH+mDW38A9iprrHNB65y63CGGcYQq76EFcnUzs6E30hN3H4UttYi6RjaSSKn?=
- =?us-ascii?Q?usHtQi1xwThKOI+fNLdfyX/11wsCNCKnEQhyV1Hj0axNwPJvinhZNuiU+Lwd?=
- =?us-ascii?Q?9vYPH9I3rYw/r+ReKNPKMox/nP/YadHifqNHdUxXkXCVH5cK6Pj/R0XL+pUu?=
- =?us-ascii?Q?OH1Mc8hP3ZkyTml1YCM75lgcJrNPx54L4zFUiQx95ZEDH7siBax+1ittC2Vs?=
- =?us-ascii?Q?Zq2/2VuAk+By707b+GFBlttYlv/YkNd8eXvDYZBJBPcu+dVktNyPa86Hi5+d?=
- =?us-ascii?Q?coSnwhsa8zwj2EK4NU4p01vQxqxRMcOCRZAeE0varVoEPVrz38w5d00J7nlp?=
- =?us-ascii?Q?FTYt7vV8y9TTm//aUenj2sT9sUh5FwXP8JqwxaBE+LB9IjN6qdrxZFoZ1j/P?=
- =?us-ascii?Q?1XXfO5j99qMmmXxXVFtgwps0kf4wu9X64DYoVG5Ufwv4B8mi307eenNTo6pi?=
- =?us-ascii?Q?5G0hDp31oEHUm56t7WY1v2+i1WN/cqFRAm9NlpaH6m910YZVvd9UiP3Pvb9F?=
- =?us-ascii?Q?27XrqqoyKuBIv5ZHJGd+UfpeEfCQxDCJxSi2PnqWN+ySoOGuu2czJ6vijVse?=
- =?us-ascii?Q?4P1zS6xCsiWF96jvmzmhoy+x04vPEYNiG+W/G9HkINdAXOc0C1Qgj4yZc2v4?=
- =?us-ascii?Q?uMLhBZhMh8Bp5Edilu5NSnKsDhgYIJdg7WOYcukVJck3WTDCpciG6PW4X0Kx?=
- =?us-ascii?Q?NeaRKcSwJRvSjUV1O2Y+migdy5sG2aW2ECsZdBFyU5HOjepOFk1CcyL6C9TH?=
- =?us-ascii?Q?WCXxCtZMmmfoyIl99+sa7I9U0fNtSFRl6vGMlr6ESxiRp/17aankWzbyhvTK?=
- =?us-ascii?Q?2hq3rIS+XXTss0VDNv/3clHbcpSQFG7iHJ6caPMupp2ja+OfdKoWPooRCzgw?=
- =?us-ascii?Q?ZWyjRgOhvudjs14g3GSdczSG1muduiRYilovwVD7XQkDIWOqGsN2T2QyRdb7?=
- =?us-ascii?Q?g4f0aw5+QVFm0DEbLE5hYWkW/FIf7XHuGz+WzV3gByrRCmkf6SBNdKTNeE07?=
- =?us-ascii?Q?ExdSL8hCHIJlss9hQIVB0LPbo9hr3gk49wgG+yAZRvEpBHpRS7vI2mmTuyqJ?=
- =?us-ascii?Q?o9v67kCniTUrwtktL0SoZ5bvtSF93rGsQZbmd7ItF+0q6uyZksE/H9J0yduP?=
- =?us-ascii?Q?L7I6kw76u91IRrDAMoafFh5Bdv9y+i7rs6bUdYVL1GGZYWQmVJe3RdTGiI48?=
- =?us-ascii?Q?bhXZ9cBsbH1c4HXxnTldrd03lTLzXKuNZnyHteciNgrx4Uabq+UqwiYmTO00?=
- =?us-ascii?Q?Gp1ZmnDXjA21zSCFGztmZ4OgFyV8pvab?=
-X-OriginatorOrg: sct-15-20-9412-3-msonline-outlook-fe3f5.templateTenant
-X-MS-Exchange-CrossTenant-Network-Message-Id: b92e6cdc-40c4-4eb8-51f5-08df13d008f3
-X-MS-Exchange-CrossTenant-AuthSource: AS8P251MB0001.EURP251.PROD.OUTLOOK.COM
+	=?utf-8?B?dkVOUDVqdWF6ZGE2NWhraE42eDRGdTNjUzZaL0RKTTRDVVhTa3Y3ZDhuUEFk?=
+ =?utf-8?B?eUtMdzFVcHdIbDBvdTRDcDFkeDJndllTVlVNSFpuVmVWbGtXY3N6Q1JoNU4y?=
+ =?utf-8?B?VTVHQ0pha0ZTdFQ2a3FQRmdmYUlkK3hKSC9VTWFtOUd3bHc3QWpVUGdSenha?=
+ =?utf-8?B?eS9HWUdYOUpEY0lmUUlRVHkvZGtKTzNuTmZOWFZ5SEw5Tll6N3YzZTlMVytz?=
+ =?utf-8?B?bUF1LzlKYmlWaG1RSEZiRXpIeUQ1N0czdkw3MGU1ZU1RZk5vUTE4Z3puRHM4?=
+ =?utf-8?B?Mjk3R0RBci91TzVFdWwzSW9UZVkzRG5XV3VKMlRKNjhhdEhGbG9aYzNwM0pl?=
+ =?utf-8?B?R1QrbkRnQ0tDYkFmSlVKSWkyOWcwUGhSSlRlTUdVZTZ5eTh4L0tMR0E2RnBJ?=
+ =?utf-8?B?YTJzTThSSVlBdm5INjVuT2hzQi8xYVdick9vQm90WnJ3UVZlRFo2ZFU3ZVQx?=
+ =?utf-8?B?Lyt1dVJ3S3BkY2FRRGcyUGVtZnNpV2lqdENlc0Jad3doQlZnVFVTOW9YaWc2?=
+ =?utf-8?B?cUJ0ZnoyL1VGeERUTE1WSHJTa3gwSnA2SklMbE9hR1RBSE1WYk1vL09lMjlq?=
+ =?utf-8?B?NnRRMHh6T2lTRUJyV2N0OGxqa0RJS0tpS0NKa0dOSU9KTFd2azY3aVlJVDBF?=
+ =?utf-8?B?ZWovYjF0YngzSmJrYzBBaTF5dWpaUXRaLy9RS2RSWnY4MlI1Q3JWcHRsM1NC?=
+ =?utf-8?B?aWNTKzJCNWp1cllkY000cjdFZEo3UVEyVit2R1p0NzQzUDJBdU9KSUNxbVZH?=
+ =?utf-8?B?K2hhaWhzSnRoZlMwTTRubnp6TU9tREFmSmFhbnBFNnBicktDY3RQb1VjUlE5?=
+ =?utf-8?B?TEpnS044R0tIWW95ZXBDVm1lNEllZTBjTmg3OGxQUmo2Y1VTVjlabEliT2o5?=
+ =?utf-8?B?M0VWa1lYN0hhNTFwaGx1Q3YxQzQ4VUJoaktTUzlxWVdmOFByVCs1L2dZdjVM?=
+ =?utf-8?B?U1FXZDF3aHNUc1JwYkZrcmwxTFZuN2RVcUszQWRydjViZnN1cDhiNTlJUlRL?=
+ =?utf-8?B?a2kxMWlBTElJK2hmcjlvbXcyMkI1MWF1Y2ZUbEtSbHhibFRoVnVMTW5uZTMv?=
+ =?utf-8?B?TG12bEh2TU9HcE5Ub3lYa3JnYm9jeldVeS9Xc0ZrTzJjZVZILytKVnpaN2FO?=
+ =?utf-8?B?b21pdnMzWnB3c05HR29zeHd0N0twTjdXcHdVakg4RFRROFRERDI0aC82U0E1?=
+ =?utf-8?B?Ukd4aE1XYyt4MGQ4dWJ5UGNnM0x2eE11YmZUQWRkUmxaQWE5cGpickl0QmRX?=
+ =?utf-8?B?enkrQjNIekNBazVYVTF1UkdBSXArVTZmRElmY0ZVQzZDNGhuRytocnZ1enBR?=
+ =?utf-8?B?SFc0UTJFSE9hMmRndWY0UC9rQTlYUHlOWC9QNUdUYTFmcmdJZ0tzUW1IRGt2?=
+ =?utf-8?B?Q1loZ2hzOTU0TDgrdTZBVEc4TmpaWkNlMzVOYUl5RFlHYm9nRlp4S0VTSWJC?=
+ =?utf-8?B?V2tyc0RSdWZqbDZVUzBpMERwamp6S3JIL2ZkVjZpcDVXc1EzMDJVbnZYbExG?=
+ =?utf-8?B?cjhrSklOU21tQzRyL3g1K2tURXFWNnVuemJxZnRDbkhvRkV0U2xqSFlUUWdv?=
+ =?utf-8?B?U2pVMktlUVB5VDhlUTRWL0Q2cEVlQmFpaG0vOFVUUVUrSTVERjlTUGd4MkVR?=
+ =?utf-8?B?UngrTGs4YmNCdy84czJUcUZKSFV4TmJoZ1RwV1dYVnl1UU9zSnVPaFZGaTBa?=
+ =?utf-8?B?UDcwdVlSU295Z1R3c0pOUFRYRGI4bHVOazc1MlpmMit3NEREMjhzSGkyQTZF?=
+ =?utf-8?B?UG5YOUMrT2RjeU9xRkNULzROcUxzY1h4WnJlTkYrOHNGMXc0UGdTVVdpL3U2?=
+ =?utf-8?B?VHk4RFpIOTlQM2o2Rk9TV0N0TEhqZkdSNVRablFzeDF4QStROVU1NXExd2hm?=
+ =?utf-8?B?elFpZm9DUlA5dVV6OFpwRzlLd096cTNwWUZ2cHhlSzVCSm5WazVMWFVmWjVy?=
+ =?utf-8?B?YVB1Tmsxem9IVW9oSFlNaTltc2VjajFpMVZjam5PLzRvUnNlVjloS1hkSGl4?=
+ =?utf-8?B?Z2k0aS90VDd3Z2V1eEJ6T0lMZWgvd0tnMjExa1FMb1NPem1tTkxjK2RZTDZW?=
+ =?utf-8?B?U2pjYjFLR2JzMjAydUIrbm01UXZDRXlxeEpmckhEeVpRTFpVN291eEt2SWRM?=
+ =?utf-8?B?d2t2WUNHVXhMZ0JiaW1Od1J4aWg1VCtzU2l0YVo1QVdEM3FoTTRjTHI2aC9E?=
+ =?utf-8?B?aXhRS24wb3l2YW4zazVvZHpKWUlIVFVjb3dlR0xUOEJrdEdHZGFzY2NTTXFs?=
+ =?utf-8?B?VU1pOGdMVWJmTkNKS1ZxSXhRb0VYaVArb3JkdHNRYkJ3VFV6ajNScURTMDZR?=
+ =?utf-8?B?aElmNFJtZk1lK2c2ZzdoMGRORTVkVmtKNGxkckh6OW1EZlZnWHhyeUNHQlNo?=
+ =?utf-8?Q?POYZn295YOZgXsVmg8hUGZlFgrrLFVAMYQXFQ?=
+X-Exchange-RoutingPolicyChecked:
+	hs6agUeHFv30gNVmCZTkdkR83eee+BJ/7hsTrdhd1LZc3f5KSkXQuNLVu87OfHD/0D4aVI1dXZu6S9Lt8aKOj5vzIDIzswrwEzkYllN0ioXF1HxbR5/U6+9SwYNSpPfedmVuCc4qWx64qVk3jkGBhdgDePhNQTD4AABZp0OCeiS0P4loFlA8pcLFGf+YbePTTe5SkwY/20v5mlsN9EK7tu1VJPYVF+hC12juJ0QZiT8icwdFOzpMK4qq3WsbjAXUlFCcAFMoJFnq/qsbxaleVKWdQNgB7ovQBRBkeyUR+OykxUauv9oydQpBWPSSSX8qaL6fTaOe1F/407Uap0HQcw==
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-ExternalHop-MessageData-0:
+	ESWIZPBm++cHMn6QBou/mzsFxgAxGz9v3VLTsbUgf0o9RhuHgELAFb/E+9BeFNP1Cxo5rFoCRSVUN/Ocq9a7fVTqxeDirFFpU5fnOeZ/Bd1ZsPklK1pzc17BLJQ84DlHXA5xor+5j/wskogXJ9dbHJN0HYvk7Eu98YFDY66lAokWQTPvfzhvbgVXxXwuRcEGCHExpqEc5V171WywTVlXVNz4Mbi9MNltSV1JvuqOkEnR/AOENLnR9uGwEgEalIiT7g9+nBYWsa7epLsae76rHaXBw44VFvGtvODOWeTsl6UsyzW0OJ0Kgt2BlOIWMhvMo8AbmJ3WY/6T3snzIxwWM/3kn0ZQQlbUNHRO7GO8aeBMoiZJvvAUZ+OrVnBL57uzZKmjpvTBcW64Ht/568DJYMUWMceKkN/Yk0CndRUKg35XafrnzGtcv4RwFyuHUTblhpm7yw8TWsBm3L6yHzpqPc9vWetR02ibjgVpfsGVdONRNKaRoRxOk32qloisU57LhXAn99bt86HQZSIKXF4SysS0HRxeHTP2SfxiI7+8fYVs+R6TSIkMh7yem+TkAuSbl0CAUA9MYirkL93NpMmPEbzPgpNAkCPOJAiie6ERvZ8=
+X-OriginatorOrg: oracle.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: b9365d06-e777-4cce-9e8b-08df13d011bf
+X-MS-Exchange-CrossTenant-AuthSource: SJ0PR10MB5834.namprd10.prod.outlook.com
 X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 08:53:53.8025
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 08:54:08.4154
  (UTC)
 X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 84df9e7f-e9f6-40af-b435-aaaaaaaaaaaa
-X-MS-Exchange-CrossTenant-RMS-PersistedConsumerOrg:
-	00000000-0000-0000-0000-000000000000
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: GV2PPF8E0B748DD
+X-MS-Exchange-CrossTenant-Id: 4e2c6054-71cb-48f1-bd6c-3a9705aca71b
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: GjudfxzNnxJrSXyf3xhp5hSqQb+1TeWPKjVupuemU/2DgezvJX6kdV2pUJwrhHLw2D/h+3/EjAQpmuYr7AfcyBoTq0MT1nibQEgKAQS8OHrOJ3744zgcU7pRfVsZOC4g
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL4PR10MB8229
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-15_05,2026-09-15_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=notspam policy=default score=0 adultscore=0
+ malwarescore=0 mlxlogscore=999 suspectscore=0 mlxscore=0 phishscore=0
+ lowpriorityscore=0 spamscore=0 bulkscore=0 classifier=spam adjust=0
+ reason=mlx scancount=1 engine=8.19.0-2609040000 definitions=main-2609160114
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDExNCBTYWx0ZWRfXxpkmLU+i88Ou
+ /3u7QwEScL+6WggmalzK6rCjm34TS/MZNE32qXx/lWGo6sgf6TSnEetb0cS20Zga10HU93F6czS
+ zdP+bNxs5SyWYeZMpHlmRZzHns1cqkVSTcTo2Ul2iU03pl8LMMMR
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDExNCBTYWx0ZWRfX6g2QCylOh7uY
+ rLlCP2PeNhQ53/YIwRVglJidqpjQT4oE1mFemospmhTfKAJT6s96+1PHStZPxbqFJNMaVweC266
+ 6CQQvc/0cf545x9KMYugLzpfMJfE9WpiTqYBUMYc26+Vx+iClUnF5P/+W2xOfckv7q5YzylRgv/
+ 9SCt1cvkkGvZuI62QN7hA4EryG4WcbLVw59qySWNDjgL8yaEzbPzlOSosr2wltQ+uedVS7V0wDG
+ M2UlgqrOHWXvBBM1DjC150ayRQpKpPpRaSTBo456MHyvPs4bhZTDAqk6AtGa2UEiI6ybewBAFeq
+ Q6vQH5Zl6b3HIqYwggXxFSwCDPJ099ylZJuSpUDzv/BDo/R8SFGjCJNk+R1owZD7iZgrqVrs2hy
+ cHcul6XVJ4dLtscE7jTI0N2lMKhfAARGIvHJRYEPIE9OqiARx36NCHqeV3sTYnyrKKlJnCrUHvi
+ gVUE0PT5QWqa1SBE+3tdMVNOYIoqQ0hCOhehAL4g=
+X-Authority-Analysis: v=2.4 cv=MpXHeGae c=1 sm=1 tr=0 ts=6aaa5936 b=1 cx=c_pps
+ a=zPCbziy225d3KhSqZt3L1A==:117 a=zPCbziy225d3KhSqZt3L1A==:17
+ a=6eWqkTHjU83fiwn7nKZWdM+Sl24=:19 a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19
+ a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=GoEa3M9JfhUA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=jiCTI4zE5U7BLdzWsZGv:22 a=RD47p0oAkeU5bO7t-o6f:22 a=VwQbUJbxAAAA:8
+ a=20KFwNOVAAAA:8 a=yPCof4ZbAAAA:8 a=Z4Rwk6OoAAAA:8 a=cSx6rFx4-fEU6USviBQA:9
+ a=QEXdDO2ut3YA:10 a=HkZW87K1Qel5hWWM3VKY:22 a=5yU3S35YU4bGjq-dph-N:22
+ a=Bho9c0fBagfJEIQBS7DQ:22 cc=ntf awl=host:12106
+X-Proofpoint-GUID: DUotE4XkAJF_yACdJNbqah6-zlvphO2I
+X-Proofpoint-ORIG-GUID: DUotE4XkAJF_yACdJNbqah6-zlvphO2I
 
-The RUNA/RUNB decoder in get_next_block() accumulates a run length into
-the signed int t with no bound.  runPos doubles per symbol, so t grows as
-at least 2^n-1 and reaches INT_MAX after 31 RUNA symbols.  The guard that
-follows, dbufCount+t >= dbufSize, is itself a signed addition, and as the
-kernel builds with -fno-strict-overflow it wraps negative once dbufCount
-is nonzero, so the guard is skipped.  while (t--) dbuf[dbufCount++] = uc
-then writes INT_MAX entries into a buffer holding at most 900000.  One
-literal symbol ahead of the run is enough to make dbufCount nonzero.
 
-Bound t to the block size as it is accumulated.  t only grows within a
-run, so the value tested never exceeds the final run length; any stream
-that decodes today satisfies dbufCount+t < dbufSize at the flush, hence
-t < dbufSize throughout, and no such stream is rejected.  Because t grows
-as at least 2^n-1 the bound trips by the 20th symbol, leaving runPos at
-most 2^19, so the following runPos <<= 1 cannot overflow either.
 
-Fixes: bc22c17e12c1 ("bzip2/lzma: library support for gzip, bzip2 and lzma decompression")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
----
-Triggering this requires control of the initramfs or the compressed
-kernel image, so it is not reachable remotely or by an unprivileged
-local user.
+On 12/09/26 12:31 pm, Greg Kroah-Hartman wrote:
+> 6.12-stable review patch.  If anyone has any objections, please let me know.
+> 
+> ------------------
+> 
+> From: Mark Brown <broonie@kernel.org>
+> 
+> [ Upstream commit 3f2d9a9ac544694e26c8faeb1a044c2bdcd0c793 ]
+> 
+> The kselftest framework uses the string logged when a test result is
+> reported as the unique identifier for a test, using it to track test
+> results between runs.  The cow test completely fails to follow this
+> pattern, it runs test functions repeatedly with various parameters with
+> each result report from those functions being a string logging an error
+> message which is fixed between runs.
+> 
+> Since the code already logs each test uniquely before it starts refactor
+> to also print this to a buffer, then use that name as the test result.
+> This isn't especially pretty but is relatively straightforward and is a
+> great help to tooling.
+> 
+> Link: https://lkml.kernel.org/r/20250527-selftests-mm-cow-dedupe-v2-3-ff198df8e38e@kernel.org
+> Signed-off-by: Mark Brown <broonie@kernel.org>
+> Cc: David Hildenbrand <david@redhat.com>
+> Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
+> Cc: Shuah Khan <shuah@kernel.org>
+> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+> Stable-dep-of: 4004c130c358 ("selftests/mm: skip COW tmpfile cases when fallocate() is unsupported")
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   tools/testing/selftests/mm/cow.c | 333 ++++++++++++++++++++-----------
+>   1 file changed, 217 insertions(+), 116 deletions(-)
+> 
+> diff --git a/tools/testing/selftests/mm/cow.c b/tools/testing/selftests/mm/cow.c
+> index f0cb14ea86084..d0e11a40269ea 100644
+> --- a/tools/testing/selftests/mm/cow.c
+> +++ b/tools/testing/selftests/mm/cow.c
+> @@ -112,9 +112,12 @@ struct comm_pipes {
+>   
+>   static int setup_comm_pipes(struct comm_pipes *comm_pipes)
+>   {
+> -	if (pipe(comm_pipes->child_ready) < 0)
+> +	if (pipe(comm_pipes->child_ready) < 0) {
+> +		ksft_perror("pipe()");
+>   		return -errno;
+> +	}
+>   	if (pipe(comm_pipes->parent_ready) < 0) {
+> +		ksft_perror("pipe()");
+>   		close(comm_pipes->child_ready[0]);
+>   		close(comm_pipes->child_ready[1]);
+>   		return -errno;
+> @@ -207,13 +210,14 @@ static void do_test_cow_in_parent(char *mem, size_t size, bool do_mprotect,
+>   
+>   	ret = setup_comm_pipes(&comm_pipes);
+>   	if (ret) {
+> -		ksft_test_result_fail("pipe() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+>   	ret = fork();
+>   	if (ret < 0) {
+> -		ksft_test_result_fail("fork() failed\n");
+> +		ksft_perror("fork() failed");
+> +		log_test_result(KSFT_FAIL);
 
-Tested in userspace under ASan with -fno-strict-overflow: a crafted
-31-RUNA stream reports a heap-buffer-overflow at the dbuf[] write
-without the patch and returns RETVAL_DATA_ERROR with it.  Valid bzip2
-streams still decompress byte-identically.
 
- lib/decompress_bunzip2.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Hi Greg/Sasha,
 
-diff --git a/lib/decompress_bunzip2.c b/lib/decompress_bunzip2.c
-index 1288f146661f..c4e84dd55770 100644
---- a/lib/decompress_bunzip2.c
-+++ b/lib/decompress_bunzip2.c
-@@ -428,6 +428,10 @@ static int INIT get_next_block(struct bunzip_data *bd)
- 			t += (runPos << nextSym);
- 			/* +runPos if RUNA; +2*runPos if RUNB */
- 
-+			/* Bound the run so t and runPos cannot overflow. */
-+			if (t >= dbufSize)
-+				return RETVAL_DATA_ERROR;
-+
- 			runPos <<= 1;
- 			continue;
- 		}
+I ran an AI-assisted backport review, and I have verified the report. It
+looks valid to me.
 
-base-commit: 9b87fdc9af2fbfcdb5c24a64139685ef80f6573f
--- 
-2.43.0
+
+Upstream prerequisite code:
+
+     static inline void log_test_result(int result)
+     {
+             ksft_test_result_report(result, "%s\n", test_name);
+     }
+
+Downstream 6.12.y COW test code:
+
+     log_test_result(KSFT_FAIL);
+     log_test_start("%s ... with base page", desc);
+
+
+The converted COW test calls log_test_start() and log_test_result(), but
+the 6.12 vm_util.h contains neither helper. A targeted compile fails at
+those calls, while adding the upstream header helper makes it succeed.
+
+I think 6.12.y misses 3f192afbede24c60e59db1272ad155a3a44f5fe7,
+"selftests/mm: add helper for logging test start and results". I suggest
+applying it before this patch and rebuilding the MM selftests. Thoughts?
+
+Greg/Sasha: Maybe we should compile a foile list where we don't want to 
+backport. From my earlier underatanding, we don't backport selftest 
+fixes to stable - selftest (except for bpf are meant to be using 
+upstream ones for even the older kernels)
+
+thanks,
+Harshit
+
+>   		goto close_comm_pipes;
+>   	} else if (!ret) {
+>   		exit(fn(mem, size, &comm_pipes));
+> @@ -228,9 +232,18 @@ static void do_test_cow_in_parent(char *mem, size_t size, bool do_mprotect,
+>   		 * write-faults by directly mapping pages writable.
+>   		 */
+>   		ret = mprotect(mem, size, PROT_READ);
+> -		ret |= mprotect(mem, size, PROT_READ|PROT_WRITE);
+>   		if (ret) {
+> -			ksft_test_result_fail("mprotect() failed\n");
+> +			ksft_perror("mprotect() failed");
+> +			log_test_result(KSFT_FAIL);
+> +			write(comm_pipes.parent_ready[1], "0", 1);
+> +			wait(&ret);
+> +			goto close_comm_pipes;
+> +		}
+> +
+> +		ret = mprotect(mem, size, PROT_READ|PROT_WRITE);
+> +		if (ret) {
+> +			ksft_perror("mprotect() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			write(comm_pipes.parent_ready[1], "0", 1);
+>   			wait(&ret);
+>   			goto close_comm_pipes;
+> @@ -248,16 +261,16 @@ static void do_test_cow_in_parent(char *mem, size_t size, bool do_mprotect,
+>   		ret = -EINVAL;
+>   
+>   	if (!ret) {
+> -		ksft_test_result_pass("No leak from parent into child\n");
+> +		log_test_result(KSFT_PASS);
+>   	} else if (xfail) {
+>   		/*
+>   		 * With hugetlb, some vmsplice() tests are currently expected to
+>   		 * fail because (a) harder to fix and (b) nobody really cares.
+>   		 * Flag them as expected failure for now.
+>   		 */
+> -		ksft_test_result_xfail("Leak from parent into child\n");
+> +		log_test_result(KSFT_XFAIL);
+>   	} else {
+> -		ksft_test_result_fail("Leak from parent into child\n");
+> +		log_test_result(KSFT_FAIL);
+>   	}
+>   close_comm_pipes:
+>   	close_comm_pipes(&comm_pipes);
+> @@ -306,26 +319,29 @@ static void do_test_vmsplice_in_parent(char *mem, size_t size,
+>   
+>   	ret = setup_comm_pipes(&comm_pipes);
+>   	if (ret) {
+> -		ksft_test_result_fail("pipe() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto free;
+>   	}
+>   
+>   	if (pipe(fds) < 0) {
+> -		ksft_test_result_fail("pipe() failed\n");
+> +		ksft_perror("pipe() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_comm_pipes;
+>   	}
+>   
+>   	if (before_fork) {
+>   		transferred = vmsplice(fds[1], &iov, 1, 0);
+>   		if (transferred <= 0) {
+> -			ksft_test_result_fail("vmsplice() failed\n");
+> +			ksft_print_msg("vmsplice() failed\n");
+> +			log_test_result(KSFT_FAIL);
+>   			goto close_pipe;
+>   		}
+>   	}
+>   
+>   	ret = fork();
+>   	if (ret < 0) {
+> -		ksft_test_result_fail("fork() failed\n");
+> +		ksft_perror("fork() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_pipe;
+>   	} else if (!ret) {
+>   		write(comm_pipes.child_ready[1], "0", 1);
+> @@ -339,7 +355,8 @@ static void do_test_vmsplice_in_parent(char *mem, size_t size,
+>   	if (!before_fork) {
+>   		transferred = vmsplice(fds[1], &iov, 1, 0);
+>   		if (transferred <= 0) {
+> -			ksft_test_result_fail("vmsplice() failed\n");
+> +			ksft_perror("vmsplice() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			wait(&ret);
+>   			goto close_pipe;
+>   		}
+> @@ -348,7 +365,8 @@ static void do_test_vmsplice_in_parent(char *mem, size_t size,
+>   	while (read(comm_pipes.child_ready[0], &buf, 1) != 1)
+>   		;
+>   	if (munmap(mem, size) < 0) {
+> -		ksft_test_result_fail("munmap() failed\n");
+> +		ksft_perror("munmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_pipe;
+>   	}
+>   	write(comm_pipes.parent_ready[1], "0", 1);
+> @@ -356,7 +374,8 @@ static void do_test_vmsplice_in_parent(char *mem, size_t size,
+>   	/* Wait until the child is done writing. */
+>   	wait(&ret);
+>   	if (!WIFEXITED(ret)) {
+> -		ksft_test_result_fail("wait() failed\n");
+> +		ksft_perror("wait() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_pipe;
+>   	}
+>   
+> @@ -364,22 +383,23 @@ static void do_test_vmsplice_in_parent(char *mem, size_t size,
+>   	for (total = 0; total < transferred; total += cur) {
+>   		cur = read(fds[0], new + total, transferred - total);
+>   		if (cur < 0) {
+> -			ksft_test_result_fail("read() failed\n");
+> +			ksft_perror("read() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto close_pipe;
+>   		}
+>   	}
+>   
+>   	if (!memcmp(old, new, transferred)) {
+> -		ksft_test_result_pass("No leak from child into parent\n");
+> +		log_test_result(KSFT_PASS);
+>   	} else if (xfail) {
+>   		/*
+>   		 * With hugetlb, some vmsplice() tests are currently expected to
+>   		 * fail because (a) harder to fix and (b) nobody really cares.
+>   		 * Flag them as expected failure for now.
+>   		 */
+> -		ksft_test_result_xfail("Leak from child into parent\n");
+> +		log_test_result(KSFT_XFAIL);
+>   	} else {
+> -		ksft_test_result_fail("Leak from child into parent\n");
+> +		log_test_result(KSFT_FAIL);
+>   	}
+>   close_pipe:
+>   	close(fds[0]);
+> @@ -416,13 +436,14 @@ static void do_test_iouring(char *mem, size_t size, bool use_fork)
+>   
+>   	ret = setup_comm_pipes(&comm_pipes);
+>   	if (ret) {
+> -		ksft_test_result_fail("pipe() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+>   	file = tmpfile();
+>   	if (!file) {
+> -		ksft_test_result_fail("tmpfile() failed\n");
+> +		ksft_perror("tmpfile() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_comm_pipes;
+>   	}
+>   	fd = fileno(file);
+> @@ -430,14 +451,16 @@ static void do_test_iouring(char *mem, size_t size, bool use_fork)
+>   
+>   	tmp = malloc(size);
+>   	if (!tmp) {
+> -		ksft_test_result_fail("malloc() failed\n");
+> +		ksft_print_msg("malloc() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_file;
+>   	}
+>   
+>   	/* Skip on errors, as we might just lack kernel support. */
+>   	ret = io_uring_queue_init(1, &ring, 0);
+>   	if (ret < 0) {
+> -		ksft_test_result_skip("io_uring_queue_init() failed\n");
+> +		ksft_print_msg("io_uring_queue_init() failed\n");
+> +		log_test_result(KSFT_SKIP);
+>   		goto free_tmp;
+>   	}
+>   
+> @@ -452,7 +475,8 @@ static void do_test_iouring(char *mem, size_t size, bool use_fork)
+>   	iov.iov_len = size;
+>   	ret = io_uring_register_buffers(&ring, &iov, 1);
+>   	if (ret) {
+> -		ksft_test_result_skip("io_uring_register_buffers() failed\n");
+> +		ksft_print_msg("io_uring_register_buffers() failed\n");
+> +		log_test_result(KSFT_SKIP);
+>   		goto queue_exit;
+>   	}
+>   
+> @@ -463,7 +487,8 @@ static void do_test_iouring(char *mem, size_t size, bool use_fork)
+>   		 */
+>   		ret = fork();
+>   		if (ret < 0) {
+> -			ksft_test_result_fail("fork() failed\n");
+> +			ksft_perror("fork() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto unregister_buffers;
+>   		} else if (!ret) {
+>   			write(comm_pipes.child_ready[1], "0", 1);
+> @@ -483,10 +508,17 @@ static void do_test_iouring(char *mem, size_t size, bool use_fork)
+>   		 * if the page is mapped R/O vs. R/W).
+>   		 */
+>   		ret = mprotect(mem, size, PROT_READ);
+> +		if (ret) {
+> +			ksft_perror("mprotect() failed");
+> +			log_test_result(KSFT_FAIL);
+> +			goto unregister_buffers;
+> +		}
+> +
+>   		clear_softdirty();
+> -		ret |= mprotect(mem, size, PROT_READ | PROT_WRITE);
+> +		ret = mprotect(mem, size, PROT_READ | PROT_WRITE);
+>   		if (ret) {
+> -			ksft_test_result_fail("mprotect() failed\n");
+> +			ksft_perror("mprotect() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto unregister_buffers;
+>   		}
+>   	}
+> @@ -498,25 +530,29 @@ static void do_test_iouring(char *mem, size_t size, bool use_fork)
+>   	memset(mem, 0xff, size);
+>   	sqe = io_uring_get_sqe(&ring);
+>   	if (!sqe) {
+> -		ksft_test_result_fail("io_uring_get_sqe() failed\n");
+> +		ksft_print_msg("io_uring_get_sqe() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto quit_child;
+>   	}
+>   	io_uring_prep_write_fixed(sqe, fd, mem, size, 0, 0);
+>   
+>   	ret = io_uring_submit(&ring);
+>   	if (ret < 0) {
+> -		ksft_test_result_fail("io_uring_submit() failed\n");
+> +		ksft_print_msg("io_uring_submit() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto quit_child;
+>   	}
+>   
+>   	ret = io_uring_wait_cqe(&ring, &cqe);
+>   	if (ret < 0) {
+> -		ksft_test_result_fail("io_uring_wait_cqe() failed\n");
+> +		ksft_print_msg("io_uring_wait_cqe() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto quit_child;
+>   	}
+>   
+>   	if (cqe->res != size) {
+> -		ksft_test_result_fail("write_fixed failed\n");
+> +		ksft_print_msg("write_fixed failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto quit_child;
+>   	}
+>   	io_uring_cqe_seen(&ring, cqe);
+> @@ -526,15 +562,18 @@ static void do_test_iouring(char *mem, size_t size, bool use_fork)
+>   	while (total < size) {
+>   		cur = pread(fd, tmp + total, size - total, total);
+>   		if (cur < 0) {
+> -			ksft_test_result_fail("pread() failed\n");
+> +			ksft_print_msg("pread() failed\n");
+> +			log_test_result(KSFT_FAIL);
+>   			goto quit_child;
+>   		}
+>   		total += cur;
+>   	}
+>   
+>   	/* Finally, check if we read what we expected. */
+> -	ksft_test_result(!memcmp(mem, tmp, size),
+> -			 "Longterm R/W pin is reliable\n");
+> +	if (!memcmp(mem, tmp, size))
+> +		log_test_result(KSFT_PASS);
+> +	else
+> +		log_test_result(KSFT_FAIL);
+>   
+>   quit_child:
+>   	if (use_fork) {
+> @@ -582,19 +621,21 @@ static void do_test_ro_pin(char *mem, size_t size, enum ro_pin_test test,
+>   	int ret;
+>   
+>   	if (gup_fd < 0) {
+> -		ksft_test_result_skip("gup_test not available\n");
+> +		ksft_print_msg("gup_test not available\n");
+> +		log_test_result(KSFT_SKIP);
+>   		return;
+>   	}
+>   
+>   	tmp = malloc(size);
+>   	if (!tmp) {
+> -		ksft_test_result_fail("malloc() failed\n");
+> +		ksft_print_msg("malloc() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+>   	ret = setup_comm_pipes(&comm_pipes);
+>   	if (ret) {
+> -		ksft_test_result_fail("pipe() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		goto free_tmp;
+>   	}
+>   
+> @@ -609,7 +650,8 @@ static void do_test_ro_pin(char *mem, size_t size, enum ro_pin_test test,
+>   		 */
+>   		ret = fork();
+>   		if (ret < 0) {
+> -			ksft_test_result_fail("fork() failed\n");
+> +			ksft_perror("fork() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto close_comm_pipes;
+>   		} else if (!ret) {
+>   			write(comm_pipes.child_ready[1], "0", 1);
+> @@ -646,7 +688,8 @@ static void do_test_ro_pin(char *mem, size_t size, enum ro_pin_test test,
+>   		clear_softdirty();
+>   		ret |= mprotect(mem, size, PROT_READ | PROT_WRITE);
+>   		if (ret) {
+> -			ksft_test_result_fail("mprotect() failed\n");
+> +			ksft_perror("mprotect() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto close_comm_pipes;
+>   		}
+>   		break;
+> @@ -661,9 +704,11 @@ static void do_test_ro_pin(char *mem, size_t size, enum ro_pin_test test,
+>   	ret = ioctl(gup_fd, PIN_LONGTERM_TEST_START, &args);
+>   	if (ret) {
+>   		if (errno == EINVAL)
+> -			ksft_test_result_skip("PIN_LONGTERM_TEST_START failed\n");
+> +			ret = KSFT_SKIP;
+>   		else
+> -			ksft_test_result_fail("PIN_LONGTERM_TEST_START failed\n");
+> +			ret = KSFT_FAIL;
+> +		ksft_perror("PIN_LONGTERM_TEST_START failed");
+> +		log_test_result(ret);
+>   		goto wait;
+>   	}
+>   
+> @@ -676,22 +721,26 @@ static void do_test_ro_pin(char *mem, size_t size, enum ro_pin_test test,
+>   	 */
+>   	tmp_val = (__u64)(uintptr_t)tmp;
+>   	ret = ioctl(gup_fd, PIN_LONGTERM_TEST_READ, &tmp_val);
+> -	if (ret)
+> -		ksft_test_result_fail("PIN_LONGTERM_TEST_READ failed\n");
+> -	else
+> -		ksft_test_result(!memcmp(mem, tmp, size),
+> -				 "Longterm R/O pin is reliable\n");
+> +	if (ret) {
+> +		ksft_perror("PIN_LONGTERM_TEST_READ failed");
+> +		log_test_result(KSFT_FAIL);
+> +	} else {
+> +		if (!memcmp(mem, tmp, size))
+> +			log_test_result(KSFT_PASS);
+> +		else
+> +			log_test_result(KSFT_FAIL);
+> +	}
+>   
+>   	ret = ioctl(gup_fd, PIN_LONGTERM_TEST_STOP);
+>   	if (ret)
+> -		ksft_print_msg("[INFO] PIN_LONGTERM_TEST_STOP failed\n");
+> +		ksft_perror("PIN_LONGTERM_TEST_STOP failed");
+>   wait:
+>   	switch (test) {
+>   	case RO_PIN_TEST_SHARED:
+>   		write(comm_pipes.parent_ready[1], "0", 1);
+>   		wait(&ret);
+>   		if (!WIFEXITED(ret))
+> -			ksft_print_msg("[INFO] wait() failed\n");
+> +			ksft_perror("wait() failed");
+>   		break;
+>   	default:
+>   		break;
+> @@ -746,14 +795,16 @@ static void do_run_with_base_page(test_fn fn, bool swapout)
+>   	mem = mmap(NULL, pagesize, PROT_READ | PROT_WRITE,
+>   		   MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>   	if (mem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+>   	ret = madvise(mem, pagesize, MADV_NOHUGEPAGE);
+>   	/* Ignore if not around on a kernel. */
+>   	if (ret && errno != EINVAL) {
+> -		ksft_test_result_fail("MADV_NOHUGEPAGE failed\n");
+> +		ksft_perror("MADV_NOHUGEPAGE failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+> @@ -763,7 +814,8 @@ static void do_run_with_base_page(test_fn fn, bool swapout)
+>   	if (swapout) {
+>   		madvise(mem, pagesize, MADV_PAGEOUT);
+>   		if (!pagemap_is_swapped(pagemap_fd, mem)) {
+> -			ksft_test_result_skip("MADV_PAGEOUT did not work, is swap enabled?\n");
+> +			ksft_print_msg("MADV_PAGEOUT did not work, is swap enabled?\n");
+> +			log_test_result(KSFT_SKIP);
+>   			goto munmap;
+>   		}
+>   	}
+> @@ -775,13 +827,13 @@ static void do_run_with_base_page(test_fn fn, bool swapout)
+>   
+>   static void run_with_base_page(test_fn fn, const char *desc)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with base page\n", desc);
+> +	log_test_start("%s ... with base page", desc);
+>   	do_run_with_base_page(fn, false);
+>   }
+>   
+>   static void run_with_base_page_swap(test_fn fn, const char *desc)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with swapped out base page\n", desc);
+> +	log_test_start("%s ... with swapped out base page", desc);
+>   	do_run_with_base_page(fn, true);
+>   }
+>   
+> @@ -807,7 +859,8 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   	mmap_mem = mmap(NULL, mmap_size, PROT_READ | PROT_WRITE,
+>   			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>   	if (mmap_mem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+> @@ -816,7 +869,8 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   
+>   	ret = madvise(mem, thpsize, MADV_HUGEPAGE);
+>   	if (ret) {
+> -		ksft_test_result_fail("MADV_HUGEPAGE failed\n");
+> +		ksft_perror("MADV_HUGEPAGE failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+> @@ -826,7 +880,8 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   	 */
+>   	mem[0] = 1;
+>   	if (!pagemap_is_populated(pagemap_fd, mem + thpsize - pagesize)) {
+> -		ksft_test_result_skip("Did not get a THP populated\n");
+> +		ksft_print_msg("Did not get a THP populated\n");
+> +		log_test_result(KSFT_SKIP);
+>   		goto munmap;
+>   	}
+>   	memset(mem, 1, thpsize);
+> @@ -846,12 +901,14 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   		 */
+>   		ret = mprotect(mem + pagesize, pagesize, PROT_READ);
+>   		if (ret) {
+> -			ksft_test_result_fail("mprotect() failed\n");
+> +			ksft_perror("mprotect() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		}
+>   		ret = mprotect(mem + pagesize, pagesize, PROT_READ | PROT_WRITE);
+>   		if (ret) {
+> -			ksft_test_result_fail("mprotect() failed\n");
+> +			ksft_perror("mprotect() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		}
+>   		break;
+> @@ -863,7 +920,8 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   		 */
+>   		ret = madvise(mem + pagesize, thpsize - pagesize, MADV_DONTNEED);
+>   		if (ret) {
+> -			ksft_test_result_fail("MADV_DONTNEED failed\n");
+> +			ksft_perror("MADV_DONTNEED failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		}
+>   		size = pagesize;
+> @@ -877,13 +935,15 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   		mremap_mem = mmap(NULL, mremap_size, PROT_NONE,
+>   				  MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>   		if (mremap_mem == MAP_FAILED) {
+> -			ksft_test_result_fail("mmap() failed\n");
+> +			ksft_perror("mmap() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		}
+>   		tmp = mremap(mem + mremap_size, mremap_size, mremap_size,
+>   			     MREMAP_MAYMOVE | MREMAP_FIXED, mremap_mem);
+>   		if (tmp != mremap_mem) {
+> -			ksft_test_result_fail("mremap() failed\n");
+> +			ksft_perror("mremap() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		}
+>   		size = mremap_size;
+> @@ -896,12 +956,14 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   		 */
+>   		ret = madvise(mem + pagesize, thpsize - pagesize, MADV_DONTFORK);
+>   		if (ret) {
+> -			ksft_test_result_fail("MADV_DONTFORK failed\n");
+> +			ksft_perror("MADV_DONTFORK failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		}
+>   		ret = fork();
+>   		if (ret < 0) {
+> -			ksft_test_result_fail("fork() failed\n");
+> +			ksft_perror("fork() failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		} else if (!ret) {
+>   			exit(0);
+> @@ -910,7 +972,8 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   		/* Allow for sharing all pages again. */
+>   		ret = madvise(mem + pagesize, thpsize - pagesize, MADV_DOFORK);
+>   		if (ret) {
+> -			ksft_test_result_fail("MADV_DOFORK failed\n");
+> +			ksft_perror("MADV_DOFORK failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto munmap;
+>   		}
+>   		break;
+> @@ -924,7 +987,8 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   	case THP_RUN_SINGLE_PTE_SWAPOUT:
+>   		madvise(mem, size, MADV_PAGEOUT);
+>   		if (!range_is_swapped(mem, size)) {
+> -			ksft_test_result_skip("MADV_PAGEOUT did not work, is swap enabled?\n");
+> +			ksft_print_msg("MADV_PAGEOUT did not work, is swap enabled?\n");
+> +			log_test_result(KSFT_SKIP);
+>   			goto munmap;
+>   		}
+>   		break;
+> @@ -941,56 +1005,56 @@ static void do_run_with_thp(test_fn fn, enum thp_run thp_run, size_t thpsize)
+>   
+>   static void run_with_thp(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with THP (%zu kB)\n",
+> +	log_test_start("%s ... with THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_PMD, size);
+>   }
+>   
+>   static void run_with_thp_swap(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with swapped-out THP (%zu kB)\n",
+> +	log_test_start("%s ... with swapped-out THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_PMD_SWAPOUT, size);
+>   }
+>   
+>   static void run_with_pte_mapped_thp(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with PTE-mapped THP (%zu kB)\n",
+> +	log_test_start("%s ... with PTE-mapped THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_PTE, size);
+>   }
+>   
+>   static void run_with_pte_mapped_thp_swap(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with swapped-out, PTE-mapped THP (%zu kB)\n",
+> +	log_test_start("%s ... with swapped-out, PTE-mapped THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_PTE_SWAPOUT, size);
+>   }
+>   
+>   static void run_with_single_pte_of_thp(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with single PTE of THP (%zu kB)\n",
+> +	log_test_start("%s ... with single PTE of THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_SINGLE_PTE, size);
+>   }
+>   
+>   static void run_with_single_pte_of_thp_swap(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with single PTE of swapped-out THP (%zu kB)\n",
+> +	log_test_start("%s ... with single PTE of swapped-out THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_SINGLE_PTE_SWAPOUT, size);
+>   }
+>   
+>   static void run_with_partial_mremap_thp(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with partially mremap()'ed THP (%zu kB)\n",
+> +	log_test_start("%s ... with partially mremap()'ed THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_PARTIAL_MREMAP, size);
+>   }
+>   
+>   static void run_with_partial_shared_thp(test_fn fn, const char *desc, size_t size)
+>   {
+> -	ksft_print_msg("[RUN] %s ... with partially shared THP (%zu kB)\n",
+> +	log_test_start("%s ... with partially shared THP (%zu kB)",
+>   		desc, size / 1024);
+>   	do_run_with_thp(fn, THP_RUN_PARTIAL_SHARED, size);
+>   }
+> @@ -1000,14 +1064,15 @@ static void run_with_hugetlb(test_fn fn, const char *desc, size_t hugetlbsize)
+>   	int flags = MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB;
+>   	char *mem, *dummy;
+>   
+> -	ksft_print_msg("[RUN] %s ... with hugetlb (%zu kB)\n", desc,
+> +	log_test_start("%s ... with hugetlb (%zu kB)", desc,
+>   		       hugetlbsize / 1024);
+>   
+>   	flags |= __builtin_ctzll(hugetlbsize) << MAP_HUGE_SHIFT;
+>   
+>   	mem = mmap(NULL, hugetlbsize, PROT_READ | PROT_WRITE, flags, -1, 0);
+>   	if (mem == MAP_FAILED) {
+> -		ksft_test_result_skip("need more free huge pages\n");
+> +		ksft_perror("need more free huge pages");
+> +		log_test_result(KSFT_SKIP);
+>   		return;
+>   	}
+>   
+> @@ -1020,7 +1085,8 @@ static void run_with_hugetlb(test_fn fn, const char *desc, size_t hugetlbsize)
+>   	 */
+>   	dummy = mmap(NULL, hugetlbsize, PROT_READ | PROT_WRITE, flags, -1, 0);
+>   	if (dummy == MAP_FAILED) {
+> -		ksft_test_result_skip("need more free huge pages\n");
+> +		ksft_perror("need more free huge pages");
+> +		log_test_result(KSFT_SKIP);
+>   		goto munmap;
+>   	}
+>   	munmap(dummy, hugetlbsize);
+> @@ -1226,7 +1292,7 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   
+>   	ret = setup_comm_pipes(&comm_pipes);
+>   	if (ret) {
+> -		ksft_test_result_fail("pipe() failed\n");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+> @@ -1236,12 +1302,14 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   	 */
+>   	ret = mprotect(mem + pagesize, pagesize, PROT_READ);
+>   	if (ret) {
+> -		ksft_test_result_fail("mprotect() failed\n");
+> +		ksft_perror("mprotect() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_comm_pipes;
+>   	}
+>   	ret = mprotect(mem + pagesize, pagesize, PROT_READ | PROT_WRITE);
+>   	if (ret) {
+> -		ksft_test_result_fail("mprotect() failed\n");
+> +		ksft_perror("mprotect() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_comm_pipes;
+>   	}
+>   
+> @@ -1250,8 +1318,8 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   		/* Collapse before actually COW-sharing the page. */
+>   		ret = madvise(mem, size, MADV_COLLAPSE);
+>   		if (ret) {
+> -			ksft_test_result_skip("MADV_COLLAPSE failed: %s\n",
+> -					      strerror(errno));
+> +			ksft_perror("MADV_COLLAPSE failed");
+> +			log_test_result(KSFT_SKIP);
+>   			goto close_comm_pipes;
+>   		}
+>   		break;
+> @@ -1262,7 +1330,8 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   		/* Don't COW-share the upper part of the THP. */
+>   		ret = madvise(mem + size / 2, size / 2, MADV_DONTFORK);
+>   		if (ret) {
+> -			ksft_test_result_fail("MADV_DONTFORK failed\n");
+> +			ksft_perror("MADV_DONTFORK failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto close_comm_pipes;
+>   		}
+>   		break;
+> @@ -1270,7 +1339,8 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   		/* Don't COW-share the lower part of the THP. */
+>   		ret = madvise(mem, size / 2, MADV_DONTFORK);
+>   		if (ret) {
+> -			ksft_test_result_fail("MADV_DONTFORK failed\n");
+> +			ksft_perror("MADV_DONTFORK failed");
+> +			log_test_result(KSFT_FAIL);
+>   			goto close_comm_pipes;
+>   		}
+>   		break;
+> @@ -1280,7 +1350,8 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   
+>   	ret = fork();
+>   	if (ret < 0) {
+> -		ksft_test_result_fail("fork() failed\n");
+> +		ksft_perror("fork() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close_comm_pipes;
+>   	} else if (!ret) {
+>   		switch (test) {
+> @@ -1314,7 +1385,8 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   		 */
+>   		ret = madvise(mem, size, MADV_DOFORK);
+>   		if (ret) {
+> -			ksft_test_result_fail("MADV_DOFORK failed\n");
+> +			ksft_perror("MADV_DOFORK failed");
+> +			log_test_result(KSFT_FAIL);
+>   			write(comm_pipes.parent_ready[1], "0", 1);
+>   			wait(&ret);
+>   			goto close_comm_pipes;
+> @@ -1324,8 +1396,8 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   		/* Collapse before anyone modified the COW-shared page. */
+>   		ret = madvise(mem, size, MADV_COLLAPSE);
+>   		if (ret) {
+> -			ksft_test_result_skip("MADV_COLLAPSE failed: %s\n",
+> -					      strerror(errno));
+> +			ksft_perror("MADV_COLLAPSE failed");
+> +			log_test_result(KSFT_SKIP);
+>   			write(comm_pipes.parent_ready[1], "0", 1);
+>   			wait(&ret);
+>   			goto close_comm_pipes;
+> @@ -1345,7 +1417,10 @@ static void do_test_anon_thp_collapse(char *mem, size_t size,
+>   	else
+>   		ret = -EINVAL;
+>   
+> -	ksft_test_result(!ret, "No leak from parent into child\n");
+> +	if (!ret)
+> +		log_test_result(KSFT_PASS);
+> +	else
+> +		log_test_result(KSFT_FAIL);
+>   close_comm_pipes:
+>   	close_comm_pipes(&comm_pipes);
+>   }
+> @@ -1430,7 +1505,7 @@ static void run_anon_thp_test_cases(void)
+>   	for (i = 0; i < ARRAY_SIZE(anon_thp_test_cases); i++) {
+>   		struct test_case const *test_case = &anon_thp_test_cases[i];
+>   
+> -		ksft_print_msg("[RUN] %s\n", test_case->desc);
+> +		log_test_start("%s", test_case->desc);
+>   		do_run_with_thp(test_case->fn, THP_RUN_PMD, pmdsize);
+>   	}
+>   }
+> @@ -1453,8 +1528,10 @@ static void test_cow(char *mem, const char *smem, size_t size)
+>   	memset(mem, 0xff, size);
+>   
+>   	/* See if we still read the old values via the other mapping. */
+> -	ksft_test_result(!memcmp(smem, old, size),
+> -			 "Other mapping not modified\n");
+> +	if (!memcmp(smem, old, size))
+> +		log_test_result(KSFT_PASS);
+> +	else
+> +		log_test_result(KSFT_FAIL);
+>   	free(old);
+>   }
+>   
+> @@ -1472,18 +1549,20 @@ static void run_with_zeropage(non_anon_test_fn fn, const char *desc)
+>   {
+>   	char *mem, *smem, tmp;
+>   
+> -	ksft_print_msg("[RUN] %s ... with shared zeropage\n", desc);
+> +	log_test_start("%s ... with shared zeropage", desc);
+>   
+>   	mem = mmap(NULL, pagesize, PROT_READ | PROT_WRITE,
+>   		   MAP_PRIVATE | MAP_ANON, -1, 0);
+>   	if (mem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+>   	smem = mmap(NULL, pagesize, PROT_READ, MAP_PRIVATE | MAP_ANON, -1, 0);
+>   	if (smem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+> @@ -1504,10 +1583,11 @@ static void run_with_huge_zeropage(non_anon_test_fn fn, const char *desc)
+>   	size_t mmap_size;
+>   	int ret;
+>   
+> -	ksft_print_msg("[RUN] %s ... with huge zeropage\n", desc);
+> +	log_test_start("%s ... with huge zeropage", desc);
+>   
+>   	if (!has_huge_zeropage) {
+> -		ksft_test_result_skip("Huge zeropage not enabled\n");
+> +		ksft_print_msg("Huge zeropage not enabled\n");
+> +		log_test_result(KSFT_SKIP);
+>   		return;
+>   	}
+>   
+> @@ -1516,13 +1596,15 @@ static void run_with_huge_zeropage(non_anon_test_fn fn, const char *desc)
+>   	mmap_mem = mmap(NULL, mmap_size, PROT_READ | PROT_WRITE,
+>   			MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>   	if (mmap_mem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   	mmap_smem = mmap(NULL, mmap_size, PROT_READ,
+>   			 MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+>   	if (mmap_smem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+> @@ -1531,9 +1613,15 @@ static void run_with_huge_zeropage(non_anon_test_fn fn, const char *desc)
+>   	smem = (char *)(((uintptr_t)mmap_smem + pmdsize) & ~(pmdsize - 1));
+>   
+>   	ret = madvise(mem, pmdsize, MADV_HUGEPAGE);
+> +	if (ret != 0) {
+> +		ksft_perror("madvise()");
+> +		log_test_result(KSFT_FAIL);
+> +		goto munmap;
+> +	}
+>   	ret |= madvise(smem, pmdsize, MADV_HUGEPAGE);
+> -	if (ret) {
+> -		ksft_test_result_fail("MADV_HUGEPAGE failed\n");
+> +	if (ret != 0) {
+> +		ksft_perror("madvise()");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+> @@ -1562,29 +1650,33 @@ static void run_with_memfd(non_anon_test_fn fn, const char *desc)
+>   	char *mem, *smem, tmp;
+>   	int fd;
+>   
+> -	ksft_print_msg("[RUN] %s ... with memfd\n", desc);
+> +	log_test_start("%s ... with memfd", desc);
+>   
+>   	fd = memfd_create("test", 0);
+>   	if (fd < 0) {
+> -		ksft_test_result_fail("memfd_create() failed\n");
+> +		ksft_perror("memfd_create() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+>   	/* File consists of a single page filled with zeroes. */
+>   	if (fallocate(fd, 0, 0, pagesize)) {
+> -		ksft_test_result_fail("fallocate() failed\n");
+> +		ksft_perror("fallocate() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close;
+>   	}
+>   
+>   	/* Create a private mapping of the memfd. */
+>   	mem = mmap(NULL, pagesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+>   	if (mem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close;
+>   	}
+>   	smem = mmap(NULL, pagesize, PROT_READ, MAP_SHARED, fd, 0);
+>   	if (smem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+> @@ -1607,35 +1699,40 @@ static void run_with_tmpfile(non_anon_test_fn fn, const char *desc)
+>   	FILE *file;
+>   	int fd;
+>   
+> -	ksft_print_msg("[RUN] %s ... with tmpfile\n", desc);
+> +	log_test_start("%s ... with tmpfile", desc);
+>   
+>   	file = tmpfile();
+>   	if (!file) {
+> -		ksft_test_result_fail("tmpfile() failed\n");
+> +		ksft_perror("tmpfile() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		return;
+>   	}
+>   
+>   	fd = fileno(file);
+>   	if (fd < 0) {
+> -		ksft_test_result_skip("fileno() failed\n");
+> +		ksft_perror("fileno() failed");
+> +		log_test_result(KSFT_SKIP);
+>   		return;
+>   	}
+>   
+>   	/* File consists of a single page filled with zeroes. */
+>   	if (fallocate(fd, 0, 0, pagesize)) {
+> -		ksft_test_result_fail("fallocate() failed\n");
+> +		ksft_perror("fallocate() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close;
+>   	}
+>   
+>   	/* Create a private mapping of the memfd. */
+>   	mem = mmap(NULL, pagesize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
+>   	if (mem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto close;
+>   	}
+>   	smem = mmap(NULL, pagesize, PROT_READ, MAP_SHARED, fd, 0);
+>   	if (smem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+> @@ -1659,20 +1756,22 @@ static void run_with_memfd_hugetlb(non_anon_test_fn fn, const char *desc,
+>   	char *mem, *smem, tmp;
+>   	int fd;
+>   
+> -	ksft_print_msg("[RUN] %s ... with memfd hugetlb (%zu kB)\n", desc,
+> +	log_test_start("%s ... with memfd hugetlb (%zu kB)", desc,
+>   		       hugetlbsize / 1024);
+>   
+>   	flags |= __builtin_ctzll(hugetlbsize) << MFD_HUGE_SHIFT;
+>   
+>   	fd = memfd_create("test", flags);
+>   	if (fd < 0) {
+> -		ksft_test_result_skip("memfd_create() failed\n");
+> +		ksft_perror("memfd_create() failed");
+> +		log_test_result(KSFT_SKIP);
+>   		return;
+>   	}
+>   
+>   	/* File consists of a single page filled with zeroes. */
+>   	if (fallocate(fd, 0, 0, hugetlbsize)) {
+> -		ksft_test_result_skip("need more free huge pages\n");
+> +		ksft_perror("need more free huge pages");
+> +		log_test_result(KSFT_SKIP);
+>   		goto close;
+>   	}
+>   
+> @@ -1680,12 +1779,14 @@ static void run_with_memfd_hugetlb(non_anon_test_fn fn, const char *desc,
+>   	mem = mmap(NULL, hugetlbsize, PROT_READ | PROT_WRITE, MAP_PRIVATE, fd,
+>   		   0);
+>   	if (mem == MAP_FAILED) {
+> -		ksft_test_result_skip("need more free huge pages\n");
+> +		ksft_perror("need more free huge pages");
+> +		log_test_result(KSFT_SKIP);
+>   		goto close;
+>   	}
+>   	smem = mmap(NULL, hugetlbsize, PROT_READ, MAP_SHARED, fd, 0);
+>   	if (smem == MAP_FAILED) {
+> -		ksft_test_result_fail("mmap() failed\n");
+> +		ksft_perror("mmap() failed");
+> +		log_test_result(KSFT_FAIL);
+>   		goto munmap;
+>   	}
+>   
+
