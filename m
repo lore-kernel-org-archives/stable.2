@@ -1,35 +1,74 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 452783FD96E;
-	Wed, 16 Sep 2026 07:09:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62DDE3FBB4D
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:10:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542586; cv=none; b=dyebXmlvyrtHjKpx9PkThB+jpvp1fvFokc+86VeyJS5ztCvNQdWy1553MDSEFUBW1hjdoOzHteUe1UDf2Eink8t38b0URCls1QKnVb4NH4YE5LNu7cANOxodihi0fLSn7yBzwOARc3CGoSCWABJEq9jXI+DjBPzCiNAODm7pGv0=
+	t=1789542664; cv=none; b=nFZI1nT0G92VE+DhVamecVNbbJJZwOyn9MMVYwqMcWaT8TfbpYjLCbjruVt0CVykA65AzhscCSGmv0HMt7JiQvSTVvdNsUr7hIAc4p5N1T8NM+hgpQZymYDcDonz2MY6ScJXMPfPTOQoNZZNiaN2BufKIUqg3W/j64JKPtVcwHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542586; c=relaxed/simple;
-	bh=ryCd3CPpqqZzwz//BiKcPgW8B/POumMrzQTjiW2c7WU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=k0LT7Y3R0bYG+RhnhBVzcVW6dhYXm9kHDlenmojUs9k0dUchibrob0wZtBSCb2ilWYxlN/C2V3OxAx69L0C3pp8KiXfBQMGwEfHcjUIH3n8R0ADZTKMdAobf4vmd6+Nfx3qPbId8Bs2oQC+xtbZRCHIpTElZoo5MwvbxeKGuL4M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXmjiuQKpqaPHeBw--.59725S2;
-	Wed, 16 Sep 2026 15:09:34 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: arnaud.pouliquen@foss.st.com
-Cc: broonie@kernel.org,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1789542664; c=relaxed/simple;
+	bh=BOyNczjwY1481415FU16xdMtsys9Keob7mvrHoY57e0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KH93kicYSRG+9d1xc6eLVct2jV+n7rUNw7ICN42Zx8nbfF8Brg2doRS57d2TJ6S70IwclM3bmkbUgQtmkaNULoRQ9xENmv+WxFsYww+hmPHSgq40jvdumW13DleND83JYBnY1LgD2QMs+Mh6R+zrNnLhyfXypTi71l/yIU2mtjA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y6Hc+yMS; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y6Hc+yMS"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b2ad83dc6so554946a91.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 00:10:52 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789542650; x=1790147450; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ErVH+2TuW07Le+Zr6PYdSFXTlmKMoWUBH05vRHa71x8=;
+        b=Y6Hc+yMSfe+hsnXaEZtX4jiXUKsKTY3yCGwkyAkcnzA53slD8ry0eA0CHq5UE9u7x/
+         nWuFT3UlMLJMsb6wILYQ3phuf0Fd8RIBkVojEN35xnTxQZDohlZnfMYkQ06Mr3AZYV6Y
+         e7iQpmTtEsr00QGf0lTJ7TH6PgWM8qo4602UB/By9zNCvgKd6TEhXXfPcZ+TvucZa4k4
+         knXWyROeb3YRoHH8T1TeFUgz2lPQfFz6/8gia35EPprpEcY9/6QIxBFVHW5C4AobRDm+
+         v1qprVXmmsTqPoYRLtz6J3cGiQHqtFGZy4Qn6W2q38WQQ/53+WYIP6PmoYKxNEwD1Cb2
+         dfuw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789542650; x=1790147450;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ErVH+2TuW07Le+Zr6PYdSFXTlmKMoWUBH05vRHa71x8=;
+        b=Qbaq+ny3DfbnWUn8ti7Zlza1JXaWGW7hwCrgyu1noTUlHygMJ9Bk4depeGJwi1GwOY
+         mfigf9kPQhvmM0wqyFWvlHSfEkqFoHdmRTAod/IGjNZ2PIFZiUoNXg40Ylu5TQp1/VAm
+         WGi6f3Ymvs4xlmrjrk3A7C6Smo8bADgiOBLUJOBZCgsY/7q0NJGverYubajbBrF4f/Za
+         7ybss4cMZ1Aq0ZIykA4IVf457+vxOVntSGBZ2OuncpmaV6dUxyt/9nD3gL83ZAs1LO3C
+         eJXgBWCGfEZRugZr0N1oK510ZwVZSvY6tsinZAWHzBd8gOtsPSRBnGxo/7XRNgQ53dF7
+         DS7A==
+X-Forwarded-Encrypted: i=1; AKwUvBzn/6+PcFwrnJEELxzrtGFpTrngHmmaEWiRdcbQS2iq21/1Ycc0Z5z+rjh0W/FT2nA3UJkRpd4=@vger.kernel.org
+X-Gm-Message-State: AFuF++mO6tOswoHBT0wFeyda0ekm8l94xP09Vv2IQ5YVxmA4CYXETBnI
+	+GGGaVCFCU+crfuOK/6abCG3hLAnVw8EtJ0bEuz92d7+zhInDPV9E/Ad
+X-Gm-Gg: AYBFou0RafEB/hSFN66jRumaWTx6+56OxAYb5Y9gL22b9prsD1GjhbNb7z9AjB0U3Yv
+	MRIUweSWZ6iSJW6kaNj25SIP1IJ7fsu+CwTXuPVDmo5DcuU18svraujQGQXSgUoR90yeBI2/S/e
+	sxmaUEau6le5+SdpLVWw4O0UNQHYrb5GYdeKMrVajPNsiEHx3SkIX6Rs5+Ik0X8hjeQKRfs96Sc
+	pvbqgA1jTKQN/zGc6TnKANH+aysvtx9MWebQ6IZqmnY+OFoid/4lbZBX3gRTegwQJYwGjCWY6PS
+	yWJu/KovJZ4cfZOTgY+62orZOe7gisUR2Bx6HL3T4S+HMoNqgviJ2ndREU+l8RFROZFtso6XHnX
+	2YzOO+XIwHAowiXhwz13lZS5yv7/SZDH5LRL+k3HnswrWqvEgraAGJejx5YP1GEi6VDNw07MSKs
+	Wf3l0LPKOS0Gne8MH8oW57z+JV0L0Mrqpt0u7Plhpvf5MkQDgQu4hXE+p3RzJYeyo0YJuqfdRJp
+	99dtll7dfwZQt0YQRLFHB+IYSu0d6UZKHU882j2LnFMgE6xPaSgdO1sASwm9VE22OxEDaOKM1Ha
+	3NQ64Uyeh7rmPbjGBJNEB0RWsOV/H5hPNp2Wdh3IBFObOZroXOxQI+CdeKmM3rSbzNtLDlfvIA=
+	=
+X-Received: by 2002:a17:90b:384c:b0:39d:84af:a0b3 with SMTP id 98e67ed59e1d1-39e1e48a02bmr3331357a91.18.1789542649681;
+        Wed, 16 Sep 2026 00:10:49 -0700 (PDT)
+Received: from spider.bream-herring.ts.net ([103.252.203.158])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a9fd38sm5223230eec.13.2026.09.16.00.10.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 00:10:49 -0700 (PDT)
+From: Matthias Goergens <matthias.goergens@gmail.com>
+To: linux-ext4@vger.kernel.org
+Cc: jack@suse.cz,
+	tytso@mit.edu,
+	Matthias Goergens <matthias.goergens@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 05/20] ASoC: sti: uniperif_player: Fix clock leak in uni_player_init()
-Date: Wed, 16 Sep 2026 07:09:06 +0000
-Message-Id: <20260916070906.1965935-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH v3] ext4: drop extra ea_inode ref in cached-block reuse path
+Date: Wed, 16 Sep 2026 15:10:46 +0800
+Message-ID: <20260916071046.2182813-1-matthias.goergens@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,53 +76,89 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXmjiuQKpqaPHeBw--.59725S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKF45Jr1UJr17AF4UWFy5twb_yoWktwcE93
-	yj9r1vqr9rCFWayw1qqrs3AFsYgF18urZ5KF47KF43J34DGws5ta4jqryxur1rWw4rKryk
-	Ary3Wws7Awn3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUw5l8UU
-	UUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQMA2qqP7kEwwAAsG
 
-In uni_player_init(), player->clk is acquired via of_clk_get(). If any
-subsequent operation fails (e.g. regmap_field_write(), devm_request_irq()),
-or upon driver detachment, the acquired clock is never freed with
-clk_put(), resulting in a resource leak.
+ext4_xattr_block_set() takes a reference on the ea_inode via
+ext4_xattr_inode_lookup_create() before it builds the new xattr block.
+The new-block path drops that reference once
+ext4_xattr_inode_inc_ref_all() has counted every entry in the block.
+When a separately built block is discarded in favour of an identical
+cached block, the cached block already counts its entries and the
+lookup reference is left unbalanced.
 
-Switch to devm_clk_get() so the clock is managed automatically and
-properly released.
+Each affected reuse leaks one on-disk reference, and the ea_inode and
+its data blocks stay allocated after the last xattr referring to them
+is gone.  Setting the same xattr on two files is enough when the value
+needs an EA inode and the entry does not fit in the inode body: the
+second set reuses the first file's block and leaves the ea_inode at
+refcount 2, and removing the xattr from both files leaves it at 1.
 
-Fixes: 76c2145ded6b ("ASoC: sti: Add CPU DAI driver for playback")
+Drop the reference when the entry was not written into the old block in
+place.  new_bh != bs->bh is not the right test: the in-place path can
+reach 'inserted' and match a different cached block, and there the
+reference belongs to the old block and ext4_xattr_release_block() drops
+it, so dropping it here too would under-count.  Conversely, new_bh ==
+bs->bh with a cloned s->base (re-setting an unchanged external value on
+a shared block) leaks the reference as well, so the check follows both
+branches.
+
+If the decrement fails the filesystem is already broken: report the
+error and return it without rolling back, putting and clearing ea_inode
+first so that cleanup does not retry the decrement.  The reused block
+keeps its incremented refcount and its block quota charge; e2fsck
+corrects the refcount.
+
+Found by the Sashiko AI review bot while reviewing commit 54b6bd40898d
+("ext4: stop retrying saturated xattr cache entries"):
+https://sashiko.dev/#/patchset/20260802065941.1726052-1-matthias.goergens@gmail.com?part=1
+
+Fixes: 0a46ef234756 ("ext4: do not create EA inode under buffer lock")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Matthias Goergens <matthias.goergens@gmail.com>
 ---
- sound/soc/sti/uniperif_player.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+v3:
+- Error path per Jan: report with ext4_error_inode() and return, no
+  unwinding.  Put and clear ea_inode there so cleanup does not retry the
+  decrement.  After a successful decrement the branch reaches cleanup
+  with error == 0, which only puts the inode, so nothing is needed there.
+  The new-block path is unchanged.
+- Keep the in-place condition instead of new_bh != bs->bh; reasons and
+  measurements in the reply to v2.
+- Changelog: the normal-path leak does not retain quota charges; state
+  the preconditions of the example.
+- Shorter comment, EXT4_ERROR_INODE(); rebased onto ext4 dev; Cc stable.
+v2: fail the operation on a failed decrement instead of masking it.
+ fs/ext4/xattr.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/sound/soc/sti/uniperif_player.c b/sound/soc/sti/uniperif_player.c
-index 45d35b887e4e..34a604688cc9 100644
---- a/sound/soc/sti/uniperif_player.c
-+++ b/sound/soc/sti/uniperif_player.c
-@@ -1078,7 +1078,7 @@ int uni_player_init(struct platform_device *pdev,
- 		player->hw = &uni_player_pcm_hw;
- 
- 	/* Get uniperif resource */
--	player->clk = of_clk_get(pdev->dev.of_node, 0);
-+	player->clk = devm_clk_get(&pdev->dev, NULL);
- 	if (IS_ERR(player->clk)) {
- 		dev_err(player->dev, "Failed to get clock\n");
- 		return PTR_ERR(player->clk);
+diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
+index 5c310747b9650..d9e60b5952d2d 100644
+--- a/fs/ext4/xattr.c
++++ b/fs/ext4/xattr.c
+@@ -2113,6 +2113,24 @@ ext4_xattr_block_set(handle_t *handle, struct inode *inode,
+ 			mb_cache_entry_touch(ea_block_cache, ce);
+ 			mb_cache_entry_put(ea_block_cache, ce);
+ 			ce = NULL;
++			if (ea_inode && !(bs->bh && s->base == bs->bh->b_data)) {
++				/*
++				 * The cached block already owns its EA inode
++				 * references.  For an in-place update the lookup
++				 * reference belongs to the old block and is
++				 * dropped when that block is released.
++				 */
++				error = ext4_xattr_inode_dec_ref(handle,
++								 ea_inode);
++				if (error) {
++					EXT4_ERROR_INODE(inode,
++							 "dec ref error=%d",
++							 error);
++					ext4_put_ea_inode(ea_inode);
++					ea_inode = NULL;
++					goto cleanup;
++				}
++			}
+ 		} else if (bs->bh && s->base == bs->bh->b_data) {
+ 			/* We were modifying this block in-place. */
+ 			ea_bdebug(bs->bh, "keeping this block");
 -- 
-2.34.1
+2.55.0
 
