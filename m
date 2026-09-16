@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A0E4DD3BE
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F10794E06E2
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598795; cv=none; b=jeb2feFoaAr0r5X5/SZWAXBoa38U+JvQNiZRDXwsCMdmNO6Cb90PnXn3rxvI/qhM/3rO8CgKTITC4a9PcsoJ9DzVt5TopA8+/VDh7BvTrIx9hRHgJiJgRYypv4D+l/juYbUjmkINCPtiH5ufAS5rm8hIvPY24faZ601V7/q+yfU=
+	t=1789598798; cv=none; b=YqyUXbQ8CvcBlgPKFkFfKH5xvkW/3yvAcvZl8GOfj1cEWI3dj2uEP20C81Lk41U4haRicC/c+nAJrWYI6Lv/UWkMj5+vlIp9k3ZoAOuq3pF63ZRqctbB/YEwZnKQFQmFWd2+iKAep/T+cdqJ7vBaMBYtg2mwZyXcQgD/ekdglBg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598795; c=relaxed/simple;
-	bh=o7QSNGG/e7S8phwZ6V55xHAhPD5K/JkAMpoHyX+peGE=;
+	s=arc-20240116; t=1789598798; c=relaxed/simple;
+	bh=SeYxyODKU84DhOH95rBbGCC1CQCql/CvngXsqtFaF2w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M+/xZOb6KxDsBRd4rOOoGQny1pJ/pxcHbPNwhDisMfg0nUdRlXi2tEXEDqi91IxAnwKS0knqac9ZDlNSMuiTrVF36aCAhxM+ieKtlakaio/7M0dgDDTOxJRWyoM8mhML2fn4rtw1lI4S35zfnISw8nH1Di1z0h/KYlwz+MkVJks=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QXl1O662; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=k1UlbXYz/KJCajb7wUsIjQ4lrwUgMecPG8A2OMAAYF288uQsDj5f+qWX5yCRz2dGTaToIAHV+pWBH/SIPDgd3qgrJq9iFkXI0GCK/E+4WMLSLoGNpmWqPmukGKkkhUChCsySzNth7YJbNiCyf9ZQV/wO5wV9PJbcoopdNtW92yU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JZmALTcR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QXl1O662"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39E371F000FF;
-	Wed, 16 Sep 2026 22:46:27 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JZmALTcR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C9021F00893;
+	Wed, 16 Sep 2026 22:46:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598787;
-	bh=QIXzNk5xyeD8LQTqreN0rPx4B4NPb6kpwotbqb0B7e0=;
+	s=k20260515; t=1789598790;
+	bh=HTVpvD3HSgRVok0VY5arHvwnWTtBWCZCXki7aWzq0lU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QXl1O662z14HNhQqMJ97oOLPwa250bX6JDEl8clcRNB+lYa8RhTVsoEYWoCqRjM3d
-	 NONqEgO6cB0lJDA71qdhFkgKEjTzH4Og8St5Y5DlsVCcTYLr5IW8/L+2m886m9omGU
-	 21/QIIYb2Otg3oRKry9K4IAC3tDXzYNKvnbMl1fm///g2zPRuy2ikEW02f0qXHWOuf
-	 nfZPeiLN88ON0zN/OF0fZIGwQB4mmaE3xVJ0pcB4TLgjNN6tXsGzzoiSOlNThzQlGe
-	 dZNo3w1X+/ih0lEE/NifzsrytFmKgYjjuomW/6oXtvUwO2n1WLTnJy0BIbxb5S72L1
-	 d8qJyV58D2asw==
+	b=JZmALTcRYw62v3JI1N6jyebaxHPWuqGVUBmg0N/I78R9ZKENU7+HJ0rb2c99dg/Xk
+	 BX5QMtgaefDewsTw2n0nbtT5PUnfKOlMFm3tgErP7QpQ9GQSFF6P4AEs5OlzW6b09/
+	 wVq47ispVr5alAicyp4pRcKIaTGFNOWwPI/kDpdL9hj2mv/Z5/FdOSZeUbZ4R/gv48
+	 Ou2jogUgVcBrb4qcHcbXcnFhQGBijXmTIm6QIhDDaVvlTG/DJ/BDdct8f2ok+FMSrj
+	 /v/HMO9PhUnSMGvVlJ6hB5+DwiYW9Xtj9dCGu21LjcTvhSCxZS7/wyaeqhcGjaP4pg
+	 3i/TnSzoqAgwQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Gabriel Krisman Bertazi <krisman@suse.de>,
-	Jens Axboe <axboe@kernel.dk>,
+Cc: Satyajit Roy <sroy14@alum.utk.edu>,
+	Alex Hung <alex.hung@amd.com>,
+	Daniel Wheeler <daniel.wheeler@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] io_uring/net: don't overconsume buffers when using MSG_TRUNC
-Date: Wed, 16 Sep 2026 18:46:25 -0400
-Message-ID: <20260916224625.3197408-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y] drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
+Date: Wed, 16 Sep 2026 18:46:28 -0400
+Message-ID: <20260916224628.3197864-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091649-cussed-imperfect-a5fa@gregkh>
-References: <2026091649-cussed-imperfect-a5fa@gregkh>
+In-Reply-To: <2026091655-camera-corsage-45ca@gregkh>
+References: <2026091655-camera-corsage-45ca@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,175 +47,57 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Gabriel Krisman Bertazi <krisman@suse.de>
+From: Satyajit Roy <sroy14@alum.utk.edu>
 
-[ Upstream commit 6028b543884f8735e057ec9eea4908cd61cab230 ]
+[ Upstream commit 7fca7acd60a228b62b4e9efa5f184738041e9564 ]
 
-When a recv/recvmsg is issued with MSG_TRUNC and the incoming packet is
-larger than the provided buffer, the net layer returns the full length
-of the packet rather than the number of bytes actually copied into the
-buffer.  As a result, io_uring advances more of the provided buffer ring
-than was actually filled.  Use the actual filled region size to consume
-the buffer, but still return the full size to preserve MSG_TRUNC
-semantics.
+amdgpu_dm_get_output_color_space() applies the Broadcast RGB connector
+property to default RGB output, but always selects full-range output for
+BT.2020 RGB. Consequently, explicitly selecting Limited has no effect on
+the output CSC or AVI InfoFrame when HDR uses BT.2020 RGB.
 
-Take care with multishot, because that seems to already truncate the
-consumption based on the available payload size.
+Select COLOR_SPACE_2020_RGB_LIMITEDRANGE when the output encoding is RGB
+and Broadcast RGB is Limited. Keep Automatic and Full at full range, and
+leave YCbCr output unchanged.
 
-This was reported in https://github.com/axboe/liburing/issues/1619.
+Add KUnit coverage for limited-range RGB output through both BT.2020
+connector colorspace values.
 
-Fixes: ae98dbf43d75 ("io_uring/kbuf: add support for incremental buffer consumption")
+Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property")
+Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 022236eaa63bbf65761aa8aec43f661451a94654)
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260728191454.1850326-1-krisman@suse.de
-Signed-off-by: Gabriel Krisman Bertazi <krisman@suse.de>
-Link: https://patch.msgid.link/20260902230041.1320658-3-krisman@suse.de
-[axboe: fold in size_t unsigned fix]
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ replaced `len = ret` with `len = iov_iter_count(&kmsg->msg.msg_iter)` because the older buffer-selection helper returns zero on success. ]
+[ adapted the hunk to the older get_output_color_space() function in amdgpu_dm.c. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/net.c | 41 +++++++++++++++++++++++++++++++++--------
- 1 file changed, 33 insertions(+), 8 deletions(-)
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++---
+ 1 file changed, 7 insertions(+), 3 deletions(-)
 
-diff --git a/io_uring/net.c b/io_uring/net.c
-index f2f2ae1037e9b..eff8587293697 100644
---- a/io_uring/net.c
-+++ b/io_uring/net.c
-@@ -858,7 +858,7 @@ int io_recvmsg_prep(struct io_kiocb *req, const struct io_uring_sqe *sqe)
- static inline bool io_recv_finish(struct io_kiocb *req,
- 				  struct io_async_msghdr *kmsg,
- 				  struct io_br_sel *sel, bool mshot_finished,
--				  unsigned issue_flags)
-+				  unsigned issue_flags, int consumed)
- {
- 	struct io_sr_msg *sr = io_kiocb_to_cmd(req, struct io_sr_msg);
- 	unsigned int cflags = 0;
-@@ -869,7 +869,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
- 	if (sr->flags & IORING_RECVSEND_BUNDLE) {
- 		size_t this_ret = sel->val - sr->done_io;
- 
--		cflags |= io_put_kbufs(req, this_ret, sel->buf_list, io_bundle_nbufs(kmsg, this_ret));
-+		cflags |= io_put_kbufs(req, consumed, sel->buf_list, io_bundle_nbufs(kmsg, consumed));
- 		if (sr->retry_flags & IO_SR_MSG_RETRY)
- 			cflags = req->cqe.flags | (cflags & CQE_F_MASK);
- 		/* bundle with no more immediate buffers, we're done */
-@@ -888,7 +888,7 @@ static inline bool io_recv_finish(struct io_kiocb *req,
- 			return false;
- 		}
- 	} else {
--		cflags |= io_put_kbuf(req, sel->val, sel->buf_list);
-+		cflags |= io_put_kbuf(req, consumed, sel->buf_list);
- 	}
- 
- 	/*
-@@ -1021,6 +1021,8 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 	int ret, min_ret = 0;
- 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
- 	bool mshot_finished = true;
-+	int consumed = 0;
-+	size_t len;
- 
- 	sock = sock_from_file(req->file);
- 	if (unlikely(!sock))
-@@ -1036,9 +1038,8 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 
- retry_multishot:
- 	sel.buf_list = NULL;
-+	len = sr->len;
- 	if (io_do_buffer_select(req)) {
--		size_t len = sr->len;
--
- 		sel = io_buffer_select(req, &len, issue_flags);
- 		if (!sel.addr)
- 			return -ENOBUFS;
-@@ -1059,6 +1060,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 	if (req->flags & REQ_F_APOLL_MULTISHOT) {
- 		ret = io_recvmsg_multishot(sock, sr, kmsg, flags,
- 					   &mshot_finished);
-+		consumed = ret;
- 	} else {
- 		/* disable partial retry for recvmsg with cmsg attached */
- 		if (flags & MSG_WAITALL && !kmsg->msg.msg_controllen)
-@@ -1066,6 +1068,15 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 
- 		ret = __sys_recvmsg_sock(sock, &kmsg->msg, sr->umsg,
- 					 kmsg->uaddr, flags);
-+		/*
-+		 * With MSG_TRUNC, the net layer will return the full size of
-+		 * the packet, even if we only filled part of it in the buffers.
-+		 * Adjust the returned size to consume only the real part of the
-+		 * buffer.
-+		 */
-+		consumed = ret;
-+		if (ret > 0)
-+			consumed = min_t(size_t, ret, len);
- 	}
- 
- 	if (ret < min_ret) {
-@@ -1094,7 +1105,7 @@ int io_recvmsg(struct io_kiocb *req, unsigned int issue_flags)
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
- 
- 	sel.val = ret;
--	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
-+	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
- 		goto retry_multishot;
- 
- 	return sel.val;
-@@ -1175,9 +1186,10 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 	struct io_br_sel sel;
- 	struct socket *sock;
- 	unsigned flags;
--	int ret, min_ret = 0;
-+	int ret, min_ret = 0, consumed = 0;
- 	bool force_nonblock = issue_flags & IO_URING_F_NONBLOCK;
- 	bool mshot_finished;
-+	size_t len = 0;
- 
- 	if (!(req->flags & REQ_F_POLLED) &&
- 	    (sr->flags & IORING_RECVSEND_POLL_FIRST))
-@@ -1193,6 +1205,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 
- retry_multishot:
- 	sel.buf_list = NULL;
-+	len = sr->len;
- 	if (io_do_buffer_select(req)) {
- 		sel.val = sr->len;
- 		ret = io_recv_buf_select(req, kmsg, &sel, issue_flags);
-@@ -1200,6 +1213,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 			kmsg->msg.msg_inq = -1;
- 			goto out_free;
- 		}
-+		len = iov_iter_count(&kmsg->msg.msg_iter);
- 		sr->buf = NULL;
- 	}
- 
-@@ -1232,6 +1246,17 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 	}
- 
- 	mshot_finished = ret <= 0;
-+
-+	/*
-+	 * With MSG_TRUNC, the net layer will return the full size of
-+	 * the packet, even if we only filled part of it in the buffers.
-+	 * Adjust the returned size to consume only the real part of the
-+	 * buffer.
-+	 */
-+	consumed = ret;
-+	if (ret > 0)
-+		consumed = min_t(size_t, ret, len);
-+
- 	if (ret > 0)
- 		ret += sr->done_io;
- 	else if (sr->done_io)
-@@ -1240,7 +1265,7 @@ int io_recv(struct io_kiocb *req, unsigned int issue_flags)
- 		io_kbuf_recycle(req, sel.buf_list, issue_flags);
- 
- 	sel.val = ret;
--	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags))
-+	if (!io_recv_finish(req, kmsg, &sel, mshot_finished, issue_flags, consumed))
- 		goto retry_multishot;
- 
- 	return sel.val;
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+index 170c6b8d0a5f6..b83778a660b46 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
+@@ -6891,10 +6891,14 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
+ 		break;
+ 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
+ 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
+-		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB)
+-			color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
+-		else
++		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
++			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
++				color_space = COLOR_SPACE_2020_RGB_LIMITEDRANGE;
++			else
++				color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
++		} else {
+ 			color_space = COLOR_SPACE_2020_YCBCR_LIMITED;
++		}
+ 		break;
+ 	case DRM_MODE_COLORIMETRY_DEFAULT: // ITU601
+ 	default:
 -- 
 2.53.0
 
