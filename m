@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6256B37E5E2
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:59:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D384D46A611
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:59:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574379; cv=none; b=H4SmkvEGblMv7XY698ct1P5I3RqXoTGLE+YlwTcaq1ah8zqQCLmkVFUPC2Vxzax2j2ey0Km9vZ+vCTHMi3H02hoFyfPIPQFUKDXZsWSRdvKIGUUpLQyARVT999aUTabbIDhXgUp80g94fSVpqGPUuBoveVYaQPqZN0BI7reJEpA=
+	t=1789574378; cv=none; b=rlEvS5Yurl/C2NJ8+h/+LN6m3k/rVFzskPsq9Zv2dPreJ7gk3lrONz/3mdta8bgK2BJ5as6ruadk4T8lwdQRLbBNyJNFmZBq3wr3s40n3uoI4Gl47Q7PkG4F2z2+jfRhSlsNXMFlJuDly86AOUpbGsSuTGsMyIPiOqSTwCihhzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574379; c=relaxed/simple;
-	bh=H1UpL8RE+4ubIeODOHRKKNMEkz2Emg2PEoozV6LwmdU=;
+	s=arc-20240116; t=1789574378; c=relaxed/simple;
+	bh=BDV7XWTzcWHLY0Ew72QlEjVvPTeiguJFBx1/1pGChc0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WIwhU2/rNDcCLiOZ/ECeCd8opMreudi1EuBVY322gw8isxwQcbicN1QdTTdsU9iRt9QiF7GRAi20Ui3xuklpc1Z43FXZa0Rk/39h7/pAI0Pgds2C0/WjjT4KSavjQ4YwGkY0CmJmE6nChI3vnPcTMXun2pj3IAOxp9KMVNC0QT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O38rKOds; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=BSNISgWDDi010fEHkTKIx9LB0DZuZn6EIpnr8ixI2B2SkMUTZDGNrHm7Qi2J0yOHRbbcFgjbUmT/n4LFkEsj2V1E6pXCct5P8dNHv3yU/dZ4gnf+7QVqsGPpK8yNRl7hnWSnuA5JYk8JBcCEfEqstq7NpNdL9RVyQvNhatfAFvM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kF9Muozg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O38rKOds"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 024721F000FF;
-	Wed, 16 Sep 2026 15:59:33 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kF9Muozg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B92571F00899;
+	Wed, 16 Sep 2026 15:59:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789574374;
-	bh=z4+5ZDCl3IpaHTGAbKAbhO6uoQCfnp65A60IcD/kffk=;
+	s=k20260515; t=1789574375;
+	bh=cA+UykqY7UUxLrSLeFZxXQCt3ZuY+Ykz/Kda78G4xgc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=O38rKOds80hf/GQAKaR8NIeIGsYQ19kB2mHj4V/V2EAiFA8TA9kg03Dqh0tB6D5rn
-	 M+JEIDshCpn/sKhtQGMFzcMg29Hve0ZV78zOsI8RnS9ovxSYJhoi/ocUsivARzXVxm
-	 K6NXDmA9zAmSL1l9SPGMG1cd4actIlGIDTfMvOUoqbyhKO1tuoYr8jTz4lz5EdlBwJ
-	 Nr+QRQA7KRljJMvDFuXGUhCFKWfecWv8D7gk0CXsNmY0lfZQJfFol1kES+DwNY25gq
-	 G3r6HvMJVWrUdf3agc/2y5E5eUaOqEsWmdB35YeiG8XC82NA2en/KqWp4NdtHJB5sI
-	 KsF/4bTI0P0Rw==
+	b=kF9MuozgDHJJc2t0FUwkSGu5iThS+oUzs+vKFpLMtYXGGM243JvsO6TsL2kw853mE
+	 K8VfbPTn1kOWCGHHPueB3Qwnx1fpkhRnqznsr0KXZW11ZTNFBYGqfnPBvmTnzhxbEo
+	 Rl3j5EmAV3jnuBMzo7zCIuQZwRxzx5Hmt759LVyzk17bdKVCfHvd1y3K9aTmf8YCSf
+	 Xt2/yaXB/10sIB9a5zmb0FR/t+Vh74XELt2wJpOyz01FEzCd2Gq8upcta+EgtdDdZH
+	 at4D4DR99G6aSas0eHThO8NR1zWx6HEtfmWdPjuV3b6egLmfkNMPjkRoGrnn4L3Bjd
+	 jhS7SaNISpiug==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Christian Brauner <brauner@kernel.org>,
-	Josef Bacik <josef@toxicpanda.com>,
+Cc: Al Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Christian Brauner <brauner@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/3] path: add cleanup helper
-Date: Wed, 16 Sep 2026 11:59:30 -0400
-Message-ID: <20260916155932.28397-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/3] configfs:get_target() - release path as soon as we grab configfs_item reference
+Date: Wed, 16 Sep 2026 11:59:31 -0400
+Message-ID: <20260916155932.28397-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091645-grappling-craziness-559e@gregkh>
+In-Reply-To: <20260916155932.28397-1-sashal@kernel.org>
 References: <2026091645-grappling-craziness-559e@gregkh>
+ <20260916155932.28397-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,42 +47,88 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Christian Brauner <brauner@kernel.org>
+From: Al Viro <viro@zeniv.linux.org.uk>
 
-[ Upstream commit ff2c570ef7eaa9ded58e7a02dd7a68874a897508 ]
+[ Upstream commit 1b25dea3867abc9bad6f0337d395c6f0ce4e4f6f ]
 
-Add a simple cleanup helper so we can cleanup struct path easily.
-No need for any extra machinery. Avoid DEFINE_FREE() as it causes a
-local copy of struct path to be used. Just rely on path_put() directly
-called from a cleanup helper.
+... and get rid of path argument - it turns into a local variable in get_target()
 
-Link: https://lore.kernel.org/r/20240607-vfs-listmount-reverse-v1-2-7877a2bfa5e5@kernel.org
-Reviewed-by: Josef Bacik <josef@toxicpanda.com>
-Signed-off-by: Christian Brauner <brauner@kernel.org>
+Reviewed-by: Jan Kara <jack@suse.cz>
+Reviewed-by: Christian Brauner <brauner@kernel.org>
+Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
 Stable-dep-of: a7c1290eef60 ("configfs: pin the symlink target's dirent instead of chasing ->ci_dentry")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/path.h | 9 +++++++++
- 1 file changed, 9 insertions(+)
+ fs/configfs/symlink.c | 33 +++++++++++++--------------------
+ 1 file changed, 13 insertions(+), 20 deletions(-)
 
-diff --git a/include/linux/path.h b/include/linux/path.h
-index 475225a03d0dc..ca073e70decd5 100644
---- a/include/linux/path.h
-+++ b/include/linux/path.h
-@@ -24,4 +24,13 @@ static inline void path_put_init(struct path *path)
- 	*path = (struct path) { };
+diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
+index cb61467478ca8..64a57c0b67c14 100644
+--- a/fs/configfs/symlink.c
++++ b/fs/configfs/symlink.c
+@@ -116,33 +116,27 @@ static int create_link(struct config_item *parent_item,
  }
  
-+/*
-+ * Cleanup macro for use with __free(path_put). Avoids dereference and
-+ * copying @path unlike DEFINE_FREE(). path_put() will handle the empty
-+ * path correctly just ensure @path is initialized:
-+ *
-+ * struct path path __free(path_put) = {};
-+ */
-+#define __free_path_put path_put
-+
- #endif  /* _LINUX_PATH_H */
+ 
+-static int get_target(const char *symname, struct path *path,
+-		      struct config_item **target, struct super_block *sb)
++static int get_target(const char *symname, struct config_item **target,
++		      struct super_block *sb)
+ {
++	struct path path __free(path_put) = {};
+ 	int ret;
+ 
+-	ret = kern_path(symname, LOOKUP_FOLLOW|LOOKUP_DIRECTORY, path);
+-	if (!ret) {
+-		if (path->dentry->d_sb == sb) {
+-			*target = configfs_get_config_item(path->dentry);
+-			if (!*target) {
+-				ret = -ENOENT;
+-				path_put(path);
+-			}
+-		} else {
+-			ret = -EPERM;
+-			path_put(path);
+-		}
+-	}
+-
+-	return ret;
++	ret = kern_path(symname, LOOKUP_FOLLOW|LOOKUP_DIRECTORY, &path);
++	if (ret)
++		return ret;
++	if (path.dentry->d_sb != sb)
++		return -EPERM;
++	*target = configfs_get_config_item(path.dentry);
++	if (!*target)
++		return -ENOENT;
++	return 0;
+ }
+ 
+ 
+ int configfs_symlink(struct inode *dir, struct dentry *dentry, const char *symname)
+ {
+ 	int ret;
+-	struct path path;
+ 	struct configfs_dirent *sd;
+ 	struct config_item *parent_item;
+ 	struct config_item *target_item = NULL;
+@@ -189,7 +183,7 @@ int configfs_symlink(struct inode *dir, struct dentry *dentry, const char *symna
+ 	 *  AV, a thoroughly annoyed bastard.
+ 	 */
+ 	inode_unlock(dir);
+-	ret = get_target(symname, &path, &target_item, dentry->d_sb);
++	ret = get_target(symname, &target_item, dentry->d_sb);
+ 	inode_lock(dir);
+ 	if (ret)
+ 		goto out_put;
+@@ -210,7 +204,6 @@ int configfs_symlink(struct inode *dir, struct dentry *dentry, const char *symna
+ 	}
+ 
+ 	config_item_put(target_item);
+-	path_put(&path);
+ 
+ out_put:
+ 	config_item_put(parent_item);
 -- 
 2.53.0
 
