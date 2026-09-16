@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 80C654B4025
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:08:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3254357D02
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:08:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574891; cv=none; b=nk5g5y6UApENT4Y6Ef4RvITuU6kLe5HFqcdPzxI5CuPSpp5qWQEwB/aXGhqNoe6CYIR8xKUmovCLI0XsGRBwZoHHrupn6ZijVHbd2HdIXZ+cE6SONWQkQaRjjHGJzo6SrCHGZ9C4v617z2eQmS9I7mwoY/bnOsKebt3irIrClco=
+	t=1789574895; cv=none; b=oHSh3L8lQC0wY30E2iYq+mI08nVZ1lPtKhZyq0XWgJIlzrsG/SMhV5oSigYpmUJ4EtufJSjYsr5321tY9iZpgkdMXybrg8Zv6vn0eyCU1ALo8b5vJe2RqydYlq++Q/VnCEFbDb67rhk6wRHXwi1PnYDkDj00fvHlS+vJi0kn5Kw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574891; c=relaxed/simple;
-	bh=TwEGKAkZ+SY2PZSIucwEGarR2ZDU123vCZwgo2IitcA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DuIkvf8G4YdsX1RasohvZ6KSPwvl/E6njQWE+ZKvMP+0TEcVBpwE8B8Jln3ZtKEvSpAESI/IwsNTOuT3UXOtoxWwq4seMwdBLfv8YbBrLYQBVsKWcCCwSNZqLEPRU0TxWr6UhfT+iJ6QFVU4MH+ab5zV1mlyBFg1BP4mOtr1Fj4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=okQcnydB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574895; c=relaxed/simple;
+	bh=HWgixu6zkH0DmZsidZXaMLEUgC6N0CR9RhrtJvmeaSk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=PudYgRU6jnO1qg7D1gDvPI/itpauFVAxFTrt3Iqud3UfU9RRNRyFxF/7kU5G3ocaHHJb2tanPu6o8OXbVQJDHeGsdiB26tDD7EBoRrGagmRmDydb0lL9DDSWNFCyYWmfYk3gd4mxPdtWebHFhFNyvbM+uOPZUIau2LrvYQjcmeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bZa9uPUJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="okQcnydB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 34A3D1F000FF;
-	Wed, 16 Sep 2026 16:08:08 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bZa9uPUJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3C5D91F000FF;
+	Wed, 16 Sep 2026 16:08:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574888;
-	bh=if0HsGrh7neT+/QrAXKVRz8YWD6zLSTQeI5ZzPCaoVg=;
+	s=korg; t=1789574891;
+	bh=fsIQwJ8+CWz3sg1kiheOCLAYoxYFy3QQ+rskBQ/2TQY=;
 	h=Subject:To:Cc:From:Date;
-	b=okQcnydB5GNU35SFT1V4V12rfBZeKHiWDJ2akOytEv6Hx3Kr68AjTkjHFkqEGUtD1
-	 Bfw3KrT0HO4KZd86hZCPWIqzjC0b0VN0cAmAgPW29uhbIYLJ9ww09KV12oGinLM2Fs
-	 Qlj9fl1CGfYvGxpfgb1YVN1OuipB5wa7Af7ubJuU=
-Subject: FAILED: patch "[PATCH] selftests: ublk: install test_common.sh and trace/ scripts" failed to apply to 6.18-stable tree
-To: mngyadam@amazon.de,axboe@kernel.dk,tom.leiming@gmail.com
+	b=bZa9uPUJAfbjw3aHarLos6kIkPBZVSne3igkTUoNxfH1NJXGC2FlKEwFg20ItSbWB
+	 QeFiA5Zenq8FaTG+K/sQyIj9BdO7FncB0Vm3F8Q3m0ReuHI/F85u2tWCkUMX9D1/XY
+	 IvRJYDWT3/mhhX0qNkzkn+MmfC+DpZwYfYqEp5Wg=
+Subject: FAILED: patch "[PATCH] perf: RISC-V: store available counter mask as bitmap" failed to apply to 6.6-stable tree
+To: liuxixin@kylinos.cn,pjw@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:51:00 +0100
-Message-ID: <2026091600-snowsuit-hermit-eac1@gregkh>
+Date: Wed, 16 Sep 2026 16:51:19 +0100
+Message-ID: <2026091619-accompany-sequester-6fcc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x c4fa55f85c47cd5d54d717fb8170746edb10292e
+git cherry-pick -x 6809da6e9c08ccc9a09cb0a48c61471679274aaa
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091600-snowsuit-hermit-eac1@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091619-accompany-sequester-6fcc@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,50 +62,228 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From c4fa55f85c47cd5d54d717fb8170746edb10292e Mon Sep 17 00:00:00 2001
-From: Mahmoud Nagy Adam <mngyadam@amazon.de>
-Date: Wed, 9 Sep 2026 15:26:03 +0200
-Subject: [PATCH] selftests: ublk: install test_common.sh and trace/ scripts
+From 6809da6e9c08ccc9a09cb0a48c61471679274aaa Mon Sep 17 00:00:00 2001
+From: Xixin Liu <liuxixin@kylinos.cn>
+Date: Tue, 18 Aug 2026 17:10:00 +0800
+Subject: [PATCH] perf: RISC-V: store available counter mask as bitmap
 
-Every ublk test script sources test_common.sh from its own directory:
+The available-counter mask was a single unsigned long, but iteration
+uses RISCV_MAX_COUNTERS, which is 64. On RV32 that reads past the object.
+Filling with an unsigned-long bit at index 32 and above is also wrong.
 
-    . "$(cd "$(dirname "$0")" && pwd)"/test_common.sh
+Use DECLARE_BITMAP and set_bit/bitmap helpers. Walk each bitmap word
+into CFG_MATCH when checking events, when allocating an index, and when
+stopping all counters. Set the counter base to i times BITS_PER_LONG.
+Share the CFG_MATCH ecall through a small helper so the 32-bit argument
+split is not duplicated. On qemu-system-riscv32 the probe bitmap has bits
+above XLEN set, so the first word alone is not enough.
 
-and test_generic_02/12 additionally run bpftrace against the scripts in
-trace/. Neither test_common.sh nor trace/ is listed in TEST_FILES, so
-"make install" does not copy them into the install directory and every
-ublk test fails when run from there:
+Fixes: e9991434596f ("RISC-V: Add perf platform driver based on SBI PMU extension")
+Assisted-by: DeepSeek:deepseek-v3
+Signed-off-by: Xixin Liu <liuxixin@kylinos.cn>
+Link: https://patch.msgid.link/prpmask02cmap.v2.1786434000.git.liuxixin@kylinos.cn
+Cc: stable@kernel.org
+[pjw@kernel.org: updated to apply; fixed checkpatch.pl issues]
+Signed-off-by: Paul Walmsley <pjw@kernel.org>
 
-  ./test_generic_02.sh: line 4: .../kselftest_install/ublk/test_common.sh: No such file or directory
-  ./test_generic_02.sh: line 8: _have_program: command not found
-
-The bpftrace tests are affected even when bpftrace is installed: the
-missing trace/*.bt makes bpftrace exit immediately, and the tests then
-report a skip rather than a failure, which hides the problem.
-
-Add both to TEST_FILES, matching how other selftests ship their sourced
-helpers (see kexec/kexec_common_lib.sh and zram/zram_lib.sh).
-
-Fixes: 6aecda00b7d1e1 ("selftests: ublk: add kernel selftests for ublk")
-Fixes: 723977cab4c0fd ("selftests: ublk: add generic_01 for verifying sequential IO order")
-Cc: stable@vger.kernel.org # v6.15+
-Assisted-by: Kiro:claude-opus-5
-Signed-off-by: Mahmoud Nagy Adam <mngyadam@amazon.de>
-Reviewed-by: Ming Lei <tom.leiming@gmail.com>
-Link: https://patch.msgid.link/20260909132602.68852-2-mngyadam@amazon.de
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-
-diff --git a/tools/testing/selftests/ublk/Makefile b/tools/testing/selftests/ublk/Makefile
-index 5daf36c6c36c..37883e9d50ec 100644
---- a/tools/testing/selftests/ublk/Makefile
-+++ b/tools/testing/selftests/ublk/Makefile
-@@ -73,6 +73,8 @@ TEST_PROGS += test_stress_08.sh
- TEST_PROGS += test_stress_09.sh
+diff --git a/drivers/perf/riscv_pmu_legacy.c b/drivers/perf/riscv_pmu_legacy.c
+index 4d6461d6a74f..1b8e4789cb3c 100644
+--- a/drivers/perf/riscv_pmu_legacy.c
++++ b/drivers/perf/riscv_pmu_legacy.c
+@@ -110,8 +110,9 @@ static void pmu_legacy_init(struct riscv_pmu *pmu)
+ {
+ 	pr_info("Legacy PMU implementation is available\n");
  
- TEST_FILES := settings
-+TEST_FILES += test_common.sh
-+TEST_FILES += trace
+-	pmu->cmask = BIT(RISCV_PMU_LEGACY_CYCLE) |
+-		BIT(RISCV_PMU_LEGACY_INSTRET);
++	bitmap_zero(pmu->cmask, RISCV_MAX_COUNTERS);
++	set_bit(RISCV_PMU_LEGACY_CYCLE, pmu->cmask);
++	set_bit(RISCV_PMU_LEGACY_INSTRET, pmu->cmask);
+ 	pmu->ctr_start = pmu_legacy_ctr_start;
+ 	pmu->ctr_stop = NULL;
+ 	pmu->event_map = pmu_legacy_event_map;
+diff --git a/drivers/perf/riscv_pmu_sbi.c b/drivers/perf/riscv_pmu_sbi.c
+index 8ea5ae617347..2c50a6ba2a80 100644
+--- a/drivers/perf/riscv_pmu_sbi.c
++++ b/drivers/perf/riscv_pmu_sbi.c
+@@ -97,7 +97,7 @@ static unsigned int riscv_pmu_irq_mask;
+ static unsigned int riscv_pmu_irq;
  
- TEST_GEN_PROGS_EXTENDED = kublk metadata_size
- STANDALONE_UTILS := metadata_size.c
+ /* Cache the available counters in a bitmask */
+-static unsigned long cmask;
++static DECLARE_BITMAP(cmask, RISCV_MAX_COUNTERS);
+ 
+ static int pmu_event_find_cache(u64 config);
+ struct sbi_pmu_event_data {
+@@ -359,16 +359,38 @@ static int pmu_sbi_check_event_info(void)
+ 	return result;
+ }
+ 
++static struct sbiret pmu_sbi_ctr_cfg_match(unsigned long cbase,
++					   unsigned long ctr_mask,
++					   unsigned long cflags,
++					   unsigned long event_idx,
++					   u64 config)
++{
++#if defined(CONFIG_32BIT)
++	return sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_CFG_MATCH, cbase,
++			 ctr_mask, cflags, event_idx, config, config >> 32);
++#else
++	return sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_CFG_MATCH, cbase,
++			 ctr_mask, cflags, event_idx, config, 0);
++#endif
++}
++
+ static void pmu_sbi_check_event(struct sbi_pmu_event_data *edata)
+ {
+-	struct sbiret ret;
++	struct sbiret ret = { .error = SBI_ERR_NOT_SUPPORTED };
++	int i;
+ 
+-	ret = sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_CFG_MATCH,
+-			0, cmask, 0, edata->event_idx, 0, 0);
+-	if (!ret.error) {
+-		sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_STOP,
+-			  ret.value, 0x1, SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
+-	} else if (ret.error == SBI_ERR_NOT_SUPPORTED) {
++	for (i = 0; i < BITS_TO_LONGS(RISCV_MAX_COUNTERS); i++) {
++		if (!cmask[i])
++			continue;
++		ret = pmu_sbi_ctr_cfg_match(i * BITS_PER_LONG, cmask[i], 0,
++					    edata->event_idx, 0);
++		if (!ret.error) {
++			sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_STOP,
++				  ret.value, 0x1, SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
++			return;
++		}
++	}
++	if (ret.error == SBI_ERR_NOT_SUPPORTED) {
+ 		/* This event cannot be monitored by any counter */
+ 		edata->event_idx = -ENOENT;
+ 	}
+@@ -488,10 +510,10 @@ int riscv_pmu_get_hpm_info(u32 *hw_ctr_width, u32 *num_hw_ctr)
+ 	union sbi_pmu_ctr_info *info;
+ 	u32 hpm_width = 0, hpm_count = 0;
+ 
+-	if (!cmask)
++	if (bitmap_empty(cmask, RISCV_MAX_COUNTERS))
+ 		return -EINVAL;
+ 
+-	for_each_set_bit(i, &cmask, RISCV_MAX_COUNTERS) {
++	for_each_set_bit(i, cmask, RISCV_MAX_COUNTERS) {
+ 		info = &pmu_ctr_list[i];
+ 		if (!info)
+ 			continue;
+@@ -540,8 +562,8 @@ static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+ 	struct riscv_pmu *rvpmu = to_riscv_pmu(event->pmu);
+ 	struct cpu_hw_events *cpuc = this_cpu_ptr(rvpmu->hw_events);
+ 	struct sbiret ret;
+-	int idx;
+-	uint64_t cbase = 0, cmask = rvpmu->cmask;
++	int idx, i;
++	u64 cbase = 0, cmask = 0;
+ 	unsigned long cflags = 0;
+ 
+ 	cflags = pmu_sbi_get_filter_flags(event);
+@@ -562,14 +584,21 @@ static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+ 	}
+ 
+ 	/* retrieve the available counter index */
+-#if defined(CONFIG_32BIT)
+-	ret = sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_CFG_MATCH, cbase,
+-			cmask, cflags, hwc->event_base, hwc->config,
+-			hwc->config >> 32);
+-#else
+-	ret = sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_CFG_MATCH, cbase,
+-			cmask, cflags, hwc->event_base, hwc->config, 0);
+-#endif
++	if (cmask) {
++		ret = pmu_sbi_ctr_cfg_match(cbase, cmask, cflags, hwc->event_base,
++					    hwc->config);
++	} else {
++		ret.error = SBI_ERR_NOT_SUPPORTED;
++		for (i = 0; i < BITS_TO_LONGS(RISCV_MAX_COUNTERS); i++) {
++			if (!rvpmu->cmask[i])
++				continue;
++			cbase = i * BITS_PER_LONG;
++			ret = pmu_sbi_ctr_cfg_match(cbase, rvpmu->cmask[i], cflags,
++						    hwc->event_base, hwc->config);
++			if (!ret.error)
++				break;
++		}
++	}
+ 	if (ret.error) {
+ 		pr_debug("Not able to find a counter for event %lx config %llx\n",
+ 			hwc->event_base, hwc->config);
+@@ -577,7 +606,7 @@ static int pmu_sbi_ctr_get_idx(struct perf_event *event)
+ 	}
+ 
+ 	idx = ret.value;
+-	if (!test_bit(idx, &rvpmu->cmask) || !pmu_ctr_list[idx].value)
++	if (!test_bit(idx, rvpmu->cmask) || !pmu_ctr_list[idx].value)
+ 		return -ENOENT;
+ 
+ 	/* Additional sanity check for the counter id */
+@@ -881,7 +910,7 @@ static int pmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+ 			/* The logical counter ids are not expected to be contiguous */
+ 			continue;
+ 
+-		*mask |= BIT(i);
++		set_bit(i, mask);
+ 
+ 		cinfo.value = ret.value;
+ 		if (cinfo.type == SBI_PMU_CTR_TYPE_FW)
+@@ -898,12 +927,19 @@ static int pmu_sbi_get_ctrinfo(int nctr, unsigned long *mask)
+ 
+ static inline void pmu_sbi_stop_all(struct riscv_pmu *pmu)
+ {
++	int i;
++
+ 	/*
+ 	 * No need to check the error because we are disabling all the counters
+ 	 * which may include counters that are not enabled yet.
+ 	 */
+-	sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_STOP,
+-		  0, pmu->cmask, SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
++	for (i = 0; i < BITS_TO_LONGS(RISCV_MAX_COUNTERS); i++) {
++		if (!pmu->cmask[i])
++			continue;
++		sbi_ecall(SBI_EXT_PMU, SBI_EXT_PMU_COUNTER_STOP,
++			  i * BITS_PER_LONG, pmu->cmask[i],
++			  SBI_PMU_STOP_FLAG_RESET, 0, 0, 0);
++	}
+ }
+ 
+ static inline void pmu_sbi_stop_hw_ctrs(struct riscv_pmu *pmu)
+@@ -1451,7 +1487,7 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 	}
+ 
+ 	/* cache all the information about counters now */
+-	if (pmu_sbi_get_ctrinfo(num_counters, &cmask))
++	if (pmu_sbi_get_ctrinfo(num_counters, cmask))
+ 		goto out_free;
+ 
+ 	ret = pmu_sbi_setup_irqs(pmu, pdev);
+@@ -1464,7 +1500,7 @@ static int pmu_sbi_device_probe(struct platform_device *pdev)
+ 
+ 	pmu->pmu.attr_groups = riscv_pmu_attr_groups;
+ 	pmu->pmu.parent = &pdev->dev;
+-	pmu->cmask = cmask;
++	bitmap_copy(pmu->cmask, cmask, RISCV_MAX_COUNTERS);
+ 	pmu->ctr_start = pmu_sbi_ctr_start;
+ 	pmu->ctr_stop = pmu_sbi_ctr_stop;
+ 	pmu->event_map = pmu_sbi_event_map;
+diff --git a/include/linux/perf/riscv_pmu.h b/include/linux/perf/riscv_pmu.h
+index f82a28040594..ecaa40370830 100644
+--- a/include/linux/perf/riscv_pmu.h
++++ b/include/linux/perf/riscv_pmu.h
+@@ -55,7 +55,7 @@ struct riscv_pmu {
+ 
+ 	irqreturn_t	(*handle_irq)(int irq_num, void *dev);
+ 
+-	unsigned long	cmask;
++	DECLARE_BITMAP(cmask, RISCV_MAX_COUNTERS);
+ 	u64		(*ctr_read)(struct perf_event *event);
+ 	int		(*ctr_get_idx)(struct perf_event *event);
+ 	int		(*ctr_get_width)(int idx);
 
