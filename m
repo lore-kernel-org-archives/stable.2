@@ -1,96 +1,117 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.19])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C28C44CAC6;
-	Wed, 16 Sep 2026 07:35:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C583448BA8;
+	Wed, 16 Sep 2026 07:35:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.19
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544121; cv=none; b=ABgCTM+LgTjiWXWn9uS2TigzfXDaqEllTrdK2DQZtMBXda4MnB0eViHZAXeWbnunbgdYDSefYUO0DiQHCqEQqCxN6YWjyP7WF2zBlAFAQXbNVY3uCGssZPoTBNh6CnW7ujs2NsV7e60mzYUhEJilib8POm/GKMmX8K/cR56c6qw=
+	t=1789544166; cv=none; b=UxBmm9A/6Kkx2Gm2M09M4/R+yQKCsCKsIc82VKF+Vb4itsUx1H6IKgNiZgXzvo4t1EB71qvneyT9I7vrZSgTQGVREHk0NELb/ypPpNYBM0UmL/FzWvaGFvon0Vc82yhgAt8IRREE1tTEcE+eW0XHXo+WwB6cr89YwVp04uhDkvk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544121; c=relaxed/simple;
-	bh=1UVeQwscyNpnmYJo6LD9uYaqcx3DxYBMukW55ElL214=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=qbQ5EAakh4h3nRJRbhGPAh08d2RzaJaMAsjMMR4YHS0B5ESwD6omDDgF3Jlwoq0OGshogFUSmwTxXPlKCiAXh5tpebiDkqeWukxbDztK2SZkIW2vItFwU4z9tfaXX8pvF9EnVnPtS+KkeQP+ShW6MzrQArbsX+YqFIrU7uu/qCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAnLjycRqpq3DDfBw--.40397S2;
-	Wed, 16 Sep 2026 15:34:52 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: davem@davemloft.net
-Cc: david+nfc@ixit.cz,
-	edumazet@google.com,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	pabeni@redhat.com,
-	sameo@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] nfc: llcp: Fix socket reference leak in nfc_llcp_recv_ui()
-Date: Wed, 16 Sep 2026 07:34:24 +0000
-Message-Id: <20260916073424.1971784-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789544166; c=relaxed/simple;
+	bh=GkzRMnHLUAmW3pw+F+QgiPFULxg/81kYYY7dmuCPp9U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m+4/pQ+Zb8UxKT59Ehvz1qZhLIjSIwuAiQZ+V1W6ZCZO0dIFpg0V/5zGM5T7wX7un/RbfY/hh44JbhRWBu5MKGlDfWc0lkMILTV/m/hLAgQPck8nG8V37iSqafY1eiVFDKPmEiEd2EUC9lhMb+hn6VFUeJqTVDnZEyWri9LUjQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ZtTpbNLU; arc=none smtp.client-ip=192.198.163.19
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ZtTpbNLU"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789544149; x=1821080149;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=GkzRMnHLUAmW3pw+F+QgiPFULxg/81kYYY7dmuCPp9U=;
+  b=ZtTpbNLUgmgo63ZMEqbwtHA8YhY3XW6BCAoZO2Kp2sGhPhVm0mipgZ7z
+   Z0d5ooc/7EP9Z4LUWLYQqHRita9Gonf+EyC4u+4Ms1wVyp0uaSk2z/KU+
+   vYTwjXVmkunH1vKIYGn5hl6Rx1pNk2Hxd4NN5WegMXaPiUkPzDRoT6Oty
+   XqJEBLTQUtS6FC18ZTGvMgr0+YmMJPpnsS7/lgMXv8llFTgCuD1cQFpYK
+   J2XUAHQwk815rHP48b+Jom46hktlSPiMLyDj6eS+HGIAegysAXRvda3Vf
+   WXuNqzFhww1PMoQXfVPD08F8VhA20NfEMoN8xNHNjgSMVD6tZpKEWEL2Q
+   w==;
+X-CSE-ConnectionGUID: mgO986L7Riem/cLgPbKw1w==
+X-CSE-MsgGUID: 5Uad1/FiS2KF6tykk3DA7Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="88851660"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="88851660"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa113.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:35:45 -0700
+X-CSE-ConnectionGUID: GSN9yJVbRO2xpOZsPAj3VA==
+X-CSE-MsgGUID: VOs25VG+S32ijjFd8p0pTA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="267043796"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by fmviesa009-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 00:35:41 -0700
+Date: Wed, 16 Sep 2026 10:35:39 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH] iio: adc: stm32-adc: fix possible division by zero in
+ processed channel
+Message-ID: <aqpGy9oQkDC-xZGW@ashevche-desk.local>
+References: <20260915-adc-fix-div0-v1-1-7daed9e52f2f@foss.st.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAnLjycRqpq3DDfBw--.40397S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKryrArW5WF15Gw48Xry7Wrg_yoWktFc_AF
-	1xCr17Xrs8CF43Ja9rGr4jy397Wrn7Wr4fZr1IyFsrJa4FyayFyrnxWrn3CrnrCa1UuF47
-	ArykArySqw1IyjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUCNtxUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAIMA2qqP7kcHwABsF
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915-adc-fix-div0-v1-1-7daed9e52f2f@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-In nfc_llcp_recv_ui(), nfc_llcp_sock_get() is called to find the bound
-socket. If the socket type is not SOCK_DGRAM, the function returns
-directly without releasing the socket reference via nfc_llcp_sock_put(),
-resulting in a reference count leak.
+On Tue, Sep 15, 2026 at 06:10:40PM +0200, Fabrice Gasnier wrote:
+> In case the conversion has failed or returned zero, processing *val
+> can lead to a division by zero.
+> Need to check for errors, or converted value is zero, before processing
+> the data.
+> In case converted value is zero, e.g. the Vrefint channel, this should
+> be considered as invalid in all case.
 
-Add nfc_llcp_sock_put() when the socket type is not SOCK_DGRAM.
+Something went very wrong with the indentation of the above.
 
-Fixes: 968272bf0087 ("NFC: Handle LLCP UI frames")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- net/nfc/llcp_core.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+...
 
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index db5bc6a878dd..5813c80ca593 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -888,8 +888,12 @@ static void nfc_llcp_recv_ui(struct nfc_llcp_local *local,
- 
- 	/* We're looking for a bound socket, not a client one */
- 	llcp_sock = nfc_llcp_sock_get(local, dsap, LLCP_SAP_SDP);
--	if (llcp_sock == NULL || llcp_sock->sk.sk_type != SOCK_DGRAM)
-+	if (!llcp_sock)
- 		return;
-+	if (llcp_sock->sk.sk_type != SOCK_DGRAM) {
-+		nfc_llcp_sock_put(llcp_sock);
-+		return;
-+	}
- 
- 	/* There is no sequence with UI frames */
- 	skb_pull(skb, LLCP_HEADER_SIZE);
+> -		if (mask == IIO_CHAN_INFO_PROCESSED)
+> -			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
+> +		if (mask == IIO_CHAN_INFO_PROCESSED) {
+> +			if (ret >= 0 && *val)
+> +				*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
+> +			else
+> +				ret = ret < 0 ? ret : -EINVAL;
+> +		}
+
+Reuse of the *val makes code harder to follow. Add a temporary variable for
+this and do something like this (also note other simplifications)
+
+		tmp_choose_good_name = *val;
+		...
+		if (mask == IIO_CHAN_INFO_PROCESSED) {
+			if (ret < 0)
+				return ret;
+			if (tmp == 0)
+				return -EINVAL;
+
+			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / tmp;
+		}
+
+>  		iio_device_release_direct(indio_dev);
+>  		return ret;
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
+
 
