@@ -1,161 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F934E06E6
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:52:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF2424E2F3C
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:56:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591981; cv=none; b=NY3cvtVfVGw9jFXbIJeOZejGGpioZe+B/SYULwD5RNN9f/mu1QiiRp4fJe+Ofz9C+TS6QjHwHZ2dTeoSRdRZJqWP4agpl9C8meeDnsp6nQs3opOwFQbpj9hXmVTJoX/qvxqZ7M6xjt9RmPcZuNkwlcyezJHst58C1tADZkq7kUE=
+	t=1789592233; cv=none; b=Pka0uXGYIAMvNvlHGmie7q3mNd1t/Bfh3vyP31EQl5VCQW9WJNu8KRM2u3Gnes6OIb7B3oVUbMqBngkC0wrNdQZlxuAo0S7txXiY/r0MKPEuRJkTr43S3lIslZIqOGis4W2IDeYhyJK12Jt6H2/J3CnkYZXRWszUdTmru/CK9Ak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591981; c=relaxed/simple;
-	bh=y21hVAvo99Gq8YzT3jVXT4hbV/+9E08eHWxlhUz6xHM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PMQT4saA67ha10zYIFGcGVswit9ARcWztUTkAjC/v4Ye1nhQ1o22kKn06dTzX084w0lWy3CrRM/Qya2RBFxV4pisXThydTvYeJKx6HhaQ1tr6y8KSx7nhfqHJ3x3m4WQRPKbpv9/MheNOWkLb5e5Iy7qiQZjjl0sdfVtsqJX0tc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=On8t7TIx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789592233; c=relaxed/simple;
+	bh=RppVRDd+YrHzQvvZN1le+JYQpQjCQxKe0LfhqimuI4U=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=T3/Ht3PybNXPPJjrD85DamKclmC3fLcZ1+3PahuXRIwUvbKUAjWEeCPQ/iiibmjorXZw7nIBU3dl6nxDsdL+pv+wMX6+g5j/gOO4nOLdJaZh7lYKzDA6CZGMiX4A00JKwu8PCHQqv9QvzpuBXqEsGMUqNQvJAxMR51j1XNuYbDs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IuzGAu0W; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="On8t7TIx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0EB1F00893;
-	Wed, 16 Sep 2026 20:52:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IuzGAu0W"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33AE31F000FF;
+	Wed, 16 Sep 2026 20:56:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789591965;
-	bh=OThOQxftxcCKbrcy7185G+G/2b8IB+FCbXeUevO/QLg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=On8t7TIxmUApcisdPMciowUptJXk85ZvqkiMIDp0tg0K8CUoBeNCVvfwL5aX+kVEh
-	 QzMwguFjj7lIO2fN9ALOhGQg41hO54kawrnty2qOye0jsVA3IUprCqVPVX2g8cVgYa
-	 slRKlndx7zRcdHAK+ufXO/ac5N43BJxC0rsRHT5hfvJZ5XaiUGU8rTid4RNVIXl9ej
-	 4e72XoWFrtZC/p8clamMTXOmzsGRUYh8jzcC6kHdrjpmYvFcXO2WKSDaN4DOM1zz3H
-	 GpgemXqG3gZh0zQDwo4dFeTsWSYw3CjUniFUFjDKjzAKt5R8POlJ6oX+fyVpMw1kPr
-	 tlPD81EBV2v9A==
+	s=k20260515; t=1789592211;
+	bh=EGrOX6JxGyGWgbklCme2s5kXALpwVHmytPQP2EpF3VQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=IuzGAu0W47aBs20Vz8LnRoKGZjCYM8itambybgDDlh9pC+8tHwUvPgS26lSzajhJe
+	 ZqShi/ST6ctUlS8P5ZIXI+ZFOZn95pEGM//WuM6sUC90QM+pplm2+XA5zDilzs41fO
+	 ApJIXIQDnTt/odE714dIngoQUHP+Hy9CYwoteo0nC2b1p4neA80bbzzHBDe9A6kfZQ
+	 Lg21PzarTpPqygOFxyBiQHaBaCQ3vWEPWr94pe48T0ulPlqm+PZjG6YFO3MfUFC09W
+	 famdIP2vv5DaV9O431RHG0ccJCVv/uaz8y/Vh0mEKw/tn+X1zL92ew/3Wdorvw7wXH
+	 w83BCBfx33j4A==
+Date: Wed, 16 Sep 2026 16:56:49 -0400
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
-	syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] io_uring/rw: end write accounting from ->ki_complete
-Date: Wed, 16 Sep 2026 16:52:43 -0400
-Message-ID: <20260916205243.2744997-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091623-wrangle-flammable-47de@gregkh>
-References: <2026091623-wrangle-flammable-47de@gregkh>
+To: Bradley Morgan <brads@mainlining.org>
+Cc: stable@vger.kernel.org, Daehyeon Ko <4ncienth@gmail.com>,
+	syzbot+0aee5e8066eddbbe7397@syzkaller.appspotmail.com,
+	syzbot+e8b3520b53e78e90034e@syzkaller.appspotmail.com,
+	Oleg Nesterov <oleg@redhat.com>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>
+Subject: Re: [PATCH 6.18.y 3/3] exit: hold a reference to thread_pid across
+ proc_flush_pid
+Message-ID: <aqsCkQKOgLUtjml1@laps>
+References: <2026091657-curry-myself-be92@gregkh>
+ <20260916203656.2689289-1-sashal@kernel.org>
+ <20260916203656.2689289-3-sashal@kernel.org>
+ <E01AAD86-816E-4B90-9D5D-E4281573ACBA@mainlining.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii; format=flowed
+Content-Disposition: inline
+In-Reply-To: <E01AAD86-816E-4B90-9D5D-E4281573ACBA@mainlining.org>
 
-From: Jens Axboe <axboe@kernel.dk>
+On Wed, Sep 16, 2026 at 09:47:29PM +0100, Bradley Morgan wrote:
+>Do you manually do all these? Or use a AI program to do these.
 
-[ Upstream commit 796aa0547557e63338657ed1c487906f9fac4c73 ]
+Some LLM, and some other tools that don't involve LLMs.
 
-Commit b000145e9907 moved both the fsnotify calls and the write
-accounting out of the kiocb completion handler and into the
-io_req_rw_complete() task_work. However, only the fsnotify part actually
-needed to move as it may sleep. Ending the write accounting is just a
-percpu_up_read() on the superblock writers sem.
+>If you use a AI program to do automated backporting, please add something
+>like:
+>
+>[LLM: Thing it's done to fix the conflict]
 
-Deferring it is a problem, because it makes dropping SB_FREEZE_WRITE
-protection depend on the ring owner getting to running task_work. But
-the task may be blocked in freeze_super(), causing it to never get to
-that:
+That gets added on commits that get modified by the LLM to backport cleanly. An
+example would be:
 
-  task                             io-wq worker
-  --------------------------------------------------------------
-  io_write()
-    io_kiocb_start_write()         (takes sb_writers, hidden from
-                                    lockdep by __sb_writers_release)
-    write_iter() -> -EIOCBQUEUED
-  ioctl(FS_IOC_SHUTDOWN)
-    bdev_freeze()
-      freeze_super()
-        percpu_down_write()        <- waits for the reader above
-                                   io_write()
-                                     kiocb_start_write()
-                                       percpu_down_read()  <- queued
-                                                              behind the
-                                                              writer
-  <bio completes>
-    io_complete_rw()
-      queues io_req_rw_complete()  <- never runs, task is in D state
+	https://lore.kernel.org/all/20260916204117.2702377-1-sashal@kernel.org/
 
-End the write from io_complete_rw() instead, and leave only the fsnotify
-calls in task_work.
+In this instance, there were no LLM tools involved in the resolution of the
+conflict. Instead, I took two prerequesite commits which allowed this last one
+to apply cleanly, thus there is no backport note on it.
 
-Reported-by: syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com
-Cc: stable@vger.kernel.org
-Fixes: b000145e9907 ("io_uring/rw: defer fsnotify calls to task context")
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ adjusted io_complete_rw() context to preserve the existing IOCB_DIO_CALLER_COMP guard ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- io_uring/rw.c | 25 +++++++++++++------------
- 1 file changed, 13 insertions(+), 12 deletions(-)
-
-diff --git a/io_uring/rw.c b/io_uring/rw.c
-index b78006228cc7f..3666ff3d2e421 100644
---- a/io_uring/rw.c
-+++ b/io_uring/rw.c
-@@ -532,20 +532,15 @@ static void io_req_end_write(struct io_kiocb *req)
- 	}
- }
- 
--/*
-- * Trigger the notifications after having done some IO, and finish the write
-- * accounting, if any.
-- */
--static void io_req_io_end(struct io_kiocb *req)
-+/* Trigger the notifications after having done some IO. */
-+static void io_req_io_notify(struct io_kiocb *req)
- {
- 	struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
- 
--	if (rw->kiocb.ki_flags & IOCB_WRITE) {
--		io_req_end_write(req);
-+	if (rw->kiocb.ki_flags & IOCB_WRITE)
- 		fsnotify_modify(req->file);
--	} else {
-+	else
- 		fsnotify_access(req->file);
--	}
- }
- 
- static void __io_complete_rw_common(struct io_kiocb *req, long res)
-@@ -586,7 +581,7 @@ void io_req_rw_complete(struct io_tw_req tw_req, io_tw_token_t tw)
- 		io_req_set_res(req, io_fixup_rw_res(req, res), 0);
- 	}
- 
--	io_req_io_end(req);
-+	io_req_io_notify(req);
- 
- 	if (req->flags & (REQ_F_BUFFER_SELECTED|REQ_F_BUFFER_RING))
- 		req->cqe.flags |= io_put_kbuf(req, req->cqe.res, NULL);
-@@ -600,6 +595,10 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
- 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
- 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
- 
-+	/* ring owner may block in freeze_super() before task_work runs */
-+	if (kiocb->ki_flags & IOCB_WRITE)
-+		io_req_end_write(req);
-+
- 	if (!kiocb->dio_complete || !(kiocb->ki_flags & IOCB_DIO_CALLER_COMP)) {
- 		__io_complete_rw_common(req, res);
- 		io_req_set_res(req, io_fixup_rw_res(req, res), 0);
-@@ -675,10 +674,12 @@ static int kiocb_done(struct io_kiocb *req, ssize_t ret,
- 
- 		__io_complete_rw_common(req, ret);
- 		/*
--		 * Safe to call io_end from here as we're inline
-+		 * Safe to notify from here as we're inline
- 		 * from the submission path.
- 		 */
--		io_req_io_end(req);
-+		if (rw->kiocb.ki_flags & IOCB_WRITE)
-+			io_req_end_write(req);
-+		io_req_io_notify(req);
- 		if (sel)
- 			cflags = io_put_kbuf(req, ret, sel->buf_list);
- 		io_req_set_res(req, final_ret, cflags);
 -- 
-2.53.0
-
+Thanks,
+Sasha
