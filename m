@@ -1,85 +1,108 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF457481FDF;
-	Wed, 16 Sep 2026 09:13:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EEBB481FDF;
+	Wed, 16 Sep 2026 09:14:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550013; cv=none; b=pYz0xg0u37gZtAjj2K/cMv6HMAhU4ZvVPafj+gwX99MEiX3xvVnyPhSMn5i6ulMG+cu/of6Cn6y1sH2bSUvoq/cBskO8JMP00z0w6jRnTiFfZ2ygatWLsq6X3ogYwro8uF323viqv6xmp/OoXrMjH05lwG8m0BBJHd7scTELL78=
+	t=1789550099; cv=none; b=YLNLFqARJt5cgbYHexPppsO59niD0oqb6hCHZ9A8ypm5XZXXUAAr+lMqNnDJwWoI5P/Yh/dZtNmqJYa8Ux9oN+JmkD46F3BUssjPWTJGcVjBK70UgHlnJwf24ll2XB6m5aCK1SsWboiSYHFTSmDrMmrYfFpJ0/tQq1tO65QxP5c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550013; c=relaxed/simple;
-	bh=/uW7dS2+cYvaC0td5unKme5V/yFKA18iJFNkCfR2Be4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QxF+XPsZUhfZViDt3DR8ZOZNdnRY9Ya0qu1y+G1MYy+m6tpyFd//QxomtlgFHonQ5IeRQLTbfl74gqyj9ShMlre7qpyv16xiitSrCnfHv+3JnIJKN6/+KRt8WANsD3rwN4rOG0fq7hio1FW/41IVQG6Ups9xlJjHapbg+rQRHVc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAB3eTevXapqQSrgBw--.42445S2;
-	Wed, 16 Sep 2026 17:13:19 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: bp@alien8.de
-Cc: linux-edac@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	qiuxu.zhuo@intel.com,
-	tony.luck@intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] EDAC/i10nm: Fix mdev reference leak in i10nm_get_ddr_munits()
-Date: Wed, 16 Sep 2026 09:12:51 +0000
-Message-Id: <20260916091251.1997522-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789550099; c=relaxed/simple;
+	bh=UopWjlwMF3bjhzOzb3h9pMV+6wfrWbRilvHvIHUhrb8=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Ex172HkNjBd+B3dG8DKOYaQYeN5GuSRERWOAnnXP0uvbydQ2flVe8a//a1Iuklo4dzTGYt9uaGdMSgFJlrYEGosRtOXXYraZI7Ad1Dh4QUL3Fd4wyrM8wqDU2+VBfzwu9KBtBlbxq/TY3sbjt3OWjTHXt+o2aWbKWyXW8WSLjRQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K9RvePjC; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K9RvePjC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12C551F000FF;
+	Wed, 16 Sep 2026 09:14:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789550049;
+	bh=BodzLEqlrUVJHz6lO02G+Wl1n2t5FZKPPceRuU58IM0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K9RvePjC5ZjOKjhuM/i26A7E9mNoXeUe/EGzQlCF234FP8BU4uvcg3wNA0NfCs82x
+	 RKKcUDcWpj8UGjzpAfatri8J3mKYJ5YeqfF8L8/nr61uACotSx+AnkcMzZGX61ShWX
+	 r8HmV76Z8abJex/qCR9p9N9gsTczzZ56P7Tc1nqDKJqC7G1l3Gn04n1j8FusuE+rXP
+	 hrhRBzYVMcagifgJHlBjTvnhRptB2K8qwcmYHamQCzwOadqhjeMzwIjYtHy0h9vZuq
+	 gnEhh4QEEP9Vwoe+Y0QR9XxGrVylBs9uin7ZfMddwHgtH7Bpbn+D8S8LL55QHy9Mx8
+	 E0alZKLR/q8MQ==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1x6liQ-00000005xMX-2H9f;
+	Wed, 16 Sep 2026 11:14:06 +0200
+Date: Wed, 16 Sep 2026 11:14:06 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] usb: core: add missing
+ pm_runtime_dont_use_autosuspend() call
+Message-ID: <aqpd3viN1UoZBkgL@hovoldconsulting.com>
+References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
+ <20260915090223.1346-2-joshua.crofts1@gmail.com>
+ <aqpOlKtxeROh-G_s@hovoldconsulting.com>
+ <20260916102132.00005129@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAB3eTevXapqQSrgBw--.42445S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKr47WrWkXr1DtFyftFyxZrb_yoWDGFg_Ga
-	ykZFW7ZryqkF1UGr1DKFWfZr92yF1vvFyxXws7tw13KFW5Xr17WF13u3Z0qr17Gw4kAryY
-	g398Xry7Zr12kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbLiSJ
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7mAiQAAsN
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916102132.00005129@gmail.com>
 
-In i10nm_get_ddr_munits(), get_ddr_munit() returns a PCI device with
-its reference count incremented.  If ioremap() fails to map the MMIO
-space of the memory controller, the function returns -ENODEV without
-putting the reference held by mdev, leaking it.
+On Wed, Sep 16, 2026 at 10:21:32AM +0200, Joshua Crofts wrote:
+> On Wed, 16 Sep 2026 10:08:52 +0200
+> Johan Hovold <johan@kernel.org> wrote:
+> 
+> > On Tue, Sep 15, 2026 at 09:02:18AM +0000, Joshua Crofts wrote:
+> > > The fail label in usb_new_device() disables pm_runtime on failure, but
+> > > doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.  
+> > 
+> > No it does not, as the device itself is about to be freed. Sure we could
+> > disable autosuspend again here, but it does not really matter.
+> > 
+> 
+> Okay, commit message aside, you still need to call dont_use_autosuspend()
+> on teardown as the driver doesn't use the devm_* counterparts.
 
-Put the device reference before returning on the ioremap failure path.
+No, you don't *need* to call it, but it is good practice to clean up
+after yourself even for the theoretical corner case of someone forcibly
+rebinding a different driver (which will soon also be tainting the
+kernel).
 
-Fixes: c545f5e41225 ("EDAC/i10nm: Skip the absent memory controllers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/edac/i10nm_base.c | 1 +
- 1 file changed, 1 insertion(+)
+But in this particular case (usb core) where all callers *free* the
+device after the function returns it does not matter one bit.
 
-diff --git a/drivers/edac/i10nm_base.c b/drivers/edac/i10nm_base.c
-index 63df35444214..b0cabe0daccd 100644
---- a/drivers/edac/i10nm_base.c
-+++ b/drivers/edac/i10nm_base.c
-@@ -847,6 +847,7 @@ static int i10nm_get_ddr_munits(void)
- 
- 			mbase = ioremap(base + off, size);
- 			if (!mbase) {
-+				pci_dev_put(mdev);
- 				i10nm_printk(KERN_ERR, "Failed to ioremap 0x%llx\n",
- 					     base + off);
- 				return -ENODEV;
--- 
-2.34.1
+> Currently
+> (according to my cocci SmPL [1]) there are 195 instances of this in the kernel.
+> 
+> ...
+> 
+> > But this one should not have a Fixes tag and does not need to be
+> > backported.
+> 
+> Yeah, you already mentioned this in IIO once [2]. I found several instances
+> of patches like these being backported however, so perhaps times have changed.
 
+If you write a misleading commit message and add a CC stable tag,
+chances are that a maintainer will miss this when reviewing and then
+the commit gets backported.
+
+That in no way means that you should continue doing so on purpose,
+that's bordering willful deception.
+
+Johan
+
+> [1] https://lore.kernel.org/cocci/20260915064327.1377-1-joshua.crofts1@gmail.com/
+> [2] https://lore.kernel.org/linux-iio/aoQEyeHUiTwWenBL@hovoldconsulting.com/
