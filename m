@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03C8B4A2048
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:16:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C2B4A385B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:16:38 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550205; cv=none; b=VTNQV5KuDShN1C377eR29+r5cUCXbMoSFyS4TWJKOsGoG3hTs3TyEWix+gBJ9ybqtUeONFZi+h69xktW8NVAf9oyQwnQbygmu4vEvJL2hrWvNZ+KeBZ1Z4WRgf7vHAfG0FnssuQifOCjWC9B0opmRt7ZoQv1wveliJDgcXb83/g=
+	t=1789550213; cv=none; b=efkHI5Fg1aKHkglaVGJWHkCam/zpOvM0yP/nk2PXnd+Gzoo1UW4WczcddzPBnOUzLJ0i+fRpxlby5Tr/wgsb0VpQ9j0k5/0Hcw4T08yUIypEALrhsTT6J4M8ktV9+RlZhiX80env0KoODQogd7xQLqqFLKj/lCjZ/nPXEWTnt5g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550205; c=relaxed/simple;
-	bh=xQiW589jQVBMfagDcUMlvYR9sRyIU2KeT9EDm50H2ww=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ujsGwSdhZ0LXVeGdttCbg1K8eXE0kuLFFmttKKYD44Azd9j5oKYoj+3Fh1ZALplEXGtm7yrN4H5GH7rr19bVVRZj9jWbv+VFT10JqcJBMuq8fu6rXlCHJI0egNlwmymUhDccsdaKkskF9jsu43EBu9jfIrnO1yWuZ3xCs0IQlBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DSkW+PiF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789550213; c=relaxed/simple;
+	bh=9RNM0EYktO40e+kgFeSoLXy7k2kM8AzmPVEqDMCM6lc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=IZ1cV9wmp4vuA29GN5qtqFd5/uU3U+KNIDpXF2p4piBG89pNrSti8WiOZWT304y11rnJMob7s76fMDUBPwJjDST+ALk7CaJy4M+oy1C1w1HBQWZFtN1PIKzLCAEqYoq315qRKRNv1UO3s/3VsCV6vifRdhZ/UvJh+fb4PoTpS8c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TMiNk2DW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DSkW+PiF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C2B391F0089E;
-	Wed, 16 Sep 2026 09:16:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TMiNk2DW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F3041F000FF;
+	Wed, 16 Sep 2026 09:16:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789550188;
-	bh=YHfcaSRbDHEnBD0nnxWs89cUw4H+mtxQpPnXkN3SbGs=;
+	s=korg; t=1789550195;
+	bh=SkuXjryvuqupBA3kdw7Z7uO34BcGr0+1pbKWA71JPLo=;
 	h=Subject:To:Cc:From:Date;
-	b=DSkW+PiFfPOk8GZ/3vSWIlBRehjEk1AG/bQnbhMqtamrnhtSVFC9KRGMHjWCC678t
-	 XobAoPB1l5HcARCr+pxUthj/66kLZ7V8B8bwn/k0p6+k5PI9xUjuMZE7+7JUMbbEi3
-	 WLxU3yCNfnq0P36ehx2X8UYk/1auM8dCJjFWzK5o=
-Subject: FAILED: patch "[PATCH] ALSA: us122l: Prevent write upgrades for read mappings" failed to apply to 5.10-stable tree
-To: hnkz.64@gmail.com,tiwai@suse.de
+	b=TMiNk2DW71lkmPnVOWFNFuc+m9kINifU3BLu9fQKCk5yGN0G0a14W1btLfQNl3bsb
+	 YuljT6vYFEHSkAYaREFPEQiYYbm1SoKzl2iQN3GBMr8B3JTOsJCDvPQzIfMo1sv+ov
+	 FbuX3guXlqvv9EZ5tUxAWOnr6s4bpfq42+Te8R5o=
+Subject: FAILED: patch "[PATCH] ALSA: usbusx2y: fix in04_last array size mismatch with" failed to apply to 5.10-stable tree
+To: tristan@talencesecurity.com,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 10:14:19 +0100
-Message-ID: <2026091619-kinswoman-zipfile-ef2c@gregkh>
+Date: Wed, 16 Sep 2026 10:14:36 +0100
+Message-ID: <2026091636-ultimatum-procurer-683f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 71c610aeb1770302ac9c9e0b9a4ecd37f1311928
+git cherry-pick -x 861111a14740e12c36d363e9830f8daa734279c9
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091619-kinswoman-zipfile-ef2c@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091636-ultimatum-procurer-683f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,50 +62,84 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 71c610aeb1770302ac9c9e0b9a4ecd37f1311928 Mon Sep 17 00:00:00 2001
-From: Kazuki Hanai <hnkz.64@gmail.com>
-Date: Tue, 8 Sep 2026 20:00:53 +0900
-Subject: [PATCH] ALSA: us122l: Prevent write upgrades for read mappings
+From 861111a14740e12c36d363e9830f8daa734279c9 Mon Sep 17 00:00:00 2001
+From: Tristan Madani <tristan@talencesecurity.com>
+Date: Fri, 4 Sep 2026 20:58:25 +0000
+Subject: [PATCH] ALSA: usbusx2y: fix in04_last array size mismatch with
+ in04_buf
 
-The hwdep mmap callback rejects read-buffer mappings that are initially
-writable, but leaves VM_MAYWRITE set on mappings created with PROT_READ.
-A process that can open the hwdep node O_RDWR can later use mprotect() to
-make the mapping writable.
+The in04_last array in struct usx2ydev is declared as char[24], but
+in04_buf is allocated as sizeof(struct us428_ctls) which is 21 bytes.
+In i_usx2y_in04_int(), when ctl_snapshot_last == -2 (initialization
+path):
 
-The read allocation begins with struct usb_stream. Its read_size member is
-used by the fault handler to decide which pages belong to the read buffer.
-The read VMA intentionally remains expandable because pcm_usb_stream uses
-mremap() after reading that size. Changing read_size first can therefore
-map and access pages beyond the allocation. The same member is also
-consumed by usb_stream_free(), where changing it can make
-free_pages_exact() release pages outside the allocation.
+    memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
 
-Clear VM_MAYWRITE for read-buffer mappings after rejecting an initially
-writable VMA. This keeps the separate output-buffer mapping writable while
-preventing later permission upgrades.
+This copies 24 bytes from a 21-byte slab allocation, reading 3 bytes
+past the end of the source object.
 
-Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+Introduce a USX2Y_IN04_SIZE constant defined as sizeof(struct
+us428_ctls) and use it consistently for the in04_last array, the
+in04_buf allocation, the URB transfer length, and the comparison loop,
+replacing the bare 24 and 21 literals throughout.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
-Link: https://patch.msgid.link/20260908110053.2950767-1-hnkz.64@gmail.com
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Link: https://patch.msgid.link/20260904205826.4071119-1-tristmd@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-index f00b53346abd..a5db0d044ef9 100644
---- a/sound/usb/usx2y/us122l.c
-+++ b/sound/usb/usx2y/us122l.c
-@@ -180,8 +180,11 @@ static int usb_stream_hwdep_mmap(struct snd_hwdep *hw,
- 	guard(mutex)(&us122l->mutex);
- 	s = us122l->sk.s;
- 	read = offset < s->read_size;
--	if (read && area->vm_flags & VM_WRITE)
--		return -EPERM;
-+	if (read) {
-+		if (area->vm_flags & VM_WRITE)
-+			return -EPERM;
-+		vm_flags_clear(area, VM_MAYWRITE);
-+	}
- 	/* if userspace tries to mmap beyond end of our buffer, fail */
- 	if (size > PAGE_ALIGN(read ? s->read_size : s->write_size)) {
- 		dev_warn(hw->card->dev, "%s: size %lu > %u\n", __func__,
+diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
+index 4190227c5a2a..200b708aacd6 100644
+--- a/sound/usb/usx2y/usbusx2y.c
++++ b/sound/usb/usx2y/usbusx2y.c
+@@ -196,7 +196,7 @@ static void i_usx2y_in04_int(struct urb *urb)
+ 			memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
+ 			us428ctls->ctl_snapshot_last = -1;
+ 		} else {
+-			for (i = 0; i < 21; i++) {
++			for (i = 0; i < USX2Y_IN04_SIZE; i++) {
+ 				if (usx2y->in04_last[i] != ((char *)usx2y->in04_buf)[i]) {
+ 					if (diff < 0)
+ 						diff = i;
+@@ -305,7 +305,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
+ 		goto error;
+ 	}
+ 
+-	usx2y->in04_buf = kmalloc(21, GFP_KERNEL);
++	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
+ 	if (!usx2y->in04_buf) {
+ 		err = -ENOMEM;
+ 		goto error;
+@@ -313,7 +313,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
+ 
+ 	init_waitqueue_head(&usx2y->in04_wait_queue);
+ 	usb_fill_int_urb(usx2y->in04_urb, usx2y->dev, usb_rcvintpipe(usx2y->dev, 0x4),
+-			 usx2y->in04_buf, 21,
++			 usx2y->in04_buf, USX2Y_IN04_SIZE,
+ 			 i_usx2y_in04_int, usx2y,
+ 			 10);
+ 	if (usb_urb_ep_type_check(usx2y->in04_urb)) {
+diff --git a/sound/usb/usx2y/usbusx2y.h b/sound/usb/usx2y/usbusx2y.h
+index 6a76d04bf1c7..7b6deed17d4b 100644
+--- a/sound/usb/usx2y/usbusx2y.h
++++ b/sound/usb/usx2y/usbusx2y.h
+@@ -5,6 +5,8 @@
+ #include "../midi.h"
+ #include "usbus428ctldefs.h"
+ 
++#define USX2Y_IN04_SIZE	sizeof(struct us428_ctls)
++
+ #define NRURBS	        2
+ 
+ /* Default value used for nr of packs per urb.
+@@ -55,7 +57,7 @@ struct usx2ydev {
+ 	int			stride;
+ 	struct urb		*in04_urb;
+ 	void			*in04_buf;
+-	char			in04_last[24];
++	char			in04_last[USX2Y_IN04_SIZE];
+ 	unsigned int		in04_int_calls;
+ 	struct snd_usx2y_urb_seq	*us04;
+ 	wait_queue_head_t	in04_wait_queue;
 
