@@ -1,143 +1,90 @@
-Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C61948BD54;
-	Wed, 16 Sep 2026 09:32:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73AE93D413F;
+	Wed, 16 Sep 2026 09:34:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551155; cv=none; b=rNDv1jFgRvjrSIryjnCrKp3IV1I15SPiXxyYyGbIJqZxn3kUXj+Y1pRbLBPmXN4ZvkTlNgMVLRTNDxCzn5v+g+e0WKjRhLRypTCMMzu5cEfqqomczJN573IF5vr7vblPlvB0lZ6AI26DW9LD5NqJQEWZoZCMn0i06U9KNvniKwk=
+	t=1789551255; cv=none; b=SgNxi3x5qzh1htN4d+pxW1oIqSPsDKCpH+KToE20xg/a6ZzKnKRhFQP1tgF/Ac0sb+7jqeyKUCl95nnmHKziPxw5pYim4dVjajYFd8BU4cfTIo22VAnTRkHWSsIfKISuX+VqfFw6d2gYg6cM0CAUJIX04jgymk1KF4adPIhirfI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551155; c=relaxed/simple;
-	bh=hu4BuH1cQdRVEJ1jJbRZ8GoJqJJvOJ4nSYQiQUsbp8U=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CVDFJkRjdlIHMyfptd5sZXX4SbBX3ush5rj/JKcn9Zm4SSVYLsjtCaZj7aokDQOUGQqoEwsiIQlNGjJX5tcCJzraWgFPBBBNzLKp9sKzSqH2s81jguXYROE9dP6QYeBQHaDRBgpmaWGBv4pA3xtQH6YlQwcDpBiy5uT7gUBC26I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net; spf=pass smtp.mailfrom=jannau.net; dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b=mrAso95w; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=B5GpTbll; arc=none smtp.client-ip=202.12.124.155
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=jannau.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=jannau.net
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=jannau.net header.i=@jannau.net header.b="mrAso95w";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="B5GpTbll"
-Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 7A0607A00A4;
-	Wed, 16 Sep 2026 05:32:26 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-08.internal (MEProxy); Wed, 16 Sep 2026 05:32:26 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=jannau.net; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm3; t=1789551146; x=1789637546; bh=n+Nib39VXX
-	A5iK7EsTney4u0A/eOskGXnz+cLsmv+Zs=; b=mrAso95w6FNGmI3Y4jPMDHZlS0
-	vFHyybBRfDoqg4pDHo1PLBGAm62nfIJ3OBC7cTOObQA42AU2et6+K1rKtRu5MNZm
-	3HzBPrRPkmeC+D5YumwYaIowuULN9RWpwwEUytiQDqDAHZyClZOTBGsGjXsZQ5hr
-	JxvlkrEuu8uttAx42JmCGwZqpG5Xc72DJtzAY9cJ3/pnwOfhCVjbkmQ2WOtNXOPF
-	J3gWurLunN0TnEFFpAbhPHy0jvuzDqzQWCLzkH3QGVZsj5oGaqHgVYph3MK2AK4H
-	iwisVP6QnWu6Rk9ZGjsiLeCVnQ1y9diE3sAyyd7IUlM9vMl8zbVYnoUazkEA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789551146; x=1789637546; bh=n+Nib39VXXA5iK7EsTney4u0A/eOskGXnz+
-	cLsmv+Zs=; b=B5GpTbllK9VizhmOXcK2Tb8GCYBjku66zMm5U4/xbxA62GfbVOu
-	4FT5KQ5qTrG4NaQ+kATSysAgRhz8wdw1uMje/sBuG74Ed6hAwC/cZb2//pDZG3GU
-	A6AJGVezzVa6WHRrl912ue1327UfoxTJP0C/Ca5bLm6CIwlb4xri36uPnejVh1ky
-	H+uR91Ykd7d8IHduxQpXgS4nvbNU0i28xe+viEirdvT+0/XSYpYzyBc9YmKk1uNa
-	G77rY4A34WmiQtt7MoI6GY7MjkI5hU34T2b36f+DCo1ZEwD+x1ya+ZGQ7WOjZ8Fv
-	vlYDLPBUOTnY1aI+bzIzKBNb/BhQPaTo0aw==
-X-ME-Sender: <xms:KmKqalykJKQ4P10d2gK0h8_SVSLU80h6UkFi0NwKaRQbeCxb5EHsUw>
-    <xme:KmKqarxCgoEwFHoKd9gL1sJKPsUSzUt7o21N1Iv9xOVCD9K2mUCUWt62F89vE9r7g
-    5FDNcsrvw9IXa1jMb7hDFeVHAc8OTOSCZguV6Hmt923Psz2EYvzzoU>
-X-ME-Received: <xmr:KmKqatVcpVKJVCR_i0rKuwJaqA-zGcylnCusgu3S28ht1Mok_NokciATDulT6ZTKgNxQdjWiBhBs6jmD8XqgP4LmGamAQPE7FCI>
-X-ME-Proxy-Cause: dmFkZTF+oMnapl6+ZEZ7rqXpvtPkdYXLNy3CQAjNF2hGqQGKxr1a2xOEDBhi5APyjFS9+E
-    DBoM79i1SO460kazsDa/ZJxITmQN4S4pqjHST2L0Gbcoa6t29c2xSnwKp0QLXWH9oVg5jl
-    1urCwduJSFnYdlHXgBphRvQmzkycwjuvX1cqYmC0hZEMcnOaF7Qbe7reQtXm4I+n6p24/R
-    Btp8ZiqoLIvarZ5Lmwmofqf3AJhDMaFkkhSaZrxN3KDeHki7HFuVHBKdJBWimJd1HK7dFo
-    XeAs4NC9/qVJU4KSufYms80WKbIqv9jKw+vSbifCF+Zq2MRUpH8CWFxIAsA8TQ5IhKmsGd
-    q4Y5gWlwD1feQC+MVakjnQgiyCN3ufIVJ656uRiB0x+Ut9zQ17rs/J9WtyZ2bo/Lv6kh1T
-    BbSfmcCrqD7rX2F6TqfZuAnWMAVcp+qJfqY7iCJpeclQXRxXEoEDFAYSKE6cYt3Kr1qC32
-    nxPR2USAwsDKbvRVTBY15TmkhK+ULSjFevy7o3P65bgJl9dU0yx9uaWHzdDZl9Br2fZveb
-    6OnknmqSzYKrX0EZgBuOO+zKtyN39OilK6mnh9HTIyNWV3xUlH68ViZppYgOCp3ZIl7SkF
-    lmZzf9pmhXQ2MkNERaxFx8CSp+ioDozgv70CQz+Xukk2v/WmVEQzjxzNZ4cQ
-X-ME-Proxy: <xmx:KmKqaqQw1hn-LW6lbFJTwAUbUlkQzOwC6fJcBF5JBUgwrCwdcqCCyg>
-    <xmx:KmKqatTwA_nb_6R2WdRniSPXWeyXHkIdxFSNYzG4lIBAfRju51nYSg>
-    <xmx:KmKqaqf1QQrOYcnIi1UFXObRmZ86ueXGnU806-VLMJ9JRhOs-stWlg>
-    <xmx:KmKqarfvNLBAVmVzLSyGbGfj8RpB8HGcUfduUFu0Z3fsRqdFgNekBg>
-    <xmx:KmKqamsqfu3-G20tay6k73ZNWwPY3TBd6meXYCyK4noTdG5AnYjOyZ5k>
-Feedback-ID: i47b949f6:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Wed,
- 16 Sep 2026 05:32:25 -0400 (EDT)
-Date: Wed, 16 Sep 2026 11:32:23 +0200
-From: Janne Grunau <j@jannau.net>
-To: Johannes Berg <johannes@sipsolutions.net>
-Cc: Arend van Spriel <arend.vanspriel@broadcom.com>,
-	Hante Meuleman <meuleman@broadcom.com>,
-	Kalle Valo <kvalo@kernel.org>,
-	Pieter-Paul Giesberts <pieterpg@broadcom.com>,
-	Jason Huang <jason.huang2@infineon.com>,
-	linux-wireless@vger.kernel.org, brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com, asahi@lists.linux.dev,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] wifi: brcmfmac: cfg80211: Report port_authorized for
- 4-way HS offload
-Message-ID: <20260916093223.GB212312@robin.jannau.net>
-References: <20260912-brcmfmac-4way-handshake-offload-authenticated-event-v1-1-e41a6a8281a2@jannau.net>
- <3422e0b3b7d4889d2a728c41b0b02f6c80fa71bf.camel@sipsolutions.net>
- <20260915190527.GA212312@robin.jannau.net>
- <b07d37cbb90b6132df0aebc1c603bad903d8d0cb.camel@sipsolutions.net>
+	s=arc-20240116; t=1789551255; c=relaxed/simple;
+	bh=CDYS1ii0lSLxnT/NsEzf3WIIr6y1eB5d9KK/AUQkWd4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XKynPW4dsU8WPX3R+1gWgSZcGk5PtNZsFDuz9aRKl0xX1yDOEUGyxPBO5EQcEtBTJbcI9pr4Xqqq8wzkJNJ7KnoC47NGspGXxIqDaw7DRdZeVZoHcXCO5/0ktfK1e5oIetxxTyG19k7Zb/m9Q8eqN7TP6tVqVvfW/qdNHIYr4ow=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACHijiIYqpqgWjgBw--.42205S2;
+	Wed, 16 Sep 2026 17:34:00 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Frank.Li@kernel.org
+Cc: dmaengine@vger.kernel.org,
+	george.ge@microchip.com,
+	kelvin.cao@microchip.com,
+	linux-kernel@vger.kernel.org,
+	logang@deltatee.com,
+	vkoul@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] dmaengine: switchtec-dma: Fix device reference leak in switchtec_dma_create()
+Date: Wed, 16 Sep 2026 09:33:32 +0000
+Message-Id: <20260916093332.2003909-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <b07d37cbb90b6132df0aebc1c603bad903d8d0cb.camel@sipsolutions.net>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACHijiIYqpqgWjgBw--.42205S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Wr15Cr4DJF47Kr1furW5Awb_yoW8Jry5pr
+	W7Wa4akrWUtr17Kw4Uu3WUZFyj9a1av3yY9rW8Aw1fur95Xa4Yvry8X340gry8CrykJF4a
+	qa47trykWa48t3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUrr
+	WFUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7mR0wAAsG
 
-On Wed, Sep 16, 2026 at 10:32:38AM +0200, Johannes Berg wrote:
-> On Tue, 2026-09-15 at 21:05 +0200, Janne Grunau wrote:
-> > On Tue, Sep 15, 2026 at 03:22:50PM +0200, Johannes Berg wrote:
-> > > On Sat, 2026-09-12 at 11:40 +0200, Janne Grunau wrote:
-> > > > 
-> > > > This will conflict with the "brcmfmac: add FT/OKC roaming offload
-> > > > support" [3] series but is written in a way to easily resolve the
-> > > > conflicts.
-> > > 
-> > > I ... no, I'm not going to take that conflict, and I applied the FT/OKC
-> > > series to wireless-next. Please create this patch on top of wireless-
-> > > next, if needed at all, and then you can backport something later to
-> > > stable if needed.
-> > 
-> > That is very unfortunate. I hoped this change could merged as a fix for
-> > 7.3.
-> > 
-> > The change is required. wpa_supplicant 2.12 (and unpatched 2.11) will
-> > run into its authentication timeout and disconnect WPA2/3 PSK networks
-> > on brcmfmac devices with firmware offload support.
-> > 
-> > I'll rebase onto wireless-next and send a v2 but I think it's serious
-> > issue in the process that it will take until after v7.4-rc1 (7+ weeks
-> > from now) before this fix will land in stable kernel releases.
-> 
-> That process issue is yours - wpa_s 2.11 was released *well over two
-> years ago*, and nobody cared to fix the issue since. AFAICT this could
-> have been fixed in kernel 6.11 or so, but now it's suddenly urgent
-> enough to make life more complicated for everyone? ...
+switchtec_dma_create() takes a reference on the PCI device with
+get_device() and stores it in dma->dev. The reference is normally
+dropped by switchtec_dma_release(), the device_release() callback,
+which only runs after a successful dma_async_device_register(). If
+the registration fails, the code frees the dma device directly from
+the err_chans_release_exit label without ever dropping that extra
+reference, leaking the reference taken on the PCI device.
 
-yes, the kernel change fell of the table 2 years ago. Nothing can be
-done about that anymore.
+Drop the reference with put_device() on the error path.
 
-The issue became urgent due to the wpa_supplicant 2.12 release. That was
-more than one month ago but I became aware of it and the reintroduction
-of the authentication issue last week after Gentoo shipped
-wpa_supplicant 2.12.
+Fixes: d9587042b50f ("dmaengine: switchtec-dma: Introduce Switchtec DMA engine skeleton")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/dma/switchtec_dma.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-The patch to avoid this issue in wpa_supplicant 2.11 does not apply to
-wpa_supplicant 2.12. So distributions either drop the patch and are
-broken or adept it for 2.12. One distro maintainer was reluctant to
-carry a patch for a second release. Based on this I disagree that fixing
-the issue quickly in stable kernels makes life more complicated for
-everyone. It would make life easier for distro maintainers and users of
-distributions shipping unpatched wpa_supplicant 2.12.
+diff --git a/drivers/dma/switchtec_dma.c b/drivers/dma/switchtec_dma.c
+index 3ef928640615..b07bdd0ac540 100644
+--- a/drivers/dma/switchtec_dma.c
++++ b/drivers/dma/switchtec_dma.c
+@@ -1297,6 +1297,7 @@ static int switchtec_dma_create(struct pci_dev *pdev)
+ 
+ err_chans_release_exit:
+ 	switchtec_dma_chans_release(pdev, swdma_dev);
++	put_device(dma->dev);
+ 
+ err_exit:
+ 	if (swdma_dev->chan_status_irq)
+-- 
+2.34.1
 
-Janne
