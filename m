@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6440752121B
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:28:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57118521207
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:28:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572487; cv=none; b=dxc1n09w5yBnWxVCdsSESaD+kf9BsY/sje6mzMpNdxJR17uG31ZwodPR2H7VvL/L2fEn8ay+shHz9mcczB2JGSpPcmsI+pupDHusdgC6y9LVE78u9t7KW1o1UwDONefrzYb8JJPtOpJKObRVbcY3E6cx5NZdkdk7kcYyRyv+Eao=
+	t=1789572489; cv=none; b=KO4qwVIx7RcQ4287StUf/cWavCBPWkiQpZH/N+XdoLSdrlvw8bDY4vK2bA8QofjF3XoS3LUSJu3q2rV6UDfT+dsITfSXrf5tk34v+KwmzucKwI6TCuPBOer8cR2dVKK5zzjwt9C02iRUoniTkuP0nQ7Rn2y5/0eMpj4UoCrEVEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572487; c=relaxed/simple;
-	bh=bGVzStUOw2yhEkeLxHN+qb1LOQi8LE1RXsBZ2d7bG8I=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Eh3gqZvCOxg3XPwrcGNJ27Z9CLTs7cklTdsbM+LffWnCXSChLgqDythh2d/rw5jBg2MB3OTeDhiwxMA5nLqIc+gUzZempi5tAv02SH4YBqcXTOE9kBNsXa9nPnJsV1tAoKigNwEEv8ApMxA7rXqgpKIdFWGcK80cqoYQBb55BOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=maLlimaR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572489; c=relaxed/simple;
+	bh=8WWQ4dPrY59Rm6iKO19jD4EgLh7sjZfWZETZZ5p3+Ko=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ejhViwV69UKzirwMNenDEdbs4J9NZSNW2pqfyV1+SIizCWZuQ3txsXIgcdkYOtju6IBPfNSzdP7RzRHQGf+Z2PRnHkXqQDkj/AYX0X7tnY6UMv2sOwJMC606uCb7yuA0DAtL2BhQBPKWAAEj+nUnuP665X14Q1eSzM95uor1+24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ebYnLyNB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="maLlimaR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E101F000FF;
-	Wed, 16 Sep 2026 15:27:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ebYnLyNB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F1621F0089B;
+	Wed, 16 Sep 2026 15:28:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789572480;
-	bh=pCsykgTq50CbtoD8aeRy4FuYNlof2TXEcUYJ3dmEa7E=;
+	s=korg; t=1789572483;
+	bh=Yx0KJZ+2QN/GzNRsWYdj3W4GsGiF+HKqBLf9fBvV+Uk=;
 	h=Subject:To:Cc:From:Date;
-	b=maLlimaRaw6GpESUWcJFMldNNKOKOb7wL1ke07AcAlw+bz1yUbwe2P0SebzrKRJF7
-	 YmiycZ1BLaq6axcIqpeK/CaMXWxk3wubQa8t9LGgKRPJHW+MvDvBNz5jsGIodkJPWT
-	 LhdPFF7Khjzv9OqXANZKDWnMVIwG4g4Y5Qw2b0N4=
-Subject: FAILED: patch "[PATCH] bootconfig: Fix integer overflow in initrd size check" failed to apply to 5.10-stable tree
-To: mhiramat@kernel.org,ekffu200098@gmail.com,sashiko-bot@kernel.org
+	b=ebYnLyNBRCiuWCIfW7btUaEvOUlg3WMNR2aNSbhRTRWo6AHw8gE8BF/Op0HYdfQr+
+	 yb9o0FEhPYL5XqHhrgUBszpfXlbnd4QWKI1GQgAdAD/p5GT/Emc9PVUeVWQmhHx3rG
+	 hQL6XPcZeI60FwiA49iVneG8yzrHxVAhVQJTdT1I=
+Subject: FAILED: patch "[PATCH] EDAC/altera: Use parent device for devres in" failed to apply to 7.2-stable tree
+To: dinguyen@kernel.org,bp@alien8.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:15:18 +0100
-Message-ID: <2026091618-used-flashbulb-70ef@gregkh>
+Date: Wed, 16 Sep 2026 16:16:17 +0100
+Message-ID: <2026091617-provoke-cupcake-11e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
-git cherry-pick -x 7812d6dab0698001e50e8c2f901e17da3eb6f429
+git cherry-pick -x 9868f5c077dfe0b606331f2e782484f91a5789a5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091618-used-flashbulb-70ef@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091617-provoke-cupcake-11e7@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,100 +62,73 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 7812d6dab0698001e50e8c2f901e17da3eb6f429 Mon Sep 17 00:00:00 2001
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Date: Fri, 11 Sep 2026 00:15:34 +0900
-Subject: [PATCH] bootconfig: Fix integer overflow in initrd size check
+From 9868f5c077dfe0b606331f2e782484f91a5789a5 Mon Sep 17 00:00:00 2001
+From: Dinh Nguyen <dinguyen@kernel.org>
+Date: Wed, 17 Jun 2026 11:43:03 -0500
+Subject: [PATCH] EDAC/altera: Use parent device for devres in
+ altr_portb_setup()
 
-Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-arithmetic:
+Anchor the devres group and the devm-managed IRQ requests in altr_portb_setup()
+to the actual parent device (device->edac->dev) instead of the embedded struct
+device inside the copied per-port altr_edac_device_dev.
 
-    data = ((void *)hdr) - size;
+This keeps devres_open_group(), devm_request_irq(), devres_remove_group() and
+devres_release_group() all referring to the same long-lived device so the
+group and the resources allocated inside it are torn down together.
 
-to wrap around on 32-bit systems (or when pointer subtraction overflows).
-Because data wraps around, the subsequent bounds check:
-
-    if ((unsigned long)data < initrd_start)
-
-evaluates to false, bypassing the check. The kernel then calls
-xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-hitting unmapped pages and triggering a fatal kernel page fault during
-early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-unbounded 32-bit size can similarly bypass the initrd_start check.
-
-Fix this by:
-1. Ensuring the initrd is at least large enough to contain the bootconfig
-   footer and verifying hdr is within the initrd bounds.
-2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
-   the available space between initrd_start and hdr before performing
-   pointer subtraction.
-
-Link: https://lore.kernel.org/all/178905333479.213925.1358412668943562406.stgit@devnote2/
-
-Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
+Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
+Closes: https://sashiko.dev/#/patchset/20260503212558.2811480-1-dbgh9129%40gmail.com
+Assisted-by: LLM
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Link: https://patch.msgid.link/20260617164303.585555-1-dinguyen@kernel.org
 
-diff --git a/init/main.c b/init/main.c
-index 2613d3f9b3ce..16749bb7a219 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -277,7 +277,8 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 	u8 *hdr;
- 	int i;
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 1d1e2b5ca14c..68846f583eee 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1534,7 +1534,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	altdev = dci->pvt_info;
+ 	*altdev = *device;
  
--	if (!initrd_end)
-+	if (!initrd_end || initrd_end < initrd_start ||
-+	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
- 		return NULL;
+-	if (!devres_open_group(&altdev->ddev, altr_portb_setup, GFP_KERNEL))
++	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
+ 		return -ENOMEM;
  
- 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-@@ -294,16 +295,26 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 
- found:
- 	hdr = (u8 *)(data - 8);
-+	if ((unsigned long)hdr < initrd_start)
-+		return NULL;
-+
- 	size = get_unaligned_le32(hdr);
- 	csum = get_unaligned_le32(hdr + 4);
- 
--	data = ((void *)hdr) - size;
--	if ((unsigned long)data < initrd_start) {
--		pr_err("bootconfig size %d is greater than initrd size %ld\n",
-+	if (size > XBC_DATA_MAX) {
-+		pr_err("bootconfig size %u is greater than max size %d\n",
-+			size, XBC_DATA_MAX);
-+		return NULL;
-+	}
-+
-+	if (size > ((unsigned long)hdr - initrd_start)) {
-+		pr_err("bootconfig size %u is greater than initrd size %lu\n",
- 			size, initrd_end - initrd_start);
- 		return NULL;
+ 	/* Update PortB specific values */
+@@ -1562,7 +1562,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		rc = -ENODEV;
+ 		goto err_release_group_1;
  	}
+-	rc = devm_request_irq(&altdev->ddev, altdev->sb_irq,
++	rc = devm_request_irq(device->edac->dev, altdev->sb_irq,
+ 			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+ 			      ecc_name, altdev);
+ 	if (rc) {
+@@ -1584,7 +1584,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 			rc = -ENODEV;
+ 			goto err_release_group_1;
+ 		}
+-		rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
++		rc = devm_request_irq(device->edac->dev, altdev->db_irq,
+ 				      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+ 				      ecc_name, altdev);
+ 		if (rc) {
+@@ -1604,13 +1604,13 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
  
-+	data = ((void *)hdr) - size;
-+
- 	if (xbc_calc_checksum(data, size) != csum) {
- 		pr_err("bootconfig checksum failed\n");
- 		return NULL;
-@@ -394,12 +405,6 @@ static void __init setup_boot_config(void)
- 		return;
- 	}
+ 	list_add(&altdev->next, &altdev->edac->a10_ecc_devices);
  
--	if (size >= XBC_DATA_MAX) {
--		pr_err("bootconfig size %ld greater than max size %d\n",
--			(long)size, XBC_DATA_MAX);
--		return;
--	}
--
- 	ret = xbc_init(data, size, &msg, &pos);
- 	if (ret < 0) {
- 		if (pos < 0)
+-	devres_remove_group(&altdev->ddev, altr_portb_setup);
++	devres_remove_group(device->edac->dev, altr_portb_setup);
+ 
+ 	return 0;
+ 
+ err_release_group_1:
+ 	edac_device_free_ctl_info(dci);
+-	devres_release_group(&altdev->ddev, altr_portb_setup);
++	devres_release_group(device->edac->dev, altr_portb_setup);
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
+ 	return rc;
 
