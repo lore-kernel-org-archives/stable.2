@@ -1,101 +1,144 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.15])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B693A16BC;
-	Wed, 16 Sep 2026 15:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=198.175.65.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D6A651E445
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:27:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572383; cv=none; b=dp8lgrAgF24c2uDoLLMWBTbw8Cuja6mpbHwFv1oEEF89vaGTiV4SMmXi2UKOstq5hofkGCY9P2RCNlYsqEz1/fchb45Yf8+NZuTUUGGNPa9F3KHF+HMRfmaCKnJ1fIFGM7wJ0X+QMAyOT7Nj5wR3Z/Mbb3foWa286uBMJfzKgwo=
+	t=1789572449; cv=none; b=az8Ttpb+h++XcMZx76YJAwMOlFZDH11RDvskOZIyupg+TmBRkmz5KI3PbH5FGY+RRtfA3VsJRslrHhOtFbASKKhoAbF+aYB2LLE5R0nfMsP4Tlaeinz1AIzZnui5RF3JvhpVO+OluCQ4XMoLX51Fc8T6/Ch6ZYCm9mD0vpHEo3A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572383; c=relaxed/simple;
-	bh=P/3kVvl/+MVGXlLV6b5BiQ4YrijCIDMiEz8CHu3rQME=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UTkUdc90MZ3KG/HzQrrgx8eop+dHLtWbMt/BLGKZJXQx6QEYqep/O0hbxeEqoaVFoOPEkKAn6CPk1iZFEwXKpApIcUszFoMHxe1Tr3FGH1l8cyLGR7IEF0Cguo9p0KNEiGUzRaMyD2S3K8ZUyRip4nxorPrqxzjqVH14nln6jpg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=FLasjkSE; arc=none smtp.client-ip=198.175.65.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789572449; c=relaxed/simple;
+	bh=yg5wyRdXlO0b4gycOm9xR99od+/mKv3rMJCGzBz4QGM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ATgoARKOoqAMEXRZCSqJU0Hy2qg9yEAY3jmLVq4CLJUA+OIVR2iedhl2mfAL8K3py8SX/XgxtRj4X2EcsH4f9Pl1O+wYJ93rcgDtUMXv0pqlsWzzFSrm0JEbDNjVW4DUtPb4PoU6wpkGJd35HTPflGUVpFQ/DRFUxaVUWiHAsLY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=s7PZ5HvQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="FLasjkSE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789572380; x=1821108380;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=P/3kVvl/+MVGXlLV6b5BiQ4YrijCIDMiEz8CHu3rQME=;
-  b=FLasjkSEP6TLHNR5SsXejpR7BQbANYYxY6A8/+7fCI9cKy9DmAD6rh4a
-   O27th1wNUJGk1RYSXZXQRi4T1lt+wUqB5jVnch30yGpApU+Z6oeh4eelT
-   2HSDvvFTmD1iE4tup8WVKsOB/8z7vgPyO09QTS4cFtThbBjhqc9hzP6E0
-   fp/TUq/+EwdroZQ0CRYhgl4iRxkjCHZgN2l3kcUstre1pKuJLxF2HvmBM
-   DbUwvP2gAx2kvUmlXQRJNxZsMiTYc1ylYVb54SKtBl6fM8XmL9fPboZKY
-   SzQE/MI2oCrzruXpVCNdfJ0jm4uVb3tbLkeBF9ps1QFG30fAAVFaISxPM
-   A==;
-X-CSE-ConnectionGUID: BaTgzQydRGaRqsGs3P04mQ==
-X-CSE-MsgGUID: aB2D2ww8SICSimDN1GMTPA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93654490"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="93654490"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by orvoesa107.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:26:13 -0700
-X-CSE-ConnectionGUID: yyUv/mjSTFKCoKjg95Tg+w==
-X-CSE-MsgGUID: +qMTG9wpTgerNpODGfYsyQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269667368"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 08:26:09 -0700
-Date: Wed, 16 Sep 2026 18:26:07 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v6 00/11] Refactor Microchip MCP47FEB02 I2C driver in
- separate modules to add support for MCP48FEB02 SPI driver
-Message-ID: <aqq1Dxeu7njVPI6R@ashevche-desk.local>
-References: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="s7PZ5HvQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6A3691F00893;
+	Wed, 16 Sep 2026 15:27:23 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789572444;
+	bh=YKur+fwnB9OFvhoo09nq1BcFc3NZ0wPmec+a3C7GISw=;
+	h=Subject:To:Cc:From:Date;
+	b=s7PZ5HvQuEzoM5arau/c9Yz+Netvzlx+h3SrROcsEgjsQ0YRRAKoobJwDpBxQgIQr
+	 e51Gv4bFZW4C9p5usMNClQ9K9yphVRfQPc3qGOB9nS0s3EUHokzwDl9SrZgqcELs8Z
+	 7BS6/dr10VYfP6NKLMuYknjp3xacV9/fR6GjLSr8=
+Subject: FAILED: patch "[PATCH] accel/ivpu: Validate full buffer range in ivpu_to_cpu_addr" failed to apply to 6.6-stable tree
+To: magdalena.schulfer@intel.com,dawid.osuchowski@linux.intel.com,karol.wachowski@linux.intel.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 16:12:46 +0100
+Message-ID: <2026091646-nutmeg-dill-a3d1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 05:16:26PM +0300, Ariana Lazar wrote:
-> Refactor I2C driver implementation into separate modules in order to add
-> support for SPI MCP48FxBy1/2/4/8 DAC family on top of the I2C
-> implementation. The I2C and SPI devices have the same memory map and
-> supported functionalities.
-> 
-> Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
-> ---
-> Changes in v6:
-> - use field_get() in Gain, Vref and Power-Down registers channel formulas
-> - rebase from 7.2 to 7.3-rc1
-> - add fixes tags and Cc stable in the commit messages
-> - add numeric constants in front of time defines for better readability
-> - replaced dev_err() with dev_warn_probe() for missing label
-> - if match data is not found at probe, return -ENODATA and a suitable
->     error message
-> - Link to v5: https://lore.kernel.org/r/20260909-mcp47feb02_refactor-v5-0-8b67bcab93d1@microchip.com
 
-My main comment against this version is the usage of Reported-by + Closes +
-Fixes versus Suggested-by. Note, some of the changes doesn't look like a fix,
-such as a typo in the comment, I dunno if Reported + Closes (no Fixes) is
-legitimate approach there.
+The patch below does not apply to the 6.6-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
--- 
-With Best Regards,
-Andy Shevchenko
+To reproduce the conflict and resubmit, you may use the following commands:
 
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git checkout FETCH_HEAD
+git cherry-pick -x 3837c3f29fbc3b8c12bebf5c62741e2befe3482a
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091646-nutmeg-dill-a3d1@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 3837c3f29fbc3b8c12bebf5c62741e2befe3482a Mon Sep 17 00:00:00 2001
+From: Magdalena Schulfer <magdalena.schulfer@intel.com>
+Date: Tue, 1 Sep 2026 14:57:47 +0200
+Subject: [PATCH] accel/ivpu: Validate full buffer range in ivpu_to_cpu_addr
+
+Add a size parameter to ivpu_to_cpu_addr() and validate that the
+whole [vpu_addr, vpu_addr + size) range stays within the BO.
+
+Cc: stable@vger.kernel.org
+Fixes: 647371a6609d ("accel/ivpu: Add GEM buffer object management")
+Signed-off-by: Magdalena Schulfer <magdalena.schulfer@intel.com>
+Signed-off-by: Dawid Osuchowski <dawid.osuchowski@linux.intel.com>
+Reviewed-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Signed-off-by: Karol Wachowski <karol.wachowski@linux.intel.com>
+Link: https://patch.msgid.link/20260901125749.404338-2-dawid.osuchowski@linux.intel.com
+
+diff --git a/drivers/accel/ivpu/ivpu_gem.h b/drivers/accel/ivpu/ivpu_gem.h
+index 0c3350f22b55..b1ae020a4fc2 100644
+--- a/drivers/accel/ivpu/ivpu_gem.h
++++ b/drivers/accel/ivpu/ivpu_gem.h
+@@ -87,15 +87,23 @@ static inline bool ivpu_bo_is_resident(struct ivpu_bo *bo)
+ 	return !!bo->base.pages;
+ }
+ 
+-static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u32 vpu_addr)
++static inline void *ivpu_to_cpu_addr(struct ivpu_bo *bo, u64 vpu_addr, u64 size)
+ {
++	u64 bo_size = ivpu_bo_size(bo);
++	u64 offset;
++
+ 	if (vpu_addr < bo->vpu_addr)
+ 		return NULL;
+ 
+-	if (vpu_addr >= (bo->vpu_addr + ivpu_bo_size(bo)))
++	if (size > bo_size)
+ 		return NULL;
+ 
+-	return ivpu_bo_vaddr(bo) + (vpu_addr - bo->vpu_addr);
++	offset = vpu_addr - bo->vpu_addr;
++
++	if (offset > bo_size - size)
++		return NULL;
++
++	return ivpu_bo_vaddr(bo) + offset;
+ }
+ 
+ static inline u32 cpu_to_vpu_addr(struct ivpu_bo *bo, void *cpu_addr)
+diff --git a/drivers/accel/ivpu/ivpu_ipc.c b/drivers/accel/ivpu/ivpu_ipc.c
+index 62607ec8ca8f..8e960293b77a 100644
+--- a/drivers/accel/ivpu/ivpu_ipc.c
++++ b/drivers/accel/ivpu/ivpu_ipc.c
+@@ -79,7 +79,7 @@ ivpu_ipc_tx_prepare(struct ivpu_device *vdev, struct ivpu_ipc_consumer *cons,
+ 		return -ENOMEM;
+ 	}
+ 
+-	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr);
++	tx_buf = ivpu_to_cpu_addr(ipc->mem_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+ 	if (drm_WARN_ON(&vdev->drm, !tx_buf)) {
+ 		gen_pool_free(ipc->mm_tx, tx_buf_vpu_addr, sizeof(*tx_buf));
+ 		return -EIO;
+@@ -420,7 +420,7 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+ 			return;
+ 		}
+ 
+-		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr);
++		ipc_hdr = ivpu_to_cpu_addr(ipc->mem_rx, vpu_addr, sizeof(*ipc_hdr));
+ 		if (!ipc_hdr) {
+ 			ivpu_warn_ratelimited(vdev, "IPC msg 0x%x out of range\n", vpu_addr);
+ 			continue;
+@@ -429,7 +429,8 @@ void ivpu_ipc_irq_handler(struct ivpu_device *vdev)
+ 
+ 		jsm_msg = NULL;
+ 		if (ipc_hdr->channel != IVPU_IPC_CHAN_BOOT_MSG) {
+-			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr);
++			jsm_msg = ivpu_to_cpu_addr(ipc->mem_rx, ipc_hdr->data_addr,
++						   sizeof(*jsm_msg));
+ 			if (!jsm_msg) {
+ 				ivpu_warn_ratelimited(vdev, "JSM msg 0x%x out of range\n",
+ 						      ipc_hdr->data_addr);
 
