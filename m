@@ -1,146 +1,135 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3EC6262FC1
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 00:29:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A4E42C11FA;
+	Wed, 16 Sep 2026 00:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789518581; cv=none; b=CvAM4ZvENXx8U2iSclMCBK/+19L0l3RI/10VDiU+Q92i0mnJIWhYJN7SywS3SZdvwmqJN4NrBnke1BYXqsIyPWqTraaXSKoAlj0j7lT3z/dW0TLe6E6DPjWfwmImlv2Zs6nai0l3M4Vm9xFClZAgPgH/WOcim+d96aJU+70nAjE=
+	t=1789519082; cv=none; b=qVbCcP787tShcIOWJtCJXpxOkaNv60/ptEYjtJ3D62/SrVP7zOg9mzdWzNb2Dxi71zaXPbr7DOtCf10vK1LjmP1Qv74LTcUf/wexc7O6gPgCEyWdGzQ5F/8olP5kGnBP2xCbA56gogQrUVZmtHc94B42gDNVnX9VBnZRvwnFkLM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789518581; c=relaxed/simple;
-	bh=JEOTKt0Dzx91mkjXhhoaM6TgD5HWgwbpqOYkcuSDjUY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uh4QDrc45Y0wmio3ZOQTv8L4SDBFO8g3E8NNoy9hBpJGkfGaHiKG8JTJdwc+xodGDffKze5Juo0gzMm/CofD0VndGQeyNFsknASD4ENKs18KsFPpGlSpQcTV1HznPRpA66uU/Ydavmf6BS7l5KqujDeMaD/mRu4N86b0Hw+VCFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=chU+HpyG; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789519082; c=relaxed/simple;
+	bh=SiwQkzrVDQV01ATxvtgkke17srYjd2v+wZbwrFSMpLg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=lUxG/W5yRwhfiXD6XdDImU9s0a7LFEsZCtZ9dvOhf+H9/Md5CFU8lfd8iLsDiDt+4zEWL2DO4cuSTnFlw7SFS7f6L+XET3HRu1dIoHRL2TgQnxmtU+tE9VVk7BjFm/VrckSS8xXJex7Kj5/gB+mZdlHxJz/aoYQQhKX7fLANpvo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D7Rr6X7p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="chU+HpyG"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d391aso2458605e9.2
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 17:29:39 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789518578; x=1790123378; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=tKqlv/hz08xj9ZVfIOS5h1evGtqTWLQkw0YhrEDSCJE=;
-        b=chU+HpyGozVf+AmQCHe8U1B+ejDkeOJcbAiofWsDeOrUEjM7bXEX5QIa/ywBMDkD27
-         arFMwBACvIpOaLkozOzxdBp9fSidmJNowzup4y0wYRZw63JlyT2cuUf4Trqpp6K07+9Y
-         pArPQsSM0YLORK1HDTdVQCVv8As+34X2u3Jx+roxOZoOlAcYgBbyz3Y1B5UkyHxFto5t
-         tx38SgPjNg7HVgOtT0Rc0hoC77Dmoa2nE0GEKr1QxpLY1Q86/HzFVYizUUQhlI9T33/3
-         e3D2EjsPBNMrmIJ7HWs1wLX2ahGqW5DPV1du3xLXIFaWPzniYwzUIqxgdDMRHoMwwLyL
-         MH/g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789518578; x=1790123378;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=tKqlv/hz08xj9ZVfIOS5h1evGtqTWLQkw0YhrEDSCJE=;
-        b=DpJhbTWZjcOxCQDSNlvCdQb1G/KwjtsF7+KMnk5vjwKahGWZuCNh3E4PmEPCrKz2s8
-         UH93nG1q9JM/9vr5d3520KaIqiw50HHYI8rNF/Q0NxPbotyUkTlt3z/aecjc6pV5O0JD
-         5dioXF+O4QKfdXygATyQaRKGEsTKQW+JG99e+gE8SSgZvfrrpH8OuSfbEpQlrvNqp70n
-         TIGXwNTMOUUFDfgt9a/xN3tGiK+Sud8PrTjQx05wBAige/9YYEH1p2Pjb6nMEE3xzFxH
-         zwtotrktxM5njgF3Hhc9jVaXcetsn98pWx5cmDwVEFiftn6I+3k50kKvM1bnoPQ/zDch
-         HLCg==
-X-Forwarded-Encrypted: i=1; AKwUvBwXS2eKc1BFkPcJ2qKHhDLudX2YuVBWUT1pP7X02rVebxaZqpK4phPzxBeJTTz16Is4AfWMwQY=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2Sejm3gt8DEGUgJCtKHur5MeD0vz3PVkNdqlEMgbJDO5m+/Zz
-	0Rca+b22YPHEEJI3DOSaUkEoEKallCSj0YeNncn8D8yjWPfpaVbT4+Wx
-X-Gm-Gg: AYBFou1RbEMbzxDHUoEKV64OzYCeB1UY7L1DMCMAc51doZTT0Rxo6mrcQYTnCLZ6o3B
-	tBvOsZPoAbgX11BVwIw3QN4v5+0iwpxM+adUKR7gWbMa4+3qozl40/3lLr3gZJAqNNvy46alA1L
-	MyrigMyZ5WFJud8r7vSUrOwu40mAGkrSm/hnheAbL5jFl83it6T/5RVEObqTz56jVs3uxs/VgKY
-	EJINTGuNCBl0ou4rkSsV+LN/TossXHo2y0lz49sdys5byAQFQwtzsDzpuEmKIrG0y1NBGmF0l6+
-	bhGRi7t+wePXioj0TzTmr0TWQ4ExFgWq/uACZnfZxGv1D3DMwVo0UKqpjGuyiHazQUVDtm0H1J1
-	75nBM4mXdBKniYgsI5jzJH078njXzgw8gnanYnFCu06y6OMz12esPZDN9ZU/tB1SimAHsmFgCzC
-	UW+RseHB6Eh2lDvg4pzSivE9sEmSWpTu7qhyKR1G/RU1Y6/9DdGsoePsPLP4cvue9wS6PqmCrHR
-	/7o93gWj/n55BRL2ESkF3Jtt758N/Cy72Mwm2nwYeFFpNOi6/v6
-X-Received: by 2002:a05:600c:1f83:b0:49c:c96a:d36b with SMTP id 5b1f17b1804b1-49eb7306966mr4213945e9.12.1789518578208;
-        Tue, 15 Sep 2026 17:29:38 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49e83da99b7sm29827395e9.10.2026.09.15.17.29.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 17:29:37 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: James Seo <james@equiv.tech>,
-	Guenter Roeck <linux@roeck-us.net>
-Cc: linux-hwmon@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] hwmon: (hp-wmi-sensors) Fix use-after-free in fungible_show()
-Date: Wed, 16 Sep 2026 05:29:26 +0500
-Message-ID: <20260916002926.161595-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D7Rr6X7p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B1BDB1F000FF;
+	Wed, 16 Sep 2026 00:37:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789519075;
+	bh=XTpmwRnvzOj8JJNAxlGAUdt8jPuIe+377jHtDnXTwqg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=D7Rr6X7p8Q6RF0rF1IqN7DPQmg+3UP978dqQj1J5j0F/fs3LO9a+eH3lfzoanZUGf
+	 5mzJaMq1JH+TvVbch2O6mGpOEq7F3qbSwqEQyGU6scD46s2oGYIjdHEQS/9BqQ5NBV
+	 pGMA1xcxzeUC6gozfSUwHEhvdi+FEdpI99jtrnn4X4aCHWPXyOh6NPCilJ3JF4/4zc
+	 c4Gl9bgWxGXiUjKONBUf1W3EAPyoWioa8/605queJ8n73QFzDMrA5k15YMszKK/o3L
+	 npkc4ej9EeshrEOAF+fm8FtQWRt8lGs1fSli5wJsmzk1zGsNOA2iYb01+pZC/1FVAC
+	 R4HSXoEVobNQg==
+Subject: Re: [PATCH net 1/2] virtio_net: copy zerocopy frags in start_xmit
+ without NAPI
+From: netdev-bot+sashiko@kernel.org
+To: willemdebruijn.kernel@gmail.com
+Cc: netdev@vger.kernel.org, davem@davemloft.net, kuba@kernel.org,
+ edumazet@google.com, pabeni@redhat.com, horms@kernel.org,
+ andrew+netdev@lunn.ch, willemb@google.com, kleaver@janestreet.com,
+ doebel@amazon.de, stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 00:37:54 +0000
+Message-ID: <178951907424.22033.18396065221753685013@kernel.org>
+In-Reply-To: <20260914214229.1674102-2-willemdebruijn.kernel@gmail.com>
+References: <20260914214229.1674102-2-willemdebruijn.kernel@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-nsensor->current_state is dynamically replaced as the sensor's state
-changes. update_numeric_sensor_from_wobj() does this by freeing the
-old string and installing a new one:
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-	if (strcmp(trimmed, nsensor->current_state)) {
-		new_string = hp_wmi_strdup(dev, trimmed);
-		if (new_string) {
-			devm_kfree(dev, nsensor->current_state);
-			nsensor->current_state = new_string;
-		}
-	}
+Critical: 0 · High: 0 · Medium: 1 · Low: 0
 
-This function is only ever called from hp_wmi_update_info() while
-state->lock is held, so the free-and-replace itself is properly
-serialized against concurrent updates.
+- [Medium] The new drop path added to start_xmit()
+  (drivers/net/virtio_net.c, the `if (!use_napi &&…
 
-fungible_show(), however, reads the same pointer after the lock has
-already been dropped:
+--
 
-	err = hp_wmi_update_info(state, info);
-	if (err)
-		return err;
+virtio_net: copy zerocopy frags in start_xmit without NAPI
 
-	switch (prop) {
+For the !use_napi path, start_xmit() now calls skb_orphan_frags() before
+the existing skb_orphan(), so zerocopy frags that do not set
+SKBFL_DONT_ORPHAN (PACKET_TX_RING, vhost_net) are deep-copied instead of
+staying pinned until the next transmit. On copy failure the skb is
+dropped and tx_dropped is bumped.
+
+> diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+> index e34c52d059d39..1ce528c18f9e7 100644
+> --- a/drivers/net/virtio_net.c
+> +++ b/drivers/net/virtio_net.c
+> @@ -3349,6 +3349,13 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+>  	else
+>  		virtqueue_disable_cb(sq->vq);
+>  
+> +	if (!use_napi &&
+> +	    unlikely(skb_orphan_frags(skb, GFP_ATOMIC))) {
+> +		DEV_STATS_INC(dev, tx_dropped);
+> +		dev_kfree_skb_any(skb);
+> +		return NETDEV_TX_OK;
+> +	}
+> +
+
+[Severity: Medium]
+Can this early return leave already-queued descriptors in the avail ring
+with no doorbell?
+
+In the !use_napi path the only notification in start_xmit() is at the end:
+
+	kick = use_napi ? __netdev_tx_sent_queue(txq, skb->len, xmit_more) :
+			  !xmit_more || netif_xmit_stopped(txq);
+	if (kick) {
+		if (virtqueue_kick_prepare(sq->vq) && virtqueue_notify(sq->vq)) {
+
+Earlier skbs of a batch call xmit_skb() with xmit_more == true, publish
+their descriptors and deliberately skip the notify, relying on the last
+skb of the batch to ring the bell. dev_hard_start_xmit() decides that:
+
+net/core/dev.c:dev_hard_start_xmit() {
 	...
-	case HP_WMI_PROPERTY_CURRENT_STATE:
-		seq_printf(seqf, "%s\n", nsensor->current_state);
-		break;
+		rc = xmit_one(skb, dev, txq, next != NULL);
+	...
+}
 
-hp_wmi_update_info() takes state->lock internally and releases it
-before returning, so by the time fungible_show() dereferences
-nsensor->current_state in seq_printf(), no lock is held. Two
-processes reading a sensor's current_state debugfs entry at
-overlapping times (or one reading it while another read of the same
-sensor triggers a refresh) can race: one thread's seq_printf() can
-be part-way through printing the string at the moment another
-thread's call into update_numeric_sensor_from_wobj() frees it with
-devm_kfree() and installs a new pointer, causing a use-after-free
-read.
+so the final skb in the chain is the one with xmit_more == false.
 
-Take state->lock around the read in fungible_show() as well, so it
-can never run concurrently with the free-and-replace in
-update_numeric_sensor_from_wobj().
+If that final skb is a zerocopy skb without SKBFL_DONT_ORPHAN (an
+AF_PACKET TX_RING sender, or vhost_net under nested virt) and
+skb_copy_ubufs() fails its GFP_ATOMIC page allocation, the new block
+returns NETDEV_TX_OK without reaching virtqueue_kick_prepare() /
+virtqueue_notify(). Are the previously added frames then invisible to the
+device until some unrelated later transmit on the same queue happens to
+kick it?
 
-Fixes: 23902f98f8d4 ("hwmon: add HP WMI Sensors driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/hwmon/hp-wmi-sensors.c | 2 ++
- 1 file changed, 2 insertions(+)
+Batching for this queue looks reachable without BQL: for a root qdisc
+without TCQ_F_ONETXQUEUE on a multi-queue virtio-net device,
+dequeue_skb() uses try_bulk_dequeue_skb_slow(), which chains up to 8 skbs
+for the same txq. The BQL-driven try_bulk_dequeue_skb() path stays inert
+here because the !use_napi path never calls __netdev_tx_sent_queue(), and
+__free_old_xmit() accounts ORPHAN skbs into stats->packets, so
+netdev_tx_completed_queue() is always fed zero bytes.
 
-diff --git a/drivers/hwmon/hp-wmi-sensors.c b/drivers/hwmon/hp-wmi-sensors.c
-index 03c684b..55aee16 100644
---- a/drivers/hwmon/hp-wmi-sensors.c
-+++ b/drivers/hwmon/hp-wmi-sensors.c
-@@ -1247,7 +1247,9 @@ static int fungible_show(struct seq_file *seqf, enum hp_wmi_property prop)
- 		break;
- 
- 	case HP_WMI_PROPERTY_CURRENT_STATE:
-+		mutex_lock(&state->lock);
- 		seq_printf(seqf, "%s\n", nsensor->current_state);
-+		mutex_unlock(&state->lock);
- 		break;
- 
- 	case HP_WMI_PROPERTY_UNIT_MODIFIER:
+Would it work to fall through to the kick logic (or replicate it) before
+dropping the skb? The pre-existing xmit_skb() failure return below has the
+same shape, though it is annotated "This should not happen!", whereas this
+new path turns a routine -ENOMEM under memory pressure into a
+doorbell-skipping return.
+
+>  	/* timestamp packet in software */
+>  	skb_tx_timestamp(skb);
+>
+
 -- 
-2.43.0
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914214229.1674102-1-willemdebruijn.kernel%40gmail.com
