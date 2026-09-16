@@ -1,74 +1,33 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C013C448CED
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:37:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE35450413;
+	Wed, 16 Sep 2026 07:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789544285; cv=none; b=JKSBl81Gy89wB9vbngviTf5I8NJ+eXP2HeY+4ttQyC48qK9lh/frz6E5SY6hAR39s8DxsTeZ73bCff1ZaffbpIF6sMmH2wQQOkh9q+m53PIgSEiX012j8+MZkbaumgYXdBp/R1p/SAHDQtg3CvJoEwyIc6bX96eqBZJFkRntrIE=
+	t=1789544343; cv=none; b=J7NP2PVWrMgX+n/2p4KNuWatiIsNNei+Ma9jrNf/zaEB+I9wl+8qFI4WDp5koLXNwIsRJwHjOWUHPm8k0/4tIpTDQAI3MFrbdT8tULXDKVGUgf95RaUMpkNkrMFMl8nWN6aSTFhnuJgDgGRg2AEj6g3YZzY/kSxs++66MJS3fH0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789544285; c=relaxed/simple;
-	bh=j7jgslCWBYoA2+D+WAWshoZXYUkf/W7ampu9ziB7JwI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=tUf9kZFM5+bH7NkxAX0JZqIhXFlb8AB1yzEtycJE/xQT1xg/VZZaaU6AiODqmE+JhoPX935trMzzxzhCC0yJwyi8LpxVRaTLfw4V5o65y3u8gUv+KI5RJ78ksp/N8Q+/fw6eYoCWNKVJ1yiN6682vqChlt//0PMRQmDPYlaQWdo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nLpccVq0; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nLpccVq0"
-Received: by mail-pz2-f41.google.com with SMTP id 41be03b00d2f7-cc50b9e8a45so426952a12.2
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 00:37:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789544266; x=1790149066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=4H2HhVJ8R9paQExr1TkyHeGUkf1dKuUDiaC/9DA+VGI=;
-        b=nLpccVq0hHtlZbNAs98Jgt+76CGfUX68Ln80oDkeQBlYy7JFmmicRJ6k5gf7n2hv5V
-         Ry1oRlg8QjBtsoAfC+ya83R+2uJtl7axr/P2VPBSNmxesoYqY8EWax0pXo3e6tD4t0J1
-         lpRIt4KrttDtGEOKLOD4E7mgRhsDkGoUtZRATaGdqxmJNtC4lMKPF0D+PKLwgTEN1+ME
-         /kTVJl63FBlC5rREfmacX0EIE/FcrCyX1sTO9cKTWKaY58n6sgeIazAaSXWf8AZbXOrL
-         yO/EaWBYSYj6Px1lEVCI/N98hFD0z5eB4cjgpU3Cvhv+UQvd4G/CODofaGxRuGbUQF+x
-         uqUQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789544266; x=1790149066;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=4H2HhVJ8R9paQExr1TkyHeGUkf1dKuUDiaC/9DA+VGI=;
-        b=Y7S0LexAPoh6bbDfwjkW+CMVy5CL8ouQ2cuo0FNX0ueWGZoMZy2MnLhBBvVN01t5He
-         YqIOyvLz/G1fJsiQkytuAFfpBgjdzbhhVnMVUVlOZvP/FltdJ36Fochu1Q1B+I4eR3fg
-         lAltRXebLRui9a8IKYILS4XfHhlnQSsZ4zQoXXawJfzVqJmfxkcLwJcKNKHrdQnbzyNp
-         t7udZCZld940fQUUWIixz+mRpqP9gfn19rgCsHv/sWMPagtFiEOXIhcnAWMg/3G/QN2S
-         oeixDUCdRi+OgnU+WywlQfU/mEIxPY2heszp1oMbzcTCWtO2YoJ+UT/2wJks9CuHZeQ8
-         suSg==
-X-Forwarded-Encrypted: i=1; AKwUvBzahPt36ShB10ZYIO13S1QjEZzgKSsVqmVWWlhNDeMdkBc5NE3F+6IzePWn/AIw39bBbWK5gMg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX8SdcfOkNMH0UcoRN6vEcFlZpHCjD4ri4O98UYZC9iLCPzD43
-	cOKebJRCsiXhz1XZECis2GBpnsOGhi1qy2sFyYSO+yPs798CQsq8U2LW
-X-Gm-Gg: AYBFou1/Eoi7dreBUMJQZLjMKE/mp1n7XfGWWRpOXzWg+u8ixXtJxHzgv+cfWlCjscd
-	LHlqzP1/41RIlQIezfD67mTUUOg2WD8UPB6eIoHUiHbVVWXAQGi+b1CUejtqBbFtaIyY4DIw5K7
-	ic9dL9MbZrgDJdMPqW160plJ6wAvHGtge8491v7EJmmvjL17MmWALkVvxWer/nndhV0oDY7/0lc
-	wOsacfWrCXsozxyRR1rP5VF9nqQdhHD90a9CK4f8TfNSjrhG8Oze0jqpmJwyoPPtcXmcnf0j4g5
-	vYoJh/DIL4Kr6XwSBhesd5fyW65oDubv+L3AY7iySSeVMUDNUcZdeVrntoNAAAMkfD76ouuAuPp
-	L7nEZ2ZXtLM0VgxLPmMO7e4rFKBffFbOV1vPl57OpNOOOMHk+QlsAd0hGQ45whDWKrIHvtS0HMV
-	f/cATYtOh12HNqSy38Kl4IycbLiBgVsh60lmvSmeLaeKaEf6T2Xa5Txg==
-X-Received: by 2002:a17:90b:3b91:b0:398:a486:81ec with SMTP id 98e67ed59e1d1-39e1e380e12mr3888761a91.11.1789544266209;
-        Wed, 16 Sep 2026 00:37:46 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1c337e97sm897181a91.2.2026.09.16.00.37.41
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 00:37:45 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Stanislaw Gruszka <stf_xl@wp.pl>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	Ron Rindjunsky <ron.rindjunsky@intel.com>,
-	Tomas Winkler <tomas.winkler@intel.com>,
-	linux-wireless@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	s=arc-20240116; t=1789544343; c=relaxed/simple;
+	bh=j9ktKFtpbgo4VcDmddQSyAsXK/V4CRdYlVuga/agvto=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ke353KD5XZilFPXJhjY4nDiSc3ZcArPxYe0eKNtE4XPDcErZUd/Ie3hEdbPpnjamcshaJtIvcanbSWIdzkjx51D7jZY/qEgbYYjqUvGUSK5UAC/tVABVTySAgoblrUXNVAnX5bDb1tJHjXA/cPXES1hRCeTVf+DKYo8Gq4LLPDY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowACXnz2DR6pqrznfBw--.40767S2;
+	Wed, 16 Sep 2026 15:38:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexander.deucher@amd.com
+Cc: dri-devel@lists.freedesktop.org,
+	javierm@redhat.com,
+	linux-kernel@vger.kernel.org,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: iwlegacy: 3945: free EEPROM data on remove
-Date: Wed, 16 Sep 2026 15:37:36 +0800
-Message-ID: <20260916073736.2952028-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH] firmware/sysfb: Fix device reference count leak in sysfb_disable()
+Date: Wed, 16 Sep 2026 07:38:15 +0000
+Message-Id: <20260916073815.1972045-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -76,38 +35,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowACXnz2DR6pqrznfBw--.40767S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrKryxJF13WFy3Kw4rCw47twb_yoW8JrWDpr
+	s3GFWFyrW5XF409ayUJF1jqF1Fqa98tayxG3s3Cas5u3Z8AF109ry8J3W8WF1UArWkGa4S
+	qF43tr18uF4UCaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUrF
+	ApUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcMA2qqQJUe-gAAs6
 
-il3945_pci_probe() calls il_eeprom_init(), which allocates memory for
-the EEPROM data. The probe failure paths release this allocation with
-il_eeprom_free(), but the remove path does not free it after a
-successful probe.
+In sysfb_disable(), parent is obtained via sysfb_parent_dev(si), which
+calls screen_info_pci_dev(si) and returns a pointer to &pdev->dev with
+an acquired reference count. However, sysfb_disable() does not release
+this reference before returning, leading to a device reference leak.
 
-As a result, the EEPROM data is leaked when the PCI device is removed.
+Fix this by checking if parent is not an ERR_PTR and calling
+put_device(parent) before releasing the mutex.
 
-Free the EEPROM data in il3945_pci_remove() before releasing the
-mac80211 hardware structure.
-
-This issue was found by manual code inspection.
-
-Fixes: 073d3f5f1b3b ("iwlwifi: changing EEPROM layout handling")
+Fixes: b49420d6a1ae ("video/aperture: optionally match the device in sysfb_disable()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/wireless/intel/iwlegacy/3945-mac.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/firmware/sysfb.c | 9 ++++++---
+ 1 file changed, 6 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/net/wireless/intel/iwlegacy/3945-mac.c b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-index cbaf250626c5..f7ca182d1494 100644
---- a/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-+++ b/drivers/net/wireless/intel/iwlegacy/3945-mac.c
-@@ -3807,6 +3807,7 @@ il3945_pci_remove(struct pci_dev *pdev)
+diff --git a/drivers/firmware/sysfb.c b/drivers/firmware/sysfb.c
+index 8833582c1883..11c5ce128a6c 100644
+--- a/drivers/firmware/sysfb.c
++++ b/drivers/firmware/sysfb.c
+@@ -71,9 +71,12 @@ void sysfb_disable(struct device *dev)
  
- 	il_free_channel_map(il);
- 	il_free_geos(il);
-+	il_eeprom_free(il);
- 	kfree(il->scan_cmd);
- 	dev_kfree_skb(il->beacon_skb);
- 	ieee80211_free_hw(il->hw);
+ 	mutex_lock(&disable_lock);
+ 	parent = sysfb_parent_dev(si);
+-	if (!dev || !parent || dev == parent) {
+-		sysfb_unregister();
+-		disabled = true;
++	if (!IS_ERR(parent)) {
++		if (!dev || !parent || dev == parent) {
++			sysfb_unregister();
++			disabled = true;
++		}
++		put_device(parent);
+ 	}
+ 	mutex_unlock(&disable_lock);
+ }
 -- 
-2.43.0
+2.34.1
 
