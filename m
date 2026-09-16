@@ -1,91 +1,127 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FF7D4C6515;
-	Wed, 16 Sep 2026 16:53:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4E04A7C98
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:53:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577603; cv=none; b=edCnXtJCUWaaaCSsVWly32ZqVXF0zW6rNgkyiTleLJBGMC2eI5bFOiuPv2+BPlO8Esm62VrZlXCv+fbYmzJM8Zs70VFYM8YmwDATiiB9uiyfayPLGMeqUuQL7S1G4HkQder6/lrvMP7O9dBp7ujsIzemxCXGExqWSzDFNhd7g+Q=
+	t=1789577637; cv=none; b=hWooTDgmVlOc+MStjpg6VIcwD3W89nOOuFDwIdFjETESJGHghemzoNSvgkqv8aMjd22Nt7miZIFLtoj66iBKAZ6lE6Thx+SM6ZxpP2v+tUndvDDQ+Q/xD57zl+yUlSdOh/MjGk3m0kce3PTJgb05Cwfq7CGQrPdopZO1HM5dSzY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577603; c=relaxed/simple;
-	bh=dPZo3LSu9a/yakAaWi7jqjb8hMyJHbQA5bsD2Vijpfg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JpwZpvhVc+vxPWrziV+Q2ERjf0++sjgOBCqgPO1SbQnpeZwbabTdbnL5DwkFgwBKwOlnu8bX6E7NY4OCgFjPh4zIXkaKQ69ApDmnPBW530fpKRxux/S90crUZOftA3oCvkM5phncMTO0Jixx8Z+imm2AxWaZIxR9aWNIUklZ5Pg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAj14yapq5wNuCA--.21781S2;
-	Thu, 17 Sep 2026 00:53:12 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	yoshihiro.shimoda.uh@renesas.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: renesas_usbhs: Fix runtime PM leak in usbhsc_power_ctrl()
-Date: Wed, 16 Sep 2026 16:52:45 +0000
-Message-Id: <20260916165245.2085374-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789577637; c=relaxed/simple;
+	bh=ZEx2LzmFNSlJDeHIJOb1h9PUgcVBEzfSVNLOurxvnZE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Tum9sGg7w3/ZzK4E1Mf/ETBaXpHXhzbSBQ0uwDs+QnHcb4kQcNIHvAlZtapYvj4Ep6W/Sy25EI4OBS4JwMFjUCbXZyDMN0Xq9rnQ+CDQFw61zcZXTCZg7uIXOuNvMJ6jqWo0SBZn0jMt1WmL+ddHlN+p0mGFbQXg/L88zuvQVqI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lgYnvd5P; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lgYnvd5P"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6FC91F0089B;
+	Wed, 16 Sep 2026 16:53:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789577627;
+	bh=12PPX9fCM1oUUXP3MTDBmo5Jq80D/Y0zC05a9HRGbwk=;
+	h=Subject:To:Cc:From:Date;
+	b=lgYnvd5PDrBO2qmbcTbwoLVy+LDQ3bdwWVfBh0J4vZRzhFj19pP/P+d/r32prYqKc
+	 kuysdzmrKqyYLnAdH54XqW0TXJ30ToocYFg5usqXw0oIr2BFvvjW6iaZJH7dEv2/zU
+	 D1QrHTrhVauGKX3kdCvgmkMqhWEmkPXwXOq3EJRY=
+Subject: FAILED: patch "[PATCH] smb: client: fix heap overflow in DACL owner/group rewrite" failed to apply to 5.15-stable tree
+To: doebel@amazon.de,linkinjeon@kernel.org,pc@manguebit.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 17:49:07 +0100
+Message-ID: <2026091607-trouble-defuse-0631@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAj14yapq5wNuCA--.21781S2
-X-Coremail-Antispam: 1UD129KBjvJXoWxJr1kGr1Duw4Dur45XF1rXrb_yoW8Gryfpr
-	4ktFWIyry8JF4jvwsxAr1kZFyrGFWayry3Ar97Ka1kuw13Aa40kFy09F1Y9F1qyrWfJ3Z0
-	qw1vkF9rAF15CrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
-	nmRUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqozVcEwAAsL
 
-usbhsc_power_ctrl() takes a runtime PM usage count with
-pm_runtime_get_sync() when enabling the controller. If the subsequent
-usbhsc_clk_prepare_enable() call fails, the function returns without
-dropping that usage count, so the device's runtime PM usage count is
-leaked and the device can never suspend.
 
-Put the runtime PM reference back with pm_runtime_put_sync() before
-returning on the clock enable failure path, mirroring the disable path
-of the function.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: 3df0e240caba6 ("usb: renesas_usbhs: Add multiple clocks management")
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0ee150794c75bcd0be0e24ff3394f433cbae18cc
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091607-trouble-defuse-0631@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0ee150794c75bcd0be0e24ff3394f433cbae18cc Mon Sep 17 00:00:00 2001
+From: Bjoern Doebel <doebel@amazon.de>
+Date: Tue, 8 Sep 2026 16:10:00 +0000
+Subject: [PATCH] smb: client: fix heap overflow in DACL owner/group rewrite
+
+When id_mode_to_cifs_acl rewrites an existing DACL, it allocates a
+buffer sized according to the on-disk DACL length reported by
+dacl_ptr->size. However, replace_sids_and_copy_aces may rewrite each
+ACE with a new owner/group SID obtained from the cifs.idmap upcall.
+Those SIDs can have up to SID_MAX_SUB_AUTHORITIES (15) sub-authorities,
+making each ACE up to 76 bytes (sizeof(struct smb_ace)).
+
+If the original DACL contains short SIDs (e.g., 1 sub-authority) while
+the replacement SIDs are long, the rewritten ACEs overflow the
+allocation.
+
+Fix this by always budgeting for worst-case SID expansion: allocate
+sizeof(struct smb_acl) plus num_aces * sizeof(struct smb_ace), which
+covers the smb_acl header and room for every ACE at maximum SID size.
+This replaces the previous split logic that used dacl_ptr->size for
+cifsacl mounts but num_aces * sizeof(struct smb_ace) for mode_from_sid
+mounts: both paths can trigger the same rewrite and need the same
+headroom.
+
+KASAN reports this as:
+  BUG: KASAN: slab-out-of-bounds in build_sec_desc+0x1e8a/0x2680 [cifs]
+  Write of size 4 at addr ffff8881a5e25374 by task chown/5298
+  ...
+  The buggy address is located 0 bytes to the right of
+   allocated 884-byte region [ffff8881a5e25000, ffff8881a5e25374)
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/usb/renesas_usbhs/common.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Fixes: bc3e9dd9d104 ("cifs: Change SIDs in ACEs while transferring file ownership.")
+Assisted-by: Kiro:claude-opus-4.6
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Fixes: 5c3564852c58 ("cifs: Minimize the number of cifs_acl memory allocations")
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/drivers/usb/renesas_usbhs/common.c b/drivers/usb/renesas_usbhs/common.c
-index 8c93bde4b816..187d6298c265 100644
---- a/drivers/usb/renesas_usbhs/common.c
-+++ b/drivers/usb/renesas_usbhs/common.c
-@@ -412,8 +412,10 @@ static void usbhsc_power_ctrl(struct usbhs_priv *priv, int enable)
- 		pm_runtime_get_sync(dev);
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index def8908dd7e9..3e96e151df35 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -1837,11 +1837,13 @@ id_mode_to_cifs_acl(struct inode *inode, const char *path, __u64 *pnmode,
+ 				cifs_put_tlink(tlink);
+ 				return rc;
+ 			}
+-			if (mode_from_sid)
+-				nsecdesclen +=
+-					le16_to_cpu(dacl_ptr->num_aces) * sizeof(struct smb_ace);
+-			else /* cifsacl */
+-				nsecdesclen += le16_to_cpu(dacl_ptr->size);
++			/*
++			 * Worst case: every ACE is rewritten with a new SID of
++			 * SID_MAX_SUB_AUTHORITIES sub-auths -> sizeof(smb_ace) each,
++			 * plus the smb_acl header replace_sids_and_copy_aces() emits.
++			 */
++			nsecdesclen += sizeof(struct smb_acl) +
++				le16_to_cpu(dacl_ptr->num_aces) * sizeof(struct smb_ace);
+ 		}
+ 	}
  
- 		/* enable clks */
--		if (usbhsc_clk_prepare_enable(priv))
-+		if (usbhsc_clk_prepare_enable(priv)) {
-+			pm_runtime_put_sync(dev);
- 			return;
-+		}
- 
- 		/* enable platform power */
- 		usbhs_platform_call(priv, power_ctrl, pdev, priv->base, enable);
--- 
-2.34.1
 
