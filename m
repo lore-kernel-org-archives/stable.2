@@ -1,121 +1,156 @@
-Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A984F221FC6;
-	Wed, 16 Sep 2026 14:19:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77FDD50C289
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:19:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568358; cv=none; b=H6q49rrWxMSeFUj8qZIFtYLzetx8VvDXkUpdXYRnpKa0ibNANZd31xsvXPNWNPwodKcgbLPCBEIgsJWG/w8pzSInqCo4sKMiSJG2SocM8T49XNGyrTWVDd6Hubhke/UFV6D/8c0YLAyaObxqBaP/wHhIJRqTV/G/cunWHM/lWvA=
+	t=1789568360; cv=none; b=Ch6e5ordYG/IzNtqkRJ/v2TNtLvIu+CmZ2pVgwyk0VmAR/62cujR0SFV0jpTK6tWl3eA6TUvYrGKVgB/uVy8a2GNDBB0Ap8zHI2/lo8k1sIsc1qJU6x3Y3G/ES9vbCL0TdSpBY3v7U9CXXKM/OatnYJD7TZCR0FLxJsqnvINqZ4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568358; c=relaxed/simple;
-	bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=PfeTfNx5WyYRX78CQLYuAnWFlZCjcuNJDWaWc+gUVp5wTe/VjhAYvLBAmYG3DrzsfNUVaP/yy8+qOuN8fYvlGhnEkbhmy7TFtC+0YCCX6JVc8eKIV0wonkwetNgl+SAc84Wowl9mVBuHF4Nia9dcFvJUnYlbPEfkwr4z0cWtrqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=wb6a/tuw; arc=none smtp.client-ip=68.232.153.233
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
+	s=arc-20240116; t=1789568360; c=relaxed/simple;
+	bh=YqRNY6LldusggF0L4TrWy61PBeePQGCRvtSUcCHMrLQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=i8mUxKgWq5Z9mXYEjXk/+eaJIIixRFrnMSw/wp+OP1KDGqmqToQjOkNjE6jXDsSTLJeG4TfdskhD1XkC7dNbA3b9btLUHa9ZP5JAto8HfUCVOyKH0bCyXDyxraYstBxAwbkIXS4gvllsiGXqcmRRYrcgAFg/mGelTYm0e6x0+L4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SvOmGzzm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="wb6a/tuw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
-  t=1789568355; x=1821104355;
-  h=from:date:subject:mime-version:content-transfer-encoding:
-   message-id:references:in-reply-to:to:cc;
-  bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
-  b=wb6a/tuwuOYvd9pwSNzWf0cbo3A2Da42JswQxNV8t8q8O7PT5/hhw9h/
-   5Di3zoI5QMJnoBYlHmciVmSj625q95z4CzCWcAS5c4kHhBi8IaLUEqPtn
-   lXptWrjeFsZQ7lIttKD9E2FkCDky1BOpOTaFEXCusjJDTphXmsUPxDa8Y
-   ELCCV8Bau40QOssj6LaqLkfs59o0BjY/z3WCiGXDQhu1RqUnymowirB8x
-   vY+0oO7E518v5YCfB3Tu/21CXdAPAL8q82YfIoISYfZfXFh3yhDp/AoRL
-   Bp1/iiKeIGwfHTzrqjUJqXVLBZQVi7IyGUkA0vkKBrCrYmH9bheLpPxiY
-   g==;
-X-CSE-ConnectionGUID: ceDk0jBeQo+D85YcNJyfCA==
-X-CSE-MsgGUID: Ar8f7sAiQvWjv6k62LoUlw==
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="73741287"
-X-Amp-Result: SKIPPED(no attachment in message)
-Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
-  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:19:05 -0700
-Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
- chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.2.2562.45; Wed, 16 Sep 2026 07:19:04 -0700
-Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
- (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
- Transport; Wed, 16 Sep 2026 07:19:01 -0700
-From: Ariana Lazar <ariana.lazar@microchip.com>
-Date: Wed, 16 Sep 2026 17:16:28 +0300
-Subject: [PATCH v6 02/11] iio: dac: mcp47feb02: Fix gain field
- initialization for active channels
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SvOmGzzm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63F61F000FF;
+	Wed, 16 Sep 2026 14:19:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789568356;
+	bh=IgnSj2qco4mxQ6AXgyfGrAVXjLnhe2Gtqz4AJwL85D8=;
+	h=Subject:To:Cc:From:Date;
+	b=SvOmGzzmtUHMLveu3OjXTxJp0uK1hR70KiZImfZTX0vyouS42r7Lz0vNbGbTvYsk2
+	 zzO3n6ufnyaocfrr6cLZh5rq7ys7j/QSkpIHBOxpng04XsnpanfN7HwFmH7vY9VeDR
+	 FAQaUpo3Kru+UEYbwdu4uwwy8lKQvTX2KRtm/ya8=
+Subject: FAILED: patch "[PATCH] tracing: Free histogram var refs regardless of how often they" failed to apply to 5.15-stable tree
+To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 15:17:21 +0100
+Message-ID: <2026091621-debtor-hazelnut-dfc6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260916-mcp47feb02_refactor-v6-2-285464651f89@microchip.com>
-References: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
-In-Reply-To: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
-To: Jonathan Cameron <jic23@kernel.org>, David Lechner
-	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
- Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
- Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
-CC: <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
-	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>,
-	Jonathan Cameron <jic23@kernel.org>, <sashiko-bot@kernel.org>,
-	<stable@vger.kernel.org>
-X-Mailer: b4 0.14.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568335; l=1952;
- i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
- bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
- b=ENkUIWDHksVxKd4JSg6T2JwHOjkX8GVDpOpQLnPd1hmLf+OqlEU80IDP+Ox9jPX0F9KTdRMhi
- e96wkDg29emCVEwjLOlMTy4mESq4vmrL7ikqQSgBdkDF7FV+ZaGq26T
-X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
- pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-As per MCP47FXBX48 Datasheet, in the format of the Gain Control and System
-Status Register each DAC channel has one bit to control its gain,
-starting at bit 8, while bits 0-7 contain status or unimplemented bits.
 
-The previous formula didn't initialize correctly all channels, being
-replaced by using field_get() with the already defined macro used in write
-operations where needed in the rest of the driver implementation.
-DAC_GAIN_MASK(i) extracts the gain control bit for each active channel
-correctly in one step.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
-Reported-by: sashiko-bot@kernel.org
-Link: https://lore.kernel.org/all/20260804134616.1D8A21F00A3E@smtp.kernel.org/
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 4bddcb346a6cf4615ca77f69a589623b877ca267
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091621-debtor-hazelnut-dfc6@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 4bddcb346a6cf4615ca77f69a589623b877ca267 Mon Sep 17 00:00:00 2001
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Date: Sun, 6 Sep 2026 21:40:25 +0900
+Subject: [PATCH] tracing: Free histogram var refs regardless of how often they
+ are referenced
+
+Using the same variable three or more times in one hist trigger leaks the
+variable reference and its strings when the trigger is removed.
+
+commit 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy
+var_refs") made a trigger's var_refs[] array the only owner of a var ref:
+destroy_hist_field() returns early for HIST_FIELD_FL_VAR_REF, so the field
+expressions never destroy one. One entry, freed once, no count needed.
+
+commit 8bcebc77e85f ("tracing: Fix histogram code when expression has same
+var as value") then made repeated references share one object and added a
+count of them. Only the increment side exists, since those expressions
+still return early and never drop a reference, so __destroy_hist_field()
+sees how many references were created rather than how many are left. It
+frees when the decremented count is 0 or 1, so two references work and
+three or more leak.
+
+Sharing kept one array entry per object, and create_var_ref() searches and
+appends within a single trigger, so nothing outside it holds the object.
+Removing a trigger whose variables are still referenced is already refused
+by check_var_refs() with -EBUSY. Drop the count and free unconditionally.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
----
- drivers/iio/dac/mcp47feb02.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+Link: https://patch.msgid.link/20260906124025.3550596-1-donggeunyoo.kernel@gmail.com
+Fixes: 8bcebc77e85f ("tracing: Fix histogram code when expression has same var as value")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
-index 6a3875e1d6a2c0cdd146410358130c44b1360f56..fa4bd1df954844da35a8496758489189aeceb60d 100644
---- a/drivers/iio/dac/mcp47feb02.c
-+++ b/drivers/iio/dac/mcp47feb02.c
-@@ -1016,7 +1016,6 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
- 	if (ret)
- 		return ret;
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 963e0d6b61fd..f90680b33a37 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -169,7 +169,6 @@ struct hist_field {
+ 	struct hist_field		*operands[HIST_FIELD_OPERANDS_MAX];
+ 	struct hist_trigger_data	*hist_data;
+ 	enum hist_field_fn		fn_num;
+-	unsigned int			ref;
+ 	unsigned int			size;
+ 	unsigned int			offset;
+ 	unsigned int                    is_signed;
+@@ -1913,16 +1912,8 @@ static int contains_operator(char *str, char **sep)
+ 	return field_op;
+ }
  
--	gain_ch = gain_ch & MCP47FEB02_GAIN_BITS_MASK;
- 	for_each_set_bit(i, &data->active_channels_mask, data->phys_channels) {
- 		struct device *dev = regmap_get_device(data->regmap);
- 		unsigned int pd_tmp, dac_val;
-@@ -1027,7 +1026,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
- 		data->chdata[i].dac_data = dac_val;
+-static void get_hist_field(struct hist_field *hist_field)
+-{
+-	hist_field->ref++;
+-}
+-
+ static void __destroy_hist_field(struct hist_field *hist_field)
+ {
+-	if (--hist_field->ref > 1)
+-		return;
+-
+ 	kfree(hist_field->var.name);
+ 	kfree(hist_field->name);
  
- 		data->chdata[i].ref_mode = (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
--		data->chdata[i].use_2x_gain = (gain_ch >> i)  & MCP47FEB02_GAIN_BIT_MASK;
-+		data->chdata[i].use_2x_gain = field_get(DAC_GAIN_MASK(i), gain_ch);
+@@ -1969,8 +1960,6 @@ static struct hist_field *create_hist_field(struct hist_trigger_data *hist_data,
+ 	if (!hist_field)
+ 		return NULL;
  
- 		/*
- 		 * Inform the user that the current voltage reference read from the volatile
-
--- 
-2.43.0
+-	hist_field->ref = 1;
+-
+ 	hist_field->hist_data = hist_data;
+ 
+ 	if (flags & HIST_FIELD_FL_EXPR || flags & HIST_FIELD_FL_ALIAS)
+@@ -2223,10 +2212,8 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
+ 	for (i = 0; i < hist_data->n_var_refs; i++) {
+ 		ref_field = hist_data->var_refs[i];
+ 		if (ref_field->var.idx == var_field->var.idx &&
+-		    ref_field->var.hist_data == var_field->hist_data) {
+-			get_hist_field(ref_field);
++		    ref_field->var.hist_data == var_field->hist_data)
+ 			return ref_field;
+-		}
+ 	}
+ 	/* Sanity check to avoid out-of-bound write on 'hist_data->var_refs' */
+ 	if (hist_data->n_var_refs >= TRACING_MAP_VARS_MAX)
+@@ -3276,7 +3263,6 @@ static struct hist_field *create_var(struct hist_trigger_data *hist_data,
+ 		goto out;
+ 	}
+ 
+-	var->ref = 1;
+ 	var->flags = HIST_FIELD_FL_VAR;
+ 	var->var.idx = idx;
+ 	var->var.hist_data = var->hist_data = hist_data;
 
