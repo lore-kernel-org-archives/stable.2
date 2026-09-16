@@ -1,188 +1,179 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA08D3BCD20
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:45:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580743; cv=pass; b=OiKsKs2UQcb29rEKi1qrWO4SHVMQzNzm6qKCQRcE+Vy9sN2uRAvgm4Z/ijN7BlYc8nA3YDCAev3ONc5mHsoiGiu2OT9h3BljVdGHKtNN4uMy8btYl0JXoyH9nBhg2TOWGXCIB4XikjLQwxpYEqRCf1E1CRySa18Z1xhUk5gQoO8=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580743; c=relaxed/simple;
-	bh=SKN0JL7GkBBUQJS84eZq1re1jMJyNZPMoGLiDdoauHY=;
-	h=From:In-Reply-To:References:MIME-Version:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=YVGaoKkjdd+xn3hKA6atXWRJ1JshjVgASwWgwBvT+Wtpgglcz/x/tmOMWGcYt+fZ7ROgmckEaiBx5glpfAiea1r4E58+FmXNbRHFEEkOru1zXv/5za9m07pdpeRIEyy9oraxSlpvZT4oBuNvwHwjfZa8LiotD5GFN5gwpou1j5o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=StjrCAR8; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 427DC386571
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:46:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789580789; cv=none; b=VystZTt2/ehflWyubHvfugrupXywgBzJVkGJgX6pN2COTqlliqoW4ucEMnsClxlUbMcvL+AfsK2HqoZvSOTs3kgMIjQEZVNUJFtOSasQ0Rf9NFVRbGpd6t5gMszw8lB+i4yfcJAkQ/LVaZJG5PWFVRlziwMNPA0abfWGAq51PTo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789580789; c=relaxed/simple;
+	bh=px/y1Mshy50rYV4eWlLCOeqrMdqIiOpssiQMyGNiRXQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=m9QMJTeNs3rZ0Tw/1Yuf2UTr7F1NbC7TXUaGwabOchH4J410N8cC2bak8G8FQ6YIQzFJQGst4663o3ANCtXTH16M5WBAYUGakpD/ZPoPPjrkm2GWdMkDw59eqhdSGJ9w81iYdIE1J2ja46cYcnCTkv7AZmKpc5q1UU/qJ706Mkk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GSad6oM6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="StjrCAR8"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66d20c35ffbso232859d50.1
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:45:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789580725; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BdBtcHQBFmLUyQPqiwaNrsw+/Y6Xv40StT7Cv0otoy+6d7f72g9mpqIMplR3vIKRNK
-         DWIg2VOpH287UWzxTk3iWbFLBVAT0DZK+XpA3QEdWiasfdytTVPjfOMzHculSdGGdqPx
-         lCyB6r6fakNZdYqgMfyKokgTrYd4rglVQ3edf7gWyuQBlLew2uloyXuasgt7k0OIjsuO
-         wRq1GjJgNdigEbZGjHFUBUwpPZDdGodKROOEpEKqkfK+9z+FaqAgVU2iP2VkZo6Oc8D3
-         mphNflYDHr5XlLUxKarpSrhLg2yLv5NFm856olIX+dGsDwZXh7dgP39qxHQ4r4sEklGJ
-         qmVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:mime-version:references:in-reply-to
-         :from:dkim-signature;
-        bh=IOYv3QgMRUMifmGGTF2BeO7ylrbnq7wWgArM3pERBA8=;
-        fh=08gedX+0RJD4erXA2U5yPgJS8OSGZV+WJK6DwpHsjs4=;
-        b=MuBRTGcCZdYg3mlDo4QzFYk5bqFY8Nja1CFIwAOOW3hDFKF9iYv2LFVRizWIC84yo3
-         c53CQiRW4taOqhFsVYJa6kVSHFVscKU1dhdfXzicJHLyiJRBVstkjS9B1GwmHa6QqQTy
-         QiYahMbHGpkMQcxh/Sax7QPZbMaWDhl2RvybMBhzlytvtGN1SCsTHf+H3oBOpXc7Cfy+
-         ARTrxFvRhtdEYFm/tMxDR8S1ilQHNSxSJOLibVMY2EqwhCJqiRKydRbHOh0eyVupwOin
-         qhu96a8g2qr5hn4Vpj0WepEcRp6x9qtEPfyZ6g2nn8J/LbQox7W4nezEZ6qJtdGub1kX
-         9Tag==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789580725; x=1790185525; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=IOYv3QgMRUMifmGGTF2BeO7ylrbnq7wWgArM3pERBA8=;
-        b=StjrCAR8Jl5RSTFyh4QuL5amrtJkTOzgd33RzpB1w+STDKpB3iczSykGpXYumB9aeC
-         xD1vmSgRnCFr5RYxOMTuKqHRMLI09IburwSEAcrwgyyCwlZQ3KdJvvNQmHtXAy9mrYSN
-         9Ans5DSo3i0ZIVso01xarLR/6alZgaldnHQQ7wz9bo4IIT42x8BVC0Sh/EvryuRvgBeM
-         IR5IZT/QqKtWbhM4dfrZ5ada7rUSULNjRYIq+LgLulCfpMRLGrKFigqWL1pH4Bvk0Q2M
-         1Vx3cFigBUpLDXqKaJTjaX5I4aBjFhmNmrC9IygLwKHIxp2JpKsfeXbXjEeGWA8keKI5
-         UlRA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789580725; x=1790185525;
-        h=content-type:cc:to:subject:message-id:date:mime-version:references
-         :in-reply-to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=IOYv3QgMRUMifmGGTF2BeO7ylrbnq7wWgArM3pERBA8=;
-        b=JvPO0p3ki+u70T3SXRemG8ZSpGum7ChuoOIxikHsfxq3NdlWqGBULkSx7VaEvMZ+oF
-         3ZgQJqFHg2ugN8IvhS4MljzFN4WodXVGNMFY4qGwI4t6uiderAsnmlyDUnF8unVu+yYK
-         AFRvqhB+sJVBsRvwYHchkQdb8EQmCbxykdyXBTbui9eIoDQMWMpkgSXBo/1Kr8ERwEqO
-         /3VRAUWHLGUxFBQOCZ3la+jGVgV1iLrb0FkSi/m+j0gRtEsRVmCe2i3Uv9SGO7ZO4h5s
-         QLF/eQt1Q51SAA4p+HS7Dd7jgc66OVJl1Cf/v5li8wV4GiPmonPigoR5TwRuWi0s8C3q
-         gGTA==
-X-Forwarded-Encrypted: i=1; AKwUvBwb0wdAD3736D11kTM1iSpTmXJ9J3wLKJixBDxIqg/n6lblcscJNMBeY62Ovam51BEDmlY52uI=@vger.kernel.org
-X-Gm-Message-State: AFuF++kRxkYEHv0nYjsEM8V+MDDNzFWxT+l7pzStmXabCYf9VESBWk+j
-	xSYFb46sI6tKJZmna+XiaDzdX9EcO8FTufT3uuI0oZrxjZugTrBpDhtdiP9lg9HKIY/SI7vtadc
-	EmjZxR77N5PVe9qYPrEYRDXLSdZZQUPQ=
-X-Gm-Gg: AYBFou3ea72al23nBtKXHh5A9YX+bxoZhrYX6VePJdg1vZNEwQoPBWzD2SZIdmp18SB
-	23QpJbGTcxA8doCyhsU6w8ZImnjhxJCQXBvWQpVY6aEpysXvtK7sSdLWJ/qYr4D5ot2lDTqU0n0
-	sdMaPZGDv5D7GicfOy0GA50QWsQV/e1ea1HyTAMBZpKxnCSsEHjUDTqkS9OjNOVftPC3GgKMyoy
-	sBiC4LkIPs2tQaT+MdQ2+wCekf6rg9rr10A6moyybdfkyx+r+kcZUpZOYgAH/yhUKJ8Xw/0iYM1
-	jO17N0L8f8PS0NV1vi6MvPhD5cD5o9o0aTgfB95qEJjeD1EMFU+b5A==
-X-Received: by 2002:a05:690e:174d:b0:671:335c:d6b with SMTP id
- 956f58d0204a3-6716344be02mr1247899d50.5.1789580724461; Wed, 16 Sep 2026
- 10:45:24 -0700 (PDT)
-Received: from 95991385052 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 16 Sep 2026 13:45:23 -0400
-Received: from 95991385052 named unknown by gmailapi.google.com with HTTPREST;
- Wed, 16 Sep 2026 13:45:23 -0400
-From: Andrey Ryabinin <ryabinin.a.a@gmail.com>
-In-Reply-To: <20260914093300.100495-1-huangshaobo3@xiaomi.com>
-References: <20260806123020.90869-1-huangshaobo3@xiaomi.com> <20260914093300.100495-1-huangshaobo3@xiaomi.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GSad6oM6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E9831F00893;
+	Wed, 16 Sep 2026 17:46:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789580776;
+	bh=v4mpUzuvv104t1TZtoxebZPJSdwwa2tOm16PixDhxtw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=GSad6oM6T2CeNCpmDGLNzvuW5MKFV+Jnd/oQw/5AVAkNKB850iaW8Y6IeGuO1+GWR
+	 P4ZGLzK7fnnWXn4PeRpy4mD9Qj62Z4k2VayGAHtCr91b6RyzWBRLOQulCytHmTdqsz
+	 LNCG7B3h0TkrtVGClH+e2BsIMZJGONdqEN+dUlPog3VUn6tUioKSzv+61dD0gYjZZ1
+	 pyLRMsV1XiWdNuFPaMlqXas8YccjShrcu76U52jYjzjiHkth5pG6Bphd9dtqeLehrv
+	 3oBFzeQpkzAWiMBV/QQzIORqpFnzN5+N+zayd2R2FVyMkg5WukiNdg7+4b52LJOzf/
+	 kKW+h1npXPm+A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	sashiko-bot@kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] tracing: Take trace_array reference when opening a tracer options file
+Date: Wed, 16 Sep 2026 13:46:14 -0400
+Message-ID: <20260916174614.1401915-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091633-claw-movable-7076@gregkh>
+References: <2026091633-claw-movable-7076@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Date: Wed, 16 Sep 2026 13:45:23 -0400
-X-Gm-Features: AcwNN1UbSz9j_YK2TyroR0WvWmqVkz_Hz7gqfmErLvR7rOVGTQ8tgDgYEplJIPk
-Message-ID: <CAPAsAGzVsmj4xRsJeBBBt5FvgUqWa7eyb4w=EBkm8GGeLF1EhA@mail.gmail.com>
-Subject: Re: [PATCH v2] fork: reset pointer tag of vmapped thread stack before vfree
-To: Shaobo Huang <huangshaobo3@xiaomi.com>, mingo@redhat.com, peterz@infradead.org, 
-	juri.lelli@redhat.com, vincent.guittot@linaro.org, akpm@linux-foundation.org, 
-	david@kernel.org, kees@kernel.org
-Cc: dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, 
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com, ljs@kernel.org, 
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org, surenb@google.com, 
-	mhocko@suse.com, glider@google.com, andreyknvl@gmail.com, dvyukov@google.com, 
-	vincenzo.frascino@arm.com, kasan-dev@googlegroups.com, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-Shaobo Huang <huangshaobo3@xiaomi.com> writes:
+From: Steven Rostedt <rostedt@goodmis.org>
 
-> thread_stack_free_rcu() frees the vmalloc'd thread stack via
-> vfree(vm_area->addr).  In RCU callback context, vfree() routes to
-> vfree_atomic(), which calls llist_add((struct llist_node *)addr, ...)
-> and writes 8 bytes to the base of the region being freed.
->
-> With KASAN_SW_TAGS, vm_area->addr carries a random tag.  If
-> kasan_unpoison_task_stack_below() has rewritten the shadow covering
-> [base, sp] to KASAN_TAG_KERNEL (0xff) -- which it does on every CPU
-> resume for the current task's stack -- the llist_add store checks
-> shadow[base] (0xff) against the pointer tag (random) and reports an
-> invalid-access, although writing to the base of a stack queued for
-> deferred free is legitimate.
->
-> Reset the pointer tag to KASAN_TAG_KERNEL before vfree() so that
-> kasan_check_range() short-circuits the check, the same way the task
-> accesses its own stack at runtime via sp.  The vmalloc lookup is safe:
-> __find_vmap_area() resets the tag before comparing against va_start.
->
-> Fixes: 9f7d416c3612 ("kprobes: Unpoison stack in jprobe_return() for KASAN")
+[ Upstream commit ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 ]
 
-This commit merely renamed the resume helper without changing what it
-unpoisons. Only generic KASAN existed back then, so it cannot have
-introduced a tagged-mode problem.
+When a tracer option file is opened, it is passed a descriptor that points
+to an element on the trace_array's topts array. This element has
+information to find the trace array and other information. It uses this
+element to take a reference of the trace_array so that the trace_array
+does not get removed while this file is opened.
 
-The problem became visible with
+Unfortunately, there's a race condition where the element itself could be
+freed by the removal of the instance the trace_array represents causing a
+use-after-free as this element that is used to find the trace_array to
+increment its reference counter is also freed when the instance is
+removed.
 
-  449e0b4ed5a1 ("fork: clean-up naming of vm_stack/vm_struct variables
-in vmap stacks code")
+To solve this, add a trace_array_tracer_options_get() helper function that
+will take the address of the element that is passed to the open function
+by the inode->i_private pointer and search all the trace_arrays under a
+lock to find the one that the element's address is in the range of the
+trace_arrays topts array elements. When a match happens, that trace_array's
+reference would be increased.
 
-which changed thread_stack_free_rcu() from vfree(vm_stack) to
-vfree(vm_area->addr). vm_stack is derived from tsk->stack, whose tag
-alloc_thread_stack_node() resets to 0xff. Since that commit, vfree_atomic()
-gets the tagged vm_area->addr instead.
+Note, there's a race where if an admin was deleting and creating trace
+instances at the same time and the memory of the old trace_array's array
+matched the memory of the new trace_array that it could in theory open the
+option from the wrong trace array. But we do not care because it would be
+stupid to perform that kind of action. As long as the only thing that can
+happen is that the option from the wrong trace array is used and doesn't
+crash the kernel it will only make the user confused. But if they are
+doing something stupid like this, they are already confused, so no harm
+done.
 
-> Cc: stable@vger.kernel.org
-> Assisted-by: zhipuai:glm-5.2
-> Signed-off-by: Shaobo Huang <huangshaobo3@xiaomi.com>
-> ---
-> Changes since v1:
-> - Drop the 12-line comment; keep just the one-line fix.
-> - Fix the Fixes: tag to point to the commit that introduced
->   kasan_unpoison_task_stack_below (9f7d416c3612), which added
->   both the function definition and the _cpu_resume call site, not
->   the 2016 vfree_atomic commit.
-> - Add Assisted-by tag per Documentation/process/coding-assistants.rst.
-> - Use real name (Shaobo Huang) instead of "sparkhuang".
-> - Trim the commit message; remove the full KASAN dump.
-> v1:
->   https://lore.kernel.org/all/20260806123020.90869-1-huangshaobo3@xiaomi.com/
-> ---
->  kernel/fork.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/kernel/fork.c b/kernel/fork.c
-> index 45300f59cf2c..9a66b10749de 100644
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -238,7 +238,7 @@ static void thread_stack_free_rcu(struct rcu_head *rh)
->  	if (try_release_thread_stack_to_cache(vm_stack->stack_vm_area))
->  		return;
->
-> -	vfree(vm_area->addr);
-> +	vfree(kasan_reset_tag(vm_area->addr));
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
+Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ replaced missing __trace_array_get() with tr->ref++ and return 0 under trace_types_lock. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/trace/trace.c | 48 +++++++++++++++++++++++++++++++++++++++++++-
+ kernel/trace/trace.h |  1 +
+ 2 files changed, 48 insertions(+), 1 deletion(-)
 
-Thanks for report the problem and the patch. NAK on the fix though.
-It addresses the symptom rather than the cause.
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 77ad2392954ab..8f071f4879fa9 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -9279,12 +9279,57 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
+ }
+ 
++static bool tr_option_match(struct trace_array *tr, void *topt)
++{
++	for (int i = 0; i < tr->nr_topts; i++) {
++		struct trace_options *tr_topts = &tr->topts[i];
++
++		if (topt >= (void *)&tr_topts->topts[0] &&
++		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
++			return true;
++	}
++	return false;
++}
++
++/*
++ * The topt is the address of a trace_array->topts[] element that holds the
++ * the tracer options descriptor. But since the trace_array reference has not
++ * been taken yet, it cannot be dereferenced as it could have been freed by
++ * a rmdir of the instance the trace_array represents.
++ *
++ * Search the list of trace_arrays and compare the topt to the address of
++ * the entire trace_array topts array for each trace_array in the list.
++ * If one is matched, then take the reference and return it. If not, the
++ * trace_array no longer exits.
++ */
++static int trace_array_tracer_options_get(void *topt)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_option_match(tr, topt)) {
++			tr->ref++;
++			return 0;
++		}
++	}
++	return -ENODEV;
++}
++
+ static int tracing_open_options(struct inode *inode, struct file *filp)
+ {
+ 	struct trace_option_dentry *topt = inode->i_private;
+ 	int ret;
+ 
+-	ret = tracing_check_open_get_tr(topt->tr);
++	ret = trace_array_tracer_options_get(topt);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -9568,6 +9613,7 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer)
+ 	tr->topts = tr_topts;
+ 	tr->topts[tr->nr_topts].tracer = tracer;
+ 	tr->topts[tr->nr_topts].topts = topts;
++	tr->topts[tr->nr_topts].nr_topts = cnt;
+ 	tr->nr_topts++;
+ 
+ 	for (cnt = 0; opts[cnt].name; cnt++) {
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 729b1921f9554..b4d4f8a626247 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -224,6 +224,7 @@ struct array_buffer {
+ struct trace_options {
+ 	struct tracer			*tracer;
+ 	struct trace_option_dentry	*topts;
++	int				nr_topts;
+ };
+ 
+ struct trace_pid_list *trace_pid_list_alloc(void);
+-- 
+2.53.0
 
-The problem is not that vfree() is called with a tagged pointer. The
-problem is the 0xff written into the shadow by
-kasan_unpoison_task_stack_below().
-
-That helper is only needed in generic mode. There the compiler expects
-the stack shadow to be zero, so the redzones left behind by discarded
-frames must be cleared before the stack is reused.
-
-The tagged mode has no such requirement. The compiler fully initializes
-the shadow of stack variables on function entry, so stale tags left
-below the watermark are harmless.
-
-kasan_unpoison_task_stack_below() should simply be a no-op in tagged
-mode. I'll send a patch.
