@@ -1,89 +1,109 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 917A13AEF22;
-	Wed, 16 Sep 2026 01:34:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ABF5438E8B4;
+	Wed, 16 Sep 2026 01:46:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789522474; cv=none; b=cAn3DZ2DztDVuM4ra/+X65hL+AQAIoL9JzJRdwg9wQsoqOWe9065t3nuFfSDUl+OzUj4ulDMGHeLrG70ns6qLwEcFtn0sww0HvaQKbyiwAnBlilKerkVu13ZRudveP2D13Hpx8spr8fXQpjTPm3QKdBtozQtUnHZSZTSXpRjs6E=
+	t=1789523209; cv=none; b=tGX6KIpBO28eNwjB4o7MhD/aOEO+lE1pjV5u0is6+wwJlUqukI0raWUNwnQyfncq3CpelpGQNI7D/Km4g6gKLoxW5VSbhFtUs5MECeX12YdiMquxjiWASuqeiGqGWP8WwYXuUa07wtlt4JbTHW8NvFrpLs0tjl8tTmC7WppM4Ps=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789522474; c=relaxed/simple;
-	bh=B87jgNhE0GBRu06KWV5iGaHebMD3P3PfKCmKFeF5s9k=;
-	h=Date:To:From:Subject:Message-Id; b=BjXTMI9mEUadjk45q398ZO4JHDuAA+t3dY1qI3ksEa+bzeatVgjbOJaLIWJtrv/keYaPHbzOeNsBAuQKzu4T5x/ZYZ15YyIwfU/mD6h0eC62QDSGbLs2fh8szHzAkhNltLWnPEXQJRu6h9f0NBoN4YqnemgT2bttoXUkK+mn09s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=WP9le/TT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789523209; c=relaxed/simple;
+	bh=x9a30jip4yh7Vjrr6vGw0btm0TkV63ZMOQmsRTav8kA=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=nX7WBlBewxRfojk57+iqpp0s70LieY8yjbMb+hTbDcx5a+MT6Ftx6qPFQazUA1tFuaejuH8ayvI6DavE9+bW13D6bdTbsQYQftaWwaIUib2ROWaxvBuZp8tn+DBmzLhSEWKYoX3ejkFthxEQLApTSdTQY4du3Usnbq/hTgRzo60=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=xe4wnLPM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="WP9le/TT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0C68E1F000FF;
-	Wed, 16 Sep 2026 01:34:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="xe4wnLPM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4978D1F000FF;
+	Wed, 16 Sep 2026 01:46:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789522464;
-	bh=bRIvncnvkj/eMHS6w3A6vZYHFvMh7jh+T7BTFCUZq+4=;
-	h=Date:To:From:Subject;
-	b=WP9le/TTFVGmBf9W7wIb/uNyUQPVvyfmFnORKDwBeFDL5BgM3poU/Qr3p143CiuaZ
-	 2+n5uxHgg4iyd28jJov2ysKp5eiz0hlS5/Ejh42/kZ/yliGdSKk/bkK5G6ktPWHZaS
-	 z4dkPnqxCjw7EdIaNqyqcMK+4Pd5Os9LmR+VXvP8=
-Date: Tue, 15 Sep 2026 18:34:23 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,vbabka@kernel.org,surenb@google.com,stable@vger.kernel.org,mhocko@suse.com,hannes@cmpxchg.org,brendan.jackman@linux.dev,liuqiqi@kylinos.cn,akpm@linux-foundation.org
+	d=linux-foundation.org; s=korg; t=1789523194;
+	bh=yUYa/GvKq0t1HPLtH/seZWJgrC2GfmJGoFRdt2lTvSU=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=xe4wnLPMzAF02PpoBtQdWpAESwFpnQgwqHUHHMwArKEQ3kVC7isdYXV2pWRF8ZeQW
+	 D8+bH/HFkmCtEHk2qeU9BcJuDhoUKKswmdshZhvxE/RT/Qinu2ONkvRa+8SO0iCfKZ
+	 LhOCPmhz4FG8PZFU9nRsJ6OBYvPcr+vFVAaHf4H4=
+Date: Tue, 15 Sep 2026 18:46:33 -0700
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [to-be-updated] mm-page_alloc-apply-per-task-gfp-context-in-bulk-allocator.patch removed from -mm tree
-Message-Id: <20260916013424.0C68E1F000FF@smtp.kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org,
+ jannh@google.com, sashiko-bot <sashiko-bot@kernel.org>,
+ stable@vger.kernel.org
+Subject: Re: [RESEND PATCH] mm/madvise: use folio_trylock() in the
+ cold/pageout PMD split
+Message-Id: <20260915184633.e2d8cf719e5eed186d087a8a@linux-foundation.org>
+In-Reply-To: <20260912110540.3203010-1-gourry@gourry.net>
+References: <20260912110540.3203010-1-gourry@gourry.net>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
+On Sat, 12 Sep 2026 07:05:40 -0400 Gregory Price <gourry@gourry.net> wrote:
 
-The quilt patch titled
-     Subject: mm/page_alloc: apply per-task GFP context in bulk allocator
-has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-apply-per-task-gfp-context-in-bulk-allocator.patch
+> MADV_COLD or MADV_PAGEOUT over part of a PMD splits the THP in
+> madvise_cold_or_pageout_pte_range().  Two threads doing that to
+> the same THP create spurious failures.
+> 
+>   CPU0                          CPU1
+>   ----                          ----
+>   folio_get()
+>   spin_unlock(ptl)
+>   folio_lock()
+>                                 folio_get()
+>                                 spin_unlock(ptl)
+>                                 folio_lock()  <- blocks, keeps its ref
+>   split_folio()
+>     folio_expected_ref_count(folio) != folio_ref_count(folio) - 1
+>     -EAGAIN
+> 
+> CPU1 cannot drop its reference until it gets the lock CPU0 holds, so CPU0's
+> split always fails.  folio_trylock() makes CPU1 leave without ever taking a
+> reference.  The PTE branch of this same function already does this, as do
+> madvise_free_pte_range() and madvise_free_huge_pmd().
+> 
+> Reproducer: 400 rounds of eight threads calling MADV_COLD on half of each
+> of eight THPs, re-formed with MADV_COLLAPSE between rounds.  From
+> /proc/vmstat:
+> 
+>                      thp_split_page   thp_split_page_failed
+>     before                     3186                     860
+>     after                      3200                       0
+> 
+> The short before count is rounds where every thread failed and the
+> advice was dropped for that THP entirely.
+> 
+> On failure the walker returns 0 and nothing retries.  The PMD path becomes
+> best effort when the folio lock is held elsewhere - same as the PTE path.
 
-This patch was dropped because an updated version will be issued
+Can this result in more EAGAINs being returned to userspace?
 
-------------------------------------------------------
-From: Qiqi Liu <liuqiqi@kylinos.cn>
-Subject: mm/page_alloc: apply per-task GFP context in bulk allocator
-Date: Mon, 14 Sep 2026 10:45:55 +0800
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -419,9 +419,10 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+>  		if (next - addr != HPAGE_PMD_SIZE) {
+>  			int err;
+>  
+> +			if (!folio_trylock(folio))
+> +				goto huge_unlock;
+>  			folio_get(folio);
+>  			spin_unlock(ptl);
+> -			folio_lock(folio);
+>  			err = split_folio(folio);
+>  			folio_unlock(folio);
+>  			folio_put(folio);
 
-alloc_pages_bulk_noprof() does not call current_gfp_context(), so per-task
-scoped allocation constraints (PF_MEMALLOC_NOIO, PF_MEMALLOC_NOFS,
-PF_MEMALLOC_PIN) are not applied on the bulk fast path.
+Sashiko shares my reaction, "dear god, why does that function exist".
 
-The most direct consequence is PF_MEMALLOC_PIN: without clearing
-__GFP_MOVABLE, prepare_alloc_pages() selects MIGRATE_MOVABLE for the PCP
-list, and a task under memalloc_pin_save() receives movable pages from the
-bulk allocator.
+	https://sashiko.dev/#/patchset/20260912110540.3203010-1-gourry@gourry.net
 
-Link: https://lore.kernel.org/20260914024555.138125-1-liuqiqi@kylinos.cn
-Fixes: 387ba26fb1cb ("mm/page_alloc: add a bulk page allocator")
-Signed-off-by: Qiqi Liu <liuqiqi@kylinos.cn>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Brendan Jackman <brendan.jackman@linux.dev>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Vlastimil Babka <vbabka@kernel.org>
-Cc: Zi Yan <ziy@nvidia.com>
-Cc: <stable@vger.kernel.org>
----
+Like the entire function, that random mix of "goto foo" with "return
+whatever" needs to die.
 
- mm/page_alloc.c |    1 +
- 1 file changed, 1 insertion(+)
-
---- a/mm/page_alloc.c~mm-page_alloc-apply-per-task-gfp-context-in-bulk-allocator
-+++ a/mm/page_alloc.c
-@@ -5201,6 +5201,7 @@ unsigned long alloc_pages_bulk_noprof(gf
- 
- 	/* May set ALLOC_NOFRAGMENT, fragmentation will return 1 page. */
- 	gfp &= gfp_allowed_mask;
-+	gfp = current_gfp_context(gfp);
- 	if (!prepare_alloc_pages(gfp, 0, preferred_nid, nodemask, &ac, &gfp, &alloc_flags))
- 		goto out;
- 
-_
-
-Patches currently in -mm which might be from liuqiqi@kylinos.cn are
-
-mm-page_alloc-add-missing-hooks-to-bulk-allocation-path.patch
-
+Anyway, please check it out while you're on a roll.
