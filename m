@@ -1,150 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B0494F7999
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B11254CF6C
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:53:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602823; cv=none; b=QoV/9m7kVwPc743x9jV39ApT7cw+JcvEjRIwp95UoLsraC/VNMPseoIeyWn3ilr/BafRoWfg0/fGPTQ2u00ZFe0GMpMw3zjKfdpQNhidrOINItbNtuB1yUKkmHfK8otaWLgdxBBcrSIeBMWuRECY2PG1Ot7coqCkdoWfyBP+H6I=
+	t=1789602823; cv=none; b=Jf58VpPm9r58TywxtkGNo3hh4mKZhA/oNXtKaXqFR6aCbvKb1eidA4L0Rs848lUa9pm0b4yM+U73uTmay3N5aibXP87uSMp4WLwYln2cwRZChx85LpE7iuPBorT2FvOrPTaJZgJW6nHXePgbIPRjUBdtH1Y+VbRdK8Yl64wxp04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789602823; c=relaxed/simple;
-	bh=u1YTfYJ65/QpqMtLdafo9vINj4yJUYJQIPDeIuAjzYI=;
+	bh=o6PH+AxrP1eqxFaShGAcQgXT7erEdgzMbvEaYyPdrHA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=jePpUNw80D+HDBY/3RM3Ez0Gul4kDCE8h8jlv/q6kZlLJJweL0tGw5sjWs74m3PamxHJmjCZlmMBBn+q3qKOuF+c5o6qjdlh9VE1EiQFfrmrsZjPwhNXEareyVIFL8gFxKD8IJpNsfS1gyDwXh13tkVvyHANOWBo0/ZRlIv+f4s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hzwiBGdV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HyyX+HcgD2u4o4wOuHWyM5AGFY1Dgin2uN42ObZRxhv93RHpUBImYlMs6vB9VYPNm1Xt+YBWEi5/N9439kf505nXMb56exl0GHZsi2slpH6Rcp16+BvZrrM1HbuE9sO0Pa76DuIupLlAvG3wMXzi87V3N8zI6hz+GojrNy+W89I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EEKu/HbF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hzwiBGdV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 991D01F0089A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EEKu/HbF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962501F00893;
 	Wed, 16 Sep 2026 23:53:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789602822;
-	bh=SZ5cG6QyfI/ytplmkHd+Zea1Wo6H1gKaF+8Zrd7bjL8=;
+	bh=PGjCKhWLVSSCAoidFZ5R91nuO0ClyfgtZWYv8wqeU0E=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hzwiBGdV8SEBibPZroIt7XxSnTja8iLGl73clgRyOsPbelLrTBlw9TKYbrkzvXEAD
-	 Y9+aez8MXu255WZ8H7eL2cFiUP/ZD7lnPJZ/0mM39W3WpKzrN3BnD5RBU3vYkes8ys
-	 7X+DOc01ZxkyjoKIPWEuPN3rU+LHnYcXLwBvzlb4VwdWeSeCUf0E7ww3u7jKsr6D83
-	 uc+wBs6e64+/kP3sEtKuvQENv1JuIfXfOcj2yAvpPEkYg+mqNHhs1O211MGHeNca2w
-	 L4xyNx71ls1E+pmYS5sEh7nfnFn5uIZSKh99cDf8V9ZYU60ClKSxjQOKrrWLYVkwkN
-	 4Dlq9XTWQGAEg==
+	b=EEKu/HbFakSIRlYqlmRnPWTUABknalV5tIafVdgRopldqzicJF0jlqJblfsDyInoV
+	 YgM0dB6inBLNnbQA441bokz/67mmfAvJ6IWL4CSgHEppV6r0FXgLwB4KBdPkho6Jeo
+	 ljHVP5ZVMaTu0Vx8/1LnpYvzx7/i1fA7i5zFnvQd0ghdWqN3nzK8WN/LpcbHyLCFda
+	 FxEK6HVW0gykydT2lWiVdaiqWVq/A3tib1RxXrd5brj43ypRdDHI43guHXx7Q3yjjp
+	 CYiN9q0abOl9BAoe+yv5GucugezL/EtiVg7EaKvc1kmZ+wFXo19Co4mHfyQlcEW1oX
+	 sTgO930lH0k5A==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Conor Dooley <conor.dooley@microchip.com>,
-	Nicolai Buchwitz <nb@tipi-net.de>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/4] net: macb: unify device pointer naming convention
-Date: Wed, 16 Sep 2026 19:53:37 -0400
-Message-ID: <20260916235338.3313589-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y] bootconfig: Fix integer overflow in initrd size check
+Date: Wed, 16 Sep 2026 19:53:40 -0400
+Message-ID: <20260916235340.3313629-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916235338.3313589-1-sashal@kernel.org>
-References: <2026091642-wasting-vagueness-0a57@gregkh>
- <20260916235338.3313589-1-sashal@kernel.org>
+In-Reply-To: <2026091617-grudging-framing-3324@gregkh>
+References: <2026091617-grudging-framing-3324@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Théo Lebrun <theo.lebrun@bootlin.com>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 07362f68e61d82ee53da0e9ae2c7f981c3538861 ]
+[ Upstream commit 7812d6dab0698001e50e8c2f901e17da3eb6f429 ]
 
-Here are all device pointer variable permutations inside MACB:
+Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
+with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
+arithmetic:
 
-   struct device *dev;
-   struct net_device *dev;
-   struct net_device *ndev;
-   struct net_device *netdev;
-   struct pci_dev *pdev;              // inside macb_pci.c
-   struct phy_device *phy;
-   struct phy_device *phydev;
-   struct platform_device *pdev;
-   struct platform_device *plat_dev;  // inside macb_pci.c
+    data = ((void *)hdr) - size;
 
-Unify to this convention:
+to wrap around on 32-bit systems (or when pointer subtraction overflows).
+Because data wraps around, the subsequent bounds check:
 
-   struct device *dev;
-   struct net_device *netdev;
-   struct pci_dev *pci;
-   struct phy_device *phydev;
-   struct platform_device *pdev;
+    if ((unsigned long)data < initrd_start)
 
-Ensure nothing slipped through using ctags tooling:
+evaluates to false, bypassing the check. The kernel then calls
+xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
+hitting unmapped pages and triggering a fatal kernel page fault during
+early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
+unbounded 32-bit size can similarly bypass the initrd_start check.
 
-⟩ ctags -o - --kinds-c='{local}{member}{parameter}' \
-    --fields='{typeref}' drivers/net/ethernet/cadence/* | \
-  awk -F"\t" '
-    $NF~/struct:.*(device|dev) / {print $NF, $1}' | \
-  sort -u
-typeref:struct:device * dev
-typeref:struct:in_device * idev        // ignored
-typeref:struct:net_device * netdev
-typeref:struct:pci_dev * pci
-typeref:struct:phy_device * phydev
-typeref:struct:platform_device * pdev
+Fix this by:
+1. Ensuring the initrd is at least large enough to contain the bootconfig
+   footer and verifying hdr is within the initrd bounds.
+2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
+   the available space between initrd_start and hdr before performing
+   pointer subtraction.
 
-Also fix some printk() calls to use __func__ instead of hardcoding.
-This silences some checkpatch.pl warnings and doesn't deserve a
-separate commit.
+Link: https://lore.kernel.org/all/178905333479.213925.1358412668943562406.stgit@devnote2/
 
-Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
-Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Link: https://patch.msgid.link/20260812-macb-context-v9-2-7ddbf5f715e0@bootlin.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-Backport note: retain only the dev-to-netdev rename in gem_ptp_init().
-The target e1406330d70e ("net: macb: initialize PTP state before
-registering clock") needs this spelling in its ptp_clock_register()
-context; its macb_probe() hunk already applies to this stable tree.
-Drop the unrelated driver-wide renames and logging cleanup. In
-particular, do not import newer EEE, interrupt, DMA, queue, or probe
-changes absent from this branch. This limited rename changes no
-behavior and adds no functions.
-
-[ sashal: Reduced backport -- upstream 07362f68e61d8 touches 4 file(s), this
-  backport carries 1. Not backported here:
-  drivers/net/ethernet/cadence/macb.h
-  drivers/net/ethernet/cadence/macb_main.c
-  drivers/net/ethernet/cadence/macb_pci.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: e1406330d70e ("net: macb: initialize PTP state before registering clock")
+Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
+Cc: stable@vger.kernel.org
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+[ Adjusted context to preserve the existing u32 *hdr pointer and le32_to_cpu() header reads. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_ptp.c | 6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ init/main.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index f2b09100f710e..085795e8aae72 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -322,9 +322,9 @@ void gem_ptp_txstamp(struct macb *bp, struct sk_buff *skb,
- 	skb_tstamp_tx(skb, &shhwtstamps);
- }
+diff --git a/init/main.c b/init/main.c
+index 50b84f1f9ff38..76eeffa7310c1 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -275,7 +275,8 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
+ 	u32 *hdr;
+ 	int i;
  
--void gem_ptp_init(struct net_device *dev)
-+void gem_ptp_init(struct net_device *netdev)
- {
--	struct macb *bp = netdev_priv(dev);
-+	struct macb *bp = netdev_priv(netdev);
+-	if (!initrd_end)
++	if (!initrd_end || initrd_end < initrd_start ||
++	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
+ 		return NULL;
  
- 	bp->ptp_clock_info = gem_ptp_caps_template;
+ 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
+@@ -292,16 +293,26 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
  
-@@ -332,7 +332,7 @@ void gem_ptp_init(struct net_device *dev)
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
- 	gem_ptp_init_timer(bp);
--	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &dev->dev);
-+	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
- 	if (IS_ERR(bp->ptp_clock)) {
- 		pr_err("ptp clock register failed: %ld\n",
- 			PTR_ERR(bp->ptp_clock));
+ found:
+ 	hdr = (u32 *)(data - 8);
++	if ((unsigned long)hdr < initrd_start)
++		return NULL;
++
+ 	size = le32_to_cpu(hdr[0]);
+ 	csum = le32_to_cpu(hdr[1]);
+ 
+-	data = ((void *)hdr) - size;
+-	if ((unsigned long)data < initrd_start) {
+-		pr_err("bootconfig size %d is greater than initrd size %ld\n",
++	if (size > XBC_DATA_MAX) {
++		pr_err("bootconfig size %u is greater than max size %d\n",
++			size, XBC_DATA_MAX);
++		return NULL;
++	}
++
++	if (size > ((unsigned long)hdr - initrd_start)) {
++		pr_err("bootconfig size %u is greater than initrd size %lu\n",
+ 			size, initrd_end - initrd_start);
+ 		return NULL;
+ 	}
+ 
++	data = ((void *)hdr) - size;
++
+ 	if (xbc_calc_checksum(data, size) != csum) {
+ 		pr_err("bootconfig checksum failed\n");
+ 		return NULL;
+@@ -400,12 +411,6 @@ static void __init setup_boot_config(void)
+ 		return;
+ 	}
+ 
+-	if (size >= XBC_DATA_MAX) {
+-		pr_err("bootconfig size %ld greater than max size %d\n",
+-			(long)size, XBC_DATA_MAX);
+-		return;
+-	}
+-
+ 	ret = xbc_init(data, size, &msg, &pos);
+ 	if (ret < 0) {
+ 		if (pos < 0)
 -- 
 2.53.0
 
