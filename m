@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7BF3351993B
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:28:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2733524AEA
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:28:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572505; cv=none; b=jHdFddZaCgnUTeTD+vzWNbWtgkqni3QhUaqa/psj/GNR4VowEGefhckx9+TzgeaKavYfLpw5NmwI4MGZeEQtERYyyYbq3rEHaAEWF8blmLNPc+B8lqJc4RQKXRASWijAmIDctCqxUG8QwHwvS3uYDHeMhpJN5ynVEO6Iwx2KU+o=
+	t=1789572510; cv=none; b=EI/UPUtMeroR68EiavLBs1FUiMkIJ9JZcbH+jJ9xdjqo8bESQVoV2K36gYIqX9BnZLPCW26b3T+V/2cPNSPR4f7Jmbs2LPOtjmZ2PRiSLz5s3zUGKldwgNr7yLBIzjSbOTaVMLcj1Ju3tK75K6a6k5nrlgyYzSolOHfuiOh5RvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572505; c=relaxed/simple;
-	bh=uUF1lcEcCpiX0hEyAtRoExeb5sO4gdg8vNfxKj/YP14=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FNJJgUUnA66jLuhDb9VAyumw4q4/fueDt3n+PmEkmkflt3sRpH2Dee6/GnkuUNjoE9IEWYphGUVpSuhQQKQtmQmfOao5+hbp7DusyyA55bn2vzckwHkrh7PVmsbOTQOnfbJ8EgTg7Avtw8vfHGL4ROS0e1TRrCPaNtdsJ19RcAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zf/HGBSB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572510; c=relaxed/simple;
+	bh=FRB8SPJtVe/F/x1jBjatMsYBw+jid6Cf+/owHzQITVc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cwOkZ67B1wiFU4LSoIytXSOyv2cT3pZSC2igDhnyFLSkJOw2P9rO8EaVCXNTiQIdJgrXS0OGuksl72DjQHX4alojI29TV8Dw4roNjE5clAeJE3u7/8n9Px1dCXlfwhZ8K26UdTh7rOsjhsoaUdRL9yWeesivXpYpn44ln6ghiuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1s4BylrV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zf/HGBSB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9C521F00899;
-	Wed, 16 Sep 2026 15:28:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1s4BylrV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDAC01F000FF;
+	Wed, 16 Sep 2026 15:28:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789572499;
-	bh=VI3WcQNyJId6BEAX/hGIAItfOAqwD2Id9AqeRdp6Nw8=;
+	s=korg; t=1789572502;
+	bh=JQNuUu9QoKMt2IFKfP3fRBdcV7Kl2qi3uUEs7uLQXiw=;
 	h=Subject:To:Cc:From:Date;
-	b=zf/HGBSBtL88xV/lR4z2867f7vhYrNbD6gpkjj5jhDy7B+Yn4I8ivHMHZ5UZAldJC
-	 uRlV+u1ETruORlUlzvtzTtMwjk6DStbN0Zgb3pTRIBinmt4vI4TGO7T2u9ZrbGmWXS
-	 GdvfAqzl/OIpWvhqsYsPKZjsZAzn26KTjxHsvpnU=
-Subject: FAILED: patch "[PATCH] EDAC/altera: Use parent device for devres in" failed to apply to 5.15-stable tree
+	b=1s4BylrVodmzso00pRMlgc2Py/iFEJ6tp+XOxEvuDNgSRyT8dr/ZLychMoKftZJDH
+	 nsvRh1HNkjDgLWQ7SZLeeyNceTIRHpD2J0WmZ2RweorNtyDKrw1EegAqKYnrgPTdh9
+	 mjgzm4ash12MKkcKWHrRBv9wM8qMG2gRcpVbaWIM=
+Subject: FAILED: patch "[PATCH] EDAC/altera: Use parent device for devres in" failed to apply to 5.10-stable tree
 To: dinguyen@kernel.org,bp@alien8.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:16:23 +0100
-Message-ID: <2026091623-undoing-ruckus-ed73@gregkh>
+Date: Wed, 16 Sep 2026 16:16:24 +0100
+Message-ID: <2026091624-rethink-safeness-e66f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 9868f5c077dfe0b606331f2e782484f91a5789a5
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091623-undoing-ruckus-ed73@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091624-rethink-safeness-e66f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
