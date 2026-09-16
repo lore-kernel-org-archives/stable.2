@@ -1,33 +1,42 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA7924D596C;
-	Wed, 16 Sep 2026 18:44:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFC64D9F89
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:44:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584290; cv=none; b=u8edSc6xiLIVMcxOYJkT3Nbo+C/jge/0xENt8YYlg0zjkCjg502Tp/0ZpTr5KUzCRn4rxBfmjYsw17kPc0IXLLSd7651UrLag2IGVw7tCaUoOaQcH99KPfGpfNxulwBkoVgrApcaKi07tDce2ACybNCbKh+HLEno9qskDiA5h/c=
+	t=1789584308; cv=none; b=GKTwk6eAlCvZm1+5AoI5+XPgwgrnp+myqofiUi0ZLPBTTzvFhc2imRTiBQpKpVM3yYZaifTaYYMf86oIEkEcuf/Y5cVT+jR/qlj8S0qo7dDNJHo3Xmcj8Mu2IizGTbDyRbTzEG7bvqwS9SXxjEa9yI7/k54TVT2cL0OQ78bNXB0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584290; c=relaxed/simple;
-	bh=RD6L7JhVCcoVnIkfFWYQzWOIe2LqmYOEPA3xKPiqLM4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=I5FGTKwMlkjk1OfwAPQfGpN1oaRQYwPZIwojXXW3Hf/aNKWXxyReOeiTxXImWhypfuZicGPa8+dVFteIQioKKXGHgIrpKfAe2TGAhzdXfMQsuYSlfrf3jtgqN1bfm8GjMiS0QEAJXAxqZnQ0M2PekvYiVew9vcswLR6ukppWfZU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADH+EKL46pqlcZvCA--.24570S2;
-	Thu, 17 Sep 2026 02:44:27 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: bernard.metzler@linux.dev
-Cc: jgg@ziepe.ca,
-	leon@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-rdma@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 7/7] RDMA/siw: Fix qp use-after-free in siw_get_base_qp()
-Date: Wed, 16 Sep 2026 18:44:00 +0000
-Message-Id: <20260916184400.2093106-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789584308; c=relaxed/simple;
+	bh=pkgpiWib0kDd+1NMwP/1nqlyDCQ6gmxKBg8TKT2iavI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ec7UwQiaV/zjCo+/MJnsC6RuBhnJf5i1S3PZDeYOrtUr5hQdCf7gDWIL6ndt1V0poIbkgdCW+tSYgqPkqdIlkIA7B1OzGrF6FOSXnsucXIxLpnbMyjzUzXh8uM1j7CLaqDSirHhlQjtaAasKv+W7TYnqTo2OctZJRWJ2X73VgU4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WRul2JlP; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WRul2JlP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE65B1F0089D;
+	Wed, 16 Sep 2026 18:44:49 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789584290;
+	bh=xRgGUFTcFllzB8ZYUHyLLJQ8SugMAQd2PaXHXma6hOk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WRul2JlPJgkQY/WDfqok8zH2K+ywRZ2ne54k5ZK9ntAnlzNTDLKz5GGw+Zsjixntz
+	 mqMQSGgR2NseJUceqZxa+E8iBE2qCSjdyrM9C1vDjmduBs9mee1L+nKDMZhjbFMYHu
+	 PA48A4Y1XpuTuBIyqGexPMBpxeXIorp6UAchuFs9RwoYVxzUMlEcfqYhpUSfbTLO4j
+	 SsBP3GNVm8hrLOpORVCHPDx3o8ehhHNcCk3fsWyE8MOdWOJZAugTz5SiXOhABo1wrZ
+	 lRzRM+Go1RBPD0d4h7u+70iyFQYZN+YyCxZYHLC38iL4OiWvjLb7WZUJIOlMIdG+kE
+	 W5tS1WN14YJeA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	sashiko-bot@kernel.org,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y] tracing: Take trace_array reference when opening a tracer options file
+Date: Wed, 16 Sep 2026 14:44:48 -0400
+Message-ID: <20260916184448.1813383-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091636-herring-schedule-d535@gregkh>
+References: <2026091636-herring-schedule-d535@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,57 +44,136 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADH+EKL46pqlcZvCA--.24570S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKr1fJw4DJw47KFW8Zw18Xwb_yoWkWrg_Kr
-	1UWrn7Xw1DCF4vkr1jyw13u3sFva48tw1xWa42qw43J3yUGFnxJw13K3Z5uw47ZrWSkF1D
-	AFWkW3s3CFykWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbxxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
-	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
-	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
-	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
-	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
-	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUrF
-	ApUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqok+L8AAAsX
 
-The reference taken by siw_qp_id2obj() is dropped before the address
-of the embedded ib_qp is taken from the QP.  If that reference was
-the last one the QP is freed and the pointer returned to the iwarp
-core is dangling; the core only pins the QP with iw_add_ref() after
-the call has returned.
+From: Steven Rostedt <rostedt@goodmis.org>
 
-Copy the pointer while the reference is still held.
+[ Upstream commit ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 ]
 
-Fixes: 6c52fdc244b5 ("rdma/siw: connection management")
+When a tracer option file is opened, it is passed a descriptor that points
+to an element on the trace_array's topts array. This element has
+information to find the trace array and other information. It uses this
+element to take a reference of the trace_array so that the trace_array
+does not get removed while this file is opened.
+
+Unfortunately, there's a race condition where the element itself could be
+freed by the removal of the instance the trace_array represents causing a
+use-after-free as this element that is used to find the trace_array to
+increment its reference counter is also freed when the instance is
+removed.
+
+To solve this, add a trace_array_tracer_options_get() helper function that
+will take the address of the element that is passed to the open function
+by the inode->i_private pointer and search all the trace_arrays under a
+lock to find the one that the element's address is in the range of the
+trace_arrays topts array elements. When a match happens, that trace_array's
+reference would be increased.
+
+Note, there's a race where if an admin was deleting and creating trace
+instances at the same time and the memory of the old trace_array's array
+matched the memory of the new trace_array that it could in theory open the
+option from the wrong trace array. But we do not care because it would be
+stupid to perform that kind of action. As long as the only thing that can
+happen is that the option from the wrong trace array is used and doesn't
+crash the kernel it will only make the user confused. But if they are
+doing something stupid like this, they are already confused, so no harm
+done.
+
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
+Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ replaced missing __trace_array_get() with tr->ref++ and return 0 under trace_types_lock. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/infiniband/sw/siw/siw_main.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ kernel/trace/trace.c | 48 +++++++++++++++++++++++++++++++++++++++++++-
+ kernel/trace/trace.h |  1 +
+ 2 files changed, 48 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/infiniband/sw/siw/siw_main.c b/drivers/infiniband/sw/siw/siw_main.c
-index 9735b75ac933..c08796e4262a 100644
---- a/drivers/infiniband/sw/siw/siw_main.c
-+++ b/drivers/infiniband/sw/siw/siw_main.c
-@@ -217,8 +217,11 @@ static struct ib_qp *siw_get_base_qp(struct ib_device *base_dev, int id)
- 		/*
- 		 * siw_qp_id2obj() increments object reference count
- 		 */
-+		struct ib_qp *base_qp = &qp->base_qp;
-+
- 		siw_qp_put(qp);
--		return &qp->base_qp;
-+
-+		return base_qp;
- 	}
- 	return NULL;
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 33770d2b3489e..f2aeec4b65f52 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -8923,12 +8923,57 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
  }
+ 
++static bool tr_option_match(struct trace_array *tr, void *topt)
++{
++	for (int i = 0; i < tr->nr_topts; i++) {
++		struct trace_options *tr_topts = &tr->topts[i];
++
++		if (topt >= (void *)&tr_topts->topts[0] &&
++		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
++			return true;
++	}
++	return false;
++}
++
++/*
++ * The topt is the address of a trace_array->topts[] element that holds the
++ * the tracer options descriptor. But since the trace_array reference has not
++ * been taken yet, it cannot be dereferenced as it could have been freed by
++ * a rmdir of the instance the trace_array represents.
++ *
++ * Search the list of trace_arrays and compare the topt to the address of
++ * the entire trace_array topts array for each trace_array in the list.
++ * If one is matched, then take the reference and return it. If not, the
++ * trace_array no longer exits.
++ */
++static int trace_array_tracer_options_get(void *topt)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_option_match(tr, topt)) {
++			tr->ref++;
++			return 0;
++		}
++	}
++	return -ENODEV;
++}
++
+ static int tracing_open_options(struct inode *inode, struct file *filp)
+ {
+ 	struct trace_option_dentry *topt = inode->i_private;
+ 	int ret;
+ 
+-	ret = tracing_check_open_get_tr(topt->tr);
++	ret = trace_array_tracer_options_get(topt);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -9151,6 +9196,7 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer)
+ 	tr->topts = tr_topts;
+ 	tr->topts[tr->nr_topts].tracer = tracer;
+ 	tr->topts[tr->nr_topts].topts = topts;
++	tr->topts[tr->nr_topts].nr_topts = cnt;
+ 	tr->nr_topts++;
+ 
+ 	for (cnt = 0; opts[cnt].name; cnt++) {
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 8cdb8e1a33c1e..90e68cae67583 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -202,6 +202,7 @@ struct array_buffer {
+ struct trace_options {
+ 	struct tracer			*tracer;
+ 	struct trace_option_dentry	*topts;
++	int				nr_topts;
+ };
+ 
+ struct trace_pid_list *trace_pid_list_alloc(void);
 -- 
-2.34.1
+2.53.0
 
