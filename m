@@ -1,33 +1,35 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D71A23C09EE;
-	Wed, 16 Sep 2026 07:02:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10863BE636;
+	Wed, 16 Sep 2026 07:04:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789542164; cv=none; b=nKqsehWPEHPPNVpl+y97wwX/pLh5T4jZNNuoR+KvKXlEJ3e9djB/uIdHl5nNuvAw8Isa4f2GY5wi1VOOM4gVO5yxfFDrIvlp0mVreosQI+gyKceg7DxFmdqP8NKXxhTWSNM1mO5LzJFIpMsbJ4B+rE8dSG3RFgL0kN8nRwHM5dg=
+	t=1789542260; cv=none; b=aUILrFmKwPslCWI4YITALcc+ohk0gjHChctRbIPggnRMEF5JTwwbj6sZw3F0X6zReLwv5SGY6i46k6CT9ePsu1dL4Zr3hrs+yA+8+Oa/wjYNAQ9LSb4fzqvCAjMVYVFtAHZw8g/TFYiG7qVhvdlZD+2fXX6uzIqnhym7ztdiZsw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789542164; c=relaxed/simple;
-	bh=qnYTvIzQRutlNi3HyTuELIHlBxhokM61YWXps5Qh+CM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pjbB8GS0b7T0yVPWnm2NOIwiKIAYwZjszX+1LCQt+MyY+/Nj0XWHPI/6fTc/qXn1FItl2uX5S6q8ulB7lEyYYCXdqp+Xb4d2zM2U9sTzNadgSbbpG0tsKhBIUjLwOzn9FhhNYyk2j9XqT7TQHJmKCIBJDU+4vVpm7Al3Lw3eHOc=
+	s=arc-20240116; t=1789542260; c=relaxed/simple;
+	bh=tYP+ILLBw9ueJSyVg53mQrWsAzkBaWl+zWefcGU3EDE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Ur0dtdL2e5n5GsnoQ20eM/ujl5v+ussBCT6yyB3mbkT8KTfl3M5J7bmXnKB1Ad2fqfGmfnt8bgWzjRf9lELgViFviRqM2QMrqPjKKTz6YWxs/Oz1EqdKPLHEzXFhj7NNcCc4PWThPM0NJdatEdBVvYr1kPx1Ih0nKgD29Lx8w54=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowABnbDoKP6pqPeHeBw--.40270S2;
-	Wed, 16 Sep 2026 15:02:34 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowACnrTtpP6pqFuXeBw--.40674S2;
+	Wed, 16 Sep 2026 15:04:09 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexandre.belloni@bootlin.com
-Cc: linux-arm-kernel@lists.infradead.org,
+To: broonie@kernel.org
+Cc: krzk@kernel.org,
+	lgirdwood@gmail.com,
 	linux-kernel@vger.kernel.org,
-	linux-rtc@vger.kernel.org,
-	schung@nuvoton.com,
-	ychuang3@nuvoton.com,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	s.nawrocki@samsung.com,
+	tiwai@suse.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 02/20] rtc: ma35d1: Fix clock leak in ma35d1_rtc_probe()
-Date: Wed, 16 Sep 2026 07:02:06 +0000
-Message-Id: <20260916070206.1965294-1-vulab@iscas.ac.cn>
+Subject: [PATCH 03/20] ASoC: samsung: snow: Fix clock leak in snow_probe()
+Date: Wed, 16 Sep 2026 07:03:41 +0000
+Message-Id: <20260916070341.1965422-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -36,60 +38,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowABnbDoKP6pqPeHeBw--.40270S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF13tF4fZw15Zr13tr17Awb_yoW8GF1fpF
-	s3JFyYyryayrWrKayDGw18AF1qyayxKa48K3yvk39ag3W3ZF1UJrZ3tF109FykJrWkXr4Y
-	qw18JF1rGa1UuaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkC14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
-	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUFOzVUU
-	UUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqBo79QAAAsh
+X-CM-TRANSID:rQCowACnrTtpP6pqFuXeBw--.40674S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Gw4ftw18uFyxCrWxtw15XFb_yoWDCwc_K3
+	yrWa95Wr9xGrZIg348G3yfAFs2qFs3CFWrCr1FqF17Ary7Xas0v392gFn3u3Z8Zw4fK3s8
+	Xr1UZF4xCryakjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb3kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r1Y6r17McIj6I8E87Iv67AKxVWxJVW8Jr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628v
+	n2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7x
+	kEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E
+	67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCw
+	CI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1x
+	MIIF0xvEx4A2jsIE14v26r1j6r4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr0_Gr1UYxBIda
+	VFxhVjvjDU0xZFpf9x0JUKdgAUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqPpQEjAAAsj
 
-In ma35d1_rtc_probe(), the clock is acquired using of_clk_get() and
-enabled with clk_prepare_enable(). However, if subsequent operations fail,
-or when the driver is unloaded, the clock is never disabled or put,
-resulting in reference count and resource leaks.
+In snow_probe(), priv->clk_i2s_bus is acquired via of_clk_get_by_name().
+If devm_snd_soc_register_card() subsequently fails, the acquired clock
+is never released, leading to a reference count leak.
 
-Switch to devm_clk_get_enabled() to automatically handle enabling and
-resource cleanup on probe failure or driver removal.
+Add clk_put() on the error path to release the clock properly.
 
-Fixes: dc0684adf3b6 ("rtc: Add driver for Nuvoton ma35d1 rtc controller")
+Fixes: aff8d2bed9e5 ("ASoC: samsung: Add HDMI audio support for Snow")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/rtc/rtc-ma35d1.c | 6 +-----
- 1 file changed, 1 insertion(+), 5 deletions(-)
+ sound/soc/samsung/snow.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/rtc/rtc-ma35d1.c b/drivers/rtc/rtc-ma35d1.c
-index cfcfc28060f6..43358d68565a 100644
---- a/drivers/rtc/rtc-ma35d1.c
-+++ b/drivers/rtc/rtc-ma35d1.c
-@@ -221,14 +221,10 @@ static int ma35d1_rtc_probe(struct platform_device *pdev)
- 	if (IS_ERR(rtc->rtc_reg))
- 		return PTR_ERR(rtc->rtc_reg);
+diff --git a/sound/soc/samsung/snow.c b/sound/soc/samsung/snow.c
+index 66ef49dff1ba..ad99c153e9f8 100644
+--- a/sound/soc/samsung/snow.c
++++ b/sound/soc/samsung/snow.c
+@@ -211,9 +211,11 @@ static int snow_probe(struct platform_device *pdev)
+ 	snd_soc_card_set_drvdata(card, priv);
  
--	clk = of_clk_get(pdev->dev.of_node, 0);
-+	clk = devm_clk_get_enabled(&pdev->dev, NULL);
- 	if (IS_ERR(clk))
- 		return dev_err_probe(&pdev->dev, PTR_ERR(clk), "failed to find rtc clock\n");
- 
--	ret = clk_prepare_enable(clk);
+ 	ret = devm_snd_soc_register_card(dev, card);
 -	if (ret)
--		return ret;
--
- 	if (!(rtc_reg_read(rtc, MA35_REG_RTC_INIT) & RTC_INIT_ACTIVE)) {
- 		ret = ma35d1_rtc_init(rtc, RTC_INIT_TIMEOUT);
- 		if (ret)
++	if (ret) {
++		clk_put(priv->clk_i2s_bus);
+ 		return dev_err_probe(&pdev->dev, ret,
+ 				     "snd_soc_register_card failed\n");
++	}
+ 
+ 	return 0;
+ }
 -- 
 2.34.1
 
