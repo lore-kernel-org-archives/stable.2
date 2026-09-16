@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A6C074AB3C3
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 220834AB3B4
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573287; cv=none; b=QhJNW+oHB3JCidczmjSmm0ro3N+tNlePuVixKVv2MCxJIa331wHGsD4bR279hqx/CexLEQiwHL/TiOHvFB475E2A+nTFLynkte/L7W8U9waU8GZFHHkNIAhHgYxNbRtfT3sbsoCT+xS+UEvzFrJ1v+Gs6+RNkEseMScZ3QCqEQE=
+	t=1789573290; cv=none; b=kogKT0E+Kp/6xAlIhbrOuzAN4fLIXMYNy4eaRQeWzyenuowrkpWtQw5BaKkU1JjB+3TezZeekvRxU11hRTlXCV/epy3TY7kPEFx0jm1FQkTxMcLeQta9q8NZyrXnBU6bPSIUc7LR8JdjFSHa5JazbhtDxtKzUpHuAdtvBE2ieTk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573287; c=relaxed/simple;
-	bh=arXllNsCpMhAiOVXRR+Acnd/WB4hljHf+3jr9GDliDA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dZX6JZyr3AEPiPmT47XiVew9HLs5rZ9HfrK8VnRS2OESzUGBwLfEJSBbPDg3CA230XAGJkVwWUsfouKW6gZPWo/TVE4bSYadpMW6rFo3+io0rDBeMwAeJ6hvCZljdM+EjxHmuZiKzenxl+8sm5jSgP4eWPod6kU2gMnmKlbCNa4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=og6TCD2L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573290; c=relaxed/simple;
+	bh=9QfqPfeEYMoHmaD1Tha/FPvZd5k5+dhkVUYxSCm7eUk=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kLrEe3wTO40fJ3jJaPwJwr8mm4tdPgUDtmgRIogAfFQjj7rrHfNNRz0cJcX+zTQxl+T8zkic3HZwrbS/sY8tMfkmxxhCly1AhEFGi0EffGeXzIJi4X+JkqtmG4Z9wyXPu94D9NWc1FpC3DSB5fzlNoldhXLBhtlZB3YY3O5BaVI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=m060ZFqq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="og6TCD2L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEBEE1F00893;
-	Wed, 16 Sep 2026 15:41:24 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="m060ZFqq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DC8011F000FF;
+	Wed, 16 Sep 2026 15:41:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789573285;
-	bh=MFI4CccsB/jkX1cmj6Ct5gsvknzS9gkqmzRzeYK8yUQ=;
+	s=korg; t=1789573288;
+	bh=Etflt438Mk8x8MiGZc1uk40Wfc/sYS/k4k7GH2LZzRE=;
 	h=Subject:To:Cc:From:Date;
-	b=og6TCD2LbYt/rYhjKN3KDAJmAH8rAjGHGNgxPDkBEtWbgZJiAq1h6znbszdTtFOdD
-	 VawyPRoxMl+GI/gCZlCsIfw0m3RU2Qr8HXSFtn4V7rqWhwV2uAN1gQpsOyPrYSrW1W
-	 bB+4WHaJm1TguMWwPaeaSyDuGnM8uJhfZ50OK9zI=
-Subject: FAILED: patch "[PATCH] netfilter: cttimeout: prevent UAF during module unload" failed to apply to 6.12-stable tree
+	b=m060ZFqqwa2zkZZmsaXy86r1V4jsp7VFdZZadxJ5EbbkWIscWzgiSCFCBSkxdUQRZ
+	 dHhp3is7eDwlwNLAkzQzXRiI7FMbsDcWl+rFu1aGFUI3PmsZbmJBvxIVpuK7ejqlF6
+	 qDP55A8TUy8lMy2L/a5k4ONFT4MLuoa3dSO+yFRw=
+Subject: FAILED: patch "[PATCH] netfilter: cttimeout: prevent UAF during module unload" failed to apply to 6.6-stable tree
 To: nicoyip.dev@gmail.com,pablo@netfilter.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:32:41 +0100
-Message-ID: <2026091641-overpower-cameo-f985@gregkh>
+Date: Wed, 16 Sep 2026 16:32:43 +0100
+Message-ID: <2026091643-moodiness-multiple-38a7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x fec9b1de0d02de8dafa3cc344bcb91cf28660643
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091641-overpower-cameo-f985@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091643-moodiness-multiple-38a7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
