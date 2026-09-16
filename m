@@ -1,217 +1,162 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id CBC9959E351;
-	Wed, 16 Sep 2026 16:29:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24BD5A984C
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:29:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576184; cv=none; b=gk5YxF14YLCWPGNQm/fgil7TrJC5pBj3XaON6UCOYvklvArAO9X8JJP4ZeYQ1Mw+Pmtiiu46at6UvSSOeQ3sp3FwFrg93k30zadgTNfBgLJeESxBSGVoYqbRrCvLJuOdHXdMazioo62gA9CI3M6vD0ZLqUvtSX7V/qa+cnMmiPU=
+	t=1789576186; cv=none; b=Hdd9pp7FjoLP+eUJTlcdvda8XmDUAH2o1k/3QOUS0BOIQ4gscsPJYQPYOoRTF2NewKcI1YydzLTpjYKgRSBQBuHmYziCXPl14h50YdZUVP0hNtp0RQG51rpvs60vyiq6mIYynzfDvspaq/OW2CsV+XrzPWz+esNCKN+80jIkZ98=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576184; c=relaxed/simple;
-	bh=C5r7UerLoZLkSo0vz+Z/cEVRNM86eJxO5WWuwqyTrGs=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=p7+n+Rwks362rBrCEQCpM8j7yNQylHsVKohMgR0L1lTSfDW0tU3vYw+N8ONEXab7L8GWvp6yFr+QJxay0wGl6DF9QhTi7b2gyv1qgRXFIU93qlcfrxMiI69E5VsAW11pSg4hAADQGQeOSJ1GrXKP/oR2m5GglHWT22yrFe9ULWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=euaOYSI9; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
+	s=arc-20240116; t=1789576186; c=relaxed/simple;
+	bh=rfCTD+62jY9yHO2p4lEH9EoauwzrB7tZLsKcVUlpPbM=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=HN2KMBpKWfBHxz3CtQKQVUbK6eIPtG/PbrHX7lzqkTCrmiuj5I/D/jqg+Er9Y+Hmu+xB7Gg+RGbSaI4WLt28wwyd7iLT5RjcMDUF1rCCfHVzclWEv+Z9cSLbd+SUpNLPd6s1R1OTYwqz3hPRVqMiogDNeFicwLrJcS4X7MoCUJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=c4Ikx4j0; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="euaOYSI9"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 8B2131E32;
-	Wed, 16 Sep 2026 09:29:35 -0700 (PDT)
-Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 878463F7B4;
-	Wed, 16 Sep 2026 09:29:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789576179; bh=C5r7UerLoZLkSo0vz+Z/cEVRNM86eJxO5WWuwqyTrGs=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=euaOYSI9oeG8JPNvzeOyyNBjb5lhfezk77Mz9WCbuSEhbTITdJyyaZ0kwJiGS7CQE
-	 QkniTdtiSCKvteE59ROSTykSRnENWR35I6yU5XZ8b4KFL5tRjE8kDzUMZO6c5zpx8T
-	 cDBoy7K6ISje4oXAIOeRjSaSUCWE4Dh0EIRWNh+Q=
-From: Christian Loehle <christian.loehle@arm.com>
-To: "Rafael J . Wysocki" <rafael@kernel.org>,
-	Viresh Kumar <viresh.kumar@linaro.org>
-Cc: linux-pm@vger.kernel.org,
-	linux-acpi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Len Brown <lenb@kernel.org>,
-	Jie Zhan <zhanjie9@hisilicon.com>,
-	Lifeng Zheng <zhenglifeng1@huawei.com>,
-	Pierre Gondois <pierre.gondois@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	Sudeep Holla <sudeep.holla@arm.com>,
-	Ionela Voinescu <ionela.voinescu@arm.com>,
-	zhongqiu.han@oss.qualcomm.com,
-	Christian Loehle <christian.loehle@arm.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v7 16/20] ACPI: CPPC: Validate FFH register fields before hardware access
-Date: Wed, 16 Sep 2026 17:28:01 +0100
-Message-Id: <20260916162805.1039247-17-christian.loehle@arm.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
-References: <20260916162805.1039247-1-christian.loehle@arm.com>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="c4Ikx4j0"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so184549966b.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:29:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789576179; x=1790180979; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=oGsaKaCm6H9DIjQx0NqyVJZZj6VZWtfqDIqvxsFeHmU=;
+        b=c4Ikx4j08+Z/Ya7L5ry0mZfAqsOfx8AVPzHc5Qk0EuYiBRwHk846n2UUW7QlxFljWb
+         V1Lvx+eGtHhRryl7uufAdfrzRz3tTrddkVq7yU0S5Z2QkLLkeiYw0ifs9oOYvhfJFpUm
+         fnm2eW9gK/CYX4pf0FrGa2RnoV2JSnK+yN9S8=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789576179; x=1790180979;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=oGsaKaCm6H9DIjQx0NqyVJZZj6VZWtfqDIqvxsFeHmU=;
+        b=S2GyUgmeE4up0kelqo4iKToHbJV56gV1SyEk0ei0NYGHwouryY6nyrw6FufR90nPE2
+         +3LmWbA0sxtKRwxytP1LL3WgOHMpW7lWooz4aryuPrZLnNRr+I7yRyGJtrpBIYFSASj6
+         VO5iBRAFFV/uRwGHBoDUIitfjAzJJcnq/UuxIChFFyjwC4ZKI4czDSVWwdURB4yr4cNy
+         iqeELnprkOpFrt51wqwIOuQtTbH62ao/8Q9FhthqOl4bAt0FW/2Rcdvfxv+2Xje/Kdvi
+         bJm5tV9OA/kv6elBvc34fycVFpy1TpXD/Dm8EQLbc4n8cd8FUW+UbsHxKGYXRVZiiCld
+         Y3sA==
+X-Forwarded-Encrypted: i=1; AKwUvByGBBxOr+PmV6T+1kDMad7Iqj8OFvtvbTWI6lzzDXFShl93gx+B1A3jrg+2o81eIhp97Y+CP/E=@vger.kernel.org
+X-Gm-Message-State: AFuF++kUrdsF7hRdNUqJCz7ctW9bJzlGnU5A0TTsxe2IAgP+q3Urj9CW
+	SdjoUUJS+vbAd5SFup48XCJP9nPYPhBIA0hdWuV5/ELMbbSW99/v3Db9k9r1T1eyxfx5uFtsu9R
+	3wHw=
+X-Gm-Gg: AYBFou3Pzu1jHQ1D92CtBVrtDn/WTk3DRaOtfcyCTqUZq3C2LVp118zSn945UHmU8Nq
+	3lQYqlyTc0t8/zHNliobYzYSPb1muDo+YxrYYWrKWDXwURP3nj1bKAr6h2hUQA1uiZm6KgPKUIy
+	Q74lIlv6soKRnkBUB8trN6i43sAXSpl8PZPT/NbZpUz/QbWbHshIj5D+Q+HE/iuvNOelGCX9myg
+	5M7tQOXc1FlV7jCWJ6dP2FwgdNntpg4D66PBrOsleBCUtzdq4WFz+35vVz+W2cgXGaHkDSeLM8j
+	kVntIsMQM3LASqA3qmjsbrhqdGLPcEIWO9tIajsQcEyer31x8OBWxncAgLcRTDySOga3LzIJLjp
+	MgAWjcMBEqWnOkck3On2SzcuT4zZRxffQ6B3wmXjrWM3ww+W4q3ljRkeyjMHKVkjLy12A2Dv0qg
+	3XYjLYVBwDk9VEOa6YZ1Xfv0ekwugdu+7jx4ZM/6tKCavAQlLT8I94Cdo++/ekUYz+GglZw8twJ
+	AqtVMUrYSNhdtTzmiO4sHZeZmGZNQzVBP/WKf8=
+X-Received: by 2002:a17:907:9706:b0:c25:8eb7:f388 with SMTP id a640c23a62f3a-c29e529a30bmr460642766b.17.1789576179275;
+        Wed, 16 Sep 2026 09:29:39 -0700 (PDT)
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de454d91sm167932366b.19.2026.09.16.09.29.37
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 09:29:38 -0700 (PDT)
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so6492685e9.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:29:37 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzSYxQvgC580USZczkGaVPIiuJ0A6kPuHAtf4jHSs1cxW6LhBKRjO6wkH1xAKb+HP+3WxOOECE=@vger.kernel.org
+X-Received: by 2002:a05:600c:c48e:b0:49c:ff8d:b548 with SMTP id
+ 5b1f17b1804b1-49eb732fc54mr76705805e9.11.1789576177013; Wed, 16 Sep 2026
+ 09:29:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916151753.6722-1-fangxy@xiaopeng.com>
+In-Reply-To: <20260916151753.6722-1-fangxy@xiaopeng.com>
+From: Doug Anderson <dianders@chromium.org>
+Date: Wed, 16 Sep 2026 09:29:25 -0700
+X-Gmail-Original-Message-ID: <CAD=FV=VqGXRadN8Ro2UV0hXZvNOTABDmAh+On-bUXFEGuJQOSA@mail.gmail.com>
+X-Gm-Features: AcwNN1V3QXHsb6_b7XvNkZrIiXWsTtecG2wVDHU_J3bG9sbbPJ8EqsrduqMn5D4
+Message-ID: <CAD=FV=VqGXRadN8Ro2UV0hXZvNOTABDmAh+On-bUXFEGuJQOSA@mail.gmail.com>
+Subject: Re: [PATCH] kgdb: Fix buffer overflow in the qRcmd packet handler
+To: Fang Xieyan <fangxy@xiaopeng.com>
+Cc: jason.wessel@windriver.com, danielt@kernel.org, 
+	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The x86 CPPC FFH accessors construct masks and shift values using the
-firmware's Bit Width and Bit Offset without checking that the field fits
-in an MSR. A zero-width field or a field extending beyond bit 63 can
-therefore cause an invalid shift. The safe MSR accessors only handle an
-access fault, not invalid field arithmetic after a successful read.
+Hi,
 
-Also, the 64-bit GAS address is implicitly narrowed to the 32-bit MSR
-number. A descriptor with nonzero upper address bits can access a different
-MSR from the one described by firmware.
+On Wed, Sep 16, 2026 at 8:18=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
+rote:
+>
+> gdb_cmd_query() decodes the hex payload of a qRcmd packet (the GDB
+> "monitor" command passthrough to kdb) into remcom_out_buffer and hands
+> it to kdb_parse(). It sizes the decode with strlen() of the payload:
+>
+>         int len =3D strlen(remcom_in_buffer + 6);
+>         ...
+>         kgdb_hex2mem(remcom_in_buffer + 6,
+>                      remcom_out_buffer, len);
+>         len =3D len / 2;
+>
+> kgdb_hex2mem() takes count as the number of bytes to produce and
+> decodes them in place at buf, reading and writing 2 * count bytes
+> there. len here is the hex character count, twice the decoded size,
+> so the decode runs over 2 * len bytes at remcom_in_buffer + 6, off
+> the end of the buffer. On x86 BUFMAX is 1024, so a 256-byte monitor
+> command (512 hex characters) overruns remcom_in_buffer during the
+> in-place decode:
+>
+>   BUG: KASAN: global-out-of-bounds in kgdb_hex2mem+0x131/0x160
+>   Read of size 1 at addr ffffffff8765ef05 by task sh/1
+>   ...
+>   kgdb_hex2mem+0x131/0x160
+>   gdb_serial_stub+0x16d4/0x3170
+>   kgdb_cpu_enter+0xb68/0x1520
+>   ...
+>   The buggy address belongs to the variable:
+>    remcom_in_buffer+0x405/0x420
+>
+> Halve len before the call so kgdb_hex2mem() gets the decoded byte count.
+> It then reads the len hex characters already in remcom_in_buffer and
+> writes len / 2 bytes, all inside the buffer, and remcom_out_buffer holds
+> the same command as before.
+>
+> Fixes: a0de055cf613 ("kgdb: gdb "monitor" -> kdb passthrough")
+> Cc: stable@vger.kernel.org
+> Suggested-by: Douglas Anderson <dianders@chromium.org>
+> Link: https://lore.kernel.org/all/CAD=3DFV=3DV1-gNZ8yTsC+D8inePWv=3DA+9H0=
+9hWJojQf5NRpcNvK+Q@mail.gmail.com/
+> Assisted-by: Qoder:Qwen3.8-Max
+> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+> ---
+>
+> This is the third in a family of unvalidated-length decodes in the kgdb
+> gdbstub; the 'm' memread and 'M'/'X' memwrite fixes were sent separately.
+> Unlike those two, there is no attacker-claimed length field here. len is
+> the real hex-character count bounded by get_packet(), so the only defect
+> is passing the hex length instead of half of it to kgdb_hex2mem().
+> Halving it is sufficient; no separate bounds check is needed.
+>
+> Reproducer: attach to a kgdboc console, break in, run kdb's "kgdb"
+> command to switch to gdb mode, then send a qRcmd packet with an even
+> hex payload of 510 or more characters, e.g. "qRcmd," + "41"*256 on x86.
+> Before the fix, KASAN reports a global-out-of-bounds read in
+> kgdb_hex2mem(): the decode runs to remcom_in_buffer+0x405, past
+> BUFMAX=3D0x400, and the guest dies. After the fix the decode stays
+> in-bounds, the command reaches kdb_parse() and the handler answers OK.
+> The patched run does print kdb_parse()'s own "command buffer overflow,
+> command ignored" for a 256-byte command; that is kdb's length limit on
+> the decoded string, not this bug.
+>
+> Tested on mainline 704340f1cd0d (git describe v7.3-rc3-9-g704340f1cd0d):
+> x86_64 defconfig plus CONFIG_KGDB_KDB and CONFIG_KASAN_GENERIC, gcc
+> 13.2.0, QEMU under TCG. Both kernels were built from byte-identical
+> .config files and differ only by this patch.
+>
+>  kernel/debug/gdbstub.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
 
-The arm64 AMU counter readers have the same unchecked field arithmetic.
-Validate the field bounds before reading a counter, including both
-descriptors in the paired counter path.
-
-Dispatch FFH accesses before decoding the GAS Access Size in the common
-read and write paths. Otherwise, a large access_width can trigger an
-invalid shift in GET_BIT_WIDTH() before the architecture validates its
-register. That field has architecture-specific FFH semantics and is not
-needed by the generic memory/port accessor on this path.
-
-Validate x86 MSR addresses and share the field-bounds checks between
-related accessors within each architecture.
-
-Fixes: a6cbcdd5ab5f ("ACPI / CPPC: Add support for functional fixed hardware address")
-Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
-Fixes: f489c948028b ("ACPI: CPPC: Fix access width used for PCC registers")
-Cc: stable@vger.kernel.org
-Signed-off-by: Christian Loehle <christian.loehle@arm.com>
----
- arch/arm64/kernel/topology.c | 12 +++++++++++-
- arch/x86/kernel/acpi/cppc.c  | 14 ++++++++++++++
- drivers/acpi/cppc_acpi.c     | 10 ++++++----
- 3 files changed, 31 insertions(+), 5 deletions(-)
-
-diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
-index d28438f8b83f..2c030e78d5e4 100644
---- a/arch/arm64/kernel/topology.c
-+++ b/arch/arm64/kernel/topology.c
-@@ -470,6 +470,12 @@ static void amu_read_core_const_ctrs(void *val)
- 	cpu_read_corecnt(&ctrs->corecnt);
- }
- 
-+static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
-+{
-+	return reg->bit_width && reg->bit_width <= 64 &&
-+	       reg->bit_offset <= 64 - reg->bit_width;
-+}
-+
- static u64 cpc_ffh_extract_bits(const struct cpc_reg *reg, u64 val)
- {
- 	val &= GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
-@@ -506,7 +512,8 @@ int cpc_read_ffh_fb_ctrs(int cpu, struct cpc_reg *reg1, u64 *val1,
- 	struct amu_ffh_ctrs ctrs;
- 	int ret;
- 
--	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2))
-+	if (!is_amu_ctr_reg(reg1) || !is_amu_ctr_reg(reg2) ||
-+	    !cpc_ffh_reg_valid(reg1) || !cpc_ffh_reg_valid(reg2))
- 		return -EINVAL;
- 
- 	ret = counters_read_on_cpu(cpu, amu_read_core_const_ctrs, &ctrs);
-@@ -530,6 +537,9 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
- {
- 	int ret = -EOPNOTSUPP;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	switch ((u64)reg->address) {
- 	case CPC_FFH_CTR_CORE:
- 		ret = counters_read_on_cpu(cpu, cpu_read_corecnt, val);
-diff --git a/arch/x86/kernel/acpi/cppc.c b/arch/x86/kernel/acpi/cppc.c
-index bbade0da5130..d2185b7a2030 100644
---- a/arch/x86/kernel/acpi/cppc.c
-+++ b/arch/x86/kernel/acpi/cppc.c
-@@ -5,6 +5,7 @@
-  */
- 
- #include <linux/bitfield.h>
-+#include <linux/limits.h>
- 
- #include <acpi/cppc_acpi.h>
- #include <asm/msr.h>
-@@ -45,10 +46,20 @@ bool cpc_ffh_supported(void)
- 	return true;
- }
- 
-+static bool cpc_ffh_reg_valid(const struct cpc_reg *reg)
-+{
-+	return reg->address <= U32_MAX && reg->bit_width &&
-+	       reg->bit_width <= 64 &&
-+	       reg->bit_offset <= 64 - reg->bit_width;
-+}
-+
- int cpc_read_ffh(int cpunum, struct cpc_reg *reg, u64 *val)
- {
- 	int err;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, val);
- 	if (!err) {
- 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
-@@ -65,6 +76,9 @@ int cpc_write_ffh(int cpunum, struct cpc_reg *reg, u64 val)
- 	u64 rd_val;
- 	int err;
- 
-+	if (!cpc_ffh_reg_valid(reg))
-+		return -EINVAL;
-+
- 	err = rdmsrq_safe_on_cpu(cpunum, reg->address, &rd_val);
- 	if (!err) {
- 		u64 mask = GENMASK_ULL(reg->bit_offset + reg->bit_width - 1,
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 0e218f2be0fe..96a94df24231 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -2446,6 +2446,9 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
- 	}
- 
- 	*val = 0;
-+	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
-+		return cpc_read_ffh(cpu, reg, val);
-+
- 	size = GET_BIT_WIDTH(reg);
- 
- 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
-@@ -2490,8 +2493,6 @@ static int cpc_read(int cpu, struct cpc_register_resource *reg_res, u64 *val)
- 		return 0;
- 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
- 		vaddr = reg_res->sys_mem_vaddr;
--	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
--		return cpc_read_ffh(cpu, reg, val);
- 	else
- 		return acpi_os_read_memory((acpi_physical_address)reg->address,
- 				val, size);
-@@ -2538,6 +2539,9 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
- 		return -EOPNOTSUPP;
- 
- 	reg = &reg_res->cpc_entry.reg;
-+	if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
-+		return cpc_write_ffh(cpu, reg, val);
-+
- 	size = GET_BIT_WIDTH(reg);
- 
- 	if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_IO) {
-@@ -2581,8 +2585,6 @@ static int cpc_write(int cpu, struct cpc_register_resource *reg_res, u64 val)
- 		return 0;
- 	} else if (reg->space_id == ACPI_ADR_SPACE_SYSTEM_MEMORY)
- 		vaddr = reg_res->sys_mem_vaddr;
--	else if (reg->space_id == ACPI_ADR_SPACE_FIXED_HARDWARE)
--		return cpc_write_ffh(cpu, reg, val);
- 	else
- 		return acpi_os_write_memory((acpi_physical_address)reg->address,
- 				val, size);
--- 
-2.34.1
-
+Reviewed-by: Douglas Anderson <dianders@chromium.org>
