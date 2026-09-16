@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0FCF248D86B;
-	Wed, 16 Sep 2026 12:06:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8C5536A02F;
+	Wed, 16 Sep 2026 12:06:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789560414; cv=none; b=uqS5Q62qSFFFwwLK3+Ezy8WekB+3dSUbgJsB0pC6FMNZMht3hOC2/6+Z/VQeuId5pbmUMgKiEOPOWsr8f9lQAufrpr2+1s2yA6CMUp3HZ16Elp9S9ckuXIv2hQSxq3CE5LzfWTG0LJJvvO8sLg49ysrL5r9HpazE0RqEZFM/0co=
+	t=1789560421; cv=none; b=CSnqczL17PYfVP4WvvQBZM+l/O0fDu+Tm7qEc3+mF11rG8GGH5NNlhhM0EJY5NP7g2LCjwtg6WHMBF1Pc2lwlC7NmMm/Wr6dBXsi/lUjYhdCPyhoHY9FDC/yWBtXFhLTJQYvqCHwj6nnEaT2nSbuPLziCk6oX6fe3wSDknsnD9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789560414; c=relaxed/simple;
-	bh=sJfyPSRSCi921XUibwlhn86EDykFnPLqnQGQUoDbv+I=;
+	s=arc-20240116; t=1789560421; c=relaxed/simple;
+	bh=6Q8ZynN9Z8MCFE31qsehets/1gPdbyFkQ1IvqggL8Zg=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=NTb29ObLmjky6PNnbx7fQyH7NJOBfz3rrJF9tN/Efo0BjIjMRPvE7vv3JfCj4dKMaUQyOOYvk9UaK/JROkqQD+GTgvMMKEAcg6k3D1k1P2Amfz2K7y0h6Uz7zjghBon8nc+G430CEoS9E3vPVGPdi2FwukYbq4A4hNHfiIsU9S8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XqVNqZrc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OwXs1eqMVBrd7QrILH9tdTr6kKvi545NdtiKunhn01gXVoxNZzV/i3/tNHxhN6MNe7r0Moe7jADwmbyKzLMOi2lkepFSf1mjng+r0EGq3nUcfrWpi8G1204sd4rbrmYzOE2DYt3Sdw9wV43mqZA0nKsMfvjPZZ7hDj6Q1jxLypI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OWFRxJHr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XqVNqZrc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D70FC1F00893;
-	Wed, 16 Sep 2026 12:06:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OWFRxJHr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 009451F0089E;
+	Wed, 16 Sep 2026 12:06:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789560401;
-	bh=NDbZ5oWYDY4NfdAdp/cW4oV3ub4ZSbhVmR5rxE1rXvE=;
+	s=k20260515; t=1789560411;
+	bh=IG4/WBp8VdGaENMIv48NIp73xYCDx1hUQsKRMQooz7s=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XqVNqZrcnE0mY2UvqTGPqle38MpkSihI2b/xUj8mqTZwZ7tDCBu9kvs8wKr8eLSSa
-	 hBOXWKEaCEHJuHA5h7gJ7lrNP/DPqVwzMzRExD7POxYhkpVmpyqb5JxlVw0Q9DRED/
-	 wJTtU4kKXz1siuND4rxtrIpdyhOsXNWED1S2aWrjmPSXcLgTxXM62k/rwa2aiOnzjo
-	 0pc4UkZdRqJvCcnyIdG7DRlrFexZFqSnbo4DoaO6coYR1nIjiqOd/gw1lMGUQ4gqLu
-	 Mlaqf8kL82Uigt9FDsvcOxmQLJbsi1M6nM3ZNF/5/8eUsRd4Epnz1j8yCCJ0Ve5OYs
-	 NQonjeP7NOdng==
+	b=OWFRxJHrkTflD1P5IQiE3ZFeafY0ZyzgzMtE2P7+Cfp9ccTKG6kOYdp3LOOV1drgh
+	 w1DxhBfrVVYgebhpjKLmApJyF95/WcAp/huTRMBvoeyNjfVh9xxmYZNujxtA5pDEMd
+	 O2pi4t7GYcOQsJdJkcKUkiHUhivvXN3K7dy4QIsGs1NjLY5Uxxg/CMyFiibebFhS3o
+	 zJruLSwXd1Couc3ulnLS2tam0KsSL5ctvWuO2AWrnpUxR21yXDYXTBJWOriS9ZtwJs
+	 7vvk3vfKq+Lgs2nAT5YN25yLb9rrSeritzLgCIDl5yJWhgPn5nCo5fn5hxSaFti2Mj
+	 XITg+Xtpy27BQ==
 From: Carlos Maiolino <cem@kernel.org>
-To: hch@lst.de, "Darrick J. Wong" <djwong@kernel.org>
+To: "Darrick J. Wong" <djwong@kernel.org>
 Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
-In-Reply-To: <178910161988.174887.8958318922224347752.stgit@frogsfrogsfrogs>
-References: <178910161988.174887.8958318922224347752.stgit@frogsfrogsfrogs>
-Subject: Re: [PATCHSET] xfs: LLM-inspired bug fixes, part 14
-Message-Id: <178956040056.10466.14255436339615019963.b4-ty@kernel.org>
-Date: Wed, 16 Sep 2026 14:06:40 +0200
+In-Reply-To: <178945048435.3061055.16384804993810925544.stgit@frogsfrogsfrogs>
+References: <178945048435.3061055.16384804993810925544.stgit@frogsfrogsfrogs>
+Subject: Re: [PATCHSET] xfs: LLM-inspired bug fixes, part 15
+Message-Id: <178956041069.10466.8117121241382725467.b4-ty@kernel.org>
+Date: Wed, 16 Sep 2026 14:06:50 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,8 +44,8 @@ Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.14.3
 
-On Thu, 10 Sep 2026 22:53:34 -0700, Darrick J. Wong wrote:
-> Here's a fourteenth batch of xfs fixes resulting from a LLaMma.  Mwa mwa
+On Mon, 14 Sep 2026 22:36:43 -0700, Darrick J. Wong wrote:
+> Here's a fifteenth batch of xfs fixes resulting from a LLaMma.  Mwa mwa
 > mwa...
 > 
 > If you're going to start using this code, I strongly recommend pulling
@@ -58,18 +58,28 @@ On Thu, 10 Sep 2026 22:53:34 -0700, Darrick J. Wong wrote:
 
 Applied to for-next, thanks!
 
-[1/6] xfs: check padding field in xfs_ioc_commit_range
-      commit: 3083ba8dde765a9ab2337f3db68d00724a6b1202
-[2/6] xfs: don't call xfs_exchange_range_finish for a dry run
-      commit: 8fc18580ec17f90beac4c933fbe4c74dcd3b7f36
-[3/6] xfs: use the correct reservations for rtrmap/refcount recovery
-      commit: 471e0b6e2ddac9e16b8dc2153d6e5575fefb8a2f
-[4/6] xfs: fix integer overflows in xbitmap set functions
-      commit: 46c1b6674a7b3a8385e7fa27f4efc6f45eddf967
-[5/6] xfs: only flag zero padding for dir3 data blocks, not dir3 block blocks
-      commit: c54110d814c3e8ed6bbbb5e02874994ed9f668ac
-[6/6] xfs: check di_forkoff correctly in scrub
-      commit: e9193f2f1ce32d02b9230094ffdbfab715ab6137
+[01/11] xfs: always call xfs_qm_adjust_dqlimits during quotacheck repair
+        (no commit info)
+[02/11] xfs: call xfs_dquot_set_prealloc_limits if we installed default rtb limits
+        commit: cb2194c0d7b2b913e171df9601f3b7aba6337525
+[03/11] xfs: fix rtgroup repair estimations
+        commit: bfcb66fe0df3588614662d5e2172586e068ae812
+[04/11] xfs: don't cross reference rmapbt with bitmaps if they're incomplete
+        commit: 77b4ee1509046e772192d3955142c542aad023ce
+[05/11] xfs: don't let memory failures leak blocks and kill repairs
+        commit: 06f5d4c2be3b18b6a3eb5f0e1ff4c4a5b420171f
+[06/11] xfs: don't merge different file IO error types
+        commit: 509688570a42dd42a4eb656d55cf56c285621528
+[07/11] xfs: fix blockgc group quota scanning when usrquota isn't enforced
+        commit: 4e07c52ca4bd9191e3718bee30f1000333446217
+[08/11] xfs: fix cursor and pointer handling when recovering iunlink buckets
+        commit: d3bb71b6c6c249139215f2ee33120e2c8005f104
+[09/11] xfs: drop dquot flush lock when we can't find a buffer to flush
+        commit: 979dbd93efd51c12e386869e6db5df497656a60e
+[10/11] xfs: don't let hidden_space go negative in xfs_metafile_resv_init
+        commit: d2d0237773deda949c6cc02e001d5c7301214b86
+[11/11] xfs: fix wild memcpy access when formatting ondisk rtrefcount btree roots
+        commit: 407b04dca6614a77d3c867d5cc71c1ab31768444
 
 Best regards,
 -- 
