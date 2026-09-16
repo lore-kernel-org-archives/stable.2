@@ -1,43 +1,32 @@
-Received: from mail-106112.protonmail.ch (mail-106112.protonmail.ch [79.135.106.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8379F5221C0
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:47:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0834F49A3A2;
+	Wed, 16 Sep 2026 18:47:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584460; cv=none; b=ajzdShHpnC7JwmqltCm78vD6V/npyBA39netk3zm2buABCDnYi4HYetm4eTWxdYeNvqqRm6SMOrgZXU5kBpXt8voyzIociybKruFtBmkEPXhsEdUXuY2gTGTS/h4pk7igYQHnxz+Xu45qPNPm0qOCW9TwN61vZ8ZK7IvSMX8+9E=
+	t=1789584477; cv=none; b=Gk/eKhtCJWn1HVCDbkx6CGBQnN+JIae/pYbxx7mhmjLMPEbaYCTwj4Rd/r2nzo4NNNLhZ9rLA33YjLr82lzc90G+RRdbx8SNnFsi3I9LByawNHNkNzgvE4f4uesGAXud6VTzakAE+Km+Z9PfBBzWoZUlRE82hTceP/1nDUj7oTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584460; c=relaxed/simple;
-	bh=KqnUlwMxTm14r/xPmqVV73J1cn64OpgckS4NaSTf9+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=c11FCGfuIUjglFvXp8FHmMStIWyyeMP/wdP6bcvopu6YIctP/jvrmResPjfbTRNcWKCao6jwINSoTIvejZEKNO0QdKkIdynVdXVh/e/saRZSr5shAr5zaoHqHGNxWLAemU9wPbhLoECk5CjXfrnUVtmsYRI2nAdaadliaPMpkqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=mILpfG4i; arc=none smtp.client-ip=79.135.106.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="mILpfG4i"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789584444; x=1789843644;
-	bh=1vnfcpfm1knspkkHD3cfzJfSPVjP/NfApVK9s0HkHzQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=mILpfG4iQuouTVuKhJr6Fxubs1Y6g7uqWhVUWuvawf+JU1tWLjYj6fPtCm454tYZI
-	 D56DyfR/5sv0H6Di0XqncsTrIYPcnOnzSpYHgIA3ercKJCCey4JnAO5V06EyioJATU
-	 uwJ96EKYs82E7QgazbVg/uOJP/ofxAF+VgHQ6Wy5rLY/pbU8wk6rg3+YnbWUPQi52K
-	 FUn+tLb6EvDHaWqXuE97YsFdNHyskmYy+B2pUzBFYcfTIqq/mylrSzt/k1pRQ9M5c0
-	 tX6ZNaiTyG+PZtTxE4B973Al99QYAHrKCzvWWGwre/iY3tJXfnmnu4I1Xt6uQiT8UF
-	 rWIXCzPZBHV7w==
-X-Pm-Submission-Id: 4hlSYQ2Qtzz1DDXF
-From: Esben Haabendal <esben@geanix.com>
-To: stable@vger.kernel.org
-Cc: Herve Codina <herve.codina@bootlin.com>,
-	Luca Ceresoli <luca.ceresoli@bootlin.com>
-Subject: [PATCH 6.18.y] drm/bridge: ti-sn65dsi83: Fix error handling in sn65dsi83_reset_work()
-Date: Wed, 16 Sep 2026 20:47:20 +0200
-Message-ID: <8046cf0a251bf18176207eb28a0137ac4f849d3c.1789584440.git.esben@geanix.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026091625-encircle-trifocals-d070@gregkh>
-References: <2026091625-encircle-trifocals-d070@gregkh>
+	s=arc-20240116; t=1789584477; c=relaxed/simple;
+	bh=dDLKKajzXueqEhFJZ00uZet42bNEKHZTSnJsbB+OhEw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T2glJ1H/H7oz1V5cC6cX3UsmIMnPQTLcYYdppH0BYXnc5EVhdLCj3E+NhJh+UjKXRHNdRlr9i0rocc6oKATP4+FKs0dqeGdbA3jGfdD4UDMeJpFBP3IfjtCBsHEkcVVOa3b4y6Dtuw70QIWu6WeDn2O3vhHFgoTRwqC+I71ttxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3oDpU5KpqR9RvCA--.24262S2;
+	Thu, 17 Sep 2026 02:47:49 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: dmitry.torokhov@gmail.com
+Cc: linux-input@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	samuel@sholland.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] Input: Fix i2c_bus OF node reference leak in ppkb_probe()
+Date: Wed, 16 Sep 2026 18:47:21 +0000
+Message-Id: <20260916184721.2093344-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,66 +34,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3oDpU5KpqR9RvCA--.24262S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKFy5Wry7tFWxJFyDtF1rCrg_yoWktFb_Wa
+	4rXas3Wr98KF42grn5Ars3Zr9Fkw10vF97AFyvg34SkrW5ZrWjga4UZrZ5Ar17uw4fKr1D
+	G3Wjkayvyrs8ujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxxFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j
+	6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvjfUYZ
+	XoUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpViDRQAAs2
 
-The error handling of sn65dsi83_reset_pipe() in sn65dsi83_reset_work() has
-seen a couple of changes that seems to cause a bit of confusion.
+The device node reference returned by of_get_child_by_name() is
+stored as the adapter's of_node but never released, leaking one node
+reference on every probe, successful or not.
 
-While sn65dsi83_reset_work() has implemented an early exit if
-sn65dsi83_reset_pipe() fails since it was added, when a commit from Maxime
-Ripard switched to use drm_bridge_helper_reset_crtc() [1] the
-sn65dsi83_reset_pipe() function would no longer return an error code, so
-the early exit was then a no-op, and even on sn65dsi83_reset_pipe()
-failure, enable_irq() has been called.
+The adapter only borrows the node, so drop the reference once the
+adapter has been added, and also on the error path.
 
-When drm_bridge_enter()/drm_bridge_exit() resource protection was added,
-the drm_bridge_exit() incidentally was always called, which is the correct
-approach. But only because the early exit in sn65dsi83_reset_pipe() was
-never hit because sn65dsi83_reset_pipe() always returns 0.
-
-In order get back to a situation where enable_irq() is not called on
-sn65dsi83_reset_pipe() failure, which should help protect against irq
-storms, we need to reintroduce a non-zero return value from
-sn65dsi83_reset_pipe() on error, and fix sn65dsi83_reset_work() so that we
-always exit the DRM bridge critical section with drm_bridge_exit().
-
-[1] commit e17fadff7ab9 ("drm/bridge: ti-sn65dsi83: Switch to drm_bridge_helper_reset_crtc")
-[2] commit d2e8d1bc840b ("drm/bridge: ti-sn65dsi83: protect device resources on unplug")
-
-Fixes: e17fadff7ab9 ("drm/bridge: ti-sn65dsi83: Switch to drm_bridge_helper_reset_crtc")
+Fixes: 63c5eb157cfd ("Input: pinephone-keyboard - support the proxied I2C bus")
 Cc: stable@vger.kernel.org
-Signed-off-by: Esben Haabendal <esben@geanix.com>
-Reviewed-by: Herve Codina <herve.codina@bootlin.com>
-Reviewed-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Tested-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-Link: https://patch.msgid.link/20260831-ti-sn65dsi83-fixes-v5-1-e712765d6c4f@geanix.com
-Signed-off-by: Luca Ceresoli <luca.ceresoli@bootlin.com>
-(cherry picked from commit 4600b4d1a9ee730d03ddac5ce409cd2730ce8c0c)
-Signed-off-by: Esben Haabendal <esben@geanix.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/bridge/ti-sn65dsi83.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/input/keyboard/pinephone-keyboard.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/gpu/drm/bridge/ti-sn65dsi83.c b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-index 43344c2e15b7..11513b0a0ed8 100644
---- a/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-+++ b/drivers/gpu/drm/bridge/ti-sn65dsi83.c
-@@ -399,7 +399,7 @@ static int sn65dsi83_reset_pipe(struct sn65dsi83 *sn65dsi83)
- 	drm_modeset_drop_locks(&ctx);
- 	drm_modeset_acquire_fini(&ctx);
- 
--	return 0;
-+	return err;
- }
- 
- static void sn65dsi83_reset_work(struct work_struct *ws)
-@@ -413,6 +413,7 @@ static void sn65dsi83_reset_work(struct work_struct *ws)
- 		dev_err(ctx->dev, "reset pipe failed %pe\n", ERR_PTR(ret));
- 		return;
+diff --git a/drivers/input/keyboard/pinephone-keyboard.c b/drivers/input/keyboard/pinephone-keyboard.c
+index 147b1f288a33..c82323713be8 100644
+--- a/drivers/input/keyboard/pinephone-keyboard.c
++++ b/drivers/input/keyboard/pinephone-keyboard.c
+@@ -384,8 +384,10 @@ static int ppkb_probe(struct i2c_client *client)
+ 		error = devm_i2c_add_adapter(dev, &ppkb->adapter);
+ 		if (error) {
+ 			dev_err(dev, "Failed to add I2C adapter: %d\n", error);
++			of_node_put(i2c_bus);
+ 			return error;
+ 		}
++		of_node_put(i2c_bus);
  	}
-+
- 	if (ctx->irq)
- 		enable_irq(ctx->irq);
- }
+ 
+ 	crc8_populate_msb(ppkb->crc_table, PPKB_CRC8_POLYNOMIAL);
 -- 
-2.55.0
+2.34.1
 
