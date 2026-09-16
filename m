@@ -1,148 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF0804E431C;
-	Wed, 16 Sep 2026 23:30:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94E724AB3B5;
+	Wed, 16 Sep 2026 23:39:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789601458; cv=none; b=MKritWz6yLq898BH3vILHzBPt/sPc0e5iKwTlnhQk/xeHHzmpJvKWPj2amWqG20FX4XkTB2Ez4KD0fwQs9Ck6L4GZuPRxoE47AJaTcyIlKUp4WIUHkPfF+yx2Y0MeiA83AlMyPzjG0zppmhkZjj/NCNJ04Nq8oiT3kDgL8XBIDU=
+	t=1789601946; cv=none; b=tHiezyuVojdQ9nB/oJOli16Ez2wm4bzJF30+wighKXKF57gPq2P7Q9TodiK2zxakSjU4xiuKsJZyvF93R9Upp5Mas1/0VI6fW1s2QbLYdLPLKgCtYJjJ+3kk1Tkpq/gkFMxyeoG20LorXfZeTTrONIc5bEPyi8qD6zQKGPbZolU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789601458; c=relaxed/simple;
-	bh=/bzOFe/Kmzkm59iMBjGGsDiJVZmDfSJpNeZ94G1o/o8=;
-	h=Date:To:From:Subject:Message-Id; b=sUurFUyCsgr92tNyiz9UflFkZjLS1LHWbqhnrjcFhK3DZ088lXgxmyzLrOExJTJBDUQAcbDgZiqEsJ1D2fsI4h7n0eLmsgRYHHHcX3pA0AQLeOoDq8yf7fPF13tnCZmwfS58ZR2K54D+AJI8nvDhxSLlt5oTNvAfWhDkIIle5MI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=j/Qu02tI; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789601946; c=relaxed/simple;
+	bh=Dswu9zsCEsbMKYUfI58iswHURG052TIHJ8r8CFIpEHY=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=uRR+hHNuTiKeArATee20GIcLzYx+DEl7h2mkFPqt/tEOOQoQ7JdsuYqm/5c5a4RmEQ+t5wqrAUIaSP7gj0EYsdTx/AX7qPR368gICB7I61utpE09lpL9Eyoft2529W1NRRUa4Ic9H1nl3dobUA5Cx5YQqmt3P5fiT0ZsvTy7VNs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YLHXdzls; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="j/Qu02tI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 711131F000FF;
-	Wed, 16 Sep 2026 23:30:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789601455;
-	bh=zfQXXBkSExk3RxxeKgyFQpLPFGREpmjuUl3vFHV7DLY=;
-	h=Date:To:From:Subject;
-	b=j/Qu02tI1r2azRHTSLjFc0G9G+988Sv5rAN/vyvF4fqg5J4h/PkA28a4Ahdf0TjeF
-	 k5EuY397W+84znRDqYBTy/y8HAW+cPISVrlT3ZNRSAynnF1gyLA7aIkVo0vpk19kCX
-	 TfGLd7Xbak0sY2GDTijPcvWGBUQLN31XjhZg90dA=
-Date: Wed, 16 Sep 2026 16:30:55 -0700
-To: mm-commits@vger.kernel.org,yuanchu@google.com,weixugc@google.com,stable@vger.kernel.org,shakeel.butt@linux.dev,mhocko@kernel.org,ljs@kernel.org,kasong@tencent.com,hannes@cmpxchg.org,david@kernel.org,baoquan.he@linux.dev,baolin.wang@linux.alibaba.com,baohua@kernel.org,axelrasmussen@google.com,arnd@arndb.de,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-vmscan-avoid-false-positive-wuninitialized-warning-again.patch added to mm-hotfixes-unstable branch
-Message-Id: <20260916233055.711131F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YLHXdzls"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 12F63C2BCB3;
+	Wed, 16 Sep 2026 23:39:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789601946;
+	bh=Dswu9zsCEsbMKYUfI58iswHURG052TIHJ8r8CFIpEHY=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=YLHXdzls85mYvdXkRJNcF/o48MWZ20lilprXr12ykvF32U3l3NRdZ8IU+mmTg1etc
+	 Y87xAyQlx4VfwFnIa/sWfPc6TDmrEfV74A3/696vyZRnarWHNheV5Q6lIypONyUuuR
+	 7zM4nUx/9jkVqgmSAOKougYHAhpZsLnj0YZU/3RMljbzFJx80VJqFi5y8khPHSBTTn
+	 CztVeBkOrDQ+e31Kkc2mPfIpq/1+Zq8v1d/bX6fMq3D1AWHDqN4GGnkq/7ivhHOOOy
+	 ij0NE6GosTqxdW0OTDvkYg1ifcyEglpgl9vOhmgIl9w+V/o4sFXsDCeK3SEQ400Bz9
+	 uf5E4GdunPfGg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id DB48FC982CC;
+	Wed, 16 Sep 2026 23:39:05 +0000 (UTC)
+From: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>
+Subject: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
+Date: Wed, 16 Sep 2026 16:39:00 -0700
+Message-Id: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJQoq2oC/5XNOxKCMBSF4a0wqb1OHry0ch+ORUguISMSJgGUY
+ di7gUo7Lf9TfGchAb3FQM7JQjxONljXxRCHhKhGdgbB6tiEU57TE+XQjAaHtoIwVr1zLcj2Kec
+ Ag5fqDmNADTznaZnSOlW0JNHpPdb2tX9cb7EbGwbn5/1yYtv6jz4xoKCRKc3SShdMXIxzpsWjc
+ g+y8RP/JE+/kDySgqpMl6LKCi6/yHVd3216AbQmAQAA
+X-Change-ID: 20260902-hugetlb-subpool-always-track-used-2624840f4c08
+To: Alex Shi <alexs@kernel.org>, Andrew Morton <akpm@linux-foundation.org>, 
+ David Hildenbrand <david@kernel.org>, Dongliang Mu <dzm91@hust.edu.cn>, 
+ Hongxiang Lou <louhongxiang@huawei.com>, 
+ Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>, 
+ Joshua Hahn <joshua.hahnjy@gmail.com>, 
+ "Liam R. Howlett" <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, 
+ Miaohe Lin <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, 
+ Mike Rapoport <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, 
+ Nhat Pham <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, 
+ Peter Xu <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, 
+ Roman Gushchin <roman.gushchin@linux.dev>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Shuah Khan <skhan@linuxfoundation.org>, 
+ Suren Baghdasaryan <surenb@google.com>, Usama Arif <usama.arif@linux.dev>, 
+ Vlastimil Babka <vbabka@kernel.org>, Wupeng Ma <mawupeng1@huawei.com>, 
+ Yanteng Si <si.yanteng@linux.dev>, 
+ Naoya Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com, 
+ jthoughton@google.com, rientjes@google.com, vannapurve@google.com
+Cc: linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ linux-mm@kvack.org, Ackerley Tng <ackerleytng@google.com>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789601945; l=4449;
+ i=ackerleytng@google.com; s=20260225; h=from:subject:message-id;
+ bh=Dswu9zsCEsbMKYUfI58iswHURG052TIHJ8r8CFIpEHY=;
+ b=tZ5c/LelNfH0teOFwwHcB+51dSHMOtfpAUHlSeNCULgokAeR1g0kBdwQSqAZfMj00+/z7/nIh
+ plRVYhBRjP3A1V4VddwNUHRPIXQLEzxqYuZdALb0T7kNNMz42q6PGNa
+X-Developer-Key: i=ackerleytng@google.com; a=ed25519;
+ pk=sAZDYXdm6Iz8FHitpHeFlCMXwabodTm7p8/3/8xUxuU=
+X-Endpoint-Received: by B4 Relay for ackerleytng@google.com/20260225 with
+ auth_id=649
+X-Original-From: Ackerley Tng <ackerleytng@google.com>
+Reply-To: ackerleytng@google.com
 
+HugeTLB subpools currently only track used pages (used_hpages) when a
+maximum size limit (max_hpages) is configured on the mount.
 
-The patch titled
-     Subject: mm/vmscan: avoid false-positive -Wuninitialized warning, again
-has been added to the -mm mm-hotfixes-unstable branch.  Its filename is
-     mm-vmscan-avoid-false-positive-wuninitialized-warning-again.patch
+This breaks minimum size (min_hpages) guarantees. The subpool guarantee
+requires that the sum of used pages and remaining subpool reserves
+satisfies the configured minimum:
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-vmscan-avoid-false-positive-wuninitialized-warning-again.patch
+  used_hpages + rsv_hpages >= min_hpages
 
-This patch will later appear in the mm-hotfixes-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+where used_hpages includes both allocated folios and active reservations.
+Therefore, when pages or reservations are released, the maximum number of
+reservations the subpool can absorb is:
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+  limit = max(0, min_hpages - used_hpages)
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+When a mount specifies a minimum size guarantee without a maximum limit,
+used_hpages is untracked and remains zero. The subpool assumes limit ==
+min_hpages, falsely restoring reservations to the subpool even when
+existing usage already satisfies the guarantee.
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+This series addresses three problem areas resulting from untracked usage
+and asymmetric error handling:
 
-------------------------------------------------------
-From: Arnd Bergmann <arnd@arndb.de>
-Subject: mm/vmscan: avoid false-positive -Wuninitialized warning, again
-Date: Wed, 16 Sep 2026 10:34:46 +0200
+1. False restoration and premature subpool freeing (Patch 1):
+    + Global reservations (resv_huge_pages) are not decremented when
+      reservations are released, depleting available huge pages host-wide.
+    + On unmount, subpool_is_free() checks (rsv_hpages == min_hpages).
+      Because of the false reservation restoration, this evaluates to true,
+      freeing the subpool while folios are still active in the page cache
+      and causing a use-after-free when they are later released.
+      (See Patch 1 for a detailed step-by-step trace.)
 
-I previously worked around a false-postive gcc-16 warning in the
-get_tier_idx() function, by adding a fake initializer. This happens with
-the -fsanitize=bounds sanitizer when the compiler creates a specialized
-variant of isolate_folios():
+2. Reservation rollback races and underflow (Patches 2 & 4):
+    + On hugetlb_acct_memory() failure in hugetlb_reserve_pages(), the
+      error path manually calculates rollbacks using local variables.
+      This is race-prone when concurrent threads interact with the
+      subpool, risking reservation leaks or counter underflows.
+    + On region_add() failure, prematurely releasing global reservations
+      forces error cleanup to attempt fresh allocations that can fail
+      under memory pressure.
 
-In function 'get_tier_idx',
-    inlined from 'isolate_folios.constprop' at mm/vmscan.c:4982:9:
-mm/vmscan.c:4934:9: error: 'sp.refaulted' is used uninitialized [-Werror=uninitialized]
- 4934 |         read_ctrl_pos(lruvec, type, LRU_TIER_MIN, LRU_TIER_MIN, 2, &sp);
-      |         ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-mm/vmscan.c: In function 'isolate_folios.constprop':
-mm/vmscan.c:4946:25: note: 'sp.refaulted' was declared here
- 4946 |         struct ctrl_pos sp, pv = {};
-      |                         ^~
+3. Subpool usage leak on allocation failure (Patch 3):
+    + In alloc_hugetlb_folio(), when folio allocation fails and
+      gbl_chg == 1, the cleanup path skips hugepage_subpool_put_pages(),
+      permanently leaking used_hpages.
 
-Adding another "= {}" would solve the problem as well, but to prevent
-this from happening again after the next code refactoring, try instead to
-prevent this by forbidding interprocedural optimizations on this function.
+Always tracking used_hpages establishes a single source of truth within the
+subpool. Allocation and reservation error paths can now handle failures
+symmetrically: return the full page count to the subpool via
+hugepage_subpool_put_pages(), and rely on its return value to reconcile
+global reservations with hugetlb_acct_memory().
 
-Link: https://lore.kernel.org/all/20260213123902.3466040-1-arnd@kernel.org/
-Link: https://lore.kernel.org/20260916083456.4136132-1-arnd@kernel.org
-Fixes: 3de705a43a46 ("mm/vmscan: avoid false-positive -Wuninitialized warning")
-Signed-off-by: Arnd Bergmann <arnd@arndb.de>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Axel Rasmussen <axelrasmussen@google.com>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Baoquan He <baoquan.he@linux.dev>
-Cc: Barry Song <baohua@kernel.org>
-Cc: David Hildenbrand <david@kernel.org>
-Cc: Johannes Weiner <hannes@cmpxchg.org>
-Cc: Kairui Song <kasong@tencent.com>
-Cc: Lorenzo Stoakes <ljs@kernel.org>
-Cc: Michal Hocko <mhocko@kernel.org>
-Cc: Shakeel Butt <shakeel.butt@linux.dev>
-Cc: Wei Xu <weixugc@google.com>
-Cc: Yuanchu Xie <yuanchu@google.com>
-Cc: <stable@vger.kernel.org>
+This series is a subset of patches from [1] and replaces [1].
+
+[1] https://lore.kernel.org/all/20260722-hugetlb-alloc-failure-fixes-v4-0-88e8b81970dc@google.com/
+
+Tested:
+
++ Reproducers (see below) pass
++ tools/testing/selftests/mm/ksft_hugetlb.sh passes
++ libhugetlbfs tests pass
+
+Changes in v3:
+
++ Rebased on 7.3-rc3.
++ Picked up Reviewed-bys.
++ Rename resv_get_accted to resv_get_accounted as Joshua requested.
++ Now Cc-ing stable on patch 4.
++ Moved trace of a false reservation restoration from cover letter into
+  patch 1.
+
+v2: https://lore.kernel.org/r/20260909-hugetlb-subpool-always-track-used-v2-0-30c5d83b572a@google.com
+v1: https://lore.kernel.org/r/20260902-hugetlb-subpool-always-track-used-v1-0-de1cd14bd713@google.com
+
+Get reproducers from:
+
+https://github.com/googleprodkernel/linux-cc/commits/hugetlb-subpool-always-track-used-with-reproducers-v3
+
+Signed-off-by: Ackerley Tng <ackerleytng@google.com>
 ---
+Ackerley Tng (4):
+      mm: hugetlb: Track used_hpages when getting/putting pages from subpool
+      mm: hugetlb: Fix out_put_pages subpool reserve calculation
+      mm: hugetlb: Fix subpool usage leak on allocation failure
+      mm: hugetlb: Avoid re-allocating global reservations on region add failure
 
- mm/vmscan.c |   12 ++++++++----
- 1 file changed, 8 insertions(+), 4 deletions(-)
+ Documentation/mm/hugetlbfs_reserv.rst              |  17 +--
+ .../translations/zh_CN/mm/hugetlbfs_reserv.rst     |  11 +-
+ fs/hugetlbfs/inode.c                               |   8 +-
+ include/linux/hugetlb.h                            |   4 +-
+ mm/hugetlb.c                                       | 142 +++++++++++----------
+ 5 files changed, 85 insertions(+), 97 deletions(-)
+---
+base-commit: fd73f4a6659897191fa0d40695fe370925dd3780
+change-id: 20260902-hugetlb-subpool-always-track-used-2624840f4c08
 
---- a/mm/vmscan.c~mm-vmscan-avoid-false-positive-wuninitialized-warning-again
-+++ a/mm/vmscan.c
-@@ -3195,8 +3195,12 @@ struct ctrl_pos {
- 	int gain;
- };
- 
--static void read_ctrl_pos(struct lruvec *lruvec, int type, int tier, int gain,
--			  struct ctrl_pos *pos)
-+/*
-+ * __noipa works around  gcc-16 warning for uninitialized use of
-+ * pos->refaulted
-+ */
-+static __noipa void read_ctrl_pos(struct lruvec *lruvec, int type, int tier,
-+			  int gain, struct ctrl_pos *pos)
- {
- 	int i;
- 	struct lru_gen_folio *lrugen = &lruvec->lrugen;
-@@ -4802,7 +4806,7 @@ static int scan_folios(unsigned long nr_
- static int get_tier_idx(struct lruvec *lruvec, int type)
- {
- 	int tier;
--	struct ctrl_pos sp, pv = {};
-+	struct ctrl_pos sp, pv;
- 
- 	/*
- 	 * To leave a margin for fluctuations, use a larger gain factor (2:3).
-@@ -4821,7 +4825,7 @@ static int get_tier_idx(struct lruvec *l
- 
- static int get_type_to_scan(struct lruvec *lruvec, int swappiness)
- {
--	struct ctrl_pos sp, pv = {};
-+	struct ctrl_pos sp, pv;
- 
- 	if (swappiness <= MIN_SWAPPINESS + 1)
- 		return LRU_GEN_FILE;
-_
+Best regards,
+--
+Ackerley Tng <ackerleytng@google.com>
 
-Patches currently in -mm which might be from arnd@arndb.de are
-
-alloc_tag-avoid-implicit-padding-in-uapi.patch
-mm-vmscan-avoid-false-positive-wuninitialized-warning-again.patch
 
