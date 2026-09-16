@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822324CEE6D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 402B14CEE4D
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573776; cv=none; b=eQlxAB8syxn0YtmqipysaB4LD1d3m0qdkqBO23f6y1O8Wxrk6lHXsQ4maxo/CsJzxSgj1TyfRTIGR/R8G0ntU2FGKA3tfO1NqP7wKXjNuGARpVxlIefYv4fG5aYmaAzS3W7QDYf+SfNwXq+Yhc+NCSt8jvKP29WAMJn5z30abHg=
+	t=1789573776; cv=none; b=DG7z3GQJCrKeWnLkNH+5Bv0BXyKx02U3Wsr0oirkoqPrxw5CIKV5MYrXCv01YSTkomXj/km2yu4LQjlvDXCR/67p3VUJyM6FM7kuCFut2o+ZxKF71U+zHujDYezq+8qTmSvgKkG4wNl1hGjZQ/Red+Dvp7aYQDYb58h3mcUhQXo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789573776; c=relaxed/simple;
-	bh=OrSj4x9uEWMu4npb44d8CK0Ux7Gu699fAmtdS0ZU7I0=;
+	bh=7e5G+XuYwQSlYqhA8oqJgvAjmwgg/Lh9kGWSULxdQ7I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=obVhtUB4vlvlct0syIgiJQvlSC7Qsz9jBkJEVpwL/ySoIZtpgqYidehPi1N6KbYv4D/9UG5gu7IkSjaHhjx2Ju7Nmj/O4ifasKV5B+nuyayXloJ9ZSBOQJDz8b3Q96SI9aO7b7XOexsH/Lc/7jHuFoPjZanQ2GepWxGI8F1IYjQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R85kPodr; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VEyOx6guHDi9+6O+9INvVFNgymfpDh1X651UaCKkwj64NqGlYKv1naM6MHR4QJ+NbRNWrlazDRUWvLvq7RSIdwY0iVgCGpIrmcZR1CAGGz6V1zvGRxQqTTEbPPjV433NIPwYl2/Wy5p0d5a64lLSbzOH4YTATACbUQl7xV6Fi2w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XwpmaQ7v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R85kPodr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 983E81F00899;
-	Wed, 16 Sep 2026 15:49:28 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XwpmaQ7v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D76811F00893;
+	Wed, 16 Sep 2026 15:49:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789573769;
-	bh=UbRASGlwqjAkv0Zo1YVWb1Yiv3zkfcbwnFRAUQAjZ5Y=;
+	s=k20260515; t=1789573768;
+	bh=e/f9+b9y8i2YxQlrz2kmTGNKatT4iY3a6PQuEL9lWT8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R85kPodrTQQbImT+/olHCxfkGVfJ1Rq4moXEhPHTN886Zz8m3SuR28mZUYxG0EGom
-	 8GWCzuY0j5tj8FXrx/eH11625bDemhv3kNxfB22NseGwGPCb2ahy+kUopTMb/pt/7k
-	 KhR7GHwc1HBMZJFJVv2O1jWXZDubTVO+agg60k5h5ZV/paNFEftaDnQe9LEW6HYaN5
-	 INxfH4TwCmkdQb46CeZ+xhr3yLt46lJ49SjNGnboQGdW1+y6SXbd01wZkwuKzXMzLb
-	 m9LTCkx2Xmr9oVa9MovBAHLYr9kDsasRsM3vGO2WXwC6ssvIzMyDq3xVJiI0Qn2mRp
-	 fDNNLCr2t6uHw==
+	b=XwpmaQ7vOWIyPS0q1CUItU9xeWQo2Qe3hDz+TmQ9gNbZ0+v5lFs4e+KrH7poPAVmb
+	 4mWD7NKzWuIuvkRiAVefjFe4mLksIeZfxb8MCehRvwfUL1edvJpAs+gEa5WNrhqamq
+	 TIANkODlO+J566GvFeitEyk9OY4KoxssZq9H/59RYhJ/UucOh3ajYbLPKGb2sWNUEr
+	 waW1EPW1gH4ij+KxrvRH+OETpssiZEhU1+IWbqf7B0dzRvfv6iRuZrUsl1aelkk5g7
+	 +QYfqWf6kXoW6CdVVziL2nN4jAz2ht6SEtJRFxA65Bekzcti0JyzfX0wHpZ2S/Djg6
+	 8CvFhVYNtdvHA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Tristan Madani <tristan@talencesecurity.com>,
 	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/3] ALSA: usbusx2y: validate URB actual_length in interrupt callback
-Date: Wed, 16 Sep 2026 11:49:25 -0400
-Message-ID: <20260916154925.4171104-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/3] ALSA: usbusx2y: fix in04_last array size mismatch with in04_buf
+Date: Wed, 16 Sep 2026 11:49:24 -0400
+Message-ID: <20260916154925.4171104-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260916154925.4171104-1-sashal@kernel.org>
 References: <2026091645-humorist-crown-6882@gregkh>
@@ -48,59 +48,88 @@ Content-Transfer-Encoding: 8bit
 
 From: Tristan Madani <tristan@talencesecurity.com>
 
-[ Upstream commit 8f5ef203abda9dd36b2af473c7b737d544f807bd ]
+[ Upstream commit 861111a14740e12c36d363e9830f8daa734279c9 ]
 
-i_usx2y_in04_int() processes the interrupt URB data without checking
-urb->actual_length.  A short transfer from a malfunctioning device
-would cause the handler to process uninitialized heap data from the
-kmalloc-allocated in04_buf, which is then copied to the mmap-accessible
-ctl_snapshot[] array.
+The in04_last array in struct usx2ydev is declared as char[24], but
+in04_buf is allocated as sizeof(struct us428_ctls) which is 21 bytes.
+In i_usx2y_in04_int(), when ctl_snapshot_last == -2 (initialization
+path):
 
-Fix by using kzalloc() for in04_buf to zero-initialize the buffer,
-and adding an actual_length check to skip processing on short
-transfers while still resubmitting the URB.
+    memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
+
+This copies 24 bytes from a 21-byte slab allocation, reading 3 bytes
+past the end of the source object.
+
+Introduce a USX2Y_IN04_SIZE constant defined as sizeof(struct
+us428_ctls) and use it consistently for the in04_last array, the
+in04_buf allocation, the URB transfer length, and the comparison loop,
+replacing the bare 24 and 21 literals throughout.
 
 Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
 Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-Link: https://patch.msgid.link/20260904205826.4071119-2-tristmd@gmail.com
+Link: https://patch.msgid.link/20260904205826.4071119-1-tristmd@gmail.com
 Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 8f5ef203abda ("ALSA: usbusx2y: validate URB actual_length in interrupt callback")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/usx2y/usbusx2y.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ sound/usb/usx2y/usbusx2y.c | 6 +++---
+ sound/usb/usx2y/usbusx2y.h | 4 +++-
+ 2 files changed, 6 insertions(+), 4 deletions(-)
 
 diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
-index 5aa373d1edab1..d1e907dc773c1 100644
+index 5756ff3528a2d..5aa373d1edab1 100644
 --- a/sound/usb/usx2y/usbusx2y.c
 +++ b/sound/usb/usx2y/usbusx2y.c
-@@ -189,6 +189,9 @@ static void i_usx2y_in04_int(struct urb *urb)
- 		return;
- 	}
- 
-+	if (urb->actual_length < USX2Y_IN04_SIZE)
-+		goto resubmit;
-+
- 	if (us428ctls) {
- 		diff = -1;
- 		if (us428ctls->ctl_snapshot_last == -2) {
-@@ -246,6 +249,7 @@ static void i_usx2y_in04_int(struct urb *urb)
- 	if (err)
- 		dev_err(&urb->dev->dev, "in04_int() usb_submit_urb err=%i\n", err);
- 
-+resubmit:
- 	urb->dev = usx2y->dev;
- 	usb_submit_urb(urb, GFP_ATOMIC);
- }
-@@ -298,7 +302,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
+@@ -196,7 +196,7 @@ static void i_usx2y_in04_int(struct urb *urb)
+ 			memcpy(usx2y->in04_last, usx2y->in04_buf, sizeof(usx2y->in04_last));
+ 			us428ctls->ctl_snapshot_last = -1;
+ 		} else {
+-			for (i = 0; i < 21; i++) {
++			for (i = 0; i < USX2Y_IN04_SIZE; i++) {
+ 				if (usx2y->in04_last[i] != ((char *)usx2y->in04_buf)[i]) {
+ 					if (diff < 0)
+ 						diff = i;
+@@ -298,7 +298,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
  		goto error;
  	}
  
--	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
-+	usx2y->in04_buf = kzalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
+-	usx2y->in04_buf = kmalloc(21, GFP_KERNEL);
++	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
  	if (!usx2y->in04_buf) {
  		err = -ENOMEM;
  		goto error;
+@@ -306,7 +306,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
+ 
+ 	init_waitqueue_head(&usx2y->in04_wait_queue);
+ 	usb_fill_int_urb(usx2y->in04_urb, usx2y->dev, usb_rcvintpipe(usx2y->dev, 0x4),
+-			 usx2y->in04_buf, 21,
++			 usx2y->in04_buf, USX2Y_IN04_SIZE,
+ 			 i_usx2y_in04_int, usx2y,
+ 			 10);
+ 	if (usb_urb_ep_type_check(usx2y->in04_urb)) {
+diff --git a/sound/usb/usx2y/usbusx2y.h b/sound/usb/usx2y/usbusx2y.h
+index 0538c457921e6..a2f1e3755eb91 100644
+--- a/sound/usb/usx2y/usbusx2y.h
++++ b/sound/usb/usx2y/usbusx2y.h
+@@ -5,6 +5,8 @@
+ #include "../midi.h"
+ #include "usbus428ctldefs.h"
+ 
++#define USX2Y_IN04_SIZE	sizeof(struct us428_ctls)
++
+ #define NRURBS	        2
+ 
+ /* Default value used for nr of packs per urb.
+@@ -55,7 +57,7 @@ struct usx2ydev {
+ 	int			stride;
+ 	struct urb		*in04_urb;
+ 	void			*in04_buf;
+-	char			in04_last[24];
++	char			in04_last[USX2Y_IN04_SIZE];
+ 	unsigned int		in04_int_calls;
+ 	struct snd_usx2y_urb_seq	*us04;
+ 	wait_queue_head_t	in04_wait_queue;
 -- 
 2.53.0
 
