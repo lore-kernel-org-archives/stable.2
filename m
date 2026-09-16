@@ -1,82 +1,122 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f4.google.com (mail-lr2-f4.google.com [74.125.230.68])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1F5804A2E32
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:58:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B7B749BD87
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:04:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.68
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789559887; cv=none; b=Ph/pFmlwzHfDBKlqm3G/4zOnw/2cDgVj6asRo4kM/+I5+FCy4pCDHhDmEbR3DSP56hP/HFP005MevgVT1ixCOSZgZHBujcS3IKOlib2bvjNElVHJ3VuUSKT7gt1jHn8Soka9/g6/JnaYMDWe8zZMBVbenmo6ld3Q/erqOpF48j0=
+	t=1789560282; cv=none; b=TjlQNu71AVyV65Qj+wJRIERjYtgtiImm26DhVaD4Z9Y/lM+fnaHDq1u1eQJiIsOcho01dlR5fWJt2xKDlWOjszArZrfQ/NdQI5sZVRu75SUevsrvv4AXSBsypTiDrYw6/4dURrZ3DRcjR5diyxGBPvMtgClgIfaYfmMVvKM0i8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789559887; c=relaxed/simple;
-	bh=1b5IkJoNffLNTcHK5eEyWPmmhz8cM322OHvWwYYq7Bg=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rLTMmcK90iPBp9zAJJEZO6HjHcewFCvviUYJ7ThrscsD+9GZhAXE/GRhpSSNhv5BNQ3BZXmyBfNPS5SflL6WvddwGa4HVW9zCmnTRkCd+ccjIi25fzq5tMsRS2L+61/OFVC8zIghW+E8AMzUtfwn4QR1//4XKcmvSWRhWvS463c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d4I0zDOT; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789560282; c=relaxed/simple;
+	bh=3zmL3ewY1kdparMjXtYd5YfgrB/htIhzolzkpwgWTug=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=pbv5IUrzREupNYtHDRa5P0Viz3oQHDeaFqZb9lDUdb42glot1jeUIDCGKRoJNBtzhiwVQdgmxS90z2Io6rJF7iBxSGsEIoW6/lY6EWMayUBJzhat66vAmLBz63RzEZ6y/dWDbVFmjeFBLgnppEjRZlUIlfl3CEeHCWI3rUQS2QU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sN+p7ZKp; arc=none smtp.client-ip=74.125.230.68
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d4I0zDOT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D0141F00893
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:57:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789559876;
-	bh=KujlVaCSbOFVpQJGydiG98d9vhYtyj2W01/TJlHn9yg=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=d4I0zDOTQsxGCxGe+Gj9yxBg49qxLokWwTmLcL94jhA8JEfhtcaGUKfCTl2f8SfwN
-	 X00+Uwd8c78eD1eYX0ZkxENn8zwI9UkXN14hAEn95A9z99lhBPqIjhBKETqI4ZIhEu
-	 p+OWDEsGMGTE1SLfW52ilbcY2jDXDBWBnc/HqLvUV59XgOfGo0aV0Lt9oPZUFRQO1G
-	 fwYHKJsucgDlAT6skbYbt4/u6vegaQH+g5+wzQmpqxGL274onpJE1aN9EMTirhuCh/
-	 MRZTH98uRJ+Oyl14xPDk6xfEyK8QnS+LiIObPw76YN7BaDmKdLfVvtjFMqSnX2uczp
-	 dEWfPxtXlwquA==
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254fa663bfso154866966b.1
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 04:57:56 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxolE02ReLw+LxnEwRkWS1qlycse7LSvqUnXPXNToXK+HwDhPkvMTQY5toPMfIkkx2GCFF8Uko=@vger.kernel.org
-X-Gm-Message-State: AFuF++nP8Xf1qh4UuZ+L8KOQYxtIOEM8PafRjuXgwMNloremJnNlSDcd
-	M/y2HPEWIToN/D2ojsQRxr+/cnvhRP+2Aj8l1ulmZWORLMjyldAVVrXUA5uYtxjBTQlpCfAiemd
-	o+xHr7YzT7UAsYrDPFPlRchwWaoIgMoM=
-X-Received: by 2002:a17:907:94c5:b0:c29:5215:b2d8 with SMTP id
- a640c23a62f3a-c29e530ccf6mr280198566b.14.1789559874829; Wed, 16 Sep 2026
- 04:57:54 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sN+p7ZKp"
+Received: by mail-lr2-f4.google.com with SMTP id 38308e7fff4ca-3a49bfe419aso14248681fa.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 05:04:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789560273; x=1790165073; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=dmdeb4lnNoJH7OwXB9Rluaec5aBqbfZHRKlp2w9jCKQ=;
+        b=sN+p7ZKp9bCgL7VATsMW94k9bC1dZX8SmkLo5Oiq+Br5hgeHG1nkXECrtZKy0URCsj
+         9RuV0QurShCZTjz8Ros9NwKAQBjCiS/YXdQQw/qykGEBfXf3K+R8PFuLfkoa6+D1t7L9
+         uLYSlAX+ThTLLZhZFcR5hU6TRL0u/OZL/ndyXsVOiqWZL5a3dR+OEAr8S4hO42ACp0sV
+         Jip2Na1rOBw+R7kdv9EDiF55eWBOlMdGcLMFnqrkVeFjKqDpFr3XvS/l2Ks0RUcU6Lsw
+         Cb6mSZoqdoJF1o9Wr0jk4zCKlM7r7w2gc8/p/0bfaFcCz86T0OtHhm5iqZSecRU7/7l8
+         2U2g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789560273; x=1790165073;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=dmdeb4lnNoJH7OwXB9Rluaec5aBqbfZHRKlp2w9jCKQ=;
+        b=joRk33DCWgal7tguuYkSnSHcrjyvC2MOM/Ks1mYZ4nrnw2fqvIhR9mpA0Nqgg8sA6L
+         PHSBEacUxm9CExxo4mYY3me3ZBcYxF8YL/7CGJ5ctyD9cA/arRfEagN5MDHSpDG8mDtJ
+         ZfwdYzYjWTZUEldOrTj1thW+qq6DHaPkaseEbMi3kj5gpvUx7ksyJTN6Y80HFil1+ru0
+         u3Igaf7N2cbyZyvW7wC83PMTbiJSsBcl/jnFSkBXQdrmszRrQ6W3UiZNAUEqp44ezfQl
+         fOB8ZFiCRPsdHkGS8Qb9pL0JuGrwSbDT1NfLc89zUQbccyHaIJQiXdK/PPycyrhEgu6q
+         5buw==
+X-Gm-Message-State: AFuF++ntvdKiTx1uEiuGXzBGPa0pcvP+NVKAu+1IvyyJ4cCN5NdnE8Uv
+	Wcw6IRlLf5Ay9/gjBj8uWHQoCP4JroAAeouKHJCRSFsdy5SqtLyKxGxQHfQbRgGF
+X-Gm-Gg: AYBFou0F7YHLMYSE2GjtOG5L2J7bK7eZV9Fwwlerd6DaE+vjk6Gcuf8O+OlfXuD3w1Z
+	HEwuZx3aMZew+/h+vGP/rBHDHmSv2mTyOAq7Gifo0qew/1pKMWKblrQImg4QiDGeyJssl0xKWL6
+	XCM67YDskXRoryVQ/Wd4qHsSodIEKMrGDudkl+opxq2FLkOcER5E7IvCvse9o7CmoKZVPJlsIwS
+	xc0iaf5PLnBofJm+LCdP5bpCEHGXUnWHQYLWxp2md4r7HwL4pQdXU8e2FvOnJ8qQ03AkXKngPoT
+	g7jYfLiurdQpg7na+miQq3f1LfPwG/fq3Jh5LGGUxH8vkAwnXyHsOcgW1SzqIgtBakHTvEPAkI7
+	KL4PJlreyz5DjL0Hdh6ayVPW2aijPXvPJxMvk1Yl5bt1VzldJrJ/oprj5dW/af+4hawhL3X5AO0
+	xw76YFsrIMfc5sZb/LgLm9HSnjjAVdar33l/MNH9g823sVHjs03wvSUd8WQ0EkJQWChGCtC033Y
+	kPg8WYeap8h+YFE
+X-Received: by 2002:a05:651c:41d6:b0:3a5:b0a5:3ff2 with SMTP id 38308e7fff4ca-3a5dca291e4mr10260111fa.12.1789560273060;
+        Wed, 16 Sep 2026 05:04:33 -0700 (PDT)
+Received: from localhost.localdomain ([78.40.184.2])
+        by smtp.gmail.com with ESMTPSA id 38308e7fff4ca-3a5dafee366sm5974541fa.42.2026.09.16.05.04.32
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 05:04:32 -0700 (PDT)
+From: Roman Demidov <roman.demidov.nn@gmail.com>
+To: stable@vger.kernel.org,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
+	Manivannan Sadhasivam <manivannan.sadhasivam@linaro.org>,
+	Vinod Koul <vkoul@kernel.org>,
+	Gustavo Pimentel <Gustavo.Pimentel@synopsys.com>,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	lvc-project@linuxtesting.org,
+	Koichiro Den <den@valinux.co.jp>,
+	Frank Li <Frank.Li@nxp.com>
+Subject: [PATCH 5.15] dmaengine: dw-edma-pcie: Reject devices without driver data
+Date: Wed, 16 Sep 2026 15:04:06 +0300
+Message-ID: <20260916120408.145211-1-roman.demidov.nn@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915023820.621797-1-zenghongling@kylinos.cn>
-In-Reply-To: <20260915023820.621797-1-zenghongling@kylinos.cn>
-From: Namjae Jeon <linkinjeon@kernel.org>
-Date: Wed, 16 Sep 2026 20:57:41 +0900
-X-Gmail-Original-Message-ID: <CAKYAXd-Pz0WCKNyOdoxKyfgE_rx7GVDRmtidfjsx-x0C-AA1RA@mail.gmail.com>
-X-Gm-Features: AcwNN1WULIFTp6R8sjn0tQ0ZsUhm_4J-8393BEYM0F8CmyaUKsd89vQ6s7tZ-w8
-Message-ID: <CAKYAXd-Pz0WCKNyOdoxKyfgE_rx7GVDRmtidfjsx-x0C-AA1RA@mail.gmail.com>
-Subject: Re: [PATCH v3] ntfs: mount hibernated volumes read-only regardless of errors=
-To: Hongling Zeng <zenghongling@kylinos.cn>
-Cc: hyc.lee@gmail.com, ntfs@lists.linux.dev, linux-kernel@vger.kernel.org, 
-	zhongling0719@126.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 11:38=E2=80=AFAM Hongling Zeng <zenghongling@kylino=
-s.cn> wrote:
->
-> The hibernation check in load_system_files() only converts the
-> superblock to read-only under errors=3Dremount-ro.  With the default
-> errors=3Dcontinue (and with errors=3Dpanic), a hibernated volume is
-> mounted read-write and the mount-time $LogFile emptying writes to it,
-> although a hibernated volume must not be written to at all.
->
-> Drop the on_errors term so that a hibernated volume, or a volume whose
-> hibernation state cannot be determined, always mounts read-only.
-> NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-> remounts to read-write, and the $LogFile emptying is skipped by its
-> !sb_rdonly() check.
->
-> Also change the ntfs_error() calls inside
-> check_windows_hibernation_status() to ntfs_warning(): they run before
-> SB_RDONLY is set, so errors=3Dpanic could panic there, while the warnings
-> preserve diagnostics for already read-only mounts.  The read-only
-> fallback message is logged unconditionally: with SB_RDONLY set, or on
-> an already read-only mount, ntfs_error() cannot panic, and the reason
-> for NVolErrors() stays visible.
-errors=3Dpanic can still panic before the read-only fallback.
-ntfs_lookup_inode_by_name() and ntfs_iget() in
-check_windows_hibernation_status() can call ntfs_error() internally.
+From: Koichiro Den <den@valinux.co.jp>
+
+commit 11d7cfe0c119691b2dafbb699bbca90258c678aa upstream.
+
+dw_edma_pcie_probe() treats the PCI device ID driver_data as the
+template for the controller layout and copies it unconditionally. A
+device bound dynamically via sysfs can match the driver without that
+data, which leads to a NULL pointer dereference.
+
+Reject such matches before enabling the device.
+
+Fixes: 41aaff2a2ac0 ("dmaengine: Add Synopsys eDMA IP PCIe glue-logic")
+Signed-off-by: Koichiro Den <den@valinux.co.jp>
+Reviewed-by: Frank Li <Frank.Li@nxp.com>
+Link: https://patch.msgid.link/20260521142153.2957432-3-den@valinux.co.jp
+Signed-off-by: Vinod Koul <vkoul@kernel.org>
+Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+---
+Backport fix for CVE-2026-72147
+
+ drivers/dma/dw-edma/dw-edma-pcie.c | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/drivers/dma/dw-edma/dw-edma-pcie.c b/drivers/dma/dw-edma/dw-edma-pcie.c
+index 2c1c5fa4e9f2..84d5a1d1b2a8 100644
+--- a/drivers/dma/dw-edma/dw-edma-pcie.c
++++ b/drivers/dma/dw-edma/dw-edma-pcie.c
+@@ -151,6 +151,9 @@ static int dw_edma_pcie_probe(struct pci_dev *pdev,
+ 	int err, nr_irqs;
+ 	int i, mask;
+ 
++	if (!pdata)
++		return -ENODEV;
++
+ 	/* Enable PCI device */
+ 	err = pcim_enable_device(pdev);
+ 	if (err) {
+-- 
+2.53.0
+
