@@ -1,256 +1,112 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1C7B4CEE4E;
-	Wed, 16 Sep 2026 17:38:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D780D50EC13;
+	Wed, 16 Sep 2026 17:39:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580324; cv=none; b=ZsPkiq5aKpM/ZJ/BPfOrr0esQT9rdTOFZX0lGszyf+11wYpHP3+FS5s+FV/cRNMaQYrCgdHLlr2AULBAmME5OKEgvXtlt7KwsyrF5A/mOhvXv8n5tBwrh2tbcXpTqHf7LkFPKMISjh6HIOxtfZhWC05n8s3bv2uEHIoD+1Nj1TI=
+	t=1789580347; cv=none; b=usGE3t3eBdfb3b6BCh9i2xistCQolD4zv3g9IHlDzh9LDq7udDLA2WZUpqqfLt9b9h7ghNb7qqkRqGCl3PMiqGVyYTU4VfN2AlWJr5YUPZxPSP1RrOS7Lo4fLwqV8IfIi5EknSWs6dLRqkbFA8aXTWu1tmo04V39Zc0lv9vmZbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580324; c=relaxed/simple;
-	bh=huuvDYYHx4dziZjSfHbT0AUGsvZFvUBJqk93qr3mpbA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=B//lHPHoXLVtwZ+ZFIyG4meGBacKwlpl6oWXVVzEOktM+0VRQWNBpd4XIGiqVq5FNpQ0FnokFQveWGKiplf9AXhzEM/zD33xJ5fnltrO9agu2YHO/bLZjjSDIMeu96Xl7IH/zpp6a1JtKidpu4gx3nhAPMb7PTKUraKBiyMyS6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Vo+n4HIF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789580347; c=relaxed/simple;
+	bh=1n2xg/JoPY4kIbe3mE4yyuTv5TFw3hrpgNEEZQHM9qw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q9qpZtx11/2JAegA7tby/KdCpJ7Sjp6CgDgyifvDog0zpYXLBCVngbUvdzEQv6ZuVKoQzSWq7X9JfpsBSkcojazZoqSJ1VJnovBsVReeyM6rwPB9VEH7sz1UmBEKhfR6Nf90liHza7xQaknC9K076E3/oBk3nbYjc9NPQ35dQ8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKjnQsRx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Vo+n4HIF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72E21F000FF;
-	Wed, 16 Sep 2026 17:38:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKjnQsRx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431EE1F0089A;
+	Wed, 16 Sep 2026 17:39:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580310;
-	bh=vruFXSNiZzTcRGVZVsS3u3NJkuqePVUQ0NhUeEs2RY0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Vo+n4HIFQCH/Qa2BWMIvwrWrS5r26RhT2ws+YF6RT7Wd+uj5Sv2n8POsTYRuQzvaT
-	 KRCh2NnHmu6S4DoOdWdms2m7LANEkliYt7DRzYoc+eFogKdI+x1Cx7BdQHFP5fNXAi
-	 2yoKffnnTLgCsg1tPaQJsYlIhKeEg0MjmQBZU3HXLEX+Qob0aSZX3l17CvW1tFSWFK
-	 T82bPU9qBWeWTrVljlSMgoMYN1dWFC87cvOesp0gfYoGzU+eRFosO0BxNvyiy+NUib
-	 WBx5zuCNAbtcJitN7jD0DeJJP2xPyctkJjk33P+ebSWsx21gH7tpwm27ovc3iyodf3
-	 LjN3gr4CJgNEA==
-Subject: Re: [PATCH ipsec v2] xfrm: fix races in device state cleanup
-From: netdev-bot+sashiko@kernel.org
-To: nicoyip.dev@gmail.com
-Cc: steffen.klassert@secunet.com, herbert@gondor.apana.org.au,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 17:38:29 +0000
-Message-ID: <178958030946.22033.17018749865001469631@kernel.org>
-In-Reply-To: <20260914133540.3666907-1-nicoyip.dev@gmail.com>
-References: <20260914133540.3666907-1-nicoyip.dev@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789580341;
+	bh=Hw/R8i8meAA1zGDzRH9AGbiNJd1vryQPS42R/yDvgrw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JKjnQsRxjXBgEg6lmIflMrd91xGrzhV/zR0ZR5jpj+6ZyBStCMoH2fqEYxe/wTOp/
+	 uuVFcEEFaglpcjwXx+GC7nnEhX26Ss2pIXlEsvnNSQFS8l6Pkb1SWxsg1fFup702xH
+	 qTvROjAkedcIHSOdcfIbvx9SPLZry36E0S/Squ0SRlKLJe6CYf5COUDCOzAzEo82A3
+	 8bUtzxO9UaQrhs9PEnKWVE0Fuujc/v+T3pR4YzwGk6wza+NrmSFFCYrxw+QxFEX/uK
+	 jTZzDMzKaGYl2xyTFeOvmyidvxFI1A1EOVCe0XxmCzrX0qyhNj34Ah4Dw+7DVWw88F
+	 WZ17BtYeYwyRg==
+From: William Breathitt Gray <wbg@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: William Breathitt Gray <wbg@kernel.org>,
+	biju.das.jz@bp.renesas.com,
+	lee@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-renesas-soc@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] counter: rz-mtu3-cnt: Fix runtime PM leak in rz_mtu3_count_enable_write()
+Date: Wed, 16 Sep 2026 13:38:43 -0400
+Message-ID: <20260916173845.1820981-1-wbg@kernel.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916092242.2001358-1-vulab@iscas.ac.cn>
+References: <20260916092242.2001358-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2265; i=wbg@kernel.org; h=from:subject; bh=1n2xg/JoPY4kIbe3mE4yyuTv5TFw3hrpgNEEZQHM9qw=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFmrLj/e/GzDrU2HJ6yt1taZ33FOwu5Wtwej4jn+WP29r +bvqFNl6ShlYRDjYpAVU2TpNT9798ElVY0fL+Zvg5nDygQyhIGLUwAm0veTkWF5e01K96lXYbs4 9on/vXDD/N2j/UIvrE8F8zzwfOS2774swz/1A3fUWTUmMMm3rWRrSn+XLDJpwV/Bw/I75Rta40r 3inMBAA==
+X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider:
+On Wed, Sep 16, 2026 at 09:22:42AM +0000, Wentao Liang wrote:
+> When enabling a counter, the runtime PM reference taken by
+> pm_runtime_get_sync() is never dropped if rz_mtu3_initialize_counter()
+> fails and returns an error, e.g. -EBUSY when the channel is already
+> requested. Because priv->count_is_enabled[] is left false, a subsequent
+> disable write also takes the early exit path, so the reference is never
+> recovered. Additionally, if pm_runtime_get_sync() itself fails the
+> device usage count is left incremented while the hardware is still
+> accessed with runtime PM suspended.
+> 
+> Use pm_runtime_resume_and_get() to resume the device and bail out if it
+> fails, and drop the runtime PM reference when
+> rz_mtu3_initialize_counter() fails.
+> 
+> Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/counter/rz-mtu3-cnt.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
+> index 7bfb6979193c..2bfc92bea757 100644
+> --- a/drivers/counter/rz-mtu3-cnt.c
+> +++ b/drivers/counter/rz-mtu3-cnt.c
+> @@ -504,10 +504,15 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
+>  		goto exit;
+> 
+>  	if (enable) {
+> -		pm_runtime_get_sync(counter->parent);
+> +		ret = pm_runtime_resume_and_get(counter->parent);
+> +		if (ret)
+> +			goto exit;
+> +
+>  		ret = rz_mtu3_initialize_counter(counter, count->id);
+>  		if (ret == 0)
+>  			priv->count_is_enabled[count->id] = true;
+> +		else
+> +			pm_runtime_put(counter->parent);
+>  	} else {
+>  		rz_mtu3_terminate_counter(counter, count->id);
+>  		priv->count_is_enabled[count->id] = false;
+> --
+> 2.34.1
+> 
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1
+Hello Wentao,
 
-- [High] net/xfrm/xfrm_state.c, xfrm_dev_state_free(): the patch
-  publishes `WRITE_ONCE(xso->dev, NULL)` (line 788) under…
-- [Low] net/xfrm/xfrm_state.c, xfrm_dev_state_flush() line 1011: the new
-  `&& xfrm_state_hold_rcu(x)` gate makes the deferred device-GC pass…
+This looks like an earlier patch submission we've received.[^1] In fact,
+I wonder whether these patches will be necessary anymore if the
+"counter: rz-mtu3-cnt: check clock and runtime PM errors" series is
+merged.[^2]
 
-Pre-existing issues:
-- [Medium] Split responsibility for validating xso->dev between core and
-  driver: include/net/xfrm.h, xfrm_dev_state_update_stats() snapshots…
+Sincerely,
 
---
+William Breathitt Gray
 
-xfrm: fix races in device state cleanup
-
-The patch makes the deferred device-GC pass in xfrm_dev_state_flush() take a
-temporary xfrm_state reference while it still holds xfrm_state_dev_gc_lock,
-and moves the xso->dev clearing and the dev_gclist unlink under that same
-lock so only one caller claims the device cleanup. hlist_del() is replaced
-by hlist_del_init() so the node is left unhashed.
-
-A few questions below.
-
-> diff --git a/net/xfrm/xfrm_state.c b/net/xfrm/xfrm_state.c
-> index 36a4f6793edef..282d09d0c2475 100644
-> --- a/net/xfrm/xfrm_state.c
-> +++ b/net/xfrm/xfrm_state.c
-> @@ -780,17 +780,20 @@ EXPORT_SYMBOL_GPL(xfrm_dev_state_delete);
->  void xfrm_dev_state_free(struct xfrm_state *x)
->  {
->  	struct xfrm_dev_offload *xso = &x->xso;
-> -	struct net_device *dev = READ_ONCE(xso->dev);
-> +	struct net_device *dev;
->  
-> +	spin_lock_bh(&xfrm_state_dev_gc_lock);
-> +	dev = READ_ONCE(xso->dev);
->  	if (dev && dev->xfrmdev_ops) {
-> -		spin_lock_bh(&xfrm_state_dev_gc_lock);
-> +		WRITE_ONCE(xso->dev, NULL);
-
-[Severity: High]
-Can moving this clear ahead of the driver callback open a NULL dereference
-window on the output path?
-
-After this change xso->dev is published as NULL here, the lock is dropped,
-and xso->type is only set to XFRM_DEV_OFFLOAD_UNSPECIFIED after
-xdo_dev_state_free() returns.  For the whole duration of the callback a
-lockless reader sees xso.type == XFRM_DEV_OFFLOAD_PACKET together with
-xso.dev == NULL.
-
-xfrm_output() picks the offload branch purely on the type:
-
-net/xfrm/xfrm_output.c:xfrm_output() {
-	...
-	if (x->xso.type == XFRM_DEV_OFFLOAD_PACKET) {
-		if (!xfrm_dev_offload_ok(skb, x)) { ... }
-	...
-		if (x->props.mode == XFRM_MODE_TUNNEL && !skb->sk)
-			return xfrm_dev_direct_output(sk, x, skb);
-	...
-}
-
-and xfrm_dev_offload_ok() explicitly tolerates a NULL device:
-
-net/xfrm/xfrm_device.c:xfrm_dev_offload_ok() {
-	struct net_device *dev = x->xso.dev;
-	...
-	if ((!dev || dev == xfrm_dst_path(dst)->dev) && !xdst->child->xfrm) {
-	...
-ok:
-	if (!dev)
-		return true;
-}
-
-so a forwarded (skb->sk == NULL) tunnel-mode packet reaches:
-
-net/xfrm/xfrm_output.c:xfrm_dev_direct_output() {
-	skb->dev = x->xso.dev;
-	__skb_push(skb, skb->dev->hard_header_len);
-}
-
-Before this patch xso->dev was cleared after the callback, one store before
-xso->type, so the inconsistent state lasted a couple of instructions.  Now
-it spans the driver callback, which can block for a long time, for example:
-
-drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c:mlx5e_xfrm_free_state() {
-	if (sa_entry->work)
-		cancel_work_sync(&sa_entry->work->work);
-
-	if (sa_entry->dwork)
-		cancel_delayed_work_sync(&sa_entry->dwork->dwork);
-
-	mlx5e_accel_ipsec_fs_del_rule(sa_entry);
-	mlx5_ipsec_free_sa_ctx(sa_entry);
-}
-
-The state can still be referenced by an xfrm_dst bundle while
-xfrm_dev_state_flush() runs (ip link set <offload dev> down or device
-unregister), so a packet can be inside xfrm_output() at that moment.  Would
-it be safer to clear xso->type before, or together with, xso->dev under the
-lock?
-
->  		if (!hlist_unhashed(&x->dev_gclist))
-> -			hlist_del(&x->dev_gclist);
-> -		spin_unlock_bh(&xfrm_state_dev_gc_lock);
-> +			hlist_del_init(&x->dev_gclist);
-> +	}
-> +	spin_unlock_bh(&xfrm_state_dev_gc_lock);
->  
-> +	if (dev && dev->xfrmdev_ops) {
->  		if (dev->xfrmdev_ops->xdo_dev_state_free)
->  			dev->xfrmdev_ops->xdo_dev_state_free(dev, x);
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but the reordering above changes
-which contexts can race with an unchecked re-read of x->xso.dev in the mlx5
-stats callback.
-
-The core snapshots and validates the device, then passes only x:
-
-include/net/xfrm.h:xfrm_dev_state_update_stats() {
-	struct net_device *dev = READ_ONCE(xdo->dev);
-
-	if (dev && dev->xfrmdev_ops &&
-	    dev->xfrmdev_ops->xdo_dev_state_update_stats)
-		dev->xfrmdev_ops->xdo_dev_state_update_stats(x);
-}
-
-and the driver re-reads the field with no NULL check:
-
-drivers/net/ethernet/mellanox/mlx5/core/en_accel/ipsec.c:mlx5e_xfrm_update_stats() {
-	struct net *net = dev_net(x->xso.dev);
-
-The clear in xfrm_dev_state_free() does not take x->lock and no stats reader
-takes xfrm_state_dev_gc_lock, so a clear landing between the core check and
-the driver re-read gives dev_net(NULL).
-
-With this patch the clear now happens before xdo_dev_state_free(), which is
-where mlx5e_xfrm_free_state() does cancel_delayed_work_sync() on the delayed
-work that runs mlx5e_ipsec_handle_sw_limits() -> xfrm_state_check_expire()
--> xfrm_dev_state_update_stats().  Previously the clear only happened after
-that work had been cancelled.
-
-Should the callback receive the dev the core already validated, the way
-xdo_dev_state_add/delete/free do, or should the driver NULL-check?
-
-> -		WRITE_ONCE(xso->dev, NULL);
->  		xso->type = XFRM_DEV_OFFLOAD_UNSPECIFIED;
->  		netdev_put(dev, &xso->dev_tracker);
->  	}
-> @@ -1005,9 +1008,10 @@ int xfrm_dev_state_flush(struct net *net, struct net_device *dev, bool task_vali
->  	hlist_for_each_entry_safe(x, tmp, &xfrm_state_dev_gc_list, dev_gclist) {
->  		xso = &x->xso;
->  
-> -		if (xso->dev == dev) {
-> +		if (xso->dev == dev && xfrm_state_hold_rcu(x)) {
-
-[Severity: Low]
-Does this turn the deferred pass into a best-effort one?
-
-When refcount_inc_not_zero() fails the entry is skipped with no cleanup, no
-restart and no error, so xfrm_dev_state_flush() can return to
-xfrm_dev_event() while the xso->dev_tracker netdev reference is still
-outstanding.  The trailing xfrm_flush_gc() does not close that window,
-because the state is only queued after the refcount already dropped to zero:
-
-net/xfrm/xfrm_state.c:__xfrm_state_destroy() {
-	spin_lock_bh(&xfrm_state_gc_lock);
-	hlist_add_head(&x->gclist, &xfrm_state_gc_list);
-	spin_unlock_bh(&xfrm_state_gc_lock);
-	schedule_work(&xfrm_state_gc_work);
-}
-
-net/xfrm/xfrm_state.c:xfrm_flush_gc() {
-	flush_work(&xfrm_state_gc_work);
-}
-
-so flush_work() can observe the work as idle just before it is queued.
-
-The same applies to a state claimed by another xfrm_dev_state_free() caller,
-since the claim unlinks it from dev_gclist under the lock while the netdev
-reference is only dropped after the callback returns.
-
-To be clear, this does not look like the unregister hang that 07b87f9eea0c
-addressed: a zero refcount means the destroy path is committed and
-unconditionally reaches xfrm_dev_state_free() -> netdev_put() through the GC
-worker, and netdev_wait_allrefs_any() polls with msleep() and rebroadcasts
-NETDEV_UNREGISTER once a second, which re-runs xfrm_dev_state_flush().  So
-the observable effect appears to be a bounded extra delay in device
-unregistration in a rare interleaving.
-
-Separately, since every successful claim does goto restart_gc from the list
-head while skipped entries stay on the list, the walk re-scans them each
-time.  Was an O(n^2) re-walk of the device GC list intended here?
-
->  			spin_unlock_bh(&xfrm_state_dev_gc_lock);
->  			xfrm_dev_state_free(x);
-> +			xfrm_state_put(x);
->  			spin_lock_bh(&xfrm_state_dev_gc_lock);
->  			goto restart_gc;
->  		}
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260914133540.3666907-1-nicoyip.dev%40gmail.com
+[^1]: https://lore.kernel.org/all/20260814134138.1388045-1-ruoyuw560@gmail.com/
+[^2]: https://lore.kernel.org/all/20260903090719.3498955-1-dayou5941@163.com/
