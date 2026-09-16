@@ -1,225 +1,155 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE124AF674;
-	Wed, 16 Sep 2026 12:19:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561197; cv=none; b=efp4qDUW0P8ixgXtLJF5h0c8kJCaqt/if5ABG1sNcv2Jm16Ks/5MiCvQNcK5ab3pqsZj61KDcS6x8QkidFvRo3YRfoDNU4sNT6KMJDLK8g+dRxREhLEcsEFwQoKQ9YG2Yl+kfpPkfRJBUoSpprcsGYC6TVXONW2jMD+/C6/UgRk=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561197; c=relaxed/simple;
-	bh=2izfVgtzlzg97zqeAqiXFaNuBVhvDeqLBqMYQULzLJQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=QNeLYNMaAHwnuZ72PhReKQPlf5IB3c7Zd2YL0iaJ0EOcs839XaLAd4b7MzIHJs9zl0miHwbowxi4+rLGEGMRV+WBAXgyYPe6M2eBbW0ZHTXgDURvNJ2EUTU899YVjrA3TfxtAaAp6jqp9euNFHLXPpp8FPfbpOdB+yjD9EUtSDk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QCWcdO+b; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB3074E80B0
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 12:22:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.76
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789561324; cv=pass; b=u73BP2w7QSVS6f2qfkjfkSMMMfqMv5CzpHrOg/Gt4h/GmT+y/O4I7aZAgqKlrBp9HHQ+a8dNj90KMplXcSM9DZ/6eLHqOtBC2EGMcce0adO9NsNGr9/NKb6GU7D0gkQV9aYUrEHrn5jzxT5tt+LNNDz3W44gWesBHyw/DtMQxEM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789561324; c=relaxed/simple;
+	bh=Bq881M2dqm6GKoOZGIh/gzGfZPXNikD/fmFhifV/8bA=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=b2LZsFVxqTYDm5j54IviBJkHqKbezfgFZ+mLE37lpe5BEz0zN6z/z0XYKN3c7Z8MB1rjFByLZfglMP7SwAgN0DryXyE9wCpoh2ps1IuPYfU1iyOQT2/b5iRXFiKG0CywsvChvj1saSkmkE0mzW+IfE+65wUDjp15cfi3fXoca4Y=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com; spf=pass smtp.mailfrom=ionos.com; dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b=aDW7G5DV; arc=pass smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cloud.ionos.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ionos.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QCWcdO+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF671F00893;
-	Wed, 16 Sep 2026 12:19:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789561195;
-	bh=uHjetJHb8nBe4Db+3GYbjIv0ItLXqe8QTau6gX4C8Hc=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=QCWcdO+bHysQA4ijRu1Vhw8Yrcy6Qjs8Q06CRZx5j1ovO385hF/R7CrO7LiZPLFid
-	 E3pygoWIzOii0ugLwsdxk+K2Artp/jgg3DciyYHGrOlZhgU8nu1as/LvoHoSe0UgEQ
-	 ggjIyNyJOx373fkUxRxM8S8wuwh6874bxYfBmdiY9TfOlwmzGyD2lZStjQ5/5BeG93
-	 wt72i1++QG/rl0EXUelfz8apxJBoKAXuFKIwxOpj7WrqdAJ7RnC/yJw+NhOTycD6uI
-	 pkJylfhV2rSWcj/UQVfMdvTbAgtWD1ynZ1ufXFQZizcsRuGrcYEjzGqY2n79ntJ6Xv
-	 mNKJKYby68SXQ==
-Subject: Re: [PATCH net 2/2] nfc: digital: check resp length in
- digital_tg_send_atr_res_complete()
-From: netdev-bot+sashiko@kernel.org
-To: liuc63@xiaopeng.com
-Cc: david@ixit.cz, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- horms@kernel.org, davem@davemloft.net, oe-linux-nfc@lists.linux.dev,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 12:19:54 +0000
-Message-ID: <178956119445.22033.18320417961342899452@kernel.org>
-In-Reply-To: <20260912131852.1651462-3-liuc63@xiaopeng.com>
-References: <20260912131852.1651462-3-liuc63@xiaopeng.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=cloud.ionos.com header.i=@cloud.ionos.com header.b="aDW7G5DV"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a2ff176d7eso7584291fa.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 05:22:01 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789561319; cv=none;
+        d=google.com; s=arc-20260327;
+        b=sL0YbOSKMh4AVcGEuBVUZUmvtVrmw2E8VhAUhZX7nv8Xl1r0WwhvR0DFDVefuu+3Ks
+         LOMpRZ75AhoM30hbI/voLB5Acxc5gTc6/Mh5bBfk3i/5bcDBOUg6xYocJilVWS1Az5QX
+         7Z17aooF2x8mbbVq8vfN4ZcI7VGyTQOLfWFV/q13k0Ekhf64xdfNgnqJvFIkCyWtqts9
+         WCczggIq6Pv9ms9sxXYTldWfYjpbbeZGIOuVIX9O3vUevL5KJYZv98afOj4OFaV5u4bi
+         m054FojSNq8PH+D2UvvG0HkHDjoPTSRVuxru/3c1MNlrefAVYWBJdSOtMO1Y4Ecb5uZ+
+         aqWQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=WAMMSKRtR5SkKpZeFxgDlMOeMMYKcKQW0S4EL9ByfSk=;
+        fh=hP0vR/eR5wHaGjBiv9fQ52jRJvbgdZJosfp0SkuWYpI=;
+        b=dGK7rs0NFiXZTx6P0vBnUl+xRpN19VgUwxKB0ZndJnlaoZfw7++a+w9kMh3RJSSx9x
+         cLy3aaKDrE6fObnlEgCFe9dFWHmu7pT4HTWRqq9ReMqjdfRl9eCWkNkIZaroWswH3fhB
+         19UVCOtsBLOvH58de8NV+0WQ624RuHibRCe1giiJihLNXqd675wCulqj5CcrIMYQbogA
+         K7HPUmq8VflaO478nRsYe3oCJg/9HfAyAJv7Ku65pfmuO/4Dspk3pB72mBr2QRb8T/Ji
+         4kFeRNiiM0J5dpK3Enw/1z18a38UGcDjuv7OqWdOiHWel6bMILmnMVIym6wEa46CqquT
+         GGpw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=cloud.ionos.com; s=google; t=1789561319; x=1790166119; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=WAMMSKRtR5SkKpZeFxgDlMOeMMYKcKQW0S4EL9ByfSk=;
+        b=aDW7G5DVZIZguqUQAQZ9d6ieMhNF76o1BAJzGf6emv35elRZYmhWyB4tEdqLklciIr
+         5WTgpEoP8+rVGA3a33dzmcpSLqG5mZsZTimKJ+sITg1kQLeXyHkjE/2eItUNrcg97BDl
+         WWeOWHaSUOMH1Inp2MjiK+ZkdyZ5+6LHvEFFBwXyAYBvN0CeRA+fLlon3BBb6slYBU5p
+         NRcsi4p68+CCxatGA7iNASlxvLQ7RuCDj0ybhTHckpuvz77uVwGXsNoMywIZe3wW7705
+         sFEKDwrAgaefhNNBlmNvAGnLn+1P3Gzh8SwWrPncsMUSxY9vsi+OI4Yc8u8oka6s8ei0
+         79dw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789561319; x=1790166119;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WAMMSKRtR5SkKpZeFxgDlMOeMMYKcKQW0S4EL9ByfSk=;
+        b=uoM3cMjbozA+bfG59x8TtFJVyqgvByVJoiflfZOAaRg0pcJfwEsC4Bmv8XwVX07XRo
+         S2aU6sppGsbhL9uExALfmiTRbiADPUMWJ7Hl4UEW5G18JZnJ5S49iPFQh0TIVv9rhzrj
+         QiPt2vJTz4fnqeoNWajRwgQFm5Vn9/FCrAx5+8SR39cYbcCik7UPK7pCNXW8I29AT/br
+         TgdegfeeeGwzkMDEyKP2KqMRomzfXxO74vVJ/SuXXXeS6vI6wIlEQed9qO0XMmK9cMrg
+         q52xavYplJaJmeX2TRfXLkuEdrSkJKrFpwmkajnw14QVxwRnVziNu58RrW+6sNhZBQOZ
+         UKMA==
+X-Forwarded-Encrypted: i=1; AKwUvByjb0g5XbMCBoQuJS20mXe06kE00mm7CaGH3UAKHvOjqwjo+YLvbEAYaZpTbLHgmPOIrHpVkI4=@vger.kernel.org
+X-Gm-Message-State: AFuF++ncRBQuwhOGq4wgHvgOFS2p9KNz7c5hEgUJNmy4YwzRGBiErJam
+	l2IoKSd5wXe2Qoki0asTCXCs6DlHswoDJrLXiVrV021yK31uCuLJue3hXIOzjG5o0YyeXHIimJP
+	a54F8VFx9X/uiTf3uOXe3vdnRA3+UnFqKCkEyEqeehA==
+X-Gm-Gg: AYBFou201RXtR+0zjXpkKDDeVz6//H6Yf/9A2BG2ukxoucBvwasmtJ86ZIjmIhBKjB4
+	mjDeOyZylnt7kfSB6HEX3cMTZEo6wilnlP17FNKatLbm3P0P+SpkBE/XcvLEV2OGY7A/dtA0bkv
+	QAxpxhGx3VoGYtraSi9JyPFUkw57BUdDgjKmgnwU4igegJLKk5wSV8TnSFGsLPS6XBVzSkJULHP
+	UbQV+lfu45FFAC+HtTGoawWOeoV+/WCCnFm0pEVgw2QvPm8S5wuUB2IgBdGPHXmQxJ55C55z9sM
+	C1nbydDP5MRd60DipToa2P+L+zR/t9jLXUk7yu5kHFtcbLT7FGnAMTHKtCCwivOULW4I15xAQFq
+	ixdVQc8gkviyRxvuXS3b1SIJSKNCcBalqsaVRhJFD
+X-Received: by 2002:a05:651c:a382:20b0:3a5:b957:d23d with SMTP id
+ 38308e7fff4ca-3a5dc9c4523mr7083011fa.6.1789561319145; Wed, 16 Sep 2026
+ 05:21:59 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+References: <20260916094817.2007756-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916094817.2007756-1-vulab@iscas.ac.cn>
+From: Haris Iqbal <haris.iqbal@cloud.ionos.com>
+Date: Wed, 16 Sep 2026 14:21:44 +0200
+X-Gm-Features: AcwNN1Vj5MCCxsybETxa2RMBFpc8N2_N-J2Oave1MHK29JMnf2xnRGfsiC31dsI
+Message-ID: <CAJpMwyia7fYUOq=dj8E2FWnrtjZ9jHjZQSBW2vwB2vRBkbi2eA@mail.gmail.com>
+Subject: Re: [PATCH] rnbd-srv: Fix sess_dev use-after-free in process_msg_close()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: axboe@kernel.dk, bvanassche@acm.org, danil.kipnis@cloud.ionos.com, 
+	jgg@ziepe.ca, jinpu.wang@ionos.com, linux-block@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
-
-Critical: 0 · High: 0 · Medium: 1 (2) · Low: 0
-
-- [Medium] The commit message's justification ("The downstream handlers
-  (digital_tg_recv_psl_req, digital_tg_recv_dep_req) each have their own…
-
-Pre-existing issues:
-- [Medium] Sibling instance of the same unchecked-length read remains in
-  the same file: digital_in_recv_dep_res() reads resp->data[0] as the…
-- [Medium] Frame-format disagreement kept (and re-written) by the patch:
-  digital_tg_send_atr_res_complete() derives the SoD presence from the…
-
---
-
-nfc: digital: check resp length in digital_tg_send_atr_res_complete()
-
-This adds a resp->len check to digital_tg_send_atr_res_complete() before
-reading resp->data[0] and resp->data[offset], and frees the skb and
-restarts polling when the frame is too short.
-
-A few questions below.
-
-> nfc: digital: check resp length in digital_tg_send_atr_res_complete()
+On Wed, Sep 16, 2026 at 11:48=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> w=
+rote:
 >
->     The downstream handlers (digital_tg_recv_psl_req, digital_tg_recv_dep_req)
->     each have their own length checks, so the consequence is a misdirected
->     dispatch on stale data rather than memory corruption.
+> process_msg_close() drops the device reference with rnbd_put_sess_dev()
+> before using sess_dev again in rnbd_srv_destroy_dev_session_sysfs().
+> If that put drops the last kref, e.g. when the device is concurrently
+> being torn down through rnbd_srv_sess_dev_force_close(), the waiter in
+> rnbd_destroy_sess_dev() is woken up and frees sess_dev, so the
+> subsequent rnbd_srv_destroy_dev_session_sysfs() call operates on freed
+> memory.
+>
+> Move the rnbd_put_sess_dev() call after the sysfs teardown so it is the
+> last access to sess_dev.
+>
+> Fixes: 2de6c8de192b ("block/rnbd: server: main functionality")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/block/rnbd/rnbd-srv.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.=
+c
+> index 10e8c438bb43..2ebc2eac384f 100644
+> --- a/drivers/block/rnbd/rnbd-srv.c
+> +++ b/drivers/block/rnbd/rnbd-srv.c
+> @@ -361,10 +361,10 @@ static void process_msg_close(struct rnbd_srv_sessi=
+on *srv_sess,
+>         if (IS_ERR(sess_dev))
+>                 return;
+>
+> -       rnbd_put_sess_dev(sess_dev);
+>         mutex_lock(&srv_sess->lock);
+>         rnbd_srv_destroy_dev_session_sysfs(sess_dev);
+>         mutex_unlock(&srv_sess->lock);
+> +       rnbd_put_sess_dev(sess_dev);
 
-[Severity: Medium]
-Is this statement accurate for digital_tg_recv_dep_req()?  That handler
-validates only resp->len >= sizeof(struct digital_dep_req_res), i.e. 3
-bytes (dir, cmd, pfb), and then reads byte 3 before any further length
-test:
+Thanks for the patch.
 
-net/nfc/digital_dep.c:digital_tg_recv_dep_req() {
-	...
-	size = sizeof(struct digital_dep_req_res);
-	dep_req = (struct digital_dep_req_res *)resp->data;
+Sashiko has critical finding about this change.
+https://sashiko.dev/#/patchset/20260916094817.2007756-1-vulab%40iscas.ac.cn
 
-	if (resp->len < size || dep_req->dir != DIGITAL_NFC_DEP_FRAME_DIR_OUT ||
-	    dep_req->cmd != DIGITAL_CMD_DEP_REQ) {
-		rc = -EIO;
-		goto exit;
-	}
+Can you please review that?
 
-	pfb = dep_req->pfb;
-
-	if (DIGITAL_NFC_DEP_DID_BIT_SET(pfb)) {
-		if (ddev->did && (ddev->did == resp->data[3])) {
-	...
-}
-
-The "if (size > resp->len)" test that would cover byte 3 runs only after
-that comparison, so it does not guard the read.
-
-The precondition is a nonzero ddev->did, which the remote peer sets in
-digital_tg_recv_atr_req():
-
-	ddev->did = atr_req->did;
-
-so a peer that negotiates a DID and then sends a 3-byte DEP_REQ payload
-with the DID bit set in PFB makes digital_tg_recv_dep_req() read
-resp->data[3] one byte past resp->len.  Should the check also be extended
-there, or should the changelog drop the claim that the downstream handlers
-cover this?
-
-> diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
-> index 6d8e662a3819a..5093b7b817202 100644
-> --- a/net/nfc/digital_dep.c
-> +++ b/net/nfc/digital_dep.c
-> @@ -1467,16 +1467,19 @@ static void digital_tg_recv_psl_req(struct nfc_digital_dev *ddev, void *arg,
->  static void digital_tg_send_atr_res_complete(struct nfc_digital_dev *ddev,
->  					     void *arg, struct sk_buff *resp)
->  {
-> -	int offset;
-> +	unsigned int offset;
->  
->  	if (IS_ERR(resp)) {
->  		digital_poll_next_tech(ddev);
->  		return;
->  	}
->  
-> -	offset = 2;
-> -	if (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB)
-> -		offset++;
-> +	if (!resp->len)
-> +		goto bad_frame;
-> +
-> +	offset = (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB) ? 3 : 2;
-> +	if (resp->len <= offset)
-> +		goto bad_frame;
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, since the byte-value heuristic
-is only reformatted into a ternary here, but while this offset computation
-is being rewritten, would it be better to derive the SoD presence from
-ddev->curr_rf_tech the way the encoder/decoder pair does?
-
-net/nfc/digital_dep.c:digital_skb_push_dep_sod() {
-	if (ddev->curr_rf_tech == NFC_DIGITAL_RF_TECH_106A)
-		*(u8 *)skb_push(skb, sizeof(u8)) = DIGITAL_NFC_DEP_NFCA_SOD_SB;
-}
-
-net/nfc/digital_dep.c:digital_skb_pull_dep_sod() {
-	if (ddev->curr_rf_tech == NFC_DIGITAL_RF_TECH_106A)
-		skb_pull(skb, sizeof(u8));
-}
-
-In 212F/424F target mode there is no SB byte, so data[0] is the LEN byte.
-Can a LEN of 0xF0 (240, legal since local_payload_max is
-DIGITAL_PAYLOAD_SIZE_MAX) make this pick offset 3 and read the PFB byte as
-the command byte?
-
-DIGITAL_CMD_PSL_REQ is 0x04 and DIGITAL_NFC_DEP_PFB_DID_BIT is also 0x04,
-so a first DEP_REQ (I-PDU, PNI 0, DID in use) of exactly that size would
-have PFB == 0x04 and be dispatched to digital_tg_recv_psl_req(), which
-then drops it:
-
-net/nfc/digital_dep.c:digital_tg_recv_psl_req() {
-	if (resp->len != sizeof(struct digital_psl_req) ||
-	...
-		rc = -EIO;
-		goto exit;
-	}
-}
-
-Does that stall the DEP session, since the frame is freed with no reply?
-The new bounds check is computed from the same offset, so it inherits the
-disagreement.
-
->  
->  	ddev->atn_count = 0;
->  
-> @@ -1484,6 +1487,12 @@ static void digital_tg_recv_psl_req(struct nfc_digital_dev *ddev, void *arg,
->  		digital_tg_recv_psl_req(ddev, arg, resp);
->  	else
->  		digital_tg_recv_dep_req(ddev, arg, resp);
-> +
-> +	return;
-> +
-> +bad_frame:
-> +	kfree_skb(resp);
-> +	digital_poll_next_tech(ddev);
 >  }
+>
+>  static int process_msg_open(struct rnbd_srv_session *srv_sess,
+> --
+> 2.34.1
+>
 
-[Severity: Medium]
-This is a pre-existing issue and not introduced by this patch, but there
-is a sibling unchecked read of the same kind in the same file, in
-digital_in_recv_dep_res().  Would it make sense to cover it in the same
-series?
 
-net/nfc/digital_dep.c:digital_in_recv_dep_res() {
-	...
-	if (size > resp->len) {
-		rc = -EIO;
-		goto error;
-	}
+--=20
 
-	skb_pull(resp, size);
-	...
-	case DIGITAL_NFC_DEP_PFB_SUPERVISOR_PDU:
-	...
-		rtox = DIGITAL_NFC_DEP_RTOX_VALUE(resp->data[0]);
-}
-
-With a 3-byte DEP_RES payload (dir, cmd, pfb and no DID/NAD bit), size is
-3, so both "resp->len < size" and "size > resp->len" pass, and the
-skb_pull() leaves resp->len == 0.  The SUPERVISOR_PDU plus timeout-bit
-branch then reads resp->data[0] one byte past resp->len and feeds the
-masked value to digital_in_send_rtox() as a timeout.  Both ddev->atn_count
-and ddev->nack_count are zeroed just above, so the branch is reachable.
-
--- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260912131852.1651462-1-liuc63%40xiaopeng.com
+Regards
+-Haris
