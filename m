@@ -1,35 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9D9A35CB91;
-	Wed, 16 Sep 2026 17:10:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 14F6E4BD37F
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:11:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578641; cv=none; b=usmetoarEFGlTUlTc6le3sqLKQJgPMWJ9FPCAPA3ardDlJVOfFgsuqvQ5Am5Vr+AIQLZva42NZx60wVihd0Ht5lAolzLFqiKraUqcBbz5guDsOKPAci85Q7aubBWCfGFhx7rXjVkYbo60USa3avav8IJyzAn2dsHgexV2PJAWsw=
+	t=1789578721; cv=none; b=VWQB5SfVAlGLULhfxQx/C4kCAoe7ySy9OYpro6adZZvDB9sDVlbUYaE4N9hbhnpgmT2vcLvvz7woxjquerEBBT1ONR7voYzLo4kcQ9ylkGwjqWllqyJctJTHeWXqYRS4mrMLgvoCuih/GwlHlyZWlWqYDwOipWQiopaaRueo0JA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578641; c=relaxed/simple;
-	bh=8mDVMhyc9DSK3T89LmZQB+NqzZtAzQOxaffFxWzmYzs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=eLnAC55Cohi3Owe0dqvE7PFFUpxF03b/hEbtSgbtTITxAWhAnOcoRuqUSIASInsH63zRLXq/w+nJ0J0kI6ebHYiEwrlyQdjq10xAU0P560+sVuE4MSciwMNsjZ+2IMbYjsfGIj3eSK/Td/qq3FVvw1T5985Xy/WEw47izxpA5f8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHsTuAzapqVVJuCA--.22263S2;
-	Thu, 17 Sep 2026 01:10:24 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: boris.ostrovsky@oracle.com
-Cc: jgross@suse.com,
-	linux-kernel@vger.kernel.org,
-	oleksandr_andrushchenko@epam.com,
-	oleksandr_tyshchenko@epam.com,
-	sstabellini@kernel.org,
-	xen-devel@lists.xenproject.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] xen/gntdev: Fix gntdev_dmabuf ref leak in dmabuf_exp_wait_released()
-Date: Wed, 16 Sep 2026 17:09:56 +0000
-Message-Id: <20260916170956.2086505-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789578721; c=relaxed/simple;
+	bh=vJI+bxZWu47v5m5rXZXfW0hksYQnK2D3Ye0NtZw1jSM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rYlOyxu4LpwC1Lvmv8tYLOtuXixD/mArzWNxCheJf5ftqF+98NdmZ7lIY63ukqCZ/kjYKQkk+ChybV9xXWeY9CsEZZD+plhC0JK5/LWnNt1cTnjfoSfdP4BzssexNVsybmXCSgA/tLEAElQOAXctofNz3aI/GXNng3m9Nzgc0nk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OObvxivu; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OObvxivu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86CB31F0089A;
+	Wed, 16 Sep 2026 17:11:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789578711;
+	bh=OzreWAM6K0coIYGJc+RaLG85XUjAw5+9UgnR/oKxt2I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=OObvxivutwXXf/R/N1R5HQ0hEGkmhcmko6RA2S26qSAmWwv4AnZ2t4Z/F3gxskhw1
+	 piVO8a5C+EsWpdJIpXisd2On761elMAY0Gky3oP6q6z6f1RvhiP9/fmKQRa2m5yOsG
+	 yLHIBaE7qGYeLbyQEeVPSTVYqIx/zLPcWAQjbYkPemf6o6B2Xl2e1m6jG4s8Jau3YD
+	 x0Etw6BYVLlF6UF/cbqR4/gXEPYaDlTuq3BCJMZvMs3DlU3Un1zHpdgtPYJAjNU4FO
+	 pv5TFOlGzJ1EoaPnBOuIClwjymfcNV9co46/HL0ZdVA/su/fgYEFM4QPmvXpdDxgqy
+	 H1lQ2YW56gKTA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] tools/bootconfig: Fix integer overflow and truncation in size checks
+Date: Wed, 16 Sep 2026 13:11:46 -0400
+Message-ID: <20260916171146.778686-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916171146.778686-1-sashal@kernel.org>
+References: <2026091615-buddhist-decimal-7a0a@gregkh>
+ <20260916171146.778686-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,59 +46,92 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHsTuAzapqVVJuCA--.22263S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tw4kAFyfCrWxJw4rtFW5ZFb_yoW8GF1xpr
-	sIqFy8AFZ3t347ta1DJ34Y9ryYyayDtrySkrW5Aws8Zry5Xw1xXF1fJr18XFyqkws3ua4f
-	Aa40yFy3Xr45AFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
-	UgXocUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqozVjiwAAsq
 
-dmabuf_exp_wait_released() takes a reference on the exported
-gntdev_dmabuf with dmabuf_exp_wait_obj_get_dmabuf() and passes it to
-dmabuf_exp_wait_obj_new(), which drops that reference after adding the
-wait object to the wait list.  When the wait object allocation fails,
-dmabuf_exp_wait_obj_new() returns ERR_PTR(-ENOMEM) early and the
-reference is never dropped, leaking a reference to the exported
-gntdev_dmabuf.
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-Drop the reference on the allocation failure path so the reference is
-consumed whether the wait object is created or not.
+[ Upstream commit 462d0b066b613103f579793031429db2ca23abc0 ]
 
-Fixes: 932d6562179e ("xen/gntdev: Add initial support for dma-buf UAPI")
+Sashiko reported that on 32-bit systems, if an attacker crafts size in
+the bootconfig footer such that adding BOOTCONFIG_FOOTER_SIZE wraps around
+(for instance, if size is 0xFFFFFFFF), the size check in
+load_xbc_from_initrd() can be bypassed:
+
+    if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
+        pr_err("bootconfig size is too big\n");
+        return -E2BIG;
+    }
+
+Furthermore, on 64-bit systems with an initrd > 4.29 GB, comparing a
+corrupted 32-bit size (e.g. 0xFFFFFFFF) against
+stat.st_size - BOOTCONFIG_FOOTER_SIZE can also bypass the check if
+size is not bounded. Similarly, load_xbc_file() passes 64-bit stat.st_size
+directly into the 32-bit int size parameter of load_xbc_fd(), truncating
+large standalone files (>= 2GB).
+
+In both cases, passing 0xFFFFFFFF to load_xbc_fd() truncates to -1,
+resulting in malloc(0), an integer overflow in read(), and an
+out-of-bounds null-byte write.
+
+Fix this by:
+1. Rejecting size > XBC_DATA_MAX or
+   size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd().
+2. Rejecting stat.st_size > XBC_DATA_MAX in load_xbc_file() before passing
+   it to load_xbc_fd().
+3. Checking size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
+
+Link: https://lore.kernel.org/all/178905332413.213925.3179977110281463499.stgit@devnote2/
+
+Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
+Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/xen/gntdev-dmabuf.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ tools/bootconfig/main.c | 13 ++++++++++++-
+ 1 file changed, 12 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/xen/gntdev-dmabuf.c b/drivers/xen/gntdev-dmabuf.c
-index 83b0df460894..df1883aca850 100644
---- a/drivers/xen/gntdev-dmabuf.c
-+++ b/drivers/xen/gntdev-dmabuf.c
-@@ -96,8 +96,10 @@ dmabuf_exp_wait_obj_new(struct gntdev_dmabuf_priv *priv,
- 	struct gntdev_dmabuf_wait_obj *obj;
+diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
+index d302235f6b974..655ca7da4b843 100644
+--- a/tools/bootconfig/main.c
++++ b/tools/bootconfig/main.c
+@@ -139,6 +139,9 @@ static int load_xbc_fd(int fd, char **buf, int size)
+ {
+ 	int ret;
  
- 	obj = kzalloc_obj(*obj);
--	if (!obj)
-+	if (!obj) {
-+		kref_put(&gntdev_dmabuf->u.exp.refcount, dmabuf_exp_release);
- 		return ERR_PTR(-ENOMEM);
++	if (size < 0 || size > XBC_DATA_MAX)
++		return -EINVAL;
++
+ 	*buf = malloc(size + 1);
+ 	if (!*buf)
+ 		return -ENOMEM;
+@@ -167,6 +170,13 @@ static int load_xbc_file(const char *path, char **buf)
+ 		return ret;
+ 	}
+ 
++	if (stat.st_size > XBC_DATA_MAX) {
++		pr_err("%s size is too big\n", path);
++		ret = -E2BIG;
++		close(fd);
++		return ret;
 +	}
++
+ 	ret = load_xbc_fd(fd, buf, stat.st_size);
  
- 	init_completion(&obj->completion);
- 	obj->gntdev_dmabuf = gntdev_dmabuf;
+ 	close(fd);
+@@ -217,7 +227,8 @@ static int load_xbc_from_initrd(int fd, char **buf)
+ 	csum = le32toh(csum);
+ 
+ 	/* Wrong size error  */
+-	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
++	if (size > XBC_DATA_MAX ||
++	    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
+ 		pr_err("bootconfig size is too big\n");
+ 		return -E2BIG;
+ 	}
 -- 
-2.34.1
+2.53.0
 
