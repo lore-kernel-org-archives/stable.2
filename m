@@ -1,89 +1,154 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
+Received: from mail-24426.protonmail.ch (mail-24426.protonmail.ch [109.224.244.26])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0255371876;
-	Wed, 16 Sep 2026 12:32:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A8A3644A4;
+	Wed, 16 Sep 2026 12:34:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=109.224.244.26
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561939; cv=none; b=NmcYi1HtRCKBWYNQl5ax844SnsoHg3GZbofpPv3SzLG02dCy0O5XU1JZiR7Ucrnaqv9QEf5qKmOpGGYdT7DthAwgj8zl6rhlNjSpsBulSWddE6+MD1L/TSKPk8TkmgNISYjaFGe0k0wBx1GtIOWLGiNOmiLGw9u5xYrFmufcnwA=
+	t=1789562063; cv=none; b=AU51C24wd3ndDwReMmWNlr9V9dA0jRdVT3yg8DHW/agGZUQFwXn8be2GggTdeigeU20ehPvhmeToUKUhdpvDTEh4Wj1y0DrptjnuEPpApdhexE/ucgm4D/oATI5C6wnul0pdUhDUVBN/1cRHaG4JIWLB4buJd6mpJ/CapuDsyds=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789561939; c=relaxed/simple;
-	bh=cITxidtSnPIIBQhlNy5nkHr7giFt/NXtpf76vgl295g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qYUnGOxcsKc9to5sC7YDtDMP+w02cVQkG4xn/vCCKljazhDfAKEKOd5QHhWNW34idJW4Yll/2xkCc4Il7mz0NXh+Fck0o4TrM5UG1vcwav1akBtw1N4CWpH3vjdjxX1qrgeeH7ZU2YZtmmVMArwBVBcEnfRv4IJZv1HCuNZohOI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=W3ubU2Gq; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1789562063; c=relaxed/simple;
+	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
+	h=Date:To:From:Cc:Subject:Message-ID:MIME-Version:Content-Type; b=Gesjrot++J+OZfCCWpfmb9bBGCzkijbVzZuuijGy2jSqTE2E1q1VbMr6cZXt3dlDd5vNp6ZPo3dnsNUtgTuf918iK0u8b4SeJQHNaEqe04N/IOiQOIP//Vin4MjLoLbTEGIRwNQycLZOVARQoxCH5poRZipqW+92VzZYOG8Q/TQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com; spf=pass smtp.mailfrom=protonmail.com; dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b=eP2m+BlE; arc=none smtp.client-ip=109.224.244.26
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=protonmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=protonmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="W3ubU2Gq"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:
-	from:content-type:reply-to; bh=vI4CRNUvTksW7MIwBavqA71EpNN/JVS4/CrW+d7hH7s=; 
-	b=W3ubU2GqrhLQopKiKCHzbycRbpDoOb9M0mn5HeL+F9wm2ToUle5npIupmcnOxHu5Ce1BA5iEkuQ
-	21VY1DHstqjMSuBy0bDn4IHV9FRq1zzbRf9UnrtmcOWGtkP4ytzd544q4TWnl2vlVWnLBkfW/cANJ
-	gtRYEet8kmnrew2cdK4sI2NV2FbZtNYW4kDi5/9lbjrCwEkhUgcFAqlZ6yuv1VamjtfKVrcJurBQC
-	M5ktfPHOB+uJyFgbl0gHOWPtSm6gxp9qQIt2sNt8F5+CKFK7ZetmgmkK+FlWC/k0HBNAUMmjua2XH
-	klN3xjPrccHRmwUuXn3XBOgc4LTEvCa6LscQ==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x6oo0-0000000Ec5l-2Vg9;
-	Wed, 16 Sep 2026 20:32:05 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Wed, 16 Sep 2026 22:32:04 +1000
-Date: Wed, 16 Sep 2026 22:32:04 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Jiawen Liu <1298662399@qq.com>
-Cc: Deepak Saxena <dsaxena@plexity.net>,
-	Olivia Mackall <olivia@selenic.com>,
-	Thomas Petazzoni <thomas.petazzoni@free-electrons.com>,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2] char: omap-rng: fix runtime PM cleanup
-Message-ID: <aqqMRKATsLFj4jFG@gondor.apana.org.au>
-References: <tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com>
- <tencent_0D4EB3807DBF6095A7F5A9455D902DBA9708@qq.com>
+	dkim=pass (2048-bit key) header.d=protonmail.com header.i=@protonmail.com header.b="eP2m+BlE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=protonmail.com;
+	s=protonmail3; t=1789562053; x=1789821253;
+	bh=Afuig7NdFAQ5XnHoQ8HzWcRJNPh6Fl9+Itbf/eok9q4=;
+	h=Date:To:From:Cc:Subject:Message-ID:Feedback-ID:From:To:Cc:Date:
+	 Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
+	b=eP2m+BlEvnRBrC/brOvZjY6UgP/qCQldM5DvoCG7JLV9JBIvU4ZGAaPX9W2JVoCox
+	 rgezLkqCrnJSjqZ9V9/PyycraBGBY7KiyhbylIKQlwvYxdF7edtQRRBU0FeK/gxRGd
+	 NPVlK5yNhuzmr2cZuPp7vjgLmQoJ6hInKyadsyAiIlVFPdtRu5mqq5DGig4F5Ztv9o
+	 Q7zsNnWcWCaHSobu+fHsW0/3anH/bGqPA5SuJ9Ox326TfjiM6Mi0fKXnC/Y5R6BhhG
+	 feY/S9Z8E/gNX7FsY8aPPeF8tpHV4R4IdMiFByxjbXg1n9DduEx4uHjZYF6daaQyFb
+	 5Azk+iiGN8Htw==
+Date: Wed, 16 Sep 2026 12:34:06 +0000
+To: ricardo@pardini.net, alchark@flipper.net
+From: Ryan Leung <untilscour@protonmail.com>
+Cc: conor+dt@kernel.org, devicetree@vger.kernel.org, finley.xiao@rock-chips.com, gregkh@linuxfoundation.org, heiko@sntech.de, krzk+dt@kernel.org, linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, linux-rockchip@lists.infradead.org, michael@walle.cc, miquel.raynal@bootlin.com, robh@kernel.org, srini@kernel.org, stable@vger.kernel.org, untilscour@protonmail.com
+Subject: Re: Re: [PATCH v2 0/4] nvmem: Derive Rockchip MAC addresses from the OTP CPU ID
+Message-ID: <20260916123355.4507-1-untilscour@protonmail.com>
+Feedback-ID: 184418679:user:proton
+X-Pm-Message-ID: e5075cf7b5d4595542ae7b0ca159d512ead7b50d
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <tencent_0D4EB3807DBF6095A7F5A9455D902DBA9708@qq.com>
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 04, 2026 at 02:26:54PM +0400, Jiawen Liu wrote:
-> omap_rng_probe() enables runtime PM before requesting its optional clocks.
-> If either devm_clk_get() returns -EPROBE_DEFER, the direct return leaves
-> the runtime PM usage count elevated and runtime PM enabled. The second
-> clock lookup can also leave the first clock enabled.
-> 
-> Route each deferred-probe path through resource-matched cleanup. Return
-> directly after cleanup so normal probe deferrals remain quiet.
-> 
-> Fixes: 43ec540e6f9b ("hwrng: omap - move clock related code to omap_rng_probe()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jiawen Liu <1298662399@qq.com>
-> ---
-> Changes in v2:
-> - Use the full author name in From and Signed-off-by.
-> - Return directly after deferred-probe cleanup to keep deferrals quiet.
-> - Add Fixes and Cc stable tags.
-> 
-> v1: https://lore.kernel.org/all/tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A@qq.com/
-> Sashiko review: https://sashiko.dev/#/patchset/tencent_1DBD00BAFF365506D40F166D40DEE8F63B0A%40qq.com
-> 
->  drivers/char/hw_random/omap-rng.c | 22 ++++++++++++++++++----
->  1 file changed, 18 insertions(+), 4 deletions(-)
+Hi Ricardo, Alexey,
 
-Sashiko couldn't apply your patch against linux-next:
+> On 02/09/2026 15:07, Alexey Charkov wrote:
+> > Rockchip SoCs are shipped with a unique CPU ID in their internal OTP
+> > memory, and Rockchip bootloaders use it to give boards which have no
+> > dedicated storage for a MAC address a stable one anyway: they hash the =
+CPU
+> > ID and patch the resulting addresses into the device tree they hand ove=
+r.
+> >=20
+> > Kernels started without that fixup, e.g. straight from the SPL in Falco=
+n
+> > mode or by any other loader which does not implement Rockchip's derivat=
+ion,
+> > fall back to random MAC addresses which change on every boot.
+> >=20
+> > Formalize the derivation in the DT binding and add a Linux kernel drive=
+r
+> > implementing it, so that a Linux image can use the same stable addresse=
+s
+> > regardless of the boot flow.
+> >=20
+> > Only RK3576 is wired up here, that being the SoC I can test on. Other
+> > Rockchip SoCs keep the same CPU ID at a different OTP offset - 0x7 rath=
+er
+> > than 0xa on RK3588, for instance - which makes supporting them a two-li=
+ne
+> > addition to the driver's match table plus the layout node.
+> Hi Alexey,
+>=20
+> I went off trying this on RK3588 and - exactly like you said - it=20
+> translates perfectly there, just with a different offset. Thanks!
+>=20
+> Not content, I went for RK356x as well - and that revealed what I think=
+=20
+> is a snag.
+>=20
+> Both RK3576 and RK3588 currently describe their fixed cells as direct=20
+> children of the OTP node -- turns out that is the "legacy" way, which=20
+> works due to 'add_legacy_fixed_of_cells'.
+>=20
+> But RK356x/3528/3562, done more recently [1], use a single=20
+> 'fixed-layout' with child cells; and there can only ever be one layout,=
+=20
+> so we wouldn't be able to use the new layout for those.
+>=20
+> I imagine one way around it would be to allow such fixed cells also=20
+> under the new layout, by delegating to 'nvmem_add_cells_from_dt()' and=20
+> adding patternProperties with '$ref: fixed-cell.yaml' in the binding,=20
+> similar to what fixed-layout.yaml does, but I'm unsure that would be a=20
+> good idea?
+>=20
+> Either way, thanks for this, it really helps with Falcon mode and edk2;=
+=20
+> I can also use it for the fixed-function RTL8125 PCIe NICs I started=20
+> describing [2] (and will eventually send a v5).
+>=20
+> [1] https://lore.kernel.org/all/20260312213019.13965-3-heiko@sntech.de/
+> [2]=20
+> https://lore.kernel.org/linux-rockchip/20260617-rk3588-dts-rtl-eth-descri=
+be-dt-alias-v4-0-2bd38922d129@pardini.net/
+>=20
+> mvg,
+> Ricardo
 
-https://sashiko.dev/#/patchset/tencent_0D4EB3807DBF6095A7F5A9455D902DBA9708%40qq.com
+What about changing the driver to handle something like:
 
-Please rebase and repost.
+=09otp: otp@... {
+=09=09compatible =3D "rockchip,rk3528-otp";
 
-Thanks,
--- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+=09=09#address-cells =3D <1>;
+=09=09#size-cells =3D <1>;
+
+=09=09nvmem-layout {
+=09=09=09compatible =3D "fixed-layout";
+
+=09=09=09#address-cells =3D <1>;
+=09=09=09#size-cells =3D <1>;
+
+=09=09=09otp_id: id@a {
+=09=09=09=09reg =3D <0x0a 0x10>;
+=09=09=09};
+=09=09};
+=09};
+
+=09otp_mac: otp-mac {
+=09=09compatible =3D "rockchip,otp-cpuid-mac";
+
+=09=09nvmem-cells =3D <&otp_id>;
+=09=09nvmem-cell-names =3D "source";
+
+=09=09#address-cells =3D <1>;
+=09=09#size-cells =3D <1>;
+
+=09=09otp_mac_address: mac-address@0 {
+=09=09=09reg =3D <0 0x10>;
+=09=09=09#nvmem-cell-cells =3D <1>;
+=09=09};
+=09};
+
+using devm_nvmem_cell_get("source") to read the otp cell.
+
+Then a match table would not be necessary and it would work with every
+SoC, even those without the fixed-layout nvmem, because of
+add_legacy_fixed_of_cells as you mentioned.
+
+Best regards,
+Ryan
+
