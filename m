@@ -1,92 +1,138 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87262198A17;
-	Wed, 16 Sep 2026 16:49:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CF594C6522
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:49:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577359; cv=none; b=HmMsvS3/jrQ44NRLIpbi+cB0Hdpa1vi0X+yFGf9oT7Hnq/F16Six3UbQ20VOQo9+ye1gOXwTlPFSNaDbHzaYGNbdo7/o1t9X2sh8j5pqIhQL+nNFXzUi2HuXgqckMQSCk7QX6P3L8DUn6IibOIAk/eES1foCRwZAyaqixxk/Kew=
+	t=1789577360; cv=none; b=Y1gd7RaIxlP1dVEJBPc3hQe2Md7prHoZtQSdcMV9ys+vSaYjreRqu4oOUJtt9McwVKFlR6c3kb3OCHnojE612ZQIhSf5HLgTHxA0f1204YQJFbDa8uwoPr/OtmwmQG+GLCz5D9Zaq7aR9qWGjJb1T5hbA7DS4oD6iFXNtryDN9k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577359; c=relaxed/simple;
-	bh=0lHBnqzdcm0BomzMP7yXd8d+InPJAW6K6XFMa8TNtMA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=UghQ+Z+Jlv9+BGfe91UqouM0fJj28frXuFQyEN+eef4tJ5JI4aUe7Vb+SXpeffSJk+JT6BZLba0OSiIAnzf4ksuoR2OlKGo8euz9gIyKxlrGKcERVnZQxEYgTjkXeTMw1JMTHXwY9mx7mKQR/PyKTqwnWj9uB+412uaYSv90dC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDqDyKpqnfJtCA--.22040S2;
-	Thu, 17 Sep 2026 00:49:07 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	mathias.nyman@intel.com,
-	sarah.a.sharp@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: host: Fix companion leak in usb_enable_intel_xhci_ports()
-Date: Wed, 16 Sep 2026 16:48:40 +0000
-Message-Id: <20260916164840.2085101-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789577360; c=relaxed/simple;
+	bh=vtecw5NKXu8gBddpvZ1Gf+rVJv3yrh/gZ6kveDQOrUw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LVtkI0g3xoyzNKTC5O38IBTg8+DPaOc9f0h/nE2aNgqq/pMaJT0LCqVAL9N9lHqae/KswYHBNwkztlhO5tK0FLXZCHxce8tyzw9KJErD861tYxsvpVz3pZwiP/qhCz7bs3pZetsdvkb2qxoE/gsPP2JEcYA/AM9CApaOX44MERY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ib/i18CX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ib/i18CX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AD8681F00893;
+	Wed, 16 Sep 2026 16:49:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789577357;
+	bh=NXQyQcFGi5V/X/yjgu/54nxzxuP6ZcNGbOeYJFS8c1g=;
+	h=Subject:To:Cc:From:Date;
+	b=Ib/i18CXvACKTsy9FQOwap3BfHT8e5jCoBMff2klBqt3sDwdcsNUCNP2u9RMYvQLx
+	 qLfr4Y5VbZAz0Tl52NgYGC5suCQUrr4/3h2371CGvRkH2uoP2Nzz7N2ptbDvTlvONQ
+	 xBB0RetcQ3o/6Bz71nFXECke/xdorq3SsZbLJ7lU=
+Subject: FAILED: patch "[PATCH] smb: client: fix file type corruption in" failed to apply to 5.15-stable tree
+To: pc@manguebit.org,bharathsm@microsoft.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 17:43:45 +0100
+Message-ID: <2026091645-lip-thinness-9a03@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDqDyKpqnfJtCA--.22040S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar1fZryxJr4kKF4UJF17GFg_yoW8Gryrpr
-	sruF1qyryrWr4Ikw4UGw4fZFyFyr4xG34Ykay2k34ku390vay3Xr9FqF1Yvry7JFZ7u3yY
-	qa1DtF1xW34DGaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUAVWUtwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1l
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
-	d-PUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQMA2qqpVhSRAAAsn
 
-usb_enable_intel_xhci_ports() iterates over the PCI devices with
-for_each_pci_dev() to check whether an Intel EHCI companion exists and
-breaks out of the loop as soon as one is found. for_each_pci_dev()
-takes a reference on the device returned by pci_get_device(), and
-breaking out of the loop leaves that reference held. The companion
-pointer is only used to set the ehci_found flag and the reference is
-never dropped, leaking a reference to the EHCI companion device on
-every port switch operation.
 
-Drop the reference with pci_dev_put() once the lookup is done. When no
-companion is found the loop leaves companion set to NULL, for which
-pci_dev_put() is a no-op.
+The patch below does not apply to the 5.15-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: 26b76798e050 ("Intel xhci: refactor EHCI/xHCI port switching")
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git checkout FETCH_HEAD
+git cherry-pick -x 65d5dbdc089be42fc48a6f77bc6b648307f34b17
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091645-lip-thinness-9a03@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 65d5dbdc089be42fc48a6f77bc6b648307f34b17 Mon Sep 17 00:00:00 2001
+From: Paulo Alcantara <pc@manguebit.org>
+Date: Sun, 6 Sep 2026 16:01:16 -0300
+Subject: [PATCH] smb: client: fix file type corruption in
+ posix_reparse_to_fattr()
+
+Setting the file type in cf_mode without clearing the existing S_IFMT
+bits first is wrong as it corrupts the file type when cf_mode already
+has type bits set (e.g. S_IFREG | S_IFCHR == S_IFLNK).
+
+Use a local ftype variable to collect the new file type and apply it
+after validation succeeds, clearing S_IFMT and setting the new type in
+a single assignment.  This avoids stripping cf_mode on malformed
+reparse points where the function returns false early.
+
+Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40manguebit.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/usb/host/pci-quirks.c | 2 ++
- 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/usb/host/pci-quirks.c b/drivers/usb/host/pci-quirks.c
-index 0404489c2f6a..bde5bc248d45 100644
---- a/drivers/usb/host/pci-quirks.c
-+++ b/drivers/usb/host/pci-quirks.c
-@@ -1076,6 +1076,8 @@ void usb_enable_intel_xhci_ports(struct pci_dev *xhci_pdev)
- 			break;
- 		}
- 	}
-+	/* for_each_pci_dev() takes a reference on the found companion */
-+	pci_dev_put(companion);
+diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
+index 8a19dee564b8..616ca2dbfac4 100644
+--- a/fs/smb/client/reparse.c
++++ b/fs/smb/client/reparse.c
+@@ -1212,6 +1212,7 @@ static bool posix_reparse_to_fattr(struct cifs_sb_info *cifs_sb,
+ 				   struct cifs_open_info_data *data)
+ {
+ 	struct reparse_nfs_data_buffer *buf = (struct reparse_nfs_data_buffer *)data->reparse.buf;
++	umode_t ftype;
  
- 	if (!ehci_found)
- 		return;
--- 
-2.34.1
+ 	if (buf == NULL)
+ 		return true;
+@@ -1227,7 +1228,7 @@ static bool posix_reparse_to_fattr(struct cifs_sb_info *cifs_sb,
+ 			WARN_ON_ONCE(1);
+ 			return false;
+ 		}
+-		fattr->cf_mode |= S_IFCHR;
++		ftype = S_IFCHR;
+ 		fattr->cf_rdev = reparse_mkdev(buf->DataBuffer);
+ 		break;
+ 	case NFS_SPECFILE_BLK:
+@@ -1235,22 +1236,23 @@ static bool posix_reparse_to_fattr(struct cifs_sb_info *cifs_sb,
+ 			WARN_ON_ONCE(1);
+ 			return false;
+ 		}
+-		fattr->cf_mode |= S_IFBLK;
++		ftype = S_IFBLK;
+ 		fattr->cf_rdev = reparse_mkdev(buf->DataBuffer);
+ 		break;
+ 	case NFS_SPECFILE_FIFO:
+-		fattr->cf_mode |= S_IFIFO;
++		ftype = S_IFIFO;
+ 		break;
+ 	case NFS_SPECFILE_SOCK:
+-		fattr->cf_mode |= S_IFSOCK;
++		ftype = S_IFSOCK;
+ 		break;
+ 	case NFS_SPECFILE_LNK:
+-		fattr->cf_mode |= S_IFLNK;
++		ftype = S_IFLNK;
+ 		break;
+ 	default:
+ 		WARN_ON_ONCE(1);
+ 		return false;
+ 	}
++	fattr->cf_mode = (fattr->cf_mode & ~S_IFMT) | ftype;
+ 	return true;
+ }
+ 
 
