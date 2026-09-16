@@ -1,32 +1,31 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E997521203;
-	Wed, 16 Sep 2026 16:54:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A81984DD3C6;
+	Wed, 16 Sep 2026 16:56:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577681; cv=none; b=fDuVPOdYjwNhf6QDV7bkkRwnxRCxMpVxe2aJ8OR+UPPdKMzGRWo3oPFVNDwhzcJwZO3qWO+bj3DMtIMy9WgjoM4E4xsB1zBtVlQNGmcwsFg52ZZm1E8LS91nngdS2pzRyQz8sugKY7B3/FwzksTf5nU0PdpaD1DqTZZTLRx9S7E=
+	t=1789577834; cv=none; b=GJ+SdsNWB3+mmH6sFKQDwgSLYAbw7CIfGSH3IAOdW1LP4kB+9oUMCjgoymjiBwX8tEXiFL4Cm7PZWat2gOEMb1qvLvCOVWMijpzDfUACNFalix6Bibvq1iuwumb0BCxcMmVCxbKGnAElcJWO4wSb/GVxk2djwKgSg8ruo9xOJJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577681; c=relaxed/simple;
-	bh=6e23mqm25si6H1wh1ucL0DzKHh3dU3bcDqWPZtiZtbw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZYHv0+1Tt1fXjIKuASmuBr1C8naHlhcKjILtJE4UxjhDT86buB3XKfqFMaszBJAi+S05W8hh03aLvACW4Of3l+fFWD0rFJbC3LI+L7EJ1ZN6/fg067zcdIGv4xWiM0b2Xbi96sVAAk9KSibLOF/Rrt/wxM1SdbYOnEO0IkVb/oo=
+	s=arc-20240116; t=1789577834; c=relaxed/simple;
+	bh=Q0vKnsBhU5N70+ASDlEYTgbNg+QlDDAhAMOMiJCKFR0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=EesBS2mJMbxxylLjqTX7ac2vFrJivlqYUqm34xCDG44GspTHLuJVkBOYnn4N+sMYaZGsR8u5x0PH5+SiGrLrIxAmB8+jX5rc+0KrJyCz5NwQiQYgD9RLr3W4R/MR7TnRMgKUDqgrlQ1eWDg0prgDySNDprF7zDIs3zOVxe9LusQ=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3pkC7yapqoQhuCA--.22465S2;
-	Thu, 17 Sep 2026 00:54:19 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowABnmEJDyqpqpxFuCA--.22468S2;
+	Thu, 17 Sep 2026 00:56:35 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: gregkh@linuxfoundation.org
 Cc: johan@kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-usb@vger.kernel.org,
-	oliver@neukum.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] USB: sierra: Fix urb leak in sierra_submit_delayed_urbs()
-Date: Wed, 16 Sep 2026 16:53:52 +0000
-Message-Id: <20260916165352.2085480-1-vulab@iscas.ac.cn>
+Subject: [PATCH] USB: usb_wwan: Fix urb leak in usb_wwan_close()
+Date: Wed, 16 Sep 2026 16:56:08 +0000
+Message-Id: <20260916165608.2085613-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -35,14 +34,14 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3pkC7yapqoQhuCA--.22465S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Kw45Cw4fWry5Zw13uFWruFg_yoW8GF13pr
-	WYgr4akr1DJF15Aw47Cw15uFyFvanFyr9Ik3y0vrW3ZF15Ja4SgFy8XwsIgr1UA397Ja4a
-	qw42grW5WryqkrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
+X-CM-TRANSID:zQCowABnmEJDyqpqpxFuCA--.22468S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JryDZFWkAry7ZryDXw4UCFg_yoWkKFb_Kr
+	n5WFnrXw4UCFs5KF13KFy3uFy3Ka1kXan7JFsagr43JFyjyFWqq3s3K393Gwnrt3yUWFn8
+	Jw1vk3yFvF1kGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbxkFF20E14v26r1j6r4UM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
 	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
 	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
 	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
@@ -51,43 +50,39 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Kw45Cw4fWry5Zw13uFWruFg_yoW8GF13pr
 	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
 	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
 	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUj
-	d-PUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEMA2qqpVhUQgAAsi
+	nmRUUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozVdRwAAsZ
 
-sierra_submit_delayed_urbs() takes a reference to each delayed urb
-with usb_get_from_anchor() before submitting it. The submit failure
-path releases the reference with usb_free_urb(), but on the success
-path the reference is never dropped: the urb is only anchored in the
-active list and the USB core unanchors it on completion, leaving the
-reference returned by usb_get_from_anchor() dangling so the urb
-object is never freed.
+usb_wwan_close() drains the delayed write urbs with
+usb_get_from_anchor(), which returns the urb with a new reference
+taken. The loop only clears the busy flag of the urb and never drops
+that reference, so each drained urb keeps one reference forever and
+the urb object is not freed when usb_wwan_port_remove() later drops
+the port's own reference.
 
-Drop the reference with usb_put_urb() after a successful submission,
-matching the reference handling in sierra_write() and the sierra_close()
-drain loop. Skip the rest of the loop body with continue on the error
-path, which already frees the urb.
+Drop the reference with usb_put_urb() once the urb has been found in
+the out_urb array by unbusy_queued_urb(), leaving the reference held
+by the port's preallocated out_urbs array.
 
-Fixes: e6929a9020ac ("USB: support for autosuspend in sierra while online")
+Fixes: 79eed03e77d4 ("USB: usb_wwan: fix urb leak at shutdown")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/usb/serial/sierra.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/usb/serial/usb_wwan.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/usb/serial/sierra.c b/drivers/usb/serial/sierra.c
-index 6e443aacae07..c11259a8e66c 100644
---- a/drivers/usb/serial/sierra.c
-+++ b/drivers/usb/serial/sierra.c
-@@ -977,7 +977,9 @@ static int sierra_submit_delayed_urbs(struct usb_serial_port *port)
- 			spin_lock(&portdata->lock);
- 			portdata->outstanding_urbs--;
- 			spin_unlock(&portdata->lock);
-+			continue;
- 		}
+diff --git a/drivers/usb/serial/usb_wwan.c b/drivers/usb/serial/usb_wwan.c
+index e752ffa4dc62..2c46330f10da 100644
+--- a/drivers/usb/serial/usb_wwan.c
++++ b/drivers/usb/serial/usb_wwan.c
+@@ -403,6 +403,7 @@ void usb_wwan_close(struct usb_serial_port *port)
+ 		if (!urb)
+ 			break;
+ 		unbusy_queued_urb(urb, portdata);
 +		usb_put_urb(urb);
+ 		usb_autopm_put_interface_async(serial->interface);
  	}
  
- 	if (ec)
 -- 
 2.34.1
 
