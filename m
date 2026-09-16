@@ -1,212 +1,164 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
+Received: from mx0b-001b2d01.pphosted.com (mx0b-001b2d01.pphosted.com [148.163.158.5])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8056F35CB7C;
-	Wed, 16 Sep 2026 21:19:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DC0BD488229;
+	Wed, 16 Sep 2026 21:34:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.158.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789593573; cv=none; b=uYmbDFIYpzxT51QrNuqv9FO3uk8LpUh5uouRJWkANIEmK3EpCuJ8Xuix5dJWPmm+rsJv4XXdsU6sPw3sNo1wazNhvj048zSWL0gnSbhNs8K4FUj44N31Hvl0i62WbuaTzgHb/9r9yYJdVJgZE0R6b9ThNJ1z6WxuW+daSILNPl4=
+	t=1789594465; cv=none; b=kElL/WDgFd25dswuzK4AvcEoT3WtMExog/Vj3gqqdf2OCSKt8DKoYR8cntJ+2aJBmnPozWe5ppHWH69nTPsFke8IsthlZSWs5u4uUK60jslFDeOepUwifdLEX4fj3o4TKhj67zh+AMwijr4jB/ZPI2JMZcx/O3Jh6nZM0gPmBUY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789593573; c=relaxed/simple;
-	bh=Jk4CsUnQWoCu3XtIjYMhAS8yDmBIce9gLNs1PdlrZ0A=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=INxec6Er3ZTT/zu6ZPEpPky08OyAwBQ8aIgMHJhqScvmG/6lpouw8oxrugZ19uRxKfODvTdRR6VxRdo56L5+imM1Ndpx5MqjsJ4P9CPfE+s7wQjuxqwIlrpXQ0UiSx8Ars+yZM3+qbEbmQqGHy6Mg4XHGV+MNy4+6MPIRWU8bRA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=M3+j/OBh; arc=none smtp.client-ip=220.197.31.3
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789594465; c=relaxed/simple;
+	bh=OxnRcXJLxFWHA/hZj4hIW4fVA48+PAX9Dgr+SJ7h00g=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=mHM430/mztaCQhcgY9BWOE1+XYqxzUNPpdPitIxjvOJq+bOTgbAzw0GO8skbCNOzwuUQTcPSKuf1o/09iv+q3CFMoZeZgg3/qiYC/3TQi0SvqoQdgvtQI4mX1+HFJeMokzYpnm7WmunLPJ+mZp5YnorgUWofkSiFmtMSiDHw/1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=hzIQvAI6; arc=none smtp.client-ip=148.163.158.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="M3+j/OBh"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=5l3OCgQkeB0cimXTGirBDTKoamgnQMpMl+ONfKkxh2E=;
-	b=M3+j/OBh4xSATHdeAtHTsyfFZOdH8Bj7Bikzb+xNjapgVYKeSxrlgu14nPKnta
-	63j9IPkvrEfa/DDmguQUYo7v/1fckop+hq0od4xleN8mAnx80PZlhXx97zZiDrhO
-	cvxOtlzCr2g07lz/FKxU26XQT6THZmCqoXK5w/Th6zxFQ=
-Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
-	by gzga-smtp-mtada-g0-2 (Coremail) with SMTP id _____wDXuxSfB6tqm9N0BA--.14008S2;
-	Thu, 17 Sep 2026 05:18:24 +0800 (CST)
-Message-ID: <4a59bafe-601e-4bf0-878e-9ae400db07c5@163.com>
-Date: Thu, 17 Sep 2026 05:18:23 +0800
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="hzIQvAI6"
+Received: from pps.filterd (m0353725.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GG1Y0F3041096;
+	Wed, 16 Sep 2026 21:33:58 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:in-reply-to:message-id
+	:mime-version:references:subject:to; s=pp1; bh=HqAw7R/fQ8z6iOXuW
+	jMtpQGnqXsXvOym+0CvIVMs8lE=; b=hzIQvAI6GjYi7Z3t8gcHTmaHwPQm7xc1p
+	BSB9RtaUEmVVtPGAniVtB5RPDzmXNQEoUYbA+7y/vGUomEGDuqmukibWlbEqzP0q
+	04As0gGB4sEj+fvZ5UHOZANDkCvupayllYPQ4p+nXVMRoVEiNfQKlsUkBjWOZMkr
+	nH+v9pIxfjAHTr7TEIsBy1c5pozGS8wHLAyoiwTc9YbyK/bk7Lu9HDCjlidkKI85
+	BIkVizJrp/MY0X2cl8RAWoSKB12bQ9KigDEAg5hbf1yObIVEl03rubg2MHYlhrDG
+	d2u/lgiQm5ApxLrHSUeK3IWL+Df0NP+if2r034IEHX3WlXrTv5SSw==
+Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmw5e6u4m-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 21:33:58 +0000 (GMT)
+Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GJ1Ovx1625860;
+	Wed, 16 Sep 2026 21:33:57 GMT
+Received: from smtprelay07.dal12v.mail.ibm.com ([172.16.1.9])
+	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gpyxsgm6t-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 21:33:57 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (smtpav03.wdc07v.mail.ibm.com [10.39.53.230])
+	by smtprelay07.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68GLXt8Z30147182
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Wed, 16 Sep 2026 21:33:55 GMT
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 3B84D58062;
+	Wed, 16 Sep 2026 21:33:55 +0000 (GMT)
+Received: from smtpav03.wdc07v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id E7CA65805A;
+	Wed, 16 Sep 2026 21:33:52 +0000 (GMT)
+Received: from Mac.ibm.com (unknown [9.61.251.90])
+	by smtpav03.wdc07v.mail.ibm.com (Postfix) with ESMTP;
+	Wed, 16 Sep 2026 21:33:52 +0000 (GMT)
+From: Omar Elghoul <oelghoul@linux.ibm.com>
+To: linux-s390@vger.kernel.org, linux-kernel@vger.kernel.org,
+        kvm@vger.kernel.org
+Cc: oelghoul@linux.ibm.com, hca@linux.ibm.com, gor@linux.ibm.com,
+        agordeev@linux.ibm.com, borntraeger@linux.ibm.com, svens@linux.ibm.com,
+        schnelle@linux.ibm.com, mjrosato@linux.ibm.com, alifm@linux.ibm.com,
+        farman@linux.ibm.com, gbayer@linux.ibm.com, pasic@linux.ibm.com,
+        alex@shazbot.org, stable@vger.kernel.org
+Subject: [PATCH v6 1/4] s390/pci: Hold fmb_lock when enabling or disabling PCI devices
+Date: Wed, 16 Sep 2026 17:32:19 -0400
+Message-ID: <20260916213222.233-2-oelghoul@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260916213222.233-1-oelghoul@linux.ibm.com>
+References: <20260916213222.233-1-oelghoul@linux.ibm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 6/7] ntfs: check the dirty-state commit on remount and
- unmount
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, Baolin Liu <liubaolin@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
- <20260915083252.812126-7-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260915083252.812126-7-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDXuxSfB6tqm9N0BA--.14008S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxtw4DurW7Kr45Ar17XF4ktFb_yoW7Kry7pF
-	9xArn3GayDtr12kwsIvFW2gFWfW3s3Cay7Xr17Gr1xXws5Kr17K348tw1Fga40yr95Jw1x
-	XF4kKw1YgF98uFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxxhLUUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbCwgBvOmqrB6DG7AAA3b
+X-TM-AS-GCONF: 00
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDMwMCBTYWx0ZWRfXx6OZl6jzwu2a
+ hP6JILMGlDr7AtjWXnSGAhSBwOEuapCtd8yWBqzkzdk94b2W0CvsoopeSLC5H8iZAUSgPpDovdt
+ sGom4v7HrssIKaPFV8rWYRq3YsMqfjIquZpu9XwgZD0IHySFenTaxKpueGSICDSHO/nv8m2Nmdh
+ hgttIcOeNLGcgULw2c8fm0DgMdZqmSYxMkdIe5c6IEEMeQLTZFQeEGxapf70dcR9OWI3aLwN9LV
+ 3/KtzrKUuU2/kDZsm26vyAvHZW92cMSIKgxAZFxT7UGhvtwDYvXNUamqcLXUC8BmegCpKHm7R3d
+ ZZqhUfnCICrJLThq+dzadvYl0AUr0TaSvxkbb0FTyMYIbjPaToXdWKiczCslPJI9VE5rzxkqcHa
+ NSNR8sfeTMKAG8nuVSgHRPcAMYgPpx5T+IvmyEfsHVOv/1Z2Y1K4wWpwYD6oLtZPy6rYPpEWwJm
+ 4Lp9fOkbNNmt8QbOTcA==
+X-Authority-Analysis: v=2.4 cv=E/NYNqdl c=1 sm=1 tr=0 ts=6aab0b46 cx=c_pps
+ a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=V8glGbnc2Ofi9Qvn3v5h:22 a=VwQbUJbxAAAA:8 a=VnNF1IyMAAAA:8
+ a=5NbLduwtq9nBFWGw9KEA:9
+X-Proofpoint-ORIG-GUID: ogkhzlbF3YJhBJMImhqUKBzov9GWgPNE
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDMwMCBTYWx0ZWRfX07zupqKskldX
+ sxmqJ8QEen6Sr0EUgcreWKLImxSpD1sq2PkKsTMRsoIKpd8bl+dkg20fjVo1o/helieEC0zyBcN
+ 1vibTM2LzH2bjL6ZUx5j5JNGUFFmk4c=
+X-Proofpoint-GUID: ogkhzlbF3YJhBJMImhqUKBzov9GWgPNE
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ impostorscore=0 lowpriorityscore=0 priorityscore=1501 spamscore=0
+ adultscore=0 clxscore=1011 bulkscore=0 malwarescore=0 suspectscore=0
+ phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609160300
 
+Ensure that fmb_lock is held by pcibios_enable_device() and
+pcibios_disable_device() when calling zpci_fmb_enable_device() or
+zpci_fmb_disable_device(), respectively. Additionally, assert that the
+fmb_lock is held within the latter two functions to prevent future race
+conditions regarding new callers.
 
+Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
+Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
+Cc: stable@vger.kernel.org
+Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
+Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+---
+ arch/s390/pci/pci.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-在 2026/9/15 16:32, Hongling Zeng 写道:
-> The remount-to-read-only path commits the updated volume flags with
-> ntfs_commit_inode(), a void wrapper around __ntfs_write_inode(), and
-> ignores the blkdev_issue_flush() return value, so a failed commit or
-> flush is reported as success.  Once the remount has succeeded no
-> persistence point is ever reached again: ntfs_put_super() skips
-> read-only superblocks and the VFS never syncs one, so fail the
-> remount unless the commit and the flush succeed.  The superblock
-> then stays read-write and ntfs_put_super() retries the persistence
-> at unmount.  The errors=remount-ro downgrade does not go through
-> ntfs_reconfigure() and is unchanged.
-> 
-> A zero-return commit is not trusted blindly: write_mft_record()
-> redirties the record on allocation failure and reports success, so
-> the $Volume inode is required to be clean afterwards.
-> 
-> ntfs_put_super() discards the same commit error.  Call
-> __ntfs_write_inode() there with the same dirty re-check and warn on
-> failure, as put_super() cannot return an error.  The commit is
-> skipped when the dirty-state sync itself failed, as that could write
-> back an inconsistent flag state; a record left dirty by an earlier
-> update is still committed at evict time.
-> 
-> NVolErrors() is deliberately not used to detect the failure: it is
-> sticky for the lifetime of the mount, so it cannot distinguish a
-> fresh commit failure from errors recorded before the remount.
-> 
-> Hibernated volumes: ntfs_sync_volume_dirty_state() is a no-op for
-> them and never dirties the $Volume inode on such a mount, since the
-> on-disk flags are already dirty and ntfs_set_volume_flags() has
-> nothing to change.  The commit only runs if something dirtied the
-> inode independently, as before this patch; mounting hibernated
-> volumes read-only removes even that.
-> 
-> Reported-by: Baolin Liu <liubaolin@kylinos.cn>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/super.c | 76 +++++++++++++++++++++++++++++++++++--------------
->   1 file changed, 54 insertions(+), 22 deletions(-)
-> 
-> diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-> index 463050ae1b0e..0228d7429596 100644
-> --- a/fs/ntfs/super.c
-> +++ b/fs/ntfs/super.c
-> @@ -268,6 +268,7 @@ static int ntfs_reconfigure(struct fs_context *fc)
->   {
->   	struct super_block *sb = fc->root->d_sb;
->   	struct ntfs_volume *vol = NTFS_SB(sb);
-> +	int err;
->   
->   	ntfs_debug("Entering with remount");
->   
-> @@ -324,14 +325,39 @@ static int ntfs_reconfigure(struct fs_context *fc)
->   		 * and ntfs_put_super() skips them, so the only remaining
->   		 * write would be the evict-time commit at unmount, which
->   		 * a crash never reaches.  An error recorded only after
-> -		 * the remount is still never persisted.
-> +		 * the remount is still never persisted; a failed commit
-> +		 * or flush fails the remount, leaving the superblock
-> +		 * read-write so ntfs_put_super() retries at unmount.
->   		 */
-> -		if (ntfs_sync_volume_dirty_state(vol)) {
-> +		err = ntfs_sync_volume_dirty_state(vol);
-> +		if (err) {
->   			ntfs_warning(sb,
->   				"Failed to update dirty bit in volume information flags.  Run chkdsk.");
-> -		} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> -			ntfs_commit_inode(vol->vol_ino);
-> -			blkdev_issue_flush(sb->s_bdev);
-> +			return err;
-> +		}
-> +		if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> +			/* ntfs_commit_inode() would discard the error. */
-> +			err = __ntfs_write_inode(vol->vol_ino, 1);
-> +			if (err) {
-> +				ntfs_warning(sb,
-> +					"Failed to commit volume information flags.  Run chkdsk.");
-> +				return err;
-> +			}
-> +			/*
-> +			 * write_mft_record() redirties the record on
-> +			 * -ENOMEM and still reports success.
-> +			 */
-> +			if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> +				ntfs_warning(sb,
-> +					"Volume information flags remain dirty after commit.  Run chkdsk.");
-> +				return -EIO;
-> +			}
-> +			err = blkdev_issue_flush(sb->s_bdev);
-> +			if (err) {
-> +				ntfs_warning(sb,
-> +					"Failed to flush volume information flags.  Run chkdsk.");
-> +				return err;
-> +			}
->   		}
->   	}
->   
-> @@ -1876,26 +1902,32 @@ static void ntfs_put_super(struct super_block *sb)
->   		if (ntfs_sync_volume_dirty_state(vol)) {
->   			ntfs_warning(sb,
->   				"Failed to sync dirty bit in volume information flags.  Run chkdsk.");
-> -		} else if (NVolErrors(vol)) {
-> +		} else {
->   			/*
-> -			 * The dirty bit is on disk now; only warn when the
-> -			 * sync actually succeeded, or this message would
-> -			 * contradict the one above.
-> +			 * __ntfs_write_inode(), not the void
-> +			 * ntfs_commit_inode() wrapper: the error can only
-> +			 * be warned about here.  The mirror inode is only
-> +			 * released below: writing the $Volume record (mft
-> +			 * record number 3, below vol->mftmirr_size) mirrors
-> +			 * it through ntfs_sync_mft_mirror(), which fails
-> +			 * with -EIO once vol->mftmirr_ino is gone.
->   			 */
-> -			ntfs_warning(sb,
-> -				"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-> +			if (__ntfs_write_inode(vol->vol_ino, 1)) {
-> +				ntfs_warning(sb,
-> +					"Failed to commit volume information flags.  Run chkdsk.");
-> +			} else if (NInoDirty(NTFS_I(vol->vol_ino))) {
-> +				ntfs_warning(sb,
-> +					"Volume information flags remain dirty after commit.  Run chkdsk.");
-> +			} else if (NVolErrors(vol)) {
-> +				/*
-> +				 * Only warn once the commit has succeeded,
-> +				 * or this could contradict a failure
-> +				 * reported above.
-> +				 */
-> +				ntfs_warning(sb,
-> +					"Volume has errors.  Leaving volume marked dirty.  Run chkdsk.");
-> +			}
->   		}
-> -		/*
-> -		 * Commits the updated volume flags if they were written.
-> -		 * The mft mirror must still be around for this: the
-> -		 * $Volume record (mft record number 3, below
-> -		 * vol->mftmirr_size) is mirrored by write_mft_record()
-> -		 * through ntfs_sync_mft_mirror(), which fails with -EIO
-> -		 * and leaves the mirror stale once vol->mftmirr_ino is
-> -		 * gone, so the mirror inode is only released after this
-> -		 * commit.
-> -		 */
-> -		ntfs_commit_inode(vol->vol_ino);
->   	}
->   
->   	/*
-
-Looks good to me.
-
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+diff --git a/arch/s390/pci/pci.c b/arch/s390/pci/pci.c
+index d64c544b32b0..c055a9ad0972 100644
+--- a/arch/s390/pci/pci.c
++++ b/arch/s390/pci/pci.c
+@@ -173,6 +173,8 @@ int zpci_fmb_enable_device(struct zpci_dev *zdev)
+ 	unsigned long flags;
+ 	u8 cc, status;
+ 
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (zdev->fmb || sizeof(*zdev->fmb) < zdev->fmb_length)
+ 		return -EINVAL;
+ 
+@@ -211,6 +213,8 @@ int zpci_fmb_disable_device(struct zpci_dev *zdev)
+ 	struct zpci_fib fib = {0};
+ 	u8 cc, status;
+ 
++	lockdep_assert_held(&zdev->fmb_lock);
++
+ 	if (!zdev->fmb)
+ 		return -EINVAL;
+ 
+@@ -639,7 +643,9 @@ int pcibios_enable_device(struct pci_dev *pdev, int mask)
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
+ 	zpci_debug_init_device(zdev, dev_name(&pdev->dev));
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_enable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 
+ 	return pci_enable_resources(pdev, mask);
+ }
+@@ -648,7 +654,9 @@ void pcibios_disable_device(struct pci_dev *pdev)
+ {
+ 	struct zpci_dev *zdev = to_zpci(pdev);
+ 
++	mutex_lock(&zdev->fmb_lock);
+ 	zpci_fmb_disable_device(zdev);
++	mutex_unlock(&zdev->fmb_lock);
+ 	zpci_debug_exit_device(zdev);
+ }
+ 
+-- 
+2.55.0
 
