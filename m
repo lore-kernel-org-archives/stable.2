@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03245503BD6
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:18:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A014A263F
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:18:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568308; cv=none; b=clMr+V0WwuV4LEt4yjE6/BMkC9NSsU5lH9yvGSnxPFliYwPw0Vye2TQYg/VIy76WN3bdRtJEkKmFiihl7TnZ0AiaO3bNmQc1jIiU1bxzZEgVCwjOdkn792KH/Hl7i+RTjdRZiQpYHyONrKrC8ETRclFejRAKQQNwlYJ/SEDAF10=
+	t=1789568316; cv=none; b=emeAgMjOeUl035Ztol8azksluLNY1+sh2r3+Y7Ml6coA8o7X/F7lV+4SzAnp86oc2R6jcVe6s7pwAbJJCiJikmoemywv9soTe+lUVKLlM1pl4LoMecZAAPdg0lUJco+5iOML1g/6LsUddrr+Ridbfh7Bl+Ag2vAGQpLW34uRj8E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568308; c=relaxed/simple;
-	bh=ZGEzPA+3vS81VHVtjItAaLk9dTLXxiDy5Kj2h5ovVEM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=k+vUwQw/RWL17hWQFaipwr19yX5hqeufTHypOT/+lhGdu0lOT5Ca4FIiD+8ZMR8XrIR/jacFTE2h7R3Jr2ZV80Mhw/Ho5l58SPhMOWZGqHKjQMqKllcnjRP6W4uBrXiSP+fOOknQ/XXMRFs35aQ6nR7CPM7ySF2/6ABjL7AIapg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XejFLf4R; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568316; c=relaxed/simple;
+	bh=7IiMAwZ+l8z9g3u5QohqMp8auoEB7lskW+HfDP5XVww=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B8vH+mGhxUJrtJmbvlWs15dFYNmgNLPsrX7UBe5JxBK4m3yCcwBkHwPzxI4j0mtTC2NaiQGEUN2eS76nKS80FIiIb+kRQeGMctBanpFMn6KeUOEEynRe8Cc3CUZvo0+uTXxx56H4Mh5zCY/1KcSLFUPIKFMcxgBS4aOVmF+CvYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f69YQjoR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XejFLf4R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4159A1F00893;
-	Wed, 16 Sep 2026 14:18:26 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f69YQjoR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249B01F000FF;
+	Wed, 16 Sep 2026 14:18:33 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789568306;
-	bh=ycg8V6F3Jx9UFg9F0pXioyWXKkiDlDx0WYBuwOUF87A=;
+	s=korg; t=1789568314;
+	bh=75pVXo12kpJ0yKE88Igk96kbgqBQKlZWW0PERqc/4ac=;
 	h=Subject:To:Cc:From:Date;
-	b=XejFLf4RYmMQyM4hqEcBcLsCVMIyD81VH8Z1kF7kXwm00hiVO24B+IjLHacceVxVR
-	 k9Da7BayhXgFlaLVw90e9P6qo43J6ABuYmaOjR6l0jjx4aEFl31YizTYAIrosvjOA0
-	 KIO8kEd8rffUH01mC+yK4RuiINjN0yMzmdnyEJu0=
-Subject: FAILED: patch "[PATCH] tools/bootconfig: Fix integer overflow and truncation in size" failed to apply to 5.10-stable tree
-To: mhiramat@kernel.org,ekffu200098@gmail.com,sashiko-bot@kernel.org
+	b=f69YQjoRoSGhN2Z9asVPTZlzaxsbK7hQD60tNXk5z0Ji0HzCggLlVWNxuoDlJWoap
+	 VBt6mjkJ3tQnDXaS0w1+93lgsxpX0CJE9rq6z1rlWd5mKkp+Z5r51z/XSdKQpLTdmU
+	 zt/uRMJ+Hm51tWWPjy+gWH5H//mO/aywgxdAHYsw=
+Subject: FAILED: patch "[PATCH] tracing/user_events: Don't destroy fields when event removal" failed to apply to 6.1-stable tree
+To: bsdhenrymartin@gmail.com,beaub@linux.microsoft.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 15:16:17 +0100
-Message-ID: <2026091617-cackle-deeply-2ea2@gregkh>
+Date: Wed, 16 Sep 2026 15:16:33 +0100
+Message-ID: <2026091633-hardening-washed-5fd8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.10-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
-git cherry-pick -x 462d0b066b613103f579793031429db2ca23abc0
+git cherry-pick -x 2deb753127d7b7035e893955c5e91875e767d1f8
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091617-cackle-deeply-2ea2@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091633-hardening-washed-5fd8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,87 +62,90 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 462d0b066b613103f579793031429db2ca23abc0 Mon Sep 17 00:00:00 2001
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
-Date: Fri, 11 Sep 2026 00:15:24 +0900
-Subject: [PATCH] tools/bootconfig: Fix integer overflow and truncation in size
- checks
+From 2deb753127d7b7035e893955c5e91875e767d1f8 Mon Sep 17 00:00:00 2001
+From: Henry Martin <bsdhenrymartin@gmail.com>
+Date: Fri, 4 Sep 2026 19:52:23 +0800
+Subject: [PATCH] tracing/user_events: Don't destroy fields when event removal
+ fails
 
-Sashiko reported that on 32-bit systems, if an attacker crafts size in
-the bootconfig footer such that adding BOOTCONFIG_FOOTER_SIZE wraps around
-(for instance, if size is 0xFFFFFFFF), the size check in
-load_xbc_from_initrd() can be bypassed:
+destroy_user_event() destroys the event's fields before attempting to
+remove the trace event call. If user_event_set_call_visible() fails,
+e.g. because the event is still enabled and trace_remove_event_call()
+returns -EBUSY, the event is left registered with an irreversibly
+destroyed field list. Any subsequent interaction with the event then
+operates on an empty field list while it is still fully visible in
+tracefs.
 
-    if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-        pr_err("bootconfig size is too big\n");
-        return -E2BIG;
-    }
+Move the field destruction after the call removal, and splice the
+field list back onto the event when the removal fails so the event
+remains in a consistent state.
 
-Furthermore, on 64-bit systems with an initrd > 4.29 GB, comparing a
-corrupted 32-bit size (e.g. 0xFFFFFFFF) against
-stat.st_size - BOOTCONFIG_FOOTER_SIZE can also bypass the check if
-size is not bounded. Similarly, load_xbc_file() passes 64-bit stat.st_size
-directly into the 32-bit int size parameter of load_xbc_fd(), truncating
-large standalone files (>= 2GB).
-
-In both cases, passing 0xFFFFFFFF to load_xbc_fd() truncates to -1,
-resulting in malloc(0), an integer overflow in read(), and an
-out-of-bounds null-byte write.
-
-Fix this by:
-1. Rejecting size > XBC_DATA_MAX or
-   size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd().
-2. Rejecting stat.st_size > XBC_DATA_MAX in load_xbc_file() before passing
-   it to load_xbc_fd().
-3. Checking size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
-
-Link: https://lore.kernel.org/all/178905332413.213925.3179977110281463499.stgit@devnote2/
-
-Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Link: https://patch.msgid.link/20260904115223.2976446-1-bsdhenrymartin@gmail.com
+Fixes: 7f5a08c79df35 ("user_events: Add minimal support for trace_event into ftrace")
+Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
+Reviewed-by: Beau Belgrave <beaub@linux.microsoft.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
-diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 7dc9fff9b637..17d971d47f87 100644
---- a/tools/bootconfig/main.c
-+++ b/tools/bootconfig/main.c
-@@ -140,6 +140,9 @@ static int load_xbc_fd(int fd, char **buf, int size)
- {
- 	int ret;
- 
-+	if (size < 0 || size > XBC_DATA_MAX)
-+		return -EINVAL;
-+
- 	*buf = malloc(size + 1);
- 	if (!*buf)
- 		return -ENOMEM;
-@@ -168,6 +171,13 @@ static int load_xbc_file(const char *path, char **buf)
- 		return ret;
+diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
+index 93cda2f6f269..f658c3a77aa7 100644
+--- a/kernel/trace/trace_events_user.c
++++ b/kernel/trace/trace_events_user.c
+@@ -1122,10 +1122,9 @@ static void user_event_destroy_validators(struct user_event *user)
  	}
+ }
  
-+	if (stat.st_size > XBC_DATA_MAX) {
-+		pr_err("%s size is too big\n", path);
-+		ret = -E2BIG;
-+		close(fd);
-+		return ret;
+-static void user_event_destroy_fields(struct user_event *user)
++static void user_event_destroy_fields(struct list_head *head)
+ {
+ 	struct ftrace_event_field *field, *next;
+-	struct list_head *head = &user->fields;
+ 
+ 	list_for_each_entry_safe(field, next, head, link) {
+ 		list_del(&field->link);
+@@ -1502,17 +1501,32 @@ static int user_event_set_call_visible(struct user_event *user, bool visible)
+ 
+ static int destroy_user_event(struct user_event *user)
+ {
++	LIST_HEAD(fields);
+ 	int ret = 0;
+ 
+ 	lockdep_assert_held(&event_mutex);
+ 
+-	/* Must destroy fields before call removal */
+-	user_event_destroy_fields(user);
++	/*
++	 * Detach the fields before removing the call. Removing the event
++	 * frees the field list memory (trace_destroy_fields() is run on
++	 * successful removal and kmem_cache_free()s the fields), but the
++	 * fields here are allocated and owned by user_events. Destroy
++	 * them separately once removal has succeeded.
++	 */
++	list_splice_init(&user->fields, &fields);
+ 
+ 	ret = user_event_set_call_visible(user, false);
+ 
+-	if (ret)
++	if (ret) {
++		/*
++		 * Removal failed and the event stays registered, recover
++		 * the fields so it is left in a consistent state.
++		 */
++		list_splice(&fields, &user->fields);
+ 		return ret;
 +	}
 +
- 	ret = load_xbc_fd(fd, buf, stat.st_size);
++	user_event_destroy_fields(&fields);
  
- 	close(fd);
-@@ -218,7 +228,8 @@ static int load_xbc_from_initrd(int fd, char **buf)
- 	csum = le32toh(csum);
+ 	dyn_event_remove(&user->devent);
+ 	hash_del(&user->node);
+@@ -2212,7 +2226,7 @@ static int user_event_parse(struct user_event_group *group, char *name,
+ put_user_lock:
+ 	mutex_unlock(&event_mutex);
+ put_user:
+-	user_event_destroy_fields(user);
++	user_event_destroy_fields(&user->fields);
+ 	user_event_destroy_validators(user);
+ 	kfree(user->call.print_fmt);
  
- 	/* Wrong size error  */
--	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-+	if (size > XBC_DATA_MAX ||
-+	    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
- 		pr_err("bootconfig size is too big\n");
- 		return -E2BIG;
- 	}
 
