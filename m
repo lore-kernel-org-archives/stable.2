@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 491DC45D5FC
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:13:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2641456287
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:13:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546394; cv=none; b=mtfFkTRkzsHAtweKtfg4REveVzkrKjgQFe4ahZ2weSYYVav0aHM64Sw7lrWVoauQKjRO3JB7E88ut/sb/MOYihQf8mSyHDa5hoIrSfmVan8mO4IfHcZ6I4E/AU7YRpuTBhFiExSWKF6H1OUzbjdFD1Oepmm2YIOQeO+D528A2ng=
+	t=1789546400; cv=none; b=fvsTA9TfABMg2p+6Nezt/jtdadpn1sVfxQxZsmKN2hKTv/HTRuJ3prkpfSfSZS6LPZXxSZba8qH8G5apGo0Xu/sXvbgdETBr9JwkIJaUK0dPZaaIRvLcgnfQJWWDi0cH+fVIbHpgK0NtxplnTagdURWA5Sk2BPVWFDoepmswt8s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546394; c=relaxed/simple;
-	bh=V4hqeLtJv41RldpMWflsAZNdh9eoIhX+fQntKq+wUxA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tJN51TtxAQtXWu9krBv9RZirL3HWcah0tQ59/c9uIRJBvVZuEI3vZ3tzn6KLgG1Zzmd+3svGH5OqUmyc6Hqg+98qEzGLddssx0OR6LxOO3S2DOM47UZtONTFfurekCvqAeZyT0NjU4i0AT0vV94+DzW+jgl1mf+mfw4rZyScEUo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nBVuahB6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546400; c=relaxed/simple;
+	bh=nLZW4puI5z1CCxymFu29IeXgrsLDCD77GmMlMrmM5FA=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=FPsRxKA3voamb6LmgSh3uh1ePNSk0P8gT9whXnzUJtvfYRkx9vZw3WB4ZPJqbTFi4HoaMhQJ68zmO2ND7lNReFFIpAmMCRQWrHisQTMgh8Sq8VievCwzLtY9Gsk/vaq6TwNT6VoJOWfBZqeKiZqaJPMHJjUXGuyJsm7HpBsLt1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SJ/UJEMU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nBVuahB6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D0981F00898;
-	Wed, 16 Sep 2026 08:13:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SJ/UJEMU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC17A1F000FF;
+	Wed, 16 Sep 2026 08:13:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789546382;
-	bh=XQRAkiNDggQbalay8w08+oHbcNkbupwMYh2o0q9VWaw=;
+	s=korg; t=1789546389;
+	bh=iScO/Bt92Uo6TBpFC7eSzODwB4BqtiZTxJD4tcX7rsM=;
 	h=Subject:To:Cc:From:Date;
-	b=nBVuahB6HIhLOE2nwC+S5FmriCc9M/rP1TQvf7+9wqCE1azRzx0ZfDOm2itMW40JX
-	 nPJ+nw4sXUYn7J6xsF3X7IXkiGQ5DUOlWs8tCfYAQih3XCeeoNB3HqRxgypnwYAzQt
-	 bI5c18RF5xbx86y/hPnuFkRCh3WF+b4zAgk0S/v0=
-Subject: FAILED: patch "[PATCH] ipmr: account multicast table and route memory" failed to apply to 6.6-stable tree
+	b=SJ/UJEMU+ZuoPvh9twSu8EXMqf/LU/dJPMnCSv2qMfijzhKtGDqppIdJ7pscLAfO8
+	 o0z97nMzuOKXjOde39oXynmH3S8wpZM1Yk6v5xJd85K+LxeSX/rVckCUXZdepH63dm
+	 SGz5m6w0sINJ4Z+2QVU4YH7dO6g4lSQkWFgYblDk=
+Subject: FAILED: patch "[PATCH] ipmr: account multicast table and route memory" failed to apply to 5.15-stable tree
 To: zihanx@nebusec.ai,idosch@nvidia.com,kuba@kernel.org,vega@nebusec.ai
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 09:11:04 +0100
-Message-ID: <2026091604-blurred-reheat-c2d3@gregkh>
+Date: Wed, 16 Sep 2026 09:11:06 +0100
+Message-ID: <2026091606-neurosis-primp-db10@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 5.15-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
 git checkout FETCH_HEAD
 git cherry-pick -x b7ee18725f2292ab554aa96a101ae42d45f008bd
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091604-blurred-reheat-c2d3@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091606-neurosis-primp-db10@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
 
 Possible dependencies:
 
