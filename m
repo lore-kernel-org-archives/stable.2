@@ -1,35 +1,39 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8663E4AEBEF;
-	Wed, 16 Sep 2026 09:48:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D95DD463B87;
+	Wed, 16 Sep 2026 09:49:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789552149; cv=none; b=sdjGSxLfU6Unmzm5HFKeifs2+VyIsb1JsIEJ+XIiDj3SnPl1RF2XtBzJPajg0iP7CsmiaXqyREcemJoM0asTsYC6+y/7VoIYxr3yuwEEv66MmXTP/KubNz231mZxsbZFzodFqRoqjiEA6hANmCeq71ciSovAtalcIUDrg7v4iPk=
+	t=1789552156; cv=none; b=I/LdLlvGYEyMjhsvnv42Kgsj4vBKSkoPeYMdEfrqibZ18GlE1XDDxSow3e1ClGcFObF6iJPSI/Kri2TMmxn518o37lABGBhFZiL2bfpSIg3ydc2DD8+nhh16hdiiXvdx2Dlkqvs8QEx6l/HYqyGv0OLSq+b4U3xjrG2qNdFuwXY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789552149; c=relaxed/simple;
-	bh=yNZKSeD9djGtz5o/sJAjhbLIc6ZrYenwtSjaIgHcp50=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=U8lWLRMx0SvOjKHiBsDpF0hkOjgXLN+i1N87cYQoXPMw1TV0H4sadLaLXxK4Xm+tAzQya/59S5oC/6pWV5b9bJL1KtBFFN9WBgv4X+da6Gyx0kFFSeXS19zPy93kZWbjkra/p84XsNq+coD6MDeIXUjyd/77nk/lH0NwB7ePG0M=
+	s=arc-20240116; t=1789552156; c=relaxed/simple;
+	bh=nxEa1SHRcp4QPJ98V/dVdmArJyWqotnwbQb8eMyfAIA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j0/H44+YG7U6RkYuzORAPKgnZcM0oDFd39qFLOvNBeNMjcDWSAoTzIj1Z/kZdBEkWzdOXdCsrCE9v0eMBSNvXUrgFPXHX9XnzxIfpyXg13umvtLID/9OLIainNAQoCGCuLN5pO4DN4FH1tP3SC5ic8QilcDtCOdsVOOV3qG8dIk=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACXmjj9ZapqLKXgBw--.61487S2;
-	Wed, 16 Sep 2026 17:48:45 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowADX2jj+ZapqO6XgBw--.42993S2;
+	Wed, 16 Sep 2026 17:48:46 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: axboe@kernel.dk
-Cc: bvanassche@acm.org,
-	danil.kipnis@cloud.ionos.com,
-	haris.iqbal@ionos.com,
-	jgg@ziepe.ca,
-	jinpu.wang@ionos.com,
-	linux-block@vger.kernel.org,
+To: airlied@gmail.com
+Cc: airlied@redhat.com,
+	dri-devel@lists.freedesktop.org,
+	gregkh@linuxfoundation.org,
+	jeff.hugo@oss.qualcomm.com,
 	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	mwen@igalia.com,
+	ogabbay@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] rnbd-srv: Fix sess_dev use-after-free in process_msg_close()
-Date: Wed, 16 Sep 2026 09:48:17 +0000
-Message-Id: <20260916094817.2007756-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm: Fix device leak in drm_dev_init()
+Date: Wed, 16 Sep 2026 09:48:18 +0000
+Message-Id: <20260916094818.2007896-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -38,59 +42,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACXmjj9ZapqLKXgBw--.61487S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AF1fAFW8Kr47JFy3uF17Wrg_yoW8GFyxpa
-	y0y3Wj9ryFkF4UG3yDZw4xuFWYyan2y3y8Cr1xur1UZ345ZFy2vFn3X34xJF1qqry8Can0
-	qFn5JayrCw1Yya7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9a14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
-	JVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJr
-	UvcSsGvfC2KfnxnUUI43ZEXa7VUbtl1PUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqP4efBQAAs2
+X-CM-TRANSID:rQCowADX2jj+ZapqO6XgBw--.42993S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GrWkuw13Jr48Wr4DWw47twb_yoWkurc_CF
+	15Zr9rXr1vkrykJrnIy3W3ZrWayF4j9rZ3Jr17tayfKrWUXF12vrWj9r90qw1UWr43AFZ8
+	Jas7ur4Syr1xWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbakFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJb
+	IYCTnIWIevJa73UjIFyTuYvjfUogAwDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqP4efBgAAs0
 
-process_msg_close() drops the device reference with rnbd_put_sess_dev()
-before using sess_dev again in rnbd_srv_destroy_dev_session_sysfs().
-If that put drops the last kref, e.g. when the device is concurrently
-being torn down through rnbd_srv_sess_dev_force_close(), the waiter in
-rnbd_destroy_sess_dev() is woken up and frees sess_dev, so the
-subsequent rnbd_srv_destroy_dev_session_sysfs() call operates on freed
-memory.
+drm_dev_init() takes a reference to the parent device with
+get_device() and releases it later through the drm_dev_init_release()
+drmm action, which is only registered later in the initialization.
+The check rejecting a driver that is both a compute acceleration and
+a graphics driver returns -EINVAL before that action is armed, leaking
+the device reference.
 
-Move the rnbd_put_sess_dev() call after the sysfs teardown so it is the
-last access to sess_dev.
+Drop the device reference on the feature check error path before
+returning.
 
-Fixes: 2de6c8de192b ("block/rnbd: server: main functionality")
+Fixes: 7428ff70a18a ("drm: initialize accel framework")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/block/rnbd/rnbd-srv.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/drm_drv.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/block/rnbd/rnbd-srv.c b/drivers/block/rnbd/rnbd-srv.c
-index 10e8c438bb43..2ebc2eac384f 100644
---- a/drivers/block/rnbd/rnbd-srv.c
-+++ b/drivers/block/rnbd/rnbd-srv.c
-@@ -361,10 +361,10 @@ static void process_msg_close(struct rnbd_srv_session *srv_sess,
- 	if (IS_ERR(sess_dev))
- 		return;
+diff --git a/drivers/gpu/drm/drm_drv.c b/drivers/gpu/drm/drm_drv.c
+index 675675480da4..b4c0a3b03b6f 100644
+--- a/drivers/gpu/drm/drm_drv.c
++++ b/drivers/gpu/drm/drm_drv.c
+@@ -729,6 +729,7 @@ static int drm_dev_init(struct drm_device *dev,
+ 				(drm_core_check_feature(dev, DRIVER_RENDER) ||
+ 				drm_core_check_feature(dev, DRIVER_MODESET))) {
+ 		DRM_ERROR("DRM driver can't be both a compute acceleration and graphics driver\n");
++		put_device(dev->dev);
+ 		return -EINVAL;
+ 	}
  
--	rnbd_put_sess_dev(sess_dev);
- 	mutex_lock(&srv_sess->lock);
- 	rnbd_srv_destroy_dev_session_sysfs(sess_dev);
- 	mutex_unlock(&srv_sess->lock);
-+	rnbd_put_sess_dev(sess_dev);
- }
- 
- static int process_msg_open(struct rnbd_srv_session *srv_sess,
 -- 
 2.34.1
 
