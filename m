@@ -1,141 +1,274 @@
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F6BE352021;
-	Wed, 16 Sep 2026 05:16:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE44A3CBE80;
+	Wed, 16 Sep 2026 05:18:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789535816; cv=none; b=T4YMD42t4ykISh/GvXebBRq4g2ZjK1ewuI4iHgovg9beIjaDMrvX7DinR8+EJLzCStq69aFATa8e67b6EEMpPOvqxmiyEDbC6rV8Jd/V9i1f7Br0UGz53IvkMoLSTlarJW7WDQUML9VMX74Y5pbD5rqJCVxnQJccNOKcIZLrgl0=
+	t=1789535890; cv=none; b=tLEQWxBcadMgufIpjnPAT3ndqi+CjEjop4nBcYHaqCnEW2NcsjRdmlTflmFvB8B808Z/H/8tAjNOELZqwsXWEj7cj//KsvG8rRzBRhWiTo54TxCVhICBsGRA3Gdyn+3JAX9eBmVgBAjvGfLOYlWPTvYoZ5DGDyhEBgnK21mbT5o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789535816; c=relaxed/simple;
-	bh=ZZ3gNLyt0OSmF1y+hffBPyCkPhdUi+kh9g0lgY5Iqrg=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=hfhdvDk10lo63MX3y1788WNnM9v27LXghsYUCTNKCuOjikyWx3lFe5tEhrCmfTprApd/abte+zpC3oNKo0pqksCWzLfxjNW7PvQEBFcQXieBH59D2BhFXDBEgVbTKmt1PXLCqPjbxqirRTsXz5A4bqX/2DPpLzzajayoGKkbOfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=WtNBAhD3; arc=none smtp.client-ip=162.62.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1789535890; c=relaxed/simple;
+	bh=7K9m8F0mD1KG4TcDKDJKxVH0VueNV6FDVlQ8Ad7+dF4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hGPTKHZ92TpuSD2C8TmzSunC+TMvJ7tEfS8K0XnO2qUiqGDZMn81ismRfrDNV2vqYuoqKxeiRX7HuBWtor+MElLUw4JB56naXa7mX29Rro2ZxGFnEYH96UHA/0KIKayl4yaFM0iGVc6DwLnzQH88xMvy0B901cHpwpHTVvmuQ+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Pd9w6tb9; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="WtNBAhD3"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1789535805; bh=dCDMN4tIAKy5rSMRvJj9LYg8yQ6X6N8fomnvsEyzGLE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WtNBAhD3BQnDBB2PZCEr0igPQy+UygHOwyuVjNGIp6zrnEIoZZN/8y5Zd4TW0rDhM
-	 1UXe1g2bb4IQJIQZGmcJqoBFnwUiWqlYy4BpbMAmO/sKteYZTKIkRQpr5KT2ICl83F
-	 uKobaKrZU3V+T5d9vrDwKNdVZaHqz7gwQgveoycY=
-Received: from ubuntu.. ([123.52.25.101])
-	by newxmesmtplogicsvrsza73-0.qq.com (NewEsmtp) with SMTP
-	id 42B28227; Wed, 16 Sep 2026 13:16:43 +0800
-X-QQ-mid: xmsmtpt1789535803tcnad7rxv
-Message-ID: <tencent_17320F87E281276888825B1844508C179506@qq.com>
-X-QQ-XMAILINFO: ONRS4p13EOE4tl3RfVbjJ398uTcnpc9FB430l542518BMkpKiQOnkqKg+8taH8
-	 /zEnPZKnLT/A0V+0d+HjnfjkYqRUosT4SL9FEyYNLjaOr+BGhbIacRPL7/ydiKfrKDTAU/zIWNWI
-	 P/VRuURZI5kCSMhGqk6Em4nRRELKTXwYxWbzid0r70b89gv1iq6eetZt3yU8DkAAy/YUPoVO3Ykj
-	 dmu6H2tX5daBFdNyRToMy7CzfrSoY19ZEmOWNIbfWYjGd9k68hjIX70Vi1nitACT2En8E7L76QSJ
-	 rjnfB624UAzyj7GP7lxWxHQOPdDSppg4HLq7EuKlC0HnDbMTo0wh3V4c7J/lQJShwYKrfDba9rj5
-	 ErJQ/x/tcxUH33woqgksVo+0rCaPDF30HP6e5KRBxKDzVVU8YU94qQqSk5Oi8F9t7u4oBExrsIdN
-	 BWeJlOabSW/NnRwmfgoYvD17GD3Ohu6KzcEHQzzlkCTaqZ6Rd/A8ZsTa8gS6I/m+68hLUyY3J8LC
-	 ubS+LKaIIGEzzIne8CHJ/YbBhne8FSsSUHwl1hA7RhQ5z3MMUupPUds83LDS7eS+uDv62K0GC65d
-	 wwSmc1xW3udWF2WOHNgBMvN6ihnvZxTPQ45Ntucd9RcBoIFbLCR5VoGttdsJgyxtFKaRZE22k8cH
-	 2vi/mE+w5x6V1rguVFBT6VbhT0+hiXW15+f+hkd/zOQYByHNnO2n4tCvg9TN5mPwhWlem5rHgDub
-	 qBY5vm91X3x0TO7WSSp8XK/Oy9cu3mkVkpY29gtmXw3ygQmmjr8RaCxAgVpDYp0IhJwr//Ap2Hf2
-	 DzdSjBLT9unAu/sTOr2VmM5Rf2wZeUVimjZzR+V7n04IFVtAsKQpmdzR4Do6Bh5rlIYbaOAws0Y6
-	 Gk1FGy/aiug7TqL1jVFeoIn+VvLvDJBCmEXl8pv9x6FHBCkIoGjlzDduOA+1bWCZORIkqQYzeolP
-	 0h9MDJfUlGF+h/HGAyZRxJ34Uf5fwPNggP3zIUXt+UBi+PeV6PX/Oe87Qe6TlkCKi9T0ACTns2CS
-	 2ujnKBpYZmbGfHt/h12McP9PX1rD81mOUO+OyJOAfblV76t4f1ZQ2sgy6AuNPv7SQRW9/i2bQUm0
-	 FCnkPFE6qruiJxkQuOESUk9Y3ZcCH39j0ZBlUx
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-From: Guanghui Yang <3497809730@qq.com>
-To: linux-btrfs@vger.kernel.org
-Cc: wqu@suse.com,
-	boris@bur.io,
-	dsterba@suse.com,
-	mason@kernel.org,
-	fdmanana@suse.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Guanghui Yang <3497809730@qq.com>
-Subject: [PATCH v3] btrfs: clear free space tree creation state on rebuild failure
-Date: Wed, 16 Sep 2026 05:16:38 +0000
-X-OQ-MSGID: <20260916051638.386366-1-3497809730@qq.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <tencent_705010B6315454003C478AE79E1F215E6E08@qq.com>
-References: <tencent_705010B6315454003C478AE79E1F215E6E08@qq.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Pd9w6tb9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789535885; x=1821071885;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=7K9m8F0mD1KG4TcDKDJKxVH0VueNV6FDVlQ8Ad7+dF4=;
+  b=Pd9w6tb9mhG5ljwwppW1v5mbGVRPq9YIWp5wRjCranDIsp2qf99VnspJ
+   NotvAz4FI+Aou1X6o/kNOo+6hBmbu1hiwBrv1yH6xicVwgBrM0DbaHZcR
+   86pqOAblgiYdkPCnKqHGtJwt4wCu4mOgY+y1IJ8Vjp/9vmj7XUh9Hwjka
+   s+FSgvzOMRk2/hJ4eT4TqNkQBThfyOiWTJzECfkN0AhhpIMbUiebzLq8o
+   bt83FzYbcLRKOUAGCeg9LHdofpUrg+pPMUzeguXB5oCI4EFH34wfC/p+1
+   He7ciRQDHyth9MkF0KVipPFcpYLkarIln8tlv43yv90Mjo9XrniApOVJq
+   A==;
+X-CSE-ConnectionGUID: fOMs1mN3TniWtEJI5hn/mA==
+X-CSE-MsgGUID: U3c0mfJNQO+fFbxIzwWH5A==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107416577"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="107416577"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 15 Sep 2026 22:17:59 -0700
+X-CSE-ConnectionGUID: e4iKesyjTzeod7b1HLHAUQ==
+X-CSE-MsgGUID: i4wUTo/ZSzGY0adSHgPQTg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="267017284"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa009.fm.intel.com with ESMTP; 15 Sep 2026 22:17:56 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x6i1p-000000005X7-0J2U;
+	Wed, 16 Sep 2026 05:17:53 +0000
+Date: Wed, 16 Sep 2026 13:17:23 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+	Vikash Garodia <vikash.garodia@oss.qualcomm.com>,
+	Dikshita Agarwal <dikshita.agarwal@oss.qualcomm.com>,
+	Bryan O'Donoghue <bod@kernel.org>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	Jorge Ramirez-Ortiz <jorge.ramirez@oss.qualcomm.com>,
+	linux-arm-msm@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
+	linux-media@vger.kernel.org,
+	Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
+Subject: Re: [PATCH] media: venus: avoid HFI resource leak on IRQ request
+ failure
+Message-ID: <202609161343.qH6ypqkG-lkp@intel.com>
+References: <20260915123009.2420780-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915123009.2420780-1-lgs201920130244@gmail.com>
 
-btrfs_rebuild_free_space_tree() sets
-BTRFS_FS_CREATING_FREE_SPACE_TREE before rebuilding the free space tree.
-Several error paths return without clearing this flag.
+Hi Guangshuo,
 
-The transaction restart failure path can leave the flag set on a live
-filesystem, causing delayed reference processing to be skipped. Clear it
-on all free space tree rebuild failure paths. Keep
-BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED set, since a failed rebuild leaves the
-free space tree untrusted. Callers must fall back to extent-tree caching.
+kernel test robot noticed the following build warnings:
 
-Fixes: 882af9f13e83 ("btrfs: handle free space tree rebuild in multiple transactions")
-Cc: stable@vger.kernel.org # 6.14+
-Tested:
-  xfstests btrfs/015 btrfs/032 btrfs/104 btrfs/131 btrfs/352 (pass)
-  xfstests btrfs/quick: 261 passed, 30 failed, 90 not run on
-  Ubuntu 5.15.0-60-generic
-Assisted-by: LLM
-Signed-off-by: Guanghui Yang <3497809730@qq.com>
----
- fs/btrfs/free-space-tree.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+[auto build test WARNING on linuxtv-media-pending/master]
+[also build test WARNING on media-tree/master linus/master v7.3-rc3 next-20260914]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-diff --git a/fs/btrfs/free-space-tree.c b/fs/btrfs/free-space-tree.c
-index 1b3d82ae3de8..b7a4a6ade30f 100644
---- a/fs/btrfs/free-space-tree.c
-+++ b/fs/btrfs/free-space-tree.c
-@@ -1353,7 +1353,7 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
- 	if (unlikely(ret)) {
- 		btrfs_abort_transaction(trans, ret);
- 		btrfs_end_transaction(trans);
--		return ret;
-+		goto out_clear;
- 	}
- 
- 	node = rb_first_cached(&fs_info->block_group_cache_tree);
-@@ -1371,14 +1371,16 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
- 		if (unlikely(ret)) {
- 			btrfs_abort_transaction(trans, ret);
- 			btrfs_end_transaction(trans);
--			return ret;
-+			goto out_clear;
- 		}
- next:
- 		if (btrfs_should_end_transaction(trans)) {
- 			btrfs_end_transaction(trans);
- 			trans = btrfs_start_transaction(free_space_root, 1);
--			if (IS_ERR(trans))
--				return PTR_ERR(trans);
-+			if (IS_ERR(trans)) {
-+				ret = PTR_ERR(trans);
-+				goto out_clear;
-+			}
- 		}
- 		node = rb_next(node);
- 	}
-@@ -1390,6 +1392,10 @@ int btrfs_rebuild_free_space_tree(struct btrfs_fs_info *fs_info)
- 	ret = btrfs_commit_transaction(trans);
- 	clear_bit(BTRFS_FS_FREE_SPACE_TREE_UNTRUSTED, &fs_info->flags);
- 	return ret;
-+
-+out_clear:
-+	clear_bit(BTRFS_FS_CREATING_FREE_SPACE_TREE, &fs_info->flags);
-+	return ret;
- }
- 
- static int __add_block_group_free_space(struct btrfs_trans_handle *trans,
+url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/media-venus-avoid-HFI-resource-leak-on-IRQ-request-failure/20260915-203009
+base:   https://git.linuxtv.org/media-ci/media-pending.git master
+patch link:    https://lore.kernel.org/r/20260915123009.2420780-1-lgs201920130244%40gmail.com
+patch subject: [PATCH] media: venus: avoid HFI resource leak on IRQ request failure
+config: loongarch-allmodconfig (https://download.01.org/0day-ci/archive/20260916/202609161343.qH6ypqkG-lkp@intel.com/config)
+compiler: clang version 19.1.7 (https://github.com/llvm/llvm-project cd708029e0b2869e80abe31ddb175f7c35361f90)
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260916/202609161343.qH6ypqkG-lkp@intel.com/reproduce)
 
-base-commit: 587858367581b9c55c3690f4e63382ad622719d4
--- 
-2.34.1
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609161343.qH6ypqkG-lkp@intel.com/
 
+All warnings (new ones prefixed by >>):
+
+>> drivers/media/platform/qcom/venus/core.c:446:3: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+     446 |                 enable_irq(core->irq);
+         |                 ^
+   drivers/media/platform/qcom/venus/core.c:443:2: note: previous statement is here
+     443 |         if (ret)
+         |         ^
+   1 warning generated.
+
+
+vim +/if +446 drivers/media/platform/qcom/venus/core.c
+
+   379	
+   380	static int venus_probe(struct platform_device *pdev)
+   381	{
+   382		struct device *dev = &pdev->dev;
+   383		struct venus_core *core;
+   384		int ret;
+   385	
+   386		core = devm_kzalloc(dev, sizeof(*core), GFP_KERNEL);
+   387		if (!core)
+   388			return -ENOMEM;
+   389	
+   390		core->dev = dev;
+   391	
+   392		core->base = devm_platform_ioremap_resource(pdev, 0);
+   393		if (IS_ERR(core->base))
+   394			return PTR_ERR(core->base);
+   395	
+   396		core->video_path = devm_of_icc_get(dev, "video-mem");
+   397		if (IS_ERR(core->video_path))
+   398			return PTR_ERR(core->video_path);
+   399	
+   400		core->cpucfg_path = devm_of_icc_get(dev, "cpu-cfg");
+   401		if (IS_ERR(core->cpucfg_path))
+   402			return PTR_ERR(core->cpucfg_path);
+   403	
+   404		core->irq = platform_get_irq(pdev, 0);
+   405		if (core->irq < 0)
+   406			return core->irq;
+   407	
+   408		core->res = of_device_get_match_data(dev);
+   409		if (!core->res)
+   410			return -ENODEV;
+   411	
+   412		mutex_init(&core->pm_lock);
+   413	
+   414		core->pm_ops = venus_pm_get(core->res->hfi_version);
+   415		if (!core->pm_ops)
+   416			return -ENODEV;
+   417	
+   418		if (core->pm_ops->core_get) {
+   419			ret = core->pm_ops->core_get(core);
+   420			if (ret)
+   421				return ret;
+   422		}
+   423	
+   424		ret = dma_set_mask_and_coherent(dev, core->res->dma_mask);
+   425		if (ret)
+   426			goto err_core_put;
+   427	
+   428		dma_set_max_seg_size(dev, UINT_MAX);
+   429	
+   430		INIT_LIST_HEAD(&core->instances);
+   431		mutex_init(&core->lock);
+   432		INIT_DELAYED_WORK(&core->work, venus_sys_error_handler);
+   433		init_waitqueue_head(&core->sys_err_done);
+   434	
+   435		ret = devm_request_threaded_irq(dev, core->irq, hfi_isr,
+   436						venus_isr_thread,
+   437						IRQF_TRIGGER_HIGH | IRQF_ONESHOT |
+   438						IRQF_NO_AUTOEN, "venus", core);
+   439		if (ret)
+   440			goto err_core_put;
+   441	
+   442		ret = hfi_create(core, &venus_core_ops);
+   443		if (ret)
+   444			goto err_core_put;
+   445	
+ > 446			enable_irq(core->irq);
+   447	
+   448		venus_assign_register_offsets(core);
+   449	
+   450		ret = v4l2_device_register(dev, &core->v4l2_dev);
+   451		if (ret)
+   452			goto err_hfi_destroy;
+   453	
+   454		platform_set_drvdata(pdev, core);
+   455	
+   456		pm_runtime_enable(dev);
+   457	
+   458		ret = pm_runtime_get_sync(dev);
+   459		if (ret < 0)
+   460			goto err_runtime_disable;
+   461	
+   462		ret = venus_firmware_init(core);
+   463		if (ret)
+   464			goto err_runtime_disable;
+   465	
+   466		ret = venus_boot(core);
+   467		if (ret)
+   468			goto err_firmware_deinit;
+   469	
+   470		ret = venus_firmware_cfg(core);
+   471		if (ret)
+   472			goto err_venus_shutdown;
+   473	
+   474		ret = hfi_core_resume(core, true);
+   475		if (ret)
+   476			goto err_venus_shutdown;
+   477	
+   478		ret = hfi_core_init(core);
+   479		if (ret)
+   480			goto err_venus_shutdown;
+   481	
+   482		ret = venus_firmware_check(core);
+   483		if (ret)
+   484			goto err_core_deinit;
+   485	
+   486		if (core->res->dec_nodename || core->res->enc_nodename) {
+   487			ret = venus_add_dynamic_nodes(core);
+   488			if (ret)
+   489				goto err_core_deinit;
+   490		}
+   491	
+   492		ret = of_platform_populate(dev->of_node, NULL, NULL, dev);
+   493		if (ret)
+   494			goto err_remove_dynamic_nodes;
+   495	
+   496		ret = venus_enumerate_codecs(core, VIDC_SESSION_TYPE_DEC);
+   497		if (ret)
+   498			goto err_of_depopulate;
+   499	
+   500		ret = venus_enumerate_codecs(core, VIDC_SESSION_TYPE_ENC);
+   501		if (ret)
+   502			goto err_of_depopulate;
+   503	
+   504		ret = pm_runtime_put_sync(dev);
+   505		if (ret) {
+   506			pm_runtime_get_noresume(dev);
+   507			goto err_of_depopulate;
+   508		}
+   509	
+   510		venus_dbgfs_init(core);
+   511	
+   512		return 0;
+   513	
+   514	err_of_depopulate:
+   515		of_platform_depopulate(dev);
+   516	err_remove_dynamic_nodes:
+   517		venus_remove_dynamic_nodes(core);
+   518	err_core_deinit:
+   519		hfi_core_deinit(core, false);
+   520	err_venus_shutdown:
+   521		venus_shutdown(core);
+   522	err_firmware_deinit:
+   523		venus_firmware_deinit(core);
+   524	err_runtime_disable:
+   525		pm_runtime_put_noidle(dev);
+   526		pm_runtime_disable(dev);
+   527		pm_runtime_set_suspended(dev);
+   528		v4l2_device_unregister(&core->v4l2_dev);
+   529	err_hfi_destroy:
+   530		hfi_destroy(core);
+   531	err_core_put:
+   532		if (core->pm_ops->core_put)
+   533			core->pm_ops->core_put(core);
+   534		return ret;
+   535	}
+   536	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
