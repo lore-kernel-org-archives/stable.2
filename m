@@ -1,71 +1,169 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 370564E432B;
-	Wed, 16 Sep 2026 23:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1498A52E042
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:42:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602144; cv=none; b=AVwOlZAZVL+54zGrKNx1BhyvkA+Lzx7Dtp6lf67W6+Q9KO2rbGCuF+JhmFOxdkKiwOko3CP75rNv5XbUylY3oH4r64PYLhpruD7ZX4gdG5JOhOc8i4F1QAW4pz8zpdE836PIghQwLXKzk6xT3GP0vBojuUtvzZtIHsAKYZzI4CI=
+	t=1789602165; cv=none; b=t+W+y0dEwf/ecUtmDWqNxhzkXYyLRfAX0sUamfYKTeG0k9W7pPagvoa/WPJOlZAcKCIqBFMkRjUHQN3qiMQzep+cs53Pda+QM7S87orjxAw9pLc/ATROdeIGtnVPnhcdmgjQVxAhBwWC2YOJWeJ3aktFjZoZzpXfwYg8GOweAb0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602144; c=relaxed/simple;
-	bh=Nll9OGHbGCxjZb8QZNwWF6g40MzhhmE4MNUM6cjObbs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TALDe+s3ISDEVejtU9xxvY1Yi6dXpCK2In0EzRox94Y/ShWLqCSKhr6BDpGUvLClSHerzmZOHmorVPrfQV43gZkl1wzLTFkGFwCoP0wflFtHbQYCSEYVyQeW2C2iNCkyTd/EMasXY30ywphrvvApz0DfM8lFogF3J9WFCjJMiG0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=ZubSyk2w; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+	s=arc-20240116; t=1789602165; c=relaxed/simple;
+	bh=0lX5/us043NZuxYJi8c8HlMBF5h37zNPI2Z0rKmEVL0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pWWS39bjHUBzMpuC5FRD/4USIpAvUZg/ru7H62Jvxgu38Gsgb2csHFz1cVjrNUgH2wRHVwdLRds2YRMSq5ofG+GnnLPeBvGUzl8xsoJo37YZbwxY/rYJ7yDLfsGpYZQdnrXR9RpKMHZ/orYrdsSiB8vdaFB6ptvDz8v9fFJNvZ8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D2nqIqfd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="ZubSyk2w"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=KUFBmY6J/JxptuKRKRrQdn8H9NJg2yDCbCFeAvvwk40=; b=ZubSyk2w6DJQlpTY4UZUZqlPJ3
-	h/mFc3uJ5OY3Rjjpqm0k9tegbQ49Uc2F0Uvg6gZGyql7YKShJ7RfMeygzjQTcDty/CdHBwnND+yHg
-	X1PJLJ6fr/59buWDpIevp81U+/lnubJeXx19mTRTp6CgTo8GGxqr/xJAORqRzSjaYJ/Y=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x6zGK-005Yx9-CU; Thu, 17 Sep 2026 01:42:00 +0200
-Date: Thu, 17 Sep 2026 01:42:00 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Abhishek Ojha <abhishek.ojha@savoirfairelinux.com>
-Cc: hkallweit1@gmail.com, linux@armlinux.org.uk, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	rmk+kernel@armlinux.org.uk, horatiu.vultur@microchip.com,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] net: phy: micrel: Advance register data pointer in write
- loop
-Message-ID: <c1b5781f-475a-4867-a95b-b4e85ca3c2d7@lunn.ch>
-References: <20260916231928.1336305-1-abhishek.ojha@savoirfairelinux.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D2nqIqfd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53CA21F000FF;
+	Wed, 16 Sep 2026 23:42:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789602163;
+	bh=oQdhB7fY8huXihn3P3EKBTrQtuYItfBdsZa6G6FBbSI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=D2nqIqfdssfZ+zr2PLTSqd5pv4NWdXk39pbJvjCGsKUNUJB5V6FHGLjiZwbMTCEyI
+	 gRYqfO7L/Ubfn4laoUrfgREn59kRjXQYwopqOwLpxcCtAJ4ouzFQnDf5KdscstL+8H
+	 IZAn38DOt6LHArMhTrM5qcFILFO0nk9zdLD7QL+YlyBJHxpAQEDwAHC4vFFXzHpQKK
+	 Y134rm32b3lxZDzPiL5iKZG59BEZIp2ecanmS0BsrZb+zCk+j4Alp4n8XIBojIxs9i
+	 q+M7c1MTE4BJXOyZ17TkdkVnKxqSOodU3zNNKy5hKfvHKcbDc+tLyBGAcjttDaCH6q
+	 mr3CVW+rW2oKQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Sashiko AI <sashiko-bot@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] tracing: Undo the registration when enabling the histogram trigger fails
+Date: Wed, 16 Sep 2026 19:42:41 -0400
+Message-ID: <20260916234241.3299536-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091612-blazer-ambiguity-e8df@gregkh>
+References: <2026091612-blazer-ambiguity-e8df@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916231928.1336305-1-abhishek.ojha@savoirfairelinux.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 07:19:28PM -0400, Abhishek Ojha wrote:
-> lanphy_write_reg_data() does not advance the data pointer while iterating
-> over the register table. As a result, it writes the first entry num times
-> and leaves the remaining errata registers unconfigured.
-> 
-> Single-entry tables are unaffected, but tables with multiple entries
-> leave every entry after the first unapplied.
-> 
-> Advance the data pointer after each successful write so every table entry
-> is applied in order.
-> 
-> Fixes: c8732e933925 ("net: phy: micrel: lan8842 errata")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Abhishek Ojha <abhishek.ojha@savoirfairelinux.com>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-Makes you wounder if the short_center_tap errata has any value.
+[ Upstream commit 92383cef66791a0c63a2f27755cadbdb2fbf270b ]
 
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
+Commit 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers
+list") described how a trigger that is registered but not on file->triggers
+ends up freed while still on the global named_triggers list, and moved the
+registration down so that hist_trigger_enable() follows it immediately. One
+path still gets there. hist_trigger_enable() adds the trigger and takes it
+straight back out when the event cannot be enabled:
 
-    Andrew
+	list_add_tail_rcu(&data->list, &file->triggers);
+
+	update_cond_flag(file);
+
+	if (trace_event_trigger_enable_disable(file, 1) < 0) {
+		list_del_rcu(&data->list);
+		update_cond_flag(file);
+		ret--;
+	}
+
+so the list walk in hist_unregister_trigger() matches nothing, test stays
+NULL, and the ->free() that would call del_named_trigger() is skipped.
+out_unreg falls through to out_free, which frees the trigger anyway:
+
+ BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
+ Read of size 8 at addr ffff8880091d3160 by task init/1
+  find_named_trigger+0xac/0xc0
+  hist_register_trigger+0xc1/0xa00
+  event_hist_trigger_parse+0x3146/0x6af0
+  event_trigger_write+0xce/0x160
+ Freed by task 69:
+  kfree+0x154/0x420
+  trigger_kthread_fn+0xfd/0x160
+
+Leave the trigger where hist_unregister_trigger() can find it and let that
+undo the registration, which is the only code that knows all of what
+cmd_ops->init() took: the named list entry, the hist_pad reference, the
+reference on the trigger a named histogram is shared with, and the copied
+cmd_ops. It also pairs the failed trace_event_trigger_enable_disable(),
+whose sm_ref and buffered event reference are otherwise left behind.
+
+Since ->free() releases trigger_data and, for a trigger that does not share
+its histogram, hist_data with it, out_unreg can no longer fall through to
+out_free. For a trigger that does share, hist_register_trigger() has
+already destroyed the caller's hist_data, so the fall-through was reading
+freed memory there as well.
+
+Move the enable_timestamps check in hist_unregister_trigger() above the
+->free() call for the same reason: hist_data does not outlive it once the
+trigger being removed is the one that owns it.
+
+Cc: stable@vger.kernel.org
+Fixes: 067fe038e70f ("tracing: Add variable reference handling to hist triggers")
+Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F00A3D@smtp.kernel.org/
+Link: https://patch.msgid.link/20260907124420.607097-3-donggeunyoo.kernel@gmail.com
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ adapted cleanup to 5.15’s older trigger callbacks and registration order. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ kernel/trace/trace_events_hist.c | 22 +++++++++++++---------
+ 1 file changed, 13 insertions(+), 9 deletions(-)
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 32f9ab82a8810..b501b5b00bf0b 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -5545,11 +5545,12 @@ static int hist_trigger_enable(struct event_trigger_data *data,
+ 
+ 	update_cond_flag(file);
+ 
+-	if (trace_event_trigger_enable_disable(file, 1) < 0) {
+-		list_del_rcu(&data->list);
+-		update_cond_flag(file);
++	/*
++	 * On failure the caller undoes the registration, and
++	 * hist_unregister_trigger() can only find the trigger here.
++	 */
++	if (trace_event_trigger_enable_disable(file, 1) < 0)
+ 		ret--;
+-	}
+ 
+ 	return ret;
+ }
+@@ -5628,13 +5629,13 @@ static void hist_unregister_trigger(char *glob, struct event_trigger_ops *ops,
+ 		}
+ 	}
+ 
+-	if (unregistered && test->ops->free)
+-		test->ops->free(test->ops, test);
+-
+ 	if (hist_data->enable_timestamps) {
+ 		if (!hist_data->remove || unregistered)
+ 			tracing_set_time_stamp_abs(file->tr, false);
+ 	}
++
++	if (unregistered && test->ops->free)
++		test->ops->free(test->ops, test);
+ }
+ 
+ static bool hist_file_check_refs(struct trace_event_file *file)
+@@ -5833,8 +5834,11 @@ static int event_hist_trigger_func(struct event_command *cmd_ops,
+ 		goto out_unreg;
+ enable:
+ 	ret = hist_trigger_enable(trigger_data, file);
+-	if (ret)
+-		goto out_unreg;
++	if (ret) {
++		cmd_ops->unreg(glob+1, trigger_ops, trigger_data, file);
++		/* The unregister frees trigger_data, skip out_free */
++		goto out;
++	}
+ 
+ 	se_name = trace_event_name(file->event_call);
+ 	se = find_synth_event(se_name);
+-- 
+2.53.0
+
