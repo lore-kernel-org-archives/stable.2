@@ -1,117 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BED49426D13
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:08:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D52F443E43;
+	Wed, 16 Sep 2026 08:08:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546121; cv=none; b=uSO2H+z/8K/thOVfhT9QM6WoJbSGJACdp4h44k02bkjdlkz2PoFPrAMS1LbqGcz4MAAdjOj6qf/62xOSaZ5n/D9vbxbOfBgqmjXzTU2fdGdN60+iXNSWVzBoxmmNxvnNSNsJpXvWqu6xfPv7S/WrxBi9zOLeuXODYESLp4kImy8=
+	t=1789546145; cv=none; b=tGq75RgK437ZWCWfWvaRk6+wH5n9Xo/P7K+OVM7NHbGAIfxsMTCSs2vREWbILHfJzse+tLnV1huw6Ia4OyDvLWf9EM5OtFTZUMrUHDWXsersAInurysHIIyRu4wPPmGJ5YNmO5CIiF9QPSenY0Xdu2iioAkLBRdpn41atUngA1U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546121; c=relaxed/simple;
-	bh=vDZn9+rpoColoRmE2ALAkTNbIXqmJYVodjfN/xDvtOE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=XCWdWNUCzdC4OM96OfSxz3VxY79F9cT/tkuYIe7jQ8qfeNdcVVV3JPcsfZ9vloohsq5UPktTG1kUP2GUho4QdgWHEcplOmStLH7JMC+JBLvhRGf6fTOFMsJDtxLn27zq2IJoS7fGXMe15dyOx12eGag/9oS/vwCcZbXJLuf91Xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=h5yeaOPL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546145; c=relaxed/simple;
+	bh=Etx9Y8OTOZ/8F4MzHeEG4MIQDoSG9ljGZS+1aM01keg=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uOZjyXdsfBDiwdxQxVIFUkXj7RCiCCX6s8l2DUrN+mNZ9ADD8m4EPgowU6YK7bfjszHwhTbc2LFACm+GWaxY1sbCnbKV6uAOiMCU+xlFpaSuWhLRl4VF0NMWSjuCgRoHUMBm02B0Dd0a5O/zJHPRaJSLvbPIvkJGi/qhJDOxZxM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ca4k+47D; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="h5yeaOPL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 668491F00893;
-	Wed, 16 Sep 2026 08:08:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789546110;
-	bh=gaLgAPtp7SetK20HU1SZIpXekUjssZYqcAnkxrxn1W8=;
-	h=Subject:To:Cc:From:Date;
-	b=h5yeaOPLOr0SPg2QbBmtB6/rubNKiVy/Z+aFc35/tc0X/DAtjZB6G3eGOx3oHE29G
-	 K9ZB2YznY3qecf6O9MG3a64dv5KYQkN+CyCHPHkgfAPQ/gb+9ZlyIYYJ3UVmYji9xL
-	 93PI/4iQ/jMBHgSXpTXC/q34dTkAD7OJud2cAcHY=
-Subject: FAILED: patch "[PATCH] configfs: unhash the dentry before dropping the item in rmdir" failed to apply to 5.10-stable tree
-To: vasilisalmpanis@gmail.com,leitao@debian.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 09:06:00 +0100
-Message-ID: <2026091600-tiara-lunacy-b06a@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ca4k+47D"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 57A701F000FF;
+	Wed, 16 Sep 2026 08:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789546135;
+	bh=NGsPUd4c4/jiwAM0z4uKJZVSAM5wKncJVyzSk3d45QY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ca4k+47D8o+zL7G76OczRVJ7a2qkrBHqI1/Od4RNEPo8JwVuyHFH1drWChaxTzMVx
+	 rzivByJWrrPNPjNcwUROqglLsqdxSI0Pwmt1OseLUucgoLpZ6SRxGJAcuiyqTiQHgH
+	 YhCxZ8D0YfcysSM37Do7LNFweJjSI3JpPOJxaljmY9aJVkzqysWBGY7KK4f3zefMZG
+	 snx5LEIMjOywY6TRK+DA37/AmXX6lVZ3X1YMjyTYXQsOX5FB995aGl+U0goeoEuPbF
+	 9Rxdbw2kP1zJ5MLILiUJoPaSOnDceCxHNZQWqEYkj12JmbNv67cRA7nTXw0pl6pDsD
+	 UOROGyIchJRQw==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1x6khI-00000005w7O-3XCS;
+	Wed, 16 Sep 2026 10:08:52 +0200
+Date: Wed, 16 Sep 2026 10:08:52 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH 1/6] usb: core: add missing
+ pm_runtime_dont_use_autosuspend() call
+Message-ID: <aqpOlKtxeROh-G_s@hovoldconsulting.com>
+References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
+ <20260915090223.1346-2-joshua.crofts1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915090223.1346-2-joshua.crofts1@gmail.com>
 
+On Tue, Sep 15, 2026 at 09:02:18AM +0000, Joshua Crofts wrote:
+> The fail label in usb_new_device() disables pm_runtime on failure, but
+> doesn't call pm_runtime_dont_use_autosuspend(), causing resource leaks.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+No it does not, as the device itself is about to be freed. Sure we could
+disable autosuspend again here, but it does not really matter.
 
-To reproduce the conflict and resubmit, you may use the following commands:
+You could consider balancing the runtime pm count as well, as I guess
+both of these could trip up static checkers (cf. [1]).
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x f06c2d26d1999d37e93299db0ecead04ca7d0b9f
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091600-tiara-lunacy-b06a@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+> Add the missing pm_runtime_dont_use_autosuspend() call.
+> 
+> Found using Coccinelle.
+> 
+> Fixes: fcc4a01eb866 ("USB: use the runtime-PM autosuspend implementation")
+> Cc: <stable@vger.kernel.org>
 
-Possible dependencies:
+But this one should not have a Fixes tag and does not need to be
+backported.
 
+> Signed-off-by: Joshua Crofts <joshua.crofts1@gmail.com>
+> ---
+>  drivers/usb/core/hub.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/usb/core/hub.c b/drivers/usb/core/hub.c
+> index 3345b3298daf..dec6d5c49759 100644
+> --- a/drivers/usb/core/hub.c
+> +++ b/drivers/usb/core/hub.c
+> @@ -2745,6 +2745,7 @@ int usb_new_device(struct usb_device *udev)
+>  fail:
+>  	usb_set_device_state(udev, USB_STATE_NOTATTACHED);
+>  	pm_runtime_disable(&udev->dev);
+> +	pm_runtime_dont_use_autosuspend(&udev->dev);
+>  	pm_runtime_set_suspended(&udev->dev);
+>  	return err;
+>  }
 
+Johan
 
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From f06c2d26d1999d37e93299db0ecead04ca7d0b9f Mon Sep 17 00:00:00 2001
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Date: Thu, 30 Jul 2026 11:30:25 +0200
-Subject: [PATCH] configfs: unhash the dentry before dropping the item in rmdir
-
-configfs_get_config_item() treats a hashed dentry as proof that
-sd->s_element is a live config_item.  configfs_rmdir() breaks that:
-simple_rmdir() leaves the dentry hashed, the last reference to the item is
-dropped right after, and the dentry is only unhashed by d_delete() once
-->rmdir() has returned.  configfs_symlink() resolves its target holding no
-lock on it, so get_target() can land in that window:
-
-  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
-   get_target fs/configfs/symlink.c:128 [inline]
-   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
-
-Unhash in configfs_remove_dir(), while the item is still guaranteed to be
-there.  A reference obtained just before that stays harmless, as
-create_link() rechecks CONFIGFS_USET_DROPPING, already set by
-configfs_detach_prep().  Both configfs_unregister_subsystem() paths
-d_drop() after detaching, so this only makes rmdir match them.
-
-Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
-Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Tested-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Link: https://patch.msgid.link/20260730093435.195441-3-vasilisalmpanis@gmail.com
-Signed-off-by: Breno Leitao <leitao@debian.org>
-
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index 3c88f13f1ca2..eda80c2a2d38 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -416,6 +416,15 @@ static void configfs_remove_dir(struct dentry *d)
- 	if (d_really_is_positive(d)) {
- 		if (unlikely(simple_rmdir(d_inode(parent), d)))
- 			pr_warn("remove_dir (%pd): attributes remain", d);
-+		else
-+			/*
-+			 * configfs_get_config_item() takes a hashed dentry as
-+			 * proof that ->s_element is still alive.  Our caller
-+			 * is about to drop the last reference to the item and
-+			 * the VFS will not unhash until after we return, so
-+			 * unhash it here.
-+			 */
-+			d_drop(d);
- 	}
- 
- 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
-
+[1] https://lore.kernel.org/all/aivMnTkZ-jTRH2Jy@hovoldconsulting.com/
