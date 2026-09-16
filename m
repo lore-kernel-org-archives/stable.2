@@ -1,118 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BA2B418347
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:00:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853D7456DEF;
+	Wed, 16 Sep 2026 20:03:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588872; cv=none; b=sOYK3sgkKOU32iMJYTQhL7RwsRCLjb0635FA0gyi/JhEhXuymyN/G0yzDlLnWge5fCE5khTcMcU4U298ge2G7F02wEQYHgpxO8hnCr4R5n9HCR/hc+HhYFFVmH8JhbsHyCA4ZxnJDLVgAy15ukZggGXsN4+YZ4DdI6zP6vancXs=
+	t=1789589027; cv=none; b=AnhHsEQR1ZLfaZPRmEUQAC1J/H0d2G6mBs2ncx04p6nJkTQ4j9YDpFKxH9YcduC4WxG1Wiro+pGW28/YaK96uuSr+JfLOyr1lp8Y9BrsObeFlH/GfoZF1S+B1VXlCA9zW6EY04fDr6KXtuWQUHgai3wG3DhmY8SgFN9ROm8shHo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588872; c=relaxed/simple;
-	bh=F5GK0iZE/5SK78Pn7B7F4LhzfxEK/6v587aaUrtaCy0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sqcEA6zq9/FQTChV8YxfiWoZ8LavgmuoEz8IYD1KBV5K+G4Ndbd9NS2EJoDznwIPOirFpZjSjwvgrTeZOsVq0fYjxc+08s/Yju3/1FVZaT0igySB7kKCPPw2GeNqn68Y8FMCYQcI9+KglfmEDFIj09Egxy5vjyDs3bNTnKWmOMg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ASdAeqoY; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789589027; c=relaxed/simple;
+	bh=tX/XxkdJiKGzp+iHYDN/OmiukWcwyM5FfI5SaF1oA8k=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=SJUAT2uI13m8aljo6e3VNK6SNQgnjfGxiBy35BWGKa1QmusNGpzenxD/fhlWc6Nx153lB4e/lKE3h+odmo9LJUJJk3hh373StZdBkNLaQBdWnpKpkBlElYFCeVrJQIhCDW96YPq1vJ+gHN7yGkeFSnaQcXnJ5oHUyFnvUEqAZ2s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=blk2F85Q reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ASdAeqoY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 615551F00898;
-	Wed, 16 Sep 2026 20:00:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789588840;
-	bh=U+Y3Edo2YXPlJKLZkOQ8FwgwKKd9bEjK4La4yYExhTY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ASdAeqoYNEwahH6nIdlUIZh/4H77DWZInzbEY9swEEkx2Y80Is9MGdF9LU51Bgn/6
-	 w4A6hwmpask/jFlSRLX1ZNREExBn7v9e/K4d8MREIrCVNPt88pDdpnHAi97Df8IIrr
-	 CqRtuVqjKiWKQJlM+xxCUVioCHaF/nBJjn9Ultn4R6Niz5CyvqzjKKZlOwTJzG6ip5
-	 Th2Sl+60BB/CPh1+s7cVHVVjx6h1ADmy76YoFPrrWlm6cwl4UT9Dz8hnHVXw75wUXu
-	 oCAFr4xo3jI/+B8Z42GLFJyJTv2MKp2l3JHxunb0IlhfXwRjnX1zlNUmsjiEZxG7x2
-	 /B6hlxRC0oxOg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>,
-	Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
-	Jeffrey Hugo <quic_jhugo@quicinc.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/4] accel/ivpu: Reset fw log on cold boot
-Date: Wed, 16 Sep 2026 16:00:36 -0400
-Message-ID: <20260916200038.2459399-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916200038.2459399-1-sashal@kernel.org>
-References: <2026091615-moisten-showy-63d8@gregkh>
- <20260916200038.2459399-1-sashal@kernel.org>
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="blk2F85Q"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id 9D9B340E022C;
+	Wed, 16 Sep 2026 20:03:09 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id RmiEDj15sgaS; Wed, 16 Sep 2026 20:03:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789588982; bh=tt4wGiGWSGVWCHbdak83aGerpHRJn8vrvoGhdde9P2s=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=blk2F85QFszaob+Y1xO6ahKBOS2FgDvoEvkATB/sVUDpf1rkDZvEkxvnXIYfMx9DK
+	 rj092M8OcL76s0/QHurHv3WifWK7tiMADyWig8Kj1NUtCiIAlMRj1f6MGiTYP/QL8+
+	 s9iVQpUP4Xh+1n6J6fyqiK5jxNpPtU4tgeRjKVj5RVzkCREqlmgv3TQRa2BQbfSdB9
+	 XWBem+1JKnnNlDzKBNC26wfv9FtanTuqDcR/5kJPQXTnAzJHKD9C82mGx6l8WXrjMF
+	 nTUTaOfEgL+DhJn5Bar5CezMf4zzXUJ0yRKIVTm2CDsc4IdI2VQ/wPHAr3+kr+9B8u
+	 G0IVD6BIegxGt/gbLEifGe91mzFdC0nN0DAb/w3Zwlo24prvNav3a8dh+UzfQYZpWD
+	 Y84NxQfJ5K12Wx6uG1tAx7v55XnPyFw63HKRAScwteodUibkfDjTmukB9EDROcYIsr
+	 hO2W9VFW509dBSlfBL5mVyt/eBB6sH4S/diucCUK3sUbZ63cgDM1xu/LAmb4x6mLp8
+	 +TsVQO/hcF1HP0C69Jh1aykMcLWFqyLVoAuNNjaskXC9B2DPOKY/JsEAThY2Ap/8M9
+	 9ZmnGuO1Wv9KWdxZbpVkzHpPD2QGUEqkdkHhtCCF44+Q3PqVemUqWcQnbRjpYzkGYW
+	 i93Um7YzT0iEcrpcjnnY7ys8=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 23C6340E015B;
+	Wed, 16 Sep 2026 20:02:49 +0000 (UTC)
+Date: Wed, 16 Sep 2026 13:02:47 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
+Cc: Dave Hansen <dave.hansen@intel.com>, Thomas Gleixner <tglx@kernel.org>,
+	Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD
+ F15h
+Message-ID: <20260916200247.GFaqr15333nu5IAfjU@fat_crate.local>
+References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+ <3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.com>
+ <20260829174704.GAapMbGAZMwImcvIN7@fat_crate.local>
+ <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
+ <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
+ <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
+Content-Transfer-Encoding: quoted-printable
 
-From: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+On Tue, Sep 01, 2026 at 10:12:07AM +0200, Laurent Wandrebeck wrote:
+> Sorry about, replied from my phone without thinking about it.
 
-[ Upstream commit 4b4d9e394b6f45ac26ac6144b31604c76b7e3705 ]
+No worries.
 
-Add ivpu_fw_log_reset() that resets the read_index of all FW logs
-on cold boot so logs are properly read.
+> FYI, patched kernel has run a couple more days without any problem, and
+> I=E2=80=99m now running 7.3-rc1 with the same patch flawlessly.
 
-Signed-off-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-Reviewed-by: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
-Reviewed-by: Jeffrey Hugo <quic_jhugo@quicinc.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240930195322.461209-4-jacek.lawrynowicz@linux.intel.com
-Signed-off-by: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
-Stable-dep-of: 95bf070f3225 ("accel/ivpu: Limit firmware log name prints to field size")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/accel/ivpu/ivpu_fw_log.c | 14 ++++++++++++++
- drivers/accel/ivpu/ivpu_fw_log.h |  1 +
- drivers/accel/ivpu/ivpu_pm.c     |  1 +
- 3 files changed, 16 insertions(+)
+...
+=20
+> Can I do anything else ?
 
-diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
-index ccad9aa99e5d6..0ed29e5ac8e52 100644
---- a/drivers/accel/ivpu/ivpu_fw_log.c
-+++ b/drivers/accel/ivpu/ivpu_fw_log.c
-@@ -144,3 +144,17 @@ void ivpu_fw_log_clear(struct ivpu_device *vdev)
- 	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
- 		log_header->read_index = log_header->write_index;
- }
-+
-+void ivpu_fw_log_reset(struct ivpu_device *vdev)
-+{
-+	struct vpu_tracing_buffer_header *log_header;
-+	u32 next;
-+
-+	next = 0;
-+	while (fw_log_ptr(vdev, vdev->fw->mem_log_crit, &next, &log_header) == 0)
-+		log_header->read_index = 0;
-+
-+	next = 0;
-+	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
-+		log_header->read_index = 0;
-+}
-diff --git a/drivers/accel/ivpu/ivpu_fw_log.h b/drivers/accel/ivpu/ivpu_fw_log.h
-index 0b2573f6f3151..692ee0f266a31 100644
---- a/drivers/accel/ivpu/ivpu_fw_log.h
-+++ b/drivers/accel/ivpu/ivpu_fw_log.h
-@@ -27,6 +27,7 @@ extern unsigned int ivpu_log_level;
- 
- void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p);
- void ivpu_fw_log_clear(struct ivpu_device *vdev);
-+void ivpu_fw_log_reset(struct ivpu_device *vdev);
- 
- static inline void ivpu_fw_log_dump(struct ivpu_device *vdev)
- {
-diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
-index ffff2496e8e8e..e17e4e6b037ee 100644
---- a/drivers/accel/ivpu/ivpu_pm.c
-+++ b/drivers/accel/ivpu/ivpu_pm.c
-@@ -30,6 +30,7 @@ static void ivpu_pm_prepare_cold_boot(struct ivpu_device *vdev)
- 
- 	ivpu_cmdq_reset_all_contexts(vdev);
- 	ivpu_ipc_reset(vdev);
-+	ivpu_fw_log_reset(vdev);
- 	ivpu_fw_load(vdev);
- 	fw->entry_point = fw->cold_boot_entry_point;
- }
--- 
-2.53.0
+Does Dave's suggestion work too?
 
+https://lore.kernel.org/all/3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.co=
+m/
+
+Thx.
+
+--=20
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
