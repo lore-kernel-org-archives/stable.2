@@ -1,256 +1,93 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E1F84A6888
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:12:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF534DD3B2;
+	Wed, 16 Sep 2026 17:13:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578748; cv=none; b=cabmnEh3mV88Z769hZq6anMku1RaRIOuaaWPS0QMNp9+o50FLMMXorDMncc9OPUUtu4de5ZgKIxQxzP4xF0zZqs6fuh2JZacUMcCcpS/0aK20+RgGvxf+vNKvg4BD8EjHoD6Uzruras48VmqI6GbWCankdQNOO/ylWU3FkR2N5g=
+	t=1789578837; cv=none; b=aTyEbt4riIpPPddpXLEcwsd2yiR2y8fm7mWBYRSWuwjSZQz3FxNn81GRSmQn9+IkQsW8sbXB7Tgv+GTjdtvqQw1Xa4uNo03wjPlyyRwNMmjrX5jndGTk+GX/NmhAOYpsduA4oRj1QNa77F+cqjyQ6fJuEgsQpYThFkMvonPZ0xM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578748; c=relaxed/simple;
-	bh=+ESTaKjnd+lr5mIhhT3CCCNrxAxan+eiEFj/ENV/SIM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=uDfvAQkJSzv1yxWp+tf/nNyMz62DO+hYU1yQ0ey8529MbsnPIfGqLYCyx0dwE00mKxS7lHqWf1ONEeS2piM4s10HPwlyIm1HA/3DFmV6RkEsl49KXeaKvHyWYGzIFbaBw/Dw66tj0Tvevzpl+TO36S9l1dejVrFw9PelA4gE89Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NjioVT6T; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NjioVT6T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585121F00893;
-	Wed, 16 Sep 2026 17:12:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789578740;
-	bh=UpZFr761NMsICx+MPbkVp4G4RyZRIwGKtrqcZRgh/k0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NjioVT6TamX3kkhEPmRuq6dGSm0GjKoC18FHHMUgQ9dmOsjFW1qcZ4UBhQi7t3M4Y
-	 1pqvyLuO5lCOz1zu2tqRUAaCmq3/jQQ9WexB7tpAmjhiscHSSf81ZFtJii3neI3kKL
-	 glaxpGh3aiBUMewtB/HJjMTSyDfBSj5eua45lPVILz+cW/3krZmb42GXiKSRnaIAqA
-	 26vqRLVJKvNRHLO8qyI7Wyp2LM66JRkFPhZsi4TMis3CWKYRPHxZcgFpnuJfmpDKP1
-	 YUEN9L1MTGaLLMr1LezPPN6/siFkorHnVnns4WicUMiRz6VtsNaGxszsfzbcwiWKZm
-	 Gt1WxNbOCdhHw==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Thomas Gleixner <tglx@linutronix.de>,
-	=?UTF-8?q?=E6=9C=B1=E6=81=BA=E4=B9=BE?= <zhukaiqian@xiaomi.com>,
-	Thomas Gleixner <tglx@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	=?UTF-8?q?=E5=88=98=E6=9C=AF=E9=AB=98?= <liushugao@xiaomi.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] tick/broadcast: Plug clockevents replacement race
-Date: Wed, 16 Sep 2026 13:12:17 -0400
-Message-ID: <20260916171217.785123-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091657-yoyo-rekindle-0050@gregkh>
-References: <2026091657-yoyo-rekindle-0050@gregkh>
+	s=arc-20240116; t=1789578837; c=relaxed/simple;
+	bh=o+bs2Uka+leCxw+K/4mbYOPdHuXTq+5fJ940yyyKMNM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aHWv3BYzTXbljEqsHGywc0wmujdtSk8BY9MgyMKSyN5zPx16lTLfMMIKgCdveKME8PD5Z6HGH1mSvONm6MLTss2M0em/qeh2JGgwXcdJUHwsoBLnaqdaJjyeEmIHJnio304nhmJl5IFMKeDZkK6QdIndvV5lX5Z30W54gI/gZWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnUDtLzqpqZWRuCA--.22559S2;
+	Thu, 17 Sep 2026 01:13:47 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: clm@fb.com
+Cc: dsterba@suse.com,
+	linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	wqu@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] btrfs: Fix root reference leak in handle_indirect_tree_backref()
+Date: Wed, 16 Sep 2026 17:13:19 +0000
+Message-Id: <20260916171319.2086756-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnUDtLzqpqZWRuCA--.22559S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Jr1DXFWDuw15Cr4kKFW7Arb_yoW8JF4rpr
+	W3CrZ8Gr4kCr1xtFWxWw4UtryS9rZ8G3y5Ca4kCayS9w4rJw1fZFy2kwn0gw43trZ5Gry5
+	WF4YqFyYyasFyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
+	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
+	USLvNUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIMA2qqok9l6gABso
 
-From: Thomas Gleixner <tglx@linutronix.de>
+handle_indirect_tree_backref() walks up the tree from @cur, storing the
+reference returned by btrfs_get_fs_root() in lower->root when the top
+of the searched path is reached, and dropping it once a node already in
+the backref cache is found.  If the walk instead reaches
+BTRFS_MAX_LEVEL without hitting either of those two exits, the
+reference is neither stored nor dropped and is leaked on return.
 
-[ Upstream commit 113a9796effe3376d2ec5aabcca1fef4fef4cd62 ]
+Drop the reference and return -EUCLEAN if the walk reaches
+BTRFS_MAX_LEVEL without finding the root of the tree.
 
-朱恺乾 reported and decoded the following race condition when a broadcast
-device is replaced:
-
-CPUA					CPUB
- __tick_broadcast_oneshot_control()
-   bc = tick_broadcast_device.evtdev;
-					tick_install_broadcast_device(dev)
-        				clockevents_exchange_device(cur, dev)
-					   shutdown(cur);
-					   detach(cur);
-					   cur->handler = noop;
-					   tick_broadcast_device.evtdev = dev;
-
-  tick_broadcast_set_event(bc, next_event); <- FAIL: arms a detached device.
-
-If the original broadcast device has a restricted interrupt affinity mask
-and the last CPU in that mask goes offline then the BUG() in
-tick_cleanup_dead_cpu() triggers because the clockevent device is not in
-detached state.
-
-The reason for this is that tick_install_broadcast_device() is not
-serialized vs. tick broadcast operations.
-
-The obvious cure is to serialize tick_install_broadcast_device() with
-tick_broadcast_lock against a concurrent tick broadcast operation.
-
-That requires to split clockevents_exchange_device() into two parts, one
-which does the exchange, shutdown and detach operation and the other which
-drops the module reference count. This is required because the module
-reference cannot be dropped while holding tick_broadcast_lock.
-
-Let clockevents_exchange_device() do both operations as before, but let the
-broadcast device code take the two step approach and do the device
-exchange under tick_broadcast_lock and drop the module reference count
-after releasing it.
-
-Fixes: f8381cba04ba ("[PATCH] tick-management: broadcast functionality")
-Reported-by: 朱恺乾 <zhukaiqian@xiaomi.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Tested-by: 刘术高 <liushugao@xiaomi.com>
+Fixes: 1b60d2ec982a ("btrfs: backref: rename and move handle_one_tree_block()")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87cymdsu0r.ffs@tglx
-[ Replaced scoped_guard() with a block containing guard() for GNU89 compatibility. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- kernel/time/clockevents.c    | 33 +++++++++++++++++++-------------
- kernel/time/tick-broadcast.c | 37 ++++++++++++++++++++++--------------
- kernel/time/tick-internal.h  |  2 ++
- 3 files changed, 45 insertions(+), 27 deletions(-)
+ fs/btrfs/backref.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/kernel/time/clockevents.c b/kernel/time/clockevents.c
-index 003ccf338d201..87892f4c3f293 100644
---- a/kernel/time/clockevents.c
-+++ b/kernel/time/clockevents.c
-@@ -557,33 +557,40 @@ void clockevents_handle_noop(struct clock_event_device *dev)
- {
- }
- 
--/**
-- * clockevents_exchange_device - release and request clock devices
-- * @old:	device to release (can be NULL)
-- * @new:	device to request (can be NULL)
-- *
-- * Called from various tick functions with clockevents_lock held and
-- * interrupts disabled.
-- */
--void clockevents_exchange_device(struct clock_event_device *old,
--				 struct clock_event_device *new)
-+void __clockevents_exchange_device(struct clock_event_device *old,
-+				   struct clock_event_device *new)
- {
- 	/*
- 	 * Caller releases a clock event device. We queue it into the
- 	 * released list and do a notify add later.
- 	 */
- 	if (old) {
--		module_put(old->owner);
- 		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
- 		list_move(&old->list, &clockevents_released);
+diff --git a/fs/btrfs/backref.c b/fs/btrfs/backref.c
+index 273924ca912c..e889fbec4fe1 100644
+--- a/fs/btrfs/backref.c
++++ b/fs/btrfs/backref.c
+@@ -3426,6 +3426,12 @@ static int handle_indirect_tree_backref(struct btrfs_trans_handle *trans,
+ 		lower = upper;
+ 		upper = NULL;
  	}
- 
- 	if (new) {
--		BUG_ON(!clockevent_state_detached(new));
-+		WARN_ON(!clockevent_state_detached(new));
- 		clockevents_shutdown(new);
- 	}
- }
- 
-+/**
-+ * clockevents_exchange_device - release and request clock devices
-+ * @old:	device to release (can be NULL)
-+ * @new:	device to request (can be NULL)
-+ *
-+ * Called from various tick functions with clockevents_lock held and
-+ * interrupts disabled.
-+ */
-+void clockevents_exchange_device(struct clock_event_device *old,
-+				 struct clock_event_device *new)
-+{
-+	__clockevents_exchange_device(old, new);
-+	if (old)
-+		module_put(old->owner);
-+}
-+
- /**
-  * clockevents_suspend - suspend clock devices
-  */
-@@ -650,7 +657,7 @@ void tick_cleanup_dead_cpu(int cpu)
- 		if (cpumask_test_cpu(cpu, dev->cpumask) &&
- 		    cpumask_weight(dev->cpumask) == 1 &&
- 		    !tick_is_broadcast_device(dev)) {
--			BUG_ON(!clockevent_state_detached(dev));
-+			WARN_ON(!clockevent_state_detached(dev));
- 			list_del(&dev->list);
- 		}
- 	}
-diff --git a/kernel/time/tick-broadcast.c b/kernel/time/tick-broadcast.c
-index 13a71a894cc16..5ca420e0f7d35 100644
---- a/kernel/time/tick-broadcast.c
-+++ b/kernel/time/tick-broadcast.c
-@@ -162,23 +162,32 @@ static bool tick_set_oneshot_wakeup_device(struct clock_event_device *newdev,
-  */
- void tick_install_broadcast_device(struct clock_event_device *dev, int cpu)
- {
--	struct clock_event_device *cur = tick_broadcast_device.evtdev;
-+	struct clock_event_device *cur;
- 
--	if (tick_set_oneshot_wakeup_device(dev, cpu))
--		return;
-+	{
-+		guard(raw_spinlock_irqsave)(&tick_broadcast_lock);
- 
--	if (!tick_check_broadcast_device(cur, dev))
--		return;
-+		if (tick_set_oneshot_wakeup_device(dev, cpu))
-+			return;
- 
--	if (!try_module_get(dev->owner))
--		return;
-+		cur = tick_broadcast_device.evtdev;
-+		if (!tick_check_broadcast_device(cur, dev))
-+			return;
- 
--	clockevents_exchange_device(cur, dev);
-+		if (!try_module_get(dev->owner))
-+			return;
-+
-+		__clockevents_exchange_device(cur, dev);
-+		if (cur)
-+			cur->event_handler = clockevents_handle_noop;
-+		WRITE_ONCE(tick_broadcast_device.evtdev, dev);
-+		if (!cpumask_empty(tick_broadcast_mask))
-+			tick_broadcast_start_periodic(dev);
++	/* We walked up to BTRFS_MAX_LEVEL without reaching the tree root. */
++	if (level == BTRFS_MAX_LEVEL) {
++		btrfs_put_root(root);
++		ret = -EUCLEAN;
++		goto out;
 +	}
-+
-+	/* Module release must be outside of the lock */
- 	if (cur)
--		cur->event_handler = clockevents_handle_noop;
--	tick_broadcast_device.evtdev = dev;
--	if (!cpumask_empty(tick_broadcast_mask))
--		tick_broadcast_start_periodic(dev);
-+		module_put(cur->owner);
- 
- 	if (!(dev->features & CLOCK_EVT_FEAT_ONESHOT))
- 		return;
-@@ -1205,7 +1214,7 @@ int tick_broadcast_oneshot_active(void)
-  */
- bool tick_broadcast_oneshot_available(void)
- {
--	struct clock_event_device *bc = tick_broadcast_device.evtdev;
-+	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
- 
- 	return bc ? bc->features & CLOCK_EVT_FEAT_ONESHOT : false;
- }
-@@ -1213,7 +1222,7 @@ bool tick_broadcast_oneshot_available(void)
- #else
- int __tick_broadcast_oneshot_control(enum tick_broadcast_state state)
- {
--	struct clock_event_device *bc = tick_broadcast_device.evtdev;
-+	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
- 
- 	if (!bc || (bc->features & CLOCK_EVT_FEAT_HRTIMER))
- 		return -EBUSY;
-diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
-index 649f2b48e8f06..52e6fec7377d3 100644
---- a/kernel/time/tick-internal.h
-+++ b/kernel/time/tick-internal.h
-@@ -48,6 +48,8 @@ static inline void clockevent_set_state(struct clock_event_device *dev,
- }
- 
- extern void clockevents_shutdown(struct clock_event_device *dev);
-+extern void __clockevents_exchange_device(struct clock_event_device *old,
-+					  struct clock_event_device *new);
- extern void clockevents_exchange_device(struct clock_event_device *old,
- 					struct clock_event_device *new);
- extern void clockevents_switch_state(struct clock_event_device *dev,
+ out:
+ 	btrfs_release_path(path);
+ 	return ret;
 -- 
-2.53.0
+2.34.1
 
