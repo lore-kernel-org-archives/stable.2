@@ -1,97 +1,125 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67C8A4C33F3;
-	Wed, 16 Sep 2026 16:45:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A72B495AE5
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:47:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577167; cv=none; b=M77ytmhL9sIfU3iiXa45kn8BSaERkYKLxRIqC7KFjjV4oJrNzXzv/zFLasnOG9jAGRwFEmuJ9ylyoOCuO4r5SWS2VlT57FJEhLKIk8Y5wi6iZjc/SYtNHf4ctBboTU2qm+Qg5SZVCl4mU1w1Kus4NYZMmTu3yabFaBQGNpU1jB8=
+	t=1789577234; cv=none; b=MdWI+0MDJbWfzmuC/HG7GwYK01/DCDtokm+X6TOOCa7KDNKA8TA5XpvHywsmuaqXcHeLWoGkc+5AsBDPRo9SbJeQHMY2/leYLtueo4A/gGaFEwCQW5TlaYwAKrG4KBrN/KXHODvmHlJFHdteiOh+jA0ryIIzbzxKMqKjVdzatGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577167; c=relaxed/simple;
-	bh=rnbHyBuhnp7MEutDcD2qgrXwiTP6PhSbte/VmXfYH9Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T6Ofp10WCccVBMqc3uiiziFF0bmnw9JtpYRvzqaKFhkQfdObj+x5xcDvMWcFtaB1FBUSgfKzoyUOS2Ax75pL3AnkzuTeZ7zDNVdrEMnc+3XABp4G40F18m7VwvLBL+bgSGCSinMxtpq7RQuLcrlPMoIafAg3VhVrZi+EPKK3EEw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnUDu5x6pqFOZtCA--.22059S2;
-	Thu, 17 Sep 2026 00:45:45 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andy@kernel.org
-Cc: apokusinski01@gmail.com,
-	dlechner@baylibre.com,
-	jic23@kernel.org,
-	linux-iio@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	nuno.sa@analog.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] iio: temperature: tmp006: Fix trigger reference leak in tmp006_probe()
-Date: Wed, 16 Sep 2026 16:45:17 +0000
-Message-Id: <20260916164517.2084799-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789577234; c=relaxed/simple;
+	bh=tq88OL8wS/td8+pIXiKAYoOHI+Tr/0W3fBz5IZy4GZY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=mNTHEQKxGkyVx1HEgepm5oeICaYlsbx7syNAfThyTv8ZYUuW88AzlPKa0NfLn28XqN/JD3tnOaa73MBg9JNBwOMvVF8yfMYxLeQEL394oho8MtXmj7zBEIzsDCIZ4MUkzkPXgmNF4D4Sp9BvZxn2mv258AQGNeWJBam8UeBT3os=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Cc7iC8HW; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Cc7iC8HW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33D711F000FF;
+	Wed, 16 Sep 2026 16:46:59 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789577219;
+	bh=ZTTZp/Mrpye/BJ4t2TgkgvvfnuYWnY391VhPUJqAQVQ=;
+	h=Subject:To:Cc:From:Date;
+	b=Cc7iC8HWVoK5ZvSpRzeB+8L90VBxpH70uXfRomtSFr603yVgHvHW/HKS+rsLGkCW/
+	 cb7Y/6Txvvtjp7hQ2beYwzss3GzsqKoyGXrMFUx3BmMl3fNwKT17Z6tdBc2c4D0cbU
+	 IpsIYwNnEkgwHhyN/SfMJO5eatJaCGBXW6LFKhLA=
+Subject: FAILED: patch "[PATCH] smb: client: reject userspace cifs.idmap descriptions" failed to apply to 5.10-stable tree
+To: henrymei@tencent.com,corvus@tencent.com,dhowells@redhat.com,pc@manguebit.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 17:39:52 +0100
+Message-ID: <2026091652-dreamy-pentagram-586f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnUDu5x6pqFOZtCA--.22059S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47ZFW7tF43uF1rWF17ZFb_yoW8GF1fpF
-	sakayjyFW5trs7Ja1kZ3Z09a4avanxXrWUGr48A3s2va9xJa1YkFyYvFWFqF1IkrW8WrWj
-	gr1UtFWF9r4jvFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUv014x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr
-	1j6F4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AK
-	xVWUtVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F4
-	0E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFyl
-	IxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxV
-	AFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8
-	JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUb
-	o5l5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAMA2qqpO9STQAAsX
 
-The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
-devm_request_irq() or of triggered buffer setup returns before that
-mode is set and leaks the reference acquired for indio_dev->trig.
-Take the reference only after the triggered buffer setup succeeds.
 
-Fixes: 91f75ccf9f03 ("iio: temperature: tmp006: add triggered buffer support")
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x d9d7eeb0cea5b55b82888f443622fd8d4ee064f3
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091652-dreamy-pentagram-586f@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From d9d7eeb0cea5b55b82888f443622fd8d4ee064f3 Mon Sep 17 00:00:00 2001
+From: Aohan Mei <henrymei@tencent.com>
+Date: Wed, 2 Sep 2026 20:52:13 +0800
+Subject: [PATCH] smb: client: reject userspace cifs.idmap descriptions
+
+cifs.idmap key descriptions carry authority-bearing fields (owner and
+group SIDs and uid/gid values in "os:"/"gs:"/"oi:"/"gi:" form) that the
+cifs.idmap upcall helper treats as kernel-originating inputs.  Unlike
+its sibling cifs.spnego, the cifs.idmap key type has no vet_description
+hook, so userspace can create keys of this type through
+request_key(2)/add_key(2) and supply those fields without CIFS origin.
+A request_key(2) call with a non-NULL callout then drives a root
+usermodehelper upcall (/sbin/request-key -> cifs.idmap) that consumes
+the unvetted description in root context.
+
+Only accept cifs.idmap descriptions while CIFS is using its private
+root_cred to request the key.  id_to_sid()/sid_to_id() already run
+under override_creds(root_cred), so the kernel-originated path is
+unaffected.
+
+This mirrors commit 3da1fdf4efbc ("smb: client: reject userspace
+cifs.spnego descriptions"), which applied the same restriction to
+cifs.spnego.
+
+Fixes: 4d79dba0e007 ("cifs: Add idmap key and related data structures and functions (try #17 repost)")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/iio/temperature/tmp006.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Acked-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/drivers/iio/temperature/tmp006.c b/drivers/iio/temperature/tmp006.c
-index d8d8c8936d17..06303ce72bfb 100644
---- a/drivers/iio/temperature/tmp006.c
-+++ b/drivers/iio/temperature/tmp006.c
-@@ -354,8 +354,6 @@ static int tmp006_probe(struct i2c_client *client)
- 		if (ret)
- 			return ret;
- 
--		indio_dev->trig = iio_trigger_get(data->drdy_trig);
--
- 		ret = devm_request_irq(&client->dev, client->irq,
- 				       iio_trigger_generic_data_rdy_poll,
- 				       IRQF_NO_THREAD, "tmp006_irq",
-@@ -369,6 +367,9 @@ static int tmp006_probe(struct i2c_client *client)
- 	if (ret < 0)
- 		return ret;
- 
-+	if (data->drdy_trig)
-+		indio_dev->trig = iio_trigger_get(data->drdy_trig);
-+
- 	return devm_iio_device_register(&client->dev, indio_dev);
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index 12005f46307d..213a421bf8e9 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -100,8 +100,23 @@ cifs_idmap_key_destroy(struct key *key)
+ 		kfree(key->payload.data[0]);
  }
  
--- 
-2.34.1
++static int
++cifs_idmap_key_vet_description(const char *description)
++{
++	/*
++	 * cifs.idmap descriptions are authority-bearing inputs to the
++	 * cifs.idmap upcall helper.  Only allow the kernel to create this
++	 * type of key using the private root_cred installed in
++	 * init_cifs_idmap; reject userspace request_key(2)/add_key(2).
++	 */
++	if (current_cred() != root_cred)
++		return -EPERM;
++	return 0;
++}
++
+ static struct key_type cifs_idmap_key_type = {
+ 	.name        = "cifs.idmap",
++	.vet_description = cifs_idmap_key_vet_description,
+ 	.instantiate = cifs_idmap_key_instantiate,
+ 	.destroy     = cifs_idmap_key_destroy,
+ 	.describe    = user_describe,
 
