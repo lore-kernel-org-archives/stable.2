@@ -1,123 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E811A33DED9
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:12:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40E0277818;
+	Wed, 16 Sep 2026 16:12:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575156; cv=none; b=hTNJ5R5Jl/yjp497OAvIvyKw9a79HxDK+OYGpZrEdK74Jn2w4b0cdhecABDyX5oW+2a5Cz03ykoUgjMAw8ieTV2/d6NprUErxocGDngk8LARPMnaWBSHrtvt4/AAByclZQl5IbFcJ05tXz1630WvV9kVuS0wYqd4ZkgXuNhzU+w=
+	t=1789575161; cv=none; b=b1YKa/MSmU+oXPShDX5rmgioVlxYOsy94Y6qI183XSUqW1lyu39ZvA/LeZvbsE/dT2vX+bPMH5QjKyrD/URW14IL2ASnhO3+HZjPi0Es8bXsyI9RC7UKFKk2IkKW7z3if/uXdEn3xC4EqinXDHUdQOiUPu2TXdrZ329Rcs4U64Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575156; c=relaxed/simple;
-	bh=7Ji8zlwL7Uwgz7frYuXhE6WdGC9LALrzY1OQKXrHXlI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QLpCwxhAE7FG1y6I2GRdOxSkpMsI/ZGlWfJ9KQh/aVSVE42Lwb8X01T7ZbwsPOBdXjqOfbPrZjzQeG1N4znSdLQ6EbgSKbhHGQcOf1WjBfePYGT019bGCIIEb3C07V8Cn7Q+LTmEh3rETWchJNB9QqiwaHqrMNQE/GLcrzQwrkY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bpwP6nWH; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bpwP6nWH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4791F000FF;
-	Wed, 16 Sep 2026 16:12:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789575153;
-	bh=qjjWwVDEbH1OB7F+ZD7nbzPN1vHWivq1xeGl8/gEAt0=;
-	h=Subject:To:Cc:From:Date;
-	b=bpwP6nWHnIFmODHRrYU4SCeRE9vJtTV/poW4xvO56Ta/taIb28w5hY5fa9iqQxSOQ
-	 pYPUfEZ35o5Xpfpo7LkNYTqujUMLw39k8ZDeCcddPJi687f9BdcMlgbBNWJyXEinzb
-	 FnkGN+f4pQj8NfQ2hdyNhldlUMpTno5470xkIXsU=
-Subject: FAILED: patch "[PATCH] hwmon: (gpio-fan) Fix use-after-free in alarm work" failed to apply to 5.10-stable tree
-To: fanwu01@zju.edu.cn,linux@roeck-us.net
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:01:51 +0100
-Message-ID: <2026091651-verdict-tactless-1748@gregkh>
+	s=arc-20240116; t=1789575161; c=relaxed/simple;
+	bh=pAcp/PWx/belsdbnp48YTy+oRAJtS3jC1L4nfrh2hPo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OUGGJbadkR7GREX3tPo4I3X6HkwGrtXzke1rU856aikvES6QitUMyxjjEm7WtUhziYNADjY/I/h2NEmjwgAMEewx3xFhRdX5b+KuHe3w0Hvagq/SvPu6kyJkx9CpZovJFPkL5GotfmTzpAdqZRlIMCE56p/3UAaO9a+jZ0VMDAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHKkPxv6pqc3FtCA--.21525S2;
+	Thu, 17 Sep 2026 00:12:33 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andy@kernel.org
+Cc: dlechner@baylibre.com,
+	jic23@kernel.org,
+	linusw@kernel.org,
+	linux-iio@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	nuno.sa@analog.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] iio: accel: kxsd9: Fix runtime PM leak in kxsd9_write_raw()
+Date: Wed, 16 Sep 2026 16:12:05 +0000
+Message-Id: <20260916161205.2082579-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHKkPxv6pqc3FtCA--.21525S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruw17Jr4rJr18Wry3ZrW5KFg_yoWDWrg_Ga
+	s3uwnxXrWFvF4qgwnxAw1fZryF9ryDWF1xWw40yFW3GrWayr1vyrWUur95Aws7Xr42kas8
+	Xa4kGryfXFn2kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4kFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r
+	4UJwAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r
+	4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWU
+	tVW8ZwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14
+	v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkG
+	c2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI
+	0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVWUJVW8
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73UjIFyTuYvjfUOuc_DU
+	UUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqozVKwgAAsM
 
+pm_runtime_get_sync() increments the usage counter even on failure, so
+every successful call must be paired with a put. Rejecting an invalid
+scale value returned early and skipped the paired
+pm_runtime_put_autosuspend(), permanently preventing runtime suspend.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
-
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x a2471ed17b0e6ff7bfb6b2ea8e6e5b04c309d293
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091651-verdict-tactless-1748@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From a2471ed17b0e6ff7bfb6b2ea8e6e5b04c309d293 Mon Sep 17 00:00:00 2001
-From: Fan Wu <fanwu01@zju.edu.cn>
-Date: Wed, 19 Aug 2026 03:33:17 +0000
-Subject: [PATCH] hwmon: (gpio-fan) Fix use-after-free in alarm work
-
-fan_alarm_irq_handler() queues fan_data->alarm_work, but nothing
-cancels it.  fan_alarm_notify() dereferences fan_data and its hwmon
-device.  On unbind, devres frees the interrupt, which only waits for
-the handler itself, and then releases the hwmon device and fan_data,
-so a pending fan_alarm_notify() can run after those frees.
-
-Replace INIT_WORK() with devm_work_autocancel(), registered before
-devm_request_irq().  The devres cleanup then frees the interrupt
-first, so no new work can be queued, and cancels the work while
-fan_data and the hwmon device are still alive.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
+Fixes: 9a9a369d6178 ("iio: accel: kxsd9: Deploy system and runtime PM")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://patch.msgid.link/20260819033317.446191-1-fanwu01@zju.edu.cn
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iio/accel/kxsd9.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
-index 084828e1e281..7f36e5f6f223 100644
---- a/drivers/hwmon/gpio-fan.c
-+++ b/drivers/hwmon/gpio-fan.c
-@@ -12,6 +12,7 @@
- #include <linux/slab.h>
- #include <linux/interrupt.h>
- #include <linux/irq.h>
-+#include <linux/devm-helpers.h>
- #include <linux/platform_device.h>
- #include <linux/err.h>
- #include <linux/kstrtox.h>
-@@ -84,6 +85,7 @@ static DEVICE_ATTR_RO(fan1_alarm);
- static int fan_alarm_init(struct gpio_fan_data *fan_data)
- {
- 	int alarm_irq;
-+	int err;
- 	struct device *dev = fan_data->dev;
+diff --git a/drivers/iio/accel/kxsd9.c b/drivers/iio/accel/kxsd9.c
+index 4717d80fc24a..1186d711f4d3 100644
+--- a/drivers/iio/accel/kxsd9.c
++++ b/drivers/iio/accel/kxsd9.c
+@@ -146,8 +146,10 @@ static int kxsd9_write_raw(struct iio_dev *indio_dev,
  
- 	/*
-@@ -94,7 +96,11 @@ static int fan_alarm_init(struct gpio_fan_data *fan_data)
- 	if (alarm_irq <= 0)
- 		return 0;
+ 	if (mask == IIO_CHAN_INFO_SCALE) {
+ 		/* Check no integer component */
+-		if (val)
++		if (val) {
++			pm_runtime_put_autosuspend(st->dev);
+ 			return -EINVAL;
++		}
+ 		ret = kxsd9_write_scale(indio_dev, val2);
+ 	}
  
--	INIT_WORK(&fan_data->alarm_work, fan_alarm_notify);
-+	err = devm_work_autocancel(dev, &fan_data->alarm_work,
-+				   fan_alarm_notify);
-+	if (err)
-+		return err;
-+
- 	irq_set_irq_type(alarm_irq, IRQ_TYPE_EDGE_BOTH);
- 	return devm_request_irq(dev, alarm_irq, fan_alarm_irq_handler,
- 				IRQF_SHARED, "GPIO fan alarm", fan_data);
+-- 
+2.34.1
 
