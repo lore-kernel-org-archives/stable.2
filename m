@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28DA3932F7
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:27:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6440752121B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:28:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789572481; cv=none; b=Y2QHi0x9ka97LRIGmfNgjc2/31Rynb/Zr1Q8HBpstGRWka5OOBt2QmXdaERVyF0cd+ORemJWfPj2t2sq79wXym1fv8v6iL2qG9RfKvi6Q7rN6PXort53JU+BjXfLmtnxEtXt83cLZoboTcBjV5o0repI4n7zAt3c39FIYCNdJHg=
+	t=1789572487; cv=none; b=dxc1n09w5yBnWxVCdsSESaD+kf9BsY/sje6mzMpNdxJR17uG31ZwodPR2H7VvL/L2fEn8ay+shHz9mcczB2JGSpPcmsI+pupDHusdgC6y9LVE78u9t7KW1o1UwDONefrzYb8JJPtOpJKObRVbcY3E6cx5NZdkdk7kcYyRyv+Eao=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789572481; c=relaxed/simple;
-	bh=Dlo/j7aJP3tGJOSnYXi7QrTcYCWI6XtEgM+LMR/hjTI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=J4srmOhW36N+y22cFqA466By8ljzmZUce1/tQCfa45ozTP4uLvc+Ro0T4rc6JidhtILMZpeV1VFbkigKsmUImX7MrJh5nBvNq+l5v71hm9E208MOnNSvXz0fS+qqas2shh6MJXVIoFRmnJTerHdhQPrZ3A7e1dIpAluC5k8Do2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mh9Zu/cb; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789572487; c=relaxed/simple;
+	bh=bGVzStUOw2yhEkeLxHN+qb1LOQi8LE1RXsBZ2d7bG8I=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Eh3gqZvCOxg3XPwrcGNJ27Z9CLTs7cklTdsbM+LffWnCXSChLgqDythh2d/rw5jBg2MB3OTeDhiwxMA5nLqIc+gUzZempi5tAv02SH4YBqcXTOE9kBNsXa9nPnJsV1tAoKigNwEEv8ApMxA7rXqgpKIdFWGcK80cqoYQBb55BOE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=maLlimaR; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mh9Zu/cb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 20ECB1F00899;
-	Wed, 16 Sep 2026 15:27:56 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="maLlimaR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 43E101F000FF;
+	Wed, 16 Sep 2026 15:27:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789572477;
-	bh=7l4qup+RGVK2Ee0W1digmfWk1IZbbZIMEHgWwjiIY5c=;
+	s=korg; t=1789572480;
+	bh=pCsykgTq50CbtoD8aeRy4FuYNlof2TXEcUYJ3dmEa7E=;
 	h=Subject:To:Cc:From:Date;
-	b=Mh9Zu/cbdoamoc83pFRTMbsNNLcmFbkgo2QaKk8vUs1J9JAUEEhPLiF47BqCn9nJ9
-	 JhrhSZY2xmzlXne4giqAYXCATsC2DacddUd72kIBPK3T4oo4H6z/Gs3DCPa9qaXoBH
-	 nJftITo7PE20fjavKx7ADN66bd+kzUDcux95wgf8=
-Subject: FAILED: patch "[PATCH] bootconfig: Fix integer overflow in initrd size check" failed to apply to 6.1-stable tree
+	b=maLlimaRaw6GpESUWcJFMldNNKOKOb7wL1ke07AcAlw+bz1yUbwe2P0SebzrKRJF7
+	 YmiycZ1BLaq6axcIqpeK/CaMXWxk3wubQa8t9LGgKRPJHW+MvDvBNz5jsGIodkJPWT
+	 LhdPFF7Khjzv9OqXANZKDWnMVIwG4g4Y5Qw2b0N4=
+Subject: FAILED: patch "[PATCH] bootconfig: Fix integer overflow in initrd size check" failed to apply to 5.10-stable tree
 To: mhiramat@kernel.org,ekffu200098@gmail.com,sashiko-bot@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:15:17 +0100
-Message-ID: <2026091617-grudging-framing-3324@gregkh>
+Date: Wed, 16 Sep 2026 16:15:18 +0100
+Message-ID: <2026091618-used-flashbulb-70ef@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.1-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7812d6dab0698001e50e8c2f901e17da3eb6f429
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091617-grudging-framing-3324@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091618-used-flashbulb-70ef@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
