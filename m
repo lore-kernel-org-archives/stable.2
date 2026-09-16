@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F46D509EEF
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:09:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91404509F02
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:09:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567800; cv=none; b=ZFnMjcdq90MyXTKdO80oq9LWDE0fmgPEfjRBHrIKrq7FdR0+vOIKJVns31LYqtI3aMVoF3nZ1rZN8hHyeZo/1QfdtGmQL9IPjuVPUgRbKkFrIkfb8LQMjOl3bn+ZR9bpafytpZ75XCU8B44zPUSbfHmY5wMNT1/pe7+jCiqrSdU=
+	t=1789567805; cv=none; b=el86LFil/qc4pM2juCcXRHyHIU98MXdfAT3+mb+kqd7nQklXGv+Mo8yqbIiyBtrZ7P3JJiNZVUtdLVg7qcy4pRYcYPZqiCj6YcyYeaBR0VFyV3LmYqaNF8lgB6nLKRaiuCeXtw/eMN5u5zcpOIiOicT2jiFjRmczFZUGVuzFy50=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567800; c=relaxed/simple;
-	bh=x1QvzkpnYBXgHRMIdTkRoFL/i0NE7MpCZrS7ppVaHs4=;
+	s=arc-20240116; t=1789567805; c=relaxed/simple;
+	bh=0t3b0Ja3rumJVPEXwuIU3yfwAfHLdGVN+MyI4ke0aCQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=s6vp3JuXBRwEO5/v4KpkMGNfDzefqgxlsmEoSpm06V0JusX0aW9i7HJoheqzqQ18ubDXdRrmqKdva+EINzYx8keZz2soiQTitoc5S3/SdCwe3fGqJBpDQtPJ+2Zr+L6ODwFI1AVFYAKuj/s70L2VWHsqZPvXJTl/beYLZWbBv3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j2GoBKxB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=tXP/xgVNe+QhijTDv/p1ui5zxvSdN0RfWCRTjDrr6cLzaiKny+hRkUumze8csoEiQkVLNv8HVxWRPrEIE/Yn9R2TYPPf3BY/sUU8aBNZpYgkt/55OXjWPh6YuCAihaGrM+ABC4sRvjXuePKMkQzvy1gE8dea31Ja9WVPxE10XKw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Smj6tBew; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j2GoBKxB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09B7B1F000FF;
-	Wed, 16 Sep 2026 14:09:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Smj6tBew"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 19A1D1F00898;
+	Wed, 16 Sep 2026 14:09:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789567794;
-	bh=ZKjKUyicrCmn5crE05vZ1+HL7pTSDef8URVHcw63kt8=;
+	s=k20260515; t=1789567796;
+	bh=tZd9pKKVDoZNYAWONWb9jIgHwDFHXqeItWn03G6pnvA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j2GoBKxB8GM37v5EKeQzHuRuV9Tf39pMbt7/CfeohcnXPRxQCpukq2rQzkz2fH5kn
-	 jIN8ksiCSgyGG0OjnX3mq8CRdqj4CVNFme+iKagC5h7aAxNZzDimC8uAHSYXVwVT71
-	 Lb1VuQGsJcxHlIG6nDPqBS7kV6/QKtH4Z3+DwS4cKlR5o8AemLQ9wl6IIspTfagDQR
-	 9LmIaZTTzyCl47/n6ruMY+UDpJ16b+PkbO78p8paeilcUUY3XFfF7ois+juWgL58hu
-	 DV1nOBmQ6G4kxQgo641II7pUzWZb+u3s+RSttD2zgzLoGU/mS6prfkS3P2E2lf9Kfr
-	 54LWoYdkUJcHg==
+	b=Smj6tBewyjAxWnY6xIxYXFsJFAJrTQyEj2OxMxM04ByMWy41dbRGaijbjPeNHxyaI
+	 c5hlh/Q64vcn91KtWmwckIMFumFZi3O0cT5yNmlFakRjgvTWBYaWCD01aKxV/DPxk5
+	 8hmGsBj4yfxGold5LgRG6GeIUm4XCuQKFZGRQbNNIh7qXx6b2KqTPAH2S2M2TOmUgL
+	 cxh3ROuybLRmrkl/+Nx5nTj3ZT87g6I9xGTu1Hlhnf4L4E1P8BzmrqeKjHW5yrVa8p
+	 RZNPJckfjCunsQMb4WlmhZUNjfWT/rYIsJXrIDOth5FK08LzM4pCtUnwT9PmLlrOO6
+	 oMFHSeahRpuSw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
 	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
 	Dave Hansen <dave.hansen@linux.intel.com>,
 	Ingo Molnar <mingo@kernel.org>,
+	Vishal Moola <vishal.moola@gmail.com>,
 	Atish Patra <atishp@meta.com>,
 	Nikunj A Dadhania <nikunj@amd.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/3] x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF
-Date: Wed, 16 Sep 2026 10:09:50 -0400
-Message-ID: <20260916140951.2926572-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 3/3] x86/mm/pat: Allocate split page tables as kernel page tables
+Date: Wed, 16 Sep 2026 10:09:51 -0400
+Message-ID: <20260916140951.2926572-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260916140951.2926572-1-sashal@kernel.org>
 References: <2026091603-illusion-provolone-913f@gregkh>
@@ -52,139 +53,140 @@ Content-Transfer-Encoding: 8bit
 
 From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 
-[ Upstream commit d5d8b8662e6e5a565b47a0388640e88402f23274 ]
+[ Upstream commit 9e4a3ec3411bb6bb59e3c1f29b75609f1e87aac4 ]
 
-A previous commit protected against races between ptdump and CPA collapse,
-however one still exists between attribute changes and collapse as reported
-by Denis V. Lunev (linked).
+A PTE is allocated directly without going through the standard page table
+allocation routines (such as pte_alloc_one_kernel()) when the CPA code
+splits a large page (__split_large_page()).
 
-When an attribute change arises, a lockless page table walker obtains a PTE
-entry, which is later written to via set_pte_atomic():
+This means the page table constructor is never called nor is the page table
+marked as a kernel page table.
 
-  ...
-  -> change_page_attr_set_clr()
-  -> __change_page_attr_set_clr()
-  -> __change_page_attr()
-	-> _lookup_address_cpa()
-	-> lookup_address_in_pgd_attr()
-	-> [ lockless page table walker ]
-  -> set_pte_atomic()
+The former results in the folio associated with the page table not being
+marked as a page table (__pagetable_ctor() is never called thus neither is
+__folio_set_pgtable()) nor are statistics updated to reflect
+it (lruvec_stat_add_folio() is never called).
 
-There is nothing preventing a concurrent CPA collapse which can free the
-PTE that was retrieved here, resulting in a use-after-free.
+The latter issue of failing to mark the page table as a kernel page
+table (ptdesc_set_kernel() is never called) is far more problematic.
 
-With the mmap write lock taken on init_mm over CPA collapse, resolve this
-race by acquiring an mmap read lock on init_mm over
-__change_page_attr_set_clr().
+Since commit:
 
-This locks across the whole operation over which the walk and the PTE
-entry write occurs, solving the race.
+  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
 
-It is safe to do this here, as no spinlocks are held upon entry to
-__change_page_attr_set_clr().
+kernel page table freeing has been batched and since the
+subsequent commit:
 
-However, the lock must not be held over an allocation, as allocation can
-trigger reclaim and shrinkers may call into CPA recursively, making
-deadlocks possible (init_mm -> ... -> fs_reclaim -> init_mm).
+  e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries for kernel address space")
 
-A page table is allocated when a huge page needs to be split:
+IOTLB cache entries for kernel page tables have been invalidated upon
+being freed.
 
-  -> change_page_attr_set_clr()
-  -> __change_page_attr_set_clr()
-  -> __change_page_attr()
-  -> split_large_page()
-  [ pagetable_alloc() ]
-  -> __split_large_page()
+Since split page tables are freed without this invalidation, the IOTLB
+can contain stale entries for them.
 
-Avoid deadlocks by dropping the mmap lock across pagetable_alloc() in
-split_large_page() and track whether this is needed by adding a new
-'init_mm_read_locked' flag to struct cpa_data.
+Resolve the issue by using the ordinary PTE allocation API at split time.
 
-This is safe as __split_large_page() (called with locks re-established)
-revalidates that the page table entry is the same as it was prior to the
-locks being dropped and __change_page_attr() repeats the entire page table
-walk whenever a split occurs, so concurrent split and collapse are
-accounted for.
+This results in these kernel page tables invoking a page table constructor,
+and thus requires a page table destructor.
 
-Concurrent ptdump is also safe as the lock is only dropped over page table
-allocation during which time the page table has not yet been modified.
+Destructors are not always present, like for early allocated direct map
+page tables). Conditionally call pagetable_dtor_free() if the PG_table
+folio flag for the ptdesc is set, otherwise we free the page table via
+pagetable_free().
 
-The CPA_COLLAPSE flag is only set by set_memory_rox(), which exclusively
-operates upon vmalloc ranges, and on x86 only within the module mapping
-space.
+Regardless of which path is taken page tables marked as kernel page tables,
+which now includes split page tables, take the correct route through
+pagetable_free_kernel().
 
-This is important, because some callers directly invoke
-__change_page_attr_set_clr(), bypassing this lock. However, none of these
-operate within the module mapping space.
+There is a user-visible side effect in that split page tables will appear
+in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
+allocated after early boot), however this is a positive change.
 
-  * cpa_process_alias() - a recursive helper called by
-    __change_page_attr_set_clr().
-  * __set_memory_enc_pgtable() - operates on the direct mapping and (via
-    __vmbus_establish_gpadl()) the vmalloc mapping space.
-  * __set_pages_[n]p() - called by set_direct_map_[invalid, default,
-    valid]_noflush(), __kernel_map_pages() - operates on the direct map.
-  * kernel_[un]map_pages_in_pgd() - operates on EFI ranges.
+This issue started being markedly problematic after commit:
 
-This work is based upon Denis V. Lunev's excellent analysis of the bug
-with gratitude.
+  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
 
-[ dhansen: move to imperative voice in changelog ]
+so choose this as the Fixes target.
 
-Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
+[ dhansen: rephrase in imperative mood ]
+
+Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
 Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
 Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
 Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
 Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Acked-by: Vishal Moola <vishal.moola@gmail.com>
 Tested-by: Atish Patra <atishp@meta.com>
 Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Link: https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org
-Stable-dep-of: 9e4a3ec3411b ("x86/mm/pat: Allocate split page tables as kernel page tables")
+Link: https://patch.msgid.link/20260813-cpa-fixes-v2-4-39b4ff90f91d@kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ arch/x86/mm/pat/set_memory.c | 25 ++++++++++++++++---------
+ 1 file changed, 16 insertions(+), 9 deletions(-)
 
 diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index 6dda81a629d69..18f88e578be35 100644
+index 18f88e578be35..136ce0b8b256c 100644
 --- a/arch/x86/mm/pat/set_memory.c
 +++ b/arch/x86/mm/pat/set_memory.c
-@@ -49,7 +49,8 @@ struct cpa_data {
- 	unsigned int	flags;
- 	unsigned int	force_split		: 1,
- 			force_static_prot	: 1,
--			force_flush_all		: 1;
-+			force_flush_all		: 1,
-+			init_mm_read_locked	: 1;
- 	struct page	**pages;
- };
+@@ -442,7 +442,15 @@ static void cpa_collapse_large_pages(struct cpa_data *cpa)
  
-@@ -1241,7 +1242,11 @@ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
- 	struct ptdesc *ptdesc;
+ 	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+ 		list_del(&ptdesc->pt_list);
+-		pagetable_free(ptdesc);
++		/*
++		 * Only early alloc'd direct map should not be flagged PG_table
++		 * here and those shouldn't be collapsed. However be abundantly
++		 * cautious and handle the !PG_table case too.
++		 */
++		if (PageTable((ptdesc_page(ptdesc))))
++			pagetable_dtor_free(ptdesc);
++		else
++			pagetable_free(ptdesc);
+ 	}
  
  	spin_unlock(&cpa_lock);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_unlock(&init_mm);
- 	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_lock(&init_mm);
+@@ -1131,11 +1139,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
+ 
+ static int
+ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+-		   struct ptdesc *ptdesc)
++		   pte_t *pbase)
+ {
+ 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
+-	struct page *base = ptdesc_page(ptdesc);
+-	pte_t *pbase = (pte_t *)page_address(base);
++	struct page *base = virt_to_page(pbase);
+ 	unsigned int i, level;
+ 	pgprot_t ref_prot;
+ 	bool nx, rw;
+@@ -1239,20 +1246,20 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
+ 			    unsigned long address)
+ {
+-	struct ptdesc *ptdesc;
++	pte_t *pte;
+ 
+ 	spin_unlock(&cpa_lock);
+ 	if (cpa->init_mm_read_locked)
+ 		mmap_read_unlock(&init_mm);
+-	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
++	pte = pte_alloc_one_kernel(&init_mm);
+ 	if (cpa->init_mm_read_locked)
+ 		mmap_read_lock(&init_mm);
  	spin_lock(&cpa_lock);
- 	if (!ptdesc)
+-	if (!ptdesc)
++	if (!pte)
  		return -ENOMEM;
-@@ -2110,7 +2115,11 @@ static int change_page_attr_set_clr(unsigned long *addr, int numpages,
- 	cpa.curpage = 0;
- 	cpa.force_split = force_split;
  
--	ret = __change_page_attr_set_clr(&cpa, 1);
-+	/* Avoid race with concurrent CPA collapse. */
-+	cpa.init_mm_read_locked = true;
-+	scoped_guard(mmap_read_lock, &init_mm)
-+		ret = __change_page_attr_set_clr(&cpa, 1);
-+	cpa.init_mm_read_locked = false;
+-	if (__split_large_page(cpa, kpte, address, ptdesc))
+-		pagetable_free(ptdesc);
++	if (__split_large_page(cpa, kpte, address, pte))
++		pte_free_kernel(&init_mm, pte);
  
- 	/*
- 	 * Check whether we really changed something:
+ 	return 0;
+ }
 -- 
 2.53.0
 
