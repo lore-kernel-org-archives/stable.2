@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120154BE426
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:08:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8EBE4BE426
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:08:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574885; cv=none; b=hF6Dzp7wt6Mki2p0QcPtbywdNjb9y0rejUQMEMLkIiVJ099ZinEjan83sOgtsBHKx182GVBm8GuexMsBHWQ17sJuJNnzeD6bxiB44GXxA0fY5o0H65+H7/iJG/x9I51u4iPE6fFjDnafB11syhTegsnE5sq90+jHdufaqnqERfc=
+	t=1789574889; cv=none; b=UEb3lszZ3UAk07DrqT07kDMVYd2lLHXtY2j1un+oBhXMRO0C6Y8HkeBGm4OdYZz/tPjskvCK06MhlgVVHvcEt/qGZDR6zkRw/ueECt9RhNRUMq2+KBHnzmiDg5ivsjfQW/PyqMerr8BVwYz6Z1xqyh/p2nuP5MyoQcJd6lHLCcY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574885; c=relaxed/simple;
-	bh=dhQqBg5OAkETSmSCC2QtAylDFSrszE3KgKCGeO2kkTg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jSuxZHeQUFlksZbJb0gF3ngugWyb77vKUTcWB2RkpQ1Wzd5yJ6nnQSvCrb2RkVOXiZx+iw3ZUA2Wu18ykkWbCLSmKa/uOwNbSJZztDkA0IDyt3/XqeLNnbyAAGKVACnV1JB518ar0qZIwLVzENIm0geDpD3ssndRsELEDO9Kf3Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JIFIZA59; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574889; c=relaxed/simple;
+	bh=y6G2UcBqsAV9pubJOYeSf4Ugm4O9LF26qhq9Z1p5xq0=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dVLxWhMTiO7+ptfvjJ5VSu6g1HtiDXsDJvu1OvQekG6faEw4JejmTIaQqYS9+5UUFcDarA03Ow/P/eA9S4kkggh0Jj6AUFqhpF7O7PufmKewSeUfqvw0TzL25RlAvCb/xsdoam15wPM8KX+g9ax+7VuAi/2iBnTQWXrLC10fN+I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I+3xNY5u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JIFIZA59"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365A81F000FF;
-	Wed, 16 Sep 2026 16:08:02 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I+3xNY5u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1D4F01F00893;
+	Wed, 16 Sep 2026 16:08:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574882;
-	bh=K3oPA0716NjPebWL3iM6swhxZsRuBCustHo58aWgvBw=;
+	s=korg; t=1789574885;
+	bh=pLDDpt34CwibVBKfhfc02ZklNh8830w5c5e/pmGr+58=;
 	h=Subject:To:Cc:From:Date;
-	b=JIFIZA597nW4bE21kmHnz9dBQfAO0ID2mzLrXfcLukFN366zoGJ0WfqvirrMQDPn6
-	 y3n0iazqGIymRw3g9VTqXAZeCXMXuN2hnqdXsS/CS0y0Bao/iMZHj+kE2ti1DaKtnx
-	 DlI+kQy44wXq4xkDEjnW2tbnpdVhcNnV4wpyFxmI=
-Subject: FAILED: patch "[PATCH] s390/crypto: Fix use of mutex in atomic context in PAES" failed to apply to 6.18-stable tree
+	b=I+3xNY5u/pXV0gdGZC18iOmh87cQNS1nfFOeVYF0eNM3ClsxeoekMf+CoLAyL26M2
+	 96+n/wzA6aATpqFAufD+UcdRFtZSCBmmjllxaS4EvsVLsMxPGJgTT7Zud0PoiLVQsC
+	 C7LFT0wtX4ZtvMCRnjfjVTPFsEiRsn9z6RFWJ9Wo=
+Subject: FAILED: patch "[PATCH] s390/crypto: Fix use of mutex in atomic context in PAES" failed to apply to 7.2-stable tree
 To: freude@linux.ibm.com,dengler@linux.ibm.com,gor@linux.ibm.com,hca@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
 Date: Wed, 16 Sep 2026 16:50:45 +0100
-Message-ID: <2026091645-sudoku-liquefy-ac94@gregkh>
+Message-ID: <2026091644-frosty-requisite-01bd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 7.2-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
 git checkout FETCH_HEAD
 git cherry-pick -x 749990db95d45cc3d96aab999ac7f110259b200c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091645-sudoku-liquefy-ac94@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091644-frosty-requisite-01bd@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
 
 Possible dependencies:
 
