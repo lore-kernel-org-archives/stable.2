@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9A064AB3B5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8EC9A4B8265
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577338; cv=none; b=cIQ9fs+42HEdk5JKQMTJpGW8W1pzE7Wk6t298BcD/FWY1BzN8cPHaTOgqe7mi9jajaobAD1HV5DVALqzXl8F7ATzzAh5mjV52ff1GncGSvTsGv4aHINufprp8DEgg74jiGWIIyp7AyOZLFSgmSL5/zgzPB47gn1i0TJwTxNHIC8=
+	t=1789577340; cv=none; b=hmyIYIvjdGUJrENQHoGjXo7phBCOGyfKoQHOw57xqVfntao2QdTtA2HteS0hu8pFN9MG/uRMMdKzAMQ9hBNzFiLNdP7iAsXaGZmHRmd3MQt0oW/G/5RlWwbeidHfwLgLLivrat5WjHSPXNwLn+0jVjyj3fqEQllJo/auk0OXZNo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577338; c=relaxed/simple;
-	bh=0aI+2y1kCabkJBqhEJ8S4GwxjbRxV4lk3MJcLQLrEZY=;
+	s=arc-20240116; t=1789577340; c=relaxed/simple;
+	bh=S/FWPnEZMzRiu83r+fOcewMV9IyR4rbu8ueiMJQrszw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=N0RAJNNPsVnY8NSxHLZZcG0geNa0B29fC+e/7VTpva6gXr3i04s4ylI9TAthmMPA+1nkmY7n5uvzziXE/g1Xj/v5Ldx+DaRSRFwx8l2l2Y7yBIErXS66JC+lqh9xlIvJXxOfMTFruTmFERclCGg27xAn/Lxkd9xOoPfeM5bc/98=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D3R+/DgV; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=dXaV08T/37AHOTMvzGdYrsEkYOZBSvO8BIUBcw78p61sIsD/Fanyl5nauIsPzc5ABuPiNxj3y4/fEMwxmfrWJCksTcv7i7OHCeuesszSad22A85XUWdivLXMgZFZhGbF96chaVkmwCxi+M+uZP4JaHY1Fm4/63q621nrR10u0VA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EaO+jUih; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D3R+/DgV"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC01E1F0089A;
-	Wed, 16 Sep 2026 16:48:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EaO+jUih"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C1B71F0089F;
+	Wed, 16 Sep 2026 16:48:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577330;
-	bh=/lg6eDEztQW98S0wIzZ9IFIh6j8SwSvlaa2dLg1ZMb0=;
+	s=k20260515; t=1789577331;
+	bh=qf4rY7brb6DTMGp6vMXcEIQc/yjgI7kh66DjeA8g7A0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=D3R+/DgVWttre94d1FWOFR4aLpYHw+KRytUboHaDREgGD5eg/dMyR3nCKLvEeqDcn
-	 NN7WdBAnaicaN/Rcwa6Fde6yykSfMSRge8H3k2kyXzO36UJqzPYkXZamdmjuyvB3IG
-	 XRMZNbAHLJ2t1i/d88uC9AMsFeFwczQbl9NqaWHJpmWmIihz44+F5Rwv1ljlw2BHlX
-	 geOnRwMvLa/1wjmcOVMia1LI4NiVK57Kxx5YniwdTTi6LQ2ZKGNWE69QSyAmO/hv3L
-	 4qx4sG3DUXkp+luXSCaHdO7UHpdz1VlRo3ddc5/yyKJo9AiFeJZq7S5DfBCdHiAqbq
-	 QyqdFLSs6XbkA==
+	b=EaO+jUihnC1bdKB1/UnD2V248vbxrfwItU1cMfsEs8Mi4mWJ0KK5yOc63l8pSbx5A
+	 8w15YzQ09YFy4ZuVzrC4u/spJti1C29yNaQZnP7K/iyEJiZuil+HixdzhdNqlOFxHR
+	 5sYwe6pVtdVrkV049gAgP+pYsPPsBivtbjqarnaunLYWLa68J2u/Av5OthLyYPq8tQ
+	 b8w8N5WaZjRPcBolYAv/jd6Sd5LRKgGFyCueUzPeQ0xWICwjX8cj+8TtYxrC2mDBdS
+	 O41gW3b2lYxNbmprTLQXhTSXyPjSpEzj9FHhU7O5FSm3jYQABtX6gOHhXtIK5/ExT7
+	 KiOFJISqIEvsg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Viresh Kumar <viresh.kumar@linaro.org>,
+Cc: Xiong Weimin <xiongweimin@kylinos.cn>,
 	"Michael S. Tsirkin" <mst@redhat.com>,
-	Jason Wang <jasowang@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] virtio-mmio: Remove virtqueue list from mmio device
-Date: Wed, 16 Sep 2026 12:48:47 -0400
-Message-ID: <20260916164848.542476-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] virtio_mmio: disable IRQ wake before free_irq
+Date: Wed, 16 Sep 2026 12:48:48 -0400
+Message-ID: <20260916164848.542476-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091637-greeting-apple-1005@gregkh>
+In-Reply-To: <20260916164848.542476-1-sashal@kernel.org>
 References: <2026091637-greeting-apple-1005@gregkh>
+ <20260916164848.542476-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,182 +46,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Viresh Kumar <viresh.kumar@linaro.org>
+From: Xiong Weimin <xiongweimin@kylinos.cn>
 
-[ Upstream commit 564a69ad90d15c782176e1a8c9e1c95661e1aed0 ]
+[ Upstream commit d14d693adb055e98ca705822ba6daebc18602d9a ]
 
-The MMIO transport implementation creates a list of virtqueues for a
-virtio device, while the same is already available in the struct
-virtio_device.
+When the DT node has "wakeup-source", vm_find_vqs() calls
+enable_irq_wake() on the shared IRQ, but vm_del_vqs() freed that IRQ
+without a matching disable_irq_wake(). That leaves a wake reference
+behind and can warn on later free_irq()/request_irq() cycles.
 
-Don't create a duplicate list, and use the other one instead.
+Record whether enable_irq_wake() succeeded, and disable it in
+vm_del_vqs() before free_irq().
 
-While at it, fix the virtio_device_for_each_vq() macro to accept an
-argument like "&vm_dev->vdev" (which currently fails to build).
-
-Signed-off-by: Viresh Kumar <viresh.kumar@linaro.org>
-Message-Id: <3e56c6f74002987e22f364d883cbad177cd9ad9c.1747827066.git.viresh.kumar@linaro.org>
+Fixes: 02213273f72a ("virtio_mmio: add support to set IRQ of a virtio device as wakeup source")
+Cc: stable@vger.kernel.org
+Signed-off-by: Xiong Weimin <xiongweimin@kylinos.cn>
 Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Acked-by: Jason Wang <jasowang@redhat.com>
-Stable-dep-of: d14d693adb05 ("virtio_mmio: disable IRQ wake before free_irq")
+Message-ID: <20260805032937.1606737-1-xiongweimin@kylinos.cn>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/virtio/virtio_mmio.c | 52 +++---------------------------------
- include/linux/virtio.h       |  2 +-
- 2 files changed, 4 insertions(+), 50 deletions(-)
+ drivers/virtio/virtio_mmio.c | 16 +++++++++++++---
+ 1 file changed, 13 insertions(+), 3 deletions(-)
 
 diff --git a/drivers/virtio/virtio_mmio.c b/drivers/virtio/virtio_mmio.c
-index 049c4f4ee56fa..33da642ea962a 100644
+index 33da642ea962a..649e9d5aa1329 100644
 --- a/drivers/virtio/virtio_mmio.c
 +++ b/drivers/virtio/virtio_mmio.c
-@@ -65,7 +65,6 @@
- #include <linux/platform_device.h>
- #include <linux/pm.h>
- #include <linux/slab.h>
--#include <linux/spinlock.h>
- #include <linux/virtio.h>
- #include <linux/virtio_config.h>
- #include <uapi/linux/virtio_mmio.h>
-@@ -88,22 +87,8 @@ struct virtio_mmio_device {
+@@ -87,6 +87,9 @@ struct virtio_mmio_device {
  
  	void __iomem *base;
  	unsigned long version;
--
--	/* a list of queues so we can dispatch IRQs */
--	spinlock_t lock;
--	struct list_head virtqueues;
--};
--
--struct virtio_mmio_vq_info {
--	/* the actual virtqueue */
--	struct virtqueue *vq;
--
--	/* the list node for the virtqueues list */
--	struct list_head node;
++
++	/* True if enable_irq_wake() succeeded for the shared IRQ. */
++	bool wake_irq_enabled;
  };
  
--
--
  /* Configuration interface */
- 
- static u64 vm_get_features(struct virtio_device *vdev)
-@@ -300,9 +285,8 @@ static bool vm_notify_with_data(struct virtqueue *vq)
- static irqreturn_t vm_interrupt(int irq, void *opaque)
- {
- 	struct virtio_mmio_device *vm_dev = opaque;
--	struct virtio_mmio_vq_info *info;
-+	struct virtqueue *vq;
- 	unsigned long status;
--	unsigned long flags;
- 	irqreturn_t ret = IRQ_NONE;
- 
- 	/* Read and acknowledge interrupts */
-@@ -315,10 +299,8 @@ static irqreturn_t vm_interrupt(int irq, void *opaque)
- 	}
- 
- 	if (likely(status & VIRTIO_MMIO_INT_VRING)) {
--		spin_lock_irqsave(&vm_dev->lock, flags);
--		list_for_each_entry(info, &vm_dev->virtqueues, node)
--			ret |= vring_interrupt(irq, info->vq);
--		spin_unlock_irqrestore(&vm_dev->lock, flags);
-+		virtio_device_for_each_vq(&vm_dev->vdev, vq)
-+			ret |= vring_interrupt(irq, vq);
- 	}
- 
- 	return ret;
-@@ -329,14 +311,8 @@ static irqreturn_t vm_interrupt(int irq, void *opaque)
- static void vm_del_vq(struct virtqueue *vq)
- {
- 	struct virtio_mmio_device *vm_dev = to_virtio_mmio_device(vq->vdev);
--	struct virtio_mmio_vq_info *info = vq->priv;
--	unsigned long flags;
- 	unsigned int index = vq->index;
- 
--	spin_lock_irqsave(&vm_dev->lock, flags);
--	list_del(&info->node);
--	spin_unlock_irqrestore(&vm_dev->lock, flags);
--
- 	/* Select and deactivate the queue */
- 	writel(index, vm_dev->base + VIRTIO_MMIO_QUEUE_SEL);
- 	if (vm_dev->version == 1) {
-@@ -347,8 +323,6 @@ static void vm_del_vq(struct virtqueue *vq)
- 	}
- 
- 	vring_del_virtqueue(vq);
--
--	kfree(info);
- }
- 
- static void vm_del_vqs(struct virtio_device *vdev)
-@@ -375,9 +349,7 @@ static struct virtqueue *vm_setup_vq(struct virtio_device *vdev, unsigned int in
+@@ -329,11 +332,17 @@ static void vm_del_vqs(struct virtio_device *vdev)
  {
  	struct virtio_mmio_device *vm_dev = to_virtio_mmio_device(vdev);
- 	bool (*notify)(struct virtqueue *vq);
--	struct virtio_mmio_vq_info *info;
- 	struct virtqueue *vq;
--	unsigned long flags;
- 	unsigned int num;
- 	int err;
+ 	struct virtqueue *vq, *n;
++	int irq = platform_get_irq(vm_dev->pdev, 0);
  
-@@ -399,13 +371,6 @@ static struct virtqueue *vm_setup_vq(struct virtio_device *vdev, unsigned int in
- 		goto error_available;
- 	}
+ 	list_for_each_entry_safe(vq, n, &vdev->vqs, list)
+ 		vm_del_vq(vq);
  
--	/* Allocate and fill out our active queue description */
--	info = kmalloc(sizeof(*info), GFP_KERNEL);
--	if (!info) {
--		err = -ENOMEM;
--		goto error_kmalloc;
--	}
--
- 	num = readl(vm_dev->base + VIRTIO_MMIO_QUEUE_NUM_MAX);
- 	if (num == 0) {
- 		err = -ENOENT;
-@@ -463,13 +428,6 @@ static struct virtqueue *vm_setup_vq(struct virtio_device *vdev, unsigned int in
- 		writel(1, vm_dev->base + VIRTIO_MMIO_QUEUE_READY);
- 	}
- 
--	vq->priv = info;
--	info->vq = vq;
--
--	spin_lock_irqsave(&vm_dev->lock, flags);
--	list_add(&info->node, &vm_dev->virtqueues);
--	spin_unlock_irqrestore(&vm_dev->lock, flags);
--
- 	return vq;
- 
- error_bad_pfn:
-@@ -481,8 +439,6 @@ static struct virtqueue *vm_setup_vq(struct virtio_device *vdev, unsigned int in
- 		writel(0, vm_dev->base + VIRTIO_MMIO_QUEUE_READY);
- 		WARN_ON(readl(vm_dev->base + VIRTIO_MMIO_QUEUE_READY));
- 	}
--	kfree(info);
--error_kmalloc:
- error_available:
- 	return ERR_PTR(err);
+-	free_irq(platform_get_irq(vm_dev->pdev, 0), vm_dev);
++	if (vm_dev->wake_irq_enabled) {
++		disable_irq_wake(irq);
++		vm_dev->wake_irq_enabled = false;
++	}
++
++	free_irq(irq, vm_dev);
  }
-@@ -627,8 +583,6 @@ static int virtio_mmio_probe(struct platform_device *pdev)
- 	vm_dev->vdev.dev.release = virtio_mmio_release_dev;
- 	vm_dev->vdev.config = &virtio_mmio_config_ops;
- 	vm_dev->pdev = pdev;
--	INIT_LIST_HEAD(&vm_dev->virtqueues);
--	spin_lock_init(&vm_dev->lock);
  
- 	vm_dev->base = devm_platform_ioremap_resource(pdev, 0);
- 	if (IS_ERR(vm_dev->base)) {
-diff --git a/include/linux/virtio.h b/include/linux/virtio.h
-index 4cc614a383765..73b95651fe57f 100644
---- a/include/linux/virtio.h
-+++ b/include/linux/virtio.h
-@@ -158,7 +158,7 @@ void virtio_reset_device(struct virtio_device *dev);
- size_t virtio_max_dma_size(const struct virtio_device *vdev);
+ static void vm_synchronize_cbs(struct virtio_device *vdev)
+@@ -462,8 +471,9 @@ static int vm_find_vqs(struct virtio_device *vdev, unsigned int nvqs,
+ 	if (err)
+ 		return err;
  
- #define virtio_device_for_each_vq(vdev, vq) \
--	list_for_each_entry(vq, &vdev->vqs, list)
-+	list_for_each_entry(vq, &(vdev)->vqs, list)
+-	if (of_property_read_bool(vm_dev->pdev->dev.of_node, "wakeup-source"))
+-		enable_irq_wake(irq);
++	if (of_property_read_bool(vm_dev->pdev->dev.of_node, "wakeup-source") &&
++	    !enable_irq_wake(irq))
++		vm_dev->wake_irq_enabled = true;
  
- /**
-  * struct virtio_driver - operations for a virtio I/O driver
+ 	for (i = 0; i < nvqs; ++i) {
+ 		if (!names[i]) {
 -- 
 2.53.0
 
