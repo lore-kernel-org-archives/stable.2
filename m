@@ -1,102 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04EF332601;
-	Wed, 16 Sep 2026 18:14:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE71D442B15;
+	Wed, 16 Sep 2026 18:15:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789582459; cv=none; b=jU0Eb1PMBxsf+so9Yk6Cay7Sx8KDPXUeTn9eBKfBJuZXKkhA+YsrPkeSYw5QOcPOTFC4bRIDl+zX90a33PFUFZScTL47t3BWEMXaNO0Sm+EI11JIzwRbDBBScZows6heZHJCQtNkfln1x0JE3svbBshWk56pF+NVraIbQVT3oNM=
+	t=1789582518; cv=none; b=GLm1nHvk3I2tAkBsl0eR4/Xl4ncJcJVLVD7WrjZl/uWUhPTxstFiTcIC87D+iZHPlvNvrlSqjYN60mQSLcDn/oNMHmQINgIVepA+69NNUK6ne7ZecifujXH6hbf0SK+0Ygi4Atg6wxCKuuvKEvKea4p9bOj74p3pbxtL5tOPap8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789582459; c=relaxed/simple;
-	bh=KjEfwPecyT60Bm/IoDRCxjnztRpecWag3huifqW5vRs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=MOuUU4nSj2W6I8FJO/QxbN/ODM61DMbe1MtMAjBKW2n7GqWautw/o/Y3KOJ7NqgEG3c80788Ny40AaACAfBNsCAC6UGFlE9ffCXNR/tk2tPmq+mPqWm9eFYINESA65hSDBoiDMgx1nJ5KQXYjjZa+JaUXAodZM9CSHXDY5TSKi0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Qch4oeKI; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Qch4oeKI"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789582446; x=1821118446;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=KjEfwPecyT60Bm/IoDRCxjnztRpecWag3huifqW5vRs=;
-  b=Qch4oeKIeMcAtWYAzIWWTAyN8ZLg/rFYhf17uCzJ+cHY5fCGXZITnc8y
-   kVIai6cdw96ayBwBeiosmSj0IwrLO62d8asbe/o48K3acDTym+QAVTjbl
-   iYxAhG4rqic/IBdGB3qDVaLOvVcMaeJeeM0keTQYvFpDHmcnuS9LaunUB
-   DjXfym1O7HaTfE3OEzrYevzVnhHfgBJESUx3LguY8Ja6M5e/aTsRu9QyH
-   RGfj2aMOvsoumVTgozprWAwKq5a11Eh6yLdjz9BmfieErwM+k6LElyITw
-   0T4KlKlsgVK2aW9WQ5DmvCPyqH91waPJ5vGapObTVzaDwSYDklGMd+L6H
-   A==;
-X-CSE-ConnectionGUID: WGbqBczpTHq6hT0RuchNcg==
-X-CSE-MsgGUID: 2/g7ZFzBRvSo16490byh6g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100632538"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100632538"
-Received: from fmviesa011.fm.intel.com ([10.60.135.151])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 11:14:00 -0700
-X-CSE-ConnectionGUID: V/qfv/AxTbqZ+ljzrI0/TA==
-X-CSE-MsgGUID: aMDd1673QlKPBzYk4G7f4g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1636979"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa011.fm.intel.com with ESMTP; 16 Sep 2026 11:13:59 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x6u8p-000000006XT-2Zgs;
-	Wed, 16 Sep 2026 18:13:55 +0000
-Date: Thu, 17 Sep 2026 02:13:28 +0800
-From: kernel test robot <lkp@intel.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>,
-	Jiri Kosina <jikos@kernel.org>,
-	Benjamin Tissoires <bentiss@kernel.org>
-Cc: oe-kbuild-all@lists.linux.dev, Ping Cheng <ping.cheng@wacom.com>,
-	Jason Gerecke <jason.gerecke@wacom.com>,
-	linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: Re: [PATCH v2] HID: wacom: avoid overflows in sequence number
- tracking
-Message-ID: <202609170218.u9lMtoL0-lkp@intel.com>
-References: <20260915141621.3011011-1-qwe.aldo@gmail.com>
+	s=arc-20240116; t=1789582518; c=relaxed/simple;
+	bh=IpFVF2oPftQ+Dw/8j+cjohxrNBD43MUmFBcLSB0DgNs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=KgYssxrkZd7evchv31rz1WzE++M7CRy9sc3gjHYw22kv4nodq7u16DlhuWrikeeD58hsJWZrTlgShnOSSfol0UW1RUaodgjZ0XAVtJnvObLkC73w91GNMAIE6FwIW2TTS8hRo7C/9wcmGC9KIulgAe/xtF1vvGwx4ufK3pTIiRI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3oDqe3KpqlU9vCA--.23663S2;
+	Thu, 17 Sep 2026 02:14:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: andrzej.hajda@intel.com,
+	andy.yan@rock-chips.com,
+	dri-devel@lists.freedesktop.org,
+	heiko@sntech.de,
+	hjc@rock-chips.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-rockchip@lists.infradead.org,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/rockchip: dsi: Fix second reference leak in dw_mipi_dsi_rockchip_host_detach()
+Date: Wed, 16 Sep 2026 18:14:26 +0000
+Message-Id: <20260916181426.2091074-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915141621.3011011-1-qwe.aldo@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3oDqe3KpqlU9vCA--.23663S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtFy8ZF4xCF1rKrWUZF45GFg_yoWkZrX_Kw
+	1Iqr15Wr4rJ3sxZ3W8C3y3uFZIk3sF9FWIga10vFZxZa9rJr1IqrZ5Aw4YqF17Cay3AFZ7
+	G3W0qryrCan3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb-xFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26F
+	4UJVW0owAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJV
+	W0obIYCTnIWIevJa73UjIFyTuYvjfUw5l8UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwEMA2qqpVh2owAAsh
 
-Hi Aldo,
+The reference to the dual-DSI partner device obtained through
+dw_mipi_dsi_rockchip_find_second() is never released after removing
+the partner component.  Drop it once component_del() is done.
 
-kernel test robot noticed the following build errors:
+Fixes: cf6d100dd238 ("drm/rockchip: dsi: add dual mipi support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-[auto build test ERROR on hid/for-next]
-[also build test ERROR on linus/master v7.3-rc3 next-20260914]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
+diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+index 2c1f1c53ddda..7f2d3cd28694 100644
+--- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
++++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
+@@ -1101,8 +1101,10 @@ static int dw_mipi_dsi_rockchip_host_detach(void *priv_data,
+ 	struct device *second;
+ 
+ 	second = dw_mipi_dsi_rockchip_find_second(dsi);
+-	if (second && !IS_ERR(second))
++	if (second && !IS_ERR(second)) {
+ 		component_del(second, &dw_mipi_dsi_rockchip_ops);
++		put_device(second);
++	}
+ 
+ 	component_del(dsi->dev, &dw_mipi_dsi_rockchip_ops);
+ 
+-- 
+2.34.1
 
-url:    https://github.com/intel-lab-lkp/linux/commits/Aldo-Ariel-Panzardo/HID-wacom-avoid-overflows-in-sequence-number-tracking/20260915-111621
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/hid/hid.git for-next
-patch link:    https://lore.kernel.org/r/20260915141621.3011011-1-qwe.aldo%40gmail.com
-patch subject: [PATCH v2] HID: wacom: avoid overflows in sequence number tracking
-config: arm-randconfig-1001-20260916 (https://download.01.org/0day-ci/archive/20260917/202609170218.u9lMtoL0-lkp@intel.com/config)
-compiler: arm-linux-gnueabi-gcc (GCC) 8.5.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260917/202609170218.u9lMtoL0-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609170218.u9lMtoL0-lkp@intel.com/
-
-All errors (new ones prefixed by >>, old ones prefixed by <<):
-
->> ERROR: modpost: drivers/hid/wacom.ko: symbol '__aeabi_ldivmod' undefined!
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
