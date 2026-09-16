@@ -1,129 +1,196 @@
-Received: from mail-106111.protonmail.ch (mail-106111.protonmail.ch [79.135.106.111])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D3EE33D51A;
-	Wed, 16 Sep 2026 08:09:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=79.135.106.111
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5819E46C4DD
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:10:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546190; cv=none; b=E/yQPXfR45Ni3l1v7y5XTLAL9Txd+dvXixxqzBAb+fWKJJAsQsu4XtoOexaWkxn19hkhBrghMAhyXKvFvdTsdqyswT2iiWcEgHUfHVTLclYmbRiSoRVt1zCHDfoo+jul+8DIM38CEY5Lp2q7R4O/C1BzH/AZSu7I0KnlkrkBhvY=
+	t=1789546221; cv=none; b=ZVtbQhT77wFV0quJr9BSKt3e3cJdmATyn8oZNflYB1Ab5QGeuTjOPUxVsQ5KefFg/1aFivdcxfA1+0hUa+UHV/8D8rqx7Q80nkIIg8ByKdmym9DLI/VF3trrkZ1GgNJuk456nmu5/+KI0ei7LHqQo0zBU3/psiVwpMyIFuJ97Ls=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546190; c=relaxed/simple;
-	bh=7g4Bx6VcNobxJ0NKjiVjkZ2NfOoDHgnEhpsjeZEGI9Y=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=oYAIQQbbFUdrT3mKR03m5a7HitnB4qkEGHhduMByXTdxBO45UDmUfUxENhObYvvR5LyiGlF1sGHAzSXlEMVL/OwoYecSm6NOTRLYso3QPbxMCNVYAmVcUaWTyAiOLxvSv7/ZOsZZxJQLNm9MLuLt4ikJBxoNQeLRJBu+yOn0hwM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com; spf=pass smtp.mailfrom=geanix.com; dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b=WmVvQ/vA; arc=none smtp.client-ip=79.135.106.111
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=geanix.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=geanix.com
+	s=arc-20240116; t=1789546221; c=relaxed/simple;
+	bh=nkTivANmUXq4e9wIM0SOH6H4eHJjSyDHp1VOxM3zsjM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IyFp7FUxezkLARLrUA5o9H93QhUtvVa+28mGyfp2jTWv9ACnBwMjP7dWrWPZdHMEys5bDLWWLmR9aXp3r+HrE4syopTddHX49h4XzPugthVDLsLOvlPJon89Z9e9mcPn20Ewc8uMaSdAc/KxZ/PomrbhxO6Ktg2YKktkqpnLZ64=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XyKnPYOr; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=geanix.com header.i=@geanix.com header.b="WmVvQ/vA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=geanix.com;
-	s=protonmail; t=1789546167; x=1789805367;
-	bh=KdnGPyMt+WNrC+sXSZeon9pFIAKeJSHes4isdLhm8wg=;
-	h=From:Date:Subject:Message-Id:References:In-Reply-To:To:Cc:From:To:
-	 Cc:Date:Subject:Reply-To:Feedback-ID:Message-ID:BIMI-Selector;
-	b=WmVvQ/vAFKIGgYgFaFzLL/zeSDtybfwg6us4vVK33nYMgpdc9ARj5MMmi3yGfDH/O
-	 4a+7n5/O9jWvutBSXpUdeUtdbCF+Vjxf1WvLPz9mm8kb+UeRQXFNknn5sDuJ4fHozN
-	 YJi32bE6pBoAy1YU7CuXZd+I8leNl+NYnfyt9YbEKZTBkvFl57qi5nc7GgQXnNCgs4
-	 yZlogwpisshoNLnxV0EAg9ktAgVKMR6+mm2/DwZ+A/pywA4P4lrz0gwnNaljKj83SK
-	 CXXf6Embn7JM+ShyajUt/v6t0C52iqLLRmfUVSSyznEtHJo61BDq/RB4nTcZfkirG5
-	 RjPzyY9oDR5FQ==
-X-Pm-Submission-Id: 4hlBPJ53csz2ScPH
-From: Esben Haabendal <esben@geanix.com>
-Date: Wed, 16 Sep 2026 10:07:59 +0200
-Subject: [PATCH v9 03/10] iio: accel: mma8452: Fix runtime PM bugs in
- mma8452_read()
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XyKnPYOr"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4cacd3409so662264a12.2
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 01:10:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789546204; x=1790151004; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=iUsD627B/6M5jyv1UJxvIMio9SziZyI6UnP6z74oBus=;
+        b=XyKnPYOraE1XyhHvbxhOev1tK4nDmePjiIguBf4pnQqCZPLPbRWuCP9WQXeRNFnTCK
+         b38nBSpGEVn06GDTKfOfy39hYCEkC5oueYJN1G4tD4P+cQWFZilSSFZsS5W4AXjsn78s
+         633GH9EScJNtBtFEfl2oyEmSwW8Kt2pHfOjkfXlmNWnCLq7CHoxNrJAzkbh34gM9i1Yg
+         6fKTCLuIoAxw95pVGrWMqRk0tjBc9Z2qK21xUsMNMM8cXt9h7eb1KfaoxGNR3+K5aAyj
+         Mq17NxbN5fBxBgEZtH2KOSSsnRQAGP8CW6B4K63Lr8U8HIp+nPIFF+D8YC7wEobd8ypv
+         O0XQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789546204; x=1790151004;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=iUsD627B/6M5jyv1UJxvIMio9SziZyI6UnP6z74oBus=;
+        b=CrOOSi1srywiMvFFeKX72SoLPUz+6iSkSWBrvuEkTbb2oqFxdoK26OxVtWB/OWInFP
+         KGIfmgtAhSZ2aZvTyjm500csOs37DpfwURdE4bTWZ2HbG+0/VgJec1z2i3ipdibH7S3q
+         JpEkz4/wmZNd3uiWqHbTRB+rUUmK+KlQAZvGu4DqZixvlEtFrNYvmUHLiHAHyWa7I2B5
+         cxwe1/Wo/7MGc554oGJML1AfOtu6SC/9/km3k/dd0QbwXIe7RpkuTJ3a/79MvIzA2XYE
+         W9FzG6Hw6KnfMXM85gKeUqwVxpuG02adK+UQQ0VkmsQ13irHUbEooRJFMh3kHobUTNEr
+         ADBw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0jx0xp3qE8sfku/dh4eqJ5eb2fe74HEv6yu0FoIFZyu9e4gi2uye3as5d/lU6QEJaCefETlg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mflq8+eUGjJZLcXfBYSymAzUVubtUKXHc4OO5Y83v0aIIo7h9C
+	tknjck18s4lbmc575YjKGy+u/2/bgFUDNT7H/e/qFrzYxVD5XeKcNlaV
+X-Gm-Gg: AYBFou2+UZQOCVJqeWJc+eY7jn00Zii7cW2HwBh1rr0p7ld7SDt5wwAx9dNir/Vo3P1
+	Y1EomO2vrcmzsFEdT+KKvDcnckgUiOP5DNdVmz75c27vDY3sJVYAM1evwN03W5J5mqbDUnHv3Ew
+	Wul5WU5hENT9TNjVN0NDxPbGBjvSPZwiM0F8MZBs7aCzVFRd8JkXMNGtr78ua024d5YUgANMOGk
+	lcfFA8Y/EpiSgIr1BI5z5AtukTXD3ihVyccm0IFRPi6ga5+hpGsJr3y77uTS+3uEYWJK4FY6fCU
+	1Uo3QUJ+Ewb/G5gshXgdq07zRHw2t3RbXCuBxoBnTxrTT05OWg3Sor34Dzlo6eeFjQV0Eo1KQ8g
+	tVbSYndIgihoVEUtDzcVCQLd/ZaeEthHUP7WhJFdbsMWdIuGI1TGNYwbHzYhrWRMhfjm0wPujwI
+	B0Al6acunq7ITcWziPc21yvQqoQReiExYjPV7VAGk1vYg/93erVfmvc+VIEt+zDZOdYFUyZcFGD
+	U7TbQxxzrX+J4dlWj//MSX2Mwdly5j8ZXrrDQ==
+X-Received: by 2002:a17:90a:1c82:b0:39e:24ab:9fb0 with SMTP id 98e67ed59e1d1-39e24aba659mr1236240a91.6.1789546204505;
+        Wed, 16 Sep 2026 01:10:04 -0700 (PDT)
+Received: from localhost.localdomain ([180.101.244.68])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1d1626adsm952594a91.4.2026.09.16.01.10.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 01:10:03 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-sctp@vger.kernel.org,
+	marcelo.leitner@gmail.com,
+	lucien.xin@gmail.com,
+	imv4bel@gmail.com,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net] sctp: don't re-register a removed transport as last_data_from
+Date: Wed, 16 Sep 2026 16:09:51 +0800
+Message-ID: <20260916080955.1019050-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.43.7
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260916-mma8452-open-drain-v9-3-0dd24fa2f3d7@geanix.com>
-References: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
-In-Reply-To: <20260916-mma8452-open-drain-v9-0-0dd24fa2f3d7@geanix.com>
-To: Jonathan Cameron <jic23@kernel.org>, 
- Lars-Peter Clausen <lars@metafoo.de>, Rob Herring <robh@kernel.org>, 
- Krzysztof Kozlowski <krzk+dt@kernel.org>, 
- Conor Dooley <conor+dt@kernel.org>, Martin Kepplinger <martink@posteo.de>, 
- Sean Nyekjaer <sean@geanix.com>, David Lechner <dlechner@baylibre.com>, 
- =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, 
- Andy Shevchenko <andy@kernel.org>, 
- Martin Kepplinger <martin.kepplinger@theobroma-systems.com>, 
- Christoph Muellner <christoph.muellner@theobroma-systems.com>
-Cc: Esben Haabendal <esben@geanix.com>, linux-iio@vger.kernel.org, 
- devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789546157; l=2127;
- i=esben@geanix.com; s=20240523; h=from:subject:message-id;
- bh=7g4Bx6VcNobxJ0NKjiVjkZ2NfOoDHgnEhpsjeZEGI9Y=;
- b=Ju2uL8tn7OgC+R/Nfn5weZgamzhJrK5EWQ/i4i4Y+TUcEj5WmjfoYRvbJiMrRLAFiXjUX0ECW
- 3JJZ9qUruXjB5httPKCE5KovQ1PtEooEjuY5h9yd73h6ct6bvefhOrU
-X-Developer-Key: i=esben@geanix.com; a=ed25519;
- pk=PbXoezm+CERhtgVeF/QAgXtEzSkDIahcWfC7RIXNdEk=
+Content-Transfer-Encoding: 8bit
 
-When runtime PM support was added [1], the implementation in mma8452_read()
-was done incorrectly, as it calls mma8452_drdy() before ensuring runtime pm
-has set the device active, so it can cause read from STATUS register while
-device is suspended/off. At the same time, the return value from
-i2c_smbus_read_i2c_block_data() was discarded, and the function would
-return the value returned from pm_runtime_put_autosuspend() instead.
+From: Aohan Mei <henrymei@tencent.com>
 
-When the latter bug described above was fixed [2], another bug was
-introduced, as mma8452_read() would now leak the runtime PM reference
-counter when i2c_smbus_read_i2c_block_data() failed.
+When an association is in COOKIE-ECHOED state and the peer sends a
+bundled [ERROR(Stale Cookie)][DATA] packet from one of its non-primary
+addresses, processing the ERROR chunk takes the non-fatal stale-cookie
+retry path sctp_sf_do_5_2_6_stale(), which queues
+SCTP_CMD_DEL_NON_PRIMARY while keeping the association alive.
+sctp_cmd_del_non_primary() removes every non-primary transport -
+including the very transport this packet arrived on, which is still
+referenced by the receive lookup and shared by all chunks of the
+packet via chunk->transport.
 
-This commit corrects this mess.
+sctp_assoc_rm_peer() does redirect asoc->peer.last_data_from away from
+the removed transport, but right afterwards the bundled DATA chunk
+makes sctp_assoc_bh_rcv() re-register
+asoc->peer.last_data_from = chunk->transport unconditionally, undoing
+the redirection with the just-removed transport.
 
-[1] commit 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
-[2] commit 5bdff291d20c ("iio: accel: mma8452: handle I2C read error(s) in mma8452_read()")
+Once the packet is done, the receive reference is dropped and the
+transport is RCU-freed, while the surviving association keeps the
+dangling last_data_from.  A later FWD-TSN (or the delayed SACK timer)
+makes sctp_gen_sack() dereference it (->param_flags and friends), and
+sctp_make_sack()/sctp_outq_select_transport() may write to the freed
+object and link it into the live transport list.  This is a
+use-after-free triggerable by any malicious SCTP peer (or a local
+unprivileged user acting as one) with no capabilities required:
 
-Fixes: 96c0cb2bbfe0 ("iio: mma8452: add support for runtime power management")
+  BUG: KASAN: slab-use-after-free in sctp_do_sm+0x498a/0x5660
+  Read of size 4 at addr ffff88800e1e356c by task poc/115
+  Call Trace: sctp_do_sm <- sctp_assoc_bh_rcv <- sctp_inq_push <-
+              sctp_rcv <- ip_protocol_deliver_rcu <- ip_rcv
+  Allocated: sctp_transport_new <- sctp_assoc_add_peer <-
+             sctp_process_init (INIT-ACK processing)
+  Freed: kfree <- sctp_transport_destroy_rcu <- rcu_core
+         (call_rcu queued by sctp_transport_put at end of sctp_rcv)
+  The buggy address is located 364 bytes inside of freed 1024-byte
+  region [ffff88800e1e3400, ffff88800e1e3800), cache kmalloc-1k
+
+Related is commit 03a9d10ecf71 ("sctp: drop a chunk if its transport was
+removed"), which only covers the window between the receive lookup and
+the chunk processing (e.g. an ASCONF DEL-IP racing the socket backlog);
+here the transport is removed *while* the packet is being processed, by
+an earlier chunk of the same packet, so the drop in sctp_inq_push() does
+not reach this path.  Verified with the bundled [ERROR(Stale
+Cookie)][DATA] + FWD-TSN reproducer: the KASAN report above still fires
+with that commit applied, and is gone with this patch on top.
+
+Fix it by never registering a dead transport as last_data_from:
+sctp_transport_free() sets ->dead when the transport is removed, so
+both re-registration sites (the association and the endpoint backlog
+paths) can simply skip it, keeping the redirection done by
+sctp_assoc_rm_peer() in effect.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Esben Haabendal <esben@geanix.com>
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
 ---
- drivers/iio/accel/mma8452.c | 16 ++++++++++------
- 1 file changed, 10 insertions(+), 6 deletions(-)
+ net/sctp/associola.c   | 16 ++++++++++++----
+ net/sctp/endpointola.c | 10 ++++++----
+ 2 files changed, 18 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/iio/accel/mma8452.c b/drivers/iio/accel/mma8452.c
-index a937cbd84f30..a77c4b88b61d 100644
---- a/drivers/iio/accel/mma8452.c
-+++ b/drivers/iio/accel/mma8452.c
-@@ -242,21 +242,25 @@ static int mma8452_set_runtime_pm_state(struct i2c_client *client, bool on)
+diff --git a/net/sctp/associola.c b/net/sctp/associola.c
+index 5b0ae616e1ff9..ecef09959630d 100644
+--- a/net/sctp/associola.c
++++ b/net/sctp/associola.c
+@@ -1023,11 +1023,19 @@ static void sctp_assoc_bh_rcv(struct work_struct *work)
+ 			continue;
  
- static int mma8452_read(struct mma8452_data *data, __be16 buf[3])
- {
--	int ret = mma8452_drdy(data);
--
--	if (ret < 0)
--		return ret;
-+	int ret;
+ 		/* Remember where the last DATA chunk came from so we
+-		 * know where to send the SACK.
++		 * know where to send the SACK.  chunk->transport may have
++		 * been removed while processing an earlier chunk of this
++		 * same packet (e.g. a stale-cookie ERROR chunk queues
++		 * SCTP_CMD_DEL_NON_PRIMARY, which removes the non-primary
++		 * transport this packet arrived on), so never register a
++		 * dead transport; otherwise last_data_from would be left
++		 * dangling once the receive reference is dropped and the
++		 * transport is freed.
+ 		 */
+-		if (sctp_chunk_is_data(chunk))
+-			asoc->peer.last_data_from = chunk->transport;
+-		else {
++		if (sctp_chunk_is_data(chunk)) {
++			if (!chunk->transport || !chunk->transport->dead)
++				asoc->peer.last_data_from = chunk->transport;
++		} else {
+ 			SCTP_INC_STATS(net, SCTP_MIB_INCTRLCHUNKS);
+ 			asoc->stats.ictrlchunks++;
+ 			if (chunk->chunk_hdr->type == SCTP_CID_SACK)
+diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
+index dfb1719275dba..f9d4f318e132e 100644
+--- a/net/sctp/endpointola.c
++++ b/net/sctp/endpointola.c
+@@ -392,11 +392,13 @@ static void sctp_endpoint_bh_rcv(struct work_struct *work)
+ 			continue;
  
- 	ret = mma8452_set_runtime_pm_state(data->client, true);
- 	if (ret)
- 		return ret;
- 
-+	ret = mma8452_drdy(data);
-+	if (ret < 0)
-+		goto out_runtime_put;
-+
- 	ret = i2c_smbus_read_i2c_block_data(data->client, MMA8452_OUT_X,
- 					    3 * sizeof(__be16), (u8 *)buf);
- 	if (ret < 0)
--		return ret;
-+		goto out_runtime_put;
-+
-+	return mma8452_set_runtime_pm_state(data->client, false);
- 
--	ret = mma8452_set_runtime_pm_state(data->client, false);
-+out_runtime_put:
-+	mma8452_set_runtime_pm_state(data->client, false);
- 
- 	return ret;
- }
-
+ 		/* Remember where the last DATA chunk came from so we
+-		 * know where to send the SACK.
++		 * know where to send the SACK.  As in sctp_assoc_bh_rcv(),
++		 * never register a dead (already removed) transport.
+ 		 */
+-		if (asoc && sctp_chunk_is_data(chunk))
+-			asoc->peer.last_data_from = chunk->transport;
+-		else {
++		if (asoc && sctp_chunk_is_data(chunk)) {
++			if (!chunk->transport || !chunk->transport->dead)
++				asoc->peer.last_data_from = chunk->transport;
++		} else {
+ 			SCTP_INC_STATS(ep->base.net, SCTP_MIB_INCTRLCHUNKS);
+ 			if (asoc)
+ 				asoc->stats.ictrlchunks++;
 -- 
-2.55.0
+2.43.7
 
