@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2FE84CEE75
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2EB04CEE73
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:56:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574184; cv=none; b=gotnFa4krAcozROSR/lZ+8Zuz8T5uLmr43u5cW2lAIJDCmMKbDqNn2ywa6ah3zO/GBWXtZEZWDEcDiKQSfnwKN0V6Bm4uqWUgATiZiHpMWFu8D/qHGLD289DmiZ20AxNvHoxqHQlE9Ht4d6Un+iCtz2tmldga0bERs7iN6XW77A=
+	t=1789574189; cv=none; b=R49TJghEoNoXi6IlwdE4wysF0fF5jX6O3PDe8QT1SW9lnT0csiPTAhVT4Qn9sQ7LTS7hpmoN7w5HsB3EP4pjQtPgM2tCzp3tiEJbFZZIZedkDcAqrlKl4NVq6dMt2bSn+7t0zkZWexx97CYN9gOD/K8MLeXCM4FO402+EWMlBxA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574184; c=relaxed/simple;
-	bh=OrSj4x9uEWMu4npb44d8CK0Ux7Gu699fAmtdS0ZU7I0=;
+	s=arc-20240116; t=1789574189; c=relaxed/simple;
+	bh=dIIo7Tyuw+HEOraTjk/fVI83zjXs81HMEGtUun9HudY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NGvKmBcwSr0Bgr5YXKmbZudBRnPyYqfs8rzlA6i9IsTbYfG/4o1Wm+wUOAQUHTVxUsQgHrhGIG7lepkz7MjoGPCB2oxB4qxVJo/R3UkWxC/sBB3Ef6mn/NLv6AYS8QbBASehrHHK8EEHOIVn7Ro3eoBr2toYRj/C80jkur3vo/w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JG/gXMh7; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=S7fFEEnOZ/3aEt+zRsPQZMalIzwGhgspZXws/X9Ga0drIhDtVAgx++ocKwlAzaGgfEca4WCuUs/+dKb8LrpBeskGZ35p5vGuZC1MgXVDTUSD/8UH71yS23/g5XqHJB16R64Fw6t2yXorTtNyxmeM0muqLfTUxULqeoQYuUzaSAE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JLH+z5cz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JG/gXMh7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 297631F0089A;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JLH+z5cz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 45F4D1F0089C;
 	Wed, 16 Sep 2026 15:56:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789574176;
-	bh=UbRASGlwqjAkv0Zo1YVWb1Yiv3zkfcbwnFRAUQAjZ5Y=;
+	bh=0jMWKkgLXmDrOGL5hKmzbCAwoXgHHvrqRf9rR9D0JQQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JG/gXMh76H1/BcPaI7Ucgdqlvm3yB1zQyKQLGfL0NzYLNywwl++Sq26ab1+auW1ER
-	 O6bCiAu/0OML1p8x6bisPvsdnNYZ7nR7cyLmHiFooiNjTIFc95IyO6aJzkU8ReWcwW
-	 lPPnhQo/bBKOb4zarIqZ5CXIRF7F7Rr3o3/ap8gLDa+Th0zFT1aXpT8nn1BLm2wX90
-	 RKABVQ/3w3RY0xMJXDg8LAgUdJ9RDYV8moToIzdbUnSvloWQzj0upH8PRFtDquk6ux
-	 iEDE8Ty4wumyiRVqwlFqhd1BoQkWR2tzJGJTfZYtQZEfXP+xNG5EZxmBVgqyK1vY8o
-	 BTjgTmEvkLgbA==
+	b=JLH+z5czX6H37eUnKeYTKaVc9U7UxcnVvSkY6/pXR3S4lBJG/wAss5t5wnPjREZhy
+	 H8CE3uyl4/LRAB2OuykkhB4vxVjJTdM5wyl3XvhhnTbDiAvgi48KqlkZv9mOcPpp2k
+	 5jiiWSkOVnL1VF/Glmssq5hmODnLgixtCqI3ZBJUPMvzVag7u/2gcNicbnN5dGMXd5
+	 uEIVOZfR1p6qIUUGFeFWw8EINGIiQxwuoQBZ6YjaNFfs95PKsh3tSFusdQMv6uQqha
+	 b9sD8Fe+z+y1Yf+GNeRB4Psj2otg0xL3iXQyxV6wDBpkQpBm5c1VPegWHuSauVtn7i
+	 sRUDARHk14ccw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Tristan Madani <tristan@talencesecurity.com>,
-	Takashi Iwai <tiwai@suse.de>,
+Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>,
+	syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com,
+	Breno Leitao <leitao@debian.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] ALSA: usbusx2y: validate URB actual_length in interrupt callback
-Date: Wed, 16 Sep 2026 11:56:13 -0400
-Message-ID: <20260916155613.10251-3-sashal@kernel.org>
+Subject: [PATCH 6.1.y] configfs: unhash the dentry before dropping the item in rmdir
+Date: Wed, 16 Sep 2026 11:56:14 -0400
+Message-ID: <20260916155614.10317-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916155613.10251-1-sashal@kernel.org>
-References: <2026091645-overstep-marine-1c54@gregkh>
- <20260916155613.10251-1-sashal@kernel.org>
+In-Reply-To: <2026091658-data-urchin-e973@gregkh>
+References: <2026091658-data-urchin-e973@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,61 +46,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Tristan Madani <tristan@talencesecurity.com>
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
 
-[ Upstream commit 8f5ef203abda9dd36b2af473c7b737d544f807bd ]
+[ Upstream commit f06c2d26d1999d37e93299db0ecead04ca7d0b9f ]
 
-i_usx2y_in04_int() processes the interrupt URB data without checking
-urb->actual_length.  A short transfer from a malfunctioning device
-would cause the handler to process uninitialized heap data from the
-kmalloc-allocated in04_buf, which is then copied to the mmap-accessible
-ctl_snapshot[] array.
+configfs_get_config_item() treats a hashed dentry as proof that
+sd->s_element is a live config_item.  configfs_rmdir() breaks that:
+simple_rmdir() leaves the dentry hashed, the last reference to the item is
+dropped right after, and the dentry is only unhashed by d_delete() once
+->rmdir() has returned.  configfs_symlink() resolves its target holding no
+lock on it, so get_target() can land in that window:
 
-Fix by using kzalloc() for in04_buf to zero-initialize the buffer,
-and adding an actual_length check to skip processing on short
-transfers while still resubmitting the URB.
+  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
+   get_target fs/configfs/symlink.c:128 [inline]
+   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Unhash in configfs_remove_dir(), while the item is still guaranteed to be
+there.  A reference obtained just before that stays harmless, as
+create_link() rechecks CONFIGFS_USET_DROPPING, already set by
+configfs_detach_prep().  Both configfs_unregister_subsystem() paths
+d_drop() after detaching, so this only makes rmdir match them.
+
+Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
+Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
 Cc: stable@vger.kernel.org
-Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
-Link: https://patch.msgid.link/20260904205826.4071119-2-tristmd@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Tested-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260730093435.195441-3-vasilisalmpanis@gmail.com
+Signed-off-by: Breno Leitao <leitao@debian.org>
+[ adapted the configfs_remove_dir() change to the older remove_dir() helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/usb/usx2y/usbusx2y.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/configfs/dir.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
-index 5aa373d1edab1..d1e907dc773c1 100644
---- a/sound/usb/usx2y/usbusx2y.c
-+++ b/sound/usb/usx2y/usbusx2y.c
-@@ -189,6 +189,9 @@ static void i_usx2y_in04_int(struct urb *urb)
- 		return;
- 	}
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index 01c9d54833b30..6269085ba1748 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -395,8 +395,17 @@ static void remove_dir(struct dentry * d)
  
-+	if (urb->actual_length < USX2Y_IN04_SIZE)
-+		goto resubmit;
-+
- 	if (us428ctls) {
- 		diff = -1;
- 		if (us428ctls->ctl_snapshot_last == -2) {
-@@ -246,6 +249,7 @@ static void i_usx2y_in04_int(struct urb *urb)
- 	if (err)
- 		dev_err(&urb->dev->dev, "in04_int() usb_submit_urb err=%i\n", err);
+ 	configfs_remove_dirent(d);
  
-+resubmit:
- 	urb->dev = usx2y->dev;
- 	usb_submit_urb(urb, GFP_ATOMIC);
- }
-@@ -298,7 +302,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
- 		goto error;
- 	}
+-	if (d_really_is_positive(d))
+-		simple_rmdir(d_inode(parent),d);
++	if (d_really_is_positive(d)) {
++		if (!simple_rmdir(d_inode(parent), d))
++			/*
++			 * configfs_get_config_item() takes a hashed dentry as
++			 * proof that ->s_element is still alive.  Our caller
++			 * is about to drop the last reference to the item and
++			 * the VFS will not unhash until after we return, so
++			 * unhash it here.
++			 */
++			d_drop(d);
++	}
  
--	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
-+	usx2y->in04_buf = kzalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
- 	if (!usx2y->in04_buf) {
- 		err = -ENOMEM;
- 		goto error;
+ 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
+ 
 -- 
 2.53.0
 
