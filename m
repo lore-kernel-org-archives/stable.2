@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1784052C6
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:12:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E811A33DED9
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:12:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575151; cv=none; b=sPC9qTFJTT0F4ukggFoa8cAIBfvmPkDnBue7h9RabRPZ1rOiGha0Uccm6O0JKti0+T2wh5irp+83bBpS+qw+cexLnF4TK/0dnYhp9b0EDGNFi7u+xmG1JfAY2Ged5Hgw6ICjDKOsHJ/lzXC7qN0wyz7Kh9TlskhBPNJALqfkYck=
+	t=1789575156; cv=none; b=hTNJ5R5Jl/yjp497OAvIvyKw9a79HxDK+OYGpZrEdK74Jn2w4b0cdhecABDyX5oW+2a5Cz03ykoUgjMAw8ieTV2/d6NprUErxocGDngk8LARPMnaWBSHrtvt4/AAByclZQl5IbFcJ05tXz1630WvV9kVuS0wYqd4ZkgXuNhzU+w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575151; c=relaxed/simple;
-	bh=X+RWtXyVkkSuZAGoinlhlMDiwazzWjnGTav5oDkszCM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KqYpl3+oj1oeev4sVlhONrXHJy0x9mG2q4brkJKdrxg0tRWNBs+x9G26ypTh5uZWAPjYkCOIC+kdfVQwgT9zoQSPOpA3O1JYhA6cOdhWL8336xFIxdC3AXMJspLwY/xihZ2XGbg9zAqXFyPkG96CutFQyye1S5uV9pv89RI/zDs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CF41WUg9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789575156; c=relaxed/simple;
+	bh=7Ji8zlwL7Uwgz7frYuXhE6WdGC9LALrzY1OQKXrHXlI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=QLpCwxhAE7FG1y6I2GRdOxSkpMsI/ZGlWfJ9KQh/aVSVE42Lwb8X01T7ZbwsPOBdXjqOfbPrZjzQeG1N4znSdLQ6EbgSKbhHGQcOf1WjBfePYGT019bGCIIEb3C07V8Cn7Q+LTmEh3rETWchJNB9QqiwaHqrMNQE/GLcrzQwrkY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bpwP6nWH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CF41WUg9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BBE591F000FF;
-	Wed, 16 Sep 2026 16:12:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bpwP6nWH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED4791F000FF;
+	Wed, 16 Sep 2026 16:12:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789575150;
-	bh=fGuYy0O58/q+x+gyKp2N5o5MN2v+5qZTcAKqKB8DUq4=;
+	s=korg; t=1789575153;
+	bh=qjjWwVDEbH1OB7F+ZD7nbzPN1vHWivq1xeGl8/gEAt0=;
 	h=Subject:To:Cc:From:Date;
-	b=CF41WUg9Srs4mcobwLAv73mwfRLhSTE16K2HSlpBDi8x86CnfPaVQHfAg3IKFPx6y
-	 H3YBatx7TV4reKu42THfEebY+D84vQdJmaX1zZhICPYltMgLSOMDvMM9av4TPXP0Es
-	 XNjAHVOou7GqibY/A3raxaexVmu8IQnc51D61B+k=
-Subject: FAILED: patch "[PATCH] ipv6: flowlabel: cap duplicate leases per socket" failed to apply to 5.15-stable tree
-To: zhilinz@nebusec.ai,edumazet@google.com,idosch@nvidia.com,kuba@kernel.org,vega@nebusec.ai
+	b=bpwP6nWHnIFmODHRrYU4SCeRE9vJtTV/poW4xvO56Ta/taIb28w5hY5fa9iqQxSOQ
+	 pYPUfEZ35o5Xpfpo7LkNYTqujUMLw39k8ZDeCcddPJi687f9BdcMlgbBNWJyXEinzb
+	 FnkGN+f4pQj8NfQ2hdyNhldlUMpTno5470xkIXsU=
+Subject: FAILED: patch "[PATCH] hwmon: (gpio-fan) Fix use-after-free in alarm work" failed to apply to 5.10-stable tree
+To: fanwu01@zju.edu.cn,linux@roeck-us.net
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:59:57 +0100
-Message-ID: <2026091657-voter-although-5ad8@gregkh>
+Date: Wed, 16 Sep 2026 17:01:51 +0100
+Message-ID: <2026091651-verdict-tactless-1748@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 5.10-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8d6cd188508513503805c156165de38e4e4a8615
+git cherry-pick -x a2471ed17b0e6ff7bfb6b2ea8e6e5b04c309d293
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091657-voter-although-5ad8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091651-verdict-tactless-1748@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,79 +62,62 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8d6cd188508513503805c156165de38e4e4a8615 Mon Sep 17 00:00:00 2001
-From: Zhiling Zou <zhilinz@nebusec.ai>
-Date: Thu, 3 Sep 2026 14:23:03 +0800
-Subject: [PATCH] ipv6: flowlabel: cap duplicate leases per socket
+From a2471ed17b0e6ff7bfb6b2ea8e6e5b04c309d293 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Wed, 19 Aug 2026 03:33:17 +0000
+Subject: [PATCH] hwmon: (gpio-fan) Fix use-after-free in alarm work
 
-ipv6_flowlabel_get() allocates an ipv6_fl_socklist entry for every
-successful GET. The recheck path for a compatible existing flowlabel
-links another lease without applying any lease admission check. Repeated
-GET requests for one shareable label can therefore grow a socket's lease
-list without bound.
+fan_alarm_irq_handler() queues fan_data->alarm_work, but nothing
+cancels it.  fan_alarm_notify() dereferences fan_data and its hwmon
+device.  On unbind, devres frees the interrupt, which only waits for
+the handler itself, and then releases the hwmon device and fan_data,
+so a pending fan_alarm_notify() can run after those frees.
 
-Reject a new unprivileged lease once the socket already holds
-FL_MAX_PER_SOCK leases. Check this on the shared recheck path so reuse
-of a globally interned label, including the fl_intern() collision path,
-is covered as well. New-label admission remains under the existing
-mem_check() policy.
+Replace INIT_WORK() with devm_work_autocancel(), registered before
+devm_request_irq().  The devres cleanup then frees the interrupt
+first, so no new work can be queued, and cancels the work while
+fan_data and the hwmon device are still alive.
 
-Use capable(CAP_NET_ADMIN) rather than ns_capable(), matching
-mem_check(). An unprivileged user must not bypass the cap by creating a
-user namespace and a netns where they have CAP_NET_ADMIN, which would
-still consume host memory.
+This issue was found by an in-house static analysis tool.
 
-Check the capability only when the socket reaches the limit, so
-successful unprivileged GET requests below the cap do not generate a
-capability audit. Do the admission check before updating linger and
-expires so a rejected GET does not refresh the shared label, matching
-the existing socket-list allocation failure path.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Suggested-by: Ido Schimmel <idosch@nvidia.com>
-Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/83f8535972ff6e3741548476a1d50dec24c758be.1788415194.git.zhilinz@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260819033317.446191-1-fanwu01@zju.edu.cn
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 
-diff --git a/net/ipv6/ip6_flowlabel.c b/net/ipv6/ip6_flowlabel.c
-index 1ab5ad0dcf24..006585dc8b5c 100644
---- a/net/ipv6/ip6_flowlabel.c
-+++ b/net/ipv6/ip6_flowlabel.c
-@@ -461,6 +461,21 @@ fl_create(struct net *net, struct sock *sk, struct in6_flowlabel_req *freq,
- 	return NULL;
- }
- 
-+static bool fl_sock_at_lease_limit(const struct sock *sk)
-+{
-+	const struct ipv6_fl_socklist *sfl;
-+	int count = 0;
-+
-+	rcu_read_lock();
-+	for_each_sk_fl_rcu(sk, sfl) {
-+		if (++count >= FL_MAX_PER_SOCK)
-+			break;
-+	}
-+	rcu_read_unlock();
-+
-+	return count >= FL_MAX_PER_SOCK;
-+}
-+
- static int mem_check(struct sock *sk)
+diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
+index 084828e1e281..7f36e5f6f223 100644
+--- a/drivers/hwmon/gpio-fan.c
++++ b/drivers/hwmon/gpio-fan.c
+@@ -12,6 +12,7 @@
+ #include <linux/slab.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
++#include <linux/devm-helpers.h>
+ #include <linux/platform_device.h>
+ #include <linux/err.h>
+ #include <linux/kstrtox.h>
+@@ -84,6 +85,7 @@ static DEVICE_ATTR_RO(fan1_alarm);
+ static int fan_alarm_init(struct gpio_fan_data *fan_data)
  {
- 	const int unpriv_total_limit = FL_MAX_SIZE - (FL_MAX_SIZE / 4);
-@@ -679,6 +694,10 @@ static int ipv6_flowlabel_get(struct sock *sk, struct in6_flowlabel_req *freq,
- 			err = -ENOMEM;
- 			if (!sfl1)
- 				goto release;
-+			err = -ENOBUFS;
-+			if (fl_sock_at_lease_limit(sk) &&
-+			    !capable(CAP_NET_ADMIN))
-+				goto release;
- 			if (fl->linger > fl1->linger)
- 				fl1->linger = fl->linger;
- 			if ((long)(fl->expires - fl1->expires) > 0)
+ 	int alarm_irq;
++	int err;
+ 	struct device *dev = fan_data->dev;
+ 
+ 	/*
+@@ -94,7 +96,11 @@ static int fan_alarm_init(struct gpio_fan_data *fan_data)
+ 	if (alarm_irq <= 0)
+ 		return 0;
+ 
+-	INIT_WORK(&fan_data->alarm_work, fan_alarm_notify);
++	err = devm_work_autocancel(dev, &fan_data->alarm_work,
++				   fan_alarm_notify);
++	if (err)
++		return err;
++
+ 	irq_set_irq_type(alarm_irq, IRQ_TYPE_EDGE_BOTH);
+ 	return devm_request_irq(dev, alarm_irq, fan_alarm_irq_handler,
+ 				IRQF_SHARED, "GPIO fan alarm", fan_data);
 
