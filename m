@@ -1,82 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA0D442B38
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:25:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 202034BD355
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:25:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579516; cv=none; b=f/deGY/Njov64qM0942jUx33MSvu8RAuTpDex8+QHVS8YJUMHrqWDLCHQWXUYFJ2xwG4a6/SWdSAIAM/KXkMK7ujtRDX7fxF0mxCxl2apo+TLhUtjAQ0VlJbIFzEHoPF96RXvUMK5Dbzq3v04cNpLM9O2wfCShNDcVXFmAyy5Mk=
+	t=1789579550; cv=none; b=ANqVnzn1dxxcQpQrptjR5V19EMRBnk5gribgZXkW9lmr5velEYTMW3znoApcvRuEUfQwHolfcKz3rHK+ztT9XAAWdN+f+fMkW4vjgBQ3lgGMTiFcsSvt0OfWgW0BWaqA92grCV1q080aGqf0V5QvraGFBffCMqT6oGzqkDwagkc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579516; c=relaxed/simple;
-	bh=s52gVOYZqnLKHeXJlNl3uBds3Ehnp+0LYabdURZR1SU=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=joKHv7zJ/rtXwqPVGeFxS67BmVkjAlfAvG8qSR2X8cr8FEF3rp/1FlGM1nPC/EQxbspjIBw8rDzVpWVNhR/qse/lRav8uw1dSWM7GzwTxAhqD5LseCGR7a+8nE8GQ7SPth4bP+NMsUALY8WhqTd9dGAxt/SHIMcqxZsWXYLk8E8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alhnppaW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789579550; c=relaxed/simple;
+	bh=J1tHQx7SBe7MnzUw7KC2iCZc54ZhBe9jkYWDCpnZLRM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ku3omNK1aaBX845gsleHy6Okf+Gg6+7u28sPtJ6JtJVtaA7Nhg7qrDv52liMNacDr62CZeSJil/381f3G3G+Qrxubim8wT81KLn4PlSIPfnD1PrZNmaEFCAjljvzXyUI8kaD8i2ICEUS/RoQYRVX3CB1qqkYypXr2mWnU/cXjeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yllKR3Jw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alhnppaW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E53411F0089B
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:25:14 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579514;
-	bh=s52gVOYZqnLKHeXJlNl3uBds3Ehnp+0LYabdURZR1SU=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=alhnppaWDGQjJH+bPVDzqxfHjXf/GzEo847VTkan5v3llIOpyH+lz/wCjoINkZPC6
-	 hE2wkjavMuvjHOEzcdROFDPkqf4F0R/R6n5Pw+vRIb0uh1Ab04UXUvqOpVH4gV9TZu
-	 lE2KLAxwg2Vsv4ENqAGqoneeqlaxKTTZiimd2bnV3tvPs4kYEysImDxDSHbMpy0aet
-	 Zj5tKgyjs6L6p3cJV95tgf/DpYhUFG40m2BnePI04kl85ky/W5CRg/p/yGJs8RBPsz
-	 qD3v3TYdMFYx2m0yOW3bszjorjwOvM+5b6pJ8R4HY4jsVoHm0t0P1/9HowlqqEe4un
-	 VIZKPHIOOTYOg==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b78so1235560e87.2
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:25:14 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBy/0kDWrDR/kD9SwTUvctbMseYU67zcloqTSwrRGw7w7qxNp7b6RrSZWgPJoMQy2tH31eD8sbE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nt/5Kwc6EcDC+Bpis+wYT/foxyLW+jPJDnd0moBTpmJrVGD1sX
-	2x9taULC9grnf2416n+Zp3GEie75WNRGn7htPylHg49Rt738p9lPARFXe97a9/jsSkQYiXWmMFV
-	NQT9enpaaaxGjpacG3mCe+Qg4hFDppOw=
-X-Received: by 2002:a05:6512:3e03:b0:5b6:1783:d7b1 with SMTP id
- 2adb3069b0e04-5b8b6645ecemr2159966e87.17.1789579513602; Wed, 16 Sep 2026
- 10:25:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yllKR3Jw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 179B21F000FF;
+	Wed, 16 Sep 2026 17:25:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789579548;
+	bh=TxYC7EvxEwnj7Z3UvmiyaC5xfMNYVC3kUEMHRH12LuY=;
+	h=Subject:To:Cc:From:Date;
+	b=yllKR3JwqhWMZZ//euG+MRxBU/JlRTSx4JVpHGbc29Ie9IKdnGc+aYZJIAmoKXAme
+	 9bwGChbPSjhSMxJfQMECVyPBcJ1+rfjATMN/DIlfQ1n2lcpgfNOP+ewQeq8OXZ84Wm
+	 tZceBzABvcP/8op06pseLs7B0lW7c7kdgfT0+k48=
+Subject: FAILED: patch "[PATCH] xfs: strengthen the "is cow staging" helpers in scrub" failed to apply to 6.12-stable tree
+To: djwong@kernel.org,cem@kernel.org,hch@lst.de
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 18:21:06 +0100
+Message-ID: <2026091605-penknife-nuclear-b1ee@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915045426.1726805-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260915045426.1726805-1-vulab@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:25:01 +0200
-X-Gmail-Original-Message-ID: <CAD++jLmETw1EUA13dFsow6bEzJrZ_mmXAuAbcyqCukXsKtTgyg@mail.gmail.com>
-X-Gm-Features: AcwNN1X0N-q2IxUe2y-ly1EfRJ9zPtfunE2njDfjUfWGryWDkiq8y0qPyYhU2zw
-Message-ID: <CAD++jLmETw1EUA13dFsow6bEzJrZ_mmXAuAbcyqCukXsKtTgyg@mail.gmail.com>
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: Fix clk reference leak in
- error paths
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org, tglx@kernel.org, 
-	lkml@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 6:55=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
 
-> fttmr010_common_init() obtains the PCLK reference with
-> of_clk_get_by_name() but never calls clk_put(). If clk_prepare_enable()
-> fails the reference is leaked directly, and every error path that jumps
-> to out_disable_clock only calls clk_disable_unprepare(), which releases
-> the prepare/enable state but not the reference obtained from
-> of_clk_get_by_name().
->
-> Add clk_put() to the clk_prepare_enable() failure path and to the
-> out_disable_clock label so the clock reference is no longer leaked. The
-> success path keeps PCLK enabled for the lifetime of the timer and is
-> left untouched.
->
-> Fixes: dd98442e17a6 ("clocksource/drivers/fttmr010: Drop Gemini specifics=
-")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Yours,
-Linus Walleij
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 0d43368844a75ad13561a1198a3b027940730756
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091605-penknife-nuclear-b1ee@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 0d43368844a75ad13561a1198a3b027940730756 Mon Sep 17 00:00:00 2001
+From: "Darrick J. Wong" <djwong@kernel.org>
+Date: Wed, 2 Sep 2026 22:51:36 -0700
+Subject: [PATCH] xfs: strengthen the "is cow staging" helpers in scrub
+
+LOLLM pointed out a bug in both of the refcount scrub predicates that
+determine if a range of blocks is marked as CoW staging in the btree.
+While it compares blockcount < len, this isn't enough to determine that
+the CoW staging record is at least as large as the range passed into the
+helper.  Fix both of them.
+
+Cc: stable@vger.kernel.org # v4.16
+Fixes: f6d5fc21fdc713 ("xfs: cross-reference refcount btree during scrub")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
+index f2addaf13c58..f8c51d8fbb3d 100644
+--- a/fs/xfs/scrub/refcount.c
++++ b/fs/xfs/scrub/refcount.c
+@@ -581,8 +581,12 @@ xchk_xref_is_cow_staging(
+ 	if (rc.rc_domain != XFS_REFC_DOMAIN_COW)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+ 
++	/* Can't start after bno */
++	if (rc.rc_startblock > agbno)
++		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
++
+ 	/* Must be at least as long as what was passed in */
+-	if (rc.rc_blockcount < len)
++	if (rc.rc_startblock + rc.rc_blockcount < agbno + len)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+ }
+ 
+diff --git a/fs/xfs/scrub/rtrefcount.c b/fs/xfs/scrub/rtrefcount.c
+index a024d50cf9d2..652d6b78b7a0 100644
+--- a/fs/xfs/scrub/rtrefcount.c
++++ b/fs/xfs/scrub/rtrefcount.c
+@@ -609,8 +609,12 @@ xchk_xref_is_rt_cow_staging(
+ 	if (rc.rc_domain != XFS_REFC_DOMAIN_COW)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sr.refc_cur, 0);
+ 
++	/* Can't start after bno */
++	if (rc.rc_startblock > bno)
++		xchk_btree_xref_set_corrupt(sc, sc->sr.refc_cur, 0);
++
+ 	/* Must be at least as long as what was passed in */
+-	if (rc.rc_blockcount < len)
++	if (rc.rc_startblock + rc.rc_blockcount < bno + len)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sr.refc_cur, 0);
+ }
+ 
+
