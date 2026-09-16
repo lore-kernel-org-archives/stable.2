@@ -1,258 +1,138 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405EE3E7174
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:22:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8471F511E78
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:23:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568574; cv=none; b=pL9HNgHr1cGAxDnuOupJhvFufH7Gu1VzcgKUhYrOjJRdhGsfXUNv8OLn+NUmhZcIpJ4q8QE9Bl+SnZFJrCSPA0RlBmTa0Q2qxZRiQjiD+nLbyT8dgZzboZ2TmaZ/MBzScH4nWbQKt1VrSN3q2NvKRl/40x+GZ0tQ1fENIwQ+P50=
+	t=1789568619; cv=none; b=ZQ+Ol4MXSIAicG2OEY0aKvDf35Dkmv5AS0c7c3xzGg6nBEL39EfoQs22tIsMY7sFtKYQJgdkjVYznNHxUIsG0eQSwDYSE6oHodnxmSnlLEN0pf0M3U6Nodwr7CmV1jwgY/2U5MY4e95FjfSIQKA/hyhQexyTPvhKxcYAvhqcvKs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568574; c=relaxed/simple;
-	bh=asEF5CCAwAv0HbJqQMaxtSsT8hFcqWUzJW0Go1s2dl8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Ts4JuUJFPNtY9Tg2oiHaITZTghtQvta/X3KBPBl2WuBxlOAj0xsCOgZKws7YjEOZ4sp8UQTbnbQz8htH9MLqNdWO8f7Ok6VJjuY01tZrYrZR2C0Ym0tSNbF+QecPvg/kRuvi9Ti//lKJFo7rr54dEGCEiYSj8mSv7LWL190+b9I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GwcKXYPz; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568619; c=relaxed/simple;
+	bh=AKt9EBG2sN//YZXz7OJRbcZoWgw3MVBMUuQ0ohJ+fn4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J5ZKsQgnkNSOdJ4VuABxk3au8Z/NjoBvaMOnCWLhBcieadA9NGZ70fpsWIGZIf6oGBtmok7hgF8pk2wWgWCi/B0pdyOr/4DC1gMMXejSmBDQViGlJJmatqc2O2n6SvshPsjJk27RjKItcVrU4xVHP7blSTp8++p+T8GjT9tdQFY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S82RQ5bJ; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GwcKXYPz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 403A91F000FF;
-	Wed, 16 Sep 2026 14:22:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789568572;
-	bh=MZwPuC7bgjqJWvhD+7HCn0v4MiRgj6U/M6vdtZrDSFM=;
-	h=Subject:To:Cc:From:Date;
-	b=GwcKXYPz/0uZiXiDEes6c500RnJXPyiOVgRn4EP6cyYfU5Ybs/jlWX7/J1kW+0pIB
-	 Hd92lXFDtXRE8JWpIT5jFdC1sDhDrK6FTwlLJqkgdsFUtHeguAgvv4VvCMw635BASy
-	 IWOgpesdlc8DatQXHELyH+L8Gq/mHUVjVQX3oxI0=
-Subject: FAILED: patch "[PATCH] tick/broadcast: Plug clockevents replacement race" failed to apply to 5.15-stable tree
-To: tglx@linutronix.de,brads@mainlining.org,liushugao@xiaomi.com,tglx@kernel.org,zhukaiqian@xiaomi.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 15:20:58 +0100
-Message-ID: <2026091657-yoyo-rekindle-0050@gregkh>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S82RQ5bJ"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f56039dso149306166b.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:23:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789568616; x=1790173416; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=B6QT3yGLHL6iAKp7l+6TCtIqZRata/HBJzcHAfxOozE=;
+        b=S82RQ5bJFrDX8fCe32ln4IrcTX4Ow8QhBonXvXldB78Scevz5jLTofi2DGR69HVmxc
+         L7mV6OjJiuus3oI6zx2QDse6QQ7O2nmpmqSOBt+5pkhnuFA5CHboUKGF08Uok10e66R5
+         /gcoOUpUblZksqckJ7WLvgwP5TPk9hwgW0ZrDIQItPd8J/AKoz7iS17QqexRfDwL0ZtQ
+         tjW16mO4fuG/X5cqB/czkqz6Luxh/uRMWTtE4pmJAk6eB0FON1V4x1WxyXLFZLu1u7k1
+         l9o+RBcLRNpomTYLcLjJ7Dfm8l38VORMllOFS8R8j+72WrixzgRhkLzzfj3h60F3a1A2
+         gHrg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789568616; x=1790173416;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=B6QT3yGLHL6iAKp7l+6TCtIqZRata/HBJzcHAfxOozE=;
+        b=jrbvTOFZUY5oCaXC/vw/TxE//0UwKrJsfImyvHH6lNqfHK1cfYhipd1d7/JZmZjkQp
+         edVbTa5ULx3QM3fkruOlGThhFhmwHqun4xMFXV4SIQ+nv9HYZsu/r5T5Md8DQ4UuS4TM
+         xl+UdHz2ASNheBH6ZwMekklfBEfQC/ChSqKy3wmmh0c7f2287/ne4d46wz77BLaSrnh8
+         W9bR3b7BdReWFOyEsPZ3cFf9gT4aszSMjanFgxSPaQ1zP4ANIBk+5pMWUT9FJJRDbAde
+         3wGXbRcYJaSozzh0xXTgLHlrabq2WXxGqZOocq62jiL8YrH+bbm2AZYwbdm9HsY1Yu+e
+         jxsA==
+X-Forwarded-Encrypted: i=1; AKwUvBxCOXeCe/SSh9/MJCKQrNDAh76y5Kz1hgxTbwB1GjpZo1lA9deG0zUb4ywB6x/GzAJlHspYm+0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lZ/u1ZnPiLbUqI0ygMxoix4Y9+aL5FwmUO0vLjo66OTitT9cRK
+	aiQsewrK7O6qcuQkeJvkx/DBMg9P7l05MHG59rJnLNJ0lVT3fyUDk3/i
+X-Gm-Gg: AYBFou2LzMykJw/fCH0WNzxuj8qqlC6abrXIm5fpPSOsaKPHAP7iqBGd8h2te8R6OgQ
+	l6p+y1z3dSiKo9sr9AVjfY73Y9nHozCC24iKjyaycLWXj1tZ32Je6T0YGgclRTtqmtp/RJkuols
+	jb9kxIFMoEtHtg/pbtL1yE1PoBAvXoPqraZXQYKkgoY5Kf9tkFW0DoZ88HOVwPcNSkO5KwTN9Sl
+	UdaSPXaC7pGminzbyNkbjjvn5Ns1SBQ2obnLKTvUDwI8tu5xgtXTIBe/D+ERgXkzJOFVn6l+39Z
+	Vtw/IS4EO6U0faM+PMR5P+GakdXkebYK6Ee2BkP3w9h32voh0mHwrTduwG4uaBG09kvdiPmKOgq
+	P9R6SZ/LApfT/P6vcupK9lzSSgTLCn7obJu5r8VxKALW8yYrNLWY1NoaFmxbw/uy4gF0neGTx2J
+	h0No4SmuCXAo7wSEPNWPZ0Fow/dyiZcnKWPT0pBNanUUlGrrBHHN3bcRmgSxsRbDebyvZa5W2M6
+	mBPXzMw1RCw/KS2jKvwgHsfMk0zHc1kYZTJ1XUJ5cj91s15yzY/udQhe4go
+X-Received: by 2002:a17:907:7241:b0:c26:19de:9138 with SMTP id a640c23a62f3a-c29e5351a04mr213058866b.43.1789568615501;
+        Wed, 16 Sep 2026 07:23:35 -0700 (PDT)
+Received: from misharu.home (2a02-a463-a071-0-1562-51d1-d5f-82bb.fixed6.kpn.net. [2a02:a463:a071:0:1562:51d1:d5f:82bb])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29e801cdfesm105216566b.58.2026.09.16.07.23.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 07:23:34 -0700 (PDT)
+From: Hari Mishal <harimishal1@gmail.com>
+To: harry.wentland@amd.com,
+	sunpeng.li@amd.com
+Cc: siqueira@igalia.com,
+	alexander.deucher@amd.com,
+	christian.koenig@amd.com,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	hersenxs.wu@amd.com,
+	Jerry.Zuo@amd.com,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	gregkh@linuxfoundation.org,
+	Hari Mishal <harimishal1@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/amd/display: guard dc_sink dereferences in MST mode validation
+Date: Wed, 16 Sep 2026 16:23:32 +0200
+Message-ID: <20260916142332.10394-1-harimishal1@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+dm_dp_mst_is_port_support_mode() reads
+aconnector->dc_sink->dsc_caps... for the DSC branch-throughput check,
+and get_conv_frl_bw()'s HDMI-PCON FRL-bandwidth path reads
+aconnector->dc_sink->edid_caps.max_frl_rate, both without a NULL
+check. dc_sink is cleared asynchronously on MST unplug, and both
+functions run from paths that the driver's own comments document as
+racing that teardown: the connector probe worker's ->mode_valid
+callback and a compositor's atomic check, neither of which holds the
+MST manager lock that the teardown path uses. The former does have an
+existing dsc_aux NULL check, but dsc_aux isn't reliably cleared in
+every path that clears dc_sink, so it doesn't cover this.
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Fail the port-support check and skip the FRL conversion path when the
+sink is already gone.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 113a9796effe3376d2ec5aabcca1fef4fef4cd62
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091657-yoyo-rekindle-0050@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 113a9796effe3376d2ec5aabcca1fef4fef4cd62 Mon Sep 17 00:00:00 2001
-From: Thomas Gleixner <tglx@linutronix.de>
-Date: Mon, 12 Aug 2024 16:19:48 +0200
-Subject: [PATCH] tick/broadcast: Plug clockevents replacement race
-MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-
-朱恺乾 reported and decoded the following race condition when a broadcast
-device is replaced:
-
-CPUA					CPUB
- __tick_broadcast_oneshot_control()
-   bc = tick_broadcast_device.evtdev;
-					tick_install_broadcast_device(dev)
-        				clockevents_exchange_device(cur, dev)
-					   shutdown(cur);
-					   detach(cur);
-					   cur->handler = noop;
-					   tick_broadcast_device.evtdev = dev;
-
-  tick_broadcast_set_event(bc, next_event); <- FAIL: arms a detached device.
-
-If the original broadcast device has a restricted interrupt affinity mask
-and the last CPU in that mask goes offline then the BUG() in
-tick_cleanup_dead_cpu() triggers because the clockevent device is not in
-detached state.
-
-The reason for this is that tick_install_broadcast_device() is not
-serialized vs. tick broadcast operations.
-
-The obvious cure is to serialize tick_install_broadcast_device() with
-tick_broadcast_lock against a concurrent tick broadcast operation.
-
-That requires to split clockevents_exchange_device() into two parts, one
-which does the exchange, shutdown and detach operation and the other which
-drops the module reference count. This is required because the module
-reference cannot be dropped while holding tick_broadcast_lock.
-
-Let clockevents_exchange_device() do both operations as before, but let the
-broadcast device code take the two step approach and do the device
-exchange under tick_broadcast_lock and drop the module reference count
-after releasing it.
-
-Fixes: f8381cba04ba ("[PATCH] tick-management: broadcast functionality")
-Reported-by: 朱恺乾 <zhukaiqian@xiaomi.com>
-Signed-off-by: Thomas Gleixner <tglx@linutronix.de>
-Signed-off-by: Thomas Gleixner <tglx@kernel.org>
-Reviewed-by: Bradley Morgan <brads@mainlining.org>
-Tested-by: 刘术高 <liushugao@xiaomi.com>
+Fixes: f04d275d94e1 ("drm/amd/display: add mst port output bw check")
+Fixes: 5c9b8b27a883 ("drm/amd/display: Tie FRL support into amdgpu_dm")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/87cymdsu0r.ffs@tglx
+Assisted-by: gkh_clanker_t1000
+Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/kernel/time/clockevents.c b/kernel/time/clockevents.c
-index 0014d163f989..62ad7c000386 100644
---- a/kernel/time/clockevents.c
-+++ b/kernel/time/clockevents.c
-@@ -615,6 +615,24 @@ void clockevents_handle_noop(struct clock_event_device *dev)
- {
- }
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+index 045a7f88b754..7261317d4c0f 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
+@@ -1231,7 +1231,8 @@ static bool get_conv_frl_bw(struct amdgpu_dm_connector *aconnector,
+ 	unsigned int max_sink_bw_in_kbps = 0;
+ 	unsigned int dsc_max_sink_bw_in_kbps = 0;
  
-+void __clockevents_exchange_device(struct clock_event_device *old,
-+				   struct clock_event_device *new)
-+{
-+	/*
-+	 * Caller releases a clock event device. We queue it into the
-+	 * released list and do a notify add later.
-+	 */
-+	if (old) {
-+		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
-+		list_move(&old->list, &clockevents_released);
-+	}
+-	if (aconnector->dc_link->dc->caps.dp_hdmi21_pcon_support &&
++	if (aconnector->dc_sink &&
++	    aconnector->dc_link->dc->caps.dp_hdmi21_pcon_support &&
+ 	    aconnector->mst_downstream_port_caps.bytes.byte0.bits.DWN_STRM_PORTX_TYPE == DOWN_STREAM_DETAILED_HDMI) {
+ 		max_conv_bw_in_kbps = dc_link_bw_kbps_from_raw_frl_link_rate_data(
+ 				aconnector->dc_link->dc,
+@@ -1996,6 +1997,9 @@ enum dc_status dm_dp_mst_is_port_support_mode(
+ 	struct dc_dsc_config_options dsc_options = {0};
+ 	uint32_t stream_kbps;
+ 
++	if (!aconnector->dc_sink)
++		return DC_FAIL_BANDWIDTH_VALIDATE;
 +
-+	if (new) {
-+		WARN_ON(!clockevent_state_detached(new));
-+		clockevents_shutdown(new);
-+	}
-+}
-+
- /**
-  * clockevents_exchange_device - release and request clock devices
-  * @old:	device to release (can be NULL)
-@@ -626,20 +644,9 @@ void clockevents_handle_noop(struct clock_event_device *dev)
- void clockevents_exchange_device(struct clock_event_device *old,
- 				 struct clock_event_device *new)
- {
--	/*
--	 * Caller releases a clock event device. We queue it into the
--	 * released list and do a notify add later.
--	 */
--	if (old) {
-+	__clockevents_exchange_device(old, new);
-+	if (old)
- 		module_put(old->owner);
--		clockevents_switch_state(old, CLOCK_EVT_STATE_DETACHED);
--		list_move(&old->list, &clockevents_released);
--	}
--
--	if (new) {
--		BUG_ON(!clockevent_state_detached(new));
--		clockevents_shutdown(new);
--	}
- }
- 
- /**
-@@ -699,7 +706,7 @@ void tick_offline_cpu(unsigned int cpu)
- 		if (cpumask_test_cpu(cpu, dev->cpumask) &&
- 		    cpumask_weight(dev->cpumask) == 1 &&
- 		    !tick_is_broadcast_device(dev)) {
--			BUG_ON(!clockevent_state_detached(dev));
-+			WARN_ON(!clockevent_state_detached(dev));
- 			list_del(&dev->list);
- 		}
- 	}
-diff --git a/kernel/time/tick-broadcast.c b/kernel/time/tick-broadcast.c
-index 115e0bf01276..bda3d2391a60 100644
---- a/kernel/time/tick-broadcast.c
-+++ b/kernel/time/tick-broadcast.c
-@@ -165,23 +165,31 @@ static bool tick_set_oneshot_wakeup_device(struct clock_event_device *newdev,
-  */
- void tick_install_broadcast_device(struct clock_event_device *dev, int cpu)
- {
--	struct clock_event_device *cur = tick_broadcast_device.evtdev;
-+	struct clock_event_device *cur;
- 
--	if (tick_set_oneshot_wakeup_device(dev, cpu))
--		return;
-+	scoped_guard(raw_spinlock_irqsave, &tick_broadcast_lock) {
- 
--	if (!tick_check_broadcast_device(cur, dev))
--		return;
-+		if (tick_set_oneshot_wakeup_device(dev, cpu))
-+			return;
- 
--	if (!try_module_get(dev->owner))
--		return;
-+		cur = tick_broadcast_device.evtdev;
-+		if (!tick_check_broadcast_device(cur, dev))
-+			return;
- 
--	clockevents_exchange_device(cur, dev);
-+		if (!try_module_get(dev->owner))
-+			return;
-+
-+		__clockevents_exchange_device(cur, dev);
-+		if (cur)
-+			cur->event_handler = clockevents_handle_noop;
-+		WRITE_ONCE(tick_broadcast_device.evtdev, dev);
-+		if (!cpumask_empty(tick_broadcast_mask))
-+			tick_broadcast_start_periodic(dev);
-+	}
-+
-+	/* Module release must be outside of the lock */
- 	if (cur)
--		cur->event_handler = clockevents_handle_noop;
--	tick_broadcast_device.evtdev = dev;
--	if (!cpumask_empty(tick_broadcast_mask))
--		tick_broadcast_start_periodic(dev);
-+		module_put(cur->owner);
- 
- 	if (!(dev->features & CLOCK_EVT_FEAT_ONESHOT))
- 		return;
-@@ -1218,7 +1226,7 @@ int tick_broadcast_oneshot_active(void)
-  */
- bool tick_broadcast_oneshot_available(void)
- {
--	struct clock_event_device *bc = tick_broadcast_device.evtdev;
-+	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
- 
- 	return bc ? bc->features & CLOCK_EVT_FEAT_ONESHOT : false;
- }
-@@ -1226,7 +1234,7 @@ bool tick_broadcast_oneshot_available(void)
- #else
- int __tick_broadcast_oneshot_control(enum tick_broadcast_state state)
- {
--	struct clock_event_device *bc = tick_broadcast_device.evtdev;
-+	struct clock_event_device *bc = READ_ONCE(tick_broadcast_device.evtdev);
- 
- 	if (!bc || (bc->features & CLOCK_EVT_FEAT_HRTIMER))
- 		return -EBUSY;
-diff --git a/kernel/time/tick-internal.h b/kernel/time/tick-internal.h
-index 182974c4f21b..65680db95053 100644
---- a/kernel/time/tick-internal.h
-+++ b/kernel/time/tick-internal.h
-@@ -55,6 +55,8 @@ static inline void clockevent_set_state(struct clock_event_device *dev,
- }
- 
- extern void clockevents_shutdown(struct clock_event_device *dev);
-+extern void __clockevents_exchange_device(struct clock_event_device *old,
-+					  struct clock_event_device *new);
- extern void clockevents_exchange_device(struct clock_event_device *old,
- 					struct clock_event_device *new);
- extern void clockevents_switch_state(struct clock_event_device *dev,
+ 	/* DSC unnecessary case
+ 	 * Check if timing could be supported within end-to-end BW
+ 	 */
+-- 
+2.43.0
 
