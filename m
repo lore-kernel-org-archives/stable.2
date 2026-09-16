@@ -1,116 +1,164 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A90C54C33E5
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:49:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05A5F52ED52
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:49:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577387; cv=none; b=d8OdzUVT69wgAIIEK2DZuX29LxERvHH6iChER3jK/tE+NkE4FX/qRwYbDvDWG1joPaIEaL+hqlIBc8LsyEgKQWPvkQqx6M4eToZuQHF7DuorDFOxzv0JHBMh2Qvp51Knz3zTi3Abt1CJIE6C322zi+pacaSiugSPc4C2EkMlrko=
+	t=1789577387; cv=none; b=hXE04gI1nmJsNPkbgMUp5sqHlfRrDiS2WM7h723ynzQ8AXtrFkRxQrU8CnP5R7asnVsm2FucpDABb2SO38uQ0f750/okFqWEteMNxrRnmHWtNODYLTJP+ziithmvOuGzDxgmcBDrBUXVeGWsNEit2RfMY+zrLCZvsZaAR7zHQ7w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789577387; c=relaxed/simple;
-	bh=AswO8Z/xUY72kmzXsVTLhynNOPPcNUkzcDXuxMzLjtU=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=eoq3dJdSJwL/Sdfud9bycJyzKfaPrYg0sLubSBNGO37bKfvsD3auwhBwctmVEBEBAlVfQKJiHiQyAza2Re7XVUNUqGaWDjvhml+nW/1oy2I5uRdn7tgQgfGb2/QuEoKXdXjjuBh9AvkaHVxm8isJeZ36UV+TfJPDsvxTLBxrPOU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=bCgHy6Hm; arc=none smtp.client-ip=100.103.45.18
+	bh=Ruta11CGyKjZfzR0RwDwp1BRTFRD+CJ8qttYmdEjtpU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hsaViKIkZuVXNw8y7titWVendqZubdTZyGTfoSw2bN1wSD9uNLsao+zKdYW+at+yuTJWMAX6VG6EDnHhJTa3AzwOcKMCH3GJzePQDdZjMMvdahGiZPLOtJ3H61f9I265msw8Gnzb6unDGy/EFiwQNX9hyETu/qNWvFiRlyE5KhQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V2LD9Hpt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="bCgHy6Hm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DDE231F00898;
-	Wed, 16 Sep 2026 16:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577375;
-	bh=W2bVoo9t1zdWh0hOe6fyPG6TqgzMJBgeZY+PgJqzW00=;
-	h=Subject:To:Cc:From:Date;
-	b=bCgHy6HmVCd6LG6z+I1erMTfHUxS5RzujEKSau8N+6S4mlh2mNNOeBIBKEWyS+50b
-	 upDg+49QppD1517IVK9Ia66fYNHS+wKPn/2dHLYNoxooS2A+zfM1Na7L98GWKL7At5
-	 pGEmgCglhDmVJBAQuTM4XnT1WxwZkFZrlzRw2Vgc=
-Subject: FAILED: patch "[PATCH] smb: client: avoid leaking refcount when cifs_sb_tlink()" failed to apply to 5.15-stable tree
-To: doebel@amazon.de,linkinjeon@kernel.org,pc@manguebit.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:44:29 +0100
-Message-ID: <2026091628-uniquely-reborn-a640@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V2LD9Hpt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB8A71F0089A;
+	Wed, 16 Sep 2026 16:49:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789577379;
+	bh=ol0mYFQ+oZ67BBAS93cIurf9GKBwDHOhsBm3g1Kds/w=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=V2LD9HptZ5u/7nNMTU/oc4+TCpN5opGLRHGIugfcBHX32JHouR5cqZyfthc7TFZMJ
+	 WWFYBUr6Cb1bXJ0qoj2iZ5KnhPBJ4Mt9FApMkB55O2vlVSzHwi3ZS3yBJbIpT/tb7/
+	 7h/lDBtR2hx3FS8z4nEC1DXhVp551jB922WesooJA2o2GSZ3XV31O/xR+BsjHt0MsM
+	 8dkCbDBO4LsWYPjnC1Da6T88xbXUrF65CJmOVcvNoHKv0LA6eFaodz3GkJxH2HYMKs
+	 DmmcAUqJ4gEs4g3oK8hJwxksa3ZhMw23UuH9eeZPRu2E9OonFWBn8VGr3mCSYyV0hY
+	 4kPm7shqO48Tg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/5] ALSA: usx2y: Fix potential memory leaks
+Date: Wed, 16 Sep 2026 12:49:33 -0400
+Message-ID: <20260916164936.551732-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916164936.551732-1-sashal@kernel.org>
+References: <2026091646-junkman-leverage-0c14@gregkh>
+ <20260916164936.551732-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
+From: Takashi Iwai <tiwai@suse.de>
 
-The patch below does not apply to the 5.15-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+[ Upstream commit 02d382af1c4e321acbea1c25b97ee13f52b9ac7d ]
 
-To reproduce the conflict and resubmit, you may use the following commands:
+Theoretically the initialization functions in usx2y drivers may be
+called multiple times as the driver gets initialized via hwpdep
+ioctl.  Meanwhile, those functions including memory allocations don't
+check whether they are called twice, and they forget the old
+resources, which would lead to memory leaks.
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
-git checkout FETCH_HEAD
-git cherry-pick -x 23b26f4408ac3f35a482d2e5cf6fc865d4201b71
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091628-uniquely-reborn-a640@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+This patch adds the sanity checks about the doubly initializations to
+give kernel WARNING, and returns an error in such a case.  Also, each
+allocation assures to release the resources at its error path
+properly.
 
-Possible dependencies:
+Link: https://lore.kernel.org/r/20210517131545.27252-7-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 8f5ef203abda ("ALSA: usbusx2y: validate URB actual_length in interrupt callback")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ sound/usb/usx2y/usbusx2y.c | 39 ++++++++++++++++++++++++++++++++------
+ 1 file changed, 33 insertions(+), 6 deletions(-)
 
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 23b26f4408ac3f35a482d2e5cf6fc865d4201b71 Mon Sep 17 00:00:00 2001
-From: Bjoern Doebel <doebel@amazon.de>
-Date: Fri, 4 Sep 2026 10:42:36 +0000
-Subject: [PATCH] smb: client: avoid leaking refcount when cifs_sb_tlink()
- fails
-
-cifs_oplock_break() takes over the reference that
-cifs_queue_oplock_break() acquired when it queued the work, and drops it
-with _cifsFileInfo_put() once the break has been processed.
-
-Only in setups with "-o multiuser", cifs_sb_tlink() may fail, at which
-point cifs_oplock_break() returns without putting the file reference,
-mirroring the reference leak we already fixed in the companion patch to
-cifs_queue_oplock_break().
-
-This would trigger a crash due to busy inodes on the next unmount:
-
-  BUG: Dentry ... still in use (1) [unmount of cifs cifs]
-  VFS: Busy inodes after unmount of cifs (cifs)
-
-Drop the reference on that path as well. Doing so before the out label
-mirrors the normal path, which also puts the reference before
-cifs_done_oplock_break().
-
-Found by Sashiko code review. The failure path was not exercised at
-runtime.
-
-Fixes: e8f5f849ffce2 ("cifs: fix potential oops in cifs_oplock_break")
-Cc: stable@vger.kernel.org
-Assisted-by: Kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index d7b0a9512dfa..27b58d907203 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -3348,8 +3348,11 @@ void cifs_oplock_break(struct work_struct *work)
- 			TASK_UNINTERRUPTIBLE);
+diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
+index ac584795606c6..4d05f1997362d 100644
+--- a/sound/usb/usx2y/usbusx2y.c
++++ b/sound/usb/usx2y/usbusx2y.c
+@@ -150,6 +150,7 @@ MODULE_PARM_DESC(enable, "Enable "NAME_ALLCAPS".");
+ static int snd_usx2y_card_used[SNDRV_CARDS];
  
- 	tlink = cifs_sb_tlink(cifs_sb);
--	if (IS_ERR(tlink))
-+	if (IS_ERR(tlink)) {
-+		/* drop the reference taken when the break was queued */
-+		_cifsFileInfo_put(cfile, false /* do not wait for ourself */, false);
- 		goto out;
+ static void snd_usx2y_card_private_free(struct snd_card *card);
++static void usx2y_unlinkseq(struct snd_usx2y_async_seq *s);
+ 
+ #ifdef USX2Y_NRPACKS_VARIABLE
+ int nrpacks = USX2Y_NRPACKS; /* number of packets per urb */
+@@ -258,6 +259,9 @@ int usx2y_async_seq04_init(struct usx2ydev *usx2y)
+ {
+ 	int	err = 0, i;
+ 
++	if (WARN_ON(usx2y->as04.buffer))
++		return -EBUSY;
++
+ 	usx2y->as04.buffer = kmalloc_array(URBS_ASYNC_SEQ,
+ 					   URB_DATA_LEN_ASYNC_SEQ, GFP_KERNEL);
+ 	if (!usx2y->as04.buffer) {
+@@ -278,27 +282,47 @@ int usx2y_async_seq04_init(struct usx2ydev *usx2y)
+ 				break;
+ 		}
+ 	}
++	if (err)
++		usx2y_unlinkseq(&usx2y->as04);
+ 	return err;
+ }
+ 
+ int usx2y_in04_init(struct usx2ydev *usx2y)
+ {
++	int err;
++
++	if (WARN_ON(usx2y->in04_urb))
++		return -EBUSY;
++
+ 	usx2y->in04_urb = usb_alloc_urb(0, GFP_KERNEL);
+-	if (!usx2y->in04_urb)
+-		return -ENOMEM;
++	if (!usx2y->in04_urb) {
++		err = -ENOMEM;
++		goto error;
 +	}
- 	tcon = tlink_tcon(tlink);
- 	server = tcon->ses->server;
  
+ 	usx2y->in04_buf = kmalloc(21, GFP_KERNEL);
+-	if (!usx2y->in04_buf)
+-		return -ENOMEM;
++	if (!usx2y->in04_buf) {
++		err = -ENOMEM;
++		goto error;
++	}
+ 
+ 	init_waitqueue_head(&usx2y->in04_wait_queue);
+ 	usb_fill_int_urb(usx2y->in04_urb, usx2y->dev, usb_rcvintpipe(usx2y->dev, 0x4),
+ 			 usx2y->in04_buf, 21,
+ 			 i_usx2y_in04_int, usx2y,
+ 			 10);
+-	if (usb_urb_ep_type_check(usx2y->in04_urb))
+-		return -EINVAL;
++	if (usb_urb_ep_type_check(usx2y->in04_urb)) {
++		err = -EINVAL;
++		goto error;
++	}
+ 	return usb_submit_urb(usx2y->in04_urb, GFP_KERNEL);
++
++ error:
++	kfree(usx2y->in04_buf);
++	usb_free_urb(usx2y->in04_urb);
++	usx2y->in04_buf = NULL;
++	usx2y->in04_urb = NULL;
++	return err;
+ }
+ 
+ static void usx2y_unlinkseq(struct snd_usx2y_async_seq *s)
+@@ -306,11 +330,14 @@ static void usx2y_unlinkseq(struct snd_usx2y_async_seq *s)
+ 	int	i;
+ 
+ 	for (i = 0; i < URBS_ASYNC_SEQ; ++i) {
++		if (!s->urb[i])
++			continue;
+ 		usb_kill_urb(s->urb[i]);
+ 		usb_free_urb(s->urb[i]);
+ 		s->urb[i] = NULL;
+ 	}
+ 	kfree(s->buffer);
++	s->buffer = NULL;
+ }
+ 
+ static const struct usb_device_id snd_usx2y_usb_id_table[] = {
+-- 
+2.53.0
 
