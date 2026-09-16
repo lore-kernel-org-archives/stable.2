@@ -1,98 +1,135 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D614D7973;
-	Wed, 16 Sep 2026 15:42:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F22AE4C6517;
+	Wed, 16 Sep 2026 15:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573338; cv=none; b=QuqnYz18vka9ZJBUymCrKZkIaAyqv0gPy51LkFVT8bwmfdSAJItgtqqcx3eJxL4YEpJeCWn6N4Y4TGib2vXdqm7Afdmj8ePiQarbebdJtYMI16ZlaEFRcq4dyo2wI+eCIeMMok96x9HalnAf9gwqNB7hdbpGvIDm1hhq1sTn+CE=
+	t=1789573372; cv=none; b=udAgkQjXNAcq+/XLwbA5cqFugbCLLDU2i9BOSjaVTbvHZSlmXNO6JgHmsy4aWxlSjsIQXTgQJxTDp4M2tS1ZBKh+LRWIqbPG1qsbSAAIa7NvNBXHm91pgJf5MpbKVlqe9zWd0CsHmxL1cJX34Zl3EhS3FRI/Y3oj4lcl2h5WGoY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573338; c=relaxed/simple;
-	bh=RWwc4/4k+cBPO5IZyYjzKjFn4s+3xlPPTlnWbcqLwcA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Hp6MhQBgytPr90sjnLA/0WyYl5sH42BxBwkTV2DNkilns5VTpn8aCtJvghpEaqsrYzBvYOk/VNe6BTEiRwDXrnow+jgUacwAcEltX6ElfgSGe/TsNpe5iuTVpl10So23SA2NKCJhYALhoSQWuDBL9m7Z2JVWOQNli8uOb2dowAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACX_znNuKpqXgFtCA--.21607S2;
-	Wed, 16 Sep 2026 23:42:05 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dave.stevenson@raspberrypi.com,
-	dri-devel@lists.freedesktop.org,
-	kernel-list@raspberrypi.com,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mcanal@igalia.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
-Date: Wed, 16 Sep 2026 15:41:37 +0000
-Message-Id: <20260916154137.2058618-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789573372; c=relaxed/simple;
+	bh=qF5L05yPXHDBqk4mSsnQXTBaTOlznhVMwKRcZKr3/ZA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=HNVgjOVslmqLyeqp1Bd3boXpupV18Zd5ZuqD75q92SsPf7nIPADbarpJUnsPMA2jMt9qECC5g/6PdaP+Mz/jZ2IHN0N2wTlW9lk2Bk45B7UwJPS3AbPUADqYGabJuuQwTT9T/jiiwU+/ahHtOsBf1EtvfpecN9ywjoUMSgzbFzk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UY1KQYkD; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UY1KQYkD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5BA8B1F00898;
+	Wed, 16 Sep 2026 15:42:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789573368;
+	bh=zO2Hg8vHtFBJHvzcTWcCu9FZEuUhDK1HNZHZQCLtALY=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=UY1KQYkDB/rUGHIqU2oWGPMJKQ9TXTiGD7Lx+Tq+LUJ4yhkWR3hYs4NL6SAfmFRGO
+	 ZvxiO+QKdWEBBSR4JdyyhdYF/hqXJrjGvFFyoe2HIK97shpK95vz7ai4tmmRcJS46K
+	 ZsdHSweMLOIAFgtUEsxlF+vhWxbGaaNTmmZ3gIxgyZ6dc9K+9l3dei5ak1mhIRFaKB
+	 vWV0IeCHmBx6MedCbXLFgLqSAhYQHs+fHE1EB9CpqRjcLUME6e21X3dCK7yq/KnC9w
+	 OZRflM3T3M3dMtpVa1cM5X/GKlXdjWdvpUnOVzVcKEHSeTdihmkTK4n6V9Ua17sD2n
+	 TfQSQ+X6mN68w==
+Message-ID: <9b50a047-b5e6-45c3-aee6-551896b52eaa@kernel.org>
+Date: Wed, 16 Sep 2026 17:42:43 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACX_znNuKpqXgFtCA--.21607S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZr47AFy8Cw4rZrb_yoW8Gry8pF
-	4UJFyFk3y5uF4ft343AFs5XF1fZan7tFWfCF9Y9wna9345try5JrySv34rKFyUZF4kA3Zx
-	KF1qvrWxAas8ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUG_M-UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQMA2qqpVgy4AABsi
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+To: Gregory Price <gourry@gourry.net>
+Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ akpm@linux-foundation.org, liam@infradead.org, vbabka@kernel.org,
+ jannh@google.com, wangjiexun@tinylab.org,
+ sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin> <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+ <aqqjW5dpyznijYLh@gremlin> <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
+ <5437871c-d9ee-49d2-b24f-965c73c29c3e@kernel.org>
+ <aqquDtEZL1ndymGN@gourry-fedora-PF4VCD3F>
+ <46d923e6-5724-4df6-b0d5-8dda7c547f6e@kernel.org>
+ <aqqyhkZqcXDUrzeb@gourry-fedora-PF4VCD3F>
+ <4fadcda7-d96a-4cd9-9b0f-5d387b6f82af@kernel.org>
+ <aqq23i9824-GWdhg@gourry-fedora-PF4VCD3F>
+From: "David Hildenbrand (Arm)" <david@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=david@kernel.org; keydata=
+ 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
+ qIws/H2t
+In-Reply-To: <aqq23i9824-GWdhg@gourry-fedora-PF4VCD3F>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-The firmware reference taken via rpi_firmware_get() is leaked when
-either of the devm_clk_get() calls for the core or display clocks
-fails, as both error paths return without releasing it.
+On 9/16/26 17:37, Gregory Price wrote:
+> On Wed, Sep 16, 2026 at 05:24:43PM +0200, David Hildenbrand (Arm) wrote:
+>> On 9/16/26 17:19, Gregory Price wrote:
+>>>
+>>> You missed this part:
+>>>
+>>> "I'm trying to be careful about not causing a bigger maintenance burden"
+>>>
+>>> I wouldn't do that to you :]
+>>
+>> I just wanted to make it very clear that I don't need another schlopped gigantic
+>> patch series in my inbox that I'll mostly have to ignore because it's
+>> un-reviewable ;)
+>>
+> 
+> I would never :]
+> 
+> But *motions generally at madvise* if this isn't schlop i don't know
+> what is lol.
 
-Put the firmware reference before returning from both clock lookup
-error paths.
+Just to be clear, I enjoy any cleanups in that area which are well written (and
+your track record shows that you do exceptional work ;) ).
 
-Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/vc4/vc4_hvs.c | 2 ++
- 1 file changed, 2 insertions(+)
+I would also enjoy a properly stubbed page allocator as well as I envisioned ...
+as long as it's not something schlopped together and rushed out.
 
-diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
-index ee8d0738501b..20dde4150068 100644
---- a/drivers/gpu/drm/vc4/vc4_hvs.c
-+++ b/drivers/gpu/drm/vc4/vc4_hvs.c
-@@ -1680,6 +1680,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
- 		if (IS_ERR(hvs->core_clk)) {
- 			dev_err(&pdev->dev, "Couldn't get core clock\n");
-+			rpi_firmware_put(firmware);
- 			return PTR_ERR(hvs->core_clk);
- 		}
- 
-@@ -1687,6 +1688,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
- 					     (vc4->gen >= VC4_GEN_6_C) ? "disp" : NULL);
- 		if (IS_ERR(hvs->disp_clk)) {
- 			dev_err(&pdev->dev, "Couldn't get disp clock\n");
-+			rpi_firmware_put(firmware);
- 			return PTR_ERR(hvs->disp_clk);
- 		}
- 
+... of course you would never work-slop me/us like that! :)
+
 -- 
-2.34.1
+Cheers,
 
+David
