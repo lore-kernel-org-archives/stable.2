@@ -1,197 +1,309 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA82F4EBAE7;
-	Wed, 16 Sep 2026 11:39:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558783; cv=none; b=PyJCtjJNuU+gCI6uHOSvUqUpiwX2vsy5PqYENL0ueAmQXIr2Y7b6QGA6PIpLN+EAQ7sOLjfAdBDp80UhNlyn/afMxBi5w5z/kfvZhH6aanzSSJw6xsuGtFF6YK1qI/0QRibZFE/Sg3zDyNfAxnyZ9BagFqjdi5S+/35GU3GrjiY=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558783; c=relaxed/simple;
-	bh=v5sttW6YkzqfhQkXivVTyjg8xZHwuXgutc5IID/fnfU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=SNeXv6NHnbyhry0C6fSVfNes5XSUOe/3L4ZSBrBKITH6YI/LdqYDUjHKlcNccvpgCoL3oIuoOSEtJERs4gbYg3sMWgwDwptDZN6JkBSavmD9m1KMkFtNymi8vsUOPsz5J8t7owD3BiuDaF1cxdAFvmcuCmKlTEyyC9MdGuBCkMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KJyruiO5; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CAA5485CE7
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:51:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.17
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789559491; cv=fail; b=sl+3nuVGA4zLItsARTT40FgZtl2q4JQzrYjK5thPy5cKXvkRXBR19QPIJGP16TiaiSL+tENJZGHV+Cyq9THEFUYKRn++rhf3dIvBIO7ac85XLo2boz0pqIk3BHJPD7B4RcpQfVTRddc8v2cmWUtZF5MVVuDxVGEgz5WpRsGJ1Yg=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789559491; c=relaxed/simple;
+	bh=NJI4dmzACdCDdbKKAHfD8HV2MprKTsdpXOkrKK+Z1Ks=;
+	h=Message-ID:Date:Subject:To:CC:References:From:In-Reply-To:
+	 Content-Type:MIME-Version; b=DIKdrtlweaPCzsksbBDyeXZIltRUrBX9uaN2xksXN5Oh/N4Bp7xs4Gr1lnK4D46R/h+qrm7OvtQFGEPq/W0/+ZMiFwSPdNo0+x+5agmpbFgIGvm4p8B4nccAWBErNoZzUbcI+j5Xhh4k/ESlbXQjKOhp+kg01amA0ktNfbqqd24=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ANQFv65D; arc=fail smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KJyruiO5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A404A1F000FF;
-	Wed, 16 Sep 2026 11:39:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789558771;
-	bh=PwPvpxGrzEMSl2UNY8taOVvejOczhuAnj7LbVVW1ppU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=KJyruiO5wrKXPzdDFVqClE0Ty9ULE/hZ5397ZAAciwaIzSVYco6qRvg6/MDxgtKC0
-	 5Orh+cdNNSyRg9VM6hQ/zX41j+heGbSMRTvdr4Bf6A683yZM+Uct4pWu7p8C/TZAod
-	 oecbogdsDV6kKQO+FXHf05kUU+o/mbKfsVJUibf5nEU/8bF6feZlVbDOPQhBrdkCNq
-	 4CJaECSLIEwat0TrrDvjO5jSd0KNNyHgMQm3amCX92l6XCO0ns5Hn/UVCMAoEtXizc
-	 1+68a2ZkufZRdTVOGMQFm/423/2+A9Yl8H7Yx+w2fcLCxww5d6OnBDIserveBUvhlz
-	 4/duiZamVsrQA==
-Message-ID: <6cfc9b2b-f27d-4f06-ac76-bba64b5c1668@kernel.org>
-Date: Wed, 16 Sep 2026 13:39:27 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ANQFv65D"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789559483; x=1821095483;
+  h=message-id:date:subject:to:cc:references:from:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=NJI4dmzACdCDdbKKAHfD8HV2MprKTsdpXOkrKK+Z1Ks=;
+  b=ANQFv65DSXiiNQFykOu5XNG+Q22mlhzgnkYGM5XM4ioA10qOjG5PRXsK
+   PWcZKXYh1BK2K5MISvzcjV+79osMvzHNQqJBBmscBf7mD4/JU6FkiFbod
+   txoWwriCB3NoGQF3sQ4m2vpdUfs20bsUePvRqM/viTRODy/+CX8Slfvt3
+   Le7hS3zZgvMHFbj77mMvQfyc0NDxMbfLvsbQkHdNEn/v1t93+lG+IoDTr
+   16iu2XokCHkhTGatIKOyvodNarQgQub+0Gafk8a8vrwXmUIRR0GgKVaD2
+   J/NkkwgK6RkSRMS9zhs++F0U3JIemszZcrYbqIInoGLQAb8pJK/3rCIhf
+   w==;
+X-CSE-ConnectionGUID: jvkRB2wnRPm/yAOsidGdBw==
+X-CSE-MsgGUID: TihBuVucToKS1TRXX+Yceg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89803611"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89803611"
+Received: from orviesa002.jf.intel.com ([10.64.159.142])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:51:18 -0700
+X-CSE-ConnectionGUID: Ghbaz9g6TPKwv5pr/+YrVQ==
+X-CSE-MsgGUID: 53tYI/jQRO+yOSEk05vwcQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="303204966"
+Received: from fmsmsx901.amr.corp.intel.com ([10.18.126.90])
+  by orviesa002.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:51:19 -0700
+Received: from FMSMSX902.amr.corp.intel.com (10.18.126.91) by
+ fmsmsx901.amr.corp.intel.com (10.18.126.90) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 16 Sep 2026 04:51:18 -0700
+Received: from fmsedg901.ED.cps.intel.com (10.1.192.143) by
+ FMSMSX902.amr.corp.intel.com (10.18.126.91) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Wed, 16 Sep 2026 04:51:18 -0700
+Received: from PH7PR06CU001.outbound.protection.outlook.com (52.101.201.55) by
+ edgegateway.intel.com (192.55.55.81) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Wed, 16 Sep 2026 04:51:17 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=NtWMSqbl5uoZBQCJ0S7+WW85QNb/MgHc62mDkh2S/cHTBQRkX2UwRkwrNx6zdtDcFWUsaeiwweIt5Oj+qfbxVl6vEzFLqUFaYl3cCvJQckxT0vzFhvdXY8C1u4Ze44l3xJY4f4URYSmZl5H/CkJXRZyfXBKDrBhXgsWsJY0QIuEo2gd58vNYoOt1w8hU2+kOHFDLB9n8r3RiwQ9yevUIc63qMYjpHvCDAMLcB8TEF/bT5rizR4Cxc/CchCAjCZOmYBbZNvrl79SttEDyFihS+bDhx8CV/NvtgA65Q3pJDuI5347r4j78ET5rzJtGS96AAcMI3LUw33XLrdux7yWYcg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9GZ5VPVavwpp1C6mGFYaHM58/86r1LPH6lenhNPJH+k=;
+ b=RUk91DV2/A2z9Yt+xsFoA1i6FZh2g+ojggXnid+gVZsdqmj6+38f7EbRNpqdTUpTy4e2gAKRCSYHKtfcKV9ZVMA9/ASUvXOwadLopKT4cqsZDWOovo0CdRrw1+epOitWs0i4jtecyR1QsQPeZPatjJNuDYXgLzLi9uX1DIvBhlq+sZrATUEYFy6qwFNT1vXT/hkgBlR7S7KyLcjPeD94aoi99ohsvkJxVku+KxlObxolLBpVCasjHjSKUD03Ix8Ngpa3WoEGFDxG/7iHzlMgMJ0xX1kL48nW/yjHqLF1xl+IpTcNMCWQG1MrBZzRFs9Uf0OW3ciK93AXk9JFbqQzGQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Authentication-Results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com (2603:10b6:8:61::19) by
+ CH3PR11MB733910.namprd11.prod.outlook.com (2603:10b6:610:363::20) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Wed, 16 Sep
+ 2026 11:51:16 +0000
+Received: from DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765]) by DM4PR11MB6020.namprd11.prod.outlook.com
+ ([fe80::3058:1480:e4ac:5765%4]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 11:51:16 +0000
+Message-ID: <7694bd55-da56-4864-a98f-e4ec33b85321@intel.com>
+Date: Wed, 16 Sep 2026 19:51:07 +0800
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.12 0344/1376] sched/fair: Fix overflow in
+ update_tg_cfs_runnable()
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+CC: "Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	<patches@lists.linux.dev>, Sasha Levin <sashal@kernel.org>,
+	<stable@vger.kernel.org>, Vegard Nossum <vegard.nossum@oracle.com>, "Greg
+ Kroah-Hartman" <gregkh@linuxfoundation.org>
+References: <20260912065607.535295758@linuxfoundation.org>
+ <20260912065615.219183517@linuxfoundation.org>
+ <dbf7ae11-e34a-42f0-a0b6-b95cf96a836b@oracle.com>
+Content-Language: en-US
+From: "Chen, Yu C" <yu.c.chen@intel.com>
+In-Reply-To: <dbf7ae11-e34a-42f0-a0b6-b95cf96a836b@oracle.com>
+Content-Type: text/plain; charset="UTF-8"; format=flowed
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: SG2PR01CA0187.apcprd01.prod.exchangelabs.com
+ (2603:1096:4:189::12) To DM4PR11MB6020.namprd11.prod.outlook.com
+ (2603:10b6:8:61::19)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] mm/page_alloc: do not boost watermarks in kdump
- capture kernels
-Content-Language: en-US
-To: Yuanhe Shu <xiangzao@linux.alibaba.com>, akpm@linux-foundation.org,
- mgorman@techsingularity.net, linux-mm@kvack.org
-Cc: surenb@google.com, mhocko@suse.com, brendan.jackman@linux.dev,
- hannes@cmpxchg.org, ziy@nvidia.com, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org, henry.willard@oracle.com, david@kernel.org
-References: <20260916112545.3707893-1-xiangzao@linux.alibaba.com>
-From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Autocrypt: addr=vbabka@kernel.org; keydata=
- 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
-In-Reply-To: <20260916112545.3707893-1-xiangzao@linux.alibaba.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: DM4PR11MB6020:EE_|CH3PR11MB733910:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8a2b9e19-da6b-4034-727f-08df13e8d071
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam: BCL:0;ARA:13230040|376014|366016|1800799024|23010399003|56012099006|5023799004|11063799006|10067099003|4143699003|6133799003|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info: o5SoSzkqEzFeiG+WXN6BorkQwr45NDt69gXEUtHQdSuWOYDKT/mBLEdb6l3ll77bu+QbT5HfaBAXXPOW7jLleYn+FH5uGVsS0uM6D+wOo0clMF5ScLZrBaA493jqZ+fZeGuibZXk08EIpx7OluzoNVr3KrUR0+uLR40/pDkUk7zKy2xYY2vDysZBFhU3NLxghOaoxCgtXd8FlmuN6ixtIc2/Xcq0AiFdm6bQCBSJFlBq7mR1jwpCNO1ukkeQwP3q+zs8IwipBg9SQFV5uh3/skJtqvcdyHTqOG0tSnZD+WXvK3kgFbh7UGWdo2fg2DYqwQouJ0c926kHvy1wrCgilYXTvYSeRpOIfmGJmrlMh06As8bxG6RuJZs3FoFOOamkml7UlsQSaOnY9Q5nve5BESz0t1S1R7ZRDH4V9MBGx+k7m/1isHMDRoOT7XbG7CtQ3P4jNSArcNL5wuSvamXLfZ210uP40w5Gr0mk6xLpUoe54GEz3ODo4O/kLSKgsBgJfQ2+3OR7d2qdENZQy4YzyEw63MvBQwD7xS5GQYkES7pOsOjC7DuO3P+B0bEZ+4OM05cqtQYzeI8Fhuep6tB8u9MQrg8AmVFzWHscn8eFugjpo4rNPohSBItk5hzf+ynr
+X-Forefront-Antispam-Report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:DM4PR11MB6020.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(366016)(1800799024)(23010399003)(56012099006)(5023799004)(11063799006)(10067099003)(4143699003)(6133799003)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0: =?utf-8?B?Z2ErOWh3NkR5KzJMbHgyTlUyOFpPRGNNMzJITGpRbHNpRjN1TmtVKzl6TkF2?=
+ =?utf-8?B?MWFrM1hqemFsVkErL0N0SW1PUTI5YkVQWEt2MjFGSVhoVVpKQ3VZbDl2WWd5?=
+ =?utf-8?B?djNQMmxqZW9QQVB0L2tiUkRmNGtBbnY2L2dwVWV2NEhZb2pZbjdWRW9Vb2U2?=
+ =?utf-8?B?NUN4VE9xYzdweDNQU0ZFK2xneUtCUjVQVTFJam9pOC90d3YvekNGMFJ3RTNt?=
+ =?utf-8?B?OXAxODkwcGZjbGVZcVp1aG9id2NIY3NWRXNBQkNpaXFuUldyUXdCci96YW9X?=
+ =?utf-8?B?TkRrUUZaNWJ4Z3pSc0ZzSkg0ZnJmV25naWVxSkliZElOR0ZZQzhkMis0YkJl?=
+ =?utf-8?B?ZlYwQ243NFhDMTdQd2VpRmdyZ1ljand2Tkc1Zm1vTm5MejdoM2k4WHNhVTlL?=
+ =?utf-8?B?bGxBWW1iYmtQa1ZjQkNzU01tdytqYVdBVlZxZDMvbUNNREhxU2tOdVhEcm9C?=
+ =?utf-8?B?ZGhpREUxcVFCcEJIWVpvOVFMOUlrTWJrUVFyU0ZkL2tpaFBvS29hU0tZcWRw?=
+ =?utf-8?B?WGxnOHhINWRuSWdsb0VoOWt6SHMxeUtJamFmZCtxeE5vNFhiTmc0dkNnWmxn?=
+ =?utf-8?B?R2xlOTRtN250dWIxR0V2Q0d0ZVlFbEdmWXpmTkNKbkI3cm03bmJTaXpLZUtV?=
+ =?utf-8?B?YWwyTytXZ081dTBNMzdpekY1Q1FTZDRYUk1UNlZPM3JOMDAwbXFpTWluYy9H?=
+ =?utf-8?B?czVIc0Q2UWhXQVExa084VXJ5UUp4dDZ4a2wwVzFGbjBsSWlsQVN4R29ac1pX?=
+ =?utf-8?B?T3R0a0tRY0Nrb2ZLTjNOL2hZZzUwSlhub2F3a2FEZVQxZ1R2UDB6UVVtbWFV?=
+ =?utf-8?B?MW5KSXROYU13ZGw5Y3gwQnN1Y3pzWGZnYkpCYlVNeG0vVjk1WHVCNW9BaHAx?=
+ =?utf-8?B?bmRrOHgxQXdRRGFkNHdOUFdkazVmVHJERXBMM1I3REFRMG9qbFhjbUJ6dEIy?=
+ =?utf-8?B?L3QwOS9kMmR6TVhtaG11cVJkZThnTTZMQlVoZW1qTzBoV3VjczIzbkR3VlNF?=
+ =?utf-8?B?WWRzSUZWSGhVTWZFOWN2SGxoSThWQ1BISWdIdWFUNlhLTHozdloxUStFNGxz?=
+ =?utf-8?B?QU5CMUVBVVdJblBRbnNhbnIzOTN2eEhyTVZmYkIzU0tzSUU1RUF1NFpZQTRl?=
+ =?utf-8?B?c0lLNEJPME12THVBY01sL3FENHQzT2NGZmR1aUt2dUJTaXFqTjVSUkhqcHBk?=
+ =?utf-8?B?dXRLc0R1cGU3RWtSSnM2ZGt0azdBVFAzdlhjcE5TMUp5OEE0bHlNOXM5L0hi?=
+ =?utf-8?B?SzdpdHllZ0lHV2R0Z3pEeVduS01sVloyUEJadHVwV2lrdUIvcDBrSVBHUTJx?=
+ =?utf-8?B?TzcyUWFLME51RWlZNUtCdlJsT2IzV2p3K1VsblFIaCs3VkxjVzBwTm4rUXpu?=
+ =?utf-8?B?by9TSk5SWVhQa3NwaEt0d3pXdE4rRWpvT3RlNHhMdEw1eVU2SEhmV3MvUWc1?=
+ =?utf-8?B?L3V1ZSt1OW14ODJxL1p2WnFxVStVOGxha28wUXJsU1dmWUN0SVptaTF0M1RZ?=
+ =?utf-8?B?a2FVSEdHdkJGYlh4Q3NrSDcxWno3NHU1ajFRTC9LZzdmNnFQSytTNTNaNTRp?=
+ =?utf-8?B?MlhBNlM4N2tlc3lSaGpEOXdyU2lzbEtKZmZ4M25oVDYrNjFnZ1MvR1pRUmdC?=
+ =?utf-8?B?YkhSa3RGSmVkSk1Mck9rUm9veVRXVVFkaHl0OWlDVnFXcWhuQ0tpY2s1M0l4?=
+ =?utf-8?B?WkJGNXFkK3B3YzYvMWg1V09ua1lHM0xvd2dRdUpid3FPUzdGVE1ITm9INTdT?=
+ =?utf-8?B?Qm5pczFPZGZvY3lleHJSQSthNGxmL2JadFl6cHVReHp6MDk3cE9HVEQ4b2hV?=
+ =?utf-8?B?UkRxdW1JWGtkT3JkRUpLMnJZekNNTlEwcS9HbG03aEZJeXovN3FidU52SkJC?=
+ =?utf-8?B?SndzWEdvNk12a1RpK3h0ZkxzQnkzVHFkdVN4a1REeU90QXZCWkdWWHVHU3RF?=
+ =?utf-8?B?bE9EWTZtSW9KeU9yNzRKUEVobzQ5elMwT3RhOGxIaE5pUmpwYi8wRGJMUHFZ?=
+ =?utf-8?B?bWt3Q0xoVUFQT2ZmekYybnpndEFGeGNYZ3MwYVF5dEt6Rmk4SXJuZ0pPdU81?=
+ =?utf-8?B?YW5xZ2pTaGVhNndnSkJnMWdXYzVNYWUzY2R6RnA5QlN5N0dtQTR1dHNnaEdY?=
+ =?utf-8?B?aG9KRHVHOXJHeE45M3FEdlVZVk8xdHRBV0hhN0c5eEdicy8wbUZobHVOMkpj?=
+ =?utf-8?B?OEw4VnVkVlNxVHBWVC9TUit2S2kzM0E3eTdOSGthc3FsQXpNZS9hdWlQNkcr?=
+ =?utf-8?B?emJDNEhNRnlxamhMcURuZmYramoyTFRWQWgrVGs4TmRld3VEQzRaNDdoTkVZ?=
+ =?utf-8?B?M3pJVHNNTmR1ZkpQYlF2aWhSeGc3RHJkY1BiN0pPcXMrK1dVRkFoZz09?=
+X-Exchange-RoutingPolicyChecked: e9edru5Ce1Jv8Cgzia1A4Nh4OEF2clWMLbw8x+z0z6MCcO23xPYFnuAxb9o6BTPXy4EsabRKj+gWtvbM+ngVygtYigcVfExQXdR5M0fsTdAL0NvutzwgE5WYDx/0GwbkV0aE1B11Xme660RhrJ0UAYhGwZNDowcEgFdcASeXXZSwqhTF8TF2smbJWzTD7ejLgZJZiVP6T1LfaYLTrV+lkNMXrY5K9GXuVMjInpaXg3kEWAkTUza5+6SBu7kOuRfYaUosqqdxwFGlMlQZvPCu90AkNiLLcW9C5m81faq3KceookZq3toYtVbU8DFUBfWw9d6e0lk+aAKrV/V84sdTYA==
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8a2b9e19-da6b-4034-727f-08df13e8d071
+X-MS-Exchange-CrossTenant-AuthSource: DM4PR11MB6020.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 11:51:16.2214
+ (UTC)
+X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
+X-MS-Exchange-CrossTenant-Id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-MailboxType: HOSTED
+X-MS-Exchange-CrossTenant-UserPrincipalName: Hv1RA2FKgpD1etaDnApCH3Nlwn7emYlgWfw5G54OAqpM0VG3HZPq98vXiWUL+Fky4CFIWJmytfztOLRpTdJDYg==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: CH3PR11MB733910
+X-OriginatorOrg: intel.com
 
-On 9/16/26 13:25, Yuanhe Shu wrote:
-> A watermark boost is not confined to one watermark: wmark_pages() adds
-> it to min, low and high alike, so every watermark check sees it,
-> including should_reclaim_retry() and the last ditch ALLOC_WMARK_HIGH
-> attempt in __alloc_pages_may_oom().  Once the boost exceeds the memory
-> still free the allocator gives up and invokes the OOM killer, and a
-> capture kernel that is still booting has nothing to kill: the boot
-> panics and the vmcore is lost.
-> 
-> Seen on an arm64 machine with 64K pages, CONFIG_PAGE_BLOCK_MAX_ORDER=10
-> (pageblock = 64M) and crashkernel=512M, running a distribution kernel
-> based on 7.0.14.  A high order UNMOVABLE allocation fell back to a
-> MOVABLE pageblock while the capture kernel was still in do_initcalls():
-> 
->   Node 0 DMA free:68096kB boost:65536kB min:68160kB
->   low:68800kB high:69440kB managed:479168kB
->   Out of memory and no killable processes...
->   Kernel panic - not syncing: System is deadlocked on memory
-> 
-> The zone was not short of memory.  Subtracting the boost gives
-> min:2624kB low:3264kB high:3904kB, so the 68096kB still free sat 17
-> times above the high watermark and the allocator would not even have
-> entered its slow path.  The boost supplied 65536kB of the 68160kB min
-> and by itself put the zone 64kB under water.  It is that large because
-> boost_watermark() clamps it with max(pageblock_nr_pages, max_boost);
-> watermark_boost_factor alone would have allowed 5824kB.
-> 
-> Commit 14f69140ff9c ("mm: limit boost_watermark on small zones") already
-> tried to protect capture kernels, but it infers them from the zone size
-> and skips the boost only below four pageblocks.  arm64 64K pageblocks
-> were 512M then, so the guard reached zones up to 2G;
-> CONFIG_PAGE_BLOCK_MAX_ORDER can cap them at 64M, which shrinks the guard
-> to zones under 256M and lets this 468M zone through.
-> 
-> kdump is a property of the kernel, not of the zone, so test for it
-> directly.  A capture kernel exits within seconds and never uses the
-> fragmentation avoidance the boost buys.  Normal kernels are unaffected:
-> the size based check still covers their genuinely tiny zones.
-> 
-> Passing sysctl.vm.watermark_boost_factor=0 to the capture kernel does
-> not cover this window: sysctl.* parameters are written through procfs
-> by do_sysctl_args(), which runs after do_initcalls() where the panic
-> above happened, and watermark_boost_factor has no early_param of its
-> own.
-> 
-> Fixes: 1c30844d2dfe ("mm: reclaim small amounts of memory when an external fragmentation event occurs")
-> Cc: stable@vger.kernel.org # v5.0
-> Cc: Henry Willard <henry.willard@oracle.com>
-> Cc: David Hildenbrand <david@kernel.org>
-> Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
+Hi Harshit,
 
-Reviewed-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
+On 9/16/2026 3:07 PM, Harshit Mogalapalli wrote:
+> Hi Greg/Sasha,
+> 
+> 
+> On 12/09/26 12:16 pm, Greg Kroah-Hartman wrote:
+>> 6.12-stable review patch.  If anyone has any objections, please let me 
+>> know.
+>>
+>> ------------------
+>>
+>> From: Chen, Yu C <yu.c.chen@intel.com>
+>>
+>> [ Upstream commit 4f166adb5cb0525d9e32d45729fd8f28c80acbee ]
+>>
+>> A divide-by-zero crash is observed when running hackbench:
+>>
+>>     [14697.488452] CPU: 112 UID: 0 PID: 124791 Comm: hackbench Not 
+>> tainted 7.1.0-rc2+
+>>     [14697.492627] RIP: 0010:propagate_entity_load_avg+0x35f/0x3e0
+>>     [14697.506799]  <TASK>
+>>     [14697.507411]  __dequeue_task+0x2b4/0xc70
+>>     [14697.508677]  dequeue_task_fair+0x36/0x370
+>>     [14697.509047]  dequeue_task+0x101/0x2f0
+>>     [14697.509426]  __schedule+0x1b1/0x1a00
+>>     [14697.510868]  anon_pipe_read+0x3da/0x450
+>>     [14697.511400]  vfs_read+0x361/0x390
+>>     [14697.512053]  __x64_sys_read+0x19/0x30
+>>
+>> The divide-by-zero happens here:
+>>
+>>    if (scale_load_down(gcfs_rq->load.weight)) {
+>>             load_sum = div_u64(gcfs_rq->avg.load_sum,
+>>                                scale_load_down(gcfs_rq->load.weight));
+>>    }
+>>
+>> gcfs_rq->load.weight is an insane large value and is truncated
+>> to the lower 32 bits by div_u64, which happen to be 0.
+>>
+>> Using AI for investigation, the cause is a u32 overflow in
+>> update_tg_cfs_runnable(), and flat pickup became a victim when using
+>> tg_tasks():
+>>
+>>     u32 new_sum, divider;
+>>     ...
+>>     new_sum = se->avg.runnable_avg * divider; <-- boom
+>>
+>> The following sequence shows how this triggers the crash:
+>>
+>>     propagate_entity_load_avg()
+>>       update_tg_cfs_runnable()     # u32 overflow corrupts runnable_sum
+>>
+>>     __update_load_avg_cfs_rq()
+>>       ___update_load_avg()         # computes insane runnable_avg
+>>     update_tg_load_avg()           # propagates to tg->runnable_avg
+>>
+>>     update_cfs_group()
+>>       calc_concur_shares()
+>>         tg_tasks()                 # long-to-int truncation, negative nr
+>>       reweight_entity()            # corrupted se->load.weight
+>>         update_load_add()          # corrupted cfs_rq->load.weight
+>>
+>>     propagate_entity_load_avg()
+>>       update_tg_cfs_load()
+>>         div_u64()                  # divide-by-zero
+>>
+>> Fix by widening new_sum from u32 to u64 (no need to force tg_tasks()
+>> to return unsigned long after this fix)
+>>
+>> Fixes: 95246d1ec80b ("sched/pelt: Relax the sync of runnable_sum with 
+>> runnable_avg")
+>> Assisted-by: Claude:claude-opus-4.6
+>> Signed-off-by: Chen Yu <yu.c.chen@intel.com>
+>> Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
+>> Link: https://patch.msgid.link/a22eea2b-4c4a-4623-9a44- 
+>> d7b18c0c91c8@intel.com
+>> Signed-off-by: Sasha Levin <sashal@kernel.org>
+>> ---
+>>   kernel/sched/fair.c | 5 +++--
+>>   1 file changed, 3 insertions(+), 2 deletions(-)
+>>
+>> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
+>> index 5a09448e22c33..4be1df2b90df0 100644
+>> --- a/kernel/sched/fair.c
+>> +++ b/kernel/sched/fair.c
+>> @@ -4416,7 +4416,8 @@ static inline void
+>>   update_tg_cfs_runnable(struct cfs_rq *cfs_rq, struct sched_entity 
+>> *se, struct cfs_rq *gcfs_rq)
+>>   {
+>>       long delta_sum, delta_avg = gcfs_rq->avg.runnable_avg - se- 
+>> >avg.runnable_avg;
+>> -    u32 new_sum, divider;
+>> +    u64 new_sum;
+>> +    u32 divider;
+>>       /* Nothing to update */
+>>       if (!delta_avg)
+>> @@ -4430,7 +4431,7 @@ update_tg_cfs_runnable(struct cfs_rq *cfs_rq, 
+>> struct sched_entity *se, struct cf
+>>       /* Set new sched_entity's runnable */
+>>       se->avg.runnable_avg = gcfs_rq->avg.runnable_avg;
+>> -    new_sum = se->avg.runnable_avg * divider;
+>> +    new_sum = (u64)se->avg.runnable_avg * divider;
+> 
+> 
+> I ran an AI-assisted backport review, and I have verified the report. It
+> looks valid to me.
+> 
+> The two posted hunks widen new_sum and the multiplication to u64. The
+> 6.12 implementation then updates the parent runnable_sum through
+> max_t(u32, ...), which explicitly recasts both operands to u32. The high
+> bits fixed by this patch are therefore discarded during propagation to
+> the parent cfs_rq.
+> 
+> Upstream code after 089d84203ad42:
+> 
+>      __update_sa(&cfs_rq->avg, runnable, delta_avg, delta_sum);
+> 
+> Downstream 6.12.y code:
+> 
+>      cfs_rq->avg.runnable_sum =
+>              max_t(u32, cfs_rq->avg.runnable_sum,
+>                    cfs_rq->avg.runnable_avg * PELT_MIN_DIVIDER);
+> 
+> The explicit downstream u32 conversion discards the widened high bits.
+> 
+> Upstream preserves the field type through __update_sa(), introduced by
+> 089d84203ad42 . Maybe we need to be adding a minimal 6.12 adaptation 
+> that clamps the parent runnable_sum as u64 before retaining this patch. 
+> Thoughts?
+> 
 
-> ---
-> Changes in v2:
-> - Drop the stale kdump capture kernel mention from the small-zone
->   comment in boost_watermark(): capture kernels now return earlier.
->   (Vlastimil Babka)
-> 
-> v1: https://lore.kernel.org/r/20260914131142.2984623-1-xiangzao@linux.alibaba.com
-> 
-> Build tested with CONFIG_CRASH_DUMP=y and =n.
-> 
-> Tested on the affected machine with the original crashkernel=512M and
-> capture kernel command line.  Without this patch both capture boots
-> panicked at 7.9s inside do_initcalls() with a 64M boost in place.  With
-> it, and with boost_watermark() instrumented, every call was suppressed -
-> including those inside do_initcalls(), where the panics happened - free
-> memory came down to within 64kB of the min watermark, where a single
-> boost would have put it 65472kB under, and the dump completed.
-> ---
->  mm/page_alloc.c | 12 ++++++++++--
->  1 file changed, 10 insertions(+), 2 deletions(-)
-> 
-> diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-> index 12fac9084c48..f52ed7d2cd34 100644
-> --- a/mm/page_alloc.c
-> +++ b/mm/page_alloc.c
-> @@ -37,6 +37,7 @@
->  #include <linux/vmstat.h>
->  #include <linux/fault-inject.h>
->  #include <linux/compaction.h>
-> +#include <linux/crash_dump.h>
->  #include <trace/events/kmem.h>
->  #include <trace/events/oom.h>
->  #include <linux/prefetch.h>
-> @@ -2178,10 +2179,17 @@ static inline bool boost_watermark(struct zone *zone)
->  
->  	if (!watermark_boost_factor)
->  		return false;
-> +
-> +	/*
-> +	 * A kdump capture kernel exits before a boost can pay off, while
-> +	 * the raised watermark can exceed the memory left for the dump.
-> +	 */
-> +	if (is_kdump_kernel())
-> +		return false;
-> +
->  	/*
->  	 * Don't bother in zones that are unlikely to produce results.
-> -	 * On small machines, including kdump capture kernels running
-> -	 * in a small area, boosting the watermark can cause an out of
-> +	 * On small machines, boosting the watermark can cause an out of
->  	 * memory situation immediately.
->  	 */
->  	if ((pageblock_nr_pages * 4) > zone_managed_pages(zone))
+It seems that in 6.12 update_tg_cfs_load() also has the risk of cutting
+u64 into u32, as load_sum is unbounded:
+         cfs_rq->avg.load_sum = max_t(u32, cfs_rq->avg.load_sum,
+                                           cfs_rq->avg.load_avg * 
+PELT_MIN_DIVIDER);
+either we could change the u32 into u64 for them, or maybe we can
+backport 089d84203ad42?
+
+thanks,
+Chenyu
 
