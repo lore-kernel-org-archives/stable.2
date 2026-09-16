@@ -1,196 +1,198 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5819E46C4DD
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:10:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5C9844E673
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:11:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546221; cv=none; b=ZVtbQhT77wFV0quJr9BSKt3e3cJdmATyn8oZNflYB1Ab5QGeuTjOPUxVsQ5KefFg/1aFivdcxfA1+0hUa+UHV/8D8rqx7Q80nkIIg8ByKdmym9DLI/VF3trrkZ1GgNJuk456nmu5/+KI0ei7LHqQo0zBU3/psiVwpMyIFuJ97Ls=
+	t=1789546277; cv=none; b=UWSY9Xqx1t//I9N8a9pcTPrn+b0pWFgk2woRNX5UJG34BCNwKXXTUrovL9oZCDUDPQxeUcT3AsEjmQNakBVMZfE6xtQlGWlw/C8xb9yxoL+dPi3rgHpn9hliAXn384/Ja01tFwtKoWnyylKz7S0WWmpZqQU6WSaD991G//t1iAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546221; c=relaxed/simple;
-	bh=nkTivANmUXq4e9wIM0SOH6H4eHJjSyDHp1VOxM3zsjM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=IyFp7FUxezkLARLrUA5o9H93QhUtvVa+28mGyfp2jTWv9ACnBwMjP7dWrWPZdHMEys5bDLWWLmR9aXp3r+HrE4syopTddHX49h4XzPugthVDLsLOvlPJon89Z9e9mcPn20Ewc8uMaSdAc/KxZ/PomrbhxO6Ktg2YKktkqpnLZ64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XyKnPYOr; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789546277; c=relaxed/simple;
+	bh=pDhsU75hhRzVPiaUjapE7C1HLkGJfTwgI+AMKFaUmSI=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GH03P6qsg0z7Mhf3ZiSuDgjPkuIVZgWSJim7THe4REiQ0v1W0oM8uBVPZUo68KGueBKE3nQjojlB7RFDIcCwk+WK/WO7p1ol54621RKvRoAzU7v+iZtmhNUTAmsecCROpexnCC8z4QS5mltIP4HlSStB/MvbgyZWue2S5Fe+6lk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=W2zOicL9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XyKnPYOr"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc4cacd3409so662264a12.2
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 01:10:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789546204; x=1790151004; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=iUsD627B/6M5jyv1UJxvIMio9SziZyI6UnP6z74oBus=;
-        b=XyKnPYOraE1XyhHvbxhOev1tK4nDmePjiIguBf4pnQqCZPLPbRWuCP9WQXeRNFnTCK
-         b38nBSpGEVn06GDTKfOfy39hYCEkC5oueYJN1G4tD4P+cQWFZilSSFZsS5W4AXjsn78s
-         633GH9EScJNtBtFEfl2oyEmSwW8Kt2pHfOjkfXlmNWnCLq7CHoxNrJAzkbh34gM9i1Yg
-         6fKTCLuIoAxw95pVGrWMqRk0tjBc9Z2qK21xUsMNMM8cXt9h7eb1KfaoxGNR3+K5aAyj
-         Mq17NxbN5fBxBgEZtH2KOSSsnRQAGP8CW6B4K63Lr8U8HIp+nPIFF+D8YC7wEobd8ypv
-         O0XQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789546204; x=1790151004;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=iUsD627B/6M5jyv1UJxvIMio9SziZyI6UnP6z74oBus=;
-        b=CrOOSi1srywiMvFFeKX72SoLPUz+6iSkSWBrvuEkTbb2oqFxdoK26OxVtWB/OWInFP
-         KGIfmgtAhSZ2aZvTyjm500csOs37DpfwURdE4bTWZ2HbG+0/VgJec1z2i3ipdibH7S3q
-         JpEkz4/wmZNd3uiWqHbTRB+rUUmK+KlQAZvGu4DqZixvlEtFrNYvmUHLiHAHyWa7I2B5
-         cxwe1/Wo/7MGc554oGJML1AfOtu6SC/9/km3k/dd0QbwXIe7RpkuTJ3a/79MvIzA2XYE
-         W9FzG6Hw6KnfMXM85gKeUqwVxpuG02adK+UQQ0VkmsQ13irHUbEooRJFMh3kHobUTNEr
-         ADBw==
-X-Forwarded-Encrypted: i=1; AKwUvBw0jx0xp3qE8sfku/dh4eqJ5eb2fe74HEv6yu0FoIFZyu9e4gi2uye3as5d/lU6QEJaCefETlg=@vger.kernel.org
-X-Gm-Message-State: AFuF++mflq8+eUGjJZLcXfBYSymAzUVubtUKXHc4OO5Y83v0aIIo7h9C
-	tknjck18s4lbmc575YjKGy+u/2/bgFUDNT7H/e/qFrzYxVD5XeKcNlaV
-X-Gm-Gg: AYBFou2+UZQOCVJqeWJc+eY7jn00Zii7cW2HwBh1rr0p7ld7SDt5wwAx9dNir/Vo3P1
-	Y1EomO2vrcmzsFEdT+KKvDcnckgUiOP5DNdVmz75c27vDY3sJVYAM1evwN03W5J5mqbDUnHv3Ew
-	Wul5WU5hENT9TNjVN0NDxPbGBjvSPZwiM0F8MZBs7aCzVFRd8JkXMNGtr78ua024d5YUgANMOGk
-	lcfFA8Y/EpiSgIr1BI5z5AtukTXD3ihVyccm0IFRPi6ga5+hpGsJr3y77uTS+3uEYWJK4FY6fCU
-	1Uo3QUJ+Ewb/G5gshXgdq07zRHw2t3RbXCuBxoBnTxrTT05OWg3Sor34Dzlo6eeFjQV0Eo1KQ8g
-	tVbSYndIgihoVEUtDzcVCQLd/ZaeEthHUP7WhJFdbsMWdIuGI1TGNYwbHzYhrWRMhfjm0wPujwI
-	B0Al6acunq7ITcWziPc21yvQqoQReiExYjPV7VAGk1vYg/93erVfmvc+VIEt+zDZOdYFUyZcFGD
-	U7TbQxxzrX+J4dlWj//MSX2Mwdly5j8ZXrrDQ==
-X-Received: by 2002:a17:90a:1c82:b0:39e:24ab:9fb0 with SMTP id 98e67ed59e1d1-39e24aba659mr1236240a91.6.1789546204505;
-        Wed, 16 Sep 2026 01:10:04 -0700 (PDT)
-Received: from localhost.localdomain ([180.101.244.68])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1d1626adsm952594a91.4.2026.09.16.01.10.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 01:10:03 -0700 (PDT)
-From: Aohan Mei <ljp1205831794@gmail.com>
-To: netdev@vger.kernel.org
-Cc: linux-sctp@vger.kernel.org,
-	marcelo.leitner@gmail.com,
-	lucien.xin@gmail.com,
-	imv4bel@gmail.com,
-	Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	stable@vger.kernel.org
-Subject: [PATCH net] sctp: don't re-register a removed transport as last_data_from
-Date: Wed, 16 Sep 2026 16:09:51 +0800
-Message-ID: <20260916080955.1019050-1-ljp1205831794@gmail.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="W2zOicL9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31BE41F00893;
+	Wed, 16 Sep 2026 08:11:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789546266;
+	bh=7z2jQf4izFOfFuVRydMv8dS0Al/Rf6OshasVgFsf1B8=;
+	h=Subject:To:Cc:From:Date;
+	b=W2zOicL9kJOJN8Lg79dgUFIlpOKubQw3TKW8F8FfmPwk7ythKmTmIoh1DfMrt2pLV
+	 nj09WyJvyEZ+uoPMnEHx8nYekkNOv8p6TJh4aFCklsq6QaoLYZBDH2JbmlcxJDHwvY
+	 UK4Wchov9C9OoGrKdsQMRXhyzeupWGqBASv+jnaE=
+Subject: FAILED: patch "[PATCH] x86/mm/pat: Allocate split page tables as kernel page tables" failed to apply to 6.18-stable tree
+To: ljs@kernel.org,atishp@meta.com,dave.hansen@linux.intel.com,mingo@kernel.org,nikunj@amd.com,rppt@kernel.org,vishal.moola@gmail.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 09:09:05 +0100
+Message-ID: <2026091605-rehire-self-1650@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Aohan Mei <henrymei@tencent.com>
 
-When an association is in COOKIE-ECHOED state and the peer sends a
-bundled [ERROR(Stale Cookie)][DATA] packet from one of its non-primary
-addresses, processing the ERROR chunk takes the non-fatal stale-cookie
-retry path sctp_sf_do_5_2_6_stale(), which queues
-SCTP_CMD_DEL_NON_PRIMARY while keeping the association alive.
-sctp_cmd_del_non_primary() removes every non-primary transport -
-including the very transport this packet arrived on, which is still
-referenced by the receive lookup and shared by all chunks of the
-packet via chunk->transport.
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-sctp_assoc_rm_peer() does redirect asoc->peer.last_data_from away from
-the removed transport, but right afterwards the bundled DATA chunk
-makes sctp_assoc_bh_rcv() re-register
-asoc->peer.last_data_from = chunk->transport unconditionally, undoing
-the redirection with the just-removed transport.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-Once the packet is done, the receive reference is dropped and the
-transport is RCU-freed, while the surviving association keeps the
-dangling last_data_from.  A later FWD-TSN (or the delayed SACK timer)
-makes sctp_gen_sack() dereference it (->param_flags and friends), and
-sctp_make_sack()/sctp_outq_select_transport() may write to the freed
-object and link it into the live transport list.  This is a
-use-after-free triggerable by any malicious SCTP peer (or a local
-unprivileged user acting as one) with no capabilities required:
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 9e4a3ec3411bb6bb59e3c1f29b75609f1e87aac4
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091605-rehire-self-1650@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-  BUG: KASAN: slab-use-after-free in sctp_do_sm+0x498a/0x5660
-  Read of size 4 at addr ffff88800e1e356c by task poc/115
-  Call Trace: sctp_do_sm <- sctp_assoc_bh_rcv <- sctp_inq_push <-
-              sctp_rcv <- ip_protocol_deliver_rcu <- ip_rcv
-  Allocated: sctp_transport_new <- sctp_assoc_add_peer <-
-             sctp_process_init (INIT-ACK processing)
-  Freed: kfree <- sctp_transport_destroy_rcu <- rcu_core
-         (call_rcu queued by sctp_transport_put at end of sctp_rcv)
-  The buggy address is located 364 bytes inside of freed 1024-byte
-  region [ffff88800e1e3400, ffff88800e1e3800), cache kmalloc-1k
+Possible dependencies:
 
-Related is commit 03a9d10ecf71 ("sctp: drop a chunk if its transport was
-removed"), which only covers the window between the receive lookup and
-the chunk processing (e.g. an ASCONF DEL-IP racing the socket backlog);
-here the transport is removed *while* the packet is being processed, by
-an earlier chunk of the same packet, so the drop in sctp_inq_push() does
-not reach this path.  Verified with the bundled [ERROR(Stale
-Cookie)][DATA] + FWD-TSN reproducer: the KASAN report above still fires
-with that commit applied, and is gone with this patch on top.
 
-Fix it by never registering a dead transport as last_data_from:
-sctp_transport_free() sets ->dead when the transport is removed, so
-both re-registration sites (the association and the endpoint backlog
-paths) can simply skip it, keeping the redirection done by
-sctp_assoc_rm_peer() in effect.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 9e4a3ec3411bb6bb59e3c1f29b75609f1e87aac4 Mon Sep 17 00:00:00 2001
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Date: Thu, 13 Aug 2026 12:01:27 +0300
+Subject: [PATCH] x86/mm/pat: Allocate split page tables as kernel page tables
+
+A PTE is allocated directly without going through the standard page table
+allocation routines (such as pte_alloc_one_kernel()) when the CPA code
+splits a large page (__split_large_page()).
+
+This means the page table constructor is never called nor is the page table
+marked as a kernel page table.
+
+The former results in the folio associated with the page table not being
+marked as a page table (__pagetable_ctor() is never called thus neither is
+__folio_set_pgtable()) nor are statistics updated to reflect
+it (lruvec_stat_add_folio() is never called).
+
+The latter issue of failing to mark the page table as a kernel page
+table (ptdesc_set_kernel() is never called) is far more problematic.
+
+Since commit:
+
+  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
+
+kernel page table freeing has been batched and since the
+subsequent commit:
+
+  e37d5a2d60a3 ("iommu/sva: invalidate stale IOTLB entries for kernel address space")
+
+IOTLB cache entries for kernel page tables have been invalidated upon
+being freed.
+
+Since split page tables are freed without this invalidation, the IOTLB
+can contain stale entries for them.
+
+Resolve the issue by using the ordinary PTE allocation API at split time.
+
+This results in these kernel page tables invoking a page table constructor,
+and thus requires a page table destructor.
+
+Destructors are not always present, like for early allocated direct map
+page tables). Conditionally call pagetable_dtor_free() if the PG_table
+folio flag for the ptdesc is set, otherwise we free the page table via
+pagetable_free().
+
+Regardless of which path is taken page tables marked as kernel page tables,
+which now includes split page tables, take the correct route through
+pagetable_free_kernel().
+
+There is a user-visible side effect in that split page tables will appear
+in nr_page_table_pages in /proc/vmstat (as do other kernel page tables
+allocated after early boot), however this is a positive change.
+
+This issue started being markedly problematic after commit:
+
+  5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
+
+so choose this as the Fixes target.
+
+[ dhansen: rephrase in imperative mood ]
+
+Fixes: 5ba2f0a15564 ("mm: introduce deferred freeing for kernel page tables")
+Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Signed-off-by: Ingo Molnar <mingo@kernel.org>
+Acked-by: Vishal Moola <vishal.moola@gmail.com>
+Tested-by: Atish Patra <atishp@meta.com>
+Tested-by: Nikunj A Dadhania <nikunj@amd.com>
 Cc: stable@vger.kernel.org
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
----
- net/sctp/associola.c   | 16 ++++++++++++----
- net/sctp/endpointola.c | 10 ++++++----
- 2 files changed, 18 insertions(+), 8 deletions(-)
+Link: https://patch.msgid.link/20260813-cpa-fixes-v2-4-39b4ff90f91d@kernel.org
 
-diff --git a/net/sctp/associola.c b/net/sctp/associola.c
-index 5b0ae616e1ff9..ecef09959630d 100644
---- a/net/sctp/associola.c
-+++ b/net/sctp/associola.c
-@@ -1023,11 +1023,19 @@ static void sctp_assoc_bh_rcv(struct work_struct *work)
- 			continue;
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index cb5d6d6f71a4..4652487b5572 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -441,7 +441,15 @@ static void __cpa_collapse_large_pages(struct cpa_data *cpa)
  
- 		/* Remember where the last DATA chunk came from so we
--		 * know where to send the SACK.
-+		 * know where to send the SACK.  chunk->transport may have
-+		 * been removed while processing an earlier chunk of this
-+		 * same packet (e.g. a stale-cookie ERROR chunk queues
-+		 * SCTP_CMD_DEL_NON_PRIMARY, which removes the non-primary
-+		 * transport this packet arrived on), so never register a
-+		 * dead transport; otherwise last_data_from would be left
-+		 * dangling once the receive reference is dropped and the
-+		 * transport is freed.
- 		 */
--		if (sctp_chunk_is_data(chunk))
--			asoc->peer.last_data_from = chunk->transport;
--		else {
-+		if (sctp_chunk_is_data(chunk)) {
-+			if (!chunk->transport || !chunk->transport->dead)
-+				asoc->peer.last_data_from = chunk->transport;
-+		} else {
- 			SCTP_INC_STATS(net, SCTP_MIB_INCTRLCHUNKS);
- 			asoc->stats.ictrlchunks++;
- 			if (chunk->chunk_hdr->type == SCTP_CID_SACK)
-diff --git a/net/sctp/endpointola.c b/net/sctp/endpointola.c
-index dfb1719275dba..f9d4f318e132e 100644
---- a/net/sctp/endpointola.c
-+++ b/net/sctp/endpointola.c
-@@ -392,11 +392,13 @@ static void sctp_endpoint_bh_rcv(struct work_struct *work)
- 			continue;
+ 	list_for_each_entry_safe(ptdesc, tmp, &pgtables, pt_list) {
+ 		list_del(&ptdesc->pt_list);
+-		pagetable_free(ptdesc);
++		/*
++		 * Only early alloc'd direct map should not be flagged PG_table
++		 * here and those shouldn't be collapsed. However be abundantly
++		 * cautious and handle the !PG_table case too.
++		 */
++		if (PageTable((ptdesc_page(ptdesc))))
++			pagetable_dtor_free(ptdesc);
++		else
++			pagetable_free(ptdesc);
+ 	}
+ }
  
- 		/* Remember where the last DATA chunk came from so we
--		 * know where to send the SACK.
-+		 * know where to send the SACK.  As in sctp_assoc_bh_rcv(),
-+		 * never register a dead (already removed) transport.
- 		 */
--		if (asoc && sctp_chunk_is_data(chunk))
--			asoc->peer.last_data_from = chunk->transport;
--		else {
-+		if (asoc && sctp_chunk_is_data(chunk)) {
-+			if (!chunk->transport || !chunk->transport->dead)
-+				asoc->peer.last_data_from = chunk->transport;
-+		} else {
- 			SCTP_INC_STATS(ep->base.net, SCTP_MIB_INCTRLCHUNKS);
- 			if (asoc)
- 				asoc->stats.ictrlchunks++;
--- 
-2.43.7
+@@ -1134,11 +1142,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
+ 
+ static int
+ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+-		   struct ptdesc *ptdesc)
++		   pte_t *pbase)
+ {
+ 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
+-	struct page *base = ptdesc_page(ptdesc);
+-	pte_t *pbase = (pte_t *)page_address(base);
++	struct page *base = virt_to_page(pbase);
+ 	unsigned int i, level;
+ 	pgprot_t ref_prot;
+ 	bool nx, rw;
+@@ -1238,20 +1245,20 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
+ 			    unsigned long address)
+ {
+-	struct ptdesc *ptdesc;
++	pte_t *pte;
+ 
+ 	spin_unlock(&cpa_lock);
+ 	if (cpa->init_mm_read_locked)
+ 		mmap_read_unlock(&init_mm);
+-	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
++	pte = pte_alloc_one_kernel(&init_mm);
+ 	if (cpa->init_mm_read_locked)
+ 		mmap_read_lock(&init_mm);
+ 	spin_lock(&cpa_lock);
+-	if (!ptdesc)
++	if (!pte)
+ 		return -ENOMEM;
+ 
+-	if (__split_large_page(cpa, kpte, address, ptdesc))
+-		pagetable_free(ptdesc);
++	if (__split_large_page(cpa, kpte, address, pte))
++		pte_free_kernel(&init_mm, pte);
+ 
+ 	return 0;
+ }
 
