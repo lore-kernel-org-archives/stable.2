@@ -1,99 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 16B98327BEC
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:26:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3475F4D0CD5;
+	Wed, 16 Sep 2026 17:26:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579577; cv=none; b=LR+s3zi4+zka/o93BX+c0EEhdlZ2tFq4uAdBRu9+dyH+cRqACairW8oQllE2PxI/BT62YxuHMkJ1SsePJhFDS4IniXpO3Gbe5ds6mMpAQ745CMFWiRApaKISOS5u4bFFCa9dZW2x1x490nBkOaHLKhsw0782y9rUWmka59NVRmw=
+	t=1789579596; cv=none; b=frDSFctidlbSCZmLbNVS8EvwraGjsMuk+fUbivsfryfLoOW+hm6WVNAx+fSapjNtGENAaYARqrDfHWa775XH4gtSQzw3PK2b4o0dRshalZXbmgaGv5W4FsOqdmhOQtJ+VwHPr3If1YjSoT6fGkNhL7NbKRdxb3L0G5tCXDMI0r8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579577; c=relaxed/simple;
-	bh=egdHdBSu5ivZCmKLyfVK6QeVh4X5GbQfAPCXfzQ8x7o=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=etNAt8KjkWqJvJW9ymjh9UPkEUOlk9+CaQxozZHvNfvt6LIEQTqXZeQrDphPkdpdEY1c+jko1QOMSdkDEk567GHiM1jNRI4pYwpe/N35ht0c6QLRBANptVbdpf5+8FyqQ3jS8bhXtvTQUA9mVpGyMIDAB8nHZwMukS7OzYOPXZk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YH5N9ioh; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YH5N9ioh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 484FB1F000FF;
-	Wed, 16 Sep 2026 17:26:15 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789579575;
-	bh=Rfig56QPPCt32aY+d/7vtGdHDRrP1C+NNIly34hG1FM=;
-	h=Subject:To:Cc:From:Date;
-	b=YH5N9iohoHTSixWmCfBs18t55Wz0yOZyHR/cfSFbN2ZVqZdttJXa6TotFLc0KdV3u
-	 hV+awBZ0qVgVezGJRHjsEqo/vq/diq1tnO2Zxe1n/8WdcHRJhXdLs+hPeJ/hyewR8h
-	 dRAQ6BbS/YrNkBtE0TWgU0JB2tcvwHN/1wQyQ77M=
-Subject: FAILED: patch "[PATCH] xfs: make the rtsummary repair fix the file size too" failed to apply to 6.12-stable tree
-To: djwong@kernel.org,cem@kernel.org,hch@lst.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 18:22:20 +0100
-Message-ID: <2026091620-ravioli-catfish-14c5@gregkh>
+	s=arc-20240116; t=1789579596; c=relaxed/simple;
+	bh=AhpLtqGNAH+VUImvHnuwgDAzlAGIYJdklwlXZmm6V04=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=uOvxBcN34rQPkKCaiksde64+CqFTwWgvlVV1QCI7epuLujpoNGTqr0Qrxi5ALZp25P68JcvHiSnlcucJlakuZySKghKR+u2accxmq0+avxX05Bo9XiN7x47y0ehb+fWsl+O9oaxGTnMCmsDGIRdOyBeiS7zdJr2EUebH1Kw/C+c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnVD9A0apqapZuCA--.23115S2;
+	Thu, 17 Sep 2026 01:26:24 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: chris@chris-wilson.co.uk,
+	dri-devel@lists.freedesktop.org,
+	intel-gfx@lists.freedesktop.org,
+	jani.nikula@linux.intel.com,
+	joonas.lahtinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	matthew.auld@intel.com,
+	rodrigo.vivi@intel.com,
+	simona@ffwll.ch,
+	tursulin@ursulin.net,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/i915/gt: Fix rq use-after-free in perf_mi_noop()
+Date: Wed, 16 Sep 2026 17:25:56 +0000
+Message-Id: <20260916172556.2087724-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnVD9A0apqapZuCA--.23115S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrtF4DXr48WFW8Wryktw18Zrb_yoW8JF4rpF
+	4rJF4YvrZxJrWIka1fJrW0vFy5Ka1SyFWxKrnrKwnxZr15X3Z5Jr1Iv3WagryUArZ7Wr43
+	JFs7KFW3WFnFkrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
+	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
+	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
+	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
+	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
+	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
+	4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRIMA2qqozVqnAAAs0
 
+The i915_request_put() after the wait may drop the final reference and
+free the request, yet the following cycle counting still reads
+rq->hwsp_seqno. Compute the cycles[] entry while the reference taken
+before i915_request_add() is still held.
 
-The patch below does not apply to the 6.12-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Fixes: 3c7a44bbbfa7 ("drm/i915/selftests: Perform some basic cycle counting of MI ops")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/i915/gt/selftest_engine_cs.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
-git checkout FETCH_HEAD
-git cherry-pick -x 6b760b3232b3efc8bcc7c165e76300bc1c9140c5
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091620-ravioli-catfish-14c5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 6b760b3232b3efc8bcc7c165e76300bc1c9140c5 Mon Sep 17 00:00:00 2001
-From: "Darrick J. Wong" <djwong@kernel.org>
-Date: Wed, 2 Sep 2026 22:52:07 -0700
-Subject: [PATCH] xfs: make the rtsummary repair fix the file size too
-
-LOLLM noticed that the rtsummary repair code will create a new rtsummary
-with the correct file size, but it won't force the new file size to be
-set on the existing rtsummary file, leaving the rtsummary corrupt.  Fix
-this by setting up the tempfile mapping-exchange to run to the end of
-both files, which is the magic offset needed to reset the file size.
-
-Cc: stable@vger.kernel.org # v6.10
-Fixes: abf039e2e4afde ("xfs: online repair of realtime summaries")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-
-diff --git a/fs/xfs/scrub/rtsummary_repair.c b/fs/xfs/scrub/rtsummary_repair.c
-index f065c3e51ce2..ed763290aec1 100644
---- a/fs/xfs/scrub/rtsummary_repair.c
-+++ b/fs/xfs/scrub/rtsummary_repair.c
-@@ -164,9 +164,10 @@ xrep_rtsummary(
- 	/*
- 	 * Now exchange the contents.  Nothing in repair uses the temporary
- 	 * buffer, so we can reuse it for the tempfile exchrange information.
-+	 * Use XFS_MAX_FILEOFF here so that we correct the rtsummary file size.
- 	 */
- 	error = xrep_tempexch_trans_reserve(sc, XFS_DATA_FORK, 0,
--			rts->rsumblocks, &rts->tempexch);
-+			XFS_MAX_FILEOFF, &rts->tempexch);
- 	if (error)
- 		return error;
+diff --git a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+index 5ffa5e30f419..7503763136b2 100644
+--- a/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
++++ b/drivers/gpu/drm/i915/gt/selftest_engine_cs.c
+@@ -351,13 +351,14 @@ static int perf_mi_noop(void *arg)
  
+ 			if (i915_request_wait(rq, 0, HZ / 5) < 0)
+ 				err = -EIO;
++			if (err == 0)
++				cycles[i] =
++					(rq->hwsp_seqno[4] - rq->hwsp_seqno[3]) -
++					(rq->hwsp_seqno[3] - rq->hwsp_seqno[2]);
++
+ 			i915_request_put(rq);
+ 			if (err)
+ 				break;
+-
+-			cycles[i] =
+-				(rq->hwsp_seqno[4] - rq->hwsp_seqno[3]) -
+-				(rq->hwsp_seqno[3] - rq->hwsp_seqno[2]);
+ 		}
+ 		i915_vma_put(nop);
+ 		i915_vma_put(base);
+-- 
+2.34.1
 
