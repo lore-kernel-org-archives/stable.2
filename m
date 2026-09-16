@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234674F55B6
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:42:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1967A4E66CE
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:42:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602137; cv=none; b=Vb6wv/q7TMsZ7Z4oOtu09x7LvwvX/chNgDeMj3yLiPp6LhmphgDKuNsDbqx66tpJNuhiwVb8cc+AySrgAxqClbkSYOq3xvrDGxiwiuA/YrLfSYpvyQCpw5+cVzPMCR8Ec8+nTRmpBiDr8K0RVKj7a45nsMIGY8vXolDqSvh4W/E=
+	t=1789602141; cv=none; b=mGVYZvRgY/D8ddQ9M0pmvmhAF5ZoP8GSEEtmxCGjexexY3xDTSBrjb1g/aeyV5yyQShJMvbPo32O6bkoIcPJOjGD0Xnp66zEpJYcS0EBwRBPph6YMaA49NaWJfruh7y797Vu1GnKINm9pqx/+YRh23hMpC6iX6giUtp6Qebu/XA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602137; c=relaxed/simple;
-	bh=rtKQJBT1pFTM+DWlHRlDtvU0eTVrag9owC6jFdcjn88=;
+	s=arc-20240116; t=1789602141; c=relaxed/simple;
+	bh=PT1L1r4Ij4RYTf0s44lRTEuG8azTmzAER5kPfI/Z22E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=aq9SfgbV+9l4bSxeLEslj7QvfhdM4bfyAjNZNj6KMF9fENIR52rO3lLyzXK5/+XcoSBhhMytp0Nd8FcM93NHq2DWqeyJhf1WN+ZzdAxftJSKRxxnymYDD/yLYKoFOn1WziNG+bz7YY+MOVkJe64Rqx+vMOwVhuh0i5K1JWAXNyw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HiZHrikK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=MT6zsUqA6hDf/Raho3O9oecLFdybzAH+vLgu/VZvxg5SlBLvzhSbUr6qcAmxKSf7KN/OOlj/7u7zCjfjJPW+jRUNOM5JnCFZK06L9PjWT1EkrdoiIbowbZ7JXuyoTPCsoUybZpw0Zg2sjrYZOoOGRDjELWJIHO24NUvKyMweJ+A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EKJWwYFn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HiZHrikK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 215F51F00893;
-	Wed, 16 Sep 2026 23:42:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EKJWwYFn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC7621F00893;
+	Wed, 16 Sep 2026 23:42:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789602133;
-	bh=nhcNnOUHnbVqd+o1Vl+MDviqHNrm9iy5Zd2V2SlNGrw=;
+	s=k20260515; t=1789602138;
+	bh=rkhswP0gplLmYZTHMffooCA2bJmmaHbSAJXe8DkTPYk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HiZHrikKj0OggnFGBzhYqC+ntvPbUX7y6uHzgUwNEjy3rOf4ZFENU0KAHHQYMABGM
-	 CsCfK2+sk7wMERTohBmlaqBsjLdQ8KT8YQaxSoWhZ2AubbduJ3ZUM2xKV2D7r+KuUu
-	 GN4Hk4TdZwUPDIOuRjzkQ5AU/R8PMwSGs2cke5/L+x1azE0G0339QWwXMVI0r/WkI2
-	 dEtMeeImVXZFUagHZhWJrAtyLtvwPSZZwbyyEqtNhYm+lXyK3cnDb0dJQgcGSGMSg1
-	 XaDorwOtoDbbbE/oNVk/LEOTX0p+iWpEdiehGN+RGeEzWOiLwQaVvEszDK8UVVBIdx
-	 3Azr2T04cyTWQ==
+	b=EKJWwYFn5PBtC+UDv+GRtQfq3U6qj/V74w8Rs/phCIdlKOduP7vbypiEI22zVjJrQ
+	 IiU61qs/B6DVf4KmCTbMUSC7YdxZdV6n7vIw7zQOFG4gUUx8bSk0Zjw2QGD+MgYqrb
+	 /RHyADU3No1/U6xGmnH4AQjg2ATQLUgJ9WhhbtmHvQgmNHK722o5H52MzTwvihdr/d
+	 DryJqYUDs36bQfUitoGV98XKegDP2w4PHsjHf7xQGSwvYshjEeAhlUzjCAUvb4wo5c
+	 z1a7VGMEZu1I8A6FkGwT0ZqGh+ODJIMaszr/lgivZEd34EuVQ8+kOvIEMTE1UkFrxg
+	 23mJpl0UHDC4w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Satyajit Roy <sroy14@alum.utk.edu>,
-	Alex Hung <alex.hung@amd.com>,
-	Daniel Wheeler <daniel.wheeler@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] drm/amd/display: Honor Broadcast RGB for BT.2020 RGB output
-Date: Wed, 16 Sep 2026 19:42:11 -0400
-Message-ID: <20260916234211.3296195-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] netfilter: cttimeout: prevent UAF during module unload
+Date: Wed, 16 Sep 2026 19:42:15 -0400
+Message-ID: <20260916234215.3296425-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091655-squabble-justify-d868@gregkh>
-References: <2026091655-squabble-justify-d868@gregkh>
+In-Reply-To: <20260916234215.3296425-1-sashal@kernel.org>
+References: <2026091639-unmade-pouch-5365@gregkh>
+ <20260916234215.3296425-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,57 +46,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Satyajit Roy <sroy14@alum.utk.edu>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 7fca7acd60a228b62b4e9efa5f184738041e9564 ]
+[ Upstream commit fec9b1de0d02de8dafa3cc344bcb91cf28660643 ]
 
-amdgpu_dm_get_output_color_space() applies the Broadcast RGB connector
-property to default RGB output, but always selects full-range output for
-BT.2020 RGB. Consequently, explicitly selecting Limited has no effect on
-the output CSC or AVI InfoFrame when HDR uses BT.2020 RGB.
+nf_ct_set_timeout() protects the timeout hook dereference and policy lookup
+with rcu_read_lock(). cttimeout_exit(), however, unregisters the per-net
+operations before it clears the hook.
 
-Select COLOR_SPACE_2020_RGB_LIMITEDRANGE when the output encoding is RGB
-and Broadcast RGB is Limited. Keep Automatic and Full at full range, and
-leave YCbCr output unchanged.
+This allows the following interleaving:
 
-Add KUnit coverage for limited-range RGB output through both BT.2020
-connector colorspace values.
+  CPU 0                              CPU 1
+  cttimeout_exit()                   nf_ct_set_timeout()
+    unregister_pernet_subsys()         rcu_read_lock()
+      kfree(pernet)                     h = nf_ct_timeout_hook
+                                        h->timeout_find_get()
+                                          nfct_timeout_pernet()
 
-Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property")
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 022236eaa63bbf65761aa8aec43f661451a94654)
+The hook still points to ctnl_timeout_find_get() when CPU 1 looks up the
+already freed per-net timeout list. KASAN reported:
+
+  BUG: KASAN: slab-use-after-free in ctnl_timeout_find_get
+  Read of size 8 by task poc/90
+  Call Trace:
+   ctnl_timeout_find_get+0x271/0x2a0 [nfnetlink_cttimeout]
+   nf_ct_set_timeout+0x7b/0x3c0
+   xt_ct_tg_check+0x724/0xb20
+   xt_check_target+0x234/0xa90
+   do_ipt_set_ctl+0x570/0x1270
+  Allocated by task 89:
+   __kmalloc_noprof+0x16e/0x460
+   ops_init+0x6d/0x420
+   register_pernet_operations+0x2f6/0x670
+  Freed by task 91:
+   kfree+0x131/0x390
+   ops_undo_list+0x3d4/0x730
+   unregister_pernet_operations+0x232/0x490
+   unregister_pernet_subsys+0x1c/0x30
+   cttimeout_exit+0x52/0x970 [nfnetlink_cttimeout]
+
+Clear the hook and wait for existing readers before unregistering the
+per-net operations. This blocks new policy lookups and ensures readers that
+observed the hook finish before the per-net storage is freed.
+
+Fixes: ebfbe67568a7 ("netfilter: cttimeout: use net_generic infra")
 Cc: stable@vger.kernel.org
-[ adapted the hunk to the older get_output_color_space() function in amdgpu_dm.c. ]
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c | 10 +++++++---
- 1 file changed, 7 insertions(+), 3 deletions(-)
+ net/netfilter/nfnetlink_cttimeout.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-index 06eb499f13637..5226224cf7027 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm.c
-@@ -6511,10 +6511,14 @@ get_output_color_space(const struct dc_crtc_timing *dc_crtc_timing,
- 		break;
- 	case DRM_MODE_COLORIMETRY_BT2020_RGB:
- 	case DRM_MODE_COLORIMETRY_BT2020_YCC:
--		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB)
--			color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
--		else
-+		if (dc_crtc_timing->pixel_encoding == PIXEL_ENCODING_RGB) {
-+			if (connector_state->hdmi.broadcast_rgb == DRM_HDMI_BROADCAST_RGB_LIMITED)
-+				color_space = COLOR_SPACE_2020_RGB_LIMITEDRANGE;
-+			else
-+				color_space = COLOR_SPACE_2020_RGB_FULLRANGE;
-+		} else {
- 			color_space = COLOR_SPACE_2020_YCBCR_LIMITED;
-+		}
- 		break;
- 	case DRM_MODE_COLORIMETRY_DEFAULT: // ITU601
- 	default:
+diff --git a/net/netfilter/nfnetlink_cttimeout.c b/net/netfilter/nfnetlink_cttimeout.c
+index c87335d78dfa0..564e4642467dc 100644
+--- a/net/netfilter/nfnetlink_cttimeout.c
++++ b/net/netfilter/nfnetlink_cttimeout.c
+@@ -654,9 +654,9 @@ static void __exit cttimeout_exit(void)
+ {
+ 	nfnetlink_subsys_unregister(&cttimeout_subsys);
+ 
+-	unregister_pernet_subsys(&cttimeout_ops);
+ 	RCU_INIT_POINTER(nf_ct_timeout_hook, NULL);
+ 	synchronize_net();
++	unregister_pernet_subsys(&cttimeout_ops);
+ }
+ 
+ module_init(cttimeout_init);
 -- 
 2.53.0
 
