@@ -1,118 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD8C4D0CDB
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:35:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E39BD4DAF98
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:35:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580118; cv=none; b=O4hBV3S//++AbZwduDxkmRQGhjqB3ByqjCpah+cYKfjdqRsKj/77Ra8slSBm8tHmvvZSWKpgty/8wSEwb5j6w/RBXgrmIHaH4EiHKKQeGJxNLGgXY6F73b0guKalvBaw6EvPHbuQkcDc52cTJVlM9vG7zjlwLzxNxGZav+o3S1Q=
+	t=1789580125; cv=none; b=nJLEqf0ZFI4EKBqgs4lnui4AT8/eMiIBhry9U+OpykRAJbWFcPyIHWjZmt7N5w2+jLxcY6W+mCoI9q/r/cbFhFzJ6G3cDYSGrWAU033s/f9jUtgsveW1kU7zdOTG8iYacAqOnenOYUVeXkdBio8O+NU0j88naRtphpsOD5rkH1Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580118; c=relaxed/simple;
-	bh=awrlIELMLgcWIuZwcdk9oXlb1SPFcvPQyalFSSfOOmU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FFo+Jc6xAoq5JXABArJWXTKxp7SUjctVDEn4c64UE7hd6BF/mUk45TReC21XvvIz9tW6N3p6StKhBqtOC4NHsX9gi8rnTEP0E5egmXHokI6sZvX/yvTjfxgzGeA+BRcX3vaZF/LR/owr7LsYYHFMjg36dQ5gr+HhgCoKPPSG86k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l3f4dRS0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789580125; c=relaxed/simple;
+	bh=N7/VEIjgndUyqBDVO40aU7cqvnPepfWlnv91dKj0m/I=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ihVC3r3oph2/Fp42jgUzCYHyZZFm/MheqnfhJyeueEk2HVYRyLzl9Fx6puqF4Swt25PMRCcaWsYNdjJi8pARvOobAiSDpUkQqYN58orzppfxkQSifbwRIWFEfvl77MKBj1Wg3WvqYfzvjwOTYJPyNQtcHCJXnRfOcGQ5QEIIpAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kDriWnEq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l3f4dRS0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48FA81F00893;
-	Wed, 16 Sep 2026 17:35:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kDriWnEq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9219B1F0089B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:35:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580103;
-	bh=lbWhBE4MMcqfwczWErmReqCseXH3XD88LVSSu4zWeE0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l3f4dRS0jeRB7lwbzzQeC2CDNAATODU+sa2FxcOxn8lhlPf/ilHYU69dHbzDBJwhN
-	 QQB4p7FTTP1MjRzZo2NqoqJFgPx1AZaUhDe3KHyjXVKmfvrHDrqE8gMZA17+zT+pXt
-	 zYT3SW2qOBYwe+doMeUyejWTgFFB2L/VUwUpvmKJsPxcfYDhc4LYl7KKn0PnICHFr1
-	 ZjpyzHXQ2oKwUdOuIIrE1BAGRr5WhxTUZEPnrQfGy5bWjot0QEZZSktK9cyD5syOxM
-	 ebkT9f1HDH8MU9LpqHQRem7u6xgXIPE/IdB5LXDg8a2XDjPKB/NiyOSQLO5vULc0e/
-	 slLqMs9KEz1mQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Xiong Weimin <xiongweimin@kylinos.cn>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/2] virtio_mmio: disable IRQ wake before free_irq
-Date: Wed, 16 Sep 2026 13:35:00 -0400
-Message-ID: <20260916173500.1132874-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916173500.1132874-1-sashal@kernel.org>
-References: <2026091638-remorse-obliged-6c4a@gregkh>
- <20260916173500.1132874-1-sashal@kernel.org>
+	s=k20260515; t=1789580110;
+	bh=N7/VEIjgndUyqBDVO40aU7cqvnPepfWlnv91dKj0m/I=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=kDriWnEqD6+yfiIJi0v4uFjHkwdoBRJ6Ap9TZn1rQkG1VYFbeG3BbxA0UDfD33UVj
+	 XeaH3d4rOniVOrXxh7d9xVgcW29o3Zrhgok+rF3/h4M/K6/bDoo+trz0rZisQHvfn5
+	 bbbW6tmJN21l7vhj36rNXb40f61ipkg4MrV/WnwFBxQiO7Esf8BDtDS3JVvLYQGuz6
+	 U4Iy6VXIvLmxqjezvLc+XQQGwyVcqXvwTUrekY23/JWg8aOF5V553eJDkSk3RyDDVj
+	 zbABjTvueMjPsPHrc0HVbrWHZ7dpzchkFKQ8XCTzv47D9w4xFsBJnhc2im9JfLWejn
+	 ogIk0c9BeyYNw==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b79784a6edso1391477e87.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:35:10 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwcL1tf9/TSYL5TN3qaB6cASXqDVmGsTkFVjhlLqei9N7NEFjk+C24AyK1cyP/t/at//0CIjJw=@vger.kernel.org
+X-Gm-Message-State: AFuF++kYNvSP1+m5jp7smI3sjz+B5ABJ4S91IKuanAGEX6BMkQITAWcv
+	tcTEqRAJ/kMiO24pTKvJDbWmf7mZHwDRKKsKJbJ8XwKXROaKvnKNDrkC4j2tpUrZ860fauC6ucS
+	IVvldC+fU1dtJylsg3HGeI65AkbL07YA=
+X-Received: by 2002:a05:6512:1089:b0:5b6:186e:b79d with SMTP id
+ 2adb3069b0e04-5b8b6664ed4mr983208e87.57.1789580109346; Wed, 16 Sep 2026
+ 10:35:09 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916163646.2084234-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916163646.2084234-1-vulab@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:34:56 +0200
+X-Gmail-Original-Message-ID: <CAD++jLmJ_t1DVkDfRwbTQ23w9AJ9wpB3yqcCCTXqe6H8A_-D9g@mail.gmail.com>
+X-Gm-Features: AcwNN1WWyvCAlUuXsylbp30V6rpjRIwZU0ilKLYM1MPAZf8OJdK-TPSZPz3xV6A
+Message-ID: <CAD++jLmJ_t1DVkDfRwbTQ23w9AJ9wpB3yqcCCTXqe6H8A_-D9g@mail.gmail.com>
+Subject: Re: [PATCH] iio: light: gp2ap002: Fix runtime PM leak in gp2ap002_read_raw()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andy@kernel.org, dlechner@baylibre.com, jic23@kernel.org, 
+	linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org, nuno.sa@analog.com, 
+	xc-racer2@live.ca, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-From: Xiong Weimin <xiongweimin@kylinos.cn>
+On Wed, Sep 16, 2026 at 6:37=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
 
-[ Upstream commit d14d693adb055e98ca705822ba6daebc18602d9a ]
+> pm_runtime_get_sync() increments the usage counter even on failure,
+> so every successful call must be paired with a put. A failure of
+> gp2ap002_get_lux() returned early and skipped the paired
+> pm_runtime_put_autosuspend(), permanently preventing runtime
+> suspend. Jump to the common exit that releases the reference.
+>
+> Fixes: f6dbf83c17cb ("iio: light: gp2ap002: Take runtime PM reference on =
+light read")
+> Cc: stable@vger.kernel.org
 
-When the DT node has "wakeup-source", vm_find_vqs() calls
-enable_irq_wake() on the shared IRQ, but vm_del_vqs() freed that IRQ
-without a matching disable_irq_wake(). That leaves a wake reference
-behind and can warn on later free_irq()/request_irq() cycles.
+IMO not stable material.
 
-Record whether enable_irq_wake() succeeded, and disable it in
-vm_del_vqs() before free_irq().
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Fixes: 02213273f72a ("virtio_mmio: add support to set IRQ of a virtio device as wakeup source")
-Cc: stable@vger.kernel.org
-Signed-off-by: Xiong Weimin <xiongweimin@kylinos.cn>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260805032937.1606737-1-xiongweimin@kylinos.cn>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/virtio/virtio_mmio.c | 16 +++++++++++++---
- 1 file changed, 13 insertions(+), 3 deletions(-)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/drivers/virtio/virtio_mmio.c b/drivers/virtio/virtio_mmio.c
-index 7909d4aec8a6e..6395b8fba0050 100644
---- a/drivers/virtio/virtio_mmio.c
-+++ b/drivers/virtio/virtio_mmio.c
-@@ -86,6 +86,9 @@ struct virtio_mmio_device {
- 
- 	void __iomem *base;
- 	unsigned long version;
-+
-+	/* True if enable_irq_wake() succeeded for the shared IRQ. */
-+	bool wake_irq_enabled;
- };
- 
- /* Configuration interface */
-@@ -318,11 +321,17 @@ static void vm_del_vqs(struct virtio_device *vdev)
- {
- 	struct virtio_mmio_device *vm_dev = to_virtio_mmio_device(vdev);
- 	struct virtqueue *vq, *n;
-+	int irq = platform_get_irq(vm_dev->pdev, 0);
- 
- 	list_for_each_entry_safe(vq, n, &vdev->vqs, list)
- 		vm_del_vq(vq);
- 
--	free_irq(platform_get_irq(vm_dev->pdev, 0), vm_dev);
-+	if (vm_dev->wake_irq_enabled) {
-+		disable_irq_wake(irq);
-+		vm_dev->wake_irq_enabled = false;
-+	}
-+
-+	free_irq(irq, vm_dev);
- }
- 
- static void vm_synchronize_cbs(struct virtio_device *vdev)
-@@ -445,8 +454,9 @@ static int vm_find_vqs(struct virtio_device *vdev, unsigned int nvqs,
- 	if (err)
- 		return err;
- 
--	if (of_property_read_bool(vm_dev->pdev->dev.of_node, "wakeup-source"))
--		enable_irq_wake(irq);
-+	if (of_property_read_bool(vm_dev->pdev->dev.of_node, "wakeup-source") &&
-+	    !enable_irq_wake(irq))
-+		vm_dev->wake_irq_enabled = true;
- 
- 	for (i = 0; i < nvqs; ++i) {
- 		if (!names[i]) {
--- 
-2.53.0
-
+Yours,
+Linus Walleij
