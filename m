@@ -1,162 +1,98 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20E7A44A403;
-	Wed, 16 Sep 2026 11:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F14C041B;
+	Wed, 16 Sep 2026 11:00:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556424; cv=none; b=QusT0QhcI0DYbCLqfxTXKq8SAChSTbAfCthUo4jcqFA+rRFz5Di9GZkPsVBOmI/aLy4e0boDRGdJhKZr0LVa5AvWRoy5Te1vcePVVGz8mk9RHLFMqfS7nlpdDP/8PLc1LoZKAGTuhz+x20S7gKVtSQ+IQ7DtARvSPFwQjgahVYo=
+	t=1789556448; cv=none; b=a/uP60qeoKF75o9RfkUQdfCk8JwGfMGouluVtCT8JxtKHVZZFwPHfH9MgU9NLWDJ1/cr/i5LTLWd0xc5S04SXdGFbp9osh1Wo5KsNxKpaA2e6YgaNQayx0OSf4YMJrRjevqTVaOLjgge+JUxyO5NgiZfphwql0cb/WvC7jI8s7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556424; c=relaxed/simple;
-	bh=jKMCZsqefUPFu4iT0IUKJlmYzNOQK5RGDlACcK0O1Uc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UMCMRD7QDbhhI3GOSgOHagIOWnkD7sYBiUBz42JV5/FkgmhLaAofCdTaCXXpcxVqlyR8QcrFLpVKjStfFpxCKPyKidEws8bBSPf1QNIKBpCzBwWB0ZhaULMETWP5DJMbskQ4sB+U8oPOydGXE6kYEth7r0cT7pXGlZMqA3aJP/8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=deXaoumG; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789556448; c=relaxed/simple;
+	bh=PJpQYbu415ELCrfr0jCIFjBdr7v2k5CCIebbxVzZso4=;
+	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
+	 MIME-Version:Content-Type; b=JYc4a+Zrs0lVaaCQf5avI4zcvmHPIgR9+B5hTZbEPsqTBolco+LcipEz5YQy5yPBLOiNmuhBjDjYmj6yNkNPTSM/yMzGDuFzC/2pQS+4MzbnXsrxjhO/kq94dzCFZIq6FJTiFs7gTMd4JbShxJ8P9b0S4vGKkVEd/CdP/W3rvxs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uvn4mx7c; arc=none smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="deXaoumG"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uvn4mx7c"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789556416; x=1821092416;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=jKMCZsqefUPFu4iT0IUKJlmYzNOQK5RGDlACcK0O1Uc=;
-  b=deXaoumGaJWr5Yk12NJiVyddJH3CTSXQpJ/vUB5l+PtGgkZGWyK1xgou
-   /tto8bZ4b3Xf26sTz/Y0en9yZtV653elfBObrDwQqmn3ChYpdyglNtsJ+
-   Oyha5ehQrTgjdS0h7m0rm1NREhUYdn0LHWAuJc4nfGEim/HtCymOkWH6H
-   6k8HtaXBv95kpO7LjtpIkpw5rNwdI7lo8erxdgHr1yBSZr3CG8rU2lraQ
-   zazPwGdooRssMyML9dZ6Kdiq5783Zfj7KSJBv3oylVFwlRMrqqapVYOK1
-   jKL16Ay3v3vVTvx2BfTrwaoPB7+Xd4T735UQttt/QLIZ1F5XVXale+WzB
-   A==;
-X-CSE-ConnectionGUID: ONZYN/WjRUqLQgloBxVVjw==
-X-CSE-MsgGUID: Zq5gIkNESw6DB2kHTteWyg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100595042"
+  t=1789556436; x=1821092436;
+  h=from:to:cc:in-reply-to:references:subject:message-id:
+   date:mime-version:content-transfer-encoding;
+  bh=PJpQYbu415ELCrfr0jCIFjBdr7v2k5CCIebbxVzZso4=;
+  b=Uvn4mx7cS4tObIELk60D3CVVB4dvk6VwMABjWaUmBt8l9i2utKKI9J+8
+   L7+5x94pv9tuxhQKdOOIwI9pC/OKCTR7QmWB4DomJZssniCx91u4Ws6LT
+   7M+w5ND9w2JWXWF7NOBZSzxq1Pl8ebJFe7XvhwFuVpvIpZOTQqtodbVFa
+   4Ir0E+7zDaSFsA/qTrPjAaQnjzNy1E8iaMPD/uLFM9fYm4Dc23W8HgpWn
+   fXsyv8hzY6PGD4+Tf8/G5wm5vIJAqMgnzjTGtQtn94WyWaYhH79nvjccm
+   6GhZO1/qK5UwvgFHJr9K8VgXm+HtW+ixgzFcRg35GDNhCtyUD0ll9IUN2
+   g==;
+X-CSE-ConnectionGUID: i1AXW/0cSM2EkfJALiyxCw==
+X-CSE-MsgGUID: 9UBsu7qhTl2ksZf6Fe2cFw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92436558"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100595042"
-Received: from orviesa005.jf.intel.com ([10.64.159.145])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:09 -0700
-X-CSE-ConnectionGUID: QxgxPO6ORc2kH+0xVscjdg==
-X-CSE-MsgGUID: Rw6uQNYZRCentKvYux1vGw==
+   d="scan'208";a="92436558"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:30 -0700
+X-CSE-ConnectionGUID: wWRFzWo0S/KoLdVZnBZ0+Q==
+X-CSE-MsgGUID: 42a5cbN+SNqLFbCAPVCsSQ==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="277432941"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by orviesa005-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:06 -0700
-Date: Wed, 16 Sep 2026 14:00:03 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: adc: stm32-adc: fix possible division by zero in
- processed channel
-Message-ID: <aqp2s5TjgIZS7i-L@ashevche-desk.local>
-References: <20260915-adc-fix-div0-v1-1-7daed9e52f2f@foss.st.com>
- <aqpGy9oQkDC-xZGW@ashevche-desk.local>
- <bd47e39c-18e0-46ba-8cdf-9ba35f387793@foss.st.com>
+   d="scan'208";a="1708830"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.187])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:28 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+To: linux-kernel@vger.kernel.org, Denis Benato <denis.benato@linux.dev>
+Cc: platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+ "Luke D . Jones" <luke@ljones.dev>, Mateusz Schyboll <dragonn@op.pl>, 
+ Denis Benato <benato.denis96@gmail.com>, 
+ Hugo Baigue <hugobaigue2004@gmail.com>, stable@vger.kernel.org
+In-Reply-To: <20260915172608.14234-1-denis.benato@linux.dev>
+References: <20260915172608.14234-1-denis.benato@linux.dev>
+Subject: Re: [PATCH] platform/x86: asus-wmi: fix use-after-free
+ unregistering kbd_led led
+Message-Id: <178955642375.2305.2037186031246803284.b4-ty@b4>
+Date: Wed, 16 Sep 2026 14:00:23 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <bd47e39c-18e0-46ba-8cdf-9ba35f387793@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-Mailer: b4 0.15.2
 
-On Wed, Sep 16, 2026 at 12:23:38PM +0200, Fabrice Gasnier wrote:
+On Tue, 15 Sep 2026 17:26:07 +0000, Denis Benato wrote:
+
+> kbd_led_update_all() registers asus->kbd_led with
+> devm_led_classdev_register() on the platform device, but kbd_led is
+> embedded in struct asus_wmi, which asus_wmi_remove() frees at its end.
+> The driver core calls .remove() before devres_release_all(), so the
+> deferred devres release runs led_classdev_unregister() on memory that
+> has already been freed. Whether that faults depends on whether the
+> slab has been reused in between, which makes the crash on module
+> unload intermittent and silently corrupts the led classdev state in
+> the remaining runs.
 > 
-> On 9/16/26 09:35, Andy Shevchenko wrote:
-> > On Tue, Sep 15, 2026 at 06:10:40PM +0200, Fabrice Gasnier wrote:
-> >> In case the conversion has failed or returned zero, processing *val
-> >> can lead to a division by zero.
-> >> Need to check for errors, or converted value is zero, before processing
-> >> the data.
-> >> In case converted value is zero, e.g. the Vrefint channel, this should
-> >> be considered as invalid in all case.
-> > 
-> > Something went very wrong with the indentation of the above.
-> 
-> Hi Andy,
-> 
-> Euh, sorry but I don't understand what's wrong with indentation in the
-> commit message ? Could you clarify ?
+> [...]
 
-Each sentence seems to be a separate paragraph. Paragraphs are delimited
-by a blank lines. But are they (sentences) really so independent?
+Thank you for your contribution, it has been applied to my local
+review-ilpo-next branch. Note it will show up in the public
+platform-drivers-x86/review-ilpo-next branch only once I've pushed my
+local branch there, which might take a while.
 
-Compare to:
+FYI [if applicable to your patch], as per Linus' policy change, also
+fixes are mostly routed through for-next unless the fix is for a
+commit introduced in the most recent cycle or is clearly a regression
+fix.
 
-  In case the conversion has failed or returned zero, processing *val
-  can lead to a division by zero. Need to check for errors, or converted
-  value is zero, before processing the data. In case converted value
-  is zero, e.g. the Vrefint channel, this should be considered as invalid
-  in all cases.
+The list of commits applied:
+[1/1] platform/x86: asus-wmi: fix use-after-free unregistering kbd_led led
+      commit: 2f5005e261ed758254767a32c24587bfacc6db82
 
-(also I fixed the typo, should be plural for 'cases' at the end).
-
-...
-
-> >> -		if (mask == IIO_CHAN_INFO_PROCESSED)
-> >> -			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> >> +		if (mask == IIO_CHAN_INFO_PROCESSED) {
-> >> +			if (ret >= 0 && *val)
-> >> +				*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-> >> +			else
-> >> +				ret = ret < 0 ? ret : -EINVAL;
-> >> +		}
-> > 
-> > Reuse of the *val makes code harder to follow. Add a temporary variable for
-> > this and do something like this (also note other simplifications)
-> > 
-> > 		tmp_choose_good_name = *val;
-> 
-> In case ret is an error; this lead to evaluate (e.g. read) *val from the
-> (maybe uninitialized) stack. Probably not an issue? But would prefer to
-> keep reading it only when ret >= 0, as done currently with the if
-> condition above ? (e.g. evaluate ret, before *val)
-
-> > 		...
-> > 		if (mask == IIO_CHAN_INFO_PROCESSED) {
-> > 			if (ret < 0)
-> > 				return ret;
-
-Then simply move the assignment here
-
-			tmp_choose_good_name = *val;
-
-> > 			if (tmp == 0)
-> > 				return -EINVAL;
-> 
-> I've started with something similar before, but we can't return directly
-> here. Must call iio_device_release_direct() first. This would add more
-> lines.
-> 
-> So I chose to implement above ternary ret = ret < 0 ? ret : -EINVAL, to
-> fall-through.
-> 
-> Please advise on the preferred way,
-
-As per above.
-
-> > 			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / tmp;
-> > 		}
-> > 
-> >>  		iio_device_release_direct(indio_dev);
-> >>  		return ret;
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+--
+ i.
 
