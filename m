@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D07F4DA545
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:29:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FD0B51E424
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:29:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568993; cv=none; b=J36Y3VxcgZMnKT4pegs2N0uvMf7spqM2dLztsv0Ueff716Vk9p2ucaT3qDkY29XVBnSTlZkrBeGDip4ksx+UO4mrmPdvqH3LYcmH4vWz73Z2PgIY1ogFX/aBTHLvWZtsA96iJKlc1PGbR3Ev1TWMFSYAQPYb44DPlKVGwb1IQTc=
+	t=1789568994; cv=none; b=EQ89hl7gI2aBvbttfnSAqLZUptZHSsWtpP9wh6wwCEPNdZZ7NlrXqjOKSCPZc9D9pKljF1FdhJgW91d0jdo4Bu7SWBPsAMKwyj7TvOqT/Q1+rxu8IJaMVaTARuNrJ7T9S6HjbJAYXNCng0IdNKgLwej9U3J12gMt6LSQdqjBJPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568993; c=relaxed/simple;
-	bh=7y271+XDWNhcJeohUsT+v69SUDpvt79dA1r4zDYng3A=;
+	s=arc-20240116; t=1789568994; c=relaxed/simple;
+	bh=bzxly6JvprtezFpvw5zYijvvg3drD4gNxsWt09eXxC8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=b1hXDspzMMGIGRIKgs5QkZ043K2kByYSF7e0VEmWrjqs4g9pE4sQvRSBvEZzCVhjrNDHI6GcwFEx221jfGIa0S5iomvTBqTh1cwv2eFcESW+Q6GGFU6PU19WUn5Cpdj3Jb5IFUEX8hlW3AClE6LbjvNO0QH3kXqQM+hipxxVZLg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ewQpFG4W; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ptYFt5LBBhv4GOcm85sPb/m1CnAOyRLO8sw1PCNPj/mH3N2sVPfA5BHqUMWKqNcmEsYmWNzbb9C5vi5OFfnfpdPLuxu8wAwViM7yZIHAp+tLI+4FiR5vt08wvF2fM+vXPAaX1WBgVZ5e5ERoW6Xn7dPfBBdDnvz3W04uAO19enI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DLSFSLWi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ewQpFG4W"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8ABB51F00893;
-	Wed, 16 Sep 2026 14:29:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DLSFSLWi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D99B1F000FF;
+	Wed, 16 Sep 2026 14:29:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789568992;
-	bh=nVaq+Sn+swttMkw3MiK92Q01/Wp+WtLeTuAQIWl0wrk=;
+	bh=6oY/uLI+y3sSYI2vqlXusjwGX63vhwX0Z/K5bcQZFeI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ewQpFG4WcpQKYI0578dQeasMAIrtLcqGrmDljLGF4yr2iCp2pFamASKvFsN7MKB/e
-	 VEpigbkeGTOasbaor62GNeK+n+wfbVpg/YpXvx63RJBwfn69p/OOasJndqVz9tKuVm
-	 9xhLMJ3B56AlO1CBL4JrR8+PlpRj+R/BJQPo/1jjT4JmfHBWKTyIF0mPKxYJP2erb3
-	 DLqAxQ15m6fDvb6larnBEGF1iPzjrq3cOwYTHDct45CoxdyQff6e55H/T3Tzjl6X6q
-	 Zd7Fsj1IIYYhWhY8Sm62ClLqy5IN/scTp7wCHooYgVPjg4IZ6093N2C89R49+WRS9J
-	 D4iRmniQIWTGw==
+	b=DLSFSLWiBUc/PbN+HzgEEifyMIBsU/FuNJ3j+IfQpdAPzfMoJibFHqjpRC0V3V9lT
+	 PfofZsNnWQqGxakbcvNVHx6KZC+c0gqmAqCeln28FnpArxwZpCuo+E6gslzCkCHvuB
+	 LVaefReXrdpRo7AndfYcX3RMTCU9RAfkG0uQhC/IewwsLXCZj/kMe4xizukIiOEG8T
+	 MB3M3vtLuCCbsMw8SaSk2bEi1FMfHzihZUDlA6XUpfeQ1Bem9GKEQqMrvuf1f/WN3R
+	 0l8AAvCWSrppr2zq065hGvSF4+VctftGJ1IkuLMoUrx9+VyQB9HvPUPFnBBQfsG251
+	 KBMRqtmGb86rA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Al Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Christian Brauner <brauner@kernel.org>,
+Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>,
+	Breno Leitao <leitao@debian.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/3] configfs:get_target() - release path as soon as we grab configfs_item reference
-Date: Wed, 16 Sep 2026 10:29:48 -0400
-Message-ID: <20260916142949.3271509-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] configfs: pin the symlink target's dirent instead of chasing ->ci_dentry
+Date: Wed, 16 Sep 2026 10:29:49 -0400
+Message-ID: <20260916142949.3271509-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260916142949.3271509-1-sashal@kernel.org>
 References: <2026091643-swoop-reproach-dbbf@gregkh>
@@ -47,89 +46,113 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
 
-[ Upstream commit 1b25dea3867abc9bad6f0337d395c6f0ce4e4f6f ]
+[ Upstream commit a7c1290eef60711c10289c056ad32ed1f2b47b12 ]
 
-... and get rid of path argument - it turns into a local variable in get_target()
+create_link() reads the target's configfs_dirent from
+item->ci_dentry->d_fsdata, relying on the item reference taken by
+get_target().  That reference pins the item, not its dentry: the dentry is
+pinned by DCACHE_PERSISTENT, which configfs_remove_dir() releases via
+simple_rmdir() while the item is still alive.  A symlink racing with rmdir
+of its target can therefore find ->ci_dentry freed and its dirent
+released, triggering WARN_ON(!atomic_read(&sd->s_count)) in configfs_get().
 
-Reviewed-by: Jan Kara <jack@suse.cz>
-Reviewed-by: Christian Brauner <brauner@kernel.org>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Stable-dep-of: a7c1290eef60 ("configfs: pin the symlink target's dirent instead of chasing ->ci_dentry")
+Take the dirent in get_target() as well, under ->d_lock and atomically
+with the item reference, and pass it down to create_link().  A hashed
+dentry has not been killed yet, so its ->d_fsdata reference keeps the
+dirent alive there.
+
+Cc: stable@vger.kernel.org
+Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
+Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Tested-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260730093435.195441-2-vasilisalmpanis@gmail.com
+Signed-off-by: Breno Leitao <leitao@debian.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/configfs/symlink.c | 33 +++++++++++++--------------------
- 1 file changed, 13 insertions(+), 20 deletions(-)
+ fs/configfs/symlink.c | 24 ++++++++++++++++++++----
+ 1 file changed, 20 insertions(+), 4 deletions(-)
 
 diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
-index 69133ec1fac2a..f3f79c67add5d 100644
+index f3f79c67add5d..b42f07e2ea7f5 100644
 --- a/fs/configfs/symlink.c
 +++ b/fs/configfs/symlink.c
-@@ -114,26 +114,21 @@ static int create_link(struct config_item *parent_item,
- }
+@@ -76,9 +76,9 @@ static int configfs_get_target_path(struct config_item *item,
  
- 
--static int get_target(const char *symname, struct path *path,
--		      struct config_item **target, struct super_block *sb)
-+static int get_target(const char *symname, struct config_item **target,
-+		      struct super_block *sb)
+ static int create_link(struct config_item *parent_item,
+ 		       struct config_item *item,
++		       struct configfs_dirent *target_sd,
+ 		       struct dentry *dentry)
  {
-+	struct path path __free(path_put) = {};
+-	struct configfs_dirent *target_sd = item->ci_dentry->d_fsdata;
+ 	char *body;
  	int ret;
  
--	ret = kern_path(symname, LOOKUP_FOLLOW|LOOKUP_DIRECTORY, path);
--	if (!ret) {
--		if (path->dentry->d_sb == sb) {
--			*target = configfs_get_config_item(path->dentry);
--			if (!*target) {
--				ret = -ENOENT;
--				path_put(path);
--			}
--		} else {
--			ret = -EPERM;
--			path_put(path);
--		}
--	}
--
--	return ret;
-+	ret = kern_path(symname, LOOKUP_FOLLOW|LOOKUP_DIRECTORY, &path);
-+	if (ret)
-+		return ret;
-+	if (path.dentry->d_sb != sb)
-+		return -EPERM;
-+	*target = configfs_get_config_item(path.dentry);
-+	if (!*target)
-+		return -ENOENT;
-+	return 0;
- }
+@@ -115,6 +115,7 @@ static int create_link(struct config_item *parent_item,
  
  
-@@ -141,7 +136,6 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
- 		     struct dentry *dentry, const char *symname)
+ static int get_target(const char *symname, struct config_item **target,
++		      struct configfs_dirent **target_sd,
+ 		      struct super_block *sb)
  {
- 	int ret;
--	struct path path;
+ 	struct path path __free(path_put) = {};
+@@ -125,7 +126,20 @@ static int get_target(const char *symname, struct config_item **target,
+ 		return ret;
+ 	if (path.dentry->d_sb != sb)
+ 		return -EPERM;
+-	*target = configfs_get_config_item(path.dentry);
++	/*
++	 * A hashed dentry guarantees that neither the item nor the dirent
++	 * have been released yet, as removals unhash before dropping.
++	 * Grab both references here. An item reference alone would not keep
++	 * ->ci_dentry alive.
++	 */
++	spin_lock(&path.dentry->d_lock);
++	if (!d_unhashed(path.dentry)) {
++		struct configfs_dirent *sd = path.dentry->d_fsdata;
++
++		*target = config_item_get(sd->s_element);
++		*target_sd = configfs_get(sd);
++	}
++	spin_unlock(&path.dentry->d_lock);
+ 	if (!*target)
+ 		return -ENOENT;
+ 	return 0;
+@@ -139,6 +153,7 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
  	struct configfs_dirent *sd;
  	struct config_item *parent_item;
  	struct config_item *target_item = NULL;
-@@ -188,7 +182,7 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
++	struct configfs_dirent *target_sd = NULL;
+ 	const struct config_item_type *type;
+ 
+ 	sd = dentry->d_parent->d_fsdata;
+@@ -182,7 +197,7 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
  	 *  AV, a thoroughly annoyed bastard.
  	 */
  	inode_unlock(dir);
--	ret = get_target(symname, &path, &target_item, dentry->d_sb);
-+	ret = get_target(symname, &target_item, dentry->d_sb);
+-	ret = get_target(symname, &target_item, dentry->d_sb);
++	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
  	inode_lock(dir);
  	if (ret)
  		goto out_put;
-@@ -210,7 +204,6 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+@@ -196,13 +211,14 @@ int configfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
+ 		ret = type->ct_item_ops->allow_link(parent_item, target_item);
+ 	if (!ret) {
+ 		mutex_lock(&configfs_symlink_mutex);
+-		ret = create_link(parent_item, target_item, dentry);
++		ret = create_link(parent_item, target_item, target_sd, dentry);
+ 		mutex_unlock(&configfs_symlink_mutex);
+ 		if (ret && type->ct_item_ops->drop_link)
+ 			type->ct_item_ops->drop_link(parent_item,
+ 						     target_item);
  	}
  
++	configfs_put(target_sd);
  	config_item_put(target_item);
--	path_put(&path);
  
  out_put:
- 	config_item_put(parent_item);
 -- 
 2.53.0
 
