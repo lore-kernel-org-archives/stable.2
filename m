@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E76C4B0E32
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:34:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 763534B0E2C
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:34:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576464; cv=none; b=dZp9yTk75RGOXNUkuF6mg69tmBqGn8ssnyU+QcjNexoj9oT33tWeFO1XKbLmn/ien4h9mCEonq+7dhXR1vdOGMriKCqsQZ3kEt5hDJ5joD7zAOndILZ4EnFvzy852VyMnGBxUcg8a3XAryujZHQRP7Dg8x7efpaXRUOCFGWv7Vw=
+	t=1789576464; cv=none; b=haHM/s4d2oXmkfoyBKnTLnswHVNxgecszo6xqtJzfSn/CwSpQ27BOMNM4GqtpknqaA3Fb3xGrEshKIEdbbdnYCRg1AV5MtnkjYhqVfOCg1gZzU3pEeEmeNSampA9Trz+1S2Q/Y4eibIsNi0nhvb5xQo76VUtpDqCJv87KswR9qY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789576464; c=relaxed/simple;
-	bh=uh/oGeXCQdHIr9Q5QwspCM0Fi13Ru3Tk0U0o0Qzjfhk=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Vwa2M6AGu1S/sxq4uE2HVnejx6LKu3xZrnG/06jDwBCQ/Ak7vQHP2dJ8oj2iVSCdO+akTy1NE2CjxKSaBVbAJqajovKX60gki5awnlPmkPvyDysTmOot2Rb/1gI9Yojt3h4X5v1ufyr7KzEX/h0rtZdsjF4JpF3pb1NX3FSmmu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rM3Ni5AE; arc=none smtp.client-ip=100.103.45.18
+	bh=ZPfBmzNxv17bJULroEpAJtXvxJxAjkT/bWoorI2BS+E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ZWXHOqt+X6joeYtQr/dlnD6Kl2o6vwYzIZxab21QQG9I7AOMFVYR77f8CVzBVnVASCBqNx/GZC3NgDNLwd3o4+oy8MqPi+dQ69hQPHL1e0W5j1K26pT3vaXLelcoXGxXezvebIMw1qi94b6jlKiYL6rUbD2H1YX0NJbpti+nawc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JArQEClB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rM3Ni5AE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D6C951F000FF;
-	Wed, 16 Sep 2026 16:34:15 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JArQEClB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E3B521F00898;
+	Wed, 16 Sep 2026 16:34:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789576456;
-	bh=Eo6BthBpsAG/Y4RsBhWZR5xQu4vagLHE9q1LEVhgKgE=;
+	s=korg; t=1789576459;
+	bh=PUd1pBhZ666Jcm6eqg/pbpxo4sS3rFuNOglPSk5Tdsw=;
 	h=Subject:To:Cc:From:Date;
-	b=rM3Ni5AEG14qP7+TGE6WdxCb83gEHyxieAl7RjW6T2GYvA8fNawekJVbXXnN6K27M
-	 dWB5WrdqbmImrISEFY4f3284cQE0Er6zKCO4uJ8g1md/RSi6mcsP0nqIDTDKL8PJgV
-	 6r4WQmvhEGctujRR8mkaNThpFq04ufJAlKGji23E=
-Subject: FAILED: patch "[PATCH] mptcp: subflow: no need to copy thmac during ulp_clone" failed to apply to 5.15-stable tree
-To: matttbe@kernel.org,geliang@kernel.org,kuba@kernel.org
+	b=JArQEClBp8oz0jJ3V2xpuLjVjrOzVGFdq3+gEN9PKPFc+ZyXZaPL/j7tV44PHrPo2
+	 2jeQlcJTditmogqd6avSgTEE7EVpr3WKsgpZ3J13UmJwqk9YXZwd3bmrGMrzGW5/ad
+	 5eqsZsNiQLrRJp/LaxCQeNTWuOfb1FXld3T/FcDY=
+Subject: FAILED: patch "[PATCH] mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0" failed to apply to 6.12-stable tree
+To: kalpan.jani@mpiricsoftware.com,cuitao@kylinos.cn,kuba@kernel.org,matttbe@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:29:45 +0100
-Message-ID: <2026091645-parkway-theorize-2131@gregkh>
+Date: Wed, 16 Sep 2026 17:31:02 +0100
+Message-ID: <2026091602-garbage-gumdrop-1752@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 29f641951be0d91036d77edf677807f1447dbe65
+git cherry-pick -x 2ac7d6e620764f1fc79eb4edd3610a7a661981ca
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091645-parkway-theorize-2131@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091602-garbage-gumdrop-1752@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,37 +62,70 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 29f641951be0d91036d77edf677807f1447dbe65 Mon Sep 17 00:00:00 2001
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Tue, 8 Sep 2026 16:07:07 +0200
-Subject: [PATCH] mptcp: subflow: no need to copy thmac during ulp_clone
+From 2ac7d6e620764f1fc79eb4edd3610a7a661981ca Mon Sep 17 00:00:00 2001
+From: Kalpan Jani <kalpan.jani@mpiricsoftware.com>
+Date: Tue, 8 Sep 2026 16:07:09 +0200
+Subject: [PATCH] mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
 
-'thmac' is not used after that point.
+The in-kernel MPTCP path manager can leave a stale ADD_ADDR announcement
+entry alive when removing the id 0 endpoint. This happens because the id 0
+removal path does not tear down pending announcements, unlike the non-zero
+id path.
 
-Indeed, subflow_ulp_clone() is called when the request on the passive
-side is over, so when the truncated HMAC is no longer needed.
+When the PM later reselects id 0 after adding another signal endpoint, it
+finds the stale anno_list entry and hits WARN_ON_ONCE(mptcp_pm_is_kernel())
+in mptcp_pm_announced_alloc().
 
-Note that in case of SYN cookies, thmac will not be initialised. So
-better to remove it to avoid a warning from debug tools like KMSAN for
-reading uninitialised data.
+Root cause: asymmetry between removal paths.
+- Non-zero id path: mptcp_nl_remove_subflow_and_signal_addr() calls
+  mptcp_pm_remove_announced() to clean up.
+- Id 0 path: mptcp_nl_remove_id_zero_address() skips cleanup entirely.
 
-Fixes: f296234c98a8 ("mptcp: Add handling of incoming MP_JOIN requests")
+Fix by making the id 0 path symmetric: call mptcp_pm_announced_remove()
+and decrement add_addr_signaled before queuing the RM_ADDR.
+
+Subtle detail: signal endpoints are stored in anno_list with port 0, but
+msk_local carries the connection's local port. In other words, entries
+linked to ID0 paths should have port == 0. A follow-up patch will ensure
+that. mptcp_pm_announced_remove() uses use_port=true for comparison. So
+clear the port before the lookup.
+
+Fixes: 740d798e8767 ("mptcp: remove id 0 address")
 Cc: stable@vger.kernel.org
-Reviewed-by: Geliang Tang <geliang@kernel.org>
+Reported-by: syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com
+Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/620
+Suggested-by: Tao Cui <cuitao@kylinos.cn>
+Signed-off-by: Kalpan Jani <kalpan.jani@mpiricsoftware.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-2-df1de70348b6@kernel.org
+Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-4-df1de70348b6@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index af81ad5e699d..01db7edce18a 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -2084,7 +2084,6 @@ static void subflow_ulp_clone(const struct request_sock *req,
- 		new_ctx->request_bkup = subflow_req->request_bkup;
- 		WRITE_ONCE(new_ctx->remote_id, subflow_req->remote_id);
- 		new_ctx->token = subflow_req->token;
--		new_ctx->thmac = subflow_req->thmac;
+diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
+index 424f1a7f9248..1a7750813235 100644
+--- a/net/mptcp/pm_kernel.c
++++ b/net/mptcp/pm_kernel.c
+@@ -1137,6 +1137,8 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
+ 	while ((msk = mptcp_token_iter_next(net, &s_slot, &s_num)) != NULL) {
+ 		struct sock *sk = (struct sock *)msk;
+ 		struct mptcp_addr_info msk_local;
++		struct mptcp_addr_info anno_addr;
++		bool announced;
  
- 		/* the subflow req id is valid, fetched via subflow_check_req()
- 		 * and subflow_token_join_request()
+ 		if (list_empty(&msk->conn_list) || mptcp_pm_is_userspace(msk))
+ 			goto next;
+@@ -1146,7 +1148,13 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
+ 			goto next;
+ 
+ 		lock_sock(sk);
++		/* Drop a possibly pending ADD_ADDR for this address. */
++		anno_addr = msk_local;
++		anno_addr.port = 0;
++		announced = mptcp_pm_announced_remove(msk, &anno_addr);
+ 		spin_lock_bh(&msk->pm.lock);
++		if (announced)
++			msk->pm.add_addr_signaled--;
+ 		mptcp_pm_remove_addr(msk, &list);
+ 		mptcp_pm_rm_subflow(msk, &list);
+ 		__mark_subflow_endp_available(msk, 0);
 
