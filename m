@@ -1,156 +1,129 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C07B3B1ED1
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307D24AAC64
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577334; cv=none; b=tIE97zSGXKn/HsDpaL9bayyJBZEYn1COeOU7vKwbztAz4KYqykMg3QcY0RvudNclWBpMURvmoQac19DL/h/6jpo7jG47UnATNVql5/y0F9r6jROq78taA/ojusSsjmYNFYo0EicLzUF1xlb+WztoKc7pikO1jmPpbFeUwCbSF1E=
+	t=1789577334; cv=none; b=okpy0NnRtud267cuf7J7avwgnA8yBHPuJh7rzv8CYtNMiecSJDvaUt0x00MdzRXo/vmqq2BmuLdb8KWQnDFMmn4FXKdPMS6Z709Irm9I2xVImx7Emif1DkIxIeppJEzPhA5aS3oujgabo84EWgm6TXbfMLt6xLMUYsmxCeSaHI0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789577334; c=relaxed/simple;
-	bh=uO0k0JDPcW1bj/8aYR4s10TJAsQS+ZMbayqWn+/yN3g=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=o/1koAjfmlJg1NUt5mfS1SB2KxYVEVBGiJhMTA63crA3+zQoepUFNIq8lxIigcZTK3kr9v3TMyLQvTO3Tr8t3cVyr0wa8iokrWTRTj3hBaBTureBFYsVyB9qo4OF03JHjlbTVUkXO9wEdrvpFqkfLkY1j8PETn+oRC+I9AMX0kA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T8PEjDKb; arc=none smtp.client-ip=100.103.45.18
+	bh=iojOIDGt3rIWfrH6jPmvqrjqdOnwE7mvbS1J4ITcXM8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=kSnBetNzJe3/+2Nt2GUugJ8I26FrO1Y1zrHMstykb/hT+1kainvOsoOzN8ajkvAkKkRQTyzZMS5i43/gbOpO4yvPAPoQt0zNFxP9jdQZPYdk7UhXcU3Fh1cOFuL/ADNpr1EIjyz/eFjKRE89tdzR36h6VICRjikLjHnvDanWhgo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ubGD+GWx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T8PEjDKb"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C327E1F000FF;
-	Wed, 16 Sep 2026 16:48:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577327;
-	bh=mUsKvSvsNUrhPbfJ0Py5CFoCyNLtjVGlCayCXLvaB3Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T8PEjDKbzSVZSyBM/Fltwa23FdrDy7wYZQvtUt3hEMR3qDcumRksbGCygUnpQrW+J
-	 Kczd1ODnDqRbtAAsQa4jxYfDI/CI4E+6O2ITZ5rJJ7HI3t/9hl78h1+ysF/ClRRmMA
-	 GQKW1io5bqE7mPDaFnNIskKmeLKlBFDQ8+CojlrTiAWKCOwOXkKDe8aUa0D/dWEPzb
-	 sgJmjLdKA/8JmemnH1lzSanUoGLamQGUby+RE1XwObGerzdr3oswgTDVfuCQzW2uTV
-	 wCTB0S/o2oGc+mPPdX5o1TE0Pgl7bYimPkRKusWOmRtEFxk3sqGRBtXLtogTqtuToN
-	 uXQeFIqDDMuCQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Kevin Brodsky <kevin.brodsky@arm.com>,
-	Yeoreum Yun <yeoreum.yun@arm.com>,
-	"David Hildenbrand (Red Hat)" <david@kernel.org>,
-	Alexander Gordeev <agordeev@linux.ibm.com>,
-	Andreas Larsson <andreas@gaisler.com>,
-	Anshuman Khandual <anshuman.khandual@arm.com>,
-	Borislav Betkov <bp@alien8.de>,
-	Boris Ostrovsky <boris.ostrovsky@oracle.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Christophe Leroy <christophe.leroy@csgroup.eu>,
-	"David S. Miller" <davem@davemloft.net>,
-	David Woodhouse <dwmw2@infradead.org>,
-	"H. Peter Anvin" <hpa@zytor.com>,
-	Ingo Molnar <mingo@redhat.com>,
-	Jann Horn <jannh@google.com>,
-	Juegren Gross <jgross@suse.com>,
-	Liam Howlett <liam.howlett@oracle.com>,
-	Lorenzo Stoakes <lorenzo.stoakes@oracle.com>,
-	Madhavan Srinivasan <maddy@linux.ibm.com>,
-	Michael Ellerman <mpe@ellerman.id.au>,
-	Michal Hocko <mhocko@suse.com>,
-	Mike Rapoport <rppt@kernel.org>,
-	Nicholas Piggin <npiggin@gmail.com>,
-	Peter Zijlstra <peterz@infradead.org>,
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>,
-	Ryan Roberts <ryan.roberts@arm.com>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Thomas Gleinxer <tglx@linutronix.de>,
-	Venkat Rao Bagalkote <venkat88@linux.ibm.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Will Deacon <will@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/3] mm: clarify lazy_mmu sleeping constraints
-Date: Wed, 16 Sep 2026 12:48:40 -0400
-Message-ID: <20260916164843.541311-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091654-satiable-demanding-819a@gregkh>
-References: <2026091654-satiable-demanding-819a@gregkh>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ubGD+GWx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E43DD1F00893;
+	Wed, 16 Sep 2026 16:48:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789577327;
+	bh=uKHZq8243L/1LsinrQ6IOwe173gHueFHMLFIzcHV/oU=;
+	h=Subject:To:Cc:From:Date;
+	b=ubGD+GWxFHSmSSpMxYBDLN+I7nHIMkWvAFOH6IrhQYhKQS1ax5mkAyN8rqM+4Us6W
+	 2gf29E5leX2J2uwCkESx1cg3AblGv+tWZCmKNPp+lVl9Q2ctpjjlmJBXsudkjslPby
+	 xeMsB8bZ4G1+T3cFZfsZ2Ru+ITwxUoSXROI2IlnA=
+Subject: FAILED: patch "[PATCH] smb: client: fix cifsFileInfo reference leak in deferred" failed to apply to 6.12-stable tree
+To: fanwu01@zju.edu.cn,pc@manguebit.org,songl@zju.edu.cn
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 17:43:16 +0100
+Message-ID: <2026091616-unscrew-providing-4bc5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-From: Kevin Brodsky <kevin.brodsky@arm.com>
 
-[ Upstream commit f2be745071ffd6793c032ca8443348c3ce0e3e18 ]
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The lazy MMU mode documentation makes clear that an implementation should
-not assume that preemption is disabled or any lock is held upon entry to
-the mode; however it says nothing about what code using the lazy MMU
-interface should expect.
+To reproduce the conflict and resubmit, you may use the following commands:
 
-In practice sleeping is forbidden (for generic code) while the lazy MMU
-mode is active: say it explicitly.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 5520e89a5a4f834bced64cf2ac927001cc513a40
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091616-unscrew-providing-4bc5@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Link: https://lkml.kernel.org/r/20251215150323.2218608-6-kevin.brodsky@arm.com
-Signed-off-by: Kevin Brodsky <kevin.brodsky@arm.com>
-Reviewed-by: Yeoreum Yun <yeoreum.yun@arm.com>
-Acked-by: David Hildenbrand (Red Hat) <david@kernel.org>
-Cc: Alexander Gordeev <agordeev@linux.ibm.com>
-Cc: Andreas Larsson <andreas@gaisler.com>
-Cc: Anshuman Khandual <anshuman.khandual@arm.com>
-Cc: Borislav Betkov <bp@alien8.de>
-Cc: Boris Ostrovsky <boris.ostrovsky@oracle.com>
-Cc: Catalin Marinas <catalin.marinas@arm.com>
-Cc: Christophe Leroy <christophe.leroy@csgroup.eu>
-Cc: David S. Miller <davem@davemloft.net>
-Cc: David Woodhouse <dwmw2@infradead.org>
-Cc: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Ingo Molnar <mingo@redhat.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Juegren Gross <jgross@suse.com>
-Cc: Liam Howlett <liam.howlett@oracle.com>
-Cc: Lorenzo Stoakes <lorenzo.stoakes@oracle.com>
-Cc: Madhavan Srinivasan <maddy@linux.ibm.com>
-Cc: Michael Ellerman <mpe@ellerman.id.au>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Mike Rapoport <rppt@kernel.org>
-Cc: Nicholas Piggin <npiggin@gmail.com>
-Cc: Peter Zijlstra <peterz@infradead.org>
-Cc: Ritesh Harjani (IBM) <ritesh.list@gmail.com>
-Cc: Ryan Roberts <ryan.roberts@arm.com>
-Cc: Suren Baghdasaryan <surenb@google.com>
-Cc: Thomas Gleinxer <tglx@linutronix.de>
-Cc: Venkat Rao Bagalkote <venkat88@linux.ibm.com>
-Cc: Vlastimil Babka <vbabka@suse.cz>
-Cc: Will Deacon <will@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Stable-dep-of: 5a88f78df753 ("reboot: fix cad_pid use-after-free race")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- include/linux/pgtable.h | 14 +++++++++-----
- 1 file changed, 9 insertions(+), 5 deletions(-)
+Possible dependencies:
 
-diff --git a/include/linux/pgtable.h b/include/linux/pgtable.h
-index 78a518129e8f0..a78dd60716c0c 100644
---- a/include/linux/pgtable.h
-+++ b/include/linux/pgtable.h
-@@ -197,11 +197,15 @@ static inline int pmd_young(pmd_t pmd)
-  * up to date.
-  *
-  * In the general case, no lock is guaranteed to be held between entry and exit
-- * of the lazy mode. So the implementation must assume preemption may be enabled
-- * and cpu migration is possible; it must take steps to be robust against this.
-- * (In practice, for user PTE updates, the appropriate page table lock(s) are
-- * held, but for kernel PTE updates, no lock is held). Nesting is not permitted
-- * and the mode cannot be used in interrupt context.
-+ * of the lazy mode. (In practice, for user PTE updates, the appropriate page
-+ * table lock(s) are held, but for kernel PTE updates, no lock is held).
-+ * The implementation must therefore assume preemption may be enabled upon
-+ * entry to the mode and cpu migration is possible; it must take steps to be
-+ * robust against this. An implementation may handle this by disabling
-+ * preemption, as a consequence generic code may not sleep while the lazy MMU
-+ * mode is active.
-+ *
-+ * Nesting is not permitted and the mode cannot be used in interrupt context.
-  */
- #ifndef __HAVE_ARCH_ENTER_LAZY_MMU_MODE
- #define arch_enter_lazy_mmu_mode()	do {} while (0)
--- 
-2.53.0
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 5520e89a5a4f834bced64cf2ac927001cc513a40 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Fri, 4 Sep 2026 13:48:11 +0000
+Subject: [PATCH] smb: client: fix cifsFileInfo reference leak in deferred
+ close
+
+When cifs_close() defers a close, it hands the cifsFileInfo reference
+of the closing struct file to the queued work. Each execution of
+smb2_deferred_work_close() drops one such reference.
+
+deferred_close_scheduled can be false while the work is pending: the
+workqueue clears PENDING when the callback starts to run, before the
+callback clears the flag under deferred_lock. A close in that
+interval requeues the running work, and the callback then clears the
+flag, leaving the requeued work pending with the flag down. A later
+cifs_open() can reuse the handle and its cifs_close() reaches the
+same branch: queue_delayed_work() fails because the work is still
+pending, but cifs_close() returns without dropping the closing file's
+reference. The cifsFileInfo count stays pinned and its tlink, dentry
+and server handle are leaked.
+
+Check the return value and hand off the reference only when work was
+actually queued. Otherwise, use the shared _cifsFileInfo_put(), like
+the mod_delayed_work() branch above: the pending execution already
+owns its reference.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: c3f207ab29f7 ("cifs: Deferred close for files")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 27b58d907203..1aa4844f8b8a 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -1515,11 +1515,18 @@ int cifs_close(struct inode *inode, struct file *file)
+ 				trace_smb3_close_cached(tcon->tid, tcon->ses->Suid,
+ 						cfile->fid.persistent_fid,
+ 						cifs_sb->ctx->closetimeo);
+-				queue_delayed_work(deferredclose_wq,
+-						&cfile->deferred, cifs_sb->ctx->closetimeo);
+-				cfile->deferred_close_scheduled = true;
+-				spin_unlock(&cinode->deferred_lock);
+-				return 0;
++				/*
++				 * Each queued execution owns one reference.
++				 * If nothing was queued, the reference of
++				 * the closing file is dropped below.
++				 */
++				if (queue_delayed_work(deferredclose_wq,
++						       &cfile->deferred,
++						       cifs_sb->ctx->closetimeo)) {
++					cfile->deferred_close_scheduled = true;
++					spin_unlock(&cinode->deferred_lock);
++					return 0;
++				}
+ 			}
+ 			spin_unlock(&cinode->deferred_lock);
+ 			_cifsFileInfo_put(cfile, true, false);
 
