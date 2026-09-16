@@ -1,151 +1,121 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from esa.microchip.iphmx.com (esa.microchip.iphmx.com [68.232.153.233])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63A014A263F
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:18:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A984F221FC6;
+	Wed, 16 Sep 2026 14:19:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=68.232.153.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568316; cv=none; b=emeAgMjOeUl035Ztol8azksluLNY1+sh2r3+Y7Ml6coA8o7X/F7lV+4SzAnp86oc2R6jcVe6s7pwAbJJCiJikmoemywv9soTe+lUVKLlM1pl4LoMecZAAPdg0lUJco+5iOML1g/6LsUddrr+Ridbfh7Bl+Ag2vAGQpLW34uRj8E=
+	t=1789568358; cv=none; b=H6q49rrWxMSeFUj8qZIFtYLzetx8VvDXkUpdXYRnpKa0ibNANZd31xsvXPNWNPwodKcgbLPCBEIgsJWG/w8pzSInqCo4sKMiSJG2SocM8T49XNGyrTWVDd6Hubhke/UFV6D/8c0YLAyaObxqBaP/wHhIJRqTV/G/cunWHM/lWvA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568316; c=relaxed/simple;
-	bh=7IiMAwZ+l8z9g3u5QohqMp8auoEB7lskW+HfDP5XVww=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=B8vH+mGhxUJrtJmbvlWs15dFYNmgNLPsrX7UBe5JxBK4m3yCcwBkHwPzxI4j0mtTC2NaiQGEUN2eS76nKS80FIiIb+kRQeGMctBanpFMn6KeUOEEynRe8Cc3CUZvo0+uTXxx56H4Mh5zCY/1KcSLFUPIKFMcxgBS4aOVmF+CvYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=f69YQjoR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789568358; c=relaxed/simple;
+	bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
+	 In-Reply-To:To:CC; b=PfeTfNx5WyYRX78CQLYuAnWFlZCjcuNJDWaWc+gUVp5wTe/VjhAYvLBAmYG3DrzsfNUVaP/yy8+qOuN8fYvlGhnEkbhmy7TFtC+0YCCX6JVc8eKIV0wonkwetNgl+SAc84Wowl9mVBuHF4Nia9dcFvJUnYlbPEfkwr4z0cWtrqY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com; spf=pass smtp.mailfrom=microchip.com; dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b=wb6a/tuw; arc=none smtp.client-ip=68.232.153.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=microchip.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=microchip.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="f69YQjoR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249B01F000FF;
-	Wed, 16 Sep 2026 14:18:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789568314;
-	bh=75pVXo12kpJ0yKE88Igk96kbgqBQKlZWW0PERqc/4ac=;
-	h=Subject:To:Cc:From:Date;
-	b=f69YQjoRoSGhN2Z9asVPTZlzaxsbK7hQD60tNXk5z0Ji0HzCggLlVWNxuoDlJWoap
-	 VBt6mjkJ3tQnDXaS0w1+93lgsxpX0CJE9rq6z1rlWd5mKkp+Z5r51z/XSdKQpLTdmU
-	 zt/uRMJ+Hm51tWWPjy+gWH5H//mO/aywgxdAHYsw=
-Subject: FAILED: patch "[PATCH] tracing/user_events: Don't destroy fields when event removal" failed to apply to 6.1-stable tree
-To: bsdhenrymartin@gmail.com,beaub@linux.microsoft.com,rostedt@goodmis.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 15:16:33 +0100
-Message-ID: <2026091633-hardening-washed-5fd8@gregkh>
+	dkim=pass (2048-bit key) header.d=microchip.com header.i=@microchip.com header.b="wb6a/tuw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=microchip.com; i=@microchip.com; q=dns/txt; s=mchp;
+  t=1789568355; x=1821104355;
+  h=from:date:subject:mime-version:content-transfer-encoding:
+   message-id:references:in-reply-to:to:cc;
+  bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+  b=wb6a/tuwuOYvd9pwSNzWf0cbo3A2Da42JswQxNV8t8q8O7PT5/hhw9h/
+   5Di3zoI5QMJnoBYlHmciVmSj625q95z4CzCWcAS5c4kHhBi8IaLUEqPtn
+   lXptWrjeFsZQ7lIttKD9E2FkCDky1BOpOTaFEXCusjJDTphXmsUPxDa8Y
+   ELCCV8Bau40QOssj6LaqLkfs59o0BjY/z3WCiGXDQhu1RqUnymowirB8x
+   vY+0oO7E518v5YCfB3Tu/21CXdAPAL8q82YfIoISYfZfXFh3yhDp/AoRL
+   Bp1/iiKeIGwfHTzrqjUJqXVLBZQVi7IyGUkA0vkKBrCrYmH9bheLpPxiY
+   g==;
+X-CSE-ConnectionGUID: ceDk0jBeQo+D85YcNJyfCA==
+X-CSE-MsgGUID: Ar8f7sAiQvWjv6k62LoUlw==
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="73741287"
+X-Amp-Result: SKIPPED(no attachment in message)
+Received: from unknown (HELO email.microchip.com) ([170.129.1.10])
+  by esa1.microchip.iphmx.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:19:05 -0700
+Received: from chn-vm-ex03.mchp-main.com (10.10.87.152) by
+ chn-vm-ex2.mchp-main.com (10.10.87.31) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
+ 15.2.2562.45; Wed, 16 Sep 2026 07:19:04 -0700
+Received: from [127.0.1.1] (10.10.85.11) by chn-vm-ex03.mchp-main.com
+ (10.10.85.151) with Microsoft SMTP Server id 15.1.2507.58 via Frontend
+ Transport; Wed, 16 Sep 2026 07:19:01 -0700
+From: Ariana Lazar <ariana.lazar@microchip.com>
+Date: Wed, 16 Sep 2026 17:16:28 +0300
+Subject: [PATCH v6 02/11] iio: dac: mcp47feb02: Fix gain field
+ initialization for active channels
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+Message-ID: <20260916-mcp47feb02_refactor-v6-2-285464651f89@microchip.com>
+References: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+In-Reply-To: <20260916-mcp47feb02_refactor-v6-0-285464651f89@microchip.com>
+To: Jonathan Cameron <jic23@kernel.org>, David Lechner
+	<dlechner@baylibre.com>, =?utf-8?q?Nuno_S=C3=A1?= <nuno.sa@analog.com>, "Andy
+ Shevchenko" <andy@kernel.org>, Rob Herring <robh@kernel.org>, "Krzysztof
+ Kozlowski" <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>
+CC: <linux-kernel@vger.kernel.org>, <linux-iio@vger.kernel.org>,
+	<devicetree@vger.kernel.org>, Ariana Lazar <ariana.lazar@microchip.com>,
+	Jonathan Cameron <jic23@kernel.org>, <sashiko-bot@kernel.org>,
+	<stable@vger.kernel.org>
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789568335; l=1952;
+ i=ariana.lazar@microchip.com; s=20250825; h=from:subject:message-id;
+ bh=VOZY+QFz4ZsjIpUzis+4ZEZT0aWP9ydqzPyw7njG/3U=;
+ b=ENkUIWDHksVxKd4JSg6T2JwHOjkX8GVDpOpQLnPd1hmLf+OqlEU80IDP+Ox9jPX0F9KTdRMhi
+ e96wkDg29emCVEwjLOlMTy4mESq4vmrL7ikqQSgBdkDF7FV+ZaGq26T
+X-Developer-Key: i=ariana.lazar@microchip.com; a=ed25519;
+ pk=jmvf1fSxcnzZmXfITM3L94IwutM+wqA1POQHiYyD6Dk=
 
+As per MCP47FXBX48 Datasheet, in the format of the Gain Control and System
+Status Register each DAC channel has one bit to control its gain,
+starting at bit 8, while bits 0-7 contain status or unimplemented bits.
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+The previous formula didn't initialize correctly all channels, being
+replaced by using field_get() with the already defined macro used in write
+operations where needed in the rest of the driver implementation.
+DAC_GAIN_MASK(i) extracts the gain control bit for each active channel
+correctly in one step.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 2deb753127d7b7035e893955c5e91875e767d1f8
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091633-hardening-washed-5fd8@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 2deb753127d7b7035e893955c5e91875e767d1f8 Mon Sep 17 00:00:00 2001
-From: Henry Martin <bsdhenrymartin@gmail.com>
-Date: Fri, 4 Sep 2026 19:52:23 +0800
-Subject: [PATCH] tracing/user_events: Don't destroy fields when event removal
- fails
-
-destroy_user_event() destroys the event's fields before attempting to
-remove the trace event call. If user_event_set_call_visible() fails,
-e.g. because the event is still enabled and trace_remove_event_call()
-returns -EBUSY, the event is left registered with an irreversibly
-destroyed field list. Any subsequent interaction with the event then
-operates on an empty field list while it is still fully visible in
-tracefs.
-
-Move the field destruction after the call removal, and splice the
-field list back onto the event when the removal fails so the event
-remains in a consistent state.
-
+Fixes: bf394cc80369 ("iio: dac: adding support for Microchip MCP47FEB02")
+Reported-by: sashiko-bot@kernel.org
+Link: https://lore.kernel.org/all/20260804134616.1D8A21F00A3E@smtp.kernel.org/
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260904115223.2976446-1-bsdhenrymartin@gmail.com
-Fixes: 7f5a08c79df35 ("user_events: Add minimal support for trace_event into ftrace")
-Signed-off-by: Henry Martin <bsdhenrymartin@gmail.com>
-Reviewed-by: Beau Belgrave <beaub@linux.microsoft.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Ariana Lazar <ariana.lazar@microchip.com>
+---
+ drivers/iio/dac/mcp47feb02.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-diff --git a/kernel/trace/trace_events_user.c b/kernel/trace/trace_events_user.c
-index 93cda2f6f269..f658c3a77aa7 100644
---- a/kernel/trace/trace_events_user.c
-+++ b/kernel/trace/trace_events_user.c
-@@ -1122,10 +1122,9 @@ static void user_event_destroy_validators(struct user_event *user)
- 	}
- }
- 
--static void user_event_destroy_fields(struct user_event *user)
-+static void user_event_destroy_fields(struct list_head *head)
- {
- 	struct ftrace_event_field *field, *next;
--	struct list_head *head = &user->fields;
- 
- 	list_for_each_entry_safe(field, next, head, link) {
- 		list_del(&field->link);
-@@ -1502,17 +1501,32 @@ static int user_event_set_call_visible(struct user_event *user, bool visible)
- 
- static int destroy_user_event(struct user_event *user)
- {
-+	LIST_HEAD(fields);
- 	int ret = 0;
- 
- 	lockdep_assert_held(&event_mutex);
- 
--	/* Must destroy fields before call removal */
--	user_event_destroy_fields(user);
-+	/*
-+	 * Detach the fields before removing the call. Removing the event
-+	 * frees the field list memory (trace_destroy_fields() is run on
-+	 * successful removal and kmem_cache_free()s the fields), but the
-+	 * fields here are allocated and owned by user_events. Destroy
-+	 * them separately once removal has succeeded.
-+	 */
-+	list_splice_init(&user->fields, &fields);
- 
- 	ret = user_event_set_call_visible(user, false);
- 
--	if (ret)
-+	if (ret) {
-+		/*
-+		 * Removal failed and the event stays registered, recover
-+		 * the fields so it is left in a consistent state.
-+		 */
-+		list_splice(&fields, &user->fields);
+diff --git a/drivers/iio/dac/mcp47feb02.c b/drivers/iio/dac/mcp47feb02.c
+index 6a3875e1d6a2c0cdd146410358130c44b1360f56..fa4bd1df954844da35a8496758489189aeceb60d 100644
+--- a/drivers/iio/dac/mcp47feb02.c
++++ b/drivers/iio/dac/mcp47feb02.c
+@@ -1016,7 +1016,6 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+ 	if (ret)
  		return ret;
-+	}
-+
-+	user_event_destroy_fields(&fields);
  
- 	dyn_event_remove(&user->devent);
- 	hash_del(&user->node);
-@@ -2212,7 +2226,7 @@ static int user_event_parse(struct user_event_group *group, char *name,
- put_user_lock:
- 	mutex_unlock(&event_mutex);
- put_user:
--	user_event_destroy_fields(user);
-+	user_event_destroy_fields(&user->fields);
- 	user_event_destroy_validators(user);
- 	kfree(user->call.print_fmt);
+-	gain_ch = gain_ch & MCP47FEB02_GAIN_BITS_MASK;
+ 	for_each_set_bit(i, &data->active_channels_mask, data->phys_channels) {
+ 		struct device *dev = regmap_get_device(data->regmap);
+ 		unsigned int pd_tmp, dac_val;
+@@ -1027,7 +1026,7 @@ static int mcp47feb02_init_ctrl_regs(struct mcp47feb02_data *data)
+ 		data->chdata[i].dac_data = dac_val;
  
+ 		data->chdata[i].ref_mode = (vref_ch >> (2 * i)) & MCP47FEB02_DAC_CTRL_MASK;
+-		data->chdata[i].use_2x_gain = (gain_ch >> i)  & MCP47FEB02_GAIN_BIT_MASK;
++		data->chdata[i].use_2x_gain = field_get(DAC_GAIN_MASK(i), gain_ch);
+ 
+ 		/*
+ 		 * Inform the user that the current voltage reference read from the volatile
+
+-- 
+2.43.0
 
