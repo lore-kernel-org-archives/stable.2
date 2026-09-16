@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4BC4D7D49
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F331726A08A
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:40:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580464; cv=none; b=c6iEzfV6YoZWITHQF3dfzlrwfhoMpTe5o0/yBi7IEK/AmDXs4bHGC5kwlXfniS67+I11ai9F8okKkf+m+Pepasgl8SuFYVSCSgpFbh7d9RXRC1Vhh6sLvtsVCIxplbBagBzjqQIL/YSJtdsPef+5D5X49yKNByj7iAZ8oiLHJrs=
+	t=1789580464; cv=none; b=lhvVLcF4jAXWHv7IH4cIL1637oZeR23dEWtngcjCHPvdSqSrgXjaoOTd74HkycriafBItemS7wBVzNVOEk/JC9hG/D5sR4GBTHKBNeCBh0PwNmZ56W0fgp/Cbj3/uom+xfQHqrzRyTzgQyX3JlLpDVbcPg0MTyRRtekYvhoVCZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789580464; c=relaxed/simple;
-	bh=B5l91njjFYwjBkhIOy5p/TIoNCd2gAEz4qg6bc8/1jM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p/hppVIWo5gulrKYyd7ldvwwmRaNzFWETFhzZFV9GZlZ521WKlDBVmPV+ppMrIL6nj4DbOCtQbyKGUjcvT9vHcsSYoAi7j30DGWgNukEqObVuyS3bqNgdsrJEu5dxTdjIbOhnsfgoQI/kE4TBxIk1TbAYIqCBt9k+vIUSNae33M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NDlP7IOC; arc=none smtp.client-ip=100.103.45.18
+	bh=sIkuqp22AMMKxh1qkZ/MBaLSMhKzRaMfCAqgjpyRjp8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=BobWTXJue1+c1oR87cAOrynsgBZKucmqjSIK9YaT2L0PUqSTdDJPG19tus46J+m2cM9d+39D3fodQ1OBh8wONWcY+K21JJWlZFRifWRXkXx8ldHSPYs4m6yzdC87lCn5/5cKMZfRmeCQI68ujYB1SknVRQ7iHWs+9EjOyCchDr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Dsd+jtfp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NDlP7IOC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF29B1F0089A;
-	Wed, 16 Sep 2026 17:40:55 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Dsd+jtfp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BDF091F00893;
+	Wed, 16 Sep 2026 17:40:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789580456;
-	bh=GjDXtdMVoxvGfAndwZxGpGqPRY126/ed6qgN5/pZdGM=;
+	s=korg; t=1789580453;
+	bh=j0OL3HFi4iimrSJIHbpIKu43XQB3NIpyDJkMaPdNUrQ=;
 	h=Subject:To:Cc:From:Date;
-	b=NDlP7IOC2xG0wviHJJUohJmld2DlO/ArE1DsaQRTtq8vtaZdHtcemySbk434WwyRf
-	 7EIA0N4mOirB+rcSgGeOybad+5LITe7UwBlOYsnwo5AWM6J0XjTIAcanQWHRsAv+pN
-	 IJcHglNVqrABUuvX5I1FcGMLr6h3hZrOIpWED2WA=
-Subject: FAILED: patch "[PATCH] drm/amdkfd: Don't acquire buffers during CRIU queue restore." failed to apply to 6.18-stable tree
+	b=Dsd+jtfpVzkCClRHUc2GVAn4lPNVXT7GaOMq1tfAgCJevaKOXsfD0rVZJjQXgHU7v
+	 wyh2VGISJ6ZiLUVeePBDe5PD55zFaX6+kXqJdxA2WqCHENsl7xOjp77i+zfdqQbf47
+	 WEEowqorxj6wLFvWI5J0SV2/1vvDDCMHcOJfPyms=
+Subject: FAILED: patch "[PATCH] drm/amdkfd: Don't acquire buffers during CRIU queue restore." failed to apply to 6.12-stable tree
 To: David.Francis@amd.com,alexander.deucher@amd.com,david.yatsin@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 18:35:11 +0100
-Message-ID: <2026091611-babied-commute-f16e@gregkh>
+Date: Wed, 16 Sep 2026 18:35:10 +0100
+Message-ID: <2026091610-guise-theology-7efb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x 1cafa8b29e029eac3ddf64604f891b35dbf6262b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091611-babied-commute-f16e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091610-guise-theology-7efb@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
