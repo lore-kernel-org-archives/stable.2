@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 059C62DC792
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D74C2E7BD9
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:47:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789570031; cv=none; b=QNZCPrKa2+QwTfMPZ5quAuSSu8DdhUqtpWBHd7TX5dVUNxoVV7Y0NwUWO0TFQnnBI2/bMSx5t9ojgR5K9nwavQX0CcJMVpaimAIOI4yfh2bmdDSV88WzP1QpSDV2GT9yvFw/8udYAVDGDcNyY4mpY6jSM9sGb7lUArf63lkbMFc=
+	t=1789570032; cv=none; b=EUPPBxKs3m7M9wG8bfDvm5Q7GQXDouY3rK+oU4jYQT/rnqFFhZjkFg9lBW34P72Fd+IziqPxiXTNMH9SnrUDNG22wDmaFrVYHxfSVX4ufWOmcoCijt3uKjc49MOSd1REmIMc6EAQcCzECGly7xe52n1CCFW7eLGVcLMXqVNIbvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789570031; c=relaxed/simple;
-	bh=UNy3zTHurg1m1x/RfdUMyXp+2DkW0cN+BkzDsOs3FaA=;
+	s=arc-20240116; t=1789570032; c=relaxed/simple;
+	bh=LWiqp6cb9gzVGwkUPN26STFdCsNT+VghxGryL+tckxg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VuZ9Yjf36ATLKgv74hBuDamQaoAOMcP2Q/9Nh26uVTzDiT9GUNFJeDECLS0Ivm8EbtkzCoyJAW5MovfuXgjH1EHJ+PcD52hgsEBab324RRCxB6y+C4QsOzNpHb//ZwjZAcIGK8szfXKR5bYO2Eqo6WDgsODNy7CPRCYaqcrEL+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ltUePog1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Y0tGKucucTHEUR9TZBxv+RYEBqlKX3Wla+eneEIrRkIV+SF5XnI0BsZIC+LWjRSC+wlLJqrzhnokIURPjafNFVZh3J6bUSkE0I2oqY/KdWfyxWXMDQUjKXVtmStb+gKXP3hoEZE3U82ZaN3AF4e4imHrh0LASiY0S/XpsaBwrLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DjVZirjl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ltUePog1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0BF561F0089A;
-	Wed, 16 Sep 2026 14:47:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DjVZirjl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 160401F000FF;
+	Wed, 16 Sep 2026 14:47:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789570029;
-	bh=CMNK3jewGGvF82lJ2wLEq5HGv724q0hVS0ZoctZwoq8=;
+	s=k20260515; t=1789570030;
+	bh=oDMdiWHEWOkjO38l57YmyryfH5g3IBZkuhJowGwFV5U=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ltUePog11Src4EKfJdZRbRSo5taoJgo8GZUVB3PllVMXA1oWlGSW1tqTMGAu2ALm0
-	 A2B8QEEw7f6LDc7OX7FqXE+YgVHu8Ualw+llijf3w9Vl3DWos+kLfTF2TVPYCCehSW
-	 X1yL6QDnLUz0NuQssT/Lg640JjACshU3ENIjaokN6PccBETpFIQigndvXi63Q+xel4
-	 gutb9IivC7eMFlFBk3ogrGbgOwgemusqd36mX/eo+nDN1LLHia8bQi8wLJJFlH0I/p
-	 noZ6a+n7/8vZ+e7ro1AZw9FIYbiFkIbA+MaQHx2QZUVFqgXd/X70i2sNAhM0CToNz1
-	 2xdJfOZjW16dw==
+	b=DjVZirjly5rkpce5mOwE21Yd454yk3StDxg9ymlmWp9RUy0NOgr5iZhgy+0dApf1p
+	 /u7dWFzA5ZfzoB6O68ISVFmlDfdstq2F5CsISSOBORLAV+5ECKFlzDTm7pPmZB6ibm
+	 EsJ3fKJAZE9kGsBuTLx8FIjgfuipAG1MmVLFTnV45MqbLA3v1Cb7dtYqet4vD5n68Z
+	 0FkijYF7WkqL0iDJPAz/96PpHouz2vU69YmQBMJNLRfSESpDWbkkzm48/rAjxwYiRn
+	 sTKNj7iGZKa9y4+JSMwWg6RyABnah9jU1+Jx2sgGUrBYIObdpBrtnljucYsYzvz9hQ
+	 Xt/myDXi6EWLw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>,
-	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
-	Dave Hansen <dave.hansen@linux.intel.com>,
-	Ingo Molnar <mingo@kernel.org>,
-	Atish Patra <atishp@meta.com>,
-	Nikunj A Dadhania <nikunj@amd.com>,
+Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>,
+	syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com,
+	Breno Leitao <leitao@debian.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/3] x86/mm/pat: Acquire init_mm read lock on attribute changes to avoid UAF
-Date: Wed, 16 Sep 2026 10:47:05 -0400
-Message-ID: <20260916144705.3627256-3-sashal@kernel.org>
+Subject: [PATCH 6.12.y] configfs: unhash the dentry before dropping the item in rmdir
+Date: Wed, 16 Sep 2026 10:47:07 -0400
+Message-ID: <20260916144707.3627479-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916144705.3627256-1-sashal@kernel.org>
-References: <2026091615-lankiness-vowed-5e5d@gregkh>
- <20260916144705.3627256-1-sashal@kernel.org>
+In-Reply-To: <2026091657-barracuda-pointed-aac5@gregkh>
+References: <2026091657-barracuda-pointed-aac5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,140 +46,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
 
-[ Upstream commit d5d8b8662e6e5a565b47a0388640e88402f23274 ]
+[ Upstream commit f06c2d26d1999d37e93299db0ecead04ca7d0b9f ]
 
-A previous commit protected against races between ptdump and CPA collapse,
-however one still exists between attribute changes and collapse as reported
-by Denis V. Lunev (linked).
+configfs_get_config_item() treats a hashed dentry as proof that
+sd->s_element is a live config_item.  configfs_rmdir() breaks that:
+simple_rmdir() leaves the dentry hashed, the last reference to the item is
+dropped right after, and the dentry is only unhashed by d_delete() once
+->rmdir() has returned.  configfs_symlink() resolves its target holding no
+lock on it, so get_target() can land in that window:
 
-When an attribute change arises, a lockless page table walker obtains a PTE
-entry, which is later written to via set_pte_atomic():
+  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
+   get_target fs/configfs/symlink.c:128 [inline]
+   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
 
-  ...
-  -> change_page_attr_set_clr()
-  -> __change_page_attr_set_clr()
-  -> __change_page_attr()
-	-> _lookup_address_cpa()
-	-> lookup_address_in_pgd_attr()
-	-> [ lockless page table walker ]
-  -> set_pte_atomic()
+Unhash in configfs_remove_dir(), while the item is still guaranteed to be
+there.  A reference obtained just before that stays harmless, as
+create_link() rechecks CONFIGFS_USET_DROPPING, already set by
+configfs_detach_prep().  Both configfs_unregister_subsystem() paths
+d_drop() after detaching, so this only makes rmdir match them.
 
-There is nothing preventing a concurrent CPA collapse which can free the
-PTE that was retrieved here, resulting in a use-after-free.
-
-With the mmap write lock taken on init_mm over CPA collapse, resolve this
-race by acquiring an mmap read lock on init_mm over
-__change_page_attr_set_clr().
-
-This locks across the whole operation over which the walk and the PTE
-entry write occurs, solving the race.
-
-It is safe to do this here, as no spinlocks are held upon entry to
-__change_page_attr_set_clr().
-
-However, the lock must not be held over an allocation, as allocation can
-trigger reclaim and shrinkers may call into CPA recursively, making
-deadlocks possible (init_mm -> ... -> fs_reclaim -> init_mm).
-
-A page table is allocated when a huge page needs to be split:
-
-  -> change_page_attr_set_clr()
-  -> __change_page_attr_set_clr()
-  -> __change_page_attr()
-  -> split_large_page()
-  [ pagetable_alloc() ]
-  -> __split_large_page()
-
-Avoid deadlocks by dropping the mmap lock across pagetable_alloc() in
-split_large_page() and track whether this is needed by adding a new
-'init_mm_read_locked' flag to struct cpa_data.
-
-This is safe as __split_large_page() (called with locks re-established)
-revalidates that the page table entry is the same as it was prior to the
-locks being dropped and __change_page_attr() repeats the entire page table
-walk whenever a split occurs, so concurrent split and collapse are
-accounted for.
-
-Concurrent ptdump is also safe as the lock is only dropped over page table
-allocation during which time the page table has not yet been modified.
-
-The CPA_COLLAPSE flag is only set by set_memory_rox(), which exclusively
-operates upon vmalloc ranges, and on x86 only within the module mapping
-space.
-
-This is important, because some callers directly invoke
-__change_page_attr_set_clr(), bypassing this lock. However, none of these
-operate within the module mapping space.
-
-  * cpa_process_alias() - a recursive helper called by
-    __change_page_attr_set_clr().
-  * __set_memory_enc_pgtable() - operates on the direct mapping and (via
-    __vmbus_establish_gpadl()) the vmalloc mapping space.
-  * __set_pages_[n]p() - called by set_direct_map_[invalid, default,
-    valid]_noflush(), __kernel_map_pages() - operates on the direct map.
-  * kernel_[un]map_pages_in_pgd() - operates on EFI ranges.
-
-This work is based upon Denis V. Lunev's excellent analysis of the bug
-with gratitude.
-
-[ dhansen: move to imperative voice in changelog ]
-
-Fixes: 41d88484c71c ("x86/mm/pat: restore large ROX pages after fragmentation")
-Signed-off-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Signed-off-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
-Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
-Signed-off-by: Ingo Molnar <mingo@kernel.org>
-Tested-by: Atish Patra <atishp@meta.com>
-Tested-by: Nikunj A Dadhania <nikunj@amd.com>
-Link: https://lore.kernel.org/all/20260626163213.2284080-1-den@openvz.org/
-Cc:stable@vger.kernel.org
-Link: https://patch.msgid.link/20260813-cpa-fixes-v2-2-39b4ff90f91d@kernel.org
+Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
+Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Tested-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260730093435.195441-3-vasilisalmpanis@gmail.com
+Signed-off-by: Breno Leitao <leitao@debian.org>
+[ adapted the configfs_remove_dir() change to the older remove_dir() helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/x86/mm/pat/set_memory.c | 13 +++++++++++--
+ fs/configfs/dir.c | 13 +++++++++++--
  1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
-index 5dc322409888f..560e9e4d8c21e 100644
---- a/arch/x86/mm/pat/set_memory.c
-+++ b/arch/x86/mm/pat/set_memory.c
-@@ -49,7 +49,8 @@ struct cpa_data {
- 	unsigned int	flags;
- 	unsigned int	force_split		: 1,
- 			force_static_prot	: 1,
--			force_flush_all		: 1;
-+			force_flush_all		: 1,
-+			init_mm_read_locked	: 1;
- 	struct page	**pages;
- };
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index 248d70b26f3d0..e5f2f173c6bc7 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -395,8 +395,17 @@ static void remove_dir(struct dentry * d)
  
-@@ -1235,7 +1236,11 @@ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
- 	struct ptdesc *ptdesc;
+ 	configfs_remove_dirent(d);
  
- 	spin_unlock(&cpa_lock);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_unlock(&init_mm);
- 	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
-+	if (cpa->init_mm_read_locked)
-+		mmap_read_lock(&init_mm);
- 	spin_lock(&cpa_lock);
- 	if (!ptdesc)
- 		return -ENOMEM;
-@@ -2092,7 +2097,11 @@ static int change_page_attr_set_clr(unsigned long *addr, int numpages,
- 	cpa.curpage = 0;
- 	cpa.force_split = force_split;
+-	if (d_really_is_positive(d))
+-		simple_rmdir(d_inode(parent),d);
++	if (d_really_is_positive(d)) {
++		if (!simple_rmdir(d_inode(parent), d))
++			/*
++			 * configfs_get_config_item() takes a hashed dentry as
++			 * proof that ->s_element is still alive.  Our caller
++			 * is about to drop the last reference to the item and
++			 * the VFS will not unhash until after we return, so
++			 * unhash it here.
++			 */
++			d_drop(d);
++	}
  
--	ret = __change_page_attr_set_clr(&cpa, 1);
-+	/* Avoid race with concurrent CPA collapse. */
-+	cpa.init_mm_read_locked = true;
-+	scoped_guard(mmap_read_lock, &init_mm)
-+		ret = __change_page_attr_set_clr(&cpa, 1);
-+	cpa.init_mm_read_locked = false;
+ 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
  
- 	/*
- 	 * Check whether we really changed something:
 -- 
 2.53.0
 
