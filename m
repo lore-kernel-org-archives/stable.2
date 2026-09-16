@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787AE3563F6
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BCD143BDC3
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:00:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588852; cv=none; b=K6Vy/rSeZHZNmibl1v0XRyK7eLctDGleNnBeC9VDqLymZlh4OO02Wl8+HIYBTDKhWjkq7ifbdf9PSNjtislZB4cVm4SVsZnmFGnl4b0ey5J351E7DSZN7va44xfXifL2oF4w9WA7GUKiNuW0fx4EQBNLdtmwQldoLpZaZwzj3H4=
+	t=1789588854; cv=none; b=CxQe7d07+ay4rwTmXFTs7zXOo591YVPq6JDj+F5e4038RSkQhvOpqzBliSmIDRedKPKx6h8TWFs4b88LIrBWMvq+2xPrNkIF4qf/8UH3szBSKzti/VYVKa1IaX7NmHa4JvcvhJygEjQTyqVhARQEZcvESvSqXT6Z93rIFi46vxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588852; c=relaxed/simple;
-	bh=soUSA0hHZ+RSqP+1NOLGduxa8KBIXkafeGKvVaMtbQo=;
+	s=arc-20240116; t=1789588854; c=relaxed/simple;
+	bh=+3vT6d5n1R+EC7OCjKidjlFJ6DLSmr3Nt9th9RpPgdU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zn52NwgNW2WPqM8usMVAhQZ5/4w0RaSNIaKwMar3ZrWAWaRtfR+xxn9Sb7c5nqTsmtZsfSuMErD/3VP16FBzU9yOj0MAIuOzAeO1XQXlmtbPKvuUUp+4uVFMQa5tNmqJ0DEcf01yt8k3qxiv5rkVNq4840l5lApdBqzFl+aoEE8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdGXEcJJ; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jHcBvk3P6q50xtthWybulItwW9exiy/Ab60ybnHkJ5nd9rucLMGBDMEeOG6xQtsFJrWzAjyphTZGhjAYweCX9aTTFUxCxMrswY6DMmn4QaMDOXpf95ySolUIEhikXM0aQXDZ6lIxE+sYWhHv46w1MLkCAFYFpvjC+cs8xH87Vfc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EZfQjq7K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdGXEcJJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0531F0089B;
-	Wed, 16 Sep 2026 20:00:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EZfQjq7K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0466A1F00893;
+	Wed, 16 Sep 2026 20:00:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789588841;
-	bh=y7B3wodt/k7ZPdTsGQxuUtx//QPZMeWzw0SV0v/H6O0=;
+	s=k20260515; t=1789588835;
+	bh=iTPTXZOlwAxokkjXfmVI4/Xkm77oLjwitAwMYLHzaSY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bdGXEcJJsnx03kQLRt6OitWD7Jb6qepMZWLl0ljNUIxOuOUAtcoNTDmX4vZivjV1U
-	 FeVARj/hUn8sgT9IxM+0T+UpqxX56J2SAm7gld8Wr2cKEPgs9zMGyMGZiEHErolGgy
-	 nDWBGGKMPaPDWPamKMpPEO5fSwrOSHdSHTf0ampeRhT7fz7vmrXsxNR3eBA55WgmF3
-	 pdFt9Ibm4XWpnWhsTCwVkmwRJtAQmd+CuTx3WHGunL+alcNe7J4bMqTyxjHnW1T4dq
-	 HwArzTKRaVGqBTnftfPGuM8zQ606AlFfoY3ybtJPkMGBVcPlvMJSzUdIqNDEkQ6NDb
-	 6zD9BrcHGndPw==
+	b=EZfQjq7Kdi7f9zkJwiSQncPYQQ5F9+4GetSfLUQBmks1ykHrsTdi7hsJCVFnT/EaU
+	 V2mJ3iGcTsRJaERrNj9ssiKnG0w/v+76YWG/S8WX6H0GDb7jZP/4BIlzVvOtk9wAMg
+	 AA99S+sFw4Q54GIFnuWN9OTSs9KBazic66+jn5N/7HmU/GhSTiex+KkKsP3TZzjROe
+	 iIoeLePNcR76GrMi/X+MPhuvpFDWL+MRLK3A9vDPs99c/B10stNX67LGqxtY2X8DkC
+	 Er1Dv3fclhJidjgE+cD4cKvJBJjD5YW1waxwWvQqVwN/9De5VuUfoc3z7mXtsjAZ08
+	 6plQjyAk3Pwag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
-	Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>,
+Cc: Steven Rostedt <rostedt@goodmis.org>,
+	sashiko-bot@kernel.org,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] accel/ivpu: Refactor functions in ivpu_fw_log.c
-Date: Wed, 16 Sep 2026 16:00:37 -0400
-Message-ID: <20260916200038.2459399-3-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] tracing: Take trace_array reference when opening a tracer options file
+Date: Wed, 16 Sep 2026 16:00:32 -0400
+Message-ID: <20260916200032.2459175-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916200038.2459399-1-sashal@kernel.org>
-References: <2026091615-moisten-showy-63d8@gregkh>
- <20260916200038.2459399-1-sashal@kernel.org>
+In-Reply-To: <20260916200032.2459175-1-sashal@kernel.org>
+References: <2026091636-refined-everyone-e63c@gregkh>
+ <20260916200032.2459175-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,302 +46,140 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit 1fc1251149a76d3b75d7f4c94d9c4e081b7df6b4 ]
+[ Upstream commit ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 ]
 
-Make function names more consistent and (arguably) readable in
-fw log code. Add fw_log_print_all_in_bo() that remove duplicated code in
-ivpu_fw_log_print().
+When a tracer option file is opened, it is passed a descriptor that points
+to an element on the trace_array's topts array. This element has
+information to find the trace array and other information. It uses this
+element to take a reference of the trace_array so that the trace_array
+does not get removed while this file is opened.
 
-Reviewed-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
-Link: https://patchwork.freedesktop.org/patch/msgid/20240930195322.461209-5-jacek.lawrynowicz@linux.intel.com
-Signed-off-by: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+Unfortunately, there's a race condition where the element itself could be
+freed by the removal of the instance the trace_array represents causing a
+use-after-free as this element that is used to find the trace_array to
+increment its reference counter is also freed when the instance is
+removed.
 
-[Stable dependency adaptation for 95bf070f3225]
+To solve this, add a trace_array_tracer_options_get() helper function that
+will take the address of the element that is passed to the open function
+by the inode->i_private pointer and search all the trace_arrays under a
+lock to find the one that the element's address is in the range of the
+trace_arrays topts array elements. When a match happens, that trace_array's
+reference would be increased.
 
-Keep the existing critical/verbose loops and VPU labels instead of adding
-fw_log_print_all_in_bo(); this adaptation adds no functions. Retain the
-stable buffer-object accessors and module parameter interface.
+Note, there's a race where if an admin was deleting and creating trace
+instances at the same time and the memory of the old trace_array's array
+matched the memory of the new trace_array that it could in theory open the
+option from the wrong trace array. But we do not care because it would be
+stupid to perform that kind of action. As long as the only thing that can
+happen is that the option from the wrong trace array is used and doesn't
+crash the kernel it will only make the user confused. But if they are
+doing something stupid like this, they are already confused, so no harm
+done.
 
-Prepare the exact log-printing code used by the target with the relevant
-changes from 4bc988b470195 (wrap handling and newline placement),
-dd1311bcf0e62 (index bounds), and 0724afc55c77c (validated metadata
-snapshots). The size-smaller-than-header check already exists in this
-stable tree. Add only read_wrap_count from the newer tracing header,
-using one reserved host-side word, and update the existing mark-read and
-cold-boot reset paths. These changes let the unmodified target apply
-cleanly without importing broader firmware API or buffer-object changes.
-
-The original upstream helper extraction described above is intentionally
-omitted from this stable dependency.
-
-Also include ivpu_fw_log.h in ivpu_pm.c: the preceding cold-boot-reset
-dependency calls ivpu_fw_log_reset() without its declaration on this tree.
-The missing include is required for the x86 allmodconfig build.
-
-Stable-dep-of: 95bf070f3225 ("accel/ivpu: Limit firmware log name prints to field size")
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
+Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ replaced guard(mutex) and __trace_array_get() with explicit locking and tr->ref++, using GNU89-compatible declarations. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/accel/ivpu/ivpu_debugfs.c |   2 +-
- drivers/accel/ivpu/ivpu_fw_log.c  | 128 +++++++++++++++++++-----------
- drivers/accel/ivpu/ivpu_fw_log.h  |   2 +-
- drivers/accel/ivpu/ivpu_pm.c      |   1 +
- drivers/accel/ivpu/vpu_boot_api.h |   4 +-
- 5 files changed, 87 insertions(+), 50 deletions(-)
+ kernel/trace/trace.c | 53 +++++++++++++++++++++++++++++++++++++++++++-
+ kernel/trace/trace.h |  1 +
+ 2 files changed, 53 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/accel/ivpu/ivpu_debugfs.c b/drivers/accel/ivpu/ivpu_debugfs.c
-index 5e5996fd4f9f1..6c64ecdf15ff1 100644
---- a/drivers/accel/ivpu/ivpu_debugfs.c
-+++ b/drivers/accel/ivpu/ivpu_debugfs.c
-@@ -137,7 +137,7 @@ fw_log_fops_write(struct file *file, const char __user *user_buf, size_t size, l
- 	if (!size)
- 		return -EINVAL;
- 
--	ivpu_fw_log_clear(vdev);
-+	ivpu_fw_log_mark_read(vdev);
- 	return size;
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index ee72583c64c96..f735688520f7f 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -8865,12 +8865,62 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
  }
  
-diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
-index 0ed29e5ac8e52..b1919c0749640 100644
---- a/drivers/accel/ivpu/ivpu_fw_log.c
-+++ b/drivers/accel/ivpu/ivpu_fw_log.c
-@@ -26,10 +26,17 @@ MODULE_PARM_DESC(ivpu_log_level,
- 		 " error=" __stringify(IVPU_FW_LOG_ERROR)
- 		 " fatal=" __stringify(IVPU_FW_LOG_FATAL));
- 
--static int fw_log_ptr(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
--		      struct vpu_tracing_buffer_header **log_header)
-+struct ivpu_fw_log_desc {
-+	struct vpu_tracing_buffer_header *log;
-+	u32 header_size;
-+	u32 size;
-+};
++static bool tr_option_match(struct trace_array *tr, void *topt)
++{
++	int i;
 +
-+static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
-+			  struct ivpu_fw_log_desc *desc)
- {
- 	struct vpu_tracing_buffer_header *log;
-+	u32 header_size, size;
- 
- 	if ((*offset + sizeof(*log)) > bo->base.size)
- 		return -EINVAL;
-@@ -39,31 +46,37 @@ static int fw_log_ptr(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
- 	if (log->vpu_canary_start != VPU_TRACING_BUFFER_CANARY)
- 		return -EINVAL;
- 
--	if (log->header_size < sizeof(*log) || log->header_size > 1024) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size);
-+	header_size = READ_ONCE(log->header_size);
-+	size = READ_ONCE(log->size);
++	for (i = 0; i < tr->nr_topts; i++) {
++		struct trace_options *tr_topts = &tr->topts[i];
 +
-+	if (header_size < sizeof(*log) || header_size > 1024) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", header_size);
- 		return -EINVAL;
- 	}
--	if (log->size < log->header_size) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-+	if ((char *)log + size > (char *)bo->kvaddr + bo->base.size) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", size);
- 		return -EINVAL;
- 	}
--	if ((char *)log + log->size > (char *)bo->kvaddr + bo->base.size) {
--		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
-+	if (size < header_size) {
-+		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x < header size 0x%x\n",
-+			 size, header_size);
- 		return -EINVAL;
- 	}
- 
--	*log_header = log;
--	*offset += log->size;
-+	desc->log = log;
-+	desc->header_size = header_size;
-+	desc->size = size;
-+	*offset += size;
- 
- 	ivpu_dbg(vdev, FW_BOOT,
- 		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
--		 log->name, log->write_index, log->size, log->wrap_count, log->header_version,
--		 log->header_size, log->format, log->alignment);
-+		 log->name, log->write_index, size, log->wrap_count, log->header_version,
-+		 header_size, log->format, log->alignment);
- 
- 	return 0;
- }
- 
--static void buffer_print(char *buffer, u32 size, struct drm_printer *p)
-+static void fw_log_print_lines(char *buffer, u32 size, struct drm_printer *p)
- {
- 	char line[IVPU_FW_LOG_LINE_LENGTH];
- 	u32 index = 0;
-@@ -91,70 +104,91 @@ static void buffer_print(char *buffer, u32 size, struct drm_printer *p)
- 	}
- 	line[index] = 0;
- 	if (index != 0)
--		drm_printf(p, "%s\n", line);
-+		drm_printf(p, "%s", line);
- }
- 
--static void fw_log_print_buffer(struct ivpu_device *vdev, struct vpu_tracing_buffer_header *log,
--				const char *prefix, bool only_new_msgs, struct drm_printer *p)
-+static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefix,
-+				bool only_new_msgs, struct drm_printer *p)
- {
--	char *log_buffer = (void *)log + log->header_size;
--	u32 log_size = log->size - log->header_size;
--	u32 log_start = log->read_index;
--	u32 log_end = log->write_index;
--
--	if (!(log->write_index || log->wrap_count) ||
--	    (log->write_index == log->read_index && only_new_msgs)) {
--		drm_printf(p, "==== %s \"%s\" log empty ====\n", prefix, log->name);
--		return;
-+	struct vpu_tracing_buffer_header *log = desc->log;
-+	char *log_data = (void *)log + desc->header_size;
-+	u32 data_size = desc->size - desc->header_size;
-+	u32 log_start = only_new_msgs ? READ_ONCE(log->read_index) : 0;
-+	u32 log_end = READ_ONCE(log->write_index);
++		if (topt >= (void *)&tr_topts->topts[0] &&
++		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
++			return true;
++	}
++	return false;
++}
 +
-+	if (log_start >= data_size)
-+		log_start = 0;
-+	if (log_end > data_size)
-+		log_end = data_size;
++/*
++ * The topt is the address of a trace_array->topts[] element that holds the
++ * the tracer options descriptor. But since the trace_array reference has not
++ * been taken yet, it cannot be dereferenced as it could have been freed by
++ * a rmdir of the instance the trace_array represents.
++ *
++ * Search the list of trace_arrays and compare the topt to the address of
++ * the entire trace_array topts array for each trace_array in the list.
++ * If one is matched, then take the reference and return it. If not, the
++ * trace_array no longer exits.
++ */
++static int trace_array_tracer_options_get(void *topt)
++{
++	struct trace_array *tr;
++	int ret;
 +
-+	if (log->wrap_count == log->read_wrap_count) {
-+		if (log_end <= log_start) {
-+			drm_printf(p, "==== %s \"%s\" log empty ====\n", prefix, log->name);
-+			return;
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	ret = -ENODEV;
++	mutex_lock(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_option_match(tr, topt)) {
++			tr->ref++;
++			ret = 0;
++			break;
 +		}
-+	} else if (log->wrap_count == log->read_wrap_count + 1) {
-+		if (log_end > log_start)
-+			log_start = log_end;
-+	} else {
-+		log_start = log_end;
- 	}
- 
- 	drm_printf(p, "==== %s \"%s\" log start ====\n", prefix, log->name);
--	if (log->write_index > log->read_index) {
--		buffer_print(log_buffer + log_start, log_end - log_start, p);
-+	if (log_end > log_start) {
-+		fw_log_print_lines(log_data + log_start, log_end - log_start, p);
- 	} else {
--		buffer_print(log_buffer + log_end, log_size - log_end, p);
--		buffer_print(log_buffer, log_end, p);
-+		fw_log_print_lines(log_data + log_start, data_size - log_start, p);
-+		fw_log_print_lines(log_data, log_end, p);
- 	}
--	drm_printf(p, "\x1b[0m");
-+	drm_printf(p, "\n\x1b[0m"); /* add new line and clear formatting */
- 	drm_printf(p, "==== %s \"%s\" log end   ====\n", prefix, log->name);
- }
- 
- void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p)
++	}
++	mutex_unlock(&trace_types_lock);
++	return ret;
++}
++
+ static int tracing_open_options(struct inode *inode, struct file *filp)
  {
--	struct vpu_tracing_buffer_header *log_header;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next = 0;
+ 	struct trace_option_dentry *topt = inode->i_private;
+ 	int ret;
  
--	while (fw_log_ptr(vdev, vdev->fw->mem_log_crit, &next, &log_header) == 0)
--		fw_log_print_buffer(vdev, log_header, "VPU critical", only_new_msgs, p);
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0)
-+		fw_log_print_buffer(&desc, "VPU critical", only_new_msgs, p);
+-	ret = tracing_check_open_get_tr(topt->tr);
++	ret = trace_array_tracer_options_get(topt);
+ 	if (ret)
+ 		return ret;
  
- 	next = 0;
--	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
--		fw_log_print_buffer(vdev, log_header, "VPU verbose", only_new_msgs, p);
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0)
-+		fw_log_print_buffer(&desc, "VPU verbose", only_new_msgs, p);
- }
+@@ -9093,6 +9143,7 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer)
+ 	tr->topts = tr_topts;
+ 	tr->topts[tr->nr_topts].tracer = tracer;
+ 	tr->topts[tr->nr_topts].topts = topts;
++	tr->topts[tr->nr_topts].nr_topts = cnt;
+ 	tr->nr_topts++;
  
--void ivpu_fw_log_clear(struct ivpu_device *vdev)
-+void ivpu_fw_log_mark_read(struct ivpu_device *vdev)
- {
--	struct vpu_tracing_buffer_header *log_header;
--	u32 next = 0;
-+	struct ivpu_fw_log_desc desc;
-+	u32 next;
+ 	for (cnt = 0; opts[cnt].name; cnt++) {
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index a632965446b8e..306455f2c034b 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -203,6 +203,7 @@ struct array_buffer {
+ struct trace_options {
+ 	struct tracer			*tracer;
+ 	struct trace_option_dentry	*topts;
++	int				nr_topts;
+ };
  
--	while (fw_log_ptr(vdev, vdev->fw->mem_log_crit, &next, &log_header) == 0)
--		log_header->read_index = log_header->write_index;
-+	next = 0;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-+		desc.log->read_index = READ_ONCE(desc.log->write_index);
-+		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
-+	}
- 
- 	next = 0;
--	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
--		log_header->read_index = log_header->write_index;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-+		desc.log->read_index = READ_ONCE(desc.log->write_index);
-+		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
-+	}
- }
- 
- void ivpu_fw_log_reset(struct ivpu_device *vdev)
- {
--	struct vpu_tracing_buffer_header *log_header;
-+	struct ivpu_fw_log_desc desc;
- 	u32 next;
- 
- 	next = 0;
--	while (fw_log_ptr(vdev, vdev->fw->mem_log_crit, &next, &log_header) == 0)
--		log_header->read_index = 0;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
-+		desc.log->read_index = 0;
-+		desc.log->read_wrap_count = 0;
-+	}
- 
- 	next = 0;
--	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
--		log_header->read_index = 0;
-+	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
-+		desc.log->read_index = 0;
-+		desc.log->read_wrap_count = 0;
-+	}
- }
-diff --git a/drivers/accel/ivpu/ivpu_fw_log.h b/drivers/accel/ivpu/ivpu_fw_log.h
-index 692ee0f266a31..3bde9aa549035 100644
---- a/drivers/accel/ivpu/ivpu_fw_log.h
-+++ b/drivers/accel/ivpu/ivpu_fw_log.h
-@@ -26,7 +26,7 @@ extern unsigned int ivpu_log_level;
- #define IVPU_FW_CRITICAL_BUFFER_SIZE		SZ_512K
- 
- void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p);
--void ivpu_fw_log_clear(struct ivpu_device *vdev);
-+void ivpu_fw_log_mark_read(struct ivpu_device *vdev);
- void ivpu_fw_log_reset(struct ivpu_device *vdev);
- 
- static inline void ivpu_fw_log_dump(struct ivpu_device *vdev)
-diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
-index e17e4e6b037ee..3a59242b6a423 100644
---- a/drivers/accel/ivpu/ivpu_pm.c
-+++ b/drivers/accel/ivpu/ivpu_pm.c
-@@ -13,6 +13,7 @@
- #include "ivpu_drv.h"
- #include "ivpu_hw.h"
- #include "ivpu_fw.h"
-+#include "ivpu_fw_log.h"
- #include "ivpu_ipc.h"
- #include "ivpu_job.h"
- #include "ivpu_mmu.h"
-diff --git a/drivers/accel/ivpu/vpu_boot_api.h b/drivers/accel/ivpu/vpu_boot_api.h
-index 88345070a9965..7d302693f4562 100644
---- a/drivers/accel/ivpu/vpu_boot_api.h
-+++ b/drivers/accel/ivpu/vpu_boot_api.h
-@@ -301,7 +301,9 @@ struct vpu_tracing_buffer_header {
- 	u32 host_canary_start;
- 	/* offset from start of buffer for trace entries */
- 	u32 read_index;
--	u32 pad_to_cache_line_size_0[14];
-+	/* keeps track of wrapping on the reader side */
-+	u32 read_wrap_count;
-+	u32 pad_to_cache_line_size_0[13];
- 	/* End of first cache line */
- 
- 	/**
+ struct trace_pid_list *trace_pid_list_alloc(void);
 -- 
 2.53.0
 
