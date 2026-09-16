@@ -1,560 +1,298 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E47753FD27
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:36:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FEFA5427F8
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:37:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583837; cv=none; b=S5cl/FfXLx8eFSwbOapLe7uHPd//Lj6Jr6mxVkdKS5kbfTuACey6wfust7HWf4oVLNWvorc5X1dY2rFkd2IMm3CRp6nzcncobtIJF79rSuqa3lvrWBqv/XPmTyTzOdlvX5EfR76LbNKqJ8zLcXGnqZ5+azQldzAMUBd87U+c1pw=
+	t=1789583838; cv=none; b=eDrpHgCK+QfjDR2MIbtn61lrgt3JjePtcFnDIHbdtvQvY9vFS7AVCAdJY8ZOFoyN+zgihAMV2CFAyEAmkjhrNQ/pV0tkjRuMGzQJkjVPvWaM/yukio4w/dY2b4V+UJazn4VGL72BcHrbKDrT1d3waZVoMGfpE+h6RnR9EqZwKWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583837; c=relaxed/simple;
-	bh=38DsnRUADEA9KAV32AkPZP45sPj+366JlGJ/FarSlEI=;
+	s=arc-20240116; t=1789583838; c=relaxed/simple;
+	bh=RvvnBvR4argft4F59MyUzyyqmaAJvmn2A65DpPjI3fo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ScoDWK0Bm4z2YWZ6eKHntg2P42oqT5M0Z40ObrwOHUlLX4RlLCuhPMoNGXX4VLWlCYY6ihBW0CyLnSUK0Oi/3FuWNgpvCYT03S2r+oH/IrQCwwMhtKL/SJzlo6binC22ddabu/FRGLQj4fy0CGknXAxuOc0y+z6xKPZJo/Nq1fU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZuzckGGH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HiSmpnkymBhyAxgB4vr/cAfVLQdGLOc9hoSxzshyAI7AHRYgxwB75N4LJNO/ceYES1m5RJlphPDOE4Nc55TArCxgMODbYqGlIVbPBJ1lbmLAHsUOP4HXmQmP8xDUhVT+RJKkcRhFj9J+qMR3BmV1M3ZUiHYn49ukxT4UfX8J5AY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XVuEvp8u; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZuzckGGH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B748F1F0089A;
-	Wed, 16 Sep 2026 18:36:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XVuEvp8u"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 708C31F000FF;
+	Wed, 16 Sep 2026 18:36:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789583803;
-	bh=m/mcXmZoul9FgJ2qXkR09O6yTG3MPB+8QQsZcBJ0qDA=;
+	s=k20260515; t=1789583807;
+	bh=Ms+6jOgkJ03a/8MzXevMj2vWaUIlijr8HV7BjwW8KW8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ZuzckGGHPaLZU/9JjxfZXpGoba3mXk9zgMXfTQYBNribShPV9q3c2jXANVj0lKDp3
-	 4ShwrjrZEW3xvJfryiqjqYgBN9c+Fl0XcfdvpS6wynkwo6ct9vJRGmShBE8zm1Ol05
-	 N/dMZQsmPbRnBMD2HzAMlMAa5LE5JTcMlVowV542+w4OT3plbf96C9WBGFZMpnDP6p
-	 MOvC2wUtKKj3mxXnUeXfwpeqB76PeKlxqvSFf8OeKF4AckurUrR2l8yGyeUG/xlt23
-	 /MfeGrgrYeaiEJ8QmNyKRfJMfhPpJVUzhShS8mSD/HhonGdurb3BoiUjBhALl1/2Yf
-	 kLPsbw/lP4tWw==
+	b=XVuEvp8uHhxKi6oECsrsRJyzCZD3dIgLEYIQH1HfPOrnUsE7exgGAIFCt97rjsPte
+	 eKd/3yqUa9ZTA38L9vvNg4Yh5jFTf8Pi3GvRaYNq3NBsryrQZuVJ4SiK/ojSl8Zgkr
+	 2/i3sa1rYXmFRDQHycoTF8eoHQvoxFcbiuGYbaLTNjFPXZ3UHmWZvRitrsWqXGok5m
+	 NlycpZ7YMhpw285dTtLmyxgooVHgsQJ3wk5tv/KQr5l0nGQil+PYtO+Zg0BjG9evIX
+	 FR5xBhS7KSY3pa4JGCBoS5rqFbUaQaQ5OA24rip1T/8WJvR6I8hRyMV3xqjO9SzheT
+	 xOG+MxmBDHSlw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>,
-	=?UTF-8?q?Christian=20K=C3=B6nig?= <christian.koenig@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: Oleg Nesterov <oleg@redhat.com>,
+	Alexey Gladkov <legion@kernel.org>,
+	Bradley Morgan <include@grrlz.net>,
+	Pavel Tikhomirov <ptikhomirov@virtuozzo.com>,
+	Joel Granados <joel.granados@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 1/3] drm/amdgpu: get rid of amdgpu_ttm_clear_buffer
-Date: Wed, 16 Sep 2026 14:36:39 -0400
-Message-ID: <20260916183641.1771014-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y 1/2] sysctl: move the "cad_pid" entry from pid_table[] to kern_reboot_table[]
+Date: Wed, 16 Sep 2026 14:36:44 -0400
+Message-ID: <20260916183645.1771278-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091636-creole-glorified-e7b6@gregkh>
-References: <2026091636-creole-glorified-e7b6@gregkh>
+In-Reply-To: <2026091655-decent-swimsuit-d207@gregkh>
+References: <2026091655-decent-swimsuit-d207@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
+From: Oleg Nesterov <oleg@redhat.com>
 
-[ Upstream commit 23bd7e67961ee531386246e98021273bb45b0a84 ]
+[ Upstream commit 7170ca01623b399c97f2ae9d3e228badc1f25ea3 ]
 
-It's doing the same thing as amdgpu_fill_buffer(src_data=0), so drop it.
+cad_pid is global, and kill_cad_pid() is only used in the root namespace.
 
-The only caveat is that amdgpu_res_cleared() return value is only valid
-right after allocation.
+However, due to pid_table_root_permissions(), a non-root user can unshare
+pid/user namespaces and modify it from the child namespace. This makes no
+sense and is simply wrong.
 
----
-v2: introduce new "bool consider_clear_status" arg
-v6: dont pass a NULL resv when calling amdgpu_fill_buffer from
-    amdgpu_bo_create
----
+Move it to kern_reboot_table[] where it logically belongs; this ensures
+that only GLOBAL_ROOT_UID can read/modify this sysctl.
 
-Signed-off-by: Pierre-Eric Pelloux-Prayer <pierre-eric.pelloux-prayer@amd.com>
-Reviewed-by: Christian König <christian.koenig@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Note that this patch doesn't preserve "#ifdef CONFIG_PROC_SYSCTL" around
+the "cad_pid"; CONFIG_PROC_SYSCTL selects CONFIG_SYSCTL, so it is always
+set when kern_reboot_table[] is compiled.
 
-Stable adaptation for 6.18:
+Cc: stable@vger.kernel.org
+Fixes: e054bcbe7e7a ("sysctl: move cad_pid into kernel/pid.c")
+Signed-off-by: Oleg Nesterov <oleg@redhat.com>
+Acked-by: Alexey Gladkov <legion@kernel.org>
+Reviewed-by: Bradley Morgan <include@grrlz.net>
+Reviewed-by: Pavel Tikhomirov <ptikhomirov@virtuozzo.com>
+Signed-off-by: Joel Granados <joel.granados@kernel.org>
 
-Consolidate allocation clearing and VRAM wiping in amdgpu_fill_buffer,
-using the existing high_pr/low_pr drm_sched_entity objects and shared
-GART-window mutex. The upstream buffer-entity infrastructure is absent.
-Preserve the existing scheduling priorities and reservation dependencies,
-only skip cleared regions immediately after allocation, and handle a
-successful no-job clear with a NULL fence and an initialized return code.
+Backport notes for Linux 6.1:
 
-To prepare the unchanged VMID-flush fix in 87ceb8cba73d, pass these existing
-entities explicitly through the map/copy/fill helpers. Remove the unused
-direct-submit option (all callers passed false), update the benchmark and
-KFD callers, and specialize the fill entry point to zero, its only use.
-Use GART window 0 for clearing, matching the target's context. No functions
-or dynamic buffer-entity infrastructure are added; the VMID-flush behavior
-itself is left for the target commit.
+The cad_pid handler and sysctl entry still live in kernel/sysctl.c in
+this tree. Move that existing handler and entry directly to reboot.c;
+do not import the absent PID-namespace sysctl infrastructure. Use a
+local ctl_table copy and proc_dointvec(), since __do_proc_dointvec()
+is private to sysctl.c, while retaining the non-const 6.1 handler API
+and the required table sentinel. No new functions are introduced.
 
-Stable-dep-of: 87ceb8cba73d ("drm/amdgpu: skip the VMID 0 flush for VRAM")
+Keep reboot sysctl registration independent of CONFIG_SYSFS by making
+the existing kernel_reboot_sysctls_init() its own late initcall. This
+preserves cad_pid availability with PROC_SYSCTL=y and SYSFS=n.
+
+Relocate the existing TASK_SIZE_OF fallback, unchanged, before cad_pid
+in sched.h. Its conditional boundary lets the target's declaration hunk
+merge cleanly with Git's default merge algorithm despite the absence of
+upstream's adjacent lazy-MMU helpers. Do not add those helpers or alter
+the cad_pid declaration in this dependency.
+
+Guard the existing POSIX-timer-only sigqueue helpers with
+CONFIG_POSIX_TIMERS and align their introductory comment with upstream.
+This supplies the context needed for 5a88f78df753 ("reboot: fix cad_pid
+use-after-free race") to cherry-pick cleanly without pulling in timer
+refactoring. Its RCU lifetime fix remains in the target commit.
+
+[ sashal: Reduced backport -- upstream 7170ca01623b3 touches 2 file(s), this
+  backport carries 4. Not backported here:
+  kernel/pid.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 5a88f78df753 ("reboot: fix cad_pid use-after-free race")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c |   6 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_object.c    |  15 +-
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c       | 189 +++++++-----------
- drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h       |  21 +-
- drivers/gpu/drm/amd/amdkfd/kfd_migrate.c      |   5 +-
- 5 files changed, 93 insertions(+), 143 deletions(-)
+ include/linux/sched.h |  8 ++++----
+ kernel/reboot.c       | 40 +++++++++++++++++++++++++++++++++++-----
+ kernel/signal.c       | 12 +++++-------
+ kernel/sysctl.c       | 31 -------------------------------
+ 4 files changed, 44 insertions(+), 47 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-index 199693369c7ce..81d0e16fd1fe4 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_benchmark.c
-@@ -37,9 +37,9 @@ static int amdgpu_benchmark_do_move(struct amdgpu_device *adev, unsigned size,
- 
- 	stime = ktime_get();
- 	for (i = 0; i < n; i++) {
--		struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
--		r = amdgpu_copy_buffer(ring, saddr, daddr, size, NULL, &fence,
--				       false, false, 0);
-+		r = amdgpu_copy_buffer(adev, &adev->mman.high_pr,
-+				       saddr, daddr, size, NULL, &fence,
-+				       false, 0);
- 		if (r)
- 			goto exit_do_move;
- 		r = dma_fence_wait(fence, false);
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-index cdab2c098cfab..e29bcb090f06d 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_object.c
-@@ -728,13 +728,17 @@ int amdgpu_bo_create(struct amdgpu_device *adev,
- 	    bo->tbo.resource->mem_type == TTM_PL_VRAM) {
- 		struct dma_fence *fence;
- 
--		r = amdgpu_ttm_clear_buffer(bo, bo->tbo.base.resv, &fence);
-+		r = amdgpu_fill_buffer(&adev->mman.low_pr, bo,
-+				       bo->tbo.base.resv, &fence, true,
-+				       AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
- 		if (unlikely(r))
- 			goto fail_unreserve;
- 
--		dma_resv_add_fence(bo->tbo.base.resv, fence,
--				   DMA_RESV_USAGE_KERNEL);
--		dma_fence_put(fence);
-+		if (fence) {
-+			dma_resv_add_fence(bo->tbo.base.resv, fence,
-+					   DMA_RESV_USAGE_KERNEL);
-+			dma_fence_put(fence);
-+		}
- 	}
- 	if (!bp->resv)
- 		amdgpu_bo_unreserve(bo);
-@@ -1324,7 +1328,8 @@ void amdgpu_bo_release_notify(struct ttm_buffer_object *bo)
- 	if (r)
- 		goto out;
- 
--	r = amdgpu_fill_buffer(abo, 0, &bo->base._resv, &fence, true,
-+	r = amdgpu_fill_buffer(&adev->mman.low_pr, abo,
-+			       &bo->base._resv, &fence, false,
- 			       AMDGPU_KERNEL_JOB_ID_CLEAR_ON_RELEASE);
- 	if (WARN_ON(r))
- 		goto out;
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-index c48c266cc7a75..dbaba8aacec27 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.c
-@@ -167,11 +167,11 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
- 
- /**
-  * amdgpu_ttm_map_buffer - Map memory into the GART windows
-+ * @entity: scheduler entity to use
-  * @bo: buffer object to map
-  * @mem: memory object to map
-  * @mm_cur: range to map
-  * @window: which GART window to use
-- * @ring: DMA ring to use for the copy
-  * @tmz: if we should setup a TMZ enabled mapping
-  * @size: in number of bytes to map, out number of bytes mapped
-  * @addr: resulting address inside the MC address space
-@@ -179,14 +179,16 @@ static void amdgpu_evict_flags(struct ttm_buffer_object *bo,
-  * Setup one of the GART windows to access a specific piece of memory or return
-  * the physical address for local memory.
-  */
--static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
-+static int amdgpu_ttm_map_buffer(struct drm_sched_entity *entity,
-+				 struct ttm_buffer_object *bo,
- 				 struct ttm_resource *mem,
- 				 struct amdgpu_res_cursor *mm_cur,
--				 unsigned int window, struct amdgpu_ring *ring,
-+				 unsigned int window,
- 				 bool tmz, uint64_t *size, uint64_t *addr)
- {
--	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->bdev);
- 	unsigned int offset, num_pages, num_dw, num_bytes;
-+	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
- 	uint64_t src_addr, dst_addr;
- 	struct amdgpu_job *job;
- 	void *cpu_addr;
-@@ -227,7 +229,7 @@ static int amdgpu_ttm_map_buffer(struct ttm_buffer_object *bo,
- 	num_dw = ALIGN(adev->mman.buffer_funcs->copy_num_dw, 8);
- 	num_bytes = num_pages * 8 * AMDGPU_GPU_PAGES_IN_CPU_PAGE;
- 
--	r = amdgpu_job_alloc_with_ib(adev, &adev->mman.high_pr,
-+	r = amdgpu_job_alloc_with_ib(adev, entity,
- 				     AMDGPU_FENCE_OWNER_UNDEFINED,
- 				     num_dw * 4 + num_bytes,
- 				     AMDGPU_IB_POOL_DELAYED, &job,
-@@ -296,7 +298,7 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 			       struct dma_resv *resv,
- 			       struct dma_fence **f)
- {
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
-+	struct drm_sched_entity *entity = &adev->mman.high_pr;
- 	struct amdgpu_res_cursor src_mm, dst_mm;
- 	struct dma_fence *fence = NULL;
- 	int r = 0;
-@@ -322,13 +324,13 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 		cur_size = min3(src_mm.size, dst_mm.size, 256ULL << 20);
- 
- 		/* Map src to window 0 and dst to window 1. */
--		r = amdgpu_ttm_map_buffer(src->bo, src->mem, &src_mm,
--					  0, ring, tmz, &cur_size, &from);
-+		r = amdgpu_ttm_map_buffer(entity, src->bo, src->mem, &src_mm,
-+					  0, tmz, &cur_size, &from);
- 		if (r)
- 			goto error;
- 
--		r = amdgpu_ttm_map_buffer(dst->bo, dst->mem, &dst_mm,
--					  1, ring, tmz, &cur_size, &to);
-+		r = amdgpu_ttm_map_buffer(entity, dst->bo, dst->mem, &dst_mm,
-+					  1, tmz, &cur_size, &to);
- 		if (r)
- 			goto error;
- 
-@@ -355,8 +357,8 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 							     write_compress_disable));
- 		}
- 
--		r = amdgpu_copy_buffer(ring, from, to, cur_size, resv,
--				       &next, false, true, copy_flags);
-+		r = amdgpu_copy_buffer(adev, entity, from, to, cur_size, resv,
-+				       &next, true, copy_flags);
- 		if (r)
- 			goto error;
- 
-@@ -410,7 +412,7 @@ static int amdgpu_move_blit(struct ttm_buffer_object *bo,
- 	    (abo->flags & AMDGPU_GEM_CREATE_VRAM_WIPE_ON_RELEASE)) {
- 		struct dma_fence *wipe_fence = NULL;
- 
--		r = amdgpu_fill_buffer(abo, 0, NULL, &wipe_fence,
-+		r = amdgpu_fill_buffer(&adev->mman.high_pr, abo, NULL, &wipe_fence,
- 				       false, AMDGPU_KERNEL_JOB_ID_MOVE_BLIT);
- 		if (r) {
- 			goto error;
-@@ -2276,19 +2278,16 @@ void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev, bool enable)
+diff --git a/include/linux/sched.h b/include/linux/sched.h
+index 5b415d3b653e3..71ecfae2aae94 100644
+--- a/include/linux/sched.h
++++ b/include/linux/sched.h
+@@ -1724,6 +1724,10 @@ static inline int is_global_init(struct task_struct *tsk)
+ 	return task_tgid_nr(tsk) == 1;
  }
  
- static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
--				  bool direct_submit,
-+				  struct drm_sched_entity *entity,
- 				  unsigned int num_dw,
- 				  struct dma_resv *resv,
- 				  bool vm_needs_flush,
- 				  struct amdgpu_job **job,
--				  bool delayed, u64 k_job_id)
-+				  u64 k_job_id)
- {
--	enum amdgpu_ib_pool_type pool = direct_submit ?
--		AMDGPU_IB_POOL_DIRECT :
--		AMDGPU_IB_POOL_DELAYED;
-+	enum amdgpu_ib_pool_type pool = AMDGPU_IB_POOL_DELAYED;
- 	int r;
--	struct drm_sched_entity *entity = delayed ? &adev->mman.low_pr :
--						    &adev->mman.high_pr;
++#ifndef TASK_SIZE_OF
++#define TASK_SIZE_OF(tsk)	TASK_SIZE
++#endif
 +
- 	r = amdgpu_job_alloc_with_ib(adev, entity,
- 				     AMDGPU_FENCE_OWNER_UNDEFINED,
- 				     num_dw * 4, pool, job, k_job_id);
-@@ -2308,20 +2307,22 @@ static int amdgpu_ttm_prepare_job(struct amdgpu_device *adev,
- 						   DMA_RESV_USAGE_BOOKKEEP);
- }
+ extern struct pid *cad_pid;
  
--int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
-+int amdgpu_copy_buffer(struct amdgpu_device *adev,
-+		       struct drm_sched_entity *entity,
-+		       uint64_t src_offset,
- 		       uint64_t dst_offset, uint32_t byte_count,
- 		       struct dma_resv *resv,
--		       struct dma_fence **fence, bool direct_submit,
-+		       struct dma_fence **fence,
- 		       bool vm_needs_flush, uint32_t copy_flags)
+ /*
+@@ -2292,10 +2296,6 @@ static inline bool vcpu_is_preempted(int cpu)
+ extern long sched_setaffinity(pid_t pid, const struct cpumask *new_mask);
+ extern long sched_getaffinity(pid_t pid, struct cpumask *mask);
+ 
+-#ifndef TASK_SIZE_OF
+-#define TASK_SIZE_OF(tsk)	TASK_SIZE
+-#endif
+-
+ #ifdef CONFIG_SMP
+ static inline bool owner_on_cpu(struct task_struct *owner)
  {
--	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
- 	unsigned int num_loops, num_dw;
- 	struct amdgpu_job *job;
- 	uint32_t max_bytes;
- 	unsigned int i;
- 	int r;
+diff --git a/kernel/reboot.c b/kernel/reboot.c
+index 6ebef11c88760..49b73674555e1 100644
+--- a/kernel/reboot.c
++++ b/kernel/reboot.c
+@@ -1257,7 +1257,32 @@ static struct attribute *reboot_attrs[] = {
+ 	NULL,
+ };
  
--	if (!direct_submit && !ring->sched.ready) {
-+	if (!ring->sched.ready) {
- 		dev_err(adev->dev,
- 			"Trying to move memory with ring turned off.\n");
- 		return -EINVAL;
-@@ -2330,8 +2331,8 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
- 	max_bytes = adev->mman.buffer_funcs->copy_max_bytes;
- 	num_loops = DIV_ROUND_UP(byte_count, max_bytes);
- 	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->copy_num_dw, 8);
--	r = amdgpu_ttm_prepare_job(adev, direct_submit, num_dw,
--				   resv, vm_needs_flush, &job, false,
-+	r = amdgpu_ttm_prepare_job(adev, entity, num_dw,
-+				   resv, vm_needs_flush, &job,
- 				   AMDGPU_KERNEL_JOB_ID_TTM_COPY_BUFFER);
- 	if (r)
- 		return r;
-@@ -2348,29 +2349,20 @@ int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
++#endif /* CONFIG_SYSFS */
++
+ #ifdef CONFIG_SYSCTL
++static int proc_do_cad_pid(struct ctl_table *table, int write, void *buffer,
++			   size_t *lenp, loff_t *ppos)
++{
++	struct ctl_table tmp_table = *table;
++	struct pid *new_pid;
++	pid_t tmp_pid;
++	int r;
++
++	tmp_pid = pid_vnr(cad_pid);
++	tmp_table.data = &tmp_pid;
++
++	r = proc_dointvec(&tmp_table, write, buffer, lenp, ppos);
++	if (r || !write)
++		return r;
++
++	new_pid = find_get_pid(tmp_pid);
++	if (!new_pid)
++		return -ESRCH;
++
++	put_pid(xchg(&cad_pid, new_pid));
++	return 0;
++}
++
+ static struct ctl_table kern_reboot_table[] = {
+ 	{
+ 		.procname       = "poweroff_cmd",
+@@ -1273,17 +1298,24 @@ static struct ctl_table kern_reboot_table[] = {
+ 		.mode           = 0644,
+ 		.proc_handler   = proc_dointvec,
+ 	},
++	{
++		.procname	= "cad_pid",
++		.maxlen		= sizeof(int),
++		.mode		= 0600,
++		.proc_handler	= proc_do_cad_pid,
++	},
+ 	{ }
+ };
  
- 	amdgpu_ring_pad_ib(ring, &job->ibs[0]);
- 	WARN_ON(job->ibs[0].length_dw > num_dw);
--	if (direct_submit)
--		r = amdgpu_job_submit_direct(job, ring, fence);
--	else
--		*fence = amdgpu_job_submit(job);
--	if (r)
--		goto error_free;
--
--	return r;
--
--error_free:
--	amdgpu_job_free(job);
--	dev_err(adev->dev, "Error scheduling IBs (%d)\n", r);
--	return r;
-+	*fence = amdgpu_job_submit(job);
+-static void __init kernel_reboot_sysctls_init(void)
++static int __init kernel_reboot_sysctls_init(void)
+ {
+ 	register_sysctl_init("kernel", kern_reboot_table);
 +	return 0;
  }
+-#else
+-#define kernel_reboot_sysctls_init() do { } while (0)
++late_initcall(kernel_reboot_sysctls_init);
+ #endif /* CONFIG_SYSCTL */
  
--static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
-+static int amdgpu_ttm_fill_mem(struct amdgpu_device *adev,
-+			       struct drm_sched_entity *entity,
-+			       uint32_t src_data,
- 			       uint64_t dst_addr, uint32_t byte_count,
- 			       struct dma_resv *resv,
- 			       struct dma_fence **fence,
--			       bool vm_needs_flush, bool delayed,
-+			       bool vm_needs_flush,
- 			       u64 k_job_id)
++#ifdef CONFIG_SYSFS
+ static const struct attribute_group reboot_attr_group = {
+ 	.attrs = reboot_attrs,
+ };
+@@ -1303,8 +1335,6 @@ static int __init reboot_ksysfs_init(void)
+ 		return ret;
+ 	}
+ 
+-	kernel_reboot_sysctls_init();
+-
+ 	return 0;
+ }
+ late_initcall(reboot_ksysfs_init);
+diff --git a/kernel/signal.c b/kernel/signal.c
+index efdd01ffdccd7..1c1bbf5abe9aa 100644
+--- a/kernel/signal.c
++++ b/kernel/signal.c
+@@ -1937,14 +1937,10 @@ int kill_pid(struct pid *pid, int sig, int priv)
+ }
+ EXPORT_SYMBOL(kill_pid);
+ 
++#ifdef CONFIG_POSIX_TIMERS
+ /*
+- * These functions support sending signals using preallocated sigqueue
+- * structures.  This is needed "because realtime applications cannot
+- * afford to lose notifications of asynchronous events, like timer
+- * expirations or I/O completions".  In the case of POSIX Timers
+- * we allocate the sigqueue structure from the timer_create.  If this
+- * allocation fails we are able to report the failure to the application
+- * with an EAGAIN error.
++ * These functions handle POSIX timer signals. POSIX timers use
++ * preallocated sigqueue structs for sending signals.
+  */
+ struct sigqueue *sigqueue_alloc(void)
  {
--	struct amdgpu_device *adev = ring->adev;
-+	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
- 	unsigned int num_loops, num_dw;
- 	struct amdgpu_job *job;
- 	uint32_t max_bytes;
-@@ -2380,8 +2372,8 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
- 	max_bytes = adev->mman.buffer_funcs->fill_max_bytes;
- 	num_loops = DIV_ROUND_UP_ULL(byte_count, max_bytes);
- 	num_dw = ALIGN(num_loops * adev->mman.buffer_funcs->fill_num_dw, 8);
--	r = amdgpu_ttm_prepare_job(adev, false, num_dw, resv, vm_needs_flush,
--				   &job, delayed, k_job_id);
-+	r = amdgpu_ttm_prepare_job(adev, entity, num_dw, resv,
-+				   vm_needs_flush, &job, k_job_id);
- 	if (r)
- 		return r;
- 
-@@ -2402,90 +2394,39 @@ static int amdgpu_ttm_fill_mem(struct amdgpu_ring *ring, uint32_t src_data,
+@@ -2024,6 +2020,8 @@ int send_sigqueue(struct sigqueue *q, struct pid *pid, enum pid_type type)
+ 	return ret;
  }
  
- /**
-- * amdgpu_ttm_clear_buffer - clear memory buffers
-- * @bo: amdgpu buffer object
-- * @resv: reservation object
-- * @fence: dma_fence associated with the operation
-- *
-- * Clear the memory buffer resource.
-- *
-- * Returns:
-- * 0 for success or a negative error code on failure.
-+ * amdgpu_fill_buffer - fill a buffer with 0
-+ * @entity: scheduler entity to use
-+ * @bo: the bo to fill
-+ * @resv: fences contained in this reservation will be used as dependencies.
-+ * @out_fence: the fence from the last clear will be stored here. It might be
-+ *             NULL if no job was run.
-+ * @consider_clear_status: skip regions already cleared, only valid immediately
-+ *                         after allocation.
-+ * @k_job_id: trace id
-  */
--int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
--			    struct dma_resv *resv,
--			    struct dma_fence **fence)
++#endif /* CONFIG_POSIX_TIMERS */
++
+ static void do_notify_pidfd(struct task_struct *task)
+ {
+ 	struct pid *pid;
+diff --git a/kernel/sysctl.c b/kernel/sysctl.c
+index eaa2691caf492..83a1f65e1f893 100644
+--- a/kernel/sysctl.c
++++ b/kernel/sysctl.c
+@@ -1344,28 +1344,6 @@ int proc_dointvec_ms_jiffies(struct ctl_table *table, int write, void *buffer,
+ 				do_proc_dointvec_ms_jiffies_conv, NULL);
+ }
+ 
+-static int proc_do_cad_pid(struct ctl_table *table, int write, void *buffer,
+-		size_t *lenp, loff_t *ppos)
 -{
--	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
--	struct amdgpu_res_cursor cursor;
--	u64 addr;
--	int r = 0;
+-	struct pid *new_pid;
+-	pid_t tmp;
+-	int r;
 -
--	if (!adev->mman.buffer_funcs_enabled)
--		return -EINVAL;
+-	tmp = pid_vnr(cad_pid);
 -
--	if (!fence)
--		return -EINVAL;
+-	r = __do_proc_dointvec(&tmp, table, write, buffer,
+-			       lenp, ppos, NULL, NULL);
+-	if (r || !write)
+-		return r;
 -
--	*fence = dma_fence_get_stub();
+-	new_pid = find_get_pid(tmp);
+-	if (!new_pid)
+-		return -ESRCH;
 -
--	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &cursor);
--
--	mutex_lock(&adev->mman.gtt_window_lock);
--	while (cursor.remaining) {
--		struct dma_fence *next = NULL;
--		u64 size;
--
--		if (amdgpu_res_cleared(&cursor)) {
--			amdgpu_res_next(&cursor, cursor.size);
--			continue;
--		}
--
--		/* Never clear more than 256MiB at once to avoid timeouts */
--		size = min(cursor.size, 256ULL << 20);
--
--		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &cursor,
--					  1, ring, false, &size, &addr);
--		if (r)
--			goto err;
--
--		r = amdgpu_ttm_fill_mem(ring, 0, addr, size, resv,
--					&next, true, true,
--					AMDGPU_KERNEL_JOB_ID_TTM_CLEAR_BUFFER);
--		if (r)
--			goto err;
--
--		dma_fence_put(*fence);
--		*fence = next;
--
--		amdgpu_res_next(&cursor, size);
--	}
--err:
--	mutex_unlock(&adev->mman.gtt_window_lock);
--
--	return r;
+-	put_pid(xchg(&cad_pid, new_pid));
+-	return 0;
 -}
 -
--int amdgpu_fill_buffer(struct amdgpu_bo *bo,
--			uint32_t src_data,
--			struct dma_resv *resv,
--			struct dma_fence **f,
--			bool delayed,
--			u64 k_job_id)
-+int amdgpu_fill_buffer(struct drm_sched_entity *entity,
-+		       struct amdgpu_bo *bo,
-+		       struct dma_resv *resv,
-+		       struct dma_fence **out_fence,
-+		       bool consider_clear_status,
-+		       u64 k_job_id)
- {
- 	struct amdgpu_device *adev = amdgpu_ttm_adev(bo->tbo.bdev);
--	struct amdgpu_ring *ring = adev->mman.buffer_funcs_ring;
- 	struct dma_fence *fence = NULL;
- 	struct amdgpu_res_cursor dst;
- 	int r;
- 
-+	if (!entity)
-+		return -EINVAL;
-+
- 	if (!adev->mman.buffer_funcs_enabled) {
- 		dev_err(adev->dev,
- 			"Trying to clear memory with ring turned off.\n");
- 		return -EINVAL;
- 	}
- 
-+	/* All regions may already be clear, with no job needed. */
-+	r = 0;
- 	amdgpu_res_first(bo->tbo.resource, 0, amdgpu_bo_size(bo), &dst);
- 
- 	mutex_lock(&adev->mman.gtt_window_lock);
-@@ -2493,16 +2434,22 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
- 		struct dma_fence *next;
- 		uint64_t cur_size, to;
- 
-+		if (consider_clear_status && amdgpu_res_cleared(&dst)) {
-+			amdgpu_res_next(&dst, dst.size);
-+			continue;
-+		}
-+
- 		/* Never fill more than 256MiB at once to avoid timeouts */
- 		cur_size = min(dst.size, 256ULL << 20);
- 
--		r = amdgpu_ttm_map_buffer(&bo->tbo, bo->tbo.resource, &dst,
--					  1, ring, false, &cur_size, &to);
-+		r = amdgpu_ttm_map_buffer(entity, &bo->tbo, bo->tbo.resource, &dst,
-+					  0, false, &cur_size, &to);
- 		if (r)
- 			goto error;
- 
--		r = amdgpu_ttm_fill_mem(ring, src_data, to, cur_size, resv,
--					&next, true, delayed, k_job_id);
-+		r = amdgpu_ttm_fill_mem(adev, entity,
-+					0, to, cur_size, resv,
-+					&next, true, k_job_id);
- 		if (r)
- 			goto error;
- 
-@@ -2513,9 +2460,7 @@ int amdgpu_fill_buffer(struct amdgpu_bo *bo,
- 	}
- error:
- 	mutex_unlock(&adev->mman.gtt_window_lock);
--	if (f)
--		*f = dma_fence_get(fence);
--	dma_fence_put(fence);
-+	*out_fence = fence;
- 	return r;
- }
- 
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-index 0be2728aa8729..fc5133af30485 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_ttm.h
-@@ -165,10 +165,12 @@ int amdgpu_ttm_init(struct amdgpu_device *adev);
- void amdgpu_ttm_fini(struct amdgpu_device *adev);
- void amdgpu_ttm_set_buffer_funcs_status(struct amdgpu_device *adev,
- 					bool enable);
--int amdgpu_copy_buffer(struct amdgpu_ring *ring, uint64_t src_offset,
-+int amdgpu_copy_buffer(struct amdgpu_device *adev,
-+		       struct drm_sched_entity *entity,
-+		       uint64_t src_offset,
- 		       uint64_t dst_offset, uint32_t byte_count,
- 		       struct dma_resv *resv,
--		       struct dma_fence **fence, bool direct_submit,
-+		       struct dma_fence **fence,
- 		       bool vm_needs_flush, uint32_t copy_flags);
- int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 			       const struct amdgpu_copy_mem *src,
-@@ -176,15 +178,12 @@ int amdgpu_ttm_copy_mem_to_mem(struct amdgpu_device *adev,
- 			       uint64_t size, bool tmz,
- 			       struct dma_resv *resv,
- 			       struct dma_fence **f);
--int amdgpu_ttm_clear_buffer(struct amdgpu_bo *bo,
--			    struct dma_resv *resv,
--			    struct dma_fence **fence);
--int amdgpu_fill_buffer(struct amdgpu_bo *bo,
--			uint32_t src_data,
--			struct dma_resv *resv,
--			struct dma_fence **fence,
--			bool delayed,
--			u64 k_job_id);
-+int amdgpu_fill_buffer(struct drm_sched_entity *entity,
-+		       struct amdgpu_bo *bo,
-+		       struct dma_resv *resv,
-+		       struct dma_fence **out_fence,
-+		       bool consider_clear_status,
-+		       u64 k_job_id);
- 
- int amdgpu_ttm_alloc_gart(struct ttm_buffer_object *bo);
- void amdgpu_ttm_recover_gart(struct ttm_buffer_object *tbo);
-diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-index c47c9bda51f64..87d51e80df20f 100644
---- a/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-+++ b/drivers/gpu/drm/amd/amdkfd/kfd_migrate.c
-@@ -153,8 +153,9 @@ svm_migrate_copy_memory_gart(struct amdgpu_device *adev, dma_addr_t *sys,
- 			goto out_unlock;
- 		}
- 
--		r = amdgpu_copy_buffer(ring, gart_s, gart_d, size * PAGE_SIZE,
--				       NULL, &next, false, true, 0);
-+		r = amdgpu_copy_buffer(adev, &adev->mman.high_pr,
-+				       gart_s, gart_d, size * PAGE_SIZE,
-+				       NULL, &next, true, 0);
- 		if (r) {
- 			dev_err(adev->dev, "fail %d to copy memory\n", r);
- 			goto out_unlock;
+ /**
+  * proc_do_large_bitmap - read/write from/to a large bitmap
+  * @table: the sysctl table
+@@ -1801,15 +1779,6 @@ static struct ctl_table kern_table[] = {
+ 		.mode		= 0644,
+ 		.proc_handler	= sysrq_sysctl_handler,
+ 	},
+-#endif
+-#ifdef CONFIG_PROC_SYSCTL
+-	{
+-		.procname	= "cad_pid",
+-		.data		= NULL,
+-		.maxlen		= sizeof (int),
+-		.mode		= 0600,
+-		.proc_handler	= proc_do_cad_pid,
+-	},
+ #endif
+ 	{
+ 		.procname	= "threads-max",
 -- 
 2.53.0
 
