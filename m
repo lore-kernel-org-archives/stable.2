@@ -1,163 +1,111 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B1BF61A2C04;
-	Wed, 16 Sep 2026 14:39:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C01FD51991E
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:39:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569554; cv=none; b=uDxOeAR4+BZ/epIhlk+1jnhC5Tgb+lui75JcBDXet9kPnKhmRAEn+GlD58/10yOAQqwLpAbQQrzSIkduLi9PdskUCZiVQZXpEnmnSPFjRhBwd1AVTX9cSdKm+WYnbtycV38yX9TrIG0Bry1wjDHeM3YQFb5eymGZX2Mq/O3i4Ls=
+	t=1789569576; cv=none; b=nySrH3QK2ISA5acRp+VJkNIjtMbj694ne8drGk0FQQiEMWROcaoYunR3Xw/2ntoGwAsSNjfUDWXD3L/2yfi1WivYZNWsIADb2i7U4QhkrC53kwLaeGuQXcxHIK1XuWejoJi8aGp7poytE0TzclhgTlwp0Inl5wAjZdie3cQOmZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569554; c=relaxed/simple;
-	bh=XrmV5AYtnPtVAHzQnffCQxg/8kqWWYTjiNeJHagDZwA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=UXIVawgHc5j4ms6ohTarAgiLNAKvZwAda3AdZqJBDOTEyXFJTV6BspLPA7Y8dbL/60CkgyJeLcFGkhFjE1gQ5cm2tsCKUOX+eWUzHDO9BRDPIwFiFfTn9e56/Q7Q2QAXBPpmLJzLQpPesn5RIFeMmwZp2XvUNM7bHqpsokIqsWQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=D6CFO0S1; arc=none smtp.client-ip=192.198.163.7
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789569576; c=relaxed/simple;
+	bh=/WhVugQKzh4InElXkfFP1+K0vcBOYsl86Q9Bj8i24hU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DTH3/0jYCnqT1UBvD5Sh+B+BWjd4/oxs1t9KdtCQJXFSKkC+0X+x2AqBaU0KJ8hUoDhGoCY5vUxUm/XJaZ/32wraqbdNeb2Ao1MCUFA/eKzz18eWxD81MEbZyjIRpvFRNOCG54Mcd+KtavCcMxE5SXgnB+3ms1qFZ8id6/MxsCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KG/H4lJa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="D6CFO0S1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789569552; x=1821105552;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XrmV5AYtnPtVAHzQnffCQxg/8kqWWYTjiNeJHagDZwA=;
-  b=D6CFO0S1w+nn0EgQ/98MN60pbVFmLwYXLXQIaz1OqGiKDNEyU+fDTfjR
-   THotq6gTlNha3qwi4g5yt3IHYuVUnRBHGIDUVZD0ABSO+Y1Cd5nEqq5lg
-   UWhR33O7o4lRcAlAErrUhr5ukGu55oJqr6bUCKlCbsrI7zBxIzOZzlIQf
-   itu+5ZJLNDszmX9E/gZUOU9MEOhP3LXO7la9B8l3kXLipijMdqKt+fls8
-   QuPk/yYyIvtJTY91pxWqH0j+LSxVPsyQk9gC2LJIGeQ853sIobsE0QiQd
-   jkag1GA+zfF1XJMvw03oIU7mPXQNsFBc0RVZImn3kKktut48Z3mc1TQiE
-   A==;
-X-CSE-ConnectionGUID: 6mWlzFzuSxiNLC7pUq3ztg==
-X-CSE-MsgGUID: gBaOFpSZTPSeB0UWbgBOCw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115483549"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="115483549"
-Received: from fmviesa010.fm.intel.com ([10.60.135.150])
-  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:39:11 -0700
-X-CSE-ConnectionGUID: FstFep20SDOsQTM+1NaYBw==
-X-CSE-MsgGUID: qK+yDxxsQBWJyllQdob0Ww==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269657357"
-Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
-  by fmviesa010-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:39:07 -0700
-Date: Wed, 16 Sep 2026 17:39:05 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>,
-	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
-	Alexandre Torgue <alexandre.torgue@foss.st.com>,
-	Olivier Moysan <olivier.moysan@foss.st.com>,
-	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v2] iio: adc: stm32-adc: fix possible division by zero in
- processed channel
-Message-ID: <aqqqCf6mQPMoKZRj@ashevche-desk.local>
-References: <20260916-adc-fix-div0-v2-1-f702d3ed782c@foss.st.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KG/H4lJa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D63491F000FF;
+	Wed, 16 Sep 2026 14:39:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569574;
+	bh=PJZohl60zYZe9/g8t0WAKBeogPff7xZPLl9OJ9ZF+fE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=KG/H4lJaBNIcBgMcfRiUcOD79/LfPysNHIiLW/QEI9b+eOmIHgBh6Ilak7rczeMZD
+	 ZKhR1qZteuQeBCm1nt0jzcUWxGLN5DjC76IoTggQoEXRPgExDV5b+mrsXzcFzHUZDR
+	 Xze0x30FBQywsZ6E+C2glYF+Dh55uPgN1qM3taJRGH8sEyRTyI9SZBnBV//LBvHyAi
+	 ZiW7aHpwg3R36ZV956++A6QqqQ4OZWMzQZq4DiD3+alH2anV8hYcwSV5j7HFq/Z74/
+	 v9Teg/Ld/0/ZvJe77v3PU+9A4H+YXo3WklnyduTbShEzNvFP3gAiCKBshQCABWQLfK
+	 xUG5Zm5Fr6Fag==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>,
+	syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com,
+	Breno Leitao <leitao@debian.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] configfs: unhash the dentry before dropping the item in rmdir
+Date: Wed, 16 Sep 2026 10:39:32 -0400
+Message-ID: <20260916143932.3493496-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091656-showman-zit-60ac@gregkh>
+References: <2026091656-showman-zit-60ac@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916-adc-fix-div0-v2-1-f702d3ed782c@foss.st.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 04:10:05PM +0200, Fabrice Gasnier wrote:
-> In case the conversion has failed or returned zero, processing *val
-> can lead to a division by zero. Need to check for errors, or converted
-> value is zero, before processing the data. In case the converted value
-> is zero, e.g. the Vrefint channel, this should be considered as invalid
-> in all cases.
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
 
-...
+[ Upstream commit f06c2d26d1999d37e93299db0ecead04ca7d0b9f ]
 
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Link: https://lore.kernel.org/all/20260911161555.244F31F000FF@smtp.kernel.org/
+configfs_get_config_item() treats a hashed dentry as proof that
+sd->s_element is a live config_item.  configfs_rmdir() breaks that:
+simple_rmdir() leaves the dentry hashed, the last reference to the item is
+dropped right after, and the dentry is only unhashed by d_delete() once
+->rmdir() has returned.  configfs_symlink() resolves its target holding no
+lock on it, so get_target() can land in that window:
 
-Closes: ^^^
+  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
+   get_target fs/configfs/symlink.c:128 [inline]
+   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
 
+Unhash in configfs_remove_dir(), while the item is still guaranteed to be
+there.  A reference obtained just before that stays harmless, as
+create_link() rechecks CONFIGFS_USET_DROPPING, already set by
+configfs_detach_prep().  Both configfs_unregister_subsystem() paths
+d_drop() after detaching, so this only makes rmdir match them.
 
-> +		if (mask == IIO_CHAN_INFO_PROCESSED) {
-> +			int vrefint_raw;
-> +
-> +			if (ret < 0) {
-> +				iio_device_release_direct(indio_dev);
-> +				return ret;
-> +			}
-> +
-> +			vrefint_raw = *val;
+Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
+Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
+Cc: stable@vger.kernel.org
+Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Tested-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260730093435.195441-3-vasilisalmpanis@gmail.com
+Signed-off-by: Breno Leitao <leitao@debian.org>
+[ adapted the configfs_remove_dir() change to the older remove_dir() helper. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/configfs/dir.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-> +
-
-Unneeded blank line.
-
-> +			if (vrefint_raw == 0) {
-> +				iio_device_release_direct(indio_dev);
-> +				return -EINVAL;
-> +			}
-> +
-> +			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / vrefint_raw;
-> +		}
-
-Let's look at the current code in this switch-case
-
-	case IIO_CHAN_INFO_PROCESSED:
-		if (!iio_device_claim_direct(indio_dev))
-			return -EBUSY;
-		if (chan->type == IIO_VOLTAGE)
-			ret = stm32_adc_single_conv(indio_dev, chan, val);
-		else
-			ret = -EINVAL;
-
-		if (mask == IIO_CHAN_INFO_PROCESSED)
-			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-
-		iio_device_release_direct(indio_dev);
-		return ret;
-
-In the previous version you were trying to keep goto-less approach.
-However in the current state of affairs I don't think the goto is
-too bad (after all we need to backport this to the kernels that may
-not have IIO_DEV_ACQUIRE_DIRECT_MODE() macro).
-
-Also checking 'ret' under another condition seems unusual.
-
-What about
-
-	case IIO_CHAN_INFO_PROCESSED:
-		if (!iio_device_claim_direct(indio_dev))
-			return -EBUSY;
-		if (chan->type == IIO_VOLTAGE)
-			ret = stm32_adc_single_conv(indio_dev, chan, val);
-		else
-			ret = -EINVAL;
-		iio_device_release_direct(indio_dev);
-		if (ret)
-			return ret;
-
-		if (*val == 0)
-			return -EINVAL;
-
-		if (mask == IIO_CHAN_INFO_PROCESSED)
-			*val = STM32_ADC_VREFINT_VOLTAGE * adc->vrefint.vrefint_cal / *val;
-
-		return 0;
-
-? (Yes, we leave that line untouched, but we get the change cleaner.)
-
-
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index 68203952766e6..181de3ba835a5 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -401,8 +401,17 @@ static void remove_dir(struct dentry * d)
+ 
+ 	configfs_remove_dirent(d);
+ 
+-	if (d_really_is_positive(d))
+-		simple_rmdir(d_inode(parent),d);
++	if (d_really_is_positive(d)) {
++		if (!simple_rmdir(d_inode(parent), d))
++			/*
++			 * configfs_get_config_item() takes a hashed dentry as
++			 * proof that ->s_element is still alive.  Our caller
++			 * is about to drop the last reference to the item and
++			 * the VFS will not unhash until after we return, so
++			 * unhash it here.
++			 */
++			d_drop(d);
++	}
+ 
+ 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
+ 
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.53.0
 
