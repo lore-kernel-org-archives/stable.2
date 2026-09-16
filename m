@@ -1,82 +1,113 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 141744C6522
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:26:42 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1960C4D37B2
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:26:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579604; cv=none; b=tdST0RU35xTdCqQZt8oLWn24TB1EdRHnNPXnc/n4pLic1qwJLloeBrYdKw/cf54CHPFuWI3LNgo6gyKRZiiP+H66uk3w87cZT+vDkG2jKMikfAA4HIsfNGHspXkAs4KKgl5zWC347aA3vz2dqFur29UXtUYCgy5kuLwwyM25sjI=
+	t=1789579608; cv=none; b=VE1zbTHd9APhY67wg+/LsJ1a9BNMhEPBScl1s260zJ8Bx1IRbhlhzOy0QSW3bQiykHwiPJ5PLU3imYBD4nGDpKe9y3SNeqe3FVp96MTRjBjDIDGkBWqdLyaEk6IqjwR/P8SeM5eoAxxkidX5n9aX5VO5qykkhiiS2P+Ulnes7BI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579604; c=relaxed/simple;
-	bh=6XWgQo3r6q5mm595MwDXk4dRnHqpzTq5zKiU3HZ2zzA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ICQIOcGhWPtjRMYtjZJRV0rTF+vfmLfYBHSjDYmftInAvXMZ0WBHsNZQ7wWhCoPIfyd4Eh2/U2t/WEvcG0386uTEeOU0KP4ld7OF9zOzevYoYZAZI2OdoHd75UIXOyqk8STAwecYZGlAge59Fy/e+5wnGi4nEGqWDPe0kfKZMEc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d3cW0mA3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789579608; c=relaxed/simple;
+	bh=WBPC+qP5/J+46m2cj9buYBvg4f0hgvW8kMQtB122HKc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s7Lex2keuY4DZxSHlk/qMLqEeAXTuOzYHV7tHpgKqtn30DKxGQjzG+koc36B1UygHlfKtHcG88o4g0MsbazU/cvqwrbctds4F0LnkQPf9OEBKo80NieMnRiOPfqtV/6NZRqXE6q9n24TS+4rzzzq6XeLhClRHorAQZWIpsu0rQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=ck1OGOhe; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d3cW0mA3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 808C71F00893
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:26:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789579602;
-	bh=6XWgQo3r6q5mm595MwDXk4dRnHqpzTq5zKiU3HZ2zzA=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=d3cW0mA330ZaN1AcECBvJyQ5TtoS8uiRbSEtUkgGJ4ofuPnBYNvxEMb6wsNdVR6a4
-	 voAhZ0Kh3kk9RSIvQIPol92m5u1eO0S7tXEfHZSpkKseO//x8jZjwcGql0M2pfm+fV
-	 WjI2m5RlIRic8BcWn1ikycDIXMLhFyJddnHBsL7OIqvqAa5XE6usKac3QH32gf7oij
-	 DSygOzy+aADZh1+KYxiOWRcqqe3eHqP8stWUbCmRXXs4Evv7ENbqzv3CatdBIlzwU8
-	 /Na9YFldE5wy18N55dijVTWClhct8402x+XJKhO1lm9fjcFQPlHuqza8cHmST37oOz
-	 1vU1UmLpDqRzg==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f17452so1116706e87.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:26:42 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzU61mKNtCAb0YDu9uhWsT0fIO8r/mentMxsGb7Z6PQXuSuUQCV2IugQqkylE/Hr/csmQMd+54=@vger.kernel.org
-X-Gm-Message-State: AFuF++nkm8xphIt9snO6DlPBtBiwmIgXn2skSPuB5OtDk/9pME6xk/5A
-	nBGBdaoeQ3nnMMBf0JvHK2/C9PxFW90iqoIfoJUf/wYE07tXBPw2bMLT3k4VO6Gy4z4l81gnA87
-	dFNvkOJfimzlc4PmuPgoys6DR9KOhfMA=
-X-Received: by 2002:a05:6512:3e1d:b0:5b0:23cb:91ea with SMTP id
- 2adb3069b0e04-5b8b6615f97mr1165660e87.22.1789579601267; Wed, 16 Sep 2026
- 10:26:41 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="ck1OGOhe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789579606; x=1821115606;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=WBPC+qP5/J+46m2cj9buYBvg4f0hgvW8kMQtB122HKc=;
+  b=ck1OGOheO4e6jTR3gJZdQUxgg4RupWK9ARLSN4e/kfmWkoSrE1ZoemlB
+   rR9cMVWHhgQh7qXrOLCTE7mDPPcd6cnvVpM3DkEOP+gSLhLJ7NtmooRtD
+   Yw0r7ra0XPgd9VOV8ig3MBqOkKN12oAv8j3fQ3O2N4HUsf/pcbMbwCYP0
+   KveA/kQ5heXvyKnCkylZEgBS5eq29UQyqpd8mdlP8yM3ocV53p9prGS8v
+   Lm5mFlmZZ2Fxw7HO6B04+gqdDwsBFiNbucoRIrGtSBVFkZ51y7di20k+9
+   evoj9YCbkBprOMD22Y3hwixlyMgXhDlwtO1RgLvBTgN8EDX9TOnoUREt1
+   g==;
+X-CSE-ConnectionGUID: gcieuaM/Q9iFAS4kmk5idg==
+X-CSE-MsgGUID: 2tFr3xmERa2bLGfuNnsbaQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="115499459"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="115499459"
+Received: from fmviesa012.fm.intel.com ([10.60.135.152])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 10:26:45 -0700
+X-CSE-ConnectionGUID: 0oxytLzxS5qSWKo/I6lgUw==
+X-CSE-MsgGUID: TUQXpHquRLG5KeN1Z8dO/A==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="1630763"
+Received: from jesusnar-desk.jf.intel.com ([10.88.27.172])
+  by fmviesa012.fm.intel.com with ESMTP; 16 Sep 2026 10:26:45 -0700
+From: Jesus Narvaez <jesus.narvaez@intel.com>
+To: intel-gfx@lists.freedesktop.org
+Cc: Jesus Narvaez <jesus.narvaez@intel.com>,
+	Martin Hodo <martin.hodo@intel.com>,
+	Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>,
+	Alan Previn <alan.previn.teres.alexis@intel.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/2] drm/i915/huc: Validate the CPD entry offset before manifest read
+Date: Wed, 16 Sep 2026 10:26:16 -0700
+Message-ID: <20260916172615.681135-3-jesus.narvaez@intel.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915045426.1726805-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260915045426.1726805-1-vulab@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 19:26:29 +0200
-X-Gmail-Original-Message-ID: <CAD++jLnYvEqy0tEHwcs3dZEKgonk-8nGH4LcdRJVBBW6Xvz1mw@mail.gmail.com>
-X-Gm-Features: AcwNN1UWtQYdjPvddgdnmwnhlcW_2l5q8vGOsGA9udfpJBpnNSS8bx_leeHyW9Y
-Message-ID: <CAD++jLnYvEqy0tEHwcs3dZEKgonk-8nGH4LcdRJVBBW6Xvz1mw@mail.gmail.com>
-Subject: Re: [PATCH] clocksource/drivers/fttmr010: Fix clk reference leak in
- error paths
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: daniel.lezcano@kernel.org, linux-kernel@vger.kernel.org, tglx@kernel.org, 
-	lkml@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 6:55=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
+The CPD manifest offset was dereferenced without checking whether the
+offset was out of bounds or not. Validate the offset is within the FW
+blob before continuing with the read.
 
-> fttmr010_common_init() obtains the PCLK reference with
-> of_clk_get_by_name() but never calls clk_put(). If clk_prepare_enable()
-> fails the reference is leaked directly, and every error path that jumps
-> to out_disable_clock only calls clk_disable_unprepare(), which releases
-> the prepare/enable state but not the reference obtained from
-> of_clk_get_by_name().
->
-> Add clk_put() to the clk_prepare_enable() failure path and to the
-> out_disable_clock label so the clock reference is no longer leaked. The
-> success path keeps PCLK enabled for the lifetime of the timer and is
-> left untouched.
->
-> Fixes: dd98442e17a6 ("clocksource/drivers/fttmr010: Drop Gemini specifics=
-")
-> Cc: stable@vger.kernel.org
+Discovered using AI-assisted static analysis confirmed by Intel Product
+Security.
 
-Also here. Why stable? It's not like this get exercised so much that
-it makes anything on the planet unstable.
+v2:
+  - Add parenthesis to clarify offset check (Daniele)
 
-Yours,
-Linus Walleij
+Reported-by: Martin Hodo <martin.hodo@intel.com>
+Fixes: 93a575ab1533 ("drm/i915/huc: Parse the GSC-enabled HuC binary")
+Cc: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+Cc: Alan Previn <alan.previn.teres.alexis@intel.com>
+Cc: <stable@vger.kernel.org> # v6.5+
+Signed-off-by: Jesus Narvaez <jesus.narvaez@intel.com>
+Reviewed-by: Daniele Ceraolo Spurio <daniele.ceraolospurio@intel.com>
+---
+ drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c | 14 ++++++++++++--
+ 1 file changed, 12 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+index b648238cc675..3560961d606f 100644
+--- a/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
++++ b/drivers/gpu/drm/i915/gt/uc/intel_huc_fw.c
+@@ -216,9 +216,19 @@ int intel_huc_fw_get_binary_info(struct intel_uc_fw *huc_fw, const void *data, s
+ 	entry = data + header->header_length;
+ 
+ 	for (i = 0; i < header->num_of_entries; i++, entry++) {
+-		if (strcmp(entry->name, "HUCP.man") == 0)
++		if (strcmp(entry->name, "HUCP.man") == 0) {
++			u32 offset = entry_offset(entry);
++
++			if (offset >= size ||
++			    ((size - offset) < sizeof(struct intel_gsc_manifest_header))) {
++				huc_err(huc, "CPD manifest offset 0x%x out of bounds (size %zu)\n",
++					offset, size);
++				return -ENODATA;
++			}
++
+ 			intel_uc_fw_version_from_gsc_manifest(&huc_fw->file_selected.ver,
+-							      data + entry_offset(entry));
++							      data + offset);
++		}
+ 
+ 		if (strcmp(entry->name, "huc_fw") == 0) {
+ 			u32 offset = entry_offset(entry);
+-- 
+2.43.0
+
