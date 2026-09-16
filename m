@@ -1,48 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5870B409103;
-	Wed, 16 Sep 2026 19:28:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9429423E99;
+	Wed, 16 Sep 2026 19:28:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586949; cv=none; b=sp0G53kdpmRaAcYZqFPiXUopZoWt0oQYQepgdTnCcRI17qx4fKihXUHxqw5P7Z25EZ7Oqr7jeCVHlmkCSqD4PqFxE0kSpJoS0PjTa6GswTd1BoCmXvhsC1vU55WJ3Ts+yHggOc+hrUuhL0yY53ZwLMInOtIi3PBJXeQYgM9sOlI=
+	t=1789586950; cv=none; b=EMdgtngRvOfT3Ns2nS45M2VWz1GGvXc8xlwGUMLa6Kf7u668OFur4jvSNUlVfNSimMtk2otMCFObhAee9DadJFgGYfFiIDI29CHyUynOc+a5x1z0RI56aH3KvxcslgoeS49N0IxF04gkebk0rKHodOVHkyDL9lOiUVO7EFO+vr0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586949; c=relaxed/simple;
-	bh=f3+Nwc0ClZxs4XZjo7K6q0R3UI/3OTeGqRK5r6WXvKs=;
+	s=arc-20240116; t=1789586950; c=relaxed/simple;
+	bh=TbmP02P+eSVWSBuH96kkLNZ5YcMco5+zh7/hjq7dylA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=O1QUWowzCsUtzcSMdHry4MeLYbMhn88x2t08/aELgIr1zVNbV0mEJNB3wdMhBARr/ZhJDuXtUywkXDV/oAOjZGjw4pAMcViBwbXPhMKzbktqe5J5cHzPEZNfi02+BjXNV18y6DuhELbJo4+LRx+xtGRytoj1/PLtgPeTPxuN7PM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=l9rerQIo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JSPyi/aFnI9vAOFuy4MOl2I9iDcg9Pyedrk4jRHkfhFTfOemYMU/jb837yfU2uOHyEueZ+/OAzM1SMdp8fy/C32U0o8wzlSuO/kubQL2P0NOnZljoZ6DedIE7A+zspdTBcoZEiaEIhGbk9E7fZVqe+lxYA7TbP+zrDtt1g0b5x4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+mhC1s3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="l9rerQIo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 761861F0089F;
-	Wed, 16 Sep 2026 19:28:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+mhC1s3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46E21F008A6;
+	Wed, 16 Sep 2026 19:28:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586920;
-	bh=hvF1VrWKE+GcjeWvB9qffuANz5aN89iJg7z3UO9vj4s=;
+	s=k20260515; t=1789586923;
+	bh=jVjWKScRX7HMveNPDJ31JMC/NURKWFN3XU34ctMyOf4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=l9rerQIoURruo9DgEXWeL+f/6SmswgWmu8LFOrAUHB02Gg642Fqj583euIjy0I7xg
-	 jFtOWPxSMOzhAZmrSQxLbCaqPgMjZHtFCBlis0Ic1WcAXfUnb+J2BkXgJKpdC7onup
-	 mkXKbaPJ+cFnxqk9D5tn5meQAhVZK+fmjk+jA+E3UW5jzmN+Qh9GrnkCteWCaaO1mt
-	 yQkIeiG3GRGE2A+3kp5pnEJX9qvZHcUAVnhyfPGYa5AVD1GuUOyvPjfJSnf3wIARmT
-	 b9gtBNwq8vJeDCEsxVKQwan08yIbqd3TcDqxrCPkTPFnWlfDTn2/NrlMn4ZtKgok9x
-	 9qiPb+a5lFk7A==
+	b=d+mhC1s3/Lf9YrgJ/Z0Srf1CAY5Lta1e0+JYMZpvhEW1PeL8np6d0xcNHpuTRnElV
+	 7Jnzz0OUmUGmnTJAH9XSo9yUr91Fkl52ipv1ukKu96o8U3wc2PVseX+q17U5ut1C9R
+	 mtDp2qaNcykWf9tWETkz6KJk39HGO/U6SVPvYoa/iOv217J5Uqq8o6ol4MLzSKb6zX
+	 ZLfSOTOfguzTLsIp7jdvSQfgmreN1sto1fqivkqHzOASC4cs3YPufGUleNi+e84PYc
+	 gH3VSnzK7WMnRoglek228ehUh2Lq0+irvYtct93xCaatqoziT3mDbn36pUQwwChEbc
+	 NdyWDSpu+Ai8Q==
 From: Sasha Levin <sashal@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+	stable@vger.kernel.org,
+	Vegard Nossum <vegard.nossum@oracle.com>
 Cc: Sasha Levin <sashal@kernel.org>,
 	patches@lists.linux.dev,
-	Hao Ge <gehao@kylinos.cn>,
-	Suren Baghdasaryan <surenb@google.com>,
-	Harry Yoo <harry.yoo@oracle.com>,
-	Vlastimil Babka <vbabka@suse.cz>,
-	Vegard Nossum <vegard.nossum@oracle.com>,
+	Ian Rogers <irogers@google.com>,
+	Namhyung Kim <namhyung@kernel.org>,
 	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 1374/1376] slab: reset slab->obj_ext when freeing and it is OBJEXTS_ALLOC_FAIL
-Date: Wed, 16 Sep 2026 15:28:02 -0400
-Message-ID: <daily-reply-20260916-0012-re-slab-obj-ext-dup@kernel.org>
+Subject: Re: [PATCH 6.12 0360/1376] perf tests: Fix flakiness in BPF counters test on hybrid systems
+Date: Wed, 16 Sep 2026 15:28:04 -0400
+Message-ID: <daily-reply-20260916-0014-re-perf-bpf-counters-shebang@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <34a69126-8408-4761-9b38-6ac9041b5b46@oracle.com>
-References: <34a69126-8408-4761-9b38-6ac9041b5b46@oracle.com>
+In-Reply-To: <44690ef9-dc7a-4a0f-8392-a88459edaebb@oracle.com>
+References: <44690ef9-dc7a-4a0f-8392-a88459edaebb@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,15 +49,12 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The text is similar, but downstream placed it in the wrong lifecycle
-> function: alloc_tagging_slab_free_hook(), not free_slab_obj_exts().
+> The patch uses a Bash array and "${workload[@]}", but 6.12 keeps a
+> /bin/sh shebang.
 
-Confirmed. The hunk anchored there because both functions open with the same
-two lines, so the apply found matching context in the wrong place.
-
-The duplicate is reverted on 6.12. The correct copy of 86f54f9b6c17 ("slab:
-reset slab->obj_ext when freeing and it is OBJEXTS_ALLOC_FAIL") is already in
-free_slab_obj_exts() on that tree, so there is nothing to reapply.
+Reverted on 6.12, 6.6, 6.1 and 5.15. 7.2 and 6.18 already carry the bash
+shebang, so they keep b02027776ac5 ("perf tests: Fix flakiness in BPF counters
+test on hybrid systems") as is.
 
 -- 
 Thanks,
