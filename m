@@ -1,108 +1,135 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2DBE36D503;
-	Wed, 16 Sep 2026 17:29:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73EDF4D0CFC
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:29:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579763; cv=none; b=T5Hh77LAjRM9etXOydgE01UwvCWZ5iTF363L/uDu4+IskVxbyD0d/qtfGt+Y6hzpVmH/sw2VYKwIAPHMOGG8c8I5Kg1COEs/qjmybQpCgUDFx5TRKN4b9Tgy0i0q5gZw6O2baM5vaD9CdJkhnVfqhZEy3++AleWaPnpoHCym/bU=
+	t=1789579786; cv=none; b=aix84qxfJoLVWlEeD0N1nHjM7qmaJgVZvHWv9SVyap9cmtM6CnOxdGMVGJXEbzRk38vGsBqucY1D8kBUiGp7NTnRcFEFN9/Q+nOJvzlIeukFCiiiy61FRF8wnLpVhE4Mx6f989l1gZztU3PYsxVMgZQWCqTNfFyImvSSowTMr8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579763; c=relaxed/simple;
-	bh=3F+/Vfhc8Rh0Xlo8+0M6by/0bTS+n5+7+zjCYGeHuOw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kZ05GOdhB2cxI88dDTPIONG3myeIUNjxjkpvIkneIbedVa8KOyNv0W+GmME+rJsCtjj62ZtFUB8X1iRE1DhxATYR41s2tOLw7DfTQf+dDpbGrAMhf/Ue7naISIJQh6T1Ur6fkdRQT7jQuvF9ZGCvIu2P95K3oUyavhlz3fNCnpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAj3o0apquZ9uCA--.22432S2;
-	Thu, 17 Sep 2026 01:29:12 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: chris@chris-wilson.co.uk,
-	dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	joonas.lahtinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	rodrigo.vivi@intel.com,
-	simona@ffwll.ch,
-	tursulin@ursulin.net,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/gt: Fix rq use-after-free in signal_irq_work()
-Date: Wed, 16 Sep 2026 17:28:44 +0000
-Message-Id: <20260916172844.2087895-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789579786; c=relaxed/simple;
+	bh=RSjYmmCsWeCnemWFNtwJAvcgzuG6R4g4GxuVN4ADK+c=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NLzSp46IDCc7OYlHffjFaGS3d9bXcVFs5vTUEUT+KklrDp/lDPvKYZXO9VAoHc7bHJdCjiq63Di6wK8NDJ/HghPsGwh6HjKsUH9956rR+emvc2dSM4pMhhGoyuM9bMlZ1x+GTN4+c+sz0k2h/74fzlCVP7+1de7bXG89lFCBfQE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JBzsk/tQ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JBzsk/tQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 18F911F000FF;
+	Wed, 16 Sep 2026 17:29:42 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789579783;
+	bh=vLKsK8ytjUniCM4g25wsrp1txfaBZaHIB6uCRxe3lEI=;
+	h=Subject:To:Cc:From:Date;
+	b=JBzsk/tQhx9yZpIDYFlz0qnN5yrZpaSUzxQmEdRPvW4pZNug1518akUtosKTBG5z/
+	 JAI6tHkso3CmX+vb4v2/jd9HQSafISEHeAkaCJ1fNlnIBQxcEIxJmAKadq5HkDHq98
+	 xMebYQfy1C2rr1CpyXZaOWS545k5jQnYSYM0p3bU=
+Subject: FAILED: patch "[PATCH] xfs: initialise args->total for parent pointer updates" failed to apply to 6.18-stable tree
+To: javier@peridio.com,cem@kernel.org,djwong@kernel.org,floss@jetm.me
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 18:24:09 +0100
+Message-ID: <2026091609-donator-dumpling-82dd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAj3o0apquZ9uCA--.22432S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ww4xuFy8AFykury3trW5ZFb_yoW8Ww4Dpr
-	43JFyYyrZ8ZFnFv3WrC3W8CF4fWa42yF1UWF98G3s3Jwn8tas3Ar9YvFyjqFyY9rs3Xw1q
-	qryqqrW7WFWUZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
-	4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwIMA2qqpVhjkQAAsF
 
-The final i915_request_put() can release the last reference to a
-signaled request, freeing it synchronously (kmem_cache_free) before the
-RCU iterator advances to read rq->signal_link.next. Grab the next
-request up front, so the loop does not touch a request that may already
-have been freed.
 
-Fixes: c744d50363b7 ("drm/i915/gt: Split the breadcrumb spinlock between global and contexts")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/i915/gt/intel_breadcrumbs.c | 11 +++++++++--
- 1 file changed, 9 insertions(+), 2 deletions(-)
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-diff --git a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-index f840e98792cd..90bc32b526b8 100644
---- a/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-+++ b/drivers/gpu/drm/i915/gt/intel_breadcrumbs.c
-@@ -213,7 +213,7 @@ static void signal_irq_work(struct irq_work *work)
- 	for (ce = list_first_or_null_rcu(&b->signalers, typeof(*ce), signal_link);
- 	     ce;
- 	     ce = cn) {
--		struct i915_request *rq;
-+		struct i915_request *rq, *rn;
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x 8e4ebb6afaa34bd2e8ce52da231003d24111c2d6
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091609-donator-dumpling-82dd@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 8e4ebb6afaa34bd2e8ce52da231003d24111c2d6 Mon Sep 17 00:00:00 2001
+From: Javier Tia <javier@peridio.com>
+Date: Mon, 10 Aug 2026 17:06:17 -0600
+Subject: [PATCH] xfs: initialise args->total for parent pointer updates
+
+xfs_parent_da_args_init() builds an xfs_da_args from a zeroed
+xfs_parent_args (kmem_cache_zalloc), leaving args->total == 0.
+xfs_da_grow_inode_int() treats that field as a running block reservation
+and subtracts from it; because it is an xfs_extlen_t (uint32_t), the
+first attr-fork growth wraps it to ~0U.  That defeats the free-space
+check in xfs_alloc_space_available(), and when it coincides with an AG
+that has exactly zero available blocks the allocation is clamped to
+maxlen 0 and returns -ENOSPC, which xfs_defer_finish_noroll() escalates
+to a filesystem shutdown.
+
+Set args->total the way the log recovery path does
+(xfs_attri_recover_work(), xfs_attr_item.c:706), in the add and replace
+paths that can grow the fork.  Removals and lookups never grow it, so
+they leave the field alone, matching that switch.
+
+Fixes: b7c62d90c12c ("xfs: parent pointer attribute creation")
+Cc: stable@vger.kernel.org # v6.10
+Signed-off-by: Javier Tia <floss@jetm.me>
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+diff --git a/fs/xfs/libxfs/xfs_parent.c b/fs/xfs/libxfs/xfs_parent.c
+index 8d111c9b6527..a2f2f5fa640e 100644
+--- a/fs/xfs/libxfs/xfs_parent.c
++++ b/fs/xfs/libxfs/xfs_parent.c
+@@ -193,7 +193,7 @@ xfs_parent_addname(
+ 	const struct xfs_name	*parent_name,
+ 	struct xfs_inode	*child)
+ {
+-	int			error;
++	int			error, local;
  
- 		/*
- 		 * Grab the next signaler up front, as dropping the final
-@@ -223,9 +223,16 @@ static void signal_irq_work(struct irq_work *work)
- 		cn = list_next_or_null_rcu(&b->signalers, &ce->signal_link,
- 					   typeof(*cn), signal_link);
+ 	error = xfs_parent_iread_extents(tp, child);
+ 	if (error)
+@@ -203,6 +203,10 @@ xfs_parent_addname(
+ 	xfs_parent_da_args_init(&ppargs->args, tp, &ppargs->rec, child,
+ 			I_INO(child), parent_name);
  
--		list_for_each_entry_rcu(rq, &ce->signals, signal_link) {
-+		for (rq = list_first_or_null_rcu(&ce->signals,
-+						 typeof(*rq), signal_link);
-+		     rq;
-+		     rq = rn) {
- 			bool release;
- 
-+			rn = list_next_or_null_rcu(&ce->signals,
-+						   &rq->signal_link,
-+						   typeof(*rn), signal_link);
++	/* Growing the attr fork needs a real reservation in args->total. */
++	ppargs->args.total = xfs_attr_calc_size(&ppargs->args, &local);
++	ASSERT(local);
 +
- 			if (!__i915_request_is_complete(rq))
- 				break;
+ 	return xfs_attr_setname(&ppargs->args, 0);
+ }
  
--- 
-2.34.1
+@@ -239,7 +243,7 @@ xfs_parent_replacename(
+ 	const struct xfs_name	*new_name,
+ 	struct xfs_inode	*child)
+ {
+-	int			error;
++	int			error, local;
+ 
+ 	error = xfs_parent_iread_extents(tp, child);
+ 	if (error)
+@@ -249,6 +253,10 @@ xfs_parent_replacename(
+ 	xfs_parent_da_args_init(&ppargs->args, tp, &ppargs->rec, child,
+ 			I_INO(child), old_name);
+ 
++	/* Growing the attr fork needs a real reservation in args->total. */
++	ppargs->args.total = xfs_attr_calc_size(&ppargs->args, &local);
++	ASSERT(local);
++
+ 	xfs_inode_to_parent_rec(&ppargs->new_rec, new_dp);
+ 
+ 	ppargs->args.new_name = new_name->name;
 
