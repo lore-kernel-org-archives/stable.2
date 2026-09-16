@@ -1,82 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E68E4EBAC9;
-	Wed, 16 Sep 2026 10:32:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07D6E4E56C7
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:32:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554805; cv=none; b=keX5lH4pAISW4KBG7heiyzVOrgi8eRTl06YNDnfkkviYqv2Qur5aDJlOtHqHan9gAGZc9zXnMqydb9yCY1JB0TBzQsfSClvgROAFBUtyzMy/cZu62JO6aZmp3LKAQhxpZ9Tco4SmF+VhwaSF23So6ilz7Mc4m5WpxHhFsUUYnZA=
+	t=1789554814; cv=none; b=BZ8eaLczY8WkqQOkNcwlqsG/5f+LMOdm9sMnrFYJ6/KeQP27PDNeADKxgGGatjpE9wC15+IlElHZ4ZbQQtqnD6ZXobNUYCOFKZjXY8dLXHjTwLLgHq3zSbIiz1y5hO3eFt2qV4vlv2oJ9M7miPsB0RNDXs5E7CVs8sPy83wJ3sU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554805; c=relaxed/simple;
-	bh=DogrESP0WA2kwDRW9adsT0RXC7hZ1Xx0WDPasFz7gaM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iFTInrICcqhDqPw1Azo6FaM3g5k+Vo6issIAuSjU/x0P8DeIBn7iTIhXlE+zBQX+LluYvr7Fpwx7ZOeFw0mZR8gKMYoRZb5TNTtJcxco5p9thnbAnxxLAs1D35xFLUlyXxjCye/jVLhZqm/8OpwU+txBNA1EtwGOjQ3l2z7M6Go=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tbywcfMn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789554814; c=relaxed/simple;
+	bh=v5FCbIPV/VtBBfR9hP3prqVR4fFU/yxy4+mYzNogUwc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MKNZ3Qb/osmO2uMFCCEB/EvdxAIQOfrOPHsWF1PTOIEINIJnVVzvs3xnbr+shYrR8rsBYaV/3xYp5isorfPMnORIGVoTuKONMiZuVFmlTlI/5qxGSdvviXVAI0QfBsap5OpP/vZWyOW/l/JUvyF4J9DO4rWD8ctJ/+uVnJLbe/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Nxs5W0vm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tbywcfMn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 268951F00898;
-	Wed, 16 Sep 2026 10:32:50 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Nxs5W0vm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED9561F000FF;
+	Wed, 16 Sep 2026 10:32:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789554771;
-	bh=08PC1Zy0osrxD5uEEq52omja9Cyu6/fzLf/OJPTukEs=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=tbywcfMnjR9YbGgjGoowoWtoypFwkV04/m0T075x2cdlw9JNqAq64HWPaf0Ohm/MZ
-	 luOknS14HacrIaIWw5qRZgHVabt0VQBt+nhPjnhMa3JT15e5lbIKna3i7eHjypHE9p
-	 3oCBhYdbi4A7ucwJ2UOq7epdMiLyPmYfllsvdQyk=
-Date: Wed, 16 Sep 2026 10:44:53 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: alistair@popple.id.au, andrew@codeconstruct.com.au,
-	eajames@linux.ibm.com, joel@jms.id.au,
-	linux-arm-kernel@lists.infradead.org, linux-aspeed@lists.ozlabs.org,
-	linux-fsi@lists.ozlabs.org, linux-kernel@vger.kernel.org,
-	ninad@linux.ibm.com, stable@vger.kernel.org
-Subject: Re: [PATCH] fsi: master-aspeed: Fix of_node reference leak in
- fsi_master_aspeed_probe()
-Message-ID: <2026091644-equipment-landlady-c1c0@gregkh>
-References: <20260916093914.2005582-1-vulab@iscas.ac.cn>
+	s=korg; t=1789554768;
+	bh=LUDOj/V//WfltVnrfRpfBjmASraBfswxQqCGXBR4+4M=;
+	h=Subject:To:Cc:From:Date;
+	b=Nxs5W0vm+keYW95qsYnvTIR2Na64WgdR8TiSUNW1a/nNyPb/BSoogUFVrjMXAybGI
+	 f596JUV2X98lSmR9jclTAlE56TwAOF2zDbpbFHQxEbKngcgZz1QNJkF4t8Poc2mzIb
+	 nO2i0ATRME4KDN/aqyofVKGY5mR6aZWuM0kqcG0A=
+Subject: FAILED: patch "[PATCH] platform/x86: hp-wmi: Fix board_params typo for 8DD6 board" failed to apply to 7.2-stable tree
+To: arfeliousheres@gmail.com,ilpo.jarvinen@linux.intel.com,krishna.chomal108@gmail.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 10:32:27 +0100
+Message-ID: <2026091627-nephew-drained-5a51@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916093914.2005582-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 09:39:14AM +0000, Wentao Liang wrote:
-> In fsi_master_aspeed_probe(), a reference to the device tree node is
-> taken with of_node_get() and stored in master.dev.of_node.  If
-> fsi_master_register() fails, the error path frees the master without
-> putting that reference, leaking it.
-> 
-> Put the device node reference before returning on the error path.
-> of_node_put() tolerates a NULL node, so the earlier err_release path
-> via opb_readl() is unaffected.
-> 
-> Fixes: 606397d67f41 ("fsi: Add ast2600 master driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/fsi/fsi-master-aspeed.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/fsi/fsi-master-aspeed.c b/drivers/fsi/fsi-master-aspeed.c
-> index aa1380cdff33..7c7f30c2b8e6 100644
-> --- a/drivers/fsi/fsi-master-aspeed.c
-> +++ b/drivers/fsi/fsi-master-aspeed.c
-> @@ -640,6 +640,7 @@ static int fsi_master_aspeed_probe(struct platform_device *pdev)
->  	return 0;
->  
->  err_release:
-> +	of_node_put(aspeed->master.dev.of_node);
->  	clk_disable_unprepare(aspeed->clk);
->  err_free_aspeed:
->  	kfree(aspeed);
-> -- 
-> 2.34.1
-> 
-> 
 
-did you forget an Assisted-by: tag?
+The patch below does not apply to the 7.2-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
+
+To reproduce the conflict and resubmit, you may use the following commands:
+
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git checkout FETCH_HEAD
+git cherry-pick -x ee02ed6308fbbd851c4e5c1f642d029617049a12
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091627-nephew-drained-5a51@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From ee02ed6308fbbd851c4e5c1f642d029617049a12 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Arda=20Do=C4=9Fu=20Ari?= <arfeliousheres@gmail.com>
+Date: Fri, 28 Aug 2026 02:51:39 +0300
+Subject: [PATCH] platform/x86: hp-wmi: Fix board_params typo for 8DD6 board
+MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
+
+When adding support for board 8DD6, &omen_v1_no_ec_thermal_params
+was passed as driver_data instead of &omen_v1_no_ec_board_params.
+
+Because active_board_params expects a pointer to struct
+hp_wmi_board_params, dereferencing active_board_params->thermal_profile
+results in a type confusion bug and invalid memory access. Update the entry
+to point to omen_v1_no_ec_board_params.
+
+Fixes: a7320d6eb9c42 ("platform/x86: hp-wmi: Add support for OMEN MAX 16-ak0xxx (8DD6)")
+Cc: stable@vger.kernel.org
+Signed-off-by: Arda Doğu Ari <arfeliousheres@gmail.com>
+Reviewed-by: Krishna Chomal <krishna.chomal108@gmail.com>
+Link: https://patch.msgid.link/20260827235139.154462-1-arfeliousheres@gmail.com
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+
+diff --git a/drivers/platform/x86/hp/hp-wmi.c b/drivers/platform/x86/hp/hp-wmi.c
+index b2773fc1aca4..615b4cf6fc45 100644
+--- a/drivers/platform/x86/hp/hp-wmi.c
++++ b/drivers/platform/x86/hp/hp-wmi.c
+@@ -337,7 +337,7 @@ static const struct dmi_system_id hp_wmi_feature_boards[] __initconst = {
+ 	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8DD6") },
+-		.driver_data = (void *)&omen_v1_no_ec_thermal_params,
++		.driver_data = (void *)&omen_v1_no_ec_board_params,
+ 	},
+ 	{
+ 		.matches = { DMI_MATCH(DMI_BOARD_NAME, "8E35") },
+
