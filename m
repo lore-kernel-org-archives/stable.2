@@ -1,105 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25EAD4A7CA4
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:59:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D41D64A7C92;
+	Wed, 16 Sep 2026 16:59:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577969; cv=none; b=taWP1FHLhhhZMhmx7AVPyi2LAK3yHDShJobjHDCqRIwPxB4NXjfjNztbbAKGBiOyT+3SH2F+/3ASQui42ZmeSK8m041d4a2e+aHF+nMsip/iM7gafiqXg2OTHYpaw5NuGJMWYjuDjjDKuigAlbx3CajeZH1gUCcSEcJ3+XWRHJQ=
+	t=1789577975; cv=none; b=gm/hlpriXPpSn85gibWPV7Cq+idCh9sfjgSjXmd46rApGMDakh89HuRyivbKi5zoaJyTlDuPHVFhMhtDvmvDhmyO4aqFgc/zt5PQLORp82uUrBI4/MDRE7kDk7rDynl8lN3iOr+P9a0K2iDQyR+3AoJnVRsrPb7EIlR8oZmpr5I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577969; c=relaxed/simple;
-	bh=sCKOAQ6q3IOv9589d5+TMd6PkNK0d6K2VF/Jj1/not0=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ClHOPhpyEM8h8m+RbaahG+ZUmS7sOtvVbsBDYxzepsHvYjWgUcS585f62b1U6oXda4zs4dPl0o617KQxIsQI1Yi01ehemhUyj455eXtgcIbFwUKjBdMQiqeEXk9gu54mREiEFEE9ezMcVchbKgzc4FJMaHlNPmfrRYV2gcLIv9c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CxLjr/zq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CxLjr/zq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E6541F00899
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:59:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789577950;
-	bh=sCKOAQ6q3IOv9589d5+TMd6PkNK0d6K2VF/Jj1/not0=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=CxLjr/zq5awXlYm+A6e8PszYPrvbuv8SEElAf89XU+RnAaUGpDAC+Zytljrmr8o4c
-	 FdRa8ABvsvHgBgv89JlsWP+7z8iuGavV5m7vpz//I6rO8eNC44uZQU7PU5QdOdx5W7
-	 IISe0CKSxyFhix/cCxUb2PdWGNTpQt2DktI7EQAIBQj2TqFkgJVn+jjQ4XHKitDyMI
-	 NSFFSeuCNI6YGkfR6ywrtyBa3O0bsLn7Agw1owLnBTu5d6UPyAYI+NVvK0EEL3Dv++
-	 HNo/gzrXU9fBP8YQkbEjKIP18tM3bn/pmm+zMmv/XdYc311NCPTkviMs061ksUSOpC
-	 ly7dmMgw8T+Ag==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f13d77so1520095e87.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:59:10 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByZHQX38PIVTtJX48v2cNhpccLyMCnE1iIj4tOFqwxixLzvGrsvuIcgvUnTHq5YzRRRc62ohQw=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9ATgok/WM99mMmZDEz24diT4ARw2phqV5XMKXpW7ZMFThvfte
-	XdA8JwWFojWrfjbpXfIaMf3QS5txWEvDFrTQsa4N96CpZWmIL6htkR6tAzI4oB/Rvej5e9E2DlW
-	x92JK49YEicT+R3VYtT0+J3quicJqaVg=
-X-Received: by 2002:a05:6512:3347:b0:5b7:6735:260f with SMTP id
- 2adb3069b0e04-5b8b6671067mr785119e87.67.1789577949266; Wed, 16 Sep 2026
- 09:59:09 -0700 (PDT)
+	s=arc-20240116; t=1789577975; c=relaxed/simple;
+	bh=D77SfbkO3bRqpC5zx9bLQd0YEqgn7ITaYDTvJiVXdRI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=s5kio5ZO3zA8TeS6n7Ta8Kmon/0NNsE0F9XNg5J3AFqVVpVTE9vUaxceKb9JeOP4lQhb9+KptEchAcpWo0+B8lPainUTZNguE1MOBChr1yi0cttApkKZS9fSlPRAV9lmnjjdo4wsn3B3deO1zX/Mfe9t5pwwnVC0JGC++PPEbhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACX_znhyqpqNB1uCA--.22848S2;
+	Thu, 17 Sep 2026 00:59:14 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: johan@kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	mjg@redhat.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] USB: usb_wwan: Fix urb leak in usb_wwan_submit_delayed_urbs()
+Date: Wed, 16 Sep 2026 16:58:46 +0000
+Message-Id: <20260916165846.2085791-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260902-fw-devlink-nexus-ready-v1-0-68fe1996e78a@toradex.com> <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
-In-Reply-To: <20260902-fw-devlink-nexus-ready-v1-1-68fe1996e78a@toradex.com>
-From: Linus Walleij <linusw@kernel.org>
-Date: Wed, 16 Sep 2026 18:58:56 +0200
-X-Gmail-Original-Message-ID: <CAD++jL=qaXxEr_sVnAF7BLUvp4ik+f8Zsg2sKY6n0=DwWqEYYw@mail.gmail.com>
-X-Gm-Features: AcwNN1W08ixPUt1OAFzYlOyj5ELEgdAq-l8aLJH_GmHSe9MLq2CYRkq-wafwNZs
-Message-ID: <CAD++jL=qaXxEr_sVnAF7BLUvp4ik+f8Zsg2sKY6n0=DwWqEYYw@mail.gmail.com>
-Subject: Re: [PATCH RFC 1/2] of: property: fw_devlink: Follow GPIO nexus maps
-To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
-Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
-	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
-	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
-	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
-	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
-	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
-	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
-	devicetree@vger.kernel.org, linux-gpio@vger.kernel.org, 
-	linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACX_znhyqpqNB1uCA--.22848S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJr45tFyDAF45CFWUWr47XFb_yoW8XF4Up3
+	yqgrW8tryDJF4ftw47Aw43Za4rW3ZFkr9FkryIv3yxXrnxXa4fGa4SvwsYgrWUZ395t3y7
+	tr1jgan5WFWDK3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
+	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
+	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
+	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
+	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
+	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
+	UTnQUUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUMA2qqok9gFgAAsX
 
-On Wed, Sep 2, 2026 at 1:42=E2=80=AFPM Ernest Van Hoecke
-<ernestvanhoecke@gmail.com> wrote:
+usb_wwan_submit_delayed_urbs() takes a reference to each delayed urb
+with usb_get_from_anchor() before submitting it. The reference is
+never dropped, neither when the submission succeeds nor when it fails,
+so the submit-delayed urbs keep one reference forever and the urb
+objects are not freed when usb_wwan_port_remove() later drops the
+port's own reference. The urbs are not anchored in this path, so the
+USB core cannot drop a reference on completion either.
 
-> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
->
-> GPIO consumers use of_parse_phandle_with_args_map() to resolve specifiers
-> through gpio-map properties. fw_devlink instead parses GPIO properties as
-> direct phandle references, so it records the nexus node as the supplier
-> rather than the mapped GPIO provider.
->
-> A nexus is a translation node, not the GPIO provider, and need not be
-> populated as a device. The resulting fwnode link can therefore remain
-> unresolved and indefinitely defer the consumer while
-> device_links_check_suppliers() waits for the nexus.
->
-> Use the map-aware parser for all supported GPIO property spellings. This
-> makes fw_devlink resolve the same provider as the GPIO consumer API. Dire=
-ct
-> GPIO references continue to work because the map-aware parser returns the
-> original provider when no gpio-map property is present.
->
-> Add OF unittest coverage for mapped and direct GPIO suppliers, including
-> the deprecated singular and unprefixed property spellings.
->
-> Fixes: 7f00be96f125 ("of: property: Add device link support for interrupt=
--parent, dmas and -gpio(s)")
-> Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
-> Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4j=
-bauradujrre@gc5nbdhhixaf/
-> Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+Drop the reference with usb_put_urb() on both the submission failure
+and the success path. The urb stays valid afterwards because the
+port's preallocated out_urbs array keeps its own reference, which
+matches how usb_wwan_write() submits the same urbs outside of
+suspend.
 
-I feel it needs a compulsory review by Rob, but AFAICT this is
-in line with the Nexus ideas.
-Acked-by: Linus Walleij <linusw@kernel.org>
+Fixes: 0d4561947b8d ("usb serial: Add generic USB wwan support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/usb/serial/usb_wwan.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Yours,
-Linus Walleij
+diff --git a/drivers/usb/serial/usb_wwan.c b/drivers/usb/serial/usb_wwan.c
+index 2c46330f10da..e7566960a5c1 100644
+--- a/drivers/usb/serial/usb_wwan.c
++++ b/drivers/usb/serial/usb_wwan.c
+@@ -587,9 +587,11 @@ static int usb_wwan_submit_delayed_urbs(struct usb_serial_port *port)
+ 			err_count++;
+ 			unbusy_queued_urb(urb, portdata);
+ 			usb_autopm_put_interface_async(serial->interface);
++			usb_put_urb(urb);
+ 			continue;
+ 		}
+ 		data->in_flight++;
++		usb_put_urb(urb);
+ 	}
+ 
+ 	if (err_count)
+-- 
+2.34.1
+
