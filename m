@@ -1,105 +1,103 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A2E94D7D38;
-	Wed, 16 Sep 2026 17:31:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CCDA44D7974
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:32:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579913; cv=none; b=rpizdAbPLrWsvRGpyLAgpDfhsLGvp69KDv3K/bSJWHlyq6dt/r4Wa2WJgIBNorDttWx1uKRobaNaYgdTpC8xVsZJ0OlcgnM8pmbqUvJROVHdLrpGjpsTgVqeU1Ep2zlW2f1XrCTr4bnn6zHCkoFpFx73Wu5EaWGyISHN43gjuIc=
+	t=1789579963; cv=none; b=LicXpIo9eNLXD8mlVuD/VBr2cujWpeFVazclRbua5L5QH5Qjx7zrY57GX8AIyEdcZt85k7MIClN3FzmpLN0z7qLgjpO6Q3UDuMG6Srrsc2v7bRo8e9JpWvBIXyCyqTgqKmJrraOBHU/+B1yF2JNTR5cu+g29ECVu4e7+z4nWKio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579913; c=relaxed/simple;
-	bh=DTh8EqC0HXrZxEjbphEcqBqo+kVsUBYpL+Y1Ze7Dg7E=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pbwy3X/f3TSBn67UgJ8daUnHQtp8z6mZjNS7mXLYFUg11RcOezRA6IX4wIHvrGGIAuRInnY5RPC/sVWkdQ68RmvHRiLnkjHTUt9yPh3yhV+glBDusl4qq9I9/AQwY/O50I33GE/X+F5GOdQaUom+MkvXa0VfKz2WcHBrjpFs/GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXADt60qpqpKduCA--.22649S2;
-	Thu, 17 Sep 2026 01:31:38 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: dri-devel@lists.freedesktop.org,
-	intel-gfx@lists.freedesktop.org,
-	jani.nikula@linux.intel.com,
-	john.c.harrison@intel.com,
-	joonas.lahtinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	matthew.brost@intel.com,
-	rodrigo.vivi@intel.com,
-	simona@ffwll.ch,
-	tursulin@ursulin.net,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/i915/guc: Fix ce use-after-free in scrub_guc_desc_for_outstanding_g2h()
-Date: Wed, 16 Sep 2026 17:31:10 +0000
-Message-Id: <20260916173110.2088036-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789579963; c=relaxed/simple;
+	bh=7MaHX5Khe4czDQucHPkA7rQSGwChp73MQfgrIuIDsFw=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=Rxnxjse10fBOhGR9QFC8o0JDrxMADrTFJABt2RB1kDhMPrMz4QIGSpZj9yUQaBNisvJJfM7QoQ13EASu2/L+E2o9Oc3RT4z7uoFWZk064eIOTo4ooEygL8rg+a389HwIsOMa8iFnX9syUsFN2MunzpDNk34Suh3wGVC36VKJYKA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=alU6nCQZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="alU6nCQZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA5FF1F00893
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:32:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789579954;
+	bh=32+oDyoFESxqHqBnox8/Lmr9Se4+wo4fXsv98uxSdec=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=alU6nCQZk5xNBr1xOqKi9u73Op8brwQ1qowxM34xg2VFR94DCYy9spAJ+1OlWM4jl
+	 ajJb3z3oDB2jEk3ceT9dIy5mwVYxNdpRk/vs1yaevWnTzFJmQVkwxXaMQ6/Hkcc6MJ
+	 yFYd11AcPaIp241Ew+87Th8Hh8DbYhGsfSQ5XDmKwcyiLWhGHpKHAvcBby37clbQO8
+	 0iHRyvUatNkoZP5WrvpX4otvq/+oyiCmAtV1yb0b+WI64lzoCuvEohMDhi+md6H3Cd
+	 K9JuMHne7d72WiLecUM5Er9juBTrv+hgkitZI+XM8A5rc2+XuguAo1pWdWpGN0PK3G
+	 nYKqNhYedDrLQ==
+Received: by mail-vs2-f41.google.com with SMTP id 71dfb90a1353d-5c9031e714dso486069e0c.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:32:34 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBy+9igM78nfObwb7Vz6nf2nFkN66H7r6K0XcJ2ycBq4JaKwGn6BjcKjNM1V30PAdC11xT4mDLY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lJ7ncGpnOH8GXmZxFlxYdZ1RYJALwA3j4tW1IIEraZ4iHj+rHs
+	ARK9A/XFZ8cXZhSyuGY1d62xzB4BXSSXRjZLxBzPsFYbhFEkZNKaxAC92bTuq4SPH/wh0AwMwPI
+	ekdzjIyHH2Pf3q0LrQKbIX7sqsK2emzQ=
+X-Received: by 2002:a05:6122:1d43:b0:5c9:a60d:3277 with SMTP id
+ 71dfb90a1353d-5c9a60d3a1cmr203449e0c.11.1789579954058; Wed, 16 Sep 2026
+ 10:32:34 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXADt60qpqpKduCA--.22649S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw13KF47XrWkAFWfXw48Crg_yoW8Ww17pr
-	4aqw1Y9Fy5AF4SvF9rA3WjqFyfK3WrJa4xWw1DGw15Jas5J3WDGr92yay5tFyDAr1xJ3sa
-	yF17KrW3W3Wa9FJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9q14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7Cj
-	xVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4I
-	kC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWU
-	WwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JF
-	I_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1lIxAIcVCF04k26cxKx2IYs7xG
-	6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F
-	4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpVhkigAAsb
+References: <20260916171829.2087132-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260916171829.2087132-1-vulab@iscas.ac.cn>
+From: Filipe Manana <fdmanana@kernel.org>
+Date: Wed, 16 Sep 2026 18:31:57 +0100
+X-Gmail-Original-Message-ID: <CAL3q7H4zcpuz0N2KW33GMecGLyEw0LRsXKenh4AwgW8DyC0fpA@mail.gmail.com>
+X-Gm-Features: AcwNN1VKyht7PLf8O8YAf4X3uMXkcE5VCSoZx5WTNTzb2NGjZVAKpLo8bBEd90g
+Message-ID: <CAL3q7H4zcpuz0N2KW33GMecGLyEw0LRsXKenh4AwgW8DyC0fpA@mail.gmail.com>
+Subject: Re: [PATCH] btrfs: Fix root reference leak in merge_reloc_roots()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: clm@fb.com, dsterba@suse.com, fdmanana@suse.com, 
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org, wqu@suse.com, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-A context flagged SCHED_STATE_DESTROYED has already dropped its final
-reference, and __guc_context_destroy() frees it immediately (virtual
-engine contexts are kfree'd outright). The pending_disable block is not
-mutually exclusive with the destroyed state and kept using the context
-after that destroy. Defer __guc_context_destroy() until after the
-pending_disable handling.
+On Wed, Sep 16, 2026 at 6:26=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
+>
+> When the fs root read back for a reloc root does not have the expected
+> reloc_root backref, merge_reloc_roots() warns, sets ret =3D -EINVAL and
+> jumps to out without dropping the reference returned by
+> btrfs_get_fs_root(), leaking it on this error path.
+>
+> Drop the reference before jumping to out, matching what
+> merge_reloc_root() already does for the same mismatch condition.
+>
+> Fixes: 05d7ce504545 ("btrfs: exit gracefully if reloc roots don't match")
 
-Fixes: eb5e7da736f3 ("drm/i915/guc: Reset implementation for new GuC interface")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c | 8 +++++++-
- 1 file changed, 7 insertions(+), 1 deletion(-)
+What tree are you using? This was already fixed in 7.2:
 
-diff --git a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-index 7b88e081c76d..5eab2baa1f7f 100644
---- a/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-+++ b/drivers/gpu/drm/i915/gt/uc/intel_guc_submission.c
-@@ -1122,7 +1122,6 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 			if (destroyed) {
- 				intel_gt_pm_put_async_untracked(guc_to_gt(guc));
- 				release_guc_id(guc, ce);
--				__guc_context_destroy(ce);
- 			}
- 			if (pending_enable || deregister)
- 				intel_context_put(ce);
-@@ -1145,6 +1144,13 @@ static void scrub_guc_desc_for_outstanding_g2h(struct intel_guc *guc)
- 			intel_context_put(ce);
- 		}
- 
-+		/*
-+		 * Finish the destroy last, as it may free the context while
-+		 * the above states still need to access it.
-+		 */
-+		if (destroyed)
-+			__guc_context_destroy(ce);
-+
- 		if (do_put)
- 			intel_context_put(ce);
- 		xa_lock(&guc->context_lookup);
--- 
-2.34.1
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?=
+id=3Dce6050bafb4e33377dc17fcc357736bfc351180c
 
+The Fixes tag is also wrong, it's the one mentioned in that commit.
+
+Thanks.
+
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  fs/btrfs/relocation.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/fs/btrfs/relocation.c b/fs/btrfs/relocation.c
+> index 3ebaf5880125..6c826be41749 100644
+> --- a/fs/btrfs/relocation.c
+> +++ b/fs/btrfs/relocation.c
+> @@ -1850,6 +1850,7 @@ void merge_reloc_roots(struct reloc_control *rc)
+>                                  * corruption, e.g. bad reloc tree key of=
+fset.
+>                                  */
+>                                 ret =3D -EINVAL;
+> +                               btrfs_put_root(root);
+>                                 goto out;
+>                         }
+>                         ret =3D merge_reloc_root(rc, root);
+> --
+> 2.34.1
+>
+>
