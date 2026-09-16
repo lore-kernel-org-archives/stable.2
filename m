@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C16924B95BC
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:40:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 755033955FB
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:40:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573249; cv=none; b=piHg0rd0zOFPB0oa3+hx9lPBxUAVXzbWqRmMiyQR+0SjwE36waWrGCXvbGmFC8AO+CzVMswktf4p0kB5bWoM0Hc+GQOSNBAmfQH03wG77CNxjhXtTpD20qQoeTrW6NItAfoIyP75VrYAwtGfYzw4/BWwZfULNl0HbEZVmGTnwJI=
+	t=1789573252; cv=none; b=Yfh0jt49KDUfE1nq+MSojKk3yRABYKTL68PYW9LGGXlTPcMuv859vbR0elBA6wBhecUPR8C3FpGtPlrZj06qdJn+Enhzywxw9NVGVuOg1qiZYRr04rfyHEJDt+/O/FTCfrGeDgOWVBvEdPGgihyiZ8myba9Iw2uWgOmJ04miEBI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573249; c=relaxed/simple;
-	bh=Dh068o69zwEx2jaRGJPTOGAqJRcFDUstWnWDs6tHJo4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=I2PdTCe6mfzCMN1256jTKs13sHHFcr/wAhsHpG8J9dNFzAOfao73rZVxO6Dm5NBDOu63zn+SrKu8+v/IyUAWfTFEIEvKsePDdd072MOb4BLXOn3edtufDoRGMfghB8Dt1T1izjYhO2Fs57mrN18Kb3UcYraJn6lZs4+oVypGjps=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BQGGWmwC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573252; c=relaxed/simple;
+	bh=Os1qSod7C43hChqhocdVCIRBra1l8TXPF1vFbMkFFLw=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=DPClM4qOXdgEOtMJzTIyN9hlkwWxYPwNdbMKPrHXS+EMkBsNUE0uXsUGyjx4wm0ouIi3ii1lxgDhgnIj6nlhK376aWjlTWEoyGbp/kQw7y0C1921U8ipE3HLYEn0uxi1/IjIH2kg+wzDrEpm74Ebn+Op/5PD0HDO8ADn4NrGaD4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CrLA3HvQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BQGGWmwC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C30E01F000FF;
-	Wed, 16 Sep 2026 15:40:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CrLA3HvQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C6D3D1F000FF;
+	Wed, 16 Sep 2026 15:40:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789573247;
-	bh=RDKRd4NWev6NR/zWPKGhmZKVRCN6crHd7EdfdCM+q6M=;
+	s=korg; t=1789573250;
+	bh=GL4lYO2zrBrt4YlaOHkChcA6FkTgs+yWaCzCF4oF/TE=;
 	h=Subject:To:Cc:From:Date;
-	b=BQGGWmwCBtcL+BdxvPAUvv0wED0s+ronT+zlIH7b/13kTOcZfLtNZk0IJKnQn0D6R
-	 VBbtUSanEehOspC3OUeeJsRzBvY4LDzyrC4izSeDB0feFC+GESJYJrxmx6TNXvFB3w
-	 tALvH4PyKrbutMmY7Fu6pg58y6KLKeKCL+sagUl8=
-Subject: FAILED: patch "[PATCH] net: bridge: use option bits for CFM/MRP frame handlers" failed to apply to 6.12-stable tree
+	b=CrLA3HvQAHbJhA8lXaOTwRoB+OxxbAmjj41ijtB7Nnx9cd06eM8eJt1WWiE7Jh7tL
+	 lRrPQ9KLYVmWlH5gVJxfwdmkMPnOqOJf3AqC0apVYeXRpNwnPPLVY0PfACrQHFOrzF
+	 DVXdbXCCc1RxIhj7e7v59dQQwkzqijy0voQZAkJE=
+Subject: FAILED: patch "[PATCH] net: bridge: use option bits for CFM/MRP frame handlers" failed to apply to 6.6-stable tree
 To: zhilinz@nebusec.ai,kuba@kernel.org,razor@blackwall.org,vega@nebusec.ai,zylzyl2333@gmail.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:29:47 +0100
-Message-ID: <2026091647-deceiver-clinking-5d16@gregkh>
+Date: Wed, 16 Sep 2026 16:29:48 +0100
+Message-ID: <2026091648-legible-educated-9b22@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
 git cherry-pick -x 7a49e6b16f36b8e085521699adbca3e321b6dd0c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091647-deceiver-clinking-5d16@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091648-legible-educated-9b22@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
