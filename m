@@ -1,143 +1,105 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75B13339396;
-	Wed, 16 Sep 2026 01:07:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C43838F253;
+	Wed, 16 Sep 2026 01:21:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789520854; cv=none; b=sZMVfuwRym1y17VPIrrK7qCHhy3WWE63odpcfAAuEaxEMvGIR3sqBMEryHFXULKbXDT3hQPGMu0Klxv71BoA7pn65InorvshUP4C78gPgH8b0Opb7oDUeZ2IKFpdMoHo9lURn6i8xjMd+UZvWzpSQ10/pvmhBzGO3sm/HY+G4mw=
+	t=1789521678; cv=none; b=oA92814kY7IjYGnBWlWsb+9IrZSGVkVvP+Rhzj6vXJYkLpr26vXiHAvwa9lYOeVNXNHPYessqRa+cUyOzI7hCaNkFNaqdFkBntlNyM3ZqFZI2aOkRea/r9Ul9COost3p5SjFfB8chN7DpHftidyanfeR8x4ruNJ0x9KWa6KLIRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789520854; c=relaxed/simple;
-	bh=0EG4dv9s4/msJJGi/z0Wcrvw0PoCtIYtGdNQNHzZKXM=;
-	h=Date:To:From:Subject:Message-Id; b=gQ+ArXUOmV4uE96G8oz9oTyxFIsvbjcrnbI+57BQSlQxPRWHBkJe3SsYA8TK8PWOgm7TWcJ1enIOsELSU9nAu0OiF/LEgBSbMAuYllbbP7NYsf7ckAXVYs4u9HC7II71aje17Z77Q6LoiOf1jfP2rCKoqGjNCxsXg/5JfBOf9d0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=p0D2ISi8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789521678; c=relaxed/simple;
+	bh=0Wbe+nQ3iMRYcPF5b2fQhTZ72kvmf1L1FbpmuIH6ClQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=Odf7YF/MYNnV/QH7YVAwxJMGwpnwG1JiwXoPMTAQRCoZ7kvxyu9Ctyx8CdxjUv9Tc4bzPr9xd8yErIfVqu64WS2X7yxi9k4Irgmt46z9B2gu6WoPnCH2j0iz0xUxZJ6GU5dzXlXiOse6Wb2hL1Erkuhp9TtSHnO4UpFAulMyWwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RkXicEF3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="p0D2ISi8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E90E1F000FF;
-	Wed, 16 Sep 2026 01:07:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789520853;
-	bh=qqVqUgvLuNscU/1WctCgZYn8nx8CSvGQsjLw97YKxOg=;
-	h=Date:To:From:Subject;
-	b=p0D2ISi8Dmz0qGBBaKiiMR2Hkz787BwHcQRqL9nOKUsaiY0OpdiBTLAseQKe6mRay
-	 Soc2S3+jCLrV2gdZ9QqjCShdVuAWIf1kAPc+2OBBK7xKCLoFQh4y7hMhoVc+6dSDCw
-	 X3metRbOmaXSjLOQVkZZY8sAX5CBvZnGzX9sujWs=
-Date: Tue, 15 Sep 2026 18:07:32 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,piaojun@huawei.com,mark@fasheh.com,junxiao.bi@oracle.com,joseph.qi@linux.alibaba.com,jlbec@evilplan.org,heming.zhao@suse.com,gechangwei@live.cn,r772577952@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file.patch added to mm-nonmm-unstable branch
-Message-Id: <20260916010733.2E90E1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RkXicEF3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0A3831F000FF;
+	Wed, 16 Sep 2026 01:21:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789521677;
+	bh=ffJRaL2ky6pBQl8PtqB+J2dsYGt8mUxbX9DKk1QC71U=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=RkXicEF3L9BA4bhrsFGpqr7wgrUxNKkf67F+tRYiUGJ3df8JFH8orZ8NiNZj33jWo
+	 7aNa+nVsGYoD7Itv0pdaAngqwtrILN/DxiwevL5b9VuYj4gLrMwDtGE7fWWR800TA2
+	 A8GY9x18OvbCXjGWCdmu7/1h/KdoxMUQmPOE4mWZAMPaVPdld7I2EAdyQOyWGb6e/Z
+	 YvpXzxZBw8R2SI4ZjeSAQCX1IMRR9MQz/clX8oUGJPVdigCTCHCaX1yU2FQG2AEzIs
+	 49/1YMgHuW2ev+JZBUHaU+Um+2RyEkE4qJzBy81JgsfOrrJ5jseFgTAVPIvfyp12FY
+	 b82RZ92Uo74gQ==
+Date: Tue, 15 Sep 2026 20:21:15 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Angel J <iamanaws@httpd.dev>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
+ bridge configuration
+Message-ID: <20260916012115.GA888380@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <VaPKN3QbW3sGj8wePAvI_xD3twp_MQE4-4xeSbvgoQPVUnKDWKz0EWT_JiLehpmc6WOsCAoFOPs412Xhtthes_ZtvrgsKB4QB6QPz-XvRb4=@httpd.dev>
 
+On Mon, Sep 14, 2026 at 11:28:45PM +0000, Angel J wrote:
+> Ok, here it is...
+> 
+> I tested this quirk on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y,
+> and it boots without either OF fix. The diff below omits the test logging.
+> 
+> PCI_FIXUP_HEADER runs after the resources have been parsed using the
+> original header type, and changing hdr_type also affects configuration
+> restore. I don't know enough about this part of PCI to judge whether
+> that's safe, so I'll wait for your advice before submitting it as a patch.
+> 
+> Thanks,
+> Angel J
+> 
+> diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> index de9bbccda..57df88a38 100644
+> --- a/drivers/pci/quirks.c
+> +++ b/drivers/pci/quirks.c
+> @@ -291,6 +291,22 @@ static int __init pci_apply_final_quirks(void)
+>  }
+>  fs_initcall_sync(pci_apply_final_quirks);
+>  
+> 
+> +/*
+> + * On the Dell XPS 8940, 8086:4c43 reports a PCI-to-PCI bridge but has no
+> + * downstream bus. Use host-bridge class and a normal header so that
+> + * pci_is_bridge() does not send it through bridge scanning.
+> + */
+> +static void quirk_intel_4c43_host_bridge(struct pci_dev *dev)
+> +{
+> +	if ((dev->class >> 8) != PCI_CLASS_BRIDGE_PCI ||
+> +	    dev->hdr_type != PCI_HEADER_TYPE_BRIDGE)
+> +		return;
+> +
+> +	dev->class = (PCI_CLASS_BRIDGE_HOST << 8) | (dev->class & 0xff);
+> +	dev->hdr_type = PCI_HEADER_TYPE_NORMAL;
+> +}
+> +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4c43, quirk_intel_4c43_host_bridge);
 
-The patch titled
-     Subject: ocfs2: fix chunk number of the first chunk in a local quota file
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file.patch
+I think your of_property patch is better because it removes some
+assumptions made in the of_pci_make_dev_node() path about what things
+in the pci_dev are valid.  It's quite legal for a device to have a
+Type 1 header (so pci_is_bridge() is true), but have no pci_bus below
+it, e.g., a bridge on bus 0 with Secondary Bus Number also being 0.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file.patch
+I don't know what happened in this particular case, whether the
+Secondary Bus Number and Subordinate Bus Numbers are hard-wired to
+0xff or what (per spec, both should be read/write).  Maybe the system
+"lspci -vv" and/or complete dmesg log would have a clue.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Jiaming Zhang <r772577952@gmail.com>
-Subject: ocfs2: fix chunk number of the first chunk in a local quota file
-Date: Mon, 14 Sep 2026 11:49:40 +0800
-
-The local quota file in OCFS2 is divided into chunks, and each chunk
-begins with a header block holding a bitmap of the quota entries that
-chunk has handed out.  Chunks are numbered from zero, and that number is
-used to convert the file offset of an entry back into a bit position in
-the bitmap.  ocfs2_local_quota_add_chunk() appends a new chunk to the
-in-memory list and numbers it one past the chunk that was last:
-
-	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
-	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
-				   struct ocfs2_quota_chunk,
-				   qc_chunk)->qc_num + 1;
-
-The predecessor is looked up after the new chunk is added to the list, so
-if the list was empty, the prev pointer is the list head itself.  The head
-is the dqi_chunk member of struct ocfs2_mem_dqinfo and is not a chunk, so
-reading qc_num through it lands 16 bytes past the start of the head, on
-the dqi_gqinode pointer that follows it.  The first chunk of the file is
-then numbered with the lower half of a kernel pointer instead of 0.
-
-The list is empty when the local quota file header claims the file has no
-chunks.  ocfs2_local_read_info() takes dqi_chunks from that header without
-validating it, so an image with dqi_chunks == 0 takes this path when the
-first quota entry is allocated.
-
-ocfs2_create_local_dquot() turns the bad number into a file offset with
-ol_dqblk_off(), which shifts a 32-bit block number left by the block size
-bits, so the top bits of such a large block number are lost. 
-ocfs2_local_release_dquot() turns the offset back into a bit index with
-ol_dqblk_chunk_off(), using the full chunk number, so the lost bits push
-that index far outside the bitmap, and clearing it corrupts unrelated
-memory.
-
-Compute the chunk number before putting the chunk on the list, and use 0
-when the list is empty.
-
-Link: https://lore.kernel.org/20260914034940.4070970-1-r772577952@gmail.com
-Fixes: 9e33d69f553a ("ocfs2: Implementation of local and global quota file handling")
-Signed-off-by: Jiaming Zhang <r772577952@gmail.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Closes: https://lore.kernel.org/lkml/CANypQFZ05tpth0Xc33gmP6jgPnkY4VuezyHcsajV-SqCsmN_gg@mail.gmail.com/
-Assisted-by: Claude Code:claude-opus-5
-Reviewed-by: Joseph Qi <joseph.qi@linux.alibaba.com>
-Cc: Mark Fasheh <mark@fasheh.com>
-Cc: Joel Becker <jlbec@evilplan.org>
-Cc: Junxiao Bi <junxiao.bi@oracle.com>
-Cc: Changwei Ge <gechangwei@live.cn>
-Cc: Jun Piao <piaojun@huawei.com>
-Cc: Heming Zhao <heming.zhao@suse.com>
-Cc: <stable@vger.kernel.org>
----
-
- fs/ocfs2/quota_local.c |    9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
---- a/fs/ocfs2/quota_local.c~ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file
-+++ a/fs/ocfs2/quota_local.c
-@@ -1071,10 +1071,13 @@ static struct ocfs2_quota_chunk *ocfs2_l
- 		goto out;
- 	}
- 
-+	if (list_empty(&oinfo->dqi_chunk))
-+		chunk->qc_num = 0;
-+	else
-+		chunk->qc_num = list_entry(oinfo->dqi_chunk.prev,
-+					   struct ocfs2_quota_chunk,
-+					   qc_chunk)->qc_num + 1;
- 	list_add_tail(&chunk->qc_chunk, &oinfo->dqi_chunk);
--	chunk->qc_num = list_entry(chunk->qc_chunk.prev,
--				   struct ocfs2_quota_chunk,
--				   qc_chunk)->qc_num + 1;
- 	chunk->qc_headerbh = bh;
- 	*offset = 0;
- 	return chunk;
-_
-
-Patches currently in -mm which might be from r772577952@gmail.com are
-
-ocfs2-fix-chunk-number-of-the-first-chunk-in-a-local-quota-file.patch
-
+But I do think it's better if we don't assume that every pci_dev with
+a Type 1 header has a pci_bus allocated.
