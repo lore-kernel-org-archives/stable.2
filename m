@@ -1,41 +1,41 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA8193D813C;
-	Wed, 16 Sep 2026 18:11:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB7514A8434
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:12:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789582297; cv=none; b=CY7WkWzh9DWTFCYf9OVqooKsu7rOh5cBCwN9SZsUuGuCWMrvW/Cxe2JI4/oWjGZZ5Yh18fDEX9aDwQp1M6dYNpzMWQB5uaCsT7QBMktQ0Gn9gf0efvDrDCDAo66A62ZIxceKIQMSxfMoYty9UKLZrVHSJGn8ms0qYlSz/WabIQE=
+	t=1789582343; cv=none; b=A9wmBoriwjJeYCb96cQ/4koeNi1EPM/Z9aglclXNnNhiQK6LfhuBZcWFnAIXGj0MHFFq+Ar73A/dK1AMblR+MgCLeTaRw2wj/qtWbldW9U7p1R9oVT107rkzjj1fYpvpdb22+5fODlcFNzCL7t/6b1NqeSct67Kfl3q7RLR50d8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789582297; c=relaxed/simple;
-	bh=aCn5FX863NOXRQyBaJN6Q73xp3cWUBN+H04UrFkEI1I=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YaRRVTy/L5jNUwzkarlc3FmEbV6mUmnPyIMbWzTWCJLXJR0MuC15DkuZ9B6CmWWWuI+bZTiDzzBSQ5mT0L6sUaYsYHsKxfYV4TlikKBPV9/6ZoZlBQHYYOwWcoth/yhfEVytBa6ztfBM/6nGcQTgLmrMm/p9+8D9lHemjJ4SoDg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnFUC926pq_UBvCA--.24651S2;
-	Thu, 17 Sep 2026 02:11:10 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: andrzej.hajda@intel.com,
-	andy.yan@rock-chips.com,
-	dri-devel@lists.freedesktop.org,
-	heiko@sntech.de,
-	hjc@rock-chips.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-rockchip@lists.infradead.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/rockchip: dsi: Fix second reference leak in dw_mipi_dsi_rockchip_bind()
-Date: Wed, 16 Sep 2026 18:10:42 +0000
-Message-Id: <20260916181042.2090801-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789582343; c=relaxed/simple;
+	bh=v0HdpNCc97OvhSMMlxV7VXbk4n6QD5roDa6rFzlDSDM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=uNYRv5CRjUVAP24+0l8M4oKlqMHLH9j3JzidZdFt42gOooapbosNnqTdC/3eo4bz3M+8WbX20wcsPRbniQqtgOSfdv/YZv/ru3Ytle+3puK2Uul74FSijrLaRlgT76LSOcukMV2xuKawxcpvRavAjV1LsgjXCGaKX1pUf462RsY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=PqKN7v96; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="PqKN7v96"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 444B21F000FF;
+	Wed, 16 Sep 2026 18:12:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789582328;
+	bh=Po6NCmgBi+d6s1BLp4aP7lX8HuzjG0PgUflLmfdWJ7Q=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=PqKN7v96OjB05cIw5pr+fgFQynSMl5mMqXCDWkqzK6Gq2TBmmQzsFkL4GQTok+H1Y
+	 dKRZdbJaWTMURmEwxMuCWaQCEqr4CrsheFk5KAag+vkMO3+RzFiOiMQFleMTNm6u/H
+	 3JQ3JCGyp3QWVuZ9Hwa7Ri4rt+Q+8YMl1+8IKkHfAIRnKamvoDPLpUECfQtcaHmmHb
+	 kwOW3mXoOu4fx1RCRuDcgnT6RRrVyx7Lugs9JxBhv2luqQKWy3ptMfNeaFKfhTN9rp
+	 tRL2/ah6tnmm2RjyiWbNRup71vUpdT4SBhS9aqVA5f/HWjhEes7NTsSWOgZIB3QL1Z
+	 dXXwgqw1aKP7g==
+From: Dinh Nguyen <dinguyen@kernel.org>
+To: stable@vger.kernel.org
+Cc: Dinh Nguyen <dinguyen@kernel.org>,
+	Borislav Petkov <bp@alien8.de>
+Subject: [PATCH 7.2.y] EDAC/altera: Use parent device for devres in altr_portb_setup()
+Date: Wed, 16 Sep 2026 13:11:56 -0500
+Message-ID: <20260916181156.365125-1-dinguyen@kernel.org>
+X-Mailer: git-send-email 2.42.0.411.g813d9a9188
+In-Reply-To: <2026091617-provoke-cupcake-11e7@gregkh>
+References: <2026091617-provoke-cupcake-11e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,70 +43,74 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnFUC926pq_UBvCA--.24651S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uFykXF1kXF1kuF48Xr1DKFg_yoW8XF4xpw
-	s8Ja4YgrW8uFnFqrnrArZ8GF4FywnIyay8GFs7J3s2kan5AF1Ut345Wa4kX347JFn7AF1x
-	Ar47Ga4rWF4xZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
-	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF
-	7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026x
-	CaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_
-	JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r
-	1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0
-	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr
-	0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1go2UUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAAMA2qqpO93ZQAAsa
 
-dw_mipi_dsi_rockchip_find_second() hands back the dual-DSI partner
-device with a reference from of_find_device_by_node().  The bind path
-only drops it after a successful master setup; the four early returns
-(both/no clock-master, the slave shortcut and a missing slave drvdata)
-leave the reference behind.  Drop it on all of them.
+Anchor the devres group and the devm-managed IRQ requests in altr_portb_setup()
+to the actual parent device (device->edac->dev) instead of the embedded struct
+device inside the copied per-port altr_edac_device_dev.
 
-Fixes: cf6d100dd238 ("drm/rockchip: dsi: add dual mipi support")
+This keeps devres_open_group(), devm_request_irq(), devres_remove_group() and
+devres_release_group() all referring to the same long-lived device so the
+group and the resources allocated inside it are torn down together.
+
+Fixes: 911049845d70 ("EDAC, altera: Add Arria10 SD-MMC EDAC support")
+Closes: https://sashiko.dev/#/patchset/20260503212558.2811480-1-dbgh9129%40gmail.com
+Assisted-by: LLM
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Link: https://patch.msgid.link/20260617164303.585555-1-dinguyen@kernel.org
+(cherry picked from commit 9868f5c077dfe0b606331f2e782484f91a5789a5)
+Signed-off-by: Dinh Nguyen <dinguyen@kernel.org>
 ---
- drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/edac/altera_edac.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-index 3547d91b25d3..4ab29410b2c0 100644
---- a/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-+++ b/drivers/gpu/drm/rockchip/dw-mipi-dsi-rockchip.c
-@@ -933,23 +933,27 @@ static int dw_mipi_dsi_rockchip_bind(struct device *dev,
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 4edd2088c2db6..5914b2fd94d9c 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1533,7 +1533,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	altdev = dci->pvt_info;
+ 	*altdev = *device;
  
- 		if (master1 && master2) {
- 			DRM_DEV_ERROR(dsi->dev, "only one clock-master allowed\n");
-+			put_device(second);
- 			return -EINVAL;
- 		}
+-	if (!devres_open_group(&altdev->ddev, altr_portb_setup, GFP_KERNEL))
++	if (!devres_open_group(device->edac->dev, altr_portb_setup, GFP_KERNEL))
+ 		return -ENOMEM;
  
- 		if (!master1 && !master2) {
- 			DRM_DEV_ERROR(dsi->dev, "no clock-master defined\n");
-+			put_device(second);
- 			return -EINVAL;
- 		}
+ 	/* Update PortB specific values */
+@@ -1562,7 +1562,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		rc = -ENODEV;
+ 		goto err_release_group_1;
+ 	}
+-	rc = devm_request_irq(&altdev->ddev, altdev->sb_irq,
++	rc = devm_request_irq(device->edac->dev, altdev->sb_irq,
+ 			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+ 			      ecc_name, altdev);
+ 	if (rc) {
+@@ -1585,7 +1585,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		rc = -ENODEV;
+ 		goto err_release_group_1;
+ 	}
+-	rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
++	rc = devm_request_irq(device->edac->dev, altdev->db_irq,
+ 			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+ 			      ecc_name, altdev);
+ 	if (rc) {
+@@ -1605,13 +1605,13 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
  
- 		/* we are the slave in dual-DSI */
- 		if (!master1) {
- 			dsi->is_slave = true;
-+			put_device(second);
- 			return 0;
- 		}
+ 	list_add(&altdev->next, &altdev->edac->a10_ecc_devices);
  
- 		dsi->slave = dev_get_drvdata(second);
- 		if (!dsi->slave) {
- 			DRM_DEV_ERROR(dev, "could not get slaves data\n");
-+			put_device(second);
- 			return -ENODEV;
- 		}
+-	devres_remove_group(&altdev->ddev, altr_portb_setup);
++	devres_remove_group(device->edac->dev, altr_portb_setup);
  
+ 	return 0;
+ 
+ err_release_group_1:
+ 	edac_device_free_ctl_info(dci);
+-	devres_release_group(&altdev->ddev, altr_portb_setup);
++	devres_release_group(device->edac->dev, altr_portb_setup);
+ 	edac_printk(KERN_ERR, EDAC_DEVICE,
+ 		    "%s:Error setting up EDAC device: %d\n", ecc_name, rc);
+ 	return rc;
 -- 
-2.34.1
+2.42.0.411.g813d9a9188
 
