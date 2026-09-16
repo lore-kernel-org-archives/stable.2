@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 612784C2246
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CDFEC4AB3AB
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574846; cv=none; b=Yxty8OzzaNGH8cUfKXPr+SEG1Xp+Zj9IvaKJGkyq38FLZZcPm3S9UyQd84u7K4uJJFz9kRnefJAPKkdMYs4jxDW3jWkFWFRfTa5hjXWSvY5iptp7xEC76CtP1nmHWb/tMA7agSbkJIaN4Bc18Howyn61+ll11/ERJ2lk1cNqUIg=
+	t=1789574847; cv=none; b=HIGBDiWf8Q1chb+DcxYhlkKq6c61teqr8WAp9alNWSjSyuAfkD6rgm3KcNc4AsJjl59wGpztshcCa8ZIEGDP031VKqwZha8rKMiaW7nD/k4mE9eygqPbnZndMy+girh33MWXBRFZ05nzd88Loa1YWxJD0shlGWgBobbgXyjX9Pc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574846; c=relaxed/simple;
-	bh=MrrnWXPJ6kvkZoXleAe4dPHlA7iEq/amx6nKZ7Ls7yY=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tMy9mPLFk3/OYYCeGRSIaxMUE6uvwAdBk5TMSvU2NBny/3svqZwwhvZAA8V1F+VnrjXePey5jpVod7q/9sv86RcHOuo+SJey1UJmefeyNEEq+QBWFlM0qFCpZliDJzJ6M3pMVlI0XCwE0a0yjQaS/6ZTbYjzYQjEe3zy9FjwEls=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=FOQW60M+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574847; c=relaxed/simple;
+	bh=6mED2E0yZWvzxh/KBOEKPehc6eVOx6QkDtvqbAHfJkU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Rc4FYXf38GWw73jE4Ix++mS9VxAA1ErVlzeoNmMKH7uqhRZpS2kDp57f+KfafAZ00laDXowE3oYDbyo9xSJMlYjvnWZ7LymRCvah7Fyv4ZaFk5gCoLBSiWfGisGkE/rSJYPuxVSRueW+27VOrfqFuTemGsoFs5ksi9xvHvKWtl4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=tdKbs2Gj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="FOQW60M+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04CC31F00893;
-	Wed, 16 Sep 2026 16:07:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="tdKbs2Gj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07E621F000FF;
+	Wed, 16 Sep 2026 16:07:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574842;
-	bh=GWKgTUEANz2WokYhgFNKQ+7bUvBPwotjzHza1Xg5gos=;
+	s=korg; t=1789574845;
+	bh=2BL8tz88p0HrhlfKT/TGXp8yP4DvL76LI501TIAmMVY=;
 	h=Subject:To:Cc:From:Date;
-	b=FOQW60M+s+Omx5g1Z5kjCwM6YMyqaJb46fk/OILB7/533oij8DiyDXT75qiLFOkvZ
-	 NnjyLZtJqOkp3aPIDryZ7ycHnRKcgyK29v5ubHvKrti2FSbRx8l49yf3Upg+/gl4rK
-	 BzZE3JnifyYlbhrhTRak/uggPMSpMCqLbk2bSx0c=
-Subject: FAILED: patch "[PATCH] s390/pai: Support CPU hotplug for PMU PAI" failed to apply to 6.18-stable tree
-To: tmricht@linux.ibm.com,gor@linux.ibm.com,hca@linux.ibm.com,japo@linux.ibm.com
+	b=tdKbs2GjQkld9sn2PshjrP5ktfrL7FE19qRD71tDryQfo4HdFCfASnGxZnfEStrLM
+	 GgU1pOTULr+Wd+NEF+bjUzzB52cu9feq5yAKDCXY/+UXnq4StZ71cQQEB+9bDGdIz7
+	 O4oG3dguGqYc2qqgJMtIPw9GfyPXnSnR9wQlCjRY=
+Subject: FAILED: patch "[PATCH] s390/crypto: Fix skcipher_walk return code handling in" failed to apply to 6.6-stable tree
+To: freude@linux.ibm.com,dengler@linux.ibm.com,gor@linux.ibm.com,hca@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:47:45 +0100
-Message-ID: <2026091645-securely-immobile-9a05@gregkh>
+Date: Wed, 16 Sep 2026 16:48:19 +0100
+Message-ID: <2026091619-dexterity-vagabond-1dc7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x 9ecc4d033879f7761f2df07e20cd2fbec00fd90b
+git cherry-pick -x 15fa028589c3a2545f0bff355eff06d5844196bf
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091645-securely-immobile-9a05@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091619-dexterity-vagabond-1dc7@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,363 +62,85 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 9ecc4d033879f7761f2df07e20cd2fbec00fd90b Mon Sep 17 00:00:00 2001
-From: Thomas Richter <tmricht@linux.ibm.com>
-Date: Tue, 1 Sep 2026 14:33:20 +0200
-Subject: [PATCH] s390/pai: Support CPU hotplug for PMU PAI
+From 15fa028589c3a2545f0bff355eff06d5844196bf Mon Sep 17 00:00:00 2001
+From: Harald Freudenberger <freude@linux.ibm.com>
+Date: Mon, 31 Aug 2026 10:37:33 +0200
+Subject: [PATCH] s390/crypto: Fix skcipher_walk return code handling in
+ aes_s390
 
-The command 'perf stat -e pai_crypto/CRYPTO_ALL/ -- <command>'
-crashes the kernel when CPUs are hotplug added during that run.
+The return codes from skcipher_walk_virt() were not properly checked
+before entering the processing loops in ecb_aes_crypt() and ctr_aes_crypt().
+If skcipher_walk_virt() fails, the walk structure may be in an undefined
+state, and attempting to process data could lead to incorrect behavior
+or accessing uninitialized memory.
 
-Root cause is the missing allocation of per-CPU data structures
-for that new CPU. The allocation is dynamic and the first
-event that has task context creates such a structure for
-each online CPU. This is not sufficient. CPUs may be offline
-during event creation and can be set online during the
-perf run time. For example commands
+Add proper return code checking to ensure correct handling of the walk
+initialization and walk advance and eventually return to the caller
+with that return code.
 
- # echo 0 > /sys/devices/system/cpu/cpu1/online
- # perf stat -e cycles -i -- stress-ng -t10s --matrix X
- # sleep 1
- # echo 1 > /sys/devices/system/cpu/cpu1/online
-
-Currently without a CPU hotplug handler, that new CPU has no
-per-CPU data infrastructure. The scheduler runs PMU call back
-function pai_add() to install the PMU support for that CPU before
-the task is being scheduled on that new CPU.
-In pai_add() instructions
-
-    mp = this_cpu_ptr(pai_root[idx].mapptr);
-    cpump = mp->mapptr;
-
-return a NULL pointer and the result is a kernel panic as variable
-cpump is used inside that function.
-
-Add CPU hotplug support for CPU add and delete and create
-the necessary per-CPU data infrastructure during CPU hotplug
-add processing. Same for CPU hotplug remove.
-This is done when the CPU is offline to ensure the data structures
-are available when CPU is made online and tasks are scheduled on it.
-
-[hca@linux.ibm.com: fixup error path in pai_init()]
-
-Cc: stable@vger.kernel.org # v6.19
-Fixes: 582cc1b28e8c ("s390/pai_ext: Enable per-task and system-wide sampling event")
-Fixes: 9f66572f2889 ("s390/pai_crypto: Enable per-task and system-wide sampling event")
-Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
-Reviewed-by: Jan Polensky <japo@linux.ibm.com>
+Fixes: 7988fb2c03c8 ("crypto: s390/aes - convert to skcipher API")
+Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
+Reviewed-by: Holger Dengler <dengler@linux.ibm.com>
+Cc: stable@vger.kernel.org # 5.5+
 Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
 
-diff --git a/arch/s390/include/asm/pai.h b/arch/s390/include/asm/pai.h
-index 534d0320e2aa..a3456a36aaa7 100644
---- a/arch/s390/include/asm/pai.h
-+++ b/arch/s390/include/asm/pai.h
-@@ -76,7 +76,6 @@ static __always_inline void pai_kernel_exit(struct pt_regs *regs)
- }
+diff --git a/arch/s390/crypto/aes_s390.c b/arch/s390/crypto/aes_s390.c
+index 62edc66d5478..366ce22d3623 100644
+--- a/arch/s390/crypto/aes_s390.c
++++ b/arch/s390/crypto/aes_s390.c
+@@ -129,7 +129,7 @@ static int ecb_aes_crypt(struct skcipher_request *req, unsigned long modifier)
+ 		return fallback_skcipher_crypt(sctx, req, modifier);
  
- #define PAI_SAVE_AREA(x)	((x)->hw.event_base)
--#define PAI_CPU_MASK(x)		((x)->hw.addr_filters)
- #define PAI_PMU_IDX(x)		((x)->hw.last_tag)
- #define PAI_SWLIST(x)		(&(x)->hw.tp_list)
+ 	ret = skcipher_walk_virt(&walk, req, false);
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_km(sctx->fc | modifier, sctx->key,
+@@ -233,7 +233,7 @@ static int cbc_aes_crypt(struct skcipher_request *req, unsigned long modifier)
+ 		return ret;
+ 	memcpy(param.iv, walk.iv, AES_BLOCK_SIZE);
+ 	memcpy(param.key, sctx->key, sctx->key_len);
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_kmc(sctx->fc | modifier, &param,
+@@ -359,7 +359,7 @@ static int xts_aes_crypt(struct skcipher_request *req, unsigned long modifier)
+ 	memcpy(xts_param.key + offset, xts_ctx->key, xts_ctx->key_len);
+ 	memcpy(xts_param.init, pcc_param.xts, 16);
  
-diff --git a/arch/s390/kernel/perf_pai.c b/arch/s390/kernel/perf_pai.c
-index c333158cc945..013c3dae21ec 100644
---- a/arch/s390/kernel/perf_pai.c
-+++ b/arch/s390/kernel/perf_pai.c
-@@ -67,6 +67,7 @@ struct pai_mapptr {
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_km(xts_ctx->fc | modifier, xts_param.key + offset,
+@@ -487,7 +487,7 @@ static int fullxts_aes_crypt(struct skcipher_request *req,  unsigned long modifi
+ 	memcpy(fxts_param.tweak, req->iv, AES_BLOCK_SIZE);
+ 	fxts_param.nap[0] = 0x01; /* initial alpha power (1, little-endian) */
  
- static struct pai_root {		/* Anchor to per CPU data */
- 	refcount_t refcnt;		/* Overall active events */
-+	atomic_t tskctx;		/* Overall per-task events */
- 	struct pai_mapptr __percpu *mapptr;
- } pai_root[PAI_PMU_MAX];
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_km(xts_ctx->fc | modifier, fxts_param.key + offset,
+@@ -577,7 +577,7 @@ static int ctr_aes_crypt(struct skcipher_request *req)
+ 	locked = mutex_trylock(&ctrblk_lock);
  
-@@ -93,14 +94,15 @@ struct pai_pmu {			/* Define PAI PMU characteristics */
- static struct pai_pmu pai_pmu[];	/* Forward declaration */
+ 	ret = skcipher_walk_virt(&walk, req, false);
+-	while ((nbytes = walk.nbytes) >= AES_BLOCK_SIZE) {
++	while (!ret && ((nbytes = walk.nbytes) >= AES_BLOCK_SIZE)) {
+ 		n = AES_BLOCK_SIZE;
  
- /* Free per CPU data when the last event is removed. */
--static void pai_root_free(int idx)
-+static void pai_root_free(int idx, int tasks)
- {
--	if (refcount_dec_and_test(&pai_root[idx].refcnt)) {
-+	if (refcount_sub_and_test(tasks, &pai_root[idx].refcnt)) {
- 		free_percpu(pai_root[idx].mapptr);
- 		pai_root[idx].mapptr = NULL;
- 	}
--	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d\n", __func__,
--			    idx, refcount_read(&pai_root[idx].refcnt));
-+	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d tskctx %d\n",
-+			    __func__, idx, refcount_read(&pai_root[idx].refcnt),
-+			    atomic_read(&pai_root[idx].tskctx));
- }
- 
- /*
-@@ -137,20 +139,36 @@ static void pai_free(struct pai_mapptr *mp)
- 	mp->mapptr = NULL;
- }
- 
--/* Adjust usage counters and remove allocated memory when all users are
-- * gone. Called under mutex_lock.
-- */
--static void pai_event_destroy_cpu(int idx, int cpu)
-+/* Called under mutex_lock */
-+static void pai_event_destroy_cpu(int idx, int cpu, bool hotplug)
- {
--	struct pai_mapptr *mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
--	struct pai_map *cpump = mp->mapptr;
-+	struct pai_mapptr *mp;
-+	struct pai_map *cpump;
-+	int tasks = 1;
- 
--	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
--			    __func__, cpump->active_events,
--			    refcount_read(&cpump->refcnt));
--	if (refcount_dec_and_test(&cpump->refcnt))
-+	/* Check reference count and return when all gone.
-+	 * 1. An event is installed on online CPU X.
-+	 * 2. CPU x is offlined and the per-CPU data is removed.
-+	 * 3. Event is destroyed via close system call.
-+	 */
-+	if (!refcount_read(&pai_root[idx].refcnt))
-+		return;			/* No events at all */
-+	mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
-+	if (!mp || !mp->mapptr)		/* No events on that CPU */
-+		return;
-+
-+	/* When hotplug is true, invocation is from CPU hotplug callback.
-+	 * Delete per-CPU resource and adjust refcnt when per-task events
-+	 * are currently active. This can be more than one.
-+	 * In this case adjust counters.
-+	 */
-+	if (hotplug)
-+		tasks = atomic_read(&pai_root[idx].tskctx);
-+
-+	cpump = mp->mapptr;
-+	if (refcount_sub_and_test(tasks, &cpump->refcnt))
- 		pai_free(mp);
--	pai_root_free(idx);
-+	pai_root_free(idx, tasks);
- }
- 
- static void pai_event_destroy(struct perf_event *event)
-@@ -158,17 +176,17 @@ static void pai_event_destroy(struct perf_event *event)
- 	int cpu = 0, idx = PAI_PMU_IDX(event);
- 
- 	free_page(PAI_SAVE_AREA(event));
-+	cpus_read_lock();
- 	mutex_lock(&pai_reserve_mutex);
- 	if (event->cpu == -1) {
--		struct cpumask *mask = PAI_CPU_MASK(event);
--
--		for_each_cpu(cpu, mask)
--			pai_event_destroy_cpu(idx, cpu);
--		kfree(mask);
-+		atomic_dec(&pai_root[idx].tskctx);
-+		for_each_online_cpu(cpu)
-+			pai_event_destroy_cpu(idx, cpu, false);
- 	} else {
--		pai_event_destroy_cpu(idx, event->cpu);
-+		pai_event_destroy_cpu(idx, event->cpu, false);
- 	}
- 	mutex_unlock(&pai_reserve_mutex);
-+	cpus_read_unlock();
- }
- 
- static void paicrypt_event_destroy(struct perf_event *event)
-@@ -232,17 +250,25 @@ static u64 paicrypt_getall(struct perf_event *event)
- 	return sum;
- }
- 
--/* Allocate all per-CPU data structures. This function is called in
-- * process context and can block. In case of error all partly allocated
-- * memory is released and the reference counters adjusted correctly.
-- * Called under mutex_lock.
-- */
--static int pai_alloc_cpu(int idx, int cpu)
-+/* Called under mutex_lock */
-+static int pai_alloc_cpu(int idx, int cpu, bool hotplug)
- {
- 	struct pai_map *cpump = NULL;
- 	bool need_paiext_cb = false;
- 	struct pai_mapptr *mp;
--	int rc;
-+	int tasks = 1, rc = 0;
-+
-+	/* When hotplug is true, invocation is from CPU hotplug callback.
-+	 * Allocate per-CPU resource when per-task events are currently active.
-+	 * This can be more than one. In this case adjust all reference
-+	 * counters. Otherwise return, this ensures memory is only allocated
-+	 * when needed.
-+	 */
-+	if (hotplug) {
-+		tasks = atomic_read(&pai_root[idx].tskctx);
-+		if (!tasks)
-+			goto out;
-+	}
- 
- 	/* Allocate root node */
- 	rc = pai_root_alloc(idx);
-@@ -291,26 +317,42 @@ static int pai_alloc_cpu(int idx, int cpu)
- 			goto undo;
- 		}
- 		INIT_LIST_HEAD(&cpump->syswide_list);
--		refcount_set(&cpump->refcnt, 1);
-+		refcount_set(&cpump->refcnt, tasks);
- 		rc = 0;
- 	} else {
--		refcount_inc(&cpump->refcnt);
-+		refcount_add(tasks, &cpump->refcnt);
- 	}
-+	/* If tasks is greater than 1, we are called from CPU hotplug path
-+	 * and need to adjust the pai_root[idx].refcnt by the number of
-+	 * per-process events. Function pai_root_alloc(idx) already
-+	 * incremented by one. Adjust for the rest.
-+	 */
-+	if (tasks > 1)
-+		refcount_add(tasks - 1, &pai_root[idx].refcnt);
- 
- undo:
- 	if (rc) {
- 		/* Error in allocation of event, decrement anchor. Since
- 		 * the event in not created, its destroy() function is never
- 		 * invoked. Adjust the reference counter for the anchor.
-+		 * The failure happened in the case of variable
-+		 * cpump == NULL branch above. The pai_root[XXX].refcnt has
-+		 * been incremented by one. Then the per-CPU allocation
-+		 * failed, so decrement it by one, regardless of tasks.
- 		 */
--		pai_root_free(idx);
-+		pai_root_free(idx, 1);
- 	}
- out:
- 	/* If rc is non-zero, no increment of counter/sampler was done. */
- 	return rc;
- }
- 
--/* Called under mutex_lock */
-+/* Check concurrent access of counting and sampling for PAI events.
-+ * This function is called in process context and it is safe to block.
-+ * When the event initialization functions fails, no other call back will
-+ * be invoked.
-+ * Called under mutex_lock.
-+ */
- static int pai_alloc(struct perf_event *event)
- {
- 	int idx = PAI_PMU_IDX(event);
-@@ -322,24 +364,20 @@ static int pai_alloc(struct perf_event *event)
- 		goto out;
- 
- 	for_each_online_cpu(cpu) {
--		rc = pai_alloc_cpu(idx, cpu);
-+		rc = pai_alloc_cpu(idx, cpu, false);
- 		if (rc) {
- 			for_each_cpu(cpu, maskptr)
--				pai_event_destroy_cpu(idx, cpu);
--			kfree(maskptr);
--			goto out;
-+				pai_event_destroy_cpu(idx, cpu, false);
-+			goto undo;
- 		}
- 		cpumask_set_cpu(cpu, maskptr);
- 	}
- 
--	/*
--	 * On error all cpumask are freed and all events have been destroyed.
--	 * Save of which CPUs data structures have been allocated for.
--	 * Release them in pai_event_destroy call back function
--	 * for this event.
--	 */
--	PAI_CPU_MASK(event) = maskptr;
- 	rc = 0;
-+	/* Trace per-task events for CPU hotplug. */
-+	atomic_inc(&pai_root[idx].tskctx);
-+undo:
-+	kfree(maskptr);
- out:
- 	return rc;
- }
-@@ -387,12 +425,14 @@ static int pai_event_init(struct perf_event *event, int idx)
- 		}
- 	}
- 
-+	cpus_read_lock();
- 	mutex_lock(&pai_reserve_mutex);
- 	if (event->cpu >= 0)
--		rc = pai_alloc_cpu(idx, event->cpu);
-+		rc = pai_alloc_cpu(idx, event->cpu, false);
- 	else
- 		rc = pai_alloc(event);
- 	mutex_unlock(&pai_reserve_mutex);
-+	cpus_read_unlock();
- 	if (rc) {
- 		free_page(PAI_SAVE_AREA(event));
- 		goto out;
-@@ -1237,8 +1277,35 @@ static int __init paipmu_setup(void)
- 	return install_ok;
- }
- 
-+static int pai_online_cpu(unsigned int cpu)
-+{
-+	int rc;
-+
-+	mutex_lock(&pai_reserve_mutex);
-+	rc = pai_alloc_cpu(PAI_PMU_CRYPTO, cpu, true);
-+	if (rc)
-+		goto out;
-+	rc = pai_alloc_cpu(PAI_PMU_EXT, cpu, true);
-+	if (rc)
-+		pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-+out:
-+	mutex_unlock(&pai_reserve_mutex);
-+	return rc;
-+}
-+
-+static int pai_offline_cpu(unsigned int cpu)
-+{
-+	mutex_lock(&pai_reserve_mutex);
-+	pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-+	pai_event_destroy_cpu(PAI_PMU_EXT, cpu, true);
-+	mutex_unlock(&pai_reserve_mutex);
-+	return 0;
-+}
-+
- static int __init pai_init(void)
- {
-+	int state, rc;
-+
- 	/* Setup s390dbf facility */
- 	paidbg = debug_register("pai", 1, 1, 128);
- 	if (!paidbg) {
-@@ -1247,13 +1314,24 @@ static int __init pai_init(void)
- 	}
- 	debug_register_view(paidbg, &debug_sprintf_view);
- 
--	if (!paipmu_setup()) {
--		/* No PMU registration, no need for debug buffer */
--		debug_unregister_view(paidbg, &debug_sprintf_view);
--		debug_unregister(paidbg);
--		return -ENODEV;
--	}
-+	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
-+	state = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
-+				  pai_online_cpu, pai_offline_cpu);
-+	rc = state < 0 ? state : 0;
-+	if (rc < 0)
-+		goto out_debug;
-+
-+	rc = -ENODEV;
-+	if (!paipmu_setup())
-+		goto out_cpuhp;
- 	return 0;
-+
-+out_cpuhp:
-+	cpuhp_remove_state(state);
-+out_debug:
-+	debug_unregister_view(paidbg, &debug_sprintf_view);
-+	debug_unregister(paidbg);
-+	return rc;
- }
- 
- device_initcall(pai_init);
+ 		if (nbytes >= 2*AES_BLOCK_SIZE && locked)
+@@ -596,7 +596,7 @@ static int ctr_aes_crypt(struct skcipher_request *req)
+ 	/*
+ 	 * final block may be < AES_BLOCK_SIZE, copy only nbytes
+ 	 */
+-	if (nbytes) {
++	if (!ret && nbytes) {
+ 		memset(buf, 0, AES_BLOCK_SIZE);
+ 		memcpy(buf, walk.src.virt.addr, nbytes);
+ 		cpacf_kmctr(sctx->fc, sctx->key, buf, buf,
 
