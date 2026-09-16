@@ -1,93 +1,100 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AF534DD3B2;
-	Wed, 16 Sep 2026 17:13:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D7662D0C72
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:14:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789578837; cv=none; b=aTyEbt4riIpPPddpXLEcwsd2yiR2y8fm7mWBYRSWuwjSZQz3FxNn81GRSmQn9+IkQsW8sbXB7Tgv+GTjdtvqQw1Xa4uNo03wjPlyyRwNMmjrX5jndGTk+GX/NmhAOYpsduA4oRj1QNa77F+cqjyQ6fJuEgsQpYThFkMvonPZ0xM=
+	t=1789578893; cv=none; b=vAiXhuIFfICVyOGDb2OO0updPjVqCx5h/uXjKMGIypt3jOG9AwSOnsBDBU12XVd58pgzVfJtHfUE7slmz5Gt6tXn/O6gIaSas3jKg0pxuLMYPuRPBCrYZqEBotZwO7E9Ef4Kq5Ft4A27XGEDyq/Wy7WmL8g/vndUh9O8Nz6Qdg8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789578837; c=relaxed/simple;
-	bh=o+bs2Uka+leCxw+K/4mbYOPdHuXTq+5fJ940yyyKMNM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aHWv3BYzTXbljEqsHGywc0wmujdtSk8BY9MgyMKSyN5zPx16lTLfMMIKgCdveKME8PD5Z6HGH1mSvONm6MLTss2M0em/qeh2JGgwXcdJUHwsoBLnaqdaJjyeEmIHJnio304nhmJl5IFMKeDZkK6QdIndvV5lX5Z30W54gI/gZWA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnUDtLzqpqZWRuCA--.22559S2;
-	Thu, 17 Sep 2026 01:13:47 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: clm@fb.com
-Cc: dsterba@suse.com,
-	linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	wqu@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] btrfs: Fix root reference leak in handle_indirect_tree_backref()
-Date: Wed, 16 Sep 2026 17:13:19 +0000
-Message-Id: <20260916171319.2086756-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789578893; c=relaxed/simple;
+	bh=Q3hFAz21Puk4qp5OVNLkTKvWHULbnjoIhvvfucWc9Ik=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=i1j2PsHJsHvyKZqJJIgqO2/Y6jm1QAxkDVPlnxTym/ZKNCwwV4cypVquHkS6EWo6Fm3WJUk7a8P6wapSWUQkdQXkRdJpKOOKbLFUirKeGCDHGC331B1p2kFoEcnqUp6BFE9TO+V876yDf5uFGsvPbvsNeBIAD3V0CRXVGwnEEQQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LWRxEyan; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LWRxEyan"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7DC7C1F00893
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:14:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789578890;
+	bh=Q3hFAz21Puk4qp5OVNLkTKvWHULbnjoIhvvfucWc9Ik=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=LWRxEyanij8iyqFWzVauR5rek7ibzKqMag8JkJWqC/D54WCmt5VYct+MySEMYaj99
+	 FLCBuo7/Bpwy4Ae1rF2ZbimIwE/QVqVVl71hzAUfipJcFri3oLsxI5PfUuurnWv+QI
+	 rASRh8bgfT30BPoA3AO0pKgOWDRpEuzc+7pr7MBh3ozCsc8oM3NMOXovnp4QhF0Te/
+	 yZTu2HOaFRg4N5y7rDwnmG340Db7yiIYAklQZauANCYZtf1ypWnBoOwcJQYaSVWHNu
+	 SLx7GBjhBdebWM4eGY3rICp9mq2G4fKqHN9Uk9WlCESVE5DC+x7VpTbesUZAw5o945
+	 MQH6UxWBXWELQ==
+Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b5e4f15b7aso1264223e87.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:14:50 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBxsp5XLutqNVdZcu8ycXuedJGLxbw7BxKSEVy6BzM9zB3KRA3vwAd6BZiWoLDGiBlPxQ+vT35M=@vger.kernel.org
+X-Gm-Message-State: AFuF++liTBpoGLk6oizlpSCTgRTmyH4lVwI3iE4y2j4eYN6JlnVpZ88q
+	LXOoXIdDWXoszufu1HdUQqHHXIMOj0KNMHmAxS1wJdZyG0kgQ5AowxEWBi/yQhIqmprx+iHAZYx
+	eTmKBBnq35qaMp2/kEnvLmzCSAVCkisU=
+X-Received: by 2002:a05:6512:3c94:b0:5b4:97db:b740 with SMTP id
+ 2adb3069b0e04-5b8b6646174mr1819762e87.20.1789578889250; Wed, 16 Sep 2026
+ 10:14:49 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnUDtLzqpqZWRuCA--.22559S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Jr1DXFWDuw15Cr4kKFW7Arb_yoW8JF4rpr
-	W3CrZ8Gr4kCr1xtFWxWw4UtryS9rZ8G3y5Ca4kCayS9w4rJw1fZFy2kwn0gw43trZ5Gry5
-	WF4YqFyYyasFyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvY14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4UJVWxJr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	4UJVWxJr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AF
-	wI0_JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4
-	xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1D
-	MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I
-	0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_
-	Gr0_Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0J
-	USLvNUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgIMA2qqok9l6gABso
+References: <20260910-fw-devlink-nexus-ready-v2-0-17ac82dbe226@toradex.com> <20260910-fw-devlink-nexus-ready-v2-1-17ac82dbe226@toradex.com>
+In-Reply-To: <20260910-fw-devlink-nexus-ready-v2-1-17ac82dbe226@toradex.com>
+From: Linus Walleij <linusw@kernel.org>
+Date: Wed, 16 Sep 2026 19:14:37 +0200
+X-Gmail-Original-Message-ID: <CAD++jLn2LmvsO2PNh0AVcTJULTRFazANBaTOJCYcL5TgvyoDFA@mail.gmail.com>
+X-Gm-Features: AcwNN1WrC5AS_PRz3Sq427sJhJfk8k29uqMAQRw-Dbr4KzlXEKv1HU-8tHH5OjQ
+Message-ID: <CAD++jLn2LmvsO2PNh0AVcTJULTRFazANBaTOJCYcL5TgvyoDFA@mail.gmail.com>
+Subject: Re: [PATCH v2 1/7] of: property: fw_devlink: Follow GPIO nexus maps
+To: Ernest Van Hoecke <ernestvanhoecke@gmail.com>
+Cc: Rob Herring <robh@kernel.org>, Saravana Kannan <saravanak@kernel.org>, 
+	"Miquel Raynal (Schneider Electric)" <miquel.raynal@bootlin.com>, Frank Li <Frank.li@oss.nxp.com>, 
+	Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+	Pengutronix Kernel Team <kernel@pengutronix.de>, Stephen Boyd <sboyd@kernel.org>, 
+	Brian Masney <bmasney@redhat.com>, Bartosz Golaszewski <brgl@kernel.org>, 
+	=?UTF-8?Q?Uwe_Kleine=2DK=C3=B6nig?= <ukleinek@kernel.org>, 
+	Herve Codina <herve.codina@bootlin.com>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>, Leonardo Costa <leonardo.costa@toradex.com>, 
+	devicetree@vger.kernel.org, linux-clk@vger.kernel.org, 
+	linux-gpio@vger.kernel.org, linux-pwm@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, 
+	Ernest Van Hoecke <ernest.vanhoecke@toradex.com>, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-handle_indirect_tree_backref() walks up the tree from @cur, storing the
-reference returned by btrfs_get_fs_root() in lower->root when the top
-of the searched path is reached, and dropping it once a node already in
-the backref cache is found.  If the walk instead reaches
-BTRFS_MAX_LEVEL without hitting either of those two exits, the
-reference is neither stored nor dropped and is leaked on return.
+On Thu, Sep 10, 2026 at 4:16=E2=80=AFPM Ernest Van Hoecke
+<ernestvanhoecke@gmail.com> wrote:
 
-Drop the reference and return -EUCLEAN if the walk reaches
-BTRFS_MAX_LEVEL without finding the root of the tree.
+> From: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
+>
+> GPIO consumers use of_parse_phandle_with_args_map() to resolve
+> specifiers through gpio-map properties. fw_devlink instead parses GPIO
+> properties as direct phandle references, so it records the nexus node as
+> the supplier rather than the mapped GPIO provider.
+>
+> A nexus is a translation node, not the GPIO provider, and need not be
+> populated as a device. The resulting fwnode link can therefore remain
+> unresolved and indefinitely defer the consumer while
+> device_links_check_suppliers() waits for the nexus.
+>
+> Use the map-aware parser for all supported GPIO property spellings. This
+> makes fw_devlink resolve the same provider as the GPIO consumer API.
+> Direct GPIO references continue to work because the map-aware parser
+> returns the original provider when no gpio-map property is present.
+>
+> Fixes: 7f00be96f125 ("of: property: Add device link support for interrupt=
+-parent, dmas and -gpio(s)")
+> Reported-by: Leonardo Costa <leonardo.costa@toradex.com>
+> Link: https://lore.kernel.org/all/juuc4af7ndbajcl7gzf4tg5qz2q2j5tt3rvql4j=
+bauradujrre@gc5nbdhhixaf/
+> Tested-by: Leonardo Costa <leonardo.costa@toradex.com>
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Ernest Van Hoecke <ernest.vanhoecke@toradex.com>
 
-Fixes: 1b60d2ec982a ("btrfs: backref: rename and move handle_one_tree_block()")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- fs/btrfs/backref.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Reviewed-by: Linus Walleij <linusw@kernel.org>
 
-diff --git a/fs/btrfs/backref.c b/fs/btrfs/backref.c
-index 273924ca912c..e889fbec4fe1 100644
---- a/fs/btrfs/backref.c
-+++ b/fs/btrfs/backref.c
-@@ -3426,6 +3426,12 @@ static int handle_indirect_tree_backref(struct btrfs_trans_handle *trans,
- 		lower = upper;
- 		upper = NULL;
- 	}
-+	/* We walked up to BTRFS_MAX_LEVEL without reaching the tree root. */
-+	if (level == BTRFS_MAX_LEVEL) {
-+		btrfs_put_root(root);
-+		ret = -EUCLEAN;
-+		goto out;
-+	}
- out:
- 	btrfs_release_path(path);
- 	return ret;
--- 
-2.34.1
-
+Yours,
+Linus Walleij
