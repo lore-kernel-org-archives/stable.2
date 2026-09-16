@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD2A32B10F
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 822324CEE6D
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573766; cv=none; b=c3yNfih8UJ4WTAvY5Kah7lsoiUqXvgiUuvpQ25mnSMpSXYBeP5YLcozL26MfHVCGpMXxj1hyT2ca/9C0RNoDC2w6eGRQs3dJQbV5hLzlg5h6eYCIMMVFmSbWHulAvleIsyXGFZyY23SHrN9vKQOUfqiZKMc0XHZ5y52grK6Bujk=
+	t=1789573776; cv=none; b=eQlxAB8syxn0YtmqipysaB4LD1d3m0qdkqBO23f6y1O8Wxrk6lHXsQ4maxo/CsJzxSgj1TyfRTIGR/R8G0ntU2FGKA3tfO1NqP7wKXjNuGARpVxlIefYv4fG5aYmaAzS3W7QDYf+SfNwXq+Yhc+NCSt8jvKP29WAMJn5z30abHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573766; c=relaxed/simple;
-	bh=94LKG1C67NuEZOghWnWcDPYe6I+qR+unMjY0d2PJud4=;
+	s=arc-20240116; t=1789573776; c=relaxed/simple;
+	bh=OrSj4x9uEWMu4npb44d8CK0Ux7Gu699fAmtdS0ZU7I0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MeT1/IWMywp18x4zGsTb0zCsh3rEDeyg0mQnUMidsHeqykuyL9wmAJl2R3vdWLww2qQSYs3LxKBJKQslAcdgzx9XFQ3AmshhL8UecXekN2mECVdEo/RsOJeoYysXrE8r4QCjS9cTPpb6P5mCE3fIedaAf2w/WzcZ642ee1zbnMI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=V/Cd6amC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=obVhtUB4vlvlct0syIgiJQvlSC7Qsz9jBkJEVpwL/ySoIZtpgqYidehPi1N6KbYv4D/9UG5gu7IkSjaHhjx2Ju7Nmj/O4ifasKV5B+nuyayXloJ9ZSBOQJDz8b3Q96SI9aO7b7XOexsH/Lc/7jHuFoPjZanQ2GepWxGI8F1IYjQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R85kPodr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="V/Cd6amC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B78A71F000FF;
-	Wed, 16 Sep 2026 15:49:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R85kPodr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 983E81F00899;
+	Wed, 16 Sep 2026 15:49:28 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789573763;
-	bh=Yyu92bykOOiv6Ibzj7Ms1eW6TGCVNKYJ0PYX4bjnxg8=;
+	s=k20260515; t=1789573769;
+	bh=UbRASGlwqjAkv0Zo1YVWb1Yiv3zkfcbwnFRAUQAjZ5Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=V/Cd6amCBK8ihEVf/Bekdth0fL28gwZX1jViq64C4KcyhAPE9mJl2qODGCdavu/qS
-	 d2yTYZ+7Vv9WgRQo7MGNW2Z+lbzapPkOJ6wf/a4ThUh9fk9bPnC2zDkpoLgKCZCVme
-	 Tp2DoNDKoJRhMQzTIjeAdDuYDXA4MMFFHoMBkudd/R66/+EvjOXEw5FEpVsiMmdBi0
-	 jpPF1R+7LEAdLjBKd4pVliHVsddSy7h424pIFBys7WcPqn8Eo9FCg3KYXtaE5il5zP
-	 9HlswWrZf4joYCk2gykntaDEgAc7jYcD+1S/Xd5RQGqMZBGyz2YeWk1ni+7PVH6z90
-	 Daczk8qUtaOOA==
+	b=R85kPodrTQQbImT+/olHCxfkGVfJ1Rq4moXEhPHTN886Zz8m3SuR28mZUYxG0EGom
+	 8GWCzuY0j5tj8FXrx/eH11625bDemhv3kNxfB22NseGwGPCb2ahy+kUopTMb/pt/7k
+	 KhR7GHwc1HBMZJFJVv2O1jWXZDubTVO+agg60k5h5ZV/paNFEftaDnQe9LEW6HYaN5
+	 INxfH4TwCmkdQb46CeZ+xhr3yLt46lJ49SjNGnboQGdW1+y6SXbd01wZkwuKzXMzLb
+	 m9LTCkx2Xmr9oVa9MovBAHLYr9kDsasRsM3vGO2WXwC6ssvIzMyDq3xVJiI0Qn2mRp
+	 fDNNLCr2t6uHw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Tristan Madani <tristan@talencesecurity.com>,
+	Takashi Iwai <tiwai@suse.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ipmr: account multicast table and route memory
-Date: Wed, 16 Sep 2026 11:49:21 -0400
-Message-ID: <20260916154921.4169091-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/3] ALSA: usbusx2y: validate URB actual_length in interrupt callback
+Date: Wed, 16 Sep 2026 11:49:25 -0400
+Message-ID: <20260916154925.4171104-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091604-blurred-reheat-c2d3@gregkh>
-References: <2026091604-blurred-reheat-c2d3@gregkh>
+In-Reply-To: <20260916154925.4171104-1-sashal@kernel.org>
+References: <2026091645-humorist-crown-6882@gregkh>
+ <20260916154925.4171104-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,82 +46,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+From: Tristan Madani <tristan@talencesecurity.com>
 
-[ Upstream commit b7ee18725f2292ab554aa96a101ae42d45f008bd ]
+[ Upstream commit 8f5ef203abda9dd36b2af473c7b737d544f807bd ]
 
-A netadmin in a user+net namespace can create many IPv4 and IPv6
-multicast routing tables with MRT_TABLE and MRT6_TABLE. Each unseen
-id allocates an mr_table via the shared mr_table_alloc(), links it
-into the per-net list, and leaves it until netns teardown. Those
-objects were not charged to memcg, so the host unreclaimable slab
-grows with the table count.
+i_usx2y_in04_int() processes the interrupt URB data without checking
+urb->actual_length.  A short transfer from a malfunctioning device
+would cause the handler to process uninitialized heap data from the
+kmalloc-allocated in04_buf, which is then copied to the mmap-accessible
+ctl_snapshot[] array.
 
-Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
-handling of IP addresses, routes and alternate interface names.
+Fix by using kzalloc() for in04_buf to zero-initialize the buffer,
+and adding an actual_length check to skip processing on short
+transfers while still resubmitting the URB.
 
-Unresolved MFC entries are still allocated from softIRQ with
-GFP_ATOMIC and are not charged. They expire after 10 seconds and are
-bounded by the socket receive queue; see commit 0079ad8e8dc3
-("ipmr: remove hard code cache_resolve_queue_len limit").
-
-Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
-Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/050b58f7fc6b45da0fb12768ebb62d18fa46133d.1788784801.git.zihanx@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted upstream allocation helpers to existing kzalloc() and kmem_cache_create() calls. ]
+Signed-off-by: Tristan Madani <tristan@talencesecurity.com>
+Link: https://patch.msgid.link/20260904205826.4071119-2-tristmd@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c      | 3 ++-
- net/ipv4/ipmr_base.c | 2 +-
- net/ipv6/ip6mr.c     | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ sound/usb/usx2y/usbusx2y.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index f39cd565569a5..127473aeb7e32 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -3159,7 +3159,8 @@ int __init ip_mr_init(void)
+diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
+index 5aa373d1edab1..d1e907dc773c1 100644
+--- a/sound/usb/usx2y/usbusx2y.c
++++ b/sound/usb/usx2y/usbusx2y.c
+@@ -189,6 +189,9 @@ static void i_usx2y_in04_int(struct urb *urb)
+ 		return;
+ 	}
  
- 	mrt_cachep = kmem_cache_create("ip_mrt_cache",
- 				       sizeof(struct mfc_cache),
--				       0, SLAB_HWCACHE_ALIGN | SLAB_PANIC,
-+				       0, SLAB_HWCACHE_ALIGN | SLAB_PANIC |
-+				       SLAB_ACCOUNT,
- 				       NULL);
++	if (urb->actual_length < USX2Y_IN04_SIZE)
++		goto resubmit;
++
+ 	if (us428ctls) {
+ 		diff = -1;
+ 		if (us428ctls->ctl_snapshot_last == -2) {
+@@ -246,6 +249,7 @@ static void i_usx2y_in04_int(struct urb *urb)
+ 	if (err)
+ 		dev_err(&urb->dev->dev, "in04_int() usb_submit_urb err=%i\n", err);
  
- 	err = register_pernet_subsys(&ipmr_net_ops);
-diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-index 28d77d454d442..66fe1a253b9ff 100644
---- a/net/ipv4/ipmr_base.c
-+++ b/net/ipv4/ipmr_base.c
-@@ -38,7 +38,7 @@ mr_table_alloc(struct net *net, u32 id,
- 	struct mr_table *mrt;
- 	int err;
++resubmit:
+ 	urb->dev = usx2y->dev;
+ 	usb_submit_urb(urb, GFP_ATOMIC);
+ }
+@@ -298,7 +302,7 @@ int usx2y_in04_init(struct usx2ydev *usx2y)
+ 		goto error;
+ 	}
  
--	mrt = kzalloc(sizeof(*mrt), GFP_KERNEL);
-+	mrt = kzalloc(sizeof(*mrt), GFP_KERNEL_ACCOUNT);
- 	if (!mrt)
- 		return ERR_PTR(-ENOMEM);
- 	mrt->id = id;
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 18451dfeae682..a7fa0d1d82b08 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -1389,7 +1389,7 @@ int __init ip6_mr_init(void)
- 
- 	mrt_cachep = kmem_cache_create("ip6_mrt_cache",
- 				       sizeof(struct mfc6_cache),
--				       0, SLAB_HWCACHE_ALIGN,
-+				       0, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT,
- 				       NULL);
- 	if (!mrt_cachep)
- 		return -ENOMEM;
+-	usx2y->in04_buf = kmalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
++	usx2y->in04_buf = kzalloc(USX2Y_IN04_SIZE, GFP_KERNEL);
+ 	if (!usx2y->in04_buf) {
+ 		err = -ENOMEM;
+ 		goto error;
 -- 
 2.53.0
 
