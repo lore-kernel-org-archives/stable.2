@@ -1,158 +1,188 @@
-Received: from out30-98.freemail.mail.aliyun.com (out30-98.freemail.mail.aliyun.com [115.124.30.98])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE314EBAFF;
-	Wed, 16 Sep 2026 11:26:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.30.98
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2320449B0C
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:28:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789557983; cv=none; b=XKICEMclR+wFaslCPyS1ift9BBp39FKgJEE2Ldh0C/8Gm0aOL8lb6Huj+excn1+hbnZcKGz3Q7bfYm8vZBDvCgdYZ8A59GhXziCfRqLTdzJvkNf8qCLMp4xUUYzVpAQPCZXHAqOsZv70byFdTnCAGHJqNolO+JiQjUdmAkSL2bI=
+	t=1789558119; cv=none; b=n67vyyLVo1r1Gdr0rju6hPJaOc7bA1GghdGO2xLVqHDTPxlNQrcgYBx6sJY7UIHC2lg9EsR6tCFxoBoz47KDt+9aMg2OQKNXQi7EPsowxRpyd9t9NToUQePIOgZ9mIJcBIX53wp6UuvlSmh5o572GcAOh6uqVBXzK/Q1inS5Fv8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789557983; c=relaxed/simple;
-	bh=SYcAl8YhKiqM9taPbxgVevkFHqhBMLFsYSCEgRxPwEM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=BYrDZ8I7/MMgUNKp/mMNGV5bRw/M4l6KzmBwZpi9/VsHBKjyn96o7LlRugWwtD9mNYJrkpmMOdlLmlnC2ZvimN0urCS9Az+gTy04mT2yC3QPqfQoqbSUn8z+5FsyrbyiSeEsrTbaCMrUOK+PF1wSElmHkiNZloEd7+TZrzj84Lo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com; spf=pass smtp.mailfrom=linux.alibaba.com; dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b=wJc4sgJv; arc=none smtp.client-ip=115.124.30.98
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.alibaba.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.alibaba.com
+	s=arc-20240116; t=1789558119; c=relaxed/simple;
+	bh=f0uKTPKtxztLfTJOLRvLJtvowun4BOXU8rbSroh5MXY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p/E+NOogTep5CtCNl5bb1txN94Lu3EIqQ6wGq7NhOSDm9866ewJi9D66VPXIKMogTUNN8ADuPjs5XjsJwimHn6Zs46uXgEfgj3ldn/tJ4Eb1KzPtJvO8ZAarZgVVXgQCkHcCNoskLPIMaEVB20HZ352JJHQTpHjeRrqhPRi1+Ig=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=c+0DRORO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.alibaba.com header.i=@linux.alibaba.com header.b="wJc4sgJv"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux.alibaba.com; s=default;
-	t=1789557959; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=qkFbwJ3DbJzS5ny24JTrLqbzgteYgwCCQYHKn5yzPro=;
-	b=wJc4sgJvrG9MoD/kC+rbS6YwR8A8SYvPzVTyk3CEqDM0m7+poT0lEbuh8Wy33/w+IFo9p+PkpBCXCzhFKXo/apWee7n+Oxl/Yg8of49f+wG877iO3FCIXU2OGCRfgAEZ0LdpzubYyQTmqTUxoyj12sQSjMDddDLjqWN2JIT2ZFY=
-X-Alimail-AntiSpam:AC=PASS;BC=-1|-1;BR=01201311R161e4;CH=green;DM=||false|;DS=||;FP=0|-1|-1|-1|0|-1|-1|-1;HT=maildocker-contentspam033045098064;MF=xiangzao@linux.alibaba.com;NM=1;PH=DS;RN=14;SR=0;TI=SMTPD_---0XB4nUJy_1789557948;
-Received: from banye.tbsite.net(mailfrom:xiangzao@linux.alibaba.com fp:SMTPD_---0XB4nUJy_1789557948 cluster:ay36)
-          by smtp.aliyun-inc.com;
-          Wed, 16 Sep 2026 19:25:57 +0800
-From: Yuanhe Shu <xiangzao@linux.alibaba.com>
-To: akpm@linux-foundation.org,
-	vbabka@kernel.org,
-	mgorman@techsingularity.net,
-	linux-mm@kvack.org
-Cc: surenb@google.com,
-	mhocko@suse.com,
-	brendan.jackman@linux.dev,
-	hannes@cmpxchg.org,
-	ziy@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	henry.willard@oracle.com,
-	david@kernel.org,
-	Yuanhe Shu <xiangzao@linux.alibaba.com>
-Subject: [PATCH v2] mm/page_alloc: do not boost watermarks in kdump capture kernels
-Date: Wed, 16 Sep 2026 19:25:45 +0800
-Message-ID: <20260916112545.3707893-1-xiangzao@linux.alibaba.com>
-X-Mailer: git-send-email 2.43.7
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="c+0DRORO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A53F1F000FF;
+	Wed, 16 Sep 2026 11:28:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789558107;
+	bh=Dyxgaxt9WylvEKXPDFEhW4r5fMFT4EBb1/WG5LAf26c=;
+	h=Subject:To:Cc:From:Date;
+	b=c+0DROROYICCIE7Yvn2bw15ekgWEPLXO2IM5U4deLDZrt+FtmVkq/N3qXfz3C84EU
+	 sLZvSvYWr2KWgLaRpolDtCnujofq6ym4ctsXf1OeavJOwsRWe6yzIQ0FKWZfLQJ+/k
+	 OtrGZI9W+jD0LEVZ5Q2OrC9N0oEepplpi1K3YUo0=
+Subject: FAILED: patch "[PATCH] tracing: Take trace_array reference when opening a tracer" failed to apply to 6.18-stable tree
+To: rostedt@goodmis.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 12:26:33 +0100
+Message-ID: <2026091633-claw-movable-7076@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
-A watermark boost is not confined to one watermark: wmark_pages() adds
-it to min, low and high alike, so every watermark check sees it,
-including should_reclaim_retry() and the last ditch ALLOC_WMARK_HIGH
-attempt in __alloc_pages_may_oom().  Once the boost exceeds the memory
-still free the allocator gives up and invokes the OOM killer, and a
-capture kernel that is still booting has nothing to kill: the boot
-panics and the vmcore is lost.
 
-Seen on an arm64 machine with 64K pages, CONFIG_PAGE_BLOCK_MAX_ORDER=10
-(pageblock = 64M) and crashkernel=512M, running a distribution kernel
-based on 7.0.14.  A high order UNMOVABLE allocation fell back to a
-MOVABLE pageblock while the capture kernel was still in do_initcalls():
+The patch below does not apply to the 6.18-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-  Node 0 DMA free:68096kB boost:65536kB min:68160kB
-  low:68800kB high:69440kB managed:479168kB
-  Out of memory and no killable processes...
-  Kernel panic - not syncing: System is deadlocked on memory
+To reproduce the conflict and resubmit, you may use the following commands:
 
-The zone was not short of memory.  Subtracting the boost gives
-min:2624kB low:3264kB high:3904kB, so the 68096kB still free sat 17
-times above the high watermark and the allocator would not even have
-entered its slow path.  The boost supplied 65536kB of the 68160kB min
-and by itself put the zone 64kB under water.  It is that large because
-boost_watermark() clamps it with max(pageblock_nr_pages, max_boost);
-watermark_boost_factor alone would have allowed 5824kB.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git checkout FETCH_HEAD
+git cherry-pick -x ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091633-claw-movable-7076@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
-Commit 14f69140ff9c ("mm: limit boost_watermark on small zones") already
-tried to protect capture kernels, but it infers them from the zone size
-and skips the boost only below four pageblocks.  arm64 64K pageblocks
-were 512M then, so the guard reached zones up to 2G;
-CONFIG_PAGE_BLOCK_MAX_ORDER can cap them at 64M, which shrinks the guard
-to zones under 256M and lets this 468M zone through.
+Possible dependencies:
 
-kdump is a property of the kernel, not of the zone, so test for it
-directly.  A capture kernel exits within seconds and never uses the
-fragmentation avoidance the boost buys.  Normal kernels are unaffected:
-the size based check still covers their genuinely tiny zones.
 
-Passing sysctl.vm.watermark_boost_factor=0 to the capture kernel does
-not cover this window: sysctl.* parameters are written through procfs
-by do_sysctl_args(), which runs after do_initcalls() where the panic
-above happened, and watermark_boost_factor has no early_param of its
-own.
 
-Fixes: 1c30844d2dfe ("mm: reclaim small amounts of memory when an external fragmentation event occurs")
-Cc: stable@vger.kernel.org # v5.0
-Cc: Henry Willard <henry.willard@oracle.com>
-Cc: David Hildenbrand <david@kernel.org>
-Signed-off-by: Yuanhe Shu <xiangzao@linux.alibaba.com>
----
-Changes in v2:
-- Drop the stale kdump capture kernel mention from the small-zone
-  comment in boost_watermark(): capture kernels now return earlier.
-  (Vlastimil Babka)
+thanks,
 
-v1: https://lore.kernel.org/r/20260914131142.2984623-1-xiangzao@linux.alibaba.com
+greg k-h
 
-Build tested with CONFIG_CRASH_DUMP=y and =n.
+------------------ original commit in Linus's tree ------------------
 
-Tested on the affected machine with the original crashkernel=512M and
-capture kernel command line.  Without this patch both capture boots
-panicked at 7.9s inside do_initcalls() with a 64M boost in place.  With
-it, and with boost_watermark() instrumented, every call was suppressed -
-including those inside do_initcalls(), where the panics happened - free
-memory came down to within 64kB of the min watermark, where a single
-boost would have put it 65472kB under, and the dump completed.
----
- mm/page_alloc.c | 12 ++++++++++--
- 1 file changed, 10 insertions(+), 2 deletions(-)
+From ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 Mon Sep 17 00:00:00 2001
+From: Steven Rostedt <rostedt@goodmis.org>
+Date: Thu, 10 Sep 2026 22:12:09 -0400
+Subject: [PATCH] tracing: Take trace_array reference when opening a tracer
+ options file
 
-diff --git a/mm/page_alloc.c b/mm/page_alloc.c
-index 12fac9084c48..f52ed7d2cd34 100644
---- a/mm/page_alloc.c
-+++ b/mm/page_alloc.c
-@@ -37,6 +37,7 @@
- #include <linux/vmstat.h>
- #include <linux/fault-inject.h>
- #include <linux/compaction.h>
-+#include <linux/crash_dump.h>
- #include <trace/events/kmem.h>
- #include <trace/events/oom.h>
- #include <linux/prefetch.h>
-@@ -2178,10 +2179,17 @@ static inline bool boost_watermark(struct zone *zone)
+When a tracer option file is opened, it is passed a descriptor that points
+to an element on the trace_array's topts array. This element has
+information to find the trace array and other information. It uses this
+element to take a reference of the trace_array so that the trace_array
+does not get removed while this file is opened.
+
+Unfortunately, there's a race condition where the element itself could be
+freed by the removal of the instance the trace_array represents causing a
+use-after-free as this element that is used to find the trace_array to
+increment its reference counter is also freed when the instance is
+removed.
+
+To solve this, add a trace_array_tracer_options_get() helper function that
+will take the address of the element that is passed to the open function
+by the inode->i_private pointer and search all the trace_arrays under a
+lock to find the one that the element's address is in the range of the
+trace_arrays topts array elements. When a match happens, that trace_array's
+reference would be increased.
+
+Note, there's a race where if an admin was deleting and creating trace
+instances at the same time and the memory of the old trace_array's array
+matched the memory of the new trace_array that it could in theory open the
+option from the wrong trace array. But we do not care because it would be
+stupid to perform that kind of action. As long as the only thing that can
+happen is that the option from the wrong trace array is used and doesn't
+crash the kernel it will only make the user confused. But if they are
+doing something stupid like this, they are already confused, so no harm
+done.
+
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
+Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index 8658cad53cb5..e4a490d3d08c 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7717,12 +7717,55 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
+ 	return cnt;
+ }
  
- 	if (!watermark_boost_factor)
- 		return false;
++static bool tr_option_match(struct trace_array *tr, void *topt)
++{
++	for (int i = 0; i < tr->nr_topts; i++) {
++		struct trace_options *tr_topts = &tr->topts[i];
 +
-+	/*
-+	 * A kdump capture kernel exits before a boost can pay off, while
-+	 * the raised watermark can exceed the memory left for the dump.
-+	 */
-+	if (is_kdump_kernel())
-+		return false;
++		if (topt >= (void *)&tr_topts->topts[0] &&
++		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
++			return true;
++	}
++	return false;
++}
 +
- 	/*
- 	 * Don't bother in zones that are unlikely to produce results.
--	 * On small machines, including kdump capture kernels running
--	 * in a small area, boosting the watermark can cause an out of
-+	 * On small machines, boosting the watermark can cause an out of
- 	 * memory situation immediately.
- 	 */
- 	if ((pageblock_nr_pages * 4) > zone_managed_pages(zone))
--- 
-2.43.7
++/*
++ * The topt is the address of a trace_array->topts[] element that holds the
++ * the tracer options descriptor. But since the trace_array reference has not
++ * been taken yet, it cannot be dereferenced as it could have been freed by
++ * a rmdir of the instance the trace_array represents.
++ *
++ * Search the list of trace_arrays and compare the topt to the address of
++ * the entire trace_array topts array for each trace_array in the list.
++ * If one is matched, then take the reference and return it. If not, the
++ * trace_array no longer exits.
++ */
++static int trace_array_tracer_options_get(void *topt)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_option_match(tr, topt))
++			return __trace_array_get(tr);
++	}
++	return -ENODEV;
++}
++
+ static int tracing_open_options(struct inode *inode, struct file *filp)
+ {
+ 	struct trace_option_dentry *topt = inode->i_private;
+ 	int ret;
+ 
+-	ret = tracing_check_open_get_tr(topt->tr);
++	ret = trace_array_tracer_options_get(topt);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -7984,6 +8027,7 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer,
+ 	tr->topts = tr_topts;
+ 	tr->topts[tr->nr_topts].tracer = tracer;
+ 	tr->topts[tr->nr_topts].topts = topts;
++	tr->topts[tr->nr_topts].nr_topts = cnt;
+ 	tr->nr_topts++;
+ 
+ 	for (cnt = 0; opts[cnt].name; cnt++) {
+diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
+index 5e76f94e7a80..bd3c8f80300f 100644
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -227,6 +227,7 @@ struct array_buffer {
+ struct trace_options {
+ 	struct tracer			*tracer;
+ 	struct trace_option_dentry	*topts;
++	int				nr_topts;
+ };
+ 
+ struct trace_pid_list *trace_pid_list_alloc(void);
 
