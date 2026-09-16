@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93B013DDB0A
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:07:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 939F92931C7
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:07:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585692; cv=none; b=nokeZ8zzLcEueF6uqPyzuD5qv4PuJdaGaB2KjI8/UpIDpEfz8X92Vylx8JkwylnLLM9OdXHANQaiQ8NkEUZ4wHyRw9QBlgJK7Wl8ZdcjL5Fyljhp0QNtlEaonbbda2/6JOuy7VZjy/Z1HaDUKCBxJ6ZqbqhnNf8IGDNYLSINBa8=
+	t=1789585693; cv=none; b=imPKgjOr4sF9EN/VUTQbXFo/AzRcv/ABT649cWVjt6YMjVmKLCcm/FTM1zksWI5EEW7mfWzLgGbUsLxcidYEWM6CBrbXtRyRTcrrXZnovkqlYI+eS5DNJVMAssw7PC5s9vyfz6HrTtW/OTLpOl5+4gXCAW0qFYiI+iwwD99V8yY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585692; c=relaxed/simple;
-	bh=q2u1uHJd5fMnJda0vzPS6tLJB+Rmi7g//dFh5yOFCSA=;
+	s=arc-20240116; t=1789585693; c=relaxed/simple;
+	bh=D3ZvNNyLHaRoYZhEvZBdASQdJHkxAiNHuDTdCyHyJ+E=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Pvr20lDLCkuQCKEiWMKyZaterdbPoKAPKqLx6birUaB3A9Bey1DGemKWjX9vgI8nyq6c60MK+CPhYnStsUHb8y89wlkkyxAi36rZJwDCbveUMTzVj7KkHd6HXWLluxMaJ/kPQjK3YX6TRJlD+MhwdcAANEMpuyZv6BzECDmeOzs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gRukdulS; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XYm9qMnOB1pC8q81qSyXznHdAitqK7poLPtlwwQqOJPS0eW1mPE1Q1OXv6yvcOb2wRGs7KwR9Cxi/zj+Njx1pb7JLzflPfPaJvsZBLP/ywBUuFVQg8zGNBErKYfNGR0rFdPPdi6SF4++wtttuPhIVVMVaH2ewZf92G33eab5sKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuJK06A0; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gRukdulS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AEF121F008A1;
-	Wed, 16 Sep 2026 19:07:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuJK06A0"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 989371F008A4;
+	Wed, 16 Sep 2026 19:07:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789585662;
-	bh=CKfa7h1V8LbAEt5fftwgWFc5Y5eEEIMkNjni/pppzsY=;
+	s=k20260515; t=1789585664;
+	bh=QO72o3Zg6T60t7Fffc6P3Q7A4vQOShmRRSoylbXHMBE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gRukdulS9qe81+7CD31IpE0F+fvvXHjKPKPD5tWQN65P0yLr0vYW/fWKFYtMVvmmk
-	 uhL4DidaVUcSjvhn93KKMOlripMFUf9HEy3n31SqObsSKHtLHECtKgEQqzN5Bn6z/S
-	 FSKmgvHOyMu+935SPDCmFuDh4wvONJtBJ4KMDeVkRdMptqSPOoeEZuCsYtytTR7moD
-	 9coioOICMvtqc3htKqZbm7+SnSvoCNTQBuw4e/VcFWRhFQoVOrn0c1JlBbwrATNND6
-	 nFhHtvCNO7wzgEFAvIKKUgdCvqCTfQ/lWArQs55WOhOtVrTYpk+9VbaHwV8Z1vdsIE
-	 3iSZ9wixA8UOA==
+	b=DuJK06A0zvafcwWS/wRRfT+U0Dj764x3NwDIR5m2Ku1rKU5x6tqCUDXXq3Z6763+x
+	 pYg4vVVWP5UYWvWphLX7lkoJQO1rjmx7jNDRZftWXzMWR5G5VelnBm7pwbPrtN4msy
+	 Vzm03Y6d+JTLfDULbHtGhiprNiYYJ37z8RmVfh7/mEUXHrX1vw/uAzUhsP34WZw4aO
+	 ijtrmh00NUhPOQ1TVjlfo5lPg372wFsSf44/VcCL1UCHlTKFejeQhzaONzscF96Dxn
+	 Ym9KLDH7k3wicnohodzReCDm2z7XEQqubSTwmJIicXZ+xpMmDukCV9a+PUvoEqDiz/
+	 Bt3qifktsPigA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Sashiko AI <sashiko-bot@kernel.org>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 7/7] tools/bootconfig: Fix integer overflow and truncation in size checks
-Date: Wed, 16 Sep 2026 15:07:35 -0400
-Message-ID: <20260916190735.1968203-7-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/4] tracing: Undo the registration when enabling the histogram trigger fails
+Date: Wed, 16 Sep 2026 15:07:39 -0400
+Message-ID: <20260916190739.1968367-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916190735.1968203-1-sashal@kernel.org>
-References: <2026091617-cackle-deeply-2ea2@gregkh>
- <20260916190735.1968203-1-sashal@kernel.org>
+In-Reply-To: <20260916190739.1968367-1-sashal@kernel.org>
+References: <2026091600-excluding-geriatric-1cba@gregkh>
+ <20260916190739.1968367-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,91 +47,117 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit 462d0b066b613103f579793031429db2ca23abc0 ]
+[ Upstream commit 92383cef66791a0c63a2f27755cadbdb2fbf270b ]
 
-Sashiko reported that on 32-bit systems, if an attacker crafts size in
-the bootconfig footer such that adding BOOTCONFIG_FOOTER_SIZE wraps around
-(for instance, if size is 0xFFFFFFFF), the size check in
-load_xbc_from_initrd() can be bypassed:
+Commit 6f86bdeab633 ("tracing: Fix bad hist from corrupting named_triggers
+list") described how a trigger that is registered but not on file->triggers
+ends up freed while still on the global named_triggers list, and moved the
+registration down so that hist_trigger_enable() follows it immediately. One
+path still gets there. hist_trigger_enable() adds the trigger and takes it
+straight back out when the event cannot be enabled:
 
-    if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-        pr_err("bootconfig size is too big\n");
-        return -E2BIG;
-    }
+	list_add_tail_rcu(&data->list, &file->triggers);
 
-Furthermore, on 64-bit systems with an initrd > 4.29 GB, comparing a
-corrupted 32-bit size (e.g. 0xFFFFFFFF) against
-stat.st_size - BOOTCONFIG_FOOTER_SIZE can also bypass the check if
-size is not bounded. Similarly, load_xbc_file() passes 64-bit stat.st_size
-directly into the 32-bit int size parameter of load_xbc_fd(), truncating
-large standalone files (>= 2GB).
+	update_cond_flag(file);
 
-In both cases, passing 0xFFFFFFFF to load_xbc_fd() truncates to -1,
-resulting in malloc(0), an integer overflow in read(), and an
-out-of-bounds null-byte write.
+	if (trace_event_trigger_enable_disable(file, 1) < 0) {
+		list_del_rcu(&data->list);
+		update_cond_flag(file);
+		ret--;
+	}
 
-Fix this by:
-1. Rejecting size > XBC_DATA_MAX or
-   size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd().
-2. Rejecting stat.st_size > XBC_DATA_MAX in load_xbc_file() before passing
-   it to load_xbc_fd().
-3. Checking size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
+so the list walk in hist_unregister_trigger() matches nothing, test stays
+NULL, and the ->free() that would call del_named_trigger() is skipped.
+out_unreg falls through to out_free, which frees the trigger anyway:
 
-Link: https://lore.kernel.org/all/178905332413.213925.3179977110281463499.stgit@devnote2/
+ BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
+ Read of size 8 at addr ffff8880091d3160 by task init/1
+  find_named_trigger+0xac/0xc0
+  hist_register_trigger+0xc1/0xa00
+  event_hist_trigger_parse+0x3146/0x6af0
+  event_trigger_write+0xce/0x160
+ Freed by task 69:
+  kfree+0x154/0x420
+  trigger_kthread_fn+0xfd/0x160
 
-Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
+Leave the trigger where hist_unregister_trigger() can find it and let that
+undo the registration, which is the only code that knows all of what
+cmd_ops->init() took: the named list entry, the hist_pad reference, the
+reference on the trigger a named histogram is shared with, and the copied
+cmd_ops. It also pairs the failed trace_event_trigger_enable_disable(),
+whose sm_ref and buffered event reference are otherwise left behind.
+
+Since ->free() releases trigger_data and, for a trigger that does not share
+its histogram, hist_data with it, out_unreg can no longer fall through to
+out_free. For a trigger that does share, hist_register_trigger() has
+already destroyed the caller's hist_data, so the fall-through was reading
+freed memory there as well.
+
+Move the enable_timestamps check in hist_unregister_trigger() above the
+->free() call for the same reason: hist_data does not outlive it once the
+trigger being removed is the one that owns it.
+
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Fixes: 067fe038e70f ("tracing: Add variable reference handling to hist triggers")
+Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/linux-trace-kernel/20260907092944.3950E1F00A3D@smtp.kernel.org/
+Link: https://patch.msgid.link/20260907124420.607097-3-donggeunyoo.kernel@gmail.com
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/bootconfig/main.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ kernel/trace/trace_events_hist.c | 17 ++++++++++-------
+ 1 file changed, 10 insertions(+), 7 deletions(-)
 
-diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 717aa69473a60..f35ee15c19167 100644
---- a/tools/bootconfig/main.c
-+++ b/tools/bootconfig/main.c
-@@ -109,6 +109,9 @@ static int load_xbc_fd(int fd, char **buf, int size)
- {
- 	int ret;
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 7b0fc0bb62f0b..3dc560afddd6d 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -6604,11 +6604,12 @@ static int hist_trigger_enable(struct event_trigger_data *data,
  
-+	if (size < 0 || size > XBC_DATA_MAX)
-+		return -EINVAL;
-+
- 	*buf = malloc(size + 1);
- 	if (!*buf)
- 		return -ENOMEM;
-@@ -137,6 +140,13 @@ static int load_xbc_file(const char *path, char **buf)
- 		return ret;
+ 	update_cond_flag(file);
+ 
+-	if (trace_event_trigger_enable_disable(file, 1) < 0) {
+-		list_del_rcu(&data->list);
+-		update_cond_flag(file);
++	/*
++	 * On failure the caller undoes the registration, and
++	 * hist_unregister_trigger() can only find the trigger here.
++	 */
++	if (trace_event_trigger_enable_disable(file, 1) < 0)
+ 		ret--;
+-	}
+ 
+ 	return ret;
+ }
+@@ -6686,13 +6687,13 @@ static void hist_unregister_trigger(char *glob,
+ 		}
  	}
  
-+	if (stat.st_size > XBC_DATA_MAX) {
-+		pr_err("%s size is too big\n", path);
-+		ret = -E2BIG;
-+		close(fd);
-+		return ret;
-+	}
-+
- 	ret = load_xbc_fd(fd, buf, stat.st_size);
- 
- 	close(fd);
-@@ -187,7 +197,8 @@ static int load_xbc_from_initrd(int fd, char **buf)
- 	csum = le32toh(csum);
- 
- 	/* Wrong size error  */
--	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-+	if (size > XBC_DATA_MAX ||
-+	    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
- 		pr_err("bootconfig size is too big\n");
- 		return -E2BIG;
+-	if (test && test->cmd_ops->free)
+-		test->cmd_ops->free(test);
+-
+ 	if (hist_data->enable_timestamps) {
+ 		if (!hist_data->remove || test)
+ 			tracing_set_filter_buffering(file->tr, false);
  	}
++
++	if (test && test->cmd_ops->free)
++		test->cmd_ops->free(test);
+ }
+ 
+ static bool hist_file_check_refs(struct trace_event_file *file)
+@@ -6897,6 +6898,8 @@ static int event_hist_trigger_parse(struct event_command *cmd_ops,
+ 	return ret;
+  out_unreg:
+ 	event_trigger_unregister(cmd_ops, file, glob+1, trigger_data);
++	/* The unregister frees trigger_data, skip out_free */
++	goto out;
+  out_free:
+ 	event_trigger_reset_filter(cmd_ops, trigger_data);
+ 
 -- 
 2.53.0
 
