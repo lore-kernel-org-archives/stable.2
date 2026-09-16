@@ -1,44 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DA24DF4D3
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20C714ADD97
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598778; cv=none; b=hkIGxAmAsf+YSrREU4xwXYMBYIS6wImkVqnG89J5AaZNJ4AF0cC+ELXjUmhQiOyLPQQRry1HUXfK/1fvlvcBgEdIeBiTUYx2zMciGaHw/lPxqdr23WuEtULO3pc2LWmMepsASAVMug+rnnymfDxnJPOGom0FIuyWQ+sWMIHRG3U=
+	t=1789598782; cv=none; b=Gb9H6bIo50bb8yetFJ2xWVqq5LebWoZAq2E8Nw5REuANXXPO4IqjHuDDlSAWOvrUik11jBFHIWSugmoRTuZiiBF9mSVsa2azygErw6RW1JI452c2JtzheRCW/nm/t3ZiIO+By16oiiUk+MBzkQc1kW3qfT72IkRC6YkGa48Yoik=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598778; c=relaxed/simple;
-	bh=w7/4zr5wfmri0sX2GxQ22dhJ8bcJbmHISKUGsv5FxBc=;
+	s=arc-20240116; t=1789598782; c=relaxed/simple;
+	bh=+iZw+MRqwVTjqytkPs3feaoSBVJ5x39W5SO7kr2H0J8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Psub2y3j3P3nYYJ4YW1kCSfMzFVHG+hjwuNS9qEL+Z+3t2hG1VjGV6D6zCgvaeeZTO0w3M8SpNdTaI38D/nV06B1kBbNjoAd9wCGFvxsLANQ3Ja4O19ghTKxJsLDCncW04CZJIFzqQYXfGgQnq5YDO16FCeN6IhIa0E5SQTnfnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0dS4Cw4; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e3gsRwFl4OXLPE1rqqgDaB3WufVss5PBVmrB/lVsOa0ayDXC2dK8Ik7d1oHA+iIPmrRYNgZJFw8VOscm1SyYRqzNoEorpdqW82Mn2kmGuU2FdURmrB2/AFVoebpmp1C/waRkjA7h/eiAI9Za/bLCQA/472vUaPUjb5W/nQEB2Bg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=npQri0LI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0dS4Cw4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7FE11F000FF;
-	Wed, 16 Sep 2026 22:46:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="npQri0LI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 71E631F00898;
+	Wed, 16 Sep 2026 22:46:16 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598770;
-	bh=gkrxfLQyWhAufsNq8Z7Oh8eqf3+qT99zKlFGjDNBNOo=;
+	s=k20260515; t=1789598777;
+	bh=3UWTqoR+bIeT1VF5LTRi2h0m1J5bPpd0xQ+ZoYfOmUM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=T0dS4Cw4qWOSnBXDUb89Ttx8yMMekRCFIr5vpl66ShE3EUJiaDw9Gxywh0g0A/lTo
-	 9UKo2cpEiOhGZsF1aUKKhfn9XWb4TcalNqZK6KZAxuFZlBb24EKSSpmvl+gAjP6eKe
-	 +SiuXSbibLS8WEcAt5ifPAseaxNkkCgDFeD9gAMPfDQ1gYEaPwS4lPmN8DittPzy1x
-	 iWqP6IUA8RcfWkVCC59Wp3hXSIkQ5qO/G3Hdb0y4GakJ6CQVK3YTvp3mRSJCVYxedF
-	 hpS2BSoSyRdehPqJlTZo6M47JHNNua8Nu98xOeI5YvG6VSSNR7x2u8d90Vbjm9yUpK
-	 WTbgAZ2CVdH1w==
+	b=npQri0LItN+Flg7Cs77fL4NBnEPX71tbVLY2f0O+fThJlMibH0hL9HJ7hyYXX36Pp
+	 d1EId2m2Yp9fXcnaYUhIp/rpFHsG83oaTAhTwFtaiYbqYUNYKucNat8d5nQnST1KOp
+	 XmuKGXHD5hWf8LUKnnv3lJpDZvzuKfUNzcD6IbNacfvEp4AagvHgKwxOuhhVQW5LRe
+	 g7TI2pOjGFd4iM5Ft9OsWLk9AJutyCmwyGnVNqrwbmN6IDOI4UhU93txVrBcee+Dsw
+	 eVBk7NbchvjrrRuYfh3+1C+K/oMgGOwxhYsOcQaXGujoqtyb6WEDo4UGtwPk41aOtz
+	 rVwyb9iH05UjA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Satyajit Roy <sroy14@alum.utk.edu>,
-	Alex Hung <alex.hung@amd.com>,
-	Daniel Wheeler <daniel.wheeler@amd.com>,
-	Alex Deucher <alexander.deucher@amd.com>,
+Cc: XingWang Xiang <v3rdant.xiang@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y] drm/amd/display: Propagate HDMI RGB quantization selectability
-Date: Wed, 16 Sep 2026 18:46:08 -0400
-Message-ID: <20260916224608.3195520-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] genetlink: pin family module during policy dump
+Date: Wed, 16 Sep 2026 18:46:15 -0400
+Message-ID: <20260916224615.3195741-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091644-exceeding-greeter-5466@gregkh>
-References: <2026091644-exceeding-greeter-5466@gregkh>
+In-Reply-To: <2026091632-goggles-patronage-327e@gregkh>
+References: <2026091632-goggles-patronage-327e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,44 +45,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Satyajit Roy <sroy14@alum.utk.edu>
+From: XingWang Xiang <v3rdant.xiang@gmail.com>
 
-[ Upstream commit bdcd0411d7d186225a52458fd42bb70d54ca917a ]
+[ Upstream commit 6a1094c34d176827b2b173e163dcc964a13af93f ]
 
-DC uses dc_edid_caps.qs_bit when constructing the HDMI AVI InfoFrame
-quantization-range field. Although DRM parses the sink capability into
-drm_display_info, DM never copies it into the DC EDID capabilities. The
-field therefore remains zero and the AVI quantization range stays at its
-default value.
+The generic netlink controller's policy dump keeps pointers to the target
+family's operation and policy tables in its callback state.  A dump may be
+split across multiple skbs and remain pending after the initial request.
 
-Copy rgb_quant_range_selectable for HDMI sinks and extend the existing
-EDID-capability KUnit test to cover it.
+Netlink pins the module which owns the dump callback, but in this case
+that is the controller's owner rather than the target family's owner.  The
+target family can consequently be unregistered and its module unloaded
+while a policy dump is pending.  Advancing the dump then dereferences
+policy memory from the unloaded module.
 
-Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property")
-Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
-Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
-Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 892659399f64642e33072562a11ec1b2e7bd2263)
+Take a reference to the target family's module when the dump starts.
+Drop it from the error and done paths.  This matches the lifetime for which
+the dump context retains the family and policy pointers.
+
+Fixes: d07dcf9aadd6 ("netlink: add infrastructure to expose policies to userspace")
 Cc: stable@vger.kernel.org
-[ Omitted KUnit test additions because amdgpu_dm_helpers_test.c and its supporting infrastructure are absent. ]
+Signed-off-by: XingWang Xiang <v3rdant.xiang@gmail.com>
+Link: https://patch.msgid.link/20260902084317.4092542-1-v3rdant.xiang@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ adapted split-operation iterator handling to the older genl_ops and opidx interfaces. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
- 1 file changed, 1 insertion(+)
+ net/netlink/genetlink.c | 28 +++++++++++++++++++++-------
+ 1 file changed, 21 insertions(+), 7 deletions(-)
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-index 41aa8f9bb152b..fe5b97e6f9603 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
-@@ -197,6 +197,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
- 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
+index 3a3b29ff63b31..4ededd793767c 100644
+--- a/net/netlink/genetlink.c
++++ b/net/netlink/genetlink.c
+@@ -1159,6 +1159,7 @@ static int genl_ctrl_event(int event, const struct genl_family *family,
+ struct ctrl_dump_policy_ctx {
+ 	struct netlink_policy_dump_state *state;
+ 	const struct genl_family *rt;
++	struct module *owner;
+ 	unsigned int opidx;
+ 	u32 op;
+ 	u16 fam_id;
+@@ -1202,6 +1203,9 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 		return -ENOENT;
  
- 	if (edid_caps->edid_hdmi) {
-+		edid_caps->qs_bit = connector->display_info.rgb_quant_range_selectable;
- 		populate_hdmi_info_from_connector(link->dc->config.enable_frl, &connector->display_info.hdmi, edid_caps);
- 		drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] max_frl_rate %d\n", __func__, connector->name, edid_caps->max_frl_rate);
- 		if (edid_caps->frl_dsc_support)
+ 	ctx->rt = rt;
++	ctx->owner = rt->module;
++	if (!try_module_get(ctx->owner))
++		return -ENOENT;
+ 
+ 	if (tb[CTRL_ATTR_OP]) {
+ 		ctx->single_op = true;
+@@ -1210,14 +1214,19 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 		err = genl_get_cmd(ctx->op, rt, &op);
+ 		if (err) {
+ 			NL_SET_BAD_ATTR(cb->extack, tb[CTRL_ATTR_OP]);
+-			return err;
++			goto err_put_owner;
+ 		}
+ 
+-		if (!op.policy)
+-			return -ENODATA;
++		if (!op.policy) {
++			err = -ENODATA;
++			goto err_put_owner;
++		}
+ 
+-		return netlink_policy_dump_add_policy(&ctx->state, op.policy,
+-						      op.maxattr);
++		err = netlink_policy_dump_add_policy(&ctx->state, op.policy,
++						     op.maxattr);
++		if (err)
++			goto err_free_state;
++		return 0;
+ 	}
+ 
+ 	for (i = 0; i < genl_get_cmd_cnt(rt); i++) {
+@@ -1232,12 +1241,16 @@ static int ctrl_dumppolicy_start(struct netlink_callback *cb)
+ 		}
+ 	}
+ 
+-	if (!ctx->state)
+-		return -ENODATA;
++	if (!ctx->state) {
++		err = -ENODATA;
++		goto err_put_owner;
++	}
+ 	return 0;
+ 
+ err_free_state:
+ 	netlink_policy_dump_free(ctx->state);
++err_put_owner:
++	module_put(ctx->owner);
+ 	return err;
+ }
+ 
+@@ -1372,6 +1385,7 @@ static int ctrl_dumppolicy_done(struct netlink_callback *cb)
+ 	struct ctrl_dump_policy_ctx *ctx = (void *)cb->ctx;
+ 
+ 	netlink_policy_dump_free(ctx->state);
++	module_put(ctx->owner);
+ 	return 0;
+ }
+ 
 -- 
 2.53.0
 
