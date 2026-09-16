@@ -1,32 +1,31 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F032447805;
-	Wed, 16 Sep 2026 07:23:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF245449EB8;
+	Wed, 16 Sep 2026 07:26:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543421; cv=none; b=LSD7BDe7jEjT5pKh8U6TgZiXcRfOjVZWbdMwtE+jIh4OoBrfmc9Dn5YsRth76UkyUNova4lSmt5bhz+K3WAZ2pY2gaWs/8W/RI8ehdBY/9ikjvX3t5D4f82LEgLVYPk4wwB7GiUVMHlq1+mdlLTxnAj01DueWaq3/NsHuIYX8mg=
+	t=1789543586; cv=none; b=ZXLCJtofNqr0Av3Nsd79ZRS3FH5lXHmdFjxYJmG38Dplsr04VRaN/wKpUDauoGuUD1uC6CKD+WCeduyWYPP7GGak+cWl4M6bjxsI+1roPpOu0x336kEqzLLUf49kQ8nkwvzsK8zHt9Sf9i1Yjxyd5argatyzj4l9aqfV7BJz3s8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543421; c=relaxed/simple;
-	bh=CYU1jUqcD8f8ydXOmi/N32Vz1fMulUC8n8CJvnF356Q=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BH6z516nv2+bcIZmbS+N4xU+JNowVVjNSQsunpPtlk2sE3hmSuFLEq8zghh+V4ATtwPKk4ka+BDBkCO2VM+YKgmkux48E97RFXd5PK7KYS+JPVhptdg9kzJrlD+2ufYIql8TgrrMPltXR1NHpeaR+MEP1H1QCvbL1VCeUIXEFzA=
+	s=arc-20240116; t=1789543586; c=relaxed/simple;
+	bh=Lu8wsMR69TwGFbv0jVCbT8j4mEA51xuopusEo60Iy+U=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=J2ccOlVc4bjptIIMQKRPih6IIYdsax4L6P6prquAzxUyAellL4R7aeiORiJW0tcszFcqWdTP2+cCDj1I8Ynz7w4VwGftEt6UZaxXvfvs/PDvWutRjsPZwRPDyI13xHaOX+ivhtHXlpKNOsl5mc6LylrUn1yWXLtBZ+H81E/99+8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wD7jQ6pqYhTfBw--.23878S2;
-	Wed, 16 Sep 2026 15:23:15 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAAHDz2RRKpq7BvfBw--.27351S2;
+	Wed, 16 Sep 2026 15:26:09 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: david@lechnology.com
-Cc: jm@ti.com,
-	linux-iio@vger.kernel.org,
+To: broonie@kernel.org
+Cc: cy_huang@richtek.com,
+	lgirdwood@gmail.com,
 	linux-kernel@vger.kernel.org,
-	wbg@kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] counter: ti-eqep: Fix runtime PM imbalance in ti_eqep_probe()
-Date: Wed, 16 Sep 2026 07:22:47 +0000
-Message-Id: <20260916072247.1967830-1-vulab@iscas.ac.cn>
+Subject: [PATCH] regulator: rt6190: Fix runtime PM imbalance in rt6190_out_enable()
+Date: Wed, 16 Sep 2026 07:25:41 +0000
+Message-Id: <20260916072541.1968033-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -35,11 +34,11 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wD7jQ6pqYhTfBw--.23878S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrZF1fAw1DXrWDXF18Zr1fZwb_yoW8Jr45pF
-	4vvF98tFyxXrWIkasrAw1kZF9Y9rW2yay8G34kWa48Zw15Ja4Yk3WUJFyaqF10vrZ5uw15
-	tw1DWFy7AF4Yyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+X-CM-TRANSID:rQCowAAHDz2RRKpq7BvfBw--.27351S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7uF1kGr48tr1fXF4Dtr4DCFg_yoW8Ar4Dpw
+	4UuFZYyF1IqFy8J3yjka1Iv3W5Xw47t3sxC3y8Gw1kZw1FyF1fKr15ZFWFvF1kJr97Xr4j
+	yayDAFW8CF1UZaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVWUJVW8JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
 	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
@@ -50,43 +49,62 @@ X-Coremail-Antispam: 1UD129KBjvJXoWrZF1fAw1DXrWDXF18Zr1fZwb_yoW8Jr45pF
 	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCI
 	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267
 	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
-	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUrF
-	ApUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQMA2qqQJUOSgAAsd
+	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfUYZ
+	XoUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggMA2qqPpQYEAACsh
 
-In ti_eqep_probe(), runtime PM is enabled and acquired via
-pm_runtime_get_sync(dev). However, if devm_clk_get_enabled() fails,
-the function returns directly without calling pm_runtime_put_sync()
-and pm_runtime_disable(), leaving the runtime PM usage count and
-enable state unbalanced.
+In rt6190_out_enable(), pm_runtime_get_sync() is called at the start of
+the function. However, if any subsequent regmap or regulator operation
+fails, the function returns directly without dropping the runtime PM
+reference, causing a runtime PM reference leak.
 
-Add the missing pm_runtime_put_sync() and pm_runtime_disable() calls
-on the clock error path.
+Add an error handling path with pm_runtime_put() to keep the reference
+count balanced on failure.
 
-Fixes: 0cf81c73e4c6 ("counter: ti-eqep: enable clock at probe")
+Fixes: e6999e7cca7e ("regulator: rt6190: Add support for Richtek RT6190 regulator")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/counter/ti-eqep.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/regulator/rt6190-regulator.c | 18 +++++++++++++-----
+ 1 file changed, 13 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/counter/ti-eqep.c b/drivers/counter/ti-eqep.c
-index d21c157e531a..84fbf500b0f8 100644
---- a/drivers/counter/ti-eqep.c
-+++ b/drivers/counter/ti-eqep.c
-@@ -548,8 +548,11 @@ static int ti_eqep_probe(struct platform_device *pdev)
- 	pm_runtime_get_sync(dev);
+diff --git a/drivers/regulator/rt6190-regulator.c b/drivers/regulator/rt6190-regulator.c
+index 3883440295ed..bf99e18f6d5b 100644
+--- a/drivers/regulator/rt6190-regulator.c
++++ b/drivers/regulator/rt6190-regulator.c
+@@ -109,19 +109,27 @@ static int rt6190_out_enable(struct regulator_dev *rdev)
+ 	ret = regmap_raw_read(regmap, RT6190_REG_OUTV, out_cfg,
+ 			      sizeof(out_cfg));
+ 	if (ret)
+-		return ret;
++		goto err_pm_put;
  
- 	clk = devm_clk_get_enabled(dev, NULL);
--	if (IS_ERR(clk))
-+	if (IS_ERR(clk)) {
-+		pm_runtime_put_sync(dev);
-+		pm_runtime_disable(dev);
- 		return dev_err_probe(dev, PTR_ERR(clk), "failed to enable clock\n");
-+	}
+ 	ret = regulator_enable_regmap(rdev);
+ 	if (ret)
+-		return ret;
++		goto err_pm_put;
  
- 	err = counter_add(counter);
- 	if (err < 0) {
+ 	ret = regmap_raw_write(regmap, RT6190_REG_OUTV, out_cfg,
+ 			       sizeof(out_cfg));
+ 	if (ret)
+-		return ret;
++		goto err_pm_put;
++
++	ret = regmap_update_bits(regmap, RT6190_REG_SET5, RT6190_ENGCP_MASK,
++				 RT6190_ENGCP_MASK);
++	if (ret)
++		goto err_pm_put;
++
++	return 0;
+ 
+-	return regmap_update_bits(regmap, RT6190_REG_SET5, RT6190_ENGCP_MASK,
+-				  RT6190_ENGCP_MASK);
++err_pm_put:
++	pm_runtime_put(data->dev);
++	return ret;
+ }
+ 
+ static int rt6190_out_disable(struct regulator_dev *rdev)
 -- 
 2.34.1
 
