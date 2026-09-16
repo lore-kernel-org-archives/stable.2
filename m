@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8C6B4C2259
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:01:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F01954C224D
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574507; cv=none; b=sGTUd0lwqgIGAStRZEOcX/lmnBNXDnUX7Nj01fhWdt83WPD6qDUrWg4WTi6BOv8L4k5hf2wvor1FMjPBB8SuIDBBZqMl6ojFrQWyCoHmgAog3V77ngSfOJ0ueY8XI22HhUuubADoIL/lyFme1SyYw0flID7tH0/ZtJ+64v3yWu4=
+	t=1789574508; cv=none; b=s02T8ews3E+zwEP1PvS/hTnryd+bjwuNBCXsnydxSwIKUGaYnffe6Ho+DdAHiqHWry2JCDuUfw+tvtNRBRhGc2jJ0Rxb8uy6x749QcX+Q6Jzh72bFpmSeNDQc3IRwdmsikaeo9U3pnA5Z4ns4EHsFa4sASP7AoV5AzfWJT9bIIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574507; c=relaxed/simple;
-	bh=u/X7WxMvRGr0vNXs96N5tTXDg8VGIpO74BZrPfTrIhs=;
+	s=arc-20240116; t=1789574508; c=relaxed/simple;
+	bh=dIIo7Tyuw+HEOraTjk/fVI83zjXs81HMEGtUun9HudY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X1GMoBKeox2WJqCPARi4fyXbDwqqVlYN35f2qjtGxmZqbioShwpMzLPzMYhi3kdrNmFkrwwqL/2P7wguQpa6vFkg25ZDloXiIb8JxnDRHKLFj2zSqVfl0iSDU0VOTEcsDYpLbwittKNgxobzyNmUE6OpHFkFVS/sVCS4RImx3XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eNr7rIVk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=jwg5ZSls6sy/paL6EbMCR4380UVJX/xYNMN1k5chWX0Gbxus9RS4xxpnvdse4qtrZyCFY/n6ZUTByW36Dof78+UDhJbTffRef4lyH57Uu+eDjiENEcXjSYPStFtfc50hp/E/czkVNxZ+hzz51mD39yOEnFvG3d95G7w+ZA2eViU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bNSbrDq9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eNr7rIVk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 853B41F000FF;
-	Wed, 16 Sep 2026 16:01:44 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bNSbrDq9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 04BF31F00898;
+	Wed, 16 Sep 2026 16:01:45 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789574505;
-	bh=9LEfzaqy4/F/GrMB/TfJ2ftF7HIliThV65MbqtDf7Wc=;
+	s=k20260515; t=1789574506;
+	bh=0jMWKkgLXmDrOGL5hKmzbCAwoXgHHvrqRf9rR9D0JQQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=eNr7rIVkWKmzgAbCNQ36ftgqbIeOFQfQu09Y6K5qV83dDZasNfRT+ohfkzJ6k98yo
-	 Z7jXjdjYeJY852rtfiwH7rJfk+VFjnWnPFtQTLVTvZVgg4UfUt8kEFa4BxaeGSLACC
-	 Y5HtEhVYOepjrYZsttM1LZPazL3FSZtmUzP/qWAzjiUxNli61RiAXaYaWBmMkgQ72G
-	 hIuIUDVpXgyVMQjiVa7GQSpXnwYhgYHqfx7nfoFEGC++fKhpHaGyzAlIyd+aLj2ouL
-	 ECWKJ7DWL1vhy+BTvo/5tgkb1Z4LRg5aqj5LQvdu30f1gWIa5w3PDiQ0E+EE7Px7qt
-	 CRDTavIsVH4Hg==
+	b=bNSbrDq9iztfkajU0yMx42d8Lb4Fb29Q9VbUkxc7X3ZQfMSF4eOQrdfru8CDP1y1x
+	 GdCGPcj3o6Zn/yFaFWakQDbvjP0DnzG5/RFj/bqtWn48Pbq08JvjeccsgwrBSf8E+A
+	 ViH4wZ7xh2DNWkNFw5NLbFMpm0AV65PVVXjLnlQTBOg29FhSZkIBjbDlAkfXo2muhE
+	 XonW4DIYz1kV5JmHQfJ8v/HPlZczA9fyEDseafK3WISpFJbzKGVFJxOgvG1O9RYT16
+	 cTPkb4kUdb2RXTk7Ty5E1bEK/qyYA9zsKC2DDI91vKKSDIeEOAPwatxe90eMxrN65S
+	 hGVy8TQmpdSDw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>,
+	syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com,
+	Breno Leitao <leitao@debian.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] ipmr: account multicast table and route memory
-Date: Wed, 16 Sep 2026 12:01:43 -0400
-Message-ID: <20260916160143.45991-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] configfs: unhash the dentry before dropping the item in rmdir
+Date: Wed, 16 Sep 2026 12:01:44 -0400
+Message-ID: <20260916160144.46032-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091606-neurosis-primp-db10@gregkh>
-References: <2026091606-neurosis-primp-db10@gregkh>
+In-Reply-To: <2026091659-tragedy-moonstone-2c95@gregkh>
+References: <2026091659-tragedy-moonstone-2c95@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,82 +46,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Zihan Xi <zihanx@nebusec.ai>
+From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
 
-[ Upstream commit b7ee18725f2292ab554aa96a101ae42d45f008bd ]
+[ Upstream commit f06c2d26d1999d37e93299db0ecead04ca7d0b9f ]
 
-A netadmin in a user+net namespace can create many IPv4 and IPv6
-multicast routing tables with MRT_TABLE and MRT6_TABLE. Each unseen
-id allocates an mr_table via the shared mr_table_alloc(), links it
-into the per-net list, and leaves it until netns teardown. Those
-objects were not charged to memcg, so the host unreclaimable slab
-grows with the table count.
+configfs_get_config_item() treats a hashed dentry as proof that
+sd->s_element is a live config_item.  configfs_rmdir() breaks that:
+simple_rmdir() leaves the dentry hashed, the last reference to the item is
+dropped right after, and the dentry is only unhashed by d_delete() once
+->rmdir() has returned.  configfs_symlink() resolves its target holding no
+lock on it, so get_target() can land in that window:
 
-Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
-handling of IP addresses, routes and alternate interface names.
+  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
+   get_target fs/configfs/symlink.c:128 [inline]
+   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
 
-Unresolved MFC entries are still allocated from softIRQ with
-GFP_ATOMIC and are not charged. They expire after 10 seconds and are
-bounded by the socket receive queue; see commit 0079ad8e8dc3
-("ipmr: remove hard code cache_resolve_queue_len limit").
+Unhash in configfs_remove_dir(), while the item is still guaranteed to be
+there.  A reference obtained just before that stays harmless, as
+create_link() rechecks CONFIGFS_USET_DROPPING, already set by
+configfs_detach_prep().  Both configfs_unregister_subsystem() paths
+d_drop() after detaching, so this only makes rmdir match them.
 
-Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
-Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
+Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
+Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/050b58f7fc6b45da0fb12768ebb62d18fa46133d.1788784801.git.zihanx@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ adapted upstream allocation helpers to existing kzalloc() and kmem_cache_create() calls. ]
+Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+Tested-by: Breno Leitao <leitao@debian.org>
+Reviewed-by: Breno Leitao <leitao@debian.org>
+Link: https://patch.msgid.link/20260730093435.195441-3-vasilisalmpanis@gmail.com
+Signed-off-by: Breno Leitao <leitao@debian.org>
+[ adapted the configfs_remove_dir() change to the older remove_dir() helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/ipmr.c      | 3 ++-
- net/ipv4/ipmr_base.c | 2 +-
- net/ipv6/ip6mr.c     | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+ fs/configfs/dir.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index 5e582eab1ea19..d5ae2df481a48 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -3115,7 +3115,8 @@ int __init ip_mr_init(void)
+diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
+index 01c9d54833b30..6269085ba1748 100644
+--- a/fs/configfs/dir.c
++++ b/fs/configfs/dir.c
+@@ -395,8 +395,17 @@ static void remove_dir(struct dentry * d)
  
- 	mrt_cachep = kmem_cache_create("ip_mrt_cache",
- 				       sizeof(struct mfc_cache),
--				       0, SLAB_HWCACHE_ALIGN | SLAB_PANIC,
-+				       0, SLAB_HWCACHE_ALIGN | SLAB_PANIC |
-+				       SLAB_ACCOUNT,
- 				       NULL);
+ 	configfs_remove_dirent(d);
  
- 	err = register_pernet_subsys(&ipmr_net_ops);
-diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-index 8b5b6f196cdc4..fb9796e21074f 100644
---- a/net/ipv4/ipmr_base.c
-+++ b/net/ipv4/ipmr_base.c
-@@ -38,7 +38,7 @@ mr_table_alloc(struct net *net, u32 id,
- 	struct mr_table *mrt;
- 	int err;
+-	if (d_really_is_positive(d))
+-		simple_rmdir(d_inode(parent),d);
++	if (d_really_is_positive(d)) {
++		if (!simple_rmdir(d_inode(parent), d))
++			/*
++			 * configfs_get_config_item() takes a hashed dentry as
++			 * proof that ->s_element is still alive.  Our caller
++			 * is about to drop the last reference to the item and
++			 * the VFS will not unhash until after we return, so
++			 * unhash it here.
++			 */
++			d_drop(d);
++	}
  
--	mrt = kzalloc(sizeof(*mrt), GFP_KERNEL);
-+	mrt = kzalloc(sizeof(*mrt), GFP_KERNEL_ACCOUNT);
- 	if (!mrt)
- 		return ERR_PTR(-ENOMEM);
- 	mrt->id = id;
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 909a2bc2a020d..a793dcd24813e 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -1357,7 +1357,7 @@ int __init ip6_mr_init(void)
+ 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
  
- 	mrt_cachep = kmem_cache_create("ip6_mrt_cache",
- 				       sizeof(struct mfc6_cache),
--				       0, SLAB_HWCACHE_ALIGN,
-+				       0, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT,
- 				       NULL);
- 	if (!mrt_cachep)
- 		return -ENOMEM;
 -- 
 2.53.0
 
