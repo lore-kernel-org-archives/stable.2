@@ -1,155 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3012A4192EF
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:15:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF1347A0DD;
+	Wed, 16 Sep 2026 08:16:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546549; cv=none; b=Ui5AHtXlzpifUj3bWJyWuaLQtFGXlOHReA+8RxmfurUF5CY7bvi+m9T4fXQFFWHnV21EnkPtMJAwqNMCTInYVT2IHrtpSF5Jv3oHPq+GkHtXpeDVJOHhz01zmllrJX/aO7e39EtU5cXYoT6S9zzXSks47l55ns1ItdhWWywZ0qs=
+	t=1789546591; cv=none; b=Vx79sdPaznvnvEhsTtz3E7h/uQL/waSd8dkfEx/vEC9uF9CEBWRP4CYE1sqKHCi9olKyvYRzMTRzuUKLIT2xpni0wXZqqPkSOs0Tdj1TX5rTM0E7oMoJ98OSCzf9XsvFMZb9aqSj63RS+J+n3vxNNegJJ9L8zu+IzNfGETFLsB8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546549; c=relaxed/simple;
-	bh=UO3Uvlx7j3O2JMrk33na6/VVmSWj+z0gmXj//OjE9SA=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GMhYV591uQOr+wKZEWHmaa5IWHKuwS4AAjeSKkDNNXY8c+wnoOQo4gygfy9jEzt8/PhkxiA+aGS8JPWHU+6jpS75fFnxaFN8mwVCBTtkkjNGwnRql5vFX7basSWNJ22/bedMg/8dMiIw0BzJLkLV3vs6aodhEuA26+lRf7/2w5M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l3fsI07Y; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546591; c=relaxed/simple;
+	bh=a0Lpz0KWiW0t6SX8Sm0pRTi6OEXCaet1sxsTa2bUJGQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=W2g31YpuNaUf3k0czKsNZsYpjdJaDtWEwFEtOEGJW68KaxxZGSN9K7WXqEi6axGBXF8VRjCzJBROEtztUWTn9Oo7TqtP7piT4llaFlkA6w+9cCA9+tYaQ0GPN4F2/amdLOBdSmT9XKsq4UVwUErBbmzzzaVbi3Oko1AG5hvSwN8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXwBUxpp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l3fsI07Y"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 123861F0089A;
-	Wed, 16 Sep 2026 08:15:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789546534;
-	bh=Our9hpoWN645+CbVVKyHUqAZ7CdsCUUoXVUIz1pMgPc=;
-	h=Subject:To:Cc:From:Date;
-	b=l3fsI07YTG4ymQJtvq+Dwvz3t+BJVEZU08ko68bZfAMHwgPnSXHtbXK/N2ErmQ81X
-	 FzaS6VpbEesoVeUeU3foe6HwMJZwfmZBFXsTLN4s+iI2yeX+RnxFfA/XqcaVV8y399
-	 eI8t/ar4x/VPPB9Q2G9tipqpC1k3T2q/ADxUsp0M=
-Subject: FAILED: patch "[PATCH] tracing: Set the trace clock before registering the histogram" failed to apply to 5.10-stable tree
-To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 09:13:30 +0100
-Message-ID: <2026091629-pennant-heroics-00ec@gregkh>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXwBUxpp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8951F00893;
+	Wed, 16 Sep 2026 08:16:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789546579;
+	bh=SjWIP8bNgzdC4buQnhVS9zvJ7ieVsM0oE8uqr/MRoYM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=JXwBUxpp6BrunGC9Exr6GM/vSGpDSwW0e19VQG/HebrdWDreqD+TRflwbah2sHQOp
+	 FpxMLshY1UEor/GvOfupqRFWD/7O/D2IT53Ts1TI0qFtHguYs/mwcF9Zi3Q3eq5daW
+	 zDrOlbTsyURpbnesjY/9q7QnelxvpU617ZiErDVoEip8cXsy+kXVqb4NL0quiCe+fz
+	 VUWYamsRGz77Z/6BQ1e99VwL01uV5WAnNUvkI2cMNjx/mSZFEeZRdfrPgO6QyFkNxL
+	 4wb3ea39LRymM0UgOJlA2TIVhPRqcPmZq2u67H7j2RDNLc9dbn0+llVJHeqS7b4Itb
+	 l8KwbL9+yj3oA==
+Received: from johan by xi.lan with local (Exim 4.99.5)
+	(envelope-from <johan@kernel.org>)
+	id 1x6koS-00000005wGU-1cEn;
+	Wed, 16 Sep 2026 10:16:16 +0200
+Date: Wed, 16 Sep 2026 10:16:16 +0200
+From: Johan Hovold <johan@kernel.org>
+To: Joshua Crofts <joshua.crofts1@gmail.com>
+Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Mathias Nyman <mathias.nyman@intel.com>,
+	Chunfeng Yun <chunfeng.yun@mediatek.com>,
+	Matthias Brugger <matthias.bgg@gmail.com>,
+	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
+	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
+	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
+Subject: Re: [PATCH 2/6] usb: xhci-mtk: add missing
+ pm_runtime_dont_use_autosuspend() call
+Message-ID: <aqpQULC3P0wspKwL@hovoldconsulting.com>
+References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
+ <20260915090223.1346-3-joshua.crofts1@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915090223.1346-3-joshua.crofts1@gmail.com>
 
+On Tue, Sep 15, 2026 at 09:02:19AM +0000, Joshua Crofts wrote:
+> The disable_pm label in xhci_mtk_probe() and xhci_mtk_remove() both call
+> pm_runtime_disable() on error or device teardown, but don't call
+> pm_runtime_dont_use_autosuspend(), causing resource leaks.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+No, there is no resource leak here either and this does not need to be
+backported.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 6ede78d0563a2a3ae3e46f9c07cedb5d79645429
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091629-pennant-heroics-00ec@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 6ede78d0563a2a3ae3e46f9c07cedb5d79645429 Mon Sep 17 00:00:00 2001
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Date: Mon, 7 Sep 2026 18:14:15 +0900
-Subject: [PATCH] tracing: Set the trace clock before registering the histogram
- trigger
-
-hist_register_trigger() puts the trigger on the global named_triggers
-list in cmd_ops->init(), and only then sets the trace clock:
-
-	if (data->cmd_ops->init) {
-		ret = data->cmd_ops->init(data);
-		if (ret < 0)
-			goto out;
-	}
-
-	if (hist_data->enable_timestamps) {
-		ret = tracing_set_clock(file->tr, hist_data->attrs->clock);
-		if (ret) {
-			hist_err(tr, HIST_ERR_SET_CLOCK_FAIL, errpos(clock));
-			goto out;
-		}
-
-The clock string is not checked anywhere before that call, so a named
-trigger using common_timestamp with an unknown clock fails after it has
-already become findable. event_hist_trigger_parse() then frees it
-without taking it off the list, and the next lookup by name reads the
-freed object:
-
- ~# cd /sys/kernel/tracing/events/sched/sched_switch
- ~# echo 'hist:name=foo:keys=common_pid:ts=common_timestamp:clock=bogus' > trigger
- bash: echo: write error: Invalid argument
- ~# echo 'hist:name=foo:keys=common_pid' > trigger
-
-  BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
-  Read of size 8 at addr ffff88800915d760 by task init/1
-   find_named_trigger+0xac/0xc0
-   hist_register_trigger+0xc1/0x900
-   event_hist_trigger_parse+0x3146/0x6af0
-   event_trigger_write+0xce/0x160
-  Freed by task 63:
-   kfree+0x154/0x420
-   trigger_kthread_fn+0xfd/0x160
-
-Set the clock before the trigger is registered, so that nothing which
-can fail runs after it is published, the way commit 6f86bdeab633
-("tracing: Fix bad hist from corrupting named_triggers list") moved the
-registration below the rest of the setup.
-
-tracing_set_filter_buffering() is reference counted, so the init failure
-path has to drop the reference that the clock block now takes first.
-
-Cc: stable@vger.kernel.org
-Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
-Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 5e00da2d5b1a..1889e310b73c 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -6631,12 +6631,6 @@ static int hist_register_trigger(char *glob,
- 		data->cmd_ops = cmd_ops;
- 	}
+The autosuspend setting is not restored, but that would only possibly
+have an impact in the theoretical corner case that someone forcibly
+rebinds a different driver that does not enable it.
  
--	if (data->cmd_ops->init) {
--		ret = data->cmd_ops->init(data);
--		if (ret < 0)
--			goto out;
--	}
--
- 	if (hist_data->enable_timestamps) {
- 		char *clock = hist_data->attrs->clock;
- 
-@@ -6649,6 +6643,15 @@ static int hist_register_trigger(char *glob,
- 		tracing_set_filter_buffering(file->tr, true);
- 	}
- 
-+	if (data->cmd_ops->init) {
-+		ret = data->cmd_ops->init(data);
-+		if (ret < 0) {
-+			if (hist_data->enable_timestamps)
-+				tracing_set_filter_buffering(file->tr, false);
-+			goto out;
-+		}
-+	}
-+
- 	if (named_data) {
- 		remove_hist_vars(hist_data);
- 		destroy_hist_data(hist_data);
+> Add the missing pm_runtime_dont_use_autosuspend().
+> 
+> Found using Coccinelle.
+> 
+> Fixes: 0cbd4b34cda9 ("xhci: mediatek: support MTK xHCI host controller")
+> Fixes: 04284eb74e0c ("usb: xhci-mtk: add support runtime PM")
+> Cc: <stable@vger.kernel.org>
 
+So, without having looked at the rest: none of these should be
+backported.
+
+Johan
