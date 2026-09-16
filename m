@@ -1,162 +1,172 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24BD5A984C
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:29:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id C4AB75A9869;
+	Wed, 16 Sep 2026 16:29:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576186; cv=none; b=Hdd9pp7FjoLP+eUJTlcdvda8XmDUAH2o1k/3QOUS0BOIQ4gscsPJYQPYOoRTF2NewKcI1YydzLTpjYKgRSBQBuHmYziCXPl14h50YdZUVP0hNtp0RQG51rpvs60vyiq6mIYynzfDvspaq/OW2CsV+XrzPWz+esNCKN+80jIkZ98=
+	t=1789576187; cv=none; b=A8OqNUsacSBtc4cXlvJCuMURnauBH4ggOUtI1vQPic/VCDL5VPEVi2DvfcRJ8w9iAQ5rzDW+C/WuISe91JnUpDiG8TA/OSLbiiVGxIKvcg3GhjpHCQ1IN7URUnj5ByqW+EAR8bR2UZavb1cBzWL68e/zrLy5BZ7z1qdEaNQ66Ow=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576186; c=relaxed/simple;
-	bh=rfCTD+62jY9yHO2p4lEH9EoauwzrB7tZLsKcVUlpPbM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=HN2KMBpKWfBHxz3CtQKQVUbK6eIPtG/PbrHX7lzqkTCrmiuj5I/D/jqg+Er9Y+Hmu+xB7Gg+RGbSaI4WLt28wwyd7iLT5RjcMDUF1rCCfHVzclWEv+Z9cSLbd+SUpNLPd6s1R1OTYwqz3hPRVqMiogDNeFicwLrJcS4X7MoCUJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=c4Ikx4j0; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789576187; c=relaxed/simple;
+	bh=wXKQoHwSGPiZJlMjn/ELdHKMrUAbjo2VwzzGOf424RU=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=N22qTnDcPUUyVQLdVttcOTf89YIVYf0KBpOrEGJyarrAmigD7SUq93xQB7hTCGoyCrLPiSWeHk5qLL2CcZjRjhTtq4/ePpujUKrwsaI29jOGmU8BycnIBviLqcBDERmlQRHKkzC+0LsOBPwonHpnUT7mS4EBfwkiOVM8UO9ND0Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=lvuh7cHe; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="c4Ikx4j0"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c29703cb470so184549966b.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:29:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789576179; x=1790180979; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=oGsaKaCm6H9DIjQx0NqyVJZZj6VZWtfqDIqvxsFeHmU=;
-        b=c4Ikx4j08+Z/Ya7L5ry0mZfAqsOfx8AVPzHc5Qk0EuYiBRwHk846n2UUW7QlxFljWb
-         V1Lvx+eGtHhRryl7uufAdfrzRz3tTrddkVq7yU0S5Z2QkLLkeiYw0ifs9oOYvhfJFpUm
-         fnm2eW9gK/CYX4pf0FrGa2RnoV2JSnK+yN9S8=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789576179; x=1790180979;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=oGsaKaCm6H9DIjQx0NqyVJZZj6VZWtfqDIqvxsFeHmU=;
-        b=S2GyUgmeE4up0kelqo4iKToHbJV56gV1SyEk0ei0NYGHwouryY6nyrw6FufR90nPE2
-         +3LmWbA0sxtKRwxytP1LL3WgOHMpW7lWooz4aryuPrZLnNRr+I7yRyGJtrpBIYFSASj6
-         VO5iBRAFFV/uRwGHBoDUIitfjAzJJcnq/UuxIChFFyjwC4ZKI4czDSVWwdURB4yr4cNy
-         iqeELnprkOpFrt51wqwIOuQtTbH62ao/8Q9FhthqOl4bAt0FW/2Rcdvfxv+2Xje/Kdvi
-         bJm5tV9OA/kv6elBvc34fycVFpy1TpXD/Dm8EQLbc4n8cd8FUW+UbsHxKGYXRVZiiCld
-         Y3sA==
-X-Forwarded-Encrypted: i=1; AKwUvByGBBxOr+PmV6T+1kDMad7Iqj8OFvtvbTWI6lzzDXFShl93gx+B1A3jrg+2o81eIhp97Y+CP/E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kUrdsF7hRdNUqJCz7ctW9bJzlGnU5A0TTsxe2IAgP+q3Urj9CW
-	SdjoUUJS+vbAd5SFup48XCJP9nPYPhBIA0hdWuV5/ELMbbSW99/v3Db9k9r1T1eyxfx5uFtsu9R
-	3wHw=
-X-Gm-Gg: AYBFou3Pzu1jHQ1D92CtBVrtDn/WTk3DRaOtfcyCTqUZq3C2LVp118zSn945UHmU8Nq
-	3lQYqlyTc0t8/zHNliobYzYSPb1muDo+YxrYYWrKWDXwURP3nj1bKAr6h2hUQA1uiZm6KgPKUIy
-	Q74lIlv6soKRnkBUB8trN6i43sAXSpl8PZPT/NbZpUz/QbWbHshIj5D+Q+HE/iuvNOelGCX9myg
-	5M7tQOXc1FlV7jCWJ6dP2FwgdNntpg4D66PBrOsleBCUtzdq4WFz+35vVz+W2cgXGaHkDSeLM8j
-	kVntIsMQM3LASqA3qmjsbrhqdGLPcEIWO9tIajsQcEyer31x8OBWxncAgLcRTDySOga3LzIJLjp
-	MgAWjcMBEqWnOkck3On2SzcuT4zZRxffQ6B3wmXjrWM3ww+W4q3ljRkeyjMHKVkjLy12A2Dv0qg
-	3XYjLYVBwDk9VEOa6YZ1Xfv0ekwugdu+7jx4ZM/6tKCavAQlLT8I94Cdo++/ekUYz+GglZw8twJ
-	AqtVMUrYSNhdtTzmiO4sHZeZmGZNQzVBP/WKf8=
-X-Received: by 2002:a17:907:9706:b0:c25:8eb7:f388 with SMTP id a640c23a62f3a-c29e529a30bmr460642766b.17.1789576179275;
-        Wed, 16 Sep 2026 09:29:39 -0700 (PDT)
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com. [74.125.225.141])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de454d91sm167932366b.19.2026.09.16.09.29.37
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 09:29:38 -0700 (PDT)
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0f79so6492685e9.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:29:37 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBzSYxQvgC580USZczkGaVPIiuJ0A6kPuHAtf4jHSs1cxW6LhBKRjO6wkH1xAKb+HP+3WxOOECE=@vger.kernel.org
-X-Received: by 2002:a05:600c:c48e:b0:49c:ff8d:b548 with SMTP id
- 5b1f17b1804b1-49eb732fc54mr76705805e9.11.1789576177013; Wed, 16 Sep 2026
- 09:29:37 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="lvuh7cHe"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 752F0176A;
+	Wed, 16 Sep 2026 09:29:38 -0700 (PDT)
+Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 819803F7B4;
+	Wed, 16 Sep 2026 09:29:39 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789576182; bh=wXKQoHwSGPiZJlMjn/ELdHKMrUAbjo2VwzzGOf424RU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=lvuh7cHeao6i1+dVt4gyVhS/W6KfGIHZKqgr2f0WNAaNua4LGVdUXJIoHNsK3E59l
+	 5XzhFuMlVQ1k4svCx1LloyK8k7ptretjGTInRZSbEu0RG3YHAIrM38yUc2BPNx8WmA
+	 c3Tfkz7dNQnfi+AYy+kZ2nyr+YZ3XxVhQ2NzPtuE=
+From: Christian Loehle <christian.loehle@arm.com>
+To: "Rafael J . Wysocki" <rafael@kernel.org>,
+	Viresh Kumar <viresh.kumar@linaro.org>
+Cc: linux-pm@vger.kernel.org,
+	linux-acpi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Len Brown <lenb@kernel.org>,
+	Jie Zhan <zhanjie9@hisilicon.com>,
+	Lifeng Zheng <zhenglifeng1@huawei.com>,
+	Pierre Gondois <pierre.gondois@arm.com>,
+	Sumit Gupta <sumitg@nvidia.com>,
+	Sudeep Holla <sudeep.holla@arm.com>,
+	Ionela Voinescu <ionela.voinescu@arm.com>,
+	zhongqiu.han@oss.qualcomm.com,
+	Christian Loehle <christian.loehle@arm.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v7 17/20] ACPI: CPPC: Propagate errors from cross-CPU FFH calls
+Date: Wed, 16 Sep 2026 17:28:02 +0100
+Message-Id: <20260916162805.1039247-18-christian.loehle@arm.com>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
+References: <20260916162805.1039247-1-christian.loehle@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916151753.6722-1-fangxy@xiaopeng.com>
-In-Reply-To: <20260916151753.6722-1-fangxy@xiaopeng.com>
-From: Doug Anderson <dianders@chromium.org>
-Date: Wed, 16 Sep 2026 09:29:25 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VqGXRadN8Ro2UV0hXZvNOTABDmAh+On-bUXFEGuJQOSA@mail.gmail.com>
-X-Gm-Features: AcwNN1V3QXHsb6_b7XvNkZrIiXWsTtecG2wVDHU_J3bG9sbbPJ8EqsrduqMn5D4
-Message-ID: <CAD=FV=VqGXRadN8Ro2UV0hXZvNOTABDmAh+On-bUXFEGuJQOSA@mail.gmail.com>
-Subject: Re: [PATCH] kgdb: Fix buffer overflow in the qRcmd packet handler
-To: Fang Xieyan <fangxy@xiaopeng.com>
-Cc: jason.wessel@windriver.com, danielt@kernel.org, 
-	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi,
+The arm64 and RISC-V CPPC FFH accessors ignore the return value of
+smp_call_function_single(). If the target CPU is offline, the call can
+return -ENXIO without running the callback. The accessors then consume
+callback output which was never initialized and may report success.
 
-On Wed, Sep 16, 2026 at 8:18=E2=80=AFAM Fang Xieyan <fangxy@xiaopeng.com> w=
-rote:
->
-> gdb_cmd_query() decodes the hex payload of a qRcmd packet (the GDB
-> "monitor" command passthrough to kdb) into remcom_out_buffer and hands
-> it to kdb_parse(). It sizes the decode with strlen() of the payload:
->
->         int len =3D strlen(remcom_in_buffer + 6);
->         ...
->         kgdb_hex2mem(remcom_in_buffer + 6,
->                      remcom_out_buffer, len);
->         len =3D len / 2;
->
-> kgdb_hex2mem() takes count as the number of bytes to produce and
-> decodes them in place at buf, reading and writing 2 * count bytes
-> there. len here is the hex character count, twice the decoded size,
-> so the decode runs over 2 * len bytes at remcom_in_buffer + 6, off
-> the end of the buffer. On x86 BUFMAX is 1024, so a 256-byte monitor
-> command (512 hex characters) overruns remcom_in_buffer during the
-> in-place decode:
->
->   BUG: KASAN: global-out-of-bounds in kgdb_hex2mem+0x131/0x160
->   Read of size 1 at addr ffffffff8765ef05 by task sh/1
->   ...
->   kgdb_hex2mem+0x131/0x160
->   gdb_serial_stub+0x16d4/0x3170
->   kgdb_cpu_enter+0xb68/0x1520
->   ...
->   The buggy address belongs to the variable:
->    remcom_in_buffer+0x405/0x420
->
-> Halve len before the call so kgdb_hex2mem() gets the decoded byte count.
-> It then reads the len hex characters already in remcom_in_buffer and
-> writes len / 2 bytes, all inside the buffer, and remcom_out_buffer holds
-> the same command as before.
->
-> Fixes: a0de055cf613 ("kgdb: gdb "monitor" -> kdb passthrough")
-> Cc: stable@vger.kernel.org
-> Suggested-by: Douglas Anderson <dianders@chromium.org>
-> Link: https://lore.kernel.org/all/CAD=3DFV=3DV1-gNZ8yTsC+D8inePWv=3DA+9H0=
-9hWJojQf5NRpcNvK+Q@mail.gmail.com/
-> Assisted-by: Qoder:Qwen3.8-Max
-> Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
-> ---
->
-> This is the third in a family of unvalidated-length decodes in the kgdb
-> gdbstub; the 'm' memread and 'M'/'X' memwrite fixes were sent separately.
-> Unlike those two, there is no attacker-claimed length field here. len is
-> the real hex-character count bounded by get_packet(), so the only defect
-> is passing the hex length instead of half of it to kgdb_hex2mem().
-> Halving it is sufficient; no separate bounds check is needed.
->
-> Reproducer: attach to a kgdboc console, break in, run kdb's "kgdb"
-> command to switch to gdb mode, then send a qRcmd packet with an even
-> hex payload of 510 or more characters, e.g. "qRcmd," + "41"*256 on x86.
-> Before the fix, KASAN reports a global-out-of-bounds read in
-> kgdb_hex2mem(): the decode runs to remcom_in_buffer+0x405, past
-> BUFMAX=3D0x400, and the guest dies. After the fix the decode stays
-> in-bounds, the command reaches kdb_parse() and the handler answers OK.
-> The patched run does print kdb_parse()'s own "command buffer overflow,
-> command ignored" for a 256-byte command; that is kdb's length limit on
-> the decoded string, not this bug.
->
-> Tested on mainline 704340f1cd0d (git describe v7.3-rc3-9-g704340f1cd0d):
-> x86_64 defconfig plus CONFIG_KGDB_KDB and CONFIG_KASAN_GENERIC, gcc
-> 13.2.0, QEMU under TCG. Both kernels were built from byte-identical
-> .config files and differ only by this patch.
->
->  kernel/debug/gdbstub.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+CPU offlining leaves the CPU's CPPC sysfs attributes present. On arm64,
+the AMU feature mask does not exclude an offline CPU, so a paired counter
+read can expose uninitialized stack values through feedback_ctrs. RISC-V
+has the same problem in both SBI and CSR reads, and its write paths also
+inspect an uninitialized callback status after a failed cross-CPU call.
 
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
+Return the SMP call error before using callback output. The arm64 single
+and paired counter readers already check the helper's return value. For
+RISC-V, also check the callback status before copying a read value: an
+unsupported CSR sets the error but does not initialize the value.
+
+Fixes: 68c5debcc06d ("arm64: implement CPPC FFH support using AMUs")
+Fixes: 30f3ffbee86b ("ACPI: RISC-V: Add CPPC driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Christian Loehle <christian.loehle@arm.com>
+---
+ arch/arm64/kernel/topology.c |  2 +-
+ drivers/acpi/riscv/cppc.c    | 26 ++++++++++++++++++++------
+ 2 files changed, 21 insertions(+), 7 deletions(-)
+
+diff --git a/arch/arm64/kernel/topology.c b/arch/arm64/kernel/topology.c
+index 2c030e78d5e4..55bd8fa3e95c 100644
+--- a/arch/arm64/kernel/topology.c
++++ b/arch/arm64/kernel/topology.c
+@@ -427,7 +427,7 @@ int counters_read_on_cpu(int cpu, smp_call_func_t func, void *val)
+ 			return -EPERM;
+ 		func(val);
+ 	} else {
+-		smp_call_function_single(cpu, func, val, 1);
++		return smp_call_function_single(cpu, func, val, 1);
+ 	}
+ 
+ 	return 0;
+diff --git a/drivers/acpi/riscv/cppc.c b/drivers/acpi/riscv/cppc.c
+index 42c1a9052470..4ea4ddedd91f 100644
+--- a/drivers/acpi/riscv/cppc.c
++++ b/drivers/acpi/riscv/cppc.c
+@@ -97,6 +97,7 @@ bool cpc_ffh_supported(void)
+ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ {
+ 	struct sbi_cppc_data data;
++	int ret;
+ 
+ 	if (WARN_ON_ONCE(irqs_disabled()))
+ 		return -EPERM;
+@@ -107,19 +108,27 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ 
+ 		data.reg = FFH_CPPC_SBI_REG(reg->address);
+ 
+-		smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
++		ret = smp_call_function_single(cpu, sbi_cppc_read, &data, 1);
++		if (ret)
++			return ret;
++		if (data.ret.error)
++			return sbi_err_map_linux_errno(data.ret.error);
+ 
+ 		*val = data.ret.value;
+ 
+-		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
++		return 0;
+ 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
+ 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
+ 
+-		smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
++		ret = smp_call_function_single(cpu, cppc_ffh_csr_read, &data, 1);
++		if (ret)
++			return ret;
++		if (data.ret.error)
++			return data.ret.error;
+ 
+ 		*val = data.ret.value;
+ 
+-		return data.ret.error;
++		return 0;
+ 	}
+ 
+ 	return -EINVAL;
+@@ -128,6 +137,7 @@ int cpc_read_ffh(int cpu, struct cpc_reg *reg, u64 *val)
+ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+ {
+ 	struct sbi_cppc_data data;
++	int ret;
+ 
+ 	if (WARN_ON_ONCE(irqs_disabled()))
+ 		return -EPERM;
+@@ -139,14 +149,18 @@ int cpc_write_ffh(int cpu, struct cpc_reg *reg, u64 val)
+ 		data.reg = FFH_CPPC_SBI_REG(reg->address);
+ 		data.val = val;
+ 
+-		smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
++		ret = smp_call_function_single(cpu, sbi_cppc_write, &data, 1);
++		if (ret)
++			return ret;
+ 
+ 		return (data.ret.error) ? sbi_err_map_linux_errno(data.ret.error) : 0;
+ 	} else if (FFH_CPPC_TYPE(reg->address) == FFH_CPPC_CSR) {
+ 		data.reg = FFH_CPPC_CSR_NUM(reg->address);
+ 		data.val = val;
+ 
+-		smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
++		ret = smp_call_function_single(cpu, cppc_ffh_csr_write, &data, 1);
++		if (ret)
++			return ret;
+ 
+ 		return data.ret.error;
+ 	}
+-- 
+2.34.1
+
