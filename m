@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42F574AB3AB
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:06:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DC9F4D7970
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:06:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574800; cv=none; b=J0xp+CZfKV0D4y9AiEzu1+EHPiBnw3/D/XcWC28cYiO+GFA4bL96de58Ks+xj69eBE8aFYgGzvp54Bn1g8FaLvMQ9Re76viRYzD6AWUC5zUVfahsX2PrnQNX2X5LVSHtY5bBuopUU1s51AwpMyQXQU2YQCeBmgo/7nm4sr6VRUw=
+	t=1789574803; cv=none; b=U+XuHKmbsI7CnZ5dZ3q3Nt+K7ZI2bAN8qss/m8uIcqkCTiCe+LF+KOFpRZunybn4a1VqBjhhq69XCPalxSznac8xpf6QrwIvclLWpAFFCktfbOo47ojXXOry+tiKItVdwJuQmdseCiTkwbXyOhcChBIQ9bECkA+Ky/X7jKuFUS0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574800; c=relaxed/simple;
-	bh=WdOyeq1PdlmYzCe27Stu/pi/godj2EPXhKO9RuE5dbw=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NQoXJXKVe0RrO/XuXP22McvE8LK3ffXZN3jP4EEaVBka0pwNgJrSqdjm0dbn64Y1znKGtsEh3lifpYOYIt0xR4TvZ7/6tW6jNcfZW+ovqH1a0pM6hHUpaSZivI0izmfHmUqylQ/qQKE4PAbxdfXat9ZJC7GBfPTWbWS1RD/1YnM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=b4fonzGn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574803; c=relaxed/simple;
+	bh=U51tlLN1gGhkEfPLfCIMeK5nATUb+zXyW4zkn94uxPQ=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=tfKdDXK0KL4tApmaXLISpLvibutJpwRERRc8XWMs+r9roVHkZRhzz8kCNeguVSSUB1y4EVxhR1/Re1BCtwTeGePMmr+UWqO+0SxetYha5mxRbevKRca8aJmzUlPk5KiQwXdSqbJ/NGPp1CoaRh4Zt95SpqFFrqVucQI+o62jNVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kREwzF70; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="b4fonzGn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F7331F000FF;
-	Wed, 16 Sep 2026 16:06:37 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kREwzF70"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 676901F000FF;
+	Wed, 16 Sep 2026 16:06:41 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574798;
-	bh=MYu+1gQTLRnKaMa4w0I9wZ/cj9ruVRvB2hV4TrbIB2A=;
+	s=korg; t=1789574802;
+	bh=GhKRiQ8hA+KQ6DJ/bEM4WxszVIntelvz1/CQ4JQD4uk=;
 	h=Subject:To:Cc:From:Date;
-	b=b4fonzGnn/44GQuOLrLPLMrI4bPeCguCtzyqRj4IqL5nKF+YLRPZHC4TiIQVy4mV3
-	 0nWE+1XVfVktwnzUCY6xwUmD5bWrypSgt8DRie5mKqSOgfkJXubL2WK6Thg09Mdb6h
-	 rDhreYzDgFY3o3e5pnpKAG8B+YnZYSrH8zVvPF28=
-Subject: FAILED: patch "[PATCH] erofs: preserve LZMA decoders on resize failure" failed to apply to 6.6-stable tree
+	b=kREwzF70nS51YBWTs0RgbqiBu1Mpe+kuZ4/CGXL4We4NZEGq2ZaAsV5KdEJkWyyOs
+	 2XCtUxOrXt++N8h8oZVjWjOMADloz2DhTNdeK6X68+N3uJfFkpZoo1d90LkGJ+rGHD
+	 p1VoF3Yb2QsCz8U+y6vT4k05IM/JOLTUy1tuqptI=
+Subject: FAILED: patch "[PATCH] erofs: preserve LZMA decoders on resize failure" failed to apply to 6.1-stable tree
 To: nikhilgurudasani314@gmail.com,xiang@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:43:08 +0100
-Message-ID: <2026091608-battery-antitoxic-df2d@gregkh>
+Date: Wed, 16 Sep 2026 16:43:09 +0100
+Message-ID: <2026091609-nearest-swell-7036@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.6-stable tree.
+The patch below does not apply to the 6.1-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
 git checkout FETCH_HEAD
 git cherry-pick -x 617d0d8d199ba1790c94310fd75a22d01c97a8d6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091608-battery-antitoxic-df2d@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091609-nearest-swell-7036@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
 
 Possible dependencies:
 
