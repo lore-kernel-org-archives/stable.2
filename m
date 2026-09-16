@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 05472463B94
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:15:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAB4323E35F
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:15:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546541; cv=none; b=uaji7KZRiCQqYGNxJx++T2z8HjdLnGD1ne2JwyEedjWp1Bgr9/B3U302ZBy11oiwObF+VRdYAnIuGnc5KRTPpPC8PitUqe1cOQqsv2A+l7A3zFAiZFSZL1kEhW88xBdHGfa6VoIaDFCwNrtkC0ZFQrEqIpKA+NM+FbvFfRIdjPI=
+	t=1789546548; cv=none; b=qr2evK+p33mi8beTHhyYFIjeMQf+ZAnGQbLjgJxkXrul6l7XoqJdPbXQWT7KwkNfiQAiNLk3v6sE283WavNoRLILMjHA9NKuXLi+zfTPPRZf/NpJUAq+rcz00GdKqCOHgCCB2QfbaKQ7JxiWH9XmEV3TDyLOuXcQMOgwRTumrvs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546541; c=relaxed/simple;
-	bh=DhW57AQLmobx0/vCe31GRAe09xs8q3aPVfhyrPifIU4=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=dYk2HsxjIjG/vs/T7XO+fkOoBSRjyl8L8G2Mfs1tBfC3cySARsRvRu/fMq64UWM9gZB3gRCQQIrwqCj/Klp8MIBygnHRnATMgTkzIH70kZvTqqyXnlaC3t2P6O5qei45ewgjMpIuAP1CoBjxMPwCo/nJxTKtDdeMbNKjsHx9IZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=CDMlD/r4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546548; c=relaxed/simple;
+	bh=9hTNuTBzDXfi+iupvRAPh58gYtJDMSm4Akad3v2yDHU=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=esx0GG+YzUPZLRKctkQXREQRc7iUDuSzL2hKDsLBZryCZuxKak+eAJ4huWfLrk0TTOlLO+mpmQYK19rAk1QcaMhSLbe15pJMVgZ66JYk04HLp9Jdhlkeg+Y7sTtjhZ9LMrgbHz6Uk93ffjyB8WhDLDppuIYreLTJDMPPjwtxnG4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=F49cxT5g; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="CDMlD/r4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 124601F000FF;
-	Wed, 16 Sep 2026 08:15:30 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="F49cxT5g"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BAD4D1F00893;
+	Wed, 16 Sep 2026 08:15:37 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789546531;
-	bh=8+gi29h16hSDyz+8uGJmbCrBjXp5xsRk//ohfbB5KRc=;
+	s=korg; t=1789546538;
+	bh=X+1/1kh36RsaZKpRGQxbfkedn9TjVBwWxHqp8rbSIEk=;
 	h=Subject:To:Cc:From:Date;
-	b=CDMlD/r4gB8hBhDxABB1ySUjCcz/tgLEGwaICnPjec0P3aSGnvZeySmeA1+DYOtHn
-	 ghpfokrvCZZ6/CKwpj/ZZHLgCBFqEhnFTiqG+hmbkqKNfTrXOHFT7x8gW2pOrjn6Tr
-	 j9VV/0n7hYUZQoGC80Ei+tZqUzs/ZlS5H8yi7sgc=
-Subject: FAILED: patch "[PATCH] tracing: Set the trace clock before registering the histogram" failed to apply to 5.15-stable tree
+	b=F49cxT5gMK4KzxHMhNpB/AkWBPck9QdRUfjbEXWe565pjMo6IZc4HRRKwJUkkLu/r
+	 VVTnJoSe+7qtRTYG6edKrEAuRaHyrkU03KJICJRXlGudu1KpwVh+sjSrewlSUATOBs
+	 xrEyd5uTVp/3jCsNAsh/iXK4NPIMoaoyiGc7A0VA=
+Subject: FAILED: patch "[PATCH] tracing: Fix memory corruption from a "STACKTRACE" histogram" failed to apply to 6.12-stable tree
 To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 09:13:28 +0100
-Message-ID: <2026091628-jargon-sandstorm-f337@gregkh>
+Date: Wed, 16 Sep 2026 09:13:41 +0100
+Message-ID: <2026091641-chop-science-9213@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 6ede78d0563a2a3ae3e46f9c07cedb5d79645429
+git cherry-pick -x 7f711e62355bb3123a2ca2f97a2facbfebc678c6
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091628-jargon-sandstorm-f337@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091641-chop-science-9213@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,94 +62,58 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 6ede78d0563a2a3ae3e46f9c07cedb5d79645429 Mon Sep 17 00:00:00 2001
+From 7f711e62355bb3123a2ca2f97a2facbfebc678c6 Mon Sep 17 00:00:00 2001
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Date: Mon, 7 Sep 2026 18:14:15 +0900
-Subject: [PATCH] tracing: Set the trace clock before registering the histogram
- trigger
+Date: Tue, 8 Sep 2026 00:50:45 +0900
+Subject: [PATCH] tracing: Fix memory corruption from a "STACKTRACE" histogram
+ key
 
-hist_register_trigger() puts the trigger on the global named_triggers
-list in cmd_ops->init(), and only then sets the trace clock:
+"cpu", "CPU", "stacktrace" and "STACKTRACE" are generic fields, defined
+with an offset and a size of zero so that the filter code can match them
+by name. parse_field() maps them onto their common_* equivalents for
+backward compatibility, but unlike the common_* names it hands the
+placeholder back to the caller instead of NULL.
 
-	if (data->cmd_ops->init) {
-		ret = data->cmd_ops->init(data);
-		if (ret < 0)
-			goto out;
-	}
+create_hist_field() takes a non-NULL field as a promise that the record
+carries a stacktrace and picks HIST_FIELD_FN_STACK, so the __data_loc
+word is read from offset 0, that is from common_type, and its low 16
+bits are followed as an offset into the record. What is found there
+becomes the length of an unbounded memcpy. Pick an event whose id is
+small enough that the offset stays inside its own record and the length
+is a kernel text address:
 
-	if (hist_data->enable_timestamps) {
-		ret = tracing_set_clock(file->tr, hist_data->attrs->clock);
-		if (ret) {
-			hist_err(tr, HIST_ERR_SET_CLOCK_FAIL, errpos(clock));
-			goto out;
-		}
+  # cd /sys/kernel/tracing
+  # echo 'hist:keys=STACKTRACE' > events/ftrace/print/trigger
+  # echo hello > trace_marker
 
-The clock string is not checked anywhere before that call, so a named
-trigger using common_timestamp with an unknown clock fails after it has
-already become findable. event_hist_trigger_parse() then frees it
-without taking it off the list, and the next lookup by name reads the
-freed object:
+  Oops: general protection fault, probably for non-canonical address
+  RIP: 0010:rb_next+0x23/0x60
+   </IRQ>
+  RIP: 0010:memcpy+0xc/0x30
+   event_hist_trigger+0x2e7/0x12c0
+  Kernel panic - not syncing: Fatal exception in interrupt
 
- ~# cd /sys/kernel/tracing/events/sched/sched_switch
- ~# echo 'hist:name=foo:keys=common_pid:ts=common_timestamp:clock=bogus' > trigger
- bash: echo: write error: Invalid argument
- ~# echo 'hist:name=foo:keys=common_pid' > trigger
-
-  BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
-  Read of size 8 at addr ffff88800915d760 by task init/1
-   find_named_trigger+0xac/0xc0
-   hist_register_trigger+0xc1/0x900
-   event_hist_trigger_parse+0x3146/0x6af0
-   event_trigger_write+0xce/0x160
-  Freed by task 63:
-   kfree+0x154/0x420
-   trigger_kthread_fn+0xfd/0x160
-
-Set the clock before the trigger is registered, so that nothing which
-can fail runs after it is published, the way commit 6f86bdeab633
-("tracing: Fix bad hist from corrupting named_triggers list") moved the
-registration below the rest of the setup.
-
-tracing_set_filter_buffering() is reference counted, so the init failure
-path has to drop the reference that the clock block now takes first.
+Leave the field NULL, which is what the comment above the branch says
+the code does and what common_stacktrace already does. FILTER_CPU and
+FILTER_COMM are left alone, their create_hist_field() branches never
+look at the field.
 
 Cc: stable@vger.kernel.org
-Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
-Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
+Fixes: 4b512860bdbd ("tracing: Rename stacktrace field to common_stacktrace")
+Link: https://patch.msgid.link/20260907155045.692664-3-donggeunyoo.kernel@gmail.com
 Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 
 diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 5e00da2d5b1a..1889e310b73c 100644
+index 9bc829c1e876..8af97fd4ee2d 100644
 --- a/kernel/trace/trace_events_hist.c
 +++ b/kernel/trace/trace_events_hist.c
-@@ -6631,12 +6631,6 @@ static int hist_register_trigger(char *glob,
- 		data->cmd_ops = cmd_ops;
- 	}
- 
--	if (data->cmd_ops->init) {
--		ret = data->cmd_ops->init(data);
--		if (ret < 0)
--			goto out;
--	}
--
- 	if (hist_data->enable_timestamps) {
- 		char *clock = hist_data->attrs->clock;
- 
-@@ -6649,6 +6643,15 @@ static int hist_register_trigger(char *glob,
- 		tracing_set_filter_buffering(file->tr, true);
- 	}
- 
-+	if (data->cmd_ops->init) {
-+		ret = data->cmd_ops->init(data);
-+		if (ret < 0) {
-+			if (hist_data->enable_timestamps)
-+				tracing_set_filter_buffering(file->tr, false);
-+			goto out;
-+		}
-+	}
-+
- 	if (named_data) {
- 		remove_hist_vars(hist_data);
- 		destroy_hist_data(hist_data);
+@@ -2404,6 +2404,7 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
+ 				*flags |= HIST_FIELD_FL_CPU;
+ 			} else if (field && field->filter_type == FILTER_STACKTRACE) {
+ 				*flags |= HIST_FIELD_FL_STACKTRACE;
++				field = NULL;
+ 			} else if (field && field->filter_type == FILTER_COMM) {
+ 				*flags |= HIST_FIELD_FL_COMM | HIST_FIELD_FL_STRING;
+ 			} else {
 
