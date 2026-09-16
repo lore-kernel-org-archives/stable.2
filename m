@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9916B4CEE43
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:40:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBB8E4C6502
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573261; cv=none; b=Dk47fqUxL0Rb3dwgZyp4xYS9mrHTBtV1Ru9CZEYFD2RxRy6SSmUvTgULZieBm8NyQx09hGU/x2FggrSWwizueslLi6b2posv5XUxcYCP31J0Qy+VxJirs+BvG2NS5yaWIb+BBKdmJ++8OvOh07PsR/VGYvKP/snCrcnDnfAKFJY=
+	t=1789573264; cv=none; b=M0Lm9ksPsbfpMkIFh4VylxJMFf2YnwRcew2W6+veu1WJ5RHoLFKgRG0JcYHaXYob/SMS0dIJPDFrfyMpZ4mdxLybHb20vN+uYYWTRG5wXP1SAkEWgskf/XIa53ZjDRPgt8a8QIZF+uNJkvlq8X+fGPO54uJFDG2DVb4dGpcYtmE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573261; c=relaxed/simple;
-	bh=qnocRbvUKNz6B69eGux8zuh0GA8X78ZzffvjB+Snxd0=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=cntHMYa94ShlgIozpdMSJatPcawG5Ng0tozp9LJZxxMWDhQA9UbCgsyrGExf8TRU3voSaDzsreTcohtcJwREgy9OQaDjxBV7+1ou2l7+7kwSrUBQfj/9D+3ASD7f6Mz3h/h5XBNt/Bao2UkOKfjGrBeNR96u8wY5b/UhHA8jouA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vVoqSekC; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789573264; c=relaxed/simple;
+	bh=4SXSaIc6obaqyAHiTtDeggP64hwi5DXARRL2qd+ml9o=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Jw+nnMib6HupTDG8DkiYbYXR9IhyE/IaMvxzcN+bUXiTaxjvry7dt5JShFEkNVFhC+q+mVsVdfDP04R150p/mEPCF6te577LnFtxrGkDSt1+Z9bl0m8ihOAVNJKjLa2FIr+tJbWmBn4G+J4V0OJyVwbnhuorhJklvqxurun5BA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2jdLp0zm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vVoqSekC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDC481F000FF;
-	Wed, 16 Sep 2026 15:40:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2jdLp0zm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39ABC1F000FF;
+	Wed, 16 Sep 2026 15:41:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789573259;
-	bh=SSSmdbSK1JUXdocASjueYVKjiIV7FROanoDF8AoV82A=;
+	s=korg; t=1789573262;
+	bh=B/IlD0Sxx4j/+tOTQElK2ilyzAh7CcC8kcu57wKmsmQ=;
 	h=Subject:To:Cc:From:Date;
-	b=vVoqSekCESsHKe5qF+9DfseQA9Q6JVPmbrXPxNDkM1lzvPVgVukBcTGbj3UD9ZJkt
-	 4G9QzrwLt2t4jDuPMY9pmWW0v/x/1OiZBslJLXGUXOveHrJrDRBfG412u5pWrdls0d
-	 NjQQw/pEhU0Yol5Do5mIYSlk2FECbLa3l4D8YGLE=
-Subject: FAILED: patch "[PATCH] net: macb: initialize PTP state before registering clock" failed to apply to 6.18-stable tree
+	b=2jdLp0zmSdatc+gBRdScnecVwwjsQskVFbrPlXarO211/l3aWoyFpx9q8U6NPWT5s
+	 Gy1fTlgZU0LiUQi+jeCwba2Nivk7cBECzZp/J5UOZM0cqO+FrBOu+XAXAfQX5hDOhD
+	 yQjJ/GldrE+OApwBWZwBIq97MNFaoGgIF71btB88=
+Subject: FAILED: patch "[PATCH] net: macb: initialize PTP state before registering clock" failed to apply to 6.12-stable tree
 To: runyu.xiao@seu.edu.cn,kuba@kernel.org,theo.lebrun@bootlin.com,vadim.fedorenko@linux.dev
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:30:42 +0100
-Message-ID: <2026091642-wasting-vagueness-0a57@gregkh>
+Date: Wed, 16 Sep 2026 16:30:43 +0100
+Message-ID: <2026091643-urethane-talon-e5b2@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.18-stable tree.
+The patch below does not apply to the 6.12-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
 git cherry-pick -x e1406330d70e56dd44fa6fbafc86e77e5c80c122
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091642-wasting-vagueness-0a57@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091643-urethane-talon-e5b2@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
