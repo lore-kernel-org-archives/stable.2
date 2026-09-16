@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2958641D202
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:27:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E0B041D111
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:28:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586889; cv=none; b=oXN5Cu3B7yGuMy18FNFzILnQVzuqVdnYEsDhIgts/M60PAndVynlgz2nHXaAFjVw3ms/77fgKy71dRnJ0BUsdHwxGQdRZkYxqLoHDgnOvcLYW0ygcZ956xDQtMgW01ntuuroUgwK8xTSNSnZyK2gWDRdC53UAfL9NrMXX/yKNT4=
+	t=1789586897; cv=none; b=tMm6BwTUtUnVIG59SjySN1xOdrk9/XaNYB4hN5LKBiZBy0/P8akjDFxUS3W/CLg1zca6wy6yJ3w0pBNvIjdchTfj9M4ReL2RchCiJ3LiDKR1WMGwBLAH+4W8Wsb70dLqbtZZ6QyPyElkrfBO+Y4yXwgSlsWhV3o+LtimP7DYoFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586889; c=relaxed/simple;
-	bh=j0Q0MXYSHDHq/FaG30993XpiKK9tT6x6vIQBTMmq5Wk=;
+	s=arc-20240116; t=1789586897; c=relaxed/simple;
+	bh=gChgCH3LnD4QJKZXuE1AdStJUz37xEIua5fIfjVViAY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AWqo2nfUwSR5uqGdBzm3IK22MeoFc4FJfEgKASWnVg8smrOeqcHjhi+fLThLKVIpIK29fxYPulGdYZ8oBQXcpLX2B/0OszI3WjSzn08ttaG2Dt5XvjemFjwljpn6ll60mexbJYc74hoKxTWo1h7En+HeHa4ix9XRNByOBPkOVDw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gS7vnO+b; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HuFvvA1yEJKCxbHhfuijYA9+qiDOSV9FU50dP+7Px9Tp0t6YWyc1jmOUlOs021aeOPMYI+mz9VRcgPzrcYf93o3A5/q9hVrmVXE26W1wfV3wUB5AeTsqUxK4E36uoyKEt5YgXeRPc4/WpR4cSjeMcxJfMibwUfsAwulwk9LRP2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oI9kpRHh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gS7vnO+b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5801F000FF;
-	Wed, 16 Sep 2026 19:27:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oI9kpRHh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98CDA1F0089A;
+	Wed, 16 Sep 2026 19:27:58 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586870;
-	bh=QqJ4jX0ww00dw89zr6KwVzoGK6edUetj+hN4FmO9Ei0=;
+	s=k20260515; t=1789586879;
+	bh=ydp37gFI8Dw1M/GcfO5hr6Y1W4iCNVHFlkYA5NsNEuE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gS7vnO+bO5Y4SYy/gOS2yD4Qcdc3oZ538o7PweIkeGmEOcTvqf3k4N0pT4Y9Q4RGq
-	 KdrKnA7zQMj5+INcSdSvSWJD13LNlzo5qHKz+/ztCFu8jmWpNjKrQBkAkCpmvfqoyx
-	 AQCvLhuDSzQ+NjguARvMCGEmyRLJoGj3ryRg9LhYR8XI3ZLbEgasSmYq92brebGJvl
-	 dlDyRisONADe5L2SYgl082HYUMVqONxKSb9Xsh2JwQST2wzOX7QOx96JP83WnbiXfu
-	 ne1fDoDWd9QBPlerLYKVzN1tVTkdhdU4mvvWe4heIJZDKBTKEH9KAKLsOkIZ+403Jm
-	 yB2ztkf30LFnQ==
+	b=oI9kpRHh+pFLZFIZRfGJJj0ij/VdSBvfw/067gkCLBafV6jLIEUC73dabHY4lpLfj
+	 6IHhtMOjbfy/Qc4DFc/nJs5LtRhdcKo83R5Z9htLo4dtcfULJZxh5WbLyik39dNk6f
+	 Tk9WiZWKR/xHP6UFfTay8EX5rfeaatTGkPiSBOQGj2Gn6YdqAKSWFGBGALtUBQaXoD
+	 mhIFvcUNukUwvNjeauY/nKkHw4KZJ4/7Qyb9ZCLOvwcAwMh/DFzAteK3MeJALNH6hN
+	 ZnHnvmAmN8UxzaeT63TKmUFOacL3HGtJkXOx1bsPm+mTCY4SBZW9QqRBqhNVXPMGva
+	 Pm7bMg978JgNA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Steven Rostedt <rostedt@goodmis.org>,
+Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	Sang-Heon Jeon <ekffu200098@gmail.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tracing: Set the trace clock before registering the histogram trigger
-Date: Wed, 16 Sep 2026 15:27:48 -0400
-Message-ID: <20260916192748.2142911-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y 2/2] bootconfig: Fix integer overflow in initrd size check
+Date: Wed, 16 Sep 2026 15:27:55 -0400
+Message-ID: <20260916192755.2146743-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091629-pennant-heroics-00ec@gregkh>
-References: <2026091629-pennant-heroics-00ec@gregkh>
+In-Reply-To: <20260916192755.2146743-1-sashal@kernel.org>
+References: <2026091615-curry-barracuda-b99e@gregkh>
+ <20260916192755.2146743-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,99 +47,105 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
 
-[ Upstream commit 6ede78d0563a2a3ae3e46f9c07cedb5d79645429 ]
+[ Upstream commit 7812d6dab0698001e50e8c2f901e17da3eb6f429 ]
 
-hist_register_trigger() puts the trigger on the global named_triggers
-list in cmd_ops->init(), and only then sets the trace clock:
+Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
+with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
+arithmetic:
 
-	if (data->cmd_ops->init) {
-		ret = data->cmd_ops->init(data);
-		if (ret < 0)
-			goto out;
-	}
+    data = ((void *)hdr) - size;
 
-	if (hist_data->enable_timestamps) {
-		ret = tracing_set_clock(file->tr, hist_data->attrs->clock);
-		if (ret) {
-			hist_err(tr, HIST_ERR_SET_CLOCK_FAIL, errpos(clock));
-			goto out;
-		}
+to wrap around on 32-bit systems (or when pointer subtraction overflows).
+Because data wraps around, the subsequent bounds check:
 
-The clock string is not checked anywhere before that call, so a named
-trigger using common_timestamp with an unknown clock fails after it has
-already become findable. event_hist_trigger_parse() then frees it
-without taking it off the list, and the next lookup by name reads the
-freed object:
+    if ((unsigned long)data < initrd_start)
 
- ~# cd /sys/kernel/tracing/events/sched/sched_switch
- ~# echo 'hist:name=foo:keys=common_pid:ts=common_timestamp:clock=bogus' > trigger
- bash: echo: write error: Invalid argument
- ~# echo 'hist:name=foo:keys=common_pid' > trigger
+evaluates to false, bypassing the check. The kernel then calls
+xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
+hitting unmapped pages and triggering a fatal kernel page fault during
+early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
+unbounded 32-bit size can similarly bypass the initrd_start check.
 
-  BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
-  Read of size 8 at addr ffff88800915d760 by task init/1
-   find_named_trigger+0xac/0xc0
-   hist_register_trigger+0xc1/0x900
-   event_hist_trigger_parse+0x3146/0x6af0
-   event_trigger_write+0xce/0x160
-  Freed by task 63:
-   kfree+0x154/0x420
-   trigger_kthread_fn+0xfd/0x160
+Fix this by:
+1. Ensuring the initrd is at least large enough to contain the bootconfig
+   footer and verifying hdr is within the initrd bounds.
+2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
+   the available space between initrd_start and hdr before performing
+   pointer subtraction.
 
-Set the clock before the trigger is registered, so that nothing which
-can fail runs after it is published, the way commit 6f86bdeab633
-("tracing: Fix bad hist from corrupting named_triggers list") moved the
-registration below the rest of the setup.
+Link: https://lore.kernel.org/all/178905333479.213925.1358412668943562406.stgit@devnote2/
 
-tracing_set_filter_buffering() is reference counted, so the init failure
-path has to drop the reference that the clock block now takes first.
-
+Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
 Cc: stable@vger.kernel.org
-Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
-Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ adapted newer tracing API calls to their Linux 5.10 equivalents. ]
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
+Assisted-by: Antigravity:gemini-3.8-flash
+Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
+Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace_events_hist.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ init/main.c | 25 +++++++++++++++----------
+ 1 file changed, 15 insertions(+), 10 deletions(-)
 
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 32f9ab82a8810..556a6224aca48 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -5510,12 +5510,6 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
- 		data->ops = &event_hist_trigger_named_ops;
- 	}
+diff --git a/init/main.c b/init/main.c
+index b254678062c72..a9f04c8caf7ec 100644
+--- a/init/main.c
++++ b/init/main.c
+@@ -273,7 +273,8 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
+ 	u8 *hdr;
+ 	int i;
  
--	if (data->ops->init) {
--		ret = data->ops->init(data->ops, data);
--		if (ret < 0)
--			goto out;
--	}
--
- 	if (hist_data->enable_timestamps) {
- 		char *clock = hist_data->attrs->clock;
+-	if (!initrd_end)
++	if (!initrd_end || initrd_end < initrd_start ||
++	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
+ 		return NULL;
  
-@@ -5528,6 +5522,15 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
- 		tracing_set_time_stamp_abs(file->tr, true);
- 	}
+ 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
+@@ -290,16 +291,26 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
  
-+	if (data->ops->init) {
-+		ret = data->ops->init(data->ops, data);
-+		if (ret < 0) {
-+			if (hist_data->enable_timestamps)
-+				tracing_set_time_stamp_abs(file->tr, false);
-+			goto out;
-+		}
+ found:
+ 	hdr = (u8 *)(data - 8);
++	if ((unsigned long)hdr < initrd_start)
++		return NULL;
++
+ 	size = get_unaligned_le32(hdr);
+ 	csum = get_unaligned_le32(hdr + 4);
+ 
+-	data = ((void *)hdr) - size;
+-	if ((unsigned long)data < initrd_start) {
+-		pr_err("bootconfig size %d is greater than initrd size %ld\n",
++	if (size > XBC_DATA_MAX) {
++		pr_err("bootconfig size %u is greater than max size %d\n",
++			size, XBC_DATA_MAX);
++		return NULL;
 +	}
 +
- 	if (named_data)
- 		destroy_hist_data(hist_data);
++	if (size > ((unsigned long)hdr - initrd_start)) {
++		pr_err("bootconfig size %u is greater than initrd size %lu\n",
+ 			size, initrd_end - initrd_start);
+ 		return NULL;
+ 	}
  
++	data = ((void *)hdr) - size;
++
+ 	if (xbc_calc_checksum(data, size) != csum) {
+ 		pr_err("bootconfig checksum failed\n");
+ 		return NULL;
+@@ -402,12 +413,6 @@ static void __init setup_boot_config(void)
+ 		return;
+ 	}
+ 
+-	if (size >= XBC_DATA_MAX) {
+-		pr_err("bootconfig size %ld greater than max size %d\n",
+-			(long)size, XBC_DATA_MAX);
+-		return;
+-	}
+-
+ 	ret = xbc_init(data, size, &msg, &pos);
+ 	if (ret < 0) {
+ 		if (pos < 0)
 -- 
 2.53.0
 
