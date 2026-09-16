@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 887723B14CC
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:09:37 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B494A44A40B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:16:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789589389; cv=none; b=iqNK0zLiENiB5qYYFV42S/FHJ2gILLAn40TJS/CXYDikUqRhx8QZfAaxE+QLvu7gNDw1qROXe3Wa5EFdrnIsMrd8QLz/cT32J/qvVO2QgEX+OMEw2ycjkjbPpil6at9P7L18oVoSE9mqV4exQjuUvIsYxjdaDXQ/zPN/xZax7dY=
+	t=1789589786; cv=none; b=O7/th561we+t1w+qoixi2pmYVY5D0ijxw7EAYLWc4ntKayRrHdCcDQ1NP+bp/tafjSgeyIaxsIHOxSibKp2bdfzAhk5AEK4u/N+IYPV5fAGAonn7X0TisVeuG7Fnv5WT9FpLuyzEE5mMmzDT9ZISbadZXbfjkmIzawufPyL3lI8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789589389; c=relaxed/simple;
-	bh=AUyvQEyTcYR4cUIQjR8EoKPlRNb2meKDjXUWfR8feCA=;
+	s=arc-20240116; t=1789589786; c=relaxed/simple;
+	bh=pC8oM3i/VQszzkAIVZpNbsEM0a97hedIsWrjjTv+DZ8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=efE6bnt2sXIQ8l0xJmYsBT4pWUChoag5foqbIW0qD+mgUyHUjwvQQAD4MOxn+4rabKLZJJbjWXy7el9G7wgEcL75mUjA02ATSt3k/jq/eze5MY8/W6x15Xv54/3F356E0NAL/vpj8ifdomiDk4yNY+tX1prc+B3C3ZuKRcUVn+o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Th7i0hkw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cmL9ED3eFJC2BR/qmhs708N2rhb9ucNWUd5Soh5t5Bg5VIoBBDf3frCrMkYw38pRRzrCG1/IsTTp7J636ej+vwl6x+UbR9w1h9dyGPDfSirg2pSlFzov4gDIuWAUj1qiBKHRsPuYp210r9C5NgEQQijf9s2sRdPmnHWPk60Gs8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eeJQ2E9d; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Th7i0hkw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 97D0C1F000FF;
-	Wed, 16 Sep 2026 20:09:32 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eeJQ2E9d"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 06DFA1F000FF;
+	Wed, 16 Sep 2026 20:16:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789589373;
-	bh=nTLBlnS7KSim6dm2/kS1rWHSYnvAdlQorV82rskd/dc=;
+	s=k20260515; t=1789589774;
+	bh=LiWhXDLEBNX7Tk7IaaXpEyq/qa2WQx6GkzH4U3EW3i4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Th7i0hkwIYtJDk6eKbV0PL+TC12QsvfV8a93N6eYyBpGXz+mtOfnjLZ7S0shgHqV/
-	 VNzA3/2S59tcROVTIrWD8o+15LxS8vDPoI4/XGu5FY63usE9/ZEOmvbAuop1bEwesL
-	 oF4VOZHBZdC1xFDsOMj60Fzdpeo27QeJEie6h3mVSVUcE+nT7XoHf3sF5sQ/1XElmG
-	 CJkPUhYCDqf5B35g2Pmwh1eBuBHm0znVyfdmBfdQ7olSawfqA3u5uoRSA82c8JWl44
-	 7xjDmIEqlGaEeOmlBf8skMsAbZ6Rj6LJjYl9yocZIuJP2Np1fgoMu3LFdF54kpZsY3
-	 Fn1icuXTIBnwQ==
+	b=eeJQ2E9dEfdza1fr0gAm6Mc25ykNiq108SkGPXWIlWNMflHJXevSOCF5bqBGiHsPq
+	 fEtRNoJERLAwW3hk11w2DsEeUK4GdcgcjKUGf8B/UnYxOUQJowmXrAwhAua0Y3DT27
+	 Atk1MUBDs+a/TW/MVy0NjWCbHHAj2bBV2hCwOJ1+tkNhVw9Mxooml8mLNcCprkckyz
+	 MKTQwTiKQRsyuZLOfjfr0GyxDO2JD1Ly5ZD9LGNbsAqzO1v4rzAyw1q66TFE0yiVQJ
+	 G/YFNpVugofowZxpn9Zg93wMQINuly7qkciIge0XaJ8/Fj1l2lpDwTDAqNhBxQOlu/
+	 20Q1M1azWbYOQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: XingWang Xiang <v3rdant.xiang@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y] genetlink: pin family module during policy dump
-Date: Wed, 16 Sep 2026 16:09:31 -0400
-Message-ID: <20260916200931.2474712-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y] genetlink: pin family module during policy dump
+Date: Wed, 16 Sep 2026 16:16:12 -0400
+Message-ID: <20260916201612.2499872-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091631-uneven-moneywise-f841@gregkh>
-References: <2026091631-uneven-moneywise-f841@gregkh>
+In-Reply-To: <2026091631-barista-ensnare-6605@gregkh>
+References: <2026091631-barista-ensnare-6605@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,7 +75,7 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 16 insertions(+), 5 deletions(-)
 
 diff --git a/net/netlink/genetlink.c b/net/netlink/genetlink.c
-index 978c129c60950..81b4494e2db74 100644
+index 3327d84518141..a22b7a3279df1 100644
 --- a/net/netlink/genetlink.c
 +++ b/net/netlink/genetlink.c
 @@ -1514,6 +1514,7 @@ struct ctrl_dump_policy_ctx {
