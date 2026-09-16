@@ -1,34 +1,34 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 222264C2253;
-	Wed, 16 Sep 2026 16:26:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D954351357E;
+	Wed, 16 Sep 2026 16:27:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789575970; cv=none; b=ByfDE3XSuiNCMYLQPNsEa06/3fiZFtG8MT6Pv8kDp1aMrWyl4A5VvTVmEJDfDMrlRk1n/rJV17j8n3FMtnJrVycM8T8P476vfxim5Jl70hdD1SO1KINbGCaME82vKDJ+k7eRUctweuqmsB2IvMCSRTSk9HhSevGrN+sFzBsbe3w=
+	t=1789576044; cv=none; b=AGbuXV91N+SHrxmL0bHu5JHGyhFtR4dGf05eB91MznBBRw+BJBoo++kNC3HZPv8D9LMbAyrrDHQ/pzPwTRqy5qM6cN8oefx7vrDeiSZS+teiYelrRl2AFA56xjagcbTKy20/KWn27PfSfAQh02Lt0ScCXHXwGw1R7hBf3yqoaew=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789575970; c=relaxed/simple;
-	bh=dn9uqVGxzSPoTlfbPQ21ISHGa1+XzQf2anGY+8hQSBs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=It8H77rw3RCxkR+D+6q+7Hl6Yj6KPB0PkxAYi2dx9c4uXZNlWaSSCHo4SAudqPFc6rkPfGAwAXsNuWd7U65IzAk1KMewMR5VUSyLkKQC+2iCGmWNJkqWQvK+Y0N9cidf5xsVv4gx+tP71N2n5/JwvNL8knwtMJ3CRMvGNfwsHg0=
+	s=arc-20240116; t=1789576044; c=relaxed/simple;
+	bh=18qSghsd4oFLTLNoXIdxtY0t3dPvtnegnVBCOHbmr/g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IMijlnd/ItbtqHZWeu4QH4yUgy2CUOH36m1Ue2M9t1MP+I4QE/NZZRSvt+RNzv5K5LOFFns/Eba+UXLA2l0Lj4TZ5BZZL7FYUHlTsZ7U7kyYUhfJ1F0fe8tGR4+5NlE5UF1zjsrM5MRSNPDspep/BmuBoaZoAJVoxyjECX+XKX4=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnDzoaw6pqwJ9tCA--.44682S2;
-	Thu, 17 Sep 2026 00:26:02 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowACXAj1aw6pqiqNtCA--.21368S2;
+	Thu, 17 Sep 2026 00:27:06 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: andy@kernel.org
 Cc: dlechner@baylibre.com,
+	gustavograzs@gmail.com,
 	jic23@kernel.org,
 	linux-iio@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	narcisaanamaria12@gmail.com,
 	nuno.sa@analog.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] iio: chemical: ccs811: Fix trigger reference leak in ccs811_probe()
-Date: Wed, 16 Sep 2026 16:25:34 +0000
-Message-Id: <20260916162534.2083446-1-vulab@iscas.ac.cn>
+Subject: [PATCH] iio: chemical: ens160: Fix trigger reference leak in ens160_setup_trigger()
+Date: Wed, 16 Sep 2026 16:26:38 +0000
+Message-Id: <20260916162638.2083538-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,10 +37,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnDzoaw6pqwJ9tCA--.44682S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47GryDAr4DCFyDJFWkWFg_yoW8GF1rpw
-	sagF45tFyUXr4xJw4Du3WUCry2qanxtrWjkFWUWasF93y5Ar1FgFyj9FWUXw18ZFW8ur47
-	Ary8tFWF9rWjyFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:zQCowACXAj1aw6pqiqNtCA--.21368S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4rKFykKrWxtr4DAw1rXrb_yoW8Kw18pa
+	n7GFWYyFyUXrn7Aws7Zr1kCFy3tFn7trWrXw48Zas2v3s8Aw1jkryaqrWaqws5CFW8ZayU
+	JrZ5JryrCFW7ZF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUvj14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
@@ -54,44 +54,74 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Aw47GryDAr4DCFyDJFWkWFg_yoW8GF1rpw
 	AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j
 	6F4UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5d
 	gADUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMMA2qqok9QugABsM
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUMA2qqpVhIsQAAsJ
 
 The reference taken with iio_trigger_get() is only dropped by
-iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
-iio_triggered_buffer_setup() fails before setting that mode, the
-reference acquired for indio_dev->trig leaks. Move the
-iio_trigger_get() after the buffer setup succeeds.
+iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. Failure of
+devm_request_irq() in ens160_setup_trigger(), or of chip init or
+triggered buffer setup in devm_ens160_core_probe(), returns before
+that mode is set and leaks the reference acquired for indio_dev->trig.
+Request the IRQ before taking the reference and set up the trigger
+after the triggered buffer so that only failures with the mode
+already set follow the iio_trigger_get().
 
-Fixes: f1f065d7ac30 ("iio: chemical: ccs811: Add support for data ready trigger")
+Fixes: 0fc26596b4b3 ("iio: chemical: ens160: add triggered buffer support")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/iio/chemical/ccs811.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+ drivers/iio/chemical/ens160_core.c | 21 ++++++++++-----------
+ 1 file changed, 10 insertions(+), 11 deletions(-)
 
-diff --git a/drivers/iio/chemical/ccs811.c b/drivers/iio/chemical/ccs811.c
-index 998c9239c4c7..bbc8284316ab 100644
---- a/drivers/iio/chemical/ccs811.c
-+++ b/drivers/iio/chemical/ccs811.c
-@@ -503,8 +503,6 @@ static int ccs811_probe(struct i2c_client *client)
- 		ret = iio_trigger_register(data->drdy_trig);
- 		if (ret)
- 			goto err_poweroff;
+diff --git a/drivers/iio/chemical/ens160_core.c b/drivers/iio/chemical/ens160_core.c
+index bbc96c4c6283..d2f56e4483ba 100644
+--- a/drivers/iio/chemical/ens160_core.c
++++ b/drivers/iio/chemical/ens160_core.c
+@@ -314,14 +314,13 @@ static int ens160_setup_trigger(struct iio_dev *indio_dev, int irq)
+ 	if (ret)
+ 		return ret;
+ 
+-	indio_dev->trig = iio_trigger_get(trig);
 -
--		indio_dev->trig = iio_trigger_get(data->drdy_trig);
- 	}
+ 	ret = devm_request_irq(dev, irq, iio_trigger_generic_data_rdy_poll,
+-			       IRQF_NO_THREAD, indio_dev->name,
+-			       indio_dev->trig);
++			       IRQF_NO_THREAD, indio_dev->name, trig);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "failed to request irq\n");
  
- 	ret = iio_triggered_buffer_setup(indio_dev, NULL,
-@@ -515,6 +513,9 @@ static int ccs811_probe(struct i2c_client *client)
- 		goto err_trigger_unregister;
- 	}
- 
-+	if (data->drdy_trig)
-+		indio_dev->trig = iio_trigger_get(data->drdy_trig);
++	indio_dev->trig = iio_trigger_get(trig);
 +
- 	ret = iio_device_register(indio_dev);
- 	if (ret < 0) {
- 		dev_err(&client->dev, "unable to register iio device\n");
+ 	return 0;
+ }
+ 
+@@ -345,13 +344,6 @@ int devm_ens160_core_probe(struct device *dev, struct regmap *regmap, int irq,
+ 	indio_dev->channels = ens160_channels;
+ 	indio_dev->num_channels = ARRAY_SIZE(ens160_channels);
+ 
+-	if (irq > 0) {
+-		ret = ens160_setup_trigger(indio_dev, irq);
+-		if (ret)
+-			return dev_err_probe(dev, ret,
+-					     "failed to setup trigger\n");
+-	}
+-
+ 	ret = ens160_chip_init(data);
+ 	if (ret)
+ 		return dev_err_probe(dev, ret, "chip initialization failed\n");
+@@ -364,6 +356,13 @@ int devm_ens160_core_probe(struct device *dev, struct regmap *regmap, int irq,
+ 	if (ret)
+ 		return ret;
+ 
++	if (irq > 0) {
++		ret = ens160_setup_trigger(indio_dev, irq);
++		if (ret)
++			return dev_err_probe(dev, ret,
++					     "failed to setup trigger\n");
++	}
++
+ 	return devm_iio_device_register(dev, indio_dev);
+ }
+ EXPORT_SYMBOL_NS(devm_ens160_core_probe, "IIO_ENS160");
 -- 
 2.34.1
 
