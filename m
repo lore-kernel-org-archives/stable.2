@@ -1,158 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA00353CA85
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:42:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3405053FD3C;
+	Wed, 16 Sep 2026 14:42:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569741; cv=none; b=J2NMstLrolbfl/9TBQAgZwanTCRJXNj4xEF1joNcwRAxAdCIJNZt/d1AHwMJuxK4vuqC2gQFajjWCbOPdDGVP4LjzTPGgOBAQ0hMuNErVlRVUEu5SAayw4pHuobPBczATCUG6TH/qS9hUXLYyQ9WLON0cksOzIWBjt9HD6TLAng=
+	t=1789569742; cv=none; b=EvuhroK2FgwToBZjWw0kaHCJOqfHkTustEuHQ0l9P0j6GXXzlcAzKOAkxB3nKu5T1zZ25IftFo7Dtzyqm685Xoh3kV/pvrJE14nWaePIpeJNn0bQPw+n3OTR3AaD7VlxN93MVxoRbda9hm26kMDIYtmjMrIdckOH0+ykOyRpzEI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569741; c=relaxed/simple;
-	bh=0j9LmuSz/S7KLGjPVlrvtHmlAHuUvgo6r5kx5NWWg8o=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ecPOgzRWG5h+4i5XsjkzD7WOKBsk9E0H1PJyHu9Ff1mR82SIzXx0D8+mpIwcKzSv1+3WzHj6PMjvXT2vmnK4Y1EiPA+IzzRZUHkPtt5kRrg8f3COA2XnST9bOi6ej2zDMFNh8INDjmvgP7w/ksMPhKK40Hm5S1n92/SzoCsYYNo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MLSHB8H3; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789569742; c=relaxed/simple;
+	bh=cbIbcN2NjFJuDqfTD/XK1wViyDpDBpXaPgRkFuFpLJU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=hqWoZjsUw/6s5A1Ar2PASb7Ro7K/t78oO789ZF9cjSCoQnfPCSiuVlzzsbeK3SkFT0Vj64TbgPgSL/4EWt7dOj1kJxEe+FSI8toGOy/x3a6GoAh1EKRjiUxJBoj40MsMY8bWBJnXPNZtbQxfTrt26zvg2wNshrTLDgnsR20kV50=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UKID+2rj; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MLSHB8H3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D3A811F0089A;
-	Wed, 16 Sep 2026 14:42:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789569739;
-	bh=P1BD/TRayNCwNCx3mEnQNNldmydQjvNYjTXB88/AVMk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MLSHB8H3V0VuOBmFTEC5uapRkfltHBk+rHMVgiHDDgnXU+dVaBXQ7byRLjme6884p
-	 sb27RBxCfMqyAUagzOrYxF7hrjsU6IRvA0kElVYjSxX5S3UV3mJpGfcPdgNou6Ptrn
-	 ws5+ibHBH+WGe82xCOIQ+IxIG/DEIfP887gcfbmJTHQddk1JnSTlrzTNCJ2pgN7uih
-	 +xSQ2jYK9nWqGi9Rykgv3I6nTYt61W3XwkokK8xLTVR1boEy/tv6F0j8X7vcSQmQL0
-	 MbvbCZKj+PXx3m7VBVHOn0ebUquoVTMhGC8lK+CDpD13kIoAlrnvhiZikZ809lNz4p
-	 VPKJOMH/gy8rA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>,
-	Breno Leitao <leitao@debian.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] configfs: pin the symlink target's dirent instead of chasing ->ci_dentry
-Date: Wed, 16 Sep 2026 10:42:15 -0400
-Message-ID: <20260916144215.3565253-3-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916144215.3565253-1-sashal@kernel.org>
-References: <2026091643-quickness-ammonia-8ff3@gregkh>
- <20260916144215.3565253-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UKID+2rj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789569739; x=1821105739;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=cbIbcN2NjFJuDqfTD/XK1wViyDpDBpXaPgRkFuFpLJU=;
+  b=UKID+2rjy7lsG5jJnM0hcCA0TnucUcjF3I1hF9OiHwpLWKQF0P0hRBXh
+   8+VHw6UJ2laZjsgqKLFE00j/laLe4aWATG3LOKfya6ktWwzycBQiwe7/0
+   30/GKaUDzD1DRXvfYhfy9uhxwTyDAfqXfhoKTUkfgJA7WpNJ/gg+Kpz9o
+   yR4Ld5nNLsMWbaidQJwdvvwifEyvPuClOWg5U17vIfPRhsG/nOk8/F2NH
+   irN7942iDCe3cUZghlZDXjiAIIilggt7jevnnrfwv3BDX8EE4V+yk1Cb7
+   G8o+SMyOUWDkoc5/gbThEIQtpd8/4NJbO0+3SswsckrIx4+cvTBmUoPEk
+   w==;
+X-CSE-ConnectionGUID: P6snf/oKSHaCuatY4dpnrQ==
+X-CSE-MsgGUID: 9Rzo2gCaSp+Ur6dOEZsuHg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93772594"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93772594"
+Received: from orviesa010.jf.intel.com ([10.64.159.150])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:42:18 -0700
+X-CSE-ConnectionGUID: KQrFpFo2QC+AYMHhteg1DA==
+X-CSE-MsgGUID: ZrzcNjOASNGVSByuCdYPoQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="271905206"
+Received: from ettammin-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.145])
+  by orviesa010-auth.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 07:42:15 -0700
+Date: Wed, 16 Sep 2026 17:42:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@intel.com>
+To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+Cc: Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
+	Andy Shevchenko <andy@kernel.org>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Olivier Moysan <olivier.moysan@foss.st.com>,
+	linux-iio@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2] iio: adc: stm32-adc: fix check on internal channel
+ availability
+Message-ID: <aqqqxMakUVzXM9te@ashevche-desk.local>
+References: <20260916-adc-fix-intchan-v1-v2-1-ef70baecd082@foss.st.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916-adc-fix-intchan-v1-v2-1-ef70baecd082@foss.st.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+On Wed, Sep 16, 2026 at 04:13:23PM +0200, Fabrice Gasnier wrote:
+> If an unsupported internal channel like vddgpu is requested, the driver
+> prints a warning but falls through and assigns it a valid int_ch below.
+> 
+> This causes a problem later during setup:
+> stm32_adc_int_ch_enable() {
+>     ...
+>     case STM32_ADC_INT_CH_VDDGPU:
+>         stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
+>                            adc->cfg->regs->or_vddgpu.mask);
+>     ...
+> }
+> 
+> Because the register offset is uninitialized (0), this performs a
+> read-modify-write on offset 0, which corresponds to the ISR register.
+> 
+> Fix this by returning before a valid int_ch is assigned. Choice is
+> made to keep current driver behavior to warn about the channel name.
+> 
+> Fixes: cf0fb80ae167 ("iio: adc: stm32-adc: add stm32mp13 support")
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Link: https://lore.kernel.org/all/20260911162602.D323F1F000FF@smtp.kernel.org/
 
-[ Upstream commit a7c1290eef60711c10289c056ad32ed1f2b47b12 ]
+Closes: ^^^
 
-create_link() reads the target's configfs_dirent from
-item->ci_dentry->d_fsdata, relying on the item reference taken by
-get_target().  That reference pins the item, not its dentry: the dentry is
-pinned by DCACHE_PERSISTENT, which configfs_remove_dir() releases via
-simple_rmdir() while the item is still alive.  A symlink racing with rmdir
-of its target can therefore find ->ci_dentry freed and its dirent
-released, triggering WARN_ON(!atomic_read(&sd->s_count)) in configfs_get().
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> ---
+> Changes in v2:
+> - Review comments from Andy: use bool flag closer to the channel
+>   availabilty checks. Add a default case.
+> - Link to v1: https://patch.msgid.link/20260915-adc-fix-intchan-v1-v1-1-761a1b35001b@foss.st.com
 
-Take the dirent in get_target() as well, under ->d_lock and atomically
-with the item reference, and pass it down to create_link().  A hashed
-dentry has not been killed yet, so its ->d_fsdata reference keeps the
-dirent alive there.
+With the above amendment,
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
 
-Cc: stable@vger.kernel.org
-Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
-Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Tested-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Link: https://patch.msgid.link/20260730093435.195441-2-vasilisalmpanis@gmail.com
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/configfs/symlink.c | 24 ++++++++++++++++++++----
- 1 file changed, 20 insertions(+), 4 deletions(-)
-
-diff --git a/fs/configfs/symlink.c b/fs/configfs/symlink.c
-index 31b3a4ad5ea66..feaccac55d8cd 100644
---- a/fs/configfs/symlink.c
-+++ b/fs/configfs/symlink.c
-@@ -76,9 +76,9 @@ static int configfs_get_target_path(struct config_item *item,
- 
- static int create_link(struct config_item *parent_item,
- 		       struct config_item *item,
-+		       struct configfs_dirent *target_sd,
- 		       struct dentry *dentry)
- {
--	struct configfs_dirent *target_sd = item->ci_dentry->d_fsdata;
- 	char *body;
- 	int ret;
- 
-@@ -115,6 +115,7 @@ static int create_link(struct config_item *parent_item,
- 
- 
- static int get_target(const char *symname, struct config_item **target,
-+		      struct configfs_dirent **target_sd,
- 		      struct super_block *sb)
- {
- 	struct path path __free(path_put) = {};
-@@ -125,7 +126,20 @@ static int get_target(const char *symname, struct config_item **target,
- 		return ret;
- 	if (path.dentry->d_sb != sb)
- 		return -EPERM;
--	*target = configfs_get_config_item(path.dentry);
-+	/*
-+	 * A hashed dentry guarantees that neither the item nor the dirent
-+	 * have been released yet, as removals unhash before dropping.
-+	 * Grab both references here. An item reference alone would not keep
-+	 * ->ci_dentry alive.
-+	 */
-+	spin_lock(&path.dentry->d_lock);
-+	if (!d_unhashed(path.dentry)) {
-+		struct configfs_dirent *sd = path.dentry->d_fsdata;
-+
-+		*target = config_item_get(sd->s_element);
-+		*target_sd = configfs_get(sd);
-+	}
-+	spin_unlock(&path.dentry->d_lock);
- 	if (!*target)
- 		return -ENOENT;
- 	return 0;
-@@ -139,6 +153,7 @@ int configfs_symlink(struct user_namespace *mnt_userns, struct inode *dir,
- 	struct configfs_dirent *sd;
- 	struct config_item *parent_item;
- 	struct config_item *target_item = NULL;
-+	struct configfs_dirent *target_sd = NULL;
- 	const struct config_item_type *type;
- 
- 	sd = dentry->d_parent->d_fsdata;
-@@ -182,7 +197,7 @@ int configfs_symlink(struct user_namespace *mnt_userns, struct inode *dir,
- 	 *  AV, a thoroughly annoyed bastard.
- 	 */
- 	inode_unlock(dir);
--	ret = get_target(symname, &target_item, dentry->d_sb);
-+	ret = get_target(symname, &target_item, &target_sd, dentry->d_sb);
- 	inode_lock(dir);
- 	if (ret)
- 		goto out_put;
-@@ -196,13 +211,14 @@ int configfs_symlink(struct user_namespace *mnt_userns, struct inode *dir,
- 		ret = type->ct_item_ops->allow_link(parent_item, target_item);
- 	if (!ret) {
- 		mutex_lock(&configfs_symlink_mutex);
--		ret = create_link(parent_item, target_item, dentry);
-+		ret = create_link(parent_item, target_item, target_sd, dentry);
- 		mutex_unlock(&configfs_symlink_mutex);
- 		if (ret && type->ct_item_ops->drop_link)
- 			type->ct_item_ops->drop_link(parent_item,
- 						     target_item);
- 	}
- 
-+	configfs_put(target_sd);
- 	config_item_put(target_item);
- 
- out_put:
 -- 
-2.53.0
+With Best Regards,
+Andy Shevchenko
+
 
