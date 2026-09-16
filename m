@@ -1,168 +1,161 @@
-Received: from mail-ot1-f70.google.com (mail-ot1-f70.google.com [209.85.210.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB8AA3C1082
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2F934E06E6
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:52:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789591921; cv=none; b=Laxm938iptH+a8tIOE6zxo+Brhibp/oPBoKfIMzJ7GitwGufFNyfi6K1k942GRpVaK0bPeDP3JZVIZENPigXQYhxC+jc/varonhapfeZ5X28TAUTgVp9qUKHQ6sIEB0JENr1ychHvX+xyl+M8A6whjELqVIxCy5KhVpF+dZNFJk=
+	t=1789591981; cv=none; b=NY3cvtVfVGw9jFXbIJeOZejGGpioZe+B/SYULwD5RNN9f/mu1QiiRp4fJe+Ofz9C+TS6QjHwHZ2dTeoSRdRZJqWP4agpl9C8meeDnsp6nQs3opOwFQbpj9hXmVTJoX/qvxqZ7M6xjt9RmPcZuNkwlcyezJHst58C1tADZkq7kUE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789591921; c=relaxed/simple;
-	bh=TCWY2BqZ1qzi2wcRuFONl0b53QLimSTyupwbYjE4xwI=;
-	h=MIME-Version:Date:In-Reply-To:Message-ID:Subject:From:To:
-	 Content-Type; b=C6p5siIVkrIFMSqB6uP1GfmSQCn01s9neOpiO/YTP7iI4FIxo+FsfqLHaVXGtCKSatml1Gieq+iVnsyO8fWFsL/jvI7DVzkRX3qOPehoNjjFMeCS37inibsrzbGTGAkjQ3zdQfWLvUwrIMDMCbVPvnV2K7qzIe6i3TXvCeOs4bg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com; arc=none smtp.client-ip=209.85.210.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=syzkaller.appspotmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=M3KW2WVRGUFZ5GODRSRYTGD7.apphosting.bounces.google.com
-Received: by mail-ot1-f70.google.com with SMTP id 46e09a7af769-80621874eb7so219498a34.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 13:51:47 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789591904; x=1790196704;
-        h=content-type:to:from:subject:message-id:in-reply-to:date
-         :mime-version:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=p7jostc6F+Tr/4gi2k1tEb3SXjkRDvQsC2W4kcZOoic=;
-        b=s8TR4c/+7wx71oTaGKzwr6z35ozmbykv1VcO8rdf5r1Bqu8et+cBw28T8ILxr6Dbkn
-         lOCY5bxBz9sRfjqCmw0UvwlIQ/P/aJBSncyEgCWmG9BycpLVS7DRtoA5GfiTXsLVm3ta
-         ZXQL7G1tvfr7as2Zjpt31l1cTL/L2ZjmIpGgGk6uo2QAjt2LzlQn6ZuSkhjpf2X9VNty
-         5Kfy5dI96XYPx1w2FF9mE+I9j9dWu+NGwWSaKxX0fWNmQCIKFWrVdVsvrfgsNUOGJvHb
-         NhriX2W0thtBXE7ZwTUpc3uWjflAeW7l4vcfG6yQtbewi5Ckyv/Og7ck4Y6hTgMVwEkX
-         xCqw==
-X-Forwarded-Encrypted: i=1; AKwUvBzS9CF7mZEeaQ7WZc9qWrxX0cGxkOed50plXliNc80H8iUW/32xR7jkIKiwqsmWx8L8fON261E=@vger.kernel.org
-X-Gm-Message-State: AFuF++nMSlS3Cl0obxdE4sOO8DsNZ4VbSpBX3X8sIH1oMI1oCNTpn0vq
-	WJusQBIpzle6yc1RhHmyfkn6R0UKYN9tJM1OocCmcqzmUEpqclmgA++t0UXzRZ2y5cNVL2z9vUY
-	WMuijLBW/JPsP+tckHxBlrHFHELniObnPEA/3e4bL6WABPy9GFhyNiazi6Ic=
+	s=arc-20240116; t=1789591981; c=relaxed/simple;
+	bh=y21hVAvo99Gq8YzT3jVXT4hbV/+9E08eHWxlhUz6xHM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=PMQT4saA67ha10zYIFGcGVswit9ARcWztUTkAjC/v4Ye1nhQ1o22kKn06dTzX084w0lWy3CrRM/Qya2RBFxV4pisXThydTvYeJKx6HhaQ1tr6y8KSx7nhfqHJ3x3m4WQRPKbpv9/MheNOWkLb5e5Iy7qiQZjjl0sdfVtsqJX0tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=On8t7TIx; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="On8t7TIx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC0EB1F00893;
+	Wed, 16 Sep 2026 20:52:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789591965;
+	bh=OThOQxftxcCKbrcy7185G+G/2b8IB+FCbXeUevO/QLg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=On8t7TIxmUApcisdPMciowUptJXk85ZvqkiMIDp0tg0K8CUoBeNCVvfwL5aX+kVEh
+	 QzMwguFjj7lIO2fN9ALOhGQg41hO54kawrnty2qOye0jsVA3IUprCqVPVX2g8cVgYa
+	 slRKlndx7zRcdHAK+ufXO/ac5N43BJxC0rsRHT5hfvJZ5XaiUGU8rTid4RNVIXl9ej
+	 4e72XoWFrtZC/p8clamMTXOmzsGRUYh8jzcC6kHdrjpmYvFcXO2WKSDaN4DOM1zz3H
+	 GpgemXqG3gZh0zQDwo4dFeTsWSYw3CjUniFUFjDKjzAKt5R8POlJ6oX+fyVpMw1kPr
+	 tlPD81EBV2v9A==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>,
+	syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y] io_uring/rw: end write accounting from ->ki_complete
+Date: Wed, 16 Sep 2026 16:52:43 -0400
+Message-ID: <20260916205243.2744997-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091623-wrangle-flammable-47de@gregkh>
+References: <2026091623-wrangle-flammable-47de@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Received: by 2002:a05:6820:f02e:b0:6bd:b31a:4b1f with SMTP id
- 006d021491bc7-6c7d48f017amr6929574eaf.29.1789591904124; Wed, 16 Sep 2026
- 13:51:44 -0700 (PDT)
-Date: Wed, 16 Sep 2026 13:51:44 -0700
-In-Reply-To: <6a74a7e9.01d0871a.3a0d52.0023.GAE@google.com>
-X-Google-Appengine-App-Id: s~syzkaller
-X-Google-Appengine-App-Id-Alias: syzkaller
-Message-ID: <6aab0160.e91c2013.3bdb06.0005.GAE@google.com>
-Subject: Re: [syzbot] [usb?] KASAN: slab-use-after-free Read in trace_event_raw_event_udc_log_req
-From: syzbot <syzbot+de553c19cb054f174a35@syzkaller.appspotmail.com>
-To: andrzej.p@samsung.com, balbi@ti.com, bigeasy@linutronix.de, 
-	frank.li@nxp.com, gregkh@linuxfoundation.org, hhhuuu@google.com, 
-	jeffinphilip14@gmail.com, kai.aizen.dev@gmail.com, kees@kernel.org, 
-	laurent.pinchart@ideasonboard.com, linux-kernel@vger.kernel.org, 
-	linux-usb@vger.kernel.org, patches@lists.linux.dev, 
-	stable-commits@vger.kernel.org, stable@vger.kernel.org, 
-	syzkaller-bugs@googlegroups.com, xu.yang_2@nxp.com
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
 
-syzbot has found a reproducer for the following issue on:
+From: Jens Axboe <axboe@kernel.dk>
 
-HEAD commit:    9b87fdc9af2f Merge tag 'sched_ext-for-7.3-rc3-fixes' of gi..
-git tree:       git://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git
-console output: https://syzkaller.appspot.com/x/log.txt?x=10073925580000
-kernel config:  https://syzkaller.appspot.com/x/.config?x=8c5c3949d762a91f
-dashboard link: https://syzkaller.appspot.com/bug?extid=de553c19cb054f174a35
-compiler:       gcc (Debian 14.2.0-19) 14.2.0, GNU ld (GNU Binutils for Debian) 2.44
-C reproducer:   https://syzkaller.appspot.com/x/repro.c?x=14073925580000
+[ Upstream commit 796aa0547557e63338657ed1c487906f9fac4c73 ]
 
-IMPORTANT: if you fix the issue, please add the following tag to the commit:
-Reported-by: syzbot+de553c19cb054f174a35@syzkaller.appspotmail.com
+Commit b000145e9907 moved both the fsnotify calls and the write
+accounting out of the kiocb completion handler and into the
+io_req_rw_complete() task_work. However, only the fsnotify part actually
+needed to move as it may sleep. Ending the write accounting is just a
+percpu_up_read() on the superblock writers sem.
 
-RBP: 00007ffd24c2deb0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000000b
-R13: 64755f796d6d7564 R14: 00007f7ea170aa41 R15: 0000000000000000
- </TASK>
-Oops: general protection fault, probably for non-canonical address 0xdffffc0000000002: 0000 [#1] SMP KASAN NOPTI
-KASAN: null-ptr-deref in range [0x0000000000000010-0x0000000000000017]
-CPU: 1 UID: 0 PID: 6018 Comm: syz-executor177 Not tainted syzkaller #0 PREEMPT(full) 
-Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-RIP: 0010:do_trace_event_raw_event_udc_log_req drivers/usb/gadget/udc/trace.h:223 [inline]
-RIP: 0010:trace_event_raw_event_udc_log_req+0x207/0x6c0 drivers/usb/gadget/udc/trace.h:223
-Code: e2 83 e2 07 38 d0 7f 08 84 c0 0f 85 7f 04 00 00 49 8d 7d 10 41 c6 04 24 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e 4b 04 00 00 49 8d 7f 0c 41 8b
-RSP: 0018:ffffc900055379e0 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: 0000000000000003 RCX: 0000000000000000
-RDX: 0000000000000002 RSI: ffffffff8cda4a23 RDI: 0000000000000010
-RBP: 1ffff92000aa6f3e R08: 0000000000000001 R09: ffffed1003ed2e25
-R10: ffff88801f69712e R11: 0000000000000001 R12: ffff88801f69712f
-R13: 0000000000000000 R14: ffffffff8cda4a20 R15: ffff88801f6970ec
-FS:  000055558eb7d400(0000) GS:ffff8880d5c59000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055d12b7cc300 CR3: 0000000036264000 CR4: 0000000000352ef0
-Call Trace:
- <TASK>
- __do_trace_usb_ep_alloc_request drivers/usb/gadget/udc/trace.h:264 [inline]
- trace_usb_ep_alloc_request drivers/usb/gadget/udc/trace.h:264 [inline]
- usb_ep_alloc_request+0x217/0x2e0 drivers/usb/gadget/udc/core.c:202
- gadget_bind+0xe7/0x660 drivers/usb/gadget/legacy/raw_gadget.c:294
- gadget_bind_driver+0x28c/0xbf0 drivers/usb/gadget/udc/core.c:1662
- call_driver_probe drivers/base/dd.c:628 [inline]
- really_probe+0x241/0xa60 drivers/base/dd.c:706
- __driver_probe_device+0x210/0x460 drivers/base/dd.c:868
- driver_probe_device+0x4a/0x140 drivers/base/dd.c:898
- __driver_attach+0x21f/0x5b0 drivers/base/dd.c:1292
- bus_for_each_dev+0x13e/0x1d0 drivers/base/bus.c:383
- bus_add_driver+0x305/0x5b0 drivers/base/bus.c:763
- driver_register+0x1e2/0x360 drivers/base/driver.c:174
- usb_gadget_register_driver_owner+0x132/0x210 drivers/usb/gadget/udc/core.c:1752
- raw_ioctl_run drivers/usb/gadget/legacy/raw_gadget.c:596 [inline]
- raw_ioctl+0x1a85/0x2b80 drivers/usb/gadget/legacy/raw_gadget.c:1307
- vfs_ioctl fs/ioctl.c:51 [inline]
- __do_sys_ioctl fs/ioctl.c:597 [inline]
- __se_sys_ioctl fs/ioctl.c:583 [inline]
- __x64_sys_ioctl+0x18e/0x210 fs/ioctl.c:583
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x123/0x790 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
-RIP: 0033:0x7f7ea16ae7bb
-Code: 00 48 89 44 24 18 31 c0 48 8d 44 24 60 c7 04 24 10 00 00 00 48 89 44 24 08 48 8d 44 24 20 48 89 44 24 10 b8 10 00 00 00 0f 05 <89> c2 3d 00 f0 ff ff 77 1c 48 8b 44 24 18 64 48 2b 04 25 28 00 00
-RSP: 002b:00007ffd24c2de50 EFLAGS: 00000246 ORIG_RAX: 0000000000000010
-RAX: ffffffffffffffda RBX: 0000000000000003 RCX: 00007f7ea16ae7bb
-RDX: 0000000000000000 RSI: 0000000000005501 RDI: 0000000000000003
-RBP: 00007ffd24c2deb0 R08: 0000000000000000 R09: 0000000000000000
-R10: 0000000000000000 R11: 0000000000000246 R12: 000000000000000b
-R13: 64755f796d6d7564 R14: 00007f7ea170aa41 R15: 0000000000000000
- </TASK>
-Modules linked in:
----[ end trace 0000000000000000 ]---
-RIP: 0010:do_trace_event_raw_event_udc_log_req drivers/usb/gadget/udc/trace.h:223 [inline]
-RIP: 0010:trace_event_raw_event_udc_log_req+0x207/0x6c0 drivers/usb/gadget/udc/trace.h:223
-Code: e2 83 e2 07 38 d0 7f 08 84 c0 0f 85 7f 04 00 00 49 8d 7d 10 41 c6 04 24 00 48 b8 00 00 00 00 00 fc ff df 48 89 fa 48 c1 ea 03 <0f> b6 04 02 84 c0 74 08 3c 03 0f 8e 4b 04 00 00 49 8d 7f 0c 41 8b
-RSP: 0018:ffffc900055379e0 EFLAGS: 00010202
-RAX: dffffc0000000000 RBX: 0000000000000003 RCX: 0000000000000000
-RDX: 0000000000000002 RSI: ffffffff8cda4a23 RDI: 0000000000000010
-RBP: 1ffff92000aa6f3e R08: 0000000000000001 R09: ffffed1003ed2e25
-R10: ffff88801f69712e R11: 0000000000000001 R12: ffff88801f69712f
-R13: 0000000000000000 R14: ffffffff8cda4a20 R15: ffff88801f6970ec
-FS:  000055558eb7d400(0000) GS:ffff8880d5c59000(0000) knlGS:0000000000000000
-CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-CR2: 000055d12b7cc300 CR3: 0000000036264000 CR4: 0000000000352ef0
-----------------
-Code disassembly (best guess):
-   0:	e2 83                	loop   0xffffff85
-   2:	e2 07                	loop   0xb
-   4:	38 d0                	cmp    %dl,%al
-   6:	7f 08                	jg     0x10
-   8:	84 c0                	test   %al,%al
-   a:	0f 85 7f 04 00 00    	jne    0x48f
-  10:	49 8d 7d 10          	lea    0x10(%r13),%rdi
-  14:	41 c6 04 24 00       	movb   $0x0,(%r12)
-  19:	48 b8 00 00 00 00 00 	movabs $0xdffffc0000000000,%rax
-  20:	fc ff df
-  23:	48 89 fa             	mov    %rdi,%rdx
-  26:	48 c1 ea 03          	shr    $0x3,%rdx
-* 2a:	0f b6 04 02          	movzbl (%rdx,%rax,1),%eax <-- trapping instruction
-  2e:	84 c0                	test   %al,%al
-  30:	74 08                	je     0x3a
-  32:	3c 03                	cmp    $0x3,%al
-  34:	0f 8e 4b 04 00 00    	jle    0x485
-  3a:	49 8d 7f 0c          	lea    0xc(%r15),%rdi
-  3e:	41                   	rex.B
-  3f:	8b                   	.byte 0x8b
+Deferring it is a problem, because it makes dropping SB_FREEZE_WRITE
+protection depend on the ring owner getting to running task_work. But
+the task may be blocked in freeze_super(), causing it to never get to
+that:
 
+  task                             io-wq worker
+  --------------------------------------------------------------
+  io_write()
+    io_kiocb_start_write()         (takes sb_writers, hidden from
+                                    lockdep by __sb_writers_release)
+    write_iter() -> -EIOCBQUEUED
+  ioctl(FS_IOC_SHUTDOWN)
+    bdev_freeze()
+      freeze_super()
+        percpu_down_write()        <- waits for the reader above
+                                   io_write()
+                                     kiocb_start_write()
+                                       percpu_down_read()  <- queued
+                                                              behind the
+                                                              writer
+  <bio completes>
+    io_complete_rw()
+      queues io_req_rw_complete()  <- never runs, task is in D state
 
+End the write from io_complete_rw() instead, and leave only the fsnotify
+calls in task_work.
+
+Reported-by: syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Fixes: b000145e9907 ("io_uring/rw: defer fsnotify calls to task context")
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ adjusted io_complete_rw() context to preserve the existing IOCB_DIO_CALLER_COMP guard ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-If you want syzbot to run the reproducer, reply with:
-#syz test: git://repo/address.git branch-or-commit-hash
-If you attach or paste a git patch, syzbot will apply it before testing.
+ io_uring/rw.c | 25 +++++++++++++------------
+ 1 file changed, 13 insertions(+), 12 deletions(-)
+
+diff --git a/io_uring/rw.c b/io_uring/rw.c
+index b78006228cc7f..3666ff3d2e421 100644
+--- a/io_uring/rw.c
++++ b/io_uring/rw.c
+@@ -532,20 +532,15 @@ static void io_req_end_write(struct io_kiocb *req)
+ 	}
+ }
+ 
+-/*
+- * Trigger the notifications after having done some IO, and finish the write
+- * accounting, if any.
+- */
+-static void io_req_io_end(struct io_kiocb *req)
++/* Trigger the notifications after having done some IO. */
++static void io_req_io_notify(struct io_kiocb *req)
+ {
+ 	struct io_rw *rw = io_kiocb_to_cmd(req, struct io_rw);
+ 
+-	if (rw->kiocb.ki_flags & IOCB_WRITE) {
+-		io_req_end_write(req);
++	if (rw->kiocb.ki_flags & IOCB_WRITE)
+ 		fsnotify_modify(req->file);
+-	} else {
++	else
+ 		fsnotify_access(req->file);
+-	}
+ }
+ 
+ static void __io_complete_rw_common(struct io_kiocb *req, long res)
+@@ -586,7 +581,7 @@ void io_req_rw_complete(struct io_tw_req tw_req, io_tw_token_t tw)
+ 		io_req_set_res(req, io_fixup_rw_res(req, res), 0);
+ 	}
+ 
+-	io_req_io_end(req);
++	io_req_io_notify(req);
+ 
+ 	if (req->flags & (REQ_F_BUFFER_SELECTED|REQ_F_BUFFER_RING))
+ 		req->cqe.flags |= io_put_kbuf(req, req->cqe.res, NULL);
+@@ -600,6 +595,10 @@ static void io_complete_rw(struct kiocb *kiocb, long res)
+ 	struct io_rw *rw = container_of(kiocb, struct io_rw, kiocb);
+ 	struct io_kiocb *req = cmd_to_io_kiocb(rw);
+ 
++	/* ring owner may block in freeze_super() before task_work runs */
++	if (kiocb->ki_flags & IOCB_WRITE)
++		io_req_end_write(req);
++
+ 	if (!kiocb->dio_complete || !(kiocb->ki_flags & IOCB_DIO_CALLER_COMP)) {
+ 		__io_complete_rw_common(req, res);
+ 		io_req_set_res(req, io_fixup_rw_res(req, res), 0);
+@@ -675,10 +674,12 @@ static int kiocb_done(struct io_kiocb *req, ssize_t ret,
+ 
+ 		__io_complete_rw_common(req, ret);
+ 		/*
+-		 * Safe to call io_end from here as we're inline
++		 * Safe to notify from here as we're inline
+ 		 * from the submission path.
+ 		 */
+-		io_req_io_end(req);
++		if (rw->kiocb.ki_flags & IOCB_WRITE)
++			io_req_end_write(req);
++		io_req_io_notify(req);
+ 		if (sel)
+ 			cflags = io_put_kbuf(req, ret, sel->buf_list);
+ 		io_req_set_res(req, final_ret, cflags);
+-- 
+2.53.0
+
