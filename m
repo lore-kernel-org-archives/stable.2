@@ -1,130 +1,90 @@
-Received: from mail-pj2-f26.google.com (mail-pj2-f26.google.com [74.125.227.154])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42DDC420482
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:45:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.154
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1DA24DF4D3
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598724; cv=none; b=WPjeakQxR0Ob5akvJK8DRumcYS9PAjKVGQ/f0jrno9VWxtB4sV25lpsYa5MUX0EIGpqJ04SlDaFUsv3uDgp5REusZII/+XDx/Zw0UbGN5LTkzujsqkb3baK8Nq1Y/1PPA6QRH4LiG6FgSXyoxdqjuNRtid7GBWQ8NhSDKk+wvko=
+	t=1789598778; cv=none; b=hkIGxAmAsf+YSrREU4xwXYMBYIS6wImkVqnG89J5AaZNJ4AF0cC+ELXjUmhQiOyLPQQRry1HUXfK/1fvlvcBgEdIeBiTUYx2zMciGaHw/lPxqdr23WuEtULO3pc2LWmMepsASAVMug+rnnymfDxnJPOGom0FIuyWQ+sWMIHRG3U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598724; c=relaxed/simple;
-	bh=DCE6FnvywonaznENZKMO/6ORfAMl58VppAg00A7jaiw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=fbDNwG9bMPF2sK7b8XA3E3Ue5TtuF8XYpfjszzbTWvZc8m/h4XqvZSApJfBJfV7c3dOXr99Fe0AxQRyhk/KWWhKRQK3ixOZ6UrgcN+VFGMur0z7RP5M4bKeftHTzGBdDEdqTOJa7xqKUEiarQ/Bs5FRmKaSoXgCGDW4rmkUxmfg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RKgnadFJ; arc=none smtp.client-ip=74.125.227.154
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789598778; c=relaxed/simple;
+	bh=w7/4zr5wfmri0sX2GxQ22dhJ8bcJbmHISKUGsv5FxBc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Psub2y3j3P3nYYJ4YW1kCSfMzFVHG+hjwuNS9qEL+Z+3t2hG1VjGV6D6zCgvaeeZTO0w3M8SpNdTaI38D/nV06B1kBbNjoAd9wCGFvxsLANQ3Ja4O19ghTKxJsLDCncW04CZJIFzqQYXfGgQnq5YDO16FCeN6IhIa0E5SQTnfnA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=T0dS4Cw4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RKgnadFJ"
-Received: by mail-pj2-f26.google.com with SMTP id d9443c01a7336-2d8fb334e72so2108445ad.1
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:45:15 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789598713; x=1790203513; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=HodbLW2WeOC+F5Igytr4/ZR9Af1xRSrYgRD/3purchM=;
-        b=RKgnadFJZeAd/0u72rfzHcFFADy20tjbKmPbjp2OrwrbiVUd7d+pRD/FIS3kbKmNir
-         Sa9ZzlVazywjI4B0i4wgNtMywUiLwu7agl1xCjxRXPLl0FiDMeL3fXEuQss4L32XLf1f
-         YqhjpWTVaQLA1G1w0l9/ujeRyoylZzAakHcTiXRkjUxyan8Q82M+Q1RTLczAsCYuj38r
-         FiQulGGHV8PVNbkMAzvwlNbSofPTAFyUbAxSZwxlkzSWGBUWTv0DC4M1vmYIhsY1DQNt
-         cvFPlaAfnaLoexHsYPveOCqNiRHwSnaz0KTea1OFQCo34mq9wQozoDoMNW7ZiFyaFH1c
-         lXPA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789598713; x=1790203513;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HodbLW2WeOC+F5Igytr4/ZR9Af1xRSrYgRD/3purchM=;
-        b=x9K2nDa8xp7RMSyKRbKMawOOSjF607Sp+DU/qpgri42GOopgKNrE3t4QMMXcbv1e5g
-         aj2RiXXGvnPX98XJUtZjgpeJhZ7HhjTMh8MB5DWINtEhZP+Z/oYCRGjf8PeDbID8cut/
-         tKRGHvbg7/oqedRCgbTaLf8CcRvhuYOmtEQpN1ZiWW1/UOvwqa8cDf0j9z9SqN1aLWtq
-         C8fgYObUAFKee2kMu2X8Br4T2InxCaZW41IiYRH3wk9f8bkHOHCK0InBbI9hfhyWOvYn
-         e5ES1IqXACwarqLMO1767YzTHmBMr19vlVrqrW+U+Zf7sHPQ7YdOIdO8Lyckv/Af/J3x
-         sYlw==
-X-Gm-Message-State: AFuF++nBhuxixRmW6leCIJXjh4/2nDmoRgUFNomJZXIRTtpHX+Tgi9Qz
-	FSFISjaMYhd/S7bXdmXojTqGIfDOIvcE14kGc10ZfXr2EXnP8DqznIYb
-X-Gm-Gg: AYBFou35khpyXUNHerFeQZr4PkW1o59muWgYfTmHpLW+kfaukpJSWmD1d3lXQhE5p43
-	6LQInUn4fhTxgl0Qc/J/aeuZJUwIX1qU8qfma5rBjS2UAqYvQ2myvlVJjNEURFdxJnG06aYuwT3
-	JusfXBBzgOGSe4v2c2OnxsIE/FEg13R2UAn1YnGq0v4MAOQ9iMtvFl2Al1YGmcTgbNqQi7MiE1B
-	1YaIPvgbas4DEwf4dtBoO0Bs72YdKI8KwYsqdjJSxFwbk1Ss7SavHP7OB1G2BAnFs2VnagWMB9H
-	1fHNix+7inupjrX8O98gC/QVM1+TLa+6z5muYz7sPt5OTJRE0GqY4HjpSmBuxKLLWSqyXr8rRp/
-	GAAdzYz4vVXBIUFxxpP5MW69CujIzNp7SMh3AjEZZRAv7DJeSXtKcqKsoZ4iq1p0SRmrnOqLnRc
-	GopgnAwgqKzLv7kQYSey50BogJB9AddCmZXlHMJ1qaDkJjtaPqNvyLy3j0GdYcvL6TlDkcj4Bqq
-	yUYdcJY/S8cmLk5lra2yc67fpvfy5LIiGGU+UMS1lA2VUc2hjKWpBdOgFN5bX+0Zjr9PVNlOprD
-	GWTdonrSM7+NErqsnLgOlUw+Bq2aUsc2FGCYP6hXu2OGOK00NO7/wLs2
-X-Received: by 2002:a17:902:ce81:b0:2dd:64:12ac with SMTP id d9443c01a7336-2dd8e632d3bmr86301035ad.11.1789598712717;
-        Wed, 16 Sep 2026 15:45:12 -0700 (PDT)
-Received: from Cyndaquil.localdomain (c-24-56-233-47.customer.broadstripe.net. [24.56.233.47])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89d8e6a3sm17609805ad.7.2026.09.16.15.45.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 15:45:12 -0700 (PDT)
-Date: Wed, 16 Sep 2026 15:45:09 -0700
-From: Mitchell Levy <levymitchell0@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
-	Tianyou Li <tianyou.li@intel.com>,
-	Namhyung Kim <namhyung@kernel.org>, Sasha Levin <sashal@kernel.org>
-Subject: Re: [PATCH 6.18 1481/1518] perf annotate: Fix build with NO_SLANG=1
-Message-ID: <aqsb9cc0sIUtI265@Cyndaquil.localdomain>
-References: <20260912065623.398859879@linuxfoundation.org>
- <20260912065657.062881527@linuxfoundation.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="T0dS4Cw4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B7FE11F000FF;
+	Wed, 16 Sep 2026 22:46:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789598770;
+	bh=gkrxfLQyWhAufsNq8Z7Oh8eqf3+qT99zKlFGjDNBNOo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=T0dS4Cw4qWOSnBXDUb89Ttx8yMMekRCFIr5vpl66ShE3EUJiaDw9Gxywh0g0A/lTo
+	 9UKo2cpEiOhGZsF1aUKKhfn9XWb4TcalNqZK6KZAxuFZlBb24EKSSpmvl+gAjP6eKe
+	 +SiuXSbibLS8WEcAt5ifPAseaxNkkCgDFeD9gAMPfDQ1gYEaPwS4lPmN8DittPzy1x
+	 iWqP6IUA8RcfWkVCC59Wp3hXSIkQ5qO/G3Hdb0y4GakJ6CQVK3YTvp3mRSJCVYxedF
+	 hpS2BSoSyRdehPqJlTZo6M47JHNNua8Nu98xOeI5YvG6VSSNR7x2u8d90Vbjm9yUpK
+	 WTbgAZ2CVdH1w==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Satyajit Roy <sroy14@alum.utk.edu>,
+	Alex Hung <alex.hung@amd.com>,
+	Daniel Wheeler <daniel.wheeler@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2.y] drm/amd/display: Propagate HDMI RGB quantization selectability
+Date: Wed, 16 Sep 2026 18:46:08 -0400
+Message-ID: <20260916224608.3195520-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091644-exceeding-greeter-5466@gregkh>
+References: <2026091644-exceeding-greeter-5466@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260912065657.062881527@linuxfoundation.org>
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 12, 2026 at 09:00:50AM +0200, Greg Kroah-Hartman wrote:
-> 6.18-stable review patch.  If anyone has any objections, please let me know.
-> 
-> ------------------
-> 
-> From: Namhyung Kim <namhyung@kernel.org>
-> 
-> [ Upstream commit 0e6c07a3c30cdc4509fc5e7dc490d4cc6e5c241a ]
-> 
-> The recent change for perf c2c annotate broke build without slang
-> support like below.
-> 
->   builtin-annotate.c: In function 'hists__find_annotations':
->   builtin-annotate.c:522:73: error: 'NO_ADDR' undeclared (first use in this function); did you mean 'NR_ADDR'?
->     522 |                         key = hist_entry__tui_annotate(he, evsel, NULL, NO_ADDR);
->         |                                                                         ^~~~~~~
->         |                                                                         NR_ADDR
->   builtin-annotate.c:522:73: note: each undeclared identifier is reported only once for each function it appears in
-> 
->   builtin-annotate.c:522:31: error: too many arguments to function 'hist_entry__tui_annotate'
->     522 |                         key = hist_entry__tui_annotate(he, evsel, NULL, NO_ADDR);
->         |                               ^~~~~~~~~~~~~~~~~~~~~~~~
->   In file included from util/sort.h:6,
->                    from builtin-annotate.c:28:
->   util/hist.h:756:19: note: declared here
->     756 | static inline int hist_entry__tui_annotate(struct hist_entry *he __maybe_unused,
->         |                   ^~~~~~~~~~~~~~~~~~~~~~~~
-> 
-> And I noticed that it missed to update the other side of #ifdef
-> HAVE_SLANG_SUPPORT.  Let's fix it.
-> 
-> Cc: Tianyou Li <tianyou.li@intel.com>
-> Fixes: cd3466cd2639783d ("perf c2c: Add annotation support to perf c2c report")
-> Signed-off-by: Namhyung Kim <namhyung@kernel.org>
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+From: Satyajit Roy <sroy14@alum.utk.edu>
 
-This appears to be the same patch from [1] that was previously dropped.
-With this patch applied, I'm seeing the same build error as Jiri Slaby
-did on the linked thread when !HAVE_SLANG_SUPPORT.
+[ Upstream commit bdcd0411d7d186225a52458fd42bb70d54ca917a ]
 
-For now I've reverted this commit, but I wanted to surface this upstream
-as well.
+DC uses dc_edid_caps.qs_bit when constructing the HDMI AVI InfoFrame
+quantization-range field. Although DRM parses the sink capability into
+drm_display_info, DM never copies it into the DC EDID capabilities. The
+field therefore remains zero and the AVI quantization range stays at its
+default value.
 
-Thanks,
-Mitchell
+Copy rgb_quant_range_selectable for HDMI sinks and extend the existing
+EDID-capability KUnit test to cover it.
 
-[1]: https://lore.kernel.org/all/2025121754-breeching-aftermost-d10a@gregkh/
+Fixes: 6eb4c13a3845 ("drm/amd/display: Support "Broadcast RGB" drm property")
+Signed-off-by: Satyajit Roy <sroy14@alum.utk.edu>
+Reviewed-by: Alex Hung <alex.hung@amd.com>
+Tested-by: Daniel Wheeler <daniel.wheeler@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+(cherry picked from commit 892659399f64642e33072562a11ec1b2e7bd2263)
+Cc: stable@vger.kernel.org
+[ Omitted KUnit test additions because amdgpu_dm_helpers_test.c and its supporting infrastructure are absent. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+index 41aa8f9bb152b..fe5b97e6f9603 100644
+--- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
++++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_helpers.c
+@@ -197,6 +197,7 @@ enum dc_edid_status dm_helpers_parse_edid_caps(
+ 	edid_caps->edid_hdmi = connector->display_info.is_hdmi;
+ 
+ 	if (edid_caps->edid_hdmi) {
++		edid_caps->qs_bit = connector->display_info.rgb_quant_range_selectable;
+ 		populate_hdmi_info_from_connector(link->dc->config.enable_frl, &connector->display_info.hdmi, edid_caps);
+ 		drm_dbg_driver(connector->dev, "%s: HDMI_FRL [%s] max_frl_rate %d\n", __func__, connector->name, edid_caps->max_frl_rate);
+ 		if (edid_caps->frl_dsc_support)
+-- 
+2.53.0
 
