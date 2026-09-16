@@ -1,57 +1,50 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D258E3AFAE7;
-	Wed, 16 Sep 2026 01:52:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3ABA13AEF54;
+	Wed, 16 Sep 2026 01:52:34 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789523568; cv=none; b=nWUleN8p+y4fc89Zg1LIm3HWgKbyUZl89qDeotypIMzX57NTnJt/YBqvIHIlxzQg7bEJvViAh71mvtw2B/Bps37WfRh+hA8yHCNwUvs8nRaZUf+CiLPekc0UPX8pPWO+ytRx4BnyPRlFUpTrA8ysBpliwgrvQIpN3+JKlXjnew0=
+	t=1789523569; cv=none; b=CnK2pIuswUNefiGGLULHJmv0mx40m3iGS5HqFl/kBe/ltw68Qmcw//ymoIzfUXHaVoT8457f3fvsp2pCyjKyBuD2sSMwtGIiTVwRCCOMONh5RJJBUasyo6beayDBbCSj2LRVBzigMIn/RHyPK5tiZPp2fH8dAUZzrRrgRmwc72A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789523568; c=relaxed/simple;
-	bh=fw5N7UTTOqA2ZxGkE2lphOfSgzsaoDxiIa+r4VWJT2I=;
+	s=arc-20240116; t=1789523569; c=relaxed/simple;
+	bh=XFX2xIv/sy3XoBm1x2XRF/nO4jflpAmdNmV9poizng8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=iGsByvUOspoM1cidRJDcF4Z05zIOOrw2VOJxXbx2MY80nQRwYDDHYJ4aYNdEYfdJ3KZa120LIyz38357DkA0NK8+YxhGIRDHRKX+BDzPOlfgMz2HrFajIqHGU56cCpUXBce+ZZK6ymOUx5ylNtPRYoJ/4xVf/Ivuk+WL6SJ+PUE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oOnCJVYI; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=b4jljrAJestU1Ux0bhzGIMYPGALFvl6hH13L7ffB66JXLOyYfZe558L6+1uR8JfBfWRtm3j0qPdxna7VfCnQ1z2BVpl3DKJhZa1/QMAlFUk8A45KXU1lE69H57lPPetl9R4cRcfsZd96UBJQa3UcFrkgWJ8VHYYNv3g91Rsco1s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kEDzbxwT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oOnCJVYI"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FBC1F00899;
-	Wed, 16 Sep 2026 01:52:31 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kEDzbxwT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D08E1F0089E;
+	Wed, 16 Sep 2026 01:52:30 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789523553;
-	bh=5q5KE8fUs+8ODPhfMajWOCRm4Na5oZFgYV9W9yAhSs8=;
+	s=k20260515; t=1789523551;
+	bh=LVXuVv26svLlY4qbCrxJiy9+/zg1bsfvPN1rCoBQlH4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oOnCJVYITmVBvRALLoaSLsGGfEfrslH4IRByKYg7ekzx56HZmO8CMFwSp/55ZGVzn
-	 iy4AJy6G48kQiaaDUwP0A4okz+dlqSvCihCKwubHZ3xjcJWUpgwKZmu9zT6BRK0igb
-	 XCvrZ/AwstTt634Ltrs0TPFLgooFV3Xf+k+oJfJfSKjCHYoF3AGjEVK76U/uNymu4x
-	 BIA9hrN59g4pwku+2LdTd02ncTI/oiDsanYQfBldlIwMuxtChE7/7IWYRs0/VBXyWi
-	 3ppOvrtJOX5OAH9SYT8YmzXvoPkTaO0ZlzMghGTea9sgirFEa9RdJud21IuoM6OtVa
-	 T96e7GN11J27w==
+	b=kEDzbxwTEhZBEFnakuxM9EiZoE0RCl3lsRgh6fjHhU27w3YyyTVVDP3e8O0urCXAq
+	 W4mX7l0i95nha4dcUYlLmXfqjlCArKEiQqSO6lJ83ibA4MVQL5CkgSW/kX3Hn/vdvd
+	 RdnXklF+expMKrsC81/rokD+vT2XlDgp1avSZTNTE9INW3ju2hup77pgk2vAX4eLpB
+	 0dz4WsDNLA2OIt+xR9evDH1XgErn67UIA76DMExkwSCU7YdjLtERefT/1v+ThGAJZ/
+	 df3f1dbSlPo9Wu0QnDlono8Y2Tyq8hY/kddstVl0cr6GL3IRp30LzlypCApX14cjTc
+	 4rMFdHwRGYStQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: gregkh@linuxfoundation.org,
+	linusw@kernel.org,
+	rmk+kernel@armlinux.org.uk
 Cc: Sasha Levin <sashal@kernel.org>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	martin.petersen@oracle.com,
-	James.Bottomley@HansenPartnership.com,
-	bvanassche@acm.org,
-	avri.altman@sandisk.com,
-	alim.akhtar@samsung.com,
-	wsd_upstream@mediatek.com,
-	linux-mediatek@lists.infradead.org,
-	peter.wang@mediatek.com,
-	chun-hung.wu@mediatek.com,
-	alice.chao@mediatek.com,
-	cc.chou@mediatek.com,
-	chaotian.jing@mediatek.com,
-	tun-yu.yu@mediatek.com,
-	naomi.chu@mediatek.com,
-	ed.tsai@mediatek.com
-Subject: Re: [PATCH 6.18.y] scsi: ufs: core: Re-arm the device command completion before submitting
-Date: Tue, 15 Sep 2026 21:52:13 -0400
-Message-ID: <daily-reply-20260915-0008-re-ufs-dev-cmd-completion@kernel.org>
+	bigeasy@linutronix.de,
+	lisongze2@huawei.com,
+	ljs@kernel.org,
+	patches@lists.linux.dev,
+	stable@vger.kernel.org,
+	wangbing6@huawei.com,
+	xieyuanbin1@huawei.com,
+	xiqi2@huawei.com
+Subject: Re: [PATCH 5.10 613/798] ARM: 9485/1: mm: acquire mmap write lock around show_pte() for user faults
+Date: Tue, 15 Sep 2026 21:52:12 -0400
+Message-ID: <daily-reply-20260915-0007-re-arm-user-fault-irq-chain@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260915052638.459390-1-alice.chao@mediatek.com>
-References: <20260915052638.459390-1-alice.chao@mediatek.com>
+In-Reply-To: <20260915033519.16922-1-xieyuanbin1@huawei.com>
+References: <20260915033519.16922-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -60,16 +53,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Re-arm the completion in ufshcd_issue_dev_cmd(), immediately before
-> submitting. All submitters - ufshcd_exec_dev_cmd(),
-> ufshcd_issue_devman_upiu_cmd() and ufshcd_advanced_rpmb_op() - reach it
-> holding hba->dev_cmd.lock, so no extra serialization is needed.
+> I suggest that merging all these patches into the linux-5.10.y:
+> 1. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
+> 2. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
+> 3. commit 59e4f3b45b96a24fc9b7 ("ARM: ensure interrupts are enabled in
+>    __do_user_fault()")
+> I tried, and the patches can be applied with very simple adaptation.
 
-The analysis reads correct to me and the patch is clean against 6.18, but
-this is a stable only change in the UFS core completion path with no
-mainline counterpart, since 08b12cda6c44 ("scsi: ufs: core: Switch to
-scsi_get_internal_cmd()") deleted this code outright. I would like a
-subsystem ack before queueing it.
+Your chain is right, and 5.15 needs exactly the same three commits: both trees
+have identical arch/arm/mm/fault.c and arch/arm/mm/alignment.c, and all three
+commits are absent from both.
+
+Since you have the adapted patches already, could you mail them for 5.15
+and 5.10 with Russell on Cc so he can ack the resolution?
 
 -- 
 Thanks,
