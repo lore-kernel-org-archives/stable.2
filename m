@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8765382F1C
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:30:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2D463DB96F
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:30:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789579809; cv=none; b=F1v5pJ7b2hSXWdiLd2e6KjhSDlORi9k9u3d0cktZwlp6v6teHXVuPmsCHRhZYViIJOIGotjTnSVGWo8zqGkm51EluafWgkw6I/pBbMJcpnDci07ucV7VbR3a4rpVmB4D581hCpiyqDW23L5ROCKVJyjIPY8mQc4XzJDqMyu+AtA=
+	t=1789579811; cv=none; b=ozzR4dUGt8wuJ1VKS8R6lrqr/VgsLBXV4yJuVnOC/4Wu6MnwygZn/SfgaJy8iTfuLCkaOeEh8aoxCv9KKa1SpxK86+HjuVvPTjFidkTdQ2Cr3TaHyDEvB+7dUnPPOw5BASecl9chjHvOOIsxUk1YI0NDrzZDtfEqrDJF8Az7v/0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789579809; c=relaxed/simple;
-	bh=H9+ij1HIoocXF0pHE8KtKB5tU1rxaBzSoJcQxTK12FI=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=WkzvOKEQ6YUL+kzBPTqor5+Vya5x1arYkZUz+dIKQDSR4+/PEtB+UofB2KUtb8sYYVpUSHY9ETwPSuTHTBPLdha2Cy/rE66D1RJUJ2rLcz/X0gaI2G1FCtJkvGcWfRjtD0TQYUqAM1qSfFm6VqzxhsMPLhK9GmA6VmKXI3mIc/A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=v8mOZvkx; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789579811; c=relaxed/simple;
+	bh=MaJDMP65VSr2sgrQQj+S4a/wZCAV5KfswJv38nn0Ib8=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LSV4bJiVNQdybfwt4EKrz44svkShqoydVa4K4NfpFA+49/+MR0IWx+nho6AL5kn40u7vNUEI5rmclykS0caeoRkbvIigb660rfxTPC1hezCr0aplkXpCU414bs1a/WqwiSfAuIWKoFBne0/YvTLNcBrVDL4ktjDRfdSZq/Hm+uI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PFOZhTVf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="v8mOZvkx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 936991F000FF;
-	Wed, 16 Sep 2026 17:30:04 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PFOZhTVf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 694081F00893;
+	Wed, 16 Sep 2026 17:30:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789579805;
-	bh=sPxsgrWs2Oqh2aDg2SIH0a4r8E327gmE9om7yyfr3jc=;
+	s=korg; t=1789579808;
+	bh=c96uyAJ3QTSL5FeZl+HEsReyJ7XHyVZ81lnF+p3yK8Y=;
 	h=Subject:To:Cc:From:Date;
-	b=v8mOZvkxvTKUy3lGrIeRqnYvrndkpwujbUIZu/f6WzzT0jQgOSk5np1Ozrs9RZmRb
-	 fcII2ojMgrHO9hC6Az8J0GdT4AhT3UL9UVlgqT6Qe3pU+cvxHp0a1AapHyZxJ0xu59
-	 Cqf/Skksl/9ETVERwUNQB54jxHHlBgB0wmbuRdmk=
-Subject: FAILED: patch "[PATCH] xfs: fix backwards mergeability logic in refcount scrubber" failed to apply to 6.12-stable tree
+	b=PFOZhTVfKmCROd4dgnKDrnd2DMkiVdpHAJWKFhfY54ZmRU5ifjzCi+5MBs10TNnx8
+	 IRwTChsZjIEaBwPV0QLAmRq/m08LGTZQbYtlRwT1Vu0E0o0iO2YC/gteVZxy5ZhZUP
+	 rslLSXhVeFVVnC6QEiBtyA8/HII83vzOqC8n1zoA=
+Subject: FAILED: patch "[PATCH] xfs: don't stash removename operations with unknown ftype" failed to apply to 6.18-stable tree
 To: djwong@kernel.org,cem@kernel.org,hch@lst.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 18:26:15 +0100
-Message-ID: <2026091615-idealize-raging-d6b0@gregkh>
+Date: Wed, 16 Sep 2026 18:26:52 +0100
+Message-ID: <2026091651-freedom-anger-bd4d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 6.12-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x e8b01aaafffe6b852325debdf1ef4b13ccea1cd7
+git cherry-pick -x 865b751e75039fc07838b3200f9740256653da9a
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091615-idealize-raging-d6b0@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091651-freedom-anger-bd4d@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,49 +62,57 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e8b01aaafffe6b852325debdf1ef4b13ccea1cd7 Mon Sep 17 00:00:00 2001
+From 865b751e75039fc07838b3200f9740256653da9a Mon Sep 17 00:00:00 2001
 From: "Darrick J. Wong" <djwong@kernel.org>
-Date: Tue, 1 Sep 2026 22:49:47 -0700
-Subject: [PATCH] xfs: fix backwards mergeability logic in refcount scrubber
+Date: Wed, 26 Aug 2026 22:31:25 -0700
+Subject: [PATCH] xfs: don't stash removename operations with unknown ftype
 
-When we start the refcount or rtrefcount btree scanners, prev_rec is
-initialized to all zeroes.  This is done so that the record mergeability
-checks skip the first record because you must have two records to
-compare.  Unfortunately, I got the logic backwards, so scrub has never
-complained about mergeable refcountbt records.  Fix this bug that LOLLM
-noticed.
+LOLLM notices that the behavior of xrep_dir_replay_update changes based
+on the ftype recorded in the stashed removename information.  It also
+notices that the unlink iops sometimes set that ftype to FT_UNKNOWN
+because the regular directory tree update code paths don't need to know
+the ftype of the child.
 
-Cc: stable@vger.kernel.org # v6.4
-Fixes: db0502b39c21d1 ("xfs: flag refcount btree records that could be merged")
+Unfortunately, this results in incorrect link counts, which eventually
+trips link count errors in later phases of xfs_scrub, or in xfs_repair.
+Fix this by creating a second xfs_name with the type set correctly.
+
+Cc: stable@vger.kernel.org # v6.10
+Fixes: 8559b21a64d983 ("xfs: implement live updates for directory repairs")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
 
-diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
-index 4e1bf23e5b89..f2addaf13c58 100644
---- a/fs/xfs/scrub/refcount.c
-+++ b/fs/xfs/scrub/refcount.c
-@@ -410,7 +410,7 @@ xchk_refcount_mergeable(
- 	const struct xfs_refcount_irec	*r1 = &rrc->prev_rec;
- 
- 	/* Ignore if prev_rec is not yet initialized. */
--	if (r1->rc_blockcount > 0)
-+	if (r1->rc_blockcount == 0)
- 		return false;
- 
- 	if (r1->rc_domain != r2->rc_domain)
-diff --git a/fs/xfs/scrub/rtrefcount.c b/fs/xfs/scrub/rtrefcount.c
-index 4e7c540c8d23..de100178f41c 100644
---- a/fs/xfs/scrub/rtrefcount.c
-+++ b/fs/xfs/scrub/rtrefcount.c
-@@ -375,7 +375,7 @@ xchk_rtrefcount_mergeable(
- 	const struct xfs_refcount_irec	*r1 = &rrc->prev_rec;
- 
- 	/* Ignore if prev_rec is not yet initialized. */
--	if (r1->rc_blockcount > 0)
-+	if (r1->rc_blockcount == 0)
- 		return false;
- 
- 	if (r1->rc_startblock + r1->rc_blockcount != r2->rc_startblock)
+diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
+index 0c1224d05d57..31a23c5f386a 100644
+--- a/fs/xfs/scrub/dir_repair.c
++++ b/fs/xfs/scrub/dir_repair.c
+@@ -1381,9 +1381,24 @@ xrep_dir_live_update(
+ 		if (p->delta > 0)
+ 			error = xrep_dir_stash_createname(rd, p->name,
+ 					I_INO(p->ip));
+-		else
+-			error = xrep_dir_stash_removename(rd, p->name,
++		else {
++			/*
++			 * xfs_dentry_to_name in unlink or rename-exchange can
++			 * pass us names with ftype FT_UNKNOWN, but we really
++			 * must know the ftype of the child that is being
++			 * removed so that we can do nlink updates correctly
++			 * without holding inode references.
++			 */
++			struct xfs_name	name = {
++				.name	= p->name->name,
++				.len	= p->name->len,
++				.type	= xfs_mode_to_ftype(
++						VFS_IC(p->ip)->i_mode),
++			};
++
++			error = xrep_dir_stash_removename(rd, &name,
+ 					I_INO(p->ip));
++		}
+ 		mutex_unlock(&rd->pscan.lock);
+ 		if (error)
+ 			goto out_abort;
 
