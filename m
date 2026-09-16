@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4CE4D0CD6
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:47:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE9534B8275
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:47:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577275; cv=none; b=LTBdDrnv7kXI522sQdXfA8a8/htwZgmZ1YuKBz38ApXx8+mhTo6YpeeKxdLPr3OCWgTmBp1RLPOY24BvJ3enD3XBpmbOdWyxFF14ZkLNubHoB+UChqbP7wmaxcYKWaBvquGNzpFQW0oCCCQBBt0xskZd43Jiz1DzEOJmkekXTLc=
+	t=1789577280; cv=none; b=t305J3T/VL1zBHG6uVdXA9DsopVjU04whjJ1Hv9uRHPh7DvLR8hBvaKLkOjQNvI6FSfjETQhHw6h3uUrFNA+26Mb/I3sjwJLcIS8W3tga0UHF/sn4t+93jZyaHKx7yzlT+1126QCHib+or8GypCtz98KPXkJ6ziLio57ZAk3zZ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577275; c=relaxed/simple;
-	bh=kNm7Nz196puQMkmVhm0OxCWNrw864lLADrF1Pp3iq2g=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=ovsE786t6nJ1Jxm4Jiz1QPP8OGe0sDthOL4ttp6ocZ82cri1pErBE+fTxua0d4xVnnbhOnOtu8QEYouWMpmhb3yJcYnpKkB/zj3TQq9hyS0xSFD24ZUbKgyMTx8fu/JUl21SFaGkkPsSIR37/XTR0EH32fjlE5eGtxP5HPTvaZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ukcRkhqG; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577280; c=relaxed/simple;
+	bh=JytmfYfOwmdeEupF9X0oEWm1j4qJs2nii9yBM9yVG8E=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=JFNPtmr4sd136bBuxTk30JJxWGCc2vKzq7i80erCu4jRQM7QWa24MwFd4bZJlZiYaGb2swTbwCKA8/mPLXFvt3qyleH/XskrJtLy5eZJqdxp7Waq/QXDSlTc0UnEbuFXgELkgeWJ2UUQbc9IEsFs7HMY+vF7WckNieCp7VLEa1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1sAViKt4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ukcRkhqG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF2FC1F00898;
-	Wed, 16 Sep 2026 16:47:38 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1sAViKt4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8DE5D1F0089B;
+	Wed, 16 Sep 2026 16:47:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577259;
-	bh=cHy6NRGXSXGb1WHdXIU9+CCEVfCO5bD4tCjpAchBcto=;
+	s=korg; t=1789577265;
+	bh=EEc6pR8PR/pvNokNJAsWECHqLRxf2hWI7sz0Ufy1iIY=;
 	h=Subject:To:Cc:From:Date;
-	b=ukcRkhqGdSL2ovvKuT9qxjZkEnq4rSMtgDXBjiJSApL2uD+MrL5tUNCOCPGG1IqZe
-	 p+5edVfQ6UCQFIfAJ09X0hZ+OidQwJmuYGpMhiY2X5zPm//1iH/wMONW76WF/lqimQ
-	 QG5hskpBjUywEIP+RfH1ZpjcQ1gQGiA9lzCt1vqQ=
-Subject: FAILED: patch "[PATCH] smb: client: pin DFS superblock in iterator callback" failed to apply to 5.15-stable tree
-To: kmehltretter@gmail.com,pc@manguebit.org
+	b=1sAViKt46VAoI0A5NMu6rl5/xqKw5uXppqZ1cIiZoGrQaxb3rggM7m3U55udWioP8
+	 QKzW4lIcQMqq8Jhy13PeHi1JzFkyyA6cAjTrMFHzZzGosIlRrY1dCtrYYcmjrR32zb
+	 0++Rpf1vGXqsmZ+P+3x42QUxxClNkHJKVZg9yLtk=
+Subject: FAILED: patch "[PATCH] smb: client: honor forceuid/forcegid when mapping SIDs to" failed to apply to 6.6-stable tree
+To: pc@manguebit.org,bharathsm@microsoft.com,linkinjeon@kernel.org,ronniesahlberg@gmail.com,sprasad@microsoft.com,tom@talpey.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:41:44 +0100
-Message-ID: <2026091644-acid-unclasp-cda8@gregkh>
+Date: Wed, 16 Sep 2026 17:42:05 +0100
+Message-ID: <2026091605-runaround-justness-9c84@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 5.15-stable tree.
+The patch below does not apply to the 6.6-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.15.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d806d5a85dcbe2a0f181b2f0f9f61ddfbefa1818
+git cherry-pick -x 18a72975e9f35aadecc75b031f693f2d1f49308f
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091644-acid-unclasp-cda8@gregkh' --subject-prefix 'PATCH 5.15.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091605-runaround-justness-9c84@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,67 +62,150 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d806d5a85dcbe2a0f181b2f0f9f61ddfbefa1818 Mon Sep 17 00:00:00 2001
-From: Karl Mehltretter <kmehltretter@gmail.com>
-Date: Wed, 2 Sep 2026 20:28:14 +0200
-Subject: [PATCH] smb: client: pin DFS superblock in iterator callback
+From 18a72975e9f35aadecc75b031f693f2d1f49308f Mon Sep 17 00:00:00 2001
+From: Paulo Alcantara <pc@manguebit.org>
+Date: Sun, 6 Sep 2026 14:40:04 -0300
+Subject: [PATCH] smb: client: honor forceuid/forcegid when mapping SIDs to
+ uid/gid
 
-tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
-takes its active reference only after iterate_supers_type() has dropped
-s_umount and its passive reference. Concurrent DFS automount expiry can
-therefore free the superblock before cifs_sb_active() uses it.
+When the administrator mounts with forceuid or forcegid (uid=/gid=
+mount options), they expect all files to appear owned by the specified
+user/group.  However, several code paths unconditionally called
+sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
+ignoring the administrator's explicit override:
 
-A deterministic KASAN test reproduces the race as:
+  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
+  - cifs_posix_to_fattr() (readdir via POSIX extensions)
+  - parse_sec_desc() (CIFS ACL ownership mapping)
 
-  BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
+This allowed an untrusted server to dictate local file ownership even
+when the mount was configured to force specific uid/gid values.
 
-The same test passes with this change applied.
+Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
+CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
+same pattern already used by cifs_unix_basic_to_fattr() for unix
+extensions.
 
-Take the active reference in the callback while iterate_supers_type()
-still holds s_umount shared. cifs_put_tcp_super() remains the matching
-release.
-
-Fixes: bacd704a95ad ("cifs: handle prefix paths in reconnect")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: stable@vger.kernel.org
 
-diff --git a/fs/smb/client/misc.c b/fs/smb/client/misc.c
-index 46e1382e8e04..d4db3f91a91f 100644
---- a/fs/smb/client/misc.c
-+++ b/fs/smb/client/misc.c
-@@ -891,8 +891,14 @@ static void tcon_super_cb(struct super_block *sb, void *arg)
- 	     t1->ses->dfs_root_ses == t2->ses->dfs_root_ses) &&
- 	    t1->ses->server == t2->ses->server &&
- 	    t2->origin_fullpath &&
--	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath))
-+	    dfs_src_pathname_equal(t2->origin_fullpath, t1->origin_fullpath)) {
-+		/*
-+		 * Take the active reference while iterate_supers_type() still
-+		 * holds s_umount shared.
-+		 */
-+		cifs_sb_active(sb);
- 		sd->sb = sb;
-+	}
- 	spin_unlock(&t2->tc_lock);
+diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
+index 213a421bf8e9..def8908dd7e9 100644
+--- a/fs/smb/client/cifsacl.c
++++ b/fs/smb/client/cifsacl.c
+@@ -1346,6 +1346,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ {
+ 	int rc = 0;
+ 	struct smb_sid *owner_sid_ptr, *group_sid_ptr;
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 	struct smb_acl *dacl_ptr; /* no need for SACL ptr */
+ 	char *end_of_acl;
+ 	__u32 dacloffset, osidoffset, gsidoffset;
+@@ -1364,17 +1365,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ 	cifs_dbg(NOISY, "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dacloffset 0x%x\n",
+ 		 pntsd->revision, pntsd->type, osidoffset, gsidoffset,
+ 		 le32_to_cpu(pntsd->sacloffset), dacloffset);
+-/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++
+ 	rc = sid_from_sd(pntsd, acl_len, osidoffset, &owner_sid_ptr);
+ 	if (rc) {
+ 		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
+ 		return rc;
+ 	}
+-	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
++		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
++				 __func__, rc);
++			return rc;
++		}
+ 	}
+ 
+ 	rc = sid_from_sd(pntsd, acl_len, gsidoffset, &group_sid_ptr);
+@@ -1383,11 +1388,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ 			 __func__, rc);
+ 		return rc;
+ 	}
+-	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
++		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
++				 __func__, rc);
++			return rc;
++		}
+ 	}
+ 
+ 	if (dacloffset) {
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index 49f9993ad567..1fe0ef0a95db 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -851,6 +851,7 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
+ 	struct smb311_posix_qinfo *info = &data->posix_fi;
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
+ 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 
+ 	memset(fattr, 0, sizeof(*fattr));
+ 
+@@ -895,8 +896,12 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
+ 		fattr->cf_symlink_target = data->symlink_target;
+ 		data->symlink_target = NULL;
+ 	}
+-	sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
+ 
+ 	cifs_dbg(FYI, "POSIX query info: mode 0x%x uniqueid 0x%llx nlink %d\n",
+ 		fattr->cf_mode, fattr->cf_uniqueid, fattr->cf_nlink);
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 32a75afca8f5..1ea84f4ada39 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -242,6 +242,7 @@ static void
+ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		    struct cifs_sb_info *cifs_sb)
+ {
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 	struct smb2_posix_info_parsed parsed;
+ 
+ 	posix_info_parse(info, NULL, &parsed);
+@@ -281,8 +282,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		 le32_to_cpu(info->ReparseTag),
+ 		 le32_to_cpu(info->Mode));
+ 
+-	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
  }
  
-@@ -909,15 +915,8 @@ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void
- 
- 	for (; *fs_type; fs_type++) {
- 		iterate_supers_type(*fs_type, f, &sd);
--		if (sd.sb) {
--			/*
--			 * Grab an active reference in order to prevent automounts (DFS links)
--			 * of expiring and then freeing up our cifs superblock pointer while
--			 * we're doing failover.
--			 */
--			cifs_sb_active(sd.sb);
-+		if (sd.sb)
- 			return sd.sb;
--		}
- 	}
- 	pr_warn_once("%s: could not find dfs superblock\n", __func__);
- 	return ERR_PTR(-EINVAL);
+ static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
 
