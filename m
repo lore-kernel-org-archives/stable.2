@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0E8E5013C5
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:40:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B4BC4D7D49
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:40:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580457; cv=none; b=R9mqUqYOTnlco5i0fm3s5AqRVs9k3CRgVZ8b+fF0iPCV/SEWt2hQ+tKmTP70EnWcRxNdQxinP2J72D8DW15/Ek54Wt6VYilp5rDQeYgiDMDpq38pqBlRPleKjD7Aife0NCCskkpeBUvNQDMGQ1CbkVq7ApGfCZfX/KKorI6PoC4=
+	t=1789580464; cv=none; b=c6iEzfV6YoZWITHQF3dfzlrwfhoMpTe5o0/yBi7IEK/AmDXs4bHGC5kwlXfniS67+I11ai9F8okKkf+m+Pepasgl8SuFYVSCSgpFbh7d9RXRC1Vhh6sLvtsVCIxplbBagBzjqQIL/YSJtdsPef+5D5X49yKNByj7iAZ8oiLHJrs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580457; c=relaxed/simple;
-	bh=5NCQijxpTYqPKRwAbCMjgLYAITNzVACHkS0w+dNGWUM=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LfD+W0Z7Us4Iow3JYna0PJmIULJlMyNePvR42mXhLh9e6tpQEt2M+F+Lq0GEcZYY8kP3pQx9KxG2tBwKgvHeofsCtoiz4RFkkheqjS2hS3aRQvkH/YGJ4/OP75UPViFz0EwMplMicN7pVwMn7jELMIThh9FV1TJKNId8ANqo2SA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AUSswBDH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789580464; c=relaxed/simple;
+	bh=B5l91njjFYwjBkhIOy5p/TIoNCd2gAEz4qg6bc8/1jM=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=p/hppVIWo5gulrKYyd7ldvwwmRaNzFWETFhzZFV9GZlZ521WKlDBVmPV+ppMrIL6nj4DbOCtQbyKGUjcvT9vHcsSYoAi7j30DGWgNukEqObVuyS3bqNgdsrJEu5dxTdjIbOhnsfgoQI/kE4TBxIk1TbAYIqCBt9k+vIUSNae33M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NDlP7IOC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AUSswBDH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B57BB1F00899;
-	Wed, 16 Sep 2026 17:40:46 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NDlP7IOC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF29B1F0089A;
+	Wed, 16 Sep 2026 17:40:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789580447;
-	bh=ACLzQXK/7EwIszy/KqIgEKWkbwNJtBSUUWYEi0KdYxM=;
+	s=korg; t=1789580456;
+	bh=GjDXtdMVoxvGfAndwZxGpGqPRY126/ed6qgN5/pZdGM=;
 	h=Subject:To:Cc:From:Date;
-	b=AUSswBDHpWcTAON2DUfU2CyKXBXDhbSYfRONtj/eowd2mz8O1WrtL3Tf4wN7/9wkw
-	 rUwE4nR0RvgpGq6DEmoe0KBo4l1bhpBf7jtBT0Ew/OL61GzpwKGuPjfqJTujstavi0
-	 9Th/a1u8tAF9cdkeuX6MseGroXnOUicGnhU0leV8=
+	b=NDlP7IOC2xG0wviHJJUohJmld2DlO/ArE1DsaQRTtq8vtaZdHtcemySbk434WwyRf
+	 7EIA0N4mOirB+rcSgGeOybad+5LITe7UwBlOYsnwo5AWM6J0XjTIAcanQWHRsAv+pN
+	 IJcHglNVqrABUuvX5I1FcGMLr6h3hZrOIpWED2WA=
 Subject: FAILED: patch "[PATCH] drm/amdkfd: Don't acquire buffers during CRIU queue restore." failed to apply to 6.18-stable tree
 To: David.Francis@amd.com,alexander.deucher@amd.com,david.yatsin@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 18:34:50 +0100
-Message-ID: <2026091650-tackling-tumbling-d114@gregkh>
+Date: Wed, 16 Sep 2026 18:35:11 +0100
+Message-ID: <2026091611-babied-commute-f16e@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 8a93f77aec65574b8152c88eb73613336f92f86b
+git cherry-pick -x 1cafa8b29e029eac3ddf64604f891b35dbf6262b
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091650-tackling-tumbling-d114@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091611-babied-commute-f16e@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,7 +62,7 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 8a93f77aec65574b8152c88eb73613336f92f86b Mon Sep 17 00:00:00 2001
+From 1cafa8b29e029eac3ddf64604f891b35dbf6262b Mon Sep 17 00:00:00 2001
 From: David Francis <David.Francis@amd.com>
 Date: Tue, 30 Jun 2026 09:58:18 -0400
 Subject: [PATCH] drm/amdkfd: Don't acquire buffers during CRIU queue restore.
@@ -89,11 +89,9 @@ Fixes: 20a5e7ffdfec ("drm/amdkfd: Properly acquire queue buffers in CRIU restore
 Reviewed-by: David Yat Sin <david.yatsin@amd.com>
 Signed-off-by: David Francis <David.Francis@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 1cafa8b29e029eac3ddf64604f891b35dbf6262b)
-Cc: stable@vger.kernel.org
 
 diff --git a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
-index 0ac35789b239..b8c36907d536 100644
+index 002a374d224c..97e77a5a35e5 100644
 --- a/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
 +++ b/drivers/gpu/drm/amd/amdkfd/kfd_process_queue_manager.c
 @@ -265,6 +265,11 @@ static int init_user_queue(struct process_queue_manager *pqm,
@@ -108,9 +106,9 @@ index 0ac35789b239..b8c36907d536 100644
  		retval = amdgpu_amdkfd_alloc_kernel_mem(dev->adev,
  						AMDGPU_MES_GANG_CTX_SIZE,
  						AMDGPU_GEM_DOMAIN_GTT,
-@@ -1042,18 +1047,10 @@ int kfd_criu_restore_queue(struct kfd_process *p,
+@@ -1052,18 +1057,10 @@ int kfd_criu_restore_queue(struct kfd_process *p,
  	memset(&qp, 0, sizeof(qp));
- 	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->adev->gfx.xcc_mask));
+ 	set_queue_properties_from_criu(&qp, q_data, NUM_XCC(pdd->dev->xcc_mask));
  
 -	ret = kfd_queue_acquire_buffers(pdd, &qp);
 -	if (ret) {
