@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F1F54A7F9
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6A74D0CFD
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:48:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789577326; cv=none; b=qrQ5y+iJpx/pLfArCg0QYc0MObtQu7aNevwO0Juinv1Ige50nlvIRdXl5G+zyq0g97jhkawqyVPoVgRotOKv+5iMNTFKRcZKYy/BUw5C68lPiv85SJUrZI/lWQbxKCfsh1xlVrvocss7FNYb3Cybi3WNX+jXmp2qMZ8u0y3ryCc=
+	t=1789577328; cv=none; b=Q9epugztCNjBoArgY+ToHac7IwkWE67m/RRFXO1Asg55dAPN7rQqBQlD2eko7IOXZWOV25Px33wv+bNHqbTBr6dXhZ158hpu1PvIeN+akgGj4Q/g5eaLaXdrnkP6++TcKfNWb8NOzdbkjnApNTSrsNfu/vh/7E9Hd5EcaG88ToU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789577326; c=relaxed/simple;
-	bh=wLzADmdVD6DU8NuhfnQ+A4kPLdQNCvxcgvMsf2ebt5k=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Si5GYJeUT7bMbkYiUcpnD4eE4vPd2l4FYx8qDydIHQXuIWL5pxTM80TMgZ7HM92LPdIvnR33ekGL8slDBbFZgtpfYDi0kEQ5EYb1WlTFbxlJWRJ3r+EZpJLLxhhmxMxqaTfbENcnW1QdrNK3qbr3Dz2sWOE5xqYb9MilBu198e8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=I8l2gZtm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789577328; c=relaxed/simple;
+	bh=IXpi16kJCRF/fFUeRjC7m7bBaAA0ogIwbRyMPYw/0KE=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Bs/Yisrp+0mTs3sO5suO9oU1Ng9cT/ALiLfXCbQu6T/mZZPjC4dQu09Mwx/TCXfCV5Vx37AIhg0QOxD77z32TLvJbx0OZGkG+JD0qxTCsFW/7Bw6CPkJV3j2tQhqCMnteWNiKipy8hVP5H7cKz2uBMdaUOLPIJOjloKoc1KJ0Js=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KEUQzFPl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="I8l2gZtm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBD301F0089B;
-	Wed, 16 Sep 2026 16:48:31 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KEUQzFPl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EC3001F00898;
+	Wed, 16 Sep 2026 16:48:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789577312;
-	bh=cmQBqhGMPWC5XDKTjwqQZenw6ZdjieaoCVnEaeT6Ybc=;
+	s=korg; t=1789577324;
+	bh=fZSXnpUw5Yy4NUu/S8VMxsR1HU2dwtg7SQ3tiuYkCcE=;
 	h=Subject:To:Cc:From:Date;
-	b=I8l2gZtmA3+t/USELQ2QVe7qpCQvABtZayJ42myYoVbg5ze2KCufonNm6gM4PjE8P
-	 LNVWRQ49L/F4TEHUcnX08L//95z/4LpZAeCjRGxb0Huzv1Q2w48Du0XhSBnxHG1deH
-	 46RALjKaNjGY23+uyfkzEGVMiF8RRpixC3gLqc3A=
-Subject: FAILED: patch "[PATCH] smb: client: fail DACL rewrite when the new DACL exceeds 64K" failed to apply to 6.6-stable tree
-To: doebel@amazon.de,linkinjeon@kernel.org,pc@manguebit.org
+	b=KEUQzFPlKKpOO0R1LqEqbiWsy70ihAtDB4gtkTZ5DSREbCFVR77g3Ou3Pq0RQV1UB
+	 jbOLIPeTdt2BHAum4iHcIK7hc5LLlb7H4SYxaL2X3LK6IWYeTwKi0CCIZQHTHTzjS/
+	 6SGLgztH5gFcBGW5lT5aj2psAbFpqV0qgvRjd6q8=
+Subject: FAILED: patch "[PATCH] smb: client: fix cifsFileInfo reference leak in deferred" failed to apply to 6.6-stable tree
+To: fanwu01@zju.edu.cn,pc@manguebit.org,songl@zju.edu.cn
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:43:03 +0100
-Message-ID: <2026091603-giddily-overstate-4978@gregkh>
+Date: Wed, 16 Sep 2026 17:43:16 +0100
+Message-ID: <2026091616-concrete-scabby-841b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.6.y
 git checkout FETCH_HEAD
-git cherry-pick -x d05045177a855386bca5e1909e08d06290e6e3b3
+git cherry-pick -x 5520e89a5a4f834bced64cf2ac927001cc513a40
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091603-giddily-overstate-4978@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091616-concrete-scabby-841b@gregkh' --subject-prefix 'PATCH 6.6.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,153 +62,68 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From d05045177a855386bca5e1909e08d06290e6e3b3 Mon Sep 17 00:00:00 2001
-From: Bjoern Doebel <doebel@amazon.de>
-Date: Tue, 8 Sep 2026 16:10:01 +0000
-Subject: [PATCH] smb: client: fail DACL rewrite when the new DACL exceeds 64K
+From 5520e89a5a4f834bced64cf2ac927001cc513a40 Mon Sep 17 00:00:00 2001
+From: Fan Wu <fanwu01@zju.edu.cn>
+Date: Fri, 4 Sep 2026 13:48:11 +0000
+Subject: [PATCH] smb: client: fix cifsFileInfo reference leak in deferred
+ close
 
-replace_sids_and_copy_aces() and set_chmod_dacl() accumulate the size of
-the DACL they build in a u16. That accumulator can wrap.
+When cifs_close() defers a close, it hands the cifsFileInfo reference
+of the closing struct file to the queued work. Each execution of
+smb2_deferred_work_close() drops one such reference.
 
-validate_dacl() caps num_aces at (dacl_size - sizeof(struct smb_acl)) /
-20, i.e. 3276 for a maximally sized DACL, while each rewritten ACE can
-grow to sizeof(struct smb_ace) (76 bytes) once its SID is replaced with
-one carrying SID_MAX_SUB_AUTHORITIES sub-authorities. The worst case is
-therefore sizeof(struct smb_acl) + 3276 * 76 = 248984 bytes, far beyond
-what a u16 can hold. A wraparound is reached with 863 ACEs.
+deferred_close_scheduled can be false while the work is pending: the
+workqueue clears PENDING when the callback starts to run, before the
+callback clears the flag under deferred_lock. A close in that
+interval requeues the running work, and the callback then clears the
+flag, leaving the requeued work pending with the flag down. A later
+cifs_open() can reuse the handle and its cifs_close() reaches the
+same branch: queue_delayed_work() fails because the work is still
+pending, but cifs_close() returns without dropping the closing file's
+reference. The cifsFileInfo count stays pinned and its tlink, dentry
+and server handle are leaked.
 
-After the wraparound, ndacl_ptr->size becomes meaningless and the offset
-will point anywhere in the ACE array. As a result, we will see
-corruption of the DACL, which then gets sent to the server. This is not
-an out-of-bounds write as the allocation now covers the worst-case
-expansion, so writes will always go into the buffer.
+Check the return value and hand off the reference only when work was
+actually queued. Otherwise, use the shared _cifsFileInfo_put(), like
+the mod_delayed_work() branch above: the pending execution already
+owns its reference.
 
-Adjust the code to use a u32 internally and return -EOVERFLOW in the
-overflow case. The operation must be refused, because a DACL can only
-hold 2^16-1 bytes on the wire and larger DACLs cannot be represented.
+This issue was found by an in-house static analysis tool.
 
-set_chmod_dacl() carries the same pattern and is fixed the same way. It
-only wraps once the source DACL comes within roughly 380 bytes of the
-64K ceiling, but the failure mode is identical.
-
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
+Fixes: c3f207ab29f7 ("cifs: Deferred close for files")
 Cc: stable@vger.kernel.org
-Fixes: f5065508897a ("cifs: Retain old ACEs when converting between mode bits and ACL.")
-Assisted-by: Kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 
-diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-index 3e96e151df35..c5e47a835f99 100644
---- a/fs/smb/client/cifsacl.c
-+++ b/fs/smb/client/cifsacl.c
-@@ -1096,13 +1096,13 @@ unsigned int setup_special_user_owner_ACE(struct smb_ace *pntace)
- static void populate_new_aces(char *nacl_base,
- 		struct smb_sid *pownersid,
- 		struct smb_sid *pgrpsid,
--		__u64 *pnmode, u16 *pnum_aces, u16 *pnsize,
-+		__u64 *pnmode, u16 *pnum_aces, u32 *pnsize,
- 		bool modefromsid,
- 		bool posix)
- {
- 	__u64 nmode;
- 	u16 num_aces = 0;
--	u16 nsize = 0;
-+	u32 nsize = 0;
- 	__u64 user_mode;
- 	__u64 group_mode;
- 	__u64 other_mode;
-@@ -1201,17 +1201,17 @@ static void populate_new_aces(char *nacl_base,
- 	*pnsize = nsize;
- }
- 
--static __u16 replace_sids_and_copy_aces(struct smb_acl *pdacl, struct smb_acl *pndacl,
--		struct smb_sid *pownersid, struct smb_sid *pgrpsid,
--		struct smb_sid *pnownersid, struct smb_sid *pngrpsid,
--		int *aclflag)
-+static int replace_sids_and_copy_aces(struct smb_acl *pdacl, struct smb_acl *pndacl,
-+				      struct smb_sid *pownersid, struct smb_sid *pgrpsid,
-+				      struct smb_sid *pnownersid, struct smb_sid *pngrpsid,
-+				      int *aclflag, u16 *pnsize)
- {
- 	int i;
- 	u16 size = 0;
- 	struct smb_ace *pntace = NULL;
- 	char *acl_base = NULL;
- 	u16 src_num_aces = 0;
--	u16 nsize = 0;
-+	u32 nsize = 0;
- 	struct smb_ace *pnntace = NULL;
- 	char *nacl_base = NULL;
- 	u16 ace_size = 0;
-@@ -1240,9 +1240,12 @@ static __u16 replace_sids_and_copy_aces(struct smb_acl *pdacl, struct smb_acl *p
- 
- 		size += le16_to_cpu(pntace->size);
- 		nsize += ace_size;
-+		if (nsize > U16_MAX)
-+			return -EOVERFLOW;
- 	}
- 
--	return nsize;
-+	*pnsize = nsize;
-+	return 0;
- }
- 
- static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
-@@ -1254,7 +1257,7 @@ static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
- 	struct smb_ace *pntace = NULL;
- 	char *acl_base = NULL;
- 	u16 src_num_aces = 0;
--	u16 nsize = 0;
-+	u32 nsize = 0;
- 	struct smb_ace *pnntace = NULL;
- 	char *nacl_base = NULL;
- 	u16 num_aces = 0;
-@@ -1305,6 +1308,8 @@ static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
- 
- 		nsize += cifs_copy_ace(pnntace, pntace, NULL);
- 		num_aces++;
-+		if (nsize > U16_MAX)
-+			return -EOVERFLOW;
- 
- next_ace:
- 		size += le16_to_cpu(pntace->size);
-@@ -1321,6 +1326,10 @@ static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
- 	}
- 
- finalize_dacl:
-+	/* The DACL size field is 16-bit on the wire, see MS-DTYP 2.4.5 */
-+	if (nsize > U16_MAX)
-+		return -EOVERFLOW;
-+
- 	pndacl->num_aces = cpu_to_le16(num_aces);
- 	pndacl->size = cpu_to_le16(nsize);
- 
-@@ -1473,6 +1482,8 @@ static int build_sec_desc(struct smb_ntsd *pntsd, struct smb_ntsd *pnntsd,
- 
- 		rc = set_chmod_dacl(dacl_ptr, ndacl_ptr, owner_sid_ptr, group_sid_ptr,
- 				    pnmode, mode_from_sid, posix);
-+		if (rc)
-+			return rc;
- 
- 		sidsoffset = ndacloffset + le16_to_cpu(ndacl_ptr->size);
- 		/* copy the non-dacl portion of secdesc */
-@@ -1548,10 +1559,12 @@ static int build_sec_desc(struct smb_ntsd *pntsd, struct smb_ntsd *pnntsd,
- 
- 		if (dacloffset) {
- 			/* Replace ACEs for old owner with new one */
--			size = replace_sids_and_copy_aces(dacl_ptr, ndacl_ptr,
--					owner_sid_ptr, group_sid_ptr,
--					nowner_sid_ptr, ngroup_sid_ptr,
--					aclflag);
-+			rc = replace_sids_and_copy_aces(dacl_ptr, ndacl_ptr,
-+							owner_sid_ptr, group_sid_ptr,
-+							nowner_sid_ptr, ngroup_sid_ptr,
-+							aclflag, &size);
-+			if (rc)
-+				goto chown_chgrp_exit;
- 			ndacl_ptr->size = cpu_to_le16(size);
- 		}
- 
+diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
+index 27b58d907203..1aa4844f8b8a 100644
+--- a/fs/smb/client/file.c
++++ b/fs/smb/client/file.c
+@@ -1515,11 +1515,18 @@ int cifs_close(struct inode *inode, struct file *file)
+ 				trace_smb3_close_cached(tcon->tid, tcon->ses->Suid,
+ 						cfile->fid.persistent_fid,
+ 						cifs_sb->ctx->closetimeo);
+-				queue_delayed_work(deferredclose_wq,
+-						&cfile->deferred, cifs_sb->ctx->closetimeo);
+-				cfile->deferred_close_scheduled = true;
+-				spin_unlock(&cinode->deferred_lock);
+-				return 0;
++				/*
++				 * Each queued execution owns one reference.
++				 * If nothing was queued, the reference of
++				 * the closing file is dropped below.
++				 */
++				if (queue_delayed_work(deferredclose_wq,
++						       &cfile->deferred,
++						       cifs_sb->ctx->closetimeo)) {
++					cfile->deferred_close_scheduled = true;
++					spin_unlock(&cinode->deferred_lock);
++					return 0;
++				}
+ 			}
+ 			spin_unlock(&cinode->deferred_lock);
+ 			_cifsFileInfo_put(cfile, true, false);
 
