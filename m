@@ -1,138 +1,165 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8471F511E78
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:23:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760DA50C29E;
+	Wed, 16 Sep 2026 14:26:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789568619; cv=none; b=ZQ+Ol4MXSIAicG2OEY0aKvDf35Dkmv5AS0c7c3xzGg6nBEL39EfoQs22tIsMY7sFtKYQJgdkjVYznNHxUIsG0eQSwDYSE6oHodnxmSnlLEN0pf0M3U6Nodwr7CmV1jwgY/2U5MY4e95FjfSIQKA/hyhQexyTPvhKxcYAvhqcvKs=
+	t=1789568782; cv=none; b=nz88Hh6raYTl6TFHWaiFB2rXbif4neaRhwmDjzy2jRr4XMzJYf7Qe+Vs76yt701CdxTwCL+Yvj28o4P0v/9ap1pXLxvILFlg7s+Ya7dxq2lNLZnDFLodLpBrS1NBIip53SxqUkzycOTyyNkvhSGui7QAOhhOP85r61sz4XNexbs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789568619; c=relaxed/simple;
-	bh=AKt9EBG2sN//YZXz7OJRbcZoWgw3MVBMUuQ0ohJ+fn4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=J5ZKsQgnkNSOdJ4VuABxk3au8Z/NjoBvaMOnCWLhBcieadA9NGZ70fpsWIGZIf6oGBtmok7hgF8pk2wWgWCi/B0pdyOr/4DC1gMMXejSmBDQViGlJJmatqc2O2n6SvshPsjJk27RjKItcVrU4xVHP7blSTp8++p+T8GjT9tdQFY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=S82RQ5bJ; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789568782; c=relaxed/simple;
+	bh=G+yzJzco+mwOK2jryzD4JbcBLAt5MOqr++tTqN0gd9I=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=n0ellZFc1Tq0h9swMTcTUZ1nOdZKw5B50X6ow18xDAulLkUWUF/HBmGWg4UhOkIQLnkyqK1RzZuPZyhjFSS91DCeIN51gMlSMYHTF4nFeQwgMJgck2O0kdBT3yqgBplsqrR+JMeRkhb+Cy5gZ/jcEjj0w0mI3nm0LncG1S7eEmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=r+4arxGz; arc=none smtp.client-ip=213.167.242.64
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="S82RQ5bJ"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f56039dso149306166b.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:23:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789568616; x=1790173416; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=B6QT3yGLHL6iAKp7l+6TCtIqZRata/HBJzcHAfxOozE=;
-        b=S82RQ5bJFrDX8fCe32ln4IrcTX4Ow8QhBonXvXldB78Scevz5jLTofi2DGR69HVmxc
-         L7mV6OjJiuus3oI6zx2QDse6QQ7O2nmpmqSOBt+5pkhnuFA5CHboUKGF08Uok10e66R5
-         /gcoOUpUblZksqckJ7WLvgwP5TPk9hwgW0ZrDIQItPd8J/AKoz7iS17QqexRfDwL0ZtQ
-         tjW16mO4fuG/X5cqB/czkqz6Luxh/uRMWTtE4pmJAk6eB0FON1V4x1WxyXLFZLu1u7k1
-         l9o+RBcLRNpomTYLcLjJ7Dfm8l38VORMllOFS8R8j+72WrixzgRhkLzzfj3h60F3a1A2
-         gHrg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789568616; x=1790173416;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=B6QT3yGLHL6iAKp7l+6TCtIqZRata/HBJzcHAfxOozE=;
-        b=jrbvTOFZUY5oCaXC/vw/TxE//0UwKrJsfImyvHH6lNqfHK1cfYhipd1d7/JZmZjkQp
-         edVbTa5ULx3QM3fkruOlGThhFhmwHqun4xMFXV4SIQ+nv9HYZsu/r5T5Md8DQ4UuS4TM
-         xl+UdHz2ASNheBH6ZwMekklfBEfQC/ChSqKy3wmmh0c7f2287/ne4d46wz77BLaSrnh8
-         W9bR3b7BdReWFOyEsPZ3cFf9gT4aszSMjanFgxSPaQ1zP4ANIBk+5pMWUT9FJJRDbAde
-         3wGXbRcYJaSozzh0xXTgLHlrabq2WXxGqZOocq62jiL8YrH+bbm2AZYwbdm9HsY1Yu+e
-         jxsA==
-X-Forwarded-Encrypted: i=1; AKwUvBxCOXeCe/SSh9/MJCKQrNDAh76y5Kz1hgxTbwB1GjpZo1lA9deG0zUb4ywB6x/GzAJlHspYm+0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lZ/u1ZnPiLbUqI0ygMxoix4Y9+aL5FwmUO0vLjo66OTitT9cRK
-	aiQsewrK7O6qcuQkeJvkx/DBMg9P7l05MHG59rJnLNJ0lVT3fyUDk3/i
-X-Gm-Gg: AYBFou2LzMykJw/fCH0WNzxuj8qqlC6abrXIm5fpPSOsaKPHAP7iqBGd8h2te8R6OgQ
-	l6p+y1z3dSiKo9sr9AVjfY73Y9nHozCC24iKjyaycLWXj1tZ32Je6T0YGgclRTtqmtp/RJkuols
-	jb9kxIFMoEtHtg/pbtL1yE1PoBAvXoPqraZXQYKkgoY5Kf9tkFW0DoZ88HOVwPcNSkO5KwTN9Sl
-	UdaSPXaC7pGminzbyNkbjjvn5Ns1SBQ2obnLKTvUDwI8tu5xgtXTIBe/D+ERgXkzJOFVn6l+39Z
-	Vtw/IS4EO6U0faM+PMR5P+GakdXkebYK6Ee2BkP3w9h32voh0mHwrTduwG4uaBG09kvdiPmKOgq
-	P9R6SZ/LApfT/P6vcupK9lzSSgTLCn7obJu5r8VxKALW8yYrNLWY1NoaFmxbw/uy4gF0neGTx2J
-	h0No4SmuCXAo7wSEPNWPZ0Fow/dyiZcnKWPT0pBNanUUlGrrBHHN3bcRmgSxsRbDebyvZa5W2M6
-	mBPXzMw1RCw/KS2jKvwgHsfMk0zHc1kYZTJ1XUJ5cj91s15yzY/udQhe4go
-X-Received: by 2002:a17:907:7241:b0:c26:19de:9138 with SMTP id a640c23a62f3a-c29e5351a04mr213058866b.43.1789568615501;
-        Wed, 16 Sep 2026 07:23:35 -0700 (PDT)
-Received: from misharu.home (2a02-a463-a071-0-1562-51d1-d5f-82bb.fixed6.kpn.net. [2a02:a463:a071:0:1562:51d1:d5f:82bb])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29e801cdfesm105216566b.58.2026.09.16.07.23.34
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:23:34 -0700 (PDT)
-From: Hari Mishal <harimishal1@gmail.com>
-To: harry.wentland@amd.com,
-	sunpeng.li@amd.com
-Cc: siqueira@igalia.com,
-	alexander.deucher@amd.com,
-	christian.koenig@amd.com,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	hersenxs.wu@amd.com,
-	Jerry.Zuo@amd.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	gregkh@linuxfoundation.org,
-	Hari Mishal <harimishal1@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amd/display: guard dc_sink dereferences in MST mode validation
-Date: Wed, 16 Sep 2026 16:23:32 +0200
-Message-ID: <20260916142332.10394-1-harimishal1@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="r+4arxGz"
+Received: from mail.ideasonboard.com (unknown [IPv6:2401:4900:1c69:85de:a3c9:9357:b164:bf0b])
+	by perceval.ideasonboard.com (Postfix) with ESMTPSA id AE58B558;
+	Wed, 16 Sep 2026 16:24:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
+	s=mail; t=1789568674;
+	bh=G+yzJzco+mwOK2jryzD4JbcBLAt5MOqr++tTqN0gd9I=;
+	h=From:Subject:Date:To:Cc:From;
+	b=r+4arxGzJb0u9PD7oDZRA+NtqlO5p17pnbnIIcRyHd9A3gXz2RCIoJaqBezf5XDXc
+	 V79c6gJiI/QV9t8v1w2N0ZYEzkhs9YukHrDCILRVGfbuOYNaLHAbr7Go5TxuCwndT9
+	 0v5SKv4/LOSn8AAkfEkaAvCRNYgD6cMVx9A2zvsw=
+From: Jai Luthra <jai.luthra@ideasonboard.com>
+Subject: [PATCH v4 0/6] platform/raspberrypi: Add Broadcom Videocore shared
+ memory support
+Date: Wed, 16 Sep 2026 19:55:30 +0530
+Message-Id: <20260916-b4-vc-sm-cma-v4-0-476d1142b5df@ideasonboard.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/3XOTU7EMAwF4KtUWeOR89fQWXEPxCJ1XCaLNkNSI
+ tCodyd0QIgRLJ/1/NkXUThHLuLYXUTmGktMSwvmrhN08sszQwwtC4XKStQIo4FKUGag2cPUO+V
+ IDxSUFW3lnHmKbzv3+HTNmV9em7peh2L0hYHSPMf12FV30JBJis/uKZY15ff9kyr38tdR+ftol
+ YCAIVhCJj1ZeoiBfUnLmHwOh4bvXlXfRo8S7Y2hmmGCZ+/MQByGfwz9YzjpbgzdjJ4MO3ePhm3
+ 4w9i27QO21izzYwEAAA==
+X-Change-ID: 20251030-b4-vc-sm-cma-f6727c39cd25
+To: Florian Fainelli <florian.fainelli@broadcom.com>, 
+ Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>, 
+ bcm-kernel-feedback-list@broadcom.com, 
+ Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+ Dave Stevenson <dave.stevenson@raspberrypi.com>, 
+ Phil Elwell <phil@raspberrypi.com>, Hans Verkuil <hverkuil@kernel.org>, 
+ Mauro Carvalho Chehab <mchehab+samsung@kernel.org>
+Cc: Stefan Wahren <wahrenst@gmx.net>, 
+ Laurent Pinchart <laurent.pinchart@ideasonboard.com>, 
+ Kieran Bingham <kieran.bingham@ideasonboard.com>, 
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+ linux-rpi-kernel@lists.infradead.org, linux-media@vger.kernel.org, 
+ Jai Luthra <jai.luthra@ideasonboard.com>, stable@vger.kernel.org, 
+ Dom Cobley <popcornmix@gmail.com>, 
+ Alexander Winkowski <dereference23@outlook.com>, 
+ Juerg Haefliger <juerg.haefliger@canonical.com>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3883;
+ i=jai.luthra@ideasonboard.com; h=from:subject:message-id;
+ bh=G+yzJzco+mwOK2jryzD4JbcBLAt5MOqr++tTqN0gd9I=;
+ b=owEBbQKS/ZANAwAKAUPekfkkmnFFAcsmYgBqqqbzCfMwcMmrMP9AJKk6+nJ6lDlUj9Y3YjQep
+ zF2xcyLYTqJAjMEAAEKAB0WIQRN4NgY5dV16NRar8VD3pH5JJpxRQUCaqqm8wAKCRBD3pH5JJpx
+ RWwID/49vDOKCPY8cTBjwXcURghuwFVhx9WDGhrIAAxZB3QcnNUziCNRN3WEqofBDxGeNxB8G/M
+ 29sxoUPZZhuey3h682AH9+5OKQZ2VDgyIs4dNEDoybbQ2juxoEoY4Y0O4dLhXrjbPfvF0SOYGyG
+ cFcQzTR4JVB/b954DH9G0FUTNAY8yhOmF58sL5LrbHVrq3TXVByuOfpjJgYrVCdQCbUVWuzdAe+
+ xE+Oppw1qDOY3IZsBS7Wqbq4uCybqHyvv0dMCS5F2V852rJuZvSWiv4UgIPTKiYaBEiLBHpRMhM
+ Dd1xi9wfnbQoLGBekig6MWWn1a7fKGe2+51WZecE193bd364A87rkLO7wsQhTOhcAxTaah7Eob3
+ jbFwjuyHwkJMXqqhieDQv14E+fIrRk+x7tROvc5LSC8DWTCLq/R+xEOgL0tJH5WtUwjL5El2t6y
+ ByZxk6rkPfu7HsiMkD43jky3VTXVQ0FD6M1gGKTG+TMTCClLU3T+rOGPioX6qlhzUneRyLU1oXZ
+ MdR+RLcuf8h5awQ4VBRYtdUS8xEdwHgav+SG/hS/0WUU726VH03VLhu5vMNvph/sKkpLOZNM4ZN
+ lAiEdrbIKTUcRTX6Us9Cc78bVPQ+Rc3VEeIFZg4Rdikc5ULy8Jy7e29uctFDCckrYndGTQGJR0A
+ wDomRtonXcIdI8w==
+X-Developer-Key: i=jai.luthra@ideasonboard.com; a=openpgp;
+ fpr=4DE0D818E5D575E8D45AAFC543DE91F9249A7145
 
-dm_dp_mst_is_port_support_mode() reads
-aconnector->dc_sink->dsc_caps... for the DSC branch-throughput check,
-and get_conv_frl_bw()'s HDMI-PCON FRL-bandwidth path reads
-aconnector->dc_sink->edid_caps.max_frl_rate, both without a NULL
-check. dc_sink is cleared asynchronously on MST unplug, and both
-functions run from paths that the driver's own comments document as
-racing that teardown: the connector probe worker's ->mode_valid
-callback and a compositor's atomic check, neither of which holds the
-MST manager lock that the teardown path uses. The former does have an
-existing dsc_aux NULL check, but dsc_aux isn't reliably cleared in
-every path that clears dc_sink, so it doesn't cover this.
+Hi,
 
-Fail the port-support check and skip the FRL conversion path when the
-sink is already gone.
+The vc-sm-cma driver allows contiguous memory blocks to be imported into
+the VideoCore VPU memory map. This series adds support for this driver
+and changes to VCHIQ MMAL layer required to get it functional.
 
-Fixes: f04d275d94e1 ("drm/amd/display: add mst port output bw check")
-Fixes: 5c9b8b27a883 ("drm/amd/display: Tie FRL support into amdgpu_dm")
-Cc: stable@vger.kernel.org
-Assisted-by: gkh_clanker_t1000
-Signed-off-by: Hari Mishal <harimishal1@gmail.com>
+These changes have lived in the staging directory of the downstream
+Raspberry Pi tree since quite some time, but are necessary for getting
+the VCHIQ based peripherals like the ISP functional in mainline.
+
+Thanks,
+	Jai
+
+Signed-off-by: Jai Luthra <jai.luthra@ideasonboard.com>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+Changes in v4:
+- Rebase on v7.3-rc1
+- Use Dave's .com email in commits and comments
+- Cut out all userspace import and VPU alloc code (from Dave)
+- Link to v3: https://lore.kernel.org/r/20260717-b4-vc-sm-cma-v3-0-6c4e77804e5d@ideasonboard.com
 
-diff --git a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-index 045a7f88b754..7261317d4c0f 100644
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_mst_types.c
-@@ -1231,7 +1231,8 @@ static bool get_conv_frl_bw(struct amdgpu_dm_connector *aconnector,
- 	unsigned int max_sink_bw_in_kbps = 0;
- 	unsigned int dsc_max_sink_bw_in_kbps = 0;
- 
--	if (aconnector->dc_link->dc->caps.dp_hdmi21_pcon_support &&
-+	if (aconnector->dc_sink &&
-+	    aconnector->dc_link->dc->caps.dp_hdmi21_pcon_support &&
- 	    aconnector->mst_downstream_port_caps.bytes.byte0.bits.DWN_STRM_PORTX_TYPE == DOWN_STREAM_DETAILED_HDMI) {
- 		max_conv_bw_in_kbps = dc_link_bw_kbps_from_raw_frl_link_rate_data(
- 				aconnector->dc_link->dc,
-@@ -1996,6 +1997,9 @@ enum dc_status dm_dp_mst_is_port_support_mode(
- 	struct dc_dsc_config_options dsc_options = {0};
- 	uint32_t stream_kbps;
- 
-+	if (!aconnector->dc_sink)
-+		return DC_FAIL_BANDWIDTH_VALIDATE;
-+
- 	/* DSC unnecessary case
- 	 * Check if timing could be supported within end-to-end BW
- 	 */
+Changes in v3:
+- Rebase on v7.2-rc1
+- Fix lkp bot errors with Kconfig dependencies
+- Switch from kzalloc with sizeof to kzalloc_obj
+- Link to v2: https://lore.kernel.org/r/20260105-b4-vc-sm-cma-v2-0-4daea749ced9@ideasonboard.com
+
+Changes in v2:
+- Drop patches that are not related to vc-sm-cma, or used for codec and
+  not ISP, so that is v1 PATCH 1, 2, 4, 5, 6, 7, 8, 12
+- Move v1 PATCH 11 to the top, adding a Fixes tag
+- Don't use global singletons for storing `struct vchiq_device` in
+  VCHIQ, instead converting the existing device drivers (audio) to be
+  stored inside `struct vchiq_drv_mgmt`
+- Update the vc-sm-cma driver to latest standards, like:
+    - Replace MODULE_ALIAS call with a proper device id_table
+    - Add kernel-doc comments for exported functions
+    - Move exported functions to a header under include/linux for use in
+      MMAL (and later V4L2 ISP and codec drivers)
+    - Use xarray instead of deprecated idr to map an integer ID to
+      imported/allocated buffer pointers
+    - Drop unnecessary pr_debug calls
+    - Replacing pr_xxx use with dev_xxx wherever possible
+    - Clean up stray comments
+- Link to v1: https://lore.kernel.org/r/20251031-b4-vc-sm-cma-v1-0-0dd5c0ec3f5c@ideasonboard.com
+
+---
+Dave Stevenson (5):
+      platform/raspberrypi: vchiq-mmal: Reset buffers_with_vpu on port_enable
+      platform/raspberrypi: Add VideoCore shared memory support
+      platform/raspberrypi: vchiq-mmal: Use vc-sm-cma to support zero copy
+      platform/raspberrypi: vchiq-mmal: Support sending data to MMAL ports
+      platform/raspberrypi: vchiq: Register vc-sm-cma as a platform driver
+
+Jai Luthra (1):
+      platform/raspberrypi: vchiq: Store audio device in driver management struct
+
+ MAINTAINERS                                        |   7 +
+ drivers/platform/raspberrypi/Kconfig               |   2 +
+ drivers/platform/raspberrypi/Makefile              |   1 +
+ drivers/platform/raspberrypi/vc-sm-cma/Kconfig     |   9 +
+ drivers/platform/raspberrypi/vc-sm-cma/Makefile    |   5 +
+ drivers/platform/raspberrypi/vc-sm-cma/vc_sm.c     | 806 +++++++++++++++++++++
+ drivers/platform/raspberrypi/vc-sm-cma/vc_sm.h     |  64 ++
+ .../raspberrypi/vc-sm-cma/vc_sm_cma_vchi.c         | 510 +++++++++++++
+ .../raspberrypi/vc-sm-cma/vc_sm_cma_vchi.h         |  64 ++
+ .../platform/raspberrypi/vc-sm-cma/vc_sm_defs.h    | 298 ++++++++
+ .../raspberrypi/vchiq-interface/vchiq_arm.c        |  13 +-
+ drivers/platform/raspberrypi/vchiq-mmal/Kconfig    |   3 +-
+ .../platform/raspberrypi/vchiq-mmal/mmal-common.h  |   4 +
+ .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.c   |  85 ++-
+ .../platform/raspberrypi/vchiq-mmal/mmal-vchiq.h   |   1 +
+ include/linux/raspberrypi/vc_sm_cma_ioctl.h        | 110 +++
+ include/linux/raspberrypi/vc_sm_knl.h              |  76 ++
+ include/linux/raspberrypi/vchiq_arm.h              |   9 +
+ 18 files changed, 2048 insertions(+), 19 deletions(-)
+---
+base-commit: e5e04726cdd043e309677071ab1b65a4b18f422b
+change-id: 20251030-b4-vc-sm-cma-f6727c39cd25
+
+Best regards,
 -- 
-2.43.0
+Jai Luthra <jai.luthra@ideasonboard.com>
 
