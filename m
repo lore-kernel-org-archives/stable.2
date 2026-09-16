@@ -1,128 +1,153 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7FC74FECDD
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 13:56:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E245C3E9C17
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 13:57:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567023; cv=none; b=cQoTzSVSOYYE7793F2CCgu+ekOopDqO6t6hoZFWgkmvH+3eTj2xV19w3w+S5I9jMPj/sQsqbgb2aa4ct4PvNnlqqcnwSlFEmJDCaaWlDKzi1yQkMAbXEslhenPpPcBAt0Iy0deKUX0X4AFkcphrqSZ/KOS4RUf+CKtpJEtBQhBI=
+	t=1789567074; cv=none; b=rd6/N4QJFBmCtyRWCJwF3cuVejKksLW5vT1r/J0fFce+STWgWejJstxxy6mqMyzOkcDx91QOId11HeMtvviQN42PclPpi7VhnZluqq/ywuntchXS74M9gS46ABoEO7d7cLWpeee4HiddpaG0xPX3BVMYE8VA47vIxWiDaIK1IHE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567023; c=relaxed/simple;
-	bh=R6zZgA4+dxBCZuC93z/Dn4bSURIgZMOE8dnPxTSHyxk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sJiG8ZHSyTKHcsN9TU/uZ+IZHzWld/NxAq1vcfIrhzvoCQriUTOkbJ53TCTUMsJx+NrcnqVeCpuMlnMtxev/76xDDJBYjOfbJaq+/lP04GwngGaGJTYpFTrjLMPne4BdoXhhuxhdwx4pmeXdXv49QGbccWUURo113H7vT9TrHl0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BzWqQxFc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789567074; c=relaxed/simple;
+	bh=k5W0zjS7CwXnvjPVXGCX/DoYC/ezZOX79HkT4Hgmv9o=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TNDQXzwGCMTYAgqDIrJGgRxB9OdkD6gR/zkHeNeUSTxlL/van9qCx/J1Sz0ymYD9/DWe73ZtxtcHvg9ZYxsT7BrChsyWNIgvG7vpKzSjE560nzgvvU+SY0Kf7zeVcc0zOtjNvrqnm6up9npOc92Y15ROWA7rbPzX6G7hcd0VxR4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Mi55x4CB; arc=none smtp.client-ip=74.125.230.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BzWqQxFc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9EF2E1F000FF;
-	Wed, 16 Sep 2026 13:56:58 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789567019;
-	bh=kbafuMiNoRatGTL0afSvAztaZx3wqfJA8bivuqi1tbg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BzWqQxFcOrrkPFWL2hJHeqvoTF/mZRQ2QapT320456QNQEPvYJLjxm7ZjCGyWz60q
-	 K+l+YllzBbvsPuzbScs+WDmdwfnGrrrDTpgZoJtdqOaMa5vWCEWhzqk1xugIjB35zT
-	 qjgBsQEcqKUzUiI93gFz2SdUm2WI9/popTHS0vf54SqfrBC/Wa4/852iEa1qwtzscj
-	 lyKJHCh1TFurlCRNj7L2RYCZKG0WdnT3Fiwdk1GInNpnBUaA28gDSj5/HROF6cfgJ4
-	 JJKcrrirc0rGXEc5ldHsLu5ix8zKwvw0MJUVnStnBJXRWQtKPMj16SdwQ6SIMhYrGn
-	 7O2VOVRRbHb7A==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Zihan Xi <zihanx@nebusec.ai>,
-	Vega <vega@nebusec.ai>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] ipmr: account multicast table and route memory
-Date: Wed, 16 Sep 2026 09:56:56 -0400
-Message-ID: <20260916135656.2747801-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091603-unstuffed-goes-e540@gregkh>
-References: <2026091603-unstuffed-goes-e540@gregkh>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Mi55x4CB"
+Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0bso8657356d6.3
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 06:57:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789567067; x=1790171867; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=NgUHPiwSi16km0SbObf2vOYCgqHRbxyVwtkEbeNTtkE=;
+        b=Mi55x4CBpoqhvTMyVVz5iCrVRj/v9TPyIIjcaIg//Oj9tJgfjrnl/LM1kKOMfYJOSb
+         Zoy6pY/D5XNuiJlatJxbEOLVKCP+r2rJeP/nEzI/UR76453FyqGBgejRADtvtRMMq/3I
+         hxAQDIKTy9wjI/O0aGYwg1aC1Gk1FesWgj/nGT+4Q+T90Klx6AkYsEI1eEs9rRIzM8dC
+         F2ilwcBDBwxxNoz7jwpWE+XCYRAE213GvrbNGPDHDFR6zcS1IgXhZBE3wUwhiQQt5naH
+         WJ7qJ9+qFBW2QcJg8QWAfAQJWSLPlxLXaUVepjU1qDEvnk995ZKy+FMwH57fYh2t+YAq
+         MYZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789567067; x=1790171867;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=NgUHPiwSi16km0SbObf2vOYCgqHRbxyVwtkEbeNTtkE=;
+        b=IHgtyV9X2M4qmJJmTu7K8m3g9CMlqErOdGBTDdcplX/Ppe8s/UeOikXfEXONIiyK1g
+         bE5UjW6AUOqvd8ebxGDo8xcuRZToN3hN1FW9tRxP5N97JEE77TAyYAwkzOLtUCAjb5U3
+         JKKY3zqtQdjpdNhUYRYf322t6DWISAuSaIa1h3XBCzXssbqZLBt/1JEJouqx+QgBDqtz
+         iDyn0Yi1DMqraz8FtXHfVc/CJVKHTW6CLKiaw7vm8I8cdLeWzyeKdAWO+EIDzKVSKdjx
+         03Zm2UNv6ZDQuA1D2pWffKGGVWrbjHYWGU6wYOKzk0YLzPDBay2UDkT8zrLLyLuEuRNB
+         Eodw==
+X-Forwarded-Encrypted: i=1; AKwUvBzEom8RobnRHhY8mskn5xP4U71RsG3DatM+bjumXJIu5gJrpmPD7ZFwmFxij5PRAbhnOYIigrU=@vger.kernel.org
+X-Gm-Message-State: AFuF++mojnNRoYKufPeCUgwhBSTAxsCJhSdn2/7jwb1NYGwcfT8+1SRj
+	zG8E/j/IS/EsnGKvOoxx/OEuG2BXxjautvyBJ1lVN1yq+4KVPys1tp73aUAkOZUhBo8=
+X-Gm-Gg: AYBFou1U6mOo6uRcRFtzwXwPv24/3KXnbFArB2yA3wjKHpqKIvvJKt2MpI11n3qjT6u
+	rLaXgJJkqHNFA5scf1KL10vHt5x4/rECKmcFhvilR6yiZzTeAI7VCXkncRt1+ufYajpa7LfasfY
+	pvmPLZZcj8BUQCWwh9KP2lJfCiThVfjOIgsmkuCLxOojTHxFs7Ib8iTZiVS36CXQl2BwlN9VqSY
+	dgAxeoOdCzW31UAbSHil2+kuIOaX4ZZTvpkYUgLETIleInzombF8Uyr9exwTtA8L/CQ+8kx27qI
+	8Ju6EGatUiwtswnYH13sgmluV7vroOKAXB7jWn3lZxDCgdrVTv4z+T4U5QNiMTZvXIyIku8O19b
+	XWYfTa8BkhBa4f0hExVFPYuXfnENs0tLpZL4/T7nM7O73qNdFvDpnxygOGXTOlBw1jqLIuCBQZN
+	7XanC3iDiYzbS6FkcuoJGekhPw5Q5UUXStl9CjESKbSwUEquNpkjQca+gx3xrBZKllHNt8SctQY
+	5b2sMllyenogMp+YfqpcVgfmBxh5/nGjWqkFCmweTN2SkPddO7/dLY=
+X-Received: by 2002:a05:6214:5902:b0:910:3452:d57f with SMTP id 6a1803df08f44-9123d7b5209mr61354706d6.31.1789567067054;
+        Wed, 16 Sep 2026 06:57:47 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123beeec67sm26377736d6.48.2026.09.16.06.57.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 06:57:46 -0700 (PDT)
+Date: Wed, 16 Sep 2026 09:57:44 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
+Message-ID: <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+References: <20260912110832.3203902-1-gourry@gourry.net>
+ <aqloB0zm3RjJ47m1@gremlin>
+ <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
+ <aqqTbGMJL86TzDrf@gremlin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <aqqTbGMJL86TzDrf@gremlin>
 
-From: Zihan Xi <zihanx@nebusec.ai>
+On Wed, Sep 16, 2026 at 02:03:29PM +0100, Lorenzo Stoakes (ARM) wrote:
+> On Tue, Sep 15, 2026 at 01:12:03PM -0400, Gregory Price wrote:
+> > On Tue, Sep 15, 2026 at 04:55:47PM +0100, Lorenzo Stoakes (ARM) wrote:
+> > > On Sat, Sep 12, 2026 at 07:08:32AM -0400, Gregory Price wrote:
+> > > > MADV_PAGEOUT collects isolated folios on a local list before reclaiming
+> > > > them after the PTE walk.  The reschedule path drops the PTE lock and then
+> > > > restarts the mapping with pte_offset_map_lock().
+> > >
+> > > Is this reschedule path even necessary? It's pretty bloody sketchy.
+> > >
+> > > I thought the modern approach (TM) was to not do cond_resched() and friends so
+> > > can we actually look at removing this?
+> > >
+> >
+> > Sorry - meant to reply to this.
+> >
+> > Honestly there's so much jammed into this function i can't give you a
+> > straight answer. I can take a short detour to figure out if we can
+> > rework this as a whole.
+> 
+> s/short detour/long journey through hell/ perhaps? :P ;)
+> 
 
-[ Upstream commit b7ee18725f2292ab554aa96a101ae42d45f008bd ]
+Not as much as you'd think.
 
-A netadmin in a user+net namespace can create many IPv4 and IPv6
-multicast routing tables with MRT_TABLE and MRT6_TABLE. Each unseen
-id allocates an mr_table via the shared mr_table_alloc(), links it
-into the per-net list, and leaves it until netns teardown. Those
-objects were not charged to memcg, so the host unreclaimable slab
-grows with the table count.
+I did it yesterday and left an agent to validate it overnight with
+existing in-tree tests, LTP tests, and added some new tests.
 
-Account mr_table allocations with GFP_KERNEL_ACCOUNT and mark the
-IPv4/IPv6 MFC caches SLAB_ACCOUNT. This matches the established
-handling of IP addresses, routes and alternate interface names.
+The naming could use some work (cold_or_pageout -> lru_op, bleh),
+but new call graph / pseudo-code:
 
-Unresolved MFC entries are still allocated from softIRQ with
-GFP_ATOMIC and are not charged. They expire after 10 seconds and are
-bounded by the socket receive queue; see commit 0079ad8e8dc3
-("ipmr: remove hard code cache_resolve_queue_len limit").
+• walk_page_range_vma()
+  └── madvise_lru_op_pmd()              [PMD callback]
+      │
+      ├── PMD is a huge mapping
+      │   └── madvise_lru_op_huge_pmd()
+      │       ├── acquire PMD lock
+      │       ├── madvise_lru_op_huge_pmd_locked()
+      │       │   ├── process whole folio, or
+      │       │   └── return locked+referenced split candidate
+      │       ├── release PMD lock
+      │       └── split folio / reclaim isolated folios
+      │
+      └── PMD points to a PTE table
+          └── madvise_lru_op_ptes()
+              ├── map PTE table and acquire PTL
+              ├── madvise_lru_op_pte_range_locked()
+              │   └── madvise_lru_op_pte_batch_locked()
+              │       ├── process one folio/PTE batch, or
+              │       └── return locked+referenced split candidate
+              ├── leave lazy-MMU mode
+              ├── unmap PTE table and release PTL
+              ├── split candidate if necessary
+              ├── reclaim isolated folios
+              └── reschedule and restart from current address if necessary
 
-Fixes: f0ad0860d01e ("ipv4: ipmr: support multiple tables")
-Fixes: d1db275dd3f6 ("ipv6: ip6mr: support multiple tables")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Link: https://patch.msgid.link/050b58f7fc6b45da0fb12768ebb62d18fa46133d.1788784801.git.zihanx@nebusec.ai
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-[ changed kzalloc_obj(*mrt, GFP_KERNEL_ACCOUNT) to kzalloc(sizeof(*mrt), GFP_KERNEL_ACCOUNT) ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- net/ipv4/ipmr.c      | 3 ++-
- net/ipv4/ipmr_base.c | 2 +-
- net/ipv6/ip6mr.c     | 2 +-
- 3 files changed, 4 insertions(+), 3 deletions(-)
+Looks like a normal table walk now.  Significantly easier to review and
+doesn't make my eyes vomit. (there's still an ifdef wart, but it's not
+mid-function anymore... so that's nice).
 
-diff --git a/net/ipv4/ipmr.c b/net/ipv4/ipmr.c
-index f0294b1148246..3b31189fea883 100644
---- a/net/ipv4/ipmr.c
-+++ b/net/ipv4/ipmr.c
-@@ -3159,7 +3159,8 @@ int __init ip_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc_cache, SLAB_HWCACHE_ALIGN | SLAB_PANIC);
-+	mrt_cachep = KMEM_CACHE(mfc_cache,
-+				SLAB_HWCACHE_ALIGN | SLAB_PANIC | SLAB_ACCOUNT);
- 
- 	err = register_pernet_subsys(&ipmr_net_ops);
- 	if (err)
-diff --git a/net/ipv4/ipmr_base.c b/net/ipv4/ipmr_base.c
-index 28d77d454d442..66fe1a253b9ff 100644
---- a/net/ipv4/ipmr_base.c
-+++ b/net/ipv4/ipmr_base.c
-@@ -38,7 +38,7 @@ mr_table_alloc(struct net *net, u32 id,
- 	struct mr_table *mrt;
- 	int err;
- 
--	mrt = kzalloc(sizeof(*mrt), GFP_KERNEL);
-+	mrt = kzalloc(sizeof(*mrt), GFP_KERNEL_ACCOUNT);
- 	if (!mrt)
- 		return ERR_PTR(-ENOMEM);
- 	mrt->id = id;
-diff --git a/net/ipv6/ip6mr.c b/net/ipv6/ip6mr.c
-index 68bc518500f94..9bcd64e99f159 100644
---- a/net/ipv6/ip6mr.c
-+++ b/net/ipv6/ip6mr.c
-@@ -1387,7 +1387,7 @@ int __init ip6_mr_init(void)
- {
- 	int err;
- 
--	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN);
-+	mrt_cachep = KMEM_CACHE(mfc6_cache, SLAB_HWCACHE_ALIGN | SLAB_ACCOUNT);
- 	if (!mrt_cachep)
- 		return -ENOMEM;
- 
--- 
-2.53.0
+Going to spend a little more time testing and tweaking before I post it.
 
+I've been working on a making more extensive unit tests for certain
+parts of mm/ and this might be a good time to look at whether I can
+introduce a piece of it.
+
+~Gregory
