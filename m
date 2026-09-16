@@ -1,229 +1,244 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.4])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3917741D647;
-	Wed, 16 Sep 2026 20:24:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49A4A44C51C
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:33:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789590270; cv=none; b=t04bNfP/Is+GprBWYr2pOcKBzk4eJq6UQE7Ys6IZVvlCg2rFApm+nG5K+qYySC/nLxHkxPOhbTn7UnHDTtm7kOeSS7XKOKmWP4X7p0Efw6X/pT5g31T8B2ABkeP9hnz+uDIgWOO/Mj9qmB4tfrrNdKgc0I6uiArisyXCJp/s6MU=
+	t=1789590786; cv=none; b=GRyMSg5E+JBfSmyl62gWmQEBsBnJTWf4B4sz7ImXLNcy+axNom8K1UDYTAHm5hvn6z1MUXhvHf1fhPctLJgQU1WT77HhnfqwTEEET31PMhJiWpkok/gGhmUujZkZmP867Zs7h3R0d+Dd6K6Pgn7oMIvLGAkPQz0AyWlZrxIcTy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789590270; c=relaxed/simple;
-	bh=ZxTg9lGXvchwT2hJXTmPRLILSLkhibgW8Fxc2M5++UI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=qxTk2ClEREWVn+wttWubKnwx4xq0f4HQVKFjLNXewwF5tJmg2xGL4BYze3QNr5dCuxvXx3f29pb9nRTFs+79Ak6EN8WSgIZCSI0aprgLb6D8mt5St42KrQOp2nWlloLN0uUge0Xt+zcI8KkYUOR+ettkhiFDuqCXaeeJZtBxsag=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YK9bMqpL; arc=none smtp.client-ip=220.197.31.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789590786; c=relaxed/simple;
+	bh=ZiQFzBmWZlR+R0zFTcTUk49poOeCffoirTyMkjxiXuU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=HNkJVPV4OqIOAhd+6KWRgIbnBBYJzrfViylDgEaRrXptPrIqeQuCUuwuSDOxR8AnnoOtf7x6Z3Yo0Bs8ZgwhpvsOc+Gc/u/5CMriL+nwOuxqU16/yivk7CVi2cBJ9BtxPL4GMbWuozdjIdAjI/aj2XoQzdUQyBuOt1xrIl5la5w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M7dQtxJx; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YK9bMqpL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=atQxFVvGmxNAp2GBjVwAJePvy3VWtH6k/S2SXa6Pf+Y=;
-	b=YK9bMqpLuZ+awpFaBnkUaj4ZYpnnuL01u3J1m5cb1PCulDfM5K7S98l/tJVQom
-	5xLTtTF+J2ncui8YAGpBjQhhQs6OiE7460Pa+krf1dtrES6E2ZpSQSQUXgGMoCBH
-	E3YXBjqhLinI2w7DPqhDiuH+Tmy6lX2qBy9QcCdSlzTCM=
-Received: from [IPV6:2409:8900:21a7:a33a:b45d:31d1:c098:7d46] (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wDnT4jE+qpqTSxmBA--.42801S2;
-	Thu, 17 Sep 2026 04:23:32 +0800 (CST)
-Message-ID: <07b6a57f-cdd6-4baf-89b9-353d61921780@163.com>
-Date: Thu, 17 Sep 2026 04:23:31 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M7dQtxJx"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 565481F00899;
+	Wed, 16 Sep 2026 20:32:56 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789590776;
+	bh=04J1e+jky9AOeIrtp5HOxANGFFCDFzU5dzmsS/p7EJY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=M7dQtxJx+BpQl7lbQY/jirUwSURlljHPxscTfvhoan+cqp6rfYL6GXBxZkU3MiBPz
+	 6ocUZuOzOsmScNNMKYpYDduIKQxNPcjaZNJrqaBdbwkFzdf6Ige9EcxTdhvfOBh3rc
+	 aE/IOxD8mdy5lVs0jZglMqhLoWhCL4Et1TxXhB2mZuHSGB6+Ru/1YCg5vjA/OGiztI
+	 kdUYDtAKOcL0CVffxgV0AGG7cOVEbj0dnmZgiUz5NPkkVOm3Jxdblx/iDOnCbp2JJF
+	 c0yzX0IgKB/KewecPRg8grI1Qi8GHOnHfgmiJgM8Sv7wxeEkmufuMtKGSgzF/Iglmb
+	 Jssnl8AjCPEvA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Rounak Das <rounakdas2025@gmail.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	Dinh Nguyen <dinguyen@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 2/3] EDAC/altera: Use ECC manager compatible to select A10/S10 IRQ layout
+Date: Wed, 16 Sep 2026 16:32:53 -0400
+Message-ID: <20260916203254.2573996-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916203254.2573996-1-sashal@kernel.org>
+References: <2026091624-rethink-safeness-e66f@gregkh>
+ <20260916203254.2573996-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v13 2/7] ntfs: set the volume dirty bit unconditionally on
- metadata changes
-To: Hongling Zeng <zenghongling@kylinos.cn>, linkinjeon@kernel.org,
- hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev, linux-kernel@vger.kernel.org,
- zhongling0719@126.com, Baolin Liu <liubaolin@kylinos.cn>,
- stable@vger.kernel.org
-References: <20260915083252.812126-1-zenghongling@kylinos.cn>
- <20260915083252.812126-3-zenghongling@kylinos.cn>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260915083252.812126-3-zenghongling@kylinos.cn>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnT4jE+qpqTSxmBA--.42801S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3AF4fKF4xZw4kGw4fZFyxXwb_yoWxWw15pr
-	saya1ak3ykJFy7Wwn2qr4rZr9Yv34UGr18CrWrK3Wav3s5tr10qFnagF129a4Fyr93Cw1k
-	tF45Kr45Ww17ZrUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uf9N-UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6QU1AGqq+sVYBQAA37
 
+From: Rounak Das <rounakdas2025@gmail.com>
 
+[ Upstream commit d4486fc3098e176cb4a29fee037216484761f9ca ]
 
-在 2026/9/15 16:32, Hongling Zeng 写道:
-> The callers in file.c and namei.c skip ntfs_set_volume_flags() when
-> the in-memory vol_flags already show VOLUME_IS_DIRTY, but that check
-> runs without any lock: if it observes the bit set and ntfs_sync_fs()
-> clears it under the mrec_lock before the caller's metadata update
-> completes, the set is skipped and the volume can end up clean on disk
-> despite the modification, so chkdsk will not run on the next mount.
-> 
-> Drop the caller-side checks and call ntfs_set_volume_flags()
-> unconditionally: ntfs_write_volume_flags() already skips the write
-> under the mrec_lock when the combined value is unchanged.  That
-> unconditional call costs one mrec_lock acquisition per metadata
-> operation even in the already-dirty steady state; it cannot be
-> avoided, because deciding to skip the call without the lock is itself
-> what allows a concurrent ntfs_sync_fs() clear to lose the set.
-> 
-> The IOCB_NOWAIT path in ntfs_file_write_iter() goes through the same
-> sleeping call: a RWF_NOWAIT write can block in the marking, as it
-> already could before this change whenever the volume appeared clean.
-> Giving that path a non-blocking variant is left as follow-up work.
-> The callers keep the pre-existing behavior of proceeding when the
-> marking fails, so the dirty bit remains best-effort.
-> 
-> This closes the variant where the set is skipped outright.  A clear
-> for a concurrent, error-free sync can still land between the set and
-> the end of the metadata operation; that mark-at-start lifecycle is
-> pre-existing and is not changed by this patch.
-> 
-> Reported-by: Baolin Liu <liubaolin@kylinos.cn>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
-> ---
->   fs/ntfs/file.c  | 20 +++++++++++---------
->   fs/ntfs/namei.c | 24 ++++++++----------------
->   2 files changed, 19 insertions(+), 25 deletions(-)
-> 
-> diff --git a/fs/ntfs/file.c b/fs/ntfs/file.c
-> index 007d1614b9ac..cfc7b36b7dff 100644
-> --- a/fs/ntfs/file.c
-> +++ b/fs/ntfs/file.c
-> @@ -325,8 +325,7 @@ int ntfs_setattr(struct mnt_idmap *idmap, struct dentry *dentry,
->   		goto out;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	if (ia_valid & ATTR_SIZE) {
->   		err = ntfs_setattr_size(vi, attr);
-> @@ -620,8 +619,13 @@ static ssize_t ntfs_file_write_iter(struct kiocb *iocb, struct iov_iter *from)
->   		goto out_lock;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	/*
-> +	 * The volume must be marked dirty before the modification is made,
-> +	 * without an unlocked check of the in-memory flag: ntfs_sync_fs()
-> +	 * can clear the bit concurrently and the modification would then
-> +	 * land on a volume that is clean on disk.
-> +	 */
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	pos = iocb->ki_pos;
->   	count = ret;
-> @@ -1153,11 +1157,9 @@ static long ntfs_fallocate(struct file *file, int mode, loff_t offset, loff_t le
->   			return err;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY)) {
-> -		err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> -		if (err)
-> -			return err;
-> -	}
-> +	err = ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	if (err)
-> +		return err;
->   
->   	old_size = i_size_read(vi);
->   
-> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-> index fdf52fac4329..3e0adb9a0ea4 100644
-> --- a/fs/ntfs/namei.c
-> +++ b/fs/ntfs/namei.c
-> @@ -757,8 +757,7 @@ static int ntfs_create(struct mnt_idmap *idmap, struct inode *dir,
->   		return err;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	ni = __ntfs_create(idmap, dir, uname, uname_len, S_IFREG | mode, 0, NULL, 0);
->   	kmem_cache_free(ntfs_name_cache, uname);
-> @@ -1032,8 +1031,7 @@ static int ntfs_unlink(struct inode *dir, struct dentry *dentry)
->   		return err;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
->   	if (err)
-> @@ -1076,8 +1074,7 @@ static struct dentry *ntfs_mkdir(struct mnt_idmap *idmap, struct inode *dir,
->   		return ERR_PTR(err);
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	ni = __ntfs_create(idmap, dir, uname, uname_len, mode, 0, NULL, 0);
->   	kmem_cache_free(ntfs_name_cache, uname);
-> @@ -1118,8 +1115,7 @@ static int ntfs_rmdir(struct inode *dir, struct dentry *dentry)
->   		return err;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	err = ntfs_delete(ni, NTFS_I(dir), uname, uname_len, true);
->   	if (err)
-> @@ -1305,8 +1301,7 @@ static int ntfs_rename(struct mnt_idmap *idmap, struct inode *old_dir,
->   		new_dir_first = is_subdir(new_dentry->d_parent,
->   					  old_dentry->d_parent);
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	mutex_lock_nested(&old_ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
->   	if (new_ni)
-> @@ -1429,8 +1424,7 @@ static int ntfs_symlink(struct mnt_idmap *idmap, struct inode *dir,
->   		goto out;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	ni = __ntfs_create(idmap, dir, usrc, usrc_len, S_IFLNK | 0777, 0,
->   			   symname, symlen);
-> @@ -1474,8 +1468,7 @@ static int ntfs_mknod(struct mnt_idmap *idmap, struct inode *dir,
->   		return err;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	switch (mode & S_IFMT) {
->   	case S_IFCHR:
-> @@ -1521,8 +1514,7 @@ static int ntfs_link(struct dentry *old_dentry, struct inode *dir,
->   		return -ENOMEM;
->   	}
->   
-> -	if (!(vol->vol_flags & VOLUME_IS_DIRTY))
-> -		ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
-> +	ntfs_set_volume_flags(vol, VOLUME_IS_DIRTY);
->   
->   	ihold(vi);
->   	mutex_lock_nested(&ni->mrec_lock, NTFS_INODE_MUTEX_NORMAL);
+The SDMMC ECC IRQ layout selection uses CONFIG_64BIT to distinguish between
+Arria10 and Stratix10 paths.
 
-Looks good to me.
+Detect the SoC once at probe via the device match table (.data) store it in
+struct altr_arria10_edac, and use it instead of CONFIG_64BIT.
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+This keeps the decision correct for every ECC child device (OCRAM, SD/MMC,
+etc.) and avoids any runtime compatible lookup.
+
+Signed-off-by: Rounak Das <rounakdas2025@gmail.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Acked-by: Dinh Nguyen <dinguyen@kernel.org>
+Link: https://patch.msgid.link/20260708091135.94114-2-rounakdas2025@gmail.com
+Stable-dep-of: 9868f5c077df ("EDAC/altera: Use parent device for devres in altr_portb_setup()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/edac/altera_edac.c | 107 +++++++++++++++++++------------------
+ drivers/edac/altera_edac.h |   1 +
+ 2 files changed, 55 insertions(+), 53 deletions(-)
+
+diff --git a/drivers/edac/altera_edac.c b/drivers/edac/altera_edac.c
+index 53d1b1fc07a50..8feef22629d92 100644
+--- a/drivers/edac/altera_edac.c
++++ b/drivers/edac/altera_edac.c
+@@ -1470,6 +1470,7 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 	int edac_idx, rc;
+ 	struct device_node *np;
+ 	const struct edac_device_prv_data *prv = &a10_sdmmceccb_data;
++	bool is_s10 = device->edac->is_s10;
+ 
+ 	rc = altr_check_ecc_deps(device);
+ 	if (rc)
+@@ -1511,15 +1512,14 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 
+ 	/*
+ 	 * Update the PortB IRQs - A10 has 4, S10 has 2, Index accordingly
+-	 *
+-	 * FIXME: Instead of ifdefs with different architectures the driver
+-	 *        should properly use compatibles.
+ 	 */
+-#ifdef CONFIG_64BIT
+-	altdev->sb_irq = irq_of_parse_and_map(np, 1);
+-#else
+-	altdev->sb_irq = irq_of_parse_and_map(np, 2);
+-#endif
++
++	/* Using compatibles to determine the IRQ Index */
++	if (is_s10)
++		altdev->sb_irq = irq_of_parse_and_map(np, 1);
++	else
++		altdev->sb_irq = irq_of_parse_and_map(np, 2);
++
+ 	if (!altdev->sb_irq) {
+ 		edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB SBIRQ alloc\n");
+ 		rc = -ENODEV;
+@@ -1533,29 +1533,28 @@ static int altr_portb_setup(struct altr_edac_device_dev *device)
+ 		goto err_release_group_1;
+ 	}
+ 
+-#ifdef CONFIG_64BIT
+-	/* Use IRQ to determine SError origin instead of assigning IRQ */
+-	rc = of_property_read_u32_index(np, "interrupts", 1, &altdev->db_irq);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE,
+-			    "Error PortB DBIRQ alloc\n");
+-		goto err_release_group_1;
+-	}
+-#else
+-	altdev->db_irq = irq_of_parse_and_map(np, 3);
+-	if (!altdev->db_irq) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
+-		rc = -ENODEV;
+-		goto err_release_group_1;
+-	}
+-	rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
+-			      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
+-			      ecc_name, altdev);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "PortB DBERR IRQ error\n");
+-		goto err_release_group_1;
++	if (is_s10) {
++		/* Use IRQ to determine SError origin instead of assigning IRQ */
++		rc = of_property_read_u32_index(np, "interrupts", 1, &altdev->db_irq);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
++			goto err_release_group_1;
++		}
++	} else {
++		altdev->db_irq = irq_of_parse_and_map(np, 3);
++		if (!altdev->db_irq) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error PortB DBIRQ alloc\n");
++			rc = -ENODEV;
++			goto err_release_group_1;
++		}
++		rc = devm_request_irq(&altdev->ddev, altdev->db_irq,
++				      prv->ecc_irq_handler, IRQF_TRIGGER_HIGH,
++				      ecc_name, altdev);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "PortB DBERR IRQ error\n");
++			goto err_release_group_1;
++		}
+ 	}
+-#endif
+ 
+ 	rc = edac_device_add_device(dci);
+ 	if (rc) {
+@@ -1941,29 +1940,29 @@ static int altr_edac_a10_device_add(struct altr_arria10_edac *edac,
+ 		goto err_release_group1;
+ 	}
+ 
+-#ifdef CONFIG_64BIT
+-	/* Use IRQ to determine SError origin instead of assigning IRQ */
+-	rc = of_property_read_u32_index(np, "interrupts", 0, &altdev->db_irq);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE,
+-			    "Unable to parse DB IRQ index\n");
+-		goto err_release_group1;
+-	}
+-#else
+-	altdev->db_irq = irq_of_parse_and_map(np, 1);
+-	if (!altdev->db_irq) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "Error allocating DBIRQ\n");
+-		rc = -ENODEV;
+-		goto err_release_group1;
+-	}
+-	rc = devm_request_irq(edac->dev, altdev->db_irq, prv->ecc_irq_handler,
+-			      IRQF_TRIGGER_HIGH,
+-			      ecc_name, altdev);
+-	if (rc) {
+-		edac_printk(KERN_ERR, EDAC_DEVICE, "No DBERR IRQ resource\n");
+-		goto err_release_group1;
++	if (edac->is_s10) {
++		/* Use IRQ to determine SError origin instead of assigning IRQ */
++		rc = of_property_read_u32_index(np, "interrupts", 0, &altdev->db_irq);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE,
++				    "Unable to parse DB IRQ index\n");
++			goto err_release_group1;
++		}
++	} else {
++		altdev->db_irq = irq_of_parse_and_map(np, 1);
++		if (!altdev->db_irq) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "Error allocating DBIRQ\n");
++			rc = -ENODEV;
++			goto err_release_group1;
++		}
++		rc = devm_request_irq(edac->dev, altdev->db_irq, prv->ecc_irq_handler,
++				      IRQF_TRIGGER_HIGH,
++				      ecc_name, altdev);
++		if (rc) {
++			edac_printk(KERN_ERR, EDAC_DEVICE, "No DBERR IRQ resource\n");
++			goto err_release_group1;
++		}
+ 	}
+-#endif
+ 
+ 	rc = edac_device_add_device(dci);
+ 	if (rc) {
+@@ -2089,6 +2088,8 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
+ 	platform_set_drvdata(pdev, edac);
+ 	INIT_LIST_HEAD(&edac->a10_ecc_devices);
+ 
++	edac->is_s10 = !!device_get_match_data(&pdev->dev);
++
+ 	edac->ecc_mgr_map =
+ 		altr_sysmgr_regmap_lookup_by_phandle(pdev->dev.of_node,
+ 						     "altr,sysmgr-syscon");
+@@ -2177,7 +2178,7 @@ static int altr_edac_a10_probe(struct platform_device *pdev)
+ 
+ static const struct of_device_id altr_edac_a10_of_match[] = {
+ 	{ .compatible = "altr,socfpga-a10-ecc-manager" },
+-	{ .compatible = "altr,socfpga-s10-ecc-manager" },
++	{ .compatible = "altr,socfpga-s10-ecc-manager", .data = (void *)1 },
+ 	{},
+ };
+ MODULE_DEVICE_TABLE(of, altr_edac_a10_of_match);
+diff --git a/drivers/edac/altera_edac.h b/drivers/edac/altera_edac.h
+index 7248d24c4908d..5b26ef0cfe600 100644
+--- a/drivers/edac/altera_edac.h
++++ b/drivers/edac/altera_edac.h
+@@ -395,6 +395,7 @@ struct altr_arria10_edac {
+ 	struct irq_chip		irq_chip;
+ 	struct list_head	a10_ecc_devices;
+ 	struct notifier_block	panic_notifier;
++	bool is_s10;
+ };
+ 
+ #endif	/* #ifndef _ALTERA_EDAC_H */
+-- 
+2.53.0
 
