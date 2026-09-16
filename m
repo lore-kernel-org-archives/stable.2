@@ -1,104 +1,146 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D8344B3365;
-	Wed, 16 Sep 2026 16:07:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3394D4AAC6B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574854; cv=none; b=uqL2XNMU797jfcwYSeKuIzSkbWuvytqyCNc9caTrzVBqiEKHvhVqX6GRJUNSlePrRHMD2DZlhNTDEGXq6OhYl0ctl8Ld7FFAhzERxU+yx7uxdXGeQoIWVbmmKwL7tjhoYmMMFII7yNqVoNCQ8s9gtlKYQJ3QsJar/xzXh4dGx5Y=
+	t=1789574857; cv=none; b=WQX8WOUlW5nWksdUmP1lGTZFxa2WVhUYyUWadaerBSznYHuANociFZOlnTeXoezBGsMPNR5C3Nq7jqyOP9ONeH9/zj3Slvvr7aDcOSwGBDxM3t6oUUjFRGHNOmr93oOi4+txrM9ZL6quV3iO3srgDSdGvdw9i+83gWNzcuWLs0c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574854; c=relaxed/simple;
-	bh=vFvbZbBADLCF1DSrgvz4gS00RyQRX3hhAM9zpT1dRTY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YB5DTIZcQBOz8RCL2gtdC6VMeW6IRc8O0cfBlZvGT/ksa4oGOm2TXAz6FakPhT+K9ZYpLebRrW/reyeOYfJDqsW0Q+GeBAMTWpnv63ysai2Gj56CrsVvDoAS+If98b6dIi2sRiCpDI3i3EFeMB4g38JjtuBizRbdvatC2x04xkI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnETy6vqpqjV5tCA--.44393S2;
-	Thu, 17 Sep 2026 00:07:22 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank.Li@nxp.com
-Cc: alexandre.belloni@bootlin.com,
-	arnd@arndb.de,
-	bbrezillon@kernel.org,
-	gregkh@linuxfoundation.org,
-	linux-i3c@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] i3c: master: Fix of_node reference leak in of_i3c_master_add_i2c_boardinfo()
-Date: Wed, 16 Sep 2026 16:06:54 +0000
-Message-Id: <20260916160654.2081795-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789574857; c=relaxed/simple;
+	bh=BAz8MrXpYQ+imZCTisnu1c4Qi/iOjiSu7dQ5/74lrDY=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jsE0fqzwp4L24MXJyV0MNoTeq2f/965pk0ioi1AcJd5Cq7ad3oxglFT5yiIE0I6XSCAsEougKm8cdMVYhc/AidJErNDuf6k/zfC2csRMFUIKWdhxpkDzdkhWRtQTrcmWxhvUXiNjzQ3/MbwzmqM1s9Lqb6h6M5f0SLphZxhFFSo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NsOw+Y4t; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NsOw+Y4t"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 22E651F000FF;
+	Wed, 16 Sep 2026 16:07:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789574854;
+	bh=a+kE034zraP9+c1lxNwYAadUANg7cjIf0O8mN5s/tnU=;
+	h=Subject:To:Cc:From:Date;
+	b=NsOw+Y4tSpB9tjfDmM0jTi/d0sQIVAd2CVWxkT8Qui6mwMJVm3pwnFN03YVxj9KKV
+	 dVLsiQiYGC3WTc+yDWbaS1nd7ic0/akqBiIncE5aNO8onOxMMuDuB5b+bj/6d871nj
+	 oPGPDBJmwTZkQo6bwUWRqQoy4AxwS0VEycihX7Mc=
+Subject: FAILED: patch "[PATCH] s390/crypto: Fix skcipher_walk return code handling in" failed to apply to 5.10-stable tree
+To: freude@linux.ibm.com,dengler@linux.ibm.com,gor@linux.ibm.com,hca@linux.ibm.com
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 16:48:23 +0100
+Message-ID: <2026091622-vice-vendor-ddbe@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnETy6vqpqjV5tCA--.44393S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uw1rAw4UJFyUWry8tw18Zrb_yoW8XF4rpw
-	48GFy5C348XF1xWF48XFyfuFZ0v3Z3trWUKw43Kw17urnxGw10qr1DJ3W0vr1fKryrAryj
-	yr45tw4UWa95ZFDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUkK14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JV
-	W8Jr1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_
-	Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7VUbtxhJ
-	UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqpO9AQAABsI
 
-of_i2c_get_board_info() stores the device node in the board info's fwnode
-without taking a reference, so the board info relies on the trailing
-of_node_get() to keep the node alive. Nothing ever drops that reference:
-the board info is devres-allocated and has no release callback.
 
-Register the reference as a device-managed action of the I3C master so it
-is released on registration failure and on controller teardown.
+The patch below does not apply to the 5.10-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/i3c/master.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+To reproduce the conflict and resubmit, you may use the following commands:
 
-diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-index 23f490a00591..30b3822c530c 100644
---- a/drivers/i3c/master.c
-+++ b/drivers/i3c/master.c
-@@ -2407,6 +2407,11 @@ EXPORT_SYMBOL_GPL(i3c_master_add_i3c_dev_locked);
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
+git checkout FETCH_HEAD
+git cherry-pick -x 15fa028589c3a2545f0bff355eff06d5844196bf
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091622-vice-vendor-ddbe@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 15fa028589c3a2545f0bff355eff06d5844196bf Mon Sep 17 00:00:00 2001
+From: Harald Freudenberger <freude@linux.ibm.com>
+Date: Mon, 31 Aug 2026 10:37:33 +0200
+Subject: [PATCH] s390/crypto: Fix skcipher_walk return code handling in
+ aes_s390
+
+The return codes from skcipher_walk_virt() were not properly checked
+before entering the processing loops in ecb_aes_crypt() and ctr_aes_crypt().
+If skcipher_walk_virt() fails, the walk structure may be in an undefined
+state, and attempting to process data could lead to incorrect behavior
+or accessing uninitialized memory.
+
+Add proper return code checking to ensure correct handling of the walk
+initialization and walk advance and eventually return to the caller
+with that return code.
+
+Fixes: 7988fb2c03c8 ("crypto: s390/aes - convert to skcipher API")
+Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
+Reviewed-by: Holger Dengler <dengler@linux.ibm.com>
+Cc: stable@vger.kernel.org # 5.5+
+Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
+Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
+
+diff --git a/arch/s390/crypto/aes_s390.c b/arch/s390/crypto/aes_s390.c
+index 62edc66d5478..366ce22d3623 100644
+--- a/arch/s390/crypto/aes_s390.c
++++ b/arch/s390/crypto/aes_s390.c
+@@ -129,7 +129,7 @@ static int ecb_aes_crypt(struct skcipher_request *req, unsigned long modifier)
+ 		return fallback_skcipher_crypt(sctx, req, modifier);
  
- #define OF_I3C_REG1_IS_I2C_DEV			BIT(31)
+ 	ret = skcipher_walk_virt(&walk, req, false);
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_km(sctx->fc | modifier, sctx->key,
+@@ -233,7 +233,7 @@ static int cbc_aes_crypt(struct skcipher_request *req, unsigned long modifier)
+ 		return ret;
+ 	memcpy(param.iv, walk.iv, AES_BLOCK_SIZE);
+ 	memcpy(param.key, sctx->key, sctx->key_len);
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_kmc(sctx->fc | modifier, &param,
+@@ -359,7 +359,7 @@ static int xts_aes_crypt(struct skcipher_request *req, unsigned long modifier)
+ 	memcpy(xts_param.key + offset, xts_ctx->key, xts_ctx->key_len);
+ 	memcpy(xts_param.init, pcc_param.xts, 16);
  
-+static void of_i3c_master_put_node(void *data)
-+{
-+	of_node_put(data);
-+}
-+
- static int
- of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
- 				struct device_node *node, u32 *reg)
-@@ -2437,9 +2442,9 @@ of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
- 	boardinfo->lvr = reg[2];
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_km(xts_ctx->fc | modifier, xts_param.key + offset,
+@@ -487,7 +487,7 @@ static int fullxts_aes_crypt(struct skcipher_request *req,  unsigned long modifi
+ 	memcpy(fxts_param.tweak, req->iv, AES_BLOCK_SIZE);
+ 	fxts_param.nap[0] = 0x01; /* initial alpha power (1, little-endian) */
  
- 	list_add_tail(&boardinfo->node, &master->boardinfo.i2c);
--	of_node_get(node);
+-	while ((nbytes = walk.nbytes) != 0) {
++	while (!ret && ((nbytes = walk.nbytes) != 0)) {
+ 		/* only use complete blocks */
+ 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
+ 		cpacf_km(xts_ctx->fc | modifier, fxts_param.key + offset,
+@@ -577,7 +577,7 @@ static int ctr_aes_crypt(struct skcipher_request *req)
+ 	locked = mutex_trylock(&ctrblk_lock);
  
--	return 0;
-+	return devm_add_action_or_reset(dev, of_i3c_master_put_node,
-+					of_node_get(node));
- }
+ 	ret = skcipher_walk_virt(&walk, req, false);
+-	while ((nbytes = walk.nbytes) >= AES_BLOCK_SIZE) {
++	while (!ret && ((nbytes = walk.nbytes) >= AES_BLOCK_SIZE)) {
+ 		n = AES_BLOCK_SIZE;
  
- static int
--- 
-2.34.1
+ 		if (nbytes >= 2*AES_BLOCK_SIZE && locked)
+@@ -596,7 +596,7 @@ static int ctr_aes_crypt(struct skcipher_request *req)
+ 	/*
+ 	 * final block may be < AES_BLOCK_SIZE, copy only nbytes
+ 	 */
+-	if (nbytes) {
++	if (!ret && nbytes) {
+ 		memset(buf, 0, AES_BLOCK_SIZE);
+ 		memcpy(buf, walk.src.virt.addr, nbytes);
+ 		cpacf_kmctr(sctx->fc, sctx->key, buf, buf,
 
