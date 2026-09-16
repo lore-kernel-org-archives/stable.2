@@ -1,112 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A09C4AB3BE
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:41:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 67D614D7973;
+	Wed, 16 Sep 2026 15:42:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573307; cv=none; b=etpfTj4D3rBwgFiVb/Bsz9Euen9h3VL8cDQQykgPyD4XjfmaDiP6Rgu71pI/HFubkMayaQNnZrLRTQVk6MPJn4iAWTmqVXzHkbdsoNgorZ+EwRjt/4hNm2nBJdupZhMTTqBHrUCrsBh0+CekedMVCYHKfa7Umap4ESvb5NE3zLk=
+	t=1789573338; cv=none; b=QuqnYz18vka9ZJBUymCrKZkIaAyqv0gPy51LkFVT8bwmfdSAJItgtqqcx3eJxL4YEpJeCWn6N4Y4TGib2vXdqm7Afdmj8ePiQarbebdJtYMI16ZlaEFRcq4dyo2wI+eCIeMMok96x9HalnAf9gwqNB7hdbpGvIDm1hhq1sTn+CE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573307; c=relaxed/simple;
-	bh=KOW98bL8CgMpChtD+TOHN4YeqxkkezWSmkWtTKZWpe8=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=F6v8yiSht1fxuE22lrJMneE8GTD4WdxEgtp0atpGNwG7SCwuhM+hwD9ijO8u4/vkSb/ssnMZIQi8uRBr32VtBOLaRBCAyiwHr/6gCzdIxgPz6Jgs/LwCl2bhJwDlKOXMQShN42BnR4WE1YGsyUEz2uS9WKqkJgbqPzbqqjTlDOc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=1CJcAZrt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="1CJcAZrt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2474A1F000FF;
-	Wed, 16 Sep 2026 15:41:42 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789573303;
-	bh=ouH+meodaeP61gPlOmDuSu1eeBvqJhfkNhNpKjTQneE=;
-	h=Subject:To:Cc:From:Date;
-	b=1CJcAZrtWZL30cGhLjssBBeUmHGUWklM9DH4rNlbuKQmow9pJ4oGF9uGv0TwPaPR7
-	 8CxOOk9eHEWcYg9Bx8J4GkBpo7zi8ZYLKRV6RtJ/q4GBYfhsuRWshqXTEE/E4vs21k
-	 JCWsC4J7j4vayx1sg/pAsYP9akh2KapoXMOI2rMQ=
-Subject: FAILED: patch "[PATCH] ring-buffer: Acquire the lock with irqsave in" failed to apply to 5.10-stable tree
-To: bigeasy@linutronix.de,rostedt@goodmis.org,vdonnefort@google.com
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:37:41 +0100
-Message-ID: <2026091641-backlash-shrank-66b6@gregkh>
+	s=arc-20240116; t=1789573338; c=relaxed/simple;
+	bh=RWwc4/4k+cBPO5IZyYjzKjFn4s+3xlPPTlnWbcqLwcA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Hp6MhQBgytPr90sjnLA/0WyYl5sH42BxBwkTV2DNkilns5VTpn8aCtJvghpEaqsrYzBvYOk/VNe6BTEiRwDXrnow+jgUacwAcEltX6ElfgSGe/TsNpe5iuTVpl10So23SA2NKCJhYALhoSQWuDBL9m7Z2JVWOQNli8uOb2dowAc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACX_znNuKpqXgFtCA--.21607S2;
+	Wed, 16 Sep 2026 23:42:05 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: dave.stevenson@raspberrypi.com,
+	dri-devel@lists.freedesktop.org,
+	kernel-list@raspberrypi.com,
+	linux-kernel@vger.kernel.org,
+	maarten.lankhorst@linux.intel.com,
+	mcanal@igalia.com,
+	mripard@kernel.org,
+	simona@ffwll.ch,
+	tzimmermann@suse.de,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] drm/vc4: Fix firmware reference leak in vc4_hvs_bind()
+Date: Wed, 16 Sep 2026 15:41:37 +0000
+Message-Id: <20260916154137.2058618-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACX_znNuKpqXgFtCA--.21607S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zr1kGFWkZr47AFy8Cw4rZrb_yoW8Gry8pF
+	4UJFyFk3y5uF4ft343AFs5XF1fZan7tFWfCF9Y9wna9345try5JrySv34rKFyUZF4kA3Zx
+	KF1qvrWxAas8ZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9214x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUXVWUAwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
+	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
+	JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6rxdYx
+	BIdaVFxhVjvjDU0xZFpf9x0JUG_M-UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwQMA2qqpVgy4AABsi
 
+The firmware reference taken via rpi_firmware_get() is leaked when
+either of the devm_clk_get() calls for the core or display clocks
+fails, as both error paths return without releasing it.
 
-The patch below does not apply to the 5.10-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Put the firmware reference before returning from both clock lookup
+error paths.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
-git checkout FETCH_HEAD
-git cherry-pick -x 815e07c8fe885a87751c2496a30ae0dcd4118210
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091641-backlash-shrank-66b6@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 815e07c8fe885a87751c2496a30ae0dcd4118210 Mon Sep 17 00:00:00 2001
-From: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Date: Fri, 11 Sep 2026 12:21:52 +0200
-Subject: [PATCH] ring-buffer: Acquire the lock with irqsave in
- rb_wake_up_waiters()
-
-rb_wake_up_waiters() is a irq_work callback which is initialized with
-init_irq_work(). As such it will be invoked in thread context on
-PREEMPT_RT. Invoking the callback in IRQ context on PREEMPT_RT is not an
-option due its usage of wake_up_all().  Since this callback may run in
-thread context, it needs to acquire ring_buffer_per_cpu::reader_lock with
-disabling interrupts and may not assume that they are disabled.
-
-Use raw_spinlock_irqsave() to acquire ring_buffer_per_cpu::reader_lock.
-
+Fixes: 2a001ca00ad5 ("drm/vc4: hdmi: Rework hdmi_enable_4kp60 detection code")
 Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260911102152.YEtwkBj9@linutronix.de
-Fixes: 68282dd930ea3 ("ring-buffer: Fix resetting of shortest_full")
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Signed-off-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/vc4/vc4_hvs.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 0e30c7bd6045..9bc8ce8c5676 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -904,14 +904,13 @@ static void rb_wake_up_waiters(struct irq_work *work)
- 		struct ring_buffer_per_cpu *cpu_buffer =
- 			container_of(rbwork, struct ring_buffer_per_cpu, irq_work);
+diff --git a/drivers/gpu/drm/vc4/vc4_hvs.c b/drivers/gpu/drm/vc4/vc4_hvs.c
+index ee8d0738501b..20dde4150068 100644
+--- a/drivers/gpu/drm/vc4/vc4_hvs.c
++++ b/drivers/gpu/drm/vc4/vc4_hvs.c
+@@ -1680,6 +1680,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 					     (vc4->gen >= VC4_GEN_6_C) ? "core" : NULL);
+ 		if (IS_ERR(hvs->core_clk)) {
+ 			dev_err(&pdev->dev, "Couldn't get core clock\n");
++			rpi_firmware_put(firmware);
+ 			return PTR_ERR(hvs->core_clk);
+ 		}
  
--		/* Called from interrupt context */
--		raw_spin_lock(&cpu_buffer->reader_lock);
--		rbwork->wakeup_full = false;
--		rbwork->full_waiters_pending = false;
-+		scoped_guard(raw_spinlock_irqsave, &cpu_buffer->reader_lock) {
-+			rbwork->wakeup_full = false;
-+			rbwork->full_waiters_pending = false;
+@@ -1687,6 +1688,7 @@ static int vc4_hvs_bind(struct device *dev, struct device *master, void *data)
+ 					     (vc4->gen >= VC4_GEN_6_C) ? "disp" : NULL);
+ 		if (IS_ERR(hvs->disp_clk)) {
+ 			dev_err(&pdev->dev, "Couldn't get disp clock\n");
++			rpi_firmware_put(firmware);
+ 			return PTR_ERR(hvs->disp_clk);
+ 		}
  
--		/* Waking up all waiters, they will reset the shortest full */
--		cpu_buffer->shortest_full = 0;
--		raw_spin_unlock(&cpu_buffer->reader_lock);
-+			/* Waking up all waiters, they will reset the shortest full */
-+			cpu_buffer->shortest_full = 0;
-+		}
- 
- 		wake_up_all(&rbwork->full_waiters);
- 	}
+-- 
+2.34.1
 
