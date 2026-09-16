@@ -1,66 +1,66 @@
-Received: from mail-qv2-f12.google.com (mail-qv2-f12.google.com [74.125.230.140])
+Received: from mail-qk2-f39.google.com (mail-qk2-f39.google.com [74.125.230.231])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E245C3E9C17
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 13:57:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766C44A5ED7
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:02:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.231
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789567074; cv=none; b=rd6/N4QJFBmCtyRWCJwF3cuVejKksLW5vT1r/J0fFce+STWgWejJstxxy6mqMyzOkcDx91QOId11HeMtvviQN42PclPpi7VhnZluqq/ywuntchXS74M9gS46ABoEO7d7cLWpeee4HiddpaG0xPX3BVMYE8VA47vIxWiDaIK1IHE=
+	t=1789567370; cv=none; b=Byh9JBRg3IRngIfppXSGKIkqKYbhpQ1mz/watZU7WRn00IE9M7ff8DFQSz2nJTPUIerTRVDGRVqgdUAW8pyqT0w8g8hIDmy7ZNyk02NQiKRclOCWJz5gSWZReG0YOW/jOSi7PvdbIsLNXzonVrbujyAe/INJKP+/LOCWTphnbrE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789567074; c=relaxed/simple;
-	bh=k5W0zjS7CwXnvjPVXGCX/DoYC/ezZOX79HkT4Hgmv9o=;
+	s=arc-20240116; t=1789567370; c=relaxed/simple;
+	bh=lk414wfpQrq5vp8DsPm/BTXmLqK0llvlOvGO27hPcTM=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TNDQXzwGCMTYAgqDIrJGgRxB9OdkD6gR/zkHeNeUSTxlL/van9qCx/J1Sz0ymYD9/DWe73ZtxtcHvg9ZYxsT7BrChsyWNIgvG7vpKzSjE560nzgvvU+SY0Kf7zeVcc0zOtjNvrqnm6up9npOc92Y15ROWA7rbPzX6G7hcd0VxR4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=Mi55x4CB; arc=none smtp.client-ip=74.125.230.140
+	 Content-Type:Content-Disposition:In-Reply-To; b=QzRwWu6aY8E7Eo0zv6QVzDY/ycW7aRIkOTy5vRr/RQNj3RgvvTsGuRWrb4ljAkd8jN7BXEGTjVDZ6Rveyn14Yf5H+4hYrjCfGNhCrBKNjyEDNcDDfIuqzY/vMXTyQgrsf9PHq9pJLHrbOMVtjo3XLkj3l01qJm//grPU31oWVWA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=D20xEvqI; arc=none smtp.client-ip=74.125.230.231
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="Mi55x4CB"
-Received: by mail-qv2-f12.google.com with SMTP id 6a1803df08f44-90cdfc6db0bso8657356d6.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 06:57:49 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="D20xEvqI"
+Received: by mail-qk2-f39.google.com with SMTP id af79cd13be357-939922847efso88199485a.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:02:49 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789567067; x=1790171867; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NgUHPiwSi16km0SbObf2vOYCgqHRbxyVwtkEbeNTtkE=;
-        b=Mi55x4CBpoqhvTMyVVz5iCrVRj/v9TPyIIjcaIg//Oj9tJgfjrnl/LM1kKOMfYJOSb
-         Zoy6pY/D5XNuiJlatJxbEOLVKCP+r2rJeP/nEzI/UR76453FyqGBgejRADtvtRMMq/3I
-         hxAQDIKTy9wjI/O0aGYwg1aC1Gk1FesWgj/nGT+4Q+T90Klx6AkYsEI1eEs9rRIzM8dC
-         F2ilwcBDBwxxNoz7jwpWE+XCYRAE213GvrbNGPDHDFR6zcS1IgXhZBE3wUwhiQQt5naH
-         WJ7qJ9+qFBW2QcJg8QWAfAQJWSLPlxLXaUVepjU1qDEvnk995ZKy+FMwH57fYh2t+YAq
-         MYZg==
+        d=gourry.net; s=google; t=1789567368; x=1790172168; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=QK04b22kulIc7bZXmZ0HJttAO0Z2ragkIvYz0XNFgzE=;
+        b=D20xEvqIVoJEZfOuPpxfpBrh7OTkvZge2Xf+D6xaIhbZlibxC0E5elhiqMmvLhE0qE
+         XgIJqyeMiL+BqQd5xnr26QgzFf00zc2dopCPXw7F+52dzRCohYDgGDrDKs3hv81LMBNb
+         e2FJQYP+RAVxXWq8cqzD+mb8drq1isPAKltxToGYrIj5xmqF7+DZ8wUDElozbx4+qWMB
+         FWMUMBR9Q2g1pK+09cUyiNtOe8anyw1nAva4Tgem4ThyrXpzmAkq9r0rnm6a1Kj6a/Qj
+         +wOkvhKA/qPvaIE+6x3GktGmXQ9bCSJLuf4KBF0eGs0m46hEA2shaMoUe7Pdyc/39+e+
+         6X8w==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789567067; x=1790171867;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=NgUHPiwSi16km0SbObf2vOYCgqHRbxyVwtkEbeNTtkE=;
-        b=IHgtyV9X2M4qmJJmTu7K8m3g9CMlqErOdGBTDdcplX/Ppe8s/UeOikXfEXONIiyK1g
-         bE5UjW6AUOqvd8ebxGDo8xcuRZToN3hN1FW9tRxP5N97JEE77TAyYAwkzOLtUCAjb5U3
-         JKKY3zqtQdjpdNhUYRYf322t6DWISAuSaIa1h3XBCzXssbqZLBt/1JEJouqx+QgBDqtz
-         iDyn0Yi1DMqraz8FtXHfVc/CJVKHTW6CLKiaw7vm8I8cdLeWzyeKdAWO+EIDzKVSKdjx
-         03Zm2UNv6ZDQuA1D2pWffKGGVWrbjHYWGU6wYOKzk0YLzPDBay2UDkT8zrLLyLuEuRNB
-         Eodw==
-X-Forwarded-Encrypted: i=1; AKwUvBzEom8RobnRHhY8mskn5xP4U71RsG3DatM+bjumXJIu5gJrpmPD7ZFwmFxij5PRAbhnOYIigrU=@vger.kernel.org
-X-Gm-Message-State: AFuF++mojnNRoYKufPeCUgwhBSTAxsCJhSdn2/7jwb1NYGwcfT8+1SRj
-	zG8E/j/IS/EsnGKvOoxx/OEuG2BXxjautvyBJ1lVN1yq+4KVPys1tp73aUAkOZUhBo8=
-X-Gm-Gg: AYBFou1U6mOo6uRcRFtzwXwPv24/3KXnbFArB2yA3wjKHpqKIvvJKt2MpI11n3qjT6u
-	rLaXgJJkqHNFA5scf1KL10vHt5x4/rECKmcFhvilR6yiZzTeAI7VCXkncRt1+ufYajpa7LfasfY
-	pvmPLZZcj8BUQCWwh9KP2lJfCiThVfjOIgsmkuCLxOojTHxFs7Ib8iTZiVS36CXQl2BwlN9VqSY
-	dgAxeoOdCzW31UAbSHil2+kuIOaX4ZZTvpkYUgLETIleInzombF8Uyr9exwTtA8L/CQ+8kx27qI
-	8Ju6EGatUiwtswnYH13sgmluV7vroOKAXB7jWn3lZxDCgdrVTv4z+T4U5QNiMTZvXIyIku8O19b
-	XWYfTa8BkhBa4f0hExVFPYuXfnENs0tLpZL4/T7nM7O73qNdFvDpnxygOGXTOlBw1jqLIuCBQZN
-	7XanC3iDiYzbS6FkcuoJGekhPw5Q5UUXStl9CjESKbSwUEquNpkjQca+gx3xrBZKllHNt8SctQY
-	5b2sMllyenogMp+YfqpcVgfmBxh5/nGjWqkFCmweTN2SkPddO7/dLY=
-X-Received: by 2002:a05:6214:5902:b0:910:3452:d57f with SMTP id 6a1803df08f44-9123d7b5209mr61354706d6.31.1789567067054;
-        Wed, 16 Sep 2026 06:57:47 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789567368; x=1790172168;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=QK04b22kulIc7bZXmZ0HJttAO0Z2ragkIvYz0XNFgzE=;
+        b=HvrvvA8K+LZgQb7UFwrPSIgWqlsV3IGq6tLWsPGGPAvc6772anbijEK0KM8ob4B/1n
+         Djy1/c58zarVYiAVEffV7BSV2gGAWA/cKaD38K5DFrNk0bbBui8UMG/9yj9Wfrk9FVgZ
+         RT2kvFgpHq3ZmAvaVFlDLCmprzkcSchywzGIvWdbWbPqVBBEG0PNsRuXM7uXoMkUcHdi
+         YXDNRq1utVYHMSAx//E8N89lULWmLpPTeMYrRGwI9o579cfy2tRCMVSCpHt4B2KkHIlJ
+         6AAoan47YFSPE7QZyBHepzY0lDYHFV0Ucoasv7f9KUOE11riEPbl6/SU0W1e8OvDwVAQ
+         Cmag==
+X-Forwarded-Encrypted: i=1; AKwUvByXqaMoeyVlkm1Pf2giINdGF68oyqMGGFz2s0dh5CPg4MGR9wrME/vj6q3uyA3iCcSj6O/GtAs=@vger.kernel.org
+X-Gm-Message-State: AFuF++mFBT/9h6b1t0fSfdggqMnnl1kZiXpRF1OOL8FEIpGNiFQofAE2
+	Q9brnpTeFQEOhkY1ZDrhZ5zxXek8uu8bW7NlzjY06zd7S4JSDG+ZuUNTyb3xht3b41g=
+X-Gm-Gg: AYBFou0SkjfaI9OOPuKNN0wdGmgKMWjIrqzS9dYXNWJLyIiHtywVEpvL6nlmmiXgwST
+	EcWvtvaEYmhTJPcBxoysHHf2H1TLZzKjHPoN4SJzcQR6N9SrL55EyE4/IX0NWynPxE2NXOmn1IL
+	aWFlOnYwUpXVxB2tgmgNovHof7+jzXZRbRIaM7PfYJJ7hvjFdzMLEOlwnfZQ0+M3Y3hrsLN8Qym
+	FShAQsnmc0qeaz55gzzDz4yxtpV4+7Xv77iPOpOwj1a3Kn4lX15Y+AsmbWhtOiJanZG+romO1F1
+	4P5amFec/ceQeCEqqrvz94o+aWzJINLd/JJTLgy+cjZCoGqT9DFBmdLUIInGXpqOIDhRwQmpfUH
+	ssJocb5AbAY+cNI+n08ZS9ocuBZAJjolKsDETa6jRUGkFh1ioMkFfNVLVFzVvSZ+xawxRrOW+5+
+	9iun9WhMszY/Ggzam09UUYJyc+747I0U+u6D7LamS0vGJaU5RjMjq1QeQev995EYZ/M77WiwkeH
+	JkO02jXiyGBa1Ic+aDYRvkCFLGkSWnZL4QQhq5NSJm9rwfL4K98saA=
+X-Received: by 2002:a05:620a:2704:b0:937:19d3:3fda with SMTP id af79cd13be357-93bb785c5b6mr477815485a.28.1789567368038;
+        Wed, 16 Sep 2026 07:02:48 -0700 (PDT)
 Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-9123beeec67sm26377736d6.48.2026.09.16.06.57.46
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b780cfa78sm218545285a.2.2026.09.16.07.02.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 06:57:46 -0700 (PDT)
-Date: Wed, 16 Sep 2026 09:57:44 -0400
+        Wed, 16 Sep 2026 07:02:47 -0700 (PDT)
+Date: Wed, 16 Sep 2026 10:02:45 -0400
 From: Gregory Price <gourry@gourry.net>
 To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
 Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
@@ -68,86 +68,71 @@ Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
 	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
 	stable@vger.kernel.org
 Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
+Message-ID: <aqqgeOtYBcRdVqmI@gourry-fedora-PF4VCD3F>
 References: <20260912110832.3203902-1-gourry@gourry.net>
  <aqloB0zm3RjJ47m1@gremlin>
- <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
- <aqqTbGMJL86TzDrf@gremlin>
+ <aqlzzwLOVT79Ti_7@gourry-fedora-PF4VCD3F>
+ <aqqTtW3vjfzH8bcY@gremlin>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqqTbGMJL86TzDrf@gremlin>
+In-Reply-To: <aqqTtW3vjfzH8bcY@gremlin>
 
-On Wed, Sep 16, 2026 at 02:03:29PM +0100, Lorenzo Stoakes (ARM) wrote:
-> On Tue, Sep 15, 2026 at 01:12:03PM -0400, Gregory Price wrote:
-> > On Tue, Sep 15, 2026 at 04:55:47PM +0100, Lorenzo Stoakes (ARM) wrote:
-> > > On Sat, Sep 12, 2026 at 07:08:32AM -0400, Gregory Price wrote:
-> > > > MADV_PAGEOUT collects isolated folios on a local list before reclaiming
-> > > > them after the PTE walk.  The reschedule path drops the PTE lock and then
-> > > > restarts the mapping with pte_offset_map_lock().
-> > >
-> > > Is this reschedule path even necessary? It's pretty bloody sketchy.
-> > >
-> > > I thought the modern approach (TM) was to not do cond_resched() and friends so
-> > > can we actually look at removing this?
-> > >
+On Wed, Sep 16, 2026 at 02:18:36PM +0100, Lorenzo Stoakes (ARM) wrote:
 > >
-> > Sorry - meant to reply to this.
-> >
-> > Honestly there's so much jammed into this function i can't give you a
-> > straight answer. I can take a short detour to figure out if we can
-> > rework this as a whole.
+> > relevant meme: https://i.imgur.com/W0N40BK.png
 > 
-> s/short detour/long journey through hell/ perhaps? :P ;)
+> Content not viewable in my region :'( seems I do not have a loicense for
+> that!
 > 
 
-Not as much as you'd think.
+google "reading other people's code meme" and find the comic with 
 
-I did it yesterday and left an agent to validate it overnight with
-existing in-tree tests, LTP tests, and added some new tests.
+// this is bridge
 
-The naming could use some work (cold_or_pageout -> lru_op, bleh),
-but new call graph / pseudo-code:
+:]
 
-• walk_page_range_vma()
-  └── madvise_lru_op_pmd()              [PMD callback]
-      │
-      ├── PMD is a huge mapping
-      │   └── madvise_lru_op_huge_pmd()
-      │       ├── acquire PMD lock
-      │       ├── madvise_lru_op_huge_pmd_locked()
-      │       │   ├── process whole folio, or
-      │       │   └── return locked+referenced split candidate
-      │       ├── release PMD lock
-      │       └── split folio / reclaim isolated folios
-      │
-      └── PMD points to a PTE table
-          └── madvise_lru_op_ptes()
-              ├── map PTE table and acquire PTL
-              ├── madvise_lru_op_pte_range_locked()
-              │   └── madvise_lru_op_pte_batch_locked()
-              │       ├── process one folio/PTE batch, or
-              │       └── return locked+referenced split candidate
-              ├── leave lazy-MMU mode
-              ├── unmap PTE table and release PTL
-              ├── split candidate if necessary
-              ├── reclaim isolated folios
-              └── reschedule and restart from current address if necessary
+> >
+> > No argument here. This function in particular is really horrendous.
+> >
+> > I think i'm now 4 or 5 stacks deep on the "Thanks for fixing a bug, but
+> > while reviewing your fix sashiko found yet another CVE-worthy bug".
+> 
+> Yeah, I WISH it wouldn't do that.
+> 
+> I mean it's helpful to some degree and it finds real stuff.
+> 
+> But it's _where_ it does that and the workload++ aspect of it.
+>
 
-Looks like a normal table walk now.  Significantly easier to review and
-doesn't make my eyes vomit. (there's still an ifdef wart, but it's not
-mid-function anymore... so that's nice).
+In some senses - yes it's annoying.
 
-Going to spend a little more time testing and tweaking before I post it.
+In other senses, it's saved me a lot of pain debugging my new work, and
+I'm willing to do some cleanup on the way to new functionality.
 
-I've been working on a making more extensive unit tests for certain
-parts of mm/ and this might be a good time to look at whether I can
-introduce a piece of it.
+Someone's gotta be the janitor I guess.
+
+> > I suppose reasonable to say the goto is worse.
+> 
+> Yeah I know it's all a bit much of a muchness, and obviously my suggestion
+> _duplicates code_ which is also not wonderful.
+> 
+> But the control flow in the function I think is a bigger issue.
+>
+...
+> > I'll spin a v2.
+> 
+> Thanks!
+>
+
+Given i already started rewriting and validating the entire garbage
+pile (see other response), mind if i just leave this as-is?  This gets
+completely replaced anyway and i'd rather not have to go backward at
+this point.
 
 ~Gregory
