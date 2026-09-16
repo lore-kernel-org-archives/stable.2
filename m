@@ -1,44 +1,56 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2204B41D129;
-	Wed, 16 Sep 2026 19:29:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58823411FB3;
+	Wed, 16 Sep 2026 19:28:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586958; cv=none; b=LQxw+ITV/ZHjNJPDsWdAtTiD1hzGk3+voHkdkQkjvdpeXENXKEJtT9FH1zp3ED2tAUE6PnWXymjPjmiOZveMm8Uc35iRjz85eoYRBf4Zxav+wEC2dJcTfuSy3lz1baPAeh1BT7/Cj3JaPPrKm4GMQ18pMO0uJj8hlufKYn3X/xA=
+	t=1789586958; cv=none; b=WCOljUi/Rk4Q/rTO2mKuTukwFh9d+4BVISezus88t7Oq68oH/8lVuZwHcJoN12VaEDWQHjgiIajP1Lk3yEPLD46+8YMUM4kwJQVD0gPBTzOsOX7EX4k7jvryI45wyZzcrjacJPVnYMI9EPni4jIT50gvhSU7Ui+46MZSR2IoWEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789586958; c=relaxed/simple;
-	bh=7EhbcMj9P6VugQxiKzfyOwCveauffyzxOdr3dIudqME=;
+	bh=x02VE3J4t0tzAitMpbMPudaDwa+wGZOPq0pX3HqR6ag=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uiqDca7ZQUcUpTqBzAx6NhBPGBp7L5ENJftrbyFDBOUflGWwGWU7j33SSomTlJhLJ1g8AMpDI7ivlRz/WOasM5DlyX+PwsZF/7ngrOyEqYTNyZ/CHqJxm/O+dMhhrJL2oeHuxsVLIeLK+/8evoTMuqVSZiY7vJXiIqh2es1kguc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=m698z9ZB; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=RvwtmrDhokHz/gdADeY3dZXTBuSAOskKxtMz36k+0PulTM5u1hBNYj53CH9LY4cjmPW9v8eTo/+sS2Nl/pugEzPEA5VBkxOeuPGDeQq3yeX12sqUVTyivfOnd/XAHMW5AyBmptMZvhlw2kBfXVixxw+rGDcnwMz+JL60/Y3pgeU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=S+nUc0WB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="m698z9ZB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 342C11F008A0;
-	Wed, 16 Sep 2026 19:28:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="S+nUc0WB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA6421F0089B;
+	Wed, 16 Sep 2026 19:28:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586939;
-	bh=sWU/jAKFMJ9Iz8hD6DV6sFVjF6QEBg2ujvr7vsJshN8=;
+	s=k20260515; t=1789586922;
+	bh=L9HSPUKYVhnzvdfaiO2OQ9jP6jT0h2yF9r+fJcaguXQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=m698z9ZBGA/+iTqK57qz2e8ARBfmiX0KVSBQD0uZqMyzsXnioOmpGzrDcUmJH5fEJ
-	 i8gsJAKm0ANofxbaN1rk07G7yMR1bW2uD196OSOfDTG8mvu0V4zONrEhNm56CZ21hB
-	 00Jicbp9IZ0rba3pqAxYsGgWbGxW3tLDveczFLwOMddg8WqxjbmY1dp8xKvouDWXNN
-	 66FuoZAuxkCoZmVDCTjG7jQ9ul6coE7hEcrPDH4XXx4qpwBkt/+bVYQ2liO9FFUuMP
-	 hyUBQ8RDXeHnKsz6tFa1F+ANwmyC3kC7kGeMJJQ9fFHO8rZQxwyfzle1FKu8GnREto
-	 8zH2QHhURm0mw==
+	b=S+nUc0WBJcFWQNgsxM51eEM9v+Y9G3e/b6F7fH9T+ZVcZz+oMU0dPqu1+alfVBrZf
+	 bW8SIaIcGp4pJPwpZ5yeo8Kve9kPE1aXFhY3ip/BNy4EFBA52+YZB9oXo0Zj7xutbO
+	 2L+oASWEVNe74/48uMprAsZj5u/XihtrwCRtecAK6IY7w+4juN6K6tozekl5Qny/GJ
+	 MVKHPb8eXpfYzAE8TCjQTpMnoT3wXTejrsfrI0BvE/g4DYpDYQ1gOjbE0HNTXydgyF
+	 bB57LgXBC8AeD7JKN3XQQDqgCQ7C0qOl8LMjoM+OpQoE8uusTQ6SW3a5V4ZHF/b8HC
+	 A7oBGvxyn05+Q==
 From: Sasha Levin <sashal@kernel.org>
-To: Hauke Mehrtens <hauke@hauke-m.de>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	"netdev@vger.kernel.org" <netdev@vger.kernel.org>,
-	netfilter-devel@vger.kernel.org,
-	Pablo Neira Ayuso <pablo@netfilter.org>
-Subject: Re: network flow offloading broken in 6.18.45+
-Date: Wed, 16 Sep 2026 15:28:18 -0400
-Message-ID: <daily-reply-20260916-0028-re-netfilter-flow-offload@kernel.org>
+	patches@lists.linux.dev,
+	Ian Rogers <irogers@google.com>,
+	Adrian Hunter <adrian.hunter@intel.com>,
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
+	Ingo Molnar <mingo@redhat.com>,
+	James Clark <james.clark@linaro.org>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Kan Liang <kan.liang@linux.intel.com>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Namhyung Kim <namhyung@kernel.org>,
+	Peter Zijlstra <peterz@infradead.org>,
+	Weilin Wang <weilin.wang@intel.com>,
+	Arnaldo Carvalho de Melo <acme@redhat.com>,
+	Vegard Nossum <vegard.nossum@oracle.com>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 6.12 0353/1376] perf tests metrics: Permission related fixes
+Date: Wed, 16 Sep 2026 15:28:03 -0400
+Message-ID: <daily-reply-20260916-0013-re-perf-evsel-eopnotsupp@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <aqj-mK5O-J4PcbLv@chamomile>
-References: <aqj-mK5O-J4PcbLv@chamomile>
+In-Reply-To: <b0e3573a-1a02-4f21-bbd3-775f78a90c75@oracle.com>
+References: <b0e3573a-1a02-4f21-bbd3-775f78a90c75@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,17 +59,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> My patch is a workaround, so dev_fill_forward_path() does not fail for
-> this case.
->
-> Does 871df5007eda fix the issue for you?
+> I think 6.12.y misses f0869f31562bde, "perf evsel: Add per-thread 
+> warning for EOPNOTSUPP open failues". Thoughts ?
 
-From the stable side I am not queueing anything for this yet. Your v2 is not
-in mainline, and both it and a revert of b5964aac51e0 ("netfilter: flowtable:
-consolidate xmit path") conflict on 6.18 as things stand.
-
-Once the fix is merged, please tag it Cc: stable and it will reach 6.18
-through the normal queue.
+Queued for 6.12 and 6.6, thanks.
 
 -- 
 Thanks,
