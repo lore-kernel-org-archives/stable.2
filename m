@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9F314B0E21
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:34:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20AC64B8268
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:34:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576454; cv=none; b=uVWbxMKEF5AyrYEL12poj7AYjc35qvKnax8nY488n/jtnAmCrz/7hdwpU2zMza7Cj/un13louaXUQ9c2H/mH3D/iyBophCqIXmOxbpZpS0HuQzZd1IXY4HZ0zE5RPw/VBRU9ho3RUUUOiICnF3uDDw1xiE0EF6ec2y8OpaLoQHU=
+	t=1789576459; cv=none; b=cVMeoyT/4U41+QCkYLfK9Jr36FcJk3JJhbt7y5czJf+1U3GODF8ACQi4u2zh+SWSPVZiGMi8d4VaLlaDlxIAHW5mTyKOjZm3T/Zh2nrXo+Orzsm2GxBPDwncd54GbQrD9SfIBVhlBZ/i/Q+AKi7IyuKXVMSNXCsOLQhQHhD+uLg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576454; c=relaxed/simple;
-	bh=Xo6uMrPmhEqI6cg9Bl8pK9Rr2PZvPValr+yzA+J94Ew=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NgfL8Nq4BKggDL9IDPPPmmmYSRzmfWD8xHTPwglKVvrM1Lk1/pEX7zsMzz8NnPA+8UtKqRfkH/DfRITA7p3aYt5o1khny3kKD9IU4YQILO3BhB3+EI6oeuh9LglI47f63QgeFCSd9g2dlvPdCy+uWbSbC+MGJC1wnaeQoRS6nSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MuHJy3xa; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789576459; c=relaxed/simple;
+	bh=HuFhXrxjR9hNfkdSoQ/5nCrts+tbGztmHd3Wzz6/7Xc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=NjYauWPKZFOSobA2hhkmwG44a0iKJZRy1lOKfbTB5hvhkAONjnurCKk53b6vWmV/n9MojOoKbPe0beM2ipHYkNLDNQxG/QE1GzXjHabTMu1W/YxmkRJxUyiGRP8idMbo1L808HBxCP8p8ABnPitsNKsqt4Tq3ygp74azibgXJ2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=VZH6qVIb; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MuHJy3xa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C50FA1F000FF;
-	Wed, 16 Sep 2026 16:34:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="VZH6qVIb"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C8FB31F00893;
+	Wed, 16 Sep 2026 16:34:12 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789576450;
-	bh=ayVmFctJWKsFcChh8oAOht6Ba7h5en5g+OCfwhY8teU=;
+	s=korg; t=1789576453;
+	bh=INB89zANcBYfPOMYYoF9CT+aI+pB+Nqwz2itfNEeJwI=;
 	h=Subject:To:Cc:From:Date;
-	b=MuHJy3xa1UvZC0JLUeWVF2BfEJSJY4SUw7EP4JPoeqxlaxhVCOgJ9ZW18/mKw6Cyu
-	 cSbsNR00xi+AKlnquVVZXim1EvK2HEthG9DZFdqcyyrtCI3j1KA133MtfKdBJ2tSdM
-	 hwR+9Ja4YtEBsR0hEum+QI/MY4fSCGxKbqXnyCzs=
-Subject: FAILED: patch "[PATCH] mptcp: do not reschedule the RTX timer for fallback sockets" failed to apply to 5.10-stable tree
-To: pabeni@redhat.com,kuba@kernel.org,matttbe@kernel.org
+	b=VZH6qVIbApLV/YhyBr2wUfuKS/QY9Q7dn8DY7la96Fjo0Fq5uuCO9razr7KbA25FT
+	 pRBA3Kex8k3LpDYJj8MN89FwxSvuB7Vdb9+/ffhQSJtSiMH8NBLvU8iVgvNXZR6eNg
+	 dK+BH1+oOr7nTRwdMypfcW0q1W2jL7l5rMUynI0g=
+Subject: FAILED: patch "[PATCH] mptcp: subflow: no need to copy thmac during ulp_clone" failed to apply to 5.10-stable tree
+To: matttbe@kernel.org,geliang@kernel.org,kuba@kernel.org
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 17:29:16 +0100
-Message-ID: <2026091616-rotting-plug-f734@gregkh>
+Date: Wed, 16 Sep 2026 17:29:45 +0100
+Message-ID: <2026091645-harmful-flannels-71f9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-5.10.y
 git checkout FETCH_HEAD
-git cherry-pick -x e2ab913f68c7d11e2561b8a8ad0b87ffefcad667
+git cherry-pick -x 29f641951be0d91036d77edf677807f1447dbe65
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091616-rotting-plug-f734@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091645-harmful-flannels-71f9@gregkh' --subject-prefix 'PATCH 5.10.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,104 +62,37 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From e2ab913f68c7d11e2561b8a8ad0b87ffefcad667 Mon Sep 17 00:00:00 2001
-From: Paolo Abeni <pabeni@redhat.com>
-Date: Tue, 8 Sep 2026 16:07:06 +0200
-Subject: [PATCH] mptcp: do not reschedule the RTX timer for fallback sockets
+From 29f641951be0d91036d77edf677807f1447dbe65 Mon Sep 17 00:00:00 2001
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Date: Tue, 8 Sep 2026 16:07:07 +0200
+Subject: [PATCH] mptcp: subflow: no need to copy thmac during ulp_clone
 
-On fallback socket the retrans timer is a quite convoluted no-op, but
-currently nothing prevents the MPTCP core to keep rescheduling it.
+'thmac' is not used after that point.
 
-Additionally gate RTX timer reset to the msk not being fallen back to
-TCP yet. To avoid adding multiple tests in fast-path, use a new flags
-bit for such condition.
+Indeed, subflow_ulp_clone() is called when the request on the passive
+side is over, so when the truncated HMAC is no longer needed.
 
-The RTX enable bit is clear at close time and set before the msk could
-start retransmitting, with a couple of caveats:
+Note that in case of SYN cookies, thmac will not be initialised. So
+better to remove it to avoid a warning from debug tools like KMSAN for
+reading uninitialised data.
 
-- passive sockets inherit the bit from the listener msk; set the bit on
-  such socket to avoid flipping it in the fast-path, even if the
-  listener will obviously never retransmit.
-
-- while fastopening (MPTFO), mptcp_sendmsg_fastopen still ends-up
-  calling mptcp_connect via tcp_sendmsg_fastopen ->
-  __inet_stream_connect(ssk->sk_socket), and the first subflow's
-  sk_socket points to the msk one.
-
-Fixes: b51f9b80c032 ("mptcp: introduce MPTCP retransmission timer")
+Fixes: f296234c98a8 ("mptcp: Add handling of incoming MP_JOIN requests")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Reviewed-by: Geliang Tang <geliang@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-1-df1de70348b6@kernel.org
+Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-2-df1de70348b6@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index e1f08f71cdb1..be59651e708e 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -95,6 +95,7 @@ bool __mptcp_try_fallback(struct mptcp_sock *msk, int fb_mib)
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index af81ad5e699d..01db7edce18a 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -2084,7 +2084,6 @@ static void subflow_ulp_clone(const struct request_sock *req,
+ 		new_ctx->request_bkup = subflow_req->request_bkup;
+ 		WRITE_ONCE(new_ctx->remote_id, subflow_req->remote_id);
+ 		new_ctx->token = subflow_req->token;
+-		new_ctx->thmac = subflow_req->thmac;
  
- 	msk->allow_subflows = false;
- 	set_bit(MPTCP_FALLBACK_DONE, &msk->flags);
-+	clear_bit(MPTCP_RTX_ENABLED, &msk->flags);
- 	__MPTCP_INC_STATS(net, fb_mib);
- 	spin_unlock_bh(&msk->fallback_lock);
- 	return true;
-@@ -1084,13 +1085,14 @@ static bool mptcp_rtx_timer_pending(struct sock *sk)
- 
- static void mptcp_reset_rtx_timer(struct sock *sk)
- {
-+	struct mptcp_sock *msk = mptcp_sk(sk);
- 	unsigned long tout;
- 
--	/* prevent rescheduling on close */
--	if (unlikely(inet_sk_state_load(sk) == TCP_CLOSE))
-+	/* Prevent rescheduling on close and in case of fallback. */
-+	if (!test_bit(MPTCP_RTX_ENABLED, &msk->flags))
- 		return;
- 
--	tout = mptcp_sk(sk)->timer_ival;
-+	tout = msk->timer_ival;
- 	sk_reset_timer(sk, &sk->mptcp_retransmit_timer, jiffies + tout);
- }
- 
-@@ -3323,6 +3325,9 @@ void mptcp_set_state(struct sock *sk, int state)
- 		 * transition from TCP_SYN_RECV to TCP_CLOSE_WAIT.
- 		 */
- 		break;
-+	case TCP_CLOSE:
-+		clear_bit(MPTCP_RTX_ENABLED, &mptcp_sk(sk)->flags);
-+		fallthrough;
- 	default:
- 		if (oldstate == TCP_ESTABLISHED || oldstate == TCP_CLOSE_WAIT)
- 			MPTCP_DEC_STATS(sock_net(sk), MPTCP_MIB_CURRESTAB);
-@@ -4141,6 +4146,7 @@ static int mptcp_connect(struct sock *sk, struct sockaddr_unsized *uaddr,
- 	if (IS_ERR(ssk))
- 		return PTR_ERR(ssk);
- 
-+	set_bit(MPTCP_RTX_ENABLED, &msk->flags);
- 	mptcp_set_state(sk, TCP_SYN_SENT);
- 	subflow = mptcp_subflow_ctx(ssk);
- #ifdef CONFIG_TCP_MD5SIG
-@@ -4288,6 +4294,7 @@ static int mptcp_listen(struct socket *sock, int backlog)
- 		goto unlock;
- 	}
- 
-+	set_bit(MPTCP_RTX_ENABLED, &msk->flags);
- 	mptcp_set_state(sk, TCP_LISTEN);
- 	sock_set_flag(sk, SOCK_RCU_FREE);
- 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 87ccb84e9927..2b4c27426477 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -116,6 +116,7 @@
- #define MPTCP_WORK_RTX		1
- #define MPTCP_FALLBACK_DONE	2
- #define MPTCP_WORK_CLOSE_SUBFLOW 3
-+#define MPTCP_RTX_ENABLED	4
- 
- /* MPTCP socket release cb flags */
- #define MPTCP_PUSH_PENDING	1
+ 		/* the subflow req id is valid, fetched via subflow_check_req()
+ 		 * and subflow_token_join_request()
 
