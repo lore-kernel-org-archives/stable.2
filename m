@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AD5341DDF1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2958641D202
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:27:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586880; cv=none; b=q4WGxXJcPknHvPAwm0tOHCMPpPRtlUa1h8WbMRtK5Ye8V7/iaO5ssfsqXlCfTYXiEYSaMcf0BHfdtB0Bxuk+gk0m/PodDLQQ/RmWuBddF6Ht7WQdEyhhWc0rAEoEGje6UwJANqVy1nwLfzndBjBnF6oHqzHExmki3hMw0jK40QE=
+	t=1789586889; cv=none; b=oXN5Cu3B7yGuMy18FNFzILnQVzuqVdnYEsDhIgts/M60PAndVynlgz2nHXaAFjVw3ms/77fgKy71dRnJ0BUsdHwxGQdRZkYxqLoHDgnOvcLYW0ygcZ956xDQtMgW01ntuuroUgwK8xTSNSnZyK2gWDRdC53UAfL9NrMXX/yKNT4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586880; c=relaxed/simple;
-	bh=ilw1SB6la13Ug3youe8i2CB50w62E/CBmKDv+j7CDhA=;
+	s=arc-20240116; t=1789586889; c=relaxed/simple;
+	bh=j0Q0MXYSHDHq/FaG30993XpiKK9tT6x6vIQBTMmq5Wk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=m2xoY9BDYbppvWZGDODO/vYgF1B8J2p7O0TwDybX/lcpWdLhuul+jpIfZp6XiW3b3NP9jidBwokko58Y+37RImJX4tNLx2EdZqXdjr/R54+rf9R8QpKqMO5w9Gzka/053vz1dnfx2A5OqkRCp/r5rOjiJrILqAC5Vheuim64mhQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WEfd50mk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AWqo2nfUwSR5uqGdBzm3IK22MeoFc4FJfEgKASWnVg8smrOeqcHjhi+fLThLKVIpIK29fxYPulGdYZ8oBQXcpLX2B/0OszI3WjSzn08ttaG2Dt5XvjemFjwljpn6ll60mexbJYc74hoKxTWo1h7En+HeHa4ix9XRNByOBPkOVDw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gS7vnO+b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WEfd50mk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 91BFB1F00899;
-	Wed, 16 Sep 2026 19:27:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gS7vnO+b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF5801F000FF;
+	Wed, 16 Sep 2026 19:27:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586875;
-	bh=wf4ouioXFJVicOtBIVKJjmi5ayrItmQ251SIiyh9b2E=;
+	s=k20260515; t=1789586870;
+	bh=QqJ4jX0ww00dw89zr6KwVzoGK6edUetj+hN4FmO9Ei0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WEfd50mkDTbynhyY8zWcVm6FNfRA2YHVbAJ3X7iAUop8YZNiRAglcsCC9VyYQolZO
-	 kYI8BIIu53AEr8c1qhlfPhcBsKlzOX339q54we81tKKqn3QPUje6YzCn+toWffvD/b
-	 axnwjHFcL94aT1uK90ZwWgfqxGTHecbJdge1KBup0ZqajrGS1eaN5OzVNrdme/xm2Z
-	 Wmdq2tC/hqCkNT7S2HITImBrcgLmt91cTABqhnqfbS4uHOL1B7akpnIDJwSoPwH6vW
-	 cyOMA1o1lOJ0vew28c5+stohT315LGLSHFPGEUt0Ez2QZs8YZSS2gWNOm+FBX8aput
-	 5Cnxpc9a4+5AQ==
+	b=gS7vnO+bO5Y4SYy/gOS2yD4Qcdc3oZ538o7PweIkeGmEOcTvqf3k4N0pT4Y9Q4RGq
+	 KdrKnA7zQMj5+INcSdSvSWJD13LNlzo5qHKz+/ztCFu8jmWpNjKrQBkAkCpmvfqoyx
+	 AQCvLhuDSzQ+NjguARvMCGEmyRLJoGj3ryRg9LhYR8XI3ZLbEgasSmYq92brebGJvl
+	 dlDyRisONADe5L2SYgl082HYUMVqONxKSb9Xsh2JwQST2wzOX7QOx96JP83WnbiXfu
+	 ne1fDoDWd9QBPlerLYKVzN1tVTkdhdU4mvvWe4heIJZDKBTKEH9KAKLsOkIZ+403Jm
+	 yB2ztkf30LFnQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Xu Rao <raoxu@uniontech.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] Bluetooth: btqcomsmd: destroy RPMsg endpoints before freeing hci_dev
-Date: Wed, 16 Sep 2026 15:27:52 -0400
-Message-ID: <20260916192752.2144912-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] tracing: Set the trace clock before registering the histogram trigger
+Date: Wed, 16 Sep 2026 15:27:48 -0400
+Message-ID: <20260916192748.2142911-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916192752.2144912-1-sashal@kernel.org>
-References: <2026091650-java-skiing-cc15@gregkh>
- <20260916192752.2144912-1-sashal@kernel.org>
+In-Reply-To: <2026091629-pennant-heroics-00ec@gregkh>
+References: <2026091629-pennant-heroics-00ec@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,71 +45,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Xu Rao <raoxu@uniontech.com>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit f5a427b16e45210dee656b0860728f3d496dee85 ]
+[ Upstream commit 6ede78d0563a2a3ae3e46f9c07cedb5d79645429 ]
 
-The command and ACL RPMsg endpoints store struct btqcomsmd as their
-callback private data. The receive callbacks dereference btq->hdev
-without taking an hci_dev reference.
+hist_register_trigger() puts the trigger on the global named_triggers
+list in cmd_ops->init(), and only then sets the trace clock:
 
-The current teardown order frees the hci_dev before destroying the RPMsg
-endpoints in both the hci_register_dev() error path and the driver remove
-path. If WCNSS delivers data in that window, the endpoint callback can
-run with an already freed hci_dev and pass it to the Bluetooth core.
+	if (data->cmd_ops->init) {
+		ret = data->cmd_ops->init(data);
+		if (ret < 0)
+			goto out;
+	}
 
-For qcom_smd endpoints, rpmsg_destroy_ept() closes the channel and clears
-the callback under the channel recv_lock. The receive path holds the same
-lock while invoking the callback, so destroying the endpoints first both
-prevents new callbacks and serializes with any callback already running.
+	if (hist_data->enable_timestamps) {
+		ret = tracing_set_clock(file->tr, hist_data->attrs->clock);
+		if (ret) {
+			hist_err(tr, HIST_ERR_SET_CLOCK_FAIL, errpos(clock));
+			goto out;
+		}
 
-Destroy the command and ACL endpoints before hci_free_dev(). Keep
-hci_unregister_dev() first during remove so the HCI core stops issuing
-operations before the transport endpoints are shut down. In the full
-registration-error cleanup path, return directly after freeing the hci_dev
-to avoid falling through to the partial-construction labels and destroying
-the endpoints twice.
+The clock string is not checked anywhere before that call, so a named
+trigger using common_timestamp with an unknown clock fails after it has
+already become findable. event_hist_trigger_parse() then frees it
+without taking it off the list, and the next lookup by name reads the
+freed object:
 
-Fixes: 5052de8deff5 ("soc: qcom: smd: Transition client drivers from smd to rpmsg")
-Fixes: 9a39a927be01 ("Bluetooth: btqcomsmd: Fix a resource leak in error handling paths in the probe function")
+ ~# cd /sys/kernel/tracing/events/sched/sched_switch
+ ~# echo 'hist:name=foo:keys=common_pid:ts=common_timestamp:clock=bogus' > trigger
+ bash: echo: write error: Invalid argument
+ ~# echo 'hist:name=foo:keys=common_pid' > trigger
+
+  BUG: KASAN: slab-use-after-free in find_named_trigger+0xac/0xc0
+  Read of size 8 at addr ffff88800915d760 by task init/1
+   find_named_trigger+0xac/0xc0
+   hist_register_trigger+0xc1/0x900
+   event_hist_trigger_parse+0x3146/0x6af0
+   event_trigger_write+0xce/0x160
+  Freed by task 63:
+   kfree+0x154/0x420
+   trigger_kthread_fn+0xfd/0x160
+
+Set the clock before the trigger is registered, so that nothing which
+can fail runs after it is published, the way commit 6f86bdeab633
+("tracing: Fix bad hist from corrupting named_triggers list") moved the
+registration below the rest of the setup.
+
+tracing_set_filter_buffering() is reference counted, so the init failure
+path has to drop the reference that the clock block now takes first.
+
 Cc: stable@vger.kernel.org
-Acked-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Reviewed-by: Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Signed-off-by: Xu Rao <raoxu@uniontech.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Fixes: a4072fe85ba3 ("tracing: Add a clock attribute for hist triggers")
+Link: https://patch.msgid.link/20260907091415.554535-1-donggeunyoo.kernel@gmail.com
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+[ adapted newer tracing API calls to their Linux 5.10 equivalents. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/bluetooth/btqcomsmd.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ kernel/trace/trace_events_hist.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/bluetooth/btqcomsmd.c b/drivers/bluetooth/btqcomsmd.c
-index 88dbb2f3fabf9..4ce8354ebb86b 100644
---- a/drivers/bluetooth/btqcomsmd.c
-+++ b/drivers/bluetooth/btqcomsmd.c
-@@ -188,7 +188,10 @@ static int btqcomsmd_probe(struct platform_device *pdev)
- 	return 0;
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 32f9ab82a8810..556a6224aca48 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -5510,12 +5510,6 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
+ 		data->ops = &event_hist_trigger_named_ops;
+ 	}
  
- hci_free_dev:
-+	rpmsg_destroy_ept(btq->cmd_channel);
-+	rpmsg_destroy_ept(btq->acl_channel);
- 	hci_free_dev(hdev);
-+	return ret;
- destroy_cmd_channel:
- 	rpmsg_destroy_ept(btq->cmd_channel);
- destroy_acl_channel:
-@@ -202,10 +205,11 @@ static void btqcomsmd_remove(struct platform_device *pdev)
- 	struct btqcomsmd *btq = platform_get_drvdata(pdev);
+-	if (data->ops->init) {
+-		ret = data->ops->init(data->ops, data);
+-		if (ret < 0)
+-			goto out;
+-	}
+-
+ 	if (hist_data->enable_timestamps) {
+ 		char *clock = hist_data->attrs->clock;
  
- 	hci_unregister_dev(btq->hdev);
--	hci_free_dev(btq->hdev);
+@@ -5528,6 +5522,15 @@ static int hist_register_trigger(char *glob, struct event_trigger_ops *ops,
+ 		tracing_set_time_stamp_abs(file->tr, true);
+ 	}
  
- 	rpmsg_destroy_ept(btq->cmd_channel);
- 	rpmsg_destroy_ept(btq->acl_channel);
++	if (data->ops->init) {
++		ret = data->ops->init(data->ops, data);
++		if (ret < 0) {
++			if (hist_data->enable_timestamps)
++				tracing_set_time_stamp_abs(file->tr, false);
++			goto out;
++		}
++	}
 +
-+	hci_free_dev(btq->hdev);
- }
+ 	if (named_data)
+ 		destroy_hist_data(hist_data);
  
- static const struct of_device_id btqcomsmd_of_match[] = {
 -- 
 2.53.0
 
