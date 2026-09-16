@@ -1,179 +1,208 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-002e3701.pphosted.com (mx0a-002e3701.pphosted.com [148.163.147.86])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFC64D9F89
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:44:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789584308; cv=none; b=GKTwk6eAlCvZm1+5AoI5+XPgwgrnp+myqofiUi0ZLPBTTzvFhc2imRTiBQpKpVM3yYZaifTaYYMf86oIEkEcuf/Y5cVT+jR/qlj8S0qo7dDNJHo3Xmcj8Mu2IizGTbDyRbTzEG7bvqwS9SXxjEa9yI7/k54TVT2cL0OQ78bNXB0=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789584308; c=relaxed/simple;
-	bh=pkgpiWib0kDd+1NMwP/1nqlyDCQ6gmxKBg8TKT2iavI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ec7UwQiaV/zjCo+/MJnsC6RuBhnJf5i1S3PZDeYOrtUr5hQdCf7gDWIL6ndt1V0poIbkgdCW+tSYgqPkqdIlkIA7B1OzGrF6FOSXnsucXIxLpnbMyjzUzXh8uM1j7CLaqDSirHhlQjtaAasKv+W7TYnqTo2OctZJRWJ2X73VgU4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WRul2JlP; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 26F464D598A;
+	Wed, 16 Sep 2026 18:45:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=148.163.147.86
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789584342; cv=fail; b=oA9adVfU0jl/F652KD2esQMqya/ySIfF0xYgCJLUGJW/QDSL5yo7OSfQNhBhv7RHxyPpQ+a8LP1aQdMY+S8Ezzy/bBD++nSJPfn9vE+EododYgr8QG/DZnU33N2iDu2D4IYWZNu2B0NV2CqeZjbPJeGDwewnvyuGz+tS4IVgIXM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789584342; c=relaxed/simple;
+	bh=QHn5McPbra4wvPiDq5P+dY7zQ6yHbMEIi0QMM93hsnc=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=aAU8jSWITgfNPuesacQ2ew+2cIX01rJV3j+nxSWMm+UZEAhBdc+gWMA5s54kD7oXey9y+kl7tc5IqL8yCHOkon0/mI1JiibujOh2XFU7O1urpDliTdqpCyBV8/J9D5cdTCzKOrfRa3T8FE+WDTC+TTXC8esnLkBsgzubeEb3W7w=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com; spf=pass smtp.mailfrom=hpe.com; dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b=XyIFmGUr; arc=fail smtp.client-ip=148.163.147.86
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=hpe.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=hpe.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WRul2JlP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE65B1F0089D;
-	Wed, 16 Sep 2026 18:44:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789584290;
-	bh=xRgGUFTcFllzB8ZYUHyLLJQ8SugMAQd2PaXHXma6hOk=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WRul2JlPJgkQY/WDfqok8zH2K+ywRZ2ne54k5ZK9ntAnlzNTDLKz5GGw+Zsjixntz
-	 mqMQSGgR2NseJUceqZxa+E8iBE2qCSjdyrM9C1vDjmduBs9mee1L+nKDMZhjbFMYHu
-	 PA48A4Y1XpuTuBIyqGexPMBpxeXIorp6UAchuFs9RwoYVxzUMlEcfqYhpUSfbTLO4j
-	 SsBP3GNVm8hrLOpORVCHPDx3o8ehhHNcCk3fsWyE8MOdWOJZAugTz5SiXOhABo1wrZ
-	 lRzRM+Go1RBPD0d4h7u+70iyFQYZN+YyCxZYHLC38iL4OiWvjLb7WZUJIOlMIdG+kE
-	 W5tS1WN14YJeA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	sashiko-bot@kernel.org,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] tracing: Take trace_array reference when opening a tracer options file
-Date: Wed, 16 Sep 2026 14:44:48 -0400
-Message-ID: <20260916184448.1813383-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091636-herring-schedule-d535@gregkh>
-References: <2026091636-herring-schedule-d535@gregkh>
+	dkim=pass (2048-bit key) header.d=hpe.com header.i=@hpe.com header.b="XyIFmGUr"
+Received: from pps.filterd (m0150241.ppops.net [127.0.0.1])
+	by mx0a-002e3701.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GFfa9e2045833;
+	Wed, 16 Sep 2026 18:45:16 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=hpe.com; h=cc
+	:content-transfer-encoding:content-type:date:from:in-reply-to
+	:message-id:mime-version:references:subject:to; s=pps0720; bh=QH
+	n5McPbra4wvPiDq5P+dY7zQ6yHbMEIi0QMM93hsnc=; b=XyIFmGUrsUEk1n0sBu
+	iALvCQTLfyDcUYrqsgI1N0G4IuPRSbmfP2r0QMv8S66PTkYxRKesaujFfHCgtWnF
+	eWT7t2H4Mtka23f2w58WANPpeTSPV0zjwtGElJ2xciHF119HRbMWIVn4slcQ9/D5
+	HysbxxjAlZuvS8rubuSewjJTMLw+PXaPNoW821X0R0SdGF7nLEj3/H0bmzpjjRLy
+	aaHuSNOWaPgx1vnbCRZeIsVBsOqpfk8s0RYSmoHv2W+uO5xjecIE7HLGPMZ51Erd
+	CrywkNZbUseGBxhhQUkTlbtLD7ZhT/Hi/SbpL/5p1nrryv00vwIKwcmGk7zlOPEj
+	RsMQ==
+Received: from p1lg14879.it.hpe.com (p1lg14879.it.hpe.com [16.230.97.200])
+	by mx0a-002e3701.pphosted.com (PPS) with ESMTPS id 4gqw7g3e1j-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Wed, 16 Sep 2026 18:45:15 +0000 (GMT)
+Received: from p1wg14925.americas.hpqcorp.net (unknown [10.119.18.114])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by p1lg14879.it.hpe.com (Postfix) with ESMTPS id 00FDE1478C;
+	Wed, 16 Sep 2026 18:45:14 +0000 (UTC)
+Received: from p1wg14928.americas.hpqcorp.net (10.119.18.116) by
+ p1wg14925.americas.hpqcorp.net (10.119.18.114) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 16 Sep 2026 06:44:52 -1200
+Received: from p1wg14924.americas.hpqcorp.net (10.119.18.113) by
+ p1wg14928.americas.hpqcorp.net (10.119.18.116) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43; Wed, 16 Sep 2026 06:44:52 -1200
+Received: from p1wg14921.americas.hpqcorp.net (16.230.19.124) by
+ p1wg14924.americas.hpqcorp.net (10.119.18.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.43 via Frontend Transport; Wed, 16 Sep 2026 06:44:52 -1200
+Received: from CO1PR07CU001.outbound.protection.outlook.com (192.58.206.35) by
+ edge.it.hpe.com (16.230.19.124) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.43; Wed, 16 Sep
+ 2026 06:44:52 -1200
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=KnsKlcEJboNJn9OkhoqYgR7/rcVJq7wR3PV6UvbohUnlfB83OsndHtJJkNkwCW5aNhfri4AevRsZbdGhV2UDWTCMHV67brpc3xaTL5QmoHlYcGI+FXZK9jFAYt/JOlieBT0sLcewN+VqhCwpYc6T7V4Q//VGcC+hhKXLkFUqMUhLPUf8k7QUv3NF4cwHOYmFF9cO23RLZ6KflQNuQAXUbWKUv9AzsW+4EOrNJedxuPH4Dj+t3Lr88ueldp6c4d0pkfFC+p3RX2FrT4X290hA/ba4hU4mR9MSJ3A68Ly8NWGo2rRPVNJY+pCap7sFqLEqWessIvDDbUrZaqphaCs/UA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=QHn5McPbra4wvPiDq5P+dY7zQ6yHbMEIi0QMM93hsnc=;
+ b=s84IOA1EIbO4ZJ3YNXtoD5XiR3PLpqunSRD75KXy39NSZi7TKEBioSpeWhh0438eqH2pC1ynZcxBaaRxoxaPNFGy892ZB3cw6grAkDS3uSW34R6zFxp783tTfLgHuR71nyxyhLEyRTP/D88YZyOT1jIdxcP28j9QmX+j4wYZppzsadocDus/0pB0STqzJ9ZQzmT4PFlIeO0Ow1ZmWNYz5GPwp4HMFSeF0y0GTpNkvxUhZXZ90zYR3ve4HN4rHjkiEHVG1U6DB4GWOWyd9+T4xyGpYwKjljxu5NI1LbCSvaeYCABRBuIuTDxXLTcK+0xeRxzgjSs0Z4INtz9jVAuzig==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=hpe.com; dmarc=pass action=none header.from=hpe.com; dkim=pass
+ header.d=hpe.com; arc=none
+Received: from CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:610:1cc::7)
+ by DS2PR84MB4070.NAMPRD84.PROD.OUTLOOK.COM (2603:10b6:8:2ba::18) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
+ 2026 18:44:43 +0000
+Received: from CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::2c54:3534:122f:e74f]) by CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM
+ ([fe80::2c54:3534:122f:e74f%5]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
+ 18:44:43 +0000
+From: "Pradhan, Sanman" <sanman.pradhan@hpe.com>
+To: Guenter Roeck <linux@roeck-us.net>
+CC: Jonathan Corbet <corbet@lwn.net>, Rob Herring <robh@kernel.org>,
+        "Krzysztof Kozlowski" <krzk+dt@kernel.org>,
+        Conor Dooley
+	<conor+dt@kernel.org>,
+        "linux-hwmon@vger.kernel.org"
+	<linux-hwmon@vger.kernel.org>,
+        "devicetree@vger.kernel.org"
+	<devicetree@vger.kernel.org>,
+        "linux-doc@vger.kernel.org"
+	<linux-doc@vger.kernel.org>,
+        "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>,
+        "stable@vger.kernel.org"
+	<stable@vger.kernel.org>,
+        Sanman Pradhan <psanman@juniper.net>
+Subject: Re: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
+ decoding
+Thread-Topic: [PATCH v2 1/3] hwmon: (pmbus/tps53679) Fix TPS53676 phase page
+ decoding
+Thread-Index: AQHdRTIMBtc9dKXtJ0KuZ/216AGGBrbRTLKAgAAvWwCAAAPegIAADIgA
+Date: Wed, 16 Sep 2026 18:44:43 +0000
+Message-ID: <20260916184436.657004-1-sanman.pradhan@hpe.com>
+References: <a335dcbc-6bfa-4ef2-9c7d-4cee985fc3d5@roeck-us.net>
+In-Reply-To: <a335dcbc-6bfa-4ef2-9c7d-4cee985fc3d5@roeck-us.net>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: CH3PR84MB3523:EE_|DS2PR84MB4070:EE_
+x-ms-office365-filtering-correlation-id: c3813bf0-101b-4d08-3edb-08df142292e2
+x-ld-processed: 105b2061-b669-4b31-92ac-24d304d195dc,ExtAddr
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|1800799024|23010399003|7416014|376014|56012099006|38070700021|10067099003|22082099003|18002099003;
+x-microsoft-antispam-message-info: t+HOaANNCkg/H+zyXs69i1T/CAYoIuVkpjdTxsV1TZjHjutrJurFzq2OOl8lVgXBcEiBPYHJnTYxG2b8DC8BriBnNSX7fIeP9+pKqtbf1Qb8RmBdwq8fzcauY+2pkCQ50lNvYnrbRE4nAURvU2bR72Ho0d9JBM+Qe83j+fWs1eYDqlMT2cw0M82QziyL8JAitAWgjiy5BCHSObBYE/vvcwneCI5ILlMPNnUYGsSforZoSftWJl/yApLFFwOE/05vtRCIRuC+hHAO0K7EBjFgANWvqyg/TWSQ440ZbE3NrMS9sixJQHd5dmB8BDGAZIe4nEBYu7n3gXQfp1OxEeCnDo313g8V01L+S4s3SnOLhHzLsnj/tZSj6CE08NZSCvTZce8ZXHXhwJtpa5UOfiETHJVkW3A9BgKtF0CjR5JLJ94Ni6w4T0KjJU/BZFuh8DgALDH4/kK48QEk0/pfDnZOsu2rIfrlYaDdj36+QAuG3fQ7QNZgHha7T68walvW9nhwYGTU+lj9qg3mfFUd+LuUXXbCwv96r7B8byw/xWi+p3JenqylZemgIIyn5W55ir1J56P8hGpKz+iG9dKfY6TscJnYF3XT0cNgoouzdzvV13xV56WLytuJG96ZPYFcDTrQgQI+aOWUvJW2mtD6M6b8k6A3LSQSrFB9xidPtHlB1q6PbZQfB7YzMYBKZMQ+Nz9BROp5eLlkIcxTuHpykL1/XAjQs8LOz3ZIvhZyPPJyuYg=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM;PTR:;CAT:NONE;SFS:(13230040)(366016)(1800799024)(23010399003)(7416014)(376014)(56012099006)(38070700021)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?utf-8?B?dWF3OEtxWVVscUpTQ2xMVWovM3pRMUZqUytRUktaSVV4WEdCNzh2Ny80QU5m?=
+ =?utf-8?B?ZzB0WExjRHQzRzdNN1pCRnVoMWREaXZweHh5akVkTDl6ZElKUUpvbnd1K1RB?=
+ =?utf-8?B?R0xVNlpxc25yeFBFR1cvellpT3VRbE1IS0svQldCRGZSWnJsOXdHdVZWQU5O?=
+ =?utf-8?B?VEk4K3JFQTBkUHVpSnZWMmsva2gyQ1lJUEpjY21SN3J1U05GQkNpTnltR2hP?=
+ =?utf-8?B?TFF5ZDNtR0xYRzVWSlZoWHpkTUxSRjdmN1Q5c0NweG5paVJqV3VGV2JhRzZp?=
+ =?utf-8?B?aUdIMmVWb1NKaVNSV2t2SmlQSDJGSzhZQmdIN1c5M2VRRElOQVJ4d2R6Y3lL?=
+ =?utf-8?B?R2pud09CWk01aHZGZkt0STBGZDRGeDZyWFdxSGhORG1kSjlleDU2NGFGc3M3?=
+ =?utf-8?B?VlMwOEJrR2RjMnJpSnZkVXZMYmlNelVIUTY5a25pbTZpMEdLbm5uTmN4MjFW?=
+ =?utf-8?B?UWNpbHMrdEFyWnFZZG5GampyZmNmbFR2aFRrbmxMNHBwbjlFbXdYcVlIQzhz?=
+ =?utf-8?B?TGdwN09vZG9XS1NQVnBLdHZPY0VjdDFVNFFER09iSU5EYkJqNHdDNVBRM0xp?=
+ =?utf-8?B?UFlVQWp1Wm1rZ0xVQXY1cXppMDREQ29yQnkyNDI2bEdmSzUvNHFkbXV6YW0y?=
+ =?utf-8?B?UE1Hd3VYMGlHdjZyLy85VEVHb1ZpZm04cmYyNkQ5eVhMaGJwbnRNK2EwdCtJ?=
+ =?utf-8?B?NGJvcm4yazRpRW9jUDRCbm50bjMrbi9JcEZwcUdKOG1mbVZXY1Jyb3VxRVlK?=
+ =?utf-8?B?QklPN2YwUXozSkJ3dWl3dmVXRkM3M21tZTE4bm5wbXlQd3pVclYxMVBWUkZl?=
+ =?utf-8?B?SkhaTi9pMUF6UWtGVHdYM1hkZHVwOUR1dVBHRUxEUkVPUWxTNGdFYUNPQS9l?=
+ =?utf-8?B?QlFOcVZRbDc2Mk8zQmFNU2FBblU4NS9rYnNXUTRtRFI3bXgyMFd6YVlubm1T?=
+ =?utf-8?B?UXE3VmFYSGk5ZktkdytiYis2RUgva1NTS0N4RGNBVXVZNHROUklWNUNIRWlQ?=
+ =?utf-8?B?QjJlNTh4Y0hya2ZDL2RlazhUTzl1UTR3NzJZM2h3MnF0eWhqYStRakNveGNn?=
+ =?utf-8?B?U1FrQ1R5OEZUWGJ2MVNHQVo5WmxpbkJRR2pLMTAydWlkbEVQb09JUkxxeWpV?=
+ =?utf-8?B?RGJiTlBaMDh4cDZMUnFMVmp6UlJvUjBOa1A5SkNFUkFsZjFTZk84b01sSjIv?=
+ =?utf-8?B?Y2pEUnh3MDMrUW0rWVVsTnVYN05GdWptaXR0dElHR0RTSEVqSEtleVVDRi9p?=
+ =?utf-8?B?YkZuR1grV1d6NzRVMlJ6MzR4aW1PWVlkSVdoRjFiaXowRUFTcUxFYUF6NUdG?=
+ =?utf-8?B?bHQzVDR4dlhCVFVWT2dDK3AzeHRSQ1kvTCsyUFBxclJpQVNWdkVjQ1lUdU5u?=
+ =?utf-8?B?alMwTUtZWDZPWUprVnR0Zll4ZDZORk44Y0ZLb3psZlBxZkFQd25TVzNONDRJ?=
+ =?utf-8?B?UXl2MXpSMGNnMTZScUF1YXg0N0kwbTdQanFKdjl3WmNmUHdoK2JzSE91NTAy?=
+ =?utf-8?B?SFBrUFcxM1YyMDAvK1dMd1RUZlp2RmcyUENWQUt3cUljaUhvOWYyNzFoSUNL?=
+ =?utf-8?B?K2pMbzZBN3AwMEJkbkJrOUhvUXRVaVkwSGZMOHp2NTdTL2ZYZzZjNFRxOEVX?=
+ =?utf-8?B?WWZCdnlqdVE4THpLQWpxNEp4NExZUk5lb24vank5dGliRVlXcDNXUm9tMStz?=
+ =?utf-8?B?U2dyY3RQVmxJQ2llWDRyYytCZXBrcmc0NUJTSC81YVJQWXoxNGU0Y2FjSDE5?=
+ =?utf-8?B?ZGtxeExFRjRQVGFLRDgrY1JCZWlpZHBielU5QmdUUlY4TmxUMGN5VC9BTHNP?=
+ =?utf-8?B?SWs2VEVZd21BaE84dkYrcGpjdmpWL3NaTllkK252OHV3VVpKcUVMWUNjaFYx?=
+ =?utf-8?B?S3c2M2dja0tzRCtMYXpNUUd3algxc0xQNy9XNDZOc3RaaTlzd3d2WllZNko1?=
+ =?utf-8?B?TGtsVzJVOXdFYWxXa1NpcTdNb2o3TVMvQ1M4dUVWZm9HUEZIOWJXQTR0c1lp?=
+ =?utf-8?B?MG9QWHd3SGFLMW9yNHA2eHFuWEwvUG9jaUczUDFjWVJYTkQzQUtXUkc0WWdh?=
+ =?utf-8?B?OTRZRUtKTGhkNjIwMWNXV1gvcGozc3NJRTJMODM2RkxDYTFqaHJneTJqdTdv?=
+ =?utf-8?B?VkdnVkRBM0xtbkpYZkxQMVh5Mk45NHdDcGE0SW1ZNUVSM0IwWEtEUTVWbE1F?=
+ =?utf-8?B?dVJqaFNoWUVjZjJBdWdwRytBaFY3UG5PdmtNNHJTd1lsQWEveGRYdEdXd2cx?=
+ =?utf-8?B?c1BNMEZRUDh0dmdPYnNvWHVSU2crZzM1NVowU2JxQkY2SXdUZm51U2k3OWFU?=
+ =?utf-8?B?dHBQeVM5dDZIUkc4UEVvaHhUbmVHbVg4eXJTSnlMc3FoTHFHKzNLUT09?=
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-Exchange-RoutingPolicyChecked: UY5xwT/36CkA46XSAMAqZCtJKsnhxk3KGH6o2qgo1dxJYWZEMXR+W5gX09NKYmrEpNG1MgVyo8lIDc2669bdqw64dzlevsP7qg5az4eYLY5JCEoas5SRpLIcr43+UPhzk2LrX4kyxPom9+27WUThoDNMe2v4L7gfQZ5DLAE69U8Vrng18SBzej8dpN+Nwd0W3sbM5q/01gSLbjpivbhjL88cSIeZKHxJS2Ekt1wAcpbdGt9w3ueKzSjhcSREyGKUyj5dvFohJ9H219PWh/btG5jYHe0/nJhOHW5DX/DF65gd0YUjCIwp4wG9xiZW0vWg37/4b/z7GUQ5Msz7rU+qTw==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: CH3PR84MB3523.NAMPRD84.PROD.OUTLOOK.COM
+X-MS-Exchange-CrossTenant-Network-Message-Id: c3813bf0-101b-4d08-3edb-08df142292e2
+X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 18:44:43.5109
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 105b2061-b669-4b31-92ac-24d304d195dc
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: /vsbNrbukfZwRYze6e4+CY/awW0jRZ7vjQ/zGuCHRqqcVJGvuDGynxCQVFbcWrhGOOMJsJcu77QhoFLqs3z7/Q==
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: DS2PR84MB4070
+X-OriginatorOrg: hpe.com
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: EKRRSjny1GsmEQqChFWOwOLpSNSXWLzO
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE2MDI1NyBTYWx0ZWRfXxQXspnYC4IZj
+ NMJ6H7pLzPmzsLhHmPEdn6YPYA6q5oq3cD6UXoBmtGBIOfybrIqvPs15S4ZNnRl6WRo3OoaBE6V
+ PAAHdJy5Sk68FBZGsOgWQJQvA55Za2g=
+X-Authority-Analysis: v=2.4 cv=RdUFmFtv c=1 sm=1 tr=0 ts=6aaae3bb cx=c_pps
+ a=5jkVtQsCUlC8zk5UhkBgHg==:117 a=5jkVtQsCUlC8zk5UhkBgHg==:17
+ a=z/mQ4Ysz8XfWz/Q5cLBRGdckG28=:19 a=lCpzRmAYbLLaTzLvsPZ7Mbvzbb8=:19
+ a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=gQcMVamqm3wCPoSYhaRC:22 a=_ZmgHqWwjZUDpi_pur5s:22
+ a=OUXY8nFuAAAA:8 a=QTfseBCnIOStC3TcKcsA:9 a=QEXdDO2ut3YA:10 a=q5mp2vxMLvQA:10
+ a=cAcMbU7R10T-QSRYIcO_:22
+X-Proofpoint-GUID: X3lw4eLjRgd4jvcMhI3tFWkaf3sqpTQ5
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE2MDI1NyBTYWx0ZWRfX4X3EahbLgkBF
+ dSjNYkuou1/+RW04jN3mXylbTFGM0bpasfQEoH4mFIv4mclbg6f/fKpav3LfqvsIxxeEDQaZ3jH
+ AporJaTfFPg8SXWIQCooDqHA5k3cpqdjMN7Ptx/LV9WeGly770+pkwq1lA5byDTezRNbTp10508
+ HBMbsogW0D3VNGX3G3L+vuJwAYrwYLm5DXJI09bbb9XeG4KsvdF3SfC5eL1K//3pRnQGiadCNfX
+ xGtDVXLQPRUTaC/3CYdTV8SfUYg0ZOSxmdIl6L8sm6DchO1tXrRwr7rJvgLR0eBlIXBbzAhjjfr
+ hO5EkBVxtYmx9JqOzu0RT53Qi1QkLTr0gaI3y39FBNgx3oagHK8gdM+FtXrjZ/cDTOwTuyhPMVs
+ VgFSw3DX7/V66pMCdePi5lbDeW8Npy405Ytg9+74mKNAm97JrUtm5I2C1YL/0uWBQgG+puVA/QZ
+ T8XrpwdqVptY4sJGOpg==
+X-HPE-SCL: -1
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ adultscore=0 clxscore=1015 bulkscore=0 priorityscore=1501 impostorscore=0
+ phishscore=0 lowpriorityscore=0 suspectscore=0 spamscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609160257
 
-From: Steven Rostedt <rostedt@goodmis.org>
-
-[ Upstream commit ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 ]
-
-When a tracer option file is opened, it is passed a descriptor that points
-to an element on the trace_array's topts array. This element has
-information to find the trace array and other information. It uses this
-element to take a reference of the trace_array so that the trace_array
-does not get removed while this file is opened.
-
-Unfortunately, there's a race condition where the element itself could be
-freed by the removal of the instance the trace_array represents causing a
-use-after-free as this element that is used to find the trace_array to
-increment its reference counter is also freed when the instance is
-removed.
-
-To solve this, add a trace_array_tracer_options_get() helper function that
-will take the address of the element that is passed to the open function
-by the inode->i_private pointer and search all the trace_arrays under a
-lock to find the one that the element's address is in the range of the
-trace_arrays topts array elements. When a match happens, that trace_array's
-reference would be increased.
-
-Note, there's a race where if an admin was deleting and creating trace
-instances at the same time and the memory of the old trace_array's array
-matched the memory of the new trace_array that it could in theory open the
-option from the wrong trace array. But we do not care because it would be
-stupid to perform that kind of action. As long as the only thing that can
-happen is that the option from the wrong trace array is used and doesn't
-crash the kernel it will only make the user confused. But if they are
-doing something stupid like this, they are already confused, so no harm
-done.
-
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
-Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ replaced missing __trace_array_get() with tr->ref++ and return 0 under trace_types_lock. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- kernel/trace/trace.c | 48 +++++++++++++++++++++++++++++++++++++++++++-
- kernel/trace/trace.h |  1 +
- 2 files changed, 48 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index 33770d2b3489e..f2aeec4b65f52 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -8923,12 +8923,57 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 	return cnt;
- }
- 
-+static bool tr_option_match(struct trace_array *tr, void *topt)
-+{
-+	for (int i = 0; i < tr->nr_topts; i++) {
-+		struct trace_options *tr_topts = &tr->topts[i];
-+
-+		if (topt >= (void *)&tr_topts->topts[0] &&
-+		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/*
-+ * The topt is the address of a trace_array->topts[] element that holds the
-+ * the tracer options descriptor. But since the trace_array reference has not
-+ * been taken yet, it cannot be dereferenced as it could have been freed by
-+ * a rmdir of the instance the trace_array represents.
-+ *
-+ * Search the list of trace_arrays and compare the topt to the address of
-+ * the entire trace_array topts array for each trace_array in the list.
-+ * If one is matched, then take the reference and return it. If not, the
-+ * trace_array no longer exits.
-+ */
-+static int trace_array_tracer_options_get(void *topt)
-+{
-+	struct trace_array *tr;
-+	int ret;
-+
-+	ret = security_locked_down(LOCKDOWN_TRACEFS);
-+	if (ret)
-+		return ret;
-+
-+	if (tracing_disabled)
-+		return -ENODEV;
-+
-+	guard(mutex)(&trace_types_lock);
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		if (tr_option_match(tr, topt)) {
-+			tr->ref++;
-+			return 0;
-+		}
-+	}
-+	return -ENODEV;
-+}
-+
- static int tracing_open_options(struct inode *inode, struct file *filp)
- {
- 	struct trace_option_dentry *topt = inode->i_private;
- 	int ret;
- 
--	ret = tracing_check_open_get_tr(topt->tr);
-+	ret = trace_array_tracer_options_get(topt);
- 	if (ret)
- 		return ret;
- 
-@@ -9151,6 +9196,7 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer)
- 	tr->topts = tr_topts;
- 	tr->topts[tr->nr_topts].tracer = tracer;
- 	tr->topts[tr->nr_topts].topts = topts;
-+	tr->topts[tr->nr_topts].nr_topts = cnt;
- 	tr->nr_topts++;
- 
- 	for (cnt = 0; opts[cnt].name; cnt++) {
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 8cdb8e1a33c1e..90e68cae67583 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -202,6 +202,7 @@ struct array_buffer {
- struct trace_options {
- 	struct tracer			*tracer;
- 	struct trace_option_dentry	*topts;
-+	int				nr_topts;
- };
- 
- struct trace_pid_list *trace_pid_list_alloc(void);
--- 
-2.53.0
-
+RnJvbTogU2FubWFuIFByYWRoYW4gPHBzYW5tYW5AanVuaXBlci5uZXQ+CgpTb3VuZHMgZ29vZC4g
+V2lsbCBzZW5kIGl0IHNob3J0bHkuCgpUaGFuayB5b3UuCgpSZWdhcmRzLApTYW5tYW4gUHJhZGhh
+bgo=
