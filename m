@@ -1,85 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF1347A0DD;
-	Wed, 16 Sep 2026 08:16:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AFB73B7B70
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:19:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789546591; cv=none; b=Vx79sdPaznvnvEhsTtz3E7h/uQL/waSd8dkfEx/vEC9uF9CEBWRP4CYE1sqKHCi9olKyvYRzMTRzuUKLIT2xpni0wXZqqPkSOs0Tdj1TX5rTM0E7oMoJ98OSCzf9XsvFMZb9aqSj63RS+J+n3vxNNegJJ9L8zu+IzNfGETFLsB8=
+	t=1789546772; cv=none; b=GEUyfpk1CF0cbNDstaPGncHToC0Rm3EiVXKlfl57b42ZecysD6gfu4e2OFkWueEeUuhPA2HZs8EZ3tbiWwuP3nOqXID0x/Ae2Ew5T32fRahZVtCfvtRb9vnASA7tt4vWddf+tr563DqZIYTljmo4w7zE9pb/j2Z0MFJym1h5HQU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789546591; c=relaxed/simple;
-	bh=a0Lpz0KWiW0t6SX8Sm0pRTi6OEXCaet1sxsTa2bUJGQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W2g31YpuNaUf3k0czKsNZsYpjdJaDtWEwFEtOEGJW68KaxxZGSN9K7WXqEi6axGBXF8VRjCzJBROEtztUWTn9Oo7TqtP7piT4llaFlkA6w+9cCA9+tYaQ0GPN4F2/amdLOBdSmT9XKsq4UVwUErBbmzzzaVbi3Oko1AG5hvSwN8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JXwBUxpp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789546772; c=relaxed/simple;
+	bh=u1oueHauhE3+Uhx480P+4dZE9p/F4wS108WFEQTPS9w=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=AqlWn2B4cUkPb107gX/SnNRhTQ6G3Rbd9QUrgQvfIUYp9InNJr0YA9E3o2ppCVpuMbflM17d8i70qTrgDIpcd7SWLxeeXOB4gak3wvK7GdHuqzp/aYw1HIlftDR7yL6h5otdOchJGw2yxus3NK+O3TKrdBYuFsVmyIMURANRS24=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=wtevdsHG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JXwBUxpp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3F8951F00893;
-	Wed, 16 Sep 2026 08:16:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789546579;
-	bh=SjWIP8bNgzdC4buQnhVS9zvJ7ieVsM0oE8uqr/MRoYM=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=JXwBUxpp6BrunGC9Exr6GM/vSGpDSwW0e19VQG/HebrdWDreqD+TRflwbah2sHQOp
-	 FpxMLshY1UEor/GvOfupqRFWD/7O/D2IT53Ts1TI0qFtHguYs/mwcF9Zi3Q3eq5daW
-	 zDrOlbTsyURpbnesjY/9q7QnelxvpU617ZiErDVoEip8cXsy+kXVqb4NL0quiCe+fz
-	 VUWYamsRGz77Z/6BQ1e99VwL01uV5WAnNUvkI2cMNjx/mSZFEeZRdfrPgO6QyFkNxL
-	 4wb3ea39LRymM0UgOJlA2TIVhPRqcPmZq2u67H7j2RDNLc9dbn0+llVJHeqS7b4Itb
-	 l8KwbL9+yj3oA==
-Received: from johan by xi.lan with local (Exim 4.99.5)
-	(envelope-from <johan@kernel.org>)
-	id 1x6koS-00000005wGU-1cEn;
-	Wed, 16 Sep 2026 10:16:16 +0200
-Date: Wed, 16 Sep 2026 10:16:16 +0200
-From: Johan Hovold <johan@kernel.org>
-To: Joshua Crofts <joshua.crofts1@gmail.com>
-Cc: Peter Chen <peter.chen@kernel.org>, Pawel Laszczak <pawell@cadence.com>,
-	Roger Quadros <rogerq@kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Mathias Nyman <mathias.nyman@intel.com>,
-	Chunfeng Yun <chunfeng.yun@mediatek.com>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Heikki Krogerus <heikki.krogerus@linux.intel.com>,
-	linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH 2/6] usb: xhci-mtk: add missing
- pm_runtime_dont_use_autosuspend() call
-Message-ID: <aqpQULC3P0wspKwL@hovoldconsulting.com>
-References: <20260915090223.1346-1-joshua.crofts1@gmail.com>
- <20260915090223.1346-3-joshua.crofts1@gmail.com>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="wtevdsHG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 371B21F00893;
+	Wed, 16 Sep 2026 08:19:21 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789546762;
+	bh=MUEy9soqafXw0M3I3Hu5+5MEcECXhkRKVnhmntQzJU0=;
+	h=Subject:To:Cc:From:Date;
+	b=wtevdsHGFsZdqpmPpDT/5d+1C56vsVI9xMSyv8dYA8O0HGCWYqy0wY/r+7xHIXlXs
+	 dQgfE02kHRwukYgy+m4V5pZcIzXCRHtXWFeFFY/nrfx+4zUpaEIXdQ7jYXADX6KH6Z
+	 iQ0nMqBEvpZ/BVFoVErgYVXulwgs9AkdobTmiotQ=
+Subject: FAILED: patch "[PATCH] tracing: Fix memory corruption from a "STACKTRACE" histogram" failed to apply to 6.12-stable tree
+To: donggeunyoo.kernel@gmail.com,rostedt@goodmis.org
+Cc: <stable@vger.kernel.org>
+From: <gregkh@linuxfoundation.org>
+Date: Wed, 16 Sep 2026 09:17:29 +0100
+Message-ID: <2026091629-carload-gala-1e37@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915090223.1346-3-joshua.crofts1@gmail.com>
+Content-Type: text/plain; charset=ANSI_X3.4-1968
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 15, 2026 at 09:02:19AM +0000, Joshua Crofts wrote:
-> The disable_pm label in xhci_mtk_probe() and xhci_mtk_remove() both call
-> pm_runtime_disable() on error or device teardown, but don't call
-> pm_runtime_dont_use_autosuspend(), causing resource leaks.
 
-No, there is no resource leak here either and this does not need to be
-backported.
+The patch below does not apply to the 6.12-stable tree.
+If someone wants it applied there, or to any other stable or longterm
+tree, then please email the backport, including the original git commit
+id to <stable@vger.kernel.org>.
 
-The autosuspend setting is not restored, but that would only possibly
-have an impact in the theoretical corner case that someone forcibly
-rebinds a different driver that does not enable it.
- 
-> Add the missing pm_runtime_dont_use_autosuspend().
-> 
-> Found using Coccinelle.
-> 
-> Fixes: 0cbd4b34cda9 ("xhci: mediatek: support MTK xHCI host controller")
-> Fixes: 04284eb74e0c ("usb: xhci-mtk: add support runtime PM")
-> Cc: <stable@vger.kernel.org>
+To reproduce the conflict and resubmit, you may use the following commands:
 
-So, without having looked at the rest: none of these should be
-backported.
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
+git checkout FETCH_HEAD
+git cherry-pick -x 7f711e62355bb3123a2ca2f97a2facbfebc678c6
+# <resolve conflicts, build, test, etc.>
+git commit -s
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091629-carload-gala-1e37@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
-Johan
+Possible dependencies:
+
+
+
+thanks,
+
+greg k-h
+
+------------------ original commit in Linus's tree ------------------
+
+From 7f711e62355bb3123a2ca2f97a2facbfebc678c6 Mon Sep 17 00:00:00 2001
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Date: Tue, 8 Sep 2026 00:50:45 +0900
+Subject: [PATCH] tracing: Fix memory corruption from a "STACKTRACE" histogram
+ key
+
+"cpu", "CPU", "stacktrace" and "STACKTRACE" are generic fields, defined
+with an offset and a size of zero so that the filter code can match them
+by name. parse_field() maps them onto their common_* equivalents for
+backward compatibility, but unlike the common_* names it hands the
+placeholder back to the caller instead of NULL.
+
+create_hist_field() takes a non-NULL field as a promise that the record
+carries a stacktrace and picks HIST_FIELD_FN_STACK, so the __data_loc
+word is read from offset 0, that is from common_type, and its low 16
+bits are followed as an offset into the record. What is found there
+becomes the length of an unbounded memcpy. Pick an event whose id is
+small enough that the offset stays inside its own record and the length
+is a kernel text address:
+
+  # cd /sys/kernel/tracing
+  # echo 'hist:keys=STACKTRACE' > events/ftrace/print/trigger
+  # echo hello > trace_marker
+
+  Oops: general protection fault, probably for non-canonical address
+  RIP: 0010:rb_next+0x23/0x60
+   </IRQ>
+  RIP: 0010:memcpy+0xc/0x30
+   event_hist_trigger+0x2e7/0x12c0
+  Kernel panic - not syncing: Fatal exception in interrupt
+
+Leave the field NULL, which is what the comment above the branch says
+the code does and what common_stacktrace already does. FILTER_CPU and
+FILTER_COMM are left alone, their create_hist_field() branches never
+look at the field.
+
+Cc: stable@vger.kernel.org
+Fixes: 4b512860bdbd ("tracing: Rename stacktrace field to common_stacktrace")
+Link: https://patch.msgid.link/20260907155045.692664-3-donggeunyoo.kernel@gmail.com
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 9bc829c1e876..8af97fd4ee2d 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -2404,6 +2404,7 @@ parse_field(struct hist_trigger_data *hist_data, struct trace_event_file *file,
+ 				*flags |= HIST_FIELD_FL_CPU;
+ 			} else if (field && field->filter_type == FILTER_STACKTRACE) {
+ 				*flags |= HIST_FIELD_FL_STACKTRACE;
++				field = NULL;
+ 			} else if (field && field->filter_type == FILTER_COMM) {
+ 				*flags |= HIST_FIELD_FL_COMM | HIST_FIELD_FL_STRING;
+ 			} else {
+
