@@ -1,112 +1,107 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D780D50EC13;
-	Wed, 16 Sep 2026 17:39:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8CBE64D7D49;
+	Wed, 16 Sep 2026 17:40:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789580347; cv=none; b=usGE3t3eBdfb3b6BCh9i2xistCQolD4zv3g9IHlDzh9LDq7udDLA2WZUpqqfLt9b9h7ghNb7qqkRqGCl3PMiqGVyYTU4VfN2AlWJr5YUPZxPSP1RrOS7Lo4fLwqV8IfIi5EknSWs6dLRqkbFA8aXTWu1tmo04V39Zc0lv9vmZbw=
+	t=1789580416; cv=none; b=FYANaIXLsP7feND7OnLai+RmeOpOUx45FBA1GS4fsnBtAyvYo0S3UHc1YcoglbusZlxj3SWzli/a/cdhyvExzMpnrPqLDJ1M1gEHdrA2wg3cb8UHpkRmyQf5122QAW4qxr+QJQLp78REwvwSGbgivAjkWdvWAlIgX6b3ZUnPYHI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789580347; c=relaxed/simple;
-	bh=1n2xg/JoPY4kIbe3mE4yyuTv5TFw3hrpgNEEZQHM9qw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Q9qpZtx11/2JAegA7tby/KdCpJ7Sjp6CgDgyifvDog0zpYXLBCVngbUvdzEQv6ZuVKoQzSWq7X9JfpsBSkcojazZoqSJ1VJnovBsVReeyM6rwPB9VEH7sz1UmBEKhfR6Nf90liHza7xQaknC9K076E3/oBk3nbYjc9NPQ35dQ8U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JKjnQsRx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JKjnQsRx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 431EE1F0089A;
-	Wed, 16 Sep 2026 17:39:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789580341;
-	bh=Hw/R8i8meAA1zGDzRH9AGbiNJd1vryQPS42R/yDvgrw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JKjnQsRxjXBgEg6lmIflMrd91xGrzhV/zR0ZR5jpj+6ZyBStCMoH2fqEYxe/wTOp/
-	 uuVFcEEFaglpcjwXx+GC7nnEhX26Ss2pIXlEsvnNSQFS8l6Pkb1SWxsg1fFup702xH
-	 qTvROjAkedcIHSOdcfIbvx9SPLZry36E0S/Squ0SRlKLJe6CYf5COUDCOzAzEo82A3
-	 8bUtzxO9UaQrhs9PEnKWVE0Fuujc/v+T3pR4YzwGk6wza+NrmSFFCYrxw+QxFEX/uK
-	 jTZzDMzKaGYl2xyTFeOvmyidvxFI1A1EOVCe0XxmCzrX0qyhNj34Ah4Dw+7DVWw88F
-	 WZ17BtYeYwyRg==
-From: William Breathitt Gray <wbg@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: William Breathitt Gray <wbg@kernel.org>,
-	biju.das.jz@bp.renesas.com,
-	lee@kernel.org,
-	linux-iio@vger.kernel.org,
+	s=arc-20240116; t=1789580416; c=relaxed/simple;
+	bh=6zDj+nDDyjh9YHrZ2JfzB1aq5DX481zW0e2Sp2qyLH8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pd4c8QXvRucFwsP+ZTvKB6K193WP1ltll+JietKm8uaw1IoqOZwnBlqxHKtnuQX0Cfdy523rqEEQ+7m8Ecic/0odhRyGmGCtxlr+H/HNHwM+WyawrVEx34P48s5P9EWNZ8F+aEEpzbUOIG2uER/6U47Tb60g+G2rQAiEQDDyHYE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADH+EJs1Kpq68ZuCA--.23334S2;
+	Thu, 17 Sep 2026 01:39:56 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: airlied@gmail.com
+Cc: anitha.chrisanthus@intel.com,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
-	linux-renesas-soc@vger.kernel.org,
+	sam@ravnborg.org,
+	simona@ffwll.ch,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] counter: rz-mtu3-cnt: Fix runtime PM leak in rz_mtu3_count_enable_write()
-Date: Wed, 16 Sep 2026 13:38:43 -0400
-Message-ID: <20260916173845.1820981-1-wbg@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260916092242.2001358-1-vulab@iscas.ac.cn>
-References: <20260916092242.2001358-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/kmb: Fix dsi_pdev reference leak in kmb_probe()
+Date: Wed, 16 Sep 2026 17:39:29 +0000
+Message-Id: <20260916173929.2088602-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2265; i=wbg@kernel.org; h=from:subject; bh=1n2xg/JoPY4kIbe3mE4yyuTv5TFw3hrpgNEEZQHM9qw=; b=owGbwMvMwCW21SPs1D4hZW3G02pJDFmrLj/e/GzDrU2HJ6yt1taZ33FOwu5Wtwej4jn+WP29r +bvqFNl6ShlYRDjYpAVU2TpNT9798ElVY0fL+Zvg5nDygQyhIGLUwAm0veTkWF5e01K96lXYbs4 9on/vXDD/N2j/UIvrE8F8zzwfOS2774swz/1A3fUWTUmMMm3rWRrSn+XLDJpwV/Bw/I75Rta40r 3inMBAA==
-X-Developer-Key: i=wbg@kernel.org; a=openpgp; fpr=8D37CDDDE0D22528F8E89FB6B54856CABE12232B
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADH+EJs1Kpq68ZuCA--.23334S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4rAr47tw48trW7WF45ZFb_yoW8XFWfpr
+	ZrJFyFvryqkr4xtrW7A3W5Za43Aa17Ka4fuF4kZ3s8WwsYqrW5tas3ZwnrA348AFWkWF4f
+	trZrJF1xur4UZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvF14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
+	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW8Jr0_Cr1UM28EF7xvwVC2z280aVCY1x0267AKxV
+	WxJr0_GcWle2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS
+	14v26r126r1DMxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I
+	8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8
+	ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x
+	0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v2
+	6F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0obIYCTnIWIevJa73UjIFyTuYvj
+	fUruWLUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqpVhnYQABsy
 
-On Wed, Sep 16, 2026 at 09:22:42AM +0000, Wentao Liang wrote:
-> When enabling a counter, the runtime PM reference taken by
-> pm_runtime_get_sync() is never dropped if rz_mtu3_initialize_counter()
-> fails and returns an error, e.g. -EBUSY when the channel is already
-> requested. Because priv->count_is_enabled[] is left false, a subsequent
-> disable write also takes the early exit path, so the reference is never
-> recovered. Additionally, if pm_runtime_get_sync() itself fails the
-> device usage count is left incremented while the hardware is still
-> accessed with runtime PM suspended.
-> 
-> Use pm_runtime_resume_and_get() to resume the device and bail out if it
-> fails, and drop the runtime PM reference when
-> rz_mtu3_initialize_counter() fails.
-> 
-> Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/counter/rz-mtu3-cnt.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
-> index 7bfb6979193c..2bfc92bea757 100644
-> --- a/drivers/counter/rz-mtu3-cnt.c
-> +++ b/drivers/counter/rz-mtu3-cnt.c
-> @@ -504,10 +504,15 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
->  		goto exit;
-> 
->  	if (enable) {
-> -		pm_runtime_get_sync(counter->parent);
-> +		ret = pm_runtime_resume_and_get(counter->parent);
-> +		if (ret)
-> +			goto exit;
-> +
->  		ret = rz_mtu3_initialize_counter(counter, count->id);
->  		if (ret == 0)
->  			priv->count_is_enabled[count->id] = true;
-> +		else
-> +			pm_runtime_put(counter->parent);
->  	} else {
->  		rz_mtu3_terminate_counter(counter, count->id);
->  		priv->count_is_enabled[count->id] = false;
-> --
-> 2.34.1
-> 
+The reference taken by of_find_device_by_node() is dropped on none of
+kmb_probe()'s error paths: the -EPROBE_DEFER retry, the DSI host bridge
+init failure, the drm device allocation failure and the later cleanup
+labels. Drop the reference on each of them.
 
-Hello Wentao,
+Fixes: 7f7b96a8a0a1 ("drm/kmb: Add support for KeemBay Display")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/gpu/drm/kmb/kmb_drv.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-This looks like an earlier patch submission we've received.[^1] In fact,
-I wonder whether these patches will be necessary anymore if the
-"counter: rz-mtu3-cnt: check clock and runtime PM errors" series is
-merged.[^2]
+diff --git a/drivers/gpu/drm/kmb/kmb_drv.c b/drivers/gpu/drm/kmb/kmb_drv.c
+index 7c2eb1152fc2..65df630bf888 100644
+--- a/drivers/gpu/drm/kmb/kmb_drv.c
++++ b/drivers/gpu/drm/kmb/kmb_drv.c
+@@ -518,17 +518,21 @@ static int kmb_probe(struct platform_device *pdev)
+ 	ret = kmb_dsi_host_bridge_init(get_device(&dsi_pdev->dev));
+ 
+ 	if (ret == -EPROBE_DEFER) {
++		put_device(&dsi_pdev->dev);
+ 		return -EPROBE_DEFER;
+ 	} else if (ret) {
+ 		DRM_ERROR("probe failed to initialize DSI host bridge\n");
++		put_device(&dsi_pdev->dev);
+ 		return ret;
+ 	}
+ 
+ 	/* Create DRM device */
+ 	kmb = devm_drm_dev_alloc(dev, &kmb_driver,
+ 				 struct kmb_drm_private, drm);
+-	if (IS_ERR(kmb))
++	if (IS_ERR(kmb)) {
++		put_device(&dsi_pdev->dev);
+ 		return PTR_ERR(kmb);
++	}
+ 
+ 	dev_set_drvdata(dev, &kmb->drm);
+ 
+@@ -577,6 +581,7 @@ static int kmb_probe(struct platform_device *pdev)
+  err_free1:
+ 	dev_set_drvdata(dev, NULL);
+ 	kmb_dsi_host_unregister(kmb->kmb_dsi);
++	put_device(&dsi_pdev->dev);
+ 
+ 	return ret;
+ }
+-- 
+2.34.1
 
-Sincerely,
-
-William Breathitt Gray
-
-[^1]: https://lore.kernel.org/all/20260814134138.1388045-1-ruoyuw560@gmail.com/
-[^2]: https://lore.kernel.org/all/20260903090719.3498955-1-dayou5941@163.com/
