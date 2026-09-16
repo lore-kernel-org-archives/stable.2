@@ -1,98 +1,158 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D96F14C041B;
-	Wed, 16 Sep 2026 11:00:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B5194A43F3;
+	Wed, 16 Sep 2026 11:05:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789556448; cv=none; b=a/uP60qeoKF75o9RfkUQdfCk8JwGfMGouluVtCT8JxtKHVZZFwPHfH9MgU9NLWDJ1/cr/i5LTLWd0xc5S04SXdGFbp9osh1Wo5KsNxKpaA2e6YgaNQayx0OSf4YMJrRjevqTVaOLjgge+JUxyO5NgiZfphwql0cb/WvC7jI8s7E=
+	t=1789556762; cv=none; b=ZRWPsvQOGlHM4sc45PS0w84AQntQEoJMhNcyS8mKOG9q6MzoOrQtU9Djkjsn/uDL8Gqd5vVx4UkIvVWt/SAwMrTEI22WjLdwWf1zh/sxUvUCapdXLI4+pCJtaa0lK/i0h0qpnqRSHEzxXtratlqGDh8M9/+FwfpPe8LEST8JD2M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789556448; c=relaxed/simple;
-	bh=PJpQYbu415ELCrfr0jCIFjBdr7v2k5CCIebbxVzZso4=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=JYc4a+Zrs0lVaaCQf5avI4zcvmHPIgR9+B5hTZbEPsqTBolco+LcipEz5YQy5yPBLOiNmuhBjDjYmj6yNkNPTSM/yMzGDuFzC/2pQS+4MzbnXsrxjhO/kq94dzCFZIq6FJTiFs7gTMd4JbShxJ8P9b0S4vGKkVEd/CdP/W3rvxs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uvn4mx7c; arc=none smtp.client-ip=192.198.163.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789556762; c=relaxed/simple;
+	bh=bDLs31Lfm2cKfCRfJsL403n5WJBN857J9a9SfnOfq1Y=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=TjvFti4QOaUZgerCYaMkmU23G5aEvk0Se4MnViSVy9jq9dpouvKDaj5QNG3qobxA7uoAbr2OfCKCEQ49cMFGDPM/J8vI3Rv1rgUSlN1/ksjhBaKJAZAYBl6ully27eMc1bkKFscMNtnE3TeQ9et+mPHfQn88YBkgtTtH38T/fUI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZA3RLk6f; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uvn4mx7c"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789556436; x=1821092436;
-  h=from:to:cc:in-reply-to:references:subject:message-id:
-   date:mime-version:content-transfer-encoding;
-  bh=PJpQYbu415ELCrfr0jCIFjBdr7v2k5CCIebbxVzZso4=;
-  b=Uvn4mx7cS4tObIELk60D3CVVB4dvk6VwMABjWaUmBt8l9i2utKKI9J+8
-   L7+5x94pv9tuxhQKdOOIwI9pC/OKCTR7QmWB4DomJZssniCx91u4Ws6LT
-   7M+w5ND9w2JWXWF7NOBZSzxq1Pl8ebJFe7XvhwFuVpvIpZOTQqtodbVFa
-   4Ir0E+7zDaSFsA/qTrPjAaQnjzNy1E8iaMPD/uLFM9fYm4Dc23W8HgpWn
-   fXsyv8hzY6PGD4+Tf8/G5wm5vIJAqMgnzjTGtQtn94WyWaYhH79nvjccm
-   6GhZO1/qK5UwvgFHJr9K8VgXm+HtW+ixgzFcRg35GDNhCtyUD0ll9IUN2
-   g==;
-X-CSE-ConnectionGUID: i1AXW/0cSM2EkfJALiyxCw==
-X-CSE-MsgGUID: 9UBsu7qhTl2ksZf6Fe2cFw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92436558"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="92436558"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:30 -0700
-X-CSE-ConnectionGUID: wWRFzWo0S/KoLdVZnBZ0+Q==
-X-CSE-MsgGUID: 42a5cbN+SNqLFbCAPVCsSQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="1708830"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.187])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 04:00:28 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-To: linux-kernel@vger.kernel.org, Denis Benato <denis.benato@linux.dev>
-Cc: platform-driver-x86@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
- "Luke D . Jones" <luke@ljones.dev>, Mateusz Schyboll <dragonn@op.pl>, 
- Denis Benato <benato.denis96@gmail.com>, 
- Hugo Baigue <hugobaigue2004@gmail.com>, stable@vger.kernel.org
-In-Reply-To: <20260915172608.14234-1-denis.benato@linux.dev>
-References: <20260915172608.14234-1-denis.benato@linux.dev>
-Subject: Re: [PATCH] platform/x86: asus-wmi: fix use-after-free
- unregistering kbd_led led
-Message-Id: <178955642375.2305.2037186031246803284.b4-ty@b4>
-Date: Wed, 16 Sep 2026 14:00:23 +0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZA3RLk6f"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C8831F000FF;
+	Wed, 16 Sep 2026 11:05:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789556751;
+	bh=DYEbp3NDbWCNlMXuaXTXLtCtA8T9knTbdyJ+6diMaPQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ZA3RLk6f5n/v3mZ9/7OVo3fJZHY0MAmzZ+5QFDzF2dod2OVpfNO6VBCctrHbqs6i6
+	 A/QtImdtfHw2cCEDIPmoCTtVHReumt29NbdSIpeuBgCLyBoDtDwPfaXMazedOhoX/G
+	 xUCHOkCuN+DFcInc+PYB4dEITaNa32GPcF38QLDt86dWtyjq24SF+APGC9KGPXBAeV
+	 HK7u/iWI8SG3LfUfgZjSo576F9X4Lcdb4gkOls9qCv5wqRXYZluBJa2QhwM4459Wij
+	 VlFlb11urNHILrRaDFVb+teLrwyUBU1kFqXYtyLwDv1g7VC6Ykd3JyM/iQDzEOg0sv
+	 B3dZ+rP/Kb/vg==
+Date: Wed, 16 Sep 2026 12:05:43 +0100
+From: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+To: Gregory Price <gourry@gourry.net>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, ziy@nvidia.com, matthew.brost@intel.com, joshua.hahnjy@gmail.com, 
+	rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com, 
+	apopple@nvidia.com, peterx@redhat.com, jgg@ziepe.ca, 
+	sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/2] mm/madvise: use vm_normal_folio_pmd() in
+ cold/pageout PMD range
+Message-ID: <aqp2uu4_QY7NRjoH@gremlin>
+References: <20260912034833.2952750-1-gourry@gourry.net>
+ <20260912034833.2952750-3-gourry@gourry.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.15.2
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912034833.2952750-3-gourry@gourry.net>
 
-On Tue, 15 Sep 2026 17:26:07 +0000, Denis Benato wrote:
+On Fri, Sep 11, 2026 at 11:48:33PM -0400, Gregory Price wrote:
+> mmap a VM_MIXEDMAP region whose ->huge_fault installs a PMD through
 
-> kbd_led_update_all() registers asus->kbd_led with
-> devm_led_classdev_register() on the platform device, but kbd_led is
-> embedded in struct asus_wmi, which asus_wmi_remove() frees at its end.
-> The driver core calls .remove() before devres_release_all(), so the
-> deferred devres release runs led_classdev_unregister() on memory that
-> has already been freed. Whether that faults depends on whether the
-> slab has been reused in between, which makes the crash on module
-> unload intermittent and silently corrupts the led classdev state in
-> the remaining runs.
-> 
-> [...]
+Gosh, shock, horror! VMA_MIXEDMAP_BIT sir! :P
 
-Thank you for your contribution, it has been applied to my local
-review-ilpo-next branch. Note it will show up in the public
-platform-drivers-x86/review-ilpo-next branch only once I've pushed my
-local branch there, which might take a while.
+(It's fine it's fine)
 
-FYI [if applicable to your patch], as per Linus' policy change, also
-fixes are mostly routed through for-next unless the fix is for a
-commit introduced in the most recent cycle or is clearly a regression
-fix.
+> vmf_insert_pfn_pmd() - mshv_vtl_low does this, and needs CAP_SYS_ADMIN
+> to open - then:
+>
+>   madvise(p, PMD_SIZE, MADV_PAGEOUT);
+>
+> With a stand-in module for the driver:
+>
+>   BUG: unable to handle page fault for address: fffff587c0000008
+>   RIP: 0010:madvise_cold_or_pageout_pte_range+0x410/0x9b0
+>    walk_pgd_range+0x52b/0xaf0
+>    __walk_page_range+0x6a/0x1d0
+>    walk_page_range_vma_unsafe+0x8e/0x120
+>    madvise_pageout+0xb2/0x180
+>    madvise_vma_behavior+0x46b/0xa90
+>    do_madvise+0x108/0x190
+>    __x64_sys_madvise+0x26/0x30
+>
+> Nothing validates the pfn on the way in:
+>
+>   can_madv_lru_vma()     rejects VM_PFNMAP, but not VM_MIXEDMAP
+>   can_fault()            *pfn = vmf->pgoff & ~(mask >> PAGE_SHIFT);
+>   vmf_insert_pfn_pmd()   no pfn_valid() check
+>   pmd_folio()            pfn_to_page() -> unpopulated vmemmap
 
-The list of commits applied:
-[1/1] platform/x86: asus-wmi: fix use-after-free unregistering kbd_led led
-      commit: 2f5005e261ed758254767a32c24587bfacc6db82
+I definitely suggest checking out the small series [0] I sent which changes
+how these kinds of semantics are expressed where I... ugh what I missed
+can_madv_lru_vma()! Damn it.
+
+Noted as a follow up :)
+
+[0]:https://lore.kernel.org/linux-mm/20260914-b4-mmap-prepare-vma-flag-sanify-v2-0-7d9781ed5361@kernel.org/
+
+>
+> Even with a valid pfn the path is wrong.  The mapping carries no rmap, so
+
+Isn't a non-rmappable page not a folio?
+
+I mean the fact that vm_normal_folio_pmd() returns NULL is kinda saying
+that :)
+
+> folio_maybe_mapped_shared() sees mapcount 0, and the walker goes on to
+> folio_deactivate(), or folio_isolate_lru() plus reclaim_pages(), against a
+> folio this mapping does not own.
+>
+> Use vm_normal_folio_pmd() and skip on NULL, as the PTE half of this same
+> walker already does with vm_normal_folio().  This also filters the huge
+> zero PMD, so its separate check is no longer needed.
+>
+> Fixes: 3c8e44c9b369 ("mm: mark special bits for huge pfn mappings when inject")
+> Reported-by: sashiko-bot <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260817220810.1175596-1-gourry%40gourry.net
+> Cc: stable@vger.kernel.org # v6.19+
+> Assisted-by: LLM
+> Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
+
+LGTM in general so:
+
+Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
+
+> ---
+>  mm/madvise.c | 7 +++----
+>  1 file changed, 3 insertions(+), 4 deletions(-)
+>
+> diff --git a/mm/madvise.c b/mm/madvise.c
+> index f75a9d139980..fbb72ab49aa6 100644
+> --- a/mm/madvise.c
+> +++ b/mm/madvise.c
+> @@ -395,16 +395,15 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+>  			return 0;
+>
+
+Oh God! This function again!
+
+>  		orig_pmd = *pmd;
+> -		if (is_huge_zero_pmd(orig_pmd))
+> -			goto huge_unlock;
+> -
+>  		if (unlikely(!pmd_present(orig_pmd))) {
+>  			VM_WARN_ON_ONCE(!pmd_is_migration_entry(orig_pmd) &&
+>  					!pmd_is_device_private_entry(orig_pmd));
+>  			goto huge_unlock;
+>  		}
+>
+> -		folio = pmd_folio(orig_pmd);
+
+Again I'm wondering if pmd_folio() is just a code smell in general?
+
+> +		folio = vm_normal_folio_pmd(vma, addr, orig_pmd);
+> +		if (!folio)
+> +			goto huge_unlock;
+>
+>  		if (folio_is_zone_device(folio))
+>  			goto huge_unlock;
+> --
+> 2.55.0
+>
 
 --
- i.
-
+Cheers, Lorenzo
