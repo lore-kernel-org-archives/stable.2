@@ -1,46 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64C563DB327;
-	Wed, 16 Sep 2026 19:29:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACCC42123E;
+	Wed, 16 Sep 2026 19:28:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586965; cv=none; b=boaTa1lyblb92y8XldQ2pXxiqg8yD5dqIS/Oq147BO4fBwG3oLtEaRfPg3bDm6PvgQyMAV58KbiSnruG6jnEcWlp1I8TQnqjb7Hdz2KRV5VbDjZ7sHk3Yzjo3abIybM1LdmfaG6+DM9ZUpypBb2nSNjVvMg+QRdzfp5YMdPNJAY=
+	t=1789586969; cv=none; b=qNHeo+Me32R1SoRm+HojuKrpRgUEQNnOwvbg/2Gl8lBnkx2qv5bpaN+thsmaWyqtYXfp5CqqssQCfqQ/4FuhHO2iTrVFhPVVSVsiMbaM8DX6wiTd5TkS8sUpuKPKL2AtSk3hHi7WBZshXxtTdtHmY78nLwN2U3B0pkMyfU+54X0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586965; c=relaxed/simple;
-	bh=RU+X52qBBG+hiKnofr9cKKNO/k2KZ5rePUmZYcWRj4o=;
+	s=arc-20240116; t=1789586969; c=relaxed/simple;
+	bh=H56OuvyfJNNShKoh+BJQDG3VZ0B2lxX5pO/MXPLhZAU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=TkUyIEF/gr3MJFJ5iq/gLJG7ynEJpiCIgtgVy7Aao7Z64v+hdXgt+EYMQedA7argQP31SwmVYJiq5GNTHgDSOk2iuCIVV92+Wp20AfLuci2gV/mqshuPlrQdQGRL41f4UU4/kfhIXqdYLOJw/yWAjtv3kNeSyik0oy87FhlGyPM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ik9MaOoo; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Q8EyQHKxAUbDosoLWfhQlDZFoQUCUspVGpD9BbcDoX7kK/4rRuRTyC1ZokiH45UKLX/EXa/B9/tMFt56acenue5DFF02+3Ci2c6IJRdbaDZJ4m83HnvwekplIcu4HWRLMhKwj94KRiedJIiyQWKjfLmcuSDGfvfGCknpVpJ2ii0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Gxu2dww3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ik9MaOoo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 16E7C1F0089C;
-	Wed, 16 Sep 2026 19:28:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Gxu2dww3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 851521F0089D;
+	Wed, 16 Sep 2026 19:28:35 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586938;
-	bh=qvdkDqv1kwXLZM9Yamweu9phvCI0+fStlLSmdkFErb4=;
+	s=k20260515; t=1789586916;
+	bh=hMwSwmzTwsA+eUKSStr2tkNVkBrgxJMDnDGVIOOOtWs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ik9MaOoo11J52nkOLXHr7QItadHUgp8rspYeXRzszxTgVC/DSjiKetqocWOGGukkQ
-	 UU0nXrawb2hirLqNuxlXHZ5BkDmBAY+4IzaRlJXMIxIdoCZL22nLxSZw+lMV1yJVOe
-	 yMtPTeVfANoS7UncXkEii3ThQi+Dwval+9Q59eh5DHPtqMY1t7xyTQ93V6OUcuW/Y5
-	 xqxgekRpWa1MHLb70iLIXlEHKm+h40HgjhOm4F6Uc+4ZUeL2NAMyohcQrMs+0UXNx0
-	 aWsVQg0Ytkgzb82qipD+DbD9A9VCI6wqqFo8enXQCIAG3mnJ+vNklEHnZydvBaYiLe
-	 qB815Q0n0TzAA==
+	b=Gxu2dww3cqq1Kk2b+evfbszBa7mHDGOzUUg/5bMH/GBPOSiiYt0S+sDd/C6g9FaXI
+	 Vcovld/VjbTxlPXXtJup9dElsMLWRuzxX1L/zLim5QR6/VMGZGsgYbWPgekFlKkFQG
+	 Owaphqs5yY+jqrMEeuXy7qvqDfEcgkq9brTrR0ok7vrOGEsLaNYndKEaXSdrx9dwk6
+	 T3ty1WdA55EmOu8pxG+k9xlxDg8iQdz1oxDzEgRZeaoVzPfG2pRN2n7oZvZNlMdx/u
+	 wqEI1SW/CsU6YbAuasHi3s8vJg76FsLwRZst5Hw2ZT7ptZ9+R8JfjRuo9M/hUw3nBG
+	 ezeRpIQLHBi6w==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	patches@lists.linux.dev,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Ilya Leoshkevich <iii@linux.ibm.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 1094/1376] bpf, s390: Clear fetch destination on faulting arena atomic
-Date: Wed, 16 Sep 2026 15:28:17 -0400
-Message-ID: <daily-reply-20260916-0027-re-bpf-s390-arena-atomic@kernel.org>
+	Joshua Peisach <jpeisach@ubuntu.com>,
+	Janne Grunau <j@jannau.net>,
+	Sven Peter <sven@kernel.org>,
+	Nick Chan <towinchenmi@gmail.com>
+Subject: Re: [PATCH 6.12 1061/1376] nvme-apple: Drop the PRP null check chicken bit
+Date: Wed, 16 Sep 2026 15:27:59 -0400
+Message-ID: <daily-reply-20260916-0009-re-nvme-apple-drop@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <830fb27b-d5d3-4f7b-b074-d1b8762fbfde@oracle.com>
-References: <830fb27b-d5d3-4f7b-b074-d1b8762fbfde@oracle.com>
+In-Reply-To: <dc927d3e-e7f1-461c-9a75-259f71899224@gmail.com>
+References: <dc927d3e-e7f1-461c-9a75-259f71899224@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,13 +50,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The new s390 call to bpf_atomic_load_reg() has no declaration or
-> definition in the destination, and the normal s390 build treats that
-> implicit call as fatal.
+> I suggest this patch and all of its dependencies to be
+> dropped from 6.1, 6.6 and 6.12 so this patch can be
+> backported properly alongside the page size quirk later.
 
-Already handled: the revert of cc3e12330599 ("bpf, s390: Clear fetch
-destination on faulting arena atomic") is queued for 6.12 and goes out in
-6.12.111. 6.12.110 did ship with the break.
+All four shipped already, in 6.12.110, 6.6.157 and 6.1.188, so they come out
+as reverts on top rather than as queue drops. The four reverts are queued for
+6.12, 6.6 and 6.1.
+
+Please send the proper backport alongside the page size quirk when you have
+it ready.
 
 -- 
 Thanks,
