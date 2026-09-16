@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id D86F754A7F9;
-	Wed, 16 Sep 2026 16:29:45 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B2E85AEC45;
+	Wed, 16 Sep 2026 16:29:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576189; cv=none; b=FO7NJG5frHFWZVmP7JPhyTQ3ccTGwPVH+JW9aDKyH2Q7VKjp18U6rIrDUkbOLsZhLZT1JzZRdd8lfZDOithOgxwUXazsApoZrhLE6XOOvbPZjrIYTQa0iF3m78Zx8zlCQeTQrs378VSvWucNdZC7D/WyGNNIK2J0jqDsv8PFum8=
+	t=1789576191; cv=none; b=DVU7TTc1FIccFm+ApOZZTOBsrlV51BLY+bPKSW+/1xNwWtlawnOwB9KWIcXXktnBKunovs2bHiEgxRavy48rO5qvuC+3GLqtY1a2lORcr9oCJQ9bmwAhwlJMje0a01qeGbKiZ9F3478tK5kqryRSAikxuSFb/Ofau8PMkraiMCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576189; c=relaxed/simple;
-	bh=MkbZgNMcaoe647MZ5lCfY694OCcBmtmc5GR7A6HFjsw=;
+	s=arc-20240116; t=1789576191; c=relaxed/simple;
+	bh=CNSmgXzjGYa7SB2jm4h5PnddTndG1Ag/doAjMLeeXD0=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=hSZgSmEdG5pRfTBgD+fkNfjT8AdJPHhAwtT0obJZXv8rAEKHP55lcHVJFg1r/sLOsvZqVah4f9PpNdAOPW/343Tkr1xNie7wG7RFSeUHTbD6LWE+65NhXi9IXfiATcg32uRAACv/Go+jK5ppMzfT0omgajVCH50sUhtrKaCOyak=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=BPpeoYed; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=CrIZXBIyy9ClXMCGr5mjz3ZLvF7ljCC9ceuRVtEP2Tlb9++2Kqf2QenKuQhquLMS1UmlJcanWq0/O3biJAaNLHC+TGYklPoIOsBlfEWWZGbhaMUP5qe2gixdlRJXwGN29VFQ79P1G020ly/FxMjTzBRj9eB+W/GdlegBKolFSkg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cMBCHnxl; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="BPpeoYed"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cMBCHnxl"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id BC7491E32;
-	Wed, 16 Sep 2026 09:29:41 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F9F51EDB;
+	Wed, 16 Sep 2026 09:29:44 -0700 (PDT)
 Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 680493F7B4;
-	Wed, 16 Sep 2026 09:29:42 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B1A0A3F7B4;
+	Wed, 16 Sep 2026 09:29:45 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789576185; bh=MkbZgNMcaoe647MZ5lCfY694OCcBmtmc5GR7A6HFjsw=;
+	t=1789576188; bh=CNSmgXzjGYa7SB2jm4h5PnddTndG1Ag/doAjMLeeXD0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=BPpeoYedWEMSpKukZQf+S4QQ2kBZxRUOLdFCFaxFwuQL0Nd8TbYJzOnx7QnoiObJD
-	 msWIqnaOpxuhMB6TgFM7lyh8OiZ0d0dAwf9c6GnlB6/9B6Rfr4QYrDejUcYJ+5NVIg
-	 gfuKKmo86Lgkihh7ZvLhcoaoXzw/8JuuA0shlLNU=
+	b=cMBCHnxlwcBJR0qhtOoJA6AoC5rydSC+pl18E/9b3OBhF5Jj9Y5a0pIkzDaUIw2jN
+	 sSA7Ntv3zKINXSliD1flEUCkSp2LtDVgIyp73UR8bz/kLMSxAHqKZFbjoJfYAi9Bpp
+	 aYkcvrNTOULWt4q0c/hCkmhpzTcATDhyFHEzBqio=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -42,9 +42,9 @@ Cc: linux-pm@vger.kernel.org,
 	zhongqiu.han@oss.qualcomm.com,
 	Christian Loehle <christian.loehle@arm.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 18/20] ACPI: CPPC: Accept requests to retain immutable autonomous selection
-Date: Wed, 16 Sep 2026 17:28:03 +0100
-Message-Id: <20260916162805.1039247-19-christian.loehle@arm.com>
+Subject: [PATCH v7 19/20] cpufreq: CPPC: Select the frequency-invariance callback per CPU
+Date: Wed, 16 Sep 2026 17:28:04 +0100
+Message-Id: <20260916162805.1039247-20-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
 References: <20260916162805.1039247-1-christian.loehle@arm.com>
@@ -56,222 +56,68 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ACPI permits Autonomous Selection Enable to be Integer 1 when the platform
-always selects performance autonomously. cppc_get_auto_sel() returns that
-value, but cppc_set_auto_sel() rejects the Integer even when asked to keep
-autonomous selection enabled. AMD shared-memory initialization consequently
-fails in active or guided mode after successfully reading the capability.
+cppc_cpufreq_cpu_fie_init() initializes deferred work only for CPUs whose
+feedback counters use PCC. However, if any CPU in a shared policy uses PCC,
+it installs the PCC tick callback for the entire policy. With FIE enabled,
+a non-PCC CPU then queues an uninitialized irq_work and can call a NULL
+function pointer when that work runs.
 
-Accept a request to keep this immutable field enabled without issuing a
-register access. Expose the immutable encoding to callers, separately from
-the current value of a writable register.
+Choose the frequency-invariance callback separately for each CPU using
+the recorded work-initialization state. Processor removal can unpublish
+the CPC descriptor before callback registration, so querying its counter
+transport again can incorrectly select direct reads for a PCC CPU.
 
-Before an AMD shared-memory transition to passive mode, reject immutable
-autonomous selection on any present CPU. Otherwise a guided-to-passive
-transition ignores the failed disable and reports the wrong mode, while
-active-to-passive unregisters the working driver before passive policy
-initialization fails. Check under the driver mode lock before invoking
-either transition, including known offline CPUs.
+Register the callbacks after all counter initialization has completed, so
+a failed initial read for an online CPU cannot leave a partially
+registered policy. PCC CPUs use their initialized deferred work, while
+non-PCC CPUs read their own counters directly from the tick.
 
-Serialize this capability query with descriptor publication and removal.
-ACPI processor removal drops the descriptor before taking the CPU hotplug
-write lock, so the caller's cpus_read_lock() alone cannot protect the
-lookup. Unpublish under the same mutex before releasing a descriptor,
-including when adding its kobject fails.
-
-The cppc-cpufreq auto_select attribute can also request one while
-autonomous selection is already enabled. If the subsequent bounds update
-fails, its rollback requests zero and clears the cached mode regardless
-of the previous state. For an immutable field the disable request fails,
-leaving the cached mode wrong. Save and restore the previous mode instead.
-This also avoids disabling an already-enabled writable control on that
-error path.
-
-Fixes: c984f5d5d45b ("ACPI: CPPC: Add auto select register read/write support")
-Fixes: ea3db45ae476 ("cpufreq: cppc: Update MIN_PERF/MAX_PERF in target callbacks")
+Fixes: 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/acpi/cppc_acpi.c       | 42 +++++++++++++++++++++++++++++++---
- drivers/cpufreq/amd-pstate.c   | 21 +++++++++++++----
- drivers/cpufreq/cppc_cpufreq.c |  5 ++--
- include/acpi/cppc_acpi.h       |  7 ++++++
- 4 files changed, 65 insertions(+), 10 deletions(-)
+ drivers/cpufreq/cppc_cpufreq.c | 14 ++++++++++----
+ 1 file changed, 10 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-index 96a94df24231..80e2e6b32ce3 100644
---- a/drivers/acpi/cppc_acpi.c
-+++ b/drivers/acpi/cppc_acpi.c
-@@ -100,6 +100,15 @@ static DEFINE_PER_CPU(int, cpu_pcc_subspace_idx);
-  */
- static DEFINE_PER_CPU(struct cpc_desc *, cpc_desc_ptr);
- 
-+/* Protect immutable capability queries against descriptor removal. */
-+static DEFINE_MUTEX(cpc_desc_lock);
-+
-+static void cpc_set_desc(unsigned int cpu, struct cpc_desc *desc)
-+{
-+	guard(mutex)(&cpc_desc_lock);
-+	per_cpu(cpc_desc_ptr, cpu) = desc;
-+}
-+
- struct cpc_sysmem_node {
- 	struct rb_node rb;
- 	u64 subtree_last;
-@@ -2314,12 +2323,12 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
- 	}
- 
- 	/* Plug PSD data into this CPU's CPC descriptor. */
--	per_cpu(cpc_desc_ptr, pr->id) = cpc_ptr;
-+	cpc_set_desc(pr->id, cpc_ptr);
- 
- 	ret = kobject_init_and_add(&cpc_ptr->kobj, &cppc_ktype, &cpu_dev->kobj,
- 			"acpi_cppc");
- 	if (ret) {
--		per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+		cpc_set_desc(pr->id, NULL);
- 		cpc_unregister_non_mmio_desc(cpc_ptr);
- 		cpc_unregister_sysmem_desc(cpc_ptr);
- 		kobject_put(&cpc_ptr->kobj);
-@@ -2363,7 +2372,7 @@ void acpi_cppc_processor_exit(struct acpi_processor *pr)
- 	}
- 
- 	pcc_ss_id = per_cpu(cpu_pcc_subspace_idx, pr->id);
--	per_cpu(cpc_desc_ptr, pr->id) = NULL;
-+	cpc_set_desc(pr->id, NULL);
- 	kobject_del(&cpc_ptr->kobj);
- 	cpc_unregister_non_mmio_desc(cpc_ptr);
- 	cpc_unregister_sysmem_desc(cpc_ptr);
-@@ -2766,6 +2775,11 @@ static int cppc_set_reg_val(int cpu, enum cppc_regs reg_idx, u64 val)
- 
- 	reg = &cpc_desc->cpc_regs[reg_idx];
- 
-+	/* Integer 1 describes autonomous selection that is always enabled. */
-+	if (reg_idx == AUTO_SEL_ENABLE && reg->type == ACPI_TYPE_INTEGER &&
-+	    reg->cpc_entry.int_value == 1)
-+		return val == 1 ? 0 : -EOPNOTSUPP;
-+
- 	/* if a register is writeable, it must be a buffer and not null */
- 	if (!cpc_is_writable(reg)) {
- 		pr_debug("CPC register is not supported\n");
-@@ -3310,6 +3324,28 @@ int cppc_get_auto_sel(int cpu, bool *enable)
- }
- EXPORT_SYMBOL_GPL(cppc_get_auto_sel);
- 
-+/**
-+ * cppc_auto_sel_is_immutable - Check for always-enabled autonomous selection.
-+ * @cpu: CPU whose _CPC descriptor to check.
-+ *
-+ * Context: Process context.
-+ * Return: true for Integer 1, false for a register or an absent descriptor.
-+ */
-+bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	struct cpc_desc *cpc_desc;
-+	struct cpc_register_resource *reg;
-+
-+	guard(mutex)(&cpc_desc_lock);
-+	cpc_desc = per_cpu(cpc_desc_ptr, cpu);
-+	if (!cpc_desc)
-+		return false;
-+
-+	reg = &cpc_desc->cpc_regs[AUTO_SEL_ENABLE];
-+	return reg->type == ACPI_TYPE_INTEGER && reg->cpc_entry.int_value == 1;
-+}
-+EXPORT_SYMBOL_GPL(cppc_auto_sel_is_immutable);
-+
- /**
-  * cppc_set_auto_sel - Write autonomous selection register.
-  * @cpu    : CPU to which to write register.
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 6ee2d43b7b95..0a8b1aaa2660 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -1794,7 +1794,7 @@ EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_get_status);
- 
- int amd_pstate_update_status(const char *buf, size_t size)
- {
--	int mode_idx;
-+	int cpu, mode_idx;
- 
- 	if (size > strlen("passive") || size < strlen("active"))
- 		return -EINVAL;
-@@ -1803,12 +1803,23 @@ int amd_pstate_update_status(const char *buf, size_t size)
- 	if (mode_idx < 0)
- 		return mode_idx;
- 
--	if (mode_state_machine[cppc_state][mode_idx]) {
--		guard(mutex)(&amd_pstate_driver_lock);
--		return mode_state_machine[cppc_state][mode_idx](mode_idx);
-+	guard(mutex)(&amd_pstate_driver_lock);
-+
-+	if (!mode_state_machine[cppc_state][mode_idx])
-+		return 0;
-+
-+	if (mode_idx == AMD_PSTATE_PASSIVE &&
-+	    !cpu_feature_enabled(X86_FEATURE_CPPC)) {
-+		guard(cpus_read_lock)();
-+
-+		/* Check offline CPUs too, before changing or removing the driver. */
-+		for_each_present_cpu(cpu) {
-+			if (cppc_auto_sel_is_immutable(cpu))
-+				return -EOPNOTSUPP;
-+		}
- 	}
- 
--	return 0;
-+	return mode_state_machine[cppc_state][mode_idx](mode_idx);
- }
- EXPORT_SYMBOL_FOR_PSTATE_UT(amd_pstate_update_status);
- 
 diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index af46f913e907..9dde24d3e645 100644
+index 9dde24d3e645..c0fa9073e4d3 100644
 --- a/drivers/cpufreq/cppc_cpufreq.c
 +++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -882,6 +882,7 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 				 const char *buf, size_t count)
- {
- 	struct cppc_cpudata *cpu_data = policy->driver_data;
-+	bool old_auto_sel = cpu_data->perf_ctrls.auto_sel;
- 	bool val;
- 	int ret;
+@@ -150,7 +150,7 @@ static struct scale_freq_data cppc_sftd_pcc = {
  
-@@ -910,8 +911,8 @@ static ssize_t store_auto_select(struct cpufreq_policy *policy,
- 		if (ret) {
- 			cpu_data->perf_ctrls.min_perf = old_min_perf;
- 			cpu_data->perf_ctrls.max_perf = old_max_perf;
--			cppc_set_auto_sel(policy->cpu, false);
--			cpu_data->perf_ctrls.auto_sel = false;
-+			cppc_set_auto_sel(policy->cpu, old_auto_sel);
-+			cpu_data->perf_ctrls.auto_sel = old_auto_sel;
- 			return ret;
+ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ {
+-	struct scale_freq_data *sftd = &cppc_sftd;
++	struct scale_freq_data *sftd;
+ 	struct cppc_freq_invariance *cppc_fi;
+ 	int cpu, ret;
+ 
+@@ -165,7 +165,6 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ 			kthread_init_work(&cppc_fi->work, cppc_scale_freq_workfn);
+ 			init_irq_work(&cppc_fi->irq_work, cppc_irq_work);
+ 			cppc_fi->pcc_work_initialized = true;
+-			sftd = &cppc_sftd_pcc;
+ 		}
+ 
+ 		ret = cppc_get_perf_ctrs(cpu, &cppc_fi->prev_perf_fb_ctrs);
+@@ -181,8 +180,15 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
  		}
  	}
-diff --git a/include/acpi/cppc_acpi.h b/include/acpi/cppc_acpi.h
-index 4b5d94f853dc..3f0005abac64 100644
---- a/include/acpi/cppc_acpi.h
-+++ b/include/acpi/cppc_acpi.h
-@@ -197,6 +197,7 @@ extern int cppc_set_epp(int cpu, u64 epp_val);
- extern int cppc_get_auto_act_window(int cpu, u64 *auto_act_window);
- extern int cppc_set_auto_act_window(int cpu, u64 auto_act_window);
- extern int cppc_get_auto_sel(int cpu, bool *enable);
-+bool cppc_auto_sel_is_immutable(int cpu);
- extern int cppc_set_auto_sel(int cpu, bool enable);
- extern int cppc_get_perf_limited(int cpu, u64 *perf_limited);
- extern int cppc_set_perf_limited(int cpu, u64 bits_to_clear);
-@@ -298,6 +299,12 @@ static inline int cppc_get_auto_sel(int cpu, bool *enable)
- {
- 	return -EOPNOTSUPP;
+ 
+-	/* Register for freq-invariance */
+-	topology_set_scale_freq_source(sftd, policy->cpus);
++	/* A shared policy may contain both PCC and non-PCC counters. */
++	for_each_cpu(cpu, policy->cpus) {
++		cppc_fi = &per_cpu(cppc_freq_inv, cpu);
++		if (cppc_fi->pcc_work_initialized)
++			sftd = &cppc_sftd_pcc;
++		else
++			sftd = &cppc_sftd;
++		topology_set_scale_freq_source(sftd, cpumask_of(cpu));
++	}
  }
-+
-+static inline bool cppc_auto_sel_is_immutable(int cpu)
-+{
-+	return false;
-+}
-+
- static inline int cppc_set_auto_sel(int cpu, bool enable)
- {
- 	return -EOPNOTSUPP;
+ 
+ /*
 -- 
 2.34.1
 
