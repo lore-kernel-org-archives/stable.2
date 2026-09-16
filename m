@@ -1,31 +1,31 @@
 Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 6B2E85AEC45;
-	Wed, 16 Sep 2026 16:29:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 1AEDA4B0E31;
+	Wed, 16 Sep 2026 16:29:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789576191; cv=none; b=DVU7TTc1FIccFm+ApOZZTOBsrlV51BLY+bPKSW+/1xNwWtlawnOwB9KWIcXXktnBKunovs2bHiEgxRavy48rO5qvuC+3GLqtY1a2lORcr9oCJQ9bmwAhwlJMje0a01qeGbKiZ9F3478tK5kqryRSAikxuSFb/Ofau8PMkraiMCQ=
+	t=1789576196; cv=none; b=VovMw8Jz+pL6h4ZnLuxUDYlilRtYd4Z6Qzx1F4FyS+TqXJpUG/Flg7gvOZb67jD14nWWtaHngfA/Tv2WFY0hoMBgMdkjC30jsAS92Qt8kmGjSdky3BWhjf41M0x1jYj55xTvD7in+9lBi9pBn6WJl3K+tXs8TFay+upB3hycnJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789576191; c=relaxed/simple;
-	bh=CNSmgXzjGYa7SB2jm4h5PnddTndG1Ag/doAjMLeeXD0=;
+	s=arc-20240116; t=1789576196; c=relaxed/simple;
+	bh=OZWfpTyT7uZEWROIRYQLwAcWJTQahP/VB7g7gAmdjO4=;
 	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=CrIZXBIyy9ClXMCGr5mjz3ZLvF7ljCC9ceuRVtEP2Tlb9++2Kqf2QenKuQhquLMS1UmlJcanWq0/O3biJAaNLHC+TGYklPoIOsBlfEWWZGbhaMUP5qe2gixdlRJXwGN29VFQ79P1G020ly/FxMjTzBRj9eB+W/GdlegBKolFSkg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=cMBCHnxl; arc=none smtp.client-ip=217.140.110.172
+	 MIME-Version; b=VL/vCoAnijReE4I88VkPh+1dkX40mqusTctPINe9DC0lfrxRnb3tciP1+gEcmgQvOtsudUwf5ffDLh3YXAbcdcuHgOYZGbA/OnCw3ESQsLcFGVR+4FMitx6hD5X61U/RFoapBfJmj+thCcEXX7KiL30xCwT7McG0FWrFykEBIXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=p/jASRT2; arc=none smtp.client-ip=217.140.110.172
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="cMBCHnxl"
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="p/jASRT2"
 Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 7F9F51EDB;
-	Wed, 16 Sep 2026 09:29:44 -0700 (PDT)
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 847B81F02;
+	Wed, 16 Sep 2026 09:29:47 -0700 (PDT)
 Received: from e127648.carmbridge.arm.com (unknown [10.0.129.72])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id B1A0A3F7B4;
-	Wed, 16 Sep 2026 09:29:45 -0700 (PDT)
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPA id 738823F7B4;
+	Wed, 16 Sep 2026 09:29:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789576188; bh=CNSmgXzjGYa7SB2jm4h5PnddTndG1Ag/doAjMLeeXD0=;
+	t=1789576191; bh=OZWfpTyT7uZEWROIRYQLwAcWJTQahP/VB7g7gAmdjO4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=cMBCHnxlwcBJR0qhtOoJA6AoC5rydSC+pl18E/9b3OBhF5Jj9Y5a0pIkzDaUIw2jN
-	 sSA7Ntv3zKINXSliD1flEUCkSp2LtDVgIyp73UR8bz/kLMSxAHqKZFbjoJfYAi9Bpp
-	 aYkcvrNTOULWt4q0c/hCkmhpzTcATDhyFHEzBqio=
+	b=p/jASRT2PbYFAZYxX+09BPsxSYYt2bE3KBXUk1PPQqpWbdn7T3Iy2jul0ie2vhWSQ
+	 UqCM1NKIR9rqXGX5IImzZJxc3i406ZyAbEJH40alJZgEZsgcgHBq9VuhjWSHxRWoh0
+	 ZRdrvPvo0Vy/pI8MQKQxWZ6Q4a/Gx+cnvDNMgjH0=
 From: Christian Loehle <christian.loehle@arm.com>
 To: "Rafael J . Wysocki" <rafael@kernel.org>,
 	Viresh Kumar <viresh.kumar@linaro.org>
@@ -42,9 +42,9 @@ Cc: linux-pm@vger.kernel.org,
 	zhongqiu.han@oss.qualcomm.com,
 	Christian Loehle <christian.loehle@arm.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v7 19/20] cpufreq: CPPC: Select the frequency-invariance callback per CPU
-Date: Wed, 16 Sep 2026 17:28:04 +0100
-Message-Id: <20260916162805.1039247-20-christian.loehle@arm.com>
+Subject: [PATCH v7 20/20] cpufreq: CPPC: Create the FIE worker before enabling PCC callbacks
+Date: Wed, 16 Sep 2026 17:28:05 +0100
+Message-Id: <20260916162805.1039247-21-christian.loehle@arm.com>
 X-Mailer: git-send-email 2.34.1
 In-Reply-To: <20260916162805.1039247-1-christian.loehle@arm.com>
 References: <20260916162805.1039247-1-christian.loehle@arm.com>
@@ -56,68 +56,128 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cppc_cpufreq_cpu_fie_init() initializes deferred work only for CPUs whose
-feedback counters use PCC. However, if any CPU in a shared policy uses PCC,
-it installs the PCC tick callback for the entire policy. With FIE enabled,
-a non-PCC CPU then queues an uninitialized irq_work and can call a NULL
-function pointer when that work runs.
+cppc_freq_invariance_init() creates the PCC worker only if an online CPU
+currently has PCC counters. A shared policy can also initialize an offline
+PCC member. When that CPU comes online, its callback queues work through
+the missing kworker_fie and dereferences NULL. A later hot-added PCC policy
+can encounter the same missing worker.
 
-Choose the frequency-invariance callback separately for each CPU using
-the recorded work-initialization state. Processor removal can unpublish
-the CPC descriptor before callback registration, so querying its counter
-transport again can incorrectly select direct reads for a PCC CPU.
+Create the worker when policy initialization encounters PCC counters,
+before initializing their work and publishing any callbacks. Serialize
+creation and reuse the worker until driver teardown. This covers offline
+policy members and later PCC policies without creating an unused deadline
+worker on direct-counter-only systems.
 
-Register the callbacks after all counter initialization has completed, so
-a failed initial read for an online CPU cannot leave a partially
-registered policy. PCC CPUs use their initialized deferred work, while
-non-PCC CPUs read their own counters directly from the tick.
+If worker allocation or scheduling setup fails, leave FIE unregistered for
+that policy. Keep the global FIE setting unchanged so direct-counter
+policies remain independent of worker setup and existing policies still
+drain their initialized work during teardown. Publish kworker_fie only
+after successful setup, allowing a later policy initialization to retry.
 
 Fixes: 997c021abc6e ("cpufreq: CPPC: Update FIE arch_freq_scale in ticks for non-PCC regs")
 Cc: stable@vger.kernel.org
 Signed-off-by: Christian Loehle <christian.loehle@arm.com>
 ---
- drivers/cpufreq/cppc_cpufreq.c | 14 ++++++++++----
- 1 file changed, 10 insertions(+), 4 deletions(-)
+ drivers/cpufreq/cppc_cpufreq.c | 39 ++++++++++++++++++++--------------
+ 1 file changed, 23 insertions(+), 16 deletions(-)
 
 diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-index 9dde24d3e645..c0fa9073e4d3 100644
+index c0fa9073e4d3..09e55bfdca88 100644
 --- a/drivers/cpufreq/cppc_cpufreq.c
 +++ b/drivers/cpufreq/cppc_cpufreq.c
-@@ -150,7 +150,7 @@ static struct scale_freq_data cppc_sftd_pcc = {
+@@ -18,6 +18,7 @@
+ #include <linux/cpufreq.h>
+ #include <linux/irq_work.h>
+ #include <linux/kthread.h>
++#include <linux/mutex.h>
+ #include <linux/time.h>
+ #include <linux/vmalloc.h>
+ #include <uapi/linux/sched/types.h>
+@@ -50,10 +51,12 @@ struct cppc_freq_invariance {
  
- static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
- {
--	struct scale_freq_data *sftd = &cppc_sftd;
-+	struct scale_freq_data *sftd;
- 	struct cppc_freq_invariance *cppc_fi;
- 	int cpu, ret;
+ static DEFINE_PER_CPU(struct cppc_freq_invariance, cppc_freq_inv);
+ static struct kthread_worker *kworker_fie;
++static DEFINE_MUTEX(cppc_fie_lock);
  
-@@ -165,7 +165,6 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ static int cppc_perf_from_fbctrs(u64 reference_perf,
+ 				 struct cppc_perf_fb_ctrs *fb_ctrs_t0,
+ 				 struct cppc_perf_fb_ctrs *fb_ctrs_t1);
++static int cppc_fie_kworker_init(void);
+ 
+ /**
+  * __cppc_scale_freq_tick - CPPC arch_freq_scale updater for frequency invariance
+@@ -162,6 +165,9 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
+ 		cppc_fi->cpu = cpu;
+ 		cppc_fi->cpu_data = policy->driver_data;
+ 		if (cppc_perf_ctrs_in_pcc_cpu(cpu)) {
++			if (cppc_fie_kworker_init())
++				return;
++
  			kthread_init_work(&cppc_fi->work, cppc_scale_freq_workfn);
  			init_irq_work(&cppc_fi->irq_work, cppc_irq_work);
  			cppc_fi->pcc_work_initialized = true;
--			sftd = &cppc_sftd_pcc;
- 		}
- 
- 		ret = cppc_get_perf_ctrs(cpu, &cppc_fi->prev_perf_fb_ctrs);
-@@ -181,8 +180,15 @@ static void cppc_cpufreq_cpu_fie_init(struct cpufreq_policy *policy)
- 		}
+@@ -216,8 +222,9 @@ static void cppc_cpufreq_cpu_fie_exit(struct cpufreq_policy *policy)
  	}
- 
--	/* Register for freq-invariance */
--	topology_set_scale_freq_source(sftd, policy->cpus);
-+	/* A shared policy may contain both PCC and non-PCC counters. */
-+	for_each_cpu(cpu, policy->cpus) {
-+		cppc_fi = &per_cpu(cppc_freq_inv, cpu);
-+		if (cppc_fi->pcc_work_initialized)
-+			sftd = &cppc_sftd_pcc;
-+		else
-+			sftd = &cppc_sftd;
-+		topology_set_scale_freq_source(sftd, cpumask_of(cpu));
-+	}
  }
  
- /*
+-static void cppc_fie_kworker_init(void)
++static int cppc_fie_kworker_init(void)
+ {
++	struct kthread_worker *worker;
+ 	struct sched_attr attr = {
+ 		.size		= sizeof(struct sched_attr),
+ 		.sched_policy	= SCHED_DEADLINE,
+@@ -233,23 +240,28 @@ static void cppc_fie_kworker_init(void)
+ 	};
+ 	int ret;
+ 
+-	kworker_fie = kthread_run_worker(0, "cppc_fie");
+-	if (IS_ERR(kworker_fie)) {
++	guard(mutex)(&cppc_fie_lock);
++
++	if (kworker_fie)
++		return 0;
++
++	worker = kthread_run_worker(0, "cppc_fie");
++	if (IS_ERR(worker)) {
+ 		pr_warn("%s: failed to create kworker_fie: %ld\n", __func__,
+-			PTR_ERR(kworker_fie));
+-		fie_disabled = FIE_DISABLED;
+-		kworker_fie = NULL;
+-		return;
++			PTR_ERR(worker));
++		return PTR_ERR(worker);
+ 	}
+ 
+-	ret = sched_setattr_nocheck(kworker_fie->task, &attr);
++	ret = sched_setattr_nocheck(worker->task, &attr);
+ 	if (ret) {
+ 		pr_warn("%s: failed to set SCHED_DEADLINE: %d\n", __func__,
+ 			ret);
+-		kthread_destroy_worker(kworker_fie);
+-		fie_disabled = FIE_DISABLED;
+-		kworker_fie = NULL;
++		kthread_destroy_worker(worker);
++		return ret;
+ 	}
++
++	kworker_fie = worker;
++	return 0;
+ }
+ 
+ static void __init cppc_freq_invariance_init(void)
+@@ -264,11 +276,6 @@ static void __init cppc_freq_invariance_init(void)
+ 			fie_disabled = FIE_ENABLED;
+ 		}
+ 	}
+-
+-	if (fie_disabled || !perf_ctrs_in_pcc)
+-		return;
+-
+-	cppc_fie_kworker_init();
+ }
+ 
+ static void cppc_freq_invariance_exit(void)
 -- 
 2.34.1
 
