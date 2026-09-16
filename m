@@ -1,96 +1,88 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E5989409623;
-	Wed, 16 Sep 2026 07:20:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 23DBA448399
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:23:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789543279; cv=none; b=bpJMiVx4Cyg7+JGz7WOm9lYP6xvC/B+QzWnKiwY/B/GcwmZeIFXq+FHRKGGFd7Z1BInRud0mt7cjElafsfExV2CrGwgyRxAiN32B6FPOkcc7eC5bCJc4QwCsIPOKV2Yyr8BCxIUBnPFnxvWhKSDKtngNgo3Z5MyxI+SjyJ13bI4=
+	t=1789543412; cv=none; b=XLcHLMpRM58ap2YtnlEPg9lvuiL/QI2cbYFXpm1+SEjcewbTkMSjxkFBT0d++bLpdXC98e5BVplx31x1mFm4yqXa7NzAFqBMxiRQT4xY0nArXIIhAIzVAGG8kZ2vjCrcvFUWCCJAFeYo8sHtB3TnlUQ8eZgrGyAxrD6mzGD+tsc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789543279; c=relaxed/simple;
-	bh=gurnQ7mS9wql9AVhvGW4GnYPC4RJBT6T11So43XKU1k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bzmKnof1+zY1JbGbBDdwYdWxsU3NmTIdDqoGneD+yp0JsbUhRdEnV/5FqXihna8C+zn2OUpnD4LXhBqbQfHJBp9RmTP5Q5rBA/ZneIriQmqLmpudoCQVqsGWGAYMR96UwupeOEU3X3P7MBPZIhwkAaeKcKnIfWG2/Pi7gAzqYoc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAC3wkBIQ6pq3w3fBw--.65491S2;
-	Wed, 16 Sep 2026 15:20:41 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: alim.akhtar@samsung.com,
-	dri-devel@lists.freedesktop.org,
-	inki.dae@samsung.com,
-	krzk@kernel.org,
-	kyungmin.park@samsung.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-samsung-soc@vger.kernel.org,
-	neil.armstrong@linaro.org,
-	robh@kernel.org,
-	seanpaul@chromium.org,
-	simona@ffwll.ch,
-	sw0312.kim@samsung.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH 10/20] drm/exynos: dpi: Fix OF node leak in exynos_dpi_parse_dt()
-Date: Wed, 16 Sep 2026 07:20:12 +0000
-Message-Id: <20260916072012.1967169-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789543412; c=relaxed/simple;
+	bh=enXKx7Hs6kAeb6eftCq6yc1nHOzd5D+PNTY9rTPv1hM=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XCe4IrDXlamdlO1wjesdCqzpOhBaoS3El+fcWE1K1ttIFXMLhmazD6A1lUlp+QVNI8RKbK0G/kEFTnk4IEVTeb/r2rroeV5Jsgo0PrxELsRbfMqj7zRv0WQZYkLCTdrK+tC5J++vZMzOgCu1+rS8ajc0LgEByLIpg4jhgbH5+oc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=uDVhELxM; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="uDVhELxM"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [10.196.197.2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hl9Mk4CvxzKp4h;
+	Wed, 16 Sep 2026 09:22:58 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789543378; h=from:from:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=enXKx7Hs6kAeb6eftCq6yc1nHOzd5D+PNTY9rTPv1hM=;
+	b=uDVhELxMnPG9PuTwD/vxA52OIDDa3G1qh2sc1DdSCIotIjs2gOjwjI9nvxMWtX/HSI3hSv
+	xUbDMqyr05F1FE3uZVZlfm2SAmxWkqrzr6P5LpYHnfVBUJR5LEZfRdY5WC5K8RmH24zhQ4
+	nx1re/IxD/izT+ZRDVVjs18PT/iCS+rgq+CF1bIq5Km97t91EueirGknvcRTFjpjK05NgD
+	BDc3in1NQiwxxMSP8EB9AmxvEYDfholNEYsB1bcgKKxIONuRmMjurMILXiVyddFeL75aC9
+	6M7xytKhoHo/nLGYiWdmabYUlxJbqY4jFsKmCpo6beLrUc3y8IpNC82dj1j4Cw==
+Message-ID: <166cf2ef60079cb1598db6687ee9395d447ba8e5.camel@mailbox.org>
+Subject: Re: [PATCH v2] drm/sched: Do not restore unsaved virtual runtime
+From: Philipp Stanner <phasta@mailbox.org>
+Reply-To: phasta@kernel.org
+To: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>,
+ amd-gfx@lists.freedesktop.org, 	dri-devel@lists.freedesktop.org
+Cc: kernel-dev@igalia.com, Luke.Wildhardt@proton.me, Christian
+ =?ISO-8859-1?Q?K=F6nig?=	 <christian.koenig@amd.com>, Danilo Krummrich
+ <dakr@kernel.org>, Philipp Stanner	 <phasta@kernel.org>, Pierre-Eric
+ Pelloux-Prayer	 <pierre-eric.pelloux-prayer@amd.com>, Matthew Brost
+ <matthew.brost@intel.com>,  Vitaly Prosyak <vitaly.prosyak@amd.com>,
+ stable@vger.kernel.org
+Date: Wed, 16 Sep 2026 09:22:52 +0200
+In-Reply-To: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
+References: <20260915150557.62847-1-tvrtko.ursulin@igalia.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAC3wkBIQ6pq3w3fBw--.65491S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtF4xZw4DCrWUCrW3Wr17ZFb_yoWkZrg_CF
-	1xZFyxXr15uryvvrsrAF1fZr929Fn7uan3CayIvFWayw15Ar4YyFW3ur18ZrW7uFW7W3sr
-	G3Wjv3W7tr1xKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbaxFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
-	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr0_Gr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2
-	Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x
-	0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2
-	zVAF1VAY17CE14v26r4a6rW5MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr
-	1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_
-	JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYx
-	BIdaVFxhVjvjDU0xZFpf9x0JUCNtxUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7kPgAAAsL
+X-MBO-RS-META: 4mc338tpkdujkpseogqzxpj41o8waqwx
+X-MBO-RS-ID: 5a6222f57c809116da5
 
-In exynos_dpi_parse_dt(), ctx->panel_node is obtained using
-of_graph_get_remote_node(). However, when "display-timings" child node
-is present, the driver uses display timings directly and ignores the
-panel node without releasing the acquired reference count.
+On Tue, 2026-09-15 at 16:05 +0100, Tvrtko Ursulin wrote:
+> Prevent pushing a new job to an entity seeing it being the first in the
+> queue, and hence entering the drm_sched_rq_add_entity() path, if the pop
+> side in drm_sched_entity_pop_job() has just de-queued the job but not yet
+> updated the saved virtual time.
+>=20
+> Restoring the unsaved virtual time, which is at this point not a delta bu=
+t
+> still an absolute value, pushes the said entity to the rear of the run qu=
+eue
+> for a potentially very long time.
+>=20
+> We close this race by pulling the locked sections out to encompass both
+> the queue push/pop and corresponding rbtree management.
+>=20
+> This is aligned with the future direction to replace the current lockless
+> job queue with one of the fully locked standard list primitives.
+>=20
+> Signed-off-by: Tvrtko Ursulin <tvrtko.ursulin@igalia.com>
+> Fixes: 2fa4d8e2c109 ("drm/sched: Add fair scheduling policy")
+> Suggested-by: Luke.Wildhardt@proton.me=C2=A0# via Claude Opus
+> Tested-by: Luke.Wildhardt@proton.me
 
-Call of_node_put() on ctx->panel_node and set it to NULL when
-"display-timings" is present to prevent reference leaks.
+Shoved it to misc-fixes, thx guys
 
-Fixes: 86418f90a4c1 ("drm: convert drivers to use of_graph_get_remote_node")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/exynos/exynos_drm_dpi.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/gpu/drm/exynos/exynos_drm_dpi.c b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-index 0dc36df6ada3..0b64d1031951 100644
---- a/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-+++ b/drivers/gpu/drm/exynos/exynos_drm_dpi.c
-@@ -168,6 +168,8 @@ static int exynos_dpi_parse_dt(struct exynos_dpi *ctx)
- 		int ret;
- 
- 		of_node_put(np);
-+		of_node_put(ctx->panel_node);
-+		ctx->panel_node = NULL;
- 
- 		vm = devm_kzalloc(dev, sizeof(*ctx->vm), GFP_KERNEL);
- 		if (!vm)
--- 
-2.34.1
-
+P.
