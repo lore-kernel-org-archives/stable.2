@@ -1,65 +1,33 @@
-Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A49648BD54;
-	Wed, 16 Sep 2026 09:10:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF457481FDF;
+	Wed, 16 Sep 2026 09:13:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549828; cv=none; b=j081OIGOcfnBcfh0GpvfY64byboGO4poDAd37byVwEP6y4kpq1Ifm2HNot5AYn8OTAW37mTx1WIlMa2A9nIIj8MLBSc4xJXkOnDkR7MJ7HWV7k6NhdYzHz4tNEtvbQk9607ENy56w2ll3vQUQr8ZFpyLBkWO8Mrjmi/Uu2ci8NQ=
+	t=1789550013; cv=none; b=pYz0xg0u37gZtAjj2K/cMv6HMAhU4ZvVPafj+gwX99MEiX3xvVnyPhSMn5i6ulMG+cu/of6Cn6y1sH2bSUvoq/cBskO8JMP00z0w6jRnTiFfZ2ygatWLsq6X3ogYwro8uF323viqv6xmp/OoXrMjH05lwG8m0BBJHd7scTELL78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549828; c=relaxed/simple;
-	bh=AEqSX65qBK51YRCjzACTfTXXqKYV8OXz+2tbKUCGkPs=;
-	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
-	 MIME-Version; b=IiDKyoyaihmkFWbcg1Kwxo0mCRnSLEQn4iRMsskrOX4HvfNWGo95pYBUrJ0w5DUf3gZdh2bayG+p+W9ofkPRI4ZLDkGNVvn+UV2P4yCLejRaIvCkI6rP0mrcdOADM4oTLXCF3BS1SeO0U05tvTu58hkT949HPcHi6vDHMCbFxKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=saa+zYdO; arc=none smtp.client-ip=203.205.221.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="saa+zYdO"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1789549801; bh=aJ2RoaVrTR5lScqJ6fDtJfwi0fg4FnGoIrHJd1m6gsA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=saa+zYdOqn2vAfEPLskj8giuvnVq/3WactJ2bwt2rtAaJ92dBdkJbUAUlLKV4oIk9
-	 Kc2P8sCURuuqmeXC8cxL6wAH2n2jBorbWc49s93Z0xp9ZK+ubwSDTQerM2IunwVb63
-	 ma0o0jfpHeixRSMfmfXqQjgonUJQW98zztamj92g=
-Received: from WIN-U8J9BGQPJ22 ([61.136.26.125])
-	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
-	id 277B8E5A; Wed, 16 Sep 2026 17:09:55 +0800
-X-QQ-mid: xmsmtpt1789549798ts0pxda6l
-Message-ID: <tencent_6BAAD177CBC8B253A2297594808F7D546606@qq.com>
-X-QQ-XMAILINFO: Ne0X32Z2O2BRPTa9PytJI71zJiFWkCoc+o02MwZhDmVH0c3wqBG5GK/XpRvZLO
-	 uVl9f/zxFqogwBdALUaKhNMLG1r8qO+IloMA+n/8iecW+ggbeLM5ltNPmlY8reX4+g2xWw/arILW
-	 UDkiOULB2BvS/Otf1o1eRNUhTNK0a6MzkSa3lO5muQrZaBiMQYlWthRj1mJAtvtbPFf6eii8zWZQ
-	 jcbnZPikeHzbcng1UuRN9koP+4llgI0ClWZupSk5EaP1Rw2HAl6JuLyCuv6a+iQ/FXMBaDZRDWdA
-	 N6GKf7f6XUuy4zKuMNvyln8lyXxDc0k7jF0V1xFfhJAoNcUU85+Q1V/E4+yj7d5Wkv5RQMyFlV7F
-	 PNCt8YkLD007l9xgFFkwbtvK+PMM/S8GN364ilajl2H2uAUI+7Rl0/xE2XJitNRCUBCjZ7vlOCQY
-	 LPwI0/8R2tXixQQD+ztIFWUTe4HFZqXKdLpwkmWYf4/uyoQHfR8UbOVVNaXSUmq+cjSEtq01L45/
-	 TwxIylFqsYLA390rQP8bwhwXDPIrAcLKHR2wKemT+1GxuM9tL5XDY6ok9M+dMsXyTCT0SxHuwoY0
-	 nUYAYJJLTxEEIibdKcahJPm0TSwdxSFyfeJt8mi0ZRUONXD4IztJSpeAOBe51j90K9hpG88CGDIY
-	 fm3qjSXuyTO7f/q/X44YQm7oDSu0FYrKhxOVGkz2UioIqBHpfQyVEeldxVnaCoWoWwGeez0/l0ST
-	 HviiDRtnftrkPQeitkpcxH1DLcVg5FHbGkFzOCKhwjwNqxqBt9r8nYAI7ZBMujLmoEKPQjvNdXBa
-	 UDTyKVLD6p/NLdthu6DROQpxHu/gXl3KjH2RU1nQsi8J2S/0Pt30nbLGULYbp7NEnF99ZPAYzTVq
-	 fjI0OYuhpe6a6vpdRwPp4kTl3us8dxCRaIqjmYgTXDM6fM1EghPC1l5H4UACeUXY0fr3KcKHSs6t
-	 ZmAoIX+VWB70mJ9Qu03hTe4Z/kNMx9JS66jFP3dcsV98l444S1R1n5Qf4AykYazQ7E4J3JQW/noE
-	 ZNDYjkt7pD1qC8O/UBz4gXPryrF9+hgfk6RlNi83xgEFtk70+2VlOekhfyy5Qv4baCjHMvLfzZKZ
-	 Rd7g8DEZ7reBQQCNSLYShDZPtQ9Q==
-X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
-From: 1sh1ro <yangguikun19@qq.com>
-To: Viacheslav Dubeyko <slava@dubeyko.com>,
-	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
-	Yangtao Li <frank.li@vivo.com>
-Cc: 1sh1ro <yangguikun19@qq.com>,
-	linux-fsdevel@vger.kernel.org,
+	s=arc-20240116; t=1789550013; c=relaxed/simple;
+	bh=/uW7dS2+cYvaC0td5unKme5V/yFKA18iJFNkCfR2Be4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QxF+XPsZUhfZViDt3DR8ZOZNdnRY9Ya0qu1y+G1MYy+m6tpyFd//QxomtlgFHonQ5IeRQLTbfl74gqyj9ShMlre7qpyv16xiitSrCnfHv+3JnIJKN6/+KRt8WANsD3rwN4rOG0fq7hio1FW/41IVQG6Ups9xlJjHapbg+rQRHVc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowAB3eTevXapqQSrgBw--.42445S2;
+	Wed, 16 Sep 2026 17:13:19 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bp@alien8.de
+Cc: linux-edac@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Mateusz Guzik <mjguzik@gmail.com>,
-	Christian Brauner <brauner@kernel.org>,
+	qiuxu.zhuo@intel.com,
+	tony.luck@intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/1] hfs: don't let internal B-tree inodes leak into the VFS open path
-Date: Wed, 16 Sep 2026 17:09:54 +0800
-X-OQ-MSGID: <20260916080000.1-hfs-fix@localhost>
-X-Mailer: git-send-email 2.53.0.windows.1
-In-Reply-To: <20260916080000.0-hfs-fix@localhost>
-References: <20260916080000.0-hfs-fix@localhost>
+Subject: [PATCH] EDAC/i10nm: Fix mdev reference leak in i10nm_get_ddr_munits()
+Date: Wed, 16 Sep 2026 09:12:51 +0000
+Message-Id: <20260916091251.1997522-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,94 +35,51 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowAB3eTevXapqQSrgBw--.42445S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKr47WrWkXr1DtFyftFyxZrb_yoWDGFg_Ga
+	ykZFW7ZryqkF1UGr1DKFWfZr92yF1vvFyxXws7tw13KFW5Xr17WF13u3Z0qr17Gw4kAryY
+	g398Xry7Zr12kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUb4AFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Ar0_tr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
+	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
+	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
+	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
+	JF0_Jw1l42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
+	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIY
+	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF7I0E14
+	v26r1j6r4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWx
+	JwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbLiSJ
+	UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAEMA2qqP7mAiQAAsN
 
-hfs_btree_open() creates the extents and catalog B-tree inodes with
-iget_locked() and never assigns them a file type, so both stay cached
-with i_mode == 0 after mount.
+In i10nm_get_ddr_munits(), get_ddr_munit() returns a PCI device with
+its reference count incremented.  If ioremap() fails to map the MMIO
+space of the memory controller, the function returns -ENODEV without
+putting the reference held by mdev, leaking it.
 
-A crafted HFS image whose catalog contains a record whose DirID/FlNum
-aliases HFS_EXT_CNID (3) or HFS_CAT_CNID (4) makes hfs_lookup() ->
-hfs_iget() -> iget5_locked() return that already-cached internal inode
-(hfs_test_inode() only compares i_ino), without running
-hfs_read_inode().  The typeless inode then reaches the generic open
-path and, with CONFIG_DEBUG_VFS=y, deterministically panics:
+Put the device reference before returning on the ioremap failure path.
 
-  VFS_BUG_ON_INODE(!IS_ANON_FILE(inode)): inode:... fs:hfs mode:0 opflags:0xc flags:0x0 state:0x0 count:2
-  ------------[ cut here ]------------
-  kernel BUG at fs/namei.c:4271!
-  RIP: 0010:may_open+0x2ba/0x480 fs/namei.c:4271
-  Call Trace:
-   do_open fs/namei.c:4698 [inline]
-   path_openat+0x1600/0x3de0 fs/namei.c:4863
-   __x64_sys_openat+0x13f/0x1f0 fs/open.c:1385
-
-Fix it in two steps:
-
- - give the B-tree inodes an S_IFREG type in hfs_btree_open(), so the
-   "every cached inode has a valid S_IFMT type" VFS invariant holds
-   regardless of what is on disk;
-
- - refuse, in hfs_iget(), catalog records that address the reserved
-   B-tree CNIDs so a malformed image cannot alias internal objects
-   into dentries at all.  Returning NULL follows the existing
-   convention for unaddressable records: hfs_fill_super() turns it
-   into a mount failure and hfs_lookup() into -EACCES.
-
-Without CONFIG_DEBUG_VFS the assertion compiles away and the same
-crafted image silently makes a typeless inode openable, so this is not
-merely a debug-config nuisance.
-
-Found by syzkaller-style fuzzing of v7.2-rc7; still reproducible on
-current mainline.
-
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: 1sh1ro <yangguikun19@qq.com>
+Fixes: c545f5e41225 ("EDAC/i10nm: Skip the absent memory controllers")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/hfs/btree.c | 8 ++++++++
- fs/hfs/inode.c | 11 +++++++++++
- 2 files changed, 19 insertions(+)
+ drivers/edac/i10nm_base.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
-index 2eb37a2f64e8..bd69ace8f309 100644
---- a/fs/hfs/btree.c
-+++ b/fs/hfs/btree.c
-@@ -43,6 +43,14 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id, btree_keycmp ke
-    if (!tree->inode)
-       goto free_tree;
-    BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
-+
-+   /* B-tree inodes are internal objects that must never be exposed
-+    * through directory entries.  Give them a REG type so the VFS
-+    * invariant "every cached inode has a valid S_IFMT type" holds even
-+    * when a corrupted image contains catalog records aliasing these
-+    * reserved CNIDs.
-+    */
-+   tree->inode->i_mode = S_IFREG;
-    {
-    struct hfs_mdb *mdb = HFS_SB(sb)->mdb;
-    HFS_I(tree->inode)->flags = 0;
-diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
-index ac4a9055c5c0..bb759345f1fc 100644
---- a/fs/hfs/inode.c
-+++ b/fs/hfs/inode.c
-@@ -432,6 +432,17 @@ struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key, hfs_cat_
-    default:
-       return NULL;
-    }
-+
-+   /* Refuse catalog records that address the internal B-tree objects:
-+    * a crafted image can otherwise make hfs_lookup() return the cached
-+    * typeless B-tree inode, which then reaches may_open() with
-+    * i_mode == 0 and trips VFS_BUG_ON_INODE() there.  NULL follows the
-+    * existing convention for unaddressable records (mount failure /
-+    * -EACCES).
-+    */
-+   if (cnid == HFS_EXT_CNID || cnid == HFS_CAT_CNID)
-+      return NULL;
-+
-    inode = iget5_locked(sb, cnid, hfs_test_inode, hfs_read_inode, &data);
-    if (inode && (inode_state_read_once(inode) & I_NEW))
-       unlock_new_inode(inode);
---
-2.39.5
+diff --git a/drivers/edac/i10nm_base.c b/drivers/edac/i10nm_base.c
+index 63df35444214..b0cabe0daccd 100644
+--- a/drivers/edac/i10nm_base.c
++++ b/drivers/edac/i10nm_base.c
+@@ -847,6 +847,7 @@ static int i10nm_get_ddr_munits(void)
+ 
+ 			mbase = ioremap(base + off, size);
+ 			if (!mbase) {
++				pci_dev_put(mdev);
+ 				i10nm_printk(KERN_ERR, "Failed to ioremap 0x%llx\n",
+ 					     base + off);
+ 				return -ENODEV;
+-- 
+2.34.1
 
