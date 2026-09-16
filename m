@@ -1,184 +1,171 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 805A94E13FF
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95CBA4B3364
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:46:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789598811; cv=none; b=ukn6jDX89bzO2EyKW1jepQIFQEfGbP5cAhZKdz1hN6JfNSQ4TTxt8V39Xgbe/DktKuLp1PbzDir5c8So0BJAG/qcbbCQ6rFjw11lRyhrJjTvruTu2FHDDuqh3qIKYQKKaiX4BNm+5zUH9JCMkem0CIvX5h1EeZH7lVXloAPxv7U=
+	t=1789598818; cv=none; b=W0w419OZQdIgrM+T1HumXG8vqrlPOYe3zkIaf7rQ2g/zYTlL8azM+RnZUokWPl0haH1eRKeDHRX4CgMW4XkK2xqb/P8vnHUuPecVa0hfbrdTqY+hDT/783qGca6hEnqoIT8SYp9lvrT6hLhPQRtA6hP1PqwxftT98KUeVMjCLhw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789598811; c=relaxed/simple;
-	bh=eLCMoBxLlL0dbSci301UDSivK2YbL94J4DlB+sYGc2g=;
+	s=arc-20240116; t=1789598818; c=relaxed/simple;
+	bh=+iTg2pmkbALBrTH+FcWWyviqSTD3pfdGnkYxin2J1GY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eGa4nMfK/g7CmWuYRRdZT/rS/YR1am6h4ETzA1e/RLSsW8h7tcteR1RTWv+K5PmyXc79PkfAdJMW3JmXhxWcBjuWcRx30VAbPw8/jR8BGw70JTIJv7JlKIaW8Tbv186DJpJKaX4DTQMekjS+fom9wnmEhxq6De/wogwrQiS26E0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a7uliMDL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=DGMy8xM+K6NeKtjsrKmWeVinfiSXxQXjG2j4ZffSZ8MlSB75x22bJOJTWB63+GYygik33sJz2Kur2E9FXKv9QylQyHGuVLxOJATpn57jo00YTCVltpv4BQg2Rg5XAzcgFPWuAHgqdYBmWca8v9QqAnBAIlbLpto76EaY4eRqtKQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gvDkBjg4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a7uliMDL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9ECA51F000FF;
-	Wed, 16 Sep 2026 22:46:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gvDkBjg4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6B0761F00898;
+	Wed, 16 Sep 2026 22:46:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789598797;
-	bh=2Kv3rqE8FbY+cCXaAjzymtSbEQhg7Po8WCgNwCh+hms=;
+	s=k20260515; t=1789598810;
+	bh=2uJ3q9yJV+WlhMKyjXjmLaXtZpQeXXiQudE4abYjjnY=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=a7uliMDLGzqvz+2gU5XbRdvtec3NQQ90QZ5DoA1LkpLUDQU7wENOLh/NDbqKo85NF
-	 /CCcgUMeSkXRgM/tt7iFbhOrzqir56MB++vrf0PcMk6l5MNiIBp+MoQHzdJAO7+XKU
-	 R8OGwWOzOKp0B5MHh1IwJmNVJDTaI60KDJepwId5vFpVSgRwK7yCLuE26YFvGD+RWQ
-	 bboVVdaIwKa5s0M4xgBj4REXskM6QrUfjS7FgmHR5hNuR8KxfwIujPv0sgsyAU+h79
-	 H50F1Hr1OEk3h7UUU/DcGF1RAULtwOVMtd6w4q0mgWDoAFsk+kPEQRFayzIcNM6k9C
-	 /W5UR6uHFYo9w==
+	b=gvDkBjg4Y3QYpaxeAcYfFwuZKz6UEvMDVHYGH84WYk7zHCKySAh1TBBL6orrFNclh
+	 vTD6kfYKgR2+EkILOdkYY2r8/7nVLmQtxfrWNsfIZLxHlXLknZDx3r659htA6bh8aA
+	 DYows/ODt+uLGOZ8d5YhawQw2/D3g41TfibwC0m6nSZctJGBQ0HXDY5ZbPOXUtAHD0
+	 cvehmlzXUAGn+QAT6lAhAAajqTHkUgofpwh8k/Ai3qcg7wasgmG0MZTgEfk2vWauit
+	 lEt9QRVVBFRwWHA9MmqIc77oYNY94mBBgc08At2pzLDz1ZoWb6YW13sOY62NpbQoKX
+	 vIzsvKelk7r3g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Steven Rostedt <rostedt@goodmis.org>,
-	sashiko-bot@kernel.org,
+Cc: =?UTF-8?q?Thomas=20Hellstr=C3=B6m?= <thomas.hellstrom@linux.intel.com>,
+	Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+	=?UTF-8?q?Jos=C3=A9=20Roberto=20de=20Souza?= <jose.souza@intel.com>,
+	intel-xe@lists.freedesktop.org,
+	Matthew Auld <matthew.auld@intel.com>,
+	Rodrigo Vivi <rodrigo.vivi@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] tracing: Take trace_array reference when opening a tracer options file
-Date: Wed, 16 Sep 2026 18:46:35 -0400
-Message-ID: <20260916224635.3198117-1-sashal@kernel.org>
+Subject: [PATCH 6.18.y] drm/xe: Flush LSC untyped L1 dataport cache after rcs/ccs batches
+Date: Wed, 16 Sep 2026 18:46:47 -0400
+Message-ID: <20260916224647.3200157-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091637-crane-grader-8ee4@gregkh>
-References: <2026091637-crane-grader-8ee4@gregkh>
+In-Reply-To: <2026091603-scope-sly-f7cb@gregkh>
+References: <2026091603-scope-sly-f7cb@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Steven Rostedt <rostedt@goodmis.org>
+From: Thomas Hellström <thomas.hellstrom@linux.intel.com>
 
-[ Upstream commit ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 ]
+[ Upstream commit f5fcf7e638b904397ec0f66d3ea6766ef0cfe25b ]
 
-When a tracer option file is opened, it is passed a descriptor that points
-to an element on the trace_array's topts array. This element has
-information to find the trace array and other information. It uses this
-element to take a reference of the trace_array so that the trace_array
-does not get removed while this file is opened.
+emit_render_cache_flush() sets PIPE_CONTROL0_HDC_PIPELINE_FLUSH to
+flush the L2/HDC data cache before fence signalling, but it never
+requests a flush of the LSC untyped L1 data cache via the 'Untyped
+Data-Port Cache Flush Enable' bit in PIPE_CONTROL DWord0[11].
 
-Unfortunately, there's a race condition where the element itself could be
-freed by the removal of the instance the trace_array represents causing a
-use-after-free as this element that is used to find the trace_array to
-increment its reference counter is also freed when the instance is
-removed.
+Per the Bspec, in 3D pipeline mode HDC Pipeline Flush is documented to
+also flush/invalidate the untyped L1 cache, but only depending on how
+HDC_CHICKEN0[13:11] is programmed. Starting with MTL, this coupling
+between HDC Pipeline Flush and the untyped L1 cache flush no longer
+holds in practice, regardless of how HDC_CHICKEN0 is programmed, so
+relying on it is not safe on newer platforms such as BMG. Mesa's Vulkan
+driver (anv) has been assuming the kernel flushes both caches between
+submissions, and hit user-visible corruption in apps such as Llama.cpp
+because of this gap; it now works around it by flushing both caches
+again from userspace at the end of every command buffer.
 
-To solve this, add a trace_array_tracer_options_get() helper function that
-will take the address of the element that is passed to the open function
-by the inode->i_private pointer and search all the trace_arrays under a
-lock to find the one that the element's address is in the range of the
-trace_arrays topts array elements. When a match happens, that trace_array's
-reference would be increased.
+Correctness between submissions on the same queue is userspace's
+responsibility and belongs in Mesa, not the kernel. However, for
+security we must ensure stale data can't leak through the untyped L1
+dataport cache once memory is reclaimed or evicted, which requires the
+KMD to flush it before releasing memory for reuse.
 
-Note, there's a race where if an admin was deleting and creating trace
-instances at the same time and the memory of the old trace_array's array
-matched the memory of the new trace_array that it could in theory open the
-option from the wrong trace array. But we do not care because it would be
-stupid to perform that kind of action. As long as the only thing that can
-happen is that the option from the wrong trace array is used and doesn't
-crash the kernel it will only make the user confused. But if they are
-doing something stupid like this, they are already confused, so no harm
-done.
+Prior to MTL, HDC_CHICKEN0 could be programmed (as already done for
+DG2 via Wa_22010960976/Wa_14013347512) to reliably keep HDC Pipeline
+Flush coupled to the untyped L1 cache flush, so those platforms are
+unaffected. Mesa's own anv driver found that on MTL the HW
+disconnected the two independently of how HDC_CHICKEN0 is programmed,
+and could not bring the old behavior back even by writing the register
+by hand; see Mesa commit 7c2ff46a4fc3 ("anv: don't prevent L1 untyped
+cache flush in 3D mode"). The kernel can't reliably request the flush
+from the CS on MTL either, so restrict the new PIPE_CONTROL bit to
+GRAPHICS_VERx100 >= 2000 (Xe2 and later), where it can be relied on.
 
-Cc: stable@vger.kernel.org
-Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
-Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
-Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
-[ replaced __trace_array_get() with direct tr->ref increments under explicit mutex locking using C89-compatible declarations. ]
+Explicitly set PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH together
+with PIPE_CONTROL0_HDC_PIPELINE_FLUSH in emit_render_cache_flush() on
+Xe2 and later, so the L1 data cache is known clean before memory is
+released for reuse, without depending on undocumented
+platform-specific HDC_CHICKEN0 behavior.
+
+Bspec: 56551
+Link: https://gitlab.freedesktop.org/mesa/mesa/-/commit/7c2ff46a4fc3e537573ac9503057e0cd29b6fff3
+Fixes: 9f8f93bee3ef ("drm/xe: Emit a render cache flush after each rcs/ccs batch")
+Reported-by: Lionel Landwerlin <lionel.g.landwerlin@intel.com>
+Closes: https://gitlab.freedesktop.org/drm/xe/kernel/-/issues/8909
+Cc: José Roberto de Souza <jose.souza@intel.com>
+Cc: intel-xe@lists.freedesktop.org
+Cc: <stable@vger.kernel.org> # v6.8+
+Assisted-by: GitHub_Copilot:claude-sonnet-5
+Signed-off-by: Thomas Hellström <thomas.hellstrom@linux.intel.com>
+Reviewed-by: Matthew Auld <matthew.auld@intel.com>
+Link: https://patch.msgid.link/20260903114552.48634-1-thomas.hellstrom@linux.intel.com
+(cherry picked from commit 434514b6fe731e873808297c268fc52cdf4a1ce6)
+Signed-off-by: Rodrigo Vivi <rodrigo.vivi@intel.com>
+[ replaced emit_pipe_control()'s literal HDC argument with a new flags0 variable. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/trace.c | 53 +++++++++++++++++++++++++++++++++++++++++++-
- kernel/trace/trace.h |  1 +
- 2 files changed, 53 insertions(+), 1 deletion(-)
+ .../gpu/drm/xe/instructions/xe_gpu_commands.h    |  1 +
+ drivers/gpu/drm/xe/xe_ring_ops.c                 | 16 ++++++++++++++--
+ 2 files changed, 15 insertions(+), 2 deletions(-)
 
-diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
-index ed32d3c4f0e76..cd9b8351264c9 100644
---- a/kernel/trace/trace.c
-+++ b/kernel/trace/trace.c
-@@ -8388,12 +8388,62 @@ trace_options_write(struct file *filp, const char __user *ubuf, size_t cnt,
- 	return cnt;
+diff --git a/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h b/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
+index 8cfcd3360896c..8d05db3fb356d 100644
+--- a/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
++++ b/drivers/gpu/drm/xe/instructions/xe_gpu_commands.h
+@@ -41,6 +41,7 @@
+ 
+ #define GFX_OP_PIPE_CONTROL(len)	((0x3<<29)|(0x3<<27)|(0x2<<24)|((len)-2))
+ 
++#define	  PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH	BIT(11)	/* gen12 */
+ #define	  PIPE_CONTROL0_L3_READ_ONLY_CACHE_INVALIDATE	BIT(10)	/* gen12 */
+ #define	  PIPE_CONTROL0_HDC_PIPELINE_FLUSH		BIT(9)	/* gen12 */
+ 
+diff --git a/drivers/gpu/drm/xe/xe_ring_ops.c b/drivers/gpu/drm/xe/xe_ring_ops.c
+index e0082b55e2162..46c71d2889218 100644
+--- a/drivers/gpu/drm/xe/xe_ring_ops.c
++++ b/drivers/gpu/drm/xe/xe_ring_ops.c
+@@ -176,13 +176,25 @@ static int emit_store_imm_ppgtt_posted(u64 addr, u64 value,
+ static int emit_render_cache_flush(struct xe_sched_job *job, u32 *dw, int i)
+ {
+ 	struct xe_gt *gt = job->q->gt;
++	struct xe_device *xe = gt_to_xe(gt);
+ 	bool lacks_render = !(gt->info.engine_mask & XE_HW_ENGINE_RCS_MASK);
+-	u32 flags;
++	u32 flags0, flags;
+ 
+ 	if (XE_GT_WA(gt, 14016712196))
+ 		i = emit_pipe_control(dw, i, 0, PIPE_CONTROL_DEPTH_CACHE_FLUSH,
+ 				      LRC_PPHWSP_FLUSH_INVAL_SCRATCH_ADDR, 0);
+ 
++	flags0 = PIPE_CONTROL0_HDC_PIPELINE_FLUSH;
++	/*
++	 * Prior to MTL, HDC Pipeline Flush reliably also flushes the LSC
++	 * untyped L1 dataport cache, provided HDC_CHICKEN0 is programmed
++	 * correctly. Starting with MTL that coupling no longer holds
++	 * regardless of how HDC_CHICKEN0 is programmed, but explicitly
++	 * requesting the flush via PIPE_CONTROL is itself only reliable
++	 * from Xe2 onward, so only gate it in on Xe2+.
++	 */
++	if (GRAPHICS_VERx100(xe) >= 2000)
++		flags0 |= PIPE_CONTROL0_UNTYPED_DATAPORT_CACHE_FLUSH;
+ 	flags = (PIPE_CONTROL_CS_STALL |
+ 		 PIPE_CONTROL_TILE_CACHE_FLUSH |
+ 		 PIPE_CONTROL_RENDER_TARGET_CACHE_FLUSH |
+@@ -198,7 +210,7 @@ static int emit_render_cache_flush(struct xe_sched_job *job, u32 *dw, int i)
+ 	else if (job->q->class == XE_ENGINE_CLASS_COMPUTE)
+ 		flags &= ~PIPE_CONTROL_3D_ENGINE_FLAGS;
+ 
+-	return emit_pipe_control(dw, i, PIPE_CONTROL0_HDC_PIPELINE_FLUSH, flags, 0, 0);
++	return emit_pipe_control(dw, i, flags0, flags, 0, 0);
  }
  
-+static bool tr_option_match(struct trace_array *tr, void *topt)
-+{
-+	int i;
-+
-+	for (i = 0; i < tr->nr_topts; i++) {
-+		struct trace_options *tr_topts = &tr->topts[i];
-+
-+		if (topt >= (void *)&tr_topts->topts[0] &&
-+		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
-+			return true;
-+	}
-+	return false;
-+}
-+
-+/*
-+ * The topt is the address of a trace_array->topts[] element that holds the
-+ * the tracer options descriptor. But since the trace_array reference has not
-+ * been taken yet, it cannot be dereferenced as it could have been freed by
-+ * a rmdir of the instance the trace_array represents.
-+ *
-+ * Search the list of trace_arrays and compare the topt to the address of
-+ * the entire trace_array topts array for each trace_array in the list.
-+ * If one is matched, then take the reference and return it. If not, the
-+ * trace_array no longer exits.
-+ */
-+static int trace_array_tracer_options_get(void *topt)
-+{
-+	struct trace_array *tr;
-+	int ret;
-+
-+	ret = security_locked_down(LOCKDOWN_TRACEFS);
-+	if (ret)
-+		return ret;
-+
-+	if (tracing_disabled)
-+		return -ENODEV;
-+
-+	ret = -ENODEV;
-+	mutex_lock(&trace_types_lock);
-+	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
-+		if (tr_option_match(tr, topt)) {
-+			tr->ref++;
-+			ret = 0;
-+			break;
-+		}
-+	}
-+	mutex_unlock(&trace_types_lock);
-+	return ret;
-+}
-+
- static int tracing_open_options(struct inode *inode, struct file *filp)
- {
- 	struct trace_option_dentry *topt = inode->i_private;
- 	int ret;
- 
--	ret = tracing_check_open_get_tr(topt->tr);
-+	ret = trace_array_tracer_options_get(topt);
- 	if (ret)
- 		return ret;
- 
-@@ -8616,6 +8666,7 @@ create_trace_option_files(struct trace_array *tr, struct tracer *tracer)
- 	tr->topts = tr_topts;
- 	tr->topts[tr->nr_topts].tracer = tracer;
- 	tr->topts[tr->nr_topts].topts = topts;
-+	tr->topts[tr->nr_topts].nr_topts = cnt;
- 	tr->nr_topts++;
- 
- 	for (cnt = 0; opts[cnt].name; cnt++) {
-diff --git a/kernel/trace/trace.h b/kernel/trace/trace.h
-index 8dce0e205c8ed..d62857b0231b5 100644
---- a/kernel/trace/trace.h
-+++ b/kernel/trace/trace.h
-@@ -211,6 +211,7 @@ struct array_buffer {
- struct trace_options {
- 	struct tracer			*tracer;
- 	struct trace_option_dentry	*topts;
-+	int				nr_topts;
- };
- 
- struct trace_pid_list {
+ static int emit_pipe_control_to_ring_end(struct xe_hw_engine *hwe, u32 *dw, int i)
 -- 
 2.53.0
 
