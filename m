@@ -1,97 +1,93 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
+Received: from mta0.migadu.com (out-45.mta0.migadu.com [91.218.175.45])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0913BADB1;
-	Wed, 16 Sep 2026 08:40:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3CF8938F642
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 08:41:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.45
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789548045; cv=none; b=RhIlN/aG2hzV4rl04Ly+CYvp3U/Z1hMoJSkvImhhs/jqcSX7dlA0HNZ42fmhtGuJDg16F3V6F/oR/j/toPmBFFWo9CppMPIYrcug0I014OSsN7+W9gQyta6BUx8e7y1vu8pybEhyDNz6HSKUaKbfetHQjw0t2VsKKdQHXUJSOgw=
+	t=1789548101; cv=none; b=UJD+pLHEM5DWGIRdF5HeOCnF4YsWakj1OwUr0om0UZh4Bnp4A82jtOBRTTYk1aAF2qumq4qGIjPFnsnBg8/58unbGXPUKE1FteUBLxulCxI1SU9iBvwlSI5HFRLs41Zf4FJiQ+7vPbwkqabL7Xayl6Sc823lCaWcl5/wjNGbsi0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789548045; c=relaxed/simple;
-	bh=RkS+BMB7WMX/M2CU/F+cSDmbLRAcKhvl57dIasegSwc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=McxjSdnVrqR0lwntBz9UjunHceeAdHt95JV2dAc2s1p6TtLVmtbIyhbKX9QhmsfhneNKUEmKJJvAxhfIJ6HF/+iTL65r2UWRHB11R5NPB+nl+RO49QdovyagQhlEmTUjvcxkGcjZWTlYDwwqs8McCdyq0efyylR5cFNVdUIoVbM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=Mfqy4pYc; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1789548101; c=relaxed/simple;
+	bh=9QxL4Gb1UAhoBwy3DBUFXQ+YjM+gNoib2VJGzBio/Qc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dC/KH1kxbVPalCGRPuyR+i7AGxPTiPU1R3CUs8AVJTHYyNiUIGxTc4YurTRvn7ql4klRDV4Dm1nrCLE0URzxgGMyGJzF6twdTap1Lev8eaSdu+nArozSKJKGVAvVhpnNkqnwtSLO0cGbIijt2tJumBbbJALuTDPyk6Wqf296weI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=vYJNJ4Wu; arc=none smtp.client-ip=91.218.175.45
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="Mfqy4pYc"
-Received: from francesco-nb.. (xcpe-178-82-167-143.dyn.res.sunrise.net [178.82.167.143])
-	by mail11.truemail.it (Postfix) with ESMTPA id 8901A1FF37;
-	Wed, 16 Sep 2026 10:40:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1789548034;
-	bh=5eYBxqvQy8hvAWZmQDYiSaixg+yBCBKhpGm8smCMPHE=; h=From:To:Subject;
-	b=Mfqy4pYcGUn2b1aYTfmUL5VUBkULfLfUbc+70XN6kHqas+6AN2M5Bu7XnafcNssyR
-	 Piv02UBwN4/gHLgbXWNBjMLKaaho+eirrjOE+2b9K5g4hdJWVmFWbVlZ2BBfNTcVT4
-	 vAO8qY/C/NtXpswF6DafhO+a5LSGFe1NdQ53ynRJygAvGRmme3UWlsAevdjV8NGNbY
-	 VhQkqgQjE61vEArQ6LJVl1ZyNyXfSdx71fNjxgT5/hZCY3TqaeelGa9L3vtG1UHmmc
-	 WpaccGUUyvKpOT7pmkqQcfcL2BnfHErkTkb4T2pqelxM/23H1ogX0hxI26zKv5wQZ5
-	 OArYEWT2GHHag==
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>,
-	Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>
-Cc: Francesco Dolcini <francesco.dolcini@toradex.com>,
-	devicetree@vger.kernel.org,
-	imx@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v1 2/2] arm64: dts: freescale: imx8mp-verdin-ivy: fix DIGI_1/DIGI_2 gpio-line-names
-Date: Wed, 16 Sep 2026 10:40:23 +0200
-Message-ID: <20260916084025.274229-3-francesco@dolcini.it>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260916084025.274229-1-francesco@dolcini.it>
-References: <20260916084025.274229-1-francesco@dolcini.it>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="vYJNJ4Wu"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=9QxL4Gb1UAhoBwy3DBUFXQ+YjM+gNoib2VJGzBio/Qc=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789548092; v=1; x=1790152892;
+ b=vYJNJ4WuHE3PjnNGDmf/ESwJ3dvOHEBqzKZMGpfwHmY9P/r3LQW2Aclk1Ksq5mTGyZFQtvO7
+ 5jqw9lUMQGENtmrYqlSy7RtSRgCeSc97y7ET7+ruVVRjsDrLsqSOg0NhiqgDXCNNtZZEUd9sAbP
+ IeZl5tSy9p6T3JXPQg4Q1nKg=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e6d426d6e7280090;
+	Wed, 16 Sep 2026 08:41:32 +0000
+X-Mizu-Trace-ID: e6d426d6e7280090
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <047c05f7-be17-4dc5-8774-db6f9c84ae07@linux.dev>
+Date: Wed, 16 Sep 2026 16:41:24 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] netfilter: nf_dup_netdev: Fix net_device reference leak
+ in nft_fwd_dup_netdev_offload()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: davem@davemloft.net, edumazet@google.com, fw@strlen.de, horms@kernel.org,
+ kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
+ netfilter-devel@vger.kernel.org, pabeni@redhat.com, pablo@netfilter.org,
+ phil@nwl.cc, wenxu@ucloud.cn, stable@vger.kernel.org, coreteam@netfilter.org
+References: <20260916073627.1971921-1-vulab@iscas.ac.cn>
+From: Xuanqiang Luo <xuanqiang.luo@linux.dev>
+In-Reply-To: <20260916073627.1971921-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-From: Francesco Dolcini <francesco.dolcini@toradex.com>
+在 2026/9/16 15:36, Wentao Liang 写道:
+> In nft_fwd_dup_netdev_offload(), dev_get_by_index() gets a reference to
+> the net_device corresponding to oif. When nft_flow_action_entry_next()
+> fails (returning NULL), the function returns -E2BIG directly without
+> dropping the net_device reference via dev_put(), causing a reference
+> leak.
+> 
+> Add dev_put(dev) before returning -E2BIG on failure.
+> 
+> Fixes: be2861dc36d7 ("netfilter: nft_{fwd,dup}_netdev: add offload support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>   net/netfilter/nf_dup_netdev.c | 4 +++-
+>   1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/net/netfilter/nf_dup_netdev.c b/net/netfilter/nf_dup_netdev.c
+> index 3b0a70e154cd..dd627b7d72d9 100644
+> --- a/net/netfilter/nf_dup_netdev.c
+> +++ b/net/netfilter/nf_dup_netdev.c
+> @@ -80,8 +80,10 @@ int nft_fwd_dup_netdev_offload(struct nft_offload_ctx *ctx,
+>   		return -EOPNOTSUPP;
+>   
+>   	entry = nft_flow_action_entry_next(ctx, flow);
+> -	if (!entry)
+> +	if (!entry) {
+> +		dev_put(dev);
+>   		return -E2BIG;
+> +	}
+>   
+>   	entry->id = id;
+>   	entry->dev = dev;
 
-gpio3's gpio-line-names names the two Ivy digital inputs "DIG_1" and
-"DIG_2", while the official Ivy Carrier Board datasheet (Section 2.10,
-Table 12) names them DIGI_1 and DIGI_2, matching the
-k3-am62-verdin-ivy.dtsi variant for the same carrier board pins.
+Please update your local tree.
 
-GPIO line names are meant to be stable across the whole Verdin family
-and its carrier boards, so userspace GPIO tooling that looks up a line
-by name works the same regardless of which Verdin SoM is fitted on
-Ivy.
+Florian Westphal has already fixed this issue:
 
-Fixes: b98948b04295 ("arm64: dts: freescale: imx8mp-verdin: Add Ivy carrier board")
-Cc: stable@vger.kernel.org
-Link: https://docs.toradex.com/116799-ivy_carrier_board_datasheet.pdf
-Assisted-by: LLM
-Signed-off-by: Francesco Dolcini <francesco.dolcini@toradex.com>
----
- arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+https://lore.kernel.org/all/20260605114715.11297-1-fw@strlen.de/
 
-diff --git a/arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi b/arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi
-index db1b4ee7728c..bf021e85cfc9 100644
---- a/arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi
-+++ b/arch/arm64/boot/dts/freescale/imx8mp-verdin-ivy.dtsi
-@@ -333,8 +333,8 @@ &gpio3 {
- 		"",
- 		"",
- 		"",
--		"DIG_1", /* SODIMM 56 */
--		"DIG_2", /* SODIMM 58 */
-+		"DIGI_1", /* SODIMM 56 */
-+		"DIGI_2", /* SODIMM 58 */
- 		"REL1",  /* SODIMM 60 */
- 		"REL2",  /* SODIMM 62 */
- 		"", /* 10 */
--- 
-2.47.3
-
+Thanks!
