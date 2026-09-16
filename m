@@ -1,237 +1,126 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 249C650EC08
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 14:42:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C921250AC27;
+	Wed, 16 Sep 2026 14:42:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789569764; cv=none; b=gAXVe8DfSCTv95eZJR0j+GpQW5JWk2HTOQpxIq8xZkcPceOpoXS0S9ndDrjozif6upC8XVTsWBd/oL90xV5v9ZbO0je8x5RDEx7C7gEeVGaOi1zyoKGtsQHBZRk3THIxWeRZBQ9GGi7zCB8I0qb8rzIgYv2qTFqv76LzUpqcSG8=
+	t=1789569770; cv=none; b=ZjSWyxKc7X0944oJDdDLtd9ksIEOvZQhMfOs9AQGdd2agHpTLf+MsC0U96C8zv/zV5MC9PiOuJw4hAOrI2876YglVk0rZ2iTnZ/tAbvDdMEYLvmmLnYpGYJtNOEFfjPquFSOiFJ/CRaLHvbakCg+Ox6Rv7XlP4KmCjWfMhJ7ZFk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789569764; c=relaxed/simple;
-	bh=Q9s4sEEri3oRIDOADPZxVwPNRw8PRSNPYg5PLYUT/II=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=S/nJ+IjdjcBHm7Ok3vIfOrqNEBKIQEjHRsCuFsQ3R74wchNNaO8TZOsAmzlT6KhzounM8jhIVh4eROhjJnZPdEBZdFnKza1QJYE1tZlLGxAX6PWj139IWp84AKdutwomx/XajDB1ukvDXkqbEnBPwq5swqjtEpsfjKWwTK/R2CA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=YlVtYB1l; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789569770; c=relaxed/simple;
+	bh=y9cL+bWw17AHMHxfB2jXBHEFAqLUnaBApDnIfvis9AM=;
+	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
+	 Content-Disposition:In-Reply-To; b=g5jMhbzPXLCmpT+s1RdAFzDOu+E4h37HeS6LZvuC4LQPdMoZrvayqCa6aXXFIBDLyePb9jbBxaVUoPTnhnCaLFWWjFsB23DPROxn8dMfX+3CikrnkZeDcMMQ8ovZ2Ccbn5pSTDNlI5d4rnB1vcoTWmS97/X6oh/f3pgeu2R7B0U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k+KLzS9z; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="YlVtYB1l"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb76bcb1fso9538871cf.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 07:42:41 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789569761; x=1790174561; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=APS81j5DoNNcu6pzB1xIdVlOym6nIXIYbB0pf6pRDP4=;
-        b=YlVtYB1l+o1U4kuvnm2L9WsWnIGlPER7dV52fip1whNuoJBPhzHbh5eR5qO+2HuXe6
-         UOGBH61elqKO5Tf6jSZIPLkQtPiez5xf5RN4UzdHCVHN+MNxyZSFaYmKcbrGQl51MGO3
-         NyIv5i0nQo/JYMIaw3E5aOCHRMl7NrWkjeHbPWpz0aTzIFTTctqNLeRh0vfw4RE1vbmZ
-         ge9rssmsIwuAZlShtBT6+KqVqvyHDrPPr21WOutLbjaNPx7Zbn4eZxJH3U0roilUPmqD
-         7Slspjlqt7V++BDMWCL4BvJqij4GTfR6fB5f9jZV2DJoOnrvaYJ8VimWQt2I+lLSMX/G
-         syHA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789569761; x=1790174561;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=APS81j5DoNNcu6pzB1xIdVlOym6nIXIYbB0pf6pRDP4=;
-        b=T90IdMa0g2c4Q1QjjSoBwQPyGw4/SGLcKNR5JfQBf+OV/t0Ww6EpMSDpI+vbkyGifS
-         9VIfdFhFQFR7LexWHGTM4KSvSczji28cWgjHdpaOQec1Nsn+m/edH3X16a/qqZnwZdmw
-         Ihm/1spk6XjqLZ+VgWuRkRhfRLvfs0S7esDogRt/8YIfyJaO4MaUoUCVoT55uUlv2HDp
-         4lPAn/PtgvQt6EvKtTGL8VUITsywNib9NtvnpPDZEbOTdkGWvZ3UhDD7Gm+KgWAG7k2j
-         F4YbjvhxlVluo3RvE4b+V03QKEIZn1E8L2J8bL6dsKb2DzM6jvEaLAhKh7T4qWWAQeVW
-         ZJNQ==
-X-Forwarded-Encrypted: i=1; AKwUvBw1lzH8F8wqzc+ac0cv6DTftszEenQR2E5C/ZUnzqUyI/rAPNfAt3qW2aBf2PZ8W5vaBJZ1+Fk=@vger.kernel.org
-X-Gm-Message-State: AFuF++lzyy5axGxS2zLm230jJvlH71FDjcq8uQ5lidnkPFHDUOPuF7To
-	sBIbhKlPogVsKVOWUmAPz3I734Bjrdvn2JvHOf5kjbb8p5m3B7Le4ayRqpghuPJWgns=
-X-Gm-Gg: AYBFou2Pi9iGizYMp9YIrCX8MT9EoQmYwmqfrOUG5H6ViTtkzixTD5SRAT/K+W/2ozF
-	2+sKYSZAVMv79Cnc5kl8VR9BkVVGWiR6etEfbwJ9CzOvBqa/4dfeErKgN8f5d3C57iWNBfRiKH8
-	8l1jseXwkOaKi7Et0cRq5mOrBZ5Iyzcmzein3OgQ+2+iBrqCKtS690HsOhx8iMPTtl/MLQ+FsSN
-	01Q2MKV6+yZFSqi8QKf8K4lhaOTcZLZEKkyknXBWL6TYgBROrAnp6TeiSuNJwe3N17ymBW0v7oC
-	Xod03IUmGah8mLq+/4sgo8S3HMnmQPpaf8Ct0qYXTb395C9GK/VNpMJttvARnqyWFyfaYEFh5eU
-	2cbpSgPzuSbyX+iorOcwWMkX0tFmfog9AsH48szw5DWkI0aKuW2T0aYleAnQBXZuIk8wum/cvZ7
-	9s1NYA50aNfftpzBGONc4nnZEqunEZAgOfHH6D27TRz47UbQQP3QiGbXxVbTzPbLZ5bAibc04Ol
-	W1WkdwgbrfJUJWSu/qDxd8cxfaEYgE89bxO2JtwFr9d84WUzSEv1Rk=
-X-Received: by 2002:a05:622a:1312:b0:530:b2e2:d7e2 with SMTP id d75a77b69052e-5327f24d070mr45834991cf.61.1789569760741;
-        Wed, 16 Sep 2026 07:42:40 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326208ea78sm25268101cf.24.2026.09.16.07.42.39
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 07:42:40 -0700 (PDT)
-Date: Wed, 16 Sep 2026 10:42:38 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, liam@infradead.org, david@kernel.org, vbabka@kernel.org, 
-	jannh@google.com, wangjiexun@tinylab.org, sashiko-bot <sashiko-bot@kernel.org>, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/madvise: reclaim isolated folios if PTE restart fails
-Message-ID: <aqqk89oTigJ9LS2N@gourry-fedora-PF4VCD3F>
-References: <20260912110832.3203902-1-gourry@gourry.net>
- <aqloB0zm3RjJ47m1@gremlin>
- <aql65IhMobL5Al9B@gourry-fedora-PF4VCD3F>
- <aqqTbGMJL86TzDrf@gremlin>
- <aqqbB_nFAOGenDhy@gourry-fedora-PF4VCD3F>
- <aqqjW5dpyznijYLh@gremlin>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k+KLzS9z"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D089A1F000FF;
+	Wed, 16 Sep 2026 14:42:47 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789569768;
+	bh=FwvS5UItrcHkrDAwHzE/UOVRGSXseRvyP1Un30H9BwI=;
+	h=Date:From:To:Cc:Subject:In-Reply-To;
+	b=k+KLzS9zTk864hpz365FRpXfY9iaqSvKrxQge6vTXejwJTW3Wtb1o/LiAEPboialQ
+	 D9uvZcZc/21ENKvBBBiE6VfVFFvgKy2jNZ4IxwGBA8vMcEQQzPJm6sYFLd9509FheH
+	 y0eew0WGi1MJgeqsyxXwuDIwEk3CjLt5QjDsUYy1kEhIWI6Bwjp8gC+GyN0t4wu+7U
+	 uocjuqu/cwXcBEDJOJ0cO/9DxMd8lWvgsQO8ncIdbUaFeiAdHmcpsrv3WFbSJlzIBr
+	 Sefi+SGqL4YVVyKf1LDkQD1TE898XzKHYwfZtHyCC2xomXxln88LTHgaR9/T+zvzVb
+	 iyTnyfNt3i4uA==
+Date: Wed, 16 Sep 2026 09:42:46 -0500
+From: Bjorn Helgaas <helgaas@kernel.org>
+To: Angel J <iamanaws@httpd.dev>
+Cc: Andrea della Porta <andrea.porta@suse.com>,
+	"linux-pci@vger.kernel.org" <linux-pci@vger.kernel.org>,
+	"regressions@lists.linux.dev" <regressions@lists.linux.dev>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"devicetree@vger.kernel.org" <devicetree@vger.kernel.org>,
+	"linux-rpi-kernel@lists.infradead.org" <linux-rpi-kernel@lists.infradead.org>,
+	"robh@kernel.org" <robh@kernel.org>,
+	"florian.fainelli@broadcom.com" <florian.fainelli@broadcom.com>
+Subject: Re: [REGRESSION] PCI: Dynamic OF node creation hangs on invalid
+ bridge configuration
+Message-ID: <20260916144246.GA921594@bhelgaas>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <aqqjW5dpyznijYLh@gremlin>
+In-Reply-To: <Tav3crct3HpgoRPBGOe-bfkBEORVT1RkvRbP8B7IXhRvEbUTAi-G6RiSnynkgV2rJ1dOIbCxm-mHUcm1e0MyQG52qswzpxURe4KFJoddhGg=@httpd.dev>
 
-On Wed, Sep 16, 2026 at 03:12:53PM +0100, Lorenzo Stoakes (ARM) wrote:
-> >
-> > Going to spend a little more time testing and tweaking before I post it.
-> >
-> > I've been working on a making more extensive unit tests for certain
-> > parts of mm/ and this might be a good time to look at whether I can
-> > introduce a piece of it.
+On Wed, Sep 16, 2026 at 11:14:25AM +0000, Angel J wrote:
+> Hi Bjorn, Andrea,
 > 
-> Nice, curious as to how?
+> Thanks, that clears it up. I agree the of_property fix is simpler. If a
+> Type 1 device can legitimately have no bus below it, I don't see a reason
+> to change its class or header just to avoid that case.
+
+Yes.  And I suspect this affects more than just the [8086:4c43]
+device, so I think it will be easier if we don't have to list
+individual devices for a quirk.  I think it's very common to have this
+kind of bridge for Intel uncore at bridge 0xff or 0x7f.
+
+> On Tuesday, September 15th, 2026 at 18:21, Bjorn Helgaas <helgaas@kernel.org> wrote:
 > 
-> Have you tried the userland VMA tests btw? Not tooting my own horn so to
-> speak :P but it's nice, though it comes at a bit of a cost in how the files
-> have to be set up...
+> > On Mon, Sep 14, 2026 at 11:28:45PM +0000, Angel J wrote:
+> > > Ok, here it is...
+> > >
+> > > I tested this quirk on Linux 6.18.44 with CONFIG_PCI_DYNAMIC_OF_NODES=y,
+> > > and it boots without either OF fix. The diff below omits the test logging.
+> > >
+> > > PCI_FIXUP_HEADER runs after the resources have been parsed using the
+> > > original header type, and changing hdr_type also affects configuration
+> > > restore. I don't know enough about this part of PCI to judge whether
+> > > that's safe, so I'll wait for your advice before submitting it as a patch.
+> > >
+> > > Thanks,
+> > > Angel J
+> > >
+> > > diff --git a/drivers/pci/quirks.c b/drivers/pci/quirks.c
+> > > index de9bbccda..57df88a38 100644
+> > > --- a/drivers/pci/quirks.c
+> > > +++ b/drivers/pci/quirks.c
+> > > @@ -291,6 +291,22 @@ static int __init pci_apply_final_quirks(void)
+> > >  }
+> > >  fs_initcall_sync(pci_apply_final_quirks);
+> > >
+> > >
+> > > +/*
+> > > + * On the Dell XPS 8940, 8086:4c43 reports a PCI-to-PCI bridge but has no
+> > > + * downstream bus. Use host-bridge class and a normal header so that
+> > > + * pci_is_bridge() does not send it through bridge scanning.
+> > > + */
+> > > +static void quirk_intel_4c43_host_bridge(struct pci_dev *dev)
+> > > +{
+> > > +	if ((dev->class >> 8) != PCI_CLASS_BRIDGE_PCI ||
+> > > +	    dev->hdr_type != PCI_HEADER_TYPE_BRIDGE)
+> > > +		return;
+> > > +
+> > > +	dev->class = (PCI_CLASS_BRIDGE_HOST << 8) | (dev->class & 0xff);
+> > > +	dev->hdr_type = PCI_HEADER_TYPE_NORMAL;
+> > > +}
+> > > +DECLARE_PCI_FIXUP_HEADER(PCI_VENDOR_ID_INTEL, 0x4c43, quirk_intel_4c43_host_bridge);
+> > 
 > 
-
-Yes, in fact I used that as a start for exploring how I might make other
-components testable the same way.
-
-"Stubs... stubs everywhere"
-
-There's basically 4 testing mechanisms i explored:
-
-1) selftest
-2) Usermode Linux (UML)
-3) Userland stuff like VMA
-4) Linux Test Project (for syscall and ABI testing)
-
-selftests are really limited and actually create a maintenance burden,
-they're not real unit tests and are highly dependent on the actual
-machine configuration which is super annoying.
-
-But, lets take the page allocator as an example.
-
-The only piece of the page allocator that "should" (cough, simplifying
-here a bit) be machine specific is zone and node configurations... but
-I'm not convinced that this should require a full VM to unit-test.
-
-(other caveat: obviously some things like RCU and interrupt contexts are
-hard in userland, putting that aside for now).
-
-We should be able to stub out the reclaim calls and at least demonstrate
-basic correctness for a combinatrix of commands into the page allocator.
-
-Anyway...
-
-I've been looking at how to use the VMA and UML test infrastructure to
-stub out even more of mm/ and generate these kinds of basic contract
-tests.  So far I've found bugs in a few random corners, but nothing
-critical or reachable as far as i can tell - so that's nice.
-
-Have made it compilable with ASAN and Coverage
-
-The harness itself turns into a decent fuzzer as well for basic stupid
-logic conditions, which in turn allows coverage and LLM guided fuzzing
-into an easier task for any random kernel dev to start engaging in.
-
-> I always feel like I should do more with it but don't have the time
-> atm. May set the LLM on it though...
+> > I think your of_property patch is better because it removes some
+> > assumptions made in the of_pci_make_dev_node() path about what things
+> > in the pci_dev are valid.  It's quite legal for a device to have a
+> > Type 1 header (so pci_is_bridge() is true), but have no pci_bus below
+> > it, e.g., a bridge on bus 0 with Secondary Bus Number also being 0.
+> > 
 > 
-
-I will keep quoting myself.
-
-"The thing LLMs do is make the pipe dream of test-driven-development
- actually feasible."
-
-:]
-
-~Gregory
-
----
+> > I don't know what happened in this particular case, whether the
+> > Secondary Bus Number and Subordinate Bus Numbers are hard-wired to
+> > 0xff or what (per spec, both should be read/write).  Maybe the system
+> > "lspci -vv" and/or complete dmesg log would have a clue.
+> > 
+> 
+> > But I do think it's better if we don't assume that every pci_dev with
+> > a Type 1 header has a pci_bus allocated.
+> > 
 
 
-some stats from my infrastructure:
 
-  How much of mm/ is testable
-
-  24 of 130 files (excluding DAMON) — 30,108 of 187,486 lines, 16.1%.
-
-  ┌─────────────────────────────────────────────┬───────┬
-  │                  Compiled                   │ lines │
-  ├─────────────────────────────────────────────┼───────┼
-  │ page_alloc.c                                │ 8,050 │
-  ├─────────────────────────────────────────────┼───────┼
-  │ mempolicy.c                                 │ 3,923 │
-  ├─────────────────────────────────────────────┼───────┼
-  │ vma.c                                       │ 3,429 │
-  ├─────────────────────────────────────────────┼───────┼
-  │ memblock.c                                  │ 2,911 │
-  ├─────────────────────────────────────────────┼───────┼
-  │ util.c                                      │ 1,317 │
-  ├─────────────────────────────────────────────┼───────┼
-  │ memory-tiers.c                              │ 1,215 │
-  ├─────────────────────────────────────────────┼───────┼
-  │ cma.c, pagewalk.c, pgtable_move.c, +15 more │ 9,263 │
-  └─────────────────────────────────────────────┴───────┴
-
-  ┬─────────────────────────────────────────────────────┬───────┐
-  │               Not compiled (largest)                │ lines │
-  ┼─────────────────────────────────────────────────────┼───────┤
-  │ slub.c                                              │ 9,933 │
-  ┼─────────────────────────────────────────────────────┼───────┤
-  │ vmscan.c                                            │ 8,163 │
-  ┼─────────────────────────────────────────────────────┼───────┤
-  │ memory.c                                            │ 7,603 │
-  ┼─────────────────────────────────────────────────────┼───────┤
-  │ hugetlb.c                                           │ 7,320 │
-  ┼─────────────────────────────────────────────────────┼───────┤
-  │ memcontrol.c                                        │ 6,756 │
-  ┼─────────────────────────────────────────────────────┼───────┤
-  │ shmem.c                                             │ 6,019 │
-  ┼─────────────────────────────────────────────────────┼───────┤
-  │ vmalloc.c, huge_memory.c, filemap.c, ksm.c, gup.c … │       │
-  ┴─────────────────────────────────────────────────────┴───────┘
-  The uncompiled chunk all need real folios, which is a problem that
-  I haven't tackled yet.
-
-  Coverage of what is compiled
-
-  ┌──────────────────┬───────────────────┐
-  │       File       │   Line coverage   │
-  ├──────────────────┼───────────────────┤
-  │ page_counter.c   │ 100.0% (119/119)  │
-  ├──────────────────┼───────────────────┤
-  │ numa_memblks.c   │ 99.5% (221/222)   │
-  ├──────────────────┼───────────────────┤
-  │ execmem.c        │ 94.4% (271/287)   │
-  ├──────────────────┼───────────────────┤
-  │ page_poison.c    │ 86.5% (32/37)     │
-  ├──────────────────┼───────────────────┤
-  │ numa_emulation.c │ 82.2% (199/242)   │
-  ├──────────────────┼───────────────────┤
-  │ page_alloc.c     │ 79.6% (1873/2353) │
-  ├──────────────────┼───────────────────┤
-  │ mempool.c        │ 67.0% (179/267)   │
-  ├──────────────────┼───────────────────┤
-  │ page_isolation.c │ 60.8% (118/194)   │
-  ├──────────────────┼───────────────────┤
-  │ memremap.c       │ 58.5% (137/234)   │
-  ├──────────────────┼───────────────────┤
-  │ mempolicy.c      │ 54.1% (735/1359)  │
-  ├──────────────────┼───────────────────┤
-  │ mmzone.c         │ 52.8% (19/36)     │
-  ├──────────────────┼───────────────────┤
-  │ shrinker.c       │ 51.6% (174/337)   │
-  ├──────────────────┼───────────────────┤
-  │ cma.c            │ 44.6% (206/462)   │
-  └──────────────────┴───────────────────┘
-
-  Aggregate: 4,283 / 6,149 executable lines = 69.7%.
