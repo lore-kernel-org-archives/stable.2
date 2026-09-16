@@ -1,89 +1,113 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE1D33C3F6B;
-	Wed, 16 Sep 2026 09:41:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789551674; cv=none; b=nvZwoZXCd+FdAWkQx21F8AQJu3z0v2rIQGybMBjGeYPosExthwmXfL1TeA0bRAZ2e5KZmyPFIf662LytwlhqT1WuZ1KhoDgSkuahs551rcNdcATNGKYsR+Zlp6IZ2FTRqxv6tctceqBypoEI2hOvHKeJOgIL1b2ZMLSXOcD7Bj8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789551674; c=relaxed/simple;
-	bh=uzTPEWbqX5hdbyzS/J9sr9SM/ZcvFFCsZE1EBlJ4mSM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=HMfbgkj/YVM49B7kiksVUzuacKONPZnjItOZ+g2heaoLD06gRbWfpGUX3F+cBnwpGZgtWWUEB767jL9+5sMa0fd8sjbu4Y07/yXhOn0+pq2tCC0fKX8M2tLNzeFXIO234qjvu8i2C6QJwXf4S/jsTvNnS6XTlPKJDFhfYcUJk5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnrjwqZKpq+Y7gBw--.30362S2;
-	Wed, 16 Sep 2026 17:40:58 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: eajames@linux.ibm.com
-Cc: gregkh@linuxfoundation.org,
-	jk@ozlabs.org,
-	joel@jms.id.au,
-	linux-fsi@lists.ozlabs.org,
-	linux-kernel@vger.kernel.org,
-	ninad@linux.ibm.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] fsi: master-gpio: Fix of_node reference leak in fsi_master_gpio_probe()
-Date: Wed, 16 Sep 2026 09:40:30 +0000
-Message-Id: <20260916094030.2005879-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A9744AA03E
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789551714; cv=pass; b=ReUXt8zeQ7fJt3SO0K7x3kBXg5lJGSP4gt15BXfVSBP5lLsgx6+iGnXBs7vEWnAVEKA2NtnllOK1Aub2E+WS5uUPriT/sByDSFI1XWOu5Mpko/HBP4Dr1B3c1TzNCAaF7MmY+egCZrP63fuzznCFqWzg/wAMhRveHUWlrr2jLuI=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789551714; c=relaxed/simple;
+	bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=fS4Ch4c9pMA15QMWjozqq5qCMT+UW0TYBGTYhXlUhGOzmPte/KBki43fpIuFmGQRsHTTxvPDHOZsbNdwT5FVzMi+VW65igX/SPfqUNxN1kJH2zN+XUF+N7OzoPm00d4SHkDsal+BIqOgzpsXAsL315vpW5Iq/A/GoD+cRU/AgpQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=qQck2Eax; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="qQck2Eax"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939656ff6d9so70396485a.1
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:41:45 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789551701; cv=none;
+        d=google.com; s=arc-20260327;
+        b=hRK/FUVf/v+MKd6xe6miR0Wh+CPh7o3g69bTaQ8rQKcCOEBrU3KsUKv7wH3y5AmYR/
+         YFbrPWdi+HH6yOmUuFZr3ASKgl64u5u4JmIgwre+GWRpYxa3r53mesJOJk0W9KLiWyoZ
+         7Yu/8KhTpwbowjOWL6evkZdUy9+kGMxgTxiV9gB3XJWrPp6jc8ySciUNFw+KiLYjabMP
+         o9x234HDKcHsV5jtfP0t1jqxtKPcDq21YOiYxXl8H83Y37HSiO5FoqM+3UgyHgQF2890
+         t6/UaLfMPvCYVwJoNda9BUKvR4IkC2zYjxTG4hlXaOBL3UP0+NsXTO8tr5vBpOnQorzs
+         MIjw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+        fh=WWteTVWQDubxld1jGtcx6+dm64KqUkFc1mlUCc35VpQ=;
+        b=P6fkZY6VXwwbjHM9jzYtTkEUzFkAppmHoU0B1sBOviH3unDu9Yl6Y6kbfcalWY13rw
+         FdyjieLiQGv6V5P/Sb/Jxk9Xt5odLrMHHpjwH5r4F532PLY06NLsrSNnCBhN1Eqp1ZME
+         rn7n7Zv4oJdepWG+45VJF7bRLL33QFjK4IQ0VNIsUHnhLk0TxQvp64mZyPKBsljvJEH6
+         EDZSl5vHiuh9wHJUz1irw8jRfhCJTsrd4OxleouEnuTRly4apdodDyiI9nT9Cdkcd13+
+         SMAJkC9nSvltC6kELLySePuXXc8gXAJo2SJGxHJQq3SFrBildsvmzGeEb54ERnHO9eGe
+         jUUw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1789551701; x=1790156501; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+        b=qQck2EaxCKi4Uv0sJjK3manqk1cVY7UTs+3b6Rg7JosOC0NAhCZTy3X2x9wUG0VV7Q
+         WcNv/i/HyuUlGMTnc2y4LJEMccBKJsEiITHqf1vysluHNcpxRYbmligHei4FYY4IJIV/
+         QAr5Af0qjKwl1UtvyZaLvQCUEcZ6CpiU0WxdoAXkDzkP9lS3eQXamwqkwX88tacqgAID
+         7XoO/Fb5o4U/p7+Xna7qIIL9Pn3KoSnMxvsv5/ekXojPfgns+1kJxR6QNqKQX3PD8Kft
+         9O9F5sxZF3abTKexlCbyDCQy0usdH+BmLkdq2dp+QZv8pbE6/+wIulSeb4BaD05Dwh6d
+         oBOA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789551701; x=1790156501;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=dd0XjmXLbr6av17ldrfsndZXMA3/+aCy2CJ+JrZ60SY=;
+        b=Vx8ryEJA7cDHdBlRxeDPjURNMjTjyD6LAMoVqBoX+FDN4vYABC6G3pH5amxF7Bu5xT
+         NXOr6eSMYNzQSaW/CmmhrLOfUKCYf5BGMN7RqMyQt+6qLW5gOPBGRsh+/30QgpQgoM+W
+         AqcVQT5wMhg5f/1UHvrw+nUGDxyCwVUBG3PSWrpe1dPDl3oYpz2I1Exdt/DCJQC/03iC
+         GSwzbn0IzRvVX4ppIPteedPfDiElsIx8yXAXYC/0pAmCKx2yy3Y1plPQLv1cktt3mKf2
+         NKS5gOcOyD1heNJ9kOlX6T9xmkbMaYnnSTltZytnhJ9pvozLyYY5fpRL8uyKM3Yw102T
+         MYNA==
+X-Forwarded-Encrypted: i=1; AKwUvBzitgBhHF7HhoPsmgKaFGAGAwn+TKjQ8EjlgZzGlpFkuzOLiKPQuvr7kmUK+0u5mdwKf8wotyo=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIom0WhAwAEnQwA4NAKoyJnxJDOpUbUIz5Axt3edCPRlDk10HY
+	ccZnQlmE3PbQmhN2hfUxJC06N8BjSCZWauTNlvOx6eGR8gwj8qPdX8x5jIy1TIT4zFA70o608cM
+	abDm+qOQotkQacW3l7eXfq68llr1UxsUISwdb3637
+X-Gm-Gg: AYBFou3zeZ32S3K9PE0PhAZwv4GcjiRc8xdzQxB04eMdcRYWOxF9qXG6fk/7mU38jsI
+	hKmLDNEEdmvvM3hwLP5/5YHsG2B+v2fKPbYi7rf7rWM+casskELDZ2Qfw1njne+xAAyaxTWNL9h
+	a7zWERoKRJoKjOdYzpgF2HVoSo2dHnScThxlPxFSUUAP9mxq8ewn2uMgBS04sRdurquoS7u86Eb
+	hT/n7z/ZsnZQHO+pLVaWWwhg5REBxNKoCGRL0zXzr2SEE8pEd3875gmTJNrDzSx7Mocc3qaEGUU
+	oTurz0uqZIp9dQBPDcfW7v1NNcgh3nS8c1tyDi/6FeGIVE2XEs6D69cSOK8qVmDcBk0aM2PNbWi
+	j9SJKqpocKJ89l1nmbDTNoWZBz0pR6CMBKevVfPG67qGlW3F38LddKWlNZsCUna7Hv14=
+X-Received: by 2002:a05:620a:72d2:20b0:93b:c22a:e98a with SMTP id
+ af79cd13be357-93bc22af796mr17857385a.2.1789551700440; Wed, 16 Sep 2026
+ 02:41:40 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACnrjwqZKpq+Y7gBw--.30362S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XrW5XF1kXF1xCr1UAF43KFg_yoWkJwcEk3
-	Z5ZF97J3y7AF4kKrs8Jr4avr4DKr9rWFyxCrWxta1fu34rAryYqFyfZrs3J3Z7urWfJFWU
-	t34DKw4rWrW3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
-	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
-	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
-	Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s
-	0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xII
-	jxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJV
-	W8JwACjcxG0xvY0x0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_
-	Jw0_GFyl42xK82IYc2Ij64vIr41l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67
-	AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIY
-	rxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14
-	v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
-	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUJWr
-	AUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgEMA2qqPpSfjQAAsw
+References: <20260916041102.1914333-1-xmei5@asu.edu> <CAPpSM+SpeOa5uo5rffXejDa4g9VGphp1GvirJgUWze-O+cQyzA@mail.gmail.com>
+In-Reply-To: <CAPpSM+SpeOa5uo5rffXejDa4g9VGphp1GvirJgUWze-O+cQyzA@mail.gmail.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Wed, 16 Sep 2026 02:41:29 -0700
+X-Gm-Features: AcwNN1UxUZyShrWWdOdzZP5TvGhMt62DuqGu9sAhw7uSD_TZmpKiYAfpJ3xalwE
+Message-ID: <CANn89iJtyY_ooHfbqPw4=GVwXQeEc0k6RxS9dJGnA8TZgu8rSw@mail.gmail.com>
+Subject: Re: [PATCH net] bpf: lwt: clear stale IP control block after pushing
+ an encap header
+To: Xiang Mei <xmei5@asu.edu>
+Cc: davem@davemloft.net, kuba@kernel.org, pabeni@redhat.com, horms@kernel.org, 
+	netdev@vger.kernel.org, bpf@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	co+ff13a35f73bb7891@bugs.sh, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-In fsi_master_gpio_probe(), a reference to the device tree node is
-taken with of_node_get() and stored in master.dev.of_node.  If one of
-the GPIO requests or the device_create_file() call fails, the error
-path frees the master without putting that reference, leaking it.
+On Wed, Sep 16, 2026 at 12:32=E2=80=AFAM Xiang Mei <xmei5@asu.edu> wrote:
 
-Put the device node reference before freeing the master on the error
-path.  of_node_put() tolerates a NULL node, so paths with no device
-tree node are unaffected.
+>
+> I just found Weiming post a patch solving same problem:
+>
+> https://lore.kernel.org/bpf/20260915170147.3943392-2-bestswngs@gmail.com/
+>
+> and that patch covers the cases I didn't consider so please ignore this p=
+atch.
 
-Fixes: f6a2f8eb73f0 ("fsi: Match fsi slaves and engines to available dt nodes")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/fsi/fsi-master-gpio.c | 1 +
- 1 file changed, 1 insertion(+)
+pw-bot: cr
 
-diff --git a/drivers/fsi/fsi-master-gpio.c b/drivers/fsi/fsi-master-gpio.c
-index 0884e143b30e..03c46f9d6543 100644
---- a/drivers/fsi/fsi-master-gpio.c
-+++ b/drivers/fsi/fsi-master-gpio.c
-@@ -861,6 +861,7 @@ static int fsi_master_gpio_probe(struct platform_device *pdev)
- 	}
- 	return 0;
-  err_free:
-+	of_node_put(dev_of_node(master->master.dev));
- 	kfree(master);
- 	return rc;
- }
--- 
-2.34.1
-
+Thanks.
