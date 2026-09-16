@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A089E4AA3F0;
-	Wed, 16 Sep 2026 12:19:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DBE124AF674;
+	Wed, 16 Sep 2026 12:19:55 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789561197; cv=none; b=pLfbE/ypkBYJFf+2FCh6ZPzApasL97Jld4npEBe4FlyRgNBO+ZasI6YzxtBTlc96m9eghYifyQGKLbvZ19Nj9M5ir9JmE+NzQsGuCXJ3whFfvcwbgFcuj0racZqzdMAuTbpaO6z/ozpiIR2J7FvkUm+N4/evJbY+OuKAqN6K5V8=
+	t=1789561197; cv=none; b=efp4qDUW0P8ixgXtLJF5h0c8kJCaqt/if5ABG1sNcv2Jm16Ks/5MiCvQNcK5ab3pqsZj61KDcS6x8QkidFvRo3YRfoDNU4sNT6KMJDLK8g+dRxREhLEcsEFwQoKQ9YG2Yl+kfpPkfRJBUoSpprcsGYC6TVXONW2jMD+/C6/UgRk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789561197; c=relaxed/simple;
-	bh=rnkWkSOEu7YXaz7bpizKDX9Y58WOLxZiZmQZMSzqt1c=;
+	bh=2izfVgtzlzg97zqeAqiXFaNuBVhvDeqLBqMYQULzLJQ=;
 	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M3hLaaV4KYj9K9/c4RwCGXH2lcsz0F0AxYZeDyJfXUQwZP5nM8A5JaN6d454xnEfjt5SrxP2bmfB22QKgFrGCKvcb6QegpTiAeER7UAePIcBOeQvXbzj3uFcbsibYZ+ptcTI9/+JKX/geOwqi5TRWgRCq1k5oxZhUq+Y8hl3iQA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xx0ry42Z; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:MIME-Version; b=QNeLYNMaAHwnuZ72PhReKQPlf5IB3c7Zd2YL0iaJ0EOcs839XaLAd4b7MzIHJs9zl0miHwbowxi4+rLGEGMRV+WBAXgyYPe6M2eBbW0ZHTXgDURvNJ2EUTU899YVjrA3TfxtAaAp6jqp9euNFHLXPpp8FPfbpOdB+yjD9EUtSDk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QCWcdO+b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xx0ry42Z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9CBA81F000FF;
-	Wed, 16 Sep 2026 12:19:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QCWcdO+b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DAF671F00893;
+	Wed, 16 Sep 2026 12:19:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789561194;
-	bh=i5UdL6gTnkMUO+rABahMdauOleoqJl+s4nvjjESyqSs=;
+	s=k20260515; t=1789561195;
+	bh=uHjetJHb8nBe4Db+3GYbjIv0ItLXqe8QTau6gX4C8Hc=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Xx0ry42ZegUssp8mWeCJo0cT+U0+FNS98OWVDmRFUx6Oj7HllrNGUdmQ85Bex+iGk
-	 OAGw21aUFpqnKyRcqCBmMXKR8w0lX5EVymEaJjnz79Kryo8jZ8d2AQw3e23JoaT06f
-	 o+KV5KWD6D1FSSPjchfTUyYpiN8pD6QkGK4IJrPmpMLWQwnAS82gbCOOykyO+vIJOf
-	 nKUVXJy9UtZ2w3gXaib9tDr8t+10WZ+iYYAmhDVWwl6L75NXnXjcU4LHhaEJ8HJaST
-	 b4qdnM4FNPIr4hnOUfzMY7yha/zk4hSbpF3wmMCOiCKgRpjOHbItK3KyifW0VJlu50
-	 2WcQPak1Yor/Q==
-Subject:
- Re: [PATCH net 1/2] nfc: digital: reserve proper headroom for chaining_skb
+	b=QCWcdO+bHysQA4ijRu1Vhw8Yrcy6Qjs8Q06CRZx5j1ovO385hF/R7CrO7LiZPLFid
+	 E3pygoWIzOii0ugLwsdxk+K2Artp/jgg3DciyYHGrOlZhgU8nu1as/LvoHoSe0UgEQ
+	 ggjIyNyJOx373fkUxRxM8S8wuwh6874bxYfBmdiY9TfOlwmzGyD2lZStjQ5/5BeG93
+	 wt72i1++QG/rl0EXUelfz8apxJBoKAXuFKIwxOpj7WrqdAJ7RnC/yJw+NhOTycD6uI
+	 pkJylfhV2rSWcj/UQVfMdvTbAgtWD1ynZ1ufXFQZizcsRuGrcYEjzGqY2n79ntJ6Xv
+	 mNKJKYby68SXQ==
+Subject: Re: [PATCH net 2/2] nfc: digital: check resp length in
+ digital_tg_send_atr_res_complete()
 From: netdev-bot+sashiko@kernel.org
 To: liuc63@xiaopeng.com
 Cc: david@ixit.cz, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
  horms@kernel.org, davem@davemloft.net, oe-linux-nfc@lists.linux.dev,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 12:19:53 +0000
-Message-ID: <178956119313.22033.11501666376962461022@kernel.org>
-In-Reply-To: <20260912131852.1651462-2-liuc63@xiaopeng.com>
-References: <20260912131852.1651462-2-liuc63@xiaopeng.com>
-X-sashiko-severity: High
+Date: Wed, 16 Sep 2026 12:19:54 +0000
+Message-ID: <178956119445.22033.18320417961342899452@kernel.org>
+In-Reply-To: <20260912131852.1651462-3-liuc63@xiaopeng.com>
+References: <20260912131852.1651462-3-liuc63@xiaopeng.com>
+X-sashiko-severity: Medium
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
 Precedence: bulk
@@ -47,180 +47,179 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Thank you for your contribution! Sashiko AI review found 3 potential
+Thank you for your contribution! Sashiko AI review found 1 potential
 issue(s) to consider:
 
-Critical: 0 · High: 2 · Medium: 1 · Low: 0
+Critical: 0 · High: 0 · Medium: 1 (2) · Low: 0
 
-- [High] State confusion between the RX reassembly buffer and the TX
-  chaining buffer (`ddev->chaining_skb`) is left unfixed, and the patch…
-- [High] The patch adds `ddev->tx_tailroom` to the gather buffer but does
-  not protect that reserve from being consumed by gathered payload, so…
-- [Medium] The commit message presents "Once the chained payload is fully
-  gathered, it is passed to digital_tg_send_dep_res() or…
+- [Medium] The commit message's justification ("The downstream handlers
+  (digital_tg_recv_psl_req, digital_tg_recv_dep_req) each have their own…
+
+Pre-existing issues:
+- [Medium] Sibling instance of the same unchecked-length read remains in
+  the same file: digital_in_recv_dep_res() reads resp->data[0] as the…
+- [Medium] Frame-format disagreement kept (and re-written) by the patch:
+  digital_tg_send_atr_res_complete() derives the SoD presence from the…
 
 --
 
-nfc: digital: reserve proper headroom for chaining_skb
+nfc: digital: check resp length in digital_tg_send_atr_res_complete()
 
-The patch replaces the nfc_alloc_recv_skb() allocation of ddev->chaining_skb
-in digital_recv_dep_data_gather() with digital_skb_alloc(), and passes
-ddev->tx_headroom / ddev->tx_tailroom to the skb_copy_expand() call in the
-same function, so the reassembly buffer carries the headroom and tailroom
-the DEP send path expects.
+This adds a resp->len check to digital_tg_send_atr_res_complete() before
+reading resp->data[0] and resp->data[offset], and frees the skb and
+restarts polling when the frame is too short.
 
-A few questions about the change and the commit message below.
+A few questions below.
 
->     digital_recv_dep_data_gather() allocates chaining_skb with
->     nfc_alloc_recv_skb(), which only reserves 1 byte of headroom.
->     Once the chained payload is fully gathered, it is passed to
->     digital_tg_send_dep_res() or digital_in_send_dep_req(), both of
->     which push a 3-byte DEP header plus up to 2 bytes of SoD, needing
->     at least 5 bytes of headroom.
+> nfc: digital: check resp length in digital_tg_send_atr_res_complete()
+>
+>     The downstream handlers (digital_tg_recv_psl_req, digital_tg_recv_dep_req)
+>     each have their own length checks, so the consequence is a misdirected
+>     dispatch on stale data rather than memory corruption.
 
 [Severity: Medium]
-The message describes "Once the chained payload is fully gathered, it is
-passed to digital_tg_send_dep_res() or digital_in_send_dep_req()" as the
-intended design.  Is that transition actually intended?
+Is this statement accurate for digital_tg_recv_dep_req()?  That handler
+validates only resp->len >= sizeof(struct digital_dep_req_res), i.e. 3
+bytes (dir, cmd, pfb), and then reads byte 3 before any further length
+test:
 
-ddev->chaining_skb serves two different purposes: the receive reassembly
-buffer filled by digital_recv_dep_data_gather(), and the pending transmit
-data set by digital_send_dep_data_prep().  The ACK branches consume whatever
-is in the field as transmit data.
+net/nfc/digital_dep.c:digital_tg_recv_dep_req() {
+	...
+	size = sizeof(struct digital_dep_req_res);
+	dep_req = (struct digital_dep_req_res *)resp->data;
 
-In target mode digital_tg_recv_dep_req() does:
-
-	/* Keep on sending chained PDU */
-	if (!ddev->chaining_skb ||
-	    DIGITAL_NFC_DEP_PFB_PNI(pfb) !=
-			ddev->curr_nfc_dep_pni) {
+	if (resp->len < size || dep_req->dir != DIGITAL_NFC_DEP_FRAME_DIR_OUT ||
+	    dep_req->cmd != DIGITAL_CMD_DEP_REQ) {
 		rc = -EIO;
 		goto exit;
 	}
+
+	pfb = dep_req->pfb;
+
+	if (DIGITAL_NFC_DEP_DID_BIT_SET(pfb)) {
+		if (ddev->did && (ddev->did == resp->data[3])) {
 	...
-	rc = digital_tg_send_dep_res(ddev, ddev->chaining_skb);
+}
 
-With ddev->tx_headroom = tx_headroom + DIGITAL_MAX_HEADER_LEN from
-nfc_digital_allocate_device(), the skb_push() in digital_tg_send_dep_res()
-no longer panics, so this branch now completes: the gathered payload is sent
-back to the peer as a DEP_RES, nfc_tm_data_received() is never reached for
-it, and ddev->curr_nfc_dep_pni advances on that transmission.
+The "if (size > resp->len)" test that would cover byte 3 runs only after
+that comparison, so it does not guard the read.
 
-Could the message mention this behaviour change and the dual use of
-chaining_skb?  As written, a reviewer or stable backporter would read it as
-making the chaining path correct rather than removing one crash symptom.
+The precondition is a nonzero ddev->did, which the remote peer sets in
+digital_tg_recv_atr_req():
+
+	ddev->did = atr_req->did;
+
+so a peer that negotiates a DID and then sends a 3-byte DEP_REQ payload
+with the DID bit set in PFB makes digital_tg_recv_dep_req() read
+resp->data[3] one byte past resp->len.  Should the check also be extended
+there, or should the changelog drop the claim that the downstream handlers
+cover this?
 
 > diff --git a/net/nfc/digital_dep.c b/net/nfc/digital_dep.c
-> index 3982fa084737f..6d8e662a3819a 100644
+> index 6d8e662a3819a..5093b7b817202 100644
 > --- a/net/nfc/digital_dep.c
 > +++ b/net/nfc/digital_dep.c
-> @@ -240,8 +240,8 @@ digital_recv_dep_data_gather(struct nfc_digital_dev *ddev, u8 pfb,
+> @@ -1467,16 +1467,19 @@ static void digital_tg_recv_psl_req(struct nfc_digital_dev *ddev, void *arg,
+>  static void digital_tg_send_atr_res_complete(struct nfc_digital_dev *ddev,
+>  					     void *arg, struct sk_buff *resp)
+>  {
+> -	int offset;
+> +	unsigned int offset;
 >  
->  	if (DIGITAL_NFC_DEP_MI_BIT_SET(pfb) && (!ddev->chaining_skb)) {
->  		ddev->chaining_skb =
-> -			nfc_alloc_recv_skb(8 * ddev->local_payload_max,
-> -					   GFP_KERNEL);
-> +			digital_skb_alloc(ddev,
-> +					  8 * ddev->local_payload_max);
+>  	if (IS_ERR(resp)) {
+>  		digital_poll_next_tech(ddev);
+>  		return;
+>  	}
+>  
+> -	offset = 2;
+> -	if (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB)
+> -		offset++;
+> +	if (!resp->len)
+> +		goto bad_frame;
+> +
+> +	offset = (resp->data[0] == DIGITAL_NFC_DEP_NFCA_SOD_SB) ? 3 : 2;
+> +	if (resp->len <= offset)
+> +		goto bad_frame;
 
-[Severity: High]
-This makes the receive gather buffer send-capable.  Does that turn the
-initiator-mode ACK path from an immediate skb_under_panic() into a NULL
-pointer dereference?
+[Severity: Medium]
+This isn't a bug introduced by this patch, since the byte-value heuristic
+is only reformatted into a ternary here, but while this offset computation
+is being rewritten, would it be better to derive the SoD presence from
+ddev->curr_rf_tech the way the encoder/decoder pair does?
 
-digital_recv_dep_data_gather() leaves the reassembly buffer in
-ddev->chaining_skb and returns NULL while the MI bit is set.  If the peer
-then sends an ACK PDU with a matching PNI, digital_in_recv_dep_res() runs:
+net/nfc/digital_dep.c:digital_skb_push_dep_sod() {
+	if (ddev->curr_rf_tech == NFC_DIGITAL_RF_TECH_106A)
+		*(u8 *)skb_push(skb, sizeof(u8)) = DIGITAL_NFC_DEP_NFCA_SOD_SB;
+}
 
-	rc = digital_in_send_dep_req(ddev, NULL,
-				     ddev->chaining_skb,
-				     ddev->data_exch);
+net/nfc/digital_dep.c:digital_skb_pull_dep_sod() {
+	if (ddev->curr_rf_tech == NFC_DIGITAL_RF_TECH_106A)
+		skb_pull(skb, sizeof(u8));
+}
 
-ddev->data_exch is written only in digital_send_dep_data_prep():
+In 212F/424F target mode there is no SB byte, so data[0] is the LEN byte.
+Can a LEN of 0xF0 (240, legal since local_payload_max is
+DIGITAL_PAYLOAD_SIZE_MAX) make this pick offset 3 and read the PFB byte as
+the command byte?
 
-		ddev->chaining_skb = skb;
-		ddev->data_exch = data_exch;
+DIGITAL_CMD_PSL_REQ is 0x04 and DIGITAL_NFC_DEP_PFB_DID_BIT is also 0x04,
+so a first DEP_REQ (I-PDU, PNI 0, DID in use) of exactly that size would
+have PFB == 0x04 and be dispatched to digital_tg_recv_psl_req(), which
+then drops it:
 
-and it is never reset to NULL.  ddev itself is zero allocated in
-nfc_digital_allocate_device():
+net/nfc/digital_dep.c:digital_tg_recv_psl_req() {
+	if (resp->len != sizeof(struct digital_psl_req) ||
+	...
+		rc = -EIO;
+		goto exit;
+	}
+}
 
-	ddev = kzalloc_obj(*ddev);
+Does that stall the DEP session, since the frame is freed with no reply?
+The new bounds check is computed from the same offset, so it inherits the
+disagreement.
 
-So if no transmit chaining ever happened on this link, is NULL passed down
-as the completion argument, and does the next digital_in_recv_dep_res()
-then dereference it at exit:
+>  
+>  	ddev->atn_count = 0;
+>  
+> @@ -1484,6 +1487,12 @@ static void digital_tg_recv_psl_req(struct nfc_digital_dev *ddev, void *arg,
+>  		digital_tg_recv_psl_req(ddev, arg, resp);
+>  	else
+>  		digital_tg_recv_dep_req(ddev, arg, resp);
+> +
+> +	return;
+> +
+> +bad_frame:
+> +	kfree_skb(resp);
+> +	digital_poll_next_tech(ddev);
+>  }
 
-	data_exch->cb(data_exch->cb_context, resp, rc);
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch, but there
+is a sibling unchecked read of the same kind in the same file, in
+digital_in_recv_dep_res().  Would it make sense to cover it in the same
+series?
 
-If a previous chained exchange did run, the error: label already did
-kfree(data_exch), so can the same path be a use-after-free instead?
-
-Separately, that ACK branch ends in goto free_resp without freeing the
-valid per-exchange data_exch that came in as arg.  Does this leak the
-digital_data_exch allocation?
-
-Would separating the receive-gather state from the transmit-chaining state,
-or rejecting an ACK PDU whose chaining_skb came from the gather path, be a
-better fix than enlarging the buffer?
-
->  		if (!ddev->chaining_skb) {
->  			rc = -ENOMEM;
->  			goto error;
-> @@ -251,9 +251,9 @@ digital_recv_dep_data_gather(struct nfc_digital_dev *ddev, u8 pfb,
->  	if (ddev->chaining_skb) {
->  		if (resp->len > skb_tailroom(ddev->chaining_skb)) {
->  			new_skb = skb_copy_expand(ddev->chaining_skb,
-> -						  skb_headroom(
-> -							  ddev->chaining_skb),
-> -						  8 * ddev->local_payload_max,
-> +						  ddev->tx_headroom,
-> +						  8 * ddev->local_payload_max +
-> +							  ddev->tx_tailroom,
->  						  GFP_KERNEL);
-
-[Severity: High]
-The tailroom reserve is added to the allocation, but is anything keeping the
-gathered payload out of it?  The append guard is:
-
-	if (resp->len > skb_tailroom(ddev->chaining_skb)) {
-
-skb_tailroom() returns the whole end - tail region, which now includes the
-ddev->tx_tailroom bytes this hunk reserves.  The fragment length is chosen
-by the peer and only upper-bounded by the resp->len > ddev->local_payload_max
-check in digital_tg_recv_dep_req(), so a peer sending MI fragments of one
-payload byte each always satisfies 1 <= tailroom, and skb_put_data()
-decrements the tailroom down to exactly 0 without ever taking the
-skb_copy_expand() branch.
-
-After that, an ACK PDU with a matching PNI reaches
-digital_tg_send_dep_res(ddev, ddev->chaining_skb), which appends the DID
-byte to the caller-supplied skb before digital_send_dep_data_prep() can copy
-into a fresh buffer:
-
-	if (ddev->did) {
-		dep_res->pfb |= DIGITAL_NFC_DEP_PFB_DID_BIT;
-
-		skb_put_data(skb, &ddev->did, sizeof(ddev->did));
+net/nfc/digital_dep.c:digital_in_recv_dep_res() {
+	...
+	if (size > resp->len) {
+		rc = -EIO;
+		goto error;
 	}
 
-ddev->did is remote controlled (ddev->did = atr_req->did in
-digital_tg_recv_atr_req(), values 1..14 accepted).  With tailroom at 0, does
-this skb_put() run past skb->end into skb_over_panic() and BUG()?  The
-gathered length is at least 8 * local_payload_max, which exceeds
-remote_payload_max, so the copy into a fresh skb in
-digital_send_dep_data_prep() always happens after the DID append.
+	skb_pull(resp, size);
+	...
+	case DIGITAL_NFC_DEP_PFB_SUPERVISOR_PDU:
+	...
+		rtox = DIGITAL_NFC_DEP_RTOX_VALUE(resp->data[0]);
+}
 
-Would comparing against skb_tailroom() minus ddev->tx_tailroom (plus the DID
-byte), or bounding the total gathered length, keep the reserve intact?
-
-One more accounting question on the same reserve.
-nfc_digital_allocate_device() sets:
-
-	ddev->tx_tailroom = tx_tailroom + DIGITAL_CRC_LEN;
-
-That adds only the two CRC bytes on top of the driver request, while the
-send path can append the DID byte plus CRC, i.e. three bytes.  Is the
-reserve one byte short even when it is not consumed by payload?
+With a 3-byte DEP_RES payload (dir, cmd, pfb and no DID/NAD bit), size is
+3, so both "resp->len < size" and "size > resp->len" pass, and the
+skb_pull() leaves resp->len == 0.  The SUPERVISOR_PDU plus timeout-bit
+branch then reads resp->data[0] one byte past resp->len and feeds the
+masked value to digital_in_send_rtox() as a timeout.  Both ddev->atn_count
+and ddev->nack_count are zeroed just above, so the branch is reachable.
 
 -- 
 Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260912131852.1651462-1-liuc63%40xiaopeng.com
