@@ -1,173 +1,347 @@
-Received: from AM0PR02CU008.outbound.protection.outlook.com (mail-westeuropeazon11013024.outbound.protection.outlook.com [52.101.72.24])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32055403135;
-	Wed, 16 Sep 2026 19:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.72.24
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789588630; cv=fail; b=dNLjV4+wUqP6bAdGKzd9W9jq/Z6iYUL5vEpeFAsE7FSBiYAACb/v5PQxgeBWos+rQcECzV5e0ReIYFwtJ+K8oCx6lCz/7r6JYiFUUDiV58coLvfADy2v/vaaoGLp+KsCXJDYHwVjJgNRg4mD7SugriJ0BKNyDEHE2UMGEuOJ0+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789588630; c=relaxed/simple;
-	bh=vDj2IpRKVuh33/CdcwEAomBuFVXb9Ui6pannbUpk2TE=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=LcYVUZt9ubByNqnPC2zbxMnlMcTNOAxhkv4oHPlCN6QDNJJU9PgIMZNG/U3pYpKUVhS+9gn/zGzyPknQQ92UUHvkLj/0E+ZDIxSPfxA5nMoyLEBJoS/3owmp0lGHuZMOzQc98i1Gy3aXoMK/VaVcqEsG5TRXoEq7qGMtOsurviE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com; spf=pass smtp.mailfrom=oss.nxp.com; dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b=Zqkk/akV; arc=fail smtp.client-ip=52.101.72.24
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oss.nxp.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.nxp.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 787AE3563F6
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:00:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789588852; cv=none; b=K6Vy/rSeZHZNmibl1v0XRyK7eLctDGleNnBeC9VDqLymZlh4OO02Wl8+HIYBTDKhWjkq7ifbdf9PSNjtislZB4cVm4SVsZnmFGnl4b0ey5J351E7DSZN7va44xfXifL2oF4w9WA7GUKiNuW0fx4EQBNLdtmwQldoLpZaZwzj3H4=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789588852; c=relaxed/simple;
+	bh=soUSA0hHZ+RSqP+1NOLGduxa8KBIXkafeGKvVaMtbQo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Zn52NwgNW2WPqM8usMVAhQZ5/4w0RaSNIaKwMar3ZrWAWaRtfR+xxn9Sb7c5nqTsmtZsfSuMErD/3VP16FBzU9yOj0MAIuOzAeO1XQXlmtbPKvuUUp+4uVFMQa5tNmqJ0DEcf01yt8k3qxiv5rkVNq4840l5lApdBqzFl+aoEE8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bdGXEcJJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=NXP1.onmicrosoft.com header.i=@NXP1.onmicrosoft.com header.b="Zqkk/akV"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=S55V50Oz4rPusjJIPOJyIJIDNl9yr5LXx9/LSJg2rBpadi388Nc3sUj0d969tR6pdakd3PKZMwghAfaJs3Yh6CERDLyL7JE4ALXwNIHqYDaT8341Ka0yEUI7WQfVAhbigwGznrJK7h/bEx0m48GjRnZzJmB/VN33L7MsfVIuMFSMGkDLH1bXQoUx8Kh4q4tuSIN2VriCbmJHKb2fiPFhlmtfZk510H4XnS13VoBCYHxU4r8TIf1s0b6yPcx4eVM+4bUCl7chLtXHEPICT/PF5Pb5PwgEELvAxv35N1BOUzwE+GWxBOUq7Kyvz+L6xx1gaHDAcnI5nNsSQXX/XQJVgA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=XLfiDBJSsjgR89r20q8F1fzBtxo5uAkYAqJ43L7vZ5c=;
- b=UYDQk3mjyaO+SXvAt47Rwk6KK3OWMV+rAGQJYJw/DGph+8ORl/r/+KTIdH86jpm1GYYT/1Cwv6LvbZfoY0HqloDWem3RihRvXNJYS5ZFLo5njmzJRrO0jnWy5RsYq8WMT3q+/vqC7Ha8mXdGeBLaE/IqcvJYagptW5BtUt7n6jhCkO/Ji1Pc5oiSxjIgEzCej0a8jrXNaYYDhwkeM3Nh98QZHpruoZzjIFLfk/3FB8uk8AWV2oGwZccodQ2PQoP3sZaAz9csE6Z634OwJIPP1waAqOvaxkCP3fWa/CxhlZzwpKhVVONQXqM0giKICGcXOW5E2Or2s0QR1qKluAQ65g==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=oss.nxp.com; dmarc=pass action=none header.from=oss.nxp.com;
- dkim=pass header.d=oss.nxp.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=NXP1.onmicrosoft.com;
- s=selector1-NXP1-onmicrosoft-com;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=XLfiDBJSsjgR89r20q8F1fzBtxo5uAkYAqJ43L7vZ5c=;
- b=Zqkk/akV6hFZjXzGIPKBf2lItCQvTOcjxo6lIxoKCP8uX9o4WsZTEmexbYbp55GX39KSGXKBvhLzpyP+53MWVjKOjswEevG0H5cJcTfrp33KsKart39LR4hrj8AOlSlcjzYUlaqfvHriz3hAZXIQqi+IXgmTKaRYtmLg+42jNJW7DV4SSUDdTtNkxNVbeylIa1wRbRQkXnbOuQ9ZDB9bqHzzPs3CAVX9VrMOW91Ld6Zyr1EZIzd0YYmk8hT47CCr3jCMHyszOZyUUi506QMR7YAOAtacSLf5luhWmm07llelcsim85xAdu8E0/swLPlmpVXTDDCrBooEbjsnU1ckjg==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=oss.nxp.com;
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com (2603:10a6:150:2cf::9)
- by PA1PR04MB333174.eurprd04.prod.outlook.com (2603:10a6:102:54f::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.9; Wed, 16 Sep
- 2026 19:56:52 +0000
-Received: from GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c]) by GV2PR04MB11799.eurprd04.prod.outlook.com
- ([fe80::2146:83a2:5329:b7c%7]) with mapi id 15.21.0406.012; Wed, 16 Sep 2026
- 19:56:51 +0000
-Date: Wed, 16 Sep 2026 15:56:44 -0400
-From: Frank Li <Frank.li@oss.nxp.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: Frank.Li@nxp.com, alexandre.belloni@bootlin.com, arnd@arndb.de,
-	bbrezillon@kernel.org, gregkh@linuxfoundation.org,
-	linux-i3c@lists.infradead.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] i3c: master: Fix of_node reference leak in
- of_i3c_master_add_i2c_boardinfo()
-Message-ID: <aqr0fHT3EcOlExAj@lizhi-Precision-Tower-5810>
-References: <20260916160654.2081795-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916160654.2081795-1-vulab@iscas.ac.cn>
-X-ClientProxiedBy: CY8PR10CA0025.namprd10.prod.outlook.com
- (2603:10b6:930:4b::17) To GV2PR04MB11799.eurprd04.prod.outlook.com
- (2603:10a6:150:2cf::9)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bdGXEcJJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F0531F0089B;
+	Wed, 16 Sep 2026 20:00:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789588841;
+	bh=y7B3wodt/k7ZPdTsGQxuUtx//QPZMeWzw0SV0v/H6O0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bdGXEcJJsnx03kQLRt6OitWD7Jb6qepMZWLl0ljNUIxOuOUAtcoNTDmX4vZivjV1U
+	 FeVARj/hUn8sgT9IxM+0T+UpqxX56J2SAm7gld8Wr2cKEPgs9zMGyMGZiEHErolGgy
+	 nDWBGGKMPaPDWPamKMpPEO5fSwrOSHdSHTf0ampeRhT7fz7vmrXsxNR3eBA55WgmF3
+	 pdFt9Ibm4XWpnWhsTCwVkmwRJtAQmd+CuTx3WHGunL+alcNe7J4bMqTyxjHnW1T4dq
+	 HwArzTKRaVGqBTnftfPGuM8zQ606AlFfoY3ybtJPkMGBVcPlvMJSzUdIqNDEkQ6NDb
+	 6zD9BrcHGndPw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>,
+	Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 3/4] accel/ivpu: Refactor functions in ivpu_fw_log.c
+Date: Wed, 16 Sep 2026 16:00:37 -0400
+Message-ID: <20260916200038.2459399-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260916200038.2459399-1-sashal@kernel.org>
+References: <2026091615-moisten-showy-63d8@gregkh>
+ <20260916200038.2459399-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: GV2PR04MB11799:EE_|PA1PR04MB333174:EE_
-X-MS-Office365-Filtering-Correlation-Id: ba8100dc-5976-4e36-30f8-08df142ca68e
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|19092799006|366016|376014|23010399003|1800799024|11063799006|56012099006|5023799004|10067099003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	u1Gt5D+8HWRIMLOOMH9oGFoqQvX2FxZnYABWsLAmD6gVTwwlvr2a2bRfAOs4ksF5f8ExEYRjiWS+zSbrIj4hTn6uXknFwtp0txbuQ/B4RYtzog9Ce8v/24TRG3kxbhhfZNI6P+ltKfNpVgDsrBRD+Un9F5BdbGFo/NSKLh0VUP1WkfUp6SmC1jt8EyKusdUNFl8fDSGHtETLWYx0hgZVuXURQeJv6KnRaniHJbFkDqJ6XeXIGLNRdwmGAuTM58rtp9/u+XfGglbeUzyA5qggotxEUoMiLf3hzPt7uKml1Pdx125zJA8WgHaW1WDnOfMBUawjE3cVXQ0tOUdSNr3HNHpLX0fLEmvpUnIhckuQf7srW5pbWxPRr4Nv99mGtwhEcwvOLARhFyhkgTGrOZqK5A8x4SxHFtdlpJNkrKz6JKX0xqJeA74yWMbiihgxhtc0YRgaPkeZ5qx28cc5LnfHiI24KW85wSLkNucupoRSpY275xwVUU6Nee7G9WEZk8V014Pti9zJAmBr9MFy9hHilvCvrFoMxpS43JpUGKl0ZUdv4EMVgggeP7RSSGHZN+gdODP5d4xZKZ0iYQnaP6BWTjcGerzqP1M1XuASiY5eThmlUs8ZlmSDSle6iaOVAUFtFq0PYFNTVNw/S0mfqLknVwHTvDCCxSDGYzG2O1CTwx4=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:GV2PR04MB11799.eurprd04.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(19092799006)(366016)(376014)(23010399003)(1800799024)(11063799006)(56012099006)(5023799004)(10067099003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?us-ascii?Q?DfwLOhjePDtGFWpSkIk/xF1a/Ev23YBEfPkMPaxjM85ypz4BdW61qS1lP4b9?=
- =?us-ascii?Q?hdjFs49O+tRoRS7kqClSD5rXDw1CQ5QhT48qhrWWPjcxaO3Gt3hNEJwjOH8k?=
- =?us-ascii?Q?7BuD3/woTClh1o0w0JDTRBuxoGl/DeSqp+1JmqFPjdIpKgXwdgaFNt74h1LP?=
- =?us-ascii?Q?AM8vGCKWn6k9r/Fmjbo3xzbcR67yrsQ/YZ+Tmena74/r4ttZzqj3T243Jxqw?=
- =?us-ascii?Q?sM6zaDoJ/hNPIuXl8syce0D1b2rYq1V6VgNtlYf7h2F4QIGiJxKuy0Y7F5l7?=
- =?us-ascii?Q?uLaxsTsAXf9Jw+LmMX9fmn5oMftfXzJitlhL7PAuTPeW8oxKQZ9aYwaJb1sz?=
- =?us-ascii?Q?N1bB1FQ3+ssyrzyeD6Xw2HbWbAOwxGoQniStanjD1DjK497gNdMa/eJOBKWM?=
- =?us-ascii?Q?W2dEXISGD7d4CPAAWHwiCzNJrrQVwPvJsbs4NvCajzVF53H01Nir/queCU1d?=
- =?us-ascii?Q?VM2pOKSImgtgUqn1azSwGK9HS2WT70dWMfZ+MroRWTEkNXgtSHPIp0bMimq/?=
- =?us-ascii?Q?F9yG0KxxAI+Gh1Ed2IVG8QPVX7Ki5EswVOQyyDyJdGyTh70I36i04FFVuphI?=
- =?us-ascii?Q?yst7KgBjnHk+OKCERaui3WqWhKIeRFEUEdnLydlrQNofXCbVxsbjLSlUMt6T?=
- =?us-ascii?Q?f6W4HVC9tUBD5oInA2qelRZZxdOao6vy68UXHaSI4u/k7XuPhsw1ZQbD2D6a?=
- =?us-ascii?Q?CxmCRsDPZsuahIyYmL9dmnUnF1RWaUQcqK7HKvUqRmYW7KFPYZj0IThstLVH?=
- =?us-ascii?Q?uhaDcuaUmrAr9MKsUzHNDo07sP7W2j/DGYRN3wtzAJ+pJvAtmAUNRvlmS40I?=
- =?us-ascii?Q?ZeMXx+0wiDUIOxx9aSdeK3CrRDeJwRk6uuvHPcYAp9sZJs71QiPFRTZC5vlu?=
- =?us-ascii?Q?TZYEFtVhx/zL2cbLM6vG4QoiSsAvE9/K02EjeCeG669voHyvlbZZecwHLyaH?=
- =?us-ascii?Q?W3smRCY/yLuxU+wOCtjDJgQSDM+7IhTUeMVJWXyDFCGoOGKW4sjPgrqo5oc5?=
- =?us-ascii?Q?Rl1m1/aOM2K8SdXDWmuaHjGGhM/t+jIQmtVJb4LN92enAjZOcXzz3zfJ4TUO?=
- =?us-ascii?Q?dsAkSWztViM4F3xD1X+ccsJbr+9pMiC/DU0TYWGDaQrlUtv1b12dbIEznYvy?=
- =?us-ascii?Q?+ihghUEX3V/RtmXC7lq4F/pl1tVE7xp18v9ZNkmAbFHd2B05ZfzxTIBK8MPn?=
- =?us-ascii?Q?IosIbBdAjg8KzvosXuxjJOdoWngSEE4XfaxKmynDpuqoQ7jv3oI3QwNIaubE?=
- =?us-ascii?Q?BzOtvn16yobWaLRbY20hAWUt6ZhbF1SoYgqgMsFEzSppkzXJ/WEhVSOMywZ7?=
- =?us-ascii?Q?nEr/Vplg+pTW4LqkruzXitnRmHlcbxo/kZeIZ91eLSGfh36wIdZBYYJC0cpg?=
- =?us-ascii?Q?QxKoddtCYJJ52+NMrnnuPB3DYDeJEM1LJDkgmqzYvPBB6/Xvz6iprnKJoRrq?=
- =?us-ascii?Q?QfC6tCsEnTi6n6xyDQ32UGtBARB4Ouvvcpr+AwSbBrqbAe1F1G2CPohovdM/?=
- =?us-ascii?Q?WjiR2KOwfp1mvVdEQFVYGg1gbj103QfLrHBac/Nm9AJo0nTn+60LA5MM4vCp?=
- =?us-ascii?Q?qJivFX7k5sVgJxQZjeFaNF45BD5ksr8rABzv+D36rKK/wJ7KQHizPRTCEX8Y?=
- =?us-ascii?Q?wNmSeGrvjacVNAh6ES3s/LJ0+kcs1+MKt3j4cco6EAlrLxE8GrEcZRVxS5wl?=
- =?us-ascii?Q?eZvB+YjD1NNsafmmW6NpR3yncYcGpIimAad66m6/gGXhZ5yOlx5+kwcTcC/P?=
- =?us-ascii?Q?+jR1NUgRDBn+rkTsZ0xf4QdhQ3Y6VeY3LH3hTKouafVhDYvqSwts?=
-X-OriginatorOrg: oss.nxp.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: ba8100dc-5976-4e36-30f8-08df142ca68e
-X-MS-Exchange-CrossTenant-AuthSource: GV2PR04MB11799.eurprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 16 Sep 2026 19:56:51.8796
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 686ea1d3-bc2b-4c6f-a92c-d99c5c301635
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: zT1BKAHg/lF9q6rVOLBZi4DuMpvI6wlJAZx8rk1Yl9oJ08VzffjnvTumTOaViWjICmOnB9aWFdSZ5whftHyphprOq45erv4DDMbICzjLIeA3R35JguP8VasAKnLK0frV
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PA1PR04MB333174
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 04:06:54PM +0000, Wentao Liang wrote:
-> of_i2c_get_board_info() stores the device node in the board info's fwnode
-> without taking a reference, so the board info relies on the trailing
-> of_node_get() to keep the node alive. Nothing ever drops that reference:
-> the board info is devres-allocated and has no release callback.
->
-> Register the reference as a device-managed action of the I3C master so it
-> is released on registration failure and on controller teardown.
->
-> Fixes: 3a379bbcea0a ("i3c: Add core I3C infrastructure")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/i3c/master.c | 9 +++++++--
->  1 file changed, 7 insertions(+), 2 deletions(-)
->
-> diff --git a/drivers/i3c/master.c b/drivers/i3c/master.c
-> index 23f490a00591..30b3822c530c 100644
-> --- a/drivers/i3c/master.c
-> +++ b/drivers/i3c/master.c
-> @@ -2407,6 +2407,11 @@ EXPORT_SYMBOL_GPL(i3c_master_add_i3c_dev_locked);
->
->  #define OF_I3C_REG1_IS_I2C_DEV			BIT(31)
->
-> +static void of_i3c_master_put_node(void *data)
-> +{
-> +	of_node_put(data);
-> +}
-> +
->  static int
->  of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
->  				struct device_node *node, u32 *reg)
+From: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
 
-which code base do you use, now use of_i2c_get_board_info()
+[ Upstream commit 1fc1251149a76d3b75d7f4c94d9c4e081b7df6b4 ]
 
-Frank
-> @@ -2437,9 +2442,9 @@ of_i3c_master_add_i2c_boardinfo(struct i3c_master_controller *master,
->  	boardinfo->lvr = reg[2];
->
->  	list_add_tail(&boardinfo->node, &master->boardinfo.i2c);
-> -	of_node_get(node);
->
-> -	return 0;
-> +	return devm_add_action_or_reset(dev, of_i3c_master_put_node,
-> +					of_node_get(node));
->  }
->
->  static int
-> --
-> 2.34.1
->
+Make function names more consistent and (arguably) readable in
+fw log code. Add fw_log_print_all_in_bo() that remove duplicated code in
+ivpu_fw_log_print().
+
+Reviewed-by: Tomasz Rusinowicz <tomasz.rusinowicz@intel.com>
+Link: https://patchwork.freedesktop.org/patch/msgid/20240930195322.461209-5-jacek.lawrynowicz@linux.intel.com
+Signed-off-by: Jacek Lawrynowicz <jacek.lawrynowicz@linux.intel.com>
+
+[Stable dependency adaptation for 95bf070f3225]
+
+Keep the existing critical/verbose loops and VPU labels instead of adding
+fw_log_print_all_in_bo(); this adaptation adds no functions. Retain the
+stable buffer-object accessors and module parameter interface.
+
+Prepare the exact log-printing code used by the target with the relevant
+changes from 4bc988b470195 (wrap handling and newline placement),
+dd1311bcf0e62 (index bounds), and 0724afc55c77c (validated metadata
+snapshots). The size-smaller-than-header check already exists in this
+stable tree. Add only read_wrap_count from the newer tracing header,
+using one reserved host-side word, and update the existing mark-read and
+cold-boot reset paths. These changes let the unmodified target apply
+cleanly without importing broader firmware API or buffer-object changes.
+
+The original upstream helper extraction described above is intentionally
+omitted from this stable dependency.
+
+Also include ivpu_fw_log.h in ivpu_pm.c: the preceding cold-boot-reset
+dependency calls ivpu_fw_log_reset() without its declaration on this tree.
+The missing include is required for the x86 allmodconfig build.
+
+Stable-dep-of: 95bf070f3225 ("accel/ivpu: Limit firmware log name prints to field size")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/accel/ivpu/ivpu_debugfs.c |   2 +-
+ drivers/accel/ivpu/ivpu_fw_log.c  | 128 +++++++++++++++++++-----------
+ drivers/accel/ivpu/ivpu_fw_log.h  |   2 +-
+ drivers/accel/ivpu/ivpu_pm.c      |   1 +
+ drivers/accel/ivpu/vpu_boot_api.h |   4 +-
+ 5 files changed, 87 insertions(+), 50 deletions(-)
+
+diff --git a/drivers/accel/ivpu/ivpu_debugfs.c b/drivers/accel/ivpu/ivpu_debugfs.c
+index 5e5996fd4f9f1..6c64ecdf15ff1 100644
+--- a/drivers/accel/ivpu/ivpu_debugfs.c
++++ b/drivers/accel/ivpu/ivpu_debugfs.c
+@@ -137,7 +137,7 @@ fw_log_fops_write(struct file *file, const char __user *user_buf, size_t size, l
+ 	if (!size)
+ 		return -EINVAL;
+ 
+-	ivpu_fw_log_clear(vdev);
++	ivpu_fw_log_mark_read(vdev);
+ 	return size;
+ }
+ 
+diff --git a/drivers/accel/ivpu/ivpu_fw_log.c b/drivers/accel/ivpu/ivpu_fw_log.c
+index 0ed29e5ac8e52..b1919c0749640 100644
+--- a/drivers/accel/ivpu/ivpu_fw_log.c
++++ b/drivers/accel/ivpu/ivpu_fw_log.c
+@@ -26,10 +26,17 @@ MODULE_PARM_DESC(ivpu_log_level,
+ 		 " error=" __stringify(IVPU_FW_LOG_ERROR)
+ 		 " fatal=" __stringify(IVPU_FW_LOG_FATAL));
+ 
+-static int fw_log_ptr(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
+-		      struct vpu_tracing_buffer_header **log_header)
++struct ivpu_fw_log_desc {
++	struct vpu_tracing_buffer_header *log;
++	u32 header_size;
++	u32 size;
++};
++
++static int fw_log_from_bo(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
++			  struct ivpu_fw_log_desc *desc)
+ {
+ 	struct vpu_tracing_buffer_header *log;
++	u32 header_size, size;
+ 
+ 	if ((*offset + sizeof(*log)) > bo->base.size)
+ 		return -EINVAL;
+@@ -39,31 +46,37 @@ static int fw_log_ptr(struct ivpu_device *vdev, struct ivpu_bo *bo, u32 *offset,
+ 	if (log->vpu_canary_start != VPU_TRACING_BUFFER_CANARY)
+ 		return -EINVAL;
+ 
+-	if (log->header_size < sizeof(*log) || log->header_size > 1024) {
+-		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", log->header_size);
++	header_size = READ_ONCE(log->header_size);
++	size = READ_ONCE(log->size);
++
++	if (header_size < sizeof(*log) || header_size > 1024) {
++		ivpu_dbg(vdev, FW_BOOT, "Invalid header size 0x%x\n", header_size);
+ 		return -EINVAL;
+ 	}
+-	if (log->size < log->header_size) {
+-		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
++	if ((char *)log + size > (char *)bo->kvaddr + bo->base.size) {
++		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", size);
+ 		return -EINVAL;
+ 	}
+-	if ((char *)log + log->size > (char *)bo->kvaddr + bo->base.size) {
+-		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x\n", log->size);
++	if (size < header_size) {
++		ivpu_dbg(vdev, FW_BOOT, "Invalid log size 0x%x < header size 0x%x\n",
++			 size, header_size);
+ 		return -EINVAL;
+ 	}
+ 
+-	*log_header = log;
+-	*offset += log->size;
++	desc->log = log;
++	desc->header_size = header_size;
++	desc->size = size;
++	*offset += size;
+ 
+ 	ivpu_dbg(vdev, FW_BOOT,
+ 		 "FW log name \"%s\", write offset 0x%x size 0x%x, wrap count %d, hdr version %d size %d format %d, alignment %d",
+-		 log->name, log->write_index, log->size, log->wrap_count, log->header_version,
+-		 log->header_size, log->format, log->alignment);
++		 log->name, log->write_index, size, log->wrap_count, log->header_version,
++		 header_size, log->format, log->alignment);
+ 
+ 	return 0;
+ }
+ 
+-static void buffer_print(char *buffer, u32 size, struct drm_printer *p)
++static void fw_log_print_lines(char *buffer, u32 size, struct drm_printer *p)
+ {
+ 	char line[IVPU_FW_LOG_LINE_LENGTH];
+ 	u32 index = 0;
+@@ -91,70 +104,91 @@ static void buffer_print(char *buffer, u32 size, struct drm_printer *p)
+ 	}
+ 	line[index] = 0;
+ 	if (index != 0)
+-		drm_printf(p, "%s\n", line);
++		drm_printf(p, "%s", line);
+ }
+ 
+-static void fw_log_print_buffer(struct ivpu_device *vdev, struct vpu_tracing_buffer_header *log,
+-				const char *prefix, bool only_new_msgs, struct drm_printer *p)
++static void fw_log_print_buffer(struct ivpu_fw_log_desc *desc, const char *prefix,
++				bool only_new_msgs, struct drm_printer *p)
+ {
+-	char *log_buffer = (void *)log + log->header_size;
+-	u32 log_size = log->size - log->header_size;
+-	u32 log_start = log->read_index;
+-	u32 log_end = log->write_index;
+-
+-	if (!(log->write_index || log->wrap_count) ||
+-	    (log->write_index == log->read_index && only_new_msgs)) {
+-		drm_printf(p, "==== %s \"%s\" log empty ====\n", prefix, log->name);
+-		return;
++	struct vpu_tracing_buffer_header *log = desc->log;
++	char *log_data = (void *)log + desc->header_size;
++	u32 data_size = desc->size - desc->header_size;
++	u32 log_start = only_new_msgs ? READ_ONCE(log->read_index) : 0;
++	u32 log_end = READ_ONCE(log->write_index);
++
++	if (log_start >= data_size)
++		log_start = 0;
++	if (log_end > data_size)
++		log_end = data_size;
++
++	if (log->wrap_count == log->read_wrap_count) {
++		if (log_end <= log_start) {
++			drm_printf(p, "==== %s \"%s\" log empty ====\n", prefix, log->name);
++			return;
++		}
++	} else if (log->wrap_count == log->read_wrap_count + 1) {
++		if (log_end > log_start)
++			log_start = log_end;
++	} else {
++		log_start = log_end;
+ 	}
+ 
+ 	drm_printf(p, "==== %s \"%s\" log start ====\n", prefix, log->name);
+-	if (log->write_index > log->read_index) {
+-		buffer_print(log_buffer + log_start, log_end - log_start, p);
++	if (log_end > log_start) {
++		fw_log_print_lines(log_data + log_start, log_end - log_start, p);
+ 	} else {
+-		buffer_print(log_buffer + log_end, log_size - log_end, p);
+-		buffer_print(log_buffer, log_end, p);
++		fw_log_print_lines(log_data + log_start, data_size - log_start, p);
++		fw_log_print_lines(log_data, log_end, p);
+ 	}
+-	drm_printf(p, "\x1b[0m");
++	drm_printf(p, "\n\x1b[0m"); /* add new line and clear formatting */
+ 	drm_printf(p, "==== %s \"%s\" log end   ====\n", prefix, log->name);
+ }
+ 
+ void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p)
+ {
+-	struct vpu_tracing_buffer_header *log_header;
++	struct ivpu_fw_log_desc desc;
+ 	u32 next = 0;
+ 
+-	while (fw_log_ptr(vdev, vdev->fw->mem_log_crit, &next, &log_header) == 0)
+-		fw_log_print_buffer(vdev, log_header, "VPU critical", only_new_msgs, p);
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0)
++		fw_log_print_buffer(&desc, "VPU critical", only_new_msgs, p);
+ 
+ 	next = 0;
+-	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
+-		fw_log_print_buffer(vdev, log_header, "VPU verbose", only_new_msgs, p);
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0)
++		fw_log_print_buffer(&desc, "VPU verbose", only_new_msgs, p);
+ }
+ 
+-void ivpu_fw_log_clear(struct ivpu_device *vdev)
++void ivpu_fw_log_mark_read(struct ivpu_device *vdev)
+ {
+-	struct vpu_tracing_buffer_header *log_header;
+-	u32 next = 0;
++	struct ivpu_fw_log_desc desc;
++	u32 next;
+ 
+-	while (fw_log_ptr(vdev, vdev->fw->mem_log_crit, &next, &log_header) == 0)
+-		log_header->read_index = log_header->write_index;
++	next = 0;
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
++		desc.log->read_index = READ_ONCE(desc.log->write_index);
++		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
++	}
+ 
+ 	next = 0;
+-	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
+-		log_header->read_index = log_header->write_index;
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
++		desc.log->read_index = READ_ONCE(desc.log->write_index);
++		desc.log->read_wrap_count = READ_ONCE(desc.log->wrap_count);
++	}
+ }
+ 
+ void ivpu_fw_log_reset(struct ivpu_device *vdev)
+ {
+-	struct vpu_tracing_buffer_header *log_header;
++	struct ivpu_fw_log_desc desc;
+ 	u32 next;
+ 
+ 	next = 0;
+-	while (fw_log_ptr(vdev, vdev->fw->mem_log_crit, &next, &log_header) == 0)
+-		log_header->read_index = 0;
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_crit, &next, &desc) == 0) {
++		desc.log->read_index = 0;
++		desc.log->read_wrap_count = 0;
++	}
+ 
+ 	next = 0;
+-	while (fw_log_ptr(vdev, vdev->fw->mem_log_verb, &next, &log_header) == 0)
+-		log_header->read_index = 0;
++	while (fw_log_from_bo(vdev, vdev->fw->mem_log_verb, &next, &desc) == 0) {
++		desc.log->read_index = 0;
++		desc.log->read_wrap_count = 0;
++	}
+ }
+diff --git a/drivers/accel/ivpu/ivpu_fw_log.h b/drivers/accel/ivpu/ivpu_fw_log.h
+index 692ee0f266a31..3bde9aa549035 100644
+--- a/drivers/accel/ivpu/ivpu_fw_log.h
++++ b/drivers/accel/ivpu/ivpu_fw_log.h
+@@ -26,7 +26,7 @@ extern unsigned int ivpu_log_level;
+ #define IVPU_FW_CRITICAL_BUFFER_SIZE		SZ_512K
+ 
+ void ivpu_fw_log_print(struct ivpu_device *vdev, bool only_new_msgs, struct drm_printer *p);
+-void ivpu_fw_log_clear(struct ivpu_device *vdev);
++void ivpu_fw_log_mark_read(struct ivpu_device *vdev);
+ void ivpu_fw_log_reset(struct ivpu_device *vdev);
+ 
+ static inline void ivpu_fw_log_dump(struct ivpu_device *vdev)
+diff --git a/drivers/accel/ivpu/ivpu_pm.c b/drivers/accel/ivpu/ivpu_pm.c
+index e17e4e6b037ee..3a59242b6a423 100644
+--- a/drivers/accel/ivpu/ivpu_pm.c
++++ b/drivers/accel/ivpu/ivpu_pm.c
+@@ -13,6 +13,7 @@
+ #include "ivpu_drv.h"
+ #include "ivpu_hw.h"
+ #include "ivpu_fw.h"
++#include "ivpu_fw_log.h"
+ #include "ivpu_ipc.h"
+ #include "ivpu_job.h"
+ #include "ivpu_mmu.h"
+diff --git a/drivers/accel/ivpu/vpu_boot_api.h b/drivers/accel/ivpu/vpu_boot_api.h
+index 88345070a9965..7d302693f4562 100644
+--- a/drivers/accel/ivpu/vpu_boot_api.h
++++ b/drivers/accel/ivpu/vpu_boot_api.h
+@@ -301,7 +301,9 @@ struct vpu_tracing_buffer_header {
+ 	u32 host_canary_start;
+ 	/* offset from start of buffer for trace entries */
+ 	u32 read_index;
+-	u32 pad_to_cache_line_size_0[14];
++	/* keeps track of wrapping on the reader side */
++	u32 read_wrap_count;
++	u32 pad_to_cache_line_size_0[13];
+ 	/* End of first cache line */
+ 
+ 	/**
+-- 
+2.53.0
+
