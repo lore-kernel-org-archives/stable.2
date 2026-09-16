@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B725E357D02
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:07:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 120154BE426
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 16:08:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789574881; cv=none; b=hv3WV63MrgIbDR4Uyi8z2jwObWWNQCLkudybO21Skrsin6dFmsx7RLOFGN9zajxQXsQir2oKTz70SXfCujVcf1NYXmip3apklOYAiJDxxbwEUXNWfQsPzN80tJl+jFnMbM7xj4FM5MoHTagXWcJBfWREM+1NQbtQslu5dL6ljJo=
+	t=1789574885; cv=none; b=hF6Dzp7wt6Mki2p0QcPtbywdNjb9y0rejUQMEMLkIiVJ099ZinEjan83sOgtsBHKx182GVBm8GuexMsBHWQ17sJuJNnzeD6bxiB44GXxA0fY5o0H65+H7/iJG/x9I51u4iPE6fFjDnafB11syhTegsnE5sq90+jHdufaqnqERfc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789574881; c=relaxed/simple;
-	bh=au5Jni1ZJUHtvxEFS/L4KlA9HsVSG16iS1N3Ha+Aagc=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=LcSn7uBgJQzeHrwNQddT6gC1RBzuZLPMwUFlEoJmDfMMU9pQwfB1VInpT6hhxTNtThdtwy+HGaEwG0WyeQOe8gRUoRXH4khICu/X7cquH+7WT2nXewOkcLmnJ3cMwf631XGoHmkBq/wsNU1qkKf/muuIYXeToT2sNaJ5yLVhKfM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Dnqau80p; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789574885; c=relaxed/simple;
+	bh=dhQqBg5OAkETSmSCC2QtAylDFSrszE3KgKCGeO2kkTg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=jSuxZHeQUFlksZbJb0gF3ngugWyb77vKUTcWB2RkpQ1Wzd5yJ6nnQSvCrb2RkVOXiZx+iw3ZUA2Wu18ykkWbCLSmKa/uOwNbSJZztDkA0IDyt3/XqeLNnbyAAGKVACnV1JB518ar0qZIwLVzENIm0geDpD3ssndRsELEDO9Kf3Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JIFIZA59; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Dnqau80p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08E351F000FF;
-	Wed, 16 Sep 2026 16:07:58 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JIFIZA59"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 365A81F000FF;
+	Wed, 16 Sep 2026 16:08:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789574879;
-	bh=v1wKVo558HJkzpHoaSCqQgMR/6qh1djatby9GjHsVgQ=;
+	s=korg; t=1789574882;
+	bh=K3oPA0716NjPebWL3iM6swhxZsRuBCustHo58aWgvBw=;
 	h=Subject:To:Cc:From:Date;
-	b=Dnqau80p4Bvpqs4U7IJV6TnRhTZ+31XfzFmTlMLwT1u117PfJW4d5a7Vr032QgtlD
-	 FQ35NZlNxIH7piDtXvtFgBOfVqP8Av6yJUlYeM8CxgknQtUwiseEN/XmLMuVTr3yxu
-	 mWLHxG1EBqU0o502+ONxMlTrpM53XfdlPzD4ZPhU=
-Subject: FAILED: patch "[PATCH] s390/crypto: Fix return code handling at skcipher_walk_done" failed to apply to 7.2-stable tree
+	b=JIFIZA597nW4bE21kmHnz9dBQfAO0ID2mzLrXfcLukFN366zoGJ0WfqvirrMQDPn6
+	 y3n0iazqGIymRw3g9VTqXAZeCXMXuN2hnqdXsS/CS0y0Bao/iMZHj+kE2ti1DaKtnx
+	 DlI+kQy44wXq4xkDEjnW2tbnpdVhcNnV4wpyFxmI=
+Subject: FAILED: patch "[PATCH] s390/crypto: Fix use of mutex in atomic context in PAES" failed to apply to 6.18-stable tree
 To: freude@linux.ibm.com,dengler@linux.ibm.com,gor@linux.ibm.com,hca@linux.ibm.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 16:50:41 +0100
-Message-ID: <2026091641-backboard-celestial-c8ce@gregkh>
+Date: Wed, 16 Sep 2026 16:50:45 +0100
+Message-ID: <2026091645-sudoku-liquefy-ac94@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,19 +38,19 @@ Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
 
 
-The patch below does not apply to the 7.2-stable tree.
+The patch below does not apply to the 6.18-stable tree.
 If someone wants it applied there, or to any other stable or longterm
 tree, then please email the backport, including the original git commit
 id to <stable@vger.kernel.org>.
 
 To reproduce the conflict and resubmit, you may use the following commands:
 
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-7.2.y
+git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.18.y
 git checkout FETCH_HEAD
-git cherry-pick -x 403648373816ae8eb76fe4a393836b0d65fa8f85
+git cherry-pick -x 749990db95d45cc3d96aab999ac7f110259b200c
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091641-backboard-celestial-c8ce@gregkh' --subject-prefix 'PATCH 7.2.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091645-sudoku-liquefy-ac94@gregkh' --subject-prefix 'PATCH 6.18.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,25 +62,20 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 403648373816ae8eb76fe4a393836b0d65fa8f85 Mon Sep 17 00:00:00 2001
+From 749990db95d45cc3d96aab999ac7f110259b200c Mon Sep 17 00:00:00 2001
 From: Harald Freudenberger <freude@linux.ibm.com>
-Date: Mon, 31 Aug 2026 10:38:30 +0200
-Subject: [PATCH] s390/crypto: Fix return code handling at skcipher_walk_done
- in PAES algorithms
+Date: Mon, 31 Aug 2026 10:38:32 +0200
+Subject: [PATCH] s390/crypto: Fix use of mutex in atomic context in PAES
 
-All the 4 PAES cipher processing loops were not checking the return
-value of skcipher_walk_done() immediately after calling it. This could
-lead to error masking when both the walk operation failed and a
-subsequent key conversion was needed (k < n condition).
+The PAES CTR implementation used a mutex to lock one page of exclusive
+memory for fast CTR processing. Unfortunately a mutex is not save to
+use in atomic or interrupt context. So use a binary semaphore instead
+which is save to use in such environments.
 
-Add immediate error checks after skcipher_walk_done() in all main
-processing loops (ECB, CBC, CTR, XTS modes) to ensure walk errors are
-properly propagated and not masked by subsequent operations.
-
-With that comes a slight rework around the skcipher_walk_done()
-invocation. It is now necessary to check if the walk has already been
-finalized (walk->nbytes is then 0) or not to avoid double
-de-allocation of resources held by the walk.
+Furthermore rework the code to get rid of conditional locking. So
+restructure the PAES CRT code by extracting the main loop into a
+separate function and just give in information about the (locked) page
+can be used or not (is not locked).
 
 Fixes: 6cd87cb5ef6c ("s390/crypto: Rework protected key AES for true asynch support")
 Signed-off-by: Harald Freudenberger <freude@linux.ibm.com>
@@ -90,139 +85,165 @@ Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
 
 diff --git a/arch/s390/crypto/paes_s390.c b/arch/s390/crypto/paes_s390.c
-index 973436592318..89785ab95e6b 100644
+index 9c8f9e2570f2..991a26766d40 100644
 --- a/arch/s390/crypto/paes_s390.c
 +++ b/arch/s390/crypto/paes_s390.c
-@@ -432,8 +432,11 @@ static int ecb_paes_do_crypt(struct s390_paes_ctx *ctx,
- 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
- 		k = cpacf_km(ctx->fc | req_ctx->modifier, param,
- 			     walk->dst.virt.addr, walk->src.virt.addr, n);
--		if (k)
+@@ -19,7 +19,7 @@
+ #include <linux/init.h>
+ #include <linux/miscdevice.h>
+ #include <linux/module.h>
+-#include <linux/mutex.h>
++#include <linux/semaphore.h>
+ #include <linux/spinlock.h>
+ #include <crypto/aes.h>
+ #include <crypto/algapi.h>
+@@ -45,7 +45,7 @@ module_param_named(clrkey, pkey_clrkey_allowed, bool, 0444);
+ MODULE_PARM_DESC(clrkey, "Allow clear key material (default N)");
+ 
+ static u8 *ctrblk;
+-static DEFINE_MUTEX(ctrblk_lock);
++static DEFINE_SEMAPHORE(ctrblk_sem, 1);
+ 
+ static cpacf_mask_t km_functions, kmc_functions, kmctr_functions;
+ 
+@@ -919,15 +919,62 @@ static inline unsigned int __ctrblk_init(u8 *ctrptr, u8 *iv, unsigned int nbytes
+ 	return n;
+ }
+ 
++static int __ctr_paes_do_crypt(struct s390_paes_ctx *ctx,
++			       struct ctr_param *param,
++			       struct skcipher_walk *walk,
++			       bool tested, bool maysleep, bool locked)
++{
++	unsigned int nbytes, n, k;
++	u8 *ctrptr;
++	int rc = 0;
++
++	/*
++	 * Note that in case of partial processing or failure the walk
++	 * is NOT unmapped here. So a follow up task may reuse the walk
++	 * or in case of unrecoverable failure needs to unmap it.
++	 */
++	while ((nbytes = walk->nbytes) >= AES_BLOCK_SIZE) {
++		n = AES_BLOCK_SIZE;
++		if (nbytes >= 2 * AES_BLOCK_SIZE && locked)
++			n = __ctrblk_init(ctrblk, walk->iv, nbytes);
++		ctrptr = (n > AES_BLOCK_SIZE) ? ctrblk : walk->iv;
++		k = cpacf_kmctr(ctx->fc, param, walk->dst.virt.addr,
++				walk->src.virt.addr, n, ctrptr);
 +		if (k) {
- 			rc = skcipher_walk_done(walk, nbytes - k);
++			if (ctrptr == ctrblk)
++				memcpy(walk->iv, ctrptr + k - AES_BLOCK_SIZE,
++				       AES_BLOCK_SIZE);
++			crypto_inc(walk->iv, AES_BLOCK_SIZE);
++			rc = skcipher_walk_done(walk, nbytes - k);
 +			if (rc)
 +				goto out;
 +		}
- 		if (k < n) {
- 			if (!maysleep) {
- 				rc = -EKEYEXPIRED;
-@@ -495,7 +498,7 @@ static int ecb_paes_crypt(struct skcipher_request *req, unsigned long modifier)
- 			atomic_dec(&ctx->via_engine_ctr);
- 	}
- 
--	if (rc != -EINPROGRESS)
-+	if (rc != -EINPROGRESS && walk->nbytes)
- 		skcipher_walk_done(walk, rc);
- 
- out:
-@@ -549,7 +552,7 @@ static int ecb_paes_do_one_request(struct crypto_engine *engine, void *areq)
- 	rc = ecb_paes_do_crypt(ctx, req_ctx, tested, true);
- 	if (rc == -EKEYEXPIRED) {
- 		return pkey_handle_expired();
--	} else if (rc) {
-+	} else if (rc && walk->nbytes) {
- 		skcipher_walk_done(walk, rc);
- 	}
- 
-@@ -690,6 +693,8 @@ static int cbc_paes_do_crypt(struct s390_paes_ctx *ctx,
- 		if (k) {
- 			memcpy(walk->iv, param->iv, AES_BLOCK_SIZE);
- 			rc = skcipher_walk_done(walk, nbytes - k);
-+			if (rc)
-+				goto out;
- 		}
- 		if (k < n) {
- 			if (!maysleep) {
-@@ -752,7 +757,7 @@ static int cbc_paes_crypt(struct skcipher_request *req, unsigned long modifier)
- 			atomic_dec(&ctx->via_engine_ctr);
- 	}
- 
--	if (rc != -EINPROGRESS)
-+	if (rc != -EINPROGRESS && walk->nbytes)
- 		skcipher_walk_done(walk, rc);
- 
- out:
-@@ -806,7 +811,7 @@ static int cbc_paes_do_one_request(struct crypto_engine *engine, void *areq)
- 	rc = cbc_paes_do_crypt(ctx, req_ctx, tested, true);
- 	if (rc == -EKEYEXPIRED) {
- 		return pkey_handle_expired();
--	} else if (rc) {
-+	} else if (rc && walk->nbytes) {
- 		skcipher_walk_done(walk, rc);
- 	}
- 
-@@ -968,6 +973,11 @@ static int ctr_paes_do_crypt(struct s390_paes_ctx *ctx,
- 				       AES_BLOCK_SIZE);
- 			crypto_inc(walk->iv, AES_BLOCK_SIZE);
- 			rc = skcipher_walk_done(walk, nbytes - k);
-+			if (rc) {
-+				if (locked)
-+					mutex_unlock(&ctrblk_lock);
++		if (k < n) {
++			if (!maysleep) {
++				rc = -EKEYEXPIRED;
 +				goto out;
 +			}
++			rc = paes_convert_key(ctx, tested);
++			if (rc)
++				goto out;
++			spin_lock_bh(&ctx->pk_lock);
++			memcpy(param->key, ctx->pk.protkey, sizeof(param->key));
++			spin_unlock_bh(&ctx->pk_lock);
++		}
++	}
++
++out:
++	return rc;
++}
++
+ static int ctr_paes_do_crypt(struct s390_paes_ctx *ctx,
+ 			     struct s390_pctr_req_ctx *req_ctx,
+ 			     bool tested, bool maysleep)
+ {
+ 	struct ctr_param *param = &req_ctx->param;
+ 	struct skcipher_walk *walk = &req_ctx->walk;
+-	u8 buf[AES_BLOCK_SIZE], *ctrptr;
+-	unsigned int nbytes, n, k;
+-	int pk_state, locked, rc = 0;
++	u8 buf[AES_BLOCK_SIZE];
++	int pk_state, rc = 0;
+ 
+ 	if (!req_ctx->param_init_done) {
+ 		/* fetch and check protected key state */
+@@ -953,57 +1000,17 @@ static int ctr_paes_do_crypt(struct s390_paes_ctx *ctx,
+ 	if (rc)
+ 		goto out;
+ 
+-	locked = mutex_trylock(&ctrblk_lock);
+-
+-	/*
+-	 * Note that in case of partial processing or failure the walk
+-	 * is NOT unmapped here. So a follow up task may reuse the walk
+-	 * or in case of unrecoverable failure needs to unmap it.
+-	 */
+-	while ((nbytes = walk->nbytes) >= AES_BLOCK_SIZE) {
+-		n = AES_BLOCK_SIZE;
+-		if (nbytes >= 2 * AES_BLOCK_SIZE && locked)
+-			n = __ctrblk_init(ctrblk, walk->iv, nbytes);
+-		ctrptr = (n > AES_BLOCK_SIZE) ? ctrblk : walk->iv;
+-		k = cpacf_kmctr(ctx->fc, param, walk->dst.virt.addr,
+-				walk->src.virt.addr, n, ctrptr);
+-		if (k) {
+-			if (ctrptr == ctrblk)
+-				memcpy(walk->iv, ctrptr + k - AES_BLOCK_SIZE,
+-				       AES_BLOCK_SIZE);
+-			crypto_inc(walk->iv, AES_BLOCK_SIZE);
+-			rc = skcipher_walk_done(walk, nbytes - k);
+-			if (rc) {
+-				if (locked)
+-					mutex_unlock(&ctrblk_lock);
+-				goto out;
+-			}
+-		}
+-		if (k < n) {
+-			if (!maysleep) {
+-				if (locked)
+-					mutex_unlock(&ctrblk_lock);
+-				rc = -EKEYEXPIRED;
+-				goto out;
+-			}
+-			rc = paes_convert_key(ctx, tested);
+-			if (rc) {
+-				if (locked)
+-					mutex_unlock(&ctrblk_lock);
+-				goto out;
+-			}
+-			spin_lock_bh(&ctx->pk_lock);
+-			memcpy(param->key, ctx->pk.protkey, sizeof(param->key));
+-			spin_unlock_bh(&ctx->pk_lock);
+-		}
++	if (down_trylock(&ctrblk_sem) == 0) {
++		rc = __ctr_paes_do_crypt(ctx, param, walk, tested, maysleep, true);
++		up(&ctrblk_sem);
++	} else {
++		rc = __ctr_paes_do_crypt(ctx, param, walk, tested, maysleep, false);
+ 	}
+-	if (locked)
+-		mutex_unlock(&ctrblk_lock);
+ 
+ 	/* final block may be < AES_BLOCK_SIZE, copy only nbytes */
+-	if (nbytes) {
++	if (!rc && walk->nbytes > 0) {
+ 		memset(buf, 0, AES_BLOCK_SIZE);
+-		memcpy(buf, walk->src.virt.addr, nbytes);
++		memcpy(buf, walk->src.virt.addr, walk->nbytes);
+ 		while (1) {
+ 			if (cpacf_kmctr(ctx->fc, param, buf,
+ 					buf, AES_BLOCK_SIZE,
+@@ -1020,7 +1027,7 @@ static int ctr_paes_do_crypt(struct s390_paes_ctx *ctx,
+ 			memcpy(param->key, ctx->pk.protkey, sizeof(param->key));
+ 			spin_unlock_bh(&ctx->pk_lock);
  		}
- 		if (k < n) {
- 			if (!maysleep) {
-@@ -1061,7 +1071,7 @@ static int ctr_paes_crypt(struct skcipher_request *req)
- 			atomic_dec(&ctx->via_engine_ctr);
+-		memcpy(walk->dst.virt.addr, buf, nbytes);
++		memcpy(walk->dst.virt.addr, buf, walk->nbytes);
+ 		crypto_inc(walk->iv, AES_BLOCK_SIZE);
+ 		rc = skcipher_walk_done(walk, 0);
  	}
- 
--	if (rc != -EINPROGRESS)
-+	if (rc != -EINPROGRESS && walk->nbytes)
- 		skcipher_walk_done(walk, rc);
- 
- out:
-@@ -1105,7 +1115,7 @@ static int ctr_paes_do_one_request(struct crypto_engine *engine, void *areq)
- 	rc = ctr_paes_do_crypt(ctx, req_ctx, tested, true);
- 	if (rc == -EKEYEXPIRED) {
- 		return pkey_handle_expired();
--	} else if (rc) {
-+	} else if (rc && walk->nbytes) {
- 		skcipher_walk_done(walk, rc);
- 	}
- 
-@@ -1283,8 +1293,11 @@ static int xts_paes_do_crypt_fullkey(struct s390_pxts_ctx *ctx,
- 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
- 		k = cpacf_km(ctx->fc | req_ctx->modifier, param->key + offset,
- 			     walk->dst.virt.addr, walk->src.virt.addr, n);
--		if (k)
-+		if (k) {
- 			rc = skcipher_walk_done(walk, nbytes - k);
-+			if (rc)
-+				goto out;
-+		}
- 		if (k < n) {
- 			if (!maysleep) {
- 				rc = -EKEYEXPIRED;
-@@ -1377,8 +1390,11 @@ static int xts_paes_do_crypt_2keys(struct s390_pxts_ctx *ctx,
- 		n = nbytes & ~(AES_BLOCK_SIZE - 1);
- 		k = cpacf_km(ctx->fc | req_ctx->modifier, param->key + offset,
- 			     walk->dst.virt.addr, walk->src.virt.addr, n);
--		if (k)
-+		if (k) {
- 			rc = skcipher_walk_done(walk, nbytes - k);
-+			if (rc)
-+				goto out;
-+		}
- 		if (k < n) {
- 			if (!maysleep) {
- 				rc = -EKEYEXPIRED;
-@@ -1485,7 +1501,7 @@ static inline int xts_paes_crypt(struct skcipher_request *req, unsigned long mod
- 			atomic_dec(&ctx->via_engine_ctr);
- 	}
- 
--	if (rc != -EINPROGRESS)
-+	if (rc != -EINPROGRESS && walk->nbytes)
- 		skcipher_walk_done(walk, rc);
- 
- out:
-@@ -1539,7 +1555,7 @@ static int xts_paes_do_one_request(struct crypto_engine *engine, void *areq)
- 	rc = xts_paes_do_crypt(ctx, req_ctx, tested, true);
- 	if (rc == -EKEYEXPIRED) {
- 		return pkey_handle_expired();
--	} else if (rc) {
-+	} else if (rc && walk->nbytes) {
- 		skcipher_walk_done(walk, rc);
- 	}
- 
 
