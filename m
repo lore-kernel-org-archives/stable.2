@@ -1,111 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 675034534B7
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:16:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0490D4A2A5E;
+	Wed, 16 Sep 2026 09:16:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550202; cv=none; b=nWecdc9T5K28u4C1wMb1QQXlu3mHJjErSLo0ScF5OYcwomHOKqC/fWRgT8p8XKsltsIRA8C6VlOd6n//NchY/Gu+tsQs9ZJ2n+x+7uPdK/t9q0BgnckIycAO+9h2xW8fvYm5bOpKW191hAszT/QGrs+GJZiSECV4FwB0auE0zkE=
+	t=1789550208; cv=none; b=UOIalBnQuVsveYNms4zt2iR9sJ/oD8ec1rEkjfbFSzHQyc9IMakoqDQTvfakCDdBHprpG61M5PE7ei9uPg9JxZrrjQSt39tJUBmLf+98dB0zTsYV5RGqVoKCD5/1xaaS2kBSPRTFpFfb/hbGMTLp0r0I2rdRCxqT09qembGFn+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550202; c=relaxed/simple;
-	bh=sRxnmmKM6KV3jBhqdobPYCZHSm7bfHmuvFlmZKLWr98=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=GnnHG69NC2NmpmoMKniSdie04UNeQ+Nyv9Zj7WRCimYuyqZWDuZR033GNgtEfdi3L4YOuDIDuBZRRsilMhD4F5uoGKPmR2W15TTll8a9ymXL8VxKYR/SFcx/wSJBr3OyFpOgOPL/vuNmuBzY0dTTA4XaEDqT3IWGUVOJ/ZtPj4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rRrbUujx; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rRrbUujx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD43C1F00899;
-	Wed, 16 Sep 2026 09:16:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789550185;
-	bh=5c50VxWsflo6G1j820qPf+JDL01xojS6YQAYg3mfIAA=;
-	h=Subject:To:Cc:From:Date;
-	b=rRrbUujxf8wfwBx2m4VM2malpb+SBNagAsB9rhDa5/huJH6p7vsJfN2i47fhivYfb
-	 sWGQ5oXvCDeiRxx9PTfaE16KlBdi+bPOd+eNMnIIuDrImAqKwDX/vGbWEQC1yQv0SW
-	 0dKeHBjmYxWJ9EnLxoNu3mrzR2qW8v2PwP+B6W8s=
-Subject: FAILED: patch "[PATCH] ALSA: us122l: Prevent write upgrades for read mappings" failed to apply to 6.1-stable tree
-To: hnkz.64@gmail.com,tiwai@suse.de
-Cc: <stable@vger.kernel.org>
-From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 10:14:18 +0100
-Message-ID: <2026091618-snout-ozone-8b38@gregkh>
+	s=arc-20240116; t=1789550208; c=relaxed/simple;
+	bh=d0WWrY2JFvGVRywjigkEhTNyV/Mh9NTYbglso1vrsyo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=CsTdA5637QgMeFKbI1G8BgjDcEpV2DHGKQaC11exT264qYSCywW8SULMmfCYSAt6L8P2JjdLAXLT0EziSQTeP3u0E2TkoOG7/xEWmElJertgng00YWdPivbEIsRg1mcPo+5mTK6GzjcEonoifrouZ6Qg4vT/4Vgqc7UGyonp9b4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowADHk0FmXqpqBjPgBw--.41336S2;
+	Wed, 16 Sep 2026 17:16:22 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: akpm@linux-foundation.org
+Cc: bp@alien8.de,
+	dougthompson@xmission.com,
+	juhlenko@akamai.com,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	tony.luck@intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] EDAC/i3200: Fix mci_pdev reference leak in i3200_init_one()
+Date: Wed, 16 Sep 2026 09:15:54 +0000
+Message-Id: <20260916091554.1998750-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=ANSI_X3.4-1968
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowADHk0FmXqpqBjPgBw--.41336S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtF43GrW5JF4rWw1ktFy7KFg_yoWkGrbEg3
+	WFvFy7Xr4kGF4qkw1xCr1fZr9FgFs2qr4fWr4xK343Cr4fW3WDZan8CFyDAr47W393AFWU
+	Kw1DKFyfJF42yjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbx8FF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7MxkF7I0En4kS14v2
+	6r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrV
+	AFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCI
+	c40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267
+	AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_
+	Cr1lIxAIcVC2z280aVCY1x0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JULo7
+	NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqP4eEvgAAsX
 
+In i3200_init_one(), a reference to the PCI device is taken with
+pci_dev_get() and stored in the global mci_pdev even when
+i3200_probe1() fails.  On that path i3200_registered keeps its initial
+value of 1, so i3200_exit() skips the pci_dev_put() and the reference
+is leaked.
 
-The patch below does not apply to the 6.1-stable tree.
-If someone wants it applied there, or to any other stable or longterm
-tree, then please email the backport, including the original git commit
-id to <stable@vger.kernel.org>.
+Only take the reference after i3200_probe1() succeeds.
 
-To reproduce the conflict and resubmit, you may use the following commands:
-
-git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.1.y
-git checkout FETCH_HEAD
-git cherry-pick -x 71c610aeb1770302ac9c9e0b9a4ecd37f1311928
-# <resolve conflicts, build, test, etc.>
-git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091618-snout-ozone-8b38@gregkh' --subject-prefix 'PATCH 6.1.y' 'HEAD^..'
-
-Possible dependencies:
-
-
-
-thanks,
-
-greg k-h
-
------------------- original commit in Linus's tree ------------------
-
-From 71c610aeb1770302ac9c9e0b9a4ecd37f1311928 Mon Sep 17 00:00:00 2001
-From: Kazuki Hanai <hnkz.64@gmail.com>
-Date: Tue, 8 Sep 2026 20:00:53 +0900
-Subject: [PATCH] ALSA: us122l: Prevent write upgrades for read mappings
-
-The hwdep mmap callback rejects read-buffer mappings that are initially
-writable, but leaves VM_MAYWRITE set on mappings created with PROT_READ.
-A process that can open the hwdep node O_RDWR can later use mprotect() to
-make the mapping writable.
-
-The read allocation begins with struct usb_stream. Its read_size member is
-used by the fault handler to decide which pages belong to the read buffer.
-The read VMA intentionally remains expandable because pcm_usb_stream uses
-mremap() after reading that size. Changing read_size first can therefore
-map and access pages beyond the allocation. The same member is also
-consumed by usb_stream_free(), where changing it can make
-free_pages_exact() release pages outside the allocation.
-
-Clear VM_MAYWRITE for read-buffer mappings after rejecting an initially
-writable VMA. This keeps the separate output-buffer mapping writable while
-preventing later permission upgrades.
-
-Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+Fixes: dd8ef1db87a4 ("edac: i3200 memory controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
-Link: https://patch.msgid.link/20260908110053.2950767-1-hnkz.64@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/edac/i3200_edac.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
-index f00b53346abd..a5db0d044ef9 100644
---- a/sound/usb/usx2y/us122l.c
-+++ b/sound/usb/usx2y/us122l.c
-@@ -180,8 +180,11 @@ static int usb_stream_hwdep_mmap(struct snd_hwdep *hw,
- 	guard(mutex)(&us122l->mutex);
- 	s = us122l->sk.s;
- 	read = offset < s->read_size;
--	if (read && area->vm_flags & VM_WRITE)
--		return -EPERM;
-+	if (read) {
-+		if (area->vm_flags & VM_WRITE)
-+			return -EPERM;
-+		vm_flags_clear(area, VM_MAYWRITE);
-+	}
- 	/* if userspace tries to mmap beyond end of our buffer, fail */
- 	if (size > PAGE_ALIGN(read ? s->read_size : s->write_size)) {
- 		dev_warn(hw->card->dev, "%s: size %lu > %u\n", __func__,
+diff --git a/drivers/edac/i3200_edac.c b/drivers/edac/i3200_edac.c
+index 6cade6d7ceff..c80c77230369 100644
+--- a/drivers/edac/i3200_edac.c
++++ b/drivers/edac/i3200_edac.c
+@@ -439,10 +439,13 @@ static int i3200_init_one(struct pci_dev *pdev, const struct pci_device_id *ent)
+ 		return -EIO;
+ 
+ 	rc = i3200_probe1(pdev, ent->driver_data);
++	if (rc)
++		return rc;
++
+ 	if (!mci_pdev)
+ 		mci_pdev = pci_dev_get(pdev);
+ 
+-	return rc;
++	return 0;
+ }
+ 
+ static void i3200_remove_one(struct pci_dev *pdev)
+-- 
+2.34.1
 
