@@ -1,121 +1,133 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF21C191F94
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 03:24:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BE3F380FC6
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 03:27:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789529079; cv=none; b=KgjPI1CqAkTv4R3SXcjOH8bBqmutDLid+qpVYlppDtl3/qHeLufQvhR+kE6/tnhxCBXumtdC1iN6t2Qk4LcDNFXL1s+ueDwEu+F2cFU60/NhMh3b+Q0IHLDyq5WkNu18Sz0QR5hgMTQXNsD3e0zFmgLRj0qO0DfN0BM/m5qqYEc=
+	t=1789529273; cv=none; b=QQF2D/zqJ4d2kqAAGboZQ55AV/AsXtuB8xZoCk9vjTl2BE/hROYaOGa3SbGFGKVbaD47WvW/Gk5QiLV0NiXCFCpBtRd7csOCPB/kt58ZestlqST/gydg6yz77G0XKmDsc5gU5J0kTcSfKdQjiOLXXBGldRBK9rMvuzsbCpPgEs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789529079; c=relaxed/simple;
-	bh=iDthSQqefFrOLg0kDxpCSPIAK7dnv2RUYvXiwlkwsRI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=mggc3N2zAJfSlbOQggLBRIIHk0MHJ6SbzRff2j9eluK4fbEuyonygR+hraji5XCWRdn9oHcHAYE8gKEcIvww+3UOVJAsqZClyKJcbBPIyws8Znx21Ug+EVgbfSdk0LhjAW7VXDixwcETC3GARsJJ6ZMBME6OnFJnsJFzec0gDVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Pwsvjzma; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789529273; c=relaxed/simple;
+	bh=Qs5uzyjG9RdBU+G1ftodW+2KjlDgKg9y9jWORxby16c=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=gHelIXGZGNQtFHarbVgLowkr234JXTGkcmEVBylQtPcdV1ujjde03bDo0bcPR7MlehMXyrgswW9pYKJJGKK1GslH8UqyF5mJrEvSH3xdd2S6jS4u/cr1ioofEFQ70ylJY4Hh6ck5OmFHa/w6d+lj315ievEZUWCfVPbk2ANko+o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=TccyCH2b; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Pwsvjzma"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2cso420495a12.0
-        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 20:24:37 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="TccyCH2b"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-93910a0cb7aso42571285a.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 20:27:51 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789529077; x=1790133877; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=hewLRE41ZIFiAVylPPAMUN536cPkfHAC1jqHJ9IalwI=;
-        b=PwsvjzmabTVUzalQ2cu2esCbIhvgN7baFnMCGdxz8R9HspexJDJaPZTl0zZLaB1ymE
-         1z3erk0KGJyRLR+Vu2iZPETmHfqxJiEvCGXZ5L60fje75hxM4IFKo3kI8CAAX7Z4IhJP
-         75DPW5VT5+wZ7Z5aDCUo+C/n/EsIHuYVAaC/ktoaQ6PET7Xdfl/KmBeyoVsnwwYg8Esa
-         +vNqUNdDeTMlHKsIGXQ6uER8wEHuDv70yjjwAoCjyDH4p1SABDOrdwCqJ4iLZuRceaV+
-         rpJvSYGBbJNwlJddcfnUTA+yTPHmMeoj3Zc3XW5SX/thYB2cngk+D63TJKv8TUx0CUgS
-         Q5Jg==
+        d=gourry.net; s=google; t=1789529270; x=1790134070; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=LpcV4akiuPw6ooaHeQwzYvlzeYD38qF2Fr1gPzg9K6U=;
+        b=TccyCH2b+HTFCUvw7XYCTiSqJoKjy78OB3IOlHLAKWHyKPzdgddewwsosYrAOH1dk+
+         2tdDKcrP1cuSPAaaeY4dNr/+2hdx0AzXgPH/gzbs42MJ+JI/ITknp23xFhcTzlEOa+wM
+         QXdiz8cLtirm6zzui66Hwmd6zPfiaABEQUJm0GuqJGy6fYPG3qVd6qWKG0bHECvGvO2Z
+         f2Gi2IAu7+0bre4Vt5FTJVI5vGUlfv/SjfyEsFW0ft3k6RVALHRJLfHyQ09QpZ1w65bM
+         IHdaZ52pvu+evgGrQ1kbGYGSPWpnSujYzOzXhFe2FsFrqG8NQI3EBBqRUPcvwBOrdzgm
+         5jMQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789529077; x=1790133877;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=hewLRE41ZIFiAVylPPAMUN536cPkfHAC1jqHJ9IalwI=;
-        b=yRo7l8OuahVOR1aKbX+MgW0G5MFJPAgYpntJwlbPD5JtCAn7GnknyPUH5iWCsDy+FK
-         nnEJOiZAXvMxO4/3x5koAE/vPlqikZHvFhka0IRQHaW67/vOsbKqXOm0CydKfgdY7NY3
-         MaMRO0uL9Su/0KHs9FlZ+fEIoKrT1SHmITxJIodKlmNj9DeJ6mmLaHmhLhpy+woeq8UV
-         KFBqbYGnpssyNqGbQcKJaqxwXNRGaPOOi9nPC7n8QuajK+Amq3M/P8KWETKUAnCYfx/p
-         Ix6FYu1oSxGXnj6s6W9kIYMlPJc2JzDvuxyKPCshi7wbtkOaPLaEFKwV9N4VeWdNXC9L
-         q0Zw==
-X-Forwarded-Encrypted: i=1; AKwUvBwwsGn6cVV0doKB2zOq4DLb52/60BRRs5OR4SXS/+lqqcQM/xB3hvJXgjgMqtaFhECufSdIFRw=@vger.kernel.org
-X-Gm-Message-State: AFuF++mJJy+Dz2xxHTQjwXBczhBX437queb+UECRv5gFdMYC/PxSYBd9
-	hY560hLPh6ZB/01uGJqnv4J+tjYJZfcsgilsm8q8bRq9FxZbmMjPZ40q
-X-Gm-Gg: AYBFou3kd0mG9rbfx+TRydYnGbQYG124lVnyquGPGpe/VXNiM364ndkS/CkMRDgycXZ
-	kWB3UyEsqxviuBQa+hucbajP7h3ASuAv2nN7CKWGD9tng6ORQdShLeHAQUD2ZbtF8etn+OZvkiS
-	mVTyuDui16ssDkd96TPDh180SHY0Ve/sLOwDTXLZZtymAm+mgJfIaBqipxZZ/MCryalfyEv9yYA
-	Ym9/lDolQS78RRLftEiysCMDm9YY2bqyUd2U9XzFDFsMsp9MmgZEN9aJNqgELskyHZLhheM8m8M
-	wg00diWKKHF37RAtGj0Up/Y847rsl0xlhV4S1clNtOnzjiNi5yQK3nWyRY00MUbNT9ncFEcjK+A
-	SUoTHCZksSLijxVeM1Q070QwNmr4CKOJ9yjtVEvN0mVPOuJHsDcigT98piOoCPqgsMLQc1ANA3E
-	CTImCOxSD+g+28L0UryULrvoNxc2v4C0ZIXJYWq8rKCP1rWFxGKtEjyozfP1gIyG1C
-X-Received: by 2002:a17:90b:390e:b0:39e:53a:c8d4 with SMTP id 98e67ed59e1d1-39e1e424a7dmr2098764a91.12.1789529077349;
-        Tue, 15 Sep 2026 20:24:37 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e1bb234c3sm1772473a91.6.2026.09.15.20.24.32
+        d=1e100.net; s=20260707; t=1789529270; x=1790134070;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=LpcV4akiuPw6ooaHeQwzYvlzeYD38qF2Fr1gPzg9K6U=;
+        b=XJMwG3sRsr59PtjgLqV2VvinZqenPG9cdHK5IUTN1d9m4T8zuGvL3a5ZDQy++RvNQa
+         KCD/E33TBSHcuWsId0dLTkPKRi7TkC7W76WRQ131Wajyitz0m5raPI4SgMSXdQtiF0Zf
+         YlSFG/mn7iSo7bqFNZ2EQQpsCjO4sBaLcnXYZrCDMFDCQ5zjWulIaQGl/KEd5Irhmcqb
+         OgZzEceR6iGu6fatL/6JyKM0kOfaJ+FkxWMcRuU5OqOF69p3rhf6KLavMguS717DyhJA
+         ILQoOWJYwMPXQlukQ97SoHsN7RgVGfMAqhBoP1tgZRBlgCG+cpUgt3GfXjjybBCRAfBd
+         cWqg==
+X-Forwarded-Encrypted: i=1; AKwUvBzfAkr7czy7hFrWbt+kHkGsDsYvNCoNSMkryFnHcsLHBSMSUJ8eY/bu7/SkwH9PQIdyZ5v7cLg=@vger.kernel.org
+X-Gm-Message-State: AFuF++nlEWcfoIgnKGx2J+163hWEVQOmCPECdtzPvsE9YEhZ/K0tkbVj
+	3gtzswifI57dXGIor1nucRGpL9JS9NI2DrZLipV3VuKMc7EoABjL6BGZmDWLVMl/fzo=
+X-Gm-Gg: AYBFou1cs39pvQg19t81fUBqj7pvYtIUVWGvodp9hz+iyN9tzvUJaUmGu5y53s4cX6g
+	rcrVJrBGGuSDZjujw1N98AZtWDmpwT8m+eTQ7Dx7/aYjiJODiMhMGobybLYAjmMOgFNF5T6cjb/
+	hRfP8SrsiVJdnyGchUOfmoL57Dmj151EpIh/GoJB7kS49V0V529n+/ly+8rPYrPav68xu88QFdi
+	USnVR2BQfNtbVOqe+C6f4jD10EQJJSNRsYS/wDJtlG9GXPO7dJYVIkQ+aenVPvbbqOM3Rb5vlCn
+	6Wfw1wtt54Y8jlQUupGlFf75wHm77r5aWDFPV8rywH5POQBt3O0ENYfF+/66p2QWV6yNnixldZV
+	nledSE+0dtuWPVOmL0SmEvvKWvbDsWnWUrKFRoj3CkwydsNMOCrhSeN7EUvWAVS/YWoJBb6LORf
+	x3qfJgPIXSf9wEwtdPlZlFohOn20yqjcnjZ1H1KORg9Dbw9tBaj3Ytd0hMAhrGP4WvKjYaXTRIB
+	o3XWLq+OMmiFKSehL2+DDkZz+KnCmNsSeZCVwUj8ADboQdiCupQNgc=
+X-Received: by 2002:a05:620a:4512:b0:939:13a7:70f0 with SMTP id af79cd13be357-93bb770c2a0mr153460185a.5.1789529270091;
+        Tue, 15 Sep 2026 20:27:50 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b81d19df1sm115328585a.45.2026.09.15.20.27.49
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Tue, 15 Sep 2026 20:24:36 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Fan Gong <gongfan1@huawei.com>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Gur Stavi <gur.stavi@huawei.com>,
-	Xin Guo <guoxin09@huawei.com>,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: hinic3: unregister event callback on remove
-Date: Wed, 16 Sep 2026 11:24:27 +0800
-Message-ID: <20260916032427.2899987-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Tue, 15 Sep 2026 20:27:49 -0700 (PDT)
+Date: Tue, 15 Sep 2026 23:27:47 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	liam@infradead.org, ljs@kernel.org, david@kernel.org, vbabka@kernel.org, 
+	jannh@google.com, sashiko-bot <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [RESEND PATCH] mm/madvise: use folio_trylock() in the
+ cold/pageout PMD split
+Message-ID: <aqoKLlzgsMc7VwJ3@gourry-fedora-PF4VCD3F>
+References: <20260912110540.3203010-1-gourry@gourry.net>
+ <20260915184633.e2d8cf719e5eed186d087a8a@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260915184633.e2d8cf719e5eed186d087a8a@linux-foundation.org>
 
-hinic3_nic_probe() registers the NIC event callback with
-hinic3_adev_event_register(). All probe failure paths unregister the
-callback before returning.
+On Tue, Sep 15, 2026 at 06:46:33PM -0700, Andrew Morton wrote:
+> > 
+> > On failure the walker returns 0 and nothing retries.  The PMD path becomes
+> > best effort when the folio lock is held elsewhere - same as the PTE path.
+> 
+> Can this result in more EAGAINs being returned to userspace?
+>
 
-The normal removal path, however, tears down and frees the NIC device
-without calling hinic3_adev_event_unregister(), leaving the auxiliary
-device event callback pointing to hinic3_nic_event().
+I don't see where this can result in more EAGAIN, at least from the
+madvise side.  The race is the same, we're just giving up and saying
+"I tried, doesn't matter if i succeeded".
 
-If an event is delivered after the NIC private data has been released,
-the callback may dereference the freed nic_dev and netdev objects.
+> > --- a/mm/madvise.c
+> > +++ b/mm/madvise.c
+> > @@ -419,9 +419,10 @@ static int madvise_cold_or_pageout_pte_range(pmd_t *pmd,
+> >  		if (next - addr != HPAGE_PMD_SIZE) {
+> >  			int err;
+> >  
+> > +			if (!folio_trylock(folio))
+> > +				goto huge_unlock;
+> >  			folio_get(folio);
+> >  			spin_unlock(ptl);
+> > -			folio_lock(folio);
+> >  			err = split_folio(folio);
+> >  			folio_unlock(folio);
+> >  			folio_put(folio);
+> 
+> Sashiko shares my reaction, "dear god, why does that function exist".
+>
+> 	https://sashiko.dev/#/patchset/20260912110540.3203010-1-gourry@gourry.net
+> 
+> Like the entire function, that random mix of "goto foo" with "return
+> whatever" needs to die.
+> 
+> Anyway, please check it out while you're on a roll.
 
-Unregister the NIC event callback before starting the device teardown.
+I've been trying to shore up the sashiko garbage first in a backportable
+manner before doing a full restructure.
 
-This issue was found by manual code inspection.
+I would hate to rewrite this just to carry bugs forward, and clearly the
+code isn't even remotely correct as-is.
 
-Fixes: 17fcb3dc12bb ("hinic3: module initialization and tx/rx logic")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/net/ethernet/huawei/hinic3/hinic3_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+The remaining issue on that link is the memory leak patch you already
+looked at.
 
-diff --git a/drivers/net/ethernet/huawei/hinic3/hinic3_main.c b/drivers/net/ethernet/huawei/hinic3/hinic3_main.c
-index 0a888fe4c975..42e2ad179a9f 100644
---- a/drivers/net/ethernet/huawei/hinic3/hinic3_main.c
-+++ b/drivers/net/ethernet/huawei/hinic3/hinic3_main.c
-@@ -499,6 +499,8 @@ static void hinic3_nic_remove(struct auxiliary_device *adev)
- 	if (!hinic3_support_nic(nic_dev->hwdev))
- 		return;
- 
-+	hinic3_adev_event_unregister(adev);
-+
- 	netdev = nic_dev->netdev;
- 	unregister_netdev(netdev);
- 
--- 
-2.43.0
+It's taken a bit to generate positive tests for these bugs and go
+through validation, but I think we are finally at the end of the
+nasty part and can actually get to cleaning this up.
 
+~Gregory
