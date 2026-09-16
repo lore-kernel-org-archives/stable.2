@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C0614B95AF
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F0504C653B
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573755; cv=none; b=QUeWMu/jeKuwgKwHne2qEqKgLsYuIKCWEXm9o00kTvLYoJSICt0klmBQ8LILzul/xPgwLW+rLdqVQBzLhjGU7T82KzNt690FpIDcVsN8WKnmTg4p6I02O1rYMpgTjc0itxg5+ca4Aq/b1Zt8E7POesfvF0WxGnp0+ETxp+0tZ4M=
+	t=1789573758; cv=none; b=ZHbw4zRkIe+WTU6frfBQF2wKRTbuhZwYs5FBIDRLk7wD3w5wmdBu2SosouqEFfqt1H/yQfe7++V+1Ybl6ix52zCy96abJhKuAYSDawhbMM+x/mqrGM7S4hGg7YVL+jnpHBDncmjpj9HUsA04WwTKiPEC/eet8sTrgVh4lwex0cE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573755; c=relaxed/simple;
-	bh=wm28feJX5q2dSgX4DQrLcliwTEhJLEddJeiY3Eg/Q2A=;
+	s=arc-20240116; t=1789573758; c=relaxed/simple;
+	bh=YHinZzZsfhMdfgzKVEQFY+LDP71NRaiqKe3049c5/vI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ts0/7vjG5K9WPlBNoTOLuBT/jL8JvfnhSe1xquSOFeU06BGpFLF0IK3TPOI7rxk/C7wIzC5HxUWCHLN8Bjh0hJv6cjdgPPf0MwBCXMVm7VSqng1PDn2IheJNHJ4daNfhtW5NByQiZ54FuDqQoEVkJhMS3SSh3j59yEW8tn0aXZ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=M5t89+5q; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TOO5tZaH1fsPZEPxlssoB6SxF73je43KRe9MZZG+ZByFLScb1f/f5Eks09d4cHLTEZLFii1EXoZp7eSGHq0xEcf0ZoyDfKH4ohUoYQ7TrpMoPlPoX/Y+gXfQJhRZkgks1dl5Yt4uznsQxMKwoFOMwGbymNF2FpXZyaRGRHOEC6g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fLlDTOV2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="M5t89+5q"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81DA31F000FF;
-	Wed, 16 Sep 2026 15:49:12 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fLlDTOV2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80E661F00893;
+	Wed, 16 Sep 2026 15:49:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789573753;
-	bh=XKAVSywIWK4Q1JjiLag9T0m8rL/EbEd6scRE7XsSzVg=;
+	s=k20260515; t=1789573756;
+	bh=aW3vBBIIrQSU/JYCBqEZtFU6bGCTt1sIyenICZJOs9c=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M5t89+5qatAbc7syrmTg/smW9va/5InyzlPK9HP4kojI2RmqWYqb9nvtbDsdT4dWA
-	 IPToHzp4B2q9yv7oTbbf1+Gyzg5OXZs6lPtyEjqEjtkXHDY36KfNAjg3NQUZynyPaP
-	 K1nuKW8zGzVB9ZUoIQK070FIFjmjeafyjGv/LN7wVigr3/pUciEqbdBzYC6a0bOS3D
-	 LUvCcjyVZmdhRgv5MajY1fzLBUFxs1gX5xumnaK/n3Xa/lcdKnmONDcdeKC2i0n5yU
-	 gXe+hbmGXXTGD3LnCk7NLjEcb05FtpGWDxrqCq5s1+BRe9+koFdt4quf5CvMnejnIR
-	 g9geBi4UWggSw==
+	b=fLlDTOV2Kkr09US7VFzLZbH525j9cZrrgiE+f4PFZiWo/q9vYQ8xPMtCrib4wPpx1
+	 qIhGMEMgXq607xge9VhfqhgjF3Jez1pwZHlt1E1AHI1B4mUPAxBshkwYorNL8puQda
+	 N/jF+7SfmsSCaY8QJf/tpTxnBPO0RRXwn9gzdRVCoSaNZjqO+YMIA006i+nMzFQ8B8
+	 r9wUb+0Ltqu6m//tg2W8vP5BNdDcxd6f4HltW5qtkBAc+6ssYSLjXa/wRwlw6qtIqP
+	 mK8V59dw9S51fgf83BekRfa1TML3e9Bx61kbjHryv11l1UcIknHP7X6RcoZzc1SW3Q
+	 NvYlT6kX0hxEQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Vasileios Almpanis <vasilisalmpanis@gmail.com>,
-	syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com,
-	Breno Leitao <leitao@debian.org>,
+Cc: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>,
+	"Mike Rapoport (Microsoft)" <rppt@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] configfs: unhash the dentry before dropping the item in rmdir
+Subject: [PATCH 6.18.y 1/4] x86/mm/pat: Convert split_large_page() to use ptdescs
 Date: Wed, 16 Sep 2026 11:49:11 -0400
-Message-ID: <20260916154911.4167454-1-sashal@kernel.org>
+Message-ID: <20260916154914.4167599-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091658-maximize-simply-3f6f@gregkh>
-References: <2026091658-maximize-simply-3f6f@gregkh>
+In-Reply-To: <2026091605-rehire-self-1650@gregkh>
+References: <2026091605-rehire-self-1650@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,66 +46,66 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Vasileios Almpanis <vasilisalmpanis@gmail.com>
+From: "Vishal Moola (Oracle)" <vishal.moola@gmail.com>
 
-[ Upstream commit f06c2d26d1999d37e93299db0ecead04ca7d0b9f ]
+[ Upstream commit e751303e0ad2e998f421d104193f6904df3516d1 ]
 
-configfs_get_config_item() treats a hashed dentry as proof that
-sd->s_element is a live config_item.  configfs_rmdir() breaks that:
-simple_rmdir() leaves the dentry hashed, the last reference to the item is
-dropped right after, and the dentry is only unhashed by d_delete() once
-->rmdir() has returned.  configfs_symlink() resolves its target holding no
-lock on it, so get_target() can land in that window:
+Use the ptdesc APIs for all page table allocation and free sites to
+allow their separate allocation from struct page in the future.
 
-  BUG: KASAN: slab-use-after-free in config_item_get+0x26/0x90
-   get_target fs/configfs/symlink.c:128 [inline]
-   configfs_symlink+0x4ab/0x1030 fs/configfs/symlink.c:185
+Update split_large_page() to allocate a ptdesc instead of allocating a
+page for use as a page table.
 
-Unhash in configfs_remove_dir(), while the item is still guaranteed to be
-there.  A reference obtained just before that stays harmless, as
-create_link() rechecks CONFIGFS_USET_DROPPING, already set by
-configfs_detach_prep().  Both configfs_unregister_subsystem() paths
-d_drop() after detaching, so this only makes rmdir match them.
-
-Reported-by: syzbot+6b16e3d085833cbf3e25@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=6b16e3d085833cbf3e25
-Fixes: 7063fbf22611 ("[PATCH] configfs: User-driven configuration filesystem")
-Cc: stable@vger.kernel.org
-Signed-off-by: Vasileios Almpanis <vasilisalmpanis@gmail.com>
-Tested-by: Breno Leitao <leitao@debian.org>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Link: https://patch.msgid.link/20260730093435.195441-3-vasilisalmpanis@gmail.com
-Signed-off-by: Breno Leitao <leitao@debian.org>
-[ adapted the configfs_remove_dir() change to the older remove_dir() helper. ]
+Signed-off-by: Vishal Moola (Oracle) <vishal.moola@gmail.com>
+Signed-off-by: Dave Hansen <dave.hansen@linux.intel.com>
+Acked-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Link: https://patch.msgid.link/20260303194828.1406905-5-vishal.moola@gmail.com
+Stable-dep-of: 9e4a3ec3411b ("x86/mm/pat: Allocate split page tables as kernel page tables")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/configfs/dir.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
+ arch/x86/mm/pat/set_memory.c | 13 +++++++------
+ 1 file changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/fs/configfs/dir.c b/fs/configfs/dir.c
-index 972fb89ad2214..5edb85322d924 100644
---- a/fs/configfs/dir.c
-+++ b/fs/configfs/dir.c
-@@ -395,8 +395,17 @@ static void remove_dir(struct dentry * d)
+diff --git a/arch/x86/mm/pat/set_memory.c b/arch/x86/mm/pat/set_memory.c
+index de74be2e69bf7..3621532fccb61 100644
+--- a/arch/x86/mm/pat/set_memory.c
++++ b/arch/x86/mm/pat/set_memory.c
+@@ -1125,9 +1125,10 @@ static void split_set_pte(struct cpa_data *cpa, pte_t *pte, unsigned long pfn,
  
- 	configfs_remove_dirent(d);
+ static int
+ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+-		   struct page *base)
++		   struct ptdesc *ptdesc)
+ {
+ 	unsigned long lpaddr, lpinc, ref_pfn, pfn, pfninc = 1;
++	struct page *base = ptdesc_page(ptdesc);
+ 	pte_t *pbase = (pte_t *)page_address(base);
+ 	unsigned int i, level;
+ 	pgprot_t ref_prot;
+@@ -1232,18 +1233,18 @@ __split_large_page(struct cpa_data *cpa, pte_t *kpte, unsigned long address,
+ static int split_large_page(struct cpa_data *cpa, pte_t *kpte,
+ 			    unsigned long address)
+ {
+-	struct page *base;
++	struct ptdesc *ptdesc;
  
--	if (d_really_is_positive(d))
--		simple_rmdir(d_inode(parent),d);
-+	if (d_really_is_positive(d)) {
-+		if (!simple_rmdir(d_inode(parent), d))
-+			/*
-+			 * configfs_get_config_item() takes a hashed dentry as
-+			 * proof that ->s_element is still alive.  Our caller
-+			 * is about to drop the last reference to the item and
-+			 * the VFS will not unhash until after we return, so
-+			 * unhash it here.
-+			 */
-+			d_drop(d);
-+	}
+ 	if (!debug_pagealloc_enabled())
+ 		spin_unlock(&cpa_lock);
+-	base = alloc_pages(GFP_KERNEL, 0);
++	ptdesc = pagetable_alloc(GFP_KERNEL, 0);
+ 	if (!debug_pagealloc_enabled())
+ 		spin_lock(&cpa_lock);
+-	if (!base)
++	if (!ptdesc)
+ 		return -ENOMEM;
  
- 	pr_debug(" o %pd removing done (%d)\n", d, d_count(d));
+-	if (__split_large_page(cpa, kpte, address, base))
+-		__free_page(base);
++	if (__split_large_page(cpa, kpte, address, ptdesc))
++		pagetable_free(ptdesc);
  
+ 	return 0;
+ }
 -- 
 2.53.0
 
