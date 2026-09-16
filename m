@@ -1,21 +1,21 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0592B4C33E2;
-	Wed, 16 Sep 2026 18:02:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C75224A5C54;
+	Wed, 16 Sep 2026 18:04:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789581791; cv=none; b=UIJMGAtAiLx0vM+AkO43+GV4axvlS7tvzMWe1yWs/cEgi7cplwiOnLyVNYaa7XCDnmXNqlNNJ3McKGSRZItR1BotEOK0HB9jH+S3WEiBVRXDuE7faAQ/YgUI0pmNyByNJGXadIBkYtEW7pr+V4HGv8LaXaOz5AUpkDEeByDc4iw=
+	t=1789581877; cv=none; b=k+ihLuNsN/OcV5LxA9eWWPXWzzvBximkTjPIu+8JjQEUDczTjyhY1ThOKTb9t2zh7zG/TpOjCl+LMv9gKE/2EUAgd28bVHtevFTAwW05cJD4pnB+n39ba7e69IEfiKeV6hjI0nUG0elBXU21WYDysZ8KroQM3kLousgUTXii5ic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789581791; c=relaxed/simple;
-	bh=5MvNbV8DS1s28LWHHBxFkC6xfM3BtVKYIkDIMppb7tw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pvbK8umnSYhpSqBtiOo8F154LFBmSCuVb5fLoJLg8dvK1egka3sOyP5fbmfb16lqryZOgV6lqrqdRqHi74ry118fXdUF/5R2x/UGDh8ZafyS6fjPUHaJveWITdH8R4/hc2TX+yqkEjllpUZCF+2D9sZHR8Q07jWdYvgS25KRfsM=
+	s=arc-20240116; t=1789581877; c=relaxed/simple;
+	bh=UYVatwPhaaZzmJ0gN+14a8hCOhGpAl47qbblEekEsuA=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JRvLxFi49nbrBU+NLIKlRNzpAbvkw1fqKXF7DL/EXY0oFJhSkKDNzlFFvQ0R1pU6N7eqD7KYWKS/IT7CgaxtmFWz5flAAaVGAB6go+6BWjDjC6FoxLxE8XfPjz2hnCsrK6OHS+TVjYaveb5eJUzH1eG29HlCN1l6Ye9i8Y0x7cM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAz622apqvB1vCA--.23380S2;
-	Thu, 17 Sep 2026 02:02:30 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAB3pkAa2qpqgSRvCA--.23709S2;
+	Thu, 17 Sep 2026 02:04:10 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: airlied@gmail.com
 Cc: bskeggs@redhat.com,
@@ -30,9 +30,9 @@ Cc: bskeggs@redhat.com,
 	tzimmermann@suse.de,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/nouveau: Fix gem reference leak in validate_init()
-Date: Wed, 16 Sep 2026 18:02:02 +0000
-Message-Id: <20260916180202.2090231-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/nouveau: Fix runtime PM leak in nouveau_connector_detect()
+Date: Wed, 16 Sep 2026 18:03:42 +0000
+Message-Id: <20260916180342.2090360-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -41,10 +41,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAz622apqvB1vCA--.23380S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Ar17Kw4rGFyfuFy3Gr1DGFg_yoW8Gr4rpr
-	ZFkF1jyrWUGw4xKr4xtF1DA3Wakan2gry8GF9ay34agr4fAr1UXrW5Cw1YvrWayF4fC3ya
-	qrnrtasFqryYyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:zQCowAB3pkAa2qpqgSRvCA--.23709S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7trykXr1UGw4kGF1DurW3Jrb_yoW8Jw1kpF
+	ZrKFWSyrWkJw4rK3WvyF18JFy3A3ykJFW5Gasaq34Uuw1rAr1Uuw48Aw1qqFyjyr95G3yY
+	y3ZFq39Iqa15C3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUU9v14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
 	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
 	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
@@ -58,41 +58,40 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Ar17Kw4rGFyfuFy3Gr1DGFg_yoW8Gr4rpr
 	1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0
 	rVWUJVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr
 	0_GcJvcSsGvfC2KfnxnUUI43ZEXa7VU1VHq7UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgUMA2qqok97cAAAsq
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2qqozV6OgAAsF
 
-On the ttm_bo_reserve() failure and "vma not found" error paths, the
-loop breaks without adding the looked-up object to any validate list,
-so the reference taken by drm_gem_object_lookup() is never released;
-validate_fini() only walks the spliced lists.  Drop the reference
-before breaking out on both paths.
+If nvif_outp_edid_get() fails, nouveau_connector_detect() returns
+early without dropping the runtime PM reference taken at the start
+of the function, keeping the device powered on until the next
+successful detect.
 
-Fixes: 19ca10d82e33bcfe ("drm/nouveau/gem: lookup VMAs for buffers referenced by pushbuf ioctl")
+Balance the reference on the error path like the other exit paths
+do.
+
+Fixes: 0cd7e0718139 ("drm/nouveau/disp: add output method to fetch edid")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/nouveau/nouveau_gem.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/gpu/drm/nouveau/nouveau_connector.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c b/drivers/gpu/drm/nouveau/nouveau_gem.c
-index 20dba02d6175..c2601b559947 100644
---- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-@@ -513,6 +513,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
- 			if (unlikely(ret)) {
- 				if (ret != -ERESTARTSYS)
- 					NV_PRINTK(err, cli, "fail reserve\n");
-+				drm_gem_object_put(gem);
- 				break;
- 			}
+diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c b/drivers/gpu/drm/nouveau/nouveau_connector.c
+index cc239492c7f0..4a750d4bf1f4 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_connector.c
++++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+@@ -600,8 +600,11 @@ nouveau_connector_detect(struct drm_connector *connector, bool force)
+ 				new_edid = drm_get_edid(connector, nv_encoder->i2c);
+ 		} else {
+ 			ret = nvif_outp_edid_get(&nv_encoder->outp, (u8 **)&new_edid);
+-			if (ret < 0)
++			if (ret < 0) {
++				pm_runtime_mark_last_busy(dev->dev);
++				pm_runtime_put_autosuspend(dev->dev);
+ 				return connector_status_disconnected;
++			}
  		}
-@@ -522,6 +523,7 @@ validate_init(struct nouveau_channel *chan, struct drm_file *file_priv,
- 			struct nouveau_vma *vma = nouveau_vma_find(nvbo, vmm);
- 			if (!vma) {
- 				NV_PRINTK(err, cli, "vma not found!\n");
-+				drm_gem_object_put(gem);
- 				ret = -EINVAL;
- 				break;
- 			}
+ 
+ 		nouveau_connector_set_edid(nv_connector, new_edid);
 -- 
 2.34.1
 
