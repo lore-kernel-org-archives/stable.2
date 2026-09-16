@@ -1,100 +1,116 @@
-Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4625D4C4F69;
-	Wed, 16 Sep 2026 10:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F294CB8B1
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 10:13:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553269; cv=none; b=Ylj+3eJzBLapiJgRp06HeKWIIKHRO8rAP7KjQ27qbIoD4PAKPjMB9pUZg8bMEumETAETf+bE9hdObiH+u3JZ5CAf/IwgBWgyvV4yfCZ72/kTIk9BpKdzJQMwQTxl3BVFPAWXr7s6R/r4yjZFxOS+UpdVRgHJFPkDDg4XdrKCSlk=
+	t=1789553607; cv=none; b=CMEw0frKbAX00BjsFdLGaphWlRqY1mGikZxGsT78jt406TRNL84spKmlXRGdgpDMgJGMsgenbOiwxxGsFZRs4zeG+m4+6nD8FgowcDwtVFnRLYwSNV0OxkYvOEg+BcXeMNZgYOoHSsq0fTnnvmEET+I0GudAnKCggPsLwe6pPEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553269; c=relaxed/simple;
-	bh=bP4qvlLX8TzoI+hY/MiOjw8LoIFxJdNiut9Kmvnz7+Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VXyQRfLc1LshMHlGgrZUkbPeL9z2oGrAreNLOOpdQoB7wYNTiIbHuQfR4ecyw6J9HSKWN/LaYVSxp0VrB+CccjCx8a3BTdRt7M2E4kmC5x9S+6Tqv5AkZMg8L9ngozxLY3pAqFri23pDRNN05lCGaNu43K24r3Zl6+rA5DyBSTQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowACnrjxiaqpq9NzgBw--.30652S2;
-	Wed, 16 Sep 2026 18:07:30 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Jose.Abreu@synopsys.com
-Cc: Laurent.pinchart@ideasonboard.com,
-	airlied@gmail.com,
-	andrzej.hajda@intel.com,
-	architt@codeaurora.org,
-	dri-devel@lists.freedesktop.org,
-	jernej.skrabec@gmail.com,
-	jonas@kwiboo.se,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	neil.armstrong@linaro.org,
-	rfoss@kernel.org,
-	simona@ffwll.ch,
-	tzimmermann@suse.de,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1789553607; c=relaxed/simple;
+	bh=C6Aos2BBAKNPtzD1p6pos02H1wbUMwW8WkxKtu0zVE4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=buuq6UOdrmU4elfUX2/9vg6nSqiaUjeQB0dEjLDTHQn88SZUwbO0xtzMBUNApaZWtFCj3Rc/cdw9OjpLGp/5c6jNT1jVGE/dLi/0HiU1Bw4wp/87LSV6A6hSf5+oYiJVz79WD+w8ubqAKXsPD6Z3A11VsLqh1yGl84pDhusjODA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=i55lPVS9; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="i55lPVS9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789553592;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=C6Aos2BBAKNPtzD1p6pos02H1wbUMwW8WkxKtu0zVE4=;
+	b=i55lPVS9VfFgh1jUxnRBUC38haALsXb5OIn2qKqgEh0TlgdHXhmgz7FqebIE1a3kvyTLU/
+	Y8MPaw10K7+5FbBWHvky2AXe44ZKalaJNqjtC7VoiB+1jt2oYZK488NzEtQACsR1GXnfV6
+	pmgtzoEMZy2UnfBO6O7rnVcfD85Vw4M=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-465-FJYG7LPOPjaY1p-jn2scnA-1; Wed,
+ 16 Sep 2026 06:13:05 -0400
+X-MC-Unique: FJYG7LPOPjaY1p-jn2scnA-1
+X-Mimecast-MFC-AGG-ID: FJYG7LPOPjaY1p-jn2scnA_1789553583
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 33C0D195411B;
+	Wed, 16 Sep 2026 10:13:03 +0000 (UTC)
+Received: from fedora.redhat.corp (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 3281519560AB;
+	Wed, 16 Sep 2026 10:12:58 +0000 (UTC)
+From: Jose Ignacio Tornos Martinez <jtornosm@redhat.com>
+To: kuba@kernel.org
+Cc: aleksandr.loktionov@intel.com,
+	andrew+netdev@lunn.ch,
+	anthony.l.nguyen@intel.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	horms@kernel.org,
+	jacob.e.keller@intel.com,
+	jtornosm@redhat.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	przemyslaw.kitszel@intel.com,
+	rafal.romanowski@intel.com,
+	sdf@fomichev.me,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/bridge: dw-hdmi: Fix DDC adapter leak in dw_hdmi_probe()
-Date: Wed, 16 Sep 2026 10:07:02 +0000
-Message-Id: <20260916100702.2012915-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH net 1/4] iavf: return EBUSY if reset in progress or not ready during MAC change
+Date: Wed, 16 Sep 2026 12:12:56 +0200
+Message-ID: <20260916101257.17595-1-jtornosm@redhat.com>
+In-Reply-To: <20260915092418.0aafd079@kernel.org>
+References: <20260915092418.0aafd079@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowACnrjxiaqpq9NzgBw--.30652S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw4DAFWUGw1rCr13Ww4rZrb_yoW8Gr45pF
-	ZrJa47Kr1FvF4xtayxA3W8ZasIka97JFWF9rWUAwnxZrn3XFyUZrZ8JF1aqr1UAasrWw43
-	trnYqFZ7Za4qvF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9S14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26F1j6w1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
-	xdYxBIdaVFxhVjvjDU0xZFpf9x0pRLqXQUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUMA2qqP4etCQAAsP
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-dw_hdmi_probe() takes a reference to the DDC I2C adapter specified
-through the ddc-i2c-bus property with of_get_i2c_adapter_by_node().
-All the subsequent error paths unwind through the err_res label, which
-releases the adapter with i2c_put_adapter(), except the invalid
-reg-io-width path which returns ERR_PTR(-EINVAL) directly, leaking the
-DDC adapter reference.
+Hello Jakub,
 
-Jump to the err_res label instead of returning directly so that the
-DDC adapter reference is dropped on that error path too.
+> You're not fully fixing the issue, and sprinkle in EBUSY returns to user
+> space instead of waiting. I'm afraid that below the bar.
 
-Fixes: 80e2f97968b5 ("drm: bridge: dw-hdmi: Switch to regmap for register access")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/gpu/drm/bridge/synopsys/dw-hdmi.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+The -EBUSY here is not replacing a useful wait — during reset,
+the admin queue is down and the wait would block for 2.5s on a
+non-functional queue and could still fail anyway.
 
-diff --git a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-index 0296e110ce65..1da12e4616fe 100644
---- a/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-+++ b/drivers/gpu/drm/bridge/synopsys/dw-hdmi.c
-@@ -3400,7 +3400,8 @@ struct dw_hdmi *dw_hdmi_probe(struct platform_device *pdev,
- 			break;
- 		default:
- 			dev_err(dev, "reg-io-width must be 1 or 4\n");
--			return ERR_PTR(-EINVAL);
-+			ret = -EINVAL;
-+			goto err_res;
- 		}
- 
- 		iores = platform_get_resource(pdev, IORESOURCE_MEM, 0);
--- 
-2.34.1
+This patch is preparatory for patch 3/4 which replaces the
+wait_event with a synchronous virtchnl send + poll, eliminating
+the wait under netdev_lock entirely.
+
+The early -EBUSY here is needed because the synchronous path in
+patch 3/4 must not attempt to send a virtchnl message when the VF
+is resetting or not yet initialized — the admin queue is down or
+in an undefined state, the message cannot reach the PF, and the
+poll would hold netdev_lock for up to 2.5s on a non-functional
+queue, blocking iavf_reset_task() which also needs netdev_lock
+to proceed with recovery.
+
+In short, it prevents the synchronous poll from blocking reset
+recovery by holding netdev_lock on a dead queue, without
+disrupting the existing driver reset recovery flow.
+
+I think failing fast with -EBUSY during reset/initialization is
+the correct behavior: it avoids delaying reset recovery and the
+caller can retry once the reset completes (milliseconds to
+seconds). The full fix is in patch 3/4 which carries the Fixes:
+tag and cc: stable.
+
+Without this guard, the synchronous path in patch 3/4 would wait
+for 2.5s during reset on a non-functional queue and still could
+fail with -EAGAIN, while holding netdev_lock and delaying
+recovery. The -EBUSY avoids that pointless wait.
+
+Thanks
+
+Best regards
+José Ignacio
 
