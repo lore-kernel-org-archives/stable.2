@@ -1,39 +1,41 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAFF349B44F;
-	Wed, 16 Sep 2026 15:46:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F5FC4D7943
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 15:49:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789573584; cv=none; b=DuSfHW+HWkee3cY7hWYbuQgg51X+1qOwnt2o/38xpAPqilM7H3aZNNPsPIKN3J7J2hBa7A9qDPZZxJkejJmGWV3ll+OLVjgLNyndiO3z3eadHd8vdE9oEGicu7uWB3+o8wkrSSjmEpVp1u98uXQkTINgvXDwKnO6mxIyw66K4h4=
+	t=1789573751; cv=none; b=JzaTiP+wkcV61NULFit9/BiGq/c1xpsSYV97WkFmuAH7onlkn/7duhpzPQ6bCE2i6pOhxTPZ2EJAAv43YGEfoJjeE9GGkApNmfPSEvAXOeWYYokha3vmyOmiMGl9+QeefYMFYbSehmXLOLaKSwnWygxCUIIXpUR92GijO4fzCMA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789573584; c=relaxed/simple;
-	bh=BgpNlBuN0rGTtq3tp/H7w1e+nJNCmx5Wl/E6Kdoddhc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ECfpvHF4rsiHvgi80nFMQBZ4ehQPi/6f+cf1jnbScEzGKDiBGQqrVWb34nDTanPckqK9JBS69kEmthp2OBFghPym0eAwW+LaeDNksBgkIX7OyvtuZ+ye2I3VnWkExHRDxapUf2OmtHzP/ODDB688TtSoUpFoDpYhETWaCrb4EqI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABXwz3BuapqjRBtCA--.21738S2;
-	Wed, 16 Sep 2026 23:46:09 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: airlied@gmail.com
-Cc: bcm-kernel-feedback-list@broadcom.com,
-	christian.koenig@amd.com,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	simona@ffwll.ch,
-	thellstrom@vmware.com,
-	tzimmermann@suse.de,
-	zack.rusin@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/vmwgfx: Fix tfile reference leak in ttm_base_object_init()
-Date: Wed, 16 Sep 2026 15:45:42 +0000
-Message-Id: <20260916154542.2063219-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789573751; c=relaxed/simple;
+	bh=TaUR6Z6fNAX2YTHoZsCehvSP2WL/6/0rBy5QjHZbuBM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=kEVSwxVm0hYx97OxRZaW4S8+D9AABGgDb226uPD9DdTheSYk/vIyaaHQ7Z3szkeDQiqRqndmN+dP3kxk94jRmCu9MOs/urCSWETPWZN2VDcEppH+4fYVgftQUE/micbAywMw6lbTPTMCywOAqnrPBSfg86MrmfephecyYndW5RU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ob4EtN/S; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ob4EtN/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFBA31F000FF;
+	Wed, 16 Sep 2026 15:49:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789573750;
+	bh=LtMy3yqRJMTq84OGw0c6Ap5GVBliZ3xj+PI78UE3cbc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ob4EtN/SpaBwS9GhFMnp4wTVKYX+NixHPiXiORL3q4/SvRIRLpsPrejxrk85iy+5Y
+	 1t94iFJlw3b6+J3sKomiLCuGF3NFOaCYXHdYHgq8r7OvIT4KhbmfGUkRoSh/W/Eiq6
+	 QHSiXAIr64boo2MNWrKew3JC0DPfR5zmKq9fac3qtGXsN4VUE24fTcSnZNBu0zvOGa
+	 OqxVVRQhMsrn3/xVvHtvjlYCwiRyhfvu43+RxhRRwr5ONf0L6+g2TSju++B7j4Z+yJ
+	 aIQUzjcGFiy+ujqqWDZnLMZzc9joFqj6UH4T373qsnFoX9rlaY2O/z6xMG62OK+U3m
+	 wIyAX3uuczx3g==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Takashi Iwai <tiwai@suse.de>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] ALSA: usx2y: Fix potential memory leaks
+Date: Wed, 16 Sep 2026 11:49:07 -0400
+Message-ID: <20260916154908.4167359-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091636-ultimatum-procurer-683f@gregkh>
+References: <2026091636-ultimatum-procurer-683f@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,66 +43,121 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABXwz3BuapqjRBtCA--.21738S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4fAFyxXFWDKF45CFyUZFb_yoW8WrWkpF
-	ZxXrW7tryrJr4xKwsrAa1kXr9xK3ZF9r1DKFyYv3sFvr15Zay3Crs8XayqgFWUGrs7Zr43
-	ta109r9xZFWUZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9I14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
-	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
-	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
-	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
-	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
-	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
-	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r
-	1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
-	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
-	IYCTnIWIevJa73UjIFyTuYvjfUrrWFUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozU9AwAAs9
 
-ttm_base_object_init() takes a reference on the caller's ttm_object_file
-via ttm_object_file_ref(). The reference is normally released by
-ttm_release_base() when the object's refcount drops to zero, but on the
-two error paths, idr_alloc() failure and ttm_ref_object_add() failure,
-the object is torn down by the caller without ever dropping the
-reference.
+From: Takashi Iwai <tiwai@suse.de>
 
-Drop the tfile reference with ttm_object_file_unref() on both error
-paths.
+[ Upstream commit 02d382af1c4e321acbea1c25b97ee13f52b9ac7d ]
 
-Fixes: 0b8762e997df ("drm/ttm, drm/vmwgfx: Move the lock- and object functionality to the vmwgfx driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Theoretically the initialization functions in usx2y drivers may be
+called multiple times as the driver gets initialized via hwpdep
+ioctl.  Meanwhile, those functions including memory allocations don't
+check whether they are called twice, and they forget the old
+resources, which would lead to memory leaks.
+
+This patch adds the sanity checks about the doubly initializations to
+give kernel WARNING, and returns an error in such a case.  Also, each
+allocation assures to release the resources at its error path
+properly.
+
+Link: https://lore.kernel.org/r/20210517131545.27252-7-tiwai@suse.de
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
+Stable-dep-of: 861111a14740 ("ALSA: usbusx2y: fix in04_last array size mismatch with in04_buf")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/gpu/drm/vmwgfx/ttm_object.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ sound/usb/usx2y/usbusx2y.c | 39 ++++++++++++++++++++++++++++++++------
+ 1 file changed, 33 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/gpu/drm/vmwgfx/ttm_object.c b/drivers/gpu/drm/vmwgfx/ttm_object.c
-index 2421b0dd057c..92433b60e282 100644
---- a/drivers/gpu/drm/vmwgfx/ttm_object.c
-+++ b/drivers/gpu/drm/vmwgfx/ttm_object.c
-@@ -203,8 +203,10 @@ int ttm_base_object_init(struct ttm_object_file *tfile,
- 	ret = idr_alloc(&tdev->idr, base, 1, 0, GFP_NOWAIT);
- 	spin_unlock(&tdev->object_lock);
- 	idr_preload_end();
--	if (ret < 0)
-+	if (ret < 0) {
-+		ttm_object_file_unref(&base->tfile);
- 		return ret;
-+	}
+diff --git a/sound/usb/usx2y/usbusx2y.c b/sound/usb/usx2y/usbusx2y.c
+index ac584795606c6..4d05f1997362d 100644
+--- a/sound/usb/usx2y/usbusx2y.c
++++ b/sound/usb/usx2y/usbusx2y.c
+@@ -150,6 +150,7 @@ MODULE_PARM_DESC(enable, "Enable "NAME_ALLCAPS".");
+ static int snd_usx2y_card_used[SNDRV_CARDS];
  
- 	base->handle = ret;
- 	ret = ttm_ref_object_add(tfile, base, NULL, false);
-@@ -218,6 +220,7 @@ int ttm_base_object_init(struct ttm_object_file *tfile,
- 	spin_lock(&tdev->object_lock);
- 	idr_remove(&tdev->idr, base->handle);
- 	spin_unlock(&tdev->object_lock);
-+	ttm_object_file_unref(&base->tfile);
- 	return ret;
+ static void snd_usx2y_card_private_free(struct snd_card *card);
++static void usx2y_unlinkseq(struct snd_usx2y_async_seq *s);
+ 
+ #ifdef USX2Y_NRPACKS_VARIABLE
+ int nrpacks = USX2Y_NRPACKS; /* number of packets per urb */
+@@ -258,6 +259,9 @@ int usx2y_async_seq04_init(struct usx2ydev *usx2y)
+ {
+ 	int	err = 0, i;
+ 
++	if (WARN_ON(usx2y->as04.buffer))
++		return -EBUSY;
++
+ 	usx2y->as04.buffer = kmalloc_array(URBS_ASYNC_SEQ,
+ 					   URB_DATA_LEN_ASYNC_SEQ, GFP_KERNEL);
+ 	if (!usx2y->as04.buffer) {
+@@ -278,27 +282,47 @@ int usx2y_async_seq04_init(struct usx2ydev *usx2y)
+ 				break;
+ 		}
+ 	}
++	if (err)
++		usx2y_unlinkseq(&usx2y->as04);
+ 	return err;
  }
  
+ int usx2y_in04_init(struct usx2ydev *usx2y)
+ {
++	int err;
++
++	if (WARN_ON(usx2y->in04_urb))
++		return -EBUSY;
++
+ 	usx2y->in04_urb = usb_alloc_urb(0, GFP_KERNEL);
+-	if (!usx2y->in04_urb)
+-		return -ENOMEM;
++	if (!usx2y->in04_urb) {
++		err = -ENOMEM;
++		goto error;
++	}
+ 
+ 	usx2y->in04_buf = kmalloc(21, GFP_KERNEL);
+-	if (!usx2y->in04_buf)
+-		return -ENOMEM;
++	if (!usx2y->in04_buf) {
++		err = -ENOMEM;
++		goto error;
++	}
+ 
+ 	init_waitqueue_head(&usx2y->in04_wait_queue);
+ 	usb_fill_int_urb(usx2y->in04_urb, usx2y->dev, usb_rcvintpipe(usx2y->dev, 0x4),
+ 			 usx2y->in04_buf, 21,
+ 			 i_usx2y_in04_int, usx2y,
+ 			 10);
+-	if (usb_urb_ep_type_check(usx2y->in04_urb))
+-		return -EINVAL;
++	if (usb_urb_ep_type_check(usx2y->in04_urb)) {
++		err = -EINVAL;
++		goto error;
++	}
+ 	return usb_submit_urb(usx2y->in04_urb, GFP_KERNEL);
++
++ error:
++	kfree(usx2y->in04_buf);
++	usb_free_urb(usx2y->in04_urb);
++	usx2y->in04_buf = NULL;
++	usx2y->in04_urb = NULL;
++	return err;
+ }
+ 
+ static void usx2y_unlinkseq(struct snd_usx2y_async_seq *s)
+@@ -306,11 +330,14 @@ static void usx2y_unlinkseq(struct snd_usx2y_async_seq *s)
+ 	int	i;
+ 
+ 	for (i = 0; i < URBS_ASYNC_SEQ; ++i) {
++		if (!s->urb[i])
++			continue;
+ 		usb_kill_urb(s->urb[i]);
+ 		usb_free_urb(s->urb[i]);
+ 		s->urb[i] = NULL;
+ 	}
+ 	kfree(s->buffer);
++	s->buffer = NULL;
+ }
+ 
+ static const struct usb_device_id snd_usx2y_usb_id_table[] = {
 -- 
-2.34.1
+2.53.0
 
