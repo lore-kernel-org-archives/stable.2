@@ -1,162 +1,133 @@
-Received: from mta0.migadu.com (out-83.mta0.migadu.com [91.218.175.83])
+Received: from mail-pg1-f196.google.com (mail-pg1-f196.google.com [209.85.215.196])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7958E370D77
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 06:00:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.83
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE6BB20D4FF
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 06:01:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.215.196
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789538433; cv=none; b=YOh067H0tfALgdGwFFu3NbyoJkBQ+gQkcKnC6fmtEpdE+WIQpozwOgSjAMPpuB2xmrUTZYtsuM5Qfc6/UH5aYmqRIEPXeFEyYwpAM3/+FPHSZsDGdtWxcJQcKKvi6I4uCHpY1dPL3fBECX3e/sEwHGUxbfV3YvkkPHM2yZbwuQ4=
+	t=1789538500; cv=none; b=PG8+dHsK7OdX9uJRwrroDHSdUGXbBHDiilcMtsXTwUhwFk3f9LUq1Yn3iJiN6XzFYxkj67xL6HVh0vcXNk1WAJk1H8DO5b0Kme+yOkNF+2bGGqOMhADq+pou8aABc/519baCcs0CCJySTUXvi5/CvKbCnRfmFCEtM0LUK/NT8zY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789538433; c=relaxed/simple;
-	bh=lkKO+hhwFT4C9KkIH3ogidkHvWCUt7zPEkugIUZmm7w=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=TMG3ZI+cA3zGSVeiPuI7txTcmDnbo2EKA/DGI9PARfa8tLS85CI+99S8KfRr0lYbAYKNWkd5niMbXTnmG4JjO7EHV6JtZjzD0Ah8wNcOWLNKSXaVO7FugPO6EhkmIS8FSt159DfAfdzoTCScaMmudMO654UrQ+sb9TjOqtFZt1c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=njjEEzTE; arc=none smtp.client-ip=91.218.175.83
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789538500; c=relaxed/simple;
+	bh=2Orkx/0NqOZ8km/RXqu4dfyHpd6v/U3IDJ3+BOniJQ0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Ra8PD94XVdqulUH+ZYUcSIT2F3P57STJHwXpn0SnftZbmwBd1TXoqOu1klvm+jTLmpaw+gc9qwGcn3DuXvXJG4G/3+gKueEeRvnzyxrRwGZ0bnNulXAZZ/Igtu3g3fIq2K17r5QccDf5ALG1Fkd0RwrIo9bBkvZuHOgctnoBfVo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=flLMuHXS; arc=none smtp.client-ip=209.85.215.196
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="njjEEzTE"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=lkKO+hhwFT4C9KkIH3ogidkHvWCUt7zPEkugIUZmm7w=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789538428; v=1; x=1790143228;
- b=njjEEzTEcVy30RwhwiXNrWhjxRE1Rc3bAZJXeXx3LrWXegx/4oMKn3rf4Uev10jIoRlLd/m2
- 38coU2jNIJ9yEThcWdxCuD+J0Ch5rI71N3+gk4R+uNmk+cRFEYZhBC3uK7uVj04fIecQG0WM+m1
- Cmy+muqUxuvD62g2JfuhjlvU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 39cd2895c6e16674;
-	Wed, 16 Sep 2026 06:00:12 +0000
-X-Mizu-Trace-ID: 39cd2895c6e16674
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
-Date: Wed, 16 Sep 2026 14:01:06 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="flLMuHXS"
+Received: by mail-pg1-f196.google.com with SMTP id 41be03b00d2f7-cbe6295f05bso1215787a12.1
+        for <stable@vger.kernel.org>; Tue, 15 Sep 2026 23:01:38 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789538498; x=1790143298; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=yJ6nkhLgAEtz5X/dBEi4fkLEohVcqre5Sm/6ZumIFn8=;
+        b=flLMuHXSOD/zg1Vapzhp9UKzusQ8Ge4s9ybg+vkIUE+t246JiqJKz+nQaBimQiTF4q
+         QXvZNP5w9szjfNzLbHBK3EqW3dsfQs3BTn/K+bkcil8hFnsJhUfQVwYppUQj413gEqvL
+         EJn2yR907VYDbomAFjMZj8lHT64TB726KX7D2o52GemR9c/D/9Z8aaMLvaStqLHfp97H
+         +JtxuaRfvE9PCu9YVT0ron2uvRRNLOW0XWMDc3bItVGvEtrPbL+y7rxlwFvX2AVCSF7J
+         P4eGxNnvnTJu/VddevjruktryLwJZqDg62oPl+lv/nRpRiA7ySD8hvF3i3p6K9P1dxBM
+         KPhA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789538498; x=1790143298;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=yJ6nkhLgAEtz5X/dBEi4fkLEohVcqre5Sm/6ZumIFn8=;
+        b=jxU7xivm2g2bt4Ou6LRjXC3JRG5oS/b+5JyuJ9TBn6viQ2GhVsAMfTWyae7A5Dk8tN
+         8Y1T5PaF3Xmihwn5p5paIN9a3eJ3LgiD15Je4tNWCWG+Kv9bxGZaR3S1D3ERLWwo2Ziv
+         memUkfHq83mdqos8Uonz1hjVxpUwj+3/GjsmP18VbgxuMwB48OXhi7sEJE5FwTPyKsWP
+         gSYs8hAZO3UPDEGn1L4W7yk0EI+/0gpZ/8GkGdzZIFTp/Oe2Q96ShQGICWNYCLm0gp7A
+         daKyCAWKRzvteW5jjjvAVDESFKzxdmZaI7TP1A50b1bZZs7XEIsg+FS7qkcegwTkDVJ2
+         qX6Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxdk9HJoMEuP0zFzukctYaAOi5oiaQq0r8Qb5xmCpbRw4DRJG7l6J9a2BKW9muAkmvzd4kvI+s=@vger.kernel.org
+X-Gm-Message-State: AFuF++ka00NAyjL2oHyEf5h8ouim778GC3eUDuWIldX49qIeQ7ul8lTZ
+	LeSDh8bBfhQDr41FGyUQfVB2FaVx3dUcClc7//Hb/0zW97FNaCo/JuUG
+X-Gm-Gg: AYBFou0a8rHPcHLChj9cmtJ0uq9wCmS0VMJdeGRMXB5cyqGRV5d67lULlwa7/dIbtXY
+	R7/ZVJ4dgPLEDBOETDHwAmr8X4mur6QZon8gNHPmX+hOwEXqA81vvbQuFt09ipA5AplbM6H42Pk
+	xEbxGAXCKl9et+6k6u1KP2bUerjWDOrmrIfWPjE06PGalNqjG0RGREvWLq0VG1MKqZysv559Fxp
+	YqyZLrugb8HKQwP28Uk3Nar64P17Nz8D32V2qgox0c3d+AB8YFTK2qaQfQRrDNTDAtmA3JF0Y53
+	2HnsAwpPcSzDZnEqNdm/0rXxNZ00dIN6DBfNfmnq8VQZZG/YbkaiXRBPnTWIbMU0PxNm+8RdZAt
+	qtuIXmxKkGpuEp5GS3SC8Uq6SUtXosBzAfcfmpAd0qD3sceJvMRST0SwHKhL/ursAdvAFbUomZA
+	lCvOsHX8a7N9aUBAKc/hb6I+Ezmgeypxg6k1FLP0tyrf8dfq3AKYQQU04aIn2taCddxgPu/bb3O
+	yoOfVEhJfvWJw7c7/A=
+X-Received: by 2002:a17:90b:5706:b0:39e:1a96:bbb0 with SMTP id 98e67ed59e1d1-39e1a96d303mr2976100a91.29.1789538497871;
+        Tue, 15 Sep 2026 23:01:37 -0700 (PDT)
+Received: from DESKTOP-M0MLFVC.localdomain ([165.99.41.153])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5aa1194sm5150929eec.14.2026.09.15.23.01.30
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Tue, 15 Sep 2026 23:01:37 -0700 (PDT)
+From: Shehryar Ahmad <shehryar.amd@gmail.com>
+To: linux-iio@vger.kernel.org,
+	linux@analog.com,
+	linux-kernel@vger.kernel.org
+Cc: Shehryar Ahmad <shehryar.amd@gmail.com>,
+	stable@vger.kernel.org,
+	=?UTF-8?q?Nuno=20S=C3=A1?= <nuno.sa@analog.com>,
+	Michael Hennerich <Michael.Hennerich@analog.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	David Lechner <dlechner@baylibre.com>,
+	Andy Shevchenko <andy@kernel.org>
+Subject: [PATCH v3 1/7] iio: accel: adis16201: fix channel order for buffer mode
+Date: Wed, 16 Sep 2026 10:55:31 +0500
+Message-ID: <20260916055547.15206-2-shehryar.amd@gmail.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260916055547.15206-1-shehryar.amd@gmail.com>
+References: <20260916055547.15206-1-shehryar.amd@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-3-hao.ge@linux.dev>
- <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-Hi Suren
+Reshuffle adis16201_channels to ascending scan_index order to avoid data
+corruption during IIO core demultiplexing since the ADIS driver builds
+the buffer in channel array order, while the IIO core demultiplexes it
+in scan_index order.
 
-Thanks for you review.
+This changes the raw buffer byte layout for existing adis16201 users
+reading buffered data directly.
 
-On 2026/9/16 05:09, Suren Baghdasaryan wrote:
-> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> The reservation is already stored in the maple tree when
->> vm_module_tags_populate() fails. A failed load never unloads the
->> module, so nothing releases the entry. Release it and roll
->> module_tags.size back. Without the rollback a concurrent load that
->> already passed needs_section_mem() can reuse the freed gap, skip
->> vm_module_tags_populate() and write to unmapped memory.
->>
->> vmap_pages_range() may have installed some PTEs before failing. A
->> retry to populate the same range would BUG on them, so undo them,
->> but only if vmap actually ran.
->>
->> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
-> 
-> If a patch fixes two other patches, it likely needs to be split so
-> that each part fixes one patch only. But read on please. I'm not sure
-> if one of the fixes is correct.
->
+Fixes: 591298e54cea ("Staging: iio: accel: adis16201: Move adis16201 driver out of staging")
+Cc: stable@vger.kernel.org
+Signed-off-by: Shehryar Ahmad <shehryar.amd@gmail.com>
+---
+ drivers/iio/accel/adis16201.c | 10 +++++-----
+ 1 file changed, 5 insertions(+), 5 deletions(-)
 
-Kept them in one patch because they only make sense together.
+diff --git a/drivers/iio/accel/adis16201.c b/drivers/iio/accel/adis16201.c
+index ba0f97944..834714fb9 100644
+--- a/drivers/iio/accel/adis16201.c
++++ b/drivers/iio/accel/adis16201.c
+@@ -202,19 +202,19 @@ static int adis16201_write_raw(struct iio_dev *indio_dev,
+ }
+ 
+ static const struct iio_chan_spec adis16201_channels[] = {
+-	ADIS_SUPPLY_CHAN(ADIS16201_SUPPLY_OUT_REG, ADIS16201_SCAN_SUPPLY, 0,
+-			 12),
+-	ADIS_TEMP_CHAN(ADIS16201_TEMP_OUT_REG, ADIS16201_SCAN_TEMP, 0, 12),
+ 	ADIS_ACCEL_CHAN(X, ADIS16201_XACCL_OUT_REG, ADIS16201_SCAN_ACC_X,
+ 			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
+ 	ADIS_ACCEL_CHAN(Y, ADIS16201_YACCL_OUT_REG, ADIS16201_SCAN_ACC_Y,
+ 			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 14),
+-	ADIS_AUX_ADC_CHAN(ADIS16201_AUX_ADC_REG, ADIS16201_SCAN_AUX_ADC, 0, 12),
+ 	ADIS_INCLI_CHAN(X, ADIS16201_XINCL_OUT_REG, ADIS16201_SCAN_INCLI_X,
+ 			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 12),
+ 	ADIS_INCLI_CHAN(Y, ADIS16201_YINCL_OUT_REG, ADIS16201_SCAN_INCLI_Y,
+ 			BIT(IIO_CHAN_INFO_CALIBBIAS), 0, 12),
+-	IIO_CHAN_SOFT_TIMESTAMP(7)
++	ADIS_SUPPLY_CHAN(ADIS16201_SUPPLY_OUT_REG, ADIS16201_SCAN_SUPPLY, 0,
++			 12),
++	ADIS_AUX_ADC_CHAN(ADIS16201_AUX_ADC_REG, ADIS16201_SCAN_AUX_ADC, 0, 12),
++	ADIS_TEMP_CHAN(ADIS16201_TEMP_OUT_REG, ADIS16201_SCAN_TEMP, 0, 12),
++	IIO_CHAN_SOFT_TIMESTAMP(7),
+ };
+ 
+ static const struct iio_info adis16201_info = {
+-- 
+2.43.0
 
-After a failed populate the reservation is released and the
-size rolled back, so the next load takes the same gap and calls
-vm_module_tags_populate() again, and that retry would trip over
-the PTEs the failed vmap left behind.
-
-Without the rollback a load that already passed needs_section_mem()
-just reuses the gap, skips populate and writes to unmapped memory.
-So splitting them leaves each half broken.                                   
-
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>  mm/alloc_tag.c | 10 ++++++++++
->>  1 file changed, 10 insertions(+)
->>
->> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->> index 2070e682fe10..95ddf5b743d0 100644
->> --- a/mm/alloc_tag.c
->> +++ b/mm/alloc_tag.c
->> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
->>                                      next_page, PAGE_SHIFT) < 0) {
->>                         release_pages_arg arg = { .pages = next_page };
->>
->> +                       /*
->> +                        * vmap_pages_range() only runs once all pages were
->> +                        * allocated, and it may have installed some mappings
->> +                        * before failing. Undo them.
-> 
-> If vmap_pages_range() failed to map the range, why should we need to
-> undo it? If it indeed leaves some partial mapping when failing then I
-> would argue that vmap_pages_range() should be undoing these partial
-> mappings itself before returning the error.
->
-Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
-pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
-https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
-so I did the same here.
-
-If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
-be a relatively large change, and we would need to consider many more cases. So I think we keep
-the current behaviour for now.
-
-Thanks
-Best Regards
-Hao
-
->> +                        */
->> +                       if (nr == more_pages)
->> +                               vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
->>                         /* Clean up and error out */
->>                         release_pages(arg, nr);
->>                         return -ENOMEM;
->> @@ -947,6 +954,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
->>                 return ret;
->>
->>         if (module_tags.size < offset + size) {
->> +               unsigned long prev_size = module_tags.size;
->>                 int grow_res;
->>
->>                 module_tags.size = offset + size;
->> @@ -961,6 +969,8 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
->>                         shutdown_mem_profiling(true);
->>                         pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
->>                                mod->name);
->> +                       release_module_tags(mod, false);
->> +                       module_tags.size = prev_size;
-> 
-> Yes, this one is a valid fix. It fixes 0f9b685626da commit.
-> 
->>                         return ERR_PTR(grow_res);
->>                 }
->>         }
->> --
->> 2.25.1
->>
