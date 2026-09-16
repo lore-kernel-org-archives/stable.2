@@ -1,219 +1,283 @@
-Received: from mgamail.intel.com (mgamail.intel.com [198.175.65.18])
+Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D34FF4E66A7;
-	Wed, 16 Sep 2026 10:33:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=198.175.65.18
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789554843; cv=fail; b=YImSh6i/sWptPK3qHoKBjC4IfVIE86cTOsKf1J2yXCPFV1rJqff2ztF2wDQMzb/qlSyCnTcIKOh9jOaqyjYrD1QjJ0eaFEdeu+hqtIYOeFNxpVpw8mAAF65abCrmLqo3NaJZRRVVSW5sohSiOy7C9ltdGYpy0fX/of8eahIzx80=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789554843; c=relaxed/simple;
-	bh=XGb9OccIOxQr8Z9kxRNI/bVNR4M6hE7Cdb1wVK3k6Sg=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=lOTpY6QIWR5aapn2C8iv9YrIUbhLn93QMvwN/A50ZussJLbY1jr2J6J9kwNhji/TXv3IbXMU8WEd1eE4MZBzfc5H45D90kaGSIGi2ZsZ1VX3ZDZ/r3spuMjWlgD0kILJq10xUtIZuHTMaMwuKQaMH3uUVeMJmuAUhtajSj9sLyg=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=WipH0xKX; arc=fail smtp.client-ip=198.175.65.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F8494EBAC5;
+	Wed, 16 Sep 2026 10:36:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789555037; cv=none; b=TpQvlXEKreO5gpqG0cnM1CGl1coLdBgjYxuPSKDobDo4Qh1q3iiT1kyUfougtnvEOn8bSlAHmAATM12U3LuhLnQ3HO6xnQgx2vIETziEZ2xlpWkhddPYLNExxJLrfkLt99HBUdsPRnAhaSSAC1toL6oNij5Mk9un9VoOk+VGyZ0=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789555037; c=relaxed/simple;
+	bh=htZb+zvuG3SjVYb/M7mKBiWgLdB9QbIDhqQ2LfAalJ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jM5zne9hqFDqTH7PgYZTb/oIR3HMBqV03h6DfurpfMsEyu4Y4Hf1vYChc93B4YSajXDFSw6k9vj3vxo1ZVaHlIwNXkIA/FkK6pugJg3LEzRCMYJ0bU06iRs4RpnvEYpRgQKhiElDY1w6j+MfBd8OxbZJd+2LIUVZ5CyCkbFJw7c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=5PhbG/h9; arc=none smtp.client-ip=52.59.177.22
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="WipH0xKX"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789554830; x=1821090830;
-  h=from:to:cc:subject:date:message-id:references:
-   in-reply-to:content-transfer-encoding:mime-version;
-  bh=XGb9OccIOxQr8Z9kxRNI/bVNR4M6hE7Cdb1wVK3k6Sg=;
-  b=WipH0xKXynz/khs5iR4nGCJbSgxUOjz5yuhmVej+Hk9buiNLxphcRpdi
-   i/qlrTU2/zdekGRKGgSIo7a8SL/Y4xjk/J8hR1SM+vs6wwUHNnWAZ3coo
-   sW0FHivZuYs0QseQfizacuf5iJbs7eS9SDvX8i1xmzrXyYFJ9v1HXoqmk
-   jXP16DGHl08oot4QEorfMdThk6F1l6s10Io01ftNqJ8J0vByTJFiBcLav
-   B+urSwFt40XWgr8yoYYeQZGar5FoLwaI0SaMl4B8JnGOIRSG1NQT4mZ5O
-   NXmm5VuTlL5ja0El32rp8zl/ZGxFNTpsOHh34CDglyxW4ppd9+yjFJ9Iw
-   g==;
-X-CSE-ConnectionGUID: lWH6jx8gTLqN6CV88R+ZJQ==
-X-CSE-MsgGUID: Y/zEDOZYSLyG/HVbJQA/Xw==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89972669"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89972669"
-Received: from fmviesa003.fm.intel.com ([10.60.135.143])
-  by orvoesa110.jf.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:33:46 -0700
-X-CSE-ConnectionGUID: EY2pzqCYShefgioaikF+RA==
-X-CSE-MsgGUID: WeGV7ymJQ9a25YBKHDVZPw==
-X-ExtLoop1: 1
-Received: from fmsmsx903.amr.corp.intel.com ([10.18.126.92])
-  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 03:33:46 -0700
-Received: from FMSMSX903.amr.corp.intel.com (10.18.126.92) by
- fmsmsx903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 03:33:45 -0700
-Received: from fmsedg903.ED.cps.intel.com (10.1.192.145) by
- FMSMSX903.amr.corp.intel.com (10.18.126.92) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46 via Frontend Transport; Wed, 16 Sep 2026 03:33:45 -0700
-Received: from BN1PR04CU002.outbound.protection.outlook.com (52.101.56.12) by
- edgegateway.intel.com (192.55.55.83) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.46; Wed, 16 Sep 2026 03:33:43 -0700
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=huXCPs6HoPkbdkW6Jo2dAqF9hmxz8oZLsWVHxAMIvolrC33/fo2fnrp4yv0aeGGQB11EF4RfJy00hpM19qd5TyFFKxo3RB8RjvAlqHdD3sc7sPbTs03ISLfKaSbl7wjOulrS/Xuc0xOnhep7B5oyWvX3025R5z1/MyTwRwGXuKTaVjJir9my+euTbOw7t87rc00XqhxQ+DJj6wAmxI/ggJG71GNm/c2J+GmTfG4tJy6dkfZSEKxDsPUnpAiWArkurrtzJvZKH5I+BXiLgxfnevYxadcxvelRRxr+/dw8qAkCXns1wC/skw6i+yvG+X9Or+sH9GSbZubfFnMuBttPvQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=kQ4qn0t7+V9jJKC+upXe/wp4L00QB9MWQFavaCiD1jo=;
- b=tJkrEcT4KUZomeIG1m4FXlJS7n1R6akDmrznNkU2q8BrtXLQROnD9Bsu3/lolBeRZ57Tjg+AYnvwHpKOIz67q/cNgtnpI7JB8yVH7KoHj/Y0tIv71dqtTDRBSIG4hDJ0faMAKirTwQHazGZ3svB5fspF3PikieAZiNJA1cBw8ar761W99lzEtSREX36SupOjQEFqQIgIIVPtRc7Sm6LGcCtUzN7OTuBUUkAPB0FDYWf2O9qwe2LK2n1aZGO6KJ5Qv5+x4Ia4tJZc+0lMTB7JjC498dUE49CzlD+8ZWlqdI1ZK6z5A7Z7vZiXsvX3r/ufvMNOWUn9jnwmdi2XenWpxg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
- dkim=pass header.d=intel.com; arc=none
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
- by IA3PR11MB9422.namprd11.prod.outlook.com (2603:10b6:208:57e::20) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Wed, 16 Sep
- 2026 10:33:41 +0000
-Received: from IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
- ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0406.007; Wed, 16 Sep 2026
- 10:33:41 +0000
-From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>, Andrew Lunn
-	<andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
-	<pabeni@redhat.com>, Petr Machata <petrm@nvidia.com>, "Keller, Jacob E"
-	<jacob.e.keller@intel.com>, Jijie Shao <shaojijie@huawei.com>,
-	=?iso-8859-1?Q?Uwe_Kleine-K=F6nig_=28The_Capable_Hub=29?=
-	<u.kleine-koenig@baylibre.com>, Ruoyu Wang <ruoyuw560@gmail.com>, "Jakub
- Raczynski" <j.raczynski@samsung.com>, "netdev@vger.kernel.org"
-	<netdev@vger.kernel.org>, "linux-kernel@vger.kernel.org"
-	<linux-kernel@vger.kernel.org>
-CC: "stable@vger.kernel.org" <stable@vger.kernel.org>
-Subject: RE: [PATCH] net: sungem: disable PCI device on remove
-Thread-Topic: [PATCH] net: sungem: disable PCI device on remove
-Thread-Index: AQHdRaOcMZDefrI7fkuZVXTpmUJ/l7bQ/Oug
-Date: Wed, 16 Sep 2026 10:33:40 +0000
-Message-ID: <IA3PR11MB8986AAE7C62816D4C14ABDC8E5B92@IA3PR11MB8986.namprd11.prod.outlook.com>
-References: <20260916055913.2910349-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260916055913.2910349-1-lgs201920130244@gmail.com>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=intel.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|IA3PR11MB9422:EE_
-x-ms-office365-filtering-correlation-id: 8ccef5ff-4dc2-4895-78ed-08df13ddf9d7
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam: BCL:0;ARA:13230040|376014|7416014|23010399003|1800799024|366016|38070700021|921020|11063799006|56012099006|10067099003|5023799004|18002099003|22082099003;
-x-microsoft-antispam-message-info: qwTb3VObX5SP7vtpUF0SISpzM2Qw45to0YFfoBNLPa1UQBoSuQLd+OsTpW4k4FNRXXqxC6SZ5YcoFyg+Eblr1p9eojBXeCndCiJEwngJPCSTnBsGCMtWKb9Q9bc3IQzuTG8Ekxl5hjcvCprn+BGk5Yge+FEgLC316PvqtxPpSUgcsfA+HpGglXkG3aU5I2YMCenrDOAlCx5GSL4HipZg30RhWjYbs2pVncbFwx4lzVK7fqEqNY+k0I/xwieLm4aG14+Lt5z9t+0YcDC73fTnwK0nzQDQ1g4HqgAPGKwD5gJ2cWHHoNMW6dnHRnbwkJBzJdSMNfXh/NLcHc6/hXKYl4Gz8hO/IeDPmoUFXfoQnxodJteenWPCQbhTNWCNLleZEzcZCgwDvBOdMcY1tWL2zTboGsdhu87qkSYjPJhG8eOippSx09ef24e1i+zfA2fbLCzA/LHCeNEyXc6GVedQ2DD+4cXrSj0cxsO5l2XYrMoyPyPPBoD7o1/ny1UT6MvLGwvdKmMlGdGLXcMWrBNO40doMZ/DPMip/XNRmxYsnpVKOifiEoKXC6evm/DUaKSVWbLzuZUm8f3tSWRH10X5SuddGsBWt/kODT7PFSJSxP+JdtfX5F8Riv+QzxpppfnWTndK9dDqxIyXUpwkNSBZLpKsRM1ua4TyfeiS9iDQjJrgtCTj2tYsizPvizs7QS5COM97s/GlAPn7TCVWI23VlT2agD7M2jFEC1zPVOA+Ccq6DG3GXtNCJ1ayOLwiL7Ev
-x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(376014)(7416014)(23010399003)(1800799024)(366016)(38070700021)(921020)(11063799006)(56012099006)(10067099003)(5023799004)(18002099003)(22082099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0: =?iso-8859-1?Q?LrH4HLPXDvW/a6b5nvufqliU1lvjEXNsX5hdn55nW4+HK+gm9Q7/4J16JN?=
- =?iso-8859-1?Q?ItgfXhZOJhD7p8pOAjMpD/1+GMyF8yKIyCObNmLyM+IfdjDQjOqyxA+xSe?=
- =?iso-8859-1?Q?3zMnv8/nIV36/gebPc+BvbFedyLGg8UhSKmDKjNppu6kBvTH13ljrUR+Wq?=
- =?iso-8859-1?Q?9YkR2wKjBeHSIOdTG55QT1JBZMf5Ltb/WsHSoPEa+eVoCKVZH76CDPlDJ7?=
- =?iso-8859-1?Q?BJC2YaZBXUw4jM+iYG/B9nJDS4lmcuACpo0t5PmHIjOd1JcqDPqDER0zqx?=
- =?iso-8859-1?Q?CQJpdLj9OTdPkShEAQIJLYGUYhKKBMLxZQ+nLzt6A6p5LWflkP/KkYhSme?=
- =?iso-8859-1?Q?ML2sL9kOYyfsnSOlXXAOh/c4m2Ky6JjlMJ5wN5pQvcFE8NCB1R+h1EVMrM?=
- =?iso-8859-1?Q?iE0AnKQL3XwczXemwPauP96uz6bzSooCeRsKpdf76a9woesljnFxd4FVX3?=
- =?iso-8859-1?Q?mHIZuYp+iixKlvvC69fRwsRJi9zZbiYgs2dcG68BIyIBTTySJ+fhulER+8?=
- =?iso-8859-1?Q?bxka62DtJU9DjkLIII4SxQLcRr3gUfCKUIeCkBCxthkJ6a/sd8aM4jR9TY?=
- =?iso-8859-1?Q?IdPr23EFEJ7qPxGl4SvsVZd7Djtur/xJ+p9yTgfR6Lz00EtpGsjysu0koZ?=
- =?iso-8859-1?Q?uzEVytLpDiqf7wTLgmHSn1y0bmIO2qh0oWHsJ4VddD1/iDE601ttiedeaN?=
- =?iso-8859-1?Q?DUwQNXdwJI9OwnCDDHxTn7FIIgNvZMgAZg97sor+SGJpYgfQJ8oAA0AAqO?=
- =?iso-8859-1?Q?+/gy/Hb0xxqDCgGkv7eyEU4yYFSwptpF7coaiBcxRjT1szPo8MZNdU6Nef?=
- =?iso-8859-1?Q?mSgOICUSl44UIVgdGc/53Yi1Qjx0ZzpOBcpjoqsxb222/+D8wJtd03Af3Y?=
- =?iso-8859-1?Q?qReITuu2Iou5b242x/vgYGv8mY/P+2duCKZ8amN97MFqVGxdU3eUJqgt2Q?=
- =?iso-8859-1?Q?5nKzQylvW/bkgI8jcqoAC70yaediQBxmURa1hka9cTB6VkiX+U8J3nf4k4?=
- =?iso-8859-1?Q?F/ZVN1t42J43tmakfR3/IA9DBAmgBA/q3NLgwty0g4mygO4BgRztscpwEN?=
- =?iso-8859-1?Q?Gsio5N91nSqfcANnH10ElkeC2XVjJXllG/JUg02z80kFzqsI0ZDB7jNSQD?=
- =?iso-8859-1?Q?2Gj6i7I1QROBR/NQIv7NzlTq1Bxn4ao+Bq0/y/SfaazMaV2yd6tf0M0C6Y?=
- =?iso-8859-1?Q?T7t/7q9D0edrkMLaEDhIeLrBzLmdekLBeRiwg3b8CuosRQ/PaJuqCq7OY0?=
- =?iso-8859-1?Q?GI/q+s0HFloarXyPCKBv4E8NwYG0R+taJLPOHzU2yv+GVENK1lAb4u/A5q?=
- =?iso-8859-1?Q?FdS86sbxAL0kWL+BW9BgEXSq7d0flIUA6xJmbXKTnhq2rfQ1DjAMzGzm+Q?=
- =?iso-8859-1?Q?La0zi2Ezy44j9tVbc7HRd7a4N8+qjsybW46KUqTpHZLHp4IqOJHkrsdG5v?=
- =?iso-8859-1?Q?ZXR1zLbKHefGcntryc4F8AAKk9jbRGbpeEJJZ6fvuwQN+2MC4YqZQb+q42?=
- =?iso-8859-1?Q?Ud/Hw8qUEtXkEpzg5XJQ+uwTAJ+MdkFL2J8YiatsQHnSNXCIhElZCcSDz/?=
- =?iso-8859-1?Q?65dCdcQj8U0Ex3r3jX0iEvmjH8phKOorbGN/SvtbR0R7KCpjiGFRlxW1eh?=
- =?iso-8859-1?Q?jsjtTrtnvK5hB+v5J6oPdWX1ej7rxsPrM4vQm4YFBjEIFbbR1sJTWpsDIr?=
- =?iso-8859-1?Q?m3BrnTXo7mxXjzJMAqFyfSmyNFq8kjqIJwiWXEQrwgQBYdZbT/loexphBe?=
- =?iso-8859-1?Q?8sBqDkdn4j/p0tJJ5liTy6E3nUmn+Ji8TQB8Dpnfa0o9Y6LpmMg1bNxCTb?=
- =?iso-8859-1?Q?49978Fum1rjZGEJKfkcN9BBGUGkJbig=3D?=
-Content-Type: text/plain; charset="iso-8859-1"
-Content-Transfer-Encoding: quoted-printable
+	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="5PhbG/h9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
+	s=iohv2404; t=1789554886;
+	bh=iGkrWYHcQ7YXpnapjSfUIb99gIQOCYTG6EaseNLzoLY=;
+	h=From:To:Subject:Date:Message-ID:MIME-Version;
+	b=5PhbG/h9m8yNhOGhziTJqdlKSi6AT+TRm00d4s+owSc2H4r1KtxlIKkL+lKuRU5Da
+	 Hxp9NMRPxXwkIvq/Pt27jGan1n5xi3GpOafSkF/hn3yatQ3dqniJ3xZSoXruj2zPZe
+	 WCntdOfSqfCevSIYuYp0KNOryhV6aGMi8ehaqV6E=
+X-QQ-mid: esmtpsz10t1789554879t9489ae65
+X-QQ-Originating-IP: 8xkushD0enGkZitgOZg4YxLoUcCT5tnnAzqrZTZXvKQ=
+Received: from hepeiyang-vm.wu.lxd ( [36.152.24.145])
+	by bizesmtp.qq.com (ESMTP) with 
+	id ; Wed, 16 Sep 2026 18:34:37 +0800 (CST)
+X-QQ-SSF: 0000000000000000000000000000000
+X-QQ-GoodBg: 0
+X-BIZMAIL-ID: 407733813548067960
+EX-QQ-RecipientCnt: 11
+From: Peiyang He <peiyang_he@smail.nju.edu.cn>
+To: lyude@redhat.com,
+	dakr@kernel.org,
+	dri-devel@lists.freedesktop.org,
+	nouveau@lists.freedesktop.org
+Cc: linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	bskeggs@redhat.com,
+	maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	Peiyang He <peiyang_he@smail.nju.edu.cn>
+Subject: [PATCH] drm/nouveau: fix double-free in nvif_vmm_dtor
+Date: Wed, 16 Sep 2026 18:31:38 +0800
+Message-ID: <03BA723D9E5FF725+20260916103138.2651605-1-peiyang_he@smail.nju.edu.cn>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Exchange-RoutingPolicyChecked: SHRV7NDsZZzB1aGZ/Cacok4YHaVwfWI8Fn0L20WGhq5V6E9YD2/UtStw93Df3yxqHCMTvJqw+SNTU81hB8ZMKr6djkR7zZg6yilaW9lZFcyJ5ZIXmrlvVrIiymtZt3K/K/sJGi/JOggMGD1UBQM6Gi6Ajba8S25vl3SOVGKbX40pgPNidpyVMgiXlCC3yi2BlE510CdCjvpR/GDE/9jccOKxWl7R/fVDD1PZloFIBv9YqX+5WPe1dUuTvTLsNmXsrFwmVqYVF8a02ATzNrSZx/24CGbVDEV7n4Y8qAw1wXf9y3T3PyXrRGsDI5fIam30c0kqswoLg2X5+IiU6r+rfg==
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 8ccef5ff-4dc2-4895-78ed-08df13ddf9d7
-X-MS-Exchange-CrossTenant-originalarrivaltime: 16 Sep 2026 10:33:40.9618
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: QKcqrJpYZVBZjklDRBQ6SpvlvXlE4JO214BGqplNyuXaBikqMccuXBLRCbbVKq7E/xU+njwIXFVO5pCLVAlvYZAsRG+1qb8JkfxbOR4VvMA=
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: IA3PR11MB9422
-X-OriginatorOrg: intel.com
+Content-Transfer-Encoding: 8bit
+X-QQ-SENDSIZE: 520
+Feedback-ID: esmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
+X-QQ-XMAILINFO: MLbAtvpy5B1PS9nBgmub673JDrktkjr9RGqU+CGazrHbwf2U6qUzyb/T
+	kppCYbGioqeJbLsXFUkRx9bEAkELzjlhE1G+OHwEnhK24SpseQ6IkIi/n9DWcvsuEfZGzG9
+	x1+D8KcLdI1refxJ85a0C3J8WtKvaBwyBWfA+ynCkXK/FLTYcfXX542pgOIQAK62B+WpiKp
+	GjrQZYkfbJMgAuel9qocOrjqfC7EJplRbm8sNAGK9aBuMKHAG55uRQaKIvNvhtXFCU+P6wo
+	vFmtoZvmdZ5Q+vo5mASizn415vHcdiemMWmx2YnVW5R//yjvoDuLTdkRZOhkycNEWUiZCDQ
+	Gq7PoF8g7bzyldAADeWphGabTcKR9XPMFkYQMUJmvp3lHlsKgBVkMk8lUHsf0DDyRYSr5Ay
+	FLgYmuhd7Oer7rc+GKGhh31EhacV1rL2ehwN6+8qYOxo/J/co1UgH3yZe4NXvhzkrjaCPzl
+	m3vrKrDKoBfuuwmbPtxIFANtPs9902fED5hjJ6n/5gam4AjaLh7ZVDf2YhDZkCNcjDSABEY
+	xfz+QgNoM22CftwGIkke9LkyPJkjgcDLT0ty0Nac5q91JhHJYXg7kUEYZKBR2uZdYTwZUnW
+	mu2aC5L+MOiBUjkzypI43Jub+de/1vOKV5Xx6FT4Pr4wqKHxvc9lP8v6GUotug2K77/fw4U
+	lfSF4hTeGCgKvautwJkcEZD/xBIQUNbYyFBbKW+gjr12f73Oy/8NcLStdimMqgArUOdjvAZ
+	awEbOkBke0e11unwNNybLWQIU4dsEeBhvYPFzhLKXz0he/N84PTMqn/5Uto3bqdIw2EIwRa
+	VQ7d9zPhX7c7pUM9Xl+RY8Mnzk75/jOG4oFu++zLc274ewo/N5TWkMWW72nJypJcpI3LZVz
+	Stt0A8qxJJBeteP9obXPxskuTBvTF+RrKVY06aYbzRc33E+CcDk55VbrIbvT9/kwF7SIkFa
+	OcGkYbP3AJWYBwkvpeCvSunc4ZTtSXRtBwYGGGr2cxZRx16dHvm7+OuP7YZ3mpceno/om0D
+	Bnb87c9fsFK4x1JeepH3IstILtisOGiqw+u5cIriSIxtV9b83DmdWebHI0/s4=
+X-QQ-XMRINFO: Mp0Kj//9VHAxzExpfF+O8yhSrljjwrznVg==
+X-QQ-RECHKSPAM: 0
 
+On failure, nouveau_cli_init() calls nouveau_cli_fini() to tear
+the client down. Then, nouveau_drm_open() also enters into its
+cleanup path and calls nouveau_cli_fini() AGAIN. nouveau_cli_fini()
+calls nouveau_vmm_fini():
 
+	void
+	nouveau_vmm_fini(struct nouveau_vmm *vmm)
+	{
+		nouveau_svmm_fini(&vmm->svmm);
+		nvif_vmm_dtor(&vmm->vmm);
+		vmm->cli = NULL;
+	}
 
-> -----Original Message-----
-> From: Guangshuo Li <lgs201920130244@gmail.com>
-> Sent: Wednesday, September 16, 2026 7:59 AM
-> To: Andrew Lunn <andrew+netdev@lunn.ch>; David S. Miller
-> <davem@davemloft.net>; Eric Dumazet <edumazet@google.com>; Jakub
-> Kicinski <kuba@kernel.org>; Paolo Abeni <pabeni@redhat.com>; Petr
-> Machata <petrm@nvidia.com>; Loktionov, Aleksandr
-> <aleksandr.loktionov@intel.com>; Keller, Jacob E
-> <jacob.e.keller@intel.com>; Jijie Shao <shaojijie@huawei.com>; Uwe
-> Kleine-K=F6nig (The Capable Hub) <u.kleine-koenig@baylibre.com>; Ruoyu
-> Wang <ruoyuw560@gmail.com>; Guangshuo Li <lgs201920130244@gmail.com>;
-> Jakub Raczynski <j.raczynski@samsung.com>; netdev@vger.kernel.org;
-> linux-kernel@vger.kernel.org
-> Cc: stable@vger.kernel.org
-> Subject: [PATCH] net: sungem: disable PCI device on remove
->=20
-> gem_init_one() enables the PCI device with pci_enable_device().
->=20
-> The probe failure path balances this operation with
-> pci_disable_device(). However, after a successful probe,
-> gem_remove_one() releases the PCI resources and netdev without
-> disabling the PCI device.
->=20
-> Call pci_disable_device() during removal to balance the successful
-> pci_enable_device() call.
->=20
-> This issue was found by manual code inspection.
->=20
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> ---
->  drivers/net/ethernet/sun/sungem.c | 1 +
->  1 file changed, 1 insertion(+)
->=20
-> diff --git a/drivers/net/ethernet/sun/sungem.c
-> b/drivers/net/ethernet/sun/sungem.c
-> index dc5638d105db..6abf4d292802 100644
-> --- a/drivers/net/ethernet/sun/sungem.c
-> +++ b/drivers/net/ethernet/sun/sungem.c
-> @@ -2806,6 +2806,7 @@ static void gem_remove_one(struct pci_dev *pdev)
->  		iounmap(gp->regs);
->  		pci_release_regions(pdev);
->  		free_netdev(dev);
-> +		pci_disable_device(pdev);
->  	}
->  }
->=20
-> --
-> 2.43.0
+Inside nvif_vmm_dtor(), vmm->page is freed unconditionally:
 
-The fix is correct, but please resend targeting the net tree, and document =
-testing.
-Please also clarify the practical impact supporting the stable backport req=
-uest.
+	void
+	nvif_vmm_dtor(struct nvif_vmm *vmm)
+	{
+		kfree(vmm->page);
+		nvif_object_dtor(&vmm->object);
+	}
 
-Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
+vmm->page is never cleared after being freed, so the second call of
+nvif_vmm_dtor() will cause a double-free.
+
+Found by fuzzing the nouveau driver with a modified Syzkaller:
+
+	BUG: KASAN: double-free in nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
+	Free of addr ffff888010fcdc30 by task syz.0.173/2567
+
+	CPU: 1 UID: 0 PID: 2567 Comm: syz.0.173 Not tainted 7.2.0 #24 PREEMPT(lazy) 
+	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+	Call Trace:
+	<TASK>
+	__dump_stack lib/dump_stack.c:94 [inline]
+	dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
+	print_address_description mm/kasan/report.c:378 [inline]
+	print_report+0xcb/0x5a0 mm/kasan/report.c:482
+	kasan_report_invalid_free+0xaa/0xd0 mm/kasan/report.c:557
+	check_slab_allocation+0xe4/0x110 mm/kasan/common.c:235
+	kasan_slab_pre_free include/linux/kasan.h:199 [inline]
+	slab_free_hook mm/slub.c:2622 [inline]
+	slab_free mm/slub.c:6377 [inline]
+	kfree+0x192/0x590 mm/slub.c:6692
+	nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
+	nouveau_vmm_fini+0x16/0x50 drivers/gpu/drm/nouveau/nouveau_vmm.c:127
+	nouveau_cli_fini+0x10e/0x210 drivers/gpu/drm/nouveau/nouveau_drm.c:225
+	nouveau_drm_open+0x24e/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1255
+	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+	vfs_open+0x82/0x390 fs/open.c:1052
+	do_open fs/namei.c:4700 [inline]
+	path_openat+0x2345/0x3420 fs/namei.c:4863
+	do_file_open+0x207/0x460 fs/namei.c:4892
+	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+	do_sys_open fs/open.c:1374 [inline]
+	__do_sys_openat fs/open.c:1390 [inline]
+	__se_sys_openat fs/open.c:1385 [inline]
+	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+	RIP: 0033:0x7fc6d687594d
+	Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01 48
+	RSP: 002b:00007fc6d5295008 EFLAGS: 00000246 ORIG_RAX: 0000000000000101
+	RAX: ffffffffffffffda RBX: 00007fc6d6b06180 RCX: 00007fc6d687594d
+	RDX: 0000000000022501 RSI: 0000200000000000 RDI: ffffffffffffff9c
+	RBP: 00007fc6d691c303 R08: 0000000000000000 R09: 0000000000000000
+	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
+	R13: 00007fc6d6b06218 R14: 00007fc6d6b06180 R15: 00007ffd9451d760
+	</TASK>
+
+	Allocated by task 2567 on cpu 1 at 163.593900s:
+	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+	poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
+	__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
+	kasan_kmalloc include/linux/kasan.h:263 [inline]
+	__do_kmalloc_node mm/slub.c:5334 [inline]
+	__kmalloc_noprof+0x304/0x7c0 mm/slub.c:5359
+	_kmalloc_noprof include/linux/slab.h:992 [inline]
+	nvif_vmm_ctor+0x3c0/0x7e0 drivers/gpu/drm/nouveau/nvif/vmm.c:237
+	nouveau_vmm_init+0x40/0x90 drivers/gpu/drm/nouveau/nouveau_vmm.c:134
+	nouveau_cli_init+0x7b9/0xe10 drivers/gpu/drm/nouveau/nouveau_drm.c:293
+	nouveau_drm_open+0x236/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1243
+	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+	vfs_open+0x82/0x390 fs/open.c:1052
+	do_open fs/namei.c:4700 [inline]
+	path_openat+0x2345/0x3420 fs/namei.c:4863
+	do_file_open+0x207/0x460 fs/namei.c:4892
+	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+	do_sys_open fs/open.c:1374 [inline]
+	__do_sys_openat fs/open.c:1390 [inline]
+	__se_sys_openat fs/open.c:1385 [inline]
+	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+	Freed by task 2567 on cpu 1 at 163.601355s:
+	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
+	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
+	kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
+	poison_slab_object mm/kasan/common.c:253 [inline]
+	__kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
+	kasan_slab_free include/linux/kasan.h:235 [inline]
+	slab_free_hook mm/slub.c:2677 [inline]
+	slab_free mm/slub.c:6377 [inline]
+	kfree+0x383/0x590 mm/slub.c:6692
+	nvif_vmm_dtor+0x31/0x50 drivers/gpu/drm/nouveau/nvif/vmm.c:194
+	nouveau_vmm_fini+0x16/0x50 drivers/gpu/drm/nouveau/nouveau_vmm.c:127
+	nouveau_cli_fini+0x10e/0x210 drivers/gpu/drm/nouveau/nouveau_drm.c:225
+	nouveau_cli_init+0x593/0xe10 drivers/gpu/drm/nouveau/nouveau_drm.c:324
+	nouveau_drm_open+0x236/0x740 drivers/gpu/drm/nouveau/nouveau_drm.c:1243
+	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
+	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
+	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
+	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
+	chrdev_open+0x21c/0x660 fs/char_dev.c:411
+	do_dentry_open+0x59d/0x12b0 fs/open.c:947
+	vfs_open+0x82/0x390 fs/open.c:1052
+	do_open fs/namei.c:4700 [inline]
+	path_openat+0x2345/0x3420 fs/namei.c:4863
+	do_file_open+0x207/0x460 fs/namei.c:4892
+	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
+	do_sys_open fs/open.c:1374 [inline]
+	__do_sys_openat fs/open.c:1390 [inline]
+	__se_sys_openat fs/open.c:1385 [inline]
+	__x64_sys_openat+0x144/0x200 fs/open.c:1385
+	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
+	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
+	entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+	The buggy address belongs to the object at ffff888010fcdc30
+	which belongs to the cache kmalloc-16 of size 16
+	The buggy address is located 0 bytes inside of
+	16-byte region [ffff888010fcdc30, ffff888010fcdc40)
+
+	The buggy address belongs to the physical page:
+	page: refcount:0 mapcount:0 mapping:0000000000000000 index:0x0 pfn:0x10fcd
+	flags: 0x100000000000000(node=0|zone=1)
+	page_type: f5(slab)
+	raw: 0100000000000000 ffff88800d441640 dead000000000100 dead000000000122
+	raw: 0000000000000000 0000000000550055 00000000f5000000 0000000000000000
+	page dumped because: kasan: bad access detected
+
+	Memory state around the buggy address:
+	ffff888010fcdb00: fc fc 00 04 fc fc fc fc fa fb fc fc fc fc fa fb
+	ffff888010fcdb80: fc fc fc fc fa fb fc fc fc fc 00 07 fc fc fc fc
+	>ffff888010fcdc00: fa fb fc fc fc fc fa fb fc fc fc fc fa fb fc fc
+										^
+	ffff888010fcdc80: fc fc fa fb fc fc fc fc 00 04 fc fc fc fc fa fb
+	ffff888010fcdd00: fc fc fc fc 00 00 fc fc fc fc fa fb fc fc fc fc
+
+Fix by removing the redundant teardown in nouveau_drm_open(),
+since nouveau_cli_init() already does the cleanup work.
+Also clear vmm->page after its freeing.
+
+Cc: stable@vger.kernel.org
+Fixes: 20d8a88e557a ("drm/nouveau: tidy up the client init/fini interfaces")
+Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
+Assisted-by: LLM
+---
+ drivers/gpu/drm/nouveau/nouveau_drm.c | 4 +---
+ drivers/gpu/drm/nouveau/nvif/vmm.c    | 1 +
+ 2 files changed, 2 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c b/drivers/gpu/drm/nouveau/nouveau_drm.c
+index e16f59b00f6f..c465d59ef0a6 100644
+--- a/drivers/gpu/drm/nouveau/nouveau_drm.c
++++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+@@ -1251,10 +1251,8 @@ nouveau_drm_open(struct drm_device *dev, struct drm_file *fpriv)
+ 	mutex_unlock(&drm->clients_lock);
+ 
+ done:
+-	if (ret && cli) {
+-		nouveau_cli_fini(cli);
++	if (ret && cli)
+ 		kfree(cli);
+-	}
+ 
+ 	pm_runtime_mark_last_busy(dev->dev);
+ 	pm_runtime_put_autosuspend(dev->dev);
+diff --git a/drivers/gpu/drm/nouveau/nvif/vmm.c b/drivers/gpu/drm/nouveau/nvif/vmm.c
+index 65c3e883b119..579af70766f2 100644
+--- a/drivers/gpu/drm/nouveau/nvif/vmm.c
++++ b/drivers/gpu/drm/nouveau/nvif/vmm.c
+@@ -192,6 +192,7 @@ void
+ nvif_vmm_dtor(struct nvif_vmm *vmm)
+ {
+ 	kfree(vmm->page);
++	vmm->page = NULL;
+ 	nvif_object_dtor(&vmm->object);
+ }
+ 
+-- 
+2.43.0
