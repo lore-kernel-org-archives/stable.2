@@ -1,42 +1,44 @@
 Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE6694BB5C1;
-	Wed, 16 Sep 2026 10:17:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64B384BB5C5;
+	Wed, 16 Sep 2026 10:20:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789553849; cv=none; b=qDuSazqN2O/ssQGh/ZN/bvXys6davhDbrkIL83AUdPvMtgZLGQWelkYsMw2iJz8HlcMxcCmo6Rf4RnP0eHZXu/9egHJVj0aTvXRzs32++8VkOBG/BX5CMWmIeHOpUQDCSXdsHqedSUXh1OvT2oQzP1ggiyNuP8QmF9XazCHB6vc=
+	t=1789554029; cv=none; b=Bya9j5E1RE3zTMSGa9RW0qKoNQJUC2ukE9m2qaYsbyG6j9a9dKPhlpEmogWoDPgDOReMtJ4RSuzKk1Lfb7EtKV7jwYQlSovwdADm8dtk7w/gBGKC+Igueq5wEGfhne0LkESt/5PuRO62W5blWKPjv89c6wWyOUcwEjUvS9sNAjk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789553849; c=relaxed/simple;
-	bh=GVkwIxuFT18VCMsx2q2ahzAHTO92OQow3Xrd748OWj8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oSUWcSY6tOGSEJx4P8Uh3fVMEFMN5EeeD2lykuj9w89S1POlYPawNlVb/yForU8OIH4mkiYyWNfYKVpOPvhJUgMjwh6wJkV4Vq+QGVzy93BwF/IA5w4Dh+l3p9Y4Im9qJyn3zuQ/3Ts147OPtoHPbPnmb/jMywABYWp0OfmSxMo=
+	s=arc-20240116; t=1789554029; c=relaxed/simple;
+	bh=JnG1JuvwKW9oTgJMKov9H6l9zRvdE/vDrMtLBm/qcSs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JbeJGk50a8Yyc07lwBKRbjF8ReSucmnXNQopzXp0ol8y+aD7vOqzcQ9B3Em6OBvmq6oKrMKJu53Od+4LuP7Mpwrkl0b8vJxgSXob9FfsXYSkqwCGCgMCc50MAPsfTLCcP66UiRldDAqh2AogVDr+Wr77/kbKa09EPOqiH8SWG5w=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.81
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-03 (Coremail) with SMTP id rQCowAAHCzmZbKpqwvXgBw--.35051S2;
-	Wed, 16 Sep 2026 18:16:57 +0800 (CST)
+	by APP-03 (Coremail) with SMTP id rQCowAC3wkBGbapqD_3gBw--.1931S2;
+	Wed, 16 Sep 2026 18:19:50 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: Laurent.pinchart@ideasonboard.com
 Cc: airlied@gmail.com,
 	andrzej.hajda@intel.com,
+	dharma.b@microchip.com,
 	dri-devel@lists.freedesktop.org,
+	hari.prasathge@microchip.com,
 	jernej.skrabec@gmail.com,
 	jonas@kwiboo.se,
 	linux-kernel@vger.kernel.org,
 	lumag@kernel.org,
 	maarten.lankhorst@linux.intel.com,
+	manikandan.m@microchip.com,
 	mripard@kernel.org,
 	neil.armstrong@linaro.org,
 	rfoss@kernel.org,
-	sam@ravnborg.org,
 	simona@ffwll.ch,
 	tzimmermann@suse.de,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] drm/bridge: lt9611uxc: Fix DSI device node leak in lt9611uxc_probe()
-Date: Wed, 16 Sep 2026 10:16:29 +0000
-Message-Id: <20260916101629.2017781-1-vulab@iscas.ac.cn>
+Subject: [PATCH] drm/bridge: microchip-lvds: Fix runtime PM leak in mchp_lvds_enable()
+Date: Wed, 16 Sep 2026 10:19:22 +0000
+Message-Id: <20260916101922.2018259-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -45,57 +47,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:rQCowAAHCzmZbKpqwvXgBw--.35051S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFy8XF4kuFW7ZF4xGFWxZwb_yoW8Xr1rpa
-	17CFyFkryUCF4xKrZrAF1UGa9IyanrtrWfCF9rGa409wnxXF47Aw4av3WFgF18Wa4UArya
-	yF15trWUGa4kZFJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUU9S14x267AKxVW5JVWrJwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
-	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
-	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4U
-	JVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02
-	628vn2kIc2xKxwCY1x0262kKe7AKxVW8ZVWrXwCF04k20xvY0x0EwIxGrwCFx2IqxVCFs4
-	IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1r
-	MI8E67AF67kF1VAFwI0_GFv_WrylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCV
-	W8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_
-	Jr0_JF4lIxAIcVC2z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_Cr1j6r
-	xdYxBIdaVFxhVjvjDU0xZFpf9x0pRWGQhUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwAMA2qqQJWs5wAAsW
+X-CM-TRANSID:rQCowAC3wkBGbapqD_3gBw--.1931S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xr1UGry5try8WF1fWF1rWFg_yoWkKwb_Ca
+	s5Zrn7Xw4FkFWqkr47A3y3Z3saq3WDurW8Wa1rtan3trWUAF1DA347XrZ8ArnrXw4UtF9r
+	Kw4qkF18ArnrujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbaAFF20E14v26ryj6rWUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Gr1j
+	6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0
+	I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r4a6rW5MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVW8ZVWrXwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UMIIF0xvE42xK8VAvwI8IcIk0rVWU
+	JVWUCwCI42IY6I8E87Iv67AKxVWxJVW8Jr1lIxAIcVC2z280aVCY1x0267AKxVWxJr0_Gc
+	JvcSsGvfC2KfnxnUUI43ZEXa7sRRznmtUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQMA2qqP4ezawABsz
 
-lt9611uxc_parse_dt() obtains references to the primary and secondary
-DSI remote nodes with of_graph_get_remote_node() and stores them in
-dsi0_node and dsi1_node.  If the following lookup of the panel or
-bridge with drm_of_find_panel_or_bridge() fails, lt9611uxc_probe()
-returns without calling of_node_put() on the DSI nodes, leaking the
-references taken by of_graph_get_remote_node().
+mchp_lvds_enable() resumes the device with pm_runtime_get_sync() and
+returns early when the resume fails.  pm_runtime_get_sync() increments
+the runtime PM usage count even when it fails, so returning without
+dropping the reference leaks it and prevents the device from ever
+suspending again once the error has been hit.
 
-The error paths further down in lt9611uxc_probe() already release both
-nodes through the err_of_put label.  Route the device tree parsing
-failure to that label as well so the node references are dropped on
-that error path too.
+Drop the runtime PM reference with pm_runtime_put_noidle() on the
+resume failure path before returning.
 
-Fixes: 0cbbd5b1a012 ("drm: bridge: add support for lontium LT9611UXC bridge")
+Fixes: 179b0769fc5f ("drm/bridge: add lvds controller support for sam9x7")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/gpu/drm/bridge/lontium-lt9611uxc.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/gpu/drm/bridge/microchip-lvds.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-index 11aab07d88df..16ca26212d78 100644
---- a/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-+++ b/drivers/gpu/drm/bridge/lontium-lt9611uxc.c
-@@ -765,7 +765,7 @@ static int lt9611uxc_probe(struct i2c_client *client)
- 	ret = lt9611uxc_parse_dt(dev, lt9611uxc);
- 	if (ret) {
- 		dev_err(dev, "failed to parse device tree\n");
--		return ret;
-+		goto err_of_put;
+diff --git a/drivers/gpu/drm/bridge/microchip-lvds.c b/drivers/gpu/drm/bridge/microchip-lvds.c
+index 9f4ff82bc6b4..b77ec6ae0a97 100644
+--- a/drivers/gpu/drm/bridge/microchip-lvds.c
++++ b/drivers/gpu/drm/bridge/microchip-lvds.c
+@@ -127,6 +127,7 @@ static void mchp_lvds_enable(struct drm_bridge *bridge)
+ 	ret = pm_runtime_get_sync(lvds->dev);
+ 	if (ret < 0) {
+ 		dev_err(lvds->dev, "failed to get pm runtime: %d\n", ret);
++		pm_runtime_put_noidle(lvds->dev);
+ 		return;
  	}
  
- 	ret = lt9611uxc_gpio_init(lt9611uxc);
 -- 
 2.34.1
 
