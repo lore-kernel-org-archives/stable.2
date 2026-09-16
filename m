@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52B334D7D2C
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8312C4D9564
 	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:37:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789583844; cv=none; b=C2gYTUcYZOQLgmon9e/pd6O7wKxCPtBHL904CxTHylV99ef3W2OrIdu7OgtsussUenXN46jCGI/CR8yLZjd10qPYudkp3gtPG4PAW+bVmP/BnjXIactayU98HPx9pTHylHM8Jtf/Y1SYtzXH375J2BgPtHbuIKYqGTX3K1gUiQ8=
+	t=1789583842; cv=none; b=ZVT1D1w663DQf9FjTHZbzznanvBZinQeC//6GoTjO2E//ImwhRQKLf6+V1n6ADOsp+P6T2wYoH2ega27LWihT30oGFIw+wb72s/fY/lGDbKExrRY0f5wUO/ysA2aO28y9z+dupgO4y4nuZ3YjrfL8KN8tMlZDvQSkpC2fHjRYkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789583844; c=relaxed/simple;
-	bh=S4/JtlHcOWPfwbqm0F8DY6JB2+vRlaOBIjxLK6vmalk=;
+	s=arc-20240116; t=1789583842; c=relaxed/simple;
+	bh=8+lIgI8YMgqp/20HlLIcIAClnpvAP+d1d76pzxAfUIA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Bqcxum5QH2nYJAhQ6JaL9fZT6PqsvkrxOoSEblPBHp5BBnuHEg1DDLVBMXkdBLu62JfVt5dLU7RWfrLaHG4qNblFzq448uXPJQujWexLKJQD60a2YWl1dKGtlexDLvxEEGeoaG0RyJ3DrQ2Bw3m/6ZfLkIpm2rpOARmmxKQvw9A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ii1zRDd3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=edux66RuGOKeBZaTBCWaIR1zHoMOjnDi/+y5fpkVTuRhFcwb6OS99LtMDaYHHLIzoQ/GadV+u6IF1ha1m4bEsWuiXARjJhBuCgUP0xa9d4UKYpLcst2TYp8re/lCi6tDKKxnPPkcQWaFCxxVqe5BUiEPpeqTQBiCS+7LUeQJck8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R3RjdtO7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ii1zRDd3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6F9F1F00893;
-	Wed, 16 Sep 2026 18:36:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R3RjdtO7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE73D1F00899;
+	Wed, 16 Sep 2026 18:36:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789583816;
-	bh=fzi34rbSxh+nIhdH4ve9t8Pl7yzWqTh2HOWZR6el8WY=;
+	s=k20260515; t=1789583818;
+	bh=C+HRoRmYjmV6D/I9E9T1Bxl8eI+z1wdtBHICeRF5L18=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Ii1zRDd3LkwsTjubNT6/EaXAhEooMtOorwh6apwBy5Y2/ARmLGgId592/x7ecG51B
-	 Fa5SeNoQWw/4l9+jAg6W7SqdcMS46tYMm5XQ+q8jFvg0X6uEnU4AOlNlhqmSLEQRED
-	 w6q0QEZOk6ZI0Crl2FXZi7fAQ+MveEUdzn515Bk1QnEpqd8Q3iyVV5Rd3e4NClaPWM
-	 Es5ivrLMoWXPLKgutccTAoMlFTI7zmpGWNyljhtBUCYv7Aqz3Vr4xzyqJrXHRBT3so
-	 cx6UKq+DkEBJTU8WDFvpzcfyrBsVXIdtVrUBc7KBF1kO7cVUnayJKLQRTTN4f8WhbC
-	 KKOwIwRNe+ztw==
+	b=R3RjdtO7tysjyo1LHWMK8pWIwbpHrm0h4WjMLLhEqCDsfI+ICA5VCXpf6325sCr1K
+	 kOXGBWzuu/q7UjsCUFu7qsOi/ZE4tk3q6oY4ZxGPfwt4G/wBY3xPAVnDcupEx6unEe
+	 13cZ4ABJlUxHvDm6cr6HWr8zVITkQ1CNY0/41TiAXp4HTlxAYNSWcaNDz8HNzPi/SM
+	 HeMdc90DSWzRWYpRwJR5qVuowzZJpLonmGOHiak8E0fKCXFrwwehFLIxJYR+2g1F/O
+	 UBNLQcMKyBHdZ4oYmN32vUbHYrlR0P3lRaydYlc1Amzw1wuz4qbSFkz+frVfMD+zdY
+	 9rmIf8PoXkiAQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] tools/bootconfig: Fix integer overflow and truncation in size checks
-Date: Wed, 16 Sep 2026 14:36:52 -0400
-Message-ID: <20260916183652.1772436-4-sashal@kernel.org>
+Subject: [PATCH 5.15.y 2/2] tracing: Free histogram var refs regardless of how often they are referenced
+Date: Wed, 16 Sep 2026 14:36:55 -0400
+Message-ID: <20260916183655.1773427-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260916183652.1772436-1-sashal@kernel.org>
-References: <2026091616-brisket-appease-387d@gregkh>
- <20260916183652.1772436-1-sashal@kernel.org>
+In-Reply-To: <20260916183655.1773427-1-sashal@kernel.org>
+References: <2026091621-debtor-hazelnut-dfc6@gregkh>
+ <20260916183655.1773427-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,91 +46,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-[ Upstream commit 462d0b066b613103f579793031429db2ca23abc0 ]
+[ Upstream commit 4bddcb346a6cf4615ca77f69a589623b877ca267 ]
 
-Sashiko reported that on 32-bit systems, if an attacker crafts size in
-the bootconfig footer such that adding BOOTCONFIG_FOOTER_SIZE wraps around
-(for instance, if size is 0xFFFFFFFF), the size check in
-load_xbc_from_initrd() can be bypassed:
+Using the same variable three or more times in one hist trigger leaks the
+variable reference and its strings when the trigger is removed.
 
-    if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-        pr_err("bootconfig size is too big\n");
-        return -E2BIG;
-    }
+commit 656fe2ba85e8 ("tracing: Use hist trigger's var_ref array to destroy
+var_refs") made a trigger's var_refs[] array the only owner of a var ref:
+destroy_hist_field() returns early for HIST_FIELD_FL_VAR_REF, so the field
+expressions never destroy one. One entry, freed once, no count needed.
 
-Furthermore, on 64-bit systems with an initrd > 4.29 GB, comparing a
-corrupted 32-bit size (e.g. 0xFFFFFFFF) against
-stat.st_size - BOOTCONFIG_FOOTER_SIZE can also bypass the check if
-size is not bounded. Similarly, load_xbc_file() passes 64-bit stat.st_size
-directly into the 32-bit int size parameter of load_xbc_fd(), truncating
-large standalone files (>= 2GB).
+commit 8bcebc77e85f ("tracing: Fix histogram code when expression has same
+var as value") then made repeated references share one object and added a
+count of them. Only the increment side exists, since those expressions
+still return early and never drop a reference, so __destroy_hist_field()
+sees how many references were created rather than how many are left. It
+frees when the decremented count is 0 or 1, so two references work and
+three or more leak.
 
-In both cases, passing 0xFFFFFFFF to load_xbc_fd() truncates to -1,
-resulting in malloc(0), an integer overflow in read(), and an
-out-of-bounds null-byte write.
+Sharing kept one array entry per object, and create_var_ref() searches and
+appends within a single trigger, so nothing outside it holds the object.
+Removing a trigger whose variables are still referenced is already refused
+by check_var_refs() with -EBUSY. Drop the count and free unconditionally.
 
-Fix this by:
-1. Rejecting size > XBC_DATA_MAX or
-   size > stat.st_size - BOOTCONFIG_FOOTER_SIZE in load_xbc_from_initrd().
-2. Rejecting stat.st_size > XBC_DATA_MAX in load_xbc_file() before passing
-   it to load_xbc_fd().
-3. Checking size < 0 || size > XBC_DATA_MAX defensively in load_xbc_fd().
-
-Link: https://lore.kernel.org/all/178905332413.213925.3179977110281463499.stgit@devnote2/
-
-Fixes: 950313ebf79c ("tools: bootconfig: Add bootconfig command")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260909161113.16C691F00A3A@smtp.kernel.org/
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
+Link: https://patch.msgid.link/20260906124025.3550596-1-donggeunyoo.kernel@gmail.com
+Fixes: 8bcebc77e85f ("tracing: Fix histogram code when expression has same var as value")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/bootconfig/main.c | 13 ++++++++++++-
- 1 file changed, 12 insertions(+), 1 deletion(-)
+ kernel/trace/trace_events_hist.c | 16 +---------------
+ 1 file changed, 1 insertion(+), 15 deletions(-)
 
-diff --git a/tools/bootconfig/main.c b/tools/bootconfig/main.c
-index 31536110699ec..eed01f97130ef 100644
---- a/tools/bootconfig/main.c
-+++ b/tools/bootconfig/main.c
-@@ -140,6 +140,9 @@ static int load_xbc_fd(int fd, char **buf, int size)
+diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
+index 9596bb513ad3a..b9641fecb8c5b 100644
+--- a/kernel/trace/trace_events_hist.c
++++ b/kernel/trace/trace_events_hist.c
+@@ -146,7 +146,6 @@ struct hist_field {
+ 	struct hist_field		*operands[HIST_FIELD_OPERANDS_MAX];
+ 	struct hist_trigger_data	*hist_data;
+ 	enum hist_field_fn		fn_num;
+-	unsigned int			ref;
+ 	unsigned int			size;
+ 	unsigned int			offset;
+ 	unsigned int                    is_signed;
+@@ -1629,16 +1628,8 @@ static int contains_operator(char *str)
+ 	return field_op;
+ }
+ 
+-static void get_hist_field(struct hist_field *hist_field)
+-{
+-	hist_field->ref++;
+-}
+-
+ static void __destroy_hist_field(struct hist_field *hist_field)
  {
- 	int ret;
+-	if (--hist_field->ref > 1)
+-		return;
+-
+ 	kfree(hist_field->var.name);
+ 	kfree(hist_field->name);
  
-+	if (size < 0 || size > XBC_DATA_MAX)
-+		return -EINVAL;
-+
- 	*buf = malloc(size + 1);
- 	if (!*buf)
- 		return -ENOMEM;
-@@ -168,6 +171,13 @@ static int load_xbc_file(const char *path, char **buf)
- 		return ret;
+@@ -1685,8 +1676,6 @@ static struct hist_field *create_hist_field(struct hist_trigger_data *hist_data,
+ 	if (!hist_field)
+ 		return NULL;
+ 
+-	hist_field->ref = 1;
+-
+ 	hist_field->hist_data = hist_data;
+ 
+ 	if (flags & HIST_FIELD_FL_EXPR || flags & HIST_FIELD_FL_ALIAS)
+@@ -1907,10 +1896,8 @@ static struct hist_field *create_var_ref(struct hist_trigger_data *hist_data,
+ 	for (i = 0; i < hist_data->n_var_refs; i++) {
+ 		ref_field = hist_data->var_refs[i];
+ 		if (ref_field->var.idx == var_field->var.idx &&
+-		    ref_field->var.hist_data == var_field->hist_data) {
+-			get_hist_field(ref_field);
++		    ref_field->var.hist_data == var_field->hist_data)
+ 			return ref_field;
+-		}
+ 	}
+ 	/* Sanity check to avoid out-of-bound write on 'hist_data->var_refs' */
+ 	if (hist_data->n_var_refs >= TRACING_MAP_VARS_MAX)
+@@ -2771,7 +2758,6 @@ static struct hist_field *create_var(struct hist_trigger_data *hist_data,
+ 		goto out;
  	}
  
-+	if (stat.st_size > XBC_DATA_MAX) {
-+		pr_err("%s size is too big\n", path);
-+		ret = -E2BIG;
-+		close(fd);
-+		return ret;
-+	}
-+
- 	ret = load_xbc_fd(fd, buf, stat.st_size);
- 
- 	close(fd);
-@@ -218,7 +228,8 @@ static int load_xbc_from_initrd(int fd, char **buf)
- 	csum = le32toh(csum);
- 
- 	/* Wrong size error  */
--	if (stat.st_size < size + BOOTCONFIG_FOOTER_SIZE) {
-+	if (size > XBC_DATA_MAX ||
-+	    size > stat.st_size - BOOTCONFIG_FOOTER_SIZE) {
- 		pr_err("bootconfig size is too big\n");
- 		return -E2BIG;
- 	}
+-	var->ref = 1;
+ 	var->flags = HIST_FIELD_FL_VAR;
+ 	var->var.idx = idx;
+ 	var->var.hist_data = var->hist_data = hist_data;
 -- 
 2.53.0
 
