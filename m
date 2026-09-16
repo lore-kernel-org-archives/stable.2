@@ -1,301 +1,96 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9D5A36F91D
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 18:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 498614E50C1;
+	Wed, 16 Sep 2026 18:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789585147; cv=none; b=k2ort2bdznNLLKgIqp92sEY0tFU0trrxqfofHe6eOOfbj4V5lMEoR5a1pnA3tqgxIW2nwAcrKGvYjgB+GDB3X6zjYlBmGrLjB/RfnWvvRgZ/4yNUvWB7XZduOfqp/nxHwEG05d0fjaZ9+pPth1/6fTG4497UL25paq9nGKMwrKU=
+	t=1789585164; cv=none; b=OeVJLK7l8SdqISKkNq8pcX5P/KvyMO8K8jHJCJQCPMpvD84N4hOw5kdvvq8lZSPVUSimFKV79J+FeN8vZIxEUSriLFHSkj30JBrdxiOHtlMlu8x+OQkBVAvQYiRlvqsbmjfMWr7Gnmim2DOlaSPL1IfEnKwWFsVCXoSxbTRTr5U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789585147; c=relaxed/simple;
-	bh=WRP/MO4i9glSYOkSVQEB6SJj29aypyMJe5xqMLEn+bo=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qTYbfK7LvHGSf+VkF2aZefLrgQMyxUYCBvo+5xK37XaPgbUP5E+W8gd0K8bMsG5+LRrMJr5A3G1MOGHLXDq+aNeSrLL9wCn1mtN3SewEUcIAFMq57Jevb/nyYrZ7Jl282tU/ipWeG1T7RCcTqfMp4IP+uChGoNfLVdLP00v72xg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=sd9i1Zaj; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="sd9i1Zaj"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d43db0c17so16148917b3.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:58:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789585135; x=1790189935; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oZ3GEBBVBD1DUVzmqbpLzdMfAqjtMlGIV3/p1MK/Rhw=;
-        b=sd9i1ZajQG/6MGO0DnRj122geLgl1a+ljCMSudiGETDteRRA/S2pATCVkApgq2JtKo
-         YmjkN3ANI8AgDHHI0/C/FgroclBaI7GrtlBQ/AfQRY7M0x6M78Vo7oUfGC4dCoGns1LN
-         vbdeK8YGlHIeyc4n27VUHQwhbLzWoeHPRTJ0W1t2P40UDCvmnmOsd4hTr630Jt4IZ1Rx
-         8X2fA4zEnZNgFE+5alEnLrxHpEhVY02g91jM+P03luzXKYZnLbfFkGI4q65j+n9CM4Q1
-         6gY3EzdkUkXMXpia3ZvZJGUaC3lpvhrkq0P380FQ7cX91ROBdXsN41xIwetzoX1MJiu0
-         zAcQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789585135; x=1790189935;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=oZ3GEBBVBD1DUVzmqbpLzdMfAqjtMlGIV3/p1MK/Rhw=;
-        b=hOgMTHLnvmlp0XpBVTRFK3IxKpatzMMba0PVUJhc7OFC0T7U1ubDnbV0yk4GFJ1m29
-         Y1S3uHE5Z5uRk8Y/B1JtFUsYWVbE17So+pG6fPEV8Hv3iTQyQ991fkcd7iQcW4EXToeS
-         sNg6zNnULDJKDXUEZZk80hg8LzD7gisrRqxhKajC3q9zk30fCZWZWYUgD09D+YGRf3ub
-         PfeG4++EW6p4sVtUyBuJp2TPP/vgl/yqehLlv7lbEikgZMrzfAMCV6ulxMVwQhGOxN+L
-         AZIcRAFdSgdWSLZTHyKWdMFSdhXU0apETPmYEpOOJ4lYQ9olTRG+21pvu/TZpJfFteft
-         bHqA==
-X-Forwarded-Encrypted: i=1; AKwUvBxiVa9alzDOt/+qdA0Z4t0KSQ1oux+AKHKf7uFzT7+w9fRkcyxmy0rFXLo4tT8HxUxxiiHfvJU=@vger.kernel.org
-X-Gm-Message-State: AFuF++ljLplMSvDRUZr5/l6jSXh6wHy/cwJWks9LfzudLPDuhhm182WL
-	62dYzyrv8p5mbeHweYEc9mRumGJ9khnH80HYuNw0zu2VfETzcgvQkdwOwOLkx4mHtNU=
-X-Gm-Gg: AYBFou0rXRlGmSUQ1ep25RIDehyoqoF7nOuKkBpKbTjk1FkUuh+LtVWQIVD+/cx00K2
-	zoOAarGRlgUtAi1QkPoICNOAhoJxpYnZ1OVVaQxhkM75b6Vq7m8Kk6G1aovJuTJc6pbw8ruyrqs
-	FiPTgFJJu9qKMG7aHL7GCKuXXnKcQK/3abbqcbUoGnTmWLF571zgyJ+tB0JoH6AM0jlgXz2zegA
-	7JUVkNs4X0DbN4OE1at334BMMAeQbBzOH7K+oRd43qLONPbDp5TAH9vb20nus+/xZ1nCpRyXuAQ
-	sXqe4yQCMs7Y2JwGC4SojiIVNEFGKDzST5EJ/0Azglr7Lqj/5urtknyALy4DEUewsULbNleViwP
-	ZwnCAIsR0gjdyl3XwcambbStf1kfhVSJnbuBNIi7KrY3enSl/ee7LddgOIk0m9FTVr8ACs4aJ5M
-	TBfHZIAOjZiXp8WwcOwFiTPzscJ5BocD+dKABKfL0WtrwfTFAB3gdnWsyVGlcDfY+IGoKU8Y78+
-	e2UuXPY2hlGGvXcPPcZVP3ZdhleBRSo0baLQCsZcbRALuLiEJpxmND59O3vsFfkCs41faGweyj4
-	pTMGnTTTWPYhlBhHEKiF6+KZYj0Ucw5Ok2RdiyyZ5KqT+GIAOqqPjRdqJMycJoel
-X-Received: by 2002:a05:690c:4dc7:b0:856:b8a6:5e79 with SMTP id 00721157ae682-89224b8ff83mr9859577b3.23.1789585135542;
-        Wed, 16 Sep 2026 11:58:55 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:f547:a2c0:72f7:6671? ([2600:1700:6476:1430:f547:a2c0:72f7:6671])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-891f1b27c35sm10936237b3.46.2026.09.16.11.58.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 11:58:55 -0700 (PDT)
-Message-ID: <149f405e0e854092e6aa6470ac7e77f222d90fa0.camel@dubeyko.com>
-Subject: Re: [PATCH v2] nilfs2: fix checkpoint root lifetime on sysfs errors
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, Ryusuke Konishi
-	 <konishi.ryusuke@gmail.com>
-Cc: linux-nilfs@vger.kernel.org, linux-kernel@vger.kernel.org, 
+	s=arc-20240116; t=1789585164; c=relaxed/simple;
+	bh=FQ5/IXI6ngyKjEXmTzOIjn8L5yo3/n8SygYFq+HbAbU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=hzXvLnmFiMEjfGB2rTy8KOK4OFa50Q/+2iMBkkn+jHCO0eXX+X+P1r4U5MxWYM4FddCYqhdgqZWi+C/wh9FLxB/CuZYjwJY4VDXUhcS+4wdGmWBeKXeZ/O4jy2gukJk7JAGrKFyADdQa4/3MigzwgAM9SYaAG37Eascpm0elxd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnVD_Y5qpqnvtvCA--.24836S2;
+	Thu, 17 Sep 2026 02:58:32 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: iommu@lists.linux.dev
+Cc: jgg@ziepe.ca,
+	joro@8bytes.org,
+	linux-kernel@vger.kernel.org,
+	robin.murphy@arm.com,
+	suravee.suthikulpanit@amd.com,
+	vasant.hegde@amd.com,
+	wei.huang2@amd.com,
+	will@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Date: Wed, 16 Sep 2026 11:58:50 -0700
-In-Reply-To: <20260915194958.3329611-1-qwe.aldo@gmail.com>
-References: <20260915041206.2430937-1-qwe.aldo@gmail.com>
-	 <20260915194958.3329611-1-qwe.aldo@gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+Subject: [PATCH] iommu/amd: Fix PCI device reference leak in iommu_call_iopf_notifier()
+Date: Wed, 16 Sep 2026 18:58:04 +0000
+Message-Id: <20260916185804.2093996-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADnVD_Y5qpqnvtvCA--.24836S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XF48JF1fWr4xtr4rKFWxJFb_yoWkurcE9F
+	4rZas7Xw15Ar4qyr4UtFZFvr9Iv3ZruF1kZFZFg3s3G34YvF10vw45XFZ8Jw47W3yUJasr
+	Kwn8WF13X39rujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbakFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2IYs7xG
+	6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4kI8w
+	A2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_Cr0_
+	Gr1UM28EF7xvwVC2z280aVAFwI0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4j6r4UJwAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E
+	8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFV
+	Cjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWl
+	x4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r
+	4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j
+	6r1xMIIF0xvEx4A2jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26F4UJVW0ob
+	IYCTnIWIevJa73UjIFyTuYvjfUFhL0UUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMMA2qqozWPWQAAsV
 
-On Tue, 2026-09-15 at 16:49 -0300, Aldo Ariel Panzardo wrote:
-> nilfs_find_or_create_root() publishes a new root in the checkpoint
-> tree before creating its sysfs object.=C2=A0 If sysfs registration fails,
-> the root is freed while it is still reachable from the tree.=C2=A0 A
-> concurrent nilfs_lookup_root() can then dereference freed memory.
->=20
-> The fix needs the lock to be held across the sysfs call, but
-> nilfs_sysfs_create_snapshot_group() can sleep, so the existing
-> spinlock is not suitable.
->=20
-> Convert ns_cptree_lock from a spinlock to a mutex.=C2=A0 All existing
-> callers are in process context (mount, lookup, segctor, recovery),
-> and nilfs_put_root() can use refcount_dec_and_mutex_lock() as the
-> atomic decrement-and-acquire primitive.
->=20
-> With the mutex, nilfs_find_or_create_root() can hold it across the
-> sysfs registration and only insert the root into the rbtree after
-> sysfs succeeds.=C2=A0 On failure, the root was never visible and can be
-> freed after waiting for the kobject release callback to complete.
->=20
-> Both the creation error path and the normal removal path must wait
-> for the embedded kobject release via wait_for_completion() before
-> freeing the container, because kobject_put() does not guarantee
-> synchronous release (CONFIG_DEBUG_KOBJECT_RELEASE defers it).
->=20
-> Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> ---
->=20
-> Changes in v2:
-> =C2=A0 - Convert ns_cptree_lock from spinlock to mutex instead of adding
-> =C2=A0=C2=A0=C2=A0 a second lock, as suggested by Viacheslav Dubeyko.=C2=
-=A0 Use
-> =C2=A0=C2=A0=C2=A0 refcount_dec_and_mutex_lock() in nilfs_put_root().
->=20
-> =C2=A0fs/nilfs2/the_nilfs.c | 35 +++++++++++++++++++----------------
-> =C2=A0fs/nilfs2/the_nilfs.h |=C2=A0 2 +-
-> =C2=A02 files changed, 20 insertions(+), 17 deletions(-)
->=20
-> diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-> index 7b23e373a1..5bfa853471 100644
-> --- a/fs/nilfs2/the_nilfs.c
-> +++ b/fs/nilfs2/the_nilfs.c
-> @@ -70,7 +70,7 @@ struct the_nilfs *alloc_nilfs(struct super_block
-> *sb)
-> =C2=A0	spin_lock_init(&nilfs->ns_inode_lock);
-> =C2=A0	spin_lock_init(&nilfs->ns_last_segment_lock);
-> =C2=A0	nilfs->ns_cptree =3D RB_ROOT;
-> -	spin_lock_init(&nilfs->ns_cptree_lock);
-> +	mutex_init(&nilfs->ns_cptree_lock);
-> =C2=A0	init_rwsem(&nilfs->ns_segctor_sem);
-> =C2=A0	nilfs->ns_sb_update_freq =3D NILFS_SB_FREQ;
-> =C2=A0
-> @@ -846,7 +846,7 @@ struct nilfs_root *nilfs_lookup_root(struct
-> the_nilfs *nilfs, __u64 cno)
-> =C2=A0	struct rb_node *n;
-> =C2=A0	struct nilfs_root *root;
-> =C2=A0
-> -	spin_lock(&nilfs->ns_cptree_lock);
-> +	mutex_lock(&nilfs->ns_cptree_lock);
-> =C2=A0	n =3D nilfs->ns_cptree.rb_node;
-> =C2=A0	while (n) {
-> =C2=A0		root =3D rb_entry(n, struct nilfs_root, rb_node);
-> @@ -857,11 +857,11 @@ struct nilfs_root *nilfs_lookup_root(struct
-> the_nilfs *nilfs, __u64 cno)
-> =C2=A0			n =3D n->rb_right;
-> =C2=A0		} else {
-> =C2=A0			refcount_inc(&root->count);
-> -			spin_unlock(&nilfs->ns_cptree_lock);
-> +			mutex_unlock(&nilfs->ns_cptree_lock);
-> =C2=A0			return root;
-> =C2=A0		}
-> =C2=A0	}
-> -	spin_unlock(&nilfs->ns_cptree_lock);
-> +	mutex_unlock(&nilfs->ns_cptree_lock);
-> =C2=A0
-> =C2=A0	return NULL;
-> =C2=A0}
-> @@ -881,7 +881,7 @@ nilfs_find_or_create_root(struct the_nilfs
-> *nilfs, __u64 cno)
-> =C2=A0	if (!new)
-> =C2=A0		return NULL;
-> =C2=A0
-> -	spin_lock(&nilfs->ns_cptree_lock);
-> +	mutex_lock(&nilfs->ns_cptree_lock);
-> =C2=A0
-> =C2=A0	p =3D &nilfs->ns_cptree.rb_node;
-> =C2=A0	parent =3D NULL;
-> @@ -896,7 +896,7 @@ nilfs_find_or_create_root(struct the_nilfs
-> *nilfs, __u64 cno)
-> =C2=A0			p =3D &(*p)->rb_right;
-> =C2=A0		} else {
-> =C2=A0			refcount_inc(&root->count);
-> -			spin_unlock(&nilfs->ns_cptree_lock);
-> +			mutex_unlock(&nilfs->ns_cptree_lock);
-> =C2=A0			kfree(new);
-> =C2=A0			return root;
-> =C2=A0		}
-> @@ -909,17 +909,19 @@ nilfs_find_or_create_root(struct the_nilfs
-> *nilfs, __u64 cno)
-> =C2=A0	atomic64_set(&new->inodes_count, 0);
-> =C2=A0	atomic64_set(&new->blocks_count, 0);
-> =C2=A0
-> -	rb_link_node(&new->rb_node, parent, p);
-> -	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
-> -
-> -	spin_unlock(&nilfs->ns_cptree_lock);
-> -
-> =C2=A0	err =3D nilfs_sysfs_create_snapshot_group(new);
-> =C2=A0	if (err) {
-> +		mutex_unlock(&nilfs->ns_cptree_lock);
-> +		wait_for_completion(&new->snapshot_kobj_unregister);
-> =C2=A0		kfree(new);
-> -		new =3D NULL;
-> +		return NULL;
-> =C2=A0	}
-> =C2=A0
-> +	rb_link_node(&new->rb_node, parent, p);
-> +	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
-> +
-> +	mutex_unlock(&nilfs->ns_cptree_lock);
-> +
-> =C2=A0	return new;
-> =C2=A0}
-> =C2=A0
-> @@ -927,13 +929,14 @@ void nilfs_put_root(struct nilfs_root *root)
-> =C2=A0{
-> =C2=A0	struct the_nilfs *nilfs =3D root->nilfs;
-> =C2=A0
-> -	if (refcount_dec_and_lock(&root->count, &nilfs-
-> >ns_cptree_lock)) {
-> +	if (refcount_dec_and_mutex_lock(&root->count,
-> +					&nilfs->ns_cptree_lock)) {
-> =C2=A0		rb_erase(&root->rb_node, &nilfs->ns_cptree);
-> -		spin_unlock(&nilfs->ns_cptree_lock);
-> -
-> =C2=A0		nilfs_sysfs_delete_snapshot_group(root);
-> -		iput(root->ifile);
-> +		wait_for_completion(&root-
-> >snapshot_kobj_unregister);
+pci_get_domain_bus_and_slot() returns a PCI device with an elevated
+reference count, but iommu_call_iopf_notifier() never drops it, neither
+when the page request has been reported nor on the abort path.
 
-Is it right behavior that we are waiting completion under the lock?
-Could we have potential deadlock here? I am feeling slightly bad about
-waiting something under the lock.
+Put the device reference on both exits.
 
-> +		mutex_unlock(&nilfs->ns_cptree_lock);
-> =C2=A0
-> +		iput(root->ifile);
-> =C2=A0		kfree(root);
-> =C2=A0	}
-> =C2=A0}
-> diff --git a/fs/nilfs2/the_nilfs.h b/fs/nilfs2/the_nilfs.h
-> index 4776a70f01..074644c64a 100644
-> --- a/fs/nilfs2/the_nilfs.h
-> +++ b/fs/nilfs2/the_nilfs.h
-> @@ -150,7 +150,7 @@ struct the_nilfs {
-> =C2=A0
-> =C2=A0	/* Checkpoint tree */
-> =C2=A0	struct rb_root		ns_cptree;
-> -	spinlock_t		ns_cptree_lock;
-> +	struct mutex		ns_cptree_lock; /* Protects
-> ns_cptree */
+Fixes: 978d626b8f1a ("iommu/amd: Add IO page fault notifier handler")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/iommu/amd/ppr.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-I assume that you prefer mutex because of exclusive lock nature. Could
-we improve something for the case of rw_semaphore?
+diff --git a/drivers/iommu/amd/ppr.c b/drivers/iommu/amd/ppr.c
+index 1f8d2823bea4..1e4392b17bd8 100644
+--- a/drivers/iommu/amd/ppr.c
++++ b/drivers/iommu/amd/ppr.c
+@@ -151,6 +151,7 @@ static void iommu_call_iopf_notifier(struct amd_iommu *iommu, u64 *raw)
+ 
+ 	/* Submit event */
+ 	iommu_report_device_fault(&pdev->dev, &event);
++	pci_dev_put(pdev);
+ 
+ 	return;
+ 
+@@ -159,6 +160,7 @@ static void iommu_call_iopf_notifier(struct amd_iommu *iommu, u64 *raw)
+ 	amd_iommu_complete_ppr(&pdev->dev, PPR_PASID(raw[0]),
+ 			       IOMMU_PAGE_RESP_FAILURE,
+ 			       PPR_TAG(raw[0]) & 0x1FF);
++	pci_dev_put(pdev);
+ }
+ 
+ void amd_iommu_poll_ppr_log(struct amd_iommu *iommu)
+-- 
+2.34.1
 
-Thanks,
-Slava.
-
-> =C2=A0
-> =C2=A0	/* Dirty inode list */
-> =C2=A0	struct list_head	ns_dirty_files;
