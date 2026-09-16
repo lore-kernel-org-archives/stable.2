@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B11254CF6C
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:53:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D67B355295D
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:53:43 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789602823; cv=none; b=Jf58VpPm9r58TywxtkGNo3hh4mKZhA/oNXtKaXqFR6aCbvKb1eidA4L0Rs848lUa9pm0b4yM+U73uTmay3N5aibXP87uSMp4WLwYln2cwRZChx85LpE7iuPBorT2FvOrPTaJZgJW6nHXePgbIPRjUBdtH1Y+VbRdK8Yl64wxp04=
+	t=1789602825; cv=none; b=CBrFpOG55kQujvHlEoH+QP6ShHMIOkTXY+1bjRFaZX6P81DEBY9dVpG6n/ts5IH8h58OcDD5paGbo/i2xouZ9OW2ddRaRJtAtXUs/coBlAyQWERZepTSwjTG5fHzMc0YzTygXjolsVWZfPEp4hGPuCweyuDRRaO31jMFVmV2+ac=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789602823; c=relaxed/simple;
-	bh=o6PH+AxrP1eqxFaShGAcQgXT7erEdgzMbvEaYyPdrHA=;
+	s=arc-20240116; t=1789602825; c=relaxed/simple;
+	bh=AkUBJt3ztSP1uRAU0jOhyPqgSagvcF1psvobDRJLNuA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HyyX+HcgD2u4o4wOuHWyM5AGFY1Dgin2uN42ObZRxhv93RHpUBImYlMs6vB9VYPNm1Xt+YBWEi5/N9439kf505nXMb56exl0GHZsi2slpH6Rcp16+BvZrrM1HbuE9sO0Pa76DuIupLlAvG3wMXzi87V3N8zI6hz+GojrNy+W89I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EEKu/HbF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=JjFg0pCup6j6NhsPNSkgORffTtBMeDKQD/IdeHrN3bivaFvCu9ndCJ67cuYwxRXRxcJPYDXzi3B9YkjGcOnfm4WsXNuXZSfog3mGT0dxuj1WQZ9a34AOvVw02ScfbVWfdFZNQpHn/YP1qBhKNC2VfMHjgsHLjCQvBy/L6r33uuY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VGtKNcz4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EEKu/HbF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 962501F00893;
-	Wed, 16 Sep 2026 23:53:41 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VGtKNcz4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 192E71F00898;
+	Wed, 16 Sep 2026 23:53:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789602822;
-	bh=PGjCKhWLVSSCAoidFZ5R91nuO0ClyfgtZWYv8wqeU0E=;
+	s=k20260515; t=1789602823;
+	bh=i/iLE4/p9ZH1+HpXR4dgKXgJyPUBLsJXh1m0JA2AyXI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EEKu/HbFakSIRlYqlmRnPWTUABknalV5tIafVdgRopldqzicJF0jlqJblfsDyInoV
-	 YgM0dB6inBLNnbQA441bokz/67mmfAvJ6IWL4CSgHEppV6r0FXgLwB4KBdPkho6Jeo
-	 ljHVP5ZVMaTu0Vx8/1LnpYvzx7/i1fA7i5zFnvQd0ghdWqN3nzK8WN/LpcbHyLCFda
-	 FxEK6HVW0gykydT2lWiVdaiqWVq/A3tib1RxXrd5brj43ypRdDHI43guHXx7Q3yjjp
-	 CYiN9q0abOl9BAoe+yv5GucugezL/EtiVg7EaKvc1kmZ+wFXo19Co4mHfyQlcEW1oX
-	 sTgO930lH0k5A==
+	b=VGtKNcz4M8kSQ4pjRe6ENez805AYbUxqZg6Sb9hQeqdao5wMKGRCyvPnqQESjXjwo
+	 /7nmpKooYP8n+NM7Qnm1XQpZ0K8cDKTXvQrMWT1NzpujkBSqWa8yjS6hbo5aJL57AR
+	 jbYkIsjZmg98z4pOz4XtTevTe/6sOjEQI4Ndp9Y+KUjXS7IIVNT+CVAZx+vkv0+b3h
+	 7Byt8m0tYy1Z2XcEQPjQb5sarKXkLLzJbl78SGkgzWF24tKhjceRBEny4N1SCyVAzC
+	 f6Vwebc6b7m9b9zQGgMb9rxxrRbh7UIuONXXNNFR7ZSOLJnx7ULO4uGEIPzkM07UEd
+	 JPJdoBSoEl2RA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Sang-Heon Jeon <ekffu200098@gmail.com>,
+Cc: Xuanqiang Luo <luoxuanqiang@kylinos.cn>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] bootconfig: Fix integer overflow in initrd size check
-Date: Wed, 16 Sep 2026 19:53:40 -0400
-Message-ID: <20260916235340.3313629-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] net/sched: act_api: release all action references on NEWACTION failure
+Date: Wed, 16 Sep 2026 19:53:41 -0400
+Message-ID: <20260916235341.3313676-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091617-grudging-framing-3324@gregkh>
-References: <2026091617-grudging-framing-3324@gregkh>
+In-Reply-To: <2026091624-used-privatize-a012@gregkh>
+References: <2026091624-used-privatize-a012@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,106 +46,65 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Masami Hiramatsu (Google)" <mhiramat@kernel.org>
+From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
 
-[ Upstream commit 7812d6dab0698001e50e8c2f901e17da3eb6f429 ]
+[ Upstream commit 478eb5abb51931a152abab068f8a717b7ff480fd ]
 
-Sashiko reported that in get_boot_config_from_initrd(), a crafted initrd
-with a huge bootconfig size (such as 0xFFFFFFFF) can cause the pointer
-arithmetic:
+When a batched RTM_NEWACTION request replaces an existing action,
+tcf_idr_check_alloc() takes a temporary reference on it. If a later
+action fails to initialize, tcf_action_destroy() uses strict release
+semantics to clean up the actions initialized so far. For an action
+bound to a filter, the strict check returns -EPERM without dropping
+the temporary reference.
 
-    data = ((void *)hdr) - size;
+This error also makes tcf_action_destroy() return before releasing
+subsequent entries. Any new action initialized between the bound
+action and the failing entry is leaked together with its reserved
+IDR slot, preventing reuse of its index.
 
-to wrap around on 32-bit systems (or when pointer subtraction overflows).
-Because data wraps around, the subsequent bounds check:
+Use tcf_idr_release() to drop each reference held by the batch without
+rejecting bound actions. This allows cleanup to continue through all
+initialized entries and preserves the module reference release when
+an action is destroyed. Explicit action deletion and flushing retain
+their separate bind-count checks.
 
-    if ((unsigned long)data < initrd_start)
-
-evaluates to false, bypassing the check. The kernel then calls
-xbc_calc_checksum(data, size), which attempts to read 4GB of memory,
-hitting unmapped pages and triggering a fatal kernel page fault during
-early boot. Furthermore, on 64-bit systems with an initrd > 4.29 GB, an
-unbounded 32-bit size can similarly bypass the initrd_start check.
-
-Fix this by:
-1. Ensuring the initrd is at least large enough to contain the bootconfig
-   footer and verifying hdr is within the initrd bounds.
-2. Checking that size does not exceed XBC_DATA_MAX and does not exceed
-   the available space between initrd_start and hdr before performing
-   pointer subtraction.
-
-Link: https://lore.kernel.org/all/178905333479.213925.1358412668943562406.stgit@devnote2/
-
-Fixes: de462e5f1071 ("bootconfig: Fix to remove bootconfig data from initrd while boot")
+Fixes: 55334a5db5cd ("net_sched: act: refuse to remove bound action outside")
 Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/all/20260910010137.EE0431F000FF@smtp.kernel.org/
-Assisted-by: Antigravity:gemini-3.8-flash
-Signed-off-by: Masami Hiramatsu (Google) <mhiramat@kernel.org>
-Reviewed-by: Sang-Heon Jeon <ekffu200098@gmail.com>
-[ Adjusted context to preserve the existing u32 *hdr pointer and le32_to_cpu() header reads. ]
+Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+Reviewed-by: Jamal Hadi Salim <jhs@mojatatu.com>
+Link: https://patch.msgid.link/20260909070336.32979-2-xuanqiang.luo@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- init/main.c | 25 +++++++++++++++----------
- 1 file changed, 15 insertions(+), 10 deletions(-)
+ net/sched/act_api.c | 9 ++-------
+ 1 file changed, 2 insertions(+), 7 deletions(-)
 
-diff --git a/init/main.c b/init/main.c
-index 50b84f1f9ff38..76eeffa7310c1 100644
---- a/init/main.c
-+++ b/init/main.c
-@@ -275,7 +275,8 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 	u32 *hdr;
- 	int i;
+diff --git a/net/sched/act_api.c b/net/sched/act_api.c
+index 47f0d4c3dc487..3dbf0919ba526 100644
+--- a/net/sched/act_api.c
++++ b/net/sched/act_api.c
+@@ -1133,19 +1133,14 @@ EXPORT_SYMBOL(tcf_action_exec);
  
--	if (!initrd_end)
-+	if (!initrd_end || initrd_end < initrd_start ||
-+	    initrd_end - initrd_start < BOOTCONFIG_MAGIC_LEN + 8)
- 		return NULL;
+ int tcf_action_destroy(struct tc_action *actions[], int bind)
+ {
+-	const struct tc_action_ops *ops;
+ 	struct tc_action *a;
+ 	int ret = 0, i;
  
- 	data = (char *)initrd_end - BOOTCONFIG_MAGIC_LEN;
-@@ -292,16 +293,26 @@ static void * __init get_boot_config_from_initrd(size_t *_size)
- 
- found:
- 	hdr = (u32 *)(data - 8);
-+	if ((unsigned long)hdr < initrd_start)
-+		return NULL;
-+
- 	size = le32_to_cpu(hdr[0]);
- 	csum = le32_to_cpu(hdr[1]);
- 
--	data = ((void *)hdr) - size;
--	if ((unsigned long)data < initrd_start) {
--		pr_err("bootconfig size %d is greater than initrd size %ld\n",
-+	if (size > XBC_DATA_MAX) {
-+		pr_err("bootconfig size %u is greater than max size %d\n",
-+			size, XBC_DATA_MAX);
-+		return NULL;
-+	}
-+
-+	if (size > ((unsigned long)hdr - initrd_start)) {
-+		pr_err("bootconfig size %u is greater than initrd size %lu\n",
- 			size, initrd_end - initrd_start);
- 		return NULL;
+ 	for (i = 0; i < TCA_ACT_MAX_PRIO && actions[i]; i++) {
+ 		a = actions[i];
+ 		actions[i] = NULL;
+-		ops = a->ops;
+-		ret = __tcf_idr_release(a, bind, true);
+-		if (ret == ACT_P_DELETED)
+-			module_put(ops->owner);
+-		else if (ret < 0)
+-			return ret;
++		/* Drop our reference even if the action is still bound to a filter. */
++		ret = tcf_idr_release(a, bind);
  	}
- 
-+	data = ((void *)hdr) - size;
-+
- 	if (xbc_calc_checksum(data, size) != csum) {
- 		pr_err("bootconfig checksum failed\n");
- 		return NULL;
-@@ -400,12 +411,6 @@ static void __init setup_boot_config(void)
- 		return;
- 	}
- 
--	if (size >= XBC_DATA_MAX) {
--		pr_err("bootconfig size %ld greater than max size %d\n",
--			(long)size, XBC_DATA_MAX);
--		return;
--	}
--
- 	ret = xbc_init(data, size, &msg, &pos);
- 	if (ret < 0) {
- 		if (pos < 0)
+ 	return ret;
+ }
 -- 
 2.53.0
 
