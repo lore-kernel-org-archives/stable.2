@@ -1,205 +1,160 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2DDCE4908B0
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8A49648BD54;
+	Wed, 16 Sep 2026 09:10:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789549664; cv=none; b=HyCwfuTY0raCL5VM2zCyx4PjEKqVrBABuJXJw3Z+NU38nzyeaeAsJfQoYBplfQLGVacLqROnCK8BzvdddsL32kQ66yWZi7bonQKRohPFeo90y9WgmZO7rBUVSL5ynVW0RBN75+fpIFA40Xl8kYBzmafbEPaAOi7RAQ2dVUEFi1E=
+	t=1789549828; cv=none; b=j081OIGOcfnBcfh0GpvfY64byboGO4poDAd37byVwEP6y4kpq1Ifm2HNot5AYn8OTAW37mTx1WIlMa2A9nIIj8MLBSc4xJXkOnDkR7MJ7HWV7k6NhdYzHz4tNEtvbQk9607ENy56w2ll3vQUQr8ZFpyLBkWO8Mrjmi/Uu2ci8NQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789549664; c=relaxed/simple;
-	bh=/oSHeo+dHrTJ4BeaXgDyE3G967AhC/96LwQQ8JcP8WA=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=BYWNizQ4Xwfxo2PekQlyrHP8l5KimIWcug2KkfLxIiJpA5LK7FaQ3F1Ec+5LtkFEFyktPStu7DEkjj7DAXpfZZHk+0T8mb2KYC3OUxORN25X/RFow8iwZh/BCwJSzzsQbwfSyewjZWIgCT69E8StSnjQzEFcVer/sRneFQQ1y2s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GLV8fORQ; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789549828; c=relaxed/simple;
+	bh=AEqSX65qBK51YRCjzACTfTXXqKYV8OXz+2tbKUCGkPs=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=IiDKyoyaihmkFWbcg1Kwxo0mCRnSLEQn4iRMsskrOX4HvfNWGo95pYBUrJ0w5DUf3gZdh2bayG+p+W9ofkPRI4ZLDkGNVvn+UV2P4yCLejRaIvCkI6rP0mrcdOADM4oTLXCF3BS1SeO0U05tvTu58hkT949HPcHi6vDHMCbFxKo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=saa+zYdO; arc=none smtp.client-ip=203.205.221.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GLV8fORQ"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f05ffcso4626255ad.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 02:07:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789549642; x=1790154442; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=/oSHeo+dHrTJ4BeaXgDyE3G967AhC/96LwQQ8JcP8WA=;
-        b=GLV8fORQ821+tCJ1eEdWqiITJkiQGR6zLDx6NGw3kw1lrhpz5iQTZscXxR+Ny7Rlsz
-         xC6EzehnUaEGVyyLDhKEzpgcd06Qug5aDN41IsGTf40yigTKI8xpG5rsnG0C4gK7d6yV
-         NZ20uMCGsIU0vQL0Q+CSnBe1hOYTPBNe3i32L7mShmVrurvQKlTXWdsFLZ4eYkEQgan4
-         6rRZpjSgxOjXvg+PpNaKYL98ArpwKSAqpl3zbAAImS76bnGMc0JqqqkTN1IJKHJgvQfl
-         VNPOzRH0dnKB+KN2fjvu70KLxHx2TYJfnGRIx4LIN+drHEM+rtotEFF69sFclW+OQZRi
-         OOeg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789549642; x=1790154442;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=/oSHeo+dHrTJ4BeaXgDyE3G967AhC/96LwQQ8JcP8WA=;
-        b=UswHv0vhjsYgYnDO1u8vs6zJahzfKYV1P+3uxJDE2yMTNSAdVcJfkPrXKoVgj+iciv
-         8rzEvcNmnpLJeWXoKD2IjTN5nAAa5qvwmNirDdGBrOtX3ZnQsGJT4VFi7MqGtcCdg8iT
-         Uz5jIVNgLT+ARddYhIVBW910hiYzupvERUAOpzOvUC0D590QC4tCElcJADirTlveaq70
-         GY4YI7/vp2gJYd478l1kuRvuWZjNUpDJ9rD4okwPAbQK3fr04DMW1Lj+ZSiQgUQGhwNG
-         nRy4r16eit7RaO8H2tlyXNwpzXtWh6tr+eZpY8Q1FR7fCta1mWiz6zH+XuT9nDVGwvYF
-         xGmQ==
-X-Forwarded-Encrypted: i=1; AKwUvByTjpQ0SnrnBZTn4BYsv83jvl63Tdd5hMqzzwmQkxm6SE9/uNJXZAXF0MJrOyqYk/SvyKXXOzA=@vger.kernel.org
-X-Gm-Message-State: AFuF++lhuB+OYunGsz65gs41t/PvmG2oAry2Kz9Jut9IRQT+zfxTMz+z
-	6oOKz09mxyFCphxoOEOqiQn40Uolk+G6Vb3HBLwn9ceESOt2evFOzf/6
-X-Gm-Gg: AYBFou13BaytvgosNPNdktX+StzvKs6HTUsGywEW+mpFjPeIBJCrGY6zaSrbMLTAD4e
-	Rp2yNP4y6NUxnhYcFYMHCblsyvz5iIhQld4Nac9HlXZcIlPflxl2UqU3VJMuKkEGtixe9SXZ49l
-	mWv0baNUbnVamZN/gxrSOOlLsKhkEATlrG/GS0TXYcExf1uEsr0OreocoQpxmbvrP/79VIgrn+D
-	aY66JoIBf9XzXrZXkNFFP4YvycgG1/NujRZz2EQ0BcfhQxrzC+1dzQzMSxWWb0qaM+N2Fllo3m8
-	3aLZBhuGfMKaOD1cjavHSyhZY7/CViJMzwQL5zIacKhbea0czpLg1GdCxhIBU78SVFZRn+ZCOSA
-	5W9AndMyBJ5kt3nZBNLZpQQBIEVP696EWKJVkCOBzSH5lN2N/8J9NqodM9DUADMja3+ht92Jb9q
-	+TwRKbN94RhfL4Cmxxyc9ULp8odZZixIPsdMuHBh3AJPdydF/Rwbko73ctbY/wcNf8RjjxKw3XS
-	aFLr0GKHbm/wkeDO9MM2l3mW6Mn5JDdAlW2KA==
-X-Received: by 2002:a17:902:d547:b0:2d0:cc92:f7a9 with SMTP id d9443c01a7336-2dd8dd0b15amr37176235ad.4.1789549641965;
-        Wed, 16 Sep 2026 02:07:21 -0700 (PDT)
-Received: from [10.89.160.219] (wf124-219.ust.hk. [175.159.124.219])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89eb7d15sm8234195ad.39.2026.09.16.02.07.19
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Wed, 16 Sep 2026 02:07:21 -0700 (PDT)
-Message-ID: <dc927d3e-e7f1-461c-9a75-259f71899224@gmail.com>
-Date: Wed, 16 Sep 2026 17:07:17 +0800
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="saa+zYdO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789549801; bh=aJ2RoaVrTR5lScqJ6fDtJfwi0fg4FnGoIrHJd1m6gsA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=saa+zYdOqn2vAfEPLskj8giuvnVq/3WactJ2bwt2rtAaJ92dBdkJbUAUlLKV4oIk9
+	 Kc2P8sCURuuqmeXC8cxL6wAH2n2jBorbWc49s93Z0xp9ZK+ubwSDTQerM2IunwVb63
+	 ma0o0jfpHeixRSMfmfXqQjgonUJQW98zztamj92g=
+Received: from WIN-U8J9BGQPJ22 ([61.136.26.125])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id 277B8E5A; Wed, 16 Sep 2026 17:09:55 +0800
+X-QQ-mid: xmsmtpt1789549798ts0pxda6l
+Message-ID: <tencent_6BAAD177CBC8B253A2297594808F7D546606@qq.com>
+X-QQ-XMAILINFO: Ne0X32Z2O2BRPTa9PytJI71zJiFWkCoc+o02MwZhDmVH0c3wqBG5GK/XpRvZLO
+	 uVl9f/zxFqogwBdALUaKhNMLG1r8qO+IloMA+n/8iecW+ggbeLM5ltNPmlY8reX4+g2xWw/arILW
+	 UDkiOULB2BvS/Otf1o1eRNUhTNK0a6MzkSa3lO5muQrZaBiMQYlWthRj1mJAtvtbPFf6eii8zWZQ
+	 jcbnZPikeHzbcng1UuRN9koP+4llgI0ClWZupSk5EaP1Rw2HAl6JuLyCuv6a+iQ/FXMBaDZRDWdA
+	 N6GKf7f6XUuy4zKuMNvyln8lyXxDc0k7jF0V1xFfhJAoNcUU85+Q1V/E4+yj7d5Wkv5RQMyFlV7F
+	 PNCt8YkLD007l9xgFFkwbtvK+PMM/S8GN364ilajl2H2uAUI+7Rl0/xE2XJitNRCUBCjZ7vlOCQY
+	 LPwI0/8R2tXixQQD+ztIFWUTe4HFZqXKdLpwkmWYf4/uyoQHfR8UbOVVNaXSUmq+cjSEtq01L45/
+	 TwxIylFqsYLA390rQP8bwhwXDPIrAcLKHR2wKemT+1GxuM9tL5XDY6ok9M+dMsXyTCT0SxHuwoY0
+	 nUYAYJJLTxEEIibdKcahJPm0TSwdxSFyfeJt8mi0ZRUONXD4IztJSpeAOBe51j90K9hpG88CGDIY
+	 fm3qjSXuyTO7f/q/X44YQm7oDSu0FYrKhxOVGkz2UioIqBHpfQyVEeldxVnaCoWoWwGeez0/l0ST
+	 HviiDRtnftrkPQeitkpcxH1DLcVg5FHbGkFzOCKhwjwNqxqBt9r8nYAI7ZBMujLmoEKPQjvNdXBa
+	 UDTyKVLD6p/NLdthu6DROQpxHu/gXl3KjH2RU1nQsi8J2S/0Pt30nbLGULYbp7NEnF99ZPAYzTVq
+	 fjI0OYuhpe6a6vpdRwPp4kTl3us8dxCRaIqjmYgTXDM6fM1EghPC1l5H4UACeUXY0fr3KcKHSs6t
+	 ZmAoIX+VWB70mJ9Qu03hTe4Z/kNMx9JS66jFP3dcsV98l444S1R1n5Qf4AykYazQ7E4J3JQW/noE
+	 ZNDYjkt7pD1qC8O/UBz4gXPryrF9+hgfk6RlNi83xgEFtk70+2VlOekhfyy5Qv4baCjHMvLfzZKZ
+	 Rd7g8DEZ7reBQQCNSLYShDZPtQ9Q==
+X-QQ-XMRINFO: OD9hHCdaPRBwH5bRRRw8tsiH4UAatJqXfg==
+From: 1sh1ro <yangguikun19@qq.com>
+To: Viacheslav Dubeyko <slava@dubeyko.com>,
+	John Paul Adrian Glaubitz <glaubitz@physik.fu-berlin.de>,
+	Yangtao Li <frank.li@vivo.com>
+Cc: 1sh1ro <yangguikun19@qq.com>,
+	linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/1] hfs: don't let internal B-tree inodes leak into the VFS open path
+Date: Wed, 16 Sep 2026 17:09:54 +0800
+X-OQ-MSGID: <20260916080000.1-hfs-fix@localhost>
+X-Mailer: git-send-email 2.53.0.windows.1
+In-Reply-To: <20260916080000.0-hfs-fix@localhost>
+References: <20260916080000.0-hfs-fix@localhost>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 1061/1376] nvme-apple: Drop the PRP null check
- chicken bit
-To: Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, Joshua Peisach <jpeisach@ubuntu.com>,
- Janne Grunau <j@jannau.net>, Sven Peter <sven@kernel.org>,
- Sasha Levin <sashal@kernel.org>
-References: <20260912065607.535295758@linuxfoundation.org>
- <20260912065631.206877541@linuxfoundation.org>
- <9be379ae-7589-40fb-a0b0-4d4659f46e71@oracle.com>
-Content-Language: en-US
-From: Nick Chan <towinchenmi@gmail.com>
-In-Reply-To: <9be379ae-7589-40fb-a0b0-4d4659f46e71@oracle.com>
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
+hfs_btree_open() creates the extents and catalog B-tree inodes with
+iget_locked() and never assigns them a file type, so both stay cached
+with i_mode == 0 after mount.
 
-Harshit Mogalapalli 於 2026/9/16 下午4:32 寫道:
->
->
-> On 12/09/26 12:28 pm, Greg Kroah-Hartman wrote:
->> 6.12-stable review patch.  If anyone has any objections, please let me know.
->>
->> ------------------
->>
->> From: Sven Peter <sven@kernel.org>
->>
->> [ Upstream commit 8ce883fd068b7ba9ab493cd3ecca3a7ea868c375 ]
->>
->> Now that we program the DMA direction correctly the NULL check that used
->> to make commands fail passes. Another side effect of this bit was that
->> non-align buffers on the admin queue were silently allowed and that's
->> been fixed now as well and we this don't need this chicken bit anymore.
->> More importantly, starting with the firmware installed with macOS 15,
->> which is required for M4 but can also be installed on the previous SoCs,
->> the controller no longer exposes this control register and any access
->> SErrors instead. Just drop the write entirely.
->>
->> Fixes: 5bd2927aceba ("nvme-apple: Add initial Apple SoC NVMe driver")
->> Tested-by: Joshua Peisach <jpeisach@ubuntu.com>
->> Tested-by: Janne Grunau <j@jannau.net>
->> Tested-by: Nick Chan <towinchenmi@gmail.com>
->> Signed-off-by: Sven Peter <sven@kernel.org>
->> Signed-off-by: Sasha Levin <sashal@kernel.org>
->> ---
->>   drivers/nvme/host/apple.c | 14 --------------
->>   1 file changed, 14 deletions(-)
->>
->> diff --git a/drivers/nvme/host/apple.c b/drivers/nvme/host/apple.c
->> index 8fc466588c4f2..5f745bf615fe7 100644
->> --- a/drivers/nvme/host/apple.c
->> +++ b/drivers/nvme/host/apple.c
->> @@ -47,9 +47,6 @@
->>   #define APPLE_ANS_BOOT_STATUS     0x1300
->>   #define APPLE_ANS_BOOT_STATUS_OK 0xde71ce55
->>   -#define APPLE_ANS_UNKNOWN_CTRL     0x24008
->> -#define APPLE_ANS_PRP_NULL_CHECK BIT(11)
->> -
->>   #define APPLE_ANS_LINEAR_SQ_CTRL 0x24908
->>   #define APPLE_ANS_LINEAR_SQ_EN     BIT(0)
->>   @@ -1130,17 +1127,6 @@ static void apple_nvme_reset_work(struct work_struct *work)
->>           /* Setup the NVMMU for the maximum admin and IO queue depth */
->>           writel(anv->hw->max_queue_depth - 1,
->>               anv->mmio_nvme + APPLE_NVMMU_NUM_TCBS);
->> -
->> -        /*
->> -         * This is probably a chicken bit: without it all commands
->> -         * where any PRP is set to zero (including those that don't use
->> -         * that field) fail and the co-processor complains about
->> -         * "completed with err BAD_CMD-" or a "NULL_PRP_PTR_ERR" in the
->> -         * syslog
->> -         */
->> -        writel(readl(anv->mmio_nvme + APPLE_ANS_UNKNOWN_CTRL) &
->> -            ~APPLE_ANS_PRP_NULL_CHECK,
->> -            anv->mmio_nvme + APPLE_ANS_UNKNOWN_CTRL);
->>       }
->
-> Hi Greg/Sasha,
->
-> I ran an AI-assisted backport review, and I have verified the report. It
-> looks valid to me.
->
-> Upstream removes the Apple PRP workaround only after
-> 69d22a6b2f698 adds a page-alignment quirk and ea2160c7b7818 enables it for nvme-apple.
->
-> Upstream code with both alignment prerequisites:
->
->     if (is_admin &&
->         (ctrl->quirks & NVME_QUIRK_ADMIN_PAGE_ALIGN))
->             lim->dma_alignment = NVME_CTRL_PAGE_SIZE - 1;
->
-> Downstream 6.12.y code:
->
->     lim->dma_alignment = 3;
->     NVME_QUIRK_SKIP_CID_GEN | NVME_QUIRK_IDENTIFY_CNS
->
->
-> Neither is present in 6.12, whose admin queue still permits four-byte
-> buffer alignment.
->
-> I suggest porting those two prerequisites to the older queue-limit API
-> and applying them before this deletion. Thoughts?
+A crafted HFS image whose catalog contains a record whose DirID/FlNum
+aliases HFS_EXT_CNID (3) or HFS_CAT_CNID (4) makes hfs_lookup() ->
+hfs_iget() -> iget5_locked() return that already-cached internal inode
+(hfs_test_inode() only compares i_ino), without running
+hfs_read_inode().  The typeless inode then reaches the generic open
+path and, with CONFIG_DEBUG_VFS=y, deterministically panics:
 
-This appears to be correct. In addition, the way this deletion is currently
-structured depends on commit 
+  VFS_BUG_ON_INODE(!IS_ANON_FILE(inode)): inode:... fs:hfs mode:0 opflags:0xc flags:0x0 state:0x0 count:2
+  ------------[ cut here ]------------
+  kernel BUG at fs/namei.c:4271!
+  RIP: 0010:may_open+0x2ba/0x480 fs/namei.c:4271
+  Call Trace:
+   do_open fs/namei.c:4698 [inline]
+   path_openat+0x1600/0x3de0 fs/namei.c:4863
+   __x64_sys_openat+0x13f/0x1f0 fs/open.c:1385
 
-04d8ecf37b5e06d1 ("nvme: apple: Add Apple A11 support")
+Fix it in two steps:
 
-solely because adding A11 support wrapped the existing
-code in an if statement. The correct patch would be to
-remove the corresponding code directly in 6.1, 6.6 and
-6.12.
+ - give the B-tree inodes an S_IFREG type in hfs_btree_open(), so the
+   "every cached inode has a valid S_IFMT type" VFS invariant holds
+   regardless of what is on disk;
 
-I suggest this patch and all of its dependencies to be
-dropped from 6.1, 6.6 and 6.12 so this patch can be
-backported properly alongside the page size quirk later.
+ - refuse, in hfs_iget(), catalog records that address the reserved
+   B-tree CNIDs so a malformed image cannot alias internal objects
+   into dentries at all.  Returning NULL follows the existing
+   convention for unaddressable records: hfs_fill_super() turns it
+   into a mount failure and hfs_lookup() into -EACCES.
 
-Patches that should be dropped:
+Without CONFIG_DEBUG_VFS the assertion compiles away and the same
+crafted image silently makes a typeless inode openable, so this is not
+merely a debug-config nuisance.
 
-04d8ecf37b5e06d1 ("nvme: apple: Add Apple A11 support")
-6fe0687245e8406b ("nvme-apple: Prevent shared tags across queues on Apple A11")
-a6ab75639e23169a ("nvme-apple: Reset q->sq_tail during queue init")
-8ce883fd068b7ba9 ("nvme-apple: Drop the PRP null check chicken bit")
+Found by syzkaller-style fuzzing of v7.2-rc7; still reproducible on
+current mainline.
 
-Best Regards,
-Nick Chan
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Signed-off-by: 1sh1ro <yangguikun19@qq.com>
+---
+ fs/hfs/btree.c | 8 ++++++++
+ fs/hfs/inode.c | 11 +++++++++++
+ 2 files changed, 19 insertions(+)
 
+diff --git a/fs/hfs/btree.c b/fs/hfs/btree.c
+index 2eb37a2f64e8..bd69ace8f309 100644
+--- a/fs/hfs/btree.c
++++ b/fs/hfs/btree.c
+@@ -43,6 +43,14 @@ struct hfs_btree *hfs_btree_open(struct super_block *sb, u32 id, btree_keycmp ke
+    if (!tree->inode)
+       goto free_tree;
+    BUG_ON(!(inode_state_read_once(tree->inode) & I_NEW));
++
++   /* B-tree inodes are internal objects that must never be exposed
++    * through directory entries.  Give them a REG type so the VFS
++    * invariant "every cached inode has a valid S_IFMT type" holds even
++    * when a corrupted image contains catalog records aliasing these
++    * reserved CNIDs.
++    */
++   tree->inode->i_mode = S_IFREG;
+    {
+    struct hfs_mdb *mdb = HFS_SB(sb)->mdb;
+    HFS_I(tree->inode)->flags = 0;
+diff --git a/fs/hfs/inode.c b/fs/hfs/inode.c
+index ac4a9055c5c0..bb759345f1fc 100644
+--- a/fs/hfs/inode.c
++++ b/fs/hfs/inode.c
+@@ -432,6 +432,17 @@ struct inode *hfs_iget(struct super_block *sb, struct hfs_cat_key *key, hfs_cat_
+    default:
+       return NULL;
+    }
++
++   /* Refuse catalog records that address the internal B-tree objects:
++    * a crafted image can otherwise make hfs_lookup() return the cached
++    * typeless B-tree inode, which then reaches may_open() with
++    * i_mode == 0 and trips VFS_BUG_ON_INODE() there.  NULL follows the
++    * existing convention for unaddressable records (mount failure /
++    * -EACCES).
++    */
++   if (cnid == HFS_EXT_CNID || cnid == HFS_CAT_CNID)
++      return NULL;
++
+    inode = iget5_locked(sb, cnid, hfs_test_inode, hfs_read_inode, &data);
+    if (inode && (inode_state_read_once(inode) & I_NEW))
+       unlock_new_inode(inode);
+--
+2.39.5
 
->
-> thanks,
-> Harshit
->>         /* Setup the admin queue */
->
