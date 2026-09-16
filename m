@@ -1,46 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9429423E99;
-	Wed, 16 Sep 2026 19:28:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F48B408023;
+	Wed, 16 Sep 2026 19:28:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789586950; cv=none; b=EMdgtngRvOfT3Ns2nS45M2VWz1GGvXc8xlwGUMLa6Kf7u668OFur4jvSNUlVfNSimMtk2otMCFObhAee9DadJFgGYfFiIDI29CHyUynOc+a5x1z0RI56aH3KvxcslgoeS49N0IxF04gkebk0rKHodOVHkyDL9lOiUVO7EFO+vr0=
+	t=1789586953; cv=none; b=l+DRdnKKvVFYzyQ6AtjfDgFuEUXgWIPSvRwfIS49/3O++uREFfhR+SbYmbMIszfU5VBt/gneduDRpkBpOdcerAxd3VJDJrstdLbRgYUzd2YINO7pQiYkAS+meskV3qszJEC5sOFCiIUcYlapAHYtSFH9osPRQ4img9vnAZOHDSw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789586950; c=relaxed/simple;
-	bh=TbmP02P+eSVWSBuH96kkLNZ5YcMco5+zh7/hjq7dylA=;
+	s=arc-20240116; t=1789586953; c=relaxed/simple;
+	bh=F69HD0gL6X3qTaHfiUiB2ND10TYSqfBKJ35/XNHeeO0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=JSPyi/aFnI9vAOFuy4MOl2I9iDcg9Pyedrk4jRHkfhFTfOemYMU/jb837yfU2uOHyEueZ+/OAzM1SMdp8fy/C32U0o8wzlSuO/kubQL2P0NOnZljoZ6DedIE7A+zspdTBcoZEiaEIhGbk9E7fZVqe+lxYA7TbP+zrDtt1g0b5x4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d+mhC1s3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gQUQHz48l+rHuw4riIyk27DyqFi/YEoBVCkphsmRTRwe+gB75jguWAwC+7L4AStMe8qjcP1/KgvvSaBcduvcUGU4AqQNbTcnycBH+WzuIPg1pWPq/ywtr0IbI+fpawvPc9XuMLwYMt6QNFGTkMpyjdgxaAEyMfLQA1XBgvMvPOI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MogLI7nk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d+mhC1s3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B46E21F008A6;
-	Wed, 16 Sep 2026 19:28:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MogLI7nk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 572FA1F00899;
+	Wed, 16 Sep 2026 19:28:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789586923;
-	bh=jVjWKScRX7HMveNPDJ31JMC/NURKWFN3XU34ctMyOf4=;
+	s=k20260515; t=1789586927;
+	bh=zAmqPz4EIGZ3CzbE6+ISTpJlKdp2H+z8OgLsnR6fIwI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d+mhC1s3/Lf9YrgJ/Z0Srf1CAY5Lta1e0+JYMZpvhEW1PeL8np6d0xcNHpuTRnElV
-	 7Jnzz0OUmUGmnTJAH9XSo9yUr91Fkl52ipv1ukKu96o8U3wc2PVseX+q17U5ut1C9R
-	 mtDp2qaNcykWf9tWETkz6KJk39HGO/U6SVPvYoa/iOv217J5Uqq8o6ol4MLzSKb6zX
-	 ZLfSOTOfguzTLsIp7jdvSQfgmreN1sto1fqivkqHzOASC4cs3YPufGUleNi+e84PYc
-	 gH3VSnzK7WMnRoglek228ehUh2Lq0+irvYtct93xCaatqoziT3mDbn36pUQwwChEbc
-	 NdyWDSpu+Ai8Q==
+	b=MogLI7nkZfTZeObT4YA0zQTNgb2WCUsxSQEeO0lVqgWK4YZi52dJgTIjUpYFJ10vL
+	 HkZ7tM9HfCaupEcrc/8NRnx1p+1flKbWytkjbbzvXOskMQa2e6+tn291jMo2XptD/P
+	 ZR5CJb+wgJ5CPMJLHkm5zDJjcIWNNUHOrfWwcZSLS2OresKHDZPYRlsxKVLUkEjl9E
+	 u8rK2nfjOVbEaGFIgQBYhSmCGqWYH41mN8qtGDshaKRgRBrJI3dR7M+bLMrWU+MdfF
+	 YZVg7CsKhEQrpMGBzt6ueBc30u8J+1jr0rWAqWuj90B/V4jl6QNIDR2ujfG3qzrzxe
+	 E6cnlOhOzJ14Q==
 From: Sasha Levin <sashal@kernel.org>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org,
-	Vegard Nossum <vegard.nossum@oracle.com>
+	stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
 	patches@lists.linux.dev,
-	Ian Rogers <irogers@google.com>,
-	Namhyung Kim <namhyung@kernel.org>,
+	Chuck Lever <cel@kernel.org>,
+	Vegard Nossum <vegard.nossum@oracle.com>,
 	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 6.12 0360/1376] perf tests: Fix flakiness in BPF counters test on hybrid systems
-Date: Wed, 16 Sep 2026 15:28:04 -0400
-Message-ID: <daily-reply-20260916-0014-re-perf-bpf-counters-shebang@kernel.org>
+Subject: Re: [PATCH 6.12 1031/1376] xdrgen: Do not declare union XDR functions in the definitions header
+Date: Wed, 16 Sep 2026 15:28:07 -0400
+Message-ID: <daily-reply-20260916-0017-re-xdrgen-union-decls@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <44690ef9-dc7a-4a0f-8392-a88459edaebb@oracle.com>
-References: <44690ef9-dc7a-4a0f-8392-a88459edaebb@oracle.com>
+In-Reply-To: <28b2ad9d-520b-48b0-a4df-d940bb21bbb5@oracle.com>
+References: <28b2ad9d-520b-48b0-a4df-d940bb21bbb5@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,12 +48,10 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> The patch uses a Bash array and "${workload[@]}", but 6.12 keeps a
-> /bin/sh shebang.
+> I think 6.12.y misses f7cb94fad4e6cec354a3ea779f91fe5560fb72b6, "xdrgen:
+> Fix union declarations". Thoughts?
 
-Reverted on 6.12, 6.6, 6.1 and 5.15. 7.2 and 6.18 already carry the bash
-shebang, so they keep b02027776ac5 ("perf tests: Fix flakiness in BPF counters
-test on hybrid systems") as is.
+Queued for 6.18 and 6.12, thanks. 6.18 had the same gap.
 
 -- 
 Thanks,
