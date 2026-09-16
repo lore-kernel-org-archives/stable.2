@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3429548CD53
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:15:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D44F477998
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 09:16:11 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789550132; cv=none; b=WZzudVDPe/4IA/uPPvhUTaaE3hJSCuya4FcPC6WNFviQ7huauQjhGbg7OxC4k5Whw3oDdj46mQTY6kyfXDiNprshGI/WI0nxY757LoqOkx3oyjYnyc42ttJ3LNBRMhVaTnPALJZKHriq240FfgTCL33wVQi+Br2WfswGg9qy5XU=
+	t=1789550188; cv=none; b=i+5jZTcOo8BqbyP4vm8/MlE1za84fORLMSDNMRTnJxztT7afF/qs0WKZRJcikOMXKntTZsU+c2iySGnXL8P04+cZz4dRQVKZOoIqpH3eNq2c/7thLWc6bKwGq/6ucOMvFWJqmq/MoaCpHpiOeo4OawH8z5XJ55viGI/GWQeibj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789550132; c=relaxed/simple;
-	bh=wtsaDzFbSwgCvlfTFmN+CNUGnHcKThRLkzVL1I/9nAg=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=pzd1i7Cb7ErGBlaad0a9nYTdbJqjAKY2gyJW3Eqb6iKveUM4yu35HBas5E7BDz3Lwz6ZIWPxolbsU5rXSDf1tyRSVNEirmGdCedDE6Aa1ds2TpciC/vijbx/8e1nAtFP9nV0BOLQ5kLiJnDTkeZugddsoX/503jEv8G2biQpZxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=u6sOnaBU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789550188; c=relaxed/simple;
+	bh=oZHCKh3R6EVKy3AmiapVWHH0BnByQTW8YdEmfBDpPSg=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=KBpe+70l3OBnyRIDQbcbfngWpSCBRGVgZveiCi2GB6ScI9zizId5lBVsoT/ePkvFXOLmCc8mSS2jMRLa4+FBD6YrIwBVzhKGItBFocHsXlt7c+3WF5lcWMDteXHdAy5IqKs7EBJ5j2JL07EPb7AkhQ/+IgzjG4avftimmjt+qFg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=irLjDnco; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="u6sOnaBU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52BF31F000FF;
-	Wed, 16 Sep 2026 09:15:12 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="irLjDnco"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CBFD1F000FF;
+	Wed, 16 Sep 2026 09:16:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789550112;
-	bh=sRHqqo96oxDCdgzEPjf/LmOMFpUmIA7l+wxIqo6poCQ=;
+	s=korg; t=1789550170;
+	bh=P2ddtLjzW6gExNjj+Zm0RosJqtjn6vbJT091zagXCV8=;
 	h=Subject:To:Cc:From:Date;
-	b=u6sOnaBUfX0w+xuesbLPiLMUIccue3UcLOWEI1A9jOH93C6QIEpy3JwYwUnzQnduf
-	 LcICllsVuaqiKe+084PxyKpYWD3kVhTvcpZocLmtaALtGCnXLofO+k9+qCYY485Z/8
-	 XnJ7RY12H7ElU843kC79rvTi95TPJSkUMQN7BnTk=
-Subject: FAILED: patch "[PATCH] rust: allow `clippy::as_underscore` in the generated bindings" failed to apply to 6.12-stable tree
-To: jhubbard@nvidia.com,ojeda@kernel.org
+	b=irLjDncooe2lU9+5/FCIVHb15WSGiBZAzhfwRSyD/NUN1yX41nOY/eYEbB9SKml0i
+	 SM9qqlXbWVuY10Z0VYnnq/qTIJ06mGEz0YeuGN0xKqqfXlrKQpEdZF+cl0F/xtiJ0f
+	 5tZTd/E5SnRjyUlKpcYUgi6m1Ou4olmARKMc4Wag=
+Subject: FAILED: patch "[PATCH] ALSA: us122l: Prevent write upgrades for read mappings" failed to apply to 6.12-stable tree
+To: hnkz.64@gmail.com,tiwai@suse.de
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Wed, 16 Sep 2026 10:13:19 +0100
-Message-ID: <2026091618-barrier-dexterous-aa2d@gregkh>
+Date: Wed, 16 Sep 2026 10:14:17 +0100
+Message-ID: <2026091616-crumpled-gizzard-8ee6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x 2ac74c6db40adaa29c50cbb281ae9a6f63de18e1
+git cherry-pick -x 71c610aeb1770302ac9c9e0b9a4ecd37f1311928
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091618-barrier-dexterous-aa2d@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091616-crumpled-gizzard-8ee6@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,66 +62,50 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From 2ac74c6db40adaa29c50cbb281ae9a6f63de18e1 Mon Sep 17 00:00:00 2001
-From: John Hubbard <jhubbard@nvidia.com>
-Date: Sun, 6 Sep 2026 14:58:22 -0700
-Subject: [PATCH] rust: allow `clippy::as_underscore` in the generated bindings
+From 71c610aeb1770302ac9c9e0b9a4ecd37f1311928 Mon Sep 17 00:00:00 2001
+From: Kazuki Hanai <hnkz.64@gmail.com>
+Date: Tue, 8 Sep 2026 20:00:53 +0900
+Subject: [PATCH] ALSA: us122l: Prevent write upgrades for read mappings
 
-A CLIPPY=1 build emitted about 15000 `as _` conversion warnings, all of
-them in bindgen's generated output and none in hand-written code.
+The hwdep mmap callback rejects read-buffer mappings that are initially
+writable, but leaves VM_MAYWRITE set on mappings created with PROT_READ.
+A process that can open the hwdep node O_RDWR can later use mprotect() to
+make the mapping writable.
 
-[ The lint messages look like:
+The read allocation begins with struct usb_stream. Its read_size member is
+used by the fault handler to decide which pages belong to the read buffer.
+The read VMA intentionally remains expandable because pcm_usb_stream uses
+mremap() after reading that size. Changing read_size first can therefore
+map and access pages beyond the allocation. The same member is also
+consumed by usb_stream_free(), where changing it can make
+free_pages_exact() release pages outside the allocation.
 
-    error: using `as _` conversion
-         --> rust/bindings/bindings_generated.rs:18947:9
-          |
-    18947 |         self._bitfield_1.get_const::<0usize, 16u8>() as u32 as _
-          |         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^-
-          |                                                                |
-          |                                                                help: consider giving the type explicitly: `u32`
-          |
-          = help: for further information visit https://rust-lang.github.io/rust-clippy/rust-1.98.0/index.html#as_underscore
-          = note: `-D clippy::as-underscore` implied by `-D warnings`
-          = help: to override `-D warnings` add `#[allow(clippy::as_underscore)]`
+Clear VM_MAYWRITE for read-buffer mappings after rejecting an initially
+writable VMA. This keeps the separate output-buffer mapping writable while
+preventing later permission upgrades.
 
-    - Miguel ]
+Fixes: 030a07e44129 ("ALSA: Add USB US122L driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Kazuki Hanai <hnkz.64@gmail.com>
+Link: https://patch.msgid.link/20260908110053.2950767-1-hnkz.64@gmail.com
+Signed-off-by: Takashi Iwai <tiwai@suse.de>
 
-bindgen 0.73 returns each bitfield read through a trailing `as _`, and
-0.72 returns it through a transmute, which the lint ignores. The
-bindings and uapi crates allow `clippy::all` over the generated code.
-That group does not cover `clippy::as_underscore`, a restriction lint.
-
-Allow `clippy::as_underscore` by name in the bindings and uapi crates.
-
-Assisted-by: LLM
-Signed-off-by: John Hubbard <jhubbard@nvidia.com>
-Link: https://patch.msgid.link/20260906215822.1201022-1-jhubbard@nvidia.com
-Cc: stable@vger.kernel.org # Needed in 6.12.y and later (Rust is pinned in older LTSs).
-[ Removed CI sentence. - Miguel ]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
-
-diff --git a/rust/bindings/lib.rs b/rust/bindings/lib.rs
-index 812f8e5a08d5..ad24c920b919 100644
---- a/rust/bindings/lib.rs
-+++ b/rust/bindings/lib.rs
-@@ -22,6 +22,7 @@
- #![feature(cfi_encoding)]
- 
- #[allow(dead_code)]
-+#[allow(clippy::as_underscore)]
- #[allow(clippy::cast_lossless)]
- #[allow(clippy::ptr_as_ptr)]
- #[allow(clippy::ref_as_ptr)]
-diff --git a/rust/uapi/lib.rs b/rust/uapi/lib.rs
-index 797ead5b5626..2df0340e63d1 100644
---- a/rust/uapi/lib.rs
-+++ b/rust/uapi/lib.rs
-@@ -10,6 +10,7 @@
- #![no_std]
- #![allow(
-     clippy::all,
-+    clippy::as_underscore,
-     clippy::cast_lossless,
-     clippy::ptr_as_ptr,
-     clippy::ref_as_ptr,
+diff --git a/sound/usb/usx2y/us122l.c b/sound/usb/usx2y/us122l.c
+index f00b53346abd..a5db0d044ef9 100644
+--- a/sound/usb/usx2y/us122l.c
++++ b/sound/usb/usx2y/us122l.c
+@@ -180,8 +180,11 @@ static int usb_stream_hwdep_mmap(struct snd_hwdep *hw,
+ 	guard(mutex)(&us122l->mutex);
+ 	s = us122l->sk.s;
+ 	read = offset < s->read_size;
+-	if (read && area->vm_flags & VM_WRITE)
+-		return -EPERM;
++	if (read) {
++		if (area->vm_flags & VM_WRITE)
++			return -EPERM;
++		vm_flags_clear(area, VM_MAYWRITE);
++	}
+ 	/* if userspace tries to mmap beyond end of our buffer, fail */
+ 	if (size > PAGE_ALIGN(read ? s->read_size : s->write_size)) {
+ 		dev_warn(hw->card->dev, "%s: size %lu > %u\n", __func__,
 
