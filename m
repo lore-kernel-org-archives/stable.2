@@ -1,73 +1,73 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FDAC4EBACA
-	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:37:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AE554EE859
+	for <stable@vger.kernel.org>; Wed, 16 Sep 2026 11:37:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789558647; cv=none; b=eDk4u9LsfehfURsObA2dOuiY7NU301Z/NFBb0ZFuIDVopH0ltzGlu7Om8piaRcm3WLqR+/c7PoOPtikJTYjG22IZVH43gr3FVdvqreCx/5ob1/+I56P1KfdEZA0/uhPkiDmdn1fDOLaFRLSO47PWlBWXXaK0Gjs+OLsbp7GvdqE=
+	t=1789558661; cv=none; b=I2//cVynzhdLS1exttj9Grs1RwfK2eElvWDY0X3VvhnpT1NFj5guTffZ/91xgDCdz+3zpgGotdT+aDcOLBnPLks0XceLFD3mtINa+ogxOlI4Fr5GKoVV1b04PiPWvUZz8+bwQWa1H5ndH95W510WIDJUc3+EhwbSnlN7Fm34j4U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789558647; c=relaxed/simple;
-	bh=3uaObKhY36qkdLUb4pvRy/Y7taGooeBUyJJlfhXMPyU=;
+	s=arc-20240116; t=1789558661; c=relaxed/simple;
+	bh=/Hc8uJtTDrUeU5cVZdc1ZyUkvgdb77Y94Nbtto9GWOk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=PPoqs2oDqrsdYX/+eXvNS4v6wEAzyD0NmxljX+a7eX/IaTvpgSBBgFeRJYoI9gYuqWBGB+V2uMbCOykHFH5px7UOjw5LqPEFBuZUSqUslAQMaGtr13O7DXoiGQJvuyn54b7LQ6M7Xj85a2ThmcprIfPyCb+3gkbvaMpgp6mc4RQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=X8N5Jcs3; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=TL4aBLizaaDXELkDXlHRN7EC3jSnca3WNpsEb3SgjnYi+1I2CxRewExl75WTzoqbXiBrJUSiaymz0mTnzJ35o3wuDEWXQ3/O4pe2byn3NkkodKAxKWsuAKhlfP6uKjq1t8cNFHRrDOTBSPHjL1qVEJBwBxkauTv4UbA/q8FBZeM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=TqbZiUiE; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="X8N5Jcs3"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d747f01363so6464235ad.2
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 04:37:22 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="TqbZiUiE"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f01363so6464585ad.2
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 04:37:27 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789558638; x=1790163438; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789558643; x=1790163443; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=oOQF8lSD7wdJvBSJlzI6UX4BPG3ivMWDQsQe23mQk7c=;
-        b=X8N5Jcs3hPDyXmeaSlRypDxXcs9LPre+NLB/t6soDQBJyMteLrs00qojbyXgS3gjIQ
-         353omtc5s0xw4Tg/EKD9jPpIkoPccKwqDzAqnrVjPGOexvVO1Lkufq5V9XzL7FEMKjCc
-         up5//J5YvW1fYOW71km9urGjABEhVqvK5NGzpwwU+mMpKJxJ/6l2hbLPOLX6iCAMzGQ5
-         PiF7m+8vUcopxDQV2qjQNhZNxEu9M6DCgs2vmWfh2E3M2DWda3+Lo9B0oSqVIjgD5p9c
-         c2IWu6S6/aIHMDXzJlylkMCI7Op2QMY2/7u8Rs+Ur35ZE4vY86Rskasa0W2iazpydER1
-         dk3Q==
+        bh=u71SukOk/uWqGG5KqXUmklLOaVffKeGeaoghUb9DD4k=;
+        b=TqbZiUiEA+CMSix0qtFQKpx40D5mN8jlve96C1PqxDGY+d6GYO8iLxFXjeurGRkyW6
+         b+sxAOZb21sPCeM35/2kNOpL3bbCbBMgyVOR4xpbRiZaMU292mcnMLEsbe1eqqtQ9qgw
+         33kEn9KnAfzL3zwGhUVRM+atXUu7tkhIKfV6Fu/hy8dK7//TMVak8mOLH22gA35rFB0x
+         KeiZ8kOoxsPPYFZXKlNhEhK7PoRTZ0szUCEaHp5X6b0vblxkLYeaDp3gYhu+lWx283R4
+         9GIHlyueTiBghsTGtaZ1NLzRnNcvBFc7Z9Z+FtTEnif/ma7zlS1+LOakFJBLMJthUIBI
+         pcxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789558638; x=1790163438;
+        d=1e100.net; s=20260707; t=1789558643; x=1790163443;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oOQF8lSD7wdJvBSJlzI6UX4BPG3ivMWDQsQe23mQk7c=;
-        b=ny0ofUcCMI3rgByii1aCpbvp1Pt706F3LAn8/yL6hmlGkNGHPASHsU4MAfylJbplLb
-         d4pimSKsTo/rGnmPToErwUIzqqs0L8xlHkmK6ECXTfrsg3m0SfMsZSWcqzI/IFLezDmD
-         QMZNiLOoMYznbLB+de33cgn2krtiKZ03qp/oO08pGPAHzgQ5gpp1wV/Qr59v6Hbvs3t6
-         QDQR8cNQ+YT2zlGpHmEj/g7Qdv/UF/BwpUtDX3u9e6QCTig8duoPPC8VJUETGNwS31bb
-         fmX7m40iZVdVbZBMB5ZFBAScZ04H+yRz/n0SmkazNS4+vYcSKCfeu8Yn1d6sGd/5AUG6
-         9t/w==
-X-Forwarded-Encrypted: i=1; AKwUvBzylChsSGSvsD4aUlL8Hne9h+ESsVjo1cp2PkyKmDlxnFbeGw/l4jIZK7pfOi2zUh3M4qJ6x2I=@vger.kernel.org
-X-Gm-Message-State: AFuF++kgYxL01eFpB8q9DKg1M+3+D+Cklxy+m82Bu4pPxGocINpfFAc0
-	Yzqfx/6WIA5aaBdTBWzwOW5fhDFsT58ePxcZl0rjKDaRDmDinETwMPrd
-X-Gm-Gg: AYBFou1lk90uzWQhnuPQZ4hY74ecvgfMGGuRmw+j101ZKAlibnoXY/KnLM5XltIcY1n
-	IaMRkt6UPxFCX2amXU/FJ6tjGgM6LXmGXrmD0kNjzBS6crtdZ38td9a95WtXfvkxM+uNICB7OI7
-	YCHK52/HwpMf/8w0Mck0ntuR0LwxGKdH8o+8+jYfgnRLd8e2np7LkGMiCcDTuBpzLliZD0PL8Sk
-	WTOMEE+wi4epAG8XQMRdCGyNsgurbGzCAqv/XhPOcrZhGVBfN2dRK01tsgldKTPKt1slYJsohfO
-	UR0yTtoO0XqpNAnwZnQ17be1SQDAUo2kgg28MamnvWgatBsrH93p/30q2LLff5sHGW7wpt8wFTD
-	bOU1Y+NNeNdCfzvskuqHP3m20f9b9XYo3sSzJo9+H6rw49hGzfJmWvl2BmGBL0n8Ae3RIPvEnD7
-	sBZsM55PdsQ8ZKev8aoUuQsoDrkELq7bTxF1Fd0STvfiXgf/CB93naVS9k+AO6KXDWRfPtnDPju
-	Mlom0JL//fcby1oZqDBEMKzFuZweMTJHA==
-X-Received: by 2002:a17:903:46c7:b0:2db:8ae7:a5d2 with SMTP id d9443c01a7336-2dd8e026db9mr44702525ad.9.1789558638056;
-        Wed, 16 Sep 2026 04:37:18 -0700 (PDT)
+        bh=u71SukOk/uWqGG5KqXUmklLOaVffKeGeaoghUb9DD4k=;
+        b=rI040qABCziEHU5ZWwtnvCkP9eb2oOFxPSFwl7YXdWvdCLFaAHW69z9KGXmYxLnjLa
+         nroFy0Xqeqq3Iv7YqU9C6hqCINlcWJFFUtdZu/diiVn4j7KBjuLBb2CRMi51PkRDxRJ2
+         7AQqzm1oCyX/fKIqkJjzhKathw9M7yJhBUeRlxHMAkV4W2nbv3Pr4df5VrcaDUS75s7g
+         lwGbnVxwP8E8KpUunpPc+5vnKHPMIBsmwv19oKxC8qsSSD6e1WIKw272SUUMsdan8ANc
+         da+r2JIf9A3QIubrKEU/tJfb1KQzWxsvSCLKdDB2YVpEg6IILLS0WKFhcGkNo4l8npYs
+         hJxg==
+X-Forwarded-Encrypted: i=1; AKwUvBycNj5rQz/yShYzY/DSXg4GyhuytjWpSe38yZGva5KrHrlwjCQ+V+WqWNE4qhz3V4G6KFujMdU=@vger.kernel.org
+X-Gm-Message-State: AFuF++lVwqJWBq7iiVuNkuZ8Eyr4QXzUXRbPSdcw5XkgkDMtz0ZqUZrk
+	YwQRFsrNU861vmkWQvvtfkheYPI2S4I5DJSURLJoA37vPxTmLLwgbGIz
+X-Gm-Gg: AYBFou26zg+xj2Vka7TXl+NCdJIgRRYNqfBxI1HUljpmITNx5/6riEFKprWwpog8rF1
+	4aaBPg/6qgYoZ3YoHWr7eXJww0A0RMuiD7TH9GnelSRaoa1+auHF9NnwL9xuNguHveuR+Usc5Tw
+	GgpmaoO5EEX0FHFRcv1Zg0zvyLyMBET408ab9Zh5oSscbmeQVbVdrGklRodcoa7Scdy6Lphudcb
+	kIi8Rjl2f0yn7hAsjwAq9GF3mmZIxQoaFDERhGzZHHEwKjly1JXFjZEBrsbMF0OB0o5LdTBcK6e
+	5IVYvb71EbTtzvppdMUl2hE+lGQJtuRKV8DidCXF0Bv3Ytdd6bUqi8v47MaoHA7pytAU9oc19Rj
+	WcIudih/+v2yiVYsDxP47mEJbhzEa7NJ16BgIZHzA2P8p/ppgFdWyAt+abgNmJfoKpzIdfGd5SP
+	Viw9+5AwJQebOd/nxw5phGp2xFQTHsCpzVuMoD5hJvT3caYdCQ+OR0fZ7H7ymgBdFucUXODyjxT
+	A/XArjPpK+anCNYYfvEo2cVUFCcwlSFiQ==
+X-Received: by 2002:a17:903:1b67:b0:2cc:6018:f030 with SMTP id d9443c01a7336-2dd8e51df8amr47363745ad.14.1789558642410;
+        Wed, 16 Sep 2026 04:37:22 -0700 (PDT)
 Received: from KRHW1CJW23.bytedance.net ([139.177.225.247])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f02fc2sm9927045ad.59.2026.09.16.04.37.11
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89f02fc2sm9927045ad.59.2026.09.16.04.37.18
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 16 Sep 2026 04:37:17 -0700 (PDT)
+        Wed, 16 Sep 2026 04:37:21 -0700 (PDT)
 From: Zhao Li <enderaoelyther@gmail.com>
 To: Johannes Berg <johannes@sipsolutions.net>
 Cc: Bob Copeland <me@bobcopeland.com>,
 	linux-wireless@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH 1/2] wifi: mac80211: release mesh path quota on failed additions
-Date: Wed, 16 Sep 2026 19:36:48 +0800
-Message-ID: <20260916113649.28315-2-enderaoelyther@gmail.com>
+Subject: [PATCH 2/2] wifi: mac80211: account proxy paths against the mesh path limit
+Date: Wed, 16 Sep 2026 19:36:49 +0800
+Message-ID: <20260916113649.28315-3-enderaoelyther@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260916113649.28315-1-enderaoelyther@gmail.com>
 References: <20260916113649.28315-1-enderaoelyther@gmail.com>
@@ -79,61 +79,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Repeated failed or duplicate mesh path additions can exhaust
-MESH_MAX_MPATHS while the path table holds fewer paths, which stops new
-paths to reachable destinations from being created.
+Proxy-path churn can drive the interface path counter negative and let
+later mesh path additions exceed MESH_MAX_MPATHS.
 
-mesh_path_add() reserves a slot before allocating and inserting a path.
-If allocation fails, the function returns without releasing the slot. If
-the rhashtable insertion reports an error or an existing destination, the
-function discards its candidate but retains the reservation. No new path
-is installed in any of these cases.
+mesh_path_free_rcu() decrements the interface mpaths counter for entries
+from both the mesh and proxy path tables, but mpp_path_add() never
+reserves a slot in that counter. Removing or expiring a proxy path
+therefore returns a slot that was never charged.
 
-Release the reservation whenever the candidate is not installed.
+mesh_path_add() uses the same counter to enforce MESH_MAX_MPATHS, so once
+it falls below the number of installed paths the limit no longer holds.
 
-Fixes: ae76eef027f7 ("mac80211: return new mpath from mesh_path_add()")
-Fixes: 60854fd94573 ("mac80211: mesh: convert path table to rhashtable")
+Reserve the shared quota before allocating a proxy path and release it on
+every unsuccessful addition. Mesh and proxy paths now share one
+1024-entry budget, so mpp_path_add() can return -ENOSPC at that limit.
+
+Fixes: ece1a2e7e860 ("mac80211: Remove mesh paths when an interface is removed")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM sparse kasan
 Signed-off-by: Zhao Li <enderaoelyther@gmail.com>
 ---
 Validation:
 - GCC W=1 and Sparse C=2 produced no diagnostics.
-- A controlled production-helper matrix reproduced the allocation,
-  insertion, and duplicate reservation leaks. Allocation and insertion
-  errors used test-only fault injection; 24/24 concurrent same-destination
-  trials leaked a reservation before the fix and 0/24 after. That case used
-  no forced-failure hook.
-- A two-point hwsim 802.11s run reached production mesh_path_add() from
-  mesh_nexthop_resolve() and hwmp_route_info_get() during PREQ/PREP
-  processing. No physical-radio or layer-3 success is claimed.
+- A controlled production-helper matrix drove the counter to -10 through
+  proxy-path churn before the fix and kept it at zero after it. With 1023
+  mesh paths and one proxy path installed, one further mesh addition
+  exceeded the combined cap before the fix and returned -ENOSPC afterward.
+- A two-point hwsim 802.11s run reached production mpp_path_add() from
+  received address-extension mesh data. After one proxy install, the
+  pre-patch counter was 2 and the fixed counter was 3 for the same three
+  walk-list entries. No physical-radio or layer-3 success is claimed.
 
- net/mac80211/mesh_pathtbl.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ net/mac80211/mesh_pathtbl.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
 diff --git a/net/mac80211/mesh_pathtbl.c b/net/mac80211/mesh_pathtbl.c
-index 03171cf00855..770fc16b439b 100644
+index 770fc16b439b..1c55b14c2ac0 100644
 --- a/net/mac80211/mesh_pathtbl.c
 +++ b/net/mac80211/mesh_pathtbl.c
-@@ -694,8 +694,10 @@ struct mesh_path *mesh_path_add(struct ieee80211_sub_if_data *sdata,
- 		return ERR_PTR(-ENOSPC);
+@@ -736,10 +736,15 @@ int mpp_path_add(struct ieee80211_sub_if_data *sdata,
+ 	if (is_multicast_ether_addr(dst))
+ 		return -EOPNOTSUPP;
  
++	if (!atomic_add_unless(&sdata->u.mesh.mpaths, 1, MESH_MAX_MPATHS))
++		return -ENOSPC;
++
  	new_mpath = mesh_path_new(sdata, dst, GFP_ATOMIC);
+ 
 -	if (!new_mpath)
 +	if (!new_mpath) {
 +		atomic_dec(&sdata->u.mesh.mpaths);
- 		return ERR_PTR(-ENOMEM);
+ 		return -ENOMEM;
 +	}
  
- 	tbl = &sdata->u.mesh.mesh_paths;
- 	spin_lock_bh(&tbl->walk_lock);
-@@ -708,6 +710,7 @@ struct mesh_path *mesh_path_add(struct ieee80211_sub_if_data *sdata,
+ 	memcpy(new_mpath->mpp, mpp, ETH_ALEN);
+ 	tbl = &sdata->u.mesh.mpp_paths;
+@@ -752,10 +757,12 @@ int mpp_path_add(struct ieee80211_sub_if_data *sdata,
+ 		hlist_add_head_rcu(&new_mpath->walk_list, &tbl->walk_head);
+ 	spin_unlock_bh(&tbl->walk_lock);
  
- 	if (mpath) {
+-	if (ret)
++	if (ret) {
  		kfree(new_mpath);
+-	else
 +		atomic_dec(&sdata->u.mesh.mpaths);
++	} else {
+ 		mesh_fast_tx_flush_addr(sdata, dst);
++	}
  
- 		if (IS_ERR(mpath))
- 			return mpath;
+ 	sdata->u.mesh.mpp_paths_generation++;
+ 	return ret;
 -- 
 2.55.0
