@@ -1,270 +1,171 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+Received: from mail-qv2-f21.google.com (mail-qv2-f21.google.com [74.125.230.149])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7FB4E4C27
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:35:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE2E3547045
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:38:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.149
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673761; cv=none; b=MjcEypyPWEJIJU2dolebxjtvllasmooxV7yXr778bGBFgt9kGw2JYC8I0Y9tubHK/5FjsGODetDKDfo/ermmvv2rNUaHmPK9lgJzTN2lIGrhD62R2plYtZVTf8pjQQRF81tYAEBg91keeX9RnY2wLyTgfPKeJB3hb5m5T7jT/uY=
+	t=1789673940; cv=none; b=eEkJZWS9PpDFbBxutZFP366YTzL3pVoEN39Pe44tj88LOekjtJLBBDiOFfjrFs+fyJSEdohcuP9NnZe6c0KUs4UY4X5T5HiiCSrQ4GyYffIIDNkOLPGu2SPcQdYNsfoqfZpr8hGx2RwDJtC9vecwwWZkdzM6277QTcJzQhXBFPg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673761; c=relaxed/simple;
-	bh=buFnI56HHAS/TkagVLY6Gn+e6OsIvLfRAuTzojxHwa4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=OtCbQzA6gGgD5oQqGaYifPl6O7Stkt6bP8qCEx5JMAEjFGUdpv2HiUOtHkgXu9CUQr2iUa0zcU61W+aYzVnqrPKh1ZUvNCD6fCDeXnyXyHxfxc53a2rF9Vs95eEMVYIYiLzaSqDATR+iOpjAugSKvbH9B8qQTw//gxHWMuQglT8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=cZp54U48; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
+	s=arc-20240116; t=1789673940; c=relaxed/simple;
+	bh=zlI6cPEnBqZ4NXZ39puSLHk9fcYVmQZ79vqcCv31lpA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ovIkNo1vosDMSFTBBm9e1DRBA2XY8el3WGrnicXlBOHmCLF/ReS9EuqtrVbY01CN/vlVvc8kQRH/imdFWcWSPay8xowOqIKriIfHGCCRYSINR+dB3wZLMLxN9yqML5V0S3oi7zvf24vAdbE4RiyTlSXJIlvUzLwWShkIunB8vPk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sKfFNCbG; arc=none smtp.client-ip=74.125.230.149
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="cZp54U48"
-Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d440939f0so8534037b3.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:35:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sKfFNCbG"
+Received: by mail-qv2-f21.google.com with SMTP id 6a1803df08f44-90cdfbd148aso355056d6.2
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:38:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789673757; x=1790278557; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=buFnI56HHAS/TkagVLY6Gn+e6OsIvLfRAuTzojxHwa4=;
-        b=cZp54U48kAakYAkal5Oxjzo1PZy2KVS/H93n0+pyGjnPP/zf2wldX/ZkBYXpSZt6AW
-         6HMIdd0syvh9e9+34AfZNsKTY/e7Fn2A3MdKBhFTqii6iYGr4ERORcTlzyTP0SnjNEst
-         mUqmm5qQ8Qh61APBwWgFOJoK7bbI+oEiwgQFA5lhD0XUcUxsDk+JXg9YPwnr+pyGyPEf
-         wC+IYs4heN2nHF3iCUkK36VPjB+7TLl/cqMMjPcoW42Qvw4yAHwnYqqVBrsG1d40hSO/
-         q8sZanx8FTbcx8zPeL7Uzie1JS2J+gHKvyCbmDcjAUfh8pELBNmfyx0jcd8vMiAsY8//
-         vPkA==
+        d=gmail.com; s=20251104; t=1789673936; x=1790278736; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=S4Q6Ad+YbWNAFT1S/eagIuareTvI4szF4zzV0Tuqr8s=;
+        b=sKfFNCbGpTNzeEi4ENv/2ziPTXiJatiCcyrImuWvgsAszaB7HN61JRrrd/XR+SbJNu
+         a05eIETWvu2NtdSKYEHHMTFCeOQRv8jn3idx9svnVkW7w/FjUNF/ag5BkbNTIViPaU2+
+         H1qZSdzd02z5ElFYYaBiW5LhPk1yDmgvpnN00+9mfdj+rJmsDQgYPGmy5KQr3OuMgBGI
+         +xAJL17EF4GoXeC9Svfdt7wC/jdW5IkJidOsvW/zP0vBKIGi3bNB5x/Ac9HABHhOKnjr
+         BZtqoHyzqA2E1NPHZm6MK/h7+LmH4M4+jg/nbuRkkS6CuAPTjzenNZApex5rB5aA5aAH
+         goig==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789673757; x=1790278557;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=buFnI56HHAS/TkagVLY6Gn+e6OsIvLfRAuTzojxHwa4=;
-        b=JHDnVzx9EQfbrCLE93nHCciANT9ssYkPOK5YD/IXQYbrtWrKCnQYTakogWsBu4YNfq
-         HSU8MQO75b3ZlT8/5hLAAcsRxnJNo7OExEmzxeX7pz7n9s4ldqD1lPErak7ZgxVqCZMS
-         PdzyXAuRMxFBi8u2FCb25PQQJEcyymenXZ/ovxy6CUiq0tZ9FVPM9GbwXbwKWMZCOX1B
-         DCst/j3OIxEiyFxByDfCs/1YFNPw31c8oaEqWrxyxj6yW3UC82Kfhwwv0/jGs/ONCzu4
-         VhgmB2B0XT+oX4oswiCbPJIFODGhOUia1dTAKSXKzpk2xwbOBYfbBcPTdtvOXu0afepk
-         JEwA==
-X-Forwarded-Encrypted: i=1; AKwUvBzxqQe8F2VXuHdDafQ/D9K7UzAytLTtq/prc3tDfJ1wMoAmElyJRF28d2h0VyWknZG8bU3bLkY=@vger.kernel.org
-X-Gm-Message-State: AFuF++k47SMFZM40F26BSUImfDOxvdgmp1UW8pgfCUpgNryGMfZAiN9n
-	RBqbpTIClva34QttEEoGDm0vJlb00BNYbIvmpjfsVfO+xUA85RljS53M45gxBbhYG3c=
-X-Gm-Gg: AYBFou2XaQCb+iAUquBybMfllsLwa048r1Nm84T2SI5GgcFJSTV79GIhJB8IOOsQR96
-	8F4z5bb4ulMCyQ98yWbWqaMNgPCyobh7BxAWPCJk4jS7iwgpKVZP2us2wDlT0wC31ChKYqasw9b
-	WRW6sEbed/W4LTQ4lhG5EJD5bAONGPYDo7qCXuMmggPaWxNM5WHwFfywZW1sK2tGudGKTfJUvHs
-	bY5FeBVrYr8xCIaujfred3w32SZhj35uIS6mPulhqDUkTQwiy/1doMUAwdrzqLUtBfOfuofzvl2
-	wiO2WOaxIBOGQ8ekKoRuzT3+cxmXNICtH74HmVsJBCqgsv0saTyZlaZS3PsC7nmlhAaBtwCw6j4
-	VLifJ7mZPfFKpbIGDfbPV/mki8NaSdVd/3GeKCBGNhCRzO3JsNUiKrF3gGSmUg2ctzavqOq58ya
-	/cgr6c8VfbBWsshbwbOQBYE+P+6TsdoDeHtOQii1vLeMUuPSK07svah0OsuvxAG8ewzORMgAtCY
-	WFgSZlJLP5okMZoOZW7I7qmwdkByT+Sh40QaHSDZ1+Uyb2f9Ppd4gdJ9lAopm+TRFZ+KX6C5GjY
-	9YK2WE2Vnya+APOm4oENkaoMwpqX334E+5mubejq4FA0/y10GtYejauOgrFq+c6O
-X-Received: by 2002:a05:690c:60c4:b0:870:107b:6359 with SMTP id 00721157ae682-897311cb726mr579697b3.15.1789673756865;
-        Thu, 17 Sep 2026 12:35:56 -0700 (PDT)
-Received: from ?IPv6:2600:1700:6476:1430:b801:b375:5db3:9ec3? ([2600:1700:6476:1430:b801:b375:5db3:9ec3])
-        by smtp.gmail.com with ESMTPSA id 00721157ae682-896c948db95sm2794047b3.13.2026.09.17.12.35.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:35:55 -0700 (PDT)
-Message-ID: <ee4a4f8cb0cad602a520161f4c9cbb1beac81d58.camel@dubeyko.com>
-Subject: Re: [PATCH v2] nilfs2: validate segment number in
- nilfs_sufile_get_suinfo()
-From: Viacheslav Dubeyko <slava@dubeyko.com>
-To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 12:35:53 -0700
-In-Reply-To: <CAKFNMo=Lsaci5bY+G8A-C_FdD3Rhais4eANUdz8rHL7e-auHvw@mail.gmail.com>
-References: <20260915195223.3331909-1-qwe.aldo@gmail.com>
-	 <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
-	 <CAKFNMok804k_g2CHXfrn0LaOY38r8FtMnAk1kRc3YeZ=omCoag@mail.gmail.com>
-	 <CAKFNMo=Lsaci5bY+G8A-C_FdD3Rhais4eANUdz8rHL7e-auHvw@mail.gmail.com>
-Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
- keydata=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
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.1 (by Flathub.org) 
+        d=1e100.net; s=20260707; t=1789673936; x=1790278736;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=S4Q6Ad+YbWNAFT1S/eagIuareTvI4szF4zzV0Tuqr8s=;
+        b=DGxCKae9966pZ/eTCOa1H5OVNzOxtbCJ+WdN70JkWfsEyMtYpklPV1lMXiiC47CBdt
+         FRuqdrhexkDsubQQdhg2t0bBTFEbvvwV4VMGWIq0dWU0J7NnDr7UYcf3QYgm1CsqiTEE
+         YUo0PUsHpUwPYk3dGV9zng2YMR481FSyQWO1ltARZOxpeH634HGU1XB2EHHSV47izw19
+         obT9dnG/hpZ98sPdvHI6RXLQWCDLSaMVOgBEQFm2PZwBqfV4dIqLG1blIy1kKFZUY6lg
+         DFF6lk9+SEdNdAgu21Ef12WHHAtBwCh0cu/CUBPxu/n/oZpOVJaIc/eXKS9+lgkH1w7h
+         fAbw==
+X-Forwarded-Encrypted: i=1; AKwUvBzfxDwKyNkqyjJPDR2HdO00jemapHbhBDoWWJxkeqOCewEBpyBfB+1X4bt93bkNDUTK8A9gIus=@vger.kernel.org
+X-Gm-Message-State: AFuF++lktVbZuV9GDf3ySOtjODFp7Y4mahuG3XIp1z2Sixo2mBDSzagy
+	QcyrcMvQqMuW0D8G1XBEX5jmYhE4lqgLbNDzNHY+PmQPF+0mAIv9sAk=
+X-Gm-Gg: AYBFou3lSdor8Jjm90vCg3u5ZrvHsTsKleUhyQlYdDHT/hNKUhuSIV3yG38OLpC8AV1
+	eLDXQrftpZBsR1aGjPy+jYLU1HFKIerEu9GP/VbFaNUANG6cN4EYT28sNM3U7w0BGKwL31Zq6qd
+	ylzVduMDaSnfOKVePAkq+Eu3wULaf9qGMc9PMQoAVSDf4kzKywXmGz9P9vsjOtTHaJiCT4V+QJo
+	tRz5EFjDmGDH+URDYU8nJreDwkmVzUs8e3IYazilz3zVHfzvNGuUbJgw2G9OvI0GJNUDsBrBxoG
+	+oMvx9XXCzxESH7s7c3l0ewJ1TLkYH7Az2LCG8CVK30qzwClZpx9k/ds/BamW4Ahr5jCepq1doy
+	fjqgp0W3QhzLla0U3XpawjRkPm+ZIYFNTeq0DP3tQ6M/wiuc1PbhWvWnjGQGDuoit3nIBReYAtX
+	ZBoZxgmY+qoAwYLURJ2N7vrpif2J0hIf6zaUks2vDTos4dczgb7E/b/yYrQnZJmpU5/Ghu8hUqo
+	AV4HUC247ETRSTMa3Li4ZleEy/EkLoBGGqSWSK054VKV2JrF6WFoctaUAR0OLHqB7mt/WHYXW0L
+	qPiO4EHZPDKiwdkCXn53SjLCgje5HT84cfrd
+X-Received: by 2002:a05:6214:d06:b0:912:517b:912 with SMTP id 6a1803df08f44-91254cd0594mr3693816d6.49.1789673936433;
+        Thu, 17 Sep 2026 12:38:56 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.169.225])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252ce6d54sm5254416d6.39.2026.09.17.12.38.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 12:38:55 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: MD Danish Anwar <danishanwar@ti.com>,
+	Roger Quadros <rogerq@kernel.org>,
+	linux-arm-kernel@lists.infradead.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Diogo Ivo <diogo.ivo@siemens.com>,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH net] net: ti: icss-iep: Cancel compare work before releasing device resources
+Date: Thu, 17 Sep 2026 15:38:47 -0400
+Message-ID: <20260917193847.63849-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Fri, 2026-09-18 at 01:05 +0900, Ryusuke Konishi wrote:
-> On Fri, Sep 18, 2026 at 12:46=E2=80=AFAM Ryusuke Konishi=C2=A0 wrote:
-> >=20
-> > On Thu, Sep 17, 2026 at 4:06=E2=80=AFAM Viacheslav Dubeyko wrote:
-> > >=20
-> > > On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
-> > > > nilfs_sufile_get_suinfo() subtracts the caller-provided segment
-> > > > number
-> > > > from the total number of segments without first checking its
-> > > > range.
-> > > > If
-> > > > the requested number is greater than the total, the unsigned
-> > > > subtraction
-> > > > wraps and the function may process segment numbers outside the
-> > > > filesystem.
-> > > >=20
-> > > > Cache the total while holding the metadata semaphore and return
-> > > > no
-> > > > entries
-> > > > when the starting segment number is at or beyond the end.
-> > > >=20
-> > > > Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
-> > > > Cc: stable@vger.kernel.org
-> > > > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> > > > ---
-> > > > =C2=A0fs/nilfs2/sufile.c | 10 +++++++---
-> > > > =C2=A01 file changed, 7 insertions(+), 3 deletions(-)
-> > > >=20
-> > > > diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-> > > > index eceedca026..573646c5f7 100644
-> > > > --- a/fs/nilfs2/sufile.c
-> > > > +++ b/fs/nilfs2/sufile.c
-> > > > @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct
-> > > > inode
-> > > > *sufile, __u64 segnum, void *buf,
-> > > >=20
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 down_read(&NILFS_MDT(sufile)->mi_sem=
-);
-> > > >=20
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 nsegs =3D nilfs_sufile_get_nsegments(sufi=
-le);
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 if (segnum >=3D nsegs) {
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 ret =3D 0;
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0 goto out;
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 }
-> > > > +
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 segusages_per_block =3D
-> > > > nilfs_sufile_segment_usages_per_block(sufile);
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 nsegs =3D min_t(unsigned long,
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufil=
-e) -
-> > > > segnum,
-> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
-> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 nsegs =3D min_t(unsigned long, nsegs - se=
-gnum, nsi);
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < nsegs; i +=3D n, s=
-egnum +=3D n) {
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0 n =3D min_t(unsigned long,
-> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
-=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 se=
-gusages_per_block -
-> > >=20
-> > > Looks good to me.
-> > >=20
-> > > Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
-> > >=20
-> > > Thanks,
-> > > Slava.
-> >=20
-> > Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-> >=20
-> > Hi Viacheslav,
-> >=20
-> > Please take this directly.
-> >=20
-> > I also agree that this change makes sense, and my local test
-> > results
-> > are as expected.
-> >=20
-> > However, please drop the 'Cc: stable' tag since it does not cause
-> > any
-> > fatal issues at the moment.
-> > If a real-world problem is found or reported, I think it would be
-> > fine
-> > to request a manual backport then.
-> >=20
-> > While acquiring information on out-of-range segments due to
-> > wrap-around is indeed possible, sufile is also a metadata
-> > management
-> > file.
-> > When accessing out-of-range areas, it simply hits as a hole block
-> > and
-> > returns empty data.
-> >=20
-> > Neither memory overrun in user space or kernel space, nor
-> > out-of-bounds block device access or information leaks will occur.
-> >=20
-> > Well-behaved userland tools read segment information based on the
-> > statistics obtained via nilfs_get_sustat(), so no problem will
-> > occur
-> > (the difference in behavior was visually indistinguishable).
-> >=20
-> > Therefore, I modified the nilfs-utils to perform ill-behaved calls
-> > and
-> > tested it.
-> > Although out-of-range non-existent segments were displayed as empty
-> > data, no critical issue that compromises kernel stability occurred.
-> >=20
-> > At present, it does not appear to meet the basic criteria for
-> > stable
-> > backporting, so when backporting, we need to be able to organize
-> > and
-> > demonstrate the reasoning why it is necessary.
-> >=20
-> > Thanks,
-> > Ryusuke Konishi
->=20
-> Hi Viacheslav,
->=20
-> To follow up on my previous email regarding the stable tag: since the
-> patch includes a Fixes tag, simply dropping 'Cc: stable' will not
-> prevent automatic pickup by AUTOSEL.
->=20
-> To strictly prevent automatic backporting while keeping it tracked,
-> please replace the tag with the following instead of dropping it
-> entirely:
->=20
-> Cc: stable+noautosel@kernel.org=C2=A0# Non-fatal bug fix; defer backport
-> until a real issue is reported
->=20
+The compare interrupt can queue work that accesses the IEP state and
+registers. The managed IRQ is released when the driver is detached, but
+pending or running work is not drained before the IEP resources are freed.
 
-Applied with exchanged CC.
+Initialize the work with devm_work_autocancel() after its resources are
+ready and before requesting the IRQ. This makes devres release the IRQ,
+cancel the work synchronously, and then release the resources used by the
+handler and worker. Moving the IRQ request also ensures the handler cannot
+run before the platform data and register mapping are initialized.
 
-Thanks,
-Slava.
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
+
+Fixes: f18ad402cd8b ("net: ti: icss-iep: Enable compare events")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Validated with static source review, apply checks and strict checkpatch.
+No build or runtime testing was performed.
+
+ drivers/net/ethernet/ti/icssg/icss_iep.c | 30 +++++++++++++++++-------------
+ 1 file changed, 17 insertions(+), 13 deletions(-)
+
+diff --git a/drivers/net/ethernet/ti/icssg/icss_iep.c b/drivers/net/ethernet/ti/icssg/icss_iep.c
+index ec085897edf090e816b05880286a3f43c69225c8..fa45538f1faa6c8b44e7dd9a4ebb7269843b60bb 100644
+--- a/drivers/net/ethernet/ti/icssg/icss_iep.c
++++ b/drivers/net/ethernet/ti/icssg/icss_iep.c
+@@ -8,6 +8,7 @@
+ 
+ #include <linux/bitops.h>
+ #include <linux/clk.h>
++#include <linux/devm-helpers.h>
+ #include <linux/err.h>
+ #include <linux/io.h>
+ #include <linux/module.h>
+@@ -857,18 +858,6 @@ static int icss_iep_probe(struct platform_device *pdev)
+ 	if (irq == -EPROBE_DEFER)
+ 		return irq;
+ 
+-	if (irq > 0) {
+-		ret = devm_request_irq(dev, irq, icss_iep_cap_cmp_irq,
+-				       IRQF_TRIGGER_HIGH, "iep_cap_cmp", iep);
+-		if (ret) {
+-			dev_info(iep->dev, "cap_cmp irq request failed: %x\n",
+-				 ret);
+-		} else {
+-			iep->cap_cmp_irq = irq;
+-			INIT_WORK(&iep->work, icss_iep_cap_cmp_work);
+-		}
+-	}
+-
+ 	iep_clk = devm_clk_get(dev, NULL);
+ 	if (IS_ERR(iep_clk))
+ 		return PTR_ERR(iep_clk);
+@@ -895,9 +884,24 @@ static int icss_iep_probe(struct platform_device *pdev)
+ 
+ 	iep->ptp_info = icss_iep_ptp_info;
+ 	mutex_init(&iep->ptp_clk_mutex);
+-	dev_set_drvdata(dev, iep);
+ 	icss_iep_disable(iep);
+ 
++	if (irq > 0) {
++		ret = devm_work_autocancel(dev, &iep->work, icss_iep_cap_cmp_work);
++		if (ret)
++			return ret;
++
++		ret = devm_request_irq(dev, irq, icss_iep_cap_cmp_irq,
++				       IRQF_TRIGGER_HIGH, "iep_cap_cmp", iep);
++		if (ret)
++			dev_info(iep->dev, "cap_cmp irq request failed: %x\n",
++				 ret);
++		else
++			iep->cap_cmp_irq = irq;
++	}
++
++	dev_set_drvdata(dev, iep);
++
+ 	return 0;
+ }
+ 
+-- 
+2.47.1
