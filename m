@@ -1,32 +1,48 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 576B64DBD8E;
-	Thu, 17 Sep 2026 12:23:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3FD148989F;
+	Thu, 17 Sep 2026 12:24:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647823; cv=none; b=bFaYXJQ8vHRzW4g22Kxkv5/DoU/9EyblaA7Ikq9XYtKxbwexOdaYA/EdjYnzFr5ClxD4LJUwRlOgvoRzOi/THY33qEpun9OmOPq9tHrQvlI8g4Htpg2BG4P44C3ljCSryX/xZHx9ti96+oFDq/qk8Y53V4SjvCRvdUU7H35QAiY=
+	t=1789647894; cv=none; b=kaOjoahl+lxv3Pr5FSnaGTf0ZTkMaN2WRrhtisMFfMDlXYSiOZ9A3lz9p2K6/RTvelND3F+V97uacU52Jmti11BYh/3PZtFKhi6/LyJ2ULbUxK8miAooWpg0OV4nJVIGv3TpdybzKeVNHnN11d3Nk5IP1MvSxStuBv3TU3URpPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647823; c=relaxed/simple;
-	bh=xrUZu1m96kP0bWF1ZLqIWrd6JC3s7r6LqZXt+qHPkAM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=LuzEDuKGzCQm6rDVV8UNGvGlCyDqX6EZz3s5voKd554cHgXYpsCDQ7i8sgEpXkba35MyNUjz97AQyQ5l/KKNd8oy6QqqFvy7C6zUYxd7inmy0v4ZxnfjCItP1nLmNP7EDU4FPXjLhourZUqVza/cW3lcAtekQiwQb8FVmqB7dQQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACHuEK926tqOG+ACA--.2682S2;
-	Thu, 17 Sep 2026 20:23:26 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: kvalo@kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	tony@atomide.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1789647894; c=relaxed/simple;
+	bh=ZVaLZX4L8uLGmkbKP16kYoloUEcOdLrpfEcnDaaf3vw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pE+QtKoRs2Z0RgEQomN7r4PSVx62OQMxVLsqgDMhERB2ZI50ZCyrPyhmQAdxKlhy0U4ie+8vctw95ILGVPQMgwYUIfMmUkQG+5FWXqD04eosRF1gzoCJmhdA8gT4KPYPRbBLRLc3bv2ilKUaCitedV7krJoHYxg3bU+nPA/giwA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=AO2NsmMd; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="AO2NsmMd"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=O6
+	jnzeyBJkyxD6laQjv8cRGwY5hK8lmL8YHPVL9lo1c=; b=AO2NsmMdZ7W4ZD3ukP
+	9fmQRKpjIJ+ABwSV+oZ0QEwYUUeGZRLguPdPzkHC2ReBynKUwLdWIvVpl+LmZzQO
+	8qPUdr/sm5jleOCUucUwXUJq14y3jRbTj8ef0Y/sWrcYrOhebpEhbISKrSbx4o4o
+	tTCDLAUaKZE7YRT+kOTlwqTzw=
+Received: from localhost.localdomain (unknown [])
+	by gzsmtp4 (Coremail) with SMTP id PykvCgCX3_aW26tqCBLDHw--.42583S2;
+	Thu, 17 Sep 2026 20:22:47 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: wlcore: Fix runtime PM leak in wlcore_remove()
-Date: Thu, 17 Sep 2026 12:23:25 +0000
-Message-Id: <20260917122325.2150910-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH net] net: stmmac: fix the invalid VID programmed by VLAN perfect filtering
+Date: Thu, 17 Sep 2026 20:22:45 +0800
+Message-Id: <20260917122245.1338365-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -34,57 +50,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACHuEK926tqOG+ACA--.2682S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Xw13Aw15WrW7Jr1kKFy3Jwb_yoW8JF4Upa
-	15XayjkryDGanrtw4UJ3Wv9FyFvayFyFZxWr4fCa4fZr4rJry5Jw15Zas0vFyYyrZYkFWU
-	Zr1jqr13JF98A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
-	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
-	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j0GQhUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYNA2qrrRmNlwAAsg
+X-CM-TRANSID:PykvCgCX3_aW26tqCBLDHw--.42583S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7AF1DAw15JryxAF13Jr4rAFb_yoW8Zr4Dpa
+	y7Ca4vkFyqqF17XanrKr40vayYq3y3trWYgrWUKFWfuF4UGasIqrW3KFZ5uw47ArZ5Xrya
+	ywsrCw15Ca4qyr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uo5lnUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRiieWqr25gm9QAA37
 
-pm_runtime_get_sync() keeps the runtime PM usage counter elevated even
-when it returns an error, so the reference taken at the beginning of
-wlcore_remove() has to be dropped on every exit path. When the device
-was not initialized the function returned early without doing so,
-leaking the reference.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Release it with pm_runtime_put_noidle() as done on the other early error
-paths of this driver.
+for_each_set_bit() leaves its iterator equal to the bitmap size once the
+loop terminates, so the 'vid' read after the loop in stmmac_vlan_update()
+is always VLAN_N_VID (4096) and never the last VLAN ID that was found.
 
-Fixes: fa2648a34e73f ("wlcore: Add support for runtime PM")
+Cores that do not support VLAN hash filtering (dma_cap.vlhash == 0) fall
+back to the single VID perfect match filter and hand that value straight
+to the MAC. vlan_update_hash() therefore programs MAC_VLAN_Tag with
+VID 4096, a value that can never match an incoming 802.1Q tag, so the
+perfect filter ends up discarding all VLAN tagged traffic. Both
+stmmac_test_vlanfilt_perfect() and stmmac_test_dvlanfilt_perfect() walk
+this path and fail as a result.
+
+Remember the VID while iterating so that the last active VLAN ID is the
+one passed to the perfect match filter. When hash filtering is available
+'hash' is non-zero as soon as at least one VID is active, so
+vlan_update_hash() keeps ignoring 'pmatch' and nothing changes there.
+
+Fixes: c7ab0b8088d7 ("net: stmmac: Fallback to VLAN Perfect filtering if HASH is not available")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
- drivers/net/wireless/ti/wlcore/main.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ti/wlcore/main.c b/drivers/net/wireless/ti/wlcore/main.c
-index 1c340a4a0930..770059f3f992 100644
---- a/drivers/net/wireless/ti/wlcore/main.c
-+++ b/drivers/net/wireless/ti/wlcore/main.c
-@@ -6810,8 +6810,10 @@ void wlcore_remove(struct platform_device *pdev)
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+index 62c3441911e7..af2d38a2bb3d 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+@@ -6844,13 +6844,13 @@ static int stmmac_vlan_update(struct stmmac_priv *priv, bool is_double)
+ 		crc = bitrev32(~stmmac_vid_crc32_le(vid_le)) >> 28;
+ 		hash |= (1 << crc);
+ 		count++;
++		pmatch = vid;
+ 	}
  
- 	if (pdev_data->family && pdev_data->family->nvs_name)
- 		wait_for_completion(&wl->nvs_loading_complete);
--	if (!wl->initialized)
-+	if (!wl->initialized) {
-+		pm_runtime_put_noidle(wl->dev);
- 		return;
-+	}
+ 	if (!priv->dma_cap.vlhash) {
+ 		if (count > 2) /* VID = 0 always passes filter */
+ 			return -EOPNOTSUPP;
  
- 	if (wl->wakeirq >= 0) {
- 		dev_pm_clear_wake_irq(wl->dev);
+-		pmatch = vid;
+ 		hash = 0;
+ 	}
+ 
 -- 
-2.34.1
+2.25.1
 
