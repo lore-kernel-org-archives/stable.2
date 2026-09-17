@@ -1,44 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E27065111BE;
-	Thu, 17 Sep 2026 13:03:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6777A47A871
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:03:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650241; cv=none; b=g5KMw6lnlnitxFSisVGgeWltfLbCAhNb2Z8shDVlDSnMHd5blmgOVhSHP52hG8PfjauHQEJC5tpRDQhgWjBKKoGWD0qU69F75n3mInJKvzXOM6pxAMCClDpZwkSg90wG+rAwZYA03Z/t8gmH1hN+BJOYlTEI8BfPgJ6yW/ld2gQ=
+	t=1789650240; cv=none; b=ktcQMSfC4rUprqiDrSrJcN0xAJuxYSvIG+Y9pZh8t9v5dY5IFXgXMxNjYBr7/yaGl65LlN//ebr5OK4KBpEPVh5zPESK13i4o1MYNuvN2mPY2QYRKPoc6aJ5ZlZJy+rwUWyxAybQcmW95WVMFlv9WRAvGT8JPHltAInQgH1jGBE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650241; c=relaxed/simple;
-	bh=6/1H1KJvKE+jMYVj5fpw4BU1vGx1ddvCXn8hOW+KAZo=;
+	s=arc-20240116; t=1789650240; c=relaxed/simple;
+	bh=X8ctYp5ZJYuGjFUI7ITrmZD0Q3yoTPGo4zABP/o1iNI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=X2SbE6PYqdh+6sauHKSlCmw49KM25nm0dYmuYTSHJTRrrgRIdfKj9cqG1iLPRWNKlbirh1JPlfAmQvSOTAAaUvBEqp7qLfp/ZakY6gcA8JvpDr5iS/wqZzzlDlojAvT1GSSe8kGEiyhGol6Q8MijnawdYUsodlkmAhKQqoXoSJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=en+t0+Ow; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XriNyBxx9d5gYF4teRLmjNe2GHkZT88xiQQaHS6phJBzqGShJfznZSOC47+nCP05tiqvKZZIvUN3nQixgynTsrCV83bOSqra5CdZGt0eu2dS5wsCgiivH2U8nZ5g0nCN2uP9L6BI6Fz7SOiclv74EEfN9ZIV29s3wySe6yIhozY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HBjzxc7b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="en+t0+Ow"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AAC321F00898;
-	Thu, 17 Sep 2026 13:03:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBjzxc7b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958491F0089B;
+	Thu, 17 Sep 2026 13:03:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789650230;
-	bh=EO6Oy7ZsI8xjPivzeua5l32Qq3nr2jrDA+kt66F7lbI=;
+	s=k20260515; t=1789650231;
+	bh=1efO0SSbNLry/ev/LAcRYuxtFesSKB5awTrnrAIFBbc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=en+t0+Ow+xUbVduhnmABQ+byWB/lG8zRu14OAecqehuNT4cgkjN2UilAByopSPEBW
-	 n9WpjTm49timWboAlS971fT67bQf4dSW6AOJN1NXVGbF+ZfbsiTnv4Gcg5XAFyHlso
-	 kHK4uK1WtF7c3/3IPqwDMwgorR+5ueZoQmA2bPx/vMwEmMkicpgh7SL1KXGxVNieFf
-	 ByroZTb0s4ujekSSHOpB2GiSsQv5QhKjZ9bhJ2c5PjR974ykOvtDe1tEKqopDrFXnt
-	 8HfvLl6LRpsWU8E2VprYyuwwR240Quv0Z1bpEWQDI7YcPtNPFCRoe923ZLhjVYJ3nR
-	 SwbS3LeUdK7dQ==
+	b=HBjzxc7brz6v6TdHQcdomPkPkZSM2eqpZ6WHvwEZgC1Vf7kfK7PPTYIPGBS3bw9fW
+	 9xfdN3faqNeKOlDzU0no/X6rjnxJa4Gw4KCTAGYP/OpofQ5yLlavmATfYLTar4JT/s
+	 gFq8E9v0j0qzXcCrJBy3izTklgmQL0jNmHb14iwtKPw5d8dzM3/1r9gr3KzSaXHjUy
+	 Ke0VAU2u1rK+/3xarvlqBWAeVZI438nsD2tenhs1C9rwuFxuKJGbUzqwNtBYsBx4Wa
+	 67MNsN0SyIyvAuXqaQtSD2esj39O2AQJXeQtoDMUoVgmoUe0q2zgfkqAykcp13ckCe
+	 fEd2GEOXp5nzQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	linux-cifs@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] smb: client: use atomic_t for mnt_cifs_flags
-Date: Thu, 17 Sep 2026 09:03:47 -0400
-Message-ID: <20260917130348.320328-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
+Date: Thu, 17 Sep 2026 09:03:48 -0400
+Message-ID: <20260917130348.320328-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091605-runaround-justness-9c84@gregkh>
+In-Reply-To: <20260917130348.320328-1-sashal@kernel.org>
 References: <2026091605-runaround-justness-9c84@gregkh>
+ <20260917130348.320328-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,168 +52,154 @@ Content-Transfer-Encoding: 8bit
 
 From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit 4fc3a433c13944ee5766ec5b9bf6f1eb4d29b880 ]
+[ Upstream commit 18a72975e9f35aadecc75b031f693f2d1f49308f ]
 
-Use atomic_t for cifs_sb_info::mnt_cifs_flags as it's currently
-accessed locklessly and may be changed concurrently in mount/remount
-and reconnect paths.
+When the administrator mounts with forceuid or forcegid (uid=/gid=
+mount options), they expect all files to appear owned by the specified
+user/group.  However, several code paths unconditionally called
+sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
+ignoring the administrator's explicit override:
 
-Signed-off-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Cc: linux-cifs@vger.kernel.org
-Signed-off-by: Steve French <stfrench@microsoft.com>
+  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
+  - cifs_posix_to_fattr() (readdir via POSIX extensions)
+  - parse_sec_desc() (CIFS ACL ownership mapping)
 
-[Stable dependency adaptation for 18a72975e9f35]
+This allowed an untrusted server to dictate local file ownership even
+when the mount was configured to force specific uid/gid values.
 
-Keep only the prerequisites needed by the forceuid/forcegid fix.  On 6.18,
-provide cifs_sb_flags as a READ_ONCE macro over the existing unsigned int
-field; do not import the tree-wide atomic_t conversion, generic CIFS_SB
-helpers, moved functions, or newer oplock/reconnect code.
+Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
+CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
+same pattern already used by cifs_unix_basic_to_fattr() for unix
+extensions.
 
-The target also expects the SID lookup interface introduced upstream by
-29f1005b8b4d3.  Rename and adapt the existing parse_sid implementation to
-sid_from_sd, with descriptor/offset/full-SID bounds checks, and update
-parse_sec_desc to the target's expected context.  This keeps the existing
-number of functions and preserves the stable DACL validation.  No new
-function is added, and the ownership override fix remains in the target.
-
-[ sashal: Reduced backport -- upstream 4fc3a433c1394 touches 27 file(s), this
-  backport carries 2. Not backported here:
-  fs/smb/client/cached_dir.c
-  fs/smb/client/cifsfs.c
-  fs/smb/client/cifs_fs_sb.h
-  fs/smb/client/cifs_ioctl.h
-  fs/smb/client/cifs_unicode.c
-  fs/smb/client/cifs_unicode.h
-  fs/smb/client/connect.c
-  fs/smb/client/dfs_cache.c
-  ... and 17 more
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 18a72975e9f3 ("smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid")
+Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsacl.c  | 54 ++++++++++++++++++++++++++--------------
- fs/smb/client/cifsglob.h |  3 +++
- 2 files changed, 39 insertions(+), 18 deletions(-)
+ fs/smb/client/cifsacl.c | 29 ++++++++++++++++++-----------
+ fs/smb/client/inode.c   |  9 +++++++--
+ fs/smb/client/readdir.c |  9 +++++++--
+ 3 files changed, 32 insertions(+), 15 deletions(-)
 
 diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-index 230b98b3a272c..af6f746f68256 100644
+index af6f746f68256..97c02467596be 100644
 --- a/fs/smb/client/cifsacl.c
 +++ b/fs/smb/client/cifsacl.c
-@@ -1233,13 +1233,30 @@ static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
- 	return 0;
- }
- 
--static int parse_sid(struct smb_sid *psid, char *end_of_acl)
-+static int sid_from_sd(const struct smb_ntsd *pntsd, __u32 secdesclen,
-+		       __u32 sid_offset, struct smb_sid **sid)
+@@ -1300,6 +1300,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
  {
--	/* BB need to add parm so we can store the SID BB */
-+	struct smb_sid *psid;
-+	unsigned int sid_len;
- 
--	/* validate that we do not go past end of ACL - sid must be at least 8
--	   bytes long (assuming no sub-auths - e.g. the null SID */
--	if (end_of_acl < (char *)psid + 8) {
-+	if (secdesclen < sizeof(struct smb_ntsd)) {
-+		cifs_dbg(VFS, "ACL too small to parse security descriptor\n");
-+		return -EINVAL;
-+	}
-+	if (sid_offset < sizeof(struct smb_ntsd) ||
-+	    sid_offset > secdesclen - CIFS_SID_BASE_SIZE) {
-+		cifs_dbg(VFS, "Server returned illegal SID offset\n");
-+		return -EINVAL;
-+	}
-+
-+	psid = (struct smb_sid *)((char *)pntsd + sid_offset);
-+	if (psid->num_subauth > SID_MAX_SUB_AUTHORITIES) {
-+		cifs_dbg(VFS, "SID contains too many subauthorities %u\n",
-+			 psid->num_subauth);
-+		return -EINVAL;
-+	}
-+	sid_len = CIFS_SID_BASE_SIZE + psid->num_subauth * sizeof(__le32);
-+	if (sid_len > secdesclen - sid_offset) {
- 		cifs_dbg(VFS, "ACL too small to parse SID %p\n", psid);
- 		return -EINVAL;
- 	}
-@@ -1255,13 +1272,12 @@ static int parse_sid(struct smb_sid *psid, char *end_of_acl)
- 				 i, le32_to_cpu(psid->sub_auth[i]));
- 		}
- 
--		/* BB add length check to make sure that we do not have huge
--			num auths and therefore go off the end */
- 		cifs_dbg(FYI, "RID 0x%x\n",
- 			 le32_to_cpu(psid->sub_auth[psid->num_subauth-1]));
- 	}
- #endif
- 
-+	*sid = psid;
- 	return 0;
- }
- 
-@@ -1285,23 +1301,25 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
  	int rc = 0;
  	struct smb_sid *owner_sid_ptr, *group_sid_ptr;
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
  	struct smb_acl *dacl_ptr; /* no need for SACL ptr */
--	char *end_of_acl = ((char *)pntsd) + acl_len;
--	__u32 dacloffset;
-+	char *end_of_acl;
-+	__u32 dacloffset, osidoffset, gsidoffset;
- 
- 	if (pntsd == NULL)
- 		return -EIO;
-+	if (acl_len < (int)sizeof(struct smb_ntsd)) {
-+		cifs_dbg(VFS, "ACL too small to parse security descriptor\n");
-+		return -EINVAL;
-+	}
-+	end_of_acl = ((char *)pntsd) + acl_len;
- 
--	owner_sid_ptr = (struct smb_sid *)((char *)pntsd +
--				le32_to_cpu(pntsd->osidoffset));
--	group_sid_ptr = (struct smb_sid *)((char *)pntsd +
--				le32_to_cpu(pntsd->gsidoffset));
-+	osidoffset = le32_to_cpu(pntsd->osidoffset);
-+	gsidoffset = le32_to_cpu(pntsd->gsidoffset);
- 	dacloffset = le32_to_cpu(pntsd->dacloffset);
+ 	char *end_of_acl;
+ 	__u32 dacloffset, osidoffset, gsidoffset;
+@@ -1318,17 +1319,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
  	cifs_dbg(NOISY, "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dacloffset 0x%x\n",
--		 pntsd->revision, pntsd->type, le32_to_cpu(pntsd->osidoffset),
--		 le32_to_cpu(pntsd->gsidoffset),
-+		 pntsd->revision, pntsd->type, osidoffset, gsidoffset,
+ 		 pntsd->revision, pntsd->type, osidoffset, gsidoffset,
  		 le32_to_cpu(pntsd->sacloffset), dacloffset);
- /*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
--	rc = parse_sid(owner_sid_ptr, end_of_acl);
-+	rc = sid_from_sd(pntsd, acl_len, osidoffset, &owner_sid_ptr);
+-/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++
+ 	rc = sid_from_sd(pntsd, acl_len, osidoffset, &owner_sid_ptr);
  	if (rc) {
  		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
  		return rc;
-@@ -1313,9 +1331,9 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 		return rc;
+ 	}
+-	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
++		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
++				 __func__, rc);
++			return rc;
++		}
  	}
  
--	rc = parse_sid(group_sid_ptr, end_of_acl);
-+	rc = sid_from_sd(pntsd, acl_len, gsidoffset, &group_sid_ptr);
- 	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to gid\n",
-+		cifs_dbg(FYI, "%s: Error %d parsing Group SID\n",
+ 	rc = sid_from_sd(pntsd, acl_len, gsidoffset, &group_sid_ptr);
+@@ -1337,11 +1342,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
  			 __func__, rc);
  		return rc;
  	}
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index a4e0618c58efc..de86aaeb972b6 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -1603,6 +1603,9 @@ CIFS_FILE_SB(struct file *file)
- 	return CIFS_SB(file_inode(file)->i_sb);
+-	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
++		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
++				 __func__, rc);
++			return rc;
++		}
+ 	}
+ 
+ 	if (dacloffset) {
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index cca480ab7e64b..545c6b09cb73c 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -770,6 +770,7 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
+ 	struct smb311_posix_qinfo *info = &data->posix_fi;
+ 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
+ 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 
+ 	memset(fattr, 0, sizeof(*fattr));
+ 
+@@ -814,8 +815,12 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
+ 		fattr->cf_symlink_target = data->symlink_target;
+ 		data->symlink_target = NULL;
+ 	}
+-	sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
+ 
+ 	cifs_dbg(FYI, "POSIX query info: mode 0x%x uniqueid 0x%llx nlink %d\n",
+ 		fattr->cf_mode, fattr->cf_uniqueid, fattr->cf_nlink);
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 5febf8afaab04..8ccfdc6a10cfb 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -241,6 +241,7 @@ static void
+ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		    struct cifs_sb_info *cifs_sb)
+ {
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 	struct smb2_posix_info_parsed parsed;
+ 
+ 	posix_info_parse(info, NULL, &parsed);
+@@ -280,8 +281,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		 le32_to_cpu(info->ReparseTag),
+ 		 le32_to_cpu(info->Mode));
+ 
+-	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
  }
  
-+/* The stable tree retains unsigned int storage for the mount flags. */
-+#define cifs_sb_flags(cifs_sb) READ_ONCE((cifs_sb)->mnt_cifs_flags)
-+
- static inline char CIFS_DIR_SEP(const struct cifs_sb_info *cifs_sb)
- {
- 	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_POSIX_PATHS)
+ static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
 -- 
 2.53.0
 
