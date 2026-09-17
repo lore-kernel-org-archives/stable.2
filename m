@@ -1,205 +1,132 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D72B509EFF
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:49:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 084184E4310
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:49:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649378; cv=none; b=uyWFTltCOjBbG7lyo7kzv6jzAhqOY+68LGPhM4JaVGpsvc8fxoOTQsxc1J8dS8YMyL8FON07wux/e9qrNdVjaE8V4kcl4OznD/hHypww2jbZDj7/RLBzuwfmCa/LEdFxTwOt4oPYD6OlNfk834CZzVfAYz/uZZfWpGwEl0uebI8=
+	t=1789649381; cv=none; b=HNrCDJBqYbZH2gU0j0Odb5tjWB+zVWr5RmaHG/QIU6AvAHBIJmioegn86eF+Pxok8b13VRc4Np06fBJlYF1Pr3AphyYuk97Z0pmcNp7cGHUj+eIqgRM0Z+ZIY6u6s+P2dqLzU2Nl29mWoRsrNG2PmVmpNGH4R1hsX3nUnKmCJt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649378; c=relaxed/simple;
-	bh=LRe/QhM+10Yzq0ua0poeVfo5/VZsaO2ZMOTgbaHZJvg=;
+	s=arc-20240116; t=1789649381; c=relaxed/simple;
+	bh=GcnfTIAK4ExA/ablORXQjNzJ6C4Bw+81FsxrE6lPBko=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eMXTlka/4DhWZwoYBiaESoef58ASFSldMRfMZdZNevzLWK/DiMKIotaX1JOgZGaeDBByxlVh4BFPJRf/RZ+dDpdP2iUosw3zRnCNEQMj7PMfzOh2UOVeSkttjkCSAaeCfksFPZkop8cHQwMOpyJEmbmMhrsxdMxeA5F8yd5pRKo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dBXaLkZ9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=AlJHTRW7+w8gefWUhbZNVwrWQBH984w1N4wRWvkNaYnnUoYb7xgjV9BPK+aDolm6nw8ai3KQB8Ro5E3NLNJUo0fKlNoEGnDP6ixLz7O17wr4cc0afwAr0zJuBojDjNDIUzgq0guck91RZDNgtRYkZmWPwfCDRkUiOj6lOHG3mUw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IgFJvjJr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dBXaLkZ9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BFD621F0089A;
-	Thu, 17 Sep 2026 12:49:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IgFJvjJr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 654BD1F00899;
+	Thu, 17 Sep 2026 12:49:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789649364;
-	bh=hkIl3mHhhmXIUZlxcpKUxPUS6qYexW0a6xLUCdBf2lk=;
+	s=k20260515; t=1789649367;
+	bh=JSFT0M8l7eLHS8ebMCkopGYjKg5pVKwcowble/qahZ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dBXaLkZ99hl+Fqu/Zos6CW/5m+qkCnLiFQR3nPTVgJ3mENwV+L3hA/2KlGlR+YX9O
-	 T9wr3nW18pX2XePJ0nVGgcM4rbBosy2I63IFNiWDm5t9G8ogUhP/tCw6L0CsJaPBCD
-	 WkS1dLij3J9zLVKhgCX07vodYC/+ETdwYP+XBm82d3xrBGjL1oWyU3dM2VbV0e+stA
-	 nEfqRcy6I3F23VaDo3F7ct/J2JaAFklkEQENjxBudl/q3mroYwcfYrqGUnC+TLEq5A
-	 wvwVTz89hKT7zYR/lStdvjexrJ50XsfRjWql5r5puw1Xi8e/IBItJjD5h1bamJFvmk
-	 v2ZyRl/SevFkQ==
+	b=IgFJvjJrHIwGk13H0gEznfyHdMtLCzkMPL/XxOuUgh2qjTEZCdQuFc3+xSmVSvYQX
+	 u/4x9fRvNtxQA/yEhrn3vsfL9eiAF6mQJ733nJ+e82gb0+U28i7OtqY4Horu/GaaF6
+	 A/O7zlS/5JwaW3JD2ODv1G32lXK9LRkYbIHevTDBNVd2AEz+hHJ+m9xhrobB+ME9s1
+	 lOKytuZa4rO3o7qqS2jvHZo49/JvrlBHPjP9xPlRpew68+A9dtT0ARrQN0wWzIs8fE
+	 4OqL6GUc+WHEiXtlja4U+YHBAGWr/OSJM7SU63Q5eAu/STUWqfpAm2jirTOOq2r5hM
+	 iERIXWTu29EEg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Norbert Szetei <norbert@doyensec.com>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
-Date: Thu, 17 Sep 2026 08:49:21 -0400
-Message-ID: <20260917124921.227155-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y] landlock: Fix use-after-free of the source's parent directory
+Date: Thu, 17 Sep 2026 08:49:25 -0400
+Message-ID: <20260917124925.227690-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917124921.227155-1-sashal@kernel.org>
-References: <2026091605-runner-debit-e9f7@gregkh>
- <20260917124921.227155-1-sashal@kernel.org>
+In-Reply-To: <2026091645-slogan-afterglow-e44a@gregkh>
+References: <2026091645-slogan-afterglow-e44a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Norbert Szetei <norbert@doyensec.com>
 
-[ Upstream commit 18a72975e9f35aadecc75b031f693f2d1f49308f ]
+[ Upstream commit 2c6dc792538260a8087ac5b22c31b3b8e47c85d6 ]
 
-When the administrator mounts with forceuid or forcegid (uid=/gid=
-mount options), they expect all files to appear owned by the specified
-user/group.  However, several code paths unconditionally called
-sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
-ignoring the administrator's explicit override:
+current_check_refer_path() reads old_dentry->d_parent without holding a
+reference nor a lock on it, and then dereferences it in
+collect_domain_accesses() and in the audit record.
 
-  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
-  - cifs_posix_to_fattr() (readdir via POSIX extensions)
-  - parse_sec_desc() (CIFS ACL ownership mapping)
+A reference on a child does not pin its parent: __d_move() reassigns
+dentry->d_parent and drops the reference the child held on its former
+parent.  hook_path_rename() is not affected because the rename path
+calls lock_rename() before the hook, so the source cannot be reparented
+under it.  hook_path_link() has no such protection: filename_linkat()
+holds a reference on the source dentry but neither locks nor references
+its parent, so a concurrent rename(2) can reparent the source while
+security_path_link() runs, and the former parent can then be removed and
+freed while the hook walks it.
 
-This allowed an untrusted server to dictate local file ownership even
-when the mount was configured to force specific uid/gid values.
+A process can trigger this after entering a Landlock domain that handles
+at least one filesystem access right.  The process can then race a
+linkat(2) loop against rename(2) and rmdir(2):
 
-Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
-CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
-same pattern already used by cifs_unix_basic_to_fattr() for unix
-extensions.
+  BUG: KASAN: slab-use-after-free in collect_domain_accesses+0x278/0x290
+  Read of size 4 at addr ffff888160bd53f4 by task llrepro2/549
+   collect_domain_accesses+0x278/0x290
+   current_check_refer_path+0x952/0x1120
+   security_path_link+0x1be/0x320
+   filename_linkat+0x342/0x6d0
+   __x64_sys_linkat+0xfa/0x150
+  Freed by task 562:
+   kmem_cache_free+0x139/0x4c0
+   i_callback+0x4b/0x80
+   rcu_core+0x7dc/0x10a0
 
-Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Take a reference on the dentry selected as the source parent, using
+dget() for the common-mount-root case and dget_parent() otherwise.
+Release it after the hierarchy walk and synchronous audit logging.
+
 Cc: stable@vger.kernel.org
+Fixes: b91c3e4ea756 ("landlock: Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER")
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Reviewed-by: Günther Noack <gnoack3000@gmail.com>
+Tested-by: Günther Noack <gnoack3000@gmail.com>
+Link: https://patch.msgid.link/E9CDD9E6-E960-4DE2-B1AC-5667D52ABB3E@doyensec.com
+[mic: Clarify the caller, reachability, and reference handling]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[ consolidated dput(old_parent) into one release after the hierarchy walks because the older branch lacks audit logging. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsacl.c | 29 ++++++++++++++++++-----------
- fs/smb/client/inode.c   |  9 +++++++--
- fs/smb/client/readdir.c |  9 +++++++--
- 3 files changed, 32 insertions(+), 15 deletions(-)
+ security/landlock/fs.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-index af6f746f68256..97c02467596be 100644
---- a/fs/smb/client/cifsacl.c
-+++ b/fs/smb/client/cifsacl.c
-@@ -1300,6 +1300,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- {
- 	int rc = 0;
- 	struct smb_sid *owner_sid_ptr, *group_sid_ptr;
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 	struct smb_acl *dacl_ptr; /* no need for SACL ptr */
- 	char *end_of_acl;
- 	__u32 dacloffset, osidoffset, gsidoffset;
-@@ -1318,17 +1319,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 	cifs_dbg(NOISY, "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dacloffset 0x%x\n",
- 		 pntsd->revision, pntsd->type, osidoffset, gsidoffset,
- 		 le32_to_cpu(pntsd->sacloffset), dacloffset);
--/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+
- 	rc = sid_from_sd(pntsd, acl_len, osidoffset, &owner_sid_ptr);
- 	if (rc) {
- 		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
- 		return rc;
- 	}
--	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
-+		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index dd7f0fd921cf6..8bd48f1446e33 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -893,17 +893,19 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+ 	/*
+ 	 * old_dentry may be the root of the common mount point and
+ 	 * !IS_ROOT(old_dentry) at the same time (e.g. with open_tree() and
+-	 * OPEN_TREE_CLONE).  We do not need to call dget(old_parent) because
+-	 * we keep a reference to old_dentry.
++	 * OPEN_TREE_CLONE).  Pin the dentry used as old_parent in either case.
++	 * Otherwise, dget_parent() safely fetches and pins the current parent
++	 * against a concurrent rename(2).
+ 	 */
+-	old_parent = (old_dentry == mnt_dir.dentry) ? old_dentry :
+-						      old_dentry->d_parent;
++	old_parent = (old_dentry == mnt_dir.dentry) ? dget(old_dentry) :
++						      dget_parent(old_dentry);
  
- 	rc = sid_from_sd(pntsd, acl_len, gsidoffset, &group_sid_ptr);
-@@ -1337,11 +1342,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 			 __func__, rc);
- 		return rc;
- 	}
--	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
-+		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
+ 	/* new_dir->dentry is equal to new_dentry->d_parent */
+ 	allow_parent1 = collect_domain_accesses(dom, mnt_dir.dentry, old_parent,
+ 						&layer_masks_parent1);
+ 	allow_parent2 = collect_domain_accesses(
+ 		dom, mnt_dir.dentry, new_dir->dentry, &layer_masks_parent2);
++	dput(old_parent);
  
- 	if (dacloffset) {
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index b67b316538b83..d4282729d1392 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -831,6 +831,7 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
- 	struct smb311_posix_qinfo *info = &data->posix_fi;
- 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
- 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 
- 	memset(fattr, 0, sizeof(*fattr));
- 
-@@ -875,8 +876,12 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
- 		fattr->cf_symlink_target = data->symlink_target;
- 		data->symlink_target = NULL;
- 	}
--	sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+		sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+		sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
- 
- 	cifs_dbg(FYI, "POSIX query info: mode 0x%x uniqueid 0x%llx nlink %d\n",
- 		fattr->cf_mode, fattr->cf_uniqueid, fattr->cf_nlink);
-diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-index 7bf3214117a91..9888756fff888 100644
---- a/fs/smb/client/readdir.c
-+++ b/fs/smb/client/readdir.c
-@@ -241,6 +241,7 @@ static void
- cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		    struct cifs_sb_info *cifs_sb)
- {
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 	struct smb2_posix_info_parsed parsed;
- 
- 	posix_info_parse(info, NULL, &parsed);
-@@ -280,8 +281,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		 le32_to_cpu(info->ReparseTag),
- 		 le32_to_cpu(info->Mode));
- 
--	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
- }
- 
- static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
+ 	if (allow_parent1 && allow_parent2)
+ 		return 0;
 -- 
 2.53.0
 
