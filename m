@@ -1,37 +1,38 @@
-Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
+Received: from canpmsgout10.his.huawei.com (canpmsgout10.his.huawei.com [113.46.200.225])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFAF391E77;
-	Thu, 17 Sep 2026 02:31:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C0EE390231;
+	Thu, 17 Sep 2026 02:31:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.225
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612284; cv=none; b=J2Jcm/gvXe6r9XqrgpmCc54i0Ls5P+Wg6JujhprHRI9l7j8TeJiXfuvanSe6xMbe0KtbbvDzXXHFnb5zfKP24R8zw8Ye+76qoDg6pXf1DRcHLLkU5DUtaTil04vAXJ3Po8umytZ8ZuucKuwPmo/GfqIuW/G36ZvbkNMuWmfVrgo=
+	t=1789612298; cv=none; b=OvTh1zB1muWgScpRuvidzI6nIjDJrPdiCnGeHsQOWDM3l/ximIQoERsyuYm5HOqonyNBXV2rI5068fHf/ISgkihkNEGJQ7aL/VGoB4Th3sfctnQ5ZtyOM7oxDWPUsXcminANW3gLShgR/XozsZrgkzfL/Iqa8brAH1ienWQea+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612284; c=relaxed/simple;
-	bh=GMDDHNUV8K+jWRx4wueZtHvHBvnQ0sSfw9cwYxdmeoY=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IL8f6i9v0nS7LPJ1RFfQ/WAQtya4+ZgmS6mcxbD5eaeUfUE3cMtusSNV18VOmHYjyGeRRdwOjub4I0CJxGePbEPkVQEWm0SxFfqp4m77MjoPNTKohbiL21Rv5anYevmJ6WyWX5lH/GIV2uJerNMUfcfXf79MiM2Dip1FuReIieg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Afbf6X7B; arc=none smtp.client-ip=113.46.200.218
+	s=arc-20240116; t=1789612298; c=relaxed/simple;
+	bh=7rLta0uhvpHXdArFpa2nFMHkiAsyF9MYMzqzil31VOc=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Wc2NjkuxHZQcPvfUi4Szt+AIDP3W1oVXZsUYhixAQ3W+zkklNwbt0RPynGy88ii6JxiTf0if/p1QYrLxyh3isP++1S1tSlc/DbDN7aFh1yYEthMscm3N+5m9837UkAUZaEfHvmLFsZg0XJoyFte6FAC3xE1LVkIuStbE2aubBh4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Wbc9QZ4Q; arc=none smtp.client-ip=113.46.200.225
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Afbf6X7B"
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Wbc9QZ4Q"
 dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
 	c=relaxed/relaxed; q=dns/txt;
 	h=From;
-	bh=lm2fU6VUAA2CcshNsS+yIrHI71OwF94jThA5xdU69NA=;
-	b=Afbf6X7Bbv2cvH58IBnVCBfWLbO+BuHzxIRgq3MS/gKTU9eFLkULQKwza3cBJier2BVbBi5Nu
-	lukb2TFfnUaOX9gAqL51uTva94FcFrAIP++92jVtHiuy61GC5MXPxk1Pb4B3HLUvYCRK242r1pU
-	KNOTN0xrNv6V3fxW5095ZY0=
-Received: from mail.maildlp.com (unknown [172.19.163.0])
-	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hlfZt543NzpSyG;
-	Thu, 17 Sep 2026 10:19:18 +0800 (CST)
+	bh=aXF6YrgcgA4YTuuysGFgLRiru7/qN9xHp9WtTJJgMfI=;
+	b=Wbc9QZ4QA1NKRWSOppyIC28YevU232aoPazyaoqpNrEPW6ujwe8OWriWm/RU7pRCUHhCnAnYY
+	+LQLo3bBpoDeRUjrKH1N4ttXPq4TYflEDNU8FMzUYs0FKvNXAY1xHXEyiw7KxF3NGbMOp1X4jr2
+	oLmFqaeAwMWMxsJmR5cZMJ0=
+Received: from mail.maildlp.com (unknown [172.19.162.92])
+	by canpmsgout10.his.huawei.com (SkyGuard) with ESMTPS id 4hlfbw6kzVz1K96s;
+	Thu, 17 Sep 2026 10:20:12 +0800 (CST)
 Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
-	by mail.maildlp.com (Postfix) with ESMTPS id 7E73140537;
-	Thu, 17 Sep 2026 10:31:05 +0800 (CST)
+	by mail.maildlp.com (Postfix) with ESMTPS id 3AD3540565;
+	Thu, 17 Sep 2026 10:31:12 +0800 (CST)
 Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
  kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
  (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 10:31:04 +0800
+ 15.2.2562.45; Thu, 17 Sep 2026 10:31:11 +0800
 From: Xie Yuanbin <xieyuanbin1@huawei.com>
 To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
 	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
@@ -42,10 +43,12 @@ CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
 	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
 	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
 	Xie Yuanbin <xieyuanbin1@huawei.com>
-Subject: [PATCH v2 5.10.y/5.15.y 0/3] ARM: fix might_sleep() WARNING for mmap_write_lock() around show_pte()
-Date: Thu, 17 Sep 2026 10:30:53 +0800
-Message-ID: <20260917023056.2280-1-xieyuanbin1@huawei.com>
+Subject: [PATCH v2 5.10.y/5.15.y 1/3] ARM: fix hash_name() fault
+Date: Thu, 17 Sep 2026 10:30:54 +0800
+Message-ID: <20260917023056.2280-2-xieyuanbin1@huawei.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917023056.2280-1-xieyuanbin1@huawei.com>
+References: <20260917023056.2280-1-xieyuanbin1@huawei.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -57,31 +60,116 @@ Content-Type: text/plain
 X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
  kwepemk300012.china.huawei.com (7.202.194.175)
 
-On linux-5.10.y and linux-5.15.y, commit 07e4d5380f2a844ab7a1 ("ARM:
-9485/1: mm: acquire mmap write lock around show_pte() for user faults")
-introduces a might_sleep() WARNING when using mmap write lock. This is
-due to the lack of upstream commit 59e4f3b45b96a24fc9b7 ("ARM: ensure
-interrupts are enabled in __do_user_fault()") and
-commit e79ca91165d4fd18549c ("ARM: 9484/1: enable interrupts when
-unhandled user faults are triggered") .
+From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
 
-This series backports all these upstream patches into the linux-5.10.y:
-1. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
-2. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
-3. commit 59e4f3b45b96a24fc9b7 ("ARM: ensure interrupts are enabled in
-   __do_user_fault()")
+[ Upstream commit 7733bc7d299d682f2723dc38fc7f370b9bf973e9 ]
 
-In the upstream version, the following patches are a patch set:
-a. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
-   is_translation_fault()")
-b. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to report
-   execution of memory faults")
-c. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault"):
-   which is 1.
-d. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening"):
-   which is 2.
-The fixed issues by this patch set also exist in linux-5.10 && linux-5.15.
-a. and b. do not need to be backported, and after c. and d.
-is backported, 3. can be safely patched.
+Zizhi Wo reports:
 
-V1->V2: https://lore.kernel.org/20260916084807.176359-1-xieyuanbin1@huawei.com
+"During the execution of hash_name()->load_unaligned_zeropad(), a
+ potential memory access beyond the PAGE boundary may occur. For
+ example, when the filename length is near the PAGE_SIZE boundary.
+ This triggers a page fault, which leads to a call to
+ do_page_fault()->mmap_read_trylock(). If we can't acquire the lock,
+ we have to fall back to the mmap_read_lock() path, which calls
+ might_sleep(). This breaks RCU semantics because path lookup occurs
+ under an RCU read-side critical section."
+
+This is seen with CONFIG_DEBUG_ATOMIC_SLEEP=y and CONFIG_KFENCE=y.
+
+Kernel addresses (with the exception of the vectors/kuser helper
+page) do not have VMAs associated with them. If the vectors/kuser
+helper page faults, then there are two possibilities:
+
+1. if the fault happened while in kernel mode, then we're basically
+   dead, because the CPU won't be able to vector through this page
+   to handle the fault.
+2. if the fault happened while in user mode, that means the page was
+   protected from user access, and we want to fault anyway.
+
+Thus, we can handle kernel addresses from any context entirely
+separately without going anywhere near the mmap lock. This gives us
+an entirely non-sleeping path for all kernel mode kernel address
+faults.
+
+As we handle the kernel address faults before interrupts are enabled,
+this change has the side effect of improving the branch predictor
+hardening, but does not completely solve the issue.
+
+[ Xie Yuanbin: At the upstream, the following patches are a patch set:
+  1. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
+     is_translation_fault()")
+  2. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to
+     report execution of memory faults")
+  3. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
+  4. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
+  patch 1. and 2. is unneeded for 5.10.y and 5.15.y . This patch backports
+  patch 3. and simply adapts to the context differences. ]
+
+Reported-by: Zizhi Wo <wozizhi@huaweicloud.com>
+Reported-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Link: https://lore.kernel.org/r/20251126090505.3057219-1-wozizhi@huaweicloud.com
+Reviewed-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Tested-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
+Signed-off-by: Xie Yuanbin <xieyuanbin1@huawei.com>
+---
+ arch/arm/mm/fault.c | 35 +++++++++++++++++++++++++++++++++++
+ 1 file changed, 35 insertions(+)
+
+diff --git a/arch/arm/mm/fault.c b/arch/arm/mm/fault.c
+index c16d6a293b97..094137cd29c8 100644
+--- a/arch/arm/mm/fault.c
++++ b/arch/arm/mm/fault.c
+@@ -247,6 +247,35 @@ __do_page_fault(struct mm_struct *mm, unsigned long addr, unsigned int fsr,
+ 	return fault;
+ }
+ 
++static int __kprobes
++do_kernel_address_page_fault(struct mm_struct *mm, unsigned long addr,
++			     unsigned int fsr, struct pt_regs *regs)
++{
++	if (user_mode(regs)) {
++		/*
++		 * Fault from user mode for a kernel space address. User mode
++		 * should not be faulting in kernel space, which includes the
++		 * vector/khelper page. Send a SIGSEGV.
++		 */
++		__do_user_fault(addr, fsr, SIGSEGV, SEGV_MAPERR, regs);
++	} else {
++		/*
++		 * Fault from kernel mode. Enable interrupts if they were
++		 * enabled in the parent context. Section (upper page table)
++		 * translation faults are handled via do_translation_fault(),
++		 * so we will only get here for a non-present kernel space
++		 * PTE or PTE permission fault. This may happen in exceptional
++		 * circumstances and need the fixup tables to be walked.
++		 */
++		if (interrupts_enabled(regs))
++			local_irq_enable();
++
++		__do_kernel_fault(mm, addr, fsr, regs);
++	}
++
++	return 0;
++}
++
+ static int __kprobes
+ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ {
+@@ -261,6 +290,12 @@ do_page_fault(unsigned long addr, unsigned int fsr, struct pt_regs *regs)
+ 
+ 	tsk = current;
+ 	mm  = tsk->mm;
++	/*
++	 * Handle kernel addresses faults separately, which avoids touching
++	 * the mmap lock from contexts that are not able to sleep.
++	 */
++	if (addr >= TASK_SIZE)
++		return do_kernel_address_page_fault(mm, addr, fsr, regs);
+ 
+ 	/* Enable interrupts if they were enabled in the parent context. */
+ 	if (interrupts_enabled(regs))
+-- 
+2.55.0
+
