@@ -1,104 +1,128 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CB925172E0;
-	Thu, 17 Sep 2026 16:38:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83E925187E9
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:39:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663128; cv=none; b=QGPGHmQwYvPRrBTlDUw+aGUj3lJDS3xurPoxYfJnZk7774f4QYaEW7uxRquUFvYn95+bB5fiUXh59KVnXoCmGFIJ9cq1ior5se/DgxcinG6tZ78qoSmJShjgrWrQcVRF5/iAJjbmsWp3p0m4N+f0CYZUdBwmqeyNawiRZM0TyhI=
+	t=1789663169; cv=none; b=aehduafaCWYc5BVnekbF8D6Qn30OfDoFmSS3TTUvf3gFUSXaaErza3e3Z1322fSAUx+RJe9+85q7Y6/SbW68zkOG61ow+JYMo0unoi1xzv13LxS6Z+Za6yyDZI+HSO3UA7ELlNrHn9ZphRCIUne7xNlfLvBL/SrbcXES4DOouqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663128; c=relaxed/simple;
-	bh=fr/IkdQohotmR5vD72R1lIjCkrdugKGtA9TVKxwfkSA=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pqLdM+rxe5/D+GTG1C+VTStEUTajwxEO9grUXj8Bg+ezVFCAp/wFXFOIZiQvVrwj62Ua+pJfQfWVS1zmDwlBVTpYQdCbKFGkXQNkyBYME18iIDGbqeVrSeGChIQoU3Dfrm0vM2CwqWkIM/p8KGYZlXlltAzShwDyAMBPnR8vW4A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnEDuMF6xq4KKECA--.624S2;
-	Fri, 18 Sep 2026 00:38:36 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: davem@davemloft.net
-Cc: david+nfc@ixit.cz,
-	edumazet@google.com,
-	horms@kernel.org,
-	kuba@kernel.org,
-	linma@zju.edu.cn,
-	linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org,
-	oe-linux-nfc@lists.linux.dev,
-	pabeni@redhat.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1789663169; c=relaxed/simple;
+	bh=IJxxGucmX+S/ianmDruEL9wFhGfEfpxOR36b/1+SnPM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=iCNMLih050444Ofam+vMEtvQkpSORgDXZ3hr65FBj2j1Y/kuwQNQGKbPY9l4aVVailQI/pPE6aAA0VQJwXG3YGD+VB6n6hTXg+TAa4hN0F96uCv2hXE4G6vnTYbsiipGdNW11zAdzEB8K4wCs+xXNoYVtyeoqOoG+lb0UkVZpyQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=rhcMJPet; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="rhcMJPet"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb767cc97so9860931cf.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 09:39:26 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789663165; x=1790267965; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KAunQ0cM3aakk3XhlasjaszZbs3F0O3wQSsFDCWQw2s=;
+        b=rhcMJPetUieV0UG48w/mx8aXY1yuTaDOh9glAiHtyR+VOF/TYIi9LaUSceWwqy7rjD
+         fXYm1Un1VMNSpbhSs2iLDjZcNp8zqbQBGhaL4uN19Zow98iZNIgrQspFdGzeeiPIkRBi
+         gaPZTTUDLvWh3R1Xhrqlo3t/1Q8Jt9WVPok8VRtYsqcGe9il+SXenl3AYrmvVWecpXPG
+         b+/27ARTY3zVMzNP5RZl2SnJ6RO9BIC57pTNQcjGl32KTIc1x7Ae2JNgG/uc2/WSlxPX
+         41e56/y9yNty+tSqDg+/+ZSbtQUE6A0dZvGKJo6tDF0+p5RhNAQyB01CpYUJt1gYQ/BO
+         SLRg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789663165; x=1790267965;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KAunQ0cM3aakk3XhlasjaszZbs3F0O3wQSsFDCWQw2s=;
+        b=UAgH8+21gTrMOy7d8BKqh5nvhmslc5rmzIx5iyeE8LvCiAUjqoikfsaQuDx9jdTwXy
+         bh3oqDevTy7QQQbaNPil/dxd3EzQ0ZPhSMT+iivROzqqu1zHz/EjALml3EgZAEMJf+kE
+         8d9MBNtO14qrtFhYa6twVim0tggpSdyTfjygDELPPkBh91AYspTSVNtzsxo3IPjkuQb8
+         2OdCc1DIvsDJp6P+1qHWdkMN2J2mkisg6d0tmCFHJEBsjhQCufEY0c1yYxF5L0eBjZDm
+         2OLkh+ZchIJkNEpD9nGb96g5tItUCbrj3wmZyxyivz9he7R2D7P50/sICppMz5MTDKlB
+         Gn4g==
+X-Forwarded-Encrypted: i=1; AKwUvBwW0TPZdodom3BF3F4HXmkyYRsAa6ZzEwytXHO8VFY2D9fRWPtaqpmVLCHjzJyRstPJlMuYGJA=@vger.kernel.org
+X-Gm-Message-State: AFuF++liHTnfSLe0IJhRjBeyKZczABNW8spAjGSRCTh1d1cmZMHZyJM5
+	qellS891HY0Em3JaW5rHfo0rVVmm1JS/g1B7G1pLk0lYUSIet0sGa1WteFKgONegg8A=
+X-Gm-Gg: AYBFou1vpjR6dTgXO2yta6+wiN3Ba9M281M+SyeA0ISnlefGPkBgpeJoj/SAXO3QWYH
+	mO3sb6voH/4JoA+7yiXfqzrnRKqxuXNa/qxPO9d5Y3DLQekPTERZV13hTzIf2/CVCNlD6E92C/8
+	zpkUusB3/FRo0PHKCkR9VFQ9wlMQ+lcxQySvXItM4ybdHzKD/CsTCry77ksl+I+ZxFFgjPRO/Nl
+	ccSpDd3bDOkYj3rjg7S61NlC/1YxYa9+DCvcZkJf5fsKEItG9YpGjyMtxiRvj0LmIUSWScI3JDB
+	uQ1hZaPEDb5uGF34XmgXWeSmXD0g4MB2GHXLDNtt857QrU4pnXiwPmNUD7kdd3PUKaHfRrEi/J1
+	UseOEqRTLmxJlJllLMbpHC618+BiOqDLcO0QAlD+aTimsO+ODKaL9lpts6nWngQwH8faZi66u8X
+	xAEh7HjcMqokO7QjeiegVRBqQoSzcOo7Z8vkUBqcNwV9sHN7aWOQEC9nQoNACljX92Ig9KHBpAP
+	u8NIDIYucVJVAjSkZ+hl7bvyXtPIGyHaXUhsT6BmI8T/6DLRBc/FME=
+X-Received: by 2002:a05:622a:1f99:b0:530:dcc7:aeda with SMTP id d75a77b69052e-5327eeab4e6mr112125271cf.40.1789663165269;
+        Thu, 17 Sep 2026 09:39:25 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326204ad36sm53765271cf.18.2026.09.17.09.39.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 09:39:23 -0700 (PDT)
+Date: Thu, 17 Sep 2026 12:39:21 -0400
+From: Gregory Price <gourry@gourry.net>
+To: Peter Zijlstra <peterz@infradead.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
+	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
+	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
+	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
 	stable@vger.kernel.org
-Subject: [PATCH] nfc: llcp: Fix local use-after-free in nfc_llcp_general_bytes()
-Date: Thu, 17 Sep 2026 16:38:36 +0000
-Message-Id: <20260917163836.2162706-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
+ tier
+Message-ID: <aqwUxQRwbhfGgg1J@gourry-fedora-PF4VCD3F>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+ <20260911001826.2109390-3-gourry@gourry.net>
+ <20260917160827.GN4121339@noisy.programming.kicks-ass.net>
+ <aqwSBkeP-Df2GBLa@gourry-fedora-PF4VCD3F>
+ <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnEDuMF6xq4KKECA--.624S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrWUAr4DAFyDur4xur17Wrg_yoW8GFW8pF
-	13Gw15CryjqFWxAr42yr48uasIk342kr4IkayUA3WIkrnxXwn3CFy09ryvvr15KrWkZFyx
-	AFW3Kr1UGw15ArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB01xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
-	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
-	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgANA2qr889V6gAAsK
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
 
-nfc_llcp_general_bytes() drops the reference on the llcp local structure
-with nfc_llcp_local_put() and then still reads local->gb for the return
-value. If that was the last reference, the local structure is freed and
-the read happens on freed memory.
+On Thu, Sep 17, 2026 at 06:23:24PM +0200, Peter Zijlstra wrote:
+> > Would be nice to just have the hardware report what's hot (and how hot)
+> > rather than depending on a software-heuristic like deriving hotness
+> > from a page fault.
+> 
+> Yeah, there is/was this patch-set from AMD that uses their IBS counters
+> for this, but 'ab'-using the performance counters for this also has ick.
+> PMU data isn't ideal either. Mostly they generate a ton of data that
+> needs to be analyzed as well. Its not clear cut and easy.
+> 
+> I'm not sure there's been proposals for better hardware support.
 
-Capture the pointer to the general bytes before dropping the reference
-so the local structure is no longer used after the put.
+In the CXL Spec there's a "CXL Hot-range Monitoring Unit" mechanism that
+will report the N hottest regions of the device.
 
-Fixes: 6709d4b7bc2e ("net: nfc: Fix use-after-free caused by nfc_llcp_find_local")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- net/nfc/llcp_core.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Not sure we actually need this for the CPU-tiers. LRU already does a
+decent job of recording coldness.
 
-diff --git a/net/nfc/llcp_core.c b/net/nfc/llcp_core.c
-index db5bc6a878dd..d0f17fbacfee 100644
---- a/net/nfc/llcp_core.c
-+++ b/net/nfc/llcp_core.c
-@@ -638,6 +638,7 @@ static int nfc_llcp_build_gb(struct nfc_llcp_local *local)
- u8 *nfc_llcp_general_bytes(struct nfc_dev *dev, size_t *general_bytes_len)
- {
- 	struct nfc_llcp_local *local;
-+	u8 *gb;
- 
- 	local = nfc_llcp_find_local(dev);
- 	if (local == NULL) {
-@@ -648,10 +649,11 @@ u8 *nfc_llcp_general_bytes(struct nfc_dev *dev, size_t *general_bytes_len)
- 	nfc_llcp_build_gb(local);
- 
- 	*general_bytes_len = local->gb_len;
-+	gb = local->gb;
- 
- 	nfc_llcp_local_put(local);
- 
--	return local->gb;
-+	return gb;
- }
- 
- int nfc_llcp_set_remote_gb(struct nfc_dev *dev, const u8 *gb, u8 gb_len)
--- 
-2.34.1
+I think bandwidth data provides the missing glue between the two.
 
+I've been a proponent of just using bandwidth data to drive *when* to
+promote, and let the devices dictate *what* to promote.
+
+https://lore.kernel.org/all/aPJ7qe_2xznFSUMZ@gourry-fedora-PF4VCD3F/
+
+e.g. if the top-tier looks under-utilized in terms of bandwidth, get
+some chunk of hot data from below and see if it shifts the needle.
+If so, repeat until numbers stabilize or the top tier reaches
+saturation - otherwise chill out.
+
+</food for thought | ramblings>
+
+~Gregory
