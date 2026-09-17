@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0133BBFA1
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 04:02:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 047FB2D0602
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 04:04:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617768; cv=none; b=cEoBvD3/AqatIpxSTSY7vB4evvUrtXj/ZZqKaeXxiNL7Okp2nDdhlp7GQC9M04yiw2Oo7W+k1h29U3m+LNXoRM9Wqz+Fn57LSb4zfTpQUTz6nXUYWYfREpENFP/74CkeqgtmHMQDXzUQRdDKaNeXJSW1SHf0z8sY0QSczLOmFxs=
+	t=1789617869; cv=none; b=nviRpJPf1Re/EY9XCqujfcl5N3eEMxiKUSlIn4mnTgq9s6/6+urtXLB1z4zOq1TQzeqKtbLB3iFErKqsSFkxcgZhnPYkY9pckFiA5Vtm/gXpRNssD0XIyLnb1ISKIGnfPfKErGlg1KYqDvVKQpovEPntQ+7qX32hZ6Q7eFGwX4I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617768; c=relaxed/simple;
-	bh=2afOKN0omQh6usp9zXUcdY1fVWgzEwNFPtSC6PXfoGQ=;
+	s=arc-20240116; t=1789617869; c=relaxed/simple;
+	bh=WURv0mrHiwoERJccbYCnYKcBOc5amizpheMfMS4CnlQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YisVHBsmx21bpNlxXKHXUAlUQrvJwIdGb3Y8TU43BeEEcLSENioolCijFT5Jk/VBLufzBEclWxEUJttbsWj81oKsvUakBbdYiEZMKnT07yi+7bVvDTGPsWfyXk39v6BGa7zMFIGUrEj5FRCYoz2jksKpi9NP53+HHzUuZIvndSY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nI8ZziYH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=noJBXnuYH2y6leL7tjrNP/eopTBVNlYZoY4gq1iHwKNNWVUt7bGjYQ76qXnYQA0ds1srXzio3b3Yh7F8kGdukv0Dga4wCq8bDMGQ5MgZlaLFO8NX/3G6cCVK017k6g2qkloSr3nbeG0n6uZXAmzXhTyJOWPb6QNbap5q+J3OJGw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TEvM5zzV; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nI8ZziYH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0A71F00893;
-	Thu, 17 Sep 2026 04:02:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TEvM5zzV"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08D131F000FF;
+	Thu, 17 Sep 2026 04:04:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789617767;
-	bh=wi4hfW5XoPU1+hFHuCgUSiVuN0hujc6ELesBRjTz4Rs=;
+	s=k20260515; t=1789617867;
+	bh=U72o2ZsRpoD43+uzm+tXDZoYLmPWsbXa4/3T33CV8KU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nI8ZziYHk0Qm6Hn+ZbWyeSGyvoGkX4Qb0PTPakhRGnWR7ewiTXA+bgRnMKLzSTIVx
-	 YYDIvm+nxg9e+vnFHxDt9LWUqcn8ygTYg/CU5cfStdh8zVCLP45Savk3k8WVOA0a+K
-	 A+18/l5gK3rV7ghNLiP4jm5NOaOCE9b6cMag9j1YzLtaMXobviqtEC0V6hdQv7rDTo
-	 ddI9BHVooDPBv0CM5Bvd8GrB/gAbsD6aptKJf5T4EAGXNxu+tKvpUiN6woNrktbnWy
-	 q4RL2C3rkgVLyfmdMIZy/lImTyE3Ca+K1TVdtbe4CEAj7fQoD8Aus868QpMQJ5LcAf
-	 yWyZCK2pMYjqQ==
+	b=TEvM5zzViecVUKKNBMcuBzcjRHCXhOZh7G7DpyIaNB/Offta0QiwChsfAawHzaKLN
+	 AgbVRztGfISnocfqFB47+GVIu83H0NBcKfRnRCKruKUkGL7sxCuWnPD3o2DLNxTTRb
+	 e8qnfwZvPIx4C1FphfYkVKjvyOc06v7xjTuMt55FlIbcKnBlp/XDq+D7AqamsYjBRj
+	 CRoJgXr2xu7AlhgaKyDXaHR423t87y2BshCuSgT+MjzCiSu9p89fW+PUxEaUMUkzXb
+	 CMReyCVMrsE7S04YjDqpG6NZ2JgBJdu1v8+8+3SP8gq+afJ6GafS9IkAtRFLVq+HMi
+	 8E0rLS9xCnj6g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: pin DFS superblock in iterator callback
-Date: Thu, 17 Sep 2026 00:02:44 -0400
-Message-ID: <20260917040244.4138555-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] mptcp: do not reschedule the RTX timer for fallback sockets
+Date: Thu, 17 Sep 2026 00:04:25 -0400
+Message-ID: <20260917040425.4162844-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091644-acid-unclasp-cda8@gregkh>
-References: <2026091644-acid-unclasp-cda8@gregkh>
+In-Reply-To: <2026091614-winking-gigahertz-a159@gregkh>
+References: <2026091614-winking-gigahertz-a159@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,72 +46,110 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Paolo Abeni <pabeni@redhat.com>
 
-[ Upstream commit d806d5a85dcbe2a0f181b2f0f9f61ddfbefa1818 ]
+[ Upstream commit e2ab913f68c7d11e2561b8a8ad0b87ffefcad667 ]
 
-tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
-takes its active reference only after iterate_supers_type() has dropped
-s_umount and its passive reference. Concurrent DFS automount expiry can
-therefore free the superblock before cifs_sb_active() uses it.
+On fallback socket the retrans timer is a quite convoluted no-op, but
+currently nothing prevents the MPTCP core to keep rescheduling it.
 
-A deterministic KASAN test reproduces the race as:
+Additionally gate RTX timer reset to the msk not being fallen back to
+TCP yet. To avoid adding multiple tests in fast-path, use a new flags
+bit for such condition.
 
-  BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
+The RTX enable bit is clear at close time and set before the msk could
+start retransmitting, with a couple of caveats:
 
-The same test passes with this change applied.
+- passive sockets inherit the bit from the listener msk; set the bit on
+  such socket to avoid flipping it in the fast-path, even if the
+  listener will obviously never retransmit.
 
-Take the active reference in the callback while iterate_supers_type()
-still holds s_umount shared. cifs_put_tcp_super() remains the matching
-release.
+- while fastopening (MPTFO), mptcp_sendmsg_fastopen still ends-up
+  calling mptcp_connect via tcp_sendmsg_fastopen ->
+  __inet_stream_connect(ssk->sk_socket), and the first subflow's
+  sk_socket points to the msk one.
 
-Fixes: bacd704a95ad ("cifs: handle prefix paths in reconnect")
+Fixes: b51f9b80c032 ("mptcp: introduce MPTCP retransmission timer")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Adapted tcon_super_cb() changes to the older tcp_super_cb() callback and its server-only matching logic. ]
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-1-df1de70348b6@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ changed MPTCP_RTX_ENABLED from bit 4 to unused bit 6 to avoid conflicting with MPTCP_FALLBACK_DONE. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/misc.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ net/mptcp/protocol.c | 12 +++++++++---
+ net/mptcp/protocol.h |  2 ++
+ 2 files changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
-index cb7fb2c4ea71f..df0111d95e1c8 100644
---- a/fs/cifs/misc.c
-+++ b/fs/cifs/misc.c
-@@ -1226,8 +1226,14 @@ static void tcp_super_cb(struct super_block *sb, void *arg)
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 127438ef120e6..8de25a4571201 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -977,13 +977,14 @@ static bool mptcp_rtx_timer_pending(struct sock *sk)
+ static void mptcp_reset_rtx_timer(struct sock *sk)
+ {
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
++	struct mptcp_sock *msk = mptcp_sk(sk);
+ 	unsigned long tout;
  
- 	cifs_sb = CIFS_SB(sb);
- 	tcon = cifs_sb_master_tcon(cifs_sb);
--	if (tcon->ses->server == server)
-+	if (tcon->ses->server == server) {
-+		/*
-+		 * Take the active reference while iterate_supers_type() still
-+		 * holds s_umount shared.
-+		 */
-+		cifs_sb_active(sb);
- 		sd->sb = sb;
-+	}
+-	/* prevent rescheduling on close */
+-	if (unlikely(inet_sk_state_load(sk) == TCP_CLOSE))
++	/* Prevent rescheduling on close and in case of fallback. */
++	if (!test_bit(MPTCP_RTX_ENABLED, &msk->flags))
+ 		return;
+ 
+-	tout = mptcp_sk(sk)->timer_ival;
++	tout = msk->timer_ival;
+ 	sk_reset_timer(sk, &icsk->icsk_retransmit_timer, jiffies + tout);
  }
  
- static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void *),
-@@ -1243,15 +1249,8 @@ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void
+@@ -3064,6 +3065,9 @@ void mptcp_set_state(struct sock *sk, int state)
+ 		 * transition from TCP_SYN_RECV to TCP_CLOSE_WAIT.
+ 		 */
+ 		break;
++	case TCP_CLOSE:
++		clear_bit(MPTCP_RTX_ENABLED, &mptcp_sk(sk)->flags);
++		fallthrough;
+ 	default:
+ 		if (oldstate == TCP_ESTABLISHED || oldstate == TCP_CLOSE_WAIT)
+ 			MPTCP_DEC_STATS(sock_net(sk), MPTCP_MIB_CURRESTAB);
+@@ -3897,6 +3901,7 @@ static int mptcp_connect(struct sock *sk, struct sockaddr *uaddr, int addr_len)
+ 	if (IS_ERR(ssk))
+ 		return PTR_ERR(ssk);
  
- 	for (; *fs_type; fs_type++) {
- 		iterate_supers_type(*fs_type, f, &sd);
--		if (sd.sb) {
--			/*
--			 * Grab an active reference in order to prevent automounts (DFS links)
--			 * of expiring and then freeing up our cifs superblock pointer while
--			 * we're doing failover.
--			 */
--			cifs_sb_active(sd.sb);
-+		if (sd.sb)
- 			return sd.sb;
--		}
++	set_bit(MPTCP_RTX_ENABLED, &msk->flags);
+ 	mptcp_set_state(sk, TCP_SYN_SENT);
+ 	subflow = mptcp_subflow_ctx(ssk);
+ #ifdef CONFIG_TCP_MD5SIG
+@@ -4040,6 +4045,7 @@ static int mptcp_listen(struct socket *sock, int backlog)
+ 		goto unlock;
  	}
- 	return ERR_PTR(-EINVAL);
+ 
++	set_bit(MPTCP_RTX_ENABLED, &msk->flags);
+ 	mptcp_set_state(sk, TCP_LISTEN);
+ 	sock_set_flag(sk, SOCK_RCU_FREE);
+ 
+diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
+index af00d64e61f4b..511f2adf19fd8 100644
+--- a/net/mptcp/protocol.h
++++ b/net/mptcp/protocol.h
+@@ -116,6 +116,7 @@
+ #define MPTCP_WORK_RTX		2
+ #define MPTCP_FALLBACK_DONE	4
+ #define MPTCP_WORK_CLOSE_SUBFLOW 5
++#define MPTCP_RTX_ENABLED	6
+ 
+ /* MPTCP socket release cb flags */
+ #define MPTCP_PUSH_PENDING	1
+@@ -1133,6 +1134,7 @@ static inline bool __mptcp_try_fallback(struct mptcp_sock *msk)
+ 
+ 	msk->allow_subflows = false;
+ 	set_bit(MPTCP_FALLBACK_DONE, &msk->flags);
++	clear_bit(MPTCP_RTX_ENABLED, &msk->flags);
+ 	spin_unlock_bh(&msk->fallback_lock);
+ 	return true;
  }
 -- 
 2.53.0
