@@ -1,125 +1,137 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A7F36C5AE
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:13:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCCF43644B3
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:13:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607606; cv=none; b=uUth31DYC/GlAIgwRyvIFmDXDCdbQ8gnvPBB7pIrlyPtn8quQrRr0YGOdz9DM0RqViK0CSjNj9SlmmlVcIANb64ilfK99aI9RVVAT9a/GFGTd06edyZwZn365eePnXkm9RSR5sYu2UCj9QHp2fSN/+TSRfF4Y+dHXQrzMViRFak=
+	t=1789607607; cv=none; b=RbyTxkCUS+hQ2QtgTZ4XeSpx+1eVGW6qDlEXE8rNE8EIpLCzQ9Lr0ZpZlK/8d+Rg84nvZSTsB1P8zbk1GY8DR6XXoYkZx0+cRd83KswrJFcHAKlky7UNzMUyg/3quIEMyCxjUdYpx5Lf3s3s1fm/YKYa42EDfIs5wLqRKzMi2j4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607606; c=relaxed/simple;
-	bh=6OTohNjk/B5Ql/dmaRHHNw2vzF9cto7cUum/3C7p8mo=;
+	s=arc-20240116; t=1789607607; c=relaxed/simple;
+	bh=OcbcXIIH3ynNM9UVN9tH1sfJLUj5V7wQUeCIpRDMRXs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=gDoFexwfUFOuaaRkhqEtWISPBwAvU8MRSenypQEbggvcdTmBJnH/+ssPx4dKCUCxuEAIPRIorLg7t0OHxxvQIfbtuyQ319+odQAKA8zhT/edDsKkF/0Z5LEnyP5+hl9Ys36WGC65w8ZQPq46Wf3LMg+wB51gHfr8Cxrc8txhUyU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1kfzhQc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=OnRvFVBAZiYyCkGWw2jOy34JE1ZdlKoplqe8Mzhc6TQxklpaAdS//NGYEpDhyK30WoH5GOScvQur8NSFbi0m5fWs92GIjXbH5aa1AHV+qL0MpXdydPWAzpoq6DnDG60UwLbwwfyXXvXhCwe6BhSjN7aJPohGq0fYIggyTwx1+/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HidDjegL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1kfzhQc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D38E1F00898;
-	Thu, 17 Sep 2026 01:13:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HidDjegL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A4301F0089B;
+	Thu, 17 Sep 2026 01:13:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789607601;
-	bh=xyRwKHol6YHMLlc9H4unaYZrOyID0uPvJY63UXRjpDE=;
+	s=k20260515; t=1789607602;
+	bh=2jIrXc/UPfexJFOQXnwlgHsDqxmWyLCT5nR7OszkQX4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=C1kfzhQc1DuSnSkW/fEt16spbxYSmuJilN1gqWq/kVt9XyO0tiim3bjs+5XUeuPNf
-	 GHJTFhUPoheovulHAtND0SBUQ2zPT97eK+NDWuol6Pt/tkN1l01Z9KproW6W33gr6z
-	 LJ+ca7frXdtAaU0d/kKwyf7X8dNot8vZQvZITnXmO11yDbyWpMD59I3MaNNEtl53ls
-	 cTFUEtKZNFI6gbwLHTjzXQ7l7P7bWH2JVYQHTTSrpJJl06AOH+J4rMfY01wUm8T2ie
-	 xa3BtrhtQZOO+YOYqGpds0r7G/4i4RZ0eFjSKmktv4JRsa7i7klxKUE7k09d6eNmCj
-	 7AbTXaCmg/pSQ==
+	b=HidDjegLcJbTuy/Tib/JkaFyEqbcRA+UiCaRIyrDQaA3x84goV2eyr/lJ69hMx2PZ
+	 IRGRMGeSdc6R2rR3/0CDlv4HFcX9VJSkbeHKx8ubl4iNAjvHUioRhJXjINVsEVdM2t
+	 lNEaOnsKGVyFUwIw/4GBU0yPhHFw57BQh5Bg5x1mb1hElZCLVLWc3MEDEf2Uz89IOz
+	 v2pcnL33rGpzmylS+NcWxIHoRzOsBSIBEWdasD/kW92y+59AzlYUbWYHY2g0xhUISb
+	 kChObi6GOWmxFXlRYVHfPLst6VpPNGnUvon5kIv+i3KQykr3HcSFYmYA2N10CMoV+X
+	 Dw1HTu0CJdZQw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jens Axboe <axboe@kernel.dk>,
-	syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com,
+Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] io_uring/rw: end write accounting from ->ki_complete
-Date: Wed, 16 Sep 2026 21:13:19 -0400
-Message-ID: <20260917011319.3530989-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 4/4] netfilter: nf_log: unregister loggers before per-net teardown
+Date: Wed, 16 Sep 2026 21:13:18 -0400
+Message-ID: <20260917011318.3530857-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091626-gout-compress-65e7@gregkh>
-References: <2026091626-gout-compress-65e7@gregkh>
+In-Reply-To: <20260917011318.3530857-1-sashal@kernel.org>
+References: <2026091608-unstaffed-playpen-7696@gregkh>
+ <20260917011318.3530857-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jens Axboe <axboe@kernel.dk>
+From: Chengfeng Ye <nicoyip.dev@gmail.com>
 
-[ Upstream commit 796aa0547557e63338657ed1c487906f9fac4c73 ]
+[ Upstream commit 2c018cc4842c33f0c732962e2ab58635e8ae5823 ]
 
-Commit b000145e9907 moved both the fsnotify calls and the write
-accounting out of the kiocb completion handler and into the
-io_req_rw_complete() task_work. However, only the fsnotify part actually
-needed to move as it may sleep. Ending the write accounting is just a
-percpu_up_read() on the superblock writers sem.
+nf_log_syslog and nfnetlink_log unregister their per-network namespace
+operations before unregistering their global logger backends. This
+leaves a window where a sysctl or netlink writer can rebind the still-
+registered logger after the per-net pre-exit callback cleared the old
+selection.
 
-Deferring it is a problem, because it makes dropping SB_FREEZE_WRITE
-protection depend on the ring owner getting to running task_work. But
-the task may be blocked in freeze_super(), causing it to never get to
-that:
+The race looks like this:
 
-  task                             io-wq worker
-  --------------------------------------------------------------
-  io_write()
-    io_kiocb_start_write()         (takes sb_writers, hidden from
-                                    lockdep by __sb_writers_release)
-    write_iter() -> -EIOCBQUEUED
-  ioctl(FS_IOC_SHUTDOWN)
-    bdev_freeze()
-      freeze_super()
-        percpu_down_write()        <- waits for the reader above
-                                   io_write()
-                                     kiocb_start_write()
-                                       percpu_down_read()  <- queued
-                                                              behind the
-                                                              writer
-  <bio completes>
-    io_complete_rw()
-      queues io_req_rw_complete()  <- never runs, task is in D state
+  CPU 0                                 CPU 1
+  ----                                  ----
+  unregister_pernet_subsys()
+    nf_log_unset(net, logger)
+      net->nf.nf_loggers[pf] = NULL
 
-End the write from io_complete_rw() instead, and leave only the fsnotify
-calls in task_work.
+                                        lock nf_log_mutex
+                                        find logger in loggers[][]
+                                        net->nf.nf_loggers[pf] = logger
+                                        unlock nf_log_mutex
 
-Reported-by: syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com
+  nf_log_unregister(logger)
+    lock nf_log_mutex
+    loggers[pf][type] = NULL
+    unlock nf_log_mutex
+    synchronize_rcu()
+  module exit returns
+  module core frees backend memory
+
+Later, a sysctl read or packet logging operation can dereference the
+stale per-net logger pointer.
+
+Fix this by unregistering the global logger backends before tearing down
+per-net state. Once the global registrations are gone, later writers can
+no longer rebind the logger. unregister_pernet_subsys() already waits
+for an RCU grace period after the pre-exit callback clears the per-net
+selection, while nf_log_unregister() continues to cover readers of the
+global logger table.
+
+Apply this ordering fix to both nf_log backends that combine per-net
+teardown with global logger registration.
+
+Fixes: 5b023fc8d8e0 ("netfilter: enable per netns support for nf_loggers")
 Cc: stable@vger.kernel.org
-Fixes: b000145e9907 ("io_uring/rw: defer fsnotify calls to task context")
-Signed-off-by: Jens Axboe <axboe@kernel.dk>
-[ placed write-accounting release after __io_complete_rw_common() to accommodate the older retry path’s early return. ]
+Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- io_uring/io_uring.c | 9 ++++++++-
- 1 file changed, 8 insertions(+), 1 deletion(-)
+ net/netfilter/nf_log_syslog.c | 2 +-
+ net/netfilter/nfnetlink_log.c | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
-index 01eff1694d8c6..e2e04a381315f 100644
---- a/io_uring/io_uring.c
-+++ b/io_uring/io_uring.c
-@@ -2792,7 +2792,10 @@ static void io_req_task_complete(struct io_kiocb *req, bool *locked)
+diff --git a/net/netfilter/nf_log_syslog.c b/net/netfilter/nf_log_syslog.c
+index cce8f282b0eda..bf902b1fe2aac 100644
+--- a/net/netfilter/nf_log_syslog.c
++++ b/net/netfilter/nf_log_syslog.c
+@@ -899,12 +899,12 @@ static int __init nf_log_syslog_init(void)
  
- static void io_req_rw_complete(struct io_kiocb *req, bool *locked)
+ static void __exit nf_log_syslog_exit(void)
  {
--	io_req_io_end(req);
-+	if (req->rw.kiocb.ki_flags & IOCB_WRITE)
-+		fsnotify_modify(req->file);
-+	else
-+		fsnotify_access(req->file);
- 	io_req_task_complete(req, locked);
+-	unregister_pernet_subsys(&nf_log_syslog_net_ops);
+ 	nf_log_unregister(&nf_ip_logger);
+ 	nf_log_unregister(&nf_arp_logger);
+ 	nf_log_unregister(&nf_ip6_logger);
+ 	nf_log_unregister(&nf_netdev_logger);
+ 	nf_log_unregister(&nf_bridge_logger);
++	unregister_pernet_subsys(&nf_log_syslog_net_ops);
  }
  
-@@ -2802,6 +2805,10 @@ static void io_complete_rw(struct kiocb *kiocb, long res, long res2)
+ module_init(nf_log_syslog_init);
+diff --git a/net/netfilter/nfnetlink_log.c b/net/netfilter/nfnetlink_log.c
+index dbb226aa4c0ea..e576c5417433d 100644
+--- a/net/netfilter/nfnetlink_log.c
++++ b/net/netfilter/nfnetlink_log.c
+@@ -1179,8 +1179,8 @@ static void __exit nfnetlink_log_fini(void)
+ {
+ 	nfnetlink_subsys_unregister(&nfulnl_subsys);
+ 	netlink_unregister_notifier(&nfulnl_rtnl_notifier);
+-	unregister_pernet_subsys(&nfnl_log_net_ops);
+ 	nf_log_unregister(&nfulnl_logger);
++	unregister_pernet_subsys(&nfnl_log_net_ops);
+ }
  
- 	if (__io_complete_rw_common(req, res))
- 		return;
-+	/* ring owner may block in freeze_super() before task_work runs */
-+	if (kiocb->ki_flags & IOCB_WRITE)
-+		io_req_end_write(req);
-+
- 	req->result = io_fixup_rw_res(req, res);
- 	req->io_task_work.func = io_req_rw_complete;
- 	io_req_task_work_add(req);
+ MODULE_DESCRIPTION("netfilter userspace logging");
 -- 
 2.53.0
 
