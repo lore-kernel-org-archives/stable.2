@@ -1,37 +1,48 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2974DDB45;
-	Thu, 17 Sep 2026 15:17:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22EF4D4878
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:17:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658258; cv=none; b=Nyzn/zxlIZgFKK4a0cqqZ4V9kH7IY04A6Lvm9xy6kamLh/chjfYdIbzQFly94pcf+DmMrXSRvTQg7e87lG91FrfIpqajkH1a3xWJueDpKvwfNG16BuTHpsO/vV2XRonkqAry0Zfw25TEVXtdcY+tLkKK1qN8AFYP6BBgDTHa6u8=
+	t=1789658267; cv=none; b=oYgiYxpHLsl+KU5aiYa4485gBE5McnGmSsv89g6Nzab+Fl2+lKNL4C31F0GJqQ5/IPm6HkZHLvhqVQyj/Ey08VlNO6KDik2Jy7mZs+SqyzBC5laQHxYVWpql3fCATbffjVEYO+kknLfoZZ6o4XZTWB6mXMonrQUmOBI+ND2IY3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658258; c=relaxed/simple;
-	bh=MyrCZPq1zLdshcZFFuVAg7Lo1rP5zN/MNNiF+2MWjgk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nsqcyOtwBR5U85PqP1k9fBCc3ePmzezSwE+bZLh10cBaPy4Fr19GtJeqtr+u1LA2zyS4Ia5kUmnqk6uUa2Tsvyn+hENw/5kLYz2eVDZxXMDEiwyJ//lFU+bYTscCzjYu4b6B40hDQLw7htNUPTKUlDvJxuQiVyuxp0xqo0exjMc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHsTuABKxqsl2DCA--.5477S2;
-	Thu, 17 Sep 2026 23:17:20 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	ranjan.kumar@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	suganath-prabu.subramani@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpt3sas: Fix sas_device reference leak in mpt3sas_transport_port_add()
-Date: Thu, 17 Sep 2026 15:17:20 +0000
-Message-Id: <20260917151720.2158664-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789658267; c=relaxed/simple;
+	bh=B3bHMnWP3gNYNWKGllDqNdZXEy2Lm//9WRcGVKj8hfo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=p050CA4nn0wgsxC2FHb9D6FyHja7k/4JV2D4jKETY9n3xmVzsQSkACmC2i01aGeB7bMg/5z1DgAtZiv+hEmAffjCeYqKwlKIoebcqGizWnxHXgZmlUK5tgfrGre0bwzVakyYBciMTHpvggEXR4JHcnKUhzv08I/QGn1Q8eoIj4U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELpuqa1R; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELpuqa1R"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D381F008A1;
+	Thu, 17 Sep 2026 15:17:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789658241;
+	bh=EL5vh+bz04rI+95v0M6FiEP7C72puKyhWj/S9pfZp/8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ELpuqa1RFvl1C3LhFbmLIlPEVf5pCkpFkxID68bSWCcZgH0rhVp7VSfgkxs03n9yb
+	 LJxbgMQnAybFpW7W+YY4ftfa9AgGHiZItd+M/k8mMw9yTT66Sy7zDiQYcGxCBi8qXm
+	 jMYBV0WGuz1uWnyXP1v4VvK1xZJn/d/gpJDgIlBPRHGE8UbvyV7shNTsR52EWcpsEz
+	 4iuYvZx0wvIVzpyjCtnr2CNIG5Nq4d9CoGya1DQg3Etn2wtBy/4603XZLr7vjDkFrC
+	 NUL81KGaV0mpATzVzJ5fSIqEi8R30vDLPUlHH9iLLzhmphlD1qRPrMvi9lFcd9XbG8
+	 L+85KRvxCgsfA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	Arthur Lesuisse <arthur.lesuisse@ulb.be>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.1.y 3/3] smb: client: fix uid/gid override in getattr with posix extensions
+Date: Thu, 17 Sep 2026 11:17:16 -0400
+Message-ID: <20260917151716.693532-3-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917151716.693532-1-sashal@kernel.org>
+References: <2026091635-bolt-hunchback-845c@gregkh>
+ <20260917151716.693532-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,54 +50,61 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHsTuABKxqsl2DCA--.5477S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7XryxJF1Duw4fCFy3JryrZwb_yoW8JrWfpa
-	yDCa4Yyas8Gw4I9rn7Gw15JF4rX3W7C3s8KFW0v3Z5ur4UJFyft34I9rs0qF1UArZ3Ja98
-	Jr4DJrZ5CF4UJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxUFBT5DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qr9LYmfgAAsP
 
-mpt3sas_get_sdev_by_addr() takes a reference on the sas device for SAS
-end devices, but it is only dropped on the success path. When the port
-cannot be created, for example because the parent device is missing,
-sas_port_add() or sas_rphy_add() fails, the function bails out to
-out_delete_port/out_fail without releasing the reference.
+From: Paulo Alcantara <pc@manguebit.org>
 
-Drop the reference on the out_fail path.
+[ Upstream commit cf4d35896621b7298eef51b7a465e5c0cb22f670 ]
 
-Fixes: 7d310f241001 ("scsi: mpt3sas: Get device objects using sas_address & portID")
+When mounting with 'multiuser,posix' options, cifs_getattr() overrides
+the server-provided uid/gid with the current process's fsuid/fsgid.
+This is because the condition only checks for unix extensions
+(tcon->unix_ext) but not posix extensions (tcon->posix_extensions).
+
+With SMB3 POSIX extensions, the server provides real uid/gid values
+just like with unix extensions, so they should be preserved rather
+than replaced with the caller's credentials.
+
+Add a tcon->posix_extensions check to the condition so that uid/gid
+from the server are properly reported in stat results.
+
+Reported-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
+Closes: https://lore.kernel.org/r/DB9P190MB2012266F6B8DECBE5D26A1798DB52@DB9P190MB2012.EURP190.PROD.OUTLOOK.COM
+Suggested-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/mpt3sas/mpt3sas_transport.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/smb/client/inode.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_transport.c b/drivers/scsi/mpt3sas/mpt3sas_transport.c
-index e74a526efa8d..f831d4823503 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_transport.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_transport.c
-@@ -869,6 +869,8 @@ mpt3sas_transport_port_add(struct MPT3SAS_ADAPTER *ioc, u16 handle,
- 	list_for_each_entry_safe(mpt3sas_phy, next, &mpt3sas_port->phy_list,
- 	    port_siblings)
- 		list_del(&mpt3sas_phy->port_siblings);
-+	if (sas_device)
-+		sas_device_put(sas_device);
- 	kfree(mpt3sas_port);
- 	return NULL;
- }
+diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
+index b883b9164ead3..c4c1148ff777f 100644
+--- a/fs/smb/client/inode.c
++++ b/fs/smb/client/inode.c
+@@ -2594,14 +2594,14 @@ int cifs_getattr(struct user_namespace *mnt_userns, const struct path *path,
+ 		stat->attributes |= STATX_ATTR_ENCRYPTED;
+ 
+ 	/*
+-	 * If on a multiuser mount without unix extensions or cifsacl being
+-	 * enabled, and the admin hasn't overridden them, set the ownership
+-	 * to the fsuid/fsgid of the current process.
++	 * If on a multiuser mount without unix extensions, posix extensions
++	 * or cifsacl being enabled, and the admin hasn't overridden them,
++	 * set the ownership to the fsuid/fsgid of the current process.
+ 	 */
+ 	sbflags = cifs_sb_flags(cifs_sb);
+ 	if ((sbflags & CIFS_MOUNT_MULTIUSER) &&
+ 	    !(sbflags & CIFS_MOUNT_CIFS_ACL) &&
+-	    !tcon->unix_ext) {
++	    !tcon->unix_ext && !tcon->posix_extensions) {
+ 		if (!(sbflags & CIFS_MOUNT_OVERR_UID))
+ 			stat->uid = current_fsuid();
+ 		if (!(sbflags & CIFS_MOUNT_OVERR_GID))
 -- 
-2.34.1
+2.53.0
 
