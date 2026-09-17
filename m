@@ -1,46 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0CE851A743
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:15:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0A27501F4B
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:15:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650936; cv=none; b=K1MXDymUG1AZg40HznzpMkqV2Iu3xfFFJ9Il3hH+rvoNxXy2TV69ygGymv/kw+3H4FGXtKSotwngfbkYHFGOx19u9glxah/+7qeWbdpSnxsJeR1Ym+3Cj5JD+W+Rj19J6Ti+5MLEuZ8WIxFH7DLCYlt4wPeDTVnXHJsFPOuftzE=
+	t=1789650943; cv=none; b=FacpBllTqmMj16VLtnN23Vj7gWLwLphSaxwX5B+KT95HYVD/OHg1LNEx8q459I/vxUWZchx2h3g6Fd9v8LdKzxyBDyOi98ckEKvkSWHndd7G4t7Zm8n9rCWvlL6jjpCD3nK33rfGIp6AkX+ZqdnLfpM3IYmUHPX1O8YIluuBIuk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650936; c=relaxed/simple;
-	bh=OVVTYe11EBbMxx+hwNLM3VIcIZm/tSej9XFVK3AyHSk=;
+	s=arc-20240116; t=1789650943; c=relaxed/simple;
+	bh=KihSoGVQxIPtpSFHiqgUvrt2SqZKDDHIsWMLPqT7sc4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=QphyQRSKNvZu22oyulCZMI0m2bCxF4cMgCUIT/rpqAgJkcUQOG9+c5epbW2dQb2lfWmICtwmfCGMTwlMbMzQ9pZ+SlbR12BsXb5aFkVL4pb20QMex55yZ+VzFE/CK/lQ9DhUxustKjovnh+6kYK0ncoFk2+wvfhCkHTjy3iPpOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fa+4XoA9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=m+1ub1UMi5NSvpJLtXRqmL/joMVEZzazrhqrrO+0MirIMOlOLpdhM1EFj4dNziwerAZ4bPG0Wkum1yaA8tZOJvf+ymj17Ey1AJ1eHY3aRY1JIOGqbXwW0lwpzGQAdTMZ+gPRYCyDNHTnXiiMP7UXl9TQaYGs3if7FXqfyahG9OA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JIa9vvia; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fa+4XoA9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 578251F00898;
-	Thu, 17 Sep 2026 13:15:25 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JIa9vvia"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68EB11F000FF;
+	Thu, 17 Sep 2026 13:15:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789650926;
-	bh=4NWOfOxY5aYYVVwjV6d+hhdyHrbTxz1xPIrx40RLZa0=;
+	s=k20260515; t=1789650937;
+	bh=83CcTzApoHkjHNbNCiNGDKQOOapltvUHMqBDsyRJV7Y=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fa+4XoA92XCQlB3R21jVVrWH4WmL6ggm1uArr/7JedKeT+iBSRQtvbHujZllGWuVd
-	 w9T2H83X/NK786k24K917BgH7FXa/Dz9TZHtmzqNeNpRlBKWJHt4bSalkueOuzxnLb
-	 vVtmh7G7CiQJidh70cv2PcAPmY9801pS2O6JTcMPuRl2ikQWhnDz1f3IniLFp//CIy
-	 1IJLuncRHUV9ZdI/DsPIWm/praev3G0jOyQzXt4/lkeSQ889OQKhCubnbFY3cEadKO
-	 HM4wBvc1aOg0S9gmoZpHBPBSI9YWSypsIia3IrKAeT5u/5bfiaXvwtUfuCpukLxLUm
-	 jilODbqR/7SuQ==
+	b=JIa9vviaHV/esPB8cSMtx8kGIPkGpn+dp+OYYErmPDwszTBXUaxPy/8PG7qZZ5V7C
+	 kZz4LbrZ+R3JIN4aib+CJ9FQ6X+q/LgDtDdAeD8buoa5jorvI7up0DsGGwF1rRfB09
+	 57CeJ7rOh0MSO/p9jA4H8IdHT0CYx9eYLwFCbZJC2ILN70YEfYNtXx7g6gHQgr9RX8
+	 nKT1jFF7oycyGzUSlScxmnF8tIp+yF3wqHJh00ComcbGLegGbsmtbKEPc5ugL96Hnz
+	 jwrH6SB+//tRJvqbSA53PBGhAlF3+eRfOIVq4yTwNnq8XQGWCMNNXxMEU5PTeqi3ha
+	 BlwaIy8FWbGSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Kalpan Jani <kalpan.jani@mpiricsoftware.com>,
-	syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com,
-	Tao Cui <cuitao@kylinos.cn>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Bjoern Doebel <doebel@amazon.de>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0
-Date: Thu, 17 Sep 2026 09:15:23 -0400
-Message-ID: <20260917131523.352351-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: avoid leaking refcount in cifs_queue_oplock_break()
+Date: Thu, 17 Sep 2026 09:15:35 -0400
+Message-ID: <20260917131535.353048-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917131523.352351-1-sashal@kernel.org>
-References: <2026091604-bogus-decent-1706@gregkh>
- <20260917131523.352351-1-sashal@kernel.org>
+In-Reply-To: <2026091616-voicing-bauble-48b0@gregkh>
+References: <2026091616-voicing-bauble-48b0@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,75 +46,64 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Kalpan Jani <kalpan.jani@mpiricsoftware.com>
+From: Bjoern Doebel <doebel@amazon.de>
 
-[ Upstream commit 2ac7d6e620764f1fc79eb4edd3610a7a661981ca ]
+[ Upstream commit 9f2e63f1b2d5fc5b5423424902c091123e220e7e ]
 
-The in-kernel MPTCP path manager can leave a stale ADD_ADDR announcement
-entry alive when removing the id 0 endpoint. This happens because the id 0
-removal path does not tear down pending announcements, unlike the non-zero
-id path.
+cifs_queue_oplock_break() unconditionally takes a reference on the
+target file before queueing cifs_oplock_break(). Only that work item
+decreases the reference counter again.
 
-When the PM later reselects id 0 after adding another signal endpoint, it
-finds the stale anno_list entry and hits WARN_ON_ONCE(mptcp_pm_is_kernel())
-in mptcp_pm_announced_alloc().
+If another oplock break arrives while that work is still queued,
+queue_work() will return false and not queue this second work item. As a
+result, we will never reach the point to drop the file reference again
+and are leaking this reference. This can be triggered when interacting
+with a slow-responding server.
 
-Root cause: asymmetry between removal paths.
-- Non-zero id path: mptcp_nl_remove_subflow_and_signal_addr() calls
-  mptcp_pm_remove_announced() to clean up.
-- Id 0 path: mptcp_nl_remove_id_zero_address() skips cleanup entirely.
+As a result, later unmount operations for this file system will fail with
 
-Fix by making the id 0 path symmetric: call mptcp_pm_announced_remove()
-and decrement add_addr_signaled before queuing the RM_ADDR.
+  BUG: Dentry ... still in use (1) [unmount of cifs cifs]
+  VFS: Busy inodes after unmount of cifs (cifs)
+  kernel BUG at fs/super.c:777!
 
-Subtle detail: signal endpoints are stored in anno_list with port 0, but
-msk_local carries the connection's local port. In other words, entries
-linked to ID0 paths should have port == 0. A follow-up patch will ensure
-that. mptcp_pm_announced_remove() uses use_port=true for comparison. So
-clear the port before the lookup.
+Fix this by only incrementing the reference count if the work has been
+queued successfully. Taking it after queue_work() is safe because all
+three callers hold tcon->open_file_lock across the call and
+_cifsFileInfo_put() decrements under that same lock, so a worker that
+starts the handler in the window cannot drop the reference before it has
+been taken.
 
-Fixes: 740d798e8767 ("mptcp: remove id 0 address")
+Fixes: b98749cac4a69 ("CIFS: keep FileInfo handle live during oplock break")
 Cc: stable@vger.kernel.org
-Reported-by: syzbot+55c2a5c871441261ed14@syzkaller.appspotmail.com
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/620
-Suggested-by: Tao Cui <cuitao@kylinos.cn>
-Signed-off-by: Kalpan Jani <kalpan.jani@mpiricsoftware.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-4-df1de70348b6@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: Kiro:claude-opus-5
+Signed-off-by: Bjoern Doebel <doebel@amazon.de>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Adjusted the patch path from fs/smb/client/misc.c to fs/cifs/misc.c. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/pm_kernel.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ fs/cifs/misc.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
 
-diff --git a/net/mptcp/pm_kernel.c b/net/mptcp/pm_kernel.c
-index c91ba820e830a..6bd1686774b77 100644
---- a/net/mptcp/pm_kernel.c
-+++ b/net/mptcp/pm_kernel.c
-@@ -1548,6 +1548,8 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
- 	while ((msk = mptcp_token_iter_next(net, &s_slot, &s_num)) != NULL) {
- 		struct sock *sk = (struct sock *)msk;
- 		struct mptcp_addr_info msk_local;
-+		struct mptcp_addr_info anno_addr;
-+		bool announced;
+diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
+index b4199b4085db3..e9be60ca34454 100644
+--- a/fs/cifs/misc.c
++++ b/fs/cifs/misc.c
+@@ -628,10 +628,11 @@ void cifs_queue_oplock_break(struct cifsFileInfo *cfile)
+ 	 * open_file_lock to enforce the validity of it for the oplock
+ 	 * break handler. The matching put is done at the end of the
+ 	 * handler.
++	 *
++	 * Only take a reference if the work is actually queued.
+ 	 */
+-	cifsFileInfo_get(cfile);
+-
+-	queue_work(cifsoplockd_wq, &cfile->oplock_break);
++	if (queue_work(cifsoplockd_wq, &cfile->oplock_break))
++		cifsFileInfo_get(cfile);
+ }
  
- 		if (list_empty(&msk->conn_list))
- 			goto next;
-@@ -1557,7 +1559,13 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
- 			goto next;
- 
- 		lock_sock(sk);
-+		/* Drop a possibly pending ADD_ADDR for this address. */
-+		anno_addr = msk_local;
-+		anno_addr.port = 0;
-+		announced = mptcp_pm_announced_remove(msk, &anno_addr);
- 		spin_lock_bh(&msk->pm.lock);
-+		if (announced)
-+			msk->pm.add_addr_signaled--;
- 		mptcp_pm_remove_addr(msk, &list);
- 		mptcp_pm_nl_rm_subflow_received(msk, &list);
- 		spin_unlock_bh(&msk->pm.lock);
+ void cifs_done_oplock_break(struct cifsInodeInfo *cinode)
 -- 
 2.53.0
 
