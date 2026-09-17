@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF4FA4E0214;
-	Thu, 17 Sep 2026 15:49:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D75004DDB2F;
+	Thu, 17 Sep 2026 15:49:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660155; cv=none; b=CfPasegmlngfhdzpvqtQsfrOwXWeOZkhW4tYroZOu41PrhIcclo7hHz927LNtXrLDhVl9I4g57LfZYFhOjiP9m2YfCha7BpqrVCq0r3ZEIOf6lKwg7oUhe6clg4ZjgIEN/kyMAi78dwWbjnL/z0UAdG/3w8T6CV16irMhJLiw6M=
+	t=1789660159; cv=none; b=hHoJa9MFztBQelKTDF9sCK1o0/Ch/LfcD0OprUv9+g2wtlV8PJJL+Jc6hUZEZh6xgcWDgrGXzArCii5AuusDbfqBNk4I2TF5KCVWaaIAisrwXdwRkMp1MaHKZqmJjDBhE2jlcSXNaDVy47/MAvptV9cgVwlYQi9XLPYtTZYqzzA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660155; c=relaxed/simple;
-	bh=06nNhiGLjalvomWFDiNCb3dZP8jO+jnOStq+hEHts9Y=;
+	s=arc-20240116; t=1789660159; c=relaxed/simple;
+	bh=IPw5yqdZoP5gj3RjCGoWqvQcFBpqNhTXMe/Euvq3cd4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GauywdoqnQfOOpbHkuIhEikGam1I0OhBCUIVWSAwq6MXrF4WMgQ6HkEPCOM5Sq/F5a3NkoagAfjOndsMoTWEFsbecsIipIaCWfZ2d0BuuxBKxjmO1h89JKGwH6ULxbS3VT+KLIVYBxdTLnohHhipWYEoeB8sn+IMTUkOzIy3vBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Qvcf5JgW; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XuRqlCi5HLq997HSrR6GlaPi9yfHExI/PdRRzypkyTS1sMDTnwpLSWitl02TrdvI776Nl3kNcbzmzgjnFj13QhQZa0BvMXILxMm90JETV5XjfDEUiDKVlU4oLdjwg95MLXIXuwRaUxYBV5s8WIRjYP5KBiaCYL4Gv2kDXegu2ZQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=smlroJ7H; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Qvcf5JgW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A3F21F00898;
-	Thu, 17 Sep 2026 15:49:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="smlroJ7H"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 799451F00893;
+	Thu, 17 Sep 2026 15:49:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789660142;
-	bh=sIY3QJ947oGrn+1aNmNdCTRap+h7vXgA8QlZ/u/C8po=;
+	s=korg; t=1789660151;
+	bh=cAdgS9ATNWTO1ImvXnKiM1Oy5kD2o8ngsMjYpvYXSxM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qvcf5JgWqQtCA1DbU7wDJNHVppRI2y1fKup1Lv7ERCKdKVKTaPKMnSxhz9srtpfzT
-	 FE/ohFqoeQDeuE8iQCmETPywI3IKGX4VI77HKujJK90etVyU9Ss8OPFdvUQN9Nwqj9
-	 OeYzLRyWomgDRQGCLWCSXNFOn7OHbbwXzdvy5mUE=
+	b=smlroJ7HOQE5D0vmTl4agt/uE9bJm2DMelzr/v/75BBhu3ZlDKU0w187Fs1AHWk8X
+	 q9qkQiYPZlBgI1aJdf6tlhZ0grHkiYrlAU6lEH4jkyJb6HK5g/5EmxQGL0OBoJO1Y8
+	 AG1KB/J1pqwXeh9d5EzaTUSispcLrwLbCQkLly70=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ali Ahmet Memis <ali@iusegentoo.com>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>
-Subject: [PATCH 7.2 491/733] ufs: create the root dentry after loading cylinder metadata
-Date: Thu, 17 Sep 2026 16:13:19 +0100
-Message-ID: <20260917151404.294391423@linuxfoundation.org>
+	Sashiko <sashiko-bot@kernel.org>,
+	Yazen Ghannam <yazen.ghannam@amd.com>,
+	"Borislav Petkov (AMD)" <bp@alien8.de>,
+	"Mario Limonciello (AMD)" <superm1@kernel.org>,
+	stable@kernel.org
+Subject: [PATCH 7.2 458/733] x86/amd_node: Fix PCI device reference counting in amd_smn_init()
+Date: Thu, 17 Sep 2026 16:12:46 +0100
+Message-ID: <20260917151403.346278649@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,77 +53,72 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Ali Ahmet Memis <ali@iusegentoo.com>
+From: Yazen Ghannam <yazen.ghannam@amd.com>
 
-commit 55a4c98abb9694b067c6a031d11501f06b6b523c upstream.
+commit 27600805e62f800bacf990354632eae4e487d34c upstream.
 
-ufs_fill_super() installed sb->s_root before it loaded the cylinder
-group structures for a writable mount:
+The local "root" pointer is a temporary variable used during the device
+search. Therefore, refcount related to the search iterators should be cleaned
+up after the search is complete.
 
-	sb->s_root = d_make_root(inode);
-	...
-	if (!sb_rdonly(sb))
-		if (!ufs_read_cylinder_structures(sb))
-			goto failed;
+Use the __free() cleanup macro to ensure the refcount is decremented when the
+temporary pointer goes out of scope.
 
-When ufs_read_cylinder_structures() failed, the error path freed the
-in-core superblock information and set sb->s_fs_info to NULL while
-sb->s_root stayed installed. get_tree_bdev() then reached
-deactivate_locked_super(), and because s_root was present,
-generic_shutdown_super() called sync_filesystem() and the put_super
-operation. Both dereference UFS_SB(sb), which is now NULL, so a mount
-that fails only while reading the cylinder groups oopses during
-teardown. A crafted image whose first cylinder group cannot be read
-reaches this path.
+Additionally, increment the refcount when caching a root pointer. This ensures
+the in-use refcount is separate from the temporary search refcounting.
 
-Load the cylinder group metadata first and create the root dentry last,
-so the superblock is published to the VFS only once it is fully set up.
-ufs_setup_cstotal() and ufs_read_cylinder_structures() take only the
-super_block and do not use the root inode, so the reordering is safe.
+Finally, drop the redundant "root = NULL" before the second search loop. The
+pci_get_class() iterator always decrements the refcount of its "from"
+argument, so the first loop can only fall through with "root" already NULL.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
-Link: https://patch.msgid.link/20260801071306.59484-2-ali@iusegentoo.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 0a4b61d9c2e4 ("x86/amd_node: Fix AMD root device caching")
+Closes: https://sashiko.dev/#/patchset/20260806160159.230453-1-jason.andryuk%40amd.com
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Assisted-by: LLM
+Signed-off-by: Yazen Ghannam <yazen.ghannam@amd.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
+Cc: <stable@kernel.org>
+Link: https://patch.msgid.link/20260903154325.74343-1-yazen.ghannam@amd.com
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/ufs/super.c |   17 +++++++++--------
- 1 file changed, 9 insertions(+), 8 deletions(-)
+ arch/x86/kernel/amd_node.c |    6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
---- a/fs/ufs/super.c
-+++ b/fs/ufs/super.c
-@@ -1199,6 +1199,15 @@ magic_found:
- 	sb->s_maxbytes = ufs_max_bytes(sb);
- 	sb->s_max_links = UFS_LINK_MAX;
+--- a/arch/x86/kernel/amd_node.c
++++ b/arch/x86/kernel/amd_node.c
+@@ -251,7 +251,7 @@ __setup("amd_smn_debugfs_enable", amd_sm
+ static int __init amd_smn_init(void)
+ {
+ 	u16 count, num_roots, roots_per_node, node, num_nodes;
+-	struct pci_dev *root;
++	struct pci_dev *root __free(pci_dev_put) = NULL;
  
-+	ufs_setup_cstotal(sb);
-+	/*
-+	 * Read cylinder group structures
-+	 */
-+	if (!sb_rdonly(sb))
-+		if (!ufs_read_cylinder_structures(sb))
-+			goto failed;
-+
-+	/* create the root dentry last, once UFS_SB(sb) is fully set up */
- 	inode = ufs_iget(sb, UFS_ROOTINO);
- 	if (IS_ERR(inode)) {
- 		ret = PTR_ERR(inode);
-@@ -1210,14 +1219,6 @@ magic_found:
- 		goto failed;
+ 	if (!cpu_feature_enabled(X86_FEATURE_ZEN))
+ 		return 0;
+@@ -262,7 +262,6 @@ static int __init amd_smn_init(void)
+ 		return 0;
+ 
+ 	num_roots = 0;
+-	root = NULL;
+ 	while ((root = get_next_root(root))) {
+ 		pci_dbg(root, "Reserving PCI config space\n");
+ 
+@@ -299,14 +298,13 @@ static int __init amd_smn_init(void)
+ 
+ 	count = 0;
+ 	node = 0;
+-	root = NULL;
+ 	while (node < num_nodes && (root = get_next_root(root))) {
+ 		/* Use one root for each node and skip the rest. */
+ 		if (count++ % roots_per_node)
+ 			continue;
+ 
+ 		pci_dbg(root, "is root for AMD node %u\n", node);
+-		amd_roots[node++] = root;
++		amd_roots[node++] = pci_dev_get(root);
  	}
  
--	ufs_setup_cstotal(sb);
--	/*
--	 * Read cylinder group structures
--	 */
--	if (!sb_rdonly(sb))
--		if (!ufs_read_cylinder_structures(sb))
--			goto failed;
--
- 	UFSD("EXIT\n");
- 	return 0;
- 
+ 	if (enable_dfs) {
 
 
