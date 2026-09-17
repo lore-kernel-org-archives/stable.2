@@ -1,338 +1,210 @@
-Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A431364942
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:25:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644346; cv=none; b=lhZshY+fcY0EBUp4HRd6pf1M5UQqYqk1GhCs4ipCJEaqYxGYieT6TLYgldmM6XMiXNQcQJUYYQFwbz7w9DtQcEiyWC4svcf+S2P5+zCrdjsejNMRc90dTvZe4DdCF4btx7syuoc2RUajRWZjh3UNrgM6aPcmRSbmLSAjir+Xecc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644346; c=relaxed/simple;
-	bh=Zu0/EO6c8y86A2VWn55EPlZcegV3WDcl8Om285gaziw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bMXpmZ3GX2OPEULiTIv720mKaKCB30WtiRzDaNhquDJ/tTuDuNqVKIGboiBCX4EA0igU+5GWlfeC6M2Hs0KUvgDDJA6r1/EdC+OolhwpRSL4Fz18sLEBF+4LxwX6NUzHlF7IiVoBE/jl171D/LIEOBgDwHNS8D8JVxUsawhQxtA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=hFNcZiTY; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UlQJhT91; arc=none smtp.client-ip=202.12.124.156
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFD2C4BD376;
+	Thu, 17 Sep 2026 11:28:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.9
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789644540; cv=fail; b=jPdVrLBdYyQHFN0Fua0hu7e5rna5SL6MsDXQ8VaEcsQxy3OtynDp+BOWpGzchIMvazr538AaXKX2KfTobeuWhzwFvOMoqzLH9VHm52VwSjT6tsOey07N/Krh54XemOncaTJQFFIhp4y7HCVB8ARg/j2hEzJre4ilSt2D52G7z6w=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789644540; c=relaxed/simple;
+	bh=3mGw6ORD/m5v9Fl5nCquq9EF2V7Wd4apmFwBxkqVy4g=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=eN714KE/PmQgTaSjfdRDACxEgOzBYPZYEvLkiWGdCoaend6+OrdRLfD0L3/VneMJE6mEO8B1mENZMRsreYeglAx/uxjgNVubImEQ+F/koHEFLtU9la0h8s49OhhcAFzmsvM1H2ZuharNv51/+GW0eRXotKdGgE9+RyRqsYvWjtk=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mEjRGQ6Z; arc=fail smtp.client-ip=192.198.163.9
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="hFNcZiTY";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UlQJhT91"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id EFC6D7A00E9;
-	Thu, 17 Sep 2026 07:25:42 -0400 (EDT)
-Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 17 Sep 2026 07:25:43 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1789644342; x=1789730742; bh=cgr3r9mJVi
-	tJNCwz7QDzseHu8Co6GQWX83aZrSkVS/Y=; b=hFNcZiTYrSNPxRVRyBQvz0R36p
-	KTiRUcCbLNmjC4wkeIHE08AWZ36IMXb16dNW8YhZCxV9SmeCg7/A2jIeqsdTQFR+
-	CA8MRWvdAkB0tYj47vuF5Vbv2LCPtYUsPJw3xhQDWUgxxYXPrgXGdEe6Ej/SpWPo
-	+N/t+FOCi0Vb8L0hptKD5xdOCTiArObHCcub7SHbtZwdDoSQVob8kahXcf8HaVtk
-	lMsqTUFCozQRBe9011KOTHNAh97BNU1xHpB/bjrK+68aw7YjGe+k/ktORsEBO6si
-	eYRErN/aJA/rDoYDpReITzwdco1IMvUDqWVkA7y4JJXqCn6iUlwo2HbR34IQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789644342; x=1789730742; bh=cgr3r9mJVitJNCwz7QDzseHu8Co6GQWX83a
-	ZrSkVS/Y=; b=UlQJhT91NO9y8kbaBpFjRSVsABFp2Piqk+44QLNxCk4Lbl1a8RL
-	3lTny1kzFCWUkolnQTThrmgiq3meSFQ4LlDXRbRvLQIO5J+itGHBxAGKOCiENzli
-	O2/GkY2vOTgyT1YQfKXWYRYWteaB3Lc4KCbF8LqSpelVls8vbnoKoDccffNsuEu1
-	dAWXYAK5Cu844lOUvvc0tJQa0gSx3B8znS1OdAIqrjsvLdxfUioVsffXNdkbcCUp
-	7uTJ23fY0PSnHkeKT4OBmSalP7nLRdL9Sw9Xlk2cJd7s36YaQ0kgC7uzGjTFu6Ox
-	ypIR9OR/TDudvDbX6a1/vwbyK6tdyptP5bg==
-X-ME-Sender: <xms:Ns6rajvW0t9dbEgwukaUZOGA7C41XVdtCkQMoV5KpDgfQIuoCioZTQ>
-    <xme:Ns6rajtxWIb_IsJ8eakmed0lHr1VR4xEK2KfQM5GVsTbN6-_vMGvlRtSDxaVI9J9s
-    auaXOVyCZLTI6P1N2X947xR_39a7FjkFd54HC6ty8Aam3Wgjw>
-X-ME-Received: <xmr:Ns6rapksJlBmL9E_DsDySrqQS66s6bTuOhIygbWl_ZLrktPmkszx7oixwNFX>
-X-ME-Proxy-Cause: dmFkZTGKUAbpGA2Usp8G9w9Vm/eFwK51YZYoS68TfR1DLcM7QGlaXXpGq8GVARSYFl3LAr
-    1VoaT6Rn+1GcbT6hH4TuyTt5RVIEYQMycrA3Er9h/RZQaeOZjiz8iVKokdlbedGv7k3IBI
-    Hv8OZ8RZwcxQLD/dcw6NemyzSOdPeGDbodNTWKrcS2qUxQW8XRLQbFYuWRdy5ZuwCGa7KB
-    cL2KRBvnjxdEf3DB6j/9ihBZy6yeQp9QcKlOOPHmHD6W5QmqDBLBzlTrMjxf0akT8HU24A
-    kQIfAwLiE2PdBZH/4gPUVEGPRUZ3v2J7md5SgbWfB9mn5OOKPcaf9uywjZ7Rc724wd+BiQ
-    R5rXK0ESY1Uosy8YTCObRjbBlONUTOme4YglMFWR4oVf+hO/i8oevSTEZ4Oer5om5lVhfz
-    yAwtN1OImUapKLiFfb73yh5rpCeMHcQpavpavXCS+zauBG0qzyEo/stTw5koQaFAU2ncwf
-    u8mCNr7c7oLB9NGxa04JjYPFBcxOdy4ZTLEMllSl5+a/CxHKIMYJA2TjvkvnWAkjSiRriu
-    7iqoLsay6FWS2MvExldfUsGbPFSIsPo0KPDXaUdAm0+aiePh4C/8006WZigoxAN6AVJIFa
-    Z88Lu3fXmQ/vSRvU9m39VI2yS0LK0+r0MeTjQGsAMmwt2OmKaQHxBl5i3WFw
-X-ME-Proxy: <xmx:Ns6raptKMLTJH9Ez_vaHBY8WbtdknqFsjimBW5Y9qZqnrUtb_naA1g>
-    <xmx:Ns6raoNOx3_t2DxVP0o_GI0OyOclv-cDrGVGQuHLIcT-mMdIwsmn6w>
-    <xmx:Ns6raq1uLU9_tbkLIwjf-AVFF02F6WxnP9KjwOJPYF8V4RuMENHeZA>
-    <xmx:Ns6raqx0V57cGj0_znG56vgLhZ2Y3KqdGHbBlTJgocssgeOK0Y1gdw>
-    <xmx:Ns6rauj3UhAer_piiSYHCeRdiDGoXSTbGqeOyDJtyg_976B1ll5E7pVh>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 17 Sep 2026 07:25:41 -0400 (EDT)
-Date: Thu, 17 Sep 2026 12:22:00 +0100
-From: Greg KH <greg@kroah.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Breno Leitao <leitao@debian.org>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Davidlohr Bueso <dave@stgolabs.net>,
-	Lance Yang <lance.yang@linux.dev>, Oleg Nesterov <oleg@redhat.com>,
-	Qian Cai <cai@lca.pw>, SeongJae Park <sj@kernel.org>,
-	Andrew Morton <akpm@linux-foundation.org>
-Subject: Re: [PATCH 6.12.y 1/2] mm/kmemleak: avoid soft lockup when scanning
- task stacks
-Message-ID: <2026091754-violation-overpass-c61d@gregkh>
-References: <2026090345-doorpost-concur-ba65@gregkh>
- <20260903183242.1464421-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mEjRGQ6Z"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789644538; x=1821180538;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=3mGw6ORD/m5v9Fl5nCquq9EF2V7Wd4apmFwBxkqVy4g=;
+  b=mEjRGQ6ZTA844iJB3aHSSVm1rbjpbQVo+Py18dEIVkyM1r7RpPb9MjgM
+   NwuDdC7K6Uh0Go5B7a2eUSOcK28l/GnUDi2SbyFLMxlnpi1m36ldSlZQe
+   X7qk5t8Zj4KO1FNkKh8iWQzYgnTVJ0Xz6JBMMF9tzoL91NCItomS0ciJJ
+   86CuZHZyWD9E6pG8DFnb1rfh5xFu5OGoaRLFpOtdDsI3cBnzIui2N+wM9
+   8ZYLYXwlxpCOhuyzo1Bh9rm3fnWiREl+lJWi/+EMUDIvVMhjvCKQSMo1y
+   H9aWJfhebHI/qBh4ipcLHtCVGg9s/Rv01y3GY6DqKAFDWcOuSJyGflG9g
+   Q==;
+X-CSE-ConnectionGUID: Lm029uz6TWqxyVwATiKFuw==
+X-CSE-MsgGUID: vXLTXPnTTymwGZ9GMKWVmg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100720995"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="100720995"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:28:56 -0700
+X-CSE-ConnectionGUID: RqUIFNHMQ52Tx8NRQ8iZIg==
+X-CSE-MsgGUID: GTYNGV1PTzq5oo4iQbs7bQ==
+X-ExtLoop1: 1
+Received: from orsmsx903.amr.corp.intel.com ([10.22.229.25])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:28:55 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX903.amr.corp.intel.com (10.22.229.25) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 04:28:55 -0700
+Received: from ORSEDG902.ED.cps.intel.com (10.7.248.12) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 04:28:55 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.0) by
+ edgegateway.intel.com (134.134.137.112) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 04:28:53 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=itkXBsi6ORnRJRXxga6yVZT957xJjMpcigwjSEOxPF3txrcoHEzhW8xPwaEbnmKmi+cDyem6RiVMETzoMCXw6YyvbTdmZUYcYEkY6t1K0Nj43H39E3znri1gZYQtUS/b2bGjdDyZbPiDfBxLRKYolRadKUF+4O6dYIW7/A3FhrImV3V7y3kopXHAmh35j+GkBYdRiyeMgC4dgpOKAdB2fwhdbo0XuFfm6iVsHtKDjZG1MekBMEFcMn/iCa3TZT/LinO8Qq0rw6dU2oiO69LOn0A2zd2XW86mWA13Y7ecNFW8iXdaSQNvvSLymLtyICBrX3PcaOiICKXzOJHkG/83qw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=6orhvdTQBZFdYhmjlFwSMZHxwlGrrvxY/OXgkxzLiIY=;
+ b=XOSSc2GzDmbXN87D6hVa7PjaPz/Q1n1qX7LWm7PoR2oy9YN4dyx8eyH8WgJQ9q3uZ3fkBTEISVFs9j3Hgf7tdEDPauesjo0pfGfdEQ89z5Uz3yZtU4QCyA/JFN93upuBRmMLe71dkbIOH3zoIG3TeoGOLhpAY2ALsCFVj1/Gve2YAwMeD6f5xhjWnHerTMLEja1UPrutys4aSVOl3a4PxovN0cgoZ7Xk1q3FZhqNiqq0WYyxkxBsqKrDsTs95jA48SLxTDuHoGJ5eNAuI2NYu5v2+ynHAsOclJ6/pzdy/dHA56IWKgBHr+pfkxB+i98sMJcZhkX2hBBunV6Dr3fMTA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com (2603:10b6:208:577::21)
+ by SA3PR11MB7654.namprd11.prod.outlook.com (2603:10b6:806:305::19) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.12; Thu, 17 Sep
+ 2026 11:28:51 +0000
+Received: from IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c]) by IA3PR11MB8986.namprd11.prod.outlook.com
+ ([fe80::e6f0:6afb:6ef9:ab5c%6]) with mapi id 15.21.0428.011; Thu, 17 Sep 2026
+ 11:28:50 +0000
+From: "Loktionov, Aleksandr" <aleksandr.loktionov@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>
+CC: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>, "davem@davemloft.net"
+	<davem@davemloft.net>, "edumazet@google.com" <edumazet@google.com>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>,
+	"kalyan.kodamagula@intel.com" <kalyan.kodamagula@intel.com>,
+	"kuba@kernel.org" <kuba@kernel.org>, "linux-kernel@vger.kernel.org"
+	<linux-kernel@vger.kernel.org>, "Swiatkowski, Michal"
+	<michal.swiatkowski@intel.com>, "netdev@vger.kernel.org"
+	<netdev@vger.kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "Kitszel,
+ Przemyslaw" <przemyslaw.kitszel@intel.com>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [PATCH] ice: fix VF reference leak in ice_set_vf_trust()
+Thread-Topic: [PATCH] ice: fix VF reference leak in ice_set_vf_trust()
+Thread-Index: AQHdRpZw9C9AJgvGek6CTp3KJZif47bSoiUA
+Date: Thu, 17 Sep 2026 11:28:50 +0000
+Message-ID: <IA3PR11MB898619C38AC2792034B229C8E5B82@IA3PR11MB8986.namprd11.prod.outlook.com>
+References: <20260917111114.2148482-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917111114.2148482-1-vulab@iscas.ac.cn>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: IA3PR11MB8986:EE_|SA3PR11MB7654:EE_
+x-ms-office365-filtering-correlation-id: a9e70967-5bdf-479d-1d27-08df14aed919
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|366016|23010399003|1800799024|7416014|376014|10067099003|22082099003|18002099003|11063799006|56012099006|38070700021;
+x-microsoft-antispam-message-info: 0F+qrKvDtP4AGoPGCDX0PswDtOKYtFA+qhAgfY4CUyOW+hwCse3KtUV3A/HeMCm4ko9DDLmex9jQlVYEGPMMyuxbD1rpZ40HagZI6q90vjIGg+oDJs2k5TriEpIdC8xUXrJ9Z2M0quMaBbuoEjDOiW5VF2U0HZiDck5GRbIfUhIDnLW64GuZmK10rn+jl94KMozkA3hA34W+Rx/OUtkpJAYrvUclStEkIUFS+43jA4XVfMpS00UCvvVqTfGyGvPMr3pS2FBQ9Z9EqPugkaCDK2dKeQq9ddgfj3SMu5d276XcjY71Nl5VoivrzBsCyoWwLUeqInt95rcr4Bz5OZb3F2y/1Ua3EeiR8Rn3l7UObxVh5i3jq8icSFtd9agMQciNB6swXxiOHklcggpafGG7uEsOEoldWZdSaLCuYSW9VrGep+JBdsODi3dCIfLVEnXoR+qbcXfln9rQZ1LhJKQt0UCCdBFEfnJW5VX1rm4zYuReb2ZJnywDukI2SVPihn61Ddgopchxaq+GQvWktnmCDf87ESFPMD8nwfYzDX8KTKItkMvpV5J7ClypQ0FBHyyVwvqQ8QlOc9jJvNZXnbv/mt5WgRKsqtN5+HGf82AQ51Miacrz4zTi/r5mZ2CxwZe1ph8kJoUyWiGLqiRWcCkagSTWSLtVXg5R2inQYdZ0LzGrp4cv1g4TVexnafae87an7b5yxWsZpK0XdQICCQYVnbxGzldzj4Qyn5zaUTa0Wg0=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:IA3PR11MB8986.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(23010399003)(1800799024)(7416014)(376014)(10067099003)(22082099003)(18002099003)(11063799006)(56012099006)(38070700021);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?tMgeHSim6eLTdJKxUmv1ZtFpkHKCDqTvQ8KK710EEI6eTe1W9quAI+gDOcRg?=
+ =?us-ascii?Q?/+e57/Ql234bIMsQ6IuNVsk6oF+G9yn1xnaLsrD0jcsUbQdpasYoArULNLFv?=
+ =?us-ascii?Q?vK4FmwL11sHx/e+jQFTk8dexRo06WOoQg0QjBzcNid8blAOssquRKKcgrboh?=
+ =?us-ascii?Q?7cE6FIQp0IfswZifFgGv0W6aHN367uu0m/dJjLA9pOBFGHYqsCQyyHeGLld/?=
+ =?us-ascii?Q?fWa4y3nS9RpaYU++wj6G290nDBH+r8igRks5EfjM0qnJVKYV3DEsWHInZ5sM?=
+ =?us-ascii?Q?GiZ6KkVUN+JHMtNcEV36wuWJ2OFQsdmw5ZtvAMHJ7SXkxgnTc+h7EYRkY7j7?=
+ =?us-ascii?Q?IQI6q/TKM1qp3ZO1roiuojMFS1fjHzpSij2YE7DUkyUOeppiZJfqys07fdy+?=
+ =?us-ascii?Q?DQks1vNJiOJQUisVTQtf7YGh0rVvxODPOrtGYovp6Ucj2ZSXQuRkpfKdW63j?=
+ =?us-ascii?Q?ftZEMJZ1lrdpnW/UuQ/qbIKvBUbBKUzMvcEBxzLcahOFNuA7fIwJYpwOpQiT?=
+ =?us-ascii?Q?PWKXZ+x2VIbh+Z6ovZ0PBgHwSdeLEVzYrUzSMhi+waYOyjtJifT0tqjaLT2e?=
+ =?us-ascii?Q?qEagyXEcv+srzJWXgx38yDe/iQmMThmchQKD6HjBpmYOhMCUPsJWf4qMHc1m?=
+ =?us-ascii?Q?nePg42fGYBqo2e53eChNep6rRX6uTJQ+Zs/TwU0pEfOayyVEybOqIq4AxrUL?=
+ =?us-ascii?Q?oLljsoTtVlMfyWQ0wBT32GC4QSqXS2JA/UuE+3eHoUP9v0dEnyRzLZKQdaXR?=
+ =?us-ascii?Q?oBvgdyLkCkw4prQrcPh5c9I0bPkcoouVNbUEhAxQBpRmafzA+e/1hkvNk6hi?=
+ =?us-ascii?Q?U5YTaA0nbZjGUGfKPaSu6nkHWShV9Kkv2/JwyNLiB53aZ+K6XSF7G4CJ5v8V?=
+ =?us-ascii?Q?1Z9tFM74kU33XvoSrH5a/Eq5LmjPF3jCl+sPE27FqnPcNCKSFE52Lcm9/shL?=
+ =?us-ascii?Q?BZn0CAHJB0u2PmbwvKKjazHCRvaYkz9t1OMvKQjAmncbXg8jBwqBLyuktPeW?=
+ =?us-ascii?Q?q1dht5QkW9Qgul+uevxqeEmqanDhzKvOLiYsLdl/bhr66XJYfF8zbxgEJDKW?=
+ =?us-ascii?Q?UW7XsKnv5XZs9gFA5jdcbzMW3WIJtDipVxd/BsIkMkVgdDr4weOiOIaS1d8V?=
+ =?us-ascii?Q?Gb4HwTL0M6/awWwg8XHR4McgrliGg52jINYgKZEWJidb52X09MbRcb8AXIes?=
+ =?us-ascii?Q?w1iCy4f2vv1W3v9g7M7+u4QRnO34jgvjvCQkL6cuKHyUZVynHQbAhee5JU24?=
+ =?us-ascii?Q?f+oPdpCWBrlwO1qXmwNdtUgyTHhOznNDF/17HysXKiNeLvCtFdhjk5jH77bK?=
+ =?us-ascii?Q?xulCGsE/+M6n63yuIuq3rCWqNN88Gu1Uvs3oFgJdP+xcMsspipghZqHyEayb?=
+ =?us-ascii?Q?BjArBWDUoXkZlbecSQiv97mNARiFUw4mgSa7B0MjOtgKhpUON6pReZlojfrj?=
+ =?us-ascii?Q?BiM7FM3IiuJV3yi/7WKt0O9H1Iv/t/ADzsTEziYb9IyxDB4PH7/Zo8pb9bZF?=
+ =?us-ascii?Q?lz2aD5osZGa62OOhQzruiy1OhyyLEEVnH7IHrVJMb+PL4ZCyDYw1q0gOmnne?=
+ =?us-ascii?Q?JVtsKcLhS+1eSqnZhJTbP1Y7t5IWkLh4P7TE5RoZNykqypo/M7IXa2lfLykV?=
+ =?us-ascii?Q?Nbnl2Dm5Vj34QUUxuwiPQzh3Ji/bHW2pDgLJGcaGP2dbfN5abkO3h+cn2fbW?=
+ =?us-ascii?Q?1DURijb4T1+OQrdVzg90rC2KUAeN4aoJbeFXLXOt99hCdyGlf9yQzhUx9tag?=
+ =?us-ascii?Q?VeHZILwkwY8CrhgZzzgi2WBlIo4iP8M=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260903183242.1464421-1-sashal@kernel.org>
+X-Exchange-RoutingPolicyChecked: 3nU27Q2KXplEgx9eAoBTC7m8sxU0b4ln4bMv8oKMTnq3wvFGwSQc6p9dx2s/AafgUi3wzBmagUtmwT9pQj0kQmhHuCF7XCz8I9o2G+loOrdbvglutRBe/BLaYfLcVoZsX0vHJ0vZHrEZKU0wHTbX44wtubg3aYFH48W1C8t+VEZULy4HmzeOhgjFIC0ae2vRkELYJ2EQa1/E8O/g2a6tI2vkyyBZsb4JYQfnN2/18AvgYIhDYYIYSpVmKJTokLh4yu/KdkbeYSkk85B4rsvv0cE+KqDGs0cta0LKKy22De8sneQcq20Sw8Ta0cZi1YGrmDfhiZ7400nG83qBTdYWYg==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: IA3PR11MB8986.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: a9e70967-5bdf-479d-1d27-08df14aed919
+X-MS-Exchange-CrossTenant-originalarrivaltime: 17 Sep 2026 11:28:50.8326
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2ROvj0xD0JmFWH7Ohvg2dvYKGB52K7NYrwwjJW0Zqen5RrinXeo92KGZwJlUS1EV32TIIzhnOi9k4zYHVYHBBYGpx3jqoNvW7u2dIY9unUs=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SA3PR11MB7654
+X-OriginatorOrg: intel.com
 
-On Thu, Sep 03, 2026 at 02:32:41PM -0400, Sasha Levin wrote:
-> From: Breno Leitao <leitao@debian.org>
-> 
-> [ Upstream commit 5d10d4e19e6daa487f0cd0ea6cba472325de92f9 ]
-> 
-> Patch series "mm/kmemleak: avoid soft lockup when scanning task", v3.
-> 
-> kmemleak_scan() scans every task stack under one rcu_read_lock() with no
-> reschedule point, which can trip the soft lockup watchdog on hosts with
-> very many threads.
-> 
-> That prints the following message, depending on the workload+host
-> configuration:
-> 
->       watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
->        scan_block
->        kmemleak_scan
->        kmemleak_scan_thread
->        kthread
-> 
-> Patch 1 walks the tasks with find_ge_pid() so the scan reschedules between
-> tasks
-> 
-> Patches 2-3 let the scan loops stop early once a scan is interrupted.
-> 
-> This patch (of 3):
-> 
-> kmemleak_scan() walks every thread and scans its kernel stack under a
-> single rcu_read_lock() with no reschedule point.  On a host with very many
-> threads -- amplified by KASAN/lockdep in debug builds -- this loop can hog
-> a CPU long enough to trip the soft lockup watchdog:
-> 
->   watchdog: BUG: soft lockup - CPU#35 stuck for 22s! [kmemleak:537]
->    scan_block
->    kmemleak_scan
->    kmemleak_scan_thread
->    kthread
-> 
-> A cond_resched() cannot be added directly: the loop runs inside an RCU
-> read-side critical section.
-> 
-> Walk the tasks one PID at a time with find_ge_pid(), taking the RCU read
-> lock only to look up and pin each task.  The stack is then scanned with no
-> lock held, so cond_resched() runs between tasks and the scan stops early
-> on scan_should_stop().  This follows the next_tgid()/task_seq_get_next()
-> iteration pattern and keeps each RCU critical section short.
-> 
-> Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-0-acecd7d7fd92@debian.org
-> Link: https://lore.kernel.org/20260615-kmemleak-stack-resched-v3-1-acecd7d7fd92@debian.org
-> Fixes: c4b28963fd79 ("mm/kmemleak: rely on rcu for task stack scanning")
-> Signed-off-by: Breno Leitao <leitao@debian.org>
-> Reviewed-by: Catalin Marinas <catalin.marinas@arm.com>
-> Reviewed-by: Davidlohr Bueso <dave@stgolabs.net>
-> Reviewed-by: Lance Yang <lance.yang@linux.dev>
-> Reviewed-by: Oleg Nesterov <oleg@redhat.com>
-> Cc: Qian Cai <cai@lca.pw>
-> Cc: SeongJae Park <sj@kernel.org>
-> Cc: <stable@vger.kernel.org>
-> Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-> Stable-dep-of: 3541a2b06ecd ("mm/kmemleak: report RCU-tasks quiescent states during the scan")
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
+
+
+> -----Original Message-----
+> From: Wentao Liang <vulab@iscas.ac.cn>
+> Sent: Thursday, September 17, 2026 1:11 PM
+> To: andrew+netdev@lunn.ch
+> Cc: Nguyen, Anthony L <anthony.l.nguyen@intel.com>;
+> davem@davemloft.net; edumazet@google.com; intel-wired-
+> lan@lists.osuosl.org; kalyan.kodamagula@intel.com; kuba@kernel.org;
+> linux-kernel@vger.kernel.org; Swiatkowski, Michal
+> <michal.swiatkowski@intel.com>; netdev@vger.kernel.org;
+> pabeni@redhat.com; Kitszel, Przemyslaw <przemyslaw.kitszel@intel.com>;
+> Wentao Liang <vulab@iscas.ac.cn>; stable@vger.kernel.org
+> Subject: [PATCH] ice: fix VF reference leak in ice_set_vf_trust()
+>=20
+> ice_get_vf_by_id() takes a reference on the VF, which the caller has
+> to release with ice_put_vf(). The switchdev mode check now happens
+> after the VF is looked up and returns -EOPNOTSUPP without dropping
+> that reference, leaking it.
+>=20
+> Use the existing out_put_vf label instead.
+>=20
+> Fixes: 83b49e7f63da ("ice: check if VF exists before mode check")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  mm/kmemleak.c | 91 ++++++++++++++++++++++++++++++++++++++-------------
->  1 file changed, 68 insertions(+), 23 deletions(-)
-> 
-> diff --git a/mm/kmemleak.c b/mm/kmemleak.c
-> index 4092f38d3fc84..0dcdddb3c33d8 100644
-> --- a/mm/kmemleak.c
-> +++ b/mm/kmemleak.c
-> @@ -1499,22 +1499,25 @@ static int scan_should_stop(void)
->  
->  /*
->   * Scan a memory block (exclusive range) for valid pointers and add those
-> - * found to the gray list.
-> + * found to the gray list. Return non-zero if the scan was interrupted.
->   */
-> -static void scan_block(void *_start, void *_end,
-> -		       struct kmemleak_object *scanned)
-> +static int scan_block(void *_start, void *_end,
-> +		      struct kmemleak_object *scanned)
->  {
->  	unsigned long *ptr;
->  	unsigned long *start = PTR_ALIGN(_start, BYTES_PER_POINTER);
->  	unsigned long *end = _end - (BYTES_PER_POINTER - 1);
->  	unsigned long flags;
-> +	int stop = 0;
->  
->  	raw_spin_lock_irqsave(&kmemleak_lock, flags);
->  	for (ptr = start; ptr < end; ptr++) {
->  		unsigned long pointer;
->  
-> -		if (scan_should_stop())
-> +		if (scan_should_stop()) {
-> +			stop = 1;
->  			break;
-> +		}
->  
->  		kasan_disable_current();
->  		pointer = *(unsigned long *)kasan_reset_tag((void *)ptr);
-> @@ -1524,22 +1527,28 @@ static void scan_block(void *_start, void *_end,
->  		pointer_update_refs(scanned, pointer, OBJECT_PERCPU);
+>  drivers/net/ethernet/intel/ice/ice_sriov.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c
+> b/drivers/net/ethernet/intel/ice/ice_sriov.c
+> index 7e00e091756d..202224dba1a3 100644
+> --- a/drivers/net/ethernet/intel/ice/ice_sriov.c
+> +++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
+> @@ -1384,7 +1384,8 @@ int ice_set_vf_trust(struct net_device *netdev,
+> int vf_id, bool trusted)
+>=20
+>  	if (ice_is_eswitch_mode_switchdev(pf)) {
+>  		dev_info(ice_pf_to_dev(pf), "Trusted VF is forbidden in
+> switchdev mode\n");
+> -		return -EOPNOTSUPP;
+> +		ret =3D -EOPNOTSUPP;
+> +		goto out_put_vf;
 >  	}
->  	raw_spin_unlock_irqrestore(&kmemleak_lock, flags);
-> +
-> +	return stop;
->  }
->  
->  /*
->   * Scan a large memory block in MAX_SCAN_SIZE chunks to reduce the latency.
-> + * Return non-zero if the scan was interrupted.
->   */
->  #ifdef CONFIG_SMP
-> -static void scan_large_block(void *start, void *end)
-> +static int scan_large_block(void *start, void *end)
->  {
->  	void *next;
->  
->  	while (start < end) {
->  		next = min(start + MAX_SCAN_SIZE, end);
-> -		scan_block(start, next, NULL);
-> +		if (scan_block(start, next, NULL))
-> +			return 1;
->  		start = next;
->  		cond_resched();
->  	}
-> +
-> +	return 0;
->  }
->  #endif
->  
-> @@ -1670,6 +1679,43 @@ static void kmemleak_cond_resched(struct kmemleak_object *object)
->  	put_object(object);
->  }
->  
-> +/*
-> + * Scan all task kernel stacks, rescheduling between tasks. Each task is looked
-> + * up and pinned within its own RCU read-side section, so no lock is held across
-> + * the scan and the walk cannot trip the soft lockup watchdog.
-> + */
-> +static void kmemleak_scan_task_stacks(void)
-> +{
-> +	struct pid *pid;
-> +	int nr = 1;
-> +	int stop = 0;
-> +
-> +	do {
-> +		struct task_struct *p = NULL;
-> +
-> +		rcu_read_lock();
-> +		pid = find_ge_pid(nr, &init_pid_ns);
-> +		if (pid) {
-> +			nr = pid_nr(pid) + 1;
-> +			p = pid_task(pid, PIDTYPE_PID);
-> +			if (p)
-> +				get_task_struct(p);
-> +		}
-> +		rcu_read_unlock();
-> +
-> +		if (p) {
-> +			void *stack = try_get_task_stack(p);
-> +
-> +			if (stack) {
-> +				stop = scan_block(stack, stack + THREAD_SIZE, NULL);
-> +				put_task_stack(p);
-> +			}
-> +			put_task_struct(p);
-> +		}
-> +		cond_resched();
-> +	} while (pid && !stop);
-> +}
-> +
->  /*
->   * Scan data sections and all the referenced memory blocks allocated via the
->   * kernel's standard allocators. This function must be called with the
-> @@ -1681,6 +1727,7 @@ static void kmemleak_scan(void)
->  	struct zone *zone;
->  	int __maybe_unused i;
->  	int new_leaks = 0;
-> +	int stop = 0;
->  
->  	jiffies_last_scan = jiffies;
->  
-> @@ -1724,9 +1771,11 @@ static void kmemleak_scan(void)
->  
->  #ifdef CONFIG_SMP
->  	/* per-cpu sections scanning */
-> -	for_each_possible_cpu(i)
-> -		scan_large_block(__per_cpu_start + per_cpu_offset(i),
-> -				 __per_cpu_end + per_cpu_offset(i));
-> +	for_each_possible_cpu(i) {
-> +		if (scan_large_block(__per_cpu_start + per_cpu_offset(i),
-> +				     __per_cpu_end + per_cpu_offset(i)))
-> +			goto scan_gray;
-> +	}
->  #endif
->  
->  	/*
-> @@ -1753,32 +1802,28 @@ static void kmemleak_scan(void)
->  			/* only scan if page is in use */
->  			if (page_count(page) == 0)
->  				continue;
-> -			scan_block(page, page + 1, NULL);
-> +			stop = scan_block(page, page + 1, NULL);
-> +			if (stop)
-> +				break;
->  		}
-> +		if (stop)
-> +			break;
->  	}
->  	put_online_mems();
-> +	if (stop)
-> +		goto scan_gray;
->  
->  	/*
->  	 * Scanning the task stacks (may introduce false negatives).
->  	 */
-> -	if (kmemleak_stack_scan) {
-> -		struct task_struct *p, *g;
-> -
-> -		rcu_read_lock();
-> -		for_each_process_thread(g, p) {
-> -			void *stack = try_get_task_stack(p);
-> -			if (stack) {
-> -				scan_block(stack, stack + THREAD_SIZE, NULL);
-> -				put_task_stack(p);
-> -			}
-> -		}
-> -		rcu_read_unlock();
-> -	}
-> +	if (kmemleak_stack_scan)
-> +		kmemleak_scan_task_stacks();
->  
->  	/*
->  	 * Scan the objects already referenced from the sections scanned
->  	 * above.
->  	 */
-> +scan_gray:
->  	scan_gray_list();
->  
->  	/*
-> -- 
-> 2.53.0
-> 
-> 
+>=20
+>  	ret =3D ice_check_vf_ready_for_cfg(vf);
+> --
+> 2.34.1
 
-Does not apply
+Reviewed-by: Aleksandr Loktionov <aleksandr.loktionov@intel.com>
