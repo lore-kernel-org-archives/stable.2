@@ -1,108 +1,94 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CFDA44DDB49;
-	Thu, 17 Sep 2026 15:14:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54645358D27;
+	Thu, 17 Sep 2026 15:14:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658076; cv=none; b=lRCbr00mhQ9qtLFug3NCZ0gglk7+3dGEnOP3M5B1oeFDDjG1GjyljSse9sYfCB6zs1sxwoh1VFhoHreMeqHOq/M4vZgVp8ZtNZ3QB7V1aZbnl+04041Ny6JzqY7QmR8fjd/NocX0ifXPWCi0tK7LP6B74M6SJZXCNZjFr03zPUI=
+	t=1789658105; cv=none; b=IwzrzkF7ZSU/v9Oe2VS01twlo82EEfhEpy13O4w/DqXvq/vHdv6LfTU8cZWEwQlKHNTaCy6xyBU/FIp9IQdKOV0uUYpQDBhTicdZ/s5qN528NViXeIcoXXxyquVo4EMBl7yUNQNz88c2Qb4Ufhl7q9WlJoTVw3oS4+79H0xWBOo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658076; c=relaxed/simple;
-	bh=I44UDW2h7/52M2InM+ZBm8K2Baaos4kp8Ir96D14/OM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ctYL050/zXCwqrZ5FbZqoQQgGJeY5Yj9km6kM/hWMT7qrVzZurns1icuH0+YJJzEp7/pZAT4pFKZIksBdVe06sAQPamtxoc3m3SPCtwLpxv/qld158zjfIqsqVot7zf/dpqBSMioz6/KaM6wC0uoFBTui2u/JfyfSwVmPFDj+bE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nDzV3sIr; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nDzV3sIr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789658055; x=1821194055;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=I44UDW2h7/52M2InM+ZBm8K2Baaos4kp8Ir96D14/OM=;
-  b=nDzV3sIrX8fR6O2mP1pvbyzIpJFp6irOq/bB/VaR2hJtabe0RYmo+bYf
-   p6PYnceb6LrPmm2n8O1cxvecWoutu9y7tvYIXsDRGc6Rpj6GY1hp3VIoQ
-   78vzMXKMl99p32UnDCCrNtTj07NXgC5EWgyObSkO0k6iWHq/RAMe6ZsGd
-   w5XbwquvDju1Eb6Mv5hjFaavfnOmvGd2PuNKXekkP8okxye7g1A1cKY++
-   jAeKRRlPE1utsAYPalFwrfJukLAhsKtoHF1K7ETxPnY2jhph0WXXA5Uka
-   jtSQgeafQOf5cVb66MFMcTXwOioUBtqsKyUEAqOPTIZ6rCdntRNFTQToH
-   Q==;
-X-CSE-ConnectionGUID: TBYvB+VqTiGydRJfGn4v5A==
-X-CSE-MsgGUID: 77GjsaAuRuKsd1SxdjsTPQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="107596136"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="107596136"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:14:04 -0700
-X-CSE-ConnectionGUID: 6YbKWdJfRPKs75QfmjKBTg==
-X-CSE-MsgGUID: jBtzLQBaRl65rwR5ujfNGQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271214585"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:13:52 -0700
-Date: Thu, 17 Sep 2026 18:13:49 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: hansg@kernel.org, ilpo.jarvinen@linux.intel.com,
-	linux-kernel@vger.kernel.org, mingo@kernel.org,
-	platform-driver-x86@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] platform/x86: pmc_atom: Fix PCI device reference leak in
- pmc_atom_init()
-Message-ID: <aqwDrUzCW7_Xkfjq@ashevche-desk.local>
-References: <20260917141414.2156326-1-vulab@iscas.ac.cn>
+	s=arc-20240116; t=1789658105; c=relaxed/simple;
+	bh=WKd5hbr4XXWA3Mv8v+VhhZjKFugRnWpZAUIpvdZ+LH0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tFMrcdBRyY205l2JAL7ysDHO9VK+BAJetS+c58Kmf39oeQhEX15rhEnRKBbKiGcSEkYcwTC9Q8lQHBXBdnKvDa3AvpuE5C/w4j7zen5DpWI8jHbUptJ4vdLVMFq88Rrik/YvLI1Uzj88FuF+OPltqUiWVRyEBv5VogzOHsLm1U0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACnFD_iA6xqs1GDCA--.5505S2;
+	Thu, 17 Sep 2026 23:14:42 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: MPT-FusionLinux.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	ranjan.kumar@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	suganath-prabu.subramani@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpt3sas: Fix sas_device reference leak in _scsih_update_vphys_after_reset()
+Date: Thu, 17 Sep 2026 15:14:42 +0000
+Message-Id: <20260917151442.2158565-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917141414.2156326-1-vulab@iscas.ac.cn>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACnFD_iA6xqs1GDCA--.5505S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7XFW8Jr4rWFy3Xw1rWF4Durg_yoWkKFb_ua
+	1Ivr97X348KFn5J3WrKry7Zr12vrsFq34kuFsYvFs2kw1jvrZ8XFs7Gwn0yrsrW3yvv3yU
+	Gw1DX393ury8GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbgxYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07UZSdgUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qr9LYlBgAAsz
 
-On Thu, Sep 17, 2026 at 02:14:14PM +0000, Wentao Liang wrote:
-> pmc_atom_init() iterates over the PCI devices with for_each_pci_dev()
-> and returns pmc_setup_dev()'s result directly from inside the loop when
-> a matching device is found. The reference obtained for the matched
-> device by pci_get_device() (via for_each_pci_dev()) is never dropped,
-> leaking a reference to the PCI device on every successful init.
-> 
-> Break out of the loop, drop the reference with pci_dev_put() before
-> returning, as pci_dev_put() on a NULL pointer is a no-op when no device
-> was matched.
+mpt3sas_get_sdev_by_addr() takes a reference on the sas device, but the
+new hba_port pointer is merely stored in sas_device->port, so the
+reference is never released. The sas device is thus leaked every time
+a vSES device moves to another Port ID after a reset.
 
-...
+Drop the extra reference once the port pointer has been updated.
 
->  	/*
->  	 * We look for our device - PCU PMC.
+Fixes: ffa381d6373b ("scsi: mpt3sas: Handle vSES vphy object during HBA reset")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/mpt3sas/mpt3sas_scsih.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
->  	 */
-
-Have you had a chance to read this ^^^ comment in full?
-
->  	for_each_pci_dev(pdev) {
->  		ent = pci_match_id(pmc_pci_ids, pdev);
-> -		if (ent)
-> -			return pmc_setup_dev(pdev, ent);
-> +		if (ent) {
-> +			ret = pmc_setup_dev(pdev, ent);
-> +			break;
-> +		}
->  	}
-
-...
-
-Have you checked what the below means and why the MODULE_*() are commented out?
-
->  device_initcall(pmc_atom_init);
-
+diff --git a/drivers/scsi/mpt3sas/mpt3sas_scsih.c b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
+index c841fe1706c7..550a5e4fec10 100644
+--- a/drivers/scsi/mpt3sas/mpt3sas_scsih.c
++++ b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
+@@ -6415,8 +6415,10 @@ _scsih_update_vphys_after_reset(struct MPT3SAS_ADAPTER *ioc)
+ 					    &mport->vphys_list);
+ 					sas_device = mpt3sas_get_sdev_by_addr(
+ 					    ioc, attached_sas_addr, port);
+-					if (sas_device)
++					if (sas_device) {
+ 						sas_device->port = mport;
++						sas_device_put(sas_device);
++					}
+ 				}
+ 				/*
+ 				 * Earlier while updating the hba_port table,
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
