@@ -1,33 +1,33 @@
-Received: from smtp-bc09.mail.infomaniak.ch (smtp-bc09.mail.infomaniak.ch [45.157.188.9])
+Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8658582BBB
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:41:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 380C94E01E6
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:41:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659709; cv=none; b=RYKHHm4uVHhaSJlagVhSo0z734oxyLT2Dh+8dFUan9HhlikNXzVw2mLTSHu6ywk/zyI+f57snwxpE9tn/ddt0HhJzuMn6XZzfLfvhJoaLVONO/C+bBtLvlPQsCwMaKqcCMPb8WcRpXNNoHU+7NZmvxJejmVadC1tZbRH49Arcac=
+	t=1789659709; cv=none; b=GuZfiQEvKXpmhfKneUHRQKQeBqI6g1bVTIE6HlIFnqcn17Y+OFeDjEZVUBmbUryk6vvpCIj0ZDtaQH4li2LfyFluwry7tZhYcZLv865bf5hXH7El7crd/zbm+7xIR03Z9AI74MGbfo6xL2ad+yXwQTWL25DJfx+A8Zjlirnh0Go=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789659709; c=relaxed/simple;
-	bh=ivx+OLOBcB9IpGu9RYXyG7g9It1+08waiZVhdl1k074=;
+	bh=nBSl5Pgzb2KhJmOoQ6yUqBLLtTIDVDSSQMxnJuZmzUU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RQxH7nPAKh1CrULtlSoTqNfK3SM+E43YcUIVMfUNDTXRZkIzGTVKtaWbLorrNKRGAX6v/q0urYNiXgjA94dKMcZ0KqfGaqWYWPI+dQNYc84Q6NcqxF2V/jwUJez35NJNIEFQ+cB0yCud7BlCh9xCl1c6Fs0tCepC3Rx62xtelUA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=P5yLSUVH; arc=none smtp.client-ip=45.157.188.9
+	 MIME-Version:Content-Type; b=UuI0INBPXUh43enHGQkhQOzV5SazuXMGFvqRDd1Ey2a38GuVZyKcV4jz9KGzt63jX1vp/1g1lyJ9sqJPNHKUDz6iRAT4rEBW842yz0ti9Cso9wL4kv6zDVLGdG+xJ6TMh3xFpGHPLV8wX2GiXcLZJDckXRyzf6zOocQyH874Lao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=LQbTwaDw; arc=none smtp.client-ip=84.16.66.174
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="P5yLSUVH"
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0Nc0dxzz99h;
-	Thu, 17 Sep 2026 17:41:36 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="LQbTwaDw"
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0NY3kcvzc7C;
+	Thu, 17 Sep 2026 17:41:33 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1789659695;
-	bh=AIysOsGelTSXzFxukdBAM0r89JT/JMk0OcsjWUWKMP0=;
+	s=20191114; t=1789659693;
+	bh=gPWOog/98t63u5XbHxLecl3ddi++ZffyRfW8TmHFDOE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=P5yLSUVHk4EN2E9GuqDerPkmNu3UjRdN9K+c3woeL6E6QsYMgB1UegSJBNqwot5QU
-	 3GWThtjzxbkKPmzFgluf7lJ+W3GgCfkyQ53IeHn8mIhwiyUVM+uH6NdumlyIxO9Itm
-	 Lcz8yVeS9fl9dpyPUSipyG2fbWj5gDl3hYUYf6ZA=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0Nb2JVXzWCx;
-	Thu, 17 Sep 2026 17:41:35 +0200 (CEST)
+	b=LQbTwaDw5lsGl9H1vruy6w9WypsG0cFsI55YuVtiNY1K5bGvtuCbprpsn+0ehYvct
+	 Sj9s5dureMhu6IwQ8AmnW3mn+u/EgBhGyKzHYOPMQNPe92nL3Xv9loomHBVOnroSKt
+	 oUtySaqV6YjLJPx6nT7ThNDuPzgIZZAuvoPc0/GQ=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0NX7091zD3s;
+	Thu, 17 Sep 2026 17:41:32 +0200 (CEST)
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
@@ -35,9 +35,9 @@ Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	patches@lists.linux.dev,
 	Christian Brauner <brauner@kernel.org>,
 	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
-Subject: [PATCH 6.18.y 3/3] selftests/landlock: Add audit test for whiteout object creation
-Date: Thu, 17 Sep 2026 17:41:30 +0200
-Message-ID: <9539a3c743c116978a45ddf306e1a17a9c34e62a.1789655724.git.mic@digikod.net>
+Subject: [PATCH 6.18.y 1/3] selftests/landlock: Use an actual chardev for MAKE_CHAR audit test
+Date: Thu, 17 Sep 2026 17:41:28 +0200
+Message-ID: <200794b92b5f014ec277099a0b64e4ab375a0a89.1789655724.git.mic@digikod.net>
 In-Reply-To: <20260904045755.888243226@linuxfoundation.org>
 References: <20260904045755.888243226@linuxfoundation.org>
 Precedence: bulk
@@ -52,52 +52,30 @@ X-Infomaniak-Routing: alpha
 
 From: Günther Noack <gnoack@google.com>
 
-[ Upstream commit 8c46c6acbebe0d8544fd1b55e5ddf36828d7b9ea ]
+[ Upstream commit 173b1bd8730825e1f6862dbd07856e7d68447a41 ]
 
-Add audit_layout1.make_whiteout: This test looks similar to
-audit_layout1.make_char, but creates a whiteout object through mknod().
-Since whiteout object creation is now guarded with
-LANDLOCK_ACCESS_FS_MAKE_REG rather than LANDLOCK_ACCESS_FS_MAKE_CHAR, it
-also needs to log the matching denial to audit.
+By passing a (0, 0) device number, the audit test for
+LANDLOCK_ACCESS_FS_MAKE_CHAR was accidentally creating a whiteout object
+rather than a char device.  In preparation to treating whiteout objects
+differently, use an actual character device instead.
 
 Signed-off-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260813093157.1436894-5-gnoack@google.com
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
-[mic: Backport: adapt the audit test to the older ruleset helper]
+Link: https://patch.msgid.link/20260813093157.1436894-2-gnoack@google.com
 Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- tools/testing/selftests/landlock/fs_test.c | 21 +++++++++++++++++++++
- 1 file changed, 21 insertions(+)
+ tools/testing/selftests/landlock/fs_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 3088d301073e..ab5d7f792ee2 100644
+index 6b573ca53855..d8a351273482 100644
 --- a/tools/testing/selftests/landlock/fs_test.c
 +++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -7522,6 +7522,27 @@ TEST_F(audit_layout1, make_char)
- 	EXPECT_EQ(1, records.domain);
- }
+@@ -7315,7 +7315,7 @@ TEST_F(audit_layout1, make_char)
+ 					      .handled_access_fs = access_fs_16,
+ 				      });
  
-+TEST_F(audit_layout1, make_whiteout)
-+{
-+	struct audit_records records;
-+
-+	EXPECT_EQ(0, unlink(file1_s1d3));
-+
-+	drop_access_rights(_metadata, &(struct landlock_ruleset_attr){
-+					      .handled_access_fs = access_fs_16,
-+				      });
-+
-+	/* Whiteout creation is denied and logged as fs.make_reg. */
-+	EXPECT_EQ(-1, mknod(file1_s1d3, S_IFCHR | 0644, makedev(0, 0)));
-+	EXPECT_EQ(EACCES, errno);
-+	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_reg",
-+				    dir_s1d3));
-+
-+	EXPECT_EQ(0, audit_count_records(self->audit_fd, &records));
-+	EXPECT_EQ(0, records.access);
-+	EXPECT_EQ(1, records.domain);
-+}
-+
- TEST_F(audit_layout1, make_dir)
- {
- 	struct audit_records records;
+-	EXPECT_EQ(-1, mknod(file1_s1d3, S_IFCHR | 0644, 0));
++	EXPECT_EQ(-1, mknod(file1_s1d3, S_IFCHR | 0644, makedev(7, 0)));
+ 	EXPECT_EQ(EACCES, errno);
+ 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_char",
+ 				    dir_s1d3));
