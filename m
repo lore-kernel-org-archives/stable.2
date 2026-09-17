@@ -1,82 +1,153 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp-out2.suse.de (smtp-out2.suse.de [195.135.223.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56CDB4FB9C0;
-	Thu, 17 Sep 2026 12:35:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47BE14DBD95;
+	Thu, 17 Sep 2026 12:36:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648531; cv=none; b=gYUXnucffPoOE+ch+LAQ0hEETdbcEn/hAJEtapzUgj1ZSQNhkOhSCmOnggt33aOdoU/9pj4c2VZ4LjaVkP8dLpbESu7oAfZZVWCQlfyN0Qq6irRaHxxo0vD2jEsRs0jceCZs/+Ql/iQYTIHmOfHtxKLZokc1LQVm88kc8O86FWo=
+	t=1789648596; cv=none; b=dE+2m8JiKVcTX2ajSxAkG0qLyD/CvuxTtLvBWzfJ1lE2T9Q7K7SrIBMfCP/0t33OdqDeo/DTysdfxyjE1smx9NFGlwWErLCl6fxdS3yRUHaRIFWZEttFOtCDKNlZyn7MR2WEFJD2c2L266SkCvLKHCf5S2ZzrnWD9M998Fb73DU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648531; c=relaxed/simple;
-	bh=CpT81OJak+6beIWmjpWgL1zezlF9ucCemaOhdOMeCfk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bbKwr/eLjoJi93bCSgYWalRF30+exgfg8HTtEVp8SRuHrTyxb++x2x0U84yfuC/h9BeVe7fD7iLsnj8ynXuINmzaWd474fHj8S43mFpcpxagCVgW/ci4S7Lf3KLYMF5VU5zgR1RlTukloEEWoI9YvE8R65TsLsFnM/Kujhl3nAk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDqC3qtqBZ6ACA--.2681S2;
-	Thu, 17 Sep 2026 20:35:14 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	miquel.raynal@bootlin.com,
-	srini@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1789648596; c=relaxed/simple;
+	bh=Q3Z2K172DMZAAp1WS3laXPCxAxtRcPkP2yc392Vnka0=;
+	h=Date:Message-ID:From:To:Cc:Subject:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=mzXf00uVVH6K6gHtyfhgXG28eDMwOPf9PBckrR4KYyrLDehAK/llLupMVDZzJblsM2xnd1Y5INU3aGpc5Xeo6dIv9ls5oxctDOoQ5mVkmgmVTDEW+ko5917EsLZz7kBHt2uhMlT1E8q1hF0dNZ1/+S+PciVFxtkEySm6dG82oSw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de; spf=pass smtp.mailfrom=suse.de; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=iiEqKOLU; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=g84VQkKN; dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b=MnxOhCI0; dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b=h6ADm2Cp; arc=none smtp.client-ip=195.135.223.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=suse.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.de
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="iiEqKOLU";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="g84VQkKN";
+	dkim=pass (1024-bit key) header.d=suse.de header.i=@suse.de header.b="MnxOhCI0";
+	dkim=permerror (0-bit key) header.d=suse.de header.i=@suse.de header.b="h6ADm2Cp"
+Received: from imap1.dmz-prg2.suse.org (unknown [10.150.64.97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out2.suse.de (Postfix) with ESMTPS id B56321FF8E;
+	Thu, 17 Sep 2026 12:36:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789648580; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mnMwI5gZvhpSHs9sQbW0pRtRH6P+qd+p3Hx80B1hG2w=;
+	b=iiEqKOLUvy+TzTxUhms0Si5+1Xq13BEir0fhJgioQILQObnVNNgPTq7ey1KBxBplq7qerw
+	OX3q8DKSMxbnewDR1IONIP0GF6V1nzDpaUtKIEv4B/l/zBgZZoVSJYnnOjNhO5tuJ3lk0h
+	Lqk6buJap8Qnv40LxPKjRQu8cI8QTKA=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789648580;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mnMwI5gZvhpSHs9sQbW0pRtRH6P+qd+p3Hx80B1hG2w=;
+	b=g84VQkKNBmj+ShSi+fCaNRvipGS4mTY0hnO1jl69u3eimpPJaHk/0V7uuGZQz5G6eofuzr
+	Ux17KdjBQIlhnCDw==
+Authentication-Results: smtp-out2.suse.de;
+	none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.de; s=susede2_rsa;
+	t=1789648576; h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mnMwI5gZvhpSHs9sQbW0pRtRH6P+qd+p3Hx80B1hG2w=;
+	b=MnxOhCI0ebBfIc0IQesHQf43VKxIFkmJ0y5wnxcK1I0emhhzsON1nc6hyjl3wHegiWfdLj
+	85Wyx54wSoRTJjGOgLgAcTsHJoiyNSbBG+w4qFs2/dVo9PU+nyIvn2B+pwDqe6G5u67xkW
+	J7AvkHk3oqngPmlcKx+ykmxwgBIvxZc=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.de;
+	s=susede2_ed25519; t=1789648576;
+	h=from:from:reply-to:date:date:message-id:message-id:to:to:cc:cc:
+	 mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=mnMwI5gZvhpSHs9sQbW0pRtRH6P+qd+p3Hx80B1hG2w=;
+	b=h6ADm2Cp3d5le6Eue2sJjKJ9vOL+pMscWmuYX0aitEFuVmm4YALg5U1MDPJWgMoy7q6gkp
+	nQ5r4RWD816PMSCg==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id 53CD3134B3;
+	Thu, 17 Sep 2026 12:36:16 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id Z6bTCcDeq2prBwAAD6G6ig
+	(envelope-from <tiwai@suse.de>); Thu, 17 Sep 2026 12:36:16 +0000
+Date: Thu, 17 Sep 2026 14:36:15 +0200
+Message-ID: <87pkycgim8.wl-tiwai@suse.de>
+From: Takashi Iwai <tiwai@suse.de>
+To: Bruno Produit <bruno.produit@trailofbits.com>
+Cc: Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	Kyle Zeng <kylebot@openai.com>,
+	linux-sound@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] nvmem: layouts: onie-tlv: Fix np reference leak in onie_tlv_add_cells()
-Date: Thu, 17 Sep 2026 12:35:14 +0000
-Message-Id: <20260917123514.2151346-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH] ALSA: seq: Serialize compat port-info ioctls
+In-Reply-To: <20260917105643.90102-1-bruno.produit@trailofbits.com>
+References: <20260917105643.90102-1-bruno.produit@trailofbits.com>
+User-Agent: Wanderlust/2.15.9 (Almost Unreal) Emacs/30.2 Mule/6.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDqC3qtqBZ6ACA--.2681S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7WryrAryUtFyxAr4xJw43Wrg_yoWDJFc_W3
-	Wv9r9rXF18CFsFyrnIkr1fZr97tan3WFs7AFs2qFn3Aw43ZF15Awn5Zwn5Jw1UurWfKFZ3
-	Crn3AFyFvry7GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26r4j6F4UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU8xMa5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq02hpgABs1
+MIME-Version: 1.0 (generated by SEMI-EPG 1.14.7 - "Harue")
+Content-Type: text/plain; charset=US-ASCII
+X-Spam-Score: -3.30
+X-Spam-Level: 
+X-Spamd-Result: default: False [-3.30 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	MID_CONTAINS_FROM(1.00)[];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	NEURAL_HAM_SHORT(-0.20)[-0.996];
+	MIME_GOOD(-0.10)[text/plain];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	ARC_NA(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_TLS_ALL(0.00)[];
+	DKIM_SIGNED(0.00)[suse.de:s=susede2_rsa,suse.de:s=susede2_ed25519];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	TO_DN_SOME(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	RCVD_COUNT_TWO(0.00)[2];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[imap1.dmz-prg2.suse.org:helo,suse.de:mid]
+X-Spam-Flag: NO
 
-of_get_child_by_name() returns a node with an elevated reference count.
-nvmem_add_one_cell() only takes ownership of that reference on success,
-so the caller must drop it when the call fails. Add the missing
-of_node_put() before returning so that cell.np is not leaked.
+On Thu, 17 Sep 2026 12:56:43 +0200,
+Bruno Produit wrote:
+> 
+> From: Kyle Zeng <kylebot@openai.com>
+> 
+> The native sequencer ioctl path serializes handler calls with
+> client->ioctl_mutex, but the translated port-info compat path invokes the
+> same handlers through snd_seq_kernel_client_ctl() without taking that
+> mutex.
+> 
+> This lets concurrent compat CREATE_PORT requests pass the port-count
+> check before any request reaches the serialized insertion. The computed
+> integer port index can then exceed the address field range and wrap to an
+> existing index. Subsequent subscriber teardown can resolve the duplicate
+> address to the wrong port and access a freed subscriber.
+> 
+> Take ioctl_mutex while dispatching converted port-info requests, matching
+> the native ioctl path. All translated port-info commands share this
+> helper, so their accesses to the client port state are serialized as
+> well.
+> 
+> Fixes: b3defb791b26 ("ALSA: seq: Make ioctls race-free")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6-sol gpt-6-astra
+> Signed-off-by: Kyle Zeng <kylebot@openai.com>
+> Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
+> ---
+> 
+> Trail of Bits has a reproducer for this bug that triggers a
+> KASAN use-after-free and can it share if needed
 
-Fixes: d3c0d12f6474 ("nvmem: layouts: onie-tlv: Add new layout driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/nvmem/layouts/onie-tlv.c | 1 +
- 1 file changed, 1 insertion(+)
+The bug looks obvious, a long-standing oversight.
+Applied now.
 
-diff --git a/drivers/nvmem/layouts/onie-tlv.c b/drivers/nvmem/layouts/onie-tlv.c
-index 0967a32319a2..3d77680f089b 100644
---- a/drivers/nvmem/layouts/onie-tlv.c
-+++ b/drivers/nvmem/layouts/onie-tlv.c
-@@ -128,6 +128,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
- 
- 		ret = nvmem_add_one_cell(nvmem, &cell);
- 		if (ret) {
-+			of_node_put(cell.np);
- 			of_node_put(layout);
- 			return ret;
- 		}
--- 
-2.34.1
 
+thanks,
+
+Takashi
