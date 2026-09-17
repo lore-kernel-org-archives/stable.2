@@ -1,38 +1,43 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E12602DB79F;
-	Thu, 17 Sep 2026 16:51:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDCF84E36F7;
+	Thu, 17 Sep 2026 16:51:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663900; cv=none; b=EfcvxHlIQs1aQumraEUfZzzJ5AXjkAo939Ef3jNsCcMGIGL1SEluyeAWGloWexayzBt5bdaWQj53u2JLZgfYfngqrZUAHrrgRWNji+nCvgGGBOxWcBPtIqr0JrFbN3PafGHR5mqNw6H7Cp1eqaFCFr1L6ojixcA1fI1Jtok7RJ8=
+	t=1789663902; cv=none; b=Tl2ZO1C4Z8/6yVozl4xGwApjLqU5EH6d2KuX+mK0B8s7Rt9loU76tT/B1k/1raKTLLU3jNRBAz0GNiHkiQajJ1p5GBaC+MipgZovKkjedPY9ADqpTsshgSMH1VjK7ZyBa6Re9vWBGruLw2K83MeRmbULkNfv4j8c12XNAgoqJMc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663900; c=relaxed/simple;
-	bh=syyvC04pOKZpxGgq1oPwRcYuvMyyc7WD8rEDfR8kBCc=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DZJFm27qlj9O87ojZQ6I/+/hF0RO8ylAH2EEjsDGSNp1kD6nlJzSq9B4UmRUngYB/28LLM+fWyST2izcN9ieDK9ifG6OKRDFxZY+u0I7N+cUC7g4XCPDxjSB5zllro65CNvs4qaTt7OE6OinlBcul49OHrdg68fophnMhHln45Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACH8z2SGqxq+9OECA--.7119S2;
-	Fri, 18 Sep 2026 00:51:30 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: ckeepax@opensource.cirrus.com,
-	krzk@kernel.org,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
-	perex@perex.cz,
-	s.nawrocki@samsung.com,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: codecs: wm8994: Fix runtime PM leak in wm8994_mic_detect()
-Date: Thu, 17 Sep 2026 16:51:30 +0000
-Message-Id: <20260917165130.2163278-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789663902; c=relaxed/simple;
+	bh=vng9JcahfHbhbSgPeV6+duOe+u6CSvn2TPpjqikQv10=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=JKKQmkwiE2RjUO2A+7ZriKaCvs1t9D5j63P3cp8MnsDU2UYcyfSxMEwjJ6AChhJ0A4OkC1h2Ws9yzSBhmCdLx14+Alo+qyW0GB8FvfzCe9+3RU35RZ9AJPSVZ34dnkrl5cI63OCo6JhoBd4NgxcHr40XGNpTlEgE4zl0oLuwnzg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=czYjLzIR; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="czYjLzIR"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 411BD1F000FF;
+	Thu, 17 Sep 2026 16:51:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789663900;
+	bh=0k/22hgKZg5ydu/wmiRFGQl2okM+NBq3/ttx3ZyYqtQ=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=czYjLzIR9Sid3Uyn7EopTGZsthgmdgiU60WjRNx5IW2wuK7hcvzLIXqSwrV0qVqHJ
+	 06nELBOIOTCEmZhvU8z4B324UIYpD72XCdi8g1cqntsBE+XNK3YK6CVTcoCXx2aJUP
+	 nsnr9mwRbTwvPLoeznHlFOoEp2Y5jZvWWZj/c/KU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christian Marangi <ansuelsmth@gmail.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0192/1250] usb: host: add ARCH_AIROHA in XHCI MTK dependency
+Date: Thu, 17 Sep 2026 15:59:47 +0100
+Message-ID: <20260917151557.318391306@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,52 +45,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACH8z2SGqxq+9OECA--.7119S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XrWUtryrWw1DXFy8GF1xZrb_yoWDtrg_Wa
-	n5Wa97Zry5KFZxKrZrKF4rZF93ZF4xC3y8tr90vrnxJa42yF4rJrn8JFs8CrW7Ww48Z3W3
-	ZFnI9F47AryIvjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
-	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
-	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
-	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qr9thUTgAAs-
 
-wm8994_mic_detect() resumes the component before configuring the MICBIAS
-pins, but the default case of the micbias switch returns -EINVAL right
-after taking that reference, skipping the pm_runtime_put() on the
-success path. This leaks a runtime PM reference on every call with an
-invalid micbias.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Release the reference before returning -EINVAL.
+------------------
 
-Fixes: f5a2cda4f1db ("ASoC: wm8994: Ensure the device is resumed in wm89xx_mic_detect functions")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Christian Marangi <ansuelsmth@gmail.com>
+
+[ Upstream commit ffeaf31f05d664581aa436d9cb92b4d1d8d301ce ]
+
+Airoha SoC use the same register map and logic of the Mediatek xHCI
+driver, hence add it to the dependency list to permit compilation also
+on this ARCH.
+
+Signed-off-by: Christian Marangi <ansuelsmth@gmail.com>
+Link: https://patch.msgid.link/20260519164903.31258-1-ansuelsmth@gmail.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/codecs/wm8994.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/usb/host/Kconfig | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/sound/soc/codecs/wm8994.c b/sound/soc/codecs/wm8994.c
-index 1d64c7c42ed1..bfbb8a56b563 100644
---- a/sound/soc/codecs/wm8994.c
-+++ b/sound/soc/codecs/wm8994.c
-@@ -3535,6 +3535,7 @@ int wm8994_mic_detect(struct snd_soc_component *component, struct snd_soc_jack *
- 		break;
- 	default:
- 		dev_warn(component->dev, "Invalid MICBIAS %d\n", micbias);
-+		pm_runtime_put(component->dev);
- 		return -EINVAL;
- 	}
- 
+diff --git a/drivers/usb/host/Kconfig b/drivers/usb/host/Kconfig
+index c4f17ce5c77b1..87103b868032d 100644
+--- a/drivers/usb/host/Kconfig
++++ b/drivers/usb/host/Kconfig
+@@ -71,7 +71,7 @@ config USB_XHCI_HISTB
+ config USB_XHCI_MTK
+ 	tristate "xHCI support for MediaTek SoCs"
+ 	select MFD_SYSCON
+-	depends on (MIPS && SOC_MT7621) || ARCH_MEDIATEK || COMPILE_TEST
++	depends on (MIPS && SOC_MT7621) || ARCH_MEDIATEK || ARCH_AIROHA || COMPILE_TEST
+ 	help
+ 	  Say 'Y' to enable the support for the xHCI host controller
+ 	  found in MediaTek SoCs.
 -- 
-2.34.1
+2.53.0
+
+
 
