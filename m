@@ -1,168 +1,318 @@
-Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1284ED198
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 20:42:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C739440DB49;
+	Thu, 17 Sep 2026 20:50:06 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677739; cv=none; b=K5iIFFLhSz4TUsxIL5RMawIL6H9iq8tPW51qasoDzvm0vF81pbBNx2AxQCua6EMCF0ROcgKLzdUAz7pCmqKgxVhUhJYMR0TytX8wnsr8b80ECPNGSo2Rgsnpx+fGb9U/rmWY9n3juNJIoQ89jqHT3t3vwAU0G8Mz2MkBDU7Nfbw=
+	t=1789678209; cv=none; b=ZNyjrn4a+BEebkk3UAx+FEkZ+DxJcJ7Ga007hFLA9LaHJgGfGXnuBVE+zpRmzmXIHqBJaZOvtqhRq6YPnoRa0ckZN4RSQINVJk//ymANcx6RwZqeFonGsSPVbdriWNKPzVJtn+jN2YHZ44BHzRRacR8sMs+WNIkMQ5NBoKk3E+c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677739; c=relaxed/simple;
-	bh=kZtK+sVq+OakP0n9604KZpM7r41BPS7WKoDg0NZh8xQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oWgDuzadIEkRo7TzM+gCEoTqRDgQe1o2ISZC/VqBygyiCdVrZ0g/5LdGe+LePHp//LdfSkZHK172L69MaPPwV1T+871FqFUHHF7Zoc4HqQ4+4a9n5FLX1hr1vX2uxulGx5UyNSFuIHI3hRW9/7sgNMlXK3bS7AaArkxUTzAYDsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CP1TPdtQ; arc=none smtp.client-ip=209.85.160.179
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789678209; c=relaxed/simple;
+	bh=3I67ru3zQ6JSYfl7FI9SD3hBhP7MbAKufd5kUe3hRFM=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=br2E9Whc2R2n9SCCV7N2Cnok93rX36FzZadSXgu/VB8VaqNStPckwpXdtrHXhcTsn95+8nTk1Fnp8gPc0Q4r57CdCzlLI0Rsu9jZFGEInwwNzqz+bRIYRsUfwg5zdBiIjzzM/bFmnkADcBWxFGS8ZgokDncof0ugxSLrReEGy14=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gUihnvQo; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CP1TPdtQ"
-Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52f9fc510e1so9823171cf.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:42:17 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789677737; x=1790282537; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=38H1xf2/ET/SoNjoIYflqfRDEtEJGG8vw0YM1GLHy9Q=;
-        b=CP1TPdtQF61VSBDhw7T6xOw4woNmurF1GSWogVHDp0M9X8uPG0p9a+GPpo7xb11f3N
-         d9i0rgqqBs/ATuuCTLNYXGeDsSdau5JgcohHzaIhGwjZlgGfh2DYMORX2CT7qdmpzvSv
-         astxVyvKa8iTjvqpX3fjZcRqiUGB7NQV5IVksjgnGubW8Zhe575s0TOWHbi3oenDrVs3
-         NbeS0/+m1nIvuxx49gdwBWDZTCAKhtYEuZVKz58Ina+s2andDJyFTOf/LXYuT2zIrh/c
-         bfiFEpWFX+thpiY4pH9KXSUZSOmrtlUmVXp+Wi9aqN2ikvnaK1FPe5TjlLVFbhhVfJ0M
-         F6WQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789677737; x=1790282537;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=38H1xf2/ET/SoNjoIYflqfRDEtEJGG8vw0YM1GLHy9Q=;
-        b=0BLg9W0yB8jbAIdO9qQ6vlHqapWohWqLyIgGumMbKH8rRoSwtUUw8AEgeqKMinRjRw
-         5vphwg00vkLHxW6U/WFSmvqAEwjAZ9RAB2X6RLsQktF9ixP9TQk5mQYEMQoSbzsfmwez
-         6fh8Sj9FIBo2Anu8a0JIadSXdd5MiDigdXJA6wkALY6fRMzVVLkr1fmLJqc4lLWpMLp2
-         t/jvod1JxqRsCJ8TArt+hoGnRvWTgCSMKDa6Dk4y03HjQwDMihLqRkvwab//kR4uJYo5
-         zRKgI6oHpEibCekv92XOZcI9ce6eOFuVRUKdx7UA/IDaRyqQluuVKew1XdZcmaiPu+9F
-         G/xw==
-X-Forwarded-Encrypted: i=1; AKwUvBzvB/uUk4Bajnl4VHsy55tH/a9FJJ+LIF35HOwbedkekL33TcKCLu3ytBaRtgpmh09nUzzOh1g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kpKKv1ZAVH+4Ld9jLKgThjY0BM6ixC/hy14jZL3fL5ZrtfiAp9
-	0JUaFucLKUghhLphyjNDTj482kxj+upHVpxmeMw9odxOqoEMByN/tuY=
-X-Gm-Gg: AYBFou2DitkJyXzAo9ipWUFnhrRL3qwkAu5s+OzKQeHf61W2vBjfaox5dWUNne+YhnI
-	wC/p4dmdCV3U1RchCRLCfHDPJcvlzOXpoTn4nz/WxGmpk+iz74yW/VMWW2uGah9OY9c4TDxwd2v
-	jrbA9gf5GuRYTVxS69hOwHCfOt5YEVEpI6T9h6vhZ+mGWhBkOcHuqkYocD72ixWFMFdT4At4RHm
-	Zv7zj59GWUZHalYMU/xAWHG/vT7Feyz8GYsAx988L29lMvk9IAbv67VbFxLcOiRqawhLCJzLqXf
-	ahmDBbEZEUjB5NdPUWHh+LvnCAKg/zSF4woRE1wK4kUTNrp6qgFBESf2NmPq0l12aV+1xSt6unx
-	niz413tkNHG0YllNAocjRPG7wRQuX2h87FV9D8bBTtbGaByfDwNjgWaBrDWcPdR65gA5weBidr1
-	NVuN17HzMwQqtxj5pJDnmtrGgWOw/ItBmEI7SC9bBTw6+7F0XTDy6drkMOrFIXnu9XAScRCCdwE
-	uxXjlXZnwNuXf1VhIePQHK2Gxy5b/rkK6iYjbvjCq/VdKqGxn7tj6/7WoN8Vn8NiNhKpEEPBqWM
-	GiZ1tapX08CqiUgTP1k9b4RuSmvOdUkSPxXL
-X-Received: by 2002:ac8:5ace:0:b0:532:8063:4ccc with SMTP id d75a77b69052e-5328cedfe9dmr79101391cf.3.1789677736834;
-        Thu, 17 Sep 2026 13:42:16 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.169.225])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326204ad36sm58764301cf.18.2026.09.17.13.42.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 13:42:15 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Benson Leung <bleung@chromium.org>,
-	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
-	Jameson Thies <jthies@google.com>,
-	Andrei Kuchynski <akuchynski@chromium.org>,
-	Tzung-Bi Shih <tzungbi@kernel.org>
-Cc: Guenter Roeck <groeck@chromium.org>,
-	chrome-platform@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Ijae Kim <ae878000@gmail.com>
-Subject: [PATCH] platform/chrome: cros_ec_typec: Stop altmode work before unregistering ports
-Date: Thu, 17 Sep 2026 16:42:09 -0400
-Message-ID: <20260917204209.97699-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gUihnvQo"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 85AB81F00893;
+	Thu, 17 Sep 2026 20:50:05 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789678206;
+	bh=nTkTs7INuJGhkrArkZI4GklS4lL5iFoE1EJCsFhI22E=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=gUihnvQoUCYhNeNds6EwHbtB6HXVklmR2OeRHtpnRQWqk4qcpQO3+5dJYVC6AO8Q5
+	 UHmyPGu//gdn31QNMqDUj2aek87axpqE02Nw799+bge9/ka2Ff2YpIpwpBEAMWsoAn
+	 Ze4OrhZtSW0dx6gfRbsfFprhxrHNexNgQV0OMbObCtjlRzZWobQCJvhS72abWfBaQ8
+	 8dY+WIAhPQ446WRVaMk9i1edeZNWUKfQU8dxUUYoAL0iPO15US1efPefSSliNH6AVd
+	 ttZjxVREsjYD366cEBy9VXc4weIJrnLzt7SddR/y7s6c15phbcDQjdL11bln3UA+ly
+	 GRehBBBToAO9Q==
+Subject: Re: [PATCH] net: sxgbe: dispose IRQ mappings on device removal
+From: netdev-bot+sashiko@kernel.org
+To: lgs201920130244@gmail.com
+Cc: bh74.an@samsung.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ siva.kallam@samsung.com, vipul.pandya@samsung.com, ks.giri@samsung.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 20:50:05 +0000
+Message-ID: <178967820509.22033.14956659662376868592@kernel.org>
+In-Reply-To: <20260916054841.2908429-1-lgs201920130244@gmail.com>
+References: <20260916054841.2908429-1-lgs201920130244@gmail.com>
+X-sashiko-severity: Medium
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
-responses to their partners. Port teardown only cancels port_work and
-then unregisters the partner and port altmodes, leaving the separate
-altmode work able to access released altmode data.
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-Disable and drain each port altmode's work before unregistering the
-partner altmodes. Disabling also prevents a partner callback from
-requeueing the work while its driver is being removed. Use the common
-port teardown path so probe error handling is covered as well.
+Critical: 0 · High: 0 (2) · Medium: 1 (1) · Low: 2
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+- [Medium] The devres ordering guarantee claimed by the commit message
+  can be violated by a probe/open race.
+- [Low] Coding-style defects in the new code in sxgbe_platform_probe():
+  the RX-queue devm_add_action_or_reset() call has a misaligned…
+- [Low] All four newly added devm_add_action_or_reset() call sites in
+  sxgbe_platform_probe() store the helper's return value in `ret` and…
 
-Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Validated with static source review, apply checks and strict checkpatch.
-No build or runtime testing was performed.
+Pre-existing issues:
+- [High] Use-after-free window at unbind: every IRQ handler is installed
+  with devm_request_irq(priv->device /* == &pdev->dev */, ...) in…
+- [High] Unbalanced IRQ acquire/release across open/close: sxgbe_open()
+  acquires all IRQs with devm_request_irq() but sxgbe_release()…
+- [Medium] DT binding vs. driver mismatch for the LPI interrupt:
+  Documentation/devicetree/bindings/net/samsung-sxgbe.txt documents…
 
- drivers/platform/chrome/cros_ec_typec.c      |  1 +
- drivers/platform/chrome/cros_typec_altmode.c | 15 +++++++++++++++
- drivers/platform/chrome/cros_typec_altmode.h |  6 ++++++
- 3 files changed, 22 insertions(+)
+--
 
-diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
-index 50a68819ceb7bbfbd888ca919d678d4c75237c26..e91bbc219c077067294935dd5602c1aec636cfa6 100644
---- a/drivers/platform/chrome/cros_ec_typec.c
-+++ b/drivers/platform/chrome/cros_ec_typec.c
-@@ -378,6 +378,7 @@ static void cros_unregister_ports(struct cros_typec_data *typec)
- 		if (!typec->ports[i])
- 			continue;
- 
-+		cros_typec_altmodes_stop(typec->ports[i]);
- 		cros_typec_remove_partner(typec, i);
- 		cros_typec_remove_cable(typec, i);
- 
-diff --git a/drivers/platform/chrome/cros_typec_altmode.c b/drivers/platform/chrome/cros_typec_altmode.c
-index 66c546bf89b532d3bae1de322a1cfb1205e0190f..2492058d98b8ef2a4a1a9bee87ce0574f4f0a736 100644
---- a/drivers/platform/chrome/cros_typec_altmode.c
-+++ b/drivers/platform/chrome/cros_typec_altmode.c
-@@ -37,6 +37,21 @@ struct cros_typec_dp_data {
- 	bool pending_status_update;
- };
- 
-+void cros_typec_altmodes_stop(struct cros_typec_port *port)
-+{
-+	struct cros_typec_altmode_data *adata;
-+	int i;
-+
-+	for (i = 0; i < CROS_EC_ALTMODE_MAX; i++) {
-+		if (!port->port_altmode[i])
-+			continue;
-+
-+		adata = typec_altmode_get_drvdata(port->port_altmode[i]);
-+		if (adata)
-+			disable_work_sync(&adata->work);
-+	}
-+}
-+
- static void cros_typec_altmode_work(struct work_struct *work)
- {
- 	struct cros_typec_altmode_data *data =
-diff --git a/drivers/platform/chrome/cros_typec_altmode.h b/drivers/platform/chrome/cros_typec_altmode.h
-index 3f2aa95d065af709643ad653df487a9987780da4..9e67f82ba031d67dfbe3a0549a7987386c33d120 100644
---- a/drivers/platform/chrome/cros_typec_altmode.h
-+++ b/drivers/platform/chrome/cros_typec_altmode.h
-@@ -11,6 +11,12 @@ struct typec_altmode;
- struct typec_altmode_desc;
- struct typec_displayport_data;
- 
-+#if IS_ENABLED(CONFIG_CROS_EC_TYPEC_ALTMODES)
-+void cros_typec_altmodes_stop(struct cros_typec_port *port);
-+#else
-+static inline void cros_typec_altmodes_stop(struct cros_typec_port *port) {}
-+#endif
-+
- #if IS_ENABLED(CONFIG_TYPEC_DP_ALTMODE)
- struct typec_altmode *
- cros_typec_register_displayport(struct cros_typec_port *port,
+net: sxgbe: dispose IRQ mappings on device removal
+
+This converts the open-coded irq_dispose_mapping() unwind in
+sxgbe_platform_probe() into a devres action registered right after each
+irq_of_parse_and_map() call, so the common, TX, RX and LPI mappings are also
+disposed when the device is removed after a successful probe.
+
+A few questions on the new code and on the surrounding IRQ lifetime.
+
+> diff --git a/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c b/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c
+> index e4701b29e1a0f..cd8d39a1afff2 100644
+> --- a/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c
+> +++ b/drivers/net/ethernet/samsung/sxgbe/sxgbe_platform.c
+
+[ ... ]
+
+> @@ -116,6 +123,11 @@ static int sxgbe_platform_probe(struct platform_device *pdev)
+>  		goto err_drv_remove;
+>  	}
+>  
+> +	ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +				       (void *)(unsigned long)priv->irq);
+> +	if (ret)
+> +		goto err_drv_remove;
+> +
+
+[Severity: Low]
+
+Is ret read anywhere after these assignments?  All four new
+devm_add_action_or_reset() call sites in sxgbe_platform_probe() store the
+return value and then jump to err_drv_remove, which falls through to:
+
+err_drv_remove:
+	sxgbe_drv_remove(priv->dev);
+err_out:
+	return -ENODEV;
+
+devm_add_action_or_reset() returns -ENOMEM when the devres node cannot be
+allocated, so a transient allocation failure is reported to the driver core
+as -ENODEV, which is the same value used for an unparsable DT interrupt.
+
+Would it make sense to return ret on the new paths?
+
+>  	/* Get MAC address if available (DT) */
+>  	of_get_ethdev_address(node, priv->dev);
+>  
+> @@ -124,38 +136,43 @@ static int sxgbe_platform_probe(struct platform_device *pdev)
+>  		priv->txq[i]->irq_no = irq_of_parse_and_map(node, chan++);
+>  		if (priv->txq[i]->irq_no <= 0) {
+>  			dev_err(dev, "sxgbe tx irq parsing failed\n");
+> -			goto err_tx_irq_unmap;
+> +			goto err_drv_remove;
+>  		}
+> +		ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +					       (void *)(unsigned long)
+> +					       priv->txq[i]->irq_no);
+> +		if (ret)
+> +			goto err_drv_remove;
+>  	}
+>  
+>  	for (i = 0; i < SXGBE_RX_QUEUES; i++) {
+>  		priv->rxq[i]->irq_no = irq_of_parse_and_map(node, chan++);
+>  		if (priv->rxq[i]->irq_no <= 0) {
+>  			dev_err(dev, "sxgbe rx irq parsing failed\n");
+> -			goto err_rx_irq_unmap;
+> +			goto err_drv_remove;
+>  		}
+> +		ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +					       (void *)(unsigned long)
+> +				       priv->rxq[i]->irq_no);
+                                 ^^^^^^^^^^^^^^^^^^^^^^
+
+[Severity: Low]
+
+This isn't a bug, but the continuation line carrying priv->rxq[i]->irq_no is
+indented with less whitespace than the identical TX call just above and does
+not line up with the open parenthesis, so checkpatch reports "Alignment
+should match open parenthesis" here.
+
+In the hunk below, the blank line that separated the LPI interrupt handling
+from platform_set_drvdata() is also dropped, so the new if (ret) goto
+err_drv_remove; runs straight into platform_set_drvdata().
+
+> +		if (ret)
+> +			goto err_drv_remove;
+>  	}
+>  
+>  	priv->lpi_irq = irq_of_parse_and_map(node, chan);
+>  	if (priv->lpi_irq <= 0) {
+>  		dev_err(dev, "sxgbe lpi irq parsing failed\n");
+> -		goto err_rx_irq_unmap;
+> +		goto err_drv_remove;
+>  	}
+
+[Severity: Medium]
+
+This is a pre-existing disagreement and not something this patch introduces,
+but since the LPI error path is being rewritten here it may be worth a look.
+
+Documentation/devicetree/bindings/net/samsung-sxgbe.txt describes the
+interrupts property as:
+
+  index 1 to 25 - 8 variable transmit interrupts, variable 16 receive interrupts
+  and 1 optional lpi interrupt.
+
+A DT that follows that wording and omits the 26th specifier makes
+irq_of_parse_and_map(node, chan) return 0, so probe logs "sxgbe lpi irq
+parsing failed", calls sxgbe_drv_remove() and fails with -ENODEV.
+
+sxgbe_open() on the other hand is written to cope with the LPI line not
+being distinct:
+
+	if (priv->lpi_irq != dev->irq) {
+
+Which of the two is right, the binding or the mandatory treatment in probe?
+
+> -
+> +	ret = devm_add_action_or_reset(dev, sxgbe_irq_dispose_mapping,
+> +				       (void *)(unsigned long)priv->lpi_irq);
+> +	if (ret)
+> +		goto err_drv_remove;
+
+[Severity: Medium]
+
+Can the ordering guarantee in the changelog be broken by a probe/open race?
+
+register_netdev() runs inside sxgbe_drv_probe(), which sxgbe_platform_probe()
+calls before any of this IRQ setup:
+
+	ret = register_netdev(ndev);
+	if (ret) {
+		pr_err("%s: ERROR %i registering the device\n", __func__, ret);
+		goto error_mdio_unregister;
+	}
+
+So the interface is visible to userspace while the mappings and these new
+dispose actions are still being registered.
+
+If userspace brings the interface up in that window, sxgbe_open()'s
+devm_request_irq() nodes land in the &pdev->dev devres list before the
+still-pending dispose actions.  release_nodes() unwinds in reverse insertion
+order:
+
+list_for_each_entry_safe_reverse(dr, tmp, todo, node.entry)
+
+which would run irq_dispose_mapping() for those IRQs before the devm
+free_irq() that removes and synchronizes the handler on them.
+
+In the same window, a failing devm_add_action_or_reset() immediately runs the
+dispose action, tearing down a mapping on which a racing open may already
+have installed a handler.
+
+Would moving register_netdev() after the IRQ setup remove the need to rely on
+devres insertion order here?
+
+>  	platform_set_drvdata(pdev, priv->dev);
+>  
+>  	pr_debug("platform driver registration completed\n");
+>  
+>  	return 0;
+>  
+> -err_rx_irq_unmap:
+> -	while (i--)
+> -		irq_dispose_mapping(priv->rxq[i]->irq_no);
+> -	i = SXGBE_TX_QUEUES;
+> -err_tx_irq_unmap:
+> -	while (i--)
+> -		irq_dispose_mapping(priv->txq[i]->irq_no);
+> -	irq_dispose_mapping(priv->irq);
+>  err_drv_remove:
+>  	sxgbe_drv_remove(priv->dev);
+>  err_out:
+
+[Severity: High]
+
+This isn't a bug introduced by this patch, but it sits in the same IRQ
+lifetime the changelog reasons about, so does the handler-versus-netdev
+ordering also need attention?
+
+sxgbe_open() installs every handler on the platform device with
+device-lifetime devres, using the netdev or the queue structures as dev_id:
+
+	ret = devm_request_irq(priv->device, priv->irq, sxgbe_common_interrupt,
+			       IRQF_SHARED, dev->name, dev);
+
+There is no free_irq() or devm_free_irq() anywhere in the driver, and
+sxgbe_release() (ndo_stop) only stops the PHY, DMA and MTL.  The handlers
+therefore stay installed until devres_release_all(), which the driver core
+runs from device_unbind_cleanup() after .remove has returned:
+
+drivers/base/dd.c:device_unbind_cleanup() {
+	...
+	devres_release_all(dev);
+	...
+}
+
+By then sxgbe_platform_remove() -> sxgbe_drv_remove() has already done:
+
+	kfree(priv->hw);
+
+	free_netdev(ndev);
+
+and priv, priv->txq[] and priv->rxq[] live in the netdev private area.  An
+interrupt taken on one of those still-registered lines in that window (the
+common and LPI lines are IRQF_SHARED, so a co-tenant device on the same line
+is enough) enters:
+
+	struct sxgbe_priv_data *priv = netdev_priv(netdev);
+	int status;
+
+	status = priv->hw->mac->host_irq_status(priv->ioaddr, &priv->xstats);
+
+which reads priv->hw and writes priv->xstats in freed memory.  Should the
+driver free and synchronize the IRQs before free_netdev()?
+
+[Severity: High]
+
+This is also pre-existing rather than something this patch changes, but it
+follows from the same asymmetry: can the interface be brought up more than
+once per bind?
+
+sxgbe_open() requests the TX and RX DMA interrupts with flags 0:
+
+		ret = devm_request_irq(priv->device,
+				       (priv->txq[queue_num])->irq_no,
+				       sxgbe_tx_interrupt, 0,
+				       dev->name, priv->txq[queue_num]);
+
+sxgbe_release() does not free them, and devres entries are only released at
+unbind, so a second open re-requests a virq the driver already owns and
+__setup_irq() takes the mismatch path:
+
+kernel/irq/manage.c:__setup_irq() {
+	...
+		if (!((old->flags & new->flags) & IRQF_SHARED) ||
+		    (oldtype != (new->flags & IRQF_TRIGGER_MASK)))
+			goto mismatch;
+	...
+}
+
+so ip link set dev X down followed by ip link set dev X up returns -EBUSY,
+after the shared common and LPI handlers have been installed a second time
+as extra devres nodes.  Would releasing the IRQs in ndo_stop fix both this
+and the free_netdev() ordering above?
+
 -- 
-2.47.1
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916054841.2908429-1-lgs201920130244%40gmail.com
