@@ -1,138 +1,110 @@
-Received: from foss.arm.com (foss.arm.com [217.140.110.172])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7B77154CF46;
-	Thu, 17 Sep 2026 13:53:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7FE2D55295D;
+	Thu, 17 Sep 2026 13:53:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653193; cv=none; b=AxAcbzSvrF5wP4gmv/euLReBuqW6B/HZA/VEkgxPIShYb0WEdwxAX/xGil18JLSiaKaUKheE1WLYp2BnOHDk0jEhYm70/Du4EjRXxH2QzBuno+6Y6+CD5nK+NRewZdTG0l5x+TJOpqnQdawJECUN6kGv44kH8E6O0UcKZ/9JoJI=
+	t=1789653233; cv=none; b=Y2eIbqJdQLp1znqSAQefnyM3rdKQsk3U3Lk3/lsGPza+m2s0oE3lZQ6UHPj/Uslg3LfYDC0XoAtnBFEFL0wvIGewHFwA3xexLv9sErBd7NBaAhP31f7j/36rW3P5DyYyJ/u1qcacvneAeT5nJPe3Kr58CpWBkeNhgIh81RBlumE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653193; c=relaxed/simple;
-	bh=t5colIHZPnqvp1qR2cHIYqN9edtoP17qxQ9J+aPMaps=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZWnCKdca1uGvSA76423t8F6QUM7vEr++q18vI+Q8uP7FsKNZ7MHtTDAAaU2/yMqTs4fwIOF/88QN6oRFO+58UVNDRbcmhy53gX0D78E3KwSYVfGqpqvh2pU4+S+bbHeFNvDONvgeUoMDq3sr8a5ezwnUItfbYx6S1Ib5iPxa36k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=U8Rh1CZA; arc=none smtp.client-ip=217.140.110.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="U8Rh1CZA"
-Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
-	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 3B3101476;
-	Thu, 17 Sep 2026 06:53:03 -0700 (PDT)
-Received: from J2N7QTR9R3 (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
-	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 4F8523F7B4;
-	Thu, 17 Sep 2026 06:53:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
-	t=1789653186; bh=t5colIHZPnqvp1qR2cHIYqN9edtoP17qxQ9J+aPMaps=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=U8Rh1CZA1LqhgyuQt4FgAMAbwzomS66419rwgSoCSbkq/y0P9QKHld5Td7W3fRRg2
-	 FDzWXA+vF5U18/zBboRDmwEpYQdiZ924F1rv0QbOIq+Zksryd1IZ+swQD+ziMEEVwr
-	 CetYEA1YdmuplZjsKkx5vJ3+xtEE9PJltlxcp5iw=
-Date: Thu, 17 Sep 2026 14:52:57 +0100
-From: Mark Rutland <mark.rutland@arm.com>
-To: Will Deacon <will@kernel.org>
-Cc: Jason Gunthorpe <jgg@nvidia.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Jonathan Corbet <corbet@lwn.net>, iommu@lists.linux.dev,
-	"Joerg Roedel (AMD)" <joro@8bytes.org>,
-	Jean-Philippe Brucker <jpb@kernel.org>,
-	linux-arm-kernel@lists.infradead.org, linux-doc@vger.kernel.org,
-	Randy Dunlap <rdunlap@infradead.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	David Matlack <dmatlack@google.com>,
-	Jean-Philippe Brucker <jean-philippe@linaro.org>,
-	Jonathan Cameron <Jonathan.Cameron@huawei.com>,
-	Nicolin Chen <nicolinc@nvidia.com>,
-	Pasha Tatashin <pasha.tatashin@soleen.com>, patches@lists.linux.dev,
-	Pranjal Shrivastava <praan@google.com>,
-	Samiullah Khawaja <skhawaja@google.com>,
-	Mostafa Saleh <smostafa@google.com>, stable@vger.kernel.org,
-	Vijayanand Jitta <vijayanand.jitta@oss.qualcomm.com>
-Subject: Re: [PATCH v6 1/9] iommu/arm-smmu-v3: Handle ARM erratum for CONT
- under invalidation with SVA
-Message-ID: <aqvwuUtw3P4cfgh-@J2N7QTR9R3>
-References: <0-v6-9cd17417d355+281836-smmu_tlbi_jgg@nvidia.com>
- <1-v6-9cd17417d355+281836-smmu_tlbi_jgg@nvidia.com>
- <aquxuBnh6pdxu4-8@J2N7QTR9R3>
- <20260917131601.GY3968357@nvidia.com>
- <aqvuyse0hmNCGJqt@willie-the-truck>
+	s=arc-20240116; t=1789653233; c=relaxed/simple;
+	bh=V9ny8P/HqtKUeNovfq5bPXJz6/ExefhVObrKLjFdv3g=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FysPZtKterbD1t0/nGvBS22WNMPV+QQeFzSN2E+tRp7CTvODtDCWBhSy0ABaO7336+qX2qX5m/GSdHGunUT2vqDAGZo3DUvJ1XbZD+tOK10vCXDhZ712Yef5HyiBfoQgfYwB7mjv5Oo986cewAplt+HitQki6qWae8RizG6t4LQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3oDrg8Ktqw9yBCA--.3939S2;
+	Thu, 17 Sep 2026 21:53:36 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: hansg@kernel.org
+Cc: ilpo.jarvinen@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	michaelsh@nvidia.com,
+	platform-driver-x86@vger.kernel.org,
+	vadimp@nvidia.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/mellanox: Fix i2c adapter reference leak in nvsw_sn2201_i2c_completion_notify()
+Date: Thu, 17 Sep 2026 13:53:36 +0000
+Message-Id: <20260917135336.2154016-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqvuyse0hmNCGJqt@willie-the-truck>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3oDrg8Ktqw9yBCA--.3939S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7urW7Gry8uw1DJw45tw4ktFb_yoW8tr1xpr
+	Zruayqvry7Gr4q9FW7Ary7ZF10k3yFgFWYya4Sywn3A3Z09a45Ar98tFyjyr4IqrykX3Z7
+	Zwn7Xry5Jwn7Jw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UNTmhUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qrrJrNkwAAsq
 
-On Thu, Sep 17, 2026 at 02:44:42PM +0100, Will Deacon wrote:
-> On Thu, Sep 17, 2026 at 10:16:01AM -0300, Jason Gunthorpe wrote:
-> > On Thu, Sep 17, 2026 at 10:24:08AM +0100, Mark Rutland wrote:
-> > > On Wed, Sep 16, 2026 at 09:27:42PM -0300, Jason Gunthorpe wrote:
-> > > > The erratum (MMU-700: #3777127, S3: #3673557) deals with under
-> > > > invalidation of a CONT PTE grouping in the SMMU. The recommended work
-> > > > around is to use a Range Invalidate (RIL) that spans the entire CONT. The
-> > > > only user of CONT in the kernel right now is through SVA sharing a CPU
-> > > > page table that contains a CONT created by the mm.
-> > > 
-> > > As someone familiar with VMSA, I've never seen "RIL" used to describe a
-> > > range invalidate and I think using that in the code below is confusing.
-> > > I *think* "RIL" has come from "SMMUv3.2-RIL", which is the SMMU feature
-> > > for Range Invalidate *and* Level hint, where "RI" is Range Invalidate,
-> > > and "L" is Level.
-> > 
-> > Yes,
-> > 
-> > drivers/iommu/arm/arm-smmu-v3/arm-smmu-v3.h:#define IDR3_RIL                    (1 << 10)
-> > 
-> > Unfortunately I've noticed a couple of places like this where the SMMU
-> > terminology and VMSA differ a little bit. In these cases we've
-> > historically choosen the SMMU naming in the SMMU driver to be
-> > consistent with its spec.. I've definately seen this gets confusing
-> > when talking to people familiar with the CPU spec and IP.
-> > 
-> > I had guessed it ment "Rang InvaLidate", but you are right:
-> > 
-> >   RIL, bit [10]
-> >        Range-based Invalidations and Level hint support for TLBI.
-> >        The value of this field is an IMPLEMENTATION DEFINED choice of:
-> > 
-> > The driver also calls it ARM_SMMU_FEAT_RANGE_INV, but I thought
-> > range_inv everwhere made some very long names.
-> > 
-> > > Can we please spell that out as "range invalidate" or "range op"
-> > > (matching the arm64 architecture code) rather than "RIL"?
-> >  
-> > > That'll be easier to follow, especially as nothing in the code mentions
-> > > what "RIL" means -- that's only mentioned in this commit message.
-> > 
-> > The whole series uses ril as a shorthand for IDR3_RIL, and the spec
-> > often does the same:
-> > 
-> > [25:20] SCALE Range invalidation scale.
-> > 		  * See below for use of this field in range invalidation.
-> > 		  * When TG == 0b00 this field is RES0.
-> > 		  * If SMMU_IDR3.RIL == 0, this field is RES0.
-> >                          ^^^^^^^^^^^
-> > 
-> > So I'm certainly sympathetic, but I don't know we should diverge the
-> > driver from the language in it's own spec.
-> > 
-> > Do you have a recommendation for a suitable short name? It is
-> > meaningful work to rename everything in this series.. Will?
-> 
-> I think that using RANGE_INV / range_inv would be more consistent with
-> the existing code, but IDR3_RIL should remain as-is because it maps
-> directly to the spec.
+nvsw_sn2201_i2c_completion_notify() takes a reference to the main mux
+adapter with i2c_get_adapter(), but when the following
+nvsw_sn2201_create_static_devices() call fails the adapter field has
+already been cleared by the callee, so the i2c_put_adapter() in the
+nvsw_sn2201_create_static_devices_fail path is a no-op and the
+reference is leaked.
 
-Yep -- to be clear, I didn't mean to change the IDR3_RIL naming, which
-matches the architectural naming of the SMMU_IDR3.RIL field.
+Keep the adapter in a local variable and release it on that path.
 
-My concern was that 'RIL' was being used to refer to a range invalidate
-operation (e.g. "a RIL"), which doesn't match any existing terminology,
-and is opaque to the reader.
+Fixes: 662f24826f95 ("platform/mellanox: Add support for new SN2201 system")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/platform/mellanox/nvsw-sn2201.c | 12 ++++++++++--
+ 1 file changed, 10 insertions(+), 2 deletions(-)
 
-Using RANGE_INV / range_inv, along with "a range op" or similar in prose
-sounds good to me.
+diff --git a/drivers/platform/mellanox/nvsw-sn2201.c b/drivers/platform/mellanox/nvsw-sn2201.c
+index 92b58ba8f97b..b9d8074a5167 100644
+--- a/drivers/platform/mellanox/nvsw-sn2201.c
++++ b/drivers/platform/mellanox/nvsw-sn2201.c
+@@ -1172,12 +1172,14 @@ static void nvsw_sn2201_config_exit(struct nvsw_sn2201 *nvsw_sn2201)
+ static int nvsw_sn2201_i2c_completion_notify(void *handle, int id)
+ {
+ 	struct nvsw_sn2201 *nvsw_sn2201 = handle;
++	struct i2c_adapter *adapter;
+ 	void *regmap;
+ 	int i, err;
+ 
+ 	/* Create main mux. */
+-	nvsw_sn2201->main_mux_devs->adapter = i2c_get_adapter(nvsw_sn2201->main_mux_devs->nr);
+-	if (!nvsw_sn2201->main_mux_devs->adapter) {
++	adapter = i2c_get_adapter(nvsw_sn2201->main_mux_devs->nr);
++	nvsw_sn2201->main_mux_devs->adapter = adapter;
++	if (!adapter) {
+ 		err = -ENODEV;
+ 		dev_err(nvsw_sn2201->dev, "Failed to get adapter for bus %d\n",
+ 			nvsw_sn2201->main_mux_devs->nr);
+@@ -1189,6 +1191,12 @@ static int nvsw_sn2201_i2c_completion_notify(void *handle, int id)
+ 						nvsw_sn2201->main_mux_devs_num);
+ 	if (err) {
+ 		dev_err(nvsw_sn2201->dev, "Failed to create main mux devices\n");
++		/*
++		 * nvsw_sn2201_create_static_devices() clears ->adapter on
++		 * failure, so release the reference taken above here.
++		 */
++		i2c_put_adapter(adapter);
++		nvsw_sn2201->main_mux_devs->adapter = NULL;
+ 		goto nvsw_sn2201_create_static_devices_fail;
+ 	}
+ 
+-- 
+2.34.1
 
-Mark.
