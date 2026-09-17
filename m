@@ -1,123 +1,90 @@
-Received: from casper.infradead.org (casper.infradead.org [90.155.50.34])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83C650EBFF;
-	Thu, 17 Sep 2026 16:23:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.50.34
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 234D1515994;
+	Thu, 17 Sep 2026 16:27:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662223; cv=none; b=FkFT0G6OQyMu1fzkg/6Ic8EgXm/wBDPYHDfmMJEL3CQEi2KEZ+ui9XgJSpxBQxNsrxL8qOPjY/fLcoCohEP56Zb8jNsH+Pjqk76QphIgLKbXjpnQgiTLebsrgBqPdn2n6k4cIshvkoARfC5Ly13iBGLbICOFhmjUcaePs96dJU0=
+	t=1789662432; cv=none; b=HfVqorz1nDYEvKsyO6xTtQqpGsZXXfkbDfZYT0Gk/47Imocz+sRYiAI1xKB0EBD2FC6pIR5leDK6bPZhiTXlW4NpHZq3YXWQXtelqS1jhgNl/F6go5zUESaFzjYD/sNpwYf3A/ClMv6LGmfnEEWVbSeTvq7OgjEBMAiZ8iPdN+U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662223; c=relaxed/simple;
-	bh=9VDNn3ef6f6AzNuZmQfHkaBYtuXx8fKs++DI6QHVSZ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Wl78Avxi3nyLkCuMLpVL067IH2/pE6hNGMh1Q/qS/qlQCUmebQBQBSTs4tU4ayuFFKJNmxLgsd9wvSIO5y8GYzlBdapQ5+macmYAsL1Orrs2K4MAxPJhzLtPWONTyflkrKjWPGOMUE543fy73du75JpoIROrpdwf8e0GiRO7tnw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=LON76xnC; arc=none smtp.client-ip=90.155.50.34
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="LON76xnC"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=casper.20170209; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=akxJwcOoJrvjy31LionuZZGpZM3k20wc3rbedtFuCUI=; b=LON76xnCeHbv2ylczLrJJF42Wu
-	yOy+OAZXXgl93ZHt9cCEq6IsAl6qiI0NjT1zz4oDHHi4s1+yqNeRPBfyqGMQDeUQ1Ptr1sBPFxePm
-	lYLHliWUlJtZB+c8QKojwptdjZnpwRjedSUTh9SvYgMRiWH6oWwp29dGqobOj91gpqjxcOT2U0wbV
-	RXFyFIUk6e/EEtKYC/lxFq/Wfqjg19F3opRtlAasce3lkGps0GdnLEr0UttV6k8/rhTRRyjZLnmHs
-	BtNpl1SFml80noMK9mg5aH9wp6PS6IW6xuJIkxfl6ynACjQ9CEuX01793uKLjj6ML9aIWIilpQgfL
-	Qqq9Znsw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by casper.infradead.org with esmtpsa (Exim 4.99.1 #2 (Red Hat Linux))
-	id 1x7EtR-0000000B13U-2L6c;
-	Thu, 17 Sep 2026 16:23:25 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 4FD47301BD5; Thu, 17 Sep 2026 18:23:24 +0200 (CEST)
-Date: Thu, 17 Sep 2026 18:23:24 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, mingo@redhat.com,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev,
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
-	lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org,
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
-	byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
-	jannh@google.com, pfalcato@suse.de, osalvador@suse.de,
-	hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
- tier
-Message-ID: <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-3-gourry@gourry.net>
- <20260917160827.GN4121339@noisy.programming.kicks-ass.net>
- <aqwSBkeP-Df2GBLa@gourry-fedora-PF4VCD3F>
+	s=arc-20240116; t=1789662432; c=relaxed/simple;
+	bh=O7uLpQKNGJOxlY3T0kY8TA0B3L4WTuIwiwe5wpyA2S8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=sfHvsLjTEEEaTY0ZEXHMdhWGmHgE5hm3m6KwGG4DvkLOn9dKzt5SOIWj873h8eHAwpYvH5In92AH/fhONAu5fFXjrEqPfyiUjZTDoizajXxy8jBchx85z7G0dRQNjg6e4widHM6Lyv32AMvCDcoyHv0sWEZG7r5G3Wa+0IOuxHc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHdkDYFKxqOnWECA--.454S2;
+	Fri, 18 Sep 2026 00:27:04 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: amarkuze@redhat.com
+Cc: ceph-devel@vger.kernel.org,
+	idryomov@gmail.com,
+	jlayton@kernel.org,
+	linux-kernel@vger.kernel.org,
+	slava@dubeyko.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ceph: Fix xattr buffer leak in __send_cap()
+Date: Thu, 17 Sep 2026 16:27:04 +0000
+Message-Id: <20260917162704.2162206-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqwSBkeP-Df2GBLa@gourry-fedora-PF4VCD3F>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHdkDYFKxqOnWECA--.454S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7GrWDtF1UCw1kKw48KF13XFb_yoWktwb_Kr
+	Z5urykAayUKFnYvF1jyF93tF929ay8Zr1fWrZrtwn3Aa4YqFWrWrZIqF98ZFnxWa1xC3s5
+	Gw4fK34UuFyxujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbs8Fc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
+	aVAFwI0_Gr0_Cr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4j6r4UJwAS0I0E0xvYzxvE52
+	x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWU
+	twAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7VAKI4
+	8JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0E
+	wIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI
+	8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AK
+	xVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI
+	8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280
+	aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43
+	ZEXa7VUjZNVPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgANA2qr889P5wABsc
 
-On Thu, Sep 17, 2026 at 12:18:24PM -0400, Gregory Price wrote:
-> On Thu, Sep 17, 2026 at 06:08:27PM +0200, Peter Zijlstra wrote:
-> > > diff --git a/mm/migrate.c b/mm/migrate.c
-> > > index a369d0c95c38..afd9c97d2389 100644
-> > > --- a/mm/migrate.c
-> > > +++ b/mm/migrate.c
-> > > @@ -2697,12 +2697,14 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
-> > >  		/*
-> > >  		 * Do not migrate file folios that are mapped in multiple
-> > >  		 * processes with execute permissions as they are probably
-> > > -		 * shared libraries.
-> > > +		 * shared libraries, unless this is a promotion from a slow tier.
-> > >  		 *
-> > >  		 * See folio_maybe_mapped_shared() on possible imprecision
-> > >  		 * when we cannot easily detect if a folio is shared.
-> > >  		 */
-> > > -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
-> > > +		if ((vma->vm_flags & VM_EXEC) &&
-> > > +		    folio_maybe_mapped_shared(folio) &&
-> > > +		    (!folio_use_access_time(folio) || !node_is_toptier(node)))
-> > >  			return -EACCES;
-> > >  
-> > 
-> > Semi related; I've often wondered if we should still account shared and
-> > pinned vmas in the fault statistic, even though we should not migrate
-> > them.
-> > 
-> > After all, those pages are still used and by not accounting them in the
-> > fault statistics, it becomes easier to migrate a task away from them.
-> >
-> 
-> I don't have a strong opinion here to be honest, I'm just trying to get
-> tiering back on track.  There's some scheduler voodoo there that I will
-> happily claim ignorance on, so I just tried to keep things as-is here.
+__prep_cap() takes a reference on the xattr blob via ceph_buffer_get()
+and also grabs a reference to the old xattr blob returned by
+__ceph_build_xattrs_blob(). These references are normally dropped in
+__send_cap() after the cap message has been sent, but when ceph_msg_new()
+fails, __send_cap() requeues the cap and returns early without dropping
+them, leaking both buffers on every allocation failure.
 
-Yeah, fair enough.
+Release arg->old_xattr_buf and arg->xattr_buf on the ceph_msg_new()
+failure path before returning.
 
-> > Using the scanning for two different things has made a mess of things
-> > though :/
-> 
-> This has been my takeaway from this fix as well.
-> 
-> Honestly I'm starting to think hint faults are a big hammer making up
-> for the lack of hardware support for getting this data.
-> 
-> Would be nice to just have the hardware report what's hot (and how hot)
-> rather than depending on a software-heuristic like deriving hotness
-> from a page fault.
+Fixes: 16d68903f56a ("ceph: break up send_cap_msg")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ fs/ceph/caps.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Yeah, there is/was this patch-set from AMD that uses their IBS counters
-for this, but 'ab'-using the performance counters for this also has ick.
-PMU data isn't ideal either. Mostly they generate a ton of data that
-needs to be analyzed as well. Its not clear cut and easy.
+diff --git a/fs/ceph/caps.c b/fs/ceph/caps.c
+index d51454e995a8..41eb52b4673a 100644
+--- a/fs/ceph/caps.c
++++ b/fs/ceph/caps.c
+@@ -1535,6 +1535,8 @@ static void __send_cap(struct cap_msg_args *arg, struct ceph_inode_info *ci)
+ 		spin_lock(&ci->i_ceph_lock);
+ 		__cap_delay_requeue(arg->session->s_mdsc, ci);
+ 		spin_unlock(&ci->i_ceph_lock);
++		ceph_buffer_put(arg->old_xattr_buf);
++		ceph_buffer_put(arg->xattr_buf);
+ 		return;
+ 	}
+ 
+-- 
+2.34.1
 
-I'm not sure there's been proposals for better hardware support.
