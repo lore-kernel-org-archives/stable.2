@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070761448E0
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1174286D60
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608794; cv=none; b=r8+QMUC9xpvsp5pxV+bPXKuA9HAZiHJ0jIcTuqNJxOx7PkrJImlEk1oF0Z5ffQxGsefS0N3/VlMw5h7ZPKabYCs9rvOoKryXqikH6/SILVXUhaZ0bBwpD5La1ej4lLnqDTPmGfvCV1EPBfC9l3lF5c5G0pZ87B7wvT3vB7J4kiY=
+	t=1789608797; cv=none; b=rTZChirpxNz2AvWkjvxlFSFLP0kp3iDa7vhIqvGCIXoOZMIkYK2/gFV9m87JnvK+XVx8qVIp1ZYTUIpUU00FPShMRGIx4cd/2XqtpzGx3zyt1ItFe4DGducHk5cLhLGOmnx14KzCMU4ikst/y6R+FC0GuFxnp0N3w/vGLZFwXZk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608794; c=relaxed/simple;
-	bh=Rf1RPC0WkxfiedUCyVQgnztkS13V1cQnhr1nsgGhDxM=;
+	s=arc-20240116; t=1789608797; c=relaxed/simple;
+	bh=InpPe4PF4B6CpUk1FnLJaAb7MVQ+Me6WmKGb/90El5k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Zw7lqCBfkODZlez+kIwkjkqOT1kVUwizPi/E28aakrMB0Xo6otlh2OQgEjVi8nUJ+AvNA8DjslkIsoLlvCJ94esEtHN09lps/uBoZg6TliG0wHSmE+cDfQOUR32Ie7fhg+8JRwY9aVfsPjDFCBE2FkUOZXy7x9E62op+H9Jtjlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9P+Gqfg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WncCfEp/i6NrKcJnG/UGTtk67d8wmJ9TC9qaTj1+Swa7XhiIu1fd5CGpVO1aBJPxhFGrFKTkeApnRS3YcgZOZvCUIiZKIZXP9DT8eHFQN4HAFM+cgQ7xNGMXQ48b5iNzY2wiuykd7fqmQ2Osk2PkIAtriaujXET0GU8eM7vM7JY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USXh3eDk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9P+Gqfg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A371F000FF;
-	Thu, 17 Sep 2026 01:33:11 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USXh3eDk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED3091F000FF;
+	Thu, 17 Sep 2026 01:33:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789608792;
-	bh=VKJpZS+PWYjITAU/7UXOc4amjEG4RIZG2yHBW/1CyMc=;
+	s=k20260515; t=1789608795;
+	bh=kH9Z4su4t3YaShbUys1CxUZBDQGuerqZgTjXg6KctY0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=J9P+GqfgWUEjpIM7kscQOnWAkvGvQZn79yXHFuyby+FrC3EC/VGbvJcgnYrJN0IZb
-	 t8i1FoC+LWZpckgmmCL3L9VHSStiIrPrmUiw/EvIKwBmuyJWIc5+p3kfPxLJFdKeGX
-	 P+saUWc4yb8Kvbg1CdI6MKKL3VIVUSz54pV3WwChX62ZlX1vpQ78eG+SXBAJnHa3Sv
-	 MOJknt/HehUqf2IfhVb4kIzwLtzQ79rIU6nsTeZ1BiJtZA1nGsv2nTP+U7aDboTSf8
-	 9TdcDqIQRVJGOebWcmvpOkNKqdFTT2m8GUQXU5Uetfmzali2ZMrPoqolD+VTFMfWFc
-	 ZMlggKOwysvJw==
+	b=USXh3eDkUkx3Hwvj1IRxz404BOCDZjyqLUlv1aWZOmRf6EzjvByS4tu2zXZA5JILC
+	 AFfua/IjKqa/bONQ3W4+ibtyl+5CqJkFW0375Dk2YiEJRaPzRT+aB7M8VMuYHM/Dsf
+	 5AxOVMNL+TO31hPraqE3OvbGZ0aFJ+vf8zlIJl5AnM5l8Szi6C1DtAhwrcpurWoIcw
+	 YEw6CpeWBorXAlyyavsGsUYemPsAw/MCqPaB3mmEr1MBAqb6eJpZoY8f3/D08ZmcNY
+	 3brA0x1vZmzuuBztu6ilDWeJGhqRZuHV4aHHSPC4Fs+8NSPuB5lZitqdWCb6nkF6hv
+	 eS+VMzKVB6mRQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jingbo Xu <jefflexu@linux.alibaba.com>,
-	Gao Xiang <xiang@kernel.org>,
+Cc: Florian Westphal <fw@strlen.de>,
+	Pablo Neira Ayuso <pablo@netfilter.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] erofs: add sysfs feature entry for xattr prefixes
-Date: Wed, 16 Sep 2026 21:33:10 -0400
-Message-ID: <20260917013310.3594538-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y 1/5] netfilter: cttimeout: decouple unlink and free on netns destruction
+Date: Wed, 16 Sep 2026 21:33:09 -0400
+Message-ID: <20260917013313.3594807-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091651-stubble-sloping-7a9b@gregkh>
-References: <2026091651-stubble-sloping-7a9b@gregkh>
+In-Reply-To: <2026091646-antonym-acid-ca2a@gregkh>
+References: <2026091646-antonym-acid-ca2a@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,58 +45,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Jingbo Xu <jefflexu@linux.alibaba.com>
+From: Florian Westphal <fw@strlen.de>
 
-[ Upstream commit 839f075aabdf5c21048f9801b87c0b841dd3d064 ]
+[ Upstream commit 78222bacfca97cb18505df1ba5f3591864498a7e ]
 
-Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
-supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
+Make it so netns pre_exit unlinks the objects from the pernet list, so
+they cannot be found anymore.
 
-Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
-Cc: stable@vger.kernel.org # 6.4+
-Reviewed-by: Gao Xiang <xiang@kernel.org>
-Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
-Signed-off-by: Gao Xiang <xiang@kernel.org>
-[ adjusted feature-list context for missing 48bit and metabox entries while retaining zero_padding. ]
+netns core issues a synchronize_rcu() before calling the exit hooks so
+any the time the exit hooks run unconfirmed nf_conn entries have been
+free'd or they have been committed to the hashtable.
+
+The exit hook still tags unconfirmed entries as dying, this can
+now be removed in a followup change.
+
+Signed-off-by: Florian Westphal <fw@strlen.de>
+Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Stable-dep-of: fec9b1de0d02 ("netfilter: cttimeout: prevent UAF during module unload")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
- fs/erofs/sysfs.c                         | 2 ++
- 2 files changed, 3 insertions(+), 1 deletion(-)
+ include/net/netfilter/nf_conntrack_timeout.h |  8 ------
+ net/netfilter/nfnetlink_cttimeout.c          | 30 ++++++++++++++++++--
+ 2 files changed, 28 insertions(+), 10 deletions(-)
 
-diff --git a/Documentation/ABI/testing/sysfs-fs-erofs b/Documentation/ABI/testing/sysfs-fs-erofs
-index 284224d1b56fe..2997379bf8044 100644
---- a/Documentation/ABI/testing/sysfs-fs-erofs
-+++ b/Documentation/ABI/testing/sysfs-fs-erofs
-@@ -5,7 +5,7 @@ Description:	Shows all enabled kernel features.
- 		Supported features:
- 		zero_padding, compr_cfgs, big_pcluster, chunked_file,
- 		device_table, compr_head2, sb_chksum, ztailpacking,
--		dedupe, fragments.
-+		dedupe, fragments, xattr_prefixes.
- 
- What:		/sys/fs/erofs/<disk>/sync_decompress
- Date:		November 2021
-diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
-index 435e515c07920..92f0bc13623cc 100644
---- a/fs/erofs/sysfs.c
-+++ b/fs/erofs/sysfs.c
-@@ -78,6 +78,7 @@ EROFS_ATTR_FEATURE(sb_chksum);
- EROFS_ATTR_FEATURE(ztailpacking);
- EROFS_ATTR_FEATURE(fragments);
- EROFS_ATTR_FEATURE(dedupe);
-+EROFS_ATTR_FEATURE(xattr_prefixes);
- 
- static struct attribute *erofs_feat_attrs[] = {
- 	ATTR_LIST(zero_padding),
-@@ -90,6 +91,7 @@ static struct attribute *erofs_feat_attrs[] = {
- 	ATTR_LIST(ztailpacking),
- 	ATTR_LIST(fragments),
- 	ATTR_LIST(dedupe),
-+	ATTR_LIST(xattr_prefixes),
- 	NULL,
+diff --git a/include/net/netfilter/nf_conntrack_timeout.h b/include/net/netfilter/nf_conntrack_timeout.h
+index 16e024ca15875..1fe6b634a6ff4 100644
+--- a/include/net/netfilter/nf_conntrack_timeout.h
++++ b/include/net/netfilter/nf_conntrack_timeout.h
+@@ -18,14 +18,6 @@ struct nf_ct_timeout {
+ 	char			data[];
  };
- ATTRIBUTE_GROUPS(erofs_feat);
+ 
+-struct ctnl_timeout {
+-	struct list_head	head;
+-	struct rcu_head		rcu_head;
+-	refcount_t		refcnt;
+-	char			name[CTNL_TIMEOUT_NAME_MAX];
+-	struct nf_ct_timeout	timeout;
+-};
+-
+ struct nf_conn_timeout {
+ 	struct nf_ct_timeout __rcu *timeout;
+ };
+diff --git a/net/netfilter/nfnetlink_cttimeout.c b/net/netfilter/nfnetlink_cttimeout.c
+index c57673d499be7..2a241ed20edd2 100644
+--- a/net/netfilter/nfnetlink_cttimeout.c
++++ b/net/netfilter/nfnetlink_cttimeout.c
+@@ -33,8 +33,19 @@
+ 
+ static unsigned int nfct_timeout_id __read_mostly;
+ 
++struct ctnl_timeout {
++	struct list_head	head;
++	struct rcu_head		rcu_head;
++	refcount_t		refcnt;
++	char			name[CTNL_TIMEOUT_NAME_MAX];
++	struct nf_ct_timeout	timeout;
++
++	struct list_head	free_head;
++};
++
+ struct nfct_timeout_pernet {
+ 	struct list_head	nfct_timeout_list;
++	struct list_head	nfct_timeout_freelist;
+ };
+ 
+ MODULE_LICENSE("GPL");
+@@ -578,10 +589,24 @@ static int __net_init cttimeout_net_init(struct net *net)
+ 	struct nfct_timeout_pernet *pernet = nfct_timeout_pernet(net);
+ 
+ 	INIT_LIST_HEAD(&pernet->nfct_timeout_list);
++	INIT_LIST_HEAD(&pernet->nfct_timeout_freelist);
+ 
+ 	return 0;
+ }
+ 
++static void __net_exit cttimeout_net_pre_exit(struct net *net)
++{
++	struct nfct_timeout_pernet *pernet = nfct_timeout_pernet(net);
++	struct ctnl_timeout *cur, *tmp;
++
++	list_for_each_entry_safe(cur, tmp, &pernet->nfct_timeout_list, head) {
++		list_del_rcu(&cur->head);
++		list_add(&cur->free_head, &pernet->nfct_timeout_freelist);
++	}
++
++	/* core calls synchronize_rcu() after this */
++}
++
+ static void __net_exit cttimeout_net_exit(struct net *net)
+ {
+ 	struct nfct_timeout_pernet *pernet = nfct_timeout_pernet(net);
+@@ -590,8 +615,8 @@ static void __net_exit cttimeout_net_exit(struct net *net)
+ 	nf_ct_unconfirmed_destroy(net);
+ 	nf_ct_untimeout(net, NULL);
+ 
+-	list_for_each_entry_safe(cur, tmp, &pernet->nfct_timeout_list, head) {
+-		list_del_rcu(&cur->head);
++	list_for_each_entry_safe(cur, tmp, &pernet->nfct_timeout_freelist, head) {
++		list_del(&cur->free_head);
+ 
+ 		if (refcount_dec_and_test(&cur->refcnt))
+ 			kfree_rcu(cur, rcu_head);
+@@ -600,6 +625,7 @@ static void __net_exit cttimeout_net_exit(struct net *net)
+ 
+ static struct pernet_operations cttimeout_ops = {
+ 	.init	= cttimeout_net_init,
++	.pre_exit = cttimeout_net_pre_exit,
+ 	.exit	= cttimeout_net_exit,
+ 	.id     = &nfct_timeout_id,
+ 	.size   = sizeof(struct nfct_timeout_pernet),
 -- 
 2.53.0
 
