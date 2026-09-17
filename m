@@ -1,110 +1,299 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-bc0d.mail.infomaniak.ch (smtp-bc0d.mail.infomaniak.ch [45.157.188.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D536B584964;
-	Thu, 17 Sep 2026 15:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46FE4EB86E
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659715; cv=none; b=uiHkj0C7zpaY0FEtv7P5jP9USZv35Jo3V50CWQIMlDBSwN9wpCGivm9o/sqMOdIbuttghjtYg8Efuh+eE8oTxjEM4YwjpovatiRHdEkh0ynAc3NbStzll+Nf8h4O/15QqZKxzPSxFN1w3iYQfozU3gu9UuB6jKrYV/MhFZTGsbQ=
+	t=1789659717; cv=none; b=ZOOZcD/aIkzKA8yoqUNhgJBjIMb+1vEDy2lp++WTBdNgrSdDvHpgs5dF1+qe/3LlNZHhzmLbvj2WQ2UsTZheqU2d4L7LasU35lnbJ76gQfjMuW0QT4HMzVslRIaBJMhKUDDATB8Ej4BNCNyYO2DQqe2/HTk5zwAufoMOhn6k2Bo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659715; c=relaxed/simple;
-	bh=KHe4slQOuAOiob9Vkb7zpzt/3810qg1pmgfM8DFfEEc=;
+	s=arc-20240116; t=1789659717; c=relaxed/simple;
+	bh=FT0zvfSqYGDd3ZSpYj1hUKm6LucdMTChUfgG8ziBbRw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VTWcgUxrDrw0qaN1B0dhJHomxWnLgccwkdPPGDv6v+A23q+OcenBaro/gn9c+rBPw7462jupC3VaahErcrKbOUIR/J5ymEWSl1WN3ACkGwk5k2ZYf9jjVoZroWqLteKvFg8DLc67wO4mXK+UdRQFNTB58+cMmMqlctMkzyvJcEs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=2qpBrBvs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ddeYok6A7AH5i8IriKc8mURGuD0LyZs3yI8d/83iSmTvGd7SNyJIfkDL87Q702NtSAjnediB0mUbhCntgbmLuvfASycWMxYDKlOXcy1RUE/syrH55DeiPSnIZdMci/Q/wOPgDiHKIgjzx5G1zeZbj8w4AjWNvD8ly13kO3rTdi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=ARqZ5WPz; arc=none smtp.client-ip=45.157.188.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="2qpBrBvs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17CC71F000FF;
-	Thu, 17 Sep 2026 15:41:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659708;
-	bh=nwjhXMy3TBRdnndiA0MHm4xbVRIezsoVv+LDWZ2zotM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=2qpBrBvsjFxJCzzfpO87SeYYxsQPKfOlu8dV0oUcJ9Q7F1nE6yAgeJ6c6rFHoH63y
-	 X8CbucWIvq7RDUCOrxWB1JDWv1X72dh4IfQOGNfKGsGao+LyZ6tBEKK26IKyE842J1
-	 5zpBeRVsLzi/PwZ2B5tNaqDzGg+bw8GriaLMs8hc=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="ARqZ5WPz"
+Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0NZ5s6bzBmw;
+	Thu, 17 Sep 2026 17:41:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789659694;
+	bh=xOpI0+NL32hZzTx/FWYZxc7VPsUib4DtE7bh66FXGE4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=ARqZ5WPzuvTuFp4/Zhh7+cH7d9g31IdTeSqYntKhQaQk5ksfu51pxTRO2gI30P+vF
+	 Czjz/fNjLef++JjrOXrS+hlbWMkQCEogLj/MeClSEdBak9OEYc1JKJOMKS5JJ5iLcz
+	 y3xU2xZ8Y63tY05+AOxsnuLtqNodI49FWVfXizBU=
+Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0NZ1pQTz9WV;
+	Thu, 17 Sep 2026 17:41:34 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Linfeng Sun <linfeng.sun.dev@gmail.com>,
-	"Michael S. Tsirkin" <mst@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 347/733] vdpa_sim_blk: reject out-of-range sector starts
-Date: Thu, 17 Sep 2026 16:10:55 +0100
-Message-ID: <20260917151400.212843011@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	Christian Brauner <brauner@kernel.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
+Subject: [PATCH 6.18.y 2/3] selftests/landlock: Add tests for whiteout object creation
+Date: Thu, 17 Sep 2026 17:41:29 +0200
+Message-ID: <22492930911630bb9724ed1c34248143f8913f68.1789655724.git.mic@digikod.net>
+In-Reply-To: <20260904045755.888243226@linuxfoundation.org>
+References: <20260904045755.888243226@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Günther Noack <gnoack@google.com>
 
-------------------
+[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
 
-From: Linfeng Sun <linfeng.sun.dev@gmail.com>
+Add tests to check that whiteout object creation is guarded by
+LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
+userspace:
 
-[ Upstream commit 0a8693f00c408d85f086ad85d29e7030bf1e2055 ]
+* Conventional creation with mknod()
+* Linking or renaming an existing whiteout object
+* renameat2() with RENAME_WHITEOUT,
+  which creates a new whiteout object in the source location
+* renameat2() with RENAME_EXCHANGE,
+  with one of the renamed objects being a whiteout object
 
-vdpasim_blk_check_range() logs an invalid start sector but continues
-validating the request.  The subsequent unsigned capacity subtraction can
-underflow and let an out-of-range buffer offset reach the data path.
-
-The invalid offset is used by three request paths.  VIRTIO_BLK_T_OUT
-copies guest data to blk->buffer + offset through
-vringh_iov_pull_iotlb(), causing an out-of-bounds write in
-_copy_from_iter() or memcpy().  VIRTIO_BLK_T_IN copies from
-blk->buffer + offset to the guest through vringh_iov_push_iotlb(),
-causing an out-of-bounds read in _copy_to_iter().
-VIRTIO_BLK_T_WRITE_ZEROES passes blk->buffer + offset to memset(),
-causing an out-of-bounds write.
-
-Reject starts at or beyond the capacity before the subtraction.  Treat the
-capacity boundary as invalid because the IN and OUT paths round byte counts
-down to sectors for validation but later copy the original byte counts.  A
-sub-sector request at the capacity boundary would otherwise still access
-past the end of the buffer.
-
-I found this bug myself, though the patch was written with AI assistance.
-
-Fixes: 7d189f617f83 ("vdpa_sim_blk: implement ramdisk behaviour")
-Assisted-by: OpenAI-Codex:GPT-5
-Signed-off-by: Linfeng Sun <linfeng.sun.dev@gmail.com>
-Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
-Message-ID: <20260901094800.25475-1-linfeng.sun.dev@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Günther Noack <gnoack@google.com>
+Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
+[mic: Update commit message as requested]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: add enforce_fs() for the older ruleset helpers]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- drivers/vdpa/vdpa_sim/vdpa_sim_blk.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tools/testing/selftests/landlock/fs_test.c | 197 +++++++++++++++++++++
+ 1 file changed, 197 insertions(+)
 
-diff --git a/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c b/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c
-index f70f454dde8eb..76dd5b0828d7a 100644
---- a/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c
-+++ b/drivers/vdpa/vdpa_sim/vdpa_sim_blk.c
-@@ -79,10 +79,11 @@ static void vdpasim_blk_buffer_unlock(struct vdpasim_blk *blk)
- static bool vdpasim_blk_check_range(struct vdpasim *vdpasim, u64 start_sector,
- 				    u64 num_sectors, u64 max_sectors)
- {
--	if (start_sector > VDPASIM_BLK_CAPACITY) {
-+	if (start_sector >= VDPASIM_BLK_CAPACITY) {
- 		dev_dbg(&vdpasim->vdpa.dev,
- 			"starting sector exceeds the capacity - start: 0x%llx capacity: 0x%x\n",
- 			start_sector, VDPASIM_BLK_CAPACITY);
-+		return false;
- 	}
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index d8a351273482..3088d301073e 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -791,6 +791,27 @@ static int create_ruleset(struct __test_metadata *const _metadata,
+ 	return ruleset_fd;
+ }
  
- 	if (num_sectors > max_sectors) {
--- 
-2.53.0
-
-
-
++static void enforce_fs(struct __test_metadata *const _metadata,
++		       const __u64 access_fs, const struct rule rules[])
++{
++	int ruleset_fd;
++
++	if (rules) {
++		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
++	} else {
++		const struct landlock_ruleset_attr ruleset_attr = {
++			.handled_access_fs = access_fs,
++		};
++
++		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
++						     sizeof(ruleset_attr), 0);
++		ASSERT_LE(0, ruleset_fd);
++	}
++
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++}
++
+ TEST_F_FORK(layout0, proc_nsfs)
+ {
+ 	const struct rule rules[] = {
+@@ -2365,6 +2386,170 @@ TEST_F_FORK(layout1, rename_file)
+ 			       RENAME_EXCHANGE));
+ }
+ 
++TEST_F_FORK(layout1, rename_whiteout_denied)
++{
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Deny MAKE_REG, but allow MAKE_FIFO. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
++
++	/*
++	 * Try to rename a file with RENAME_WHITEOUT.
++	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
++	 * Denied, because whiteout creation is guarded with MAKE_REG.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++	EXPECT_EQ(EACCES, errno);
++}
++
++static bool is_whiteout(const char *const path)
++{
++	struct stat st;
++
++	if (stat(path, &st) == -1)
++		return false;
++
++	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
++}
++
++static bool is_fifo(const char *const path)
++{
++	struct stat st;
++
++	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
++}
++
++TEST_F_FORK(layout1, rename_whiteout_allowed)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Allow MAKE_REG below dir_s3d3. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
++
++	/*
++	 * Rename a file with RENAME_WHITEOUT within the same directory.
++	 * Allowed, because MAKE_REG is granted for the whiteout object which
++	 * gets created in the source location.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++			       TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++
++	/* A whiteout object took the place of the moved FIFO. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d3/f2"));
++}
++
++TEST_F_FORK(layout1, rename_whiteout_reparenting)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d2,
++			.access = LANDLOCK_ACCESS_FS_REFER,
++		},
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The moved files are FIFOs. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, unlink(file1_s3d4));
++	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
++
++	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
++	enforce_fs(_metadata,
++		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
++		   rules);
++
++	/*
++	 * The whiteout object is created in the source directory: Moving the
++	 * FIFO out of dir_s3d4 is denied because MAKE_REG is not granted
++	 * there, even though it is granted in the destination directory
++	 * dir_s3d3.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD,
++				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++	EXPECT_EQ(EACCES, errno);
++
++	/*
++	 * Moving the FIFO out of dir_s3d3 is allowed, because MAKE_REG is
++	 * granted there for the created whiteout object.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++			       TMP_DIR "/s3d1/s3d2/s3d4/f2", RENAME_WHITEOUT));
++
++	/* A whiteout object took the place of the moved FIFO. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d4/f2"));
++}
++
++TEST_F_FORK(layout1, rename_whiteout_exchange)
++{
++	const char *const whiteout_s3d3 = TMP_DIR "/s3d1/s3d2/s3d3/f2";
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d2,
++			.access = LANDLOCK_ACCESS_FS_REFER,
++		},
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The exchanged files are FIFOs and an existing whiteout object. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
++	ASSERT_EQ(0, unlink(file1_s3d4));
++	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
++
++	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
++	enforce_fs(_metadata,
++		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
++		   rules);
++
++	/*
++	 * With RENAME_EXCHANGE, the whiteout object moves into the source
++	 * directory of the rename: Exchanging the FIFO in dir_s3d4 with the
++	 * whiteout object is denied because MAKE_REG is not granted in
++	 * dir_s3d4, even though it is granted in the whiteout object's own
++	 * directory dir_s3d3.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD, whiteout_s3d3,
++				RENAME_EXCHANGE));
++	EXPECT_EQ(EACCES, errno);
++
++	/*
++	 * Exchanging the FIFO in dir_s3d3 with the whiteout object is
++	 * allowed, because MAKE_REG is granted in the directory into which
++	 * the whiteout object moves.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
++			       RENAME_EXCHANGE));
++
++	/* The FIFO and the whiteout object swapped places. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(whiteout_s3d3));
++}
++
+ TEST_F_FORK(layout1, rename_dir)
+ {
+ 	const struct rule rules[] = {
+@@ -3456,6 +3641,18 @@ TEST_F_FORK(layout1, make_char)
+ 		       makedev(1, 3));
+ }
+ 
++TEST_F_FORK(layout1, make_whiteout)
++{
++	/*
++	 * Creates a whiteout object (creation guarded by MAKE_REG).
++	 *
++	 * Contrary to the other character devices, this does not require
++	 * CAP_MKNOD, cf. vfs_mknod().
++	 */
++	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
++		       makedev(0, 0));
++}
++
+ TEST_F_FORK(layout1, make_block)
+ {
+ 	/* Creates a /dev/loop0 device. */
