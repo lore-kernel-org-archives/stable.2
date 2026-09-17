@@ -1,270 +1,151 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86E1029ACC5
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:35:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B72F73A7F70
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:36:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616161; cv=none; b=sJlTvyudZSKG/gC0ChydKrFo1weg/v3rCqYQLh78O64cdQgjuO0vr/AUm2kUpGHQY14Hu+xfKM8t7FQurzyXhnTWCwT4jiRCcplrmkBXgc+PztnOY21RbSqykV5hLXOpW651D/aHUVO8ropIIQCORJIDtjTEXz9pu4sbir3FHPA=
+	t=1789616219; cv=none; b=cy2a7svMM1ZrDmVpKvWWdED9FR5ZFC6YWMcIr/7o420dndkke9wYOYj1PpCEduYnb8lcEBa0c+lbAlxMyTO4D9xytGHmTFo/8StOdxNM90sFsULmbuVk5AUQtHPgPNqWeInqmo4sxC1SUmdoA3U5IW/rVal8aGKRaRibbnKxC8A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616161; c=relaxed/simple;
-	bh=4LvGTpF0rLLuQLYLKOX7KF8ZxtvQXpw8rKBCk5Lxw64=;
+	s=arc-20240116; t=1789616219; c=relaxed/simple;
+	bh=mX4OZfM87pyCpFjcPS7HpvzLCByvAhZHmy4/uMBcKhc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XzhudGrbcAdTNJgc/PFNWnGaioPyTNr1iKbWO/QO7rTf7I10eTJb5m183YZIEgwblD0ash03LEh7a5U3EQcql4Bv/fzYIec0n0orBTtKIwy6BYGlK5ArCN8XkXc90Y+LVzxvif3oPbe3AMwYYgxj1v+7fZaSeqjmfHSl6uZxq0Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HQJ0zOlU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=CPq43KroOLn3vtNpNZogDhHTf2Ltx95YlSqfssX4yBpYtYu6Qo7ZewUMCR7AmflPd0H4FQYMzBikahQu0L4GSlkXBOradAuEz+t9fbixr0jpwjks8XZeRiRm58pohSVD4ZM3Q6Ufyab8R3wrKchjbOekS/6mdUZzSiXfQHPp/SY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HRZzM51G; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HQJ0zOlU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE63A1F008A1;
-	Thu, 17 Sep 2026 03:35:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HRZzM51G"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 163411F000FF;
+	Thu, 17 Sep 2026 03:36:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789616148;
-	bh=fYD644biHm9nC9rUeM4PCO2dy6vTPDyV71VOR3RDYdo=;
+	s=k20260515; t=1789616213;
+	bh=oKpNG+57HJ5NdUk2H28IduWax8PjOY1+Z+jLSic+o0o=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HQJ0zOlUroGqh0CxMFIyMa2trd1EqzqDSA9Jpsc+VKO2nbVzkJxHu3oPeo2/xuKJf
-	 jsvRlVpDOGmcOq+0dDymBD3Sdv1BPYqDo3W6xjIlBEcNeXqXBsu5O0wejWhCM2LllG
-	 KCkUBYB90qrLEA1v1n2UJIlQjQU1egFVmn9ITKHtDf5znpJ/x3dkVu9Wdid2frdxfQ
-	 /C8nISktNhP3wi/ADsSDhRI9T0jaAL0rQQIm0eB6zrxWmUt2e5m2pJMMhgeooq5KkY
-	 t5/oQQp1EXBUK6hKmXQRmt51H4kHO31uu65jKWEOqraUlGGkSjjJElXUnNCyWvUATy
-	 G80jrcWWU+6AQ==
+	b=HRZzM51GpCq10ITXKBNbUftqkT772AJZd8U8/VEw1gPqsfOa1jeDhViRihjVEBbJR
+	 ZjykzgvxQ7sRYF1iVAKMzej0xJkvh/iiFerpeyZC3cuXKI0TAhwwPwh5fYMtxBrz1X
+	 Qq/kEEFeOZKIxS71Yp68vylstHdH8BgU3C8Sjw4ZeiymlCWeh3di0n6lifFrjujfQs
+	 r98cv0nOBHkGag91IhWHRiMqKNegZjW3AUu0/8hma2sYoPl0n1sFjn1djy2BRNCYWB
+	 wLZPSkhe/0qG9297qX6FCNSdQ3rkyT1tZKi2L55wl2cJqPIjtAQaNXxtXcDoZF+aq8
+	 8T9i3lktIWv7w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Jakub Kicinski <kuba@kernel.org>,
-	Breno Leitao <leitao@debian.org>,
-	Stanislav Fomichev <sdf@fomichev.me>,
-	Michael Chan <michael.chan@broadcom.com>,
+Cc: Norbert Szetei <norbert@doyensec.com>,
+	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/3] Reapply "bnxt_en: bring back rtnl_lock() in the bnxt_open() path"
-Date: Wed, 16 Sep 2026 23:35:44 -0400
-Message-ID: <20260917033545.4044963-2-sashal@kernel.org>
+Subject: [PATCH 6.6.y] landlock: Fix use-after-free of the source's parent directory
+Date: Wed, 16 Sep 2026 23:36:51 -0400
+Message-ID: <20260917033651.4056063-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917033545.4044963-1-sashal@kernel.org>
-References: <2026091648-flakily-icing-f492@gregkh>
- <20260917033545.4044963-1-sashal@kernel.org>
+In-Reply-To: <2026091644-catfight-coerce-54c7@gregkh>
+References: <2026091644-catfight-coerce-54c7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Jakub Kicinski <kuba@kernel.org>
+From: Norbert Szetei <norbert@doyensec.com>
 
-[ Upstream commit b6197b386677ae5268d4702e23849d9ad53051ad ]
+[ Upstream commit 2c6dc792538260a8087ac5b22c31b3b8e47c85d6 ]
 
-This reverts commit 850d9248d2eac662f869c766a598c877690c74e5.
-This reapplies commit 325eb217e41f ("bnxt_en: bring back rtnl_lock()
-in the bnxt_open() path").
+current_check_refer_path() reads old_dentry->d_parent without holding a
+reference nor a lock on it, and then dereferences it in
+collect_domain_accesses() and in the audit record.
 
-Breno reports a lockdep warning in bnxt. During FW reset the driver
-may end up calling netif_set_real_num_tx_queues() (if queue count
-changes), so calls to bnxt_open() still require rtnl_lock.
+A reference on a child does not pin its parent: __d_move() reassigns
+dentry->d_parent and drops the reference the child held on its former
+parent.  hook_path_rename() is not affected because the rename path
+calls lock_rename() before the hook, so the source cannot be reparented
+under it.  hook_path_link() has no such protection: filename_linkat()
+holds a reference on the source dentry but neither locks nor references
+its parent, so a concurrent rename(2) can reparent the source while
+security_path_link() runs, and the former parent can then be removed and
+freed while the hook walks it.
 
-  net/sched/sch_generic.c:1416 suspicious rcu_dereference_protected() usage!
+A process can trigger this after entering a Landlock domain that handles
+at least one filesystem access right.  The process can then race a
+linkat(2) loop against rename(2) and rmdir(2):
 
-   dev_qdisc_change_real_num_tx+0x54/0xe0
-   netif_set_real_num_tx_queues+0x4ed/0xa80
-   __bnxt_open_nic+0x9cb/0x3490
-   bnxt_open+0x1cb/0x370
-   bnxt_fw_reset_task+0x80d/0x1e80
-   process_scheduled_works+0x9c1/0x13b0
+  BUG: KASAN: slab-use-after-free in collect_domain_accesses+0x278/0x290
+  Read of size 4 at addr ffff888160bd53f4 by task llrepro2/549
+   collect_domain_accesses+0x278/0x290
+   current_check_refer_path+0x952/0x1120
+   security_path_link+0x1be/0x320
+   filename_linkat+0x342/0x6d0
+   __x64_sys_linkat+0xfa/0x150
+  Freed by task 562:
+   kmem_cache_free+0x139/0x4c0
+   i_callback+0x4b/0x80
+   rcu_core+0x7dc/0x10a0
 
-The reverted commit was just an optimization / experiment
-so let's go back to taking the lock.
+Take a reference on the dentry selected as the source parent, using
+dget() for the common-mount-root case and dget_parent() otherwise.
+Release it after the hierarchy walk and synchronous audit logging.
 
-Reported-by: Breno Leitao <leitao@debian.org>
-Link: https://lore.kernel.org/ah726OtFX-Qw3U-R@gmail.com
-Fixes: 850d9248d2ea ("Revert "bnxt_en: bring back rtnl_lock() in the bnxt_open() path"")
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Reviewed-by: Michael Chan <michael.chan@broadcom.com>
-Reviewed-by: Breno Leitao <leitao@debian.org>
-Link: https://patch.msgid.link/20260603195845.2574426-1-kuba@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-Stable adaptation for dependency of 961e2a17c5e3559b3f8654d2daabdd25a42e770a:
-Keep this branch's two-argument bnxt_ulp_start() calls, including error
-notifications, and release RTNL before invoking them.
-
-Reuse and rename the existing service-task lock/unlock helpers to add
-RTNL coverage without adding functions. Inline their original netdev-only
-operations in bnxt_fw_exception() and bnxt_fw_reset() so those paths keep
-their existing locking and BNXT_STATE_IN_SP_TASK ordering. The RX reset
-path then provides the bnxt_rtnl_unlock_sp() required by the target's
-buffer-allocation failure handling.
-
-Stable-dep-of: 961e2a17c5e3 ("bnxt_en: Handle buffer allocation failure in bnxt_rx_ring_reset()")
+Cc: stable@vger.kernel.org
+Fixes: b91c3e4ea756 ("landlock: Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER")
+Signed-off-by: Norbert Szetei <norbert@doyensec.com>
+Reviewed-by: Günther Noack <gnoack3000@gmail.com>
+Tested-by: Günther Noack <gnoack3000@gmail.com>
+Link: https://patch.msgid.link/E9CDD9E6-E960-4DE2-B1AC-5667D52ABB3E@doyensec.com
+[mic: Clarify the caller, reachability, and reference handling]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[ adjusted context for the older dom-based Landlock implementation without audit logging. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/broadcom/bnxt/bnxt.c | 44 ++++++++++++++---------
- 1 file changed, 28 insertions(+), 16 deletions(-)
+ security/landlock/fs.c | 19 +++++++++++++------
+ 1 file changed, 13 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-index 9176b90f571fe..1555f337e3021 100644
---- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-+++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
-@@ -14271,31 +14271,32 @@ static void bnxt_timer(struct timer_list *t)
- 	mod_timer(&bp->timer, jiffies + bp->current_interval);
- }
- 
--static void bnxt_lock_sp(struct bnxt *bp)
-+static void bnxt_rtnl_lock_sp(struct bnxt *bp)
- {
- 	/* We are called from bnxt_sp_task which has BNXT_STATE_IN_SP_TASK
- 	 * set.  If the device is being closed, bnxt_close() may be holding
--	 * netdev instance lock and waiting for BNXT_STATE_IN_SP_TASK to clear.
--	 * So we must clear BNXT_STATE_IN_SP_TASK before holding netdev
--	 * instance lock.
-+	 * RTNL and the netdev instance lock while waiting for
-+	 * BNXT_STATE_IN_SP_TASK to clear.  Clear it before taking either lock.
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index 9c1cee4c4c3cb..91773a7f27e79 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -908,11 +908,12 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+ 	/*
+ 	 * old_dentry may be the root of the common mount point and
+ 	 * !IS_ROOT(old_dentry) at the same time (e.g. with open_tree() and
+-	 * OPEN_TREE_CLONE).  We do not need to call dget(old_parent) because
+-	 * we keep a reference to old_dentry.
++	 * OPEN_TREE_CLONE).  Pin the dentry used as old_parent in either case.
++	 * Otherwise, dget_parent() safely fetches and pins the current parent
++	 * against a concurrent rename(2).
  	 */
- 	clear_bit(BNXT_STATE_IN_SP_TASK, &bp->state);
-+	rtnl_lock();
- 	netdev_lock(bp->dev);
- }
+-	old_parent = (old_dentry == mnt_dir.dentry) ? old_dentry :
+-						      old_dentry->d_parent;
++	old_parent = (old_dentry == mnt_dir.dentry) ? dget(old_dentry) :
++						      dget_parent(old_dentry);
  
--static void bnxt_unlock_sp(struct bnxt *bp)
-+static void bnxt_rtnl_unlock_sp(struct bnxt *bp)
- {
- 	set_bit(BNXT_STATE_IN_SP_TASK, &bp->state);
- 	netdev_unlock(bp->dev);
-+	rtnl_unlock();
- }
+ 	/* new_dir->dentry is equal to new_dentry->d_parent */
+ 	allow_parent1 = collect_domain_accesses(dom, mnt_dir.dentry, old_parent,
+@@ -920,8 +921,10 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+ 	allow_parent2 = collect_domain_accesses(
+ 		dom, mnt_dir.dentry, new_dir->dentry, &layer_masks_parent2);
  
- /* Only called from bnxt_sp_task() */
- static void bnxt_reset(struct bnxt *bp, bool silent)
- {
--	bnxt_lock_sp(bp);
-+	bnxt_rtnl_lock_sp(bp);
- 	if (test_bit(BNXT_STATE_OPEN, &bp->state))
- 		bnxt_reset_task(bp, silent);
--	bnxt_unlock_sp(bp);
-+	bnxt_rtnl_unlock_sp(bp);
- }
+-	if (allow_parent1 && allow_parent2)
++	if (allow_parent1 && allow_parent2) {
++		dput(old_parent);
+ 		return 0;
++	}
  
- /* Only called from bnxt_sp_task() */
-@@ -14303,9 +14304,9 @@ static void bnxt_rx_ring_reset(struct bnxt *bp)
- {
- 	int i;
+ 	/*
+ 	 * To be able to compare source and destination domain access rights,
+@@ -932,8 +935,12 @@ static int current_check_refer_path(struct dentry *const old_dentry,
+ 	if (is_access_to_paths_allowed(
+ 		    dom, &mnt_dir, access_request_parent1, &layer_masks_parent1,
+ 		    old_dentry, access_request_parent2, &layer_masks_parent2,
+-		    exchange ? new_dentry : NULL))
++		    exchange ? new_dentry : NULL)) {
++		dput(old_parent);
+ 		return 0;
++	}
++
++	dput(old_parent);
  
--	bnxt_lock_sp(bp);
-+	bnxt_rtnl_lock_sp(bp);
- 	if (!test_bit(BNXT_STATE_OPEN, &bp->state)) {
--		bnxt_unlock_sp(bp);
-+		bnxt_rtnl_unlock_sp(bp);
- 		return;
- 	}
- 	/* Disable and flush TPA before resetting the RX ring */
-@@ -14344,7 +14345,7 @@ static void bnxt_rx_ring_reset(struct bnxt *bp)
- 	}
- 	if (bp->flags & BNXT_FLAG_TPA)
- 		bnxt_set_tpa(bp, true);
--	bnxt_unlock_sp(bp);
-+	bnxt_rtnl_unlock_sp(bp);
- }
- 
- static void bnxt_fw_fatal_close(struct bnxt *bp)
-@@ -14443,9 +14444,11 @@ void bnxt_fw_exception(struct bnxt *bp)
- 	netdev_warn(bp->dev, "Detected firmware fatal condition, initiating reset\n");
- 	set_bit(BNXT_STATE_FW_FATAL_COND, &bp->state);
- 	bnxt_ulp_stop(bp);
--	bnxt_lock_sp(bp);
-+	clear_bit(BNXT_STATE_IN_SP_TASK, &bp->state);
-+	netdev_lock(bp->dev);
- 	bnxt_force_fw_reset(bp);
--	bnxt_unlock_sp(bp);
-+	set_bit(BNXT_STATE_IN_SP_TASK, &bp->state);
-+	netdev_unlock(bp->dev);
- }
- 
- /* Returns the number of registered VFs, or 1 if VF configuration is pending, or
-@@ -14475,7 +14478,8 @@ static int bnxt_get_registered_vfs(struct bnxt *bp)
- void bnxt_fw_reset(struct bnxt *bp)
- {
- 	bnxt_ulp_stop(bp);
--	bnxt_lock_sp(bp);
-+	clear_bit(BNXT_STATE_IN_SP_TASK, &bp->state);
-+	netdev_lock(bp->dev);
- 	if (test_bit(BNXT_STATE_OPEN, &bp->state) &&
- 	    !test_bit(BNXT_STATE_IN_FW_RESET, &bp->state)) {
- 		struct bnxt_ptp_cfg *ptp = bp->ptp_cfg;
-@@ -14521,7 +14525,8 @@ void bnxt_fw_reset(struct bnxt *bp)
- 		bnxt_queue_fw_reset_work(bp, tmo);
- 	}
- fw_reset_exit:
--	bnxt_unlock_sp(bp);
-+	set_bit(BNXT_STATE_IN_SP_TASK, &bp->state);
-+	netdev_unlock(bp->dev);
- }
- 
- static void bnxt_chk_missed_irq(struct bnxt *bp)
-@@ -15257,15 +15262,17 @@ static void bnxt_fw_reset_task(struct work_struct *work)
- 		bp->fw_reset_state = BNXT_FW_RESET_STATE_OPENING;
- 		fallthrough;
- 	case BNXT_FW_RESET_STATE_OPENING:
--		while (!netdev_trylock(bp->dev)) {
-+		while (!rtnl_trylock()) {
- 			bnxt_queue_fw_reset_work(bp, HZ / 10);
- 			return;
- 		}
-+		netdev_lock(bp->dev);
- 		rc = bnxt_open(bp->dev);
- 		if (rc) {
- 			netdev_err(bp->dev, "bnxt_open() failed during FW reset\n");
- 			bnxt_fw_reset_abort(bp, rc);
- 			netdev_unlock(bp->dev);
-+			rtnl_unlock();
- 			goto ulp_start;
- 		}
- 
-@@ -15285,6 +15292,7 @@ static void bnxt_fw_reset_task(struct work_struct *work)
- 			bnxt_dl_health_fw_status_update(bp, true);
- 		}
- 		netdev_unlock(bp->dev);
-+		rtnl_unlock();
- 		bnxt_ulp_start(bp, 0);
- 		bnxt_reenable_sriov(bp);
- 		netdev_lock(bp->dev);
-@@ -16273,7 +16281,7 @@ static int bnxt_queue_start(struct net_device *dev,
- 		   rc);
- 	napi_enable_locked(&bnapi->napi);
- 	bnxt_db_nq_arm(bp, &cpr->cp_db, cpr->cp_raw_cons);
--	bnxt_reset_task(bp, true);
-+	netif_close(dev);
- 	return rc;
- }
- 
-@@ -17101,6 +17109,7 @@ static int bnxt_resume(struct device *device)
- 	struct bnxt *bp = netdev_priv(dev);
- 	int rc = 0;
- 
-+	rtnl_lock();
- 	netdev_lock(dev);
- 	rc = pci_enable_device(bp->pdev);
- 	if (rc) {
-@@ -17145,6 +17154,7 @@ static int bnxt_resume(struct device *device)
- 
- resume_exit:
- 	netdev_unlock(bp->dev);
-+	rtnl_unlock();
- 	bnxt_ulp_start(bp, rc);
- 	if (!rc)
- 		bnxt_reenable_sriov(bp);
-@@ -17310,6 +17320,7 @@ static void bnxt_io_resume(struct pci_dev *pdev)
- 	int err;
- 
- 	netdev_info(bp->dev, "PCI Slot Resume\n");
-+	rtnl_lock();
- 	netdev_lock(netdev);
- 
- 	err = bnxt_hwrm_func_qcaps(bp);
-@@ -17327,6 +17338,7 @@ static void bnxt_io_resume(struct pci_dev *pdev)
- 		netif_device_attach(netdev);
- 
- 	netdev_unlock(netdev);
-+	rtnl_unlock();
- 	bnxt_ulp_start(bp, err);
- 	if (!err)
- 		bnxt_reenable_sriov(bp);
+ 	/*
+ 	 * This prioritizes EACCES over EXDEV for all actions, including
 -- 
 2.53.0
 
