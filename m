@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11584D489B;
-	Thu, 17 Sep 2026 15:37:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79CD44848B5;
+	Thu, 17 Sep 2026 15:38:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659486; cv=none; b=HObWGWjQ6lIkos3raNFXYyjFbX6LA8+DqoTZNzd+IFcO7ahey8YvCbqI15SVD2Zyz2OKR0DOSCXCYuICNmzWJfTn3SGoSjFtvKff3XGYHZMtfCpIXhlau16k/1LvvSxfwLHbgjGwAwX1PXtBGTDICcrc4Jk6/tUX2BJ0sSJv4wE=
+	t=1789659493; cv=none; b=KeJxE5f8UgoeYP70Thr0FTU7bFKyR8x5nz2RCFSoZMDEgAy7tJwErX6RWbvCwabAYTq+Yy7KYH1Cbc7aOT/Y753aoiI528pmlcvC8TRkYYzxfCj6MNo4wk87tzuHvNqa+sNeTr4j5Pjkx5DdPmmevwDwyrnQIRfJrdaNUCoqJnc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659486; c=relaxed/simple;
-	bh=h0Q9d9ZzdxjPHpaPcsjz7yAA0iv09OMcM/zC3WOkyXE=;
+	s=arc-20240116; t=1789659493; c=relaxed/simple;
+	bh=HLiCHF/Z3ttqCKvPMM4YrFBNT27ZNh3e2323TfKGfFU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RD2s1SNSZdDkz90QLHKeJpyFqRWXn1yCI5IudiMJs2+0SasbQMszc0fO6Wb53rZ2yFj62GI/lsnU7YMtNe3VuXANyKstm4xhod/68dLkgFDuVzg56AQogOo6NPn8jsboMG8H0bzSq4L8u5O0DFtCL2bx1ucCpxBldrq1vaME4Mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hX5T+cSN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Vv7XB83CJx3PKfJaUwWGaoUyipBliFjTZMSbnUOyq8jYBl8xETN1BH0HOMm1XeZElnTBREW7f+GxR7HjEJcNrBjLDEmd8Qb2B0v7HMhgMA26S0he53vJp5+EaC5aZDufD1bSI+6E/dEnGSNP2LE8qcqsk44kI6Cj/AQP7uaSV8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ce2hPiEe; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hX5T+cSN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2981F0089A;
-	Thu, 17 Sep 2026 15:37:57 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ce2hPiEe"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE2EB1F000FF;
+	Thu, 17 Sep 2026 15:38:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659478;
-	bh=xPXB2W4/2/+0xT8hyXOjoboynBSB8xZnwgF+eXptiYI=;
+	s=korg; t=1789659481;
+	bh=Bf4BzwWjo6ocgBulkWDMkLs6z8uI/FevXDds+v6HnxA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hX5T+cSNnJiAHMLVO3qVobX22/PN8EgpVUfeQo5tFkpvYZgmRz0JpcYB8Oeg4/Nfu
-	 H1p/jDZcuJAKX1qRfo0JUpZJrUT8akKUrnauk/gwNXhQWj77jDZNfnL1eQYg+GaOj5
-	 Z5bsUEqpkA3FNdheuHyBFqnqnDl4E5+5jcQ4zQ7s=
+	b=Ce2hPiEe6xpve/U5Cha9zxezQWLJzCkyOjotFYYwEawTsjQh76pVT82KTSqv5ucc9
+	 BK52srZwcozoF9LjJXIu9YK/wOZlg8tgEuSTLNS3fwgFL/wgi/QsQFDyvEjBPksmBK
+	 4yT/KZarUCehpuA45tIUN83py+b/duBZ2ae5sRS0=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Vincent Donnefort <vdonnefort@google.com>,
 	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 270/733] ring-buffer: Cap static ring buffer nr_pages
-Date: Thu, 17 Sep 2026 16:09:38 +0100
-Message-ID: <20260917151358.072561630@linuxfoundation.org>
+Subject: [PATCH 7.2 271/733] tracing: Fix comment in tracing_buffers_splice_read()
+Date: Thu, 17 Sep 2026 16:09:39 +0100
+Message-ID: <20260917151358.098570665@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,88 +50,48 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Vincent Donnefort <vdonnefort@google.com>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit f2b2b645595c82b4e824880f6cb987e077a8da19 ]
+[ Upstream commit 5cbea500775dd1944995f23320af030b9b24b24b ]
 
-Static ring buffers (i.e. persistent, user-mapped and remote) rely on
-the bpage::id field. The number of pages for those ring buffers must fit
-into that variable. Enforce this limit on ring buffer creation or
-user-mapping.
+The comment about returning an error if the read fails on the first
+iteration is slightly incorrect. It makes it sound like the only reason it
+could fail on a later iteration is if the subbuf order changed. That is
+incorrect, it could also fail if the length passed in was not a multiple
+of the subbuf size. Fix the comment.
 
-While at it, prevent nr_pages underflow when allocating a persistent
-buffer.
-
-Link: https://patch.msgid.link/20260904164450.1345852-4-vdonnefort@google.com
-Fixes: be68d63a139b ("ring-buffer: Add ring_buffer_alloc_range()")
-Signed-off-by: Vincent Donnefort <vdonnefort@google.com>
+Link: https://lore.kernel.org/all/20260904143527.40e73d36@gandalf.local.home/
+Link: https://patch.msgid.link/20260904144902.506862a1@gandalf.local.home
+Fixes: dae8dda341d2 ("tracing: Fix subbuf resize races with trace_pipe_raw readers")
 Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/trace/ring_buffer.c | 22 ++++++++++++++++++++++
- 1 file changed, 22 insertions(+)
+ kernel/trace/trace.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-index 8e4fb3bf309c6..66760542fce10 100644
---- a/kernel/trace/ring_buffer.c
-+++ b/kernel/trace/ring_buffer.c
-@@ -641,6 +641,15 @@ static bool rb_is_static(struct ring_buffer_per_cpu *cpu_buffer)
- 	return cpu_buffer->user_mapped || cpu_buffer->remote || cpu_buffer->ring_meta;
- }
- 
-+static unsigned long rb_static_max_pages(void)
-+{
-+	/*
-+	 * Static ring buffers are using bpage::id and must account for the
-+	 * reader page.
-+	 */
-+	return (1UL << 30) - 1;
-+}
-+
- struct ring_buffer_iter {
- 	struct ring_buffer_per_cpu	*cpu_buffer;
- 	unsigned long			head;
-@@ -2825,6 +2834,8 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 		size = end - buffers_start;
- 		size = size / nr_cpu_ids;
- 
-+		if (size < sizeof(struct ring_buffer_cpu_meta))
-+			goto fail_free_buffers;
- 		/*
- 		 * The number of sub-buffers (nr_pages) is determined by the
- 		 * total size allocated minus the meta data size.
-@@ -2834,6 +2845,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 		 */
- 		nr_pages = (size - sizeof(struct ring_buffer_cpu_meta)) /
- 			(subbuf_size + sizeof(int));
-+
-+		if (nr_pages > rb_static_max_pages())
-+			goto fail_free_buffers;
-+
- 		/* Need at least two pages plus the reader page */
- 		if (nr_pages < 3)
- 			goto fail_free_buffers;
-@@ -2866,6 +2881,10 @@ static struct trace_buffer *alloc_buffer(unsigned long size, unsigned flags,
- 		/* The writer is remote. This ring-buffer is read-only */
- 		atomic_inc(&buffer->record_disabled);
- 		nr_pages = desc->nr_page_va - 1;
-+
-+		if (nr_pages > rb_static_max_pages())
-+			goto fail_free_buffers;
-+
- 		if (nr_pages < 2)
- 			goto fail_free_buffers;
- 	} else {
-@@ -7826,6 +7845,9 @@ int ring_buffer_map(struct trace_buffer *buffer, int cpu,
- 	/* prevent another thread from changing buffer/sub-buffer sizes */
- 	guard(mutex)(&buffer->mutex);
- 
-+	if (cpu_buffer->nr_pages > rb_static_max_pages())
-+		return -E2BIG;
-+
- 	err = rb_alloc_meta_page(cpu_buffer);
- 	if (err)
- 		return err;
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index fef4a7403f3e5..beb4c35519d3b 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7294,11 +7294,13 @@ ssize_t tracing_buffers_splice_read(struct file *file, loff_t *ppos,
+ 			r = ring_buffer_read_page(ref->buffer, ref->rpage, len, iter->cpu_file, 1);
+ 		} else if (!i) {
+ 			/*
+-			 * We failed to read because the length is too small
+-			 * or unaligned. If this is the first iteration, it's
+-			 * an invalid userspace input. Otherwise, this is due
+-			 * to a subbuf order change. Do not report an error
+-			 * and just finish the read.
++			 * If this fails to read on the first iteration, it
++			 * means the length was too small and an error should
++			 * be returned to user space. Otherwise, at least
++			 * one sub-buffer was successfully read but this failed
++			 * due to either the length was unaligned or the
++			 * subbuf order changed. Either case, do not report
++			 * an error.
+ 			 */
+ 			ret = -EINVAL;
+ 		}
 -- 
 2.53.0
 
