@@ -1,38 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D346C49738C;
-	Thu, 17 Sep 2026 15:08:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FBC4973A6;
+	Thu, 17 Sep 2026 15:08:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657729; cv=none; b=iQYFMpGVsI7oaDc88w6NvMvZbwbRT4NtbQx+nMfz0O1p1N2YIevr2RtJFZCAKeLPJicwfK+ovnPrui1pFl+oJRHq/hyFLF33ByQwpnU/ZdwRLxAQEu5ipvexO1a3imx2NTMaUm69xOdBME6asvNtfZof9tuFmatycixSX69kkBU=
+	t=1789657747; cv=none; b=NYCmlrPJBb+C0FTxgKk9s58xhW3Rc+q1jZsLTMbSnwOvYdKT50ZXhb/0tVaW1+H3b2In5DKd67zpxBECj62fX/2i8TFrNnWGPVmi9pdyBL9FY6v1e3BDZi9rpyCHHe3EU1ngv34VOf6Hddm9M0QLrq5CIScdb6YpXrxUcIfgYD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657729; c=relaxed/simple;
-	bh=HL6Zyrvk/Y/WyDqiJ48ToVnwB/+jTB5/lG8lYnw0P+0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=h+Rf+XojE8NUc1feIvA4ak+zx8d8+gFTUJUVVprMlGmGeCPiL3LMdcC7QYPB5s6UBu2PsEiK5R2pQHotBVsrcy3Dpt91xu62o6TDja3rFqfXEK2xCfcOcIQTCKZ82l2cHnkCEq+/xqdRynPHc1bSOleufyjGAdKtKZqrsm8c1YY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHtD5zAqxqHDWDCA--.5410S2;
-	Thu, 17 Sep 2026 23:08:36 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: kashyap.desai@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	mpi3mr-linuxdrv.pdl@broadcom.com,
-	ranjan.kumar@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	sumit.saxena@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpi3mr: Fix tgtdev reference leak in mpi3mr_get_port_id_by_rphy()
-Date: Thu, 17 Sep 2026 15:08:35 +0000
-Message-Id: <20260917150835.2158315-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789657747; c=relaxed/simple;
+	bh=POZfGxHxqMD31Uu7PEhyquvV0QVM4g6o2WrHxTN1S6o=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=bK3jbgLI4pUg4DuK9YU6gp7nUJUqeS6wX9PPfSj6o7+plH0/dYY2kNS1Iy2qBxXWSzWgirzNC1yHTRQpBlh1usDYtDiTp0hOFOgVRsSnh7G79re3RrHX0663oqGRVbfrHUce7/HE7HIRCG2A45bF4S+myNi5AsOXk5InhL8KW4k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5mNaJtG; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5mNaJtG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222881F000FF;
+	Thu, 17 Sep 2026 15:08:55 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789657735;
+	bh=Z71r35Rnb5K9+kgQDzyYitu4GGEqGYAIc6QFqNtBNnw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L5mNaJtG+u4pMB1FJiI7FLiPw8s+RgAMbsP/X6K7eESJ3kbfqYE/Z00cK61ew8e+f
+	 MPzHxDFKT9VUhLzR7OzLbGRaw3+s0JQSALhtatmXMb0IsOGhUQ+NUM14VIaI1ESrD9
+	 pC1hyGD9mBNEXp8lZr6sKSJBOINgtmfjqczMfg0gefXBQnB6Lx9AtheeoqV3POgzG3
+	 KMManK96UJTQFQCJsSNpAbvOjCCcWDRgbLhdL6zgTJqtHP/bJsN/pFqmoqLnPDsM+T
+	 FCpAs4Eo367vmbPRJG5svJIZaClVGj0GGj8n4tPYpiqIO5tziPcXq1nJ+beEvJcTXa
+	 Tuawxu0fDUBKg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>,
+	linux-cifs@vger.kernel.org,
+	Steve French <stfrench@microsoft.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/2] smb: client: use atomic_t for mnt_cifs_flags
+Date: Thu, 17 Sep 2026 11:08:52 -0400
+Message-ID: <20260917150853.681793-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091629-most-slimness-8500@gregkh>
+References: <2026091629-most-slimness-8500@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,59 +46,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHtD5zAqxqHDWDCA--.5410S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF1DKrWxurW5tryDJr4kXrb_yoW8Gw1rpF
-	s7Wa45ArZ8WFWxAr4kGF45XFWa9a4xJ3y3Gay0kwnY9a1FkFW3AryYgryqvF10yFZ7XFy8
-	Zr47XF9rZw4Ut3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xF
-	xVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
-	C2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_
-	Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0D
-	YxBIdaVFxhVjvjDU0xZFpf9x07bbXocUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nAdrwAAs2
 
-__mpi3mr_get_tgtdev_by_addr_and_rphy() takes a reference on the target
-device, but it is only dropped when the device has a valid hba_port.
-When the hba_port has already been cleared because the device is gone,
-the function returns without releasing the reference and the target
-device is leaked.
+From: Paulo Alcantara <pc@manguebit.org>
 
-Release the reference whenever the lookup succeeds.
+[ Upstream commit 4fc3a433c13944ee5766ec5b9bf6f1eb4d29b880 ]
 
-Fixes: 8e45183978d6 ("scsi: mpi3mr: Bad drive in topology results kernel crash")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Use atomic_t for cifs_sb_info::mnt_cifs_flags as it's currently
+accessed locklessly and may be changed concurrently in mount/remount
+and reconnect paths.
+
+Signed-off-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Cc: linux-cifs@vger.kernel.org
+Signed-off-by: Steve French <stfrench@microsoft.com>
+
+Backport notes for the dependency of da6e258424319:
+
+Limit this stable backport to the mount-flag accessor needed by the
+subsequent readdir fix. Keep mnt_cifs_flags as unsigned int and implement
+cifs_sb_flags() as a READ_ONCE macro, adding no functions. The full atomic_t
+conversion, generic CIFS_SB helpers, and unrelated call-site changes are
+not needed for the target and depend on newer CIFS refactoring.
+
+Include the cifs_posix_to_fattr() portion of 18a72975e9f35 ("smb: client:
+honor forceuid/forcegid when mapping SIDs to uid/gid"): snapshot the flags,
+initialize cf_uid/cf_gid from the mount context, and respect the override
+bits before mapping SIDs. This supplies the target's exact patch context
+and the fallback ownership values it needs when SID parsing fails.
+
+The SID parse-error check itself remains in da6e258424319; this dependency
+does not apply that target fix.
+
+[ sashal: Reduced backport -- upstream 4fc3a433c1394 touches 27 file(s), this
+  backport carries 2. Not backported here:
+  fs/smb/client/cached_dir.c
+  fs/smb/client/cifsacl.c
+  fs/smb/client/cifsfs.c
+  fs/smb/client/cifs_fs_sb.h
+  fs/smb/client/cifs_ioctl.h
+  fs/smb/client/cifs_unicode.c
+  fs/smb/client/cifs_unicode.h
+  fs/smb/client/connect.c
+  ... and 17 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: da6e25842431 ("smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/mpi3mr/mpi3mr_transport.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/smb/client/cifsglob.h | 2 ++
+ fs/smb/client/readdir.c  | 9 +++++++--
+ 2 files changed, 9 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_transport.c b/drivers/scsi/mpi3mr/mpi3mr_transport.c
-index 240f67a8e2e3..a95c9352e859 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_transport.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_transport.c
-@@ -2499,11 +2499,11 @@ static u8 mpi3mr_get_port_id_by_rphy(struct mpi3mr_ioc *mrioc, struct sas_rphy *
+diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
+index a4e0618c58efc..a784a81e2e58c 100644
+--- a/fs/smb/client/cifsglob.h
++++ b/fs/smb/client/cifsglob.h
+@@ -1603,6 +1603,8 @@ CIFS_FILE_SB(struct file *file)
+ 	return CIFS_SB(file_inode(file)->i_sb);
+ }
  
- 		tgtdev = __mpi3mr_get_tgtdev_by_addr_and_rphy(mrioc,
- 			    rphy->identify.sas_address, rphy);
--		if (tgtdev && tgtdev->dev_spec.sas_sata_inf.hba_port) {
-+		if (tgtdev && tgtdev->dev_spec.sas_sata_inf.hba_port)
- 			port_id =
- 				tgtdev->dev_spec.sas_sata_inf.hba_port->port_id;
-+		if (tgtdev)
- 			mpi3mr_tgtdev_put(tgtdev);
--		}
- 		spin_unlock_irqrestore(&mrioc->tgtdev_lock, flags);
- 	}
- 	return port_id;
++#define cifs_sb_flags(cifs_sb) READ_ONCE((cifs_sb)->mnt_cifs_flags)
++
+ static inline char CIFS_DIR_SEP(const struct cifs_sb_info *cifs_sb)
+ {
+ 	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_POSIX_PATHS)
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 5febf8afaab04..8ccfdc6a10cfb 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -241,6 +241,7 @@ static void
+ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		    struct cifs_sb_info *cifs_sb)
+ {
++	unsigned int sbflags = cifs_sb_flags(cifs_sb);
+ 	struct smb2_posix_info_parsed parsed;
+ 
+ 	posix_info_parse(info, NULL, &parsed);
+@@ -280,8 +281,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		 le32_to_cpu(info->ReparseTag),
+ 		 le32_to_cpu(info->Mode));
+ 
+-	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
+ }
+ 
+ static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
 -- 
-2.34.1
+2.53.0
 
