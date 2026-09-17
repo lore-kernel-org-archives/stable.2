@@ -1,36 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AC4C74ABBB5;
-	Thu, 17 Sep 2026 15:58:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA4D04E73D5;
+	Thu, 17 Sep 2026 15:58:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660723; cv=none; b=JJm8P1fRmKi29HhQaPSXCODsRSsJ8U1EmgdumzeM6+u2vKspj4+/9i9MAsD2nV1gK4Pp9N1wLYgybYIbbRNsgDgWCIJBGvBrjCBfbrv+X1HyKU/WKzzpbQex6CBPUre5p+mEeMNTj8XBfOkKQ/ZRyO8mzkO7wVAuNN89nCf9Awo=
+	t=1789660726; cv=none; b=mUB68HojwR7g4bujBeWGPEK1IQmXjHtoFZqKnVZZP6Qog0rgq1Eplf0dlHfbKGSG3zUz8E4WimjQHXWNoN+5XMXTcFE2YvdPo0GIhT4U0tkrDufu/zY8ZwUMeUuvHZrk+IQkm44Q66n4Sjv/NQ15CT7P1aLAUlIjmldLlpgk4Sc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660723; c=relaxed/simple;
-	bh=UE2kPnpE/KSANVtCidWZOTtgalw6v//bv3XK12VvzaU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Aglo5Kldb0/D70Hn/6YTxAcLM4NrNR3NFgowk+wy6iML058zWwGo0PO7NeDGKnbr6LfoUCXgspeKVDBJQBcCwxy8Qki7VKK9A+wIb2HL5BDGSraHIG785KKELaq6nYUXdN/XQ3foDIcztusopPyT3IYxbvFgrVuwHThALlnNk1w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnF0IqDqxqnAKECA--.6268S2;
-	Thu, 17 Sep 2026 23:58:34 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alchark@gmail.com
-Cc: gregkh@linuxfoundation.org,
-	jirislaby@kernel.org,
-	krzk@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	linux@prisktech.co.nz,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: vt8500: Fix clock reference leak in vt8500_serial_probe()
-Date: Thu, 17 Sep 2026 15:58:34 +0000
-Message-Id: <20260917155834.2161361-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789660726; c=relaxed/simple;
+	bh=UxuB6Axo7WYJMUsK0qHZpZRlgLoVzRLzJgNyrPdA8C4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=rnLnqIglAqQpWvnrqsx3m859/8ytLrTuawhYzgHAtJlWwO2FFT16XhwGYvURu+oHAkPCfn6/s+Begf8MnTWa/NzuneR1mgeF59+xyHPaG0lPJO2kmnofo1BzP3XpS3t6RclqTfWBhO9oImAKEhzJ2nQ6F9XLXbkvYYkPFIcwA8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=MGVyoCBX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="MGVyoCBX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E68B81F000FF;
+	Thu, 17 Sep 2026 15:58:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789660724;
+	bh=mc3FpkHT//HjumOIF51u/6giytIwcQAZnCwNq6l4eWo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MGVyoCBXoYhU3j92QBo+PFGPATMMfyqv+bnzFlk2bAFeDqVacpaIDekLIbkBF8Ksq
+	 4/SfPBGrYxqe8Uu5S68NglIYfYCRCI8brBFZLjK8t+W1vZUaz4LUmTtDkd/M5ep7qz
+	 nbiwi642fIQR4ZorfKtKol8bt0XZ1DHORSwa1Zx4=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>
+Subject: [PATCH 7.2 687/733] xfs: actually recover intended file sizes in xfs_xmi_item_recover_intent
+Date: Thu, 17 Sep 2026 16:16:35 +0100
+Message-ID: <20260917151409.916218222@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,51 +46,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnF0IqDqxqnAKECA--.6268S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7GFW8Cw18Kw1fAF1rKFy5twb_yoWDGrbEk3
-	WkC397Ar18uF4DKwn3JrZxAr9xKFWDZFy8Xa4Iv39xJF9rJFs5XFW2qrs3CanrZw409r13
-	tr17Ca17Gr13XjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbg8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lFIxG
-	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42
-	xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
-	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
-	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
-	U1ID73UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qr9LY71AAAs+
 
-of_clk_get() returns a clock with a reference that has to be released
-with clk_put(). If clk_prepare_enable() fails the function returns
-without doing so, leaking the reference.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Add the missing clk_put() on that error path.
+------------------
 
-Fixes: 12faa35ae5cb ("serial: vt8500: UART uses gated clock rather than 24Mhz reference")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Darrick J. Wong <djwong@kernel.org>
+
+commit b71ae66863e4320a3b7313b53bb4d65f1718d58b upstream.
+
+LOLLM points out that xfs_xmi_item_recover_intent doesn't actually
+restore the isize1 and isize2 fields that were recovered from an
+unfinished exchmaps log intent item.  Instead, xfs_exchmaps_init_intent
+sets the wrong isize values from the recovered inodes, with the result
+that the file sizes are not set correctly when item recovery finishes.
+Fix this by restoring isize[12] from the log item.
+
+Cc: stable@vger.kernel.org # v6.10
+Fixes: 966ceafc7a4371 ("xfs: create deferred log items for file mapping exchanges")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/vt8500_serial.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/xfs/xfs_exchmaps_item.c |   19 ++++++++++++++++++-
+ 1 file changed, 18 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/tty/serial/vt8500_serial.c b/drivers/tty/serial/vt8500_serial.c
-index 78a1c1eea11b..fc6fdc751b16 100644
---- a/drivers/tty/serial/vt8500_serial.c
-+++ b/drivers/tty/serial/vt8500_serial.c
-@@ -656,6 +656,7 @@ static int vt8500_serial_probe(struct platform_device *pdev)
- 	ret = clk_prepare_enable(vt8500_port->clk);
- 	if (ret) {
- 		dev_err(&pdev->dev, "failed to enable clock\n");
-+		clk_put(vt8500_port->clk);
- 		return ret;
- 	}
+--- a/fs/xfs/xfs_exchmaps_item.c
++++ b/fs/xfs/xfs_exchmaps_item.c
+@@ -344,7 +344,17 @@ xfs_xmi_validate(
+ 	if (!xfs_verify_fileext(mp, xlf->xmi_startoff1, xlf->xmi_blockcount))
+ 		return false;
  
--- 
-2.34.1
+-	return xfs_verify_fileext(mp, xlf->xmi_startoff2, xlf->xmi_blockcount);
++	if (!xfs_verify_fileext(mp, xlf->xmi_startoff2, xlf->xmi_blockcount))
++		return false;
++
++	if (xlf->xmi_flags & XFS_EXCHMAPS_SET_SIZES) {
++		if ((int64_t)xlf->xmi_isize1 < 0)
++			return false;
++		if ((int64_t)xlf->xmi_isize2 < 0)
++			return false;
++	}
++
++	return true;
+ }
+ 
+ /*
+@@ -403,6 +413,13 @@ xfs_xmi_item_recover_intent(
+ 	*ipp1 = ip1;
+ 	*ipp2 = ip2;
+ 	xmi = xfs_exchmaps_init_intent(req);
++
++	/* Restore intended file sizes from recovered logged item */
++	if (req->flags & XFS_EXCHMAPS_SET_SIZES) {
++		xmi->xmi_isize1 = xlf->xmi_isize1;
++		xmi->xmi_isize2 = xlf->xmi_isize2;
++	}
++
+ 	xfs_defer_add_item(dfp, &xmi->xmi_list);
+ 	return xmi;
+ 
+
 
