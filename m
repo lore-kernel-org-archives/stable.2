@@ -1,72 +1,72 @@
 Received: from fhigh-b4-smtp.messagingengine.com (fhigh-b4-smtp.messagingengine.com [202.12.124.155])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F30C04C33E1
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:16:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD39A19D8AC
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:16:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.155
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640180; cv=none; b=G+HM4IEnO1RE+TCyzABvFfxHIEFBdRPMDmX4xmOKtHXjW7bX1PUd4jH5Yy9r3eXX04hiYb0/CQB7+Gy0FP9H5akFOYsn7Eaca23UpTN7CSFshxeaOe1vgE+E6w5athavhljJQTcCHYo+1o40M3Xk4g8Qap1aNt8wlZTDTazyeYo=
+	t=1789640184; cv=none; b=aewY9qjSa+NhYrhxpSCHgt++IbdZLiUY8I6BB0xrjUoEVzUO8D5MRkVESTTirzyhHTUU8mmeCfC+vdNsMWaeQDBiGk7uv2N/OLWWHW2zT7pgV2V80QWZLRQDl/3sRaCc4aew8bHhob/FexbzDRrWQefiMrq2OSpIL5j2RIMs0KM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640180; c=relaxed/simple;
-	bh=A9ROpBunIUOhbSKum5EYPENnQT7FDeEMN4tTV7qBAKo=;
+	s=arc-20240116; t=1789640184; c=relaxed/simple;
+	bh=31gmwchEMMHb3+zxeX/OhZx9GShbrwHmAbikjh6enGQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nwtRwUeGXzvp0gKOjACg+fIQSJsWT2hgivFJ+n9qWIOPtFBr/1I9HAe1WqDFFde0ZGsXbz+0uFi7g601NYu9ZflwKXfuw+Uq5IZQ7e2XIEfldjsw9QQvgzMJg0lY1lSpEv2a79rIkdm0qGBMkXyAIZk8JFJj3OyyPEdiG8jmBWs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=lIPTQecs; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UjUrbguB; arc=none smtp.client-ip=202.12.124.155
+	 Content-Type:Content-Disposition:In-Reply-To; b=HLwOC0eBneVFRd56hy69OLgNw1tZobTFnnDi3sdKx1MacgpYDgdcC1ZyngTLezMIJ73SvkIBfiEqqkIRzmM7OivoP37h/+NcPF6aowhmWyAPTXRjHtQYnvZpvASpTKr7exN1ycsPvfwGpeVS0nrWn5jvvNyV7x6zX8CWkk5Izyw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=WAKe/QPZ; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ifXntS19; arc=none smtp.client-ip=202.12.124.155
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="lIPTQecs";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UjUrbguB"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id 59E947A0149;
-	Thu, 17 Sep 2026 06:16:07 -0400 (EDT)
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="WAKe/QPZ";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ifXntS19"
+Received: from phl-compute-08.internal (phl-compute-08.internal [10.202.2.48])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 4C5537A013B;
+	Thu, 17 Sep 2026 06:16:14 -0400 (EDT)
 Received: from phl-frontend-03 ([10.202.2.162])
-  by phl-compute-06.internal (MEProxy); Thu, 17 Sep 2026 06:16:07 -0400
+  by phl-compute-08.internal (MEProxy); Thu, 17 Sep 2026 06:16:14 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
 	:cc:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1789640167; x=1789726567; bh=OsxLN3VZCz
-	Jt9kvW9KBuhWCO5jdp8jRYq95otzOrb7E=; b=lIPTQecsU/T81ZIpDr7ck0UJ74
-	I62u+sQefSOrMXNXOUiSI9Aba8woPMjTdAb+8r0TkUQ1ARdTD6ygt3sRHmkArmJh
-	KPTWKMViAYbc7LlDaCgssF0/Y3mabxDH/9c+83itfxclwuZSo18OOZwzbbk96+uX
-	Ue9bxsGa7fk+zba6DEk+QpmHLGH0nne7cy13UO7DolJCNAOX1CZMOleye8H4zJz+
-	vIO0Fzz6a3RffkAXpgBhIYd8QLgzocPfmd0C8ti2qzGKYBfKV3pfigLqXrR1w0jV
-	FVTIUAnbxxNTlgxWuM6q8yzv5IoTXJ/9EQ82oH0HGiQsf5gJlneSOwL4ZutQ==
+	:subject:to:to; s=fm1; t=1789640174; x=1789726574; bh=HlzOyZnaQa
+	75Fnv7REz7lUuobetqUe6Lm6PYJEa4800=; b=WAKe/QPZDM0M9TGzJ9fhsYKA7R
+	ZKCKuGs4ce0v1IHVmuD20LiwHG41ExAlp7V2CFy3vPfLtlkrMoBDjLPnBONcBKlp
+	ulx0NWvgFh+RhImarkLmP4TAVb1ZzYmZbzJapau+2TtOtACXVncAAglzZzJKmQXJ
+	ooYDvCgDFr39dcX7tTqAOI46YTlOlVwQwuua6CTs4LyQD0CN8VAEJ6VVsxj7Kt05
+	dx7GrFOMAKO6CxiTWuBgFHWtPLdY2YTcv/+7bA3pvDcHxnPJXDUaONP3uqI4S2+K
+	Sb1rkTbCbdpOwqyb3uhIJ5vL88+tj5Wk8VAMUpRYzEwyCLb0LyPy5MoCcheA==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789640167; x=1789726567; bh=OsxLN3VZCzJt9kvW9KBuhWCO5jdp8jRYq95
-	otzOrb7E=; b=UjUrbguBvriRChXd5hpBN3eVldEAe0Dr+CmKQHsKxbwl3VK7D1u
-	x7R/6RaAnJuORkPmxDh07mA4ziebscPlnFDCOosMQ8sfdGnk1hlaTY5Th45s3Kjs
-	VIOrQTGMwJEHDHZ51vV2p+UqJ6BPv6Lf9uRRITjlJIwJ5nJTDZ798x+dJfB9jc6+
-	MBqYSB0Epyr/JhH6gBmvHvP77JX0pp1pDukrnVBEVIQa2ApJW24crK7zVzBQXLUW
-	oTtDo2mRiHYNonGUoRdgb2lfAfimu0D13sbmOA3sl2buL9MoMwRNdYLJvXYmcPWy
-	sqMSuRI7g7qtFBKTcppMf6VRDrrqJ0Nfl5g==
-X-ME-Sender: <xms:5r2rahj9IX07lbovPhL-2ZAkpUu9XUb2QU0MPPidDq-Wx9m0kZq65A>
-    <xme:5r2rat5dpw39ubrfo99NJiUkWE8XoikXi50mJBcq-7s34ou8QlZhXxGKcp6PUtk4k
-    82UVer1TXHSTl5uWcuti8Shd_bk3gXfjUMEFtMmq8UbIXCcaw>
-X-ME-Received: <xmr:5r2ragfL8-6NyHg7R67OM_7puwW1-53JUR86QZPVqr61Wq0702xWIsBaCWuZ>
+	1789640174; x=1789726574; bh=HlzOyZnaQa75Fnv7REz7lUuobetqUe6Lm6P
+	YJEa4800=; b=ifXntS19YtF0LqRjAb8XCpddbl1H6UK7LfbvlDyamtRvvfjf/Sy
+	3RiVqv4jqIOaubZuB7CeOCPcRPiZrUVy1UgD/pXQrnZ16NJMJQOKKLSq2YahYi4e
+	a4FRECzXoD4cztTK8AYIWN0nscBctb73YsnMt5Qjg7hZWVYtcAazTizPZ8SLkQHA
+	UTFCmxeOntE2xy6QgHA7H/f6AxvuRPm8NnKqntHfLpaf9i9FLXYtu5WFFPuSd5na
+	sGJjRT/ELQG5VzrSNcVY2gircvJLQFqDg0O9iUS8x+6wPoslTJ+9+ElxQd+p0fLS
+	HT3A7/m7DdNVooQZplzDxJ3XM2JP2w90HQw==
+X-ME-Sender: <xms:7r2raonWom3HlPb6QJmRRA-sRIViQb6zwW8-Pc1SSTJqOTdOp5nbeg>
+    <xme:7r2ravY98uU7N1x0AOWk-wv3jYNSRaLfKdKpetxztKtw99Hfh8Kx6A-3EpPPRk8aH
+    UreErZbhhPbyW1sJiplb07P06x-zJ7u9wxKStlB_5g9fQgQBybJ>
+X-ME-Received: <xmr:7r2ramRwQhnGmun4ILWPc9Q50E7Sus3l1bpYtu6ZPW5o0ovde3jgNi-M79oW>
 X-ME-Proxy-Cause: dmFkZTElf4d9n0/4S/7erGlusUKPYD2kcVG5VSpPnMvugy8VHPs94woHQ2rDfdtc1W9CwX
     86FQo3pMi+DM8URjsuP5zWzCro9JAStCkPeHMDE/0XdgZ93n4F1PyGbe3Ys/dT0yEiBfCI
     qCs2lW49Cm1MknQpsQrE1PDxUQFN7l4czIBZxB6hBWvSvFiUYYW2AdogLgRr+YIjbRBrbX
     ohX6aNml5uv0pjkLMgUL8xQurH6dnBRo6PJ1EkQ0wfcO5khEsZab6TRwXeYrBbT1O8nwLH
-    9mGenjPgbYeFzd7aetRINFN0x0a282VDN4Hz5MJ/jdU86bzOLv4GWRMesmPHThnd+OfHk1
-    CQ4D5xtJwjOGLqERDUdbBVUFkOBoudTQBzZZDYdg9HGgKEgmIC2XCTEnR1M32Xjkv7QRdE
-    vQGT2q19PH9NSUNRnOIxyAwmrIoZF3kRaKGZcwHqW0zQjIOXxufVou3c3EXfwXVaX0p381
-    /RLD7vnbhtJ+7T8L/amAH14uZdZEDme/8lAS1QWp7UrHkOwYANFwRLPEKne25Fv9FuCZh0
-    I3BcqokUG41SMKEd6DGMspCMgnfI8K1CvXhLVuwbPbUzjJoUwFk2EA5VdjivN0xzcx5eSU
-    BUEmkKhu2wMQD4u4OgpTR1vG/uwQ53i13H/2u+OBMtvuEKq+KaipGqi8/YoA
-X-ME-Proxy: <xmx:5r2rauBD-xYS0Cm8oBMc8MQOY7MmEbQsdfcM8T8i7bSE0_rei0tAEg>
-    <xmx:5r2ranBk_TnsUy51hVA1_f1-ynHJr3RqidhDv0pzVTZN1JpgGqQ7sA>
-    <xmx:5r2raoZ_XIab4sASeyRKkh4v3g4oljwzjQ6hVyRMc58C9C4prd8vHg>
-    <xmx:5r2rasz74uQamAnVkDUYU8o7_IWwiNCs0uvSk1Ow1Q80w5SReeWIdQ>
-    <xmx:572rasEkbzNWQY6TfWX7r3UWd9bQ0MR3d4HoH1kNE6AoCNI5StNsDBms>
+    9mGenjPgbYeFzd7aetRINFN0x0a282VDN4Hz5MJ/jdU86bzOLv4GWRMesmPHThnd+OfHdS
+    7ZNG3ZxyhLYZrU5BuTouEBpnJsPyHWMKNyqutTQKUFG+oJDXFp2bXOwhYw2Xe4GTsP3Z5H
+    e8ZuvTc/WyeTLJhPLxj5Glo6mhhc95ciANGJ1sSN38RA5m207zi9mts+vOwFn8YbRFvM3E
+    xqVH6qI4fnF7wvjAZ7r8Ixev9tG3afHFI3kdE99gVlxa8GXKiT3lSi6ak5ut3SMARgYx6e
+    gk/7irV0zj8wDvbus+wSpMhK72YhW2EcT/jbPIY68Ck15TxQ+ad1s5ZYD5di0Ni7gcZiQE
+    yLzj/Asln1sDjXCMYaVQf9hGZOmj4CosRAAwOzQFIek+789i1EuyD+4BbmpQ
+X-ME-Proxy: <xmx:7r2rahUSJ3rL-mB12mOtIiDbFAP41oy_nh1ikN8lR_Dzy_FV-RO0FQ>
+    <xmx:7r2ratYYjxIjgF1UDXccohphfG8Rr9eSo4W7dgdY-tiGwAxAmWW06w>
+    <xmx:7r2rai4VDNDzONKrGj_8cDay8vdM-pQKNiec3ga52RAn_Th_8xlK5g>
+    <xmx:7r2ramx0kFCK3cmpO5uTArIPh76iIptwBHxXWQ8lsdOOSCub_dW_EQ>
+    <xmx:7r2rarbujxcLHFQuO1kpgle0BX-UXBdZwvH-7aVbAgsASf7AHKC8AeLX>
 Feedback-ID: i787e41f1:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 17 Sep 2026 06:16:06 -0400 (EDT)
-Date: Thu, 17 Sep 2026 11:11:44 +0100
+ 17 Sep 2026 06:16:13 -0400 (EDT)
+Date: Thu, 17 Sep 2026 11:12:09 +0100
 From: Greg KH <greg@kroah.com>
 To: Sasha Levin <sashal@kernel.org>
 Cc: stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
@@ -74,12 +74,12 @@ Cc: stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
 	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
 	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>
-Subject: Re: [PATCH 6.18.y 2/2] smb: client: honor forceuid/forcegid when
- mapping SIDs to uid/gid
-Message-ID: <2026091740-corner-pantry-5439@gregkh>
-References: <2026091604-dehydrate-dribble-9957@gregkh>
- <20260917042310.31062-1-sashal@kernel.org>
- <20260917042310.31062-2-sashal@kernel.org>
+Subject: Re: [PATCH 6.18.y 2/2] smb: client: fix WSL reparse point uid/gid
+ override
+Message-ID: <2026091705-rhyme-from-94da@gregkh>
+References: <2026091651-rehydrate-vexingly-f239@gregkh>
+ <20260917041703.4190978-1-sashal@kernel.org>
+ <20260917041703.4190978-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -88,32 +88,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917042310.31062-2-sashal@kernel.org>
+In-Reply-To: <20260917041703.4190978-2-sashal@kernel.org>
 
-On Thu, Sep 17, 2026 at 12:23:10AM -0400, Sasha Levin wrote:
+On Thu, Sep 17, 2026 at 12:17:03AM -0400, Sasha Levin wrote:
 > From: Paulo Alcantara <pc@manguebit.org>
 > 
-> [ Upstream commit 18a72975e9f35aadecc75b031f693f2d1f49308f ]
+> [ Upstream commit cd2b2b57921d4caa7875e83198bb2aa71254328b ]
 > 
-> When the administrator mounts with forceuid or forcegid (uid=/gid=
-> mount options), they expect all files to appear owned by the specified
-> user/group.  However, several code paths unconditionally called
-> sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
-> ignoring the administrator's explicit override:
+> wsl_to_fattr() unconditionally overwrites cf_uid/cf_gid with values
+> from WSL extended attributes ($LXUID/$LXGID), ignoring the forceuid
+> and forcegid mount options.
 > 
->   - smb311_posix_info_to_fattr() (stat via POSIX extensions)
->   - cifs_posix_to_fattr() (readdir via POSIX extensions)
->   - parse_sec_desc() (CIFS ACL ownership mapping)
+> Fix this by initializing cf_uid/cf_gid to the mount defaults and
+> gating the $LXUID/$LXGID EA parsing on forceuid/forcegid.
 > 
-> This allowed an untrusted server to dictate local file ownership even
-> when the mount was configured to force specific uid/gid values.
-> 
-> Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
-> CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
-> same pattern already used by cifs_unix_basic_to_fattr() for unix
-> extensions.
-> 
-> Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
+> Closes: https://sashiko.dev/#/patchset/20260906190803.667489-1-pc%40manguebit.org
 > Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 > Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 > Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
@@ -123,124 +112,47 @@ On Thu, Sep 17, 2026 at 12:23:10AM -0400, Sasha Levin wrote:
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  fs/smb/client/cifsacl.c | 29 ++++++++++++++++++-----------
->  fs/smb/client/inode.c   |  9 +++++++--
->  fs/smb/client/readdir.c |  9 +++++++--
->  3 files changed, 32 insertions(+), 15 deletions(-)
+>  fs/smb/client/reparse.c | 16 +++++++++++-----
+>  1 file changed, 11 insertions(+), 5 deletions(-)
 > 
-> diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-> index 11268d10a70ed..c66bbd5606a16 100644
-> --- a/fs/smb/client/cifsacl.c
-> +++ b/fs/smb/client/cifsacl.c
-> @@ -1299,6 +1299,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+> diff --git a/fs/smb/client/reparse.c b/fs/smb/client/reparse.c
+> index 58bd67f32377f..383eb9bd45793 100644
+> --- a/fs/smb/client/reparse.c
+> +++ b/fs/smb/client/reparse.c
+> @@ -1108,10 +1108,14 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
+>  			 struct cifs_sb_info *cifs_sb,
+>  			 u32 tag, struct cifs_fattr *fattr)
 >  {
->  	int rc = 0;
->  	struct smb_sid *owner_sid_ptr, *group_sid_ptr;
 > +	unsigned int sbflags = cifs_sb_flags(cifs_sb);
->  	struct smb_acl *dacl_ptr; /* no need for SACL ptr */
->  	char *end_of_acl;
->  	__u32 dacloffset, osidoffset, gsidoffset;
-> @@ -1317,17 +1318,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
->  	cifs_dbg(NOISY, "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dacloffset 0x%x\n",
->  		 pntsd->revision, pntsd->type, osidoffset, gsidoffset,
->  		 le32_to_cpu(pntsd->sacloffset), dacloffset);
-> -/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
+>  	struct smb2_file_full_ea_info *ea;
+>  	bool have_xattr_dev = false;
+>  	u32 next = 0;
+>  
 > +	fattr->cf_uid = cifs_sb->ctx->linux_uid;
 > +	fattr->cf_gid = cifs_sb->ctx->linux_gid;
 > +
->  	rc = sid_from_sd(pntsd, acl_len, osidoffset, &owner_sid_ptr);
->  	if (rc) {
->  		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
->  		return rc;
->  	}
-> -	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
-> -	if (rc) {
-> -		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
-> -			 __func__, rc);
-> -		return rc;
-> +	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
-> +		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
-> +		if (rc) {
-> +			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
-> +				 __func__, rc);
-> +			return rc;
-> +		}
->  	}
+>  	switch (tag) {
+>  	case IO_REPARSE_TAG_LX_SYMLINK:
+>  		fattr->cf_mode |= S_IFLNK;
+> @@ -1148,11 +1152,13 @@ static bool wsl_to_fattr(struct cifs_open_info_data *data,
+>  		nlen = ea->ea_name_length;
+>  		v = (void *)((u8 *)ea->ea_data + ea->ea_name_length + 1);
 >  
->  	rc = sid_from_sd(pntsd, acl_len, gsidoffset, &group_sid_ptr);
-> @@ -1336,11 +1341,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
->  			 __func__, rc);
->  		return rc;
->  	}
-> -	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
-> -	if (rc) {
-> -		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
-> -			 __func__, rc);
-> -		return rc;
-> +	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
-> +		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
-> +		if (rc) {
-> +			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
-> +				 __func__, rc);
-> +			return rc;
-> +		}
->  	}
->  
->  	if (dacloffset) {
-> diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-> index f23c36d6ae6b3..f2adac6df7b24 100644
-> --- a/fs/smb/client/inode.c
-> +++ b/fs/smb/client/inode.c
-> @@ -847,6 +847,7 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
->  	struct smb311_posix_qinfo *info = &data->posix_fi;
->  	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
->  	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
-> +	unsigned int sbflags = cifs_sb_flags(cifs_sb);
->  
->  	memset(fattr, 0, sizeof(*fattr));
->  
-> @@ -891,8 +892,12 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
->  		fattr->cf_symlink_target = data->symlink_target;
->  		data->symlink_target = NULL;
->  	}
-> -	sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
-> -	sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
-> +	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-> +	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-> +	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-> +		sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
-> +	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-> +		sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
->  
->  	cifs_dbg(FYI, "POSIX query info: mode 0x%x uniqueid 0x%llx nlink %d\n",
->  		fattr->cf_mode, fattr->cf_uniqueid, fattr->cf_nlink);
-> diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-> index f0ce26622a140..93135be123316 100644
-> --- a/fs/smb/client/readdir.c
-> +++ b/fs/smb/client/readdir.c
-> @@ -242,6 +242,7 @@ static void
->  cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
->  		    struct cifs_sb_info *cifs_sb)
->  {
-> +	unsigned int sbflags = cifs_sb_flags(cifs_sb);
->  	struct smb2_posix_info_parsed parsed;
->  
->  	posix_info_parse(info, NULL, &parsed);
-> @@ -281,8 +282,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
->  		 le32_to_cpu(info->ReparseTag),
->  		 le32_to_cpu(info->Mode));
->  
-> -	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-> -	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-> +	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-> +	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-> +	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-> +		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-> +	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-> +		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
->  }
->  
->  static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
+> -		if (!strncmp(name, SMB2_WSL_XATTR_UID, nlen))
+> -			fattr->cf_uid = wsl_make_kuid(cifs_sb, v);
+> -		else if (!strncmp(name, SMB2_WSL_XATTR_GID, nlen))
+> -			fattr->cf_gid = wsl_make_kgid(cifs_sb, v);
+> -		else if (!strncmp(name, SMB2_WSL_XATTR_MODE, nlen)) {
+> +		if (!strncmp(name, SMB2_WSL_XATTR_UID, nlen)) {
+> +			if (!(sbflags & CIFS_MOUNT_OVERR_UID))
+> +				fattr->cf_uid = wsl_make_kuid(cifs_sb, v);
+> +		} else if (!strncmp(name, SMB2_WSL_XATTR_GID, nlen)) {
+> +			if (!(sbflags & CIFS_MOUNT_OVERR_GID))
+> +				fattr->cf_gid = wsl_make_kgid(cifs_sb, v);
+> +		} else if (!strncmp(name, SMB2_WSL_XATTR_MODE, nlen)) {
+>  			/* File type in reparse point tag and in xattr mode must match. */
+>  			if (S_DT(fattr->cf_mode) != S_DT(le32_to_cpu(*(__le32 *)v)))
+>  				return false;
 > -- 
 > 2.53.0
 > 
