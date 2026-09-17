@@ -1,37 +1,36 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 66625489892;
-	Thu, 17 Sep 2026 10:52:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109624D0CDF;
+	Thu, 17 Sep 2026 10:54:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642366; cv=none; b=bSiZk+tDtEpozBek3WntN6NuiKFdvHmczxoHNrh81J6N4ArDXRXreLnwhmbPgdNcu2gfp8k2a7Vy02t55UKglAaeFnp4Njb9KHR00bVI3CIqxEQTMp8jkVVk6GM2c5x/KsHVRMddgD+faFUa+41MgEbBoQ5Vom/mGSwrFDgvqEY=
+	t=1789642497; cv=none; b=hIuzmwAPxP4rAJd1uSiKluX44TIhsaxaKeGN7CfO6Q4cK1bfg1/3+GVJ1+adzHVL0ufGs1MP6zca9KWTFW0oRAVomHCx07Ff9Py4AeHqeMIFEcAn0/sjt0elbP/4mMQ+2rDdhp2jHePMMiLX/8sjBY/h7GPki1ysPJOQ2otWzcE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642366; c=relaxed/simple;
-	bh=sgkq/w+75NRnuNkHiMS3OCUahF56aur0WpiUpldJWf8=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=XWIAGsBC+BBueMfEEXDzhp/80c6yJ32fNDEQpTBk9X+Xl1PFViNv08WgfcZ8HrMNbYvt/Ah+6B+WoC1jNTwHuWgk2B7i/9R9EB4IHVlRmOYd5HJIhWYx+GNSjeHTZk56ZkOzlc6XosuuPSbflnYv8ZJcJN889VYiGeX8cHkKsZc=
+	s=arc-20240116; t=1789642497; c=relaxed/simple;
+	bh=giIWjDDBHc/Az7Gt57hxkGh/olN1AnVWv+gcsPhSTsk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T3CIutQpJ0Uz8s7eLKAxbLV68wzAjjSr/ACUbenxjV9q4TLbAtXQ2lHPOHELqklO44IhET6LQswcUcS0u23b7K9fvNVYVRE832iX+J4M2sD8uInpDfnQpxOGPRoGZjv3oGDW1IVw8Y1Pg4So2KMrts17Y5NG+sDGpGf9y7jSlJs=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnVD9mxqtqwgB_CA--.1105S2;
-	Thu, 17 Sep 2026 18:52:23 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAAXgDrhxqtqdwl_CA--.64396S2;
+	Thu, 17 Sep 2026 18:54:25 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: andrew+netdev@lunn.ch
-Cc: conor.dooley@microchip.com,
-	davem@davemloft.net,
+Cc: davem@davemloft.net,
 	edumazet@google.com,
+	jeff@garzik.org,
 	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org,
-	o.rempel@pengutronix.de,
 	pabeni@redhat.com,
-	theo.lebrun@bootlin.com,
+	stephen@networkplumber.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: macb: Fix mdio_np reference leak in macb_mii_init()
-Date: Thu, 17 Sep 2026 10:52:23 +0000
-Message-Id: <20260917105223.2147724-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: cxgb: Fix skb reference leak in espibug_workaround_t204()
+Date: Thu, 17 Sep 2026 10:54:25 +0000
+Message-Id: <20260917105425.2147804-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -40,53 +39,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnVD9mxqtqwgB_CA--.1105S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruw1DKw1xtr18Aw4kZr1fJFb_yoWDuFc_Gr
-	n7WF1fWF4DGFnFkw40yr4j93sayF1DX393uFs7tay5Cay3Ar18Ary5Cr9xJw18WF4xC3Zr
-	Gr17Aa4j9w12qjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbgkYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxU7WE_DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qrq01dFQACs4
+X-CM-TRANSID:zQCowAAXgDrhxqtqdwl_CA--.64396S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4fAFyUGFyDXrWUZFyrZwb_yoW8JFyDpw
+	4qka47CrZ8Za12ka1kAw48tF9xua1ktFWrKF1fJws5ZrsxJr4UWry0qF45KFWDArZ3WanI
+	yrs8Aan8Krs0y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
+	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
+	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
+	Xa7IU5TOJ7UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgENA2qrq3ZfDQAAsH
 
-of_get_child_by_name() returns a device node with an elevated reference
-count. macb_mii_init() drops it on the error paths via err_out, but the
-success path returns 0 without calling of_node_put(), leaking a
-reference to the "mdio" child node on every successful probe.
+The timer handler takes an extra reference with skb_get() before handing
+the skb to t1_sge_tx(), so that the skb survives until the DMA has
+completed. When the command queue is full, t1_sge_tx() returns
+NETDEV_TX_BUSY without queueing the skb, and the return value is
+ignored, so the extra reference is never dropped.
 
-Release the reference before returning on the success path.
+Free the skb when t1_sge_tx() reports that it did not consume it.
 
-Fixes: 8a6631f1cece ("net: macb: avoid redundant lookup for "mdio" child node in MDIO setup")
+Fixes: f1d3d38af757 ("[PATCH] chelsio: add support for other 10G boards")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 2 ++
- 1 file changed, 2 insertions(+)
+ drivers/net/ethernet/chelsio/cxgb/sge.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index a12aa21244e8..0c4775d51263 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1164,6 +1164,8 @@ static int macb_mii_init(struct macb *bp)
- 	if (err)
- 		goto err_out_unregister_bus;
- 
-+	of_node_put(mdio_np);
-+
- 	return 0;
- 
- err_out_unregister_bus:
+diff --git a/drivers/net/ethernet/chelsio/cxgb/sge.c b/drivers/net/ethernet/chelsio/cxgb/sge.c
+index d8fca697874a..d4677c5b8d74 100644
+--- a/drivers/net/ethernet/chelsio/cxgb/sge.c
++++ b/drivers/net/ethernet/chelsio/cxgb/sge.c
+@@ -2052,7 +2052,8 @@ static void espibug_workaround_t204(struct timer_list *t)
+ 			 * the skb once the DMA has completed.
+ 			 */
+ 			skb = skb_get(skb);
+-			t1_sge_tx(skb, adapter, 0, adapter->port[i].dev);
++			if (t1_sge_tx(skb, adapter, 0, adapter->port[i].dev))
++				dev_kfree_skb_any(skb);
+ 		}
+ 	}
+ 	mod_timer(&sge->espibug_timer, jiffies + sge->espibug_timeout);
 -- 
 2.34.1
 
