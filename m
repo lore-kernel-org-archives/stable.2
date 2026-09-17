@@ -1,123 +1,206 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3252B3859EC;
-	Thu, 17 Sep 2026 02:21:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A4EFA382F2F
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:25:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611677; cv=none; b=OhypOgcMujZyD2KVJHq+ESR1O+tLH4KJDr5zifL2v6YczDJhphdG31v3DfrxTBNuQKKRYns93UqFQNzG2hxBMd2Uju7uom/ZAlGhrZ/SvdCz0OLUsgoCsLElU7QlsGk2V5CT/iGwJtFjLUCqrQAxtlYy+sZW3euM3gfHc2FUO/U=
+	t=1789611951; cv=none; b=Q1Q6OM8IE02xc8wFm9q45dVv57oILbN+/n9ZpLY/ScmXuxinMZA0dnV1ZbgwViO6aq0C6AbZ0QpTK31rQoRN1RbBzKPPWVjeHXwXj7D0f6FUmnfLL1kc6Cf+c+VXmh9Kal7Jg7mprZX6pzXnPPV2HZZywuTSvIaKBMV/qwX7TWw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611677; c=relaxed/simple;
-	bh=OoQdXIEsYDF3Hy5LAL+pIw8eouZOYLwjAWOLmsEJTZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Nd0HtzQGgq8lnZ8BZey6tu3In450VjJpRaO3t4QQOmzpdGEIoPQoUf4EBQ1cnhqlhWAU1ZiyLMNviENgIzaw6atnUVxVpImuUWdY5v+2u/SrF+rIJRhh5ypYO5ez2BSdSlejSeyts6ZkEi0UYBUVYo7dhg2VbQfu7f5pDJRzwA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=DS7czaAy; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789611951; c=relaxed/simple;
+	bh=52eG2d5sKl8inrlk2m0z2jfNycouzLeRfuR6oFoczio=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=BNxwO1lJTh6FKVqh3v5G/s+S2iEVpez8Wfy9OM5hGsPHoEM6qBWNEPirBrPx65TXChk7f3MZFW1dsHM4ix+M7B7/aisDTAVOIOlrldwYCtqsrjB7XSmeNsl2/4Wm1VnL0PVqXZulD/ErzGSVX5rK1z6EDTKZfTSmkzossm3Mun4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SNTjym1h; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="DS7czaAy"
-Received: from pps.filterd (m0353729.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GG1k0H2330475;
-	Thu, 17 Sep 2026 02:21:13 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=fbZPM4
-	LAZIYtY6fMU6qJYhbXyLIhIk6Wxra0TgYPQx8=; b=DS7czaAye1sUnUqbIoq+bw
-	chSdW9lnFXUZ48EF5fkkmaYyX6XjUbMy1asOkc0BYWFpI5aTHOwfrvBBKiPDgeyV
-	uqTaN8E/eEIMs9jwPG5SiK1whPWVwzh1KDUsjrcUUaUNiLP8g+d1/faVHPm9nZE3
-	hNcGqHWPZOPaMY5eJtA71uXI8LH4/47k2B+uKrqEJNRnp8Xqfd2DhOLtXSWrNCBZ
-	KrLrMw5RRbza7ekq6PtHLyhUObyScKZQksyd2sCtZXp+g5Us1hOFFjeV72iZo5NP
-	ZSeOQnHDzVMnHa3+ZBQt0U5w6TCxJqRM6TFROWwRgfvySEol9mvMHe52SU4D3+OQ
-	==
-Received: from ppma13.dal12v.mail.ibm.com (dd.9e.1632.ip4.static.sl-reverse.com [50.22.158.221])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxdqfxt1-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 02:21:13 +0000 (GMT)
-Received: from pps.filterd (ppma13.dal12v.mail.ibm.com [127.0.0.1])
-	by ppma13.dal12v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GN12Tt1713037;
-	Thu, 17 Sep 2026 02:21:12 GMT
-Received: from smtprelay05.dal12v.mail.ibm.com ([172.16.1.7])
-	by ppma13.dal12v.mail.ibm.com (PPS) with ESMTPS id 4gpywf1fca-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 02:21:12 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (smtpav04.wdc07v.mail.ibm.com [10.39.53.231])
-	by smtprelay05.dal12v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68H2LBg39241260
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 17 Sep 2026 02:21:11 GMT
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id 45CB25805E;
-	Thu, 17 Sep 2026 02:21:11 +0000 (GMT)
-Received: from smtpav04.wdc07v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id B83FA58045;
-	Thu, 17 Sep 2026 02:21:09 +0000 (GMT)
-Received: from [9.61.177.109] (unknown [9.61.177.109])
-	by smtpav04.wdc07v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 17 Sep 2026 02:21:09 +0000 (GMT)
-Message-ID: <cdd076c4-acff-4390-a87d-6fa03119e913@linux.ibm.com>
-Date: Wed, 16 Sep 2026 22:21:09 -0400
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SNTjym1h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9F0621F000FF;
+	Thu, 17 Sep 2026 02:25:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789611949;
+	bh=oCmz5aAQVAv7bWHbKwKukMHDFWngZZ+UhiFGu+28CPw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SNTjym1h+Gr50mhh9nUhrpDIpaf5fmVePaq3ggQXVGGBozA3QqXaPtaWWmncqfPyM
+	 asfIN3qgyiWr4Ih9MDcDNc77DBhLaLnWD3uRpF8/Im+Q4l59PR2RQvcBoiQM4LTDzO
+	 oQ0m/ze6rtPLF16zm+599mPmvlWtOzyUF/2kHQJMTfWddMu+MSmexcJs5ZCrax65FI
+	 g3ua/fYrvf+lCm+QHHjjupD2w/IrJuVkWQKrtOIGlBjwPTN2zjTkrZqUkMv2LsO5VU
+	 R4HVATWsLmHQwY21DrdpU14fA3zPRzK0GA25b2PVmr+HYnC+d+u4KvCxcdFsFVKgId
+	 A4I8KbwbYd+GA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
+	Conor Dooley <conor.dooley@microchip.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] net: macb: unify device pointer naming convention
+Date: Wed, 16 Sep 2026 22:25:46 -0400
+Message-ID: <20260917022547.3826863-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091649-armoire-absurd-8a42@gregkh>
+References: <2026091649-armoire-absurd-8a42@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v6 1/4] s390/pci: Hold fmb_lock when enabling or disabling
- PCI devices
-To: Omar Elghoul <oelghoul@linux.ibm.com>, linux-s390@vger.kernel.org,
-        linux-kernel@vger.kernel.org, kvm@vger.kernel.org
-Cc: hca@linux.ibm.com, gor@linux.ibm.com, agordeev@linux.ibm.com,
-        borntraeger@linux.ibm.com, svens@linux.ibm.com, schnelle@linux.ibm.com,
-        alifm@linux.ibm.com, farman@linux.ibm.com, gbayer@linux.ibm.com,
-        pasic@linux.ibm.com, alex@shazbot.org, stable@vger.kernel.org
-References: <20260916213222.233-1-oelghoul@linux.ibm.com>
- <20260916213222.233-2-oelghoul@linux.ibm.com>
-From: Matthew Rosato <mjrosato@linux.ibm.com>
-Content-Language: en-US
-In-Reply-To: <20260916213222.233-2-oelghoul@linux.ibm.com>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDAyNSBTYWx0ZWRfX0IV85SdoJPPq
- rPWP6l+IFNDmbFYLUgLjATsmY6yINcp225UjNg98Z2+EJh96zHCsCMDvxvLKBLZtysovM++Kvee
- A++xbsYHH1M753T9w8cNwVZ36xNhvo4/zLElA990zJNPYzwEdQ/vZggLEQ1/iV1d4cJVuPRE4cJ
- m3sq6jTchBF8OQvuj/BseHvDP4zWTjr9ddiYKcyqaIQBUakV0AbkI+htzc2lVzAJl4ilGhfALVp
- l3S3rT0X/YllyuQNFDbOin58r8r5RxrVXaozk63LDhKESvR9I7dp8VwmW0u265IXEBHoq/PXT0t
- IcdyXRpIgM78jiAruT2imVB3hI+U+XDR7BYlOWnIC2utMuFeaa5sDQOK22EiYkk9ZBlsplcR3z4
- SH/w6vVtVSLPYPjjeWvF9F3OT8JQcU66uaQ0Tgm6Nhjm2ZMAvAgH3TetqXUcPA/8ncbAF2qWvP7
- OQUxZx4lVOU/P/rwG0A==
-X-Proofpoint-GUID: SWWwAcT1AcLP_pPeD5kxTLxrtQVXk-Dz
-X-Authority-Analysis: v=2.4 cv=DobDa2/+ c=1 sm=1 tr=0 ts=6aab4e99 cx=c_pps
- a=AfN7/Ok6k8XGzOShvHwTGQ==:117 a=AfN7/Ok6k8XGzOShvHwTGQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=uAbxVGIbfxUO_5tXvNgY:22 a=VwQbUJbxAAAA:8
- a=VnNF1IyMAAAA:8 a=2-Wvok__LvRz137P2vUA:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: SWWwAcT1AcLP_pPeD5kxTLxrtQVXk-Dz
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDAyNSBTYWx0ZWRfX0LMpwNqa+F45
- DQmexL7gLryQeAjimi3nyRQcyg5GuMbGe7hP4TPr+PfGcaWhqHmv/9PE0yu2hawJSUd9vlLxJhw
- sE+EJ2YcblkNT+8ow/AMR1MdcwRwNoE=
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- phishscore=0 malwarescore=0 priorityscore=1501 suspectscore=0 impostorscore=0
- spamscore=0 clxscore=1015 adultscore=0 bulkscore=0 lowpriorityscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170025
+Content-Transfer-Encoding: 8bit
 
-On 9/16/26 5:32 PM, Omar Elghoul wrote:
-> Ensure that fmb_lock is held by pcibios_enable_device() and
-> pcibios_disable_device() when calling zpci_fmb_enable_device() or
-> zpci_fmb_disable_device(), respectively. Additionally, assert that the
-> fmb_lock is held within the latter two functions to prevent future race
-> conditions regarding new callers.
-> 
-> Fixes: af0a8a8453f7 ("s390/pci: implement pcibios_add_device")
-> Fixes: 944239c59e93 ("s390/pci: implement pcibios_release_device")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Omar Elghoul <oelghoul@linux.ibm.com>
-> Reviewed-by: Niklas Schnelle <schnelle@linux.ibm.com>
+From: Théo Lebrun <theo.lebrun@bootlin.com>
 
-Reviewed-by: Matthew Rosato <mjrosato@linux.ibm.com>
+[ Upstream commit 07362f68e61d82ee53da0e9ae2c7f981c3538861 ]
 
+Here are all device pointer variable permutations inside MACB:
+
+   struct device *dev;
+   struct net_device *dev;
+   struct net_device *ndev;
+   struct net_device *netdev;
+   struct pci_dev *pdev;              // inside macb_pci.c
+   struct phy_device *phy;
+   struct phy_device *phydev;
+   struct platform_device *pdev;
+   struct platform_device *plat_dev;  // inside macb_pci.c
+
+Unify to this convention:
+
+   struct device *dev;
+   struct net_device *netdev;
+   struct pci_dev *pci;
+   struct phy_device *phydev;
+   struct platform_device *pdev;
+
+Ensure nothing slipped through using ctags tooling:
+
+⟩ ctags -o - --kinds-c='{local}{member}{parameter}' \
+    --fields='{typeref}' drivers/net/ethernet/cadence/* | \
+  awk -F"\t" '
+    $NF~/struct:.*(device|dev) / {print $NF, $1}' | \
+  sort -u
+typeref:struct:device * dev
+typeref:struct:in_device * idev        // ignored
+typeref:struct:net_device * netdev
+typeref:struct:pci_dev * pci
+typeref:struct:phy_device * phydev
+typeref:struct:platform_device * pdev
+
+Also fix some printk() calls to use __func__ instead of hardcoding.
+This silences some checkpatch.pl warnings and doesn't deserve a
+separate commit.
+
+Reviewed-by: Conor Dooley <conor.dooley@microchip.com>
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
+Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Link: https://patch.msgid.link/20260812-macb-context-v9-2-7ddbf5f715e0@bootlin.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+Keep only the net_device argument rename for gem_ptp_init(), together
+with its callback, declaration and disabled-PTP stub. The other naming
+changes are unrelated to the PTP initialization fix and conflict with
+driver APIs and code paths that differ substantially in Linux 5.10.
+
+Linux 5.10 still initializes per-queue deferred TX timestamp state in
+gem_ptp_init(). Move that existing loop to the start of the function,
+preserving its counters and work initialization. This keeps the lock and
+TSU initialization block contiguous so that target commit
+e1406330d70e56dd44fa6fbafc86e77e5c80c122 applies without conflicts.
+
+The target remains responsible for initializing tsu_clk_lock once at probe
+and initializing the TSU before publishing the PTP clock. No functions or
+newer driver APIs are introduced by this dependency backport.
+
+[ sashal: Reduced backport -- upstream 07362f68e61d8 touches 4 file(s), this
+  backport carries 2. Not backported here:
+  drivers/net/ethernet/cadence/macb_main.c
+  drivers/net/ethernet/cadence/macb_pci.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: e1406330d70e ("net: macb: initialize PTP state before registering clock")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/net/ethernet/cadence/macb.h     |  6 +++---
+ drivers/net/ethernet/cadence/macb_ptp.c | 17 +++++++++--------
+ 2 files changed, 12 insertions(+), 11 deletions(-)
+
+diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
+index 7ce391209cdd1..0b507def88616 100644
+--- a/drivers/net/ethernet/cadence/macb.h
++++ b/drivers/net/ethernet/cadence/macb.h
+@@ -1087,7 +1087,7 @@ struct macb_or_gem_ops {
+ 
+ /* MACB-PTP interface: adapt to platform needs. */
+ struct macb_ptp_info {
+-	void (*ptp_init)(struct net_device *ndev);
++	void (*ptp_init)(struct net_device *netdev);
+ 	void (*ptp_remove)(struct net_device *ndev);
+ 	s32 (*get_ptp_max_adj)(void);
+ 	unsigned int (*get_tsu_rate)(struct macb *bp);
+@@ -1260,7 +1260,7 @@ enum macb_bd_control {
+ 	TSTAMP_ALL_FRAMES,
+ };
+ 
+-void gem_ptp_init(struct net_device *ndev);
++void gem_ptp_init(struct net_device *netdev);
+ void gem_ptp_remove(struct net_device *ndev);
+ int gem_ptp_txstamp(struct macb_queue *queue, struct sk_buff *skb, struct macb_dma_desc *des);
+ void gem_ptp_rxstamp(struct macb *bp, struct sk_buff *skb, struct macb_dma_desc *desc);
+@@ -1282,7 +1282,7 @@ static inline void gem_ptp_do_rxstamp(struct macb *bp, struct sk_buff *skb, stru
+ int gem_get_hwtst(struct net_device *dev, struct ifreq *rq);
+ int gem_set_hwtst(struct net_device *dev, struct ifreq *ifr, int cmd);
+ #else
+-static inline void gem_ptp_init(struct net_device *ndev) { }
++static inline void gem_ptp_init(struct net_device *netdev) { }
+ static inline void gem_ptp_remove(struct net_device *ndev) { }
+ 
+ static inline int gem_ptp_do_txstamp(struct macb_queue *queue, struct sk_buff *skb, struct macb_dma_desc *desc)
+diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
+index d0063495a4a71..1faca23dc3ccc 100644
+--- a/drivers/net/ethernet/cadence/macb_ptp.c
++++ b/drivers/net/ethernet/cadence/macb_ptp.c
+@@ -355,19 +355,25 @@ static void gem_tx_timestamp_flush(struct work_struct *work)
+ 	}
+ }
+ 
+-void gem_ptp_init(struct net_device *dev)
++void gem_ptp_init(struct net_device *netdev)
+ {
+-	struct macb *bp = netdev_priv(dev);
++	struct macb *bp = netdev_priv(netdev);
+ 	struct macb_queue *queue;
+ 	unsigned int q;
+ 
++	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
++		queue->tx_ts_head = 0;
++		queue->tx_ts_tail = 0;
++		INIT_WORK(&queue->tx_ts_task, gem_tx_timestamp_flush);
++	}
++
+ 	bp->ptp_clock_info = gem_ptp_caps_template;
+ 
+ 	/* nominal frequency and maximum adjustment in ppb */
+ 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
+ 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
+ 	gem_ptp_init_timer(bp);
+-	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &dev->dev);
++	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
+ 	if (IS_ERR(bp->ptp_clock)) {
+ 		pr_err("ptp clock register failed: %ld\n",
+ 			PTR_ERR(bp->ptp_clock));
+@@ -379,11 +385,6 @@ void gem_ptp_init(struct net_device *dev)
+ 	}
+ 
+ 	spin_lock_init(&bp->tsu_clk_lock);
+-	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+-		queue->tx_ts_head = 0;
+-		queue->tx_ts_tail = 0;
+-		INIT_WORK(&queue->tx_ts_task, gem_tx_timestamp_flush);
+-	}
+ 
+ 	gem_ptp_init_tsu(bp);
+ 
+-- 
+2.53.0
 
