@@ -1,74 +1,60 @@
-Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765764973A4
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:15:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947633890F6;
+	Thu, 17 Sep 2026 15:17:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658111; cv=none; b=Va5tLcaHhi8x3LOrKUDJPbfxw1BXQ7lRb2OyLl6wAlsOYkwmgMbvFsRZEQ/xxrFn8lULs2HUKx4eANFPqr8ewhv5o/xt56JYRbf7gd8Z30s8McxZAo593nwy2nM1tEXJ0wtbYI70fOLdjK5YFZMu76dgC9qI0m3uavJZrxCfECQ=
+	t=1789658253; cv=none; b=Hka2ORkNgy0GNzdXaJUD3fp7X3EA2P+FSbIZqxeoaDxwQIG1Whf4PBtEI/d6UPsukih/W+5mU4IaUw57S1spHWH/yA4a69h1ndmZAhIuAb4rVWr3crtV/MNe2/l/9CE28AOA5vcfcu7Jm4jR/XL4gIodMLziRUtd5TKWAkRcnQw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658111; c=relaxed/simple;
-	bh=lj1AArdURKntw/KnF8ugndUqAFz8UXcJI2HmidLS8Go=;
+	s=arc-20240116; t=1789658253; c=relaxed/simple;
+	bh=NT3+ATGeONp3oK/FSMfxmNCRnlixycSJ6Gkz34ZYjfA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CKB8/hurUWmo1LaAQzfhvFW29E3wm7fO1TvIFDJGwySfWAmwlX/cTu9fw6N0ZQeo6o7aSyfvlZkuzmdqvobFsU3MmRtQBQikhyD3wxCTyw8frVk/S2canwVwZlP3vxtwXohOP74UBP2V36UAhM7BvrU1IGk/2XX7QcOv/BiodUc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6flIGCj; arc=none smtp.client-ip=209.85.216.47
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=CIXOiejKELYcD8e0BQUbBVP7tNhXbG5EqvpNbqCj07F5GXonK+LLopm+IxeDbGHjhNGToOggDwItyfcU9yned1DL8SRxqYbHwILWyh1vHewF1vzLVlVtZ09+11HZn6rEb0SDj7D5c2cdt3cD6E7VScogO8iZknJ2vJFgLjLTOtU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oAa8WcM1; arc=none smtp.client-ip=192.198.163.10
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6flIGCj"
-Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so852473a91.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 08:15:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789658105; x=1790262905; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=UlhivK+zlFu4a3uy9GJIwu4Lv0iGdPKrQsjr7JexLOk=;
-        b=O6flIGCj9rp24USOjCztpgIJePjlgnwlN8C5DvBkzvIBEKVxVT03prxyQXioWoRk6q
-         LHXkmZ/cMLYUhmVJkr/9KxlBGmM9sV2eyyX7pAt8w2GM3KcQ/nJmEImRZxGs4/pRqVzN
-         NmpSv6HmEIRENo2jQ0QdgeSVDJDJtlnFYqz4rW30tFRxP/tSb9tQ1zGnmCnvnLa9IhhC
-         OHorTofhHEC3Szg9AeosrOMiJn6XHTCyqgvWPTvm71U/SUjM28plNuFUvytsrQeMKmJV
-         9lV+XkiXhRDG3e1J+biR3ZCjqOBdeQwVqzZ+JRA5L0TAPfxp9xum1EEpEaxaw1xUaJ0x
-         4uzQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789658105; x=1790262905;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=UlhivK+zlFu4a3uy9GJIwu4Lv0iGdPKrQsjr7JexLOk=;
-        b=QnaRuAyIMElzVmH14VxFUv8XpVmlw/zcniYsP27EuwFk9Q8kXxNCBT8cMsxvKse5+X
-         yurduyy9tcxZgOONWwF7KJp00mxnZrRaVJYTN5VJUqJPeNLNf0ALvw7XbnNMqpsnMvCA
-         KZCuSRnNHlr1fDkUb4LaYmLRzYBbzDYo2xoHiY0VCD3SvRZRnejWdzMfCFZ5pLF8V7S1
-         ENcDim2dFE4xYGdles7ii//nRH2DP803EaPnfl+00ZVzwLbVSDKV0o3WruJw1VQG2pFC
-         4bubYd8JvH432Hb9Fb+tMWguTlq6tukVyhXf2xKLazxgX4uJ5LTl4QxIJ1m9DcLpGzkz
-         Rx9Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzshjzlctraaR57pXccJeke3aSqAFhSEFkaF4UvvqQw0cHR6c7yjPLPLFrf5vARlLnEe9V5cYA=@vger.kernel.org
-X-Gm-Message-State: AFuF++muaEC/Eh7UWOOg6rz4lIsIfOXJIJua9frl3qfdkPAo1JUPm/0V
-	7wqsXq+lmc4eyk93T9lMmJz05/Vh3SgrD+mE9ATYMQyuKoPLSP7+NdbT
-X-Gm-Gg: AYBFou0cWt49z+YdljaVSQduCl84gqrwI+jIaFnR8jcWkmZCK8AGtNVwzJwFFETjQkp
-	enTe8zYTKrla3fVao7Uggyfi9D7f5QwMvy8bqiHYF9FFQGUJvyPnnEfSpl0BTHJEuGsV0fQUrxu
-	q+Iak92ZEi+B32pXo/sygsYdbqbb6jM9MloZsRJBSIyoUMUaEx+KND8KNm1n0vgUYMvPBXUqg77
-	C+C/ialTWr/STPVQe/TlQLAfSlNKS9+ky6CMUwJrfoky3krk27CRXIKhMCDRNtUFb6Xtt2LX8sL
-	U/iklpiKilBaCEGZRMaxU0Um7qEixdQ5hpAKYu9jFNi15KxotK1neCYfhdBao+qqZUaGWBO655h
-	jsGapmIkdZC2dNkFEL6XeAjuKh9k2q5S+dzk25reoEHasTAp5U4DINPZP/vEvwutsi6K5o8YhYs
-	RoJ/OKpgcadoNNeNuyEzHHZvHOlaZCvHlf+dULIU3/0d5IgaYWG3LICOpni7hZbS3vIEazqoy/O
-	RKIFKrgdDexcDmwMQa0NE5F4se9x21X4lm5LnBo
-X-Received: by 2002:a17:90b:3f4f:b0:39e:4c97:ce06 with SMTP id 98e67ed59e1d1-39e4c97cf1bmr761796a91.39.1789658105113;
-        Thu, 17 Sep 2026 08:15:05 -0700 (PDT)
-Received: from google.com ([2a00:79e0:2ebe:8:48d2:6852:2cc5:a7b1])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af6593sm15799800eec.25.2026.09.17.08.15.04
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 08:15:04 -0700 (PDT)
-Date: Thu, 17 Sep 2026 08:15:01 -0700
-From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dudl@cypress.com, linux-input@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] Input: cyapa - fix runtime PM leak in
- cyapa_update_rt_suspend_scanrate()
-Message-ID: <aqwD1o6J4svIevWW@google.com>
-References: <20260916185015.2093520-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oAa8WcM1"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789658245; x=1821194245;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=NT3+ATGeONp3oK/FSMfxmNCRnlixycSJ6Gkz34ZYjfA=;
+  b=oAa8WcM1ZSzk3yiUysZnZDBs6jHcCMvFVbdTwCuB8Yssh1NGFhTz0ysB
+   QsZDZYoveaPBF00SB8/sNcaD8Zeu+mpfADFEnLxzWP9/8llYDvPc0dSLt
+   bs8k7CeAej2dZZeJTXaLRZnTlFJTpjinBc2TrBdjHzkKaifl3aNqk8Hzc
+   KjnP1FEZO4BWxI1TTAsgarNkOc+sS82VLUlxQgfe9Len4dTihtKfJt3Tr
+   kD8rPr0dGgzP0vBEvVeV2iJeWod5i2BWzbQs8E0cCUJpM01Y4yEgkDtds
+   QdDiFev5LATs6GGe7yTBm/5Og1/Ab1Iz/sNtKblU7bfApDxKqHXEnsCoe
+   A==;
+X-CSE-ConnectionGUID: NE5o52KpQsWe9KPz0ed1Jg==
+X-CSE-MsgGUID: AqlkBajiT3+UjFys79mhvg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101436946"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="101436946"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:17:17 -0700
+X-CSE-ConnectionGUID: y+czv+RFS/upre1CRvYDWQ==
+X-CSE-MsgGUID: yA8acciLQymRCApaAYukRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269590351"
+Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:17:15 -0700
+Date: Thu, 17 Sep 2026 18:17:12 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Kent Gibson <warthog618@gmail.com>,
+	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+	Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH] gpio: cdev: fix kernel stack leak to user-space in error
+ path
+Message-ID: <aqwEeLLuIC1AoLQ1@ashevche-desk.local>
+References: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,38 +63,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916185015.2093520-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-Hi Wentao,
+On Thu, Sep 17, 2026 at 04:39:05PM +0200, Bartosz Golaszewski wrote:
+> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+> return immediately before zeroing the info struct we'll end up passing
+> to the user-space later in lineinfo_get_v1(). This may leak the kernel
+> stack contents. Move the memset() before trying to acquire the SRCU read
+> lock.
 
-On Wed, Sep 16, 2026 at 06:50:15PM +0000, Wentao Liang wrote:
-> pm_runtime_get_sync() unconditionally increments the runtime PM usage
-> counter. If mutex_lock_interruptible() is interrupted, the function
-> returns without dropping that reference. Add the missing
-> pm_runtime_put_sync_autosuspend() call on the error path.
-> 
-> Fixes: 672865080a8f ("Input: cyapa - add runtime power management support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/input/mouse/cyapa.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/input/mouse/cyapa.c b/drivers/input/mouse/cyapa.c
-> index 6e0d956617a1..5edf4fdbb373 100644
-> --- a/drivers/input/mouse/cyapa.c
-> +++ b/drivers/input/mouse/cyapa.c
-> @@ -901,8 +901,10 @@ static ssize_t cyapa_update_rt_suspend_scanrate(struct device *dev,
->  	pm_runtime_get_sync(dev);
->  
->  	error = mutex_lock_interruptible(&cyapa->state_sync_lock);
-> -	if (error)
-> +	if (error) {
-> +		pm_runtime_put_sync_autosuspend(dev);
+Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
 
-Why does it have to be "sync" variant?
+...
 
-Thanks.
+>  	unsigned long dflags;
+>  	const char *label;
+
+It might be not obvious for a reader, perhaps a short comment why it's done
+here?
+
+> +	memset(info, 0, sizeof(*info));
 
 -- 
-Dmitry
+With Best Regards,
+Andy Shevchenko
+
+
