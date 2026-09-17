@@ -1,102 +1,130 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.14])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C62324DAFB8;
-	Thu, 17 Sep 2026 11:48:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 93E794D955E;
+	Thu, 17 Sep 2026 11:48:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.14
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645723; cv=none; b=iHGJITV9YPLADg/6eftsRWxZ3FsUQWUMjZZfBrt9ihh5WigyLKsv9EbLq27S6sdK0aLXRka6YKVaOhuXftGZ00ujYdHqc/FnU7ekosDxTv/tjSUo1I0v7T2W/Hvyhg/ZTFgnaJykq9OM/ovvye1w1xW30cKsWZxfmXUBSNR1q30=
+	t=1789645726; cv=none; b=XWhudoDAmJyd0LdII9oQOPeEbo0m1rsI7Q0C+MVDZX1GvrAjQsUpBkXCCvb7lOmlA6TrDzhlL1Mph77g/QsIFcJx7X6LXbM6jvZROdGd31vNVmNrmgPBBXmxPNGGfsQdV/AgX0OdCfrtsbswzIBvTHR6KSuDjc/ooKofK+bUHQQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645723; c=relaxed/simple;
-	bh=ITg4GgxqkN+/I92LhrsqbUthy8oVwbzjlBSGtmJtJ78=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Zwl5v3/zbVDQ7852ZpCtDMIL3qlFEsloebUL5HAwjypXybH1jP0mbbyiUl08VskyHSMpBiSLl17JzkNSXFN3wN/k8T57MhduhhbeKe4GPjaqqa9ikPXCWpvByljl/fO66hw0XMToSOUscjwFfypvo25VoIcU7bMD/Q638xbD8to=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABn0TuF06tqIeF_CA--.2029S2;
-	Thu, 17 Sep 2026 19:48:21 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: alex.aring@gmail.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-wpan@vger.kernel.org,
-	marcel@holtmann.org,
-	miquel.raynal@bootlin.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	stefan@datenfreihafen.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1789645726; c=relaxed/simple;
+	bh=oIPgUxwSIorXzoJrCau0WJycmLIK5xU1/WW6WAWA7og=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Kk/Mc162pl2n6eQVWv8c0Ruur6Z6FGV77Uh7BQnWbkSC8wOdA3M+TOPvIcFUsvGo5ZplKOTBcfK1p8vVlvVCg9as6Qv/vEyjq8AWbWgTDf8muh0GhYGPmbxW2w5iHsdRD8lNNUtcbygrY/+CGMAFu+YWyuq7cw8BRfDWF4ZE9kk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=g1WwyFp5; arc=none smtp.client-ip=192.198.163.14
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="g1WwyFp5"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789645723; x=1821181723;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:content-transfer-encoding:in-reply-to;
+  bh=oIPgUxwSIorXzoJrCau0WJycmLIK5xU1/WW6WAWA7og=;
+  b=g1WwyFp5gq74Su8TRDKTFizE142YTsdWZ4i8GSz5Cl2+BqoghhDdn/Md
+   tFi9qHqTLfWNNNK1YU+Q0btocy5VpYRtuoYiempcAcN2B8eZ9KSZRNfMD
+   dNpbVjeM+2HeLjuMfa7Na0x2Py0ocBxZEEAf5l77bp/w83IjN2yKk9p6R
+   omrVdCngxVFGXZJtaEL6ybrZgjhhgAUKCY0a0ElFPvIs2oEoNyTRGsovr
+   SaHuH+0dxUlTe0X5yeQy8jqON1Xgt1Kcgeo+jicuWDYvuLBCeRpo+Tt8s
+   6N4H4yyz/R0iswhgc4mQXeixI9nQYKIBgghf6IuLwQcHWLCujN03bngqY
+   g==;
+X-CSE-ConnectionGUID: B6JH/0WsQAao3+Lt7um29w==
+X-CSE-MsgGUID: Ayrrg/xbQFq3HG++YP/BLw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90076027"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90076027"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa108.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:48:42 -0700
+X-CSE-ConnectionGUID: hhKhDru7R2arnMNkk5CEVw==
+X-CSE-MsgGUID: 3k1AwqgbTDes8po5vElcRA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="270441041"
+Received: from alekseim-mobl.ger.corp.intel.com (HELO kekkonen.fi.intel.com) ([10.245.245.32])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 04:48:39 -0700
+Received: from kekkonen.localdomain (localhost [IPv6:::1])
+	by kekkonen.fi.intel.com (Postfix) with ESMTP id 2791911FB34;
+	Thu, 17 Sep 2026 14:48:36 +0300 (EEST)
+Date: Thu, 17 Sep 2026 14:48:36 +0300
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6 krs, Bertel Jungin Aukio 5, 02600 Espoo
+From: Sakari Ailus <sakari.ailus@linux.intel.com>
+To: Junjie Cao <junjie.cao@intel.com>
+Cc: Miguel Vadillo <miguel.vadillo@intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Manuel Knitza <manuel.knitza@googlemail.com>,
+	Thorsten Leemhuis <regressions@leemhuis.info>,
+	Antti Laakso <antti.laakso@linux.intel.com>,
+	Mehdi Djait <mehdi.djait@linux.intel.com>,
+	linux-media@vger.kernel.org, linux-staging@lists.linux.dev,
+	linux-kernel@vger.kernel.org, regressions@lists.linux.dev,
 	stable@vger.kernel.org
-Subject: [PATCH] ieee802154: atusb: Fix URB reference leak in atusb_work_urbs()
-Date: Thu, 17 Sep 2026 11:48:21 +0000
-Message-Id: <20260917114821.2149704-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH] media: i2c: cvs: Do not hide the option in the ancillary
+ menu
+Message-ID: <aqvTlNnMw4FRqom_@kekkonen.localdomain>
+References: <20260913125345.588586-1-junjie.cao@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=iso-8859-1
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABn0TuF06tqIeF_CA--.2029S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7tFyfKFWDGrW5Zw13Xw17trb_yoW8Gw18pa
-	y5u3Wagrs8Xa1Iyan7Jw1IvFyFyw4jk34xCFyru397Zrs5tw17Ka4xGanavF48JrW8ZFya
-	vr12qr47Gwn8Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
-	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
-	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
-	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
-	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
-	Xa7IU8czVUUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qrrJp39gAAsw
+In-Reply-To: <20260913125345.588586-1-junjie.cao@intel.com>
 
-usb_get_from_anchor() hands over a reference to the URB, which the caller
-has to release. atusb_work_urbs() never does, so every URB collected from
-the idle anchor keeps an extra reference: the reference count grows on
-each retry cycle and the URBs are never freed on disconnect. Drop the
-reference after a successful submission, and after the URB has been put
-back on the idle anchor when submission failed, as the HCD holds its own
-reference while the URB is in flight.
+Hi Junjie,
 
-Fixes: 7490b008d123 ("ieee802154: add support for atusb transceiver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/ieee802154/atusb.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+Thanks for the patch.
 
-diff --git a/drivers/net/ieee802154/atusb.c b/drivers/net/ieee802154/atusb.c
-index 5f7fc4ee7a07..3dbb142eccb2 100644
---- a/drivers/net/ieee802154/atusb.c
-+++ b/drivers/net/ieee802154/atusb.c
-@@ -180,9 +180,15 @@ static void atusb_work_urbs(struct work_struct *work)
- 		if (!urb)
- 			return;
- 		ret = atusb_submit_rx_urb(atusb, urb);
-+		if (!ret)
-+			usb_put_urb(urb);
- 	} while (!ret);
- 
-+	/* The reference obtained above is dropped once the URB is back
-+	 * on the idle anchor.
-+	 */
- 	usb_anchor_urb(urb, &atusb->idle_urbs);
-+	usb_put_urb(urb);
- 	dev_warn_ratelimited(&usb_dev->dev,
- 			     "atusb_in: can't allocate/submit URB (%d)\n", ret);
- 	schedule_delayed_work(&atusb->work,
+On Sun, Sep 13, 2026 at 08:53:45PM +0800, Junjie Cao wrote:
+> A camera behind a CVS device needs intel_cvs bound: since commit
+> c28527ce5d06 ("ACPI: scan: Honor _DEP for Intel CVS devices") the
+> sensor is not enumerated until the driver's probe clears the _DEP, and
+> since commit c6b1b34b5090 ("media: pci: intel: Add CVS support for IPU
+> bridge driver") the IPU notifier waits for the "Intel CVS" sub-device.
+> The option is sourced from the "Miscellaneous helper chips" menu, which
+> MEDIA_HIDE_ANCILLARY_SUBDRV hides on any config with
+> MEDIA_SUBDRV_AUTOSELECT=y and neither EXPERT nor COMPILE_TEST, and
+> nothing selects or implies it, so olddefconfig on such a config does
+> not write the symbol out at all.
+> 
+> Arch Linux's config.x86_64 for 7.2.4 is one: I2C, ACPI, VIDEO_DEV=m,
+> IPU_BRIDGE=m, INTEL_VSC=m, VIDEO_INTEL_IPU6=m, VIDEO_INTEL_IPU7=m and
+> no VIDEO_INTEL_CVS line. On such a kernel a Panther Lake laptop has
+> either no CVS driver, so the sensor is never enumerated, or the
+> out-of-tree intel_cvs from intel/vision-drivers, which registers no
+> sub-device; the second Link shows the IPU notifier pending on
+> INTC10E1-0/port@1/endpoint@0 on such a kernel. Both reports had a
+> working camera on 7.1.
+> 
+> Source the Kconfig from drivers/media/pci/intel/ next to INTEL_VSC and
+> imply it from the IPU6 and IPU7 drivers, which are the IPUs the driver
+> looks for, so that a config that has them picks up intel_cvs=m on the
+> next olddefconfig.
+> 
+> Fixes: 8e2b43d2c10b ("media: i2c: cvs: Add driver of Intel Computer Vision Sensing Controller(CVS)")
+> Cc: stable@vger.kernel.org
+> Link: https://lore.kernel.org/linux-media/20260912185836.309071-1-manuel.knitza@googlemail.com/
+> Link: https://github.com/omacom/omarchy/issues/10948
+> Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+
+I agree there's a problem here with Kconfig but I don't think this is a
+proper fix for it: CVS is clearly an I²C device and unrelated to IPU6 as
+such. (Well, you could claim this about IVSC, too, but we don't have MEI
+directory under media tree.)
+
+I any case I think the MEDIA_HIDE_ANCILLARY_SUBDRV option should go; it
+hides configuration options that should be selected for most distribution
+kernels while "autoselecting" the necessary drivers appears to be helpful
+while actually just selecting those that are mounted on actual devices,
+e.g. PCI cards.
+
+I'll post a patch for this.
+
 -- 
-2.34.1
+Kind regards,
 
+Sakari Ailus
