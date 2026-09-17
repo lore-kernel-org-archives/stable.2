@@ -1,31 +1,33 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2D5AD4B4882;
-	Thu, 17 Sep 2026 10:09:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F9823AB274;
+	Thu, 17 Sep 2026 10:12:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639773; cv=none; b=IPAdn6rTJThCKblFriOpAlYJSTHPSFxEEaPTv+7pnIQVQqtB9CmKd5zjaAnn6lxivYSMZf4Z14aXjZ0Ve4S0KxvVlX0WCjfK0ZXJL0xjiMxBF+7EtB/7ZYptApcEEX1zjwO22iAJrqvYI3s3+iq8ASjmR507Gy9DG2U7LFUcUnM=
+	t=1789639947; cv=none; b=k+FICeZn+oZ1zaEomcJanKhcC9ipDehY7aXTkVr3puUafyBFlhoFw2XFoWt6kDr3aa570dj+inF/BhQZWj/CiL22IPjik+aerPeA2yrgSqrzcT2v/ipkgdZhqAtnK/Lgn5rj+/deq7VP+adUCFxyljAO2aIHV28NLvFbZmh7b+g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639773; c=relaxed/simple;
-	bh=7SA88uXt27Vh7dQvfKYPBRkBazuTc6H6MbT/2EtPVIM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=swR00HoKWgx++l5fE9tH/0envNyB2qEQCX9fD0LwBSQyrc6DpaViSKirINHW6iURv+trnigUNy+7Foci07hhW2rsiVeTkW83cR/PxMC2Tz6Cyt7s9q6VmFdsGjX4gIhQSe3VyptwKp6889A22UI4pnJc9lD+gD+bN4Osnj8S/ek=
+	s=arc-20240116; t=1789639947; c=relaxed/simple;
+	bh=14tQsQbOtIGQ+VXPEy11vLb1bRQA5rJ5Cq9xlwLatjw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=K/XB8V/vBiYSiOXlmQxmUapjJI3c2khixKZwtVT1+fRElzyffpsud2GTKjeRn6E4gkx2Yn7WZvamjyaeUXqGg4fPW1HofPJZsZU4Lhg8lVh+0C7vFL84LxnGctkkZlf+9Ljepjg7j/lQE5OuK9UkXIstJ03WIUfU8rDYN6FDahE=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABnl0FUvKtqDlN+CA--.307S2;
-	Thu, 17 Sep 2026 18:09:25 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAC36EIHvatqYF5+CA--.436S2;
+	Thu, 17 Sep 2026 18:12:23 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: isely@pobox.com
+To: hverkuil@kernel.org
 Cc: linux-kernel@vger.kernel.org,
 	linux-media@vger.kernel.org,
+	m-karicheri2@ti.com,
 	mchehab@kernel.org,
+	prabhakar.csengg@gmail.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] media: pvrusb2: Fix USB parent device leak in class_dev_create()
-Date: Thu, 17 Sep 2026 10:09:24 +0000
-Message-Id: <20260917100924.2146125-1-vulab@iscas.ac.cn>
+Subject: [PATCH] media: vpif_capture: Fix i2c adapter reference leak in vpif_probe()
+Date: Thu, 17 Sep 2026 10:12:22 +0000
+Message-Id: <20260917101222.2146226-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -34,51 +36,68 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABnl0FUvKtqDlN+CA--.307S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKrW3GrW5Jw4UWF17uF1fCrg_yoWkGrc_Gr
-	1jvr92qw18Jw4rKr1avw1rZrW5GasFvrykXr47ta1fWrWag34rZw4Y9rn5Ary7Wr43ZF13
-	Ja4qgrZ5G34fGjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b51v-UUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qrrJo63gABsU
+X-CM-TRANSID:zQCowAC36EIHvatqYF5+CA--.436S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CrWUJF18XFW8WF1rur4Uurg_yoW8WFWkpF
+	Wq9FWSkrW0gF109F4UJwn5uFyakw4rK3yakF92kw4xua93Xry7JFyrAF12yF4kXrWkJa47
+	JFn0v3yrAFW3ur7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB2b7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aV
+	CY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxU2f-BDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwYNA2qrrRk5yQABsL
 
-class_dev_create() stores a reference to the USB device obtained with
-get_device() in class_dev->parent, which class_dev_destroy() releases.
-When device_register() fails the function only drops class_dev, so the
-reference to the USB parent device is never released.
+vpif_probe() takes a reference to the i2c adapter with
+i2c_get_adapter() and passes it to v4l2_i2c_new_subdev_board(),
+which does not consume it, but the reference is never released, so
+it is leaked both when the probe succeeds and when it fails after
+the adapter has been acquired.
 
-Drop the parent reference on the failure path as well.
+Release the reference with i2c_put_adapter() on the success path
+and in the probe_subdev_out cleanup, and initialise i2c_adap so
+that the cleanup is a no-op when the adapter was never acquired.
 
-Fixes: 28c4a5e6d324 ("V4L/DVB: pvrusb2: Fix USB parent device reference count")
+Fixes: 6ffefff5a9e7 ("V4L/DVB (12906c): V4L : vpif capture driver for DM6467")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/media/usb/pvrusb2/pvrusb2-sysfs.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/media/platform/ti/davinci/vpif_capture.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c b/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c
-index dba43d4c24f2..678e069b4c92 100644
---- a/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c
-+++ b/drivers/media/usb/pvrusb2/pvrusb2-sysfs.c
-@@ -633,6 +633,7 @@ static void class_dev_create(struct pvr2_sysfs *sfp)
- 	if (ret) {
- 		pvr2_trace(PVR2_TRACE_ERROR_LEGS,
- 			   "device_register failed");
-+		put_device(class_dev->parent);
- 		put_device(class_dev);
- 		return;
+diff --git a/drivers/media/platform/ti/davinci/vpif_capture.c b/drivers/media/platform/ti/davinci/vpif_capture.c
+index 15df3ea2f77e..572fea499b71 100644
+--- a/drivers/media/platform/ti/davinci/vpif_capture.c
++++ b/drivers/media/platform/ti/davinci/vpif_capture.c
+@@ -1602,7 +1602,7 @@ vpif_capture_get_pdata(struct platform_device *pdev,
+ static int vpif_probe(struct platform_device *pdev)
+ {
+ 	struct vpif_subdev_info *subdevdata;
+-	struct i2c_adapter *i2c_adap;
++	struct i2c_adapter *i2c_adap = NULL;
+ 	int subdev_count;
+ 	int res_idx = 0;
+ 	int i, err;
+@@ -1692,9 +1692,12 @@ static int vpif_probe(struct platform_device *pdev)
+ 		}
  	}
+ 
++	i2c_put_adapter(i2c_adap);
++
+ 	return 0;
+ 
+ probe_subdev_out:
++	i2c_put_adapter(i2c_adap);
+ 	v4l2_async_nf_cleanup(&vpif_obj.notifier);
+ 	/* free sub devices memory */
+ 	kfree(vpif_obj.sd);
 -- 
 2.34.1
 
