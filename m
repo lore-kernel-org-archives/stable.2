@@ -1,81 +1,143 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20A023AAF64
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 22:22:26 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C054A7CBF;
+	Thu, 17 Sep 2026 22:22:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683747; cv=none; b=czVe4aJZ9rcYJxUVVZkYsP+HWCwwNr9oucbqDb4Wuol2CcapB15glO365mlzyBJnDzU6MDEgrpYb6suG0gwHF81gQfwm8Bb168MF8AxjoKYgLtuczgTAyUP71BphndvsEgeLq5tR0Dfvuy0WgjXnHBt0jXFoRX3KfpF3b0EVcGo=
+	t=1789683772; cv=none; b=SYAdkQmKSvoKM/M/yvuZnSp9DuoZA4Jkw64zbzrUvW/9luZFrX//6AkAPHkpQx8T6lny98ayVa8gQdlAEvm1gOPRuaU0OqViF/panYWs26wF/XWpeZCBp/zAuxFhz7ln+HNGqyuTcNJe5PKz5faTIlYPefxMhUBQ3+daZwIFirg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683747; c=relaxed/simple;
-	bh=9o1EWy3p6EhXJfc74bTuOh3PFxjT8ee5exqwfJnsyOI=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=b7Gk0+6FMr/QhPmtbNhJCxPYVd+Q+zBiEDKXOo34K+/iLQCbnlHjE6hJbk2g37w1S8ZyEoZNAHL2PZx+BawOQGLcmjw56wuL2Y9GDjpNH3JZz1emByrZKv5c5wTiJ30XUUExSolXYzFXa2RmoSy1Lf79S7CDYo9k/6RNzOw23lI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kXldGrU9; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789683772; c=relaxed/simple;
+	bh=yl3bEdZWBwGjPVi4lZ537ug+Tkpi0akx5iqNL1iryGY=;
+	h=Date:To:From:Subject:Message-Id; b=LqLd/4V9KUQTMMw4QQDbvS0g4k6NjOw0P0g+RonQ8GRieGKYF8do+G95I6Bfl4sLfdo10TS8j+qANbV0MiMKgjppWPHb9H//9oquJl/1mK+UyNY1PiqAy3LhLmt7o50i44/kaHmVgVvH+RPPR9fHzpw2efST5x0TvNMb9nn74P8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Psah268b; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kXldGrU9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CE71D1F0089D
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 22:22:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789683745;
-	bh=9o1EWy3p6EhXJfc74bTuOh3PFxjT8ee5exqwfJnsyOI=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=kXldGrU9TIdlgTNX7r0CSqUt9F3GamdUXXmVbuomj6OkpzMxlKi8fu4zK7mOiHk5G
-	 aMzrbdElZhWDj0CAXfLIXQmduKvvkSEdT28ncI0OCsY1Q3ONNLxVIkgHEByoepSlXF
-	 XhtihDH4fbrlkKJQ9QoYePdClc71uzVRSwBETjRWiEd95yfWJtO7eXMof37IQuNReT
-	 FnqsN+N/A/ApBMis50rTPzhK2QksqnjgzaTj2wvmB+s7IEHqQZ2+H5Lq3aErwQ35ef
-	 13bCENnoX/g3YpCv5H3zmwYhy5M8pBjVfCHUl1e7nBaC6Dxc8xDjVYcvATmg3mNqAX
-	 RZ/j5oUo0wfvQ==
-Received: by mail-lf2-f12.google.com with SMTP id 2adb3069b0e04-5b899413537so164300e87.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:22:25 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByBPEBI42EHk6CLqOnjLdyTaC6bhcX1T6aRL/nsRWgtWmv2fQEn3cBc6hdTl3khQt2y+sW+fRQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kzydrR7qlahTbLwURnRR7MAKo5dDFfYf1KolXMEQMOQ8eOzoL+
-	HO1cwR5XjVJGWfs+N6SHmM8Ul32zQW6ZV4vaIThiTQr/az0kngKRrKsfEJTave20Q6vLGwrKbJX
-	+vq8aJE2ByE6yvcwN83MdIAOManT4664=
-X-Received: by 2002:a05:6512:3c94:b0:5b1:5a31:86b2 with SMTP id
- 2adb3069b0e04-5b8c17ffccfmr103340e87.16.1789683744541; Thu, 17 Sep 2026
- 15:22:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Psah268b"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A981F000FF;
+	Thu, 17 Sep 2026 22:22:50 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789683770;
+	bh=O08KkwWLSId7tdgI2XXwZypsTpY8W7M6m8WT5KIfN1o=;
+	h=Date:To:From:Subject;
+	b=Psah268bbu1W0ejEpDCamdq3efgzee8nlilS/QmEJ0FXNlUeLDCQkw8VgcEhhsuDf
+	 BrqgMriFXSN0EJxzhL2FOubrJi4v0eRpp4qxSVdvjgy3y6IKHre6PwXVqCDSDQbaNF
+	 3S/aPiuMfBXI5pzfSe9Nc4j7by4OiWyfrx1Zl61k=
+Date: Thu, 17 Sep 2026 15:22:50 -0700
+To: mm-commits@vger.kernel.org,tchibo@google.com,stable@vger.kernel.org,glider@google.com,elver@google.com,dvyukov@google.com,andreyknvl@gmail.com,fangxy@xiaopeng.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch added to mm-nonmm-unstable branch
+Message-Id: <20260917222250.D5A981F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <20260917104920.2147568-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917104920.2147568-1-vulab@iscas.ac.cn>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 18 Sep 2026 00:22:12 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn8zuuBQKXTp_-Z9An2Qb-axBet5jwtyp+iecyUR_c0Og@mail.gmail.com>
-X-Gm-Features: AcwNN1Vugsl6EYyA5YZR_TiINZ4OJKT5TpyjtLwdC1N8TlAJySegdEm3DnltlaY
-Message-ID: <CAD++jLn8zuuBQKXTp_-Z9An2Qb-axBet5jwtyp+iecyUR_c0Og@mail.gmail.com>
-Subject: Re: [PATCH] net: dsa: vitesse-vsc73xx: Fix SPI device reference leak
- in vsc73xx_spi_probe()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andrew@lunn.ch, davem@davemloft.net, edumazet@google.com, 
-	f.fainelli@gmail.com, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, olteanv@gmail.com, pabeni@redhat.com, 
-	paweldembicki@gmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-On Thu, Sep 17, 2026 at 12:49=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> w=
-rote:
 
-> spi_dev_get() takes a reference on the SPI device, but neither the
-> probe error paths nor vsc73xx_spi_remove() ever release it, so the
-> spi_device can never be freed after the driver has been unbound.
->
-> Release the reference on both probe error paths and in remove().
->
-> Fixes: 95711cd5f0b4 ("net: dsa: vsc73xx: Split vsc73xx driver")
-> Cc: stable@vger.kernel.org
+The patch titled
+     Subject: kcov: ignore an out-of-range comparison count in write_comp_data()
+has been added to the -mm mm-nonmm-unstable branch.  Its filename is
+     kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch
 
-I think we don't set this on networking patches, the network maintainer
-decides himself what is stable material.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch
 
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+This patch will later appear in the mm-nonmm-unstable branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-Reviewed-by: Linus Walleij <linusw@kernel.org>
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-Yours,
-Linus Walleij
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Fang Xieyan <fangxy@xiaopeng.com>
+Subject: kcov: ignore an out-of-range comparison count in write_comp_data()
+Date: Thu, 17 Sep 2026 18:43:06 +0800
+
+write_comp_data() reads the comparison record count from area[0] and uses
+it to index the coverage buffer:
+
+	area = (u64 *)t->kcov_area;
+	max_pos = t->kcov_size * sizeof(unsigned long);
+
+	count = READ_ONCE(area[0]);
+
+	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
+	start_index = 1 + count * KCOV_WORDS_PER_CMP;
+	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
+	if (likely(end_pos <= max_pos)) {
+
+The buffer is mmap'd writable into the collecting process, so count is
+under its control and end_pos <= max_pos is its only bound.  A count that
+wraps the u64 multiply leaves end_pos below max_pos, so the check passes
+while the record store lands 24 bytes before the buffer, in the unmapped
+vmalloc guard page, and faults:
+
+  BUG: unable to handle page fault for address: ffa0000000b60fe8
+  #PF: supervisor write access in kernel mode
+  #PF: error_code(0x0002) - not-present page
+  Oops: 0002 [#1] SMP KASAN NOPTI
+  RIP: 0010:write_comp_data+0x7e/0xa0
+  ...
+  Kernel panic - not syncing: Fatal exception
+
+Bound count first: only max_pos / (sizeof(u64) * KCOV_WORDS_PER_CMP)
+records fit, so a larger count is not a valid index and is dropped. 
+kcov_move_area() bounds the same untrusted count this way, and no count
+the end_pos <= max_pos check accepts reaches that limit, so no valid
+record is lost.
+
+kcov is a root-only debugfs file (debugfs_create_file_unsafe("kcov", 0600,
+...)) and write_comp_data() exists only under
+CONFIG_KCOV_ENABLE_COMPARISONS, so this is a local, debug-kernel
+robustness fix: the process corrupts its own buffer and the kernel oopses.
+It crosses no privilege boundary.  Additonal details at [1]
+
+Link: https://lore.kernel.org/20260917104306.22145-1-fangxy@xiaopeng.com [1]
+Fixes: ded97d2c2b2c ("kcov: support comparison operands collection")
+Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Assisted-by: Hawkeye:GLM-5.3-flash
+Assisted-by: Qoder:Qwen3.8-Max
+Cc: Alexander Potapenko <glider@google.com>
+Cc: Andrey Konovalov <andreyknvl@gmail.com>
+Cc: Dmitry Vyukov <dvyukov@google.com>
+Cc: Marco Elver <elver@google.com>
+Cc: Victor Chibotaru <tchibo@google.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ kernel/kcov.c |    8 ++++++++
+ 1 file changed, 8 insertions(+)
+
+--- a/kernel/kcov.c~kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data
++++ a/kernel/kcov.c
+@@ -253,6 +253,14 @@ static void notrace write_comp_data(u64
+ 
+ 	count = READ_ONCE(area[0]);
+ 
++	/*
++	 * area[0] is writable by the collecting process, so count cannot be
++	 * trusted. Bound it to the records that fit, as kcov_move_area()
++	 * does, so the end_pos multiply below cannot wrap past its check.
++	 */
++	if (count >= max_pos / (sizeof(u64) * KCOV_WORDS_PER_CMP))
++		return;
++
+ 	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
+ 	start_index = 1 + count * KCOV_WORDS_PER_CMP;
+ 	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
+_
+
+Patches currently in -mm which might be from fangxy@xiaopeng.com are
+
+kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch
+
