@@ -1,107 +1,140 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4139555C31F;
-	Thu, 17 Sep 2026 15:35:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88EA8579813
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:35:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659343; cv=none; b=XhGzxdq7eIhrnwDJGt5ADXLgtRRxTh8+fvs4qawq2WPsPjTO0GykRQegrGN4BGIyyrYR03lCvGQZyUv3aSfS7uvbDR4uRRTsO5Zm9mBTxqBrXBUkt41cgdUUlOI9NOjfTDJNShqQmOF48udVGJAHwH+QdK+D4r9byXnPNT06FNw=
+	t=1789659346; cv=none; b=LnlRFXCpJSZeyHrA+DbH/8Bw6BCCE672lHXf0ZCwy1jpqo498I+HK3xXSkd4jb4zp2G2arjPE1mxZKmbwiBKjrW1HW9GNX4XGJIwOFbJjD9kLvluEvGTVMa5MK4BxHS9fFXuXw60nelDWVerKm0E+vakd5ZJYUUyyS6iXjAcD7E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659343; c=relaxed/simple;
-	bh=uU8AB6Dgqp5DjjYIqQBUFIQzHq3tlfCyNT3GT5MZhGk=;
+	s=arc-20240116; t=1789659346; c=relaxed/simple;
+	bh=0m7Y88fV0dWH85L8Qp0r+3GXJ+3nTEkVngv40ATPdt4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=q6ZIo2ltDu9+XNBmBSruMkWzektZiDb+Wr/LpIcpcDt8QHWtIxP0qP0J0mLwPHht2nRyEeQh+5VCglpOUif5acEUldwqysKqxp4kijBQ2eGNnp4HIOSIzZcjnUN41SAAihLnroBLBzBvUL6K/lhy1CKDS83Lcv6S7WDxaH1eQP8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KiSu20hM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ElHtMj5XLrR6cNiKOi2OxvSuWnpv3R1NAaWRz9SlmbxgolZ8z2JnqdwCbDZyO1UhQjkfskV/KN8jI00fJVa8gP2Jp3lacuGDj4aBgpZ5dQdObqkxqcD2aVHO645jzEvaODDDpz3Hd1dz3hbj1rmoxRzk76WrtwDdbfCd5LKgZZ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=1Es17Uwm; arc=none smtp.client-ip=83.166.143.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KiSu20hM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 430E81F000FF;
-	Thu, 17 Sep 2026 15:35:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659335;
-	bh=ZhnVN6PnNNIFyNSYYb3vrIlotJuYoOkf7Jy9q9vlfig=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KiSu20hM+ejcI+DZiJsRnCcUGzWwuomLpZHfje7xeV+vV6jhc/rUds5518fnzD742
-	 dG9s0ko0ddfnHilLWLJ1RdFSUffc0QDKgxrI0RoWbUFeiQay+LpasVnpEarP3RKKoe
-	 bNSdsC82cEeSg1HjG3I02syfh3ldwRH3RNk8C17g=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="1Es17Uwm"
+Received: from smtp-3-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm04g3S1jzQJC;
+	Thu, 17 Sep 2026 17:27:47 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789658867;
+	bh=71BgvP1k8eHPwNTYeZZj+YyDryF7umHQRV/B+HsUXbc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=1Es17UwmdLuEIdsp86ET+qUAUYD2upR0Yc40RDGhKSWMW7tm2E/PC7Q0l7LISuKGH
+	 F0HM+WzHFW20eqyl5qLW7IFg5k+dveu1PTk2j03IrdtHyNG03x8XAQS9rrw4L10vMR
+	 4f06NMzNcvktwYdSx9Cq5JQOC5cAWxkodpAUxLss=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm04f4ykpzDsL;
+	Thu, 17 Sep 2026 17:27:46 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	HyeongJun An <sammiee5311@gmail.com>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 222/733] selftests/alsa: Fix the step check for INTEGER controls
-Date: Thu, 17 Sep 2026 16:08:50 +0100
-Message-ID: <20260917151356.738442775@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Paul Moore <paul@paul-moore.com>,
+	syzbot+bf4903dc7e12b18ebc87@syzkaller.appspotmail.com
+Subject: [PATCH 6.1.y] selftests/landlock: Add layout1.refer_mount_root
+Date: Thu, 17 Sep 2026 17:27:42 +0200
+Message-ID: <661e8a7821258da80d7ab0e2c2d7e19b07ccfae0.1789655724.git.mic@digikod.net>
+In-Reply-To: <20240619125600.199822604@linuxfoundation.org>
+References: <20240619125600.199822604@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
+Message-ID: <20260917152742.1uYzsar56SEwcm3613Sns_hiHLxcp8DK_bk1yB6_K5Y@z>
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+[ Upstream commit 0055f53aac80fd938bf7cdfad7ad414ca6c0e198 ]
 
-------------------
+Add tests to check error codes when linking or renaming a mount root
+directory.  This previously triggered a kernel warning, but it is fixed
+with the previous commit.
 
-From: HyeongJun An <sammiee5311@gmail.com>
-
-[ Upstream commit 8efd5f623c63584c2e284a837a7795d95a0491cb ]
-
-The modulo sits inside the subtraction, so the check evaluates
-int_val - (min % step) rather than (int_val - min) % step. The
-INTEGER64 branch below it is parenthesised correctly.
-
-The written form passes only when the value equals min % step, and such
-a value is always on a step boundary, so it never misses a real
-violation. It only reports valid values as invalid.
-
-snd-aloop declares step 1 on four controls, so every non-zero value on
-them is reported. Before:
-
-  # PCM Rate Shift 100000.0 value 100000 invalid for step 1 minimum 80000
-  # Totals: pass:660 fail:101 xfail:0 xpass:0 skip:296 error:0
-
-After, same card, nothing else changed:
-
-  # Totals: pass:740 fail:21 xfail:0 xpass:0 skip:296 error:0
-
-Eighteen files under sound/ declare a non-zero step.
-
-Fixes: 5aaf9efffc57 ("kselftest: alsa: Add simplistic test for ALSA mixer controls kselftest")
-Signed-off-by: HyeongJun An <sammiee5311@gmail.com>
-Assisted-by: Claude:claude-opus-5
-Link: https://patch.msgid.link/20260903123832.97377-1-sammiee5311@gmail.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: Günther Noack <gnoack@google.com>
+Cc: Paul Moore <paul@paul-moore.com>
+Link: https://lore.kernel.org/r/20240516181935.1645983-3-mic@digikod.net
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: adapt to the older selftest header layout]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- tools/testing/selftests/alsa/mixer-test.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/testing/selftests/landlock/fs_test.c | 45 ++++++++++++++++++++++
+ 1 file changed, 45 insertions(+)
 
-diff --git a/tools/testing/selftests/alsa/mixer-test.c b/tools/testing/selftests/alsa/mixer-test.c
-index a329f901c5edf..0857d64c322a0 100644
---- a/tools/testing/selftests/alsa/mixer-test.c
-+++ b/tools/testing/selftests/alsa/mixer-test.c
-@@ -319,8 +319,8 @@ static bool ctl_value_index_valid(struct ctl_data *ctl,
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 864309ebb0b4..b37c694d5c10 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -10,6 +10,7 @@
+ #define _GNU_SOURCE
+ #include <fcntl.h>
+ #include <linux/landlock.h>
++#include <linux/mount.h>
+ #include <sched.h>
+ #include <stdio.h>
+ #include <string.h>
+@@ -32,6 +33,13 @@ int renameat2(int olddirfd, const char *oldpath, int newdirfd,
+ }
+ #endif
  
- 		/* Only check step size if there is one and we're in bounds */
- 		if (snd_ctl_elem_info_get_step(ctl->info) &&
--		    (int_val - snd_ctl_elem_info_get_min(ctl->info) %
--		     snd_ctl_elem_info_get_step(ctl->info))) {
-+		    (int_val - snd_ctl_elem_info_get_min(ctl->info)) %
-+		    snd_ctl_elem_info_get_step(ctl->info)) {
- 			ksft_print_msg("%s.%d value %ld invalid for step %ld minimum %ld\n",
- 				       ctl->name, index, int_val,
- 				       snd_ctl_elem_info_get_step(ctl->info),
--- 
-2.53.0
-
-
-
++#ifndef open_tree
++int open_tree(int dfd, const char *filename, unsigned int flags)
++{
++	return syscall(__NR_open_tree, dfd, filename, flags);
++}
++#endif
++
+ #ifndef RENAME_EXCHANGE
+ #define RENAME_EXCHANGE (1 << 1)
+ #endif
+@@ -2178,6 +2186,43 @@ TEST_F_FORK(layout1, refer_denied_by_default4)
+ 				layer_dir_s1d1_refer);
+ }
+ 
++/*
++ * Tests walking through a denied root mount.
++ */
++TEST_F_FORK(layout1, refer_mount_root_deny)
++{
++	const struct landlock_ruleset_attr ruleset_attr = {
++		.handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_DIR,
++	};
++	int root_fd, ruleset_fd;
++
++	/* Creates a mount object from a non-mount point. */
++	set_cap(_metadata, CAP_SYS_ADMIN);
++	root_fd =
++		open_tree(AT_FDCWD, dir_s1d1,
++			  AT_EMPTY_PATH | OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
++	clear_cap(_metadata, CAP_SYS_ADMIN);
++	ASSERT_LE(0, root_fd);
++
++	ruleset_fd =
++		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
++	ASSERT_LE(0, ruleset_fd);
++
++	ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
++	ASSERT_EQ(0, landlock_restrict_self(ruleset_fd, 0));
++	EXPECT_EQ(0, close(ruleset_fd));
++
++	/* Link denied by Landlock: EACCES. */
++	EXPECT_EQ(-1, linkat(root_fd, ".", root_fd, "does_not_exist", 0));
++	EXPECT_EQ(EACCES, errno);
++
++	/* renameat2() always returns EBUSY. */
++	EXPECT_EQ(-1, renameat2(root_fd, ".", root_fd, "does_not_exist", 0));
++	EXPECT_EQ(EBUSY, errno);
++
++	EXPECT_EQ(0, close(root_fd));
++}
++
+ TEST_F_FORK(layout1, reparent_link)
+ {
+ 	const struct rule layer1[] = {
