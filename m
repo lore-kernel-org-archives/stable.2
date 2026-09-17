@@ -1,121 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0C8A31A555
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:26:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AF031AA8F
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:26:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604763; cv=none; b=QmR0OP65Jv8R62lZAGLtNBcoIy9QMWZ6yM1j19efp5j02/9E2fPfcfyPKYwzlteUMMbwxvZejK5b/hnpZgxFumaAygKZVkWAIMP8JG0r6ZmBjShf91x3OLwe8tEtPhBUT5d7RaKW2LGrttOoGC1xv3EqTzQbPe4z29X9jrM/Zhs=
+	t=1789604764; cv=none; b=JOl24T5EmIXQXrG1TfO9Z8ICDDi3u9wjRImV/gw6Tsru8q8FYhTY8x+FBYla2kQVh0+KPEwKVN0BsLxWQa0IvIJh7QWSbZudScJXTBHb3LfYGmRuL21IsKHHSR/ZoYWU9/1THI8FaWS3VQD8eXFi9czMpzGEjmlZaC3XFOBd+m4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604763; c=relaxed/simple;
-	bh=XG48JirZWE9UcxtTztd2pdpZqCrPbxPglA9KE0GOVSU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RsAP6gckfvZTqCh8GzxHFxTBsv/lMR9SGa8uIaCLKDy4oZTD8woOpOARWrTHNIG5Qt2phwB1ja9ol+ft4vdm5KKRgIfVLHotqg8PspLdhpEouKDQsHZpheZZOlkXVxZBETPMF1rcI5NDK3wpP4+C2sETMkHS9cd9Fm/7amRuU44=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mzzzToS2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789604764; c=relaxed/simple;
+	bh=5b/u82wL27/Fu9PH2a97FNdOABh4pOizTMteEoxSlJY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nSA+4pDlKVnWbmcL22UfS8MD//cWTAeBc6Gw1MEVSdsM/8b3d/3ShJr/P2an7FaX1iXRI80K1q7U5Vx139tzTQG1wcf7mltHG2xPdZHbYVQac7BO8h9PVYtYW3389iebmEW8Xai+AxsslEvYN+H3xkm4DE7SqqLeKmPVo6hfszc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j7IQBgPL; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mzzzToS2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15DFA1F0089A;
-	Thu, 17 Sep 2026 00:26:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789604761;
-	bh=OIHxjLiW6gt3pdKuvND2uGJq7NIUqXvr8BfPZh0HAW0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mzzzToS2JcmNm+NAcXsRVJQbX/pNmbIndgQF8ddnjGeIqHwMSBSzJwGqR5D1+Ux94
-	 ODJCAJpC/fNdhXK1DSBaYP900zdk2glaWClh85CGCqP42pLd3+Z8xB8Of5FYD7FzQX
-	 d1VEIX5hNCZVMc+P3aqpnpbh58GtkOT1TMvaZ+pElJl/1PweuXpl3n3SQft1YT/YAR
-	 N5aHxx1ACbZbrKudCcnLdeq5Lx+aASfCSZ59JL2TdPVtc82kC/fOBPsaffFfpFpY5A
-	 VZCBnkA4YkRTN3vI8g4deGsfW4Wa1fo2c9R+c0udI3+jufBeoPcVuiKHXh7bcTqfQk
-	 SgQTlCZVjAMKg==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 4/4] net: macb: initialize PTP state before registering clock
-Date: Wed, 16 Sep 2026 20:25:57 -0400
-Message-ID: <20260917002557.3379520-4-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917002557.3379520-1-sashal@kernel.org>
-References: <2026091645-winnings-facsimile-bba7@gregkh>
- <20260917002557.3379520-1-sashal@kernel.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j7IQBgPL"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8686f46e4adso225804b3a.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:26:02 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789604762; x=1790209562; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=vV88gSyI1c3ZYT2h6e0lSF5RM8fB6PlCcIwJXe36LlM=;
+        b=j7IQBgPLjn9sH0nV2YvmCk6T2O2+TXlNsEyPEGYiRAwXEDeUO4+RwOQLwZnua0Bgk+
+         oO4B1NnOarcDEGX5DywGc7yhbfC/15WtUOrEIvt8iGp9pJq7p4RXMITE0onw3QS3zoo0
+         8X+xPaA/cKJk5OVZX6Z/SzS2J+mUMUHI93b70jbiMsbuzSCVDrzy3hrVbceTBaJfVO4C
+         rsWKGiYiJUl6oLibqw8Mbbe5Xg/9beBxjp3Np5KHkItCZ9C36gKe86M2GPkMPwvgPbOM
+         BX3uJIShx5bfXFvg6XLIbO2Wh2HxmU+8KDrDZLIX8i/6/RM1VRYs+j68uuIN97ZJHkJA
+         tncg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789604762; x=1790209562;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=vV88gSyI1c3ZYT2h6e0lSF5RM8fB6PlCcIwJXe36LlM=;
+        b=YAiHrRPBgQK+zsNgfJSmNvkLtwcCx9TBL7bxODzXllKNdx6XfMGKlGWZWKWXv8sS/Y
+         FRlciYEw0bQbPswtvwn+zP867209UUTVHa99FnGhEDpof/+SGrsEppHWdvc/RZSR6RDq
+         sW0lYwa9bKm7BolMxXN88DD9hAVRD5olxNtpeSxIOE1xxo8W3JaxzBqciGO38hx+WWrw
+         RebDO9hlQQEYDmfWrdVnGsT8M8kpKrQaveH/SbhBinlgXz99I+P26MxTCSAe4xt9yj3h
+         PFCYllWaUf24AgCXtY5VIylUhAFSOBTzqCEmw8FockzgraqpetF1XW2jkaa9T540V4Sm
+         1gwg==
+X-Forwarded-Encrypted: i=1; AKwUvByU07Pqsq0VkaeKTtjuo4lH0gYWqRBVU+UUsXmvD1ye04UOrppZIaFzrsBucCw2zVD0e+0KEFQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++ku9wOvnE3pZaKSKMSqp6P5JMUocQAC/JBRkELa8hZl9PWs4rFT
+	gqze7WJTo0gi0sGsGFB+EPeiyLf/uECFDmXM4ZpwpjHCG09IbOrO+tus
+X-Gm-Gg: AYBFou3Rv0C9UrR+c/KvZkHGQbW4myWkb+Rl4AOcZKs/V5wAoQucAbCV7AqV6s7Ys0P
+	Y/ulPT3HiZNOAOrumaNDjcHETmoQJVx9VyNwWjP1G5N3kxkxOO2ffQoSNpct6sx7aiku54oEkRn
+	nZPG84D2CFBRR6J1BT6NpPe9DEuesMM7jKeo+iEVv5hQWqUIqo0piHeiK9re9AKDCHd2JymQ8TP
+	HuSm97O9hbDz/eBGeLESWRdZCOuy2yXbtOZjbsIiDGYclydq+PCXrUFENn5KlOo/S9YgoikXJcT
+	Oh4adoJhD5rUoeogtxGNP3bcT1RyB+eErMS0PznwZyJsRTUq6cC4eL8xeLr0gfQAKRsYFhrywZP
+	ElqSq24w1+KXSEOGXCOOIcgCFubfAWViER1eEkdydQbhHuFj0P+yMB+NJhkivnF6ls+Hn7XNjOH
+	d6fAiwz2n0jYM2n/fX09mj3W1B8K071O2OcfIQRMSZzntIokcwZQlM3RJIql4k/AIY09iEvISn7
+	SicfeTU2il8
+X-Received: by 2002:a05:6a00:440a:b0:870:c2db:da40 with SMTP id d2e1a72fcca58-87239a9dce3mr9776123b3a.24.1789604761569;
+        Wed, 16 Sep 2026 17:26:01 -0700 (PDT)
+Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-872025dd04csm1926956b3a.60.2026.09.16.17.26.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Wed, 16 Sep 2026 17:26:01 -0700 (PDT)
+Sender: Guenter Roeck <groeck7@gmail.com>
+Date: Wed, 16 Sep 2026 17:26:00 -0700
+From: Guenter Roeck <linux@roeck-us.net>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
+	mikew@google.com, priyankag@google.com, wim@linux-watchdog.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] watchdog: sp5100_tco: Fix pci_dev reference leak in
+ sp5100_tco_init()
+Message-ID: <8df16733-9a20-45eb-89b5-c396244f0062@roeck-us.net>
+References: <20260916170511.2086199-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916170511.2086199-1-vulab@iscas.ac.cn>
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+On Wed, Sep 16, 2026 at 05:05:11PM +0000, Wentao Liang wrote:
+> sp5100_tco_init() stores the PCI device matched by for_each_pci_dev()
+> in the global sp5100_tco_pci and keeps its reference for the lifetime
+> of the driver, but neither sp5100_tco_exit() nor the error paths of
+> sp5100_tco_init() call pci_dev_put(), leaking the reference on driver
+> registration failure and on every module load/unload cycle.
+> 
+> Drop the reference when the platform driver or device registration
+> fails and when the module is unloaded.
+> 
+> Fixes: 15e28bf13008 ("watchdog: Add support for sp5100 chipset TCO")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-[ Upstream commit e1406330d70e56dd44fa6fbafc86e77e5c80c122 ]
+Applied.
 
-gem_ptp_init() registers the PTP clock before initializing
-bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
-publishes the PTP character device, userspace may invoke PTP callbacks
-before the lock and hardware are ready.
-
-In addition, gem_ptp_init() is called from both the interface open and
-resume paths. Reinitializing tsu_clk_lock there can reset the lock while
-timestamp processing is using it.
-
-This race is theoretical and has not been observed in practice.
-
-Initialize tsu_clk_lock once during probe and initialize the TSU before
-registering the PTP clock.
-
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260904030439.3994047-1-runyu.xiao@seu.edu.cn/
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260908103924.607033-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/ethernet/cadence/macb_main.c | 1 +
- drivers/net/ethernet/cadence/macb_ptp.c  | 5 +----
- 2 files changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 235baf9fef60c..7999268349d3c 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -5212,6 +5212,7 @@ static int macb_probe(struct platform_device *pdev)
- 	}
- 	spin_lock_init(&bp->lock);
- 	spin_lock_init(&bp->stats_lock);
-+	spin_lock_init(&bp->tsu_clk_lock);
- 
- 	/* setup capabilities */
- 	macb_configure_caps(bp, macb_config);
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index ec96b17b301ae..6afb7ca74b04d 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -332,6 +332,7 @@ void gem_ptp_init(struct net_device *netdev)
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
- 	gem_ptp_init_timer(bp);
-+	gem_ptp_init_tsu(bp);
- 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
- 	if (IS_ERR(bp->ptp_clock)) {
- 		pr_err("ptp clock register failed: %ld\n",
-@@ -343,10 +344,6 @@ void gem_ptp_init(struct net_device *netdev)
- 		return;
- 	}
- 
--	spin_lock_init(&bp->tsu_clk_lock);
--
--	gem_ptp_init_tsu(bp);
--
- 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
- 		 GEM_PTP_TIMER_NAME);
- }
--- 
-2.53.0
-
+Thanks,
+Guenter
