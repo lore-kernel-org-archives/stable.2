@@ -1,43 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3968B4E4C5B;
-	Thu, 17 Sep 2026 15:43:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D7B644E4C45;
+	Thu, 17 Sep 2026 15:43:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659824; cv=none; b=SYtMCWHLi+XkDShqaMpTxGjO5eydD3HQT3R4usO5YIK4RRsFZbgnUK0Ssd2EYFs/lmZ4spxTi/FyXXrbTi2zRqbMtWahuBMyNalPJKKp1bXxbgffaM7Mwp1zBVknray5S0BAtodbZa8/GgoZ+tg+k1zt3KVFE0dqN2HaOEomsJE=
+	t=1789659828; cv=none; b=NSeB/m+fHUJCGa8ZM8MjC3syTK61h/Be1vDuuBHcs6pEQyI8Sg1R6JGoSBbUKmiiQoEESHJYwICjuKx0KS0L71VPi8XvlCAHf4YR1BSLdc73m3BL10azEWRy0ho/p28p9KzeMXWasimR1pqiuuD29IFXO97Y6zJsV7UyyBVeI78=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659824; c=relaxed/simple;
-	bh=XfeTpH5LcN1SJIjtIMzFmiKaiDjv6JGF1MLESMDZ6Og=;
+	s=arc-20240116; t=1789659828; c=relaxed/simple;
+	bh=Ci0FAVqPP+eIRZE4HM/J8mD9ZxPaY6tRcUMv5tagreg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=pVTPbzgjLZAEhD4V4cUBflkuw7x1abByRBIgXuH41DsoAnr6KCvykSpFiRJhCrwMW760Q5EghgMd0vAe0DSbe+cTXil67GpQ2uub5Trpxskh1oqIUIVbpjyFLMvm2WIxPeLD+ROtikHxGYaDPN5LJVwMSTrFGTMXplKOAv0eoUY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cStwf8fE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=PhwyOTLfH0/q6eOINKRXRAXXhcFKyh3TDjUatkEnAiEXpVKhZEE87ShRY+HoDfjKUMUbymqrPFMEHvoQli8bxgGF4u/X0L2/I11zUMwncmv6zVvDSQScupGVbmKaX5tzD/5a4wmUE5iXVu7SNXRFXCpz51kDtyg5eiCDFoE0LbY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=kMHG9Ru8; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cStwf8fE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8364C1F00899;
-	Thu, 17 Sep 2026 15:43:34 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="kMHG9Ru8"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 64B0B1F00898;
+	Thu, 17 Sep 2026 15:43:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659815;
-	bh=rtYEBBZD6Oks0pklon5ZbDFbukx4zVr5jarzE//zoMk=;
+	s=korg; t=1789659820;
+	bh=+81oyHQjjstbGMItcTkZAJJX/7ZZWp4aZC76WrtS4Wg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=cStwf8fEePBYCyOJvpccv+NJRsj7iVXNk7jy/Oe2CxikgIbiVeoxTSYQTJuf7vHQw
-	 ICpSAQbA3gVUN8dyk4mZqYj5a1w3F1eFuigJfSUzr6dWx5EjGlWgJQLzxGiWLYRmbI
-	 Q6eM8gNDyfanEFOscSZoz4JWdK7q57GlBeeVsHmk=
+	b=kMHG9Ru8mpzUcFAfjvSHirSGYjqAGUvzD8HcWNzEzKSNCYgiIvOxbEamIYybkTVPP
+	 jsQUjP5nSE52x3zhUrlu+lPWMXS6H2HOXolqg54ouxHpfTs5A0951PatZvA1wONbNs
+	 E7Myq7DVBArEVM5oKM1hmaywayt4jpbgA6bwLd/o=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+a73e5ee0fd534fed75bd@syzkaller.appspotmail.com,
-	Naman Gulati <namangulati@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Ido Schimmel <idosch@nvidia.com>,
-	Fernando Fernandez Mancera <fmancera@suse.de>,
-	Eric Dumazet <edumazet@google.com>,
+	Nicolai Buchwitz <nb@tipi-net.de>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 384/733] ipv6: null-check fib6_node before accessing in __ip6_del_rt_siblings()
-Date: Thu, 17 Sep 2026 16:11:32 +0100
-Message-ID: <20260917151401.256737800@linuxfoundation.org>
+Subject: [PATCH 7.2 386/733] net: macb: put the "mdio" child node reference on success
+Date: Thu, 17 Sep 2026 16:11:34 +0100
+Message-ID: <20260917151401.311838105@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -56,105 +51,42 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Naman Gulati <namangulati@google.com>
+From: Nicolai Buchwitz <nb@tipi-net.de>
 
-[ Upstream commit cdca92eddc025fdb90071be97738f7d55a65f8dd ]
+[ Upstream commit 382a373d9ea7a6ac4de9c022385b6217f65ae3cc ]
 
-syzbot reported a null-ptr-deref in __ip6_del_rt_siblings() [0].
+macb_mii_init() holds the reference returned by of_get_child_by_name()
+for macb_mdiobus_register() and drops it only on the error paths, so
+every successful probe leaks a node reference. On a CM5, overlay
+removal after four bind cycles reports
 
-The stack trace hinted towards a null dereference of rt->fib6_node when
-fn->leaf is accessed in __ip6_del_rt_siblings(). With
-RTNL_FLAG_DOIT_UNLOCKED set, inet6_rtm_delroute() operations run
-concurrently without acquiring the RTNL lock. In ip6_route_del(), the
-route lookup happens under rcu_read_lock() without acquiring
-table->tb6_lock.
+  OF: ERROR: memory leak, expected refcount 1 instead of 5
 
-Between ip6_route_del() looking up the route and __ip6_del_rt_siblings()
-acquiring table->tb6_lock, another thread can modify the routing table.
-For example, when an ECMP route is replaced via RTM_NEWROUTE with
-NLM_F_REPLACE, fib6_add_rt2node() unlinks all old siblings and sets
-iter->fib6_node = NULL. A reproducer was found that triggers this [1].
+Drop the reference after registration, where __mdiobus_register() has
+already taken its own for the lifetime of the bus.
 
-Add a check to ensure rt->fib6_node is non-null before accessing it.
-
-[0]
-KASAN: null-ptr-deref in range [0x0000000000000020-0x0000000000000027]
-RIP: 0010:__ip6_del_rt_siblings+0x31e/0x7c0 net/ipv6/route.c:4056
-Call Trace:
- <TASK>
- ip6_route_del+0x1054/0x1110 net/ipv6/route.c:4232
- inet6_rtm_delroute+0x5d7/0x6d0 net/ipv6/route.c:5669
- rtnetlink_rcv_msg+0x802/0xc00 net/core/rtnetlink.c:7132
- netlink_rcv_skb+0x226/0x4a0 net/netlink/af_netlink.c:2556
- netlink_unicast_kernel net/netlink/af_netlink.c:1319 [inline]
- netlink_unicast+0x7f5/0x990 net/netlink/af_netlink.c:1345
- netlink_sendmsg+0x813/0xb40 net/netlink/af_netlink.c:1900
- sock_sendmsg_nosec+0x13a/0x180 net/socket.c:800
- __sock_sendmsg net/socket.c:815 [inline]
- ____sys_sendmsg+0x565/0x870 net/socket.c:2713
- ___sys_sendmsg+0x2a5/0x360 net/socket.c:2767
- __sys_sendmsg net/socket.c:2799 [inline]
- __do_sys_sendmsg net/socket.c:2804 [inline]
- __se_sys_sendmsg net/socket.c:2802 [inline]
- __x64_sys_sendmsg+0x1b7/0x290 net/socket.c:2802
- do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
- do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
- entry_SYSCALL_64_after_hwframe+0x77/0x7f
- </TASK>
-
-[1] https://gist.github.com/NamanGulati/0766a1159b6ca61928faaf87425ff899
-
-Fixes: bd11ff421d36 ("ipv6: Get rid of RTNL for SIOCDELRT and RTM_DELROUTE.")
-Reported-by: syzbot+a73e5ee0fd534fed75bd@syzkaller.appspotmail.com
-Closes: https://lore.kernel.org/netdev/6a9b03f9.04649fcc.10325f.0003.GAE@google.com
-Signed-off-by: Naman Gulati <namangulati@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Reviewed-by: Ido Schimmel <idosch@nvidia.com>
-Reviewed-by: Fernando Fernandez Mancera <fmancera@suse.de>
-Reviewed-by: Eric Dumazet <edumazet@google.com>
-Link: https://patch.msgid.link/20260904180645.706425-1-namangulati@google.com
+Fixes: 8a6631f1cece ("net: macb: avoid redundant lookup for "mdio" child node in MDIO setup")
+Signed-off-by: Nicolai Buchwitz <nb@tipi-net.de>
+Link: https://patch.msgid.link/20260907210856.1673589-3-nb@tipi-net.de
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv6/route.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+ drivers/net/ethernet/cadence/macb_main.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index dc9060af5bb1e..ee707e48f4efa 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -4010,6 +4010,7 @@ static int __ip6_del_rt_siblings(struct fib6_info *rt, struct fib6_config *cfg)
- 	struct net *net = info->nl_net;
- 	struct sk_buff *skb = NULL;
- 	struct fib6_table *table;
-+	struct fib6_node *fn;
- 	int err = -ENOENT;
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index 404aebe01ed01..9a59dd0df61a9 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -1164,6 +1164,8 @@ static int macb_mii_init(struct macb *bp)
+ 	if (err)
+ 		goto err_out_unregister_bus;
  
- 	if (rt == net->ipv6.fib6_null_entry)
-@@ -4017,9 +4018,13 @@ static int __ip6_del_rt_siblings(struct fib6_info *rt, struct fib6_config *cfg)
- 	table = rt->fib6_table;
- 	spin_lock_bh(&table->tb6_lock);
- 
-+	fn = rcu_dereference_protected(rt->fib6_node,
-+				       lockdep_is_held(&table->tb6_lock));
-+	if (!fn)
-+		goto out_unlock;
++	of_node_put(mdio_np);
 +
- 	if (rt->fib6_nsiblings && cfg->fc_delete_all_nh) {
- 		struct fib6_info *sibling, *next_sibling;
--		struct fib6_node *fn;
+ 	return 0;
  
- 		/* prefer to send a single notification with all hops */
- 		skb = nlmsg_new(rt6_nlmsg_size(rt), GFP_ATOMIC);
-@@ -4041,8 +4046,6 @@ static int __ip6_del_rt_siblings(struct fib6_info *rt, struct fib6_config *cfg)
- 		 * and emit a replace or delete notification, respectively.
- 		 */
- 		info->skip_notify_kernel = 1;
--		fn = rcu_dereference_protected(rt->fib6_node,
--					    lockdep_is_held(&table->tb6_lock));
- 		if (rcu_access_pointer(fn->leaf) == rt) {
- 			struct fib6_info *last_sibling, *replace_rt;
- 
+ err_out_unregister_bus:
 -- 
 2.53.0
 
