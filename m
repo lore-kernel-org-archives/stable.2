@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3DD74ABBD2;
-	Thu, 17 Sep 2026 15:36:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E34158F07B;
+	Thu, 17 Sep 2026 15:36:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659380; cv=none; b=W/2Mj0tk7kH0b3l4E5LMSdeJh32+CSlHlCijmtuMzCFdJWdBdN/yjLfHpf4QfK0AdXYTBcEolpmiEZBMnMpIclvf80otUSBI7guP3oz2uSCePghygOdw/EfkxmIdUA3SG4yrTAxqY+ikdEk0Vzmj0ZlsXi6ot3WXFReSxq/5ecI=
+	t=1789659383; cv=none; b=FXNKKI7d7zkztmJeTBKOJXVsTojwORqH/B65pjKKkBf7JSC5zz0eKt4Bx5HNAtzcWoCU2ejh+EyAq9sDpH1vbM6JFsknX5ewAjuX1r5vA31HcpCicesiEE/km6JKj5YLkr040LACXVI15Bff3XDOEilCL14dEyZCcUUf0DkYKx8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659380; c=relaxed/simple;
-	bh=H+3frkQNa9g7VluPF6dQwZtDMqpssP9spglN/K4DbNw=;
+	s=arc-20240116; t=1789659383; c=relaxed/simple;
+	bh=8oVZ/UUIdgEQ3w0WGGQB5BBdILx8zevcYlonEKJEBiw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=klVx0WDT212NGkpnb5s6m/APPkFFUcEk+1SLBfDzSaJZUyH/F4548kOGvAGyYbtUk/bU/HGhItCbgxOfgXEwwKtrw/ojfMufnmfFJcg9yETCSWJvu8oGJ0/i7DQ3nWQKDtUpUfKQrhTy+aEg9YYie3yWr6LedF/fvPjNxjG8aS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nmwwxA2O; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=g8DLi0Zi5YVN7yIOfJ7rQIUBsk1S/2urbLEeafySW4GeBJ0sYaO2t5PlZlX7f6sseeq7v7y0ZWBDH6n3nLb6IQvNO8YCy6KLnrU6SE1Ju1ZO7YLOxk27ljuHGQaWc9xQtkz5nsUwWQN4rOP2Wy7KX8vwxXsSk44QOTueIBCytn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=p0VQList; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nmwwxA2O"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B3CC51F00899;
-	Thu, 17 Sep 2026 15:36:10 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="p0VQList"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8B2C1F00893;
+	Thu, 17 Sep 2026 15:36:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659371;
-	bh=i46zJ2tebZgUP/gFCVRSL56tI/zz9HjKji+C4YY4MJg=;
+	s=korg; t=1789659374;
+	bh=qLQ7p9kD8yiWhf3Z+WuG9aIwJ61F7xdY6slmJyDisHE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nmwwxA2OPqXgfgqJhA2IVEDwiN8OEru9gs9gtvle+YUbFzmeUYWia6pYXv/DwugD+
-	 s7L/5CbSH7b8sqASz8dlLkPXVxfwl4om0ybiIdguw5/i3ztIKk8asqQXYpoM2JbRZZ
-	 KL0cg4A5/9Y3CIaCovf0HWeQqS2RyqqWSfKxNCd0=
+	b=p0VQListN0Xex33dIoqXXsFIRKeznjxoxgLOjg7S0ccSjVZHwQjpvz3xZpOXk2amE
+	 hQQO8+rQh47DpU5Qwyo/siAL449H8nO7MILVbwNs5BDjuJG7pB1Qcs+LQvlP37AOIf
+	 /vVgxxlBYPKv/b/mBUk8ROyb087Fao0kbTmNB+5c=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nicholas Carlini <npc@anthropic.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
+	sashiko-bot@kernel.org,
+	Vincent Donnefort <vdonnefort@google.com>,
+	Steven Rostedt <rostedt@goodmis.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 233/733] bpf: Mark syscall helpers as sleepable
-Date: Thu, 17 Sep 2026 16:09:01 +0100
-Message-ID: <20260917151357.041715289@linuxfoundation.org>
+Subject: [PATCH 7.2 234/733] ring-buffer: Add checking nr_subbufs to persistent ring buffer validation
+Date: Thu, 17 Sep 2026 16:09:02 +0100
+Message-ID: <20260917151357.067023815@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -52,61 +52,44 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+From: Steven Rostedt <rostedt@goodmis.org>
 
-[ Upstream commit d05524794240b52fdc3b6c1220dd05505715824d ]
+[ Upstream commit 6c001a62c34f13fe1c6a24304c289b387d9e697d ]
 
-bpf_sys_bpf() executes the bpf(2) syscall body, which can take mutexes,
-allocate with GFP_KERNEL, and wait for an RCU grace period.
-bpf_sys_close() reaches close_fd() and filp_close(), which can sleep as
-well.
+Sashiko reported that the code was using meta->nr_subbufs without making
+sure that it matched the nr_pages + 1 on data that was assuming the two
+were the same.
 
-Both helpers are limited to BPF_PROG_TYPE_SYSCALL, whose main program is
-sleepable. That does not make every callback sleepable: a syscall program
-can register a bpf_timer callback, and the verifier checks that callback
-in a non-sleepable context while retaining the syscall helper set.
+Add a check to the persistent ring buffer validation code to make sure
+that the saved nr_subbufs matches what we expect.
 
-Without .might_sleep on the prototypes, such a callback can invoke
-bpf_sys_bpf() from hrtimer softirq context and trigger a
-scheduling-while-atomic failure. bpf_sys_close() is exposed through the
-same missing context check.
-
-Set .might_sleep on both prototypes so the existing helper-context check
-rejects them from timer callbacks and other atomic regions. Calls from the
-sleepable main body remain valid.
-
-Fixes: 79a7f8bdb159 ("bpf: Introduce bpf_sys_bpf() helper and program type.")
-Fixes: 3abea089246f ("bpf: Add bpf_sys_close() helper.")
-Reported-by: Nicholas Carlini <npc@anthropic.com>
-Suggested-by: Nicholas Carlini <npc@anthropic.com>
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Link: https://lore.kernel.org/r/20260903144433.1716731-10-memxor@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Link: https://patch.msgid.link/20260903132728.7fb27d34@gandalf.local.home
+Fixes: f5b95f1fa2ef3 ("ring-buffer: Validate the persistent meta data subbuf array")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/all/20260901164836.D962D1F000E9@smtp.kernel.org/
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/syscall.c | 2 ++
- 1 file changed, 2 insertions(+)
+ kernel/trace/ring_buffer.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
-diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
-index fb678b9dcd3e6..c7cb336fb0648 100644
---- a/kernel/bpf/syscall.c
-+++ b/kernel/bpf/syscall.c
-@@ -6633,6 +6633,7 @@ EXPORT_SYMBOL_NS(kern_sys_bpf, "BPF_INTERNAL");
- static const struct bpf_func_proto bpf_sys_bpf_proto = {
- 	.func		= bpf_sys_bpf,
- 	.gpl_only	= false,
-+	.might_sleep	= true,
- 	.ret_type	= RET_INTEGER,
- 	.arg1_type	= ARG_ANYTHING,
- 	.arg2_type	= ARG_PTR_TO_MEM | MEM_RDONLY,
-@@ -6658,6 +6659,7 @@ BPF_CALL_1(bpf_sys_close, u32, fd)
- static const struct bpf_func_proto bpf_sys_close_proto = {
- 	.func		= bpf_sys_close,
- 	.gpl_only	= false,
-+	.might_sleep	= true,
- 	.ret_type	= RET_INTEGER,
- 	.arg1_type	= ARG_ANYTHING,
- };
+diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+index 1925ee9cc36da..70e43fe3a1006 100644
+--- a/kernel/trace/ring_buffer.c
++++ b/kernel/trace/ring_buffer.c
+@@ -1836,6 +1836,11 @@ static bool rb_cpu_meta_valid(struct ring_buffer_cpu_meta *meta, int cpu,
+ 		return false;
+ 	}
+ 
++	if (meta->nr_subbufs != nr_pages + 1) {
++		pr_info("Ring buffer boot meta [%d] invalid nr_subbufs\n", cpu);
++		return false;
++	}
++
+ 	buffers_start = meta->first_buffer;
+ 	buffers_end = meta->first_buffer + (subbuf_size * meta->nr_subbufs);
+ 
 -- 
 2.53.0
 
