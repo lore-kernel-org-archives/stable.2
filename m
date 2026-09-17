@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C9FB2E888A
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:25:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 973A93A7F7C
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:25:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644323; cv=none; b=uIqc7DPnHUtcMhQCcKtCJuKjYqbI8dK9wqI3muhl/aPLbCdoElNHBlFrekixE/3GKTRgDsyasdYrkY6j+UQfs0BwB4SgK1AYHsnNJh2VDMhKY9idA9EGjFa/Z2DievkKbfjOiFfR5vMZgRYRfHm0u8W9F/LS6Kg5PO3rDQF+67w=
+	t=1789644327; cv=none; b=EY/2ditZjv6PoENMRny8p/JadJU1Sh74cvetzOsr/lkHQsfj1KEE/RIlKq5yJLRMYhRX9K/wJSqctn3gMiqjV6aXLkE1IUU+dZS6mP7sUYy8bvMAW6DOO1IvkFb1w/Z5QTH3TNJtPqpHdoYXG5Wq7YGpqEyq+pjvQhVygEU1mF4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644323; c=relaxed/simple;
-	bh=4TNs8aBfeKg6tLbmDnTnIsJBE0B6cRhDjE/h8E+jhpE=;
-	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=MUzdbarwBKVWWbExy0fg6m4gQ8KawZAlx9Rn9SjVD30qmevIqvs5V6ZroXB3TUXgEEEWcbXpP0UPPDkL1F4Knd3dPSScRPoofynC3NQJ+vsApkbSY6aSGFWLGtqrBKi4tSmzCVH4EIFJSWFWj2lrvnu+ICdmr1sMJlVupHyPmZM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=l9aLVn/5; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789644327; c=relaxed/simple;
+	bh=DJKGQPSsLa27PYRTAJ9r51GWjPD5pz6yw2C3cMYfJnc=;
+	h=Subject:To:Cc:From:Date:Message-ID:MIME-Version:Content-Type; b=Bvza4/B9R9GaMZUTn40TvrBaM3eRjtc07tvcb3gmJIz81zzqh18DFerpo9DhJTtIlH4ejW40RDWDPrFwGicwcQFdK1uozYJoRz0pQxe+n+6ihUca+oqHERmCYgh0aKLm95M87xYXV7azkGh1O1SLaQ0r7xnEXdHb00DvW76w1/c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=GsbsuU2T; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="l9aLVn/5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A7151F000FF;
-	Thu, 17 Sep 2026 11:25:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="GsbsuU2T"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9A0491F000FF;
+	Thu, 17 Sep 2026 11:25:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789644322;
-	bh=BsKafnQlRNNL0mxA9SXLlZPkEhLVlPVjR0R4XoiyXV0=;
+	s=korg; t=1789644325;
+	bh=3EsuPISmmQyQFaZ/d3V+hb1+HDNFtP1C+EPNdPMCzIg=;
 	h=Subject:To:Cc:From:Date;
-	b=l9aLVn/5JQg7Yrg2PsIqVPACpXYMZvUlyqp4kmRZbJyZ/Arx4mSflbpyI31M3hqgt
-	 vUFhoWJ/U0VF5LD2ITO8ScFu1EzTG/nv2y+KJglCe3JBeFCMEGwq7q51049BYs+Bxp
-	 A5QO6sajxX7Zytub6yGwhcIL3AAdnUOvQ0/PcgsA=
-Subject: FAILED: patch "[PATCH] ipv6: start using dst_dev_rcu()" failed to apply to 6.12-stable tree
-To: edumazet@google.com,dsahern@kernel.org,kuba@kernel.org
+	b=GsbsuU2T3230+PAOhF+rKpSadCKfP1B+Q6cgOqJT4qbBj1co11zWVmgzzcv9kISnc
+	 UhdaR9mDEeNtWYWx1YgHa8aSDgSADMlay3qlcPfR6ZjvRKEkGtQ71k5gUmHfH/0mJK
+	 kM4Hm3SougzQiDQQiuvDE04qNQ67VX+ztxIeRmh4=
+Subject: FAILED: patch "[PATCH] KVM: SEV: Extract loading of guest-provided VMSA to a" failed to apply to 6.12-stable tree
+To: seanjc@google.com,michael.roth@amd.com
 Cc: <stable@vger.kernel.org>
 From: <gregkh@linuxfoundation.org>
-Date: Thu, 17 Sep 2026 12:15:58 +0100
-Message-ID: <2026091758-subsector-deity-17bd@gregkh>
+Date: Thu, 17 Sep 2026 12:16:24 +0100
+Message-ID: <2026091724-slouchy-overgrown-1c29@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,10 +47,10 @@ To reproduce the conflict and resubmit, you may use the following commands:
 
 git fetch https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git/ linux-6.12.y
 git checkout FETCH_HEAD
-git cherry-pick -x b775ecf1655cedbc465fd6699ab18a2bc4e7a352
+git cherry-pick -x 0060569e4f18a7dee2dd8728595e909f19a23c24
 # <resolve conflicts, build, test, etc.>
 git commit -s
-git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091758-subsector-deity-17bd@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
+git send-email --to '<stable@vger.kernel.org>' --in-reply-to '2026091724-slouchy-overgrown-1c29@gregkh' --subject-prefix 'PATCH 6.12.y' 'HEAD^..'
 
 Possible dependencies:
 
@@ -62,159 +62,114 @@ greg k-h
 
 ------------------ original commit in Linus's tree ------------------
 
-From b775ecf1655cedbc465fd6699ab18a2bc4e7a352 Mon Sep 17 00:00:00 2001
-From: Eric Dumazet <edumazet@google.com>
-Date: Thu, 28 Aug 2025 19:58:17 +0000
-Subject: [PATCH] ipv6: start using dst_dev_rcu()
+From 0060569e4f18a7dee2dd8728595e909f19a23c24 Mon Sep 17 00:00:00 2001
+From: Sean Christopherson <seanjc@google.com>
+Date: Thu, 9 Jul 2026 13:49:32 -0700
+Subject: [PATCH] KVM: SEV: Extract loading of guest-provided VMSA to a
+ separate helper
 
-Refactor icmpv6_xrlim_allow() and ip6_dst_hoplimit()
-so that we acquire rcu_read_lock() a bit longer
-to be able to use dst_dev_rcu() instead of dst_dev().
+Extract the loading/retrieval of a guest-provided VMSA to a separate helper
+so that KVM can reuse the core logic when refreshing the VMSA after an MMU
+invalidation from guest_memfd.
 
-__ip6_rt_update_pmtu() and rt6_do_redirect can directly
-use dst_dev_rcu() in sections already holding rcu_read_lock().
+No functional change intended.
 
-Small changes to use dst_dev_net_rcu() in
-ip6_default_advmss(), ipv6_sock_ac_join(),
-ip6_mc_find_dev() and ndisc_send_skb().
+Cc: stable@vger.kernel.org # 6.12.x
+Reviewed-by: Michael Roth <michael.roth@amd.com>
+Link: https://patch.msgid.link/20260709204948.1988414-3-seanjc@google.com
+Signed-off-by: Sean Christopherson <seanjc@google.com>
 
-Fixes: 4a6ce2b6f2ec ("net: introduce a new function dst_dev_put()")
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20250828195823.3958522-3-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-diff --git a/net/ipv6/anycast.c b/net/ipv6/anycast.c
-index f8a8e46286b8..52599584422b 100644
---- a/net/ipv6/anycast.c
-+++ b/net/ipv6/anycast.c
-@@ -104,7 +104,7 @@ int ipv6_sock_ac_join(struct sock *sk, int ifindex, const struct in6_addr *addr)
- 		rcu_read_lock();
- 		rt = rt6_lookup(net, addr, NULL, 0, NULL, 0);
- 		if (rt) {
--			dev = dst_dev(&rt->dst);
-+			dev = dst_dev_rcu(&rt->dst);
- 			netdev_hold(dev, &dev_tracker, GFP_ATOMIC);
- 			ip6_rt_put(rt);
- 		} else if (ishost) {
-diff --git a/net/ipv6/icmp.c b/net/ipv6/icmp.c
-index 44550957fd4e..95cdd4cacb00 100644
---- a/net/ipv6/icmp.c
-+++ b/net/ipv6/icmp.c
-@@ -209,7 +209,8 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
- 	 * this lookup should be more aggressive (not longer than timeout).
- 	 */
- 	dst = ip6_route_output(net, sk, fl6);
--	dev = dst_dev(dst);
-+	rcu_read_lock();
-+	dev = dst_dev_rcu(dst);
- 	if (dst->error) {
- 		IP6_INC_STATS(net, ip6_dst_idev(dst),
- 			      IPSTATS_MIB_OUTNOROUTES);
-@@ -224,11 +225,10 @@ static bool icmpv6_xrlim_allow(struct sock *sk, u8 type,
- 		if (rt->rt6i_dst.plen < 128)
- 			tmo >>= ((128 - rt->rt6i_dst.plen)>>5);
- 
--		rcu_read_lock();
- 		peer = inet_getpeer_v6(net->ipv6.peers, &fl6->daddr);
- 		res = inet_peer_xrlim_allow(peer, tmo);
--		rcu_read_unlock();
- 	}
-+	rcu_read_unlock();
- 	if (!res)
- 		__ICMP6_INC_STATS(net, ip6_dst_idev(dst),
- 				  ICMP6_MIB_RATELIMITHOST);
-diff --git a/net/ipv6/mcast.c b/net/ipv6/mcast.c
-index 55c49dc14b1b..016b572e7d6f 100644
---- a/net/ipv6/mcast.c
-+++ b/net/ipv6/mcast.c
-@@ -180,7 +180,7 @@ static struct net_device *ip6_mc_find_dev(struct net *net,
- 		rcu_read_lock();
- 		rt = rt6_lookup(net, group, NULL, 0, NULL, 0);
- 		if (rt) {
--			dev = dst_dev(&rt->dst);
-+			dev = dst_dev_rcu(&rt->dst);
- 			dev_hold(dev);
- 			ip6_rt_put(rt);
- 		}
-diff --git a/net/ipv6/ndisc.c b/net/ipv6/ndisc.c
-index 57aaa7ae8ac3..f427e41e9c49 100644
---- a/net/ipv6/ndisc.c
-+++ b/net/ipv6/ndisc.c
-@@ -505,7 +505,7 @@ void ndisc_send_skb(struct sk_buff *skb, const struct in6_addr *daddr,
- 
- 	ip6_nd_hdr(skb, saddr, daddr, READ_ONCE(inet6_sk(sk)->hop_limit), skb->len);
- 
--	dev = dst_dev(dst);
-+	dev = dst_dev_rcu(dst);
- 	idev = __in6_dev_get(dev);
- 	IP6_INC_STATS(net, idev, IPSTATS_MIB_OUTREQUESTS);
- 
-diff --git a/net/ipv6/output_core.c b/net/ipv6/output_core.c
-index d21fe27fe21e..1c9b283a4132 100644
---- a/net/ipv6/output_core.c
-+++ b/net/ipv6/output_core.c
-@@ -104,18 +104,20 @@ EXPORT_SYMBOL(ip6_find_1stfragopt);
- int ip6_dst_hoplimit(struct dst_entry *dst)
- {
- 	int hoplimit = dst_metric_raw(dst, RTAX_HOPLIMIT);
-+
-+	rcu_read_lock();
- 	if (hoplimit == 0) {
--		struct net_device *dev = dst_dev(dst);
-+		struct net_device *dev = dst_dev_rcu(dst);
- 		struct inet6_dev *idev;
- 
--		rcu_read_lock();
- 		idev = __in6_dev_get(dev);
- 		if (idev)
- 			hoplimit = READ_ONCE(idev->cnf.hop_limit);
- 		else
- 			hoplimit = READ_ONCE(dev_net(dev)->ipv6.devconf_all->hop_limit);
--		rcu_read_unlock();
- 	}
-+	rcu_read_unlock();
-+
- 	return hoplimit;
+diff --git a/arch/x86/kvm/svm/sev.c b/arch/x86/kvm/svm/sev.c
+index 827f5dc06102..d8ed00f76aa3 100644
+--- a/arch/x86/kvm/svm/sev.c
++++ b/arch/x86/kvm/svm/sev.c
+@@ -3979,29 +3979,17 @@ static int snp_begin_psc(struct vcpu_svm *svm)
+ 	return snp_do_psc(svm);
  }
- EXPORT_SYMBOL(ip6_dst_hoplimit);
-diff --git a/net/ipv6/route.c b/net/ipv6/route.c
-index 3299cfa12e21..3371f16b7a3e 100644
---- a/net/ipv6/route.c
-+++ b/net/ipv6/route.c
-@@ -2943,7 +2943,7 @@ static void __ip6_rt_update_pmtu(struct dst_entry *dst, const struct sock *sk,
  
- 		if (res.f6i->nh) {
- 			struct fib6_nh_match_arg arg = {
--				.dev = dst_dev(dst),
-+				.dev = dst_dev_rcu(dst),
- 				.gw = &rt6->rt6i_gateway,
- 			};
- 
-@@ -3238,7 +3238,6 @@ EXPORT_SYMBOL_GPL(ip6_sk_redirect);
- 
- static unsigned int ip6_default_advmss(const struct dst_entry *dst)
+-/*
+- * Invoked as part of svm_vcpu_reset() processing of an init event.
+- */
+-static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
++static void sev_snp_reload_vmsa(struct kvm_vcpu *vcpu, gpa_t gpa)
  {
--	struct net_device *dev = dst_dev(dst);
- 	unsigned int mtu = dst_mtu(dst);
- 	struct net *net;
+ 	struct vcpu_svm *svm = to_svm(vcpu);
+ 	struct kvm_memory_slot *slot;
++	gfn_t gfn = gpa_to_gfn(gpa);
+ 	struct page *page;
+ 	kvm_pfn_t pfn;
+-	gfn_t gfn;
  
-@@ -3246,7 +3245,7 @@ static unsigned int ip6_default_advmss(const struct dst_entry *dst)
+-	guard(mutex)(&svm->sev_es.snp_vmsa_mutex);
++	lockdep_assert_held(&svm->sev_es.snp_vmsa_mutex);
  
- 	rcu_read_lock();
+-	if (!svm->sev_es.snp_ap_waiting_for_reset)
+-		return;
+-
+-	svm->sev_es.snp_ap_waiting_for_reset = false;
+-
+-	/* Mark the vCPU as offline and not runnable */
+-	vcpu->arch.pv.pv_unhalted = false;
+-	kvm_set_mp_state(vcpu, KVM_MP_STATE_HALTED);
+-
+-	/* Clear use of the VMSA */
++	/* Clear use of the VMSA. */
+ 	svm->vmcb->control.vmsa_pa = INVALID_PAGE;
+ 	svm->sev_es.snp_guest_vmsa_gpa = INVALID_PAGE;
  
--	net = dev_net_rcu(dev);
-+	net = dst_dev_net_rcu(dst);
- 	if (mtu < net->ipv6.sysctl.ip6_rt_min_advmss)
- 		mtu = net->ipv6.sysctl.ip6_rt_min_advmss;
+@@ -4011,12 +3999,9 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	 */
+ 	vmcb_mark_all_dirty(svm->vmcb);
  
-@@ -4301,7 +4300,7 @@ static void rt6_do_redirect(struct dst_entry *dst, struct sock *sk, struct sk_bu
+-	if (!VALID_PAGE(svm->sev_es.snp_pending_vmsa_gpa))
++	if (!VALID_PAGE(gpa))
+ 		return;
  
- 	if (res.f6i->nh) {
- 		struct fib6_nh_match_arg arg = {
--			.dev = dst_dev(dst),
-+			.dev = dst_dev_rcu(dst),
- 			.gw = &rt->rt6i_gateway,
- 		};
+-	gfn = gpa_to_gfn(svm->sev_es.snp_pending_vmsa_gpa);
+-	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
+-
+ 	slot = gfn_to_memslot(vcpu->kvm, gfn);
+ 	if (!slot)
+ 		return;
+@@ -4040,7 +4025,7 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	svm->sev_es.snp_has_guest_vmsa = true;
  
+ 	/* Use the new VMSA */
+-	svm->sev_es.snp_guest_vmsa_gpa = gfn_to_gpa(gfn);
++	svm->sev_es.snp_guest_vmsa_gpa = gpa;
+ 	svm->vmcb->control.vmsa_pa = pfn_to_hpa(pfn);
+ 
+ 	/* Mark the vCPU as runnable */
+@@ -4054,6 +4039,31 @@ static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
+ 	kvm_release_page_clean(page);
+ }
+ 
++/*
++ * Invoked as part of svm_vcpu_reset() processing of an init event.
++ */
++static void sev_snp_init_protected_guest_state(struct kvm_vcpu *vcpu)
++{
++	struct vcpu_svm *svm = to_svm(vcpu);
++	gpa_t gpa;
++
++	guard(mutex)(&svm->sev_es.snp_vmsa_mutex);
++
++	if (!svm->sev_es.snp_ap_waiting_for_reset)
++		return;
++
++	svm->sev_es.snp_ap_waiting_for_reset = false;
++
++	/* Mark the vCPU as offline and not runnable */
++	vcpu->arch.pv.pv_unhalted = false;
++	kvm_set_mp_state(vcpu, KVM_MP_STATE_HALTED);
++
++	gpa = svm->sev_es.snp_pending_vmsa_gpa;
++	svm->sev_es.snp_pending_vmsa_gpa = INVALID_PAGE;
++
++	sev_snp_reload_vmsa(vcpu, gpa);
++}
++
+ static int sev_snp_ap_creation(struct vcpu_svm *svm)
+ {
+ 	struct kvm_sev_info *sev = to_kvm_sev_info(svm->vcpu.kvm);
 
