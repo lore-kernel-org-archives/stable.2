@@ -1,103 +1,110 @@
-Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2764973BA;
-	Thu, 17 Sep 2026 15:05:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C39AD3911C0;
+	Thu, 17 Sep 2026 15:07:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657558; cv=none; b=aoVE+ly8ZSujstC3ra8atYeckytguZvWxewJgFovZ0DWeEApd8uToFC+pC1LLPqPT2eUx8+QwfGxDo9A4qMb6Nxoi1ARiVScb3OlPtv3/8NhQR9JAYp63kKswDNGAWVgSQcE21ETPT+pIh2gzV7a69lzkg+tKJI+/DSI/0E7r44=
+	t=1789657658; cv=none; b=PMJoQk5vhgCjkAdOssIkogpWlg7Md1juAFl8k68DOatSVjnSHO6ZadzqPAlezIKKSdyPc/d4BGJx6ZzRtH2TC6FSdG7lsVo+/YAfB5qiq/jrTj3Xss9rV7ZC7xLXrcOjZ6DE/mNfpTtmWR+vlttVTbKjCGdSTiV/DXf6pMCzZI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657558; c=relaxed/simple;
-	bh=LqL/0kljGKJhXL31YOmzbq3nfv6vRF4UJIBHY7IP5Sc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uzxMpdaBBvd8ItUexv8s1YPhgN4Q5jgcpy/73le86XudTDc/frMnLTb9eH3HlruHfsHq3dAju6+vmvWI/fs9RWYNpKmsooarZtFoSWHNdOv+Fx1iSwvolSk7foOp6wDJebx2jxikrTc9oOHLBO9HZx/vSV4rsbmUrwbuKEszy5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=t2/qzzzy; arc=none smtp.client-ip=156.67.10.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="t2/qzzzy"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
-	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
-	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
-	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
-	bh=xJOwgYi9AsLFETj5P07KS7icxDQTYVsi9d2yzmRT4T0=; b=t2/qzzzyp9tTNVrahR16BD/kfi
-	QGsz5UiuR0lAl4EpGn+qCgG78KupUM6RXniV88PUv3kprugmNm3aT5Xm+smJDRlIbg55yRhPd42ba
-	2qfi/hL9zPhWcg78bfSyCnRipuf2Qhzqwev7E2gYZyXWIrlJHyyFFbuIRCbcipo9cGkk=;
-Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
-	(envelope-from <andrew@lunn.ch>)
-	id 1x7Dft-005hJS-1x; Thu, 17 Sep 2026 17:05:21 +0200
-Date: Thu, 17 Sep 2026 17:05:21 +0200
-From: Andrew Lunn <andrew@lunn.ch>
-To: Linkui Xiao <xiaolinkui@126.com>
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
-	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
-	pabeni@redhat.com, mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com, netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net] net: stmmac: ethtool: validate TX coalesce before
- reprogramming RX
-Message-ID: <15b8cbc2-f3ca-4845-9a93-7fff6c5aede6@lunn.ch>
-References: <20260917131235.1360959-1-xiaolinkui@126.com>
+	s=arc-20240116; t=1789657658; c=relaxed/simple;
+	bh=nVi8Bt23rW1WGkWNx3+yn0J6CrseQb2yYwjUPKZ3GM4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Rvj1EuyvkgKRvr9KDkgK6K1czb1oc2KmrFlLUSc3ijNm/oRwusayGwy2hLS/ByK0NAJ48i6inBfN0BcBAZLccn5WaLNwZn/4+5MTB/1xuLU2EiBeC7nrmVVvP+dB43iE/inHtWhAG5YY+pp2/VIF1L8DnC92EK5xJMwZjeoI17I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHKkMmAqxqji6DCA--.45935S2;
+	Thu, 17 Sep 2026 23:07:18 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: himanshu.madhani@oracle.com,
+	kashyap.desai@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	mpi3mr-linuxdrv.pdl@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	sumit.saxena@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpi3mr: Fix tgt_dev reference leak in mpi3mr_target_alloc()
+Date: Thu, 17 Sep 2026 15:07:18 +0000
+Message-Id: <20260917150718.2158250-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917131235.1360959-1-xiaolinkui@126.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHKkMmAqxqji6DCA--.45935S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxJrWUWF1Dtw45Jr45JFyftFb_yoW8ArWDp3
+	9rJas0yrZ0grWftr4rtF98W3Waga4UKry5Ka1xGw1vk3WYkFyIkFyUKry2vFy0yF97Xr1r
+	XF4UJFy8Z3yUG3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07bb5rxUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qr9nAczwAAsW
 
-On Thu, Sep 17, 2026 at 09:12:35PM +0800, Linkui Xiao wrote:
-> From: Linkui Xiao <xiaolinkui@kylinos.cn>
-> 
-> __stmmac_set_coalesce() applies the RX part of the request first and
-> only afterwards checks the TX parameters. The RX path already calls
-> stmmac_rx_watchdog() and stores rx_riwt[] and rx_coal_frames[], so when
-> the TX check rejects the request the driver returns -EINVAL after having
-> silently changed the hardware. A following ethtool -c then reports the
-> new RX values even though the command failed.
-> 
-> This became easy to hit once the per-queue interface was added.
-> __stmmac_get_coalesce() reports tx-usecs and tx-frames as 0 for a queue
-> index that is RX-only, and ethtool applies per-queue coalesce by reading
-> the current values first and sending them straight back. The next set is
-> therefore guaranteed to trip the test for both TX fields being zero,
-> right after the RX watchdog has been reprogrammed.
-> 
-> Move both TX checks in front of the RX block so a request is either
-> applied completely or rejected without touching the device.
-> 
-> Fixes: db2f2842e6f5 ("net: stmmac: add per-queue TX & RX coalesce ethtool support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
-> ---
->  .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 21 ++++++++++++-------
->  1 file changed, 13 insertions(+), 8 deletions(-)
-> 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> index 154cc0c7623d..325db062f72a 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> @@ -850,6 +850,19 @@ static int __stmmac_set_coalesce(struct net_device *dev,
->  	else if (queue >= max_cnt)
->  		return -EINVAL;
->  
-> +	/* Check the TX parameters before anything is applied: the RX part
-> +	 * below already writes to the hardware, so rejecting the request
-> +	 * afterwards would leave the device with only half of the settings
-> +	 * the caller asked for while reporting a failure.
-> +	 */
+The target device reference taken by __mpi3mr_get_tgtdev_by_perst_id()
+and __mpi3mr_get_tgtdev_by_addr_and_rphy() is handed over to
+scsi_tgt_priv_data->tgt_dev on the success path. When the target is
+hidden or does not match the expected device type, the function returns
+-ENXIO without dropping that reference, so it is leaked.
 
-Why such a verbose comment? Look at the rest of the code and make your
-comments similar in verbosity.
+Drop the reference on both error paths.
 
-    Andrew
-
+Fixes: 626665e9c38d ("scsi: mpi3mr: Get target object based on rphy")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-pw-bot: cr
+ drivers/scsi/mpi3mr/mpi3mr_os.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_os.c b/drivers/scsi/mpi3mr/mpi3mr_os.c
+index 5ff5720f2491..3d75ae422354 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_os.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_os.c
+@@ -4965,8 +4965,11 @@ static int mpi3mr_target_alloc(struct scsi_target *starget)
+ 			scsi_tgt_priv_data->wslen = tgt_dev->wslen;
+ 			if (tgt_dev->dev_type == MPI3_DEVICE_DEVFORM_VD)
+ 				scsi_tgt_priv_data->throttle_group = tgt_dev->dev_spec.vd_inf.tg;
+-		} else
++		} else {
++			if (tgt_dev)
++				mpi3mr_tgtdev_put(tgt_dev);
+ 			retval = -ENXIO;
++		}
+ 	} else if (mrioc->sas_transport_enabled && !starget->channel) {
+ 		rphy = dev_to_rphy(starget->dev.parent);
+ 		tgt_dev = __mpi3mr_get_tgtdev_by_addr_and_rphy(mrioc,
+@@ -4983,8 +4986,11 @@ static int mpi3mr_target_alloc(struct scsi_target *starget)
+ 			tgt_dev->starget = starget;
+ 			atomic_set(&scsi_tgt_priv_data->block_io, 0);
+ 			retval = 0;
+-		} else
++		} else {
++			if (tgt_dev)
++				mpi3mr_tgtdev_put(tgt_dev);
+ 			retval = -ENXIO;
++		}
+ 	}
+ 	spin_unlock_irqrestore(&mrioc->tgtdev_lock, flags);
+ 
+-- 
+2.34.1
 
