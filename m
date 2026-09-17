@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE47C3DB339;
-	Thu, 17 Sep 2026 19:01:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C0343F4BC;
+	Thu, 17 Sep 2026 19:01:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671682; cv=none; b=Uc5SZ7grpa2FgoLAmHUtetu3OzZlOxm7MKvHN6vKE8P/IN6uZ1q9bUwYNT37QRTw3NEb+EdoGvzgtLcvAKYI1hNG1WrVpXqzK3aEnS1P8B3ztYRfFVii/V+STlaU7VokSrHjrn7loR5Tz9EPqKbRlTXejxTPLCH4OFwD35+Kipw=
+	t=1789671682; cv=none; b=JOhQwoXLf70+p2AM6g1deDL++ZdO3yHE8n3a0KbtS4SH2PNxfgcVsGjgLyClq9ZnAprK2iFOU76RSQNiVwhQj1hB4Edl5O5wIPWkA5/ak3YU79r8zwe9CnVMr5f6kzTftCYR5RklYQYNjC13lbe2i4YnPNMZU0/4nHAh55E+my8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789671682; c=relaxed/simple;
-	bh=VxqOLdwKtDqmb2klTP3uCpRaxOxNhtnmTyWKOdmeVyQ=;
+	bh=JlKKpck2d44+dRzIswD2AzuSvaGqBcNtiLbgCcR1bYY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nHFowsTi3n/AUM/TNuceDAWV+WblqhCkt20Lpr3zQQPQVHvR9p879GptnvrOMW98+AENQ8NuZGjhRWIhtkDVqwtkMSnW9xzVNWZf49sHZEW064In8Disk2yg5U0coSOXBX4S7WoZYovJOCUSMA2x72phlblTnqtAkTAYgIXmMmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=M/5aNDyk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=fAULnhGpwsIthMDmJKtnphXg8hjpwZW5lX8hX7ydQeHvabZDvTzXhCa+SD1C6HrbckVwVCI1QiDMxQweHDyi4YUNHuDXVeJitqrhKk4sDSskLFdY6vJNTYmKESN0ieTPKGm0LD3A/md2bRaHmRyg29c/CdjvJLusx6My/hXEhqo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yeu2WZGH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="M/5aNDyk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 109611F0089C;
-	Thu, 17 Sep 2026 19:00:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yeu2WZGH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379141F008A1;
+	Thu, 17 Sep 2026 19:01:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789671648;
-	bh=MTqT+08ogNyGYL8OU5IHdMYktRzwJ3d9TQCsNKqYmMM=;
+	s=korg; t=1789671666;
+	bh=xeUiQzDLF4i8l4by4dSrqo6oNlbfRHqiZ5spndEOtNI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=M/5aNDykv88M5xDO4onyP1Gtx+xOlUN2TLUcA5vDxsTp+EHEmnEQ1Py5qHpuiJH5J
-	 /zgfpHaMtkG7ZoOUSbqYnilZxI2nprR2xcYF+15oyczDz/6m+GSziHcuAgSuB4keWR
-	 A/yU1uRUWu++FJNQU1d8uK2wg/+FE2HbJRHij7J0=
+	b=yeu2WZGHx8jSPRk9+5AiHM2CQ0L9t2WxDode0+PA91Rcu+9bPdQlueDk36WVkbsA6
+	 hGLhhZZlRvOItRP/s7n+XhTsovfPoEmDw6KabKX2c0ufwbDUMsOQaLZzrg0qDuLCBe
+	 oV5y6cOZ5HiqwtNZO0PTaOFl2wEbm7M2OWhrO5XQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Qu Wenruo <wqu@suse.com>,
-	David Sterba <dsterba@suse.com>,
+	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
+	Juergen Gross <jgross@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1043/1102] btrfs: expose per-inode stable writes flag
-Date: Thu, 17 Sep 2026 16:16:26 +0100
-Message-ID: <20260917151606.977888589@linuxfoundation.org>
+Subject: [PATCH 6.12 1003/1102] xen/balloon: improve accuracy of initial balloon target for dom0
+Date: Thu, 17 Sep 2026 16:15:46 +0100
+Message-ID: <20260917151605.923331830@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
 References: <20260917151539.408551884@linuxfoundation.org>
@@ -45,117 +45,81 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Qu Wenruo <wqu@suse.com>
+From: Roger Pau Monne <roger.pau@citrix.com>
 
-[ Upstream commit ecde48a1a6b3256bd49db8780bf37556b157783c ]
+[ Upstream commit b13cd24c15d74f6dfcddf0d53ae6efb58d3f0461 ]
 
-The address space flag AS_STABLE_WRITES determine if FGP_STABLE for will
-wait for the folio to finish its writeback.
+The dom0 balloon target set by the toolstack is the value returned by
+XENMEM_current_reservation.  Do the same in the kernel balloon driver and
+set the current allocation to the value returned by
+XENMEM_current_reservation.  On my test system this causes the kernel
+balloon driver target to exactly match the value set by the toolstack in
+xenstore.
 
-For btrfs, due to the default data checksum behavior, if we modify the
-folio while it's still under writeback, it will cause data checksum
-mismatch.  Thus for quite some call sites we manually call
-folio_wait_writeback() to prevent such problem from happening.
+Note this approach can be used by both PV and PVH dom0s, as the toolstack
+always uses XENMEM_current_reservation to set the initial target regardless
+of the dom0 type.
 
-Currently there is only one call site inside btrfs really utilizing
-FGP_STABLE, and in that case we also manually call folio_wait_writeback()
-to do the waiting.
-
-But it's better to properly expose the stable writes flag to a per-inode
-basis, to allow call sites to fully benefit from FGP_STABLE flag.
-E.g. for inodes with NODATASUM allowing beginning dirtying the page
-without waiting for writeback.
-
-This involves:
-
-- Update the mapping's stable write flag when setting/clearing NODATASUM
-  inode flag using ioctl
-  This only works for empty files, so it should be fine.
-
-- Update the mapping's stable write flag when reading an inode from disk
-
-- Remove the explicit folio_wait_writeback() for FGP_BEGINWRITE call
-  site
-
-Signed-off-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-
-[ sashal: Reduced backport -- upstream ecde48a1a6b32 touches 4 file(s), this
-  backport carries 3. Not backported here:
-  fs/btrfs/btrfs_inode.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
+Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
+Reviewed-by: Juergen Gross <jgross@suse.com>
+Signed-off-by: Juergen Gross <jgross@suse.com>
+Message-ID: <20260128110510.46425-3-roger.pau@citrix.com>
+Stable-dep-of: 5d00a11d484e ("x86/xen: fix init of balloon stats again")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/btrfs/file.c  |    3 +--
- fs/btrfs/inode.c |    8 ++++++++
- fs/btrfs/ioctl.c |    4 ++++
- 3 files changed, 13 insertions(+), 2 deletions(-)
+ drivers/xen/balloon.c |   27 +++++++++++++++++----------
+ 1 file changed, 17 insertions(+), 10 deletions(-)
 
---- a/fs/btrfs/file.c
-+++ b/fs/btrfs/file.c
-@@ -884,7 +884,7 @@ static int prepare_uptodate_page(struct
- 
- static fgf_t get_prepare_fgp_flags(bool nowait)
+--- a/drivers/xen/balloon.c
++++ b/drivers/xen/balloon.c
+@@ -720,7 +720,8 @@ static int __init balloon_add_regions(vo
+ static int __init balloon_init(void)
  {
--	fgf_t fgp_flags = FGP_LOCK | FGP_ACCESSED | FGP_CREAT;
-+	fgf_t fgp_flags = FGP_LOCK | FGP_ACCESSED | FGP_CREAT | FGP_STABLE;
+ 	struct task_struct *task;
+-	unsigned long current_pages;
++	long current_pages = 0;
++	domid_t domid = DOMID_SELF;
+ 	int rc;
  
- 	if (nowait)
- 		fgp_flags |= FGP_NOWAIT;
-@@ -954,7 +954,6 @@ again:
- 			faili = i - 1;
- 			goto fail;
- 		}
--		wait_on_page_writeback(pages[i]);
+ 	if (!xen_domain())
+@@ -728,15 +729,21 @@ static int __init balloon_init(void)
+ 
+ 	pr_info("Initialising balloon driver\n");
+ 
+-	if (xen_pv_domain()) {
+-		if (xen_released_pages >= xen_start_info->nr_pages)
+-			goto underflow;
+-		current_pages = min(xen_start_info->nr_pages -
+-		                    xen_released_pages, max_pfn);
+-	} else {
+-		if (xen_unpopulated_pages >= get_num_physpages())
+-			goto underflow;
+-		current_pages = get_num_physpages() - xen_unpopulated_pages;
++	if (xen_initial_domain())
++		current_pages = HYPERVISOR_memory_op(XENMEM_current_reservation,
++		                                     &domid);
++	if (current_pages <= 0) {
++		if (xen_pv_domain()) {
++			if (xen_released_pages >= xen_start_info->nr_pages)
++				goto underflow;
++			current_pages = min(xen_start_info->nr_pages -
++			                    xen_released_pages, max_pfn);
++		} else {
++			if (xen_unpopulated_pages >= get_num_physpages())
++				goto underflow;
++			current_pages = get_num_physpages() -
++			                xen_unpopulated_pages;
++		}
  	}
  
- 	return 0;
---- a/fs/btrfs/inode.c
-+++ b/fs/btrfs/inode.c
-@@ -3854,6 +3854,10 @@ static int btrfs_read_locked_inode(struc
- 
- 	btrfs_inode_split_flags(btrfs_inode_flags(leaf, inode_item),
- 				&BTRFS_I(inode)->flags, &BTRFS_I(inode)->ro_flags);
-+	if (BTRFS_I(inode)->flags & BTRFS_INODE_NODATASUM)
-+		mapping_clear_stable_writes(inode->i_mapping);
-+	else
-+		mapping_set_stable_writes(inode->i_mapping);
- 
- cache_index:
- 	/*
-@@ -6313,6 +6317,10 @@ int btrfs_create_new_inode(struct btrfs_
- 		if (btrfs_test_opt(fs_info, NODATACOW))
- 			BTRFS_I(inode)->flags |= BTRFS_INODE_NODATACOW |
- 				BTRFS_INODE_NODATASUM;
-+		if (BTRFS_I(inode)->flags & BTRFS_INODE_NODATASUM)
-+			mapping_clear_stable_writes(inode->i_mapping);
-+		else
-+			mapping_set_stable_writes(inode->i_mapping);
- 	}
- 
- 	ret = btrfs_insert_inode_locked(inode);
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -391,6 +391,10 @@ int btrfs_fileattr_set(struct mnt_idmap
- 
- update_flags:
- 	inode->flags = inode_flags;
-+	if (inode->flags & BTRFS_INODE_NODATASUM)
-+		mapping_clear_stable_writes(inode->vfs_inode.i_mapping);
-+	else
-+		mapping_set_stable_writes(inode->vfs_inode.i_mapping);
- 	btrfs_sync_inode_flags_to_i_flags(&inode->vfs_inode);
- 	inode_inc_iversion(&inode->vfs_inode);
- 	inode_set_ctime_current(&inode->vfs_inode);
+ 	balloon_stats.current_pages = current_pages;
 
 
