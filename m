@@ -1,36 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58182342538;
-	Thu, 17 Sep 2026 15:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9B3A4F392B;
+	Thu, 17 Sep 2026 15:56:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660618; cv=none; b=jcb6ShmoLL0xiL+0RG+o5H37ukHIzG8a6OU8Lnpe8XsKGcXqbf/FJuZEl+yyljunF9eeguGhzJNaV36KlY67bMrO/SMOW0ff5/3ur4RmyGLhO/kfhB7kINesV53+YEkzOfdvBIeXwwGW9lMwvoKM7qmdW6zGPnQZObUcOCBQQhQ=
+	t=1789660619; cv=none; b=Ldg9GNAQVeZY4wu7lHGEXdnRmDlzPU+LN8UuIU+wT/tx7RFjAZAKaoQ6C+98MWPJjIaOIKOdGRvv6ZFpE5OKVYwAmjg5Mov1QygDwB9VZbFnCr8OHiKSzASel7Qk0RxXRFtoQIIyJO5kAujn8dB60LSlip/4UPpp/teBkZWz1Ms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660618; c=relaxed/simple;
-	bh=l/uy9ws6uDHU6z+5WCuv9BoP49zJ449mG0VxGCokVFs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Qe8QoPTXsx/ZGk+zg5WUVAUPDkt1QT+4zLpR3O7aKZxwMaMvafc59Du4De6yWMkNEeB5OHEVeOsY4ZrQEJAj9OReLc8bVHlQfGgpNASTGm1yMUbbpmaxbR99+FlO0+cUVb0gwOA00ot5W9A6CD2RMbZg507mB0iDB9JSddiFZ8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAC3HzrCDaxqPPmDCA--.6369S2;
-	Thu, 17 Sep 2026 23:56:50 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: ilpo.jarvinen@linux.intel.com,
-	jirislaby@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linux-serial@vger.kernel.org,
-	schung@nuvoton.com,
-	ychuang3@nuvoton.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] serial: ma35d1: Fix clock reference leak in ma35d1serial_probe()
-Date: Thu, 17 Sep 2026 15:56:50 +0000
-Message-Id: <20260917155650.2161274-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789660619; c=relaxed/simple;
+	bh=j9OqSdh249UYMidq5BazGbNIhBXalIIWOzXSGQA/nto=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=BazIH04vnfOixiXGmfjz4OsbzgV3RojkL/3bjFNpM2ihqD8D1cQ23gFvuE06yrV/1toNdOszROqkIf2tpWGaPqx7Fvkyrm+TKIUbg28enL8oTqlYLC5Ls6Wet0LcuC7axqJA7ZD1CVpVN3xkVKqJ1lIQtmqBbxc9YVL33zwfq9A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=WLxBRQj4; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="WLxBRQj4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48B261F000FF;
+	Thu, 17 Sep 2026 15:56:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789660617;
+	bh=sfFMFpbCxwQAsWMMlK0z0VVxTBt6VD8si13SNQS9x3U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=WLxBRQj4lARz7pAjHG/j2tlCt74xVFYbW3Iox2lp275uKZIiERHW+MCy8VRgRa9Tg
+	 XlZv1bLQdtL1a8asZtBpA/9x9uAoJIq8+a0T3iClW1eOr9RkgtxG/sm1pyFpSuodKT
+	 TaDZx/PucFIycjQlw8BAUWWjJQ/uakT85Lp+aZfM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>
+Subject: [PATCH 7.2 651/733] xfs: preserve owner on in-memory btree creation
+Date: Thu, 17 Sep 2026 16:15:59 +0100
+Message-ID: <20260917151408.851532590@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,70 +46,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAC3HzrCDaxqPPmDCA--.6369S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7KFWUXF1ktr4rCryxuw4DArb_yoW8Xw4xpF
-	srKrZ5KayUGa48tw1Duw15Zr4fZw4Uta4xCrW7Ga4fuanIqr93tryfJa4jva1UCFykWF47
-	Jr1Iy345uF4jy37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPSb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
-	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
-	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
-	7I0E14v26r4j6F4UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
-	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
-	U1oUDJUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgENA2qr888+PAAAs2
 
-of_clk_get() returns a clock with a reference that has to be released
-with clk_put(). ma35d1serial_probe() never does that, so the reference
-is leaked on the probe error paths and also when the port is removed.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Release it on the error paths and in ma35d1serial_remove().
+------------------
 
-Fixes: 930cbf92db01 ("tty: serial: Add Nuvoton ma35d1 serial driver support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Darrick J. Wong <djwong@kernel.org>
+
+commit 5287e56cba3be4a64bff9f73bce5964fda2590dc upstream.
+
+LOLLM points out a minor bug where a higher level function creating an
+in-memory btree is required to pass in an owner number, but the creation
+function erases that.  In-memory btrees are ephemeral so this really
+doesn't matter except for debugging.  But let's fix this papercut.
+
+Cc: stable@vger.kernel.org # v6.9
+Fixes: a095686a238352 ("xfs: support in-memory btrees")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/tty/serial/ma35d1_serial.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/xfs/libxfs/xfs_btree_mem.c |    2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/tty/serial/ma35d1_serial.c b/drivers/tty/serial/ma35d1_serial.c
-index 285b0fe41a86..a073648cc5e4 100644
---- a/drivers/tty/serial/ma35d1_serial.c
-+++ b/drivers/tty/serial/ma35d1_serial.c
-@@ -720,7 +720,7 @@ static int ma35d1serial_probe(struct platform_device *pdev)
+--- a/fs/xfs/libxfs/xfs_btree_mem.c
++++ b/fs/xfs/libxfs/xfs_btree_mem.c
+@@ -117,6 +117,7 @@ xfbtree_init(
+ 	struct xfs_buftarg		*btp,
+ 	const struct xfs_btree_ops	*ops)
+ {
++	unsigned long long		owner = xfbt->owner;
+ 	unsigned int			blocklen = xfbtree_rec_bytes(mp, ops);
+ 	unsigned int			keyptr_len;
+ 	int				error;
+@@ -133,6 +134,7 @@ xfbtree_init(
  
- 	ret = clk_prepare_enable(up->clk);
- 	if (ret)
--		goto err_iounmap;
-+		goto err_put_clk;
+ 	memset(xfbt, 0, sizeof(*xfbt));
+ 	xfbt->target = btp;
++	xfbt->owner = owner;
  
- 	if (up->port.line != 0)
- 		up->port.uartclk = clk_get_rate(up->clk);
-@@ -747,6 +747,9 @@ static int ma35d1serial_probe(struct platform_device *pdev)
- err_clk_disable:
- 	clk_disable_unprepare(up->clk);
- 
-+err_put_clk:
-+	clk_put(up->clk);
-+
- err_iounmap:
- 	iounmap(up->port.membase);
- 	return ret;
-@@ -762,6 +765,7 @@ static void ma35d1serial_remove(struct platform_device *dev)
- 
- 	uart_remove_one_port(&ma35d1serial_reg, port);
- 	clk_disable_unprepare(up->clk);
-+	clk_put(up->clk);
- }
- 
- static int ma35d1serial_suspend(struct platform_device *dev, pm_message_t state)
--- 
-2.34.1
+ 	/* Set up min/maxrecs for this btree. */
+ 	keyptr_len = ops->key_len + sizeof(__be64);
+
 
