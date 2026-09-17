@@ -1,349 +1,460 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from sender6-pp-e108.zoho.com (sender6-pp-e108.zoho.com [165.173.180.108])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4C7094E0B69
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:21:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672874; cv=none; b=ScpJ7csAm47WQei0+T711lXBCMsgB1MI3oWx5ALHrUoV1FEda94BBRsU5z6Gt4RC1BMnMrq7BzMGIpAbMcNoQQuLXn545QvYECTpBTQLIDLZKC9Hcuyv5rNHgs3PajEVZeg4ArKvHePJqYyG/coe67G+AlkU7Z5wxpfBZLQBjSA=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672874; c=relaxed/simple;
-	bh=mYGiz/CEbz7ceeH+3m8KRoylZ+mF07bwI3rwVGiNXCQ=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=E11Vjrqp9aFfObmvswzZoFCkis75r9cHlYh14JRF+ToMKBsRevlNnsyVPokCY+Y+m6n9+EVKfqMtj02J3e/ElcT6K30AxW+sm5mU1a2BAoqGfAcSMFn8ble1FZZ2uwrmJcP8pXvU4pjjTNxpTMxuszV8U08NAzD43WGIutvoSDo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=hjfRQNh7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=GSmghPSA; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 802774E01EA;
+	Thu, 17 Sep 2026 19:24:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=165.173.180.108
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789673101; cv=pass; b=BFnDvLDL2VnW1JfPsZSyhCkl76rhZbG/BzDR+pFcuYInzAoKafxWMFcDJvUVs/giExJdEI2/cBv1RBPYoZXyLkwgrGYnBOYih/iXMQz8MAE1d8umS/JNmJcVcRjtXpnQ+pTBaHcQ2jLybCE6ejftv222PO11kSszKB4Sl6VyUWs=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789673101; c=relaxed/simple;
+	bh=COsDXbO5lefNcjkUhG4y3yCJCLWRW+MV3gXfiAf77Pw=;
+	h=Message-ID:Subject:From:To:Cc:In-Reply-To:References:Content-Type:
+	 Date:MIME-Version; b=ZV7ZOIP3L7jR0R9ByXcVPkyDaKM2rnLFZeeOULSAJQpnJIMMQh2DsieTROrbvQbJmTxNsVlkcZShBLdmwICmpPDHfKXQeJorO2a8xwuuk+kUjewFoaskUG2KL8SRyuUWShrntogZrCjf8DHdZHdhPurRv07nn+FMA/tDTDPiAKU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe; spf=pass smtp.mailfrom=rong.moe; dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b=HZP0o2oa; arc=pass smtp.client-ip=165.173.180.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=rong.moe
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=rong.moe
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="hjfRQNh7";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="GSmghPSA"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789672871;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=kpLLCOIJaNkZQflZrI+TWuCqX2syaV6YM6JlIfmZxEk=;
-	b=hjfRQNh7fuWOA5PG1aYgv8pTuRX4GS9jDw4O4Hx5AQlHbteaJeTelqm3aX8L2inbTZvOir
-	pZ3YbmIj539SZhyurs0JVfM7zmc1dSTXPyiLE4nrB9OWQzzJagktDH6nFeIyoZmpr2bCL7
-	O2MSRxDoMeDN0sKvN+LVk0CaxcEPY70=
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com
- [209.85.222.198]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-6-_DTXa4tgPASpRSq03A8PDQ-1; Thu, 17 Sep 2026 15:21:09 -0400
-X-MC-Unique: _DTXa4tgPASpRSq03A8PDQ-1
-X-Mimecast-MFC-AGG-ID: _DTXa4tgPASpRSq03A8PDQ_1789672869
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93918756165so225383785a.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:21:09 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789672869; x=1790277669; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=kpLLCOIJaNkZQflZrI+TWuCqX2syaV6YM6JlIfmZxEk=;
-        b=GSmghPSA2B+Q4fV+eIuVYpbV8A6svnF409aE1yX6liKKR3uOhZSsbkxGOEcuTZ4JFl
-         3geA/kcWlv3ve3vSbc7/mYz1Vb750yxZelWBF/NKhTmrijLLO53FvINgRwgoZbneWeOp
-         cHp9fThbBjFwYHlq4b9MpOHpkgGJHE8cYYfu5gp+id9AYRFXrbaSU9+692FBYK+9RiSr
-         CP3zOJ54PDreIuovhR16Epirp1vLNE1VUcwepPRDvFeKG65Ql+Xeuu8oKAEzPgjAjuGH
-         xQLxe7Cp5KD2h5SrlQnkGCqIfk/XKrpwPAauqw6G/UiELQwFzrC+FnR+NiGL+v/vepE5
-         SZfg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789672869; x=1790277669;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=kpLLCOIJaNkZQflZrI+TWuCqX2syaV6YM6JlIfmZxEk=;
-        b=22Yl2y3FY2TLrAMyQSWtueCtC3NskBDVDays9QQG36ueCV/f4EDoZl0WRTbn+wZyXX
-         SP+dYsy1uCme8wNpnizu+qP9+C+Ectek9/jPehQ006fqddVa10cloHHOrw8r1Ybubspz
-         E9FF8Q90YRGa23bltLN1Aco+Z4ZknTFkSCOcfjSRn8Uetzbr7LoM53ykpQS8nCMNI9dy
-         8G+9sbevhvwgf0ZTFFp4y5r6YPSX4r6IZkG1t4SzNd6mvX2gCBPtIG9YfpbzRRNd31U7
-         ieIG4rIQiTv6DlgqBup83iUtjzY7XKqb0FYQnFsKtHJTds3try7fQf1bxQsX+zYBhnuW
-         h1yA==
-X-Forwarded-Encrypted: i=1; AKwUvBwUv6AX+S0T8pMkiaFZT5Owp3i1h06U5Nb8o+EqQ/uIZ0pETzDJ9v+7+lNtm+A4Qq4FnuH7RK8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktLde67c7gylEEzmBOLqvQoFajFKsUaepXjgMzxhLJx8Krct79
-	2y4vueB9xkk2SW41A2t08d1hlzypZe1xQwcGIEHINTsc/XIwmdVwKBETgmje3452UhcZL4NXbWj
-	YDMXzWmW6nXPlIVby0OzVaBIXeI7efQqM+PGMp3zT/OxIG3eMXA83uZMOMQ==
-X-Gm-Gg: AYBFou3wOfMug37HwTj4hgHuoVNSjPPkXfjaNyc++bklrsM0JTXrBf0VI1afY6e1hrK
-	9WQ2QAW80SXWuVPYjlKEjk0IrWvg6T1n6y2QKuNApWFN9waPO5xQ77EFvPGVyTfVV1uJ/ie+3+k
-	2hUnRoB+or/jHjUxU/g7clRNkBaWIqCpYFdkpWN68GQb4PrPyjwrVdShE0OGO+8R7MZKrQhHwRC
-	WeaiodxfKeFWzL8PNVe6WZi8C8ey/E/IaC0x3jcSr0s/x0EQV69UjCca8VhDrjBI83vmhlKhyuR
-	v4baoC4kcIgSMg9dFUqW4lW7wK56uBhphf+E0e+/yqQ1HI+IFbml5+MeBkDSllojH6e+70TB
-X-Received: by 2002:a05:620a:4147:b0:939:ba2e:455f with SMTP id af79cd13be357-93bb797001amr1475875885a.51.1789672864085;
-        Thu, 17 Sep 2026 12:21:04 -0700 (PDT)
-X-Received: by 2002:a05:620a:4147:b0:939:ba2e:455f with SMTP id af79cd13be357-93bb797001amr1475870885a.51.1789672863572;
-        Thu, 17 Sep 2026 12:21:03 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93b780cfa83sm522700085a.3.2026.09.17.12.21.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:21:03 -0700 (PDT)
-Message-ID: <9fd4458240f45ea1ea6d4d79362f72d847b958aa.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: fix double-free in nvif_vmm_dtor
-From: lyude@redhat.com
-To: Peiyang He <peiyang_he@smail.nju.edu.cn>, dakr@kernel.org, 
-	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org,
- bskeggs@redhat.com, 	maarten.lankhorst@linux.intel.com, mripard@kernel.org,
- tzimmermann@suse.de
-Date: Thu, 17 Sep 2026 15:21:02 -0400
-In-Reply-To: <03BA723D9E5FF725+20260916103138.2651605-1-peiyang_he@smail.nju.edu.cn>
-References: 
-	<03BA723D9E5FF725+20260916103138.2651605-1-peiyang_he@smail.nju.edu.cn>
+	dkim=pass (2048-bit key) header.d=rong.moe header.i=i@rong.moe header.b="HZP0o2oa"
+ARC-Seal: i=1; a=rsa-sha256; t=1789673065; cv=none; 
+	d=zohomail.com; s=zohoarc; 
+	b=a+H2TUv6KGTupS01TJRTbOa9KsZn2hZnKy6iSfl9IOj4t2RRna/U6mRT/lu/Cw+wGLTFdtNY78+8Ui8pbvC8sRkvaVPgpa8CsEv6nuBAg32qpCjJHGAS6OmNQpL11hSa9JDAqoIUWVaso55rxDd0qu7u1b2Qssp1YXdottwAlkU=
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
+	t=1789673065; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
+	bh=MSbqFIHcLQgtkbnj5wdgFLRbGkShnBM0tZoy+L4TD/o=; 
+	b=mYRZ62HVGCGp8vBjM+4VobabH9xVxE1bEfFZq+CngkVMwMLNRvlasRD7oRdGjH/FXfx1iVE/QfUbWJqBORO3nkA0m/EIg9J8O7Qj5IbtlCS5ojKGqL7J5d3AKiDoPgQJhyQVuqisVVK3EgBjz1cOM6o1dz4vfXbEPw0yMcEoqaQ=
+ARC-Authentication-Results: i=1; mx.zohomail.com;
+	dkim=pass  header.i=rong.moe;
+	spf=pass  smtp.mailfrom=i@rong.moe;
+	dmarc=pass header.from=<i@rong.moe>
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789673065;
+	s=zmail2048; d=rong.moe; i=i@rong.moe;
+	h=Message-ID:Subject:Subject:From:From:To:To:Cc:Cc:In-Reply-To:Content-Type:Content-Transfer-Encoding:Date:Date:MIME-Version:Message-Id:Reply-To;
+	bh=MSbqFIHcLQgtkbnj5wdgFLRbGkShnBM0tZoy+L4TD/o=;
+	b=HZP0o2oaAM7av9lRahI0Xi/+0qW9jKcbD+NM11SSb4iaewTLetMnBoCxDlSVKXmL
+	B8VZauCYUzxsGfFIKBbZQ693/JJeiMwRIj0qHM/3uXJmKlbMszLeHwpZjVQ8q5oepBK
+	q56s739zBOz9QsFh5i71fZTrP7skCZZ9KaYyb+B1E2YbUn0eCGDo+RefFeDWNXcl0Kx
+	mx8+pZk+UIVKEoFQ4+edM+u3hteM1xauUnAliiMJif5++BF6lzSgsXJQ0ZpMnKaP+CP
+	3i/aN9AdHRqE9kvjkmE8LBoQkld7cHZQ7Bd607dRpNZqX+3Bkf/jcIynoFvkwxjxcIn
+	o6ZHS6sFJA==
+Received: by smtp.zohomail.com with SMTPS id 1789673064794197.91866481875297;
+	Thu, 17 Sep 2026 12:24:24 -0700 (PDT)
+Message-ID: <975d235815ab28424260bf8ea7a661ebdd017e58.camel@rong.moe>
+Subject: Re: [PATCH v3] PCI: rcar-gen4: Limit Max_Read_Request_Size and
+ Max_Payload_Size to 256 Bytes
+From: Rong Zhang <i@rong.moe>
+To: Marek Vasut <marek.vasut@mailbox.org>, Bjorn Helgaas
+ <helgaas@kernel.org>
+Cc: Jiaxun Yang <jiaxun.yang@flygoat.com>, linux-pci@vger.kernel.org, 
+	stable@vger.kernel.org, Krzysztof =?gb2312?Q?Wilczy=A8=BDski?=	
+ <kwilczynski@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, Geert
+ Uytterhoeven <geert+renesas@glider.be>, Koichiro Den <den@valinux.co.jp>,
+ Lorenzo Pieralisi	 <lpieralisi@kernel.org>, Magnus Damm
+ <magnus.damm@gmail.com>, Manivannan Sadhasivam <mani@kernel.org>, Rob
+ Herring <robh@kernel.org>, Yoshihiro Shimoda	
+ <yoshihiro.shimoda.uh@renesas.com>, linux-kernel@vger.kernel.org, 
+	linux-renesas-soc@vger.kernel.org, Huacai Chen <chenhuacai@loongson.cn>, 
+ Richard Zhu <hongxing.zhu@nxp.com>
+In-Reply-To: <f62d0ac12ba51c29a9bcf33305f3363c99dc1a96.camel@rong.moe>
+References: <20260903202706.GA2234456@bhelgaas>
+		 <41f323cbed2da4fa3913dfd62b5595bc3d5228da.camel@rong.moe>
+		 <9f0d8887-9332-4919-bee9-c165361e2ea3@mailbox.org>
+		 <f66d7e55bb388c550e70fc425f1b911e40e0d578.camel@rong.moe>
+		 <e563766f-359e-4133-9960-1b691bc0c774@mailbox.org>
+	 <f62d0ac12ba51c29a9bcf33305f3363c99dc1a96.camel@rong.moe>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+Date: Fri, 18 Sep 2026 03:19:17 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Evolution 3.56.2-10+b1 
+X-ZohoMailClient: External
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Hi Marek,
 
-Will push to drm-misc-fixes in a moment
+On Thu, 2026-09-10 at 00:03 +0800, Rong Zhang wrote:
+> Hi Marek,
+>=20
+> On Wed, 2026-09-09 at 04:34 +0200, Marek Vasut wrote:
+> > On 9/6/26 7:07 PM, Rong Zhang wrote:
+> >=20
+> > Hello Rong,
+> >=20
+> > I apologize for my delayed reply.
+> >=20
+> > > > > If you need more information I can do some more experiments with =
+the PCIe
+> > > > > switch card.
+> > > >=20
+> > > > Please look at the commit message [1] , that lists the exact test a=
+nd
+> > > > the PCIe NVMe SSD which triggers the data corruption (let me know i=
+f
+> > > > something is unclear). I think any PCIe NVMe SSD which is non-HMB w=
+ith
+> > > > MRRS on the SSD size that is > MRRS on the controller side will tri=
+gger
+> > > > this issue too.
+> > > >=20
+> > >=20
+> > > Unfortunately I don't have any non-HMB NVMe SSD, and it's unlikely I'=
+ll
+> > > get one anytime soon due to the crazy price. Before the AI supply cha=
+in
+> > > crisis, I bought several NVMe SSDs, but I chose HMB ones as they gene=
+rate
+> > > less heat and consume less electricity.
+> >=20
+> > Maybe this could be reproduced even with another PCIe device with=20
+> > MRRS=3D512 or more, which posts MRd to the PCIe controller with MRRS=3D=
+128=20
+> > or 256. The AHCI controller might be capable of that. I only have the=
+=20
+> > SSD as a reproducer, but there could easily be more.
+> >=20
+> > > > If you could reproduce it on the Loongson, then yes, it
+> > > > is affected. You might have to disable the current MRRS workaround =
+in
+> > > > the Loongson PCIe driver though as it might hide the issue.
+> > >=20
+> > > Due to the lack of non-HMB NVMe SSDs, I can't reproduce the exact sam=
+e
+> > > issue. Theoretically I may try to mess around with the AHCI controlle=
+r
+> > > (see the mentioned commit below) by manually overriding MRRS, as my
+> > > device's firmware already clamps it. We will see...
+> >=20
+> > Does the AHCI controller have MRRS higher than the PCIe controller ?
+>=20
+> Oh, I meant "a" controller, not "the" controller. Sorry for the typo.
+>=20
+> I don't have the exact same controller as the report, but I do have a
+> quite modern one. It's from an AMD Promontory 21 chipset add-in card, see
+> https://oshwhub.com/wesd/b650
+>=20
+> I haven't done any MRRS experiment yet. I will find some time this week
+> or the next. As I've said, you don't need to wait for my result :-)
 
-On Wed, 2026-09-16 at 18:31 +0800, Peiyang He wrote:
-> On failure, nouveau_cli_init() calls nouveau_cli_fini() to tear
-> the client down. Then, nouveau_drm_open() also enters into its
-> cleanup path and calls nouveau_cli_fini() AGAIN. nouveau_cli_fini()
-> calls nouveau_vmm_fini():
->=20
-> 	void
-> 	nouveau_vmm_fini(struct nouveau_vmm *vmm)
-> 	{
-> 		nouveau_svmm_fini(&vmm->svmm);
-> 		nvif_vmm_dtor(&vmm->vmm);
-> 		vmm->cli =3D NULL;
-> 	}
->=20
-> Inside nvif_vmm_dtor(), vmm->page is freed unconditionally:
->=20
-> 	void
-> 	nvif_vmm_dtor(struct nvif_vmm *vmm)
-> 	{
-> 		kfree(vmm->page);
-> 		nvif_object_dtor(&vmm->object);
-> 	}
->=20
-> vmm->page is never cleared after being freed, so the second call of
-> nvif_vmm_dtor() will cause a double-free.
->=20
-> Found by fuzzing the nouveau driver with a modified Syzkaller:
->=20
-> 	BUG: KASAN: double-free in nvif_vmm_dtor+0x31/0x50
-> drivers/gpu/drm/nouveau/nvif/vmm.c:194
-> 	Free of addr ffff888010fcdc30 by task syz.0.173/2567
->=20
-> 	CPU: 1 UID: 0 PID: 2567 Comm: syz.0.173 Not tainted 7.2.0
-> #24 PREEMPT(lazy)=20
-> 	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
-> 1.16.3-debian-1.16.3-2 04/01/2014
-> 	Call Trace:
-> 	<TASK>
-> 	__dump_stack lib/dump_stack.c:94 [inline]
-> 	dump_stack_lvl+0x95/0xe0 lib/dump_stack.c:120
-> 	print_address_description mm/kasan/report.c:378 [inline]
-> 	print_report+0xcb/0x5a0 mm/kasan/report.c:482
-> 	kasan_report_invalid_free+0xaa/0xd0 mm/kasan/report.c:557
-> 	check_slab_allocation+0xe4/0x110 mm/kasan/common.c:235
-> 	kasan_slab_pre_free include/linux/kasan.h:199 [inline]
-> 	slab_free_hook mm/slub.c:2622 [inline]
-> 	slab_free mm/slub.c:6377 [inline]
-> 	kfree+0x192/0x590 mm/slub.c:6692
-> 	nvif_vmm_dtor+0x31/0x50
-> drivers/gpu/drm/nouveau/nvif/vmm.c:194
-> 	nouveau_vmm_fini+0x16/0x50
-> drivers/gpu/drm/nouveau/nouveau_vmm.c:127
-> 	nouveau_cli_fini+0x10e/0x210
-> drivers/gpu/drm/nouveau/nouveau_drm.c:225
-> 	nouveau_drm_open+0x24e/0x740
-> drivers/gpu/drm/nouveau/nouveau_drm.c:1255
-> 	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
-> 	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
-> 	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
-> 	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
-> 	chrdev_open+0x21c/0x660 fs/char_dev.c:411
-> 	do_dentry_open+0x59d/0x12b0 fs/open.c:947
-> 	vfs_open+0x82/0x390 fs/open.c:1052
-> 	do_open fs/namei.c:4700 [inline]
-> 	path_openat+0x2345/0x3420 fs/namei.c:4863
-> 	do_file_open+0x207/0x460 fs/namei.c:4892
-> 	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
-> 	do_sys_open fs/open.c:1374 [inline]
-> 	__do_sys_openat fs/open.c:1390 [inline]
-> 	__se_sys_openat fs/open.c:1385 [inline]
-> 	__x64_sys_openat+0x144/0x200 fs/open.c:1385
-> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-> 	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
-> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-> 	RIP: 0033:0x7fc6d687594d
-> 	Code: ff c3 66 2e 0f 1f 84 00 00 00 00 00 90 f3 0f 1e fa 48
-> 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f
-> 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 b0 ff ff ff f7 d8 64 89 01
-> 48
-> 	RSP: 002b:00007fc6d5295008 EFLAGS: 00000246 ORIG_RAX:
-> 0000000000000101
-> 	RAX: ffffffffffffffda RBX: 00007fc6d6b06180 RCX:
-> 00007fc6d687594d
-> 	RDX: 0000000000022501 RSI: 0000200000000000 RDI:
-> ffffffffffffff9c
-> 	RBP: 00007fc6d691c303 R08: 0000000000000000 R09:
-> 0000000000000000
-> 	R10: 0000000000000000 R11: 0000000000000246 R12:
-> 0000000000000000
-> 	R13: 00007fc6d6b06218 R14: 00007fc6d6b06180 R15:
-> 00007ffd9451d760
-> 	</TASK>
->=20
-> 	Allocated by task 2567 on cpu 1 at 163.593900s:
-> 	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
-> 	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
-> 	poison_kmalloc_redzone mm/kasan/common.c:398 [inline]
-> 	__kasan_kmalloc+0xaa/0xb0 mm/kasan/common.c:415
-> 	kasan_kmalloc include/linux/kasan.h:263 [inline]
-> 	__do_kmalloc_node mm/slub.c:5334 [inline]
-> 	__kmalloc_noprof+0x304/0x7c0 mm/slub.c:5359
-> 	_kmalloc_noprof include/linux/slab.h:992 [inline]
-> 	nvif_vmm_ctor+0x3c0/0x7e0
-> drivers/gpu/drm/nouveau/nvif/vmm.c:237
-> 	nouveau_vmm_init+0x40/0x90
-> drivers/gpu/drm/nouveau/nouveau_vmm.c:134
-> 	nouveau_cli_init+0x7b9/0xe10
-> drivers/gpu/drm/nouveau/nouveau_drm.c:293
-> 	nouveau_drm_open+0x236/0x740
-> drivers/gpu/drm/nouveau/nouveau_drm.c:1243
-> 	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
-> 	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
-> 	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
-> 	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
-> 	chrdev_open+0x21c/0x660 fs/char_dev.c:411
-> 	do_dentry_open+0x59d/0x12b0 fs/open.c:947
-> 	vfs_open+0x82/0x390 fs/open.c:1052
-> 	do_open fs/namei.c:4700 [inline]
-> 	path_openat+0x2345/0x3420 fs/namei.c:4863
-> 	do_file_open+0x207/0x460 fs/namei.c:4892
-> 	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
-> 	do_sys_open fs/open.c:1374 [inline]
-> 	__do_sys_openat fs/open.c:1390 [inline]
-> 	__se_sys_openat fs/open.c:1385 [inline]
-> 	__x64_sys_openat+0x144/0x200 fs/open.c:1385
-> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-> 	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
-> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
->=20
-> 	Freed by task 2567 on cpu 1 at 163.601355s:
-> 	kasan_save_stack+0x24/0x50 mm/kasan/common.c:57
-> 	kasan_save_track+0x17/0x60 mm/kasan/common.c:78
-> 	kasan_save_free_info+0x3b/0x60 mm/kasan/generic.c:584
-> 	poison_slab_object mm/kasan/common.c:253 [inline]
-> 	__kasan_slab_free+0x61/0x80 mm/kasan/common.c:285
-> 	kasan_slab_free include/linux/kasan.h:235 [inline]
-> 	slab_free_hook mm/slub.c:2677 [inline]
-> 	slab_free mm/slub.c:6377 [inline]
-> 	kfree+0x383/0x590 mm/slub.c:6692
-> 	nvif_vmm_dtor+0x31/0x50
-> drivers/gpu/drm/nouveau/nvif/vmm.c:194
-> 	nouveau_vmm_fini+0x16/0x50
-> drivers/gpu/drm/nouveau/nouveau_vmm.c:127
-> 	nouveau_cli_fini+0x10e/0x210
-> drivers/gpu/drm/nouveau/nouveau_drm.c:225
-> 	nouveau_cli_init+0x593/0xe10
-> drivers/gpu/drm/nouveau/nouveau_drm.c:324
-> 	nouveau_drm_open+0x236/0x740
-> drivers/gpu/drm/nouveau/nouveau_drm.c:1243
-> 	drm_file_alloc+0x5f2/0xad0 drivers/gpu/drm/drm_file.c:176
-> 	drm_open_helper+0x1d7/0x4a0 drivers/gpu/drm/drm_file.c:335
-> 	drm_open+0x190/0x3d0 drivers/gpu/drm/drm_file.c:388
-> 	drm_stub_open+0x1f2/0x460 drivers/gpu/drm/drm_drv.c:1211
-> 	chrdev_open+0x21c/0x660 fs/char_dev.c:411
-> 	do_dentry_open+0x59d/0x12b0 fs/open.c:947
-> 	vfs_open+0x82/0x390 fs/open.c:1052
-> 	do_open fs/namei.c:4700 [inline]
-> 	path_openat+0x2345/0x3420 fs/namei.c:4863
-> 	do_file_open+0x207/0x460 fs/namei.c:4892
-> 	do_sys_openat2+0xd1/0x1d0 fs/open.c:1368
-> 	do_sys_open fs/open.c:1374 [inline]
-> 	__do_sys_openat fs/open.c:1390 [inline]
-> 	__se_sys_openat fs/open.c:1385 [inline]
-> 	__x64_sys_openat+0x144/0x200 fs/open.c:1385
-> 	do_syscall_x64 arch/x86/entry/syscall_64.c:63 [inline]
-> 	do_syscall_64+0x115/0x690 arch/x86/entry/syscall_64.c:94
-> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
->=20
-> 	The buggy address belongs to the object at ffff888010fcdc30
-> 	which belongs to the cache kmalloc-16 of size 16
-> 	The buggy address is located 0 bytes inside of
-> 	16-byte region [ffff888010fcdc30, ffff888010fcdc40)
->=20
-> 	The buggy address belongs to the physical page:
-> 	page: refcount:0 mapcount:0 mapping:0000000000000000
-> index:0x0 pfn:0x10fcd
-> 	flags: 0x100000000000000(node=3D0|zone=3D1)
-> 	page_type: f5(slab)
-> 	raw: 0100000000000000 ffff88800d441640 dead000000000100
-> dead000000000122
-> 	raw: 0000000000000000 0000000000550055 00000000f5000000
-> 0000000000000000
-> 	page dumped because: kasan: bad access detected
->=20
-> 	Memory state around the buggy address:
-> 	ffff888010fcdb00: fc fc 00 04 fc fc fc fc fa fb fc fc fc fc
-> fa fb
-> 	ffff888010fcdb80: fc fc fc fc fa fb fc fc fc fc 00 07 fc fc
-> fc fc
-> 	>ffff888010fcdc00: fa fb fc fc fc fc fa fb fc fc fc fc fa fb
-> fc fc
-> 							=09
-> 		^
-> 	ffff888010fcdc80: fc fc fa fb fc fc fc fc 00 04 fc fc fc fc
-> fa fb
-> 	ffff888010fcdd00: fc fc fc fc 00 00 fc fc fc fc fa fb fc fc
-> fc fc
->=20
-> Fix by removing the redundant teardown in nouveau_drm_open(),
-> since nouveau_cli_init() already does the cleanup work.
-> Also clear vmm->page after its freeing.
->=20
-> Cc: stable@vger.kernel.org
-> Fixes: 20d8a88e557a ("drm/nouveau: tidy up the client init/fini
-> interfaces")
-> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-> Assisted-by: LLM
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_drm.c | 4 +---
-> =C2=A0drivers/gpu/drm/nouveau/nvif/vmm.c=C2=A0=C2=A0=C2=A0 | 1 +
-> =C2=A02 files changed, 2 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> index e16f59b00f6f..c465d59ef0a6 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
-> @@ -1251,10 +1251,8 @@ nouveau_drm_open(struct drm_device *dev,
-> struct drm_file *fpriv)
-> =C2=A0	mutex_unlock(&drm->clients_lock);
-> =C2=A0
-> =C2=A0done:
-> -	if (ret && cli) {
-> -		nouveau_cli_fini(cli);
-> +	if (ret && cli)
-> =C2=A0		kfree(cli);
-> -	}
-> =C2=A0
-> =C2=A0	pm_runtime_mark_last_busy(dev->dev);
-> =C2=A0	pm_runtime_put_autosuspend(dev->dev);
-> diff --git a/drivers/gpu/drm/nouveau/nvif/vmm.c
-> b/drivers/gpu/drm/nouveau/nvif/vmm.c
-> index 65c3e883b119..579af70766f2 100644
-> --- a/drivers/gpu/drm/nouveau/nvif/vmm.c
-> +++ b/drivers/gpu/drm/nouveau/nvif/vmm.c
-> @@ -192,6 +192,7 @@ void
-> =C2=A0nvif_vmm_dtor(struct nvif_vmm *vmm)
-> =C2=A0{
-> =C2=A0	kfree(vmm->page);
-> +	vmm->page =3D NULL;
-> =C2=A0	nvif_object_dtor(&vmm->object);
-> =C2=A0}
-> =C2=A0
+I found some time to do the experiment and successfully reproduced the
+MRRS issue.
 
+PCI topology:
+
+   -[0000:00]-+-00.0  Loongson Technology LLC 7A1000 Chipset Hyper Transpor=
+t Bridge Controller
+              +-00.1  Loongson Technology LLC 7A2000 Chipset Hyper Transpor=
+t Bridge Controller
+              +-03.0  Loongson Technology LLC 2K1000/2000 / 7A1000 Chipset =
+Gigabit Ethernet Controller
+              +-04.0  Loongson Technology LLC 2K1000 / 7A1000/2000 Chipset =
+USB OHCI Controller
+              +-04.1  Loongson Technology LLC 2K1000 / 7A1000/2000 Chipset =
+USB EHCI Controller
+              +-05.0  Loongson Technology LLC 2K1000 / 7A1000/2000 Chipset =
+USB OHCI Controller
+              +-05.1  Loongson Technology LLC 2K1000 / 7A1000/2000 Chipset =
+USB EHCI Controller
+              +-06.0  Loongson Technology LLC 7A1000 Chipset Vivante GC1000=
+ GPU
+              +-06.1  Loongson Technology LLC 2K1000 / 7A1000 Chipset Displ=
+ay Controller
+              +-07.0  Loongson Technology LLC 2K1000/2000/3000 / 3B6000M / =
+7A1000/2000 Chipset HD Audio Controller
+              +-08.0  Loongson Technology LLC 2K1000 / 7A1000 Chipset 3Gb/s=
+ SATA AHCI Controller
+              +-08.1  Loongson Technology LLC 2K1000 / 7A1000 Chipset 3Gb/s=
+ SATA AHCI Controller
+              +-08.2  Loongson Technology LLC 2K1000 / 7A1000 Chipset 3Gb/s=
+ SATA AHCI Controller
+              +-0a.0-[01]----00.0  Etron Technology, Inc. EJ188/EJ198 USB 3=
+.0 Host Controller
+              +-0f.0-[02-07]----00.0-[03-07]--+-00.0-[04]----00.0  MEDIATEK=
+ Corp. MT7925 802.11be 160MHz 2x2 PCIe Wireless Network Adapter [Filogic 36=
+0]
+              |                               +-08.0-[05]----00.0  Shenzhen=
+ Longsys Electronics Co., Ltd. FORESEE XP1000 / Lexar Professional CFexpres=
+s Type B Gold series, NM620 PCIe NVME SSD (DRAM-less)
+              |                               +-0c.0-[06]----00.0  Advanced=
+ Micro Devices, Inc. [AMD] 600 Series Chipset USB 3.2 Controller
+              |                               \-0d.0-[07]----00.0  Advanced=
+ Micro Devices, Inc. [AMD] 600 Series Chipset SATA Controller
+              \-16.0  Loongson Technology LLC 7A1000 Chipset SPI Controller
+  =20
+   00:00.0 Host bridge [0600]: Loongson Technology LLC 7A1000 Chipset Hyper=
+ Transport Bridge Controller [0014:7a00]
+   00:00.1 Non-VGA unclassified device [0000]: Loongson Technology LLC 7A20=
+00 Chipset Hyper Transport Bridge Controller [0014:7a10]
+   00:03.0 Ethernet controller [0200]: Loongson Technology LLC 2K1000/2000 =
+/ 7A1000 Chipset Gigabit Ethernet Controller [0014:7a03]
+   00:04.0 USB controller [0c03]: Loongson Technology LLC 2K1000 / 7A1000/2=
+000 Chipset USB OHCI Controller [0014:7a24]
+   00:04.1 USB controller [0c03]: Loongson Technology LLC 2K1000 / 7A1000/2=
+000 Chipset USB EHCI Controller [0014:7a14]
+   00:05.0 USB controller [0c03]: Loongson Technology LLC 2K1000 / 7A1000/2=
+000 Chipset USB OHCI Controller [0014:7a24]
+   00:05.1 USB controller [0c03]: Loongson Technology LLC 2K1000 / 7A1000/2=
+000 Chipset USB EHCI Controller [0014:7a14]
+   00:06.0 Multimedia video controller [0400]: Loongson Technology LLC 7A10=
+00 Chipset Vivante GC1000 GPU [0014:7a15]
+   00:06.1 VGA compatible controller [0300]: Loongson Technology LLC 2K1000=
+ / 7A1000 Chipset Display Controller [0014:7a06]
+   00:07.0 Audio device [0403]: Loongson Technology LLC 2K1000/2000/3000 / =
+3B6000M / 7A1000/2000 Chipset HD Audio Controller [0014:7a07]
+   00:08.0 SATA controller [0106]: Loongson Technology LLC 2K1000 / 7A1000 =
+Chipset 3Gb/s SATA AHCI Controller [0014:7a08]
+   00:08.1 SATA controller [0106]: Loongson Technology LLC 2K1000 / 7A1000 =
+Chipset 3Gb/s SATA AHCI Controller [0014:7a08]
+   00:08.2 SATA controller [0106]: Loongson Technology LLC 2K1000 / 7A1000 =
+Chipset 3Gb/s SATA AHCI Controller [0014:7a08]
+   00:0a.0 PCI bridge [0604]: Loongson Technology LLC 2K1000 / 7A1000 Chips=
+et PCIe x1 Bridge [0014:7a09] (rev 01)
+   00:0f.0 PCI bridge [0604]: Loongson Technology LLC 7A1000 Chipset PCIe x=
+8 Bridge [0014:7a29] (rev 01)
+   00:16.0 System peripheral [0880]: Loongson Technology LLC 7A1000 Chipset=
+ SPI Controller [0014:7a0b]
+   01:00.0 USB controller [0c03]: Etron Technology, Inc. EJ188/EJ198 USB 3.=
+0 Host Controller [1b6f:7052]
+   02:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series=
+ Chipset PCIe Switch Upstream Port [1022:43f4] (rev 01)
+   03:00.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series=
+ Chipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
+   03:08.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series=
+ Chipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
+   03:0c.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series=
+ Chipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
+   03:0d.0 PCI bridge [0604]: Advanced Micro Devices, Inc. [AMD] 600 Series=
+ Chipset PCIe Switch Downstream Port [1022:43f5] (rev 01)
+   04:00.0 Network controller [0280]: MEDIATEK Corp. MT7925 802.11be 160MHz=
+ 2x2 PCIe Wireless Network Adapter [Filogic 360] [14c3:7925]
+   05:00.0 Non-Volatile memory controller [0108]: Shenzhen Longsys Electron=
+ics Co., Ltd. FORESEE XP1000 / Lexar Professional CFexpress Type B Gold ser=
+ies, NM620 PCIe NVME SSD (DRAM-less) [1d97:5216] (rev 01)
+   06:00.0 USB controller [0c03]: Advanced Micro Devices, Inc. [AMD] 600 Se=
+ries Chipset USB 3.2 Controller [1022:43f7] (rev 01)
+   07:00.0 SATA controller [0106]: Advanced Micro Devices, Inc. [AMD] 600 S=
+eries Chipset SATA Controller [1022:43f6] (rev 01)
+
+Instead of messing around with the AHCI controller, I decided to do the
+experiment with the xHCI controller (0000:06:00.0) by connecting a USB
+3.0 hub with a RTL8153 USB 3.0 to GbE controller. xHCI controllers do
+DMA, so they can be used to reproduce the issue easily, without the need
+of sacrificing the data of a hard drive.
+
+With the quirk applied, everything worked fine.
+
+I built a kernel image with the quirk removed, manually overrode MRRS to
+512B, rebound the driver, and plugged the USB 3.0 hub to the xHCI
+controller.
+
+   [  580.527181] xhci_hcd 0000:06:00.0: USB bus 7 deregistered
+   [  583.675928] xhci_hcd 0000:06:00.0: xHCI Host Controller
+   [  583.689993] xhci_hcd 0000:06:00.0: new USB bus registered, assigned b=
+us number 7
+   [  583.774300] xhci_hcd 0000:06:00.0: hcc params 0x0200ef81 hci version =
+0x110 quirks 0x0000000200000010
+   [  583.795399] xhci_hcd 0000:06:00.0: xHCI Host Controller
+   [  583.795980] xhci_hcd 0000:06:00.0: new USB bus registered, assigned b=
+us number 8
+   [  583.810550] xhci_hcd 0000:06:00.0: Host supports USB 3.2 Enhanced Sup=
+erSpeed
+   [  583.826573] usb usb7: New USB device found, idVendor=3D1d6b, idProduc=
+t=3D0002, bcdDevice=3D 7.01
+   [  583.842936] usb usb7: New USB device strings: Mfr=3D3, Product=3D2, S=
+erialNumber=3D1
+   [  583.856206] usb usb7: Product: xHCI Host Controller
+   [  583.868244] usb usb7: Manufacturer: Linux 7.1.9-cip-main+ xhci-hcd
+   [  583.880346] usb usb7: SerialNumber: 0000:06:00.0
+   [  583.899451] hub 7-0:1.0: USB hub found
+   [  583.900066] hub 7-0:1.0: 12 ports detected
+   [  583.924683] usb usb8: We don't know the algorithms for LPM for this h=
+ost, disabling LPM.
+   [  583.925753] usb usb8: New USB device found, idVendor=3D1d6b, idProduc=
+t=3D0003, bcdDevice=3D 7.01
+   [  583.946605] usb usb8: New USB device strings: Mfr=3D3, Product=3D2, S=
+erialNumber=3D1
+   [  583.965879] usb usb8: Product: xHCI Host Controller
+   [  583.979156] usb usb8: Manufacturer: Linux 7.1.9-cip-main+ xhci-hcd
+   [  583.995799] usb usb8: SerialNumber: 0000:06:00.0
+   [  584.025088] hub 8-0:1.0: USB hub found
+   [  584.026026] hub 8-0:1.0: 5 ports detected
+   [  584.249890] usb 7-1: new high-speed USB device number 2 using xhci_hc=
+d
+   [  584.452592] usb 7-1: New USB device found, idVendor=3D2109, idProduct=
+=3D2817, bcdDevice=3D 2.14
+   [  584.452743] usb 7-1: New USB device strings: Mfr=3D1, Product=3D2, Se=
+rialNumber=3D0
+   [  584.452852] usb 7-1: Product: USB2.0 Hub
+   [  584.470092] usb 7-1: Manufacturer: VIA Labs, Inc.
+   [  584.495186] hub 7-1:1.0: USB hub found
+   [  584.495833] hub 7-1:1.0: 4 ports detected
+   [  584.556958] usb 8-1: Device not responding to setup address.
+   [  584.774875] usb 8-1: new SuperSpeed USB device number 2 using xhci_hc=
+d
+   [  584.821162] usb 8-1: New USB device found, idVendor=3D2109, idProduct=
+=3D0817, bcdDevice=3D 2.14
+   [  584.821531] usb 8-1: New USB device strings: Mfr=3D1, Product=3D2, Se=
+rialNumber=3D0
+   [  584.839861] usb 8-1: Product: USB3.0 Hub
+   [  584.853146] usb 8-1: Manufacturer: VIA Labs, Inc.
+   [  584.884823] hub 8-1:1.0: USB hub found
+   [  584.885462] hub 8-1:1.0: 4 ports detected
+   [  585.431958] usb 8-1.3: new SuperSpeed USB device number 3 using xhci_=
+hcd
+   [  585.466401] usb 8-1.3: Int endpoint with wBytesPerInterval of 8 in co=
+nfig 2 interface 0 altsetting 0 ep 0x83: setting to 16
+   [  585.466636] usb 8-1.3: New USB device found, idVendor=3D0bda, idProdu=
+ct=3D8153, bcdDevice=3D30.00
+   [  585.482682] usb 8-1.3: New USB device strings: Mfr=3D1, Product=3D2, =
+SerialNumber=3D6
+   [  585.495865] usb 8-1.3: Product: USB 10/100/1000 LAN
+   [  585.505992] usb 8-1.3: Manufacturer: Realtek
+   [  585.514688] usb 8-1.3: SerialNumber: 000001
+   [  585.621409] r8152-cfgselector 8-1.3: reset SuperSpeed USB device numb=
+er 3 using xhci_hcd
+   [  591.076733] r8152-cfgselector 8-1.3: Failed to write 512 bytes at 0xf=
+800/0x01ff (-145)
+   [  591.077414] r8152 8-1.3:1.0: Write PLA fw fail
+   [  593.273770] r8152-cfgselector 8-1.3: reset SuperSpeed USB device numb=
+er 3 using xhci_hcd
+   [  598.570636] r8152-cfgselector 8-1.3: device descriptor read/8, error =
+-145
+   [  598.685870] r8152-cfgselector 8-1.3: reset SuperSpeed USB device numb=
+er 3 using xhci_hcd
+   [  615.108738] r8152-cfgselector 8-1.3: device descriptor read/8, error =
+-145
+   [  616.256190] usb 8-1-port3: cannot disable (err =3D -145)
+   [  621.920265] hub 8-1:1.0: hub_ext_port_status failed (err =3D -145)
+   [  623.047210] usb 8-1-port3: cannot reset (err =3D -145)
+   [  624.169283] usb 8-1-port3: cannot reset (err =3D -145)
+   [  625.294280] usb 8-1-port3: cannot reset (err =3D -145)
+   [  626.419281] usb 8-1-port3: cannot reset (err =3D -145)
+   [  627.544617] usb 8-1-port3: cannot reset (err =3D -145)
+   [  627.544706] usb 8-1-port3: Cannot enable. Maybe the USB cable is bad?
+
+Oops, the driver "Failed to write 512 bytes" to the RTL8153, and failed
+to load the firmware.
+
+I am not an expert in xHCI. IIUC, sending an OUT URB usually needs these
+steps:
+
+1. write data to the DMA buffer
+2. prepare a TRB
+3. write the TRB to the xHCI controller's TRB ring
+4. ring the doorbell
+5. the xHCI controller reads the data via DMA
+6. the xHCI controller delivers the data to the device
+
+The MRRS issue corrupted the data in the fifth step, causing the failures
+on firmware loading. The subsequent port reset failures also seemed to be
+triggered in the same way. On the other hand, device enumeration itself
+succeeded, because IN URBs are delivered to the host via write DMA.=20
+
+After that, I unplugged the USB 3.0 hub, manually overrode MRRS to 256B
+without rebinding the driver, and replug the hub to the xHCI controller.
+
+   [  741.219489] usb 8-1: USB disconnect, device number 2
+   [  741.220582] r8152-cfgselector 8-1.3: USB disconnect, device number 3
+   [  741.334226] usb 7-1: USB disconnect, device number 2
+   [  772.657795] usb 7-1: new high-speed USB device number 3 using xhci_hc=
+d
+   [  772.880341] usb 7-1: New USB device found, idVendor=3D2109, idProduct=
+=3D2817, bcdDevice=3D 2.14
+   [  772.880539] usb 7-1: New USB device strings: Mfr=3D1, Product=3D2, Se=
+rialNumber=3D0
+   [  772.892671] usb 7-1: Product: USB2.0 Hub
+   [  772.898715] usb 7-1: Manufacturer: VIA Labs, Inc.
+   [  772.922778] hub 7-1:1.0: USB hub found
+   [  772.923476] hub 7-1:1.0: 4 ports detected
+   [  772.976982] usb 8-1: Device not responding to setup address.
+   [  773.197271] usb 8-1: new SuperSpeed USB device number 4 using xhci_hc=
+d
+   [  773.241771] usb 8-1: New USB device found, idVendor=3D2109, idProduct=
+=3D0817, bcdDevice=3D 2.14
+   [  773.243041] usb 8-1: New USB device strings: Mfr=3D1, Product=3D2, Se=
+rialNumber=3D0
+   [  773.256269] usb 8-1: Product: USB3.0 Hub
+   [  773.265074] usb 8-1: Manufacturer: VIA Labs, Inc.
+   [  773.289073] hub 8-1:1.0: USB hub found
+   [  773.289735] hub 8-1:1.0: 4 ports detected
+   [  773.831471] usb 8-1.3: new SuperSpeed USB device number 5 using xhci_=
+hcd
+   [  773.863051] usb 8-1.3: Int endpoint with wBytesPerInterval of 8 in co=
+nfig 2 interface 0 altsetting 0 ep 0x83: setting to 16
+   [  773.863288] usb 8-1.3: New USB device found, idVendor=3D0bda, idProdu=
+ct=3D8153, bcdDevice=3D30.00
+   [  773.880071] usb 8-1.3: New USB device strings: Mfr=3D1, Product=3D2, =
+SerialNumber=3D6
+   [  773.892286] usb 8-1.3: Product: USB 10/100/1000 LAN
+   [  773.902420] usb 8-1.3: Manufacturer: Realtek
+   [  773.911120] usb 8-1.3: SerialNumber: 000001
+   [  774.011156] r8152-cfgselector 8-1.3: reset SuperSpeed USB device numb=
+er 5 using xhci_hcd
+   [  774.380507] r8152 8-1.3:1.0 enp6s0u1u3: renamed from eth0
+   [  777.496526] r8152 8-1.3:1.0 enp6s0u1u3: carrier on
+
+Yay! Everything returned to normal.
+
+>=20
+> >=20
+> > > The firmware of many Loongson devices (except for some MIPS-based one=
+s,
+> > > see the commit message of commit ef61a0405742 ("PCI: loongson: Limit =
+MRRS
+> > > to 256")) already clamps MRRS for most PCIe devices, which has proven
+> > > that the 7A1000/7A2000 chipset does need the MRRS quirk.
+> >=20
+> > This still only applies the MRRS limit to the PCIe controller, not to=
+=20
+> > all devices on the bus, correct ?
+>=20
+> This applies to all devices that are the downstream (direct or behind
+> another bridge) of any root ports (i.e., internal bridges). In detail,
+> pci_match_id(loongson_internal_bridge_devids, *bridge*) matches the root
+> port but pcie_set_readrq(*pdev*, 256) sets the downstream PCIe device.
+>=20
+> This essentially sets all PCIe devices on the bus (unless firmware has
+> selected a smaller MRRS), since any other internal endpoints of the
+> chipset have no PCIe capability (i.e., they are legacy PCI or HT
+> devices). IOW, only the root ports (i.e.,
+> loongson_internal_bridge_devids) and their downstream PCIe devices have
+> MRRS, and they are covered by loongson_set_min_mrrs_quirk().
+
+In conclusion, the experiment matched with what you've occurred on the R-
+Car Gen4 PCIe controller, and proved that the quirk needs to be applied
+to every PCIe device [1] on the bus.
+
+[1]: As I've said in the previous reply, the chipset's only PCIe devices
+are its PCIe root ports (so-called "internal bridges"), i.e.,
+0000:00:0a.0 and 0000:00:0f.0.
+
+Thanks,
+Rong
+
+>=20
+> >=20
+> > I would like to find out whether all the devices (not only the=20
+> > controller) on the PCIe bus on Loongson must have MRRS limited or not.
+> > -> If yes, then I should start preparing core patches
+> > -> If no, then this quirk might specific to this controller
+>=20
+> My answer is yes.
+>=20
+> >=20
+> > > Therefore, you
+> > > can just go ahead with preparing the core patches without the need of
+> > > waiting for my test result. It seems that your approach is not going =
+to
+> > > change the current fixup effects in a significant way, so it should b=
+e
+> > > fine.
+> >=20
+> > [...]
+> >=20
+> > Thank you for your help !
+>=20
+> Thanks,
+> Rong
