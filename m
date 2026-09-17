@@ -1,76 +1,37 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57B584AE8D5
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:57:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D78E4A4F00;
+	Thu, 17 Sep 2026 10:58:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642652; cv=none; b=OrVVoPvHf4BhHVFws1nSC0VBomylfBzysYwm8gW9UjjTM6v/aJxZ+veBeN8mWSp+NW4SvnQjXyRwqi9vWMTdcIVFl9e9wixb4eASZObjmS0Op1py48n9WAGqfbqjoDrKCHQFM88mUVk6+5DFDIA0rgWMmZyH9wO6HMKxsKVbFsw=
+	t=1789642747; cv=none; b=q61MJZ8CmieObDXegmjLml6lRZV/fkT1K8qOEqwpgo2yRwejBi5tW9g8eeehm2Bkxedc0QS2NzldFpNf5cMQCAzq4ZO3BAf2eEvBRja6BPOUwBlZ7Lb4kYugJAm6Cr+tgUyX5in6ZTc7enLJJgOX7LU9pbI/hOqt9JoofsnsCrk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642652; c=relaxed/simple;
-	bh=q8YXsS2Mnty1xFmiXZ0wd8c6UDOy/RD/D6nsd15HyW0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=L0kXPCdHnNLrdqce+hBSq05bct926kZKKL1b4Xq+tnlqXihJgy8NcGkfkkQlalkUyC7LYS4d3tJ9hdNovQ/57afg6wKo79TmDI1+TJ5PNAIPyZigD+iqsz+G6vhvqhY6Y2dmbXKBA/qcArTJuduXSoajy0tpgoe9TnGTJVMXhvA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=fjvMlNYu; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="fjvMlNYu"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49cd38e0e5dso8759215e9.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:57:16 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1789642634; x=1790247434; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vBiI+NCmLUKT+8KZgMAIP50JLY8JB1G0uYn55nZbHhQ=;
-        b=fjvMlNYu5m7ufVikOMpk21ncFdBgIlRcLQe5SLxtY8URK2O7HmWcOCmbMjT5BL+VbH
-         +o0XursZ7FrqKs6qMrJ53nXBeMT8rllB256GUaIj5ZldBZWptG7bApip4c0IbxT+/BIm
-         BQra8yFP+ohwUPDCAZLyYrSRcteaqcUDnHOGLtk4epFgSdtPsRC9cQCtS+UZSf8kRE7S
-         zUW/Cc2BeSBWG4kU0h55l7U8XnhuIeLW9EarR4y5betJDpH20ukxaXv5x7DDgCbayeIe
-         2RGkyNAO1yokUFZihc+VrTmuq6z4FCNCLKP/1AnEQBXvNpBEqg0JPtX5rojkh3sl4Xld
-         1s5g==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789642634; x=1790247434;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vBiI+NCmLUKT+8KZgMAIP50JLY8JB1G0uYn55nZbHhQ=;
-        b=qwjwQS9/9O3twfoBSR+Z1KFuCkN58+3BC4lsCERY/IL+h99lpopjELPiPT4ZA7ZXXF
-         Ijhewhg+25uw9dhxr94sMlMouW+IOOqXhs/wGUjbm/Y5vfwWCyFI3ifNoY4qa9NIgutU
-         uB6XbdfMq1c4uQMcdo507mgfBd81CPwpnEQkcgzbGxBVoQNZldALGDlp8TXfs7/Mf6cl
-         d3hVVUdwghoUWQFAWBpTkVi8F04WCkM7s2et+7JQH3O2855KOpP/nrTA1LArrkS7LxI0
-         02X7yP5vNocT/TyMIbeRttmCIzGompm4XZXKYdyY2xUW/3vKEiTwUVuyP7G2xxt/mUU9
-         AV8A==
-X-Forwarded-Encrypted: i=1; AKwUvByWCBPiy7Y2CyGtxFrdjM1lwuX9F8NuOKX/xoB0OYm9aYQlC06U0Xy7JSER4Eco6dW4lV+QYWE=@vger.kernel.org
-X-Gm-Message-State: AFuF++nxnxTykSFen9rca1O8zIVgDGRBacnAqsuywmlatUMgRfMiiYC4
-	KJ+Ec7JSuNfivp0ZM4Tf7fpQ/Fa5tSKRxFBg45skpxmqxMIabPtAtrYXDuPhXebede8NmwOkX0F
-	lVmFnut0=
-X-Gm-Gg: AYBFou1QmcwFWzoEloLQRsMNZzkZ66tPF4QV+coIMgWBh1wwOi62sZJPkr87vXOo9gx
-	x0qilZLkzPfqYhLEJyPmlEG0YNlWAopZ6pbC5skjaRn2lyJPUpJEZpOFBpsKIt5b9qGwz/kpNQJ
-	I3bI1tnyk8QVx7OQaqA/9IBV+oE/Y1DUXQF3wiOBT7XWDHDl4b2uR/4QbtaWEgS6pcOOZxvTZi/
-	+/p3kU4UqzEN0SWtYGaVbOH/klWAzlYg5NDwTshWYB92dGOeGjOgIAAxiVzUExeojrWLlZjCyCP
-	3ITgFf0yIEEAvwixkK+L8gKUAP5w051k15Swl7dzTSz6eebwBmpJ/tQEkUN9W8IHt1FQxUtuJLb
-	/DYE+giGoCR6dvixzVM/X9pEEZfXlpkQLsPp5jOR6fPdKGeZ4Cbh0iXrwEMoJlTQZIoUl1owJ0w
-	Zz1peF0FzlvLkikptFdzhMjz3eRT9y4+MBDzVkj3uVXroftEC2Xv1ZtcUiXS+hdVr8fgoijbPMw
-	Yv1hQFd
-X-Received: by 2002:a05:600c:8586:b0:49f:bd3c:bc28 with SMTP id 5b1f17b1804b1-49fbd3cbd97mr26974735e9.35.1789642634000;
-        Thu, 17 Sep 2026 03:57:14 -0700 (PDT)
-Received: from localhost ([85.195.240.20])
-        by smtp.gmail.com with UTF8SMTPSA id ffacd0b85a97d-4870bf1fe7esm14884635f8f.6.2026.09.17.03.57.12
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 03:57:12 -0700 (PDT)
-From: Bruno Produit <bruno.produit@trailofbits.com>
-To: Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>
-Cc: Kyle Zeng <kylebot@openai.com>,
-	linux-sound@vger.kernel.org,
+	s=arc-20240116; t=1789642747; c=relaxed/simple;
+	bh=sdUBXHXhyU/BIPuoV44D1DHJ8bJOufyy5HHk6/9LY3k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=VFyaQaay0bEWsNnPydZon+4CzK+1mgwsqC4RnDi8tBY/twW7CcGqb8e/uGVXSVGk9/Is7w0pkxeO80XHyHtSvdMYt4FGceIZPoYJeyfCSbTyRC14dkFebnWxK9er6H38V1dK9vcyw1+43VqivcoR5AvD6lYLFvCOlAdtmVafLbs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3Hzrmx6tqChl_CA--.1287S2;
+	Thu, 17 Sep 2026 18:58:46 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: ayush.sawal@chelsio.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
-	Dominik Czarnota <dominik.czarnota@trailofbits.com>,
-	stable@vger.kernel.org,
-	Bruno Produit <bruno.produit@trailofbits.com>
-Subject: [PATCH] ALSA: seq: Serialize compat port-info ioctls
-Date: Thu, 17 Sep 2026 12:56:43 +0200
-Message-ID: <20260917105643.90102-1-bruno.produit@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	rohitm@chelsio.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] chtls: Fix skb reference leak in chtls_send_reset()
+Date: Thu, 17 Sep 2026 10:58:46 +0000
+Message-Id: <20260917105846.2147976-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,50 +39,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3Hzrmx6tqChl_CA--.1287S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ArWDCF47ArWfAr43CFyUZFb_yoW8Wr13pw
+	4xJFy2k3yDtayrJayxJ3s5ZFW5u3sYyry5KFy8Gw1fXFnxJr4xJF9xGF1jqrWDAF4xGFZI
+	vr4kAanYgFn8ArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPlb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
+	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
+	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
+	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
+	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
+	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
+	c7CjxVAFwI0_Gr1j6F4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aV
+	AFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZF
+	pf9x07befHbUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qrrRlXLAAAsE
 
-From: Kyle Zeng <kylebot@openai.com>
+chtls_send_reset() is given a skb holding one reference, to be sent as
+CPL_ABORT_REQ. It consumes that reference on every path except the
+TCP_SYN_RECV one: there it sends a TCB field reply built from a freshly
+allocated skb and never releases the passed-in one.
 
-The native sequencer ioctl path serializes handler calls with
-client->ioctl_mutex, but the translated port-info compat path invokes the
-same handlers through snd_seq_kernel_client_ctl() without taking that
-mutex.
+This leaks the reference taken by reset_listen_child(), which resets
+half-open children in TCP_SYN_RECV found on the SYN queue.
 
-This lets concurrent compat CREATE_PORT requests pass the port-count
-check before any request reaches the serialized insertion. The computed
-integer port index can then exceed the address field range and wrap to an
-existing index. Subsequent subscriber teardown can resolve the duplicate
-address to the wrong port and access a freed subscriber.
+Release the skb on the TCP_SYN_RECV path as well.
 
-Take ioctl_mutex while dispatching converted port-info requests, matching
-the native ioctl path. All translated port-info commands share this
-helper, so their accesses to the client port state are serialized as
-well.
-
-Fixes: b3defb791b26 ("ALSA: seq: Make ioctls race-free")
+Fixes: 8ad2a970d201 ("cxgb4/chtls: Fix tid stuck due to wrong update of qid")
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol gpt-6-astra
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Signed-off-by: Bruno Produit <bruno.produit@trailofbits.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
+ drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-Trail of Bits has a reproducer for this bug that triggers a
-KASAN use-after-free and can it share if needed
-
- sound/core/seq/seq_compat.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
-
-diff --git a/sound/core/seq/seq_compat.c b/sound/core/seq/seq_compat.c
-index 22679dca9..80110501d 100644
---- a/sound/core/seq/seq_compat.c
-+++ b/sound/core/seq/seq_compat.c
-@@ -44,7 +44,9 @@ static int snd_seq_call_port_info_ioctl(struct snd_seq_client *client, unsigned
- 		return -EFAULT;
- 	data->kernel = NULL;
+diff --git a/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c b/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
+index 0e3e5cf52c2c..a363f20452fa 100644
+--- a/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
++++ b/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
+@@ -265,12 +265,14 @@ static void chtls_send_reset(struct sock *sk, int mode, struct sk_buff *skb)
+ 	chtls_purge_write_queue(sk);
  
--	err = snd_seq_kernel_client_ctl(client->number, cmd, data);
-+	scoped_guard(mutex, &client->ioctl_mutex) {
-+		err = snd_seq_kernel_client_ctl(client->number, cmd, data);
+ 	csk_set_flag(csk, CSK_ABORT_SHUTDOWN);
+-	if (sk->sk_state != TCP_SYN_RECV)
++	if (sk->sk_state != TCP_SYN_RECV) {
+ 		chtls_send_abort(sk, mode, skb);
+-	else
++	} else {
+ 		chtls_set_tcb_field_rpl_skb(sk, TCB_T_FLAGS_W,
+ 					    TCB_T_FLAGS_V(TCB_T_FLAGS_M), 0,
+ 					    TCB_FIELD_COOKIE_TFLAG, 1);
++		kfree_skb(skb);
 +	}
- 	if (err < 0)
- 		return err;
  
+ 	return;
+ out:
+-- 
+2.34.1
+
