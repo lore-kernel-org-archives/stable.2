@@ -1,45 +1,40 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFB9852CCC5;
-	Thu, 17 Sep 2026 17:01:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E6352CCE6;
+	Thu, 17 Sep 2026 17:01:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664463; cv=none; b=G9WSTwMMYVCWpOIt+DqopHkSyRrvhLTuHP2dQ4Gx1LbZSJBOqc99ATFIouQ71T6p5DGmDQwO9xoSZKWn5moR0BEd4541sUtwar5qQ78AjBEqZidUiCSZfnhnv13rgSYFzo7Au/C3bGiF/TYSBG6X2WpiTJnp8PdNVGmEp0r447I=
+	t=1789664466; cv=none; b=KJiTJaR5imy7anHD1VfhfLmVz5WZ8//JTjYKt+1+omRBwWJGdHLXn/iFZNeV5oyyFdWYRyt+EzCdrC8zzKGv/9JAaslJ9q5bra/O8vI97ud5+qEt8s/guXisVnFs1tFulIK0UjdlqvhG6kNyk3crPOhe0HkoIzd/1UflRcAqbcw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664463; c=relaxed/simple;
-	bh=j4hh6uvFbsQPQTooWVQDjRPemvNHY4dveDvqFYJY0tI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bxA8jzg4NeU202+SoM6Ecwf/VMOcTv00RAX+wjVWYa2M7tiqyFMf24k8cJUK9x2K70ZGi6956OiIfqY9S8RjbjXApXdvhT/N16BagHti5gYvEHhX9xt2m8BSiYF387WisxVsaykslpvw2f7KZVH63yqQ2Gdxw14JXucKMjk6vBQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qe6NztWT; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qe6NztWT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2051B1F000FF;
-	Thu, 17 Sep 2026 17:01:00 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789664461;
-	bh=7OruyZGGKt72ondKiDesxNOQEWfg7sL5ajFIHoUfkSc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qe6NztWTxA6oj2NnZz6xNSHV14LWqY3EXwu4UoDqn/qkaFrpZL5fBkzNQY2onZqvg
-	 xj0PXByaMoZE62XjGGV2Xxl6o9slgHVwpMOJgzz9+dRsuCGKFIWxwjo6KGBj5+on/7
-	 yo+DY1+gUpE96ZWy3w5EuD+u4x9Fr0Whg7/gVujY=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Felix Aljoscha Schnuell <felix.aljoscha.schnuell@stud.uni-hannover.de>,
-	Moritz Baron <moritz.baron@stud.uni-hannover.de>,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0380/1250] ALSA: hda/realtek: Add quirk for Lenovo Yoga Pro 7 14IRH8
-Date: Thu, 17 Sep 2026 16:02:55 +0100
-Message-ID: <20260917151602.349619730@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-References: <20260917151551.901433442@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1789664466; c=relaxed/simple;
+	bh=XwRE6lz8zzUWQqfe5tl5Xvwgi8WlYNQ6+FgbwConfCE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=B9UJ9ROrBpud2Z0UV/Ci3LdQGEwJ9lXluhn12QJf3gLbqg0N3pTFM2N8juBI8PtV3MCPr8fizJFZx8s25jdkW6RIDx7mzHxf+1l1XC2b8wyzrnSPoE8wPcHB+T7/g5qMAyA5OcLnKvT6IvGMdeJQ3A5MwnOX0Qsv4SmM9fEcB9Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3pkDDHKxqzfaECA--.7220S2;
+	Fri, 18 Sep 2026 01:00:52 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: broonie@kernel.org
+Cc: cezary.rojewski@intel.com,
+	hansg@kernel.org,
+	kai.vehmanen@linux.intel.com,
+	liam.r.girdwood@linux.intel.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	perex@perex.cz,
+	peter.ujfalusi@linux.intel.com,
+	pierre-louis.bossart@linux.dev,
+	tiwai@suse.com,
+	yung-chuan.liao@linux.intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Fix use-after-free in snd_byt_rt5640_mc_probe()
+Date: Thu, 17 Sep 2026 17:00:52 +0000
+Message-Id: <20260917170052.2163636-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,54 +42,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3pkDDHKxqzfaECA--.7220S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Xr13CF47Jr48Cry7Zw1fWFg_yoWkXwcEka
+	4j9348Xa48CFsa9rs8AasIkwn7Xr13tFW0g3WxtF4kJFWrXFWfJa98KrZ09F4DWw4vgryj
+	93Wj9rWxCryS9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbfkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
+	jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
+	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
+	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
+	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
+	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
+	v20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qr889g2wAAsM
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+When the device found by name is not an i2c_client, the reference taken
+by bus_find_device_by_name() is dropped, but execution continues with
+the stale codec_dev pointer, which is stored in priv->codec_dev and
+dereferenced later in the probe.
 
-------------------
+The device is not usable as the codec, so return an error after dropping
+the reference.
 
-From: Moritz Baron <moritz.baron@stud.uni-hannover.de>
-
-[ Upstream commit 853e10ec445984e99b3c7f6375f4e185614b842a ]
-
-The Lenovo Yoga Pro 7 14IRH8 (ALC287 codec, subsystem ID 0x17aa:0x38b1)
-has bass speakers on pin 0x17 that are not routed through a DAC with
-volume control. This causes the bass speakers to play at full volume
-regardless of the volume slider position.
-
-Apply ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN which corrects the DAC
-routing for pin 0x17, enabling proper volume control. This is the same
-fix used for other Yoga Pro 7 models with identical audio topology
-(14APH8, 14AHP9, 14ASP10, 14IAH10).
-
-Link: https://bugzilla.kernel.org/show_bug.cgi?id=217949
-
-Co-developed-by: Felix Aljoscha Schnuell <felix.aljoscha.schnuell@stud.uni-hannover.de>
-Signed-off-by: Felix Aljoscha Schnuell <felix.aljoscha.schnuell@stud.uni-hannover.de>
-Signed-off-by: Moritz Baron <moritz.baron@stud.uni-hannover.de>
-Link: https://patch.msgid.link/20260609141648.60608-1-moritz.baron@stud.uni-hannover.de
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: d48696b91552 ("ASoC: Intel: bytcr_rt5640: Add support for non ACPI instantiated codec")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- sound/hda/codecs/realtek/alc269.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ sound/soc/intel/boards/bytcr_rt5640.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/sound/hda/codecs/realtek/alc269.c b/sound/hda/codecs/realtek/alc269.c
-index 3321d8d3571da..a634f1c1ca4b8 100644
---- a/sound/hda/codecs/realtek/alc269.c
-+++ b/sound/hda/codecs/realtek/alc269.c
-@@ -7439,6 +7439,10 @@ static const struct hda_quirk alc269_fixup_tbl[] = {
- 	HDA_CODEC_QUIRK(0x17aa, 0x38cf, "Lenovo Yoga Pro 7 14IMH9", ALC287_FIXUP_YOGA9_14IMH9_BASS_SPK_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x3847, "Legion 7 16ACHG6", ALC287_FIXUP_LEGION_16ACHG6),
- 	SND_PCI_QUIRK(0x17aa, 0x384a, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
-+	/* Yoga Pro 7 14IRH8 shares PCI SSID 17aa:3852 with Yoga 7 14ITL5;
-+	 * use codec SSID to distinguish them
-+	 */
-+	HDA_CODEC_QUIRK(0x17aa, 0x38b1, "Lenovo Yoga Pro 7 14IRH8", ALC287_FIXUP_YOGA9_14IAP7_BASS_SPK_PIN),
- 	SND_PCI_QUIRK(0x17aa, 0x3852, "Lenovo Yoga 7 14ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3853, "Lenovo Yoga 7 15ITL5", ALC287_FIXUP_YOGA7_14ITL_SPEAKERS),
- 	SND_PCI_QUIRK(0x17aa, 0x3855, "Legion 7 16ITHG6", ALC287_FIXUP_LEGION_16ITHG6),
+diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
+index 40da3eea5fa7..557486c6f28d 100644
+--- a/sound/soc/intel/boards/bytcr_rt5640.c
++++ b/sound/soc/intel/boards/bytcr_rt5640.c
+@@ -1764,6 +1764,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
+ 			dev_err(dev, "Error '%s' is not an i2c_client\n",
+ 				BYT_RT5640_FALLBACK_CODEC_DEV_NAME);
+ 			put_device(codec_dev);
++			return -ENODEV;
+ 		}
+ 
+ 		/* fixup codec name */
 -- 
-2.53.0
-
-
+2.34.1
 
