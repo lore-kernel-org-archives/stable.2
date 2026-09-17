@@ -1,36 +1,36 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0D6A51A134;
-	Thu, 17 Sep 2026 16:46:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E51914DEC28;
+	Thu, 17 Sep 2026 16:48:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789663596; cv=none; b=N+1mqOgqi9PtiK+jt/6fOxnnmEtsyGpbFZnkU2C0sHluqTgHcAPGNypmmLgRQ8OvCTHYna2OfyBHoCwNuB5v38TL0O6w/pncmhVc8dIH7X8hWf7oeIbq2PIMr9GjeorMLhWonWeODtzJfLkskuej/5US0htWRYPhmwkOGlSD5rk=
+	t=1789663741; cv=none; b=UERvl/NuYxhHod8zswbhnSaoPZfQnVhFWWIRZr4e6oyLJT888fcK5LFD78UPzjBvlfOlg59y4LRgxeDxrwJuLO/Z7s3la3uaQx/W1Qv3z3pXqyevj9sOWBxJi97sLUmxiKRHW0qecZDIFQ0VN5H6w/4MgEFJwFN2OSbOM+eAkhU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789663596; c=relaxed/simple;
-	bh=8RIfnfRH+aOZKq7lB5+mDcmjSHUGSrRgsrUz5ma4HUs=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JGE3AyKcShRQyiZTxBBzH2yzMCoe4+91lRr53i2NoFynluFSjwklbnjzvG08I2kgjX8YtWL1/Aw2MH8oQl50eyd7JZFRlkr/s1J/rMAW0nkXjJPSvU2glx05hWmW+ZIrNgZkUVfzOkKnOBXkyEVBZmEPRK49d6p8jCAuafxjT8c=
+	s=arc-20240116; t=1789663741; c=relaxed/simple;
+	bh=jL5t8yN64zPRjybqoOuKkN7sxAGDrkfhr/U/m1luJ1c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tFsPUWXRw1wNdeJdSehgrpWj1m3/nprDLdoW2PKk8oZkhh6kUuUMINI4qeb2/SabQXI94xRnUD2QRc2Q83iosAhaknEqgXuyMkqCThB5G47xBZoaU8BrCxc/UqYUJrC9YGWek8BjM4FFbh0wEe+ZS+grc7mpAXrQJgEphetGDls=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnEDthGaxqzsCECA--.739S2;
-	Fri, 18 Sep 2026 00:46:25 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAAnlT_1Gaxq7smECA--.7305S2;
+	Fri, 18 Sep 2026 00:48:53 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: broonie@kernel.org
-Cc: ckeepax@opensource.cirrus.com,
-	cw00.choi@samsung.com,
-	lgirdwood@gmail.com,
+Cc: lgirdwood@gmail.com,
+	linux-arm-msm@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-sound@vger.kernel.org,
-	patches@opensource.cirrus.com,
 	perex@perex.cz,
+	srini@kernel.org,
 	tiwai@suse.com,
+	vkoul@kernel.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] ASoC: arizona-jack: Fix runtime PM leak in arizona_start_mic()
-Date: Thu, 17 Sep 2026 16:46:25 +0000
-Message-Id: <20260917164625.2163097-1-vulab@iscas.ac.cn>
+Subject: [PATCH] ASoC: codecs: wcd9335: Fix SLIM interface device leak in wcd9335_slim_status()
+Date: Thu, 17 Sep 2026 16:48:53 +0000
+Message-Id: <20260917164853.2163184-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -39,52 +39,81 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnEDthGaxqzsCECA--.739S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZFy8tF45KF17Kry5JrWxXrb_yoWkKrc_Ca
-	1fuw1DurWjgrZ2ya1DZFn8Z397uFyDGFWfZa1qyF4UtFWUKan8ZryUAr9xCrs2q3yfXa43
-	A3WDuFW3A3srujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfAFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4UJVWxJr1l84ACjcxK6I8E
-	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
-	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
-	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qr9nBTXwAAsJ
+X-CM-TRANSID:zQCowAAnlT_1Gaxq7smECA--.7305S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Cw13tFWfAF45uryxAw43Wrg_yoW8CFyxp3
+	9rtFyYq345KrWfAr15tr4UJa4S9FW2gwn3Cr48K342kan0yryFk34kta4FvFyfKF95X3W3
+	JryDZa4UCr45uF7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBF1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVW8Jr0_Cr1UM28EF7xvwVC2
+	z280aVAFwI0_Cr0_Gr1UM28EF7xvwVC2z280aVCY1x0267AKxVW8Jr0_Cr1UM2AIxVAIcx
+	kEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v2
+	6r1q6rW5McIj6I8E87Iv67AKxVW8JVWxJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2
+	Ij64vIr41lF7I21c0EjII2zVCS5cI20VAGYxC7M4IIrI8v6xkF7I0E8cxan2IY04v7MxkF
+	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x
+	0267AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUDOz3UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nBUwgAAsS
 
-arizona_start_mic() takes a runtime PM reference before enabling mic
-detection, but the error path taken when regmap_update_bits_check()
-fails returns without releasing it, since pm_runtime_put_autosuspend()
-is only called in the !change branch. This leaks a runtime PM reference
-whenever the register write fails.
+of_slim_get_device() returns a device with an elevated reference count,
+and wcd->slim_ifc_dev is intentionally kept for the codec lifetime on
+success. However, all the failure paths of wcd9335_slim_status() return
+without dropping that reference, leaking the SLIM interface device
+whenever the register maps cannot be created or the codec fails to come
+up.
 
-Release the reference on the error path as well.
+Put the device on each of those error paths.
 
-Fixes: fbdc60b2a787 ("extcon: arizona: Correct error handling on regmap_update_bits_check")
+Fixes: 20aedafdf492 ("ASoC: wcd9335: add support to wcd9335 codec")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- sound/soc/codecs/arizona-jack.c | 1 +
- 1 file changed, 1 insertion(+)
+ sound/soc/codecs/wcd9335.c | 13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/sound/soc/codecs/arizona-jack.c b/sound/soc/codecs/arizona-jack.c
-index a9063bac2752..09a100846fdb 100644
---- a/sound/soc/codecs/arizona-jack.c
-+++ b/sound/soc/codecs/arizona-jack.c
-@@ -274,6 +274,7 @@ static void arizona_start_mic(struct arizona_priv *info)
- 				       &change);
- 	if (ret < 0) {
- 		dev_err(arizona->dev, "Failed to enable micd: %d\n", ret);
-+		pm_runtime_put_autosuspend(arizona->dev);
- 	} else if (!change) {
- 		regulator_disable(info->micvdd);
- 		pm_runtime_put_autosuspend(arizona->dev);
+diff --git a/sound/soc/codecs/wcd9335.c b/sound/soc/codecs/wcd9335.c
+index e3ca5ca6de3d..b6d7606be863 100644
+--- a/sound/soc/codecs/wcd9335.c
++++ b/sound/soc/codecs/wcd9335.c
+@@ -5123,25 +5123,32 @@ static int wcd9335_slim_status(struct slim_device *sdev,
+ 	slim_get_logical_addr(wcd->slim_ifc_dev);
+ 
+ 	wcd->regmap = regmap_init_slimbus(sdev, &wcd9335_regmap_config);
+-	if (IS_ERR(wcd->regmap))
++	if (IS_ERR(wcd->regmap)) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return dev_err_probe(dev, PTR_ERR(wcd->regmap),
+ 				     "Failed to allocate slim register map\n");
++	}
+ 
+ 	wcd->if_regmap = regmap_init_slimbus(wcd->slim_ifc_dev,
+ 						  &wcd9335_ifc_regmap_config);
+-	if (IS_ERR(wcd->if_regmap))
++	if (IS_ERR(wcd->if_regmap)) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return dev_err_probe(dev, PTR_ERR(wcd->if_regmap),
+ 				     "Failed to allocate ifc register map\n");
++	}
+ 
+ 	ret = wcd9335_bring_up(wcd);
+ 	if (ret) {
+ 		dev_err(dev, "Failed to bringup WCD9335\n");
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return ret;
+ 	}
+ 
+ 	ret = wcd9335_irq_init(wcd);
+-	if (ret)
++	if (ret) {
++		put_device(&wcd->slim_ifc_dev->dev);
+ 		return ret;
++	}
+ 
+ 	wcd9335_probe(wcd);
+ 
 -- 
 2.34.1
 
