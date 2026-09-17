@@ -1,250 +1,270 @@
-Received: from mail-ua1-f99.google.com (mail-ua1-f99.google.com [209.85.222.99])
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 50DDF4E36F7
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:35:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.222.99
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB7FB4E4C27
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:35:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673755; cv=none; b=qdLLHMKy7le4divgRM+2QFES1TO50ZG6U0XcYtkQT8fmuUL3vmFCRpQ97y0cWF6ctzDojtdFiGq27ofcJkuC6k1nRPGnJpjerNcGzoj0BgSu5lP5oyZp05NlMVE7oGM52nsQQIhnsAr5CWgDHbBdmUMQScMpzeYnh4c3xisAnNM=
+	t=1789673761; cv=none; b=MjcEypyPWEJIJU2dolebxjtvllasmooxV7yXr778bGBFgt9kGw2JYC8I0Y9tubHK/5FjsGODetDKDfo/ermmvv2rNUaHmPK9lgJzTN2lIGrhD62R2plYtZVTf8pjQQRF81tYAEBg91keeX9RnY2wLyTgfPKeJB3hb5m5T7jT/uY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673755; c=relaxed/simple;
-	bh=tbwKszJ/qAIjNxSvWGK9yqkXsR+2doI9vHO7bMHPklo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=WLMc+xRpID/C+hqbQ8JQsIdNmJXFqCJLGlUmFOuRT1kqy+UiKzaeP3wW9UXR4qYz5yI9LGHvfAVkUBZUvj/Gl/X0WUZcMdXDwK75qyUzlcbIJUghSn2rqJrREU+IfAre4X3LGbuGNPmpziZgjNV13RFIWcZSNNYY8DKamtTeA94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com; spf=fail smtp.mailfrom=broadcom.com; dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b=c5kJdJlU; arc=none smtp.client-ip=209.85.222.99
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=broadcom.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=broadcom.com
+	s=arc-20240116; t=1789673761; c=relaxed/simple;
+	bh=buFnI56HHAS/TkagVLY6Gn+e6OsIvLfRAuTzojxHwa4=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=OtCbQzA6gGgD5oQqGaYifPl6O7Stkt6bP8qCEx5JMAEjFGUdpv2HiUOtHkgXu9CUQr2iUa0zcU61W+aYzVnqrPKh1ZUvNCD6fCDeXnyXyHxfxc53a2rF9Vs95eEMVYIYiLzaSqDATR+iOpjAugSKvbH9B8qQTw//gxHWMuQglT8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com; spf=pass smtp.mailfrom=dubeyko.com; dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b=cZp54U48; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=dubeyko.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dubeyko.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=broadcom.com header.i=@broadcom.com header.b="c5kJdJlU"
-Received: by mail-ua1-f99.google.com with SMTP id a1e0cc1a2514c-980c4f5c921so79819241.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:35:54 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789673753; x=1790278553;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:dkim-signature:x-gm-gg:x-gm-message-state
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=CH/AaD69mYxRsbRT+ADZwu3a+q8HLnyzmtZixd7yxCI=;
-        b=ZhUACqNne2o8E45JE+s+8RlbTnQUfaZ0NAX5E+/O1OuoOR+i3q8o6U98p0ie1CQD6g
-         97xqqc4SSLkHQ9ecE1OOyH55iqJX5bEYu0XdO/cuhC6RnjswNQjmQ2uFZSgcorTZXR3G
-         jKwsHvw+ierAFNFIgZTWRJbRKgUd5neJmF1wT76amU118Yj6Iek2tAh2FGaNnoFTxbFl
-         xdhoxkuCgcQwcWA+hM19/bw05AWdCDP6fzuxOlZuM6QsLy5V3ULFAZIhNb46ITVW/TR9
-         ZPkK0rguj+FtiDSP3XsJHDtWEXhHmHIuQpMPEg9C71wWGGaIteGeK1Il4B16C/qepA4A
-         wK0A==
-X-Forwarded-Encrypted: i=1; AKwUvBx0aeWuNjaUcJN7LRz3XXWmurJNT9Ul7NXor+c8/ukg3b8vEa8K2vyRm1olePCXsnfPBgWIreg=@vger.kernel.org
-X-Gm-Message-State: AFuF++lPkBQNRlelKZ+KDfXiZd9XD0wwk+cyeEkxFfdLP79WpUYqXRsb
-	49DSovPV1OOtSoH7quDJ2Q/5GnoqrJ1gEpidOxPtYI0qVT2vGetwFuu5yn6SVw/iR+Q3U+bA33A
-	4vmskxfNDLJ1IZJMhLfIyurr+GocidTKTrpDQfLQt7vOywEmzYYbE4R4VI01kPLDGJ/MmERHi26
-	39BXvUR/3bau2+z4H6bGnCNjvld7Chh6/68h5bpP74bRMXo+ocQcd0SPIO7ISe9n6H+eh1t9ptn
-	sFIQA==
-X-Gm-Gg: AYBFou1EBatXTY5QS2RzcUdYYMMH9ydIE65TxpSnuiGrrTdL8zn0p8dkFyboCxKYNNA
-	oarF55GoHlhU/5waT3+9vQS+Xex7kpcPsqFOGWn4uS9bv9j9VDMmBrZgr24JEdFQCT0PCUccuQr
-	gYq7ZEsa8o1HmxsrCFxqqKglSatJHmkrVHp9OWYdvNtN8rG0e3mkRe7ruxYDUQVon/u60vkj0OH
-	2qdlKccbcpykAan5qtdjyGJMIR1n1zd9e7hJ53TyRLA2UtK7sCjFh9NK8dEgG0UP/DavxEPg6kE
-	T/vVJW9gTsBFmbIJsbZTKA9VyCJXSSTs0syGajvhU7UQHufbittsouZWmZ5RbUakudxh0utvgXG
-	GkIvps35ToSD2BoJQS6U6Q/W3+xgOM+SFm9G3BOuesj9ZFVx14AywgG1EeKplvfJ+8UFh8GFvJN
-	lL4zuymVB0ufIdzNMLKgM80pZUaTEixw==
-X-Received: by 2002:a05:6102:915:b0:79f:cf5d:e402 with SMTP id ada2fe7eead31-7a55b44af21mr71117137.10.1789673752963;
-        Thu, 17 Sep 2026 12:35:52 -0700 (PDT)
-Received: from smtp-us-east1-p01-i01-si01.dlp.protect.broadcom.com (address-144-49-247-98.dlp.protect.broadcom.com. [144.49.247.98])
-        by smtp-relay.gmail.com with ESMTPS id a1e0cc1a2514c-983233e98f1sm1172986241.1.2026.09.17.12.35.52
-        for <stable@vger.kernel.org>
-        (version=TLS1_2 cipher=ECDHE-ECDSA-AES128-GCM-SHA256 bits=128/128);
-        Thu, 17 Sep 2026 12:35:52 -0700 (PDT)
-X-Relaying-Domain: broadcom.com
-X-CFilter-Loop: Reflected
-Received: by mail-yw1-f200.google.com with SMTP id 00721157ae682-869553205a7so11500167b3.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:35:52 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=dubeyko-com.20251104.gappssmtp.com header.i=@dubeyko-com.20251104.gappssmtp.com header.b="cZp54U48"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d440939f0so8534037b3.2
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:35:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=broadcom.com; s=google; t=1789673752; x=1790278552; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CH/AaD69mYxRsbRT+ADZwu3a+q8HLnyzmtZixd7yxCI=;
-        b=c5kJdJlUsKjhQoUqqcsusERhK4wmxmewkqinEsrVch7nd3Q6iGblhMhCD6E+cpvU3a
-         vuL48hRpJlaDoIm+oMxAQCIbvozo3H5iuvkcZV0XZJI4Ryx+z8hgm1qN9EpuaJ1yGqdF
-         9apyq2n95ZcsuEfVqrm1zz3vhTnj2Lg/xmVaQ=
-X-Forwarded-Encrypted: i=1; AKwUvBwwNtO0Ht6u/QPrsDyDCiA/MTKYRkQ0SvWtYxBranvorVkYITDAAycZ9DFxe6R5wSIOAJuIkrY=@vger.kernel.org
-X-Received: by 2002:a05:690e:b8c:b0:671:3aae:2509 with SMTP id 956f58d0204a3-6717fc66f8dmr64563d50.12.1789673752414;
-        Thu, 17 Sep 2026 12:35:52 -0700 (PDT)
-X-Received: by 2002:a05:690e:b8c:b0:671:3aae:2509 with SMTP id
- 956f58d0204a3-6717fc66f8dmr64554d50.12.1789673752037; Thu, 17 Sep 2026
- 12:35:52 -0700 (PDT)
+        d=dubeyko-com.20251104.gappssmtp.com; s=20251104; t=1789673757; x=1790278557; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=buFnI56HHAS/TkagVLY6Gn+e6OsIvLfRAuTzojxHwa4=;
+        b=cZp54U48kAakYAkal5Oxjzo1PZy2KVS/H93n0+pyGjnPP/zf2wldX/ZkBYXpSZt6AW
+         6HMIdd0syvh9e9+34AfZNsKTY/e7Fn2A3MdKBhFTqii6iYGr4ERORcTlzyTP0SnjNEst
+         mUqmm5qQ8Qh61APBwWgFOJoK7bbI+oEiwgQFA5lhD0XUcUxsDk+JXg9YPwnr+pyGyPEf
+         wC+IYs4heN2nHF3iCUkK36VPjB+7TLl/cqMMjPcoW42Qvw4yAHwnYqqVBrsG1d40hSO/
+         q8sZanx8FTbcx8zPeL7Uzie1JS2J+gHKvyCbmDcjAUfh8pELBNmfyx0jcd8vMiAsY8//
+         vPkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789673757; x=1790278557;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :autocrypt:references:in-reply-to:date:cc:to:from:subject:message-id
+         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=buFnI56HHAS/TkagVLY6Gn+e6OsIvLfRAuTzojxHwa4=;
+        b=JHDnVzx9EQfbrCLE93nHCciANT9ssYkPOK5YD/IXQYbrtWrKCnQYTakogWsBu4YNfq
+         HSU8MQO75b3ZlT8/5hLAAcsRxnJNo7OExEmzxeX7pz7n9s4ldqD1lPErak7ZgxVqCZMS
+         PdzyXAuRMxFBi8u2FCb25PQQJEcyymenXZ/ovxy6CUiq0tZ9FVPM9GbwXbwKWMZCOX1B
+         DCst/j3OIxEiyFxByDfCs/1YFNPw31c8oaEqWrxyxj6yW3UC82Kfhwwv0/jGs/ONCzu4
+         VhgmB2B0XT+oX4oswiCbPJIFODGhOUia1dTAKSXKzpk2xwbOBYfbBcPTdtvOXu0afepk
+         JEwA==
+X-Forwarded-Encrypted: i=1; AKwUvBzxqQe8F2VXuHdDafQ/D9K7UzAytLTtq/prc3tDfJ1wMoAmElyJRF28d2h0VyWknZG8bU3bLkY=@vger.kernel.org
+X-Gm-Message-State: AFuF++k47SMFZM40F26BSUImfDOxvdgmp1UW8pgfCUpgNryGMfZAiN9n
+	RBqbpTIClva34QttEEoGDm0vJlb00BNYbIvmpjfsVfO+xUA85RljS53M45gxBbhYG3c=
+X-Gm-Gg: AYBFou2XaQCb+iAUquBybMfllsLwa048r1Nm84T2SI5GgcFJSTV79GIhJB8IOOsQR96
+	8F4z5bb4ulMCyQ98yWbWqaMNgPCyobh7BxAWPCJk4jS7iwgpKVZP2us2wDlT0wC31ChKYqasw9b
+	WRW6sEbed/W4LTQ4lhG5EJD5bAONGPYDo7qCXuMmggPaWxNM5WHwFfywZW1sK2tGudGKTfJUvHs
+	bY5FeBVrYr8xCIaujfred3w32SZhj35uIS6mPulhqDUkTQwiy/1doMUAwdrzqLUtBfOfuofzvl2
+	wiO2WOaxIBOGQ8ekKoRuzT3+cxmXNICtH74HmVsJBCqgsv0saTyZlaZS3PsC7nmlhAaBtwCw6j4
+	VLifJ7mZPfFKpbIGDfbPV/mki8NaSdVd/3GeKCBGNhCRzO3JsNUiKrF3gGSmUg2ctzavqOq58ya
+	/cgr6c8VfbBWsshbwbOQBYE+P+6TsdoDeHtOQii1vLeMUuPSK07svah0OsuvxAG8ewzORMgAtCY
+	WFgSZlJLP5okMZoOZW7I7qmwdkByT+Sh40QaHSDZ1+Uyb2f9Ppd4gdJ9lAopm+TRFZ+KX6C5GjY
+	9YK2WE2Vnya+APOm4oENkaoMwpqX334E+5mubejq4FA0/y10GtYejauOgrFq+c6O
+X-Received: by 2002:a05:690c:60c4:b0:870:107b:6359 with SMTP id 00721157ae682-897311cb726mr579697b3.15.1789673756865;
+        Thu, 17 Sep 2026 12:35:56 -0700 (PDT)
+Received: from ?IPv6:2600:1700:6476:1430:b801:b375:5db3:9ec3? ([2600:1700:6476:1430:b801:b375:5db3:9ec3])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-896c948db95sm2794047b3.13.2026.09.17.12.35.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 12:35:55 -0700 (PDT)
+Message-ID: <ee4a4f8cb0cad602a520161f4c9cbb1beac81d58.camel@dubeyko.com>
+Subject: Re: [PATCH v2] nilfs2: validate segment number in
+ nilfs_sufile_get_suinfo()
+From: Viacheslav Dubeyko <slava@dubeyko.com>
+To: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 12:35:53 -0700
+In-Reply-To: <CAKFNMo=Lsaci5bY+G8A-C_FdD3Rhais4eANUdz8rHL7e-auHvw@mail.gmail.com>
+References: <20260915195223.3331909-1-qwe.aldo@gmail.com>
+	 <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
+	 <CAKFNMok804k_g2CHXfrn0LaOY38r8FtMnAk1kRc3YeZ=omCoag@mail.gmail.com>
+	 <CAKFNMo=Lsaci5bY+G8A-C_FdD3Rhais4eANUdz8rHL7e-auHvw@mail.gmail.com>
+Autocrypt: addr=slava@dubeyko.com; prefer-encrypt=mutual;
+ keydata=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
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.1 (by Flathub.org) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917144758.2157707-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917144758.2157707-1-vulab@iscas.ac.cn>
-From: Paul Ely <paul.ely@broadcom.com>
-Date: Thu, 17 Sep 2026 15:35:39 -0400
-X-Gm-Features: AcwNN1W4sikGhRrgV9jodJ2E_SlAFtpDAos2SAQFSJSVma5aO7-ubQj-1khCaws
-Message-ID: <CAEQnVQnWk2ADAvLEVCrgNE=dtf3D4DJ-UcosUQgGDj8=AMnA2A@mail.gmail.com>
-Subject: Re: [PATCH] scsi: lpfc: Fix ndlp reference leak in lpfc_release_rpi()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: James.Bottomley@hansenpartnership.com, james.smart@broadcom.com, 
-	linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	martin.petersen@oracle.com, stable@vger.kernel.org, 
-	Nigel Kirkland <nigel.kirkland@broadcom.com>
-X-DetectorID-Processed: b00c1d49-9d2e-4205-b15f-d015386d3d5e
-Content-Type: multipart/signed; protocol="application/pkcs7-signature"; micalg=sha-256;
-	boundary="0000000000004b3bc0065bb2e41c"
 
---0000000000004b3bc0065bb2e41c
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+On Fri, 2026-09-18 at 01:05 +0900, Ryusuke Konishi wrote:
+> On Fri, Sep 18, 2026 at 12:46=E2=80=AFAM Ryusuke Konishi=C2=A0 wrote:
+> >=20
+> > On Thu, Sep 17, 2026 at 4:06=E2=80=AFAM Viacheslav Dubeyko wrote:
+> > >=20
+> > > On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
+> > > > nilfs_sufile_get_suinfo() subtracts the caller-provided segment
+> > > > number
+> > > > from the total number of segments without first checking its
+> > > > range.
+> > > > If
+> > > > the requested number is greater than the total, the unsigned
+> > > > subtraction
+> > > > wraps and the function may process segment numbers outside the
+> > > > filesystem.
+> > > >=20
+> > > > Cache the total while holding the metadata semaphore and return
+> > > > no
+> > > > entries
+> > > > when the starting segment number is at or beyond the end.
+> > > >=20
+> > > > Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
+> > > > Cc: stable@vger.kernel.org
+> > > > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> > > > ---
+> > > > =C2=A0fs/nilfs2/sufile.c | 10 +++++++---
+> > > > =C2=A01 file changed, 7 insertions(+), 3 deletions(-)
+> > > >=20
+> > > > diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
+> > > > index eceedca026..573646c5f7 100644
+> > > > --- a/fs/nilfs2/sufile.c
+> > > > +++ b/fs/nilfs2/sufile.c
+> > > > @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct
+> > > > inode
+> > > > *sufile, __u64 segnum, void *buf,
+> > > >=20
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 down_read(&NILFS_MDT(sufile)->mi_sem=
+);
+> > > >=20
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 nsegs =3D nilfs_sufile_get_nsegments(sufi=
+le);
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 if (segnum >=3D nsegs) {
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 ret =3D 0;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0 goto out;
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 }
+> > > > +
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 segusages_per_block =3D
+> > > > nilfs_sufile_segment_usages_per_block(sufile);
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0 nsegs =3D min_t(unsigned long,
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nilfs_sufile_get_nsegments(sufil=
+e) -
+> > > > segnum,
+> > > > -=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 nsi);
+> > > > +=C2=A0=C2=A0=C2=A0=C2=A0 nsegs =3D min_t(unsigned long, nsegs - se=
+gnum, nsi);
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 for (i =3D 0; i < nsegs; i +=3D n, s=
+egnum +=3D n) {
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0 n =3D min_t(unsigned long,
+> > > > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=
+=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 se=
+gusages_per_block -
+> > >=20
+> > > Looks good to me.
+> > >=20
+> > > Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
+> > >=20
+> > > Thanks,
+> > > Slava.
+> >=20
+> > Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+> >=20
+> > Hi Viacheslav,
+> >=20
+> > Please take this directly.
+> >=20
+> > I also agree that this change makes sense, and my local test
+> > results
+> > are as expected.
+> >=20
+> > However, please drop the 'Cc: stable' tag since it does not cause
+> > any
+> > fatal issues at the moment.
+> > If a real-world problem is found or reported, I think it would be
+> > fine
+> > to request a manual backport then.
+> >=20
+> > While acquiring information on out-of-range segments due to
+> > wrap-around is indeed possible, sufile is also a metadata
+> > management
+> > file.
+> > When accessing out-of-range areas, it simply hits as a hole block
+> > and
+> > returns empty data.
+> >=20
+> > Neither memory overrun in user space or kernel space, nor
+> > out-of-bounds block device access or information leaks will occur.
+> >=20
+> > Well-behaved userland tools read segment information based on the
+> > statistics obtained via nilfs_get_sustat(), so no problem will
+> > occur
+> > (the difference in behavior was visually indistinguishable).
+> >=20
+> > Therefore, I modified the nilfs-utils to perform ill-behaved calls
+> > and
+> > tested it.
+> > Although out-of-range non-existent segments were displayed as empty
+> > data, no critical issue that compromises kernel stability occurred.
+> >=20
+> > At present, it does not appear to meet the basic criteria for
+> > stable
+> > backporting, so when backporting, we need to be able to organize
+> > and
+> > demonstrate the reasoning why it is necessary.
+> >=20
+> > Thanks,
+> > Ryusuke Konishi
+>=20
+> Hi Viacheslav,
+>=20
+> To follow up on my previous email regarding the stable tag: since the
+> patch includes a Fixes tag, simply dropping 'Cc: stable' will not
+> prevent automatic pickup by AUTOSEL.
+>=20
+> To strictly prevent automatic backporting while keeping it tracked,
+> please replace the tag with the following instead of dropping it
+> entirely:
+>=20
+> Cc: stable+noautosel@kernel.org=C2=A0# Non-fatal bug fix; defer backport
+> until a real issue is reported
+>=20
 
-Thanks Wentao,
-I need some time to read this one and test it.
+Applied with exchanged CC.
 
-Thanks
-
-On Thu, Sep 17, 2026 at 10:48=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> w=
-rote:
->
-> lpfc_release_rpi() only drops the node reference and frees the mailbox
-> memory it took when lpfc_sli_issue_mbox() returns MBX_NOT_FINISHED.  The
-> SLI-4 issue path can also return -EIO without submitting the command, in
-> which case the completion handler never runs and both are leaked.
->
-> Clean up whenever the command was not handed to the port.
->
-> Fixes: 4430f7fd09ec ("scsi: lpfc: Rework locations of ndlp reference taki=
-ng")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/scsi/lpfc/lpfc_nportdisc.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/scsi/lpfc/lpfc_nportdisc.c b/drivers/scsi/lpfc/lpfc_=
-nportdisc.c
-> index 9c449055a55e..055f44ec7b94 100644
-> --- a/drivers/scsi/lpfc/lpfc_nportdisc.c
-> +++ b/drivers/scsi/lpfc/lpfc_nportdisc.c
-> @@ -1142,7 +1142,13 @@ lpfc_release_rpi(struct lpfc_hba *phba, struct lpf=
-c_vport *vport,
->                                  ndlp->nlp_rpi, ndlp->nlp_DID, ndlp->nlp_=
-flag);
->
->                 rc =3D lpfc_sli_issue_mbox(phba, pmb, MBX_NOWAIT);
-> -               if (rc =3D=3D MBX_NOT_FINISHED) {
-> +
-> +               /* Only a queued or completed command is handed to the
-> +                * port; other results, such as the -EIO returned by the
-> +                * SLI-4 path when it cannot submit a non-polled command,
-> +                * leave the mailbox and the node reference to the caller=
-.
-> +                */
-> +               if (rc !=3D MBX_SUCCESS && rc !=3D MBX_BUSY) {
->                         lpfc_nlp_put(ndlp);
->                         mempool_free(pmb, phba->mbox_mem_pool);
->                 }
-> --
-> 2.34.1
->
-
---0000000000004b3bc0065bb2e41c
-Content-Type: application/pkcs7-signature; name="smime.p7s"
-Content-Transfer-Encoding: base64
-Content-Disposition: attachment; filename="smime.p7s"
-Content-Description: S/MIME Cryptographic Signature
-
-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
-iId6lRoDnFAsEvnaOMvg29iSc9gZaFsMAV8NLrmVgatBLqETEHgQ4n1BrE2+pRoymE80Zf+Qe5W6
-GF5zYMjxe2smznZoexz/BISo+5QDZaKZKtmoZ3ApyLjKz1G5Q2hUhmZWHvMu/eGSXP59UaUUmelW
-ZlVs3E0h345YpaGuBNlquYm35nQ3ehYjm2jqaIh7F7K0+eF5TPjcMLpqnpak12xIx6BCxmFi8Oqu
-Gb9+KrrAD+KPgqzjyZZxdVcCAwEAAaOCAdkwggHVMA4GA1UdDwEB/wQEAwIFoDAMBgNVHRMBAf8E
-AjAAMIGTBggrBgEFBQcBAQSBhjCBgzBGBggrBgEFBQcwAoY6aHR0cDovL3NlY3VyZS5nbG9iYWxz
-aWduLmNvbS9jYWNlcnQvZ3NnY2NyNnNtaW1lY2EyMDIzLmNydDA5BggrBgEFBQcwAYYtaHR0cDov
-L29jc3AuZ2xvYmFsc2lnbi5jb20vZ3NnY2NyNnNtaW1lY2EyMDIzMGUGA1UdIAReMFwwCQYHZ4EM
-AQUDAzALBgkrBgEEAaAyASgwQgYKKwYBBAGgMgoDAjA0MDIGCCsGAQUFBwIBFiZodHRwczovL3d3
-dy5nbG9iYWxzaWduLmNvbS9yZXBvc2l0b3J5LzBBBgNVHR8EOjA4MDagNKAyhjBodHRwOi8vY3Js
-Lmdsb2JhbHNpZ24uY29tL2dzZ2NjcjZzbWltZWNhMjAyMy5jcmwwIAYDVR0RBBkwF4EVcGF1bC5l
-bHlAYnJvYWRjb20uY29tMBMGA1UdJQQMMAoGCCsGAQUFBwMEMB8GA1UdIwQYMBaAFAApNp5ceroP
-ry1QLdugI4UYsKCSMB0GA1UdDgQWBBTc34vK15RY7h33segpWeDeAloTGDANBgkqhkiG9w0BAQsF
-AAOCAgEAb0hABkNonbsXXPrDOwB9B9lRtVhdRszakaT0zWubTTtHAV/XTebY1b4caUC2iX9AJvr0
-XTJrFAiLtJ6eeP6yQOjD+rBprWauwPUzydJWEftECpX/lbPgZLBSHx22euCSnIm8HNj8o0bMi+Ii
-plCW6kU56G1krQY0jrqDJCFgH4Wmp1TrKi36iVTIXyYLDtPOcSXe9hLmeUlQuL4nAoB8EsI45w4a
-5Wi/xS7vGQLXzXAQ2SY6Yuseqhh+QcXvzeb0uVB54edC4HFrVX9DtFzHXoyB9s0C29MZm2zpFPNS
-DgwnsmTsvpPuLELuuaJvIKnSHHR9FKrmQZbmz/i6KyBt0enmjNk7I7vAKQa8IqZxSrjvR6tYExiq
-BP9ZuiXJnuqoPujFE7kphkUjmK76yv8904eZNflTvcEDpthD1boifOzT78iQ3fbuytR8LKx7tzGV
-Ga9+dcLBcR/eP85Vmc9NW1frtO3dRd26+DHs1lXX96Em5AAlvBgDw8b1GfyEvfimBkxTIWxR3mBB
-jAMkNKrfvV7NxS9AfcFu4fvxuBJc+t2FN1zBc8VyVyn9ZBeJ2DYS9uQ2x00QPXMHqVlAT5fBanmS
-n1fgcSTdHEy1fzVZIAtM1XMIWy03bJKNBwUebgxHKHSUCZ7VSMHE4jyERMCqkvTxU6h4JJ7YzRrU
-jhXYo8oxggJXMIICUwIBATBiMFIxCzAJBgNVBAYTAkJFMRkwFwYDVQQKExBHbG9iYWxTaWduIG52
-LXNhMSgwJgYDVQQDEx9HbG9iYWxTaWduIEdDQyBSNiBTTUlNRSBDQSAyMDIzAgx9OiWw8dVRSIkn
-L+YwDQYJYIZIAWUDBAIBBQCggccwLwYJKoZIhvcNAQkEMSIEIEK3aGlC40WOC+3p1yHPclATJEFR
-VE6X9S5DLGhLLG9OMBgGCSqGSIb3DQEJAzELBgkqhkiG9w0BBwEwHAYJKoZIhvcNAQkFMQ8XDTI2
-MDkxNzE5MzU1MlowXAYJKoZIhvcNAQkPMU8wTTALBglghkgBZQMEASowCwYJYIZIAWUDBAEWMAsG
-CWCGSAFlAwQBAjAKBggqhkiG9w0DBzALBgkqhkiG9w0BAQcwCwYJYIZIAWUDBAIBMA0GCSqGSIb3
-DQEBAQUABIIBALdIrpvI8/LHFctDl7uvC5XlKGsljY2eR/MCUECRhRqO5+uMhim78RnoNGuJyJhi
-iVjfdMqwt+P+R3QH2g+08p9VfU31FsUvo4vIlZgLhnHVn8AWtodvpxmxKCCsrpfsqsY7lS+X2TG2
-O5mUbVUOzoiCxSyGVCyD8rOLndN+Q78Wcb7xQPcDB2Skm0K0I3syrHEPlaKyvbqOE/a8pUR4W8yn
-ow/8SywUTxfRfV+2J4Wn5OdzL4vwDf1pYietRie0vi2+KVyVuVrf+/nwj3IMqIQWS5bwiJjTHa2Y
-fAvXQx/7tn1y1/EJMdivjATbi16xSi39E3YOYbmuwCEr/7TbEVk=
---0000000000004b3bc0065bb2e41c--
+Thanks,
+Slava.
