@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 64BE7509EEF
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:03:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2A9F511209
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:03:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650237; cv=none; b=tHdBB4Y6NG47p+GAJSLLUxxBGKIVrQnuyQqO3vShWdNUuDcZ4AOZ2BVsTGmbU3wI+yjlBBjUlt51eRGIYnrkLqmR7ng6sJANSI66ILTTk9hyc1UITF77TwIOIp77yJyzvlCZhRMxqGhzdf1VGzXH/AXILIVEVjzunfjGQA3Qn8A=
+	t=1789650237; cv=none; b=RVpLS3SxxjETpWhlv2pW7fiD0a6yIY04uNk0Qjf4KYTxWPnVlK1BqDNwNeBOPBoc+ljY19xUHYJpK5WL8XurKcp9JBrcjNA0BKG+1+1+FvuThXm7xenzQ/JAm76pT39Wv6auq9hNtizahkDYAY5aWSG/DQZU4wFTV9k9T4WRWd8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789650237; c=relaxed/simple;
-	bh=E0QFCVYRArtR2EYWmx9mugHU7Hkp2VFGTxfsXQQaMCg=;
+	bh=EUH9DEYmVGiG5UtFgK2sx6AphJaQuZsmLfgpqlsb7yQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i9zkR0OJt/p5GJlSIi8v/eNrmAOKiXHiLpezfjicR7W4LnlgpwCPvyEOiDQSHO0ek1qtrNJEKKEJsk4I5fvJFWzT1USoVMO9qx98q4n4jjZ3i6qd7jCDVNphsT55hrYyD5AigCspzpCfgiRiXuQfVI04lPHIKpIq906+Qao79Yc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h63YSlM1; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HhB6W8r1DP7qT7jm0OA7ts5YK7tB1vbZuowpuaI0JxyScDu5nUFHIbaTbJEbAwhbMFIYKUde19u5/ND/Ei714QPlxFjYm2CqiH6Zsnq2GFhb07K9nxBu6PaIBVCeg2pTS5LtaApv90OCXJES30t7USImFtUxqcb90hbUd8HPC3k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XdDjvttW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h63YSlM1"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5D3661F000FF;
-	Thu, 17 Sep 2026 13:03:45 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XdDjvttW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 24C211F0089A;
+	Thu, 17 Sep 2026 13:03:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789650225;
-	bh=RWRyGca5lJA5kdZgJNEkz/q9DeysekEi4ScNL1v1SEQ=;
+	s=k20260515; t=1789650228;
+	bh=8TfHwkKN/YieHWzcfPbMRRzAbH186bi0/2di+sx+kCA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=h63YSlM1rteYDWBynIt15IXxvoghA0XbZ8NoRAtMN5yJdGAwbTNdZ3/Zy3I22Sc7a
-	 T4bp1c/QN//r/lLXYqScB90y8dqZsNpNkUiQCzvNJMmu1PkI7AkNtBax36qfekPgN+
-	 N6Q5Fq1IkkE4DxS6+pv1lxeqtyWUho2P6TjzbSdaT1eYt+avYU9t6YNgFoZTKJAHyC
-	 GqzlD0Kof1pKWlVnfUJrn4g9ioou9vZhe+8QgucNAcIltXMpQun96CBAIUpn7AmoYc
-	 N+/q5QBAl7Jr7mXoU44b+30yPRiajbpnxH/r73Rpyk96vagWCuiWR3d38dkL5RAi2n
-	 2LjKxvrocgSDw==
+	b=XdDjvttW2GShMvJQSUnPMWkcM7fZNm4/A28qdprvMCL3ItYbgd0Jf7FeeWqnPaRos
+	 /SOtoYhFzeYsuh6oLDtiUPgyJPqU9nuv5Wf/kEhTpdfl1/0nPWynbltw4vEbf2e/cL
+	 /nqHsNssa/5emFX8bPGTXN2nSCZmz34z7Ze3MHv02cEmnex7ViII9uM/u/IIQbSesr
+	 A4icnJSXzkAZVZyeX5t6kfp2hlZla0LFgpiV6zhjFYPxEABrdfWXgzc6jjnsUs4vgI
+	 5WE60He3shpJIx400CpJJXEEZdL98NPs6FVaC0Azkug2tRRUK1fuUjjLZ5CwRRAPxj
+	 K74DDF6UdV4Cw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Song Li <songl@zju.edu.cn>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y] smb: client: fix cifsFileInfo reference leak in deferred close
-Date: Thu, 17 Sep 2026 09:03:43 -0400
-Message-ID: <20260917130343.320130-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: fix file type corruption in cifs_reparse_point_to_fattr()
+Date: Thu, 17 Sep 2026 09:03:46 -0400
+Message-ID: <20260917130346.320238-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091616-unscrew-providing-4bc5@gregkh>
-References: <2026091616-unscrew-providing-4bc5@gregkh>
+In-Reply-To: <2026091632-favorable-freefall-74c4@gregkh>
+References: <2026091632-favorable-freefall-74c4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +49,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit 5520e89a5a4f834bced64cf2ac927001cc513a40 ]
+[ Upstream commit 6bd360447941357e959414a525aa62576a448116 ]
 
-When cifs_close() defers a close, it hands the cifsFileInfo reference
-of the closing struct file to the queued work. Each execution of
-smb2_deferred_work_close() drops one such reference.
+Setting the file type in cf_mode without clearing the existing S_IFMT
+bits first is wrong as it corrupts the file type when cf_mode already
+has type bits set (e.g. S_IFREG | S_IFLNK == S_IFDIR | S_IFREG).
 
-deferred_close_scheduled can be false while the work is pending: the
-workqueue clears PENDING when the callback starts to run, before the
-callback clears the flag under deferred_lock. A close in that
-interval requeues the running work, and the callback then clears the
-flag, leaving the requeued work pending with the flag down. A later
-cifs_open() can reuse the handle and its cifs_close() reaches the
-same branch: queue_delayed_work() fails because the work is still
-pending, but cifs_close() returns without dropping the closing file's
-reference. The cifsFileInfo count stays pinned and its tlink, dentry
-and server handle are leaked.
+Clear S_IFMT before setting S_IFLNK for native and SMB1 symlinks.
 
-Check the return value and hand off the reference only when work was
-actually queued. Otherwise, use the shared _cifsFileInfo_put(), like
-the mod_delayed_work() branch above: the pending execution already
-owns its reference.
-
-This issue was found by an in-house static analysis tool.
-
-Fixes: c3f207ab29f7 ("cifs: Deferred close for files")
-Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6
-Co-developed-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Song Li <songl@zju.edu.cn>
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Closes: https://sashiko.dev/#/patchset/20260906181540.647469-1-pc%40manguebit.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Adjusted cifs_close() context due to missing trace_smb3_close_cached(). ]
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: stable@vger.kernel.org
+[ Moved the fix from missing reparse.c to smb311_posix_info_to_fattr() in inode.c. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/file.c | 17 ++++++++++++-----
- 1 file changed, 12 insertions(+), 5 deletions(-)
+ fs/cifs/inode.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/smb/client/file.c b/fs/smb/client/file.c
-index 70b64df9fb2eb..721ce75bbc4d2 100644
---- a/fs/smb/client/file.c
-+++ b/fs/smb/client/file.c
-@@ -1373,11 +1373,18 @@ int cifs_close(struct inode *inode, struct file *file)
- 					cifsFileInfo_get(cfile);
- 			} else {
- 				/* Deferred close for files */
--				queue_delayed_work(deferredclose_wq,
--						&cfile->deferred, cifs_sb->ctx->closetimeo);
--				cfile->deferred_close_scheduled = true;
--				spin_unlock(&cinode->deferred_lock);
--				return 0;
-+				/*
-+				 * Each queued execution owns one reference.
-+				 * If nothing was queued, the reference of
-+				 * the closing file is dropped below.
-+				 */
-+				if (queue_delayed_work(deferredclose_wq,
-+						       &cfile->deferred,
-+						       cifs_sb->ctx->closetimeo)) {
-+					cfile->deferred_close_scheduled = true;
-+					spin_unlock(&cinode->deferred_lock);
-+					return 0;
-+				}
- 			}
- 			spin_unlock(&cinode->deferred_lock);
- 			_cifsFileInfo_put(cfile, true, false);
+diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
+index bb0b172c5a74d..388904b6bc030 100644
+--- a/fs/cifs/inode.c
++++ b/fs/cifs/inode.c
+@@ -623,6 +623,7 @@ smb311_posix_info_to_fattr(struct cifs_fattr *fattr, struct smb311_posix_qinfo *
+ 	/* fattr->cf_rdev = le32_to_cpu(info->DeviceId); */
+ 
+ 	if (symlink) {
++		fattr->cf_mode &= ~S_IFMT;
+ 		fattr->cf_mode |= S_IFLNK;
+ 		fattr->cf_dtype = DT_LNK;
+ 	} else if (fattr->cf_cifsattrs & ATTR_DIRECTORY) {
 -- 
 2.53.0
 
