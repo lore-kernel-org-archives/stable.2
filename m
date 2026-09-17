@@ -1,35 +1,46 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B83E84C10E4;
-	Thu, 17 Sep 2026 15:37:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2AA874EB85B;
+	Thu, 17 Sep 2026 15:37:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659452; cv=none; b=Bz3ZAyNOh+GibTypl2tVg2fJrY0Lxx1jtoLU0PQOhqfFh8fBYMLsAmwSd6h4uLMSSPvw0DY8NIv2eQ31c39ilGFbuK5aRTwlSuENkR3v1HqjuVsJy08X++5B76El1SLXcYvvSRcDB1o4QjfRNeHxZeugWW1eGD50B12dKS2Bp9s=
+	t=1789659455; cv=none; b=F99FA/bzK75mhEnXeciXCTOoKMluKpj4H5Lvulv9mXeqPAZIYvGdHQm4XV9+p6XQUpZeuNHfHbwzUwdj9ZzPZuaf5I6jIKst9mNIjUP9jvrm9egF0PTeejydmNJY/KCapqirLc/6zH5UyvSNNLDwYVNJguCK/OrICc2OZtljsPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659452; c=relaxed/simple;
-	bh=vWycF/OkNIdJPdWa6/e7T0fw4fZdq7rOwCWBikgklag=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ghgZWiqgndWFfvfshR0WLSOPPLBOsvnJVQ4ybZPI49Wl/sjnlyoeWlmgSkU4YqHRqqZ8wrp6z6ul66K0pDrOqWXFVdb+S1yDj5NJ+0EkFI47ISYftrrfE7jFw+gMfsRv1zF+knFzZBvHv5KDPetpocW4Fz5Zxx6VQLQpTJFUSFQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHtD4pCaxqLrCDCA--.5904S2;
-	Thu, 17 Sep 2026 23:37:14 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: haibo.chen@nxp.com,
-	han.xu@nxp.com,
-	imx@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	yogeshgaur.83@gmail.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: nxp-fspi: Fix runtime PM leak in nxp_fspi_probe()
-Date: Thu, 17 Sep 2026 15:37:13 +0000
-Message-Id: <20260917153713.2160743-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789659455; c=relaxed/simple;
+	bh=QhA3a2FShBvq2cxxPQjFGYxhOizQiKDs6fERTk1wgzU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qsxa2SwXcKCT9ESQgKtwX8hkRsMDwTPF/4+LPxQyt0+CCSjDlgeufLBmRr5EBzyveewYMdM2wbzzJAzMJ7PEU5KTZWyZ8M7ojo54EngYU3V3W2cBd+QCdWLH4M2IqbFjHjtcm8BWdjyrrKvp8gyDkdWGuN+WQXxC1Dwsbpx6DRw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JM+rzH/h; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JM+rzH/h"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 32EED1F00893;
+	Thu, 17 Sep 2026 15:37:28 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789659448;
+	bh=TwVHXwKc57NGU+Oa9n6V0F0CzF3JMqRR2woC7Fq5WbA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JM+rzH/hIlCgiVQIPnWQUOZQldeQ9+lqLrxCkIGu1dDtglmvtzEzMzZDPfIXKq3UU
+	 1bYwfg1jGa2R3VGKyssihjJwQLPVwU9FTtI2FiVyoQCVDv8Q81KII85nVfBkZKGN/S
+	 99A8zwoy3H5DggX5rFmc7SxX+5BTg7NTU4R0cq0U=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Nicholas Carlini <npc@anthropic.com>,
+	Ning Ding <dingning04@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Alexei Starovoitov <ast@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 261/733] bpf: Reject untrusted allocated-object pointers
+Date: Thu, 17 Sep 2026 16:09:29 +0100
+Message-ID: <20260917151357.823474012@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,55 +48,61 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHtD4pCaxqLrCDCA--.5904S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKrW7ZFWfZr17ZryfAFWkJFb_yoWkXFg_C3
-	WUuF97WrWUKr4ktFnxKr13Zr92vrZxXF1xWr4qyFWSy3yDAF1Fv3y8Zrn8Ar4xuw48Cr1D
-	uF1kta47Zr1akjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU1ID73UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qr9tgrPAAAs0
 
-pm_runtime_get_sync() increments the runtime PM usage counter even when
-it fails.  If it returns an error, nxp_fspi_probe() returns without
-dropping that reference, so the counter stays unbalanced.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Balance the counter with pm_runtime_put_noidle() before returning, as
-nxp_fspi_remove() already does.
+------------------
 
-Fixes: 97be4b919a60 ("spi: spi-nxp-fspi: enable runtime pm for fspi")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Ning Ding <dingning04@gmail.com>
+
+[ Upstream commit 7441ee8276641bddaf1cba7bb75ef9c1458ceb3b ]
+
+When the final RCU read-side critical section ends, a local kptr is demoted
+to PTR_UNTRUSTED but retains MEM_ALLOC. The pointer may be NULL or may refer
+to an object whose lifetime is no longer protected.
+
+type_is_ptr_alloc_obj() nevertheless recognizes any PTR_TO_BTF_ID with
+MEM_ALLOC as a live allocated object. In particular, a refcount-only local
+kptr never carries NON_OWN_REF, so it still passes the
+bpf_refcount_acquire() argument check after RCU protection ends. The kfunc
+can then dereference NULL or stale memory.
+
+Make type_is_ptr_alloc_obj() reject PTR_UNTRUSTED pointers. Since
+type_is_non_owning_ref() is based on the same predicate, graph kfunc
+arguments obey the same live-object requirement. Fault-protected reads of
+the demoted pointer remain valid: writes are already rejected, and read
+fixups use bpf_may_fault_on_deref() rather than this predicate.
+
+Fixes: 1b12171533a9 ("bpf: Mark direct ld of stashed bpf_{rb,list}_node as non-owning ref")
+Reported-by: Nicholas Carlini <npc@anthropic.com>
+Suggested-by: Nicholas Carlini <npc@anthropic.com>
+Signed-off-by: Ning Ding <dingning04@gmail.com>
+[ kkd: Rewrote commit log ]
+Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+Link: https://lore.kernel.org/r/20260904084325.52250-8-memxor@gmail.com
+Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/spi/spi-nxp-fspi.c | 4 +++-
+ include/linux/bpf_verifier.h | 4 +++-
  1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/spi/spi-nxp-fspi.c b/drivers/spi/spi-nxp-fspi.c
-index 1e36ae084dd8..9883e5149dc4 100644
---- a/drivers/spi/spi-nxp-fspi.c
-+++ b/drivers/spi/spi-nxp-fspi.c
-@@ -1351,8 +1351,10 @@ static int nxp_fspi_probe(struct platform_device *pdev)
+diff --git a/include/linux/bpf_verifier.h b/include/linux/bpf_verifier.h
+index 70a6133c5e7b0..7ad03ffb9300f 100644
+--- a/include/linux/bpf_verifier.h
++++ b/include/linux/bpf_verifier.h
+@@ -1322,7 +1322,9 @@ static inline bool bpf_type_has_unsafe_modifiers(u32 type)
  
- 	/* enable clock */
- 	ret = pm_runtime_get_sync(f->dev);
--	if (ret < 0)
-+	if (ret < 0) {
-+		pm_runtime_put_noidle(f->dev);
- 		return dev_err_probe(dev, ret, "Failed to enable clock");
-+	}
+ static inline bool type_is_ptr_alloc_obj(u32 type)
+ {
+-	return base_type(type) == PTR_TO_BTF_ID && type_flag(type) & MEM_ALLOC;
++	return base_type(type) == PTR_TO_BTF_ID &&
++	       type_flag(type) & MEM_ALLOC &&
++	       !(type_flag(type) & PTR_UNTRUSTED);
+ }
  
- 	/* Clear potential interrupts */
- 	reg = fspi_readl(f, f->iobase + FSPI_INTR);
+ static inline bool type_is_non_owning_ref(u32 type)
 -- 
-2.34.1
+2.53.0
+
+
 
