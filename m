@@ -1,91 +1,138 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E39A529405
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:01:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0FF252ED3C;
+	Thu, 17 Sep 2026 16:01:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660872; cv=none; b=XnBKJMuQEIOy3mi3IT1H5BP5gSOnrqR+btcIwVBOM5t16Ypce8GS0Q0L+ZpAz5rAHw7ojVSkjxOQW+taeSsGsuuB99b2XU7d7psVt9zXs4FMGQKwdTd+BTb9PxIOrd+p3bzOFLD/djUVSgtFRA6juSDNDZD/AKf5Eu7Hni6ofkY=
+	t=1789660872; cv=none; b=QB9lC0eyAyuD/JpZZLabVLbFT0vXuj41hw6hX2dEDBm+oIIEe1erKdefgDIT+/s/Pj1athBU+QrZ1sOM4MJLZ1ArIGI8XT9v7WRMXRwxmBTDnBQxWhXOQt6PU8IpX90vRkyA7eJnhKzbBul64oMWllTiADkH1uyEmAxp2uh+Ryk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789660872; c=relaxed/simple;
-	bh=nIsaxXEGJbj57DSkDsEHtADfOiMllqJHu0pnBD9H3Ek=;
-	h=From:In-Reply-To:References:To:Cc:Subject:MIME-Version:
-	 Content-Type:Date:Message-ID; b=o4c/OMxHWUwhdiDbSQId+A5LhUVmTGFFP3jSzN4NmpdHmoRyEbttHTZz2/dDvlHVr+pKeWoCXf6nBGKNQvK1Ip0nO8WG7o8O0VNvJn/Xrmth5Ext2gLth7msQWuQczzL0yCWpyvcbp2PFMS9BMSWQzJ/KbWHI7+Lkf0dvlGZNuY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=cT3c8ZQB; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	bh=JyLZ8DQ9j4rwIGxSZ/yXPYKn8OJYQHt7tsGkLlXS4m0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=nqD3uDaaP5i5l21I/7oY3trUC8DDWY/OgAtvC+BX0LMC8qC9z8ajvRe5WNRZGrkulTb6UmUkmD8UkY8smcbOCinP30GhQ+9oVEwrzU66rBDWD2gy0OzMX3uFz4T3SM42PXKzb3G0Mtiwmct8vLIPOyGw2OR5l8p9ESh8QcvXvtA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hFVu2n42; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="cT3c8ZQB"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789660869;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=wTMRDM3m73WNeqeVD1NhbRoJaF5Z8pZDYqQjZqS56SI=;
-	b=cT3c8ZQB3IsHfUmPYVfGP7mVL2mDHjU08QVgiz5pfoQBTcmV3lpb9xwRQiiSBwP5UMk1gy
-	0TPx2VvV1EtVJm8wPN6BZtxAWPrLWdqi3OuJUm3d11kwwygrFxOY1mcwW/2TPcKE279DDa
-	kuMrKJw19q60PQTW7jGYCJN4RxbOexU=
-Received: from mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-126-MXxSoYcuPO24RYj48RCRtQ-1; Thu,
- 17 Sep 2026 12:01:06 -0400
-X-MC-Unique: MXxSoYcuPO24RYj48RCRtQ-1
-X-Mimecast-MFC-AGG-ID: MXxSoYcuPO24RYj48RCRtQ_1789660864
-Received: from mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.4])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9400F1955E86;
-	Thu, 17 Sep 2026 16:01:03 +0000 (UTC)
-Received: from warthog.procyon.org.uk (unknown [10.44.32.54])
-	by mx-prod-int-01.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 195D5300022B;
-	Thu, 17 Sep 2026 16:00:58 +0000 (UTC)
-Organization: Red Hat UK Ltd. Registered Address: Red Hat UK Ltd, Amberley
-	Place, 107-111 Peascod Street, Windsor, Berkshire, SI4 1TE, United
-	Kingdom.
-	Registered in England and Wales under Company Registration No. 3798903
-From: David Howells <dhowells@redhat.com>
-In-Reply-To: <229fb007-8f00-455f-ab92-4d15d6b90d0f@redhat.com>
-References: <229fb007-8f00-455f-ab92-4d15d6b90d0f@redhat.com> <20260914151340.3227501-1-dhowells@redhat.com> <20260914151340.3227501-2-dhowells@redhat.com>
-To: Paolo Abeni <pabeni@redhat.com>
-Cc: dhowells@redhat.com, netdev@vger.kernel.org,
-    Marc Dionne <marc.dionne@auristor.com>,
-    Jakub Kicinski <kuba@kernel.org>,
-    "David S. Miller" <davem@davemloft.net>,
-    Eric Dumazet <edumazet@google.com>, Simon Horman <horms@kernel.org>,
-    linux-afs@lists.infradead.org, linux-kernel@vger.kernel.org,
-    David Laight <david.laight.linux@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH net v10 01/14] rxrpc: Fix lack of short-send handling in rxrpc_kernel_send_data()
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hFVu2n42"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3049B1F000FF;
+	Thu, 17 Sep 2026 16:01:10 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789660870;
+	bh=owv7Ht7ClUVViC334XaiTtC25MkgCKzJwnK+UjY0O8s=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=hFVu2n42IF/9otMpCOqaaF+JBW0rn4TRYZD077medscvb4bZfZGpRvyVoHfvKcwwr
+	 CSwdFidbyWwgWCOfWP7eTFsPhafTq/+hGRJ4Oyg42io5W0Lterft9nykSbrddECjO+
+	 xqfln+hScHg/mh4rcoQhzzrxIpNI9wmX//AnTj00=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Nilesh Javali <njavali@marvell.com>,
+	Hannes Reinecke <hare@kernel.org>,
+	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 704/733] scsi: qla2xxx: Use ring-slot helpers in __qla2x00_alloc_iocbs
+Date: Thu, 17 Sep 2026 16:16:52 +0100
+Message-ID: <20260917151410.407486924@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="us-ascii"
-Content-ID: <669609.1789660857.1@warthog.procyon.org.uk>
-Date: Thu, 17 Sep 2026 17:00:57 +0100
-Message-ID: <669610.1789660857@warthog.procyon.org.uk>
-X-Scanned-By: MIMEDefang 3.4.1 on 10.30.177.4
+Content-Transfer-Encoding: 8bit
 
-Paolo Abeni <pabeni@redhat.com> wrote:
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-> > -	mutex_lock(&call->user_mutex);
-> > +	for (;;) {
-> > +		mutex_lock(&call->user_mutex);
-> 
-> FTR coccinelle can't digest the lock inside the loop:
-> 
-> https://netdev-ctrl.bots.linux.dev/build/cocci/results/823484/stderr
-> 
-> but AFAICS the report is a false positive, and I can't think of an easy
-> way to avoid it.
+------------------
 
-I wonder if I should have a separate lock for sending, once sendmsg() has
-decided that that's what it's going to do.  The lock would be held across
-sleeps for buffer space, but would need to be interruptible in case the call
-is aborted (or some other terminal condition occurs).
+From: Nilesh Javali <njavali@marvell.com>
 
-David
+[ Upstream commit 7e51b6d2d8f6b7f48d9cef1cf87471b55b12f6de ]
+
+__qla2x00_alloc_iocbs() open-codes ring pointer selection and entry size
+based on IS_QLA29XX(ha): 29xx reaches the slot via ring_ext_ptr and
+zeroes REQUEST_ENTRY_SIZE_EXT bytes, while other adapters use ring_ptr
+with REQUEST_ENTRY_SIZE bytes.
+
+Replace the two branches with the qla_req_ring_slot() and
+qla_req_entry_size() helpers, and initialise pkt at declaration.  The
+IS_QLAFX00 register-mapped writes remain guarded because IS_QLAFX00 and
+IS_QLA29XX cannot be true simultaneously.
+
+No functional change: the bytes written to the firmware-visible IOCB are
+identical.
+
+Signed-off-by: Nilesh Javali <njavali@marvell.com>
+Reviewed-by: Hannes Reinecke <hare@kernel.org>
+Link: https://patch.msgid.link/20260723050413.3897522-24-njavali@marvell.com
+Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
+
+Stable adaptation:
+This tree has no QLA29xx support, extended request ring, or ring-slot
+helpers. Provide file-local macro helpers mapping to req->ring_ptr and
+REQUEST_ENTRY_SIZE, preserving the existing 64-byte ring behavior without
+adding functions or importing the unrelated QLA29xx support series.
+
+Retain the helper calls and declaration initialization from this change.
+Use a multiline packet-preparation comment so commit 626e44f3d8a9
+("scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot")
+applies unchanged, including its leading context. That commit remains
+responsible for changing the FX00 clearing operation to memset_io().
+
+Stable-dep-of: 626e44f3d8a9 ("scsi: qla2xxx: Use memset_io() to clear QLAFX00 request ring slot")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ drivers/scsi/qla2xxx/qla_iocb.c |   15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
+
+--- a/drivers/scsi/qla2xxx/qla_iocb.c
++++ b/drivers/scsi/qla2xxx/qla_iocb.c
+@@ -11,6 +11,10 @@
+ 
+ #include <scsi/scsi_tcq.h>
+ 
++/* All adapters supported by this tree use the 64-byte request ring. */
++#define qla_req_ring_slot(ha, req) ((req)->ring_ptr)
++#define qla_req_entry_size(ha) REQUEST_ENTRY_SIZE
++
+ static int qla_start_scsi_type6(srb_t *sp);
+ /**
+  * qla2x00_get_cmd_direction() - Determine control_flag data direction.
+@@ -2286,10 +2290,9 @@ __qla2x00_alloc_iocbs(struct qla_qpair *
+ 	struct req_que *req = qpair->req;
+ 	device_reg_t *reg = ISP_QUE_REG(ha, req->id);
+ 	uint32_t handle;
+-	request_t *pkt;
+ 	uint16_t cnt, req_cnt;
++	request_t *pkt = NULL;
+ 
+-	pkt = NULL;
+ 	req_cnt = 1;
+ 	handle = 0;
+ 
+@@ -2343,10 +2346,12 @@ __qla2x00_alloc_iocbs(struct qla_qpair *
+ 		sp->handle = handle;
+ 	}
+ 
+-	/* Prep packet */
++	/*
++	 * Prep the current request-ring slot.
++	 */
+ 	req->cnt -= req_cnt;
+-	pkt = req->ring_ptr;
+-	memset(pkt, 0, REQUEST_ENTRY_SIZE);
++	pkt = qla_req_ring_slot(ha, req);
++	memset(pkt, 0, qla_req_entry_size(ha));
+ 	if (IS_QLAFX00(ha)) {
+ 		wrt_reg_byte((u8 __force __iomem *)&pkt->entry_count, req_cnt);
+ 		wrt_reg_dword((__le32 __force __iomem *)&pkt->handle, handle);
+
 
