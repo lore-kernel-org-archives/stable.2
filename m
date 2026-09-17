@@ -1,46 +1,32 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5AF573D668B
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:49:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6526B4DE720;
+	Thu, 17 Sep 2026 12:49:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649385; cv=none; b=RP6fTaZulGt2FqjfsnF2dL38+mdb4e98dXwi3roUtMJ2LWSXK2hQVtQds7HNRXxkA8FGbaCB3aZ3F7Aouap4yKzGwMj5H6zNj5M/xU6W1OYWzc9nfI7uNiwS8zSFISRFB1EYaEjm9zEAxIPS/95xl/l+UYkxACIo+Gigzmd1Ha8=
+	t=1789649398; cv=none; b=lRrriY6uoUwmyIfekV0BIORxdro0GWPyUAc3zmw3BAY1s1Ne+MC7Gahf569a4NyWHETWCu2JdCWIv/tChyvUoht8Cmu6CA7SYgCRE4HeDb0AYAD72/HTqBMPmFSF6xSTEj2Q95Sq2+JGmjYCTNm4PLFZ04fiD7TZJscw+g87+Rk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649385; c=relaxed/simple;
-	bh=I96A8Moz1Ti1D1nMgxeSfe/kzDg/5lTS6PZIUkDnGzk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=e4qNTaU4BRR0VgQPmBzBzU9kuMunX9EasHMKf8HdvYfB0DwlhAhxAzo2rQw6kNq9Ddc8JjQF37H9mnQ3QlCc0flv5ntyv32NUngHfmSf7+oPf35OWFtUhvi7LJ5B8G8AjF+9Ma8c1u4yYfvjXFmbLdMBHrkAQl7XaRX+MwEwaYA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AKccjkMY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AKccjkMY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CDBA61F0089B;
-	Thu, 17 Sep 2026 12:49:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789649370;
-	bh=7H9L5uqLPsmiGDDOE7N1d1DRLa5HE5jRGSTgbDhmWLI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AKccjkMYy+sgfUbgWm2ywmXSxM3qKlnSNXwqPtNeAU8IYN5xNacjD6Kl55LGp2V/V
-	 LhkEqgOjq3UA9XT2okthfdHsAi/qT1fVAG1utTArsjkJP3kyBEzGfX6OTrvjfk+hnK
-	 k5uGWBoUTiOPuTMuatLzu9i0Dvx8RKG+lAe+CCx3iwaKTBv6rZZiv3Q9jNSIf1hYO+
-	 a3717sneOPirbY5y6xSn7UJLEvvE6eydyvqSTbQ2nco6vKARzzlssCPCMxZOg2s3b+
-	 m7AE5BFdWsU3KPvo9J0RKV0Oj0GAKTHAWcc2aJ51js/whNvtnc2QCK7S14BuRslMgF
-	 YhoKHwuJBBsCA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y] smb: client: fix file type corruption in cifs_reparse_point_to_fattr()
-Date: Thu, 17 Sep 2026 08:49:28 -0400
-Message-ID: <20260917124928.227996-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091631-outsider-blog-cbef@gregkh>
-References: <2026091631-outsider-blog-cbef@gregkh>
+	s=arc-20240116; t=1789649398; c=relaxed/simple;
+	bh=qgDZPzsynNp1P7Ma+qerIbDYaER2Vcx0ME56BlSy8m4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ftMe4F/x/QRR5ohrGdiR7uJ95ugdt2BN3JLhWU/cp/iPmUBxLbBaw9zEMzTkXt+QlRazM2qmWblgvjTMXSfnCILnD66e+wHvdLOmdAUwOZPAgyKkfY9XwPaPs2RbhJg1ahEpFitA9yZQm96wk4G5jqCAG2iIyHGvAEUxazWiecA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3Hzrn4atqP9mACA--.3127S2;
+	Thu, 17 Sep 2026 20:49:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_bus_ranges()
+Date: Thu, 17 Sep 2026 12:49:43 +0000
+Message-Id: <20260917124943.2151987-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,43 +34,48 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3Hzrn4atqP9mACA--.3127S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JFyDtr4rWFW5Wr4fAF1fZwb_yoW3Zrc_WF
+	9YvFnrXr4rCF1jg3yfAr13ZF9Fva4UWr4kAr1qyay3Ca4jvr17XF109rn5Jw1rAr4a9r97
+	ArZ5Wr18trnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jngAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwINA2qrrRmfQAABsg
 
-From: Paulo Alcantara <pc@manguebit.org>
+of_range_parser_init() can fail when the node lacks a ranges property.
+That error path returns without dropping the reference taken by
+of_find_node_by_path(). Add the missing of_node_put().
 
-[ Upstream commit 6bd360447941357e959414a525aa62576a448116 ]
-
-Setting the file type in cf_mode without clearing the existing S_IFMT
-bits first is wrong as it corrupts the file type when cf_mode already
-has type bits set (e.g. S_IFREG | S_IFLNK == S_IFDIR | S_IFREG).
-
-Clear S_IFMT before setting S_IFLNK for native and SMB1 symlinks.
-
-Closes: https://sashiko.dev/#/patchset/20260906181540.647469-1-pc%40manguebit.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Fixes: 6d32dadb11a6 ("of: unittest: Add bus address range parsing tests")
 Cc: stable@vger.kernel.org
-[ Moved the fix from missing reparse.c to smb311_posix_info_to_fattr() in inode.c. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/smb/client/inode.c | 1 +
+ drivers/of/unittest.c | 1 +
  1 file changed, 1 insertion(+)
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index 51d38449ca855..5d21cb051a602 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -672,6 +672,7 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr, struct cifs_ope
- 	/* fattr->cf_rdev = le32_to_cpu(info->DeviceId); */
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index e8257aff17b3..5c90be158dd5 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -1280,6 +1280,7 @@ static void __init of_unittest_bus_ranges(void)
  
- 	if (symlink) {
-+		fattr->cf_mode &= ~S_IFMT;
- 		fattr->cf_mode |= S_IFLNK;
- 		fattr->cf_dtype = DT_LNK;
- 		fattr->cf_symlink_target = data->symlink_target;
+ 	if (of_range_parser_init(&parser, np)) {
+ 		pr_err("missing ranges property\n");
++		of_node_put(np);
+ 		return;
+ 	}
+ 
 -- 
-2.53.0
+2.34.1
 
