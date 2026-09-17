@@ -1,140 +1,113 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 673C9342539
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:18:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1CB64848B5
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661912; cv=none; b=IzcQjTwoTOA9TFNiITstEaJjqcz5P7ZS/yBwJXFlpgsDWUUwmyZGKXbYWpKodDwwutMHzptskQXb+qvTQF+CjugsVdNDGah9Atg0ySPRDPAvTw5kU9Xg0rvrcCxR4EYv7CE92SnHAaM4azkcMRs9ZE8v3QZZsQMhWb/R+Svxgfc=
+	t=1789661980; cv=none; b=oqS5XJEPiBR3E6E1H6KWO8njn6YO3UOFDwasQtqTTcUmRr1q9MDUm9kg4ucMGiX5rBZciyPStf0pLHvJaMRYdOzkzcAP/2/LPG/NJjwY4KJQkFhsCJzr98UOx94k6a3Dz8Jb9k3juwuHXM4ax43zBaWZQNZTys17khA+ZEn9ITM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661912; c=relaxed/simple;
-	bh=7f9ugOGKQTW5Qk0ljS3y/iJ8JBgiKvV2cFwYzY+rjQ4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cEfB11ipKAxbYA5lalo3EOZU+JZ16egzENSnUgdNfvf6+G+/tlXdY+6D71f+uKMYIbnMelmqVfydk2jeAx2/yFDrH5njdZzEfDbv9FPgOIZJ8c8tNTKAoPndk+1azcboMzNlatVqoT7edB3MMoP3VudL0hl7daayLKb5LvEdxW0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=MCNkybBF; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789661980; c=relaxed/simple;
+	bh=sBK9rAYvIWibzdWVpiEd2/Z/LGtFEqTtl0liEEnA1+U=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=LnC6qmBMqH7AnikSglwfCWkpH/GxE94skv907VAhcTiWZjH+lMlm3HGVAY9Ujd5M9lvR0pPwAglhmnBzNZMlhQjwsDeax5UuxsgcrfcGgHMnPhbnZvcBHfTn+dOqezFsQZp8yRWUDBMBoRZI5Ua715+ny/I0IYH/UyJ6umc+F48=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HwplOKYo; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="MCNkybBF"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb769ca17so8193421cf.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 09:18:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HwplOKYo"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d91ede8035so12330695ad.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 09:19:38 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789661909; x=1790266709; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=q2Hi4m2vwNF2BZX3mSCnm4rmtg2QaJGcI1RAR8lvzaY=;
-        b=MCNkybBFVs4KT4lkgwKhcevMElK7POSD6QbaPiBMFZFYcsKECpqgmtytFsY0ZfKHH/
-         1yh55p1FN79bjKJRKu7yg870yd7eNJQB4IbVCrrLDo2N7v+bViVf5VcHLRWSma3moMwh
-         uAYVZZMb/aNpY6C3BYKy21WpdThDE8RZZ949kRg+dCiUcWZ5m+wwzcRYXIVpSrsESqjA
-         r68mWXSiC1x80bMVSRRg9Uhj2JMJZs8LLyJIkCANehpYxnAMfSvdI8A3beFyHkadrwGk
-         6D8p/xrNnnFKncXFSx80TLuSZw44/dluB4ifBgAs8bY6eBf6T5bCEOWEY1W3/ayirLlR
-         o8iw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789661909; x=1790266709;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=gmail.com; s=20251104; t=1789661978; x=1790266778; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=q2Hi4m2vwNF2BZX3mSCnm4rmtg2QaJGcI1RAR8lvzaY=;
-        b=G9X/fC1e0hV7jPblqpslAtdOpsQTn9uXpivs8DAeSRIptG7wZqkajbxweeBTHBbvDy
-         scwsl9datn5lpw7eJP+Lt+qoV/MIePv+BAL2UPSkWCF9zS3JHmy3l6d4Y5Orl2YJB9bQ
-         U5Gx2jyEYu4AXGICPDMvK68ALcmx2KFlwiw6Kazpu0oRfGYKo6gv74QCp68tWz0MZmky
-         qJLJndHLn+Ngrudsza76/jXr49Bqmfok4ryEIDaXn/zd0G9Bsaz2EDohgwenWC7HWE1m
-         c3Vj000N0zwKFlVIAXoXambCADtDU06wfXDol/amYg29ticpWO/nIMoZTS30BjTBoZCd
-         klJQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwkMsmuxQ+Ona47IE341w/I9Q4xpaqRkuvHLjWA7BWBQgqM5Zj0Ee3eESqYIZy81T6ZyFPbBXA=@vger.kernel.org
-X-Gm-Message-State: AFuF++kX3ZKxUYWIGY76bTRfLy820KtRNxuNo8LGAauS21lehP0FbLLq
-	4vLaR9SSEe0aEL1xbu/iIc3+BcQHdiH0OIhDsnvxxlMXDqva1AH7x7Xne+ErLmwP9/Q=
-X-Gm-Gg: AYBFou3Q6ae2+Rc4pod1m27vPlr67wTmpCZC42rpkDftxB9/pv0iTt/xf4JQJxJzlRe
-	c5XoThKRWOsz8ylKd/v8xW4B9RDfUu/ROuUBVQO63LFKdsAZGYP+znv28sExGEczQJi20SbA6O/
-	HlaMVUUsaVvpEwb1GfFh/ZObo1fb6C5lUv920HipLTiXSMICGfUEZyPnyDcAdD5+cXks+F4Uz+1
-	EiGZoYfvLjZ81odsWk90e5J5Jvi3hNBfTnSRu/cq//eJdDEYb+B6Pp4pb+B4L6eftW6oOoDbczs
-	6v2meFapXuWr5XYqLDCICXSNBuf4Qrc3dPpykcpL1YMgMwKh30ywURCCaZdDg8V3Japay2czSbR
-	2zk1DGaU47OEyM5MkrkQhhp/JSqzIQlJkeZlL+kYooQqy7WlO731O1h8RopK8vqIbpb8aB0T0R8
-	X13PIKLIhz2kqdWH9Sny0zQsh4lZWAi98RYIv1cUZQ86VWpfmgqKiqn+YLySSnvqVed13ewv7lX
-	KdTSa4YNWGkg24tS0zZ10HAlyA2trhk3Lqn4tUaYYOxc8NwpbhrqSQe7hnce3co/g==
-X-Received: by 2002:a05:622a:90c:b0:530:f9e4:a0eb with SMTP id d75a77b69052e-5327ee3c420mr143369761cf.18.1789661909071;
-        Thu, 17 Sep 2026 09:18:29 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532620ea2efsm54577441cf.31.2026.09.17.09.18.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 09:18:27 -0700 (PDT)
-Date: Thu, 17 Sep 2026 12:18:24 -0400
-From: Gregory Price <gourry@gourry.net>
-To: Peter Zijlstra <peterz@infradead.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org, liam@infradead.org, 
-	vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com, 
-	mingo@redhat.com, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
-	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
- tier
-Message-ID: <aqwSBkeP-Df2GBLa@gourry-fedora-PF4VCD3F>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-3-gourry@gourry.net>
- <20260917160827.GN4121339@noisy.programming.kicks-ass.net>
+        bh=n3Q3dw1h6lNTZbcjfSRox23JL1XpMzI4Vd4A66LaGv8=;
+        b=HwplOKYoxJhe1KJJOEsXC6M43wJ8UnI0iw1dx8vf75gpBB4QaUiRK4cTBYCdosYS9C
+         0Asu+buG4fmTdYjbKsrKDN0S6Fm8uYxw4rOZc7AsiCGnzBhUv/lNjXV1fgkjAiGPWzWT
+         EgPEx1hFo5WbXYhMCoff2G1cANi620pr0Uv2aZt+Oq9pw/LkwGddbk5gTriCjwOY3sLX
+         LcpYYvxKMo4z4cxQvRK7JE5Nxhga6TP+gkfk0Fqt9Eozca+ibPwdwLuAU9dppKr7eUmf
+         NiIfzDOkLgIPzbz8A97FmQTnsI60xbVsFlhMSY/rlamoNHXVW7cJAFeZRWozfCBecFoa
+         NqPA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789661978; x=1790266778;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=n3Q3dw1h6lNTZbcjfSRox23JL1XpMzI4Vd4A66LaGv8=;
+        b=TFiHT3GPBUf8QXocapG+XS8nhqMxsO2ZQNoDyluDlHJS/hMsewhFcHAaHausRUmw0W
+         zgIbD/EoQVUWMhapVPs0Pm++Fiut3SO6Fda0z1/gM/4bDEx0xbM6dmokE+y53j/VpNAn
+         YgzLQhx3m7ROYjHqN9SbaHqnDai6y5di43G9f1hniu9asWgIW01iFQkj2MxbXdQqHwjX
+         vdqC8O9qbIjyHvWBI+Xz2ntnsawh37U90B5/A1Hm5PxEmartb03zEEjch8Qrfkyptz58
+         FvlqnirOpcD+1a9x3blxcPZpeOkAj6jCm8Ci1GWmL0RRwDyaN5dSGgWklrGGOM0x8Uup
+         06jQ==
+X-Forwarded-Encrypted: i=1; AKwUvBy/Wx4y8wqwKLekd9EcC7AKjfOdghuFd8ruA2mpde5bKd7UVcb1tTV/JRxEDBBRs+fRqWpZMgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++nOW4tMicXebMMKbIL5Y3V4hv7sE8OeTlMKvXXLGelr8JCzQVQ4
+	/o0EIIyV1jlxv/CihbDjSBsX39c1tO44SbC+HNJ0DkVcDwFVBn4XF37G
+X-Gm-Gg: AYBFou3SbW3Zk8Rn2V5ZnoP9fEDb37+fvtTwPsYjrVm9BAm3rpyi29tjLaHOaYcKdtX
+	P3ofJW5CxRdkB2um2yzPvDik4OKe4gVobrWiwCPY4VjcJi8Y67VxTtXGE/klgMo9PEgy7iGJNPN
+	f9nTirUBSHnvowGDNKU+Mb038UFJBe4YS9ggq7yrs7OX/W/xHlv9b8nTG+dr/TjUJylkbSgsrWM
+	jy8CgoOqbalzDlmiJW0buGzM2gm1MwQa79/HEKngEBuj2MWvN8OHday1L2S5+SLMGezdaF/luCP
+	O7YgWBfNxe6XFj/RgJd6s4/CuRVCxQjVZ1yZfWo1gYp9zUU6zsbUcp9lFRj+b2yN+epMrt5TEUg
+	Tm9p/xffhdOHsGBEm4eTn++RZq1iM4TLRnMCBxr8HDQric9+7RIfcjZc5CgEGPVZcnzHw7nSim/
+	Pt8sEL3Yg168PyJ1ier0ipLk9EqClxG8fVZ3pyNmgbzifOeM3lQhPwI3dYDp3eYWHDR3Uy8yBxJ
+	W1KC3eQ2MTtdP74Cbh/VR37bQ==
+X-Received: by 2002:a17:903:32cb:b0:2dd:ad74:ac80 with SMTP id d9443c01a7336-2ddad74adcbmr14361355ad.27.1789661977897;
+        Thu, 17 Sep 2026 09:19:37 -0700 (PDT)
+Received: from [10.67.48.245] ([192.19.223.252])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2dd89c3316dsm29772185ad.0.2026.09.17.09.19.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 09:19:36 -0700 (PDT)
+Message-ID: <6edcfdb5-f73b-474c-96c2-96913ca5ed25@gmail.com>
+Date: Thu, 17 Sep 2026 09:19:34 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917160827.GN4121339@noisy.programming.kicks-ass.net>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+ hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+ sr@sladewatkins.com
+References: <20260917151350.597953846@linuxfoundation.org>
+Content-Language: en-US, fr-FR
+From: Florian Fainelli <f.fainelli@gmail.com>
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Thu, Sep 17, 2026 at 06:08:27PM +0200, Peter Zijlstra wrote:
-> > diff --git a/mm/migrate.c b/mm/migrate.c
-> > index a369d0c95c38..afd9c97d2389 100644
-> > --- a/mm/migrate.c
-> > +++ b/mm/migrate.c
-> > @@ -2697,12 +2697,14 @@ int migrate_misplaced_folio_prepare(struct folio *folio,
-> >  		/*
-> >  		 * Do not migrate file folios that are mapped in multiple
-> >  		 * processes with execute permissions as they are probably
-> > -		 * shared libraries.
-> > +		 * shared libraries, unless this is a promotion from a slow tier.
-> >  		 *
-> >  		 * See folio_maybe_mapped_shared() on possible imprecision
-> >  		 * when we cannot easily detect if a folio is shared.
-> >  		 */
-> > -		if ((vma->vm_flags & VM_EXEC) && folio_maybe_mapped_shared(folio))
-> > +		if ((vma->vm_flags & VM_EXEC) &&
-> > +		    folio_maybe_mapped_shared(folio) &&
-> > +		    (!folio_use_access_time(folio) || !node_is_toptier(node)))
-> >  			return -EACCES;
-> >  
+On 9/17/26 08:05, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.7 release.
+> There are 733 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
-> Semi related; I've often wondered if we should still account shared and
-> pinned vmas in the fault statistic, even though we should not migrate
-> them.
+> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
+> Anything received after that time might be too late.
 > 
-> After all, those pages are still used and by not accounting them in the
-> fault statistics, it becomes easier to migrate a task away from them.
->
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-I don't have a strong opinion here to be honest, I'm just trying to get
-tiering back on track.  There's some scheduler voodoo there that I will
-happily claim ignorance on, so I just tried to keep things as-is here.
+On ARCH_BRCMSTB using 32-bit and 64-bit ARM kernels, build tested on 
+BMIPS_GENERIC:
 
-> Using the scanning for two different things has made a mess of things
-> though :/
-
-This has been my takeaway from this fix as well.
-
-Honestly I'm starting to think hint faults are a big hammer making up
-for the lack of hardware support for getting this data.
-
-Would be nice to just have the hardware report what's hot (and how hot)
-rather than depending on a software-heuristic like deriving hotness
-from a page fault.
-
-~Gregory
+Tested-by: Florian Fainelli <florian.fainelli@broadcom.com>
+-- 
+Florian
