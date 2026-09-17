@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B673B36AB46
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6697282F1C
 	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608799; cv=none; b=VDqGHS/S7uMWdKemhEnPrIhD0j3MSxb/sWQLlRbdnfgDVeOfZt7rDI3yynxOIqiYUg+8hnSOSkau0WI/Q8B8AsP2HIwDg2cbwyRYFHQCU4r3uDjg6zSL2dPCQjEyYJMxoUxr75IFEcSfyRk8+80FE6CzbDRK2UmOputTnK46DAQ=
+	t=1789608800; cv=none; b=Fy8iCQD2UY6qs0W5PLLCJsVF6iC99Ed7OZLXWTe7N0v3N7CiP4YdLFKhrAO1fE07V9HqCM+FjI7yzrDXZiZODUXGqvewwK7zwt2Q1Gs4EYQuQKEZWamMNy9PA3074LKKo13yDM9ZOpu/oRaIfM3ppcFu7XJRIpcpRNjGYBKBQz4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608799; c=relaxed/simple;
-	bh=5uJXOsAGI26zMxQiXCLQVePNGJ8Kw3N51oPqxXWJR3g=;
+	s=arc-20240116; t=1789608800; c=relaxed/simple;
+	bh=F5UW/ky+JejRYv/oL2GP3yQQkZyORo1crlMuqJF7h+k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LTU+sm1XvKd0kBgqBivjuzHAXFqLFqjtnFtAzg8uNSBCQ49HyyqU6PtD2WW5L1U0apQEq20g5IEAjmcghvh287an8jtW/yVnMv3aDevpbqhw14WmHz5uPxjhuCmG5TXDyMDe7D4WH3gr10hUgzJnqxydF1UifUm+CnZurEuz31I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DZ/2zFE3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WPfX6NC2RFqXQGPJx5GLl6mEBUhvLdOFwLK32RpWT4atl31I1C/ZFjlaQMV0+y9Amy66wYTzX5qdybDSz21enjGokwxP8kmXwTRRMUv8hb7OLWlj+GZSN2iUowGOLjg+95u2hend/EN39E81uHFdatK/6rHSznCtrbmoCHg2Rd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=To2bLNzj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DZ/2zFE3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA45B1F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="To2bLNzj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 09ED61F00898;
 	Thu, 17 Sep 2026 01:33:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789608798;
-	bh=/oJltyoinxOIWnsx74wilMed7PLIgGjtwPR+dDxud9o=;
+	bh=jAf3z0fn3xZgzJdZNkNV+0kK3coBDGRMJK81kmM27ps=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DZ/2zFE3TStSxam1egmXastbOkvMG7PN6Dv1npnHj0xMSvnlBgjo/6syAjJWIeZDH
-	 gCX4Y21KI0t9ULd40ZqiLHRpaHyH9DJFumADQPLdq1JnarkPAriRdi9PY+D93n1N71
-	 vy9L87/hWSoqrMiThOXDtrywrkcVlKqaf5ulu5QnktCaqwMdvRf+Ys+Zuu3PeUQBgs
-	 m2hsJfZetQWM6L1SGm16Wh2f8JQvbrxNsHD2Y0jTQBMu4kD2UOGwO34MkhszjDzJJw
-	 7xh9gQCri7NpDCARTyLOm9rsLISaFkBtiMhHDxfOaMeGmOVtvLNzEvsZtXSUtO0vYk
-	 4SUNfAgGZiljg==
+	b=To2bLNzjrsqKkWjYzztQkoyLZtPJrP9aVo8BB9fdwgJgEiPhTqPYTtxcC1OfHfP52
+	 bgffAYY0/+/TJCaOpamnld0cswpXTOfkkv8eYiQmO8lmcdxDhvG9BWdmUWwLcu60Fx
+	 42KY++xRex6F9cSI38Vt38cgyrmugDCs0NVmfQcH09nWFAoZhYeJ3uBb1QC1nsriBH
+	 OfeoHjKh3X7Ku8Nft5a9bz5ROGJY74eVF262c+j3jSNALLr+YHcCpViSN3FOia52vo
+	 GuxF7vDUkPNv/wgzt8W/9A4Dsu6Jq1MENC0C4Qpamlh8ZPdBHQPveuH2RKTBmPxYS0
+	 eiCKCedV7cwJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Chengfeng Ye <nicoyip.dev@gmail.com>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Arie Miller <renari@arimil.com>,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 5/5] netfilter: cttimeout: prevent UAF during module unload
-Date: Wed, 16 Sep 2026 21:33:13 -0400
-Message-ID: <20260917013313.3594807-5-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/3] hwmon: (asus_rog_ryujin) Add per-device configuration
+Date: Wed, 16 Sep 2026 21:33:14 -0400
+Message-ID: <20260917013316.3595470-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917013313.3594807-1-sashal@kernel.org>
-References: <2026091646-antonym-acid-ca2a@gregkh>
- <20260917013313.3594807-1-sashal@kernel.org>
+In-Reply-To: <2026091624-stir-village-a511@gregkh>
+References: <2026091624-stir-village-a511@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,73 +46,194 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Chengfeng Ye <nicoyip.dev@gmail.com>
+From: Arie Miller <renari@arimil.com>
 
-[ Upstream commit fec9b1de0d02de8dafa3cc344bcb91cf28660643 ]
+[ Upstream commit b20ee9aee8779427d2f9de99cbb578b048bf7c04 ]
 
-nf_ct_set_timeout() protects the timeout hook dereference and policy lookup
-with rcu_read_lock(). cttimeout_exit(), however, unregisters the per-net
-operations before it clears the hook.
+Move model-specific report offsets and capabilities into a device
+information structure. This prepares the driver for coolers which use
+a different report layout or do not include the external fan
+controller, while preserving the existing Ryujin II 360 behavior.
 
-This allows the following interleaving:
+Handles an issue reported by Sashiko where an id could
+be missing driver_data.
 
-  CPU 0                              CPU 1
-  cttimeout_exit()                   nf_ct_set_timeout()
-    unregister_pernet_subsys()         rcu_read_lock()
-      kfree(pernet)                     h = nf_ct_timeout_hook
-                                        h->timeout_find_get()
-                                          nfct_timeout_pernet()
-
-The hook still points to ctnl_timeout_find_get() when CPU 1 looks up the
-already freed per-net timeout list. KASAN reported:
-
-  BUG: KASAN: slab-use-after-free in ctnl_timeout_find_get
-  Read of size 8 by task poc/90
-  Call Trace:
-   ctnl_timeout_find_get+0x271/0x2a0 [nfnetlink_cttimeout]
-   nf_ct_set_timeout+0x7b/0x3c0
-   xt_ct_tg_check+0x724/0xb20
-   xt_check_target+0x234/0xa90
-   do_ipt_set_ctl+0x570/0x1270
-  Allocated by task 89:
-   __kmalloc_noprof+0x16e/0x460
-   ops_init+0x6d/0x420
-   register_pernet_operations+0x2f6/0x670
-  Freed by task 91:
-   kfree+0x131/0x390
-   ops_undo_list+0x3d4/0x730
-   unregister_pernet_operations+0x232/0x490
-   unregister_pernet_subsys+0x1c/0x30
-   cttimeout_exit+0x52/0x970 [nfnetlink_cttimeout]
-
-Clear the hook and wait for existing readers before unregistering the
-per-net operations. This blocks new policy lookups and ensures readers that
-observed the hook finish before the per-net storage is freed.
-
-Fixes: ebfbe67568a7 ("netfilter: cttimeout: use net_generic infra")
-Cc: stable@vger.kernel.org
-Signed-off-by: Chengfeng Ye <nicoyip.dev@gmail.com>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
+Link: https://lore.kernel.org/r/5a817284-a9f4-48b2-9f0f-802c5dc6963c@roeck-us.net
+Assisted-by: Codex:gpt-5.6-sol sparse
+Signed-off-by: Arie Miller <renari@arimil.com>
+Reviewed-by: Aleksa Savic <savicaleksa83@gmail.com>
+Link: https://lore.kernel.org/r/20260812103532.395049-2-renari@arimil.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Stable-dep-of: 06d48355bf41 ("hwmon: (asus_rog_ryujin) Synchronize HID command and report handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/netfilter/nfnetlink_cttimeout.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/hwmon/asus_rog_ryujin.c | 75 +++++++++++++++++++++++----------
+ 1 file changed, 52 insertions(+), 23 deletions(-)
 
-diff --git a/net/netfilter/nfnetlink_cttimeout.c b/net/netfilter/nfnetlink_cttimeout.c
-index 9eef304bd699e..31a1f6ff68d3f 100644
---- a/net/netfilter/nfnetlink_cttimeout.c
-+++ b/net/netfilter/nfnetlink_cttimeout.c
-@@ -665,9 +665,9 @@ static void __exit cttimeout_exit(void)
- {
- 	nfnetlink_subsys_unregister(&cttimeout_subsys);
+diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
+index 10a1f5aca988d..80563ce38519d 100644
+--- a/drivers/hwmon/asus_rog_ryujin.c
++++ b/drivers/hwmon/asus_rog_ryujin.c
+@@ -18,15 +18,25 @@
+ #define USB_VENDOR_ID_ASUS_ROG		0x0b05
+ #define USB_PRODUCT_ID_RYUJIN_AIO	0x1988	/* ASUS ROG RYUJIN II 360 */
  
--	unregister_pernet_subsys(&cttimeout_ops);
- 	RCU_INIT_POINTER(nf_ct_timeout_hook, NULL);
- 	synchronize_net();
-+	unregister_pernet_subsys(&cttimeout_ops);
++struct rog_ryujin_device_info {
++	u8 temp_offset;
++	u8 pump_speed_offset;
++	u8 fan_speed_offset;
++	u8 duty_channel;
++	bool has_controller;
++};
++
++static const struct rog_ryujin_device_info rog_ryujin_ii_360_info = {
++	.temp_offset = 3,
++	.pump_speed_offset = 5,
++	.fan_speed_offset = 7,
++	.duty_channel = 0,
++	.has_controller = true,
++};
++
+ #define STATUS_VALIDITY		1500	/* ms */
+ #define MAX_REPORT_LENGTH	65
+ 
+-/* Cooler status report offsets */
+-#define RYUJIN_TEMP_SENSOR_1		3
+-#define RYUJIN_TEMP_SENSOR_2		4
+-#define RYUJIN_PUMP_SPEED		5
+-#define RYUJIN_INTERNAL_FAN_SPEED	7
+-
+ /* Cooler duty report offsets */
+ #define RYUJIN_PUMP_DUTY		4
+ #define RYUJIN_INTERNAL_FAN_DUTY	5
+@@ -81,6 +91,7 @@ static const char *const rog_ryujin_speed_label[] = {
+ struct rog_ryujin_data {
+ 	struct hid_device *hdev;
+ 	struct device *hwmon_dev;
++	const struct rog_ryujin_device_info *info;
+ 	/* For reinitializing the completions below */
+ 	spinlock_t status_report_request_lock;
+ 	struct completion cooler_status_received;
+@@ -112,6 +123,8 @@ static int rog_ryujin_pwm_to_percent(long val)
+ static umode_t rog_ryujin_is_visible(const void *data,
+ 				     enum hwmon_sensor_types type, u32 attr, int channel)
+ {
++	const struct rog_ryujin_data *priv = data;
++
+ 	switch (type) {
+ 	case hwmon_temp:
+ 		switch (attr) {
+@@ -123,6 +136,8 @@ static umode_t rog_ryujin_is_visible(const void *data,
+ 		}
+ 		break;
+ 	case hwmon_fan:
++		if (channel >= 2 && !priv->info->has_controller)
++			return 0;
+ 		switch (attr) {
+ 		case hwmon_fan_label:
+ 		case hwmon_fan_input:
+@@ -132,6 +147,8 @@ static umode_t rog_ryujin_is_visible(const void *data,
+ 		}
+ 		break;
+ 	case hwmon_pwm:
++		if (channel >= 2 && !priv->info->has_controller)
++			return 0;
+ 		switch (attr) {
+ 		case hwmon_pwm_input:
+ 			return 0644;
+@@ -198,12 +215,14 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	/* Retrieve controller status (speeds) */
+-	ret =
+-	    rog_ryujin_execute_cmd(priv, get_controller_speed_cmd, GET_CMD_LENGTH,
+-				   &priv->controller_status_received);
+-	if (ret < 0)
+-		return ret;
++	if (priv->info->has_controller) {
++		/* Retrieve controller status (speeds) */
++		ret = rog_ryujin_execute_cmd(priv, get_controller_speed_cmd,
++					     GET_CMD_LENGTH,
++					     &priv->controller_status_received);
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	/* Retrieve cooler duty */
+ 	ret =
+@@ -212,12 +231,14 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	/* Retrieve controller duty */
+-	ret =
+-	    rog_ryujin_execute_cmd(priv, get_controller_duty_cmd, GET_CMD_LENGTH,
+-				   &priv->controller_duty_received);
+-	if (ret < 0)
+-		return ret;
++	if (priv->info->has_controller) {
++		/* Retrieve controller duty */
++		ret = rog_ryujin_execute_cmd(priv, get_controller_duty_cmd,
++					     GET_CMD_LENGTH,
++					     &priv->controller_duty_received);
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	priv->updated = jiffies;
+ 	return 0;
+@@ -289,6 +310,7 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
+ 			return ret;
+ 
+ 		memcpy(set_cmd, set_cooler_duty_cmd, SET_CMD_LENGTH);
++		set_cmd[2] = priv->info->duty_channel;
+ 
+ 		/* Cooler duties are set as 0-100% */
+ 		val = rog_ryujin_pwm_to_percent(val);
+@@ -394,10 +416,12 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
+ 
+ 	if (data[1] == RYUJIN_GET_COOLER_STATUS_CMD_RESPONSE) {
+ 		/* Received coolant temp and speeds of pump and internal fan */
+-		priv->temp_input[0] =
+-		    data[RYUJIN_TEMP_SENSOR_1] * 1000 + data[RYUJIN_TEMP_SENSOR_2] * 100;
+-		priv->speed_input[0] = get_unaligned_le16(data + RYUJIN_PUMP_SPEED);
+-		priv->speed_input[1] = get_unaligned_le16(data + RYUJIN_INTERNAL_FAN_SPEED);
++		priv->temp_input[0] = data[priv->info->temp_offset] * 1000 +
++			data[priv->info->temp_offset + 1] * 100;
++		priv->speed_input[0] =
++			get_unaligned_le16(data + priv->info->pump_speed_offset);
++		priv->speed_input[1] =
++			get_unaligned_le16(data + priv->info->fan_speed_offset);
+ 
+ 		if (!completion_done(&priv->cooler_status_received))
+ 			complete_all(&priv->cooler_status_received);
+@@ -471,11 +495,15 @@ static int rog_ryujin_probe(struct hid_device *hdev, const struct hid_device_id
+ 	struct rog_ryujin_data *priv;
+ 	int ret;
+ 
++	if (!id->driver_data)
++		return -EINVAL;
++
+ 	priv = devm_kzalloc(&hdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	priv->hdev = hdev;
++	priv->info = (const struct rog_ryujin_device_info *)id->driver_data;
+ 	hid_set_drvdata(hdev, priv);
+ 
+ 	/*
+@@ -546,7 +574,8 @@ static void rog_ryujin_remove(struct hid_device *hdev)
  }
  
- module_init(cttimeout_init);
+ static const struct hid_device_id rog_ryujin_table[] = {
+-	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_AIO) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_AIO),
++	  .driver_data = (kernel_ulong_t)&rog_ryujin_ii_360_info },
+ 	{ }
+ };
+ 
 -- 
 2.53.0
 
