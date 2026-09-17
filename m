@@ -1,28 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BA0B4DDB30;
-	Thu, 17 Sep 2026 15:42:34 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358804EFFAD;
+	Thu, 17 Sep 2026 15:42:33 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659757; cv=none; b=cBJ6tMSp2PThEmTcn8bh1Ensw47pdnQxxFFfLsWCQf22zGVnjFlurirBmjAL9WyoQCjnVFR+pr4ZJnZ06ib8vGm3tke++CVk5X0bZWtlNlg4p5201YpJdxkzhzDg8xENYXmtFOHzAthwQ8Xln4lsPAwPsityuMKvbC3TXxBBOgU=
+	t=1789659763; cv=none; b=N5lazgejwDmxHu31LeCN1qgVtwqMaX5Cn7++/bcS/VqkFcpYP5hz5sLZcoWHPzhttaaZ7RPotFoxVZtyH24SPFrx6V0y8FVmS9BgOtCbT4JlPAmpIhpppvg2OUODYrS8w94v106CJc/S4wGSUXH67EHQelUkU4NG+IixHzsCxGE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659757; c=relaxed/simple;
-	bh=yvRB2qHvtmdGzBUtH0BvhFW4n7aZ3mP09dhGdkfrFsM=;
+	s=arc-20240116; t=1789659763; c=relaxed/simple;
+	bh=bckBc08MKuzR7jVfwkR1KYghvG0IWYtGHDLoyxFKkJM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RYd/mFY0Gs2skvidrkPF8RzZA/wdIcR0pIChsPfQBNl/wa8pFrV1jvAtktZx1B0b+jiaylH4j7Uk1HnNAQgB9NK2uam7xR+DMQvEXpDFjuk9GSxhRWwaps+xfxXzsK0Qnm+HiK+zuTTtFwW6fuHV1TbHjUeQk87CFaYAtjvvYdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OqhsoP69; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=onjImu0AA5DBwcH1I3eLucd6/rYapzfyqY7YeN8tzgqIEbcaJilHH0YoqgG2VpcAtEtdLcOyMo1b96diaLBK7G2gNrDpoLKhKpLX6DTOyMr+/sk98XkeFKwNHDoYJj4FjdZk/erB35tlyAJPkYxbRhBdV8BY2y2BWHkPKcUvSe8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DkTZB1vq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OqhsoP69"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 345261F0089B;
-	Thu, 17 Sep 2026 15:42:29 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DkTZB1vq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FBDA1F00893;
+	Thu, 17 Sep 2026 15:42:32 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659749;
-	bh=n4IxYd9uZGRk0l+t/YEekZ4HHgy8ubohhuV1llegpFg=;
+	s=korg; t=1789659752;
+	bh=2WwkQ/hUKyknJ6vt4d/ZYQDzvyw6+QzFiL7E09hxFis=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OqhsoP69EK1q2Plo76OF0wBrP1zt7Qx8Tn7fDV4sP7Npm+zy4DfyPJW6mj4zYBuA9
-	 lSsO1THqT7++LdAX3UDbvuDJJmkMcM60bl/NG0IyRdpJS731yJI/9Rw0ydsoVSkCPD
-	 Ck8xoakUJnKGR59vp5w20vE9ciZqZ9yp9Fk48QyY=
+	b=DkTZB1vq4g2DI81HdjkSmDXr8T6Pue6POvi+dRF/GQHJffjBnB0xXN5Jf72C7JrrO
+	 gw6sMwRj1M+0e0BqlcG4ndJEOUhKzyHi8mWehhNhAH+UCVWKYjaYhdKvz2lKLh6Hdr
+	 ktPDCVUIEJydGDbaI1DgM8b8LCEHgtwH4K2V0LvU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -30,9 +30,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Aleksei Sviridkin <f@lex.la>,
 	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 360/733] net: macb: zero the link settings taprio reads back
-Date: Thu, 17 Sep 2026 16:11:08 +0100
-Message-ID: <20260917151400.572406693@linuxfoundation.org>
+Subject: [PATCH 7.2 361/733] net: macb: reject an unknown link speed in the taprio setup
+Date: Thu, 17 Sep 2026 16:11:09 +0100
+Message-ID: <20260917151400.600003150@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -53,22 +53,21 @@ Content-Transfer-Encoding: 8bit
 
 From: Aleksei Sviridkin <f@lex.la>
 
-[ Upstream commit 0523d5c52a450590bf5992bd6925394f3cc403e8 ]
+[ Upstream commit 2b6c0e25a3d713c4032e45f212bdd9e14c50f8a0 ]
 
-macb_taprio_setup_replace() calls phylink_ethtool_ksettings_get() with
-an uninitialised kset, and kset is not only an out-parameter. On a
-fixed link, or an in-band link with no PHY, phylink writes speed and
-duplex only if kset->base.rate_matching already reads RATE_MATCH_NONE,
-a field it never writes itself; in PHY mode before the PHY is attached
-it writes port and supported and nothing more. Either way the speed
-read back afterwards can be stack garbage. The ethtool core zeroes the
-structure on every path into the op, which is why its callers never
-see this; taprio is the only in-kernel caller passing its own variable.
+speed is a u32, so SPEED_UNKNOWN arrives as 0xffffffff and passes the
+"speed <= 0" check, which only ever catches zero. That is what an
+autonegotiating link reports while it is down: the limit derived from
+the speed collapses to a nanosecond at most and the first entry fails
+with a misleading "exceeds hardware limit". Zero stays covered, it is
+what an interface that was never opened reports, and
+enst_max_hw_interval() divides by it. Say which case it was in the
+error.
 
 Fixes: 89934dbf169e ("net: macb: Add TAPRIO traffic scheduling support")
 Assisted-by: LLM
 Signed-off-by: Aleksei Sviridkin <f@lex.la>
-Link: https://patch.msgid.link/20260903123652.23900-2-f@lex.la
+Link: https://patch.msgid.link/20260903123652.23900-3-f@lex.la
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
@@ -76,21 +75,20 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 2 insertions(+), 2 deletions(-)
 
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index cd140f98cbc83..09fd83782ae3f 100644
+index 09fd83782ae3f..55ed40a0a6062 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4331,9 +4331,9 @@ static int macb_taprio_setup_replace(struct net_device *netdev,
- 	u64 total_on_time = 0, start_time_sec = 0, start_time = conf->base_time;
- 	u32 configured_queues = 0, speed = 0, start_time_nsec;
- 	struct macb_queue_enst_config *enst_queue;
--	struct tc_taprio_sched_entry *entry;
-+	struct ethtool_link_ksettings kset = {};
- 	struct macb *bp = netdev_priv(netdev);
--	struct ethtool_link_ksettings kset;
-+	struct tc_taprio_sched_entry *entry;
- 	struct macb_queue *queue;
- 	u32 queue_mask;
- 	u8 queue_id;
+@@ -4360,8 +4360,8 @@ static int macb_taprio_setup_replace(struct net_device *netdev,
+ 	}
+ 
+ 	speed = kset.base.speed;
+-	if (unlikely(speed <= 0)) {
+-		netdev_err(netdev, "Invalid speed: %d\n", speed);
++	if (unlikely(speed == SPEED_UNKNOWN || !speed)) {
++		netdev_err(netdev, "Invalid speed %d, link-down?\n", speed);
+ 		return -EINVAL;
+ 	}
+ 
 -- 
 2.53.0
 
