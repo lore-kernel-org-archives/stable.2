@@ -1,48 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E22EF4D4878
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:17:38 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75214973B7
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658267; cv=none; b=oYgiYxpHLsl+KU5aiYa4485gBE5McnGmSsv89g6Nzab+Fl2+lKNL4C31F0GJqQ5/IPm6HkZHLvhqVQyj/Ey08VlNO6KDik2Jy7mZs+SqyzBC5laQHxYVWpql3fCATbffjVEYO+kknLfoZZ6o4XZTWB6mXMonrQUmOBI+ND2IY3c=
+	t=1789658267; cv=none; b=R/3snzFE+HjZFRJK2j35Xusrdm/A2xgUq8U5nHoI5rOO19ZE2R0YhCwJFduDrozPr3lfcKdg6QoMw50KGa1e/PBQWMxY3KThipirx4YyoOaJYU1vXf/9JpV2piZ+m0xRR1QPvgeNvh9qjsUfgawSgGMNc7vZy6s1mbkKCipndQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789658267; c=relaxed/simple;
-	bh=B3bHMnWP3gNYNWKGllDqNdZXEy2Lm//9WRcGVKj8hfo=;
+	bh=RmWLJY5EZq5zT4AgXrY1wA6e2pZOa8TESwlPXC8Pq5M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p050CA4nn0wgsxC2FHb9D6FyHja7k/4JV2D4jKETY9n3xmVzsQSkACmC2i01aGeB7bMg/5z1DgAtZiv+hEmAffjCeYqKwlKIoebcqGizWnxHXgZmlUK5tgfrGre0bwzVakyYBciMTHpvggEXR4JHcnKUhzv08I/QGn1Q8eoIj4U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ELpuqa1R; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=DCgc2lYVp9oY1iSaspvN2VVK7+Fk5XUudoX+AGmZqyqQxeBbkLwXZuAjg1vMotLQ43SVR5uS6G++vkELwje90fVuQo7acmbyaAdqxh88ITtq2vQYulP1RMDBYURRekNl+MUeF6cpricqBAVNx2JkcTlWczPlz6netHnPKruJzog=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WgFYD928; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ELpuqa1R"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39D381F008A1;
-	Thu, 17 Sep 2026 15:17:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WgFYD928"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 653231F008A2;
+	Thu, 17 Sep 2026 15:17:25 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789658241;
-	bh=EL5vh+bz04rI+95v0M6FiEP7C72puKyhWj/S9pfZp/8=;
+	s=k20260515; t=1789658246;
+	bh=/xhpfOuxrTdtYqZDVQGOW1bfVoIZ/qPxeaSK50yBqpg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ELpuqa1RFvl1C3LhFbmLIlPEVf5pCkpFkxID68bSWCcZgH0rhVp7VSfgkxs03n9yb
-	 LJxbgMQnAybFpW7W+YY4ftfa9AgGHiZItd+M/k8mMw9yTT66Sy7zDiQYcGxCBi8qXm
-	 jMYBV0WGuz1uWnyXP1v4VvK1xZJn/d/gpJDgIlBPRHGE8UbvyV7shNTsR52EWcpsEz
-	 4iuYvZx0wvIVzpyjCtnr2CNIG5Nq4d9CoGya1DQg3Etn2wtBy/4603XZLr7vjDkFrC
-	 NUL81KGaV0mpATzVzJ5fSIqEi8R30vDLPUlHH9iLLzhmphlD1qRPrMvi9lFcd9XbG8
-	 L+85KRvxCgsfA==
+	b=WgFYD928vtOK/6CBoggNahiee+qC90jIsBMarFXPaKN6UpXDb2Fn50aD6EtUnGIKu
+	 RBEp+WaR848W0zS8i6q//FSQRs99tvZiMrKWUhNQq/TuNnyKVoszhPC+pKmJvBKdno
+	 ktSFYahzHroy43uSDdrO1Utqjo+lJ+H+/tQiIHJobH6hb9eaEVwT8Veg9mJeUVk/WA
+	 AJb64yN84zIXs0LzqwQXJYjqY/shaZU5z1VrCfFcjnWHxYuk27p+SuFUC8UKTqMxK+
+	 LhDO/Z+uqTID1PcRivxTcKiifQ4fpmrm0Nbmjv0LeqGKhYHkBoi8De+uFrVyApJ6K8
+	 5qxp2i09Lp3+g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Arthur Lesuisse <arthur.lesuisse@ulb.be>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Long Li <leo.lilong@huawei.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 3/3] smb: client: fix uid/gid override in getattr with posix extensions
-Date: Thu, 17 Sep 2026 11:17:16 -0400
-Message-ID: <20260917151716.693532-3-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/9] xfs: factor out xfs_attr3_leaf_init
+Date: Thu, 17 Sep 2026 11:17:15 -0400
+Message-ID: <20260917151724.693663-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917151716.693532-1-sashal@kernel.org>
-References: <2026091635-bolt-hunchback-845c@gregkh>
- <20260917151716.693532-1-sashal@kernel.org>
+In-Reply-To: <2026091651-freedom-anger-bd4d@gregkh>
+References: <2026091651-freedom-anger-bd4d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,60 +46,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: Long Li <leo.lilong@huawei.com>
 
-[ Upstream commit cf4d35896621b7298eef51b7a465e5c0cb22f670 ]
+[ Upstream commit e65bb55d7f8c2041c8fdb73cd29b0b4cad4ed847 ]
 
-When mounting with 'multiuser,posix' options, cifs_getattr() overrides
-the server-provided uid/gid with the current process's fsuid/fsgid.
-This is because the condition only checks for unix extensions
-(tcon->unix_ext) but not posix extensions (tcon->posix_extensions).
+Factor out wrapper xfs_attr3_leaf_init function, which exported for
+external use.
 
-With SMB3 POSIX extensions, the server provides real uid/gid values
-just like with unix extensions, so they should be preserved rather
-than replaced with the caller's credentials.
-
-Add a tcon->posix_extensions check to the condition so that uid/gid
-from the server are properly reported in stat results.
-
-Reported-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
-Closes: https://lore.kernel.org/r/DB9P190MB2012266F6B8DECBE5D26A1798DB52@DB9P190MB2012.EURP190.PROD.OUTLOOK.COM
-Suggested-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
+Reviewed-by: Darrick J. Wong <djwong@kernel.org>
+Signed-off-by: Long Li <leo.lilong@huawei.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Stable-dep-of: 865b751e7503 ("xfs: don't stash removename operations with unknown ftype")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/inode.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ fs/xfs/libxfs/xfs_attr_leaf.c | 22 ++++++++++++++++++++++
+ fs/xfs/libxfs/xfs_attr_leaf.h |  3 +++
+ 2 files changed, 25 insertions(+)
 
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index b883b9164ead3..c4c1148ff777f 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -2594,14 +2594,14 @@ int cifs_getattr(struct user_namespace *mnt_userns, const struct path *path,
- 		stat->attributes |= STATX_ATTR_ENCRYPTED;
+diff --git a/fs/xfs/libxfs/xfs_attr_leaf.c b/fs/xfs/libxfs/xfs_attr_leaf.c
+index 14dddee4f8fa6..dd3923fdcb205 100644
+--- a/fs/xfs/libxfs/xfs_attr_leaf.c
++++ b/fs/xfs/libxfs/xfs_attr_leaf.c
+@@ -1330,6 +1330,28 @@ xfs_attr3_leaf_create(
+ 	return 0;
+ }
  
- 	/*
--	 * If on a multiuser mount without unix extensions or cifsacl being
--	 * enabled, and the admin hasn't overridden them, set the ownership
--	 * to the fsuid/fsgid of the current process.
-+	 * If on a multiuser mount without unix extensions, posix extensions
-+	 * or cifsacl being enabled, and the admin hasn't overridden them,
-+	 * set the ownership to the fsuid/fsgid of the current process.
- 	 */
- 	sbflags = cifs_sb_flags(cifs_sb);
- 	if ((sbflags & CIFS_MOUNT_MULTIUSER) &&
- 	    !(sbflags & CIFS_MOUNT_CIFS_ACL) &&
--	    !tcon->unix_ext) {
-+	    !tcon->unix_ext && !tcon->posix_extensions) {
- 		if (!(sbflags & CIFS_MOUNT_OVERR_UID))
- 			stat->uid = current_fsuid();
- 		if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++/*
++ * Reinitialize an existing attr fork block as an empty leaf, and attach
++ * the buffer to tp.
++ */
++int
++xfs_attr3_leaf_init(
++	struct xfs_trans	*tp,
++	struct xfs_inode	*dp,
++	xfs_dablk_t		blkno)
++{
++	struct xfs_buf		*bp = NULL;
++	struct xfs_da_args	args = {
++		.trans		= tp,
++		.dp		= dp,
++		.owner		= dp->i_ino,
++		.geo		= dp->i_mount->m_attr_geo,
++	};
++
++	ASSERT(tp != NULL);
++
++	return xfs_attr3_leaf_create(&args, blkno, &bp);
++}
+ /*
+  * Split the leaf node, rebalance, then add the new entry.
+  *
+diff --git a/fs/xfs/libxfs/xfs_attr_leaf.h b/fs/xfs/libxfs/xfs_attr_leaf.h
+index 589f810eedc0d..deb62b544ac54 100644
+--- a/fs/xfs/libxfs/xfs_attr_leaf.h
++++ b/fs/xfs/libxfs/xfs_attr_leaf.h
+@@ -86,6 +86,9 @@ int	xfs_attr3_leaf_list_int(struct xfs_buf *bp,
+ /*
+  * Routines used for shrinking the Btree.
+  */
++
++int	xfs_attr3_leaf_init(struct xfs_trans *tp, struct xfs_inode *dp,
++				xfs_dablk_t blkno);
+ int	xfs_attr3_leaf_toosmall(struct xfs_da_state *state, int *retval);
+ void	xfs_attr3_leaf_unbalance(struct xfs_da_state *state,
+ 				       struct xfs_da_state_blk *drop_blk,
 -- 
 2.53.0
 
