@@ -1,147 +1,164 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B064E06F8
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:21:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 418B94BE437
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:22:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789647714; cv=none; b=ohlvtATCg8+cBIW6kqjVOlVa4AGgKOblegrThE0pXYSUstlza31uuaYsySfktM4ZPzAOHQH16o4GNcyJXnakzK7hrGSUHANpQrLifbvqaZB1kwoYR0plat9pKXI3KTO/xPaCQSvWj0ksYEEQYdwKTswBLbR2NmfRcuX+XdXXx4c=
+	t=1789647742; cv=none; b=p046P0vku5TWyVwo6UmERArLPzH9h80MyD3A1vxsC+pnqbnxnZbdcwMU5fEdJnrIH+ZWLDqRi4kbvuYkkGqUpPKb7qB4KioPfv+z3lfw3EVozWaktWSXsDsGjRtBVPVGGQH2bPP4ji/SvtckbMOTUox28xXYj149BS5+IKA8et4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789647714; c=relaxed/simple;
-	bh=p+IXiJ+EE2Fjypax+gxoHE3ZHGysplGrD9n927sEoQk=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=PxErPD5cFDQb6SHWNQk4QnZ6SwUT/OidZlwrOEjsWkk9WMiULSaKeeT25saYpJAJPwiK18dtfamTrpwNB8ESl/3NTbWFmiFr3zEhXUMrQu2CP9lS2wh755HoCVFX81AWjYPkcbyyMYjHaTJ1XMqYG3yyouMi+L+VacJ/zt1/Pgc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net; spf=pass smtp.mailfrom=flipper.net; dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b=nLiaUjzu; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=flipper.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flipper.net
+	s=arc-20240116; t=1789647742; c=relaxed/simple;
+	bh=g0bdFEp165C2AD6nwvlIUU4+9x/xgS5Nk0xlq49gsLU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hh+2GNHD6p0L88TlgW/R04sSRRlt1Iik8KS0zqoShT3GhCkH4f1Dg8pOI2X0a8yLTJO07oX+HRo+ytMSzLtTae/Y4Wboyd5d5keDu46uKMg8bv5KWz/RA7Oudxk03iUO/Nml6dh3XAj3BlFJvDTFt7/TWYOk7/oW2bByOxJTQM4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QSv+nxHt; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=flipper.net header.i=@flipper.net header.b="nLiaUjzu"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so5440855e9.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 05:21:45 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QSv+nxHt"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so708443a91.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 05:22:13 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=flipper.net; s=google; t=1789647699; x=1790252499; darn=vger.kernel.org;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=hBTjOuIbpjCrSgc+53G/q1SlCRXTaO4XMWMEj7JJEBM=;
-        b=nLiaUjzu8wf6gCJN+MpVFTZB35jrtNSrgdXW6L9Wpf617bT20by6KPOGVAOJXgoHGe
-         7mRHIqVFSACTPs9GRNKQnbpazlr6Gij/mHQhDOgdQTJebF8I//EF1EPy3t+hhoHmPtOu
-         9+AWEISmriiHd+R1u5W9CFTLm2FslTrqC46+WbKax9+cDHtt+Djt5YQo+dC1G8pSLn7s
-         DVmMl700CywIkAWcblYYr1ynIux/Io3QwOq50iQoEDNAgj5ktYMPpTXBtftlq2A5VjAk
-         9DWAw0pNNOKCW2EX3KphyEiuxoRMTZayY3xzWlys/x8gAdkrpiP0QV0U/E4X+vD1KZII
-         iYXA==
+        d=gmail.com; s=20251104; t=1789647733; x=1790252533; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=BdQwb9cZ0fnhKPkeH9+sCKU6IXQWmPIm14OBXxFtvO4=;
+        b=QSv+nxHtOtAMNnECfF981ajiftX6qt+tZtgyuSvm2Aqz2qEOeNyS7aRURsLJj2Visk
+         c8R44wll7BD721B7rbDyj1wkhaBcELNr7CyZd9TALQnu5D1bEQA20/0MOo8f4f++QRHX
+         O25bwT1gkTCd1t81g7L7Cci5Shiisxb4JuduQrFcS9/ZD7tchbDy55csIAKQjdUTMM4w
+         CA3ypsvPrTG8RXYbKtEDBESJSwnJHZfiiXmTWse1jx0jtxh7jfW3pHpK5TuX/516IsqB
+         qx0Shxs0QVur3cXGho2eTkDzXLThkBw8Bkk/18l6OaDGmCQ3w5tKoo5GPgIAgBgnwYG6
+         R4Ew==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789647699; x=1790252499;
-        h=cc:to:message-id:content-transfer-encoding:content-type
-         :mime-version:subject:date:from:x-gm-gg:x-gm-message-state:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=hBTjOuIbpjCrSgc+53G/q1SlCRXTaO4XMWMEj7JJEBM=;
-        b=f+IoC7w3HS45xk6KG/JQ3C/bdmJpo2qMXE4WNbPxSuwaJNBN/qqUBH2bdg1tx5bWrX
-         32oOUGCHIeTt7VGdCmcO7W8p9o3oaUnPYeE6Zpizi0vikqBYbAmGythb9obe+H2zzsBs
-         oX6u67zhXs0on5BZSiV/derGS1mC2jyEBf5VdKLNpcut843M4ZdU+98ftGn2uklbJ5aL
-         6eQkXyXkFUayfSjynr0/Jo4f+7Zk8Sxo9VPQvNXYZo30eI6PaTMmYTMMcKHn2BW3f3N2
-         /x9gHMnwgDPpCx1Vc1x/r2kHnCI82MWnqOkCmSOKGHmi/ShwR1UyrKfXp9yG2tv4uGsh
-         kxJA==
-X-Forwarded-Encrypted: i=1; AKwUvByphbcFBTZCYIIK2S6p5USOS5x3JZY7NhBZrveQqveX37ekW4KkLEjnGG5zAGPB50hZ32vzLuU=@vger.kernel.org
-X-Gm-Message-State: AFuF++lLWLFBsF+hozLhGvJW53yL6RO4GIdsCVN7LcBlEGEepQZkAmiH
-	rzXGUOEwfSFCBQHVx9iPoizqkeMhd1Do4fIzc279SZVMk7ZlAhCF6p0lIMuvc3TYBmA=
-X-Gm-Gg: AYBFou26K4yWMRF5KZMtXlSxJk1T8g752fAEeq2oxJnkgITo5vJI893o2PkVqEJZxDf
-	xlurnGv12ZIBr7d52DXefVqPg4ygHwzsiwgoLoNrQh65XFMsiuzF4QgjkwO3jKYkYRwkzdZH+tB
-	fdjT3+JHWh1B12Hot23uKy2/WofSmcincRPtBdcQDfYlS9zw3vrMjiGZvZp3sG3pVlm7DppsDSO
-	XZd+AqtX3c5d8TiUnLyg8JCIIsCMg17d+gN+U7smCAw+8PKk1EMT+nAv201kiQS7FNLPID3Lmg/
-	QbYKW9ildtJv7XOvbOkuNXP2HK2aGWwhlFfUleYHZXhAwthyxii4tmd+J2chFt2/7CNFEq944Zt
-	Qpe8bbm87iynZCvUAr8vBhlfJ0C5ekGCS9BfLgzd5vBCsZFlP6ps5+Zjw6ZAESgDaCIGtkLYBkI
-	00TCeMvh//uwmbsOfriXeUH/QcTBmHdWXzi/I0xpEcOuVDr7gsnVxifS79td1m/+U2LCH3/mAN7
-	LROa7lV80KEMwRdumXF1u9LAXG314FCCqnJWCvG9pwMIIH/FvU=
-X-Received: by 2002:a05:600c:190e:b0:49c:f4ff:e872 with SMTP id 5b1f17b1804b1-49eb7314d54mr75624565e9.5.1789647698761;
-        Thu, 17 Sep 2026 05:21:38 -0700 (PDT)
-Received: from alchark-surface.localdomain (bba-2-51-220-108.alshamil.net.ae. [2.51.220.108])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1ce79csm81949715e9.0.2026.09.17.05.21.36
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 05:21:38 -0700 (PDT)
-From: Alexey Charkov <alchark@flipper.net>
-Date: Thu, 17 Sep 2026 16:21:30 +0400
-Subject: [PATCH] i2c: rk3x: Do not dispatch stale pending bits after a NAK
+        d=1e100.net; s=20260707; t=1789647733; x=1790252533;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=BdQwb9cZ0fnhKPkeH9+sCKU6IXQWmPIm14OBXxFtvO4=;
+        b=OKglaZ75Lq6eNKsxlay/hgrFYO2bjCMLstCBMIJ9Shnsh1uaL4/0xXKkBQs8YZ4RW5
+         Z02YgKiLaMAH7Z907NLx9aqyEXsSwz6/X5MPJXFSG3WNUoQQJk1ET4FwpFB62X7DRTi6
+         BVKs8wZWqXdxdFiwdEHEcdqGYhOq6XgKa6F4CjPyiHsOYIQMd7cM2szAcmU/PSfLDdyN
+         k8YFlTEamVfqSUV4wSkrZmJJyYPPUSEgZAsEFBL6QDECSATY2JYwPnTytImIU5TUVl6F
+         hBHGyKZa9K2tLAFAkmF3qhWFyM+rUBjiGj0NAfcQunR7aTA+KJJ5XFneaIt+z+aaOc/R
+         RAUw==
+X-Forwarded-Encrypted: i=1; AKwUvBw0TcPoqczIiHtDPZu2sNaMvdp6xAoIi0O6bJHDeu1Ezu1+0bBAdCbyF4zggKD3B0EBcIQm6C4=@vger.kernel.org
+X-Gm-Message-State: AFuF++lizLKkP21d3QdT9LF+zOKTka2lWumu5WqwwKw+40xXDhG/nXLg
+	gA9oNMNpmgcYNwVmjdVwmO4yA9nx4LtxfTHtWHl+jDpYFpuxqJPttVD+
+X-Gm-Gg: AYBFou2jm3JFg1KkwAu901Jf3jQkEdEAL/Yz+sLeMjwiDEfhTiQJMhFrEXCS/+Ge7DG
+	HXoZTOm2vK9FXSuE/DO9E+4bnoSMJjTtl4dbm1OElNgjeeR/QIxUxRjmRF9aW3UubloTLtpJIgl
+	x4og9SZ7nB5yBa1MK31M6WlCHf35U8lD4dGKHAxMHTecjLMjMZyavHHUiuI0EQNF+wNHxB7/I2b
+	vX1F1E4Y9MPDczEADt+zOJ6H+iuf8Rb1WrVfODRBH/YjwoA4P6Er/3e75ttTeG1uOAC88LDo5FV
+	lV2y132++v3+lf27JxgIVHmSANIauEeKGhGJeZ0wizrjNEzfugm9Au4xXWHmdWNaH0VlGxOPTrU
+	XGtlcTvoeyS169JgnKfquvczor8r4kcZt3jLvQhAH+QVaeJiKlp5ppviC1pGHnEEQOOZCXXfGb0
+	6sNtpMBgIePk04FQ6/UcYVJmcNjx39P0tBbRO3PG9cNFwAW+p6RDxcR1FpLSK+m4ra0nBQl2pDB
+	mWp8Oc68mO2xieRy13X+pNyS+S1
+X-Received: by 2002:a17:90b:2b8f:b0:38e:fea2:df53 with SMTP id 98e67ed59e1d1-39e1e24fa85mr14609273a91.4.1789647732855;
+        Thu, 17 Sep 2026 05:22:12 -0700 (PDT)
+Received: from localhost.localdomain ([183.194.144.114])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a6a175sm16360661eec.9.2026.09.17.05.22.07
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 05:22:12 -0700 (PDT)
+From: zjamg <ndaugoing@gmail.com>
+To: "David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>
+Cc: Simon Horman <horms@kernel.org>,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@toke.dk>,
+	Jamal Hadi Salim <jhs@mojatatu.com>,
+	Jiri Pirko <jiri@resnulli.us>,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zjamg <ndaugoing@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH 1/2] net: fix OOB read in qdisc_pkt_len_segs_init() on negative transport offset
+Date: Thu, 17 Sep 2026 20:21:52 +0800
+Message-ID: <20260917122153.62722-2-ndaugoing@gmail.com>
+X-Mailer: git-send-email 2.50.1
+In-Reply-To: <20260917122153.62722-1-ndaugoing@gmail.com>
+References: <20260917122153.62722-1-ndaugoing@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-rk-i2c-stop-v1-1-e6ad83d8c888@flipper.net>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMQQ5AMBBA0avIrE3SdqHhKmJBTRkSpINIGndXL
- N/i/whCgUmgyiIEOll4XRJ0noEb22Ug5D4ZjDKFKrXFMCMbh7KvG3qvSNuOlLY9pGIL5Pn6bnX
- zW45uIre/C7jvB3WgLmlvAAAA
-X-Change-ID: 20260917-rk-i2c-stop-ff0e17be017d
-To: Heiko Stuebner <heiko@sntech.de>, Andi Shyti <andi.shyti@kernel.org>, 
- Max Schwarz <max.schwarz@online.de>, Wolfram Sang <wsa@kernel.org>
-Cc: linux-arm-kernel@lists.infradead.org, 
- linux-rockchip@lists.infradead.org, linux-i2c@vger.kernel.org, 
- linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
- Alexey Charkov <alchark@flipper.net>
-X-Mailer: b4 0.15.2
-X-Developer-Signature: v=1; a=openpgp-sha256; l=2125; i=alchark@flipper.net;
- h=from:subject:message-id; bh=p+IXiJ+EE2Fjypax+gxoHE3ZHGysplGrD9n927sEoQk=;
- b=owGbwMvMwCW2adGNfoHIK0sZT6slMWStvu3LHF2g33ulsnL7R2OZ6QF3zs/u2rRTOGtz+CQ5D
- +u+vQ0yHRNZGMS4GCzFFFnmfltiO9WIb9YuD4+vMHNYmUCGSIs0MAABCwNfbmJeqZGOkZ6ptqGe
- oZGOsY4RAxenAEx19WGGf8aTBR7cs2K0+fjW/3j61vLEVw2u+pzG1kl7Wldc/L2TR5uR4ZyJlmP
- y/9DXb1hK9Ex+x3sE7VGaU2tq+W3m/nmP3aU4mAA=
-X-Developer-Key: i=alchark@flipper.net; a=openpgp;
- fpr=9DF6A43D95320E9ABA4848F5B2A2D88F1059D4A5
+Content-Transfer-Encoding: 8bit
 
-A read that gets NAKed raises NAKRCV alongside the spurious START flag
-which the controller sets on every read. The NAK branch acks NAKRCV and
-calls rk3x_i2c_stop(), moving the state to STATE_STOP, but the leftover
-START bit survives the REG_INT_ALL mask, so the state machine below runs
-once more and dispatches it into rk3x_i2c_handle_stop().
+In qdisc_pkt_len_segs_init(), the header length up to the transport layer
+is computed via skb_transport_offset() or skb_inner_transport_offset():
 
-That path finds no STOP bit, reports a bogus "unexpected irq in STOP",
-replaces -ENXIO with -EIO and calls rk3x_i2c_clean_ipd(), which clears
-the pending bit of the STOP that rk3x_i2c_stop() has just started. The
-completion interrupt is lost, so the transfer only ends when the 1s
-timeout expires, holding the adapter lock and stalling every other client
-on the bus.
+	/* mac layer + network layer */
+	if (!skb->encapsulation) {
+		if (unlikely(!skb_transport_header_was_set(skb)))
+			return SKB_NOT_DROPPED_YET;
+		hdr_len = skb_transport_offset(skb);
+	} else {
+		hdr_len = skb_inner_transport_offset(skb);
+	}
 
-Return from the handler once the NAK has been acted upon.
+Both offset accessors return a signed int, but hdr_len is declared as
+unsigned int.
 
-Fixes: c41aa3ce938b ("i2c: rk3x: add driver for Rockchip RK3xxx SoC I2C adapter")
+If a packet undergoes header operations (such as skb_vlan_untag() pulling
+stacked VLAN tags without updating inner_transport_header, or other header
+stripping that advances skb->data past the transport header), the offset
+becomes negative.
+
+When stored into unsigned int hdr_len, negative values are converted to
+large positive numbers near UINT_MAX (e.g. (unsigned int)-16 is
+0xFFFFFFF0). Subsequently:
+
+1. pskb_may_pull(skb, hdr_len + sizeof(struct tcphdr)) evaluates
+   0xFFFFFFF0 + 20, which overflows 32-bit unsigned arithmetic to 4.
+   Since the packet length exceeds 4 bytes, pskb_may_pull() returns true,
+   bypassing the bounds check.
+
+2. th = (const struct tcphdr *)(skb->data + hdr_len) zero-extends hdr_len
+   on 64-bit architectures, creating a wild pointer pointing ~4 GiB past
+   skb->data into unmapped memory.
+
+3. __tcp_hdrlen(th) dereferences th->doff, triggering an immediate kernel
+   crash (page fault / KASAN wild-memory-access panic).
+
+A similar unsigned overflow occurs for UDP (SKB_GSO_UDP_L4).
+
+Fix this by declaring hdr_len as int to match the return types of
+skb_transport_offset() and skb_inner_transport_offset(), and explicitly
+rejecting negative offsets by returning SKB_DROP_REASON_SKB_BAD_GSO.
+
+Fixes: 7fb4c1967011 ("net: pull headers in qdisc_pkt_len_segs_init()")
 Cc: stable@vger.kernel.org
-Signed-off-by: Alexey Charkov <alchark@flipper.net>
+Signed-off-by: zjamg <ndaugoing@gmail.com>
 ---
- drivers/i2c/busses/i2c-rk3x.c | 12 +++++++++++-
- 1 file changed, 11 insertions(+), 1 deletion(-)
+ net/core/dev.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/i2c/busses/i2c-rk3x.c b/drivers/i2c/busses/i2c-rk3x.c
-index fcede9f6ed54..7629ea7b6ac2 100644
---- a/drivers/i2c/busses/i2c-rk3x.c
-+++ b/drivers/i2c/busses/i2c-rk3x.c
-@@ -507,8 +507,18 @@ static irqreturn_t rk3x_i2c_irq(int irqno, void *dev_id)
+diff --git a/net/core/dev.c b/net/core/dev.c
+index ecfbd72d5d1a..f2dbf99181ec 100644
+--- a/net/core/dev.c
++++ b/net/core/dev.c
+@@ -4159,8 +4159,9 @@ EXPORT_SYMBOL_GPL(validate_xmit_skb_list);
+ static enum skb_drop_reason qdisc_pkt_len_segs_init(struct sk_buff *skb)
+ {
+ 	struct skb_shared_info *shinfo = skb_shinfo(skb);
+-	unsigned int hdr_len, tlen;
++	unsigned int tlen;
+ 	u16 gso_segs;
++	int hdr_len;
  
- 		ipd &= ~REG_INT_NAKRCV;
- 
--		if (!(i2c->msg->flags & I2C_M_IGNORE_NAK))
-+		/*
-+		 * rk3x_i2c_stop() moves us to STATE_STOP and arms the STOP
-+		 * interrupt. The remaining pending bits belong to the state we
-+		 * just left, so stop processing them here: dispatching them
-+		 * into rk3x_i2c_handle_stop() would report a bogus "unexpected
-+		 * irq in STOP", replace -ENXIO with -EIO and clear the pending
-+		 * bits of the STOP we are waiting for.
-+		 */
-+		if (!(i2c->msg->flags & I2C_M_IGNORE_NAK)) {
- 			rk3x_i2c_stop(i2c, -ENXIO);
-+			goto out;
-+		}
+ 	qdisc_skb_cb(skb)->pkt_len = skb->len;
+ 	if (!shinfo->gso_size) {
+@@ -4182,6 +4183,8 @@ static enum skb_drop_reason qdisc_pkt_len_segs_init(struct sk_buff *skb)
+ 	} else {
+ 		hdr_len = skb_inner_transport_offset(skb);
  	}
- 
- 	/* is there anything left to handle? */
-
----
-base-commit: 0d9d0dbf2fddcff5859d623e90ca73c4054276e1
-change-id: 20260917-rk-i2c-stop-ff0e17be017d
-
-Best regards,
---  
-Alexey Charkov <alchark@flipper.net>
++	if (unlikely(hdr_len < 0))
++		return SKB_DROP_REASON_SKB_BAD_GSO;
+ 	/* + transport layer */
+ 	if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 | SKB_GSO_TCPV6))) {
+ 		const struct tcphdr *th;
+-- 
+2.53.0
 
