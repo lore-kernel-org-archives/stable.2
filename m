@@ -1,48 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E2B49D584
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A406340A93E;
+	Thu, 17 Sep 2026 18:39:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670380; cv=none; b=COPi6WLLLs4qiYMK29FRmw9ftwH5162Ff7wBle/nNFczYmG5NLeRBzVnRz+cSexOGixY2bxnmnqg31tbyJxNUrf8FelQpCaEH+9FR4unCdTG1REuKUgiL4TVepBed9REXvIwdKsmB5hnTlnZUSxiCgTCz7JYxSEl7R+B2B02OMw=
+	t=1789670381; cv=none; b=tYCXirrtwo92FEzaUt4SZvgzzJtoTN5yk5UKNy9dWtrA3wxYzn+rLvA/5D0o3xYqAyd77gHya+X0SSSUKcSQgtmUtravgLc6PTwuqmvwqdGk9U2B9PDSzk3xsrKgzAfgDOgl5bkaZg6KVF1p+iTK/xkeDw1I90eGFcih/E5sC/o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789670380; c=relaxed/simple;
-	bh=RWSMclJsGzUJ77a11Td6AAypBUNR9wj9BsyKYKtZQ5g=;
+	s=arc-20240116; t=1789670381; c=relaxed/simple;
+	bh=A88/rqlAmaq9P2EZBO1yVmqS98t5m1WusjthCttQA78=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cXdFPsp1IWCgjFIL/I378L2A1mDhCogf/7P5FE2kFuyT+shAT8PSrpNHPBbC4GH4UWIfZZ7w9sTtQvgIrEvhIMJ+3vfCHlaDdJvCna9EMnX3B29P9UYQwxH7eT2mod1wK8NPQREpnnq1ur/qA2Aq16dhmzGqoN6w+RbimyYwcOw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBt7HAH9; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AOb1YfFGALGwAPQcGyrvh8w9tPdyjYFXys8Q9BCo6cPEmuWoXazg/j/Iionv2G+HUkLz0drOO9K1XLju+/tzo64OqMIW0o4MDCrK3NGQ2xn4jTrp9bYl6CZpmjiMpV9aKCl7JriAlbKGH8eFfSRWa2TO2vcTmwCRFgL5D37I4Gk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=p7r8hXsw; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBt7HAH9"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9521F0089B;
-	Thu, 17 Sep 2026 18:39:37 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789670378;
-	bh=DTO3rEVtkXsY1mflVPE8xJvwY79hbdCYjhAaj1ZIHMw=;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="p7r8hXsw"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57021F0089C;
+	Thu, 17 Sep 2026 18:39:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789670379;
+	bh=2NWWluHCLDGjTfjg9XGaOJ32duN9heKNp6FW4jzBPEg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jBt7HAH955uwlJq/Xi+bQ5YYbaxxq9Sq02lP2zmXBd9Hj83Vmuot1rOb4vTdZru5N
-	 Lr9jAXFL5jgVQpG3sE+Zi0s04YuAJrAGdDNBt2tEeBGjl7sI/GplOyemlTQ7fb+tOd
-	 mDBjaAfc4R08vD7UAdPwA201MKsJyM8W9945Td/CAt2Lvl6upg4q7crgpb4mV1x+AR
-	 WbFgcea1AcibwGtvEKb4H0UORsDYvmn1DOvvJ4C1aUMut3wjp59msN03Z0MjMRHiTd
-	 ASeXUYF795jp58xzT7/ZkDXDIrlnDi6y+B6YBGxCMudBHwi4nOIEW6z+4SrJzBr3PW
-	 DOI+yaDcWyCLQ==
-From: Sasha Levin <sashal@kernel.org>
+	b=p7r8hXswAnnjgWZrj4M6+sD1OfRZmesUuDEkq3hwol76MmQt8rEWqaBHjT73+ujkd
+	 skg6klRXWMzBS6qQnwJBcfh+7Mdc2me3AoUp1pseG9rkbu3wW+ckkYyhwZ0AB88Wt5
+	 65+buWsvt7ikCP6RA4n+rqAueb4juuEsu6ncEibU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Arthur Lesuisse <arthur.lesuisse@ulb.be>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Hannes Reinecke <hare@kernel.org>,
+	Sagi Grimberg <sagi@grimberg.me>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] smb: client: fix uid/gid override in getattr with posix extensions
-Date: Thu, 17 Sep 2026 14:39:35 -0400
-Message-ID: <20260917183935.1200920-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917183935.1200920-1-sashal@kernel.org>
-References: <2026091635-untwist-absently-462b@gregkh>
- <20260917183935.1200920-1-sashal@kernel.org>
+Subject: [PATCH 6.12 0646/1102] nvme-tcp: open-code nvme_tcp_queue_request() for R2T
+Date: Thu, 17 Sep 2026 16:09:49 +0100
+Message-ID: <20260917151556.367382703@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
+References: <20260917151539.408551884@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,60 +47,79 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit cf4d35896621b7298eef51b7a465e5c0cb22f670 ]
+------------------
 
-When mounting with 'multiuser,posix' options, cifs_getattr() overrides
-the server-provided uid/gid with the current process's fsuid/fsgid.
-This is because the condition only checks for unix extensions
-(tcon->unix_ext) but not posix extensions (tcon->posix_extensions).
+From: Hannes Reinecke <hare@kernel.org>
 
-With SMB3 POSIX extensions, the server provides real uid/gid values
-just like with unix extensions, so they should be preserved rather
-than replaced with the caller's credentials.
+[ Upstream commit 674f872b7cefab4564ec8b34c799a4a653e34513 ]
 
-Add a tcon->posix_extensions check to the condition so that uid/gid
-from the server are properly reported in stat results.
+When handling an R2T PDU we short-circuit nvme_tcp_queue_request()
+as we should not attempt to send consecutive PDUs. So open-code
+nvme_tcp_queue_request() for R2T and drop the last argument.
 
-Reported-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
-Closes: https://lore.kernel.org/r/DB9P190MB2012266F6B8DECBE5D26A1798DB52@DB9P190MB2012.EURP190.PROD.OUTLOOK.COM
-Suggested-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
+Signed-off-by: Hannes Reinecke <hare@kernel.org>
+Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
+Stable-dep-of: 08acb54b063a ("nvme-tcp: defer TLS inline send to io_work")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/inode.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/nvme/host/tcp.c | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
 
-diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
-index 537e5baf4ca24..99a72ca8f958e 100644
---- a/fs/cifs/inode.c
-+++ b/fs/cifs/inode.c
-@@ -2482,14 +2482,14 @@ int cifs_getattr(struct user_namespace *mnt_userns, const struct path *path,
- 		stat->attributes |= STATX_ATTR_ENCRYPTED;
+diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
+index 545704f1efa63..8a6707a592930 100644
+--- a/drivers/nvme/host/tcp.c
++++ b/drivers/nvme/host/tcp.c
+@@ -406,7 +406,7 @@ static inline bool nvme_tcp_queue_more(struct nvme_tcp_queue *queue)
+ }
  
- 	/*
--	 * If on a multiuser mount without unix extensions or cifsacl being
--	 * enabled, and the admin hasn't overridden them, set the ownership
--	 * to the fsuid/fsgid of the current process.
-+	 * If on a multiuser mount without unix extensions, posix extensions
-+	 * or cifsacl being enabled, and the admin hasn't overridden them,
-+	 * set the ownership to the fsuid/fsgid of the current process.
+ static inline void nvme_tcp_queue_request(struct nvme_tcp_request *req,
+-		bool sync, bool last)
++		bool last)
+ {
+ 	struct nvme_tcp_queue *queue = req->queue;
+ 	bool empty;
+@@ -420,7 +420,7 @@ static inline void nvme_tcp_queue_request(struct nvme_tcp_request *req,
+ 	 * are on the same cpu, so we don't introduce contention.
  	 */
- 	sbflags = cifs_sb_flags(cifs_sb);
- 	if ((sbflags & CIFS_MOUNT_MULTIUSER) &&
- 	    !(sbflags & CIFS_MOUNT_CIFS_ACL) &&
--	    !tcon->unix_ext) {
-+	    !tcon->unix_ext && !tcon->posix_extensions) {
- 		if (!(sbflags & CIFS_MOUNT_OVERR_UID))
- 			stat->uid = current_fsuid();
- 		if (!(sbflags & CIFS_MOUNT_OVERR_GID))
+ 	if (queue->io_cpu == raw_smp_processor_id() &&
+-	    sync && empty && mutex_trylock(&queue->send_mutex)) {
++	    empty && mutex_trylock(&queue->send_mutex)) {
+ 		nvme_tcp_send_all(queue);
+ 		mutex_unlock(&queue->send_mutex);
+ 	}
+@@ -828,7 +828,9 @@ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
+ 	req->ttag = pdu->ttag;
+ 
+ 	nvme_tcp_setup_h2c_data_pdu(req);
+-	nvme_tcp_queue_request(req, false, true);
++
++	llist_add(&req->lentry, &queue->req_list);
++	queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
+ 
+ 	return 0;
+ }
+@@ -2678,7 +2680,7 @@ static void nvme_tcp_submit_async_event(struct nvme_ctrl *arg)
+ 	init_llist_node(&ctrl->async_req.lentry);
+ 	INIT_LIST_HEAD(&ctrl->async_req.entry);
+ 
+-	nvme_tcp_queue_request(&ctrl->async_req, true, true);
++	nvme_tcp_queue_request(&ctrl->async_req, true);
+ }
+ 
+ static void nvme_tcp_complete_timed_out(struct request *rq)
+@@ -2831,7 +2833,7 @@ static blk_status_t nvme_tcp_queue_rq(struct blk_mq_hw_ctx *hctx,
+ 
+ 	nvme_start_request(rq);
+ 
+-	nvme_tcp_queue_request(req, true, bd->last);
++	nvme_tcp_queue_request(req, bd->last);
+ 
+ 	return BLK_STS_OK;
+ }
 -- 
 2.53.0
+
+
 
