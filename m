@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BE9413776B
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:25:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65439393DF0
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:27:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611952; cv=none; b=ep+50HjgPnifMcZMGdApRGRz0K2kRyeyhsevvdYXlWuK7AGNPhrkv7aESY5ZNqVnFReJJadVThzMfqoAg2wi64dA1uQk8GoAyRiB0U8YD+fIbcQM4K13BumboeQpXnJf9P57pgyqa1uT0TQIdqTjTxGc+s8FmG/wkJIcfXciXtU=
+	t=1789612070; cv=none; b=Jbugft8Hjs5D9yXtrqCdj8a0W+9JANBn2yudoxHbAT2+n7wh3nTE03P5hkQ0aEasSjmydRCRkHQVUqVoD9NYuQqeBh69NDnN2olE4WltPq8UmX/q4NbFjJLFbY3cE2rVsu+vqR3bjSE4SPXh9IKx4UCCS/FTb1QbzZJC0OPWKKE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611952; c=relaxed/simple;
-	bh=zzJOLKdTbBhmdji+yROZmbXXu6fA00jHjTf9utom8lg=;
+	s=arc-20240116; t=1789612070; c=relaxed/simple;
+	bh=+/69MYRHy5Hpk9zt2/L4eIBPg9nICbdL+uMspIQaJ7A=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=DTFsp9LJycCw+ORdD/vbRvdMpu5VSzGR0vemwys3SSSkEsZCHhGx+hqZysDNmUdevjcv1+rPFhZdTt/FVM8VeASFD+S9WOF6MjmasTGYwkPyEiHGG3GC5BYSwmDXMWCssUb1SJCnytw+jJ0MEmPqenZXE8pOyn3JzjBDtmhKLQY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YnSjN/md; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gnpL8Lhf6OAFnO9LKVMHPzQNOFoEObJoKp5vZrEgP/QfxxxkDhwu3ywBzO2L4TUppQ3wr59kEeVDkQzIqQxz3MEBYDL04pyDQtGa1uypBv9KvVrfarkUZOr6BuOkskna05RuyQbTIqGOf96oIYeSTJ/bcGiYWldzMI4gqc9hk1A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xc4H2KkX; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YnSjN/md"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 87D101F00893;
-	Thu, 17 Sep 2026 02:25:49 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xc4H2KkX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D8C921F000FF;
+	Thu, 17 Sep 2026 02:27:34 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789611950;
-	bh=+b+7t303eEc2bZUsn8qcG9h5Zdbj63L732JcWTGLiys=;
+	s=k20260515; t=1789612055;
+	bh=V+gllXcVvaBMwcNGY7qYTOnQthlD2iGeCk1cM8z87tQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YnSjN/md8pJ7kPiSAfB5rRC3vGIdeo4mQthnnjFyDk481PoBEP5g9rfHW0Pqpf7cE
-	 K5vRj02SS/YcaywwQ76Xs4FTd0x6Tzg0dx4A/nC8FOi7JB+TcgORofP9c4dt8RPn7e
-	 wco0rp3UENaHPJCpM9aTkBgW7nzxcXXAZmeNtdojwa1WRxqMz+Ns7JCfHg41+mGnKz
-	 1k6sLsPdyEOeAezNYaGpGyH/Yjr8cMqHoMqgLs3pyF33aRttosuPu/99Uk6UcktPyK
-	 5DtxDkzb1W3YKjYqNshyDf4O12Si148wZpoj9ggwBQ38oVpT5hg15OiZTG1W0Cg5eD
-	 Ch0T7t0OUpzVA==
+	b=Xc4H2KkXDraq3E3d97VQ3OEuDSVAJtRaZeW9dh3PZJn1bPCbmNUGEg2jhTMWwRPe0
+	 B0Gj/Y92gvN0k//z7yeV68pwgaRfdRa1q+7xTjNWt2AzCLTYKqrdLeLI4EPOfeO2CT
+	 PT3FkftxpAqltlph52rV+MH6Q5gOEVXfTifZcWVeuOihoXTgHO7iOXa4scjR14+3S+
+	 bj2KfwaUmzga90WoOVYmu20Y08HoHnZJLv4O1XpwKgIvICJHa44JV93NSZ/UtvYJm4
+	 H/xW5c/EP0Sh9drqj1vDl2V/nR8QcglVmrNPZVy7OnpDf+l5+1Tzf4YKgTv8rRXHW+
+	 OL+TC/x8PbQSA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: =?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack3000@gmail.com>,
+	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/2] net: macb: initialize PTP state before registering clock
-Date: Wed, 16 Sep 2026 22:25:47 -0400
-Message-ID: <20260917022547.3826863-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] landlock: Clarify documentation for the IOCTL access right
+Date: Wed, 16 Sep 2026 22:27:32 -0400
+Message-ID: <20260917022733.3831420-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917022547.3826863-1-sashal@kernel.org>
-References: <2026091649-armoire-absurd-8a42@gregkh>
- <20260917022547.3826863-1-sashal@kernel.org>
+In-Reply-To: <2026091642-android-strode-2706@gregkh>
+References: <2026091642-android-strode-2706@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,73 +46,88 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Günther Noack <gnoack3000@gmail.com>
 
-[ Upstream commit e1406330d70e56dd44fa6fbafc86e77e5c80c122 ]
+[ Upstream commit 6abbb8703aeeb645a681ab6ad155e0b450413787 ]
 
-gem_ptp_init() registers the PTP clock before initializing
-bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
-publishes the PTP character device, userspace may invoke PTP callbacks
-before the lock and hardware are ready.
+Move the description of the LANDLOCK_ACCESS_FS_IOCTL_DEV access right
+together with the file access rights.
 
-In addition, gem_ptp_init() is called from both the interface open and
-resume paths. Reinitializing tsu_clk_lock there can reset the lock while
-timestamp processing is using it.
+This group of access rights applies to files (in this case device
+files), and they can be added to file or directory inodes using
+landlock_add_rule(2).  The check for that works the same for all file
+access rights, including LANDLOCK_ACCESS_FS_IOCTL_DEV.
 
-This race is theoretical and has not been observed in practice.
+Invoking ioctl(2) on directory FDs can not currently be restricted
+with Landlock.  Having it grouped separately in the documentation is a
+remnant from earlier revisions of the LANDLOCK_ACCESS_FS_IOCTL_DEV
+patch set.
 
-Initialize tsu_clk_lock once during probe and initialize the TSU before
-registering the PTP clock.
-
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260904030439.3994047-1-runyu.xiao@seu.edu.cn/
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260908103924.607033-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Link: https://lore.kernel.org/all/20260108.Thaex5ruach2@digikod.net/
+Signed-off-by: Günther Noack <gnoack3000@gmail.com>
+Link: https://lore.kernel.org/r/20260111175203.6545-2-gnoack3000@gmail.com
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Stable-dep-of: 2c6dc7925382 ("landlock: Fix use-after-free of the source's parent directory")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 1 +
- drivers/net/ethernet/cadence/macb_ptp.c  | 5 +----
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ include/uapi/linux/landlock.h | 37 ++++++++++++++++-------------------
+ 1 file changed, 17 insertions(+), 20 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 8751d6ea9a5e8..1e7402823eb36 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4568,6 +4568,7 @@ static int macb_probe(struct platform_device *pdev)
- 
- 	spin_lock_init(&bp->lock);
- 	spin_lock_init(&bp->stats_lock);
-+	spin_lock_init(&bp->tsu_clk_lock);
- 
- 	/* setup capabilities */
- 	macb_configure_caps(bp, macb_config);
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index 1faca23dc3ccc..ebb3b5dc8ebdc 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -373,6 +373,7 @@ void gem_ptp_init(struct net_device *netdev)
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
- 	gem_ptp_init_timer(bp);
-+	gem_ptp_init_tsu(bp);
- 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
- 	if (IS_ERR(bp->ptp_clock)) {
- 		pr_err("ptp clock register failed: %ld\n",
-@@ -384,10 +385,6 @@ void gem_ptp_init(struct net_device *netdev)
- 		return;
- 	}
- 
--	spin_lock_init(&bp->tsu_clk_lock);
--
--	gem_ptp_init_tsu(bp);
--
- 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
- 		 GEM_PTP_TIMER_NAME);
- }
+diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+index 94cfad88082f3..7d9158a3e7928 100644
+--- a/include/uapi/linux/landlock.h
++++ b/include/uapi/linux/landlock.h
+@@ -156,6 +156,23 @@ struct landlock_net_port_attr {
+  *   :manpage:`ftruncate(2)`, :manpage:`creat(2)`, or :manpage:`open(2)` with
+  *   ``O_TRUNC``.  This access right is available since the third version of the
+  *   Landlock ABI.
++ * - %LANDLOCK_ACCESS_FS_IOCTL_DEV: Invoke :manpage:`ioctl(2)` commands on an opened
++ *   character or block device.
++ *
++ *   This access right applies to all `ioctl(2)` commands implemented by device
++ *   drivers.  However, the following common IOCTL commands continue to be
++ *   invokable independent of the %LANDLOCK_ACCESS_FS_IOCTL_DEV right:
++ *
++ *   * IOCTL commands targeting file descriptors (``FIOCLEX``, ``FIONCLEX``),
++ *   * IOCTL commands targeting file descriptions (``FIONBIO``, ``FIOASYNC``),
++ *   * IOCTL commands targeting file systems (``FIFREEZE``, ``FITHAW``,
++ *     ``FIGETBSZ``, ``FS_IOC_GETFSUUID``, ``FS_IOC_GETFSSYSFSPATH``)
++ *   * Some IOCTL commands which do not make sense when used with devices, but
++ *     whose implementations are safe and return the right error codes
++ *     (``FS_IOC_FIEMAP``, ``FICLONE``, ``FICLONERANGE``, ``FIDEDUPERANGE``)
++ *
++ *   This access right is available since the fifth version of the Landlock
++ *   ABI.
+  *
+  * Whether an opened file can be truncated with :manpage:`ftruncate(2)` or used
+  * with `ioctl(2)` is determined during :manpage:`open(2)`, in the same way as
+@@ -216,26 +233,6 @@ struct landlock_net_port_attr {
+  *   If multiple requirements are not met, the ``EACCES`` error code takes
+  *   precedence over ``EXDEV``.
+  *
+- * The following access right applies both to files and directories:
+- *
+- * - %LANDLOCK_ACCESS_FS_IOCTL_DEV: Invoke :manpage:`ioctl(2)` commands on an opened
+- *   character or block device.
+- *
+- *   This access right applies to all `ioctl(2)` commands implemented by device
+- *   drivers.  However, the following common IOCTL commands continue to be
+- *   invokable independent of the %LANDLOCK_ACCESS_FS_IOCTL_DEV right:
+- *
+- *   * IOCTL commands targeting file descriptors (``FIOCLEX``, ``FIONCLEX``),
+- *   * IOCTL commands targeting file descriptions (``FIONBIO``, ``FIOASYNC``),
+- *   * IOCTL commands targeting file systems (``FIFREEZE``, ``FITHAW``,
+- *     ``FIGETBSZ``, ``FS_IOC_GETFSUUID``, ``FS_IOC_GETFSSYSFSPATH``)
+- *   * Some IOCTL commands which do not make sense when used with devices, but
+- *     whose implementations are safe and return the right error codes
+- *     (``FS_IOC_FIEMAP``, ``FICLONE``, ``FICLONERANGE``, ``FIDEDUPERANGE``)
+- *
+- *   This access right is available since the fifth version of the Landlock
+- *   ABI.
+- *
+  * .. warning::
+  *
+  *   It is currently not possible to restrict some file-related actions
 -- 
 2.53.0
 
