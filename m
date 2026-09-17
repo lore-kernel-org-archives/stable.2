@@ -1,125 +1,135 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 72955369224
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 06:55:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAE63B38B1
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 06:55:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628126; cv=none; b=mKGzAA1xcd9IBz3PihrOQxaVUf1NxZPHwovniaK9xn4zMH1hvBnm6jY6zhPGFDAT9fGRwnlkPi+WFsUJUWDIUcqcqmMlLw88sV3TG8JcJ0GVCvcu2xhNpwNYjseuFS5ZNB+/QbpWVDYKECSwIj89oSF8feJGKBVUJMPF6j7ejSw=
+	t=1789628138; cv=none; b=Lud43q2o7IAQiqxI4MkIfVSqGli3mj72cykKnoxLqggUCvY1beXZ7ml/5K0nAPAAxtbe6vzBIAEdzBhOcFhxBzNNVWylAD727X8oy15XJLU/OFHjXgnmUxkkn8U0oiS1H28V/JfuSohsfgrsn4mf8LvCrD2m97ldlGVjBi+cySM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628126; c=relaxed/simple;
-	bh=J7emkB9A/GBF554pJGWYB0X8xAbrySJveNGfoOUE0tQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:Content-Type:MIME-Version:
-	 In-Reply-To:References; b=hv+0ei0XYP8c+t+ZfAgHOVdzn9dARnB8HA46r0cGSxkOv+79Y2s7lAl5OpbRdhVRFXkSP22oH7wqbOBXqXY/xK5uP1Ydj7Jk/TN4/U249+lIdOyUR7vBBEOjWiQ6y6SoIW4dx0jWo8QwuPGfprqt44SKD19WXjOq0I60zspGgzU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VYZN1wiy; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789628138; c=relaxed/simple;
+	bh=CS2cwFdXUqiLJJhG9B82sxQOgAkaZzVT0GzQwzD3wv4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AGk+AklIlBsobIr3IBVJ06kJejsvAqwUJ2/lJJBXazyOVucjYnesBzl9kTZLiEz2nlIPsU7Z56cbqF41uxc0jdjUhRhsvgJYl25VrDX2CUV3XAe7rW1aY95ApssvDx4UuAQlO/yC2oB7qbOw307ordvTRRE5ncjZpLPRMSQc/04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DpS/eJq8; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VYZN1wiy"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b9184fa80so408621a91.2
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:55:24 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DpS/eJq8"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so1718995e9.0
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:55:36 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789628123; x=1790232923; darn=vger.kernel.org;
-        h=references:in-reply-to:mime-version:content-type:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=CUm8IylK3V7lcVuZn2ulYwmszlPFrNkvTKkjAabL9nQ=;
-        b=VYZN1wiyohjDlcQ25L1rn159eGo7efw2phuqsRnsVuJvahr1E2mHo+JIQoR2g3NDdW
-         YPST6Z82S4IybDmJTUZEDawHg2tcaCqUTSZfAlaVQToXDZvzH+pUGlac3bcCgvHilGrw
-         thv6nP0m0QUz4wClCxjC+T03vEg+wzKo7vGXnHe0UFUWo1BpbulXb6VZGWPaGlOm/Y7S
-         aBdFjQkOlmPHMT0KxEBxXIg3Ec3Z8AbCiRWWslWlRFdh7ft0aGHkMN0BuOo8bgp89XTH
-         0GMk8RcEVh895/T4DgzXDvEctJWj3h1Yr8B49Gd8II7NUHHXzVMUS2NSGoy8uJlm1mnk
-         sxsA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789628123; x=1790232923;
-        h=references:in-reply-to:mime-version:content-type:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
+        d=google.com; s=20251104; t=1789628135; x=1790232935; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=CUm8IylK3V7lcVuZn2ulYwmszlPFrNkvTKkjAabL9nQ=;
-        b=YaC0JtMUt7BeqaIhzpRWMlVcPBkyxUABTGwbMnF83ZAcosMMSbnJR+HHInfSlerS+y
-         F95Q+aZ0sXuEKDYKv+mfl88bjxE1BT9qdQrorGpcwmNx0SKaUCl9tsWPiFzzLX64K4io
-         CqBnWNVs49l+tdZmE+JMZjEFoL++NAz60ow7VZ0zX23HCyvooHNyHnJQoG2/B2p4n75c
-         aHkDLxXtevYqi0zoPqnmsvl+9eN3+ptyuJ3EWmJXEOsGjLLluemi+EtZ4hqfx/HyqxwS
-         5zR7aFtkIBKHPnTK50L0qVI1jF05oLggqy42amcPS3+VyvQKqVdTduAw+9DcHIIzjikN
-         h4qQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzSw0crze2auRFrX4ykskVfVF/oFQbH0nnOOkTQ/wTu/oeprjubKhsSi01E5iO6VZHZ+KgN2vY=@vger.kernel.org
-X-Gm-Message-State: AFuF++kuJdbMYiAN9O8FzpKUJmoy9TGc0rD0wrRabggVWqNdWsDUFsfY
-	2YGvbEGJFc9KcuCzxAtkR7LlK7X/dtD1bQtjMRJnfYyVFlUp+dEF3eiX
-X-Gm-Gg: AYBFou1cQipwl9q4PUKihI3WUL1Z7SBTu3DtPx6t+aHWCBt2SN5X0QjcA3U8Na9KisA
-	6JaMJxRY1QqPFiNi8b2R8/BWWg1njWCSDT+NwKx4UsQ0hP1kCYTGGH/B/7YSqkHjIL8QxdhFzXT
-	SOQ+WFOHjBt8DL7ZGNebGBSYgGMUimWvqadBVjgW3v7DoDMVzef0MgK7anZp6IQ3WTXvUXE72ri
-	3xDdx/Hi0KYwyBkfNUzxOgAUqhBn2grhKjwt0tngiYKgu/JMmOHp/71wimbu1q4JJpa4+5hqRGc
-	r9e6mKJDRGStMpBcNShwVklyjJogUGakI7/52rGX7Ywu7153Czgtinkwj3xT4msCem4FfuwMf9a
-	70yvB8+m7I0tb1IIl5XiSHzJx++++58+EqDpPq+XLKQRpFsLmikeuL18VsQUhidE+78lfJ84thR
-	ZO1CDn8VFpg3sECGEA5BQAg8WucPkOa+RqYlwAPwWJRPix30Z2Oo0gwIBLuFDb3wt8H5tjxq04g
-	k0=
-X-Received: by 2002:a17:90b:4ece:b0:39d:ba21:fd90 with SMTP id 98e67ed59e1d1-39e1e491176mr18804302a91.16.1789628123381;
-        Wed, 16 Sep 2026 23:55:23 -0700 (PDT)
-Received: from [127.0.1.1] ([47.253.114.73])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e35def1f2sm3334653a91.5.2026.09.16.23.55.11
+        bh=30cUCuKfgfqmVMRq8leKktvsIG+ddt8eRO9Ay65U310=;
+        b=DpS/eJq8R5txoU+RHSEOI3RxJDzcL/t1LE9cAdXUBhg5DrJj7MX1/b0uXgIobQRJAH
+         zm4N7vxDBI0vaEkVXaWwPI0N++USG8+U+PQsB6DT5TG7WX6z3TBrB4WHk82A/dodgjsV
+         6Kbv6HRlXlmAoRsAET+KNFOhkwUHlz7uT+UeRF4A8lLh6VmxLt+70naEBjDmZl+hZnA2
+         42kFdEWnqMrLvsNowyHf8nP2vXuCMQtDdra2oToSyRNgFekGeEyhxwPSwGcCeluaqJ+o
+         35cRKlJxL8MymA2YtSzvNAJI1I/aREexMr92N7CFQGz20I5nX/7TruS06jF++ax11Fnq
+         vfjw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789628135; x=1790232935;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=30cUCuKfgfqmVMRq8leKktvsIG+ddt8eRO9Ay65U310=;
+        b=YZYmrwY5Bxqr4zBu25xV3xyiGOoR7yubAyg7syDnxzzyia2VjslCwHCOV3dK1QplHU
+         5BQNy2O635R/IyRPDDB6rTfmGX1L6G0fInuy7iq6nZZU1zQwHVjZxGDKsFWOdqutMRot
+         6UVkAnxQ2lVKcaiJxW7fFCrp5hjXf4ODaq3NTUgOGRTqtfZ8GWhPtIqOsm6SXTSO89vK
+         xZ0GEf6wYuAYEI+QJZWNxw7y2V6JdNEczxDZCStayFggo+ygPEJTlWyXlVhjIF92RPuD
+         xWznTxYzOa9WRaZRfdA1qZ3/V6sxutBTX/6FrGR8WoKr1AUS0Rc10i7hEsuNjq2vaKiD
+         1j1A==
+X-Forwarded-Encrypted: i=1; AKwUvByDAvheaoBnkKEJ6f2Ixj3GbHnNQ+4D6RW8HRMvf561nvZRBNcprJ5puSG52crbo792sK31nHQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kfSZD/StaG0FND/oiSKTBZQZfpuP7yLUjRK6cRhF+fKrhKhTrg
+	TXTajl14TSDdr9VJmfALJIbp1qUU8wK/N8dL37W3+N0s9XB/6lIs+O04tOGdzdKRNg==
+X-Gm-Gg: AYBFou23irkT+E9gFWxPuPvjngSvZC+nWcMJ96Qp24vuBDm9hWUqf7Jf2uQgqiX047z
+	XdQDPc0SSsENo4bZZ5KwAsGWelOpEHD9nAu+7qsr0B3YSZ7RIhVVr33MNP+7gYm+5CrJOQ1CQ8g
+	m7rFWw047I2LtSQBbvf0tlq15HXWiYLA3tyqE41sUPVD1ES4Y+iJ1arVrKseaLHkR8cKZIHg6zY
+	pwC3KZwywkwSZWh6HQE5JKHjGlM3Wu56ZCsW14dM5RW2VUd53AE7u6cqEfcDVIjP3fwia+hl08x
+	HOjHmybI1DOcZKdZOOlCIYrYsegiR0YunHTAl5a3DRJqHHl4NW7hZkOHeC8oYlm6Of9V+KcN7PE
+	7PkzDjJMOjUIlTDArvCP7uROPg3ImEG15nPaTVbZpSDIb4C46SPqnVaZkL9IwVn67l9AgAUZNSl
+	ksGenWvrEHiwOrTA8KzH2jrZn6bhAARfRhD8+xcMS5DtfkX+F4J2XjLKyhhT94vpgLWbMzGMwjV
+	eXEw5VZrQd23sH1LB2ou/X6fAypoDNrQzKdusqXkJs=
+X-Received: by 2002:a05:600c:1992:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fbd1af43dmr28764665e9.3.1789628133837;
+        Wed, 16 Sep 2026 23:55:33 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd23a815sm54524765e9.14.2026.09.16.23.55.32
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 23:55:23 -0700 (PDT)
-From: Wayen Yan <win847@gmail.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Matthias Brugger <matthias.bgg@gmail.com>, AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>, netdev@vger.kernel.org, linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: mediatek: fix PPE resource leak on remove
-Date: Thu, 17 Sep 2026 14:55:11 +0800
-Message-ID: <178962811102.1264013.13698060411191875408@gmail.com>
-Content-Type: text/plain; charset=utf-8
+        Wed, 16 Sep 2026 23:55:32 -0700 (PDT)
+Date: Thu, 17 Sep 2026 07:55:29 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: David Carlier <devnexen@gmail.com>
+Cc: rostedt@goodmis.org, mhiramat@kernel.org,
+	mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2] ring-buffer: Take cpus_read_lock() when changing the
+ subbuf order
+Message-ID: <aquO4fKay-7zTBRw@google.com>
+References: <20260914182850.21449-1-devnexen@gmail.com>
+ <20260916192628.274136-1-devnexen@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-In-Reply-To: <20260916051618.2904439-1-lgs201920130244@gmail.com>
-References: <20260916051618.2904439-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916192628.274136-1-devnexen@gmail.com>
 
-Hi Guangshuo,
+On Wed, Sep 16, 2026 at 08:26:28PM +0100, David Carlier wrote:
+> A CPU coming online for the first time gets its per CPU buffer allocated
+> by trace_rb_cpu_prepare(), which then adds it to buffer->cpumask. If that
+> happens while ring_buffer_subbuf_order_set() is running, the CPU shows up
+> after the allocation loop and the install loop walks it with an empty
+> new_pages list, corrupting the buffer.
+> 
+> Take cpus_read_lock() as ring_buffer_resize() does.
+> 
+> Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-Thanks for the patch. Calling mtk_ppe_deinit() from the remove path is
-the right direction, since the probe error path already tears PPE down
-but the successful remove path currently does not.
+It is usually good practice to not link the different versions of patches
+together.
 
-However, I think the cleanup is still incomplete.
+Beside,
 
-mtk_ppe_deinit() currently only destroys the per-PPE l2_flows
-rhashtable:
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
 
-    rhashtable_destroy(&eth->ppe[i]->l2_flows);
+> ---
+> 
+> Notes:
+>     v2:
+>      - Reword the changelog: offlined CPUs stay in ->cpumask, so only a CPU
+>        coming online for the first time can appear mid-flight (Vincent)
+>      - Drop the comment above guard(cpus_read_lock)() (Vincent)
+>     
+>     v1: https://lore.kernel.org/linux-trace-kernel/20260914182850.21449-1-devnexen@gmail.com/
+> 
+>  kernel/trace/ring_buffer.c | 2 ++
+>  1 file changed, 2 insertions(+)
+> 
+> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
+> index 04bb94c29f58..e78fb4bb2195 100644
+> --- a/kernel/trace/ring_buffer.c
+> +++ b/kernel/trace/ring_buffer.c
+> @@ -7464,6 +7464,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
+>  	if (psize > RB_WRITE_MASK + 1)
+>  		return -EINVAL;
+>  
+> +	guard(cpus_read_lock)();
+> +
+>  	/* prevent another thread from changing buffer sizes */
+>  	guard(mutex)(&buffer->mutex);
+>  
+> -- 
+> 2.55.0
+> 
 
-This only destroys the hash table itself. It does not free any entries
-that may still be stored in it. In this driver, L2 offload entries are
-struct mtk_flow_entry objects allocated by mtk_flow_offload_replace()
-and inserted into eth->flow_table, and bridge/L2 entries are also
-indexed from ppe->l2_flows via mtk_foe_entry_commit_l2().
-
-There is also a lifetime mismatch for eth->flow_table:
-mtk_eth_offload_init() initializes it, but I do not see a matching
-destroy/free on the remove path.
-
-So I think remove should first drain the offload flow entries, using the
-same per-entry teardown as mtk_flow_offload_destroy():
-
-    mtk_foe_entry_clear(...)
-    mtk_wed_flow_remove(...) when needed
-    kfree(entry)
-
-and then destroy eth->flow_table and the per-PPE l2_flows tables.
-rhashtable_free_and_destroy() with a small callback would probably fit
-this better than plain rhashtable_destroy().
-
-While touching mtk_ppe_deinit(), it would also be better to use continue
-instead of return for missing PPE instances, so later PPE instances are
-not skipped.
-
-One more minor cleanup issue: mtk_ppe_debugfs_init() creates the ppe%d
-debugfs directory, but the PPE teardown path does not remove it.
-
-So I agree with the fix direction, but I think this should be respun as
-a complete PPE/offload cleanup rather than only adding mtk_ppe_deinit()
-to mtk_remove().
-
-Thanks,
-Wayen
-
+-- 
+Vincent
