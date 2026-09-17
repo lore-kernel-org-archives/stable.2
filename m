@@ -1,42 +1,46 @@
 Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E947E4C2265;
-	Thu, 17 Sep 2026 10:32:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24C94BD361;
+	Thu, 17 Sep 2026 10:32:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641131; cv=none; b=qtKMm/IECFlDU449QaElNPnskEMrJ6qKeqJMkWuYQMg/csbCukK4Xn78RnPhJPwwUEA9ZUKW4QRsxr4QwNeVbMMHh9QWwCSQ9AIUDlEzJljcoNySB1cCVH/MrCoVFRHvJhWcx7sHlYh13gF8MSpYGUfqmJsfOv9qbr9OB29Rf5E=
+	t=1789641139; cv=none; b=qP3fYKPDZtOzn1H5dOlHapk763UuUzzar8HC1fZNs7Oz9RjZRYcLyAGydhOk6We9cUH4mFEHbPqwo4OKb20hHSbNviw8b8udN3MVm/+vJyKvltVd2+1q5YIUOd0WhiVou7eVI5XoqIwBMXQCkMstaR6byPSP0rx/5Yr5Gy/MyOc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641131; c=relaxed/simple;
-	bh=J7IzSTzcbAW8tUvAwlOLox/7EhQXlW6N5S0aFC2A/Ac=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HYJCKl8GCxzz3ULF5h62j0E5emjbBEEnC+4E1F/dcL4ecLW6/1/rDsMkyCREyLpg1VGUaWAYPneH//1dDAv/MV3IEIYdOvXbSLner+V9MuL82DIYWI3xYkcMYUYq6rqbhA9mOhhNhTboyG+w/+FC7rZMYMig1jYZRiJLkOt6J64=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=E2037CIk; arc=none smtp.client-ip=115.124.28.170
+	s=arc-20240116; t=1789641139; c=relaxed/simple;
+	bh=E5u6pFOAMO/003GOJUov5E9oMgUUOX9dsqS294n/pvM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UfVs3EmSzdtObO6PGVF5fTMksHB82UnekzdvOGe2+s1vTwJzKOfszNoDc6cMXZE1qTk9BzcgHfO83CmdXCgdjpG5a/q5joOXyS0XC6k+G+rMGd175OX49/yYWcr+Csm/SuuArlM9Vcd3a7/lN78RCaF3vrdwH8jZTdno9npBJg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=FYcO+E3I; arc=none smtp.client-ip=115.124.28.170
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="E2037CIk"
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="FYcO+E3I"
 DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
 	d=xiaopeng.com; s=default;
-	t=1789641109; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=igroM6/Wnnesnam1veBe3z7L7Uq9BdvzbgCjNVnLJOc=;
-	b=E2037CIkuQO1IGQ+44lZOpjVTPo/gzPPYXjxnKW5f870J7tNyMbi/1i0zc1QQD0wlTtaxmqdkD0FQTmnzCZebhKBmOcO8gUEnQ6uOakIC+81wmwUUVPcDewIldEyApYbJmOCjGqFeWXjoPNqo7UI9MvXCKdh0pV4jLRfIIUrNFg=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.2691761|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.00108014-0.00179103-0.997129;FP=10402610938895811888|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037021217;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=9;RT=9;SR=0;TI=SMTPD_---.jFxIJ2U_1789641107;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFxIJ2U_1789641107 cluster:ay29)
+	t=1789641128; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=92DqYzsY5tQw8zrK7ygfUYU1Rl0yvZP1MFAZ/+j1d2Y=;
+	b=FYcO+E3I4dCg0XWVrTf5qHdgm1PgOnrnOcSj0YC2Lxm379gpfFHlzAtbCOc98A5kwnRAzuPcpu6+rAtofY03FMmZbliL1fhwM+ayPRF3YUb7AVdCIQSMzNzn3NE02qQxYz8H4n7jgrMKJ6q++DbsbEN43amxGJKvQ9vi9sfHXyY=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0743678|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0333185-0.00133189-0.96535;FP=10121135997339731664|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jFzyINx_1789641126;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFzyINx_1789641126 cluster:ay29)
           by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 18:31:48 +0800
+          Thu, 17 Sep 2026 18:32:07 +0800
 From: Liu Chao <liuc63@xiaopeng.com>
-To: peter.chen@kernel.org,
-	pawell@cadence.com
-Cc: rogerq@kernel.org,
-	gregkh@linuxfoundation.org,
+To: neal_liu@aspeedtech.com,
+	gregkh@linuxfoundation.org
+Cc: joel@jms.id.au,
+	andrew@codeconstruct.com.au,
+	ryan_chen@aspeedtech.com,
+	billy_tsai@aspeedtech.com,
+	linux-aspeed@lists.ozlabs.org,
 	linux-usb@vger.kernel.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	liuwb@xiaopeng.com,
 	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] usb: cdns3: validate endpoint index from setup packet
-Date: Thu, 17 Sep 2026 18:31:45 +0800
-Message-ID: <20260917103145.3047850-1-liuc63@xiaopeng.com>
+Subject: [PATCH] usb: gadget: aspeed: clamp transfer length in RX completion handlers
+Date: Thu, 17 Sep 2026 18:32:04 +0800
+Message-ID: <20260917103205.3049861-1-liuc63@xiaopeng.com>
 X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -46,51 +50,61 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-cdns3_ep_addr_to_index() computes (ep_addr & 0x7F) + 16 for IN
-endpoints.  wIndex is supplied by the USB host, so ep_addr & 0x7F can
-be up to 127, giving an index up to 143.  The eps[] array has only
-CDNS3_ENDPOINTS_MAX_COUNT (32) entries.
+ast_udc_ep0_out(), ast_udc_epn_handle() and ast_udc_epn_handle_desc()
+read the received byte count from hardware registers and add it to
+req->req.actual without clamping against the remaining buffer space
+(req->req.length - req->req.actual).
 
-Both cdns3_ep0_handle_status() (GET_STATUS) and
-cdns3_ep0_feature_handle_endpoint() (SET/CLEAR_FEATURE) pass the
-unvalidated index straight into priv_dev->eps[index] and then
-dereference the result.
+When actual reaches or exceeds length, the subsequent DMA has already
+written past the end of the request buffer.  Across multiple short
+packets the overrun grows with each completion.
 
-This is the same class of vulnerability that was fixed in renesas_usb3
-by commit ee0d382feb44 (CVE-2026-31615).
+A malicious or malfunctioning USB host can exploit this to trigger a
+heap buffer overflow in any gadget function (e.g. f_mass_storage,
+f_fs) layered on top of this UDC.
 
-Add a bounds check against CDNS3_ENDPOINTS_MAX_COUNT in both functions.
+Clamp the received length to the remaining space before accumulating
+it in all three RX completion paths.
 
-Fixes: 7733f6c32e36 ("usb: cdns3: Add Cadence USB3 DRD Driver")
+Fixes: 055276c13205 ("usb: gadget: add Aspeed ast2600 udc driver")
 Cc: stable@vger.kernel.org
 Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
 Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- drivers/usb/cdns3/cdns3-ep0.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/usb/gadget/udc/aspeed_udc.c | 6 ++++++
+ 1 file changed, 6 insertions(+)
 
-diff --git a/drivers/usb/cdns3/cdns3-ep0.c b/drivers/usb/cdns3/cdns3-ep0.c
-index e29989d57..76642eaaf 100644
---- a/drivers/usb/cdns3/cdns3-ep0.c
-+++ b/drivers/usb/cdns3/cdns3-ep0.c
-@@ -251,6 +251,8 @@ static int cdns3_req_ep0_get_status(struct cdns3_device *priv_dev,
- 		return cdns3_ep0_delegate_req(priv_dev, ctrl);
- 	case USB_RECIP_ENDPOINT:
- 		index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
-+		if (index >= CDNS3_ENDPOINTS_MAX_COUNT)
-+			return -EINVAL;
- 		priv_ep = priv_dev->eps[index];
+diff --git a/drivers/usb/gadget/udc/aspeed_udc.c b/drivers/usb/gadget/udc/aspeed_udc.c
+index 54f81e668..53f6218b4 100644
+--- a/drivers/usb/gadget/udc/aspeed_udc.c
++++ b/drivers/usb/gadget/udc/aspeed_udc.c
+@@ -793,6 +793,8 @@ static void ast_udc_ep0_out(struct ast_udc_dev *udc)
+ 	req = list_entry(ep->queue.next, struct ast_udc_request, queue);
  
- 		/* check if endpoint is stalled or stall is pending */
-@@ -368,6 +370,8 @@ static int cdns3_ep0_feature_handle_endpoint(struct cdns3_device *priv_dev,
- 		return 0;
+ 	rx_len = EP0_GET_RX_LEN(ast_udc_read(udc, AST_UDC_EP0_CTRL));
++	if (rx_len > req->req.length - req->req.actual)
++		rx_len = req->req.length - req->req.actual;
+ 	req->req.actual += rx_len;
  
- 	index = cdns3_ep_addr_to_index(le16_to_cpu(ctrl->wIndex));
-+	if (index >= CDNS3_ENDPOINTS_MAX_COUNT)
-+		return -EINVAL;
- 	priv_ep = priv_dev->eps[index];
+ 	SETUP_DBG(udc, "req %p (%d/%d)\n", req,
+@@ -865,6 +867,8 @@ static void ast_udc_epn_handle(struct ast_udc_dev *udc, u16 ep_num)
+ 	req = list_first_entry(&ep->queue, struct ast_udc_request, queue);
  
- 	cdns3_select_ep(priv_dev, le16_to_cpu(ctrl->wIndex));
+ 	len = EP_DMA_GET_TX_SIZE(ast_ep_read(ep, AST_UDC_EP_DMA_STS));
++	if (len > req->req.length - req->req.actual)
++		len = req->req.length - req->req.actual;
+ 	req->req.actual += len;
+ 
+ 	EP_DBG(ep, "req @%p, length:(%d/%d), %s:0x%x\n", req,
+@@ -944,6 +948,8 @@ static void ast_udc_epn_handle_desc(struct ast_udc_dev *udc, u16 ep_num)
+ 
+ 	} while (i != wr_ptr);
+ 
++	if (total_len > req->req.length - req->req.actual)
++		total_len = req->req.length - req->req.actual;
+ 	req->req.actual += total_len;
+ 
+ 	EP_DBG(ep, "req @%p, length:(%d/%d), %s:0x%x\n", req,
 -- 
 2.50.1
 
