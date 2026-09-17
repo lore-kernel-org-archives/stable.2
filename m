@@ -1,108 +1,86 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B3E4ED185;
-	Thu, 17 Sep 2026 16:09:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3F9E44E5335;
+	Thu, 17 Sep 2026 16:09:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661385; cv=none; b=izrw9IAWm/60/KWXJxQhc02WS8PLEpwz0iznmzeHUoKo70VPaOvx2vu6fwKcL943D+JBfekzJx7bmBDRg/hmO/DTn+W+PRDaqne+ZozPNAfcypD4OZjgCYpRdUWiSmf8RSF97MF7HPRoH4via9Lh14CnQRKDTm8/F5SolwH5zVw=
+	t=1789661390; cv=none; b=Gx20iKynJ95I+zoTwZrJVOTQ6JI3ovvrhaBkx54fJgQIz3ep3Ohse7r3g/zqgeJF1tGsS9P6XiX1TfGnMcSLPUf6kzmoYjhU2cTzsO9EnpCVolQyXW2cY6SnDb+e6o43rZ3l/UMV1JRDoXZGHq/rEc7HFFIz+ICJz+bJpKD+qzM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661385; c=relaxed/simple;
-	bh=y5azVuUQo0EKF38LkZBCTZ34UL5VDnoxn5clT/4I1jM=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=k8Bg9NA8+5oDaNOjU1UPyrWzdty7wF92ieRDFF89PKtUg0CXH939MiM8olam9/dkDUwLS1IxVxsvDU2xmn2wOASh+l5nJiSaLT4+Jd9FJf4ifesf6OGC9A7AscqnBDpMnupDwReuRzfM9ky1SfY/qOM9H8Fbz9lSkCRxOBpAWeE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NLYO0Hfc; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NLYO0Hfc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14001F00898;
-	Thu, 17 Sep 2026 16:09:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789661384;
-	bh=kr5LGH29uDKquRiQJXiJGsHjLAXb24yTBoZUaAV3cJo=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=NLYO0HfcQp1DARE5KfoKBObCkPc/3sDlDJIXN08teLGPNvzNzIQQkbzmbL8rN2kPp
-	 /qKUUng5fwkeqdh6SvjbcXEka2CaJL/UKxW4HlJJOFPCMgoBTu2X6EBHDubJGdEmbZ
-	 epd97epfWyCRtUF5kN2t1AQJOE7Wc+KPHCD/14y8=
-Date: Thu, 17 Sep 2026 16:21:48 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Adarsh Das <adarshdas950@gmail.com>
-Cc: dakr@kernel.org, driver-core@lists.linux.dev,
-	linux-kernel@vger.kernel.org, rafael@kernel.org,
-	stable@vger.kernel.org,
-	syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com
-Subject: Re: [PATCH] kobject: fix uevent socket use-after-free on net
- namespace delete
-Message-ID: <2026091753-bootleg-manicotti-5c1a@gregkh>
-References: <2026091756-widen-doozy-399c@gregkh>
- <20260917151830.89024-1-adarshdas950@gmail.com>
+	s=arc-20240116; t=1789661390; c=relaxed/simple;
+	bh=kOhxTu0JtznoHG97ZCyaU49bLhLPqMOmAJHA+Lh+Ntg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Nib7GAqC1NHmrr5SUFOvHLSj+iQ0lO2wqM61nznpIjb4eB/okmN35+OMD7CuwzGqPm/hv9pAYVA9OpnyzRfoZfTRt1ojEHjwBpnrETW6g339AW2vIJjyXAj/BuTmHFwG1HG8ejSWeqbkNLwyagmeHauuLpg62tcQV0AtVpPr1HE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHdkDHEKxqTi+ECA--.153S2;
+	Fri, 18 Sep 2026 00:09:43 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	pawell@cadence.com,
+	peter.chen@nxp.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: cdns3: cdnsp-pci: Fix PCI function reference leak in cdnsp_pci_probe()
+Date: Thu, 17 Sep 2026 16:09:43 +0000
+Message-Id: <20260917160943.2161796-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917151830.89024-1-adarshdas950@gmail.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHdkDHEKxqTi+ECA--.153S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Wr1rXr1fGr45uFyDCryfWFg_yoWfKFg_uw
+	4ru3ZaqFy7uF9rKw1xGryavrWIk3ZIvF1kWa12qryfCFZIkr1kXry3Zr95G3W7uw48GF1D
+	Kw1vgw45WrsrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbskFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
+	jsIE14v26r4j6F4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
+	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjfUY9a9DUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcNA2qr9tg91QAAsJ
 
-A: http://en.wikipedia.org/wiki/Top_post
-Q: Were do I find info about this thing called top-posting?
-A: Because it messes up the order in which people normally read text.
-Q: Why is top-posting such a bad thing?
-A: Top-posting.
-Q: What is the most annoying thing in e-mail?
+cdnsp_get_second_fun() returns a device obtained with pci_get_device(),
+which takes a reference to it. The error paths release it through the
+put_pci label, but the successful return does not, so the reference is
+leaked for every successfully probed device.
 
-A: No.
-Q: Should I include quotations after my reply?
+Release it on the success path too.
 
-http://daringfireball.net/2007/07/on_top
+Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/usb/cdns3/cdnsp-pci.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-On Thu, Sep 17, 2026 at 08:48:30PM +0530, Adarsh Das wrote:
-> Hi,
-> 
-> Sorry, I wasn't aware of the Assisted-by tag before. Should I send a
-> V2 with it?
+diff --git a/drivers/usb/cdns3/cdnsp-pci.c b/drivers/usb/cdns3/cdnsp-pci.c
+index 566d94e49102..061a2c43e986 100644
+--- a/drivers/usb/cdns3/cdnsp-pci.c
++++ b/drivers/usb/cdns3/cdnsp-pci.c
+@@ -162,6 +162,8 @@ static int cdnsp_pci_probe(struct pci_dev *pdev,
+ 	if (pci_dev_run_wake(pdev))
+ 		pm_runtime_put_noidle(&pdev->dev);
+ 
++	pci_dev_put(func);
++
+ 	return 0;
+ 
+ free_cdnsp:
+-- 
+2.34.1
 
-Please do.
-
-> For testing I ran syzbot's C repro with -smp 4 on master, with
-> multiple parallel instances of the repro. I was able to reproduce
-> the bug:
-> 
->   BUG: KASAN: slab-use-after-free in kobject_uevent_env+
->   Read of size 8 at addr ffff88800fa7f090 by task kworker/u16:5
->   CPU: 3
->   Workqueue: ib-unreg-wq ib_unregister_work
->   Call Trace:
->     kasan_report
->     kobject_uevent_env+0xc71/0xd90
->     device_del+0x7c7/0xcf0
->     disable_device+0x1d2/0x260
->     __ib_unregister_device+0x26b/0x400
->     ib_unregister_work+0x19/0x30
->     worker_thread
->     kthread
->   Allocated by task 498:
->     uevent_net_init+0xe5/0x340
->     setup_net
->     copy_net_ns
->     unshare_nsproxy_namespaces
->     ksys_unshare
->   Freed by task 63:
->     kfree
->     ops_undo_list
->     cleanup_net
->     worker_thread
->   The buggy address belongs to the cache kmalloc-32 of size 32
-> 
-> With this patch applied, I ran the same repro repeatedly (including
-> parallel runs) and did not see the KASAN error anymore.
-
-Did syzbot also test this?
-
-And I have no context here at all, sorry, please realize that some of us
-get 1000+ emails a day...
-
-thanks,
-
-greg k-h
