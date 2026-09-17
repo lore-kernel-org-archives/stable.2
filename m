@@ -1,132 +1,157 @@
-Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DB74D1790
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:15:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672526; cv=none; b=RmKt2pAJV9s577ja78wXkNzSCEpoDoroBCrGkJCni36O8uOudbl7c8SuE87GEEZ/OKTpKzHoOKpkRsiHOtUg/amSqfV1/XoT3EuzGm5wPakI9RvxGxjN4Ue8Z5d0k59VySr51e69YAOyF1+pxxavxfRVqlI1pcbR8VHuk7Koz6s=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672526; c=relaxed/simple;
-	bh=suehwzQIugL8LAVRtlroYOOn+Zi38wpItFbk8gGbq7s=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TDGaTte9nZMIM/RMjObdWZbnF4zEsg2LFB4eaCE+Qbu9XF9ooxV+lpAt4LuV15pFFRpNFw17Uz2Of3HgwMh9wljHTinzxkwqSG2Sd7U/vcA/VrWwqT4XYZknrAgTy/ksXxxyG0iVN0Gz4d093gTG529rmcBd+hlbE1hZcy9VPcg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tgg/id1m; arc=none smtp.client-ip=74.125.228.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53383DFC80
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:19:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=185.125.188.123
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789672776; cv=pass; b=PLXEqt1Lombmlw90NGihkzmMPoRPkNrFaZhbTzF7GmLDeLHufxxg97rPVr6KZq28oPwpC08go7fLCdZvnLjgyUgTO3IPmFFx2oBAEu+cgvbkjB0hcYO6/z7iq+5psBhlxioLA8GVnNFf/w2HAIamGaJ/tYwTlUtXQcjNhU0uAlU=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789672776; c=relaxed/simple;
+	bh=vg/HnBjL6ui8rIqhl2mHTCgUWM64HScF5/iWIe/ShIE=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=qfvxfHLUpOyyY+MSbA8lb1ww8FnUukr8mEhrYmAp53Oiv0vgtYbctkqQQKE5/pNnOESM42GUL9n8fmX27LQQdrBBW8U3auzvfJDFytiljNbUYBXoHJPJ9+tcsg4GgUrGkd5x/bz78fMxCXf7TxOY1J9F/W74Ja24CJfvJjdv3UI=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=nLybyOiJ; arc=pass smtp.client-ip=185.125.188.123
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tgg/id1m"
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ff2313so85250966b.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:15:24 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789672523; x=1790277323; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
-        b=Tgg/id1meL8mItMN9eOYqFDX3HbeBfUMX9wfGUGE4gXXuHW7Sd7RspawlIqsOoot/h
-         Y1zVXiNMmPLJcmDGkdivISkimm3rHbu7Sak9yPclDZq6S/3B21suklFr/jIQm/uZCerB
-         vgJCt6QJgtYJ6Sz8dos8ZcijA/vmUKL45t7KxNjvdU9Jeuzp03HNtkrLUT4Xl1z9FBZO
-         Si1Mw8Q4FTT6tEWS0zML9tEk7xi7Us6hu7G47X9uEoEwRYlQtvtXLMEn+GLd2mrDfrJz
-         yBy31XeQFSHKUjLwusfsgpAr2O/Nq+01TT1ewJDtmdPLam9fCZQUr4y4JAeJ51FORtSA
-         Ru4Q==
+	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="nLybyOiJ"
+Received: from mail-ej1-f70.google.com (mail-ej1-f70.google.com [209.85.218.70])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id C5C4F3F98E
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:19:26 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
+	s=20251003; t=1789672766;
+	bh=9ZQkQJ8DBmzRmP+IXbsxhfErJtZ6ER/ycldjmLcGGe8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type;
+	b=nLybyOiJ7SKhwDnpnmvhMCEFIaInDvUq8COaa8Wp+wRRI4aOKLDA+6lnwYzawaCj0
+	 LkF3zgmWRAgiG5ZOkoCJav5IlSDycklo3IyplmPXxmisalPOVcreZibfdoe+fNSjgK
+	 7BcebBbr5R6XlMUJ9BJa+yI8eSLSOyS91NyC8yOv+HALineqoU2m16mkWmy7t1BoQf
+	 cF/fI9WEomcqcXhKjhvHUgQQ1apEfSgizZF01mc33DYOeh3uEAqKP2qwvJkaioVJ4y
+	 fHBI0nfp2UYZSG1QYzrc5P0leByRPN92yIfCqLZ+pO09ecMx0Q47qdctZ0tAB8dv3Z
+	 febwGU8Kmz0AOeBUyXSZF+8Vtp+SMkTlC66xBIrCcaBZYc3OvZxbpv7ARCgn8apbFb
+	 4ADmgxLS1HTkh6V8OI3mMxWlmPxvtxlCTwpPpV8h+ati2+k5fqCc6Ua/DcdTHfcKbs
+	 mIFa6F7S4vu4NkZG5qYnB30mMx1X+5FdXL8aVu9ZwYzr2Ke/cWow1WbEsfUpugvLgw
+	 V4g7hTYvTwvxrBFqfT8eM7pGYJjKOzjNOpRN9O3AAUVbL0/9pK5Ook5QxwBGOGlmhC
+	 +baUGAsZQZKxIx/TJDIezTUUfAVEuYPPQD3sPht9ZfQtLI8DcEXZEsGazpGvKex0+B
+	 A/q/Hl+hZC+43aAv2s2NrNY0=
+Received: by mail-ej1-f70.google.com with SMTP id a640c23a62f3a-c29386c5fd0so166879866b.2
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:19:26 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789672766; cv=none;
+        d=google.com; s=arc-20260327;
+        b=Y0XKiOXLdFQeO3XFjWO1PbiVIxuOCDcL6D39W3VDInFAPZX2pvBBNxTiBSfeB3OKeU
+         hWL5bj3oVSFD7JOAJKAvDEZ7DrIr+3kYvR6CQ7C9tVC0FlHpqEFdrcuDJhGyN11/d1JO
+         iQNd/2X0hHuWscvUhh0Tzr/2O/g/U4U4w92VLOmwAPgW8MbkWn/e0rdXVoR8cdSePvTY
+         4Fl2ttgaewHEhSHvbo9cm78Ns2nAtaXLe6GdhkMlmnecCeQ9tccmS7gbNFVgjGaBgJAk
+         yM1cUGc9gW693WuVCO8qnUtX/+yNv1iKEwW2N78TMsf9etnWcUu5m0e6okZfuJzepwUn
+         fzww==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version;
+        bh=9ZQkQJ8DBmzRmP+IXbsxhfErJtZ6ER/ycldjmLcGGe8=;
+        fh=/16Sz1MZITUUhpPjv/3QHq8mz9DDeknu65erElxycPo=;
+        b=cY7yeBUYMagNiDjpMkEFxrTDwHsUFYaqrTPFFCq4E/g/+dPZnwtV9ngjgihUixYnu3
+         pBno1iSW47vlsLfG9+iqSV3PsFXRKKAdiH5ScUzCnERyiqjGU0CEboe/axicts1iQ0kx
+         w796y1n4VcPC2C/fp0iUj9ZpcSa3BwhVZoFYpeRbFYMQLKi4mbrRpN+rzxjRtV0es8W+
+         L1SaFF0liRKIS86+j5Abbgg9KtZLYmDusI74iX6dSfx6wSepeNpztPj5SDpkpiOas10+
+         IoqYXC5jOT2ltSqfpzbKwxIWq3j7aQXMXA0XVMh/+qwWqrkNWthMPYB3Z8PP8PhSb5nG
+         aU9g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789672523; x=1790277323;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
-        b=tQ2Xyjsf/vEGUgXS3K1+aXOwFS80sFoeaZqrzuT+b2JCV695q2pMQ4ojpCDEq/63/v
-         WPYpfuMhg7OHOThyyvDtytoQcHri7x+Evzg1dSnUN59fjA8ykfZGWv92PaZM9Vk6s5IR
-         +LmaA3IZqRQzxdE2LzFJQSD592iV+RsFAMI33IbfI46p2sI4cyI/g++b3tmXOKsj0IOD
-         zRlUvyVDzJiAHxpPwLHlZKepxM2lULDztMUskXY8RWBROv614g1qmH+y06kM6y1t0bYa
-         Ix5460XKrYySZaGfk8viUCxNJuY7q0PERcWmr2xZHsLY7q94I+7vkg6WAm3+tssU9+mp
-         wXAg==
-X-Forwarded-Encrypted: i=1; AKwUvByBGaByNahny/HumD0+2rZeM8lapM90eOpwPsd+A+RdIFCel1ODNt2YSh1Gyo+LVY9iIICAMgM=@vger.kernel.org
-X-Gm-Message-State: AFuF++l+uYtIVkJoiJNObDh0NZ8YqgzgAu1J+gFGyj8ET8J4yimvB9PQ
-	/ssEjbrobWEHcGmvLxbdVOTej4KqvDz0yhuvXCmiKTqv/CWUlCTUOekM
-X-Gm-Gg: AYBFou00hIAzg1u79x7UY1MbGb3L2unaL9F56PPDjukmhQadPVEioVTkzXmLCnNOOcY
-	/gFst4h9ENNnrQ0jxO1JGCKKPczdq9fku3xo+fT6jRb/fGDPW8Dxx9aqJnpJugUsCSV8b58PqSS
-	kV2vOAljkmsIlDiybOyHuumwGn/b9nv1pUE8Q6oc4RKVZetPI68GGC151JjnKHbnw+gyBMr4htI
-	NaLAJZ+dOvZSoAwFnK4mniQz08YiK3tfR0ohamleGWydi3l1SubWY7q9hx2S4jmmApA/SzvUuZc
-	E71VEz4psgx1x31399QuTe/Oe0o3P8wydWTuU1IK9XNYBzFDJaH4uTPRiAcZlnmyeb7hEMKJq8C
-	50Tp/gHE8bEVTmYcO6wBVHv8pqpLnPaY/N878rJe6eh4P/4pCG+VM+zngg5xhOuy6Z14kawnyqS
-	mgkQnl54e6Nhtv8MDIpqS79olapaR5jnbk8bqSJvqXgvH9K7ikrTH47dhKXSW76/q92VQ=
-X-Received: by 2002:a17:907:9703:b0:c24:6382:2648 with SMTP id a640c23a62f3a-c2a16403e1fmr9238266b.5.1789672523059;
-        Thu, 17 Sep 2026 12:15:23 -0700 (PDT)
-Received: from cartold ([77.213.69.61])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de454b4csm333264166b.17.2026.09.17.12.15.22
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 12:15:22 -0700 (PDT)
-From: Theo Andersen Carton <andersen.theo@gmail.com>
-To: alexander.deucher@amd.com,
-	christian.koenig@amd.com
-Cc: airlied@gmail.com,
-	simona@ffwll.ch,
-	kai.heng.feng@canonical.com,
-	amd-gfx@lists.freedesktop.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Theo Andersen Carton <andersen.theo@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a switcheroo-parked GPU
-Date: Thu, 17 Sep 2026 21:15:12 +0200
-Message-ID: <20260917191512.38838-1-andersen.theo@gmail.com>
-X-Mailer: git-send-email 2.55.0
+        d=1e100.net; s=20260707; t=1789672766; x=1790277566;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=9ZQkQJ8DBmzRmP+IXbsxhfErJtZ6ER/ycldjmLcGGe8=;
+        b=Sp3N3OJTq+e5GZt/KBS2rqpSfLtn+G/Z80KI/bcOtbDx5RjstRT+NK9AdISDZFYprG
+         bcDbfZagmILRo7yXUHCPv5hj54iBfEETbrmuem/KQiTW+MnOVcVdnVinLx/Svik//pof
+         8SeIN/iBU8soHaqAAn2zK6870cGuJHmqPLo8XAivth736XDNa5ptAczOH4c7L+b+knwX
+         068+4Sgu9pHabOz0aC75ILuD0xLs20j1H5UQlTkliteoIvmuapL4o68IFMpX6kAgBsyo
+         JUPpYmDWI61833lZ/NnNpt7HeTw2NtkqZhtAh0o4pGLKclyMMYnR8lazVASfqvJpX2Of
+         dyDw==
+X-Forwarded-Encrypted: i=1; AKwUvBxyyHO2J+g0x36XxyXnLOs7SwcEhHgYS2XXDYjrTALhf1M+vx+bsnnOk4ZNNxI4gj8jupvvt5w=@vger.kernel.org
+X-Gm-Message-State: AFuF++lbntNCfxg+voxRp/qf5JEKoCyIdcSmYSj2oGFf0SoxGelVJW/o
+	Dwxq/r6aop1rQ72tM98l6VjTqC6l78Rhf8cjGeEZDY/MSZrqlAnbSuhuR+8VDrgbNvRmNdb8vVg
+	ij7MNiLXy+GneNCitiU38icGht1EvsLUGa8lPXHW+P4TEM4QRWCX4p3vay941wsXQqLbflVO59A
+	8Zd9Vt+VygXqH8XxgpXTTMax9gO8dPCGl7vxXKz13QRgm506r+
+X-Gm-Gg: AYBFou0swTCYyESgZcOJrD+za7De4bZ0KcAttWyIyuy/8vRc4HMgktzB1P73eIZGgbB
+	DZqTkAC3Jmgz6/P0N0iJjv8xQN3NxhUpOuMOgdWAcm2zEn8R9OoR/KNOGG2pzrsjwZI/9Zramz5
+	80AL49UJNhThXbY3hzvQYp9ROmn+68kwcbiG5X0hhSgMLBoyQIY8Zs6GtetIMMbVzFYgkEL+kMJ
+	HJzUTG2rYARP/2T4y7bfeIWkhig8TWaS5Yvw4xVxqQ=
+X-Received: by 2002:a17:907:d07:b0:c26:1691:b374 with SMTP id a640c23a62f3a-c2a15827d9fmr13365066b.45.1789672766388;
+        Thu, 17 Sep 2026 12:19:26 -0700 (PDT)
+X-Received: by 2002:a17:907:d07:b0:c26:1691:b374 with SMTP id
+ a640c23a62f3a-c2a15827d9fmr13363866b.45.1789672766071; Thu, 17 Sep 2026
+ 12:19:26 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260917164136.2162858-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917164136.2162858-1-vulab@iscas.ac.cn>
+From: Ryan Lee <ryan.lee@canonical.com>
+Date: Thu, 17 Sep 2026 12:19:12 -0700
+X-Gm-Features: AcwNN1Wzvx_67694p1o28AQ7birKEsyjcvTFnAQ2BuPeUqdnKMT1U0VxjCdP-Ys
+Message-ID: <CAKCV-6uui82r4U3+ab=2ZFQvGQYnxfhYMHJNzLim-HEw6pRp7A@mail.gmail.com>
+Subject: Re: [PATCH] apparmor: Fix label reference leak in aa_unix_file_perm()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: apparmor@lists.ubuntu.com, jmorris@namei.org, john.johansen@canonical.com, 
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	paul@paul-moore.com, serge@hallyn.com, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the GPU
-has been parked by vga_switcheroo it has neither power nor a PCIe link, so
-the reset cannot reach it: pci_set_power_state() reports the device as
-inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there
-aborts the entire noirq suspend phase, and with it the system suspend, so
-the machine cannot sleep at all while the GPU is switched off.
+On Thu, Sep 17, 2026 at 11:59=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> w=
+rote:
+>
+> The inner block in aa_unix_file_perm() re-declares plabel, shadowing the
+> outer variable that is released at the out label. The reference taken by
+> aa_get_label_rcu() is thus lost when the block exits, and aa_put_label()
+> at out is a no-op on the still NULL outer plabel, leaking one label per
+> permission check on a non-filesystem unix socket.
+>
+> Drop the shadowing declaration so the outer plabel is used and released.
+>
+> Fixes: 88fec3526e84 ("apparmor: make sure unix socket labeling is correct=
+ly updated.")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  security/apparmor/af_unix.c | 1 -
+>  1 file changed, 1 deletion(-)
+>
+> diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
+> index fdb4a9f212c3..ecb40cfe7e14 100644
+> --- a/security/apparmor/af_unix.c
+> +++ b/security/apparmor/af_unix.c
+> @@ -758,7 +758,6 @@ int aa_unix_file_perm(const struct cred *subj_cred, s=
+truct aa_label *label,
+>                            unix_fs_perm(op, request, subj_cred, label,
+>                                         is_unix_fs(peer_sk) ? &peer_path =
+: NULL));
+>         } else if (!is_sk_fs) {
+> -               struct aa_label *plabel;
+>                 struct aa_sk_ctx *pctx =3D aa_sock(peer_sk);
+>
+>                 rcu_read_lock();
+> --
+> 2.34.1
+>
+>
 
-amdgpu_device_prepare(), amdgpu_device_suspend() and amdgpu_device_resume()
-all bail out early on DRM_SWITCH_POWER_OFF. This callback was added later,
-for an unrelated reason, and did not inherit the check. nouveau guards
-every one of its PM callbacks the same way.
+NACK: this exact patch has been proposed before, and unfortunately
+exposes an additional latent bug around plabel handling that results
+in a use-after-free if the shadowed declaration is removed without
+additional fixes.
 
-Bail out the same way here. On a single-GPU system switch_power_state is
-never DRM_SWITCH_POWER_OFF, so this is a no-op there.
+I can try to dig out the relevant exchange from the AppArmor mailing
+list later, if you'd be interested.
 
-Found on a MacBookPro11,5, where the Radeon is powered down through
-apple-gmux so that the internal panel can be driven by the iGPU instead.
-Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
-off; with this check a full S3 cycle completes.
-
-Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended before ASIC reset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
----
- drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-index 5c33c19fd9bc..d9d794a7db96 100644
---- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-+++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
-@@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
- 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
- 	int r;
- 
-+	/*
-+	 * A GPU parked by vga_switcheroo has no power and no PCIe link, so the
-+	 * ASIC reset below would fail and abort the whole noirq suspend phase.
-+	 * Bail out like amdgpu_device_prepare/suspend/resume() already do.
-+	 */
-+	if (drm_dev->switch_power_state == DRM_SWITCH_POWER_OFF)
-+		return 0;
-+
- 	if (amdgpu_acpi_should_gpu_reset(adev)) {
- 		amdgpu_device_lock_reset_domain(adev->reset_domain);
- 		r = amdgpu_asic_reset(adev);
-
-base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
--- 
-2.55.0
-
+Ryan
