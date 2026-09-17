@@ -1,66 +1,103 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AE8C4F474C;
-	Thu, 17 Sep 2026 12:06:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 25F564E2F2C;
+	Thu, 17 Sep 2026 12:07:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646792; cv=none; b=AyHSu8X5bGQzMVTCw0wx7SBiEoIpl+us/NeaUhFEh9fC9A0G0QqqXCoXeOW7fwKUl6CEg7mFVbzg9JYSnrEcjEZXdDLYRkXXG4g3DmSRWmjVomubkHagdtLi9/JNmqvY4qgzXP2CH2o8jv4tkpP3SSoDp00xGutmPTfjBiqHGIc=
+	t=1789646836; cv=none; b=Zgw+MKYOtlDxDL8qIWCQQmnQ1Y0oCMUzPJk3dFPKgX8+yZABIKBtGQ2FVYoPGue2Kk6nYb85d2pd/L+ZTluGyKSKcgnmy/BdbmHBN/RM+hNh/MU4UvE89ntslIsobKCEHJ4XhzXFH2ZA+1p/SP5v0rHlPsXdMMfkpSTVKAe38l0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646792; c=relaxed/simple;
-	bh=W0EVtuCDJ48yKwMYYxIb9kPsSFu98eprCJt+0BriEL4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HNrKbEHW1L7VOXlTb5F3UPelR5NbSGnwoLIouCrEmDpld+3M02jTCrAaxoSfxqaO7XkOCs/HidJzsvuVQwSrAszt5+Pbiw609/natOT6y2z7QxjGSoDI4EtNaXSLhUfn/z0177WZZ/vSvGjzM4lTRl3oHHhRxEP2r8QZj5nGfsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0ljomUrw; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0ljomUrw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4B62D1F00898;
-	Thu, 17 Sep 2026 12:06:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789646779;
-	bh=LlnRbt5c8SP+aAJF87ouKUvRBbld9YxcfP/ftrnkZgw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=0ljomUrwTL2UcjQ7HHAcYdrtIKTqFYzw3wyXinI7YNmmp9wq2uvlibGxRe3/YSkmK
-	 ryRmZwW7JLzSvGxQ06hWYVVDby0dfdp29e7FXIUOZVmR0sEpEhuqhRPALUXGZax/u9
-	 kyEaroyGZOc8yeqFj6lfvzQPnCrsFqApRO66wVvc=
-Date: Thu, 17 Sep 2026 12:57:01 +0100
-From: Greg KH <gregkh@linuxfoundation.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: angelogioacchino.delregno@collabora.com, jason-jh.lin@mediatek.com,
-	jassisinghbrar@gmail.com, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-mediatek@lists.infradead.org,
-	matthias.bgg@gmail.com, stable@vger.kernel.org
-Subject: Re: [PATCH] mailbox: mtk-cmdq: Fix GCE clock reference leak in
- cmdq_get_clocks()
-Message-ID: <2026091720-erased-urchin-8903@gregkh>
-References: <20260917093745.2144930-1-vulab@iscas.ac.cn>
+	s=arc-20240116; t=1789646836; c=relaxed/simple;
+	bh=f7srqLu1h83HdEaD88Sx+Rqz7zm2SSg0NGUw51yfPOs=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gMIPkIuDz4fWWNxAVH+PdVRpvh51ps8NoAXTadTydj5EEh3RDr5txM8We3SBNojPz/bcNWkGmPDWBPTxzUacowVA9+muZJxNTOaFUHfzy8zOkdxlTs33yJlBfMfu6IjK+C1FXmHY/1kP9F2fL3WesCpf4QgGg7DleWGjEXCvcc8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC36ELq16tqwyyACA--.2391S2;
+	Thu, 17 Sep 2026 20:07:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andersson@kernel.org
+Cc: kvalo@qca.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	loic.poulain@oss.qualcomm.com,
+	wcn36xx@lists.infradead.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: wcn36xx: Fix tx-enable state leak in platform_get_resources()
+Date: Thu, 17 Sep 2026 12:07:05 +0000
+Message-Id: <20260917120705.2150455-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917093745.2144930-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC36ELq16tqwyyACA--.2391S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CrWktryrGw4rtw15KFy8Krg_yoW8Aw1xpr
+	WxG3yFkr10yrWxJrs7Kr4Uu3yfWa1qkrWqgrZ2yws3ZFn8AF95tr1DXFyDZr1jyFy8X3W7
+	AF4jyF47WasxAwUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB2b7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aV
+	CY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxUgoanUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02OaAAAsS
 
-On Thu, Sep 17, 2026 at 09:37:45AM +0000, Wentao Liang wrote:
-> of_clk_get() returns the clock with an elevated reference count, but
-> the references taken for the other GCE clocks are never dropped: those
-> clocks outlive probe and the driver calls neither clk_put() nor
-> clk_bulk_put(), so probing a GCE with multiple instances leaks one
-> reference per other GCE clock.
-> 
-> Let devres drop the references when the device goes away, which also
-> covers the probe failure paths after cmdq_get_clocks() has returned.
-> 
-> Fixes: 85dfdbfc13ea ("mailbox: cmdq: add multi-gce clocks support for mt8195")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+wcn36xx_platform_get_resources() gets the "tx-enable" smem state, which
+holds a reference, but only the wcn36xx_remove() path releases it. The
+reference is leaked when the tx-rings-empty state cannot be acquired and
+on every error path after that. Release it there, and route the missing
+"qcom,mmio" property to the common cleanup label so all error paths drop
+it.
 
-Please stop sending these patches.  You are not responding to any
-feedback, so we are assuming you are just a bot :(
+Fixes: f303a9311065 ("wcn36xx: Transition driver to SMD client")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/wireless/ath/wcn36xx/main.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-All should be dropped until proven otherwise.
+diff --git a/drivers/net/wireless/ath/wcn36xx/main.c b/drivers/net/wireless/ath/wcn36xx/main.c
+index c3f0860873de..f34d64464f64 100644
+--- a/drivers/net/wireless/ath/wcn36xx/main.c
++++ b/drivers/net/wireless/ath/wcn36xx/main.c
+@@ -1502,13 +1502,15 @@ static int wcn36xx_platform_get_resources(struct wcn36xx *wcn,
+ 			"tx-rings-empty", &wcn->tx_rings_empty_state_bit);
+ 	if (IS_ERR(wcn->tx_rings_empty_state)) {
+ 		wcn36xx_err("failed to get tx-rings-empty state\n");
++		qcom_smem_state_put(wcn->tx_enable_state);
+ 		return PTR_ERR(wcn->tx_rings_empty_state);
+ 	}
+ 
+ 	mmio_node = of_parse_phandle(pdev->dev.parent->of_node, "qcom,mmio", 0);
+ 	if (!mmio_node) {
+ 		wcn36xx_err("failed to acquire qcom,mmio reference\n");
+-		return -EINVAL;
++		ret = -EINVAL;
++		goto put_mmio_node;
+ 	}
+ 
+ 	wcn->is_pronto = !!of_device_is_compatible(mmio_node, "qcom,pronto");
+@@ -1552,6 +1554,7 @@ static int wcn36xx_platform_get_resources(struct wcn36xx *wcn,
+ 	iounmap(wcn->ccu_base);
+ put_mmio_node:
+ 	of_node_put(mmio_node);
++	qcom_smem_state_put(wcn->tx_enable_state);
+ 	return ret;
+ }
+ 
+-- 
+2.34.1
 
-greg k-h
