@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B51B39526F
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E601A39CD0F
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613440; cv=none; b=Jn6hljbwEa/+EU5Q9q11wJKzL+xf82BCHVd8deM+z8PkkHO3Kxl6HzHTBA3syh0BRL0VDX8lPg9ygpGJ7aMpEicLqKnTDBj6wKVjSzs2gldZcfsQq8Hsulp3dVVY1Kl8XtLOMTrX/LX9XVrTFPWBocJ05HtusA+VPuF2ltoOFPY=
+	t=1789613441; cv=none; b=JFSjFylPXYpcj1bwOg0O1EDMEh0+Gx7onFBKevWySlloBxrYE6vLt37iM2Apkki5cPnWAMITvQzvnoPU/twUOkK5F1QGKUO31MTFnzVq8CqUzMXyqzARRuPDNPEaCtqAYC8UjmrNLcvGSrkvVdgGDs66g10gAfikQN5MMhDlop8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613440; c=relaxed/simple;
-	bh=nD4DayDVCHm+0xaiQMqO+1CUP3Cf3B+hZMupNhLObrM=;
+	s=arc-20240116; t=1789613441; c=relaxed/simple;
+	bh=iRAL3qPdwITB9yb+MvNH7A+H56cD0dRAd0eaL4QJCNU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GWDCm+lFsssf99P0e6Ai4hi68Q8tcTt5qOD50JixaEm6Cu8b5h2k26/rhJfL1EigHadGDIPmKCvI1LMZlRgjTBZFFfP12u7ORKDDbX5tBjsOhUCyXMTV1tJmMDIYD+ZCVVRw6d2cewYnoM+0InkaEren3E436o+gMqJ3D5lRcA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAJ4AiBK; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HgHNZnj9XzGTYMzVYIJb4QkYz5h4Cer3a1ihMSFk3u1jPYZ0si9Uo+4/HiMZt9GQ/bwOgAdu6goHCRTqdPwUWIgkaZ6wPxf4jfqSZI9UUvLSZVEM9kgWzf/zIIoNGIEkBCqsozQfHzCzHCET2fmx0KlxxIohMwzj525QKiRUAgw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AXK08hKO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAJ4AiBK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F171F008A0;
-	Thu, 17 Sep 2026 02:50:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AXK08hKO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00F411F0089A;
+	Thu, 17 Sep 2026 02:50:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789613423;
-	bh=Nld+jt3sF/b5MM5riuDPM1Nr4dKImcvg1+QP9i2r0To=;
+	s=k20260515; t=1789613416;
+	bh=VdrVZ95upx2ZXuX19ZL7V/1wwE1+D4Hbk6Z0W7SltZU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TAJ4AiBK2IQLMKr4Hd7tQ/u6mGvWv/DqsY4fmuRHtHYwqqLxjvpHyrJVBNMNuk6qg
-	 gsv4zb5rhq99+COPs0Yy5MC+bnTj6fC6KwTVGWQ4YdcFJKv8g0/GUB/Dpu9NyqQnl6
-	 HVDd2IUOXUM53hINfhO9SH8yt62TS4il/X7Pxjnh7FL53CZMB5z317dkE6LiZDeqpI
-	 DDHqbwdlIP8hKtEt4yXN389RfKCYQb/at8dhr0Tpi4au0CL2/7zT8Hbg6/Lppt0Pxq
-	 LU75+61Wt8O/YReVbe0LIC8//IqUI9oMGvULBkQe1yDnKht4JeC00LWKx7v1X8YIUA
-	 frALV9cmsuZag==
+	b=AXK08hKOsyuSd/w8iFLaNHYAVerwUdxmH9a/Cisp97ZYEmXQZ8uyys3FgfX3TnvnF
+	 gFhO0InnwdslZxj4LyOvICGwCm9MaWQZykINE3lV+j+dE4t4zCCvG/rkqaLbySOds4
+	 z9gxkrm1I6Q7NOEnxpgtkd3sGUgQ1gkWDSRfT+YVfVmXqD3SLp/Ul3PCgsqr7ACMNN
+	 /tJmj/Pxss5FtPS6dwGFuiUpjqYN0tlgNyvp9dkjpJw5ducpzyq3WupZ95fakQdViy
+	 A3aS4TkQE3mPLZ+817f8D3XhNQJOjCLg2xakvbz9A2UTcebfhsyoFEfKIykLrSUjVa
+	 hS/D7zlgUYMYQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Fan Wu <fanwu01@zju.edu.cn>,
-	Miquel Raynal <miquel.raynal@bootlin.com>,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
+Cc: Joe Damato <joe@dama.to>,
+	Sashiko <sashiko-bot+sashiko@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] ieee802154: cc2520: fix FIFOP work use-after-free
-Date: Wed, 16 Sep 2026 22:50:21 -0400
-Message-ID: <20260917025021.3917468-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 4/4] bnxt_en: Propagate TPA buffer allocation failures in bnxt_queue_mem_alloc()
+Date: Wed, 16 Sep 2026 22:50:11 -0400
+Message-ID: <20260917025012.3917055-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091624-vocation-confined-5580@gregkh>
-References: <2026091624-vocation-confined-5580@gregkh>
+In-Reply-To: <20260917025012.3917055-1-sashal@kernel.org>
+References: <2026091638-excretory-liquid-7149@gregkh>
+ <20260917025012.3917055-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,75 +47,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Fan Wu <fanwu01@zju.edu.cn>
+From: Joe Damato <joe@dama.to>
 
-[ Upstream commit ff5891b266a7fc6a062710836be84f1cc19338b5 ]
+[ Upstream commit b814dfbfeb0a68c9a52073f2caa05a2d5247a329 ]
 
-The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On removal,
-cc2520_remove() only flushes the work.  The devm-managed FIFOP IRQ
-remains active until after ->remove() returns and can queue the work
-again after that flush, allowing it to run after the private data is
-released.
+bnxt_alloc_one_tpa_info_data() returns -ENOMEM as soon as one allocation
+fails. This leaves the remaining rxr->rx_tpa[] entries zeroed.
 
-Disable the work with disable_work_sync() instead of flushing it, so
-the handler can no longer queue it once removal begins.  Destroy the
-buffer mutex last, since the worker and the stop callback invoked
-through ieee802154_unregister_hw() both take it.
+bnxt_queue_mem_alloc() discards that return value, so the partially
+initialized ring is installed by bnxt_queue_start().
 
-Found by an in-house static analysis tool.
+Since the agg_id is picked by the hardware and bnxt_alloc_agg_idx maps
+it to a SW index in rxr->rx_tpa[], it is possible that an uninitialized
+slot can be chosen which would hand a zero DMA address to the device.
 
-Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
-Cc: stable@vger.kernel.org # v6.10+
-Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
-Assisted-by: Codex:gpt-5.6
-Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-Link: https://lore.kernel.org/20260812061714.175966-1-fanwu01@zju.edu.cn
-Signed-off-by: Stefan Schmidt <stefan@datenfreihafen.org>
-[ replaced unavailable disable_work_sync() with disable_irq() followed by cancel_work_sync(). ]
+Fix this by checking the return value of bnxt_alloc_one_tpa_info_data
+and unwinding, freeing the ring buffers.
+
+Fixes: bd649c5cc958 ("bnxt_en: handle tpa_info in queue API implementation")
+Reported-by: Sashiko <sashiko-bot+sashiko@kernel.org>
+Link: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260828190900.1767611-1-joe%40dama.to
+Cc: stable@vger.kernel.org
+Signed-off-by: Joe Damato <joe@dama.to>
+Link: https://patch.msgid.link/20260902015652.2421609-4-joe@dama.to
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+[ Retained bnxt_alloc_one_rx_ring_page() instead of upstream bnxt_alloc_one_rx_ring_netmem(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ieee802154/cc2520.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2520.c
-index a94d8dd71aad9..10bdc317ae282 100644
---- a/drivers/net/ieee802154/cc2520.c
-+++ b/drivers/net/ieee802154/cc2520.c
-@@ -206,6 +206,7 @@ struct cc2520_private {
- 	bool is_tx;			/* Flag for sync b/w Tx and Rx */
- 	bool amplified;			/* Flag for CC2591 */
- 	struct gpio_desc *fifo_pin;	/* FIFO GPIO pin number */
-+	int fifop_irq;			/* FIFOP IRQ */
- 	struct work_struct fifop_irqwork;/* Workqueue for FIFOP */
- 	spinlock_t lock;		/* Lock for is_tx*/
- 	struct completion tx_complete;	/* Work completion for Tx */
-@@ -1117,8 +1118,9 @@ static int cc2520_probe(struct spi_device *spi)
- 		goto err_hw_init;
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index e14e2a0bf89ce..d14a2de8c06d9 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -15417,11 +15417,16 @@ static int bnxt_queue_mem_alloc(struct net_device *dev, void *qmem, int idx)
+ 	bnxt_alloc_one_rx_ring_skb(bp, clone, idx);
+ 	if (bp->flags & BNXT_FLAG_AGG_RINGS)
+ 		bnxt_alloc_one_rx_ring_page(bp, clone, idx);
+-	if (bp->flags & BNXT_FLAG_TPA)
+-		bnxt_alloc_one_tpa_info_data(bp, clone);
++	if (bp->flags & BNXT_FLAG_TPA) {
++		rc = bnxt_alloc_one_tpa_info_data(bp, clone);
++		if (rc)
++			goto err_free_rx_ring_skbs;
++	}
  
- 	/* Set up fifop interrupt */
-+	priv->fifop_irq = gpiod_to_irq(fifop);
- 	ret = devm_request_irq(&spi->dev,
--			       gpiod_to_irq(fifop),
-+			       priv->fifop_irq,
- 			       cc2520_fifop_isr,
- 			       IRQF_TRIGGER_RISING,
- 			       dev_name(&spi->dev),
-@@ -1156,11 +1158,11 @@ static void cc2520_remove(struct spi_device *spi)
- {
- 	struct cc2520_private *priv = spi_get_drvdata(spi);
+ 	return 0;
  
--	mutex_destroy(&priv->buffer_mutex);
--	flush_work(&priv->fifop_irqwork);
--
-+	disable_irq(priv->fifop_irq);
-+	cancel_work_sync(&priv->fifop_irqwork);
- 	ieee802154_unregister_hw(priv->hw);
- 	ieee802154_free_hw(priv->hw);
-+	mutex_destroy(&priv->buffer_mutex);
- }
- 
- static const struct spi_device_id cc2520_ids[] = {
++err_free_rx_ring_skbs:
++	bnxt_free_one_rx_ring_skbs(bp, clone);
+ err_free_tpa_info:
+ 	bnxt_free_one_tpa_info(bp, clone);
+ err_free_rx_agg_ring:
 -- 
 2.53.0
 
