@@ -1,146 +1,121 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f20.google.com (mail-qv2-f20.google.com [74.125.230.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0070470EB6
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:19:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDA94E0B73
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:21:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669176; cv=none; b=Q2ndWOpOWd2LJqE1djGlfMH5npw3D0CAvNcuBOyMAuIIvP5bSgLTMAl9SQ9O0RZISh0xhTh6+JnIu+YFxyA5jJ8HgENqLtzFDub4+bZup0F8mjGyA09kYQilopaTJ7U3hJwRFekqecGuSuX7/Pn8HNfPhuTriZ7NIl6N3ZlwZX4=
+	t=1789669273; cv=none; b=Zs1cAOuHTYE4S7kh5/ZG8pxnok68sVT/4j9Vt/dWrQlb3t3P8t6zHpDdyrJl9s8kxRYREJpwCwxKFnT+MvodgE+xJp2YXb1cnL+dw+w+TuoWUZwUztAhaOmtZlUElRheNNSKmPEDU/6x+MKtlHHmPzoAJMt7lSWUPoBSbnZjKdY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669176; c=relaxed/simple;
-	bh=Yk+dsBCvOCH3KYRJfgG+xXG8w0PVzLsSfAJEvJo42do=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=imIepbn74pvDRc0pxGklKL5fP4wU43bQdGS5KYenMu9ypx5X8fNFNS7uHbTkptcfSXvqLp5H12ekR8XpCPZ22A7aR9oOIM2YFpS0gQV4HN4V2HcNpKtJyfoCPGNRhB1lUFzpJu096FJzOOUzrlohgf4mnUrXPwoAbU1v6YNX++Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=eQ1kgs5Y; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Nh6rH0ZL; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789669273; c=relaxed/simple;
+	bh=6QaB1vCAHPDrZfq2UMtr0C/Dsi8/MZihkvuPXytBOdo=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aN1BjtDRXReBcdeINKBeWkpVkHUKEVOxFPvHRcm12tGyRZIu0KC8WfvN0+84HGwMfooJLwsDc1DYYisWZxPAX1A0+0wTW6mGzQN3Z3DlRFiXWKx2q+jmZ4Gt2sozOZPHE27TlEb66MeFEsBpuLqHCmilr4l61vGzjNkSHxgDOuk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hsJyOlk0; arc=none smtp.client-ip=74.125.230.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="eQ1kgs5Y";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Nh6rH0ZL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789669173;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
-	b=eQ1kgs5YRkdxVIaL8ISyVhLYqxwnhIWVNc+ATVOyF08s/9kHlYq80n7gJMTsIl93IhQuHd
-	8vzivDZmumQlGpTI+o2bVdoggHuU1HXS9iWUgwudbCYFIQpieuUdUpzxAV2fa0z7WAIfdX
-	0QrOX1jze9Ul4pD9RVq9Y7HbsUypM90=
-Received: from mail-ua1-f70.google.com (mail-ua1-f70.google.com
- [209.85.222.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-191-xw06AoYEOCy9Aer6UnPGqw-1; Thu, 17 Sep 2026 14:19:32 -0400
-X-MC-Unique: xw06AoYEOCy9Aer6UnPGqw-1
-X-Mimecast-MFC-AGG-ID: xw06AoYEOCy9Aer6UnPGqw_1789669172
-Received: by mail-ua1-f70.google.com with SMTP id a1e0cc1a2514c-982a39e0c4dso169380241.3
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:19:32 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hsJyOlk0"
+Received: by mail-qv2-f20.google.com with SMTP id 6a1803df08f44-90cdfc9b6e4so9962506d6.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:21:11 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789669172; x=1790273972; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
-        b=Nh6rH0ZLx6UXQargD914orX+oCTg9u3QAMc6UtSsww8KnILww8zmCf7G/DEjnw01WU
-         dhDSlpoeRkqyzxkn5Q+om2EhwSBBkiGrjW4/bpTx37Dhz4R/LQLUjddQ9Q1QT/HK7l3Y
-         SBC0/VqV0cRsvyGo5GySWivCMdDHrt7m+zIKy8DA2IBZ4KQ325UjcyPSzzdoszo2j2Hn
-         fmnlDTja8/Z2c54LLgJJF9cxK1SITt+SyqcMZzLLMhSznJkTerjH4t6brWf3Cg0giCdq
-         yqcfU4em13G7/6+sdZzVCcBwxuQF0Ls7YWiwq4AJAeopMkPS+6/9lp9wZvXD++5PqXLS
-         smOQ==
+        d=gmail.com; s=20251104; t=1789669271; x=1790274071; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
+        b=hsJyOlk0GVVLp/TJvSOu56tX9ctJP+DNB+uKybx7JFxZmmvpr6c0/U+kKMuPNVG2Y4
+         aAjxscp5NAuG8QiTHHS0ZLCGoF8NIKN+e2u7UzoLXoi5N+Sl0pZQ4Xrw5qsJYfKwBuAS
+         tueGevEmShuRGR+ocbUT4uflEm0V7NTLsRYX27nFUO/NkT/KXZWRM+W1tZa9efWJWvrb
+         pZAhk92jcp6inapGjbjKfPs0gYKE2QzWRMoyp6qRWJH1Ui51FXzmxU4w+LGbrsf0PN/N
+         nU5wwShf22un+trMZTgxa2W+B79efUK3D29fSBlkKVcUpE70q0YCrGNTTQGq51PXnwHG
+         BvJg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789669172; x=1790273972;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6EVrUJFQJF3dnaOQZb2Gx1UGobWA2s6Fo3aIIPVgJwM=;
-        b=GfajO+IOyCkhHYlEwSfsc1x3pHxcSPEYgQRikPe5wibJxBwaXbc7UvTnGdHBqZ/SS6
-         IJtG/NeQ0mRjQrisVK/MuKsPWiIVEsyHVQo4EgTTxDYxVWNgrBZt6gO9B2dquDvfEzTv
-         U25MukxEbnOCZk+JNO7Be68nNMAbceuSlsiOghS86nrQA23KhU9fTBEiQWPj63MaJyx0
-         JXrv3DbuAyfUXHATPZBi3AZcprJAhpa7xMJCFCe1bpIJQ0WvuGduQiyzW/OpUNXRfdKG
-         5LU8Cr/4Ts1dRoBavGLmEhAk1ZtVa07d9TkS+viyRutQr13rlI4nkwGtFuqirfbkFbbX
-         QszA==
-X-Forwarded-Encrypted: i=1; AKwUvBw+XSB0GPg+JoS+hXcCtvmogsFH92hGf++4K+fJq3lLKC/ryDrEdSw7w/1uGm/V11gHcIxX3K8=@vger.kernel.org
-X-Gm-Message-State: AFuF++nqQR1ki1fKNwhXkUweE+6lsd4oRPy2igrnL9AXSkShGrVLxhBa
-	a/m76bEbE2uDhgFlmK/9Vz57h9rc1w+TDxzXF8Wj0vRY0bL2+mPsrE7upDV2RrnJwt/tVjXlI9K
-	Iy5ndshlYYrgukrwS9Hozbz+OXmtF1p0AFYzlyPqsrwflei21cquDYYOh/A==
-X-Gm-Gg: AYBFou1rRlE8gj1FCKXpNYyopB7zTN/eWjLsPVMfPd3IibkbIYU98JDbb2H6tE9/Rmf
-	NerU151hd7BCP2sD6kPi0N1jmv8JAPYp++ujLkJk6+aYXe5t5L+77cQPVnfokIgKIn1ND5yiDH5
-	Gg63xV+IfJ1rRvHEsGbtvxKXjefkN4rwK006Lv44hszy8bynnf+nQbLgnoEYPk7eRcpFGAFcy7M
-	i1KlWjEkcQnz4jcnVddgBKYuLXcAGn3c6arMx45v6w+hl9Qx759Eb657ieLoSRQsu+rS9jahGIT
-	k3epAv8fc0bKNhy79qudv+u/xfxuOTxuybnafbcf9PCmOoSCk0IelViTt7Izu12VPPSIxUBi
-X-Received: by 2002:a67:e708:0:b0:797:e5aa:61c2 with SMTP id ada2fe7eead31-7a024dcd2e6mr7627704137.3.1789669171648;
-        Thu, 17 Sep 2026 11:19:31 -0700 (PDT)
-X-Received: by 2002:a67:e708:0:b0:797:e5aa:61c2 with SMTP id ada2fe7eead31-7a024dcd2e6mr7627685137.3.1789669170960;
-        Thu, 17 Sep 2026 11:19:30 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id ada2fe7eead31-7a1e292ee59sm4120534137.6.2026.09.17.11.19.29
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 11:19:30 -0700 (PDT)
-Message-ID: <d43ff56c010c83fc4cbef634e7a632940f5d20f7.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: Fix gem reference leak in validate_init()
-From: lyude@redhat.com
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: bskeggs@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, nouveau@lists.freedesktop.org, simona@ffwll.ch, 
-	tzimmermann@suse.de, stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 14:19:29 -0400
-In-Reply-To: <20260916180202.2090231-1-vulab@iscas.ac.cn>
-References: <20260916180202.2090231-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+        d=1e100.net; s=20260707; t=1789669271; x=1790274071;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
+        b=eeGUNgrd2cK/EXpAUkHxBz/r52iewnuWFR5yVS479MJDIzbuq238tmMeiTIEnEZZVA
+         jmQeB+svoekG9K6HgkLpCM4RldQjvk+kKnuoI9yMxN7heAjBDIHUqXTj3p4lYrlHugWy
+         HBhweMf8A+4KLpPr0ifEP/XmRvW6l8yrtdZNTe6MKKFdlOR4gLfKWTKUMnWLoFT0i2SK
+         PZNQ8Lf0+3jM3qgvHr80z5lrX9YHjgeGp/vGPMMCoVj9chUK8ijWV2ezZZQAroCFGslX
+         yw4nDtguUkFYKrsA1q9Re9JEgR1RvC7Sk3kNdSDl5B8H8HwtrT9RbjPkz74kB14Ld1EK
+         S0KA==
+X-Forwarded-Encrypted: i=1; AKwUvBxrWzNbhpAqTvqcA1E37ZhBAO3z6dlsBzkgWH6dvDYiYYy1OPajxmLm12h0GbAY4840VhubSfI=@vger.kernel.org
+X-Gm-Message-State: AFuF++l5VgjZBjfJwrsrTJTR56pvU/AWUEWLz+HF2s0Engyrg5Exz4/t
+	r4Dts6MqPtn6cAKwKSyKNZXezaLWXSBHFLNnMVatGZxar1yKttMISvA=
+X-Gm-Gg: AYBFou2GvwLfATMx2uKMuxPfQwxptCcK3H+6F/2rJgeS5t5Qyt1Ejs/mZ6KUw8hNPXK
+	c3G51f/aFGYeLgktNW0jJs/F4dnRvdyWz/0BX4KGr8eIQHkKk10VbpNCBUqmf3yLqrzPRst9weX
+	eXgs9ElFyQWlW4Cb5epNyXiDZqFwghTssnpz2D7EyGXopP+akuoRUu5OurUGwaE0e9C/QAudnM4
+	XMENX53rlJbHNUpP8IJb4Fmyiob1BbrUNmEcd28Qfn2Tewm8Yrxa2mt61HPklFfA4GP+cQFHoGN
+	DDI5ur/5IFNdKpA897KG+U6n6ijh2N2JMQSxKzGVqjnEfCqPOaBU20q//hYwO+TYVvLG4aGK7Hg
+	zVlnGjfNWc4XZ8jx3HPqyKTbdLfB7wMixLTMD//q1tRkMZK7I6Vjq5YayWYoMKHjOJeyj8uPLx2
+	MBlKRMHqetEoxw6GyaHg7IqvJiVeHln40loN2z5uV4bjHvt6sVrju8xFkbCJJPYxJcyx77VHH86
+	bWLesQRP5D44pyHZnWXB7KkgMvuUdlu5k6IhPmP1OC4oeyknLROqnaauS4Y1mwp3JFZ8neInROp
+	1YICmCFHaAB95qLUMVpOZaPMb1BE5b7laQIdXYNdIyHDc7tW
+X-Received: by 2002:a05:6214:4119:b0:912:3c52:5f34 with SMTP id 6a1803df08f44-91254bd0194mr797506d6.31.1789669270580;
+        Thu, 17 Sep 2026 11:21:10 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.169.225])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cc7ce2sm3684976d6.34.2026.09.17.11.21.09
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 11:21:09 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: hverkuil@kernel.org,
+	mchehab@kernel.org
+Cc: linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] media: radio-maxiradio: balance PCI device enable on cleanup
+Date: Thu, 17 Sep 2026 14:21:08 -0400
+Message-ID: <20260917182108.32566-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+The tuner initialization failure and remove paths omit the matching
+pci_disable_device() after a successful pci_enable_device(). Disable
+the device on both paths, after the final hardware access on removal.
 
-Will push to drm-misc-fixes in a bit
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-On Wed, 2026-09-16 at 18:02 +0000, Wentao Liang wrote:
-> On the ttm_bo_reserve() failure and "vma not found" error paths, the
-> loop breaks without adding the looked-up object to any validate list,
-> so the reference taken by drm_gem_object_lookup() is never released;
-> validate_fini() only walks the spliced lists.=C2=A0 Drop the reference
-> before breaking out on both paths.
->=20
-> Fixes: 19ca10d82e33bcfe ("drm/nouveau/gem: lookup VMAs for buffers
-> referenced by pushbuf ioctl")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_gem.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_gem.c
-> b/drivers/gpu/drm/nouveau/nouveau_gem.c
-> index 20dba02d6175..c2601b559947 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_gem.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_gem.c
-> @@ -513,6 +513,7 @@ validate_init(struct nouveau_channel *chan,
-> struct drm_file *file_priv,
-> =C2=A0			if (unlikely(ret)) {
-> =C2=A0				if (ret !=3D -ERESTARTSYS)
-> =C2=A0					NV_PRINTK(err, cli, "fail
-> reserve\n");
-> +				drm_gem_object_put(gem);
-> =C2=A0				break;
-> =C2=A0			}
-> =C2=A0		}
-> @@ -522,6 +523,7 @@ validate_init(struct nouveau_channel *chan,
-> struct drm_file *file_priv,
-> =C2=A0			struct nouveau_vma *vma =3D
-> nouveau_vma_find(nvbo, vmm);
-> =C2=A0			if (!vma) {
-> =C2=A0				NV_PRINTK(err, cli, "vma not
-> found!\n");
-> +				drm_gem_object_put(gem);
-> =C2=A0				ret =3D -EINVAL;
-> =C2=A0				break;
-> =C2=A0			}
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Changes in v2:
+- Add a Fixes tag for the initial Git import, where the PCI enable
+  imbalance is already present. No code changes from v1.
 
+diff --git a/drivers/media/radio/radio-maxiradio.c b/drivers/media/radio/radio-maxiradio.c
+--- a/drivers/media/radio/radio-maxiradio.c
++++ b/drivers/media/radio/radio-maxiradio.c
+@@ -159,10 +159,12 @@
+ 	dev->io = pci_resource_start(pdev, 0);
+ 	if (snd_tea575x_init(&dev->tea, THIS_MODULE)) {
+ 		printk(KERN_ERR "radio-maxiradio: Unable to detect TEA575x tuner\n");
+-		goto err_out_free_region;
++		goto err_disable_device;
+ 	}
+ 	return 0;
+ 
++err_disable_device:
++	pci_disable_device(pdev);
+ err_out_free_region:
+ 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
+ err_hdl:
+@@ -180,6 +182,7 @@
+ 	snd_tea575x_exit(&dev->tea);
+ 	/* Turn off power */
+ 	outb(0, dev->io);
++	pci_disable_device(pdev);
+ 	v4l2_device_unregister(v4l2_dev);
+ 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
+ 	kfree(dev);
