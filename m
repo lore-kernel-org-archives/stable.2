@@ -1,34 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AEC951FCD5;
-	Thu, 17 Sep 2026 14:01:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84292572685
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 14:01:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653708; cv=none; b=CDVKmpkv1lAHzN4nXYUp4+W4KwMBtZ5A/3kUfyJmbn/86ybmcri1tk4RI5ugZllFOvFWP8W74Shdt+c7xrmGsGNgPMggvO14OodB7wMSiS+WGljShomj9rFkxTOle8E5oKisXP1mQTqhMZS2R7z0yHSK6+/lEUKt97Y1rW5W84s=
+	t=1789653719; cv=none; b=Fsith0RALieBQP2JCK1T599UqxsygA++pOfKqt5+P09U8odVBpQQKZ7hLjpbsa+dsMKznRPr4aaOv4ZfTf1ZluohHDHKWkQ0aUv/uyfJcIKiABa2VFQruqPRkd6IaNrBxrJyoxrslLHS8zngZ9FXsYmDmdWrbTJYIDieEblF2fw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653708; c=relaxed/simple;
-	bh=v6+x40zMq95VSAnlvbv/3gE7FC6GwK92Tt/b2Un7SW4=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Zou6AQjU2Bj9GlDwchywg1ETM7ha9nlhMTEryrSBdeKLp8jn2dUErmDNmXwyuiYgcri0ozqmslzRkt1YrKVhjZ6Ibs9bc6kky15uS3MSckPaiGZBPzBVVxARAG1dO4/6sdVMCYV7n1W7x/6JvCImTxb7eoDmIeQ4Lj5qIf20Z8M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oz3E8qtqIv2BCA--.4222S2;
-	Thu, 17 Sep 2026 22:01:40 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Shyam-sundar.S-k@amd.com
-Cc: hansg@kernel.org,
-	ilpo.jarvinen@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	mario.limonciello@amd.com,
-	platform-driver-x86@vger.kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] platform/x86/amd/pmf: Fix power supply leak in amd_pmf_get_battery_prop()
-Date: Thu, 17 Sep 2026 14:01:40 +0000
-Message-Id: <20260917140140.2154244-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789653719; c=relaxed/simple;
+	bh=1j199KxQkMw+/bX/5grecaU2dbsxgBVcrk/E/n2xslA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fmkqvoiMotG080+TCMMeZ3Zpfv7yxnuoYX8iBrUS46QQxPdxyMdJ+uffhTVasiJ2WJUGLszEHMb6zVrevncHpB3SF/7FK12TaTnAyqQcYhV7ZUsUM9qNyEnyZgHlp0u4jIga3jQbrIoT7uFETiqWXCfjR/JrkfRN5FkCoXLTz8s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C+FvtyC2; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C+FvtyC2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 50F451F00893;
+	Thu, 17 Sep 2026 14:01:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789653718;
+	bh=jICwpGY9kcgojiQO1Ir4hqN3yPdwBwjyq7s25vvV+5A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=C+FvtyC2WQZvmCPyjz59uxjvU3VIZHDff6vPGA7Qj5H4sV4t/i4ka0KR9oYrAPK8M
+	 PAv8C3kZULGhh0pFWBewHhJD+i4l31c7oysHW8/01z7YdKAkTHk3r0T7naJpIPaG7/
+	 FvPtD1iDgIL2phXG2mXsIoavA98GqSa2YNgIW8fQcQgSjjnx8+vDmLP1aZJIVdPx4I
+	 pS/kF6ao3bSIj1KCsSt1S1/XZcpvh41CzdoqeL1lnZRA+MrQswQ6jrBl7riQVmgECq
+	 xHLmJBaBxed1MABBSUx9aHtI5dvZ2YjFC+h/86xX86AJ87+BL091EsnMXKokthrhNX
+	 PAvzW9uJeBXZA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cmaiolino@redhat.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/4] xfs: add a xfs_rmap_inode_owner helper
+Date: Thu, 17 Sep 2026 10:01:52 -0400
+Message-ID: <20260917140155.504217-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091628-approval-prefix-a4c6@gregkh>
+References: <2026091628-approval-prefix-a4c6@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -36,56 +46,97 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oz3E8qtqIv2BCA--.4222S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jr17JF4kJrWkJr1xWF4xCrg_yoWDtFg_Gr
-	y8Cas7Jry0qF4qyr1DtrsIkF97ta4DWrWvqFsrtFZxtFy5Aw1kXr90yrZ8XwnrC3yUCFyD
-	Wa1DC3y7ua4fCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfAYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7
-	CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU1mLvtUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3bazwAAsD
 
-power_supply_get_by_name() takes a reference that is only dropped on
-the error path of power_supply_get_property(). Drop it as soon as the
-property has been read and stop searching, so that a successful lookup
-does not leak the reference.
+From: Christoph Hellwig <hch@lst.de>
 
-Fixes: f4627dfd0e19 ("platform/x86/amd/pmf: Add support to get inputs from other subsystems")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+[ Upstream commit f882fc7dd9f04f73d94379deb9e68d8db613c976 ]
+
+Add a small wrapper for initializing the rmap owner to i_ino.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Stable-dep-of: 4d3c07591534 ("xfs: fix under-reservation of blocks when repairing sf directories")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/platform/x86/amd/pmf/spc.c | 7 ++++---
- 1 file changed, 4 insertions(+), 3 deletions(-)
+ fs/xfs/libxfs/xfs_bmap.c | 2 +-
+ fs/xfs/libxfs/xfs_rmap.h | 2 ++
+ fs/xfs/scrub/bmap.c      | 6 +++---
+ fs/xfs/scrub/reap.c      | 3 +--
+ 4 files changed, 7 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/platform/x86/amd/pmf/spc.c b/drivers/platform/x86/amd/pmf/spc.c
-index f48678a23cc7..cd957d7a4e48 100644
---- a/drivers/platform/x86/amd/pmf/spc.c
-+++ b/drivers/platform/x86/amd/pmf/spc.c
-@@ -249,10 +249,11 @@ static int amd_pmf_get_battery_prop(enum power_supply_property prop)
- 			continue;
+diff --git a/fs/xfs/libxfs/xfs_bmap.c b/fs/xfs/libxfs/xfs_bmap.c
+index 53ef4b7e504d6..bdffade9848f8 100644
+--- a/fs/xfs/libxfs/xfs_bmap.c
++++ b/fs/xfs/libxfs/xfs_bmap.c
+@@ -820,7 +820,7 @@ xfs_bmap_local_to_extents(
+ 	args.mp = ip->i_mount;
+ 	args.total = total;
+ 	args.minlen = args.maxlen = args.prod = 1;
+-	xfs_rmap_ino_owner(&args.oinfo, ip->i_ino, whichfork, 0);
++	xfs_rmap_inode_owner(&args.oinfo, ip, whichfork, 0);
  
- 		ret = power_supply_get_property(psy, prop, &value);
--		if (ret) {
--			power_supply_put(psy);
-+		power_supply_put(psy);
-+		if (ret)
- 			return ret;
--		}
-+
-+		break;
- 	}
+ 	/*
+ 	 * Allocate a block.  We know we need only one, since the
+diff --git a/fs/xfs/libxfs/xfs_rmap.h b/fs/xfs/libxfs/xfs_rmap.h
+index 5f39f6e53cd19..3670a33fc927d 100644
+--- a/fs/xfs/libxfs/xfs_rmap.h
++++ b/fs/xfs/libxfs/xfs_rmap.h
+@@ -35,6 +35,8 @@ xfs_rmap_ino_owner(
+ 	if (whichfork == XFS_ATTR_FORK)
+ 		oi->oi_flags |= XFS_OWNER_INFO_ATTR_FORK;
+ }
++#define xfs_rmap_inode_owner(oi, ip, whichfork, offset) \
++	xfs_rmap_ino_owner(oi, (ip)->i_ino, whichfork, offset)
  
- 	return value.intval;
+ static inline bool
+ xfs_rmap_should_skip_owner_update(
+diff --git a/fs/xfs/scrub/bmap.c b/fs/xfs/scrub/bmap.c
+index 845e1538077e3..910a1f42622a8 100644
+--- a/fs/xfs/scrub/bmap.c
++++ b/fs/xfs/scrub/bmap.c
+@@ -352,7 +352,7 @@ xchk_bmap_rt_iextent_xref(
+ 	case XFS_DATA_FORK:
+ 		xchk_bmap_xref_rmap(info, irec, rgbno);
+ 		if (!xfs_is_reflink_inode(info->sc->ip)) {
+-			xfs_rmap_ino_owner(&oinfo, info->sc->ip->i_ino,
++			xfs_rmap_inode_owner(&oinfo, info->sc->ip,
+ 					info->whichfork, irec->br_startoff);
+ 			xchk_xref_is_only_rt_owned_by(info->sc, rgbno,
+ 					irec->br_blockcount, &oinfo);
+@@ -407,7 +407,7 @@ xchk_bmap_iextent_xref(
+ 	case XFS_DATA_FORK:
+ 		xchk_bmap_xref_rmap(info, irec, agbno);
+ 		if (!xfs_is_reflink_inode(info->sc->ip)) {
+-			xfs_rmap_ino_owner(&oinfo, info->sc->ip->i_ino,
++			xfs_rmap_inode_owner(&oinfo, info->sc->ip,
+ 					info->whichfork, irec->br_startoff);
+ 			xchk_xref_is_only_owned_by(info->sc, agbno,
+ 					irec->br_blockcount, &oinfo);
+@@ -419,7 +419,7 @@ xchk_bmap_iextent_xref(
+ 		break;
+ 	case XFS_ATTR_FORK:
+ 		xchk_bmap_xref_rmap(info, irec, agbno);
+-		xfs_rmap_ino_owner(&oinfo, info->sc->ip->i_ino,
++		xfs_rmap_inode_owner(&oinfo, info->sc->ip,
+ 				info->whichfork, irec->br_startoff);
+ 		xchk_xref_is_only_owned_by(info->sc, agbno, irec->br_blockcount,
+ 				&oinfo);
+diff --git a/fs/xfs/scrub/reap.c b/fs/xfs/scrub/reap.c
+index 07f5bb8a64212..ab0c133ffb98b 100644
+--- a/fs/xfs/scrub/reap.c
++++ b/fs/xfs/scrub/reap.c
+@@ -1249,8 +1249,7 @@ xreap_bmapi_select(
+ 	cur = xfs_rmapbt_init_cursor(sc->mp, sc->tp, sc->sa.agf_bp,
+ 			sc->sa.pag);
+ 
+-	xfs_rmap_ino_owner(&oinfo, rs->ip->i_ino, rs->whichfork,
+-			imap->br_startoff);
++	xfs_rmap_inode_owner(&oinfo, rs->ip, rs->whichfork, imap->br_startoff);
+ 	error = xfs_rmap_has_other_keys(cur, agbno, 1, &oinfo, crosslinked);
+ 	if (error)
+ 		goto out_cur;
 -- 
-2.34.1
+2.53.0
 
