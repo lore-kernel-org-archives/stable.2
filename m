@@ -1,39 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8502B4C10E9;
-	Thu, 17 Sep 2026 15:27:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A89455328DD;
+	Thu, 17 Sep 2026 15:27:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658879; cv=none; b=qxNWzc74t+k0RFUaBGJ4Lzs7eKYz03woA1MVxYjkwy95S2beTLCovOBQ0I13QEtE1zDYs4YDdudN1KJ23ZDeh06LWKbHi6BxyG8MLM9k0PIOmV7XxamrIlT3swXBdQUxD4bFLOgaaRgICnN77+l4MdID84Glgtn5j+mX1bCtne8=
+	t=1789658883; cv=none; b=b2LPvUUpbmgn7/55Saa+clEPJWwHSTYe0T3ByAyYBaQo6TjFf8GbfIcPwrg4IqEPc5Nsbw2Dzu3WH92ajpXoEif4cs66vL7CD5MLqpDCNCqnEwk3YS+qS1HvRbq5sjrAKtmJawJMD5bFyyLz7x69x8VcQWE/NgnJxwrCGo08zyQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658879; c=relaxed/simple;
-	bh=eEANYvhLfZtC8YJDgGgTzaZkDPbrPgyyEXS+d3q/yzs=;
+	s=arc-20240116; t=1789658883; c=relaxed/simple;
+	bh=bGvvSg/tiSLkaalyukd+Q8gaz3TvznRbKzGlETQGHSA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uMAV6FJDnV99atLBG8BvkPXKPtI3jh+dmhgDiX8+HJLFGiszKVHWOKzoD5kFQZNCuH7wdx1iKa3WaVvSJIDGtRCBNTH/9IpG81h6BjiuVdI0Zw8yTtW7Q7AvMwdQGkUei5TXJcxQDAi0m7J+b4o259O0oX5AOpjdMfZwktG9GTE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UTxyF+Ip; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=UInYYP6wMy1LbcHKuCOFnkB7380R98Nmux4LiKeo8MT3QT7O8ztKyUyrYJi4gUHmubeAyiZOsh0f7cS6ergTdUau9yfNO1r0qOnxnkX/QYfaMZHE9VCjjhTiOsY79HNKg+yclh6X7jlo0nGjZixZZenA8By7oLmiMthE7LUleso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=g4eOp6/o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UTxyF+Ip"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B26F1F000FF;
-	Thu, 17 Sep 2026 15:27:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="g4eOp6/o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E89991F00893;
+	Thu, 17 Sep 2026 15:27:53 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789658868;
-	bh=anhbweqgU0sfVMPt/zguPQTbkDNG5aBTeHBWSsUfL+I=;
+	s=korg; t=1789658874;
+	bh=VdvrCIDj6P5X1uy9aeMfMVoELH74ccjXeXKl9DEFQk8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UTxyF+IpHCGPGG9AHRBMoaS0F+Dp+o7y1cCcfs/+lHpG/H9u0jsjAbX0Khp73/iBU
-	 rwc2cG1M/niwrjH2Oy3xzSaBaC8ryKE2vb0oojvA3ewhOdlLm78jCFHjlaR+qhj05u
-	 THEqqnL9jX9hIKwJQxXSKut44xZkj0rZtVcivd04=
+	b=g4eOp6/oxdq5R7AJhEGolpYe7/Hl+tHaPbkJ0ol8kL9xRR4H5u/uqzYxgvz4+EXqL
+	 fODfZu9D4Oei/iNltulKkfRr0XHvBFKuzsRuYbBlR/Bjv29+dxgyIss5bW1HZbjAgp
+	 dm7DE8TG4FLk85uHXePyg52WK3w0wyKNkstY8a68=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Baolin Liu <liubaolin@kylinos.cn>,
-	Hyunchul Lee <hyc.lee@gmail.com>,
+	Huiwen He <hehuiwen@kylinos.cn>,
+	ChenXiaoSong <chenxiaosong@kylinos.cn>,
 	Namjae Jeon <linkinjeon@kernel.org>,
+	Paulo Alcantara <pc@manguebit.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 039/733] ntfs: return -ERANGE for undersized xattr buffer
-Date: Thu, 17 Sep 2026 16:05:47 +0100
-Message-ID: <20260917151351.723529066@linuxfoundation.org>
+Subject: [PATCH 7.2 067/733] smb/client: fix data corruption in emulated insert range
+Date: Thu, 17 Sep 2026 16:06:15 +0100
+Message-ID: <20260917151352.514681722@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -52,48 +53,363 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Baolin Liu <liubaolin@kylinos.cn>
+From: Huiwen He <hehuiwen@kylinos.cn>
 
-[ Upstream commit ada728801999e25e610091362447372f1b25dd25 ]
+[ Upstream commit 0923ae9f23cc9460b0df6fc124cd56ec4436411b ]
 
-When the value buffer passed to getxattr(2) for system.dos_attrib,
-system.ntfs_attrib or system.ntfs_attrib_be is smaller than the
-attribute value, ntfs_getxattr() returns -ENODATA, which tells
-userspace the attribute does not exist. The xattr API expects
--ERANGE in this case, and ntfs_get_ea() in the same file already
-returns -ERANGE for regular EAs.
+smb3_insert_range() shifts [off, EOF) right with COPYCHUNK, copying from
+low to high offsets. When the ranges overlap, the copy can overwrite
+source data that has not yet been copied. For a 1 MiB insert at offset 0:
 
-Fixes: fc053f05ca28 ("ntfs: add reparse and ea operations")
-Signed-off-by: Baolin Liu <liubaolin@kylinos.cn>
-Reviewed-by: Hyunchul Lee <hyc.lee@gmail.com>
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
+  offset:    0       1M      2M      3M      4M      5M
+  before:   |   A   |   B   |   C   |   D   |
+  expected: | hole  |   A   |   B   |   C   |   D   |
+  current:  | hole  |   A   |   A   |   A   |   A   | (corrupted)
+
+Let x be the insertion offset, L the total length to move, delta the
+insert length, and C the normal chunk size allowed by the server.
+Insert range maps
+
+  [x, x + L) -> [x + delta, x + delta + L).
+
+When delta >= L, the complete source and target ranges are disjoint, so
+the normal copy order and chunk size are safe:
+
+  offset: 0       4       8      12      16      20      24      28      32
+  source: [--S0--][--S1--][--S2--][--S3--]
+  target:                                 [--T0--][--T1--][--T2--][--T3--]
+
+When delta < L, the complete source and target ranges overlap, so the
+copy must proceed from EOF backwards. There are two subcases.
+
+If delta >= C, each corresponding source and target chunk is disjoint.
+The 1 MiB example has L = 4 MiB and delta = C = 1 MiB:
+
+  offset: 0       1M      2M      3M      4M      5M
+  source: [--S0--][--S1--][--S2--][--S3--]
+  target:         [--T0--][--T1--][--T2--][--T3--]
+
+Copying S0 from [0, 1M) to [1M, 2M) overwrites S1 before it is copied.
+Processing chunks from EOF backwards prevents this inter-chunk
+overwrite.
+
+If delta < C, the source and target ranges of a normal chunk also
+overlap. For example, with L = 16, delta = 2 and C = 4:
+
+  offset: 0   2   4   6   8  10  12  14  16  18
+  source: [--S0--][--S1--][--S2--][--S3--]
+  target:     [--T0--][--T1--][--T2--][--T3--]
+
+Here S0 and T0 overlap over [2,4), S1 and T1 over [6,8), and so on.
+Backward ordering cannot control how the server copies bytes inside one
+descriptor, so the chunk size must be limited to delta.
+
+Fix this by copying overlapping right shifts from EOF backwards. Limit
+the chunk size to delta when delta < C so that each chunk's source and
+target ranges do not overlap. Using larger chunks would require a way to
+identify servers that safely handle overlapping COPYCHUNK descriptors.
+
+Therefore:
+
+  delta >= L:
+    keep the normal copy order and chunk size
+
+  delta < L:
+    delta >= C: copy backwards and keep the normal chunk size
+    delta <  C: copy backwards and limit the chunk size to delta
+
+Only the delta < C subcase requires reducing the chunk size for data
+integrity.
+
+Reproducer:
+
+  bash -c '
+          MNT=/mnt/scratch
+
+          # Generate four 1 MiB random blocks: [A][B][C][D].
+          dd if=/dev/urandom of=/tmp/src bs=1M count=4 status=none
+
+          # With C = 1 MiB, test delta = C and delta < C.
+          for delta in 1M 1K; do
+                  truncate -s 0 /tmp/expected
+                  truncate -s "$delta" /tmp/expected
+                  cat /tmp/src >> /tmp/expected
+
+                  cp /tmp/src "$MNT/file"
+                  fallocate --insert-range -o 0 -l "$delta" "$MNT/file"
+
+                  if cmp -s /tmp/expected "$MNT/file"; then
+                          echo "delta=$delta: OK"
+                  else
+                          echo "delta=$delta: CORRUPTED"
+                  fi
+          done
+  '
+
+The corruption reproduces with Samba and ksmbd, while Windows handles
+the overlapping COPYCHUNK ranges safely.
+
+The 1 MiB case tests delta >= C, while the 1 KiB case tests delta < C.
+Before this change, the reproducer reports:
+
+  delta=1M: CORRUPTED
+  delta=1K: CORRUPTED
+
+After this change, it passes against both ksmbd and Samba:
+
+  delta=1M: OK
+  delta=1K: OK
+
+Fixes: 7fe6fe95b936 ("cifs: add FALLOC_FL_INSERT_RANGE support")
+Signed-off-by: Huiwen He <hehuiwen@kylinos.cn>
+Reviewed-by: ChenXiaoSong <chenxiaosong@kylinos.cn>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ntfs/ea.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ fs/smb/client/smb2ops.c | 132 ++++++++++++++++++++++++++++++++--------
+ 1 file changed, 106 insertions(+), 26 deletions(-)
 
-diff --git a/fs/ntfs/ea.c b/fs/ntfs/ea.c
-index 25ff159dbfd38..08c35f9751114 100644
---- a/fs/ntfs/ea.c
-+++ b/fs/ntfs/ea.c
-@@ -591,7 +591,7 @@ static int ntfs_getxattr(const struct xattr_handler *handler,
- 		if (!buffer) {
- 			err = sizeof(u8);
- 		} else if (size < sizeof(u8)) {
--			err = -ENODATA;
-+			err = -ERANGE;
- 		} else {
- 			err = sizeof(u8);
- 			*(u8 *)buffer = (u8)(le32_to_cpu(ni->flags) & 0x3F);
-@@ -604,7 +604,7 @@ static int ntfs_getxattr(const struct xattr_handler *handler,
- 		if (!buffer) {
- 			err = sizeof(u32);
- 		} else if (size < sizeof(u32)) {
--			err = -ENODATA;
-+			err = -ERANGE;
- 		} else {
- 			err = sizeof(u32);
- 			*(u32 *)buffer = le32_to_cpu(ni->flags);
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index a2fe71df2d4fb..d113e28b5c3b7 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -1839,31 +1839,31 @@ smb2_ioctl_query_info(const unsigned int xid,
+  *
+  * @tcon: destination file tcon
+  * @bytes_left: how many bytes are left to copy
++ * @chunk_size: maximum size of a single chunk
+  *
+  * Return: maximum number of chunks with which Chunks[] can be filled.
+  */
+ static inline u32
+-calc_chunk_count(struct cifs_tcon *tcon, u64 bytes_left)
++calc_chunk_count(struct cifs_tcon *tcon, u64 bytes_left, u32 chunk_size)
+ {
+ 	u32 max_chunks = READ_ONCE(tcon->max_chunks);
+ 	u32 max_bytes_copy = READ_ONCE(tcon->max_bytes_copy);
+-	u32 max_bytes_chunk = READ_ONCE(tcon->max_bytes_chunk);
+ 	u64 need;
+ 	u32 allowed;
+ 
+-	if (!max_bytes_chunk || !max_bytes_copy || !max_chunks)
++	if (!chunk_size || !max_bytes_copy || !max_chunks)
+ 		return 0;
+ 
+ 	/* chunks needed for the remaining bytes */
+-	need = DIV_ROUND_UP_ULL(bytes_left, max_bytes_chunk);
++	need = DIV_ROUND_UP_ULL(bytes_left, chunk_size);
+ 	/* chunks allowed per cc request */
+-	allowed = DIV_ROUND_UP(max_bytes_copy, max_bytes_chunk);
++	allowed = DIV_ROUND_UP(max_bytes_copy, chunk_size);
+ 
+ 	return (u32)umin(need, umin(max_chunks, allowed));
+ }
+ 
+ /**
+- * smb2_copychunk_range - server-side copy of data range
++ * __smb2_copychunk_range - server-side copy of data range
+  *
+  * @xid: transaction id
+  * @src_file: source file
+@@ -1875,15 +1875,15 @@ calc_chunk_count(struct cifs_tcon *tcon, u64 bytes_left)
+  * Obtains a resume key for @src_file and issues FSCTL_SRV_COPYCHUNK_WRITE
+  * IOCTLs, splitting the request into chunks limited by tcon->max_*.
+  *
+- * Return: @len on success; negative errno on failure.
++ * Return: 0 on success; negative errno on failure.
+  */
+-static ssize_t
+-smb2_copychunk_range(const unsigned int xid,
+-		     struct cifsFileInfo *src_file,
+-		     struct cifsFileInfo *dst_file,
+-		     u64 src_off,
+-		     u64 len,
+-		     u64 dst_off)
++static int
++__smb2_copychunk_range(const unsigned int xid,
++		       struct cifsFileInfo *src_file,
++		       struct cifsFileInfo *dst_file,
++		       u64 src_off,
++		       u64 len,
++		       u64 dst_off)
+ {
+ 	int rc = 0;
+ 	unsigned int ret_data_len = 0;
+@@ -1891,12 +1891,14 @@ smb2_copychunk_range(const unsigned int xid,
+ 	struct copychunk_ioctl_rsp *cc_rsp = NULL;
+ 	struct cifs_tcon *tcon;
+ 	struct srv_copychunk *chunk;
+-	u32 chunks, chunk_count, chunk_bytes;
++	u32 chunks, chunk_count, chunk_bytes, chunk_size;
+ 	u32 copy_bytes, copy_bytes_left;
+ 	u32 chunks_written, bytes_written;
+ 	u64 total_bytes_left = len;
+ 	u64 src_off_prev, dst_off_prev;
++	u64 max_chunk = 0;
+ 	u32 retries = 0;
++	bool reverse = false;
+ 
+ 	tcon = tlink_tcon(dst_file->tlink);
+ 
+@@ -1904,8 +1906,50 @@ smb2_copychunk_range(const unsigned int xid,
+ 				   dst_file->fid.volatile_fid, tcon->tid,
+ 				   tcon->ses->Suid, src_off, dst_off, len);
+ 
++	/*
++	 * Same-file left shifts are safe in forward order. For a right shift,
++	 * let L be the copy length, delta the distance between the source and
++	 * destination, and C the normal chunk size:
++	 *
++	 *   delta >= L:      copy forwards using C
++	 *   delta < L:
++	 *     delta >= C:    copy backwards using C
++	 *     delta < C:     copy backwards with chunks limited to delta
++	 *
++	 * Copying backwards prevents one chunk from overwriting data needed by
++	 * a later chunk. Limiting the chunk size to delta prevents an individual
++	 * chunk from overlapping itself.
++	 * This limit can be removed once all supported servers handle overlapping
++	 * descriptors safely.
++	 *
++	 * A small right shift over a large range may therefore require many
++	 * chunks.
++	 */
++	if (src_file == dst_file && dst_off > src_off) {
++		u64 delta = dst_off - src_off;
++
++		if (delta < len) {
++			reverse = true;
++			max_chunk = delta;
++		}
++	}
++
++	/*
++	 * A backward copy walks the offsets down from the end of the range.
++	 * Do this once, outside the retry loop, so a retry does not move the
++	 * offsets again.
++	 */
++	if (reverse) {
++		src_off += len;
++		dst_off += len;
++	}
++
+ retry:
+-	chunk_count = calc_chunk_count(tcon, total_bytes_left);
++	chunk_size = READ_ONCE(tcon->max_bytes_chunk);
++	if (max_chunk && max_chunk < chunk_size)
++		chunk_size = (u32)max_chunk;
++
++	chunk_count = calc_chunk_count(tcon, total_bytes_left, chunk_size);
+ 	if (!chunk_count) {
+ 		rc = -EOPNOTSUPP;
+ 		goto out;
+@@ -1946,16 +1990,21 @@ smb2_copychunk_range(const unsigned int xid,
+ 		while (copy_bytes_left > 0 && chunks < chunk_count) {
+ 			chunk = &cc_req->Chunks[chunks++];
+ 
++			chunk_bytes = umin(copy_bytes_left, chunk_size);
++			if (reverse) {
++				src_off -= chunk_bytes;
++				dst_off -= chunk_bytes;
++			}
++
+ 			chunk->SourceOffset = cpu_to_le64(src_off);
+ 			chunk->TargetOffset = cpu_to_le64(dst_off);
+-
+-			chunk_bytes = umin(copy_bytes_left, tcon->max_bytes_chunk);
+-
+ 			chunk->Length = cpu_to_le32(chunk_bytes);
+ 			/* Buffer is zeroed, no need to set chunk->Reserved = 0 */
+ 
+-			src_off += chunk_bytes;
+-			dst_off += chunk_bytes;
++			if (!reverse) {
++				src_off += chunk_bytes;
++				dst_off += chunk_bytes;
++			}
+ 
+ 			copy_bytes_left -= chunk_bytes;
+ 			copy_bytes += chunk_bytes;
+@@ -2003,6 +2052,18 @@ smb2_copychunk_range(const unsigned int xid,
+ 				goto out;
+ 			}
+ 
++			/*
++			 * A successful COPYCHUNK should copy every descriptor (MS-SMB2
++			 * 3.3.5.15.6). Reject a short backward copy because the rewind
++			 * below only supports forward copying.
++			 */
++			if (unlikely(reverse && bytes_written < copy_bytes)) {
++				cifs_tcon_dbg(VFS, "Copychunk short write %u/%u (reverse)\n",
++					      bytes_written, copy_bytes);
++				rc = -EIO;
++				goto out;
++			}
++
+ 			/* Partial write: rewind */
+ 			if (bytes_written < copy_bytes) {
+ 				u32 delta = copy_bytes - bytes_written;
+@@ -2064,10 +2125,27 @@ smb2_copychunk_range(const unsigned int xid,
+ 		trace_smb3_copychunk_done(xid, src_file->fid.volatile_fid,
+ 					  dst_file->fid.volatile_fid, tcon->tid,
+ 					  tcon->ses->Suid, src_off, dst_off, len);
+-		return len;
++		return 0;
+ 	}
+ }
+ 
++static ssize_t
++smb2_copychunk_range(const unsigned int xid,
++		     struct cifsFileInfo *src_file,
++		     struct cifsFileInfo *dst_file,
++		     u64 src_off,
++		     u64 len,
++		     u64 dst_off)
++{
++	int rc;
++
++	rc = __smb2_copychunk_range(xid, src_file, dst_file, src_off, len,
++				    dst_off);
++	if (rc)
++		return rc;
++	return len;
++}
++
+ static int
+ smb2_flush_file(const unsigned int xid, struct cifs_tcon *tcon,
+ 		struct cifs_fid *fid)
+@@ -3989,7 +4067,6 @@ static long smb3_insert_range(struct file *file, struct cifs_tcon *tcon,
+ 	struct cifsFileInfo *cfile = file->private_data;
+ 	struct inode *inode = file_inode(file);
+ 	struct cifsInodeInfo *cifsi = CIFS_I(inode);
+-	u64 count;
+ 	loff_t old_eof, new_eof;
+ 
+ 	xid = get_xid();
+@@ -4008,8 +4085,6 @@ static long smb3_insert_range(struct file *file, struct cifs_tcon *tcon,
+ 	if (rc)
+ 		goto out;
+ 
+-	count = old_eof - off;
+-
+ 	/* SET_ZERO_DATA creates a hole only in a sparse file. */
+ 	rc = smb2_set_sparse(xid, tcon, cfile, inode, true);
+ 	if (rc)
+@@ -4033,7 +4108,12 @@ static long smb3_insert_range(struct file *file, struct cifs_tcon *tcon,
+ 	spin_unlock(&inode->i_lock);
+ 	fscache_resize_cookie(cifs_inode_cookie(inode), i_size_read(inode));
+ 
+-	rc = smb2_copychunk_range(xid, cfile, cfile, off, count, off + len);
++	/*
++	 * Move [off, old_eof) right by len. The helper copies backwards if the
++	 * source and destination ranges overlap.
++	 */
++	rc = __smb2_copychunk_range(xid, cfile, cfile, off, old_eof - off,
++				    off + len);
+ 	if (rc < 0)
+ 		goto out_2;
+ 	spin_lock(&inode->i_lock);
 -- 
 2.53.0
 
