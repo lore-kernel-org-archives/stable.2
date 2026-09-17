@@ -1,117 +1,224 @@
-Received: from canpmsgout06.his.huawei.com (canpmsgout06.his.huawei.com [113.46.200.221])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-156.mta0.migadu.com [91.218.175.156])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 555353955F7;
-	Thu, 17 Sep 2026 02:31:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.221
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32843384244
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:31:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612308; cv=none; b=j+qjrrchX3Z6rhnBCG2pZSrxAAaWNzqtI/dXa+ELmtxoduInWI622/Hgoznh4Ie/pDyTqXQHF7yyc1iDrfAUPCzkHGBc/RpMZcexf77HWai7MxBuYanFTANj1vKaFfhmcXIGa+bawZpVmYIbNEYk0+YKSDhfkKQ81M8LdT5m1DM=
+	t=1789612334; cv=none; b=cN3ApJ8B5uKZy5KT3oQC9DsChMEdkFB0GodUyfQnF81qahmsBQgJ+5yU3IbzV8Ndr9v3t4B3VlrLnPk0rQBEyIZuADSbihQ4FkGZqCafP4/9gUbrCjtRrJIrmeUI6XBa3dtHB9ogMweRVNQZo78bikgrKjHsEd10oD5oyeeb/Uc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612308; c=relaxed/simple;
-	bh=12hCdacFQ9bFjFDdZs/2tWWhXbLVh4nO1BO1Z9+vCXI=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=EaZXBGd5n71neNKflHqs5gAF/G84uO4pGbbQ6/3i5AXMAJaC8GfhcB3OX5dwpcwhH02LKXJgIAYWVarlfrcAttLw9mWgCvqqBmV990mklqg3dNdPLuqsqFU6fDxAuvSQiPn89gszpWJa0wtmoy4yGlKLmAP89nVbK0/t54g9TNA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Lw4b3BNU; arc=none smtp.client-ip=113.46.200.221
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
+	s=arc-20240116; t=1789612334; c=relaxed/simple;
+	bh=OhFJYx2GLjFlM0DLOO0Nerpkg49eVGE1lC/5sreFBm0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=c32opI4taT+dOEiPJXNYutRORVtnoPURKGob71Yc+p9sqm6sFvfF4WHDvtzXxU76Kh4vJIsXRXdUHHWGYni6NjBWukaMDf91h57rD2zlp1mKcrNsdv7IwLK/l5V+qgLzG2sQ0CkuLMCVwyrETVAtbEPDBRX2Ke73rCGV9OmJLmQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=oV2M92L+; arc=none smtp.client-ip=91.218.175.156
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Lw4b3BNU"
-dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
-	c=relaxed/relaxed; q=dns/txt;
-	h=From;
-	bh=PSrGRkSIHQGbxbe4Ft5AX7hBVqF+BpQDdBUjrKmwX5s=;
-	b=Lw4b3BNUoNrvWcO4mMH//REihHJ177IA8d81vu5Sj3j1X2WixptbbQHCrj8+zeGCnaj+d5O1y
-	emeT4FORq7VkEvtIlYXmCuLRs8lJ0svgQMD3vRg8jj/zcCfibaweOAbIr4//1WOfOdoSha7Mn0c
-	bD97coYSyTqsL8J8Ei6IY3A=
-Received: from mail.maildlp.com (unknown [172.19.162.197])
-	by canpmsgout06.his.huawei.com (SkyGuard) with ESMTPS id 4hlfc62V9ZzRhQs;
-	Thu, 17 Sep 2026 10:20:22 +0800 (CST)
-Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
-	by mail.maildlp.com (Postfix) with ESMTPS id 00E964057D;
-	Thu, 17 Sep 2026 10:31:19 +0800 (CST)
-Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
- kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.2.2562.45; Thu, 17 Sep 2026 10:31:18 +0800
-From: Xie Yuanbin <xieyuanbin1@huawei.com>
-To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
-	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
-	<rostedt@goodmis.org>, <rmk+kernel@armlinux.org.uk>, <linusw@kernel.org>,
-	<kuninori.morimoto.gx@renesas.com>, <arnd@arndb.de>, <xiqi2@huawei.com>,
-	<ljs@kernel.org>, <wozizhi@huaweicloud.com>
-CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
-	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
-	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
-	Yadi.hu <yadi.hu@windriver.com>, Xie Yuanbin <xieyuanbin1@huawei.com>
-Subject: [PATCH v2 5.10.y/5.15.y 3/3] ARM: ensure interrupts are enabled in __do_user_fault()
-Date: Thu, 17 Sep 2026 10:30:56 +0800
-Message-ID: <20260917023056.2280-4-xieyuanbin1@huawei.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917023056.2280-1-xieyuanbin1@huawei.com>
-References: <20260917023056.2280-1-xieyuanbin1@huawei.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="oV2M92L+"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=OhFJYx2GLjFlM0DLOO0Nerpkg49eVGE1lC/5sreFBm0=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789612310; v=1; x=1790217110;
+ b=oV2M92L+Y4HS1jEHfAg7Psl5AchH93cD5oFaB815hE8m87I0XiLFBrKOHC9nzijOJ7Isbt+i
+ amA30oHxD8XddBTnZSsLpS1sd1XgSJ5cTgVMO+wY0pMzQ/xGj2RTY46rSjFLOgFgswlbnHRceG+
+ p8ed6ZdTNQXLrcF0m9K2t658=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id e34d9e405c99d802;
+	Thu, 17 Sep 2026 02:31:50 +0000
+X-Mizu-Trace-ID: e34d9e405c99d802
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <b8005c24-ecac-45c4-840a-fd282f9693b5@linux.dev>
+Date: Thu, 17 Sep 2026 10:32:48 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 2/6] alloc_tag: clean up the populate failure path
+From: Hao Ge <hao.ge@linux.dev>
+To: Suren Baghdasaryan <surenb@google.com>,
+ "David Hildenbrand (Arm)" <david@kernel.org>,
+ "Lorenzo Stoakes (ARM)" <ljs@kernel.org>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <20260915070001.113559-3-hao.ge@linux.dev>
+ <CAJuCfpHJSwNhgotMVpmjVvdv=m52_7Kvzpztf0WcN0AaoSeGGw@mail.gmail.com>
+ <60642a7f-2949-428a-8290-40d69c989a77@linux.dev>
+ <CAJuCfpG3d7n=z5WnUQYZsqvrt1pemF8TFvGiGyZGLO7ykVvqAQ@mail.gmail.com>
+ <CAJuCfpGeRdFY6UPF-vXxwHvP2+tN=BKgRkmLR3PMLuWhxgzPRA@mail.gmail.com>
+ <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
+Content-Language: en-US
+In-Reply-To: <1dff448c-9cbe-4276-bca1-d91283b0c7b4@linux.dev>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
- kwepemk300012.china.huawei.com (7.202.194.175)
 
-From: "Russell King (Oracle)" <rmk+kernel@armlinux.org.uk>
+Hi Suren、David、Lorenzo
 
-[ Upstream commit 59e4f3b45b96a24fc9b7a89e5f8a2168b30f95af ]
+On 2026/9/17 09:12, Hao Ge wrote:
+> Hi Suren
+> 
+> On 2026/9/17 03:07, Suren Baghdasaryan wrote:
+>> On Wed, Sep 16, 2026 at 9:31 AM Suren Baghdasaryan <surenb@google.com> wrote:
+>>>
+>>> On Tue, Sep 15, 2026 at 11:00 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>>>
+>>>> Hi Suren
+>>>>
+>>>> Thanks for you review.
+>>>>
+>>>> On 2026/9/16 05:09, Suren Baghdasaryan wrote:
+>>>>> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>>>>>
+>>>>>> The reservation is already stored in the maple tree when
+>>>>>> vm_module_tags_populate() fails. A failed load never unloads the
+>>>>>> module, so nothing releases the entry. Release it and roll
+>>>>>> module_tags.size back. Without the rollback a concurrent load that
+>>>>>> already passed needs_section_mem() can reuse the freed gap, skip
+>>>>>> vm_module_tags_populate() and write to unmapped memory.
+>>>>>>
+>>>>>> vmap_pages_range() may have installed some PTEs before failing. A
+>>>>>> retry to populate the same range would BUG on them, so undo them,
+>>>>>> but only if vmap actually ran.
+>>>>>>
+>>>>>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+>>>>>> Fixes: 0f9b685626da ("alloc_tag: populate memory for module tags as needed")
+>>>>>
+>>>>> If a patch fixes two other patches, it likely needs to be split so
+>>>>> that each part fixes one patch only. But read on please. I'm not sure
+>>>>> if one of the fixes is correct.
+>>>>>
+>>>>
+>>>> Kept them in one patch because they only make sense together.
+>>>>
+>>>> After a failed populate the reservation is released and the
+>>>> size rolled back, so the next load takes the same gap and calls
+>>>> vm_module_tags_populate() again, and that retry would trip over
+>>>> the PTEs the failed vmap left behind.
+>>>>
+>>>> Without the rollback a load that already passed needs_section_mem()
+>>>> just reuses the gap, skips populate and writes to unmapped memory.
+>>>> So splitting them leaves each half broken.
+>>>
+>>> Yeah, that's why I think vmap_pages_range() cleanup should be a
+>>> completely separate patch with vmap_pages_range() doing cleanup
+>>> itself.
+>>>
+> 
+> I think I get where you're coming from now.
+> Thanks for taking the time to explain.
+> 
+>>>>
+>>>>>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>>>>>> Cc: stable@vger.kernel.org
+>>>>>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+>>>>>> ---
+>>>>>>  mm/alloc_tag.c | 10 ++++++++++
+>>>>>>  1 file changed, 10 insertions(+)
+>>>>>>
+>>>>>> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
+>>>>>> index 2070e682fe10..95ddf5b743d0 100644
+>>>>>> --- a/mm/alloc_tag.c
+>>>>>> +++ b/mm/alloc_tag.c
+>>>>>> @@ -804,6 +804,13 @@ static int vm_module_tags_populate(void)
+>>>>>>                                      next_page, PAGE_SHIFT) < 0) {
+>>>>>>                         release_pages_arg arg = { .pages = next_page };
+>>>>>>
+>>>>>> +                       /*
+>>>>>> +                        * vmap_pages_range() only runs once all pages were
+>>>>>> +                        * allocated, and it may have installed some mappings
+>>>>>> +                        * before failing. Undo them.
+>>>>>
+>>>>> If vmap_pages_range() failed to map the range, why should we need to
+>>>>> undo it? If it indeed leaves some partial mapping when failing then I
+>>>>> would argue that vmap_pages_range() should be undoing these partial
+>>>>> mappings itself before returning the error.
+>>>>>
+>>>> Yeah it does - none of the paths under vmap_pages_range() undo themselves on error.
+>>>
+>>> Hmm. I wonder if this behavior is intentional or requires a fix. The
+>>> only possible reason I can think of is performance but I can't imagine
+>>> a failure to map is a performance-critical case.
+>>>
+>>> +David Hildenbrand (Red Hat), +Lorenzo Stoakes (Oracle) what do you
+>>
+>> Huh, my gmail thinks you are still at your previous companies :)
+>>
+> 
+> I manually fixed it on the mailing list for this thread.
+> 
+>>> guys think? Shouldn't vmap_pages_range() undo its possible partial
+>>> mapping when it fails?
+>>>
+>>>
+>>>> pcpu_map_pages does perform cleanup on its own as well. There may be other similar sites.
+>>>> https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/percpu-vm.c#L255
+>>>> so I did the same here.
+>>>>
+>>>> If we really want vmap_pages_range() to handle this cleanup internally, I believe that would
+>>>> be a relatively large change, and we would need to consider many more cases. So I think we keep
+>>>> the current behaviour for now.
+>>>
+>>> Yeah, I understand it would require a deeper cut but if that's the
+>>> right way to handle this we might as well do that. Let's see what MM
+>>> folks think.
+>>>
+> 
+> Sounds good to me. Let's wait and hear what the MM folks say.
+> 
 
-__do_user_fault() may be called from fault handling paths where the
-interrupts are enabled or disabled. E.g. do_page_fault() calls this
-with interrupts enabled, whereas do_sect_fault()->do_bad_area()
-will call this with interrupts disabled. Since this is a userspace
-fault, we know that interrupts were enabled in the parent context,
-so call local_irq_enable() here to give a consistent interrupt state.
+I just looked into the call sites for __vmap_pages_range.
+And I found there's a bug in one vmalloc caller [1].
+When gfp_mask has __GFP_NOFAIL, the code keeps retrying
+__vmap_pages_range. If there are leftover PTE mappings,
+this can trigger a BUG(); [2]
+https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L3946 [1]
+https://elixir.bootlin.com/linux/v7.3-rc3/source/mm/vmalloc.c#L121  [2]
 
-This is necessary for force_sig_info() when PREEMPT_RT is enabled.
-
-Reported-by: Yadi.hu <yadi.hu@windriver.com>
-Reviewed-by: Sebastian Andrzej Siewior <bigeasy@linutronix.de>
-Signed-off-by: Russell King (Oracle) <rmk+kernel@armlinux.org.uk>
-Signed-off-by: Xie Yuanbin <xieyuanbin1@huawei.com>
----
- arch/arm/mm/fault.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/arch/arm/mm/fault.c b/arch/arm/mm/fault.c
-index 4afb076383a8..8b31d7704626 100644
---- a/arch/arm/mm/fault.c
-+++ b/arch/arm/mm/fault.c
-@@ -137,7 +137,8 @@ __do_kernel_fault(struct mm_struct *mm, unsigned long addr, unsigned int fsr,
- 
- /*
-  * Something tried to access memory that isn't in our memory map..
-- * User mode accesses just cause a SIGSEGV
-+ * User mode accesses just cause a SIGSEGV. Ensure interrupts are enabled
-+ * for preempt RT.
-  */
- static void
- __do_user_fault(unsigned long addr, unsigned int fsr, unsigned int sig,
-@@ -145,6 +146,8 @@ __do_user_fault(unsigned long addr, unsigned int fsr, unsigned int sig,
- {
- 	struct task_struct *tsk = current;
- 
-+	local_irq_enable();
-+
- #ifdef CONFIG_DEBUG_USER
- 	if (((user_debug & UDBG_SEGV) && (sig == SIGSEGV)) ||
- 	    ((user_debug & UDBG_BUS)  && (sig == SIGBUS))) {
-@@ -254,6 +257,7 @@ do_kernel_address_page_fault(struct mm_struct *mm, unsigned long addr,
- 		 * should not be faulting in kernel space, which includes the
- 		 * vector/khelper page. Handle the branch predictor hardening
- 		 * while interrupts are still disabled, then send a SIGSEGV.
-+		 * Note that __do_user_fault() will enable interrupts.
- 		 */
- 		harden_branch_predictor();
- 		__do_user_fault(addr, fsr, SIGSEGV, SEGV_MAPERR, regs);
--- 
-2.55.0
-
+> Thanks
+> Best Regards
+> Hao
+> 
+>>>>
+>>>> Thanks
+>>>> Best Regards
+>>>> Hao
+>>>>
+>>>>>> +                        */
+>>>>>> +                       if (nr == more_pages)
+>>>>>> +                               vunmap_range(phys_end, phys_end + (nr << PAGE_SHIFT));
+>>>>>>                         /* Clean up and error out */
+>>>>>>                         release_pages(arg, nr);
+>>>>>>                         return -ENOMEM;
+>>>>>> @@ -947,6 +954,7 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+>>>>>>                 return ret;
+>>>>>>
+>>>>>>         if (module_tags.size < offset + size) {
+>>>>>> +               unsigned long prev_size = module_tags.size;
+>>>>>>                 int grow_res;
+>>>>>>
+>>>>>>                 module_tags.size = offset + size;
+>>>>>> @@ -961,6 +969,8 @@ static void *reserve_module_tags(struct module *mod, unsigned long size,
+>>>>>>                         shutdown_mem_profiling(true);
+>>>>>>                         pr_err("Failed to allocate memory for allocation tags in the module %s. Memory allocation profiling is disabled!\n",
+>>>>>>                                mod->name);
+>>>>>> +                       release_module_tags(mod, false);
+>>>>>> +                       module_tags.size = prev_size;
+>>>>>
+>>>>> Yes, this one is a valid fix. It fixes 0f9b685626da commit.
+>>>>>
+>>>>>>                         return ERR_PTR(grow_res);
+>>>>>>                 }
+>>>>>>         }
+>>>>>> --
+>>>>>> 2.25.1
+>>>>>>
