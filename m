@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487DB4B7A28
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:09:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E95F648489A
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:09:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657755; cv=none; b=ZS8yfv3sSQMy5sCUSjkot49k4FiQvLaPO7a2unOHVnapRRyM05xqTFhg8U2e/qcpTHeOTDtvfEA+nhdJLHqjWf/CZRNGgYmGrOvebL2Az3vR2IvxPtJQLyNEW3h8ZKk0LzHUpcEuedtZQb+ObE/UZXIQ5M+M8yOYVglWHZ5X6cY=
+	t=1789657764; cv=none; b=cst6/Xl6mPKyZwiLpIV79PlU5YcUzIsal5DNfB+4yxjQaMaICB0wgK1XjvnagYYZL0J7TUy1W3DNYSSlwR+A8D6b3y59JLjb04F84A2QtXKuRuNO9jQNE5jTVqlL/2Htkr3H82TZxjlAJMNEHg5CaDC3VEVbVaCwwWHDlsaxhww=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657755; c=relaxed/simple;
-	bh=z1VHY4T7M9k6TDkBT9WdEzTSx/83nH23z6nqb0C17C0=;
+	s=arc-20240116; t=1789657764; c=relaxed/simple;
+	bh=S1B3PYH0kejGTSdOhV+ElWcw3s7OoY5UmBQzj/QMFOE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=K3hJJiYw/sJ4eQ35AH7VHDWhoGotnHW8RrmtNPDWU8ZW+D9tVIYcS1kW5E+UZwcjajY7FKhVqwVcw5ttxP4YbefDNVrWWme7EyFgtCe2P4yPLcCzMR5LdFQ8Y2GAIhq+BYzBTRmLBPgg+kzfRdXESWJZPTx2Du4YS2rau6rAHCg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nX+8L2UD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=QI6EHrUea3ZOF+5ff33GqtHwvJLYK4msBWxSDwQokfpSqrCmDMlIQkwfv0Z9zA1cdhOzY5dkUgu/83X77OnoKeG73QW3sb338kENlLHMEagUm9v9KM3EqJIiIQs8JSHxGm1xbm1YIJ8+NF+fhH5jnXM57P69dpoxVsYHpE0B7BU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K4jGKViH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nX+8L2UD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060C51F00899;
-	Thu, 17 Sep 2026 15:08:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K4jGKViH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 122F81F00898;
+	Thu, 17 Sep 2026 15:08:55 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789657738;
-	bh=U/wN1vRam8lWe8CqgE6JeQvuKBfziUnWHvLIBvp7uBQ=;
+	s=k20260515; t=1789657736;
+	bh=5oi+IAV/rvo9psWtSlnkZbvbvHTgRvBIGNGagv+etfk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nX+8L2UDUDBSRe7avWt+hJ3vqOKwEntrKUfjYZ65UoabcjmL/1UERa7J35L2qmCLk
-	 3SoFkHx9XYqXKrXDiPblEHvqTFftFQq3V2aGo2odrcLsYJ012hWQjP/xGmjspf0wUo
-	 7hxmsOU0UutcJreHSaQ6sezwtMw8Z5taLHwmgKVggA52MsZzz3XCgujRvqz2uV0cMy
-	 EJYf4hx8w/d428dTQMc7a5Im58FMA1OfyCWvy09/ZoZZT/bvcGhpKBDVnVwQN44iwq
-	 HD1SvKEqzWoycZlRyxgQmbIMCjZOb2JfwzC40bZHOUvg3lmfRHOw8iOrNxwQ9894cg
-	 BYE1KU4OQ4faQ==
+	b=K4jGKViHSEVXLMS9tB0f3itA36fb0MOljmDkpIyZRyMYj6ZZbIIaVzl0DF3aqorfc
+	 +9Ww/xacBUGv6jt0j13DrmTNsLs55bctTU/HeY+6JSK1vAP7fjJKABWokCf+PhznZn
+	 BY+eNvjJxu0WtxwRLR/MyC2ZirD39YZAXGKCE1WnRe6LKj4CJodHDSYekghHxH1FjD
+	 uDxvubEH11cz5aFmSt1JgFEaeKHVxjDBQ4ZnNwSmv35TxDK18sDvgldd2MUs7LEPVh
+	 lQVDlZKL5HrcQIUEMqQDV/m8OmZRP+BL5xLWDh0X3A7Tdx2wwQoQB/bPMKHKmUpwXe
+	 +NiKPqXVQWtsA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Paulo Alcantara <pc@manguebit.org>,
@@ -35,12 +35,13 @@ Cc: Paulo Alcantara <pc@manguebit.org>,
 	Tom Talpey <tom@talpey.com>,
 	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
-Date: Thu, 17 Sep 2026 11:08:56 -0400
-Message-ID: <20260917150856.681982-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y 2/2] smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()
+Date: Thu, 17 Sep 2026 11:08:53 -0400
+Message-ID: <20260917150853.681793-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091606-employed-agency-982d@gregkh>
-References: <2026091606-employed-agency-982d@gregkh>
+In-Reply-To: <20260917150853.681793-1-sashal@kernel.org>
+References: <2026091629-most-slimness-8500@gregkh>
+ <20260917150853.681793-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,27 +52,24 @@ Content-Transfer-Encoding: 8bit
 
 From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit 18a72975e9f35aadecc75b031f693f2d1f49308f ]
+[ Upstream commit da6e25842431982d5a53cf00d925b98c690f4467 ]
 
-When the administrator mounts with forceuid or forcegid (uid=/gid=
-mount options), they expect all files to appear owned by the specified
-user/group.  However, several code paths unconditionally called
-sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
-ignoring the administrator's explicit override:
+cifs_posix_to_fattr() ignores the return value of posix_info_parse().
+When a malformed POSIX directory entry is encountered (e.g. invalid
+SID lengths from an untrusted server), posix_info_parse() returns -1
+without populating the 'parsed' struct.  The uninitialized stack
+memory in parsed.owner and parsed.group is then passed to
+sid_to_id(), which processes the garbage bytes and passes them to
+request_key() to construct a SID string, potentially leaking kernel
+stack contents to the userspace idmap daemon.
 
-  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
-  - cifs_posix_to_fattr() (readdir via POSIX extensions)
-  - parse_sec_desc() (CIFS ACL ownership mapping)
+Fix this by checking the return value and skipping the SID-to-id
+mapping when parsing fails.  The remaining fattr fields (timestamps,
+mode, etc.) are populated directly from the 'info' pointer so they
+are unaffected.
 
-This allowed an untrusted server to dictate local file ownership even
-when the mount was configured to force specific uid/gid values.
-
-Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
-CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
-same pattern already used by cifs_unix_basic_to_fattr() for unix
-extensions.
-
-Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
+Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40manguebit.org
+Closes: https://sashiko.dev/#/patchset/20260906181540.647469-1-pc%40manguebit.org
 Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
 Signed-off-by: Paulo Alcantara <pc@manguebit.org>
 Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
@@ -79,96 +77,43 @@ Cc: Shyam Prasad N <sprasad@microsoft.com>
 Cc: Tom Talpey <tom@talpey.com>
 Cc: Bharath SM <bharathsm@microsoft.com>
 Cc: stable@vger.kernel.org
-[ replaced cifs_sb_flags(cifs_sb) with cifs_sb->mnt_cifs_flags because the older tree lacks the accessor. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifsacl.c | 29 ++++++++++++++++++-----------
- fs/cifs/readdir.c |  9 +++++++--
- 2 files changed, 25 insertions(+), 13 deletions(-)
+ fs/smb/client/readdir.c | 16 +++++++++++-----
+ 1 file changed, 11 insertions(+), 5 deletions(-)
 
-diff --git a/fs/cifs/cifsacl.c b/fs/cifs/cifsacl.c
-index 1b52e0c88877a..15ce5a56f017e 100644
---- a/fs/cifs/cifsacl.c
-+++ b/fs/cifs/cifsacl.c
-@@ -1273,6 +1273,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
+index 8ccfdc6a10cfb..2f580a4868915 100644
+--- a/fs/smb/client/readdir.c
++++ b/fs/smb/client/readdir.c
+@@ -243,8 +243,9 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
  {
- 	int rc = 0;
- 	struct cifs_sid *owner_sid_ptr, *group_sid_ptr;
-+	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
- 	struct cifs_acl *dacl_ptr; /* no need for SACL ptr */
- 	char *end_of_acl = ((char *)pntsd) + acl_len;
- 	__u32 dacloffset;
-@@ -1289,17 +1290,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 		 pntsd->revision, pntsd->type, le32_to_cpu(pntsd->osidoffset),
- 		 le32_to_cpu(pntsd->gsidoffset),
- 		 le32_to_cpu(pntsd->sacloffset), dacloffset);
--/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+
- 	rc = parse_sid(owner_sid_ptr, end_of_acl);
- 	if (rc) {
- 		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
- 		return rc;
- 	}
--	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
-+		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
- 
- 	rc = parse_sid(group_sid_ptr, end_of_acl);
-@@ -1308,11 +1313,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 			 __func__, rc);
- 		return rc;
- 	}
--	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
-+		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
- 
- 	if (dacloffset) {
-diff --git a/fs/cifs/readdir.c b/fs/cifs/readdir.c
-index 7c47a03afbcc3..1510ff1ebe907 100644
---- a/fs/cifs/readdir.c
-+++ b/fs/cifs/readdir.c
-@@ -232,6 +232,7 @@ static void
- cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		    struct cifs_sb_info *cifs_sb)
- {
-+	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
+ 	unsigned int sbflags = cifs_sb_flags(cifs_sb);
  	struct smb2_posix_info_parsed parsed;
++	int rc;
  
- 	posix_info_parse(info, NULL, &parsed);
-@@ -276,8 +277,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 	if (reparse_file_needs_reval(fattr))
- 		fattr->cf_flags |= CIFS_FATTR_NEED_REVAL;
+-	posix_info_parse(info, NULL, &parsed);
++	rc = posix_info_parse(info, NULL, &parsed);
  
--	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
+ 	memset(fattr, 0, sizeof(*fattr));
+ 	fattr->cf_uniqueid = le64_to_cpu(info->Inode);
+@@ -283,10 +284,15 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 
+ 	fattr->cf_uid = cifs_sb->ctx->linux_uid;
+ 	fattr->cf_gid = cifs_sb->ctx->linux_gid;
+-	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
+-		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
+-	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
+-		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
++	if (rc < 0) {
++		cifs_dbg(VFS, "%s: failed to parse SIDs: %d\n",
++			 __func__, rc);
++	} else {
++		if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++			sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
++		if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++			sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
++	}
  }
  
  static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
