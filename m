@@ -1,92 +1,95 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C65864D956F;
-	Thu, 17 Sep 2026 11:32:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D44D04D7948;
+	Thu, 17 Sep 2026 11:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644770; cv=none; b=dYDz5JZJ6O2bkkYhsNOMRcisfVdaFqjoY1SdirX8jMX1Zj8fweEAs4SH/HiI7PwYiOkvo3n3r+h9o63Ggr/Yen+fjFAgb0pH7BMPlChtKmqRXg1zO/NUfp17vM/VgxeQA7HS0eutHC8VJCEXq9URKyVUOM0Yoolql34iaVZ40ss=
+	t=1789644898; cv=none; b=ZC9LIUVX94Wf0N/AkcgDTh7TyLY/gIn8Z9PrtV//u+idhk6UlSfXLC/7b8aIGiheIPJRVwRgciUGU6oPMwMBc/foj2CdBupWh8gWUEyYkyBjbr2vdkDOJi7v2A02wU2fhoVQooe6vjyNhaVpTvFfFCWQc7h/kFW+y5lh+yq+vfo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644770; c=relaxed/simple;
-	bh=cffo7sWwuU0dvkuf0+DX4vlZ2l/dAet1H1uUGBSuDwQ=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=BOOya5KPzU87bTAo+YLnOM3kQMxsP7eqvH8aE4gJoeQrMRP3GruOw4Jw1AfhIaZdkCJ3AMY57nczU1koY/PJ1lMv7Vxs1jiXsTGkbDSOWYlDohhMFnDZpTVPVZTtHj0gMLnyGFxs5dbi0gvFHf7/eI+sYXy3P1R4/Js3up9LWDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XQDusTXU; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XQDusTXU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 605501F000FF;
-	Thu, 17 Sep 2026 11:32:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789644768;
-	bh=Ett9tkOq1/eceJ6vB9SlEQ9IvkP+PrspyfJVusZnlEs=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=XQDusTXUhliPk8mcSYZP/e0/8m71sjbTJa7f0HIotHD8/8C0q9Iv4YbnIMnMDXJUV
-	 hwborSzKwW4FGMczRs/VHCXfOqCT+4CFiFxnU55viphwCuHr6kV/QyX5cv7FkhCmpf
-	 RVTPfWFRhPhq0lWdlmKfH6gO4TpQntbs+yIuahUrbz5rTceeuVCFEq5aX+hkkTkWPd
-	 oOSZs37nq9/tTFrasc/Onti3WF207H2rAvTlMXP6CYNObFdUNnt6bnbQmEn3q3F16z
-	 X8QsonoZXZ8sE+7JH70UKCNvz9Y0m3XI6NGJVeXXu5XvfWOL6iADkLRU1bMoiWKKpi
-	 428/O5XNsVrAQ==
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: ckeepax@opensource.cirrus.com, krzk@kernel.org, lgirdwood@gmail.com, 
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
- patches@opensource.cirrus.com, perex@perex.cz, s.nawrocki@samsung.com, 
- tiwai@suse.com, stable@vger.kernel.org
-In-Reply-To: <20260916072737.1970990-1-vulab@iscas.ac.cn>
-References: <20260916072737.1970990-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: wm8994: Fix runtime PM imbalance in
- wm8994_component_probe()
-Message-Id: <178959286552.100121.820380594864090352.b4-ty@b4>
-Date: Wed, 16 Sep 2026 22:07:45 +0100
+	s=arc-20240116; t=1789644898; c=relaxed/simple;
+	bh=33MfYXKTSmQZVl6Ni4FMmPcTZk6Tf10K4v8CMJve8d8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=gTPYDtiziZ4tK4OArFuuEoku1RmPKXvoyFOcMPRVbivvctR77gZ6bayWDNJXq0CgsToOuAo5Tj/xSQX71UqBi3ReI/mQTxJE2CQg9FDvudvfzkz1WmTcr/Yq0dJx89c76YmUnhrz/3WP50mrOGbmElEma34lAp83yFjvzGPP7Fg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3HzpU0KtqgKl_CA--.1856S2;
+	Thu, 17 Sep 2026 19:34:44 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: UNGLinuxDriver@microchip.com
+Cc: andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	vladimir.oltean@nxp.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: mscc: ocelot: Fix mirror reference leak on VCAP aux resource error
+Date: Thu, 17 Sep 2026 11:34:44 +0000
+Message-Id: <20260917113444.2149183-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1150; i=broonie@kernel.org;
- h=from:subject:message-id; bh=cffo7sWwuU0dvkuf0+DX4vlZ2l/dAet1H1uUGBSuDwQ=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqq8/c0Z52rXbUI3zAeO4TbSuv1C4knccGYF40M
- S7tNVXqn/WJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqvP3AAKCRAk1otyXVSH
- 0DplB/9uL8Ylea/CoCvM/MoMF4BE/HkLVTvQUL+d9boQ8ViE1RAvyWacywfEJcD95YlntplALln
- o8jIIbz96kh6GMj0GS32D5SAxfpsYqxV/EZzHfLeJUfDgh1tsZDWbIq9L50q1UQ+qUPCBLFXbhi
- 7as4RVif5h0in8JzwNrB5dVXfaJF/RtoyHotGZYJOiVLsnv0rfAY5EezbVYGHVENuE9vq7Zj+xa
- bojm7CDHVFjDNLidsNSo7ulo2eCYoQ48ywsIPlbbCDhlr080fdn04JSkfGRYrk55LuYN8p8XGb7
- emOOI/dnRwA954wh9eGMlLrO+x9ndDSVwT1W0uxc0c+Iuv+J
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAC3HzpU0KtqgKl_CA--.1856S2
+X-Coremail-Antispam: 1UD129KBjvJXoWrtF48AF4fWF17Xw15Kw4fuFg_yoW8JF1fpw
+	47Ka9rCryUXF4rGw1DZr40va90g342grZ09Fy0yws3Z345J3s8G3W7tFWjqr1kCFWjkrna
+	vr4qyw4UA3Z8Aw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_Cr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxU775rDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAINA2qrrJpv4gAAs6
 
-On Wed, 16 Sep 2026 07:27:37 +0000, Wentao Liang wrote:
-> ASoC: wm8994: Fix runtime PM imbalance in wm8994_component_probe()
+When ocelot_vcap_policer_add() fails, the aux resource setup returns
+without releasing the mirror reference taken earlier by
+ocelot_mirror_get(). The caller drops the filter without calling
+ocelot_vcap_filter_del_aux_resources(), so the reference is leaked.
 
-Applied to
+Release the mirror reference before returning the error.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
+Fixes: c3d427eac90f ("net: mscc: ocelot: establish functions for handling VCAP aux resources")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/mscc/ocelot_vcap.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-Thanks!
-
-[1/1] ASoC: wm8994: Fix runtime PM imbalance in wm8994_component_probe()
-      https://git.kernel.org/broonie/sound/c/480a5528cb62
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/net/ethernet/mscc/ocelot_vcap.c b/drivers/net/ethernet/mscc/ocelot_vcap.c
+index 25e533e91d71..c479af2a423f 100644
+--- a/drivers/net/ethernet/mscc/ocelot_vcap.c
++++ b/drivers/net/ethernet/mscc/ocelot_vcap.c
+@@ -970,8 +970,11 @@ ocelot_vcap_filter_add_aux_resources(struct ocelot *ocelot,
+ 	if (filter->block_id == VCAP_IS2 && filter->action.police_ena) {
+ 		ret = ocelot_vcap_policer_add(ocelot, filter->action.pol_ix,
+ 					      &filter->action.pol);
+-		if (ret)
++		if (ret) {
++			if (filter->action.mirror_ena)
++				ocelot_mirror_put(ocelot);
+ 			return ret;
++		}
+ 	}
+ 
+ 	return 0;
+-- 
+2.34.1
 
