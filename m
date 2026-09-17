@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A406340A93E;
-	Thu, 17 Sep 2026 18:39:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 51DC84C10CB
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:39:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670381; cv=none; b=tYCXirrtwo92FEzaUt4SZvgzzJtoTN5yk5UKNy9dWtrA3wxYzn+rLvA/5D0o3xYqAyd77gHya+X0SSSUKcSQgtmUtravgLc6PTwuqmvwqdGk9U2B9PDSzk3xsrKgzAfgDOgl5bkaZg6KVF1p+iTK/xkeDw1I90eGFcih/E5sC/o=
+	t=1789670383; cv=none; b=nE/qoMfwikp86a+EVwZXqaYGAaz9mhM6SPnREn5w9NYcfs1xzRUgac9DTJzQS+dMxZhfdllcLh4wS3Jz1Uo0M/EhC0dQTYBIFG6KzEadeesTq7BZpFQqCYwziOwgnkT661tMfhWQczrrVnbtDK1kccLJd2iH9wQexIo84WjDlh4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789670381; c=relaxed/simple;
-	bh=A88/rqlAmaq9P2EZBO1yVmqS98t5m1WusjthCttQA78=;
+	s=arc-20240116; t=1789670383; c=relaxed/simple;
+	bh=0GzLXo2U94+PK2h0ChNDONpTPUHR5k0eQlUoyk0jXm0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=AOb1YfFGALGwAPQcGyrvh8w9tPdyjYFXys8Q9BCo6cPEmuWoXazg/j/Iionv2G+HUkLz0drOO9K1XLju+/tzo64OqMIW0o4MDCrK3NGQ2xn4jTrp9bYl6CZpmjiMpV9aKCl7JriAlbKGH8eFfSRWa2TO2vcTmwCRFgL5D37I4Gk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=p7r8hXsw; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hTUmsM8vUShfwFq9wjq8alFt8Pu2pWOW6+ijJHNjbh6Nc4DOPQ4hKYDQlWbfGZv7D4kvVHFIOMkjtzcD4LeK/dKPzNQ5t4nxYysu2NzRYL9FYC5fnnzzPGCbOnWAvUxpZGMeeY9Xf0s/8W5rON8CXeaZInOUeE9ntPJqjKpnT8Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z8Kcy/Od; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="p7r8hXsw"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A57021F0089C;
-	Thu, 17 Sep 2026 18:39:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789670379;
-	bh=2NWWluHCLDGjTfjg9XGaOJ32duN9heKNp6FW4jzBPEg=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z8Kcy/Od"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 726EB1F0089A;
+	Thu, 17 Sep 2026 18:39:40 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789670381;
+	bh=85B1bWBxKDLsg4GGxpRhE4HC7GDU5v0uQ0pGKiesam8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=p7r8hXswAnnjgWZrj4M6+sD1OfRZmesUuDEkq3hwol76MmQt8rEWqaBHjT73+ujkd
-	 skg6klRXWMzBS6qQnwJBcfh+7Mdc2me3AoUp1pseG9rkbu3wW+ckkYyhwZ0AB88Wt5
-	 65+buWsvt7ikCP6RA4n+rqAueb4juuEsu6ncEibU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=Z8Kcy/OdoJXMj9bj7F5Ch9FUYDH1bz+MgMUZAu4XAMT1r1f8Ozmz6xw55Y6aip9+M
+	 ojfuEZbwNPGoZ3qXeJBCH4mtb4doqZo72koN7FEkrrJD/uY5g5V5In+nDn3Qj2J7CZ
+	 MkNsTK1zwLTGfwri9Przj5/PBdjZHPBnarNI7AZA3ZSGTSkCmciUnn7Rx8Kmr/Fv5W
+	 RvdJPAdLQiM4xTzhuzS/BCmzxSqP0JNnDCzJQH9v+xetvaYP5Wk8xTX66nS60ECf70
+	 OdRd0y1O4H9I0GjaZakTw4HMRiAEZXFC0CQyMfJYNiPE9q2MYEGddn8PhuJHPqIKsR
+	 KaMkvaS6pXELQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hannes Reinecke <hare@kernel.org>,
-	Sagi Grimberg <sagi@grimberg.me>,
+Cc: Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cmaiolino@redhat.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0646/1102] nvme-tcp: open-code nvme_tcp_queue_request() for R2T
-Date: Thu, 17 Sep 2026 16:09:49 +0100
-Message-ID: <20260917151556.367382703@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 1/2] xfs: remove the i_ino field in struct xfs_inode
+Date: Thu, 17 Sep 2026 14:39:37 -0400
+Message-ID: <20260917183939.1201122-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091654-contented-triceps-9bbc@gregkh>
+References: <2026091654-contented-triceps-9bbc@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,79 +47,116 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Christoph Hellwig <hch@lst.de>
 
-------------------
+[ Upstream commit 1113a6d6d5d1336f4415fa1367aac0f853f0892d ]
 
-From: Hannes Reinecke <hare@kernel.org>
+Now that the VFS inode has a u64 i_ino field, there is no need to store
+a copy of the inode number in the xfs_inode structure.
 
-[ Upstream commit 674f872b7cefab4564ec8b34c799a4a653e34513 ]
+Introduce an I_INO() wrapper as a shortcut to the inode number so that
+we don't have to propagate the VFS inode everywhere.
 
-When handling an R2T PDU we short-circuit nvme_tcp_queue_request()
-as we should not attempt to send consecutive PDUs. So open-code
-nvme_tcp_queue_request() for R2T and drop the last argument.
+The only non-obvious part is the clearing of i_ino to 0 for RCU freeing
+the inode.  None of this calls into VFS paths, which makes clearing the
+VFS inode field here just as safe as clearing the old field in the
+xfs_inode.
 
-Signed-off-by: Hannes Reinecke <hare@kernel.org>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Stable-dep-of: 08acb54b063a ("nvme-tcp: defer TLS inline send to io_work")
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+[ Stable dependency adaptation for 865b751e75039fc07838b3200f9740256653da9a:
+  Keep xfs_inode.i_ino because this branch's VFS inode number is unsigned
+  long and cannot hold all XFS inode numbers on 32-bit architectures.
+  Provide I_INO as a macro over the existing xfs_ino_t field, without
+  adding a function or changing inode allocation and reclaim semantics.
+  Retain only the accessor conversions in xrep_dir_live_update, which
+  provide the context needed for the target directory-repair fix to
+  apply unchanged.  Drop the other conversions, including changes to
+  metadata-directory and realtime-repair code absent from this tree.
+  The upstream subject is retained; removal of the inode field is not
+  part of this stable adaptation. ]
+
+[ sashal: Reduced backport -- upstream 1113a6d6d5d13 touches 91 file(s), this
+  backport carries 2. Not backported here:
+  fs/xfs/libxfs/xfs_attr.c
+  fs/xfs/libxfs/xfs_attr_leaf.c
+  fs/xfs/libxfs/xfs_bmap_btree.c
+  fs/xfs/libxfs/xfs_bmap.c
+  fs/xfs/libxfs/xfs_btree.c
+  fs/xfs/libxfs/xfs_btree_staging.c
+  fs/xfs/libxfs/xfs_da_btree.c
+  fs/xfs/libxfs/xfs_dir2.c
+  ... and 81 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 865b751e7503 ("xfs: don't stash removename operations with unknown ftype")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/tcp.c | 12 +++++++-----
- 1 file changed, 7 insertions(+), 5 deletions(-)
+ fs/xfs/scrub/dir_repair.c | 16 ++++++++--------
+ fs/xfs/xfs_inode.h        |  3 +++
+ 2 files changed, 11 insertions(+), 8 deletions(-)
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 545704f1efa63..8a6707a592930 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -406,7 +406,7 @@ static inline bool nvme_tcp_queue_more(struct nvme_tcp_queue *queue)
- }
- 
- static inline void nvme_tcp_queue_request(struct nvme_tcp_request *req,
--		bool sync, bool last)
-+		bool last)
- {
- 	struct nvme_tcp_queue *queue = req->queue;
- 	bool empty;
-@@ -420,7 +420,7 @@ static inline void nvme_tcp_queue_request(struct nvme_tcp_request *req,
- 	 * are on the same cpu, so we don't introduce contention.
+diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
+index 29c48c4db53b2..0cdd763250cc3 100644
+--- a/fs/xfs/scrub/dir_repair.c
++++ b/fs/xfs/scrub/dir_repair.c
+@@ -1367,15 +1367,15 @@ xrep_dir_live_update(
+ 	 * rebuilding.  Stash the update for replay against the temporary
+ 	 * directory.
  	 */
- 	if (queue->io_cpu == raw_smp_processor_id() &&
--	    sync && empty && mutex_trylock(&queue->send_mutex)) {
-+	    empty && mutex_trylock(&queue->send_mutex)) {
- 		nvme_tcp_send_all(queue);
- 		mutex_unlock(&queue->send_mutex);
- 	}
-@@ -828,7 +828,9 @@ static int nvme_tcp_handle_r2t(struct nvme_tcp_queue *queue,
- 	req->ttag = pdu->ttag;
+-	if (p->dp->i_ino == sc->ip->i_ino &&
+-	    xchk_iscan_want_live_update(&rd->pscan.iscan, p->ip->i_ino)) {
++	if (I_INO(p->dp) == I_INO(sc->ip) &&
++	    xchk_iscan_want_live_update(&rd->pscan.iscan, I_INO(p->ip))) {
+ 		mutex_lock(&rd->pscan.lock);
+ 		if (p->delta > 0)
+ 			error = xrep_dir_stash_createname(rd, p->name,
+-					p->ip->i_ino);
++					I_INO(p->ip));
+ 		else
+ 			error = xrep_dir_stash_removename(rd, p->name,
+-					p->ip->i_ino);
++					I_INO(p->ip));
+ 		mutex_unlock(&rd->pscan.lock);
+ 		if (error)
+ 			goto out_abort;
+@@ -1386,14 +1386,14 @@ xrep_dir_live_update(
+ 	 * the directory that we're rebuilding, so remember the new dotdot
+ 	 * target.
+ 	 */
+-	if (p->ip->i_ino == sc->ip->i_ino &&
+-	    xchk_iscan_want_live_update(&rd->pscan.iscan, p->dp->i_ino)) {
++	if (I_INO(p->ip) == I_INO(sc->ip) &&
++	    xchk_iscan_want_live_update(&rd->pscan.iscan, I_INO(p->dp))) {
+ 		if (p->delta > 0) {
+ 			trace_xrep_dir_stash_createname(sc->tempip,
+ 					&xfs_name_dotdot,
+-					p->dp->i_ino);
++					I_INO(p->dp));
  
- 	nvme_tcp_setup_h2c_data_pdu(req);
--	nvme_tcp_queue_request(req, false, true);
+-			xrep_findparent_scan_found(&rd->pscan, p->dp->i_ino);
++			xrep_findparent_scan_found(&rd->pscan, I_INO(p->dp));
+ 		} else {
+ 			trace_xrep_dir_stash_removename(sc->tempip,
+ 					&xfs_name_dotdot,
+diff --git a/fs/xfs/xfs_inode.h b/fs/xfs/xfs_inode.h
+index 03944b6c5fba1..33ea744d5992b 100644
+--- a/fs/xfs/xfs_inode.h
++++ b/fs/xfs/xfs_inode.h
+@@ -178,6 +178,9 @@ static inline const struct inode *VFS_IC(const struct xfs_inode *ip)
+ 	return &ip->i_vnode;
+ }
+ 
++/* The VFS inode number can be narrower than xfs_ino_t on this branch. */
++#define I_INO(ip) ((ip)->i_ino)
 +
-+	llist_add(&req->lentry, &queue->req_list);
-+	queue_work_on(queue->io_cpu, nvme_tcp_wq, &queue->io_work);
- 
- 	return 0;
- }
-@@ -2678,7 +2680,7 @@ static void nvme_tcp_submit_async_event(struct nvme_ctrl *arg)
- 	init_llist_node(&ctrl->async_req.lentry);
- 	INIT_LIST_HEAD(&ctrl->async_req.entry);
- 
--	nvme_tcp_queue_request(&ctrl->async_req, true, true);
-+	nvme_tcp_queue_request(&ctrl->async_req, true);
- }
- 
- static void nvme_tcp_complete_timed_out(struct request *rq)
-@@ -2831,7 +2833,7 @@ static blk_status_t nvme_tcp_queue_rq(struct blk_mq_hw_ctx *hctx,
- 
- 	nvme_start_request(rq);
- 
--	nvme_tcp_queue_request(req, true, bd->last);
-+	nvme_tcp_queue_request(req, bd->last);
- 
- 	return BLK_STS_OK;
- }
+ /*
+  * For regular files we only update the on-disk filesize when actually
+  * writing data back to disk.  Until then only the copy in the VFS inode
 -- 
 2.53.0
-
-
 
