@@ -1,45 +1,39 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B1464E77F4;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133C84E7817;
 	Thu, 17 Sep 2026 16:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664221; cv=none; b=Z9CHcTeeCSdTRVKNcrASMRlyFjsYr0/JAF6HQoRBkJLTNwasFOiDTzen8JjxEhxcU8dAMP3juPFPHFIolZ1bm2+rkboWiIhIbCvcp7UkZdlEXz1lmhMA1QMbJ5retSpFqCHwYSf3C+xXQiSoZj6vC0yLGwgCJadRsJQjBz89p7k=
+	t=1789664223; cv=none; b=QiU/BVjxuncirox4BmJiOk5UlxhOv95d2QN2bIm51mPHj5hujUnMrCV8Vq4wnXLgNKvXk6XetTDSacryYjo6h23i8oVQGexKO8zrdQjrUeWAP7tFMGX+CUI2t0/1WDWNukpF+qtRjWGm/qoR01EpIvVkt7h/PkOhd+TAP9YLO38=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664221; c=relaxed/simple;
-	bh=neR+vfEH700yNzwNJuvGB45U21Pa1VlaBCEpS1MA1w8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YBKdD4TdiPfG4hPk3FhsUazwZuvjO8LjlwTVeeHuCiADZ5UKzXJcLewTTq/9hIFauMF/effW/AYp6AqvMF9qAPDUp5HRAwwMATPbpa5SXKQxPQ+KDqGiUxw1IgFZGYNBsCkDWn18shOWAcvVhr7RfvE+Wo5XiVDH0cMr0cO4QO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TDZ9si1w; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TDZ9si1w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8F25B1F000FF;
-	Thu, 17 Sep 2026 16:56:59 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789664220;
-	bh=gT4eZXiRpmW6XRKADkyvQS/0NxcojUAlsIm/qxAlr6A=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=TDZ9si1wgES2k1KGBGMTYRo/dHwpsi5gZQZkJ4XQehnMK+sEc0gQhuZ612GFedmxP
-	 HFMhnlH0MoMsuRWngr3dUDsZFFm9D5k/JwD5CQpmyo0UOCimJPW/KNIGfFR6aPl1jk
-	 ysgrsXOkcWcalLH08udfSlSnzymAc9ewCzq4Wl58=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0251/1250] pinctrl: renesas: rzv2m: Use -ENOTSUPP instead of -EOPNOTSUPP
-Date: Thu, 17 Sep 2026 16:00:46 +0100
-Message-ID: <20260917151558.954473080@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-References: <20260917151551.901433442@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1789664223; c=relaxed/simple;
+	bh=3wK1veyRCeHdZhVgBP1g8RgttxbvcXPCiSIoYPPHhog=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pZksEo1kDrb2/nf0874tFTWA0IoY7LKdtW17wS+O9wpkOhXnZ3NhbBSVt4rdDNeQBUjZNlemPDlIAkPyjJ4gigZfN6K63UKlira4cnzTrLriw0NfLMMnlOk7VbyVFvmgKKetNt3HHTxxOCB3oGHbCnuwXxvZI3YIpblHyQVu+x0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHdkDWG6xqLeiECA--.946S2;
+	Fri, 18 Sep 2026 00:56:54 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Xiubo.Lee@gmail.com
+Cc: broonie@kernel.org,
+	festevam@gmail.com,
+	lgirdwood@gmail.com,
+	linux-kernel@vger.kernel.org,
+	linux-sound@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	nicoleotsuka@gmail.com,
+	perex@perex.cz,
+	shengjiu.wang@gmail.com,
+	tiwai@suse.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] ASoC: fsl-asoc-card: Fix codec device leak in fsl_asoc_card_probe()
+Date: Thu, 17 Sep 2026 16:56:54 +0000
+Message-Id: <20260917165654.2163461-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,77 +41,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHdkDWG6xqLeiECA--.946S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7GFyfXF1kKryfJw4UZrW3trb_yoW8Jr1Upw
+	nIga9xGFy5Gr129a1rXrW8Zay2kryjy393Jw4Fyw4xKr9xX34FvF9aqw1YqFWftrykK34D
+	ur9rtrWrXr1rZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBY1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
+	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
+	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
+	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
+	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
+	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
+	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
+	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
+	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
+	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qr9LZcAQABsM
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+The codec device reference taken by of_find_i2c_device_by_node() is kept
+in codec_dev[] and never released, leaking the I2C client on both the
+error paths and the successful registration path. The same slot also
+holds the reference of_find_device_by_node() takes when the codec is a
+platform device, which leaks in the same way.
 
-------------------
+Drop those references on the shared exit path.
 
-From: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-
-[ Upstream commit 01f94d53947df35ba77cdb3992a4e3ef9d9dc1ad ]
-
-The pinctrl and GPIO core code make exceptions for the -ENOTSUPP error
-code. One such example is gpio_set_config_with_argument_optional(), which
-returns success when gpio_set_config_with_argument() returns -ENOTSUPP, but
-reports failure for all other error codes.
-
-Returning -EOPNOTSUPP from the pinctrl driver on the unsupported pinctrl
-operation may lead to boot failures when pinctrl drivers implements
-struct gpio_chip::set_config, the system uses GPIO hogs, and the
-struct gpio_chip::set_config implementation returns -EOPNOTSUPP for the
-unsupported operations.
-
-Currently, the driver does not implement struct gpio_chip::set_config().
-To avoid future failures, return -ENOTSUPP from
-rzv2m_pinctrl_pinconf_set().
-
-rzv2m_pinctrl_pinconf_group_get() is used when dumping pinctrl
-configuration. pinconf_generic_dump_one(), which calls it, makes
-exceptions for the -EINVAL and -ENOTSUPP error codes. The documentation
-for struct pinconf_ops::pin_config_group_get states that it "should
-return -ENOTSUPP and -EINVAL using the same rules as pin_config_get()".
-The documentation for struct pinconf_ops::pin_config_get states:
-
-"get the config of a certain pin, if the requested config is not available
-on this controller this should return -ENOTSUPP and if it is available but
-disabled it should return -EINVAL".
-
-Return -ENOTSUPP for the unsupported pinctrl operation.
-
-Suggested-by: Geert Uytterhoeven <geert@linux-m68k.org>
-Signed-off-by: Claudiu Beznea <claudiu.beznea.uj@bp.renesas.com>
-Reviewed-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Link: https://patch.msgid.link/20260522105717.1727837-1-claudiu.beznea@kernel.org
-Signed-off-by: Geert Uytterhoeven <geert+renesas@glider.be>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 708b4351f08c ("ASoC: fsl: Add Freescale Generic ASoC Sound Card with ASRC support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/pinctrl/renesas/pinctrl-rzv2m.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ sound/soc/fsl/fsl-asoc-card.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/drivers/pinctrl/renesas/pinctrl-rzv2m.c b/drivers/pinctrl/renesas/pinctrl-rzv2m.c
-index dce68f93d2d57..e08f24d5a89f5 100644
---- a/drivers/pinctrl/renesas/pinctrl-rzv2m.c
-+++ b/drivers/pinctrl/renesas/pinctrl-rzv2m.c
-@@ -661,7 +661,7 @@ static int rzv2m_pinctrl_pinconf_set(struct pinctrl_dev *pctldev,
- 		}
- 
- 		default:
--			return -EOPNOTSUPP;
-+			return -ENOTSUPP;
- 		}
- 	}
- 
-@@ -710,7 +710,7 @@ static int rzv2m_pinctrl_pinconf_group_get(struct pinctrl_dev *pctldev,
- 
- 		/* Check config matches previous pins */
- 		if (i && prev_config != *config)
--			return -EOPNOTSUPP;
-+			return -ENOTSUPP;
- 
- 		prev_config = *config;
- 	}
+diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
+index 3fdc77d5968b..04adb8e76e29 100644
+--- a/sound/soc/fsl/fsl-asoc-card.c
++++ b/sound/soc/fsl/fsl-asoc-card.c
+@@ -1069,6 +1069,8 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
+ 	of_node_put(asrc_np);
+ 	of_node_put(codec_np[0]);
+ 	of_node_put(codec_np[1]);
++	for (codec_idx = 0; codec_idx < 2; codec_idx++)
++		put_device(codec_dev[codec_idx]);
+ 	if (asrc_pdev)
+ 		put_device(&asrc_pdev->dev);
+ 	put_device(&cpu_pdev->dev);
 -- 
-2.53.0
-
-
+2.34.1
 
