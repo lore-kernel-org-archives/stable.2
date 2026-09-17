@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB07B374E73
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:58:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 004AC372ECD
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:58:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613905; cv=none; b=tPx8U8HwbuH/iceQbsYoD0h/0DvXXQe2zli4dAa1lIHm/K0Lbjj4RbqzY4p0noP8BbcKkkdBLU8Ma7DxGaMjRZWlWso8hi2pLn32RZI6Oydtrte22IZHlT5QhS87nqbdlDsKCcRZYcBpyGgvapr8mFPtQVhcE9/cY4T9GvxDAS8=
+	t=1789613909; cv=none; b=R+rAGVigcg2HAmFy3lLJVdQhNbPGCHkWaGhhS7OjNc5zvzmGxtQepWJmG3/Cn1SswZYiKWAmmZ/OGDj+cYiwNuyYlvV6+V1WIE4eajwE/fSEQ5U+hnwPizIe42tGW3Yol60eNiZ9FrnQfzb5alw1A9WTjU4AiBPjunTxznsGEWA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613905; c=relaxed/simple;
-	bh=5g4uH0RrtbcULfEphRET7/XOqXw6ZIobg2gQHh5TTXc=;
+	s=arc-20240116; t=1789613909; c=relaxed/simple;
+	bh=YgXmg394nlA7u3/4Ue5qdeaoPqt2pGiUQJFMuXwVRGY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=vABLh86TLUUcRNbp5HOvLoIVSnFBYR16PJKnVYWT52UVVlG9WhOiBqXvV1GdA1aHe6FkETl+UFQxgnva+W9MhfSbs2Q0YTKwF57O6rSrBdcYrB22HAypToR62XT8jRZQpg87DMjA4I+rHIe49X807AdioEgL40GaeMIE7w72PHw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=P5KtG3sd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Nu26KySw4nnIzagZwZ62ZojRsp1UNfRZdBzjJQ7TWnXbC5DfY+4+eAfIUM+gbpBbuwLYGI7SkVt+jgyWxyFMObCMfrWjmmVK41wZSXJvAF86uaxvxVNbpPWD8Yye3Uz7L/eHldtr1IvRRy1QUW1uAh2Om5jb4uFqmhhI8p4M3lA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DM0lVmfn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="P5KtG3sd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A6CFC1F0089D;
-	Thu, 17 Sep 2026 02:58:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DM0lVmfn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76B001F0089E;
+	Thu, 17 Sep 2026 02:58:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789613894;
-	bh=Dw5IXBcDCBMeoL9VoOaPBnXoC0msW7vlKsTwFVpRoV4=;
+	s=k20260515; t=1789613895;
+	bh=fGQuQ0Sioi2BMyjeIOz9hOO41MZYeLRqgF81ZnU5g+k=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=P5KtG3sdoXOjb/IK+5qoCKhmNSOUPt4M71bJW3kAGtnC4pyPbM/xm6pElKMIPGiiC
-	 0+3Hs7VNetkpbz8HdUNg1ubjSd2gjA8gZM/xdTk/uBFKrn5EFkSr6ONxfZVsxOLrXZ
-	 pn7a4LbFziL2JEmoZXtKpO2mfpyUaZP9PS1SQq86ypmPTrDkmq7jNHommIyISPdANX
-	 5SW/wBBTwaWyIaRSm+v1HwJ8R1JzpeN+ItMeLNFkOKka8Em69syrq4S9epAMQ5pUPG
-	 aNM5Nj/aKWfAciI1Ou+dEpydV71QyQbLoi5SugAlgPu05wgqypYzNUOqQTNRNyfji4
-	 TB1NLWptPEA+A==
+	b=DM0lVmfn52yc3xiwovvq6QHWLP9C4YuBZC1lQZCoyw62gag/kPEgMXC8LhsbyiBPy
+	 JRP2AYn7oXFojxzt/liHikggGqrpYaaZAN+PsIHiX0gSGcnFCRdB7VSs+y8OaGorjd
+	 kWnPceZ1i/x4P1sInwi9mIotVE0A8Y083Q6yvCz69RrM/rruExVvi59rCenn1pOqVC
+	 oEh6l5xiLqYw+oFwkfgGXP8/c2mDJLQZMvzWZbIAaCaTBNfp12AH3Et39Yg0jOmKes
+	 6mIalV2tfWFr1s91eXlZ0vN5c8sMZgaAjLAW6x4P07zxGpt7XL0BMGMTK41qotJ7Du
+	 f0WCP0UvAiThA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Geliang Tang <tanggeliang@kylinos.cn>,
+Cc: Qing Luo <luoqing@kylinos.cn>,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 3/4] mptcp: use sock_kmemdup for address entry
-Date: Wed, 16 Sep 2026 22:58:09 -0400
-Message-ID: <20260917025810.3934358-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y 4/4] mptcp: pm: userspace: fix address ID overflow
+Date: Wed, 16 Sep 2026 22:58:10 -0400
+Message-ID: <20260917025810.3934358-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917025810.3934358-1-sashal@kernel.org>
 References: <2026091627-sleep-poem-4828@gregkh>
@@ -47,50 +47,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Geliang Tang <tanggeliang@kylinos.cn>
+From: Qing Luo <luoqing@kylinos.cn>
 
-[ Upstream commit 52f83c0b5f857dbe24f66fc9a7f035523e9ffbc9 ]
+[ Upstream commit f9f0068e8813d8c10d016b030fc3a320d0b6767c ]
 
-Instead of using sock_kmalloc() to allocate an address
-entry "e" and then immediately duplicate the input "entry"
-to it, the newly added sock_kmemdup() helper can be used in
-mptcp_userspace_pm_append_new_local_addr() to simplify the code.
+When all MPTCP address IDs (1-255) are exhausted in the userspace PM,
+find_next_zero_bit() returns MPTCP_PM_MAX_ADDR_ID + 1 (256). This value
+overflows when stored in the u8 field e->addr.id, resulting in ID 0
+being stored and the entry being incorrectly added to the list.
 
-More importantly, the code "*e = *entry;" that assigns "entry"
-to "e" is not easy to implemented in BPF if we use the same code
-to implement an append_new_local_addr() helper of a BFP path
-manager. This patch avoids this type of memory assignment
-operation.
+ID 0 is reserved for the initial connection in MPTCP, so this overflow
+can cause address conflicts.
 
-Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
-Acked-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/3e5a307aed213038a87e44ff93b5793229b16279.1740735165.git.tanggeliang@kylinos.cn
+Note: the in-kernel PM already has an 'endpoints == MPTCP_PM_MAX_ADDR_ID'
+check in mptcp_pm_nl_append_new_local_addr() that returns -ERANGE before
+reaching find_next_zero_bit(), preventing this overflow. So this fix only
+addresses the userspace PM path.
+
+Check the find_next_zero_bit() result against MPTCP_PM_MAX_ADDR_ID and
+return -ENOSPC if all IDs are truly exhausted. Move the ID allocation
+check before the memory allocation so that the error path does not need
+to free the allocated entry.
+
+Fixes: 4638de5aefe5 ("mptcp: handle local addrs announced by userspace PMs")
+Cc: stable@vger.kernel.org
+Signed-off-by: Qing Luo <luoqing@kylinos.cn>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-8-df1de70348b6@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: f9f0068e8813 ("mptcp: pm: userspace: fix address ID overflow")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/pm_userspace.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ net/mptcp/pm_userspace.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
 
 diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index bfcef17fe9dda..493a4511a5398 100644
+index 493a4511a5398..335ef95da4034 100644
 --- a/net/mptcp/pm_userspace.c
 +++ b/net/mptcp/pm_userspace.c
-@@ -67,13 +67,12 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+@@ -64,6 +64,19 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 	}
+ 
+ 	if (!addr_match && !id_match) {
++		unsigned int id;
++
++		if (!entry->addr.id && needs_id) {
++			id = find_next_zero_bit(id_bitmap,
++						MPTCP_PM_MAX_ADDR_ID + 1, 1);
++			if (id > MPTCP_PM_MAX_ADDR_ID) {
++				ret = -ENOSPC;
++				goto append_err;
++			}
++		} else {
++			id = entry->addr.id;
++		}
++
  		/* Memory for the entry is allocated from the
  		 * sock option buffer.
  		 */
--		e = sock_kmalloc(sk, sizeof(*e), GFP_ATOMIC);
-+		e = sock_kmemdup(sk, entry, sizeof(*entry), GFP_ATOMIC);
- 		if (!e) {
- 			ret = -ENOMEM;
+@@ -73,10 +86,7 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
  			goto append_err;
  		}
  
--		*e = *entry;
- 		if (!e->addr.id && needs_id)
- 			e->addr.id = find_next_zero_bit(id_bitmap,
- 							MPTCP_PM_MAX_ADDR_ID + 1,
+-		if (!e->addr.id && needs_id)
+-			e->addr.id = find_next_zero_bit(id_bitmap,
+-							MPTCP_PM_MAX_ADDR_ID + 1,
+-							1);
++		e->addr.id = id;
+ 		list_add_tail_rcu(&e->list, &msk->pm.userspace_pm_local_addr_list);
+ 		msk->pm.local_addr_used++;
+ 		ret = e->addr.id;
 -- 
 2.53.0
 
