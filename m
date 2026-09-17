@@ -1,37 +1,78 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AB5D44AF9D8;
-	Thu, 17 Sep 2026 10:51:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 13FDF4BA9FB
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:52:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642295; cv=none; b=HOYBkQS93PXADPhgAdbW66ByPhiproafRODjGuACHSdSeoruwMiQXpZ62wEAz7EUf4EPKqxaMsHm7+8kMYR+Wrr3+lrMcHR+ZJHJLaYYYWOlrFMDkho6Op00PtWBqiBExCYF8IB/KiOiBB0Ld8Sl+9JMQ8WxRp8CKELOq2WFSEg=
+	t=1789642336; cv=none; b=aWrz4GwWwH/FXUxI8o4cyRuZaPqKbwFpVk9yoVWSgBc7qKTU+oyNoGkLJ199EWR5qTG3C/cwp3/ytNvBbA4uCJWT8s4WTK/JZExaawF6sEt73kJUTeH9spNAaqvnV9HFzRZcLA+yJEUSBt2ZZaJ2ZHtC6DNhBAMtvyMfE3955uQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642295; c=relaxed/simple;
-	bh=VdTPJyVCO26D0ME9c3UkWlcovgq8+DrvUMuLM8iRBNw=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aThfLfNwNyiMs2bzFuixy3YbhhjJAucRx3v08z51ZJBNAzgNcTneeNaoqAWraSy+cAI9cztCdl9rtAg3BkNZUgX4azUbHoqi2NSqU76wFX6Ngof4VS4ST8N5Zulpk+1HVvpxfkkFsRqLxRDaI+Ms8zGhFV5aATJW2uhsGLo2n88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3pkAYxqtqgft+CA--.1014S2;
-	Thu, 17 Sep 2026 18:51:05 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	mchan@broadcom.com,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	pavan.chebbi@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	s=arc-20240116; t=1789642336; c=relaxed/simple;
+	bh=JdCRFDcolkURErydh36AhWOM371Zu8e2GX2loPhofOE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Q8UX/xz4pO3rr/XrCWjdLgTzC6CEcaJzaMZXYkp2Eh7S88lG/G1sKgo7OwT4DA+4+Z6XYf2ji5JaqZOIQOAly+2XB9lHH3eQMpTVMv7g3FDKnqYCpAONKjUbiO2u4GwSdleUpO5DmJwCDCpgHN1o2q9BwvSYJtEslself5y2X1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s9MSFhF/; arc=none smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s9MSFhF/"
+Received: by mail-yx2-f13.google.com with SMTP id 00721157ae682-85d440939f0so3851677b3.2
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:52:13 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789642332; x=1790247132; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Q+A3V8/x5c21vazgS32hcx7O6vB4HwRW8LEwa4hezrA=;
+        b=s9MSFhF/vfOf7N0h+ty6KzNX+m2iEVRxzV061KtYyQ7ytdPF82TgislepHJNCEk6e0
+         XcZLYrt+xVYiOjbCT65Qu5zKCM7Nq0p+NRGtVFxE88ZXYjdNZNAahcDUPgHoo5j3XoqL
+         i8kdbfDSPd2VvQf/wYK7mG+WB7vwQ7zwkSpbrWXS/kMYq/PntVOMBX0OHAn4UMIK3DCP
+         P16hQ5kkYczSD2743uMORDnwCZQ/YVD+D9A5WWa3bUrsGC1q1S+u69RWBsHXsfLvFpG9
+         8fn2CS8k1zk39S3VyJ9lmU8iesJmC/Zvwqw5FpYhawM0zBk5geQ9rPBNe2q+4orZ2INk
+         HFnw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789642332; x=1790247132;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Q+A3V8/x5c21vazgS32hcx7O6vB4HwRW8LEwa4hezrA=;
+        b=RWjd/kGd8yu6y2UzEIeZoGxeqaUUwlC4Z6V3RElpbm92lKIyLgao7lrZx2ITnyr3RJ
+         jiwiPNxD2bkmN2WGW9c7czkAvK1skEGpiKg6hadG0+SAsOLRKCmC2tMhH/e1P5M9ZZU3
+         VO6JVu07A5XC7e9seTdCXK8fBzxOmo6OZQRQYPgEgJoV9kervL4gylpCE4qmg8KjLdDr
+         /fwC/3jLWuyTJRhZBrXkZGnQqIhoLH5YmfMUquFAZ+gpQFAlfDp1q/oo3sv/yjZv6AAc
+         G5Nwc+Kxy2vMUhO4s9xSkewLNEbqAnysitY0VBXs479Z8sGw7z76ePUu8+mjgrB3qGL6
+         SP3A==
+X-Forwarded-Encrypted: i=1; AKwUvBxvcTEW29VOgezmVL1kCFcH2BNjbgKvsPJF2zNVK+SiXzmCifqbCIZRczE/x51wYOFEc/qsdlM=@vger.kernel.org
+X-Gm-Message-State: AFuF++nNOn+MDLtRdKAVBGaXEN/+7JblQ2A+QIS3i4LYECAj0L8KEOkx
+	OAHIXQaupOTzsHQtOG4EJ1AKHLRGmf842PF/CDKSIK5hYLV8Tj/DBhWc
+X-Gm-Gg: AYBFou2d0w9zxQtN31Khj1ehqCoO4j0sV4UqyxL/VJFbeHGskFEJMP47M5Isg0DKngV
+	Lj+88coLlu7MMy9XEEN7YuiCey+WW4yh0N52i3cW5s9dl7oR/stZtSdsGRSf1Ad5mlFMlumF7Jx
+	vPHrfLuH47HQq3DJgA7RLJAXDpcRtR7XFFDH8fip7RzynG5oTGIQE4aXcDJpJr8zoYY5JPS+bUk
+	B9vrcf2vOo/lZ54nzKj79/MX1LHWl6mR1jefK7J2ycIKq6mrgiG786lSFmMTQaT1dHougZEEynr
+	bh+IEK6epq/DQVuF/enFFpoCJOIK5on+JJV9R4F5D8mnEICfyKFlJPXXgbwRIvYF61fAJFGTN6L
+	tyfmSJqshcYMc2pRx+ES1ueWwSl0Gqzbd8lfzU5mKOanu2H/Vy53bRJ2yHouf0Jmi86fzk8X4iZ
+	BqTQEXE9Z7ppYLdR/UJhgZEBYrLoqweTjyoo42FzYZAheaT6ingP5qBPoxhIYozQ==
+X-Received: by 2002:a05:690c:c50d:b0:87e:2404:444d with SMTP id 00721157ae682-892264eedcemr20325507b3.59.1789642331820;
+        Thu, 17 Sep 2026 03:52:11 -0700 (PDT)
+Received: from devobuntu.lan ([2600:6c5c:6b00:316::23])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-8928ff17829sm13960517b3.40.2026.09.17.03.52.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 03:52:11 -0700 (PDT)
+From: Matt Vollrath <tactii@gmail.com>
+To: intel-wired-lan@lists.osuosl.org
+Cc: netdev@vger.kernel.org,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Ben Greear <greearb@candelatech.com>,
+	Matt Vollrath <tactii@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] tg3: Fix peer device double put in tg3_find_peer()
-Date: Thu, 17 Sep 2026 10:51:04 +0000
-Message-Id: <20260917105104.2147646-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH iwl-net v2] e1000e: fix NETIF_F_RXALL buffer overrun
+Date: Thu, 17 Sep 2026 06:51:44 -0400
+Message-ID: <20260917105144.11308-1-tactii@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -39,59 +80,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3pkAYxqtqgft+CA--.1014S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Cry5JFykXFW5AFW7Kw45ZFb_yoW8Jw13pa
-	nxJa4j9ry8Grn0ya18Ja1fXFn09a97t345WrW7C34rZFW5Za45Cr9YkFZ0qrn5ArZ3XF12
-	vw1jvanxurs0kaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
-	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
-	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
-	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvE
-	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
-	Xa7IU8rR65UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3ZdKgAAsh
 
-pci_get_slot() returns a device with its reference count incremented.
-When the loop ends on tp->pdev (which happens when the adapter sits at
-PCI function 7 and no other function is present) that reference has
-already been dropped inside the loop, but the trailing pci_dev_put()
-drops it a second time, underflowing the refcount of tp->pdev.
+When SBP is set, the card may deliver frames which would otherwise be
+filtered out by LPE being unset. This would allow the device to write
+up to 526 bytes beyond the skb's data allocation: over its own shinfo,
+and beyond. This bug is reachable only when MTU <= 1500 and
+NETIF_F_RXALL is set by ethtool.
 
-Treat a loop end on tp->pdev as single-port mode, just like the
-existing !peer case.
+To reproduce, build a kernel with CONFIG_SLUB_DEBUG=y and boot with
+slub_debug=FZP. Enable RXALL with 'ethtool -K <iface> rx-all on'. Leave
+MTU at 1500. Directly link with a remote machine and set the remote
+link to MTU 9000. Send oversized frames from the remote machine with
+'ping -f -M do -s 8972 -p 00'. Unload e1000e on the machine under test.
+Observe slub_debug faults in 'dmesg'. If IOMMU is enabled, you may also
+see IOMMU faults during pings.
 
-Fixes: 16fe9d74f14e ("[TG3]: Fix 5704 single-port mode")
+Fix this by ensuring that buffers are large enough for an entire 2048
+byte chunk when NETIF_F_RXALL is set. Do this by moving final
+rx_buffer_len determination to one place, right before RCTL.BSIZE is
+determined. This will correctly re-evaluate every time the adapter is
+configured, not just on MTU change.
+
+Signed-off-by: Matt Vollrath <tactii@gmail.com>
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Assisted-by: Claude:claude-5-1-fable
+Fixes: cf955e6c96cb ("e1000e: Support RXALL feature flag.")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/broadcom/tg3.c | 5 +++--
- 1 file changed, 3 insertions(+), 2 deletions(-)
+v2:
+* Don't make a new function for setting rx_buffer_len.
+* Rewording.
+* Add steps to reproduce.
+---
+ drivers/net/ethernet/intel/e1000e/netdev.c | 41 +++++++++++-----------
+ 1 file changed, 20 insertions(+), 21 deletions(-)
 
-diff --git a/drivers/net/ethernet/broadcom/tg3.c b/drivers/net/ethernet/broadcom/tg3.c
-index 73a4b569b03e..57669a22c036 100644
---- a/drivers/net/ethernet/broadcom/tg3.c
-+++ b/drivers/net/ethernet/broadcom/tg3.c
-@@ -16122,9 +16122,10 @@ static struct pci_dev *tg3_find_peer(struct tg3 *tp)
- 		pci_dev_put(peer);
+diff --git a/drivers/net/ethernet/intel/e1000e/netdev.c b/drivers/net/ethernet/intel/e1000e/netdev.c
+index 844f31ab37ad..f31dd5886b09 100644
+--- a/drivers/net/ethernet/intel/e1000e/netdev.c
++++ b/drivers/net/ethernet/intel/e1000e/netdev.c
+@@ -3094,6 +3094,23 @@ static void e1000_setup_rctl(struct e1000_adapter *adapter)
+ 		e1e_wphy(hw, 22, phy_data);
  	}
- 	/* 5704 can be configured in single-port mode, set peer to
--	 * tp->pdev in that case.
-+	 * tp->pdev in that case. The loop can also end on tp->pdev
-+	 * itself, whose reference was already dropped above.
- 	 */
--	if (!peer) {
-+	if (!peer || peer == tp->pdev) {
- 		peer = tp->pdev;
- 		return peer;
- 	}
+ 
++	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
++	 * means we reserve 2 more, this pushes us to allocate from the next
++	 * larger slab size.
++	 * i.e. RXBUFFER_2048 --> size-4096 slab
++	 * However with the new *_jumbo_rx* routines, jumbo receives will use
++	 * fragmented skbs
++	 */
++	if (adapter->max_frame_size <= 2048)
++		adapter->rx_buffer_len = 2048;
++	else
++		adapter->rx_buffer_len = 4096;
++
++	/* adjust allocation if LPE protects us, and we aren't using SBP */
++	if (adapter->max_frame_size <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN) &&
++	    !(adapter->netdev->features & NETIF_F_RXALL))
++		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
++
+ 	/* Setup buffer sizes */
+ 	rctl &= ~E1000_RCTL_SZ_4096;
+ 	rctl |= E1000_RCTL_BSEX;
+@@ -6079,30 +6096,12 @@ static int e1000_change_mtu(struct net_device *netdev, int new_mtu)
+ 
+ 	pm_runtime_get_sync(netdev->dev.parent);
+ 
+-	if (netif_running(netdev))
++	if (netif_running(netdev)) {
+ 		e1000e_down(adapter, true);
+-
+-	/* NOTE: netdev_alloc_skb reserves 16 bytes, and typically NET_IP_ALIGN
+-	 * means we reserve 2 more, this pushes us to allocate from the next
+-	 * larger slab size.
+-	 * i.e. RXBUFFER_2048 --> size-4096 slab
+-	 * However with the new *_jumbo_rx* routines, jumbo receives will use
+-	 * fragmented skbs
+-	 */
+-
+-	if (max_frame <= 2048)
+-		adapter->rx_buffer_len = 2048;
+-	else
+-		adapter->rx_buffer_len = 4096;
+-
+-	/* adjust allocation if LPE protects us, and we aren't using SBP */
+-	if (max_frame <= (VLAN_ETH_FRAME_LEN + ETH_FCS_LEN))
+-		adapter->rx_buffer_len = VLAN_ETH_FRAME_LEN + ETH_FCS_LEN;
+-
+-	if (netif_running(netdev))
+ 		e1000e_up(adapter);
+-	else
++	} else {
+ 		e1000e_reset(adapter);
++	}
+ 
+ 	pm_runtime_put_sync(netdev->dev.parent);
+ 
 -- 
-2.34.1
+2.43.0
 
