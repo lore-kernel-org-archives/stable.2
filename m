@@ -1,128 +1,101 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-1908.mail.infomaniak.ch (smtp-1908.mail.infomaniak.ch [185.125.25.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DD94E58B6CB;
-	Thu, 17 Sep 2026 15:40:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C34B4B1B38
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:40:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659618; cv=none; b=TSAlgp26OykPNC8BHv7HqUrljuXJgz4zlnQtYY6uWXJHBBd6RoMJulp+lJ2ZJEaS935UGLkshJKgsTOjPwEISxjAKxiIGuOTZMQ1lqZnXkKtjsvkmmseCDNRWZsnUL2+e0Le/itOuRuZKM25lugtGKLyLg02s82ccGVPKJcslG4=
+	t=1789659620; cv=none; b=ZzHTb5bVeNLKFNQagFz9zIDkrSUZrGEzcmUrBvnodz5g3QYOn86KpQg0sx0+jlAogqG805WaOiVlaJmQyVKmZn0SfBXOO8xNerRk3BogdagFtpSCqmh1MTqqG2NYvkKD2L/DR/vCb51kHnqjxnw/dXQznKbYIq3ynzoMkgvVAwY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659618; c=relaxed/simple;
-	bh=GPa1sYWHwYXBQ9RYgOm9+UfAgymB7VW7FusvVshsm44=;
+	s=arc-20240116; t=1789659620; c=relaxed/simple;
+	bh=KFJQ/uSjcShOXNscotvt139qGqZQpZcaqH6lfk/Xgjs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kxHBO2B3od8xGSX1OL72tqJXo1y+FiJcJzSzqkN8SRG/XEuTcUAM2d2Mc6CDR+QBPMgLUYhgdeZxJMB8sSWp+AAGMbcxXYFWwEzdXj41cI4kMVDWOVXoT9sTRvR8wmFyUnRrSLE8Err50W7Lr789IOv2t6WTZ0rCVkiLzrR1MbA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=r+JXQ87e; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=OC5OdKgIpItMxSSPi28TNxqNm0MwZD7yDU6GheibktWR2y3gWZAIty4+3XsIS9WByM6E2ftxFyi1qttkCCt9eVvH7RSNj1rnCg/DVejVwpJbfJl41CRqsNKUAUjeu12VnyQ8Eg1ERmUyQvYoX4PrtmTaRyfqB1tTsaQTfJODycw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=sFNBsd0D; arc=none smtp.client-ip=185.125.25.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="r+JXQ87e"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6CF21F00893;
-	Thu, 17 Sep 2026 15:40:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659607;
-	bh=cyOOEAuhOSHFJXN+Qnfe2puIHyjOrQ3BwUWl0m8HQZE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=r+JXQ87ectVxVrPHCVvPWzeN27jvTXShYa/nSy0vWW8NyYDymCHX8msRNuwudRe/6
-	 xwD4B2314SU1Mw+3dNpJpw4UFN4dc8fPe2pP0M7UCLcslVp+jOwS8gGhEV78Z4XQTI
-	 dmSRxRCbZHjT/w3lucJ4PCXwsBbi9jR42CmifBZw=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="sFNBsd0D"
+Received: from smtp-4-0001.mail.infomaniak.ch (unknown [IPv6:2001:1600:7:10::a6c])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0CJ6SfszTqr;
+	Thu, 17 Sep 2026 17:33:32 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789659212;
+	bh=tBQJawIEBEoBC+wUXarC7WW0FY8TT7tUAKKJiGJTm2g=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=sFNBsd0D2LWOKi3a+SmzvWSuGpovVUt+2Ens+x++Fq1X0u6khDNcZexM5OogvePOg
+	 tSTBQGcpRrqD0B7Yb5LfFFI8Li36YbP1sQ6uQ/hBCH9AZIOTHapRc1IVf9pxRIH3/W
+	 vgm9cxw/H85W9sMVmuxGhyJnfo19IGTu5R4pK8aU=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0CJ00yjzqBB;
+	Thu, 17 Sep 2026 17:33:31 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	syzbot+7b47f87674e9a1569110@syzkaller.appspotmail.com,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
+	Matthieu Buffet <matthieu@buffet.re>,
+	Maximilian Heyne <mheyne@amazon.de>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 313/733] bpf: Reject non-scalar bpf_loop iteration counts
-Date: Thu, 17 Sep 2026 16:10:21 +0100
-Message-ID: <20260917151359.273999503@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y] selftests/landlock: Add missing connect(minimal AF_UNSPEC) test
+Date: Thu, 17 Sep 2026 17:33:29 +0200
+Message-ID: <d8432a4caf806783199dc5cde1dae2751719dda9.1789655724.git.mic@digikod.net>
+In-Reply-To: <20260528194636.686963779@linuxfoundation.org>
+References: <20260528194636.686963779@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Matthieu Buffet <matthieu@buffet.re>
 
-------------------
+[ Upstream commit 6685201ebfacff0c889bcd569181fa6e8af5575e ]
 
-From: Kumar Kartikeya Dwivedi <memxor@gmail.com>
+connect_variant(unspec_any0) is called twice. Both calls end
+up in connect_variant_addrlen() with an address length of
+get_addrlen(minimal=false).
+However, the connect() syscall and its variants (e.g.
+iouring/compat) accept much shorter addresses of 4 bytes
+and that behaviour was not tested.
 
-[ Upstream commit c3fd8e5fd100f122bad503bdc0e9277219533253 ]
+Replace one of these calls with one using a minimal address
+length (just a bare sa_family=AF_UNSPEC field with no actual
+address). Also add a call using a truncated address for good
+measure.
 
-bpf_loop() declares its nr_loops argument as ARG_ANYTHING. Privileged
-programs may pass pointer values to such arguments, so check_func_arg()
-lets a pointer-valued R1 reach the helper-specific checks.
-
-Since commit bb124da69c47 ("bpf: keep track of max number of bpf_loop
-callback iterations"), the verifier marks R1 precise and reads its upper
-bound to limit callback simulation. Precision backtracking only accepts
-scalar registers, so passing a pointer instead triggers the "backtracking
-misuse" verifier warning. Kernels with panic_on_warn enabled subsequently
-panic.
-
-Introduce ARG_SCALAR for helper arguments that only accept scalar values
-and use it for bpf_loop() nr_loops. Generic helper argument validation then
-rejects pointers before loop inlining and precision processing.
-
-Fixes: bb124da69c47 ("bpf: keep track of max number of bpf_loop callback iterations")
-Reported-by: syzbot+7b47f87674e9a1569110@syzkaller.appspotmail.com
-Signed-off-by: Kumar Kartikeya Dwivedi <memxor@gmail.com>
-Link: https://patch.msgid.link/20260905014735.1452988-2-memxor@gmail.com
-Closes: https://lore.kernel.org/bpf/6a9ad24c.b5d4176b.238c3e.0001.GAE@google.com/
-Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Matthieu Buffet <matthieu@buffet.re>
+Link: https://lore.kernel.org/r/20251027190726.626244-3-matthieu@buffet.re
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- include/linux/bpf.h   | 1 +
- kernel/bpf/bpf_iter.c | 2 +-
- kernel/bpf/verifier.c | 1 +
- 3 files changed, 3 insertions(+), 1 deletion(-)
+ tools/testing/selftests/landlock/net_test.c | 14 +++++++++++++-
+ 1 file changed, 13 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/bpf.h b/include/linux/bpf.h
-index 7798abc7d637b..c2c327dc0a72f 100644
---- a/include/linux/bpf.h
-+++ b/include/linux/bpf.h
-@@ -894,6 +894,7 @@ enum bpf_arg_type {
+diff --git a/tools/testing/selftests/landlock/net_test.c b/tools/testing/selftests/landlock/net_test.c
+index 897131bc8a13..d3cb27e24a16 100644
+--- a/tools/testing/selftests/landlock/net_test.c
++++ b/tools/testing/selftests/landlock/net_test.c
+@@ -905,7 +905,19 @@ TEST_F(protocol, connect_unspec)
+ 			EXPECT_EQ(0, close(ruleset_fd));
+ 		}
  
- 	ARG_PTR_TO_CTX,		/* pointer to context */
- 	ARG_ANYTHING,		/* any (initialized) argument is ok */
-+	ARG_SCALAR,		/* scalar argument */
- 	ARG_PTR_TO_SPIN_LOCK,	/* pointer to bpf_spin_lock */
- 	ARG_PTR_TO_SOCK_COMMON,	/* pointer to sock_common */
- 	ARG_PTR_TO_SOCKET,	/* pointer to bpf_sock (fullsock) */
-diff --git a/kernel/bpf/bpf_iter.c b/kernel/bpf/bpf_iter.c
-index f5eaeb2493d4a..9b4f5236c5ea3 100644
---- a/kernel/bpf/bpf_iter.c
-+++ b/kernel/bpf/bpf_iter.c
-@@ -754,7 +754,7 @@ const struct bpf_func_proto bpf_loop_proto = {
- 	.func		= bpf_loop,
- 	.gpl_only	= false,
- 	.ret_type	= RET_INTEGER,
--	.arg1_type	= ARG_ANYTHING,
-+	.arg1_type	= ARG_SCALAR,
- 	.arg2_type	= ARG_PTR_TO_FUNC,
- 	.arg3_type	= ARG_PTR_TO_STACK_OR_NULL,
- 	.arg4_type	= ARG_ANYTHING,
-diff --git a/kernel/bpf/verifier.c b/kernel/bpf/verifier.c
-index 54a4435f50fba..1a0cd37b03cde 100644
---- a/kernel/bpf/verifier.c
-+++ b/kernel/bpf/verifier.c
-@@ -7877,6 +7877,7 @@ static const struct bpf_reg_types *compatible_reg_types[__BPF_ARG_TYPE_MAX] = {
- 	[ARG_CONST_SIZE]		= &scalar_types,
- 	[ARG_CONST_SIZE_OR_ZERO]	= &scalar_types,
- 	[ARG_CONST_ALLOC_SIZE_OR_ZERO]	= &scalar_types,
-+	[ARG_SCALAR]			= &scalar_types,
- 	[ARG_CONST_MAP_PTR]		= &const_map_ptr_types,
- 	[ARG_PTR_TO_CTX]		= &context_types,
- 	[ARG_PTR_TO_SOCK_COMMON]	= &sock_types,
--- 
-2.53.0
-
-
-
+-		ret = connect_variant(connect_fd, &self->unspec_any0);
++		/* Try to re-disconnect with a truncated address struct. */
++		EXPECT_EQ(-EINVAL,
++			  connect_variant_addrlen(
++				  connect_fd, &self->unspec_any0,
++				  get_addrlen(&self->unspec_any0, true) - 1));
++
++		/*
++		 * Re-disconnect, with a minimal sockaddr struct (just a
++		 * bare af_family=AF_UNSPEC field).
++		 */
++		ret = connect_variant_addrlen(connect_fd, &self->unspec_any0,
++					      get_addrlen(&self->unspec_any0,
++							  true));
+ 		if (self->srv0.protocol.domain == AF_UNIX &&
+ 		    self->srv0.protocol.type == SOCK_STREAM) {
+ 			EXPECT_EQ(-EINVAL, ret);
