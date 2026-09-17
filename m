@@ -1,154 +1,121 @@
-Received: from smtp-42ae.mail.infomaniak.ch (smtp-42ae.mail.infomaniak.ch [84.16.66.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9E96C4ABBB9
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:40:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 546A032ED21;
+	Thu, 17 Sep 2026 15:40:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659620; cv=none; b=gTPKUxq8DimqfmgfNUwHVKFtZuuQqr7WCRtJF5anDIeIK908UxdN2aKyiy1FH91DYe5s6P2PedV1IpFNppmiNpggPU38QmXDJG/QSVqVgL+fjqMCiZehZeOJaZCMkxN75gXJI0jULKA5N70qg7wiu5e61YbHl9KaM8kmcMMXiXA=
+	t=1789659622; cv=none; b=GvXwnHCS9nuGC/lJly1zvY5D8ryL5xFk/sVn/VAFu0VwrW8El7jt968JINWJkfqgTxXPReOQpuc8bdHY90nb8oByGacODIjEsC3gC8ERyquyctYaBBPIIPqT/xLfYBG/KVq8PQuhNNLZv58H83JDSCOp1lUiMhIh5znfWnYL3bI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659620; c=relaxed/simple;
-	bh=up4hQX1CGXEjGgfR8R9VDeNf41rFGOHJKf3fKrqNVso=;
+	s=arc-20240116; t=1789659622; c=relaxed/simple;
+	bh=vAMK0YBFzqyJiw6J8Op1HO6qmfdXYpllIv2JtFTEOz8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ENvVHdiUjzP9Ao5wE04/X0kvBIUJRv2DCRCFNcFSbgCZiUcQBS9E5Acr7OHdTp9Inbevn0+1bhqgvLCJM9S7yfsmEROYNpM5JOPkUDcjQM3sAV+leDr8eTzrfCC+SnaEpjXPqPQ+DqtN2VxR3a5tq7rBPjjBZZoi2YSl/Gb8zUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=UNMoZX0B; arc=none smtp.client-ip=84.16.66.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	 MIME-Version; b=IB0x33heNn5t2JH1azAxfnhrba7J2JcSe4RzCwIV+WbdM7px/uaD+WxGf4+x/oSoS0HuhJOyoBjOAuUd/+ZacRJZoRUSISPtVIxN9GK7b2G2yGbeLDC5mNZXdjVbDTtZ7Ocdl6WUQmco+qRr+V9kUZ1a7T7w0KtvenU/LMmMbI4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=c2ci4Ows; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="UNMoZX0B"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0Lp0l99zbyZ;
-	Thu, 17 Sep 2026 17:40:02 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1789659601;
-	bh=yLNDYvVhc6TmaIPtraEcjWKjxwHl5rTgD+ZX4Kt74o4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=UNMoZX0Bpm8J91+7mGvVRLXwcfK+Y/5NgXxKBN0AGwP/PE6+5+SQYOQRkmMdLEIF2
-	 ZPVBoG5McFJrLeLcFY2X3PehL7hN02Ff+lzY5TEI5vSqMr1LrwVNgdR0DW8oIrvYiJ
-	 CsTZpbdGBXEPNV29tPlX0mx2NrAxDMo/85TNvXRk=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0Lm643JzCG5;
-	Thu, 17 Sep 2026 17:40:00 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="c2ci4Ows"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5DE01F00899;
+	Thu, 17 Sep 2026 15:40:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789659616;
+	bh=Vu5DJhocJ6BPB/G3x9qFd+j85pkfju81IOBeUxx/qhg=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=c2ci4Ows9n54U/6Pkfn0QuJVqxM/xjbWqdPZ6bjdGslxnKfuyaSYp4QCcsM7lKg9L
+	 hzKhVZzzYetZuC+t/shq/7ffQQTLVhWeDXh7sp/GTD6m8zjGtmifHsylPUaJyvq8Ek
+	 mlrEygmsF486ehMexqoNamt5+lD5ASJ45Kp/bXnU=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Greg KH <greg@kroah.com>,
-	Sasha Levin <sashal@kernel.org>,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>,
-	gregkh@linuxfoundation.org,
-	kernel test robot <oliver.sang@intel.com>,
-	=?utf-8?q?Thomas_Wei=C3=9Fschuh?= <thomas.weissschuh@linutronix.de>,
-	Maximilian Heyne <mheyne@amazon.de>
-Subject: [PATCH 6.18.y v2 1/3] selftests/landlock: Fix socket file descriptor leaks in audit helpers
-Date: Thu, 17 Sep 2026 17:39:55 +0200
-Message-ID: <eef8034f2f40b9a452bf27b3f9809067bfb7c5b1.1789655724.git.mic@digikod.net>
-In-Reply-To: <2026050420-overfed-obstacle-83f2@gregkh>
-References: <2026050420-overfed-obstacle-83f2@gregkh>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Chengyu Zhu <hudsonzhu@tencent.com>,
+	Gao Xiang <xiang@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 315/733] erofs: delimit inode_share cache key components
+Date: Thu, 17 Sep 2026 16:10:23 +0100
+Message-ID: <20260917151359.329621033@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-[ Upstream commit 9143d790337a0d066c2d632c802f69b981e6c23a ]
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-audit_init() opens a netlink socket and configures it, but leaks the
-file descriptor if audit_set_status() or setsockopt() fails.  Fix this
-by jumping to an error path that closes the socket before returning.
+------------------
 
-Apply the same fix to audit_init_with_exe_filter(), which leaks the file
-descriptor from audit_init() if audit_init_filter_exe() or
-audit_filter_exe() fails, and to audit_cleanup(), which leaks it if
-audit_init_filter_exe() fails in FIXTURE_TEARDOWN_PARENT().
+From: Chengyu Zhu <hudsonzhu@tencent.com>
 
-Cc: Günther Noack <gnoack@google.com>
-Cc: stable@vger.kernel.org
-Fixes: 6a500b22971c ("selftests/landlock: Add tests for audit flags and domain IDs")
-Reviewed-by: Günther Noack <gnoack3000@gmail.com>
-Link: https://lore.kernel.org/r/20260402192608.1458252-3-mic@digikod.net
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[ Upstream commit 96bf9831fbf423b8104f7948cd8fe7007ecfb46c ]
+
+Previously, inode_share keys were encoded as follows:
+
+  fingerprint || domain_id
+
+It would be better to have a separator between the fingerprint and domain
+ID so that the fingerprint won't be parsed as part of a domain ID.
+
+Change the key encoding as follows:
+
+  domain_id || '\0' || fingerprint
+
+Since domain_id is a NUL-terminated string, this makes the in-memory key
+indices unambiguous.
+
+Signed-off-by: Chengyu Zhu <hudsonzhu@tencent.com>
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+Fixes: e0bf7d1c074d ("erofs: support user-defined fingerprint name")
+Signed-off-by: Gao Xiang <xiang@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
+ fs/erofs/xattr.c | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
 
-Changes since v1:
-https://patch.msgid.link/20260502130541.590744-1-sashal@kernel.org
-- Refresh the backport against 6.18.y after the previous retry failed to
-  apply.
-- Include the related audit helper fixes in the same series because they
-  need this change's context.
----
- tools/testing/selftests/landlock/audit.h | 26 +++++++++++++++++-------
- 1 file changed, 19 insertions(+), 7 deletions(-)
-
-diff --git a/tools/testing/selftests/landlock/audit.h b/tools/testing/selftests/landlock/audit.h
-index d6d6f5116dc9..f6d7b9ad6016 100644
---- a/tools/testing/selftests/landlock/audit.h
-+++ b/tools/testing/selftests/landlock/audit.h
-@@ -443,17 +443,19 @@ static int audit_init(void)
+diff --git a/fs/erofs/xattr.c b/fs/erofs/xattr.c
+index df7ea019526d7..57cfb75207824 100644
+--- a/fs/erofs/xattr.c
++++ b/fs/erofs/xattr.c
+@@ -620,8 +620,8 @@ int erofs_xattr_fill_inode_fingerprint(struct erofs_inode_fingerprint *fp,
+ {
+ 	struct erofs_sb_info *sbi = EROFS_SB(inode->i_sb);
+ 	struct erofs_xattr_prefix_item *prefix;
++	int domainlen, valuelen, base_index;
+ 	const char *infix;
+-	int valuelen, base_index;
  
- 	err = audit_set_status(fd, AUDIT_STATUS_ENABLED, 1);
- 	if (err)
--		return err;
-+		goto err_close;
- 
- 	err = audit_set_status(fd, AUDIT_STATUS_PID, getpid());
- 	if (err)
--		return err;
-+		goto err_close;
- 
- 	/* Sets a timeout for negative tests. */
- 	err = setsockopt(fd, SOL_SOCKET, SO_RCVTIMEO, &audit_tv_default,
- 			 sizeof(audit_tv_default));
--	if (err)
--		return -errno;
-+	if (err) {
-+		err = -errno;
-+		goto err_close;
-+	}
- 
- 	/*
- 	 * Drains stale audit records that accumulated in the kernel backlog
-@@ -466,6 +468,10 @@ static int audit_init(void)
- 		;
- 
- 	return fd;
-+
-+err_close:
-+	close(fd);
-+	return err;
- }
- 
- static int audit_init_filter_exe(struct audit_filter *filter, const char *path)
-@@ -515,8 +521,10 @@ static int audit_cleanup(int audit_fd, struct audit_filter *filter)
- 
- 		filter = &new_filter;
- 		err = audit_init_filter_exe(filter, NULL);
--		if (err)
-+		if (err) {
-+			close(audit_fd);
- 			return err;
-+		}
+ 	if (!test_opt(&sbi->opt, INODE_SHARE))
+ 		return -EOPNOTSUPP;
+@@ -633,17 +633,18 @@ int erofs_xattr_fill_inode_fingerprint(struct erofs_inode_fingerprint *fp,
+ 	valuelen = erofs_getxattr(inode, base_index, infix, NULL, 0);
+ 	if (valuelen <= 0 || valuelen > (1 << sbi->blkszbits))
+ 		return -EFSCORRUPTED;
+-	fp->size = valuelen + (domain_id ? strlen(domain_id) : 0);
++	domainlen = strlen(domain_id);
++	fp->size = domainlen + 1 + valuelen;
+ 	fp->opaque = kmalloc(fp->size, GFP_KERNEL);
+ 	if (!fp->opaque)
+ 		return -ENOMEM;
++	memcpy(fp->opaque, domain_id, domainlen + 1);
+ 	if (valuelen != erofs_getxattr(inode, base_index, infix,
+-				       fp->opaque, valuelen)) {
++				       fp->opaque + domainlen + 1, valuelen)) {
+ 		kfree(fp->opaque);
+ 		fp->opaque = NULL;
+ 		return -EFSCORRUPTED;
  	}
- 
- 	/* Filters might not be in place. */
-@@ -542,11 +550,15 @@ static int audit_init_with_exe_filter(struct audit_filter *filter)
- 
- 	err = audit_init_filter_exe(filter, NULL);
- 	if (err)
--		return err;
-+		goto err_close;
- 
- 	err = audit_filter_exe(fd, filter, AUDIT_ADD_RULE);
- 	if (err)
--		return err;
-+		goto err_close;
- 
- 	return fd;
-+
-+err_close:
-+	close(fd);
-+	return err;
+-	memcpy(fp->opaque + valuelen, domain_id, fp->size - valuelen);
+ 	return 0;
  }
+ #endif
+-- 
+2.53.0
+
+
+
