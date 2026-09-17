@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C98B4B7A2E
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C2E4B7A43
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:09:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657748; cv=none; b=oNyzcKcim5YaOyzHsAHmTRAV9TN35+38ph7KvCyp3djzDUpgAk040p+YUv4BEnaAu2oCUajIKUWm8WFZlrWSdNetO1AQU2u36BtBA5vo5A+dBCQ16OISNSexAzH4dl3q0+Nes7MbCixq/deVc/jEYQ/nu7KEIIEbOgISUGJ7sb4=
+	t=1789657755; cv=none; b=d1LEA9OPzgHZBDlpR6g6aGaWWJus5f5GkJC5c3iRLbSnm3ildL9iIYyno00K2OaE+nj0xgI2XH3XR4sTjXHPXHpV4RrTBrBxOKxGzOKWIkdkINuSlLzrDrME5am8mPCItGy2upzNB71tjyxqyFXL7gCmgS9H41Rwj6LWM4+q9Hw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657748; c=relaxed/simple;
-	bh=DKAea4hLw/vHKN3BqrHIx/FQBAtGlleEpEGH/9SaogQ=;
+	s=arc-20240116; t=1789657755; c=relaxed/simple;
+	bh=Qf/2XXNTiJ954lOYbKq+UVIFPtzqH+q5h/q1mIlFU9M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ufZhrA36yshsQkfc3na+fCfhp5PtJOljiRmTC9bUL3PtUgHnu+MygJjjNShXyIKDqueTYEqvrNB5PZVjhrvu5ivPvu20NC2oYCVjl8XeZelOb0QGwO2GNHzgzRX2P2yLqxMJRrmus+1NHqVU8k2Gb5SJNTd24cMxp40Dz7upPss=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7yMQvI6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i8tLjAPpb8XvN8IaQwXMPUFJG78yKGVXKGqb6P7H3dhTyo14X/QDng29M8Lr8Ng1cvrcG2x1a84aJVNNEVhgwElQ5JLSLG/w2YBFeAYSuPvvuJ+7ZMrc0z8WglDqRwxNmADUQlETuiWWCQ1yiSXaVuVFbnX+16x541HE+jzZKl8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GK84NXYk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7yMQvI6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7D8A1F00893;
-	Thu, 17 Sep 2026 15:08:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GK84NXYk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612F51F0089E;
+	Thu, 17 Sep 2026 15:08:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789657737;
-	bh=BpHICbLUPXpQ7udgiSC7il2Qm93b8aIDuqCYjPmihJ4=;
+	s=k20260515; t=1789657740;
+	bh=UXxxLQG7pOlSCvtEvnPDRbWNQedfyHWEc7iQoL1muJU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=j7yMQvI6iJKTLIlR4PNRj8z7THcCHxmsy+3AQPQSFSnc09qFQNdWHHH0n8BA5Sn0g
-	 hJqLbj8YIi78u8LvGMAX9M0zmYkCobLuF866CtEkvZ3DleMHa0ng9OS3tTcSBlzsR2
-	 BqiIb9kPX/24XiecyIQgwTWagri8MVjYe4WbAY42Qw+LjGE42Itfs1dOquCrBRPuo1
-	 1vlSXHcikL3sdumSsNFFKwQv9uuZFDuSuW6lmDsZ5CsAAq79fBOVHZGtDlSbGTRLBu
-	 1qzH1udXNRLKOYlTJFMNNRYM4Fi1Z2Gc8jQtyXHP9oQ8iZXHDZbdQjpfWyAMiftOt9
-	 Cxk8VnhPl+Mrg==
+	b=GK84NXYkQBSoOMRBqt6vFxLm98pi9GRc/9aE+6C2BcDqmq65vV7kI5i7ru5rsV3r7
+	 9PvbxCG0ifErwX6A30Mq1XqfkCPt+l+X06tTrK6D9Hgsc+KSHA6y7HGuRrYOPrjP3t
+	 GcMKyMjmmNJEQnWYj5UH9bachitomrM4Lw6qSTf6I0+8YNPfAGQs8gOTEY4F/rsQIq
+	 reHlR7QjGp9ZYDyjKbT+Su1kuh1MC6Lp9ExopCjDf0rYkPQa5/JlGKW9iIjU+/+WRb
+	 KM/G51EUj9XEPlVvdZUf0cs1XWObzL9I94DFcIKWfBNuX9UYCRrJu/igyI+5V3i/M0
+	 2WFq2mBfg3N8g==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: "Darrick J. Wong" <djwong@kernel.org>,
 	Christoph Hellwig <hch@lst.de>,
 	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y] xfs: fix backwards mergeability logic in refcount scrubber
-Date: Thu, 17 Sep 2026 11:08:55 -0400
-Message-ID: <20260917150855.681851-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] xfs: strengthen the "is cow staging" helpers in scrub
+Date: Thu, 17 Sep 2026 11:08:57 -0400
+Message-ID: <20260917150857.682062-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091615-operating-mutt-0936@gregkh>
-References: <2026091615-operating-mutt-0936@gregkh>
+In-Reply-To: <2026091609-voting-wager-2b45@gregkh>
+References: <2026091609-voting-wager-2b45@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,40 +48,44 @@ Content-Transfer-Encoding: 8bit
 
 From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit e8b01aaafffe6b852325debdf1ef4b13ccea1cd7 ]
+[ Upstream commit 0d43368844a75ad13561a1198a3b027940730756 ]
 
-When we start the refcount or rtrefcount btree scanners, prev_rec is
-initialized to all zeroes.  This is done so that the record mergeability
-checks skip the first record because you must have two records to
-compare.  Unfortunately, I got the logic backwards, so scrub has never
-complained about mergeable refcountbt records.  Fix this bug that LOLLM
-noticed.
+LOLLM pointed out a bug in both of the refcount scrub predicates that
+determine if a range of blocks is marked as CoW staging in the btree.
+While it compares blockcount < len, this isn't enough to determine that
+the CoW staging record is at least as large as the range passed into the
+helper.  Fix both of them.
 
-Cc: stable@vger.kernel.org # v6.4
-Fixes: db0502b39c21d1 ("xfs: flag refcount btree records that could be merged")
+Cc: stable@vger.kernel.org # v4.16
+Fixes: f6d5fc21fdc713 ("xfs: cross-reference refcount btree during scrub")
 Signed-off-by: Darrick J. Wong <djwong@kernel.org>
 Assisted-by: LOLLM # finding obvious bugs
 Reviewed-by: Christoph Hellwig <hch@lst.de>
 Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ omitted the rtrefcount.c hunk because the file does not exist in Linux 6.12. ]
+[ Omitted the rtrefcount.c hunk because Linux 6.12 lacks realtime refcount scrub support. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/refcount.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ fs/xfs/scrub/refcount.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
 diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
-index 304ea1e1bfb08..dd2c52807e40b 100644
+index 2744eecdbaf01..660af9b1acb05 100644
 --- a/fs/xfs/scrub/refcount.c
 +++ b/fs/xfs/scrub/refcount.c
-@@ -399,7 +399,7 @@ xchk_refcount_mergeable(
- 	const struct xfs_refcount_irec	*r1 = &rrc->prev_rec;
+@@ -455,8 +455,12 @@ xchk_xref_is_cow_staging(
+ 	if (!has_cowflag || rc.rc_refcount != 1)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
  
- 	/* Ignore if prev_rec is not yet initialized. */
--	if (r1->rc_blockcount > 0)
-+	if (r1->rc_blockcount == 0)
- 		return false;
++	/* Can't start after bno */
++	if (rc.rc_startblock > agbno)
++		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
++
+ 	/* Must be at least as long as what was passed in */
+-	if (rc.rc_blockcount < len)
++	if (rc.rc_startblock + rc.rc_blockcount < agbno + len)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+ }
  
- 	if (r1->rc_domain != r2->rc_domain)
 -- 
 2.53.0
 
