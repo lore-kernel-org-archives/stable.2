@@ -1,149 +1,267 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 55A65384CE5
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:14:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B74B43A875F
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:16:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789614900; cv=none; b=IUt27PAFmxZPYpmsiBeALbg4tbUyqQKgvQQ3n2SqdtgcCfxSt2q/yeS1tvbVDan/Fqfl4d810oM7Gp0ua36jpN02ZExMKj55tKSu6KFYhAhkOLUwi0RVPtsIZPo2uclwgb7hwtQJVzK4vA8rIgFWLbzr50z+5ovRc5ASvjJwbSg=
+	t=1789615009; cv=none; b=kwniw1c42mvKemm5zRL9Xpj/PMWXfeC+uMrJzekGvJtCs6p4cYCVUpEnrqv4jGqR3fu697u9ZEQWGXaXfkmBHeGy9Znzri/lU+5isXZT/ExL+/Ts8+SzPzy5B7pjVoa4XgyoKDEO2bomTu3Gahw1KMH/wZbbWR0vEXNuvf4rsmQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789614900; c=relaxed/simple;
-	bh=YdH+rcUUwQG4jTDbECCNSQbx1lQSLf+Jy7CGiJvJn8g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N40TRU1kIh57HoyuMgyjOwRxXvfO1aGtMqnsALn+3AQHjULrG18CGKOH8UTRMW7EoI8tzEVcurvJ3kPCCf9QysWwRhy9SJwao1XXbZP76Q/v5uOJUxYyNq8bOrQ2S5CFw5ZXlOOp+NiIBFYnibHjpb1cUXV7bZAdZHCC/YeU70c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=JZgBUrtP; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=IAWCa1Sn; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789615009; c=relaxed/simple;
+	bh=pRXWbxMOqs5uWoHvWXicaTRD4ixtBUG4rHtOLReAGXc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hhvGOzRjIv2ADix+nSo5uM3s6slxeTauNSwhcz9ZtwBcCP+i9xIwZChSRhuxuixDO1EhZ3X3owsn4neRfz7LJVzZ9LCTFotVXenL9sPia2uiaH8/pxkXChBer9aEpY95JL8R/+GUWg07rIZoGWRqXC0SGRkrI4BLmacSLJl2kao=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bUoCk9zu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="JZgBUrtP";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="IAWCa1Sn"
-Received: from pps.filterd (m0279873.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GMmIUu3107042
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:14:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=hocXG8IEOu26x3uoW/8TyWIU
-	kuS1tUtxSAPk96bBQFY=; b=JZgBUrtP7mjYA/2c+XdWjFStdwCF3IGdcTGKxh1w
-	u7QnHdvUH9+pSM/ZnwOrTtxJFnSPk8eEf/JRSJS/PrQbPLEhkgwt7TJ2lBacKkl1
-	uIvfBt/aJHdceqkqZPNdBR2OvtFIuBApHaCMsdA6dfNkFIB9cZyxTcpvI0PL8tea
-	s4OI2J82YYimlmiL79aPywhwsRyOVIWWc5uipDUyU+4gRGWU9oBtBjBDr4BDn81o
-	OeMcLN2WiSp2GJf3TfhFqU5NruuSb8OmD1pnMKPAfsc8+RhPbhjc5n7bZwIZSb0A
-	4LtYTDN7iHYDfWmtdmoOhlGrsqNGi1rQ9DclJqDM5GmhEA==
-Received: from mail-pg1-f199.google.com (mail-pg1-f199.google.com [209.85.215.199])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gquw2u5mq-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:14:58 +0000 (GMT)
-Received: by mail-pg1-f199.google.com with SMTP id 41be03b00d2f7-cc1b8088203so354079a12.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:14:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789614897; x=1790219697; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=hocXG8IEOu26x3uoW/8TyWIUkuS1tUtxSAPk96bBQFY=;
-        b=IAWCa1Sn/wlvZT3fuFndrivmiBBmCyj2kQ/5cuMQA4KU2fvabrNF62wmR6QOMIG8D5
-         5KA1BJfrxjwz+c2DfStICHbXg1itqlFwSBd4E+dr7klaJfhYW5yx4/9TirLJ9E3gAbFN
-         fIORsj5B96mMPPYNqTo7Q2lMRPVIEBDQ9QMESaQVleWrLx4xjr5x82Ul0Cc6ubRMVHjp
-         utr7b8exYLBZDAmz0zC71rTNmkF26FbnuoYLK/wuD0HaLtTSwGs/BbgRZRJ013zPt7+T
-         BqdWGyb956D0hI+9AcrDAqGGzAld+Yj9Ts6f3Z8U6FSXoPPx5NkWVebAbxbdf4BL/oEF
-         WTGQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789614897; x=1790219697;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=hocXG8IEOu26x3uoW/8TyWIUkuS1tUtxSAPk96bBQFY=;
-        b=f0F6H51W8o+n6+nPV8SYU3RfhaaKQaBXpjQ+Z1mJg5LhVittDtrup9tEsnWlZ9FOfR
-         ryH6QRWOXyVtQrNAWmHNOtCFWj8+gGHEzE95SlyfGl9Te6q3AWA8tni+O0KOcqtpr60C
-         B9fUg7aOmDWx0fRMqe9arp9m0c0uKO8uqadKef3bC9QNRkqU1vTZ+ETvv7lyV4KJPxE+
-         m4gqK4N/1NxMATY/ZVwW1ZhlEAcGkp8BvZmOznFJvxVgP6CSaOGToetjI37//ZBMwdMc
-         0eZy9h5kP3LaiCiCdJ43zxDSDpt9FCH0BbEX/IUAT/E7afsOJj/4h0bBPGnGdw/J3x3r
-         Rfsw==
-X-Forwarded-Encrypted: i=1; AKwUvBz25/BRFrKLeFnK4TJIVKP+5vw+7PLJQdj0vnNkrEv8bmI/44bhaq6FnxD1oEVh4kQAC+bvl+g=@vger.kernel.org
-X-Gm-Message-State: AFuF++kdf8gHOXi+qMOZ1Uo1SBGncbwBai1+fT+N5GF3uTLCi3pr7p4b
-	C1LaSiOWf+OCliXx8RQiEDqK1IUS+okJBw5uzTs8xXXFn6mesfHoRWkOzm3VPjVjSrOc30HxZDZ
-	rdW/obKf4QNhLF2yFYKjMtAcxkGy9+5goo0Rp2sAtYcpoZzyBHqohg1aWVjA=
-X-Gm-Gg: AYBFou1drNBVhCEFguAl0TF+dkqfpeekdVUXWOxx+7IAkYiCioCR2njKA3QggtzIoDS
-	OFo3z+pYqEoK6QSzP52GVseCIY0X7Kzt/2fR6WXRVJ5X3DlVvNT9lrkfVE4ULVjF6oTXa5D86vJ
-	TJGVL3OX6Z5mdBuZKv+Vq5cfhxBWYvzMrezBRfAt5cEy6MR6dkTcCyO1VOQ+gh1Kya0dWOK0yCG
-	NRZEJUkaL1MrajuCApLnA/jJkMmJmVRo6ZKyX6L56xEJlD0AI0TVq82bxtD9tXplN5/+QxZ8RJK
-	aZaqND/GyNUPFOifUirRublFBQpm2XrzYPBMAFamwoBqnmE/DBEaw08oz2QyuptFiXK/CsP3aSr
-	AyJqpH3s9O1k8t9NNgKv009AHohF8qbmxNgNuydLJb7c=
-X-Received: by 2002:a05:6a21:3315:b0:3d0:9590:7148 with SMTP id adf61e73a8af0-3dd5f5d86a1mr13812187637.17.1789614897256;
-        Wed, 16 Sep 2026 20:14:57 -0700 (PDT)
-X-Received: by 2002:a05:6a21:3315:b0:3d0:9590:7148 with SMTP id adf61e73a8af0-3dd5f5d86a1mr13812119637.17.1789614896794;
-        Wed, 16 Sep 2026 20:14:56 -0700 (PDT)
-Received: from QCOM-aGQu4IUr3Y (i-global052.qualcomm.com. [199.106.103.52])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-14395cacce6sm9963228c88.1.2026.09.16.20.14.53
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 20:14:56 -0700 (PDT)
-Date: Thu, 17 Sep 2026 11:14:50 +0800
-From: Shawn Guo <shengchao.guo@oss.qualcomm.com>
-To: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
-Cc: linusw@kernel.org, andersson@kernel.org, brgl@kernel.org,
-        pankaj.patil@oss.qualcomm.com, maulik.shah@oss.qualcomm.com,
-        dmitry.baryshkov@oss.qualcomm.com, linux-arm-msm@vger.kernel.org,
-        linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org
-Subject: Re: [PATCH] pinctrl: qcom: nord: fix GPIO interrupt target width
-Message-ID: <aqtbKlBVxoFqohsN@QCOM-aGQu4IUr3Y>
-References: <20260916085720.771498-1-zhangfei.gao@oss.qualcomm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bUoCk9zu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 52E4F1F000FF;
+	Thu, 17 Sep 2026 03:16:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789615003;
+	bh=k7T/ZwlzEvqlQLI5HOzekpqR9+tFucVNUqykx+QLFZU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bUoCk9zu8Nr37mut2Ynio4PL4r/nWA1Enz7QHSF6P0sF/xmLWn7k6fw3cT8AT0qtW
+	 rJ5lGY8yBQXRkGKZ5wg2hLnur08x6BQwNZ1ENuT85BGjZloNlnDK9s9iytMb8ydFnJ
+	 SzkRIxrUqqK8X6cmcVa/Wd6BTQig8Tz2YGMRH5kX6XMAXgqhnM606Pfq2OUJo8sS5p
+	 foqhUI1IQV3CZw+942WATRi7351WB+6nY8j5eHJXXtf+yTbWFbmfniFME8oAf+PYo/
+	 u87MbedHMSYw0lYBjlYGdhmn3JurRRH/RSayDCZzi9xy7UarJX6Hax5rb7WZfLaJdd
+	 2M32cNgjfKehQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	Mat Martineau <martineau@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] mptcp: pm: use for_each_subflow helper
+Date: Wed, 16 Sep 2026 23:16:40 -0400
+Message-ID: <20260917031642.3978029-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091602-garbage-gumdrop-1752@gregkh>
+References: <2026091602-garbage-gumdrop-1752@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916085720.771498-1-zhangfei.gao@oss.qualcomm.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDAzOSBTYWx0ZWRfX/DXnKgcyj/hk
- O60/LVuyLNrY20tvZ+ZbyoQPPruvqlS8ZuvJ24Qxm2jXaB9p/klPYIKivV0zIRY5DDxZBo4jxLr
- ubydVu6SuRC7mWnePIlMxV8B1naqbkc=
-X-Proofpoint-GUID: uQ9g5Ce5DvGnC4oJAvWcanShu4BF9Qda
-X-Authority-Analysis: v=2.4 cv=N4m8hG9B c=1 sm=1 tr=0 ts=6aab5b32 cx=c_pps
- a=Oh5Dbbf/trHjhBongsHeRQ==:117 a=b9+bayejhc3NMeqCNyeLQQ==:17
- a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=rJkE3RaqiGZ5pbrm-msn:22
- a=EUspDBNiAAAA:8 a=NCczGnymYEpDLu10qSUA:9 a=CjuIK1q_8ugA:10
- a=_Vgx9l1VpLgwpw_dHYaR:22
-X-Proofpoint-ORIG-GUID: uQ9g5Ce5DvGnC4oJAvWcanShu4BF9Qda
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDAzOSBTYWx0ZWRfXxIpuoEuoKrEP
- ajamEVtBsjUa0mbhI2SvXS2TUjfXdyF/TdKpd2R1rgheRvJ52LmahXa8OWTcj+LNhE0aUxlsprq
- lVfqvHWNP1WcdLhgyc9V+Gu3KsbI9+hlqqKbUwFaY8Vx/i3B9RCKWJGerhyilcy3bz+hGIXfeY3
- 3N4xPx1CiQYruWWgX4FHsKp2L8Sb87MgMs0EIl0PMYC54TsRmg7WuliOooop6vdVQInVFuYo33e
- tilVVrC4JNDSZ/xI/0KMKlpyJfZWNAezrSbNWP1kWY28dFBeVywxA+0ugLb6bgbQxsDRoS4cwEM
- mT76Ewf3NMPIhR18vbTyzgUVealGGtc3qDb/lL284jdIIibmccX86K33mkKjGEC1rJvupAnJtCH
- sjb1KIY188msUfNPTQro09+fBaFxF8484Vt7dknQs5mJjZqN4a79/7kLX3gcu+MKVbTPkJwJ0PC
- i1cK/ZRitldKae599NQ==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 priorityscore=1501 impostorscore=0 suspectscore=0 malwarescore=0
- lowpriorityscore=0 clxscore=1015 phishscore=0 adultscore=0 spamscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609170039
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 04:57:20PM +0800, Zhangfei Gao wrote:
-> The TARGET_PROC field in the Nord GPIO_INTR_CFG registers occupies bits
-> 11:8. Describe it as four bits wide so the common Qualcomm pinctrl code
-> clears the complete field before routing an interrupt to the application
-> processor.
-> 
-> Without intr_target_width, the common code uses its three-bit default
-> mask. Since GPIO_INTR_CFG resets with TARGET_PROC set to 0xf (NONE), bit
-> 11 remains set when the driver programs HMSS target 3. The resulting
-> target is 0xb (HPASS_DSP_1), observed as an interrupt configuration value
-> of 0xb1b instead of 0x31b.
-> 
-> The GPIO interrupt status is consequently latched, but the HMSS TLMM
-> summary interrupt at GIC SPI 208 is never asserted. This affects all Nord
-> GPIO interrupts using the TLMM summary path, including the Ethernet PHY
-> interrupts on GPIO55 and GPIO141.
-> 
-> Fixes: c24dd0826f06 ("pinctrl: qcom: add the TLMM driver for the Nord platforms")
-> Signed-off-by: Zhangfei Gao <zhangfei.gao@oss.qualcomm.com>
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
 
-Reviewed-by: Shawn Guo <shengchao.guo@oss.qualcomm.com>
+[ Upstream commit f81689172429885d6c2c7c3dd4926ec626e794bb ]
+
+Similar to most places in the MPTCP code. So instead of passing the
+subflow list and use list_for_each_entry(subflow, list, node), pass the
+msk and use mptcp_for_each_subflow(msk, subflow).
+
+That's clearer and more uniform with the rest.
+
+While at it, add 'pm_' prefix for the exported one to easily identify
+the origin. Plus replace 'lookup' by 'has', because a bool is returned.
+
+Reviewed-by: Mat Martineau <martineau@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20260605-net-next-mptcp-add-addr6-port-ts-v2-9-758e7ca73f4d@kernel.org
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+Stable backport adaptation for 2ac7d6e620764f1fc79eb4edd3610a7a661981ca:
+
+The stable tree keeps both subflow lookups and their callers in
+pm_netlink.c. Apply the iterator conversion there, retaining private
+helpers and using has_subflow_saddr() for the source-address lookup.
+Drop the upstream pm.c, pm_userspace.c and protocol.h hunks, which assume
+helper moves and a userspace callback not present on this branch.
+
+Rename pm_netlink.c to pm_kernel.c and update the Makefile so the target
+patch finds its existing ID0 removal function at the upstream path.
+Rename the existing remove_anno_list_by_saddr() and
+mptcp_pm_nl_rm_subflow_received() helpers to mptcp_pm_announced_remove()
+and mptcp_pm_rm_subflow(), updating all callers, to provide the target's
+helper name and patch context. Keep their stable implementations and
+static linkage. No functions are added and the ID0 fix itself remains
+for the target commit.
+
+[ sashal: Reduced backport -- upstream f816891724298 touches 4 file(s), this
+  backport carries 2. Not backported here:
+  net/mptcp/pm.c
+  net/mptcp/pm_userspace.c
+  net/mptcp/protocol.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 2ac7d6e62076 ("mptcp: pm: kernel: drop pending ADD_ADDR when removing ID0")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mptcp/Makefile                      |  2 +-
+ net/mptcp/{pm_netlink.c => pm_kernel.c} | 41 ++++++++++++-------------
+ 2 files changed, 21 insertions(+), 22 deletions(-)
+ rename net/mptcp/{pm_netlink.c => pm_kernel.c} (98%)
+
+diff --git a/net/mptcp/Makefile b/net/mptcp/Makefile
+index bcf1dbf3a432f..8d5efaed6f98c 100644
+--- a/net/mptcp/Makefile
++++ b/net/mptcp/Makefile
+@@ -2,7 +2,7 @@
+ obj-$(CONFIG_MPTCP) += mptcp.o
+ 
+ mptcp-y := protocol.o subflow.o options.o token.o crypto.o ctrl.o pm.o diag.o \
+-	   mib.o pm_netlink.o sockopt.o pm_userspace.o fastopen.o sched.o \
++	   mib.o pm_kernel.o sockopt.o pm_userspace.o fastopen.o sched.o \
+ 	   mptcp_pm_gen.o
+ 
+ obj-$(CONFIG_SYN_COOKIES) += syncookies.o
+diff --git a/net/mptcp/pm_netlink.c b/net/mptcp/pm_kernel.c
+similarity index 98%
+rename from net/mptcp/pm_netlink.c
+rename to net/mptcp/pm_kernel.c
+index 7ea8ccd16df2f..44f7f419e69a2 100644
+--- a/net/mptcp/pm_netlink.c
++++ b/net/mptcp/pm_kernel.c
+@@ -109,14 +109,14 @@ static void remote_address(const struct sock_common *skc,
+ #endif
+ }
+ 
+-static bool lookup_subflow_by_saddr(const struct list_head *list,
+-				    const struct mptcp_addr_info *saddr)
++static bool has_subflow_saddr(const struct mptcp_sock *msk,
++			      const struct mptcp_addr_info *saddr)
+ {
+ 	struct mptcp_subflow_context *subflow;
+ 	struct mptcp_addr_info cur;
+ 	struct sock_common *skc;
+ 
+-	list_for_each_entry(subflow, list, node) {
++	mptcp_for_each_subflow(msk, subflow) {
+ 		skc = (struct sock_common *)mptcp_subflow_tcp_sock(subflow);
+ 
+ 		mptcp_local_address(skc, &cur);
+@@ -127,13 +127,13 @@ static bool lookup_subflow_by_saddr(const struct list_head *list,
+ 	return false;
+ }
+ 
+-static bool lookup_subflow_by_daddr(const struct list_head *list,
+-				    const struct mptcp_addr_info *daddr)
++static bool has_subflow_daddr(const struct mptcp_sock *msk,
++			      const struct mptcp_addr_info *daddr)
+ {
+ 	struct mptcp_subflow_context *subflow;
+ 	struct mptcp_addr_info cur;
+ 
+-	list_for_each_entry(subflow, list, node) {
++	mptcp_for_each_subflow(msk, subflow) {
+ 		struct sock *ssk = mptcp_subflow_tcp_sock(subflow);
+ 
+ 		if (!((1 << inet_sk_state_load(ssk)) &
+@@ -843,7 +843,7 @@ static void mptcp_pm_nl_add_addr_received(struct mptcp_sock *msk)
+ 	mptcp_pm_announce_addr(msk, &remote, true);
+ 	mptcp_pm_nl_addr_send_ack(msk);
+ 
+-	if (lookup_subflow_by_daddr(&msk->conn_list, &remote))
++	if (has_subflow_daddr(msk, &remote))
+ 		return;
+ 
+ 	/* pick id 0 port, if none is provided the remote address */
+@@ -1047,8 +1047,8 @@ static void mptcp_pm_nl_rm_addr_received(struct mptcp_sock *msk)
+ 	mptcp_pm_nl_rm_addr_or_subflow(msk, &msk->pm.rm_list_rx, MPTCP_MIB_RMADDR);
+ }
+ 
+-static void mptcp_pm_nl_rm_subflow_received(struct mptcp_sock *msk,
+-					    const struct mptcp_rm_list *rm_list)
++static void mptcp_pm_rm_subflow(struct mptcp_sock *msk,
++				const struct mptcp_rm_list *rm_list)
+ {
+ 	mptcp_pm_nl_rm_addr_or_subflow(msk, rm_list, MPTCP_MIB_RMSUBFLOW);
+ }
+@@ -1572,7 +1572,7 @@ int mptcp_pm_nl_add_addr_doit(struct sk_buff *skb, struct genl_info *info)
+ 	return ret;
+ }
+ 
+-static bool remove_anno_list_by_saddr(struct mptcp_sock *msk,
++static bool mptcp_pm_announced_remove(struct mptcp_sock *msk,
+ 				      const struct mptcp_addr_info *addr)
+ {
+ 	struct mptcp_pm_add_entry *entry;
+@@ -1601,7 +1601,7 @@ static bool mptcp_pm_remove_anno_addr(struct mptcp_sock *msk,
+ 
+ 	list.ids[list.nr++] = mptcp_endp_get_local_id(msk, addr);
+ 
+-	ret = remove_anno_list_by_saddr(msk, addr);
++	ret = mptcp_pm_announced_remove(msk, addr);
+ 	if (ret || force) {
+ 		spin_lock_bh(&msk->pm.lock);
+ 		if (ret)
+@@ -1638,7 +1638,7 @@ static int mptcp_nl_remove_subflow_and_signal_addr(struct net *net,
+ 			goto next;
+ 
+ 		lock_sock(sk);
+-		remove_subflow = lookup_subflow_by_saddr(&msk->conn_list, addr);
++		remove_subflow = has_subflow_saddr(msk, addr);
+ 		mptcp_pm_remove_anno_addr(msk, addr, remove_subflow &&
+ 					  !(entry->flags & MPTCP_PM_ADDR_FLAG_IMPLICIT));
+ 
+@@ -1646,7 +1646,7 @@ static int mptcp_nl_remove_subflow_and_signal_addr(struct net *net,
+ 
+ 		spin_lock_bh(&msk->pm.lock);
+ 		if (remove_subflow)
+-			mptcp_pm_nl_rm_subflow_received(msk, &list);
++			mptcp_pm_rm_subflow(msk, &list);
+ 		if (entry->flags & MPTCP_PM_ADDR_FLAG_SUBFLOW)
+ 			__mark_subflow_endp_available(msk, list.ids[0]);
+ 		else /* mark endp ID as available, e.g. Signal or MPC endp */
+@@ -1688,7 +1688,7 @@ static int mptcp_nl_remove_id_zero_address(struct net *net,
+ 		lock_sock(sk);
+ 		spin_lock_bh(&msk->pm.lock);
+ 		mptcp_pm_remove_addr(msk, &list);
+-		mptcp_pm_nl_rm_subflow_received(msk, &list);
++		mptcp_pm_rm_subflow(msk, &list);
+ 		__mark_subflow_endp_available(msk, 0);
+ 		spin_unlock_bh(&msk->pm.lock);
+ 		release_sock(sk);
+@@ -1761,10 +1761,9 @@ void mptcp_pm_remove_addrs(struct mptcp_sock *msk, struct list_head *rm_list)
+ 			break;
+ 
+ 		/* only delete if either announced or matching a subflow */
+-		if (remove_anno_list_by_saddr(msk, &entry->addr))
++		if (mptcp_pm_announced_remove(msk, &entry->addr))
+ 			anno_nr++;
+-		else if (!lookup_subflow_by_saddr(&msk->conn_list,
+-						  &entry->addr))
++		else if (!has_subflow_saddr(msk, &entry->addr))
+ 			continue;
+ 
+ 		alist.ids[alist.nr++] = entry->addr.id;
+@@ -1787,11 +1786,11 @@ static void mptcp_pm_flush_addrs_and_subflows(struct mptcp_sock *msk,
+ 
+ 	list_for_each_entry(entry, rm_list, list) {
+ 		if (slist.nr < MPTCP_RM_IDS_MAX &&
+-		    lookup_subflow_by_saddr(&msk->conn_list, &entry->addr))
++		    has_subflow_saddr(msk, &entry->addr))
+ 			slist.ids[slist.nr++] = mptcp_endp_get_local_id(msk, &entry->addr);
+ 
+ 		if (alist.nr < MPTCP_RM_IDS_MAX &&
+-		    remove_anno_list_by_saddr(msk, &entry->addr))
++		    mptcp_pm_announced_remove(msk, &entry->addr))
+ 			alist.ids[alist.nr++] = mptcp_endp_get_local_id(msk, &entry->addr);
+ 	}
+ 
+@@ -1801,7 +1800,7 @@ static void mptcp_pm_flush_addrs_and_subflows(struct mptcp_sock *msk,
+ 		mptcp_pm_remove_addr(msk, &alist);
+ 	}
+ 	if (slist.nr)
+-		mptcp_pm_nl_rm_subflow_received(msk, &slist);
++		mptcp_pm_rm_subflow(msk, &slist);
+ 	/* Reset counters: maybe some subflows have been removed before */
+ 	bitmap_fill(msk->pm.id_avail_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
+ 	msk->pm.local_addr_used = 0;
+@@ -2101,7 +2100,7 @@ static void mptcp_pm_nl_fullmesh(struct mptcp_sock *msk,
+ 	list.ids[list.nr++] = mptcp_endp_get_local_id(msk, addr);
+ 
+ 	spin_lock_bh(&msk->pm.lock);
+-	mptcp_pm_nl_rm_subflow_received(msk, &list);
++	mptcp_pm_rm_subflow(msk, &list);
+ 	__mark_subflow_endp_available(msk, list.ids[0]);
+ 	mptcp_pm_create_subflow_or_signal_addr(msk);
+ 	spin_unlock_bh(&msk->pm.lock);
+-- 
+2.53.0
+
