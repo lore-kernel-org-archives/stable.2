@@ -1,96 +1,123 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFD2022A4E1;
-	Thu, 17 Sep 2026 03:13:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8797422A4E1
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:13:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789614791; cv=none; b=qPjjxj917IAmkoj9rQH8HHLxiMHEc04vX8Uum9I4ajsydJaH6OIfCG066RvGcbAVLo9+8CFQxjSwO+8QquQr1Aa4TaHAwbMNexkT9de4KpAOWeg6KbRoqul9S36JmyqYEYd+fH4ABNKX4QW/h22zRw9Cq8SY436j8d+jAn5WQcM=
+	t=1789614835; cv=none; b=kykAkW3MGjb9Mwy4KK7niyCN3rD7rW+2XtQkFDEKIZBx4RlTsK9w6C/wzsD/+RzNGinmluXbDmo1iCazQC0IsQdY3+j35q6msgNOvmFk96QpYGVo0nj1wLVQJPAFA8lSr5qHb586wx+W2vOq6K+aj7LI46mhPvHlc1OS/6hzcpY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789614791; c=relaxed/simple;
-	bh=FeKcoJ3loGn8FJEmciBgvprU0VZac3yRZ7pwrvMBqgQ=;
-	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
-	 Mime-Version:Content-Type; b=uMeT7O7ugOrLiE6L7x5THDYmBYcJi3vYa1ZTxlSusNb2MLBf9CWzgihsLif9yeEQeHp5l9RkcFMBsD5BVBHfJyg/mskAOpxxwEBznvJjmjZDhnjZOvOge9DBLz1gWjS27QOL6acPAZ5mixMv2FksYn7gT7jcxBz8M2TT93Ay2QI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=hBiJNpgS; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789614835; c=relaxed/simple;
+	bh=tkMbWUXVVK0Dg+lm64lSQ00Mxo4wXeCg1zjqE3LoVmc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DxaD9mZezoj4741gbmBuhxRFHfTaDq62TekhjH15O5adIfz5TpZJBGydaS6PeWd+iiZmL4crrLZu+VTfx0+NfhUD7rA6bPcrifF+PtTAz9iuj2yMguQ8sfqI659Yq0axY+Qete2JBO7iB0ZNO2xs0m8V5ovnCBjhqYGDBryT69g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ohJ59Ebt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="hBiJNpgS"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585591F000FF;
-	Thu, 17 Sep 2026 03:13:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789614789;
-	bh=4+BlsAYVIvUfCkO04DyxIYq5YEbiYoDvPQdBOWVcg8o=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=hBiJNpgSIbLu448u25HbOQo5bMiPEncJqYfjeZJAyyhF3R2RWKukQ0My/1W9qgG3R
-	 q3ZcrXWQhRwuXALKX0cvM2ivn55BXK0d66EDShx8vS4aXs2nPxIzsrdzkPWUeXzqDh
-	 N54rEOf2/SDOY4l38oMMQhB+BQjSTR5m7Mz1loYY=
-Date: Wed, 16 Sep 2026 20:13:07 -0700
-From: Andrew Morton <akpm@linux-foundation.org>
-To: ackerleytng@google.com
-Cc: Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org>,
- Alex Shi <alexs@kernel.org>, David Hildenbrand <david@kernel.org>,
- Dongliang Mu <dzm91@hust.edu.cn>, Hongxiang Lou <louhongxiang@huawei.com>,
- Johannes Weiner <hannes@cmpxchg.org>, Jonathan Corbet <corbet@lwn.net>,
- Joshua Hahn <joshua.hahnjy@gmail.com>, "Liam R. Howlett"
- <liam@infradead.org>, Lorenzo Stoakes <ljs@kernel.org>, Miaohe Lin
- <linmiaohe@huawei.com>, Michal Hocko <mhocko@kernel.org>, Mike Rapoport
- <rppt@kernel.org>, Muchun Song <muchun.song@linux.dev>, Nhat Pham
- <nphamcs@gmail.com>, Oscar Salvador <osalvador@suse.de>, Peter Xu
- <peterx@redhat.com>, Randy Dunlap <rdunlap@infradead.org>, Roman Gushchin
- <roman.gushchin@linux.dev>, Shakeel Butt <shakeel.butt@linux.dev>, Shuah
- Khan <skhan@linuxfoundation.org>, Suren Baghdasaryan <surenb@google.com>,
- Usama Arif <usama.arif@linux.dev>, Vlastimil Babka <vbabka@kernel.org>,
- Wupeng Ma <mawupeng1@huawei.com>, Yanteng Si <si.yanteng@linux.dev>, Naoya
- Horiguchi <nao.horiguchi@gmail.com>, fvdl@google.com,
- jthoughton@google.com, rientjes@google.com, vannapurve@google.com,
- linux-doc@vger.kernel.org, linux-kernel@vger.kernel.org,
- linux-mm@kvack.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 0/4] Fix HugeTLB subpool used_hpages tracking
-Message-Id: <20260916201307.5618114cbac4af52d98aecfa@linux-foundation.org>
-In-Reply-To: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
-References: <20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com>
-X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ohJ59Ebt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F46D1F000FF;
+	Thu, 17 Sep 2026 03:13:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789614834;
+	bh=C89qUwZVO7BZubXOw1ZzXfmn1r7zI7MKGMUPNoQElGY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ohJ59EbttrJirvTjQvNkM6B1Hc/yFE8TBTnpLbPkSQJVtDK2YGv7/xFlQXhAFmnWO
+	 J+tCLsECqYTx3mTWxNOSsmT6ydR5Lg9rzk0QcKn87H9CxijSqskrlPhbrZ3e2CCOg8
+	 39oUu4cDTjxbzoSP5HPFmqLBWptouPdQ9LjFytJX4puM12VuCVW9FsyUyJMJH0sQ3I
+	 YSltaynWUi3gbMC0o60pO3VPJv52fEV1dAjXG3sSliSkD1cDhFJGtQ/iGwFi04X7C9
+	 p5LNgf01CmW1QJ3t/7aFzp9rh8XM4yk3ETsaSzi1HynAnJIJB2BtmVMCL9ic68d5zW
+	 0803Xoan5OsLQ==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@amazon.com>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y 1/5] ipv4: remove fib_devindex_hashfn()
+Date: Wed, 16 Sep 2026 23:13:48 -0400
+Message-ID: <20260917031352.3971853-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091655-synthesis-number-1f2b@gregkh>
+References: <2026091655-synthesis-number-1f2b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Wed, 16 Sep 2026 16:39:00 -0700 Ackerley Tng via B4 Relay <devnull+ackerleytng.google.com@kernel.org> wrote:
+From: Eric Dumazet <edumazet@google.com>
 
-> HugeTLB subpools currently only track used pages (used_hpages) when a
-> maximum size limit (max_hpages) is configured on the mount.
-> 
-> ...
-> 
-> This series addresses three problem areas resulting from untracked usage
-> and asymmetric error handling:
+[ Upstream commit 8a0f62fdeb9ea66ad3d0e959c7c4addbabeac1be ]
 
-These are rather serious-sounding problems.
+fib_devindex_hashfn() converts a 32bit ifindex value to a 8bit hash.
 
-I'm seeing Fixes: for 10-year-old patches, for one last year and one
-this year.  The fourth patch doesn't identify what to fix.
+It makes no sense doing this from fib_info_hashfn() and
+fib_find_info_nh().
 
-So if downstream people (-stable maintainers, others) follow our
-recommendations, some kernels will get two of these patches, other
-kernel versions will get three and some lucky kernels might get all
-four.  Are you confident that the patches can be split apart in this
-fashion and still produce a good result?  After all, we're sending
-downstream some patch combinations which we didn't test.
+It is better to keep as many bits as possible to let
+fib_info_hashfn_result() have better spread.
 
-Also, can you speculate about why these things took so long to
-discover?
+Only fib_info_devhash_bucket() needs to make this operation,
+we can 'inline' trivial fib_devindex_hashfn() in it.
 
-Ho hum, complicated.  Let's at least slap a Fixes: on [4/4].  My
-trillion-dollar sidekick suggests a9e443086489 ("hugetlb: disable
-region_add file_region coalescing").
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20241004134720.579244-2-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 8d6cd1885085 ("ipv6: flowlabel: cap duplicate leases per socket")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/ipv4/fib_semantics.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-Our other little friend is talking to us:
-	https://sashiko.dev/#/patchset/20260916-hugetlb-subpool-always-track-used-v3-0-38aae9b5ccdd@google.com
-
-I'd like to queue this up promptly because it fixes things.  But let's
-seek additional review input and argue with Sashiko before taking that
-step.
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index facbda1ff51d7..c7d6b8402edbf 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -322,17 +322,12 @@ static inline int nh_comp(struct fib_info *fi, struct fib_info *ofi)
+ 	return 0;
+ }
+ 
+-static inline unsigned int fib_devindex_hashfn(unsigned int val)
+-{
+-	return hash_32(val, DEVINDEX_HASHBITS);
+-}
+-
+ static struct hlist_head *
+ fib_info_devhash_bucket(const struct net_device *dev)
+ {
+ 	u32 val = net_hash_mix(dev_net(dev)) ^ dev->ifindex;
+ 
+-	return &fib_info_devhash[fib_devindex_hashfn(val)];
++	return &fib_info_devhash[hash_32(val, DEVINDEX_HASHBITS)];
+ }
+ 
+ static unsigned int fib_info_hashfn_1(int init_val, u8 protocol, u8 scope,
+@@ -363,10 +358,10 @@ static inline unsigned int fib_info_hashfn(struct fib_info *fi)
+ 				fi->fib_priority);
+ 
+ 	if (fi->nh) {
+-		val ^= fib_devindex_hashfn(fi->nh->id);
++		val ^= fi->nh->id;
+ 	} else {
+ 		for_nexthops(fi) {
+-			val ^= fib_devindex_hashfn(nh->fib_nh_oif);
++			val ^= nh->fib_nh_oif;
+ 		} endfor_nexthops(fi)
+ 	}
+ 
+@@ -381,7 +376,7 @@ static struct fib_info *fib_find_info_nh(struct net *net,
+ 	struct fib_info *fi;
+ 	unsigned int hash;
+ 
+-	hash = fib_info_hashfn_1(fib_devindex_hashfn(cfg->fc_nh_id),
++	hash = fib_info_hashfn_1(cfg->fc_nh_id,
+ 				 cfg->fc_protocol, cfg->fc_scope,
+ 				 (__force u32)cfg->fc_prefsrc,
+ 				 cfg->fc_priority);
+-- 
+2.53.0
 
