@@ -1,236 +1,381 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2B3D94AB1A2;
-	Thu, 17 Sep 2026 10:04:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A67E4AEBD6
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:05:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789639515; cv=none; b=DCJonwLjKAgpELA6w6O9/Sq6tFeVYTYN4wpP3EJDPIk1BfySVPrvvMbryXivVDVlYk/Tvil6VGfhDitij9eTAaZFJN/jcXLtgI6g9NPmiHovjZuIFSxyKGZ1Uv5KHiDRuvafa1XycDP5z9ohYocvQXmhHkmZKtUiMZBYUMxZsEM=
+	t=1789639539; cv=none; b=DYRZsbRRx4EHwtpcljjajyZgGb5eGAGywlMpgE+SEc6WhxU/A/5AEXAOA2k1aVhejA/7OVVA9eoKXOdyzsepMWFJ+paMO9s+adkj5un929YwpvACXAgIVbrwmB2fimyy5Hu1uTcg9YPPGUzOtbh1oAVONP6wZYxQqhFSuw+1B+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789639515; c=relaxed/simple;
-	bh=oJZpSGeZR7c0gtIpdrbJQjFPlzZ2zTpyCdhVreTnrow=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=PWoNRvFdpVfqlooW/JUrpYx4SyQkxPCI8WhjDKzn4CwXgYHh8g0hyvr+wJketZmtjK4cBxIb64hxUCjSzgfFYMNrJDMYVMSR9brhLBkTPPFRRAqafwgSw3/2z18m/oAvIvvR0Nw+u32tFR6/vzN096642X2qNGk+u2Jehk11ANg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=w4WpXlaZ; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789639539; c=relaxed/simple;
+	bh=/ZcoGQU7+HpSLRmFfBGWL0azsSfivXUGNCssuK3UNyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LsZgjeEZpxjgzxcnnImrS8mjCJsj3yAqauUjvWIauTjMCwb6Lir9aQZcuaKd8n1xy+i8iAngCU+uwbhyVEv+tZYeQ/9n+2XWiXqbLW7Xx1KIDtGoaJvmKEy9+b/YbEtTUNbFXb77REhmYEdW9VCrUiyAm4HbY3sqNsLmRlgKXjg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=iF0sJQ6l; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="w4WpXlaZ"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 20AA840198;
-	Thu, 17 Sep 2026 20:04:34 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789639474;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=c3jDlmkxxOD3XtdyCo2tdWsuRppzBPyEgPOWoYIFm4o=;
-	b=w4WpXlaZxpCm4PXAWLUxpn8DhT4UZPVwp6YJzX37W6VsRL7jo3bS0bC3ERhkBHvSIVWw1u
-	Ny7ryHYojtfJun1AWUfRKLl6ClYJUAWvOMPx1YYf0HroG7Fmv4uOpqN78EMmoBPS1eNi8V
-	qWkQhwHMuUacQsEQqgemtPiZHePezZrZgIj/mfu0sSh1D9Ui/ZlRSc4QTVPQHsZAW1/G8L
-	OCaXr8uba8xRKYuYBxGzUgi/vwGlhKLfr9TxMrrbm4+RJGcC4C/DNOajcFbFqgLCF2xSpE
-	SqxAvuztXV972KHrpuixiBOoNiGfQSGeBJdsqxpK5YGdBfG+KEz4hspxR/QP1Q==
-X-GPT-Reason: legitimate; This is a technical discussion regarding
-	a Linux kernel patch (rtw88 driver) which perfectly aligns with
-	the recipient's identity as a technical/professional mailbox
-	(alastair@d-silva.org); the content is a detailed, high-context
-	engineering correspondence involving hardware telemetry, register
-	analysis, and code logic; the sender domain (d-silva.org) matches
-	the recipient domain, indicating a personal/professional relationship;
-	there are no phishing indicators, no malicious links, and no marketing
-	language.
-Message-ID: <919109e886399f09db41ef5800e7335440ed4971.camel@d-silva.org>
-Subject: Re: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
- storm
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	 <stable@vger.kernel.org>
-Date: Thu, 17 Sep 2026 20:04:33 +1000
-In-Reply-To: <58a857e3b0614e2b9a520024b9932685@realtek.com>
-References: <20260916040635.205094-1-alastair@d-silva.org>
-	 <ea3434d849b34a4286b0a193351a610e@realtek.com>
-	 <58a857e3b0614e2b9a520024b9932685@realtek.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="iF0sJQ6l"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398cb5615deso631947a91.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:05:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1789639532; x=1790244332; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E/4WSHuLHoAStKDHNH/RtkvNpdrgiXRCApKgg1BxoNE=;
+        b=iF0sJQ6leoPaWGdLghiLpHAyvGIcPGwvlESAHJ/LCseEe2ke3L3fnpg34xxig8SgAz
+         5fBso/JdXmiWqJFPBrn1deh4H7Kk13P45HuhqvipD8MHdF0apOVtOJs+n+3q1QsOxMSr
+         MGASUS3AE1klrpbBI3ewLwHxxCUikFt8mRtmeqvQ1IFbbVTBtK/GXc6FtK9lS7UMszGV
+         5aPh9NncgxuToPmKl6UqrbbEWbtstCWrZowzrsjRShJmTXWBhUUSwVwZyeCS1/fKx0WR
+         Qc1vq2IGwx4fYFRWZw9/2dGhyfiGSSDPPKai7Tu42IvZ+ZeE3hyyvyQRRvctVGKdG0Kj
+         lwMA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789639532; x=1790244332;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E/4WSHuLHoAStKDHNH/RtkvNpdrgiXRCApKgg1BxoNE=;
+        b=WyVBkp4nYvu2bnaPLIRY3Ti9a5oQ4PAiJhFcUH7dAYLVwb93hDTj8QfDXC03grcHsu
+         mEL0NDq5WSdEZuQzGTl2HsnBk8My2KNrwHEuAprOrWZ15brgiy86db3zVoVW3yomQVlb
+         NNu55oE4Q2uYFUkQL14dFhsrGdoyHz/7CP4VErs7z7R8BG0JNS93+mMMYVFEqxiPsh9E
+         Q1g9FKOYjfTHxzm5FbY1eM+LeJCZtJmHZMIJ3uX575/xK3vjTPbiyDZMd+oBWabHZTdY
+         0koUHVrB/pGMujb7gXMOE5M5FZbTf4erVmLv9LJobZ56lzcrhmvpmsfdZBLcpMhhFjFt
+         uFqA==
+X-Forwarded-Encrypted: i=1; AKwUvBxElxGL0aMAYAa5W0qvfuFttIOldH23hFXTpBm6tbBEGSzslixMC4az5wBNBboolSN53TSOpIY=@vger.kernel.org
+X-Gm-Message-State: AFuF++ms9ecopDlgTv29Xfd+a070KziGi6cRhc5b4Iw4d5ScGKzuMGAT
+	OgqpKHohhCbmW3S/AIbzCLF+PCQhYjaEnD5POqL1IvzRtKiBOI7lDz5ZC+G94UBL7pNO
+X-Gm-Gg: AYBFou24ZvcrD5aanOZw6uom7sIrYTIOu+xmboInLBpnCFSANbANIdVHNg6Z8CNhbW+
+	8/7rzUrO1EkoV7t8w2b5y6Tpp1ZnnLZuazbjBESdJehjFZIxkzH2eI6Imb6r8iNDTwjCNwc4dFf
+	pY5QsvsQSenoLzhIIkmtoImKIikwJ+ebJTpeS5DEkxScURceNDiTy9tq8ytQXE+VM+fJX72Aymh
+	OCEjwD44/toCjfbQQLzXmPlpoQkOzDlVQ6eqgLrBBOTc6YwOgjHCfsmbNVbrhfLzscApQXTvtpU
+	CX0ozo2X6xl0fe4JteOoEs9yhcryDqmo+XwbXzBDXy3sQC/ID1BYbf6dwZ196pOj8YJq6iCLEKS
+	jDwa3swW7JoObCcsOyYtj53X4MA0J7JYQCJkqqRVh0DDjZvqHYyviLwgN6FE7HMoMjffr0HOSWA
+	HmBVma168byb9JVeQgAJPA5e6HLQ5N9dCn2JbKWMJcN6HNCYsKzCN8qiEVrn8TDvLZWbGNC+MbS
+	mAdfDjN1FMILxhwFsE0rw6aZp6K5l3XA51WvhPl
+X-Received: by 2002:a17:90b:2f47:b0:39e:2f57:67c7 with SMTP id 98e67ed59e1d1-39e2f5848damr9551873a91.3.1789639531771;
+        Thu, 17 Sep 2026 03:05:31 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e390c2984sm1019445a91.0.2026.09.17.03.05.26
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 03:05:30 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: dhowells@redhat.com,
+	marc.dionne@auristor.com,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com
+Cc: horms@kernel.org,
+	linux-afs@lists.infradead.org,
+	netdev@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	zihanx@nebusec.ai,
+	stable@vger.kernel.org,
+	Vega <vega@nebusec.ai>,
+	Luxing Yin <root@tr0jan.top>
+Subject: [PATCH net v6 1/1] rxrpc: fix encap_rcv skb accounting exhaustion
+Date: Thu, 17 Sep 2026 10:05:09 +0000
+Message-ID: <fd9449f2d394828609e81f6178608ea91344bbfd.1789608558.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <cover.1789608557.git.zihanx@nebusec.ai>
+References: <cover.1789608557.git.zihanx@nebusec.ai>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-17 at 09:09 +0000, Ping-Ke Shih wrote:
-> Ping-Ke Shih wrote:
-> >=20
-> > Hi Martin,
-> >=20
-> > Alastair D'Silva <alastair@d-silva.org> wrote:
-> > > In rtw_sdio_handle_interrupt(), the HISR status register is
-> > > cleared using
-> > > Write-1-to-Clear (W1C) semantics. However, the driver masks out
-> > > the
-> > > REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before
-> > > writing
-> > > it back, causing a 0 to be written to that bit.
-> >=20
-> > I feel this patch makes sense.
-> >=20
-> > Did you remember why you clear the bit locally? Can you share
-> > vendor
-> > driver you referenced?
-> >=20
->=20
-> I asked internal expert who said this bit will be cleared
-> automatically
-> if all packets in RX buffer are received. If we clear this bit here,
-> the interrupt will not raise again if no newly incoming packet even
-> there are remaining packets in RX buffer.=20
->=20
-> Checking rtw_sdio_rx_isr(), we can see it reads hisr for each
-> iteration,
-> which this is also the evidence that the bit will be cleared
-> automatically.
->=20
-> Therefore, we need to dig further why the RX buffer can't be empty
-> and get stuck.=20
->=20
-> Ping-Ke
->=20
+rxrpc_encap_rcv() queues encapsulated UDP packets on the RxRPC local
+queue without charging them to the UDP socket. If the I/O thread cannot
+keep up, the queue can therefore grow without bound.
 
-Hi Ping-Ke and Martin,
+Charge each packet against the tunnel socket before queueing it, while
+holding sk_receive_queue.lock, and drop it when socket rmem or protocol
+memory accounting fails. Size the socket from the advertised RxRPC
+receive window, retain headroom for control and error packets, and
+refresh the cap when the window grows without shrinking an existing
+buffer. The lock also serializes sk_forward_alloc updates with the
+destructor path.
 
-Thank you for following up and consulting with the internal hardware
-team. We have extensive test telemetry and logs from our bring-up of
-the Mellow Fly-C5 board in Armbian that provide full context on this
-issue.
+Orphan charged PACKET skbs under the same lock when the I/O thread
+dequeues them. Keep the existing destructor for error skbs, clear
+skb->dev, drop the dst, and account drops with the corresponding UDP
+statistics and reasons.
 
-1. Test Platform & Failure Telemetry:
--------------------------------------
-- Hardware: Mellow Fly-C5 (Allwinner H618 SoC, sun50i-h618).
+Since skb_set_owner_r() does not hold a socket reference, clear
+sk_user_data under RCU and release the socket only after purging the
+local queues.
 
-- Wi-Fi Chip: Onboard Realtek RTL8821CS connected over SDIO (mmc1 /
-sunxi-mmc).
+Fixes: 446b3e14525b ("rxrpc: Move packet reception processing into I/O thread")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Assisted-by: LLM
+Co-developed-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Luxing Yin <root@tr0jan.top>
+Signed-off-by: Zihan Xi <zihanx@nebusec.ai>
+---
+changes in v6:
+  - refresh the tunnel socket receive-buffer cap when
+    rxrpc_rx_window_size increases, without shrinking an existing
+    socket
+  - distinguish socket receive-buffer exhaustion from protocol memory
+    accounting failures in the drop reason and UDP statistics
+  - cap the window-derived value at sysctl_rmem_max and only grow an
+    existing sk_rcvbuf; avoid the unexported sysctl_rmem_default
+  - v5 Link: https://lore.kernel.org/all/cover.1789273347.git.zihanx@nebusec.ai/
+changes in v5:
+  - size the tunnel sk_rcvbuf to one advertised window of ordinary
+    DATA (RXRPC_JUMBO(1)), doubled for typical 2-4KiB skb truesize,
+    plus 25% for ACKs/ICMP, capped by sysctl_rmem_max
+  - leave ICMP/error-queue headroom in the DATA rmem check
+  - count UDP RCVBUFERRORS/INERRORS and drop with
+    SKB_DROP_REASON_SOCKET_RCVBUFF
+  - drop the dst instead of skb_dst_force(); keep skb->dev = NULL
+  - refresh the cover crash log from the latest unfixed net/main
+    run; record the panic as a sender-path OOM, not an I/O-thread
+    allocation
+  - note that sk_rcvbuf is sized at socket open and is not updated
+    if rxrpc_rx_window_size later changes
+  - v4 Link: https://lore.kernel.org/all/cover.1788878590.git.zihanx@nebusec.ai/
+changes in v4:
+  - serialise UDP rmem charge/uncharge with sk->sk_receive_queue.lock
+  - use spin_lock() in encap_rcv() (BH) and spin_lock_bh() around
+    skb_orphan() in the I/O thread
+  - do not enqueue encapsulated skbs on the UDP receive queue
+  - orphan only PACKET skbs charged in encap_rcv(); leave error-queue
+    skb ownership alone
+  - restore the unprivileged namespace reproducer and document the
+    AFS callback listener
+  - clarify in the cover that the recorded panic is a downstream OOM
+    after extra I/O-thread contention, not the unprivileged flood
+    alone
+  - include the full OOM Mem-Info in the cover crash log
+  - v3 Link: https://lore.kernel.org/all/cover.1788539302.git.zihanx@nebusec.ai/
+changes in v3:
+  - orphan the skb when the I/O thread dequeues it from the local
+    queue so UDP rmem ownership does not follow packets onto
+    call/conn queues
+  - mention both io_thread.c and local_object.c in the cover opening
+  - distinguish the unprivileged flood from extra steps used to
+    record the panic
+  - attribute the OOM to skbuff growth rather than incoming-call
+    setup
+  - describe the recorded panic as a downstream OOM after I/O-thread
+    contention, not as an allocation at the encap_rcv enqueue site
+  - v2 Link: https://lore.kernel.org/all/cover.1785339953.git.zihanx@nebusec.ai/
+changes in v2:
+  - switch the drop path from atomic_inc(&udp_sk->sk_drops) to
+    sk_drops_inc(udp_sk)
+  - retarget Fixes to 446b3e14525b, the first boundary where encap_rcv
+    queued the skb onto local->rx_queue for later I/O-thread consumption
+  - rebase onto current net/main
+  - refresh the cover crash log from an unfixed 7.3.0-rc1+ net/main run
+    and include the decoded stack
+  - explain in the cover why packetdrill was not used
+  - document the actual flood command in the cover
+  - v1 Link: https://lore.kernel.org/all/cover.1784742007.git.zihanx@nebusec.ai/
+---
+ net/rxrpc/ar-internal.h  |  1 +
+ net/rxrpc/io_thread.c    | 77 ++++++++++++++++++++++++++++++++++++++--
+ net/rxrpc/local_object.c | 24 +++++++++++--
+ 3 files changed, 98 insertions(+), 4 deletions(-)
 
-- Kernels: Tested on mainline Linux 6.18 and 7.x branches using
-rtw88_8821cs.
+diff --git a/net/rxrpc/ar-internal.h b/net/rxrpc/ar-internal.h
+index 865f05fe37ab9..b079ec98aaa74 100644
+--- a/net/rxrpc/ar-internal.h
++++ b/net/rxrpc/ar-internal.h
+@@ -1323,6 +1323,7 @@ void rxrpc_send_version_request(struct rxrpc_local *local,
+  * local_object.c
+  */
+ void rxrpc_local_dont_fragment(const struct rxrpc_local *local, bool set);
++void rxrpc_adjust_rcvbuf(struct sock *sk);
+ struct rxrpc_local *rxrpc_lookup_local(struct net *, const struct sockaddr_rxrpc *);
+ struct rxrpc_local *rxrpc_get_local(struct rxrpc_local *, enum rxrpc_local_trace);
+ struct rxrpc_local *rxrpc_get_local_maybe(struct rxrpc_local *, enum rxrpc_local_trace);
+diff --git a/net/rxrpc/io_thread.c b/net/rxrpc/io_thread.c
+index dc5184a2fa9d1..fa6cfd603548b 100644
+--- a/net/rxrpc/io_thread.c
++++ b/net/rxrpc/io_thread.c
+@@ -7,12 +7,55 @@
+ 
+ #define pr_fmt(fmt) KBUILD_MODNAME ": " fmt
+ 
++#include <net/udp.h>
++
+ #include "ar-internal.h"
+ 
+ static int rxrpc_input_packet_on_conn(struct rxrpc_connection *conn,
+ 				      struct sockaddr_rxrpc *peer_srx,
+ 				      struct sk_buff *skb);
+ 
++/*
++ * Drop UDP rmem ownership for packets charged in encap_rcv().
++ * sk_forward_alloc is serialised by sk_receive_queue.lock.
++ */
++static void rxrpc_skb_orphan_udp(struct sk_buff *skb)
++{
++	struct sock *sk = skb->sk;
++
++	if (!sk)
++		return;
++
++	spin_lock_bh(&sk->sk_receive_queue.lock);
++	skb_orphan(skb);
++	spin_unlock_bh(&sk->sk_receive_queue.lock);
++}
++
++static void rxrpc_encap_rcv_drop(struct sock *udp_sk, struct sk_buff *skb,
++				 enum skb_drop_reason reason)
++{
++	struct net *net = sock_net(udp_sk);
++
++	sk_drops_inc(udp_sk);
++#if IS_ENABLED(CONFIG_IPV6)
++	if (skb->protocol == htons(ETH_P_IPV6)) {
++		if (reason == SKB_DROP_REASON_SOCKET_RCVBUFF)
++			__UDP6_INC_STATS(net, UDP_MIB_RCVBUFERRORS);
++		else
++			__UDP6_INC_STATS(net, UDP_MIB_MEMERRORS);
++		__UDP6_INC_STATS(net, UDP_MIB_INERRORS);
++	} else
++#endif
++	{
++		if (reason == SKB_DROP_REASON_SOCKET_RCVBUFF)
++			__UDP_INC_STATS(net, UDP_MIB_RCVBUFERRORS);
++		else
++			__UDP_INC_STATS(net, UDP_MIB_MEMERRORS);
++		__UDP_INC_STATS(net, UDP_MIB_INERRORS);
++	}
++	sk_skb_reason_drop(udp_sk, skb, reason);
++}
++
+ /*
+  * handle data received on the local endpoint
+  * - may be called in interrupt context
+@@ -28,6 +71,9 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
+ 	struct sk_buff_head *rx_queue;
+ 	struct rxrpc_local *local = rcu_dereference_sk_user_data(udp_sk);
+ 	struct task_struct *io_thread;
++	enum skb_drop_reason reason;
++	unsigned int headroom;
++	unsigned int rcvbuf;
+ 
+ 	if (unlikely(!local)) {
+ 		kfree_skb(skb);
+@@ -41,8 +87,6 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
+ 	if (skb->tstamp == 0)
+ 		skb->tstamp = ktime_get_real();
+ 
+-	skb->mark = RXRPC_SKB_MARK_PACKET;
+-	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
+ 	rx_queue = &local->rx_queue;
+ #ifdef CONFIG_AF_RXRPC_INJECT_RX_DELAY
+ 	if (rxrpc_inject_rx_delay ||
+@@ -52,9 +96,35 @@ int rxrpc_encap_rcv(struct sock *udp_sk, struct sk_buff *skb)
+ 	}
+ #endif
+ 
++	headroom = SKB_TRUESIZE(RXRPC_JUMBO(1)) * 2;
++	spin_lock(&udp_sk->sk_receive_queue.lock);
++	rxrpc_adjust_rcvbuf(udp_sk);
++	rcvbuf = READ_ONCE(udp_sk->sk_rcvbuf);
++	if ((unsigned int)atomic_read(&udp_sk->sk_rmem_alloc) +
++	    skb->truesize + headroom >= rcvbuf) {
++		reason = SKB_DROP_REASON_SOCKET_RCVBUFF;
++		goto drop;
++	}
++	if (!sk_rmem_schedule(udp_sk, skb, skb->truesize)) {
++		reason = SKB_DROP_REASON_PROTO_MEM;
++		goto drop;
++	}
++
++	skb->dev = NULL;
++	skb_set_owner_r(skb, udp_sk);
++	spin_unlock(&udp_sk->sk_receive_queue.lock);
++	skb_dst_drop(skb);
++
++	skb->mark = RXRPC_SKB_MARK_PACKET;
++	rxrpc_new_skb(skb, rxrpc_skb_new_encap_rcv);
+ 	skb_queue_tail(rx_queue, skb);
+ 	wake_up_process(io_thread);
+ 	return 0;
++
++drop:
++	spin_unlock(&udp_sk->sk_receive_queue.lock);
++	rxrpc_encap_rcv_drop(udp_sk, skb, reason);
++	return 0;
+ }
+ 
+ /*
+@@ -471,6 +541,9 @@ int rxrpc_io_thread(void *data)
+ 		/* Distribute packets and errors. */
+ 		while ((skb = __skb_dequeue(&rx_queue))) {
+ 			struct rxrpc_skb_priv *sp = rxrpc_skb(skb);
++
++			if (skb->mark == RXRPC_SKB_MARK_PACKET)
++				rxrpc_skb_orphan_udp(skb);
+ 			switch (skb->mark) {
+ 			case RXRPC_SKB_MARK_PACKET:
+ 				skb->priority = 0;
+diff --git a/net/rxrpc/local_object.c b/net/rxrpc/local_object.c
+index 169f9dfdaa77f..f519a93059244 100644
+--- a/net/rxrpc/local_object.c
++++ b/net/rxrpc/local_object.c
+@@ -22,6 +22,19 @@
+ 
+ static void rxrpc_local_rcu(struct rcu_head *);
+ 
++void rxrpc_adjust_rcvbuf(struct sock *sk)
++{
++	u32 rcvbuf, old_rcvbuf;
++
++	rcvbuf = READ_ONCE(rxrpc_rx_window_size) *
++		SKB_TRUESIZE(RXRPC_JUMBO(1)) * 2;
++	rcvbuf += rcvbuf / 4;
++	rcvbuf = min_t(u32, rcvbuf, READ_ONCE(sysctl_rmem_max));
++	old_rcvbuf = READ_ONCE(sk->sk_rcvbuf);
++	if (rcvbuf > old_rcvbuf)
++		WRITE_ONCE(sk->sk_rcvbuf, rcvbuf);
++}
++
+ /*
+  * Handle an ICMP/ICMP6 error turning up at the tunnel.  Push it through the
+  * usual mechanism so that it gets parsed and presented through the UDP
+@@ -198,6 +211,9 @@ static int rxrpc_open_socket(struct rxrpc_local *local, struct net *net)
+ 
+ 	/* set the socket up */
+ 	usk = local->socket->sk;
++	spin_lock_bh(&usk->sk_receive_queue.lock);
++	rxrpc_adjust_rcvbuf(usk);
++	spin_unlock_bh(&usk->sk_receive_queue.lock);
+ 	usk->sk_error_report = rxrpc_error_report;
+ 
+ 	switch (srx->transport.family) {
+@@ -437,8 +453,8 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
+ 	if (socket) {
+ 		local->socket = NULL;
+ 		kernel_sock_shutdown(socket, SHUT_RDWR);
+-		socket->sk->sk_user_data = NULL;
+-		sock_release(socket);
++		rcu_assign_sk_user_data(socket->sk, NULL);
++		synchronize_rcu();
+ 	}
+ 
+ 	/* At this point, there should be no more packets coming in to the
+@@ -448,6 +464,10 @@ void rxrpc_destroy_local(struct rxrpc_local *local)
+ 	rxrpc_purge_queue(&local->rx_delay_queue);
+ #endif
+ 	rxrpc_purge_queue(&local->rx_queue);
++
++	if (socket)
++		sock_release(socket);
++
+ 	rxrpc_purge_client_connections(local);
+ 	page_frag_cache_drain(&local->tx_alloc);
+ }
+-- 
+2.43.0
 
-- Reproduction: On stock mainline kernels, immediately upon interface
-bring-up and association (wlan0: associated), the CPU core servicing
-the SDIO IRQ became 100% pegged in an interrupt storm, triggering RCU
-stalls:
-    rcu: INFO: rcu_preempt detected stalls on CPUs/tasks:
-            0-...0: (1 GPs behind) idle=3D... softirq=3D...
-    rcu: rcu_preempt kthread starved for 5126 jiffies!
-
-- Verification: With this patch applied (leaving=20
-REG_SDIO_HISR_RX_REQUEST set so W1C acknowledges it), the board
-completed 100/100 consecutive reboots under active network traffic
-(continuous ping, SSH, Moonraker HTTP) with zero RCU stalls and zero
-packet loss.
-
-
-2. Why the bit was cleared locally (Vendor driver reference):
--------------------------------------------------------------
-
-In Realtek's vendor drivers (such as rtl8822bs and rtl8723ds):
-- In hal/rtl8822b/sdio/rtl8822bs_io.c:
-    if (phal->sdio_hisr & BIT_RX_REQUEST_8822B) {
-        /* No need to write 1 clear for RX_REQUEST */
-        phal->sdio_hisr ^=3D BIT_RX_REQUEST_8822B;
-- In include/hal_com_reg.h:
-    MASK_SDIO_HISR_CLEAR explicitly excludes SDIO_HISR_RX_REQUEST.
-
-Martin appears to have ported this comment and software-clearing
-convention directly into rtw88_sdio_handle_interrupt().
-
-
-3. Difference between 8051 and 3081 chips in rtw_sdio_rx_isr():
----------------------------------------------------------------
-
-Regarding the observation that rtw_sdio_rx_isr() re-reads HISR in each
-iteration:
-
-Notice that in rtw_sdio_rx_isr() (sdio.c:1057-1073):
-    if (rtw_chip_wcpu_8051(rtwdev)) {
-        hisr =3D rtw_read32(rtwdev, REG_SDIO_HISR);
-    } else {
-        /* RTW_WCPU_3081 chips have improved hardware or
-         * firmware and can use rx_len unconditionally.
-         */
-        hisr =3D REG_SDIO_HISR_RX_REQUEST;
-    }
-
-RTL8821CS (and RTL8822C/B) has wlan_cpu =3D=3D RTW_WCPU_3081. For 3081
-chips, rtw_sdio_rx_isr() never actually reads REG_SDIO_HISR! It sets
-hisr to REG_SDIO_HISR_RX_REQUEST unconditionally and loops purely based
-on REG_SDIO_RX0_REQ_LEN.
-
-
-4. The RX buffer IS empty when the storm occurs:
-------------------------------------------------
-
-The buffer is not getting stuck with unread data. In our testing:
-
-- rtw_sdio_rx_isr() drains all available packets until
-REG_SDIO_RX0_REQ_LEN reads as 0, and then breaks out of the loop.
-
-- rtw_sdio_handle_interrupt() then writes back to REG_SDIO_HISR with
-  REG_SDIO_HISR_RX_REQUEST masked out (writing 0).
-
-- Because the bit was not cleared in hardware via W1C (and was not
-automatically de-asserted by hardware when rx_len reached 0), the SDIO
-host controller sees the IRQ line still asserted and immediately re-
-invokes the handler.
-
-- On re-entry, REG_SDIO_HISR_RX_REQUEST is still 1, but
-REG_SDIO_RX0_REQ_LEN is 0. rtw_sdio_rx_isr() immediately breaks out,
-hisr writes 0 again, and the CPU is trapped in a 100% spin loop.
-
-
-5. Effect on future interrupts:
--------------------------------
-
-Regarding the internal expert's concern that clearing the bit prevents
-future interrupts: in our testing, writing 1 to clear
-REG_SDIO_HISR_RX_REQUEST after the FIFO is drained did NOT prevent
-subsequent RX interrupts. When new packets arrived over the air, the
-hardware asserted REG_SDIO_HISR_RX_REQUEST again normally.
-
-If there is concern about edge cases (such as hitting the 64KB
-total_rx_bytes limit before the FIFO is completely empty), would it be
-acceptable to only clear REG_SDIO_HISR_RX_REQUEST if
-REG_SDIO_RX0_REQ_LEN reads 0, or re-read REG_SDIO_HISR at the end of
-rtw_sdio_rx_isr()?
-
-Cheers,
-
---=C2=A0
-Alastair D'Silva
