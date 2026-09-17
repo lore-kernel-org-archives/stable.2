@@ -1,38 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9C0343F4BC;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B120043498D;
 	Thu, 17 Sep 2026 19:01:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671682; cv=none; b=JOhQwoXLf70+p2AM6g1deDL++ZdO3yHE8n3a0KbtS4SH2PNxfgcVsGjgLyClq9ZnAprK2iFOU76RSQNiVwhQj1hB4Edl5O5wIPWkA5/ak3YU79r8zwe9CnVMr5f6kzTftCYR5RklYQYNjC13lbe2i4YnPNMZU0/4nHAh55E+my8=
+	t=1789671682; cv=none; b=UvqstnsceeC4Of08Uf/I++QF3cfB4gme0SdaHWa73NR4Pu/TfcDfwxzlslAV49DmEH1zclC/nWslh1XXzPXq5rVyoKw3EhaTQQrq7ferybuKb8ysAI7eGYccNVvdupEe7MLF24ep8PlPunI0xcvxgpKPwALuSZKh4aonwL2jkiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789671682; c=relaxed/simple;
-	bh=JlKKpck2d44+dRzIswD2AzuSvaGqBcNtiLbgCcR1bYY=;
+	bh=ipmAJ5GXSkOQ2Zg1WPt5aGu+HXOyBzhKRQjgFEKo8e0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fAULnhGpwsIthMDmJKtnphXg8hjpwZW5lX8hX7ydQeHvabZDvTzXhCa+SD1C6HrbckVwVCI1QiDMxQweHDyi4YUNHuDXVeJitqrhKk4sDSskLFdY6vJNTYmKESN0ieTPKGm0LD3A/md2bRaHmRyg29c/CdjvJLusx6My/hXEhqo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=yeu2WZGH; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mAr5GZkl+iEEuF9ABnsToGbNmV6D8/hxVbsaUM0iutQTIpr/9VjZsIHeLmSOfZPrudkIN2q5xRIz2KmVyBwhRFg8joI8+iAy/gByxfFM8Uve/he62d7pJcWmMXH98iPrqBgs0mHZcBafgcyKdUgqsXT2B5ueCfEAtkC6LCXt4EI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=cS0SZcDh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="yeu2WZGH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 379141F008A1;
-	Thu, 17 Sep 2026 19:01:05 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="cS0SZcDh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 07D121F0089E;
+	Thu, 17 Sep 2026 19:00:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789671666;
-	bh=xeUiQzDLF4i8l4by4dSrqo6oNlbfRHqiZ5spndEOtNI=;
+	s=korg; t=1789671660;
+	bh=KAClkUbWyHK5DvS/CNrZOkIMH9C9kelxjeZQ7qRLN7M=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=yeu2WZGHx8jSPRk9+5AiHM2CQ0L9t2WxDode0+PA91Rcu+9bPdQlueDk36WVkbsA6
-	 hGLhhZZlRvOItRP/s7n+XhTsovfPoEmDw6KabKX2c0ufwbDUMsOQaLZzrg0qDuLCBe
-	 oV5y6cOZ5HiqwtNZO0PTaOFl2wEbm7M2OWhrO5XQ=
+	b=cS0SZcDh9T8EvgnzmcDRx+ICTs5+5uOK+S8YvhFuKeLxnBwdNIcgXWWYgV8VjaGHY
+	 58lQ1KG5ewMFSaS8QFWGneEPpxes2p3jrD1wfjmp8BEIJZsr39BJlfhQtANugsR1Ho
+	 7rgfvGoZ2chCqaF3p3PvHXDNMGqLokxeecA3cn+U=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	=?UTF-8?q?Roger=20Pau=20Monn=C3=A9?= <roger.pau@citrix.com>,
-	Juergen Gross <jgross@suse.com>,
+	Sergey Senozhatsky <senozhatsky@chromium.org>,
+	Chris Mason <clm@meta.com>,
+	Brian Geffon <bgeffon@google.com>,
+	David Stevens <stevensd@google.com>,
+	Minchan Kim <minchan@google.com>,
+	Richard Chang <richardycc@google.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1003/1102] xen/balloon: improve accuracy of initial balloon target for dom0
-Date: Thu, 17 Sep 2026 16:15:46 +0100
-Message-ID: <20260917151605.923331830@linuxfoundation.org>
+Subject: [PATCH 6.12 1011/1102] zram: fixup read_block_state()
+Date: Thu, 17 Sep 2026 16:15:54 +0100
+Message-ID: <20260917151606.128011984@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
 References: <20260917151539.408551884@linuxfoundation.org>
@@ -45,81 +50,59 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
 6.12-stable review patch.  If anyone has any objections, please let me know.
 
 ------------------
 
-From: Roger Pau Monne <roger.pau@citrix.com>
+From: Sergey Senozhatsky <senozhatsky@chromium.org>
 
-[ Upstream commit b13cd24c15d74f6dfcddf0d53ae6efb58d3f0461 ]
+[ Upstream commit 8b05d2d8af817c6a1e23032df51e7ad83030d543 ]
 
-The dom0 balloon target set by the toolstack is the value returned by
-XENMEM_current_reservation.  Do the same in the kernel balloon driver and
-set the current allocation to the value returned by
-XENMEM_current_reservation.  On my test system this causes the kernel
-balloon driver target to exactly match the value set by the toolstack in
-xenstore.
+ac_time is now in seconds, do not use ktime_to_timespec64()
 
-Note this approach can be used by both PV and PVH dom0s, as the toolstack
-always uses XENMEM_current_reservation to set the initial target regardless
-of the dom0 type.
+[akpm@linux-foundation.org: remove now-unused local `ts']
+[akpm@linux-foundation.org: fix build]
+Link: https://lkml.kernel.org/r/20260115033031.3818977-1-senozhatsky@chromium.org
+Signed-off-by: Sergey Senozhatsky <senozhatsky@chromium.org>
+Reported-by: Chris Mason <clm@meta.com>
+Closes: https://lkml.kernel.org/r/20260114124522.1326519-1-clm@meta.com
+Cc: Brian Geffon <bgeffon@google.com>
+Cc: David Stevens <stevensd@google.com>
+Cc: Minchan Kim <minchan@google.com>
+Cc: Richard Chang <richardycc@google.com>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
 
-Signed-off-by: Roger Pau Monné <roger.pau@citrix.com>
-Reviewed-by: Juergen Gross <jgross@suse.com>
-Signed-off-by: Juergen Gross <jgross@suse.com>
-Message-ID: <20260128110510.46425-3-roger.pau@citrix.com>
-Stable-dep-of: 5d00a11d484e ("x86/xen: fix init of balloon stats again")
+[ Stable tree note: The ac_time conversion described above is not present
+  here, so retain the ktime_t conversion and microsecond output.  Move the
+  timespec64 temporary into the scan loop instead, allowing the follow-up
+  bounds fix to move nr_pages initialization under init_lock cleanly. ]
+
+Stable-dep-of: 391f057f44a5 ("zram: fix out-of-bounds access in read_block_state()")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/xen/balloon.c |   27 +++++++++++++++++----------
- 1 file changed, 17 insertions(+), 10 deletions(-)
+ drivers/block/zram/zram_drv.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
---- a/drivers/xen/balloon.c
-+++ b/drivers/xen/balloon.c
-@@ -720,7 +720,8 @@ static int __init balloon_add_regions(vo
- static int __init balloon_init(void)
- {
- 	struct task_struct *task;
--	unsigned long current_pages;
-+	long current_pages = 0;
-+	domid_t domid = DOMID_SELF;
- 	int rc;
+--- a/drivers/block/zram/zram_drv.c
++++ b/drivers/block/zram/zram_drv.c
+@@ -869,7 +869,6 @@ static ssize_t read_block_state(struct f
+ 	ssize_t index, written = 0;
+ 	struct zram *zram = file->private_data;
+ 	unsigned long nr_pages = zram->disksize >> PAGE_SHIFT;
+-	struct timespec64 ts;
  
- 	if (!xen_domain())
-@@ -728,15 +729,21 @@ static int __init balloon_init(void)
+ 	kbuf = kvmalloc(count, GFP_KERNEL);
+ 	if (!kbuf)
+@@ -884,6 +883,7 @@ static ssize_t read_block_state(struct f
  
- 	pr_info("Initialising balloon driver\n");
+ 	for (index = *ppos; index < nr_pages; index++) {
+ 		int copied;
++		struct timespec64 ts;
  
--	if (xen_pv_domain()) {
--		if (xen_released_pages >= xen_start_info->nr_pages)
--			goto underflow;
--		current_pages = min(xen_start_info->nr_pages -
--		                    xen_released_pages, max_pfn);
--	} else {
--		if (xen_unpopulated_pages >= get_num_physpages())
--			goto underflow;
--		current_pages = get_num_physpages() - xen_unpopulated_pages;
-+	if (xen_initial_domain())
-+		current_pages = HYPERVISOR_memory_op(XENMEM_current_reservation,
-+		                                     &domid);
-+	if (current_pages <= 0) {
-+		if (xen_pv_domain()) {
-+			if (xen_released_pages >= xen_start_info->nr_pages)
-+				goto underflow;
-+			current_pages = min(xen_start_info->nr_pages -
-+			                    xen_released_pages, max_pfn);
-+		} else {
-+			if (xen_unpopulated_pages >= get_num_physpages())
-+				goto underflow;
-+			current_pages = get_num_physpages() -
-+			                xen_unpopulated_pages;
-+		}
- 	}
- 
- 	balloon_stats.current_pages = current_pages;
+ 		zram_slot_lock(zram, index);
+ 		if (!zram_allocated(zram, index))
 
 
