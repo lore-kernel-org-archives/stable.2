@@ -1,99 +1,120 @@
-Received: from out28-220.mail.aliyun.com (out28-220.mail.aliyun.com [115.124.28.220])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C5A63DAAC9;
-	Thu, 17 Sep 2026 19:06:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.220
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C8CE4D4881
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:11:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671991; cv=none; b=SH0mSlRlWgT669UZp/hK2eBWSclUYWOlu3u2BbdKt7ZGa2ai9dHqRU7k9mNngeCFK6T9g/lCyBi1HChz9O4twYU2kqt1ewtFn2ZhUpODHAF4xukpEnPxHpQfJ6Y/RgVJAbuamhbWyzUvqODjIN9OJhExQvRVhpo4uN08BQsnjU8=
+	t=1789672273; cv=none; b=mNpZKTMwKfOmljMFRX2GwddKnr5+CYuvRiv3VNKgtbYfjg++yIpkNBOWWowgrkTtcOccpkThsXrRk0HY1gU4GzTSboDA2L59Vd3Arf1qJNaAYkYChN5NdJDi7n78NPXCkZafPqES8ZtNq3LZbGfKfbn9HzoXIn4i7CP/bpS05+k=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671991; c=relaxed/simple;
-	bh=wrsIHoHOBGnWfGLeM249ztUUjWOMhH73kU4KEpK5gfo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=ny+E6S8h7Ls5hnXu4OFNo0aKlAHEwNyh8o42gNxNejMaXJKzUsxa3hoSIbPzlN6mbzZUyLQ4tW4QF1f8UvlXqzekgp8X809IkPOO2852CRSHt84dDIKL0tnWQ+Q+boLsHmVnfaG9HXE0gsuFzI/lS6Qg5TH9xfbEWce1roeiweE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=TujI0yVl; arc=none smtp.client-ip=115.124.28.220
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789672273; c=relaxed/simple;
+	bh=l7nRAvELSQ7CH4sn1sUKhn7MjAfp8cFsE6F+w5LoQAM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dmoeusJNngjUEENXftnrCCP7DS/m9c1k5eIfLVMDXfGnB7+c6UcWgubV5FnsQdOdb3eVZRV+7xEUyC8ByKEsvlesYy9EbAaG/F1cP4oJilLU47C8DWbKa1aXPYTsMV/cUW83ObKw4Vsr2QRHQWBcYF1s6csIorIl6ODo+vDMQmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=Z8iRZy1F; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="TujI0yVl"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789671980; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=A8TRKg7M1b4TmknYpxAi51YwWqt01cT9L4eNEJKUU9k=;
-	b=TujI0yVlu8lBxvfgdIUMISxSIP+aCH277oB1GcNoh7qmu5reKdvXbS4DF1eSomvzYa+Ks7uTZqVn8ZptWiIsE/XHzkYyZSIuodn26DY6Edv/YD+/uRR2NU9eIEX7UTm5Sx09tnQir6bLvegKkLaolM/7zZuCeJjkb2a81+y8NcU=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04503161|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00639929-0.000475032-0.993126;FP=1577981889284212419|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032023038;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jG9ODf7_1789671978;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jG9ODf7_1789671978 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 03:06:19 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: mcgrof@kernel.org,
-	petr.pavlu@suse.com,
-	da.gomez@kernel.org,
-	samitolvanen@google.com,
-	atomlin@atomlin.com
-Cc: mmaurer@google.com,
-	masahiroy@kernel.org,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2 0/2] module: close two ELF section-validation gaps
-Date: Fri, 18 Sep 2026 03:06:16 +0800
-Message-ID: <20260917190618.94759-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="Z8iRZy1F"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49ccff31419so10135585e9.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:11:10 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=googlemail.com; s=20251104; t=1789672269; x=1790277069; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=DFtQ+/AhNQvesI5lh5NjwE0BPDgyrgIywXw9qcn7r/I=;
+        b=Z8iRZy1FdP+6U3OfundcG3BaclniCSExaK4+AHN38Grgmi/ZEEDurpuuUsRWg/HnAs
+         SQL8xyKnYPs5ukrIQ90CTmGA3GRjVOmynJV6wzFbKGoe3OeP1FNzY2pt/MaG9YLzpR/X
+         GxSAlytesyjc7QoI0pfnVUUPM5j1mxWeD60DpElTyaPxLI92jjaRTRGCoRLi/KSoEsf6
+         FUwzoKwFC51gir9co1GeZEqkzM5y1t+NS3KLpDEGh3R8uFB9ffKx7Nc4H1UIEbdd+5Yw
+         f9yUeqW4/MqsNUd8Rz8+xO4LPfp9rnLtn6oW201NTj93QlBufAHV9JHkNnNzRdg8a+Ih
+         RILQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789672269; x=1790277069;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=DFtQ+/AhNQvesI5lh5NjwE0BPDgyrgIywXw9qcn7r/I=;
+        b=knGp3WW1HGO+dT19tq9eA0IbhQ4IQRTPcl+lU+uZ2znwjp8IHhggKJzBPJ4sJqPsZ6
+         9wgFmfhg99M1IndY/m2u6mX9kWpUGQJL0VYN+ZoXyqN7fmkZkVuybsNqDsVrXP5lUrDb
+         CRabrKoi87x6JRCEO5+OVbF79APvWKDHoUNEjlP7g6mZeQIohCLHGYkwYYRfGO1pdldn
+         M42BqPofd9zfptXrydoiU0CLM4bqOBcjF3I3jeJ4H4sTZXOu3ShmghaefHT1Be6Kvkve
+         fLDegZ/34SUSLYOnfpLC72rP8fVn16y+247Q+uswQPMmIiw/7vDxdGv8+2NeYg16BXMK
+         8M3A==
+X-Forwarded-Encrypted: i=1; AKwUvBzo3IRl+AERWFkwFwmwodW8XbTHTL+oAP3Z1NNpq3QhIdRgCRBsF7ustBrPZDpLBGzrbOeaQd0=@vger.kernel.org
+X-Gm-Message-State: AFuF++lhtcNmUusF6MlqoSVkH/hPJbxwKEG6F/sUhn7dFmdcTQxSgwkb
+	a+VFbwF0zhcmcBAGpZdbG7QpAlyPCjkl+dICPnK289WGxZeJuyKngbk=
+X-Gm-Gg: AYBFou3hMq3ZTHCZCcBYLy89XJB9dEiwRpltJ3EiSx0yaH04+/k1lKEEPJ/22WlVvd4
+	lpiSuMkaXQ9mpAxCaa3zSF5lz+U6WaM6F4O2Z7nh7ViYLO2KGFWHb3+gUO6ZnOW6wypoACEVYiN
+	mDRrMzR7XpSdmu0OIzVHBSwLpzm7FJnx2x2Ti+N4TLdmZnWH1otlc1UWBofId78T31JlaApafWl
+	Knu6EHahr/E78J/p+IkN4chQ4cqEfZXTzbbxbjD+qSKzWxXEZ2hGTGK8pMmsuCtFT/pzsLWBPsM
+	V6PXSFtKztHGVEfADkLoEWEn8l10X9l/3aySZi6iazb5BvR9g7gVmLUbaO6JIhaEOP6oe8yIEeD
+	xnKTezO79bGEeHmW4zNwkW/nTCD1dZY5rV7yAmJu6xbbs2o74hl0lEJ4kS2kf/1HyLsqVnag4k2
+	hkbbY5oFirJqQpE0TaOln+x6mMJLM7jQ9HKzoVwkk6kkdFBOgWsfXeG4y0as73hx8N6IRcIkwT3
+	d6Ww6ie/d+sKYpNLyN1+sgwxtBsBeZAWed6SdnOXMzneIw=
+X-Received: by 2002:a05:600c:1986:b0:49c:d019:70c5 with SMTP id 5b1f17b1804b1-49ea528e2f5mr105489295e9.0.1789672268824;
+        Thu, 17 Sep 2026 12:11:08 -0700 (PDT)
+Received: from [192.168.1.3] (p5b057001.dip0.t-ipconnect.de. [91.5.112.1])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd23f4e6sm117665585e9.8.2026.09.17.12.11.07
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 12:11:08 -0700 (PDT)
+Message-ID: <dda6b1b0-5c9c-4417-976a-e20c4ee59ef4@googlemail.com>
+Date: Thu, 17 Sep 2026 21:11:08 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Betterbird (Windows)
+Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260917151539.408551884@linuxfoundation.org>
+Content-Language: de-DE
+From: Peter Schneider <pschneider1968@googlemail.com>
+In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
 
-Both patches come from the same review of the module ELF validator, and
-both fix an out-of-bounds read of a section field that the validator
-leaves unchecked on purpose.
+Hi Greg,
 
-elf_validity_check_sectionheaders() exempts SHT_NULL and SHT_NOBITS
-sections from its bounds checks, on the assumption that a section with
-no contents has nothing to dereference. The loaders that run after it do
-not share that assumption: they read sh_name and sh_offset for every
-section, so an exempted section carries an unvalidated field into a
-string lookup or a pointer computation. Commit 9a5ff4568932 ("module:
-validate string table section types") closed two such gaps for
-.shstrtab and .strtab; these two patches close the ones that remain.
+Am 17.09.2026 um 16:59 schrieb Greg Kroah-Hartman:
+> This is the start of the stable review cycle for the 6.12.111 release.
+> There are 1102 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 
-Patch 1 gives the undefined sh_name of a SHT_NULL section a safe value,
-so the section walkers that follow read the empty string instead of
-running past .shstrtab.
+This rc1 kernel crashes on my 2-socket Ivy Bridge Xeon E5-2697v2 server when booting into it. Unfortunately, it does not 
+seem to get to the point where it leaves something useful in the ERST, i.e. in /var/lib/systemd/pstore - nothing there...
 
-Patch 2 requires the __version_ext_names section to be SHT_PROGBITS
-before elf_validity_cache_index_versions() dereferences its sh_offset,
-so a SHT_NOBITS section of that name - which the validator exempts and
-which holds no file data - cannot drive the extended version name walk
-outside the module image or make it read unrelated bytes as a name.
+So the only info I've got is a cell phone photo of the crash screen. I have put it here, in case anybody wants to have a 
+look:
 
-Each patch stands alone and can be applied or backported separately;
-they are grouped only because they share a root cause. Both were
-reproduced on 704340f1cd0d with KASAN, and each is fixed by its own
-change.
+https://www.peters-netzplatz.de/download/IMG_20260917_204118_HDR.jpg
 
-Changes in v2. v1 was posted here:
-https://lore.kernel.org/all/20260916174753.14870-1-fangxy@xiaopeng.com/
+I have started to bisect between this rc1 and 6.12.110, which was fine. That might take me a day, though, so don't hold 
+your breath.
 
- - Patch 2: require __version_ext_names to be SHT_PROGBITS before its
-   sh_offset is dereferenced, instead of bounding the offset. Review
-   pointed out the offset bound is narrower than the bug: an in-bounds
-   SHT_NOBITS section passes it and the walk then reads unrelated file
-   bytes as a version name. The type check rejects both the
-   out-of-bounds and the in-bounds variants; the reproducer now covers
-   both. Details in the patch's tear-line notes.
- - Patch 1: unchanged since v1.
 
-Fang Xieyan (2):
-  module: Sanitize the undefined sh_name of SHT_NULL sections
-  module: Validate the __version_ext_names section type
-
- kernel/module/main.c | 29 +++++++++++++++++++++++++++--
- 1 file changed, 27 insertions(+), 2 deletions(-)
+Beste Grüße,
+Peter Schneider
 
 -- 
-2.50.1 (Apple Git-155)
+Climb the mountain not to plant your flag, but to embrace the challenge,
+enjoy the air and behold the view. Climb it so you can see the world,
+not so the world can see you.                    -- David McCullough Jr.
 
+OpenPGP:  0xA3828BD796CCE11A8CADE8866E3A92C92C3FF244
+Download: https://www.peters-netzplatz.de/download/pschneider1968_pub.asc
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@googlemail.com
+https://keys.mailvelope.com/pks/lookup?op=get&search=pschneider1968@gmail.com
