@@ -1,47 +1,38 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA26538D7D
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:01:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C10B48489E;
+	Thu, 17 Sep 2026 15:01:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657293; cv=none; b=GCrlmivX70R6wf9VYwFqEZe40/uS/ZzvhHbS0nnyVMqXp7ycINOHH65AUzLEW+Gytop4KGEgaSVt/TRiHyU4D3wmwoePU+cNGKkTh8o9seHgxThmfIAiFIK6cry0avkfCpgL8vC6+p51PLtW5J/+rZ3J/0IYZ1g+w3c1sBdl898=
+	t=1789657294; cv=none; b=GSDYy+V/JVNWI1A9ewn+16b5HgRe+lk98Zfat4UTf6hebTtxX3IIQJWnWQXPo6eLtpd3B0cj2LTTbGAYrNpSv/RdFLkwi6kQf9KTQeMHmB0jT4Ih9GzJ3gwtkA9Q3+2RPlnT3GINnIPZa5ZCslRjo+L3Xq4N1E7sjG8sNX+B33s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657293; c=relaxed/simple;
-	bh=MrSkeKWervhVFyxZFb+kIGCfMOcK5gAx2oZB4tY40vQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dur1uzcK2IzFpP1813OT1mvbwIldn/H8DFoneEvkl2oXf6x3U0pouTSOlrAel0DaotFmmYi7UQaflG5D+0a/BnA7+9k4VaUodWSLtwHmteJU/wmJmkkO0vFYUpX4vYWYf0miWarwfV/VeQ2D/pk6sNocQ5kTebKWqjwf8f/gm30=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzgnhgbh; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzgnhgbh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC99C1F0089A;
-	Thu, 17 Sep 2026 15:01:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789657286;
-	bh=FyZvuRPgPHWm8DO3x1Z/6hh+gAg9tqYUR/hr8Fbyi/o=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=bzgnhgbhdXJLUmwmDZvSiYGZxCQ8Oa9P7fjMWtqniUbs9kheyWhQ3qvHBL8dDm/SQ
-	 yiH5qoTX4fZDwqvS5DmgPr6Jym879IRb899OyxqHMJXUrSgp22Ay0n/IblmdKgvbkr
-	 EjBOfiiL0XcYga+QoVfVIIHNJLzIr4QaG1ShNBkh2Jy29hFQTdRUaTPX6erreO6Qnv
-	 PNdezSnm4WOHxk6Onkdw9UFtBYb65U6Zt/9aco686bKlVADcliMGN6KpcjuPbP+IxH
-	 kbDYx1l5sx3rp0TFY0HoZsxex+3COgZUzzJq/2HGmSWKfkNRmRg1myGI2cxRsNBWYX
-	 DmjnNQRRFlVdA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	floss@jetm.me,
-	dgc@kernel.org,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/2] xfs: fix under-reservation of blocks when repairing sf directories
-Date: Thu, 17 Sep 2026 11:01:23 -0400
-Message-ID: <20260917150123.670190-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917150123.670190-1-sashal@kernel.org>
-References: <2026091629-runway-straddle-168c@gregkh>
- <20260917150123.670190-1-sashal@kernel.org>
+	s=arc-20240116; t=1789657294; c=relaxed/simple;
+	bh=s9Eq3Fh7UYfJqyZWXfEu3SIGux5mTjuCCKy608Kk1jE=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M3JlJ+ifEfjEF/2MmCGGhKa+HHZvcULqazWtVv7rLOF6e1qai/3FkxvvjfA83SWlmhx6TqnaaD2QVT33iWOo2sN0iVqpgJngx1qyBJkI1ybiTffn4cZOTcZBCx3/6PU+q0KdoVmwtAkukC4mArJj6vMT0SyeihG8xlrfnw0sdBA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADHMTyyAKxqoRKDCA--.5279S2;
+	Thu, 17 Sep 2026 23:01:06 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: kashyap.desai@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	mpi3mr-linuxdrv.pdl@broadcom.com,
+	ranjan.kumar@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	sumit.saxena@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpi3mr: Fix tgtdev reference leak in mpi3mr_dev_rmhs_send_tm()
+Date: Thu, 17 Sep 2026 15:01:06 +0000
+Message-Id: <20260917150106.2157994-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,213 +40,53 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADHMTyyAKxqoRKDCA--.5279S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZr4xXF17KFyUXF1fWry8Zrb_yoWkZFb_uF
+	s0vr97J34FgF4UJr4UCr13ZF9Ivw1UXrZ29Fnrtw4xCr9xXFyxXr1UXr1UZr47Za1rJr13
+	Aw1UZryaqr17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqkYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
+	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
+	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
+	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwACI402
+	YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04
+	k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
+	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
+	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
+	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07bb
+	5rxUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qr9tgXlwAAsj
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+__mpi3mr_get_tgtdev_by_handle() takes a reference on the target device,
+but mpi3mr_dev_rmhs_send_tm() never drops it on any of its return paths.
+The completion callbacks only track the device handle, so the reference
+is leaked for every device removal handshake.
 
-[ Upstream commit 4d3c07591534517c633945c8d8e6526f10e3fabc ]
+Release the reference once the device state has been updated.
 
-Whilst running QA on XFS for-next as of 7.3-rc2 with MKFS_OPTIONS="-n
-size=8192", I observed the following (trimmed) dmesg splat:
-
- XFS: Assertion failed: args->total >= dp->i_nblocks - nblks, file: fs/xfs/libxfs/xfs_da_btree.c, line: 2387
- WARNING: fs/xfs/xfs_message.c:104 at assfail+0x46/0x4a [xfs], CPU#0: xfs_scrub/1426511
- CPU: 0 UID: 0 PID: 1426511 Comm: xfs_scrub Tainted: G        W           7.3.0-rc2-djwx #rc2 PREEMPT(lazy)  6e418570b606a39783b0e7e7b30dc407b965f9e8
- Tainted: [W]=WARN
- RIP: 0010:assfail+0x46/0x4a [xfs]
- RSP: 0018:ffffc900010d7890 EFLAGS: 00010246
- RAX: 0000000000000000 RBX: 0000000000000000 RCX: 00000000ffffffd1
- RDX: 0000000000000000 RSI: 0000000000000021 RDI: ffffffffa059fd38
- RBP: 0000000000000002 R08: 0000000000000000 R09: 0000000000000000
- R10: 000000000000000a R11: 000000007fffffff R12: ffffc900010d7940
- R13: ffff888368d8f980 R14: ffffc900010d7a48 R15: ffffc900010d78d0
- FS:  00007f445c5ce680(0000) GS:ffff8884a97ea000(0000) knlGS:0000000000000000
- CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
- CR2: 00007f443803b9a8 CR3: 0000000107a4b000 CR4: 00000000003506f0
- Call Trace:
-  <TASK>
-  xfs_da_grow_inode_int+0x2e0/0x300 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xfs_dir2_grow_inode+0x6e/0x150 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xfs_dir2_sf_to_block+0x149/0x870 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xrep_dir_swap_prep+0xe2/0x110 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xrep_dir_swap+0xfb/0x2f0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xrep_dir_rebuild_tree+0x99/0x100 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xrep_directory+0x83/0x1c0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xrep_attempt+0x4f/0x1e0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xfs_scrub_metadata+0x393/0x5b0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xfs_ioc_scrubv_metadata+0x306/0x570 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  xfs_file_ioctl+0xa4f/0x1150 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
-  __x64_sys_ioctl+0x76/0xc0
-  do_syscall_64+0x7a/0x3b0
-  entry_SYSCALL_64_after_hwframe+0x4b/0x53
-
-This is a consequence of commit 0fe77e57588b98, which added the
-following assertion to xfs_da_grow_inode_int:
-
- ASSERT(args->total >= dp->i_nblocks - nblks);
-
-Tracing this back to xrep_dir_swap_prep, I noticed that the xfs_da_args
-object that's passed to xfs_dir2_sf_to_block sets args->total to 1.
-This is incorrect because mkfs set the directory block size to 8k and
-the filesystem block size to 4k.  In other words, args->total should be
-2 here, not 1.
-
-Dave Chinner tripped over the same problem with the same branch through
-a different channel -- his test setup set the fs block size to 1k, in
-which case the directory block size is still set to 4k.  Here,
-args->total should be 4.
-
-Changing the assignment of args->total to sc->mp->m_dir_geo->fsbcount
-makes the assertion go away, but that isn't a complete fix.  In
-xrep_tempexch_estimate, we also incorrectly assume that a shortform
-conversion requires 1 fsblock when it should be m_dir_geo->fsbcount.
-Without that, we can under-reserve space in the transaction and cause a
-filesystem shutdown.
-
-Note that the xfs_dabuf_nfsb helper will compute the correct value for
-directories and xattr, so we use that instead of open-coding the logic.
-Also fix xrep_xattr_swap_prep to assign args->total via xfs_dabuf_nfsb
-to avoid one logic bomb if we ever support multi-fsblock attrs.
-
-Cc: stable@vger.kernel.org # v6.10
-Cc: floss@jetm.me
-Reported-by: dgc@kernel.org
-Fixes: 629fdaf5f5b1b7 ("xfs: use atomic extent swapping to fix user file fork data")
-Tripped-by: 0fe77e57588b98 ("xfs: assert the reservation covers each da fork growth")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3f1254ed01d0 ("scsi: mpi3mr: Successive VD delete and add causes FW fault")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/xfs/libxfs/xfs_da_btree.c |  2 +-
- fs/xfs/libxfs/xfs_da_btree.h |  2 ++
- fs/xfs/scrub/attr_repair.c   |  2 +-
- fs/xfs/scrub/dir_repair.c    |  2 +-
- fs/xfs/scrub/tempfile.c      | 29 ++++++++++++++++++++++-------
- 5 files changed, 27 insertions(+), 10 deletions(-)
+ drivers/scsi/mpi3mr/mpi3mr_os.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
-index 90f7fc219fccc..90fbdef23def1 100644
---- a/fs/xfs/libxfs/xfs_da_btree.c
-+++ b/fs/xfs/libxfs/xfs_da_btree.c
-@@ -130,7 +130,7 @@ xfs_da_state_reset(
- 	state->mp = state->args->dp->i_mount;
- }
+diff --git a/drivers/scsi/mpi3mr/mpi3mr_os.c b/drivers/scsi/mpi3mr/mpi3mr_os.c
+index 402d1f35d214..8a2575171e1f 100644
+--- a/drivers/scsi/mpi3mr/mpi3mr_os.c
++++ b/drivers/scsi/mpi3mr/mpi3mr_os.c
+@@ -2520,6 +2520,8 @@ static void mpi3mr_dev_rmhs_send_tm(struct mpi3mr_ioc *mrioc, u16 handle,
+ 	if (tgtdev && (iou_rc == MPI3_CTRL_OP_REMOVE_DEVICE))
+ 		tgtdev->state = MPI3MR_DEV_REMOVE_HS_STARTED;
+ 	spin_unlock_irqrestore(&mrioc->tgtdev_lock, flags);
++	if (tgtdev)
++		mpi3mr_tgtdev_put(tgtdev);
  
--static inline int xfs_dabuf_nfsb(struct xfs_mount *mp, int whichfork)
-+inline int xfs_dabuf_nfsb(struct xfs_mount *mp, int whichfork)
- {
- 	if (whichfork == XFS_DATA_FORK)
- 		return mp->m_dir_geo->fsbcount;
-diff --git a/fs/xfs/libxfs/xfs_da_btree.h b/fs/xfs/libxfs/xfs_da_btree.h
-index 354d5d65043e4..cd2e213f5e74f 100644
---- a/fs/xfs/libxfs/xfs_da_btree.h
-+++ b/fs/xfs/libxfs/xfs_da_btree.h
-@@ -242,4 +242,6 @@ xfs_failaddr_t xfs_da3_node_header_check(struct xfs_buf *bp, xfs_ino_t owner);
- 
- extern struct kmem_cache	*xfs_da_state_cache;
- 
-+int xfs_dabuf_nfsb(struct xfs_mount *mp, int whichfork);
-+
- #endif	/* __XFS_DA_BTREE_H__ */
-diff --git a/fs/xfs/scrub/attr_repair.c b/fs/xfs/scrub/attr_repair.c
-index 8dd88d775376a..6f668ddea8197 100644
---- a/fs/xfs/scrub/attr_repair.c
-+++ b/fs/xfs/scrub/attr_repair.c
-@@ -1294,7 +1294,7 @@ xrep_xattr_swap_prep(
- 			.geo		= sc->mp->m_attr_geo,
- 			.whichfork	= XFS_ATTR_FORK,
- 			.trans		= sc->tp,
--			.total		= 1,
-+			.total		= xfs_dabuf_nfsb(sc->mp, XFS_ATTR_FORK),
- 			.owner		= I_INO(sc->ip),
- 		};
- 
-diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
-index 09e8d389a4ab6..13278c978ff54 100644
---- a/fs/xfs/scrub/dir_repair.c
-+++ b/fs/xfs/scrub/dir_repair.c
-@@ -1465,7 +1465,7 @@ xrep_dir_swap_prep(
- 			.geo		= sc->mp->m_dir_geo,
- 			.whichfork	= XFS_DATA_FORK,
- 			.trans		= sc->tp,
--			.total		= 1,
-+			.total		= xfs_dabuf_nfsb(sc->mp, XFS_DATA_FORK),
- 			.owner		= I_INO(sc->ip),
- 		};
- 
-diff --git a/fs/xfs/scrub/tempfile.c b/fs/xfs/scrub/tempfile.c
-index 56fef13bc7730..8fa8b6d7ca271 100644
---- a/fs/xfs/scrub/tempfile.c
-+++ b/fs/xfs/scrub/tempfile.c
-@@ -536,6 +536,19 @@ xrep_tempexch_prep_request(
- 	return 0;
- }
- 
-+static inline unsigned int
-+xrep_tempexch_estimate_sf_resblks(
-+	struct xfs_scrub	*sc,
-+	int			whichfork)
-+{
-+	/* repairing a symlink target */
-+	if (S_ISLNK(VFS_I(sc->ip)->i_mode) && whichfork == XFS_DATA_FORK)
-+		return 1;
-+
-+	/* everything else is a directory or an xattr structure */
-+	return xfs_dabuf_nfsb(sc->mp, whichfork);
-+}
-+
- /*
-  * Fill out the mapping exchange resource estimation structures in preparation
-  * for exchanging the contents of a metadata file that we've rebuilt in the
-@@ -550,6 +563,8 @@ xrep_tempexch_estimate(
- 	struct xfs_ifork	*ifp;
- 	struct xfs_ifork	*tifp;
- 	int			whichfork = xfs_exchmaps_reqfork(req);
-+	unsigned int		sf_resblks =
-+		xrep_tempexch_estimate_sf_resblks(sc, whichfork);
- 	int			state = 0;
- 
- 	/*
-@@ -580,9 +595,9 @@ xrep_tempexch_estimate(
- 		 * plus the block we converted.
- 		 */
- 		req->ip1_bcount = sc->tempip->i_nblocks;
--		req->ip2_bcount = 1;
-+		req->ip2_bcount = sf_resblks;
- 		req->nr_exchanges = 1 + tifp->if_nextents;
--		req->resblks = 1;
-+		req->resblks = sf_resblks;
- 		break;
- 	case 2:
- 		/*
-@@ -594,10 +609,10 @@ xrep_tempexch_estimate(
- 		 * is (worst case) the extent count of the file being repaired
- 		 * plus the block we converted.
- 		 */
--		req->ip1_bcount = 1;
-+		req->ip1_bcount = sf_resblks;
- 		req->ip2_bcount = sc->ip->i_nblocks;
- 		req->nr_exchanges = 1 + ifp->if_nextents;
--		req->resblks = 1;
-+		req->resblks = sf_resblks;
- 		break;
- 	case 3:
- 		/*
-@@ -609,10 +624,10 @@ xrep_tempexch_estimate(
- 		 * fileoff 0.  Presumably, the caller could not exchange the
- 		 * two inode fork areas directly.
- 		 */
--		req->ip1_bcount = 1;
--		req->ip2_bcount = 1;
-+		req->ip1_bcount = sf_resblks;
-+		req->ip2_bcount = sf_resblks;
- 		req->nr_exchanges = 1;
--		req->resblks = 2;
-+		req->resblks = 2 * sf_resblks;
- 		break;
- 	}
- 
+ 	if (drv_cmd)
+ 		goto issue_cmd;
 -- 
-2.53.0
+2.34.1
 
