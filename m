@@ -1,40 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD990372B3C
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:18:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A2DBE63CB
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:18:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611528; cv=none; b=cC4gddBzck7+BP7lKNyroQMWura49Ow8xicVFT6JfiBy3CWFHyuEK8IwrSmdTvTz5LwBqNoFpmRziq1g2vnxK6KLCpYoDtrE5YTHeaCwqZAqPiXR0+G1zqErDEgIWFgY0zSXx9fil0StDMbRUcOMFsjrUWBCQ932qiJWEG50yo0=
+	t=1789611530; cv=none; b=RUS4aQYJdDPnJ9sy4r8oh+z7rFCAdp/tifCRsbVPMo6eIkBTkcoTI1TqWmSi5E/IRk1VGdypuiwaoWq4cbT5LDGf7Ncq1OzxMaAlQ87qCcUBfRKoj2lEqvF4OMFilpX9t4R0yjdr5ZCsXt4rNEsPo4ef7BqxlQt+xek55StP25s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789611528; c=relaxed/simple;
-	bh=EMzrTYCtG1RI/Tw2ok2LE30J0gyffSrSjCM1WRuFvRM=;
+	s=arc-20240116; t=1789611530; c=relaxed/simple;
+	bh=5fNPRCM2Z4jhi2W7QYchovg5ZYA9sAAgzSapbv3xOas=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=J2qWTnfGuwxbp90NB04cC+C2m6Daj9DDK6EAtwB3LHJaRfx0idsPhh5/zzG02MT6k/CKSxGHRpEAuREG3MGySQuyukGCovEW/lhonLdI5FCRH9FVrcwTDpYS8GOxO4liDl4ABzY5u5fEQQHp6R/sRowUgifKO1qcJej0/ypFpx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JTTsoyCM; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AZNkmLyxmiIqWa4gPDRxk6NAp38Zp0abb8pcse1efoWD4qF1wgkCCIMmONKVPTFEjdKhIAbii/YfbZ1Jt1o+sf51E4chfNQzFxinnLcIxWklClFlgekvVHLlA0jDI7d3R/QJvwJuvABio/kApyEo6wRzPwhqI+Zvsb+6HwDcgZc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BOdM2ETd; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JTTsoyCM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 292A81F00893;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BOdM2ETd"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF7BD1F00898;
 	Thu, 17 Sep 2026 02:18:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789611527;
-	bh=HcfTyvsIF0FFEJnBM6uBnvXCzzxaby5JWkkwblja47o=;
+	s=k20260515; t=1789611528;
+	bh=DEn6SZkH6Y8u4tKVWMabATmMBlMfHEr6jE3s6FW9PvU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JTTsoyCMnvd8Sixwj129YUC3amKGTm8Ipr9FMdADdMy8VWEf8LjQ07cWyWGopb0lo
-	 E/m3Xsni5sKERIZsNPdyKgI6GDtC5u/sWRy5m0npx9slaJ5Z8SR5zZ8SfuqEF7Afj2
-	 Y9wKB8xJLNC5iaNJKdwEBoS7pEr7en8sW2mZzijm4QFl8HSYw8hiHPWinScAaAlX60
-	 QtB0TXywluKhoUmsWB6hflESL4BrklnPp85i2BOY9KAiZ4KkXw0cSrOwq967ymHJl/
-	 rnZ7tVtJQbSsIEXDt/DE4K6DLQI18mvDZ3soqjq2PT0diZipkF2VDk3NISE6ymklJx
-	 oj2q82R7jvk7A==
+	b=BOdM2ETdf4e8yYIGtbvUhQ185I1l4lhZATeMx88JNxaGRE/MA0fYUuS4jqvLNS1P5
+	 uR/WkIg5B92vxkfM1zo9R2MyyEStqWesGzpaBLJruzrZxoqVqBumEpNDtFTb+A7tpI
+	 47ngSnMaxIilNrp2Qx2X15q005FmuRBk981dw993Psy4js/pXT1w8Oo1DJE6B9B8rd
+	 jlShyBm0HWWDUN1qXGbvW47tDgAkUnorVGFCWpCYycWT9UCj+Cy+TuWpUNNcYFgHI3
+	 layydyOHa5O5w8lDk61D58AZdb/nz5CO0CQ0h223JUvToc3squThsSXOw73vtZtB3y
+	 cs7soCTeZM8pA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>,
-	Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>,
-	Hans de Goede <hdegoede@redhat.com>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 2/3] devm-helpers: Add resource managed version of work init
-Date: Wed, 16 Sep 2026 22:18:43 -0400
-Message-ID: <20260917021844.3809679-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y 3/3] hwmon: (gpio-fan) Fix use-after-free in alarm work
+Date: Wed, 16 Sep 2026 22:18:44 -0400
+Message-ID: <20260917021844.3809679-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917021844.3809679-1-sashal@kernel.org>
 References: <2026091651-verdict-tactless-1748@gregkh>
@@ -47,62 +46,67 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 7a2c4cc537fa9f05fe90812e7d789b9faf7eb869 ]
+[ Upstream commit a2471ed17b0e6ff7bfb6b2ea8e6e5b04c309d293 ]
 
-A few drivers which need a work-queue must cancel work at driver detach.
-Some of those implement remove() solely for this purpose. Help drivers to
-avoid unnecessary remove and error-branch implementation by adding managed
-verision of work initialization. This will also help drivers to avoid
-mixing manual and devm based unwinding when other resources are handled by
-devm.
+fan_alarm_irq_handler() queues fan_data->alarm_work, but nothing
+cancels it.  fan_alarm_notify() dereferences fan_data and its hwmon
+device.  On unbind, devres frees the interrupt, which only waits for
+the handler itself, and then releases the hwmon device and fan_data,
+so a pending fan_alarm_notify() can run after those frees.
 
-Signed-off-by: Matti Vaittinen <matti.vaittinen@fi.rohmeurope.com>
-Reviewed-by: Krzysztof Kozlowski <krzysztof.kozlowski@canonical.com>
-Reviewed-by: Hans de Goede <hdegoede@redhat.com>
-Link: https://lore.kernel.org/r/94ff4175e7f2ff134ed2fa7d6e7641005cc9784b.1623146580.git.matti.vaittinen@fi.rohmeurope.com
-Signed-off-by: Hans de Goede <hdegoede@redhat.com>
-Stable-dep-of: a2471ed17b0e ("hwmon: (gpio-fan) Fix use-after-free in alarm work")
+Replace INIT_WORK() with devm_work_autocancel(), registered before
+devm_request_irq().  The devres cleanup then frees the interrupt
+first, so no new work can be queued, and cancels the work while
+fan_data and the hwmon device are still alive.
+
+This issue was found by an in-house static analysis tool.
+
+Fixes: d6fe1360f42e ("hwmon: add generic GPIO fan driver")
+Cc: stable@vger.kernel.org
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://patch.msgid.link/20260819033317.446191-1-fanwu01@zju.edu.cn
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/linux/devm-helpers.h | 25 +++++++++++++++++++++++++
- 1 file changed, 25 insertions(+)
+ drivers/hwmon/gpio-fan.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-diff --git a/include/linux/devm-helpers.h b/include/linux/devm-helpers.h
-index f64e0c9f3763c..50557f04ce802 100644
---- a/include/linux/devm-helpers.h
-+++ b/include/linux/devm-helpers.h
-@@ -50,4 +50,29 @@ static inline int devm_delayed_work_autocancel(struct device *dev,
- 	return devm_add_action(dev, devm_delayed_work_drop, w);
- }
+diff --git a/drivers/hwmon/gpio-fan.c b/drivers/hwmon/gpio-fan.c
+index e0b3917dfe6f9..3a880be00cca2 100644
+--- a/drivers/hwmon/gpio-fan.c
++++ b/drivers/hwmon/gpio-fan.c
+@@ -12,6 +12,7 @@
+ #include <linux/slab.h>
+ #include <linux/interrupt.h>
+ #include <linux/irq.h>
++#include <linux/devm-helpers.h>
+ #include <linux/platform_device.h>
+ #include <linux/err.h>
+ #include <linux/mutex.h>
+@@ -81,6 +82,7 @@ static DEVICE_ATTR_RO(fan1_alarm);
+ static int fan_alarm_init(struct gpio_fan_data *fan_data)
+ {
+ 	int alarm_irq;
++	int err;
+ 	struct device *dev = fan_data->dev;
  
-+static inline void devm_work_drop(void *res)
-+{
-+	cancel_work_sync(res);
-+}
+ 	/*
+@@ -91,7 +93,11 @@ static int fan_alarm_init(struct gpio_fan_data *fan_data)
+ 	if (alarm_irq <= 0)
+ 		return 0;
+ 
+-	INIT_WORK(&fan_data->alarm_work, fan_alarm_notify);
++	err = devm_work_autocancel(dev, &fan_data->alarm_work,
++				   fan_alarm_notify);
++	if (err)
++		return err;
 +
-+/**
-+ * devm_work_autocancel - Resource-managed work allocation
-+ * @dev:	Device which lifetime work is bound to
-+ * @w:		Work to be added (and automatically cancelled)
-+ * @worker:	Worker function
-+ *
-+ * Initialize work which is automatically cancelled when driver is detached.
-+ * A few drivers need to queue work which must be cancelled before driver
-+ * is detached to avoid accessing removed resources.
-+ * devm_work_autocancel() can be used to omit the explicit
-+ * cancelleation when driver is detached.
-+ */
-+static inline int devm_work_autocancel(struct device *dev,
-+				       struct work_struct *w,
-+				       work_func_t worker)
-+{
-+	INIT_WORK(w, worker);
-+	return devm_add_action(dev, devm_work_drop, w);
-+}
-+
- #endif
+ 	irq_set_irq_type(alarm_irq, IRQ_TYPE_EDGE_BOTH);
+ 	return devm_request_irq(dev, alarm_irq, fan_alarm_irq_handler,
+ 				IRQF_SHARED, "GPIO fan alarm", fan_data);
 -- 
 2.53.0
 
