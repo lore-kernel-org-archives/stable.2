@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 094F03B42C1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09B633B42C2
 	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:35:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789616152; cv=none; b=YOQvH7lP0GftwkNyAbrLwrbhl8FdITln0umT3dS24yihqAcFzCAUiBWsjs/6ckSPe0Bi53FIdZezOHn2HA1sFGGmdfc2q+47h47GWfgQTqEGRnySuhVhQWcKRkqLNRXY8ZLSytWHfX3k6hv6tKaRin0ezO//PjIAjQRxmAlotAM=
+	t=1789616150; cv=none; b=IgbCzdwnnJqObigJUy/DrtjEPQrtoerM2zN4CWhzs8ZG7+e7lBbSG5nwtO+CNHLgif3mY/ogB21sgAsD+Zut5YvSdVg6WDI6dXkhuz4G/CxyrNurjaXoRuj/oPgZsaoLtZ8hNOJc7RGWnb6NFRbl8avB81uh4lTAOpFo0ueWK6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789616152; c=relaxed/simple;
-	bh=74qnNLM0k47o+MZy7Ge9fDiR5fToosI9xhspst1qVso=;
+	s=arc-20240116; t=1789616150; c=relaxed/simple;
+	bh=IYkmlsS3JlDK4rzWKhsaj8UZSgoc/Bg1tylKK1zsPTQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h3zfyumxzzNqaMfSrS3qsPeJvEUb/EoBMzcgc7jCN4FHV4y5tnebsHzFrXfbHS9sem1E39HgdaW5vB2nBt3Fl1tKcu/T0yZugbR9ka3o02ufJKKQ817pT7msz5IzbVkNGfv8wMHsdi5Vi0wg+1v4/C94yM9HW0bLPJWvn9yd3XI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=KTg23WUP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VCcnOEuVv4GCo0l8WrsAP+i0w/q212gq8UV9PNEoIakCjBIEFui3rtCM+GfF/l88/q1i35G5POWExwE0kjPWbiHDb93HEdOONWHSVK1yoM00Yvdj8jrS7q85WcNh9EWqggTnY4aJZOZJ8Fz6/NegrPddZzoAZU9QCJmHBf1spvU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q0yzSyvn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="KTg23WUP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C69B1F00898;
-	Thu, 17 Sep 2026 03:35:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q0yzSyvn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F611F00899;
+	Thu, 17 Sep 2026 03:35:40 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789616139;
-	bh=w7QweVkUqLqhZxHkso8Q6aCgd4HbJEEkj7r6I2jrNxY=;
+	s=k20260515; t=1789616141;
+	bh=1sVRDjm8ZPxLUPgp2X2lg9LHTynYuW7jCS5wp33IMsg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KTg23WUP8r/baqpHwOlQRhMHig7THEywt2JwdYx+zHqfPBBOobsD52BsmnRFK+HtP
-	 FtHQIYyWagFuQNrN+X/QoEDS7eaBHaKOFDL7+Cg3dXW9I0IZva+sn5Wu1raJIbqNDh
-	 d4wjWJbroPuXxwt+rI0lnEQKntctFzNYfQVVAAA16oMfyN9yi2WfkqX3SBmMIjJP8Z
-	 0B8FctepmJ264FlbFcdW0u6tl8HFRDXV5iIVZhJ4srdO0I3tr6dAK/98shdg4AuYCp
-	 +75FSfsXczPJ5EPMnVizv2TLVqGuTC0sc0eTELWSwMZPLW0Ef1S4078gBe3D4aPHpH
-	 RxTmuw5UCXAkQ==
+	b=Q0yzSyvnX0ln1HSVDas7BJVUd6GVo9mD675q1vpwz7Sl3TR44d8mmel+xlUdV1XJw
+	 CeoKu8BntQBCITwZxcmFt/nAM8XtrvPNf2gW7jFF9ufGjOovhRcmU3zd5yfbz3TLH6
+	 3AySIWv6uR6AUF8y597g9tbYmZiPZWbcFmfXV0XYznFBvHXHLlFo0xIoC6mlALz2No
+	 QWadjdT0QFI0GfqyeomVDS1GvnFAaTsVGXatAUeRNaYY3ThFvrwinvx8I65XTgp2OS
+	 JDoA4IXZpJxatE0cRZ9Lj38IauVvtHvfp5dGsjkKDUNtMk/7UVcfqMvhfD1e6K/nGC
+	 RCDenGC1p2OJA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Geliang Tang <tanggeliang@kylinos.cn>,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.1.y 2/5] mptcp: pm: drop match in userspace_pm_append_new_local_addr
-Date: Wed, 16 Sep 2026 23:35:33 -0400
-Message-ID: <20260917033537.4044281-2-sashal@kernel.org>
+Subject: [PATCH 6.1.y 4/5] mptcp: use sock_kmemdup for address entry
+Date: Wed, 16 Sep 2026 23:35:35 -0400
+Message-ID: <20260917033537.4044281-4-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917033537.4044281-1-sashal@kernel.org>
 References: <2026091628-sevenfold-cursive-c662@gregkh>
@@ -49,69 +49,48 @@ Content-Transfer-Encoding: 8bit
 
 From: Geliang Tang <tanggeliang@kylinos.cn>
 
-[ Upstream commit 640e3d69d0bc70d7d3de34800a1640793262bd08 ]
+[ Upstream commit 52f83c0b5f857dbe24f66fc9a7f035523e9ffbc9 ]
 
-The variable 'match' in mptcp_userspace_pm_append_new_local_addr() is a
-redundant one, and this patch drops it.
+Instead of using sock_kmalloc() to allocate an address
+entry "e" and then immediately duplicate the input "entry"
+to it, the newly added sock_kmemdup() helper can be used in
+mptcp_userspace_pm_append_new_local_addr() to simplify the code.
 
-No need to define 'match' as 'struct mptcp_pm_addr_entry *' type. In this
-function, it's only used to check whether it's NULL. It can be defined as
-a Boolean one.
-
-Also other variables 'addr_match' and 'id_match' make 'match' a redundant
-one, which can be replaced by directly checking 'addr_match && id_match'.
+More importantly, the code "*e = *entry;" that assigns "entry"
+to "e" is not easy to implemented in BPF if we use the same code
+to implement an append_new_local_addr() helper of a BFP path
+manager. This patch avoids this type of memory assignment
+operation.
 
 Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20250221-net-next-mptcp-pm-misc-cleanup-3-v1-5-2b70ab1cee79@kernel.org
+Acked-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/3e5a307aed213038a87e44ff93b5793229b16279.1740735165.git.tanggeliang@kylinos.cn
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: f9f0068e8813 ("mptcp: pm: userspace: fix address ID overflow")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/pm_userspace.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ net/mptcp/pm_userspace.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index 129ae1fef054e..e203b7f878a90 100644
+index e203b7f878a90..1bc270276db46 100644
 --- a/net/mptcp/pm_userspace.c
 +++ b/net/mptcp/pm_userspace.c
-@@ -43,7 +43,6 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
- 						    bool needs_id)
- {
- 	DECLARE_BITMAP(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
--	struct mptcp_pm_addr_entry *match = NULL;
- 	struct sock *sk = (struct sock *)msk;
- 	struct mptcp_pm_addr_entry *e;
- 	bool addr_match = false;
-@@ -62,16 +61,12 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
- 		if (addr_match && entry->addr.id == 0 && needs_id)
- 			entry->addr.id = e->addr.id;
- 		id_match = (e->addr.id == entry->addr.id);
--		if (addr_match && id_match) {
--			match = e;
-+		if (addr_match || id_match)
- 			break;
--		} else if (addr_match || id_match) {
--			break;
--		}
- 		__set_bit(e->addr.id, id_bitmap);
- 	}
- 
--	if (!match && !addr_match && !id_match) {
-+	if (!addr_match && !id_match) {
+@@ -70,13 +70,12 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
  		/* Memory for the entry is allocated from the
  		 * sock option buffer.
  		 */
-@@ -89,7 +84,7 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
- 		list_add_tail_rcu(&e->list, &msk->pm.userspace_pm_local_addr_list);
- 		msk->pm.local_addr_used++;
- 		ret = e->addr.id;
--	} else if (match) {
-+	} else if (addr_match && id_match) {
- 		ret = entry->addr.id;
- 	}
+-		e = sock_kmalloc(sk, sizeof(*e), GFP_ATOMIC);
++		e = sock_kmemdup(sk, entry, sizeof(*entry), GFP_ATOMIC);
+ 		if (!e) {
+ 			ret = -ENOMEM;
+ 			goto append_err;
+ 		}
  
+-		*e = *entry;
+ 		if (!e->addr.id && needs_id)
+ 			e->addr.id = find_next_zero_bit(id_bitmap,
+ 							MPTCP_PM_MAX_ADDR_ID + 1,
 -- 
 2.53.0
 
