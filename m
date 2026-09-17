@@ -1,35 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7140049D583;
-	Thu, 17 Sep 2026 16:58:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F44F49D59C;
+	Thu, 17 Sep 2026 16:59:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664342; cv=none; b=lcJQCNvL9OFplIaApEtFNvzU73m5gNvffFmse5gejzt9lD1dz7Ubrxe7nhRaN4kF6VUYkD1MaKm0NmViKBxmMD0KP/NXWGwhf/iwudkDIeJx3bOgsTKNu5d9k7eKbE01F8Cjs41lzx4XgkiImWRchOkpDCRvl6bk0C6Ug7k1JiE=
+	t=1789664343; cv=none; b=msTLKyr1ArcYCI+H79YNnBFNgrOUrOUmUZyMLlBHr3ljEyjwU6j0nJYHfCHjMcG+3Efg/0s0B0p5t/N5f0mqvFOVh19wpSVe6DEv8sKVwpmmC9htkEthiIoSf+v4mqY3oodh2NdRaTM8l+KyUGDqx7w4leQAgKY9Cv7amcLsR3c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664342; c=relaxed/simple;
-	bh=MycG3yYr3m3hyQ3sKhvgTVcsHY/rCjgmG4aI/ttkpOU=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tp8asiNaYQAtJiDCGUoE3VreFej5Lrn5FwomBfPFxnAoD2uZz4MFRf/qwaGHUR2MSLM8Vgud4qbIk3wYm2ksi6o3Ko4D4lLbAfUrXBOdpU6lQDPzcVbntL7CGHvlbfubyJzABbSfB4/JLTaTYTBElwIt3ZrBhFV1irHSJSY9Dts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADH+EJLHKxqMO+ECA--.48164S2;
-	Fri, 18 Sep 2026 00:58:51 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: kuninori.morimoto.gx@renesas.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: audio-graph-card2: Fix use-after-free in audio_graph2_link_c2c()
-Date: Thu, 17 Sep 2026 16:58:51 +0000
-Message-Id: <20260917165851.2163548-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789664343; c=relaxed/simple;
+	bh=OubzbjWV2hsqyDAqx21AFUSypQQhSUei9+xglZOqHRw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=tJYUgkllh+tMfHkHXOnk3PSnmMmt3lGURjHZe7fu+Bia74QoEAmMSNTHm7FuQVcC60YwwegVzR0Kr07wFHKaRFc1g50BaWzu3jNnjPPHjYBKDHM7fWvCje5M6EiULzFbmh2kdbJtJegZ3RGo0W8M6AMFJO1HSIyXhcNnRf0Q5Qc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JXAcOrlK; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JXAcOrlK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AFDE71F000FF;
+	Thu, 17 Sep 2026 16:59:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789664342;
+	bh=WwBQB3l11ex7tuuOMFcmtMNznk3lmP0sp1ICeIg1Kv4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=JXAcOrlKAri+4TnDh+WzHAZE1hfZ+txQjJNGbfsRDQvc+jmkzBJ74lvHnWSgZ6YL7
+	 B4sRHOiyZnEKzXd54Nj4GFvmfwYSeTF1n/Es/r9BM+c5UIEcnL1NtUG4gUWUBTfpK5
+	 T7ZUW6G8vX8rA8V9X/v4Q/WAv28wl+AT+VXnzAZE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Guillermo Servera Negre <guillem@gservera.com>,
+	Ping-Ke Shih <pkshih@realtek.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0301/1250] wifi: rtw89: 8851bu: add Mercusys MA60XNB (2c4e:0128)
+Date: Thu, 17 Sep 2026 16:01:36 +0100
+Message-ID: <20260917151600.275556548@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,52 +46,44 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADH+EJLHKxqMO+ECA--.48164S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrWkJryrGw4fur15XryrWFg_yoW8GF4kp3
-	Z5KFZ8JrWDWw4UuF40vrykJrZ0yanrC3yrGF1UJ3yqkanxt3yfZa4UZrn5uF4YkFs5uFWk
-	JryDtas7Jws8AaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUvC1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IY
-	c2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJV
-	W8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF
-	1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6x
-	IIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY
-	6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I0E14v26r4UJVWxJrUvcSsGvfC2Kf
-	nxnUUI43ZEXa7VUbUPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qr9LZdKAAAsk
 
-of_graph_get_next_port() consumes the reference of its prev argument.
-port0 is only borrowed from the caller's iterator, so the call drops a
-reference the function does not own, and port0 is dereferenced again
-afterwards. Pass an extra reference, as graph_count_c2c() does, so the
-reference the callee consumes is the one taken here.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Fixes: 5f281c3e82b1 ("ASoC: audio-graph-card2: use __free(device_node) for device node")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+------------------
+
+From: Ping-Ke Shih <pkshih@realtek.com>
+
+[ Upstream commit 575e6a72bd68008b6795345113d3e94f3dccbf5d ]
+
+Add the specific USB device ID which adapter tested fully functional on
+Fedora 44 with kernel 7.0.8-200.fc44.x86_64 and linux-firmware
+20260410-1.fc44.
+
+Reported-by: Guillermo Servera Negre <guillem@gservera.com>
+Tested-by: Guillermo Servera Negre <guillem@gservera.com>
+Signed-off-by: Ping-Ke Shih <pkshih@realtek.com>
+Link: https://patch.msgid.link/20260525011728.6836-1-pkshih@realtek.com
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/generic/audio-graph-card2.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/wireless/realtek/rtw89/rtw8851bu.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/sound/soc/generic/audio-graph-card2.c b/sound/soc/generic/audio-graph-card2.c
-index 0202ed0ee78e..268023d6f939 100644
---- a/sound/soc/generic/audio-graph-card2.c
-+++ b/sound/soc/generic/audio-graph-card2.c
-@@ -969,7 +969,8 @@ int audio_graph2_link_c2c(struct simple_util_priv *priv,
- 	struct snd_soc_dai_link *dai_link = simple_priv_to_link(priv, li->link);
- 	struct device_node *port0 = lnk;
- 	struct device_node *ports __free(device_node) = port_to_ports(port0);
--	struct device_node *port1 __free(device_node) = of_graph_get_next_port(ports, port0);
-+	struct device_node *port1 __free(device_node) =
-+		of_graph_get_next_port(ports, of_node_get(port0));
- 	u32 val = 0;
- 	int ret = -EINVAL;
- 
+diff --git a/drivers/net/wireless/realtek/rtw89/rtw8851bu.c b/drivers/net/wireless/realtek/rtw89/rtw8851bu.c
+index 04e1ab13b7535..10fcfade6151e 100644
+--- a/drivers/net/wireless/realtek/rtw89/rtw8851bu.c
++++ b/drivers/net/wireless/realtek/rtw89/rtw8851bu.c
+@@ -19,6 +19,9 @@ static const struct usb_device_id rtw_8851bu_id_table[] = {
+ 	/* D-Link AX9U rev. A1 */
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x2001, 0x332a, 0xff, 0xff, 0xff),
+ 	  .driver_info = (kernel_ulong_t)&rtw89_8851bu_info },
++	/* Mercusys MA60XNB */
++	{ USB_DEVICE_AND_INTERFACE_INFO(0x2C4E, 0x0128, 0xff, 0xff, 0xff),
++	  .driver_info = (kernel_ulong_t)&rtw89_8851bu_info },
+ 	/* TP-Link Archer TX10UB Nano */
+ 	{ USB_DEVICE_AND_INTERFACE_INFO(0x3625, 0x010b, 0xff, 0xff, 0xff),
+ 	  .driver_info = (kernel_ulong_t)&rtw89_8851bu_info },
 -- 
-2.34.1
+2.53.0
+
+
 
