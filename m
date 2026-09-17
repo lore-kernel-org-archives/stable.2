@@ -1,38 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E84F4E780E;
-	Thu, 17 Sep 2026 15:48:46 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C949390230;
+	Thu, 17 Sep 2026 15:48:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660132; cv=none; b=fLYwXyb5B4ok3cASQ1spWNmjGEbdUvyf0TjT0bqGM1qRGs9XfXvIpVVgH1d8zbeZwsanH07wTCPk/CA4Gy4tSrGz9fZkBztKpW5Rx0pUjb7D9cweQOu9H+hmD0pK1/ShlQ1XNbyRGaaLOQt87XkgQyVAYYmOu7UPb3z2R9lR8f0=
+	t=1789660138; cv=none; b=BoG9KeknO8mqPPoaeIcLk/daUnUhOHJ+40YiAQ6y+m+BkM1/O1qzxue4dGDE+hiPcsN5MX7CeZOAdO7sCQXC5qbApRu26/P/d2fAH3TYcF9q+N5dXIns2Qio7oNiBy32iKC83HhbFZYZugZqiBqnxClB7E9/9Mvx0egOXi2h4Cg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660132; c=relaxed/simple;
-	bh=ESNTdHK23fIE40czIxDLelwDafJkG3QQQjKXad9dGB8=;
+	s=arc-20240116; t=1789660138; c=relaxed/simple;
+	bh=H+opfygnnY7nfwvESR1l1xR1LkFBbKfobEIZqQvSf1o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ljTSl6dCBqDII7NlKEVGSO89peCSAIscRBYaiBSteV35e3ikF6oESQjhpwP4QhevVtYLzcMtTHIAOSeWG+Zfoi2XZBX80N3DIcr8qMzNt4qews2NZaiaJMqduogup1MuImQtQd/dsmN0UMtW48LofWHl9aFocaYT9bzX/OhZH9k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=KmIfFo+h; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=hJpmM2hpXtzReLvIQkfo/v/ZxGQe1OPDptMSRCaZyCLO8LZikfOC+I0DQCjJrVyuJ6L+w2qRYLrG325Yoid5pNuwKpWg5IPAI2lu1YufdVnVAOQzNxu1VwdownHiNQ7dSSQSOmbtWDHBKuQR/rcDaKTmhH4p6YtyacUJcoGMDbw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=lp06UYr+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="KmIfFo+h"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CCECB1F00899;
-	Thu, 17 Sep 2026 15:48:43 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="lp06UYr+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD2961F00898;
+	Thu, 17 Sep 2026 15:48:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789660124;
-	bh=iV4CBgQHA9y32iOD9d4Ncjd6AC9t8f11msAv0xXfopg=;
+	s=korg; t=1789660127;
+	bh=N24C9lmSwDuIwGC5yjMXJv/c9y8SgWXvEy4F2rNYVEE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=KmIfFo+hOr1q1na4k1Djs8qkaZCRXgvSnaG6RW9ENJ/3+bM4/cUbl9yV77fRyrFfX
-	 PPEedRsFuZbYVjljKkDf6hecVo1HPeLS7jnWbvkSKhDmiVuZ9DoqmKibebGOE7NqUI
-	 L0E7ENnwsW/4QunKgwSlrW98pcJ0LI+ctJnU5FwM=
+	b=lp06UYr+ZB5/lcYSEyna6W8M0N7RVr9TPFd1S/mtpE1ApzA/YAHaqCaWyXLcN/j0G
+	 dQpqDw05mnUgJmSE+JsDl8WtH9+8eXSXCUIajf4prlb7qmyZouCo3b21CJfrNNChof
+	 wy39JwVejCFh3PkSlemFoO8r9D1m1efTd8tmtrm8=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Harry Wentland <harry.wentland@amd.com>,
-	Alex Hung <alex.hung@amd.com>,
+	Prike Liang <Prike.Liang@amd.com>,
 	Alex Deucher <alexander.deucher@amd.com>
-Subject: [PATCH 7.2 486/733] dm/amdgpu: fix malformed link_settings debugfs output
-Date: Thu, 17 Sep 2026 16:13:14 +0100
-Message-ID: <20260917151404.150537930@linuxfoundation.org>
+Subject: [PATCH 7.2 487/733] drm/amdgpu: skip gfx switch_power_profile during GPU reset
+Date: Thu, 17 Sep 2026 16:13:15 +0100
+Message-ID: <20260917151404.178896635@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,85 +50,66 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Harry Wentland <harry.wentland@amd.com>
+From: Prike Liang <Prike.Liang@amd.com>
 
-commit 622b4e8505aa7453a53d17fa3a288871f270fc8b upstream.
+commit 1f1d43418d61c8511779e0f63a954a78b9433b43 upstream.
 
-[Why]
-dp_link_settings_read() passed strlen() of each format string as the size
-argument to snprintf() and then advanced rd_buf_ptr by that same fixed amount.
-The format-string length has no relation to the formatted output length, so
-snprintf() truncated each field at a NUL it wrote inside the buffer while the
-pointer was advanced past it. The result is a buffer peppered with embedded NUL
-bytes and fields that are silently cut short, so the data read back from the
-debugfs node does not reflect the actual link settings.
+During resume from GPU reset, the gfx idle work may invoke switch_power_profile
+before the reset completes. This causes the following assert error because the
+register access occurs without first releasing the GPU reset semaphore:
 
-[How]
-Use scnprintf() with the real remaining buffer size
-(rd_buf_size - (rd_buf_ptr - rd_buf)) and advance rd_buf_ptr by its return
-value, which is the number of characters actually written. This both bounds
-each write to the space left in rd_buf and keeps the output a single,
-properly terminated string. The now-unused str_len local is removed.
+[ 1576.768935] CR2: 0000559ea133ead0 CR3: 00000002e6c42000 CR4: 0000000000350ef0
+[ 1576.768940] Call Trace:
+[ 1576.768944]  <TASK>
+[ 1576.768953]  amdgpu_device_rreg+0x21/0x50 [amdgpu]
+[ 1576.769158]  smu_msg_v1_send_msg+0x1a4/0x6e0 [amdgpu]
+[ 1576.769437]  smu_cmn_send_smc_msg_with_params_ext+0xba/0x120 [amdgpu]
+[ 1576.769721]  smu_cmn_send_smc_msg_with_param+0x33/0x40 [amdgpu]
+[ 1576.769993]  smu_v13_0_0_set_power_profile_mode+0x192/0x2b0 [amdgpu]
+[ 1576.770267]  smu_bump_power_profile_mode+0x5d/0x80 [amdgpu]
+[ 1576.770538]  smu_switch_power_profile+0xa4/0xf0 [amdgpu]
+[ 1576.770839]  amdgpu_dpm_switch_power_profile+0x6f/0x90 [amdgpu]
+[ 1576.771210]  amdgpu_gfx_profile_idle_work_handler+0xe9/0x130 [amdgpu]
+[ 1576.771460]  process_one_work+0x23e/0x6f0
+[ 1576.771491]  worker_thread+0x1c4/0x380
+[ 1576.771506]  kthread+0x10c/0x150
+[ 1576.771512]  ? __pfx_worker_thread+0x10/0x10
+[ 1576.771518]  ? __pfx_kthread+0x10/0x10
+[ 1576.771530]  ret_from_fork+0x314/0x390
+[ 1576.771537]  ? __pfx_kthread+0x10/0x10
+[ 1576.771546]  ret_from_fork_asm+0x1a/0x30
 
-Fixes: 41db5f1931ec ("drm/amd/display: set-read link rate and lane count through debugfs")
-Assisted-by: Copilot:claude-opus-4.8
-Signed-off-by: Harry Wentland <harry.wentland@amd.com>
-Reviewed-by: Alex Hung <alex.hung@amd.com>
+Signed-off-by: Prike Liang <Prike.Liang@amd.com>
+Reviewed-by: Alex Deucher <alexander.deucher@amd.com>
 Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
-(cherry picked from commit 43b9f0f18693c7f7b75613f3aeae25fa2b4e2f76)
+(cherry picked from commit d93b1ff538ce9750c01e0dd0aa62575579c0fc08)
 Cc: stable@vger.kernel.org
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c |   20 +++++---------
- 1 file changed, 8 insertions(+), 12 deletions(-)
+ drivers/gpu/drm/amd/pm/amdgpu_dpm.c |    6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
---- a/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-+++ b/drivers/gpu/drm/amd/display/amdgpu_dm/amdgpu_dm_debugfs.c
-@@ -196,7 +196,6 @@ static ssize_t dp_link_settings_read(str
- 	char *rd_buf_ptr = NULL;
- 	const uint32_t rd_buf_size = 100;
- 	uint32_t result = 0;
--	uint8_t str_len = 0;
- 	int r;
+--- a/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
++++ b/drivers/gpu/drm/amd/pm/amdgpu_dpm.c
+@@ -348,7 +348,8 @@ int amdgpu_dpm_switch_power_profile(stru
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	int ret = 0;
  
- 	if (*pos & 3 || size & 3)
-@@ -208,29 +207,26 @@ static ssize_t dp_link_settings_read(str
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev) ||
++		amdgpu_in_reset(adev))
+ 		return 0;
  
- 	rd_buf_ptr = rd_buf;
+ 	if (pp_funcs && pp_funcs->switch_power_profile) {
+@@ -367,7 +368,8 @@ int amdgpu_dpm_pause_power_profile(struc
+ 	const struct amd_pm_funcs *pp_funcs = adev->powerplay.pp_funcs;
+ 	int ret = 0;
  
--	str_len = strlen("Current:  %d  0x%x  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Current:  %d  0x%x  %d  ",
-+	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
-+			"Current:  %d  0x%x  %d  ",
- 			link->cur_link_settings.lane_count,
- 			link->cur_link_settings.link_rate,
- 			link->cur_link_settings.link_spread);
--	rd_buf_ptr += str_len;
+-	if (amdgpu_sriov_vf(adev))
++	if (amdgpu_sriov_vf(adev) ||
++		amdgpu_in_reset(adev))
+ 		return 0;
  
--	str_len = strlen("Verified:  %d  0x%x  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Verified:  %d  0x%x  %d  ",
-+	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
-+			"Verified:  %d  0x%x  %d  ",
- 			link->verified_link_cap.lane_count,
- 			link->verified_link_cap.link_rate,
- 			link->verified_link_cap.link_spread);
--	rd_buf_ptr += str_len;
- 
--	str_len = strlen("Reported:  %d  0x%x  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Reported:  %d  0x%x  %d  ",
-+	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
-+			"Reported:  %d  0x%x  %d  ",
- 			link->reported_link_cap.lane_count,
- 			link->reported_link_cap.link_rate,
- 			link->reported_link_cap.link_spread);
--	rd_buf_ptr += str_len;
- 
--	str_len = strlen("Preferred:  %d  0x%x  %d  ");
--	snprintf(rd_buf_ptr, str_len, "Preferred:  %d  0x%x  %d\n",
-+	rd_buf_ptr += scnprintf(rd_buf_ptr, rd_buf_size - (rd_buf_ptr - rd_buf),
-+			"Preferred:  %d  0x%x  %d\n",
- 			link->preferred_link_setting.lane_count,
- 			link->preferred_link_setting.link_rate,
- 			link->preferred_link_setting.link_spread);
+ 	if (pp_funcs && pp_funcs->pause_power_profile) {
 
 
