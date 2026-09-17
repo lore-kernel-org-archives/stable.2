@@ -1,91 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95D93514775;
-	Thu, 17 Sep 2026 13:06:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 61DE54F4725;
+	Thu, 17 Sep 2026 13:08:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650390; cv=none; b=k+tjXv3FwrpiHYHFRGWqNgHRMS8PMcZIcDTICRjfB68zYCK7fy2/XUCOBxTbI++MWyJNRIIQdmVhAFTJLGo1ttaMTqZ1gt88nLpCBlgjsWaQ6xvJTDTjVK5wxfbwXHVmYRIo3ycZuuUvCqH3pi0r3oRrXHXlMav/W96bQvQ6els=
+	t=1789650506; cv=none; b=IE0R7vCYdLgmrLmfpvNhy9a7NMzvIv1HU1nHjZPfrGWCNwt0c2uXT9D+y46irczmHT80d0pLCZU6xpQ9y82Xvfah2I+xgLjEPck7S1915/NaQeQephXJ50GCyrUk4XTjrpwlwoD5hJPFGKi8nvy+vMhca92H0WmH9TBcm7xx+k8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650390; c=relaxed/simple;
-	bh=YvY8L1roEAhWvwCvpso0WcPH5j2XlLAVWe//WqcF0zA=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=LUwZrJk4OktI3bNmCym2KhgGIbBtDYjc8ILCKbsTiRu+iRsux6KyKdEFYxHkYsaMcnoKuMKz/X76x0YUzhxkJl98UXzhKcllijCCw9lP6cNJC5ooUh4zzYKSQ5WV3MQYaHta0qKuRelUtm7c3CkGAXLi/LrXzGEjhnZwfrIF22o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CfKRyw+z; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CfKRyw+z"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B9F071F00899;
-	Thu, 17 Sep 2026 13:06:17 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789650379;
-	bh=vc7qfZCRUlMpAR7yCuZ/u0K6XBb5KY58zoxdAw8kDtI=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=CfKRyw+zBetItN6A0QtrT9RpgGI7mVoCr0j8fRccdMAjj57Q4mORQaRN77Mg/YXiO
-	 WiZUP65EF+/N6YPoVnNKv7VbTon903/cvFmKwzqwunxRIpUqjNZsrIvZXts5LxV5iY
-	 aD+yQiPn5vsxMF7Pe+Qc78lNPD5SN7O+py9k8YE074jVBFDiYogWI0EtalmMh8DEtz
-	 MXmbnG+GRlgbg09ROVO9XXo3P6m0fm15w9o+vxYiu9kSXm/PotH8KETluXHTUE3/5G
-	 PIL+yd5hSXt9J92UTe2ifrlgzobpyPviVattXD+UpVj6r22iKc8TkWafaaXUNxLNvQ
-	 Bpo5pJSIf1pDA==
-From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
-Date: Thu, 17 Sep 2026 15:05:59 +0200
-Subject: [PATCH net v2 3/3] mptcp: fix bad accounting in
- __mptcp_subflow_push_pending()
+	s=arc-20240116; t=1789650506; c=relaxed/simple;
+	bh=NqzNgsDSPkthvw7ErPB/aEJ8PevOQbn1gOg40xcgy7E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=bxRcAeCiSuCtjg+/5n8IEmIWmDp5PCv9+O13lbQyuRmPJCT1uWDY84eO0I29l04blf4hKDk8+oqArM5JkVjBTThJlebLqfrPArIsX3+UKxlNwAK0nwxVcZD3puwA0dzDsuNHznH7OtuzrqzickNy8Ll/6VAKzCji8G2Qc3dehXk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADHMTw65qtqMiGBCA--.3314S2;
+	Thu, 17 Sep 2026 21:08:11 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: joe@perches.com,
+	linux-kernel@vger.kernel.org,
+	pantelis.antoniou@konsulko.com,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_printf()
+Date: Thu, 17 Sep 2026 13:08:10 +0000
+Message-Id: <20260917130810.2152851-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-net-mptcp-misc-fixes-7-3-rc4-v2-3-0cf5c72667c8@kernel.org>
-References: <20260917-net-mptcp-misc-fixes-7-3-rc4-v2-0-0cf5c72667c8@kernel.org>
-In-Reply-To: <20260917-net-mptcp-misc-fixes-7-3-rc4-v2-0-0cf5c72667c8@kernel.org>
-To: Mat Martineau <martineau@kernel.org>, Geliang Tang <geliang@kernel.org>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>
-Cc: netdev@vger.kernel.org, mptcp@lists.linux.dev, 
- "Matthieu Baerts (NGI0)" <matttbe@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.16.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=941; i=matttbe@kernel.org;
- h=from:subject:message-id; bh=SgypPxpJWWqrPzXbB0Ymof8bd1pKOxlUAs4CVycduFE=;
- b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLJWPz0Y4XrtmCa/hIKUjqXjQ441bOJqcXeT3t45x9xto
- d6X2OveUcrCIMbFICumyCLdFpk/83kVb4mXnwXMHFYmkCEMXJwCMJEAPYa/Yu/lLKSz+jrnOO3O
- 3FIuq5y/4WKvrt2vlW4n76xunLP8GcNfAfnJx5Vbu+98/Z++9amO4swHhRU9czcuUrt6k3mpwCs
- mRgA=
-X-Developer-Key: i=matttbe@kernel.org; a=openpgp;
- fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADHMTw65qtqMiGBCA--.3314S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7JryftryrXw4UZw45Cr1rJFb_yoWfWrXEkF
+	92vr97GrW8CF1q9Fn3Zr1fZFZFv3W8WrW8ZwnFy3sxCrWjvF1UXrn09rn5Jw15Z3ySkF9r
+	tr1DGw1vyrsrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqxYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
+	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
+	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwCFI7km07C267AKxVWUtVW8ZwC20s026c02F40E
+	14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIx
+	kGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAF
+	wI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr
+	0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU1mL
+	vtUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMNA2qrq3a6NwAAsa
 
-From: Paolo Abeni <pabeni@redhat.com>
+of_find_node_by_path() returns a node with an elevated reference count,
+but the function returns without ever dropping it. Add the missing
+of_node_put() so the reference is not leaked.
 
-If __subflow_push_pending() errors out we should avoid updating the
-copied byte counters, to avoid mismatch push call later on.
-
-Fixes: 0fa1b3783a17 ("mptcp: use get_send wrapper")
+Fixes: ce4fecf1fe15 ("vsprintf: Add %p extension "%pOF" for device tree")
 Cc: stable@vger.kernel.org
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- net/mptcp/protocol.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/of/unittest.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 577d0134b9ec..e89a69ab927c 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -1854,7 +1854,8 @@ static void __mptcp_subflow_push_pending(struct sock *sk, struct sock *ssk, bool
- 			ret = __subflow_push_pending(sk, ssk, &info);
- 			if (ret <= 0)
- 				keep_pushing = false;
--			copied += ret;
-+			else
-+				copied += ret;
- 		}
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index e6e938bcb100..340e23725d7a 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -354,6 +354,8 @@ static void __init of_unittest_printf(void)
+ 	of_unittest_printf_one(np, "%pOFc", "test-sub-device");
+ 	of_unittest_printf_one(np, "%pOFC",
+ 			"\"test-sub-device\",\"test-compat2\",\"test-compat3\"");
++
++	of_node_put(np);
+ }
  
- 		mptcp_for_each_subflow(msk, subflow) {
-
+ struct node_hash {
 -- 
-2.55.0
+2.34.1
 
