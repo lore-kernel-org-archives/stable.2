@@ -1,171 +1,329 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-42ab.mail.infomaniak.ch (smtp-42ab.mail.infomaniak.ch [84.16.66.171])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 75C0C4C10FA;
-	Thu, 17 Sep 2026 15:34:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E23B73A0E85
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:34:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659251; cv=none; b=JCtrsy/BIoY5V79VpCbzsqzVFYrG7kdtO/KewYZh8Z7Aw+h7WcnLrvUyXYM1HoutooC+U5ERHRdIJzloUjfvkGmRsOTRekk80z39vce04phEc1lElHkym6X776jLev7wYEonhI9treRoTkTkIEst7IX7f319dR/bunS9Ai4p4NQ=
+	t=1789659256; cv=none; b=Jf8ZRocTIij+xFUHRBai5ZNGwqh340TjUVmJCDeRiUytgAmmEpr3UteS+k9AaCRVluJ+raJjbOeODc/xo+lsoSKaZBMa4tTqaB4JusbNTxXDXbW5fXSAasf9A9Fem+K8IxJPjIRgL+ZARWjwruLPOGfgOSJmn9AVg75Y0lPAko0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659251; c=relaxed/simple;
-	bh=5Onsmavx3uL5QsIurZKjj2hya+GFmgET6gWT8FdEIMU=;
+	s=arc-20240116; t=1789659256; c=relaxed/simple;
+	bh=KbkaIXkzcRwIzzmybik4im5vsLwgt7twMd0GebUfwHw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=h+hwZtsOsCgc8+Zdlvq7KBmpO4TuXzNEHXn1pwCS+v8ZFDmIZ/HG1ay9t/o8D1S7tFjRLwSj02DS/H2G3f7FL62BVyqx5W1NRLgZHCuUcjxBE9N9xi/VkXf/TM2Va0O4IrvMKQd6WF217e/rqxxsodXDE0CV8Xr5kIMrMr9o5JA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=qfR9KrHX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=oXy10w7RpduvwQdYrLkYml6McDk0fjkchwKd/zuAYunD/Ta6y7yoDa16icaPlGhljF0LtwmlZhWswAsVKyVsNekJlnAxJaXxpFyhomsj5hcMvhB8Zy1+RUqPw7Js7Rp6yj4Fb/x4CUWd2xyHcs3xIHUO/aL6bJbwRMYSHYDsV/s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=sA6MSV87; arc=none smtp.client-ip=84.16.66.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="qfR9KrHX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7BE3C1F0089A;
-	Thu, 17 Sep 2026 15:34:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659245;
-	bh=nAW+c2yBuY0q3CGlJc35fRXcoUUkJzo8Vk1ZtojW71I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=qfR9KrHXlBClGHhe2lLsowjxSYNOrQxtXOKW5kBxo0TP1A9EG4NTIiwOcXq9fq/4q
-	 vTsqfxuL/edjh1F2St+V/2bkrIBS+Y8nJGfyG/k63mkbSXNpaKqwTdJUIcj7FAtEdM
-	 OIZw6MWGIVje22skKaRva8X4GQWsBQE3nIwsjjdE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="sA6MSV87"
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0Ct5tp6z5hq;
+	Thu, 17 Sep 2026 17:34:02 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789659242;
+	bh=VAuaAOPSJRM0ZF6YrIl6ox6B44h0XNsASL6nBew1iKk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=sA6MSV87rqPlTGKSgF5iTygele/hm+8bLlv4wk1e96sg3XQWxOHFNnwvfhiIvI/Re
+	 PD4RbQfYYtVxF9pwOEpGb5ixvLzW4JLs+GJwJkTSPv6OomXMY8LnnvgESG9xHJUr83
+	 c9LSEYt4QU8We/yIDxou9dqx37g02qdFr2NEsqlw=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0Ct1Y3pzqH5;
+	Thu, 17 Sep 2026 17:34:02 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Qu Wenruo <wqu@suse.com>,
-	"James C. Owens" <jamesowens@optonline.net>,
-	David Sterba <dsterba@suse.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 191/733] btrfs: scrub: report the failing sectors address, not the stripe base
-Date: Thu, 17 Sep 2026 16:08:19 +0100
-Message-ID: <20260917151355.906055126@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Sasha Levin <sashal@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
+Subject: [PATCH 6.12.y] selftests/landlock: Add tests for whiteout object creation
+Date: Thu, 17 Sep 2026 17:33:58 +0200
+Message-ID: <9d9d688e5b0a3d488827052eec9afea25206cfec.1789655724.git.mic@digikod.net>
+In-Reply-To: <2026-09-05-daily-reply-0018-landlock-whiteout-6-12@kernel.org>
+References: <2026-09-05-daily-reply-0018-landlock-whiteout-6-12@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Günther Noack <gnoack@google.com>
 
-------------------
+[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
 
-From: James C. Owens <jamesowens@optonline.net>
+Add tests to check that whiteout object creation is guarded by
+LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
+userspace:
 
-[ Upstream commit 33ce0aa4c57611c3a3485ec7c01ad67b3751447d ]
+* Conventional creation with mknod()
+* Linking or renaming an existing whiteout object
+* renameat2() with RENAME_WHITEOUT,
+  which creates a new whiteout object in the source location
+* renameat2() with RENAME_EXCHANGE,
+  with one of the renamed objects being a whiteout object
 
-scrub_stripe_report_errors() iterates over the sectors of a stripe, but
-every message it emits passes stripe->logical, the address of the first
-sector of the 64KiB stripe, rather than the address of the sector being
-reported. The physical address is likewise computed once, before the
-loop, from stripe->logical.
-
-This matters because scrub_print_common_warning() uses that logical
-address for the backref walk which produces the "root %llu inode %llu
-offset %llu ... (path: ...)" part of the message. As the address is
-always the stripe base, the reported root/inode/offset/path can identify
-a different file from the one whose sector actually failed.
-
-A 64KiB stripe routinely spans several extents belonging to unrelated
-files. On the machine where this was found, the stripe at logical
-0x17D9380000 holds four sectors of /usr/share/plasma/emoji/bg.dict, then
-a file inside a docker volume, then sectors referenced only by
-snapshots. Every error anywhere in that stripe is attributed to bg.dict.
-
-The effect is visible statistically: across ten months and four kernel
-series that machine logged 81 distinct flagged logical addresses, and
-every one of them is exactly 64KiB aligned. Since BTRFS_STRIPE_LEN is
-64KiB and stripe->logical is stripe aligned by construction, real
-failures distributed across sectors could not produce that.
-
-Report the address of the sector actually being examined. Adding the
-sector offset to the physical address is valid because BTRFS_STRIPE_LEN
-is the unit contiguous on a single device for every profile, so a stripe
-never crosses a device boundary.
-
-Fixes: 0096580713ff ("btrfs: scrub: introduce error reporting functionality for scrub_stripe")
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: James C. Owens <jamesowens@optonline.net>
-Reviewed-by: David Sterba <dsterba@suse.com>
-Signed-off-by: David Sterba <dsterba@suse.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Günther Noack <gnoack@google.com>
+Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
+[mic: Update commit message as requested]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: adapt the tests to the older filesystem fixture and
+ruleset helper]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- fs/btrfs/scrub.c | 24 ++++++++++++++----------
- 1 file changed, 14 insertions(+), 10 deletions(-)
+ tools/testing/selftests/landlock/fs_test.c | 205 ++++++++++++++++++++-
+ 1 file changed, 203 insertions(+), 2 deletions(-)
 
-diff --git a/fs/btrfs/scrub.c b/fs/btrfs/scrub.c
-index d2f7ac5b6e961..3b3f04521369d 100644
---- a/fs/btrfs/scrub.c
-+++ b/fs/btrfs/scrub.c
-@@ -1041,6 +1041,10 @@ static void scrub_stripe_report_errors(struct scrub_ctx *sctx,
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 732ba5a92df5..ae96637ad40e 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -85,6 +85,8 @@ static const char file1_s3d1[] = TMP_DIR "/s3d1/f1";
+ /* dir_s3d2 is a mount point. */
+ static const char dir_s3d2[] = TMP_DIR "/s3d1/s3d2";
+ static const char dir_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3";
++static const char file1_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3/f1";
++static const char file1_s3d4[] = TMP_DIR "/s3d1/s3d2/s3d4/f1";
  
- skip:
- 	for_each_set_bit(sector_nr, &extent_bitmap, stripe->nr_sectors) {
-+		const u64 sector_logical = stripe->logical +
-+					   ((u64)sector_nr << fs_info->sectorsize_bits);
-+		const u64 sector_physical = physical +
-+					   ((u64)sector_nr << fs_info->sectorsize_bits);
- 		bool repaired = false;
+ /*
+  * layout1 hierarchy:
+@@ -358,7 +360,8 @@ static void create_layout1(struct __test_metadata *const _metadata)
+ 	ASSERT_EQ(0, mount_opt(&mnt_tmp, dir_s3d2));
+ 	clear_cap(_metadata, CAP_SYS_ADMIN);
  
- 		if (scrub_bitmap_test_bit_is_metadata(stripe, sector_nr)) {
-@@ -1069,12 +1073,12 @@ static void scrub_stripe_report_errors(struct scrub_ctx *sctx,
- 			if (dev) {
- 				btrfs_err_rl(fs_info,
- 		"scrub: fixed up error at logical %llu on dev %s physical %llu",
--					    stripe->logical, btrfs_dev_name(dev),
--					    physical);
-+					    sector_logical, btrfs_dev_name(dev),
-+					    sector_physical);
- 			} else {
- 				btrfs_err_rl(fs_info,
- 			   "scrub: fixed up error at logical %llu on mirror %u",
--					    stripe->logical, stripe->mirror_num);
-+					    sector_logical, stripe->mirror_num);
- 			}
- 			continue;
- 		}
-@@ -1083,30 +1087,30 @@ static void scrub_stripe_report_errors(struct scrub_ctx *sctx,
- 		if (dev) {
- 			btrfs_err_rl(fs_info,
- "scrub: unable to fixup (regular) error at logical %llu on dev %s physical %llu",
--					    stripe->logical, btrfs_dev_name(dev),
--					    physical);
-+					    sector_logical, btrfs_dev_name(dev),
-+					    sector_physical);
- 		} else {
- 			btrfs_err_rl(fs_info,
- 	  "scrub: unable to fixup (regular) error at logical %llu on mirror %u",
--					    stripe->logical, stripe->mirror_num);
-+					    sector_logical, stripe->mirror_num);
- 		}
+-	ASSERT_EQ(0, mkdir(dir_s3d3, 0700));
++	create_file(_metadata, file1_s3d3);
++	create_file(_metadata, file1_s3d4);
+ }
  
- 		if (scrub_bitmap_test_bit_io_error(stripe, sector_nr))
- 			if (__ratelimit(&rs) && dev)
- 				scrub_print_common_warning("i/o error", dev, false,
--						     stripe->logical, physical);
-+						     sector_logical, sector_physical);
- 		if (scrub_bitmap_test_bit_csum_error(stripe, sector_nr))
- 			if (__ratelimit(&rs) && dev)
- 				scrub_print_common_warning("checksum error", dev, false,
--						     stripe->logical, physical);
-+						     sector_logical, sector_physical);
- 		if (scrub_bitmap_test_bit_meta_error(stripe, sector_nr))
- 			if (__ratelimit(&rs) && dev)
- 				scrub_print_common_warning("header error", dev, false,
--						     stripe->logical, physical);
-+						     sector_logical, sector_physical);
- 		if (scrub_bitmap_test_bit_meta_gen_error(stripe, sector_nr))
- 			if (__ratelimit(&rs) && dev)
- 				scrub_print_common_warning("generation error", dev, false,
--						     stripe->logical, physical);
-+						     sector_logical, sector_physical);
- 	}
+ static void remove_layout1(struct __test_metadata *const _metadata)
+@@ -378,7 +381,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
+ 	EXPECT_EQ(0, remove_path(dir_s2d2));
  
- 	/* Update the device stats. */
--- 
-2.53.0
-
-
-
+ 	EXPECT_EQ(0, remove_path(file1_s3d1));
+-	EXPECT_EQ(0, remove_path(dir_s3d3));
++	EXPECT_EQ(0, remove_path(file1_s3d3));
++	EXPECT_EQ(0, remove_path(file1_s3d4));
+ 	set_cap(_metadata, CAP_SYS_ADMIN);
+ 	umount(dir_s3d2);
+ 	clear_cap(_metadata, CAP_SYS_ADMIN);
+@@ -772,6 +776,27 @@ static int create_ruleset(struct __test_metadata *const _metadata,
+ 	return ruleset_fd;
+ }
+ 
++static void enforce_fs(struct __test_metadata *const _metadata,
++		       const __u64 access_fs, const struct rule rules[])
++{
++	int ruleset_fd;
++
++	if (rules) {
++		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
++	} else {
++		const struct landlock_ruleset_attr ruleset_attr = {
++			.handled_access_fs = access_fs,
++		};
++
++		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
++						     sizeof(ruleset_attr), 0);
++		ASSERT_LE(0, ruleset_fd);
++	}
++
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++}
++
+ TEST_F_FORK(layout0, proc_nsfs)
+ {
+ 	const struct rule rules[] = {
+@@ -2207,6 +2232,170 @@ TEST_F_FORK(layout1, rename_file)
+ 			       RENAME_EXCHANGE));
+ }
+ 
++TEST_F_FORK(layout1, rename_whiteout_denied)
++{
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Deny MAKE_REG, but allow MAKE_FIFO. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
++
++	/*
++	 * Try to rename a file with RENAME_WHITEOUT.
++	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
++	 * Denied, because whiteout creation is guarded with MAKE_REG.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++	EXPECT_EQ(EACCES, errno);
++}
++
++static bool is_whiteout(const char *const path)
++{
++	struct stat st;
++
++	if (stat(path, &st) == -1)
++		return false;
++
++	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
++}
++
++static bool is_fifo(const char *const path)
++{
++	struct stat st;
++
++	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
++}
++
++TEST_F_FORK(layout1, rename_whiteout_allowed)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Allow MAKE_REG below dir_s3d3. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
++
++	/*
++	 * Rename a file with RENAME_WHITEOUT within the same directory.
++	 * Allowed, because MAKE_REG is granted for the whiteout object which
++	 * gets created in the source location.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++			       TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++
++	/* A whiteout object took the place of the moved FIFO. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d3/f2"));
++}
++
++TEST_F_FORK(layout1, rename_whiteout_reparenting)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d2,
++			.access = LANDLOCK_ACCESS_FS_REFER,
++		},
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The moved files are FIFOs. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, unlink(file1_s3d4));
++	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
++
++	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
++	enforce_fs(_metadata,
++		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
++		   rules);
++
++	/*
++	 * The whiteout object is created in the source directory: Moving the
++	 * FIFO out of dir_s3d4 is denied because MAKE_REG is not granted
++	 * there, even though it is granted in the destination directory
++	 * dir_s3d3.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD,
++				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++	EXPECT_EQ(EACCES, errno);
++
++	/*
++	 * Moving the FIFO out of dir_s3d3 is allowed, because MAKE_REG is
++	 * granted there for the created whiteout object.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++			       TMP_DIR "/s3d1/s3d2/s3d4/f2", RENAME_WHITEOUT));
++
++	/* A whiteout object took the place of the moved FIFO. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d4/f2"));
++}
++
++TEST_F_FORK(layout1, rename_whiteout_exchange)
++{
++	const char *const whiteout_s3d3 = TMP_DIR "/s3d1/s3d2/s3d3/f2";
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d2,
++			.access = LANDLOCK_ACCESS_FS_REFER,
++		},
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The exchanged files are FIFOs and an existing whiteout object. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
++	ASSERT_EQ(0, unlink(file1_s3d4));
++	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
++
++	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
++	enforce_fs(_metadata,
++		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
++		   rules);
++
++	/*
++	 * With RENAME_EXCHANGE, the whiteout object moves into the source
++	 * directory of the rename: Exchanging the FIFO in dir_s3d4 with the
++	 * whiteout object is denied because MAKE_REG is not granted in
++	 * dir_s3d4, even though it is granted in the whiteout object's own
++	 * directory dir_s3d3.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD, whiteout_s3d3,
++				RENAME_EXCHANGE));
++	EXPECT_EQ(EACCES, errno);
++
++	/*
++	 * Exchanging the FIFO in dir_s3d3 with the whiteout object is
++	 * allowed, because MAKE_REG is granted in the directory into which
++	 * the whiteout object moves.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
++			       RENAME_EXCHANGE));
++
++	/* The FIFO and the whiteout object swapped places. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(whiteout_s3d3));
++}
++
+ TEST_F_FORK(layout1, rename_dir)
+ {
+ 	const struct rule rules[] = {
+@@ -3260,6 +3449,18 @@ TEST_F_FORK(layout1, make_char)
+ 		       makedev(1, 3));
+ }
+ 
++TEST_F_FORK(layout1, make_whiteout)
++{
++	/*
++	 * Creates a whiteout object (creation guarded by MAKE_REG).
++	 *
++	 * Contrary to the other character devices, this does not require
++	 * CAP_MKNOD, cf. vfs_mknod().
++	 */
++	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
++		       makedev(0, 0));
++}
++
+ TEST_F_FORK(layout1, make_block)
+ {
+ 	/* Creates a /dev/loop0 device. */
