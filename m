@@ -1,38 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F804ABBA7;
-	Thu, 17 Sep 2026 15:30:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 746E14ABBCF;
+	Thu, 17 Sep 2026 15:30:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659035; cv=none; b=VmRo7fIPxsNGDEKo36Bb8AhIdAubna09LBLtuC8ZFwTguFPDVa05zivlZn0bU78Cwln/xIdiqCnKmmRXTgEJGT6WttHvwenian8HvC3+ZCyHsy94WzhAxlk1yynXlnW0JID5bQ8CHeW46/OAQ+0U6sD1ROxWOGmeMva1xVImYwE=
+	t=1789659037; cv=none; b=Q11PsGfF+KRoScHppHK29EZJ9do5t57K6t1H2owlDIN29Vl16bj2x7sVBPr9OIo+/aAdBCloMlthRKDXWKt0QGfTnie2BQu6Uebr7b+cObOhfqwAAOV32Io8fCxGIviJ99hwgu5KaWr5qgz3Dk+SSzalva+x6H9Ryr5hrHEMT2Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659035; c=relaxed/simple;
-	bh=rjxjxjCm5eP3oG6tiKkX29qzR7KTYswnfa41DXHDFAI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DdE49aoAhJr5p2NPxXi/Pse4GnguEgVkXyu5Ffg7e6T8kpuXgTLl7+86scJkyoac364JtPnyn5OqDcO5i6gERqd73lRmbSW4J8DTxmDN0wxehBABSgJGgFCO/k0TyCo/bWCtFxZcwRKYM0neqzU2eXlOK8u8az4Uh6xiVasN0X8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3qEKEB6xqk5GDCA--.5709S2;
-	Thu, 17 Sep 2026 23:30:12 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Frank.Li@nxp.com
-Cc: festevam@gmail.com,
-	imx@lists.linux.dev,
-	kernel@pengutronix.de,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	m.felsch@pengutronix.de,
-	peng.fan@nxp.com,
-	s.hauer@pengutronix.de,
-	shawnguo@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] soc: imx8m: Fix clock leak in imx8m_soc_prepare()
-Date: Thu, 17 Sep 2026 15:30:12 +0000
-Message-Id: <20260917153012.2160500-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789659037; c=relaxed/simple;
+	bh=TiMIEP7jt/BQy0Cn2BNIgw4ZHqvPvXl6dxB540QwQx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pWYcU57oWGWqTXkS92OTLGa0jLYqDMgx0XalgLsbQUJtBiadGIVM4RzATExeMoPnXEQa4nP2NB+4T58f0xIO1/hROrkA9k5ghJt1lj0OFog5LfkIDEFMHf0KPtVo8Yb8SHcfXrxQD4c0CfX9lNKQr6cvIycdzs13c2cuvztBTcM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=U+yrbPQL; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="U+yrbPQL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5E511F00898;
+	Thu, 17 Sep 2026 15:30:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789659028;
+	bh=CsfCRAL91jzc5ILgIla5DOtnfb6pDOE4yvk2cCtisqk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=U+yrbPQLNYvYi0Y0emdsYvR5eesosZD+WfBO9w1jRdLI9xt15/R7iLNfwJQuz+YSp
+	 c43CH88rTCDoqWV1eo3bUWX/naouSxSMHpjqOQwvn4fyKgXPbyr2VIjB+ZP+QDLAAg
+	 1z0jF08QWjkDnjITg5jBgNlrfl4ymK5n1taGRfvg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Linus Walleij <linusw@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 117/733] ASoC: ab8500: Reset the audio block before configuring it
+Date: Thu, 17 Sep 2026 16:07:05 +0100
+Message-ID: <20260917151353.915499633@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,57 +46,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3qEKEB6xqk5GDCA--.5709S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Wr45XFy3Zry5JrWxtw1rCrg_yoWDZFg_ua
-	1rW3s7WrWUurZ2k34UG3yUAryq9F97Xr4xWrZFvaySkFyUZF1UuFZ0ganxKrWDXw4rJF98
-	Cr18ZrW8Cr9rCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbg8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lFIxG
-	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42
-	xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
-	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
-	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7Cj
-	xVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
-	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
-	U1aZX5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qr9LYrTwABs0
 
-When clk_prepare_enable() fails, imx8m_soc_prepare() jumps to err_clk,
-which only undoes the iounmap.  The reference obtained by
-of_clk_get_by_name() is not dropped, and imx8m_soc_probe() returns the
-error without calling imx8m_soc_unprepare(), so the clock reference is
-leaked.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Release it before leaving the prepare function.
+------------------
 
-Fixes: 390c01073f5d ("soc: imx8m: Cleanup with adding imx8m_soc_[un]prepare")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Linus Walleij <linusw@kernel.org>
+
+[ Upstream commit 8e839bca7793a0b03c005f4b2b0825464290d425 ]
+
+ResetAudn is active low, but the codec probe only deasserts it. It also
+clears Clk32kOut2Dis despite claiming to disable that output, and writes
+codec registers before releasing reset.
+
+Pulse ResetAudn before the first audio-bank access and leave the unused
+32 kHz output disabled.
+
+Fixes: 679d7abdc754 ("ASoC: codecs: Add AB8500 codec-driver")
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+Link: https://patch.msgid.link/20260831-ab8500-codec-fixes-v1-1-f85024e717e3@kernel.org
+Signed-off-by: Mark Brown <broonie@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soc/imx/soc-imx8m.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ sound/soc/codecs/ab8500-codec.c | 26 +++++++++++++-------------
+ 1 file changed, 13 insertions(+), 13 deletions(-)
 
-diff --git a/drivers/soc/imx/soc-imx8m.c b/drivers/soc/imx/soc-imx8m.c
-index 77763a107edb..f4c2d5e37ec7 100644
---- a/drivers/soc/imx/soc-imx8m.c
-+++ b/drivers/soc/imx/soc-imx8m.c
-@@ -149,8 +149,10 @@ static int imx8m_soc_prepare(struct platform_device *pdev, const char *ocotp_com
+diff --git a/sound/soc/codecs/ab8500-codec.c b/sound/soc/codecs/ab8500-codec.c
+index 6e8ef9cd1b31a..2f920eb907254 100644
+--- a/sound/soc/codecs/ab8500-codec.c
++++ b/sound/soc/codecs/ab8500-codec.c
+@@ -1640,18 +1640,18 @@ static struct snd_kcontrol_new ab8500_ctrls[] = {
+ static int ab8500_audio_init_audioblock(struct snd_soc_component *component)
+ {
+ 	int status;
++	u8 mask = AB8500_STW4500CTRL3_CLK32KOUT2DIS |
++		  AB8500_STW4500CTRL3_RESETAUDN;
+ 
+ 	dev_dbg(component->dev, "%s: Enter.\n", __func__);
+ 
+-	/* Reset audio-registers and disable 32kHz-clock output 2 */
+-	status = ab8500_sysctrl_write(AB8500_STW4500CTRL3,
+-				AB8500_STW4500CTRL3_CLK32KOUT2DIS |
+-					AB8500_STW4500CTRL3_RESETAUDN,
+-				AB8500_STW4500CTRL3_RESETAUDN);
++	/* Reset the audio registers and disable the unused 32 kHz output. */
++	status = ab8500_sysctrl_write(AB8500_STW4500CTRL3, mask,
++				      AB8500_STW4500CTRL3_CLK32KOUT2DIS);
+ 	if (status < 0)
+ 		return status;
+ 
+-	return 0;
++	return ab8500_sysctrl_write(AB8500_STW4500CTRL3, mask, mask);
+ }
+ 
+ static int ab8500_audio_setup_mics(struct snd_soc_component *component,
+@@ -2183,6 +2183,13 @@ static int ab8500_codec_probe(struct snd_soc_component *component)
+ 
+ 	ab8500_codec_of_probe(dev, np, &codec_pdata);
+ 
++	status = ab8500_audio_init_audioblock(component);
++	if (status < 0) {
++		dev_err(dev, "%s: failed to init audio-block (%d)!\n",
++			__func__, status);
++		return status;
++	}
++
+ 	status = ab8500_audio_setup_mics(component, &codec_pdata.amics);
+ 	if (status < 0) {
+ 		pr_err("%s: Failed to setup mics (%d)!\n", __func__, status);
+@@ -2195,13 +2202,6 @@ static int ab8500_codec_probe(struct snd_soc_component *component)
+ 		return status;
  	}
  
- 	ret = clk_prepare_enable(drvdata->clk);
--	if (ret)
-+	if (ret) {
-+		clk_put(drvdata->clk);
- 		goto err_clk;
-+	}
- 
- 	return 0;
- 
+-	status = ab8500_audio_init_audioblock(component);
+-	if (status < 0) {
+-		dev_err(dev, "%s: failed to init audio-block (%d)!\n",
+-			__func__, status);
+-		return status;
+-	}
+-
+ 	/* Override HW-defaults */
+ 	snd_soc_component_write(component, AB8500_ANACONF5,
+ 		      BIT(AB8500_ANACONF5_HSAUTOEN));
 -- 
-2.34.1
+2.53.0
+
+
 
