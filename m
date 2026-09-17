@@ -1,40 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7D1835B636
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:18:57 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65DA93806D7
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:18:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611539; cv=none; b=sDFIrMfnXJ9tggZCsugzloHnxaAhwYQoAevea0mUUQPcXrO5oE7TELR+Huk+Z7t+6LSqhbbx9g1D02ezLviQP6EmmK1Ves3UnaKulVGK5aA/KFNo4cOUJ2H8GesWbpNqqifCwuXhMN982mpsTiTRtx0foisA/JJ34CZ7BHXosG4=
+	t=1789611539; cv=none; b=ekqAv7a6IToVzAUFw2ICORFv0+JI+NFFCHc7l8qjVmH/hK6mffSZFkAtrNpvbpy3vz83xLEh8tI8b7VRDq5koWIKjwpXk/Ga2hl4eYnqlKTonyCKFxErsyp3R/IcxTJk1GHx+6hWapEyPGoWQ9gL5Ro0LUx2XpxOMD/46w8SJPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789611539; c=relaxed/simple;
-	bh=gAMduyRHziR2+fagU5ambdwp6iRZCPyLjmAsGXUsLA4=;
+	bh=LgRKbkTQQ5OgKqhkJSSNd9cABCzHqbYoBIV487aGtPo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=FuupGuITbBwU9/iP2B9omsBdRUvd1sXFUuqQEoHJTCi44Na/+CeqBmhH23MYdEEBCaVjiZzloQ6JkuAe3wWYKl563nvaVssoVgzdKoixHTZD+OCmKac7/W4FHt+ZrEJUZGPpnN39nlLIb42wZm3gfKDwXIS7KEpw3ImUWkEo0SQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RjI7ytzc; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ehEr1m1JzJmbNbTpEzz98Zne8QYwWFx4EMUIxKxUS1k51EZuEJPlskE2mEXgxwn8+lXlkTLJxdjhPer+lLmKoxAbrwO6A2kl/SrP9TOraLBuUaGUtDOUW4n3pUh6uLx6KjIXlqjdTNw4dFVanUTa6grtnOYYfW1RMQh+FUinte0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FLn6uktF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RjI7ytzc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BA3FA1F00899;
-	Thu, 17 Sep 2026 02:18:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FLn6uktF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C0951F00893;
+	Thu, 17 Sep 2026 02:18:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789611537;
-	bh=8sejFy1FX5nyiP5AV3F4SSJr0DtGtuTqhtuzWjJv8Ss=;
+	s=k20260515; t=1789611538;
+	bh=kqif8VOFr/W1dUuU7+R6Req/qc73opCNHzk3lTamntM=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RjI7ytzcJhy2rjMtpfNy5KYbbkk+2jHmiN92iH6A8eyY39/abDpuPcwaP9HOzokwi
-	 qjtXicWdCd0t8CuOhG1wq2yPO8EoLr0JSK+ZkeyyUbuGAUvEInkzm9YHYqo4TudZlV
-	 oreNt2Mozv31KabARonu8zdNMJfd0ZyhFxPgfusMkY1iyUxgp6BKORI1EdbYMibUk1
-	 DPKBC46g/yUlV6XJ0Uz6Bx4aDdJ8AOlTCIo1DZQCGPJaXzgn+0QwdvNHv5/4dFmMLw
-	 R46pZr7vehx7v4eZsCo5z2awyvuTNm1bQIKhAZvJS2QznA0I68q3pqvDJrwLOYoWw6
-	 E+ERXV7O/fk0Q==
+	b=FLn6uktFagOCzkkJb6qSBzk97OAemCn8za5hALnlbLXvdXO19NluFmplnS7vi2Qnj
+	 CU752voO7szaqJP/8S9HWqI4Y7pKB9CttIiJm4J7xPhZry/2AW/1sdcus+qb8v7h+K
+	 UnTRffwldZp+/qOPz5qh7MfwA309RxEC8zWy2Z16Jx0EZuCC6eV5MzfO1RzAoFIlYn
+	 aJHNUJDoTxroxlYBVI4QRckHAbjLt0zNX4Um8+9N/9TAeBDbO8zyftG0+fCoamIfRx
+	 NHgkaRTb66uHUqfiBTtiF+0bhXxuUlBd3xuE/K4g33j8eMAP8j++FgoNDIXOTKLkMj
+	 1tc390WvpT0LA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
 	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/4] tcp: introduce icsk->icsk_keepalive_timer
-Date: Wed, 16 Sep 2026 22:18:52 -0400
-Message-ID: <20260917021854.3809939-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/4] tcp: remove icsk->icsk_retransmit_timer
+Date: Wed, 16 Sep 2026 22:18:53 -0400
+Message-ID: <20260917021854.3809939-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917021854.3809939-1-sashal@kernel.org>
 References: <2026091613-tank-dimmed-fed6@gregkh>
@@ -49,283 +49,266 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 08dfe370239e53494453cee1e2ded2cdaa1efd12 ]
+[ Upstream commit 9a5e5334adc039fa652aa071ea95b18db0bc1f43 ]
 
-sk->sk_timer has been used for TCP keepalives.
-
-Keepalive timers are not in fast path, we want to use sk->sk_timer
-storage for retransmit timers, for better cache locality.
-
-Create icsk->icsk_keepalive_timer and change keepalive
-code to no longer use sk->sk_timer.
-
-Added space is reclaimed in the following patch.
-
-This includes changes to MPTCP, which was also using sk_timer.
-
-Alias icsk->mptcp_tout_timer and icsk->icsk_keepalive_timer
-for inet_sk_diag_fill() sake.
+Now sk->sk_timer is no longer used by TCP keepalive, we can use
+its storage for TCP and MPTCP retransmit timers for better
+cache locality.
 
 Signed-off-by: Eric Dumazet <edumazet@google.com>
 Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20251124175013.1473655-4-edumazet@google.com
+Link: https://patch.msgid.link/20251124175013.1473655-5-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: e2ab913f68c7 ("mptcp: do not reschedule the RTX timer for fallback sockets")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net_cachelines/inet_connection_sock.rst           |  1 +
- include/net/inet_connection_sock.h                    | 11 +++++++++--
- net/ipv4/inet_connection_sock.c                       |  6 +++---
- net/ipv4/inet_diag.c                                  |  4 ++--
- net/ipv4/tcp_ipv4.c                                   |  4 ++--
- net/ipv4/tcp_timer.c                                  |  9 +++++----
- net/ipv6/tcp_ipv6.c                                   |  4 ++--
- net/mptcp/protocol.c                                  | 10 ++++++----
- net/mptcp/protocol.h                                  |  2 +-
- tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c     |  4 ++--
- tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c     |  4 ++--
- 11 files changed, 35 insertions(+), 24 deletions(-)
+ .../net_cachelines/inet_connection_sock.rst       |  1 -
+ include/net/inet_connection_sock.h                |  8 +++-----
+ include/net/sock.h                                |  9 +++++++--
+ net/ipv4/inet_connection_sock.c                   |  6 +++---
+ net/ipv4/tcp_timer.c                              |  8 +++-----
+ net/mptcp/protocol.c                              | 15 +++++----------
+ tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c |  4 ++--
+ tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c |  4 ++--
+ 8 files changed, 25 insertions(+), 30 deletions(-)
 
 diff --git a/Documentation/networking/net_cachelines/inet_connection_sock.rst b/Documentation/networking/net_cachelines/inet_connection_sock.rst
-index 8fae85ebb7730..4f65de2def8c9 100644
+index 4f65de2def8c9..cc2000f55c298 100644
 --- a/Documentation/networking/net_cachelines/inet_connection_sock.rst
 +++ b/Documentation/networking/net_cachelines/inet_connection_sock.rst
-@@ -14,6 +14,7 @@ struct inet_bind_bucket             icsk_bind_hash         read_mostly
+@@ -12,7 +12,6 @@ struct inet_sock                    icsk_inet              read_mostly         r
+ struct request_sock_queue           icsk_accept_queue
+ struct inet_bind_bucket             icsk_bind_hash         read_mostly                             tcp_set_state
  struct inet_bind2_bucket            icsk_bind2_hash        read_mostly                             tcp_set_state,inet_put_port
- struct timer_list                   icsk_retransmit_timer  read_write                              inet_csk_reset_xmit_timer,tcp_connect
+-struct timer_list                   icsk_retransmit_timer  read_write                              inet_csk_reset_xmit_timer,tcp_connect
  struct timer_list                   icsk_delack_timer      read_mostly                             inet_csk_reset_xmit_timer,tcp_connect
-+struct timer_list                   icsk_keepalive_timer
+ struct timer_list                   icsk_keepalive_timer
  u32                                 icsk_rto               read_write                              tcp_cwnd_validate,tcp_schedule_loss_probe,tcp_connect_init,tcp_connect,tcp_write_xmit,tcp_push_one
- u32                                 icsk_rto_min
- u32                                 icsk_rto_max           read_mostly                             tcp_reset_xmit_timer
 diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index 3a239b655d548..53de8565e3c27 100644
+index 53de8565e3c27..d50e0afc3193f 100644
 --- a/include/net/inet_connection_sock.h
 +++ b/include/net/inet_connection_sock.h
-@@ -59,6 +59,9 @@ struct inet_connection_sock_af_ops {
+@@ -58,7 +58,6 @@ struct inet_connection_sock_af_ops {
+  * @icsk_accept_queue:	   FIFO of established children
   * @icsk_bind_hash:	   Bind node
   * @icsk_bind2_hash:	   Bind node in the bhash2 table
-  * @icsk_retransmit_timer: Resend (no ack)
-+ * @icsk_delack_timer:     Delayed ACK timer
-+ * @icsk_keepalive_timer:  Keepalive timer
-+ * @mptcp_tout_timer: mptcp timer
-  * @icsk_rto:		   Retransmit timeout
-  * @icsk_pmtu_cookie	   Last pmtu seen by socket
-  * @icsk_ca_ops		   Pluggable congestion control hook
-@@ -83,8 +86,12 @@ struct inet_connection_sock {
+- * @icsk_retransmit_timer: Resend (no ack)
+  * @icsk_delack_timer:     Delayed ACK timer
+  * @icsk_keepalive_timer:  Keepalive timer
+  * @mptcp_tout_timer: mptcp timer
+@@ -86,7 +85,6 @@ struct inet_connection_sock {
  	struct request_sock_queue icsk_accept_queue;
  	struct inet_bind_bucket	  *icsk_bind_hash;
  	struct inet_bind2_bucket  *icsk_bind2_hash;
-- 	struct timer_list	  icsk_retransmit_timer;
-- 	struct timer_list	  icsk_delack_timer;
-+	struct timer_list	  icsk_retransmit_timer;
-+	struct timer_list	  icsk_delack_timer;
+-	struct timer_list	  icsk_retransmit_timer;
+ 	struct timer_list	  icsk_delack_timer;
+ 	union {
+ 		struct timer_list icsk_keepalive_timer;
+@@ -195,7 +193,7 @@ static inline void inet_csk_delack_init(struct sock *sk)
+ 
+ static inline unsigned long tcp_timeout_expires(const struct sock *sk)
+ {
+-	return READ_ONCE(inet_csk(sk)->icsk_retransmit_timer.expires);
++	return READ_ONCE(sk->tcp_retransmit_timer.expires);
+ }
+ 
+ static inline unsigned long
+@@ -211,7 +209,7 @@ static inline void inet_csk_clear_xmit_timer(struct sock *sk, const int what)
+ 	if (what == ICSK_TIME_RETRANS || what == ICSK_TIME_PROBE0) {
+ 		smp_store_release(&icsk->icsk_pending, 0);
+ #ifdef INET_CSK_CLEAR_TIMERS
+-		sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
++		sk_stop_timer(sk, &sk->tcp_retransmit_timer);
+ #endif
+ 	} else if (what == ICSK_TIME_DACK) {
+ 		smp_store_release(&icsk->icsk_ack.pending, 0);
+@@ -243,7 +241,7 @@ static inline void inet_csk_reset_xmit_timer(struct sock *sk, const int what,
+ 	if (what == ICSK_TIME_RETRANS || what == ICSK_TIME_PROBE0 ||
+ 	    what == ICSK_TIME_LOSS_PROBE || what == ICSK_TIME_REO_TIMEOUT) {
+ 		smp_store_release(&icsk->icsk_pending, what);
+-		sk_reset_timer(sk, &icsk->icsk_retransmit_timer, when);
++		sk_reset_timer(sk, &sk->tcp_retransmit_timer, when);
+ 	} else if (what == ICSK_TIME_DACK) {
+ 		smp_store_release(&icsk->icsk_ack.pending,
+ 				  icsk->icsk_ack.pending | ICSK_ACK_TIMER);
+diff --git a/include/net/sock.h b/include/net/sock.h
+index 50b9178cc827f..9e13e1233e417 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -303,6 +303,8 @@ struct sk_filter;
+   *	@sk_txrehash: enable TX hash rethink
+   *	@sk_filter: socket filtering instructions
+   *	@sk_timer: sock cleanup timer
++  *	@tcp_retransmit_timer: tcp retransmit timer
++  *	@mptcp_retransmit_timer: mptcp retransmit timer
+   *	@sk_stamp: time stamp of last packet received
+   *	@sk_stamp_seq: lock for accessing sk_stamp on 32 bit architectures only
+   *	@sk_tsflags: SO_TIMESTAMPING flags
+@@ -480,8 +482,11 @@ struct sock {
+ 	u32			sk_dst_pending_confirm;
+ 	u32			sk_pacing_status; /* see enum sk_pacing */
+ 	struct page_frag	sk_frag;
+-	struct timer_list	sk_timer;
+-
 +	union {
-+		struct timer_list icsk_keepalive_timer;
-+		struct timer_list mptcp_tout_timer;
++		struct timer_list	sk_timer;
++		struct timer_list	tcp_retransmit_timer;
++		struct timer_list	mptcp_retransmit_timer;
 +	};
- 	__u32			  icsk_rto;
- 	__u32                     icsk_rto_min;
- 	u32			  icsk_rto_max;
+ 	unsigned long		sk_pacing_rate; /* bytes per second */
+ 	atomic_t		sk_zckey;
+ 	atomic_t		sk_tskey;
 diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 5db36e323e683..2976b819ff5ce 100644
+index 2976b819ff5ce..6193db63b2973 100644
 --- a/net/ipv4/inet_connection_sock.c
 +++ b/net/ipv4/inet_connection_sock.c
-@@ -750,7 +750,7 @@ void inet_csk_init_xmit_timers(struct sock *sk,
+@@ -748,7 +748,7 @@ void inet_csk_init_xmit_timers(struct sock *sk,
+ {
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
  
- 	timer_setup(&icsk->icsk_retransmit_timer, retransmit_handler, 0);
+-	timer_setup(&icsk->icsk_retransmit_timer, retransmit_handler, 0);
++	timer_setup(&sk->tcp_retransmit_timer, retransmit_handler, 0);
  	timer_setup(&icsk->icsk_delack_timer, delack_handler, 0);
--	timer_setup(&sk->sk_timer, keepalive_handler, 0);
-+	timer_setup(&icsk->icsk_keepalive_timer, keepalive_handler, 0);
+ 	timer_setup(&icsk->icsk_keepalive_timer, keepalive_handler, 0);
  	icsk->icsk_pending = icsk->icsk_ack.pending = 0;
- }
+@@ -761,7 +761,7 @@ void inet_csk_clear_xmit_timers(struct sock *sk)
+ 	smp_store_release(&icsk->icsk_pending, 0);
+ 	smp_store_release(&icsk->icsk_ack.pending, 0);
  
-@@ -763,7 +763,7 @@ void inet_csk_clear_xmit_timers(struct sock *sk)
- 
- 	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
+-	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
++	sk_stop_timer(sk, &sk->tcp_retransmit_timer);
  	sk_stop_timer(sk, &icsk->icsk_delack_timer);
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &icsk->icsk_keepalive_timer);
+ 	sk_stop_timer(sk, &icsk->icsk_keepalive_timer);
  }
+@@ -776,7 +776,7 @@ void inet_csk_clear_xmit_timers_sync(struct sock *sk)
+ 	smp_store_release(&icsk->icsk_pending, 0);
+ 	smp_store_release(&icsk->icsk_ack.pending, 0);
  
- void inet_csk_clear_xmit_timers_sync(struct sock *sk)
-@@ -778,7 +778,7 @@ void inet_csk_clear_xmit_timers_sync(struct sock *sk)
- 
- 	sk_stop_timer_sync(sk, &icsk->icsk_retransmit_timer);
+-	sk_stop_timer_sync(sk, &icsk->icsk_retransmit_timer);
++	sk_stop_timer_sync(sk, &sk->tcp_retransmit_timer);
  	sk_stop_timer_sync(sk, &icsk->icsk_delack_timer);
--	sk_stop_timer_sync(sk, &sk->sk_timer);
-+	sk_stop_timer_sync(sk, &icsk->icsk_keepalive_timer);
+ 	sk_stop_timer_sync(sk, &icsk->icsk_keepalive_timer);
  }
- 
- struct dst_entry *inet_csk_route_req(const struct sock *sk,
-diff --git a/net/ipv4/inet_diag.c b/net/ipv4/inet_diag.c
-index 9f63c09439a05..3f5b1418a6109 100644
---- a/net/ipv4/inet_diag.c
-+++ b/net/ipv4/inet_diag.c
-@@ -293,11 +293,11 @@ int inet_sk_diag_fill(struct sock *sk, struct inet_connection_sock *icsk,
- 		r->idiag_retrans = READ_ONCE(icsk->icsk_probes_out);
- 		r->idiag_expires =
- 			jiffies_delta_to_msecs(tcp_timeout_expires(sk) - jiffies);
--	} else if (timer_pending(&sk->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		r->idiag_timer = 2;
- 		r->idiag_retrans = READ_ONCE(icsk->icsk_probes_out);
- 		r->idiag_expires =
--			jiffies_delta_to_msecs(sk->sk_timer.expires - jiffies);
-+			jiffies_delta_to_msecs(icsk->icsk_keepalive_timer.expires - jiffies);
- 	}
- 
- 	if ((ext & (1 << (INET_DIAG_INFO - 1))) && handler->idiag_info_size) {
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index b4ee14c769213..caefe3db53a97 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -2932,9 +2932,9 @@ static void get_tcp4_sock(struct sock *sk, struct seq_file *f, int i)
- 	} else if (icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active	= 4;
- 		timer_expires	= tcp_timeout_expires(sk);
--	} else if (timer_pending(&sk->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active	= 2;
--		timer_expires	= sk->sk_timer.expires;
-+		timer_expires	= icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active	= 0;
- 		timer_expires = jiffies;
 diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
-index 9565b37773b87..4f2df3a692115 100644
+index 4f2df3a692115..a26d161b2a649 100644
 --- a/net/ipv4/tcp_timer.c
 +++ b/net/ipv4/tcp_timer.c
-@@ -759,12 +759,12 @@ EXPORT_IPV6_MOD(tcp_syn_ack_timeout);
- 
- void tcp_reset_keepalive_timer(struct sock *sk, unsigned long len)
- {
--	sk_reset_timer(sk, &sk->sk_timer, jiffies + len);
-+	sk_reset_timer(sk, &inet_csk(sk)->icsk_keepalive_timer, jiffies + len);
- }
- 
- static void tcp_delete_keepalive_timer(struct sock *sk)
- {
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &inet_csk(sk)->icsk_keepalive_timer);
- }
- 
- void tcp_set_keepalive(struct sock *sk, int val)
-@@ -781,8 +781,9 @@ EXPORT_IPV6_MOD_GPL(tcp_set_keepalive);
- 
- static void tcp_keepalive_timer(struct timer_list *t)
- {
--	struct sock *sk = timer_container_of(sk, t, sk_timer);
--	struct inet_connection_sock *icsk = inet_csk(sk);
-+	struct inet_connection_sock *icsk =
-+		timer_container_of(icsk, t, icsk_keepalive_timer);
-+	struct sock *sk = &icsk->icsk_inet.sk;
- 	struct tcp_sock *tp = tcp_sk(sk);
- 	u32 elapsed;
- 
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index fa94bdafbd02a..aca71fbb6c292 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -2204,9 +2204,9 @@ static void get_tcp6_sock(struct seq_file *seq, struct sock *sp, int i)
- 	} else if (icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active	= 4;
- 		timer_expires	= tcp_timeout_expires(sp);
--	} else if (timer_pending(&sp->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active	= 2;
--		timer_expires	= sp->sk_timer.expires;
-+		timer_expires	= icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active	= 0;
- 		timer_expires = jiffies;
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 4c318438b844c..5f24f4c4a7d7e 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -2348,7 +2348,9 @@ static void mptcp_retransmit_timer(struct timer_list *t)
- 
- static void mptcp_tout_timer(struct timer_list *t)
- {
--	struct sock *sk = timer_container_of(sk, t, sk_timer);
-+	struct inet_connection_sock *icsk =
-+		timer_container_of(icsk, t, mptcp_tout_timer);
-+	struct sock *sk = &icsk->icsk_inet.sk;
- 
- 	mptcp_schedule_work(sk);
- 	sock_put(sk);
-@@ -2804,7 +2806,7 @@ void mptcp_reset_tout_timer(struct mptcp_sock *msk, unsigned long fail_tout)
- 	 */
- 	timeout = inet_csk(sk)->icsk_mtup.probe_timestamp ? close_timeout : fail_tout;
- 
--	sk_reset_timer(sk, &sk->sk_timer, timeout);
-+	sk_reset_timer(sk, &inet_csk(sk)->mptcp_tout_timer, timeout);
- }
- 
- static void mptcp_mp_fail_no_response(struct mptcp_sock *msk)
-@@ -2936,7 +2938,7 @@ static void __mptcp_init_sock(struct sock *sk)
- 
- 	/* re-use the csk retrans timer for MPTCP-level retrans */
- 	timer_setup(&msk->sk.icsk_retransmit_timer, mptcp_retransmit_timer, 0);
--	timer_setup(&sk->sk_timer, mptcp_tout_timer, 0);
-+	timer_setup(&msk->sk.mptcp_tout_timer, mptcp_tout_timer, 0);
- }
- 
- static void mptcp_ca_reset(struct sock *sk)
-@@ -3138,7 +3140,7 @@ static void __mptcp_destroy_sock(struct sock *sk)
- 	might_sleep();
- 
- 	mptcp_stop_rtx_timer(sk);
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &inet_csk(sk)->mptcp_tout_timer);
- 	msk->pm.status = 0;
- 	mptcp_release_sched(msk);
- 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 3e0ad5de09585..6eab87ce7b353 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -880,7 +880,7 @@ static inline void mptcp_stop_tout_timer(struct sock *sk)
- 	if (!inet_csk(sk)->icsk_mtup.probe_timestamp)
+@@ -701,7 +701,7 @@ void tcp_write_timer_handler(struct sock *sk)
  		return;
  
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &inet_csk(sk)->mptcp_tout_timer);
- 	inet_csk(sk)->icsk_mtup.probe_timestamp = 0;
+ 	if (time_after(tcp_timeout_expires(sk), jiffies)) {
+-		sk_reset_timer(sk, &icsk->icsk_retransmit_timer,
++		sk_reset_timer(sk, &sk->tcp_retransmit_timer,
+ 			       tcp_timeout_expires(sk));
+ 		return;
+ 	}
+@@ -728,12 +728,10 @@ void tcp_write_timer_handler(struct sock *sk)
+ 
+ static void tcp_write_timer(struct timer_list *t)
+ {
+-	struct inet_connection_sock *icsk =
+-			timer_container_of(icsk, t, icsk_retransmit_timer);
+-	struct sock *sk = &icsk->icsk_inet.sk;
++	struct sock *sk = timer_container_of(sk, t, tcp_retransmit_timer);
+ 
+ 	/* Avoid locking the socket when there is no pending event. */
+-	if (!smp_load_acquire(&icsk->icsk_pending))
++	if (!smp_load_acquire(&inet_csk(sk)->icsk_pending))
+ 		goto out;
+ 
+ 	bh_lock_sock(sk);
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 5f24f4c4a7d7e..2dd6840089f86 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -425,9 +425,7 @@ static bool __mptcp_move_skb(struct sock *sk, struct sk_buff *skb)
+ 
+ static void mptcp_stop_rtx_timer(struct sock *sk)
+ {
+-	struct inet_connection_sock *icsk = inet_csk(sk);
+-
+-	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
++	sk_stop_timer(sk, &sk->mptcp_retransmit_timer);
+ 	mptcp_sk(sk)->timer_ival = 0;
+ }
+ 
+@@ -936,12 +934,11 @@ static void __mptcp_flush_join_list(struct sock *sk, struct list_head *join_list
+ 
+ static bool mptcp_rtx_timer_pending(struct sock *sk)
+ {
+-	return timer_pending(&inet_csk(sk)->icsk_retransmit_timer);
++	return timer_pending(&sk->mptcp_retransmit_timer);
+ }
+ 
+ static void mptcp_reset_rtx_timer(struct sock *sk)
+ {
+-	struct inet_connection_sock *icsk = inet_csk(sk);
+ 	unsigned long tout;
+ 
+ 	/* prevent rescheduling on close */
+@@ -949,7 +946,7 @@ static void mptcp_reset_rtx_timer(struct sock *sk)
+ 		return;
+ 
+ 	tout = mptcp_sk(sk)->timer_ival;
+-	sk_reset_timer(sk, &icsk->icsk_retransmit_timer, jiffies + tout);
++	sk_reset_timer(sk, &sk->mptcp_retransmit_timer, jiffies + tout);
+ }
+ 
+ bool mptcp_schedule_work(struct sock *sk)
+@@ -2328,9 +2325,7 @@ static int mptcp_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
+ 
+ static void mptcp_retransmit_timer(struct timer_list *t)
+ {
+-	struct inet_connection_sock *icsk = timer_container_of(icsk, t,
+-							       icsk_retransmit_timer);
+-	struct sock *sk = &icsk->icsk_inet.sk;
++	struct sock *sk = timer_container_of(sk, t, mptcp_retransmit_timer);
+ 	struct mptcp_sock *msk = mptcp_sk(sk);
+ 
+ 	bh_lock_sock(sk);
+@@ -2937,7 +2932,7 @@ static void __mptcp_init_sock(struct sock *sk)
+ 	spin_lock_init(&msk->fallback_lock);
+ 
+ 	/* re-use the csk retrans timer for MPTCP-level retrans */
+-	timer_setup(&msk->sk.icsk_retransmit_timer, mptcp_retransmit_timer, 0);
++	timer_setup(&sk->mptcp_retransmit_timer, mptcp_retransmit_timer, 0);
+ 	timer_setup(&msk->sk.mptcp_tout_timer, mptcp_tout_timer, 0);
  }
  
 diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-index 164640db3a29c..685811326a041 100644
+index 685811326a041..b1e509b231cd9 100644
 --- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
 +++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-@@ -103,9 +103,9 @@ static int dump_tcp_sock(struct seq_file *seq, struct tcp_sock *tp,
+@@ -99,10 +99,10 @@ static int dump_tcp_sock(struct seq_file *seq, struct tcp_sock *tp,
+ 	    icsk->icsk_pending == ICSK_TIME_REO_TIMEOUT ||
+ 	    icsk->icsk_pending == ICSK_TIME_LOSS_PROBE) {
+ 		timer_active = 1;
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
  	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
  		timer_active = 4;
- 		timer_expires = icsk->icsk_retransmit_timer.expires;
--	} else if (timer_pending(&sp->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
+ 	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
  		timer_active = 2;
--		timer_expires = sp->sk_timer.expires;
-+		timer_expires = icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active = 0;
- 		timer_expires = bpf_jiffies64();
+ 		timer_expires = icsk->icsk_keepalive_timer.expires;
 diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-index 591c703f5032f..0f4a927127517 100644
+index 0f4a927127517..dbc7166aee91f 100644
 --- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
 +++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-@@ -103,9 +103,9 @@ static int dump_tcp6_sock(struct seq_file *seq, struct tcp6_sock *tp,
+@@ -99,10 +99,10 @@ static int dump_tcp6_sock(struct seq_file *seq, struct tcp6_sock *tp,
+ 	    icsk->icsk_pending == ICSK_TIME_REO_TIMEOUT ||
+ 	    icsk->icsk_pending == ICSK_TIME_LOSS_PROBE) {
+ 		timer_active = 1;
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
  	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
  		timer_active = 4;
- 		timer_expires = icsk->icsk_retransmit_timer.expires;
--	} else if (timer_pending(&sp->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
+ 	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
  		timer_active = 2;
--		timer_expires = sp->sk_timer.expires;
-+		timer_expires = icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active = 0;
- 		timer_expires = bpf_jiffies64();
+ 		timer_expires = icsk->icsk_keepalive_timer.expires;
 -- 
 2.53.0
 
