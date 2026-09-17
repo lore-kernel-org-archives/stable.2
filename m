@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3F194CDDD3;
-	Thu, 17 Sep 2026 15:26:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EF0F04CDDE5;
+	Thu, 17 Sep 2026 15:26:37 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658801; cv=none; b=aQxasak6s7k1Dlw5CYMfIbKbzl9t937YKI9gxiAR9gOdeQUxn/xNjBiVTziwGFSG6k2OydegnG+wL7PQzRWuImQCblL6odlPu14tdVv5i1yJTVMpJownTuH0J+B0pLP8iSGWHN07rfdvdslmVRTvoxg26tA3rzYlFlIjMBYUXBA=
+	t=1789658806; cv=none; b=njorsohlpsgfhip+gE13fM6o/6fY+zpZ85Sgm3cFrRI8QFh0Ha0I99X5sXao5Kgjstk/STfacvLrMwWpc6aTXULFZCzorKl9umlPnGRo+xWSJBE0nxJgXRo9KykCOHJwu7JMTxj4Tv0WVV356J2iU8hq4AR0loOHMZgzEWgdhQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658801; c=relaxed/simple;
-	bh=JcAiz7t7nW00WVmhVevyUbpe7GkjAMOdIXeumu0uXeo=;
+	s=arc-20240116; t=1789658806; c=relaxed/simple;
+	bh=V7leTAdBBjMHkF/Nq8jCIrql7zFQQK4H/vPfFdBQAx4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Ji68r4h6gxTI1GoVNj1jgOUfcMV4ecMKOoUVKGIDAh/jnR6I+61ii/bN4qOFXsCmlDLc01iA4Ci1DMRugMGuDaiyIdMFkXwQ261q+l0EVbkx/ciFM/Fqw1CYQhR/hQ8p3IEqwV7pBMiYTiG/sfUE1Kl5O9fgV8B1EBhpZshZl+s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Kub2Low8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qt39EoBsK0/cnMbZ8GjsDsenumjOCyHgpqCbjJIsk0U67+XbC1BuA4TfZ6T0U1TYYGzILzITfqCyyT1bIXLFc+8rFSHeN0470O30Vr8Xk9Ac1B3HlSDERZqWvXSvuO7lvUw89hPgN6zxpHq9lxslXvgihvYr8P/AKOyzWG1ojn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DEueiRyp; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Kub2Low8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 684151F0089B;
-	Thu, 17 Sep 2026 15:26:27 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DEueiRyp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3B22A1F00893;
+	Thu, 17 Sep 2026 15:26:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789658787;
-	bh=ATBHs6nCAkx6EGgp8xwraEHHZKptTPQzETD+Sm3i1qw=;
+	s=korg; t=1789658796;
+	bh=o4ikCmuudoxY5Es4Y0Vp4mFX98TwCfC1am1h31r/sEc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Kub2Low80eCfAwNrvbKE+pScOvZhket9dpU6dpBOZpYvt46UNL5nMlLnSs990pL0n
-	 d8/Oafo+q3TFF3C5w8Zlme2Iw4S+8mLybCbW8bMsDdj61fBOKH70bidcEmRT+O1RDz
-	 nRbrGajv90QKttmYMuNCpbF4/7hpNWaSy0TvG7cw=
+	b=DEueiRypWTPLnbrct6Kh/zi9H0SC2Ca2dSYqsjxzqwv4O6iizY3yhgH+cL2weTLxZ
+	 nMncNK3sBRZ5v5L7+NbQrlBMPrLjU2GrWxUOTaOMPcIsAqLI25qV1Gia/BVhF3Qvh/
+	 hIVdcqMkDeFzHVuFLarrT3cy9MH5yNFp2wINFpHY=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
-	Tony Luck <tony.luck@intel.com>,
+	Dan Carpenter <error27@gmail.com>,
+	Dmitry Osipenko <dmitry.osipenko@collabora.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 009/733] EDAC/igen6: Fix channel address decode for non-hash mode
-Date: Thu, 17 Sep 2026 16:05:17 +0100
-Message-ID: <20260917151350.874450328@linuxfoundation.org>
+Subject: [PATCH 7.2 012/733] drm/virtio: Fix a NULL vs ERR_PTR() bug in virtio_gpu_user_framebuffer_create()
+Date: Thu, 17 Sep 2026 16:05:20 +0100
+Message-ID: <20260917151350.957953267@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,48 +51,35 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
+From: Dan Carpenter <error27@gmail.com>
 
-[ Upstream commit 7b348d0d401d478f1923ba20a34a61681d1f7971 ]
+[ Upstream commit 94579f24e2b526a04eb41050af0ba018c6f528e7 ]
 
-In non-hash mode, decode_channel_addr() and channel index extraction
-used a hardcoded interleave bit position 6 instead of the actual
-intlv_bit parameter, causing incorrect channel address decoding.
+Smatch complains that returning a NULL here will lead to a NULL pointer
+dereference in drm_mode_addfb2().  Return an error pointer instead.
 
-Fix this by using intlv_bit consistently in both hash and non-hash modes.
-
-Fixes: 10590a9d4f23 ("EDAC/igen6: Add EDAC driver for Intel client SoCs using IBECC")
-Signed-off-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
-Signed-off-by: Tony Luck <tony.luck@intel.com>
-Link: https://patch.msgid.link/20260730024238.4096623-5-qiuxu.zhuo@intel.com
+Fixes: dc5698e80cf7 ("Add virtio gpu driver.")
+Signed-off-by: Dan Carpenter <error27@gmail.com>
+Signed-off-by: Dmitry Osipenko <dmitry.osipenko@collabora.com>
+Link: https://patch.msgid.link/an1tWfHIHwtXd9SO@stanley.mountain
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/edac/igen6_edac.c | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/gpu/drm/virtio/virtgpu_display.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/edac/igen6_edac.c b/drivers/edac/igen6_edac.c
-index f1fb644154ae3..ea5628d780eba 100644
---- a/drivers/edac/igen6_edac.c
-+++ b/drivers/edac/igen6_edac.c
-@@ -1049,13 +1049,12 @@ static void decode_addr(u64 addr, u32 hash, u64 s_size, int l_map,
- 		return;
+diff --git a/drivers/gpu/drm/virtio/virtgpu_display.c b/drivers/gpu/drm/virtio/virtgpu_display.c
+index 44ffffec550fd..85ea252c658e3 100644
+--- a/drivers/gpu/drm/virtio/virtgpu_display.c
++++ b/drivers/gpu/drm/virtio/virtgpu_display.c
+@@ -344,7 +344,7 @@ virtio_gpu_user_framebuffer_create(struct drm_device *dev,
+ 	if (ret) {
+ 		kfree(virtio_gpu_fb);
+ 		drm_gem_object_put(obj);
+-		return NULL;
++		return ERR_PTR(ret);
  	}
  
--	if (CHANNEL_HASH_MODE(hash)) {
--		*sub_addr = decode_channel_addr(addr, intlv_bit);
-+	*sub_addr = decode_channel_addr(addr, intlv_bit);
-+
-+	if (CHANNEL_HASH_MODE(hash))
- 		*idx = decode_chan_idx(addr, CHANNEL_HASH_MASK(hash), intlv_bit);
--	} else {
--		*sub_addr = decode_channel_addr(addr, 6);
--		*idx = GET_BITFIELD(addr, 6, 6);
--	}
-+	else
-+		*idx = GET_BITFIELD(addr, intlv_bit, intlv_bit);
- }
- 
- static int igen6_decode(struct decoded_addr *res)
+ 	return &virtio_gpu_fb->base;
 -- 
 2.53.0
 
