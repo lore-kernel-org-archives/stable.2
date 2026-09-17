@@ -1,171 +1,150 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F13C64A2A7F
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 09:14:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B805A4B049F
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 09:16:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636500; cv=none; b=ZXDyIEqBbiiOsQDQsBgF3akunRCGc3xmjCZQxWN9x6LrYViF6TwQto/EokEaWyMhHBRDyrB23bl+2KYuyPZSVhJl2MtTXuT2tehh31Xtnt8IvIlOPqdLl+Eqfz+oetWYFA6RVY81UNLwVF3wLxqPphlmW6L27x4ndPLnu+F9T8E=
+	t=1789636589; cv=none; b=JO2rvLkZxeaXl44rdJTYptyUOOOjr/A3yOCZ0WzHjyc+jdu/keKJ8rh2nCiiyjHO4aNBR4B/qiOkvOeL+5CePPmWcDK8ynPU6r5l1nKq3ltvwdNfGtpen4KJpBf97Ocl6GCAShjdIEhenjSDnt0Dx2aXv70+DRkK0px/WOxFqu0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636500; c=relaxed/simple;
-	bh=XUDC1HxwPmam1Qjo85tVg1CWvgjsvr2XAz89uv0st7I=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KOaaSCYWSx1HrZf0aU8beVH93u8orpysuk9HGv9cUW7p0mXdZTk1zauTbP7ZivFbvn6XYlL6+/hHAGwWEzEfHMqF66H0i2/Qki/8XidBv9f3BMObPkxKsWKVyIPpNCzlWffg5fao6VDbPM3/QxeI6jVviH2ORfSpPb9gEQiW6b8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SBUDRDfU; arc=none smtp.client-ip=74.125.225.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789636589; c=relaxed/simple;
+	bh=wVFGrWQQBa00Kr1v3u38oJ+Psc2Uy+oa8aI6FjA0COU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=EQibdQamlH8ZM/FRGGS0RG/3EGyR8KQ1gX4agaKiMCzrvfayjxOc5m/X1NEdZBcF0B666E6HTVBQF/Po6Qw3jh9GJZOsFv45IqkHsznJMjsek2w7sZEUzTAyvydCIG2sSPiBJNrmFlv6CorfL1af9uCEGoIIrZab0/FuNapT7Q0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=FVJadweY; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=I+P6SdVe; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SBUDRDfU"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-485984ebf5cso460075f8f.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:14:58 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="FVJadweY";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="I+P6SdVe"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789636584;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=YasMKQ2T/AatfsN0JjpUO/fKJtg6yNiDvHeBKdEJON4=;
+	b=FVJadweY/p2GAFPubmv+sYFhRnd8PdFrWlyz+762gHnnsDtsDytRKOOP7oeP2GHIUtfgZJ
+	PtMcHVlv5OUkL+xgAAG1hQqEPlRw27mJo52tA8g8yYUT0hNXHl2vh7P4IHB384ZPKbQdYp
+	15r8AeLCsxBcWL2tKNy2tZbAAZuaWlA=
+Received: from mail-wr1-f72.google.com (mail-wr1-f72.google.com
+ [209.85.221.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-308-lp3oqxtDNb2K8h1DWL4-vA-1; Thu, 17 Sep 2026 05:16:22 -0400
+X-MC-Unique: lp3oqxtDNb2K8h1DWL4-vA-1
+X-Mimecast-MFC-AGG-ID: lp3oqxtDNb2K8h1DWL4-vA_1789636582
+Received: by mail-wr1-f72.google.com with SMTP id ffacd0b85a97d-486f3c0d896so367535f8f.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:16:22 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789636497; x=1790241297; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Rd6RO2crHw1PBE+XJrO3BxeE7S5k0arp+bS2hkTKLEw=;
-        b=SBUDRDfUpP4Hn9BLCpOpTz71Zq7jAoQsMshg/Vyl3eckC0eDq6MTX00TnyLM8W2NO5
-         d67dw/IUxGNvHKqHXQTJ36walnckZ4TKt2KGLLfreoVGcFGYENLH7PAsqGo5CZTIQJSv
-         F6TMHdiTLzdYKYFcBNLZbxyZQKqkfaogZEdSI0av2ULuErUSwHHK98Dg1OL/7JZoLLv8
-         Xz//veN68vmgirenHK/4nTUW7+3QFVV+hOZdV5h1rAfEE3oYQjMFZ2uYfdmQ9+dF921T
-         7yXZWnIsMVQrRg2srSB6WRczSCJFrjgJrPFEpMOq9E7OqlyYk5+ErHq8XHiWC986oC3S
-         RtOQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789636497; x=1790241297;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+        d=redhat.com; s=google; t=1789636581; x=1790241381; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=Rd6RO2crHw1PBE+XJrO3BxeE7S5k0arp+bS2hkTKLEw=;
-        b=1pZ8WrGXtNLU0AtP3ftE/RFcEpr29Hx+cYZV35GVssCa5EfMcRY0xqBO2MOmcrfQ2d
-         X08bbv5qLBpynvZLiDkbxHENWju9Foo5Wgo3KG46mnKAVuoIBrwtnANyTuHsFVh4fOhd
-         cn3fna8nvGeYY+cqRYaWi/t4+bctj+dM50Ysd+/bZ352kccGsr2VLqYadVu5l3OgRyNm
-         tWSw2QOobn6Uh2RNm2gkUC8ohx7WSJCjkSGEH4JOvZBWhqAB+0ot2ihzJQVmkY08Epfl
-         wjUGnlNDe4LU3tTPjA8yobPs6tM8IMVJo+HY6LRwUsKi6FKTC8DR9pwH7nnk4bJncXrq
-         Fc+g==
-X-Forwarded-Encrypted: i=1; AKwUvByfZbhcTm/6GnQlgmdCto5IRLltdgBGgmv4vBQHVjGsXOAkU/1aqpoWw3B9z2QqDfhRDvvghwE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mpBoXJdk2uObujnyfD8UFiI5VOLfAXyMuyTEql4j2CDzH6wb/1
-	TPMiINaQO8dKrExre+w5HO/DKMldGWvCDkqf3jbwdRah2jyoKWK1J9j1
-X-Gm-Gg: AYBFou3e99AkSE/KnmOhUvMWos9J9v/0+5tFeKVSsrz/Qy8uDRyC2nZ8k/2+9pLMcQQ
-	2XYPhYrdUrvgCvCPNlXQTC79CuzwbkNhxSdwejJ5mdLiZpS9Y0tagc8FfIBj/PwYlU/Kwe9YDxm
-	VQVnZSUGQEZGShR1/ABHdmby8hi1+O4U2MPOPciNJYV+MFhv85036C4I5/QWCzqaMqUi6UA1t8Q
-	hLgNxPReIzwOCXZPhlpFtqGJs3FIx6JkpdZgxK5MuSZzNhmpz1S6x9mT18IuhtTV71wiwX+st6W
-	s5/ATA7S7LyqLEcHJIRHkvYHmHnfYZ3tF7xLGyhe9Lgm3YjuHPn0KdbdoQFx8Cp6V5wtPwZVRt+
-	HF45E5UkHYNguFnHJybFwQiGLIsPrZoj54DC1peav0dqfSzkf3IlS+KwuaS8naIdb+MS9clA87l
-	qpiS5E6A2whsG3eIVzvm/SZXFoCsXxb2Yla5gMpIOIGEJeozh4d0yVASftAPnjtzc5U3XJgEMmk
-	7og7KiJFItCHI3U7op7DOMIYxN+XLeKXAjR
-X-Received: by 2002:a05:600c:3e15:b0:49c:ff3c:973f with SMTP id 5b1f17b1804b1-49eb7329ce0mr59255905e9.24.1789636496900;
-        Thu, 17 Sep 2026 02:14:56 -0700 (PDT)
-Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbf415058sm34707795e9.0.2026.09.17.02.14.56
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 02:14:56 -0700 (PDT)
-Date: Thu, 17 Sep 2026 10:14:55 +0100
-From: David Laight <david.laight.linux@gmail.com>
-To: "Chang S. Bae" <chang.seok.bae@intel.com>
-Cc: linux-kernel@vger.kernel.org, x86@kernel.org, tglx@kernel.org,
- mingo@redhat.com, bp@alien8.de, dave.hansen@linux.intel.com, hpa@zytor.com,
- andrew.cooper3@citrix.com, arjan.van.de.ven@intel.com,
- sohil.mehta@intel.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3] x86/microcode/intel: Reject problematic loading on
- Granite Rapids systems
-Message-ID: <20260917101455.3e1ac9a5@pumpkin>
-In-Reply-To: <20260916225939.1144524-1-chang.seok.bae@intel.com>
-References: <20260908223209.916758-1-chang.seok.bae@intel.com>
-	<20260916225939.1144524-1-chang.seok.bae@intel.com>
-X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
+        bh=YasMKQ2T/AatfsN0JjpUO/fKJtg6yNiDvHeBKdEJON4=;
+        b=I+P6SdVejhwgRieImpF/lHGRd+wYWPhq4gVaoxap5KUvQQHwjurNfGHBFXw2xP14rl
+         D9pOFxOpxpJ1xjL+x4AWXq3ZBhJvnFeefxlGMneXIIaMbVEYshgibUbLTXovtRA1ZZUi
+         CXtmKwF/7XoKY2uF9g4QylCIj1k02aN0GzYQk0vx9yoYkswRyneOPzRR9DjtF8q5NMvm
+         HUUxeFWhJFGOzTmlJwKsIHvzGQNiJLGt371OGM9+B25jya20S/gWBF7DrqIkPuUxQFyH
+         AWRUaE4SRHNdov5SEb63C6JV3cZO4aLk9szefKn8oakK3AIE821ujVkyy3FNz4J0/qGM
+         bIZg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789636581; x=1790241381;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=YasMKQ2T/AatfsN0JjpUO/fKJtg6yNiDvHeBKdEJON4=;
+        b=0s/f/7UF00Kh8ZStHZKN6atmHl5tUXX6ZUKC+diithts1m6zdHaThmXOVQ486xPNwC
+         Wdk2+rX9RUQyT8ogZ7lZUnXA20Tk59++YA3X7e8IJYHqp8kGSWqsSADcEcu1MFgXlE48
+         7eqgq1mEXmn/EBxlkpADmDAEuYhLIZWdvPiTyWonm7FpbRBZ0HJb0mrQ6Amv4T2g0uHG
+         o9cDW5klsTFv7+RQAOXCDjXy94T+sHj+Dvl7oCl8QqXH10QPy+dgWDErU/fB4aROXy+B
+         Z5cHKf3ukkHzCJd0Mv8YQk5S4Dt/iup/JV4kg7bjvzzwsGCeRyN0NQGgt7vTw1iSXPcY
+         tdsg==
+X-Forwarded-Encrypted: i=1; AKwUvBzTWYYOSF8PGpcNNS2WHiXFlV9AIBp2ipKSOx5wsVEFHpjJVlhygHbww1jpOrrR7sXE2oZLEjI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nq1W5RnWcvPjGMrDoy/BsWPbcsx8pqilRKwOS+durlAcKnW3fC
+	hU1/gPTxwUJu0tq93XOOT2fdmkC2UCXGesv+pw/DAcHEntKZPkl9Ov5wq/cJIyn/FgoY93RDelF
+	O5kfYQ/cStlF26Dj41Cr2QAl1mbm1NOazwkXOeXWTKN5S95mXbG0BmCbwDQ==
+X-Gm-Gg: AYBFou2XZZXovyOJy1UMaij3oFvCUMrWpTJ01BMwIoisp5HKJ9fSCemLVb/xu5VJSId
+	GDdg0aCkGBDw1sqDC1ehsXVDZujg/BtrtFKKwEcn881cMBFwb/jZZHtsKTluYzqPIXNS/toJSjp
+	KMTuOA6D3Og0Z6HL/NDYs8LOkqZaz0+deBn66YuaOHBliS9Wc7x/xGQ9MemvSGI+SW1H7NmiLFi
+	d33bB07qshOP4YIbdtvGoVHf29+4DoEJ/GrSFYFfQnxYcc8cuQAa7hRmLHmmsEJ11/uxoHkZLex
+	Zv8NqTDTRi/I8fWgDxRU8Bl1n2xABgT4YMfcK8oQmLeE+y8KFtV/Wh86ORs8+dk0dnQiPURwMEL
+	TVuPqxmopffs5bRVqre0MceJdVBLJwqzNRwQpmfzfTAPL5gYL29OZTdnmySZU8leWDdIsaH8JNA
+	==
+X-Received: by 2002:a5d:6f12:0:b0:487:fa6:c921 with SMTP id ffacd0b85a97d-4870fa6ca22mr5920388f8f.23.1789636581610;
+        Thu, 17 Sep 2026 02:16:21 -0700 (PDT)
+X-Received: by 2002:a5d:6f12:0:b0:487:fa6:c921 with SMTP id ffacd0b85a97d-4870fa6ca22mr5920348f8f.23.1789636581205;
+        Thu, 17 Sep 2026 02:16:21 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4870bf37e69sm14006115f8f.29.2026.09.17.02.16.19
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 02:16:20 -0700 (PDT)
+Message-ID: <a0b83186-7399-4d79-8226-ff43611184d7@redhat.com>
+Date: Thu, 17 Sep 2026 11:16:19 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/2] packet: use ubuf_info completion for TX_RING
+ packets
+To: Willem de Bruijn <willemdebruijn.kernel@gmail.com>, netdev@vger.kernel.org
+Cc: davem@davemloft.net, kuba@kernel.org, edumazet@google.com,
+ horms@kernel.org, andrew+netdev@lunn.ch,
+ Willem de Bruijn <willemb@google.com>,
+ Katherine Leaver <kleaver@janestreet.com>, Bjoern Doebel <doebel@amazon.de>,
+ stable@vger.kernel.org
+References: <20260914214229.1674102-1-willemdebruijn.kernel@gmail.com>
+ <20260914214229.1674102-3-willemdebruijn.kernel@gmail.com>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <20260914214229.1674102-3-willemdebruijn.kernel@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 22:59:39 +0000
-"Chang S. Bae" <chang.seok.bae@intel.com> wrote:
-
-> Microcode updates can usually jump revisions. However, there is an
-> erratum on Granite Rapids systems. If they "jump over" revision
-> 0x1000405, they result in #MC. Avoid it.
-
-A probably silly question.
-Is it valid to downgrade microcode?
-
-David
-
+On 9/14/26 23:37, Willem de Bruijn wrote:
+> From: Willem de Bruijn <willemb@google.com>
 > 
-> Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
-> Reviewed-by: Dave Hansen <dave.hansen@linux.intel.com>
-> Cc: <stable@vger.kernel.org>
-> ---
-> V2 -> V3:
-> * Shorten the changelog and rename the function (Boris)
-> * Reduce the code comment (Dave)
-> * Allow 0x1000405 loading. Thanks to Andrew, this fix got attention.
-> * Collect Dave review tag. Thanks, Dave!
+> tpacket_snd sends skbs with frags pointing into its ring slots. Slots
+> are released when skb->destructor is called.
 > 
-> Note:
-> * GNR98 currently describes loading 0x1000405 itself is unsafe, but it
->   will be updated to say okay with that. I will watch out the GNR98
->   changes.
-> * Jumping from < 0x1000380 to 0x1000405 was identified as an issue, but
->   0x1000380 is the first revision as GNR products. So loading 0x1000405
->   in production systems should be okay.
-> ---
->  arch/x86/kernel/cpu/microcode/intel.c | 26 ++++++++++++++++++++++++++
->  1 file changed, 26 insertions(+)
+> A call to skb_orphan calls skb->destructor before the skb is freed.
+> This can cause the slot to be reused while still linked into the skb.
 > 
-> diff --git a/arch/x86/kernel/cpu/microcode/intel.c b/arch/x86/kernel/cpu/microcode/intel.c
-> index 1142183c950c..30a22388d4b1 100644
-> --- a/arch/x86/kernel/cpu/microcode/intel.c
-> +++ b/arch/x86/kernel/cpu/microcode/intel.c
-> @@ -309,6 +309,26 @@ static void save_microcode_patch(struct microcode_intel *patch)
->  		pr_err("Unable to allocate microcode memory size: %u\n", size);
->  }
->  
-> +static bool revision_is_safe(struct cpu_signature *sig, u32 rev)
-> +{
-> +	u32 vfm = IFM(x86_family(sig->sig), x86_model(sig->sig));
-> +
-> +	/*
-> +	 * Erratum GNR98 can cause #MC's if "jumping over" revision 0x1000405.
-> +	 * Avoid the jumps.
-> +	 */
-> +	if (vfm == INTEL_GRANITERAPIDS_X &&
-> +	    x86_stepping(sig->sig) == 1 &&
-> +	    sig->pf & 0x95 &&
-> +	    sig->rev < 0x1000405 &&
-> +	    rev > 0x1000405) {
-> +		pr_err_once("Erratum GNR98: skipping revision 0x%x.\n", rev);
-> +		return false;
-> +	}
-> +
-> +	return true;
-> +}
-> +
->  /* Scan blob for microcode matching the boot CPUs family, model, stepping */
->  static __init struct microcode_intel *scan_microcode(void *data, size_t size,
->  						     struct ucode_cpu_info *uci,
-> @@ -330,6 +350,9 @@ static __init struct microcode_intel *scan_microcode(void *data, size_t size,
->  		if (!intel_find_matching_signature(data, &uci->cpu_sig))
->  			continue;
->  
-> +		if (!revision_is_safe(&uci->cpu_sig, mc_header->rev))
-> +			continue;
-> +
->  		/*
->  		 * For saving the early microcode, find the matching revision which
->  		 * was loaded on the BSP.
-> @@ -878,6 +901,9 @@ static enum ucode_state parse_microcode_blobs(int cpu, struct iov_iter *iter)
->  		if (!intel_find_matching_signature(mc, &uci->cpu_sig))
->  			continue;
->  
-> +		if (!revision_is_safe(&uci->cpu_sig, mc_header.rev))
-> +			continue;
-> +
->  		is_safe = ucode_validate_minrev(&mc_header);
->  		if (force_minrev && !is_safe)
->  			continue;
+> Switch to standard zerocopy completion (ubuf_info) so the slot is only
+> released once all references to the payload are freed or copied.
+> Restore skb->destructor to standard sock_wfree.
+> 
+> To prevent userspace from aliasing in-flight state on shared ring
+> slots, allocate tpacket_uarg per packet, rather than per slot. This
+> adds a small allocation to the transmit path. Use standard kmalloc to
+> allow backporting to stable kernels.
+> 
+> The uarg holds an sk_wmem_alloc reference, rather than an sk_refcnt
+> reference. packet_free_tx_ring waits on sk_wmem_alloc before freeing
+> the ring pages.
+> 
+> As a result a slot is released when its payload is copied, which can
+> be before transmission (e.g., in skb_orphan_frags_rx). Any slot
+> timestamp then reflects the time of copy, rather than of transmit
+> (or skb_orphan).
+> 
+> Revert the now unused previous skb_zcopy_.._nouarg infra.
+> 
+> Reported-by: Katherine Leaver <kleaver@janestreet.com>
+> Reported-by: Bjoern Doebel <doebel@amazon.de>
+> Closes: https://lore.kernel.org/netdev/20260909085542.3370986-1-doebel@amazon.de/
+> Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Willem de Bruijn <willemb@google.com>
+FTR both the 'high prio' sashiko finding here and the mid one on the 
+previous patch are IMHO worth addressing.
+
+Also I'm wondering if the extra alloc/free is visible in perf figures? 
+Out of sheer ignorance, can't the ubuf be carved out of the ring?
+
+/P
 
