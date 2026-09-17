@@ -1,93 +1,92 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.10])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 947633890F6;
-	Thu, 17 Sep 2026 15:17:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.10
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1C2974DDB45;
+	Thu, 17 Sep 2026 15:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658253; cv=none; b=Hka2ORkNgy0GNzdXaJUD3fp7X3EA2P+FSbIZqxeoaDxwQIG1Whf4PBtEI/d6UPsukih/W+5mU4IaUw57S1spHWH/yA4a69h1ndmZAhIuAb4rVWr3crtV/MNe2/l/9CE28AOA5vcfcu7Jm4jR/XL4gIodMLziRUtd5TKWAkRcnQw=
+	t=1789658258; cv=none; b=Nyzn/zxlIZgFKK4a0cqqZ4V9kH7IY04A6Lvm9xy6kamLh/chjfYdIbzQFly94pcf+DmMrXSRvTQg7e87lG91FrfIpqajkH1a3xWJueDpKvwfNG16BuTHpsO/vV2XRonkqAry0Zfw25TEVXtdcY+tLkKK1qN8AFYP6BBgDTHa6u8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658253; c=relaxed/simple;
-	bh=NT3+ATGeONp3oK/FSMfxmNCRnlixycSJ6Gkz34ZYjfA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=CIXOiejKELYcD8e0BQUbBVP7tNhXbG5EqvpNbqCj07F5GXonK+LLopm+IxeDbGHjhNGToOggDwItyfcU9yned1DL8SRxqYbHwILWyh1vHewF1vzLVlVtZ09+11HZn6rEb0SDj7D5c2cdt3cD6E7VScogO8iZknJ2vJFgLjLTOtU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=oAa8WcM1; arc=none smtp.client-ip=192.198.163.10
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="oAa8WcM1"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789658245; x=1821194245;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=NT3+ATGeONp3oK/FSMfxmNCRnlixycSJ6Gkz34ZYjfA=;
-  b=oAa8WcM1ZSzk3yiUysZnZDBs6jHcCMvFVbdTwCuB8Yssh1NGFhTz0ysB
-   QsZDZYoveaPBF00SB8/sNcaD8Zeu+mpfADFEnLxzWP9/8llYDvPc0dSLt
-   bs8k7CeAej2dZZeJTXaLRZnTlFJTpjinBc2TrBdjHzkKaifl3aNqk8Hzc
-   KjnP1FEZO4BWxI1TTAsgarNkOc+sS82VLUlxQgfe9Len4dTihtKfJt3Tr
-   kD8rPr0dGgzP0vBEvVeV2iJeWod5i2BWzbQs8E0cCUJpM01Y4yEgkDtds
-   QdDiFev5LATs6GGe7yTBm/5Og1/Ab1Iz/sNtKblU7bfApDxKqHXEnsCoe
-   A==;
-X-CSE-ConnectionGUID: NE5o52KpQsWe9KPz0ed1Jg==
-X-CSE-MsgGUID: AqlkBajiT3+UjFys79mhvg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="101436946"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="101436946"
-Received: from fmviesa006.fm.intel.com ([10.60.135.146])
-  by fmvoesa104.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:17:17 -0700
-X-CSE-ConnectionGUID: y+czv+RFS/upre1CRvYDWQ==
-X-CSE-MsgGUID: yA8acciLQymRCApaAYukRA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="269590351"
-Received: from abityuts-desk1.ger.corp.intel.com (HELO localhost) ([10.245.245.11])
-  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 08:17:15 -0700
-Date: Thu, 17 Sep 2026 18:17:12 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>,
-	Kent Gibson <warthog618@gmail.com>,
-	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] gpio: cdev: fix kernel stack leak to user-space in error
- path
-Message-ID: <aqwEeLLuIC1AoLQ1@ashevche-desk.local>
-References: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
+	s=arc-20240116; t=1789658258; c=relaxed/simple;
+	bh=MyrCZPq1zLdshcZFFuVAg7Lo1rP5zN/MNNiF+2MWjgk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=nsqcyOtwBR5U85PqP1k9fBCc3ePmzezSwE+bZLh10cBaPy4Fr19GtJeqtr+u1LA2zyS4Ia5kUmnqk6uUa2Tsvyn+hENw/5kLYz2eVDZxXMDEiwyJ//lFU+bYTscCzjYu4b6B40hDQLw7htNUPTKUlDvJxuQiVyuxp0xqo0exjMc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHsTuABKxqsl2DCA--.5477S2;
+	Thu, 17 Sep 2026 23:17:20 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@HansenPartnership.com
+Cc: MPT-FusionLinux.pdl@broadcom.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	ranjan.kumar@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	suganath-prabu.subramani@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: mpt3sas: Fix sas_device reference leak in mpt3sas_transport_port_add()
+Date: Thu, 17 Sep 2026 15:17:20 +0000
+Message-Id: <20260917151720.2158664-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHsTuABKxqsl2DCA--.5477S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7XryxJF1Duw4fCFy3JryrZwb_yoW8JrWfpa
+	yDCa4Yyas8Gw4I9rn7Gw15JF4rX3W7C3s8KFW0v3Z5ur4UJFyft34I9rs0qF1UArZ3Ja98
+	Jr4DJrZ5CF4UJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxUFBT5DUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qr9LYmfgAAsP
 
-On Thu, Sep 17, 2026 at 04:39:05PM +0200, Bartosz Golaszewski wrote:
-> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
-> return immediately before zeroing the info struct we'll end up passing
-> to the user-space later in lineinfo_get_v1(). This may leak the kernel
-> stack contents. Move the memset() before trying to acquire the SRCU read
-> lock.
+mpt3sas_get_sdev_by_addr() takes a reference on the sas device for SAS
+end devices, but it is only dropped on the success path. When the port
+cannot be created, for example because the parent device is missing,
+sas_port_add() or sas_rphy_add() fails, the function bails out to
+out_delete_port/out_fail without releasing the reference.
 
-Reviewed-by: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+Drop the reference on the out_fail path.
 
-...
+Fixes: 7d310f241001 ("scsi: mpt3sas: Get device objects using sas_address & portID")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/mpt3sas/mpt3sas_transport.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
->  	unsigned long dflags;
->  	const char *label;
-
-It might be not obvious for a reader, perhaps a short comment why it's done
-here?
-
-> +	memset(info, 0, sizeof(*info));
-
+diff --git a/drivers/scsi/mpt3sas/mpt3sas_transport.c b/drivers/scsi/mpt3sas/mpt3sas_transport.c
+index e74a526efa8d..f831d4823503 100644
+--- a/drivers/scsi/mpt3sas/mpt3sas_transport.c
++++ b/drivers/scsi/mpt3sas/mpt3sas_transport.c
+@@ -869,6 +869,8 @@ mpt3sas_transport_port_add(struct MPT3SAS_ADAPTER *ioc, u16 handle,
+ 	list_for_each_entry_safe(mpt3sas_phy, next, &mpt3sas_port->phy_list,
+ 	    port_siblings)
+ 		list_del(&mpt3sas_phy->port_siblings);
++	if (sas_device)
++		sas_device_put(sas_device);
+ 	kfree(mpt3sas_port);
+ 	return NULL;
+ }
 -- 
-With Best Regards,
-Andy Shevchenko
-
+2.34.1
 
