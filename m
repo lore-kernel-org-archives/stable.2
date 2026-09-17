@@ -1,115 +1,115 @@
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B26B92749DA
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:20:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.70
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FB51AAE28
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:20:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789615214; cv=none; b=CFg8ng0hOz3EGL5gGEpITvoqJnvSvfXcXfqQqU+WR2RFi1wdFLS9+baTIzp8mZ9OWaSvKaTM6eD/+po1SdeoYU5oaTAXDZKDUfi6aYuCpF9a3Cgbv+K1j3Tb6fmvZs+55GBXadfSWrGu1YWthWILl+2bYDmZ4KkUCUpFxHfPdVQ=
+	t=1789615236; cv=none; b=riOh5l3xTNnVUhot00fK0B7m5lgAuLlo8DaiU4zuIESdC4x8KXvL3ekt+OVFEPRVaLZgKQjzq9Uzg5GC06A3CEhGcuPfm4lBeFN95pwoX27wHzRr17GLpQ+aMsWxIqeSIfa8W6RsUynGmbaA+q9T9kYDr99EpO3ML8WE8mmx25c=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789615214; c=relaxed/simple;
-	bh=+Zoa3hTlhW97Z1Fdg8ZXaa7K5K4U5NJd2vwJcnpqcyo=;
-	h=Date:Mime-Version:Message-ID:Subject:From:To:Cc:Content-Type; b=PyMZ5FXe1JwnigGXOKM4SLLOHOQAljh4ICemIsriIWVh3vgx7/WDPh24a/NPJBEEX39zBNT3pBjwcEengmqE8hK9HDzHlS0vhjpNFO+fONr2JjVGzbrYtwJQ9odlkxUjxQ3pjv+Yv/SQQxHjIcT1l5oVeHH7SXpYBiIqXiJpQWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--jthies.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=Q0oZMwBr; arc=none smtp.client-ip=209.85.216.70
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--jthies.bounces.google.com
+	s=arc-20240116; t=1789615236; c=relaxed/simple;
+	bh=lEWGQjnqxr3VzBx3GwuRKF6jRh0uZ+viHbD/+q6XrRo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Kwcz8kCCuNzP49/K7ZIr3YbkWdR+FMjdAb+a93c776PadUxm82aAKimMxcj8Xe8yuecnC1shZtYJqEWUZZQ5p+wCcQ1DlJNGqU/k7jjpOAp0DDVH6DECbf3vKDnMPFDXFmjKeGhMTDA9M7DpgA/AYvdOMJIBAyIxPQDqrhaVWfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBp2SacW; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="Q0oZMwBr"
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398dcfabbf8so1162579a91.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 20:20:11 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789615211; x=1790220011; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eG+4OkgZdOu4T7Ozr6+fDvucorju2O2n5bdII7mZ0hM=;
-        b=Q0oZMwBrt6+mTdXK7NJ0Q+MAna0X1PAdoTmUWnfDw1C/T2rRx5FjqEXbKWqM84IURb
-         pv7UiDO1PywwKgewU2ZCVN9ZSUTiA3NDEruH9P3rxciYXHu4p5zQrHB2J5/iZAK7I3q9
-         n05n5vgO3kL4YpouqOqAwg7fU/iqX2vmaWH5ZzgSgO0QqCJcxASoQfOCIepF1oyqlrCA
-         G9ytI0Wxc+GEQMakOBDsq23YTPXGca6IWtZpGuwQQXnYARVvTw6AtYuFcbLhJ+YKrzS4
-         bcpKoGxO/h/69p90hlXYw+0w8eBbAN5fAfA/WJ031lES9rzHfocYfO+6dnjPuu5lttlW
-         KFMg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789615211; x=1790220011;
-        h=content-type:cc:to:from:subject:message-id:mime-version:date
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=eG+4OkgZdOu4T7Ozr6+fDvucorju2O2n5bdII7mZ0hM=;
-        b=nP3FP3nOSBI17xSZ0INzoYr23xWncDwlhnNhIltR9OKy2meo8BQF9Evim1ahsmPBwT
-         g9Vr/yzqXsB188Q6yULfc7PPSrqSW2/byF7J8/y0etopqRpqrXEp/rVyZqA8JmMh1sGD
-         X9yAlSQ8CsDRIimchauqWDY8i7TvNkzVTbY9S1zicznVo5MtE5U+3Vmffss7O31JnmlV
-         titLCXSG5bSSrDWB4ZanbMQxZCj25/B9CsEg7AfeZ8Qzo2ewoNp1pyNHVCZ0SlBIPov0
-         EZJg+G17rpt/dlXzoL4Y4QtXZcDg7sm+EoJMkA3P/gTdGeJg1hMjQK4ZB4KnZm2A+n6l
-         v0ig==
-X-Forwarded-Encrypted: i=1; AKwUvBw1OvOEkmsNDKaa+gE4fnvCqAV/XnyGVpHYSQlh4JEnYz2TlB1AbEO7EDAK2Wqe+qPo/TJci+w=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJJrXZF4cx+HROM1yy3Wgh2EsIk7ShzNpSpz/nffs/BljVy+/G
-	0AMJPtG1g0R9T+zMt+7Z3LhXrPi35rhzxhitFIbAZgMwhw6DeIRSxR6cT7Cag8NPtikUc3fHK99
-	tmYx7gA==
-X-Received: from dly18-n2.prod.google.com ([2002:a05:701b:2052:20b0:144:c095:7c1b])
- (user=jthies job=prod-delivery.src-stubby-dispatcher) by 2002:a17:90b:582b:b0:39e:f1:b2de
- with SMTP id 98e67ed59e1d1-39e1e4c54fcmr12016131a91.20.1789615210639; Wed, 16
- Sep 2026 20:20:10 -0700 (PDT)
-Date: Thu, 17 Sep 2026 03:20:08 +0000
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBp2SacW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73831F000FF;
+	Thu, 17 Sep 2026 03:20:33 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789615234;
+	bh=rTkLf+Ry0gjV5dYI4+0/bW3PvH4AymI9essuHw1zFWA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SBp2SacW+uv7Nk/dMGFk80riaBStHWLQNLSAvBM0uiZ2OArE9yMiNUTMIPl9UYQL1
+	 uNxv3XXEIFK//et0OeJ5taD1ogarhg5FWBoeVZ5581LCBSG2QMTVuH9L9LnL4mIH6k
+	 JlmF1t7Oftt4sG5Bm8wfvDrxHovG/NyQ0vk6MXPtV4RVEZA6k/jj1TuzvX6CBCDKHF
+	 QEmSs1mq1fGJOWH5iSTcrJwOR+imjXEAQYRC0auKwV8ybSaRHKt6z/DT8Q+zm91+8X
+	 7k6+PtRCX+SF+0PE6yN496iQSug19ajEjDgVXVKbHStADtJYssQJMiY/UaarTbOvgG
+	 68E6UQMbGlVaA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	David Howells <dhowells@redhat.com>,
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: reject userspace cifs.idmap descriptions
+Date: Wed, 16 Sep 2026 23:20:32 -0400
+Message-ID: <20260917032032.3994854-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091652-deodorize-unison-29a4@gregkh>
+References: <2026091652-deodorize-unison-29a4@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260917032008.1701888-1-jthies@google.com>
-Subject: [PATCH v2] usb: typec: ucsi: displayport: Current CAM OOB index fixup
-From: Jameson Thies <jthies@google.com>
-To: heikki.krogerus@linux.intel.com, linux-usb@vger.kernel.org, 
-	linux-kernel@vger.kernel.org
-Cc: bleung@chromium.org, gregkh@linuxfoundation.org, akuchynski@chromium.org, 
-	Jameson Thies <jthies@google.com>, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Update ucsi_displayport_enter() to return invalid error when the PPM
-reports an current alternate mode greater than or equal to
-UCSI_MAX_ALTMODES. While here, remove 0xff current cam assignment on
-failed GET_CURRENT_CAM response.
+From: Aohan Mei <henrymei@tencent.com>
 
-Fixes: 04cec690b1fd ("usb: typec: ucsi: displayport: Fix OOB altmode array index")
+[ Upstream commit d9d7eeb0cea5b55b82888f443622fd8d4ee064f3 ]
+
+cifs.idmap key descriptions carry authority-bearing fields (owner and
+group SIDs and uid/gid values in "os:"/"gs:"/"oi:"/"gi:" form) that the
+cifs.idmap upcall helper treats as kernel-originating inputs.  Unlike
+its sibling cifs.spnego, the cifs.idmap key type has no vet_description
+hook, so userspace can create keys of this type through
+request_key(2)/add_key(2) and supply those fields without CIFS origin.
+A request_key(2) call with a non-NULL callout then drives a root
+usermodehelper upcall (/sbin/request-key -> cifs.idmap) that consumes
+the unvetted description in root context.
+
+Only accept cifs.idmap descriptions while CIFS is using its private
+root_cred to request the key.  id_to_sid()/sid_to_id() already run
+under override_creds(root_cred), so the kernel-originated path is
+unaffected.
+
+This mirrors commit 3da1fdf4efbc ("smb: client: reject userspace
+cifs.spnego descriptions"), which applied the same restriction to
+cifs.spnego.
+
+Fixes: 4d79dba0e007 ("cifs: Add idmap key and related data structures and functions (try #17 repost)")
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
 Cc: stable@vger.kernel.org
-Reviewed-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-Reviewed-by: Benson Leung <bleung@chromium.org>
-Signed-off-by: Jameson Thies <jthies@google.com>
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+Acked-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-Changes in v2
-- added fixes tag and CC stable
+ fs/cifs/cifsacl.c | 15 +++++++++++++++
+ 1 file changed, 15 insertions(+)
 
-Original patch didn't incorporate reviewer feedback. This is a fixup
-to be amended to:
-https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=04cec690b1fd9d1c4c314b91a10d8c68a3acfe18
-
- drivers/usb/typec/ucsi/displayport.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
-
-diff --git a/drivers/usb/typec/ucsi/displayport.c b/drivers/usb/typec/ucsi/displayport.c
-index 8d2032d0762c..572da7bbd29c 100644
---- a/drivers/usb/typec/ucsi/displayport.c
-+++ b/drivers/usb/typec/ucsi/displayport.c
-@@ -71,11 +71,14 @@ static int ucsi_displayport_enter(struct typec_altmode *alt, u32 *vdo)
- 	if (ret < 0) {
- 		if (ucsi->version > 0x0100)
- 			goto err_unlock;
--		cur = 0xff;
- 	}
+diff --git a/fs/cifs/cifsacl.c b/fs/cifs/cifsacl.c
+index 1b52e0c88877a..070bc9b46b743 100644
+--- a/fs/cifs/cifsacl.c
++++ b/fs/cifs/cifsacl.c
+@@ -93,8 +93,23 @@ cifs_idmap_key_destroy(struct key *key)
+ 		kfree(key->payload.data[0]);
+ }
  
--	if (cur < UCSI_MAX_ALTMODES) {
--		ret = dp->con->port_altmode[cur] == alt ? 0 : -EBUSY;
-+	if (cur != 0xff) {
-+		if (cur < UCSI_MAX_ALTMODES)
-+			ret = dp->con->port_altmode[cur] == alt ? 0 : -EBUSY;
-+		else
-+			ret = -EINVAL;
++static int
++cifs_idmap_key_vet_description(const char *description)
++{
++	/*
++	 * cifs.idmap descriptions are authority-bearing inputs to the
++	 * cifs.idmap upcall helper.  Only allow the kernel to create this
++	 * type of key using the private root_cred installed in
++	 * init_cifs_idmap; reject userspace request_key(2)/add_key(2).
++	 */
++	if (current_cred() != root_cred)
++		return -EPERM;
++	return 0;
++}
 +
- 		goto err_unlock;
- 	}
- 
-
-base-commit: 600334ef2f29b975485ce062a81fcfa00bd3ef45
+ static struct key_type cifs_idmap_key_type = {
+ 	.name        = "cifs.idmap",
++	.vet_description = cifs_idmap_key_vet_description,
+ 	.instantiate = cifs_idmap_key_instantiate,
+ 	.destroy     = cifs_idmap_key_destroy,
+ 	.describe    = user_describe,
 -- 
-2.55.0.1082.g2b9226bbc0-goog
+2.53.0
 
