@@ -1,79 +1,155 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2ED8955C1CF
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB5EB54CF65;
+	Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660892; cv=none; b=G4GRu0BoCXFf8tcc3GqP9IhbBiU4CRLaykUhUcui7PSfIzw8mRgNRi3ytei2po001bSIpZ9Q6aQ4I6ON/8g2wU0E1Th13iMTLLgwUcqeZfCWSyosienm3+gYIBGwwEZPccEoZrDmPgJiZXG9MeZkikI/btyha6NwCUOh2GEbFIk=
+	t=1789660893; cv=none; b=EPiv81g1fpn/v1tBw0tDJHjci53r7uoGlSPjak7Y3v7BfHRygDb8TqIXcvkNOTbtoDRnBFzFEol2TWjYXKe0NffdQBRBHF8XjsLSVMwpPaNtbDrfJVgt4GC3qwQFyzXHzDb/8T3WsfVw8coPTxroUFJBWsWPt0QEWp51TeyTku0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660892; c=relaxed/simple;
-	bh=L7XJVn3zJKEYZntTNEdwCrWKBFrCg6HrvKLQHNiolyA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=kcJO40Q7KShxmK2AeVMPfwtFhuazvUPFJNpu+htlYKoKqTd7cAzyU+klFu4koCymq7lU8AeVKBtE/R1I+ECS029FEIZS1wQ8sizK3GFgFZ+G21FYoBoKhEyK8DL/BitBRbVSw8LsJcGlIG/pQ5Ern+ILZlk/QBKup6eXJTvNiS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iLCKsPy8; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789660893; c=relaxed/simple;
+	bh=rjJ5EoIcqb5A0TRu1KRVNz9NzgILSdFB8GN+lVeP9uI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=e0lo0uDC7izNnXBd8tG3DCd8unrsafKXgsjcY/l6XKlWp5i/xku/fM5RCdKe4vKn43OCLjdJCrm2XIGeF5bCdwMFj42TncfUxP6He9lUgihIQVw8lS4D/M21xsa7nlRYCzXarwg5gE1rbI/E+JaXOkvmg/68psJsfp/QVG3xHaY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Ykx6S3zf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iLCKsPy8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 029C91F000FF
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789660891;
-	bh=+DhS//7o7owj41t5iDIwF0SCGyy9ibYv4B+yFcVevxo=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=iLCKsPy8hA6x/lcktVIlsdyn8sjQTyqgjVUWBF7en1MLAP8475WnPTJKZOB82zlBn
-	 NhkNmK//XwCB31rqv2Ge84kDd/YzHO1lz0SCO2+wnBC2rQRHEakVW+ZvChRZuGOzSp
-	 fAdyMg1ZW+Xh8qZJ9WdvT+qegs5dV/p2RoJJveW2q8/nxmn+6MAt5jwF3eCrNUzq8l
-	 vD3ym1+00U5oIa0PAE4sKfkXIyepkbCZKZN0h+uLAYm5k7muZcGm3Gv8JReJEdvOFe
-	 2Dvx+G8xaxU5sbMzYo+S1J5lq38BOsw2tB0XArQN3iIRmvftMhRaChy8g1Mlm5qBm+
-	 PS2VVLAtMl5UQ==
-Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f0b1fso170576566b.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 09:01:30 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwFEBhKMueTgkY5ewrm2HjriuPEt3sZIyE4qfD6T+r5KLoykIPRVVhzn5hgglr39l+h0Jlp/kY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nTt7vdY4po0Vs1CuC6aZjuxWWwIGsS02TezuQAGpIDvb9BH1mh
-	J7J5xWw5GW/pNZvOBB6ifU8RD0hnC0zDbmOShsMXjynEYqYjpA9g0gRSWllD4MjjwgpHmo9Vl1k
-	/xDU08DB1StbYR9tkJxCW9eEGitaNxg==
-X-Received: by 2002:a17:907:960c:b0:c29:f5d8:9c72 with SMTP id
- a640c23a62f3a-c29f5d89db1mr290535766b.33.1789660889600; Thu, 17 Sep 2026
- 09:01:29 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Ykx6S3zf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30E391F0089A;
+	Thu, 17 Sep 2026 16:01:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789660891;
+	bh=F58AyJjY18TPOKEcl40XyEZo5f2pI/r3LbOMG4qaCuw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Ykx6S3zf7oyqv9B1qC+MB+XCKJjCh0HB9OmMwVsalWqANNLodOb49pPpfZdHzU+9b
+	 E6B7qwS4R/TRa2Mu+UohnXHtNIWv5BhCcM5fD+EPOa8ZtHImam2WzmA6g05/TQ2Vfg
+	 7h1FfI/7E+9EyZQU0GHatSU4KGXjSjTD+apJ3pxM=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com,
+	Jie Wang <jie.wang@intel.com>,
+	Andreas Gruenbacher <agruenba@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0013/1250] gfs2: fix quota init duplicate scan
+Date: Thu, 17 Sep 2026 15:56:48 +0100
+Message-ID: <20260917151552.284645802@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917124653.2151894-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917124653.2151894-1-vulab@iscas.ac.cn>
-From: Rob Herring <robh@kernel.org>
-Date: Thu, 17 Sep 2026 11:01:18 -0500
-X-Gmail-Original-Message-ID: <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
-X-Gm-Features: AcwNN1WoXj-aX4pp7VlWV3BhGAP-WQFU2LTbUI4Kt3JEKGaQRag-A_cEy77_ASo
-Message-ID: <CAL_JsqJoUywigy2A-tfe4Jg+r_bVsk5utZ0L4qZZu+rF9RXmLg@mail.gmail.com>
-Subject: Re: [PATCH] of: unittest: Fix np reference leak in of_unittest_bus_3cell_ranges()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	saravanak@kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 7:46=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
->
-> of_range_parser_init() can fail when the node lacks a ranges property.
-> That error path returns without dropping the reference taken by
-> of_find_node_by_path(). Add the missing of_node_put().
->
-> Fixes: 3d5089c4263d ("of/address: Add support for 3 address cell bus")
-> Cc: stable@vger.kernel.org
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-I don't really think we need backports for all of these.
+------------------
 
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/of/unittest.c | 1 +
->  1 file changed, 1 insertion(+)
+From: Jie Wang <jie.wang@intel.com>
 
-A general comment for all of these unittest fixes. I think we did a
-pass of using the scoped cleanups, but if we could use those it would
-be better.
+[ Upstream commit b99a1f0f18ee50445907f55069e88bcfd8947383 ]
 
-Rob
+gfs2_quota_init() checks for duplicate quota_change IDs while holding
+qd_lock and the quota hash bucket bitlock. That path used
+gfs2_qd_search_bucket(), which takes a lockref reference via
+lockref_get_not_dead().
+
+On PREEMPT_RT this may sleep, which is not allowed under the bucket
+bitlock, triggering "sleeping function called from invalid context".
+
+Use a no-ref bucket lookup in this path, then continue duplicate
+handling without taking a lockref there.
+
+Refactor gfs2_qd_search_bucket() to build on top of the no-ref helper
+so lookup traversal stays in one place.
+
+This patch fixes a bug reported by syzbot.
+
+Reported-by: syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=642d0561f78362d67d3f
+Tested-by: syzbot+642d0561f78362d67d3f@syzkaller.appspotmail.com
+Signed-off-by: Jie Wang <jie.wang@intel.com>
+Signed-off-by: Andreas Gruenbacher <agruenba@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/gfs2/quota.c | 33 +++++++++++++++++++++++----------
+ 1 file changed, 23 insertions(+), 10 deletions(-)
+
+diff --git a/fs/gfs2/quota.c b/fs/gfs2/quota.c
+index 898fc3937b449..7a36a3fe5e6e6 100644
+--- a/fs/gfs2/quota.c
++++ b/fs/gfs2/quota.c
+@@ -254,9 +254,13 @@ static struct gfs2_quota_data *qd_alloc(unsigned hash, struct gfs2_sbd *sdp, str
+ 	return NULL;
+ }
+ 
+-static struct gfs2_quota_data *gfs2_qd_search_bucket(unsigned int hash,
+-						     const struct gfs2_sbd *sdp,
+-						     struct kqid qid)
++/*
++ * Lookup variant for callers which already hold qd_lock + bucket lock.
++ */
++static struct gfs2_quota_data *
++gfs2_qd_search_bucket_noref(unsigned int hash,
++			    const struct gfs2_sbd *sdp,
++			    struct kqid qid)
+ {
+ 	struct gfs2_quota_data *qd;
+ 	struct hlist_bl_node *h;
+@@ -264,12 +268,22 @@ static struct gfs2_quota_data *gfs2_qd_search_bucket(unsigned int hash,
+ 	hlist_bl_for_each_entry_rcu(qd, h, &qd_hash_table[hash], qd_hlist) {
+ 		if (!qid_eq(qd->qd_id, qid))
+ 			continue;
+-		if (qd->qd_sbd != sdp)
+-			continue;
+-		if (lockref_get_not_dead(&qd->qd_lockref)) {
+-			list_lru_del_obj(&gfs2_qd_lru, &qd->qd_lru);
++		if (qd->qd_sbd == sdp)
+ 			return qd;
+-		}
++	}
++
++	return NULL;
++}
++
++static struct gfs2_quota_data *
++gfs2_qd_search_bucket(unsigned int hash, const struct gfs2_sbd *sdp, struct kqid qid)
++{
++	struct gfs2_quota_data *qd;
++
++	qd = gfs2_qd_search_bucket_noref(hash, sdp, qid);
++	if (qd && lockref_get_not_dead(&qd->qd_lockref)) {
++		list_lru_del_obj(&gfs2_qd_lru, &qd->qd_lru);
++		return qd;
+ 	}
+ 
+ 	return NULL;
+@@ -1458,7 +1472,7 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
+ 
+ 			spin_lock(&qd_lock);
+ 			spin_lock_bucket(hash);
+-			old_qd = gfs2_qd_search_bucket(hash, sdp, qc_id);
++			old_qd = gfs2_qd_search_bucket_noref(hash, sdp, qc_id);
+ 			if (old_qd) {
+ 				fs_err(sdp, "Corruption found in quota_change%u"
+ 					    "file: duplicate identifier in "
+@@ -1467,7 +1481,6 @@ int gfs2_quota_init(struct gfs2_sbd *sdp)
+ 
+ 				spin_unlock_bucket(hash);
+ 				spin_unlock(&qd_lock);
+-				qd_put(old_qd);
+ 
+ 				gfs2_glock_put(qd->qd_gl);
+ 				kmem_cache_free(gfs2_quotad_cachep, qd);
+-- 
+2.53.0
+
+
+
