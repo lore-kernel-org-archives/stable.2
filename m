@@ -1,91 +1,107 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57A649C4D3;
-	Thu, 17 Sep 2026 12:04:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+Received: from linux.microsoft.com (linux.microsoft.com [13.77.154.182])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 9C1F34F4723
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:06:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=13.77.154.182
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646708; cv=none; b=M0cBGspIHQaCQVoCS74jKUdJH4/WBWCSGdIs4UF61BYdiB9oLWazWS8qu0LlTh0ah/I9yAq3l1UuRErXaYErh3f8b4R4cORH+kyv5Nn7EZ1n6Zf1f49l8zCb5oWjEwVffK2vHwpSPyikwjqoK0+7Iee+4MNagdxDIi4F2+ulYn8=
+	t=1789646791; cv=none; b=YmSTxi6J85UJ8x3izUSxK0vW6PFZIK3Kk26rCa7rezLXMLjv4zlaCRazMMJUaOwR4CuB8NH11Oo475eSNsYnvOAuzdCaNbzaK1I4rK77zFXqsgMlLFia/hqoNCODZsQ4Z8LZLEHw/xaaHTT8pfvMwtHir/CgzEnKBsBew5rx/O0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646708; c=relaxed/simple;
-	bh=f6dEYUg3qwnuiNz8knI4frPeCoas5Lo7cFmz+uMmNZ0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W/0ViLk3a1VZG3aYxf2fD1OCd1iX1Hmco9uzzXptUBQQ/9WzET2rvvkJ5ByCsEIlkMuvBsXgUgk+JM7xRPXHM+wWxw1+ZE2FMUKNt78HC8bgiP9JTk4c1rfv+gAbo0O4j6O9nlNAQpDfrDjziYJSv2tG9oxLa6D38soAB/oe/3M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDpb16tqDiSACA--.8S2;
-	Thu, 17 Sep 2026 20:04:44 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: ath12k@lists.infradead.org
-Cc: jjohnson@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-wireless@vger.kernel.org,
-	quic_rajkbhag@quicinc.com,
-	quic_ssreeela@quicinc.com,
-	vasanthakumar.thiagarajan@oss.qualcomm.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] wifi: ath12k: Fix rproc reference leak when configuring rproc IRQs
-Date: Thu, 17 Sep 2026 12:04:43 +0000
-Message-Id: <20260917120443.2150370-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789646791; c=relaxed/simple;
+	bh=dRFlG8fiSREEezDaEkf7iAogeenEFgXIPs9L7BQManU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=B9WAmQO+faFDXL/ZmDGDdCnBb+uyHdXj206r582AFyQFnCHhgqYGx5FvN3P+mMOVvvmMsGsjVH6950pLdkpMVNp93CB7uewsRH4y1RP2bfNgEttAkjMzPmBwFwYm22ZUMGbx5ImhPcsTQeDX63xPBeV2GJD/LVkvDIk5g3fHC0k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com; spf=pass smtp.mailfrom=linux.microsoft.com; dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b=m1lTADYf; arc=none smtp.client-ip=13.77.154.182
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.microsoft.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linux.microsoft.com header.i=@linux.microsoft.com header.b="m1lTADYf"
+Received: from [192.168.1.9] (unknown [106.222.231.207])
+	by linux.microsoft.com (Postfix) with ESMTPSA id 13B1A20B7166;
+	Thu, 17 Sep 2026 05:05:31 -0700 (PDT)
+DKIM-Filter: OpenDKIM Filter v2.11.0 linux.microsoft.com 13B1A20B7166
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linux.microsoft.com;
+	s=default; t=1789646733;
+	bh=Ld+nbDFrRsN6Tj4FouA6pLEcv0WnlnaanmIwFDXo7yU=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=m1lTADYfngI5daQZrl8hc7eS8Yk6GcDZQ121SXmkroo6kLqYGpeptXtRi9vrKEf7F
+	 LPT8/dzvoDk2Zqn8ULg8ujU6vVFzwucaGFR8FaOZfNraOi+6Rk+iUOoW9PJWh28n6t
+	 oUWEAfupDmoqJ4pftQ7iyz+kU9iQulXHRBluAIWo=
+Message-ID: <1bfa2747-7f57-4b96-a005-9f4a92fe35b3@linux.microsoft.com>
+Date: Thu, 17 Sep 2026 17:36:14 +0530
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDpb16tqDiSACA--.8S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKw1DWF4xJw1UArW7GFWUtwb_yoWkAwcE9F
-	4rXw1xZ3yIkrWjkF15Ca12vw4IvFyDXFWxJFWqqFWfJFWxJr4v9ryrZFn8AFsrtry8Cr1f
-	GFZ2qr47A3srWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbSxYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
-	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
-	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
-	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
-	IIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
-	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aV
-	CY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxU2U73DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qrrRmBsQAAsJ
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 6.1.y] net: mana: Reserve extra CQ slot for the fence
+ completion CQE
+To: Sasha Levin <sashal@kernel.org>, stable@vger.kernel.org
+Cc: Haiyang Zhang <haiyangz@microsoft.com>, Jakub Kicinski <kuba@kernel.org>
+References: <2026091623-upstairs-protrude-105f@gregkh>
+ <20260916234249.3300330-1-sashal@kernel.org>
+Content-Language: en-US
+From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+In-Reply-To: <20260916234249.3300330-1-sashal@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-ath12k_ahb_configure_rproc() returns the result of
-ath12k_ahb_config_rproc_irq() directly, so a failure there leaves the
-rproc notifier registered and the rproc reference taken by
-ath12k_ahb_get_rproc() unreleased. Route this failure through the error
-path that unregisters the notifier and drops the reference.
 
-Fixes: 10a355ba6238 ("wifi: ath12k: Power up root PD")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/wireless/ath/ath12k/ahb.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
-index 2dcf0a52e4c1..0b69ff42dd7a 100644
---- a/drivers/net/wireless/ath/ath12k/ahb.c
-+++ b/drivers/net/wireless/ath/ath12k/ahb.c
-@@ -889,7 +889,11 @@ static int ath12k_ahb_configure_rproc(struct ath12k_base *ab)
- 		}
- 	}
- 
--	return ath12k_ahb_config_rproc_irq(ab);
-+	ret = ath12k_ahb_config_rproc_irq(ab);
-+	if (ret < 0)
-+		goto err_unreg_notifier;
-+
-+	return 0;
- 
- err_unreg_notifier:
- 	ath12k_ahb_unregister_rproc_notifier(ab);
--- 
-2.34.1
+On 17/09/2026 05:12, Sasha Levin wrote:
+> From: Sahil Chandna <sahilchandna@linux.microsoft.com>
+> 
+> [ Upstream commit 80dd7e754b3aa9637a0758ad93fa209f9650ec48 ]
+> 
+> The RX completion queue is sized to hold exactly one CQE per posted RX WQE.
+> MANA_FENCE_RQ makes hardware post an additional CQE_RX_OBJECT_FENCE after
+> the packet CQEs. The current sizing reserves no extra slot for it and in
+> rare cases, CQ has no guaranteed slot for the fence CQE when it is full of
+> packet CQEs. This can lead to dropping the fence completion while the
+> driver waits holding RTNL lock throughout the timeout duration.
+> Reserve one extra CQE slot for CQE_RX_OBJECT_FENCE. mana_gd_alloc_memory()
+> requires queue_size to be a power-of-two and at least MANA_PAGE_SIZE;
+> the reservation pushes cq_size past a power-of-two, so round up the CQ size
+> in mana_create_rxq().
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 6cc74443a773 ("net: mana: Add RX fencing")
+> Signed-off-by: Sahil Chandna <sahilchandna@linux.microsoft.com>
+> Reviewed-by: Haiyang Zhang <haiyangz@microsoft.com>
+> Link: https://patch.msgid.link/20260901121837.3503240-1-sahilchandna@linux.microsoft.com
+> Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+> [ Replaced MANA_PAGE_ALIGN() with PAGE_ALIGN() to match the older tree. ]
+> Signed-off-by: Sasha Levin <sashal@kernel.org>
+> ---
+>   drivers/net/ethernet/microsoft/mana/mana_en.c | 6 +++++-
+>   1 file changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/microsoft/mana/mana_en.c b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> index 4afcb202e3509..2d1e5b83a0769 100644
+> --- a/drivers/net/ethernet/microsoft/mana/mana_en.c
+> +++ b/drivers/net/ethernet/microsoft/mana/mana_en.c
+> @@ -1662,6 +1662,10 @@ static int mana_alloc_rx_wqe(struct mana_port_context *apc,
+>   		*cq_size += COMP_ENTRY_SIZE;
+>   	}
+>   
+> +	/* Reserve an extra slot for Fence completion
+> +	 * event (CQE_RX_OBJECT_FENCE) in case RX CQ is full.
+> +	 */
+> +	*cq_size += COMP_ENTRY_SIZE;
+>   	return 0;
+>   }
+>   
+> @@ -1715,7 +1719,7 @@ static struct mana_rxq *mana_create_rxq(struct mana_port_context *apc,
+>   		goto out;
+>   
+>   	rq_size = PAGE_ALIGN(rq_size);
+> -	cq_size = PAGE_ALIGN(cq_size);
+> +	cq_size = PAGE_ALIGN(roundup_pow_of_two(cq_size));
+>   
+Hi Sasha,
+Thanks for fixing this for 6.1 kernel
+Regards,
+Sahil
+>   	/* Create RQ */
+>   	memset(&spec, 0, sizeof(spec));
 
