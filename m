@@ -1,99 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 626B733BBD7;
-	Thu, 17 Sep 2026 00:35:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3134B32ED21
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:37:22 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605333; cv=none; b=Q1+1bhebYjdUMsgLTN5A9ymbRUbtBRrbG00Gk/7fWjjuTIp8C18hms/FEyS9TY+ZQ3lLYTDeIkO7zD4a8jXb32N3H4pfrLGezSIonKZvDaEsYsM+pxnvcJ30akibi4wBldgg1S83Ij2/F8vzzdkykbJyk0sVCGktIdx8KRQJ1m8=
+	t=1789605444; cv=none; b=iXm/nuZqnvnaWFRaMDkYrGVYVS4GCM/gaKMbI7y+C9GhcYOr7eyXIfjS3M3BG/VvD1NPQ7EjU8W4pVhVfky+1H/WswKQ4HHT9DQYPqOfyrU7rQHJSbhvW4zSPMBf8i4fynC0fvxePAe/gVeNyOlUPX2PNYnD+9uXTjNiCQXpPKg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605333; c=relaxed/simple;
-	bh=2/tdqlw6vXtO24iaDv7futA5HHSvR37f6H9D1F192nQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Co8++7qDhzRr62QMMz/D34zTaGOUh52w3heJHRTjf17CI21P7sWbq4GwkbbrFzKpdP2JvjJJk0SR405lXp3TX13J4RzkmjkNX1tK1HsBgJkB/ZtAEgXmpie+NcaPe0SlUnDRNkzFj3taOUMMPaT62H0OlwzbakI4MD08OKKjMrg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5fL7zzn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789605444; c=relaxed/simple;
+	bh=9y16ZkKh6oayW4vk8/srh0hY4h0R2VpVH/RD3OT85oE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=h5a/jybYUNEWcGmOexxSqIZVDdphTPJDrw9gN6RZousdt/zklnlfVHfVVMrN5W7EeU3cdVxDdOerEhX/c6apEURmsnw8RjW9nK4TvLgAS6Ek4sP36tRi8w1usP5IaDxdFb8YteOIN2hWH31AGjN+c1EPe/G34weSL1Uj5xbuBac=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e4/VCBlG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5fL7zzn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 83E5A1F000FF;
-	Thu, 17 Sep 2026 00:35:30 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e4/VCBlG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A73B1F000FF;
+	Thu, 17 Sep 2026 00:37:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789605330;
-	bh=PYQ4YR8JKG2CF8G9dEZ1LC5DzF2Kh+srf0yaNn7gBAE=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=K5fL7zznlygisp113bqOqBLQQJG4kZTyzWOiUakcf8heHFe14OVocS5PSg/okN9b4
-	 gPElV/fFWTwi5ZRXBDT1DdAD59yeHyR4iBBK4zKG0HLQ0yFExx+iBpCglmIsZq4hoW
-	 F2/X7a+Jvsp5obrEkctN7v6tFTMhqY61oqjcuR5USinM/2SV0hd722UrcXzHIwgKc4
-	 T9HOBjwBlfYlM9NNCYutzrfrU65hLg7wOOyXVeAAH/3JxEEUgzK/ivDAFQHvY5Qq44
-	 t3IeS7uXpI9JvAXQBISz1yHxSzzR89J/ZqY3xBr8Nk8eLiihgRUdeyo4mFGufeT777
-	 e6NRa6DpjSFuQ==
-Date: Thu, 17 Sep 2026 01:35:28 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andy@kernel.org, dlechner@baylibre.com, gwendal@chromium.org,
- linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org,
- nuno.sa@analog.com, stable@vger.kernel.org
-Subject: Re: [PATCH] iio: light: acpi-als: Fix trigger reference leak in
- acpi_als_probe()
-Message-ID: <20260917013528.137c154e@jic23-hlaptop>
-In-Reply-To: <20260916163440.2084089-1-vulab@iscas.ac.cn>
-References: <20260916163440.2084089-1-vulab@iscas.ac.cn>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+	s=k20260515; t=1789605442;
+	bh=pIvxbapaaCSauMilZnF6MLq6V31ZWJuZaiGux9GlnfU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=e4/VCBlGnIBsRN2v7wQ8zmvtGeOiJhb4VYk4yOOwKNz50LLH938Cd2Yxhanf1jHox
+	 bONbkX0fn1FdDpBhQaUAj+x4zebtnJKELHob/NfoBwbwjpDKewwgAuOFTp22Ihog/5
+	 M295HslWpSuCowOxg/wXVeK563V2SZ0QNz4kj3L5xvDdc8ZjV0IBOD6Gg2+Bg7Ai6O
+	 Nlp6dN048J4cMfm68hszW+PqZ7BHKUuUG2Vd5FOR/55skVV9gGPsXUvg1ezpeylF5j
+	 q5ea/7/93Ih3DeQ9rORYStBSCbnUUwm9XdHsbG1GOq0cwETdET8WeZASbO5dtjufaj
+	 9UltXKc9Xx4Pw==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>,
+	syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] io_uring/rw: end write accounting from ->ki_complete
+Date: Wed, 16 Sep 2026 20:37:20 -0400
+Message-ID: <20260917003720.3435921-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091626-pacify-aluminum-bcbd@gregkh>
+References: <2026091626-pacify-aluminum-bcbd@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On Wed, 16 Sep 2026 16:34:40 +0000
-Wentao Liang <vulab@iscas.ac.cn> wrote:
+From: Jens Axboe <axboe@kernel.dk>
 
-> The reference taken with iio_trigger_get() is only dropped by
-> iio_dev_release() when INDIO_BUFFER_TRIGGERED is set. If
-> devm_iio_triggered_buffer_setup() fails before setting that mode, the
-> reference acquired for indio_dev->trig leaks. Move the
-> iio_trigger_get() after the buffer setup succeeds.
-> 
-> Fixes: 24b84444eb6f ("iio: acpi_als: Add trigger support")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-Same again.  Not going to introduce subtle ordering fixes like this.
-We need a comprehensive solution with appropriate changes in the
-IIO core to handle cleaning that reference up. See bma220 for
-more on this.
-> ---
->  drivers/iio/light/acpi-als.c | 11 ++++++-----
->  1 file changed, 6 insertions(+), 5 deletions(-)
-> 
-> diff --git a/drivers/iio/light/acpi-als.c b/drivers/iio/light/acpi-als.c
-> index ab229318dce9..ad95057d99c2 100644
-> --- a/drivers/iio/light/acpi-als.c
-> +++ b/drivers/iio/light/acpi-als.c
-> @@ -206,11 +206,6 @@ static int acpi_als_probe(struct platform_device *pdev)
->  	ret = devm_iio_trigger_register(dev, als->trig);
->  	if (ret)
->  		return ret;
-> -	/*
-> -	 * Set hardware trigger by default to let events flow when
-> -	 * BIOS support notification.
-> -	 */
-> -	indio_dev->trig = iio_trigger_get(als->trig);
->  
->  	ret = devm_iio_triggered_buffer_setup(dev, indio_dev,
->  					      iio_pollfunc_store_time,
-> @@ -219,6 +214,12 @@ static int acpi_als_probe(struct platform_device *pdev)
->  	if (ret)
->  		return ret;
->  
-> +	/*
-> +	 * Set hardware trigger by default to let events flow when
-> +	 * BIOS support notification.
-> +	 */
-> +	indio_dev->trig = iio_trigger_get(als->trig);
-> +
->  	ret = devm_iio_device_register(dev, indio_dev);
->  	if (ret)
->  		return ret;
+[ Upstream commit 796aa0547557e63338657ed1c487906f9fac4c73 ]
+
+Commit b000145e9907 moved both the fsnotify calls and the write
+accounting out of the kiocb completion handler and into the
+io_req_rw_complete() task_work. However, only the fsnotify part actually
+needed to move as it may sleep. Ending the write accounting is just a
+percpu_up_read() on the superblock writers sem.
+
+Deferring it is a problem, because it makes dropping SB_FREEZE_WRITE
+protection depend on the ring owner getting to running task_work. But
+the task may be blocked in freeze_super(), causing it to never get to
+that:
+
+  task                             io-wq worker
+  --------------------------------------------------------------
+  io_write()
+    io_kiocb_start_write()         (takes sb_writers, hidden from
+                                    lockdep by __sb_writers_release)
+    write_iter() -> -EIOCBQUEUED
+  ioctl(FS_IOC_SHUTDOWN)
+    bdev_freeze()
+      freeze_super()
+        percpu_down_write()        <- waits for the reader above
+                                   io_write()
+                                     kiocb_start_write()
+                                       percpu_down_read()  <- queued
+                                                              behind the
+                                                              writer
+  <bio completes>
+    io_complete_rw()
+      queues io_req_rw_complete()  <- never runs, task is in D state
+
+End the write from io_complete_rw() instead, and leave only the fsnotify
+calls in task_work.
+
+Reported-by: syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Fixes: b000145e9907 ("io_uring/rw: defer fsnotify calls to task context")
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ placed write-accounting release after __io_complete_rw_common() to accommodate the older retry path’s early return. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ io_uring/io_uring.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 8747c585a0770..8d5791d8f4031 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -2797,7 +2797,10 @@ static void io_req_task_complete(struct io_kiocb *req, bool *locked)
+ 
+ static void io_req_rw_complete(struct io_kiocb *req, bool *locked)
+ {
+-	io_req_io_end(req);
++	if (req->rw.kiocb.ki_flags & IOCB_WRITE)
++		fsnotify_modify(req->file);
++	else
++		fsnotify_access(req->file);
+ 	io_req_task_complete(req, locked);
+ }
+ 
+@@ -2807,6 +2810,10 @@ static void io_complete_rw(struct kiocb *kiocb, long res, long res2)
+ 
+ 	if (__io_complete_rw_common(req, res))
+ 		return;
++	/* ring owner may block in freeze_super() before task_work runs */
++	if (kiocb->ki_flags & IOCB_WRITE)
++		io_req_end_write(req);
++
+ 	req->result = io_fixup_rw_res(req, res);
+ 	req->io_task_work.func = io_req_rw_complete;
+ 	io_req_task_work_add(req);
+-- 
+2.53.0
 
