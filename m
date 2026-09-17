@@ -1,44 +1,67 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAD193B7752;
-	Thu, 17 Sep 2026 19:03:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3C4094ABBB0
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:03:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671796; cv=none; b=iI2gr0lDn3jq+w5vwCWkht754dvwHq7apbX2FsIXZ2RQ7iZ2U62DZEzz1gH1SlavWN18lh1s5p6bZ1tJRmswuDRQYsCxh7X2SP2gygds2oKRnkuT7/XRJVHhd+jE5GnQpt32UPNMZAG5YThpTQdqhd52IcJ/cYMciCEKP6Rp9IQ=
+	t=1789671798; cv=none; b=NI70zu7HtOiBV05Vu/omhjEyRguwmW5hW0j531T7MtUk455UAdPBhwWyqfDb/H+ZW4QyxZZbSIG+sQDEPXPvgFfnKnuZblCBE7tlWRHgKPOVbfCJWbKwzcilKps99VaAi9h8+oarQwWmOHgs3vuiKGlp8ui7Ol1JG0ZvL/0NbQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671796; c=relaxed/simple;
-	bh=cZySsJUP03q1+ILQ78a5g3UiEccpjxbiibo8SUR1SQ8=;
+	s=arc-20240116; t=1789671798; c=relaxed/simple;
+	bh=YuTxLUECdgv8wQnjykfLiiSbljluWKlJs1FuE2fg9ac=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M9fEloBuv0GF49aPTj7QXK4cqAP72e8OFMTS/++REBmhMph8dQDUELw3VLpNKxCPuwOtIenPYZyhcFtzJOxkUUBZbGpMTnfb5ViKLsKYUNcWSYs0sz9l2dXSeUZmDs/m9/dIvqw1cUBG4Bgas3I/a1+GntuXLjmXeHOFdriEd8c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=fjosvCbs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=P01KRYDA98KA8+jXwGsGrlZ0ZEBwcSM9iqca+YRyEtlDpzJo46pEpk0HCAyyqW1x0LmorlGuF4a49abTGV2lPxUxitHPF3vk0pVlr8XFvBBlJwPPa8qejNKx+vqsEB6RE/Pu/jBIxCUqwPDfuaEf6y4Xd3BRHYMsVpVtvRaSVl0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=CVf7P2gP; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="fjosvCbs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A1A861F000FF;
-	Thu, 17 Sep 2026 19:03:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789671794;
-	bh=UQucExAt3GtjNZQnGnZp1wYxgmTGujb2bWugSTmGAts=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=fjosvCbsPSX4xauOswtmW2cqmUnX/sgW44/tTgWtt76ek6yC90R2NGQhfoLqmjFiH
-	 Rp/1kenPUgZc/tRhK9q4y7NTzwHp4jPA9zF4Ji8G2ZiEIxe2MS8QojbR6nvlgyZK9e
-	 3FsOd3HZ0LH1WnZu0m39UswRxvA9DARLWZ3Hofn4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jeff Layton <jlayton@kernel.org>,
-	Al Viro <viro@zeniv.linux.org.uk>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1085/1102] rpc_populate(): lift cleanup into callers
-Date: Thu, 17 Sep 2026 16:17:08 +0100
-Message-ID: <20260917151608.091355706@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="CVf7P2gP"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789671795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=oUesHNqg+ZVQdyp3TqOiMgGR4RIEF42DCBqJOEUMffo=;
+	b=CVf7P2gPOAVgdP+dUxlJ9Xa2iF21ArdSmAQHZ8Nm0z0teqQyCwk9mz2VjejwPs8mWoxN0n
+	mYO7L1f/ZXdhwfFsyIP3MUs2QVdTWerOFaLnrbmEYTd1Km6VG8z6mTkuDEvg5PmCxP1haE
+	ITF6ZB4BDxpSJZDE303Z/7v5v4/Vens=
+Received: from mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-90-iDK-JP4kO3WRna3BMUBTAQ-1; Thu,
+ 17 Sep 2026 15:03:11 -0400
+X-MC-Unique: iDK-JP4kO3WRna3BMUBTAQ-1
+X-Mimecast-MFC-AGG-ID: iDK-JP4kO3WRna3BMUBTAQ_1789671789
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 9F4A4195C26B;
+	Thu, 17 Sep 2026 19:03:08 +0000 (UTC)
+Received: from ShadowPeak.redhat.com (unknown [10.44.49.1])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id DF81819AC047;
+	Thu, 17 Sep 2026 19:03:04 +0000 (UTC)
+From: Petr Oros <poros@redhat.com>
+To: netdev@vger.kernel.org
+Cc: Petr Oros <poros@redhat.com>,
+	stable@vger.kernel.org,
+	Tony Nguyen <anthony.l.nguyen@intel.com>,
+	Przemek Kitszel <przemyslaw.kitszel@intel.com>,
+	Andrew Lunn <andrew+netdev@lunn.ch>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Arkadiusz Kubalewski <arkadiusz.kubalewski@intel.com>,
+	intel-wired-lan@lists.osuosl.org,
+	linux-kernel@vger.kernel.org
+Subject: [PATCH iwl-net 1/2] ice: fix DPLL registration on boards without the SMA clock mux
+Date: Thu, 17 Sep 2026 21:02:57 +0200
+Message-ID: <20260917190258.3239282-2-poros@redhat.com>
+In-Reply-To: <20260917190258.3239282-1-poros@redhat.com>
+References: <20260917190258.3239282-1-poros@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,191 +69,99 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+The SMA and U.FL connectors of an E810-C timing board are routed by a
+PCA9575 GPIO expander, and ice_dpll_init_info_sw_pins() reaches it
+through ice_read_sma_ctrl(). On a board that carries a CGU but no such
+expander the netlist lookup fails with -ENXIO, which aborts
+ice_dpll_init_info() and with it the whole DPLL registration:
 
-------------------
+  ice 0000:cc:00.0: ice_dpll_init_info - fail: d->inputs:...
+  ice 0000:cc:00.0: DPLLs init failure err:-6
 
-From: Al Viro <viro@zeniv.linux.org.uk>
+Userspace loses the EEC and PPS devices, every CGU pin and the recovered
+clock pin.
 
-[ Upstream commit 8be22c49646e47452e74aa0b97ea50fb04c271ed ]
+The netlist describes the mux with a clock mux node, which
+ice_init_feature_support() already turns into ICE_F_SMA_CTRL. Key the
+software controlled pins on that flag. Without the mux the SMA wrappers
+stay inputs, the state the mux path programs at init anyway, and do not
+advertise DIRECTION_CAN_CHANGE. The U.FL pins are the other leg of the
+mux, so they are hidden, and the outgoing CGU pins stay visible as
+REF-SMA1 and REF-SMA2/U.FL2.
 
-rpc_populate() is called either from fill_super (where we don't
-need to remove any files on failure - rpc_kill_sb() will take
-them all out anyway) or from rpc_mkdir_populate(), where we need
-to remove the directory we'd been trying to populate along with
-whatever we'd put into it before we failed.  Simpler to combine
-that into simple_recursive_removal() there.
+The layout is not exotic, the E810_C827_SyncE_SFP_SEC configuration in
+Intel's 4.80 NVM package has no clock mux node either. Such boards
+worked until the SMA and U.FL redesign moved the expander access into
+the DPLL init path.
 
-Note that rpc_pipe is overlocking directories quite a bit -
-locked parent is no obstacle to finding a child in dcache, so
-keeping it locked won't prevent userland observing a partially
-built subtree.
-
-All we need is to follow minimal VFS requirements; it's not
-as if clients used directory locking for exclusion - tree
-changes are serialized, but that's done on ->pipefs_sb_lock.
-
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
-Signed-off-by: Al Viro <viro@zeniv.linux.org.uk>
-Stable-dep-of: 932a8cf6abb2 ("sunrpc: fix use-after-free in __rpc_clnt_handle_event and __rpc_clnt_remove_pipedir")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Fixes: 2dd5d03c77e2 ("ice: redesign dpll sma/u.fl pins control")
+Cc: stable@vger.kernel.org
+Signed-off-by: Petr Oros <poros@redhat.com>
 ---
- include/linux/sunrpc/rpc_pipe_fs.h |    2 +-
- net/sunrpc/clnt.c                  |   36 ++++++++++++++----------------------
- net/sunrpc/rpc_pipe.c              |   26 +++++++++++++-------------
- 3 files changed, 28 insertions(+), 36 deletions(-)
+ drivers/net/ethernet/intel/ice/ice_dpll.c | 20 +++++++++++++++++---
+ 1 file changed, 17 insertions(+), 3 deletions(-)
 
---- a/include/linux/sunrpc/rpc_pipe_fs.h
-+++ b/include/linux/sunrpc/rpc_pipe_fs.h
-@@ -98,7 +98,7 @@ static inline bool rpc_msg_is_inflight(c
- }
- 
- struct rpc_clnt;
--extern struct dentry *rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
-+extern int rpc_create_client_dir(struct dentry *, const char *, struct rpc_clnt *);
- extern int rpc_remove_client_dir(struct rpc_clnt *);
- 
- extern void rpc_init_pipe_dir_head(struct rpc_pipe_dir_head *pdh);
---- a/net/sunrpc/clnt.c
-+++ b/net/sunrpc/clnt.c
-@@ -112,47 +112,46 @@ static void rpc_clnt_remove_pipedir(stru
- 	}
- }
- 
--static struct dentry *rpc_setup_pipedir_sb(struct super_block *sb,
-+static int rpc_setup_pipedir_sb(struct super_block *sb,
- 				    struct rpc_clnt *clnt)
- {
- 	static uint32_t clntid;
- 	const char *dir_name = clnt->cl_program->pipe_dir_name;
- 	char name[15];
--	struct dentry *dir, *dentry;
-+	struct dentry *dir;
-+	int err;
- 
- 	dir = rpc_d_lookup_sb(sb, dir_name);
- 	if (dir == NULL) {
- 		pr_info("RPC: pipefs directory doesn't exist: %s\n", dir_name);
--		return dir;
-+		return -ENOENT;
- 	}
- 	for (;;) {
- 		snprintf(name, sizeof(name), "clnt%x", (unsigned int)clntid++);
- 		name[sizeof(name) - 1] = '\0';
--		dentry = rpc_create_client_dir(dir, name, clnt);
--		if (!IS_ERR(dentry))
-+		err = rpc_create_client_dir(dir, name, clnt);
-+		if (!err)
- 			break;
--		if (dentry == ERR_PTR(-EEXIST))
-+		if (err == -EEXIST)
- 			continue;
- 		printk(KERN_INFO "RPC: Couldn't create pipefs entry"
--				" %s/%s, error %ld\n",
--				dir_name, name, PTR_ERR(dentry));
-+				" %s/%s, error %d\n",
-+				dir_name, name, err);
- 		break;
- 	}
- 	dput(dir);
--	return dentry;
-+	return err;
- }
- 
- static int
- rpc_setup_pipedir(struct super_block *pipefs_sb, struct rpc_clnt *clnt)
- {
--	struct dentry *dentry;
--
- 	clnt->pipefs_sb = pipefs_sb;
- 
- 	if (clnt->cl_program->pipe_dir_name != NULL) {
--		dentry = rpc_setup_pipedir_sb(pipefs_sb, clnt);
--		if (IS_ERR(dentry))
--			return PTR_ERR(dentry);
-+		int err = rpc_setup_pipedir_sb(pipefs_sb, clnt);
-+		if (err && err != -ENOENT)
-+			return err;
- 	}
- 	return 0;
- }
-@@ -180,16 +179,9 @@ static int rpc_clnt_skip_event(struct rp
- static int __rpc_clnt_handle_event(struct rpc_clnt *clnt, unsigned long event,
- 				   struct super_block *sb)
- {
--	struct dentry *dentry;
--
- 	switch (event) {
- 	case RPC_PIPEFS_MOUNT:
--		dentry = rpc_setup_pipedir_sb(sb, clnt);
--		if (!dentry)
--			return -ENOENT;
--		if (IS_ERR(dentry))
--			return PTR_ERR(dentry);
--		break;
-+		return rpc_setup_pipedir_sb(sb, clnt);
- 	case RPC_PIPEFS_UMOUNT:
- 		__rpc_clnt_remove_pipedir(clnt);
- 		break;
---- a/net/sunrpc/rpc_pipe.c
-+++ b/net/sunrpc/rpc_pipe.c
-@@ -725,7 +725,6 @@ static int rpc_populate(struct dentry *p
- 	inode_unlock(dir);
- 	return 0;
- out_bad:
--	__rpc_depopulate(parent, files, start, eof);
- 	inode_unlock(dir);
- 	printk(KERN_WARNING "%s: %s failed to populate directory %pd\n",
- 			__FILE__, __func__, parent);
-@@ -749,14 +748,15 @@ static struct dentry *rpc_mkdir_populate
- 		goto out_err;
- 	if (populate != NULL) {
- 		error = populate(dentry, args_populate);
--		if (error)
--			goto err_rmdir;
-+		if (error) {
-+			inode_unlock(dir);
-+			simple_recursive_removal(dentry, NULL);
-+			return ERR_PTR(error);
-+		}
- 	}
- out:
- 	inode_unlock(dir);
- 	return dentry;
--err_rmdir:
--	__rpc_rmdir(dir, dentry);
- out_err:
- 	dentry = ERR_PTR(error);
- 	goto out;
-@@ -1046,19 +1046,19 @@ static void rpc_clntdir_depopulate(struc
-  * information about the client, together with any "pipes" that may
-  * later be created using rpc_mkpipe().
+diff --git a/drivers/net/ethernet/intel/ice/ice_dpll.c b/drivers/net/ethernet/intel/ice/ice_dpll.c
+index 85a74cd6ea1f3e..e0362b6bf332e5 100644
+--- a/drivers/net/ethernet/intel/ice/ice_dpll.c
++++ b/drivers/net/ethernet/intel/ice/ice_dpll.c
+@@ -107,6 +107,9 @@ static const struct dpll_pin_frequency ice_esync_range[] = {
   */
--struct dentry *rpc_create_client_dir(struct dentry *dentry,
--				   const char *name,
--				   struct rpc_clnt *rpc_client)
-+int rpc_create_client_dir(struct dentry *dentry,
-+			  const char *name,
-+			  struct rpc_clnt *rpc_client)
+ static bool ice_dpll_is_sw_pin(struct ice_pf *pf, u8 index, bool input)
  {
- 	struct dentry *ret;
++	if (!input && !ice_is_feature_supported(pf, ICE_F_SMA_CTRL))
++		return false;
++
+ 	if (input && pf->hw.device_id == ICE_DEV_ID_E810C_QSFP)
+ 		index -= ICE_DPLL_SW_PIN_INPUT_BASE_QSFP -
+ 			 ICE_DPLL_SW_PIN_INPUT_BASE_SFP;
+@@ -1213,6 +1216,8 @@ static int ice_dpll_sma_direction_set(struct ice_dpll_pin *p,
  
- 	ret = rpc_mkdir_populate(dentry, name, 0555, NULL,
- 				 rpc_clntdir_populate, rpc_client);
--	if (!IS_ERR(ret)) {
--		rpc_client->cl_pipedir_objects.pdh_dentry = ret;
--		rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
--	}
--	return ret;
-+	if (IS_ERR(ret))
-+		return PTR_ERR(ret);
-+	rpc_client->cl_pipedir_objects.pdh_dentry = ret;
-+	rpc_create_pipe_dir_objects(&rpc_client->cl_pipedir_objects);
-+	return 0;
- }
+ 	if (p->direction == direction && p->active)
+ 		return 0;
++	if (!ice_is_feature_supported(p->pf, ICE_F_SMA_CTRL))
++		return -EOPNOTSUPP;
+ 	ret = ice_read_sma_ctrl(&p->pf->hw, &data);
+ 	if (ret)
+ 		return ret;
+@@ -4510,9 +4515,14 @@ static int ice_dpll_init_info_sw_pins(struct ice_pf *pf)
+ 						  true, &freq_supp_num);
+ 		pin->prop.freq_supported_num = freq_supp_num;
+ 		pin->prop.capabilities =
+-			(DPLL_PIN_CAPABILITIES_DIRECTION_CAN_CHANGE |
+-			 DPLL_PIN_CAPABILITIES_PRIORITY_CAN_CHANGE |
+-			 caps);
++			(DPLL_PIN_CAPABILITIES_PRIORITY_CAN_CHANGE | caps);
++		if (ice_is_feature_supported(pf, ICE_F_SMA_CTRL)) {
++			pin->prop.capabilities |=
++				DPLL_PIN_CAPABILITIES_DIRECTION_CAN_CHANGE;
++		} else {
++			pin->active = true;
++			pin->direction = DPLL_PIN_DIRECTION_INPUT;
++		}
+ 		pin->pf = pf;
+ 		pin->prop.board_label = ice_dpll_sw_pin_sma[i];
+ 		pin->input = &d->inputs[pin_abs_idx];
+@@ -4526,6 +4536,7 @@ static int ice_dpll_init_info_sw_pins(struct ice_pf *pf)
+ 		pin->idx = i;
+ 		pin->prop.type = DPLL_PIN_TYPE_EXT;
+ 		pin->prop.capabilities = caps;
++		pin->hidden = !ice_is_feature_supported(pf, ICE_F_SMA_CTRL);
+ 		pin->pf = pf;
+ 		pin->prop.board_label = ice_dpll_sw_pin_ufl[i];
+ 		if (i == ICE_DPLL_PIN_SW_1_IDX) {
+@@ -4555,6 +4566,9 @@ static int ice_dpll_init_info_sw_pins(struct ice_pf *pf)
+ 		ice_dpll_phase_range_set(&pin->prop.phase_range, phase_adj_max);
+ 	}
  
- /**
-
++	if (!ice_is_feature_supported(pf, ICE_F_SMA_CTRL))
++		return 0;
++
+ 	/* Initialize the SMA control register to a known-good default state.
+ 	 * Without this write the PCA9575 GPIO expander retains its power-on
+ 	 * default (all outputs high) which makes all SW pins appear inactive.
+-- 
+2.55.0
 
