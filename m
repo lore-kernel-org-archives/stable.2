@@ -1,43 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5C2E4B7A43
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:09:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 487DB4B7A28
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:09:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657755; cv=none; b=d1LEA9OPzgHZBDlpR6g6aGaWWJus5f5GkJC5c3iRLbSnm3ildL9iIYyno00K2OaE+nj0xgI2XH3XR4sTjXHPXHpV4RrTBrBxOKxGzOKWIkdkINuSlLzrDrME5am8mPCItGy2upzNB71tjyxqyFXL7gCmgS9H41Rwj6LWM4+q9Hw=
+	t=1789657755; cv=none; b=ZS8yfv3sSQMy5sCUSjkot49k4FiQvLaPO7a2unOHVnapRRyM05xqTFhg8U2e/qcpTHeOTDtvfEA+nhdJLHqjWf/CZRNGgYmGrOvebL2Az3vR2IvxPtJQLyNEW3h8ZKk0LzHUpcEuedtZQb+ObE/UZXIQ5M+M8yOYVglWHZ5X6cY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789657755; c=relaxed/simple;
-	bh=Qf/2XXNTiJ954lOYbKq+UVIFPtzqH+q5h/q1mIlFU9M=;
+	bh=z1VHY4T7M9k6TDkBT9WdEzTSx/83nH23z6nqb0C17C0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=i8tLjAPpb8XvN8IaQwXMPUFJG78yKGVXKGqb6P7H3dhTyo14X/QDng29M8Lr8Ng1cvrcG2x1a84aJVNNEVhgwElQ5JLSLG/w2YBFeAYSuPvvuJ+7ZMrc0z8WglDqRwxNmADUQlETuiWWCQ1yiSXaVuVFbnX+16x541HE+jzZKl8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GK84NXYk; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=K3hJJiYw/sJ4eQ35AH7VHDWhoGotnHW8RrmtNPDWU8ZW+D9tVIYcS1kW5E+UZwcjajY7FKhVqwVcw5ttxP4YbefDNVrWWme7EyFgtCe2P4yPLcCzMR5LdFQ8Y2GAIhq+BYzBTRmLBPgg+kzfRdXESWJZPTx2Du4YS2rau6rAHCg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nX+8L2UD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GK84NXYk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 612F51F0089E;
-	Thu, 17 Sep 2026 15:08:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nX+8L2UD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 060C51F00899;
+	Thu, 17 Sep 2026 15:08:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789657740;
-	bh=UXxxLQG7pOlSCvtEvnPDRbWNQedfyHWEc7iQoL1muJU=;
+	s=k20260515; t=1789657738;
+	bh=U/wN1vRam8lWe8CqgE6JeQvuKBfziUnWHvLIBvp7uBQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GK84NXYkQBSoOMRBqt6vFxLm98pi9GRc/9aE+6C2BcDqmq65vV7kI5i7ru5rsV3r7
-	 9PvbxCG0ifErwX6A30Mq1XqfkCPt+l+X06tTrK6D9Hgsc+KSHA6y7HGuRrYOPrjP3t
-	 GcMKyMjmmNJEQnWYj5UH9bachitomrM4Lw6qSTf6I0+8YNPfAGQs8gOTEY4F/rsQIq
-	 reHlR7QjGp9ZYDyjKbT+Su1kuh1MC6Lp9ExopCjDf0rYkPQa5/JlGKW9iIjU+/+WRb
-	 KM/G51EUj9XEPlVvdZUf0cs1XWObzL9I94DFcIKWfBNuX9UYCRrJu/igyI+5V3i/M0
-	 2WFq2mBfg3N8g==
+	b=nX+8L2UDUDBSRe7avWt+hJ3vqOKwEntrKUfjYZ65UoabcjmL/1UERa7J35L2qmCLk
+	 3SoFkHx9XYqXKrXDiPblEHvqTFftFQq3V2aGo2odrcLsYJ012hWQjP/xGmjspf0wUo
+	 7hxmsOU0UutcJreHSaQ6sezwtMw8Z5taLHwmgKVggA52MsZzz3XCgujRvqz2uV0cMy
+	 EJYf4hx8w/d428dTQMc7a5Im58FMA1OfyCWvy09/ZoZZT/bvcGhpKBDVnVwQN44iwq
+	 HD1SvKEqzWoycZlRyxgQmbIMCjZOb2JfwzC40bZHOUvg3lmfRHOw8iOrNxwQ9894cg
+	 BYE1KU4OQ4faQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: "Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] xfs: strengthen the "is cow staging" helpers in scrub
-Date: Thu, 17 Sep 2026 11:08:57 -0400
-Message-ID: <20260917150857.682062-1-sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
+Date: Thu, 17 Sep 2026 11:08:56 -0400
+Message-ID: <20260917150856.681982-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091609-voting-wager-2b45@gregkh>
-References: <2026091609-voting-wager-2b45@gregkh>
+In-Reply-To: <2026091606-employed-agency-982d@gregkh>
+References: <2026091606-employed-agency-982d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,46 +49,129 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: "Darrick J. Wong" <djwong@kernel.org>
+From: Paulo Alcantara <pc@manguebit.org>
 
-[ Upstream commit 0d43368844a75ad13561a1198a3b027940730756 ]
+[ Upstream commit 18a72975e9f35aadecc75b031f693f2d1f49308f ]
 
-LOLLM pointed out a bug in both of the refcount scrub predicates that
-determine if a range of blocks is marked as CoW staging in the btree.
-While it compares blockcount < len, this isn't enough to determine that
-the CoW staging record is at least as large as the range passed into the
-helper.  Fix both of them.
+When the administrator mounts with forceuid or forcegid (uid=/gid=
+mount options), they expect all files to appear owned by the specified
+user/group.  However, several code paths unconditionally called
+sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
+ignoring the administrator's explicit override:
 
-Cc: stable@vger.kernel.org # v4.16
-Fixes: f6d5fc21fdc713 ("xfs: cross-reference refcount btree during scrub")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-[ Omitted the rtrefcount.c hunk because Linux 6.12 lacks realtime refcount scrub support. ]
+  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
+  - cifs_posix_to_fattr() (readdir via POSIX extensions)
+  - parse_sec_desc() (CIFS ACL ownership mapping)
+
+This allowed an untrusted server to dictate local file ownership even
+when the mount was configured to force specific uid/gid values.
+
+Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
+CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
+same pattern already used by cifs_unix_basic_to_fattr() for unix
+extensions.
+
+Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: stable@vger.kernel.org
+[ replaced cifs_sb_flags(cifs_sb) with cifs_sb->mnt_cifs_flags because the older tree lacks the accessor. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/xfs/scrub/refcount.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ fs/cifs/cifsacl.c | 29 ++++++++++++++++++-----------
+ fs/cifs/readdir.c |  9 +++++++--
+ 2 files changed, 25 insertions(+), 13 deletions(-)
 
-diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
-index 2744eecdbaf01..660af9b1acb05 100644
---- a/fs/xfs/scrub/refcount.c
-+++ b/fs/xfs/scrub/refcount.c
-@@ -455,8 +455,12 @@ xchk_xref_is_cow_staging(
- 	if (!has_cowflag || rc.rc_refcount != 1)
- 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
- 
-+	/* Can't start after bno */
-+	if (rc.rc_startblock > agbno)
-+		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+diff --git a/fs/cifs/cifsacl.c b/fs/cifs/cifsacl.c
+index 1b52e0c88877a..15ce5a56f017e 100644
+--- a/fs/cifs/cifsacl.c
++++ b/fs/cifs/cifsacl.c
+@@ -1273,6 +1273,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ {
+ 	int rc = 0;
+ 	struct cifs_sid *owner_sid_ptr, *group_sid_ptr;
++	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
+ 	struct cifs_acl *dacl_ptr; /* no need for SACL ptr */
+ 	char *end_of_acl = ((char *)pntsd) + acl_len;
+ 	__u32 dacloffset;
+@@ -1289,17 +1290,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ 		 pntsd->revision, pntsd->type, le32_to_cpu(pntsd->osidoffset),
+ 		 le32_to_cpu(pntsd->gsidoffset),
+ 		 le32_to_cpu(pntsd->sacloffset), dacloffset);
+-/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
 +
- 	/* Must be at least as long as what was passed in */
--	if (rc.rc_blockcount < len)
-+	if (rc.rc_startblock + rc.rc_blockcount < agbno + len)
- 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+ 	rc = parse_sid(owner_sid_ptr, end_of_acl);
+ 	if (rc) {
+ 		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
+ 		return rc;
+ 	}
+-	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
++		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
++				 __func__, rc);
++			return rc;
++		}
+ 	}
+ 
+ 	rc = parse_sid(group_sid_ptr, end_of_acl);
+@@ -1308,11 +1313,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
+ 			 __func__, rc);
+ 		return rc;
+ 	}
+-	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
+-	if (rc) {
+-		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
+-			 __func__, rc);
+-		return rc;
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
++		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
++		if (rc) {
++			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
++				 __func__, rc);
++			return rc;
++		}
+ 	}
+ 
+ 	if (dacloffset) {
+diff --git a/fs/cifs/readdir.c b/fs/cifs/readdir.c
+index 7c47a03afbcc3..1510ff1ebe907 100644
+--- a/fs/cifs/readdir.c
++++ b/fs/cifs/readdir.c
+@@ -232,6 +232,7 @@ static void
+ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 		    struct cifs_sb_info *cifs_sb)
+ {
++	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
+ 	struct smb2_posix_info_parsed parsed;
+ 
+ 	posix_info_parse(info, NULL, &parsed);
+@@ -276,8 +277,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
+ 	if (reparse_file_needs_reval(fattr))
+ 		fattr->cf_flags |= CIFS_FATTR_NEED_REVAL;
+ 
+-	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
+-	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
++	fattr->cf_uid = cifs_sb->ctx->linux_uid;
++	fattr->cf_gid = cifs_sb->ctx->linux_gid;
++	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
++		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
++	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
++		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
  }
  
+ static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
 -- 
 2.53.0
 
