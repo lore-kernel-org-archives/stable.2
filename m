@@ -1,91 +1,98 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7CCF74DD3A6;
-	Thu, 17 Sep 2026 11:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7DF5C4DA9C9;
+	Thu, 17 Sep 2026 11:32:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789644759; cv=none; b=QjPXEC2qbYKQMjFxBF1oWZwgSn/T6ZMgVGoNGHeP+QABMfc+oo+xHwDMKzfb2Tcb/I58xnrlWtOF7Si95B+TothUSxORvgoWN5D0N9O8l7ZZr8XgjUKjsOqANVCQbJEKT82wdKgYfxSlmMeRlU3H0s0DwO+A4svmk/nVAAfW1s0=
+	t=1789644770; cv=none; b=a6gEwqbze0JQt7pL1YyyB943rPfQdDiP9y0kN6Zi1zmjS+psPM42bPY61nlG/pOMSOcstzZd3Dc8Qw8MuOQR0HdAdxPBWjN4mcwsDZuqPN1Rumr9m2hQI4OItcitFdgw2yh0mTd3MZx2OqI3O5AHHLXYf+rd3zrlSZgKi7Y4Uro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789644759; c=relaxed/simple;
-	bh=v7Qytqm7ondVmKEizFYK+ogiJgUcD2OLVftKNCOl8aw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FwLRLQ/W2D6E/ier77iEuUf8sHxQTbZ+RQXMc8+3Y49c8LylzfBo9KfIQIKyOFKcevYtC6xZDxTPIebhUvnmiP0upE8riTVdxyLG1sEurQrG8X/WHwnS768P9ETGe/JJZy/drwJKb3BLflBl4/CgueNlL63x+39tgvXNoE0kUcs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Brx3V4hj; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Brx3V4hj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E8DE51F000FF;
-	Thu, 17 Sep 2026 11:32:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789644758;
-	bh=NT3AR/HzkEf6lxJ23rCzyAMbJ3c/PpXIqyCYUYbJrjI=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=Brx3V4hj6iv2s2o4b/6RjtWMtmMAoZYawz3bokFPQRCMRlUfaD+1wGY6VriFLB2zL
-	 Bla85UWBJyND1xUbcHVsTrXqnjpEEKBh0yhI6kD00DVCMYR579I9DqwcdGnRSYpXV3
-	 wRT+DZzPpeqoOosfhQGo8hwBiyGUruI9ujxBqMkdG60PqKsJdjI7eW964wk15WFo3g
-	 /tsr/JmHYyPlDUN9+xt6UJX3I6gN7NMSQ6uVsP5Z6WZuUuVJKgMUrgBsOrwOHVPzTz
-	 NU/LQOxR5+9TpiHpiSBwhU4QzWQd3qmBmdAAEK0E7fVihGnCaXokjSls4IfXd8KxW2
-	 HHsQFnV1vn7tg==
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: lgirdwood@gmail.com, linux-kernel@vger.kernel.org, 
- linux-sound@vger.kernel.org, patches@opensource.cirrus.com, perex@perex.cz, 
- tiwai@suse.com, stable@vger.kernel.org
-In-Reply-To: <20260916072900.1971595-1-vulab@iscas.ac.cn>
-References: <20260916072900.1971595-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: arizona-jack: Fix runtime PM imbalance in
- arizona_start_hpdet_acc_id()
-Message-Id: <178959288860.414407.1871874696214616582.b4-ty@b4>
-Date: Wed, 16 Sep 2026 22:08:08 +0100
+	s=arc-20240116; t=1789644770; c=relaxed/simple;
+	bh=fbHXvmKOQi7lptd0zwotyyxzeNLMMJRcpctqvdc/Y2E=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=MmP0r9Rtf3+V10AF7VtIe1PgsfMbj5kFDoY34YFGzdL0/1ZTKTvMasfR01J3sC+0TotGDqjM6vQkchy6q1/fGhXp02ySwYQC+tQh1uN7k47Jxug/jcItRbs5RvcXGAipl+iGXfaafxoy3SJCb5N5ydxNOrEtC+coKBzlB7imTGc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB34jzUz6tqHKF_CA--.1763S2;
+	Thu, 17 Sep 2026 19:32:36 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	idosch@nvidia.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	petrm@nvidia.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mlxsw: spectrum_flower: Fix port range register leak
+Date: Thu, 17 Sep 2026 11:32:36 +0000
+Message-Id: <20260917113236.2149095-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1170; i=broonie@kernel.org;
- h=from:subject:message-id; bh=v7Qytqm7ondVmKEizFYK+ogiJgUcD2OLVftKNCOl8aw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqq8/SCSDvzS26PdxoKyK5Yqm2uk+FFOjOhCCOX
- wJSZPCLj0uJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqvP0gAKCRAk1otyXVSH
- 0KjyB/0QVU8d2fESglgTSzoDpkESbY6JXUdnHh8RHelGUqwXz23rHoiLg6DIWtVL48CGJCw+6qt
- wUtqgh5MFCs/o1stIPZuslTvs9iGcOdaxVUnqFp6Cz0p+2lXjhOuo90EC2pKhqx3sK95AF1m2m3
- YK6OBQCoWbDQXCRossyYuE7+lR7KrIxnmuePEPKxVBxHs+AkJfA1WpCTZXKomMH11LVpkB8Gnml
- MhfR9O3MitREwd6uNN9XGsmclbN8OTFGRQ/gJB1xGXoUaifrOv00d8S0H2AwPCco0kOMZC0Pl9h
- yesSvuHBn6xI4qy8xQEz/o7uXeiJyAhDngUol8iQoln0tPnc
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB34jzUz6tqHKF_CA--.1763S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF1kWF4kZF4UGFW8ZFyrWFg_yoW8XFy8pa
+	17G34jgr93Xr45Za1Dta1FqFyrKw1Iq3yruryfKasxZF1FyayakwnrZF4qkw1UKrW8Ar95
+	Xr12va4rCF1DC3JanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07bnXd8UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgMNA2qrq3Z0XQACs8
 
-On Wed, 16 Sep 2026 07:29:00 +0000, Wentao Liang wrote:
-> ASoC: arizona-jack: Fix runtime PM imbalance in arizona_start_hpdet_acc_id()
+mlxsw_sp_flower_parse_ports_range() acquires the source port range
+register before the destination one.  If the destination lookup then
+fails, the source register reference is left behind in a partially
+filled rule info, and callers that pass a stack allocated rule info
+never release it.  Release the source register before returning the
+error so that the reference is not leaked.
 
-Applied to
+Fixes: fe22f7410527 ("mlxsw: spectrum_flower: Add ability to match on port ranges")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c | 8 +++++++-
+ 1 file changed, 7 insertions(+), 1 deletion(-)
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/sound.git for-7.4
-
-Thanks!
-
-[1/1] ASoC: arizona-jack: Fix runtime PM imbalance in arizona_start_hpdet_acc_id()
-      https://git.kernel.org/broonie/sound/c/e04dcb895b46
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
+index 353fd9ca89a6..4cad6c46b07e 100644
+--- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
++++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
+@@ -486,8 +486,14 @@ mlxsw_sp_flower_parse_ports_range(struct mlxsw_sp *mlxsw_sp,
+ 
+ 		err = mlxsw_sp_port_range_reg_get(mlxsw_sp, &range,
+ 						  f->common.extack, &prr_index);
+-		if (err)
++		if (err) {
++			if (rulei->src_port_range_reg_valid) {
++				mlxsw_sp_port_range_reg_put(mlxsw_sp,
++							    rulei->src_port_range_reg_index);
++				rulei->src_port_range_reg_valid = false;
++			}
+ 			return err;
++		}
+ 
+ 		rulei->dst_port_range_reg_index = prr_index;
+ 		rulei->dst_port_range_reg_valid = true;
+-- 
+2.34.1
 
