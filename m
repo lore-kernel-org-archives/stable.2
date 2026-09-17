@@ -1,47 +1,37 @@
-Received: from out28-170.mail.aliyun.com (out28-170.mail.aliyun.com [115.124.28.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E24C94BD361;
-	Thu, 17 Sep 2026 10:32:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207984A2046;
+	Thu, 17 Sep 2026 10:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641139; cv=none; b=qP3fYKPDZtOzn1H5dOlHapk763UuUzzar8HC1fZNs7Oz9RjZRYcLyAGydhOk6We9cUH4mFEHbPqwo4OKb20hHSbNviw8b8udN3MVm/+vJyKvltVd2+1q5YIUOd0WhiVou7eVI5XoqIwBMXQCkMstaR6byPSP0rx/5Yr5Gy/MyOc=
+	t=1789641160; cv=none; b=GhCF5DdDDobHs8w6qgT/Xhirl8zMvrExmdVrjlhRmsTkx6ACYNyWp5QaH6NVTeCrcNKkuC7eFqKjFP2QnGHR/+eFe1jxc3yxCPPk/EpfUhukoVuAQYS4GbT5vod9t6bFueg+dJMu4IzmI3R8qzyuf2UK2DPrZ0DEQTJpQgL74fs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641139; c=relaxed/simple;
-	bh=E5u6pFOAMO/003GOJUov5E9oMgUUOX9dsqS294n/pvM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=UfVs3EmSzdtObO6PGVF5fTMksHB82UnekzdvOGe2+s1vTwJzKOfszNoDc6cMXZE1qTk9BzcgHfO83CmdXCgdjpG5a/q5joOXyS0XC6k+G+rMGd175OX49/yYWcr+Csm/SuuArlM9Vcd3a7/lN78RCaF3vrdwH8jZTdno9npBJg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=FYcO+E3I; arc=none smtp.client-ip=115.124.28.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="FYcO+E3I"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789641128; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=92DqYzsY5tQw8zrK7ygfUYU1Rl0yvZP1MFAZ/+j1d2Y=;
-	b=FYcO+E3I4dCg0XWVrTf5qHdgm1PgOnrnOcSj0YC2Lxm379gpfFHlzAtbCOc98A5kwnRAzuPcpu6+rAtofY03FMmZbliL1fhwM+ayPRF3YUb7AVdCIQSMzNzn3NE02qQxYz8H4n7jgrMKJ6q++DbsbEN43amxGJKvQ9vi9sfHXyY=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.0743678|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0333185-0.00133189-0.96535;FP=10121135997339731664|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037025160;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=13;RT=13;SR=0;TI=SMTPD_---.jFzyINx_1789641126;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFzyINx_1789641126 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 18:32:07 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
-To: neal_liu@aspeedtech.com,
-	gregkh@linuxfoundation.org
-Cc: joel@jms.id.au,
-	andrew@codeconstruct.com.au,
-	ryan_chen@aspeedtech.com,
-	billy_tsai@aspeedtech.com,
-	linux-aspeed@lists.ozlabs.org,
-	linux-usb@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
+	s=arc-20240116; t=1789641160; c=relaxed/simple;
+	bh=f2kr8PmdCVWr86p1NW2i3K28lMuauysr3sb4zu+meQY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p44tlyrozN8o0TtaHh6PhcjvRB/Dd+dTe4b7Sgg+4YUIZOv46ohVZ8T8FLpzgD8lmZoAyCD809fzUhcli7S0R7BGoCY2tWvpvqotr9sNUXtpFtLychx6rkNO+vxLpBqMiufs8rp6BA0E/Wt7+JKpHE07yrCt4ETMjYV2IpSnSL0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH8z27watqobB+CA--.787S2;
+	Thu, 17 Sep 2026 18:32:27 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: James.Bottomley@suse.de
+Cc: MPT-FusionLinux.pdl@broadcom.com,
+	kashyap.desai@lsi.com,
 	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	liuwb@xiaopeng.com,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] usb: gadget: aspeed: clamp transfer length in RX completion handlers
-Date: Thu, 17 Sep 2026 18:32:04 +0800
-Message-ID: <20260917103205.3049861-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	linux-scsi@vger.kernel.org,
+	ranjan.kumar@broadcom.com,
+	sathya.prakash@broadcom.com,
+	sreekanth.reddy@broadcom.com,
+	suganath-prabu.subramani@broadcom.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: message: fusion: Fix scsi_device reference leak in mptspi_write_spi_device_pg1()
+Date: Thu, 17 Sep 2026 10:32:27 +0000
+Message-Id: <20260917103227.2147120-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,62 +39,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH8z27watqobB+CA--.787S2
+X-Coremail-Antispam: 1UD129KBjvdXoWruF18KryxKr1UAw4fXFW5Wrg_yoWktFX_uF
+	1FvFn7X348WF1Iva4fZr9I9ryfKFsrW392qa4IqFs3trWUZry8Xr1fZFZ8Cw4DuF48ur13
+	C3WkAayrGw15GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbgkYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxU7WE_DUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJpLFwAAsp
 
-ast_udc_ep0_out(), ast_udc_epn_handle() and ast_udc_epn_handle_desc()
-read the received byte count from hardware registers and add it to
-req->req.actual without clamping against the remaining buffer space
-(req->req.length - req->req.actual).
+scsi_device_lookup_by_target() returns the scsi_device with an extra
+reference that the caller has to drop with scsi_device_put().  The
+loop that looks for a tape device to enable inline data padding
+never releases that reference, neither when it breaks out on a
+match nor when it keeps iterating over the other target ids, so a
+reference is leaked on every write of the device page.
 
-When actual reaches or exceeds length, the subsequent DMA has already
-written past the end of the request buffer.  Across multiple short
-packets the overrun grows with each completion.
+Drop the reference in both cases.
 
-A malicious or malfunctioning USB host can exploit this to trigger a
-heap buffer overflow in any gadget function (e.g. f_mass_storage,
-f_fs) layered on top of this UDC.
-
-Clamp the received length to the remaining space before accumulating
-it in all three RX completion paths.
-
-Fixes: 055276c13205 ("usb: gadget: add Aspeed ast2600 udc driver")
+Fixes: 19fff154e7ee ("[SCSI] mptfusion: Adding inline data padding support for TAPE drive.")
 Cc: stable@vger.kernel.org
-Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/usb/gadget/udc/aspeed_udc.c | 6 ++++++
- 1 file changed, 6 insertions(+)
+ drivers/message/fusion/mptspi.c | 4 ++++
+ 1 file changed, 4 insertions(+)
 
-diff --git a/drivers/usb/gadget/udc/aspeed_udc.c b/drivers/usb/gadget/udc/aspeed_udc.c
-index 54f81e668..53f6218b4 100644
---- a/drivers/usb/gadget/udc/aspeed_udc.c
-+++ b/drivers/usb/gadget/udc/aspeed_udc.c
-@@ -793,6 +793,8 @@ static void ast_udc_ep0_out(struct ast_udc_dev *udc)
- 	req = list_entry(ep->queue.next, struct ast_udc_request, queue);
+diff --git a/drivers/message/fusion/mptspi.c b/drivers/message/fusion/mptspi.c
+index 56892b1f3de2..89d6beba08ca 100644
+--- a/drivers/message/fusion/mptspi.c
++++ b/drivers/message/fusion/mptspi.c
+@@ -914,8 +914,12 @@ static int mptspi_write_spi_device_pg1(struct scsi_target *starget,
+ 				nego_parms |= MPI_SCSIDEVPAGE1_RP_IDP;
+ 				pg1->RequestedParameters =
+ 				    cpu_to_le32(nego_parms);
++				scsi_device_put(sdev);
+ 				break;
+ 			}
++
++			if (sdev)
++				scsi_device_put(sdev);
+ 		}
+ 	}
  
- 	rx_len = EP0_GET_RX_LEN(ast_udc_read(udc, AST_UDC_EP0_CTRL));
-+	if (rx_len > req->req.length - req->req.actual)
-+		rx_len = req->req.length - req->req.actual;
- 	req->req.actual += rx_len;
- 
- 	SETUP_DBG(udc, "req %p (%d/%d)\n", req,
-@@ -865,6 +867,8 @@ static void ast_udc_epn_handle(struct ast_udc_dev *udc, u16 ep_num)
- 	req = list_first_entry(&ep->queue, struct ast_udc_request, queue);
- 
- 	len = EP_DMA_GET_TX_SIZE(ast_ep_read(ep, AST_UDC_EP_DMA_STS));
-+	if (len > req->req.length - req->req.actual)
-+		len = req->req.length - req->req.actual;
- 	req->req.actual += len;
- 
- 	EP_DBG(ep, "req @%p, length:(%d/%d), %s:0x%x\n", req,
-@@ -944,6 +948,8 @@ static void ast_udc_epn_handle_desc(struct ast_udc_dev *udc, u16 ep_num)
- 
- 	} while (i != wr_ptr);
- 
-+	if (total_len > req->req.length - req->req.actual)
-+		total_len = req->req.length - req->req.actual;
- 	req->req.actual += total_len;
- 
- 	EP_DBG(ep, "req @%p, length:(%d/%d), %s:0x%x\n", req,
 -- 
-2.50.1
+2.34.1
 
