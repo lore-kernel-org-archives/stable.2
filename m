@@ -1,38 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEDEA53B5F8;
-	Thu, 17 Sep 2026 15:35:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA768511E90;
+	Thu, 17 Sep 2026 15:35:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659327; cv=none; b=uWA/6oKZmPOBajJItGVi8gUqPdyRFaWv3JW5AfLFWCKyuPl4kq6FbfVEjM9AWKKzYFnT/Hxs6iFsJotazzuN05SA7ul4X/1fFJf9i2d+zO2JRfxTHzpyoMSCewGFJiq821UsML1u6dAJ2iLTPNaYSI5Xjq1V5I8y6nc2KO5secQ=
+	t=1789659336; cv=none; b=FrdVyPdyBgngsKoOqRr8B3h4NtrOh85WKZT1O54xwH4lXN9abL0kthm8hT5ZCOZrMfF4V7cL2nd/QNKWDSmC/AQCPSxG3UZeGG0yL+2w3WZskVKD1r+w41nxgysO0W14+XAl1mp0Iuw7PdAQ8RXHglueRGQC2IB7+yfWhETmGqo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659327; c=relaxed/simple;
-	bh=zQvS5BuO9AKvLIveh4EeDEzYW+3ZoSXCOp6GMszTi5g=;
+	s=arc-20240116; t=1789659336; c=relaxed/simple;
+	bh=qWkRAC+kZ7WVf/ugzeI57+jBOFbddlISw+SOCLwUBPM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sd8vXjYy+kV/itcrBQC1WNl//yorQNWRrE8UIBeoI136mXK8QycR98u4+pMbb6FTWiP7rf59Ew3tPy+i3j3Lgw1n/Fir2GC1KBxIMnif9+CpZpoe4R1RXXhQqpLdHhpE/Wi6lvfXQpo5B+r27b+iWvT9WOCMcuu6me/7sVwN5HU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=B+qF8gb8; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=FFHhfJoKFCpy5SyTBHijQo19MaJ1BE7B0tq4zc3j8pyRkfAyAkyQnLpLBo0broaV/0Jhj7ZozN1j78rPzkYQEpqr5D4O7MHAXywnFyZvDubGzLKAhorjr4tEBNfY1xAupSW52pLxCc3iNOZfL4h11g2eleiN4DZKpMAUeYvbXfg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YfcMA9qK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="B+qF8gb8"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 62F9F1F00898;
-	Thu, 17 Sep 2026 15:35:20 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YfcMA9qK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BB91F00893;
+	Thu, 17 Sep 2026 15:35:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659321;
-	bh=1o5Yw8uRUOtptzBacl/943pwIXKEY/UjfTbHPWbltUs=;
+	s=korg; t=1789659326;
+	bh=s43cNHyQ+EY2JzB0SgaQTxueJGIL/bZiWO8yTVSHOis=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=B+qF8gb8rqmXW1FOCOjdS/ZFwAElop1jLxh4BWNS4nqLfgZpWHGt5/Xcp32I3626M
-	 sVPh9P4DmXxEs8N7j9PF8DWaW7ikgKzrzc7ZCUu91xBPoKDQQsnv6plLZqLjJpxrnb
-	 o4EWxDHjlwKL5MOqSFIrQFHLTHc81wTOps9xvJ5s=
+	b=YfcMA9qK2PDSww32F8llcNOOxUrJEejozzGFMEIxLe2qPOsz/U/Gv/VKmM98w23xa
+	 1cXX4W2KxestVwdFavHGLO1CHKjZoapfoWCoy512kleYaM7k+i3kCL11jDH1qZpApF
+	 TdUX53ZJP8NfEKei1/+PTTP4hQrZhx45xv2dz/yk=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>,
-	Paolo Abeni <pabeni@redhat.com>,
+	Breno Leitao <leitao@debian.org>,
+	Yury Smirnov <yurymonzon@gmail.com>,
+	Will Deacon <will@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 218/733] net: stmmac: reconfigure RX packet parser table in stmmac_hw_setup() after reset
-Date: Thu, 17 Sep 2026 16:08:46 +0100
-Message-ID: <20260917151356.633383183@linuxfoundation.org>
+Subject: [PATCH 7.2 220/733] arm64: trans_pgd: clone only the linear map that exists at runtime
+Date: Thu, 17 Sep 2026 16:08:48 +0100
+Message-ID: <20260917151356.686911500@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,47 +52,47 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+From: Breno Leitao <leitao@debian.org>
 
-[ Upstream commit 6b8fed2675fb75d23e6cf2b7e49c94926e884b34 ]
+[ Upstream commit 1537e55728ec2bc506c74ea69b93cd859da58fb8 ]
 
-The core software reset issued in stmmac_init_dma_engine() during
-ndo_open() callback clears the MTL RX packet parser registers, but
-stmmac_rxp_config() is only invoked from the cls_u32 add/delete paths.
-After an ifdown/ifup cycle the hardware therefore runs with the default
-all-pass table while priv->tc_entries still reports the filters as
-installed. Re-apply the RX packet parser table from priv->tc_entries in
-stmmac_hw_setup(), right after the software reset, so the filters are
-restored when the interface is brought up again.
+kexec_file_load() fails on arm64 if we have CONFIG_ARM64_VA_BITS_52 but
+it runs on a !FEAT_LPA2 host (such as my loving Grace machine).
 
-Fixes: 4dbbe8dde848 ("net: stmmac: Add support for U32 TC filter using Flexible RX Parser")
-Signed-off-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260831-stmmac_tc_cls32_reconfigure-v1-1-21cb459e64ae@oss.qualcomm.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+That is because trans_pgd_create_copy() uses the compile time
+PAGE_OFFSET (VA 52) instead of the actual VA size (48 -- due to the lack
+of LPA2). With the fifth level folded, pgd_none() is always false, so
+the walk cannot skip the 15 extra PGDIR_SIZE slots, and they all alias
+back to the same table: the whole kernel page table gets cloned 16
+times, KASAN shadow included. Without KASAN it does not blow up, it just
+wastes ~RAM/32 in page tables.
+
+Fix it by copying the linear map that is the actual one, not the
+compiled one.
+
+Fixes: a6bbf5d4d9d1 ("arm64: mm: Add definitions to support 5 levels of paging")
+Signed-off-by: Breno Leitao <leitao@debian.org>
+Tested-by: Yury Smirnov <yurymonzon@gmail.com>
+Signed-off-by: Will Deacon <will@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
+ arch/arm64/kernel/machine_kexec.c | 3 ++-
+ 1 file changed, 2 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-index 1946361081fc2..1e88575fdddbb 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
-@@ -3676,6 +3676,14 @@ static int stmmac_hw_setup(struct net_device *dev)
- 	/* Initialize MTL*/
- 	stmmac_mtl_configuration(priv);
+diff --git a/arch/arm64/kernel/machine_kexec.c b/arch/arm64/kernel/machine_kexec.c
+index c5693a32e49b0..8f9bc2327dc85 100644
+--- a/arch/arm64/kernel/machine_kexec.c
++++ b/arch/arm64/kernel/machine_kexec.c
+@@ -129,7 +129,8 @@ int machine_kexec_post_load(struct kimage *kimage)
+ 	}
  
-+	/* Apply the RX packet parser table */
-+	if (priv->tc_entries) {
-+		ret = stmmac_rxp_config(priv, priv->hw->pcsr, priv->tc_entries,
-+					priv->tc_entries_max);
-+		if (ret)
-+			return ret;
-+	}
-+
- 	/* Initialize Safety Features */
- 	stmmac_safety_feat_configuration(priv);
- 
+ 	/* Create a copy of the linear map */
+-	rc = trans_pgd_create_copy(&info, &trans_pgd, PAGE_OFFSET, PAGE_END);
++	rc = trans_pgd_create_copy(&info, &trans_pgd,
++				   _PAGE_OFFSET(vabits_actual), PAGE_END);
+ 	if (rc)
+ 		return rc;
+ 	kimage->arch.ttbr1 = __pa(trans_pgd);
 -- 
 2.53.0
 
