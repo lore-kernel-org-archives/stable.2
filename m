@@ -1,92 +1,90 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADCD3E6DC9;
-	Thu, 17 Sep 2026 11:45:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 891A34E06DB;
+	Thu, 17 Sep 2026 11:46:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645548; cv=none; b=uyLNK/0NRAsYzvv2r7flgELyKk/ToZ2ZPxLqJDsYYvMj9qnZP/dr2jpNRn6981/UjbYURK5oI0u/A/8XVooLO2+xBtJSoSU5AdHh85wvtH1yYYwvh3XQqX6PzxPNxmJP/IqlJIC2UrfsPT+Hgddy172ReO5yt02s8nEqzqkjJAY=
+	t=1789645595; cv=none; b=fIH8WQjLE14yZkH9YsWQllRmyKlz3w5rIis0EnxnfN9xhxFT12yY9VSW8m8J62OwHZxmnfY1DH2H2HBSIJCsbr3kSFFVNgroj9SHG4va+fEIRKVqGl1/hL1HWRDVy9eKcJMdmlfe1wP6HG/S++7kF2XwbSQGSZuWcHbirO0fYTE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645548; c=relaxed/simple;
-	bh=/3xFAsixpbLOVmiAeQK4biZ/FbUY9ljCoxm2CgIBQ4k=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=hmFmOw0V9YNmXlXRu0l3j7h/JXND6h40D3ej2SvESEueHCEDDQnswo4bLKCLNdeedQjjlH3j6TDkEFOy5WcoDNI776vFer4ntgkzve7ElTaPDyb5kjsu3OzXWIDD7AG05iYpaDZ3IAKtUXV581sb1TxJ2VTl1Fwf12TrDO4QB+M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FjAr3hwt; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FjAr3hwt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CC03D1F000FF;
-	Thu, 17 Sep 2026 11:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789645541;
-	bh=0v+tsxXpYqYIhx4Aiu8hayvlXd6sXVZLkcA+EBndX9g=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=FjAr3hwtoDc25gxTuEmNtgzR50wEOfrVyKXJc/4R50IdpnSbDcCQnTl4D77hSZaNX
-	 z7KjXUslA//XbInacrrCteJQNcrQLt5DhxPmq1ka8hddLXW6BOywZODFMr9J9l2MAZ
-	 qIb+f/HzGyIJzX0O2PV+xwZj1VeimloAYUYudAwA8InD4Js94ThXnp8j8T7zqbG6vQ
-	 ytgkCFvA1on78uHtM6G59ommoGl2D4SyZago/nDovtly86ZOWF6I+nLgzAfTA2e5tJ
-	 VieJeGEM+g9hRpx1L99M9IEXG9QYBS73E1C/KHx+utC87QzkMHQAQPVfk2E7nRsU/2
-	 PRb5svoD8ZdUw==
-Date: Thu, 17 Sep 2026 12:45:35 +0100
-From: Simon Horman <horms@kernel.org>
-To: Aamir Ahmed <elb12345@hotmail.co.uk>
-Cc: David Heidelberg <david@ixit.cz>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Samuel Ortiz <sameo@linux.intel.com>,
-	"John W. Linville" <linville@tuxdriver.com>,
-	oe-linux-nfc@lists.linux.dev, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] nfc: llcp: drop truncated I/RR/RNR PDUs in
- nfc_llcp_recv_hdlc()
-Message-ID: <20260917114535.GZ51261@horms.kernel.org>
-References: <AS8P251MB0001789BBF04B72745C7D96BC8BA2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+	s=arc-20240116; t=1789645595; c=relaxed/simple;
+	bh=ELAGzky4r3tizqr7AhUo0wQ99KmBzMkbaVyLIMmXrEM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pNDOyGfIHntLic96W7tzqKfpmwQT9w6x13zhAl2FZ78Ulnv9bh/Ammyi8u91CnsQGW2++xljK6Lp5XJgia9TFns5msw0DdWnZKiiLN8NJpXWKEwY0BXrS0Go4urcwFmFn7toishowjL7dOS2ppEcyV78vP0QwwEE9GJb+QthbQA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAC3HzoI06tqb9h_CA--.2055S2;
+	Thu, 17 Sep 2026 19:46:16 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andrew+netdev@lunn.ch
+Cc: davem@davemloft.net,
+	edumazet@google.com,
+	grygorii.strashko@ti.com,
+	kuba@kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	richardcochran@gmail.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] net: ethernet: ti: cpts: Fix refclk node leak in cpts_of_mux_clk_setup()
+Date: Thu, 17 Sep 2026 11:46:16 +0000
+Message-Id: <20260917114616.2149617-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <AS8P251MB0001789BBF04B72745C7D96BC8BA2@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM>
+X-CM-TRANSID:zQCowAC3HzoI06tqb9h_CA--.2055S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZF1kKFWkuF48AFWktryDAwb_yoWDGrg_Gr
+	1IgFn5tayUGrsYkw47trsxZasIkasrZa4fXay29FW3Xry7Gr10yr98Cwn3X3yUWr48GFyD
+	JwnrAa9rZ342vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbgkYjsxI4VW3JwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxU2kucDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qrrRlz5wAAsr
 
-On Tue, Sep 15, 2026 at 07:54:27PM +0100, Aamir Ahmed wrote:
-> nfc_llcp_recv_hdlc() reads the sequence byte skb->data[2], via
-> nfc_llcp_ns()/nfc_llcp_nr(), before any length check. The receive path
-> only guarantees the two-byte LLCP header -- __nfc_llcp_recv() checks it
-> with pskb_may_pull() and nfc_llcp_recv_agf() admits two-byte inner PDUs
-> -- so a two-byte I, RR or RNR PDU reads one byte of uninitialised skb
-> tailroom. The byte becomes N(R)/N(S); a peer can already set those with
-> a well-formed PDU, so this is acting on uninitialised memory, not new
-> peer control.
-> 
-> Guard the read with pskb_may_pull(), as commit 95674f506c63 ("nfc: llcp:
-> reject PDUs shorter than the LLCP header") did for the two-byte header,
-> so the sequence byte is present and linear before it is read. RR and RNR
-> PDUs are LLCP_HEADER_SIZE + LLCP_SEQUENCE_SIZE bytes and an I PDU is
-> longer, so no valid frame is rejected; a truncated PDU is malformed, so
-> return without a DM reply.
-> 
-> Fixes: d646960f7986 ("NFC: Initial LLCP support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Aamir Ahmed <elb12345@hotmail.co.uk>
-> ---
-> 
-> Notes:
->     v2:
->       - scope to nfc_llcp_recv_hdlc() only; the recv_dm() half duplicated
->         Lekë Hapçiu's pending fix (20260729011547.19191-2-snowwlake@icloud.com)
->       - return silently instead of answering DM(NOCONN) as v1 did, which would
->         close an established peer connection (Sashiko)
->       - guard with pskb_may_pull(), matching commit 95674f506c63
->       - add Assisted-by, target net, Cc the right lists, reword the changelog
->     v1: https://lore.kernel.org/netdev/AS8P251MB0001E8602F36054CDD8979A2C8B32@AS8P251MB0001.EURP251.PROD.OUTLOOK.COM/
->     
->     Built net/nfc/llcp_core.o on v7.3-rc1 with KASAN and W=1, no warnings.
->     No NFC hardware; not runtime-tested.
+cpts_of_mux_clk_setup() takes a reference on the "cpts-refclk-mux" child
+node that is only released on the mux_fail error path. When the mux clock
+provider is registered successfully, the reference is leaked.
+of_clk_add_hw_provider() keeps its own reference on the node, so release
+the one taken here before returning.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Fixes: a3047a81ba13 ("net: ethernet: ti: cpts: add support for ext rftclk selection")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/ethernet/ti/cpts.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/drivers/net/ethernet/ti/cpts.c b/drivers/net/ethernet/ti/cpts.c
+index 2ba4c8795d60..372cef13d81e 100644
+--- a/drivers/net/ethernet/ti/cpts.c
++++ b/drivers/net/ethernet/ti/cpts.c
+@@ -714,6 +714,8 @@ static int cpts_of_mux_clk_setup(struct cpts *cpts, struct device_node *node)
+ 		goto mux_fail;
+ 	}
+ 
++	of_node_put(refclk_np);
++
+ 	return ret;
+ 
+ mux_fail:
+-- 
+2.34.1
 
