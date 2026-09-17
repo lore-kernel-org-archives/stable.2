@@ -1,121 +1,84 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from bregans-0.gladserv.net (bregans-0.gladserv.net [185.128.210.58])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59714E324A
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:34:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF03F497396;
+	Thu, 17 Sep 2026 19:35:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.128.210.58
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789673672; cv=none; b=WMuSbK3cHuyylVACHOskb5/of7NDm99YnXLC7EaHJLC0YseQXtshSv5VZ4IAG2jIT/h8QRtdPpZfLGhcBtCFQOKIW6tAU6kB6+WG4S0puLl/ZTfPfVmuJ1+az4ZDgi4/wP94VtbyvZ/usrO8vHA83mEgA1RtJ09trzIWsOQUP08=
+	t=1789673747; cv=none; b=urRiE/GsUnot1ykAh1x6XbQuL40GyHXZHg//CIKpohpApwdAvhkObrr2ifLiAR2H8cC0q7vBNjQKWPkW4xY4eL5d+V1yeLYo79VOtCzC2tVFm7SmUUG3fUlYShDl5YpWi0NOp42ObADO+pJGdVcAMBAJrGDgDCv66A2tm6vezG0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789673672; c=relaxed/simple;
-	bh=gakXj3YVdsi35+HYYEheuzyPeBAzBq21osSPHxgiUt4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=RjWGi2IjV7Wsro+GkY6Q99M34gdX8pRRfnoWhDdIRCAiOpbzvnWyTLrsu/FXdwXrGVmj5SLxRgQWdpHglBkKmVX6/irAIwuyHdjq98DnWV3+DyxYPDm4be4SoiP5IC7teE4pBoXSPUAzyK8KEihrteDwolaWYvW3DNAKFDql3b4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OZe4f+7d; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OZe4f+7d"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A78D81F0089D;
-	Thu, 17 Sep 2026 19:34:26 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789673667;
-	bh=1GkC2/JMh8VyypgGgOJIYEb25F1hPlvEy8iWQeoQzwE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OZe4f+7dQs0mnSVNXR/rFUSwUZIkDZFGoxqATr7BXotwZIawmfDQ10n+7nFJS0hlY
-	 8y6/YwsQFjoS5Zgcv0+2NI8rFIr6swVSikC0FNBF0xsc2dwFCiDaASCRSt2fYgUmYa
-	 yN7+LGpfFGJsowFxU/b4sjlq6a3s2okXctJG6A7qKpL/2yCy5EH29MsTzCigMJ+rH7
-	 uEIFGMJTw7vnTPNK/Rc/JVyPHMQO/dFSRG7odNen/aQN0laoLLIrc+tYhjyb7kl2zW
-	 UaSbsKzHgOSr8+mTgjDj4P+HkBEwWslqSgcIFTCpDNb+95JDOfV/UVbQJuf8MUwpL8
-	 3SC2G9SKd4sFQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()
-Date: Thu, 17 Sep 2026 15:34:25 -0400
-Message-ID: <20260917193425.1233011-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091630-viscosity-landless-276f@gregkh>
-References: <2026091630-viscosity-landless-276f@gregkh>
+	s=arc-20240116; t=1789673747; c=relaxed/simple;
+	bh=omY/NeZCi/3VxuAc6JP30WeLJ3esTsutz1YtUvdbJYA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=dKOa3gf84cFhRsiGmZseyfvp+khuTk0Wr2bZyAOMAsN4+BFYBYO2NNti/gF40GXp5ZFQXEt+ijJVj+7iv93nYtbrviBjwKJu4+2W6lz4BB4McEQ1cMz7Jeak5t53/1fit5YB3yEQRY/s+oOcplITMAn9fke504uO479+J//o5IY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net; spf=pass smtp.mailfrom=librecast.net; arc=none smtp.client-ip=185.128.210.58
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=librecast.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=librecast.net
+Date: Thu, 17 Sep 2026 19:35:34 +0000
+From: Brett A C Sheffield <bacs@librecast.net>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
+Message-ID: <aqxBBu5GXVhHcqTz@auntie.librecast.net>
+References: <20260917151539.408551884@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
 
-From: Paulo Alcantara <pc@manguebit.org>
+On 2026-09-17 15:59, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 6.12.111 release.
+> There are 1102 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+> 
+> Responses should be made by Sat, 19 Sep 2026 15:13:49 +0000.
+> Anything received after that time might be too late.
 
-[ Upstream commit da6e25842431982d5a53cf00d925b98c690f4467 ]
+6.12.111-rc1 hangs on boot on this machine (AMD Ryzen 9 9950X).
 
-cifs_posix_to_fattr() ignores the return value of posix_info_parse().
-When a malformed POSIX directory entry is encountered (e.g. invalid
-SID lengths from an untrusted server), posix_info_parse() returns -1
-without populating the 'parsed' struct.  The uninitialized stack
-memory in parsed.owner and parsed.group is then passed to
-sid_to_id(), which processes the garbage bytes and passes them to
-request_key() to construct a SID string, potentially leaking kernel
-stack contents to the userspace idmap daemon.
+Bisected:
 
-Fix this by checking the return value and skipping the SID-to-id
-mapping when parsing fails.  The remaining fattr fields (timestamps,
-mode, etc.) are populated directly from the 'info' pointer so they
-are unaffected.
+git bisect start
+# status: waiting for both 'good' and 'bad' commits
+# bad: [18db24293f4d9b64614e0adf6dbe298073aa8860] Linux 6.12.111-rc1
+git bisect bad 18db24293f4d9b64614e0adf6dbe298073aa8860
+# status: waiting for 'good' commit(s), 'bad' commit known
+# good: [fa5b06866b643cce7072a4e7c6be7ee3f0f1b95c] Linux 6.12.110
+git bisect good fa5b06866b643cce7072a4e7c6be7ee3f0f1b95c
+# good: [06d602e1997cdab008184b921c752f5b07fa16ef] Bluetooth: btintel: bound firmware ID by TLV length
+git bisect good 06d602e1997cdab008184b921c752f5b07fa16ef
+# good: [a126d69b9dd9f2cbd25d1672053851ae90ec549b] accel/ivpu: Limit firmware log name prints to field size
+git bisect good a126d69b9dd9f2cbd25d1672053851ae90ec549b
+# good: [efe1f0c0257ae22c17fab4f1b55c1863a4d5bd98] ipv6: add some unlikely()/likely() clauses in ip6_output.c
+git bisect good efe1f0c0257ae22c17fab4f1b55c1863a4d5bd98
+# bad: [8a1320dc29ad21696ba7f0aa99a3fabf295e74c5] NFSD: Prevent client use-after-free during delegation revoke
+git bisect bad 8a1320dc29ad21696ba7f0aa99a3fabf295e74c5
+# bad: [5e4974a45323fd751aabfdd78c04457d231ac126] mm/slab: move and refactor __kmem_cache_alias()
+git bisect bad 5e4974a45323fd751aabfdd78c04457d231ac126
+# good: [562e14e2bbc8c9ad3c72c193a3afadc3a0cc1527] KVM: SEV: Track the GPA of the guest-controlled VMSA used for SNP guests
+git bisect good 562e14e2bbc8c9ad3c72c193a3afadc3a0cc1527
+# good: [4eaf9e48d2a7b9a5067206d54ae260c0292d595f] mm/gup: fix always draining LRU caches in collect_longterm_unpinnable_folios()
+git bisect good 4eaf9e48d2a7b9a5067206d54ae260c0292d595f
+# bad: [091b6f51c9330d9e2cacb8d6e4ab3e6e2e8d93fe] mm/mglru: reset page lru tier bits when activating
+git bisect bad 091b6f51c9330d9e2cacb8d6e4ab3e6e2e8d93fe
+# good: [8417718d642fbef80df65fb3369c3fc4b38cdbdd] pidfd: hold exec_update_lock around namespace ioctl
+git bisect good 8417718d642fbef80df65fb3369c3fc4b38cdbdd
+# bad: [22ae428b0045981bd19f8c75f700a67198062f32] mm/hugetlb: initialize gigantic bootmem hugepage struct pages earlier
+git bisect bad 22ae428b0045981bd19f8c75f700a67198062f32
+# first 'bad' commit: [22ae428b0045981bd19f8c75f700a67198062f32] mm/hugetlb: initialize gigantic bootmem hugepage struct pages earlier
 
-Closes: https://sashiko.dev/#/patchset/20260906172005.627163-1-pc%40manguebit.org
-Closes: https://sashiko.dev/#/patchset/20260906181540.647469-1-pc%40manguebit.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-[ adapted to 5.15’s older ownership handling by explicitly initializing UID/GID from mount defaults. ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/readdir.c | 14 +++++++++++---
- 1 file changed, 11 insertions(+), 3 deletions(-)
 
-diff --git a/fs/cifs/readdir.c b/fs/cifs/readdir.c
-index 7c47a03afbcc3..d7edf8ae18967 100644
---- a/fs/cifs/readdir.c
-+++ b/fs/cifs/readdir.c
-@@ -233,8 +233,9 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		    struct cifs_sb_info *cifs_sb)
- {
- 	struct smb2_posix_info_parsed parsed;
-+	int rc;
- 
--	posix_info_parse(info, NULL, &parsed);
-+	rc = posix_info_parse(info, NULL, &parsed);
- 
- 	memset(fattr, 0, sizeof(*fattr));
- 	fattr->cf_uniqueid = le64_to_cpu(info->Inode);
-@@ -276,8 +277,15 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 	if (reparse_file_needs_reval(fattr))
- 		fattr->cf_flags |= CIFS_FATTR_NEED_REVAL;
- 
--	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (rc < 0) {
-+		cifs_dbg(VFS, "%s: failed to parse SIDs: %d\n",
-+			 __func__, rc);
-+	} else {
-+		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-+		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	}
- }
- 
- static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
--- 
-2.53.0
-
+Brett
