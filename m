@@ -1,46 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ACAD49739D;
-	Thu, 17 Sep 2026 18:39:36 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 41E2B49D584
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:39:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670378; cv=none; b=mZsy12btLbTvVm2r688RNhAlbL8qDB7fdHGAdvYSD9EPdfOc6v5Ow/nKawLCy0o+OndqLOdqzoujhDRxiByrbOmdI4GTjzexxmc+2C6xH6YjIYpXPxtcVOyItjT6CtFnk7WPey4bdDfCqf16nWVXIhMK9h0Yei/2iKSm7eG+myU=
+	t=1789670380; cv=none; b=COPi6WLLLs4qiYMK29FRmw9ftwH5162Ff7wBle/nNFczYmG5NLeRBzVnRz+cSexOGixY2bxnmnqg31tbyJxNUrf8FelQpCaEH+9FR4unCdTG1REuKUgiL4TVepBed9REXvIwdKsmB5hnTlnZUSxiCgTCz7JYxSEl7R+B2B02OMw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789670378; c=relaxed/simple;
-	bh=E8KC1eZOj8ZypH7DLLD1OAAOTrAnfSHaRsU2iSGkV60=;
+	s=arc-20240116; t=1789670380; c=relaxed/simple;
+	bh=RWSMclJsGzUJ77a11Td6AAypBUNR9wj9BsyKYKtZQ5g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=D4l26pAFrIXF1pSGh8GwyxFZXzDc0qx6jUnj6YvfHYRTygxtgxozBpOgzMY3erEAw+Sg0BAeWd3ThcmnOwsbo2bdnvp2Ihj/hE5d4Vc5g9OynwVTahdUMaJDawKy9MJfHiCXjbQBQwsDHQ1ahcgSoERGlzqy+5kFaWT1/oISJ9M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=mWLba53x; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cXdFPsp1IWCgjFIL/I378L2A1mDhCogf/7P5FE2kFuyT+shAT8PSrpNHPBbC4GH4UWIfZZ7w9sTtQvgIrEvhIMJ+3vfCHlaDdJvCna9EMnX3B29P9UYQwxH7eT2mod1wK8NPQREpnnq1ur/qA2Aq16dhmzGqoN6w+RbimyYwcOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jBt7HAH9; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="mWLba53x"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FE551F000FF;
-	Thu, 17 Sep 2026 18:39:35 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789670376;
-	bh=vw5KHqp4kN9pXVWB/smnFZ2ny72j+CQ5j95KGrqiDQM=;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jBt7HAH9"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BD9521F0089B;
+	Thu, 17 Sep 2026 18:39:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789670378;
+	bh=DTO3rEVtkXsY1mflVPE8xJvwY79hbdCYjhAaj1ZIHMw=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mWLba53xW3EqhTn/yKwQxNuTXjffj2aNe5uZZXHn8N8eWsiMK7RBhdx6IPmoSA1zS
-	 jW1tyCfzlWONOEX+uslRpOAAhyb/Jlj0hBYoh7K78sL49BsxIXoelUaaruzYK10H3r
-	 1muj/haPow24tebT8zWyr5RQQKPOB705ExH68E3o=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=jBt7HAH955uwlJq/Xi+bQ5YYbaxxq9Sq02lP2zmXBd9Hj83Vmuot1rOb4vTdZru5N
+	 Lr9jAXFL5jgVQpG3sE+Zi0s04YuAJrAGdDNBt2tEeBGjl7sI/GplOyemlTQ7fb+tOd
+	 mDBjaAfc4R08vD7UAdPwA201MKsJyM8W9945Td/CAt2Lvl6upg4q7crgpb4mV1x+AR
+	 WbFgcea1AcibwGtvEKb4H0UORsDYvmn1DOvvJ4C1aUMut3wjp59msN03Z0MjMRHiTd
+	 ASeXUYF795jp58xzT7/ZkDXDIrlnDi6y+B6YBGxCMudBHwi4nOIEW6z+4SrJzBr3PW
+	 DOI+yaDcWyCLQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mohamed Khalfella <mkhalfella@purestorage.com>,
-	Sagi Grimberg <sagi@grimberg.me>,
-	Randy Jennings <randyj@purestorage.com>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: Paulo Alcantara <pc@manguebit.org>,
+	Arthur Lesuisse <arthur.lesuisse@ulb.be>,
+	Namjae Jeon <linkinjeon@kernel.org>,
+	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
+	Shyam Prasad N <sprasad@microsoft.com>,
+	Tom Talpey <tom@talpey.com>,
+	Bharath SM <bharathsm@microsoft.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0645/1102] nvme: remove stale namespaces by NSID range during scan
-Date: Thu, 17 Sep 2026 16:09:48 +0100
-Message-ID: <20260917151556.340444011@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 5.15.y 2/2] smb: client: fix uid/gid override in getattr with posix extensions
+Date: Thu, 17 Sep 2026 14:39:35 -0400
+Message-ID: <20260917183935.1200920-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917183935.1200920-1-sashal@kernel.org>
+References: <2026091635-untwist-absently-462b@gregkh>
+ <20260917183935.1200920-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,112 +51,60 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: Paulo Alcantara <pc@manguebit.org>
 
-------------------
+[ Upstream commit cf4d35896621b7298eef51b7a465e5c0cb22f670 ]
 
-From: Mohamed Khalfella <mkhalfella@purestorage.com>
+When mounting with 'multiuser,posix' options, cifs_getattr() overrides
+the server-provided uid/gid with the current process's fsuid/fsgid.
+This is because the condition only checks for unix extensions
+(tcon->unix_ext) but not posix extensions (tcon->posix_extensions).
 
-[ Upstream commit 4ed7f3d7d435bf5b63da2814dc9270f5ba896011 ]
+With SMB3 POSIX extensions, the server provides real uid/gid values
+just like with unix extensions, so they should be preserved rather
+than replaced with the caller's credentials.
 
-nvme_scan_ns_list() drops the stale namespaces in each gap in the
-reported NSID list one NSID at a time. Every iteration calls
-nvme_find_get_ns() to look the namespace up and removes it if it is
-present. The loop runs once per NSID in the gap rather than once per
-namespace actually present.
+Add a tcon->posix_extensions check to the condition so that uid/gid
+from the server are properly reported in stat results.
 
-NSIDs are 32-bit, so a target with a sparse NSID space can make a
-single gap spin the loop billions of times with nothing to remove.
-
-  watchdog: BUG: soft lockup - CPU#4 stuck for 26s!
-  Workqueue: nvme-wq nvme_scan_work [nvme_core]
-  RIP: 0010:__srcu_read_unlock+0xb/0x20
-  Call Trace:
-   nvme_find_get_ns+0x7d/0xb0 [nvme_core]
-   nvme_scan_ns_list+0xe8/0x280 [nvme_core]
-   nvme_scan_work+0x18a/0x280 [nvme_core]
-   process_one_work+0x197/0x380
-   worker_thread+0x2fe/0x410
-   kthread+0xe0/0x100
-
-Rename nvme_remove_invalid_namespaces() to nvme_remove_nsid_range()
-and give it an open (start, end) NSID range. ctrl->namespaces is
-sorted by NSID, so the whole gap is dropped in a single walk that
-stops once end is reached. This bounds the work by the namespaces
-that are present instead of by the size of the gap.
-
-Fixes: 540c801c65eb ("NVMe: Implement namespace list scanning")
-Signed-off-by: Mohamed Khalfella <mkhalfella@purestorage.com>
-Reviewed-by: Sagi Grimberg <sagi@grimberg.me>
-Reviewed-by: Randy Jennings <randyj@purestorage.com>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Reported-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
+Closes: https://lore.kernel.org/r/DB9P190MB2012266F6B8DECBE5D26A1798DB52@DB9P190MB2012.EURP190.PROD.OUTLOOK.COM
+Suggested-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
+Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
+Cc: Shyam Prasad N <sprasad@microsoft.com>
+Cc: Tom Talpey <tom@talpey.com>
+Cc: Bharath SM <bharathsm@microsoft.com>
+Cc: stable@vger.kernel.org
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/core.c | 18 +++++++++---------
- 1 file changed, 9 insertions(+), 9 deletions(-)
+ fs/cifs/inode.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/nvme/host/core.c b/drivers/nvme/host/core.c
-index 7ab6799c193ac..3b391b6325587 100644
---- a/drivers/nvme/host/core.c
-+++ b/drivers/nvme/host/core.c
-@@ -144,8 +144,6 @@ static const struct class nvme_ns_chr_class = {
- };
+diff --git a/fs/cifs/inode.c b/fs/cifs/inode.c
+index 537e5baf4ca24..99a72ca8f958e 100644
+--- a/fs/cifs/inode.c
++++ b/fs/cifs/inode.c
+@@ -2482,14 +2482,14 @@ int cifs_getattr(struct user_namespace *mnt_userns, const struct path *path,
+ 		stat->attributes |= STATX_ATTR_ENCRYPTED;
  
- static void nvme_put_subsystem(struct nvme_subsystem *subsys);
--static void nvme_remove_invalid_namespaces(struct nvme_ctrl *ctrl,
--					   unsigned nsid);
- static void nvme_update_keep_alive(struct nvme_ctrl *ctrl,
- 				   struct nvme_command *cmd);
- 
-@@ -4135,15 +4133,16 @@ static void nvme_scan_ns_async(void *data, async_cookie_t cookie)
- 	nvme_scan_ns(scan_info->ctrl, nsid);
- }
- 
--static void nvme_remove_invalid_namespaces(struct nvme_ctrl *ctrl,
--					unsigned nsid)
-+static void nvme_remove_nsid_range(struct nvme_ctrl *ctrl, u32 start, u32 end)
- {
- 	struct nvme_ns *ns, *next;
- 	LIST_HEAD(rm_list);
- 
- 	mutex_lock(&ctrl->namespaces_lock);
- 	list_for_each_entry_safe(ns, next, &ctrl->namespaces, list) {
--		if (ns->head->ns_id > nsid) {
-+		if (ns->head->ns_id >= end)
-+			break;
-+		if (ns->head->ns_id > start) {
- 			list_del_rcu(&ns->list);
- 			synchronize_srcu(&ctrl->srcu);
- 			list_add_tail_rcu(&ns->list, &rm_list);
-@@ -4193,13 +4192,14 @@ static int nvme_scan_ns_list(struct nvme_ctrl *ctrl)
- 				goto out;
- 			async_schedule_domain(nvme_scan_ns_async, &scan_info,
- 						&domain);
--			while (++prev < nsid)
--				nvme_ns_remove_by_nsid(ctrl, prev);
-+			if (prev + 1 < nsid)
-+				nvme_remove_nsid_range(ctrl, prev, nsid);
-+			prev = max(prev + 1, nsid);
- 		}
- 		async_synchronize_full_domain(&domain);
- 	}
-  out:
--	nvme_remove_invalid_namespaces(ctrl, prev);
-+	nvme_remove_nsid_range(ctrl, prev, UINT_MAX);
-  free:
- 	async_synchronize_full_domain(&domain);
- 	kfree(ns_list);
-@@ -4219,7 +4219,7 @@ static void nvme_scan_ns_sequential(struct nvme_ctrl *ctrl)
- 	for (i = 1; i <= nn; i++)
- 		nvme_scan_ns(ctrl, i);
- 
--	nvme_remove_invalid_namespaces(ctrl, nn);
-+	nvme_remove_nsid_range(ctrl, nn, UINT_MAX);
- }
- 
- static void nvme_clear_changed_ns_log(struct nvme_ctrl *ctrl)
+ 	/*
+-	 * If on a multiuser mount without unix extensions or cifsacl being
+-	 * enabled, and the admin hasn't overridden them, set the ownership
+-	 * to the fsuid/fsgid of the current process.
++	 * If on a multiuser mount without unix extensions, posix extensions
++	 * or cifsacl being enabled, and the admin hasn't overridden them,
++	 * set the ownership to the fsuid/fsgid of the current process.
+ 	 */
+ 	sbflags = cifs_sb_flags(cifs_sb);
+ 	if ((sbflags & CIFS_MOUNT_MULTIUSER) &&
+ 	    !(sbflags & CIFS_MOUNT_CIFS_ACL) &&
+-	    !tcon->unix_ext) {
++	    !tcon->unix_ext && !tcon->posix_extensions) {
+ 		if (!(sbflags & CIFS_MOUNT_OVERR_UID))
+ 			stat->uid = current_fsuid();
+ 		if (!(sbflags & CIFS_MOUNT_OVERR_GID))
 -- 
 2.53.0
-
-
 
