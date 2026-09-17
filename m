@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1838C2D0602
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:19:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B2EA3374185
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:19:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789611543; cv=none; b=GgqCN40cQ0R7GQ3cspayZUCi8F84tKTvuZUninJT6uMDOY3EYODN73vO05WnYs+PsePx/R3VLMBzDjwyK3xcYK3DDBwaDdRoJ07nBLbjTtwLH8UcgBs3KPYMa7hRJE3D0T4EsRMFsX7MX+ma2xxl17dUOXLIuL3g/6Xg042VyJM=
+	t=1789611543; cv=none; b=giomtyc2i1raoV6dOj6IRag0Zn72FB8RoGsdC+IzTRfn8wVQ6G85dIRC8WG6vijkriQ69FyDJ4X4nnJ+JePiFfwsrlATsJAlreTvhHdczoCosRAo/QnyI7uKxats1+Eopj4JUEmXEByMkk+ljH+CEVhlCxxemN5H6nDaFb0Fd5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789611543; c=relaxed/simple;
-	bh=lkfzvuPPbctGzbVjh7R0cPrhCbnLPMLIwqym2A3W0rI=;
+	bh=meiwtw7qKAyI2mHw7ezTpgHAg2IhytBe6bs47zSy0Ek=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=boGjzjR2ZXFUhPtJm8mo5obc9JsQZenmaI5rOlQNVMIBx0GDOiV9y6C9PSFbL1sq8+2cmm9ALFBzpYtjyXnp93ikPmz2iltICtlz6ASG/XsstrG1xZDi4sK4RGokcGeFOM+l3fMiyG29PuwiJvAJpvYGh0jLtTGSwOBHyl/DaBU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MtERSChL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=e+T5HtVI+Xx0LUvWYb3b94jlqHVUv9ETMqmDNMoN9AEj1Ik3+oRQWPxwovB30b1xltF+9VLD36y4PY0i6ZBVUUeBU9yiz+Xc5ZG4GhK0NE8JkGin5L34QFIg2pWg0S3Qwlzpp8SEuSsAZQahbb87/As7EBpY2tZwOF7EF+amREU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mQysRhYJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MtERSChL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ED52D1F000FF;
-	Thu, 17 Sep 2026 02:19:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mQysRhYJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D9D961F00893;
+	Thu, 17 Sep 2026 02:19:01 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789611541;
-	bh=KH5a5rtNtcHo50hOARCqtrdW68/rzfTbrdI5lABgqs4=;
+	s=k20260515; t=1789611542;
+	bh=N4gNkt8j2RccEJkvA/y3mI9BnZ8G5Bw+sYrmkJFEdq8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=MtERSChLts+Qyf+PQJzkU1cZeJWsSm6agjoJvM/iSRkGBq3avvhEp4cpS5903sAYj
-	 UZ33S9PJrf03SCRcgZDWC08gzX1blhI9xfqGUS8XCOBVrUJzLJ81SxghRe8MpyAyrW
-	 JCbqAmEu6zmxcXgEJNxw5c5sfXdkV2gVVx19Rdh5vlPIngonYO3V1Le3tkPmmzKquN
-	 q4tu+Jw+83Gy4C1x3TFfpPssmLfHgGgk8PPNooxJRNKrxvB5H8rO4coB7fY114qjkm
-	 GSc9CKX2lTg9BHN3DahwfqQmQy+imiy6gJwHcN/bpUzYVKlDxFOxqmEr3KcUkLXwRz
-	 X32Vc5KvamLqw==
+	b=mQysRhYJxSrFZfykXVn+7l5ZdSPOznz1CkrQBKUu/RRt2pCM4y9biEJc2kAkTyOcS
+	 oMVKIDidaD8mmQ8ghF+61yTivYzCkep3BLp1tkgWFR3efVJCJYrZ4G1WvNTJfZVt1G
+	 OkSnHOzpEev3WOCdzEkPWCFqPrgQ4XdTaURL4dK/tn1C+1Yr/V6w4H5IwFp+uL9SSG
+	 lvyHCPuDkDFtRqgpJd6BVtshGoLSlV2KvAt964FILpzMC7utwCUM41Imt52qm2bqgm
+	 I3BpyT+yLP9tVE/iYMPsmX8yNs8WrdmogpPPWS66zsuvsrlkTnCy+fQk/osLJ5DoON
+	 pivCRuI2F2RIA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Eric Dumazet <edumazet@google.com>,
@@ -33,12 +33,13 @@ Cc: Eric Dumazet <edumazet@google.com>,
 	David Ahern <dsahern@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/7] ipv4: remove fib_devindex_hashfn()
-Date: Wed, 16 Sep 2026 22:18:53 -0400
-Message-ID: <20260917021859.3810309-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/7] ipv4: use rcu in ip_fib_check_default()
+Date: Wed, 16 Sep 2026 22:18:54 -0400
+Message-ID: <20260917021859.3810309-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091655-dejected-hammock-755e@gregkh>
+In-Reply-To: <20260917021859.3810309-1-sashal@kernel.org>
 References: <2026091655-dejected-hammock-755e@gregkh>
+ <20260917021859.3810309-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,23 +50,18 @@ Content-Transfer-Encoding: 8bit
 
 From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 8a0f62fdeb9ea66ad3d0e959c7c4addbabeac1be ]
+[ Upstream commit fc38b28365e5f1396209d2878a34065468765087 ]
 
-fib_devindex_hashfn() converts a 32bit ifindex value to a 8bit hash.
+fib_info_devhash[] is not resized in fib_info_hash_move().
 
-It makes no sense doing this from fib_info_hashfn() and
-fib_find_info_nh().
+fib_nh structs are already freed after an rcu grace period.
 
-It is better to keep as many bits as possible to let
-fib_info_hashfn_result() have better spread.
-
-Only fib_info_devhash_bucket() needs to make this operation,
-we can 'inline' trivial fib_devindex_hashfn() in it.
+This will allow to remove fib_info_lock in the following patch.
 
 Signed-off-by: Eric Dumazet <edumazet@google.com>
 Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
 Reviewed-by: David Ahern <dsahern@kernel.org>
-Link: https://patch.msgid.link/20241004134720.579244-2-edumazet@google.com
+Link: https://patch.msgid.link/20241004134720.579244-3-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: 8d6cd1885085 ("ipv6: flowlabel: cap duplicate leases per socket")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
@@ -74,50 +70,58 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 4 insertions(+), 9 deletions(-)
 
 diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
-index 687fe2c281c57..6404005d4d97b 100644
+index 6404005d4d97b..8c20209fbff35 100644
 --- a/net/ipv4/fib_semantics.c
 +++ b/net/ipv4/fib_semantics.c
-@@ -322,17 +322,12 @@ static inline int nh_comp(struct fib_info *fi, struct fib_info *ofi)
- 	return 0;
+@@ -275,7 +275,7 @@ void fib_release_info(struct fib_info *fi)
+ 			change_nexthops(fi) {
+ 				if (!nexthop_nh->fib_nh_dev)
+ 					continue;
+-				hlist_del(&nexthop_nh->nh_hash);
++				hlist_del_rcu(&nexthop_nh->nh_hash);
+ 			} endfor_nexthops(fi)
+ 		}
+ 		/* Paired with READ_ONCE() from fib_table_lookup() */
+@@ -432,28 +432,23 @@ static struct fib_info *fib_find_info(struct fib_info *nfi)
  }
  
--static inline unsigned int fib_devindex_hashfn(unsigned int val)
--{
--	return hash_32(val, DEVINDEX_HASHBITS);
--}
--
- static struct hlist_head *
- fib_info_devhash_bucket(const struct net_device *dev)
+ /* Check, that the gateway is already configured.
+- * Used only by redirect accept routine.
++ * Used only by redirect accept routine, under rcu_read_lock();
+  */
+ int ip_fib_check_default(__be32 gw, struct net_device *dev)
  {
- 	u32 val = net_hash_mix(dev_net(dev)) ^ dev->ifindex;
+ 	struct hlist_head *head;
+ 	struct fib_nh *nh;
  
--	return &fib_info_devhash[fib_devindex_hashfn(val)];
-+	return &fib_info_devhash[hash_32(val, DEVINDEX_HASHBITS)];
- }
+-	spin_lock(&fib_info_lock);
+-
+ 	head = fib_info_devhash_bucket(dev);
  
- static unsigned int fib_info_hashfn_1(int init_val, u8 protocol, u8 scope,
-@@ -363,10 +358,10 @@ static inline unsigned int fib_info_hashfn(struct fib_info *fi)
- 				fi->fib_priority);
- 
- 	if (fi->nh) {
--		val ^= fib_devindex_hashfn(fi->nh->id);
-+		val ^= fi->nh->id;
- 	} else {
- 		for_nexthops(fi) {
--			val ^= fib_devindex_hashfn(nh->fib_nh_oif);
-+			val ^= nh->fib_nh_oif;
- 		} endfor_nexthops(fi)
+-	hlist_for_each_entry(nh, head, nh_hash) {
++	hlist_for_each_entry_rcu(nh, head, nh_hash) {
+ 		if (nh->fib_nh_dev == dev &&
+ 		    nh->fib_nh_gw4 == gw &&
+ 		    !(nh->fib_nh_flags & RTNH_F_DEAD)) {
+-			spin_unlock(&fib_info_lock);
+ 			return 0;
+ 		}
  	}
  
-@@ -381,7 +376,7 @@ static struct fib_info *fib_find_info_nh(struct net *net,
- 	struct fib_info *fi;
- 	unsigned int hash;
+-	spin_unlock(&fib_info_lock);
+-
+ 	return -1;
+ }
  
--	hash = fib_info_hashfn_1(fib_devindex_hashfn(cfg->fc_nh_id),
-+	hash = fib_info_hashfn_1(cfg->fc_nh_id,
- 				 cfg->fc_protocol, cfg->fc_scope,
- 				 (__force u32)cfg->fc_prefsrc,
- 				 cfg->fc_priority);
+@@ -1638,7 +1633,7 @@ struct fib_info *fib_create_info(struct fib_config *cfg,
+ 			if (!nexthop_nh->fib_nh_dev)
+ 				continue;
+ 			head = fib_info_devhash_bucket(nexthop_nh->fib_nh_dev);
+-			hlist_add_head(&nexthop_nh->nh_hash, head);
++			hlist_add_head_rcu(&nexthop_nh->nh_hash, head);
+ 		} endfor_nexthops(fi)
+ 	}
+ 	spin_unlock_bh(&fib_info_lock);
 -- 
 2.53.0
 
