@@ -1,94 +1,331 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A9ED530E0A;
-	Thu, 17 Sep 2026 15:00:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4AE599A27
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:00:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657231; cv=none; b=JRMp8gxlzurqL741J/q0BsvSgd24Jhzy/z0Rjj5yyNWKOrM+GIZCNw91ll6iN8BHDToMpSy/SqR1b+3ki+WQAgPx7D94cD94YJceI2WQmCiOeghzGq1Six1p9PzScKeRBWXBUsmvmm9XrIrVeH+FHdvVNQCaTLaj6gObm8oFwXc=
+	t=1789657247; cv=none; b=Oy2VwAMpy3vmVPFkkoJjVS0/XhDkwPUhPd+ZLNgmv8PxVOc0n/Co+WAyNFXSNRnuQSovHEh+0u+bcduegwOKQQ8FdZwv5h+BttrXfzR879jMEP8CGsfaAuqWaeIn6C9Qu1xMY7Zi9QyJRLAVA3rkOUjBpIDHK3XqaBASDp+F/Qo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657231; c=relaxed/simple;
-	bh=Th/6TB4Qbm5ZayDAkSjxruwnu8Y8IO8697Cx0Ptu9AM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=j4eB4WD9EvBGtiK3G0U7sHwZHKKhmw+zx9Pp8IzF6Qwz+jzxBn23HY0xaYV/E/gkABbmyAa8n8SSr29nXsqZgusfOxw3J667j7bKg3ZnNx4MacS3HTC2AKoQHVAXyoxoQSg2u5OwwFQLXJ6MUG5WYuW9+3c6cBjKXq6z1b3BQpA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnVD9tAKxq+AyDCA--.5352S2;
-	Thu, 17 Sep 2026 22:59:57 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: himanshu.madhani@oracle.com,
-	kashyap.desai@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	mpi3mr-linuxdrv.pdl@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	sumit.saxena@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpi3mr: Fix tgtdev reference leak in mpi3mr_bsg_process_mpt_cmds()
-Date: Thu, 17 Sep 2026 14:59:57 +0000
-Message-Id: <20260917145957.2157923-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789657247; c=relaxed/simple;
+	bh=sZocPZ9c9t6AThgbjpVQJ9YT26OounuAvQazny2ZYQM=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=E2KBJ4pikIkgWs01BVMF4K7ACN9WbcDtAmLu1REc+mqQJtBnaJr/UuzY0A/yDLnlMHbY/LyfL7F4/lFSQLpRe2u2xfaBDmi4RN4VREuTKtkzQmjEwcw0Okk5YmxM9117oKLtuxDvPtqiUv+w0OY2Z8ZfjtSsHJLL5mKyhuMEbi8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=S0cq3mar; arc=none smtp.client-ip=83.166.143.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="S0cq3mar"
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hlzT02SPwz1bD;
+	Thu, 17 Sep 2026 17:00:20 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789657220;
+	bh=xNjXcr8xEVtwVK4u1zICWsNKrEd1EXZ/zuTmYhSyQzc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=S0cq3marZcBidZcFr7c6Ct+y2YAL62RM8r33+4Fo//nQ7FIctVq6wIA7Ebjs+V3rE
+	 DC+0/8d2ME72JnAGmde/DSuJYfOWVOv0VgXjVI/0VfBYXHtPev2sUvict2nF6Gwp3u
+	 t97oBnZA/wxN1l+5iinxSNAS9pFPgBFCa5IAv5YE=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hlzSz3DQ1zCrJ;
+	Thu, 17 Sep 2026 17:00:19 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+To: stable@vger.kernel.org
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Sasha Levin <sashal@kernel.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack3000@gmail.com>,
+	Christian Brauner <brauner@kernel.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Song Liu <song@kernel.org>,
+	Tingmao Wang <m@maowtm.org>
+Subject: [PATCH 6.1.y 4/4] selftests/landlock: Add tests for whiteout object creation
+Date: Thu, 17 Sep 2026 17:00:05 +0200
+Message-ID: <1b6b0763e8d42e60d4d86489dab9972e554b94bc.1789655724.git.mic@digikod.net>
+In-Reply-To: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
+References: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnVD9tAKxq+AyDCA--.5352S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruF1kXFy7ur48Ww47JF4xZwb_yoWkAFbE93
-	ZIyr47Cw1FgFsFy340kr1Yyr9Yya18Xryv9Fn7t3yfCF97ZFn7ZF15XrZxJrsrZa1xJw43
-	Ar15Xr1ayw1xKjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbqkYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwACI402
-	YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04
-	k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UW
-	CJPUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcNA2qr9tgWiAAAs-
+X-Infomaniak-Routing: alpha
 
-The reference taken by mpi3mr_get_tgtdev_by_handle() is only dropped
-when tgtdev->starget and tgtdev->starget->hostdata are both valid, so
-the reference is leaked when the SCSI target is being torn down and
-starget has already been cleared.
+From: Günther Noack <gnoack@google.com>
 
-Drop the reference unconditionally when the lookup succeeds.
+[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
 
-Fixes: 506bc1a0d6ba ("scsi: mpi3mr: Add support for MPT commands")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Add tests to check that whiteout object creation is guarded by
+LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
+userspace:
+
+* Conventional creation with mknod()
+* Linking or renaming an existing whiteout object
+* renameat2() with RENAME_WHITEOUT,
+  which creates a new whiteout object in the source location
+* renameat2() with RENAME_EXCHANGE,
+  with one of the renamed objects being a whiteout object
+
+Signed-off-by: Günther Noack <gnoack@google.com>
+Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
+[mic: Update commit message as requested]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: adapt the tests to the older filesystem fixture and
+ruleset helper]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- drivers/scsi/mpi3mr/mpi3mr_app.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ tools/testing/selftests/landlock/fs_test.c | 205 ++++++++++++++++++++-
+ 1 file changed, 203 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_app.c b/drivers/scsi/mpi3mr/mpi3mr_app.c
-index 1353a8ff9c85..e491ab7496cc 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_app.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_app.c
-@@ -2741,8 +2741,9 @@ static long mpi3mr_bsg_process_mpt_cmds(struct bsg_job *job)
- 			stgt_priv = (struct mpi3mr_stgt_priv_data *)
- 			    tgtdev->starget->hostdata;
- 			atomic_inc(&stgt_priv->block_io);
--			mpi3mr_tgtdev_put(tgtdev);
- 		}
-+		if (tgtdev)
-+			mpi3mr_tgtdev_put(tgtdev);
- 	}
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index d4b3de74eb6b..0c3bfda86e87 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -70,6 +70,8 @@ static const char dir_s3d1[] = TMP_DIR "/s3d1";
+ /* dir_s3d2 is a mount point. */
+ static const char dir_s3d2[] = TMP_DIR "/s3d1/s3d2";
+ static const char dir_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3";
++static const char file1_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3/f1";
++static const char file1_s3d4[] = TMP_DIR "/s3d1/s3d2/s3d4/f1";
  
- 	mrioc->bsg_cmds.state = MPI3MR_CMD_PENDING;
--- 
-2.34.1
-
+ /*
+  * layout1 hierarchy:
+@@ -266,7 +268,8 @@ static void create_layout1(struct __test_metadata *const _metadata)
+ 	ASSERT_EQ(0, mount("tmp", dir_s3d2, "tmpfs", 0, "size=4m,mode=700"));
+ 	clear_cap(_metadata, CAP_SYS_ADMIN);
+ 
+-	ASSERT_EQ(0, mkdir(dir_s3d3, 0700));
++	create_file(_metadata, file1_s3d3);
++	create_file(_metadata, file1_s3d4);
+ }
+ 
+ static void remove_layout1(struct __test_metadata *const _metadata)
+@@ -283,7 +286,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
+ 	EXPECT_EQ(0, remove_path(file1_s2d2));
+ 	EXPECT_EQ(0, remove_path(file1_s2d1));
+ 
+-	EXPECT_EQ(0, remove_path(dir_s3d3));
++	EXPECT_EQ(0, remove_path(file1_s3d3));
++	EXPECT_EQ(0, remove_path(file1_s3d4));
+ 	set_cap(_metadata, CAP_SYS_ADMIN);
+ 	umount(dir_s3d2);
+ 	clear_cap(_metadata, CAP_SYS_ADMIN);
+@@ -624,6 +628,27 @@ static void enforce_ruleset(struct __test_metadata *const _metadata,
+ 	}
+ }
+ 
++static void enforce_fs(struct __test_metadata *const _metadata,
++		       const __u64 access_fs, const struct rule rules[])
++{
++	int ruleset_fd;
++
++	if (rules) {
++		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
++	} else {
++		const struct landlock_ruleset_attr ruleset_attr = {
++			.handled_access_fs = access_fs,
++		};
++
++		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
++						     sizeof(ruleset_attr), 0);
++		ASSERT_LE(0, ruleset_fd);
++	}
++
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++}
++
+ TEST_F_FORK(layout1, proc_nsfs)
+ {
+ 	const struct rule rules[] = {
+@@ -2000,6 +2025,170 @@ TEST_F_FORK(layout1, rename_file)
+ 			       RENAME_EXCHANGE));
+ }
+ 
++TEST_F_FORK(layout1, rename_whiteout_denied)
++{
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Deny MAKE_REG, but allow MAKE_FIFO. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
++
++	/*
++	 * Try to rename a file with RENAME_WHITEOUT.
++	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
++	 * Denied, because whiteout creation is guarded with MAKE_REG.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++	EXPECT_EQ(EACCES, errno);
++}
++
++static bool is_whiteout(const char *const path)
++{
++	struct stat st;
++
++	if (stat(path, &st) == -1)
++		return false;
++
++	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
++}
++
++static bool is_fifo(const char *const path)
++{
++	struct stat st;
++
++	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
++}
++
++TEST_F_FORK(layout1, rename_whiteout_allowed)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The affected file is a FIFO. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++
++	/* Allow MAKE_REG below dir_s3d3. */
++	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
++
++	/*
++	 * Rename a file with RENAME_WHITEOUT within the same directory.
++	 * Allowed, because MAKE_REG is granted for the whiteout object which
++	 * gets created in the source location.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++			       TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++
++	/* A whiteout object took the place of the moved FIFO. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d3/f2"));
++}
++
++TEST_F_FORK(layout1, rename_whiteout_reparenting)
++{
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d2,
++			.access = LANDLOCK_ACCESS_FS_REFER,
++		},
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The moved files are FIFOs. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, unlink(file1_s3d4));
++	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
++
++	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
++	enforce_fs(_metadata,
++		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
++		   rules);
++
++	/*
++	 * The whiteout object is created in the source directory: Moving the
++	 * FIFO out of dir_s3d4 is denied because MAKE_REG is not granted
++	 * there, even though it is granted in the destination directory
++	 * dir_s3d3.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD,
++				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
++	EXPECT_EQ(EACCES, errno);
++
++	/*
++	 * Moving the FIFO out of dir_s3d3 is allowed, because MAKE_REG is
++	 * granted there for the created whiteout object.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
++			       TMP_DIR "/s3d1/s3d2/s3d4/f2", RENAME_WHITEOUT));
++
++	/* A whiteout object took the place of the moved FIFO. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d4/f2"));
++}
++
++TEST_F_FORK(layout1, rename_whiteout_exchange)
++{
++	const char *const whiteout_s3d3 = TMP_DIR "/s3d1/s3d2/s3d3/f2";
++	const struct rule rules[] = {
++		{
++			.path = dir_s3d2,
++			.access = LANDLOCK_ACCESS_FS_REFER,
++		},
++		{
++			.path = dir_s3d3,
++			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
++		},
++		{},
++	};
++
++	/* The exchanged files are FIFOs and an existing whiteout object. */
++	ASSERT_EQ(0, unlink(file1_s3d3));
++	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
++	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
++	ASSERT_EQ(0, unlink(file1_s3d4));
++	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
++
++	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
++	enforce_fs(_metadata,
++		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
++		   rules);
++
++	/*
++	 * With RENAME_EXCHANGE, the whiteout object moves into the source
++	 * directory of the rename: Exchanging the FIFO in dir_s3d4 with the
++	 * whiteout object is denied because MAKE_REG is not granted in
++	 * dir_s3d4, even though it is granted in the whiteout object's own
++	 * directory dir_s3d3.
++	 */
++	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD, whiteout_s3d3,
++				RENAME_EXCHANGE));
++	EXPECT_EQ(EACCES, errno);
++
++	/*
++	 * Exchanging the FIFO in dir_s3d3 with the whiteout object is
++	 * allowed, because MAKE_REG is granted in the directory into which
++	 * the whiteout object moves.
++	 */
++	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
++			       RENAME_EXCHANGE));
++
++	/* The FIFO and the whiteout object swapped places. */
++	EXPECT_TRUE(is_whiteout(file1_s3d3));
++	EXPECT_TRUE(is_fifo(whiteout_s3d3));
++}
++
+ TEST_F_FORK(layout1, rename_dir)
+ {
+ 	const struct rule rules[] = {
+@@ -3053,6 +3242,18 @@ TEST_F_FORK(layout1, make_char)
+ 		       makedev(1, 3));
+ }
+ 
++TEST_F_FORK(layout1, make_whiteout)
++{
++	/*
++	 * Creates a whiteout object (creation guarded by MAKE_REG).
++	 *
++	 * Contrary to the other character devices, this does not require
++	 * CAP_MKNOD, cf. vfs_mknod().
++	 */
++	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
++		       makedev(0, 0));
++}
++
+ TEST_F_FORK(layout1, make_block)
+ {
+ 	/* Creates a /dev/loop0 device. */
