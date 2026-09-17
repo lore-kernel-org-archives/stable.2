@@ -1,41 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0F4F30C359
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:19:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7321E3090E8
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:19:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604368; cv=none; b=ESNbCIayiEzJaMOUmeNRlBGFw50Qab7XG6jSGxhE7GnJI/ma50x/2LDAh2plbnrCw/rUy8zjyQmc+zqkCEHH0JS9mwfs9vt7vWW1ejwKLMt0laewhDf/9+8Yql3IKGF3kA/l0FfzgQJ3vWBybc+5mta97gF1Ydnpa57utEs0jTQ=
+	t=1789604369; cv=none; b=i/Df6VzsQng8x0hTkKi99jB+Bcz3+NWUTSPVL4RGZ8vwdwOIPc3fy3UjZpz7VpXRatzoo+4uN7LOi2qbKepTyBQwjbCYfWu2Al/EG8t3EVHXXhE/TclwP2agDWCZxE5i5vsdthLK+Ba23E4pUVe6o+XX3oVBZn1D7NJ87g9cRuE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604368; c=relaxed/simple;
-	bh=dojW3kJnWq3RZClYJyP0ZQvzE1VkuMmQXz9biAfDsXI=;
+	s=arc-20240116; t=1789604369; c=relaxed/simple;
+	bh=5tFbcOKXUipOlSWMZF/uuD+p5Bj7qMsSU28YJZIRf0I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jHc+QF1//zMYpgUuuA+Y90UbSmMoLVBqKI7w+TXE3HYUFsZ9zHQa1ou8dtFKlyXh3wOs7VMLlcJrhwCctC8cv/DkUIfBbP9QxWgIKPYwCgIdv3DNbrNRsTRuM2/zmubEWsxOQCOo63P8tu6a4e4XS9tVDR0V9pE4VN2So28exq8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ggUd/jGF; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qdCmOMEZa/xQBD2MHfxPK8KUS6vHaCnYNqkO2FkjuGTU163ckX+c1A1EJ0n3gGuogxzjIwDloCTN+rgWlTcQov5WvZYR+9buC3kJHjRHNmj7Xz64L+myyuVZOg9mdcSFdvEDMV1OJOIrl+zBE0ukkH+HuZ34xT5tIUb8Nue2nwE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFfv1xbS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ggUd/jGF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF7781F000FF;
-	Thu, 17 Sep 2026 00:19:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFfv1xbS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3743B1F00898;
+	Thu, 17 Sep 2026 00:19:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789604365;
-	bh=32XyBGUvmwU16a2BPPhlbUAtzzP/fqPcwFuX6UTk32E=;
+	s=k20260515; t=1789604366;
+	bh=NfQF3xIl9wL6OGGccukPUvmHyyU2vyuUj+8Zpgo71lg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=ggUd/jGFzicd82NULDOSZfggePp0eun8u9SjIbjJNOVbfoqvwqfC0ZEajreqRHF6N
-	 yIZy8Vxp0yTVPqA5XYgNEVY5xKtIURPYgIkLJz+EeVnWynZU7NazitjpCkAoSZEO0X
-	 5Qc5G9LvEhBwuP3w1X7uIMv9IhKpJoG/SjxGlQW3QZ9YnU7IFfluVLyboLISR32zXT
-	 OKNxeybLwob0w92VB6UOkfrA7uj7ddjfgpZ0C+yG0A5jT+iV4N0704Ljmvz20WHMYg
-	 9053JdIF6OEH8tNOsDZP3VNUkgiW3KLTiwOS2u4TcfOYK9AgpV4imqm0SDiYWu8L9S
-	 0SqMpNpktRkQQ==
+	b=NFfv1xbS9AkYCZa6h1TCfb1eKnLeXRiHrc/RhnHP/xHJLePkjTI4BYvZ18fWF9NlY
+	 9ShvXx+OZOyJfCIKnmLPLaj8BbbivOPJ9TlXTp2yTlmFM/PEi3ZbNaie14FOeVXwPj
+	 i/jRG/HQpOd1SR4XZyaPtSS9ZUpA0+sPFNPNsYvlUsSYq5/G9JuTYrknQ0YYvHW34r
+	 pgya4enSa+BBN9uyziUzxfHb2J/wv/+mfKviGeI4ke9lLwb45w8kOt9yt32mcCrZu+
+	 ziwcQV47J/0vEqChNQp+Ol+AtlTxbCLcnM5ZIujIBsC4jDa5SYkQPtMGxoAe1qvWx0
+	 U8Hy5uy3swMyg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Zhiling Zou <zhilinz@nebusec.ai>,
+	Vega <vega@nebusec.ai>,
+	Nikolay Aleksandrov <razor@blackwall.org>,
+	Yilin Zhu <zylzyl2333@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] netfilter: cttimeout: detach dataplane timeout policy and repurpose refcount
-Date: Wed, 16 Sep 2026 20:19:22 -0400
-Message-ID: <20260917001923.3361495-1-sashal@kernel.org>
+Subject: [PATCH 6.1.y] net: bridge: use option bits for CFM/MRP frame handlers
+Date: Wed, 16 Sep 2026 20:19:24 -0400
+Message-ID: <20260917001924.3361610-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091643-moodiness-multiple-38a7@gregkh>
-References: <2026091643-moodiness-multiple-38a7@gregkh>
+In-Reply-To: <2026091650-predict-headlamp-e88b@gregkh>
+References: <2026091650-predict-headlamp-e88b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,483 +48,290 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Pablo Neira Ayuso <pablo@netfilter.org>
+From: Zhiling Zou <zhilinz@nebusec.ai>
 
-[ Upstream commit 7d6a9cdb8d3a51d9cfe546a09a518ab3d2671549 ]
+[ Upstream commit 7a49e6b16f36b8e085521699adbca3e321b6dd0c ]
 
-Add a refcount for struct nf_ct_timeout which is used by ct extension to
-set the custom ct timeout policy, this tells us that the ct timeout is
-being used by a conntrack entry. When the last conntrack entry drops the
-refcount on the ct timeout, the ct timeout is released.
+CFM and MRP register a global br_frame_type whose hlist_node is linked
+into the per-bridge frame_type_list when the first MEP/MRP instance is
+created. Enabling the protocol on multiple bridges therefore inserts the
+same node into multiple lists. Unregistering it on one bridge then
+corrupts list state belonging to another.
 
-Remove the refcount for control plane which controls if the ruleset
-refers to the timeout policy. After this update, it is possible to
-remove the ct timeout policy from nfnetlink_cttimeout immediately.
-This is for simplicity not to handle two refcounts on a single object.
+These handlers can only be installed once per bridge, and they are
+uncommon. Track their per-bridge enable state with net_bridge option
+bits, which already live on the Rx hot cache line, and dispatch the
+matching handler directly from the receive path. Check both bits
+together first as an unlikely case.
 
-Remove nf_queue_nf_hook_drop(): a packet sitting in nfqueue will just
-hold a reference to the nf_ct_timeout object until packet is reinjected,
-since this is part of the ct extension, this will be released by the
-time the conntrack is freed.
+Remove the generic frame_type_list and br_frame_type helpers, which
+have had no other users since CFM and MRP were added. That shrinks
+struct net_bridge by 8 bytes and drops the list walk from the fast
+path. When neither protocol is compiled in, BR_CFM_MRP_OPTS is 0 and
+the compiler prunes the branch.
 
-nf_ct_untimeout() is still called to clean up in a best effort basis:
-the ct timeout on existing entries gets removed when the ct timeout goes
-away, but as long as the iptables ruleset still refers to the ct timeout
-through a template, new conntracks may keep attaching it and extend its
-lifetime until the rule is removed.
-
-nf_ct_untimeout() is not called anymore from module removal path, this
-is unlikely to find timeouts give module refcount is bumped, and the new
-refcount already tracks the ct timeout policy use so it is released when
-unused.
-
-Fixes: 50978462300f ("netfilter: add cttimeout infrastructure for fine timeout tuning")
-Fixes: 7e0b2b57f01d ("netfilter: nft_ct: add ct timeout support")
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Stable-dep-of: fec9b1de0d02 ("netfilter: cttimeout: prevent UAF during module unload")
+Fixes: 90c628dd47ff ("net: bridge: extend the process of special frames")
+Fixes: dc32cbb3dbd7 ("bridge: cfm: Kernel space implementation of CFM. CCM frame RX added.")
+Cc: stable@vger.kernel.org
+Reported-by: Vega <vega@nebusec.ai>
+Suggested-by: Nikolay Aleksandrov <razor@blackwall.org>
+Co-developed-by: Yilin Zhu <zylzyl2333@gmail.com>
+Signed-off-by: Yilin Zhu <zylzyl2333@gmail.com>
+Signed-off-by: Zhiling Zou <zhilinz@nebusec.ai>
+Acked-by: Nikolay Aleksandrov <razor@blackwall.org>
+Link: https://patch.msgid.link/0345b9d5aa60ba416f6738ff1b87140f0a749cb8.1788417901.git.zhilinz@nebusec.ai
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+[ Adjusted bridge option enum context because BROPT_MDB_OFFLOAD_FAIL_NOTIFICATION and BROPT_FDB_LOCAL_VLAN_0 are absent. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/netfilter/nf_conntrack_timeout.h |  27 ++++-
- net/netfilter/nf_conntrack_core.c            |   6 +-
- net/netfilter/nf_conntrack_timeout.c         |  27 ++++-
- net/netfilter/nfnetlink_cttimeout.c          | 112 +++++++++----------
- net/netfilter/nft_ct.c                       |   7 +-
- net/netfilter/xt_CT.c                        |   2 +-
- 6 files changed, 107 insertions(+), 74 deletions(-)
+ net/bridge/br_cfm.c     | 11 +++--------
+ net/bridge/br_device.c  |  1 -
+ net/bridge/br_input.c   | 35 ++++++++++++++---------------------
+ net/bridge/br_mrp.c     | 13 +++----------
+ net/bridge/br_private.h | 26 +++++++++++++++-----------
+ 5 files changed, 35 insertions(+), 51 deletions(-)
 
-diff --git a/include/net/netfilter/nf_conntrack_timeout.h b/include/net/netfilter/nf_conntrack_timeout.h
-index 3a66d4abb6d68..d60aa86be0194 100644
---- a/include/net/netfilter/nf_conntrack_timeout.h
-+++ b/include/net/netfilter/nf_conntrack_timeout.h
-@@ -12,6 +12,7 @@
- #define CTNL_TIMEOUT_NAME_MAX	32
+diff --git a/net/bridge/br_cfm.c b/net/bridge/br_cfm.c
+index a89aec8314164..b9a3546fb4b44 100644
+--- a/net/bridge/br_cfm.c
++++ b/net/bridge/br_cfm.c
+@@ -367,7 +367,7 @@ static u32 ccm_tlv_extract(struct sk_buff *skb, u32 index,
+ }
  
- struct nf_ct_timeout {
-+	refcount_t		refcnt;
- 	__u16			l3num;
- 	const struct nf_conntrack_l4proto *l4proto;
- 	struct rcu_head		rcu;
-@@ -22,6 +23,22 @@ struct nf_conn_timeout {
- 	struct nf_ct_timeout __rcu *timeout;
- };
- 
-+static inline void nf_ct_timeout_put(const struct nf_conn *ct)
-+{
-+#ifdef CONFIG_NF_CONNTRACK_TIMEOUT
-+	struct nf_conn_timeout *timeout_ext;
-+	struct nf_ct_timeout *timeout;
-+
-+	timeout_ext = nf_ct_ext_find(ct, NF_CT_EXT_TIMEOUT);
-+	if (!timeout_ext)
-+		return;
-+
-+	timeout = rcu_dereference(timeout_ext->timeout);
-+	if (timeout && refcount_dec_and_test(&timeout->refcnt))
-+		kfree_rcu(timeout, rcu);
-+#endif
-+}
-+
- static inline unsigned int *
- nf_ct_timeout_data(const struct nf_conn_timeout *t)
+ /* note: already called with rcu_read_lock */
+-static int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb)
++int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb)
  {
-@@ -56,8 +73,14 @@ struct nf_conn_timeout *nf_ct_timeout_ext_add(struct nf_conn *ct,
- #ifdef CONFIG_NF_CONNTRACK_TIMEOUT
- 	struct nf_conn_timeout *timeout_ext;
+ 	u32 mdlevel, interval, size, index, max;
+ 	const struct br_cfm_common_hdr *hdr;
+@@ -489,11 +489,6 @@ static int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb)
+ 	return 1;
+ }
  
-+	if (!timeout)
-+		return NULL;
-+
- 	timeout_ext = nf_ct_ext_add(ct, NF_CT_EXT_TIMEOUT, gfp);
--	if (timeout_ext == NULL)
-+	if (!timeout_ext || timeout_ext->timeout)
-+		return NULL;
-+
-+	if (!refcount_inc_not_zero(&timeout->refcnt))
- 		return NULL;
- 
- 	rcu_assign_pointer(timeout_ext->timeout, timeout);
-@@ -75,7 +98,7 @@ static inline unsigned int *nf_ct_timeout_lookup(const struct nf_conn *ct)
- 	struct nf_conn_timeout *timeout_ext;
- 
- 	timeout_ext = nf_ct_timeout_find(ct);
--	if (timeout_ext)
-+	if (timeout_ext && rcu_access_pointer(timeout_ext->timeout))
- 		timeouts = nf_ct_timeout_data(timeout_ext);
- #endif
- 	return timeouts;
-diff --git a/net/netfilter/nf_conntrack_core.c b/net/netfilter/nf_conntrack_core.c
-index bed9c370fd70a..14bf5384192c7 100644
---- a/net/netfilter/nf_conntrack_core.c
-+++ b/net/netfilter/nf_conntrack_core.c
-@@ -1648,16 +1648,18 @@ void nf_conntrack_free(struct nf_conn *ct)
- 	 */
- 	WARN_ON(refcount_read(&ct->ct_general.use) != 0);
- 
-+	rcu_read_lock();
- 	if (ct->status & IPS_SRC_NAT_DONE) {
- 		const struct nf_nat_hook *nat_hook;
- 
--		rcu_read_lock();
- 		nat_hook = rcu_dereference(nf_nat_hook);
- 		if (nat_hook)
- 			nat_hook->remove_nat_bysrc(ct);
--		rcu_read_unlock();
- 	}
- 
-+	nf_ct_timeout_put(ct);
-+	rcu_read_unlock();
-+
- 	kfree(ct->ext);
- 	kmem_cache_free(nf_conntrack_cachep, ct);
- 	cnet = nf_ct_pernet(net);
-diff --git a/net/netfilter/nf_conntrack_timeout.c b/net/netfilter/nf_conntrack_timeout.c
-index 0cc584d3dbb1d..c81becde2afa9 100644
---- a/net/netfilter/nf_conntrack_timeout.c
-+++ b/net/netfilter/nf_conntrack_timeout.c
-@@ -25,17 +25,32 @@
- const struct nf_ct_timeout_hooks __rcu *nf_ct_timeout_hook __read_mostly;
- EXPORT_SYMBOL_GPL(nf_ct_timeout_hook);
- 
-+/* nf_ct_iterate_cleanup() holds the conntrack lock. */
- static int untimeout(struct nf_conn *ct, void *timeout)
- {
- 	struct nf_conn_timeout *timeout_ext = nf_ct_timeout_find(ct);
- 
- 	if (timeout_ext) {
--		const struct nf_ct_timeout *t;
-+		struct nf_ct_timeout *t;
- 
--		t = rcu_access_pointer(timeout_ext->timeout);
-+		rcu_read_lock();
-+		t = rcu_dereference(timeout_ext->timeout);
-+		if (!t) {
-+			rcu_read_unlock();
-+			return 0;
-+		}
- 
--		if (!timeout || t == timeout)
-+		if (!timeout || t == timeout) {
- 			RCU_INIT_POINTER(timeout_ext->timeout, NULL);
-+
-+			/* No race with nf_conntrack_free() which is called
-+			 * only after the conntrack has been removed from
-+			 * the hashes.
-+			 */
-+			if (refcount_dec_and_test(&t->refcnt))
-+				kfree_rcu(t, rcu);
-+		}
-+		rcu_read_unlock();
- 	}
- 
- 	/* We are not intended to delete this conntrack. */
-@@ -70,6 +85,8 @@ int nf_ct_set_timeout(struct net *net, struct nf_conn *ct,
- 	const char *errmsg = NULL;
- 	int ret = 0;
- 
-+	WARN_ON_ONCE(!nf_ct_is_template(ct));
-+
- 	rcu_read_lock();
- 	h = rcu_dereference(nf_ct_timeout_hook);
- 	if (!h) {
-@@ -127,6 +144,8 @@ void nf_ct_destroy_timeout(struct nf_conn *ct)
- 	struct nf_conn_timeout *timeout_ext;
- 	const struct nf_ct_timeout_hooks *h;
- 
-+	WARN_ON_ONCE(!nf_ct_is_template(ct));
-+
- 	rcu_read_lock();
- 	h = rcu_dereference(nf_ct_timeout_hook);
- 
-@@ -139,6 +158,8 @@ void nf_ct_destroy_timeout(struct nf_conn *ct)
- 			if (t)
- 				h->timeout_put(t);
- 			RCU_INIT_POINTER(timeout_ext->timeout, NULL);
-+			if (t && refcount_dec_and_test(&t->refcnt))
-+				kfree_rcu(t, rcu);
- 		}
- 	}
- 	rcu_read_unlock();
-diff --git a/net/netfilter/nfnetlink_cttimeout.c b/net/netfilter/nfnetlink_cttimeout.c
-index f466af4f85317..eb4d4a3be922f 100644
---- a/net/netfilter/nfnetlink_cttimeout.c
-+++ b/net/netfilter/nfnetlink_cttimeout.c
-@@ -37,11 +37,8 @@ struct ctnl_timeout {
- 	struct list_head	head;
- 	struct list_head	free_head;
- 	struct rcu_head		rcu_head;
--	refcount_t		refcnt;
- 	char			name[CTNL_TIMEOUT_NAME_MAX];
+-static struct br_frame_type cfm_frame_type __read_mostly = {
+-	.type = cpu_to_be16(ETH_P_CFM),
+-	.frame_handler = br_cfm_frame_rx,
+-};
 -
--	/* must be at the end */
--	struct nf_ct_timeout	timeout;
-+	struct nf_ct_timeout	*timeout;
- };
+ int br_cfm_mep_create(struct net_bridge *br,
+ 		      const u32 instance,
+ 		      struct br_cfm_mep_create *const create,
+@@ -559,7 +554,7 @@ int br_cfm_mep_create(struct net_bridge *br,
+ 	INIT_DELAYED_WORK(&mep->ccm_tx_dwork, ccm_tx_work_expired);
  
- struct nfct_timeout_pernet {
-@@ -133,12 +130,12 @@ static int cttimeout_new_timeout(struct sk_buff *skb,
- 			/* You cannot replace one timeout policy by another of
- 			 * different kind, sorry.
- 			 */
--			if (matching->timeout.l3num != l3num ||
--			    matching->timeout.l4proto->l4proto != l4num)
-+			if (matching->timeout->l3num != l3num ||
-+			    matching->timeout->l4proto->l4proto != l4num)
- 				return -EINVAL;
+ 	if (hlist_empty(&br->mep_list))
+-		br_add_frame(br, &cfm_frame_type);
++		br_opt_toggle(br, BROPT_CFM_ENABLED, true);
  
--			return ctnl_timeout_parse_policy(&matching->timeout.data,
--							 matching->timeout.l4proto,
-+			return ctnl_timeout_parse_policy(&matching->timeout->data,
-+							 matching->timeout->l4proto,
- 							 info->net,
- 							 cda[CTA_TIMEOUT_DATA]);
- 		}
-@@ -154,26 +151,35 @@ static int cttimeout_new_timeout(struct sk_buff *skb,
- 		goto err_proto_put;
- 	}
+ 	hlist_add_tail_rcu(&mep->head, &br->mep_list);
  
--	timeout = kzalloc(sizeof(struct ctnl_timeout) +
--			  l4proto->ctnl_timeout.obj_size, GFP_KERNEL);
-+	timeout = kzalloc(sizeof(*timeout), GFP_KERNEL);
- 	if (timeout == NULL) {
- 		ret = -ENOMEM;
- 		goto err_proto_put;
- 	}
+@@ -588,7 +583,7 @@ static void mep_delete_implementation(struct net_bridge *br,
+ 	kfree_rcu(mep, rcu);
  
--	ret = ctnl_timeout_parse_policy(&timeout->timeout.data, l4proto,
-+	timeout->timeout = kzalloc(sizeof(*timeout->timeout) +
-+				   l4proto->ctnl_timeout.obj_size, GFP_KERNEL);
-+	if (!timeout->timeout) {
-+		ret = -ENOMEM;
-+		goto err;
-+	}
+ 	if (hlist_empty(&br->mep_list))
+-		br_del_frame(br, &cfm_frame_type);
++		br_opt_toggle(br, BROPT_CFM_ENABLED, false);
+ }
+ 
+ int br_cfm_mep_delete(struct net_bridge *br,
+diff --git a/net/bridge/br_device.c b/net/bridge/br_device.c
+index 052986e05e620..9966a3e093232 100644
+--- a/net/bridge/br_device.c
++++ b/net/bridge/br_device.c
+@@ -508,7 +508,6 @@ void br_dev_setup(struct net_device *dev)
+ 	spin_lock_init(&br->lock);
+ 	INIT_LIST_HEAD(&br->port_list);
+ 	INIT_HLIST_HEAD(&br->fdb_list);
+-	INIT_HLIST_HEAD(&br->frame_type_list);
+ #if IS_ENABLED(CONFIG_BRIDGE_MRP)
+ 	INIT_HLIST_HEAD(&br->mrp_list);
+ #endif
+diff --git a/net/bridge/br_input.c b/net/bridge/br_input.c
+index aca6db6f95355..bfc7de46a7054 100644
+--- a/net/bridge/br_input.c
++++ b/net/bridge/br_input.c
+@@ -286,17 +286,25 @@ static int nf_hook_bridge_pre(struct sk_buff *skb, struct sk_buff **pskb)
+ 	return RX_HANDLER_CONSUMED;
+ }
+ 
++#define BR_CFM_MRP_OPTS \
++	((IS_ENABLED(CONFIG_BRIDGE_CFM) ? BIT(BROPT_CFM_ENABLED) : 0UL) | \
++	 (IS_ENABLED(CONFIG_BRIDGE_MRP) ? BIT(BROPT_MRP_ENABLED) : 0UL))
 +
-+	ret = ctnl_timeout_parse_policy(&timeout->timeout->data, l4proto,
- 					info->net, cda[CTA_TIMEOUT_DATA]);
- 	if (ret < 0)
--		goto err;
-+		goto err_free_timeout_policy;
+ /* Return 0 if the frame was not processed otherwise 1
+  * note: already called with rcu_read_lock
+  */
+ static int br_process_frame_type(struct net_bridge_port *p,
+ 				 struct sk_buff *skb)
+ {
+-	struct br_frame_type *tmp;
++	struct net_bridge *br = p->br;
++
++	if (skb->protocol == htons(ETH_P_CFM) &&
++	    br_opt_get(br, BROPT_CFM_ENABLED))
++		return br_cfm_frame_rx(p, skb);
  
- 	strcpy(timeout->name, nla_data(cda[CTA_TIMEOUT_NAME]));
--	timeout->timeout.l3num = l3num;
--	timeout->timeout.l4proto = l4proto;
--	refcount_set(&timeout->refcnt, 1);
-+	timeout->timeout->l3num = l3num;
-+	timeout->timeout->l4proto = l4proto;
-+	refcount_set(&timeout->timeout->refcnt, 1);
- 	__module_get(THIS_MODULE);
- 	list_add_tail_rcu(&timeout->head, &pernet->nfct_timeout_list);
+-	hlist_for_each_entry_rcu(tmp, &p->br->frame_type_list, list)
+-		if (unlikely(tmp->type == skb->protocol))
+-			return tmp->frame_handler(p, skb);
++	if (skb->protocol == htons(ETH_P_MRP) &&
++	    br_opt_get(br, BROPT_MRP_ENABLED))
++		return br_mrp_process(p, skb);
  
  	return 0;
-+
-+err_free_timeout_policy:
-+	kfree(timeout->timeout);
- err:
- 	kfree(timeout);
- err_proto_put:
-@@ -186,7 +192,7 @@ ctnl_timeout_fill_info(struct sk_buff *skb, u32 portid, u32 seq, u32 type,
- {
- 	struct nlmsghdr *nlh;
- 	unsigned int flags = portid ? NLM_F_MULTI : 0;
--	const struct nf_conntrack_l4proto *l4proto = timeout->timeout.l4proto;
-+	const struct nf_conntrack_l4proto *l4proto = timeout->timeout->l4proto;
- 	struct nlattr *nest_parms;
- 	int ret;
- 
-@@ -198,17 +204,17 @@ ctnl_timeout_fill_info(struct sk_buff *skb, u32 portid, u32 seq, u32 type,
- 
- 	if (nla_put_string(skb, CTA_TIMEOUT_NAME, timeout->name) ||
- 	    nla_put_be16(skb, CTA_TIMEOUT_L3PROTO,
--			 htons(timeout->timeout.l3num)) ||
-+			 htons(timeout->timeout->l3num)) ||
- 	    nla_put_u8(skb, CTA_TIMEOUT_L4PROTO, l4proto->l4proto) ||
- 	    nla_put_be32(skb, CTA_TIMEOUT_USE,
--			 htonl(refcount_read(&timeout->refcnt))))
-+			 htonl(refcount_read(&timeout->timeout->refcnt))))
- 		goto nla_put_failure;
- 
- 	nest_parms = nla_nest_start(skb, CTA_TIMEOUT_DATA);
- 	if (!nest_parms)
- 		goto nla_put_failure;
- 
--	ret = l4proto->ctnl_timeout.obj_to_nlattr(skb, &timeout->timeout.data);
-+	ret = l4proto->ctnl_timeout.obj_to_nlattr(skb, &timeout->timeout->data);
- 	if (ret < 0)
- 		goto nla_put_failure;
- 
-@@ -308,23 +314,17 @@ static int cttimeout_get_timeout(struct sk_buff *skb,
- 	return ret;
  }
- 
--/* try to delete object, fail if it is still in use. */
--static int ctnl_timeout_try_del(struct net *net, struct ctnl_timeout *timeout)
-+static void ctnl_timeout_del(struct net *net, struct ctnl_timeout *timeout)
- {
--	int ret = 0;
-+	/* We are protected by nfnl mutex. */
-+	list_del_rcu(&timeout->head);
-+	nf_ct_untimeout(net, timeout->timeout);
- 
--	/* We want to avoid races with ctnl_timeout_put. So only when the
--	 * current refcnt is 1, we decrease it to 0.
--	 */
--	if (refcount_dec_if_one(&timeout->refcnt)) {
--		/* We are protected by nfnl mutex. */
--		list_del_rcu(&timeout->head);
--		nf_ct_untimeout(net, &timeout->timeout);
--		kfree_rcu(timeout, rcu_head);
--	} else {
--		ret = -EBUSY;
--	}
--	return ret;
-+	if (refcount_dec_and_test(&timeout->timeout->refcnt))
-+		kfree_rcu(timeout->timeout, rcu);
-+
-+	kfree_rcu(timeout, rcu_head);
-+	module_put(THIS_MODULE);
- }
- 
- static int cttimeout_del_timeout(struct sk_buff *skb,
-@@ -339,7 +339,7 @@ static int cttimeout_del_timeout(struct sk_buff *skb,
- 	if (!cda[CTA_TIMEOUT_NAME]) {
- 		list_for_each_entry_safe(cur, tmp, &pernet->nfct_timeout_list,
- 					 head)
--			ctnl_timeout_try_del(info->net, cur);
-+			ctnl_timeout_del(info->net, cur);
- 
- 		return 0;
- 	}
-@@ -349,10 +349,8 @@ static int cttimeout_del_timeout(struct sk_buff *skb,
- 		if (strncmp(cur->name, name, CTNL_TIMEOUT_NAME_MAX) != 0)
- 			continue;
- 
--		ret = ctnl_timeout_try_del(info->net, cur);
--		if (ret < 0)
--			return ret;
--
-+		ctnl_timeout_del(info->net, cur);
-+		ret = 0;
- 		break;
- 	}
- 	return ret;
-@@ -519,24 +517,22 @@ static struct nf_ct_timeout *ctnl_timeout_find_get(struct net *net,
- 		if (strncmp(timeout->name, name, CTNL_TIMEOUT_NAME_MAX) != 0)
- 			continue;
- 
--		if (!refcount_inc_not_zero(&timeout->refcnt))
-+		if (!refcount_inc_not_zero(&timeout->timeout->refcnt))
- 			goto err;
- 		matching = timeout;
-+		__module_get(THIS_MODULE);
- 		break;
- 	}
- err:
--	return matching ? &matching->timeout : NULL;
-+	return matching ? matching->timeout : NULL;
- }
- 
--static void ctnl_timeout_put(struct nf_ct_timeout *t)
-+static void ctnl_timeout_put(struct nf_ct_timeout *timeout)
- {
--	struct ctnl_timeout *timeout =
--		container_of(t, struct ctnl_timeout, timeout);
-+	if (refcount_dec_and_test(&timeout->refcnt))
-+		kfree_rcu(timeout, rcu);
- 
--	if (refcount_dec_and_test(&timeout->refcnt)) {
--		kfree_rcu(timeout, rcu_head);
--		module_put(THIS_MODULE);
--	}
-+	module_put(THIS_MODULE);
- }
- 
- static const struct nfnl_callback cttimeout_cb[IPCTNL_MSG_TIMEOUT_MAX] = {
-@@ -617,8 +613,11 @@ static void __net_exit cttimeout_net_exit(struct net *net)
- 	list_for_each_entry_safe(cur, tmp, &pernet->nfct_timeout_freelist, free_head) {
- 		list_del(&cur->free_head);
- 
--		if (refcount_dec_and_test(&cur->refcnt))
--			kfree_rcu(cur, rcu_head);
-+		if (refcount_dec_and_test(&cur->timeout->refcnt))
-+			kfree_rcu(cur->timeout, rcu);
-+
-+		kfree_rcu(cur, rcu_head);
-+		module_put(THIS_MODULE);
- 	}
- }
- 
-@@ -657,24 +656,13 @@ static int __init cttimeout_init(void)
- 	return ret;
- }
- 
--static int untimeout(struct nf_conn *ct, void *timeout)
--{
--	struct nf_conn_timeout *timeout_ext = nf_ct_timeout_find(ct);
--
--	if (timeout_ext)
--		RCU_INIT_POINTER(timeout_ext->timeout, NULL);
--
--	return 0;
--}
--
- static void __exit cttimeout_exit(void)
- {
- 	nfnetlink_subsys_unregister(&cttimeout_subsys);
- 
- 	unregister_pernet_subsys(&cttimeout_ops);
- 	RCU_INIT_POINTER(nf_ct_timeout_hook, NULL);
--
--	nf_ct_iterate_destroy(untimeout, NULL);
-+	synchronize_net();
- }
- 
- module_init(cttimeout_init);
-diff --git a/net/netfilter/nft_ct.c b/net/netfilter/nft_ct.c
-index 1d1673f49ff75..33fdd94927b59 100644
---- a/net/netfilter/nft_ct.c
-+++ b/net/netfilter/nft_ct.c
-@@ -879,8 +879,6 @@ static void nft_ct_timeout_obj_eval(struct nft_object *obj,
+@@ -389,7 +397,8 @@ static rx_handler_result_t br_handle_frame(struct sk_buff **pskb)
  		}
  	}
  
--	rcu_assign_pointer(timeout->timeout, priv->timeout);
+-	if (unlikely(br_process_frame_type(p, skb)))
++	if (unlikely((READ_ONCE(p->br->options) & BR_CFM_MRP_OPTS) &&
++		     br_process_frame_type(p, skb)))
+ 		return RX_HANDLER_PASS;
+ 
+ forward:
+@@ -430,19 +439,3 @@ rx_handler_func_t *br_get_rx_handler(const struct net_device *dev)
+ 
+ 	return br_handle_frame;
+ }
 -
- 	/* adjust the timeout as per 'new' state. ct is unconfirmed,
- 	 * so the current timestamp must not be added.
- 	 */
-@@ -931,6 +929,7 @@ static int nft_ct_timeout_obj_init(const struct nft_ctx *ctx,
+-void br_add_frame(struct net_bridge *br, struct br_frame_type *ft)
+-{
+-	hlist_add_head_rcu(&ft->list, &br->frame_type_list);
+-}
+-
+-void br_del_frame(struct net_bridge *br, struct br_frame_type *ft)
+-{
+-	struct br_frame_type *tmp;
+-
+-	hlist_for_each_entry(tmp, &br->frame_type_list, list)
+-		if (ft == tmp) {
+-			hlist_del_rcu(&ft->list);
+-			return;
+-		}
+-}
+diff --git a/net/bridge/br_mrp.c b/net/bridge/br_mrp.c
+index a837ff7d6f36d..79d6bc62179e2 100644
+--- a/net/bridge/br_mrp.c
++++ b/net/bridge/br_mrp.c
+@@ -6,13 +6,6 @@
+ static const u8 mrp_test_dmac[ETH_ALEN] = { 0x1, 0x15, 0x4e, 0x0, 0x0, 0x1 };
+ static const u8 mrp_in_test_dmac[ETH_ALEN] = { 0x1, 0x15, 0x4e, 0x0, 0x0, 0x3 };
  
- 	timeout->l3num = l3num;
- 	timeout->l4proto = l4proto;
-+	refcount_set(&timeout->refcnt, 1);
+-static int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb);
+-
+-static struct br_frame_type mrp_frame_type __read_mostly = {
+-	.type = cpu_to_be16(ETH_P_MRP),
+-	.frame_handler = br_mrp_process,
+-};
+-
+ static bool br_mrp_is_ring_port(struct net_bridge_port *p_port,
+ 				struct net_bridge_port *s_port,
+ 				struct net_bridge_port *port)
+@@ -486,7 +479,7 @@ static void br_mrp_del_impl(struct net_bridge *br, struct br_mrp *mrp)
+ 	kfree_rcu(mrp, rcu);
  
- 	ret = nf_ct_netns_get(ctx->net, ctx->family);
- 	if (ret < 0)
-@@ -951,10 +950,10 @@ static void nft_ct_timeout_obj_destroy(const struct nft_ctx *ctx,
- 	struct nft_ct_timeout_obj *priv = nft_obj_data(obj);
- 	struct nf_ct_timeout *timeout = priv->timeout;
- 
--	nf_queue_nf_hook_drop(ctx->net);
- 	nf_ct_untimeout(ctx->net, timeout);
- 	nf_ct_netns_put(ctx->net, ctx->family);
--	kfree_rcu(priv->timeout, rcu);
-+	if (refcount_dec_and_test(&timeout->refcnt))
-+		kfree_rcu(priv->timeout, rcu);
+ 	if (hlist_empty(&br->mrp_list))
+-		br_del_frame(br, &mrp_frame_type);
++		br_opt_toggle(br, BROPT_MRP_ENABLED, false);
  }
  
- static int nft_ct_timeout_obj_dump(struct sk_buff *skb,
-diff --git a/net/netfilter/xt_CT.c b/net/netfilter/xt_CT.c
-index 498f5871c84a0..90a295cf5ec6b 100644
---- a/net/netfilter/xt_CT.c
-+++ b/net/netfilter/xt_CT.c
-@@ -284,7 +284,7 @@ static void xt_ct_tg_destroy(const struct xt_tgdtor_param *par,
- 	struct nf_conn_help *help;
+ /* Adds a new MRP instance.
+@@ -536,7 +529,7 @@ int br_mrp_add(struct net_bridge *br, struct br_mrp_instance *instance)
+ 	rcu_assign_pointer(mrp->s_port, p);
  
- 	if (ct) {
--		if (info->helper[0] || info->timeout[0])
-+		if (info->helper[0])
- 			nf_queue_nf_hook_drop(par->net);
+ 	if (hlist_empty(&br->mrp_list))
+-		br_add_frame(br, &mrp_frame_type);
++		br_opt_toggle(br, BROPT_MRP_ENABLED, true);
  
- 		help = nfct_help(ct);
+ 	INIT_DELAYED_WORK(&mrp->test_work, br_mrp_test_work_expired);
+ 	INIT_DELAYED_WORK(&mrp->in_test_work, br_mrp_in_test_work_expired);
+@@ -1241,7 +1234,7 @@ static int br_mrp_rcv(struct net_bridge_port *p,
+  * normal forwarding.
+  * note: already called with rcu_read_lock
+  */
+-static int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb)
++int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb)
+ {
+ 	/* If there is no MRP instance do normal forwarding */
+ 	if (likely(!(p->flags & BR_MRP_AWARE)))
+diff --git a/net/bridge/br_private.h b/net/bridge/br_private.h
+index 617e636a8a4c2..8c0912283df79 100644
+--- a/net/bridge/br_private.h
++++ b/net/bridge/br_private.h
+@@ -459,12 +459,13 @@ enum net_bridge_opts {
+ 	BROPT_VLAN_BRIDGE_BINDING,
+ 	BROPT_MCAST_VLAN_SNOOPING_ENABLED,
+ 	BROPT_MST_ENABLED,
++	BROPT_CFM_ENABLED,
++	BROPT_MRP_ENABLED,
+ };
+ 
+ struct net_bridge {
+ 	spinlock_t			lock;
+ 	spinlock_t			hash_lock;
+-	struct hlist_head		frame_type_list;
+ 	struct net_device		*dev;
+ 	unsigned long			options;
+ 	/* These fields are accessed on each packet */
+@@ -861,16 +862,6 @@ int nbp_backup_change(struct net_bridge_port *p, struct net_device *backup_dev);
+ int br_handle_frame_finish(struct net *net, struct sock *sk, struct sk_buff *skb);
+ rx_handler_func_t *br_get_rx_handler(const struct net_device *dev);
+ 
+-struct br_frame_type {
+-	__be16			type;
+-	int			(*frame_handler)(struct net_bridge_port *port,
+-						 struct sk_buff *skb);
+-	struct hlist_node	list;
+-};
+-
+-void br_add_frame(struct net_bridge *br, struct br_frame_type *ft);
+-void br_del_frame(struct net_bridge *br, struct br_frame_type *ft);
+-
+ static inline bool br_rx_handler_check_rcu(const struct net_device *dev)
+ {
+ 	return rcu_dereference(dev->rx_handler) == br_get_rx_handler(dev);
+@@ -1931,6 +1922,7 @@ int br_mrp_parse(struct net_bridge *br, struct net_bridge_port *p,
+ bool br_mrp_enabled(struct net_bridge *br);
+ void br_mrp_port_del(struct net_bridge *br, struct net_bridge_port *p);
+ int br_mrp_fill_info(struct sk_buff *skb, struct net_bridge *br);
++int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb);
+ #else
+ static inline int br_mrp_parse(struct net_bridge *br, struct net_bridge_port *p,
+ 			       struct nlattr *attr, int cmd,
+@@ -1954,6 +1946,11 @@ static inline int br_mrp_fill_info(struct sk_buff *skb, struct net_bridge *br)
+ 	return 0;
+ }
+ 
++static inline int br_mrp_process(struct net_bridge_port *p, struct sk_buff *skb)
++{
++	return 0;
++}
++
+ #endif
+ 
+ /* br_cfm.c */
+@@ -1962,6 +1959,7 @@ int br_cfm_parse(struct net_bridge *br, struct net_bridge_port *p,
+ 		 struct nlattr *attr, int cmd, struct netlink_ext_ack *extack);
+ bool br_cfm_created(struct net_bridge *br);
+ void br_cfm_port_del(struct net_bridge *br, struct net_bridge_port *p);
++int br_cfm_frame_rx(struct net_bridge_port *port, struct sk_buff *skb);
+ int br_cfm_config_fill_info(struct sk_buff *skb, struct net_bridge *br);
+ int br_cfm_status_fill_info(struct sk_buff *skb,
+ 			    struct net_bridge *br,
+@@ -1986,6 +1984,12 @@ static inline void br_cfm_port_del(struct net_bridge *br,
+ {
+ }
+ 
++static inline int br_cfm_frame_rx(struct net_bridge_port *port,
++				  struct sk_buff *skb)
++{
++	return 0;
++}
++
+ static inline int br_cfm_config_fill_info(struct sk_buff *skb, struct net_bridge *br)
+ {
+ 	return -EOPNOTSUPP;
 -- 
 2.53.0
 
