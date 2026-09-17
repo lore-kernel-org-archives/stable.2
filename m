@@ -1,165 +1,106 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E3C34CDDE8;
-	Thu, 17 Sep 2026 18:53:30 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 97CA24E324C
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:53:30 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671212; cv=none; b=WvA0mBQ8+Td8Rv0RtElmMub1xlZYu+9lLOTPSxw2RJwYla7HhIc5++z4cvFHYTsMM9p6pnCrtdHLNGTQ9WLWFGHe7Y7GoHUI/Og4a73frhOaN7vzM8jnhrTBEaI/uIkmWJakwHo6BCa5C60jDIJ56U4U8W8uGt431y55aHqBqxQ=
+	t=1789671212; cv=none; b=PpozwXQEKP2n0Nya4fbDcIZ6A6ppDo1+yGzrtf+bLOiLk4HfLtZrHKfVesNvxrJaevkVND8/C07l/fB5nMgg4FFu/ICcZNKjvrtB7yUAKpkfjd8hOJDEJdb4fR/RzPPZShPUlqc5wEh1xcVpPABv3msRz3Gqfruu7xuUMpbDUbc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789671212; c=relaxed/simple;
-	bh=LT3FY8IIlVV3uv5RSKRtYxi+cmQa+uZ3VzetCb1G+Sg=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=KZIZZZn/V4tOjctKLOt8jviINkBRZYEVvGvb1wdg7jTAg2GKI5LUkQDJy8HMWtA49G630EaDNCulBqZvgJCaxwo6IDC8uMsipmnE3MnYg1xcpLSwCQC0Nst0EqhnIcM7Vgnjsnpxc6vZVIzD1llGCt1OcjK7zW5nsDmG8RAxM6w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uvg1tvsh; arc=none smtp.client-ip=100.103.45.18
+	bh=l+9a0Yu3e3A7RCJWRbjWYWfjNvQgggzTHcXCHttqXDk=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=oPJSbRnVwdWv9EVL4CQM3SoE2jqcDgjiI2nUqeA7iBpB/GIkNyrOk0FqtbLZ5+zb92Vn2yHgpx+IzQ4Q12CQxNmfIoys6iHEORIP1vYIci8fqlViVQKHTQAuVCWLV+VhSuxNtzy+Sh5y0Zxu2HqL9zYauEqrLhaIZ0c51uFj+4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mKpg3nwt; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uvg1tvsh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C71431F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mKpg3nwt"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EF8591F00893;
 	Thu, 17 Sep 2026 18:53:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789671210;
-	bh=gLosgdL3g3lBfu4JTE/1h0SbyUkyX2KOdBd0Jk9To6Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=uvg1tvsh4qveQYlZlvWzGzZhIYHbdhsxUmtsPfvEiI3snupRMjv/2QDvIier+rVVW
-	 TvSrjhpIpmcV4Dvoh0n23Pu4Ddghk8U9QWzFlybrZm+nTECoh1A+Lr+Nr4uAF63/NZ
-	 VK2WfbvfyYDHW3yc+gKRR8IRPsVfo9OD7GUmaqic=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cem@kernel.org>
-Subject: [PATCH 6.12 0902/1102] xfs: report nonexistent parents as a filesystem corruption
-Date: Thu, 17 Sep 2026 16:14:05 +0100
-Message-ID: <20260917151603.248087851@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789671210;
+	bh=Lb4kqWeQRdjb4zE8LxwgGJIxhNABEaxfnXr3Nu6Ek1w=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=mKpg3nwtfEDSuFz1mD1dFfM3+BcUbAtXtsn8j4iHYD6w2Rzv7SlVpMbhI7ltQIiPh
+	 jliJNi5VbFqa5u6yPcHCBpKzhji1mZI/QUR70Nq40Nu47sEM/A3IITgEzoWczyeMZ8
+	 2Khtk7T1SOqJfNWJR8iBqMZ5gYwyE+CAnpOcrb8uzgJvzGjRsJrAPva2IeBFqiKXBd
+	 G1KXYB9tyB3/+UTJ57b4XeJqwrxcBWetjUi6rfN8sM/vhzJgzcPKKyi9gOK6yze5Wb
+	 BbRoKv6xl7gDEs4kEhsM42XNlVXK6zT5TVv4eqP3W0fuTQt+VoR9SwdXrGGn36TtCM
+	 rP9qMKN6Ff7jA==
+Received: from phl-compute-10.internal (phl-compute-10.internal [10.202.2.50])
+	by mailfauth.phl.internal (Postfix) with ESMTP id B0D46F40066;
+	Thu, 17 Sep 2026 14:53:28 -0400 (EDT)
+Received: from phl-imap-15 ([10.202.2.104])
+  by phl-compute-10.internal (MEProxy); Thu, 17 Sep 2026 14:53:28 -0400
+X-ME-Sender: <xms:KDesaklddvElvZDBxZRijDCPgAKfOIKp_pP7_UY4W74twLI5CCpjzA>
+    <xme:KDesauohEFD_9F4ntKb8fqxmrd7u6siu-on-MZwmAgLKfBUfn85sI2d_wLZCsPXiz
+    sG8PNOEJwiONYGlgwF8bQTw-utXKSKoZHi_2v0DIPidF9RMnBMaOji0>
+X-ME-Proxy-Cause: dmFkZTFU68yxpAWHjlSNcpsx/sdWPttVe6nqg4sevMl5pQQU/Mmb/uPNOhYdVpUOBugiea
+    fPhfm4n+v0lG6GKZPC7j1a83nRqt5oBajknPg6/QVgwafBdE6y7U3uPcfExQ2u2x4bgeUD
+    KQfwfUgFgXL2HDr6uX/iLe6fblhVJbjGBZ+vkCkX2LiWJHPD1FHsZ+8D0ob5nAyHdaD5TD
+    zZ8YfhuB3mJm/0I5IbAqf2pElAsnsZUn+uAjpo/q9csiTxWCU+XtgB30WgihzDcajiepIq
+    XnjvLei7+cKtduraHGezudW/LghupZUt1xwf6tagrrL/0mHacRTKMbYi8EX2zEuD9BFCC4
+    ajpqIAiIEXsiClzQ6Uwq++FagVBMzqCOz3SKYc91sSpRcdpKIHqCZqwW0axW0/sMw4Lxzp
+    Gs9Sqv7HNTxHm5La38y3Peb60F1YdDpLcpg51T2TpTZ+P3sRwNTpt/o1q6cE2BoUeovNnR
+    lhB/VGdE33VNa9ZJuspzkb/mdFKRi1yNTqRdBf+wqqzttXw122DYzNTyPa50OWfX1OHi7S
+    PJj58/D6eDKtGlJR4M9M6N8ZZX+ZrPz/TyLoec2SjEAtb/Pm7Pji+GXwvh0NmZfZRXNOtK
+    /h+lDE1tvLGdK4BiGT2HVkYQEZHdwvgtMNuotSqYLwVTL8ZSlctUyosONoZQ
+X-ME-Proxy: <xmx:KDesahtP8aszEx_VMrRlMyv8XUdyPjrYUn97r765wCZYdwgCxVYRng>
+    <xmx:KDesav-GP6ASQ0wfi6jhyhLt6dujYRI6fWSDu-FM_7zw8BFO6Qn02A>
+    <xmx:KDesaj1maA43naF6Z12hgkzbgWqw_hN1czn8plTy6EQyQkwbrgj3UQ>
+    <xmx:KDesashjI94EV3kBUKgxOuDdeM5h-WBkc-WPQl6iibEjGdptKI0YBQ>
+    <xmx:KDesaraqgR-1PlZ7u6ENjGjk9bnxZAd5N2YRJQWTXmVrKLzMmlJG1fMd>
+Feedback-ID: ifa6e4810:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id 91269780070; Thu, 17 Sep 2026 14:53:28 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AqpWOXCroG7V
+Date: Thu, 17 Sep 2026 14:53:02 -0400
+From: "Chuck Lever" <cel@kernel.org>
+To: "Jeff Layton" <jlayton@kernel.org>
+Cc: "Wentao Liang" <vulab@iscas.ac.cn>, Dai.Ngo@oracle.com, akpm@osdl.org,
+ chuck.lever@oracle.com, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, neil@brown.name, okorniev@redhat.com,
+ tom@talpey.com, stable@vger.kernel.org
+Message-Id: <9cc180f6-f408-42f2-b143-e155df6f542a@slotpi15m67>
+In-Reply-To: <f0ce5336a4062ff88775f81ba26726085dcb95a2.camel@kernel.org>
+References: <20260917163154.2162438-1-vulab@iscas.ac.cn>
+ <f0ce5336a4062ff88775f81ba26726085dcb95a2.camel@kernel.org>
+Subject: Re: [PATCH] nfsd: Fix id-to-name cache entry leak in idtoname_parse()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+On Thu, 2026-09-17 at 14:10 -0400, Jeff Layton wrote:
+> Looks like we have the same bug later if idtoname_update() fails too?
 
-------------------
+I don't think so: when sunrpc_cache_update() fails to allocate the
+replacement entry, it drops the reference on the old entry itself:
 
-From: Darrick J. Wong <djwong@kernel.org>
+	tmp = detail->alloc();
+	if (!tmp) {
+		cache_put(old, detail);
+		return NULL;
+	}
 
-commit 014c1aff607a839b8ddc732da919b94560ae58c2 upstream.
+So that exit is already balanced.
 
-LOLLM noticed that when the directory tree scrubber tries to walk up a
-parent pointer but the parent inumber doesn't point to an allocated
-inode, we allow the EINVAL/ENOENT error code to bubble up to userspace.
-That's not right, we should be reporting that as a cross-referencing
-error so that someone runs the parent pointer checker.
+> +out_put:
+> +       cache_put(&res->h, cd);
+>  out:
 
-Also add a termination check to xchk_dirpath_step_up because it's a loop
-body function.
+On the update failure path, res is NULL here, and cache_put()
+dereferences it. A shared label would need the "if (res)" guard that
+expkey_parse() uses.
 
-Cc: stable@vger.kernel.org # v6.10
-Fixes: 928b721a11789a ("xfs: teach online scrub to find directory tree structure problems")
-Signed-off-by: Darrick J. Wong <djwong@kernel.org>
-Assisted-by: LOLLM # finding obvious bugs
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- fs/xfs/scrub/dirtree.c |   30 ++++++++++++++++++++++++++++--
- fs/xfs/scrub/trace.h   |   33 +++++++++++++++++++++++++++++++++
- 2 files changed, 61 insertions(+), 2 deletions(-)
-
---- a/fs/xfs/scrub/dirtree.c
-+++ b/fs/xfs/scrub/dirtree.c
-@@ -367,12 +367,38 @@ xchk_dirpath_step_up(
- 	struct xfs_inode	*dp;
- 	xfs_ino_t		parent_ino = be64_to_cpu(dl->pptr_rec.p_ino);
- 	unsigned int		lock_mode;
--	int			error;
-+	int			error = 0;
-+
-+	if (xchk_should_terminate(sc, &error))
-+		return error;
- 
- 	/* Grab and lock the parent directory. */
- 	error = xchk_iget(sc, parent_ino, &dp);
--	if (error)
-+	switch (error) {
-+	case -EINVAL:
-+	case -ENOENT:
-+		mutex_lock(&dl->lock);
-+
-+		if (dl->stale) {
-+			/* live update detected a change in this path */
-+			error = -ESTALE;
-+		} else {
-+			/* inode doesn't exist, path invalid */
-+			error = -EFSCORRUPTED;
-+
-+			trace_xchk_dirpath_badino(dl->sc, path->path_nr,
-+					path->nr_steps, &dl->xname,
-+					&dl->pptr_rec);
-+		}
-+
-+		mutex_unlock(&dl->lock);
-+		return error;
-+	case 0:
-+		/* keep going */
-+		break;
-+	default:
- 		return error;
-+	}
- 
- 	lock_mode = xfs_ilock_attr_map_shared(dp);
- 	mutex_lock(&dl->lock);
---- a/fs/xfs/scrub/trace.h
-+++ b/fs/xfs/scrub/trace.h
-@@ -1693,6 +1693,39 @@ DEFINE_EVENT(xchk_dirtree_class, name, \
- DEFINE_XCHK_DIRTREE_EVENT(xchk_dirtree_create_path);
- DEFINE_XCHK_DIRTREE_EVENT(xchk_dirpath_walk_upwards);
- 
-+TRACE_EVENT(xchk_dirpath_badino,
-+	TP_PROTO(struct xfs_scrub *sc, unsigned int path_nr,
-+		unsigned int step_nr, const struct xfs_name *name,
-+		const struct xfs_parent_rec *pptr),
-+	TP_ARGS(sc, path_nr, step_nr, name, pptr),
-+	TP_STRUCT__entry(
-+		__field(dev_t, dev)
-+		__field(unsigned int, path_nr)
-+		__field(unsigned int, step_nr)
-+		__field(xfs_ino_t, parent_ino)
-+		__field(unsigned int, parent_gen)
-+		__field(unsigned int, namelen)
-+		__dynamic_array(char, name, name->len)
-+	),
-+	TP_fast_assign(
-+		__entry->dev = sc->mp->m_super->s_dev;
-+		__entry->path_nr = path_nr;
-+		__entry->step_nr = step_nr;
-+		__entry->parent_ino = be64_to_cpu(pptr->p_ino);
-+		__entry->parent_gen = be32_to_cpu(pptr->p_gen);
-+		__entry->namelen = name->len;
-+		memcpy(__get_str(name), name->name, name->len);
-+	),
-+	TP_printk("dev %d:%d path %u step %u parent_ino 0x%llx parent_gen 0x%x name '%.*s'",
-+		  MAJOR(__entry->dev), MINOR(__entry->dev),
-+		  __entry->path_nr,
-+		  __entry->step_nr,
-+		  __entry->parent_ino,
-+		  __entry->parent_gen,
-+		  __entry->namelen,
-+		  __get_str(name))
-+);
-+
- DECLARE_EVENT_CLASS(xchk_dirpath_class,
- 	TP_PROTO(struct xfs_scrub *sc, struct xfs_inode *ip,
- 		 unsigned int path_nr, unsigned int step_nr,
+A shared put label might be a reasonable clean-up, but for a fix
+headed to stable, the two-line version Wentao posted looks OK
+to me.
 
 
+-- 
+Chuck Lever (Come to NFS bake-a-thon! https://nfsv4bat.org)
