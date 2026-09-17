@@ -1,446 +1,125 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98DE436B929
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:13:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8A7F36C5AE
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:13:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789607605; cv=none; b=KgGy0BXRfSRu/29e8nJDu1J5M9V7zwaM5KxDMn2JLJfojqTYH2bIejARG2Bcg0dSBoFh1wJ4Z/e0wbWpKpmhQcpS74da6NcWM7alpg5+dahYgiM/uQQY92SxxR75bmvThXWXn5oHHGKsQB0ZiQE2Y24qCqPa/4sfj8iUowZaA0o=
+	t=1789607606; cv=none; b=uUth31DYC/GlAIgwRyvIFmDXDCdbQ8gnvPBB7pIrlyPtn8quQrRr0YGOdz9DM0RqViK0CSjNj9SlmmlVcIANb64ilfK99aI9RVVAT9a/GFGTd06edyZwZn365eePnXkm9RSR5sYu2UCj9QHp2fSN/+TSRfF4Y+dHXQrzMViRFak=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789607605; c=relaxed/simple;
-	bh=hJPeJu7ynDZCEFActtnWMR8ijl88EKYthbJVIQdr6ps=;
+	s=arc-20240116; t=1789607606; c=relaxed/simple;
+	bh=6OTohNjk/B5Ql/dmaRHHNw2vzF9cto7cUum/3C7p8mo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=p41Lf0ZLhIW5H6F8hEsOBkX3WYoEQKXdd2b0yyZTQvDjzE8gohp0oztLFtklpfAolsCgAMOY/1jfJMnMqUZDwGUmkSLGmiW+fKPW1qkNH3+Fmu7XIoYBWqqSj17gVSxyq61m9jlfgJt9UUNPOHG1slVcoD6IZNG8HES7G3/+5R8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Qas8e3ix; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=gDoFexwfUFOuaaRkhqEtWISPBwAvU8MRSenypQEbggvcdTmBJnH/+ssPx4dKCUCxuEAIPRIorLg7t0OHxxvQIfbtuyQ319+odQAKA8zhT/edDsKkF/0Z5LEnyP5+hl9Ys36WGC65w8ZQPq46Wf3LMg+wB51gHfr8Cxrc8txhUyU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C1kfzhQc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Qas8e3ix"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DBEB11F000FF;
-	Thu, 17 Sep 2026 01:13:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C1kfzhQc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D38E1F00898;
+	Thu, 17 Sep 2026 01:13:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789607600;
-	bh=/TEhxnq66e+QLNRYxxWrmc4+iIEAFKy1pZXUNjS1oxA=;
+	s=k20260515; t=1789607601;
+	bh=xyRwKHol6YHMLlc9H4unaYZrOyID0uPvJY63UXRjpDE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Qas8e3ixUY4FYqBNub7oePkf1AaS6cSrEfhG+cwmpv0xRS1TJXnCqA28ThUOats18
-	 ChiJNgvXmQlz5R+iM52360/ZpYsXNPhHA5mBw5Tv/QOEc52DoBHU7o53OTc4cQKxA3
-	 bOUlXIXX0qV/d1SgvZNvgPOFeoTqWUmxRONQmQKM+Vk1K+V2GwfDMM1kt0enutLQRo
-	 YKQzpfcXLgE9+FNpCEETzlfqe2wv3uTiVfIBLLFxYKQFBJLvrU2AvXQUECMynv7iQ4
-	 dmvWOKMp7wFy26+vUy97HS0Se8fsjzlCp54XoYRRV6EyBzorNqqGE3ycpqPiKR7Jdr
-	 QCy2l8hXukM4Q==
+	b=C1kfzhQc1DuSnSkW/fEt16spbxYSmuJilN1gqWq/kVt9XyO0tiim3bjs+5XUeuPNf
+	 GHJTFhUPoheovulHAtND0SBUQ2zPT97eK+NDWuol6Pt/tkN1l01Z9KproW6W33gr6z
+	 LJ+ca7frXdtAaU0d/kKwyf7X8dNot8vZQvZITnXmO11yDbyWpMD59I3MaNNEtl53ls
+	 cTFUEtKZNFI6gbwLHTjzXQ7l7P7bWH2JVYQHTTSrpJJl06AOH+J4rMfY01wUm8T2ie
+	 xa3BtrhtQZOO+YOYqGpds0r7G/4i4RZ0eFjSKmktv4JRsa7i7klxKUE7k09d6eNmCj
+	 7AbTXaCmg/pSQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Florian Westphal <fw@strlen.de>,
-	Pablo Neira Ayuso <pablo@netfilter.org>,
+Cc: Jens Axboe <axboe@kernel.dk>,
+	syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/4] netfilter: nf_log_ipv4: rename to nf_log_syslog
-Date: Wed, 16 Sep 2026 21:13:15 -0400
-Message-ID: <20260917011318.3530857-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y] io_uring/rw: end write accounting from ->ki_complete
+Date: Wed, 16 Sep 2026 21:13:19 -0400
+Message-ID: <20260917011319.3530989-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091608-unstaffed-playpen-7696@gregkh>
-References: <2026091608-unstaffed-playpen-7696@gregkh>
+In-Reply-To: <2026091626-gout-compress-65e7@gregkh>
+References: <2026091626-gout-compress-65e7@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Florian Westphal <fw@strlen.de>
+From: Jens Axboe <axboe@kernel.dk>
 
-[ Upstream commit db3187ae21bb0cff44430a7510cf2d2b23e41cd8 ]
+[ Upstream commit 796aa0547557e63338657ed1c487906f9fac4c73 ]
 
-Netfilter has multiple log modules:
- nf_log_arp
- nf_log_bridge
- nf_log_ipv4
- nf_log_ipv6
- nf_log_netdev
- nfnetlink_log
- nf_log_common
+Commit b000145e9907 moved both the fsnotify calls and the write
+accounting out of the kiocb completion handler and into the
+io_req_rw_complete() task_work. However, only the fsnotify part actually
+needed to move as it may sleep. Ending the write accounting is just a
+percpu_up_read() on the superblock writers sem.
 
-With the exception of nfnetlink_log (packet is sent to userspace for
-dissection/logging), all of them log to the kernel ringbuffer.
+Deferring it is a problem, because it makes dropping SB_FREEZE_WRITE
+protection depend on the ring owner getting to running task_work. But
+the task may be blocked in freeze_super(), causing it to never get to
+that:
 
-This is the first part of a series to merge all modules except
-nfnetlink_log into a single module: nf_log_syslog.
+  task                             io-wq worker
+  --------------------------------------------------------------
+  io_write()
+    io_kiocb_start_write()         (takes sb_writers, hidden from
+                                    lockdep by __sb_writers_release)
+    write_iter() -> -EIOCBQUEUED
+  ioctl(FS_IOC_SHUTDOWN)
+    bdev_freeze()
+      freeze_super()
+        percpu_down_write()        <- waits for the reader above
+                                   io_write()
+                                     kiocb_start_write()
+                                       percpu_down_read()  <- queued
+                                                              behind the
+                                                              writer
+  <bio completes>
+    io_complete_rw()
+      queues io_req_rw_complete()  <- never runs, task is in D state
 
-This allows to reduce code.  After the series, only two log modules remain:
-nfnetlink_log and nf_log_syslog. The latter provides the same
-functionality as the old per-af log modules.
+End the write from io_complete_rw() instead, and leave only the fsnotify
+calls in task_work.
 
-This renames nf_log_ipv4 to nf_log_syslog.
-
-Signed-off-by: Florian Westphal <fw@strlen.de>
-Signed-off-by: Pablo Neira Ayuso <pablo@netfilter.org>
-Stable-dep-of: 2c018cc4842c ("netfilter: nf_log: unregister loggers before per-net teardown")
+Reported-by: syzbot+2eb3d983669d3e49d4fa@syzkaller.appspotmail.com
+Cc: stable@vger.kernel.org
+Fixes: b000145e9907 ("io_uring/rw: defer fsnotify calls to task context")
+Signed-off-by: Jens Axboe <axboe@kernel.dk>
+[ placed write-accounting release after __io_complete_rw_common() to accommodate the older retry path’s early return. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/ipv4/netfilter/Kconfig                    |   5 +-
- net/ipv4/netfilter/Makefile                   |   1 -
- net/netfilter/Kconfig                         |  14 +-
- net/netfilter/Makefile                        |   1 +
- .../nf_log_syslog.c}                          | 120 +++++++++---------
- 5 files changed, 76 insertions(+), 65 deletions(-)
- rename net/{ipv4/netfilter/nf_log_ipv4.c => netfilter/nf_log_syslog.c} (79%)
+ io_uring/io_uring.c | 9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
-diff --git a/net/ipv4/netfilter/Kconfig b/net/ipv4/netfilter/Kconfig
-index a2f4f894be2be..aadb98e43fb19 100644
---- a/net/ipv4/netfilter/Kconfig
-+++ b/net/ipv4/netfilter/Kconfig
-@@ -81,7 +81,10 @@ config NF_LOG_ARP
- config NF_LOG_IPV4
- 	tristate "IPv4 packet logging"
- 	default m if NETFILTER_ADVANCED=n
--	select NF_LOG_COMMON
-+	select NF_LOG_SYSLOG
-+	help
-+	This is a backwards-compat option for the user's convenience
-+	(e.g. when running oldconfig). It selects CONFIG_NF_LOG_SYSLOG.
+diff --git a/io_uring/io_uring.c b/io_uring/io_uring.c
+index 01eff1694d8c6..e2e04a381315f 100644
+--- a/io_uring/io_uring.c
++++ b/io_uring/io_uring.c
+@@ -2792,7 +2792,10 @@ static void io_req_task_complete(struct io_kiocb *req, bool *locked)
  
- config NF_REJECT_IPV4
- 	tristate "IPv4 packet rejection"
-diff --git a/net/ipv4/netfilter/Makefile b/net/ipv4/netfilter/Makefile
-index 7c497c78105f7..abd133048b42e 100644
---- a/net/ipv4/netfilter/Makefile
-+++ b/net/ipv4/netfilter/Makefile
-@@ -11,7 +11,6 @@ obj-$(CONFIG_NF_TPROXY_IPV4) += nf_tproxy_ipv4.o
- 
- # logging
- obj-$(CONFIG_NF_LOG_ARP) += nf_log_arp.o
--obj-$(CONFIG_NF_LOG_IPV4) += nf_log_ipv4.o
- 
- # reject
- obj-$(CONFIG_NF_REJECT_IPV4) += nf_reject_ipv4.o
-diff --git a/net/netfilter/Kconfig b/net/netfilter/Kconfig
-index 09ab1328e838c..1d18e46875c65 100644
---- a/net/netfilter/Kconfig
-+++ b/net/netfilter/Kconfig
-@@ -78,6 +78,18 @@ config NF_LOG_NETDEV
- 	tristate "Netdev packet logging"
- 	select NF_LOG_COMMON
- 
-+config NF_LOG_SYSLOG
-+	tristate "Syslog packet logging"
-+	default m if NETFILTER_ADVANCED=n
-+	select NF_LOG_COMMON
-+	help
-+	  This option enable support for packet logging via syslog.
-+	  It supports IPv4 and common transport protocols such as TCP and UDP.
-+	  This is a simpler but less flexible logging method compared to
-+	  CONFIG_NETFILTER_NETLINK_LOG.
-+	  If both are enabled the backend to use can be configured at run-time
-+	  by means of per-address-family sysctl tunables.
-+
- if NF_CONNTRACK
- config NETFILTER_CONNCOUNT
- 	tristate
-@@ -912,7 +924,7 @@ config NETFILTER_XT_TARGET_LED
- config NETFILTER_XT_TARGET_LOG
- 	tristate "LOG target support"
- 	select NF_LOG_COMMON
--	select NF_LOG_IPV4
-+	select NF_LOG_SYSLOG
- 	select NF_LOG_IPV6 if IP6_NF_IPTABLES
- 	default m if NETFILTER_ADVANCED=n
- 	help
-diff --git a/net/netfilter/Makefile b/net/netfilter/Makefile
-index 0e0ded87e27b3..093147f19d0b2 100644
---- a/net/netfilter/Makefile
-+++ b/net/netfilter/Makefile
-@@ -50,6 +50,7 @@ nf_nat-y	:= nf_nat_core.o nf_nat_proto.o nf_nat_helper.o
- 
- # generic transport layer logging
- obj-$(CONFIG_NF_LOG_COMMON) += nf_log_common.o
-+obj-$(CONFIG_NF_LOG_SYSLOG) += nf_log_syslog.o
- 
- # packet logging for netdev family
- obj-$(CONFIG_NF_LOG_NETDEV) += nf_log_netdev.o
-diff --git a/net/ipv4/netfilter/nf_log_ipv4.c b/net/netfilter/nf_log_syslog.c
-similarity index 79%
-rename from net/ipv4/netfilter/nf_log_ipv4.c
-rename to net/netfilter/nf_log_syslog.c
-index d6164e8e2c73b..b4452acb5cc0b 100644
---- a/net/ipv4/netfilter/nf_log_ipv4.c
-+++ b/net/netfilter/nf_log_syslog.c
-@@ -32,13 +32,14 @@ static const struct nf_loginfo default_loginfo = {
- };
- 
- /* One level of recursion won't kill us */
--static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
--			     const struct nf_loginfo *info,
--			     const struct sk_buff *skb, unsigned int iphoff)
-+static noinline_for_stack void
-+dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
-+		 const struct nf_loginfo *info,
-+		 const struct sk_buff *skb, unsigned int iphoff)
+ static void io_req_rw_complete(struct io_kiocb *req, bool *locked)
  {
--	struct iphdr _iph;
- 	const struct iphdr *ih;
- 	unsigned int logflags;
-+	struct iphdr _iph;
+-	io_req_io_end(req);
++	if (req->rw.kiocb.ki_flags & IOCB_WRITE)
++		fsnotify_modify(req->file);
++	else
++		fsnotify_access(req->file);
+ 	io_req_task_complete(req, locked);
+ }
  
- 	if (info->type == NF_LOG_TYPE_LOG)
- 		logflags = info->u.log.logflags;
-@@ -46,14 +47,15 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 		logflags = NF_LOG_DEFAULT_MASK;
+@@ -2802,6 +2805,10 @@ static void io_complete_rw(struct kiocb *kiocb, long res, long res2)
  
- 	ih = skb_header_pointer(skb, iphoff, sizeof(_iph), &_iph);
--	if (ih == NULL) {
-+	if (!ih) {
- 		nf_log_buf_add(m, "TRUNCATED");
+ 	if (__io_complete_rw_common(req, res))
  		return;
- 	}
- 
- 	/* Important fields:
--	 * TOS, len, DF/MF, fragment offset, TTL, src, dst, options. */
--	/* Max length: 40 "SRC=255.255.255.255 DST=255.255.255.255 " */
-+	 * TOS, len, DF/MF, fragment offset, TTL, src, dst, options.
-+	 * Max length: 40 "SRC=255.255.255.255 DST=255.255.255.255 "
-+	 */
- 	nf_log_buf_add(m, "SRC=%pI4 DST=%pI4 ", &ih->saddr, &ih->daddr);
- 
- 	/* Max length: 46 "LEN=65535 TOS=0xFF PREC=0xFF TTL=255 ID=65535 " */
-@@ -75,14 +77,14 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 
- 	if ((logflags & NF_LOG_IPOPT) &&
- 	    ih->ihl * 4 > sizeof(struct iphdr)) {
--		const unsigned char *op;
- 		unsigned char _opt[4 * 15 - sizeof(struct iphdr)];
-+		const unsigned char *op;
- 		unsigned int i, optsize;
- 
- 		optsize = ih->ihl * 4 - sizeof(struct iphdr);
--		op = skb_header_pointer(skb, iphoff+sizeof(_iph),
-+		op = skb_header_pointer(skb, iphoff + sizeof(_iph),
- 					optsize, _opt);
--		if (op == NULL) {
-+		if (!op) {
- 			nf_log_buf_add(m, "TRUNCATED");
- 			return;
- 		}
-@@ -98,36 +100,31 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 	case IPPROTO_TCP:
- 		if (nf_log_dump_tcp_header(m, skb, ih->protocol,
- 					   ntohs(ih->frag_off) & IP_OFFSET,
--					   iphoff+ih->ihl*4, logflags))
-+					   iphoff + ih->ihl * 4, logflags))
- 			return;
- 		break;
- 	case IPPROTO_UDP:
- 	case IPPROTO_UDPLITE:
- 		if (nf_log_dump_udp_header(m, skb, ih->protocol,
- 					   ntohs(ih->frag_off) & IP_OFFSET,
--					   iphoff+ih->ihl*4))
-+					   iphoff + ih->ihl * 4))
- 			return;
- 		break;
- 	case IPPROTO_ICMP: {
--		struct icmphdr _icmph;
-+		static const size_t required_len[NR_ICMP_TYPES + 1] = {
-+			[ICMP_ECHOREPLY] = 4,
-+			[ICMP_DEST_UNREACH] = 8 + sizeof(struct iphdr),
-+			[ICMP_SOURCE_QUENCH] = 8 + sizeof(struct iphdr),
-+			[ICMP_REDIRECT] = 8 + sizeof(struct iphdr),
-+			[ICMP_ECHO] = 4,
-+			[ICMP_TIME_EXCEEDED] = 8 + sizeof(struct iphdr),
-+			[ICMP_PARAMETERPROB] = 8 + sizeof(struct iphdr),
-+			[ICMP_TIMESTAMP] = 20,
-+			[ICMP_TIMESTAMPREPLY] = 20,
-+			[ICMP_ADDRESS] = 12,
-+			[ICMP_ADDRESSREPLY] = 12 };
- 		const struct icmphdr *ich;
--		static const size_t required_len[NR_ICMP_TYPES+1]
--			= { [ICMP_ECHOREPLY] = 4,
--			    [ICMP_DEST_UNREACH]
--			    = 8 + sizeof(struct iphdr),
--			    [ICMP_SOURCE_QUENCH]
--			    = 8 + sizeof(struct iphdr),
--			    [ICMP_REDIRECT]
--			    = 8 + sizeof(struct iphdr),
--			    [ICMP_ECHO] = 4,
--			    [ICMP_TIME_EXCEEDED]
--			    = 8 + sizeof(struct iphdr),
--			    [ICMP_PARAMETERPROB]
--			    = 8 + sizeof(struct iphdr),
--			    [ICMP_TIMESTAMP] = 20,
--			    [ICMP_TIMESTAMPREPLY] = 20,
--			    [ICMP_ADDRESS] = 12,
--			    [ICMP_ADDRESSREPLY] = 12 };
-+		struct icmphdr _icmph;
- 
- 		/* Max length: 11 "PROTO=ICMP " */
- 		nf_log_buf_add(m, "PROTO=ICMP ");
-@@ -138,9 +135,9 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 		/* Max length: 25 "INCOMPLETE [65535 bytes] " */
- 		ich = skb_header_pointer(skb, iphoff + ih->ihl * 4,
- 					 sizeof(_icmph), &_icmph);
--		if (ich == NULL) {
-+		if (!ich) {
- 			nf_log_buf_add(m, "INCOMPLETE [%u bytes] ",
--				       skb->len - iphoff - ih->ihl*4);
-+				       skb->len - iphoff - ih->ihl * 4);
- 			break;
- 		}
- 
-@@ -150,9 +147,9 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 		/* Max length: 25 "INCOMPLETE [65535 bytes] " */
- 		if (ich->type <= NR_ICMP_TYPES &&
- 		    required_len[ich->type] &&
--		    skb->len-iphoff-ih->ihl*4 < required_len[ich->type]) {
-+		    skb->len - iphoff - ih->ihl * 4 < required_len[ich->type]) {
- 			nf_log_buf_add(m, "INCOMPLETE [%u bytes] ",
--				       skb->len - iphoff - ih->ihl*4);
-+				       skb->len - iphoff - ih->ihl * 4);
- 			break;
- 		}
- 
-@@ -181,7 +178,7 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 			if (!iphoff) { /* Only recurse once. */
- 				nf_log_buf_add(m, "[");
- 				dump_ipv4_packet(net, m, info, skb,
--					    iphoff + ih->ihl*4+sizeof(_icmph));
-+						 iphoff + ih->ihl * 4 + sizeof(_icmph));
- 				nf_log_buf_add(m, "] ");
- 			}
- 
-@@ -196,8 +193,8 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 	}
- 	/* Max Length */
- 	case IPPROTO_AH: {
--		struct ip_auth_hdr _ahdr;
- 		const struct ip_auth_hdr *ah;
-+		struct ip_auth_hdr _ahdr;
- 
- 		if (ntohs(ih->frag_off) & IP_OFFSET)
- 			break;
-@@ -206,11 +203,11 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 		nf_log_buf_add(m, "PROTO=AH ");
- 
- 		/* Max length: 25 "INCOMPLETE [65535 bytes] " */
--		ah = skb_header_pointer(skb, iphoff+ih->ihl*4,
-+		ah = skb_header_pointer(skb, iphoff + ih->ihl * 4,
- 					sizeof(_ahdr), &_ahdr);
--		if (ah == NULL) {
-+		if (!ah) {
- 			nf_log_buf_add(m, "INCOMPLETE [%u bytes] ",
--				       skb->len - iphoff - ih->ihl*4);
-+				       skb->len - iphoff - ih->ihl * 4);
- 			break;
- 		}
- 
-@@ -219,8 +216,8 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 		break;
- 	}
- 	case IPPROTO_ESP: {
--		struct ip_esp_hdr _esph;
- 		const struct ip_esp_hdr *eh;
-+		struct ip_esp_hdr _esph;
- 
- 		/* Max length: 10 "PROTO=ESP " */
- 		nf_log_buf_add(m, "PROTO=ESP ");
-@@ -229,11 +226,11 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- 			break;
- 
- 		/* Max length: 25 "INCOMPLETE [65535 bytes] " */
--		eh = skb_header_pointer(skb, iphoff+ih->ihl*4,
-+		eh = skb_header_pointer(skb, iphoff + ih->ihl * 4,
- 					sizeof(_esph), &_esph);
--		if (eh == NULL) {
-+		if (!eh) {
- 			nf_log_buf_add(m, "INCOMPLETE [%u bytes] ",
--				       skb->len - iphoff - ih->ihl*4);
-+				       skb->len - iphoff - ih->ihl * 4);
- 			break;
- 		}
- 
-@@ -270,8 +267,8 @@ static void dump_ipv4_packet(struct net *net, struct nf_log_buf *m,
- }
- 
- static void dump_ipv4_mac_header(struct nf_log_buf *m,
--			    const struct nf_loginfo *info,
--			    const struct sk_buff *skb)
-+				 const struct nf_loginfo *info,
-+				 const struct sk_buff *skb)
- {
- 	struct net_device *dev = skb->dev;
- 	unsigned int logflags = 0;
-@@ -329,7 +326,7 @@ static void nf_log_ip_packet(struct net *net, u_int8_t pf,
- 	nf_log_dump_packet_common(m, pf, hooknum, skb, in,
- 				  out, loginfo, prefix);
- 
--	if (in != NULL)
-+	if (in)
- 		dump_ipv4_mac_header(m, loginfo, skb);
- 
- 	dump_ipv4_packet(net, m, loginfo, skb, 0);
-@@ -344,52 +341,51 @@ static struct nf_logger nf_ip_logger __read_mostly = {
- 	.me		= THIS_MODULE,
- };
- 
--static int __net_init nf_log_ipv4_net_init(struct net *net)
-+static int __net_init nf_log_syslog_net_init(struct net *net)
- {
- 	return nf_log_set(net, NFPROTO_IPV4, &nf_ip_logger);
- }
- 
--static void __net_exit nf_log_ipv4_net_exit(struct net *net)
-+static void __net_exit nf_log_syslog_net_exit(struct net *net)
- {
- 	nf_log_unset(net, &nf_ip_logger);
- }
- 
--static struct pernet_operations nf_log_ipv4_net_ops = {
--	.init = nf_log_ipv4_net_init,
--	.exit = nf_log_ipv4_net_exit,
-+static struct pernet_operations nf_log_syslog_net_ops = {
-+	.init = nf_log_syslog_net_init,
-+	.exit = nf_log_syslog_net_exit,
- };
- 
--static int __init nf_log_ipv4_init(void)
-+static int __init nf_log_syslog_init(void)
- {
- 	int ret;
- 
--	ret = register_pernet_subsys(&nf_log_ipv4_net_ops);
-+	ret = register_pernet_subsys(&nf_log_syslog_net_ops);
- 	if (ret < 0)
- 		return ret;
- 
- 	ret = nf_log_register(NFPROTO_IPV4, &nf_ip_logger);
--	if (ret < 0) {
--		pr_err("failed to register logger\n");
-+	if (ret < 0)
- 		goto err1;
--	}
- 
- 	return 0;
- 
- err1:
--	unregister_pernet_subsys(&nf_log_ipv4_net_ops);
-+	unregister_pernet_subsys(&nf_log_syslog_net_ops);
- 	return ret;
- }
- 
--static void __exit nf_log_ipv4_exit(void)
-+static void __exit nf_log_syslog_exit(void)
- {
--	unregister_pernet_subsys(&nf_log_ipv4_net_ops);
-+	unregister_pernet_subsys(&nf_log_syslog_net_ops);
- 	nf_log_unregister(&nf_ip_logger);
- }
- 
--module_init(nf_log_ipv4_init);
--module_exit(nf_log_ipv4_exit);
-+module_init(nf_log_syslog_init);
-+module_exit(nf_log_syslog_exit);
- 
- MODULE_AUTHOR("Netfilter Core Team <coreteam@netfilter.org>");
--MODULE_DESCRIPTION("Netfilter IPv4 packet logging");
-+MODULE_DESCRIPTION("Netfilter syslog packet logging");
- MODULE_LICENSE("GPL");
-+MODULE_ALIAS("nf_log_ipv4");
- MODULE_ALIAS_NF_LOGGER(AF_INET, 0);
++	/* ring owner may block in freeze_super() before task_work runs */
++	if (kiocb->ki_flags & IOCB_WRITE)
++		io_req_end_write(req);
++
+ 	req->result = io_fixup_rw_res(req, res);
+ 	req->io_task_work.func = io_req_rw_complete;
+ 	io_req_task_work_add(req);
 -- 
 2.53.0
 
