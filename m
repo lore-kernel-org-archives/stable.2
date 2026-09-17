@@ -1,154 +1,98 @@
-Received: from fout-b8-smtp.messagingengine.com (fout-b8-smtp.messagingengine.com [202.12.124.151])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E29364BD7B0
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:16:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.151
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B1D93D6CA5;
+	Thu, 17 Sep 2026 10:16:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640184; cv=none; b=eStvhxExQKj0CcR1v1u3agHJcWJHmhho14zQ42PcGQpkEF6kDLI3/12yCLEA1IOihVfbL676gsG0OSCyDxBx00RtekFBYtGidw1xwDBGqHLa0HxtGIsjIZ2qvw2yQFFmAsccvPiqdeq2KcHW5ud65eHOF2QH+k3nBYi1NPdw7bI=
+	t=1789640198; cv=none; b=kd/Dg+3c6S9qgTLirtDqldJjwoCkkoPJusmS67BBQ7kBAEW1hTf1wqOJDsVCwPuLZoBXzOLz79JFRC1+NXWEoODvz1viZ+r2ixBhz6Tt/afsLWUtIn/Nnyw4yDgsyIhoZVe6wCdYv0985QrPA0LRAzfzq6Eh3kUDck9UgNyyrkg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640184; c=relaxed/simple;
-	bh=CMmkVxvYZX3mMsThqspEIH6KNvXJla1A0bcljxtoXvI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=j0+yA1AQ5s14kpu5MzboP7/2VDX9oPyT87uiMxUazC62T4ykHW/tj9KIZRCFPt+hlKGJWnXYxGh5WjX27zOrriqFixFD7WjL/CtySHf+Y+bZXW7D41VQ62oU3NjqzFuLOZ4vsf4XBYVvjKFvN7AgeMWRNyP23SIHeZNY1l0uXl4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=ZF1Nk6lf; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=v6QLyNZz; arc=none smtp.client-ip=202.12.124.151
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="ZF1Nk6lf";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="v6QLyNZz"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id C98A41D000E5;
-	Thu, 17 Sep 2026 06:16:10 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-03.internal (MEProxy); Thu, 17 Sep 2026 06:16:11 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
-	:cc:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1789640170; x=1789726570; bh=NjxAryLrna
-	ikCmCVeZJ/y8JC58YWHLsHGj87dwR1Ipc=; b=ZF1Nk6lfJ9vuzycfJPUnZk0CYu
-	hWK5HiOt3zLCvC9yq/d5zFWt5SKpw86EsOd9a0JbJ8f1oJl64A4cSCqrR2kQTgGc
-	dQp/NQzJdgSdrB0S9uPVZV2wE6ooqYpS2roxFqeoYsKpGZZD9QYkW5YP9i1X7eQX
-	h8ADVAaQcdR7jWzrz/KgB/kO77E14wdhk5Pdo4V5wGO71BbU6Qt0E2TGWqDWKvHa
-	j7UErOaVY0WE/N6GylwYDGIHxeSFn+OLJZ2BTWh9l6CeY2Eg7+3u4jshyk4hZ1yB
-	Hxwo9plboLkzV51+YKKvIbUNo8RexsR/SaT6D5HvOgT1A0Xt4sH9yXduxBPw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789640170; x=1789726570; bh=NjxAryLrnaikCmCVeZJ/y8JC58YWHLsHGj8
-	7dwR1Ipc=; b=v6QLyNZzH2wUdiY4kViHxXX8VdUEywsEDFNP+GE8EdtAd/RAhaC
-	wx2ODpPhHbqN0r/hbFQiAsZVoLrThthRx9sDbj6DZJiCgJWNUooYhIXA2LCJGYmu
-	Arw8IDp3lEmFEnvWeeIMKoRl8D+L4ZYgXsIH+HfcZceLA2+4VT889/CXLbZjfRoG
-	VujIsKMkMcj1DrVLIC9N62frNzDzFUMOTxY/hc96wvWb8whDtOGPHrXXGBs1YhZw
-	amtAbUxkyslDcsjImZvwNu0QV2/N0ttmDuS6HR/mcPqBlosSjmfCEpTocdYurbqA
-	poMOGyRvyeLx1p0CkkVyI5fnmdjrUY8wSXg==
-X-ME-Sender: <xms:6r2ratXBPUu_R28EolItqvYT51uwVdh4-k7aSrztnRVoAGyotGfnOQ>
-    <xme:6r2rapikETWsZS_TmGujFEgpqbbE70BOqZ63K_eIsQIqkQ23Ne8H0GnBNlaSwS4aa
-    bhLX6znh7uGP93b-rOQfGWTbZJGTLBOcIyOntQIdNNFYFrFJg>
-X-ME-Received: <xmr:6r2ravhAZcGYUBi_LJJ2iCPAjlw3TxSoMAYiZng_k4c651TU_oP5vqMSiKPk>
-X-ME-Proxy-Cause: dmFkZTG3AMH+euWnGViAB5kmCUBBNh6T++b7tyuiSS4JnwIoOTOPTGerrouw+E/rUv+0l/
-    yTgoPND3P0UB25+hZXdQoQDshGByradhSuE1P05Nd8Om554138r5M1BSN9q6ecjnazifKy
-    9XIviYc02dHucqcFbS7cvzCZPu7TSVKqPcJXNCPekzVMJoEiZ3xW6EPu55Lj7w2hZo9C6Q
-    SHM4nE7Rldac9k2o/MhRPDD/9ijjiID48s55AQ1Cgstun2eh/APFTfw3IbdQHD28NZGlCq
-    tk+rL9vZVVK+aKctoavGFGAGrpqiK5F9PDAqrIfo1gTwVv8gVs3zXdidxzkP9ohn3tgqHt
-    LqZFHLZhJLMt9h7gKTqzIQHiSI4BsYL07OinV+IPnDbt/PJehPQ4DuVg+Rla+k5AyfQxis
-    4K25YlaLNWLmgOQPks9L9Jq58PjGZEQyDwrsIghD7yBhW4Z90+s9jTqt36gtaRpK840KrX
-    7o4QdQQI/Hcva8hYFCoI4jnKBDCFkCQe2OrYpN9iUm+josaP1IyrFOe3bzUioI307QS56p
-    Rc+s4VdCoMGB4dJoYR8RHHNXpu+ru1VO/vr3NJOnq4XlGBLNzx1FDHjNzTNyuWE13nagWo
-    wdOq21rO0P25s8MP0xAlhibKz/Be1u6MQLYmr/fnUFBv+IftyB/mfHrTU9tw
-X-ME-Proxy: <xmx:6r2ramtSwWeiM11AqxcZ20fO8zzRVWVLFJxQVvA0ndoJCnHDbdC3XQ>
-    <xmx:6r2ralvsv66i-LDnI9RmDcbdYR86q1XpQr__HekKlKKWcLuaLRdMaw>
-    <xmx:6r2ranMAHkEHl9VW-pmdbD9YI7b-NnmbHSISNcltHR6_GtM3D1tJUQ>
-    <xmx:6r2ranei0BxJJlWY6r5oKXQa10OLMyTcY_Tw-tGeDSBI-YF-FKx2jw>
-    <xmx:6r2ragDZVqOP1gw6oZVe8zeJqPlTQ1khMxwGoh7-sTz16QzRzpdL5pN_>
-Feedback-ID: i787e41f1:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 17 Sep 2026 06:16:09 -0400 (EDT)
-Date: Thu, 17 Sep 2026 11:11:58 +0100
-From: Greg KH <greg@kroah.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Paulo Alcantara <pc@manguebit.org>,
-	Arthur Lesuisse <arthur.lesuisse@ulb.be>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>, Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>
-Subject: Re: [PATCH 6.18.y 2/2] smb: client: fix uid/gid override in getattr
- with posix extensions
-Message-ID: <2026091754-fading-earmuff-40c4@gregkh>
-References: <2026091633-nearby-gravel-9004@gregkh>
- <20260917042021.6589-1-sashal@kernel.org>
- <20260917042021.6589-2-sashal@kernel.org>
+	s=arc-20240116; t=1789640198; c=relaxed/simple;
+	bh=Jz+LzWvsvtf+xl6zc4tCwPMEpNznmcmjvbrTAwGMMzw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Grdo0PH5fHCd3rpO6Isnxv9XP/PRiZty8UolY2s90QH0InKeM+xhdV1dHo3jlszSpvBl1GyRZXr4AKk+w7AiLW5ckSr6J/9aIh9WZvILZVPsmLWuxUzE2qZY1hWeApy2IlEfQuoM1kJeIJ8g/krjhFyM8TEXzTIu5tJVgw+a1dU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAA3oDr3vatqq29+CA--.404S2;
+	Thu, 17 Sep 2026 18:16:23 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: alexandre.belloni@bootlin.com
+Cc: bbrezillon@kernel.org,
+	claudiu.beznea@tuxon.dev,
+	krzk@kernel.org,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	nicolas.ferre@microchip.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] memory: atmel-ebi: Fix SMC clock reference leak in atmel_ebi_probe()
+Date: Thu, 17 Sep 2026 10:16:23 +0000
+Message-Id: <20260917101623.2146392-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917042021.6589-2-sashal@kernel.org>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAA3oDr3vatqq29+CA--.404S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Kr48Kw1UZFW8KFW5Zr4DXFb_yoW8Gry5pF
+	4rWrWjkrs5X3yftanrJFyDua4Fgay8trWakFy2kas7u3WYyFy3Wa4rZFW2qF1DZFWkZ3y3
+	t3W8JF4kXFWUZr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB2b7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aV
+	CY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxU7WE_DUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qrrRk+TwAAsO
 
-On Thu, Sep 17, 2026 at 12:20:21AM -0400, Sasha Levin wrote:
-> From: Paulo Alcantara <pc@manguebit.org>
-> 
-> [ Upstream commit cf4d35896621b7298eef51b7a465e5c0cb22f670 ]
-> 
-> When mounting with 'multiuser,posix' options, cifs_getattr() overrides
-> the server-provided uid/gid with the current process's fsuid/fsgid.
-> This is because the condition only checks for unix extensions
-> (tcon->unix_ext) but not posix extensions (tcon->posix_extensions).
-> 
-> With SMB3 POSIX extensions, the server provides real uid/gid values
-> just like with unix extensions, so they should be preserved rather
-> than replaced with the caller's credentials.
-> 
-> Add a tcon->posix_extensions check to the condition so that uid/gid
-> from the server are properly reported in stat results.
-> 
-> Reported-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
-> Closes: https://lore.kernel.org/r/DB9P190MB2012266F6B8DECBE5D26A1798DB52@DB9P190MB2012.EURP190.PROD.OUTLOOK.COM
-> Suggested-by: Arthur Lesuisse <arthur.lesuisse@ulb.be>
-> Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-> Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-> Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-> Cc: Shyam Prasad N <sprasad@microsoft.com>
-> Cc: Tom Talpey <tom@talpey.com>
-> Cc: Bharath SM <bharathsm@microsoft.com>
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Sasha Levin <sashal@kernel.org>
-> ---
->  fs/smb/client/inode.c | 8 ++++----
->  1 file changed, 4 insertions(+), 4 deletions(-)
-> 
-> diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-> index e3858ab001695..b547466b1de90 100644
-> --- a/fs/smb/client/inode.c
-> +++ b/fs/smb/client/inode.c
-> @@ -2972,14 +2972,14 @@ int cifs_getattr(struct mnt_idmap *idmap, const struct path *path,
->  		stat->attributes |= STATX_ATTR_ENCRYPTED;
->  
->  	/*
-> -	 * If on a multiuser mount without unix extensions or cifsacl being
-> -	 * enabled, and the admin hasn't overridden them, set the ownership
-> -	 * to the fsuid/fsgid of the current process.
-> +	 * If on a multiuser mount without unix extensions, posix extensions
-> +	 * or cifsacl being enabled, and the admin hasn't overridden them,
-> +	 * set the ownership to the fsuid/fsgid of the current process.
->  	 */
->  	sbflags = cifs_sb_flags(cifs_sb);
->  	if ((sbflags & CIFS_MOUNT_MULTIUSER) &&
->  	    !(sbflags & CIFS_MOUNT_CIFS_ACL) &&
-> -	    !tcon->unix_ext) {
-> +	    !tcon->unix_ext && !tcon->posix_extensions) {
->  		if (!(sbflags & CIFS_MOUNT_OVERR_UID))
->  			stat->uid = current_fsuid();
->  		if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-> -- 
-> 2.53.0
-> 
-> 
+atmel_ebi_probe() takes a reference to the SMC clock with
+of_clk_get(), stores it in ebi->smc.clk and enables it, but the
+reference is never released: the driver has no remove callback and
+none of the error paths after the clock has been enabled call
+clk_put(), so the reference leaks on the success path and on every
+error path.
 
-Does not apply :(
+Drop the reference with clk_put() once the clock has been prepared
+and enabled.  The clock itself stays enabled, as the driver needs it
+to keep the SMC registers accessible.
+
+Fixes: 87108dc78eb8 ("memory: atmel-ebi: Enable the SMC clock if specified")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/memory/atmel-ebi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/memory/atmel-ebi.c b/drivers/memory/atmel-ebi.c
+index 8db970da9af9..cd138a3b793c 100644
+--- a/drivers/memory/atmel-ebi.c
++++ b/drivers/memory/atmel-ebi.c
+@@ -561,8 +561,13 @@ static int atmel_ebi_probe(struct platform_device *pdev)
+ 		ebi->smc.clk = NULL;
+ 	}
+ 	ret = clk_prepare_enable(ebi->smc.clk);
+-	if (ret)
++	if (ret) {
++		clk_put(ebi->smc.clk);
+ 		return ret;
++	}
++
++	/* The clock stays enabled; drop the unneeded consumer reference. */
++	clk_put(ebi->smc.clk);
+ 
+ 	/*
+ 	 * The sama5d3 does not provide an EBICSA register and thus does need
+-- 
+2.34.1
+
