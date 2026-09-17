@@ -1,41 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D25937F8A7
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:56:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C98A437F002
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:56:20 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789610181; cv=none; b=K63y7ppzbVTlhVjUASQgeEmZIgfORT8pvtJO3KiespqorT3VPhfKduM3emFv9MkDq72EHySZYh9mkipq/ok0ifMp+v3y918zkOaE3zGwl4abWpH7voajE92/oFulbTAdp0q76KLAtk0hOeZXpVf6zfM+yyUw7NGzazw23/DO3Z4=
+	t=1789610182; cv=none; b=dEFrW1K6z7TdoR6uhhlhO8hnt9BvXmsc/aZsbEDPlzWfA3sH7fAbsPgNjaFWm5DlUkDOJghjvwtH+DetozbGmu/1pjsPMLoYwVWpdYb9MHUQEik7Z6veQXXN7m7cZ/iyQVgMPhdwA2rqUQLGdtoRwDRIPPjyHCle/s28qyicGhM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789610181; c=relaxed/simple;
-	bh=euL9U3hK630ffblXycOvDxnht029gf0DErthokS8e34=;
+	s=arc-20240116; t=1789610182; c=relaxed/simple;
+	bh=F5UW/ky+JejRYv/oL2GP3yQQkZyORo1crlMuqJF7h+k=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cDTTCL/mwaISO0KzUR4C7mBpUbrZBCV5cI5R3c1v5qyQTU6jJr0xFYA/aZe/KIpeVEmIPAiNNmy8NrmidL/Urdq7szgRr9pn90+xDH9zGqwhwdFRGR1nY8JjOcCkATKTofwbv2U8Wl08g5GuwqgUoLzJ77h3T7GWiQX4k9kxYqY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NR9v1FR+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Cj2VzU+R9dLjNz/1/ELXbOMgu83KOvgWdw+wILMRIOCAofx0nHohy9nCr7e98TJgjFSIttSXVI1SgLT/tB6OMWVGv9H5CWu+e4u0irR07Klx6NqJukrz39Ak9doyE0JdNrkPXPDuA4jGLxjJPK5AhM3dr2Jll+e7wylmA/QGZ30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ac43Eign; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NR9v1FR+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7AE951F000FF;
-	Thu, 17 Sep 2026 01:56:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ac43Eign"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 249031F00893;
+	Thu, 17 Sep 2026 01:56:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789610179;
-	bh=R8KEpWaGsEnRPN57OUcDwjVxFdxfSfvWrAfrty1SIds=;
+	s=k20260515; t=1789610180;
+	bh=jAf3z0fn3xZgzJdZNkNV+0kK3coBDGRMJK81kmM27ps=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NR9v1FR+/OiqkKySjB79rV2o9/6MsttEIaobyw+UNd0hyKRbcnL3tOu3UptJPfQ/G
-	 nOkp10FUSMvligo0fhJwogeNG7+Eyjoz9jPgFJxhP31rAaidde+kVMnDcPjPWVUAk9
-	 CYGRNBJRXSTe8x5YXHEdVZLb+0QP3y8xw8egs4A5CamoujpyDflU0JTMxpwOh+K2P2
-	 mkqzSIzMVLoBh7d2ULXUs1Z5Tw9U/6ec+T0b+eXCxCtvjx1sY/WzLraJGCxQYQy7tA
-	 PpNohxPm54lYNGSOUgrxbdHJsXt9bU/Bw2sFOjxtRDOHwPMUdPfXTd/Asu9N61LMNZ
-	 3wlNcNo1/vDWg==
+	b=ac43Eign4wBkawzE/uWNoYXx+r8i0YMvHy3XVikq4wLqYHngojYsydcA+mjBlMNGh
+	 LRmjBiBFQEkWh9aATTso3W1isGicEoptFUOaK1CWYco1uVBU/sQcOkXs0zcL4wC4gb
+	 RI33fg+faIKxM7Nj4iwoAYPxU3IgLA5UDZ0rnTry4DOqUqISkUicjVQsr17rO3cuJx
+	 UPus0AHooYF9WbsVChGSb5iykFu86+4p6iEJ4xr8xW6wvF4oeRTDk5M1P/bstXWyzj
+	 wLaQMS5kfPjB1Ukf3B5FiaPFlu996YhmkpPjrSmk6eNQbezt0CS9FroerwyAduP5Rw
+	 EHVoiB3cvYfMw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Guenter Roeck <linux@roeck-us.net>,
+Cc: Arie Miller <renari@arimil.com>,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/4] hwmon: (asus_rog_ryujin) Rely on subsystem locking
-Date: Wed, 16 Sep 2026 21:56:15 -0400
-Message-ID: <20260917015618.3719452-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/4] hwmon: (asus_rog_ryujin) Add per-device configuration
+Date: Wed, 16 Sep 2026 21:56:16 -0400
+Message-ID: <20260917015618.3719452-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091626-rug-outlet-4509@gregkh>
+In-Reply-To: <20260917015618.3719452-1-sashal@kernel.org>
 References: <2026091626-rug-outlet-4509@gregkh>
+ <20260917015618.3719452-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,151 +47,194 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Guenter Roeck <linux@roeck-us.net>
+From: Arie Miller <renari@arimil.com>
 
-[ Upstream commit b4306c0c8e24f9e031185fb87de45391bc8c7fe9 ]
+[ Upstream commit b20ee9aee8779427d2f9de99cbb578b048bf7c04 ]
 
-Attribute access is now serialized in the hardware monitoring core,
-so locking in the driver code is no longer necessary. Drop it.
+Move model-specific report offsets and capabilities into a device
+information structure. This prepares the driver for coolers which use
+a different report layout or do not include the external fan
+controller, while preserving the existing Ryujin II 360 behavior.
 
+Handles an issue reported by Sashiko where an id could
+be missing driver_data.
+
+Link: https://lore.kernel.org/r/5a817284-a9f4-48b2-9f0f-802c5dc6963c@roeck-us.net
+Assisted-by: Codex:gpt-5.6-sol sparse
+Signed-off-by: Arie Miller <renari@arimil.com>
+Reviewed-by: Aleksa Savic <savicaleksa83@gmail.com>
+Link: https://lore.kernel.org/r/20260812103532.395049-2-renari@arimil.com
 Signed-off-by: Guenter Roeck <linux@roeck-us.net>
 Stable-dep-of: 06d48355bf41 ("hwmon: (asus_rog_ryujin) Synchronize HID command and report handling")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/asus_rog_ryujin.c | 48 +++++++--------------------------
- 1 file changed, 9 insertions(+), 39 deletions(-)
+ drivers/hwmon/asus_rog_ryujin.c | 75 +++++++++++++++++++++++----------
+ 1 file changed, 52 insertions(+), 23 deletions(-)
 
 diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
-index e5e93a20723c4..10a1f5aca988d 100644
+index 10a1f5aca988d..80563ce38519d 100644
 --- a/drivers/hwmon/asus_rog_ryujin.c
 +++ b/drivers/hwmon/asus_rog_ryujin.c
-@@ -81,10 +81,6 @@ static const char *const rog_ryujin_speed_label[] = {
+@@ -18,15 +18,25 @@
+ #define USB_VENDOR_ID_ASUS_ROG		0x0b05
+ #define USB_PRODUCT_ID_RYUJIN_AIO	0x1988	/* ASUS ROG RYUJIN II 360 */
+ 
++struct rog_ryujin_device_info {
++	u8 temp_offset;
++	u8 pump_speed_offset;
++	u8 fan_speed_offset;
++	u8 duty_channel;
++	bool has_controller;
++};
++
++static const struct rog_ryujin_device_info rog_ryujin_ii_360_info = {
++	.temp_offset = 3,
++	.pump_speed_offset = 5,
++	.fan_speed_offset = 7,
++	.duty_channel = 0,
++	.has_controller = true,
++};
++
+ #define STATUS_VALIDITY		1500	/* ms */
+ #define MAX_REPORT_LENGTH	65
+ 
+-/* Cooler status report offsets */
+-#define RYUJIN_TEMP_SENSOR_1		3
+-#define RYUJIN_TEMP_SENSOR_2		4
+-#define RYUJIN_PUMP_SPEED		5
+-#define RYUJIN_INTERNAL_FAN_SPEED	7
+-
+ /* Cooler duty report offsets */
+ #define RYUJIN_PUMP_DUTY		4
+ #define RYUJIN_INTERNAL_FAN_DUTY	5
+@@ -81,6 +91,7 @@ static const char *const rog_ryujin_speed_label[] = {
  struct rog_ryujin_data {
  	struct hid_device *hdev;
  	struct device *hwmon_dev;
--	/* For locking access to buffer */
--	struct mutex buffer_lock;
--	/* For queueing multiple readers */
--	struct mutex status_report_request_mutex;
++	const struct rog_ryujin_device_info *info;
  	/* For reinitializing the completions below */
  	spinlock_t status_report_request_lock;
  	struct completion cooler_status_received;
-@@ -153,18 +149,10 @@ static umode_t rog_ryujin_is_visible(const void *data,
- /* Writes the command to the device with the rest of the report filled with zeroes */
- static int rog_ryujin_write_expanded(struct rog_ryujin_data *priv, const u8 *cmd, int cmd_length)
+@@ -112,6 +123,8 @@ static int rog_ryujin_pwm_to_percent(long val)
+ static umode_t rog_ryujin_is_visible(const void *data,
+ 				     enum hwmon_sensor_types type, u32 attr, int channel)
  {
--	int ret;
--
--	mutex_lock(&priv->buffer_lock);
--
- 	memcpy_and_pad(priv->buffer, MAX_REPORT_LENGTH, cmd, cmd_length, 0x00);
--	ret = hid_hw_output_report(priv->hdev, priv->buffer, MAX_REPORT_LENGTH);
--
--	mutex_unlock(&priv->buffer_lock);
--	return ret;
-+	return hid_hw_output_report(priv->hdev, priv->buffer, MAX_REPORT_LENGTH);
- }
- 
--/* Assumes priv->status_report_request_mutex is locked */
- static int rog_ryujin_execute_cmd(struct rog_ryujin_data *priv, const u8 *cmd, int cmd_length,
- 				  struct completion *status_completion)
- {
-@@ -196,14 +184,11 @@ static int rog_ryujin_execute_cmd(struct rog_ryujin_data *priv, const u8 *cmd, i
- 
- static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
- {
--	int ret = mutex_lock_interruptible(&priv->status_report_request_mutex);
--
--	if (ret < 0)
--		return ret;
-+	int ret;
- 
- 	if (!time_after(jiffies, priv->updated + msecs_to_jiffies(STATUS_VALIDITY))) {
- 		/* Data is up to date */
--		goto unlock_and_return;
-+		return 0;
- 	}
- 
- 	/* Retrieve cooler status */
-@@ -211,36 +196,30 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
- 	    rog_ryujin_execute_cmd(priv, get_cooler_status_cmd, GET_CMD_LENGTH,
- 				   &priv->cooler_status_received);
- 	if (ret < 0)
--		goto unlock_and_return;
-+		return ret;
- 
- 	/* Retrieve controller status (speeds) */
- 	ret =
- 	    rog_ryujin_execute_cmd(priv, get_controller_speed_cmd, GET_CMD_LENGTH,
- 				   &priv->controller_status_received);
- 	if (ret < 0)
--		goto unlock_and_return;
-+		return ret;
- 
- 	/* Retrieve cooler duty */
- 	ret =
- 	    rog_ryujin_execute_cmd(priv, get_cooler_duty_cmd, GET_CMD_LENGTH,
- 				   &priv->cooler_duty_received);
- 	if (ret < 0)
--		goto unlock_and_return;
-+		return ret;
- 
- 	/* Retrieve controller duty */
- 	ret =
- 	    rog_ryujin_execute_cmd(priv, get_controller_duty_cmd, GET_CMD_LENGTH,
- 				   &priv->controller_duty_received);
--	if (ret < 0)
--		goto unlock_and_return;
--
--	priv->updated = jiffies;
--
--unlock_and_return:
--	mutex_unlock(&priv->status_report_request_mutex);
++	const struct rog_ryujin_data *priv = data;
++
+ 	switch (type) {
+ 	case hwmon_temp:
+ 		switch (attr) {
+@@ -123,6 +136,8 @@ static umode_t rog_ryujin_is_visible(const void *data,
+ 		}
+ 		break;
+ 	case hwmon_fan:
++		if (channel >= 2 && !priv->info->has_controller)
++			return 0;
+ 		switch (attr) {
+ 		case hwmon_fan_label:
+ 		case hwmon_fan_input:
+@@ -132,6 +147,8 @@ static umode_t rog_ryujin_is_visible(const void *data,
+ 		}
+ 		break;
+ 	case hwmon_pwm:
++		if (channel >= 2 && !priv->info->has_controller)
++			return 0;
+ 		switch (attr) {
+ 		case hwmon_pwm_input:
+ 			return 0644;
+@@ -198,12 +215,14 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
  	if (ret < 0)
  		return ret;
  
-+	priv->updated = jiffies;
- 	return 0;
- }
- 
-@@ -303,14 +282,11 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
- 		 * Retrieve cooler duty since both pump and internal fan are set
- 		 * together, then write back with one of them modified.
- 		 */
--		ret = mutex_lock_interruptible(&priv->status_report_request_mutex);
--		if (ret < 0)
--			return ret;
- 		ret =
- 		    rog_ryujin_execute_cmd(priv, get_cooler_duty_cmd, GET_CMD_LENGTH,
- 					   &priv->cooler_duty_received);
- 		if (ret < 0)
--			goto unlock_and_return;
+-	/* Retrieve controller status (speeds) */
+-	ret =
+-	    rog_ryujin_execute_cmd(priv, get_controller_speed_cmd, GET_CMD_LENGTH,
+-				   &priv->controller_status_received);
+-	if (ret < 0)
+-		return ret;
++	if (priv->info->has_controller) {
++		/* Retrieve controller status (speeds) */
++		ret = rog_ryujin_execute_cmd(priv, get_controller_speed_cmd,
++					     GET_CMD_LENGTH,
++					     &priv->controller_status_received);
++		if (ret < 0)
 +			return ret;
++	}
+ 
+ 	/* Retrieve cooler duty */
+ 	ret =
+@@ -212,12 +231,14 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	/* Retrieve controller duty */
+-	ret =
+-	    rog_ryujin_execute_cmd(priv, get_controller_duty_cmd, GET_CMD_LENGTH,
+-				   &priv->controller_duty_received);
+-	if (ret < 0)
+-		return ret;
++	if (priv->info->has_controller) {
++		/* Retrieve controller duty */
++		ret = rog_ryujin_execute_cmd(priv, get_controller_duty_cmd,
++					     GET_CMD_LENGTH,
++					     &priv->controller_duty_received);
++		if (ret < 0)
++			return ret;
++	}
+ 
+ 	priv->updated = jiffies;
+ 	return 0;
+@@ -289,6 +310,7 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
+ 			return ret;
  
  		memcpy(set_cmd, set_cooler_duty_cmd, SET_CMD_LENGTH);
++		set_cmd[2] = priv->info->duty_channel;
  
-@@ -329,11 +305,7 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
- 			set_cmd[RYUJIN_SET_COOLER_FAN_DUTY_OFFSET] = val;
- 		}
+ 		/* Cooler duties are set as 0-100% */
+ 		val = rog_ryujin_pwm_to_percent(val);
+@@ -394,10 +416,12 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
  
--		ret = rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
--unlock_and_return:
--		mutex_unlock(&priv->status_report_request_mutex);
--		if (ret < 0)
--			return ret;
-+		return rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
- 	} else {
- 		/*
- 		 * Controller fan duty (channel == 2). No need to retrieve current
-@@ -538,8 +510,6 @@ static int rog_ryujin_probe(struct hid_device *hdev, const struct hid_device_id
- 		goto fail_and_close;
- 	}
+ 	if (data[1] == RYUJIN_GET_COOLER_STATUS_CMD_RESPONSE) {
+ 		/* Received coolant temp and speeds of pump and internal fan */
+-		priv->temp_input[0] =
+-		    data[RYUJIN_TEMP_SENSOR_1] * 1000 + data[RYUJIN_TEMP_SENSOR_2] * 100;
+-		priv->speed_input[0] = get_unaligned_le16(data + RYUJIN_PUMP_SPEED);
+-		priv->speed_input[1] = get_unaligned_le16(data + RYUJIN_INTERNAL_FAN_SPEED);
++		priv->temp_input[0] = data[priv->info->temp_offset] * 1000 +
++			data[priv->info->temp_offset + 1] * 100;
++		priv->speed_input[0] =
++			get_unaligned_le16(data + priv->info->pump_speed_offset);
++		priv->speed_input[1] =
++			get_unaligned_le16(data + priv->info->fan_speed_offset);
  
--	mutex_init(&priv->status_report_request_mutex);
--	mutex_init(&priv->buffer_lock);
- 	spin_lock_init(&priv->status_report_request_lock);
- 	init_completion(&priv->cooler_status_received);
- 	init_completion(&priv->controller_status_received);
+ 		if (!completion_done(&priv->cooler_status_received))
+ 			complete_all(&priv->cooler_status_received);
+@@ -471,11 +495,15 @@ static int rog_ryujin_probe(struct hid_device *hdev, const struct hid_device_id
+ 	struct rog_ryujin_data *priv;
+ 	int ret;
+ 
++	if (!id->driver_data)
++		return -EINVAL;
++
+ 	priv = devm_kzalloc(&hdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	priv->hdev = hdev;
++	priv->info = (const struct rog_ryujin_device_info *)id->driver_data;
+ 	hid_set_drvdata(hdev, priv);
+ 
+ 	/*
+@@ -546,7 +574,8 @@ static void rog_ryujin_remove(struct hid_device *hdev)
+ }
+ 
+ static const struct hid_device_id rog_ryujin_table[] = {
+-	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_AIO) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_AIO),
++	  .driver_data = (kernel_ulong_t)&rog_ryujin_ii_360_info },
+ 	{ }
+ };
+ 
 -- 
 2.53.0
 
