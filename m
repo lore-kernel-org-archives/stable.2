@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C7FBC4973A6;
-	Thu, 17 Sep 2026 15:08:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C98B4B7A2E
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:08:58 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657747; cv=none; b=NYCmlrPJBb+C0FTxgKk9s58xhW3Rc+q1jZsLTMbSnwOvYdKT50ZXhb/0tVaW1+H3b2In5DKd67zpxBECj62fX/2i8TFrNnWGPVmi9pdyBL9FY6v1e3BDZi9rpyCHHe3EU1ngv34VOf6Hddm9M0QLrq5CIScdb6YpXrxUcIfgYD0=
+	t=1789657748; cv=none; b=oNyzcKcim5YaOyzHsAHmTRAV9TN35+38ph7KvCyp3djzDUpgAk040p+YUv4BEnaAu2oCUajIKUWm8WFZlrWSdNetO1AQU2u36BtBA5vo5A+dBCQ16OISNSexAzH4dl3q0+Nes7MbCixq/deVc/jEYQ/nu7KEIIEbOgISUGJ7sb4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657747; c=relaxed/simple;
-	bh=POZfGxHxqMD31Uu7PEhyquvV0QVM4g6o2WrHxTN1S6o=;
+	s=arc-20240116; t=1789657748; c=relaxed/simple;
+	bh=DKAea4hLw/vHKN3BqrHIx/FQBAtGlleEpEGH/9SaogQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bK3jbgLI4pUg4DuK9YU6gp7nUJUqeS6wX9PPfSj6o7+plH0/dYY2kNS1Iy2qBxXWSzWgirzNC1yHTRQpBlh1usDYtDiTp0hOFOgVRsSnh7G79re3RrHX0663oqGRVbfrHUce7/HE7HIRCG2A45bF4S+myNi5AsOXk5InhL8KW4k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5mNaJtG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ufZhrA36yshsQkfc3na+fCfhp5PtJOljiRmTC9bUL3PtUgHnu+MygJjjNShXyIKDqueTYEqvrNB5PZVjhrvu5ivPvu20NC2oYCVjl8XeZelOb0QGwO2GNHzgzRX2P2yLqxMJRrmus+1NHqVU8k2Gb5SJNTd24cMxp40Dz7upPss=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=j7yMQvI6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5mNaJtG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 222881F000FF;
-	Thu, 17 Sep 2026 15:08:55 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="j7yMQvI6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7D8A1F00893;
+	Thu, 17 Sep 2026 15:08:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789657735;
-	bh=Z71r35Rnb5K9+kgQDzyYitu4GGEqGYAIc6QFqNtBNnw=;
+	s=k20260515; t=1789657737;
+	bh=BpHICbLUPXpQ7udgiSC7il2Qm93b8aIDuqCYjPmihJ4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=L5mNaJtG+u4pMB1FJiI7FLiPw8s+RgAMbsP/X6K7eESJ3kbfqYE/Z00cK61ew8e+f
-	 MPzHxDFKT9VUhLzR7OzLbGRaw3+s0JQSALhtatmXMb0IsOGhUQ+NUM14VIaI1ESrD9
-	 pC1hyGD9mBNEXp8lZr6sKSJBOINgtmfjqczMfg0gefXBQnB6Lx9AtheeoqV3POgzG3
-	 KMManK96UJTQFQCJsSNpAbvOjCCcWDRgbLhdL6zgTJqtHP/bJsN/pFqmoqLnPDsM+T
-	 FCpAs4Eo367vmbPRJG5svJIZaClVGj0GGj8n4tPYpiqIO5tziPcXq1nJ+beEvJcTXa
-	 Tuawxu0fDUBKg==
+	b=j7yMQvI6iJKTLIlR4PNRj8z7THcCHxmsy+3AQPQSFSnc09qFQNdWHHH0n8BA5Sn0g
+	 hJqLbj8YIi78u8LvGMAX9M0zmYkCobLuF866CtEkvZ3DleMHa0ng9OS3tTcSBlzsR2
+	 BqiIb9kPX/24XiecyIQgwTWagri8MVjYe4WbAY42Qw+LjGE42Itfs1dOquCrBRPuo1
+	 1vlSXHcikL3sdumSsNFFKwQv9uuZFDuSuW6lmDsZ5CsAAq79fBOVHZGtDlSbGTRLBu
+	 1qzH1udXNRLKOYlTJFMNNRYM4Fi1Z2Gc8jQtyXHP9oQ8iZXHDZbdQjpfWyAMiftOt9
+	 Cxk8VnhPl+Mrg==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	David Howells <dhowells@redhat.com>,
-	linux-cifs@vger.kernel.org,
-	Steve French <stfrench@microsoft.com>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 1/2] smb: client: use atomic_t for mnt_cifs_flags
-Date: Thu, 17 Sep 2026 11:08:52 -0400
-Message-ID: <20260917150853.681793-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] xfs: fix backwards mergeability logic in refcount scrubber
+Date: Thu, 17 Sep 2026 11:08:55 -0400
+Message-ID: <20260917150855.681851-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091629-most-slimness-8500@gregkh>
-References: <2026091629-most-slimness-8500@gregkh>
+In-Reply-To: <2026091615-operating-mutt-0936@gregkh>
+References: <2026091615-operating-mutt-0936@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,97 +46,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit 4fc3a433c13944ee5766ec5b9bf6f1eb4d29b880 ]
+[ Upstream commit e8b01aaafffe6b852325debdf1ef4b13ccea1cd7 ]
 
-Use atomic_t for cifs_sb_info::mnt_cifs_flags as it's currently
-accessed locklessly and may be changed concurrently in mount/remount
-and reconnect paths.
+When we start the refcount or rtrefcount btree scanners, prev_rec is
+initialized to all zeroes.  This is done so that the record mergeability
+checks skip the first record because you must have two records to
+compare.  Unfortunately, I got the logic backwards, so scrub has never
+complained about mergeable refcountbt records.  Fix this bug that LOLLM
+noticed.
 
-Signed-off-by: Paulo Alcantara (Red Hat) <pc@manguebit.org>
-Reviewed-by: David Howells <dhowells@redhat.com>
-Cc: linux-cifs@vger.kernel.org
-Signed-off-by: Steve French <stfrench@microsoft.com>
-
-Backport notes for the dependency of da6e258424319:
-
-Limit this stable backport to the mount-flag accessor needed by the
-subsequent readdir fix. Keep mnt_cifs_flags as unsigned int and implement
-cifs_sb_flags() as a READ_ONCE macro, adding no functions. The full atomic_t
-conversion, generic CIFS_SB helpers, and unrelated call-site changes are
-not needed for the target and depend on newer CIFS refactoring.
-
-Include the cifs_posix_to_fattr() portion of 18a72975e9f35 ("smb: client:
-honor forceuid/forcegid when mapping SIDs to uid/gid"): snapshot the flags,
-initialize cf_uid/cf_gid from the mount context, and respect the override
-bits before mapping SIDs. This supplies the target's exact patch context
-and the fallback ownership values it needs when SID parsing fails.
-
-The SID parse-error check itself remains in da6e258424319; this dependency
-does not apply that target fix.
-
-[ sashal: Reduced backport -- upstream 4fc3a433c1394 touches 27 file(s), this
-  backport carries 2. Not backported here:
-  fs/smb/client/cached_dir.c
-  fs/smb/client/cifsacl.c
-  fs/smb/client/cifsfs.c
-  fs/smb/client/cifs_fs_sb.h
-  fs/smb/client/cifs_ioctl.h
-  fs/smb/client/cifs_unicode.c
-  fs/smb/client/cifs_unicode.h
-  fs/smb/client/connect.c
-  ... and 17 more
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: da6e25842431 ("smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()")
+Cc: stable@vger.kernel.org # v6.4
+Fixes: db0502b39c21d1 ("xfs: flag refcount btree records that could be merged")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ omitted the rtrefcount.c hunk because the file does not exist in Linux 6.12. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/smb/client/cifsglob.h | 2 ++
- fs/smb/client/readdir.c  | 9 +++++++--
- 2 files changed, 9 insertions(+), 2 deletions(-)
+ fs/xfs/scrub/refcount.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/cifsglob.h b/fs/smb/client/cifsglob.h
-index a4e0618c58efc..a784a81e2e58c 100644
---- a/fs/smb/client/cifsglob.h
-+++ b/fs/smb/client/cifsglob.h
-@@ -1603,6 +1603,8 @@ CIFS_FILE_SB(struct file *file)
- 	return CIFS_SB(file_inode(file)->i_sb);
- }
+diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
+index 304ea1e1bfb08..dd2c52807e40b 100644
+--- a/fs/xfs/scrub/refcount.c
++++ b/fs/xfs/scrub/refcount.c
+@@ -399,7 +399,7 @@ xchk_refcount_mergeable(
+ 	const struct xfs_refcount_irec	*r1 = &rrc->prev_rec;
  
-+#define cifs_sb_flags(cifs_sb) READ_ONCE((cifs_sb)->mnt_cifs_flags)
-+
- static inline char CIFS_DIR_SEP(const struct cifs_sb_info *cifs_sb)
- {
- 	if (cifs_sb->mnt_cifs_flags & CIFS_MOUNT_POSIX_PATHS)
-diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-index 5febf8afaab04..8ccfdc6a10cfb 100644
---- a/fs/smb/client/readdir.c
-+++ b/fs/smb/client/readdir.c
-@@ -241,6 +241,7 @@ static void
- cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		    struct cifs_sb_info *cifs_sb)
- {
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 	struct smb2_posix_info_parsed parsed;
+ 	/* Ignore if prev_rec is not yet initialized. */
+-	if (r1->rc_blockcount > 0)
++	if (r1->rc_blockcount == 0)
+ 		return false;
  
- 	posix_info_parse(info, NULL, &parsed);
-@@ -280,8 +281,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		 le32_to_cpu(info->ReparseTag),
- 		 le32_to_cpu(info->Mode));
- 
--	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
- }
- 
- static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
+ 	if (r1->rc_domain != r2->rc_domain)
 -- 
 2.53.0
 
