@@ -1,159 +1,123 @@
-Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BD3F51FCBD
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:28:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 98F3E4E2F31;
+	Thu, 17 Sep 2026 13:29:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789651740; cv=none; b=I12RdCjGbWhjnKNojF6o9phhnQiRIkQQdI9JnCP8ag8jRjk+bK+QfIjnat+8YBkgf6Z6mWcvCDWmdl+SbS+dD1M/mtaAuQdWhJD56/HC3PEscsqoMVuDMBCRg/O1LCn7DK7rxm7AlKCHjceLwccY0RkeUMvZn1h8tCsl1HRR2xo=
+	t=1789651802; cv=none; b=bEeQKO+dnBQn5taSYu5n/gdVBtVgyDMz/RD4fwLNBaxLEjrpEfxpB415LS3a05kLxy7bFc1UQ3iRfqLxngsGhtFRm2fEv2MzhQMTNQ4ddWX9FaMuUsf+K6owEZ2pY/v4lTEJVlnkGQR0CpIn1WmfwEvtKpRgaTueNdnVWi/xdms=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789651740; c=relaxed/simple;
-	bh=NAsObRyll4WV6QYy9rKgLDobFjajI231zXddko/aXE8=;
-	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
-	 MIME-Version:Content-Type; b=pKAHJ6tK/dOsMxPLrPilxK1Y3neDb2CY1O4GCgfDj5faQM7hSrzj+3fCccwRJJmpwZGnZyGjSVquEMowm5TE6u5zYKz51TKHrGZ/mFGBGkbQolsnc/hkAXRvS9ww7sgTHmWLBhjlo6liU/8y9htv2VLCh48A3T30wNcGZ885Gig=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AIzwt6Da; arc=none smtp.client-ip=74.125.224.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AIzwt6Da"
-Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e56a1fe83so724849d50.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 06:28:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789651737; x=1790256537; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=sAeZPfLxO8gIQtw5sZuH3fSTsOPDUndxs0gC4xI6QHw=;
-        b=AIzwt6DaGWdkrsP+WPfMtXn+lcvGLyBCfA/tMUdWSveQy62wAGF6NDg11ujcOhHKbM
-         b0+EKsHVGdCOKHc7SMrNPPqgmoAoqYHLnPtCHfhCXByPYW61VX5aMEGiUVBsz/dtAuUK
-         uwyjUQ6tr9GD/B/UHylM6JlocVwx+D/YhHjg2gIS6yHMn8ZI0EgiuEgBqY+Z9F0OaJke
-         S3yvGj+kIoKTlriPwv2XCRIEvHOvxUtIDqHvEahHBPTfQ/uI7egMScd43UDJVjQYizjv
-         9ZtuRvuVNTwAXIhT9xDYHKuUJC1ZRqTnksVChrldtyX58Vll8NYnlzqvMifWQvT4Kp8i
-         DWQQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789651737; x=1790256537;
-        h=content-transfer-encoding:content-type:mime-version:subject
-         :references:in-reply-to:message-id:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=sAeZPfLxO8gIQtw5sZuH3fSTsOPDUndxs0gC4xI6QHw=;
-        b=veZhNLeHiTriSJZ/azXzjPKVkdIXsld4RyeNl8Iw9Flax6hOdICX9R9K9bXpJPj4V+
-         Ih1ceuzFBBQOB+3k9iS3JQxzTY0hjHAXxgkQKxa1eaKIJCeoiRj3RIhDC5dlRjUhXqb+
-         /fgiLwPvlz8V8aM8FxyRAq3gTdLhPRd8Xn12oFN8bR5HehV36c8qB/GpFTGq5LxZkIis
-         gnmbNwhoMKE4V3bmLgtu9Oq6WEajhdnGRHHlJA1vENpanVF5pDaV3B/FmQGOpFUAflLt
-         2piXAh8jpvPm+f7YZxDZxf6g9LisQXX8TZBq28N1I9mQ9C7bY45To1qV9/iiKgfT+gJB
-         1ETA==
-X-Forwarded-Encrypted: i=1; AKwUvBzFYFEvS9VlC51xL1EloX3Klq1at98fWdc1kX6pePBhz9mKccRoEec6jyF+jXQd2CRkpxTSkkw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nPOOTb46mt1X1148ld6Ll8kdKhP34EdR25B2dD7yHRBrEdEagV
-	7lCwffhUv9fTfnAtn5zLGm2Mv/A3YAIer96SXS/1BVkASnsAq2IckWci
-X-Gm-Gg: AYBFou0/W0HV42jX5HOs2iqhU71/HuqdYACHs5cNWVWI1nnZmmBQKyaOVk1wl3d6sIE
-	/DvRNFr3RSKPsZPm/nWEpgeSV3JjUUG+8JYoh7gDz4kdcD6x3yszES0fBtspAdPAY+YBCnevpeA
-	vCLaTsT6DNt4l05nlDn1oVFh9+omMKGB9K/XmeScwyGySR1kYcUhgRfDrLAxViF+8uPRTV0ffbc
-	8iOu9uGX33jzfBhSobTyNbX3oz+g/beb7SUnBPEiB2G2vHfmuktnUpsEROh3NpDPVaigLU+xxDi
-	ynUvg2KHufCcvizds+amSDmyzlFkI5vKPb33P8WHi/P/CG/QX6h3lDucLo78lbVM4107ShfA8C2
-	srB6hjuB7ZlVS+hJUsjHRHLkQrhniwShc19r15vyrqgaPkgTTb/7alBIkKaIPeYaTKQ5w+eiJq4
-	9FvbgYB9b6/h3mrdKMkGKbU1MOm56RMWsw+wkhNzmP+woWzP01k0z50vFnCTnvXXpLwhBx1zdta
-	Nnnt8UF+xIhLcnvvnVjOBLt0UmVpaPijjiRmSSfvah3FEAVVQPq
-X-Received: by 2002:a05:690e:11ce:b0:66f:c719:616a with SMTP id 956f58d0204a3-671631be447mr2244247d50.3.1789651737398;
-        Thu, 17 Sep 2026 06:28:57 -0700 (PDT)
-Received: from gmail.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
-        by smtp.gmail.com with ESMTPSA id 956f58d0204a3-6715f79a963sm2544539d50.20.2026.09.17.06.28.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 06:28:56 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:28:55 -0400
-From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
-To: Paolo Abeni <pabeni@redhat.com>, 
- Willem de Bruijn <willemdebruijn.kernel@gmail.com>, 
- netdev@vger.kernel.org
-Cc: davem@davemloft.net, 
- kuba@kernel.org, 
- edumazet@google.com, 
- horms@kernel.org, 
- andrew+netdev@lunn.ch, 
- Willem de Bruijn <willemb@google.com>, 
- Katherine Leaver <kleaver@janestreet.com>, 
- Bjoern Doebel <doebel@amazon.de>, 
- stable@vger.kernel.org, 
- kylebot@openai.com
-Message-ID: <willemdebruijn.kernel.217ba36e55cae@gmail.com>
-In-Reply-To: <a0b83186-7399-4d79-8226-ff43611184d7@redhat.com>
-References: <20260914214229.1674102-1-willemdebruijn.kernel@gmail.com>
- <20260914214229.1674102-3-willemdebruijn.kernel@gmail.com>
- <a0b83186-7399-4d79-8226-ff43611184d7@redhat.com>
-Subject: Re: [PATCH net 2/2] packet: use ubuf_info completion for TX_RING
- packets
+	s=arc-20240116; t=1789651802; c=relaxed/simple;
+	bh=IHKyhwi9VOur496O1HNCX9aPf++wgIxyKFwtl5/Je8s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DhPpLgypFX1yJ62CJ7V6nnoK05PrYkyfIzre3+/DLaNsnMZYb+CiL///0XuqNj+TjoQsVPv5XOp9Jmyza1dqCQ8NrxEpRwhSxn2SItfY158NO0qXlbfrHCh6T9I+b2ZErSuMF4vgE4/VxIVsyOONU6U3t7CW0ZisJNX2LcG44JY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXADtI66tqC3qBCA--.3599S2;
+	Thu, 17 Sep 2026 21:29:44 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bhelgaas@google.com
+Cc: boris.ostrovsky@oracle.com,
+	jgross@suse.com,
+	linux-kernel@vger.kernel.org,
+	linux-pci@vger.kernel.org,
+	oleksandr_tyshchenko@epam.com,
+	sstabellini@kernel.org,
+	u.kleine-koenig@pengutronix.de,
+	xen-devel@lists.xenproject.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] xen/pcifront: Fix PCI device reference leak in pcifront_common_process()
+Date: Thu, 17 Sep 2026 13:29:44 +0000
+Message-Id: <20260917132944.2153421-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain;
- charset=utf-8
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXADtI66tqC3qBCA--.3599S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7WF1Uur1rKw1fAFWxWry5twb_yoW8uw1fp3
+	98AF13Ars0ya40qrZxAF4jga45ZFsrJ3y7C3ySg3s7X34aq3Z5Jw15JF1a9r48G395Zrnx
+	trnxJa1UZF1UXaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_JF4lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07bb5rxUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgQNA2qrq3bHZgAAsx
 
-Paolo Abeni wrote:
-> On 9/14/26 23:37, Willem de Bruijn wrote:
-> > From: Willem de Bruijn <willemb@google.com>
-> > 
-> > tpacket_snd sends skbs with frags pointing into its ring slots. Slots
-> > are released when skb->destructor is called.
-> > 
-> > A call to skb_orphan calls skb->destructor before the skb is freed.
-> > This can cause the slot to be reused while still linked into the skb.
-> > 
-> > Switch to standard zerocopy completion (ubuf_info) so the slot is only
-> > released once all references to the payload are freed or copied.
-> > Restore skb->destructor to standard sock_wfree.
-> > 
-> > To prevent userspace from aliasing in-flight state on shared ring
-> > slots, allocate tpacket_uarg per packet, rather than per slot. This
-> > adds a small allocation to the transmit path. Use standard kmalloc to
-> > allow backporting to stable kernels.
-> > 
-> > The uarg holds an sk_wmem_alloc reference, rather than an sk_refcnt
-> > reference. packet_free_tx_ring waits on sk_wmem_alloc before freeing
-> > the ring pages.
-> > 
-> > As a result a slot is released when its payload is copied, which can
-> > be before transmission (e.g., in skb_orphan_frags_rx). Any slot
-> > timestamp then reflects the time of copy, rather than of transmit
-> > (or skb_orphan).
-> > 
-> > Revert the now unused previous skb_zcopy_.._nouarg infra.
-> > 
-> > Reported-by: Katherine Leaver <kleaver@janestreet.com>
-> > Reported-by: Bjoern Doebel <doebel@amazon.de>
-> > Closes: https://lore.kernel.org/netdev/20260909085542.3370986-1-doebel@amazon.de/
-> > Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Willem de Bruijn <willemb@google.com>
+pcifront_common_process() gets a reference to the PCI device with
+pci_get_domain_bus_and_slot() and only drops it on the early error
+path.  Returning directly from the AER handler switch instead of
+recording the result and falling through to the common
+pci_dev_put(pcidev) leaks the reference on every successful call.
 
-> FTR both the 'high prio' sashiko finding here and the mid one on the 
-> previous patch are IMHO worth addressing.
+Collect the handler result in a variable and drop the reference on the
+single exit path again.
 
-Absolutely, agreed.
+Fixes: 34ab316d7287 ("xen/pcifront: Drop pcifront_common_process() tests of pcidev, pdrv")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/pci/xen-pcifront.c | 15 ++++++++++-----
+ 1 file changed, 10 insertions(+), 5 deletions(-)
 
-I hadn't gotten around to responding to the bot yet, sorry. Was still
-reviewing the options.
-
-Simplest is to enable the deferred worker that Kyle also for page
-backed rings.
-
-As the commit says, I'd rather send something much simpler to stable,
-but after exploring many paths did not found any with fewer risks or
-obvious regressions.
+diff --git a/drivers/pci/xen-pcifront.c b/drivers/pci/xen-pcifront.c
+index cffc32d66032..5fdce7c41af5 100644
+--- a/drivers/pci/xen-pcifront.c
++++ b/drivers/pci/xen-pcifront.c
+@@ -579,6 +579,7 @@ static pci_ers_result_t pcifront_common_process(int cmd,
+ 	int bus = pdev->sh_info->aer_op.bus;
+ 	int devfn = pdev->sh_info->aer_op.devfn;
+ 	int domain = pdev->sh_info->aer_op.domain;
++	pci_ers_result_t result = PCI_ERS_RESULT_NONE;
+ 	struct pci_dev *pcidev;
  
-> Also I'm wondering if the extra alloc/free is visible in perf figures?
-
-It should not, compared to the skb alloc. But I don't have hard data
-on that.
-
-> Out of sheer ignorance, can't the ubuf be carved out of the ring?
-
-It can, I actually had that first. But that has more risk. Userspace
-can overwrite the ring header status to TP_STATUS_AVAILABLE,
-possibly corrupting uarg->ubuf.refcnt. It might be fixable, by
-incrementing refcnt rather than initializing to 1. But that is less
-obvious(ly correct).
+ 	dev_dbg(&pdev->xdev->dev,
+@@ -597,21 +598,25 @@ static pci_ers_result_t pcifront_common_process(int cmd,
+ 		pci_dbg(pcidev, "trying to call AER service\n");
+ 		switch (cmd) {
+ 		case XEN_PCI_OP_aer_detected:
+-			return pdrv->err_handler->error_detected(pcidev, state);
++			result = pdrv->err_handler->error_detected(pcidev, state);
++			break;
+ 		case XEN_PCI_OP_aer_mmio:
+-			return pdrv->err_handler->mmio_enabled(pcidev);
++			result = pdrv->err_handler->mmio_enabled(pcidev);
++			break;
+ 		case XEN_PCI_OP_aer_slotreset:
+-			return pdrv->err_handler->slot_reset(pcidev);
++			result = pdrv->err_handler->slot_reset(pcidev);
++			break;
+ 		case XEN_PCI_OP_aer_resume:
+ 			pdrv->err_handler->resume(pcidev);
+-			return PCI_ERS_RESULT_NONE;
++			break;
+ 		default:
+ 			dev_err(&pdev->xdev->dev,
+ 				"bad request in aer recovery operation!\n");
+ 		}
+ 	}
+ 
+-	return PCI_ERS_RESULT_NONE;
++	pci_dev_put(pcidev);
++	return result;
+ }
+ 
+ 
+-- 
+2.34.1
 
