@@ -1,102 +1,93 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BE2F2FFF89
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:45:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367102FFF89;
+	Thu, 17 Sep 2026 00:46:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605927; cv=none; b=VAVFrU85y1fGqLC/lZdo0Gd5vollb8/lUc1OWZqdzIR2Pxl5oZ5onIrYLgRjVdDoiGNQvPZ7llF1h8ENCJmeA7xZh18DUglRwEV6Bgvnpjl35OZNU6oGFDpTSUUf/PjggkMpyfuPtf1vjVtoeD53P8YT6X0bLCTUtF4UX3w+6Fw=
+	t=1789605981; cv=none; b=ZEsxWVrtUNua/RSId7/tBh2MdsoUQoYUT+V0erIpl3+HBLp9xOG/1Xm4HvRXrKkFISEeEMma5gy70TvJk5jmOHtRPYZ0AuvvFJeYE/ah9sSA9AOBhritYO2acBgnZAawJR3fPODuwIry7u8KPZe5iw1FO3MMznryLpIOBGwb8rE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605927; c=relaxed/simple;
-	bh=pSIUYIx+0OkhedIaRJFFytc27jwrdIPiXSe8d8kKDuo=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=WSLovZ98H5Uh1pHbMsU6MgjFUDPKt5Uim2z71EpIdhJrc970pEy3DkGwyxbX6y5vk+mQot1x8sOnIyRxtDvYlEOPGD/38Ju7Hhk5RoOaEPJ0syXRBm3LMrwErdpjYuIUBDM2h5AJK5plF8nvvYW4vr7uACynEBsc9rS1TCzxHlY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ku1amnl1; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789605981; c=relaxed/simple;
+	bh=iqJYXgEH9qZMvSzZ9xBTGk1/A/W8HLdmT9OV8hVON3w=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=TblwHpoI8CLeu8LBNgdwOboUdtKKjbbpahXbraDmOGt5VleuAdniSEe/AJAnscX6d77myteyh9XMCzN+3O/8TSvz/MmiOynFpzeC4ZT372LZE4g1ZcefGMXlTYecTnnZOfjTDKVKnaSQ3zNShmBJe0vzci+MpQZgBFDaLxDuzw8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5WAWCnD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ku1amnl1"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-86212a185dcso292821b3a.1
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:45:25 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789605925; x=1790210725; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vK4WS6l3ITRV/oYCqfxSRTjx+VRSZj9i6Ex84U5fmjM=;
-        b=ku1amnl1rOi/dNSYnVA2p0mOi5pzTP431ph81+tN5amFHqXTbk8mwhBTq+LNgqYuqJ
-         mTm12WgP+ZSQ1NJSanS892fNSAzKxxX5qg6g32LJXpbUr6G6/FaGQSW1V/js+81J5ArG
-         9Wl5iERzDpuqkqpStr4tPKIYYaeWaMcpG5hKwZF4Ta8YmkRz5NJ+rYV8NRJiHfoQpft3
-         1uFgP18qMuenlIGSrxzB7vFj68kXvXXWtS998CsB/ceoih1kR+IyAeuS+dSKtYbfWXnO
-         pJvJClVR9xWd21s+lgkLAt94hAdoDOYfCWgm/A09AF/LhF5RXA3RgYsWobfw4VGFtK0m
-         ZRWw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789605925; x=1790210725;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vK4WS6l3ITRV/oYCqfxSRTjx+VRSZj9i6Ex84U5fmjM=;
-        b=fjpcXET3l59C3w+qPRZNxlkkxRmiP1+A4EWaAjVjSq7wkfF7NoeVUBhkxyy6/MYKRW
-         a8dcwB2IGiTsDIKKw8Xicpm5jw2jxCtJ+j28XN/upTGMkeG631bxzAj7t78V6p28yxR7
-         eORfOkaGRXKdazfqR1GyNpTJytU+ve6daIeDNZCUzOcCdwx2X3X/r7MZACY9hYoH1wNG
-         AWtOsscvUnvvkW2w62MSB/n7tqXOpK0LeekF+53Y/3NKCBHjaQpza7aTFuL/oAIPHOHh
-         /iStTufE9Y4S3VKrX9DWpPZ5ZiO95GflVUwbgViOSfUrgZlBm8DHlrNnujnoPwhoZ2aP
-         O0qw==
-X-Forwarded-Encrypted: i=1; AKwUvBzFkHVZZYavSrlqg/TWYl6pVUpPFPVROyrSSMg96i2F8AljTVP7ZeTIvX7o+IxxktjfUYTp/PA=@vger.kernel.org
-X-Gm-Message-State: AFuF++nSP2GXlFrDZ7tlXz1MoIecjbSYRRW3YwPs8JTgyhOkwYmoBiRt
-	GG3o7UBwF0IlS3f9t0CJAkRbInzNpUSaZ3GbegwhWTGBGYNFIgT1xTbX
-X-Gm-Gg: AYBFou1KakCpb1vodE9J4uzg53CKlD/9Js4tTxHZPhDsktv9o1PkL80lu211Y7vVJMa
-	XCxJX4O8Ag6vfH18ZgyOkCxMHD3+/idGbsR7sal6XN/LXe88aIQB8t62DkRi0caNGPFy9ZCiqaQ
-	ER96Y4yFfNgtoHGnJm0TJjD2odgyf4u6et84iiZLsp0Zflz2yjCgtlENUo2hDN+zQDzhrwccBay
-	DPhsnUBEBuRa+vqkHpH6Anon4dFt7bcaewzsgPhtjfQCaegfGsXXcBt79D+Y39LTuHngAX5LMXr
-	+uUv5UeTxN1jqTl/qomQy0D6nykTbqpP3Qt6UHif3RfK5qSZIv9v/byHSJA84EwMCTdeayJfket
-	PhX4NOSvyMA/6IfOPPdm2EcWlx62W4tniCNrLPCGglnai0MYsRgLQDToOneyGTAH0q1Ew7V+xVJ
-	nYZzn5G2tAOXOeMtoJRRaYoWV0sHry7mnN/UYoD090O5fi3NkWe7niC++nwu514vqyO3qh6Qyy+
-	HoZtZB7oD5Z
-X-Received: by 2002:a05:6a00:4613:b0:851:c2a6:172f with SMTP id d2e1a72fcca58-8723b87eadfmr9178684b3a.7.1789605925335;
-        Wed, 16 Sep 2026 17:45:25 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1da2fsm1952194b3a.52.2026.09.16.17.45.24
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:45:24 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 17:45:24 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: emil.renner.berthing@canonical.com, linux-kernel@vger.kernel.org,
-	linux-watchdog@vger.kernel.org, wim@linux-watchdog.org,
-	xingyu.wu@starfivetech.com, ziv.xu@starfivetech.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] watchdog: starfive-wdt: Fix runtime PM leak in
- starfive_wdt_pm_start()
-Message-ID: <dfebf1ef-0496-4b4e-acbe-847064bf09e0@roeck-us.net>
-References: <20260916170704.2086331-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5WAWCnD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1011F000FF;
+	Thu, 17 Sep 2026 00:46:19 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789605979;
+	bh=kODMTwp9UdPIjAoMzL9lKaKV0Ew12+aWAZOelw7CRbs=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=Z5WAWCnD4svSQvzB4lJ+lYh+cI//DC4gsH32lN/lxIUoQobN3bNbDiwVh6TFUdrir
+	 POvuuRtP1ruUE7nCjDNPmtzyfMyWT7cwG1J03FZFY2fIiWhGFX/ZG5uX5EVndIDLkm
+	 ulUYmxCvUEfV7nG06i0NRjHNUUqqJLY5pjQVRQ6wz9LW6NMj/p7R2b4gt5IoBrYQxz
+	 vc/ITFsdDQiu0ZEy+is1T3Qiemwntg0J3LgZkzI2BOA34xFOhqR20/tFtt4Mt2Go04
+	 HNvdp5ZL1Pet0v/p5uLRwZH7ltyQwLNcnft/YN9wDUBqZxw01WAd+Xtgv783v5X2wR
+	 JWk+pO25j0F2g==
+Date: Thu, 17 Sep 2026 01:46:16 +0100
+From: Jonathan Cameron <jic23@kernel.org>
+To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+Cc: Biju Das <biju.das.jz@bp.renesas.com>, William Breathitt Gray
+ <wbg@kernel.org>, Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
+ linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH 01/15] counter: rz-mtu3-cnt: put runtime PM on
+ initialization error path
+Message-ID: <20260917014616.17b5f0f2@jic23-hlaptop>
+In-Reply-To: <20260914203614.2035277-2-cosmin-gabriel.tanislav.xa@renesas.com>
+References: <20260914203614.2035277-1-cosmin-gabriel.tanislav.xa@renesas.com>
+	<20260914203614.2035277-2-cosmin-gabriel.tanislav.xa@renesas.com>
+X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916170704.2086331-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Wed, Sep 16, 2026 at 05:07:04PM +0000, Wentao Liang wrote:
-> starfive_wdt_pm_start() takes a runtime PM reference with
-> pm_runtime_get_sync(), which increments the usage counter even when it
-> fails, and returns the error without dropping it again.  The watchdog
-> core does not invoke the stop callback when start fails, so the
-> reference taken on the error path is leaked.
+On Mon, 14 Sep 2026 23:36:00 +0300
+Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+
+> If rz_mtu3_initialize_counter() fails, the runtime PM usage count is not
+> decremented.
 > 
-> Use pm_runtime_resume_and_get() instead, which keeps the usage counter
-> balanced when the resume fails.
+> rz_mtu3_initialize_counter() will fail if the requested channel is busy.
 > 
-> Fixes: db728ea9c7be ("drivers: watchdog: Add StarFive Watchdog driver")
+> Call pm_runtime_put() in the error path to decrement the usage count,
+> and flip the check to keep the success path straightforward.
+> 
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
+> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
+> ---
+>  drivers/counter/rz-mtu3-cnt.c | 8 ++++++--
+>  1 file changed, 6 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
+> index 7bfb6979193c..48f183f0b54f 100644
+> --- a/drivers/counter/rz-mtu3-cnt.c
+> +++ b/drivers/counter/rz-mtu3-cnt.c
+> @@ -506,8 +506,12 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
+>  	if (enable) {
+>  		pm_runtime_get_sync(counter->parent);
+>  		ret = rz_mtu3_initialize_counter(counter, count->id);
+> -		if (ret == 0)
+> -			priv->count_is_enabled[count->id] = true;
+> +		if (ret) {
+> +			pm_runtime_put(counter->parent);
+> +			goto exit;
 
-Applied.
+I'd use a guard() for the mutex and return here and one more case
+above. Not quite the minimal fix, but will give a more readable result.
 
-Thanks,
-Guenter
+> +		}
+> +
+> +		priv->count_is_enabled[count->id] = true;
+>  	} else {
+>  		rz_mtu3_terminate_counter(counter, count->id);
+>  		priv->count_is_enabled[count->id] = false;
+
