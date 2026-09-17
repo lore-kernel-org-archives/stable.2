@@ -1,39 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 133C84E7817;
-	Thu, 17 Sep 2026 16:57:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2440337B3FD;
+	Thu, 17 Sep 2026 16:57:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664223; cv=none; b=QiU/BVjxuncirox4BmJiOk5UlxhOv95d2QN2bIm51mPHj5hujUnMrCV8Vq4wnXLgNKvXk6XetTDSacryYjo6h23i8oVQGexKO8zrdQjrUeWAP7tFMGX+CUI2t0/1WDWNukpF+qtRjWGm/qoR01EpIvVkt7h/PkOhd+TAP9YLO38=
+	t=1789664224; cv=none; b=uVeCOCHDbPH9HDufbFHMUHzNMjSQpFmeJhiykJA8cLgHAD6GEBtDiBc+yaQZT4lp8P6kRsXeJZfRS/ZO+e8ShpZfuB83lF2fCLKwZ1SCBjWydCJ0YM4dzJcCrFslxWD4SZo3ga3l+DkdqvlNNz+4BWy1kW0L4fr7dkIAzo51BGk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664223; c=relaxed/simple;
-	bh=3wK1veyRCeHdZhVgBP1g8RgttxbvcXPCiSIoYPPHhog=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pZksEo1kDrb2/nf0874tFTWA0IoY7LKdtW17wS+O9wpkOhXnZ3NhbBSVt4rdDNeQBUjZNlemPDlIAkPyjJ4gigZfN6K63UKlira4cnzTrLriw0NfLMMnlOk7VbyVFvmgKKetNt3HHTxxOCB3oGHbCnuwXxvZI3YIpblHyQVu+x0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHdkDWG6xqLeiECA--.946S2;
-	Fri, 18 Sep 2026 00:56:54 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Xiubo.Lee@gmail.com
-Cc: broonie@kernel.org,
-	festevam@gmail.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	nicoleotsuka@gmail.com,
-	perex@perex.cz,
-	shengjiu.wang@gmail.com,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: fsl-asoc-card: Fix codec device leak in fsl_asoc_card_probe()
-Date: Thu, 17 Sep 2026 16:56:54 +0000
-Message-Id: <20260917165654.2163461-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789664224; c=relaxed/simple;
+	bh=OEbbIL8V7CgD3UryX1n+qJwwKby/oue6UJ2PVnID5d8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Q9D+csJ5FMOKHtEv9bMjNbcsVgegtXhz4k86DpcKIFVZzOI5s6KVayMemWnMurNte8FOEUR+QxW3JmymO/3kqhoMeCGxHdz7c/nxIICC8H3pu+9yo8bzVtMGPeT75cYETACTqBAZ6VGmi4oPiU0YhKKXufXmqp2DbQZyfSQmC/Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=LcXUg8TX; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="LcXUg8TX"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9781A1F000FF;
+	Thu, 17 Sep 2026 16:57:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789664223;
+	bh=sY1PzGTzMZVmtf7i7bGYyKqlyz6rtyP7dCHEg8n6O7U=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=LcXUg8TXkP2gkpNEwzbhM7rSmReMFo0HU+c/qv7ohwYE/RnZaNg/+05Oa+73jlJEU
+	 3+jVqr9CcUgqLSyD6XFVQSYubyOC3Il5Av7ffs1q353tLlsL9bbGb1HTvihqpOkYq0
+	 7CYvXxWgF2n6LSiJzkl3A0vPKaaBqKpUw2RZRIk8=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	ZhengYuan Huang <gality369@gmail.com>,
+	Konstantin Komarov <almaz.alexandrovich@paragon-software.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0293/1250] fs/ntfs3: validate index entry key bounds
+Date: Thu, 17 Sep 2026 16:01:28 +0100
+Message-ID: <20260917151600.067479523@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,53 +46,214 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHdkDWG6xqLeiECA--.946S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7GFyfXF1kKryfJw4UZrW3trb_yoW8Jr1Upw
-	nIga9xGFy5Gr129a1rXrW8Zay2kryjy393Jw4Fyw4xKr9xX34FvF9aqw1YqFWftrykK34D
-	ur9rtrWrXr1rZ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBY1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
-	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
-	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
-	87Iv67AKxVWxJVW8Jr1l84ACjcxK6I8E87Iv6xkF7I0E14v26r4UJVWxJr1le2I262IYc4
-	CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_
-	Jw0_WrylYx0Ex4A2jsIE14v26r4j6F4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x
-	0EwIxGrwACjI8F5VA0II8E6IAqYI8I648v4I1lFIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7Cj
-	xVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK
-	8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8JVWxJwCI42IY6I8E87Iv6xkF7I
-	0E14v26r4UJVWxJrUvcSsGvfC2KfnxnUUI43ZEXa7VUbUPEDUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qr9LZcAQABsM
 
-The codec device reference taken by of_find_i2c_device_by_node() is kept
-in codec_dev[] and never released, leaking the I2C client on both the
-error paths and the successful registration path. The same slot also
-holds the reference of_find_device_by_node() takes when the codec is a
-platform device, which leaks in the same way.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Drop those references on the shared exit path.
+------------------
 
-Fixes: 708b4351f08c ("ASoC: fsl: Add Freescale Generic ASoC Sound Card with ASRC support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: ZhengYuan Huang <gality369@gmail.com>
+
+[ Upstream commit 98d6e5d9dc1d34dcffc61549617581a5fe1ef807 ]
+
+[BUG]
+A malformed NTFS directory index entry can advertise a key_size larger
+than the bytes actually present in its NTFS_DE payload. Directory lookup
+then passes that malformed key to cmp_fnames(), which can read past the
+end of the kmalloc'ed index buffer.
+
+BUG: KASAN: slab-out-of-bounds in fname_full_size fs/ntfs3/ntfs.h:590 [inline]
+BUG: KASAN: slab-out-of-bounds in cmp_fnames+0x1ea/0x230 fs/ntfs3/index.c:46
+Read of size 1 at addr ffff88801c313018 by task syz.6.3365/9279
+
+Call Trace:
+ __dump_stack lib/dump_stack.c:94 [inline]
+ dump_stack_lvl+0xbe/0x130 lib/dump_stack.c:120
+ print_address_description mm/kasan/report.c:378 [inline]
+ print_report+0xd1/0x650 mm/kasan/report.c:482
+ kasan_report+0xfb/0x140 mm/kasan/report.c:595
+ __asan_report_load1_noabort+0x14/0x30 mm/kasan/report_generic.c:378
+ fname_full_size fs/ntfs3/ntfs.h:590 [inline]
+ cmp_fnames+0x1ea/0x230 fs/ntfs3/index.c:46
+ hdr_find_e.isra.0+0x3ed/0x670 fs/ntfs3/index.c:762
+ indx_find+0x4b5/0x900 fs/ntfs3/index.c:1186
+ dir_search_u+0x2c0/0x460 fs/ntfs3/dir.c:254
+ ntfs_lookup+0x1cc/0x2a0 fs/ntfs3/namei.c:85
+ __lookup_slow+0x241/0x450 fs/namei.c:1816
+ lookup_slow fs/namei.c:1833 [inline]
+ walk_component+0x31c/0x570 fs/namei.c:2151
+ link_path_walk+0x592/0xd60 fs/namei.c:2519
+ path_lookupat+0x138/0x660 fs/namei.c:2675
+ filename_lookup+0x1f3/0x560 fs/namei.c:2705
+ filename_setxattr+0xad/0x1c0 fs/xattr.c:660
+ path_setxattrat+0x1d8/0x280 fs/xattr.c:713
+ __do_sys_lsetxattr fs/xattr.c:754 [inline]
+ __se_sys_lsetxattr fs/xattr.c:750 [inline]
+ __x64_sys_lsetxattr+0xd0/0x150 fs/xattr.c:750
+ ...
+
+Allocated by task 9279:
+ kasan_save_stack+0x39/0x70 mm/kasan/common.c:56
+ kasan_save_track+0x14/0x40 mm/kasan/common.c:77
+ kasan_save_alloc_info+0x37/0x60 mm/kasan/generic.c:573
+ poison_kmalloc_redzone mm/kasan/common.c:400 [inline]
+ __kasan_kmalloc+0xc3/0xd0 mm/kasan/common.c:417
+ kasan_kmalloc include/linux/kasan.h:262 [inline]
+ __do_kmalloc_node mm/slub.c:5650 [inline]
+ __kmalloc_noprof+0x2bd/0x900 mm/slub.c:5662
+ kmalloc_noprof include/linux/slab.h:961 [inline]
+ indx_read+0x41d/0xad0 fs/ntfs3/index.c:1059
+ indx_find+0x447/0x900 fs/ntfs3/index.c:1179
+ dir_search_u+0x2c0/0x460 fs/ntfs3/dir.c:254
+ ntfs_lookup+0x1cc/0x2a0 fs/ntfs3/namei.c:85
+ __lookup_slow+0x241/0x450 fs/namei.c:1816
+ lookup_slow fs/namei.c:1833 [inline]
+ walk_component+0x31c/0x570 fs/namei.c:2151
+ link_path_walk+0x592/0xd60 fs/namei.c:2519
+ path_lookupat+0x138/0x660 fs/namei.c:2675
+ filename_lookup+0x1f3/0x560 fs/namei.c:2705
+ filename_setxattr+0xad/0x1c0 fs/xattr.c:660
+ path_setxattrat+0x1d8/0x280 fs/xattr.c:713
+ __do_sys_lsetxattr fs/xattr.c:754 [inline]
+ __se_sys_lsetxattr fs/xattr.c:750 [inline]
+ __x64_sys_lsetxattr+0xd0/0x150 fs/xattr.c:750
+ ...
+
+[CAUSE]
+The index-header validators only validated INDEX_HDR-level geometry.
+They did not walk each NTFS_DE to verify entry alignment, subnode
+layout, or that key_size fit inside the entry payload. They also
+allowed a last sentinel entry to carry a non-zero key_size.
+
+[FIX]
+Walk every NTFS_DE in ntfs3's index-header validators and reject
+entries with invalid layout, mismatched subnode state, oversized
+key_size, or non-zero sentinel keys before lookup or log replay can
+consume them.
+
+Signed-off-by: ZhengYuan Huang <gality369@gmail.com>
+Signed-off-by: Konstantin Komarov <almaz.alexandrovich@paragon-software.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/ntfs3/fslog.c | 26 ++++++++++++++++++++------
+ fs/ntfs3/index.c | 37 ++++++++++++++++++++++++++++++++++++-
+ 2 files changed, 56 insertions(+), 7 deletions(-)
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index 3fdc77d5968b..04adb8e76e29 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -1069,6 +1069,8 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	of_node_put(asrc_np);
- 	of_node_put(codec_np[0]);
- 	of_node_put(codec_np[1]);
-+	for (codec_idx = 0; codec_idx < 2; codec_idx++)
-+		put_device(codec_dev[codec_idx]);
- 	if (asrc_pdev)
- 		put_device(&asrc_pdev->dev);
- 	put_device(&cpu_pdev->dev);
+diff --git a/fs/ntfs3/fslog.c b/fs/ntfs3/fslog.c
+index 79d5ae5863b93..ae15c2fc48646 100644
+--- a/fs/ntfs3/fslog.c
++++ b/fs/ntfs3/fslog.c
+@@ -2641,11 +2641,12 @@ static int read_next_log_rec(struct ntfs_log *log, struct lcb *lcb, u64 *lsn)
+ 
+ bool check_index_header(const struct INDEX_HDR *hdr, size_t bytes)
+ {
++	const bool has_subnode = hdr_has_subnode(hdr);
+ 	__le16 mask;
+ 	u32 min_de, de_off, used, total;
+ 	const struct NTFS_DE *e;
+ 
+-	if (hdr_has_subnode(hdr)) {
++	if (has_subnode) {
+ 		min_de = sizeof(struct NTFS_DE) + sizeof(u64);
+ 		mask = NTFS_IE_HAS_SUBNODES;
+ 	} else {
+@@ -2662,20 +2663,33 @@ bool check_index_header(const struct INDEX_HDR *hdr, size_t bytes)
+ 		return false;
+ 	}
+ 
+-	e = Add2Ptr(hdr, de_off);
++	e = (const struct NTFS_DE *)((const u8 *)hdr + de_off);
+ 	for (;;) {
+ 		u16 esize = le16_to_cpu(e->size);
+-		struct NTFS_DE *next = Add2Ptr(e, esize);
++		u16 key_size = le16_to_cpu(e->key_size);
++		u16 data_size;
+ 
+-		if (esize < min_de || PtrOffset(hdr, next) > used ||
++		if (!IS_ALIGNED(esize, 8) || esize < min_de ||
+ 		    (e->flags & NTFS_IE_HAS_SUBNODES) != mask) {
+ 			return false;
+ 		}
+ 
+-		if (de_is_last(e))
++		if (size_add(de_off, esize) > used)
++			return false;
++
++		if (de_is_last(e)) {
++			if (key_size)
++				return false;
++
+ 			break;
++		}
++
++		data_size = esize - min_de;
++		if (key_size > data_size)
++			return false;
+ 
+-		e = next;
++		de_off += esize;
++		e = (const struct NTFS_DE *)((const u8 *)hdr + de_off);
+ 	}
+ 
+ 	return true;
+diff --git a/fs/ntfs3/index.c b/fs/ntfs3/index.c
+index a9c5dcc23a5ce..dd54c966babca 100644
+--- a/fs/ntfs3/index.c
++++ b/fs/ntfs3/index.c
+@@ -613,16 +613,51 @@ static const struct NTFS_DE *hdr_insert_head(struct INDEX_HDR *hdr,
+  */
+ static bool index_hdr_check(const struct INDEX_HDR *hdr, u32 bytes)
+ {
++	const bool has_subnode = hdr_has_subnode(hdr);
++	const u16 min_size = sizeof(struct NTFS_DE) +
++			     (has_subnode ? sizeof(u64) : 0);
+ 	u32 end = le32_to_cpu(hdr->used);
+ 	u32 tot = le32_to_cpu(hdr->total);
+ 	u32 off = le32_to_cpu(hdr->de_off);
++	const struct NTFS_DE *e;
+ 
+ 	if (!IS_ALIGNED(off, 8) || tot > bytes || end > tot ||
+-	    size_add(off, sizeof(struct NTFS_DE)) > end) {
++	    size_add(off, min_size) > end) {
+ 		/* incorrect index buffer. */
+ 		return false;
+ 	}
+ 
++	/* Ensure every key stays inside its entry before lookup walks it. */
++	e = (const struct NTFS_DE *)((const u8 *)hdr + off);
++	for (;;) {
++		u16 e_size = le16_to_cpu(e->size);
++		u16 key_size = le16_to_cpu(e->key_size);
++		u16 data_size;
++
++		if (!IS_ALIGNED(e_size, 8) || e_size < min_size ||
++		    de_has_vcn(e) != has_subnode) {
++			/* incorrect index entry. */
++			return false;
++		}
++
++		if (size_add(off, e_size) > end)
++			return false;
++
++		if (de_is_last(e)) {
++			if (key_size)
++				return false;
++
++			break;
++		}
++
++		data_size = e_size - min_size;
++		if (key_size > data_size)
++			return false;
++
++		off += e_size;
++		e = (const struct NTFS_DE *)((const u8 *)hdr + off);
++	}
++
+ 	return true;
+ }
+ 
 -- 
-2.34.1
+2.53.0
+
+
 
