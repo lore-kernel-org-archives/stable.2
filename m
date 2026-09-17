@@ -1,109 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 328DA4FC330;
-	Thu, 17 Sep 2026 17:59:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 167E44F7CD0
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 17:59:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789667947; cv=none; b=ipRWv3KBabRne0+PLW2EmIoojWsNTgGOD4BmX2YY/peR95Rz1nXnrBbGzNr01jgMko1wD/cE4VCf/Jgrr6rb81f6hLPyxv1AaVOwo+ANedC5HXJNq5Y7L+y8iSTJ25DzUhQLSvbtxFqRma+V8mI3fqQhaQnZRuBFpdv3tunk0fU=
+	t=1789667948; cv=none; b=p7QSk8kwCRjYdxbvlTbLrQUPxteB6YsQ6Wf01W8HX2QKgIAEQl0Xxm+4WbE99QAyNFNmC22L1G8eq6e+eBwM/0yNFhzFk8l9WmiW5169os505u0INgN7gtOTUtzATPPrFmDfN+jYW041JMYFd9rSCdfNH/JvDKfjbt97KY2RZt4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789667947; c=relaxed/simple;
-	bh=+4f1m8ATGOGhOJAscqtfbaLD/sDLbilvx3Ai5RovO3w=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GwCh+2sVwzsy8jZlIx/aM+0j12E4XG7i6/2w0f8Nflh8qLfThjEEfa150UnkBCEXeoNLGma6CEYRd/vtbFw4OjeHnbEnKQ9VArVp7oKfYZkq/JjPoIQFAG5dg9kfEiWlOKJPzjwL+5BRFTmVVUhyeH9JIfPndJF41h2RAdPZZ1o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=gBEFrvOR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789667948; c=relaxed/simple;
+	bh=vpXU0Ysfn8eisahZH+SwTDP1M+XZPXYM4oAzgHtKYvQ=;
+	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=Ib9htiTgjzhy15AlzjEBMkzBFY6ABGiWNVbfnoLkXrD375gf4gEXHElQFfGNqXmjnJIbpFEnxdm/HCUVcp3XKm1aP37ERUIdNVfgTKFlQQ6M3ZIt7ydTtxvYJ4mMYej8pmM1175aXx9O8xPA50nBncs1ie3CtXenfBOXdpIZSec=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=hgA4OL7a; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="gBEFrvOR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 79DCF1F00893;
-	Thu, 17 Sep 2026 17:59:05 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789667946;
-	bh=4pp504lCN93XE/Hh3PqmRMFc+Lbb0Jn47GYXWGLhk3I=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=gBEFrvORQqnJsnJamr6PxyC2ixJCRqf1nzOO7eorOBwMDTi3MIfPhkx/2amH1Sx3g
-	 WfkAdIq9NZrygvOBFz4Zs0aU/EUKubZlqFNRGpY3kDbHlqt9BRYLEDv31vAut4a5qu
-	 PfJsCwXGaHnSSBvkjjKNUBHQiSE8tqcjQET1rHdo=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Lu Yao <yaolu@kylinos.cn>,
-	Helge Deller <deller@gmx.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0263/1102] fbcon: dont suspend/resume when vc is graphics mode
-Date: Thu, 17 Sep 2026 16:03:26 +0100
-Message-ID: <20260917151546.203831851@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="hgA4OL7a"
+Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2dd58e1e2c7so11916915ad.0
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:59:05 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=kernelci.org; s=google; t=1789667945; x=1790272745; darn=vger.kernel.org;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=NJHlZnOrKpid56lqWlPYd4Xoj2CQpHIAy6iVLJTc9Ys=;
+        b=hgA4OL7alTAFz2cWiEOy6bonVwTQgJ+8aHrq9MFJ30JzufLPrJKwxvBThjMvjosTXF
+         GzivJTHAzESZEuz6UmnfAI/Mey/ymWv9wkOt7guKGyD53VCu2KpKpf0oaSYNs4KBy9Md
+         rG6L3GABINI0WAtgcLFpq5W/wM+1KpiTlWyCbpgnSXE2pSLLxMZ5OlTZRdKEXN9NH7cG
+         Y5IEc00nFSrFkgyymVNLdPbq0FE5/GzxhY7sD99bRwVr/YQ9flDGVPal1ZbvimZTk6JZ
+         LiHttZsoqQPGKKO4fwRX5NbEI9Sqk3Ygm4P2Kn1SHTduDG+fCHwHUCJNLoEJ7mjXCSyo
+         75yg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789667945; x=1790272745;
+        h=message-id:date:reply-to:cc:to:from:subject
+         :content-transfer-encoding:mime-version:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=NJHlZnOrKpid56lqWlPYd4Xoj2CQpHIAy6iVLJTc9Ys=;
+        b=oggy8WoVi2A7vfDP8j8uZkdz+HVDYI9rcEM9+yl7DpWrJe/Bu8L5QJLcLEFUsr8+DJ
+         /WoF3SrGW92jwZbTRIRbK40hVTEI796tgn9LzKP/TgjUacHiGV+Rqobxcw63eYBhVOZ7
+         UxULEwFD7oSPL4WGSX8IHA2Ucdt+WxFaIJpnJPlKdsRHP+u3/2UkjTO7SKhhpif5I7Hg
+         rhzmsO1UUCKO4iL2j6Z67q4cnqCxagYcbQGi3Utlddc1I3Ava1hkX1/QQwu1ECxAxPf1
+         GlVvN8UjZlGl2rZ0DmiEUcEL81BF3td5KRFDf/zZJMbFPMNdc3Ejrr2AJntBH9ylpYnc
+         zacA==
+X-Gm-Message-State: AFuF++kKUotkhd4ILP5WEm6OhMPXlZbI/gO22YR5TJi6XqhWpTtyrBs/
+	4rkvgI6bqEHvqRhh1Kbv3zSB4a3SX0xNSPkjskDS8p7KddOBOppXsvvAlwGTSfrv+yGJMHueI+E
+	g1lHv
+X-Gm-Gg: AYBFou3ru/pmWXS/ahbhaZUp1/9nKz+9er3sspWW7umxJF9hMs8zmvFzKkPvS+u+Ubr
+	corOAnGtK/9qG+s8BwxO4AyofhoI5StozzlD4fPLXCz4eq/QNeXZ3LhAaSTqHeZhM1Fy/TQDcJj
+	TS/2SngefXtk+s3eDoQWpbufCp3pMdh1FjHWJ6soLTBsKeCI7ATMhtoJSJgHHovD2wx8GKxVUZR
+	58wz4Z9q60sSOk4kMdazyXoq62n4/nQ5FtHDWv8pCrJLvCvqYf3YFcY8N2UkMuLbPCBED52HSVv
+	t4X0SHltMelherRTBGsQ3ggdtqPg3nBGJVGbSH+QkgmlGap3YcQ0AjRvixR2H41WsT/+nJo1eGP
+	7xsXKqfeIx5D0ZTyrfROvTq9AdWkkx1giSfUfDbHtB49Tkj39jYjenT8rmXJUjKnvRRnKpRKw6K
+	ZJPtAkfcmIZ3F8U+ncejtcQB1FhapMaLP+TcoL8hUmNjksz+FY5VV8r6Fvv7Il46Y=
+X-Received: by 2002:a17:903:1251:b0:2d8:d4d0:792c with SMTP id d9443c01a7336-2dd8e752f13mr156731185ad.16.1789667945255;
+        Thu, 17 Sep 2026 10:59:05 -0700 (PDT)
+Received: from ec7b70f3a45c ([20.38.40.137])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5a9fd38sm17529334eec.13.2026.09.17.10.59.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 10:59:04 -0700 (PDT)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+Subject: [REGRESSION] stable-rc/linux-6.12.y: (build)Error in
+ arch/s390/boot/vmlinux.syms (/tmp/kci/linux/arch/s390/boot...
+From: KernelCI bot <bot@kernelci.org>
+To: kernelci-results@groups.io
+Cc: stable@vger.kernel.org
+Reply-To: kernelci@lists.linux.dev
+Date: Thu, 17 Sep 2026 17:59:04 -0000
+Message-ID: <178966794363.152940.6540163997608818842@kernelci.org>
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+New build issue found on stable-rc/linux-6.12.y:
 
-------------------
-
-From: Lu Yao <yaolu@kylinos.cn>
-
-[ Upstream commit 70d9d5f5fcd940f627bd403aaa6f65de724eef6b ]
-
-Don't need to do suspend/resume for fbcon in graphic mode.
-
-Doing this may cause error, eg:
-  At the beginning, starting the Xorg with single screen and then an
-  external screen was plugged in. After logging out in Xorg, fbdev
-  info may using screen which is connected later on for info always
-  using first connected connector in list in func 'drm_setup_crtcs_fb'.
-  Then, S3 executed, fbcon found that the information did not match
-  and do atomic to switch fb. However, Xorg will not re-bind the crtc
-  fb but continues doing ioctl. At this time, the fb is incorrect.
-
-With some modifications by Helge Deller.
-
-Signed-off-by: Lu Yao <yaolu@kylinos.cn>
-Signed-off-by: Helge Deller <deller@gmx.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/video/fbdev/core/fbcon.c | 9 ++++++---
- 1 file changed, 6 insertions(+), 3 deletions(-)
+Error in arch/s390/boot/vmlinux.syms (/tmp/kci/linux/arch/s390/boot/Makefile:74) [logspec:kbuild,kbuild.other]
+---
 
-diff --git a/drivers/video/fbdev/core/fbcon.c b/drivers/video/fbdev/core/fbcon.c
-index 01b6a03b80b09..024cad45af930 100644
---- a/drivers/video/fbdev/core/fbcon.c
-+++ b/drivers/video/fbdev/core/fbcon.c
-@@ -2654,8 +2654,9 @@ void fbcon_suspended(struct fb_info *info)
- 		return;
- 	vc = vc_cons[par->currcon].d;
- 
--	/* Clear cursor, restore saved data */
--	fbcon_cursor(vc, false);
-+	/* Clear cursor, restore saved data when in text mode */
-+	if ((vc->vc_mode == KD_TEXT) && con_is_visible(vc))
-+		fbcon_cursor(vc, false);
- }
- 
- void fbcon_resumed(struct fb_info *info)
-@@ -2667,7 +2668,9 @@ void fbcon_resumed(struct fb_info *info)
- 		return;
- 	vc = vc_cons[par->currcon].d;
- 
--	update_screen(vc);
-+	/* Update screen when in text mode only */
-+	if ((vc->vc_mode == KD_TEXT) && con_is_visible(vc))
-+		update_screen(vc);
- }
- 
- static void fbcon_modechanged(struct fb_info *info)
--- 
-2.53.0
+Log excerpt:
+=====================================================
+make[3]: *** [/tmp/kci/linux/arch/s390/boot/Makefile:74: arch/s390/boot/vmlinux.syms] Error 1
 
+=====================================================
 
+When fixing this issue, please attribute this report according to the
+patch submission rules:
 
+Reported-by: kernelci.org bot <bot@kernelci.org>
+
+For complete logs and details about the environment used, see the issue
+on the KernelCI dashboard:
+
+- dashboard: https://d.kernelci.org/i/maestro:bf8f78b9755fe9e59bbc75d046bdeef487614bd4
+- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+- commit HEAD:  18db24293f4d9b64614e0adf6dbe298073aa8860
+
+# Builds where the incident occurred:
+
+## defconfig on (s390):
+- compiler: gcc-14
+- config: None
+- dashboard: https://d.kernelci.org/build/maestro:6aac140dfc1857a999e115c4
+
+#kernelci issue maestro:bf8f78b9755fe9e59bbc75d046bdeef487614bd4
+
+--
+This is an experimental report format. Please send feedback in!
+Talk to us at kernelci@lists.linux.dev
+
+Made with love by the KernelCI team - https://kernelci.org
