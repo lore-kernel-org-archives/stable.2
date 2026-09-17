@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3BCA456E055
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 14:02:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D37D7568548
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 14:02:21 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653739; cv=none; b=BJgKTJ25JnkF9sbeZqZGw5KzqPBkQvQZcgaM+xPKlpjfG+WBallgqwP1PmpRAPPW/dcq6j6TYuDxP+XFGEBQcpXqQBlh8van2fiFVYtLsL6VdAw417z+TfVcD87lzO0dHDAmHCQfnD5ZHxwTIYL4aLRq237dxTYcKIFrF0kOpqc=
+	t=1789653743; cv=none; b=NeWvesGl+7xpf/Q0aAOPy6cDnF+qjeJ1tAdlzVTKYUlL7zCYv0I4TpTjTWA9bHDsX4KZT5KAiegzlkTf2nFujqvF2PySBh1o924Q15fiOIb0Jr+MHAddpUiAHU4TyDPxEd9ln8pAzVOy/DIUS9F7DxlKhfHob8FdiAvf8P47b2I=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653739; c=relaxed/simple;
-	bh=HgYbHvSM4gZOlbefSCYctLVrMy/qRbKVLxatC0rsKnI=;
+	s=arc-20240116; t=1789653743; c=relaxed/simple;
+	bh=lRNw924Gk8Z8GQpKRCf7IljCJuY+T0bpMgQ/kniMtA0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oRtsaHov6pnP1VkLN1fxuyTYAq2M5+MpUa4QNVSX97QQh+vzfpbOEZM4K0xRYSKbkxTlXJ1hNmhANFMnde0ubpIWpkdETpD9hRmBlFJZ7EvPE7RmTEp9Hr3vXKQYnINQ9XVedfBApFehSNwYwJAy34nVZuH5ZXO6yZn69mxIdAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mbCHmznP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HvwwEvJDiIWPP7JpsUY1hcX2YVdJHjmCSqXHn3tHW0XMlmUZuoydk+zaCsAAwtnNJjK4fOGBfbiEjYIr0XY6BQnuiy9jRDxQJq8BFjikOVC9GdroqCIB+fNBn5HMLIGBNdy9L343h1PPBdNDMwKDHL8L6ucJXhHIJadYdvwXOg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MSujASnT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mbCHmznP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AAC21F00893;
-	Thu, 17 Sep 2026 14:02:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MSujASnT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A92101F000FF;
+	Thu, 17 Sep 2026 14:02:20 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789653738;
-	bh=f1K3FKe3+wiTN8KX7Zencx39wH66nzUHyY54pDnzpiI=;
+	s=k20260515; t=1789653741;
+	bh=VBOjDRmr+08sC00Kh6JRgal6ditOrpjE2fJuVbVr9TE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mbCHmznPt14FIdp7FtmuhQ+hhYroFXg4IeR/Mcp5+axufw5q7ZZs3iLLEG5o73pB4
-	 AMpM7uBjuOCD1u6xoqCMdr5dYp009d46ZN/WgQf5AL40BAc4mF0mgVXoqT2vrgNr0C
-	 JCvIfMQsp5bJiTwkg3Rpb6OdyWgBuVlvkkXYEGTpv0t/gKwiGOlEXAx/54vR23DEma
-	 hJPuKVgFnv2QdkUfSA9KT17twwtq5qmKCQxybIQ11j1wo2DQlCEOFigTidRZesnasI
-	 czyHOCk/UX1SE78qn/0yP/4wFMAFhXIYDiBaAGZQJum+LTI9UneBlreNsV+lZ9cnO+
-	 gyjMC/JluNTOQ==
+	b=MSujASnTHNQt2Rh1xXzs4pIYZisUq6u0voB9GN8LIr/ULweCa2XNUvTnYOM54pXhn
+	 qS+kTKypkTyMwiMaVGtpIp9z1cxpieWnLOTgaGsaokKb/t/jUNBvOiEBc0FMHjer73
+	 ON8fPkCPvuc1OCI3ZVGLmcT/Sbs6fCELR2NIE/rmhirdNxom/EvzcE3qMyo/bTjlDI
+	 dldZ5yoDrcmWICmQhiwCtYv92QyGxV+24/Qm3TPSO26RWyQj4frGKodPufi78cZmcO
+	 Bdausdu+E8833T4L4pKN+W3euhT7g+yKP3ITAVLcOdc/QhHrIPGSt2HKuny9jpg6YA
+	 ZWo2NZ/Kwu+wQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Bjoern Doebel <doebel@amazon.de>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 4/4] smb: client: fail DACL rewrite when the new DACL exceeds 64K
-Date: Thu, 17 Sep 2026 10:02:11 -0400
-Message-ID: <20260917140211.506490-4-sashal@kernel.org>
+Subject: [PATCH 6.12.y] xfs: strengthen the "is cow staging" helpers in scrub
+Date: Thu, 17 Sep 2026 10:02:18 -0400
+Message-ID: <20260917140218.507173-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917140211.506490-1-sashal@kernel.org>
-References: <2026091604-anew-player-ae82@gregkh>
- <20260917140211.506490-1-sashal@kernel.org>
+In-Reply-To: <2026091605-penknife-nuclear-b1ee@gregkh>
+References: <2026091605-penknife-nuclear-b1ee@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,157 +46,45 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Bjoern Doebel <doebel@amazon.de>
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-[ Upstream commit d05045177a855386bca5e1909e08d06290e6e3b3 ]
+[ Upstream commit 0d43368844a75ad13561a1198a3b027940730756 ]
 
-replace_sids_and_copy_aces() and set_chmod_dacl() accumulate the size of
-the DACL they build in a u16. That accumulator can wrap.
+LOLLM pointed out a bug in both of the refcount scrub predicates that
+determine if a range of blocks is marked as CoW staging in the btree.
+While it compares blockcount < len, this isn't enough to determine that
+the CoW staging record is at least as large as the range passed into the
+helper.  Fix both of them.
 
-validate_dacl() caps num_aces at (dacl_size - sizeof(struct smb_acl)) /
-20, i.e. 3276 for a maximally sized DACL, while each rewritten ACE can
-grow to sizeof(struct smb_ace) (76 bytes) once its SID is replaced with
-one carrying SID_MAX_SUB_AUTHORITIES sub-authorities. The worst case is
-therefore sizeof(struct smb_acl) + 3276 * 76 = 248984 bytes, far beyond
-what a u16 can hold. A wraparound is reached with 863 ACEs.
-
-After the wraparound, ndacl_ptr->size becomes meaningless and the offset
-will point anywhere in the ACE array. As a result, we will see
-corruption of the DACL, which then gets sent to the server. This is not
-an out-of-bounds write as the allocation now covers the worst-case
-expansion, so writes will always go into the buffer.
-
-Adjust the code to use a u32 internally and return -EOVERFLOW in the
-overflow case. The operation must be refused, because a DACL can only
-hold 2^16-1 bytes on the wire and larger DACLs cannot be represented.
-
-set_chmod_dacl() carries the same pattern and is fixed the same way. It
-only wraps once the source DACL comes within roughly 380 bytes of the
-64K ceiling, but the failure mode is identical.
-
-Suggested-by: Namjae Jeon <linkinjeon@kernel.org>
-Cc: stable@vger.kernel.org
-Fixes: f5065508897a ("cifs: Retain old ACEs when converting between mode bits and ACL.")
-Assisted-by: Kiro:claude-opus-5
-Signed-off-by: Bjoern Doebel <doebel@amazon.de>
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org # v4.16
+Fixes: f6d5fc21fdc713 ("xfs: cross-reference refcount btree during scrub")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+[ Omitted the rtrefcount.c hunk because Linux 6.12 lacks realtime refcount scrub support. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/cifsacl.c | 39 ++++++++++++++++++++++++++-------------
- 1 file changed, 26 insertions(+), 13 deletions(-)
+ fs/xfs/scrub/refcount.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/fs/cifs/cifsacl.c b/fs/cifs/cifsacl.c
-index 03be080dfd480..41055037a0013 100644
---- a/fs/cifs/cifsacl.c
-+++ b/fs/cifs/cifsacl.c
-@@ -1003,13 +1003,13 @@ unsigned int setup_special_user_owner_ACE(struct smb_ace *pntace)
- static void populate_new_aces(char *nacl_base,
- 		struct smb_sid *pownersid,
- 		struct smb_sid *pgrpsid,
--		__u64 *pnmode, u16 *pnum_aces, u16 *pnsize,
-+		__u64 *pnmode, u16 *pnum_aces, u32 *pnsize,
- 		bool modefromsid,
- 		bool posix)
- {
- 	__u64 nmode;
- 	u16 num_aces = 0;
--	u16 nsize = 0;
-+	u32 nsize = 0;
- 	__u64 user_mode;
- 	__u64 group_mode;
- 	__u64 other_mode;
-@@ -1108,17 +1108,17 @@ static void populate_new_aces(char *nacl_base,
- 	*pnsize = nsize;
- }
+diff --git a/fs/xfs/scrub/refcount.c b/fs/xfs/scrub/refcount.c
+index dc3a75ac26cec..4f56ae3e8c627 100644
+--- a/fs/xfs/scrub/refcount.c
++++ b/fs/xfs/scrub/refcount.c
+@@ -581,8 +581,12 @@ xchk_xref_is_cow_staging(
+ 	if (rc.rc_domain != XFS_REFC_DOMAIN_COW)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
  
--static __u16 replace_sids_and_copy_aces(struct smb_acl *pdacl, struct smb_acl *pndacl,
--		struct smb_sid *pownersid, struct smb_sid *pgrpsid,
--		struct smb_sid *pnownersid, struct smb_sid *pngrpsid,
--		int *aclflag)
-+static int replace_sids_and_copy_aces(struct smb_acl *pdacl, struct smb_acl *pndacl,
-+				      struct smb_sid *pownersid, struct smb_sid *pgrpsid,
-+				      struct smb_sid *pnownersid, struct smb_sid *pngrpsid,
-+				      int *aclflag, u16 *pnsize)
- {
- 	int i;
- 	u16 size = 0;
- 	struct smb_ace *pntace = NULL;
- 	char *acl_base = NULL;
- 	u16 src_num_aces = 0;
--	u16 nsize = 0;
-+	u32 nsize = 0;
- 	struct smb_ace *pnntace = NULL;
- 	char *nacl_base = NULL;
- 	u16 ace_size = 0;
-@@ -1147,9 +1147,12 @@ static __u16 replace_sids_and_copy_aces(struct smb_acl *pdacl, struct smb_acl *p
- 
- 		size += le16_to_cpu(pntace->size);
- 		nsize += ace_size;
-+		if (nsize > U16_MAX)
-+			return -EOVERFLOW;
- 	}
- 
--	return nsize;
-+	*pnsize = nsize;
-+	return 0;
- }
- 
- static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
-@@ -1161,7 +1164,7 @@ static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
- 	struct smb_ace *pntace = NULL;
- 	char *acl_base = NULL;
- 	u16 src_num_aces = 0;
--	u16 nsize = 0;
-+	u32 nsize = 0;
- 	struct smb_ace *pnntace = NULL;
- 	char *nacl_base = NULL;
- 	u16 num_aces = 0;
-@@ -1212,6 +1215,8 @@ static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
- 
- 		nsize += cifs_copy_ace(pnntace, pntace, NULL);
- 		num_aces++;
-+		if (nsize > U16_MAX)
-+			return -EOVERFLOW;
- 
- next_ace:
- 		size += le16_to_cpu(pntace->size);
-@@ -1228,6 +1233,10 @@ static int set_chmod_dacl(struct smb_acl *pdacl, struct smb_acl *pndacl,
- 	}
- 
- finalize_dacl:
-+	/* The DACL size field is 16-bit on the wire, see MS-DTYP 2.4.5 */
-+	if (nsize > U16_MAX)
-+		return -EOVERFLOW;
++	/* Can't start after bno */
++	if (rc.rc_startblock > agbno)
++		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
 +
- 	pndacl->num_aces = cpu_to_le16(num_aces);
- 	pndacl->size = cpu_to_le16(nsize);
- 
-@@ -1389,6 +1398,8 @@ static int build_sec_desc(struct cifs_ntsd *pntsd, struct cifs_ntsd *pnntsd,
- 
- 		rc = set_chmod_dacl(dacl_ptr, ndacl_ptr, owner_sid_ptr, group_sid_ptr,
- 				    pnmode, mode_from_sid, posix);
-+		if (rc)
-+			return rc;
- 
- 		sidsoffset = ndacloffset + le16_to_cpu(ndacl_ptr->size);
- 		/* copy the non-dacl portion of secdesc */
-@@ -1465,10 +1476,12 @@ static int build_sec_desc(struct cifs_ntsd *pntsd, struct cifs_ntsd *pnntsd,
- 
- 		if (dacloffset) {
- 			/* Replace ACEs for old owner with new one */
--			size = replace_sids_and_copy_aces(dacl_ptr, ndacl_ptr,
--					owner_sid_ptr, group_sid_ptr,
--					nowner_sid_ptr, ngroup_sid_ptr,
--					aclflag);
-+			rc = replace_sids_and_copy_aces(dacl_ptr, ndacl_ptr,
-+							owner_sid_ptr, group_sid_ptr,
-+							nowner_sid_ptr, ngroup_sid_ptr,
-+							aclflag, &size);
-+			if (rc)
-+				goto chown_chgrp_exit;
- 			ndacl_ptr->size = cpu_to_le16(size);
- 		}
+ 	/* Must be at least as long as what was passed in */
+-	if (rc.rc_blockcount < len)
++	if (rc.rc_startblock + rc.rc_blockcount < agbno + len)
+ 		xchk_btree_xref_set_corrupt(sc, sc->sa.refc_cur, 0);
+ }
  
 -- 
 2.53.0
