@@ -1,190 +1,115 @@
-Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7472D37EFFB
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:47:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660048; cv=pass; b=RkkGRhn72jqMnGlLOqdEM2/AZ8HgE2hR9nswq2cTQYTdqespVHj4Me84Q87kd0aAMZja37lNEYnuUQuAlGkz0swI5a/+d/qjzr8EJv+2LxAguJqrvSH10loUE/0IBNUUwOogF4LjPmQNn1iOxZ/6w4cOkWUBGzTb5TA06X9tLpM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660048; c=relaxed/simple;
-	bh=HhKgh+AhoovE+nLXKxFmLwpFzc2TTxLCaPaNRYCrGXE=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=o+KOUS1AaN4dLl/j56WdeWNQsezFzwX1pUMnsmFO7S0YE++v+62Tv9PVI43kuXFEI76rWa8/cSopXJgzxvrqmj1hn2ZWabfOt6muzw3XddgmfEyDwFhJoN/Un8y/SQzFNyjN8sZ1lRa0l7GnLRQGCCwAUxuSsVJFxptBjqChXCo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UPH7Kn5G; arc=pass smtp.client-ip=74.125.229.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8B1C3438A8;
+	Thu, 17 Sep 2026 15:47:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789660047; cv=none; b=uX96fZhkjRF1RzeRVk+FelipBUdr/9BWzJcc+c+2NXiAHwaudLliCQ786ik6F4nYf2Vaty0wlZGblhL651QixrJi3/2+FLtPLjcs3gkjfr1AzFPtTU8JX4PsBZPRCATaaYwNk5xgpT7qhXeaG5HIXZ7fe1HUb5EcqKQAejq9Uvs=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789660047; c=relaxed/simple;
+	bh=DUEtevrRnsHKhbcL12v+mNB4F9iIbDxYJ7LBNtjXidE=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Pxey7pUb9Lt7PKZet0jaKC6Mdvfx1A5+y7/BzjeL2ISVR4/b1njNRtXct+M42Gsd0AIXT7au62pb+rVrBfUbM42qRha4ONEQRyuiLkWEz2B16/TRnZ2N8j7c5XX1L15Rmx/wIoORfUtmHqOxgYvsRc7xBUR9T000UgZYN1dHP6k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=a8JVFN5+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UPH7Kn5G"
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b5e4f1744fso1390305e87.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 08:47:21 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789660036; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ExsbO0p2d9Ip7BB5NN/BjfB388H2X1X4ebf81hJz1HWCvuyAJCZJotTfnWcSJTP9NY
-         UTkPCDegaPLbcPnfe2j5rT2xZoToOgnGBFMSc/46JvNb2m48LvtJANhuLHsfSBtk6Lkz
-         FhakkfEj+FJuUZFnXmts0vQAca1OU5oExEie98BoEoHg17Why0TvZneqhXGjeFsYt2MT
-         Fi7o5HuEiSsaeCsi5QHv08a69mnHPllZ33/2SuMxgZ3Dzcc6RpQgJsuwDvvfwLooc2G/
-         qwvYlfq2YUdXZQsauGAzneQ8R67RaknApXJkXnrLZvlxDPDMJ+uNE21/uCHIjf3FaXFK
-         npww==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=jzy+gQGDahxjRYzrMpnyvQ4GBuSr45Ef8jvJeyFAvyM=;
-        fh=pnz0xcNfA+5uo5q4ig5+lQlD+NoZRmhQ/oAtzyrvrf8=;
-        b=lJW/b5y/RPj270qDSphMoOKAcwwnfZ3mscPO/yFz/W7gHHWCzqSqVfvZHydgMxVKhp
-         uhh5KlzYPgA7RoUueDLmqjdZ0cQxBPnikmcRJ5//PcjHjDOBTNLuKskzqZaLL4TYB1JY
-         VPWEvEqbFIuPrek//kG8haiBt1ezIg41GodyxeTbBs7qXhFglzdS19h+pqJdOQQlgeGV
-         MAyF0cHX11QRsc2VsduihiARhp0OUbB3uyKat+AGDqWGhiR6/PKAOQjhgvINrl0lY5hU
-         BseDO2agkdb1HrUkQJNccihSdVypqWOPWh1r/488LOlNfoNz2bpaMWFq9hLxOMQrWuQ/
-         Cj8w==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789660036; x=1790264836; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=jzy+gQGDahxjRYzrMpnyvQ4GBuSr45Ef8jvJeyFAvyM=;
-        b=UPH7Kn5Gc2k5NVCrqN4WeOufJSlpZ0TE3hCzj/ldttsZGZq9jp1U0DQLBq6Mtsm+oa
-         q93kPN4FQdFYjocqX9S+IMHHNEnVxrbkcQ8OqXrn2H7O/J77oZRbHjdI4Ae0WBusAqpp
-         Hdlg9wkikrS3ZgmZPHx5jWzWbLBJJGxW6bhqWIWDdA7lY1DNlyX1waPlZzSqUC48kxE8
-         qe3HwkoliuyoYNKDASyiwJi6UTc5X4Dur03+KAkVPxWEFP7C/YFdG2uDKfbgfFkcqjej
-         rS7fR9SMTsIY9HUnjvNVvtJ4Aq7rsauHNksjf0LJciyzd1qY1Ri5JrPXiLlEHlNAON1o
-         QmOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789660036; x=1790264836;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=jzy+gQGDahxjRYzrMpnyvQ4GBuSr45Ef8jvJeyFAvyM=;
-        b=ilxWnYvBk06B/poFdLJfbstyWUL2n/P5s4eGWwbqh0dSQFh+wtYoo15dr4h57cS9Hl
-         p94spyRV3PB67y7HJOLgkNdPjbZathYVOcZr+K7vxQEuU9Y5QvKcMhSuCeUJlv4hyTxh
-         OPVLZVJGkfuXFTMgEUb/WxONhUAu4ES1w6PvMu3Z+r9oOvouSXVcpo6FE2QCa3NDRLTD
-         5SeYvPnwpEcahu5YycIJ+SZFrXbdyKPRLyYNdVOXM8BfaGJJnB1Yn1ctuRaaiqnZto4b
-         Y7XvI0+jRhOYAROcNi8kVn7oJYNWiX+vP/inboAGmqBDb8AZ3UneAzkqEzfu2c+2pgVq
-         74CA==
-X-Forwarded-Encrypted: i=1; AKwUvBxTWhNHbSFXLXWo68rZC3Ef3urL2FGVw0e5zyUlioB6aD5v3ZTM3xVjfyDRr2DgiQdTCr5FnIw=@vger.kernel.org
-X-Gm-Message-State: AFuF++kbj+02El2afIuaskROv+2ikEPZDIcvGrM+b4oVO/vyeiXXADTF
-	8hRaU9zflfyFChdPJEHVQC8QmYCFeFNzmU8KHOuVWP8ZR6FkwNxXb4EtPCSX1nuvWNyX+aOBGCg
-	24/eMdy+qjcudTLqQTTXPFGlTrJveVa3vEL6F2eQ=
-X-Gm-Gg: AYBFou05DRzxWWDW6oSphgR4Ii7lwO7KFxlrJPjLXpHZp0nLIgqBqXG1OVKWPudsaXM
-	ZpriY/fr2A3ArkvlF7Oh7cmdYrCZZGEa7hd/qp0PDTb6jh++B2SAUJ+zMIfn/4ePPqBTxhSRMol
-	6eYXKh2ePHqeQKMzIgOL1MUsqwOFz8znxPTSPmo7zOwz2jTSwY8Lloo5yzJrgoajZXsK3n8lE1/
-	5tgcGYi+Jk/JkvrAXwWn+NZcQGVONHqHlqAiZ+Tv21HeMQYQhBQ6cvgB1/P7q2RzBtwXhQuipxp
-	Z6MwNTJ89wUASLOCAm9gqDxu79bpRtM558fleEfoMlT53AO6CH541Rdt
-X-Received: by 2002:a05:6512:3ba8:b0:5b6:183c:5c94 with SMTP id
- 2adb3069b0e04-5b8b66525c1mr2236156e87.50.1789660036136; Thu, 17 Sep 2026
- 08:47:16 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="a8JVFN5+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD7C81F00893;
+	Thu, 17 Sep 2026 15:47:20 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789660041;
+	bh=zxhXljTg9mi6TsIVg4OM99k8qBP7eHSOMcgecFpig2A=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=a8JVFN5+3GAiSPPWNf9PB6TP9odLtx519KBZtV3G7BMOwmIQOHggfD4S7HWkCoeFQ
+	 iBiqB++Pn9Mzh0Quj2OO8Eraa4DkGKNGNUNKL7oVUqOvRHIPEG4ZTWa9ZWcKUZDSQh
+	 T27xxFA61E1Rrrq8Awt05uyIgn9hkL+FynXGkFvY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	stable@kernel.org,
+	Shivaprasad G Bhat <sbhat@linux.ibm.com>,
+	Gautam Menghani <gautam@linux.ibm.com>,
+	Madhavan Srinivasan <maddy@linux.ibm.com>
+Subject: [PATCH 7.2 452/733] powerpc: pci-ioda: Fix the stale irq chip reference
+Date: Thu, 17 Sep 2026 16:12:40 +0100
+Message-ID: <20260917151403.175235944@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915195223.3331909-1-qwe.aldo@gmail.com> <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
-In-Reply-To: <8eef80c6c8d21e863c5a3721b1ae681fc4ccf54f.camel@dubeyko.com>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Fri, 18 Sep 2026 00:46:59 +0900
-X-Gm-Features: AcwNN1W8Hxz9umrd0xiz0nxXV4xs0ZDavlInPR_CBX7SqfB6dwEpospt6ft_-2s
-Message-ID: <CAKFNMok804k_g2CHXfrn0LaOY38r8FtMnAk1kRc3YeZ=omCoag@mail.gmail.com>
-Subject: Re: [PATCH v2] nilfs2: validate segment number in nilfs_sufile_get_suinfo()
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 17, 2026 at 4:06=E2=80=AFAM Viacheslav Dubeyko wrote:
->
-> On Tue, 2026-09-15 at 16:52 -0300, Aldo Ariel Panzardo wrote:
-> > nilfs_sufile_get_suinfo() subtracts the caller-provided segment
-> > number
-> > from the total number of segments without first checking its range.
-> > If
-> > the requested number is greater than the total, the unsigned
-> > subtraction
-> > wraps and the function may process segment numbers outside the
-> > filesystem.
-> >
-> > Cache the total while holding the metadata semaphore and return no
-> > entries
-> > when the starting segment number is at or beyond the end.
-> >
-> > Fixes: 6c98cd4ecb0a ("nilfs2: segment usage file")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-> > ---
-> >  fs/nilfs2/sufile.c | 10 +++++++---
-> >  1 file changed, 7 insertions(+), 3 deletions(-)
-> >
-> > diff --git a/fs/nilfs2/sufile.c b/fs/nilfs2/sufile.c
-> > index eceedca026..573646c5f7 100644
-> > --- a/fs/nilfs2/sufile.c
-> > +++ b/fs/nilfs2/sufile.c
-> > @@ -870,10 +870,14 @@ ssize_t nilfs_sufile_get_suinfo(struct inode
-> > *sufile, __u64 segnum, void *buf,
-> >
-> >       down_read(&NILFS_MDT(sufile)->mi_sem);
-> >
-> > +     nsegs =3D nilfs_sufile_get_nsegments(sufile);
-> > +     if (segnum >=3D nsegs) {
-> > +             ret =3D 0;
-> > +             goto out;
-> > +     }
-> > +
-> >       segusages_per_block =3D
-> > nilfs_sufile_segment_usages_per_block(sufile);
-> > -     nsegs =3D min_t(unsigned long,
-> > -                   nilfs_sufile_get_nsegments(sufile) - segnum,
-> > -                   nsi);
-> > +     nsegs =3D min_t(unsigned long, nsegs - segnum, nsi);
-> >       for (i =3D 0; i < nsegs; i +=3D n, segnum +=3D n) {
-> >               n =3D min_t(unsigned long,
-> >                         segusages_per_block -
->
-> Looks good to me.
->
-> Reviewed-by: Viacheslav Dubeyko <slava@dubeyko.com>
->
-> Thanks,
-> Slava.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+------------------
 
-Hi Viacheslav,
+From: Shivaprasad G Bhat <sbhat@linux.ibm.com>
 
-Please take this directly.
+commit d96171d911e3b89ca2957c04264019cf2f96287b upstream.
 
-I also agree that this change makes sense, and my local test results
-are as expected.
+The commit f0ac60e6e311 ("powerpc/powernv/pci: Switch to use
+msi_create_parent_irq_domain()") removed the legacy MSI irq chip
+pnv_pci_msi_irq_chip but left behind the static definition of it and
+its reference in is_pnv_opal_msi().
 
-However, please drop the 'Cc: stable' tag since it does not cause any
-fatal issues at the moment.
-If a real-world problem is found or reported, I think it would be fine
-to request a manual backport then.
+The KVM IRQ bypass for vfio devices is broken because the
+comparision in is_pnv_opal_msi() fails on the comparision with
+stale unused variable showing the below errors in dmesg.
 
-While acquiring information on out-of-range segments due to
-wrap-around is indeed possible, sufile is also a metadata management
-file.
-When accessing out-of-range areas, it simply hits as a hole block and
-returns empty data.
+ kvmppc_set_passthru_irq_hv: Could not assign IRQ map for (X,Y)
+ kvmppc_set_passthru_irq (irq X, gsi Y) fails: -2
+ vfio-pci A:B:C.D irq bypass producer (eventfd Z) registration fails: -2
 
-Neither memory overrun in user space or kernel space, nor
-out-of-bounds block device access or information leaks will occur.
+The patch removes the stale variable definition and fixes the
+is_pnv_opal_msi() by comparing against the chip name prefix.
 
-Well-behaved userland tools read segment information based on the
-statistics obtained via nilfs_get_sustat(), so no problem will occur
-(the difference in behavior was visually indistinguishable).
+Fixes: f0ac60e6e311 ("powerpc/powernv/pci: Switch to use msi_create_parent_irq_domain()")
+Cc: stable@kernel.org
+Signed-off-by: Shivaprasad G Bhat <sbhat@linux.ibm.com>
+Tested-by: Gautam Menghani <gautam@linux.ibm.com>
+Signed-off-by: Madhavan Srinivasan <maddy@linux.ibm.com>
+Link: https://patch.msgid.link/178716225364.1437.6201568081502251835.stgit@linux.ibm.com
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+---
+ arch/powerpc/platforms/powernv/pci-ioda.c |    6 ++----
+ 1 file changed, 2 insertions(+), 4 deletions(-)
 
-Therefore, I modified the nilfs-utils to perform ill-behaved calls and
-tested it.
-Although out-of-range non-existent segments were displayed as empty
-data, no critical issue that compromises kernel stability occurred.
+--- a/arch/powerpc/platforms/powernv/pci-ioda.c
++++ b/arch/powerpc/platforms/powernv/pci-ioda.c
+@@ -1623,15 +1623,13 @@ int64_t pnv_opal_pci_msi_eoi(struct irq_
+ 	return opal_pci_msi_eoi(phb->opal_id, d->parent_data->hwirq);
+ }
+ 
+-static struct irq_chip pnv_pci_msi_irq_chip;
+-
+ /*
+  * Returns true iff chip is something that we could call
+  * pnv_opal_pci_msi_eoi for.
+  */
+ bool is_pnv_opal_msi(struct irq_chip *chip)
+ {
+-	return chip == &pnv_pci_msi_irq_chip;
++	return chip && chip->name && str_has_prefix(chip->name, "PNV-");
+ }
+ EXPORT_SYMBOL_GPL(is_pnv_opal_msi);
+ 
+@@ -1728,7 +1726,7 @@ static const struct msi_parent_ops pnv_m
+ 	.chip_flags		= MSI_CHIP_FLAG_SET_EOI,
+ 	.bus_select_token	= DOMAIN_BUS_NEXUS,
+ 	.bus_select_mask	= MATCH_PCI_MSI,
+-	.prefix			= "PNV-",
++	.prefix			= "PNV-", /* Note: is_pnv_opal_msi() uses this */
+ 	.init_dev_msi_info	= pnv_init_dev_msi_info,
+ };
+ 
 
-At present, it does not appear to meet the basic criteria for stable
-backporting, so when backporting, we need to be able to organize and
-demonstrate the reasoning why it is necessary.
 
-Thanks,
-Ryusuke Konishi
