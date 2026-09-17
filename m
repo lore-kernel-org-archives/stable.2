@@ -1,47 +1,76 @@
-Received: from out28-1.mail.aliyun.com (out28-1.mail.aliyun.com [115.124.28.1])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-ej2-f12.google.com (mail-ej2-f12.google.com [74.125.228.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525D54D1794;
-	Thu, 17 Sep 2026 19:11:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DB74D1790
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:15:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789672306; cv=none; b=hpnHWRyTs1GfWcrxh7vyea51wSEsWnjcEc2N+hViCIbbh/Byom5IsMM+Ss/InFJTKGYm/nvQAjyp8DQ9psEjXLt8iPkltPHMhpFCmQ0Xc/GGTv0sxH7GGQiEEEcjKBzydlGBBM6zem/uZdSZ0/NgtCTA2zr019+yxY7TcVO33J8=
+	t=1789672526; cv=none; b=RmKt2pAJV9s577ja78wXkNzSCEpoDoroBCrGkJCni36O8uOudbl7c8SuE87GEEZ/OKTpKzHoOKpkRsiHOtUg/amSqfV1/XoT3EuzGm5wPakI9RvxGxjN4Ue8Z5d0k59VySr51e69YAOyF1+pxxavxfRVqlI1pcbR8VHuk7Koz6s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789672306; c=relaxed/simple;
-	bh=ZOmNJmrIMk3u5pxEOy2Rj23mM2c5qnvtPoFKoM/HxOE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Y4eZ8YCuW2TfEXqcLWh8Ck763q2lBdy1otXP7RvdgEjHgLB0l90pjwBwlb0gvyM8eW+CqPfHqyeuIov42thGy+7GYYRsWrYRIaxngC2FVA9rKG8VdvrmE8XYsLs+8WBLEclBGbUVckLzo4K6ry/GC/CflMnSZlFgFho4e78Dpx8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Eq2AYVbh; arc=none smtp.client-ip=115.124.28.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789672526; c=relaxed/simple;
+	bh=suehwzQIugL8LAVRtlroYOOn+Zi38wpItFbk8gGbq7s=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TDGaTte9nZMIM/RMjObdWZbnF4zEsg2LFB4eaCE+Qbu9XF9ooxV+lpAt4LuV15pFFRpNFw17Uz2Of3HgwMh9wljHTinzxkwqSG2Sd7U/vcA/VrWwqT4XYZknrAgTy/ksXxxyG0iVN0Gz4d093gTG529rmcBd+hlbE1hZcy9VPcg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Tgg/id1m; arc=none smtp.client-ip=74.125.228.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Eq2AYVbh"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789672302; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=txpFZbn8I2u3+SIACXugxhsg4q5nyadngQpza3Bq2As=;
-	b=Eq2AYVbhvHBZ/4/ZChX+CrQ1o9Faa5W6Kz6FgfIRYSe8tad+Dam+UzRIJgADZK9Gtjdw7b2vEsJflJl6RhGfLWtwiTFIt77exZfvzN7I7vN5bJZJdKpBafKZoTG64W12k1SSMPkp7dbp1UaeVpErRUzoaBwChJKotGA77hjQHC4=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436491|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.00685537-0.000624417-0.99252;FP=3450452327357023579|12|2|11|0|-1|-1|-1;HT=maildocker-contentspam033037022039;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=10;RT=10;SR=0;TI=SMTPD_---.jG9ODgi_1789671980;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jG9ODgi_1789671980 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Fri, 18 Sep 2026 03:06:21 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: mcgrof@kernel.org,
-	petr.pavlu@suse.com,
-	da.gomez@kernel.org,
-	samitolvanen@google.com,
-	atomlin@atomlin.com
-Cc: mmaurer@google.com,
-	masahiroy@kernel.org,
-	linux-modules@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Tgg/id1m"
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c2940ff2313so85250966b.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:15:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789672523; x=1790277323; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
+        b=Tgg/id1meL8mItMN9eOYqFDX3HbeBfUMX9wfGUGE4gXXuHW7Sd7RspawlIqsOoot/h
+         Y1zVXiNMmPLJcmDGkdivISkimm3rHbu7Sak9yPclDZq6S/3B21suklFr/jIQm/uZCerB
+         vgJCt6QJgtYJ6Sz8dos8ZcijA/vmUKL45t7KxNjvdU9Jeuzp03HNtkrLUT4Xl1z9FBZO
+         Si1Mw8Q4FTT6tEWS0zML9tEk7xi7Us6hu7G47X9uEoEwRYlQtvtXLMEn+GLd2mrDfrJz
+         yBy31XeQFSHKUjLwusfsgpAr2O/Nq+01TT1ewJDtmdPLam9fCZQUr4y4JAeJ51FORtSA
+         Ru4Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789672523; x=1790277323;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=UVO42avi1AUnneieHW+g4jz1dvgdxwcJ0ctKNKrRziI=;
+        b=tQ2Xyjsf/vEGUgXS3K1+aXOwFS80sFoeaZqrzuT+b2JCV695q2pMQ4ojpCDEq/63/v
+         WPYpfuMhg7OHOThyyvDtytoQcHri7x+Evzg1dSnUN59fjA8ykfZGWv92PaZM9Vk6s5IR
+         +LmaA3IZqRQzxdE2LzFJQSD592iV+RsFAMI33IbfI46p2sI4cyI/g++b3tmXOKsj0IOD
+         zRlUvyVDzJiAHxpPwLHlZKepxM2lULDztMUskXY8RWBROv614g1qmH+y06kM6y1t0bYa
+         Ix5460XKrYySZaGfk8viUCxNJuY7q0PERcWmr2xZHsLY7q94I+7vkg6WAm3+tssU9+mp
+         wXAg==
+X-Forwarded-Encrypted: i=1; AKwUvByBGaByNahny/HumD0+2rZeM8lapM90eOpwPsd+A+RdIFCel1ODNt2YSh1Gyo+LVY9iIICAMgM=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+uYtIVkJoiJNObDh0NZ8YqgzgAu1J+gFGyj8ET8J4yimvB9PQ
+	/ssEjbrobWEHcGmvLxbdVOTej4KqvDz0yhuvXCmiKTqv/CWUlCTUOekM
+X-Gm-Gg: AYBFou00hIAzg1u79x7UY1MbGb3L2unaL9F56PPDjukmhQadPVEioVTkzXmLCnNOOcY
+	/gFst4h9ENNnrQ0jxO1JGCKKPczdq9fku3xo+fT6jRb/fGDPW8Dxx9aqJnpJugUsCSV8b58PqSS
+	kV2vOAljkmsIlDiybOyHuumwGn/b9nv1pUE8Q6oc4RKVZetPI68GGC151JjnKHbnw+gyBMr4htI
+	NaLAJZ+dOvZSoAwFnK4mniQz08YiK3tfR0ohamleGWydi3l1SubWY7q9hx2S4jmmApA/SzvUuZc
+	E71VEz4psgx1x31399QuTe/Oe0o3P8wydWTuU1IK9XNYBzFDJaH4uTPRiAcZlnmyeb7hEMKJq8C
+	50Tp/gHE8bEVTmYcO6wBVHv8pqpLnPaY/N878rJe6eh4P/4pCG+VM+zngg5xhOuy6Z14kawnyqS
+	mgkQnl54e6Nhtv8MDIpqS79olapaR5jnbk8bqSJvqXgvH9K7ikrTH47dhKXSW76/q92VQ=
+X-Received: by 2002:a17:907:9703:b0:c24:6382:2648 with SMTP id a640c23a62f3a-c2a16403e1fmr9238266b.5.1789672523059;
+        Thu, 17 Sep 2026 12:15:23 -0700 (PDT)
+Received: from cartold ([77.213.69.61])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de454b4csm333264166b.17.2026.09.17.12.15.22
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 12:15:22 -0700 (PDT)
+From: Theo Andersen Carton <andersen.theo@gmail.com>
+To: alexander.deucher@amd.com,
+	christian.koenig@amd.com
+Cc: airlied@gmail.com,
+	simona@ffwll.ch,
+	kai.heng.feng@canonical.com,
+	amd-gfx@lists.freedesktop.org,
+	dri-devel@lists.freedesktop.org,
 	linux-kernel@vger.kernel.org,
+	Theo Andersen Carton <andersen.theo@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH v2 1/2] module: Sanitize the undefined sh_name of SHT_NULL sections
-Date: Fri, 18 Sep 2026 03:06:17 +0800
-Message-ID: <20260917190618.94759-2-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260917190618.94759-1-fangxy@xiaopeng.com>
-References: <20260917190618.94759-1-fangxy@xiaopeng.com>
+Subject: [PATCH] drm/amdgpu: skip the noirq suspend reset for a switcheroo-parked GPU
+Date: Thu, 17 Sep 2026 21:15:12 +0200
+Message-ID: <20260917191512.38838-1-andersen.theo@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,99 +79,54 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-elf_validity_cache_secstrings() skips the sh_name bounds check for a
-SHT_NULL section:
+amdgpu_pmops_suspend_noirq() resets the ASIC unconditionally. When the GPU
+has been parked by vga_switcheroo it has neither power nor a PCIe link, so
+the reset cannot reach it: pci_set_power_state() reports the device as
+inaccessible and amdgpu_asic_reset() returns -EINVAL. A failure there
+aborts the entire noirq suspend phase, and with it the system suspend, so
+the machine cannot sleep at all while the GPU is switched off.
 
-	for (i = 0; i < info->hdr->e_shnum; i++) {
-		shdr = &info->sechdrs[i];
-		/* SHT_NULL means sh_name has an undefined value */
-		if (shdr->sh_type == SHT_NULL)
-			continue;
-		if (shdr->sh_name >= strhdr->sh_size) {
+amdgpu_device_prepare(), amdgpu_device_suspend() and amdgpu_device_resume()
+all bail out early on DRM_SWITCH_POWER_OFF. This callback was added later,
+for an unrelated reason, and did not inherit the check. nouveau guards
+every one of its PM callbacks the same way.
 
-A SHT_NULL section may then carry an sh_name past the end of
-.shstrtab. The name lookups that run afterwards do not skip SHT_NULL.
-This is find_any_unique_sec(), which load_module() uses to locate
-".modinfo":
+Bail out the same way here. On a single-GPU system switch_power_state is
+never DRM_SWITCH_POWER_OFF, so this is a no-op there.
 
-	for (i = 1; i < info->hdr->e_shnum; i++) {
-		if (strcmp(info->secstrings + info->sechdrs[i].sh_name,
-			   name) == 0) {
+Found on a MacBookPro11,5, where the Radeon is powered down through
+apple-gmux so that the internal panel can be driven by the iGPU instead.
+Every suspend failed in amdgpu_pmops_suspend_noirq() while the card was
+off; with this check a full S3 cycle completes.
 
-so the out-of-bounds sh_name is read as a string. A module carrying a
-crafted SHT_NULL section reads past its in-memory copy:
-
-  BUG: KASAN: vmalloc-out-of-bounds in strcmp+0xb0/0xc0
-  Read of size 1 at addr ffa00000005436e0 by task insmod/81
-  ...
-   strcmp+0xb0/0xc0
-   find_any_unique_sec+0x103/0x190
-   load_module+0x5c4/0x8600
-
-sh_name has no defined value for SHT_NULL, so give it one that is in
-bounds: the empty string at index 0. The walkers then compare against
-"" and, as before, ignore the section, so no valid module is affected.
-
-Fixes: 3c5700aeabd8 ("module: Factor out elf_validity_cache_secstrings")
+Fixes: 9e051720f9d3 ("drm/amdgpu: Ensure HDA function is suspended before ASIC reset")
 Cc: stable@vger.kernel.org
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
+Signed-off-by: Theo Andersen Carton <andersen.theo@gmail.com>
 ---
+ drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Found by reading the section-name walkers in kernel/module/main.c after
-9a5ff4568932 tightened the string-table types. elf_validity_cache_secstrings()
-skips the sh_name bounds check for a SHT_NULL section, but find_any_unique_sec()
-still resolves every section's name as secstrings + sh_name, so the skip leaves
-one path where an unchecked sh_name is read as a string. Patch 2/2 fixes the
-matching SHT_NOBITS gap on __version_ext_names; the two are independent.
-
-Reproducer: build an otherwise valid .ko and add a SHT_NULL section whose
-sh_name is past the end of .shstrtab (0x2000 in the run below, aimed at the
-redzone after the in-memory module copy). insmod it. Before the change the name
-lookup reads out of bounds; after it the SHT_NULL section resolves to "" and, as
-before, is ignored, so the module loads with rc=0.
-
-Both cases ran on 704340f1cd0d (9 commits past v7.3-rc3): x86_64 defconfig plus
-CONFIG_KASAN_GENERIC and CONFIG_KASAN_VMALLOC, gcc 13.2.0, QEMU under TCG. The
-unpatched and patched kernels are built from byte-identical .config files and
-differ only by this patch. The tree already contains 9a5ff4568932, so this is
-the gap that commit left, not a re-report of it.
-
-One setup detail is not obvious. The payload has to match the kernel's
-vermagic to reach load_module()'s name walkers, so the patched kernel is built
-with LOCALVERSION pinned to keep the release string byte-identical to the
-unpatched one; otherwise insmod fails on the version magic before the buggy
-lookup ever runs and the run proves nothing.
-
- kernel/module/main.c | 13 +++++++++++--
- 1 file changed, 11 insertions(+), 2 deletions(-)
-
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0b..e36bfe4 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2060,9 +2060,18 @@ static int elf_validity_cache_secstrings(struct load_info *info)
+diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+index 5c33c19fd9bc..d9d794a7db96 100644
+--- a/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
++++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_drv.c
+@@ -2664,6 +2664,14 @@ static int amdgpu_pmops_suspend_noirq(struct device *dev)
+ 	struct amdgpu_device *adev = drm_to_adev(drm_dev);
+ 	int r;
  
- 	for (i = 0; i < info->hdr->e_shnum; i++) {
- 		shdr = &info->sechdrs[i];
--		/* SHT_NULL means sh_name has an undefined value */
--		if (shdr->sh_type == SHT_NULL)
-+		/*
-+		 * SHT_NULL means sh_name has an undefined value. The section
-+		 * name walkers that follow (find_any_unique_sec(),
-+		 * module_mark_ro_after_init(), ...) look the name up as
-+		 * secstrings + sh_name for every section, so give the undefined
-+		 * value a safe in-bounds meaning instead of skipping the check:
-+		 * the empty string at index 0.
-+		 */
-+		if (shdr->sh_type == SHT_NULL) {
-+			shdr->sh_name = 0;
- 			continue;
-+		}
- 		if (shdr->sh_name >= strhdr->sh_size) {
- 			pr_err("Invalid ELF section name in module (section %u type %u)\n",
- 			       i, shdr->sh_type);
++	/*
++	 * A GPU parked by vga_switcheroo has no power and no PCIe link, so the
++	 * ASIC reset below would fail and abort the whole noirq suspend phase.
++	 * Bail out like amdgpu_device_prepare/suspend/resume() already do.
++	 */
++	if (drm_dev->switch_power_state == DRM_SWITCH_POWER_OFF)
++		return 0;
++
+ 	if (amdgpu_acpi_should_gpu_reset(adev)) {
+ 		amdgpu_device_lock_reset_domain(adev->reset_domain);
+ 		r = amdgpu_asic_reset(adev);
+
+base-commit: 50d05c7c76c96b90462f24debacca971d2e86713
 -- 
-2.50.1 (Apple Git-155)
+2.55.0
 
