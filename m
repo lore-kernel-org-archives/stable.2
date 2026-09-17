@@ -1,162 +1,103 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6A04E4F5DF0;
-	Thu, 17 Sep 2026 17:53:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7362D502781;
+	Thu, 17 Sep 2026 17:53:15 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789667595; cv=none; b=ZK2wu14JiP2qBxpjGdz3Db+/TcwxpJFeEVWWrVcRth4bDS60yIVaX+7K+bnvTiz0Qvr0rnZPJl+TNF8BYSSdUzJ/5gyW5AOFvis0ihZwZ/s+kSNoPU14LmiJ/8DFOh24LmGtaFZmLUygrG2UwJvzMpJu6jXih92UgF/5UK0qgvQ=
+	t=1789667596; cv=none; b=NJ/yoCC0OuAdz2HP8zAHJ6QJBpxyes7pNdh9NWjj+KuWP2MglyvYN94AxXrp4iQNhtrK5VmFYZ2AdLnwNfHEJ2qo0+iNrBWzKdZvdQo7ve/IW2QZZVwO0yFsBbB2xzvV3jUL7OtxpfJ/1nj7tuYTSYIQM9SB8x6j+0ihRIN/yFg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789667595; c=relaxed/simple;
-	bh=ACvVjwYB75s1lVSQWdFsqx2NNIOG6BkGems6B2DGCCk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Vl79ZABxTaX2OIVVkMIqkpMTUvuugPBtxU1rFen+O2PJJeQNOCjewJQRiT5Z6MzE8CvDWkdYzpsWrLkmp8j/rLwodHxepdMa5l0oyRpduI+2H0mQ6s/hr8mvrMfWqfPy9YodF1hgOwWjmDMAFE69KGX2th5kqEVkAAkoqZwmf/0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=e2vLeQ1w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789667596; c=relaxed/simple;
+	bh=FLDeSzX0B+kPf1lmyPO3SULps1gWXxuxmfGA+f+JyWo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=DaOb2CP0fYohYdiT0a5yOXC+9Xr6wJV3+KGlzCuRb6N4jWusvNyXXa4CDPwOR3fqw49SOaPdOn3SMqbR86OM5YDYTi8xC9wgUVQomMHLiQ+yhzLfE42/3DO3UVM6w1t4797zsijthuabVHhwD/HZL/sPQ0GM1YS6R38H0p+0bd4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Z7jvLD/K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="e2vLeQ1w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4E89A1F00893;
-	Thu, 17 Sep 2026 17:53:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789667592;
-	bh=WBjpHHIGHL1eZnD2HbrCvnClWBRNyRwoFmj9ip1gQvs=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=e2vLeQ1w7JUoE0TnzQYWz1IrIkoJYoxPcJSVOf3Xi+lb92mnMJDLEBGKABGOzfHRM
-	 TFPD8SWNM8uEKzikduA/7PmkY96+sHlsScirgY+ndsLCytKGr6C/lGr4GmSHj0GuP/
-	 Wd7x7CY18YegTeNHtwyXVLf7q4hCQ1NEWdQfGwp0k2JFOnFHtG4VB6N3qZ4XkduPne
-	 oWFbHwnfIzkfDkqKR3qwwoR50lS+ij7iwZ+hDqfDmDiLm2h/vO/uQPAtpf15+WNsOT
-	 Co0EV7ErdOBieIYeDz4dCmUwO+n234utg0UaNSSFDYgzAf51ZaBLAj512UFVLl2a1O
-	 pizx/8t/E8WOA==
-Subject: Re: [PATCH] cxgb4: fix FW SGE queue cleanup on remove
-From: netdev-bot+sashiko@kernel.org
-To: lgs201920130244@gmail.com
-Cc: bharat@chelsio.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, ganeshgr@chelsio.com,
- arjun@chelsio.com, leedom@chelsio.com, netdev@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 17:53:11 +0000
-Message-ID: <178966759183.22033.12309574104783604934@kernel.org>
-In-Reply-To: <20260916025215.2780658-1-lgs201920130244@gmail.com>
-References: <20260916025215.2780658-1-lgs201920130244@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Z7jvLD/K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C9F901F000FF;
+	Thu, 17 Sep 2026 17:53:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789667595;
+	bh=nrOpusngLYUog7RijQAzSwkjEGU9hdHlcDgq1RSaPCE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Z7jvLD/KdVyG8vV3iwNcGSZNYwQ05Wt/Dj8ZIiFkVHIg8u1nhiz+glypPDRIoXV6/
+	 3mJ9wCusQ4ddtGl/lV3hLA29PkRqtVpFZ7Yt3tkB3kjbz7eaItWCaK3UbcQSfQWB1G
+	 GrJQvkzeGBk8nhJFRPTaGf5bWhnEQGP25F7PUYGg=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Christoph Hellwig <hch@lst.de>,
+	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 0128/1102] omfs: handle set_blocksize failures
+Date: Thu, 17 Sep 2026 16:01:11 +0100
+Message-ID: <20260917151542.726905037@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
+References: <20260917151539.408551884@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider:
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Critical: 0 · High: 0 · Medium: 1 · Low: 0
+------------------
 
-- [Medium] Incomplete fix: the CXGB4_FULL_INIT_DONE-gated release of the
-  probe-time FW SGE queues is corrected only in remove_one(); the…
+From: Christoph Hellwig <hch@lst.de>
 
---
+[ Upstream commit 18c3d6fcb557f920c9143711497625e70153874c ]
 
-cxgb4: fix FW SGE queue cleanup on remove
+omfs uses buffer_heads, which don't handle block size > PAGE_SIZE well.
+Without this, mounting we will hit the
 
-The patch adds a branch to remove_one() so that the FW SGE queues
-allocated by setup_fw_sge_queues() during init_one() are released when
-CXGB4_FULL_INIT_DONE was never set, for example when no interface of the
-adapter was ever opened.
+        BUG_ON(offset >= folio_size(folio));
 
-> diff --git a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
-> index 1ced6df6eac8c..146419c663488 100644
-> --- a/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
-> +++ b/drivers/net/ethernet/chelsio/cxgb4/cxgb4_main.c
-> @@ -7116,6 +7116,9 @@ static void remove_one(struct pci_dev *pdev)
->  
->  		if (adapter->flags & CXGB4_FULL_INIT_DONE)
->  			cxgb_down(adapter);
-> +		else if (adapter->sge.fw_evtq.desc ||
-> +			 adapter->sge.intrq.desc)
-> +			t4_free_sge_resources(adapter);
+in folio_set_bh on the first __bread_gfp call.
 
-[Severity: Medium]
-The same CXGB4_FULL_INIT_DONE assumption that this patch corrects in
-remove_one() also exists in the PCI reset pair eeh_reset_prepare() /
-eeh_reset_done().  Should that path be fixed too?
+Signed-off-by: Christoph Hellwig <hch@lst.de>
 
-eeh_reset_prepare() only releases SGE resources through the same gate:
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Link: https://patch.msgid.link/20260511071701.2456211-11-hch@lst.de
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/omfs/inode.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
-	for_each_port(adapter, i)
-		if (adapter->port[i]->reg_state == NETREG_REGISTERED)
-			cxgb_close(adapter->port[i]);
-	...
-	if (adapter->flags & CXGB4_FULL_INIT_DONE)
-		cxgb_down(adapter);
-
-cxgb_close() does not free SGE resources and does not clear
-CXGB4_FULL_INIT_DONE, so on an adapter that was probed but never opened
-the FW queues stay allocated across the reset.
-
-eeh_reset_done() then re-runs the allocation unconditionally:
-
-	err = setup_fw_sge_queues(adapter);
-	if (err) {
-		dev_err(adapter->pdev_dev,
-			"FW sge queue allocation failed, err %d", err);
-		return;
-	}
-
-Does this leak the previous fw_evtq (and intrq in the MSI/INTx case)
-ring?  setup_fw_sge_queues() overwrites s->fwevtq_msix_idx after taking a
-fresh index from cxgb4_get_msix_idx_from_bmap(), and t4_sge_alloc_rxq()
-overwrites the ring pointer without looking at or releasing an existing
-one:
-
-drivers/net/ethernet/chelsio/cxgb4/sge.c:t4_sge_alloc_rxq() {
-	...
-	iq->desc = alloc_ring(adap->pdev_dev, iq->size, iq->iqe_len, 0,
-			      &iq->phys_addr, NULL, 0,
-			      dev_to_node(adap->pdev_dev));
-	if (!iq->desc)
-		return -ENOMEM;
-	...
-}
-
-So the old dma_alloc_coherent() ingress ring becomes unreachable, the
-previously reserved bit in adapter->msix_bmap is never returned via
-cxgb4_free_msix_idx_in_bmap(), and the old firmware ingress queue context
-is never released with t4_iq_free().  This repeats on every reset of the
-pf == 4 function (sysfs reset, FLR, VFIO reset), and once the msix bitmap
-is exhausted setup_fw_sge_queues() returns -ENOMEM and eeh_reset_done()
-bails out, leaving the adapter unrecovered.
-
-The new branch in remove_one() cannot recover those allocations, since
-their only pointers were already overwritten during the reset.
-
-Would an unconditional t4_free_sge_resources() at both teardown sites be
-simpler?  t4_free_sge_resources() already performs the same checks
-internally:
-
-drivers/net/ethernet/chelsio/cxgb4/sge.c:t4_free_sge_resources() {
-	...
-	if (adap->sge.fw_evtq.desc) {
-		free_rspq_fl(adap, &adap->sge.fw_evtq, NULL);
-		...
-	}
-	...
-	if (adap->sge.intrq.desc)
-		free_rspq_fl(adap, &adap->sge.intrq, NULL);
-	...
-}
-
-and init_one()'s out_free_dev label already calls it unconditionally:
-
- out_free_dev:
-	t4_free_sge_resources(adapter);
-
-Could the changelog also mention the reset path, so that a backporter
-knows whether the identical lifecycle mismatch there was considered?
-
->  
->  		if (adapter->flags & CXGB4_USING_MSIX)
->  			free_msix_info(adapter);
-
+diff --git a/fs/omfs/inode.c b/fs/omfs/inode.c
+index eb5a5fb26a791..0189f58566d79 100644
+--- a/fs/omfs/inode.c
++++ b/fs/omfs/inode.c
+@@ -477,7 +477,8 @@ static int omfs_fill_super(struct super_block *sb, void *data, int silent)
+ 	sb->s_time_min = 0;
+ 	sb->s_time_max = U64_MAX / MSEC_PER_SEC;
+ 
+-	sb_set_blocksize(sb, 0x200);
++	if (!sb_set_blocksize(sb, 0x200))
++		goto end;
+ 
+ 	bh = sb_bread(sb, 0);
+ 	if (!bh)
+@@ -529,7 +530,8 @@ static int omfs_fill_super(struct super_block *sb, void *data, int silent)
+ 	 * Use sys_blocksize as the fs block since it is smaller than a
+ 	 * page while the fs blocksize can be larger.
+ 	 */
+-	sb_set_blocksize(sb, sbi->s_sys_blocksize);
++	if (!sb_set_blocksize(sb, sbi->s_sys_blocksize))
++		goto out_brelse_bh;
+ 
+ 	/*
+ 	 * ...and the difference goes into a shift.  sys_blocksize is always
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916025215.2780658-1-lgs201920130244%40gmail.com
+2.53.0
+
+
+
