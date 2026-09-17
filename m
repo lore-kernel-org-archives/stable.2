@@ -1,299 +1,214 @@
-Received: from smtp-bc0d.mail.infomaniak.ch (smtp-bc0d.mail.infomaniak.ch [45.157.188.13])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D46FE4EB86E
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:41:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.157.188.13
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6656A4ED1AF;
+	Thu, 17 Sep 2026 15:41:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659717; cv=none; b=ZOOZcD/aIkzKA8yoqUNhgJBjIMb+1vEDy2lp++WTBdNgrSdDvHpgs5dF1+qe/3LlNZHhzmLbvj2WQ2UsTZheqU2d4L7LasU35lnbJ76gQfjMuW0QT4HMzVslRIaBJMhKUDDATB8Ej4BNCNyYO2DQqe2/HTk5zwAufoMOhn6k2Bo=
+	t=1789659720; cv=none; b=cIVRM5FNSGyByLNwPqqTYlpwQtotdwoqx9ODk/wLwovr72wVZmeQhmEmwXKM8ZeQi7726YIXW7efR/ACb7t5IsUZhpK/Z19HIxI06E6yWMv86srRWGnw2X4mr3IYJTwRdWRKlPhyvb0PrTTTeOYI3wJxgunA9S3AKK0UU6zd6K8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659717; c=relaxed/simple;
-	bh=FT0zvfSqYGDd3ZSpYj1hUKm6LucdMTChUfgG8ziBbRw=;
+	s=arc-20240116; t=1789659720; c=relaxed/simple;
+	bh=YvWkNq1S+2P2vyCNiJJSckm5B/nNzyE/HnMmdTPWgMI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=ddeYok6A7AH5i8IriKc8mURGuD0LyZs3yI8d/83iSmTvGd7SNyJIfkDL87Q702NtSAjnediB0mUbhCntgbmLuvfASycWMxYDKlOXcy1RUE/syrH55DeiPSnIZdMci/Q/wOPgDiHKIgjzx5G1zeZbj8w4AjWNvD8ly13kO3rTdi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=ARqZ5WPz; arc=none smtp.client-ip=45.157.188.13
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	 MIME-Version; b=bTQAOJbNxRr8oaJfpcj0e+a9Bbxp8D+xSH2+aLhTPJd8mf4FSVjnwnnynqe78DDP5kLsNEjJ56S8qDdG5l8WNgFX8F75sOnlV3RzO5EfnX2TRcsr+kVZcFBGorYtRPux1G+KCMSZCO+ePDaa/xRt5so74kb2qGGvr5TVZMQM2SM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ELWPIgl+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="ARqZ5WPz"
-Received: from smtp-4-0000.mail.infomaniak.ch (smtp-4-0000.mail.infomaniak.ch [10.7.10.107])
-	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0NZ5s6bzBmw;
-	Thu, 17 Sep 2026 17:41:34 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1789659694;
-	bh=xOpI0+NL32hZzTx/FWYZxc7VPsUib4DtE7bh66FXGE4=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=ARqZ5WPzuvTuFp4/Zhh7+cH7d9g31IdTeSqYntKhQaQk5ksfu51pxTRO2gI30P+vF
-	 Czjz/fNjLef++JjrOXrS+hlbWMkQCEogLj/MeClSEdBak9OEYc1JKJOMKS5JJ5iLcz
-	 y3xU2xZ8Y63tY05+AOxsnuLtqNodI49FWVfXizBU=
-Received: from unknown by smtp-4-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0NZ1pQTz9WV;
-	Thu, 17 Sep 2026 17:41:34 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ELWPIgl+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C22C1F0089A;
+	Thu, 17 Sep 2026 15:41:41 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789659702;
+	bh=IoILOzx+PArbooRXiEX61sVqJS5/UW8cGV5QXKmPDGk=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ELWPIgl+wGAcxc9ZGuFBinvmmbzmvGyoXjHcOrghhWyk4zGm3wLxpmZFon4N8BqDq
+	 HmnMg1YYigUOF2kOj5NEcfzSt8DKGcrD6+qJqkpK7hjag2OGH+atnvPq9QFPnr29Is
+	 3P96VxZMjCNNikkoCL2DEhI7CxsIdSENWmoLkwxk=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Christian Brauner <brauner@kernel.org>,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
-Subject: [PATCH 6.18.y 2/3] selftests/landlock: Add tests for whiteout object creation
-Date: Thu, 17 Sep 2026 17:41:29 +0200
-Message-ID: <22492930911630bb9724ed1c34248143f8913f68.1789655724.git.mic@digikod.net>
-In-Reply-To: <20260904045755.888243226@linuxfoundation.org>
-References: <20260904045755.888243226@linuxfoundation.org>
+	Yu Zhang <yuz08559@gmail.com>,
+	"Michael S. Tsirkin" <mst@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 346/733] vhost-vdpa: protect config_ctx from being freed under the config callback
+Date: Thu, 17 Sep 2026 16:10:54 +0100
+Message-ID: <20260917151400.184601849@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-From: Günther Noack <gnoack@google.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
+------------------
 
-Add tests to check that whiteout object creation is guarded by
-LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
-userspace:
+From: Yu Zhang <yuz08559@gmail.com>
 
-* Conventional creation with mknod()
-* Linking or renaming an existing whiteout object
-* renameat2() with RENAME_WHITEOUT,
-  which creates a new whiteout object in the source location
-* renameat2() with RENAME_EXCHANGE,
-  with one of the renamed objects being a whiteout object
+[ Upstream commit 62be4e3e5f5f947fbf765b914cebdc478f715d12 ]
 
-Signed-off-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
-[mic: Update commit message as requested]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
-[mic: Backport: add enforce_fs() for the older ruleset helpers]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+vhost_vdpa_config_cb() loads v->config_ctx and signals it without taking
+a reference and without holding any lock:
+
+	struct eventfd_ctx *config_ctx = v->config_ctx;
+
+	if (config_ctx)
+		eventfd_signal(config_ctx);
+
+VHOST_VDPA_SET_CONFIG_CALL replaces that field and drops what is normally
+the last reference to the old context:
+
+	swap(ctx, v->config_ctx);
+
+	if (ctx)
+		eventfd_ctx_put(ctx);
+
+eventfd_ctx_put() drops the last kref and frees the context immediately,
+with no RCU grace period, so a callback that has already loaded the
+pointer goes on to dereference freed memory.  The two sides share no
+lock: the ioctl runs under vhost_dev.mutex, while the parent invokes the
+callback from its own interrupt or workqueue context.
+
+This is not the reopen refcount underflow fixed by commit f6bbf0010ba0
+("vhost-vdpa: fix use-after-free of v->config_ctx"), which was about
+vhost_vdpa_config_put() leaving a stale pointer behind.  Here the pointer
+is maintained correctly and it is the read side that is unprotected.
+
+With VDUSE as the parent this is reachable from userspace with access to
+/dev/vduse (root by default).  VDUSE_DEV_INJECT_CONFIG_IRQ queues
+dev->inject, and vduse_dev_irq_inject() runs the callback under VDUSE's
+own dev->irq_lock, which vhost does not hold.  vduse_dev_reset() does
+flush_work(&dev->inject), but VHOST_VDPA_SET_CONFIG_CALL never goes
+through reset, so an inject already in flight is not waited for.  A
+process that injects config interrupts on the VDUSE fd while another
+thread swaps the call fd on the vhost-vdpa fd hits it in seconds:
+
+  BUG: KASAN: slab-use-after-free in native_queued_spin_lock_slowpath
+  Read of size 4 at addr ffff888107d21808 by task kworker/u17:1/2993
+  Workqueue: vduse-irq vduse_dev_irq_inject
+  Call Trace:
+   native_queued_spin_lock_slowpath+0x97/0x5b0
+   _raw_spin_lock_irqsave+0xd4/0xe0
+   eventfd_signal_mask+0x69/0x120
+   vhost_vdpa_config_cb+0x34/0x50
+   vduse_dev_irq_inject+0x46/0x60
+   process_one_work+0x468/0x950
+
+  Allocated by task 2992:
+   do_eventfd+0x50/0x200
+   __x64_sys_eventfd2+0x2e/0x40
+
+  Freed by task 2992:
+   eventfd_ctx_put+0xb9/0xc0
+   vhost_vdpa_unlocked_ioctl+0x116c/0x2190
+
+Add a spinlock covering every access to config_ctx, so the callback
+either signals a context that is still alive or observes NULL, and the
+put happens only once no callback can reach the old value.
+
+Clearing the parent's callback before the put would not be enough: of the
+in-tree set_config_cb() implementations only VDUSE takes a lock, the rest
+store the pointer unlocked, so that would not order against an in-flight
+invocation.
+
+Fixes: 776f395004d8 ("vhost_vdpa: Support config interrupt in vdpa")
+Signed-off-by: Yu Zhang <yuz08559@gmail.com>
+Signed-off-by: Michael S. Tsirkin <mst@redhat.com>
+Message-ID: <20260807100025.19750-3-yuz08559@gmail.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/landlock/fs_test.c | 197 +++++++++++++++++++++
- 1 file changed, 197 insertions(+)
+ drivers/vhost/vdpa.c | 32 +++++++++++++++++++++++++-------
+ 1 file changed, 25 insertions(+), 7 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index d8a351273482..3088d301073e 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -791,6 +791,27 @@ static int create_ruleset(struct __test_metadata *const _metadata,
- 	return ruleset_fd;
+diff --git a/drivers/vhost/vdpa.c b/drivers/vhost/vdpa.c
+index 3e5165b7c094e..a31786796d4ce 100644
+--- a/drivers/vhost/vdpa.c
++++ b/drivers/vhost/vdpa.c
+@@ -62,6 +62,8 @@ struct vhost_vdpa {
+ 	int virtio_id;
+ 	int minor;
+ 	struct eventfd_ctx *config_ctx;
++	/* Serialises vhost_vdpa_config_cb() against config_ctx being replaced. */
++	spinlock_t config_lock;
+ 	int in_batch;
+ 	struct vdpa_iova_range range;
+ 	u32 batch_asid;
+@@ -195,10 +197,12 @@ static irqreturn_t vhost_vdpa_virtqueue_cb(void *private)
+ static irqreturn_t vhost_vdpa_config_cb(void *private)
+ {
+ 	struct vhost_vdpa *v = private;
+-	struct eventfd_ctx *config_ctx = v->config_ctx;
++	unsigned long flags;
+ 
+-	if (config_ctx)
+-		eventfd_signal(config_ctx);
++	spin_lock_irqsave(&v->config_lock, flags);
++	if (v->config_ctx)
++		eventfd_signal(v->config_ctx);
++	spin_unlock_irqrestore(&v->config_lock, flags);
+ 
+ 	return IRQ_HANDLED;
+ }
+@@ -528,15 +532,22 @@ static long vhost_vdpa_get_vring_num(struct vhost_vdpa *v, u16 __user *argp)
+ 
+ static void vhost_vdpa_config_put(struct vhost_vdpa *v)
+ {
+-	if (v->config_ctx) {
+-		eventfd_ctx_put(v->config_ctx);
+-		v->config_ctx = NULL;
+-	}
++	struct eventfd_ctx *ctx;
++	unsigned long flags;
++
++	spin_lock_irqsave(&v->config_lock, flags);
++	ctx = v->config_ctx;
++	v->config_ctx = NULL;
++	spin_unlock_irqrestore(&v->config_lock, flags);
++
++	if (ctx)
++		eventfd_ctx_put(ctx);
  }
  
-+static void enforce_fs(struct __test_metadata *const _metadata,
-+		       const __u64 access_fs, const struct rule rules[])
-+{
-+	int ruleset_fd;
-+
-+	if (rules) {
-+		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
-+	} else {
-+		const struct landlock_ruleset_attr ruleset_attr = {
-+			.handled_access_fs = access_fs,
-+		};
-+
-+		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
-+						     sizeof(ruleset_attr), 0);
-+		ASSERT_LE(0, ruleset_fd);
-+	}
-+
-+	enforce_ruleset(_metadata, ruleset_fd);
-+	EXPECT_EQ(0, close(ruleset_fd));
-+}
-+
- TEST_F_FORK(layout0, proc_nsfs)
+ static long vhost_vdpa_set_config_call(struct vhost_vdpa *v, u32 __user *argp)
  {
- 	const struct rule rules[] = {
-@@ -2365,6 +2386,170 @@ TEST_F_FORK(layout1, rename_file)
- 			       RENAME_EXCHANGE));
- }
+ 	struct vdpa_callback cb;
++	unsigned long flags;
+ 	int fd;
+ 	struct eventfd_ctx *ctx;
  
-+TEST_F_FORK(layout1, rename_whiteout_denied)
-+{
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Deny MAKE_REG, but allow MAKE_FIFO. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
-+
-+	/*
-+	 * Try to rename a file with RENAME_WHITEOUT.
-+	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
-+	 * Denied, because whiteout creation is guarded with MAKE_REG.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+}
-+
-+static bool is_whiteout(const char *const path)
-+{
-+	struct stat st;
-+
-+	if (stat(path, &st) == -1)
-+		return false;
-+
-+	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
-+}
-+
-+static bool is_fifo(const char *const path)
-+{
-+	struct stat st;
-+
-+	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_allowed)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Allow MAKE_REG below dir_s3d3. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
-+
-+	/*
-+	 * Rename a file with RENAME_WHITEOUT within the same directory.
-+	 * Allowed, because MAKE_REG is granted for the whiteout object which
-+	 * gets created in the source location.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d3/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_reparenting)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The moved files are FIFOs. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * The whiteout object is created in the source directory: Moving the
-+	 * FIFO out of dir_s3d4 is denied because MAKE_REG is not granted
-+	 * there, even though it is granted in the destination directory
-+	 * dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Moving the FIFO out of dir_s3d3 is allowed, because MAKE_REG is
-+	 * granted there for the created whiteout object.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d4/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d4/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_exchange)
-+{
-+	const char *const whiteout_s3d3 = TMP_DIR "/s3d1/s3d2/s3d3/f2";
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The exchanged files are FIFOs and an existing whiteout object. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * With RENAME_EXCHANGE, the whiteout object moves into the source
-+	 * directory of the rename: Exchanging the FIFO in dir_s3d4 with the
-+	 * whiteout object is denied because MAKE_REG is not granted in
-+	 * dir_s3d4, even though it is granted in the whiteout object's own
-+	 * directory dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD, whiteout_s3d3,
-+				RENAME_EXCHANGE));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Exchanging the FIFO in dir_s3d3 with the whiteout object is
-+	 * allowed, because MAKE_REG is granted in the directory into which
-+	 * the whiteout object moves.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
-+			       RENAME_EXCHANGE));
-+
-+	/* The FIFO and the whiteout object swapped places. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(whiteout_s3d3));
-+}
-+
- TEST_F_FORK(layout1, rename_dir)
- {
- 	const struct rule rules[] = {
-@@ -3456,6 +3641,18 @@ TEST_F_FORK(layout1, make_char)
- 		       makedev(1, 3));
- }
+@@ -549,8 +560,14 @@ static long vhost_vdpa_set_config_call(struct vhost_vdpa *v, u32 __user *argp)
+ 	if (IS_ERR(ctx))
+ 		return PTR_ERR(ctx);
  
-+TEST_F_FORK(layout1, make_whiteout)
-+{
++	spin_lock_irqsave(&v->config_lock, flags);
+ 	swap(ctx, v->config_ctx);
++	spin_unlock_irqrestore(&v->config_lock, flags);
+ 
 +	/*
-+	 * Creates a whiteout object (creation guarded by MAKE_REG).
-+	 *
-+	 * Contrary to the other character devices, this does not require
-+	 * CAP_MKNOD, cf. vfs_mknod().
++	 * The callback can no longer reach the old context, so this is the
++	 * last reference to it.
 +	 */
-+	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
-+		       makedev(0, 0));
-+}
-+
- TEST_F_FORK(layout1, make_block)
- {
- 	/* Creates a /dev/loop0 device. */
+ 	if (ctx)
+ 		eventfd_ctx_put(ctx);
+ 
+@@ -1639,6 +1656,7 @@ static int vhost_vdpa_probe(struct vdpa_device *vdpa)
+ 	}
+ 
+ 	atomic_set(&v->opened, 0);
++	spin_lock_init(&v->config_lock);
+ 	v->minor = minor;
+ 	v->vdpa = vdpa;
+ 	v->nvqs = vdpa->nvqs;
+-- 
+2.53.0
+
+
+
