@@ -1,152 +1,168 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qt1-f179.google.com (mail-qt1-f179.google.com [209.85.160.179])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E11284A4EF4;
-	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB1284ED198
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 20:42:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.160.179
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789677582; cv=none; b=BCs0UDAlUdVRhLbTFjVylBLeWBoWjyGFlB18hpxv6qnWnCHH7riGuCCzD+19PAqj/9YtMcL69oN/COv5tvaZWwSX6SpglFFfIZ4W9Bce84sbv3Y19uhmD9U3ovQQyMNAidarpzvguCnYQkiy2PIpyRS75rypzORBpkAKUJpkNN8=
+	t=1789677739; cv=none; b=K5iIFFLhSz4TUsxIL5RMawIL6H9iq8tPW51qasoDzvm0vF81pbBNx2AxQCua6EMCF0ROcgKLzdUAz7pCmqKgxVhUhJYMR0TytX8wnsr8b80ECPNGSo2Rgsnpx+fGb9U/rmWY9n3juNJIoQ89jqHT3t3vwAU0G8Mz2MkBDU7Nfbw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789677582; c=relaxed/simple;
-	bh=cg7BCvR1cLAHYckn6sXbcMfbGYSZh3IvF6MOBd1cfDA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lLI6mMLARbQ0pg4EXcmdj4gvAMMwTxPTFUzDSHBkH4oCQAs8iCIPmpcaNehN3jQKBflwIud0DSIF1BVgWBfcnCR6Sq90hyAU5ZIkXahdVWJ+bueFTN2OSNwvYu2I7oqJEUfcDXNP+lzwirFJmnHzoPQJJGhBFPj7WlvzEwQws2o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZKbdwe4H; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789677739; c=relaxed/simple;
+	bh=kZtK+sVq+OakP0n9604KZpM7r41BPS7WKoDg0NZh8xQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oWgDuzadIEkRo7TzM+gCEoTqRDgQe1o2ISZC/VqBygyiCdVrZ0g/5LdGe+LePHp//LdfSkZHK172L69MaPPwV1T+871FqFUHHF7Zoc4HqQ4+4a9n5FLX1hr1vX2uxulGx5UyNSFuIHI3hRW9/7sgNMlXK3bS7AaArkxUTzAYDsA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CP1TPdtQ; arc=none smtp.client-ip=209.85.160.179
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZKbdwe4H"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 568831F000FF;
-	Thu, 17 Sep 2026 20:39:40 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789677580;
-	bh=8F8vuRKsQlvpmUswJ4XE1PgRyZZ1pDeb65uVpTL9SmQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ZKbdwe4HeSL1dEjr23I2q7ywMJ/zdRa72oxd6e64/QZrrH6SDT2P6G8nibieI8Mr/
-	 kltPQzLqUhcR+tAqEJoJAp0LqkGqwCBAunK170nxqB4YywJNC8Tr7XwjTOXsegw1wK
-	 68t1GV9KHLrwX/xe70h9zSI6Opm5D/xjZDgB7x+nG2Vd7yPnvrAIOKFfBoTh6ZS6dk
-	 XH6dUOYQSjCKmhywFppM0yQKzUX+KFpcGkrJlmWF+xvZOsqasCqHL85oxWYWg+Phog
-	 jNnGHuX7nNkVWu/OMvd8G+/0c6FrXO1LOCL2MF9qxGjbfchcXkVNHjzEzjaEMzE9+5
-	 nNQKKpmAAk2bg==
-Date: Thu, 17 Sep 2026 15:39:38 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	Grant Likely <grant.likely@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	David Daney <david.daney@cavium.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v7 00/10] of: teach overlay code to keep /aliases in sync
-Message-ID: <20260917203938.GA3480871-robh@kernel.org>
-References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CP1TPdtQ"
+Received: by mail-qt1-f179.google.com with SMTP id d75a77b69052e-52f9fc510e1so9823171cf.0
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:42:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789677737; x=1790282537; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=38H1xf2/ET/SoNjoIYflqfRDEtEJGG8vw0YM1GLHy9Q=;
+        b=CP1TPdtQF61VSBDhw7T6xOw4woNmurF1GSWogVHDp0M9X8uPG0p9a+GPpo7xb11f3N
+         d9i0rgqqBs/ATuuCTLNYXGeDsSdau5JgcohHzaIhGwjZlgGfh2DYMORX2CT7qdmpzvSv
+         astxVyvKa8iTjvqpX3fjZcRqiUGB7NQV5IVksjgnGubW8Zhe575s0TOWHbi3oenDrVs3
+         NbeS0/+m1nIvuxx49gdwBWDZTCAKhtYEuZVKz58Ina+s2andDJyFTOf/LXYuT2zIrh/c
+         bfiFEpWFX+thpiY4pH9KXSUZSOmrtlUmVXp+Wi9aqN2ikvnaK1FPe5TjlLVFbhhVfJ0M
+         F6WQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789677737; x=1790282537;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=38H1xf2/ET/SoNjoIYflqfRDEtEJGG8vw0YM1GLHy9Q=;
+        b=0BLg9W0yB8jbAIdO9qQ6vlHqapWohWqLyIgGumMbKH8rRoSwtUUw8AEgeqKMinRjRw
+         5vphwg00vkLHxW6U/WFSmvqAEwjAZ9RAB2X6RLsQktF9ixP9TQk5mQYEMQoSbzsfmwez
+         6fh8Sj9FIBo2Anu8a0JIadSXdd5MiDigdXJA6wkALY6fRMzVVLkr1fmLJqc4lLWpMLp2
+         t/jvod1JxqRsCJ8TArt+hoGnRvWTgCSMKDa6Dk4y03HjQwDMihLqRkvwab//kR4uJYo5
+         zRKgI6oHpEibCekv92XOZcI9ce6eOFuVRUKdx7UA/IDaRyqQluuVKew1XdZcmaiPu+9F
+         G/xw==
+X-Forwarded-Encrypted: i=1; AKwUvBzvB/uUk4Bajnl4VHsy55tH/a9FJJ+LIF35HOwbedkekL33TcKCLu3ytBaRtgpmh09nUzzOh1g=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpKKv1ZAVH+4Ld9jLKgThjY0BM6ixC/hy14jZL3fL5ZrtfiAp9
+	0JUaFucLKUghhLphyjNDTj482kxj+upHVpxmeMw9odxOqoEMByN/tuY=
+X-Gm-Gg: AYBFou2DitkJyXzAo9ipWUFnhrRL3qwkAu5s+OzKQeHf61W2vBjfaox5dWUNne+YhnI
+	wC/p4dmdCV3U1RchCRLCfHDPJcvlzOXpoTn4nz/WxGmpk+iz74yW/VMWW2uGah9OY9c4TDxwd2v
+	jrbA9gf5GuRYTVxS69hOwHCfOt5YEVEpI6T9h6vhZ+mGWhBkOcHuqkYocD72ixWFMFdT4At4RHm
+	Zv7zj59GWUZHalYMU/xAWHG/vT7Feyz8GYsAx988L29lMvk9IAbv67VbFxLcOiRqawhLCJzLqXf
+	ahmDBbEZEUjB5NdPUWHh+LvnCAKg/zSF4woRE1wK4kUTNrp6qgFBESf2NmPq0l12aV+1xSt6unx
+	niz413tkNHG0YllNAocjRPG7wRQuX2h87FV9D8bBTtbGaByfDwNjgWaBrDWcPdR65gA5weBidr1
+	NVuN17HzMwQqtxj5pJDnmtrGgWOw/ItBmEI7SC9bBTw6+7F0XTDy6drkMOrFIXnu9XAScRCCdwE
+	uxXjlXZnwNuXf1VhIePQHK2Gxy5b/rkK6iYjbvjCq/VdKqGxn7tj6/7WoN8Vn8NiNhKpEEPBqWM
+	GiZ1tapX08CqiUgTP1k9b4RuSmvOdUkSPxXL
+X-Received: by 2002:ac8:5ace:0:b0:532:8063:4ccc with SMTP id d75a77b69052e-5328cedfe9dmr79101391cf.3.1789677736834;
+        Thu, 17 Sep 2026 13:42:16 -0700 (PDT)
+Received: from localhost.localdomain ([104.39.169.225])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-5326204ad36sm58764301cf.18.2026.09.17.13.42.15
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Thu, 17 Sep 2026 13:42:15 -0700 (PDT)
+From: Myeonghun Pak <mhun512@gmail.com>
+To: Benson Leung <bleung@chromium.org>,
+	Abhishek Pandit-Subedi <abhishekpandit@chromium.org>,
+	Jameson Thies <jthies@google.com>,
+	Andrei Kuchynski <akuchynski@chromium.org>,
+	Tzung-Bi Shih <tzungbi@kernel.org>
+Cc: Guenter Roeck <groeck@chromium.org>,
+	chrome-platform@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Ijae Kim <ae878000@gmail.com>
+Subject: [PATCH] platform/chrome: cros_ec_typec: Stop altmode work before unregistering ports
+Date: Thu, 17 Sep 2026 16:42:09 -0400
+Message-ID: <20260917204209.97699-1-mhun512@gmail.com>
+X-Mailer: git-send-email 2.47.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
 
-On Mon, Aug 31, 2026 at 06:29:18PM -0700, Abdurrahman Hussain wrote:
-> /aliases entries added by a device-tree overlay are stored in the live
-> tree but never enter the global aliases_lookup list that of_alias_scan()
-> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-> aliases declared inside overlays, and any driver that relies on
-> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-> pinned id and falls back to auto-assignment.
-> 
-> The gap has been public since 2015 [1] and reproduces trivially: apply
-> an overlay that declares e.g. `i2c99 = &foo;`, ask
-> of_alias_get_id(foo, "i2c") -> -ENODEV.
-> 
-> The core fix (patch 2) is a reconfig notifier that mirrors /aliases
-> property changes into aliases_lookup. Patch 1 prepares the alias path
-> lookup for /aliases becoming dynamic. Patches 3, 8 and 9 are the
-> overlay-code changes the use case needs; patches 4-7 fix pre-existing
-> bugs on paths the series exercises. Patch 10 adds a
-> unittest.
-> 
-> Prior art
-> ---------
-> 
-> Geert Uytterhoeven posted a 3-patch RFC in June 2015 [1] with the same
-> alias-tracking design shape. Grant Likely reviewed positively; merge
-> was gated on missing unittests and an object-lifetime concern the
-> author self-flagged, and the series was never reposted as non-RFC. Ten
-> years later, drivers/of/overlay.c still contains zero references to
-> aliases, of_alias_scan, or aliases_lookup.
+DisplayPort and Thunderbolt port altmodes queue work to deliver VDM
+responses to their partners. Port teardown only cancels port_work and
+then unregisters the partner and port altmodes, leaving the separate
+altmode work able to access released altmode data.
 
-There was another posting in 2024 of Geert's patches and AFAICT my
-comment there[1] still applies. To repeat, what happens if the alias 
-number already got used because the subsystems can pick any of the 
-numbers without an alias. The only way I see to solve that is make 
-possible alias numbers and dynamic numbers non-overlapping or only allow 
-alias names that are not present in the base DT to be used/honored in 
-overlays.
+Disable and drain each port altmode's work before unregistering the
+partner altmodes. Disabling also prevents a partner callback from
+requeueing the work while its driver is being removed. Use the common
+port teardown path so probe error handling is covered as well.
 
+This issue was identified during our ongoing static-analysis research
+while reviewing kernel code.
 
-> Series contents
-> ---------------
-> Patch 1 makes of_find_node_opts_by_path() hold a reference on
-> of_aliases across the alias walk (the walk itself stays lock-free, as
-> does the pointer load: of_aliases always holds a reference on the
-> node it points to) and validates alias values before dereferencing
-> them.
-> 
-> Patch 2 adds a reconfig notifier that mirrors /aliases property
-> changes into aliases_lookup. It also refactors of_alias_scan()'s
-> per-property body into a helper of_alias_create() shared by the
-> boot-time scan and the runtime notifier. A one-bit `owned` flag on
-> struct alias_prop distinguishes kmalloc'd (overlay-time) entries
-> (kstrdup'd alias name, of_node_get'd target) from memblock-backed
-> (boot-time) ones so the remove path can't kfree the wrong storage.
-> The notifier keys off structural properties of the target node
-> (name + root-parent) rather than the of_aliases global, so overlays
-> that create /aliases from scratch on a system without a boot-time
-> aliases node are covered too. All aliases_lookup readers and writers
-> serialize on a dedicated aliases_mutex.
-> 
-> Patch 3 fixes find_target() so an overlay applied with a non-NULL
-> target base can still reach the DT root via target-path="/foo". The
-> current code unconditionally concatenates base + target-path via
-> "%pOF%s", so target-path="/aliases" resolves to "<base>/aliases" and
-> target-path="/" produces "<base>/" (never a valid node). After this
-> patch, an empty target-path continues to mean "the target base
-> itself" — preserving the shape used by drivers/misc/lan966x_pci.c,
-> the only in-tree caller of of_overlay_fdt_apply() that passes a
-> non-NULL base — while any non-empty target-path is looked up
-> absolutely.
-> 
-> Patch 4 fixes a pre-existing double-free in add_changeset_property():
-> a property freed on the of_changeset_add_property() error path stayed
-> linked in the target node's deadprops list and was freed again at
-> node release.
-> 
-> Patch 5 fixes a pre-existing NULL dereference in
-> of_overlay_fdt_apply()'s idr_alloc() error path (negative id stored,
-> list_del() on an uninitialized list head) by only treating a positive
-> id as registered in free_overlay_changeset().
-> 
-> Patch 6 fixes a pre-existing reference leak in
-> init_overlay_changeset(): on a mid-loop failure, the target and
-> overlay references of the fragments initialized so far were never
-> dropped because ovcs->count was still 0 when free_overlay_changeset()
-> ran its cleanup loop.
-> 
-> Patch 7 fixes pre-existing "//" result paths from
-> dup_and_fixup_symbol_prop() when a fragment targets the root node.
+Fixes: dbb3fc0ffa95 ("platform/chrome: cros_ec_typec: Displayport support")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Co-developed-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Ijae Kim <ae878000@gmail.com>
+Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
+---
+Validated with static source review, apply checks and strict checkpatch.
+No build or runtime testing was performed.
 
-Fixes should come first in a series. Then I can apply them if ready even 
-if the feature patches are not ready.
+ drivers/platform/chrome/cros_ec_typec.c      |  1 +
+ drivers/platform/chrome/cros_typec_altmode.c | 15 +++++++++++++++
+ drivers/platform/chrome/cros_typec_altmode.h |  6 ++++++
+ 3 files changed, 22 insertions(+)
 
-Rob
-
-[1] https://lore.kernel.org/all/CAL_Jsq+72Q6LyOj1va_qcyCVkSRwqGNvBFfB9NNOgYXasAFYJQ@mail.gmail.com/
+diff --git a/drivers/platform/chrome/cros_ec_typec.c b/drivers/platform/chrome/cros_ec_typec.c
+index 50a68819ceb7bbfbd888ca919d678d4c75237c26..e91bbc219c077067294935dd5602c1aec636cfa6 100644
+--- a/drivers/platform/chrome/cros_ec_typec.c
++++ b/drivers/platform/chrome/cros_ec_typec.c
+@@ -378,6 +378,7 @@ static void cros_unregister_ports(struct cros_typec_data *typec)
+ 		if (!typec->ports[i])
+ 			continue;
+ 
++		cros_typec_altmodes_stop(typec->ports[i]);
+ 		cros_typec_remove_partner(typec, i);
+ 		cros_typec_remove_cable(typec, i);
+ 
+diff --git a/drivers/platform/chrome/cros_typec_altmode.c b/drivers/platform/chrome/cros_typec_altmode.c
+index 66c546bf89b532d3bae1de322a1cfb1205e0190f..2492058d98b8ef2a4a1a9bee87ce0574f4f0a736 100644
+--- a/drivers/platform/chrome/cros_typec_altmode.c
++++ b/drivers/platform/chrome/cros_typec_altmode.c
+@@ -37,6 +37,21 @@ struct cros_typec_dp_data {
+ 	bool pending_status_update;
+ };
+ 
++void cros_typec_altmodes_stop(struct cros_typec_port *port)
++{
++	struct cros_typec_altmode_data *adata;
++	int i;
++
++	for (i = 0; i < CROS_EC_ALTMODE_MAX; i++) {
++		if (!port->port_altmode[i])
++			continue;
++
++		adata = typec_altmode_get_drvdata(port->port_altmode[i]);
++		if (adata)
++			disable_work_sync(&adata->work);
++	}
++}
++
+ static void cros_typec_altmode_work(struct work_struct *work)
+ {
+ 	struct cros_typec_altmode_data *data =
+diff --git a/drivers/platform/chrome/cros_typec_altmode.h b/drivers/platform/chrome/cros_typec_altmode.h
+index 3f2aa95d065af709643ad653df487a9987780da4..9e67f82ba031d67dfbe3a0549a7987386c33d120 100644
+--- a/drivers/platform/chrome/cros_typec_altmode.h
++++ b/drivers/platform/chrome/cros_typec_altmode.h
+@@ -11,6 +11,12 @@ struct typec_altmode;
+ struct typec_altmode_desc;
+ struct typec_displayport_data;
+ 
++#if IS_ENABLED(CONFIG_CROS_EC_TYPEC_ALTMODES)
++void cros_typec_altmodes_stop(struct cros_typec_port *port);
++#else
++static inline void cros_typec_altmodes_stop(struct cros_typec_port *port) {}
++#endif
++
+ #if IS_ENABLED(CONFIG_TYPEC_DP_ALTMODE)
+ struct typec_altmode *
+ cros_typec_register_displayport(struct cros_typec_port *port,
+-- 
+2.47.1
