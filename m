@@ -1,36 +1,35 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3246F52845A;
-	Thu, 17 Sep 2026 16:34:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E6D7D4DEC3F;
+	Thu, 17 Sep 2026 16:37:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789662899; cv=none; b=nNxXsz5gQL6jBP8DfEyM8jSBfr5xipPShZMwusflKEXCxtlqH8rinGL2j05lQcRQmmzHeDagM0BenukoOMIKk7cN0zlmaa2d9t/T7u9GTeMNw1C89BYARSNRlJ4CKjpjwFF1HefxgHS2kbNEMNFlG8MFJWnnku6uU3zhS1F/iKQ=
+	t=1789663025; cv=none; b=qmxi48saw17/Iivvp4/0NfMmQquEqeJ1oFogzhAvI6Rr1toaNbEr2FP7vHWONQqqNvq7BzUZI0sWEJB44NxOIBpEikI7Osg0+6EfTspoUkjPrJGXBoGzbbjJClH3o79fnTwQJnquBs2TRorJ9QZ8CJB+z8KBmfK5PRp4fHLacsg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789662899; c=relaxed/simple;
-	bh=WL33Y42nIYwQDnqCTIKBZ4BA1khv9nabZhRlPNj7qes=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aiXb4Xr0Q+gKrmDr0kIs4Mw2PcOg3Ww2NgUWnclOCsHLwmeTKkbKG+t6GvDMqBBvF7Zb7UK4VUgncdm7IQTJYxUBL7WF3th1ePmT4UhZEkmABSSgLamLUG0K1j5RQLKzdZ4SNUe236opyrUQ/Lkj0OqP9vejLT0Hs2URlaFxxRs=
+	s=arc-20240116; t=1789663025; c=relaxed/simple;
+	bh=1Cqchuek7oF9deUtMi74R8hULx9w2ZPZpLTHkHJ/oJM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZfwjiFMBjf6uPhlwTOnpX/UWqkXXaPfSRXV+7lagAcUDNdiuMRqc6dH2//x/tXlOe63B7Gss1kwx5Auw/178zPBRETJv5JIneOA2enavmCr4eI7ZPjeKTaqxVVhM9tQjeQxE7D4og5U4HS+QOGLijrW/SLP/CL8e/ZmLhXnESa8=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnF0KfFqxqQpKECA--.6825S2;
-	Fri, 18 Sep 2026 00:34:39 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowABHtD4oF6xq55qECA--.6836S2;
+	Fri, 18 Sep 2026 00:36:56 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: bharathsm@microsoft.com
-Cc: linux-cifs@vger.kernel.org,
+To: davem@davemloft.net
+Cc: edumazet@google.com,
+	horms@kernel.org,
+	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
-	pc@manguebit.org,
-	ronniesahlberg@gmail.com,
-	samba-technical@lists.samba.org,
-	sfrench@samba.org,
-	sprasad@microsoft.com,
-	tom@talpey.com,
+	netdev@vger.kernel.org,
+	pabeni@redhat.com,
+	tom@herbertland.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] cifs: Fix server use-after-free in cifs_chan_skip_or_disable()
-Date: Thu, 17 Sep 2026 16:34:39 +0000
-Message-Id: <20260917163439.2162539-1-vulab@iscas.ac.cn>
+Subject: [PATCH] kcm: Fix socket use-after-free in kcm_unattach()
+Date: Thu, 17 Sep 2026 16:36:56 +0000
+Message-Id: <20260917163656.2162621-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -39,76 +38,59 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnF0KfFqxqQpKECA--.6825S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7uF1UZw4ftr1xZr4DAr43ZFb_yoW8Zw43pr
-	W7KrWj9F95GFnxZFWkAFWUXFyY9F47W3WF93yDAw1xuws5Aay7WF4jqw1vg3Wak395GFZ0
-	grnIq3yvvayUJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBj1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+X-CM-TRANSID:zQCowABHtD4oF6xq55qECA--.6836S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Xw48urW5JF1UJr1xJF4rAFb_yoW8Jr1Upr
+	ZxKFW7KryrJr1vv3Z5A3WDXF409r47t3sxC348C3WxZrsY9F1Sq3yrJrWDWr1UKrs5Krsr
+	XFnFgaykury3Z3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUB01xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
 	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
 	IY67AKxVW8JVW5JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
 	87Iv67AKxVW8JVWxJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
 	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	AVWUtwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
 	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
 	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
 	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
 	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
-	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr0_Cr1lIxAIcVC2z280aVCY1x0267
-	AKxVW8Jr0_Cr1UYxBIdaVFxhVjvjDU0xZFpf9x0JUgXocUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgcNA2qr889TtwAAsW
+	v20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k2
+	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
+	AFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAINA2qr9nBOwwAAsK
 
-When a secondary channel is no longer supported by the server,
-cifs_chan_skip_or_disable() drops the channel reference with
-cifs_put_tcp_session() and then continues to use the server pointer by
-calling cifs_signal_cifsd_for_reconnect() on it and reading its
-primary_server pointer. cifs_put_tcp_session() can drop the last
-reference of the channel and tear it down, so both the channel and the
-primary server (whose reference is also dropped by
-cifs_put_tcp_session()) can be freed before they are signaled for
-reconnect.
+In the unreserved path of kcm_unattach(), the reference held by the
+psock on the underlying TCP socket is dropped with sock_put() before
+the socket file is released with fput(csk->sk_socket->file) and before
+release_sock() is called at the end of the function. If that was the
+last reference on the socket, both uses access freed memory.
 
-Signal the channel and the primary server and capture the primary
-server pointer before dropping the channel reference with
-cifs_put_tcp_session().
+Drop the socket reference only after the last use of the socket: move
+the fput() before the sock_put() and release the socket lock before
+dropping the final reference.
 
-Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
+Fixes: ab7ac4eb9832 ("kcm: Kernel Connection Multiplexor module")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/smb/client/smb2pdu.c | 13 +++++++------
- 1 file changed, 7 insertions(+), 6 deletions(-)
+ net/kcm/kcmsock.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
-index 3bd300347f16..a33f9b9ed32b 100644
---- a/fs/smb/client/smb2pdu.c
-+++ b/fs/smb/client/smb2pdu.c
-@@ -189,18 +189,19 @@ cifs_chan_skip_or_disable(struct cifs_ses *ses,
- 		spin_unlock(&ses->chan_lock);
+diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
+index 3912e75079f5..b3838a19f0a7 100644
+--- a/net/kcm/kcmsock.c
++++ b/net/kcm/kcmsock.c
+@@ -1457,9 +1457,11 @@ static void kcm_unattach(struct kcm_psock *psock)
+ 		mux->psocks_cnt--;
+ 		spin_unlock_bh(&mux->lock);
  
- 		/*
--		 * the above reference of server by channel
--		 * needs to be dropped without holding chan_lock
--		 * as cifs_put_tcp_session takes a higher lock
--		 * i.e. cifs_tcp_ses_lock
-+		 * signal the channel and its primary server to
-+		 * reconnect before dropping the above reference of
-+		 * server by channel, which is done without holding
-+		 * chan_lock as cifs_put_tcp_session takes a higher
-+		 * lock i.e. cifs_tcp_ses_lock
- 		 */
--		cifs_put_tcp_session(server, from_reconnect);
--
- 		cifs_signal_cifsd_for_reconnect(server, false);
- 
- 		/* mark primary server as needing reconnect */
- 		pserver = server->primary_server;
- 		cifs_signal_cifsd_for_reconnect(pserver, false);
-+
-+		cifs_put_tcp_session(server, from_reconnect);
- skip_terminate:
- 		return -EHOSTDOWN;
+-		sock_put(csk);
+ 		fput(csk->sk_socket->file);
+ 		kmem_cache_free(kcm_psockp, psock);
++		release_sock(csk);
++		sock_put(csk);
++		return;
  	}
+ 
+ 	release_sock(csk);
 -- 
 2.34.1
 
