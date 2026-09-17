@@ -1,94 +1,114 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pj1-f47.google.com (mail-pj1-f47.google.com [209.85.216.47])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54645358D27;
-	Thu, 17 Sep 2026 15:14:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 765764973A4
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:15:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.47
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658105; cv=none; b=IwzrzkF7ZSU/v9Oe2VS01twlo82EEfhEpy13O4w/DqXvq/vHdv6LfTU8cZWEwQlKHNTaCy6xyBU/FIp9IQdKOV0uUYpQDBhTicdZ/s5qN528NViXeIcoXXxyquVo4EMBl7yUNQNz88c2Qb4Ufhl7q9WlJoTVw3oS4+79H0xWBOo=
+	t=1789658111; cv=none; b=Va5tLcaHhi8x3LOrKUDJPbfxw1BXQ7lRb2OyLl6wAlsOYkwmgMbvFsRZEQ/xxrFn8lULs2HUKx4eANFPqr8ewhv5o/xt56JYRbf7gd8Z30s8McxZAo593nwy2nM1tEXJ0wtbYI70fOLdjK5YFZMu76dgC9qI0m3uavJZrxCfECQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658105; c=relaxed/simple;
-	bh=WKd5hbr4XXWA3Mv8v+VhhZjKFugRnWpZAUIpvdZ+LH0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=tFMrcdBRyY205l2JAL7ysDHO9VK+BAJetS+c58Kmf39oeQhEX15rhEnRKBbKiGcSEkYcwTC9Q8lQHBXBdnKvDa3AvpuE5C/w4j7zen5DpWI8jHbUptJ4vdLVMFq88Rrik/YvLI1Uzj88FuF+OPltqUiWVRyEBv5VogzOHsLm1U0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACnFD_iA6xqs1GDCA--.5505S2;
-	Thu, 17 Sep 2026 23:14:42 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	ranjan.kumar@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	suganath-prabu.subramani@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpt3sas: Fix sas_device reference leak in _scsih_update_vphys_after_reset()
-Date: Thu, 17 Sep 2026 15:14:42 +0000
-Message-Id: <20260917151442.2158565-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789658111; c=relaxed/simple;
+	bh=lj1AArdURKntw/KnF8ugndUqAFz8UXcJI2HmidLS8Go=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=CKB8/hurUWmo1LaAQzfhvFW29E3wm7fO1TvIFDJGwySfWAmwlX/cTu9fw6N0ZQeo6o7aSyfvlZkuzmdqvobFsU3MmRtQBQikhyD3wxCTyw8frVk/S2canwVwZlP3vxtwXohOP74UBP2V36UAhM7BvrU1IGk/2XX7QcOv/BiodUc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=O6flIGCj; arc=none smtp.client-ip=209.85.216.47
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="O6flIGCj"
+Received: by mail-pj1-f47.google.com with SMTP id 98e67ed59e1d1-39647aa9d52so852473a91.0
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 08:15:06 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789658105; x=1790262905; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=UlhivK+zlFu4a3uy9GJIwu4Lv0iGdPKrQsjr7JexLOk=;
+        b=O6flIGCj9rp24USOjCztpgIJePjlgnwlN8C5DvBkzvIBEKVxVT03prxyQXioWoRk6q
+         LHXkmZ/cMLYUhmVJkr/9KxlBGmM9sV2eyyX7pAt8w2GM3KcQ/nJmEImRZxGs4/pRqVzN
+         NmpSv6HmEIRENo2jQ0QdgeSVDJDJtlnFYqz4rW30tFRxP/tSb9tQ1zGnmCnvnLa9IhhC
+         OHorTofhHEC3Szg9AeosrOMiJn6XHTCyqgvWPTvm71U/SUjM28plNuFUvytsrQeMKmJV
+         9lV+XkiXhRDG3e1J+biR3ZCjqOBdeQwVqzZ+JRA5L0TAPfxp9xum1EEpEaxaw1xUaJ0x
+         4uzQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789658105; x=1790262905;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=UlhivK+zlFu4a3uy9GJIwu4Lv0iGdPKrQsjr7JexLOk=;
+        b=QnaRuAyIMElzVmH14VxFUv8XpVmlw/zcniYsP27EuwFk9Q8kXxNCBT8cMsxvKse5+X
+         yurduyy9tcxZgOONWwF7KJp00mxnZrRaVJYTN5VJUqJPeNLNf0ALvw7XbnNMqpsnMvCA
+         KZCuSRnNHlr1fDkUb4LaYmLRzYBbzDYo2xoHiY0VCD3SvRZRnejWdzMfCFZ5pLF8V7S1
+         ENcDim2dFE4xYGdles7ii//nRH2DP803EaPnfl+00ZVzwLbVSDKV0o3WruJw1VQG2pFC
+         4bubYd8JvH432Hb9Fb+tMWguTlq6tukVyhXf2xKLazxgX4uJ5LTl4QxIJ1m9DcLpGzkz
+         Rx9Q==
+X-Forwarded-Encrypted: i=1; AKwUvBzshjzlctraaR57pXccJeke3aSqAFhSEFkaF4UvvqQw0cHR6c7yjPLPLFrf5vARlLnEe9V5cYA=@vger.kernel.org
+X-Gm-Message-State: AFuF++muaEC/Eh7UWOOg6rz4lIsIfOXJIJua9frl3qfdkPAo1JUPm/0V
+	7wqsXq+lmc4eyk93T9lMmJz05/Vh3SgrD+mE9ATYMQyuKoPLSP7+NdbT
+X-Gm-Gg: AYBFou0cWt49z+YdljaVSQduCl84gqrwI+jIaFnR8jcWkmZCK8AGtNVwzJwFFETjQkp
+	enTe8zYTKrla3fVao7Uggyfi9D7f5QwMvy8bqiHYF9FFQGUJvyPnnEfSpl0BTHJEuGsV0fQUrxu
+	q+Iak92ZEi+B32pXo/sygsYdbqbb6jM9MloZsRJBSIyoUMUaEx+KND8KNm1n0vgUYMvPBXUqg77
+	C+C/ialTWr/STPVQe/TlQLAfSlNKS9+ky6CMUwJrfoky3krk27CRXIKhMCDRNtUFb6Xtt2LX8sL
+	U/iklpiKilBaCEGZRMaxU0Um7qEixdQ5hpAKYu9jFNi15KxotK1neCYfhdBao+qqZUaGWBO655h
+	jsGapmIkdZC2dNkFEL6XeAjuKh9k2q5S+dzk25reoEHasTAp5U4DINPZP/vEvwutsi6K5o8YhYs
+	RoJ/OKpgcadoNNeNuyEzHHZvHOlaZCvHlf+dULIU3/0d5IgaYWG3LICOpni7hZbS3vIEazqoy/O
+	RKIFKrgdDexcDmwMQa0NE5F4se9x21X4lm5LnBo
+X-Received: by 2002:a17:90b:3f4f:b0:39e:4c97:ce06 with SMTP id 98e67ed59e1d1-39e4c97cf1bmr761796a91.39.1789658105113;
+        Thu, 17 Sep 2026 08:15:05 -0700 (PDT)
+Received: from google.com ([2a00:79e0:2ebe:8:48d2:6852:2cc5:a7b1])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5af6593sm15799800eec.25.2026.09.17.08.15.04
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 08:15:04 -0700 (PDT)
+Date: Thu, 17 Sep 2026 08:15:01 -0700
+From: Dmitry Torokhov <dmitry.torokhov@gmail.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: dudl@cypress.com, linux-input@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] Input: cyapa - fix runtime PM leak in
+ cyapa_update_rt_suspend_scanrate()
+Message-ID: <aqwD1o6J4svIevWW@google.com>
+References: <20260916185015.2093520-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACnFD_iA6xqs1GDCA--.5505S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XFW8Jr4rWFy3Xw1rWF4Durg_yoWkKFb_ua
-	1Ivr97X348KFn5J3WrKry7Zr12vrsFq34kuFsYvFs2kw1jvrZ8XFs7Gwn0yrsrW3yvv3yU
-	Gw1DX393ury8GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbgxYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
-	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
-	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
-	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
-	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
-	07UZSdgUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qr9LYlBgAAsz
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260916185015.2093520-1-vulab@iscas.ac.cn>
 
-mpt3sas_get_sdev_by_addr() takes a reference on the sas device, but the
-new hba_port pointer is merely stored in sas_device->port, so the
-reference is never released. The sas device is thus leaked every time
-a vSES device moves to another Port ID after a reset.
+Hi Wentao,
 
-Drop the extra reference once the port pointer has been updated.
+On Wed, Sep 16, 2026 at 06:50:15PM +0000, Wentao Liang wrote:
+> pm_runtime_get_sync() unconditionally increments the runtime PM usage
+> counter. If mutex_lock_interruptible() is interrupted, the function
+> returns without dropping that reference. Add the missing
+> pm_runtime_put_sync_autosuspend() call on the error path.
+> 
+> Fixes: 672865080a8f ("Input: cyapa - add runtime power management support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/input/mouse/cyapa.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/input/mouse/cyapa.c b/drivers/input/mouse/cyapa.c
+> index 6e0d956617a1..5edf4fdbb373 100644
+> --- a/drivers/input/mouse/cyapa.c
+> +++ b/drivers/input/mouse/cyapa.c
+> @@ -901,8 +901,10 @@ static ssize_t cyapa_update_rt_suspend_scanrate(struct device *dev,
+>  	pm_runtime_get_sync(dev);
+>  
+>  	error = mutex_lock_interruptible(&cyapa->state_sync_lock);
+> -	if (error)
+> +	if (error) {
+> +		pm_runtime_put_sync_autosuspend(dev);
 
-Fixes: ffa381d6373b ("scsi: mpt3sas: Handle vSES vphy object during HBA reset")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/scsi/mpt3sas/mpt3sas_scsih.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+Why does it have to be "sync" variant?
 
-diff --git a/drivers/scsi/mpt3sas/mpt3sas_scsih.c b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-index c841fe1706c7..550a5e4fec10 100644
---- a/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-+++ b/drivers/scsi/mpt3sas/mpt3sas_scsih.c
-@@ -6415,8 +6415,10 @@ _scsih_update_vphys_after_reset(struct MPT3SAS_ADAPTER *ioc)
- 					    &mport->vphys_list);
- 					sas_device = mpt3sas_get_sdev_by_addr(
- 					    ioc, attached_sas_addr, port);
--					if (sas_device)
-+					if (sas_device) {
- 						sas_device->port = mport;
-+						sas_device_put(sas_device);
-+					}
- 				}
- 				/*
- 				 * Earlier while updating the hba_port table,
+Thanks.
+
 -- 
-2.34.1
-
+Dmitry
