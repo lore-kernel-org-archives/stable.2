@@ -1,32 +1,34 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1683A440A07;
-	Thu, 17 Sep 2026 09:36:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8DC044B1CE6;
+	Thu, 17 Sep 2026 09:37:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637823; cv=none; b=n+/KoIJ/aPfri8oSakXmApW6f2sl6mR6FiwEYK5mjcmdRMqzjt9rkLzM8lYtRVfNDbJ3B+xQPt/v0RcS8zKKuugcIHT28pPRlL3jk3sZQ2FInTtmxCF7SkEI/X+hkQp9/GZHZ8HVRqdAfaBhs0Wi8RcQwsf1HT5HUFEFtsBDRDw=
+	t=1789637888; cv=none; b=Mmt5DR2SXDXR6pVvxwXzS1+bbuKf85ZxxJ8jkpGsmSL05WxQeVnkMKA2ZxnAqn4Ex3tI0GOlXoi7MhRc3wIZQTTNZbuD4B/pv5t0dDD8hKoItiDB0tAuba1dES6V0R2MqvSSywifaVdP8+81+QZsh8HENO6+9BTY90er56O6JNg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637823; c=relaxed/simple;
-	bh=Ef2hvkf7vwnpshLd3Fy/dachfnpC6W2xudbHwBNL/5k=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kOdcFxlVf9jZ9+lhE0YDAWWbpsxTi1hNLGBE3j7BVUXhHe7IOLNY35OFvsxzDCfX/B3Lnx9tMGwhc6c+mLhq9Of6hRAphkR81LDW/9gtSimrpogxN7D21OlgA213TAsg4tAArcKs51hrjNDpnEUIXrKF1U7NntqOTb29l30IqQ0=
+	s=arc-20240116; t=1789637888; c=relaxed/simple;
+	bh=mybn1VSLp+vbEY9o/N1PfHKCTE3Z5ZwxFj9ZXSY03XY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OAgfmwL/4gYKH7Nl4TIv39bFrFRAZqDEl9d6/4i7wjZq0xkxFzWtNWaS7BdRoQjbHIhmI8bHEb+XiZtE8SnkANXkrUgyNnzaK7ol4/WpHbZxBfY8+WZY4t62r+GvmEI9UqVpCD6W93NCRdc3GOhpOdbxmeTNj9215k2cPxg3qwk=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABnmEKptKtqGcd9CA--.40725S2;
-	Thu, 17 Sep 2026 17:36:41 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowACnFD_ptKtqV8t9CA--.40357S2;
+	Thu, 17 Sep 2026 17:37:46 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: lee@kernel.org
-Cc: linusw@kernel.org,
+To: angelogioacchino.delregno@collabora.com
+Cc: jason-jh.lin@mediatek.com,
+	jassisinghbrar@gmail.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-leds@vger.kernel.org,
-	pavel@kernel.org,
+	linux-mediatek@lists.infradead.org,
+	matthias.bgg@gmail.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] leds: netxbig: Fix platform device reference leak on successful probe
-Date: Thu, 17 Sep 2026 09:36:41 +0000
-Message-Id: <20260917093641.2144866-1-vulab@iscas.ac.cn>
+Subject: [PATCH] mailbox: mtk-cmdq: Fix GCE clock reference leak in cmdq_get_clocks()
+Date: Thu, 17 Sep 2026 09:37:45 +0000
+Message-Id: <20260917093745.2144930-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -35,53 +37,83 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABnmEKptKtqGcd9CA--.40725S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrurW5Cw1DXr4rGr45tr47Jwb_yoWDXwb_ur
-	yIg3s7XFW8XF40yw15Zr1YvryfCFsrXF48ursFvas5JrW3XrW3WrWq9r98Cr1DZa1xAFn8
-	CFnruF15Aw17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbsxFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
-	aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07
-	x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17
-	McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
-	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
-	jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0x
-	ZFpf9x0JUdKsbUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3Yp0AAAsv
+X-CM-TRANSID:zQCowACnFD_ptKtqV8t9CA--.40357S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7KF4kKF45GFWDAF45CrWDtwb_yoW8uw4fpF
+	4qyFy5ArWUJFn7WrsIvr1kAF9Y93WSqFWSkwna9ayvvrs8Ary5XFyUJFy8XF98AFyfAanr
+	X3Z5tr1UCr4DAFUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUvm1xkIjI8I6I8E6xAIw20EY4v20xvaj40_Wr0E3s1l1IIY67AE
+	w4v_Jr0_Jr4l8cAvFVAK0II2c7xJM28CjxkF64kEwVA0rcxSw2x7M28EF7xvwVC0I7IYx2
+	IY67AKxVW5JVW7JwA2z4x0Y4vE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1l84ACjcxK6I8E
+	87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_GcCE3s1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jrv_
+	JF1lYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
+	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY
+	0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r
+	4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF
+	67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2I
+	x0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2
+	z280aVAFwI0_Cr0_Gr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnU
+	UI43ZEXa7VU1eWlPUUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq00rowAAs7
 
-of_find_device_by_node() returns the GPIO extension device with an
-elevated reference count.  The error paths release it through the
-put_device label, but the success path returns directly, so the
-reference is leaked whenever the LED driver probes successfully.
+of_clk_get() returns the clock with an elevated reference count, but
+the references taken for the other GCE clocks are never dropped: those
+clocks outlive probe and the driver calls neither clk_put() nor
+clk_bulk_put(), so probing a GCE with multiple instances leaks one
+reference per other GCE clock.
 
-Let the success path fall through to the put_device label.
+Let devres drop the references when the device goes away, which also
+covers the probe failure paths after cmdq_get_clocks() has returned.
 
-Fixes: 9af512e81964 ("leds: netxbig: Convert to use GPIO descriptors")
+Fixes: 85dfdbfc13ea ("mailbox: cmdq: add multi-gce clocks support for mt8195")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/leds/leds-netxbig.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/mailbox/mtk-cmdq-mailbox.c | 18 ++++++++++++++++++
+ 1 file changed, 18 insertions(+)
 
-diff --git a/drivers/leds/leds-netxbig.c b/drivers/leds/leds-netxbig.c
-index 99df46f2d9f5..d79fee1d9143 100644
---- a/drivers/leds/leds-netxbig.c
-+++ b/drivers/leds/leds-netxbig.c
-@@ -597,8 +597,7 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
- 	pdata->leds = leds;
- 	pdata->num_leds = num_leds;
+diff --git a/drivers/mailbox/mtk-cmdq-mailbox.c b/drivers/mailbox/mtk-cmdq-mailbox.c
+index e523c84b4808..eadd340f8fee 100644
+--- a/drivers/mailbox/mtk-cmdq-mailbox.c
++++ b/drivers/mailbox/mtk-cmdq-mailbox.c
+@@ -633,11 +633,22 @@ static struct mbox_chan *cmdq_xlate(struct mbox_controller *mbox,
+ 	return &mbox->chans[ind];
+ }
  
--	return 0;
--
-+	ret = 0;
- put_device:
- 	put_device(gpio_ext_dev);
- 	return ret;
++static void cmdq_put_clocks(void *data)
++{
++	struct cmdq *cmdq = data;
++	u32 i;
++
++	for (i = 0; i < cmdq->pdata->gce_num; i++)
++		if (!IS_ERR_OR_NULL(cmdq->clocks[i].clk))
++			clk_put(cmdq->clocks[i].clk);
++}
++
+ static int cmdq_get_clocks(struct device *dev, struct cmdq *cmdq)
+ {
+ 	static const char * const gce_name = "gce";
+ 	struct device_node *parent = dev->of_node->parent;
+ 	struct clk_bulk_data *clks;
++	int ret;
+ 
+ 	cmdq->clocks = devm_kcalloc(dev, cmdq->pdata->gce_num,
+ 				    sizeof(*cmdq->clocks), GFP_KERNEL);
+@@ -660,7 +671,14 @@ static int cmdq_get_clocks(struct device *dev, struct cmdq *cmdq)
+ 	 * If there is more than one GCE, get the clocks for the others too,
+ 	 * as the clock of the main GCE must be enabled for additional IPs
+ 	 * to be reachable.
++	 *
++	 * Those clocks are not devm-managed, so keep track of their
++	 * references and drop them when this device goes away.
+ 	 */
++	ret = devm_add_action_or_reset(dev, cmdq_put_clocks, cmdq);
++	if (ret)
++		return ret;
++
+ 	for_each_child_of_node_scoped(parent, node) {
+ 		int alias_id = of_alias_get_id(node, gce_name);
+ 
 -- 
 2.34.1
 
