@@ -1,262 +1,120 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0977F3909A6;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C3864FDE58;
 	Thu, 17 Sep 2026 17:49:35 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789667377; cv=none; b=GAhNwKbSdvm/d/ElSOjJhBVB8+Pr2ZP5RR3S1GKcSz5h124NgLe6dZs6sNxxnjx9sFiV1COiu3/PuOCRusITBlYkMitH9YNoPhau8doulHifZdiqSFztcKFgJAyLGI7+NZ7W4k4tuPaK/WqBKRNKt1JPxseqwyHF5Qzl9UUudww=
+	t=1789667377; cv=none; b=EIr+WC/KfFsQ5bSV/iwufAyIxvvtvP7pkALazWXJIDtDfYjKrxluWPeZ+g0DKgURtbSEXGzmzwjZFGGMxHgKKk29PxSgZC148jJasgqAirzYxrg61lGEHX8yVvtDWXquY/J7D31k9JrIZ7NXeH3E1bW0uQS7qrgDVlfstorXl08=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789667377; c=relaxed/simple;
-	bh=LYMGRhZb1spVe8+GnVU9BTmoU1TeV1f/dLbELKVZjgM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=skIARGjAYbrF7PXsqXUTfDweHndy6jI1tzo5Pe+xartensDXpiHc1tgCgzhSAYYR4cvo5hd62Iq82s3zF3eRZtcl45mShEmjnov2QX5dpF34+WOaKnMPMXQZi+eLMhSumgwH5es/UPaKaiW+YKOPVg8+m1Df3tyu6gVm0AAGQNQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=OBvjsP4n; arc=none smtp.client-ip=100.103.45.18
+	bh=qlGLGqUH06pzTCkJSL7fhwohFxkWdIYNz/ZV4aBoKFU=;
+	h=MIME-Version:Date:From:To:Cc:Message-Id:In-Reply-To:References:
+	 Subject:Content-Type; b=bmwHmvfh+1fwf3fT9DJqwxLq6iVl9q7WdWJjzRjswDOE4FBLBiE0PBULgnhqrlTZ9n3AqfHoLAg23L7uoeUxoUUR4yY417jBr8VAEaDEqsiV0RvHNW5RdMjll9VTn5U2JMA6MILffRA7ssaPSFcWuiuX7W2lKWGS7hI8mdQ/+w4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F6oMLpHU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="OBvjsP4n"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B5201F00899;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F6oMLpHU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0236A1F00893;
 	Thu, 17 Sep 2026 17:49:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789667375;
-	bh=FR2saeY36jTd6iidqcd7Yug/buu61CX1uMHZoaje0L8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=OBvjsP4nP1XMMPZzCTgqqqC1eidjzx0fJBgT7wwNogIMrwnEl5uHiKTMzjLQf5GYp
-	 8Ud0lNDgzboYkcIj2dQjrBD5BjrfF92HVZlNPWcquKv8SoPYfaEgfr8wI0nR/y1jpS
-	 cFVqYREdCNSpxUX00E1PhD3Pa/isuS8M68Frxa1g=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	"chunzhi.lin" <linchunzhi0@gmail.com>,
-	Andrew Lunn <andrew@lunn.ch>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0072/1102] net: phy: motorcomm: use device properties for firmware tuning
-Date: Thu, 17 Sep 2026 16:00:15 +0100
-Message-ID: <20260917151541.274168790@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789667375;
+	bh=Z6FUhQvM1fueUk6e12Do3OrY3qA7zAenImxUw4n/zUU=;
+	h=Date:From:To:Cc:In-Reply-To:References:Subject;
+	b=F6oMLpHU3pduwt5HszTFa2L7DAz/K6YSIxg7aX8Sxo2jrnzWUaPz/k8aQQZhyuENH
+	 98kM4TfK8u99EV1K/FDu8LiXDt+0f5u4LsmV9hMzsmK7OI4hQ6dh2AYhBv48jqzWSV
+	 7wXBQ8zyzbcukZRO1vNDKDLaM12TNFYLrA7x9CtfnJn1x2Tm0decpcnCW90d5Ya/gn
+	 5hUYUZVCkaFPeMRjkeq6ZbcbZVUmoDhQ109G+H/WoQaUobe4Ar/iVNIjK19m8tB9oQ
+	 mdLQAlj2/XbqVqIPimVYpC1usU4X28sv1d/SjObdDTDixbeGfjUJOV6041jK4HFfX9
+	 PtrzxogargY+g==
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfauth.phl.internal (Postfix) with ESMTP id 27381F40068;
+	Thu, 17 Sep 2026 13:49:34 -0400 (EDT)
+Received: from phl-imap-04 ([10.202.2.82])
+  by phl-compute-02.internal (MEProxy); Thu, 17 Sep 2026 13:49:34 -0400
+X-ME-Sender: <xms:Liisam4JbV5gf7K4T41fXZjTTK83uCYPhvO-XxYhDYszVaoiouaeHg>
+    <xme:Liisaqur3BuNrpJQgR4uHaMG_qnqXnEr1C738-VWwOgs3N-4VznMZMW8zNK_AcSrA
+    MqC4r1sr3mzxCHcS3I5KnAMsHHoZ8sJ-0XGb0aHpRweyH1vu9TXsnim>
+X-ME-Proxy-Cause: dmFkZTFgbo5LtZjYkYhdzWE3W3AnMjzTanjxdoOLJV3IM5RMzLBQJ/FHw9J2uHzNWIKnZU
+    2Eg6jJ8Yp/j2I9CtuMXI8KfYSOL9qLNUbHCnHJ/+BBzn4JtdjPtx8lAPYY9LJ3KpnhGYZ4
+    zITVT8tyYoEt5EJp6WCPZ/yqvFKV2DfJHK6fs8tKrAOoDp8hxGw4U376Kjq+oOMWOdExds
+    1Wds+XXhMk0j+UkhcUjbMIykE92Kz1Hs8cgOfHBNrimHpK533XjR4zJHOtjN2L8vdg3AU7
+    dhkj1NUXggTCNLLnP4d1VTibnBTVskO2qg/43q68KbkeF6pgrrYdqqjq8WvyqAgZBpZkWD
+    TGnmTvk5FDcTVwG09QgNZ/WJ1D+oBoEpvFh4JZQYEAErouUX1IKgodPIaeuDThCnsguCXk
+    P/DWWndZj7DX6zQKmZ4Oitdf7CIgVIK6tbbHMzfWkTxUHdLcUVln4oOj47H1HiKyZ9NXgA
+    KIUuYky+Hmbk2HBoUi8ZLQ/EmOMACAsd9wIkV2PD5IBlT/hug+7oUlcwpKY8A6dpl8cd+L
+    gF2fNf1WDWqxZpWCbBTjl07TF/WmO75YSyeBtALu7iZ3JEgjtyI+VMdn4+nTSeNhkH1p7j
+    yC7M7To0xLEGkwxDdI5Iu3S00IAhQkd2aXN7F24tipAPO40OZVZvaAR/ZB3Q
+X-ME-Proxy: <xmx:Liisaulc_S2MPlNFhQfmyZN0-6CNXNP5vxo_KNFmYp6D-5BKNgICVw>
+    <xmx:LiisavJUE88-LuRXJ_-1RNEbYDPLJ0mQ-1KecG1VtKZ947MjaZPc0w>
+    <xmx:Liisaj5mGhvmB7VNyGGG3CxQfcFAhAtPssuV2RLM-8LNsoufLLLL4w>
+    <xmx:Liisaj1bcdbnnK3ZimQwTK86Dkv73s_sW4Gq5dRkfFjVsspkQiBOcQ>
+    <xmx:LiisapcdgTazdnAyEe4yeBzDT5CobdEe9fxhfcg1-4x4kLPZl0LC6WGr>
+Feedback-ID: i20964851:Fastmail
+Received: by mailuser.phl.internal (Postfix, from userid 501)
+	id ED23DB6006E; Thu, 17 Sep 2026 13:49:33 -0400 (EDT)
+X-Mailer: MessagingEngine.com Webmail Interface
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+X-ThreadId: AUia67BXevYs
+Date: Thu, 17 Sep 2026 13:49:13 -0400
+From: "Anna Schumaker" <anna@kernel.org>
+To: "Wentao Liang" <vulab@iscas.ac.cn>
+Cc: linux-kernel@vger.kernel.org, linux-nfs@vger.kernel.org,
+ "Trond Myklebust" <trondmy@kernel.org>, stable@vger.kernel.org
+Message-Id: <b99eb918-37ae-4bea-8661-b74c8e9b11cc@app.fastmail.com>
+In-Reply-To: <20260917162950.2162357-1-vulab@iscas.ac.cn>
+References: <20260917162950.2162357-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] NFS: Fix layout header use-after-free in pnfs_update_layout()
+Content-Type: text/plain
+Content-Transfer-Encoding: 7bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+Hi Wentao,
 
-------------------
+On Thu, Sep 17, 2026, at 12:29 PM, Wentao Liang wrote:
+> When waiting for an in-progress layoutreturn to complete, the retry path
+> drops the reference on the layout header with pnfs_put_layout_hdr() and
+> only then passes the layout header to trace_pnfs_update_layout(). If
+> that was the last reference, for example because the layout was torn
+> down while the task slept in pnfs_prepare_to_retry_layoutget(), the
+> tracepoint dereferences freed memory.
+>
+> Move the pnfs_put_layout_hdr() call after the tracepoint so the layout
+> header is still valid while it is being traced.
+>
+> Fixes: 2c8d5fc37fe2 ("pNFS: Stricter ordering of layoutget and layoutreturn")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-From: chunzhi.lin <linchunzhi0@gmail.com>
+This patch is already upstream as commit 13e198a90ca4 (included as part of
+Linux 7.2).
 
-[ Upstream commit fffedfece2b46bb99b00740697f6c0c874de3cf4 ]
+Thanks,
+Anna
 
-The Motorcomm PHY driver reads optional firmware properties via
-of_property_read_*() from phydev->mdio.dev.of_node. This works for
-Device Tree based systems, but causes ACPI platforms to ignore the same
-properties when they are supplied through _DSD.
-
-As a result, ACPI-described Motorcomm PHY devices fall back to default
-settings instead of applying firmware-provided tuning such as
-rx/tx internal delay, drive strength, clock output frequency, and
-optional boolean controls like auto-sleep-disabled,
-keep-pll-enabled, and tx clock inversion.
-
-Switch these lookups to device_property_read_*() so the driver uses the
-generic firmware node interface and can consume the same property names
-from either Device Tree or ACPI.
-
-This keeps the existing DT behavior unchanged while allowing ACPI
-platforms to honor PHY configuration from firmware.
-
-We have completed testing on Sophgo RISC-V architecture server SD3-10.
-This server has a 64-core Thead C920 CPU whose DWMAC is connected to
-Motorcomm's PHY YT8531. This server supports UEFI boot and it would like
-to use the ACPI table.
-
-Signed-off-by: chunzhi.lin <linchunzhi0@gmail.com>
-Reviewed-by: Andrew Lunn <andrew@lunn.ch>
-Link: https://patch.msgid.link/20260507040221.3679454-2-linchunzhi0@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/phy/motorcomm.c | 41 ++++++++++++++++++-------------------
- 1 file changed, 20 insertions(+), 21 deletions(-)
-
-diff --git a/drivers/net/phy/motorcomm.c b/drivers/net/phy/motorcomm.c
-index 0e91f5d1a4fdb..f231f4bb3e07e 100644
---- a/drivers/net/phy/motorcomm.c
-+++ b/drivers/net/phy/motorcomm.c
-@@ -10,7 +10,7 @@
- #include <linux/kernel.h>
- #include <linux/module.h>
- #include <linux/phy.h>
--#include <linux/of.h>
-+#include <linux/property.h>
- 
- #define PHY_ID_YT8511		0x0000010a
- #define PHY_ID_YT8521		0x0000011a
-@@ -829,12 +829,12 @@ static u32 ytphy_get_delay_reg_value(struct phy_device *phydev,
- 				     u16 *rxc_dly_en,
- 				     u32 dflt)
- {
--	struct device_node *node = phydev->mdio.dev.of_node;
-+	struct device *dev = &phydev->mdio.dev;
- 	int tb_size_half = tb_size / 2;
- 	u32 val;
- 	int i;
- 
--	if (of_property_read_u32(node, prop_name, &val))
-+	if (device_property_read_u32(dev, prop_name, &val))
- 		goto err_dts_val;
- 
- 	/* when rxc_dly_en is NULL, it is get the delay for tx, only half of
-@@ -978,12 +978,12 @@ static int yt8531_get_ds_map(struct phy_device *phydev, u32 cur)
- 
- static int yt8531_set_ds(struct phy_device *phydev)
- {
--	struct device_node *node = phydev->mdio.dev.of_node;
-+	struct device *dev = &phydev->mdio.dev;
- 	u32 ds_field_low, ds_field_hi, val;
- 	int ret, ds;
- 
- 	/* set rgmii rx clk driver strength */
--	if (!of_property_read_u32(node, "motorcomm,rx-clk-drv-microamp", &val)) {
-+	if (!device_property_read_u32(dev, "motorcomm,rx-clk-drv-microamp", &val)) {
- 		ds = yt8531_get_ds_map(phydev, val);
- 		if (ds < 0)
- 			return dev_err_probe(&phydev->mdio.dev, ds,
-@@ -1000,7 +1000,7 @@ static int yt8531_set_ds(struct phy_device *phydev)
- 		return ret;
- 
- 	/* set rgmii rx data driver strength */
--	if (!of_property_read_u32(node, "motorcomm,rx-data-drv-microamp", &val)) {
-+	if (!device_property_read_u32(dev, "motorcomm,rx-data-drv-microamp", &val)) {
- 		ds = yt8531_get_ds_map(phydev, val);
- 		if (ds < 0)
- 			return dev_err_probe(&phydev->mdio.dev, ds,
-@@ -1033,7 +1033,6 @@ static int yt8531_set_ds(struct phy_device *phydev)
-  */
- static int yt8521_probe(struct phy_device *phydev)
- {
--	struct device_node *node = phydev->mdio.dev.of_node;
- 	struct device *dev = &phydev->mdio.dev;
- 	struct yt8521_priv *priv;
- 	int chip_config;
-@@ -1083,7 +1082,7 @@ static int yt8521_probe(struct phy_device *phydev)
- 			return ret;
- 	}
- 
--	if (of_property_read_u32(node, "motorcomm,clk-out-frequency-hz", &freq))
-+	if (device_property_read_u32(dev, "motorcomm,clk-out-frequency-hz", &freq))
- 		freq = YTPHY_DTS_OUTPUT_CLK_DIS;
- 
- 	if (phydev->drv->phy_id == PHY_ID_YT8521) {
-@@ -1151,11 +1150,11 @@ static int yt8521_probe(struct phy_device *phydev)
- 
- static int yt8531_probe(struct phy_device *phydev)
- {
--	struct device_node *node = phydev->mdio.dev.of_node;
-+	struct device *dev = &phydev->mdio.dev;
- 	u16 mask, val;
- 	u32 freq;
- 
--	if (of_property_read_u32(node, "motorcomm,clk-out-frequency-hz", &freq))
-+	if (device_property_read_u32(dev, "motorcomm,clk-out-frequency-hz", &freq))
- 		freq = YTPHY_DTS_OUTPUT_CLK_DIS;
- 
- 	switch (freq) {
-@@ -1647,7 +1646,7 @@ static int yt8521_resume(struct phy_device *phydev)
-  */
- static int yt8521_config_init(struct phy_device *phydev)
- {
--	struct device_node *node = phydev->mdio.dev.of_node;
-+	struct device *dev = &phydev->mdio.dev;
- 	int old_page;
- 	int ret = 0;
- 
-@@ -1662,7 +1661,7 @@ static int yt8521_config_init(struct phy_device *phydev)
- 			goto err_restore_page;
- 	}
- 
--	if (of_property_read_bool(node, "motorcomm,auto-sleep-disabled")) {
-+	if (device_property_read_bool(dev, "motorcomm,auto-sleep-disabled")) {
- 		/* disable auto sleep */
- 		ret = ytphy_modify_ext(phydev, YT8521_EXTREG_SLEEP_CONTROL1_REG,
- 				       YT8521_ESC1R_SLEEP_SW, 0);
-@@ -1670,7 +1669,7 @@ static int yt8521_config_init(struct phy_device *phydev)
- 			goto err_restore_page;
- 	}
- 
--	if (of_property_read_bool(node, "motorcomm,keep-pll-enabled")) {
-+	if (device_property_read_bool(dev, "motorcomm,keep-pll-enabled")) {
- 		/* enable RXC clock when no wire plug */
- 		ret = ytphy_modify_ext(phydev, YT8521_CLOCK_GATING_REG,
- 				       YT8521_CGR_RX_CLK_EN, 0);
-@@ -1683,14 +1682,14 @@ static int yt8521_config_init(struct phy_device *phydev)
- 
- static int yt8531_config_init(struct phy_device *phydev)
- {
--	struct device_node *node = phydev->mdio.dev.of_node;
-+	struct device *dev = &phydev->mdio.dev;
- 	int ret;
- 
- 	ret = ytphy_rgmii_clk_delay_config_with_lock(phydev);
- 	if (ret < 0)
- 		return ret;
- 
--	if (of_property_read_bool(node, "motorcomm,auto-sleep-disabled")) {
-+	if (device_property_read_bool(dev, "motorcomm,auto-sleep-disabled")) {
- 		/* disable auto sleep */
- 		ret = ytphy_modify_ext_with_lock(phydev,
- 						 YT8521_EXTREG_SLEEP_CONTROL1_REG,
-@@ -1699,7 +1698,7 @@ static int yt8531_config_init(struct phy_device *phydev)
- 			return ret;
- 	}
- 
--	if (of_property_read_bool(node, "motorcomm,keep-pll-enabled")) {
-+	if (device_property_read_bool(dev, "motorcomm,keep-pll-enabled")) {
- 		/* enable RXC clock when no wire plug */
- 		ret = ytphy_modify_ext_with_lock(phydev,
- 						 YT8521_CLOCK_GATING_REG,
-@@ -1726,7 +1725,7 @@ static int yt8531_config_init(struct phy_device *phydev)
-  */
- static void yt8531_link_change_notify(struct phy_device *phydev)
- {
--	struct device_node *node = phydev->mdio.dev.of_node;
-+	struct device *dev = &phydev->mdio.dev;
- 	bool tx_clk_1000_inverted = false;
- 	bool tx_clk_100_inverted = false;
- 	bool tx_clk_10_inverted = false;
-@@ -1734,17 +1733,17 @@ static void yt8531_link_change_notify(struct phy_device *phydev)
- 	u16 val = 0;
- 	int ret;
- 
--	if (of_property_read_bool(node, "motorcomm,tx-clk-adj-enabled"))
-+	if (device_property_read_bool(dev, "motorcomm,tx-clk-adj-enabled"))
- 		tx_clk_adj_enabled = true;
- 
- 	if (!tx_clk_adj_enabled)
- 		return;
- 
--	if (of_property_read_bool(node, "motorcomm,tx-clk-10-inverted"))
-+	if (device_property_read_bool(dev, "motorcomm,tx-clk-10-inverted"))
- 		tx_clk_10_inverted = true;
--	if (of_property_read_bool(node, "motorcomm,tx-clk-100-inverted"))
-+	if (device_property_read_bool(dev, "motorcomm,tx-clk-100-inverted"))
- 		tx_clk_100_inverted = true;
--	if (of_property_read_bool(node, "motorcomm,tx-clk-1000-inverted"))
-+	if (device_property_read_bool(dev, "motorcomm,tx-clk-1000-inverted"))
- 		tx_clk_1000_inverted = true;
- 
- 	if (phydev->speed < 0)
--- 
-2.53.0
-
-
-
+> ---
+>  fs/nfs/pnfs.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+>
+> diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
+> index 743467e9ba20..aee523134c0f 100644
+> --- a/fs/nfs/pnfs.c
+> +++ b/fs/nfs/pnfs.c
+> @@ -2229,11 +2229,11 @@ pnfs_update_layout(struct inode *ino,
+>  		dprintk("%s wait for layoutreturn\n", __func__);
+>  		lseg = ERR_PTR(pnfs_prepare_to_retry_layoutget(lo));
+>  		if (!IS_ERR(lseg)) {
+> -			pnfs_put_layout_hdr(lo);
+>  			dprintk("%s retrying\n", __func__);
+>  			trace_pnfs_update_layout(ino, pos, count, iomode, lo,
+>  						 lseg,
+>  						 PNFS_UPDATE_LAYOUT_RETRY);
+> +			pnfs_put_layout_hdr(lo);
+>  			goto lookup_again;
+>  		}
+>  		trace_pnfs_update_layout(ino, pos, count, iomode, lo, lseg,
+> -- 
+> 2.34.1
