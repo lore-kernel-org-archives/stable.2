@@ -1,93 +1,77 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 367102FFF89;
-	Thu, 17 Sep 2026 00:46:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33356327BFC;
+	Thu, 17 Sep 2026 00:53:03 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789605981; cv=none; b=ZEsxWVrtUNua/RSId7/tBh2MdsoUQoYUT+V0erIpl3+HBLp9xOG/1Xm4HvRXrKkFISEeEMma5gy70TvJk5jmOHtRPYZ0AuvvFJeYE/ah9sSA9AOBhritYO2acBgnZAawJR3fPODuwIry7u8KPZe5iw1FO3MMznryLpIOBGwb8rE=
+	t=1789606385; cv=none; b=odJwZaCOGLf9NzA8suB0Y4mnLvljje5euFjWAo8I+4PXRxioL1Bi4gkJaD5afhbJbpveMo+gK3VUyx+zsKUOweA1QL9I4CsCBZRC8kamBAe1OHMlp65jX+46f15RUxDgJE2cFCiLE6Q9BvDv4vvj76X7nKVDBIaM5AzAac51NpQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789605981; c=relaxed/simple;
-	bh=iqJYXgEH9qZMvSzZ9xBTGk1/A/W8HLdmT9OV8hVON3w=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=TblwHpoI8CLeu8LBNgdwOboUdtKKjbbpahXbraDmOGt5VleuAdniSEe/AJAnscX6d77myteyh9XMCzN+3O/8TSvz/MmiOynFpzeC4ZT372LZE4g1ZcefGMXlTYecTnnZOfjTDKVKnaSQ3zNShmBJe0vzci+MpQZgBFDaLxDuzw8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Z5WAWCnD; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789606385; c=relaxed/simple;
+	bh=RXDABBWl8h9KoTfRjPtbxbE9H0GgjDQfNxrEnnWGIj4=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=Ko4HVKwa9Z2gE1WuKUYaP3ObNbi9WRAMzZgJpjSlCJ/zz1jfPslh8sJ0v5r4JA5sFO0mBYAvh1btc1aeErir8DXMBvIBwON3FZ84QUfJWc3MIc/bsnFUmdFvESH96KK8bpitzW6CvfptYr3XBPhdIgAbLw+gud+7LzYAHiat/zY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YB1t4XGL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Z5WAWCnD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id AC1011F000FF;
-	Thu, 17 Sep 2026 00:46:19 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789605979;
-	bh=kODMTwp9UdPIjAoMzL9lKaKV0Ew12+aWAZOelw7CRbs=;
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YB1t4XGL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 424431F000FF;
+	Thu, 17 Sep 2026 00:53:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789606383;
+	bh=TnRI04J838QlW2j+xCXhg0sb63Rekek+/bnqBaKeWU8=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=Z5WAWCnD4svSQvzB4lJ+lYh+cI//DC4gsH32lN/lxIUoQobN3bNbDiwVh6TFUdrir
-	 POvuuRtP1ruUE7nCjDNPmtzyfMyWT7cwG1J03FZFY2fIiWhGFX/ZG5uX5EVndIDLkm
-	 ulUYmxCvUEfV7nG06i0NRjHNUUqqJLY5pjQVRQ6wz9LW6NMj/p7R2b4gt5IoBrYQxz
-	 vc/ITFsdDQiu0ZEy+is1T3Qiemwntg0J3LgZkzI2BOA34xFOhqR20/tFtt4Mt2Go04
-	 HNvdp5ZL1Pet0v/p5uLRwZH7ltyQwLNcnft/YN9wDUBqZxw01WAd+Xtgv783v5X2wR
-	 JWk+pO25j0F2g==
-Date: Thu, 17 Sep 2026 01:46:16 +0100
-From: Jonathan Cameron <jic23@kernel.org>
-To: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-Cc: Biju Das <biju.das.jz@bp.renesas.com>, William Breathitt Gray
- <wbg@kernel.org>, Lee Jones <lee@kernel.org>, linux-iio@vger.kernel.org,
- linux-renesas-soc@vger.kernel.org, linux-kernel@vger.kernel.org,
+	b=YB1t4XGLoufbU+Z0ue2LWK4XzpzfthDFE7spCTSt0hJ0wcPOszFpvOerzgKStdw/s
+	 lCZwU/fLZOt2ZGG+VXrv4aDXIe36Fw1GhmQFDU6dgnR1p3AFaIIyEbcn3fjIL5cnwV
+	 QKtIIt5AerXE/Hf2PwPK6T6FhPutQCtf3QlTkYIA=
+Date: Wed, 16 Sep 2026 17:53:02 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Hongfu Li <hongfu.li@linux.dev>
+Cc: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>,
+ David Hildenbrand <david@kernel.org>, Kees Cook <kees@kernel.org>, Colin
+ Ian King <colin.i.king@gmail.com>, Shakeel Butt <shakeel.butt@linux.dev>,
+ Mina Almasry <almasrymina@google.com>, Mike Kravetz
+ <mike.kravetz@oracle.com>, linux-mm@kvack.org,
+ linux-kernel@vger.kernel.org, Hongfu Li <lihongfu@kylinos.cn>,
  stable@vger.kernel.org
-Subject: Re: [PATCH 01/15] counter: rz-mtu3-cnt: put runtime PM on
- initialization error path
-Message-ID: <20260917014616.17b5f0f2@jic23-hlaptop>
-In-Reply-To: <20260914203614.2035277-2-cosmin-gabriel.tanislav.xa@renesas.com>
-References: <20260914203614.2035277-1-cosmin-gabriel.tanislav.xa@renesas.com>
-	<20260914203614.2035277-2-cosmin-gabriel.tanislav.xa@renesas.com>
-X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
+Subject: Re: [PATCH 0/2] mm/hugetlb_cgroup: move the per-node usage along
+ with the folio
+Message-Id: <20260916175302.be1e68f24b96b7c639cbd7f5@linux-foundation.org>
+In-Reply-To: <20260916-for-hugetlb-charge-v1-0-70fb708b2e4a@kylinos.cn>
+References: <20260916-for-hugetlb-charge-v1-0-70fb708b2e4a@kylinos.cn>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Mon, 14 Sep 2026 23:36:00 +0300
-Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com> wrote:
+On Wed, 16 Sep 2026 16:30:26 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
 
-> If rz_mtu3_initialize_counter() fails, the runtime PM usage count is not
-> decremented.
+> The per-node usage reported by hugetlb.<size>.numa_stat is accounted
+> against folio_nid() in __hugetlb_cgroup_commit_charge() and
+> __hugetlb_cgroup_uncharge_folio(), so it is only correct while a folio
+> stays charged on the same node and in the same hugetlb_cgroup.
 > 
-> rz_mtu3_initialize_counter() will fail if the requested channel is busy.
+> Two paths move a folio which stays charged, and neither moves the usage
+> with it. hugetlb_cgroup_migrate() only moves the hugetlb_cgroup pointers
+> of a folio migrated to another node, and hugetlb_cgroup_move_parent()
+> only moves the page_counter charges and the hugetlb_cgroup pointer of
+> the folios of a dying cgroup. In both cases the node (or cgroup) which
+> was charged keeps a usage which never goes away, while the node
+> (or cgroup) which ends up uncharging the folio underflows as soon as
+> the folio is freed.
 > 
-> Call pm_runtime_put() in the error path to decrement the usage count,
-> and flip the check to keep the success path straightforward.
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: 0be8907359df ("counter: Add Renesas RZ/G2L MTU3a counter driver")
-> Signed-off-by: Cosmin Tanislav <cosmin-gabriel.tanislav.xa@renesas.com>
-> ---
->  drivers/counter/rz-mtu3-cnt.c | 8 ++++++--
->  1 file changed, 6 insertions(+), 2 deletions(-)
-> 
-> diff --git a/drivers/counter/rz-mtu3-cnt.c b/drivers/counter/rz-mtu3-cnt.c
-> index 7bfb6979193c..48f183f0b54f 100644
-> --- a/drivers/counter/rz-mtu3-cnt.c
-> +++ b/drivers/counter/rz-mtu3-cnt.c
-> @@ -506,8 +506,12 @@ static int rz_mtu3_count_enable_write(struct counter_device *counter,
->  	if (enable) {
->  		pm_runtime_get_sync(counter->parent);
->  		ret = rz_mtu3_initialize_counter(counter, count->id);
-> -		if (ret == 0)
-> -			priv->count_is_enabled[count->id] = true;
-> +		if (ret) {
-> +			pm_runtime_put(counter->parent);
-> +			goto exit;
+> Patch 1/2 moves the usage along with the folio on cross node migration,
+> patch 2/2 does the same for the folios a dying cgroup reparents.
 
-I'd use a guard() for the mutex and return here and one more case
-above. Not quite the minimal fix, but will give a more readable result.
+As I understand it, this series affects numa_stat output but has no
+actual runtime effects?
 
-> +		}
-> +
-> +		priv->count_is_enabled[count->id] = true;
->  	} else {
->  		rz_mtu3_terminate_counter(counter, count->id);
->  		priv->count_is_enabled[count->id] = false;
+Do you (and maintainers) think that we should fix this in earlier
+kernels?
 
+(I do - a lot of userspace infrastructure makes expensive decisions
+based on this sort of info).
