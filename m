@@ -1,39 +1,41 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from out28-221.mail.aliyun.com (out28-221.mail.aliyun.com [115.124.28.221])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 766C64F4754;
-	Thu, 17 Sep 2026 12:31:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 90A8B4CC261;
+	Thu, 17 Sep 2026 12:31:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648292; cv=none; b=pfmnRxBuIbslAJtrducPci0gDQ3jBUkjgE0/xOjPtyFK88DEw3Bzr+NEdBSQR+P5F12IIT2+rFRrm2m6hacltPmLS68zs1PXPrwuPpUll0OhDYLh4nI6CRIQ3ISo5oQ2GqK4n4pXwlfe8jNU/+Uf5mp5Y6LtQPGK3jiID9+9URQ=
+	t=1789648314; cv=none; b=oFOr1RG5NY3eENw5hAZojHrANIFNAMCBj17UOiZw5XbOGqSzsjjUMg31pMyxwoESOStaVtQ+fdn89JhNY0YpzyiegnUXxo5K+LCBXL9IFgmscvvQ3298ohmuwlIw2/A4XbUJuykdTvoyAtD2o2U3jKf1rwAiQCl3RC0Zj85/5JU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648292; c=relaxed/simple;
-	bh=tFX70aACYbVglY/BrgID9SLwP7HR+zGgHjTmSnJq03Y=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FyfSlZiovp3JdXABAQMXCCF9RZ3QYnd7MWL7NqcDX7yueFk8Ts7A2mmmwsjAmbgwc27BT7VgqGI05rpVD/hpVhaLEJQLCpgH/pl5FnR/b0LlIWoqW3txSkkZOUGSatVInLopw4Dh3oiHCtn6ueTLJ4XrFFVdQN17cMfJJ/JYsRg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB34jyF3atq5YuACA--.2756S2;
-	Thu, 17 Sep 2026 20:31:01 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: hch@lst.de
-Cc: james_p_freyensee@linux.intel.com,
-	jsmart2021@gmail.com,
-	jthumshirn@suse.de,
-	justin.tee@broadcom.com,
-	kch@nvidia.com,
+	s=arc-20240116; t=1789648314; c=relaxed/simple;
+	bh=Z5iZs8Pmj7lrUrQ6Qx7AwYNRB05di3seUz+6zm3qvp8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=PH2UIFQxCvYFVYo5Bo7P69Qr7aQLp7P5JnBdbWRpw/viKd2ZyJeZ4KvggqYCzziYeAdQjsRyJHOM6f6XQ52PmLNzvslXBoErq/35z4AAdrCex41AWWWuREb2kb1zlQV5Hz1Ru6SxOtjhPnggrN5lD5b09hmzgJGG7R92wLiXvZI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Mv+sxfUf; arc=none smtp.client-ip=115.124.28.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Mv+sxfUf"
+DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=xiaopeng.com; s=default;
+	t=1789648297; h=From:To:Subject:Date:Message-ID:MIME-Version;
+	bh=P5lw9hhVO/HWDptR38l1sHYaWyT1zdds3SbCv75Wjq4=;
+	b=Mv+sxfUfNN2GgBiyfYZUU8isKaq1Kn3pzY1sWcqSz+G84unNDI7yx2oy0hqjLGcOuY5YegL79KSky8eB5XEzz7gmB2lCK7ScZkz3HhO/TP2dzhwUWfOCuiUmBMgRfd5oEqJLLJZWrImiNLxRjDalHHaVQHGYzdVo2E+bqrCRxFk=
+X-Alimail-AntiSpam:AC=CONTINUE;BC=0.07765399|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_regular_dialog|0.0194029-0.00114363-0.979454;FP=12020485485498140115|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033037028158;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=7;RT=7;SR=0;TI=SMTPD_---.jFyaSJF_1789648295;
+Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFyaSJF_1789648295 cluster:ay29)
+          by smtp.aliyun-inc.com;
+          Thu, 17 Sep 2026 20:31:36 +0800
+From: Liu Chao <liuc63@xiaopeng.com>
+To: gregkh@linuxfoundation.org
+Cc: linux-usb@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
 	linux-kernel@vger.kernel.org,
-	linux-nvme@lists.infradead.org,
-	nareshgottumukkala83@gmail.com,
-	paul.ely@broadcom.com,
-	sagi@grimberg.me,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] nvmet-fc: Fix tgtport reference leak in nvmet_fc_alloc_target_assoc()
-Date: Thu, 17 Sep 2026 12:31:01 +0000
-Message-Id: <20260917123101.2151173-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	stable@vger.kernel.org,
+	liuwb@xiaopeng.com,
+	Liu Chao <liuc63@xiaopeng.com>
+Subject: [PATCH] usb: gadget: fsl_udc: validate pipe index in ch9getstatus()
+Date: Thu, 17 Sep 2026 20:31:33 +0800
+Message-ID: <20260917123133.3760392-1-liuc63@xiaopeng.com>
+X-Mailer: git-send-email 2.50.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,65 +43,46 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB34jyF3atq5YuACA--.2756S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZF4UZr1UuF4rtr17Gry8Zrb_yoW8Xw43pF
-	sxGr1xKFW7CFW5twn5AFs0vFy7A3W8W3s7C34fW3ykuF4rt348CFWDKas29F98AF18GFyj
-	gF4DAw18tr45ArDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxU2U73DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwINA2qrrRmTSwABsn
 
-nvmet_fc_alloc_target_assoc() takes a reference on the target port for
-the new association, but nvmet_fc_target_assoc_free() never drops it.
-The reference is only released by nvmet_fc_delete_target_assoc(), which
-is not reached when nvmet_fc_alloc_target_queue() fails and the caller
-tears the association down with nvmet_fc_tgt_a_put() alone, leaking the
-target port reference.
+ch9getstatus() uses get_pipe_by_windex() to compute a pipe index from
+the host-supplied wIndex field and then passes it to get_ep_by_pipe()
+to index the udc->eps[] array.  get_pipe_by_windex() can return up to
+31, but udc->eps[] is allocated with udc->max_ep entries (typically
+8-16 depending on the hardware).
 
-Release the reference in the association destructor, which pairs with
-the reference taken at allocation time, instead of in
-nvmet_fc_delete_target_assoc().
+The SET/CLEAR_FEATURE handler in the same function already checks
+'pipe >= udc->max_ep' (line 1431) before indexing, but the GET_STATUS
+path omits this check, allowing an out-of-bounds access.
 
-Fixes: c53432030d86 ("nvme-fabrics: Add target support for FC transport")
+Add the same pipe >= max_ep guard to the GET_STATUS endpoint path,
+matching the existing check in the feature handler.
+
+Fixes: b504882df105 ("USB: add Freescale high-speed USB SOC device controller driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
+Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
 ---
- drivers/nvme/target/fc.c | 3 +--
- 1 file changed, 1 insertion(+), 2 deletions(-)
+ drivers/usb/gadget/udc/fsl_udc_core.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/nvme/target/fc.c b/drivers/nvme/target/fc.c
-index d161707559ce..a6431f4c5420 100644
---- a/drivers/nvme/target/fc.c
-+++ b/drivers/nvme/target/fc.c
-@@ -1186,6 +1186,7 @@ nvmet_fc_target_assoc_free(struct kref *ref)
- 	ida_free(&tgtport->assoc_cnt, assoc->a_id);
- 	pr_info("{%d:%d}: Association freed\n",
- 		tgtport->fc_target_port.port_num, assoc->a_id);
-+	nvmet_fc_tgtport_put(tgtport);
- 	kfree(assoc);
- }
+diff --git a/drivers/usb/gadget/udc/fsl_udc_core.c b/drivers/usb/gadget/udc/fsl_udc_core.c
+index 20392409a..ed70cc650 100644
+--- a/drivers/usb/gadget/udc/fsl_udc_core.c
++++ b/drivers/usb/gadget/udc/fsl_udc_core.c
+@@ -1344,8 +1344,12 @@ static void ch9getstatus(struct fsl_udc *udc, u8 request_type, u16 value,
+ 	} else if ((request_type & USB_RECIP_MASK) == USB_RECIP_ENDPOINT) {
+ 		/* Get endpoint status */
+ 		struct fsl_ep *target_ep;
++		int pipe = get_pipe_by_windex(index);
  
-@@ -1222,8 +1223,6 @@ nvmet_fc_delete_target_assoc(struct nvmet_fc_tgt_assoc *assoc)
+-		target_ep = get_ep_by_pipe(udc, get_pipe_by_windex(index));
++		if (pipe >= udc->max_ep)
++			goto stall;
++
++		target_ep = get_ep_by_pipe(udc, pipe);
  
- 	pr_info("{%d:%d}: Association deleted\n",
- 		tgtport->fc_target_port.port_num, assoc->a_id);
--
--	nvmet_fc_tgtport_put(tgtport);
- }
- 
- static struct nvmet_fc_tgt_assoc *
+ 		/* stall if endpoint doesn't exist */
+ 		if (!target_ep->ep.desc)
 -- 
-2.34.1
+2.50.1
 
