@@ -1,97 +1,113 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 47C1E342538;
-	Thu, 17 Sep 2026 16:03:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4AE194E4C55;
+	Thu, 17 Sep 2026 16:04:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661041; cv=none; b=nlf/iYoTaZIPff47xpLTuRs1Zrz3qqbvWSP162uwzoecN/+o7AS4CdDa1Zd/GyeWmjwm0D4qRms23nj91XiyUkNoaeU+l7WAAs5KAhoy+tjnIicB463QPqGx/Vu1Yz536aAjCItByJ1dKy1HIZMNZ2yPV8q0az+fgOEi63fcgB8=
+	t=1789661043; cv=none; b=lFWSPkPdduZYXpMTxLHI/jpxSUY9AmlxEMfPO6TboxEwM5BdfflfjIha13gW14j8B/ByifxO8p9qeQYDlCFkQpEYvSRXF0RvicqchyFKPJ3vwO4YewhHydVACClUB2xj9IxF21X3kCNgZt3mBWbr98a/v+GNk8lFl2L5kBviMNQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661041; c=relaxed/simple;
-	bh=MHpb1VtTaO3N+PlJolkh5yBfg1gv6sfuf9U2ko5sYr0=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Fl+H+AcoIuW6baBUzU297nDBk5sAbKStMhx6WwrDoV0f6h07t095TV3MWvywsfmsvnWEKwSp3CR/1OuywNFJ3hmJ55eLb0/8ZH2SAbvKpDdFAe9EEftrUUewQVj5oEpL0Q4bvAJjJIrqZ3AL/hjns0zZN7dTdkKl4MhRV2az9PA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=Dc/UafXL; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789661043; c=relaxed/simple;
+	bh=66EYd8RPO3UeD2bzMA/a5NZFqzjK0UfzZV+xHuNurds=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=hlwlw8iqsHyamWEVVSgJyMneliATJg0hTG9pUZpLLevK/eO+dFEWG/50jKs7zOK/1K/cBp5zrS2gVQRxKIRe6eU4d7q8GThxTdfMBQJc1ldL7M0zk+B193vdgmG3fKpoK7J37HgqR9nERllipRYm/CiOUrmJjp53pfmGvX6lpps=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ANnbkhnf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="Dc/UafXL"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=oJfQJG5iT9cSY6fKM1qSSeZ2RGZpeZorLQrHQDxjtWs=; b=Dc/UafXLFe6Lpm2iB9pKZSfnKm
-	70AhP14R7laKdBUH0QblXc8jkv6ORqi4r6KW07dyY0V2dGkxYL+9hymJ47S+D/fSXgUG3dzX4YEuu
-	EnDfRCSLkHpKQB5WSz2BQUNdN7sIzbNug4+Osu/F9Ire3k9CZMwcxWe+PtqdsvebSm7grTDvBmbYp
-	LvTdHwszMqEclOIhxseR4UEIHwIHuLwk1kQLLtvMsiceDHoTheY+jDoyzewioM8hp/qIK8fqn8w8W
-	KNDdiVEYn4DS7rg/BgrwE16nCTmpJh5ZIkkviDpZNnUYbKABCCqLrwjp/I3B+YKpMqIvzFtDdqhqI
-	Boll4onw==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x7EaA-00000009135-2mPg;
-	Thu, 17 Sep 2026 16:03:33 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 94F49301BD5; Thu, 17 Sep 2026 18:03:28 +0200 (CEST)
-Date: Thu, 17 Sep 2026 18:03:28 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	akpm@linux-foundation.org, david@kernel.org, ljs@kernel.org,
-	liam@infradead.org, vbabka@kernel.org, rppt@kernel.org,
-	surenb@google.com, mhocko@suse.com, mingo@redhat.com,
-	juri.lelli@redhat.com, vincent.guittot@linaro.org,
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com,
-	mgorman@suse.de, vschneid@redhat.com, kprateek.nayak@amd.com,
-	ziy@nvidia.com, baolin.wang@linux.alibaba.com, nico.pache@linux.dev,
-	ryan.roberts@arm.com, dev.jain@arm.com, baohua@kernel.org,
-	lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org,
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com,
-	byungchul@sk.com, ying.huang@linux.alibaba.com, apopple@nvidia.com,
-	jannh@google.com, pfalcato@suse.de, osalvador@suse.de,
-	hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm: support promotion-only NUMA hinting scans
-Message-ID: <20260917160328.GM4121339@noisy.programming.kicks-ass.net>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-2-gourry@gourry.net>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ANnbkhnf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CF2B11F00898;
+	Thu, 17 Sep 2026 16:04:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789661042;
+	bh=ZRrqifS7GYEmGJuvVXRob85aAWzEmVfmQ3vsGkfEApE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=ANnbkhnfa61j3hvW7r3lxuVB/72dHMIcITgcdcKx5P0C5qvmUtWTQ6tNr1seo9RdB
+	 cRnIe5/H8CCuexcyCuJiyYzh/YgLlmQ19TAD66GBeDJAX02rvjOr0SkwzTVCKK2WCL
+	 Nl9rmQgZtyw82dFfRUKzgfpVs6LM/3NmxBctCqv0=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Wenjing Liu <wenjing.liu@amd.com>,
+	Ovidiu Bunea <ovidiu.bunea@amd.com>,
+	James Lin <pinglei.lin@amd.com>,
+	Alex Deucher <alexander.deucher@amd.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0062/1250] drm/amd/display: Find link encoder for flexible DIG mapping cases
+Date: Thu, 17 Sep 2026 15:57:37 +0100
+Message-ID: <20260917151553.623539985@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260911001826.2109390-2-gourry@gourry.net>
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 08:18:23PM -0400, Gregory Price wrote:
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-> diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 8dff37059faf..81359b414947 100644
-> --- a/kernel/sched/fair.c
-> +++ b/kernel/sched/fair.c
-> @@ -4129,8 +4129,10 @@ static void task_numa_work(struct callback_head *work)
->  	unsigned long nr_pte_updates = 0;
->  	long pages, virtpages;
->  	struct vma_iterator vmi;
-> +	unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
+------------------
 
-This thing sticks out like a sort thumb, does that want to be on top?
-Typically reverse xmas is preferred and all that.
+From: Ovidiu Bunea <ovidiu.bunea@amd.com>
 
->  	bool vma_pids_skipped;
->  	bool vma_pids_forced = false;
-> +	bool promo_only;
->  
->  	WARN_ON_ONCE(p != container_of(work, struct task_struct, numa_work));
->  
+[ Upstream commit 74ef54e656e7006cfc215e960b0cf2720a7a3d48 ]
 
-> --- a/mm/internal.h
-> +++ b/mm/internal.h
-> @@ -1237,11 +1237,12 @@ static inline bool vma_is_single_threaded_private(struct vm_area_struct *vma)
->  
->  #ifdef CONFIG_NUMA_BALANCING
->  bool folio_can_map_prot_numa(struct folio *folio, struct vm_area_struct *vma,
-> -		bool is_private_single_threaded);
-> +		bool is_private_single_threaded, bool promo_only);
+[why & how]
+link->link_enc can only be used to identify the link's link encoder
+when the link is not permitted to use flexible link encoder
+assignments.
 
-Two bools rather than updating the existing bool to a flags?
+Use the correct function for identifying link encoder and add
+function pointer guards before calling them.
+
+Reviewed-by: Wenjing Liu <wenjing.liu@amd.com>
+Signed-off-by: Ovidiu Bunea <ovidiu.bunea@amd.com>
+Signed-off-by: James Lin <pinglei.lin@amd.com>
+Signed-off-by: Alex Deucher <alexander.deucher@amd.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ .../drm/amd/display/dc/hwss/dce110/dce110_hwseq.c    | 12 +++++++-----
+ 1 file changed, 7 insertions(+), 5 deletions(-)
+
+diff --git a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+index fe02dc4e97e4a..8eec1feafc4ad 100644
+--- a/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
++++ b/drivers/gpu/drm/amd/display/dc/hwss/dce110/dce110_hwseq.c
+@@ -1753,20 +1753,22 @@ static void power_down_encoders(struct dc *dc)
+ 
+ 	for (i = 0; i < dc->link_count; i++) {
+ 		struct dc_link *link = dc->links[i];
+-		struct link_encoder *link_enc = link->link_enc;
++		struct link_encoder *link_enc = link_enc_cfg_get_link_enc(link);
+ 		enum signal_type signal = link->connector_signal;
+ 
+ 		dc->link_srv->blank_dp_stream(link, false);
+ 		if (signal != SIGNAL_TYPE_EDP)
+ 			signal = SIGNAL_TYPE_NONE;
+ 
+-		if (link->ep_type == DISPLAY_ENDPOINT_PHY)
++		if (link->ep_type == DISPLAY_ENDPOINT_PHY && link_enc)
+ 			link_enc->funcs->disable_output(link_enc, signal);
+ 
+ 		if (link->fec_state == dc_link_fec_enabled) {
+-			link_enc->funcs->fec_set_enable(link_enc, false);
+-			link_enc->funcs->fec_set_ready(link_enc, false);
+-			link->fec_state = dc_link_fec_not_ready;
++			if (link_enc && link_enc->funcs->fec_set_enable && link_enc->funcs->fec_set_ready) {
++				link_enc->funcs->fec_set_enable(link_enc, false);
++				link_enc->funcs->fec_set_ready(link_enc, false);
++				link->fec_state = dc_link_fec_not_ready;
++			}
+ 		}
+ 
+ 		link->link_status.link_active = false;
+-- 
+2.53.0
+
+
+
