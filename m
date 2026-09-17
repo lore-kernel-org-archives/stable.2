@@ -1,113 +1,149 @@
-Received: from mail-ed2-f12.google.com (mail-ed2-f12.google.com [74.125.228.76])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7E203AA1BB
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 21:59:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CD7EE1F12FB
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 22:11:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789682398; cv=none; b=pUmShona+zKhMVXErpqjrqmdo4no9DS7Gf5z2hwSIbsKsDbOrC/8uqp4aZ5+2bsv6mtRF56DOGRuY7Bi8aHJzLhuXf7wtZWfVY/x36akx09QhAdSADY01djb/PTR+ujaWON8f1ggSiB5Jr0Yj3FMqg96qT/qI7xW5G7CjSGICSQ=
+	t=1789683104; cv=none; b=O4BpopcGCOf/eP1FH8sbbc3W0O9quu/3mBAxBDHEy3kd3QeHJqIwGaPw0lGcWbBdY6V+3/CMn7RyL6Iy+EnMC8iTFS3Ttt/wCWGjyFRhfWo7P6PJmBvQIN1t8fRwX9R0wo9GIJZT3L0S2lnLgG34X9FCjEMSVeayi3Fc1RHiPYk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789682398; c=relaxed/simple;
-	bh=ip41HoXWI4YcOSbW1mEcNQBv0yfH8oGIibej8w1DMvA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=j++NThJpfmXO5bMNg/7n7UIov5MyQXa6FqMdkBeIFc4Lw45KeQdR1rtM8ZcGV+rhmJJWdiWCitnuuObhFrI1ktLvbkDjcLsPKclPU8wkmsWTaJKo56sYeAfygWH4+l1KnODzJDy6lfYLFc+DWw1pnFG27etMjIgrkYgkgR6dS2E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=HRh7bnsf; arc=none smtp.client-ip=74.125.228.76
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
+	s=arc-20240116; t=1789683104; c=relaxed/simple;
+	bh=RFFY9k7Gm1W4Nre5AsaOcL68AdxzG+ESLVmFUUBmgLg=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=azr/b4PLUCDg8F3LBmeTyrM8S9kHXPaOY3BseXdoXdpOXKIBe/ok7EzF+BcMfuIUF+m5ILBHhM7ZmbqnCkbiD5MEo2mj09r65R36NbmmS/Lq3tzDaIfVaQpcFXP2f8Typq7GFprrvlmQRO1SJyXzjrBtt7WH8pMGALR5dVv0HRM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=W2ZP/RLf; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=tqqxnmNl; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="HRh7bnsf"
-Received: by mail-ed2-f12.google.com with SMTP id 4fb4d7f45d1cf-6a99391ffb2so169821a12.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 14:59:56 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="W2ZP/RLf";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="tqqxnmNl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789683101;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=O71094SnvEzOsUSd9r3JWt4fCSADbtCWy3jIsFoSJ/s=;
+	b=W2ZP/RLfE9JAWkExQbTXNWJKURWlogNyJzoDVNQYwoHEB60uQFrgFnLDRTIX+Bf5HPSi8o
+	UXBj9fvZPdyRnc8E1iRZpqqEHtrqYZ/coD2YvTe58VovCWdqexCn0MUzWJn6ky06GQqERW
+	e90AUJRm+olpFoCQkzT8E9qmWfEI76I=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-277-jnxw-9f2PhKljsT9rfNrlA-1; Thu, 17 Sep 2026 18:11:40 -0400
+X-MC-Unique: jnxw-9f2PhKljsT9rfNrlA-1
+X-Mimecast-MFC-AGG-ID: jnxw-9f2PhKljsT9rfNrlA_1789683099
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e8472ee1eso3865006d6.0
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:11:40 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=chromium.org; s=google; t=1789682395; x=1790287195; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=r4cnNziyY5ivazygxhgE+WIDjeZucbip+tFrsvHGAeg=;
-        b=HRh7bnsf5/jUBcvfJ8Zp+mxY42hIHGPDJm1Q3pCnXP+ZKLKVpda/k/q6OFJoL1/+I0
-         UoWWzxADo8TYTAvgWx7k0c/D5KuqdySxt3AWCL9G4lCqaBfXKUYqVsnTuXEeaI1OOZ/q
-         yvinHrJIrsvHNilrdW+kSuls/2hMWlgeIaTWw=
+        d=redhat.com; s=google; t=1789683099; x=1790287899; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=O71094SnvEzOsUSd9r3JWt4fCSADbtCWy3jIsFoSJ/s=;
+        b=tqqxnmNlBMSlizkQIfMCaOp82wk1YQ1qyP3daz6E03yJIRKq+LdGTjE64PpYV7+fK4
+         kitvt8IhwAfvIutq2TlFpv8u/MXl3b85i5ANoFGiMRHJnHYNgzT6rw4Nvjty/USWm1kV
+         yYDPlDsvLgEAjaOJPASeYoSXxwUrAGbszqBHB8QwyU0AmN5BlW2A8qYeUqk7LKpvvoS0
+         TSQspeg3YezHpemAqUkn0OkBJmC5hL8dB4NjN71Oa40MgOzqNERJ07rvBJSTSYwS3y+Y
+         S+mPNsKG+1iCK/TspCaeh7hCK2vWAMu0efJUlDvloJK+Gp1FMJ7iHiOc0qU2R1n5S1zg
+         T9Zg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789682395; x=1790287195;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
+        d=1e100.net; s=20260707; t=1789683099; x=1790287899;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=r4cnNziyY5ivazygxhgE+WIDjeZucbip+tFrsvHGAeg=;
-        b=PNuFyuJs1uQC5CV9ZV5Hkd7tNWfbAMePFPD08kjkTIC+kW51++mRHHaQYJcudLpHoM
-         rDvq5qbPeF7xhJsKRO53rN2lxiawX/IXTQ1/tcgPSWQL3WWLlVdeP57FTqbQUQ5EPIcp
-         9jNElhYV62knLcWW0lQLPUYB7RTEIzliPvJv2kxgZ6mSDuiY+AQvaT9X/wRHMpl4iFMN
-         5O1VIDTcBiNVTvXveh9d5im7wnRF73BtYe8sVDtWEDBmqKwH7UzizGXiCbAf7DX4WuiL
-         caYsKbfXh/C+a7YpJW5ToIBRXWP2eNnIg8BKMURnnCz00UcRl2oMGKgonKOlT4wQRySf
-         aYOw==
-X-Forwarded-Encrypted: i=1; AKwUvBxkAP/g0H/JtubMdt2PEU2mkMT9mnndKA8oI8+AYZsng1rA3z+g711tZOtQ5GkPKFTJcENihI8=@vger.kernel.org
-X-Gm-Message-State: AFuF++ktGcQPwbiHDoKMq/gA/a4jvtL/HDTwGn5o0opGbAEM+hEKj6ad
-	vxfg1bVQ86btcT59ZhsK2/vDROonkN51ecBqYnnK8fLsN0YlrL1h6wiOTsjlY97/IjmPGNQ2/hA
-	isky02Q==
-X-Gm-Gg: AYBFou1NO2/tQQ6IhGkAKKWsSUscuvauL+8K+fk8K1XNvSBC42hvkkxaIhzBa8dhF93
-	OUOBUKRFGZWV8u3dc8jHQ6KLZJW60LrL/Ant8kPaYzFKVo3ZHM+3pA+rWq/L0Z2nXKveavCVc9s
-	ypiU5hz6z2MqjDxP06bWrGd0RIhuz/JBqXJFHrLMkACGn9QXN+d+IwMa4NmQjM18oCooTWIjNUd
-	CaXPMadmr9/ZIH4l4NtLMNe+W9QLaLL3IAEd6Btfhc+9VJH7T/58oN95IDey53aTwQiQsCA+3dm
-	18V6DrisD15haMRwm3SusAK4QVpRv7HItWC6mKCMAwrpwN86oTIfUfRCcqd0H61yWrGQ+zkeAYZ
-	tYS2Ff7PaWXFQfyT0GVY1ynqhVRJabT2fJN5L0kqf6HUHeTmP7gKnW6bWr8+w4HVn28s/o1/6eU
-	ZD4WkDDfzPDZj1+MH9UlICGZX1Lx60Aryc0HJjBG/ySR9t5zQPoUVAwDfVOIgu1tZZhpVDmSPQX
-	Cro9yZlPhtO8fS/10BAYVg5EU8lUi9Vwt0uBaYrlc/fwbB3
-X-Received: by 2002:a17:907:3e94:b0:c29:367b:b7ba with SMTP id a640c23a62f3a-c2a15e10553mr56927366b.34.1789682395019;
-        Thu, 17 Sep 2026 14:59:55 -0700 (PDT)
-Received: from mail-wr2-f14.google.com (mail-wr2-f14.google.com. [74.125.225.78])
-        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c29de4866d9sm344108266b.23.2026.09.17.14.59.53
-        for <stable@vger.kernel.org>
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 14:59:53 -0700 (PDT)
-Received: by mail-wr2-f14.google.com with SMTP id ffacd0b85a97d-482f6350f88so23287f8f.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 14:59:53 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBxT+GSoXH7ewL+uWb2CMZKcv6RYF5YO8W9PCmGrkmIjPFjXgJHPqgqU7cIc9hw0sp2DCtG8Yio=@vger.kernel.org
-X-Received: by 2002:a05:6000:2211:b0:487:a49:69d3 with SMTP id
- ffacd0b85a97d-4871e373af6mr289328f8f.55.1789682392891; Thu, 17 Sep 2026
- 14:59:52 -0700 (PDT)
+        bh=O71094SnvEzOsUSd9r3JWt4fCSADbtCWy3jIsFoSJ/s=;
+        b=sikTS75LtMAunP+5I4l+KAICO8YfrwsGZ12tw6XiWwnV1wEXapWLIHiWCXEu5tvpOj
+         u6X3q8gYLC8MYsL7eyKMxnjMSXHO0glno8xtO2cMFLPpgwJuvJlSGaiomIbT9MJY39Eo
+         mqmmpN9xIpdsTWkmohkLvR3d+uww+Dhrbh3zkG1bBO1DWt6pq7aUKITDMoxW8tnH74A2
+         GWoq93YRRFbIxB0pygLtEj7LT4FodDwAFJJVaxLvkiMgt0PLOrPLd52gLOyxTzr/LLPy
+         jkigtZu01/jwf7rg/JsyWHt2PhuLDkT82NPhLsoPVsJkfRzJD6QRr5T1sN3rzmHopFEL
+         ypUg==
+X-Gm-Message-State: AFuF++kIYgEK9qJGL5zWIzR1bGtNnfbNkppBghpAIz0eNtEwwbL1PO4d
+	F+4vyqIiTfhLMFX8JhFdmBxLn2IVrlhLQUQrz36K5u5re9k0hidYTfsFxKF3ro9N3fPavuBg3Fe
+	PIKSyt7MuMFm8wn5Rh7SuSRZOqQVv6v+Do+Bee2sVLJCUvAov13hui4T97Q==
+X-Gm-Gg: AYBFou06hQnGZIKeDJhZgv9TUo4OfQyodf7IJE/QvzpIbu14tIYSTn+R7LZX27P5JDS
+	AnkokNdkD+J3t6dE/lwnVUQ1yiA81HJSo7ADhb7g+YVzZdGH7RBl2C5HCwxS32iLsHQn+1seucG
+	3l7UBXgFeWu2lBjZ5Oju515jpEYPYE5joVuIXWKzzmTppl1wHMqvovzGGFcVtJw34+mr5I520FY
+	tPb99eOzvGM4KIv2oiOZRR2DqRNKubP9iFkNcZ2iI1aDvCiEOvqq+ChAHb/bBNQliEyuyayxPGQ
+	ntUa2A/RYZ/nlohCVJSxX2Y7coWU5XtjA1VKsM38992iBITdZsJbcZ5xydPl5duFDjDTnKPy
+X-Received: by 2002:a05:6214:6110:b0:912:517b:913 with SMTP id 6a1803df08f44-91254cd0952mr9604866d6.50.1789683099406;
+        Thu, 17 Sep 2026 15:11:39 -0700 (PDT)
+X-Received: by 2002:a05:6214:6110:b0:912:517b:913 with SMTP id 6a1803df08f44-91254cd0952mr9604356d6.50.1789683098863;
+        Thu, 17 Sep 2026 15:11:38 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-912568b9646sm142846d6.31.2026.09.17.15.11.36
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 15:11:37 -0700 (PDT)
+Message-ID: <8ae8462fb2f74d0ab1a1d6ac663fa3a90d57ff5d.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: fix autosuspend cleanup during teardown
+From: lyude@redhat.com
+To: Guangshuo Li <lgs201920130244@gmail.com>, Danilo Krummrich
+ <dakr@kernel.org>,  Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
+ Maxime Ripard <mripard@kernel.org>, Thomas Zimmermann	
+ <tzimmermann@suse.de>, David Airlie <airlied@gmail.com>, Simona Vetter	
+ <simona@ffwll.ch>, Dave Airlie <airlied@redhat.com>, 
+	dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 18:11:36 -0400
+In-Reply-To: <20260808134137.2864847-1-lgs201920130244@gmail.com>
+References: <20260808134137.2864847-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917155523.2161202-1-vulab@iscas.ac.cn>
-In-Reply-To: <20260917155523.2161202-1-vulab@iscas.ac.cn>
-From: Doug Anderson <dianders@chromium.org>
-Date: Thu, 17 Sep 2026 14:59:41 -0700
-X-Gmail-Original-Message-ID: <CAD=FV=VTr4Q7gOQts8HasSQoeovYMLu7ic8V2fkuy2TgyUuB3A@mail.gmail.com>
-X-Gm-Features: AcwNN1UiO2RFa1YhyTUqFm7bdR6dSYURtFzuPkFnJib2ceEhsCbcSdyptjfk5VE
-Message-ID: <CAD=FV=VTr4Q7gOQts8HasSQoeovYMLu7ic8V2fkuy2TgyUuB3A@mail.gmail.com>
-Subject: Re: [PATCH] kgdboc: Fix tty driver reference leak in configure_kgdboc()
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: alan@redhat.com, danielt@kernel.org, gregkh@linuxfoundation.org, 
-	jason.wessel@windriver.com, jirislaby@kernel.org, 
-	kgdb-bugreport@lists.sourceforge.net, linux-kernel@vger.kernel.org, 
-	linux-serial@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
 
-Hi,
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-On Thu, Sep 17, 2026 at 8:55=E2=80=AFAM Wentao Liang <vulab@iscas.ac.cn> wr=
-ote:
->
-> tty_find_polling_driver() returns the tty driver with an extra
-> reference taken by tty_driver_kref_get(). configure_kgdboc() stores it
-> in kgdb_tty_driver but the reference is never dropped: it is leaked when
-> kgdb_register_io_module() fails, when the configuration is cleared, and
-> on every reconfigure.
->
-> Release the reference both when unconfiguring and on the error path.
->
-> Fixes: 7d7b93c1452f ("tty: kref the tty driver object")
+Will push to drm-misc-fixes in just a moment
+
+On Sat, 2026-08-08 at 21:41 +0800, Guangshuo Li wrote:
+> nouveau_drm_device_init() calls pm_runtime_use_autosuspend(), but
+> nouveau_drm_device_fini() does not call the matching
+> pm_runtime_dont_use_autosuspend().
+>=20
+> If the autosuspend delay is set to a negative value while autosuspend
+> is enabled, the runtime PM core increments usage_count to prevent
+> runtime suspend. Without calling pm_runtime_dont_use_autosuspend()
+> during teardown, this reference is not dropped and usage_count
+> remains
+> unbalanced.
+>=20
+> The documentation for pm_runtime_use_autosuspend() also notes that it
+> is important to undo it with pm_runtime_dont_use_autosuspend() at
+> driver exit time, unless runtime PM was initially enabled with
+> devm_pm_runtime_enable().
+>=20
+> Add the missing pm_runtime_dont_use_autosuspend() call to the common
+> device teardown path.
+>=20
+> This issue was found by manual code inspection.
+>=20
+> Fixes: 5addcf0a5f0f ("nouveau: add runtime PM support (v0.9)")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/tty/serial/kgdboc.c | 9 +++++++++
->  1 file changed, 9 insertions(+)
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_drm.c | 1 +
+> =C2=A01 file changed, 1 insertion(+)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> index e16f59b00f6f..1579a4b0785e 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_drm.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_drm.c
+> @@ -585,6 +585,7 @@ nouveau_drm_device_fini(struct nouveau_drm *drm)
+> =C2=A0	if (nouveau_pmops_runtime()) {
+> =C2=A0		pm_runtime_get_sync(dev->dev);
+> =C2=A0		pm_runtime_forbid(dev->dev);
+> +		pm_runtime_dont_use_autosuspend(dev->dev);
+> =C2=A0	}
+> =C2=A0
+> =C2=A0	nouveau_led_fini(dev);
 
-Looks right to me. Even the "Fixes" looks right since the tty change
-landed after kgdb was added to the mainline kernel (by a ~6 months).
-
-Reviewed-by: Douglas Anderson <dianders@chromium.org>
