@@ -1,36 +1,38 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 109624D0CDF;
-	Thu, 17 Sep 2026 10:54:40 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E8D9269D18;
+	Thu, 17 Sep 2026 10:57:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789642497; cv=none; b=hIuzmwAPxP4rAJd1uSiKluX44TIhsaxaKeGN7CfO6Q4cK1bfg1/3+GVJ1+adzHVL0ufGs1MP6zca9KWTFW0oRAVomHCx07Ff9Py4AeHqeMIFEcAn0/sjt0elbP/4mMQ+2rDdhp2jHePMMiLX/8sjBY/h7GPki1ysPJOQ2otWzcE=
+	t=1789642649; cv=none; b=Imlb390LSKAmBVvpzS4QFsxlhjdT3Tb0ixmYqjxFZMBxFdK1kefm/WKsoZVMdhXTbsR8Z3sUjT64FidRxh5NsNtlbLp9rXsiQS9K0lbLr6wFIMgkj9+ox4Xb25InVhSGf7F8Dkoc2x1nJ4HNT78xauLk6CrTBaqpEHzDQzEOn7Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789642497; c=relaxed/simple;
-	bh=giIWjDDBHc/Az7Gt57hxkGh/olN1AnVWv+gcsPhSTsk=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T3CIutQpJ0Uz8s7eLKAxbLV68wzAjjSr/ACUbenxjV9q4TLbAtXQ2lHPOHELqklO44IhET6LQswcUcS0u23b7K9fvNVYVRE832iX+J4M2sD8uInpDfnQpxOGPRoGZjv3oGDW1IVw8Y1Pg4So2KMrts17Y5NG+sDGpGf9y7jSlJs=
+	s=arc-20240116; t=1789642649; c=relaxed/simple;
+	bh=hDoSqsBm7GKBR+809pd6BRgpS2bitg9x/F9+9TgRMnQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OEuQOrMZNrTpJCmoqmAMmSMMhUcdP0zfMRbp4o978DLRYk5JbR7+ZnmdFigaug0tX4fvWTLHQdYA2zHqei+qf57w3jzs09qLgBADwa4ejZtxuruT4RDa6lJwvdsuy2HVD2KQjdlhMfZ9H5hWCA5XjRY0Bh7hLb1RxvSposYTK4s=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAXgDrhxqtqdwl_CA--.64396S2;
-	Thu, 17 Sep 2026 18:54:25 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowABHtD6Jx6tqIxR_CA--.1135S2;
+	Thu, 17 Sep 2026 18:57:13 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
+Cc: atul.gupta@chelsio.com,
+	bharat@chelsio.com,
+	davem@davemloft.net,
 	edumazet@google.com,
-	jeff@garzik.org,
+	ganeshgr@chelsio.com,
 	kuba@kernel.org,
 	linux-kernel@vger.kernel.org,
 	netdev@vger.kernel.org,
 	pabeni@redhat.com,
-	stephen@networkplumber.org,
+	richardcochran@gmail.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: cxgb: Fix skb reference leak in espibug_workaround_t204()
-Date: Thu, 17 Sep 2026 10:54:25 +0000
-Message-Id: <20260917105425.2147804-1-vulab@iscas.ac.cn>
+Subject: [PATCH] cxgb4: Fix ptp_tx_skb reference leak in cxgb4_eth_xmit()
+Date: Thu, 17 Sep 2026 10:57:13 +0000
+Message-Id: <20260917105713.2147903-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -39,10 +41,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAXgDrhxqtqdwl_CA--.64396S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4fAFyUGFyDXrWUZFyrZwb_yoW8JFyDpw
-	4qka47CrZ8Za12ka1kAw48tF9xua1ktFWrKF1fJws5ZrsxJr4UWry0qF45KFWDArZ3WanI
-	yrs8Aan8Krs0y3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:zQCowABHtD6Jx6tqIxR_CA--.1135S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF1fJw1rKF1rCw1xJr4ruFg_yoW8ury7pF
+	s0kFW8A3yvqFs7Wa1kAw4fWFnakw4ktryfKFyxCw1rZ3s8tryDua4j93yjyrs5Ars5WF4a
+	yrsFvFnFgrs5Z37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
 	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
 	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
@@ -57,37 +59,66 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7Aw4fAFyUGFyDXrWUZFyrZwb_yoW8JFyDpw
 	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
 	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
 	Xa7IU5TOJ7UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgENA2qrq3ZfDQAAsH
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAMNA2qrrJpY0wAAs9
 
-The timer handler takes an extra reference with skb_get() before handing
-the skb to t1_sge_tx(), so that the skb survives until the DMA has
-completed. When the command queue is full, t1_sge_tx() returns
-NETDEV_TX_BUSY without queueing the skb, and the return value is
-ignored, so the extra reference is never dropped.
+When PTP is enabled, cxgb4_eth_xmit() takes an extra reference on the
+skb and stores it in adap->ptp_tx_skb. If the Tx queue is full the
+function returns NETDEV_TX_BUSY, and the remaining error paths jump to
+out_free; neither path releases that extra reference, so the skb is
+leaked and adap->ptp_tx_skb keeps a stale pointer.
 
-Free the skb when t1_sge_tx() reports that it did not consume it.
+Move the adapter lookup before the first error path so out_free can use
+it, then release adap->ptp_tx_skb on both paths.
 
-Fixes: f1d3d38af757 ("[PATCH] chelsio: add support for other 10G boards")
+Fixes: a456950445a0 ("cxgb4: time stamping interface for PTP")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/chelsio/cxgb/sge.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/chelsio/cxgb4/sge.c | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/chelsio/cxgb/sge.c b/drivers/net/ethernet/chelsio/cxgb/sge.c
-index d8fca697874a..d4677c5b8d74 100644
---- a/drivers/net/ethernet/chelsio/cxgb/sge.c
-+++ b/drivers/net/ethernet/chelsio/cxgb/sge.c
-@@ -2052,7 +2052,8 @@ static void espibug_workaround_t204(struct timer_list *t)
- 			 * the skb once the DMA has completed.
- 			 */
- 			skb = skb_get(skb);
--			t1_sge_tx(skb, adapter, 0, adapter->port[i].dev);
-+			if (t1_sge_tx(skb, adapter, 0, adapter->port[i].dev))
-+				dev_kfree_skb_any(skb);
- 		}
+diff --git a/drivers/net/ethernet/chelsio/cxgb4/sge.c b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+index 9fccb8ea9bcd..5d4c63d9a937 100644
+--- a/drivers/net/ethernet/chelsio/cxgb4/sge.c
++++ b/drivers/net/ethernet/chelsio/cxgb4/sge.c
+@@ -1503,12 +1503,13 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	unsigned int chip_ver;
+ 	struct adapter *adap;
+ 
++	pi = netdev_priv(dev);
++	adap = pi->adapter;
++
+ 	ret = cxgb4_validate_skb(skb, dev, ETH_HLEN);
+ 	if (ret)
+ 		goto out_free;
+ 
+-	pi = netdev_priv(dev);
+-	adap = pi->adapter;
+ 	ssi = skb_shinfo(skb);
+ #if IS_ENABLED(CONFIG_CHELSIO_IPSEC_INLINE)
+ 	if (xfrm_offload(skb) && !ssi->gso_size)
+@@ -1553,6 +1554,10 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+ 		dev_err(adap->pdev_dev,
+ 			"%s: Tx ring %u full while queue awake!\n",
+ 			dev->name, qidx);
++		if (adap->ptp_tx_skb == skb) {
++			dev_kfree_skb_any(adap->ptp_tx_skb);
++			adap->ptp_tx_skb = NULL;
++		}
+ 		return NETDEV_TX_BUSY;
  	}
- 	mod_timer(&sge->espibug_timer, jiffies + sge->espibug_timeout);
+ 
+@@ -1723,6 +1728,10 @@ static netdev_tx_t cxgb4_eth_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	return NETDEV_TX_OK;
+ 
+ out_free:
++	if (adap->ptp_tx_skb == skb) {
++		dev_kfree_skb_any(adap->ptp_tx_skb);
++		adap->ptp_tx_skb = NULL;
++	}
+ 	dev_kfree_skb_any(skb);
+ 	return NETDEV_TX_OK;
+ }
 -- 
 2.34.1
 
