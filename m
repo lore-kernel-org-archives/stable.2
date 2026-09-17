@@ -1,92 +1,184 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29FA14AF9C2;
-	Thu, 17 Sep 2026 11:16:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29B444CDA38
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:16:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789643787; cv=none; b=q6OPE/unW/rUXC3J0ikP+c7RBN5lft0j4HZcVInNGVMSFhREsNQCAoUAjj8mCCJbPDdTW/sD+vK43cE4oiR2bqQ8yitxdl5dLzp+J9E/2s82/khWyt/rvNIyjjiZ4fpropLlT7cW1Lim7GcZnljWDanes0t173Q0w7ziiM0RKYI=
+	t=1789643807; cv=none; b=CRom/no8in2BsK3767ULUsmxVGnn79s30lHxRe0mfN2UpAB4iDYg9AoLc/sxcL1ThGpX/seFvmXOi3GLcYHdJBjYujKPiC9CdRKiXDeThXD+5LPmGsYdW7Q+hrU/1kONj3lE1itoxl7CoFji56lwbqbSW5bWFcR3om29y94i8co=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789643787; c=relaxed/simple;
-	bh=dHbUJ2IN+22KrfIuKTReR4iKhAbp76jX69JYs5B79+g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=V+MCittOJp3UqOTKXSZhTbYMpe4UK3D6pxrV/XLIgoBkCJQxq4SytDjFv2W1F09BLhWlW63N+AnmD4so9+U085V/HdQSekdTaCMGKconTyOZsOFIAMTiOi+h7Ss7BaBtIyswcsO3HmTqsxXLC3Z+20lI6Rn0VK6uWesXog8XPRU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAAHcz3zy6tq6Vx_CA--.42008S2;
-	Thu, 17 Sep 2026 19:16:03 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrew+netdev@lunn.ch
-Cc: davem@davemloft.net,
-	edumazet@google.com,
-	enachman@marvell.com,
-	kuba@kernel.org,
-	linux-kernel@vger.kernel.org,
-	maksym.glubokiy@plvision.eu,
-	netdev@vger.kernel.org,
-	pabeni@redhat.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] net: prestera: flower: fix ruleset leak in prestera_flower_prio_get()
-Date: Thu, 17 Sep 2026 11:16:03 +0000
-Message-Id: <20260917111603.2148710-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789643807; c=relaxed/simple;
+	bh=zLcvCiAPD5wWmnt5hHFi7ShfG7dr6QAZVgPTgrRf4+4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=d5GbWVkEYi0LaGyoE54LCPTtxwkSPrzmOruAVZVgTEngQoqvGyv8LFxLYWqX4m7lhoR1Gf0VHBcZ4iGqYr/CNy5FNj32iux108+/lrkRNBPcLpQ1hSBQEK/ubxSZBcT9YLEm6HqLlQ4Ngc1tviXqwp4IaTiA81hBrMX4anxyfY0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=EjhJOd/p; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=AAEfSBV3; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="EjhJOd/p";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="AAEfSBV3"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789643795;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=eP1uMmtD3DxvMqH6cKa6vonPQmGtZJRICWnH6003KGo=;
+	b=EjhJOd/pT4Nx2y9uEmIhTqJMjm6rEQ8wkh3iojt9J5CMQQcbBujrTA4ZlogwF2tlm3Hl6K
+	64f8bvGj8MQ7gzQUUYM+7lBnvKpgTVudQk0rzCYmQ+vNCR44gaKU/JSY/UCZg5j15y4DjF
+	B22SxhA59KDEfQpCn8jcIb31lSbfpUE=
+Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
+ [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-126-xOFNqRAWMCGPOsiKTssS5g-1; Thu, 17 Sep 2026 07:16:34 -0400
+X-MC-Unique: xOFNqRAWMCGPOsiKTssS5g-1
+X-Mimecast-MFC-AGG-ID: xOFNqRAWMCGPOsiKTssS5g_1789643793
+Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49cd74fc1aaso5262535e9.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 04:16:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789643793; x=1790248593; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=eP1uMmtD3DxvMqH6cKa6vonPQmGtZJRICWnH6003KGo=;
+        b=AAEfSBV3QYCL6v1ZHf3Td06Ywq3fVFWCo1QrKvB5MlMocJ/5YTnu50fZeAXNCrQrZf
+         Ih2k2hkle3HeAMcPm6TAOui+9KD8MaxC2tuBb1oJFFbntv1oFOpadcaKiEuxE6n7zA/p
+         pG/nBFAXSLXFN1f2BMxx8jSip1jQmOpIKA6xzAcIIy38KedFoBTssV9gC4aaZkXdp44n
+         lXAMO0Ef95jGlW53TWOj6gD7fVVNbgrE4Q4ZGURl6np2OZTQ5kEShiq8P3z+nbIWYtPq
+         vkr3FL6YSBSwVlIGc8t2KwFPwOzFGRjSJKbXLtzL3Qm0g+K08Qmmz6/BdcVI0+f0QVmV
+         gnqw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789643793; x=1790248593;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=eP1uMmtD3DxvMqH6cKa6vonPQmGtZJRICWnH6003KGo=;
+        b=RHypm00bhwXPqQlkCSnuAUZwUNVTDlKGLMik+x6DQ5Czy5fkaT+Nr6AYptJnFze9MY
+         VQzj2n7NAf/8hgDqOQlQjZx621TgRWBc5B7R3cApGi0ex2e5UFOYr81lh2WtxTtkTE9s
+         ntUkzTNG2FXYAOEWOf3+Yb4n/7mLpQI2FfARML/FMPalbeJDInxXqaabJJR82oQZxJVP
+         uajqkHompnw6BDUFAccE8hwN3UBtzgyH3yqzJySXOnlBZlteOiUq7U+G9YNcrV482sFG
+         QXIEBbNGprSllpFwXohAW8mc/3bwbM1LBRdGmh0PYDPf67uNyE/FIYn/OOKAUWvQghVt
+         QWgg==
+X-Forwarded-Encrypted: i=1; AKwUvBw2frxPEF6HjEqtFW0n59tNTBDwmDeyHVm+XhL880DXeCK6qlhUbxJQgXM7pL6cs7fkMXgVXHw=@vger.kernel.org
+X-Gm-Message-State: AFuF++k5gM2uZVxuJmPEmpDU8CYt/h8rj/HZilWS7JJoZh0Do9z+8Xcn
+	NVhxm1hB8IbY65A9IW7Ti+Rwdz5knR2cPrsWqAS58KN19bFgro1hbbB49IYU/zZF9dnFVJTj4Iv
+	razL67bR93qYlZATBJFAaVJ8Z96nfvcxJyaiWTWf7SWLzEfr05IbpcW0bqQ==
+X-Gm-Gg: AYBFou21Vs/QWVRVd626vqSa5R5tsfV3hwZu3bw7wfImeaLQ+Vujy4PevY/+6ftGa37
+	BVoCUkPuw3rswkWIxeJIdosOGwvz+WnagwdMTV9cuwJU1BzO5MMCerNAH/YyeyyMYiZtt/ZlyIw
+	iH47TgC/hNGqj7wp/cUGRBznZqcpT2BQqkD2toIih40jWZQ75PV8jy0KTqDKU1pTQ0JXTqiKBIL
+	ix01nma2i/PG+SHuSyv6C216mhZiVnmahHvQXpsnRsTtvbr7qBnjZGugkaI4jVDl5x47os1HaJF
+	Ihr2nmuV/KwhH9CvwRBV3Bd+sZSxp7M9Pi8XcTlV6U4agOM5qLj/7mf9a86ekDKABweTVotTeik
+	72IAZrTkoa5NcWBLiXQFfKhWjmrJDUUpmnw2Hf5sdmEVJZNyzkYK0IuIz9caqGOjG3W6bLvucCA
+	==
+X-Received: by 2002:a05:600c:3492:b0:49e:7d25:f397 with SMTP id 5b1f17b1804b1-49eb7301fd4mr64756525e9.15.1789643793380;
+        Thu, 17 Sep 2026 04:16:33 -0700 (PDT)
+X-Received: by 2002:a05:600c:3492:b0:49e:7d25:f397 with SMTP id 5b1f17b1804b1-49eb7301fd4mr64756235e9.15.1789643792937;
+        Thu, 17 Sep 2026 04:16:32 -0700 (PDT)
+Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbf415058sm42188045e9.0.2026.09.17.04.16.31
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 04:16:31 -0700 (PDT)
+Message-ID: <b32628f0-834d-4906-8479-7687887e371b@redhat.com>
+Date: Thu, 17 Sep 2026 13:16:30 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net 2/2] mptcp: close race between scheduler and state
+ change
+To: matttbe@kernel.org
+Cc: martineau@kernel.org, geliang@kernel.org, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, horms@kernel.org,
+ netdev@vger.kernel.org, netdev-bot+sashiko@kernel.org,
+ mptcp@lists.linux.dev, stable@vger.kernel.org, shardul.b@mpiricsoftware.com,
+ xinyang@anthropic.com
+References: <20260915-net-mptcp-misc-fixes-7-3-rc4-v1-2-a257797dd5d0@kernel.org>
+ <178959153630.22033.1222004531183755077@kernel.org>
+Content-Language: en-US
+From: Paolo Abeni <pabeni@redhat.com>
+In-Reply-To: <178959153630.22033.1222004531183755077@kernel.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAAHcz3zy6tq6Vx_CA--.42008S2
-X-Coremail-Antispam: 1UD129KBjvJXoWrKw13Zw17Jr1fZryUGF1fXrb_yoW8JF15p3
-	y8CrWYkr18Jr4Iya9rCw18ZFn09ayaqr9rKrs5Cwn5Wr45GFZ7CryUWws2gr47Ar4rWFy3
-	Xw45C3WUuFn8Ww7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	FIxGxcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr4
-	1l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s02
-	6c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw
-	0_GFylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvE
-	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
-	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
-	Xa7IU878n5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBggNA2qrq3ZtMgAAsD
 
-prestera_acl_ruleset_lookup() returns the ruleset with its reference
-count incremented, and the caller is expected to release it with
-prestera_acl_ruleset_put(). prestera_flower_prio_get() only reads the
-priority range and returns without dropping the reference, so the
-ruleset is never destroyed.
+On 9/16/26 22:45, netdev-bot+sashiko@kernel.org wrote:
+> Thank you for your contribution! Sashiko AI review found 1 potential
+> issue(s) to consider:
+> 
+> Critical: 0 · High: 1 · Medium: 0 · Low: 0
+> 
+> - [High] Incomplete fix: the identical `mss_now == 0` divide-by-zero that
+>    the patch guards in `mptcp_push_release()` (net/mptcp/protocol.c:1667)…
+> 
+> --
+> 
+> mptcp: close race between scheduler and state change
+> 
+> The patch guards the tcp_push() call in mptcp_push_release() with a check
+> for info->mss_now being non-zero, so that a subflow which failed
+> transmission (leaving mss_now at 0) is not used for a divide operation.
+> 
+> Closes: https://lore.kernel.org/20260525194828.1137119-1-shardul.b@mpiricsoftware.com
+> 
+>> diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+>> index 0098e28309318..709610db3ce9d 100644
+>> --- a/net/mptcp/protocol.c
+>> +++ b/net/mptcp/protocol.c
+>> @@ -1664,7 +1664,9 @@ struct sock *mptcp_subflow_get_send(struct mptcp_sock *msk)
+>>   
+>>   static void mptcp_push_release(struct sock *ssk, struct mptcp_sendmsg_info *info)
+>>   {
+>> -	tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle, info->size_goal);
+>> +	if (info->mss_now)
+>> +		tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle,
+>> +			 info->size_goal);
+>>   	release_sock(ssk);
+>>   }
+> 
+> [Severity: High]
+> Should the same guard also be added to the second tcp_push() call site, in
+> __mptcp_subflow_push_pending()?
+> 
+> That function starts with a zeroed info:
+> 
+> net/mptcp/protocol.c:__mptcp_subflow_push_pending() {
+> 	struct mptcp_sendmsg_info info = {
+> 		.data_lock_held = true,
+> 	};
+> 	...
+> 	int copied = 0;
+> 
+> and info.mss_now is only ever assigned inside mptcp_sendmsg_frag(), after
+> the early return the commit message refers to:
+> 
+> 	if (unlikely(!__tcp_can_send(ssk)))
+> 		return -EAGAIN;
+> 
+> 	/* compute send limit */
+> 	...
+> 	info->mss_now = tcp_send_mss(ssk, &info->size_goal, info->flags);
+> 
+> In the non-first iteration, the return value is accumulated into copied
+> without filtering negatives:
+> 
+> net/mptcp/protocol.c:__mptcp_subflow_push_pending() {
+> 		if (READ_ONCE(subflow->scheduled)) {
+> 			mptcp_subflow_set_scheduled(subflow, false);
+> 			ret = __subflow_push_pending(sk, ssk, &info);
+> 			if (ret <= 0)
+> 				keep_pushing = false;
+> 			copied += ret;
+> 		}
+> 
+> __subflow_push_pending() passes mptcp_sendmsg_frag()'s -EAGAIN through
+> verbatim when the first frag fails, so copied becomes -EAGAIN, which is
+> non-zero, while info.mss_now is still 0:
+This is a pre-existing issue but it could deserve to be fixed in the 
+same series.
 
-Release the reference after the priorities have been read.
-
-Fixes: 44af95718fed5 ("net: prestera: manage matchall and flower priorities")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/net/ethernet/marvell/prestera/prestera_flower.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/ethernet/marvell/prestera/prestera_flower.c b/drivers/net/ethernet/marvell/prestera/prestera_flower.c
-index 58b116cabd48..10d7e149822b 100644
---- a/drivers/net/ethernet/marvell/prestera/prestera_flower.c
-+++ b/drivers/net/ethernet/marvell/prestera/prestera_flower.c
-@@ -411,6 +411,8 @@ int prestera_flower_prio_get(struct prestera_flow_block *block, u32 chain_index,
- 		return PTR_ERR(ruleset);
- 
- 	prestera_acl_ruleset_prio_get(ruleset, prio_min, prio_max);
-+	prestera_acl_ruleset_put(ruleset);
-+
- 	return 0;
- }
- 
--- 
-2.34.1
+/P
 
