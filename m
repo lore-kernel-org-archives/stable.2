@@ -1,39 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0B744E3237;
-	Thu, 17 Sep 2026 15:26:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9026E358D27;
+	Thu, 17 Sep 2026 15:26:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658790; cv=none; b=P001Djzi7V9yc0HAh/qpRKpQyGm/+Lul6P3RnIkhhwVaZuH1ymltT4+Y9FvK+Fp1wyBT/Vzwy5WiSgD4TqOmxGxbEpVgEFwCNGAUDAa4uzg+Ys7KVX1TAl5XUKK+NkRZ3/59qXj9sVzzHyYoFNgHMVMU/3h//Cxn4XrksV5p9D4=
+	t=1789658792; cv=none; b=q+lB5Ci4gPkd+I0EIniRpavyu1n/C+XmzMlMRejXKbohoMMuTAAnL7bh3ybKntvbKXOUHcVhH3ydIla6I3MABwe/U6Gw7V7A7pyN7mRQIA5/FKYfQmX2MiNkIgZtdBvmp6NSd/mZeLIIdj6EuDKC+tCwT8xHx8ZX8QLsdcfivDM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658790; c=relaxed/simple;
-	bh=3jX19FaI5fWBl1IzxFVC7WFpcAoNSZkrvJ1+WcutVe4=;
+	s=arc-20240116; t=1789658792; c=relaxed/simple;
+	bh=ZgKzprobOHX8PK6vhbT7tg3re602vmP4EBMolI9QK6I=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=haljy1+3wf4vKFkXujIgq2S3BcrNjf49yJPRBfp8zfEKINn110fzSKKF57gkMJpNGsXqCY3COX0d9qQh9uNcmlnn401QBWHruFyW3Iu4T6rlPYPF24r7LRJWjz1XHaVbmhkVCpiyYSf0i7y1XtsQOpCJRjF9Sbvk5HK4nRBLSGo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=e/Bq2BOs; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Iwy5j+Yy7KbOOZu8beq8mRFxWy+641ofzQA4Eq/qh0B59CCKAMR2XM5a/mfGZ+vUOuLXK+k9EI3fTwhTkUyQhIrgLppTTzDsd9azdOxN1gz2aTsuuVRkAtTWO7NNu6o52IV7wMfMguegg1hAcGgO1GsaB2Il4mGvmFbQFzNHJHE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vq1b5Ysk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="e/Bq2BOs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6AEAA1F00898;
-	Thu, 17 Sep 2026 15:26:18 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vq1b5Ysk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 68BA01F00893;
+	Thu, 17 Sep 2026 15:26:21 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789658779;
-	bh=orLAE7UWMKUbKyLcv0On9lgpg5hooENGeYXGnNkWgG8=;
+	s=korg; t=1789658782;
+	bh=pSLvYxQduFw+HnCN/hsdq8Pe7hJzY3sZ+C3M/Ci/dj4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=e/Bq2BOs5BKY8Z5ytUCND5lIiOdPDNgtqytNzZhbaw4ngt3JsJCfRAaIrAtUO4cj+
-	 LxoKUW5rbugI4RERP1FBQoT4z97aohhgd2zIqeW3XYK1t9HlkhW5CZsX1LgHrYygQb
-	 dhLfT7AGN/vOeuaUC4DzZ6SppAuXgH7mJPTCUc7k=
+	b=vq1b5YskBl/++CBPjfo+PU9WCekpgeT4ZfTDnuy0ALZlvpqki/M0K5noQcGa6NeB/
+	 +AwrxTuAJQSoc+lbhD6ujxOrw67NoMiUKv1BZb0vNQV4hU9yA3jH1gLsxknZdE2BqB
+	 vgOLPHnRUDr7mb9m5gTo+ALrYu+/XDzLe547C3hQ=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ali Ahmet Memis <ali@iusegentoo.com>,
-	Jan Kara <jack@suse.cz>,
-	"Christian Brauner (Amutable)" <brauner@kernel.org>,
+	Qiuxu Zhuo <qiuxu.zhuo@intel.com>,
+	Tony Luck <tony.luck@intel.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 035/733] ufs: do not treat unreadable directory blocks as empty
-Date: Thu, 17 Sep 2026 16:05:43 +0100
-Message-ID: <20260917151351.613441251@linuxfoundation.org>
+Subject: [PATCH 7.2 007/733] EDAC/igen6: Fix interleave boundary condition
+Date: Thu, 17 Sep 2026 16:05:15 +0100
+Message-ID: <20260917151350.816020829@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -52,49 +51,42 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Ali Ahmet Memis <ali@iusegentoo.com>
+From: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
 
-[ Upstream commit 08edfb34ee9ca54383970c65ed3a6013e84f5e16 ]
+[ Upstream commit f4008169bd320eedb9ddf2b39eeb21370ddac278 ]
 
-ufs_empty_dir() scans every directory block to decide whether a
-directory is empty before rmdir() removes it. When ufs_get_folio()
-cannot read or validate a block it returns an error pointer, and the
-loop currently skips that block with continue and keeps scanning the
-remaining blocks.
+The address translation logic splits the memory space into interleaved
+and non-interleaved regions using a boundary at 2 * s_size.
 
-If none of the readable blocks hold an entry, the function returns 1
-and the caller unlinks the directory. A directory whose contents live
-in a block that cannot be read, for example because of an I/O error or
-corrupted directory metadata, is therefore seen as empty and removed,
-losing the entries it still holds.
+The current check uses '>' and incorrectly classifies the boundary
+address (2 * s_size) as part of the interleaved region. This leads to
+incorrect channel/sub-channel selection at the region boundary.
 
-Follow the ext2 behaviour and treat an unreadable block as a reason to
-consider the directory not empty, so rmdir() fails instead of
-discarding data that could not be verified.
+Fix the classification by using '>=' so that the boundary address is
+handled in the non-interleaved region, matching the hardware layout.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Ali Ahmet Memis <ali@iusegentoo.com>
-Link: https://patch.msgid.link/20260801013942.279992-1-ali@iusegentoo.com
-Reviewed-by: Jan Kara <jack@suse.cz>
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Fixes: 10590a9d4f23 ("EDAC/igen6: Add EDAC driver for Intel client SoCs using IBECC")
+Signed-off-by: Qiuxu Zhuo <qiuxu.zhuo@intel.com>
+Signed-off-by: Tony Luck <tony.luck@intel.com>
+Link: https://patch.msgid.link/20260730024238.4096623-3-qiuxu.zhuo@intel.com
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/ufs/dir.c | 2 +-
+ drivers/edac/igen6_edac.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/fs/ufs/dir.c b/fs/ufs/dir.c
-index e62fe56676710..ce43cf20b07c9 100644
---- a/fs/ufs/dir.c
-+++ b/fs/ufs/dir.c
-@@ -590,7 +590,7 @@ int ufs_empty_dir(struct inode * inode)
+diff --git a/drivers/edac/igen6_edac.c b/drivers/edac/igen6_edac.c
+index f1fc20d4ebf61..43b56a2eb5479 100644
+--- a/drivers/edac/igen6_edac.c
++++ b/drivers/edac/igen6_edac.c
+@@ -1035,7 +1035,7 @@ static void decode_addr(u64 addr, u32 hash, u64 s_size, int l_map,
+ {
+ 	int intlv_bit = CHANNEL_HASH_LSB_MASK_BIT(hash) + 6;
  
- 		kaddr = ufs_get_folio(inode, i, &folio);
- 		if (IS_ERR(kaddr))
--			continue;
-+			return 0;
- 
- 		de = (struct ufs_dir_entry *)kaddr;
- 		kaddr += ufs_last_byte(inode, i) - UFS_DIR_REC_LEN(1);
+-	if (addr > 2 * s_size) {
++	if (addr >= 2 * s_size) {
+ 		*sub_addr = addr - s_size;
+ 		*idx = l_map;
+ 		return;
 -- 
 2.53.0
 
