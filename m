@@ -1,84 +1,141 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from fout-b5-smtp.messagingengine.com (fout-b5-smtp.messagingengine.com [202.12.124.148])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 490A84D6C31;
-	Thu, 17 Sep 2026 14:35:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6647D58F080
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 14:35:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.148
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655706; cv=none; b=oRLvD06iJqZ9BWKHZwAOird3utTvexUd4AZrUB1AarjDBwwCO2LnwYxI5xeK8itRWTD4iflzD0i30yOzHR/YhA5WXu9LIZD6+FI6jYLk8KDsZBIx5WKqFWopquWJg16iZs6R0aODwO0dJMSbuBXRtoE6YsMlto0bWYWDyLKPIeg=
+	t=1789655731; cv=none; b=m3cR5UAKc3hWygmakmyBvgQB4pWzmrWE7N0+cv5d+Ncuh+zdXNCjRXVZ4M5+V0rdKGU0xLCo4/6ZtJqDLlwevOj9zOCk2HFs4QpeacWL7WchP51bctob/doO/Ikrlb1xBTW7Df+NzvWvOABS4AeH9bdeuBAbUJttbij+msnjUvM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655706; c=relaxed/simple;
-	bh=Jm5WFH8dapbRoXEULZtht3SITwlhdhwoitF9mC/sGI0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=lRTamafx/+dgkbFM3oUgYEi8JDc9rNuzYryUX1/rtmGI9PeRKhka7kxeOQMy6F0jhm5Q/4+qZ2SfP5xAuxxFRM/ddS9k/Dds+B6D+AdOBJUUMlnF4TOBT917WuvrWKoFm/+hMtsslEC4wh2GfMwoSadiKzknrAW3ejgs67HxCNI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXATyP+qtq5pWCCA--.45297S2;
-	Thu, 17 Sep 2026 22:34:55 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: James.Bottomley@SteelEye.com,
-	hare@suse.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: aic79xx: Fix scsi_device reference leak in ahd_dump_target_state()
-Date: Thu, 17 Sep 2026 14:34:55 +0000
-Message-Id: <20260917143455.2157126-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789655731; c=relaxed/simple;
+	bh=RXPUpqBV0EdVnMaslQGmJTUUacidp3JbY6/4OUJnovc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=bwHWfRCMVMmaczRcJiKRKQr2n0+97WTkfoLWFIVHRhmR6u27xfubc39itLuq0Tx/bavPrkg1CCR0ydiKUci2Qa/2l/zrFBeR/JfkwXSlNqc9JG5wCY5O6RfK+x3XQrk/tuw/q78QS0y2wY0kRtCc92rXZjg+S0S1CtDF6l/D0xk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=J9dnoowk; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=nW96NBMU; arc=none smtp.client-ip=202.12.124.148
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="J9dnoowk";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="nW96NBMU"
+Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
+	by mailfout.stl.internal (Postfix) with ESMTP id 6C6681D000CA;
+	Thu, 17 Sep 2026 10:35:28 -0400 (EDT)
+Received: from phl-frontend-04 ([10.202.2.163])
+  by phl-compute-03.internal (MEProxy); Thu, 17 Sep 2026 10:35:28 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm1; t=1789655728;
+	 x=1789742128; bh=W4mhKT180sx3H8YUpcgd2R3Z/cnF3MM1bECLEarhK7s=; b=
+	J9dnoowkifI9ZSCTH59BZVDiwwRsXAUT4Z+LdAXEpVVcpcKXxYt1DVPTexgytlNU
+	LgyvXYFFwnCLsHxYRdKMGQNSt4+evCfZ2JdpOXaTYlBW4b4u9IkPn4aJC4UH9422
+	I/O2aNCnnIZ3GvRutfyuV8IYixBzeTTKnmkh8UJqBBU1ASAlEJb/1aYfkR+z4YtD
+	ekAGxeEB4SSO8V8kX3EmSrg19I6gaESD2rZSPHekC6Dkoh5H2UUJuEog8epiaBrz
+	qxo2pzrekU34D/kkdFe9X5bZ/e/9S3MN+YQMMS50cVgWnlgor3fRdJLTVECbNseD
+	QtfvgncCvwOWELtDenI4Bw==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789655728; x=
+	1789742128; bh=W4mhKT180sx3H8YUpcgd2R3Z/cnF3MM1bECLEarhK7s=; b=n
+	W96NBMUR7fCXEX4mZJhttRasTqA2miE4J4E3qv5xlJ46U0TcACHfk+Tz2zhRB4lI
+	rggV4RnS9jmFc2fI3Le7MIlzwITmf7RA1X24qNw0GdGyvSBB53SqyoezCwh3aQNA
+	vAXpyB7Mkbhdih+C+wlrkpPVRiqMBbsmpYEowoNs39w0flvXcgCZlGbW1ROUJww3
+	XWyjCc4EUJsMVEN1wTIxu6IxV+r1L99k0bZwEclwR4mdrrYMDRB0E5PTIFT400Ez
+	RjwUPPcbyWm06VbdMoIoTIK2Q50YCXIxFalW81g7TMPujJ6ifd/OM10czlA+kAlQ
+	LXhuGC/kiDLQ+zFoXx91g==
+X-ME-Sender: <xms:sPqragAKap0oCViLiLNKC0l5fAUO3_uxSBmJqfO-YZ9XS-HchQbxgQ>
+    <xme:sPqrakxG8IGHbdI6axOABxAEWRrcf_7wZ9PiRbJWP3Ix3mZAt6mz8GsfQ9Sd5kDy8
+    NjtZeLeKGotfpQQx44Ohtm3o5xyV6B6kxkP3bSsTDG3TZnh>
+X-ME-Received: <xmr:sPqral0SytMOjxS1lXu8BI6zuRnenGRNpetiX-N_P9uFN3d_TWDh93jb1vA0>
+X-ME-Proxy-Cause: dmFkZTFTPoz4QrNoLJ0PWVY/pNWcCyXmrTqGiGLTTyKFcLQQjV9eJrUKzMxYi/DhMQ+QcR
+    Bt9DEX1HdVnWYX4egI0Rz8btIgqc0lDhWW4Z1l4z71ydXYihSin9J4UL3URIyRRtzVSUPH
+    gK3ormbiryjUYKopiNDPkATMnVa89dqjEy8Pvxn56zaGM2rIFEC30+95jnWATvMzzl52C/
+    RyJOafw5kfcoKFIF1N46Gv6ha94y7GT9NpKHDKS0/A9Gbqkgpfsr09y5VArToFf3obugzR
+    VPjS8SUOr/LeSN2ZA9ZU65OlikshSy9EZAGuigY0BcYvOxFL/3dbTJtGWrtQ13R5UFC3dE
+    cIml1nxoEpg+Ne0TXLC5ChxKgE4reyHeKYzSgd4HD9HskA+JgnYsKGXwQtWC5ph6qxHlH5
+    hu78iLkYrC6umVVvmEm2DQzsARfsOWW7ZTfcfOLoI01OlkDH30jqi4jyE2EFPUzvaCFmPN
+    Kz/LbnYXi08gI3luMSOkV8R0e8s5Qnp2zE/NRQFe7XNIFRLmfz/vpuRIbD0kb+o+oTQD4E
+    /QIqWCtSu24ScJ5gl5rHJIq/UZzZkIiins0uyMeRE8FgC6uMLWiWhRgo9vQcyZZXjuUxsf
+    /oQ5HG3wzcDQa4AHj/8LAsJVq+HBaxIeCmNZ60ClxP2SVm17cxacodW/vt/g
+X-ME-Proxy: <xmx:sPqraszN9NvhqrqXZ0wCWSv9MVEs2HbxOIDTM62SiCKPmbHGYWyMDg>
+    <xmx:sPqrakG85X89GzFq1nfLBMc_O9GpDjBimKaVIhLULeJPSfi271xlWQ>
+    <xmx:sPqranbtLBgIAnNss7pEejc8wmGlL9oFl2TitKxbj-gGTBk3pnDlcQ>
+    <xmx:sPqrauB6G1mgy5_i42IdITPYMxXl9WAp4x3w2EthlsdU74bdOlhcGQ>
+    <xmx:sPqraqbqt8Q3na2Eb8gS3fvP9CdfwgVXKPuyoK-sGyorThxp-NSVXULV>
+Feedback-ID: i787e41f1:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
+ 17 Sep 2026 10:35:27 -0400 (EDT)
+Date: Thu, 17 Sep 2026 15:33:32 +0100
+From: Greg KH <greg@kroah.com>
+To: kernelci@lists.linux.dev
+Cc: kernelci-results@groups.io, stable@vger.kernel.org
+Subject: Re: [REGRESSION] =?utf-8?Q?stable-rc=2Flin?=
+ =?utf-8?B?dXgtNi4xMi55OiAoYnVpbGQpa2VybmVsL3NjaGVkL2V4dC5jOjM4Mzg6MTM6?=
+ =?utf-8?B?IGVycm9yOiDigJhzY3hfaW5pdF90YXNrX2VuYWJsZWTigJk=?= undeclar...
+Message-ID: <2026091727-sterilize-hurler-7868@gregkh>
+References: <178965354733.144182.3599012631280321500@kernelci.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXATyP+qtq5pWCCA--.45297S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7XFy7KrW8Kr13ZF4DJrWxXrb_yoWfGFg_Cr
-	yS9as7Wry8W3y8GF1jyFs8Za4SkrWqq3ykA3WSqws5AayYqayxX345uF98Cr1DZayfAw1j
-	q347J3yY9rnrWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qr9nAJ+wAAsz
+In-Reply-To: <178965354733.144182.3599012631280321500@kernelci.org>
 
-ahd_dump_target_state() looks up each LUN with
-scsi_device_lookup_by_target(), which returns the device with a
-reference held, but the reference is never dropped. Put the device once
-its state has been dumped.
+On Thu, Sep 17, 2026 at 01:59:07PM -0000, KernelCI bot wrote:
+> New build issue found on stable-rc/linux-6.12.y:
+> 
+> ---
+> kernel/sched/ext.c:3838:13: error: ‘scx_init_task_enabled’ undeclared (first use in this function); did you mean ‘scx_ops_init_task_enabled’? in kernel/sched/build_policy.o (kernel/sched/build_policy.c) [logspec:kbuild,kbuild.compiler.error]
+> ---
+> 
+> Log excerpt:
+> =====================================================
+> In file included from kernel/sched/build_policy.c:63:
+> kernel/sched/ext.c: In function ‘scx_cancel_fork’:
+> kernel/sched/ext.c:3838:13: error: ‘scx_init_task_enabled’ undeclared (first use in this function); did you mean ‘scx_ops_init_task_enabled’?
+>  3838 |         if (scx_init_task_enabled) {
+>       |             ^~~~~~~~~~~~~~~~~~~~~
+>       |             scx_ops_init_task_enabled
+> kernel/sched/ext.c:3838:13: note: each undeclared identifier is reported only once for each function it appears in
+>   CC      io_uring/poll.o
+> 
+> =====================================================
+> 
+> When fixing this issue, please attribute this report according to the
+> patch submission rules:
+> 
+> Reported-by: kernelci.org bot <bot@kernelci.org>
+> 
+> For complete logs and details about the environment used, see the issue
+> on the KernelCI dashboard:
+> 
+> - dashboard: https://d.kernelci.org/i/maestro:bea4dd538099462d8c92badd44596b9958bf40cc
+> - giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
+> - commit HEAD:  09da4c7d441294e4264cc4804d8bc76433d5e0c1
+> 
+> # Builds where the incident occurred:
+> 
+> ## defconfig+netdev+nfs-root-boot+kselftest on (arm64):
+> - compiler: gcc-14
+> - config: https://files.kernelci.org/kbuild-gcc-14-arm64-nfsboot-6aabeb25fc1857a999df12dc/.config
+> - dashboard: https://d.kernelci.org/build/maestro:6aabeb25fc1857a999df12dc
+> 
+> #kernelci issue maestro:bea4dd538099462d8c92badd44596b9958bf40cc
+> 
+> --
+> This is an experimental report format. Please send feedback in!
+> Talk to us at kernelci@lists.linux.dev
+> 
+> Made with love by the KernelCI team - https://kernelci.org
+> 
 
-Fixes: f89d0a4e1d01 ("[SCSI] aic79xx: remove slave_destroy")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/scsi/aic7xxx/aic79xx_proc.c | 1 +
- 1 file changed, 1 insertion(+)
+Now fixed, thanks.
 
-diff --git a/drivers/scsi/aic7xxx/aic79xx_proc.c b/drivers/scsi/aic7xxx/aic79xx_proc.c
-index aa37838b78a6..da8f2afdf405 100644
---- a/drivers/scsi/aic7xxx/aic79xx_proc.c
-+++ b/drivers/scsi/aic7xxx/aic79xx_proc.c
-@@ -185,6 +185,7 @@ ahd_dump_target_state(struct ahd_softc *ahd, struct seq_file *m,
- 			continue;
- 
- 		ahd_dump_device_state(m, dev);
-+		scsi_device_put(dev);
- 	}
- }
- 
--- 
-2.34.1
-
+greg k-h
