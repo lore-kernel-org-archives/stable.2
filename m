@@ -1,191 +1,139 @@
-Received: from smtp-relay-internal-1.canonical.com (smtp-relay-internal-1.canonical.com [185.125.188.123])
+Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D6514EB865
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 20:18:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.188.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286D64D17A4;
+	Thu, 17 Sep 2026 20:18:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789676312; cv=none; b=nlICgQVTl0LGPzkqDknuIIgLpCxI/ilTiX8iuSX42jyCmRErnzHRrH6JCDi7x/WctnUsoHUkmJYbtDhLrLN7msMmIdy3AIlaVLB2bae/obiPbXiPFd7pQcuAThXu95t8S0fn1wf+FkPQsXm4sVeQqRgKMPVmn8kHISVVKuL0dH8=
+	t=1789676325; cv=none; b=A/fHb2wbPN+qCMTbLlM70PkrcZH/sFiHqLTEgM7k+GUKni62EuT/2yLVXcrjfcA302CQvR1pBSrA/IWj68cb0om4Nfwv3O3lFezlXcnC2uulmguo6q8gckTEY4CBJ2O1u5q8kqZJJ01fmi9FPDVw3UG7vqgnGADtwWxof7QzA5M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789676312; c=relaxed/simple;
-	bh=TAo26pzkar7YGCe1cBaX7hpJ0vPhFwl5BfTx0crjaZs=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=k9ofiAR1DHGVK1uTniDHeIIXzf63ufFnG9drRbXUTigvEf1T7vjNyEPctx69pRCSeMCmhQ9WxY80AYblwRtGUJJ3ssOsxFthAhsVt7axCo7Au2s3uw6AynoyepfaXyopVimpWXmqozKqDGoA4R8ewNpYV7AIL1YyZsaUF3qVufM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com; spf=pass smtp.mailfrom=canonical.com; dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b=B7IVbRCL; arc=none smtp.client-ip=185.125.188.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=canonical.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=canonical.com
+	s=arc-20240116; t=1789676325; c=relaxed/simple;
+	bh=le7recSNNOUtIfIdOkAJodeVyoTNSDPkWfIf+JaPIko=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tKfu6x78auKfoxXz890uH1EG7NsaeZzwM3EH6BJ/BPAkx9yN6mwDQojwOTZNg8NCOwgkfv2VWil/XPqBgkWRLJWoGfxMhRQRPCUYC8j1YjD0zDccwrqPYGcrGWB/BKzCbzsMBvSubFOMSMAAIQtI6G8FhdJ/5bG3XyOw9SdlIHM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=SqPrO35R; arc=none smtp.client-ip=178.251.229.89
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=canonical.com header.i=@canonical.com header.b="B7IVbRCL"
-Received: from mail-pj1-f70.google.com (mail-pj1-f70.google.com [209.85.216.70])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by smtp-relay-internal-1.canonical.com (Postfix) with ESMTPS id B18E33F97F
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 20:18:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=canonical.com;
-	s=20251003; t=1789676304;
-	bh=y4uJ7C5IvSiTxvav/hktZP2sZh5a4TBnbTehEPbMgP8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type;
-	b=B7IVbRCLfTt/BVIPraCok0PWiUFCfZBnmtyX2ph1WJqe6l7sPLDCeyhIispx1zOHB
-	 rDxQPykfcAImrLXW2yZzIWnyvWkDuxEWW5PKFaJ3SvRlbmgnme4+dYzJEbtjHNlzGh
-	 M6lPIHv/bTl5dVDQx50a1RHEsvR+T2+0mZpudNfetTnD08AW/O6qpLLqAbp/lxnH0F
-	 8h5luiQaq1IKPCUnJcOB6PqWL+H03bpv8yI5CMlGMg7hTWCb3IOAs7aJ6ThptzWveP
-	 Xhcnj00BCYwrvxf03nmJwZji4+pQdRq+Ie+TatLwlNc5fzxnQ6oAfAEketGJcBzJIB
-	 GGBc3CdIJaucLb9ovV8sgh0ET632S2/JKX61oUFuZvssGOXdbAtcUjmnVAzh4zc6Uk
-	 UAfomzA8x46Zdth+ulwi2nr3kxFR9eulBuOXGRVSPnHMsb1ZvGHYzbIi+chBq7J8Lj
-	 +hcti6XckYDa5v/SNYNgjpakg5txgvjpk2/YlEoEH326aDnLTp8Uw+DM7NJd+dDbio
-	 XsnBAKH/Clnsk+hACzTFMHmCsW4A6lxlMEQrtNLzkBIc6iN3vTLB6BjGXhfI+ASAKA
-	 8JKxL0B+NWwXLwxPZt4bT6bdQ0G2f3a8QJSJOCKeButVWksDEy7R7AVQ9OE+PmdsUb
-	 nn9S3Olx42WGQI67fqzwaft0=
-Received: by mail-pj1-f70.google.com with SMTP id 98e67ed59e1d1-398dc3d8f0fso1191987a91.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:18:24 -0700 (PDT)
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789676303; x=1790281103;
-        h=content-transfer-encoding:content-type:in-reply-to:organization
-         :autocrypt:from:content-language:references:cc:to:subject:user-agent
-         :mime-version:date:message-id:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=y4uJ7C5IvSiTxvav/hktZP2sZh5a4TBnbTehEPbMgP8=;
-        b=HpymPf0ezOWaFnpO7sPlcXpfPaIBSocKDUd3/i+IELDRiMz/z58V7JdjFMKZJcj4QD
-         1kiBpxYjvrKcEF9sAeLwFHYDjKrm0IEpVkOJfYPkc/1fndAqwdLePOsTP9WbhuFY1o0c
-         5KxnPKdLoPGs66cjvHaX8vH+XlEvvVZyoyo/9hQI2HNobFJezUXlbLuBk3hTzqttVkZU
-         JqZ5YIZcvjIuUDS7bAfIPMfronK8jz+YH2DA3ipExKqR2FdsrBxcah+gA/FDcMYaVPFY
-         O4vF8z8yI1TpwipU5j5EYQYJsops7lAF90jWE3GKqLRJyXjwfnyMKdlLi4E1pTK3F6cf
-         5J2Q==
-X-Forwarded-Encrypted: i=1; AKwUvBz2fOmi/pitsgRxkx4KLI/YbvRLHYVmRV6jjnmci9pC/9sWileQh/oKWn8xyr/H7DWoWVT/Fzw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nCI8pG73Zhs8CcKNC9GvQUJ6DX/bzUYzeFbCAZcswx0RzlELFQ
-	X/BYAGn49cS9ptCbrxQ6z6Q6XYYAbDD7yOCEJVPZylca5lJrNJOIlqUc9IPaATi60BrEhSfoDSU
-	KqbakbeFTiTwtKVCDoZja27PQNtRKElQtritwMi/FvJpFc2doMK/CmOJumisy4GmUyWPksNkoGQ
-	==
-X-Gm-Gg: AYBFou2ZEdq/DwfsnWeP2n/DPujw3o87ls7Ye1EoIiEhVRbhTgCGcY4+77SB8xr7QKf
-	v5V/ehCWv+TCr7i8NSIQPvRTf02m21v2O1PYjXPYWu6jWJYGg7cpXKT/RKIS+f8Lg5jg+xx4T9k
-	p3ualkJG30V0dC/d7c6FVxPBMWVl90oVdLqbJg8wLzFEZKl55knQPDhv3gznovylvkMhSyoS6EN
-	U4LdTT1wNGERX7PCWPrMG0xTNTfd31blzQxupmh1uvmZt+3DF6qIMTN3G1KlIOzb5E+xoMUP/eL
-	XWUsMyH3aMC8fJmx8VAJoM+TkHK6Pxyzo9BVpAY7uEY3r9wqqUt+fVW8q9xAUAMZouwIs6buHIM
-	ZlauxY70j3Spw0CM=
-X-Received: by 2002:a17:90b:3b8d:b0:395:8124:ac53 with SMTP id 98e67ed59e1d1-39e554cb74emr213508a91.6.1789676302810;
-        Thu, 17 Sep 2026 13:18:22 -0700 (PDT)
-X-Received: by 2002:a17:90b:3b8d:b0:395:8124:ac53 with SMTP id 98e67ed59e1d1-39e554cb74emr213487a91.6.1789676302426;
-        Thu, 17 Sep 2026 13:18:22 -0700 (PDT)
-Received: from [192.168.192.72] ([50.47.147.90])
-        by smtp.googlemail.com with ESMTPSA id 98e67ed59e1d1-39e362e9402sm6714597a91.15.2026.09.17.13.18.21
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 13:18:21 -0700 (PDT)
-Message-ID: <760b1f31-32f6-44c6-8a5b-991f228a327f@canonical.com>
-Date: Thu, 17 Sep 2026 13:18:20 -0700
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="SqPrO35R"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 788CB104392;
+	Thu, 17 Sep 2026 22:18:34 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
+	s=dkim; t=1789676316;
+	h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=phBozAeUwH1FNfpDymZUJqE7vCYkeFK/L6LdZFqJ8Ng=;
+	b=SqPrO35Rf1Kln8KPOdqiHcDFQnJSggYsdkzMXB9La0lEXqaTWfx1eqhMiUyZd77/CqOM4T
+	aaXBWWKOPXs3QPZqjf1/yy39VUB7MKl45Eg6NjXLvGSIXh9BNou/YRlpg1cAPG4wROhcUs
+	9Z+npkQ7i5mb5yipNJTe+/vnbOCC0g6GjTEVrAOTMKMzYJn62NJbpHg4C0oBs8Rf1mjofp
+	NCqJHHnYd7GK+1rAfhfqtC1Lnb5d3LjkvVkVdkBZPgQcLOe1xIAUQY/pXSaH0wIVfyc2Oe
+	lusVXrSXhyhUM55MY5CuDgAaWKcsc/boOKYfO7nInuQbkNYpa16d6o3uN1/UnA==
+Date: Thu, 17 Sep 2026 22:18:32 +0200
+From: Pavel Machek <pavel@nabladev.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Cc: stable@vger.kernel.org, patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
+	akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
+	patches@kernelci.org, lkft-triage@lists.linaro.org,
+	pavel@nabladev.com, jonathanh@nvidia.com, f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
+	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
+	sr@sladewatkins.com
+Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
+Message-ID: <aqxLGIyiWCdsQoyR@duo.ucw.cz>
+References: <20260917151539.408551884@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] apparmor: Fix label reference leak in aa_unix_file_perm()
-To: Ryan Lee <ryan.lee@canonical.com>, Wentao Liang <vulab@iscas.ac.cn>
-Cc: apparmor@lists.ubuntu.com, jmorris@namei.org,
- linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org,
- paul@paul-moore.com, serge@hallyn.com, stable@vger.kernel.org
-References: <20260917164136.2162858-1-vulab@iscas.ac.cn>
- <CAKCV-6uui82r4U3+ab=2ZFQvGQYnxfhYMHJNzLim-HEw6pRp7A@mail.gmail.com>
-Content-Language: en-US
-From: John Johansen <john.johansen@canonical.com>
-Autocrypt: addr=john.johansen@canonical.com; keydata=
- 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 lT9Q
-Organization: Canonical
-In-Reply-To: <CAKCV-6uui82r4U3+ab=2ZFQvGQYnxfhYMHJNzLim-HEw6pRp7A@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha1;
+	protocol="application/pgp-signature"; boundary="3nYsBqwAc8ujmC0B"
+Content-Disposition: inline
+In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On 9/17/26 12:19, Ryan Lee wrote:
-> On Thu, Sep 17, 2026 at 11:59 AM Wentao Liang <vulab@iscas.ac.cn> wrote:
->>
->> The inner block in aa_unix_file_perm() re-declares plabel, shadowing the
->> outer variable that is released at the out label. The reference taken by
->> aa_get_label_rcu() is thus lost when the block exits, and aa_put_label()
->> at out is a no-op on the still NULL outer plabel, leaking one label per
->> permission check on a non-filesystem unix socket.
->>
->> Drop the shadowing declaration so the outer plabel is used and released.
->>
->> Fixes: 88fec3526e84 ("apparmor: make sure unix socket labeling is correctly updated.")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
->> ---
->>   security/apparmor/af_unix.c | 1 -
->>   1 file changed, 1 deletion(-)
->>
->> diff --git a/security/apparmor/af_unix.c b/security/apparmor/af_unix.c
->> index fdb4a9f212c3..ecb40cfe7e14 100644
->> --- a/security/apparmor/af_unix.c
->> +++ b/security/apparmor/af_unix.c
->> @@ -758,7 +758,6 @@ int aa_unix_file_perm(const struct cred *subj_cred, struct aa_label *label,
->>                             unix_fs_perm(op, request, subj_cred, label,
->>                                          is_unix_fs(peer_sk) ? &peer_path : NULL));
->>          } else if (!is_sk_fs) {
->> -               struct aa_label *plabel;
->>                  struct aa_sk_ctx *pctx = aa_sock(peer_sk);
->>
->>                  rcu_read_lock();
->> --
->> 2.34.1
->>
->>
-> 
-> NACK: this exact patch has been proposed before, and unfortunately
-> exposes an additional latent bug around plabel handling that results
-> in a use-after-free if the shadowed declaration is removed without
-> additional fixes.
-> 
-> I can try to dig out the relevant exchange from the AppArmor mailing
-> list later, if you'd be interested.
-> 
-The series Ryan is referring to is in Linus's tree, so you should see the
-fix rolling out to stable kernels as well soon.
 
-6d25e7b47616c apparmor: fix refcount leak when updating the sk_ctx
-b1aea2c196077 apparmor: fix race in unix socket mediation when peer_path is used
-4483efe4f2151 apparmor: fix shadowing of plabel that prevents cache from being updated
+--3nYsBqwAc8ujmC0B
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-> Ryan
+Hi!
 
+> This is the start of the stable review cycle for the 6.12.111 release.
+> There are 1102 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+
+We get build errors here and some runtime failures here:
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.12.y
+
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/jobs/16571866335
+drivers/net/ethernet/ti/cpsw.c seems to have compile problem:
+
+In file included from ./include/linux/container_of.h:5,
+                 from ./include/linux/kernel.h:22,
+                 from drivers/net/ethernet/ti/cpsw.c:9:
+drivers/net/ethernet/ti/cpsw.c: In function 'cpsw_ndo_set_rx_mode_work':
+./include/linux/container_of.h:20:54: error: 'struct cpsw_priv' has no member named 'rx_mode_work'
+
+I don't have good diagnostic for runtime problem on arm. Example is here:
+
+Working FDT set to baeea000
+Starting kernel ...
+(hang)
+
+https://lava.ciplatform.org/scheduler/job/1510588
+
+It is better on x86:
+
+ogin-action: kernel 'oops'
+L323[login-action] Waiting for messages, (timeout 00:01:59)
+L324Waiting using forced prompt support (timeout 00:01:00)
+L325[    0.264887] Oops: Oops: 0000 [#1] PREEMPT SMP NOPTI
+L326[    0.264887] CPU: 0 UID: 0 PID: 1 Comm: swapper/0 Not tainted 6.12.111-rc1+ #1
+L327[    0.264887] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS 1.17.0-debian-1.17.0-1~bpo13+1 04/01/2014
+L328[    0.264887] RIP: 0010:gather_bootmem_prealloc_parallel+0x117/0x250
+L329[    0.264887] Code: ec 0f 84 f3 00 00 00 4c 89 ff 41 b8 00 00 00 80 4d 01 e0 0f 82 30 01 00 00 48 c7 c0 00 00 00 80 48 2b 05 84 d2 66 ff 49 01 c0 <4d> 8b 7c 24 10 49 c1 e8 0c 49 c1 e0 06 4c 03 05 5d d2 66 ff 4d 89
+L330[    0.264887] RSP: 0018:ffffa93040013d70 EFLAGS: 00010206
+L331[    0.264887] RAX: 0000701800000000 RBX: 0000000000000001 RCX: 0000000000000001
+L332[    0.264887] RDX: ffffa93040013d80 RSI: 0000000000000001 RDI: 0000000000000000
+L333[    0.264887] RBP: 0000000000000000 R08: 0000701880000000 R09: 0000000000000001
+L334[    0.264887] R10: ffffa93040013ef8 R11: 0000000000000100 R12: 0000000000000000
+L335[    0.264887] R13: ffffffff9354ec20 R14: 0000000000000000 R15: 0000000000000000
+L336[    0.264887] FS:  0000000000000000(0000) GS:ffff8fe7bec00000(0000) knlGS:0000000000000000
+L337[    0.264887] CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+L338[    0.264887] CR2: 0000000000000010 CR3: 0000000016e2e000 CR4: 0000000000750ef0
+L339[    0.264887] PKRU: 55555554
+L340[    0.264887] Call Trace:
+L341[    0.264887]  <TASK>
+L342[    0.264887]  padata_do_multithreaded+0x332/0x370
+L343[    0.264887]  hugetlb_bootmem_struct_page_init+0x6f/0x90
+L344[    0.264887]  ? __pfx_gather_bootmem_prealloc_parallel+0x10/0x10
+L345[    0.264887]  page_alloc_init_late+0xf/0x300
+L346[    0.264887]  kernel_init_freeable+0xef/0x2d0
+L347[    0.264887]  ? __pfx_kernel_init+0x10/0x10
+L348[    0.264887]  kernel_init+0x15/0x1b0
+L349[    0.264887]  ret_from_fork+0x2f/0x50
+L350[    0.264887]  ? __pfx_kernel_init+0x10/0x10
+L351[    0.264887]  ret_from_fork_asm+0x1a/0x30
+L352[    0.264887]  </TASK>
+
+https://lava.ciplatform.org/scheduler/job/1510595
+
+Best regards,
+                                                                Pavel
+
+
+--3nYsBqwAc8ujmC0B
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaqxLGAAKCRAw5/Bqldv6
+8qQMAJ48U96U5+xE/UkGaZ4fOhGf3Qfm+ACgoiL25jedF0LlRMo0yCQQZ3YCOO0=
+=+HFI
+-----END PGP SIGNATURE-----
+
+--3nYsBqwAc8ujmC0B--
