@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0FA1395AF6
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527941F09AD
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613444; cv=none; b=tLgnWVmHAVtTQGOX78Y96EVTE0VZrBVcQyDF6vaJtB6J01DqZWKSsd/Uswb4aFoOZuPmM6d7Iy1m+TAkXqrj/NRiTNfbyGhdbFyVlSNrYXPpkIzHiMubHYaIqsnC/kCxpyhDpdLYfiSbC/C8Z7gq0BeyS7KDSk9+oBdfpfTPo0M=
+	t=1789613452; cv=none; b=mKru/a1N6/lyzHUIOn6SSmchVlaQju/KXQtpQiB+SgporuCF7RAWnx055z9N+ldiaDvCSaE+H1MK6AwZj3qnt0OyBK2QVZVOw1xdeRnKXFvcUSJzp1dpgq12WfUYOkkUvmOoRwcFnu/ZSMdYthhOPktpnVrVtHYD8Qloh9YnpeY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613444; c=relaxed/simple;
-	bh=buvLIcd3wRyJnZvFOKtI6bKb51pGT8RBzKr2f2QpxNM=;
+	s=arc-20240116; t=1789613452; c=relaxed/simple;
+	bh=E7ZKOHiN879MxbFWl9YjUR5poSpWm+FiiCq8YGLIs1o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=sIcq0eNeXoOCNV6DS2Xu3SGNLIA3XGrXkhHaZP8eKnLuJ46aVsZXbx6pHpSr/fRAtL/+JCM+qBuDeuVtK8e4+NPqa7/LDnAlfhb36vBN+R1ZmEz/CmkSWPSXxu4nJ+Y+JaI6nB4IZdx5vCR8nFiqeY1cPsZ4S6RmwcORnoD2qsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LdDSHUfj; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Re9OHXAxPm/EQg4A4hqNSIEwpic7TStiY/xKhuHEtBnlWRJ76zb4LXF6odUsVXRBnkOWsqUPHNMnV79LOuVd4ge04MHc/RvdtXZR0VQHC2pVDabqPO7YeA8tsKBFZOXU7cBGt0hN7fRnRs2iDJ1UBwjS+14NtCzEojvsvmXiNQc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RFCJn94y; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LdDSHUfj"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DE7E41F008A1;
-	Thu, 17 Sep 2026 02:50:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RFCJn94y"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A25CC1F008A5;
+	Thu, 17 Sep 2026 02:50:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789613420;
-	bh=xT0+xbxPesKjnkmjwOSdBeHh0sGkOipazElHOtd8vyY=;
+	s=k20260515; t=1789613428;
+	bh=WS7+SyJbt5RwkJlocoL/A39A/NRX6gan8pNEurWAF48=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=LdDSHUfjI5CnJ0rzBF3oHCZWQLp5eaKfn5V1/v2MUD/xVMrBiQiS3Rolw8nIIgZau
-	 pxWLmxDv02P6a+8+nGHVPaV/1EcWfZD+t+R0/aTAIM08siLflIj2JW55AIeqpgTes2
-	 lC1Xzm7X29Y/SHFP7FjIgs1IfErqhgIt2Z2b2GG98T+wS9Pf/zQV0ufmksoXKeVidI
-	 ZQq4ddlkLJ0oOtbojaNuHWIB6Ez3QFqGt2rn8qp8Imw3qm/wTUkb+ypQCVORXiAbkZ
-	 B1C2KTVBJKsYPqHO7GS5psD1bDw1jFbVcZurDx45ILdHLRPoP+gaV0AXeOMy2/DjNs
-	 O4e1ARDvu9KCg==
+	b=RFCJn94y5Yr8mHD0MBgGxbS3xCsHFEquA2fpZ0/U88DXJ44bS9x03XMcbDQ8A9wmh
+	 z6K5ZKCsZ7u37KDvFKulRG5KVU2V9uMieMk/Ugfo4kOqFWHTw4uIHNz2ky3lFA9v+4
+	 Kvv7xoW84e0YoLXrvtg5Hbw1btMyL3n0HVJjI8GQraVpCtfrlVKb8f8U5/lZsrMadG
+	 bqFPLvqPzxvZpBvjauOtXPGXa5N/tOO6t4Oy3tQR8PwJBlHp47PrFsLqpeub1I4xkJ
+	 kObkcZG65Nc8AyYgVUqADwN1VYH6PL5ftCDCXosMujlocfciLREnbLP/Q+b5ywgbdL
+	 m1RpQsXvmxmjQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Geliang Tang <tanggeliang@kylinos.cn>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+Cc: Will Chen <will.chen.tty@gmail.com>,
+	Joe Damato <joe@dama.to>,
+	Michael Chan <michael.chan@broadcom.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/4] mptcp: pm: drop match in userspace_pm_append_new_local_addr
-Date: Wed, 16 Sep 2026 22:50:15 -0400
-Message-ID: <20260917025018.3917338-1-sashal@kernel.org>
+Subject: [PATCH 6.12.y 3/4] bnxt: fix memory leak in bnxt_queue_mem_alloc error cases
+Date: Wed, 16 Sep 2026 22:50:23 -0400
+Message-ID: <20260917025024.3917679-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091626-embassy-overhead-d482@gregkh>
-References: <2026091626-embassy-overhead-d482@gregkh>
+In-Reply-To: <20260917025024.3917679-1-sashal@kernel.org>
+References: <2026091604-recall-carnivore-5fe5@gregkh>
+ <20260917025024.3917679-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,71 +48,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Geliang Tang <tanggeliang@kylinos.cn>
+From: Will Chen <will.chen.tty@gmail.com>
 
-[ Upstream commit 640e3d69d0bc70d7d3de34800a1640793262bd08 ]
+[ Upstream commit d1000fd7995e51deec872d154e0a40d82f7a539f ]
 
-The variable 'match' in mptcp_userspace_pm_append_new_local_addr() is a
-redundant one, and this patch drops it.
+There is a small memory leak in bnxt_queue_mem_alloc:
+when bnxt_alloc_rx_agg_bmap() succeeds
+but bnxt_alloc_one_tpa_info() later fails,
+the rx_agg_bmap allocated by bnxt_alloc_rx_agg_bmap()
+is not freed in the fallthrough cleanup cases.
 
-No need to define 'match' as 'struct mptcp_pm_addr_entry *' type. In this
-function, it's only used to check whether it's NULL. It can be defined as
-a Boolean one.
+Free the rx_agg_bmap in the err_free_rx_agg_ring case
+and initialize clone->rx_agg_bmap = NULL earlier in the function
+to allow for safe fallthrough.
 
-Also other variables 'addr_match' and 'id_match' make 'match' a redundant
-one, which can be replaced by directly checking 'addr_match && id_match'.
-
-Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20250221-net-next-mptcp-pm-misc-cleanup-3-v1-5-2b70ab1cee79@kernel.org
+Fixes: bd649c5cc958 ("bnxt_en: handle tpa_info in queue API implementation")
+Signed-off-by: Will Chen <will.chen.tty@gmail.com>
+Reviewed-by: Joe Damato <joe@dama.to>
+Reviewed-by: Michael Chan <michael.chan@broadcom.com>
+Link: https://patch.msgid.link/20260729220132.1256924-1-will.chen.tty@gmail.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: f9f0068e8813 ("mptcp: pm: userspace: fix address ID overflow")
+
+Stable adaptation for 6.12:
+
+The preceding per-queue buffer-size backport already initializes the
+clone's rx_agg_bmap to NULL. Retain that initialization and apply the
+missing bitmap cleanup to err_free_rx_agg_ring. This frees the clone's
+bitmap when TPA allocation fails, while earlier allocation failures
+can safely fall through with a NULL bitmap.
+
+Keep the existing queue allocation interface and inherited RX page
+size: this tree has neither qcfg nor need_head_pool. Leave the TPA
+pointer resets to target commit 5ce7f36c334d. No functions are added.
+
+Stable-dep-of: 5ce7f36c334d ("bnxt_en: Don't free the live ring's TPA state on queue restart failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/pm_userspace.c | 11 +++--------
- 1 file changed, 3 insertions(+), 8 deletions(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
-index 33494c4a8fb29..708cc81e707e7 100644
---- a/net/mptcp/pm_userspace.c
-+++ b/net/mptcp/pm_userspace.c
-@@ -41,7 +41,6 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
- 						    bool needs_id)
- {
- 	DECLARE_BITMAP(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
--	struct mptcp_pm_addr_entry *match = NULL;
- 	struct sock *sk = (struct sock *)msk;
- 	struct mptcp_pm_addr_entry *e;
- 	bool addr_match = false;
-@@ -60,16 +59,12 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
- 		if (addr_match && entry->addr.id == 0 && needs_id)
- 			entry->addr.id = e->addr.id;
- 		id_match = (e->addr.id == entry->addr.id);
--		if (addr_match && id_match) {
--			match = e;
-+		if (addr_match || id_match)
- 			break;
--		} else if (addr_match || id_match) {
--			break;
--		}
- 		__set_bit(e->addr.id, id_bitmap);
- 	}
- 
--	if (!match && !addr_match && !id_match) {
-+	if (!addr_match && !id_match) {
- 		/* Memory for the entry is allocated from the
- 		 * sock option buffer.
- 		 */
-@@ -87,7 +82,7 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
- 		list_add_tail_rcu(&e->list, &msk->pm.userspace_pm_local_addr_list);
- 		msk->pm.local_addr_used++;
- 		ret = e->addr.id;
--	} else if (match) {
-+	} else if (addr_match && id_match) {
- 		ret = entry->addr.id;
- 	}
- 
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 1aa8c26bf71a1..8398d77211db7 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -15441,6 +15441,8 @@ static int bnxt_queue_mem_alloc(struct net_device *dev, void *qmem, int idx)
+ 	bnxt_free_one_tpa_info(bp, clone);
+ err_free_rx_agg_ring:
+ 	bnxt_free_ring(bp, &clone->rx_agg_ring_struct.ring_mem);
++	kfree(clone->rx_agg_bmap);
++	clone->rx_agg_bmap = NULL;
+ err_free_rx_ring:
+ 	bnxt_free_ring(bp, &clone->rx_ring_struct.ring_mem);
+ err_rxq_info_unreg:
 -- 
 2.53.0
 
