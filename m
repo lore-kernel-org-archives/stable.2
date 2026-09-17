@@ -1,39 +1,43 @@
-Received: from wxsgout04.xfusion.com (wxsgout04.xfusion.com [36.139.87.180])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 239C237E5E7;
-	Thu, 17 Sep 2026 15:47:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=36.139.87.180
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F25F94DDB35;
+	Thu, 17 Sep 2026 15:48:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660087; cv=none; b=ol/6Jd/Quj2XdqSyZ21S+R3Xmdp+kuBAqbF/8AAtA2dhfGxF3l2By6hY+JcqphSrf+lwC8a7EP2NdK9ecTQGFBrvk7+sKyL9RZkfvB5wqWKfhinsS/G/ZU8lppiKAV0ynl3ktqYTHk8eVqNKO54qF5Cit2opgm/t/yj6Wyj6NmM=
+	t=1789660089; cv=none; b=sIwxiDxTdo/8h7gcTT1lBg+G7rAqTol4eM//117dmIFy2NFgigJyiVK2XmMhLS0cTf5uFFugistufZd2XLz3107hIT7uC89Mc7hD2pGtdqxJxq+2dnbtBPv8xMGwkdHd3gm5+ARmlKvdG6IL4DMl8rdwx7RNd1vGJtoW5yw2hKk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660087; c=relaxed/simple;
-	bh=iegEGPNExqvinuOvpd7VFxbX4kSf7f9IGYRtORxLZZk=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=iOiR+FYHQhQ2xw/al1wHhpAEB/XQ9199bmz3SNkEFnYnf57gGWHKLIMt8FFdvt2OcRowo7AalJTi/Nldgai96aTAAqYlnJKKiVwkDGAXfsH2boKDWpJfw+fUcH/6weD7bUa+MlhBeIAoS/SRWZ5Nd4m/2UiWAbYy1zo2uvLRtPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com; spf=pass smtp.mailfrom=xfusion.com; arc=none smtp.client-ip=36.139.87.180
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xfusion.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xfusion.com
-Received: from wuxpheds03048.xfusion.com (unknown [10.32.143.30])
-	by wxsgout04.xfusion.com (SkyGuard) with ESMTPS id 4hm0Wg4C54zBLVWn;
-	Thu, 17 Sep 2026 23:47:43 +0800 (CST)
-Received: from DESKTOP-Q8I2N5U.xfusion.com (10.82.130.100) by
- wuxpheds03048.xfusion.com (10.32.143.30) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_RSA_WITH_AES_128_CBC_SHA256) id 15.2.2562.46;
- Thu, 17 Sep 2026 23:47:51 +0800
-From: shechenglong <shechenglong@xfusion.com>
-To: Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard
-	<mripard@kernel.org>, Thomas Zimmermann <tzimmermann@suse.de>, David Airlie
-	<airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <dri-devel@lists.freedesktop.org>, <linux-kernel@vger.kernel.org>,
-	<stone.xulei@xfusion.com>, <chenjialong@xfusion.com>, shechenglong
-	<shechenglong@xfusion.com>, <stable@vger.kernel.org>
-Subject: [PATCH v2] drm/client: fix restore of partially initialized client
-Date: Thu, 17 Sep 2026 23:47:43 +0800
-Message-ID: <20260917154743.1621-1-shechenglong@xfusion.com>
-X-Mailer: git-send-email 2.37.1.windows.1
-In-Reply-To: <20260907035147.1339-1-shechenglong@xfusion.com>
-References: <20260907035147.1339-1-shechenglong@xfusion.com>
+	s=arc-20240116; t=1789660089; c=relaxed/simple;
+	bh=FpcSc+vyi72vqn2UPkxxCeZZrj3bPs4b9+cSTq3MFG8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MwRFTT7ycvgSHcT2vL2ktNcpCuy8Si1DWR2FkjLTCU/L2nwsR1d78g21nzownkLoLC8yDqz8c3Pzpsal1U6zqXLlgPpt+E9LQeyMgFO9xn408/aB3EPQhVHOXwld5hLUC4GbamC6tGP9IAY7pmZeCz4UTNWVl5xcNEx30gi3cNk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=beX93+Sp; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="beX93+Sp"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EBA61F00898;
+	Thu, 17 Sep 2026 15:48:01 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789660082;
+	bh=Y1UE4llGzeytSDqLF87L/a463U2W7gxrfGx6UX90R+M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=beX93+SpSFyIdhs+m119htyMTf2reJ+lY726v9R1t6mho9oG+ijiSJMOtH5XO+5ig
+	 mbGGL1XEl7FWux3YXVy6zxy8jO0C+i5GQdYHDzH85ZuBRgwao7fBuIpniI3usQMcgg
+	 9xFwVYnQ3bI/FXUZsTaXs2bgICQFbmqpwOLdA/Us=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	sashiko-bot@kernel.org,
+	Steven Rostedt <rostedt@goodmis.org>
+Subject: [PATCH 7.2 473/733] tracing: Take trace_array reference when opening a tracer options file
+Date: Thu, 17 Sep 2026 16:13:01 +0100
+Message-ID: <20260917151403.780666094@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,105 +45,132 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: wuxpheds03047.xfusion.com (10.32.141.63) To
- wuxpheds03048.xfusion.com (10.32.143.30)
 
-I got a null-ptr-deref report when closing a DRM file descriptor:
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-WARNING: drivers/gpu/drm/drm_atomic.c:2031 at
-__drm_atomic_helper_set_config+0x18e/0x1b0 [drm]
+------------------
 
-Call Trace:
-drm_client_modeset_commit_atomic+0x16b/0x220 [drm]
-drm_client_modeset_commit_locked+0x56/0x160 [drm]
-drm_client_modeset_commit+0x21/0x40 [drm]
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x7b/0x80
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
+From: Steven Rostedt <rostedt@goodmis.org>
 
-The warning is followed by a NULL pointer dereference:
+commit ed0aff60f83a9bdc2f6556376ac79c96b3ce7e80 upstream.
 
-BUG: kernel NULL pointer dereference, address: 0000000000000008
+When a tracer option file is opened, it is passed a descriptor that points
+to an element on the trace_array's topts array. This element has
+information to find the trace array and other information. It uses this
+element to take a reference of the trace_array so that the trace_array
+does not get removed while this file is opened.
 
-RIP:
-__drm_fb_helper_restore_fbdev_mode_unlocked.part.0+0x41/0x80
-[drm_kms_helper]
+Unfortunately, there's a race condition where the element itself could be
+freed by the removal of the instance the trace_array represents causing a
+use-after-free as this element that is used to find the trace_array to
+increment its reference counter is also freed when the instance is
+removed.
 
-Call Trace:
-drm_fbdev_client_restore+0xe/0x20 [drm_client_lib]
-drm_client_dev_restore+0x9f/0xc0 [drm]
-drm_release+0xc5/0xe0 [drm]
-__fput+0xdc/0x2b0
-__x64_sys_close+0x39/0x80
-do_syscall_64+0x8d/0x460
-entry_SYSCALL_64_after_hwframe+0x76/0x7e
+To solve this, add a trace_array_tracer_options_get() helper function that
+will take the address of the element that is passed to the open function
+by the inode->i_private pointer and search all the trace_arrays under a
+lock to find the one that the element's address is in the range of the
+trace_arrays topts array elements. When a match happens, that trace_array's
+reference would be increased.
 
-drm_client_register() adds the DRM client to the device client list
-before invoking the initial hotplug callback. If the hotplug callback
-fails, the client remains registered.
+Note, there's a race where if an admin was deleting and creating trace
+instances at the same time and the memory of the old trace_array's array
+matched the memory of the new trace_array that it could in theory open the
+option from the wrong trace array. But we do not care because it would be
+stupid to perform that kind of action. As long as the only thing that can
+happen is that the option from the wrong trace array is used and doesn't
+crash the kernel it will only make the user confused. But if they are
+doing something stupid like this, they are already confused, so no harm
+done.
 
-For the fbdev client, a failure during drm_fb_helper_initial_config()
-causes the partially initialized fbdev helper to be cleaned up.
-drm_fb_helper_fini() releases fb_helper->info and leaves it NULL.
-
-The fbdev client therefore remains registered even though there is no
-fully initialized framebuffer device.
-
-Later, when userspace closes the DRM file descriptor, drm_release()
-can invoke the restore callbacks of registered DRM clients:
-
-drm_release()
-drm_client_dev_restore()
-drm_fbdev_client_restore()
-drm_fb_helper_restore_fbdev_mode_unlocked()
-
-drm_fbdev_client_restore() currently restores the fbdev state
-unconditionally. For a partially initialized fbdev client this can
-submit an incomplete modeset state and subsequently access fbdev
-state which has not been initialized, resulting in the warning and
-NULL pointer dereference above.
-
-drm_fbdev_client_unregister() already uses fb_helper->info to
-distinguish a fully probed framebuffer device from a partially
-initialized client.
-
-Use the same condition in drm_fbdev_client_restore() and skip restore
-if no framebuffer device has been successfully initialized.
-
-Fixes: 5d08c44e47b9 ("drm/fbdev: Add memory-agnostic fbdev client")
-Cc: <stable@vger.kernel.org> # v6.13+
-
-Reviewed-by: Thomas Zimmermann <tzimmermann@suse.de>
-Signed-off-by: shechenglong <shechenglong@xfusion.com>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260910221209.62dad8d3@robin
+Fixes: 7e2cfbd2d3c86 ("tracing: Have option files inc the trace array ref count")
+Reported-by: sashiko-bot@kernel.org
+Closes: https://lore.kernel.org/linux-trace-kernel/20260902121918.5a9e9d1b@gandalf.local.home/
+Signed-off-by: Steven Rostedt <rostedt@goodmis.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
-Changes in v2:
-- Add the Fixes and stable tags suggested by Thomas Zimmermann.
+ kernel/trace/trace.c |   46 +++++++++++++++++++++++++++++++++++++++++++++-
+ kernel/trace/trace.h |    1 +
+ 2 files changed, 46 insertions(+), 1 deletion(-)
 
- drivers/gpu/drm/clients/drm_fbdev_client.c | 8 ++++++++
- 1 file changed, 8 insertions(+)
-
-diff --git a/drivers/gpu/drm/clients/drm_fbdev_client.c b/drivers/gpu/drm/clients/drm_fbdev_client.c
-index 91d196a397cf..1c16bc1084c4 100644
---- a/drivers/gpu/drm/clients/drm_fbdev_client.c
-+++ b/drivers/gpu/drm/clients/drm_fbdev_client.c
-@@ -42,6 +42,14 @@ static int drm_fbdev_client_restore(struct drm_client_dev *client, bool force)
- {
- 	struct drm_fb_helper *fb_helper = drm_fb_helper_from_client(client);
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -7715,12 +7715,55 @@ trace_options_write(struct file *filp, c
+ 	return cnt;
+ }
  
-+	/*
-+	 * The client is registered before the initial fbdev probe.
-+	 * If probing failed, the client remains registered but there
-+	 * is no valid fbdev framebuffer to restore.
-+	 */
-+	if (!fb_helper->info || !fb_helper->fb)
-+		return 0;
++static bool tr_option_match(struct trace_array *tr, void *topt)
++{
++	for (int i = 0; i < tr->nr_topts; i++) {
++		struct trace_options *tr_topts = &tr->topts[i];
 +
- 	drm_fb_helper_restore_fbdev_mode_unlocked(fb_helper, force);
++		if (topt >= (void *)&tr_topts->topts[0] &&
++		    topt < (void *)&tr_topts->topts[tr_topts->nr_topts])
++			return true;
++	}
++	return false;
++}
++
++/*
++ * The topt is the address of a trace_array->topts[] element that holds the
++ * the tracer options descriptor. But since the trace_array reference has not
++ * been taken yet, it cannot be dereferenced as it could have been freed by
++ * a rmdir of the instance the trace_array represents.
++ *
++ * Search the list of trace_arrays and compare the topt to the address of
++ * the entire trace_array topts array for each trace_array in the list.
++ * If one is matched, then take the reference and return it. If not, the
++ * trace_array no longer exits.
++ */
++static int trace_array_tracer_options_get(void *topt)
++{
++	struct trace_array *tr;
++	int ret;
++
++	ret = security_locked_down(LOCKDOWN_TRACEFS);
++	if (ret)
++		return ret;
++
++	if (tracing_disabled)
++		return -ENODEV;
++
++	guard(mutex)(&trace_types_lock);
++	list_for_each_entry(tr, &ftrace_trace_arrays, list) {
++		if (tr_option_match(tr, topt))
++			return __trace_array_get(tr);
++	}
++	return -ENODEV;
++}
++
+ static int tracing_open_options(struct inode *inode, struct file *filp)
+ {
+ 	struct trace_option_dentry *topt = inode->i_private;
+ 	int ret;
  
- 	return 0;
--- 
-2.33.0
+-	ret = tracing_check_open_get_tr(topt->tr);
++	ret = trace_array_tracer_options_get(topt);
+ 	if (ret)
+ 		return ret;
+ 
+@@ -7982,6 +8025,7 @@ create_trace_option_files(struct trace_a
+ 	tr->topts = tr_topts;
+ 	tr->topts[tr->nr_topts].tracer = tracer;
+ 	tr->topts[tr->nr_topts].topts = topts;
++	tr->topts[tr->nr_topts].nr_topts = cnt;
+ 	tr->nr_topts++;
+ 
+ 	for (cnt = 0; opts[cnt].name; cnt++) {
+--- a/kernel/trace/trace.h
++++ b/kernel/trace/trace.h
+@@ -227,6 +227,7 @@ struct array_buffer {
+ struct trace_options {
+ 	struct tracer			*tracer;
+ 	struct trace_option_dentry	*topts;
++	int				nr_topts;
+ };
+ 
+ struct trace_pid_list *trace_pid_list_alloc(void);
 
 
