@@ -1,57 +1,34 @@
-Received: from mout-b-112.mailbox.org (mout-b-112.mailbox.org [195.10.208.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4EDC94E4314;
-	Thu, 17 Sep 2026 12:27:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.10.208.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03B773909AE;
+	Thu, 17 Sep 2026 12:28:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648088; cv=none; b=tF5DR3Kc9TIrWJweC55HFwD3fKn0NivLI1XHv3rgjrkYQyGXJ8i65w/53+wm2yUjGoaO06jXJPIAmRi/69sqc1DeHmFbVTsYbUpyE6QJw71G5EFmf3UYCOdLVeRVkbWi53sEYPcw8kxqm2o7NrQPZ1Armw2bXVlf+OTq9DgE4bc=
+	t=1789648117; cv=none; b=Out/StY5xTL6UP0DLhByGlcrtuhPdhCAIrNeKi59aBlspBKqFIVf5Ryqs/YJKmRe1ZisfQc+Pp0aT9kzAORXYzplIF87YaiXXG8kU0BF/IK3YotiAP0R9Yigi8N4LmApIiSEYKoasw4LJtTMnxvT5e+RhViiLE8tqUVlZQPEyo8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648088; c=relaxed/simple;
-	bh=/uqgZPPn4hNbKiFhEuoJhBmLAX3/qowM+46x249WfEc=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=DxFam8d4YDkT5K8s6crCwELYtlXSsoXXF9QL1S3q5iMn3Mc7jDtMgJCoGQTP8Rk1jW16FtY6WA9sdVbVVzKhbcZIGVo7ayLaf+T5YuFyi9ZYlALAZNyUaO+GbzD0ElBWDO3p3wAgsXpmnkVJ4Ui6vIv1N10zgLPv74DEr3FMdXs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com; spf=pass smtp.mailfrom=mandelbit.com; dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b=cjQu6+B4; arc=none smtp.client-ip=195.10.208.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mandelbit.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mandelbit.com header.i=@mandelbit.com header.b="cjQu6+B4"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [10.196.197.102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-b-112.mailbox.org (Postfix) with ESMTPS id 4hlw4s1r72z5xBW;
-	Thu, 17 Sep 2026 14:27:41 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mandelbit.com;
-	s=MBO0001; t=1789648061;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:
-	 content-transfer-encoding:content-transfer-encoding;
-	bh=IDxh/p8SFg2ydcVJyonwxD2khfmofoSAkIYRAIVB6h8=;
-	b=cjQu6+B4MJnt5Nt3yLAvFKi3C5w3z9aYKFVGXMT6Vgs7dQm0JS16xmEOKxjf2+l39PXHVV
-	x7dz7NF/vLtt09sm2ZIPQtKUXFJ1lSXl83eTGZkagvhIlCoJ/WtpbVHC/IPaoCdnz5fBeV
-	2evFVyMgBjpg6AryQJwHLwbtJCuixmYBknXREGd4MSrrIq4FLmqkZ04t4Zo4EIxnXCMCl5
-	a/0KfQhQgxTivslviaJ5oyh4FXVz3oIUtZBtd2M/16+LWKijpOKGGI9mtt6baBnMx0k1sw
-	oMLqNURB2ukbSU3uklY0Y3uVjEQ252cdLXSnmF0uts+NGA8Z7zk+x0citzXgNA==
-From: Ralf Lici <ralf@mandelbit.com>
-To: Saeed Mahameed <saeedm@nvidia.com>,
-	Tariq Toukan <tariqt@nvidia.com>,
-	Mark Bloch <mbloch@nvidia.com>,
-	netdev@vger.kernel.org
-Cc: Leon Romanovsky <leon@kernel.org>,
-	Boris Pismenny <borisp@nvidia.com>,
-	Sabrina Dubroca <sd@queasysnail.net>,
-	Andrew Lunn <andrew+netdev@lunn.ch>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Emeel Hakim <ehakim@nvidia.com>,
-	Subbaraya Sundeep <sbhatta@marvell.com>,
-	Simon Horman <horms@kernel.org>,
+	s=arc-20240116; t=1789648117; c=relaxed/simple;
+	bh=0+JgyF0oo3n2o9uBQku5EmBrQgG5ORRz/ZZCDwf6MHo=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=jh8YUXKiIcL64NoqOS7kGY9HITgFvUXXKaOS0XVse/HqVpWmhPuptcGcPYeHVOlsIuDsJfFDieXOt64hM8RC5xpY+YHGR1lzc//rXBnh0W3Vg6JendgfNgEEXkPTXiUGitat8fNgjVzOLQ3dAwpBnvya3ce+ZIM7Btea0DfDUhg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADH+ELh3KtqPoGACA--.43567S2;
+	Thu, 17 Sep 2026 20:28:17 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: dave.jiang@intel.com
+Cc: djbw@kernel.org,
+	ira.weiny@intel.com,
+	linux-kernel@vger.kernel.org,
+	nvdimm@lists.linux.dev,
+	vishal.l.verma@intel.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH net v3] net/mlx5e: advertise MACsec offload only when supported
-Date: Thu, 17 Sep 2026 14:27:23 +0200
-Message-ID: <20260917122724.654639-1-ralf@mandelbit.com>
+Subject: [PATCH] nvdimm/bus: Fix dev double put in nd_async_device_register()
+Date: Thu, 17 Sep 2026 12:28:16 +0000
+Message-Id: <20260917122816.2151081-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -59,64 +36,57 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowADH+ELh3KtqPoGACA--.43567S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7ZF45Kw17tr1kAF48Xr4UXFb_yoW8JFy7pr
+	s8Jas8ArZ7Grs8Ka1UZr1DuFyrKw1Iya4rury8J3y0grn8X345trWrWFWjqa1rArZ3GF1U
+	trW7tw18JF4kArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b5lk3UUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02cxwABsu
 
-Commit 339ccec8d43d ("net/mlx5: Enable MACsec offload feature for VLAN
-interface") added NETIF_F_HW_MACSEC unconditionally to vlan_features so
-that VLAN devices could inherit MACsec offload support.
+device_add() takes and drops its own reference on every return path, so
+the async worker only owns the reference that __nd_device_register()
+took with get_device(). The failure branch drops that same reference once
+more before the unconditional put_device(), which underflows the refcount
+and frees the device while it is still referenced by its creator, as
+reported by KASAN for the parent pointer access in this function.
 
-mlx5e_build_nic_netdev subsequently copies vlan_features into
-hw_features and features. As a result, all mlx5e NIC netdevices
-advertise MACsec hardware offload, even when the firmware does not
-support it and the driver does not install macsec_ops.
+Drop the spurious put_device() from the failure branch.
 
-Set the MACsec feature bits in mlx5e_macsec_build_netdev, after device
-capabilities have been validated. This preserves MACsec-over-VLAN
-support and the ethtool feature control on capable devices, without
-advertising either on unsupported hardware.
-
-Fixes: 339ccec8d43d ("net/mlx5: Enable MACsec offload feature for VLAN interface")
+Fixes: 4d88a97aa9e8c ("libnvdimm, nvdimm: dimm driver and base libnvdimm device-driver infrastructure")
 Cc: stable@vger.kernel.org
-Reviewed-by: Tariq Toukan <tariqt@nvidia.com>
-Signed-off-by: Ralf Lici <ralf@mandelbit.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-Changes since v2 https://lore.kernel.org/netdev/1b7ebced14243c1b342923a25bcc44ec77c45907.1787086511.git.ralf@mandelbit.com/
-- Rebase onto the latest net/main.
-- Add Reviewed-by tag from Tariq.
+ drivers/nvdimm/bus.c | 4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-Changes since v1 https://lore.kernel.org/netdev/0a27c8b7308121fd00c528fc99fc3866782d3990.1786783174.git.ralf@mandelbit.com/
-- Set NETIF_F_HW_MACSEC in hw_features as well, preserving ethtool
-  configurability and restoration after an eswitch mode cycle (Sashiko).
-
- drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c | 2 ++
- drivers/net/ethernet/mellanox/mlx5/core/en_main.c         | 1 -
- 2 files changed, 2 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-index daff53ba7d09..38a3415acf7a 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_accel/macsec.c
-@@ -1724,6 +1724,8 @@ void mlx5e_macsec_build_netdev(struct mlx5e_priv *priv)
- 	mlx5_core_dbg(priv->mdev, "mlx5e: MACsec acceleration enabled\n");
- 	netdev->macsec_ops = &macsec_offload_ops;
- 	netdev->features |= NETIF_F_HW_MACSEC;
-+	netdev->hw_features |= NETIF_F_HW_MACSEC;
-+	netdev->vlan_features |= NETIF_F_HW_MACSEC;
- 	netif_keep_dst(netdev);
- }
+diff --git a/drivers/nvdimm/bus.c b/drivers/nvdimm/bus.c
+index 45b7d756e39a..a1f33a03aba8 100644
+--- a/drivers/nvdimm/bus.c
++++ b/drivers/nvdimm/bus.c
+@@ -488,10 +488,8 @@ static void nd_async_device_register(void *d, async_cookie_t cookie)
+ 	struct device *dev = d;
+ 	struct device *parent = dev->parent;
  
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-index fc110a7d16e8..4c6060d54fbe 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en_main.c
-@@ -5851,7 +5851,6 @@ static void mlx5e_build_nic_netdev(struct net_device *netdev)
- 
- 	netdev->vlan_features    |= NETIF_F_SG;
- 	netdev->vlan_features    |= NETIF_F_HW_CSUM;
--	netdev->vlan_features    |= NETIF_F_HW_MACSEC;
- 	netdev->vlan_features    |= NETIF_F_GRO;
- 	netdev->vlan_features    |= NETIF_F_TSO;
- 	netdev->vlan_features    |= NETIF_F_TSO6;
-
-base-commit: c9151088f1674fd29ff26a20f5fc687acf53a2f0
+-	if (device_add(dev) != 0) {
++	if (device_add(dev) != 0)
+ 		dev_err(dev, "%s: failed\n", __func__);
+-		put_device(dev);
+-	}
+ 	put_device(dev);
+ 	if (parent)
+ 		put_device(parent);
 -- 
-2.55.0
+2.34.1
+
