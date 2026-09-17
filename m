@@ -1,36 +1,45 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED6C44973B5;
-	Thu, 17 Sep 2026 15:27:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E15D950AC30;
+	Thu, 17 Sep 2026 15:27:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658855; cv=none; b=M0jwTPEjTpffpM3V0s/8Qb/X+Fh2or3cizZ+oC7+ZTTq6T5BWDfTSjguYv6vQL9gEEXuQt31LptUiFSF031eVntac4Ua5dP+aalyZGY799ky5Lerb7UvCGsXWHAH4RwqUSH1LyJsIEmzZ+N5qMwQSNXm8RDmDA+JNgLAhLx7YPQ=
+	t=1789658855; cv=none; b=g8HISJIMYWOyKbsVP1h0UXUKOTN5mw5TebnE5fgP7kt6F9KbX9aJFqktslrdwtUbrHJcQIltU1bhC8d2okJY73ZRPyAi/xAGRJlsZzaaZVgnLrxggBjN/erfxSYRn/ITgKSpkPfBtmxPTlURb4hNS30ml8fh9Zk+iIU0DRcQTsI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789658855; c=relaxed/simple;
-	bh=+3lUdX8f7H9AjGovEb9R0rgJMrXEFu/RgcvdkJV+xdM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=op4iOy28JneQKesOsNAf5xNRpY17fXoRC1b90BN3F6DsFUttGv0n5NjbaQvKX4ahY20TIUrwC5g21OlD/u6nDwlnyPUN7OZFPC1s19CSnbQ132FpFVmZfKnV+fWl0BhhT2jL/T5dzbqhmL6toNW2muDyfvm8uovSrwKwVLpAe5o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnF0LXBqxq54WDCA--.5805S2;
-	Thu, 17 Sep 2026 23:27:19 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: chleroy@kernel.org,
-	herve.codina@bootlin.com,
-	leoyang.li@nxp.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	qiang.zhao@nxp.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] soc: fsl: cpm1: tsa: Fix clock leak in tsa_of_parse_tdms()
-Date: Thu, 17 Sep 2026 15:27:19 +0000
-Message-Id: <20260917152719.2160395-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	bh=8SgZtuNYt6nf42Nn60WW3XcTxLlNYWZ9/tRp4TTlXuo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=sywnwgm1icArygJnVKA+wzjIBwq1BbEbo/zWyp/exy56hbbOP8VEAOrv52Jv2+SF3H4z8PlCef2VR3hFzIVvh10xEl/iL342Tsna+wA5SXO/uWizVT9OMtJSNyTqAj+Kcw9sYbGUOylqIJGfJEMbmWPWefdb2tFQmIKNeKvl+0Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Rgg5f/lW; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Rgg5f/lW"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2D61E1F00893;
+	Thu, 17 Sep 2026 15:27:27 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789658847;
+	bh=oQ92tKgnr2NCj0J+BEVrqResvHidXxIBW7Mqh0Z8U70=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=Rgg5f/lWq5/vDCegYelfa1m/e+Ne/J7i2jScFGcwFtkNM7f7CLQ3prEU2BOruTgOr
+	 Cr6Yzr9Uq6deQOS6Jic/nxaRfqabVzvaFlQ2Pz2Z61O//QyqDeWZyNDGSnzJE8xLjD
+	 IiU7rEN817fSTQT+/2HeJ7K6Ku7f11vAmNB1FGGs=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>,
+	Xin Long <lucien.xin@gmail.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 059/733] sctp: fix a TOCTOU race in SCTP_CMD_TIMER_START
+Date: Thu, 17 Sep 2026 16:06:07 +0100
+Message-ID: <20260917151352.286650902@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -38,61 +47,67 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnF0LXBqxq54WDCA--.5805S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7ZFy7Xr4rJw13WryfCr1rWFg_yoW8GryDp3
-	93GrWYvrZaqrsYgFnrGw4IgFyrtay7tas7GrsxKa1I9rZxJ3WUKr1DCa4xuF1kCryUCFsF
-	qFyUKr95G3WUArJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
-	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
-	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
-	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
-	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
-	07UC38nUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nAnhgAAsl
 
-The error cleanup loop puts l1rsync_clk and l1rclk_clk a second time
-and never puts l1tsync_clk or l1tclk_clk, because the branches that
-guard the transmit clocks use the receive clock field names.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Use the matching field in each branch so every clock acquired by
-tsa_of_parse_tdms() is released exactly once.
+------------------
 
-Fixes: 1d4ba0b81c1c ("soc: fsl: cpm1: Add support for TSA")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Xin Long <lucien.xin@gmail.com>
+
+[ Upstream commit 2188569e7e1b0bc3f3b557dc97ab7a02befc11c8 ]
+
+The SCTP_CMD_TIMER_START handler checks timer_pending() before calling
+timer_reduce(). The timer can expire and detach between these operations,
+causing timer_reduce() to rearm the timer without taking the association
+reference required for the newly armed timer.
+
+The timer callback later unconditionally drops its association reference,
+which can leave the association reference count unbalanced and result in
+use-after-free during association teardown.
+
+Use the return value of timer_reduce() to determine whether the timer was
+actually armed. Take the association reference only when timer_reduce()
+successfully starts a new timer, closing the race between checking the
+timer state and rearming it.
+
+This issue was reported by Nico Yip (@_cyeaa_) working with TrendAI Zero
+Day Initiative.
+
+Fixes: 20a785aa52c8 ("sctp: Don't add the shutdown timer if its already been added")
+Reported-by: Zero Day Initiative <zdi-disclosures@trendmicro.com>
+Signed-off-by: Xin Long <lucien.xin@gmail.com>
+Link: https://patch.msgid.link/9d8f1b5c50329d5ea7c642128d35681abaa9ed20.1787773744.git.lucien.xin@gmail.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/soc/fsl/qe/tsa.c | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ net/sctp/sm_sideeffect.c | 11 +----------
+ 1 file changed, 1 insertion(+), 10 deletions(-)
 
-diff --git a/drivers/soc/fsl/qe/tsa.c b/drivers/soc/fsl/qe/tsa.c
-index 4a88e54d25b9..94691369353e 100644
---- a/drivers/soc/fsl/qe/tsa.c
-+++ b/drivers/soc/fsl/qe/tsa.c
-@@ -865,12 +865,12 @@ static int tsa_of_parse_tdms(struct tsa *tsa, struct device_node *np)
- 			clk_put(tsa->tdm[i].l1rclk_clk);
- 		}
- 		if (tsa->tdm[i].l1tsync_clk) {
--			clk_disable_unprepare(tsa->tdm[i].l1rsync_clk);
--			clk_put(tsa->tdm[i].l1rsync_clk);
-+			clk_disable_unprepare(tsa->tdm[i].l1tsync_clk);
-+			clk_put(tsa->tdm[i].l1tsync_clk);
- 		}
- 		if (tsa->tdm[i].l1tclk_clk) {
--			clk_disable_unprepare(tsa->tdm[i].l1rclk_clk);
--			clk_put(tsa->tdm[i].l1rclk_clk);
-+			clk_disable_unprepare(tsa->tdm[i].l1tclk_clk);
-+			clk_put(tsa->tdm[i].l1tclk_clk);
- 		}
- 	}
- 	return ret;
+diff --git a/net/sctp/sm_sideeffect.c b/net/sctp/sm_sideeffect.c
+index 94716406d602c..0d99b7e8c082f 100644
+--- a/net/sctp/sm_sideeffect.c
++++ b/net/sctp/sm_sideeffect.c
+@@ -1545,17 +1545,8 @@ static int sctp_cmd_interpreter(enum sctp_event_type event_type,
+ 			timeout = asoc->timeouts[cmd->obj.to];
+ 			BUG_ON(!timeout);
+ 
+-			/*
+-			 * SCTP has a hard time with timer starts.  Because we process
+-			 * timer starts as side effects, it can be hard to tell if we
+-			 * have already started a timer or not, which leads to BUG
+-			 * halts when we call add_timer. So here, instead of just starting
+-			 * a timer, if the timer is already started, and just mod
+-			 * the timer with the shorter of the two expiration times
+-			 */
+-			if (!timer_pending(timer))
++			if (!timer_reduce(timer, jiffies + timeout))
+ 				sctp_association_hold(asoc);
+-			timer_reduce(timer, jiffies + timeout);
+ 			break;
+ 
+ 		case SCTP_CMD_TIMER_RESTART:
 -- 
-2.34.1
+2.53.0
+
+
 
