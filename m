@@ -1,163 +1,367 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-42ac.mail.infomaniak.ch (smtp-42ac.mail.infomaniak.ch [84.16.66.172])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85057395ADC
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:01:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D9AA74AAC5A
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657303; cv=none; b=uHlvFq7t7gFGoUrmYsN1I4Ne6x9JWHLDoJKkkrHWjLeO3DF5byZNXuKRrAHFVkQsP5ADpKknwVKbj7lHK2xjF7/oWEb4Ak6AtZs+CmRHpMtLoS5tHzsee41WLfoYQ330YsyWdAhe4IRvawN4l+utqvpjMoTe+vZgis9N/j28yj8=
+	t=1789657304; cv=none; b=fhbz2xj03xx5es7nhuqZAPcN+dDgscMcsSa2jpCDvKsvGaz27NDGZ4N4T7WLhogSpzpD84Ito/hXboUBlLvfbtgmd9JxR8Ufh5f7rvGHyQH0W5hrt1QYw1u9tAO1fq2rXJYXfUWTxSfFFZRVt9rzIFv5rVAcSFtCAGp9V56bnRU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657303; c=relaxed/simple;
-	bh=o/NWvGtwKDyeZF62reG18knTUGwXGh+UqyihPLub5tI=;
+	s=arc-20240116; t=1789657304; c=relaxed/simple;
+	bh=GLg7SfGnVVBWK2TFc8iNMxDp0vV+4jT6y2CNXHAtxXA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=THGJzF6ajGVD4PhbUnHgaVVOVmt8918hb6Rdapg+Z/rOsEz8YcUH9UnV/VavPrfGlXIgtgjdlTyN907faA6fF+w12pU0N3sqIhQL5r3mxi0l4/ZofEyyRzrhm7FdrJIHXzKn0DtwWZoTnA0XDyxLrKHUd+py71Y11fgWR8Kns2I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clzlpRwT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=m+350qYcygGFHcnMJ5djWnGI77GJSlJzh3hmIt+ro8IY0C3x3146sCMWM9vLpTqcBagBYGUoH0s3/wiwLFH7niXV89i9XCFijhYAhSgE809TQ7lLiRD2LcSIG5hjckcMPEWXFQw4Tzvy4ldMTaUX93ZID/nZe9LiU41V4UVYYz8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=DrJyterR; arc=none smtp.client-ip=84.16.66.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clzlpRwT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D43531F000FF;
-	Thu, 17 Sep 2026 15:01:24 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789657285;
-	bh=ksWfk8+yqFRimPxlx6h2pNDXIGYBWXvHFQNv0krhVjw=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=clzlpRwTawJPD9HlSi6yyJUW0aEOxHR8QJkOmxHb7G03kEavvvMueLqwaDqb4BwrT
-	 cOFnLKSPRkTd2OG2WU25KYbLyJzh3N9fw5Mpy4uZWH/GyT3yIGJCSt1hUt7v+AN95E
-	 1R7jq1URf5Im1acxhH3JsmJuQWmylUWQpGA4zphDdC/rAxpYmj1zJeWPS+FGdobi30
-	 wS4lCfuJDvPbHBt2/vePFZ+8r47Zm87jopIvRlz6h24aEY/BB3GPP2jb0CEv+CuX14
-	 Nmkfvqqak6QhEQd5hYvgI2E7lJS8/a4lLleMczuxB203r4IOX3L+whi112S0racq61
-	 3tGoGdHHHGGUg==
-From: Sasha Levin <sashal@kernel.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="DrJyterR"
+Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hlzMd0dP5z1CR0;
+	Thu, 17 Sep 2026 16:55:41 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789656940;
+	bh=z/75FUyWeBKLXhW71ED36HP08TN6KGqxpz7SKK62q4I=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=DrJyterRBgQrBQ2PnwIsGKRWCYmBIferT+4YCiMDWMuj7It9hT/sSrILWFqdEdf0X
+	 Esk9Rr7TiQ99CaPp/2naXYl/xbAz8A01gbRG/I9Ml31Qt0hbitAUjbL31WHIMJhHWb
+	 YaGsP5Aq7NGUTxdIcbYReTCvTjTk8LZSfse2oDqk=
+Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hlzMS1rgXzYq5;
+	Thu, 17 Sep 2026 16:55:32 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
-Cc: Christoph Hellwig <hch@lst.de>,
-	Carlos Maiolino <cmaiolino@redhat.com>,
-	"Darrick J. Wong" <djwong@kernel.org>,
-	Carlos Maiolino <cem@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 1/2] xfs: remove the i_ino field in struct xfs_inode
-Date: Thu, 17 Sep 2026 11:01:22 -0400
-Message-ID: <20260917150123.670190-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091629-runway-straddle-168c@gregkh>
-References: <2026091629-runway-straddle-168c@gregkh>
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Johansen <john.johansen@canonical.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Kentaro Takeda <takedakn@nttdata.co.jp>,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
+	linux-kernel@vger.kernel.org,
+	linux-security-module@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jann Horn <jannh@google.com>,
+	Kees Cook <keescook@chromium.org>,
+	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: [PATCH 5.15.y 1/2] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout creation
+Date: Thu, 17 Sep 2026 16:55:21 +0200
+Message-ID: <a1915a39f4c8469dae12d207e202588d6954bb92.1789655723.git.mic@digikod.net>
+In-Reply-To: <2026090319-sprinkler-mandolin-e566@gregkh>
+References: <2026090319-sprinkler-mandolin-e566@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-From: Christoph Hellwig <hch@lst.de>
+From: Günther Noack <gnoack@google.com>
 
-[ Upstream commit 1113a6d6d5d1336f4415fa1367aac0f853f0892d ]
+[ Upstream commit 672fa082d48b21e1fb62cdb184fee41513e53421 ]
 
-Now that the VFS inode has a u64 i_ino field, there is no need to store
-a copy of the inode number in the xfs_inode structure.
+Whiteout objects are used in the upper layer of an OverlayFS to
+indicate that the file with this name does not exist in the unified
+view, even if it is present in one of the lower layer file systems.
 
-Introduce an I_INO() wrapper as a shortcut to the inode number so that
-we don't have to propagate the VFS inode everywhere.
+For the userspace implementations of OverlayFS (fuse-overlayfs),
+whiteout objects can be created from userspace as well:
 
-The only non-obvious part is the clearing of i_ino to 0 for RCU freeing
-the inode.  None of this calls into VFS paths, which makes clearing the
-VFS inode field here just as safe as clearing the old field in the
-xfs_inode.
+* mknod(2) with S_IFCHR and makedev(0, 0)
+* renameat2(2) with RENAME_WHITEOUT,
+  creating the whiteout in the old place of the moved file.
 
-Signed-off-by: Christoph Hellwig <hch@lst.de>
-Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
-Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
-Signed-off-by: Carlos Maiolino <cem@kernel.org>
+This commit guards whiteout creation in both of these cases with
+LANDLOCK_ACCESS_FS_MAKE_REG.  Whiteout objects are *not* considered
+character devices and are not bound to a driver.
 
-[6.12 dependency adaptation]
+LANDLOCK_ACCESS_FS_MAKE_REG describes the same permission class as a
+whiteout object: creating one is the only S_IFCHR creation that the VFS
+exempts from CAP_MKNOD, so it is as unprivileged as creating a regular
+file, while LANDLOCK_ACCESS_FS_MAKE_CHAR and
+LANDLOCK_ACCESS_FS_MAKE_BLOCK keep meaning the creation of devices that
+expose a kernel interface [1].
 
-Keep only the inode-number accessor spelling needed for the attr and
-directory repair hunks of 4d3c07591534517c633945c8d8e6526f10e3fabc to
-apply cleanly.  Define I_INO as a macro over xfs_inode.i_ino and convert
-only the two xfs_da_args.owner initializers in xrep_xattr_swap_prep and
-xrep_dir_swap_prep.  No functions are added.
+For the mknod(2) case, introduce a Landlock erratum.  The creation of
+whiteout objects through mknod(2) was previously guarded using
+LANDLOCK_ACCESS_FS_MAKE_CHAR, and it is now guarded using
+LANDLOCK_ACCESS_FS_MAKE_REG.
 
-Unlike upstream, this stable tree still has an unsigned long VFS i_ino.
-Retain the separate 64-bit XFS inode number and all existing allocation,
-reinitialization, reclaim, and VFS setup behavior to avoid truncation on
-32-bit systems.  Drop the remaining tree-wide conversions, including
-changes to metadata-directory, realtime, and health-monitor files that
-do not exist in this tree.  The accessor and the two substitutions are
-behavior preserving; the reservation fix remains in the target commit.
+For the renameat2(2) case, fix a bug: Before this commit, renameat2(2)
+with RENAME_WHITEOUT would create a directory entry even when all
+LANDLOCK_ACCESS_FS_MAKE_* rights were denied.
 
-Original upstream rationale follows:
+This does not affect normal renames within layered OverlayFS mounts:
+When doing a regular rename() on a mounted fuse-overlayfs, it is the
+fuse-overlayfs daemon that exercises renameat2() with RENAME_WHITEOUT,
+and only the Landlock domain of that daemon is checked there.
 
-Now that the VFS inode has a u64 i_ino field, there is no need to store
-a copy of the inode number in the xfs_inode structure.
-
-Introduce an I_INO() wrapper as a shortcut to the inode number so that
-we don't have to propagate the VFS inode everywhere.
-
-The only non-obvious part is the clearing of i_ino to 0 for RCU freeing
-the inode.  None of this calls into VFS paths, which makes clearing the
-VFS inode field here just as safe as clearing the old field in the
-xfs_inode.
-
-[ sashal: Reduced backport -- upstream 1113a6d6d5d13 touches 91 file(s), this
-  backport carries 3. Not backported here:
-  fs/xfs/libxfs/xfs_attr.c
-  fs/xfs/libxfs/xfs_attr_leaf.c
-  fs/xfs/libxfs/xfs_bmap_btree.c
-  fs/xfs/libxfs/xfs_bmap.c
-  fs/xfs/libxfs/xfs_btree.c
-  fs/xfs/libxfs/xfs_btree_staging.c
-  fs/xfs/libxfs/xfs_da_btree.c
-  fs/xfs/libxfs/xfs_dir2.c
-  ... and 80 more
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 4d3c07591534 ("xfs: fix under-reservation of blocks when repairing sf directories")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Suggested-by: Christian Brauner <brauner@kernel.org>
+Suggested-by: Mickaël Salaün <mic@digikod.net>
+Cc: stable@vger.kernel.org
+Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
+Signed-off-by: Günther Noack <gnoack@google.com>
+Link: https://patch.msgid.link/20260720.chow9ohYie5b@digikod.net [1]
+Link: https://patch.msgid.link/20260813093157.1436894-3-gnoack@google.com
+[mic: Record why LANDLOCK_ACCESS_FS_MAKE_REG is the matching right, and
+add link(2) to the user doc]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: partially backport 100f59d96405 ("LSM: Remove double
+path_rename hook calls for RENAME_EXCHANGE") to propagate rename flags,
+adapt to ABI 1, and omit the unavailable REFER and context-only
+documentation dependencies]
+Cc: James Morris <jmorris@namei.org>
+Cc: Kentaro Takeda <takedakn@nttdata.co.jp>
+Cc: Serge E. Hallyn <serge@hallyn.com>
+Cc: John Johansen <john.johansen@canonical.com>
+Cc: Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>
+Cc: Paul Moore <paul@paul-moore.com>
+Link: https://lore.kernel.org/r/20220506161102.525323-7-mic@digikod.net
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- fs/xfs/scrub/attr_repair.c | 2 +-
- fs/xfs/scrub/dir_repair.c  | 2 +-
- fs/xfs/xfs_inode.h         | 3 +++
- 3 files changed, 5 insertions(+), 2 deletions(-)
+ include/linux/lsm_hook_defs.h    |  2 +-
+ include/linux/lsm_hooks.h        |  1 +
+ include/uapi/linux/landlock.h    |  1 +
+ security/apparmor/lsm.c          |  7 ++++--
+ security/landlock/errata/abi-1.h | 24 +++++++++++++++++++
+ security/landlock/fs.c           | 40 ++++++++++++++++++++++++--------
+ security/security.c              |  4 ++--
+ security/tomoyo/tomoyo.c         |  4 +++-
+ 8 files changed, 67 insertions(+), 16 deletions(-)
+ create mode 100644 security/landlock/errata/abi-1.h
 
-diff --git a/fs/xfs/scrub/attr_repair.c b/fs/xfs/scrub/attr_repair.c
-index fa68ecabd983f..8dd88d775376a 100644
---- a/fs/xfs/scrub/attr_repair.c
-+++ b/fs/xfs/scrub/attr_repair.c
-@@ -1295,7 +1295,7 @@ xrep_xattr_swap_prep(
- 			.whichfork	= XFS_ATTR_FORK,
- 			.trans		= sc->tp,
- 			.total		= 1,
--			.owner		= sc->ip->i_ino,
-+			.owner		= I_INO(sc->ip),
- 		};
- 
- 		error = xfs_attr_shortform_to_leaf(&args);
-diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
-index 29c48c4db53b2..09e8d389a4ab6 100644
---- a/fs/xfs/scrub/dir_repair.c
-+++ b/fs/xfs/scrub/dir_repair.c
-@@ -1466,7 +1466,7 @@ xrep_dir_swap_prep(
- 			.whichfork	= XFS_DATA_FORK,
- 			.trans		= sc->tp,
- 			.total		= 1,
--			.owner		= sc->ip->i_ino,
-+			.owner		= I_INO(sc->ip),
- 		};
- 
- 		error = xfs_dir2_sf_to_block(&args);
-diff --git a/fs/xfs/xfs_inode.h b/fs/xfs/xfs_inode.h
-index 03944b6c5fba1..b8b795aa6f02d 100644
---- a/fs/xfs/xfs_inode.h
-+++ b/fs/xfs/xfs_inode.h
-@@ -178,6 +178,9 @@ static inline const struct inode *VFS_IC(const struct xfs_inode *ip)
- 	return &ip->i_vnode;
+diff --git a/include/linux/lsm_hook_defs.h b/include/linux/lsm_hook_defs.h
+index 2ef89b872716..da79e7ef1ca6 100644
+--- a/include/linux/lsm_hook_defs.h
++++ b/include/linux/lsm_hook_defs.h
+@@ -101,7 +101,7 @@ LSM_HOOK(int, 0, path_link, struct dentry *old_dentry,
+ 	 const struct path *new_dir, struct dentry *new_dentry)
+ LSM_HOOK(int, 0, path_rename, const struct path *old_dir,
+ 	 struct dentry *old_dentry, const struct path *new_dir,
+-	 struct dentry *new_dentry)
++	 struct dentry *new_dentry, unsigned int flags)
+ LSM_HOOK(int, 0, path_chmod, const struct path *path, umode_t mode)
+ LSM_HOOK(int, 0, path_chown, const struct path *path, kuid_t uid, kgid_t gid)
+ LSM_HOOK(int, 0, path_chroot, const struct path *path)
+diff --git a/include/linux/lsm_hooks.h b/include/linux/lsm_hooks.h
+index 9ccfc8fbbe0b..8eec3bdaee32 100644
+--- a/include/linux/lsm_hooks.h
++++ b/include/linux/lsm_hooks.h
+@@ -357,6 +357,7 @@
+  *	@old_dentry contains the dentry structure of the old link.
+  *	@new_dir contains the path structure for parent of the new link.
+  *	@new_dentry contains the dentry structure of the new link.
++ *	@flags may contain rename options such as RENAME_EXCHANGE.
+  *	Return 0 if permission is granted.
+  * @path_chmod:
+  *	Check for permission to change a mode of the file @path. The new
+diff --git a/include/uapi/linux/landlock.h b/include/uapi/linux/landlock.h
+index d00621d4d52d..0fb097510fcf 100644
+--- a/include/uapi/linux/landlock.h
++++ b/include/uapi/linux/landlock.h
+@@ -109,6 +109,7 @@ struct landlock_path_beneath_attr {
+  *   device.
+  * - %LANDLOCK_ACCESS_FS_MAKE_DIR: Create (or rename) a directory.
+  * - %LANDLOCK_ACCESS_FS_MAKE_REG: Create (or rename or link) a regular file.
++ *   This also guards the creation of whiteout objects as used in OverlayFS.
+  * - %LANDLOCK_ACCESS_FS_MAKE_SOCK: Create (or rename or link) a UNIX domain
+  *   socket.
+  * - %LANDLOCK_ACCESS_FS_MAKE_FIFO: Create (or rename or link) a named pipe.
+diff --git a/security/apparmor/lsm.c b/security/apparmor/lsm.c
+index afa19da69436..f63db47d57e7 100644
+--- a/security/apparmor/lsm.c
++++ b/security/apparmor/lsm.c
+@@ -353,8 +353,11 @@ static int apparmor_path_link(struct dentry *old_dentry, const struct path *new_
+ 	return error;
  }
  
-+/* Keep the full inode number on systems with a 32-bit VFS i_ino. */
-+#define I_INO(ip)	((ip)->i_ino)
+-static int apparmor_path_rename(const struct path *old_dir, struct dentry *old_dentry,
+-				const struct path *new_dir, struct dentry *new_dentry)
++static int apparmor_path_rename(const struct path *old_dir,
++				struct dentry *old_dentry,
++				const struct path *new_dir,
++				struct dentry *new_dentry,
++				const unsigned int flags)
+ {
+ 	struct aa_label *label;
+ 	int error = 0;
+diff --git a/security/landlock/errata/abi-1.h b/security/landlock/errata/abi-1.h
+new file mode 100644
+index 000000000000..53c96c2057fa
+--- /dev/null
++++ b/security/landlock/errata/abi-1.h
+@@ -0,0 +1,24 @@
++/* SPDX-License-Identifier: GPL-2.0-only */
 +
- /*
-  * For regular files we only update the on-disk filesize when actually
-  * writing data back to disk.  Until then only the copy in the VFS inode
--- 
-2.53.0
-
++/**
++ * DOC: erratum_4
++ *
++ * Erratum 4: Creation of whiteout objects
++ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ *
++ * This fix changes the access rights required for the creation of whiteout
++ * objects through :manpage:`mknod(2)`, :manpage:`renameat2(2)`, or
++ * :manpage:`link(2)`.  Creating whiteout objects is now guarded by
++ * ``LANDLOCK_ACCESS_FS_MAKE_REG`` instead of ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
++ *
++ * Whiteout objects are used in OverlayFS to mark the absence of a file in an
++ * upper file system.  Despite being created with ``S_IFCHR``, whiteout objects
++ * do not count as character devices.
++ *
++ * Impact:
++ *
++ * Sandboxed programs that create OverlayFS whiteouts (such as fuse-overlayfs)
++ * now require ``LANDLOCK_ACCESS_FS_MAKE_REG`` instead of
++ * ``LANDLOCK_ACCESS_FS_MAKE_CHAR``.
++ */
++LANDLOCK_ERRATUM(4)
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index a3d99bba5f1e..51d095f07890 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -14,6 +14,7 @@
+ #include <linux/err.h>
+ #include <linux/fs.h>
+ #include <linux/init.h>
++#include <linux/kdev_t.h>
+ #include <linux/kernel.h>
+ #include <linux/limits.h>
+ #include <linux/list.h>
+@@ -365,7 +366,7 @@ static inline int current_check_access_path(const struct path *const path,
+ 	return check_access_path(dom, path, access_request);
+ }
+ 
+-static inline access_mask_t get_mode_access(const umode_t mode)
++static inline access_mask_t get_mode_access(const umode_t mode, const dev_t dev)
+ {
+ 	switch (mode & S_IFMT) {
+ 	case S_IFLNK:
+@@ -373,6 +374,9 @@ static inline access_mask_t get_mode_access(const umode_t mode)
+ 	case S_IFDIR:
+ 		return LANDLOCK_ACCESS_FS_MAKE_DIR;
+ 	case S_IFCHR:
++		/* Whiteout objects are guarded with MAKE_REG. */
++		if (dev == WHITEOUT_DEV)
++			return LANDLOCK_ACCESS_FS_MAKE_REG;
+ 		return LANDLOCK_ACCESS_FS_MAKE_CHAR;
+ 	case S_IFBLK:
+ 		return LANDLOCK_ACCESS_FS_MAKE_BLOCK;
+@@ -389,6 +393,13 @@ static inline access_mask_t get_mode_access(const umode_t mode)
+ 	}
+ }
+ 
++static inline access_mask_t get_dentry_access(const struct dentry *const dentry)
++{
++	const struct inode *const inode = d_backing_inode(dentry);
++
++	return get_mode_access(inode->i_mode, inode->i_rdev);
++}
++
+ static inline access_mask_t maybe_remove(const struct dentry *const dentry)
+ {
+ 	if (d_is_negative(dentry))
+@@ -613,18 +624,18 @@ static int hook_path_link(struct dentry *const old_dentry,
+ 		return -EXDEV;
+ 	if (unlikely(d_is_negative(old_dentry)))
+ 		return -ENOENT;
+-	return check_access_path(
+-		dom, new_dir,
+-		get_mode_access(d_backing_inode(old_dentry)->i_mode));
++	return check_access_path(dom, new_dir, get_dentry_access(old_dentry));
+ }
+ 
+ static int hook_path_rename(const struct path *const old_dir,
+ 			    struct dentry *const old_dentry,
+ 			    const struct path *const new_dir,
+-			    struct dentry *const new_dentry)
++			    struct dentry *const new_dentry,
++			    const unsigned int flags)
+ {
+ 	const struct landlock_ruleset *const dom =
+ 		landlock_get_current_domain();
++	access_mask_t access_request;
+ 
+ 	if (!dom)
+ 		return 0;
+@@ -635,10 +646,18 @@ static int hook_path_rename(const struct path *const old_dir,
+ 	if (unlikely(d_is_negative(old_dentry)))
+ 		return -ENOENT;
+ 	/* RENAME_EXCHANGE is handled because directories are the same. */
+-	return check_access_path(
+-		dom, old_dir,
+-		maybe_remove(old_dentry) | maybe_remove(new_dentry) |
+-			get_mode_access(d_backing_inode(old_dentry)->i_mode));
++	access_request = maybe_remove(old_dentry) | maybe_remove(new_dentry) |
++			 get_dentry_access(old_dentry);
++	/*
++	 * In case of renameat2(2) with RENAME_WHITEOUT, a whiteout object is
++	 * created in the source location, so we require an additional access
++	 * right there.
++	 */
++	if (flags & RENAME_WHITEOUT)
++		access_request |=
++			get_mode_access(S_IFCHR | WHITEOUT_MODE, WHITEOUT_DEV);
++
++	return check_access_path(dom, old_dir, access_request);
+ }
+ 
+ static int hook_path_mkdir(const struct path *const dir,
+@@ -656,7 +675,8 @@ static int hook_path_mknod(const struct path *const dir,
+ 
+ 	if (!dom)
+ 		return 0;
+-	return check_access_path(dom, dir, get_mode_access(mode));
++	return check_access_path(dom, dir,
++				 get_mode_access(mode, new_decode_dev(dev)));
+ }
+ 
+ static int hook_path_symlink(const struct path *const dir,
+diff --git a/security/security.c b/security/security.c
+index 1daea0a94626..e8bd6701a415 100644
+--- a/security/security.c
++++ b/security/security.c
+@@ -1247,13 +1247,13 @@ int security_path_rename(const struct path *old_dir, struct dentry *old_dentry,
+ 
+ 	if (flags & RENAME_EXCHANGE) {
+ 		int err = call_int_hook(path_rename, new_dir, new_dentry,
+-					old_dir, old_dentry);
++					old_dir, old_dentry, flags);
+ 		if (err)
+ 			return err;
+ 	}
+ 
+ 	return call_int_hook(path_rename, old_dir, old_dentry, new_dir,
+-				new_dentry);
++			     new_dentry, flags);
+ }
+ EXPORT_SYMBOL(security_path_rename);
+ 
+diff --git a/security/tomoyo/tomoyo.c b/security/tomoyo/tomoyo.c
+index 1be96e2ce9f1..f2103b0c4c7a 100644
+--- a/security/tomoyo/tomoyo.c
++++ b/security/tomoyo/tomoyo.c
+@@ -264,13 +264,15 @@ static int tomoyo_path_link(struct dentry *old_dentry, const struct path *new_di
+  * @old_dentry: Pointer to "struct dentry".
+  * @new_parent: Pointer to "struct path".
+  * @new_dentry: Pointer to "struct dentry".
++ * @flags: Rename options.
+  *
+  * Returns 0 on success, negative value otherwise.
+  */
+ static int tomoyo_path_rename(const struct path *old_parent,
+ 			      struct dentry *old_dentry,
+ 			      const struct path *new_parent,
+-			      struct dentry *new_dentry)
++			      struct dentry *new_dentry,
++			      const unsigned int flags)
+ {
+ 	struct path path1 = { .mnt = old_parent->mnt, .dentry = old_dentry };
+ 	struct path path2 = { .mnt = new_parent->mnt, .dentry = new_dentry };
