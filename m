@@ -1,63 +1,33 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7082B3328E6
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 12:59:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B733C509F1B;
+	Thu, 17 Sep 2026 12:59:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649953; cv=none; b=BnnqvZCsYfV1+o8H+5Qj2uY1nzxzgkijjelhCoAeRpZUlljJ//73H6to6dWI6Ttlb4mXM3QcEtgSL1Br1zd5EbCWH0qPtk5J6AWzta/FpMLEURC0BIgyR7ru76xremNdCX7onrVNiIqmUFd0iqFKmcpDJ3qhsW9GR9XDTjGB1OU=
+	t=1789649997; cv=none; b=d6VoYybThUEYjEMMpR0JZpqm+vWis0Lb/i2KST3bwaoQGVxJfeYTDQO8Tb3V3w8LZyoESMQmd/dGHLJyw/7QRCaDPXaW8c1vMGHRQUcRRx15Krp1H7iORG7ct/y8HvHFVbo4Q7rVDSw+0ZgLEaBmkJzj08nRgD42gIWyR9w34H4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649953; c=relaxed/simple;
-	bh=Prfm9CQOpiJmgBanT1cgMHo6mY1JCoZ0/JW18n1QA8M=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=CG3cL50ZZIGaonoEu65PyCshAAw2fOmpcHWdXF18pmhK+57fOV7o8/GI/0PjaTHF28kDlBd5NZsAx5DuB8aN96sIkHhz5nI3i+KOC7EqOkmYJ6quuuwt/eVBETjaq8yrHhBmYEBkNpj6pUsyx2pSi/RaP1L2K/2qTP0agjHLXME=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=KOFaWEes; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="KOFaWEes"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccc02279so669397a91.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 05:59:08 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1789649946; x=1790254746; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=Qu/28W7mf1JwFoyU0LtmNJTZpNzdx5k08QQurwwj5Fs=;
-        b=KOFaWEesADB3Sice5SlPfkk9VVDPXxply4ZsX1ZYdHGYYYfOweALyGnNDtZ2V9HIe+
-         /om8TANhk/7UjKKBb4VCdA24HeYvbrFsJU6oIrWWkOYQM16/LKhVbgL7ccgNaQmkXeBG
-         D5KMiM1lnUZpeXcD3oFVJz/EHQIPBheeycIT9afBa+YNT2SvRTq0iq6Tn/AlyySxXVVf
-         RlNQ3xP2IxXpUo7C1/7MFFFDKvrlpdaGybdYlI3jJdXdGV0KI5527KWuyoLWqUixI3MC
-         TLmechRe9yko7MgnHg3rqY3nM7L+AE76CBODgJWzgPts7/hzUwPPYrfeqTBlHQfyKzY6
-         Bo6Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789649946; x=1790254746;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Qu/28W7mf1JwFoyU0LtmNJTZpNzdx5k08QQurwwj5Fs=;
-        b=LK9bzISzwk4lIR7gUi0YxqB/cEmjJ9Ku+w3D45nkpKOhLcUSVbzPsSM/BhD4Eh2Bv2
-         iH8dLCqXJDvcNn3xca4tfmP8ztLRrDi/SeDrloYqjZoPJkujHMKbvMhdNQ+LHd0k0/2j
-         GbBXHI3jjb6TX1sqjRDkBQDURa/5jFvBifDQc9VcvtI5B0zicUAudlXwVTMBziZesgj5
-         WMj6sMLCBpBsm3fb5tjQ2jHBNZxuuFCPEnAq+2qhe5gT5aFePnW29E6nW0pBtF8umD0n
-         B8flpbtHNXgkRz4KA6pmCq5fSCMwRqoK7Oinz8B5yVvIxBuatIA8C088/quBwDLmcCWv
-         ql8Q==
-X-Gm-Message-State: AFuF++nQL9hw26/tXXbaAmIbc21YUxhgGjAPMMap/RTdwI1T0EEUIEKn
-	obDDPe34d9d7gbsoXslnFBNxLOV0uHCNCvCwk2T7gLHAks9YsiARfXsoMRmuOLOsjFo=
-X-Gm-Gg: AYBFou0nS85G2HYHUcYjdoCji25WIrUGi/Sm8qJUP/VBzUjfbG9antzZGAuHl2M9ZpP
-	3nTLxN6m1GAf7RPu1jy4LYwFnTZRgQfy/PgfUeiH19gDzfc0hsGFOPqYcrNbOqt8d1qrSyD48wn
-	VtWBes5cwIifJzdwoi2aWax4oKpVXBvzYJmEGFgGSLPaUSEs+fzBMmmkY+zYUhKQTo+RHVbHMv/
-	HbMe/BX7KsAp7wXDUpIbVnzjVeUE0K2yxu0bMKYWYytrysWac6hXJTrBMp+lUAMiweVglMkAJdN
-	Qkkn2BIXQiWwJHTVbXh9S92kT4+VEHiVol2kDrFcAImpJUkT4BB36OXAwvUBHHccfiG7gSRCwzT
-	VH7DiMseR0FCXKDctomu8amiUQvJyszF+b2d0OalALr+pFjIWATfPT5T9vrK6ajf29xRPbB5+W2
-	AQhwkKMUDQnRDusq2FVj5NNj0LwkobN0FcQjtfjB3F6pGdvOdU3cAM+lKfc0Rj8ug=
-X-Received: by 2002:a17:90b:4408:b0:39d:ec24:5ffe with SMTP id 98e67ed59e1d1-39e1e284fd8mr14000564a91.9.1789649946295;
-        Thu, 17 Sep 2026 05:59:06 -0700 (PDT)
-Received: from ec7b70f3a45c ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33bf5ad25bbsm13750752eec.19.2026.09.17.05.59.05
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 05:59:05 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+	s=arc-20240116; t=1789649997; c=relaxed/simple;
+	bh=FJxrWK1gBiGxRvr+NWkzixtKYf/0QH/dX/R6Xx3kh9c=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DKNU2EciB9Ycy41AZAA9Ly7QDsjDm0GulHdUu/WXcbtl/q/AqnU2VhwLEoKsKjIg3lMEiJzQ/3JIec6UQEe2DL2xQT3LxEv10skPEDDcgmPm3mPY++S+FSb0qGsOyyd/aD5k6YERpZg2ePZCJx/Rs/dOSk30S5gPzTd5/SwCq1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowADnF0I45KtqhwGBCA--.3200S2;
+	Thu, 17 Sep 2026 20:59:36 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	stephen.boyd@linaro.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_parse_phandle_with_args_map()
+Date: Thu, 17 Sep 2026 12:59:36 +0000
+Message-Id: <20260917125936.2152450-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,60 +35,58 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?b?W1JFR1JFU1NJT05dIHN0YWJsZS1yYy9saW51eC01LjEwLnk6IChidWlsZClpbXBs?=
- =?utf-8?b?aWNpdCBkZWNsYXJhdGlvbiBvZiBmdW5jdGlvbiDigJhrdmZyZWXigJk7IGRpZCB5?=
- =?utf-8?b?b3UgbWVhbiDigJhrZnJlZeKAmT8gWy0uLi4=?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+X-CM-TRANSID:zQCowADnF0I45KtqhwGBCA--.3200S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Jry3tF45GFWfZr15XF4UXFb_yoWkGFb_uF
+	yvvr9xXrW8CF4DurW3Xrn3ur92v3W8WFWkZr10y3Wak34jvrn0qr109r95Jw1DurWS9r9x
+	Gr4DCry0krnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqkYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jn
+	gAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02y3QAAsb
+
+of_find_node_by_path() returns a node with an elevated reference count,
+but the function returns without dropping it both when a provider node
+is missing and after the last check. Add the missing of_node_put() calls.
+
+Fixes: 357aa4b61c82 ("of: unittest: Add phandle remapping test")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Thu, 17 Sep 2026 12:59:05 -0000
-Message-ID: <178964994501.141985.8613990755737198148@kernelci.org>
-
-New build issue found on stable-rc/linux-5.10.y:
-
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
-implicit declaration of function ‘kvfree’; did you mean ‘kfree’? [-Werror=implicit-function-declaration] in net/9p/client.o (net/9p/client.c) [logspec:kbuild,kbuild.compiler.error]
----
+ drivers/of/unittest.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-Log excerpt:
-=====================================================
-net/9p/client.c:935:9: error: implicit declaration of function ‘kvfree’; did you mean ‘kfree’? [-Werror=implicit-function-declaration]
-  935 |         kvfree(fid->rdir);
-      |         ^~~~~~
-      |         kfree
-  CC      fs/fs-writeback.o
-  CC      drivers/video/backlight/gpio_backlight.o
-  CC      fs/pnode.o
-  CC      fs/splice.o
-cc1: some warnings being treated as errors
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index 36c64d485a53..e10fff3f68c4 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -581,6 +581,7 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
+ 	for (i = 0; i < ARRAY_SIZE(p); ++i) {
+ 		if (!p[i]) {
+ 			pr_err("missing testcase data\n");
++			of_node_put(np);
+ 			return;
+ 		}
+ 		prefs[i] = OF_KREF_READ(p[i]);
+@@ -711,6 +712,8 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
+ 			 i, prefs[i], OF_KREF_READ(p[i]));
+ 		of_node_put(p[i]);
+ 	}
++
++	of_node_put(np);
+ }
+ 
+ static void __init of_unittest_property_string(void)
+-- 
+2.34.1
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:f5cc2c371d72240942f0d1e05e7b6a67f460556b
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  64790d9e5f2890daf10c6d0ce0d312ec41df8adc
-
-# Builds where the incident occurred:
-
-## defconfig+lab-setup+arm64-chromebook+CONFIG_MODULE_COMPRESS=n+CONFIG_MODULE_COMPRESS_NONE=y on (arm64):
-- compiler: gcc-14
-- config: https://files.kernelci.org/kbuild-gcc-14-arm64-chromebook-6aabda3bfc1857a999dea496/.config
-- dashboard: https://d.kernelci.org/build/maestro:6aabda3bfc1857a999dea496
-
-#kernelci issue maestro:f5cc2c371d72240942f0d1e05e7b6a67f460556b
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
