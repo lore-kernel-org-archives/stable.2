@@ -1,96 +1,45 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B8B5A488230
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 21:51:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BAC3438024;
+	Thu, 17 Sep 2026 21:53:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789681911; cv=none; b=Jt2fiyOvBiRczwxKdiVSlW3oym8f5qUUndi2TNRnuRUAut76iczrd1picqU+XpkPaI2fiDlyhlVNgl4nLt5gpYXdLdaTL9VgQ1oTeKXsRKeQ3CX0wrHQJzpP3qj/WRObfnlhcIjhLCspJ4nRNoq+SOOXR4csw4GH8fPqgac/89g=
+	t=1789682019; cv=none; b=oNcofWVj2lNzh1keLu+JoC1VHigZaH604lmj1kn7VU1ZOX8xQ58P4ypMFmqlR+MWEZ1VOYyz4U8So2HIBVIb4McyrOr86sVx9zihpxqV95xe2WAGl7YuCKop0cx/OSzwNNhYjYIikfrtV/5YREe32tuMD6uHp7k70bUyI8mFYBc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789681911; c=relaxed/simple;
-	bh=h5HxmjVsexGSgQzBTaXxA5FRuYE5grZdMOjOrxCYIkA=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=gqq6W11GpYerfqDVZAXAGcDi/Y7k5EocnBasFoezyatDge3MlpxOipqkWFPIonpvpWgPwZXbO9kE4pT+PMnXfX3jCANUrHQWm02PihUpYvf+4R5qaAEufkgMz+RnmLM+15nvLGeq/gCiIztm5qm6v1Px4V+nQHTmsoeO+sgbKoo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=enX/Heai; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=hgiZnVgf; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789682019; c=relaxed/simple;
+	bh=H8XrNH+fUEw3blgIV6Nt1R8Z2HHWIsq9siATBTEbpTY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=RWdoEN7n7Au84lcieQxzwMI6tsQSNIDAubLEyglLI7WlsL3e0iOF9G4430RTUHTp/eY3sJmjz8YBFGPvSsNmKl9eKYGZHgvq4kXLymd7MU8ELNcNuZzEAvyzGiINTmAjE7zkdRR1js0M/dgQ+xUbAfDaIVydhCdHnP5yey2g2pc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UKn6Iv5B; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="enX/Heai";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="hgiZnVgf"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789681908;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=tt8WLUmC8MzD51c/rGvlTmZw5aHynyLZDMykNoT0CLY=;
-	b=enX/Heai1WwIQkMgFWw12ULDmPMqX0dfubFtDGzhCE8Kz9rjVcHK/XOYsnoHwzZAncbeCR
-	w6N8IO9xbpBkPGnLOCcCVTqT89sKc7Oj/0I+LG+YfpyyRSgpT91g5xVFuefGKc61CcRlI/
-	ZC8AnZPr8s6u724XwrU6tX1izQ1g6jw=
-Received: from mail-qv1-f69.google.com (mail-qv1-f69.google.com
- [209.85.219.69]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-172-aebcv5FHM1CqKvN6Adxghg-1; Thu, 17 Sep 2026 17:51:47 -0400
-X-MC-Unique: aebcv5FHM1CqKvN6Adxghg-1
-X-Mimecast-MFC-AGG-ID: aebcv5FHM1CqKvN6Adxghg_1789681907
-Received: by mail-qv1-f69.google.com with SMTP id 6a1803df08f44-9106fce784dso3000436d6.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 14:51:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789681907; x=1790286707; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=tt8WLUmC8MzD51c/rGvlTmZw5aHynyLZDMykNoT0CLY=;
-        b=hgiZnVgfPrdspf1CiXJyUtVSdHQgFsUjpXweHWbYNREtE0JXDT/kfk4ocpTjcE17l2
-         7TlZLs/CFTiVtx2YAsw1QrPkqMjv7SxsPm+UvpWUuuP2Dx4Pa9wjR555hVbTTzSu7Ts8
-         mCEnnnAkpufWpFQ7fmNV8nHa713BPvn1sXMkIpmqtjwCToUZkfEHJ5cakgH0XoeOuUUS
-         +PVJWo5KGPcSAlXgZqzFQ4WnKIaPeJCv6ml4fmI7MozNZb6EfbOOyYdPE8+nOmPeKPky
-         nIZnagVIO9u8eI38sIr/k4dAHl1Ci0tU6kbk9ZAuZwOIHQXJcN9qceAtAxjGzSQwBDAF
-         dUZA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789681907; x=1790286707;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=tt8WLUmC8MzD51c/rGvlTmZw5aHynyLZDMykNoT0CLY=;
-        b=gZEd5zQcFaTo7n9N0tXGPNkZCVHNSDGA/xFUttuiqGfAcg2R5+wHgoXMISvzP6qgB6
-         wBU5odgqcxLSbIo86e0rGBdWaAmc3HlnGtXD44c6s6cfji/oMepykjp0Ls7xM4DP6RFr
-         PbE4+2NomoKbEkYDOopTNIzNnZ6ebx3XgaV8eg5ZtfuzfhXim3beSov3By0kZozhBTOU
-         UKFTLTrSf73qC7uYmH0vYGHEZDyPAbU5fKYm6M+ngOvwHKZmbsYAum7ZfyViHtbwZG/r
-         Y2V9hhj2rCoJ4Sso1wx0r6JigiE+X2UqPELC0hAEIIktueXSZQoDf204Bv2RFNb0teIU
-         Z1Ng==
-X-Forwarded-Encrypted: i=1; AKwUvBy/C72Kcdkg7XWMrunf553iFXz4DfkSMblzkE5JxKpn95P4myKnfZXpxqUDhZTDYpbYnqtZJEk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kmqFPEba0fo9qY/YrspxWDQ8/EvNmxGFNfzdCXVfy0JQtejVkQ
-	lu8omOPVZ3mpPD1NwupTOrkEljai+xYmLjKnL5lYt65ZqQ9Q1OBkNC4+Vlf+f8Z7ofCsp43n42/
-	j5vTckS3RD1Os7deSv9LNiVGc39Szn+yFIQV/Nz/p4CTorEx1cdufOukwOA==
-X-Gm-Gg: AYBFou2TLyPLUPdGWXvnfMHOIZox2f5GK2OzRJtSc63Eygs5vgHAtVk267MeCir+TVc
-	RjFA8yS7IOvr2QpCy5mR6VAtyTxqzzfEbz3jjpIm+AxJZ/7hXTpZClrBN8x6yyKnA7UgT5D3Bmf
-	uj9WhS+y8yMOXD4YFIZF7EpSYMlii6cIPFnDhsnPdVvKmIfGlXj/hnfqT2AR8j27kcpNHbEX+1W
-	4OjmxR6bXHq+1+nFPavvgk/yEk83P5awwdFIrk/K02nISMBJCqwD6BjfFpURHDppCSKImjGf99a
-	Uow8LOhrCPbsp6FpCEeE4IqDo2xSRxrB4bzP7qgl4CiifkAhXIa+Lm42aGpjIWGNdvQXRiHt
-X-Received: by 2002:a05:6214:5b02:b0:910:346f:1027 with SMTP id 6a1803df08f44-91254cb1252mr10497366d6.37.1789681906710;
-        Thu, 17 Sep 2026 14:51:46 -0700 (PDT)
-X-Received: by 2002:a05:6214:5b02:b0:910:346f:1027 with SMTP id 6a1803df08f44-91254cb1252mr10496896d6.37.1789681906238;
-        Thu, 17 Sep 2026 14:51:46 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252c5bef1sm7946836d6.9.2026.09.17.14.51.45
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 14:51:45 -0700 (PDT)
-Message-ID: <b020f35ab8adda3907ec2be57057996be40717c5.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: RCU-free the scheduler-containing
- nouveau_sched
-From: lyude@redhat.com
-To: "Jonghyuk Kim(MalHyuk)" <malhyuk97@gmail.com>, Danilo Krummrich
-	 <dakr@kernel.org>
-Cc: dri-devel@lists.freedesktop.org, nouveau@lists.freedesktop.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 17:51:44 -0400
-In-Reply-To: <20260902012717.880724-1-malhyuk97@gmail.com>
-References: <20260902012717.880724-1-malhyuk97@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UKn6Iv5B"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 085721F000FF;
+	Thu, 17 Sep 2026 21:53:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789682017;
+	bh=dCWk4QMDYulxz3+qDqgM4HuxE6fTIAdbdD6Bq6SUqgg=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=UKn6Iv5BVX8PfBPi5k0SDAZm7wjh4UDyXyUyzn2iILVn+5gAfHAVz/NKeXFiOjU2H
+	 bAiasjZW0/9uGsTY5AEUqfkDVyWl2fja8NmGz1+b/ovS/MHyUTcodWMpQVMQ9YekQD
+	 ju3/VsoRiSFksyuzSPgqZxB4MV8DMCQLIlSjV0L+yEqVuygFhbCSPZF38fmGEpcHhT
+	 hMZsnaosYCqqSyG4xie9Yog7zSbu41Vk4A5V2Joeb4YF4F3y9S7tDLRcesYoA9/69/
+	 YZXqtIUllsgXv8vQnxqPSfBPVqlDiTRSKRMUcWtWpnm35kempbLVWW55+IfYwj0lUp
+	 rDToDfoUfXvIQ==
+Subject: Re: [PATCH] net: wan: fsl_ucc_hdlc: release resources on remove
+From: netdev-bot+sashiko@kernel.org
+To: lgs201920130244@gmail.com
+Cc: qiang.zhao@nxp.com, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
+ netdev@vger.kernel.org, linuxppc-dev@lists.ozlabs.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 21:53:36 +0000
+Message-ID: <178968201650.22033.96357301509901132@kernel.org>
+In-Reply-To: <20260916065136.2926089-1-lgs201920130244@gmail.com>
+References: <20260916065136.2926089-1-lgs201920130244@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -98,70 +47,156 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider:
 
-Will push to drm-misc-fixes in just a moment
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 1 (1)
 
-On Wed, 2026-09-02 at 10:27 +0900, Jonghyuk Kim(MalHyuk) wrote:
-> struct nouveau_sched embeds a struct drm_gpu_scheduler (base).
-> nouveau_sched_destroy() calls nouveau_sched_fini() (which does
-> drm_sched_fini(&sched->base)) and then frees the object with plain
-> kfree(sched).
->=20
-> drm_sched_fence_get_timeline_name() returns fence->sched->name, and
-> the
-> scheduler fence keeps a .release callback so it is not ops-detached
-> on
-> signalling.=C2=A0 A finished fence exported to userspace via drm_syncobj =
-/
-> sync_file therefore keeps pointing at &sched->base after
-> nouveau_sched_destroy(),
-> and a later get_timeline_name() -- reachable unprivileged through
-> SYNC_IOC_FILE_INFO -- dereferences freed memory (KASAN slab-use-
-> after-free
-> read).
->=20
-> Per the dma-fence lifetime contract the exporter must keep the data
-> backing a
-> signalled fence alive for an RCU grace period.=C2=A0 Free the scheduler-
-> containing
-> object with kfree_rcu() instead of kfree().
->=20
-> Fixes: 5f03a507b29e ("drm/nouveau: implement 1:1 scheduler - entity
-> relationship")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Jonghyuk Kim(MalHyuk) <malhyuk97@gmail.com>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_sched.c | 2 +-
-> =C2=A0drivers/gpu/drm/nouveau/nouveau_sched.h | 1 +
-> =C2=A02 files changed, 2 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.c
-> b/drivers/gpu/drm/nouveau/nouveau_sched.c
-> index 2cbae003d6de..48dbb851df2f 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_sched.c
-> +++ b/drivers/gpu/drm/nouveau/nouveau_sched.c
-> @@ -516,7 +516,7 @@ nouveau_sched_destroy(struct nouveau_sched
-> **psched)
-> =C2=A0	struct nouveau_sched *sched =3D *psched;
-> =C2=A0
-> =C2=A0	nouveau_sched_fini(sched);
-> -	kfree(sched);
-> +	kfree_rcu(sched, rcu);
-> =C2=A0
-> =C2=A0	*psched =3D NULL;
-> =C2=A0}
-> diff --git a/drivers/gpu/drm/nouveau/nouveau_sched.h
-> b/drivers/gpu/drm/nouveau/nouveau_sched.h
-> index 20cd1da8db73..51ce8dcf6285 100644
-> --- a/drivers/gpu/drm/nouveau/nouveau_sched.h
-> +++ b/drivers/gpu/drm/nouveau/nouveau_sched.h
-> @@ -98,6 +98,7 @@ void nouveau_job_free(struct nouveau_job *job);
-> =C2=A0
-> =C2=A0struct nouveau_sched {
-> =C2=A0	struct drm_gpu_scheduler base;
-> +	struct rcu_head rcu;
-> =C2=A0	struct drm_sched_entity entity;
-> =C2=A0	struct workqueue_struct *wq;
-> =C2=A0	struct mutex mutex;
+- [High] Teardown ordering defect in the new code: ucc_hdlc_remove()
+  calls unregister_hdlc_device(priv->ndev) as its first action.
+- [Low] Coding style in the new code: the added
+  unregister_hdlc_device(priv->ndev) is inserted directly after the…
 
+Pre-existing issues:
+- [Medium] Probe error-unwind asymmetry: the labels reached after
+  uhdlc_init() has already succeeded ('free_dev:' at…
+- [Low] ucc_hdlc_probe() creates a virq mapping with
+  'ut_info->uf_info.irq = irq_of_parse_and_map(np, 0);'…
+
+--
+
+net: wan: fsl_ucc_hdlc: release resources on remove
+
+The patch makes ucc_hdlc_remove() unregister the HDLC netdev, free the
+netdev after the hardware teardown, and free the separately allocated
+struct ucc_tdm before freeing the private data.  A few questions about the
+ordering and about the surrounding teardown paths below.
+
+> diff --git a/drivers/net/wan/fsl_ucc_hdlc.c b/drivers/net/wan/fsl_ucc_hdlc.c
+> index 809f21fb93f56..ffc8b989e33a7 100644
+> --- a/drivers/net/wan/fsl_ucc_hdlc.c
+> +++ b/drivers/net/wan/fsl_ucc_hdlc.c
+> @@ -1254,6 +1254,7 @@ static int ucc_hdlc_probe(struct platform_device *pdev)
+>  static void ucc_hdlc_remove(struct platform_device *pdev)
+>  {
+>  	struct ucc_hdlc_private *priv = dev_get_drvdata(&pdev->dev);
+> +	unregister_hdlc_device(priv->ndev);
+
+[Severity: High]
+Can uhdlc_close() be skipped here when the interface is administratively
+up at unbind time?
+
+unregister_hdlc_device() in drivers/net/wan/hdlc.c detaches the protocol
+before unregistering the netdevice:
+
+void unregister_hdlc_device(struct net_device *dev)
+{
+	rtnl_lock();
+	detach_hdlc_protocol(dev);
+	unregister_netdevice(dev);
+	rtnl_unlock();
+}
+
+detach_hdlc_protocol() ends with hdlc_setup_dev(), which assigns
+dev->flags directly:
+
+	dev->flags		 = IFF_POINTOPOINT | IFF_NOARP;
+
+That clears IFF_UP.  netif_close_many() in net/core/dev.c then drops the
+device from the close list:
+
+	list_for_each_entry_safe(dev, tmp, head, close_list)
+		if (!(dev->flags & IFF_UP))
+			list_del_init(&dev->close_list);
+
+so ndo_stop (uhdlc_close()) is not called during unregistration.  Since
+uhdlc_close() is the only place that does:
+
+	napi_disable(&priv->napi);
+	...
+	free_irq(priv->ut_info->uf_info.irq, priv);
+
+does that leave ucc_hdlc_irq_handler() still installed on the virq, with
+dev_id == priv, while the code below frees the DMA rings, the netdev and
+priv?  The handler starts with:
+
+	struct ucc_hdlc_private *priv = (struct ucc_hdlc_private *)dev_id;
+	struct net_device *dev = priv->ndev;
+
+Would it be safer to close the device through the networking core (while
+IFF_UP and hdlc->proto are still intact) before calling
+unregister_hdlc_device()?  A related side effect is that the
+request_irq()/free_irq() pair stays unbalanced, so a re-bind would get
+-EBUSY from request_irq() in uhdlc_open() on the same non-shared virq.
+
+Reproducer would be: attach a protocol via SIOCWANDEV, ip link set hdlc0
+up, then unbind the platform device via sysfs.
+
+[Severity: Low]
+This isn't a bug, but the new call sits directly after the declaration of
+priv with no blank line between the declaration and the first statement,
+which checkpatch.pl flags as "Missing a blank line after declarations".
+
+>  
+>  	uhdlc_memclean(priv);
+>  
+> @@ -1266,6 +1267,8 @@ static void ucc_hdlc_remove(struct platform_device *pdev)
+>  		iounmap(priv->utdm->siram);
+>  		priv->utdm->siram = NULL;
+>  	}
+> +	free_netdev(priv->ndev);
+> +	kfree(priv->utdm);
+>  	kfree(priv);
+
+[Severity: Medium]
+This isn't a problem introduced by this patch, but while the two teardown
+sites are being brought into agreement: the probe error labels reached
+after uhdlc_init() has already succeeded never call uhdlc_memclean():
+
+free_dev:
+	free_netdev(dev);
+undo_uhdlc_init:
+	if (utdm)
+		iounmap(utdm->siram);
+unmap_si_regs:
+	if (utdm)
+		iounmap(utdm->si_regs);
+free_utdm:
+	if (uhdlc_priv->tsa)
+		kfree(utdm);
+free_uhdlc_priv:
+	kfree(uhdlc_priv);
+
+If alloc_hdlcdev() returns NULL or register_hdlc_device() fails, does the
+kfree(uhdlc_priv) drop the only handles to what uhdlc_init() allocated,
+i.e. the two coherent BD rings, the coherent RX/TX data buffer, the QE
+MURAM parameter area plus the riptr/tiptr MURAM allocations, the
+ucc_fast_private from ucc_fast_init(), and the rx_skbuff/tx_skbuff
+arrays?
+
+The commit message says:
+
+    The probe failure paths release these resources, but the remove path
+    does not.
+
+Is that accurate only for the netdev and the ucc_tdm struct?  The label
+name undo_uhdlc_init suggests it undoes uhdlc_init(), while the code
+under it does not call uhdlc_memclean().
+
+[Severity: Low]
+This is a pre-existing asymmetry rather than something added here, but
+ucc_hdlc_probe() creates the virq mapping with:
+
+	ut_info->uf_info.irq = irq_of_parse_and_map(np, 0);
+
+and neither the probe error labels nor ucc_hdlc_remove() call
+irq_dispose_mapping().  Should the mapping acquired at probe time be
+disposed in the remove path being completed here, given that
+request_irq()/free_irq() are balanced by uhdlc_open()/uhdlc_close() but
+the mapping itself is not?
+
+>  
+>  	dev_info(&pdev->dev, "UCC based hdlc module removed\n");
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916065136.2926089-1-lgs201920130244%40gmail.com
