@@ -1,222 +1,105 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985453DBD41
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 08:11:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BE7CC21A42D;
+	Thu, 17 Sep 2026 08:15:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632719; cv=none; b=Q8yTsWsp95lfWB7TiDnIfiTROv4x2yVv7ZJW6p9+44wNU2eK6Jl7OQEWf/SaxB34FGOh09EDJ1rYnFoH0mD7ealWfVbnihIDqwrGpMDwCY0f/wQuU31ks2JrgalwAW8r3asWuhwdTUpH1cs8LWwD0f0fiUpDeAg6yXpRAEbFAAM=
+	t=1789632920; cv=none; b=EIJg2UA6gKZAGwNmE1dsenENQ+8L8Ap9EAe4Sn8/abu5ydRitTsy1rrbeRpZafA9/LI+cylkqk+GMW14scVDIKzeh29+ltYJxD7jFMiFbpqMiTiAf+DrQND1TSTbUtlxa3ZVOJlOZMjQ/hvy59QeQKaq1q6962U1GOO12REfNWE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632719; c=relaxed/simple;
-	bh=aXi4Ocl4wPLP6DaqHSusLJmAe9fUehN8EncBiZqZaT4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RxcL2D9756BiQCYaYl8B3sqIqfgh1hBKSjrOqgwaDEdEQBg71a//r3yWb202lrMcvvfhaqxREifjCyx3FJ4SUmXKqFDHj04/wPMuor60ATg0xFXZOmLyTJGdQH7uEbheiSUJnUFvScFpYYFT6qYkUpJYfjuQlsDf2JNY+mmyiUg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UTY17t2U; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789632920; c=relaxed/simple;
+	bh=irOsyhvGvw0CQJbGaZtUxAJVTX8hnbnlTDprGG5vL2g=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=omMnIhikFrJ7VPzm90EbgsskvynaDMZLNJV6of8JPS6G02D6pugbM+Cy3D71axVAQU5FrEm3S0rzLdysWxujmr/et1+I3D5OXJMoZYk9fs3zC7c0/v1G431gQP8sxGEEp4vJok08hgbgPA67wU9OC8M7v4IQepnjTxeQwng1EPc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SqB946gz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UTY17t2U"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so3235895e9.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:11:57 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789632715; x=1790237515; darn=vger.kernel.org;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fAnlR2dtGuXBbIrYg+IuvuLox4jTD1pnpks7H3lzGUg=;
-        b=UTY17t2Uka+1gu+2nEo/zLhkh2d56fc5F5iW0iC7t6Mce/6Z9QPlq7nk0LXp5OEYyi
-         byI2k1D12ov9XV58yaMim7dOdTiEiHIglGzxonOoxUYHT4IkqN4eIUVl7E4w4vHsZwBE
-         wXheRV0fRltVEx1AYsoFq66PFgl3h2wqQf311wIx2oKLzm22Ucss34ngiF1CqRyvF/rw
-         eyx5PCBoNxWJ/2z05jG1kB3IuMrmmhj5wKlmblKc7CHTsQG9PVlWim81qDlxZq8AIc3o
-         GZbsS2K7TxFFscYDcPHbNQiY5oQ6IIINLA7TFgahxbc0Ar97Ffogd6BQmUzFbOdAWhpv
-         qPGw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789632715; x=1790237515;
-        h=in-reply-to:content-transfer-encoding:content-disposition
-         :content-type:mime-version:references:message-id:subject:cc:to:from
-         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=fAnlR2dtGuXBbIrYg+IuvuLox4jTD1pnpks7H3lzGUg=;
-        b=0PeIOR5Cu9MbTIH2/8KlcXimNHjfPhw1PYB+ghA9U+qOb6hRmqJM2Um6YeK3BsmmSF
-         OgVawHj/aRZF2PAY1h8k4Fna7ogqqietl+G2soAi/+1DzSmh/Iu47mWThl16lRo5NaUP
-         c18qZo8gmG12OQJ9P4uCSpjwNppkSoS+CEcOjB2mVOipFN+MRrlkyOnRldOrGZu5HPw4
-         XO/2mgvjOfYXJzz07LkanHe915u4WJgtKTcVCaoI5owfcBPb7iMQ5f3cibvPtpu6Ld5n
-         feLEBwo7+So48xDgi7ShO7H4ljvE0oFvOkImMfV85W0eI/CcIKd7+iiwHgKg3OqZgLjC
-         kWQg==
-X-Forwarded-Encrypted: i=1; AKwUvBzBoB4G/8Blq2CvbEGl72eqc1E+Oj6KlMZ/TON0mCZK08nGw1rJTrf07t9Yc9iLFwt5nnfqyzE=@vger.kernel.org
-X-Gm-Message-State: AFuF++kJW9jpqS7zvp0VFf0Z13n6GDlwCTb3eYLwWSeL5XM9etMHAMX1
-	zRR+HXJnwuX2VWx/jKj6f72MscL/IhfRlpWCS5DYqYOqlJucRpIFY6abV++JUwC7AA==
-X-Gm-Gg: AYBFou3sKaOhQrPrGN02Xom6lgh+TYZEOpxiQ9KHescHrW2R7Mmx2gwBbxW1uepQs3/
-	fM85TFVdTaGLjNcRHpRHnfXq05kjj5igP7pgewABGEErUQwYyH/B4f/cmrMqKCMsS3Nv6krNnbx
-	iCsoR2yiPP3B3qvRvM5LXPD9aUxqXvMtQA/Is71If7qzuEvkyZ/jOKHEaH6Dq5WubXUpfQENncY
-	EvNm7MKOSE1TEfjzBpTGBAqPXuriUJvHtp8iPglTVTsi9V+MWpy/6CrWMr7MEfHDTFolZ0pYE2w
-	m+97PM+uvrp39clFBRvTM4B2LU0/zandMlu1djxI1nw8jnMQJtqkX8UyBWiyJKtMtbDsQGCCDOs
-	fLV4eIsymFc/TFgI4P3J3q4CbU2lcYic+6d67syOXHiRpe99sOnJC5VH8dcl+W5f3rYYo1DaDlj
-	7IbZxVhMIg22CUnsGdUm9hdHJDs6cBVsKeXC7tc+qDUr+sExNrxI7I2Cj5REHWW7wdLXdcL66I+
-	gkSPQfSZ+Ge8p28GK7eGbf2cVYsBUH+puswyYCrY7TdLrRXULb2DA==
-X-Received: by 2002:a05:600c:3b97:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-49ebcc010d5mr137864965e9.15.1789632714827;
-        Thu, 17 Sep 2026 01:11:54 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd22dbf2sm50558415e9.10.2026.09.17.01.11.54
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 01:11:54 -0700 (PDT)
-Date: Thu, 17 Sep 2026 09:11:50 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: Wei-Lin Chang <weilin.chang@arm.com>
-Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
-	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
-	Sebastian Ene <sebastianene@google.com>,
-	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
-	Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v3 1/2] KVM: arm64: ptdump: Check the page tables aren't
- freed when accessing
-Message-ID: <aqugxlnqegPzMpB-@google.com>
-References: <20260916230337.4162485-1-weilin.chang@arm.com>
- <20260916230337.4162485-2-weilin.chang@arm.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SqB946gz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB001F00899;
+	Thu, 17 Sep 2026 08:15:15 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789632919;
+	bh=QDyuTO0ZRwbxBwmEf+aUlRK6Ejj4v7oLYhRv9ipxsZ4=;
+	h=From:To:Cc:Subject:Date;
+	b=SqB946gz59b2RK7yo9v8JaVtoNHYj/1qfiDgVQSkVvQ10uIyUDuV87kqktecI1Xfk
+	 Y461oPZTcDhp7ARRgvK//M7KeQG88Eo71ek2ochcr2mlxkbslDYm+jluTTLUZcgriP
+	 lY3d8rbPVCoc5FrTotEOmQjBpHp0Dm6iIFKsBUsARVybKHcPLWHZHVjHUH6+JIr/DI
+	 ieCwcOjD/umuvsP7D4UQD8ffB9nC8NdsTssCeqaGhKFCwE/PA1l7nLT1SYtBXL/og1
+	 HeYkbUw+jUNlErR7eftOQVI/155NhKd/t2NUueuD6PeSbYAS3qOWREHfhnnwlz4V9G
+	 QRkWBJ4IECjug==
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Krzysztof Kozlowski <krzk@kernel.org>,
+	Peter Griffin <peter.griffin@linaro.org>,
+	Alim Akhtar <alim.akhtar@samsung.com>,
+	linux-arm-kernel@lists.infradead.org,
+	linux-samsung-soc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Alexey Klimov <alexey.klimov@linaro.org>,
+	Sashiko <sashiko-bot@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH fixes] soc: samsung: exynos-pmu: fix use-after-free of interrupt generator node
+Date: Thu, 17 Sep 2026 10:15:11 +0200
+Message-ID: <20260917081510.59599-2-krzk@kernel.org>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2082; i=krzk@kernel.org; h=from:subject; bh=dE3+/DwJCR9TouOaCXZbn37MEpseKqnU4nyKAMX3J+Y=; b=owEBbQKS/ZANAwAKAcE3ZuaGi4PXAcsmYgBqq6GOfmg1EExaA4JgYrGTpt82/nt+ZKPakZCU4 VEng7yjWgSJAjMEAAEKAB0WIQTd0mIoPREbIztuuKjBN2bmhouD1wUCaquhjgAKCRDBN2bmhouD 1xwCD/47Xr98/iTaeEhMXsYh7XA3Ab2nRUQglUf8QQ+204FVgDyDk0O+Zc8z1cqcOqCZ1cDs6lY YSu2n8xLSl0j0CKuwH/4E/Crlb+SAOrfHyhhtrf9w7IjALw1R5l5Oge5f17UGnp8df38W2SrBTi RnHYxogE4RpY60Y18BwjeKelW/jYRzy1+2tUwvSL+8ZAqpyn/NQH8beBaWa+YETXJqX7/awDwzk HHlouS6bpisTSH6liyul2WNkbn+StDWyCV8HQMogvsr6pKFRCfpqwVVOeFW3q6787PRi/xMwBmg l7Z4nMEvBuoSHaJWNTuLPlyYe8NBoInERSeEJGy518na0bPU/POxfn4vZEzmUNc/qLcvcmnH3e6 uPgrQcOdytZey0AnKx8SpF6jdBh9HhhuMyGI3MQ6n8/MzrceEZP+M6bAKqsojfQ6hVo+xfOvM27 0kiAKer4GduAPvjRfLIKegPBZ5W/UN5g12z3BiwsjHa1OyiXpC1gdBFV3slHHyOpILrx3SWWr8R vz9Y2FUGC2ixH1vbdxPzkoFBvSN3Q+uZEsoQwRScTyNhdAwfg8feFtt9rRyDcwGMONfCrT+FtdF hi44atFRXq0JpWKuqXZUxHBtSE3RMGWpSOLOoFEGE0fsQrC3Opb1UAUANH5Jdm0B1/hr9wYmMTi +q5lRNXq4oM10tg==
+X-Developer-Key: i=krzk@kernel.org; a=openpgp; fpr=9BD07E0E0C51F8D59677B7541B93437D3B41629B
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260916230337.4162485-2-weilin.chang@arm.com>
 
-On Thu, Sep 17, 2026 at 12:03:36AM +0100, Wei-Lin Chang wrote:
-> An open debugfs file keeps the KVM structure alive, but does not prevent
-> mmu notifier release from freeing the stage-2 page tables when the VMM’s
-> address space is torn down. Therefore page tables belonging to the mmus
-> could have been freed when a thread opens or reads the ptdump files.
-> Take the mmu_lock and check mmu->pgt is still alive before accessing the
-> page tables.
+From: Alexey Klimov <alexey.klimov@linaro.org>
 
-As Sashiko said, the read_lock is probably enough, including the existing one in
-kvm_ptdump_guest_show()
+The setup_cpuhp_and_cpuidle() parses the device tree node for the
+interrupt generation block via of_parse_phandle() and decrements its
+reference count using of_node_put() immediately after fetching the resource
+address. However, later the intr_gen_node pointer is passed into
+of_syscon_register_regmap().
 
-With that change:
+Fix this by declaring intr_gen_node with __free() and removing
+of_node_put().
 
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
-Tested-by: Vincent Donnefort <vdonnefort@google.com>
+Reported-by: Sashiko <sashiko-bot@kernel.org>
+Closes: https://sashiko.dev/#/patchset/20260513-exynos850-cpuhotplug-v4-0-54fec5f65362@linaro.org?part=3
+Fixes: 78b72897a5c8 ("soc: samsung: exynos-pmu: Enable CPU Idle for gs101")
+Cc: stable@vger.kernel.org
+Signed-off-by: Alexey Klimov <alexey.klimov@linaro.org>
+Link: https://patch.msgid.link/20260828-exynos-pmu-cpuhp-idle-fixes-v2-1-06bce6107bd6@linaro.org
+Signed-off-by: Krzysztof Kozlowski <krzk@kernel.org>
+---
+ drivers/soc/samsung/exynos-pmu.c | 7 ++-----
+ 1 file changed, 2 insertions(+), 5 deletions(-)
 
-> 
-> Also for the ipa_range file and stage2_levels file, switch from keeping
-> the pointer to the page tables to keeping the pointer to the mmu.
-> 
-> Fixes: 7c4f73548ed1 ("KVM: arm64: Register ptdump with debugfs on guest creation")
-> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/kvmarm/20260623144054.B91D21F000E9@smtp.kernel.org/
-> Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
-> Cc: stable@vger.kernel.org
-> ---
->  arch/arm64/kvm/ptdump.c | 43 +++++++++++++++++++++++++++++++----------
->  1 file changed, 33 insertions(+), 10 deletions(-)
-> 
-> diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
-> index 69899797dbad..4ead856c181a 100644
-> --- a/arch/arm64/kvm/ptdump.c
-> +++ b/arch/arm64/kvm/ptdump.c
-> @@ -115,15 +115,28 @@ static int kvm_ptdump_build_levels(struct ptdump_pg_level *level, u32 start_lvl)
->  
->  static struct kvm_ptdump_guest_state *kvm_ptdump_parser_create(struct kvm_s2_mmu *mmu)
->  {
-> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
->  	struct kvm_ptdump_guest_state *st;
-> -	struct kvm_pgtable *pgtable = mmu->pgt;
-> +	s8 start_level;
->  	int ret;
->  
-> +	/*
-> +	 * We only need the pgt start level to initialize the ptdump, get it
-> +	 * while holding the mmu_lock. It's fine if the pgt gets freed
-> +	 * afterwards, we'll check again when doing the actual dump.
-> +	 */
-> +	scoped_guard(write_lock, &kvm->mmu_lock) {
-> +		if (mmu->pgt)
-> +			start_level = mmu->pgt->start_level;
-> +		else
-> +			return ERR_PTR(-ENOENT);
-> +	}
-> +
->  	st = kzalloc_obj(struct kvm_ptdump_guest_state, GFP_KERNEL_ACCOUNT);
->  	if (!st)
->  		return ERR_PTR(-ENOMEM);
->  
-> -	ret = kvm_ptdump_build_levels(&st->level[0], pgtable->start_level);
-> +	ret = kvm_ptdump_build_levels(&st->level[0], start_level);
->  	if (ret) {
->  		kfree(st);
->  		return ERR_PTR(ret);
-> @@ -149,6 +162,9 @@ static int kvm_ptdump_guest_show(struct seq_file *m, void *unused)
->  	};
->  
->  	guard(write_lock)(&kvm->mmu_lock);
-> +	if (!mmu->pgt)
-> +		return 0;
-> +
->  	st->parser_state = (struct ptdump_pg_state) {
->  		.marker		= &st->ipa_marker[0],
->  		.end_address	= BIT(mmu->pgt->ia_bits),
-> @@ -211,17 +227,27 @@ static const struct file_operations kvm_ptdump_guest_fops = {
->  
->  static int kvm_pgtable_range_show(struct seq_file *m, void *unused)
->  {
-> -	struct kvm_pgtable *pgtable = m->private;
-> +	struct kvm_s2_mmu *mmu = m->private;
-> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-> +
-> +	guard(write_lock)(&kvm->mmu_lock);
-> +
-> +	if (mmu->pgt)
-> +		seq_printf(m, "%2u\n", mmu->pgt->ia_bits);
->  
-> -	seq_printf(m, "%2u\n", pgtable->ia_bits);
->  	return 0;
->  }
->  
->  static int kvm_pgtable_levels_show(struct seq_file *m, void *unused)
->  {
-> -	struct kvm_pgtable *pgtable = m->private;
-> +	struct kvm_s2_mmu *mmu = m->private;
-> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-> +
-> +	guard(write_lock)(&kvm->mmu_lock);
-> +
-> +	if (mmu->pgt)
-> +		seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - mmu->pgt->start_level);
->  
-> -	seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - pgtable->start_level);
->  	return 0;
->  }
->  
-> @@ -230,15 +256,12 @@ static int kvm_pgtable_debugfs_open(struct inode *m, struct file *file,
->  {
->  	struct kvm_s2_mmu *mmu = m->i_private;
->  	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
-> -	struct kvm_pgtable *pgtable;
->  	int ret;
->  
->  	if (!kvm_get_kvm_safe(kvm))
->  		return -ENOENT;
->  
-> -	pgtable = mmu->pgt;
-> -
-> -	ret = single_open(file, show, pgtable);
-> +	ret = single_open(file, show, mmu);
->  	if (ret < 0)
->  		kvm_put_kvm(kvm);
->  	return ret;
-> -- 
-> 2.43.0
-> 
-
+diff --git a/drivers/soc/samsung/exynos-pmu.c b/drivers/soc/samsung/exynos-pmu.c
+index f5fcdde9750e..efccdd63e40e 100644
+--- a/drivers/soc/samsung/exynos-pmu.c
++++ b/drivers/soc/samsung/exynos-pmu.c
+@@ -409,13 +409,12 @@ static struct notifier_block exynos_cpupm_reboot_nb = {
+ 
+ static int setup_cpuhp_and_cpuidle(struct device *dev)
+ {
+-	struct device_node *intr_gen_node;
++	struct device_node *intr_gen_node __free(device_node) =
++		of_parse_phandle(dev->of_node, "google,pmu-intr-gen-syscon", 0);
+ 	struct resource intrgen_res;
+ 	void __iomem *virt_addr;
+ 	int ret, cpu;
+ 
+-	intr_gen_node = of_parse_phandle(dev->of_node,
+-					 "google,pmu-intr-gen-syscon", 0);
+ 	if (!intr_gen_node) {
+ 		/*
+ 		 * To maintain support for older DTs that didn't specify syscon
+@@ -431,8 +430,6 @@ static int setup_cpuhp_and_cpuidle(struct device *dev)
+ 	 * syscon provided regmap.
+ 	 */
+ 	ret = of_address_to_resource(intr_gen_node, 0, &intrgen_res);
+-	of_node_put(intr_gen_node);
+-
+ 	virt_addr = devm_ioremap(dev, intrgen_res.start,
+ 				 resource_size(&intrgen_res));
+ 	if (!virt_addr)
 -- 
-Vincent
+2.53.0
+
