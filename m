@@ -1,33 +1,43 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5F914EFFA1;
-	Thu, 17 Sep 2026 15:48:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 771AF4CDDFE;
+	Thu, 17 Sep 2026 15:48:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660124; cv=none; b=XTx91IcNFgDnZi5CA26TNyYN2+3HadwV4qzto/LKudgLCexj9o5IQppekOCqlkcvCzLbUKeNZ20dQ9wIg+GpcP9eR1dC4Qz01a2zlLf0HMDNsfSazSOXi+LikkaORjqVWd88fDmG5BcPDQ0FFuTl7BRIFguzKzp/3wyA/EIcX+s=
+	t=1789660126; cv=none; b=jUS/kTehVD4cIS3knEGf+gYZqj/jozfNp9W4AKbuMhLbQhm931vyTKEr1buqbq3tF/jk+KXVB4qzuGBcfy9bjaWd6vR27s0Pvcilkn/0uQ/ayFI6MfGl7mnsfqmFRnWlvfBr+ZlZ8ueS64lY5X9+fAscb7kDxriwwoULWSJn0q8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660124; c=relaxed/simple;
-	bh=juEdvFFejEpjtb9f+mNgNWOTen1oLaNthwpOc6c6CgQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JceXS3WsYkkLT/BYYJZDx5qqLfYBweCn1ujZ+a3OZNFY2JC3aNTb34Ai0uCvZSostgODX7x6+jkT4YilMlHSAB3NqTmAVanIRwWrJ1wMt4gE82QPoVjc+/wZ5SdnA/dYkpyQC4TkFMBErpzTtjkT6OaErXudMhP+ue5LuuXRiTY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXATzKC6xqaNeDCA--.46541S2;
-	Thu, 17 Sep 2026 23:48:26 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: hansg@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org,
-	sbinding@opensource.cirrus.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] spi: fix controller reference leak in acpi_spi_device_alloc()
-Date: Thu, 17 Sep 2026 15:48:26 +0000
-Message-Id: <20260917154826.2160933-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789660126; c=relaxed/simple;
+	bh=Qh38uf6PzIIlaNojt40NTTWOHm1FKKZrBLd7EAr+5Ls=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Lz0Dm6zaFGpJU/odvX5jBF6Az2Q3W8w41Y/Kg3WxTBCYAj4oEm44MBc2/iMmaiuQdlxFjqCdqOsbhb8RPP7zBfkqVHQOqvZrD+e8Y5HHUUlQotLHEcJuHSS/UBkSmN+UvQnsouqiWG57ZKrZfuMbt2Q4smZ7qG6Zuo8lxb+JPw0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=t0b0V2oi; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="t0b0V2oi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B88EC1F00898;
+	Thu, 17 Sep 2026 15:48:37 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789660118;
+	bh=xoT6eGxSRLreUVb00rVph5IgeGSFx1OsNxcUuad9OSo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=t0b0V2oiIff9tnXb6dPdo+TErONA8l1S2tvyVLG5NaluiZkt8J7OGfHIof4yDLy5Q
+	 j2VZv2kMyZy2qOJo/yx8MT57oeYIT/QSAM/VjHYhL6n9uW2oMTPtmDaYOxgW4HLo/0
+	 HWpP/i5EdhV0MuPRuRNGyrUghwHiOTABE9DRqmxE=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Samuel Holland <samuel.holland@sifive.com>,
+	Paul Walmsley <pjw@kernel.org>
+Subject: [PATCH 7.2 484/733] Revert "riscv: Reset pmm when PR_TAGGED_ADDR_ENABLE is not set"
+Date: Thu, 17 Sep 2026 16:13:12 +0100
+Message-ID: <20260917151404.092234285@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,92 +45,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXATzKC6xqaNeDCA--.46541S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CFWfCF1ruryUuF48Wr43Awb_yoW8KryxpF
-	W7JFW3tF95JF45Ka1rtw4UCF13Wa1Ivw45G39rJr1fuw4S934rGFy7Gr1Fqry5AFZ7tF42
-	vFW2qF18CF1UZrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUB0b7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4j6F4UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
-	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lc7Cj
-	xVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr
-	1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E7480
-	Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7
-	IYx2IY67AKxVWUJVWUCwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Gr0_Cr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aVCY1x
-	0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxUDZ2-DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgNA2qr9tgxOwAAsk
 
-acpi_spi_add_resource() stores the controller returned by
-acpi_spi_find_controller_by_adev() in lookup->ctlr. That lookup takes a
-reference via class_find_device(), which acpi_spi_device_alloc() never
-releases, leaking it on the error paths and on the success path too,
-where spi_alloc_device() takes its own reference. Drop the lookup
-reference when the caller did not pass a controller.
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-Fixes: 87e59b36e5e2 ("spi: Support selection of the index of the ACPI Spi Resource before alloc")
+------------------
+
+From: Samuel Holland <samuel.holland@sifive.com>
+
+commit 2d2184ac90365a4af3274e23c98d469f09f91749 upstream.
+
+This reverts commit 3033b2b1e3949274f33a140e2a97571b5a307298.
+
+The reverted patch is userspace-visible behavior change, not a bug fix.
+The two variables here (pmm and pmlen) control two independent features:
+pmm is the _hardware_ pointer masking mode that applies while executing
+in userspace. pmlen is the shift amount that the _kernel_ uses when
+untagging addresses; PMLEN_0 means no untagging occurs, so the kernel
+does not accept tagged addresses in syscall arguments.
+
+It is valid (as documented and tested by the self test) to enable
+pointer masking without enabling the tagged address ABI. This separation
+is necessary to allow userspace to create an execution environment
+similar to what the kernel supports on arm64 by default, where TBI is
+enabled but the tagged address ABI is not. (On arm64, there is no
+equivalent to PR_PMLEN_MASK because TBI is always enabled.)
+
+Signed-off-by: Samuel Holland <samuel.holland@sifive.com>
+Link: https://patch.msgid.link/20260820014551.1979772-1-samuel.holland@sifive.com
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Fixes: 3033b2b1e394 ("riscv: Reset pmm when PR_TAGGED_ADDR_ENABLE is not set")
+Signed-off-by: Paul Walmsley <pjw@kernel.org>
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/spi/spi.c | 20 ++++++++++++++++++--
- 1 file changed, 18 insertions(+), 2 deletions(-)
+ arch/riscv/kernel/process.c |    4 +---
+ 1 file changed, 1 insertion(+), 3 deletions(-)
 
-diff --git a/drivers/spi/spi.c b/drivers/spi/spi.c
-index 104279858f56..fb5e17d55801 100644
---- a/drivers/spi/spi.c
-+++ b/drivers/spi/spi.c
-@@ -2979,9 +2979,12 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
- 				     acpi_spi_add_resource, &lookup);
- 	acpi_dev_free_resource_list(&resource_list);
+--- a/arch/riscv/kernel/process.c
++++ b/arch/riscv/kernel/process.c
+@@ -349,10 +349,8 @@ long set_tagged_addr_ctrl(struct task_st
+ 	if (arg & PR_TAGGED_ADDR_ENABLE && (tagged_addr_disabled || !pmlen))
+ 		return -EINVAL;
  
--	if (ret < 0)
-+	if (ret < 0) {
- 		/* Found SPI in _CRS but it points to another controller */
-+		if (!ctlr)
-+			spi_controller_put(lookup.ctlr);
- 		return ERR_PTR(ret);
-+	}
+-	if (!(arg & PR_TAGGED_ADDR_ENABLE)) {
++	if (!(arg & PR_TAGGED_ADDR_ENABLE))
+ 		pmlen = PMLEN_0;
+-		pmm = ENVCFG_PMM_PMLEN_0;
+-	}
  
- 	if (!lookup.max_speed_hz &&
- 	    ACPI_SUCCESS(acpi_get_parent(adev->handle, &parent_handle)) &&
-@@ -2990,13 +2993,18 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
- 		acpi_spi_parse_apple_properties(adev, &lookup);
- 	}
- 
--	if (!lookup.max_speed_hz)
-+	if (!lookup.max_speed_hz) {
-+		if (!ctlr)
-+			spi_controller_put(lookup.ctlr);
- 		return ERR_PTR(-ENODEV);
-+	}
- 
- 	spi = spi_alloc_device(lookup.ctlr);
- 	if (!spi) {
- 		dev_err(&lookup.ctlr->dev, "failed to allocate SPI device for %s\n",
- 			dev_name(&adev->dev));
-+		if (!ctlr)
-+			spi_controller_put(lookup.ctlr);
- 		return ERR_PTR(-ENOMEM);
- 	}
- 
-@@ -3013,6 +3021,14 @@ struct spi_device *acpi_spi_device_alloc(struct spi_controller *ctlr,
- 	 */
- 	spi->cs_index_mask	= BIT(0);
- 
-+	/*
-+	 * If the controller was looked up from the ACPI resource, release the
-+	 * reference taken by acpi_spi_find_controller_by_adev(). The new SPI
-+	 * device holds the reference taken by spi_alloc_device() instead.
-+	 */
-+	if (!ctlr)
-+		spi_controller_put(lookup.ctlr);
-+
- 	return spi;
- }
- EXPORT_SYMBOL_GPL(acpi_spi_device_alloc);
--- 
-2.34.1
+ 	if (mmap_write_lock_killable(mm))
+ 		return -EINTR;
+
 
