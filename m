@@ -1,93 +1,85 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6706B4908DD;
-	Thu, 17 Sep 2026 12:08:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8298D4B53E4;
+	Thu, 17 Sep 2026 12:08:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646902; cv=none; b=GwRVGuxapG7dp+GPvmRYV7ZNy9U1cTZU+5rSKTrfqVPQ5fBHtuAUne0L29jejPjal6Vfh98yUOhvZh5GTlVE3a//ERl7gEP1OiK89VHYHqu+xzqQScVrc0uQOfFFxMA17jMTLbnKN50f+OXsyk/hwWaIBCmxljfkli45bB4kqKY=
+	t=1789646911; cv=none; b=uw29Z2NfeKLaISNZElvvrt5KOqP51E20UxN6Y/MfdoOHzQFL7PmquUtoGZ7apWRzhNXI8hh+l/T79+r9sUlpF/MS3V52GwG56mUKvNUP5bqz3n7q6C8qYKqz/oxY3MiSd9Qs6ZEu6dpS7BtMjuqWo8YmnD0eh7g0GxiC+Mgax34=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646902; c=relaxed/simple;
-	bh=hHbT27kuqIlaiO3SIpprZ1HphhUZk1g6+IqTfKx3SBA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=KPO4jUglovVyuZSiqXdNSWYb71EiuP9eYcolM+CKarjRosMmzXClxjbuQbUTlEaT5/PPyuZzTsChBVmmx19oKeJELB8+aIZvJnzojnj+j/Iw/UHyARQ9lMUNGcPwZTzadgyALTTdkS0wjLRFYGYuLkhmR557ksd/3f1/PGvx3zI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=O9nwaMKM; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="O9nwaMKM"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9DCF81F00893;
-	Thu, 17 Sep 2026 12:08:03 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789646886;
-	bh=ciOPc2jXkTRT4hhA5/7H/iIkZ4KsJ0K0tjd6lWke+pc=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=O9nwaMKMeejQMy2k3h2s5MBhthv5N1sEW8K2ITD7Xj+cEzyjPjEar2Gbva2Kc2dpk
-	 qvAtEVhUEfGm1wcPAJwn+foOcfbQzUL/td3mO4FaONtQt7Ju1ntPSbozhEoMpASv+L
-	 xFZETbQIBRPMJXJ5jszyU9TDlLFDv2rIsO4wMl8GTR6L17UKKesrF8/htwK0rQhjl6
-	 29BrSUHzDF5TYEROX/y1fjJcO1jfSLZa7u0kt6pr0MQLCNjtHBnKF0I5Js9WzM6+Ei
-	 VI0ks2vfYuAA7a0VMwttU9DO7s4FV2803kwo7SjJR0RO4j9VHb/xoR7BsJ1ovhd4RN
-	 QZnYRzkDZXY5Q==
-Date: Thu, 17 Sep 2026 13:08:01 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>,
-	"David S. Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Alexandre Ferrieux <alexandre.ferrieux@gmail.com>,
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>,
-	Victor Nogueira <victor@mojatatu.com>, hybris <hybris@mojatatu.ai>
-Subject: Re: [PATCH net 1/2] net/sched: cls_u32: fix manual hash table handle
- IDR aliasing
-Message-ID: <20260917120801.GA51261@horms.kernel.org>
-References: <QDISC-LQFE.v1.20260911041746.1@mojatatu.com>
+	s=arc-20240116; t=1789646911; c=relaxed/simple;
+	bh=73+Q1OkGANOcwLIX6DZlsDyL6LquW8x11o9IXwKoigw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JY2tfZlKS7wyT2TJlyncTVbcYsgUqtLa/q5CdbDtkRQSOHbbHH6m929YRFiKAflQE5GOkIRKKU9GX0OlbktFpEfGL3r+eYaVflsrXND18gIM7+4SeIF5waEonfDHSlMkbbNWd+erARU7OiBFP8UsHRXJuur5HERlmFPGmpkPEtI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAAHKkMq2KtqlDCACA--.42913S2;
+	Thu, 17 Sep 2026 20:08:10 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: andersson@kernel.org
+Cc: kvalo@qca.qualcomm.com,
+	linux-kernel@vger.kernel.org,
+	linux-wireless@vger.kernel.org,
+	loic.poulain@oss.qualcomm.com,
+	wcn36xx@lists.infradead.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] wifi: wcn36xx: Fix tx-rings-empty state leak in platform_get_resources()
+Date: Thu, 17 Sep 2026 12:08:10 +0000
+Message-Id: <20260917120810.2150534-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <QDISC-LQFE.v1.20260911041746.1@mojatatu.com>
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAAHKkMq2KtqlDCACA--.42913S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKrW3Zw45Gw13Kr47WFyDJrb_yoWkJrc_GF
+	48WFZ7Jrs3Gr4UKF4kCr43Z3yFyr97W3WkG3ZrKa43A3y7A39rXry5Zw13Jwnrur4YyFnI
+	krnrJF1Yv342vjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07je0PfUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwcNA2qrrRmDwQAAs5
 
-On Wed, Sep 16, 2026 at 06:01:14AM -0400, Jamal Hadi Salim wrote:
-> A u32 hash table created with an explicit handle ('tc filter add ...
-> handle 801: u32 divisor N') keys its IDR entry on the raw handle, while
-> the destroy paths free it under handle2id(handle). The two key domains
-> disagree for handles in the 0x800..0xFFF htid range:
-> handle2id() folds them back into the auto-allocated id space (1..0x7FF).
-> 
-> A manual table therefore leaves its raw-keyed IDR entry unreachable on
-> delete (a permanent leak), and its delete can drop the idr entry of an
-> unrelated live auto table. A later auto allocation can then hand out a
-> handle that aliases the live manual table; u32_lookup_ht() first-match
-> routes lookups and TCA_U32_LINK for that htid to the wrong table.
-> 
-> Key the divisor-path alloc on handle2id(handle) so allocation and
-> removal share one key domain. A manual handle that maps onto an id
-> already in use is rejected with -ENOSPC, and auto allocation skips ids
-> held by live manual tables.
-> 
-> Conditions to recreate:
->   ip link add test0 type dummy
->   tc qdisc add dev test0 clsact
->   tc filter add dev test0 ingress protocol ip pref 1 \
->           handle 801: u32 divisor 16
->   tc filter add dev test0 ingress protocol ip pref 2 u32 divisor 16
->   tc -d filter show dev test0 ingress | grep 'fh 801:'
->   # unpatched: two live tables with handle 0x80100000 (the pref 2 root
->   # hnode is auto-allocated id 1); patched: the auto hnode takes id 2.
-> 
-> Also tested with a poc with a live u32 table on the block, add/delete a manual
-> table 'handle 901: u32 divisor 1' twice; unpatched, the re-add fails with
-> -ENOSPC because the raw key leaked on the first delete.
-> 
-> Fixes: 73af53d82076 ("net: sched: cls_u32: Fix u32's systematic failure to free IDR entries for hnodes.")
-> Reported-by: Sashiko (gemini + nipa) <sashiko-bot@kernel.org>
-> Closes: https://sashiko.dev/#/patchset/20260822222049.114526-1-jhs@mojatatu.com
-> Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-> Tested-by: hybris <hybris@mojatatu.ai>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
+wcn36xx_platform_get_resources() gets the "tx-rings-empty" smem state,
+which holds a reference, but only the wcn36xx_remove() path releases it.
+The reference is leaked on all the error paths taken when the mmio node
+cannot be parsed or the CCU or DXE memory cannot be mapped. Release it in
+the common cleanup label.
 
-Reviewed-by: Simon Horman <horms@kernel.org>
+Fixes: f303a9311065 ("wcn36xx: Transition driver to SMD client")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/net/wireless/ath/wcn36xx/main.c | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/drivers/net/wireless/ath/wcn36xx/main.c b/drivers/net/wireless/ath/wcn36xx/main.c
+index f34d64464f64..a55861e65481 100644
+--- a/drivers/net/wireless/ath/wcn36xx/main.c
++++ b/drivers/net/wireless/ath/wcn36xx/main.c
+@@ -1555,6 +1555,7 @@ static int wcn36xx_platform_get_resources(struct wcn36xx *wcn,
+ put_mmio_node:
+ 	of_node_put(mmio_node);
+ 	qcom_smem_state_put(wcn->tx_enable_state);
++	qcom_smem_state_put(wcn->tx_rings_empty_state);
+ 	return ret;
+ }
+ 
+-- 
+2.34.1
 
