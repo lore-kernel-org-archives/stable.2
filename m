@@ -1,135 +1,124 @@
-Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDF13812C2
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:00:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A62DF347FCD
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:04:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789614026; cv=none; b=TLZ2iWxYqh3xNTBkozLZoofcyqmmFQbyU4PHRzGNmxQBGHHQCUKISZG/QBpLZuYuIBebln1xnJmsUO/UQUQn2TlUeO883qiFTCfG+rtcMmP7JpsjLPurDzotKJL4cpbTcuPaRZPC2otB49HQadtWO1amR5QZwExiAMktib4l5R4=
+	t=1789614252; cv=none; b=rcCwT8Y8wJ8RWe5GdJvE8PFplcrmexoSW3NYUT8/s1PjzZp5mC3IriaVE0ulF21erl4ae9/Zil8DyCScEjFAJGFeYSdT8Lux6KUKozrCKckK5QEGiHIm5UIcZ+01OCu763BizWRBymqNrZ7pLs2nfU9nGnhHfCvlwGDarWzliHg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789614026; c=relaxed/simple;
-	bh=EE9Q/DQ9Jc/gy+TpekiPq9A2LDQrH3wC1TExR2j0MrI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dc157HtNiWVw/1jF818O5BPqXhHidhDFxvFa/HRa1tuAEgIR7kFeLUphJTCnbYj8tYdkkd1IL1hsuZKVJ5K4++Qo1aSXWa0mOnYxncgBDGqF6dwTXWrzDkCk3LsTu4JZfrF1U8DfAdOzP7mWmBrMlT+uQ20HAr+8cpnBBRw2agM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=qx3F2wDb; arc=none smtp.client-ip=148.163.156.1
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
+	s=arc-20240116; t=1789614252; c=relaxed/simple;
+	bh=NcLM+/foy17rYEhkizap1GTjNoR+mr1gQ5sYMu3nYl8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iLdM8tgLTe9xygeOIAX3S1j+4Ac2n8G5B26XkK76iSaqwnbSfdHJiLO9rr3cCcfCbKqTs/ekVv8BBfeunJs8uXpkmGjGUNSL/2kb8Ndts8rRT7TiOdlt4km+8M8s4QRKvv3SA78MF1NGG9zfccAtgYVaTGyMX7RqqoAECcR4r44=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CZetue7i; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="qx3F2wDb"
-Received: from pps.filterd (m0356517.ppops.net [127.0.0.1])
-	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68GG1TxX017814;
-	Thu, 17 Sep 2026 02:59:58 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=pp1; bh=a+LSV9
-	DbeGupxydzgJvv7/a6MBSgbxPz8Lsd9bWtYcs=; b=qx3F2wDb7b4A75LvbOoKrB
-	GPlJosrgr90bSZOHXH0Jg7DiWFogVYrrIRXDpxN5pnmXN5cHTz9JmmHmo+avZLvP
-	YHKlikAVVe8ppHofsHW2DkQ3F1GtFF+OlBSJFyYiJGzAlzIRfshV9uJM4KnqcmhZ
-	ESDwX+1raVqDC/IahgPwhBRkvQpeYi2fnzIDSd98d7hMeVH2MEc4djBUesqIw4JW
-	K1oYTchAeEJTdP8pSKYsNZfr3igZLcQEtgDVU4IYQdjXavVVgfdgbdAmo0PK2dTG
-	NniYm03B0oZbDfKm+EN8+qibG/7TKeURn0djGmG171u/46Jt/F66DNX+E+t2KwkQ
-	==
-Received: from ppma21.wdc07v.mail.ibm.com (5b.69.3da9.ip4.static.sl-reverse.com [169.61.105.91])
-	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gmxf582j0-1
-	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 02:59:58 +0000 (GMT)
-Received: from pps.filterd (ppma21.wdc07v.mail.ibm.com [127.0.0.1])
-	by ppma21.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68GN4U1I1625860;
-	Thu, 17 Sep 2026 02:59:57 GMT
-Received: from smtprelay03.fra02v.mail.ibm.com ([9.218.2.224])
-	by ppma21.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gpyxshj5b-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Thu, 17 Sep 2026 02:59:57 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
-	by smtprelay03.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68H2xt6p37552484
-	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
-	Thu, 17 Sep 2026 02:59:55 GMT
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id EFB892004B;
-	Thu, 17 Sep 2026 02:59:54 +0000 (GMT)
-Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
-	by IMSVA (Postfix) with ESMTP id CC82D20040;
-	Thu, 17 Sep 2026 02:59:52 +0000 (GMT)
-Received: from [9.39.21.238] (unknown [9.39.21.238])
-	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
-	Thu, 17 Sep 2026 02:59:52 +0000 (GMT)
-Message-ID: <5dbf3584-23f6-4ed4-8a62-c7d8bf9e554b@linux.ibm.com>
-Date: Thu, 17 Sep 2026 08:29:51 +0530
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CZetue7i"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 15FBF1F000FF;
+	Thu, 17 Sep 2026 03:04:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789614247;
+	bh=HkI2hvr5CrnMfMpDQ61mOsXRpWui6p8yOiR9Ol0CFR0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=CZetue7ivirZQ2azwjCdzBFd1Poc3DowPFiHH9ep0RSmtupE72pD+MDlYRTA/y98/
+	 D6oY6uhnaZDGh9hh2MFEL665sfrIlJl5UJRrdJQ6Jxfrt3UMYCs79HVr16Kh0QZ9hM
+	 taArmu/UtgO903W4HqMqmUg94IzzacW1gTkb67ril7iLzDWJWHWHQFKPxOIB14WmwA
+	 PqORK1eJWNFoD++Dgtq7WQ2PCRQQx52flK/kqWQBbLW1GdExSJziDpHTCL43WENMhi
+	 V1q27DeLewDIMy/rniX2l8OfnCagdN3wb66iOfFv1Wqkg1zjILHyXOIDC++xsK5PwN
+	 3sVkAwUBrABfg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Paolo Abeni <pabeni@redhat.com>,
+	Mat Martineau <mathew.j.martineau@linux.intel.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/2] mptcp: strict local address ID selection
+Date: Wed, 16 Sep 2026 23:04:04 -0400
+Message-ID: <20260917030405.3945919-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091645-harmful-flannels-71f9@gregkh>
+References: <2026091645-harmful-flannels-71f9@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 1269/1376] powerpc: Add preempt lazy support
-To: Sasha Levin <sashal@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        stable@vger.kernel.org
-Cc: patches@lists.linux.dev,
-        Sebastian Andrzej Siewior
- <bigeasy@linutronix.de>,
-        Ankur Arora <ankur.a.arora@oracle.com>,
-        Madhavan Srinivasan <maddy@linux.ibm.com>,
-        Vegard Nossum <vegard.nossum@oracle.com>,
-        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-References: <0de39bd3-3575-4955-963c-b528f81b7fa6@oracle.com>
- <daily-reply-20260916-0019-re-powerpc-preempt-lazy@kernel.org>
-Content-Language: en-US
-From: Shrikanth Hegde <sshegde@linux.ibm.com>
-In-Reply-To: <daily-reply-20260916-0019-re-powerpc-preempt-lazy@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-TM-AS-GCONF: 00
-X-Proofpoint-GUID: eesL8nT7rJymXIPcaG7_TeVuTFu9TrLv
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE3MDAzMiBTYWx0ZWRfX9+9IxHg2/Fhy
- hDWZkaY3UOSQb06bCF6o0RJhTkwTcaQfvJ9nK/jTnAjqn8z9psiftpLLTqKiUosnFMIvJ6Z7FPT
- fNXn1eo+w8DNpgQjwpLekRWf+7hKNN4=
-X-Authority-Analysis: v=2.4 cv=cvgOAF4i c=1 sm=1 tr=0 ts=6aab57ae cx=c_pps
- a=GFwsV6G8L6GxiO2Y/PsHdQ==:117 a=GFwsV6G8L6GxiO2Y/PsHdQ==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=RnoormkPH1_aCDwRdu11:22 a=U7nrCbtTmkRpXpFmAIza:22 a=VO6RQ-b--HlpZmmj9EwA:9
- a=QEXdDO2ut3YA:10
-X-Proofpoint-ORIG-GUID: eesL8nT7rJymXIPcaG7_TeVuTFu9TrLv
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE3MDAzMiBTYWx0ZWRfX6nrtap4lVjhw
- na7ZSm/Xqx29E3ZEJS670xElRl6CMQx22k8Ts12dTXZyHVB4yIG3SBcECRH+rZ2mhu98uj2yzSc
- ukE7LV4syepYm75gJHmmAm/0SCHK32l1LiVabLKSJFE6a+6ZZxj1vkvrbkBns/wif57rmPlH0gj
- BcNgUtdBYXLbbowUeRiCcbXy35zsoQGGt6Hv2/Kr/L+l30nMVCp8/tBR8E621PkSqdpkXIHJ4AR
- /6cmv6q7fTfaQqpJHYOy1xT7HE0JhgBOcPQrV87jqSRn8QUmaZy8RnPvprAWF41hr1pdEpWio2W
- zOOQMWD0gEptia9CWtXXWBt3iAkmJr0zqFZLYNtyaEpu4AgGJYbuPqZXgXxV1RD+zfwLhS8ZfYV
- O56CO6S7qJWxMKyhwTgPvGIWRxLkaDZ0MAK+/b1MWjAWLG2JWazykS8rxG6mZq1WTMnvnp65huI
- n06JQtuZ7RULHolQHXg==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-16_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- malwarescore=0 lowpriorityscore=0 clxscore=1011 priorityscore=1501
- suspectscore=0 bulkscore=0 impostorscore=0 phishscore=0 spamscore=0
- adultscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609170032
+Content-Transfer-Encoding: 8bit
 
-Hi Sasha,
+From: Paolo Abeni <pabeni@redhat.com>
 
-On 9/17/26 12:58 AM, Sasha Levin wrote:
->> This is a broad scheduler feature rather than an isolated stable fix.
->> Mayeb we should revert this. Thoughts?
-> 
-> The pieces you name are indeed absent, and that is what makes the commit inert
-> on 6.12 rather than incomplete. ARCH_HAS_PREEMPT_LAZY is not defined there,
-> kconfig silently ignores a select of an undefined symbol, and nothing on the
-> tree ever sets TIF_NEED_RESCHED_LAZY, so none of the guarded code compiles.
-> 
-> It arrived as a dependency walker false positive, a Kconfig context line next
-> to "select ARCH_HAS_PTDUMP" in the hunk taken for 902caade3cfd ("arm64: ptdump:
-> Make note_page_flush() range aware"), not as a real prerequisite.
-> 
-> Since it is released and does nothing observable, I am keeping it rather than
-> adding a revert.
-> 
+[ Upstream commit 4cf86ae84c718333928fd2d43168a1e359a28329 ]
 
-As it has been discussed it is really necessary in 6.12?
-Seeing some LAZY related code while main mechanism is missing can be confusing. No?
+The address ID selection for MPJ subflows created in response
+to incoming ADD_ADDR option is currently unreliable: it happens
+at MPJ socket creation time, when the local address could be
+unknown.
 
-If main mechanism is not there in 6.12, I think we can drop this patch from 6.12.
+Additionally, if the no local endpoint is available for the local
+address, a new dummy endpoint is created, confusing the user-land.
+
+This change refactor the code to move the address ID selection inside
+the rebuild_header() helper, when the local address eventually
+selected by the route lookup is finally known. If the address used
+is not mapped by any endpoint - and thus can't be advertised/removed
+pick the id 0 instead of allocate a new endpoint.
+
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Mat Martineau <mathew.j.martineau@linux.intel.com>
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+
+[5.15 dependency adaptation]
+Retain only the passive MP_JOIN clone preparation needed for
+29f641951be0d91036d77edf677807f1447dbe65 ("mptcp: subflow: no need to
+copy thmac during ulp_clone"). Move the existing local_id assignment
+below thmac and retain the upstream comment about the validated request
+ID. Use the existing direct assignment instead of adding
+subflow_set_local_id(), and match the target's adjacent WRITE_ONCE()
+remote_id assignment so its unmodified patch applies cleanly.
+
+Omit the active-open address selection refactor, rebuild_header hooks,
+local_id_valid field and initialization, and path-manager changes. They
+are unnecessary for the thmac fix and would require new helper functions.
+The stable branch's existing address selection and initialization are
+preserved. This preparatory dependency intentionally leaves the thmac
+copy in place for the target commit to remove.
+
+[ sashal: Reduced backport -- upstream 4cf86ae84c718 touches 4 file(s), this
+  backport carries 1. Not backported here:
+  net/mptcp/pm_netlink.c
+  net/mptcp/protocol.c
+  net/mptcp/protocol.h
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 29f641951be0 ("mptcp: subflow: no need to copy thmac during ulp_clone")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/mptcp/subflow.c | 8 ++++++--
+ 1 file changed, 6 insertions(+), 2 deletions(-)
+
+diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
+index c9cf0fdbfbdca..55bd5ecc9e7a8 100644
+--- a/net/mptcp/subflow.c
++++ b/net/mptcp/subflow.c
+@@ -1415,10 +1415,14 @@ static void subflow_ulp_clone(const struct request_sock *req,
+ 		new_ctx->fully_established = 1;
+ 		new_ctx->backup = subflow_req->backup;
+ 		new_ctx->request_bkup = subflow_req->request_bkup;
+-		new_ctx->local_id = subflow_req->local_id;
+-		new_ctx->remote_id = subflow_req->remote_id;
++		WRITE_ONCE(new_ctx->remote_id, subflow_req->remote_id);
+ 		new_ctx->token = subflow_req->token;
+ 		new_ctx->thmac = subflow_req->thmac;
++
++		/* the subflow req id is valid, fetched via subflow_check_req()
++		 * and subflow_token_join_request()
++		 */
++		new_ctx->local_id = subflow_req->local_id;
+ 	}
+ }
+ 
+-- 
+2.53.0
 
