@@ -1,38 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8C10B48489E;
-	Thu, 17 Sep 2026 15:01:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85057395ADC
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:01:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657294; cv=none; b=GSDYy+V/JVNWI1A9ewn+16b5HgRe+lk98Zfat4UTf6hebTtxX3IIQJWnWQXPo6eLtpd3B0cj2LTTbGAYrNpSv/RdFLkwi6kQf9KTQeMHmB0jT4Ih9GzJ3gwtkA9Q3+2RPlnT3GINnIPZa5ZCslRjo+L3Xq4N1E7sjG8sNX+B33s=
+	t=1789657303; cv=none; b=uHlvFq7t7gFGoUrmYsN1I4Ne6x9JWHLDoJKkkrHWjLeO3DF5byZNXuKRrAHFVkQsP5ADpKknwVKbj7lHK2xjF7/oWEb4Ak6AtZs+CmRHpMtLoS5tHzsee41WLfoYQ330YsyWdAhe4IRvawN4l+utqvpjMoTe+vZgis9N/j28yj8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657294; c=relaxed/simple;
-	bh=s9Eq3Fh7UYfJqyZWXfEu3SIGux5mTjuCCKy608Kk1jE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=M3JlJ+ifEfjEF/2MmCGGhKa+HHZvcULqazWtVv7rLOF6e1qai/3FkxvvjfA83SWlmhx6TqnaaD2QVT33iWOo2sN0iVqpgJngx1qyBJkI1ybiTffn4cZOTcZBCx3/6PU+q0KdoVmwtAkukC4mArJj6vMT0SyeihG8xlrfnw0sdBA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADHMTyyAKxqoRKDCA--.5279S2;
-	Thu, 17 Sep 2026 23:01:06 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: kashyap.desai@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	mpi3mr-linuxdrv.pdl@broadcom.com,
-	ranjan.kumar@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	sumit.saxena@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpi3mr: Fix tgtdev reference leak in mpi3mr_dev_rmhs_send_tm()
-Date: Thu, 17 Sep 2026 15:01:06 +0000
-Message-Id: <20260917150106.2157994-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789657303; c=relaxed/simple;
+	bh=o/NWvGtwKDyeZF62reG18knTUGwXGh+UqyihPLub5tI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=THGJzF6ajGVD4PhbUnHgaVVOVmt8918hb6Rdapg+Z/rOsEz8YcUH9UnV/VavPrfGlXIgtgjdlTyN907faA6fF+w12pU0N3sqIhQL5r3mxi0l4/ZofEyyRzrhm7FdrJIHXzKn0DtwWZoTnA0XDyxLrKHUd+py71Y11fgWR8Kns2I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=clzlpRwT; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="clzlpRwT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D43531F000FF;
+	Thu, 17 Sep 2026 15:01:24 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789657285;
+	bh=ksWfk8+yqFRimPxlx6h2pNDXIGYBWXvHFQNv0krhVjw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=clzlpRwTawJPD9HlSi6yyJUW0aEOxHR8QJkOmxHb7G03kEavvvMueLqwaDqb4BwrT
+	 cOFnLKSPRkTd2OG2WU25KYbLyJzh3N9fw5Mpy4uZWH/GyT3yIGJCSt1hUt7v+AN95E
+	 1R7jq1URf5Im1acxhH3JsmJuQWmylUWQpGA4zphDdC/rAxpYmj1zJeWPS+FGdobi30
+	 wS4lCfuJDvPbHBt2/vePFZ+8r47Zm87jopIvRlz6h24aEY/BB3GPP2jb0CEv+CuX14
+	 Nmkfvqqak6QhEQd5hYvgI2E7lJS8/a4lLleMczuxB203r4IOX3L+whi112S0racq61
+	 3tGoGdHHHGGUg==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cmaiolino@redhat.com>,
+	"Darrick J. Wong" <djwong@kernel.org>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/2] xfs: remove the i_ino field in struct xfs_inode
+Date: Thu, 17 Sep 2026 11:01:22 -0400
+Message-ID: <20260917150123.670190-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091629-runway-straddle-168c@gregkh>
+References: <2026091629-runway-straddle-168c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,53 +46,118 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADHMTyyAKxqoRKDCA--.5279S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrZr4xXF17KFyUXF1fWry8Zrb_yoWkZFb_uF
-	s0vr97J34FgF4UJr4UCr13ZF9Ivw1UXrZ29Fnrtw4xCr9xXFyxXr1UXr1UZr47Za1rJr13
-	Aw1UZryaqr17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbqkYjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwACI402
-	YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04
-	k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8C
-	rVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8Zw
-	CIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x02
-	67AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07bb
-	5rxUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qr9tgXlwAAsj
 
-__mpi3mr_get_tgtdev_by_handle() takes a reference on the target device,
-but mpi3mr_dev_rmhs_send_tm() never drops it on any of its return paths.
-The completion callbacks only track the device handle, so the reference
-is leaked for every device removal handshake.
+From: Christoph Hellwig <hch@lst.de>
 
-Release the reference once the device state has been updated.
+[ Upstream commit 1113a6d6d5d1336f4415fa1367aac0f853f0892d ]
 
-Fixes: 3f1254ed01d0 ("scsi: mpi3mr: Successive VD delete and add causes FW fault")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Now that the VFS inode has a u64 i_ino field, there is no need to store
+a copy of the inode number in the xfs_inode structure.
+
+Introduce an I_INO() wrapper as a shortcut to the inode number so that
+we don't have to propagate the VFS inode everywhere.
+
+The only non-obvious part is the clearing of i_ino to 0 for RCU freeing
+the inode.  None of this calls into VFS paths, which makes clearing the
+VFS inode field here just as safe as clearing the old field in the
+xfs_inode.
+
+Signed-off-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+Reviewed-by: "Darrick J. Wong" <djwong@kernel.org>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+
+[6.12 dependency adaptation]
+
+Keep only the inode-number accessor spelling needed for the attr and
+directory repair hunks of 4d3c07591534517c633945c8d8e6526f10e3fabc to
+apply cleanly.  Define I_INO as a macro over xfs_inode.i_ino and convert
+only the two xfs_da_args.owner initializers in xrep_xattr_swap_prep and
+xrep_dir_swap_prep.  No functions are added.
+
+Unlike upstream, this stable tree still has an unsigned long VFS i_ino.
+Retain the separate 64-bit XFS inode number and all existing allocation,
+reinitialization, reclaim, and VFS setup behavior to avoid truncation on
+32-bit systems.  Drop the remaining tree-wide conversions, including
+changes to metadata-directory, realtime, and health-monitor files that
+do not exist in this tree.  The accessor and the two substitutions are
+behavior preserving; the reservation fix remains in the target commit.
+
+Original upstream rationale follows:
+
+Now that the VFS inode has a u64 i_ino field, there is no need to store
+a copy of the inode number in the xfs_inode structure.
+
+Introduce an I_INO() wrapper as a shortcut to the inode number so that
+we don't have to propagate the VFS inode everywhere.
+
+The only non-obvious part is the clearing of i_ino to 0 for RCU freeing
+the inode.  None of this calls into VFS paths, which makes clearing the
+VFS inode field here just as safe as clearing the old field in the
+xfs_inode.
+
+[ sashal: Reduced backport -- upstream 1113a6d6d5d13 touches 91 file(s), this
+  backport carries 3. Not backported here:
+  fs/xfs/libxfs/xfs_attr.c
+  fs/xfs/libxfs/xfs_attr_leaf.c
+  fs/xfs/libxfs/xfs_bmap_btree.c
+  fs/xfs/libxfs/xfs_bmap.c
+  fs/xfs/libxfs/xfs_btree.c
+  fs/xfs/libxfs/xfs_btree_staging.c
+  fs/xfs/libxfs/xfs_da_btree.c
+  fs/xfs/libxfs/xfs_dir2.c
+  ... and 80 more
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 4d3c07591534 ("xfs: fix under-reservation of blocks when repairing sf directories")
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/scsi/mpi3mr/mpi3mr_os.c | 2 ++
- 1 file changed, 2 insertions(+)
+ fs/xfs/scrub/attr_repair.c | 2 +-
+ fs/xfs/scrub/dir_repair.c  | 2 +-
+ fs/xfs/xfs_inode.h         | 3 +++
+ 3 files changed, 5 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_os.c b/drivers/scsi/mpi3mr/mpi3mr_os.c
-index 402d1f35d214..8a2575171e1f 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_os.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_os.c
-@@ -2520,6 +2520,8 @@ static void mpi3mr_dev_rmhs_send_tm(struct mpi3mr_ioc *mrioc, u16 handle,
- 	if (tgtdev && (iou_rc == MPI3_CTRL_OP_REMOVE_DEVICE))
- 		tgtdev->state = MPI3MR_DEV_REMOVE_HS_STARTED;
- 	spin_unlock_irqrestore(&mrioc->tgtdev_lock, flags);
-+	if (tgtdev)
-+		mpi3mr_tgtdev_put(tgtdev);
+diff --git a/fs/xfs/scrub/attr_repair.c b/fs/xfs/scrub/attr_repair.c
+index fa68ecabd983f..8dd88d775376a 100644
+--- a/fs/xfs/scrub/attr_repair.c
++++ b/fs/xfs/scrub/attr_repair.c
+@@ -1295,7 +1295,7 @@ xrep_xattr_swap_prep(
+ 			.whichfork	= XFS_ATTR_FORK,
+ 			.trans		= sc->tp,
+ 			.total		= 1,
+-			.owner		= sc->ip->i_ino,
++			.owner		= I_INO(sc->ip),
+ 		};
  
- 	if (drv_cmd)
- 		goto issue_cmd;
+ 		error = xfs_attr_shortform_to_leaf(&args);
+diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
+index 29c48c4db53b2..09e8d389a4ab6 100644
+--- a/fs/xfs/scrub/dir_repair.c
++++ b/fs/xfs/scrub/dir_repair.c
+@@ -1466,7 +1466,7 @@ xrep_dir_swap_prep(
+ 			.whichfork	= XFS_DATA_FORK,
+ 			.trans		= sc->tp,
+ 			.total		= 1,
+-			.owner		= sc->ip->i_ino,
++			.owner		= I_INO(sc->ip),
+ 		};
+ 
+ 		error = xfs_dir2_sf_to_block(&args);
+diff --git a/fs/xfs/xfs_inode.h b/fs/xfs/xfs_inode.h
+index 03944b6c5fba1..b8b795aa6f02d 100644
+--- a/fs/xfs/xfs_inode.h
++++ b/fs/xfs/xfs_inode.h
+@@ -178,6 +178,9 @@ static inline const struct inode *VFS_IC(const struct xfs_inode *ip)
+ 	return &ip->i_vnode;
+ }
+ 
++/* Keep the full inode number on systems with a 32-bit VFS i_ino. */
++#define I_INO(ip)	((ip)->i_ino)
++
+ /*
+  * For regular files we only update the on-disk filesize when actually
+  * writing data back to disk.  Until then only the copy in the VFS inode
 -- 
-2.34.1
+2.53.0
 
