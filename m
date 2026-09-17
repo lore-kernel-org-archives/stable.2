@@ -1,38 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D621A59E34E;
-	Thu, 17 Sep 2026 15:26:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 834D759C985;
+	Thu, 17 Sep 2026 15:26:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658777; cv=none; b=goFQGvtIbFnSTrDFuhZUB5HZlQHrLZ24EAItQsIRBNG9raN3glI6JM8BuppyLYyGdAUNMUbwRT2KgvTlWU2++I00d8iTHuzzLu46oUtcmhaSgijBPxL8uG/53V1xfe6ImcQGR5sObKU218C48HK7lu4IiQlZfq20ltfMM4zwgjI=
+	t=1789658788; cv=none; b=nNVGgyJK9cEC0i5CsPv1xykCqjCrI2e+JqgsnFPNnX06NwYETxW30fs6fHBUYDn7W7ECSbadaVmrEGISa3k9CM0oFNPEGq8QEyyD5Fd8D/cnO4H66zAbYYm2tUTvgpEPqR0WJAHs3w03AxGWcPFZ+zHutjxJfnnlI2pfWNbgtM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658777; c=relaxed/simple;
-	bh=XWWdfoVHfTvtjkSpWQntrE8XnEz5yYRb5Dcz/8BuNHA=;
+	s=arc-20240116; t=1789658788; c=relaxed/simple;
+	bh=KCIta00qt6ifeWgPFH3BXE83nenzfPeE95+xL34k/WQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=kP5dE27nHu/f4N/rm6a4rCsXjszjATzUCDu/yxV8mfBqthKpM4fi7KO2FjaWq5wXKUTCEmdfpqVIty2Y1JhUyGE1inJ/kmCizTvunH6dt/5raWmXPouZLdgNMRaHb7iHJ71q12ZzGh8XWM/gFHUNpiaiBy5QVcl5P2zCouQVFxY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=o8kyKWr5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=NBSfIQHwhiyDTwjb6ujR5NW3cAao5dGpbwYVyqxI0TEeyCofGKWhz/98k4kskVaZH23o9Zi0mKoxeebIfjC6e36nCGM/KIWA21hDQmql+g+R4bhFOSaRLaUBdQgQzG+QbaVJ00yLH1O2VhHAmZX+EZwBJEzxSWr5NeH4szRB9gs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ndJ987aN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="o8kyKWr5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A20741F00893;
-	Thu, 17 Sep 2026 15:26:03 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ndJ987aN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6C1F41F000FF;
+	Thu, 17 Sep 2026 15:26:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789658764;
-	bh=OtiLMArsxMxX1OhgfkqovGELHcroA9u343BbwQgi1A0=;
+	s=korg; t=1789658776;
+	bh=5XCyU9BXmw7U61nIyi1jSOBsS2LfzS0ww9jjGl29Hrs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=o8kyKWr5BFPnPTdIn7J6+YsjkxAhLsWlH3jv/EJAjdPef2IRMTj1vEZNz2UYjoroY
-	 SXEHv+KJEZYkywBDYdPqBk3Upztn048h5BDBXVVeTiqcmeRYh31SW9c0rUNkATKBOo
-	 TlXYw3N5vTXl4cmjbctIDRQMWU30CQj5eu3nrMeE=
+	b=ndJ987aNr5/qHIn2X8u+Pe4G2O1E1py59TlXZT1eFN17zfzESLPCZT4uwgdgatCkw
+	 VQi+79QiJl5zxWT2WZodJnnifj8CbqpwaxNc9XTH9Qz+H8RgLrnbUEW8i4ZXmT65un
+	 2fZZACIaQbE5Ntl/W3n7sLassc+Nrh8fEKNq/DbM=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Taimuraz Kaitmazov <taimuraz@kaitmazov.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
+	Tomeu Vizoso <tomeu@tomeuvizoso.net>,
+	"Rob Herring (Arm)" <robh@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 031/733] accel/amdxdna: put the chained BO when its mapping fails
-Date: Thu, 17 Sep 2026 16:05:39 +0100
-Message-ID: <20260917151351.504769886@linuxfoundation.org>
+Subject: [PATCH 7.2 034/733] accel: ethosu: Dont read the U65 rounding mode as a storage mode
+Date: Thu, 17 Sep 2026 16:05:42 +0100
+Message-ID: <20260917151351.585270140@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,50 +51,50 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
+From: Tomeu Vizoso <tomeu@tomeuvizoso.net>
 
-[ Upstream commit 7e33ba3a1d48c2d20ed270dec9d2d08332585c8e ]
+[ Upstream commit db9deec5a345abc538d081fb221dc0b00a9695bd ]
 
-amdxdna_cmd_set_error() looks up the first BO of a command chain, which
-takes a reference, and drops it at the end of the function. The mapping of
-that BO is established in between, and the failure path returns without the
-put, so the reference is leaked.
+Bits 15:14 of NPU_SET_{IFM,OFM}_PRECISION select the activation storage
+mode on U85 only. On U65 the same field holds the rounding mode, and the
+command stream parser has read it as a storage mode since the driver was
+added.
 
-Ordinary use does not reach it. The chain has been submitted before any of
-this runs, so aie2_cmdlist_fill_slot() has already called
-amdxdna_cmd_get_op() on that BO and amdxdna_gem_vmap() has cached its
-address. What makes it reachable is that the BO is resolved again by
-handle here, and the handle is userspace's to recycle: closing it after
-submission and importing a dma-buf whose exporter implements no vmap onto
-the same id leaves amdxdna_gem_get_obj() returning an object this cannot
-map, since prime_import() types every import AMDXDNA_BO_SHARE.
+That went unnoticed while unknown values fell through the switch, but
+now that they are rejected, every U65 command stream that asks for
+natural rounding (2) fails CMDSTREAM_BO_CREATE with -EINVAL. Mesa emits
+it for average pooling, concatenation, split, unpack, strided slice, LUT
+and argmax, which is 72 failures of the Teflon test suite on an i.MX93.
+Truncating rounding (1) is misread as well: it picks the two-tile
+address path and computes a bogus feature map size from tile bases the
+command stream never set.
 
-Fixes: d76856beb4a4 ("accel/amdxdna: Refactor GEM BO handling and add helper APIs for address retrieval")
-Signed-off-by: Taimuraz Kaitmazov <taimuraz@kaitmazov.com>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
-Signed-off-by: Lizhi Hou <lizhi.hou@amd.com>
-Link: https://patch.msgid.link/20260819230852.287751-1-taimuraz@kaitmazov.com
+Read the field as a storage mode only on the hardware where it is one.
+
+Fixes: 5a5e9c0228e6 ("accel: Add Arm Ethos-U NPU driver")
+Fixes: 6b7e0066294d ("accel: ethosu: Handle U85 internal chaining buffer")
+Assisted-by: Claude:claude-opus-5
+Signed-off-by: Tomeu Vizoso <tomeu@tomeuvizoso.net>
+Link: https://patch.msgid.link/20260824152612.751007-1-tomeu@tomeuvizoso.net
+Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/accel/amdxdna/amdxdna_ctx.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ drivers/accel/ethosu/ethosu_gem.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/accel/amdxdna/amdxdna_ctx.c b/drivers/accel/amdxdna/amdxdna_ctx.c
-index 31a414c3f0d96..888e857ec5582 100644
---- a/drivers/accel/amdxdna/amdxdna_ctx.c
-+++ b/drivers/accel/amdxdna/amdxdna_ctx.c
-@@ -183,8 +183,10 @@ int amdxdna_cmd_set_error(struct amdxdna_gem_obj *abo,
- 		if (!abo)
- 			return -EINVAL;
- 		cmd = amdxdna_gem_vmap(abo);
--		if (!cmd)
-+		if (!cmd) {
-+			amdxdna_gem_put_obj(abo);
- 			return -ENOMEM;
-+		}
- 	}
+diff --git a/drivers/accel/ethosu/ethosu_gem.c b/drivers/accel/ethosu/ethosu_gem.c
+index d50fed64d4d93..fa37a190e9fff 100644
+--- a/drivers/accel/ethosu/ethosu_gem.c
++++ b/drivers/accel/ethosu/ethosu_gem.c
+@@ -204,7 +204,7 @@ static u64 feat_matrix_length(struct ethosu_device *edev,
+ 			      struct feat_matrix *fm,
+ 			      u32 x, u32 y, u32 c, bool ofm)
+ {
+-	u32 element_size, storage = fm->precision >> 14;
++	u32 element_size, storage = ethosu_is_u65(edev) ? 0 : fm->precision >> 14;
+ 	int tile = 0;
+ 	u64 addr;
  
- 	memset(cmd->data, 0xff, abo->mem.size - sizeof(*cmd));
 -- 
 2.53.0
 
