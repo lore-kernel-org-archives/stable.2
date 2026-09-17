@@ -1,121 +1,148 @@
-Received: from mail-qv2-f20.google.com (mail-qv2-f20.google.com [74.125.230.148])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EDDA94E0B73
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:21:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.148
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB8BF547053
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789669273; cv=none; b=Zs1cAOuHTYE4S7kh5/ZG8pxnok68sVT/4j9Vt/dWrQlb3t3P8t6zHpDdyrJl9s8kxRYREJpwCwxKFnT+MvodgE+xJp2YXb1cnL+dw+w+TuoWUZwUztAhaOmtZlUElRheNNSKmPEDU/6x+MKtlHHmPzoAJMt7lSWUPoBSbnZjKdY=
+	t=1789669413; cv=none; b=S8KqkcdnJts/InJF+wDq2pABZ03Lub62Y3mw/vKGnEoE6uCJjpkIr+jM6R/ewybE+C+9JDDFHdUpd8LPmefccxTQK8suYaghhQyRRXXWKJwDo9RKbhhqSo+8xBq87GlOGm2sDF+JSB/9Gj/BhdJKXwQjBqSTLkuT7FwJvd4+TPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789669273; c=relaxed/simple;
-	bh=6QaB1vCAHPDrZfq2UMtr0C/Dsi8/MZihkvuPXytBOdo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=aN1BjtDRXReBcdeINKBeWkpVkHUKEVOxFPvHRcm12tGyRZIu0KC8WfvN0+84HGwMfooJLwsDc1DYYisWZxPAX1A0+0wTW6mGzQN3Z3DlRFiXWKx2q+jmZ4Gt2sozOZPHE27TlEb66MeFEsBpuLqHCmilr4l61vGzjNkSHxgDOuk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hsJyOlk0; arc=none smtp.client-ip=74.125.230.148
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789669413; c=relaxed/simple;
+	bh=xXBmJEPdDTIauo1QIvoEFRcXpwauiBTUrGweuFyxe4w=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=XqqDtdjyT+b/KiZ6ojvz+Lo54PyGq1s/np6khWARrhXQRhJ+IsdnG2RIa0geXFKVjtQMgVyU6J6DxmjnbiluE3hc8nRB9f/Mx7phCpp7+bUsYVeoe5E/mozDRoq3zEAF8Pb6ehSzVFgfW6msaBtc6zML9JFG7+yfNGeMSfVLyPg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=PusStOHv; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=Xo5Kg2fR; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hsJyOlk0"
-Received: by mail-qv2-f20.google.com with SMTP id 6a1803df08f44-90cdfc9b6e4so9962506d6.3
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:21:11 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="PusStOHv";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="Xo5Kg2fR"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789669410;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=WDPWA2x/XShhRvPN2CAJ/FdnJPiyLxgST24Qp2ARue0=;
+	b=PusStOHvZpdeo3flxF8JRSO9AwOliQC0+Abg3zpPa22CAX6nZQWJjDetY7YDuvhDQU3UUL
+	kvuWGlR7E9SsrSh5bTS1FHgFJmuosphChNnHVPIMojYcHFnVaD1p60LMPeHWYv33li3RJG
+	PZZ7EhEvMO/o6YT2+BMsKsXiG9tw0gw=
+Received: from mail-qv1-f71.google.com (mail-qv1-f71.google.com
+ [209.85.219.71]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-611-wG3lGajcP66AWBkZDZP12g-1; Thu, 17 Sep 2026 14:23:29 -0400
+X-MC-Unique: wG3lGajcP66AWBkZDZP12g-1
+X-Mimecast-MFC-AGG-ID: wG3lGajcP66AWBkZDZP12g_1789669409
+Received: by mail-qv1-f71.google.com with SMTP id 6a1803df08f44-90e80ce3597so25178636d6.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:23:29 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789669271; x=1790274071; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
-        b=hsJyOlk0GVVLp/TJvSOu56tX9ctJP+DNB+uKybx7JFxZmmvpr6c0/U+kKMuPNVG2Y4
-         aAjxscp5NAuG8QiTHHS0ZLCGoF8NIKN+e2u7UzoLXoi5N+Sl0pZQ4Xrw5qsJYfKwBuAS
-         tueGevEmShuRGR+ocbUT4uflEm0V7NTLsRYX27nFUO/NkT/KXZWRM+W1tZa9efWJWvrb
-         pZAhk92jcp6inapGjbjKfPs0gYKE2QzWRMoyp6qRWJH1Ui51FXzmxU4w+LGbrsf0PN/N
-         nU5wwShf22un+trMZTgxa2W+B79efUK3D29fSBlkKVcUpE70q0YCrGNTTQGq51PXnwHG
-         BvJg==
+        d=redhat.com; s=google; t=1789669408; x=1790274208; darn=vger.kernel.org;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
+         :cc:subject:date:message-id:reply-to:content-type;
+        bh=WDPWA2x/XShhRvPN2CAJ/FdnJPiyLxgST24Qp2ARue0=;
+        b=Xo5Kg2fRNt1JF+Zowh2pMidPztKCGsvHHRa8Dg8e8/1MZz6HbNqyTS4xKGAFvkR/As
+         2zlYAlAdto80Cinu3r8r12UpBXN69B2s3JMBiNB4/xx//U2IeQKSdcm4DtwnbZiSDywJ
+         xfr7DVbgK01aPK61xFeKRWjOKQrYP6TchwfUwMYskpNu7HHHSQmAzBubfKYUhQRVoiNV
+         e4RT0iuSWgYdY19kmaolzj03q22PQoFXf6MuOr6deAKnNYetlbQE058BWxmhfwBcZ3VB
+         ziyvRifXIExfIkFW81O9c0byWgd4HiC5j9YsxBuGbfW0Yx4MLHnQouqAAe4REAnX33kK
+         Dw2g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789669271; x=1790274071;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=wxvIE5VyPmqRXC8q+9POUQDnnJS4uUoBxGmPT77wF0A=;
-        b=eeGUNgrd2cK/EXpAUkHxBz/r52iewnuWFR5yVS479MJDIzbuq238tmMeiTIEnEZZVA
-         jmQeB+svoekG9K6HgkLpCM4RldQjvk+kKnuoI9yMxN7heAjBDIHUqXTj3p4lYrlHugWy
-         HBhweMf8A+4KLpPr0ifEP/XmRvW6l8yrtdZNTe6MKKFdlOR4gLfKWTKUMnWLoFT0i2SK
-         PZNQ8Lf0+3jM3qgvHr80z5lrX9YHjgeGp/vGPMMCoVj9chUK8ijWV2ezZZQAroCFGslX
-         yw4nDtguUkFYKrsA1q9Re9JEgR1RvC7Sk3kNdSDl5B8H8HwtrT9RbjPkz74kB14Ld1EK
-         S0KA==
-X-Forwarded-Encrypted: i=1; AKwUvBxrWzNbhpAqTvqcA1E37ZhBAO3z6dlsBzkgWH6dvDYiYYy1OPajxmLm12h0GbAY4840VhubSfI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5VgjZBjfJwrsrTJTR56pvU/AWUEWLz+HF2s0Engyrg5Exz4/t
-	r4Dts6MqPtn6cAKwKSyKNZXezaLWXSBHFLNnMVatGZxar1yKttMISvA=
-X-Gm-Gg: AYBFou2GvwLfATMx2uKMuxPfQwxptCcK3H+6F/2rJgeS5t5Qyt1Ejs/mZ6KUw8hNPXK
-	c3G51f/aFGYeLgktNW0jJs/F4dnRvdyWz/0BX4KGr8eIQHkKk10VbpNCBUqmf3yLqrzPRst9weX
-	eXgs9ElFyQWlW4Cb5epNyXiDZqFwghTssnpz2D7EyGXopP+akuoRUu5OurUGwaE0e9C/QAudnM4
-	XMENX53rlJbHNUpP8IJb4Fmyiob1BbrUNmEcd28Qfn2Tewm8Yrxa2mt61HPklFfA4GP+cQFHoGN
-	DDI5ur/5IFNdKpA897KG+U6n6ijh2N2JMQSxKzGVqjnEfCqPOaBU20q//hYwO+TYVvLG4aGK7Hg
-	zVlnGjfNWc4XZ8jx3HPqyKTbdLfB7wMixLTMD//q1tRkMZK7I6Vjq5YayWYoMKHjOJeyj8uPLx2
-	MBlKRMHqetEoxw6GyaHg7IqvJiVeHln40loN2z5uV4bjHvt6sVrju8xFkbCJJPYxJcyx77VHH86
-	bWLesQRP5D44pyHZnWXB7KkgMvuUdlu5k6IhPmP1OC4oeyknLROqnaauS4Y1mwp3JFZ8neInROp
-	1YICmCFHaAB95qLUMVpOZaPMb1BE5b7laQIdXYNdIyHDc7tW
-X-Received: by 2002:a05:6214:4119:b0:912:3c52:5f34 with SMTP id 6a1803df08f44-91254bd0194mr797506d6.31.1789669270580;
-        Thu, 17 Sep 2026 11:21:10 -0700 (PDT)
-Received: from localhost.localdomain ([104.39.169.225])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252cc7ce2sm3684976d6.34.2026.09.17.11.21.09
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 11:21:09 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: hverkuil@kernel.org,
-	mchehab@kernel.org
-Cc: linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] media: radio-maxiradio: balance PCI device enable on cleanup
-Date: Thu, 17 Sep 2026 14:21:08 -0400
-Message-ID: <20260917182108.32566-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.47.1
+        d=1e100.net; s=20260707; t=1789669408; x=1790274208;
+        h=mime-version:user-agent:content-transfer-encoding:content-type
+         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=WDPWA2x/XShhRvPN2CAJ/FdnJPiyLxgST24Qp2ARue0=;
+        b=hTmszjNuwHg9hQbBG2rC36luRJSGOub5nv+sgNhCmrBU7xRFjx4eU61jZIc18pyLcx
+         vBY9jFgDH3M6gfPKR8LbKHWSHkCng9BbOEtUdWPTHT7OKLeLdF3d6iILyIiceZhAFqC2
+         jdM7AqvSurGIJN/Fn1NfXfggv9Io1IpbgDvMyJwkgWlHNk6EcWgHKdZcRb0W+kn6pD39
+         moK9iAGFoqtaTPEzpK8FIiwEbzmJWX6Q1AmIqKEhMrqXTMSt9wnRaLnn9uX9sJRPuO9F
+         qFhlp+j6YVzWyY5ZrrWsa1qoro93/NcXpvh8pJcvpDdAjYI73lnj8uHEkInKd4CK7rNy
+         8ShA==
+X-Forwarded-Encrypted: i=1; AKwUvByssyTfCGpzapzmuVLXMciD3rAehJhvt+7GmEIF1WP1ng705Mlu1zKctadSeWCCKTuQg67x+5I=@vger.kernel.org
+X-Gm-Message-State: AFuF++mXcOCP/KtS9eRsHlCVZmMuCfu7XQIIp7uJdN/QxW14INaibAR7
+	Gow9WGC8Zh/+3oH9MlXcifi5VQ2Lk5eGMRLLSzgfkUGAN0LQ7E+Re08gv9bUmqt6UCkIKKmCObJ
+	NG0MjFXcy8wtDoO4GzXwk0rs51zJNV40v4H2aMTzFb7AsI8W8H2O5YFxoEw==
+X-Gm-Gg: AYBFou0jh/SXVp1i0qUyi8eHoMbrPw+ygg9nKmAvACzfltXhYVz2vgpCaGb3OXLckkm
+	SLqPzmsQLQ8OixPo7CW0fFmo0uB0XYkFX9ytJB8fRpADuB3oWo479/EwjMTwrBusSlMcQPcTosr
+	TO/qkPG1E8Qd4xScOyjx0JWcBBAwdSBWcwtzNUfQ/oMv9I87l+8XRuG3Cp/pliQCsQmidel4Cbx
+	hdBJ1r28iN6zdsdT6TKTtmOZ0pnDl/dqqtm2CEdUgO6LXzoMbb+c1CVnWbfbRaBTHC+IqgtKSPg
+	qwJ1TLyWL6mPpFuFtATIyJO0PFwLbHmJP4/oWl+FduvmdhBOWFYksLCHBB487a+0tAZg3LHT
+X-Received: by 2002:a05:6214:80d6:10b0:90e:98c9:548 with SMTP id 6a1803df08f44-91254ba3a7dmr883596d6.1.1789669408632;
+        Thu, 17 Sep 2026 11:23:28 -0700 (PDT)
+X-Received: by 2002:a05:6214:80d6:10b0:90e:98c9:548 with SMTP id 6a1803df08f44-91254ba3a7dmr883226d6.1.1789669408180;
+        Thu, 17 Sep 2026 11:23:28 -0700 (PDT)
+Received: from [192.168.8.4] ([100.0.180.93])
+        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252d17cecsm3762106d6.44.2026.09.17.11.23.25
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 11:23:26 -0700 (PDT)
+Message-ID: <fc7bae477fdeab0bcbb908863b4f434dc03844f2.camel@redhat.com>
+Subject: Re: [PATCH] drm/nouveau: Fix runtime PM leak in
+ nouveau_connector_detect()
+From: lyude@redhat.com
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Cc: bskeggs@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org, 
+	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
+	mripard@kernel.org, nouveau@lists.freedesktop.org, simona@ffwll.ch, 
+	tzimmermann@suse.de, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 14:23:24 -0400
+In-Reply-To: <20260916180342.2090360-1-vulab@iscas.ac.cn>
+References: <20260916180342.2090360-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-The tuner initialization failure and remove paths omit the matching
-pci_disable_device() after a successful pci_enable_device(). Disable
-the device on both paths, after the final hardware access on removal.
+Nice catch!
 
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
+Reviewed-by: Lyude Paul <lyude@redhat.com>
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
-Changes in v2:
-- Add a Fixes tag for the initial Git import, where the PCI enable
-  imbalance is already present. No code changes from v1.
+Will push to drm-misc-fixes in just a moment
 
-diff --git a/drivers/media/radio/radio-maxiradio.c b/drivers/media/radio/radio-maxiradio.c
---- a/drivers/media/radio/radio-maxiradio.c
-+++ b/drivers/media/radio/radio-maxiradio.c
-@@ -159,10 +159,12 @@
- 	dev->io = pci_resource_start(pdev, 0);
- 	if (snd_tea575x_init(&dev->tea, THIS_MODULE)) {
- 		printk(KERN_ERR "radio-maxiradio: Unable to detect TEA575x tuner\n");
--		goto err_out_free_region;
-+		goto err_disable_device;
- 	}
- 	return 0;
- 
-+err_disable_device:
-+	pci_disable_device(pdev);
- err_out_free_region:
- 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
- err_hdl:
-@@ -180,6 +182,7 @@
- 	snd_tea575x_exit(&dev->tea);
- 	/* Turn off power */
- 	outb(0, dev->io);
-+	pci_disable_device(pdev);
- 	v4l2_device_unregister(v4l2_dev);
- 	release_region(pci_resource_start(pdev, 0), pci_resource_len(pdev, 0));
- 	kfree(dev);
+On Wed, 2026-09-16 at 18:03 +0000, Wentao Liang wrote:
+> If nvif_outp_edid_get() fails, nouveau_connector_detect() returns
+> early without dropping the runtime PM reference taken at the start
+> of the function, keeping the device powered on until the next
+> successful detect.
+>=20
+> Balance the reference on the error path like the other exit paths
+> do.
+>=20
+> Fixes: 0cd7e0718139 ("drm/nouveau/disp: add output method to fetch
+> edid")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+> =C2=A0drivers/gpu/drm/nouveau/nouveau_connector.c | 5 ++++-
+> =C2=A01 file changed, 4 insertions(+), 1 deletion(-)
+>=20
+> diff --git a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> index cc239492c7f0..4a750d4bf1f4 100644
+> --- a/drivers/gpu/drm/nouveau/nouveau_connector.c
+> +++ b/drivers/gpu/drm/nouveau/nouveau_connector.c
+> @@ -600,8 +600,11 @@ nouveau_connector_detect(struct drm_connector
+> *connector, bool force)
+> =C2=A0				new_edid =3D drm_get_edid(connector,
+> nv_encoder->i2c);
+> =C2=A0		} else {
+> =C2=A0			ret =3D nvif_outp_edid_get(&nv_encoder->outp,
+> (u8 **)&new_edid);
+> -			if (ret < 0)
+> +			if (ret < 0) {
+> +				pm_runtime_mark_last_busy(dev->dev);
+> +				pm_runtime_put_autosuspend(dev-
+> >dev);
+> =C2=A0				return
+> connector_status_disconnected;
+> +			}
+> =C2=A0		}
+> =C2=A0
+> =C2=A0		nouveau_connector_set_edid(nv_connector, new_edid);
+
