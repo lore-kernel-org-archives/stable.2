@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B956C43F09B;
-	Thu, 17 Sep 2026 19:01:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CD883590AE;
+	Thu, 17 Sep 2026 19:01:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671683; cv=none; b=o3i3Bb6ClIiR6Bq4p1Ud6easjy157CoyZZkIJrmwIEjp8Egjz6BMtQAXWn4YaOPheZIOBxSj4UvYul1wbMZz2F2UYgU5DjOYi7Qyl+511xu1fs/BIfHMoMQU+ZTAAsB/1RlPIzxOzlx6GDc6XuWiQc9EgQoqrAR6jnxlV4uhkX8=
+	t=1789671684; cv=none; b=HpljKZ8Ew2+3IYFw6jxoooySrQqlAUTnUiNd7iIartb+jE3bCWbVoZTQarjJN5e//SAtWCd9aVy3UUld/z9cXW0SG+EG1fwIxUh1EaeH7QiWPldE+NGTyk78zNn/REAa7atHVHDKtN2OZOSMjNRvVbr3NlyAxXI9/95d/9cveJI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671683; c=relaxed/simple;
-	bh=KQd+sWNMz0lrhsayC8t16eZ97BRCXf+nhptUNwCZGho=;
+	s=arc-20240116; t=1789671684; c=relaxed/simple;
+	bh=NYfaCRqWxkGb/lIcPDN/rQyvq+os+3RUXKE9SJUhl5g=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=F2F7HgxcspmrnlI1ocYGvVk9F7NGq6PQXtEDdYdzXBM0vB+4NlW3PXtaPYytbw0ZSrrVeCwpd5Z6YbaDxrKOIGCZbm14qPLlUanofXqHGUi9Pe+AdbGag8VgAYcz+jKmNHGUDFNqz+ocal52vDiSK5aKofGOPLWcOYyOlEZ1xxg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BIir7BaC; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=G3/3tl/nF/OQVlYaie0Ry7/oWfsnKaLshEhh4+FpRJW9OD+6QN+F/lrAei8N73t5tgv9mDrBjhDbr3b8HoBEq/ek1fer/Qb+f6aKpbi/FJAbpSpaEmJ96tMLR49w9JTPjzaRgYksE4OahIWewIcbTuLanoYPtjmpiNPcY7mE49k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ha0GMyi4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BIir7BaC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4775C1F008A2;
-	Thu, 17 Sep 2026 19:01:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ha0GMyi4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 432421F00893;
+	Thu, 17 Sep 2026 19:01:15 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789671669;
-	bh=a9s3GVhON+qMC6d457Bw7UKoGpLYlb4poJGYOHmp2u4=;
+	s=korg; t=1789671675;
+	bh=l9vNX6RbZxrQ28lVKbDwkzmwvuy/r9+Uiwn5mX5TBm0=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BIir7BaCom0wkjcUW+2pCHNRSmYvEVNa8Mt+luGnXKnUaaYCtVrLg6q5WavNsT9cO
-	 2cvgh9wmQLMzvc43r+TbKT5c3SMYBRwkPLJDBaRoYa26dPajy+WLg+0OqL7JuojbqZ
-	 knuYfd6mQUHgCZbcMU7lnod7iwmPtQoguW/B+1II=
+	b=ha0GMyi4p+DfW0QyJxEX4BNQDp7d7U52YZY0ls4YgUwB+8yJHFyrlMQToL9JVO7HY
+	 Zxw0Ivn+2zfbmFuo2Cuf/OopI9Mo4lZPbM+7GoqSHfnx8oSamgBDN1fGgowmLaTc56
+	 epU6/slvr6Vh4yfH6kPuOjSC7cVCnhT+cum6+AXI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	David Sterba <dsterba@suse.com>,
+	Rosalie Wanders <rosalie@mailbox.org>,
+	Jiri Kosina <jkosina@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1045/1102] btrfs: parameter constification in ioctl.c
-Date: Thu, 17 Sep 2026 16:16:28 +0100
-Message-ID: <20260917151607.028911699@linuxfoundation.org>
+Subject: [PATCH 6.12 1055/1102] HID: sony: use guard() and scoped_guard()
+Date: Thu, 17 Sep 2026 16:16:38 +0100
+Message-ID: <20260917151607.296869106@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
 References: <20260917151539.408551884@linuxfoundation.org>
@@ -50,133 +51,153 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: David Sterba <dsterba@suse.com>
+From: Rosalie Wanders <rosalie@mailbox.org>
 
-[ Upstream commit 5e54f9420fc9b8096d0a4b579a84806a3ef0bf88 ]
+[ Upstream commit da4f817ad273bca9aefd8636d347a8c101069111 ]
 
-Add const to function parameters that are not changed.
+This replaces the spin_lock_irqsave() and spin_unlock_irqrestore() calls
+with the RAII guard() and scoped_guard().
 
-Signed-off-by: David Sterba <dsterba@suse.com>
-Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
+Signed-off-by: Rosalie Wanders <rosalie@mailbox.org>
+Signed-off-by: Jiri Kosina <jkosina@suse.com>
+Stable-dep-of: 7c65699a3a31 ("HID: sony: clean up device list on probe failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- fs/btrfs/ioctl.c |   28 ++++++++++++++--------------
- 1 file changed, 14 insertions(+), 14 deletions(-)
+ drivers/hid/hid-sony.c |   53 ++++++++++++++++++++-----------------------------
+ 1 file changed, 22 insertions(+), 31 deletions(-)
 
---- a/fs/btrfs/ioctl.c
-+++ b/fs/btrfs/ioctl.c
-@@ -117,8 +117,8 @@ struct btrfs_ioctl_encoded_io_args_32 {
- #endif
- 
- /* Mask out flags that are inappropriate for the given type of inode. */
--static unsigned int btrfs_mask_fsflags_for_type(struct inode *inode,
--		unsigned int flags)
-+static unsigned int btrfs_mask_fsflags_for_type(const struct inode *inode,
-+						unsigned int flags)
- {
- 	if (S_ISDIR(inode->i_mode))
- 		return flags;
-@@ -132,7 +132,7 @@ static unsigned int btrfs_mask_fsflags_f
-  * Export internal inode flags to the format expected by the FS_IOC_GETFLAGS
-  * ioctl.
+--- a/drivers/hid/hid-sony.c
++++ b/drivers/hid/hid-sony.c
+@@ -27,6 +27,7 @@
+  * There will be no PIN request from the device.
   */
--static unsigned int btrfs_inode_flags_to_fsflags(struct btrfs_inode *binode)
-+static unsigned int btrfs_inode_flags_to_fsflags(const struct btrfs_inode *binode)
+ 
++#include <linux/cleanup.h>
+ #include <linux/device.h>
+ #include <linux/hid.h>
+ #include <linux/module.h>
+@@ -520,14 +521,12 @@ static void sony_set_leds(struct sony_sc
+ static inline void sony_schedule_work(struct sony_sc *sc,
+ 				      enum sony_worker which)
  {
- 	unsigned int iflags = 0;
- 	u32 flags = binode->flags;
-@@ -218,7 +218,7 @@ static int check_fsflags(unsigned int ol
- 	return 0;
+-	unsigned long flags;
+-
+ 	switch (which) {
+ 	case SONY_WORKER_STATE:
+-		spin_lock_irqsave(&sc->lock, flags);
+-		if (!sc->defer_initialization && sc->state_worker_initialized)
+-			schedule_work(&sc->state_worker);
+-		spin_unlock_irqrestore(&sc->lock, flags);
++		scoped_guard(spinlock_irqsave, &sc->lock) {
++			if (!sc->defer_initialization && sc->state_worker_initialized)
++				schedule_work(&sc->state_worker);
++		}
+ 		break;
+ 	}
+ }
+@@ -796,7 +795,6 @@ static const u8 *sony_report_fixup(struc
+ static void sixaxis_parse_report(struct sony_sc *sc, u8 *rd, int size)
+ {
+ 	static const u8 sixaxis_battery_capacity[] = { 0, 1, 25, 50, 75, 100 };
+-	unsigned long flags;
+ 	int offset;
+ 	u8 battery_capacity;
+ 	int battery_status;
+@@ -818,10 +816,10 @@ static void sixaxis_parse_report(struct
+ 		battery_status = POWER_SUPPLY_STATUS_DISCHARGING;
+ 	}
+ 
+-	spin_lock_irqsave(&sc->lock, flags);
+-	sc->battery_capacity = battery_capacity;
+-	sc->battery_status = battery_status;
+-	spin_unlock_irqrestore(&sc->lock, flags);
++	scoped_guard(spinlock_irqsave, &sc->lock) {
++		sc->battery_capacity = battery_capacity;
++		sc->battery_status = battery_status;
++	}
+ 
+ 	if (sc->quirks & SIXAXIS_CONTROLLER) {
+ 		int val;
+@@ -1624,15 +1622,14 @@ static int sony_battery_get_property(str
+ 				     union power_supply_propval *val)
+ {
+ 	struct sony_sc *sc = power_supply_get_drvdata(psy);
+-	unsigned long flags;
+ 	int ret = 0;
+ 	u8 battery_capacity;
+ 	int battery_status;
+ 
+-	spin_lock_irqsave(&sc->lock, flags);
+-	battery_capacity = sc->battery_capacity;
+-	battery_status = sc->battery_status;
+-	spin_unlock_irqrestore(&sc->lock, flags);
++	scoped_guard(spinlock_irqsave, &sc->lock) {
++		battery_capacity = sc->battery_capacity;
++		battery_status = sc->battery_status;
++	}
+ 
+ 	switch (psp) {
+ 	case POWER_SUPPLY_PROP_PRESENT:
+@@ -1714,10 +1711,9 @@ static inline int sony_compare_connectio
+ static int sony_check_add_dev_list(struct sony_sc *sc)
+ {
+ 	struct sony_sc *entry;
+-	unsigned long flags;
+ 	int ret;
+ 
+-	spin_lock_irqsave(&sony_dev_list_lock, flags);
++	guard(spinlock_irqsave)(&sony_dev_list_lock);
+ 
+ 	list_for_each_entry(entry, &sony_device_list, list_node) {
+ 		ret = memcmp(sc->mac_address, entry->mac_address,
+@@ -1731,26 +1727,23 @@ static int sony_check_add_dev_list(struc
+ 				"controller with MAC address %pMR already connected\n",
+ 				sc->mac_address);
+ 			}
+-			goto unlock;
++			goto out;
+ 		}
+ 	}
+ 
+ 	ret = 0;
+ 	list_add(&(sc->list_node), &sony_device_list);
+ 
+-unlock:
+-	spin_unlock_irqrestore(&sony_dev_list_lock, flags);
++out:
+ 	return ret;
  }
  
--static int check_fsflags_compatible(struct btrfs_fs_info *fs_info,
-+static int check_fsflags_compatible(const struct btrfs_fs_info *fs_info,
- 				    unsigned int flags)
+ static void sony_remove_dev_list(struct sony_sc *sc)
  {
- 	if (btrfs_is_zoned(fs_info) && (flags & FS_NOCOW_FL))
-@@ -247,7 +247,7 @@ static int btrfs_check_ioctl_vol_args2_s
-  */
- int btrfs_fileattr_get(struct dentry *dentry, struct fileattr *fa)
- {
--	struct btrfs_inode *binode = BTRFS_I(d_inode(dentry));
-+	const struct btrfs_inode *binode = BTRFS_I(d_inode(dentry));
- 
- 	fileattr_fill_flags(fa, btrfs_inode_flags_to_fsflags(binode));
- 	return 0;
-@@ -485,7 +485,7 @@ void btrfs_exclop_balance(struct btrfs_f
+-	unsigned long flags;
+-
+ 	if (sc->list_node.next) {
+-		spin_lock_irqsave(&sony_dev_list_lock, flags);
+-		list_del(&(sc->list_node));
+-		spin_unlock_irqrestore(&sony_dev_list_lock, flags);
++		scoped_guard(spinlock_irqsave, &sony_dev_list_lock) {
++			list_del(&(sc->list_node));
++		}
  	}
  }
  
--static int btrfs_ioctl_getversion(struct inode *inode, int __user *arg)
-+static int btrfs_ioctl_getversion(const struct inode *inode, int __user *arg)
+@@ -1878,12 +1871,10 @@ static inline void sony_init_output_repo
+ 
+ static inline void sony_cancel_work_sync(struct sony_sc *sc)
  {
- 	return put_user(inode->i_generation, arg);
+-	unsigned long flags;
+-
+ 	if (sc->state_worker_initialized) {
+-		spin_lock_irqsave(&sc->lock, flags);
+-		sc->state_worker_initialized = 0;
+-		spin_unlock_irqrestore(&sc->lock, flags);
++		scoped_guard(spinlock_irqsave, &sc->lock) {
++			sc->state_worker_initialized = 0;
++		}
+ 		cancel_work_sync(&sc->state_worker);
+ 	}
  }
-@@ -557,7 +557,7 @@ static noinline int btrfs_ioctl_fitrim(s
-  * Calculate the number of transaction items to reserve for creating a subvolume
-  * or snapshot, not including the inode, directory entries, or parent directory.
-  */
--static unsigned int create_subvol_num_items(struct btrfs_qgroup_inherit *inherit)
-+static unsigned int create_subvol_num_items(const struct btrfs_qgroup_inherit *inherit)
- {
- 	/*
- 	 * 1 to add root block
-@@ -967,7 +967,7 @@ static int btrfs_may_delete(struct mnt_i
- 
- /* copy of may_create in fs/namei.c() */
- static inline int btrfs_may_create(struct mnt_idmap *idmap,
--				   struct inode *dir, struct dentry *child)
-+				   struct inode *dir, const struct dentry *child)
- {
- 	if (d_really_is_positive(child))
- 		return -EEXIST;
-@@ -1539,8 +1539,8 @@ out:
- 	return ret;
- }
- 
--static noinline int key_in_sk(struct btrfs_key *key,
--			      struct btrfs_ioctl_search_key *sk)
-+static noinline int key_in_sk(const struct btrfs_key *key,
-+			      const struct btrfs_ioctl_search_key *sk)
- {
- 	struct btrfs_key test;
- 	int ret;
-@@ -1565,7 +1565,7 @@ static noinline int key_in_sk(struct btr
- 
- static noinline int copy_to_sk(struct btrfs_path *path,
- 			       struct btrfs_key *key,
--			       struct btrfs_ioctl_search_key *sk,
-+			       const struct btrfs_ioctl_search_key *sk,
- 			       u64 *buf_size,
- 			       char __user *ubuf,
- 			       unsigned long *sk_offset,
-@@ -2843,7 +2843,7 @@ out_free:
- 	return ret;
- }
- 
--static long btrfs_ioctl_fs_info(struct btrfs_fs_info *fs_info,
-+static long btrfs_ioctl_fs_info(const struct btrfs_fs_info *fs_info,
- 				void __user *arg)
- {
- 	struct btrfs_ioctl_fs_info_args *fi_args;
-@@ -2897,7 +2897,7 @@ static long btrfs_ioctl_fs_info(struct b
- 	return ret;
- }
- 
--static long btrfs_ioctl_dev_info(struct btrfs_fs_info *fs_info,
-+static long btrfs_ioctl_dev_info(const struct btrfs_fs_info *fs_info,
- 				 void __user *arg)
- {
- 	BTRFS_DEV_LOOKUP_ARGS(args);
-@@ -4355,7 +4355,7 @@ static int btrfs_ioctl_get_features(stru
- 	return 0;
- }
- 
--static int check_feature_bits(struct btrfs_fs_info *fs_info,
-+static int check_feature_bits(const struct btrfs_fs_info *fs_info,
- 			      enum btrfs_feature_set set,
- 			      u64 change_mask, u64 flags, u64 supported_flags,
- 			      u64 safe_set, u64 safe_clear)
 
 
