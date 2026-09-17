@@ -1,204 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A3B5D5172EF;
-	Thu, 17 Sep 2026 17:42:09 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from smtp.uniroma2.it (smtp-2015.uniroma2.it [160.80.4.37])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id EF1934EB856;
+	Thu, 17 Sep 2026 17:42:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=160.80.4.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789666931; cv=none; b=d45p9nyCwIsgM9luZ0d85DJSjBMiW5QhSqg/5QjBkPOprFqtx3pqJNYfDryUlydP53dp3gztdesu5QTs+VrVXJNpujHtfiDh3lWmC9yGSxUyF8AixNrgzIL7CIeazzOqiu1l2YOKkSHVuXRcUefDsJjNVKQj4FdGYAYA05LLAvM=
+	t=1789666932; cv=none; b=K8Ua2icDb+W/+jmLSJltwoo2Yep/zFUHJuqBI7lQ08AhF9CC3mPKnyolJAo+K3sr15JmCwoUbVnCEh2V9XRQDh5qNP6y4QfnSVS5AJctFYUM+3LM213Zb48AmEHIvW29qJ+dxMV3z/s+5zVdMOOHXXjqq589aIdaZgL+/T72FiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789666931; c=relaxed/simple;
-	bh=pECN09MKqGGWJxUvtw7dYf+DoofaaJqDT2eKDRK9NaA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lsrCSODkGdf9QaeRTx92exkbF51DabX1i86NRVfjwLe5Q0VmsxyewNOXMMTe6nKupQk2v6cLp1G21Tb2ei4bMGQAantJE+12sKEIAx4+1mfvovW47wnHixP+S9elE14Ljadw7xrgEh8DEMXRrO06Zx224s53LybraJ01lvl/GV8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=hfO6EftJ; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789666932; c=relaxed/simple;
+	bh=NHHc4y0Y32HjeDzKmPrMdvv7ABkyjJFUGzW3+qTTm5o=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=cpYBAQznCaXaSFXbYprPJtd/gaMimZWhEZMOTwFcCxWIQRU7wgoxI4JBxtF50MnfhY/Xed6and/weN2io37KYJo0/nNHybs88S2nP9HaxRaG/xkmtPvct9HmebnJOG4N2vjciSiKaVSpTx2sc9raxk+BsE86E8pRwU63WUHLz4E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it; spf=pass smtp.mailfrom=uniroma2.it; dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=678ts7bp; dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b=FByVuGTJ; arc=none smtp.client-ip=160.80.4.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniroma2.it
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniroma2.it
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="hfO6EftJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DD2E71F000FF;
-	Thu, 17 Sep 2026 17:42:08 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789666929;
-	bh=i7NfNhLMyHNPnY4L+u+NYQ8DWEjEQVEqXn0DpQSlMH8=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=hfO6EftJb+Bp5WbtKIwJuQAkN/iz9VEXrWuosp7MF9J2q0ElV/sByNekuMxRbFRV3
-	 rvwx33SsOjYzBgyUxncrNwMbXhGgBfFkLXJ3MKvzKBfkpl1RMz1AH391sOI9NVNPvd
-	 GGDssH0V5qls9wHGkNiqBDAfj77XdwBdGT2fexVE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Sashiko <sashiko-dev@google.com>,
-	Nilesh Javali <njavali@marvell.com>,
-	"Martin K. Petersen (Oracle)" <mkp@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 1172/1250] scsi: qla2xxx: Validate BSG request_len before reading vendor_cmd[]
-Date: Thu, 17 Sep 2026 16:16:07 +0100
-Message-ID: <20260917151624.053508356@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-References: <20260917151551.901433442@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	dkim=permerror (0-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="678ts7bp";
+	dkim=pass (2048-bit key) header.d=uniroma2.it header.i=@uniroma2.it header.b="FByVuGTJ"
+Received: from smtpauth-2019-1.uniroma2.it (smtpauth-2019-1.uniroma2.it [160.80.5.46])
+	by smtp-2015.uniroma2.it (8.14.4/8.14.4/Debian-8) with ESMTP id 68HHfXJD010699;
+	Thu, 17 Sep 2026 19:41:38 +0200
+Received: from lubuntu-18.04 (unknown [139.28.148.6])
+	by smtpauth-2019-1.uniroma2.it (Postfix) with ESMTPSA id 4EEA7122885;
+	Thu, 17 Sep 2026 19:41:29 +0200 (CEST)
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=uniroma2.it;
+	s=ed201904; t=1789666889; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MJh67ZsdoSJ2VmJoLbPlfwH2YuC1ln+5OOMOZoHQIrk=;
+	b=678ts7bp5LQYI8HW0nWSCa58BwtZvLooPHZV/M11wB+DVpPtX8H13m7svOVdRTtK+BYm2k
+	ZU1MQTFk6N0kaxCg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniroma2.it; s=rsa201904;
+	t=1789666889; h=from:from:sender:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=MJh67ZsdoSJ2VmJoLbPlfwH2YuC1ln+5OOMOZoHQIrk=;
+	b=FByVuGTJKF9FHIm5QswKlv3uIMzQIMd7UpmBBBecBXdq6j+X9+FXSJrlyjwFcn1QTlHyGZ
+	JtZK2RH+l3Ecm9DkaJkGNX7yYrTE/CYkCqEhrnaMjsekJlAX/ymZLgUMV2X9vBmtx7+GnC
+	1EAVM1r2X3ww1zOweZGJKR05p65Gtsw0+eNNTmAMaCP5bc0zbkAe2bbi89eo/pH6S8P/Jz
+	XX+0X/AiGBX53rwcXzY7y/2wzsWO6Xupes4Psg/vhqXY9mGNqA8BiPVt2w2Qcs7QCa8AFL
+	gwR81H59Vm2oNewjha48zrRh4XIhI75VQFgMkPh1FN0TFCL6KmfADBvsa3vJWw==
+Date: Thu, 17 Sep 2026 19:41:28 +0200
+From: Andrea Mayer <andrea.mayer@uniroma2.it>
+To: Hangbin Liu <hangbin.liu@linux.dev>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, dsahern@kernel.org,
+        davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+        pabeni@redhat.com, horms@kernel.org, idosch@nvidia.com,
+        alex.aring@gmail.com, justin.iurman@gmail.com, bestswngs@gmail.com,
+        stefano.salsano@uniroma2.it, xmei5@asu.edu, stable@vger.kernel.org,
+        Andrea
+ Mayer <andrea.mayer@uniroma2.it>
+Subject: Re: [PATCH net v3] ipv6: rpl: fix NULL dereference of idev in
+ ipv6_rpl_srh_rcv()
+Message-Id: <20260917194128.c078117a13eca6f3c97e3dde@uniroma2.it>
+In-Reply-To: <aqk49jT8tGsqn61d@fedora>
+References: <20260817132644.2223-1-andrea.mayer@uniroma2.it>
+	<aqjflqdySFG51YEa@fedora>
+	<aqk49jT8tGsqn61d@fedora>
+X-Mailer: Sylpheed 3.5.1 (GTK+ 2.24.32; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
+Mime-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Virus-Scanned: clamav-milter 0.100.0 at smtp-2015
+X-Virus-Status: Clean
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+On Tue, 15 Sep 2026 20:24:22 +0800
+Hangbin Liu <hangbin.liu@linux.dev> wrote:
 
-------------------
+> On Tue, Sep 15, 2026 at 02:03:12PM +0800, Hangbin Liu wrote:
+> > Hi Andrea,
+> > 
+> > While reviewing the SRv6 code, I noticed you added an `idev` check in
+> > `ipv6_rthdr_rcv()`. I’m wondering whether it makes sense to also halt
+> > processing for `IPV6_SRCRT_TYPE_2` when `!idev`, given that IPv6 is
+> > disabled on that device.
+> > 
+> > If so, could we drop the skb early at the entry point of `ipv6_rthdr_rcv()`?
+> > The downside is that subsequent processing and `__IP6_INC_STATS()` would be
+> > skipped.
+> 
+> Oh, another behavior change. At present, if !idev, we can still process the
+> IPV6_SRCRT_TYPE_2 message. And the process will be skipped if we return early.
+> I'm not sure if this kind of change is acceptable or not in kernel.
+> 
+> But on the other hand, is it correct to accept and forward SRCRT Type 2
+> packets on device that IPv6 is disabled?
+> 
+> Thanks
+> Hangbin
 
-From: Nilesh Javali <njavali@marvell.com>
+Hi Hangbin,
 
-[ Upstream commit 4cf38dd9465736141263ebb63375868311a0ec81 ]
+One case is when IPv6 is already disabled as the packet arrives:
+ip6_rcv_core() drops the packet before ipv6_rthdr_rcv().
+The other is the transient window: dev->ip6_ptr can be cleared after
+that check, and ipv6_rthdr_rcv() can then find idev NULL.
+In that window the TYPE_2 path can run without idev. ipv6_srh_rcv() and
+ipv6_rpl_srh_rcv() cannot: they read idev->cnf. That is why the check
+sits before those two calls.
 
-The FC BSG transport allocates job->request via memdup_user() using the
-exact user-supplied request_len. For FC_BSG_HST_VENDOR,
-fc_bsg_host_dispatch() only guarantees request_len covers msgcode and
-vendor_id; it does not account for the vendor_cmd[] flexible array.
+On the counters: __IP6_INC_STATS() goes through _DEVINC(), which skips
+the per-device bump when idev is NULL and still increments the per-net one.
+Stopping TYPE_2 in that window as well is a behaviour change, and I think
+it would need a reason of its own.
 
-qla2xxx then reads the command selector vendor_cmd[0] and, in several
-sub-handlers, vendor_cmd[1]/[2] or structures overlaid on the vendor
-command area without verifying request_len. A caller holding
-CAP_SYS_RAWIO can submit a short request whose vendor_id matches the
-host, triggering out-of-bounds heap reads (KASAN-detectable, and able to
-mis-select a command or panic).
-
-Add a central guard in qla2x00_process_vendor_specific() so the selector
-is always in bounds, restrict the early vendor_cmd[0] read in
-qla24xx_bsg_request() to sufficiently long vendor messages, and add
-request_len checks to the sub-handlers that read further:
-qla24xx_proc_fcp_prio_cfg_cmd(), qla2x00_process_loopback(),
-qla84xx_reset(), qla84xx_updatefw(), qla2x00_read_optrom(),
-qla2x00_update_optrom(), qlafx00_mgmt_cmd() and
-qla28xx_validate_flash_image().
-
-Fixes: 01e0e15c8b3b ("scsi: don't use fc_bsg_job::request and fc_bsg_job::reply directly")
-Cc: stable@vger.kernel.org
-Reported-by: Sashiko <sashiko-dev@google.com>
-Signed-off-by: Nilesh Javali <njavali@marvell.com>
-Link: https://patch.msgid.link/20260730155838.2119230-31-njavali@marvell.com
-Signed-off-by: Martin K. Petersen (Oracle) <mkp@kernel.org>
-[ adapted hunks to the existing OPTROM helper and absence of qla28xx_validate_flash_image(). ]
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
----
- drivers/scsi/qla2xxx/qla_bsg.c |   45 +++++++++++++++++++++++++++++++++++++++--
- 1 file changed, 43 insertions(+), 2 deletions(-)
-
---- a/drivers/scsi/qla2xxx/qla_bsg.c
-+++ b/drivers/scsi/qla2xxx/qla_bsg.c
-@@ -158,6 +158,12 @@ qla24xx_proc_fcp_prio_cfg_cmd(struct bsg
- 		goto exit_fcp_prio_cfg;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t)) {
-+		ret = -EINVAL;
-+		goto exit_fcp_prio_cfg;
-+	}
-+
- 	/* Get the sub command */
- 	oper = bsg_request->rqst_data.h_vendor.vendor_cmd[1];
- 
-@@ -756,6 +762,10 @@ qla2x00_process_loopback(struct bsg_job
- 		return -EIO;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 3 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	memset(&elreq, 0, sizeof(elreq));
- 
- 	elreq.req_sg_cnt = dma_map_sg(&ha->pdev->dev,
-@@ -988,6 +998,10 @@ qla84xx_reset(struct bsg_job *bsg_job)
- 		return -EINVAL;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	flag = bsg_request->rqst_data.h_vendor.vendor_cmd[1];
- 
- 	rval = qla84xx_reset_chip(vha, flag == A84_ISSUE_RESET_DIAG_FW);
-@@ -1032,6 +1046,10 @@ qla84xx_updatefw(struct bsg_job *bsg_job
- 		return -EINVAL;
- 	}
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	sg_cnt = dma_map_sg(&ha->pdev->dev, bsg_job->request_payload.sg_list,
- 		bsg_job->request_payload.sg_cnt, DMA_TO_DEVICE);
- 	if (!sg_cnt) {
-@@ -1482,6 +1500,10 @@ qla2x00_read_optrom(struct bsg_job *bsg_
- 	struct qla_hw_data *ha = vha->hw;
- 	int rval = 0;
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	if (ha->flags.nic_core_reset_hdlr_active)
- 		return -EBUSY;
- 
-@@ -1519,6 +1541,10 @@ qla2x00_update_optrom(struct bsg_job *bs
- 	struct qla_hw_data *ha = vha->hw;
- 	int rval = 0;
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + 2 * sizeof(uint32_t))
-+		return -EINVAL;
-+
- 	mutex_lock(&ha->optrom_mutex);
- 	rval = qla2x00_optrom_setup(bsg_job, vha, 1);
- 	if (rval) {
-@@ -2010,6 +2036,11 @@ qlafx00_mgmt_cmd(struct bsg_job *bsg_job
- 	struct fc_port *fcport;
- 	char  *type = "FC_BSG_HST_FX_MGMT";
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + sizeof(uint32_t) +
-+	    sizeof(struct qla_mt_iocb_rqst_fx00))
-+		return -EINVAL;
-+
- 	/* Copy the IOCB specific information */
- 	piocb_rqst = (struct qla_mt_iocb_rqst_fx00 *)
- 	    &bsg_request->rqst_data.h_vendor.vendor_cmd[1];
-@@ -2899,6 +2930,13 @@ qla2x00_process_vendor_specific(struct s
- {
- 	struct fc_bsg_request *bsg_request = bsg_job->request;
- 
-+	if (bsg_job->request_len <
-+	    sizeof(struct fc_bsg_request) + sizeof(uint32_t)) {
-+		ql_log(ql_log_warn, vha, 0x7000,
-+		       "BSG request too small for vendor cmd.\n");
-+		return -EINVAL;
-+	}
-+
- 	ql_dbg(ql_dbg_edif, vha, 0x911b, "%s FC_BSG_HST_VENDOR cmd[0]=0x%x\n",
- 	    __func__, bsg_request->rqst_data.h_vendor.vendor_cmd[0]);
- 
-@@ -3024,8 +3062,11 @@ qla24xx_bsg_request(struct bsg_job *bsg_
- 	}
- 
- 	/* Disable port will bring down the chip, allow enable command */
--	if (bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_MANAGE_HOST_PORT ||
--	    bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_GET_HOST_STATS)
-+	if (bsg_request->msgcode == FC_BSG_HST_VENDOR &&
-+	    bsg_job->request_len >=
-+		sizeof(struct fc_bsg_request) + sizeof(uint32_t) &&
-+	    (bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_MANAGE_HOST_PORT ||
-+	     bsg_request->rqst_data.h_vendor.vendor_cmd[0] == QL_VND_GET_HOST_STATS))
- 		goto skip_chip_chk;
- 
- 	if (vha->hw->flags.port_isolated) {
-
-
+Thanks
+Andrea
