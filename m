@@ -1,108 +1,172 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 393F24AC15D;
-	Thu, 17 Sep 2026 09:18:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from zg8tmtyylji0my4xnjqumte4.icoremail.net (zg8tmtyylji0my4xnjqumte4.icoremail.net [162.243.164.118])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 3D1754218A4;
+	Thu, 17 Sep 2026 09:21:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.243.164.118
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789636688; cv=none; b=ItpasluMZoc5YAukQPDyq3BTMZxSAKbwDcxP8gehRyIBX/js9rwZjwNDOBzcrAbRZKDZurkdAzT39qJO/+3OgLa/nozXOSWpwEULxmWmks4qhxbvn9hIJ3Vofz1pP+fAb0sbZgYJX2MFkgmiN4zap0ijKEg8tFi3mifkKS7du3A=
+	t=1789636904; cv=none; b=OBnpQhcLMykSLLif7ZE0ZThzrTh6qAOqZ6UzTZ6uG1Xf4uj/FHS5Vct+55KR2xq1ssFnHjqRVQHedg02V1HbqsXIIgAVsphqjnLb17OrDRPuMg010kRB6UpUp8Xb7Ljxfo3S5MH6LILsDHmTBMK1Zzvc8eBeiRpPXEAqLiD32mE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789636688; c=relaxed/simple;
-	bh=QFgjXXUybA8CBQDzo0leFmaEK+XgKvIPes+QPTJhl4U=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=t3aJr90a+G+Idhcc5NomJvM6Jj6B0XQRK6OFSFPx/+YHz7nHiL7x0KQAuu/LMFjiI7lvgMXh7wlt9xLsIHvsV1r3BYwNGUDNAcUiHJA+Sy1fGYZYlkqsQzO9v9x7jVz0JdxB6qB5UvLm/i8A1fp1R2zh6uz98KTve+L3+fndBP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GUrqL/gE; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GUrqL/gE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C5FFE1F000FF;
-	Thu, 17 Sep 2026 09:18:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789636685;
-	bh=/Rhxw036vxujupFof0/OPSjDt69n/+Ot/zuxSne0Eqw=;
-	h=From:Date:Subject:References:In-Reply-To:To:Cc;
-	b=GUrqL/gEKSnTVaqEMvtTMGAJIeAc3r1NHdhkY/bcVnaqjDYy7u/nc9nEWQUY+dn8F
-	 XoCdbwTsnfZI8ojF1nF7YW4wAzKsG/p6LxqFNL0layDchsrDMBrwZqFZKqpUDmgC82
-	 AAgiW7w74PRJm3hJ93xqiliY6Jn+nlnyhTRWnKnAP4ZLLnfMMGc8VagCQuSIIy5zqj
-	 1r4lbKsNjJwkuUD40b9C1AROzPPdszzmoZNLncBcTqOgeSlgbdKtnuzSy2ivEkkYCE
-	 l0KXXuVRnw83JH7voMkIy6gHPECHSHHq25H36zaZiEwF/fBflCbjLSzYIn82/fQuUA
-	 vJgUsyHK8UIPg==
-From: Christian Brauner <brauner@kernel.org>
-Date: Thu, 17 Sep 2026 11:17:33 +0200
-Subject: [PATCH v2 6/7] signal: don't retarget shared signals in a dying
- thread group
+	s=arc-20240116; t=1789636904; c=relaxed/simple;
+	bh=TKrUfdqbOaMPp3zQB4OFASqcVwJfuM1xemQSU6AIWLc=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YN0d3v7AGv6sjmu4TcYURpoZ7zzDzGte18BVTv38+jgSBKINEfjPrjTL6EK4IqvVZ16hZucqc/4G6F5AwE7ytlGPeT4+jbiLfoE9fvbmVNzHPzNuVMO+Ekj0kbmUYUzbkAsdSUsMFgVxbt/J2TtwZfKXt1/w5IlZdKt3ihT7lKk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn; spf=pass smtp.mailfrom=zju.edu.cn; arc=none smtp.client-ip=162.243.164.118
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=zju.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=zju.edu.cn
+Received: from zju.edu.cn (unknown [10.98.66.117])
+	by mtasvr (Coremail) with SMTP id _____wD30TYYsatqmwAeAQ--.5918S3;
+	Thu, 17 Sep 2026 17:21:29 +0800 (CST)
+Received: from localhost.localdomain (unknown [10.98.66.117])
+	by mail-app2 (Coremail) with SMTP id zC_KCgCH1MgYsatqsnODBA--.34081S2;
+	Thu, 17 Sep 2026 17:21:28 +0800 (CST)
+From: Fan Wu <fanwu01@zju.edu.cn>
+To: yuq825@gmail.com
+Cc: maarten.lankhorst@linux.intel.com,
+	mripard@kernel.org,
+	tzimmermann@suse.de,
+	airlied@gmail.com,
+	simona@ffwll.ch,
+	dri-devel@lists.freedesktop.org,
+	lima@lists.freedesktop.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Fan Wu <fanwu01@zju.edu.cn>
+Subject: [PATCH] drm/lima: fix use-after-free of recover work on device removal
+Date: Thu, 17 Sep 2026 09:20:27 +0000
+Message-Id: <20260917092027.192956-1-fanwu01@zju.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-Id: <20260917-work-coredump-fixes-v2-6-f3787fcda051@kernel.org>
-References: <20260917-work-coredump-fixes-v2-0-f3787fcda051@kernel.org>
-In-Reply-To: <20260917-work-coredump-fixes-v2-0-f3787fcda051@kernel.org>
-To: Oleg Nesterov <oleg@redhat.com>, Jens Axboe <axboe@kernel.dk>, 
- linux-fsdevel@vger.kernel.org
-Cc: Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, 
- NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>, 
- Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org, 
- io-uring@vger.kernel.org, 
- "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
-X-Mailer: b4 0.17-dev-db0b7
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1800; i=brauner@kernel.org;
- h=from:subject:message-id; bh=QFgjXXUybA8CBQDzo0leFmaEK+XgKvIPes+QPTJhl4U=;
- b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt3mBSyypWda//OuPjubFXtBm/HNH9kSkm5b5ScNmR0
- 2m3X6cZdJSyMIhxMciKKbI4tJuEyy3nqdhslKkBM4eVCWQIAxenAEzkrw8jw4mVW053OxmfeSC4
- o/1cFGP1m6bT/5ce4inKTqzcKJ2j8JeR4b+D9D2R2y1XvJcfks+YNGHNmdVTT9hce3JUVTb20pI
- /c5gA
-X-Developer-Key: i=brauner@kernel.org; a=openpgp;
- fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zC_KCgCH1MgYsatqsnODBA--.34081S2
+X-CM-SenderInfo: qrstjiaswqq6lmxovvfxof0/
+X-CM-DELIVERINFO: =?B?VeqC8QXKKxbFmtjJiESix3B1w3vZ3A9ovKVTomAyoQazvoRs/NHSP8GI2EvgeEEW7R
+	sfncGSG+szpQCInt5Y8rbJUI0dvn6aTENDNEmsUZkanIgm921XPgm3eaDoLwzr+9UMsFo8
+	8bZphDB8iZwlN7zx3o2p9E6mavGmQbzmcFsnzP86
+X-Coremail-Antispam: 1Uk129KBj93XoWxXry7WF4Utr15Gw4UtF13Awc_yoWrXFy7pF
+	sxAa90y3yrJF43K3srZa4xZFy3twn2yayfuFW8GasI9rn0yry5K345JryUXFy5Jryxt3Wx
+	tFsrK34Uur13t3gCm3ZEXasCq-sJn29KB7ZKAUJUUUUU529EdanIXcx71UUUUU7KY7ZEXa
+	sCq-sGcSsGvfJ3Ic02F40EFcxC0VAKzVAqx4xG6I80ebIjqfuFe4nvWSU5nxnvy29KBjDU
+	0xBIdaVrnRJUUUP0b4IE77IF4wAFF20E14v26r4j6ryUM7CY07I20VC2zVCF04k26cxKx2
+	IYs7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48v
+	e4kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_tr0E3s1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI
+	0_Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AK
+	xVW0oVCq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc804V
+	CY07AIYIkI8VC2zVCFFI0UMc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AK
+	xVWUJVWUGwAv7VC2z280aVAFwI0_Jr0_Gr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48Icx
+	kI7VAKI48JM4x0Y48IcxkI7VAKI48G6xCjnVAKz4kxM4IIrI8v6xkF7I0E8cxan2IY04v7
+	MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr
+	0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0E
+	wIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWUJV
+	W8JwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAI
+	cVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvfC2KfnxnUUI43ZEXa7IU85l1PUUUUU==
 
-If the calling thread has blocked a signal then
-retarget_shared_pending() slingshots a shared pending signal to a
-sibling thread. Today it only skips PF_EXITING threads but not a
-coredumping thread.
+A recoverable GP error, reported by the GP or the GP MMU interrupt,
+queues the pipe's recover_work on the system workqueue. Nothing drains
+it on device removal: the worker can run after the GP task slab has
+been destroyed, call drm_sched_fault() on a scheduler that
+drm_sched_fini() has already torn down, or outlive the devm allocation
+that embeds struct lima_device.
 
-But if SIGNAL_GROUP_EXIT is set no thread in the thread-group can
-dequeue such signals anymore as get_signal() sends SIGKILL to every
-thread and prepare_signal() drops any other signal.
+Free the GP and GP MMU interrupts, the only sources of recover_work,
+before the GP pipe teardown, and drain the work while the task slab and
+the scheduler are still alive. Stop the GP with a final reset after
+drm_sched_fini(): nothing can restart the job anymore. Free the error
+task list only after both schedulers are fini'd, as the timeout
+handler locks it.
 
-exit_signals() also returns early on SIGNAL_GROUP_EXIT. But neither
-sigprocmask() nor the mask restore in sigtimedwait() do.
+This issue was found by an in-house static analysis tool.
 
-Say a thread sleeps in sigtimedwait() and a sibling thread crashes. The
-sleeping thread gets woken by the zap call. It restores its mask on the
-way out and retargets a signal that was queued for the coredumping
-process. That means TIF_SIGPENDING is set on the coredumping task which
-zap_threads() had cleared. So a blocking write sees TIF_SIGPENDING and
-truncates the dump.
-
-Stop retargeting signals when SIGNAL_GROUP_EXIT is set and avoid
-needlessly truncating coredumps.
-
-Fixes: e6fa16ab9c1e ("signal: sigprocmask() should do retarget_shared_pending()")
+Fixes: 2081e8dcf1ee ("drm/lima: recover task by enlarging heap buffer")
 Cc: stable@vger.kernel.org
-Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+Assisted-by: Codex:gpt-5.6
+Co-developed-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Song Li <songl@zju.edu.cn>
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
 ---
- kernel/signal.c | 4 ++++
- 1 file changed, 4 insertions(+)
+ drivers/gpu/drm/lima/lima_device.c | 22 +++++++++++++++++-----
+ drivers/gpu/drm/lima/lima_gp.c     |  7 +++++++
+ drivers/gpu/drm/lima/lima_gp.h     |  1 +
+ 3 files changed, 25 insertions(+), 5 deletions(-)
 
-diff --git a/kernel/signal.c b/kernel/signal.c
-index d8bb1f168055..c3bad983dd37 100644
---- a/kernel/signal.c
-+++ b/kernel/signal.c
-@@ -3117,6 +3117,10 @@ static void retarget_shared_pending(struct task_struct *tsk, sigset_t *which)
- 	sigset_t retarget;
- 	struct task_struct *t;
+diff --git a/drivers/gpu/drm/lima/lima_device.c b/drivers/gpu/drm/lima/lima_device.c
+index 0bf7105c8748..5f728230fce4 100644
+--- a/drivers/gpu/drm/lima/lima_device.c
++++ b/drivers/gpu/drm/lima/lima_device.c
+@@ -297,8 +297,14 @@ static void lima_fini_gp_pipe(struct lima_device *dev)
+ {
+ 	struct lima_sched_pipe *pipe = dev->pipe + lima_pipe_gp;
  
-+	/* Nobody dequeues them in a dying group, see get_signal(). */
-+	if (tsk->signal->flags & SIGNAL_GROUP_EXIT)
-+		return;
+-	lima_gp_pipe_fini(dev);
++	cancel_work_sync(&pipe->recover_work);
 +
- 	sigandsets(&retarget, &tsk->signal->shared_pending.signal, which);
- 	if (sigisemptyset(&retarget))
- 		return;
-
--- 
-2.53.0
+ 	lima_sched_pipe_fini(pipe);
++
++	/* a recovery may have restarted the GP job */
++	lima_gp_stop(dev->ip + lima_ip_gp);
++
++	lima_gp_pipe_fini(dev);
+ }
+ 
+ static int lima_init_pp_pipe(struct lima_device *dev)
+@@ -442,17 +448,23 @@ void lima_device_fini(struct lima_device *ldev)
+ 	int i;
+ 	struct lima_sched_error_task *et, *tmp;
+ 
++	lima_fini_pp_pipe(ldev);
++
++	/* free the IRQ sources of recover_work before the GP pipe drain */
++	lima_fini_ip(ldev, lima_ip_gp);
++	lima_fini_ip(ldev, lima_ip_gpmmu);
++	lima_fini_gp_pipe(ldev);
++
++	/* the timeout handlers lock it: free after both schedulers */
+ 	list_for_each_entry_safe(et, tmp, &ldev->error_task_list, list) {
+ 		list_del(&et->list);
+ 		kvfree(et);
+ 	}
+ 	mutex_destroy(&ldev->error_task_list_lock);
+ 
+-	lima_fini_pp_pipe(ldev);
+-	lima_fini_gp_pipe(ldev);
+-
+ 	for (i = lima_ip_num - 1; i >= 0; i--)
+-		lima_fini_ip(ldev, i);
++		if (i != lima_ip_gp && i != lima_ip_gpmmu)
++			lima_fini_ip(ldev, i);
+ 
+ 	if (ldev->dlbu_cpu)
+ 		dma_free_wc(ldev->dev, LIMA_PAGE_SIZE,
+diff --git a/drivers/gpu/drm/lima/lima_gp.c b/drivers/gpu/drm/lima/lima_gp.c
+index 3282997a0358..7287af7829f8 100644
+--- a/drivers/gpu/drm/lima/lima_gp.c
++++ b/drivers/gpu/drm/lima/lima_gp.c
+@@ -350,6 +350,13 @@ void lima_gp_fini(struct lima_ip *ip)
+ 	devm_free_irq(dev->dev, ip->irq, ip);
+ }
+ 
++/* keep the irq masked: hard_reset() re-enables it */
++void lima_gp_stop(struct lima_ip *ip)
++{
++	lima_gp_hard_reset(ip);
++	gp_write(LIMA_GP_INT_MASK, 0);
++}
++
+ int lima_gp_pipe_init(struct lima_device *dev)
+ {
+ 	int frame_size = sizeof(struct drm_lima_gp_frame);
+diff --git a/drivers/gpu/drm/lima/lima_gp.h b/drivers/gpu/drm/lima/lima_gp.h
+index 02ec9af78a51..c2a1e54ea567 100644
+--- a/drivers/gpu/drm/lima/lima_gp.h
++++ b/drivers/gpu/drm/lima/lima_gp.h
+@@ -11,6 +11,7 @@ int lima_gp_resume(struct lima_ip *ip);
+ void lima_gp_suspend(struct lima_ip *ip);
+ int lima_gp_init(struct lima_ip *ip);
+ void lima_gp_fini(struct lima_ip *ip);
++void lima_gp_stop(struct lima_ip *ip);
+ 
+ int lima_gp_pipe_init(struct lima_device *dev);
+ void lima_gp_pipe_fini(struct lima_device *dev);
 
