@@ -1,101 +1,129 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70AF031AA8F
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:26:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F399314D35
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:26:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604764; cv=none; b=JOl24T5EmIXQXrG1TfO9Z8ICDDi3u9wjRImV/gw6Tsru8q8FYhTY8x+FBYla2kQVh0+KPEwKVN0BsLxWQa0IvIJh7QWSbZudScJXTBHb3LfYGmRuL21IsKHHSR/ZoYWU9/1THI8FaWS3VQD8eXFi9czMpzGEjmlZaC3XFOBd+m4=
+	t=1789604768; cv=none; b=oCMxUbU+pADncuDKDN5qkIq+DlQ0Y9zPh7+ereRuEOveV1/WvADxWmJn05RonhdzRFVZU7glDdOGPxQ+8u1g6bXSzcD64w3n+upxwUEk0RYcnrID4puIJ90p3URukJrRoUWntTNMyGlgLn2Ac7s12Mq0iaxnuy0tTv/SmSkhBgM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604764; c=relaxed/simple;
-	bh=5b/u82wL27/Fu9PH2a97FNdOABh4pOizTMteEoxSlJY=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nSA+4pDlKVnWbmcL22UfS8MD//cWTAeBc6Gw1MEVSdsM/8b3d/3ShJr/P2an7FaX1iXRI80K1q7U5Vx139tzTQG1wcf7mltHG2xPdZHbYVQac7BO8h9PVYtYW3389iebmEW8Xai+AxsslEvYN+H3xkm4DE7SqqLeKmPVo6hfszc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=j7IQBgPL; arc=none smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=roeck-us.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789604768; c=relaxed/simple;
+	bh=Y3YguxtsGDEqFmveWjPLCS+WKxFLmBDYmzjTa+nnS3Y=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=EC8ioEBdSpCesYq9i4KeHlHOZig3Jhld4CwQ2+EJ+CksbAFJfc4ULtolY4kfar1hu8TFx81n6ILhL8+z4lgn0uIg6kuNzMsAYJdG/igEFOXLNe7VGCn6xID9TFBbuWsB6fZOdQEGHklW+cgfcpod0EyRBVqcLNVwFjCpzlN7lk0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L+A4lBFB; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="j7IQBgPL"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-8686f46e4adso225804b3a.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 17:26:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789604762; x=1790209562; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vV88gSyI1c3ZYT2h6e0lSF5RM8fB6PlCcIwJXe36LlM=;
-        b=j7IQBgPLjn9sH0nV2YvmCk6T2O2+TXlNsEyPEGYiRAwXEDeUO4+RwOQLwZnua0Bgk+
-         oO4B1NnOarcDEGX5DywGc7yhbfC/15WtUOrEIvt8iGp9pJq7p4RXMITE0onw3QS3zoo0
-         8X+xPaA/cKJk5OVZX6Z/SzS2J+mUMUHI93b70jbiMsbuzSCVDrzy3hrVbceTBaJfVO4C
-         rsWKGiYiJUl6oLibqw8Mbbe5Xg/9beBxjp3Np5KHkItCZ9C36gKe86M2GPkMPwvgPbOM
-         BX3uJIShx5bfXFvg6XLIbO2Wh2HxmU+8KDrDZLIX8i/6/RM1VRYs+j68uuIN97ZJHkJA
-         tncg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789604762; x=1790209562;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:sender:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vV88gSyI1c3ZYT2h6e0lSF5RM8fB6PlCcIwJXe36LlM=;
-        b=YAiHrRPBgQK+zsNgfJSmNvkLtwcCx9TBL7bxODzXllKNdx6XfMGKlGWZWKWXv8sS/Y
-         FRlciYEw0bQbPswtvwn+zP867209UUTVHa99FnGhEDpof/+SGrsEppHWdvc/RZSR6RDq
-         sW0lYwa9bKm7BolMxXN88DD9hAVRD5olxNtpeSxIOE1xxo8W3JaxzBqciGO38hx+WWrw
-         RebDO9hlQQEYDmfWrdVnGsT8M8kpKrQaveH/SbhBinlgXz99I+P26MxTCSAe4xt9yj3h
-         PFCYllWaUf24AgCXtY5VIylUhAFSOBTzqCEmw8FockzgraqpetF1XW2jkaa9T540V4Sm
-         1gwg==
-X-Forwarded-Encrypted: i=1; AKwUvByU07Pqsq0VkaeKTtjuo4lH0gYWqRBVU+UUsXmvD1ye04UOrppZIaFzrsBucCw2zVD0e+0KEFQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++ku9wOvnE3pZaKSKMSqp6P5JMUocQAC/JBRkELa8hZl9PWs4rFT
-	gqze7WJTo0gi0sGsGFB+EPeiyLf/uECFDmXM4ZpwpjHCG09IbOrO+tus
-X-Gm-Gg: AYBFou3Rv0C9UrR+c/KvZkHGQbW4myWkb+Rl4AOcZKs/V5wAoQucAbCV7AqV6s7Ys0P
-	Y/ulPT3HiZNOAOrumaNDjcHETmoQJVx9VyNwWjP1G5N3kxkxOO2ffQoSNpct6sx7aiku54oEkRn
-	nZPG84D2CFBRR6J1BT6NpPe9DEuesMM7jKeo+iEVv5hQWqUIqo0piHeiK9re9AKDCHd2JymQ8TP
-	HuSm97O9hbDz/eBGeLESWRdZCOuy2yXbtOZjbsIiDGYclydq+PCXrUFENn5KlOo/S9YgoikXJcT
-	Oh4adoJhD5rUoeogtxGNP3bcT1RyB+eErMS0PznwZyJsRTUq6cC4eL8xeLr0gfQAKRsYFhrywZP
-	ElqSq24w1+KXSEOGXCOOIcgCFubfAWViER1eEkdydQbhHuFj0P+yMB+NJhkivnF6ls+Hn7XNjOH
-	d6fAiwz2n0jYM2n/fX09mj3W1B8K071O2OcfIQRMSZzntIokcwZQlM3RJIql4k/AIY09iEvISn7
-	SicfeTU2il8
-X-Received: by 2002:a05:6a00:440a:b0:870:c2db:da40 with SMTP id d2e1a72fcca58-87239a9dce3mr9776123b3a.24.1789604761569;
-        Wed, 16 Sep 2026 17:26:01 -0700 (PDT)
-Received: from server.roeck-us.net ([2600:1700:e321:62f0:da43:aeff:fecc:bfd5])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-872025dd04csm1926956b3a.60.2026.09.16.17.26.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 17:26:01 -0700 (PDT)
-Sender: Guenter Roeck <groeck7@gmail.com>
-Date: Wed, 16 Sep 2026 17:26:00 -0700
-From: Guenter Roeck <linux@roeck-us.net>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: linux-kernel@vger.kernel.org, linux-watchdog@vger.kernel.org,
-	mikew@google.com, priyankag@google.com, wim@linux-watchdog.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] watchdog: sp5100_tco: Fix pci_dev reference leak in
- sp5100_tco_init()
-Message-ID: <8df16733-9a20-45eb-89b5-c396244f0062@roeck-us.net>
-References: <20260916170511.2086199-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L+A4lBFB"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A9141F00893;
+	Thu, 17 Sep 2026 00:26:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789604763;
+	bh=3jcm+zJ5XqrdKjG0kzFM+jEdEOoebZkL3D3Wug6Q38Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=L+A4lBFBFhzAl9QnqAJelCBwMU23HxB0W9ZSca7ZltoPQujBoRYLH2qgFHlipaaxS
+	 ukzc9W7Fyx8XDiN7UFQBcvS0Gnp9F6C5xFEGm4KYPKOYth+4M3KTM2uDs5j+1SrPjf
+	 xpUWBve1HgnPIakLFLfLx+mG78TmXIikTUDsXt8TmjbWAQeLeLXMJizc6Pw+8B+uML
+	 TnpXkxK9Piw3HAMFdkZ4TLA1SD2OQFHMSw3up3Zqrw0qkgo3ol8MmgfyHdT8gbafNT
+	 I0jzLYrEDTVEMkRXFZHvoKje5a8XZ19i0XImVSkTfMAWXKWTNDGVQdZCy9au3YC9Hd
+	 S8pc/QyK8/DyA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Nikhil Gurudasani <nikhilgurudasani314@gmail.com>,
+	Gao Xiang <xiang@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.6.y] erofs: preserve LZMA decoders on resize failure
+Date: Wed, 16 Sep 2026 20:26:01 -0400
+Message-ID: <20260917002601.3379775-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091608-battery-antitoxic-df2d@gregkh>
+References: <2026091608-battery-antitoxic-df2d@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916170511.2086199-1-vulab@iscas.ac.cn>
+Content-Transfer-Encoding: 8bit
 
-On Wed, Sep 16, 2026 at 05:05:11PM +0000, Wentao Liang wrote:
-> sp5100_tco_init() stores the PCI device matched by for_each_pci_dev()
-> in the global sp5100_tco_pci and keeps its reference for the lifetime
-> of the driver, but neither sp5100_tco_exit() nor the error paths of
-> sp5100_tco_init() call pci_dev_put(), leaking the reference on driver
-> registration failure and on every module load/unload cycle.
-> 
-> Drop the reference when the platform driver or device registration
-> fails and when the module is unloaded.
-> 
-> Fixes: 15e28bf13008 ("watchdog: Add support for sp5100 chipset TCO")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Nikhil Gurudasani <nikhilgurudasani314@gmail.com>
 
-Applied.
+[ Upstream commit 617d0d8d199ba1790c94310fd75a22d01c97a8d6 ]
 
-Thanks,
-Guenter
+The pool-resize path frees each stream's old decoder before allocating
+its replacement. If an allocation fails after some streams have already
+been replaced, the failed stream is put back on the list with state ==
+NULL. z_erofs_lzma_max_dictsize is still advanced as if the whole
+pool had been resized.
+
+An existing LZMA mount can select the broken stream and pass
+NULL to xz_dec_microlzma_reset(). A retry at the same size also
+skip another resize attempt. Since the global maximum was advanced,
+thus, the invalid state is left unrepaired.
+
+Allocate each replacement before freeing the old decoder, temporarily
+retaining one old decoder during allocation. Stop at the first failure
+and advance z_erofs_lzma_max_dictsize only after all streams satisfy
+the request.
+
+Record each stream's dictionary capacity so retries can skip streams
+already enlarged before a partial failure.
+
+Fixes: 622ceaddb764 ("erofs: lzma compression support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Nikhil Gurudasani <nikhilgurudasani314@gmail.com>
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+Signed-off-by: Gao Xiang <xiang@kernel.org>
+[ Retained the existing `struct xz_buf buf` member alongside the new `dict_size` field. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ fs/erofs/decompressor_lzma.c | 18 ++++++++++++++----
+ 1 file changed, 14 insertions(+), 4 deletions(-)
+
+diff --git a/fs/erofs/decompressor_lzma.c b/fs/erofs/decompressor_lzma.c
+index 613fe99cf629f..0ea93a7b7a4ea 100644
+--- a/fs/erofs/decompressor_lzma.c
++++ b/fs/erofs/decompressor_lzma.c
+@@ -6,6 +6,7 @@
+ struct z_erofs_lzma {
+ 	struct z_erofs_lzma *next;
+ 	struct xz_dec_microlzma *state;
++	unsigned int dict_size;
+ 	struct xz_buf buf;
+ 	u8 bounce[PAGE_SIZE];
+ };
+@@ -132,11 +133,19 @@ int z_erofs_load_lzma_config(struct super_block *sb,
+ 	err = 0;
+ 	/* 2. walk each isolated stream and grow max dict_size if needed */
+ 	for (strm = head; strm; strm = strm->next) {
++		struct xz_dec_microlzma *state;
++
++		if (strm->dict_size >= dict_size)
++			continue;
++		state = xz_dec_microlzma_alloc(XZ_PREALLOC, dict_size);
++		if (!state) {
++			err = -ENOMEM;
++			break;
++		}
+ 		if (strm->state)
+ 			xz_dec_microlzma_end(strm->state);
+-		strm->state = xz_dec_microlzma_alloc(XZ_PREALLOC, dict_size);
+-		if (!strm->state)
+-			err = -ENOMEM;
++		strm->state = state;
++		strm->dict_size = dict_size;
+ 	}
+ 
+ 	/* 3. push back all to the global list and update max dict_size */
+@@ -146,7 +155,8 @@ int z_erofs_load_lzma_config(struct super_block *sb,
+ 	spin_unlock(&z_erofs_lzma_lock);
+ 	wake_up_all(&z_erofs_lzma_wq);
+ 
+-	z_erofs_lzma_max_dictsize = dict_size;
++	if (!err)
++		z_erofs_lzma_max_dictsize = dict_size;
+ 	mutex_unlock(&lzma_resize_mutex);
+ 	return err;
+ }
+-- 
+2.53.0
+
