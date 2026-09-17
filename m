@@ -1,135 +1,93 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.12])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAE63B38B1
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 06:55:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9AD344CAC6;
+	Thu, 17 Sep 2026 06:57:27 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789628138; cv=none; b=Lud43q2o7IAQiqxI4MkIfVSqGli3mj72cykKnoxLqggUCvY1beXZ7ml/5K0nAPAAxtbe6vzBIAEdzBhOcFhxBzNNVWylAD727X8oy15XJLU/OFHjXgnmUxkkn8U0oiS1H28V/JfuSohsfgrsn4mf8LvCrD2m97ldlGVjBi+cySM=
+	t=1789628249; cv=none; b=nLJAT57QEYtlDW+o6xhyDan3i514tkdXrFnICQ1cjYnAr6VvZhI0v4r25puc7cU8fG1ueE94k1cbJ9w5xrSm7dtK5ik9EXhWtx/xuWO8MVMPAj3HbtlxMBi5Awa0H0LFoepRdQQLZR7pStrpPNu2RulIvv7YJx/mRU1iZemcXW0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789628138; c=relaxed/simple;
-	bh=CS2cwFdXUqiLJJhG9B82sxQOgAkaZzVT0GzQwzD3wv4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AGk+AklIlBsobIr3IBVJ06kJejsvAqwUJ2/lJJBXazyOVucjYnesBzl9kTZLiEz2nlIPsU7Z56cbqF41uxc0jdjUhRhsvgJYl25VrDX2CUV3XAe7rW1aY95ApssvDx4UuAQlO/yC2oB7qbOw307ordvTRRE5ncjZpLPRMSQc/04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=DpS/eJq8; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	s=arc-20240116; t=1789628249; c=relaxed/simple;
+	bh=emH1J4cBgiN5T9BbNi7z7yhKApmeSxcgOTtnbUvF3DA=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=ZfI8sv74hHFXEluBBAzwpK4meSezwJWL0ZpgIdvxP+VnAeZh7u7mJAT8j9SqVeFL77CT724EC+1l4wlFeNOMdOQTg9zN7vIi8pViZGs49zEHSp1aQbJX7x+Kih8osT6u9LxyWWm9gHXYtyhUSQOmL0RkJa+qvCn2L7XR8sJ7XIg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Nhqvs3nW; arc=none smtp.client-ip=192.198.163.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="DpS/eJq8"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49cc9f581c4so1718995e9.0
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 23:55:36 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789628135; x=1790232935; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=30cUCuKfgfqmVMRq8leKktvsIG+ddt8eRO9Ay65U310=;
-        b=DpS/eJq8R5txoU+RHSEOI3RxJDzcL/t1LE9cAdXUBhg5DrJj7MX1/b0uXgIobQRJAH
-         zm4N7vxDBI0vaEkVXaWwPI0N++USG8+U+PQsB6DT5TG7WX6z3TBrB4WHk82A/dodgjsV
-         6Kbv6HRlXlmAoRsAET+KNFOhkwUHlz7uT+UeRF4A8lLh6VmxLt+70naEBjDmZl+hZnA2
-         42kFdEWnqMrLvsNowyHf8nP2vXuCMQtDdra2oToSyRNgFekGeEyhxwPSwGcCeluaqJ+o
-         35cRKlJxL8MymA2YtSzvNAJI1I/aREexMr92N7CFQGz20I5nX/7TruS06jF++ax11Fnq
-         vfjw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789628135; x=1790232935;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=30cUCuKfgfqmVMRq8leKktvsIG+ddt8eRO9Ay65U310=;
-        b=YZYmrwY5Bxqr4zBu25xV3xyiGOoR7yubAyg7syDnxzzyia2VjslCwHCOV3dK1QplHU
-         5BQNy2O635R/IyRPDDB6rTfmGX1L6G0fInuy7iq6nZZU1zQwHVjZxGDKsFWOdqutMRot
-         6UVkAnxQ2lVKcaiJxW7fFCrp5hjXf4ODaq3NTUgOGRTqtfZ8GWhPtIqOsm6SXTSO89vK
-         xZ0GEf6wYuAYEI+QJZWNxw7y2V6JdNEczxDZCStayFggo+ygPEJTlWyXlVhjIF92RPuD
-         xWznTxYzOa9WRaZRfdA1qZ3/V6sxutBTX/6FrGR8WoKr1AUS0Rc10i7hEsuNjq2vaKiD
-         1j1A==
-X-Forwarded-Encrypted: i=1; AKwUvByDAvheaoBnkKEJ6f2Ixj3GbHnNQ+4D6RW8HRMvf561nvZRBNcprJ5puSG52crbo792sK31nHQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++kfSZD/StaG0FND/oiSKTBZQZfpuP7yLUjRK6cRhF+fKrhKhTrg
-	TXTajl14TSDdr9VJmfALJIbp1qUU8wK/N8dL37W3+N0s9XB/6lIs+O04tOGdzdKRNg==
-X-Gm-Gg: AYBFou23irkT+E9gFWxPuPvjngSvZC+nWcMJ96Qp24vuBDm9hWUqf7Jf2uQgqiX047z
-	XdQDPc0SSsENo4bZZ5KwAsGWelOpEHD9nAu+7qsr0B3YSZ7RIhVVr33MNP+7gYm+5CrJOQ1CQ8g
-	m7rFWw047I2LtSQBbvf0tlq15HXWiYLA3tyqE41sUPVD1ES4Y+iJ1arVrKseaLHkR8cKZIHg6zY
-	pwC3KZwywkwSZWh6HQE5JKHjGlM3Wu56ZCsW14dM5RW2VUd53AE7u6cqEfcDVIjP3fwia+hl08x
-	HOjHmybI1DOcZKdZOOlCIYrYsegiR0YunHTAl5a3DRJqHHl4NW7hZkOHeC8oYlm6Of9V+KcN7PE
-	7PkzDjJMOjUIlTDArvCP7uROPg3ImEG15nPaTVbZpSDIb4C46SPqnVaZkL9IwVn67l9AgAUZNSl
-	ksGenWvrEHiwOrTA8KzH2jrZn6bhAARfRhD8+xcMS5DtfkX+F4J2XjLKyhhT94vpgLWbMzGMwjV
-	eXEw5VZrQd23sH1LB2ou/X6fAypoDNrQzKdusqXkJs=
-X-Received: by 2002:a05:600c:1992:b0:49b:8f5e:51fb with SMTP id 5b1f17b1804b1-49fbd1af43dmr28764665e9.3.1789628133837;
-        Wed, 16 Sep 2026 23:55:33 -0700 (PDT)
-Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd23a815sm54524765e9.14.2026.09.16.23.55.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 23:55:32 -0700 (PDT)
-Date: Thu, 17 Sep 2026 07:55:29 +0100
-From: Vincent Donnefort <vdonnefort@google.com>
-To: David Carlier <devnexen@gmail.com>
-Cc: rostedt@goodmis.org, mhiramat@kernel.org,
-	mathieu.desnoyers@efficios.com, linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ring-buffer: Take cpus_read_lock() when changing the
- subbuf order
-Message-ID: <aquO4fKay-7zTBRw@google.com>
-References: <20260914182850.21449-1-devnexen@gmail.com>
- <20260916192628.274136-1-devnexen@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Nhqvs3nW"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789628248; x=1821164248;
+  h=mime-version:content-transfer-encoding:in-reply-to:
+   references:subject:from:cc:to:date:message-id;
+  bh=emH1J4cBgiN5T9BbNi7z7yhKApmeSxcgOTtnbUvF3DA=;
+  b=Nhqvs3nWjxPy63A9i4ZUptin9VKCY5NdVQQoy6sbt1o4jJFb+ekcGjFd
+   y85WZ72Nk7ukAsTp4KvOrhzrtNYJPKShdcxNFl6k9js4Ylt/Pzq9b8x06
+   esgOx/W6/sZIDU5bukL54K6BGrErWNaz42/xxP8QUInwj9xDfiGyFmvVY
+   NUfZEYMiEnhxyTRQRnfEsLz+AOh7nGTIRL8ALSfBiVrm2hVE9tCOJB/Oz
+   TiHqHMA43h7z5ZKINKXiQ9KqKjZ8uzCOLFSMpjg54OuVw8GkzviXWo1e6
+   xAE8/91w7iwL6Nus63QodkmKjqXfdyayc8LvtJ0Qcdr/sGbeIPLgQkbBY
+   A==;
+X-CSE-ConnectionGUID: t/jy3L9HSTq04uQmKMRT2w==
+X-CSE-MsgGUID: I98EVbdRTeS+zkH4LukF/Q==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="93846233"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="93846233"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa106.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 23:57:25 -0700
+X-CSE-ConnectionGUID: 7sCm9ffsTReAiqJK44SzgA==
+X-CSE-MsgGUID: 8gnKXQFZRDiQK/kt8e4gZw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="269333869"
+Received: from cpetruta-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.16])
+  by fmviesa006-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 16 Sep 2026 23:57:21 -0700
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260916192628.274136-1-devnexen@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+References: <20260916171935.2087305-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] drm/i915: Fix vm reference leak in mock_gem_device()
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: andi.shyti@linux.intel.com, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, jani.nikula@linux.intel.com, linux-kernel@vger.kernel.org, matthew.d.roper@intel.com, rodrigo.vivi@intel.com, simona@ffwll.ch, sujaritha.sundaresan@intel.com, tursulin@ursulin.net, Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
+Date: Thu, 17 Sep 2026 09:57:18 +0300
+Message-ID: <178962823827.28653.5098493516220452854@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 
-On Wed, Sep 16, 2026 at 08:26:28PM +0100, David Carlier wrote:
-> A CPU coming online for the first time gets its per CPU buffer allocated
-> by trace_rb_cpu_prepare(), which then adds it to buffer->cpumask. If that
-> happens while ring_buffer_subbuf_order_set() is running, the CPU shows up
-> after the allocation loop and the install loop walks it with an empty
-> new_pages list, corrupting the buffer.
-> 
-> Take cpus_read_lock() as ring_buffer_resize() does.
-> 
-> Fixes: f9b94daa542a ("ring-buffer: Set new size of the ring buffer sub page")
+Quoting Wentao Liang (2026-09-16 20:19:35)
+> mock_gem_device() takes a reference on the GGTT vm for gt->vm, but
+> neither mock_device_release() nor the setup error paths drop it, unlike
+> the real teardown where intel_gt_driver_release() releases gt->vm.
+> Drop the reference before mock_fini_ggtt() and on the error paths.
+>=20
+> Fixes: cdeea858d8df ("drm/i915: Remove unused i915->ggtt")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: David Carlier <devnexen@gmail.com>
 
-It is usually good practice to not link the different versions of patches
-together.
+We're not putting Fixes and definitely not Cc: stable for selftest
+improvements.
 
-Beside,
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+You clearly did not try to address any of the issues per the surrounding
+coding style or understand the severity before Cc stable, but just generated
+some static code fixes and commit messages with LLM.
 
-> ---
-> 
-> Notes:
->     v2:
->      - Reword the changelog: offlined CPUs stay in ->cpumask, so only a CPU
->        coming online for the first time can appear mid-flight (Vincent)
->      - Drop the comment above guard(cpus_read_lock)() (Vincent)
->     
->     v1: https://lore.kernel.org/linux-trace-kernel/20260914182850.21449-1-devnexen@gmail.com/
-> 
->  kernel/trace/ring_buffer.c | 2 ++
->  1 file changed, 2 insertions(+)
-> 
-> diff --git a/kernel/trace/ring_buffer.c b/kernel/trace/ring_buffer.c
-> index 04bb94c29f58..e78fb4bb2195 100644
-> --- a/kernel/trace/ring_buffer.c
-> +++ b/kernel/trace/ring_buffer.c
-> @@ -7464,6 +7464,8 @@ int ring_buffer_subbuf_order_set(struct trace_buffer *buffer, int order)
->  	if (psize > RB_WRITE_MASK + 1)
->  		return -EINVAL;
->  
-> +	guard(cpus_read_lock)();
-> +
->  	/* prevent another thread from changing buffer sizes */
->  	guard(mutex)(&buffer->mutex);
->  
-> -- 
-> 2.55.0
-> 
+Looking at your history of spamming the LKML with 30+ patches per day
+and not a single response for requests to fix things or add the
+Assisted-by tag, don't really expect you or even your LLM to read this.
+So this reply is more for documentation purposes.
 
--- 
-Vincent
+Doesn't really inspire any confidence to merge anything or look at any
+further of your multiple patches which you send separately and not in
+series in the hopes of getting some merged even when pushback in others.
+
+If I happen to be wrong, let me know.
+
+Regards, Joonas
