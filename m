@@ -1,174 +1,145 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SJ2PR03CU001.outbound.protection.outlook.com (mail-westusazon11012034.outbound.protection.outlook.com [52.101.43.34])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8282D39A7E7
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:38:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612734; cv=none; b=BuUvc1JRFnvrGj5hswrZXWdLYkf0BCCfcwUpbfr2i12prJunbPh3UUycaBJInHyjiu3lhF85JgLIwsQglJX9GhzCEWtWENcfcdkTcAkDINz4OxTvw/ySSq6/9kXEmpSrQV5bABDooPTVYaLZGGo+n/4OtbWyJkBJDmzFoZHsNT8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612734; c=relaxed/simple;
-	bh=SPJ8vYFXxs81oCoPiGRKiXQOHnvvwao8NAhit+FTgnw=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=X7xtIh8rpszFF1eNTsVxvmbZM02phKWrHVyAmwAWRvF9u5jdsb/hD2Pz947WvG4Njs3YBIi/c491MiEYpO+J8/OSTctJFCvYgKvGJN9Duwl9BAob+cFBkyZWa7JDQNepO29oGgl325pjD56OcRi3/L2R/Y1+2cR0eL3CFrDMLtI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PViV9wQS; arc=none smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 263FF39B971;
+	Thu, 17 Sep 2026 02:44:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.43.34
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789613065; cv=fail; b=dKDK/MYJR45h/fF0Ykvf5noxnizFhaTISaKDqZjd4UehwTFiTSoRId4ldedz8jTFTXw2uN9Lzn+emgcne7A4D2Q+jaiDFheDnoEFnruY2x2igSJvCoWRp2qN/XvXV19Knxn8yUiZFnIaXU4qtQyQENF/ZInbaVnjQ4YIBArHTb0=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789613065; c=relaxed/simple;
+	bh=xH5ZWwTToQDdqHkaY2tiejcyckbYNSmFmKoOreMEcts=;
+	h=Date:From:To:CC:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=m5ohVlpGKgWS4AyQbREghnccEKEoLJnLdmPeSGMe/UxgmxdTdoXrRyX07DFfLQ1oYKMGE6bTs2TpBLYCIaj9xJ+w1UQQIa7BAKaArGmnB18B18XApxr8olQnYLjSbr260D5eHDTYhaOBADcqk3GJm6WSkC/SRyziFHub5duWOlc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=o6yIW/38; arc=fail smtp.client-ip=52.101.43.34
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PViV9wQS"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so344166b3a.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 19:38:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789612722; x=1790217522; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=qtIXBwZucUITj0nDXUGS9AW/hdtRHC7e/xSPUpvvawk=;
-        b=PViV9wQSnJxfYg58moSrxWpl2dHav7NebmaDRJHobwlE6VTtH2FdihEemOq3RI+9se
-         XJrfenYd6/busoOM58bmojeDY1dgz3nZHooIpZmIqybwuZ4K56st2VZTHP+82HjdU7be
-         gnjnpyHEQmsdx8cnuetn6UnefI7uEO0q99FDBEARsnmWphbE3D5fUK430+mlM/B1OvNn
-         cyP2oBRI/B/sHCywF5vdUOnbOOKB+utJeMfawWz30HTPL/JZECdhTpxnW8jSaEQB8Z/a
-         loYV/1xccQweA+UrTXdk2dzwfpbgnS4eFvIdXEVi9yX2KMtZ8n6rY07DZnPmlPISObEW
-         Eo6w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789612722; x=1790217522;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=qtIXBwZucUITj0nDXUGS9AW/hdtRHC7e/xSPUpvvawk=;
-        b=ONvfx9CaziR42sX98OKCnuaX5m7xGL3pwTH7K6uhp1Kbvbu2pdiGO+TplyhqfS6XHR
-         GNQ0Dwu/tT79y+p633a6rAslmbJ6++srunDNq4pacOXzlIxo6cCWuY7oNICPIuf0Ua/z
-         GApHKn1DF0hSeUkd+xcf+HcGB9T0CwO7EOuoMhRVPzbv2NCA3+e0K+pr4F+61ri6GQAu
-         rB5mNh392RnkCCEodhpnEc4G793gTNZS4AUKOoZGhJpbiBSKiSPCqHQEM43+8O+P/JJG
-         6r4MsteWAPUGirdUITAHUQnqlWUSLYu0m/mS+eD4jHGxZDXERK/hwSlL9aUVmV7ihLlQ
-         2LxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwWJ9gLjcfU228Z7keoymo5NVxKpT8Wda4pUY3/oD/SIMq5l7NIF9HjSueF7dMtQwN/zGglRZc=@vger.kernel.org
-X-Gm-Message-State: AFuF++lD/vGVPY12jtgi0L7VCMtGh+RgIGkJRFwB7Qai7R6gYOinLyzs
-	kFeCquwKQBMewqzvnGIz4o/wysx79qFvsNloKucT3lVE2zsq4CM6Y4M=
-X-Gm-Gg: AYBFou3pwUvSwdv72cOfpNJnxfU1mRZyeL7k//9Bl3zvqh7B4+uIlf6r2fYw0CIfhJo
-	Vyxu5qYtU++3mF8O3k//kJbpHjj0qEbcZIOjd12MOPxKb0gIiPXkcTnBk/YOTPn5MDDDGqIBMht
-	DisJR7JqkkPbTbifnECSV5aJ28G1Eod+eA/+VK642bVlX30hYfyt/Llk5WXmGiZykcSGt8uH82Y
-	O9dLb6sv5XPs+fHzF/Vyh2Dz4qfefhdAyqHHgTzxENwIWNo+iH+fzYNzR7/XgW2XmwaR196lpkD
-	FHY0EoFPaOoHH8SwbGO98BNonQkjbSETIoA/ghHrMy1tUqLw25XxgFQR7kqDD51uuDeg+YIlSa+
-	E7Fj1xgcC5FGbTY/v4j/ywZ6o8z6vVx9y3WhZvesAs07eDUTw5AKOpYYKdnUP+okqfEIHPxej51
-	P/bmCc/wXq9qisVVg0P+P+jI1j/uy/vvP+zC3UYD311TML//EFZpsDJNQNlcHMCesj3LW/DHVMX
-	TFtGHjo1j44MJyNei/31xZlNNs=
-X-Received: by 2002:a05:6a00:b43:b0:857:72ba:ff0b with SMTP id d2e1a72fcca58-8723919dfeemr10247005b3a.19.1789612721914;
-        Wed, 16 Sep 2026 19:38:41 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:b6f9:c198:e14b:34c1])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87201d1b275sm2007843b3a.51.2026.09.16.19.38.37
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Wed, 16 Sep 2026 19:38:41 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: rostedt@goodmis.org,
-	mhiramat@kernel.org
-Cc: mathieu.desnoyers@efficios.com,
-	namhyung@kernel.org,
-	zanussi@kernel.org,
-	linux-trace-kernel@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	donggeunyoo.kernel@gmail.com,
-	stable@vger.kernel.org,
-	sashiko-bot@kernel.org
-Subject: [PATCH v2] tracing: Compute the log2 histogram bucket in 64 bits
-Date: Thu, 17 Sep 2026 11:38:34 +0900
-Message-ID: <20260917023834.216893-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="o6yIW/38"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=wNizo4wEvduG8zimjRzfVXR649oghGybxgnN+AGrApSw0YLEnUlkUMlocKTC9uN4CtSurkdkt+VFbnmOhLoddawyT5a/ncpdmhBUuA+1JTNvZD73mVkCKLsWTtLDkm+4ocAZgjuBroXbxf5XEVkhLNtymDdnB6tfGn+2OmMOFJ7QWeaY7VVuUzo7UWc5yXQHGY1mRFhhGgI3p0KLGkxcyiatGIEIgHFlPAkoORLj7bdosRVCSQSbjFcrSjbpAesR978ch8tQKyulTWMJBS3xKOKwRdzjoMP2VQ/If/nXADZKaTloZjr2MuKSrDOJZYIX6nlrrpGygXBqLb+xdKasNg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=SgmpTeddKoYljOoFhvuONdqPI/uJeGpN5GkIusLcQoc=;
+ b=IWWHzRgdsbLBNecZ1DPEFE/yTZSfXa5as60N1SmTyD72FR354A0Sm8o19+UMuWMYMaU8+SkfDvVOCq16Dqh/C/p7sb5dNpQ87I9WBsnLDZajX1CqngThnBgU6BFSl00EHXdLVC/vAGlt8Wc9XqSoZLZ9qgPYhByBgL/AXeW+s1ixsTMx38ADPTcPwYguG41EHGXpkKRHLHfo31xumu8XVr1e5c46sjWbKTeyGjBxIRQvlDJo8sJBo5MTdX64uFYTQEkJPeZI8rMx19QpB+Pp+L8izuZE0/sDIQbpQDY1Q1+m8WYVpIlstfH2bMxX8AZKrAnekxmw6wkbV8UbSh2xRA==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 216.228.117.160) smtp.rcpttodomain=google.com smtp.mailfrom=nvidia.com;
+ dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
+ s=selector2;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=SgmpTeddKoYljOoFhvuONdqPI/uJeGpN5GkIusLcQoc=;
+ b=o6yIW/38RF8hKv6Xm7lcScoYw05HTp5xKoM24CNJ+/XT98xb9jQE9Hiy1TL7789m8vBHzkcOAYM3L1RNh9FNeNOF+rRV4kpIMqoNyWVsGTCV9TGcfdlcoTv1fVPt5OwIdZE5Hr4jias9+2oS2O8jh+rzkJXX59+4O/THgEodUl+gsCWC3HhWOYag9spidgn16AnOFipaxsA37p8oOsDykgzwQ7mgrlnSvyE8m6Yu8h843M4d5S4iEW7Ij+4lIPlbdvca7GAFAbY9nEN9+I9yLUebazsGWpxvEYyLyVpBax5ktAE1UYZNa9TQOK70lTu3MUokoaFpgmfxB58nE6VYjQ==
+Received: from CH0P220CA0011.NAMP220.PROD.OUTLOOK.COM (2603:10b6:610:ef::13)
+ by BL1PR12MB5969.namprd12.prod.outlook.com (2603:10b6:208:398::7) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Thu, 17 Sep
+ 2026 02:44:10 +0000
+Received: from BN1PEPF00018070.namprd04.prod.outlook.com
+ (2603:10b6:610:ef:cafe::30) by CH0P220CA0011.outlook.office365.com
+ (2603:10b6:610:ef::13) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Thu,
+ 17 Sep 2026 02:44:10 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.160)
+ smtp.mailfrom=nvidia.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=nvidia.com;
+Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
+ 216.228.117.160 as permitted sender) receiver=protection.outlook.com;
+ client-ip=216.228.117.160; helo=mail.nvidia.com; pr=C
+Received: from mail.nvidia.com (216.228.117.160) by
+ BN1PEPF00018070.mail.protection.outlook.com (10.167.245.198) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.428.7 via Frontend Transport; Thu, 17 Sep 2026 02:44:09 +0000
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by mail.nvidia.com
+ (10.129.200.66) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 19:43:56 -0700
+Received: from rnnvmail203.nvidia.com (10.129.68.9) by rnnvmail203.nvidia.com
+ (10.129.68.9) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Wed, 16 Sep
+ 2026 19:43:56 -0700
+Received: from nvidia.com (10.127.8.11) by mail.nvidia.com (10.129.68.9) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49 via Frontend
+ Transport; Wed, 16 Sep 2026 19:43:54 -0700
+Date: Wed, 16 Sep 2026 19:43:52 -0700
+From: Nicolin Chen <nicolinc@nvidia.com>
+To: Jason Gunthorpe <jgg@nvidia.com>
+CC: Catalin Marinas <catalin.marinas@arm.com>, Jonathan Corbet
+	<corbet@lwn.net>, <iommu@lists.linux.dev>, "Joerg Roedel (AMD)"
+	<joro@8bytes.org>, Jean-Philippe Brucker <jpb@kernel.org>,
+	<linux-arm-kernel@lists.infradead.org>, <linux-doc@vger.kernel.org>, "Mark
+ Rutland" <mark.rutland@arm.com>, Randy Dunlap <rdunlap@infradead.org>, "Robin
+ Murphy" <robin.murphy@arm.com>, Shuah Khan <skhan@linuxfoundation.org>, "Will
+ Deacon" <will@kernel.org>, David Matlack <dmatlack@google.com>,
+	"Jean-Philippe Brucker" <jean-philippe@linaro.org>, Jonathan Cameron
+	<Jonathan.Cameron@huawei.com>, Pasha Tatashin <pasha.tatashin@soleen.com>,
+	<patches@lists.linux.dev>, Pranjal Shrivastava <praan@google.com>, "Samiullah
+ Khawaja" <skhawaja@google.com>, Mostafa Saleh <smostafa@google.com>,
+	<stable@vger.kernel.org>, Vijayanand Jitta
+	<vijayanand.jitta@oss.qualcomm.com>
+Subject: Re: [PATCH v6 0/9] Organize the SMMUv3 invalidation flow so iommupt
+ can use it
+Message-ID: <aqtT6P1TsQk/N9dH@nvidia.com>
+References: <0-v6-9cd17417d355+281836-smmu_tlbi_jgg@nvidia.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="us-ascii"
+Content-Disposition: inline
+In-Reply-To: <0-v6-9cd17417d355+281836-smmu_tlbi_jgg@nvidia.com>
+X-NV-OnPremToCloud: ExternallySecured
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN1PEPF00018070:EE_|BL1PR12MB5969:EE_
+X-MS-Office365-Filtering-Correlation-Id: 8be12ea5-2c6a-4c27-af33-08df14658d04
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|1800799024|82310400026|36860700016|23010399003|376014|7416014|10067099003|56012099006|11063799006|18002099003|22082099003|13003099007;
+X-Microsoft-Antispam-Message-Info:
+	IawGfcGIMVj8lmYRixAmPB0OEJtGoj7Wu9Vwa82u0RSifFtfOuZBCtAykROe3z4xk03wZPY8SZFVYpxlX+3848r9V/7gfBvv1VT7Yp+G9Spa7zm9xfya2AxoSO6m5IjVYP2+cTTZpYsXrdwoAilgOmo2W59inYJqAunvGxVq8kAPsUKWDW/wFT+lv5JRsKu4i3WP/DWP3X0suGjaWorRVbZhOZlAC0qf42UNYOQkYBZPfI7LSe38P782yBDUFkDwrL4H1ON1utyN1NxSQI4iYdJnkClT1ADmcdPhs8kQhXxuRKYS0FuLbigcUcqfYTR7GXpMbLqrg7vJfbuXYhyznQ7ZcxCU7ZUrOncRdkhxdA5mWgG9LXFc5kNYv6G/QwV8SvjQ8xndUFSH9f8Xpi8tmub09EV9X10l6HK5KywAIAE6CuzrmLbSQhURcQ/7Y14iYLh7SOOLfdASSVChNLAKFM7neE3xeB7pMSVdbynWgX90j8o9YuE//cHkQ/kaTMZRlGEK9CNmmljDQVNJN/QGdm5ea5CGC3Aw14PY7J7OGq9Jd+x+6Brknd7JHhh1U01NWqgN6oL5J4IdHQU8co1WOzZDOmsJzebocMxIP52KOxKqrhqOl/I0wbaQZAO2kxSqTq1DzGOnWQN9xg1jy3EOUNQaMFPt/ELABisRfOgorWMbGyAmRUKmk0KYP1E2Y42DyEIpwHaxoyGEyHdcGoJTDA==
+X-Forefront-Antispam-Report:
+	CIP:216.228.117.160;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge1.nvidia.com;CAT:NONE;SFS:(13230040)(1800799024)(82310400026)(36860700016)(23010399003)(376014)(7416014)(10067099003)(56012099006)(11063799006)(18002099003)(22082099003)(13003099007);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	5UdHRKKRXhP0KikUbWzpX7cmE8Vyr9XfI4724KWiYsJmUdD+t1APAwZ936VVPoHg5aZLm+qkxrZ5TvvXzzUbHIuBtbxUN3qDFfx7Qna4nomJ7bhpMSZEQDGrZXrkD/2M/4Ks29uFcppHOfXbmLDlVwghmgHZfq7aDLXbY8GOIJuA/KGWtgLDb+o8OhiVnmWEedmzLDj4TkyOv0n/XRLXL+VSfH8ukTqLERWrLjxfxwA3rSZw8mKadFwGfHT2qej+0+TVlaL5pFN31HQAoyv6DCTNHBaooKULaFWLdYOI5d8fX9tcibByv0jbtHIQEVzh3SP9yaJRzkjKQX5Hz+l8jM/Vnp5qaV4VEoMmySJCw/7c+Vsxo3a3FtDWbMV/MTmd/ZPEfROJvC6bNi+zEMHAuoZ5g9j3zeJzQSrL3k0nZtrEAEwCeakJHSw3a7QISBCp
+X-OriginatorOrg: Nvidia.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 02:44:09.8198
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 8be12ea5-2c6a-4c27-af33-08df14658d04
+X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.160];Helo=[mail.nvidia.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN1PEPF00018070.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: BL1PR12MB5969
 
-The .log2 key modifier files a value under its base-2 order:
+On Wed, Sep 16, 2026 at 09:27:41PM -0300, Jason Gunthorpe wrote:
+> [ This is part of the patch pile to move SMMUv3 over to the generic page
+> table, the precursor patches have been merged now:
+> 1) Organize the SMMUv3 invalidation flow so iommupt can use it
+> 2) Use the generic iommu page table for SMMUv3
+> 
+> The first patch should ideally go to -rc
+> 
+> The whole branch is here:
+>    https://github.com/jgunthorpe/linux/commits/iommu_pt_arm64/
 
-  # echo 'hist:keys=bytes_req.log2' > events/kmem/kmalloc/trigger
+> v6:
+>  - Rebase to v7.3-rc3
+>  - Add helpers arm_smmu_pt_level_to_lg2sz(), arm_smmu_pt_lg2sz_to_level(),
+>    arm_smmu_ril_calc_scale(), arm_smmu_ril_calc_num()
+>  - Remove unused leaf_only
+>  - Combine has_range_inv and range_inv_scale_max
+>  - Clarify comment on arm_smmu_iotlb_sync()
 
-hist_field_log2() is handed a u64 and computes that order as
-ilog2(roundup_pow_of_two(val)). Both helpers take an unsigned long, so
-the bucket is wrong wherever the value does not survive the conversion.
+S1/S2/SVA sanity runs okay.
 
-The out-of-line roundup_pow_of_two() is
-
-	return 1UL << fls_long(n - 1);
-
-which shifts by BITS_PER_LONG when n is 0, where n - 1 wraps to
-ULONG_MAX, and when n is above 2^(BITS_PER_LONG-1). Both are ordinary
-keys, because the field fetch hands every value over as a u64. On
-x86_64, keying on a u64 field and passing 2^63+1 and U64_MAX puts both
-in bucket 0, and with CONFIG_UBSAN_SHIFT=y the shift is reported:
-
-  UBSAN: shift-out-of-bounds in include/linux/log2.h:57:13
-  shift exponent 64 is too large for 64-bit type 'long unsigned int'
-
-On a 32-bit kernel the conversion drops the upper half of the value
-before any of that runs. Keying on common_timestamp.log2 six seconds
-into boot, where the timestamp needs 33 bits, one build of each gives
-
-  x86_64  { common_timestamp: ~ 2^33 }
-  i386    { common_timestamp: ~ 2^0  }
-
-hist_field_timestamp() returns the u64 unchanged, so hist_field_log2()
-is the only narrowing in that path.
-
-Compute the order from the u64. ilog2() selects __ilog2_u64() for an
-eight-byte argument, so ilog2(val - 1) + 1 for val above 1, and 0 below
-it, is order_base_2() evaluated without narrowing. It returns what the
-old expression returned on every input the old one was defined for.
-Where it was not, 0 stays in bucket 0, and the values an unsigned long
-could not hold move to the bucket their magnitude asks for.
-
-Cc: stable@vger.kernel.org
-Fixes: 4b94f5b7b4a5 ("tracing: Add hist trigger 'log2' modifier")
-Reported-by: sashiko-bot@kernel.org
-Closes: https://lore.kernel.org/all/20260914054614.82A9B1F000FF@smtp.kernel.org/
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
----
-Changes since v1
-(https://lore.kernel.org/all/20260916002735.808520-1-donggeunyoo.kernel@gmail.com/):
-- v1 used order_base_2(), which also takes an unsigned long and so fixed
-  only the 64-bit half.  Compute from the u64 instead.
-- Added Reported-by/Closes: the 32-bit half is claim (a) of that report,
-  which v1 did not fix.
-
-QEMU, v7.3-rc3-82-g238650ef6c7c, CONFIG_UBSAN_SHIFT=y, one kernel per arm
-per arch.  A user_events record carries a u64 field; each value is keyed
-with .log2 under its own id, so no two share a row.
-
-  value               x86_64 before  i386 before  after, both
-  0 1 2 3 4 5 2^31    correct        correct      unchanged
-  0x100000000         2^32           2^0          2^32
-  0x100000001         2^33           2^0          2^33
-  0x123456789abc      2^45           2^31         2^45
-  0x8000000000000001  2^0            2^0          2^64
-  0xffffffffffffffff  2^0            2^0          2^64
-  0xffffffffffffff9c  2^0            2^0          2^64
-
-One UBSAN shift report per arch before, none after.
-
-The i386 column needs "tracing: Fix 64-bit and signed histogram fields on
-32-bit kernels" applied; without it the field fetch truncates first and
-nothing in that column is attributable to this function.  The
-common_timestamp figures above the --- do not need it.
-
-The build-tree prefix was trimmed from the UBSAN path above.
-
- kernel/trace/trace_events_hist.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/kernel/trace/trace_events_hist.c b/kernel/trace/trace_events_hist.c
-index 8af97fd4ee2d..86f5767dbb81 100644
---- a/kernel/trace/trace_events_hist.c
-+++ b/kernel/trace/trace_events_hist.c
-@@ -289,7 +289,7 @@ static u64 hist_field_log2(struct hist_field *hist_field,
- 
- 	u64 val = hist_fn_call(operand, elt, buffer, rbe, event);
- 
--	return (u64) ilog2(roundup_pow_of_two(val));
-+	return val > 1 ? ilog2(val - 1) + 1 : 0;
- }
- 
- static u64 hist_field_bucket(struct hist_field *hist_field,
--- 
-2.53.0
-
+Tested-by: Nicolin Chen <nicolinc@nvidia.com>
