@@ -1,192 +1,169 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D9E4F5DE8;
-	Thu, 17 Sep 2026 18:10:52 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6CBBF4D1795;
+	Thu, 17 Sep 2026 18:10:54 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789668655; cv=none; b=KfvFtBHaUsaLrxzZs2l/pYhq1xaF0Dh8d3VDrY+iaS7q+OP/+WokJIpmnY7PEDJiNpYVRQpWwUzObrI5NnatKCF5XU4xmUBEFjKV0QKsHh5nzsz+7qOB9IhUG9akoR5/suoA2MrcEeQE4MqtvyYCwx02z47DAksWWiW/e8W3pfI=
+	t=1789668655; cv=none; b=V+XbnbT58ecat3V53fxUIO2BE5QqlN2WPPoV9l88MEh6Yn3QNdctJHfEbSBGKlK4EtTxh30C8+GdEhvlY3Or9dsEVcY8tg1Yy7XUzYi1t58V0KHOI6ZmYh18AcnJvqx4kDSGBo1A5TBfkRRyQaNdC4UOt6jn+Xj3jj5On0+sDIs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789668655; c=relaxed/simple;
-	bh=8uNkkN9l10azeO2DzM0lZidN87X9nEhVWujRjanxk2Y=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=N5x05tfm94PA3JYKflbengmJ1lEsxSLEbr+X/Poty+WmjTEgqe9gw5eWa+j7sf5GUR2bCAXTMHbvMCtyiY8Ft2W4Gg4Jxxnoyjj3oT5UitKeyuEzVeoRy6SIsHf4xH72CUESK3isGbVvylH+6YNRoRF1OMMqFKc3U/mwH9EGA6g=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aWK8zGQs; arc=none smtp.client-ip=100.103.45.18
+	bh=T/y0rF3gWQ1WnV8J+FPxPqkl3guJTX+U73JYdi55kNI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=qorUMkaM7eNY05zh+XiesThgngVPacZKzqRUx05xh7KPtQQpAlImtnNliVB+RMgInd6zgssyKGsPwx1t4tKSVGGqoAt2+D41m5w8JpSwU+azWDlDM8NOcAujc6UfZKM3sn+YJS5gwQd/VX2kkmy8L1kQ95Zgc/EeVLZKzI0jQoQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zvseaeIK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aWK8zGQs"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C66BC1F000FF;
-	Thu, 17 Sep 2026 18:10:51 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789668652;
-	bh=Tm4D3TsWDSPdn25iCHTA8JykgBah6gmNEoIBLaMG58U=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=aWK8zGQsDz/aPZVL89e57wPZqQBPIMHqqQg+1LWh1ldst5kNK8uBLo/buuUsAvG4y
-	 2MY1UlSGJPNO2DOHQkH9O2YftE1Mfzw+RMWCyrVel50ipJ2BRZd2ZuLYqg26PFWB/O
-	 2nvRhh6WJVyF25QLiEUOK5f8iaatrlBgoop3DreR1Vq6zQoaednNnY734pQkL7mlQv
-	 LhOXBWeVJ9Zm6+JXNvYcPpkbxznyxEn2OuS0xo0r9CwXFPsHmGjOsRv/h3H+YEb6gK
-	 N9hde5/cVsmpe5UOcynoFoxHzG3stE5cUUUqMXHaOla3a4LlauLxoGdQ82O8gYbPFT
-	 bbCLlFxnBP7vw==
-Message-ID: <f0ce5336a4062ff88775f81ba26726085dcb95a2.camel@kernel.org>
-Subject: Re: [PATCH] nfsd: Fix id-to-name cache entry leak in
- idtoname_parse()
-From: Jeff Layton <jlayton@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>, Dai.Ngo@oracle.com
-Cc: akpm@osdl.org, chuck.lever@oracle.com, linux-kernel@vger.kernel.org, 
-	linux-nfs@vger.kernel.org, neil@brown.name, okorniev@redhat.com,
- tom@talpey.com, 	stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 14:10:50 -0400
-In-Reply-To: <20260917163154.2162438-1-vulab@iscas.ac.cn>
-References: <20260917163154.2162438-1-vulab@iscas.ac.cn>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zvseaeIK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C14371F00899;
+	Thu, 17 Sep 2026 18:10:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789668654;
+	bh=KqO6f/kFgDG9rLCemyroAwG3Oidnn4uJfYNGwwt7iJ0=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=zvseaeIKcpRhB56IXoypupjYaveo5Jqsz0+7H3WmhH/pe/jpwyXOiwH8FdfFA7ha6
+	 l0HXhEujqHbQThojrqc+Gc7VSjTd0v/AQW4eXbH/oAjhN+pVfoxJVx2BFDKZB547CE
+	 qdgwBE899azPM1zA6hKXjI5g0FwAnoOsPPlqnSTo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Max Chou <max.chou@realtek.com>,
+	Luiz Augusto von Dentz <luiz.von.dentz@intel.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12 0496/1102] Bluetooth: btrtl: Add the support for RTL8761CUV
+Date: Thu, 17 Sep 2026 16:07:19 +0100
+Message-ID: <20260917151552.176318755@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
+References: <20260917151539.408551884@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Thu, 2026-09-17 at 16:31 +0000, Wentao Liang wrote:
-> idtoname_lookup() returns the id-to-name cache entry with a new
-> reference. The name is parsed between the lookup and the update call,
-> and when the parsed name is malformed (negative length or longer than
-> IDMAP_NAMESZ), idtoname_parse() jumps to the error label without
-> dropping the reference returned by idtoname_lookup(), leaking the cache
-> entry.
->=20
-> Release the reference with cache_put() before taking the error exit.
->=20
-> Fixes: f9ecc921b5b5 ("[PATCH] knfsd: Use new cache code for name/id looku=
-p caches")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  fs/nfsd/nfs4idmap.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/fs/nfsd/nfs4idmap.c b/fs/nfsd/nfs4idmap.c
-> index ba06d3d3e6dd..e0f1bebdf660 100644
-> --- a/fs/nfsd/nfs4idmap.c
-> +++ b/fs/nfsd/nfs4idmap.c
-> @@ -252,8 +252,10 @@ idtoname_parse(struct cache_detail *cd, char *buf, i=
-nt buflen)
->  	/* Name */
->  	error =3D -EINVAL;
->  	len =3D qword_get(&buf, buf1, PAGE_SIZE);
-> -	if (len < 0 || len >=3D IDMAP_NAMESZ)
-> +	if (len < 0 || len >=3D IDMAP_NAMESZ) {
-> +		cache_put(&res->h, cd);
->  		goto out;
-> +	}
->  	if (len =3D=3D 0)
->  		set_bit(CACHE_NEGATIVE, &ent.h.flags);
->  	else
+6.12-stable review patch.  If anyone has any objections, please let me know.
 
-Looks like we have the same bug later if idtoname_update() fails too? I
-think it would be better to restructure the code near the end of the
-function for better error handling. Something like this maybe?
+------------------
 
-diff --git a/fs/nfsd/nfs4idmap.c b/fs/nfsd/nfs4idmap.c
-index 4e5297593963..9fba65bb6ba4 100644
---- a/fs/nfsd/nfs4idmap.c
-+++ b/fs/nfsd/nfs4idmap.c
-@@ -255,7 +255,7 @@ idtoname_parse(struct cache_detail *cd, char *buf,
-int buflen)
-        error =3D -EINVAL;
-        len =3D qword_get(&buf, buf1, PAGE_SIZE);
-        if (len < 0 || len >=3D IDMAP_NAMESZ)
--               goto out;
-+               goto out_put;
-        if (len =3D=3D 0)
-                set_bit(CACHE_NEGATIVE, &ent.h.flags);
-        else
-@@ -263,10 +263,11 @@ idtoname_parse(struct cache_detail *cd, char
-*buf, int buflen)
-        error =3D -ENOMEM;
-        res =3D idtoname_update(cd, &ent, res);
-        if (res =3D=3D NULL)
--               goto out;
-+               goto out_put;
-=20
--       cache_put(&res->h, cd);
-        error =3D 0;
-+out_put:
-+       cache_put(&res->h, cd);
- out:
-        kfree(buf1);
-        return error;
+From: Max Chou <max.chou@realtek.com>
+
+[ Upstream commit 4a23ce935f74d19df48d1906497fad1cef391392 ]
+
+Add support for RTL8761CUV BT controller on the USB interface.
+Do not apply IC_MATCH_FL_HCIVER when hci_ver is 0 in the ic_id_table.
+
+The device info from /sys/kernel/debug/usb/devices as below.
+
+T:  Bus=02 Lev=01 Prnt=01 Port=00 Cnt=01 Dev#= 13 Spd=12   MxCh= 0
+D:  Ver= 1.10 Cls=e0(wlcon) Sub=01 Prot=01 MxPS=64 #Cfgs=  1
+P:  Vendor=0bda ProdID=c761 Rev= 2.00
+S:  Manufacturer=Realtek
+S:  Product=Bluetooth Controller
+S:  SerialNumber=10000
+C:* #Ifs= 2 Cfg#= 1 Atr=a0 MxPwr=100mA
+I:* If#= 0 Alt= 0 #EPs= 3 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=81(I) Atr=03(Int.) MxPS=  64 Ivl=1ms
+E:  Ad=02(O) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+E:  Ad=82(I) Atr=02(Bulk) MxPS=  64 Ivl=0ms
+I:* If#= 1 Alt= 0 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   0 Ivl=1ms
+I:  If#= 1 Alt= 1 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=   9 Ivl=1ms
+I:  If#= 1 Alt= 2 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  17 Ivl=1ms
+I:  If#= 1 Alt= 3 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  25 Ivl=1ms
+I:  If#= 1 Alt= 4 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  33 Ivl=1ms
+I:  If#= 1 Alt= 5 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  49 Ivl=1ms
+I:  If#= 1 Alt= 6 #EPs= 2 Cls=e0(wlcon) Sub=01 Prot=01 Driver=btusb
+E:  Ad=83(I) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+E:  Ad=03(O) Atr=01(Isoc) MxPS=  63 Ivl=1ms
+
+Signed-off-by: Max Chou <max.chou@realtek.com>
+Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ drivers/bluetooth/btrtl.c | 16 +++++++++++++++-
+ 1 file changed, 15 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/bluetooth/btrtl.c b/drivers/bluetooth/btrtl.c
+index 49b74827344c2..a2c8340a5af99 100644
+--- a/drivers/bluetooth/btrtl.c
++++ b/drivers/bluetooth/btrtl.c
+@@ -72,6 +72,7 @@ enum btrtl_chip_id {
+ 	CHIP_ID_8851B = 36,
+ 	CHIP_ID_8922A = 44,
+ 	CHIP_ID_8852BT = 47,
++	CHIP_ID_8761C = 51,
+ };
+ 
+ struct id_table {
+@@ -230,6 +231,14 @@ static const struct id_table ic_id_table[] = {
+ 	  .cfg_name = "rtl_bt/rtl8761bu_config",
+ 	  .hw_info  = "rtl8761bu" },
+ 
++	/* 8761CU */
++	{ IC_INFO(RTL_ROM_LMP_8761A, 0x0e, 0, HCI_USB),
++	  .config_needed = false,
++	  .has_rom_version = true,
++	  .fw_name  = "rtl_bt/rtl8761cu_fw",
++	  .cfg_name = "rtl_bt/rtl8761cu_config",
++	  .hw_info  = "rtl8761cu" },
++
+ 	/* 8822C with UART interface */
+ 	{ IC_INFO(RTL_ROM_LMP_8822B, 0xc, 0x8, HCI_UART),
+ 	  .config_needed = true,
+@@ -344,7 +353,8 @@ static const struct id_table *btrtl_match_ic(u16 lmp_subver, u16 hci_rev,
+ 		    (ic_id_table[i].hci_rev != hci_rev))
+ 			continue;
+ 		if ((ic_id_table[i].match_flags & IC_MATCH_FL_HCIVER) &&
+-		    (ic_id_table[i].hci_ver != hci_ver))
++		    (ic_id_table[i].hci_ver != hci_ver) &&
++		    (ic_id_table[i].hci_ver != 0))
+ 			continue;
+ 		if ((ic_id_table[i].match_flags & IC_MATCH_FL_HCIBUS) &&
+ 		    (ic_id_table[i].hci_bus != hci_bus))
+@@ -662,6 +672,7 @@ static int rtlbt_parse_firmware(struct hci_dev *hdev,
+ 		{ RTL_ROM_LMP_8851B, 36 },	/* 8851B */
+ 		{ RTL_ROM_LMP_8922A, 44 },	/* 8922A */
+ 		{ RTL_ROM_LMP_8852A, 47 },	/* 8852BT */
++		{ RTL_ROM_LMP_8761A, 51 },	/* 8761C */
+ 	};
+ 
+ 	if (btrtl_dev->fw_len <= 8)
+@@ -1306,6 +1317,7 @@ void btrtl_set_quirks(struct hci_dev *hdev, struct btrtl_device_info *btrtl_dev)
+ 	case CHIP_ID_8851B:
+ 	case CHIP_ID_8922A:
+ 	case CHIP_ID_8852BT:
++	case CHIP_ID_8761C:
+ 		set_bit(HCI_QUIRK_WIDEBAND_SPEECH_SUPPORTED, &hdev->quirks);
+ 
+ 		/* RTL8852C needs to transmit mSBC data continuously without
+@@ -1525,6 +1537,8 @@ MODULE_FIRMWARE("rtl_bt/rtl8761b_fw.bin");
+ MODULE_FIRMWARE("rtl_bt/rtl8761b_config.bin");
+ MODULE_FIRMWARE("rtl_bt/rtl8761bu_fw.bin");
+ MODULE_FIRMWARE("rtl_bt/rtl8761bu_config.bin");
++MODULE_FIRMWARE("rtl_bt/rtl8761cu_fw.bin");
++MODULE_FIRMWARE("rtl_bt/rtl8761cu_config.bin");
+ MODULE_FIRMWARE("rtl_bt/rtl8821a_fw.bin");
+ MODULE_FIRMWARE("rtl_bt/rtl8821a_config.bin");
+ MODULE_FIRMWARE("rtl_bt/rtl8821c_fw.bin");
+-- 
+2.53.0
+
+
+
