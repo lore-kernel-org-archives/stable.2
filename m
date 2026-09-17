@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2BF614E3246;
-	Thu, 17 Sep 2026 15:33:05 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 286A6501F26;
+	Thu, 17 Sep 2026 15:33:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659191; cv=none; b=iG2Pt1V7aCs9ao2/8ahIih6L+qHeQi4ep4k8dMd3clm6+VuMMQ17PBZO44F4Q2f+HmeVTp5SzQZ7mt3Unr8IuABVql/Hjfn7YzP1RW8EQtbClEvkkJG+Z1XKPJd1I3Mjavqg1U3GKM64M3R59c8v9fsmb7HB0PqSqTpLUs+VFyM=
+	t=1789659195; cv=none; b=lW7uw7xmME69v/KqKCZW2ZhpWnxYFlSF9+02BZJXPF8kM5/YGGGO+PcSndDNrhbzhjnR1oO890xQIpaM4lu8FDv8S3vIu22K0/KNnJnGbbp93JPAQzu03KZupovePX/jlKW/LJUBqb4E6XJ/bWa2QnIaMrGn5SfubBhrq6Og+gQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659191; c=relaxed/simple;
-	bh=eK1lEcFgkaNthxd7fNwc7CoqYQrSTW2okBNnTIRYYPQ=;
+	s=arc-20240116; t=1789659195; c=relaxed/simple;
+	bh=0eIgROSitIwbtVruNbvk6YbHxBSGjhRqq8VFlGqSS+M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Av74p2kObl97xweKac6+s9FIOCE5wVif8zpTc7f0ucHXJZ5L2ZvBJ5o279vH6Nd8a7rL9CdOjZmwqLeegBj0QFHyg5TCxHfU52Y3lUd4NeJDZFhVZCUy857gjnoAy/xHV59ABiLx1arWAbvLpDOVQVpMeeO6VzTVZ50WN6ahVfc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=SL4qYGmh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Mi2DTxbQXMJTCAHjMfr+2V0rGFlnFSSsrgOrU2+aMKuOF5/P0xWyZVKUXlZ2xTmNAZw/a2ARggoyYiJy/IS4AnOlOg6aYovZRtE+PG6x90klO9rUscEWGTGPTKUnOaOWIz+CF1iFoqymcCng4X4QgPjvJQApkzrKHV4eynstmNE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=alNIzp+K; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="SL4qYGmh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CFC141F00893;
-	Thu, 17 Sep 2026 15:33:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="alNIzp+K"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D91EA1F00899;
+	Thu, 17 Sep 2026 15:33:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659182;
-	bh=WA8UnWMF5yDQBHxHYeWeK2NOB+L4phxgwKp0FpR1RWU=;
+	s=korg; t=1789659188;
+	bh=l4usEtjq6uzACPahaexdHsFw4EfsnSme2pVvjUvQjW8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SL4qYGmhEIsOmZyhLADYvQ4NVFRQhA6F0gKvo+5MZs8U8wAOBrG6pLOFj3S7oSNc7
-	 MGSmR8VW35ANBlAtuq7HaMHEdp/XZnGOjlLA/MREc2lZK1iKZ1rt1t+1ROkW5mWMdi
-	 apaL75gCGq/PZhy83Vpm7sU6H6UPlnlaqkaaebu4=
+	b=alNIzp+KU4Z/4EyeoalkrLPR8cZ9LYo+y85tEIfsbYDAK7GEczjVy7nYR3+8NoFJQ
+	 DPfS+yMy0OY+X/LzVzI4dh1xcp3C6u3x/MCYMAg17jd7YP4ZIZMNu/SqaY0pGRN+Fj
+	 PFbZva/uDpb+yEP96nB+j+ihOb1NcPnt1xGWbdiE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Tamas Petz <tamas.petz@arm.com>,
-	Leo Yan <leo.yan@arm.com>,
-	"Peter Zijlstra (Intel)" <peterz@infradead.org>,
+	Sunil Goutham <sgoutham@marvell.com>,
+	Nitin Shetty J <nshettyj@marvell.com>,
+	"David S. Miller" <davem@davemloft.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 172/733] perf/core: Skip empty AUX records with only format flags
-Date: Thu, 17 Sep 2026 16:08:00 +0100
-Message-ID: <20260917151355.389329485@linuxfoundation.org>
+Subject: [PATCH 7.2 174/733] octeontx2-af: Fix limiting SRIOV VF count logic
+Date: Thu, 17 Sep 2026 16:08:02 +0100
+Message-ID: <20260917151355.442862551@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -52,77 +52,80 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Leo Yan <leo.yan@arm.com>
+From: Sunil Goutham <sgoutham@marvell.com>
 
-[ Upstream commit 8a7f5b5e860b5c113ca99acd5b1e9074f5c5af3c ]
+[ Upstream commit f695390ea63941a9e412bf1f3afe65ab245fc681 ]
 
-perf_aux_output_end() emits a PERF_RECORD_AUX when the recorded size is
-nonzero or when any flag other than PERF_AUX_FLAG_OVERWRITE is set.
+When RVU PF0/AF's VFs are SDP instead of LBK, limiting the VF count
+based on the LBK channel count is incorrect.
 
-PMU format flags describe how an AUX payload is encoded. TRBE driver
-sets PERF_AUX_FLAG_CORESIGHT_FORMAT_RAW for raw trace buffers, causing
-an AUX record to be emitted even when no trace data.
+Apply LBK channel-based VF limits only when the VF device ID matches
+the LBK RVU AFVF device.
 
-This is noticeable when tracing a task with strace. Ptrace stops
-repeatedly end empty AUX transactions, producing many zero-sized
-PERF_RECORD_AUX records. For example:
-
-  perf record -e cs_etm//u -m,128M -- strace ls
-
-  perf script -D 2>&1 |
-     awk '/PERF_RECORD_AUX offset/ {
-        for (i = 1; i <= NF; i++)
-                if ($i == "size:" && $(i + 1) == "0")
-                        count++
-     }
-     END { print count }'
-  165
-
-This recording contains 165 zero-sized AUX records which provide no
-useful information to userspace.
-
-Ignore PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK, together with
-PERF_AUX_FLAG_OVERWRITE, when deciding whether an empty AUX record is
-useful. Zero-sized records carrying TRUNCATED, PARTIAL or COLLISION
-are still emitted.
-
-Fixes: 547b60988e63 ("perf: aux: Add flags for the buffer format")
-Reported-by: Tamas Petz <tamas.petz@arm.com>
-Signed-off-by: Leo Yan <leo.yan@arm.com>
-Signed-off-by: Peter Zijlstra (Intel) <peterz@infradead.org>
-Link: https://patch.msgid.link/20260825-perf_core_fix_zero_aux_records-v1-1-23b95e8d5df3@arm.com
+Fixes: 9bd6caf33567 ("octeontx2-af: Enable sriov on AF to create VFs")
+Signed-off-by: Sunil Goutham <sgoutham@marvell.com>
+Signed-off-by: Nitin Shetty J <nshettyj@marvell.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/events/ring_buffer.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ .../net/ethernet/marvell/octeontx2/af/rvu.c   | 33 +++++++++++--------
+ 1 file changed, 19 insertions(+), 14 deletions(-)
 
-diff --git a/kernel/events/ring_buffer.c b/kernel/events/ring_buffer.c
-index 9fe92161715e0..1b1ffe0533e58 100644
---- a/kernel/events/ring_buffer.c
-+++ b/kernel/events/ring_buffer.c
-@@ -509,7 +509,10 @@ void perf_aux_output_end(struct perf_output_handle *handle, unsigned long size)
- 	/*
- 	 * Only send RECORD_AUX if we have something useful to communicate
- 	 *
--	 * Note: the OVERWRITE records by themselves are not considered
-+	 * PMU_FORMAT bits identify the PMU type rather than an AUX event
-+	 * has occurred, so ignore them for zero-sized records.
-+	 *
-+	 * The OVERWRITE records by themselves are not considered
- 	 * useful, as they don't communicate any *new* information,
- 	 * aside from the short-lived offset, that becomes history at
- 	 * the next event sched-in and therefore isn't useful.
-@@ -518,7 +521,9 @@ void perf_aux_output_end(struct perf_output_handle *handle, unsigned long size)
- 	 * offset. So, from now on we don't output AUX records that
- 	 * have *only* OVERWRITE flag set.
- 	 */
--	if (size || (handle->aux_flags & ~(u64)PERF_AUX_FLAG_OVERWRITE))
-+	if (size ||
-+	    (handle->aux_flags & ~(u64)(PERF_AUX_FLAG_PMU_FORMAT_TYPE_MASK |
-+					PERF_AUX_FLAG_OVERWRITE)))
- 		perf_event_aux_event(handle->event, aux_head, size,
- 				     handle->aux_flags);
+diff --git a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+index 74c041ab5280a..937b085582b5f 100644
+--- a/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
++++ b/drivers/net/ethernet/marvell/octeontx2/af/rvu.c
+@@ -3468,6 +3468,8 @@ int rvu_get_num_lbk_chans(void)
+ 	return ret;
+ }
  
++#define PCI_DEVID_OCTEONTX2_RVU_AFVF	0xA0F8
++
+ static int rvu_enable_sriov(struct rvu *rvu)
+ {
+ 	struct pci_dev *pdev = rvu->pdev;
+@@ -3486,24 +3488,27 @@ static int rvu_enable_sriov(struct rvu *rvu)
+ 		return 0;
+ 	pci_read_config_word(pdev, pos + PCI_SRIOV_VF_DID, &rvu->vf_devid);
+ 
+-	chans = rvu_get_num_lbk_chans();
+-	if (chans < 0)
+-		return chans;
+-
+ 	vfs = pci_sriov_get_totalvfs(pdev);
+-
+-	/* Limit VFs in case we have more VFs than LBK channels available. */
+-	if (vfs > chans)
+-		vfs = chans;
+-
+ 	if (!vfs)
+ 		return 0;
+ 
+-	/* LBK channel number 63 is used for switching packets between
+-	 * CGX mapped VFs. Hence limit LBK pairs till 62 only.
+-	 */
+-	if (vfs > 62)
+-		vfs = 62;
++	if (rvu->vf_devid == PCI_DEVID_OCTEONTX2_RVU_AFVF) {
++		chans = rvu_get_num_lbk_chans();
++		if (chans < 0)
++			return chans;
++
++		/* The last LBK channel is reserved for switching packets between
++		 * CGX mapped VFs. Also, since LBK VFs work in pairs, limit VF
++		 * count to available LBK channels minus 2.
++		 */
++		vfs = min(vfs, chans - 2);
++
++		if (vfs <= 0) {
++			dev_warn(&pdev->dev,
++				 "Skipping SRIOV enablement, not enough LBK channels available\n");
++			return 0;
++		}
++	}
+ 
+ 	/* Save VFs number for reference in VF interrupts handlers.
+ 	 * Since interrupts might start arriving during SRIOV enablement
 -- 
 2.53.0
 
