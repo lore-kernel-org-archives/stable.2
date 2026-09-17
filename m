@@ -1,37 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7C73C4E01EF;
-	Thu, 17 Sep 2026 15:49:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0498F259C80;
+	Thu, 17 Sep 2026 15:50:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789660199; cv=none; b=Fa4YlRL7s6XqMe68i48g7Euv46mtXliqmIMjGavjoMBRKFlYKB3NH3CotpCZKRrjCDy04NugwYcqGvARbr9AWo9MWkcZz+OY6ZS8PVLqB1ogLyy7js9TL1ASEzyKE1j/67pzcxJ0Cr8yY/MmD7E337oHy/t4TuDL/9f72pLGCq4=
+	t=1789660208; cv=none; b=oSIf+806BVE0IIVzpRH95oYTUPE+dtd1VWJxA/glfrdC/l1BR/8X9B+mj2IdBxzexo4P4Die4ovbBEH2JSINmndhmg1c/AdcWKIkiagqm7Q6p/Hn4ktq4PZdGkLOLLS6sbJGRnCSEsavcCXlBINZ9rMGZI++rVLJfeIQy0kt+0Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789660199; c=relaxed/simple;
-	bh=Cf6blnZ2vb0LLTWrf6uw5NTIoWXj+yFeh9PhttNWsy0=;
+	s=arc-20240116; t=1789660208; c=relaxed/simple;
+	bh=Dj9FA4i6uNtego8cKOwGaeVeQEoa/YTAGpdqqg4uzDw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Xk3LXUg+1Q7qsXkk4kQgAnYKHhc78Zox7Hi2JOewUnkE8/qiUBF9bJVo2Qb33R4351rLxzYWQroeMhb1P2pZTlF1+8Kczzw08ZAT6wkiwgI7h0Dczg8hRM0oz2Rq2v45wVp7QBq7UbbJlFMoJZQLrGp2dnuIcCwTgVozfPYt76Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=0xLbYCjx; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Kx4Kg+T8NgbZ9J0sQ6FhiOG/aU0TrK047/D71L90oMPvHDBhcTjUlZH85A3YTm/rQ7TA6kEhMeOHcipMugRdAF80ClxrS9Ukhn5+5vKjgb2zfQQ1lY6avgwC0BTxEp6neGkn3F637peHiaUallv+Ug7GuGI58x0dh7zTCChlsy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=zw6LrrvL; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="0xLbYCjx"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A9C8D1F00893;
-	Thu, 17 Sep 2026 15:49:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="zw6LrrvL"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A2EA41F00893;
+	Thu, 17 Sep 2026 15:49:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789660194;
-	bh=eK3i/jT6bLpQTnbSSo6kDMCT0NOMVtVOv1QIprRyns4=;
+	s=korg; t=1789660200;
+	bh=p/cbF3VR5hLlGgTJqKV8FKT0VsWdgE+QCs0CFvbgtgI=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=0xLbYCjxbfKAH0vbbTWmiE1mkzOZtnnL6hNvanXmOP+CiPLBd3nMPYh5mTII9EhW2
-	 5GdqMEA1OU7Dux0SvJQ3VyvYqVw+UbuwOn6qs3AaDyBfG7TQNNLdYjd68iB1gaDLFV
-	 68x1Y2uSJsF1najdiTuiuzRfEDGrX8IC+muuKKPw=
+	b=zw6LrrvL7MH932C5VStBPpQRFBykjqRruBqw3z/PyEsFmu6J4rqSNpHJSdKJZZEG4
+	 CwmWW+aqZKlJCUPGcurDOX7TFBhZKTegvUc389hfOjGCqHZCYCI7SHHCz05lmzdIRf
+	 fvXjOInVbb1ntY+1MBOtg+ZscQqOVZiOXpjevAyU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Frank Li <Frank.Li@nxp.com>,
-	"Rob Herring (Arm)" <robh@kernel.org>
-Subject: [PATCH 7.2 511/733] accel: ethosu: Ensure SRAM region size matches job
-Date: Thu, 17 Sep 2026 16:13:39 +0100
-Message-ID: <20260917151404.861336371@linuxfoundation.org>
+	Ethan Nelson-Moore <enelsonmoore@gmail.com>,
+	Karl Mehltretter <kmehltretter@gmail.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Randy Dunlap <rdunlap@infradead.org>,
+	Niklas Cassel <cassel@kernel.org>
+Subject: [PATCH 7.2 512/733] ata: pata_legacy: remove documentation for removed module parameters
+Date: Thu, 17 Sep 2026 16:13:40 +0100
+Message-ID: <20260917151404.887706345@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -50,47 +53,86 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Rob Herring (Arm) <robh@kernel.org>
+From: Ethan Nelson-Moore <enelsonmoore@gmail.com>
 
-commit 2b39d680c9e0fb4d625f2916980977622e84248c upstream.
+commit a19d4f9b8befdcfcd5a87bab91312fe64af3bbb8 upstream.
 
-It is possible for userspace to set the job SRAM size to 0, but then still
-have SRAM accesses in the command stream. When the job SRAM size is 0,
-setting the region base register is skipped and a stale base address from
-a prior job is used.
+Commit 3c4d783f6922 ("ata: pata_legacy: remove VLB support") removed
+several module parameters from the pata_legacy driver, but neglected to
+remove their documentation. Remove it.
 
-Check the region size against the job's SRAM size instead of just the size
-of the SRAM. The job's SRAM size was already checked against the total SRAM
-size.
-
-Fixes: 9cff90774872 ("accel: ethosu: Validate SRAM size on submit")
-Cc: stable@vger.kernel.org
-Reviewed-by: Frank Li <Frank.Li@nxp.com>
-Link: https://patch.msgid.link/20260827-ethosu-fixes-v1-5-346f9ea8791c@kernel.org
-Signed-off-by: Rob Herring (Arm) <robh@kernel.org>
+Fixes: 3c4d783f6922 ("ata: pata_legacy: remove VLB support")
+Cc: stable@vger.kernel.org # 7.0+
+Signed-off-by: Ethan Nelson-Moore <enelsonmoore@gmail.com>
+Reviewed-by: Karl Mehltretter <kmehltretter@gmail.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Reviewed-by: Randy Dunlap <rdunlap@infradead.org>
+Link: https://lore.kernel.org/r/20260607064053.195166-1-enelsonmoore@gmail.com
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/accel/ethosu/ethosu_job.c |    6 +++---
- 1 file changed, 3 insertions(+), 3 deletions(-)
+ Documentation/admin-guide/kernel-parameters.txt |   37 ------------------------
+ 1 file changed, 37 deletions(-)
 
---- a/drivers/accel/ethosu/ethosu_job.c
-+++ b/drivers/accel/ethosu/ethosu_job.c
-@@ -425,13 +425,13 @@ static int ethosu_ioctl_submit_job(struc
- 			if (!cmd_info->region_size[i])
- 				continue;
- 			if (i == ETHOSU_SRAM_REGION) {
--				if (cmd_info->region_size[i] <= edev->npu_info.sram_size)
-+				if (cmd_info->region_size[i] <= ejob->sram_size)
- 					continue;
+--- a/Documentation/admin-guide/kernel-parameters.txt
++++ b/Documentation/admin-guide/kernel-parameters.txt
+@@ -4922,18 +4922,6 @@ Kernel parameters
+ 			Set to non-zero if a chip is present that snoops speed
+ 			changes.  Disabled by default.
  
- 				dev_err(dev->dev,
--					"cmd stream region %d size greater than SRAM size (%llu > %u)\n",
-+					"cmd stream region %d size greater than job SRAM size (%llu > %u)\n",
- 					i, cmd_info->region_size[i],
--					edev->npu_info.sram_size);
-+					ejob->sram_size);
- 				ret = -EINVAL;
- 				goto out_cleanup_job;
- 			}
+-	pata_legacy.ht6560a=	[HW,LIBATA]
+-			Format: <int>
+-			Set to 1, 2, or 3 for HT 6560A on the primary channel,
+-			the secondary channel, or both channels respectively.
+-			Disabled by default.
+-
+-	pata_legacy.ht6560b=	[HW,LIBATA]
+-			Format: <int>
+-			Set to 1, 2, or 3 for HT 6560B on the primary channel,
+-			the secondary channel, or both channels respectively.
+-			Disabled by default.
+-
+ 	pata_legacy.iordy_mask=	[HW,LIBATA]
+ 			Format: <int>
+ 			IORDY enable mask.  Set individual bits to allow IORDY
+@@ -4946,18 +4934,6 @@ Kernel parameters
+ 			with the sequence.  By default IORDY is allowed across
+ 			all channels.
+ 
+-	pata_legacy.opti82c46x=	[HW,LIBATA]
+-			Format: <int>
+-			Set to 1, 2, or 3 for Opti 82c611A on the primary
+-			channel, the secondary channel, or both channels
+-			respectively.  Disabled by default.
+-
+-	pata_legacy.opti82c611a=	[HW,LIBATA]
+-			Format: <int>
+-			Set to 1, 2, or 3 for Opti 82c465MV on the primary
+-			channel, the secondary channel, or both channels
+-			respectively.  Disabled by default.
+-
+ 	pata_legacy.pio_mask=	[HW,LIBATA]
+ 			Format: <int>
+ 			PIO mode mask for autospeed devices.  Set individual
+@@ -4981,19 +4957,6 @@ Kernel parameters
+ 			the first port in the list above (0x1f0), and so on.
+ 			By default all supported ports are probed.
+ 
+-	pata_legacy.qdi=	[HW,LIBATA]
+-			Format: <int>
+-			Set to non-zero to probe QDI controllers.  By default
+-			set to 1 if CONFIG_PATA_QDI_MODULE, 0 otherwise.
+-
+-	pata_legacy.winbond=	[HW,LIBATA]
+-			Format: <int>
+-			Set to non-zero to probe Winbond controllers.  Use
+-			the standard I/O port (0x130) if 1, otherwise the
+-			value given is the I/O port to use (typically 0x1b0).
+-			By default set to 1 if CONFIG_PATA_WINBOND_VLB_MODULE,
+-			0 otherwise.
+-
+ 	pata_platform.pio_mask=	[HW,LIBATA]
+ 			Format: <int>
+ 			Supported PIO mode mask.  Set individual bits to allow
 
 
