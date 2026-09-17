@@ -1,28 +1,28 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C451359C984;
-	Thu, 17 Sep 2026 15:39:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9AFB34E020C;
+	Thu, 17 Sep 2026 15:39:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659560; cv=none; b=JMK36ydltAMFn9U4k5Nam6BKN7xcjinQytz0JwcXJbe9AWCtkWDGc0zdU7emTcuk7LImWg5K5i9/4ptjhKhmX8HYtoYIH2AxnPN+hQ9vW5AI67t/RR7w70kUttq5lkBeNj4wUdGCZKAV0aMO9TA5bRrrK7K4FHdeqKIn/PLlGik=
+	t=1789659565; cv=none; b=Cz6LTp9ucUWt2Y5C96PzZy7XQ2kw7JCeSA+o7V/CSluaPt6VDUNUcsHgKWx1u/kNT0LOBaYRNSx5/diwBjmxKN8nZGLpxOLCV0mxcYSTEXJ96j5We3f6gcGxEIyQKGLdYUBuk6PXUsE153nrtDKBbYxZp1YuSBNMx9XFhXo/Mj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659560; c=relaxed/simple;
-	bh=nX8gZrjOyXw2yWRRaBYWjyKrTuMGEOdpdWDH+RiiHXs=;
+	s=arc-20240116; t=1789659565; c=relaxed/simple;
+	bh=2rfmqC8OwLxuygfGcaKCtmntDWBowgKes3NQUoH9WZA=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=MYSVISdCHF5E4XZvtOeVAEgIw6R+qjm4tdJ8wUUzBo2n8jTCxRpMAGywn+kC4jpT+3LU8HvgNNiVzlZgVMBUAXFkRoYSPFOxJjjnEflWff3ozAy7mOCvMK7URBtY51JYIjrfuSeA8yriOeq11uP7C6y2wrsj/qCBuPWOL/lvzB4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=AOeAEiNd; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=cRu3bOUQabWwLS78HasriqKPNVfx11WyfvPQWnucovOUoC7jraVQyB/cs8dWBOXqc9LyJF6FkdDe/U8O+65FzDJA+pAJ7nM5ua7hnsJL3yASb2sgj61NbkQEKmv040/zR4EtGNfelldHo14NBXY313SqjeNNqV9coPNcuxwewXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Y3dLyosu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="AOeAEiNd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F0C901F00898;
-	Thu, 17 Sep 2026 15:39:14 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Y3dLyosu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E72C41F00893;
+	Thu, 17 Sep 2026 15:39:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659555;
-	bh=+LgNrwOgYfWQWnm1bbfDyqbiUY25Q1yJ0u951WE9lxA=;
+	s=korg; t=1789659558;
+	bh=mRzoyl2utnER0ez8EI1oAR60DqJlHO11mnqwrbSUkeA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=AOeAEiNdG+PM/1cRPGNNEe+uVFtxaGUp5PJnkanJuL3PjOX8lLWZigGClJOjKSFv+
-	 Mn4+0dTY3HWhlKQQ1b8RVhrVQV28XomueXPc7d8axa3PxapXhNmhoszx0Sl4o+KYzP
-	 VJbVYKeUKWRkgmA5QxxJ6HPBX9scwt+QZdFSvx8o=
+	b=Y3dLyosu+YczXd3IzSKxpPHY466HXPmO1jrNIFI2V/ANO+lq9aXdVjhBydoe8y1f4
+	 4LAhVS0kfO38R6E73W/aWUtEhNEV11T3gc5s25AcbpXJ5+bX2ll+R9YcmztRnWtbgA
+	 KcXITqelLL9zlxherXj+UHVtpurmIwkj4vQAN5eE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
@@ -33,9 +33,9 @@ Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	Tariq Toukan <tariqt@nvidia.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 297/733] net/mlx5e: Fix setting RS FEC after remapping
-Date: Thu, 17 Sep 2026 16:10:05 +0100
-Message-ID: <20260917151358.828646138@linuxfoundation.org>
+Subject: [PATCH 7.2 298/733] net/mlx5e: Fix reporting support for all RS FEC variants
+Date: Thu, 17 Sep 2026 16:10:06 +0100
+Message-ID: <20260917151358.855595516@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -56,84 +56,79 @@ Content-Transfer-Encoding: 8bit
 
 From: Shahar Shitrit <shshitrit@nvidia.com>
 
-[ Upstream commit b9d755c5a37519fb1354034db1dfeb30e1ba6856 ]
+[ Upstream commit c84ce45a7a3f3f024502c7f53308db9c76e4ae71 ]
 
-When a user sets a FEC mode via ethtool, the driver maps the ethtool
-FEC type to the lowest mlx5 bit of that type. For RS FEC, this is
-MLX5E_FEC_RS_528_514 (bit 2). The driver then checks whether this
-bit is supported by at least one link mode by inspecting the
-fec_override_cap fields via mlx5e_fec_in_caps(), and returns
--EOPNOTSUPP if not.
+get_fec_supported_advertised() populates the FEC modes reported as
+supported to userspace. The MLX5E_ADVERTISE_SUPPORTED_FEC macro only
+checked MLX5E_FEC_RS_528_514, causing devices that support only the
+other RS variants (RS_544_514_INTERLEAVED_QUAD or RS_544_514) to not
+advertise RS as supported to ethtool at all.
 
-This check is incorrect. RS FEC has three supported hardware variants:
-RS_528_514 (bit 2), RS_544_514_INTERLEAVED_QUAD (bit 4), and
-RS_544_514 (bit 7). mlx5e_remap_fec_conf_mode() already remaps bit 2
-to the appropriate RS variant per link mode when writing the admin
-fields, but the early capability check is done against the raw
-unmapped bit. As a result, a device that supports RS_544_514 or
-RS_544_514_INTERLEAVED_QUAD but not RS_528_514 will incorrectly reject
-the user's RS FEC request.
+Introduce MLX5E_FEC_RS_MASK covering all three RS bit positions,
+update the macro to accept a bitmask directly rather than a single
+enum value, and pass MLX5E_FEC_RS_MASK for the RS entry.
 
-Remove the early support check from mlx5e_set_fec_mode() and fold
-it into the existing write loop, checking caps against the remapped
-policy per link mode. Return -EOPNOTSUPP before the final register
-write if no link mode accepted the policy.
-
-Fixes: 2608a2f831c4 ("net/mlx5e: Fix return status when setting unsupported FEC mode")
+Fixes: b5ede32d3329 ("net/mlx5e: Add support for FEC modes based on 50G per lane links")
+Fixes: 4e343c11efbb ("net/mlx5e: Support FEC settings for 200G per lane link modes")
 Signed-off-by: Shahar Shitrit <shshitrit@nvidia.com>
 Reviewed-by: Dragos Tatulea <dtatulea@nvidia.com>
 Reviewed-by: Yael Chemla <ychemla@nvidia.com>
 Signed-off-by: Tariq Toukan <tariqt@nvidia.com>
-Link: https://patch.msgid.link/20260902164634.3657606-3-tariqt@nvidia.com
+Link: https://patch.msgid.link/20260902164634.3657606-4-tariqt@nvidia.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/mellanox/mlx5/core/en/port.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+ drivers/net/ethernet/mellanox/mlx5/core/en/port.h    |  4 ++++
+ drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c | 12 ++++++------
+ 2 files changed, 10 insertions(+), 6 deletions(-)
 
-diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/port.c b/drivers/net/ethernet/mellanox/mlx5/core/en/port.c
-index 6049ccf475bc4..a4c096a4fed25 100644
---- a/drivers/net/ethernet/mellanox/mlx5/core/en/port.c
-+++ b/drivers/net/ethernet/mellanox/mlx5/core/en/port.c
-@@ -557,6 +557,7 @@ int mlx5e_set_fec_mode(struct mlx5_core_dev *dev, u16 fec_policy)
- 	u32 in[MLX5_ST_SZ_DW(pplm_reg)] = {};
- 	int sz = MLX5_ST_SZ_BYTES(pplm_reg);
- 	u16 fec_policy_auto = 0;
-+	bool fec_set = false;
- 	int err;
- 	int i;
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en/port.h b/drivers/net/ethernet/mellanox/mlx5/core/en/port.h
+index fa2283dd383b0..53dbdf77bccea 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en/port.h
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en/port.h
+@@ -66,4 +66,8 @@ enum {
+ 	MLX5E_FEC_LLRS_272_257_1 = 9,
+ };
  
-@@ -569,9 +570,6 @@ int mlx5e_set_fec_mode(struct mlx5_core_dev *dev, u16 fec_policy)
- 	if (fec_policy >= (1 << MLX5E_FEC_LLRS_272_257_1) && !fec_50g_per_lane)
- 		return -EOPNOTSUPP;
- 
--	if (fec_policy && !mlx5e_fec_in_caps(dev, fec_policy))
--		return -EOPNOTSUPP;
--
- 	MLX5_SET(pplm_reg, in, local_port, 1);
- 	err = mlx5_core_access_reg(dev, in, sz, out, sz, MLX5_REG_PPLM, 0, 0);
- 	if (err)
-@@ -591,12 +589,17 @@ int mlx5e_set_fec_mode(struct mlx5_core_dev *dev, u16 fec_policy)
- 		mlx5e_get_fec_cap_field(out, &fec_caps, i);
- 
- 		/* policy supported for link speed */
--		if (fec_caps & conf_fec)
-+		if (fec_caps & conf_fec) {
- 			mlx5e_fec_admin_field(out, &conf_fec, 1, i);
--		else
--			/* set FEC to auto*/
-+			fec_set = true;
-+		} else {
-+			/* set FEC to auto */
- 			mlx5e_fec_admin_field(out, &fec_policy_auto, 1, i);
-+		}
- 	}
- 
-+	if (fec_policy && !fec_set)
-+		return -EOPNOTSUPP;
++#define MLX5E_FEC_RS_MASK (BIT(MLX5E_FEC_RS_528_514) | \
++			   BIT(MLX5E_FEC_RS_544_514_INTERLEAVED_QUAD) | \
++			   BIT(MLX5E_FEC_RS_544_514))
 +
- 	return mlx5_core_access_reg(dev, out, sz, out, sz, MLX5_REG_PPLM, 0, 1);
+ #endif
+diff --git a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+index f285ad88b6d5a..3ed59ced0407a 100644
+--- a/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
++++ b/drivers/net/ethernet/mellanox/mlx5/core/en_ethtool.c
+@@ -1002,9 +1002,9 @@ static u32 pplm2ethtool_fec(u_long fec_mode, unsigned long size)
+ 	return 0;
  }
+ 
+-#define MLX5E_ADVERTISE_SUPPORTED_FEC(mlx5_fec, ethtool_fec)		\
++#define MLX5E_ADVERTISE_SUPPORTED_FEC(fec_mask, ethtool_fec)		\
+ 	do {								\
+-		if (mlx5e_fec_in_caps(dev, 1 << (mlx5_fec)))		\
++		if (mlx5e_fec_in_caps(dev, fec_mask))			\
+ 			__set_bit(ethtool_fec,				\
+ 				  link_ksettings->link_modes.supported);\
+ 	} while (0)
+@@ -1030,13 +1030,13 @@ static int get_fec_supported_advertised(struct mlx5_core_dev *dev,
+ 	if (err)
+ 		return (err == -EOPNOTSUPP) ? 0 : err;
+ 
+-	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_NOFEC,
++	MLX5E_ADVERTISE_SUPPORTED_FEC(BIT(MLX5E_FEC_NOFEC),
+ 				      ETHTOOL_LINK_MODE_FEC_NONE_BIT);
+-	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_FIRECODE,
++	MLX5E_ADVERTISE_SUPPORTED_FEC(BIT(MLX5E_FEC_FIRECODE),
+ 				      ETHTOOL_LINK_MODE_FEC_BASER_BIT);
+-	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_RS_528_514,
++	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_RS_MASK,
+ 				      ETHTOOL_LINK_MODE_FEC_RS_BIT);
+-	MLX5E_ADVERTISE_SUPPORTED_FEC(MLX5E_FEC_LLRS_272_257_1,
++	MLX5E_ADVERTISE_SUPPORTED_FEC(BIT(MLX5E_FEC_LLRS_272_257_1),
+ 				      ETHTOOL_LINK_MODE_FEC_LLRS_BIT);
+ 
+ 	active_fec_long = active_fec;
 -- 
 2.53.0
 
