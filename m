@@ -1,122 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B0547042;
-	Thu, 17 Sep 2026 20:04:23 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7C0B3CDBD3;
+	Thu, 17 Sep 2026 20:05:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675465; cv=none; b=K76mRhy+FPntnRpprO9wrx2vUaq4eUMw3j18ac19tOezlO37ZLdt6T6FQ8jtGhcb4k8ARmQgIuVkYUj08dYRi8TKtS7BiPV0IDNLUbeItWbzzkkJeSI0IB4yzNwBT8+QACROAFUfE61hmaa88y9jcCJDjEyq19gYFa4eyorKs/I=
+	t=1789675542; cv=none; b=cXres6E9HDzHv2QMRMCyYV2R2mbS4KD8djqsvPo7lMW8M4faJmemCD6hRQUaR0J7TGLBvhNRNvKVRusAJnfhmbrTDgbhVHYBUT/yNrOQiCmmbrp6OSivScRRbEqwsPsnm+al1Oh6Gh6Y4ZKt8+WAI8QRS+5tlmpSO+D2jKQZVs4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675465; c=relaxed/simple;
-	bh=Mr2SWEULNIyWKssATACvJHFK+HIf5bkG+CO21DBtg5M=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=LRloxDzdSP/kJVXuahPb0oH9pzfVk6mIw990qAQw/flVKBWUp/Rko7/IaHydUn4rfDBLcBJJ8uF6wTP9ENGCMc27Vpxqn4htDnlg4GA/fA6MDwMOy5INKiazfb8dJe5Jqyq6UP+RRXkmblgri5nwZJrMBick/STVD1lnuSlF8qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvWq7MPr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789675542; c=relaxed/simple;
+	bh=GNiDzXO14cDFLHSrneHYdCGSV6sSR6GgVqXHOxgawbI=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=UUE9PPhCAxQ4NL6Y1bcfzlbTluE5dYLeNbDJzresFhqt1OImpgeZ1PLfctyQMX/Ht9UpNc4mdMK7MxDvVtdBeKGXS44sD/cEIv+VjefBjTW2YghdQVkdmzZJX8Xztrt+/mRuXof87AdB5vtQaQaURPbL/NWR5UnkIMZuPAyqz5Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HE1FZOpl; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvWq7MPr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D151B1F000FF;
-	Thu, 17 Sep 2026 20:04:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HE1FZOpl"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E31F81F000FF;
+	Thu, 17 Sep 2026 20:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789675463;
-	bh=fzsN54GY0rHruAu/P7z9k5svS20PsIAJgVkPpUcXeWA=;
+	s=k20260515; t=1789675540;
+	bh=Er2BY6U9h42ItjW5DZ/9PeWsE2jitUgEHLUUtX6RBoo=;
 	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=jvWq7MPrQFsqkF4lWQHn1mmYqZkKWtH+6i1hYvwLFOLoHbDSJqGz/dONI3N8xD2qN
-	 mIpjr2PMm8ZDF5CEfTf+z9YoMDm3o+W+VQAKK5Wfb7nub7mynEqe24YTQ4/XxR0nR4
-	 NuIacKhNprh8MRrGhawNKlsGN7YsnV4dIHbDzpzeHjLCpmZUuys8bNxPBgcIXvOLzs
-	 pFAnQXQNKWUfX5rtqvCYRZ4kEND1xcsFKE5CcjwqZeBV3e0IWRWZtQYFKSvF73UYPr
-	 Xa1kU0ofF1yqGQPHQyAi5cR/PMlZBpOPXrPaCho6QiVB+bK0PIMqyxmLv8JxSR7M1M
-	 UUbZzjmQvT3gw==
-Message-ID: <8e430ea8692853928f71d65f15654751a9888c4f.camel@kernel.org>
-Subject: Re: [PATCH] nfsd: Fix id-to-name cache entry leak in
- idtoname_parse()
-From: Jeff Layton <jlayton@kernel.org>
-To: Chuck Lever <cel@kernel.org>
-Cc: Wentao Liang <vulab@iscas.ac.cn>, Dai.Ngo@oracle.com, akpm@osdl.org, 
-	chuck.lever@oracle.com, linux-kernel@vger.kernel.org,
- linux-nfs@vger.kernel.org, 	neil@brown.name, okorniev@redhat.com,
- tom@talpey.com, stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 16:04:21 -0400
-In-Reply-To: <9cc180f6-f408-42f2-b143-e155df6f542a@slotpi15m67>
-References: <20260917163154.2162438-1-vulab@iscas.ac.cn>
-	 <f0ce5336a4062ff88775f81ba26726085dcb95a2.camel@kernel.org>
-	 <9cc180f6-f408-42f2-b143-e155df6f542a@slotpi15m67>
-Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
- keydata=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
- QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
+	b=HE1FZOpl3W0JTi+sZ4Ud/5CT6+eSwXPOASVyUjGsEytc4Omd9uuk3icHlwVlQK6Q9
+	 VlhlXaYTy193sUVXEx281R6ETU6fAsi5kgG7nkKOAJq4nEx3u3oglRkpxv3YpjArvN
+	 VMSA0LKFT31wcEZd5mIbI7JaodMCq0ccN8dCUqa7AvY8cXYsZKayoEeDhWNj2bZL1j
+	 mw39gMDzNkno//4phKaTuAy8KmP6Idhffao10UqWmTxx/UKRZbAZefgkRSmhRmbgyi
+	 bKjVY9ffmGdoq32ANPw4cBiQH+y933tykxmobDha5s7t/eEmXB6yQSEpnpRZphTOp2
+	 wunKqpszhi0SQ==
+Subject: Re: [PATCH] net: dsa: mv88e6xxx: fix netdev reference leak on remove
+From: netdev-bot+sashiko@kernel.org
+To: lgs201920130244@gmail.com
+Cc: andrew@lunn.ch, olteanv@gmail.com, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, f.fainelli@gmail.com,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 20:05:39 +0000
+Message-ID: <178967553941.22033.735612463412868083@kernel.org>
+In-Reply-To: <20260916020340.2580417-1-lgs201920130244@gmail.com>
+References: <20260916020340.2580417-1-lgs201920130244@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -124,38 +46,155 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Thu, 2026-09-17 at 14:53 -0400, Chuck Lever wrote:
-> On Thu, 2026-09-17 at 14:10 -0400, Jeff Layton wrote:
-> > Looks like we have the same bug later if idtoname_update() fails too?
->=20
-> I don't think so: when sunrpc_cache_update() fails to allocate the
-> replacement entry, it drops the reference on the old entry itself:
->=20
-> 	tmp =3D detail->alloc();
-> 	if (!tmp) {
-> 		cache_put(old, detail);
-> 		return NULL;
-> 	}
->=20
-> So that exit is already balanced.
->=20
-> > +out_put:
-> > +       cache_put(&res->h, cd);
-> >  out:
->=20
-> On the update failure path, res is NULL here, and cache_put()
-> dereferences it. A shared label would need the "if (res)" guard that
-> expkey_parse() uses.
->=20
-> A shared put label might be a reasonable clean-up, but for a fix
-> headed to stable, the two-line version Wentao posted looks OK
-> to me.
->=20
+Thank you for your contribution! Sashiko AI review found 3 potential
+issue(s) to consider:
 
-I stand corrected then re: the other bug. It might be nice to clean
-that up and make the refcounting more evident, but I agree that should
-wait for a later patch.
+Critical: 0 · High: 1 · Medium: 2 · Low: 0
 
-You can add this:
+- [High] mv88e6xxx_remove() (drivers/net/dsa/mv88e6xxx/chip.c:7499-7500)
+  now calls dev_put(pdata->netdev), but the mv88e6xxx driver never…
+- [Medium] The changelog states as established fact that
+  'mv88e6xxx_probe() uses the referenced network device provided through…
+- [Medium] The commit message asserts 'The probe failure path correctly
+  calls dev_put() for pdata->netdev', but one probe failure exit still…
 
-Reviewed-by: Jeff Layton <jlayton@kernel.org>
+--
+
+net: dsa: mv88e6xxx: fix netdev reference leak on remove
+
+This adds a dev_put(pdata->netdev) call at the end of mv88e6xxx_remove()
+to mirror the dev_put() that already exists on the probe error path, on
+the grounds that a successful probe leaves the platform-data supplied
+net_device reference unbalanced.  The change is tagged Fixes: and
+Cc: stable.
+
+> diff --git a/drivers/net/dsa/mv88e6xxx/chip.c b/drivers/net/dsa/mv88e6xxx/chip.c
+> index 7f68a0c558026..4869fcba34cb4 100644
+> --- a/drivers/net/dsa/mv88e6xxx/chip.c
+> +++ b/drivers/net/dsa/mv88e6xxx/chip.c
+
+>     mv88e6xxx_probe() uses the referenced network device provided through
+>     platform data, but the remove path does not drop the corresponding
+>     reference.
+>
+>     The probe failure path correctly calls dev_put() for pdata->netdev.
+
+[Severity: Medium]
+Can the phrase "uses the referenced network device" be backed up by code in
+the driver?  Searching drivers/net/dsa/mv88e6xxx/ for an acquire turns up
+nothing: there is no dev_hold(), no netdev_hold() and no dev_get_by_name()
+anywhere in the driver.  The only two reference operations are the existing
+dev_put() at the probe out: label and the one this patch adds.
+
+What mv88e6xxx_probe() actually does with pdata->netdev is validate it and
+publish its embedded struct device:
+
+	if (pdata) {
+		compat_info = pdata_device_get_match_data(dev);
+
+		if (!pdata->netdev)
+			return -EINVAL;
+
+		for (port = 0; port < DSA_MAX_PORTS; port++) {
+			...
+			pdata->cd.netdev[port] = &pdata->netdev->dev;
+			break;
+		}
+	}
+
+The DSA core does its own balanced accounting for the conduit in
+dsa_port_parse():
+
+	conduit = to_net_dev(d);
+	netdev_hold(conduit, &dp->conduit_tracker, GFP_KERNEL);
+	put_device(d);
+
+and releases it from dsa_switch_release_ports() (reached via
+dsa_unregister_switch()) and dsa_switch_shutdown().
+
+Also, include/linux/platform_data/mv88e6xxx.h documents only that cd must
+come first; it says nothing about who holds or drops the netdev reference.
+Could the changelog state which side of the interface takes the reference,
+and could that rule be written down in the header if the patch is respun?
+
+One more behavioural note for backporters: before this patch the reference
+was consumed only on probe failure and retained on success; afterwards it is
+also consumed on remove.  A provider written against the old behaviour
+(hold before mdio_device_register(), put after removal) would now double-put.
+
+> @@ -7472,6 +7472,7 @@ static int mv88e6xxx_probe(struct mdio_device *mdiodev)
+>  
+>  static void mv88e6xxx_remove(struct mdio_device *mdiodev)
+>  {
+> +	struct dsa_mv88e6xxx_pdata *pdata = mdiodev->dev.platform_data;
+>  	struct dsa_switch *ds = dev_get_drvdata(&mdiodev->dev);
+>  	struct mv88e6xxx_chip *chip;
+>  
+> @@ -7494,6 +7495,9 @@ static void mv88e6xxx_remove(struct mdio_device *mdiodev)
+>  		mv88e6xxx_irq_poll_free(chip);
+>  
+>  	mv88e6xxx_phy_destroy(chip);
+> +
+> +	if (pdata)
+> +		dev_put(pdata->netdev);
+>  }
+
+[Severity: High]
+Can this underflow the refcount of pdata->netdev?  Since the driver never
+acquires a reference on that net_device, this put has no matching get.
+
+Platform data outlives a single binding, so the put here is not idempotent
+across the device lifetime:
+
+  bind    -> mv88e6xxx_probe()  takes no reference
+  unbind  -> mv88e6xxx_remove() dev_put(pdata->netdev)
+  bind    -> mv88e6xxx_probe()  takes no reference
+  unbind  -> mv88e6xxx_remove() dev_put(pdata->netdev)
+
+The same holds for a deferred or failed probe followed by a successful one:
+the out: label in mv88e6xxx_probe() already issues one put, and remove now
+issues another, for at most one donated reference.
+
+	out:
+		if (pdata)
+			dev_put(pdata->netdev);
+
+		return err;
+
+Once the count drops below what was taken, the conduit net_device can be
+freed while pdata->cd.netdev[] still points at its embedded struct device,
+which the next probe dereferences through dev_find_class()/get_device()/
+to_net_dev() in dsa_port_parse().
+
+Would it be better to make the acquire side explicit, i.e. add a
+dev_hold()/netdev_hold() in mv88e6xxx_probe() paired with puts on both the
+error and remove paths, or alternatively drop the unmatched dev_put() in the
+probe error path?  As written the patch extends the unmatched-put pattern
+rather than balancing it.
+
+[Severity: Medium]
+Taking the ownership model in this patch at face value, is one probe failure
+exit still missing the put?  After the pdata block has validated
+pdata->netdev and stored &pdata->netdev->dev into pdata->cd.netdev[port],
+the compatible check in mv88e6xxx_probe() returns directly:
+
+	if (!compat_info)
+		return -EINVAL;
+
+pdata_device_get_match_data() returns NULL whenever pdata->compatible
+matches no entry of the driver's of_match_table:
+
+	for (; matches->name[0] || matches->type[0] || matches->compatible[0];
+	     matches++) {
+		if (!strcmp(pdata->compatible, matches->compatible))
+			return matches->data;
+	}
+	return NULL;
+
+so that path skips the out: label and its dev_put(pdata->netdev), which
+contradicts the changelog statement that "The probe failure path correctly
+calls dev_put() for pdata->netdev".  Would changing it to
+"err = -EINVAL; goto out;" be appropriate here?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260916020340.2580417-1-lgs201920130244%40gmail.com
