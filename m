@@ -1,44 +1,62 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from out203-205-221-221.mail.qq.com (out203-205-221-221.mail.qq.com [203.205.221.221])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C9FB51AAE28
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:20:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 42EB633CE80
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 03:28:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=203.205.221.221
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789615236; cv=none; b=riOh5l3xTNnVUhot00fK0B7m5lgAuLlo8DaiU4zuIESdC4x8KXvL3ekt+OVFEPRVaLZgKQjzq9Uzg5GC06A3CEhGcuPfm4lBeFN95pwoX27wHzRr17GLpQ+aMsWxIqeSIfa8W6RsUynGmbaA+q9T9kYDr99EpO3ML8WE8mmx25c=
+	t=1789615717; cv=none; b=jtSbyg1UI6ZNjyzSwvrrG9vCgUGjPT4T0UXeS4axTJn0G86Le1gvwB6WpUFBdkr4bpQa2qje4V8CySkyN2JtCUkdoi9JoNUXn00FJrW5k/OfVSOdyfUgb3lgdcsMVBAhSz/s/dgThVx/7Em/pvbay3E3/8J0WSl15ZzJtyW095U=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789615236; c=relaxed/simple;
-	bh=lEWGQjnqxr3VzBx3GwuRKF6jRh0uZ+viHbD/+q6XrRo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Kwcz8kCCuNzP49/K7ZIr3YbkWdR+FMjdAb+a93c776PadUxm82aAKimMxcj8Xe8yuecnC1shZtYJqEWUZZQ5p+wCcQ1DlJNGqU/k7jjpOAp0DDVH6DECbf3vKDnMPFDXFmjKeGhMTDA9M7DpgA/AYvdOMJIBAyIxPQDqrhaVWfU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SBp2SacW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789615717; c=relaxed/simple;
+	bh=UuBRXEqax1SJUMasTPnd6T/Qvzbh0ZWMWtu6X9426Zc=;
+	h=Message-ID:From:To:Cc:Subject:Date:MIME-Version; b=iRLETMCuH3oSuEYeVZ/zrBYkmOjaH2gJRBuqwneuxnSjsLdXhbaEkbrkdzXHvN6SOMV1ScB1LBE6R6LpvtO2Rb8zVlXgDKgba0RV0C+V9IKdE72gM4WlwvCtlA8jpxmaBin3Os839FOkP7mXb4rT74eDoGdOpMYUXtmuNtaaNCE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=d0+gbLPI; arc=none smtp.client-ip=203.205.221.221
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SBp2SacW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B73831F000FF;
-	Thu, 17 Sep 2026 03:20:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789615234;
-	bh=rTkLf+Ry0gjV5dYI4+0/bW3PvH4AymI9essuHw1zFWA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SBp2SacW+uv7Nk/dMGFk80riaBStHWLQNLSAvBM0uiZ2OArE9yMiNUTMIPl9UYQL1
-	 uNxv3XXEIFK//et0OeJ5taD1ogarhg5FWBoeVZ5581LCBSG2QMTVuH9L9LnL4mIH6k
-	 JlmF1t7Oftt4sG5Bm8wfvDrxHovG/NyQ0vk6MXPtV4RVEZA6k/jj1TuzvX6CBCDKHF
-	 QEmSs1mq1fGJOWH5iSTcrJwOR+imjXEAQYRC0auKwV8ybSaRHKt6z/DT8Q+zm91+8X
-	 7k6+PtRCX+SF+0PE6yN496iQSug19ajEjDgVXVKbHStADtJYssQJMiY/UaarTbOvgG
-	 68E6UQMbGlVaA==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Aohan Mei <henrymei@tencent.com>,
-	TencentOS Corvus AI <corvus@tencent.com>,
-	David Howells <dhowells@redhat.com>,
-	Paulo Alcantara <pc@manguebit.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y] smb: client: reject userspace cifs.idmap descriptions
-Date: Wed, 16 Sep 2026 23:20:32 -0400
-Message-ID: <20260917032032.3994854-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091652-deodorize-unison-29a4@gregkh>
-References: <2026091652-deodorize-unison-29a4@gregkh>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="d0+gbLPI"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789615713; bh=ve52XV7wR2TEEGr2PSB+gYgxAZGU+WMmBu988YnETI0=;
+	h=From:To:Cc:Subject:Date;
+	b=d0+gbLPISSwnwS3KZiS+2VM8LDCeLZPsq+fQw09GCev5Lz8ip1imdiwEPm8zHjNOW
+	 Ttjr3KvueHPetzF3H2zbNlj8ZlGgyz7iC+F/BI5ICMZfFyoF3sZbwd/Py+ODTg1XSJ
+	 zd65v+85SxhvMC94iFUmvZ37Af6InKU5FoVctxLY=
+Received: from fs.localdomain ([221.176.157.243])
+	by newxmesmtplogicsvrsza53-0.qq.com (NewEsmtp) with SMTP
+	id 6CC9F455; Thu, 17 Sep 2026 11:27:12 +0800
+X-QQ-mid: xmsmtpt1789615632t2p37w5fw
+Message-ID: <tencent_1289C5B99FB98002A71088AC49394474B20A@qq.com>
+X-QQ-XMAILINFO: MhK4DKsBP06iolasGyoHZz9R6ViOe6/IrzslGynVJj4PtYBjiFsH3yIw3qv5cY
+	 +E9RNcG7zTClRLxzOsMswViuWAhES/DCojxVRIYcyBZKzvUiHiqz9WMLt80UjMlDnZrzd3oRulQn
+	 6/Ei6NSXy1lzWpph4mn/EpDJT8kXLiaCbLOSVHDqJBFUAxFIGTMYGLDKTwyDJeYFnEBU4RBfn2JJ
+	 T2Pw5GLSuQssgoA/5NTtxtI2pEGCmC4q0O1zwZLflf0W40UQXbiqfQvkws44e+wvXq+tre+LtXCj
+	 HOehRuSuk9PEhIaGftOnkmywA26O5n8BJm7Wq8DGlN9Ns8Ud1u+q8FBMK1v5A4z4kgHDEh5kZoTv
+	 IAomd+cyFLMzjDEtc9ZVc8MHXTUeiZvZRh03pgqJf5JL1nQJLvvBmqwJdeslGjQXzW7B6azEw9Rz
+	 Kw2raCSyALqXGzx9A43C6YQmESgmhXPRz3J5H65KMfAnoEesMH2dc7htDnb7/sH9ruMQynx95R7v
+	 N7tmorSAX4yHc1b5nCY6ak3UM3+bbB2tuwxI6PQvhgguI2zvzkzjqCgkfC/TJPgkUkq6OywnYw+S
+	 s3+qvYy/XhzbLPJTVJqXZNHlBom4BDJOy9J9C7qlUlvSS1NYT8YAp1dQig8GH3Qwys9rBxPwSSPQ
+	 nPSHZNon8E/2DVk7egTgqR7vUp8NUESxYatv8J0e/I6Z2a9C+xWUftyGEmyHGTB9IJ69Tfk2bZ0D
+	 MbGaaPhi059LvU81sW2uwKtE8XnQQUGfVf/rtN7xHHUDi34a0SuQ0ajYXxdo3lvLpeG2R0V2HH/M
+	 zXVJOjax7gT1JhlCc64wB4nHLPooxwSQs7/ZatycYduGV5MyH5uviDzP5g8/N2pt+SW4dD5/PKED
+	 LgjWgBzeW9ra5f7CNCY/RczdHUrvRs+zox0lwU+p4QsjJ29XWM04sKQS3wUF6AWYREPhhUZqMK+P
+	 8IVPAkEKY/zxNuOL7VFUoCuOJN4pCccahjsdo62UmmISB+JfwI+3UoarGyxl4b4vM4toUrHlU=
+X-QQ-XMRINFO: M/715EihBoGS47X28/vv4NpnfpeBLnr4Qg==
+From: 781735889@qq.com
+To: linux-ext4@vger.kernel.org
+Cc: tytso@mit.edu,
+	adilger.kernel@dilger.ca,
+	libaokun@linux.alibaba.com,
+	jack@suse.cz,
+	ojaswin@linux.ibm.com,
+	ritesh.list@gmail.com,
+	yi.zhang@huawei.com,
+	harshadshirwadkar@gmail.com,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] ext4: propagate errors from fast commit create replay
+Date: Thu, 17 Sep 2026 11:27:12 +0800
+X-OQ-MSGID: <20260917032712.3696917-1-781735889@qq.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,69 +65,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Aohan Mei <henrymei@tencent.com>
+From: lty <781735889@qq.com>
 
-[ Upstream commit d9d7eeb0cea5b55b82888f443622fd8d4ee064f3 ]
+During fast-commit replay, ext4_fc_replay_create() can fail while
+looking up the parent directory, initializing a new directory, or
+dirtying the replayed inode.  The parent lookup error jumps to the
+cleanup path while ret is still zero.  Errors from ext4_init_new_dir()
+are explicitly converted to zero, and the return value from
+ext4_mark_inode_dirty() is ignored.
 
-cifs.idmap key descriptions carry authority-bearing fields (owner and
-group SIDs and uid/gid values in "os:"/"gs:"/"oi:"/"gi:" form) that the
-cifs.idmap upcall helper treats as kernel-originating inputs.  Unlike
-its sibling cifs.spnego, the cifs.idmap key type has no vet_description
-hook, so userspace can create keys of this type through
-request_key(2)/add_key(2) and supply those fields without CIFS origin.
-A request_key(2) call with a non-NULL callout then drives a root
-usermodehelper upcall (/sbin/request-key -> cifs.idmap) that consumes
-the unvetted description in root context.
+Consequently, replay can report success and mount the filesystem even
+though the directory creation was not completely replayed.  A failed
+parent lookup, for example, leaves an unconnected directory inode.
 
-Only accept cifs.idmap descriptions while CIFS is using its private
-root_cred to request the key.  id_to_sid()/sid_to_id() already run
-under override_creds(root_cred), so the kernel-originated path is
-unaffected.
+Propagate these errors so journal recovery aborts rather than completing
+with inconsistent metadata.
 
-This mirrors commit 3da1fdf4efbc ("smb: client: reject userspace
-cifs.spnego descriptions"), which applied the same restriction to
-cifs.spnego.
+Tested with QEMU fast-commit directory replay and injected failures in
+the parent lookup, directory initialization, and inode dirtying paths.
+Before the change, recovery completed and e2fsck reported an unconnected
+directory inode or inconsistent inode metadata.  With the change, JBD2
+reports recovery failure and the mount fails in all three cases.
 
-Fixes: 4d79dba0e007 ("cifs: Add idmap key and related data structures and functions (try #17 repost)")
-Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Fixes: 8016e29f4362 ("ext4: fast commit recovery path")
 Cc: stable@vger.kernel.org
-Assisted-by: CodeBuddy:Kimi-K3
-Signed-off-by: Aohan Mei <henrymei@tencent.com>
-Acked-by: David Howells <dhowells@redhat.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: lty <781735889@qq.com>
 ---
- fs/cifs/cifsacl.c | 15 +++++++++++++++
- 1 file changed, 15 insertions(+)
+ fs/ext4/fast_commit.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-diff --git a/fs/cifs/cifsacl.c b/fs/cifs/cifsacl.c
-index 1b52e0c88877a..070bc9b46b743 100644
---- a/fs/cifs/cifsacl.c
-+++ b/fs/cifs/cifsacl.c
-@@ -93,8 +93,23 @@ cifs_idmap_key_destroy(struct key *key)
- 		kfree(key->payload.data[0]);
- }
- 
-+static int
-+cifs_idmap_key_vet_description(const char *description)
-+{
-+	/*
-+	 * cifs.idmap descriptions are authority-bearing inputs to the
-+	 * cifs.idmap upcall helper.  Only allow the kernel to create this
-+	 * type of key using the private root_cred installed in
-+	 * init_cifs_idmap; reject userspace request_key(2)/add_key(2).
-+	 */
-+	if (current_cred() != root_cred)
-+		return -EPERM;
-+	return 0;
-+}
-+
- static struct key_type cifs_idmap_key_type = {
- 	.name        = "cifs.idmap",
-+	.vet_description = cifs_idmap_key_vet_description,
- 	.instantiate = cifs_idmap_key_instantiate,
- 	.destroy     = cifs_idmap_key_destroy,
- 	.describe    = user_describe,
+diff --git a/fs/ext4/fast_commit.c b/fs/ext4/fast_commit.c
+index b3c22636251d..e656abd938fb 100644
+--- a/fs/ext4/fast_commit.c
++++ b/fs/ext4/fast_commit.c
+@@ -1656,12 +1656,12 @@ static int ext4_fc_replay_create(struct super_block *sb,
+ 		dir = ext4_iget(sb, darg.parent_ino, EXT4_IGET_NORMAL);
+ 		if (IS_ERR(dir)) {
+ 			ext4_debug("Dir %d not found.", darg.ino);
++			ret = PTR_ERR(dir);
+ 			goto out;
+ 		}
+ 		ret = ext4_init_new_dir(NULL, dir, inode);
+ 		iput(dir);
+ 		if (ret) {
+-			ret = 0;
+ 			goto out;
+ 		}
+ 	}
+@@ -1669,7 +1669,7 @@ static int ext4_fc_replay_create(struct super_block *sb,
+ 	if (ret)
+ 		goto out;
+ 	set_nlink(inode, 1);
+-	ext4_mark_inode_dirty(NULL, inode);
++	ret = ext4_mark_inode_dirty(NULL, inode);
+ out:
+ 	iput(inode);
+ 	return ret;
 -- 
-2.53.0
+2.34.1
 
