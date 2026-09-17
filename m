@@ -1,45 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313EA9475
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:07 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 08683340283
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608789; cv=none; b=mOF6Cm3DwExBt/MDve/UcIAeEIdKtHJzbTGMfpm/9Mofg/DszJ1QnCgzvBzJXbQDWx0EV2kY55mBCNQ0/6FnflRsUaHaVMMGt17DT3iOePTpc7/mEDeR6cluvdAhh6JheJhTOuJfHFQcNLt0nRQrZVv224JJ2db4E376BW9HZ28=
+	t=1789608790; cv=none; b=Tfmyk7Bl/LBnf0vFoD9Lv8Gtmc5E7jqBV1GoPsWjxmQtVHzPtT5lcyopIxG0q9WHjpaZHo0EbSLKkm7ihPFDAZwlaAm3JbzTe+9pUSo8Gqiiu1D8oWZPLn/kzClcyiB3kMiA0FGvYA2LsCywO1JoGRwsAzwh+afDqkezisqvS4s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608789; c=relaxed/simple;
-	bh=+qhvR6VpKNyCMJSxi69jLS8Hwc2Dc9lofOU3aULsPs8=;
+	s=arc-20240116; t=1789608790; c=relaxed/simple;
+	bh=svyeaEfbx7lSdOx3YXC3fQaax7MPXpFD/Zzm5Oj++cw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=HWL31CqJtl13UtBkaucUVBv+0obXcKvQbxXflZzzCOTUzaGIxPVdfPCGrvmmC8KHsa8ayuBFLPCYRfkSF6LaNHJF5BtyzYEyA8DyOwr9VjZsK3FwKwFMB7nzeU9+yToQPeBWNlphHY58jzmpXcIwBJqBd9zIJJZ/njurSot3CgU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuoWODKU; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=TiCX4+x2542m+SNDqInQ4fFGkwkHgUvAjO20skqmD55KS8Ues9VNDjbZXp5maE/0f6G/U3xRSSRc8XM37epLCaHrylDw6Ol6sZl8sayFb+5mKaIdVzoggt71Aqkhz+QjrUxfRVv4IsFuBc8voV4wsIeKxTxV7KJqI39F40Qx4Ls=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=F418Mvf2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuoWODKU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306B71F00898;
-	Thu, 17 Sep 2026 01:33:07 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="F418Mvf2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 585921F000FF;
+	Thu, 17 Sep 2026 01:33:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789608787;
-	bh=QsT/kkWPXdw44MN6LqrsC0bJ/cvm4RBDXw+qM4pfPDg=;
+	s=k20260515; t=1789608788;
+	bh=TddQTRfygl8ty2LR2H/HCoAU7cylaMDhUCL+VDVrd94=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UuoWODKUaW/oMs+JMy6htITGdZdz7y1tZH17RxCeD9PzZi3JVmjmeK2vDSD4U5mla
-	 1f3W7MAAo3py7tAAQDpOaeqxgOryDSSl7bTFi+nGKL12j0tTUEIi0csMFm4812JU0K
-	 x4tjcsNS4Kowazt8+0nKW8+GvWtm+uo2uBCqsngOFI5z/XqGrzEgPUKsZw9fYB3I6i
-	 dltpAUcJVkAHu+VVd9wwaI1BkCi3tGuOExD6s81YkmWy6P3wXJiPe7pmKsPpmarQ5e
-	 WcKhDz2+e6Li6re3YDar5pdy7aeNVVroqffD44utzJIfpe9YqHEZaIRkJLggrUQbas
-	 Ulrmp9rlhjrbQ==
+	b=F418Mvf2xOY4+z/K9LzRD5F4v7ooKfAsyiGbRRplamPO/S8ZGu05zV9zQspmzwLjH
+	 0n3IYbib+kPtIZmyHMDv0WdMPqNK6wL18ie8wLcfzg2XIcpDHpmYZgWUnm3OnJi1zG
+	 5CAtOECq7s/zqbs+1PLc4JrXp5VMgZntmm7TcAcAahCYMBhVRuFXfln8JIhUGujVPm
+	 Kza3FjGMsNEAnS/XDU2/bqblRTG4SkQmUAMkgR2395DUEsdjIB6jb4YbNIx0Oqx3p+
+	 uxuuEJql1tfG1ejHSl8jXoJAavQSBaIMxgM+DBgNHJAG1FOXV9zpBIQ42KV5dSxI6B
+	 V45vk5uMw6+LQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Thomas Richter <tmricht@linux.ibm.com>,
-	Jan Polensky <japo@linux.ibm.com>,
-	Heiko Carstens <hca@linux.ibm.com>,
-	Vasily Gorbik <gor@linux.ibm.com>,
+Cc: Arie Miller <renari@arimil.com>,
+	Aleksa Savic <savicaleksa83@gmail.com>,
+	Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 3/3] s390/pai: Support CPU hotplug for PMU PAI
-Date: Wed, 16 Sep 2026 21:33:03 -0400
-Message-ID: <20260917013303.3594106-3-sashal@kernel.org>
+Subject: [PATCH 7.2.y 1/2] hwmon: (asus_rog_ryujin) Add per-device configuration
+Date: Wed, 16 Sep 2026 21:33:06 -0400
+Message-ID: <20260917013307.3594404-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917013303.3594106-1-sashal@kernel.org>
-References: <2026091643-probably-sprinkled-c1c7@gregkh>
- <20260917013303.3594106-1-sashal@kernel.org>
+In-Reply-To: <2026091601-wrongness-chase-78d5@gregkh>
+References: <2026091601-wrongness-chase-78d5@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,369 +46,194 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Thomas Richter <tmricht@linux.ibm.com>
+From: Arie Miller <renari@arimil.com>
 
-[ Upstream commit 9ecc4d033879f7761f2df07e20cd2fbec00fd90b ]
+[ Upstream commit b20ee9aee8779427d2f9de99cbb578b048bf7c04 ]
 
-The command 'perf stat -e pai_crypto/CRYPTO_ALL/ -- <command>'
-crashes the kernel when CPUs are hotplug added during that run.
+Move model-specific report offsets and capabilities into a device
+information structure. This prepares the driver for coolers which use
+a different report layout or do not include the external fan
+controller, while preserving the existing Ryujin II 360 behavior.
 
-Root cause is the missing allocation of per-CPU data structures
-for that new CPU. The allocation is dynamic and the first
-event that has task context creates such a structure for
-each online CPU. This is not sufficient. CPUs may be offline
-during event creation and can be set online during the
-perf run time. For example commands
+Handles an issue reported by Sashiko where an id could
+be missing driver_data.
 
- # echo 0 > /sys/devices/system/cpu/cpu1/online
- # perf stat -e cycles -i -- stress-ng -t10s --matrix X
- # sleep 1
- # echo 1 > /sys/devices/system/cpu/cpu1/online
-
-Currently without a CPU hotplug handler, that new CPU has no
-per-CPU data infrastructure. The scheduler runs PMU call back
-function pai_add() to install the PMU support for that CPU before
-the task is being scheduled on that new CPU.
-In pai_add() instructions
-
-    mp = this_cpu_ptr(pai_root[idx].mapptr);
-    cpump = mp->mapptr;
-
-return a NULL pointer and the result is a kernel panic as variable
-cpump is used inside that function.
-
-Add CPU hotplug support for CPU add and delete and create
-the necessary per-CPU data infrastructure during CPU hotplug
-add processing. Same for CPU hotplug remove.
-This is done when the CPU is offline to ensure the data structures
-are available when CPU is made online and tasks are scheduled on it.
-
-[hca@linux.ibm.com: fixup error path in pai_init()]
-
-Cc: stable@vger.kernel.org # v6.19
-Fixes: 582cc1b28e8c ("s390/pai_ext: Enable per-task and system-wide sampling event")
-Fixes: 9f66572f2889 ("s390/pai_crypto: Enable per-task and system-wide sampling event")
-Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
-Reviewed-by: Jan Polensky <japo@linux.ibm.com>
-Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
-Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
+Link: https://lore.kernel.org/r/5a817284-a9f4-48b2-9f0f-802c5dc6963c@roeck-us.net
+Assisted-by: Codex:gpt-5.6-sol sparse
+Signed-off-by: Arie Miller <renari@arimil.com>
+Reviewed-by: Aleksa Savic <savicaleksa83@gmail.com>
+Link: https://lore.kernel.org/r/20260812103532.395049-2-renari@arimil.com
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Stable-dep-of: 8042312e73c5 ("hwmon: (asus_rog_ryujin) Validate HID report lengths")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/include/asm/pai.h |   1 -
- arch/s390/kernel/perf_pai.c | 178 ++++++++++++++++++++++++++----------
- 2 files changed, 128 insertions(+), 51 deletions(-)
+ drivers/hwmon/asus_rog_ryujin.c | 75 +++++++++++++++++++++++----------
+ 1 file changed, 52 insertions(+), 23 deletions(-)
 
-diff --git a/arch/s390/include/asm/pai.h b/arch/s390/include/asm/pai.h
-index 534d0320e2aa0..a3456a36aaa72 100644
---- a/arch/s390/include/asm/pai.h
-+++ b/arch/s390/include/asm/pai.h
-@@ -76,7 +76,6 @@ static __always_inline void pai_kernel_exit(struct pt_regs *regs)
- }
+diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
+index 10a1f5aca988d..80563ce38519d 100644
+--- a/drivers/hwmon/asus_rog_ryujin.c
++++ b/drivers/hwmon/asus_rog_ryujin.c
+@@ -18,15 +18,25 @@
+ #define USB_VENDOR_ID_ASUS_ROG		0x0b05
+ #define USB_PRODUCT_ID_RYUJIN_AIO	0x1988	/* ASUS ROG RYUJIN II 360 */
  
- #define PAI_SAVE_AREA(x)	((x)->hw.event_base)
--#define PAI_CPU_MASK(x)		((x)->hw.addr_filters)
- #define PAI_PMU_IDX(x)		((x)->hw.last_tag)
- #define PAI_SWLIST(x)		(&(x)->hw.tp_list)
- 
-diff --git a/arch/s390/kernel/perf_pai.c b/arch/s390/kernel/perf_pai.c
-index 52d9f654346a2..ddb6b96b89660 100644
---- a/arch/s390/kernel/perf_pai.c
-+++ b/arch/s390/kernel/perf_pai.c
-@@ -67,6 +67,7 @@ struct pai_mapptr {
- 
- static struct pai_root {		/* Anchor to per CPU data */
- 	refcount_t refcnt;		/* Overall active events */
-+	atomic_t tskctx;		/* Overall per-task events */
- 	struct pai_mapptr __percpu *mapptr;
- } pai_root[PAI_PMU_MAX];
- 
-@@ -93,14 +94,15 @@ struct pai_pmu {			/* Define PAI PMU characteristics */
- static struct pai_pmu pai_pmu[];	/* Forward declaration */
- 
- /* Free per CPU data when the last event is removed. */
--static void pai_root_free(int idx)
-+static void pai_root_free(int idx, int tasks)
- {
--	if (refcount_dec_and_test(&pai_root[idx].refcnt)) {
-+	if (refcount_sub_and_test(tasks, &pai_root[idx].refcnt)) {
- 		free_percpu(pai_root[idx].mapptr);
- 		pai_root[idx].mapptr = NULL;
- 	}
--	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d\n", __func__,
--			    idx, refcount_read(&pai_root[idx].refcnt));
-+	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d tskctx %d\n",
-+			    __func__, idx, refcount_read(&pai_root[idx].refcnt),
-+			    atomic_read(&pai_root[idx].tskctx));
- }
- 
- /*
-@@ -137,20 +139,36 @@ static void pai_free(struct pai_mapptr *mp)
- 	mp->mapptr = NULL;
- }
- 
--/* Adjust usage counters and remove allocated memory when all users are
-- * gone. Called under mutex_lock.
-- */
--static void pai_event_destroy_cpu(int idx, int cpu)
-+/* Called under mutex_lock */
-+static void pai_event_destroy_cpu(int idx, int cpu, bool hotplug)
- {
--	struct pai_mapptr *mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
--	struct pai_map *cpump = mp->mapptr;
-+	struct pai_mapptr *mp;
-+	struct pai_map *cpump;
-+	int tasks = 1;
- 
--	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
--			    __func__, cpump->active_events,
--			    refcount_read(&cpump->refcnt));
--	if (refcount_dec_and_test(&cpump->refcnt))
-+	/* Check reference count and return when all gone.
-+	 * 1. An event is installed on online CPU X.
-+	 * 2. CPU x is offlined and the per-CPU data is removed.
-+	 * 3. Event is destroyed via close system call.
-+	 */
-+	if (!refcount_read(&pai_root[idx].refcnt))
-+		return;			/* No events at all */
-+	mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
-+	if (!mp || !mp->mapptr)		/* No events on that CPU */
-+		return;
++struct rog_ryujin_device_info {
++	u8 temp_offset;
++	u8 pump_speed_offset;
++	u8 fan_speed_offset;
++	u8 duty_channel;
++	bool has_controller;
++};
 +
-+	/* When hotplug is true, invocation is from CPU hotplug callback.
-+	 * Delete per-CPU resource and adjust refcnt when per-task events
-+	 * are currently active. This can be more than one.
-+	 * In this case adjust counters.
-+	 */
-+	if (hotplug)
-+		tasks = atomic_read(&pai_root[idx].tskctx);
++static const struct rog_ryujin_device_info rog_ryujin_ii_360_info = {
++	.temp_offset = 3,
++	.pump_speed_offset = 5,
++	.fan_speed_offset = 7,
++	.duty_channel = 0,
++	.has_controller = true,
++};
 +
-+	cpump = mp->mapptr;
-+	if (refcount_sub_and_test(tasks, &cpump->refcnt))
- 		pai_free(mp);
--	pai_root_free(idx);
-+	pai_root_free(idx, tasks);
- }
+ #define STATUS_VALIDITY		1500	/* ms */
+ #define MAX_REPORT_LENGTH	65
  
- static void pai_event_destroy(struct perf_event *event)
-@@ -158,17 +176,17 @@ static void pai_event_destroy(struct perf_event *event)
- 	int cpu = 0, idx = PAI_PMU_IDX(event);
- 
- 	free_page(PAI_SAVE_AREA(event));
-+	cpus_read_lock();
- 	mutex_lock(&pai_reserve_mutex);
- 	if (event->cpu == -1) {
--		struct cpumask *mask = PAI_CPU_MASK(event);
+-/* Cooler status report offsets */
+-#define RYUJIN_TEMP_SENSOR_1		3
+-#define RYUJIN_TEMP_SENSOR_2		4
+-#define RYUJIN_PUMP_SPEED		5
+-#define RYUJIN_INTERNAL_FAN_SPEED	7
 -
--		for_each_cpu(cpu, mask)
--			pai_event_destroy_cpu(idx, cpu);
--		kfree(mask);
-+		atomic_dec(&pai_root[idx].tskctx);
-+		for_each_online_cpu(cpu)
-+			pai_event_destroy_cpu(idx, cpu, false);
- 	} else {
--		pai_event_destroy_cpu(idx, event->cpu);
-+		pai_event_destroy_cpu(idx, event->cpu, false);
- 	}
- 	mutex_unlock(&pai_reserve_mutex);
-+	cpus_read_unlock();
- }
- 
- static void paicrypt_event_destroy(struct perf_event *event)
-@@ -232,17 +250,25 @@ static u64 paicrypt_getall(struct perf_event *event)
- 	return sum;
- }
- 
--/* Allocate all per-CPU data structures. This function is called in
-- * process context and can block. In case of error all partly allocated
-- * memory is released and the reference counters adjusted correctly.
-- * Called under mutex_lock.
-- */
--static int pai_alloc_cpu(int idx, int cpu)
-+/* Called under mutex_lock */
-+static int pai_alloc_cpu(int idx, int cpu, bool hotplug)
+ /* Cooler duty report offsets */
+ #define RYUJIN_PUMP_DUTY		4
+ #define RYUJIN_INTERNAL_FAN_DUTY	5
+@@ -81,6 +91,7 @@ static const char *const rog_ryujin_speed_label[] = {
+ struct rog_ryujin_data {
+ 	struct hid_device *hdev;
+ 	struct device *hwmon_dev;
++	const struct rog_ryujin_device_info *info;
+ 	/* For reinitializing the completions below */
+ 	spinlock_t status_report_request_lock;
+ 	struct completion cooler_status_received;
+@@ -112,6 +123,8 @@ static int rog_ryujin_pwm_to_percent(long val)
+ static umode_t rog_ryujin_is_visible(const void *data,
+ 				     enum hwmon_sensor_types type, u32 attr, int channel)
  {
- 	struct pai_map *cpump = NULL;
- 	bool need_paiext_cb = false;
- 	struct pai_mapptr *mp;
--	int rc;
-+	int tasks = 1, rc = 0;
++	const struct rog_ryujin_data *priv = data;
 +
-+	/* When hotplug is true, invocation is from CPU hotplug callback.
-+	 * Allocate per-CPU resource when per-task events are currently active.
-+	 * This can be more than one. In this case adjust all reference
-+	 * counters. Otherwise return, this ensures memory is only allocated
-+	 * when needed.
-+	 */
-+	if (hotplug) {
-+		tasks = atomic_read(&pai_root[idx].tskctx);
-+		if (!tasks)
-+			goto out;
+ 	switch (type) {
+ 	case hwmon_temp:
+ 		switch (attr) {
+@@ -123,6 +136,8 @@ static umode_t rog_ryujin_is_visible(const void *data,
+ 		}
+ 		break;
+ 	case hwmon_fan:
++		if (channel >= 2 && !priv->info->has_controller)
++			return 0;
+ 		switch (attr) {
+ 		case hwmon_fan_label:
+ 		case hwmon_fan_input:
+@@ -132,6 +147,8 @@ static umode_t rog_ryujin_is_visible(const void *data,
+ 		}
+ 		break;
+ 	case hwmon_pwm:
++		if (channel >= 2 && !priv->info->has_controller)
++			return 0;
+ 		switch (attr) {
+ 		case hwmon_pwm_input:
+ 			return 0644;
+@@ -198,12 +215,14 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
+ 	if (ret < 0)
+ 		return ret;
+ 
+-	/* Retrieve controller status (speeds) */
+-	ret =
+-	    rog_ryujin_execute_cmd(priv, get_controller_speed_cmd, GET_CMD_LENGTH,
+-				   &priv->controller_status_received);
+-	if (ret < 0)
+-		return ret;
++	if (priv->info->has_controller) {
++		/* Retrieve controller status (speeds) */
++		ret = rog_ryujin_execute_cmd(priv, get_controller_speed_cmd,
++					     GET_CMD_LENGTH,
++					     &priv->controller_status_received);
++		if (ret < 0)
++			return ret;
 +	}
  
- 	/* Allocate root node */
- 	rc = pai_root_alloc(idx);
-@@ -291,26 +317,42 @@ static int pai_alloc_cpu(int idx, int cpu)
- 			goto undo;
- 		}
- 		INIT_LIST_HEAD(&cpump->syswide_list);
--		refcount_set(&cpump->refcnt, 1);
-+		refcount_set(&cpump->refcnt, tasks);
- 		rc = 0;
- 	} else {
--		refcount_inc(&cpump->refcnt);
-+		refcount_add(tasks, &cpump->refcnt);
- 	}
-+	/* If tasks is greater than 1, we are called from CPU hotplug path
-+	 * and need to adjust the pai_root[idx].refcnt by the number of
-+	 * per-process events. Function pai_root_alloc(idx) already
-+	 * incremented by one. Adjust for the rest.
-+	 */
-+	if (tasks > 1)
-+		refcount_add(tasks - 1, &pai_root[idx].refcnt);
+ 	/* Retrieve cooler duty */
+ 	ret =
+@@ -212,12 +231,14 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
+ 	if (ret < 0)
+ 		return ret;
  
- undo:
- 	if (rc) {
- 		/* Error in allocation of event, decrement anchor. Since
- 		 * the event in not created, its destroy() function is never
- 		 * invoked. Adjust the reference counter for the anchor.
-+		 * The failure happened in the case of variable
-+		 * cpump == NULL branch above. The pai_root[XXX].refcnt has
-+		 * been incremented by one. Then the per-CPU allocation
-+		 * failed, so decrement it by one, regardless of tasks.
- 		 */
--		pai_root_free(idx);
-+		pai_root_free(idx, 1);
- 	}
- out:
- 	/* If rc is non-zero, no increment of counter/sampler was done. */
- 	return rc;
- }
+-	/* Retrieve controller duty */
+-	ret =
+-	    rog_ryujin_execute_cmd(priv, get_controller_duty_cmd, GET_CMD_LENGTH,
+-				   &priv->controller_duty_received);
+-	if (ret < 0)
+-		return ret;
++	if (priv->info->has_controller) {
++		/* Retrieve controller duty */
++		ret = rog_ryujin_execute_cmd(priv, get_controller_duty_cmd,
++					     GET_CMD_LENGTH,
++					     &priv->controller_duty_received);
++		if (ret < 0)
++			return ret;
++	}
  
--/* Called under mutex_lock */
-+/* Check concurrent access of counting and sampling for PAI events.
-+ * This function is called in process context and it is safe to block.
-+ * When the event initialization functions fails, no other call back will
-+ * be invoked.
-+ * Called under mutex_lock.
-+ */
- static int pai_alloc(struct perf_event *event)
- {
- 	int idx = PAI_PMU_IDX(event);
-@@ -322,24 +364,20 @@ static int pai_alloc(struct perf_event *event)
- 		goto out;
- 
- 	for_each_online_cpu(cpu) {
--		rc = pai_alloc_cpu(idx, cpu);
-+		rc = pai_alloc_cpu(idx, cpu, false);
- 		if (rc) {
- 			for_each_cpu(cpu, maskptr)
--				pai_event_destroy_cpu(idx, cpu);
--			kfree(maskptr);
--			goto out;
-+				pai_event_destroy_cpu(idx, cpu, false);
-+			goto undo;
- 		}
- 		cpumask_set_cpu(cpu, maskptr);
- 	}
- 
--	/*
--	 * On error all cpumask are freed and all events have been destroyed.
--	 * Save of which CPUs data structures have been allocated for.
--	 * Release them in pai_event_destroy call back function
--	 * for this event.
--	 */
--	PAI_CPU_MASK(event) = maskptr;
- 	rc = 0;
-+	/* Trace per-task events for CPU hotplug. */
-+	atomic_inc(&pai_root[idx].tskctx);
-+undo:
-+	kfree(maskptr);
- out:
- 	return rc;
- }
-@@ -387,12 +425,14 @@ static int pai_event_init(struct perf_event *event, int idx)
- 		}
- 	}
- 
-+	cpus_read_lock();
- 	mutex_lock(&pai_reserve_mutex);
- 	if (event->cpu >= 0)
--		rc = pai_alloc_cpu(idx, event->cpu);
-+		rc = pai_alloc_cpu(idx, event->cpu, false);
- 	else
- 		rc = pai_alloc(event);
- 	mutex_unlock(&pai_reserve_mutex);
-+	cpus_read_unlock();
- 	if (rc) {
- 		free_page(PAI_SAVE_AREA(event));
- 		goto out;
-@@ -1216,8 +1256,35 @@ static int __init paipmu_setup(void)
- 	return install_ok;
- }
- 
-+static int pai_online_cpu(unsigned int cpu)
-+{
-+	int rc;
-+
-+	mutex_lock(&pai_reserve_mutex);
-+	rc = pai_alloc_cpu(PAI_PMU_CRYPTO, cpu, true);
-+	if (rc)
-+		goto out;
-+	rc = pai_alloc_cpu(PAI_PMU_EXT, cpu, true);
-+	if (rc)
-+		pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-+out:
-+	mutex_unlock(&pai_reserve_mutex);
-+	return rc;
-+}
-+
-+static int pai_offline_cpu(unsigned int cpu)
-+{
-+	mutex_lock(&pai_reserve_mutex);
-+	pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
-+	pai_event_destroy_cpu(PAI_PMU_EXT, cpu, true);
-+	mutex_unlock(&pai_reserve_mutex);
-+	return 0;
-+}
-+
- static int __init pai_init(void)
- {
-+	int state, rc;
-+
- 	/* Setup s390dbf facility */
- 	paidbg = debug_register("pai", 32, 256, 128);
- 	if (!paidbg) {
-@@ -1226,13 +1293,24 @@ static int __init pai_init(void)
- 	}
- 	debug_register_view(paidbg, &debug_sprintf_view);
- 
--	if (!paipmu_setup()) {
--		/* No PMU registration, no need for debug buffer */
--		debug_unregister_view(paidbg, &debug_sprintf_view);
--		debug_unregister(paidbg);
--		return -ENODEV;
--	}
-+	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
-+	state = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
-+				  pai_online_cpu, pai_offline_cpu);
-+	rc = state < 0 ? state : 0;
-+	if (rc < 0)
-+		goto out_debug;
-+
-+	rc = -ENODEV;
-+	if (!paipmu_setup())
-+		goto out_cpuhp;
+ 	priv->updated = jiffies;
  	return 0;
+@@ -289,6 +310,7 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
+ 			return ret;
+ 
+ 		memcpy(set_cmd, set_cooler_duty_cmd, SET_CMD_LENGTH);
++		set_cmd[2] = priv->info->duty_channel;
+ 
+ 		/* Cooler duties are set as 0-100% */
+ 		val = rog_ryujin_pwm_to_percent(val);
+@@ -394,10 +416,12 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
+ 
+ 	if (data[1] == RYUJIN_GET_COOLER_STATUS_CMD_RESPONSE) {
+ 		/* Received coolant temp and speeds of pump and internal fan */
+-		priv->temp_input[0] =
+-		    data[RYUJIN_TEMP_SENSOR_1] * 1000 + data[RYUJIN_TEMP_SENSOR_2] * 100;
+-		priv->speed_input[0] = get_unaligned_le16(data + RYUJIN_PUMP_SPEED);
+-		priv->speed_input[1] = get_unaligned_le16(data + RYUJIN_INTERNAL_FAN_SPEED);
++		priv->temp_input[0] = data[priv->info->temp_offset] * 1000 +
++			data[priv->info->temp_offset + 1] * 100;
++		priv->speed_input[0] =
++			get_unaligned_le16(data + priv->info->pump_speed_offset);
++		priv->speed_input[1] =
++			get_unaligned_le16(data + priv->info->fan_speed_offset);
+ 
+ 		if (!completion_done(&priv->cooler_status_received))
+ 			complete_all(&priv->cooler_status_received);
+@@ -471,11 +495,15 @@ static int rog_ryujin_probe(struct hid_device *hdev, const struct hid_device_id
+ 	struct rog_ryujin_data *priv;
+ 	int ret;
+ 
++	if (!id->driver_data)
++		return -EINVAL;
 +
-+out_cpuhp:
-+	cpuhp_remove_state(state);
-+out_debug:
-+	debug_unregister_view(paidbg, &debug_sprintf_view);
-+	debug_unregister(paidbg);
-+	return rc;
+ 	priv = devm_kzalloc(&hdev->dev, sizeof(*priv), GFP_KERNEL);
+ 	if (!priv)
+ 		return -ENOMEM;
+ 
+ 	priv->hdev = hdev;
++	priv->info = (const struct rog_ryujin_device_info *)id->driver_data;
+ 	hid_set_drvdata(hdev, priv);
+ 
+ 	/*
+@@ -546,7 +574,8 @@ static void rog_ryujin_remove(struct hid_device *hdev)
  }
  
- device_initcall(pai_init);
+ static const struct hid_device_id rog_ryujin_table[] = {
+-	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_AIO) },
++	{ HID_USB_DEVICE(USB_VENDOR_ID_ASUS_ROG, USB_PRODUCT_ID_RYUJIN_AIO),
++	  .driver_data = (kernel_ulong_t)&rog_ryujin_ii_360_info },
+ 	{ }
+ };
+ 
 -- 
 2.53.0
 
