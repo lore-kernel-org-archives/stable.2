@@ -1,39 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D90AA4F3ECF;
-	Thu, 17 Sep 2026 16:54:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32B674E5322;
+	Thu, 17 Sep 2026 16:54:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664079; cv=none; b=mOqoxq1Ul3hQOdV1bj4cBy09vm9ePriO1DkQ5U/ORHL7IZAJjs4TNJJqmYwe70ypjUhJS6BOMMzutaUE+80vvWqOfSt1soO7zFEaZv/+3X4ASMIQtfehu3I4V/2KIidWmP9EuS3kj3qjXI6uCUgri4u0CV2LJngCc7DUx0lbvJ8=
+	t=1789664080; cv=none; b=eR2hF8Una3ymyWfulHo9BMM8XnEYVJ3U5Az1bRy7ZHMlLjZiSjQoNUvEo8Q5W14QQFo1JBuNq1DOnv0R7xkvPEKjiff1Zqe3JBYy1b86M7DLJYiS/nSOG3ficZIm99Pwr9KIW1K7t2bkkgH5UKPeAMXa+M90ooc2uYrkAbdo1XI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664079; c=relaxed/simple;
-	bh=GahaTV1cYprA4Z37rqEEhD9QL7BlwJnxXyldrN+h4p0=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=pQNaX9TdYg0Xi07epEyb9uBuf7aRo1zgnTWebfoEUw4Q4W/frf9JOByIpzwfh3eBRdcLZuy9zg7ODrdP5ZgRLUzE3DgYecgPslVq43E60wRjbziKt4TEKaC9ASY1tNCFAktNbihO+Z+98xlDER/8HPGtqp/BGsfvNfAVNVSLqmU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADXB0JGG6xqMOCECA--.875S2;
-	Fri, 18 Sep 2026 00:54:30 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: Xiubo.Lee@gmail.com
-Cc: broonie@kernel.org,
-	festevam@gmail.com,
-	lgirdwood@gmail.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	nicoleotsuka@gmail.com,
-	perex@perex.cz,
-	shengjiu.wang@gmail.com,
-	tiwai@suse.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: fsl-asoc-card: Fix ASRC device leak in fsl_asoc_card_probe()
-Date: Thu, 17 Sep 2026 16:54:30 +0000
-Message-Id: <20260917165430.2163372-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789664080; c=relaxed/simple;
+	bh=/ZCDvxjHOS3VuCSjGP0cQQMMznjceq2rMHQdA+gTe8M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eqWiXc7lJ1ac52dFiS5A6de5nB5XWRIEaOptMDGALVSZqt2f/b/fOnclv9ALNc8hMoFeYOhDlraYaAMYXbHn34VQrIPHtrMJWerizLvn4CI2HTqaJblDsWoOOAQkvbWiDnwXwZH84ZrsSp0DFP1r8vk7hrtBbUhQ8dgFVsf8p9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=uWU0SvWc; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="uWU0SvWc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 367441F000FF;
+	Thu, 17 Sep 2026 16:54:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789664078;
+	bh=SCAlLhBFdXFffxd1Z5w1zQdkGuFdXfUWch23549wuxU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=uWU0SvWcpJ5E9JOPXIdk9trXMdzFuqFzdUpoQttS89ZX5i/ED7LMIll4zAudDDrAW
+	 Yv3F0gNX1q7aKYGbXF4GEs5VDspdTzymZFLRAPLg1pGTG+Nxvw/YzKuJEXaCtJI/XB
+	 1717TsuO+TktosxX/VgXZW78oL9/m+0RaM4CYGFY=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Wei Qisen <weixiansen574@163.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0250/1250] net: sfp: add quirk for OEM 2.5G optical modules
+Date: Thu, 17 Sep 2026 16:00:45 +0100
+Message-ID: <20260917151558.927280306@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -41,51 +46,56 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADXB0JGG6xqMOCECA--.875S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrurW7ZF1UCFy8Gw1rJF4fKrg_yoWkGFX_t3
-	Wku3s3ZFy8Jrn2kry5Wrs8urn7urnFgay8G3yDKF18W34YqrW3Xay5tr98uFWqv3y0vwn3
-	J3WDZrWrXry3WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
-	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
-	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwINA2qr9thV5wAAsW
 
-of_find_device_by_node() returns the ASRC platform device with a
-reference taken, but asrc_pdev is only used during probe to set up the
-DPCM DAI links and is never released. The shared exit path already drops
-the CPU device reference, so release the ASRC one there too, covering
-both the error paths and the successful registration path.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Fixes: 708b4351f08c ("ASoC: fsl: Add Freescale Generic ASoC Sound Card with ASRC support")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+------------------
+
+From: Wei Qisen <weixiansen574@163.com>
+
+[ Upstream commit 5af067bf8a64dac896f120a98fe2ca656df92562 ]
+
+Some OEM-branded SFP modules are incorrectly detected as
+1000Base-X and fail to establish link on 2.5G-capable ports.
+
+These modules do not properly advertise 2500Base-X capability
+in their EEPROM and require forcing the correct SerDes mode.
+
+Add sfp_quirk_2500basex for:
+
+  - OEM SFP-2.5G-LH03-B
+  - OEM SFP-2.5G-LH20-A
+
+Both modules report:
+
+  Vendor name: OEM
+  Vendor PN: SFP-2.5G-LH03-B / SFP-2.5G-LH20-A
+
+Tested on OpenWrt with successful 2.5G link establishment.
+
+Signed-off-by: Wei Qisen <weixiansen574@163.com>
+Link: https://patch.msgid.link/20260526055206.1750-1-weixiansen574@163.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/fsl/fsl-asoc-card.c | 2 ++
+ drivers/net/phy/sfp.c | 2 ++
  1 file changed, 2 insertions(+)
 
-diff --git a/sound/soc/fsl/fsl-asoc-card.c b/sound/soc/fsl/fsl-asoc-card.c
-index 70a6159430ed..3fdc77d5968b 100644
---- a/sound/soc/fsl/fsl-asoc-card.c
-+++ b/sound/soc/fsl/fsl-asoc-card.c
-@@ -1069,6 +1069,8 @@ static int fsl_asoc_card_probe(struct platform_device *pdev)
- 	of_node_put(asrc_np);
- 	of_node_put(codec_np[0]);
- 	of_node_put(codec_np[1]);
-+	if (asrc_pdev)
-+		put_device(&asrc_pdev->dev);
- 	put_device(&cpu_pdev->dev);
- fail:
- 	of_node_put(cpu_np);
+diff --git a/drivers/net/phy/sfp.c b/drivers/net/phy/sfp.c
+index 9683f9c2cd882..af43530ffb2c3 100644
+--- a/drivers/net/phy/sfp.c
++++ b/drivers/net/phy/sfp.c
+@@ -583,6 +583,8 @@ static const struct sfp_quirk sfp_quirks[] = {
+ 	SFP_QUIRK_S("OEM", "SFP-2.5G-T", sfp_quirk_oem_2_5g),
+ 	SFP_QUIRK_S("OEM", "SFP-2.5G-BX10-D", sfp_quirk_2500basex),
+ 	SFP_QUIRK_S("OEM", "SFP-2.5G-BX10-U", sfp_quirk_2500basex),
++	SFP_QUIRK_S("OEM", "SFP-2.5G-LH03-B", sfp_quirk_2500basex),
++	SFP_QUIRK_S("OEM", "SFP-2.5G-LH20-A", sfp_quirk_2500basex),
+ 	SFP_QUIRK_F("OEM", "RTSFP-10", sfp_fixup_rollball_cc),
+ 	SFP_QUIRK_F("OEM", "RTSFP-10G", sfp_fixup_rollball_cc),
+ 	SFP_QUIRK_F("Turris", "RTSFP-2.5G", sfp_fixup_rollball),
 -- 
-2.34.1
+2.53.0
+
+
 
