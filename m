@@ -1,90 +1,42 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BAE363BB12B
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 04:00:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E0133BBFA1
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 04:02:47 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789617622; cv=none; b=sWk/SuOjXV9XW7+LDsaKLqbUpuY8XqZhbYV/2RYQIr9mLs1nYLWB8a8TwTvPTpDKF68T/eGilme8M2XfxwwZLgGCLO58UGXW5YpgxOhDvTEtkG45Z6jJTbFmZhEgkQGAR6/PZRb4K6phUAL3XmrwRS02gdkYI/1SQRlLxEkhS8U=
+	t=1789617768; cv=none; b=cEoBvD3/AqatIpxSTSY7vB4evvUrtXj/ZZqKaeXxiNL7Okp2nDdhlp7GQC9M04yiw2Oo7W+k1h29U3m+LNXoRM9Wqz+Fn57LSb4zfTpQUTz6nXUYWYfREpENFP/74CkeqgtmHMQDXzUQRdDKaNeXJSW1SHf0z8sY0QSczLOmFxs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789617622; c=relaxed/simple;
-	bh=NndGd9GOf0I6NO8Ce3nP+s13O09BbawYzE6kgfvxPZY=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=XjIEHsg1TXICtQeOZ3QMrn/sW6Fjc1Seb9luXhLzitPWAG84fnSNVrGox+Pa+Q3BLrOaPDJWjlABtnSWpWFrRZEkFrretKyIO61ATL7pIpWrVo/gP14PAmEApp8eGRR/QbRz0SeNRQyrClgkTPTZQSF/8TeVZwQZq03TxNQXCS0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qPELqpR0; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789617768; c=relaxed/simple;
+	bh=2afOKN0omQh6usp9zXUcdY1fVWgzEwNFPtSC6PXfoGQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=YisVHBsmx21bpNlxXKHXUAlUQrvJwIdGb3Y8TU43BeEEcLSENioolCijFT5Jk/VBLufzBEclWxEUJttbsWj81oKsvUakBbdYiEZMKnT07yi+7bVvDTGPsWfyXk39v6BGa7zMFIGUrEj5FRCYoz2jksKpi9NP53+HHzUuZIvndSY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nI8ZziYH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qPELqpR0"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d3931so2559045e9.3
-        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 21:00:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789617617; x=1790222417; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TH7pqPWttSJGp/Lqeiet7/X4Ui7u8p69YinbdJusLhk=;
-        b=qPELqpR04YALqjxUxYX27T5X6LbKk7qrq2qS4kGgGTQpyIJTtjUNQOrjXzVat2nJR7
-         cvWbz/2JETY+eWMI5n/cGRtA4oVq+IorawxoFFcbvWCN/QgnI/Li/oJW55jlXl2wrhsV
-         twyuzaKIivXO3EQQKVwb++qJFll81qA36yH9L8JeqFXW2mWXBlpS4CfuM5scboFuWneB
-         EILTypVnyiaTrh/ZsQTpCGdE44iHP7oDfsclJ68X+avzaBrYLMBQ9PUXJCl2SNk4US4j
-         p82EAspswa8ms4XxoRVCeSJ+NciuPPSlw3ClQAN6/sdvk+qGCMttXAnsmbCdz0v8xi83
-         Z1pA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789617617; x=1790222417;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TH7pqPWttSJGp/Lqeiet7/X4Ui7u8p69YinbdJusLhk=;
-        b=JgV5dz/csMH3m08OzvkxwuCfXbmoStMbRHiaV8btC7FySwv4AkAg3bNF+QgIJhEizB
-         JSMfoctz44rEudDrI/pKJdFB1OrBTZL6b7s+f3k84pyuR6vxaFJqITnaIAvr9Es9YTit
-         saDj5+IFwpalLepT/erSgm6hexkk+ZVluAOLKAgQRVzZbl+2ZMf60rXdQiYYcZTORZIH
-         NKRsCPT4MbpXYJDUfAHKJAH6Sme7Xa5Qaaq2jFk+etBeg4RoXIfYBlxsTVYuvro9Wswt
-         W+8Ytx1HsAKYUKqYFNTf6egvTp4fQIJrJ3TdUZ+Q31eWmBaBw1rVlYtGFY0QogPmN5eZ
-         4YEw==
-X-Gm-Message-State: AFuF++k8QuWktWl3fMeyohLEhI1Sv+kKFZAlmmyVzbaEWdFBXhQ89YBe
-	Jr70k6hMcNZi0+xUzkYBCIj7s5fpdie8nxCMIL64b4ZE+qa4Qx+hau3XVZr9cjJT
-X-Gm-Gg: AYBFou1ORS9AXyylxcXQJlGao09/3iRALL6ZtZ8Gl6sQdYohQ8OngujQ3A7IMpsyyZT
-	kcMRSKpqD4uG58Eg/cmlUUNIUySWDZZkbE6c+cd1EYmN13xaXBDx3Ceza5QEgq2Ac8wxjlmZgog
-	0GH4IthI4HrnfwjzdGCEGjGI5nTlekwdsLNjYcMHtJRa4Yb5WVLoMagiOhCQ4a8GZQF+2vv0Wby
-	jzsHyhKe8I0IF/vtuTaJ4W3NwaIOmstZ5sT8+PA6aQ/Uad4zZ4w3YXlPLhXqIX0Wj4VKkkuitlK
-	ptSdc7fC0VN3/aXdDVCQycy1fsNRguBd9Gti7yk6WxSny8ambGykPBzllGY3XDykBkJALcB3EVL
-	Mp3Wo1nyKuoCWeeltPHYv+05Ga9Nm7T523pr156sCzjxGhW/geWWoOHrmRM9CeL2qzYv7cw6R9c
-	5KnzL9TGZ1heIiojUD0joPFKJ5OHu8j1ugBV4EQwlmmXnSxHRESjJm5MpKQ7FqFxTVKwqUWzTT7
-	KkNyqwurseUbEBiKqmM4WWT34O2nofa8O5fg7wR4t3Y+MexPxHIr9dayl19DpqJEM7NZl93BB1g
-	R4ZXYMn4+a60Ckxpi3K8D/b5n0/VkJmwuV3XNgCJc5b6e4Cq7wvzKu+D8xEi409qPCqCTNwO7Cw
-	W
-X-Received: by 2002:a05:600c:83c8:b0:49d:28c4:b304 with SMTP id 5b1f17b1804b1-49eb7341406mr52441125e9.29.1789617616894;
-        Wed, 16 Sep 2026 21:00:16 -0700 (PDT)
-Received: from localhost.localdomain (dynamic-2a02-3100-9dc6-c001-54ee-4741-4927-0a28.310.pool.telefonica.de. [2a02:3100:9dc6:c001:54ee:4741:4927:a28])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbfd935cfsm6880015e9.0.2026.09.16.21.00.15
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Wed, 16 Sep 2026 21:00:16 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nI8ZziYH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E0A71F00893;
+	Thu, 17 Sep 2026 04:02:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789617767;
+	bh=wi4hfW5XoPU1+hFHuCgUSiVuN0hujc6ELesBRjTz4Rs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=nI8ZziYHk0Qm6Hn+ZbWyeSGyvoGkX4Qb0PTPakhRGnWR7ewiTXA+bgRnMKLzSTIVx
+	 YYDIvm+nxg9e+vnFHxDt9LWUqcn8ygTYg/CU5cfStdh8zVCLP45Savk3k8WVOA0a+K
+	 A+18/l5gK3rV7ghNLiP4jm5NOaOCE9b6cMag9j1YzLtaMXobviqtEC0V6hdQv7rDTo
+	 ddI9BHVooDPBv0CM5Bvd8GrB/gAbsD6aptKJf5T4EAGXNxu+tKvpUiN6woNrktbnWy
+	 q4RL2C3rkgVLyfmdMIZy/lImTyE3Ca+K1TVdtbe4CEAj7fQoD8Aus868QpMQJ5LcAf
+	 yWyZCK2pMYjqQ==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	gregkh@linuxfoundation.org,
-	sashal@kernel.org,
-	luiz.dentz@gmail.com,
-	luiz.von.dentz@intel.com,
-	marcel@holtmann.org,
-	johan.hedberg@gmail.com,
-	eadavis@qq.com,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	pav@iki.fi,
-	syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com
-Subject: [PATCH 5.15.y 2/2] bluetooth/l2cap: sync sock recv cb and release
-Date: Thu, 17 Sep 2026 06:00:04 +0200
-Message-Id: <20260917040004.21041-3-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260917040004.21041-1-kmehltretter@gmail.com>
-References: <20260912065526.833703348@linuxfoundation.org> <20260912065546.976652519@linuxfoundation.org> <20260913202907.3100-1-kmehltretter@gmail.com>
- <20260917040004.21041-1-kmehltretter@gmail.com>
+	Paulo Alcantara <pc@manguebit.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.15.y] smb: client: pin DFS superblock in iterator callback
+Date: Thu, 17 Sep 2026 00:02:44 -0400
+Message-ID: <20260917040244.4138555-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091644-acid-unclasp-cda8@gregkh>
+References: <2026091644-acid-unclasp-cda8@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -93,73 +45,73 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Edward Adam Davis <eadavis@qq.com>
+From: Karl Mehltretter <kmehltretter@gmail.com>
 
-[ Upstream commit 89e856e124f9ae548572c56b1b70c2255705f8fe ]
+[ Upstream commit d806d5a85dcbe2a0f181b2f0f9f61ddfbefa1818 ]
 
-The problem occurs between the system call to close the sock and hci_rx_work,
-where the former releases the sock and the latter accesses it without lock protection.
+tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
+takes its active reference only after iterate_supers_type() has dropped
+s_umount and its passive reference. Concurrent DFS automount expiry can
+therefore free the superblock before cifs_sb_active() uses it.
 
-           CPU0                       CPU1
-           ----                       ----
-           sock_close                 hci_rx_work
-	   l2cap_sock_release         hci_acldata_packet
-	   l2cap_sock_kill            l2cap_recv_frame
-	   sk_free                    l2cap_conless_channel
-	                              l2cap_sock_recv_cb
+A deterministic KASAN test reproduces the race as:
 
-If hci_rx_work processes the data that needs to be received before the sock is
-closed, then everything is normal; Otherwise, the work thread may access the
-released sock when receiving data.
+  BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
 
-Add a chan mutex in the rx callback of the sock to achieve synchronization between
-the sock release and recv cb.
+The same test passes with this change applied.
 
-Sock is dead, so set chan data to NULL, avoid others use invalid sock pointer.
+Take the active reference in the callback while iterate_supers_type()
+still holds s_umount shared. cifs_put_tcp_super() remains the matching
+release.
 
-Reported-and-tested-by: syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com
-Signed-off-by: Edward Adam Davis <eadavis@qq.com>
-Signed-off-by: Luiz Augusto von Dentz <luiz.von.dentz@intel.com>
-[ Karl Mehltretter: applied in the form this commit has after
-  f1a8f402f13f ("Bluetooth: L2CAP: Fix deadlock"), that is the
-  chan->data clearing in l2cap_sock_kill() and the guard in
-  l2cap_sock_recv_cb(), without the channel locking in the callback.
-  That locking is what caused the recursive chan->lock deadlock.
-  f1a8f402f13f removes it and moves the lock to l2cap_conless_channel(),
-  which the previous patch does here. l2cap_data_channel() already
-  obtains the channel locked from l2cap_get_chan_by_scid(). ]
+Fixes: bacd704a95ad ("cifs: handle prefix paths in reconnect")
+Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Adapted tcon_super_cb() changes to the older tcp_super_cb() callback and its server-only matching logic. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
-diff --git a/net/bluetooth/l2cap_sock.c b/net/bluetooth/l2cap_sock.c
-index 0b51c3e0f469..bef6a948d7d5 100644
---- a/net/bluetooth/l2cap_sock.c
-+++ b/net/bluetooth/l2cap_sock.c
-@@ -1237,6 +1237,10 @@ static void l2cap_sock_kill(struct sock *sk)
+ fs/cifs/misc.c | 17 ++++++++---------
+ 1 file changed, 8 insertions(+), 9 deletions(-)
+
+diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
+index cb7fb2c4ea71f..df0111d95e1c8 100644
+--- a/fs/cifs/misc.c
++++ b/fs/cifs/misc.c
+@@ -1226,8 +1226,14 @@ static void tcp_super_cb(struct super_block *sb, void *arg)
  
- 	BT_DBG("sk %p state %s", sk, state_to_string(sk->sk_state));
+ 	cifs_sb = CIFS_SB(sb);
+ 	tcon = cifs_sb_master_tcon(cifs_sb);
+-	if (tcon->ses->server == server)
++	if (tcon->ses->server == server) {
++		/*
++		 * Take the active reference while iterate_supers_type() still
++		 * holds s_umount shared.
++		 */
++		cifs_sb_active(sb);
+ 		sd->sb = sb;
++	}
+ }
  
-+	/* Sock is dead, so set chan data to NULL, avoid other task use invalid
-+	 * sock pointer.
-+	 */
-+	l2cap_pi(sk)->chan->data = NULL;
- 	/* Kill poor orphan */
+ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void *),
+@@ -1243,15 +1249,8 @@ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void
  
- 	l2cap_chan_put(l2cap_pi(sk)->chan);
-@@ -1519,9 +1523,13 @@ static struct l2cap_chan *l2cap_sock_new_connection_cb(struct l2cap_chan *chan)
- 
- static int l2cap_sock_recv_cb(struct l2cap_chan *chan, struct sk_buff *skb)
- {
--	struct sock *sk = chan->data;
-+	struct sock *sk;
- 	int err;
- 
-+	sk = chan->data;
-+	if (!sk)
-+		return -ENXIO;
-+
- 	lock_sock(sk);
- 
- 	if (l2cap_pi(sk)->rx_busy_skb) {
+ 	for (; *fs_type; fs_type++) {
+ 		iterate_supers_type(*fs_type, f, &sd);
+-		if (sd.sb) {
+-			/*
+-			 * Grab an active reference in order to prevent automounts (DFS links)
+-			 * of expiring and then freeing up our cifs superblock pointer while
+-			 * we're doing failover.
+-			 */
+-			cifs_sb_active(sd.sb);
++		if (sd.sb)
+ 			return sd.sb;
+-		}
+ 	}
+ 	return ERR_PTR(-EINVAL);
+ }
 -- 
-2.51.0
+2.53.0
+
