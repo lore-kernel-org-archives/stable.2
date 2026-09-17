@@ -1,90 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4DAAE4A206D;
-	Thu, 17 Sep 2026 09:35:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1683A440A07;
+	Thu, 17 Sep 2026 09:36:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789637743; cv=none; b=oaIk2TV+iT9fMgxD7HxqPmc+RoerSZCb4lDIY/3ksZ8pdsRkAt5B+QUiu9vPVpRQlSimBRvrC3FWu4pBv3bgQRin3uJi7XQDhgBDGW28A5X5rMRIm3JQJzl04eilgG5DArgoitNlXw9H/u2B0GW7OvpszWPfQSK4SoAS+V/5e3I=
+	t=1789637823; cv=none; b=n+/KoIJ/aPfri8oSakXmApW6f2sl6mR6FiwEYK5mjcmdRMqzjt9rkLzM8lYtRVfNDbJ3B+xQPt/v0RcS8zKKuugcIHT28pPRlL3jk3sZQ2FInTtmxCF7SkEI/X+hkQp9/GZHZ8HVRqdAfaBhs0Wi8RcQwsf1HT5HUFEFtsBDRDw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789637743; c=relaxed/simple;
-	bh=Pziy3GyxVaLVNQGPnPGUWY0b4UTr67i47uVByFhvx/4=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=OgRIwb9s1aKyzPedhDWMTUYygbo+rKJus3EXCLLnBPvkDm6zP/6uzUeTNtk5U5xzuNt65DUVLxG/V+YL4eJJ0eglFX3eHltR7wwmhGv+lHUKn8Mt4BuOJSQsEFHdGo4VYCl7LsXHoBSiHxIVtI7kqjlB8DQYaNXYgwPhfGpVKWk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=nuDHQyhY; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="nuDHQyhY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B080C1F000FF;
-	Thu, 17 Sep 2026 09:35:25 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789637728;
-	bh=y3Bksu4nsuzmvX3mOHjIHS2i6H1vZRzqxHYcTA5sqo0=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nuDHQyhY1tFTfXzEcitVxdNcIWBaKVfVhqNf/PPt6+RICZxO4y9vXAo15zeRHhez6
-	 ZYVtQKn8riSQngpHGpuvoqTIMQxO95EUJ/hKjGCAHck4llBQZhW1tq21dhIBWkcvAP
-	 /nTO/yOm1UgB303s24+yuGBfuCNIwlsAvMX5mookX/A0fGLQpCzs7pOzWc0r0+T1u5
-	 UZFgKi5Vwb4PDZOKr4oWG+LRz5ColAj14EU7RTeDMkD00mm/XRdvYXIakeaRD32e+E
-	 LWkp6xawGWqxVp5lQzX8rfxwm3Cc8s75wy9erACQQTK5tB+1SB72DqWFqQUpQdsVsZ
-	 xl6dVuwb7jaFw==
-From: Christian Brauner <brauner@kernel.org>
-To: Karl Mehltretter <kmehltretter@gmail.com>
-Cc: Christian Brauner <brauner@kernel.org>,
-	Alexander Viro <viro@zeniv.linux.org.uk>,
-	Jan Kara <jack@suse.cz>,
-	Paulo Alcantara <pc@manguebit.org>,
-	linux-fsdevel@vger.kernel.org,
-	linux-cifs@vger.kernel.org,
+	s=arc-20240116; t=1789637823; c=relaxed/simple;
+	bh=Ef2hvkf7vwnpshLd3Fy/dachfnpC6W2xudbHwBNL/5k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=kOdcFxlVf9jZ9+lhE0YDAWWbpsxTi1hNLGBE3j7BVUXhHe7IOLNY35OFvsxzDCfX/B3Lnx9tMGwhc6c+mLhq9Of6hRAphkR81LDW/9gtSimrpogxN7D21OlgA213TAsg4tAArcKs51hrjNDpnEUIXrKF1U7NntqOTb29l30IqQ0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABnmEKptKtqGcd9CA--.40725S2;
+	Thu, 17 Sep 2026 17:36:41 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: lee@kernel.org
+Cc: linusw@kernel.org,
 	linux-kernel@vger.kernel.org,
+	linux-leds@vger.kernel.org,
+	pavel@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2] super: make iterate_supers_type() deletion-safe
-Date: Thu, 17 Sep 2026 11:34:54 +0200
-Message-ID: <20260917-ablegen-mitgearbeitet-syntaktisch-7dbfdb681783@brauner>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260909193034.7467-1-kmehltretter@gmail.com>
-References: <20260909193034.7467-1-kmehltretter@gmail.com>
+Subject: [PATCH] leds: netxbig: Fix platform device reference leak on successful probe
+Date: Thu, 17 Sep 2026 09:36:41 +0000
+Message-Id: <20260917093641.2144866-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1576; i=brauner@kernel.org; h=from:subject:message-id; bh=Pziy3GyxVaLVNQGPnPGUWY0b4UTr67i47uVByFhvx/4=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWSt3hLFzhMTtFnpRn7DMd7l9c+VKrU99n28G661fVJMq 0jmK7/vHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABMxkWT4X5fjxsGZNO+VcuFb u3XX61ad4DNzm3PM0a747vwlH2aeFmJk+Nkyc+EmlSO6/t079R8bFU92u+/huVxY1m7LnWMBVS2 OnAA=
-X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABnmEKptKtqGcd9CA--.40725S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrurW5Cw1DXr4rGr45tr47Jwb_yoWDXwb_ur
+	yIg3s7XFW8XF40yw15Zr1YvryfCFsrXF48ursFvas5JrW3XrW3WrWq9r98Cr1DZa1xAFn8
+	CFnruF15Aw17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbsxFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26r4j6F4UM28EF7xvwVC2z280
+	aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26rxl6s0DM2AIxVAIcxkEcVAq07
+	x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj6xIIjxv20xvE14v26r1Y6r17
+	McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
+	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUJVWUCwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Jr0_Gr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2
+	jsIE14v26F4j6r4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0x
+	ZFpf9x0JUdKsbUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qrq3Yp0AAAsv
 
-On Wed, 09 Sep 2026 21:30:34 +0200, Karl Mehltretter wrote:
-> iterate_supers_type() drops sb_lock while invoking the callback and keeps
-> only a passive reference to the current superblock. That reference keeps
-> the object allocated, but does not keep its s_instances node linked.
-> 
-> After the iterator releases s_umount, final teardown can unlink the current
-> s_instances node. The iterator then advances through a reinitialized node.
-> With the current hlist it stops without visiting the remaining superblocks.
-> The unlink moved from generic_shutdown_super() to kill_super_notify(), but
-> the cursor lifetime has been unsafe since the helper was introduced.
-> 
-> [...]
+of_find_device_by_node() returns the GPIO extension device with an
+elevated reference count.  The error paths release it through the
+put_device label, but the success path returns directly, so the
+reference is leaked whenever the LED driver probes successfully.
 
-I'm moving this into vfs-7.4.misc for now but will bump it to vfs.fixes once
-I'm confident this is safe.
+Let the success path fall through to the put_device label.
 
+Fixes: 9af512e81964 ("leds: netxbig: Convert to use GPIO descriptors")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
+ drivers/leds/leds-netxbig.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
-Applied to the vfs-7.4.misc branch of the vfs/vfs.git tree.
-Patches in the vfs-7.4.misc branch should appear in linux-next soon.
+diff --git a/drivers/leds/leds-netxbig.c b/drivers/leds/leds-netxbig.c
+index 99df46f2d9f5..d79fee1d9143 100644
+--- a/drivers/leds/leds-netxbig.c
++++ b/drivers/leds/leds-netxbig.c
+@@ -597,8 +597,7 @@ static int netxbig_leds_get_of_pdata(struct device *dev,
+ 	pdata->leds = leds;
+ 	pdata->num_leds = num_leds;
+ 
+-	return 0;
+-
++	ret = 0;
+ put_device:
+ 	put_device(gpio_ext_dev);
+ 	return ret;
+-- 
+2.34.1
 
-Please report any outstanding bugs that were missed during review in a
-new review to the original patch series allowing us to drop it.
-
-It's encouraged to provide Acked-bys and Reviewed-bys even though the
-patch has now been applied. If possible patch trailers will be updated.
-
-Note that commit hashes shown below are subject to change due to rebase,
-trailer updates or similar. If in doubt, please check the listed branch.
-
-tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
-branch: vfs-7.4.misc
-
-[1/1] super: make iterate_supers_type() deletion-safe
-      https://git.kernel.org/vfs/vfs/c/d1ac530407a3
