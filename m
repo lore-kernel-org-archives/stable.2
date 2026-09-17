@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E4A299929
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8B51B39526F
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613441; cv=none; b=jz7WA0RXMhaFphSkRNqI4RVyLVotQZ4MixiIq78rXn64t+/Q4m7ZZeDYJa2I5ykcK3sXHDf73nr3dLIeKxzjoODAcyX/c+39aBupU0tJTmzZMbiIfQwODZe4yCF0TInpGehh5HxST18Dmgi6sdkfF37SxqZgUNrwHMxnVylq0I8=
+	t=1789613440; cv=none; b=Jn6hljbwEa/+EU5Q9q11wJKzL+xf82BCHVd8deM+z8PkkHO3Kxl6HzHTBA3syh0BRL0VDX8lPg9ygpGJ7aMpEicLqKnTDBj6wKVjSzs2gldZcfsQq8Hsulp3dVVY1Kl8XtLOMTrX/LX9XVrTFPWBocJ05HtusA+VPuF2ltoOFPY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613441; c=relaxed/simple;
-	bh=W4nsOBYtWsxw3Vhets062WVNemj1J9Hes/E3wv55BXY=;
+	s=arc-20240116; t=1789613440; c=relaxed/simple;
+	bh=nD4DayDVCHm+0xaiQMqO+1CUP3Cf3B+hZMupNhLObrM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WNF9cM1Cz1N1qMySX/BGrEsduwH6ItPkBNTxLcZwITWKftnvH5HnBJfHWjC1X2fznWJaOaslBzQSlCIna94l/vWkiu4S7piXN+83OwTTry8ziTQZz4KNY1QOnZtR/1oP5ns4utQ2PnjKBqHmT7sCizSsfEy6tz0A570Jy4CM29U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rm3GmFeP; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GWDCm+lFsssf99P0e6Ai4hi68Q8tcTt5qOD50JixaEm6Cu8b5h2k26/rhJfL1EigHadGDIPmKCvI1LMZlRgjTBZFFfP12u7ORKDDbX5tBjsOhUCyXMTV1tJmMDIYD+ZCVVRw6d2cewYnoM+0InkaEren3E436o+gMqJ3D5lRcA4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TAJ4AiBK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rm3GmFeP"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2121F000FF;
-	Thu, 17 Sep 2026 02:50:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TAJ4AiBK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D4F171F008A0;
+	Thu, 17 Sep 2026 02:50:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789613419;
-	bh=65bBxEjxGwwai+cEBMa2prErWogzO0McyyT4OMG52+s=;
+	s=k20260515; t=1789613423;
+	bh=Nld+jt3sF/b5MM5riuDPM1Nr4dKImcvg1+QP9i2r0To=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Rm3GmFeP6YrFa+uUwY0mVn28mJ9D3IPeP4qONmRNhftW7yABJ18Cbw1abXUb0UjYQ
-	 NMZHgeKznI3hTCi8MMfDPA13xDrQF5R1thT3lyi7Sl9RGCc+Go/zMPsYrRh1WW7mxW
-	 hC4jECqjEkIENvymNQg9Cw60GEAzd8nZgG2D+IAzBzzcsEX/BNSge0/zbuoWSHatMZ
-	 1o1dD0mIB1Q88vmqwLMtLd/q8vr8KQVjIpxgxQr+o0ZQR78QUzR12vUwfJ/9tn9BhE
-	 wXhpgQDOCuHuRn0llVaf/9K9KKLN9L7x3ae+Lfkbg/fJ6B7Ubgq0sY2V8PEZlkAcel
-	 zRSc2syUz1giA==
+	b=TAJ4AiBK2IQLMKr4Hd7tQ/u6mGvWv/DqsY4fmuRHtHYwqqLxjvpHyrJVBNMNuk6qg
+	 gsv4zb5rhq99+COPs0Yy5MC+bnTj6fC6KwTVGWQ4YdcFJKv8g0/GUB/Dpu9NyqQnl6
+	 HVDd2IUOXUM53hINfhO9SH8yt62TS4il/X7Pxjnh7FL53CZMB5z317dkE6LiZDeqpI
+	 DDHqbwdlIP8hKtEt4yXN389RfKCYQb/at8dhr0Tpi4au0CL2/7zT8Hbg6/Lppt0Pxq
+	 LU75+61Wt8O/YReVbe0LIC8//IqUI9oMGvULBkQe1yDnKht4JeC00LWKx7v1X8YIUA
+	 frALV9cmsuZag==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Fan Wu <fanwu01@zju.edu.cn>,
+	Miquel Raynal <miquel.raynal@bootlin.com>,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 3/4] tcp: remove icsk->icsk_retransmit_timer
-Date: Wed, 16 Sep 2026 22:50:14 -0400
-Message-ID: <20260917025015.3917201-3-sashal@kernel.org>
+Subject: [PATCH 6.6.y] ieee802154: cc2520: fix FIFOP work use-after-free
+Date: Wed, 16 Sep 2026 22:50:21 -0400
+Message-ID: <20260917025021.3917468-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917025015.3917201-1-sashal@kernel.org>
-References: <2026091620-haziness-luridness-ad42@gregkh>
- <20260917025015.3917201-1-sashal@kernel.org>
+In-Reply-To: <2026091624-vocation-confined-5580@gregkh>
+References: <2026091624-vocation-confined-5580@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,268 +46,75 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Fan Wu <fanwu01@zju.edu.cn>
 
-[ Upstream commit 9a5e5334adc039fa652aa071ea95b18db0bc1f43 ]
+[ Upstream commit ff5891b266a7fc6a062710836be84f1cc19338b5 ]
 
-Now sk->sk_timer is no longer used by TCP keepalive, we can use
-its storage for TCP and MPTCP retransmit timers for better
-cache locality.
+The FIFOP interrupt handler queues cc2520_fifop_irqwork.  On removal,
+cc2520_remove() only flushes the work.  The devm-managed FIFOP IRQ
+remains active until after ->remove() returns and can queue the work
+again after that flush, allowing it to run after the private data is
+released.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20251124175013.1473655-5-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 85c580b0d859 ("mptcp: prevent race between disconnect() and rtx")
+Disable the work with disable_work_sync() instead of flushing it, so
+the handler can no longer queue it once removal begins.  Destroy the
+buffer mutex last, since the worker and the stop callback invoked
+through ieee802154_unregister_hw() both take it.
+
+Found by an in-house static analysis tool.
+
+Fixes: 0da6bc8cc341 ("ieee802154: cc2520: adds driver for TI CC2520 radio")
+Cc: stable@vger.kernel.org # v6.10+
+Suggested-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+Assisted-by: Codex:gpt-5.6
+Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+Link: https://lore.kernel.org/20260812061714.175966-1-fanwu01@zju.edu.cn
+Signed-off-by: Stefan Schmidt <stefan@datenfreihafen.org>
+[ replaced unavailable disable_work_sync() with disable_irq() followed by cancel_work_sync(). ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net_cachelines/inet_connection_sock.rst       |  1 -
- include/net/inet_connection_sock.h                |  8 +++-----
- include/net/sock.h                                |  9 +++++++--
- net/ipv4/inet_connection_sock.c                   |  6 +++---
- net/ipv4/tcp_timer.c                              |  8 +++-----
- net/mptcp/protocol.c                              | 15 +++++----------
- tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c |  4 ++--
- tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c |  4 ++--
- 8 files changed, 25 insertions(+), 30 deletions(-)
+ drivers/net/ieee802154/cc2520.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/Documentation/networking/net_cachelines/inet_connection_sock.rst b/Documentation/networking/net_cachelines/inet_connection_sock.rst
-index 4f65de2def8c9..cc2000f55c298 100644
---- a/Documentation/networking/net_cachelines/inet_connection_sock.rst
-+++ b/Documentation/networking/net_cachelines/inet_connection_sock.rst
-@@ -12,7 +12,6 @@ struct inet_sock                    icsk_inet              read_mostly         r
- struct request_sock_queue           icsk_accept_queue
- struct inet_bind_bucket             icsk_bind_hash         read_mostly                             tcp_set_state
- struct inet_bind2_bucket            icsk_bind2_hash        read_mostly                             tcp_set_state,inet_put_port
--struct timer_list                   icsk_retransmit_timer  read_write                              inet_csk_reset_xmit_timer,tcp_connect
- struct timer_list                   icsk_delack_timer      read_mostly                             inet_csk_reset_xmit_timer,tcp_connect
- struct timer_list                   icsk_keepalive_timer
- u32                                 icsk_rto               read_write                              tcp_cwnd_validate,tcp_schedule_loss_probe,tcp_connect_init,tcp_connect,tcp_write_xmit,tcp_push_one
-diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index 53de8565e3c27..d50e0afc3193f 100644
---- a/include/net/inet_connection_sock.h
-+++ b/include/net/inet_connection_sock.h
-@@ -58,7 +58,6 @@ struct inet_connection_sock_af_ops {
-  * @icsk_accept_queue:	   FIFO of established children
-  * @icsk_bind_hash:	   Bind node
-  * @icsk_bind2_hash:	   Bind node in the bhash2 table
-- * @icsk_retransmit_timer: Resend (no ack)
-  * @icsk_delack_timer:     Delayed ACK timer
-  * @icsk_keepalive_timer:  Keepalive timer
-  * @mptcp_tout_timer: mptcp timer
-@@ -86,7 +85,6 @@ struct inet_connection_sock {
- 	struct request_sock_queue icsk_accept_queue;
- 	struct inet_bind_bucket	  *icsk_bind_hash;
- 	struct inet_bind2_bucket  *icsk_bind2_hash;
--	struct timer_list	  icsk_retransmit_timer;
- 	struct timer_list	  icsk_delack_timer;
- 	union {
- 		struct timer_list icsk_keepalive_timer;
-@@ -195,7 +193,7 @@ static inline void inet_csk_delack_init(struct sock *sk)
+diff --git a/drivers/net/ieee802154/cc2520.c b/drivers/net/ieee802154/cc2520.c
+index a94d8dd71aad9..10bdc317ae282 100644
+--- a/drivers/net/ieee802154/cc2520.c
++++ b/drivers/net/ieee802154/cc2520.c
+@@ -206,6 +206,7 @@ struct cc2520_private {
+ 	bool is_tx;			/* Flag for sync b/w Tx and Rx */
+ 	bool amplified;			/* Flag for CC2591 */
+ 	struct gpio_desc *fifo_pin;	/* FIFO GPIO pin number */
++	int fifop_irq;			/* FIFOP IRQ */
+ 	struct work_struct fifop_irqwork;/* Workqueue for FIFOP */
+ 	spinlock_t lock;		/* Lock for is_tx*/
+ 	struct completion tx_complete;	/* Work completion for Tx */
+@@ -1117,8 +1118,9 @@ static int cc2520_probe(struct spi_device *spi)
+ 		goto err_hw_init;
  
- static inline unsigned long tcp_timeout_expires(const struct sock *sk)
+ 	/* Set up fifop interrupt */
++	priv->fifop_irq = gpiod_to_irq(fifop);
+ 	ret = devm_request_irq(&spi->dev,
+-			       gpiod_to_irq(fifop),
++			       priv->fifop_irq,
+ 			       cc2520_fifop_isr,
+ 			       IRQF_TRIGGER_RISING,
+ 			       dev_name(&spi->dev),
+@@ -1156,11 +1158,11 @@ static void cc2520_remove(struct spi_device *spi)
  {
--	return READ_ONCE(inet_csk(sk)->icsk_retransmit_timer.expires);
-+	return READ_ONCE(sk->tcp_retransmit_timer.expires);
- }
+ 	struct cc2520_private *priv = spi_get_drvdata(spi);
  
- static inline unsigned long
-@@ -211,7 +209,7 @@ static inline void inet_csk_clear_xmit_timer(struct sock *sk, const int what)
- 	if (what == ICSK_TIME_RETRANS || what == ICSK_TIME_PROBE0) {
- 		smp_store_release(&icsk->icsk_pending, 0);
- #ifdef INET_CSK_CLEAR_TIMERS
--		sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
-+		sk_stop_timer(sk, &sk->tcp_retransmit_timer);
- #endif
- 	} else if (what == ICSK_TIME_DACK) {
- 		smp_store_release(&icsk->icsk_ack.pending, 0);
-@@ -243,7 +241,7 @@ static inline void inet_csk_reset_xmit_timer(struct sock *sk, const int what,
- 	if (what == ICSK_TIME_RETRANS || what == ICSK_TIME_PROBE0 ||
- 	    what == ICSK_TIME_LOSS_PROBE || what == ICSK_TIME_REO_TIMEOUT) {
- 		smp_store_release(&icsk->icsk_pending, what);
--		sk_reset_timer(sk, &icsk->icsk_retransmit_timer, when);
-+		sk_reset_timer(sk, &sk->tcp_retransmit_timer, when);
- 	} else if (what == ICSK_TIME_DACK) {
- 		smp_store_release(&icsk->icsk_ack.pending,
- 				  icsk->icsk_ack.pending | ICSK_ACK_TIMER);
-diff --git a/include/net/sock.h b/include/net/sock.h
-index 50b9178cc827f..9e13e1233e417 100644
---- a/include/net/sock.h
-+++ b/include/net/sock.h
-@@ -303,6 +303,8 @@ struct sk_filter;
-   *	@sk_txrehash: enable TX hash rethink
-   *	@sk_filter: socket filtering instructions
-   *	@sk_timer: sock cleanup timer
-+  *	@tcp_retransmit_timer: tcp retransmit timer
-+  *	@mptcp_retransmit_timer: mptcp retransmit timer
-   *	@sk_stamp: time stamp of last packet received
-   *	@sk_stamp_seq: lock for accessing sk_stamp on 32 bit architectures only
-   *	@sk_tsflags: SO_TIMESTAMPING flags
-@@ -480,8 +482,11 @@ struct sock {
- 	u32			sk_dst_pending_confirm;
- 	u32			sk_pacing_status; /* see enum sk_pacing */
- 	struct page_frag	sk_frag;
--	struct timer_list	sk_timer;
+-	mutex_destroy(&priv->buffer_mutex);
+-	flush_work(&priv->fifop_irqwork);
 -
-+	union {
-+		struct timer_list	sk_timer;
-+		struct timer_list	tcp_retransmit_timer;
-+		struct timer_list	mptcp_retransmit_timer;
-+	};
- 	unsigned long		sk_pacing_rate; /* bytes per second */
- 	atomic_t		sk_zckey;
- 	atomic_t		sk_tskey;
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 2976b819ff5ce..6193db63b2973 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -748,7 +748,7 @@ void inet_csk_init_xmit_timers(struct sock *sk,
- {
- 	struct inet_connection_sock *icsk = inet_csk(sk);
- 
--	timer_setup(&icsk->icsk_retransmit_timer, retransmit_handler, 0);
-+	timer_setup(&sk->tcp_retransmit_timer, retransmit_handler, 0);
- 	timer_setup(&icsk->icsk_delack_timer, delack_handler, 0);
- 	timer_setup(&icsk->icsk_keepalive_timer, keepalive_handler, 0);
- 	icsk->icsk_pending = icsk->icsk_ack.pending = 0;
-@@ -761,7 +761,7 @@ void inet_csk_clear_xmit_timers(struct sock *sk)
- 	smp_store_release(&icsk->icsk_pending, 0);
- 	smp_store_release(&icsk->icsk_ack.pending, 0);
- 
--	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
-+	sk_stop_timer(sk, &sk->tcp_retransmit_timer);
- 	sk_stop_timer(sk, &icsk->icsk_delack_timer);
- 	sk_stop_timer(sk, &icsk->icsk_keepalive_timer);
- }
-@@ -776,7 +776,7 @@ void inet_csk_clear_xmit_timers_sync(struct sock *sk)
- 	smp_store_release(&icsk->icsk_pending, 0);
- 	smp_store_release(&icsk->icsk_ack.pending, 0);
- 
--	sk_stop_timer_sync(sk, &icsk->icsk_retransmit_timer);
-+	sk_stop_timer_sync(sk, &sk->tcp_retransmit_timer);
- 	sk_stop_timer_sync(sk, &icsk->icsk_delack_timer);
- 	sk_stop_timer_sync(sk, &icsk->icsk_keepalive_timer);
- }
-diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
-index 4f2df3a692115..a26d161b2a649 100644
---- a/net/ipv4/tcp_timer.c
-+++ b/net/ipv4/tcp_timer.c
-@@ -701,7 +701,7 @@ void tcp_write_timer_handler(struct sock *sk)
- 		return;
- 
- 	if (time_after(tcp_timeout_expires(sk), jiffies)) {
--		sk_reset_timer(sk, &icsk->icsk_retransmit_timer,
-+		sk_reset_timer(sk, &sk->tcp_retransmit_timer,
- 			       tcp_timeout_expires(sk));
- 		return;
- 	}
-@@ -728,12 +728,10 @@ void tcp_write_timer_handler(struct sock *sk)
- 
- static void tcp_write_timer(struct timer_list *t)
- {
--	struct inet_connection_sock *icsk =
--			timer_container_of(icsk, t, icsk_retransmit_timer);
--	struct sock *sk = &icsk->icsk_inet.sk;
-+	struct sock *sk = timer_container_of(sk, t, tcp_retransmit_timer);
- 
- 	/* Avoid locking the socket when there is no pending event. */
--	if (!smp_load_acquire(&icsk->icsk_pending))
-+	if (!smp_load_acquire(&inet_csk(sk)->icsk_pending))
- 		goto out;
- 
- 	bh_lock_sock(sk);
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 5f24f4c4a7d7e..2dd6840089f86 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -425,9 +425,7 @@ static bool __mptcp_move_skb(struct sock *sk, struct sk_buff *skb)
- 
- static void mptcp_stop_rtx_timer(struct sock *sk)
- {
--	struct inet_connection_sock *icsk = inet_csk(sk);
--
--	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
-+	sk_stop_timer(sk, &sk->mptcp_retransmit_timer);
- 	mptcp_sk(sk)->timer_ival = 0;
++	disable_irq(priv->fifop_irq);
++	cancel_work_sync(&priv->fifop_irqwork);
+ 	ieee802154_unregister_hw(priv->hw);
+ 	ieee802154_free_hw(priv->hw);
++	mutex_destroy(&priv->buffer_mutex);
  }
  
-@@ -936,12 +934,11 @@ static void __mptcp_flush_join_list(struct sock *sk, struct list_head *join_list
- 
- static bool mptcp_rtx_timer_pending(struct sock *sk)
- {
--	return timer_pending(&inet_csk(sk)->icsk_retransmit_timer);
-+	return timer_pending(&sk->mptcp_retransmit_timer);
- }
- 
- static void mptcp_reset_rtx_timer(struct sock *sk)
- {
--	struct inet_connection_sock *icsk = inet_csk(sk);
- 	unsigned long tout;
- 
- 	/* prevent rescheduling on close */
-@@ -949,7 +946,7 @@ static void mptcp_reset_rtx_timer(struct sock *sk)
- 		return;
- 
- 	tout = mptcp_sk(sk)->timer_ival;
--	sk_reset_timer(sk, &icsk->icsk_retransmit_timer, jiffies + tout);
-+	sk_reset_timer(sk, &sk->mptcp_retransmit_timer, jiffies + tout);
- }
- 
- bool mptcp_schedule_work(struct sock *sk)
-@@ -2328,9 +2325,7 @@ static int mptcp_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
- 
- static void mptcp_retransmit_timer(struct timer_list *t)
- {
--	struct inet_connection_sock *icsk = timer_container_of(icsk, t,
--							       icsk_retransmit_timer);
--	struct sock *sk = &icsk->icsk_inet.sk;
-+	struct sock *sk = timer_container_of(sk, t, mptcp_retransmit_timer);
- 	struct mptcp_sock *msk = mptcp_sk(sk);
- 
- 	bh_lock_sock(sk);
-@@ -2937,7 +2932,7 @@ static void __mptcp_init_sock(struct sock *sk)
- 	spin_lock_init(&msk->fallback_lock);
- 
- 	/* re-use the csk retrans timer for MPTCP-level retrans */
--	timer_setup(&msk->sk.icsk_retransmit_timer, mptcp_retransmit_timer, 0);
-+	timer_setup(&sk->mptcp_retransmit_timer, mptcp_retransmit_timer, 0);
- 	timer_setup(&msk->sk.mptcp_tout_timer, mptcp_tout_timer, 0);
- }
- 
-diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-index 685811326a041..b1e509b231cd9 100644
---- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-+++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-@@ -99,10 +99,10 @@ static int dump_tcp_sock(struct seq_file *seq, struct tcp_sock *tp,
- 	    icsk->icsk_pending == ICSK_TIME_REO_TIMEOUT ||
- 	    icsk->icsk_pending == ICSK_TIME_LOSS_PROBE) {
- 		timer_active = 1;
--		timer_expires = icsk->icsk_retransmit_timer.expires;
-+		timer_expires = sp->tcp_retransmit_timer.expires;
- 	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active = 4;
--		timer_expires = icsk->icsk_retransmit_timer.expires;
-+		timer_expires = sp->tcp_retransmit_timer.expires;
- 	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active = 2;
- 		timer_expires = icsk->icsk_keepalive_timer.expires;
-diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-index 0f4a927127517..dbc7166aee91f 100644
---- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-+++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-@@ -99,10 +99,10 @@ static int dump_tcp6_sock(struct seq_file *seq, struct tcp6_sock *tp,
- 	    icsk->icsk_pending == ICSK_TIME_REO_TIMEOUT ||
- 	    icsk->icsk_pending == ICSK_TIME_LOSS_PROBE) {
- 		timer_active = 1;
--		timer_expires = icsk->icsk_retransmit_timer.expires;
-+		timer_expires = sp->tcp_retransmit_timer.expires;
- 	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active = 4;
--		timer_expires = icsk->icsk_retransmit_timer.expires;
-+		timer_expires = sp->tcp_retransmit_timer.expires;
- 	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active = 2;
- 		timer_expires = icsk->icsk_keepalive_timer.expires;
+ static const struct spi_device_id cc2520_ids[] = {
 -- 
 2.53.0
 
