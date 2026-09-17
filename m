@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5F7964C10D1;
-	Thu, 17 Sep 2026 15:38:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 561844DDB40;
+	Thu, 17 Sep 2026 15:38:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659495; cv=none; b=U5sRiu6NtVKBp8cIJ9X98czZdHZ000WBhdlnCXrAk+I8Pozo9VY1X3nJztrwlhJyXeoUvLRrXasRaPAuKeUJgK8yS3dPQfFKDcY3M8qAg9V/CKEWpf0u3MT1vhMU6rb7xWSWKWwzko8bb7j+8+ceaPdSCJfWU+rM4Ac0JCsoiSs=
+	t=1789659493; cv=none; b=o1lLVMiXJP++8vQQo6g/u8k2UR/6leM4AyQNj9jtQI8uBR7sMdsvRVrwjKoc/i1Pehjlb5okPxAKzcSvZmaHC6xeDXVbZ7NTJal4YPWOB1BYB1uLLjlcAK9CGolFwn5+0PpeYMwDi7sQtOwxw0NrcLwPxZ3FUhN8aFh/HPzZxY0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659495; c=relaxed/simple;
-	bh=dsqsRAI1XeyMea77QcANoEGZCnhJtyUDaYHDmaXyIIc=;
+	s=arc-20240116; t=1789659493; c=relaxed/simple;
+	bh=UHb/NpEvzeubx9geMnK6LVpXhRU06vNX9vHLDOX7ShQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=G0anNl2SiIMfD6t+Bi2HsgJHAi6GdYU5p4+HqnDnEMdxoklpF9zGMmklAkMXKdeF2Yplnf3iwQhiLQ9qxVLSJrjlpK/J2tqILnDLV244Eek/v1RzfKoOKFpOD2QQByKb9Zv4vvAPS/g5F64b75FYSgfxLudGDFtyHwaPOvISPRc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=JRdf1oGL; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=f98A2o4n8qGBw2XbeTyCHLVXpGzoAyFwzBcwZuqvel1WiApp0mFWeErnk69fDoGVfGDXu5hKet2xN2f5Ft8rxz8o7rTclGGehzxmD0mPXOHj11nm851sTfdNARQYgDtkWTOiBhlhlYGNAWK3a/B0+n+NLOkm8PMLA+pPpbB2WAs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=TO3b/dKm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="JRdf1oGL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B0AD11F00893;
-	Thu, 17 Sep 2026 15:38:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="TO3b/dKm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C26831F0089B;
+	Thu, 17 Sep 2026 15:38:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659490;
-	bh=C8wPGI2P6IDfT2cNZqeNr/Wx0TIwv7byT/OohJx7s9M=;
+	s=korg; t=1789659484;
+	bh=tt1clssWJS7VLVbsVPJpjJ7kYh7/vdoXlfn7TsLAR30=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JRdf1oGLmJM+v7Df47mIG4txX0yHhlaYgw4QvsAW0RuWOOjMKV34cMY7Yh1p6kDPo
-	 jEFOdIqH1/Pl8W4GHDE9vjPLXanXIQNAxxqig4HtPwB6kFTT4rLbK0e1QCnMeLFhJQ
-	 P1hzs1TE5yzLbKzIZX5f76SHlefwts55ngxotqhs=
+	b=TO3b/dKmO0j1Vrhj5+D+eqwbafsDaAYYOmv8cMsLrAstXIpfQLDtk7UItpstgzIZz
+	 zNAEvh6w4FuRHRs1lw898wArW6n6cruX1iNJfztZUw9QE6Bgu5V/nz2m5Pkk1hlcCI
+	 +ACPdDJcWjVX9DFW19g/MOwYmiBSPj16MCHcjx/c=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Nicholas Carlini <npc@anthropic.com>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Alexei Starovoitov <ast@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 247/733] bpf: zero extend the result of an arena 32-bit cmpxchg
-Date: Thu, 17 Sep 2026 16:09:15 +0100
-Message-ID: <20260917151357.439544522@linuxfoundation.org>
+Subject: [PATCH 7.2 272/733] nexthop: Initialize extack in remove_nh_grp_entry()
+Date: Thu, 17 Sep 2026 16:09:40 +0100
+Message-ID: <20260917151358.125486798@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -52,57 +52,43 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Eduard Zingerman <eddyz87@gmail.com>
+From: Ido Schimmel <idosch@nvidia.com>
 
-[ Upstream commit 4814ed6406f3493bd554ad046da5f7fc04833571 ]
+[ Upstream commit 5bd9e4e7cdaa03879e9b73b12ab52cceb1edd55b ]
 
-bpf_convert_ctx_accesses() rewrites an atomic on an arena pointer from
-BPF_STX | BPF_ATOMIC to BPF_STX | BPF_PROBE_ATOMIC, and it runs before
-bpf_opt_subreg_zext_lo32_rnd_hi32().
+remove_nh_grp_entry() prints the extack message when a listener fails
+to replace the reduced nexthop group. However, extack is not
+initialized and listeners are not required to set a message when
+returning an error. Neither netdevsim nor mlxsw do so when an
+allocation fails, resulting in the dereference of an uninitialized
+stack pointer.
 
-That pass emits an explicit zero extension for a 32-bit cmpxchg even
-when bpf_jit_needs_zext() is false. This is done because on some
-architectures 32-bit cmpxchg requires explicit zero extension for the
-dst register. E.g. on x86-64 'lock cmpxchg' does not change the %eax
-if comparison is successful, while BPF semantics declare that each
-operation on a 32-bit register zero extends it's upper half.
+Fix by zero-initializing extack, as was done in commit 6347c5314cee
+("nexthop: initialize extack in nh_res_bucket_migrate()").
 
-is_cmpxchg_insn() matches BPF_MODE == BPF_ATOMIC only, so an arena
-cmpxchg misses said zero extension adjustment. This patch adjusts
-is_cmpxchg_insn() to match BPF_PROBE_ATOMIC alongside BPF_ATOMIC.
-
-Fixes: d503a04f8bc0 ("bpf: Add support for certain atomics in bpf_arena to x86 JIT")
-Reported-by: Nicholas Carlini <npc@anthropic.com>
-Suggested-by: Nicholas Carlini <npc@anthropic.com>
-Signed-off-by: Eduard Zingerman <eddyz87@gmail.com>
-Link: https://lore.kernel.org/r/20260903171542.1438050-1-eddyz87@gmail.com
-Signed-off-by: Alexei Starovoitov <ast@kernel.org>
+Fixes: 833a1065eeb1 ("nexthop: Emit a notification when a nexthop group is reduced")
+Signed-off-by: Ido Schimmel <idosch@nvidia.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260903080259.10378-1-idosch@nvidia.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- kernel/bpf/fixups.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
+ net/ipv4/nexthop.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/kernel/bpf/fixups.c b/kernel/bpf/fixups.c
-index cd42eb838d6c2..48acb61854ed4 100644
---- a/kernel/bpf/fixups.c
-+++ b/kernel/bpf/fixups.c
-@@ -13,10 +13,15 @@
- 
- #define verbose(env, fmt, args...) bpf_verifier_log_write(env, fmt, ##args)
- 
-+/*
-+ * Matches BPF_PROBE_ATOMIC too: bpf_convert_ctx_accesses() rewrites arena
-+ * atomics before bpf_opt_subreg_zext_lo32_rnd_hi32() runs.
-+ */
- static bool is_cmpxchg_insn(const struct bpf_insn *insn)
+diff --git a/net/ipv4/nexthop.c b/net/ipv4/nexthop.c
+index 0f1e21a5c812e..901c353196828 100644
+--- a/net/ipv4/nexthop.c
++++ b/net/ipv4/nexthop.c
+@@ -2029,7 +2029,7 @@ remove_nh_grp_entry(struct net *net, struct nh_grp_entry *nhge,
  {
- 	return BPF_CLASS(insn->code) == BPF_STX &&
--	       BPF_MODE(insn->code) == BPF_ATOMIC &&
-+	       (BPF_MODE(insn->code) == BPF_ATOMIC ||
-+		BPF_MODE(insn->code) == BPF_PROBE_ATOMIC) &&
- 	       insn->imm == BPF_CMPXCHG;
- }
- 
+ 	struct nh_grp_entry *nhges, *new_nhges;
+ 	struct nexthop *nhp = nhge->nh_parent;
+-	struct netlink_ext_ack extack;
++	struct netlink_ext_ack extack = {};
+ 	struct nexthop *nh = nhge->nh;
+ 	struct nh_group *nhg, *newg;
+ 	int i, j, err;
 -- 
 2.53.0
 
