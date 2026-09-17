@@ -1,33 +1,48 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1DA344F30EF;
-	Thu, 17 Sep 2026 12:55:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 48C5B4E06C6;
+	Thu, 17 Sep 2026 12:56:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649741; cv=none; b=Wa00ico0bNeK7enbkPagv8YW6KThZ94vBnWG9icug7qHQyDabtj8T8IWCuvjMYj2AcqK/9bhLTkLuPk/qbwX6Ti3wzzxoPsZJfPIZqbH3TCjFi5RsTaMjHFwszi5iQCOR0XWxfCK2ETDt4sLcwaWRoWy6HK0VXQ5U10E4M4VF2E=
+	t=1789649781; cv=none; b=gm65gnK/oQ6SYux62DOvYFqnb4rqr31UIyE153zNFaHLjeZcqZ8ne8n5AxC1jWgHCh3zBcGVJXtd5ayCyJWaWBXb7cdVlT3bV8r9O20fdL3/0cVXH1vK3BhXsB5DZML3jDGbuJ58Fh37EsHzK1WUUMCqp2JBHQRUL/MnKR8Q3gM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649741; c=relaxed/simple;
-	bh=CgS8foIw+CAoe+nNj8jqdCzBiKTjw+dSU+vclH4uv/g=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=siPL67tk9IhmSGwTJmvd7A8T/ZHQkVDOhvxvdDyYzzJQXOrNwgP3C2pQNXRdczNY8J7L3hLNbp1dPAA0TERpOOlBgAut8gFhiD4PBkPhkGbJRyDGqcxOaiwopUbVZAaUB0ZlmkeAkZLt05UGV8Ia3F5h1MIw/mrLi1M6Xcigt/4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3qEI_46tqTfKACA--.3059S2;
-	Thu, 17 Sep 2026 20:55:27 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: devicetree@vger.kernel.org
-Cc: grant.likely@linaro.org,
+	s=arc-20240116; t=1789649781; c=relaxed/simple;
+	bh=lVvkric4bqsjm9teFQ57eswVhdVnbnIoi61jxqHHKt4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iDtqQsKM0Uku2S6BtmDsT+1Cm8f18+HbcdIYjX8pw+jgviO/2SmTNQIp0fKgYldzm7EXbKPUwKE0O89qU9HtE4Whw6U2MrLLzE3ZsNFWjKdXuRM3LcM+98out+B75suwGpLFVEFtGJBPxU9bw2z/88wc/xEQ3leR5bx+A96Vx00=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=UpCd+nEF; arc=none smtp.client-ip=117.135.210.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="UpCd+nEF"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Xj
+	vrR6q3G+2JmmkCKiYy4LR76MiqgTrB4foZPd0p2Zg=; b=UpCd+nEFMsKK4Opo4v
+	hfoPaKkZ2gCgDaMK1q704AZyxZV110Dc+WrViDOlgo5OrLSxt4hoMrCW8e7G9Jkm
+	mbKPn8MoAGuPGuf+LTNjO4sYD+u9IZxTI5RIlulwxL9qY9NKoIW8FcOJhzUbZ4OW
+	G7PzNXdJS/A4C0QFw94Ew309U=
+Received: from localhost.localdomain (unknown [])
+	by gzga-smtp-mtada-g1-3 (Coremail) with SMTP id _____wDn_8Qj46tqab0kBg--.26898S2;
+	Thu, 17 Sep 2026 20:54:59 +0800 (CST)
+From: Linkui Xiao <xiaolinkui@126.com>
+To: maxime.chevallier@bootlin.com,
+	andrew+netdev@lunn.ch,
+	davem@davemloft.net,
+	edumazet@google.com,
+	kuba@kernel.org,
+	pabeni@redhat.com,
+	mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
+	Linkui Xiao <xiaolinkui@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_match_node()
-Date: Thu, 17 Sep 2026 12:55:27 +0000
-Message-Id: <20260917125527.2152286-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: [PATCH net] net: stmmac: request the MDIO reset GPIO only once
+Date: Thu, 17 Sep 2026 20:54:57 +0800
+Message-Id: <20260917125457.1353718-1-xiaolinkui@126.com>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,61 +50,98 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3qEI_46tqTfKACA--.3059S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrKF1DGFW3ZFWrXFyUJw1xuFg_yoWkGrg_Wr
-	1kZrnxWrWjkr1vgFsavF1rurnFy3WDWrykWr4vyFna934jvr15Xrs0gryrA345Z3yFv3sr
-	tr4DGan5trsFgjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbqkYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG
-	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
-	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
-	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07je
-	0PfUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRMNA2qrq02wuwAAs4
+X-CM-TRANSID:_____wDn_8Qj46tqab0kBg--.26898S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxGFW8XFyfWr1ruFWUCry8Zrb_yoWrJr45p3
+	y7Zay5Ar1kJr4xXw4kJw48ZF98Aay3tr4UGw1I93yS9F4UtrWYvryaqFy5ZFy7KryUuFya
+	qr4Uu3WDu3WvyaUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYiiDUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlQOGXWqr4yNcaQAA35
 
-Every iteration takes a reference with of_find_node_by_path() but the
-loop never drops it, neither on the early continue paths nor after a
-successful match. Add the missing of_node_put() calls.
+From: Linkui Xiao <xiaolinkui@kylinos.cn>
 
-Fixes: 1f42e5dd5065 ("of: Add self test for of_match_node()")
+stmmac_mdio_reset() calls devm_gpiod_get_optional() every time it runs.
+A GPIO line can only be requested once per consumer, so from the second
+call on gpiod_request_commit() returns -EBUSY. devm_gpiod_get_optional()
+only turns -ENOENT into NULL, hence the error is passed straight back
+and stmmac_mdio_reset() bails out before pulsing "snps,reset" and before
+running the STE101P MDC workaround.
+
+The first call, made by mdiobus_register(), succeeds, so the failure is
+only visible later on: every resume that does not use WoL goes through
+stmmac_resume() -> stmmac_mdio_reset() and returns without resetting the
+PHY. Boards needing a hard PHY reset after power down then come back
+with a dead or badly negotiated link, and nothing reports it because
+both callers ignore the return value.
+
+The descriptor used to be cached in stmmac_mdio_bus_data::reset_gpio so
+that it was requested exactly once. Commit ae26c1c6cb9b ("stmmac: fix
+PHY reset during resume") relies on that cache to reuse the line on
+every call. Dropping the cache removed the protection without replacing
+it and reintroduced the very bug it had been fixed for.
+
+Cache the descriptor in struct stmmac_priv instead and only look it up
+while it is still unknown. It is devm-managed against the platform
+device, so it stays valid for the whole lifetime of the driver.
+
+Fixes: 7e770b252a62 ("net: stmmac: drop the reset GPIO from struct stmmac_mdio_bus_data")
 Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
 ---
- drivers/of/unittest.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
+ .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 20 ++++++++++++++-----
+ 2 files changed, 17 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 316f082c430d..900840850814 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -1897,6 +1897,7 @@ static void __init of_unittest_match_node(void)
- 		if (!match) {
- 			unittest(0, "%s didn't match anything\n",
- 				match_node_tests[i].path);
-+			of_node_put(np);
- 			continue;
- 		}
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+index 7582fca63741..986fb43db45f 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
+@@ -25,6 +25,7 @@
+ #include <net/xdp.h>
+ #include <uapi/linux/bpf.h>
  
-@@ -1904,9 +1905,11 @@ static void __init of_unittest_match_node(void)
- 			unittest(0, "%s got wrong match. expected %s, got %s\n",
- 				match_node_tests[i].path, match_node_tests[i].data,
- 				(const char *)match->data);
-+			of_node_put(np);
- 			continue;
- 		}
- 		unittest(1, "passed");
-+		of_node_put(np);
- 	}
- }
++struct gpio_desc;
+ struct stmmac_pcs;
  
+ struct stmmac_resources {
+@@ -287,6 +288,7 @@ struct stmmac_priv {
+ 
+ 	unsigned int pause_time;
+ 	struct mii_bus *mii;
++	struct gpio_desc *mdio_reset_gpio;
+ 
+ 	struct stmmac_pcs *integrated_pcs;
+ 
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+index afe98ff5bdcb..5f99d7db39f7 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
+@@ -389,11 +389,21 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+ 		struct gpio_desc *reset_gpio;
+ 		u32 delays[3] = { 0, 0, 0 };
+ 
+-		reset_gpio = devm_gpiod_get_optional(priv->device,
+-						     "snps,reset",
+-						     GPIOD_OUT_LOW);
+-		if (IS_ERR(reset_gpio))
+-			return PTR_ERR(reset_gpio);
++		/* Request the reset line only once and reuse the descriptor
++		 * afterwards. A second request of the very same line makes
++		 * gpiolib fail with -EBUSY, which devm_gpiod_get_optional()
++		 * passes through because it only filters out -ENOENT. The
++		 * reset would then abort early and leave the PHY un-reset.
++		 */
++		if (!priv->mdio_reset_gpio) {
++			priv->mdio_reset_gpio =
++				devm_gpiod_get_optional(priv->device,
++							"snps,reset",
++							GPIOD_OUT_LOW);
++			if (IS_ERR(priv->mdio_reset_gpio))
++				return PTR_ERR(priv->mdio_reset_gpio);
++		}
++		reset_gpio = priv->mdio_reset_gpio;
+ 
+ 		device_property_read_u32_array(priv->device,
+ 					       "snps,reset-delays-us",
 -- 
-2.34.1
+2.25.1
 
