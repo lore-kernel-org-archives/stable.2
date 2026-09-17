@@ -1,40 +1,32 @@
-Received: from out28-123.mail.aliyun.com (out28-123.mail.aliyun.com [115.124.28.123])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62C9A3921CE;
-	Thu, 17 Sep 2026 12:32:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.123
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC5054F0526;
+	Thu, 17 Sep 2026 12:33:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789648339; cv=none; b=McpQaibA7U3RA3ANszL+h46wx5ckPkvMcvN/LLQU9CYmhJbCguK+odI1ITq7SDmjeB6swjmcHsU1Rw3tnDIeyB6s9hYJcJnS2+kMPS8anqOcvPsmTy4teqNKbY3FEvOA0e1ZHITtdmKO67LwfAB7WyJsPHNZyEniW28NvhMukII=
+	t=1789648443; cv=none; b=j72l2GK42h8VQBgfta9/P9Tz5WjJUDZNtAe6V3njVAQ9CldAynR+qJ1vV/gj0XPDrFIgOgrEbwlJ6P6523LY4Q/nE54o3lBAxXnXsPbpBxDJfzrGicJ5RaQzrwWCJavyG14dUwbUYRecq84MWgU6PzijgDMb7Meh5GIXoy1NenU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789648339; c=relaxed/simple;
-	bh=Pug7M4IT6rWwRxW9iTTNHGXKQzUxRzSZXDGkpLBNpIs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dqhlpAXmrblwI7UT/VjdI6FCe5BnoWJ36D0nrZl+yGaI+NZZT0uOiAUzG3XXmnoB8+MNG65fn5EGl9hEvfVyQekSmtMoJqwSMpgXKPk1i3qt2GZXdHQ4Rv+TW1Jpwo1xfgzfQ1CDLwLnbWBpVYRlGmAlZbIv2/CIkQRidOocuoA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=bCukumxQ; arc=none smtp.client-ip=115.124.28.123
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="bCukumxQ"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789648318; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=8NF2rd+cv8YtGG4lXDipr2Cs0djPX++7fTapxfMoBbo=;
-	b=bCukumxQH7S80H9B51VsCstku0JdVmST3dXad9Qy/pw2jssD2EQbSwREJnN7oky3PsLEv8bfvgrmzOoJV1Hb5D4TuZhOYyEm4svsK0yqWFNcdXRABgXm8KO1WEe9872lSt78HCvnuzFvjwvmq6VK2Ra7ayP+hH7Doe7Cx8R6HcQ=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.09092806|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0228438-0.000426674-0.97673;FP=9691176561265935824|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam011083013073;MF=liuc63@xiaopeng.com;NM=1;PH=DS;RN=6;RT=6;SR=0;TI=SMTPD_---.jFxK1w6_1789648317;
-Received: from localhost(mailfrom:liuc63@xiaopeng.com fp:SMTPD_---.jFxK1w6_1789648317 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Thu, 17 Sep 2026 20:31:57 +0800
-From: Liu Chao <liuc63@xiaopeng.com>
+	s=arc-20240116; t=1789648443; c=relaxed/simple;
+	bh=A34bFxgBnWeF4VHl7PGrj4teQuNWgfYQUvkh55i8cJw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ER6zeMJx/pmq8vRg7jwoxm1/3qwKQFooLbcGngMVvVQ6Rea5R5wjtkYGuK43fi8PSRPmEXKbjwgyTTcunb7FRcUJzY41NumTACIi3IUZLbL+1GwLcTw72kE045AN4XczlCyA+xZWurd1YSLX2wUMg6xBhuHdOMSaVftZytb5S3I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACH7zko3qtqiJeACA--.2774S2;
+	Thu, 17 Sep 2026 20:33:44 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
 To: gregkh@linuxfoundation.org
-Cc: linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	liuwb@xiaopeng.com,
-	Liu Chao <liuc63@xiaopeng.com>
-Subject: [PATCH] usb: gadget: m66592: add NULL checks for epaddr2ep lookups
-Date: Thu, 17 Sep 2026 20:31:55 +0800
-Message-ID: <20260917123155.3763038-1-liuc63@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+Cc: linux-kernel@vger.kernel.org,
+	miquel.raynal@bootlin.com,
+	srini@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] nvmem: core: Fix nvmem use-after-free in nvmem_cell_put()
+Date: Thu, 17 Sep 2026 12:33:44 +0000
+Message-Id: <20260917123344.2151268-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,66 +34,54 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACH7zko3qtqiJeACA--.2774S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZr1DKF18Xr1DZF1rur13twb_yoWDZFb_uw
+	1j9FsrXF1fJrnrKr1fCF1fZ348tr4SgrZYyF1vqFs5JFWjvr9ru3sY9398Ary3Xr4SvrZr
+	XryDJr4FgrW7CjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jngAwUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYNA2qrq3ag0gAAsg
 
-get_status(), clear_feature() and set_feature() look up an endpoint
-via m66592->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK] and
-immediately dereference the result.
+__nvmem_device_put() drops the last reference to the nvmem device, which
+runs nvmem_device_release() and unregisters and frees the device, but
+nvmem_layout_module_put() then dereferences nvmem->layout on that freed
+device.
 
-epaddr2ep[] is only populated for EP0 at probe time and for other
-endpoints when they are enabled via m66592_ep_setting().  If a USB
-host sends a GET_STATUS, CLEAR_FEATURE or SET_FEATURE request
-targeting an endpoint number that has not been enabled, the lookup
-returns NULL and the subsequent dereference causes a kernel oops.
+Call nvmem_layout_module_put() before __nvmem_device_put() so the layout
+is still accessed while the device is alive.
 
-Add a NULL check after each lookup and stall EP0 on invalid
-endpoints, consistent with the error handling already used in the
-default cases of these switch statements.
-
-Fixes: 0f91349b89f3 ("usb: gadget: m66592-udc: Add support for M66592 USB peripheral controller")
+Fixes: fc29fd821d9ac ("nvmem: core: Rework layouts to become regular devices")
 Cc: stable@vger.kernel.org
-Reviewed-by: Weibin Liu <liuwb@xiaopeng.com>
-Signed-off-by: Liu Chao <liuc63@xiaopeng.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/usb/gadget/udc/m66592-udc.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/nvmem/core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/usb/gadget/udc/m66592-udc.c b/drivers/usb/gadget/udc/m66592-udc.c
-index d77c11c4e..1d0755f79 100644
---- a/drivers/usb/gadget/udc/m66592-udc.c
-+++ b/drivers/usb/gadget/udc/m66592-udc.c
-@@ -977,6 +977,10 @@ __acquires(m66592->lock)
- 		break;
- 	case USB_RECIP_ENDPOINT:
- 		ep = m66592->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(m66592, 0);
-+			return;		/* exit */
-+		}
- 		pid = control_reg_get_pid(m66592, ep->pipenum);
- 		if (pid == M66592_PID_STALL)
- 			status = 1 << USB_ENDPOINT_HALT;
-@@ -1012,6 +1016,10 @@ static void clear_feature(struct m66592 *m66592, struct usb_ctrlrequest *ctrl)
- 		u16 w_index = le16_to_cpu(ctrl->wIndex);
+diff --git a/drivers/nvmem/core.c b/drivers/nvmem/core.c
+index 311cb2e5a5c0..4df7efde2cd2 100644
+--- a/drivers/nvmem/core.c
++++ b/drivers/nvmem/core.c
+@@ -1593,8 +1593,8 @@ void nvmem_cell_put(struct nvmem_cell *cell)
+ 		kfree_const(cell->id);
  
- 		ep = m66592->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(m66592, 0);
-+			break;
-+		}
- 		pipe_stop(m66592, ep->pipenum);
- 		control_reg_sqclr(m66592, ep->pipenum);
+ 	kfree(cell);
+-	__nvmem_device_put(nvmem);
+ 	nvmem_layout_module_put(nvmem);
++	__nvmem_device_put(nvmem);
+ }
+ EXPORT_SYMBOL_GPL(nvmem_cell_put);
  
-@@ -1069,6 +1077,10 @@ static void set_feature(struct m66592 *m66592, struct usb_ctrlrequest *ctrl)
- 		u16 w_index = le16_to_cpu(ctrl->wIndex);
- 
- 		ep = m66592->epaddr2ep[w_index & USB_ENDPOINT_NUMBER_MASK];
-+		if (!ep) {
-+			pipe_stall(m66592, 0);
-+			break;
-+		}
- 		pipe_stall(m66592, ep->pipenum);
- 
- 		control_end(m66592, 1);
 -- 
-2.50.1
+2.34.1
 
