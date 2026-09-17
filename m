@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 35DA233B6F9;
-	Thu, 17 Sep 2026 15:31:12 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 543513839A8;
+	Thu, 17 Sep 2026 15:31:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659079; cv=none; b=RNY7GQ/+7lWnxjZnmYDjxWGrTgVpPchMQUS6G5zFqV0GMHxIzPiGZEq9+DUSvdsGb8yd1fkjK1HXjyeEIL4ekgAe+nyzCOH/mfT01tYPvAjwYO48+eoYT0wu+a4HUyo6zb5TRv8LNHMuU8Ziy1juqmf8kN5bbYp8bVSPw6xCTww=
+	t=1789659084; cv=none; b=mcja+QTTN/xdoCcqLn2yrvKSO73URkdZxPTJDppuOT/u6GIj5CgG/YxqDebVJ3fGkBVpU9MOO7x672vFhdsuoCj4ZY39m9BGdyz9g0inv/7xXVqQIoGEKUm7VH0tSXIEjlhVTwL6X0H9QGLlgV2wrSg8W9r0GrM9HIQLIAlMLXA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659079; c=relaxed/simple;
-	bh=x7maBbbsDgCPW3mo2dbeMfe0u8CUgj+e9kD14FRuxHA=;
+	s=arc-20240116; t=1789659084; c=relaxed/simple;
+	bh=oZmaJBuzw/hZirQD3gCXJWOZM3No1pcCgXnpDCYF6V4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=u20DqziXA7GbbeRWYZNHtNZAZ+IAJ0hTcby/7fuUSAa4Jai0NLedvK0RUfy8/JYsznsIlu2b7tKZmE4o+LiWDvk7JQiDYnBkA8au/Uz9GttT0Hj/HoLtxMrMkGiJPeqlGO2szbgcCli/fGmkoILLFD43YhTUaDNyUwKjyq1URvM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=nFTlfZrD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=qumwVknmVDl7xmufIAUREJO3qHPsDE8hFVnt5QYJRWTuvG3ZhRAs/9OPPiqK6MqiDeeu/6D/VQlVGIGygwVhMpxDd9Va/O9DWM203LXL6oVo1MWr6BVfkdGwyXMUchpd9hL7/E0Rm+1jlMP3/5ODKq4JKTKfrDXansFIqCMrHaw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=YGo41Ujy; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="nFTlfZrD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3A3061F0089B;
-	Thu, 17 Sep 2026 15:31:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="YGo41Ujy"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1F9BA1F00898;
+	Thu, 17 Sep 2026 15:31:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659069;
-	bh=drRYaDALliuqRXUycj4YkZGCMsWEvzh+xQXAJkASQVk=;
+	s=korg; t=1789659075;
+	bh=RyEFULvSh/FjxlmRTl7qgeEX1ySHfGZHuAHuQJDEcqs=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=nFTlfZrDuTtRdvNPPttuTru+YwgXN/gOO+ADPw+g0whLPYFn8H0bYyarI3D8yDJVn
-	 oQa6/eljFuvdWYramz3Cfhbfe9XiyrQY8F8ZwJ6qIMzdFteYeGMrEj8Dgk4H7le8Q9
-	 aqH0sG8iwUH6m3Asd5R1crsA0lVezg7k5d5SBf+k=
+	b=YGo41Ujy0Q0G4J2B4EmmZKEPNWA3BNFCyaMFum9x1j3vZZs2jhdhpBb7Pe9DVMfow
+	 AkKTy5KEFiTieq904QPUrZe0S71ZNDw5kTjbC4AprcJkAV1lhOe3e1sX5jV+2qlgZC
+	 PdsKXm7vGCqQSSrnwmf3tS4b0z+W850WvIvIE1lU=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Miguel Ojeda <ojeda@kernel.org>,
-	Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>,
+	syzbot+8e808eb853386f575d86@syzkaller.appspotmail.com,
+	Qingfang Deng <qingfang.deng@linux.dev>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 134/733] rust: samples: add missing newlines in rust_print_main
-Date: Thu, 17 Sep 2026 16:07:22 +0100
-Message-ID: <20260917151354.367273926@linuxfoundation.org>
+Subject: [PATCH 7.2 136/733] ppp: ppp_async: simplify tty disc_data access
+Date: Thu, 17 Sep 2026 16:07:24 +0100
+Message-ID: <20260917151354.421419640@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,63 +53,216 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
+From: Qingfang Deng <qingfang.deng@linux.dev>
 
-[ Upstream commit e510334fbaeaa016ac76d80b4c5f47611c5f7860 ]
+[ Upstream commit 9feb069e5ed03582fbf6272539f1caa2a17dc6d5 ]
 
-Calls to `pr_info!` in `arc_print` are missing trailing newlines, which
-are expected as the `pr_*!` documentation shows.
+tty_ldisc_hangup() invokes the hangup callback while holding only a read
+lock on tty->ldisc_sem, so it can run concurrently with other line
+discipline callbacks. This currently forces async PPP to maintain
+separate lifetime protection around tty->disc_data.
 
-Add the missing `\n` to all four formatting strings.
+Line discipline close is called under the write lock during hangup
+processing. Remove the hangup callback and rely on close for teardown,
+as done for SLIP by commit 23c53269f2ba ("slip: remove slip_hangup() to
+fix use-after-free in slip_receive_buf()"). This serializes teardown
+with all other line discipline operations.
 
-Fixes: f431c5c581fa ("samples: rust: print: Add sample code for Arc printing")
-Fixes: 47cb6bf7860c ("rust: use derive(CoercePointee) on rustc >= 1.84.0")
-Suggested-by: Miguel Ojeda <ojeda@kernel.org>
-Link: https://github.com/Rust-for-Linux/linux/issues/1139
-Signed-off-by: Mehmet Koseoglu <mehmet.mkoseoglu@gmail.com>
-Link: https://patch.msgid.link/20260828015148.221737-2-mehmet.mkoseoglu@gmail.com
-[ Reworded to fix the description of the missing-newline behavior. - Miguel ]
-Signed-off-by: Miguel Ojeda <ojeda@kernel.org>
+disc_data_lock, refcount and completion are redundant with that
+serialization. Remove them and access tty->disc_data directly.
+
+This also eliminates a lockdep warning reported by syzbot. The warning
+does not indicate a real deadlock because the write side runs only in
+process context with hardirqs disabled.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Reported-by: syzbot+8e808eb853386f575d86@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/all/0000000000002fbad30611e25849@google.com/
+Signed-off-by: Qingfang Deng <qingfang.deng@linux.dev>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Link: https://patch.msgid.link/20260828073245.126804-1-qingfang.deng@linux.dev
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- samples/rust/rust_print_main.rs | 8 ++++----
- 1 file changed, 4 insertions(+), 4 deletions(-)
+ drivers/net/ppp/ppp_async.c | 82 ++++---------------------------------
+ 1 file changed, 7 insertions(+), 75 deletions(-)
 
-diff --git a/samples/rust/rust_print_main.rs b/samples/rust/rust_print_main.rs
-index 682207c81fc2b..01729e87d6b5a 100644
---- a/samples/rust/rust_print_main.rs
-+++ b/samples/rust/rust_print_main.rs
-@@ -23,10 +23,10 @@ fn arc_print() -> Result {
-     let b = UniqueArc::new("hello, world", GFP_KERNEL)?;
+diff --git a/drivers/net/ppp/ppp_async.c b/drivers/net/ppp/ppp_async.c
+index a5db4f78b5fc8..6664686b1e041 100644
+--- a/drivers/net/ppp/ppp_async.c
++++ b/drivers/net/ppp/ppp_async.c
+@@ -65,8 +65,6 @@ struct asyncppp {
  
-     // Prints the value of data in `a`.
--    pr_info!("{}", a);
-+    pr_info!("{}\n", a);
+ 	struct tasklet_struct tsk;
  
-     // Uses ":?" to print debug fmt of `b`.
--    pr_info!("{:?}", b);
-+    pr_info!("{:?}\n", b);
+-	refcount_t	refcnt;
+-	struct completion dead;
+ 	struct ppp_channel chan;	/* interface to generic ppp layer */
+ 	unsigned char	obuf[OBUFSIZE];
+ };
+@@ -116,38 +114,6 @@ static const struct ppp_channel_ops async_ops = {
+  * Routines implementing the PPP line discipline.
+  */
  
-     let a: Arc<&str> = b.into();
-     let c = a.clone();
-@@ -42,7 +42,7 @@ fn arc_print() -> Result {
+-/*
+- * We have a potential race on dereferencing tty->disc_data,
+- * because the tty layer provides no locking at all - thus one
+- * cpu could be running ppp_asynctty_receive while another
+- * calls ppp_asynctty_close, which zeroes tty->disc_data and
+- * frees the memory that ppp_asynctty_receive is using.  The best
+- * way to fix this is to use a rwlock in the tty struct, but for now
+- * we use a single global rwlock for all ttys in ppp line discipline.
+- *
+- * FIXME: this is no longer true. The _close path for the ldisc is
+- * now guaranteed to be sane.
+- */
+-static DEFINE_RWLOCK(disc_data_lock);
+-
+-static struct asyncppp *ap_get(struct tty_struct *tty)
+-{
+-	struct asyncppp *ap;
+-
+-	read_lock(&disc_data_lock);
+-	ap = tty->disc_data;
+-	if (ap != NULL)
+-		refcount_inc(&ap->refcnt);
+-	read_unlock(&disc_data_lock);
+-	return ap;
+-}
+-
+-static void ap_put(struct asyncppp *ap)
+-{
+-	if (refcount_dec_and_test(&ap->refcnt))
+-		complete(&ap->dead);
+-}
+-
+ /*
+  * Called when a tty is put into PPP line discipline. Called in process
+  * context.
+@@ -182,9 +148,6 @@ ppp_asynctty_open(struct tty_struct *tty)
+ 	skb_queue_head_init(&ap->rqueue);
+ 	tasklet_setup(&ap->tsk, ppp_async_process);
  
-         use kernel::fmt::Display;
-         fn arc_dyn_print(arc: &Arc<dyn Display>) {
--            pr_info!("Arc<dyn Display> says {arc}");
-+            pr_info!("Arc<dyn Display> says {arc}\n");
-         }
- 
-         let a_i32_display: Arc<dyn Display> = Arc::new(42i32, GFP_KERNEL)?;
-@@ -53,7 +53,7 @@ fn arc_dyn_print(arc: &Arc<dyn Display>) {
-     }
- 
-     // Pretty-prints the debug formatting with lower-case hexadecimal integers.
--    pr_info!("{:#x?}", a);
-+    pr_info!("{:#x?}\n", a);
- 
-     Ok(())
+-	refcount_set(&ap->refcnt, 1);
+-	init_completion(&ap->dead);
+-
+ 	ap->chan.private = ap;
+ 	ap->chan.ops = &async_ops;
+ 	ap->chan.mtu = PPP_MRU;
+@@ -205,34 +168,18 @@ ppp_asynctty_open(struct tty_struct *tty)
  }
+ 
+ /*
+- * Called when the tty is put into another line discipline
+- * or it hangs up.  We have to wait for any cpu currently
+- * executing in any of the other ppp_asynctty_* routines to
+- * finish before we can call ppp_unregister_channel and free
+- * the asyncppp struct.  This routine must be called from
+- * process context, not interrupt or softirq context.
++ * Called when the tty is put into another line discipline or it hangs up.
++ * This call is serialized against other ldisc functions.
+  */
+ static void
+ ppp_asynctty_close(struct tty_struct *tty)
+ {
+-	struct asyncppp *ap;
++	struct asyncppp *ap = tty->disc_data;
+ 
+-	write_lock_irq(&disc_data_lock);
+-	ap = tty->disc_data;
+-	tty->disc_data = NULL;
+-	write_unlock_irq(&disc_data_lock);
+ 	if (!ap)
+ 		return;
+ 
+-	/*
+-	 * We have now ensured that nobody can start using ap from now
+-	 * on, but we have to wait for all existing users to finish.
+-	 * Note that ppp_unregister_channel ensures that no calls to
+-	 * our channel ops (i.e. ppp_async_send/ioctl) are in progress
+-	 * by the time it returns.
+-	 */
+-	if (!refcount_dec_and_test(&ap->refcnt))
+-		wait_for_completion(&ap->dead);
++	tty->disc_data = NULL;
+ 	tasklet_kill(&ap->tsk);
+ 
+ 	ppp_unregister_channel(&ap->chan);
+@@ -242,17 +189,6 @@ ppp_asynctty_close(struct tty_struct *tty)
+ 	kfree(ap);
+ }
+ 
+-/*
+- * Called on tty hangup in process context.
+- *
+- * Wait for I/O to driver to complete and unregister PPP channel.
+- * This is already done by the close routine, so just call that.
+- */
+-static void ppp_asynctty_hangup(struct tty_struct *tty)
+-{
+-	ppp_asynctty_close(tty);
+-}
+-
+ /*
+  * Read does nothing - no data is ever available this way.
+  * Pppd reads and writes packets via /dev/ppp instead.
+@@ -283,7 +219,7 @@ ppp_asynctty_write(struct tty_struct *tty, struct file *file, const u8 *buf,
+ static int
+ ppp_asynctty_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
+ {
+-	struct asyncppp *ap = ap_get(tty);
++	struct asyncppp *ap = tty->disc_data;
+ 	int err, val;
+ 	int __user *p = (int __user *)arg;
+ 
+@@ -324,7 +260,6 @@ ppp_asynctty_ioctl(struct tty_struct *tty, unsigned int cmd, unsigned long arg)
+ 		err = tty_mode_ioctl(tty, cmd, arg);
+ 	}
+ 
+-	ap_put(ap);
+ 	return err;
+ }
+ 
+@@ -333,7 +268,7 @@ static void
+ ppp_asynctty_receive(struct tty_struct *tty, const u8 *buf, const u8 *cflags,
+ 		     size_t count)
+ {
+-	struct asyncppp *ap = ap_get(tty);
++	struct asyncppp *ap = tty->disc_data;
+ 	unsigned long flags;
+ 
+ 	if (!ap)
+@@ -343,21 +278,19 @@ ppp_asynctty_receive(struct tty_struct *tty, const u8 *buf, const u8 *cflags,
+ 	spin_unlock_irqrestore(&ap->recv_lock, flags);
+ 	if (!skb_queue_empty(&ap->rqueue))
+ 		tasklet_schedule(&ap->tsk);
+-	ap_put(ap);
+ 	tty_unthrottle(tty);
+ }
+ 
+ static void
+ ppp_asynctty_wakeup(struct tty_struct *tty)
+ {
+-	struct asyncppp *ap = ap_get(tty);
++	struct asyncppp *ap = tty->disc_data;
+ 
+ 	clear_bit(TTY_DO_WRITE_WAKEUP, &tty->flags);
+ 	if (!ap)
+ 		return;
+ 	set_bit(XMIT_WAKEUP, &ap->xmit_flags);
+ 	tasklet_schedule(&ap->tsk);
+-	ap_put(ap);
+ }
+ 
+ 
+@@ -367,7 +300,6 @@ static struct tty_ldisc_ops ppp_ldisc = {
+ 	.name	= "ppp",
+ 	.open	= ppp_asynctty_open,
+ 	.close	= ppp_asynctty_close,
+-	.hangup	= ppp_asynctty_hangup,
+ 	.read	= ppp_asynctty_read,
+ 	.write	= ppp_asynctty_write,
+ 	.ioctl	= ppp_asynctty_ioctl,
 -- 
 2.53.0
 
