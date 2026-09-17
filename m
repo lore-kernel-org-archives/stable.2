@@ -1,47 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6777A47A871
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:03:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 781F14E1C94;
+	Thu, 17 Sep 2026 13:04:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650240; cv=none; b=ktcQMSfC4rUprqiDrSrJcN0xAJuxYSvIG+Y9pZh8t9v5dY5IFXgXMxNjYBr7/yaGl65LlN//ebr5OK4KBpEPVh5zPESK13i4o1MYNuvN2mPY2QYRKPoc6aJ5ZlZJy+rwUWyxAybQcmW95WVMFlv9WRAvGT8JPHltAInQgH1jGBE=
+	t=1789650298; cv=none; b=YGZEPA4UxEgYfuf2Rw3yjcC5dniRBVz5C9cEA9qGyNmqt2VbU3ZzEpx+NTufYXniZyTdHucMz63hdU8ryeH+Bl2Mhq5odJWTtnPmzhuvwj2Qvs7ucfA0fuR3XUIO0SSjWil162yp2vOJNLUZlH7GkGTTvULvr+25z2YcBOSkkeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650240; c=relaxed/simple;
-	bh=X8ctYp5ZJYuGjFUI7ITrmZD0Q3yoTPGo4zABP/o1iNI=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XriNyBxx9d5gYF4teRLmjNe2GHkZT88xiQQaHS6phJBzqGShJfznZSOC47+nCP05tiqvKZZIvUN3nQixgynTsrCV83bOSqra5CdZGt0eu2dS5wsCgiivH2U8nZ5g0nCN2uP9L6BI6Fz7SOiclv74EEfN9ZIV29s3wySe6yIhozY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HBjzxc7b; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBjzxc7b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 958491F0089B;
-	Thu, 17 Sep 2026 13:03:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789650231;
-	bh=1efO0SSbNLry/ev/LAcRYuxtFesSKB5awTrnrAIFBbc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HBjzxc7brz6v6TdHQcdomPkPkZSM2eqpZ6WHvwEZgC1Vf7kfK7PPTYIPGBS3bw9fW
-	 9xfdN3faqNeKOlDzU0no/X6rjnxJa4Gw4KCTAGYP/OpofQ5yLlavmATfYLTar4JT/s
-	 gFq8E9v0j0qzXcCrJBy3izTklgmQL0jNmHb14iwtKPw5d8dzM3/1r9gr3KzSaXHjUy
-	 Ke0VAU2u1rK+/3xarvlqBWAeVZI438nsD2tenhs1C9rwuFxuKJGbUzqwNtBYsBx4Wa
-	 67MNsN0SyIyvAuXqaQtSD2esj39O2AQJXeQtoDMUoVgmoUe0q2zgfkqAykcp13ckCe
-	 fEd2GEOXp5nzQ==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.6.y 2/2] smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
-Date: Thu, 17 Sep 2026 09:03:48 -0400
-Message-ID: <20260917130348.320328-2-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917130348.320328-1-sashal@kernel.org>
-References: <2026091605-runaround-justness-9c84@gregkh>
- <20260917130348.320328-1-sashal@kernel.org>
+	s=arc-20240116; t=1789650298; c=relaxed/simple;
+	bh=64Ylne07jTj2VXNOWf8yEG8Gw+xMkVMd8q+OECBl1HM=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=OoT1ly2mpno16QeN9HiRT/jficJOTk13JPo9Kzh8cPQ0udqGML/eeohqKKsSUFQ3GrU4tXp1Nqu3UmlJH3bFYX6JEDZNHn3DwWQBHyr5j+bl0Qrx1qNJlz8VRn98tKYETC22KGNg8IEABEtVF9Y2+xuZoFeYWdVFxpDXvrMxJUU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACHuEJt5atqwRSBCA--.3396S2;
+	Thu, 17 Sep 2026 21:04:45 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: devicetree@vger.kernel.org
+Cc: grant.likely@linaro.org,
+	linux-kernel@vger.kernel.org,
+	robh@kernel.org,
+	saravanak@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] of: unittest: Fix np reference leaks in of_unittest_platform_populate()
+Date: Thu, 17 Sep 2026 13:04:45 +0000
+Message-Id: <20260917130445.2152694-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,157 +35,66 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACHuEJt5atqwRSBCA--.3396S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Ww1kAF4kWw1fXF1Uuw43GFg_yoW8WFy8pr
+	W7GFWavrn8Ga17taykuryUuFyIyanI9rWrGryUK34kuan7A3W7AFy2gay0gFn3XrW8Wa98
+	A3W7trWDG3srt3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPIb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_Jw0_GFylx2IqxVAqx4xG
+	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
+	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
+	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
+	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UM
+	q2NUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJquywABsR
 
-From: Paulo Alcantara <pc@manguebit.org>
+np holds a reference obtained from of_find_node_by_path() but is
+reassigned several times without a matching of_node_put(). Drop the
+reference before each reassignment so it is not leaked on any path
+through the function.
 
-[ Upstream commit 18a72975e9f35aadecc75b031f693f2d1f49308f ]
-
-When the administrator mounts with forceuid or forcegid (uid=/gid=
-mount options), they expect all files to appear owned by the specified
-user/group.  However, several code paths unconditionally called
-sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
-ignoring the administrator's explicit override:
-
-  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
-  - cifs_posix_to_fattr() (readdir via POSIX extensions)
-  - parse_sec_desc() (CIFS ACL ownership mapping)
-
-This allowed an untrusted server to dictate local file ownership even
-when the mount was configured to force specific uid/gid values.
-
-Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
-CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
-same pattern already used by cifs_unix_basic_to_fattr() for unix
-extensions.
-
-Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
+Fixes: 82c0f5897a87 ("of: selftest: add deferred probe interrupt test")
 Cc: stable@vger.kernel.org
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/smb/client/cifsacl.c | 29 ++++++++++++++++++-----------
- fs/smb/client/inode.c   |  9 +++++++--
- fs/smb/client/readdir.c |  9 +++++++--
- 3 files changed, 32 insertions(+), 15 deletions(-)
+ drivers/of/unittest.c | 3 +++
+ 1 file changed, 3 insertions(+)
 
-diff --git a/fs/smb/client/cifsacl.c b/fs/smb/client/cifsacl.c
-index af6f746f68256..97c02467596be 100644
---- a/fs/smb/client/cifsacl.c
-+++ b/fs/smb/client/cifsacl.c
-@@ -1300,6 +1300,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- {
- 	int rc = 0;
- 	struct smb_sid *owner_sid_ptr, *group_sid_ptr;
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 	struct smb_acl *dacl_ptr; /* no need for SACL ptr */
- 	char *end_of_acl;
- 	__u32 dacloffset, osidoffset, gsidoffset;
-@@ -1318,17 +1319,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 	cifs_dbg(NOISY, "revision %d type 0x%x ooffset 0x%x goffset 0x%x sacloffset 0x%x dacloffset 0x%x\n",
- 		 pntsd->revision, pntsd->type, osidoffset, gsidoffset,
- 		 le32_to_cpu(pntsd->sacloffset), dacloffset);
--/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+
- 	rc = sid_from_sd(pntsd, acl_len, osidoffset, &owner_sid_ptr);
- 	if (rc) {
- 		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
- 		return rc;
+diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
+index 6bc5babddf0a..4a8af9b992c4 100644
+--- a/drivers/of/unittest.c
++++ b/drivers/of/unittest.c
+@@ -1934,6 +1934,7 @@ static void __init of_unittest_platform_populate(void)
+ 
+ 	np = of_find_node_by_path("/testcase-data");
+ 	of_platform_default_populate(np, NULL, NULL);
++	of_node_put(np);
+ 
+ 	/* Test that a missing irq domain returns -EPROBE_DEFER */
+ 	np = of_find_node_by_path("/testcase-data/testcase-device1");
+@@ -1944,6 +1945,7 @@ static void __init of_unittest_platform_populate(void)
+ 		irq = platform_get_irq(pdev, 0);
+ 		unittest(irq == -EPROBE_DEFER,
+ 			 "device deferred probe failed - %d\n", irq);
++		of_node_put(np);
+ 
+ 		/* Test that a parsing failure does not return -EPROBE_DEFER */
+ 		np = of_find_node_by_path("/testcase-data/testcase-device2");
+@@ -1961,6 +1963,7 @@ static void __init of_unittest_platform_populate(void)
+ 		unittest(irq < 0 && irq != -EPROBE_DEFER,
+ 			 "device parsing error failed - %d\n", irq);
  	}
--	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
-+		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
++	of_node_put(np);
  
- 	rc = sid_from_sd(pntsd, acl_len, gsidoffset, &group_sid_ptr);
-@@ -1337,11 +1342,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 			 __func__, rc);
- 		return rc;
- 	}
--	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
-+		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
- 
- 	if (dacloffset) {
-diff --git a/fs/smb/client/inode.c b/fs/smb/client/inode.c
-index cca480ab7e64b..545c6b09cb73c 100644
---- a/fs/smb/client/inode.c
-+++ b/fs/smb/client/inode.c
-@@ -770,6 +770,7 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
- 	struct smb311_posix_qinfo *info = &data->posix_fi;
- 	struct cifs_sb_info *cifs_sb = CIFS_SB(sb);
- 	struct cifs_tcon *tcon = cifs_sb_master_tcon(cifs_sb);
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 
- 	memset(fattr, 0, sizeof(*fattr));
- 
-@@ -814,8 +815,12 @@ static void smb311_posix_info_to_fattr(struct cifs_fattr *fattr,
- 		fattr->cf_symlink_target = data->symlink_target;
- 		data->symlink_target = NULL;
- 	}
--	sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+		sid_to_id(cifs_sb, &data->posix_owner, fattr, SIDOWNER);
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+		sid_to_id(cifs_sb, &data->posix_group, fattr, SIDGROUP);
- 
- 	cifs_dbg(FYI, "POSIX query info: mode 0x%x uniqueid 0x%llx nlink %d\n",
- 		fattr->cf_mode, fattr->cf_uniqueid, fattr->cf_nlink);
-diff --git a/fs/smb/client/readdir.c b/fs/smb/client/readdir.c
-index 5febf8afaab04..8ccfdc6a10cfb 100644
---- a/fs/smb/client/readdir.c
-+++ b/fs/smb/client/readdir.c
-@@ -241,6 +241,7 @@ static void
- cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		    struct cifs_sb_info *cifs_sb)
- {
-+	unsigned int sbflags = cifs_sb_flags(cifs_sb);
- 	struct smb2_posix_info_parsed parsed;
- 
- 	posix_info_parse(info, NULL, &parsed);
-@@ -280,8 +281,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		 le32_to_cpu(info->ReparseTag),
- 		 le32_to_cpu(info->Mode));
- 
--	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
- }
- 
- static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
+ 	np = of_find_node_by_path("/testcase-data/platform-tests");
+ 	unittest(np, "No testcase data in device tree\n");
 -- 
-2.53.0
+2.34.1
 
