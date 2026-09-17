@@ -1,31 +1,31 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 920069475
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:06 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC29286D60
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608787; cv=none; b=BV36AEJi/BnfU5c5ZyLT1fpq0jNkX5turKahJeBto3T3Q/KbRh1yom6C+YbqPV8UVn6ZH6g7iG5G/jmPTRgI7GI6OrlwPAYFrBZneh2gHODh25WOKnArTruhwSbA9MpY1PEMXYuFSmMuO4zW28+Sx8rktGEwAat6ljqRzNE6nN4=
+	t=1789608788; cv=none; b=jWkXs5JuxAWgArFsP/KtdImoUOMq86N9Lf2RiPUDTcTEKzaGwY2vuBzxFjM1V9m6M7JdVsNXQ1fESMcH4Kfey6TtOiFpH35kl0Q+LRm8Mmt3zB9DEIzXC9dOF40ruQySRd1PizgVyrpZqORb+SCqT60IG7Use+VykQD11tszbCQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608787; c=relaxed/simple;
-	bh=vv9Qzyt+Wm9CMMZiSqzNR5ncNBuwgoleOf2DIYEJQGw=;
+	s=arc-20240116; t=1789608788; c=relaxed/simple;
+	bh=BwCmCrPescqKCwrmyW6yiTElIlSVxhSzQkAtNdZsffk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=EX10gI4yi84fNIZHZi8YHMmU7hqGEhuNfEMC4h/YnFKuBuk+LyDAz0EzVf5pKyimRowRXVDVfaws27xlIsgJDZQBnYvelwAIBzrslC5V+6Q8c1TixcboQKLF/af7Saw2NcfUm35REMzWkPkpPUXc8NMPV+m31XJzMHyZZt+bnHU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BDNyU6/a; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Mhu8RRwubycXDMCng7A89+UJN4H3yVBbQcuxK3Lr+e87VDLxPw+yXgTIfgor4kC9cgAf97sKHOJU880wZoCIbod6mIdkhFUKHflyhaBx8cW16o0aBwrgRJu52GO8kIPQMEa3niY6DJnEnQx2s5DF0pWBoFSkWIL9O2CPcUFyIds=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6/hJv3S; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BDNyU6/a"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 647341F000FF;
-	Thu, 17 Sep 2026 01:33:05 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6/hJv3S"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49FE61F00893;
+	Thu, 17 Sep 2026 01:33:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
 	s=k20260515; t=1789608786;
-	bh=2CZcgk8R4LCtjgyPPcvViUwShuK0zJ82U6HExsrdHqs=;
+	bh=OA9xM8YA3GUwd1zp+jH07qipOuNsrl0tcEmr4BGgkEk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BDNyU6/a8VS2K8L9tDNhGNWAfy3UT/Ic6tD3xcKCDuxb5SwRw8JL57NDHHXa4qzWb
-	 ilRNdFzN8pU4xoTgb7FcvoI018nXMrj1k8OydRsg0Qu+6yzrjb3GOO+IEu2mPBzGZe
-	 agyrsc//AOZsBclbha3rDF2Sy0oxhpxvu5oRlsnTFScml2s1tAeDYuzzCCYmxIUyyW
-	 ysoTdJW60CPzMvoSUneviC6ViAR6sTFryvcvNX+r8se6qi6HR/BfskRnqXO4t3n5wW
-	 RfORv4lUBa5Cgl8QMAjn5ObJgsQkvsXnyDQsgkiHArq5HZxeYvzfT9PtyxAVYnnyeY
-	 BhYLkWoKyuuSg==
+	b=i6/hJv3SNTAcz++s9GHPQ2HiAn0m3D9PX0h/jyqdGaFnNR4D2mKr1KoXwWyygc4h0
+	 cUrFgDfBC6P7ITB9Tf6BjF+epY3uu4eJwomZHZ1rNXJrSFpEfq0XBcVeM12U+kDpYV
+	 wGE+T/Ojgcd3EnETM/YI2NT4l8e6QvspaTg0imWZkQEn6yKQLJ9/Ox+5WfNn1F+URs
+	 z6lULpchayTvROWsAvsB8rmOLTICUBvTN+RG+hlQDiKQoxXrOxxqLKskFVQ8/libJc
+	 VXPOuApTNQ46Wi5PF0pZ/Fmd3wtCpAFG0VV1IYulbNNxAXVqenf+TaWwF7iSTWtJNk
+	 WiqNMXrqx1zmQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Thomas Richter <tmricht@linux.ibm.com>,
@@ -33,12 +33,13 @@ Cc: Thomas Richter <tmricht@linux.ibm.com>,
 	Heiko Carstens <hca@linux.ibm.com>,
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 1/3] s390/pai: Use PAI PMU index as parameter replacing event
-Date: Wed, 16 Sep 2026 21:33:01 -0400
-Message-ID: <20260917013303.3594106-1-sashal@kernel.org>
+Subject: [PATCH 7.2.y 2/3] s390/pai: Move locking to event init and delete
+Date: Wed, 16 Sep 2026 21:33:02 -0400
+Message-ID: <20260917013303.3594106-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091643-probably-sprinkled-c1c7@gregkh>
+In-Reply-To: <20260917013303.3594106-1-sashal@kernel.org>
 References: <2026091643-probably-sprinkled-c1c7@gregkh>
+ <20260917013303.3594106-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -49,11 +50,9 @@ Content-Transfer-Encoding: 8bit
 
 From: Thomas Richter <tmricht@linux.ibm.com>
 
-[ Upstream commit 4eef4ab3aa3a32725e5bc79032c722f9f4a90172 ]
+[ Upstream commit e8df39dacb7d98d2b2aea431ca652d9fadf5efa3 ]
 
-Use PAI PMU index value as function argument instead of pointer
-to struct perf_event. Only that index value is used inside
-functions pai_alloc_cpu() and pai_event_destroy_cpu().
+Move mutex locking from per CPU allocation to event allocation.
 No functional change.
 
 Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
@@ -67,95 +66,106 @@ Signed-off-by: Sasha Levin <sashal@kernel.org>
  1 file changed, 12 insertions(+), 13 deletions(-)
 
 diff --git a/arch/s390/kernel/perf_pai.c b/arch/s390/kernel/perf_pai.c
-index cdb8006220ca0..7c13f5586c793 100644
+index 7c13f5586c793..52d9f654346a2 100644
 --- a/arch/s390/kernel/perf_pai.c
 +++ b/arch/s390/kernel/perf_pai.c
-@@ -140,16 +140,14 @@ static void pai_free(struct pai_mapptr *mp)
+@@ -138,21 +138,19 @@ static void pai_free(struct pai_mapptr *mp)
+ }
+ 
  /* Adjust usage counters and remove allocated memory when all users are
-  * gone.
+- * gone.
++ * gone. Called under mutex_lock.
   */
--static void pai_event_destroy_cpu(struct perf_event *event, int cpu)
-+static void pai_event_destroy_cpu(int idx, int cpu)
+ static void pai_event_destroy_cpu(int idx, int cpu)
  {
--	int idx = PAI_PMU_IDX(event);
  	struct pai_mapptr *mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
  	struct pai_map *cpump = mp->mapptr;
  
- 	mutex_lock(&pai_reserve_mutex);
--	debug_sprintf_event(paidbg, 5, "%s event %#llx idx %d cpu %d users %d "
--			    "refcnt %u\n", __func__, event->attr.config, idx,
--			    event->cpu, cpump->active_events,
-+	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
-+			    __func__, cpump->active_events,
+-	mutex_lock(&pai_reserve_mutex);
+ 	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
+ 			    __func__, cpump->active_events,
  			    refcount_read(&cpump->refcnt));
  	if (refcount_dec_and_test(&cpump->refcnt))
  		pai_free(mp);
-@@ -159,17 +157,17 @@ static void pai_event_destroy_cpu(struct perf_event *event, int cpu)
+ 	pai_root_free(idx);
+-	mutex_unlock(&pai_reserve_mutex);
+ }
  
  static void pai_event_destroy(struct perf_event *event)
- {
--	int cpu;
-+	int cpu = 0, idx = PAI_PMU_IDX(event);
+@@ -160,6 +158,7 @@ static void pai_event_destroy(struct perf_event *event)
+ 	int cpu = 0, idx = PAI_PMU_IDX(event);
  
  	free_page(PAI_SAVE_AREA(event));
++	mutex_lock(&pai_reserve_mutex);
  	if (event->cpu == -1) {
  		struct cpumask *mask = PAI_CPU_MASK(event);
  
- 		for_each_cpu(cpu, mask)
--			pai_event_destroy_cpu(event, cpu);
-+			pai_event_destroy_cpu(idx, cpu);
- 		kfree(mask);
+@@ -169,6 +168,7 @@ static void pai_event_destroy(struct perf_event *event)
  	} else {
--		pai_event_destroy_cpu(event, event->cpu);
-+		pai_event_destroy_cpu(idx, event->cpu);
+ 		pai_event_destroy_cpu(idx, event->cpu);
  	}
++	mutex_unlock(&pai_reserve_mutex);
  }
  
-@@ -241,12 +239,12 @@ static u64 paicrypt_getall(struct perf_event *event)
-  *
-  * Allocate the memory for the event.
+ static void paicrypt_event_destroy(struct perf_event *event)
+@@ -232,12 +232,10 @@ static u64 paicrypt_getall(struct perf_event *event)
+ 	return sum;
+ }
+ 
+-/* Check concurrent access of counting and sampling for crypto events.
+- * This function is called in process context and it is save to block.
+- * When the event initialization functions fails, no other call back will
+- * be invoked.
+- *
+- * Allocate the memory for the event.
++/* Allocate all per-CPU data structures. This function is called in
++ * process context and can block. In case of error all partly allocated
++ * memory is released and the reference counters adjusted correctly.
++ * Called under mutex_lock.
   */
--static int pai_alloc_cpu(struct perf_event *event, int cpu)
-+static int pai_alloc_cpu(int idx, int cpu)
+ static int pai_alloc_cpu(int idx, int cpu)
  {
--	int rc, idx = PAI_PMU_IDX(event);
- 	struct pai_map *cpump = NULL;
- 	bool need_paiext_cb = false;
+@@ -246,11 +244,10 @@ static int pai_alloc_cpu(int idx, int cpu)
  	struct pai_mapptr *mp;
-+	int rc;
+ 	int rc;
  
- 	mutex_lock(&pai_reserve_mutex);
+-	mutex_lock(&pai_reserve_mutex);
  	/* Allocate root node */
-@@ -318,6 +316,7 @@ static int pai_alloc_cpu(struct perf_event *event, int cpu)
+ 	rc = pai_root_alloc(idx);
+ 	if (rc)
+-		goto unlock;
++		goto out;
  
+ 	/* Allocate node for this event */
+ 	mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
+@@ -308,12 +305,12 @@ static int pai_alloc_cpu(int idx, int cpu)
+ 		 */
+ 		pai_root_free(idx);
+ 	}
+-unlock:
+-	mutex_unlock(&pai_reserve_mutex);
++out:
+ 	/* If rc is non-zero, no increment of counter/sampler was done. */
+ 	return rc;
+ }
+ 
++/* Called under mutex_lock */
  static int pai_alloc(struct perf_event *event)
  {
-+	int idx = PAI_PMU_IDX(event);
- 	struct cpumask *maskptr;
- 	int cpu, rc = -ENOMEM;
- 
-@@ -326,10 +325,10 @@ static int pai_alloc(struct perf_event *event)
- 		goto out;
- 
- 	for_each_online_cpu(cpu) {
--		rc = pai_alloc_cpu(event, cpu);
-+		rc = pai_alloc_cpu(idx, cpu);
- 		if (rc) {
- 			for_each_cpu(cpu, maskptr)
--				pai_event_destroy_cpu(event, cpu);
-+				pai_event_destroy_cpu(idx, cpu);
- 			kfree(maskptr);
- 			goto out;
+ 	int idx = PAI_PMU_IDX(event);
+@@ -390,10 +387,12 @@ static int pai_event_init(struct perf_event *event, int idx)
  		}
-@@ -392,7 +391,7 @@ static int pai_event_init(struct perf_event *event, int idx)
  	}
  
++	mutex_lock(&pai_reserve_mutex);
  	if (event->cpu >= 0)
--		rc = pai_alloc_cpu(event, event->cpu);
-+		rc = pai_alloc_cpu(idx, event->cpu);
+ 		rc = pai_alloc_cpu(idx, event->cpu);
  	else
  		rc = pai_alloc(event);
++	mutex_unlock(&pai_reserve_mutex);
  	if (rc) {
+ 		free_page(PAI_SAVE_AREA(event));
+ 		goto out;
 -- 
 2.53.0
 
