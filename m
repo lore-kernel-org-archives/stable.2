@@ -1,96 +1,81 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 358804EFFAD;
-	Thu, 17 Sep 2026 15:42:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9060A4EFFD3
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:42:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659763; cv=none; b=N5lazgejwDmxHu31LeCN1qgVtwqMaX5Cn7++/bcS/VqkFcpYP5hz5sLZcoWHPzhttaaZ7RPotFoxVZtyH24SPFrx6V0y8FVmS9BgOtCbT4JlPAmpIhpppvg2OUODYrS8w94v106CJc/S4wGSUXH67EHQelUkU4NG+IixHzsCxGE=
+	t=1789659767; cv=none; b=KnsBFR7KOvqmSVDKDo+BMKgkhBHpaOkCtd6g1ZH724DK9N22PMQBrRcIuOLpfHfAyuKs7NG9FK6x1T2SzrykX9z+YLXbdcikQEFHIo/hN50O3vYfYLWh3hGaR+YUx4aLLPOjJRXe3rvfuZzBvNWH5lZ6Hgfw/KJbND4EQkgmdsA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659763; c=relaxed/simple;
-	bh=bckBc08MKuzR7jVfwkR1KYghvG0IWYtGHDLoyxFKkJM=;
+	s=arc-20240116; t=1789659767; c=relaxed/simple;
+	bh=xFvgNitfMvo65FADLIbS9Nu1T8sk1RSn3GrcQ2vUUes=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=onjImu0AA5DBwcH1I3eLucd6/rYapzfyqY7YeN8tzgqIEbcaJilHH0YoqgG2VpcAtEtdLcOyMo1b96diaLBK7G2gNrDpoLKhKpLX6DTOyMr+/sk98XkeFKwNHDoYJj4FjdZk/erB35tlyAJPkYxbRhBdV8BY2y2BWHkPKcUvSe8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=DkTZB1vq; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=aiY4L0m/OcHGHOAHZouJbm0XesA6VdOn5nhTR0SlO/3WiWbo9q6XDGtUoMiz9jQV7/G6IjPi9wmE+gKreXRSlmciTVm7l2BD3btYXWLdha+FM9K5XjXNiZVddph2wuqnF+643CpfIXjgGM1OTPCHQQ3O1r/C2eDpo6YKiDEDKVk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=x67mbk2p; arc=none smtp.client-ip=83.166.143.174
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="DkTZB1vq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FBDA1F00893;
-	Thu, 17 Sep 2026 15:42:32 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659752;
-	bh=2WwkQ/hUKyknJ6vt4d/ZYQDzvyw6+QzFiL7E09hxFis=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DkTZB1vq4g2DI81HdjkSmDXr8T6Pue6POvi+dRF/GQHJffjBnB0xXN5Jf72C7JrrO
-	 gw6sMwRj1M+0e0BqlcG4ndJEOUhKzyHi8mWehhNhAH+UCVWKYjaYhdKvz2lKLh6Hdr
-	 ktPDCVUIEJydGDbaI1DgM8b8LCEHgtwH4K2V0LvU=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="x67mbk2p"
+Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0Pj15bdzcmB;
+	Thu, 17 Sep 2026 17:42:33 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789659752;
+	bh=TuhqDm8FDSxFczLLbID82yK/CBX52AdJb09RSZAIB80=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=x67mbk2pO3WCDOqIJriniHeF731V/3oFNWg9ZQg28dh+TyndkdYok0KdGbWYYTELL
+	 wpovOy2UERjYVTdN6Cd0JasToUN1EVFWEyW0EpTAQ7sa1XiVuJzLRfbCFctTwM3hBV
+	 erXyG67VAhqWj9RTUXw+2B4D6NZp6cSLobAwKAy8=
+Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0Ph0KcxzLmD;
+	Thu, 17 Sep 2026 17:42:32 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Aleksei Sviridkin <f@lex.la>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 361/733] net: macb: reject an unknown link speed in the taprio setup
-Date: Thu, 17 Sep 2026 16:11:09 +0100
-Message-ID: <20260917151400.600003150@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	Christian Brauner <brauner@kernel.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
+Subject: [PATCH 7.2.y 1/3] selftests/landlock: Use an actual chardev for MAKE_CHAR audit test
+Date: Thu, 17 Sep 2026 17:42:27 +0200
+Message-ID: <1aa1d524419bd5119577f0ccb8b6c058b32021e4.1789655724.git.mic@digikod.net>
+In-Reply-To: <20260904045811.854612571@linuxfoundation.org>
+References: <20260904045811.854612571@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Günther Noack <gnoack@google.com>
 
-------------------
+[ Upstream commit 173b1bd8730825e1f6862dbd07856e7d68447a41 ]
 
-From: Aleksei Sviridkin <f@lex.la>
+By passing a (0, 0) device number, the audit test for
+LANDLOCK_ACCESS_FS_MAKE_CHAR was accidentally creating a whiteout object
+rather than a char device.  In preparation to treating whiteout objects
+differently, use an actual character device instead.
 
-[ Upstream commit 2b6c0e25a3d713c4032e45f212bdd9e14c50f8a0 ]
-
-speed is a u32, so SPEED_UNKNOWN arrives as 0xffffffff and passes the
-"speed <= 0" check, which only ever catches zero. That is what an
-autonegotiating link reports while it is down: the limit derived from
-the speed collapses to a nanosecond at most and the first entry fails
-with a misleading "exceeds hardware limit". Zero stays covered, it is
-what an interface that was never opened reports, and
-enst_max_hw_interval() divides by it. Say which case it was in the
-error.
-
-Fixes: 89934dbf169e ("net: macb: Add TAPRIO traffic scheduling support")
-Assisted-by: LLM
-Signed-off-by: Aleksei Sviridkin <f@lex.la>
-Link: https://patch.msgid.link/20260903123652.23900-3-f@lex.la
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Signed-off-by: Günther Noack <gnoack@google.com>
+Link: https://patch.msgid.link/20260813093157.1436894-2-gnoack@google.com
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ tools/testing/selftests/landlock/fs_test.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 09fd83782ae3f..55ed40a0a6062 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4360,8 +4360,8 @@ static int macb_taprio_setup_replace(struct net_device *netdev,
- 	}
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 86e08aa6e0a7..e82b56a74c5f 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -7436,7 +7436,7 @@ TEST_F(audit_layout1, make_char)
  
- 	speed = kset.base.speed;
--	if (unlikely(speed <= 0)) {
--		netdev_err(netdev, "Invalid speed: %d\n", speed);
-+	if (unlikely(speed == SPEED_UNKNOWN || !speed)) {
-+		netdev_err(netdev, "Invalid speed %d, link-down?\n", speed);
- 		return -EINVAL;
- 	}
+ 	enforce_fs(_metadata, ACCESS_ALL, NULL);
  
--- 
-2.53.0
-
-
-
+-	EXPECT_EQ(-1, mknod(file1_s1d3, S_IFCHR | 0644, 0));
++	EXPECT_EQ(-1, mknod(file1_s1d3, S_IFCHR | 0644, makedev(7, 0)));
+ 	EXPECT_EQ(EACCES, errno);
+ 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_char",
+ 				    dir_s1d3));
