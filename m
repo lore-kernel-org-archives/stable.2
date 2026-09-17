@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AD043955FA
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:58:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E1B03A0B38
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:58:17 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613900; cv=none; b=Shi3zlE2fBDUwTDnGQKsZKWY7TMOfGCOf2G4Erpn0fvwaXw2QK82RmMM6N47y1npbIHCvjBoSbdu37Tzbtzye0HE7Pg+sBMh4GXGbSGhliaf2LnUDLvFDC1nMepCvptLNb1IasMvm+7XG10OLdF2JAfkMjwAn4q5sZ53eo3HaeE=
+	t=1789613903; cv=none; b=CPlLiz7FPezhiWi0Jmcdu8Y9GFHNE6NXZKNvoMsOgU8VN/xzyIKHAX18GBXaaY6P1nGDJUb00k7FW9s9Fwm0pVpYJ6xKHWOxCrvp7TjS4NLvO54E2oLOn6HM8Jy7/O3MdfPsbOYlDEPv23IlMYXA/dHjkJp2iNr0LTEzskGEwTY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613900; c=relaxed/simple;
-	bh=QLKAWPwXap+v3Btf5VhBNDBF7szgRErGr0Vq6mmOHvk=;
+	s=arc-20240116; t=1789613903; c=relaxed/simple;
+	bh=cKnmbd1yjMg+Uzn6yJvOFHRSLkTrdvK9GwENvxd6g0o=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=YC5yftnQlfEBa3aTwJwDUe/WNiKL8bZaHHr87a1ajzpzuP7VWJUbndRmbCaeJZ2N1ZcVBKRcOUYJEc+N+NZLgaK8fGcD6iQ5e/M84kIfQGNoV6b0PEon1JSWfSud0YJMENhlRblqlqbq+xMH8PasYMAW0HGDdqZPrRrLryqGKgI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HBg6K3XN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=bKuRdOAT7vaWKTXppex2g775fRH47EcLE+9/6I5Nofnz/oZbmwv8Qtbc7sXWJ1cxRVk8uoDm0o++mtxnEc6tqnc3rQ+6EGcxZolef8BYKlTAg9BFujyIO98WVxpf3+hXUmV6UuRzJHVa6Rin981FavvtG76zw2GjcPuMhwENQjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i7daFDqu; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HBg6K3XN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 167201F000FF;
-	Thu, 17 Sep 2026 02:58:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i7daFDqu"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE6961F00893;
+	Thu, 17 Sep 2026 02:58:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789613890;
-	bh=6Bley/EYJcU0SeXCelRwRldiAZXLkwvPRyjxxhfs5gs=;
+	s=k20260515; t=1789613892;
+	bh=aRcjG12TpOlGZTM3DBVGE2VK5b+OflZY/sXuyBc5F4A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=HBg6K3XNZchagjCvunXVF7yv3mfuwruWm7W/kowZPVU2L2NA3H+wVSVVubcZ3e9X6
-	 dSiZXwAEeran5e9WMQp45Askylyy20tojM4lkEINzVWbg+aH2GR3bLyotuN43gRFRX
-	 JziePOwQfpWfMhITTfZ0FelcZiypLrDWqqSccYe+Td+UmvzKqN0WJpc/CsZAYCCnIM
-	 sgBCuGinAIW8UliUqWB/jmf/8zvryNlzhGU/OHcjx2nh41oWmM/fgwlTb6Pz8YCMOm
-	 R1TH4PwogciwrqRlTRVN2QZKI8ooLhOHt3ccDSX2tGGq/C07QQ/PV662nv0KoHkEWU
-	 7brXdt11QZgow==
+	b=i7daFDquz/prTlFqdlC4jJLOewderllgWKzNXs+kTXVM1YjBAZKjS6octXqYbMGPc
+	 qblXKf+4mZCaECUo2YtCTi4oc9Jch2eqcxf6tZ+jsMikPErOuX/Vo0W8xR6cuRtQWC
+	 OUjWIqihEQPofTGjdz5UYrcxsslX26zM27OcOrK+drMvvmoH2A21U1pDdWTE6lOWHZ
+	 1DEcDj5GEmQE5/2445jpTkZVKvh0f/Npts1vTg7SNWMd6YDOwhYRYOVdi3Tjlw0kik
+	 g7DPMvkcNnNlu9VZ8OaLlzOHrTE3Cmjha/ml+zwik5P7IaqZZ2l6je91G5ClXpH94I
+	 5Wa9uo4Xhf8ew==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	Mat Martineau <mathew.j.martineau@linux.intel.com>,
+Cc: Geliang Tang <tanggeliang@kylinos.cn>,
+	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 1/2] mptcp: strict local address ID selection
+Subject: [PATCH 6.6.y 1/4] mptcp: pm: drop match in userspace_pm_append_new_local_addr
 Date: Wed, 16 Sep 2026 22:58:07 -0400
-Message-ID: <20260917025808.3934320-1-sashal@kernel.org>
+Message-ID: <20260917025810.3934358-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091645-parkway-theorize-2131@gregkh>
-References: <2026091645-parkway-theorize-2131@gregkh>
+In-Reply-To: <2026091627-sleep-poem-4828@gregkh>
+References: <2026091627-sleep-poem-4828@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,78 +46,70 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Abeni <pabeni@redhat.com>
+From: Geliang Tang <tanggeliang@kylinos.cn>
 
-[ Upstream commit 4cf86ae84c718333928fd2d43168a1e359a28329 ]
+[ Upstream commit 640e3d69d0bc70d7d3de34800a1640793262bd08 ]
 
-The address ID selection for MPJ subflows created in response
-to incoming ADD_ADDR option is currently unreliable: it happens
-at MPJ socket creation time, when the local address could be
-unknown.
+The variable 'match' in mptcp_userspace_pm_append_new_local_addr() is a
+redundant one, and this patch drops it.
 
-Additionally, if the no local endpoint is available for the local
-address, a new dummy endpoint is created, confusing the user-land.
+No need to define 'match' as 'struct mptcp_pm_addr_entry *' type. In this
+function, it's only used to check whether it's NULL. It can be defined as
+a Boolean one.
 
-This change refactor the code to move the address ID selection inside
-the rebuild_header() helper, when the local address eventually
-selected by the route lookup is finally known. If the address used
-is not mapped by any endpoint - and thus can't be advertised/removed
-pick the id 0 instead of allocate a new endpoint.
+Also other variables 'addr_match' and 'id_match' make 'match' a redundant
+one, which can be replaced by directly checking 'addr_match && id_match'.
 
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Signed-off-by: Mat Martineau <mathew.j.martineau@linux.intel.com>
+Signed-off-by: Geliang Tang <tanggeliang@kylinos.cn>
+Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
+Link: https://patch.msgid.link/20250221-net-next-mptcp-pm-misc-cleanup-3-v1-5-2b70ab1cee79@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-
-[5.15 dependency adaptation]
-Retain only the passive MP_JOIN clone preparation needed for
-29f641951be0d91036d77edf677807f1447dbe65 ("mptcp: subflow: no need to
-copy thmac during ulp_clone"). Move the existing local_id assignment
-below thmac and retain the upstream comment about the validated request
-ID. Use the existing direct assignment instead of adding
-subflow_set_local_id(), and match the target's adjacent WRITE_ONCE()
-remote_id assignment so its unmodified patch applies cleanly.
-
-Omit the active-open address selection refactor, rebuild_header hooks,
-local_id_valid field and initialization, and path-manager changes. They
-are unnecessary for the thmac fix and would require new helper functions.
-The stable branch's existing address selection and initialization are
-preserved. This preparatory dependency intentionally leaves the thmac
-copy in place for the target commit to remove.
-
-[ sashal: Reduced backport -- upstream 4cf86ae84c718 touches 4 file(s), this
-  backport carries 1. Not backported here:
-  net/mptcp/pm_netlink.c
-  net/mptcp/protocol.c
-  net/mptcp/protocol.h
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: 29f641951be0 ("mptcp: subflow: no need to copy thmac during ulp_clone")
+Stable-dep-of: f9f0068e8813 ("mptcp: pm: userspace: fix address ID overflow")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- net/mptcp/subflow.c | 8 ++++++--
- 1 file changed, 6 insertions(+), 2 deletions(-)
+ net/mptcp/pm_userspace.c | 11 +++--------
+ 1 file changed, 3 insertions(+), 8 deletions(-)
 
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index 33b16ea7ae5bc..adcda90d6a532 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -1802,10 +1802,14 @@ static void subflow_ulp_clone(const struct request_sock *req,
- 		new_ctx->fully_established = 1;
- 		new_ctx->backup = subflow_req->backup;
- 		new_ctx->request_bkup = subflow_req->request_bkup;
--		new_ctx->local_id = subflow_req->local_id;
--		new_ctx->remote_id = subflow_req->remote_id;
-+		WRITE_ONCE(new_ctx->remote_id, subflow_req->remote_id);
- 		new_ctx->token = subflow_req->token;
- 		new_ctx->thmac = subflow_req->thmac;
-+
-+		/* the subflow req id is valid, fetched via subflow_check_req()
-+		 * and subflow_token_join_request()
-+		 */
-+		new_ctx->local_id = subflow_req->local_id;
+diff --git a/net/mptcp/pm_userspace.c b/net/mptcp/pm_userspace.c
+index 12dd30d63c717..bfcef17fe9dda 100644
+--- a/net/mptcp/pm_userspace.c
++++ b/net/mptcp/pm_userspace.c
+@@ -40,7 +40,6 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 						    bool needs_id)
+ {
+ 	DECLARE_BITMAP(id_bitmap, MPTCP_PM_MAX_ADDR_ID + 1);
+-	struct mptcp_pm_addr_entry *match = NULL;
+ 	struct sock *sk = (struct sock *)msk;
+ 	struct mptcp_pm_addr_entry *e;
+ 	bool addr_match = false;
+@@ -59,16 +58,12 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 		if (addr_match && entry->addr.id == 0 && needs_id)
+ 			entry->addr.id = e->addr.id;
+ 		id_match = (e->addr.id == entry->addr.id);
+-		if (addr_match && id_match) {
+-			match = e;
++		if (addr_match || id_match)
+ 			break;
+-		} else if (addr_match || id_match) {
+-			break;
+-		}
+ 		__set_bit(e->addr.id, id_bitmap);
  	}
- }
+ 
+-	if (!match && !addr_match && !id_match) {
++	if (!addr_match && !id_match) {
+ 		/* Memory for the entry is allocated from the
+ 		 * sock option buffer.
+ 		 */
+@@ -86,7 +81,7 @@ static int mptcp_userspace_pm_append_new_local_addr(struct mptcp_sock *msk,
+ 		list_add_tail_rcu(&e->list, &msk->pm.userspace_pm_local_addr_list);
+ 		msk->pm.local_addr_used++;
+ 		ret = e->addr.id;
+-	} else if (match) {
++	} else if (addr_match && id_match) {
+ 		ret = entry->addr.id;
+ 	}
  
 -- 
 2.53.0
