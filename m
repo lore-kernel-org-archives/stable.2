@@ -1,90 +1,89 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C2201361966;
-	Thu, 17 Sep 2026 10:19:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 59F764A2076;
+	Thu, 17 Sep 2026 10:21:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789640353; cv=none; b=bw3XolZFJM9n1GuOspYz8x9xsFf0aVwMf0RNUrhsbCMNmFh7W3VE/kyRGEIW7cU9GvjOUyjcnSPUpuoriQCNxT7uNwUqItgEZTsmSzqHXYWcKdbtKa4qEERV+7vupl7JWOJC9Uw5SHY23w/G74ZzILCsk3Dnm6DmpV0YWIRAtbI=
+	t=1789640472; cv=none; b=DKvVcmW4dhqSp3LEqyxB59R1X//w1etq3HNhyTJ3hoUHxbwucj3TDD6nQTMwsXnGIWnn5DE52i/Pcjy/cjO/4RtRJFCB/N3Aqrusb3ySXHzuYp6OAKS2kK+RuORhRuYARKHDHIWPV85CEA4r/+BbHP2lH29XGa8Sw6MsakhvlbM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789640353; c=relaxed/simple;
-	bh=sYOBPCQZCZz6ppPtm4bDuvKorzgrYBsny7NWNCPiBkw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=a3VkAKl4MAII7gWp2nRUJpSjnYMN2abt3/Pz+5/NHq40dGeN0VHs3ei9UnYcx+oZsn2J6Udl8PceYCJDPDv4OmNLMcoDqT6aUhX/79MUH9GtG4EzBWXRHpi0PiTkL3CK7GW50/r/C6Aiyw1Nh4DI+9Fnj6icKcHGb2qTizDe4SI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OjTpgD3T; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OjTpgD3T"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 152A51F000FF;
-	Thu, 17 Sep 2026 10:19:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789640352;
-	bh=uDXtF86VK1gu27NEV85R0MtRyEx8CrnTliqhkEYUPmM=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=OjTpgD3TK3YALyveSRIcZAuTFmzjC4x4yu0+yJKGV1QTvERP2/ksnYAQhcHB7xhI1
-	 bM6pgBptqq+635wj35ZiQY2a+d/d9Jhrab884NXyPYVAQQwJ/BzB+RJgvwFr41fxtR
-	 kAg5LNXdtcHodwUVKbFWcxoLOvVoeyi5JHbOynw4pr8kEl+c1jeVmUHSC1XKv2vFjg
-	 1j0CbZCcZADxy5HnOnvtprq6gDqguuW5aSAFnojR/wDVtF5GQh/Fpv1UEmNU6j3SWF
-	 vXUc+kSkOfBXLOcUMQTGMMw5VJAhtStindIACkMj16wjBioGcb4qtsKyrR22KlVCwO
-	 nFeRPG9YXCGKQ==
-From: Mark Brown <broonie@kernel.org>
-To: Itai Handler <itai.handler@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
- linux-spi@vger.kernel.org, michal.simek@amd.com, stable@vger.kernel.org
-In-Reply-To: <20260910174832.873352-1-itai.handler@gmail.com>
-References: <20260910174832.873352-1-itai.handler@gmail.com>
-Subject: Re: [PATCH v2] spi: spi-zynqmp-gqspi: stop the controller on
- shutdown
-Message-Id: <178957983642.100121.2784046911009039548.b4-ty@b4>
-Date: Wed, 16 Sep 2026 18:30:36 +0100
+	s=arc-20240116; t=1789640472; c=relaxed/simple;
+	bh=6v1cn39ylOQ4389CEmvCTDuyHYvdTHGkSHSYgNtFoSY=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=FuSI9+BjOweHrTYW2aMz6Hno584l2wnP1kkDgO5G/aUC1QMlCmoxJChW6m30nvODD0+fS+HcllHFE2mr+wz8aRS22SoDzDqN+tRgQiGBIA7peZTwz47zageWYZeLqGxjF7j3H9RpNfmltLZpZ9V1Ed8ZDdYVF+coaPlqMyhKVbU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXAj0Dv6tqQoF+CA--.460S2;
+	Thu, 17 Sep 2026 18:20:51 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: akpm@osdl.org
+Cc: dwmw2@infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mtd@lists.infradead.org,
+	miquel.raynal@bootlin.com,
+	richard@nod.at,
+	vigneshr@ti.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] mtd: amd76xrom: Fix PCI device reference leak in amd76xrom_init_one()
+Date: Thu, 17 Sep 2026 10:20:51 +0000
+Message-Id: <20260917102051.2146567-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1122; i=broonie@kernel.org;
- h=from:subject:message-id; bh=sYOBPCQZCZz6ppPtm4bDuvKorzgrYBsny7NWNCPiBkw=;
- b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqq76c3YimaI4GlY4gTxTHdyj0qP0RsZYlS2kuA
- K2/+wEMG6qJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaqu+nAAKCRAk1otyXVSH
- 0MtAB/9xDXzGPp+XGSGH3Re/gsQvAACubZO5NHSS8ey5YdEa1OW4Pj5RU7pN+fbOUW/Zqq+lQa1
- JwDAf27dyCeANWu6+QIkjQgCUHEThXGYHlC/724BN26tgLaY1oXv1dIM54F9A1fuCaDXEmhUNkG
- 6gaNT6Xp0MmWWLGzySuav6+pthg6SSsjCAAiMa3gVlWP0+1V9DI6Ru/q9Gy1zmC9YwOPWmTfngf
- w9bZsbdxbGGxqYv5whRTHuIS8TNgb2jJC5sAjuIL/fLFlaPg6SjIzfQffpBw3/DOZxN1iMTAOn8
- tEoZFW+BMe2fwlsG9zj9vhI2hm/Gs93yMfvwDXraNascwWHh
-X-Developer-Key: i=broonie@kernel.org; a=openpgp;
- fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXAj0Dv6tqQoF+CA--.460S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrZFy8CF4kKr18JF4rAw1UKFg_yoWkGwb_Cr
+	93Zrs7XrnrKF1jkw1qkr13Za4YgFyDWrWvgFsFvrZ5WrZFvF43ZrZ8Gr15XayI9w4rZF98
+	Ja1Uuws0q392kjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r126r1DMcIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j1zuXUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJpCjgABs4
 
-On Thu, 10 Sep 2026 20:48:32 +0300, Itai Handler wrote:
-> spi: spi-zynqmp-gqspi: stop the controller on shutdown
+init_amd76xrom() obtains the PCI device with pci_get_device() and
+hands the reference over to amd76xrom_init_one(), which stores it in
+window->pdev.  When reserving the ROM window fails, that function
+returns -EBUSY directly instead of going through amd76xrom_cleanup(),
+so the reference is neither released nor cleared.
 
-Applied to
+Drop the reference and clear window->pdev on that path.
 
-   https://git.kernel.org/pub/scm/linux/kernel/git/broonie/spi.git for-7.3
+Fixes: dd8e9ed6ed54 ("[MTD] Switch to pci_get_device and do ref counting")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/mtd/maps/amd76xrom.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Thanks!
-
-[1/1] spi: spi-zynqmp-gqspi: stop the controller on shutdown
-      https://git.kernel.org/broonie/spi/c/e922bad8b2d5
-
-All being well this means that it will be integrated into the linux-next
-tree (usually sometime in the next 24 hours) and sent to Linus during
-the next merge window (or sooner if it is a bug fix), however if
-problems are discovered then the patch may be dropped or reverted.
-
-You may get further e-mails resulting from automated or manual testing
-and review of the tree, please engage with people reporting problems and
-send followup patches addressing any issues that are reported if needed.
-
-If any updates are required or you are submitting further changes they
-should be sent as incremental updates against current git, existing
-patches will not be replaced.
-
-Please add any relevant lists and maintainers to the CCs when replying
-to this mail.
-
-Thanks,
-Mark
+diff --git a/drivers/mtd/maps/amd76xrom.c b/drivers/mtd/maps/amd76xrom.c
+index 95f9b99ce5fc..8c53c8f25d81 100644
+--- a/drivers/mtd/maps/amd76xrom.c
++++ b/drivers/mtd/maps/amd76xrom.c
+@@ -152,6 +152,8 @@ static int amd76xrom_init_one(struct pci_dev *pdev,
+ 		printk(KERN_ERR MOD_NAME
+ 		       " %s(): Unable to register resource %pR - kernel bug?\n",
+ 		       __func__, &window->rsrc);
++		pci_dev_put(window->pdev);
++		window->pdev = NULL;
+ 		return -EBUSY;
+ 	}
+ 
+-- 
+2.34.1
 
