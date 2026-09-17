@@ -1,43 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3756286D60
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 070761448E0
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:12 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608792; cv=none; b=DUfsWTGwMIOQx4rXBOnWsRbfVkWP/wXP5bBowdlEmrTh9FsDhLOnCX8kEw9LZ55gwQN/wpBbC+DS6m0EbK3WOAFpZFplxt43sd2pdnaz3Qtk/2WFRHZWonjPNigd+K3NHKXOif4coGFK8IuEFCX6FthMx/4dQjn75o2j7KEbkic=
+	t=1789608794; cv=none; b=r8+QMUC9xpvsp5pxV+bPXKuA9HAZiHJ0jIcTuqNJxOx7PkrJImlEk1oF0Z5ffQxGsefS0N3/VlMw5h7ZPKabYCs9rvOoKryXqikH6/SILVXUhaZ0bBwpD5La1ej4lLnqDTPmGfvCV1EPBfC9l3lF5c5G0pZ87B7wvT3vB7J4kiY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608792; c=relaxed/simple;
-	bh=8HEnvYibECYvyebUZdlANB2x7Ia39M56OqjkYzIXWsE=;
+	s=arc-20240116; t=1789608794; c=relaxed/simple;
+	bh=Rf1RPC0WkxfiedUCyVQgnztkS13V1cQnhr1nsgGhDxM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=XXShju6hSktfoBpiGOZcHKLQg+cK50026I+R9bfzMvOSyZfi95sxyrY3gY/QGor+c2DJITgJZO07/vjEUYvz2d/a2wtrq06h2LXBiMzMX8Ohc4Q0jQZktfau2l/9LLrmL4UP6KQsv/+dDiEVIHCHJXwFodrm/BJl/JqQuE1Nvg0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GW9kz5G3; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Zw7lqCBfkODZlez+kIwkjkqOT1kVUwizPi/E28aakrMB0Xo6otlh2OQgEjVi8nUJ+AvNA8DjslkIsoLlvCJ94esEtHN09lps/uBoZg6TliG0wHSmE+cDfQOUR32Ie7fhg+8JRwY9aVfsPjDFCBE2FkUOZXy7x9E62op+H9Jtjlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J9P+Gqfg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GW9kz5G3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5118D1F00898;
-	Thu, 17 Sep 2026 01:33:10 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J9P+Gqfg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 10A371F000FF;
+	Thu, 17 Sep 2026 01:33:11 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789608790;
-	bh=A/cRpXSAd7+x20J6qm4iUPu04difzhe3bAB+gQ1RIrk=;
+	s=k20260515; t=1789608792;
+	bh=VKJpZS+PWYjITAU/7UXOc4amjEG4RIZG2yHBW/1CyMc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=GW9kz5G3imLV/mYGjbcYSInU4ACcCsuQZli6cab//i5Hfxcshu5oEHUpjAP484es0
-	 ai02hbZM6KwfISwxs0ex2/Kzn3g9ERYRpMti/RNKnkkLKiJnAO4y5EKfHNiojIKpGt
-	 tlMATWuyhtTekesS021FQ63zrvST12uqZKJuMdYzA18LlYFmHmgC4FNDUk9S+SYsyp
-	 wiufCQKQ/++NiuaxUMh7TUVeoJWfSEn24LH21qcbdyhB/8143z6vgYJRi6FKlM+dHB
-	 wfsLuSPzztnKN/hfx11wVI6NdUIkp6ULYC8URrQnQ6KG6AfiStUxe4930MwiQGqNI/
-	 bD2xC8X/gSSQQ==
+	b=J9P+GqfgWUEjpIM7kscQOnWAkvGvQZn79yXHFuyby+FrC3EC/VGbvJcgnYrJN0IZb
+	 t8i1FoC+LWZpckgmmCL3L9VHSStiIrPrmUiw/EvIKwBmuyJWIc5+p3kfPxLJFdKeGX
+	 P+saUWc4yb8Kvbg1CdI6MKKL3VIVUSz54pV3WwChX62ZlX1vpQ78eG+SXBAJnHa3Sv
+	 MOJknt/HehUqf2IfhVb4kIzwLtzQ79rIU6nsTeZ1BiJtZA1nGsv2nTP+U7aDboTSf8
+	 9TdcDqIQRVJGOebWcmvpOkNKqdFTT2m8GUQXU5Uetfmzali2ZMrPoqolD+VTFMfWFc
+	 ZMlggKOwysvJw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: David Carlier <devnexen@gmail.com>,
-	syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com,
-	Stefan Schmidt <stefan@datenfreihafen.org>,
+Cc: Jingbo Xu <jefflexu@linux.alibaba.com>,
+	Gao Xiang <xiang@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] ieee802154: hwsim: serialize pib updates to fix double-free
-Date: Wed, 16 Sep 2026 21:33:08 -0400
-Message-ID: <20260917013308.3594458-1-sashal@kernel.org>
+Subject: [PATCH 6.6.y] erofs: add sysfs feature entry for xattr prefixes
+Date: Wed, 16 Sep 2026 21:33:10 -0400
+Message-ID: <20260917013310.3594538-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091659-marry-gender-6432@gregkh>
-References: <2026091659-marry-gender-6432@gregkh>
+In-Reply-To: <2026091651-stubble-sloping-7a9b@gregkh>
+References: <2026091651-stubble-sloping-7a9b@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,76 +45,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: David Carlier <devnexen@gmail.com>
+From: Jingbo Xu <jefflexu@linux.alibaba.com>
 
-[ Upstream commit 979d5b8de8ed4e1f997aef12da5694b99be7b871 ]
+[ Upstream commit 839f075aabdf5c21048f9801b87c0b841dd3d064 ]
 
-hwsim_update_pib() does an unserialized read-swap-free of phy->pib:
+Let /sys/fs/erofs/features/xattr_prefixes advertise that this kernel
+supports the EROFS_FEATURE_INCOMPAT_XATTR_PREFIXES on-disk format.
 
-	pib_old = rtnl_dereference(phy->pib);
-	...
-	rcu_assign_pointer(phy->pib, pib);
-	kfree_rcu(pib_old, rcu);
-
-It assumes the RTNL is held, but ->set_channel is not always called
-under it: the mac802154 scan worker changes channels via
-drv_set_channel() without the RTNL. Such an update can race an
-RTNL-held one on the same phy; both read the same pib_old and both
-kfree_rcu() it, double-freeing the object. With SLUB percpu sheaves
-batching kfree_rcu(), this surfaces as a KASAN invalid-free in
-rcu_free_sheaf().
-
-struct hwsim_phy has no lock for pib. Add one and make the swap atomic
-with rcu_replace_pointer() under it, dropping the misleading
-rtnl_dereference().
-
-Reported-by: syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=60332fd095f8bb2946ad
-Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
-Signed-off-by: David Carlier <devnexen@gmail.com>
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/20260709221858.158063-1-devnexen@gmail.com
-Signed-off-by: Stefan Schmidt <stefan@datenfreihafen.org>
-[ Adapted hwsim_update_pib() changes to hwsim_hw_channel() because the older branch lacks the helper. ]
+Fixes: 6a318ccd7e08 ("erofs: enable long extended attribute name prefixes")
+Cc: stable@vger.kernel.org # 6.4+
+Reviewed-by: Gao Xiang <xiang@kernel.org>
+Signed-off-by: Jingbo Xu <jefflexu@linux.alibaba.com>
+Signed-off-by: Gao Xiang <xiang@kernel.org>
+[ adjusted feature-list context for missing 48bit and metabox entries while retaining zero_padding. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ieee802154/mac802154_hwsim.c | 9 +++++++--
- 1 file changed, 7 insertions(+), 2 deletions(-)
+ Documentation/ABI/testing/sysfs-fs-erofs | 2 +-
+ fs/erofs/sysfs.c                         | 2 ++
+ 2 files changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/ieee802154/mac802154_hwsim.c b/drivers/net/ieee802154/mac802154_hwsim.c
-index 344f63bc94a21..e6a68d522baec 100644
---- a/drivers/net/ieee802154/mac802154_hwsim.c
-+++ b/drivers/net/ieee802154/mac802154_hwsim.c
-@@ -69,6 +69,8 @@ struct hwsim_phy {
- 	struct ieee802154_hw *hw;
- 	u32 idx;
+diff --git a/Documentation/ABI/testing/sysfs-fs-erofs b/Documentation/ABI/testing/sysfs-fs-erofs
+index 284224d1b56fe..2997379bf8044 100644
+--- a/Documentation/ABI/testing/sysfs-fs-erofs
++++ b/Documentation/ABI/testing/sysfs-fs-erofs
+@@ -5,7 +5,7 @@ Description:	Shows all enabled kernel features.
+ 		Supported features:
+ 		zero_padding, compr_cfgs, big_pcluster, chunked_file,
+ 		device_table, compr_head2, sb_chksum, ztailpacking,
+-		dedupe, fragments.
++		dedupe, fragments, xattr_prefixes.
  
-+	/* Serializes phy->pib_updates. */
-+	spinlock_t pib_lock;
- 	struct hwsim_pib __rcu *pib;
+ What:		/sys/fs/erofs/<disk>/sync_decompress
+ Date:		November 2021
+diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
+index 435e515c07920..92f0bc13623cc 100644
+--- a/fs/erofs/sysfs.c
++++ b/fs/erofs/sysfs.c
+@@ -78,6 +78,7 @@ EROFS_ATTR_FEATURE(sb_chksum);
+ EROFS_ATTR_FEATURE(ztailpacking);
+ EROFS_ATTR_FEATURE(fragments);
+ EROFS_ATTR_FEATURE(dedupe);
++EROFS_ATTR_FEATURE(xattr_prefixes);
  
- 	bool suspended;
-@@ -100,8 +102,10 @@ static int hwsim_hw_channel(struct ieee802154_hw *hw, u8 page, u8 channel)
- 	pib->page = page;
- 	pib->channel = channel;
- 
--	pib_old = rtnl_dereference(phy->pib);
--	rcu_assign_pointer(phy->pib, pib);
-+	spin_lock_bh(&phy->pib_lock);
-+	pib_old = rcu_replace_pointer(phy->pib, pib,
-+				      lockdep_is_held(&phy->pib_lock));
-+	spin_unlock_bh(&phy->pib_lock);
- 	kfree_rcu(pib_old, rcu);
- 	return 0;
- }
-@@ -788,6 +792,7 @@ static int hwsim_add_one(struct genl_info *info, struct device *dev,
- 		goto err_pib;
- 	}
- 
-+	spin_lock_init(&phy->pib_lock);
- 	pib->channel = 13;
- 	rcu_assign_pointer(phy->pib, pib);
- 	phy->idx = idx;
+ static struct attribute *erofs_feat_attrs[] = {
+ 	ATTR_LIST(zero_padding),
+@@ -90,6 +91,7 @@ static struct attribute *erofs_feat_attrs[] = {
+ 	ATTR_LIST(ztailpacking),
+ 	ATTR_LIST(fragments),
+ 	ATTR_LIST(dedupe),
++	ATTR_LIST(xattr_prefixes),
+ 	NULL,
+ };
+ ATTRIBUTE_GROUPS(erofs_feat);
 -- 
 2.53.0
 
