@@ -1,82 +1,82 @@
 Received: from fhigh-b5-smtp.messagingengine.com (fhigh-b5-smtp.messagingengine.com [202.12.124.156])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63F504D597B
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:54:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F11CE4D5964
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 11:54:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.156
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646098; cv=none; b=ZYCcxwyvA6wdHcmiUI4iCpsJQazj06btrSU+Tj3lR7GvBoz8rT5r0z8COr57GLfzdVLiqrzOPptjfYffme4K+446sLGNXqrusXW+NWCEVy4ExVZOKcSDcy4PUMT3WCNj4krNETmQa8q0MS4UY/MEqrZ+PFWHiA7yKUSoAbLaIqs=
+	t=1789646104; cv=none; b=m2PoEmN4aFtfEwZ9n1/QvNK2OJ6+K1yYsUf/buwznMjQuY7oqUVP9QeEpj9WaMUcgSdlvbihE+cDQnfqsC38JumjgYICJ+t0SYLI6/+V0r+3j3EG+fJ/3TJgJUCVAPPHqKeV8h5n+10YpCSYjvVa3iYMwfRpaSH6DySrv5NTXJk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646098; c=relaxed/simple;
-	bh=85JVcOr6HuJbaIMeK8NVisM4coW05UJmyCf/iDAwHy8=;
+	s=arc-20240116; t=1789646104; c=relaxed/simple;
+	bh=bDsjIJlTaUSU+98HG36D0cIXIjCjR59ztlZKmhPyw1k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=bfEb1N78y9mbtTGQo8xjQ/LMPqOLWytVno4DW6aIWOH+/XBNLPjmEeyv61AzmAdIpmk9e7W0ls9psDKULAGVeWg6g6QhVCxlZWNfWdy/Yy9wJ2qbvhC5xa3HHMS3J/wGBHtBdROJAuwD/R+QrKM6ADe1b9A6hv/fcmI0luwE46A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=b4EtPqDA; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=PNYK+010; arc=none smtp.client-ip=202.12.124.156
+	 Content-Type:Content-Disposition:In-Reply-To; b=TVP4VB+7+mDwKHYBPVJuyg4UF2BojKeT/sLlVXjk/pbY2Gj7PgefhSsLGCjVXd71hI9LVrUu5AIHJSworAq1pmUmdDyR7yjIJ5NwnN4++NherOyT7Ge/M4nx48EKv6FIfQ66nSDD0z43JNZBTtJBNLlIRLCWVJC36GQXtcqsQo4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com; spf=pass smtp.mailfrom=kroah.com; dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b=FdWJVDo+; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=wy6zjV8/; arc=none smtp.client-ip=202.12.124.156
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=kroah.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kroah.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="b4EtPqDA";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="PNYK+010"
+	dkim=pass (2048-bit key) header.d=kroah.com header.i=@kroah.com header.b="FdWJVDo+";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="wy6zjV8/"
 Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfhigh.stl.internal (Postfix) with ESMTP id E923A7A00BD;
-	Thu, 17 Sep 2026 07:54:46 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Thu, 17 Sep 2026 07:54:47 -0400
+	by mailfhigh.stl.internal (Postfix) with ESMTP id E266A7A00FD;
+	Thu, 17 Sep 2026 07:54:43 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Thu, 17 Sep 2026 07:54:44 -0400
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kroah.com; h=cc
 	:cc:content-type:content-type:date:date:from:from:in-reply-to
 	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm1; t=1789646086; x=1789732486; bh=QJ/isA5HV5
-	7im4vjkFUsLDiQblQJHGKgwUCYurcYTEE=; b=b4EtPqDAsZ9kOnJaWjFNeAAs5f
-	v1Jgp2TlsdLBqbw3lVidheILlslpK/XzQUo953l6SoN1GAcYG0dxTd8pFlcHFPM9
-	MQlPGjmZ4LFUcYMMAWq59ASQghY41C48mbrVdu82ax3m6wseE8ZluqNGGBOjnlmK
-	F7h8LRElbvtSNrbsUtnagbOG0B/gRDsUogp4Ebz8kdC/h26iJyKgm+aBOF+waLAt
-	Hm+Pyfik76VtMZVPiEME0g1mELG0pKqZwz3EhMk6QeYjYF9K2GaiJzURb4wJIS6i
-	fOZIuWf+Idm+TEB8n0DWqOAtoz2QkYDxBmg0ZGA669KeQB0VgOjcCuOis8mg==
+	:subject:to:to; s=fm1; t=1789646083; x=1789732483; bh=IPh2pPDq41
+	QIGvv/WFM1GXBkYExMSyaZ/7cZxYuHXgg=; b=FdWJVDo+iy4tnCVcsRJiZVgv1g
+	q3oK7tH7yC4axZ2Pae2Oubve78Les8bAZa2QI+RMtN/q98AbWy2IV1EWEtf6dvZN
+	PuN68DHKRQc0o7+By2sEV6wwJkOVFh5VImx1jGzPpIpkJuetiQi0XBznq75h6UWm
+	cUISPE1xB9YtX2xgvhJjUgoaesbHBYnPpmevzApFzH5LUDXnud8eytzjquu8KdN/
+	s28fwlJaD/6Z7GlVVq15MpKXP1PPkgmGi/L3qUn4KkaRXnlMpabKk722zEbYSILz
+	z6Fz4Qb2sprKZGfheUJbQjw2canqpKvi0pv19GEeRDiboeo6RugMc22VY++Q==
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
 	messagingengine.com; h=cc:cc:content-type:content-type:date:date
 	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
 	:message-id:mime-version:references:reply-to:subject:subject:to
 	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789646086; x=1789732486; bh=QJ/isA5HV57im4vjkFUsLDiQblQJHGKgwUC
-	YurcYTEE=; b=PNYK+010hTyN3lBG7TnRKOZpcWKRHxm5Tuhb+ISstqlF2jncbfs
-	gM9BeUzd6mC9dZU4vlx1giwJepAkzo5wtVnmyiY7/8Fl5O85xwT1/a32htvAfQlE
-	BqdVpWegKys3gqt9yytWthR+PI7VkTJanLPgvSJ2Vs0PziAiZVI2/V/CM927LnuR
-	iMyi3vkz1EiG+Yno7pvAfPMu6x9Tq7wE08dCekQhjoUev0FqW4nc1nEL5ZKD8HLr
-	fnXZyRxsyZ/CfUfU+WAj8w7W75fhW+eVO/OXJLLQMxVBfDHwc51iBHQtwSfIILWX
-	5jFJn5hCLJPK6iFn9UqpAyU7sxb2ITDxLzw==
-X-ME-Sender: <xms:BtWrau6MLEKFR9WWbeVSn7r9a-aJsjaF-Fd_MBz3DpcFJwnDMTyM-Q>
-    <xme:BtWraq_WcrP2YwiMQnCtrf7sgIqqloVM7UYABX6UPBCN5uR5BXYBcUfsgebFv4wTB
-    YNNm7rikS-Sxgq_dspAH5bgpx2eKvwgeCE5SWJtDaEHSzEPYQ>
-X-ME-Received: <xmr:BtWraoF6OJz34OHmtWFPf-m3171C7kdhNseYDZi5Kehkjzk2MiRxKuiLXIHH>
+	1789646083; x=1789732483; bh=IPh2pPDq41QIGvv/WFM1GXBkYExMSyaZ/7c
+	ZxYuHXgg=; b=wy6zjV8/tYHI1B4MY/0FnsbS2ACcY7NBAfp0ZQ361VCyjV2O+CA
+	OzAKnwx3XeDqLHFDE/5KAMIrHMJ4uci9GWU7Ji3dOJcdq7SC24DmNEfInJR/PtgA
+	oUZILFPZpV31K/7s0ra7VOkQlnciUXUk/6CiYQd5Q7cmoH2eZ0MUhOggbp2UufYC
+	zXG88sGsBySrvholaBV0FVmkje6kyPqhZil5KqOG4ir1pHaaYrug0cbF/LQSqjQr
+	VdF9wRy5KL2wVob9n1KLn2PgHJt/XGtpkYGDNEh2bMOEyEB7Ng55zcllzoAWx1TE
+	SioBr9FclTrOq1/I92xB15ew2h3twZ26KBg==
+X-ME-Sender: <xms:A9WrasVKQjGf6FiTVMfjvfUphewhrK-bMSKk45-ArOS6_6L29JruQg>
+    <xme:A9Wraqnx68BL6Bs6XWjl28WdfjVHehmGGu-Xq3bZjECadmlDixHXjx9sSRm57aHdn
+    TM7TWDf5ZUGJ-Dp2AchI6BlLGfQ2-mMIa4a3w4gCVX66mx39a0>
+X-ME-Received: <xmr:A9WranBJnp3NZmTN9dIqvX19IX0TcxddQwCg8tJDEpPHfDf9yt3_qZTA_8U7>
 X-ME-Proxy-Cause: dmFkZTEQ5oUVH/+6iniP7mPqMrhqRHb7JlTu/s/7qMJxqovoHjZ2vIv9mMD7xpVFV/Ohlo
     9WvUY5hXCSmPTix0/nTItiYgNjlgxMFYxNWFHZ8obVimyO9K2tCuPsmykHWaC8QA0NFfL9
     sNrzRn9TLuf+ijajzVmiNGkI5WO3mVsVZIoC67i+nEciXDsbCpd/XK7SSCDSP5clAvHSOh
     F5BAwoyNsocY0DNDfk6dM3lRZx9AtFtuEtuvj45lfUQiFPBV1qHMaZ3PFo323BZlxcsG2H
-    mZQmyWn4qeB1PpiSCPxgmldbkn8/1kexYJG/i+0cdX+7MgBdzYXuwi0CGhZy9QKbSbxstq
-    P7eVdKFQOn6zt/Y78YWo1lYnxnnqs493qmGRPLHEfgLUFFiEOy9JN2B9dNChcsPC4E+yaR
-    gXid/rAKMV2pNgzDXHqmSUfTgVdcLVlYimr29AnHuptCKUXB4BPgilT+tOwyHU1AfLNy0m
-    HPnpsWoDJTckq/L0eWFTfkuS8Xg3gG9yCWst8mLW4Dst6n80gHYQ/tYte6UyZ+3AYLHMI1
-    yEDvXufKyQhHX5pjSgnrYDlw0iqMPac5Tp60Ik24tBs0iW7nCX7GQy/VWD+iGyHxOSiQGs
-    xrprJZ2UvuXRopxAu6WuGWD/bZZfGwPjaekonNfXTm+z6kmYPk7T+ynKTaTQ
-X-ME-Proxy: <xmx:BtWranWGCuje9GSztggkkhxnZGE4gXR0zA2kelkVu2tdg542jMWhyw>
-    <xmx:BtWras_G5D5vCJRwGDVDHbaa8_U1iAG8V4ui4_x_K0wCSgdUinJsBw>
-    <xmx:BtWras6wTN0eIohP6Xk7VRpXC3KDrdMyLVJAtG1usx5tQlnu7Ncy9g>
-    <xmx:BtWratkd40t8mK-ZW1CG3CWxb7vep-iyRUCKygzmO9h1TGMcFJhQfQ>
-    <xmx:BtWraoJej6rTWSmoAK4vbNIpJwxB4RWlWLWuCCJ6ga88kbqwJ_GQtMET>
+    mZQmyWn4qeB1PpiSCPxgmldbkn8/1kexYJG/i+0cdX+7MgBdzYXuwi0CGhZy9QKbSbxsg9
+    2oS+L0NpRpT2TqL/WnlEMpcnwiWSpfkdfuAeEsJPdfuBNpKoM2rGpHSzZosaJW35AsjRUg
+    1mEysqU7WJu9mvmQ1Q1JzFoSSxN4CHO/QF8ogsbwZClWvtHOsL0qFS+tLnH81BHMdCWARg
+    SShhaM5hF/L0MtYdPQ8yzv83495McrgcIG/N7Hv1R0FvO2zU6014N/y/+VJ+HOjbqXGE/I
+    8l7Sj8IfGwgJH8qqPM1Ih9LLr/KvnPrTTkxjKAtupl2LJA3X0zy3rRDlB93Ggsq9Hpu2/4
+    8WsbmfhfzeCxGVG9BdYoyhhRjNlzVcKrSUSXA3aqIotNAufbXUhp8uRTyDxg
+X-ME-Proxy: <xmx:A9WrapjiVwalJUrwEdNLWAHNsuDfoAD5exGLFtFbETU4Qc1qXIavjw>
+    <xmx:A9Wrakxb49-T-lW_BPAUYAXUWC-ZX3vAf1SEUIggkzsjvMT-q4RR6g>
+    <xmx:A9Wraq0HmNxlXppAPM4wxOhuQnL5HJgQoojnku8OBE2y-wEHR6yfUw>
+    <xmx:A9Wrap-HOiT2_gbwXIZ0qw8H9OVGf6AnI2A323L6yo-I9viue0TjrA>
+    <xmx:A9WrauPLkq_cJzTewf5Bk0_DxH2Mt4y9hD68T9TFsD4fzH5rL0mDGCmJ>
 Feedback-ID: i787e41f1:Fastmail
 Received: by mail.messagingengine.com (Postfix) with ESMTPA; Thu,
- 17 Sep 2026 07:54:46 -0400 (EDT)
-Date: Thu, 17 Sep 2026 12:52:21 +0100
+ 17 Sep 2026 07:54:42 -0400 (EDT)
+Date: Thu, 17 Sep 2026 12:51:34 +0100
 From: Greg KH <greg@kroah.com>
 To: Sasha Levin <sashal@kernel.org>
-Cc: stable@vger.kernel.org, Christian Loehle <christian.loehle@arm.com>,
-	Sumit Gupta <sumitg@nvidia.com>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>
-Subject: Re: [PATCH 6.12.y] ACPI: CPPC: Reject desired_perf reads on _CPC
- revision 4+
-Message-ID: <2026091717-synthetic-smashing-c681@gregkh>
-References: <2026090308-suffocate-napkin-a71b@gregkh>
- <20260908122009.2049812-1-sashal@kernel.org>
+Cc: stable@vger.kernel.org, Chuck Lever <chuck.lever@oracle.com>,
+	Jeff Layton <jlayton@kernel.org>
+Subject: Re: [PATCH 6.12.y 2/2] svcrdma: Clear sc_cm_id when ADDR_CHANGE
+ replacement fails
+Message-ID: <2026091730-footsore-facecloth-ed76@gregkh>
+References: <2026090326-unclamped-ecosphere-df9a@gregkh>
+ <20260909003624.747050-1-sashal@kernel.org>
+ <20260909003624.747050-2-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -85,95 +85,82 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260908122009.2049812-1-sashal@kernel.org>
+In-Reply-To: <20260909003624.747050-2-sashal@kernel.org>
 
-On Tue, Sep 08, 2026 at 08:20:09AM -0400, Sasha Levin wrote:
-> From: Christian Loehle <christian.loehle@arm.com>
+On Tue, Sep 08, 2026 at 08:36:24PM -0400, Sasha Levin wrote:
+> From: Chuck Lever <chuck.lever@oracle.com>
 > 
-> [ Upstream commit df5a1d4a8cdfda20eb2581a85e81c7d436866534 ]
+> [ Upstream commit 01500306e1d50de7ca7a2cdcdfa28ac0523eb747 ]
 > 
-> When CPPC feedback counters cannot provide a usable sample, cppc-cpufreq
-> calls cppc_get_desired_perf() because some platforms repurpose Desired
-> Performance to report actual delivered performance.
+> When svc_rdma_listen_handler() handles RDMA_CM_EVENT_ADDR_CHANGE,
+> it creates a replacement listener cm_id and returns 1, telling
+> the CM core to destroy the old one. If the replacement allocation
+> fails, sc_cm_id still points at the old cm_id that the CM core is
+> about to destroy. Any subsequent dereference of sc_cm_id --
+> such as svc_rdma_detach()'s rdma_disconnect() call -- is a
+> use-after-free.
 > 
-> ACPI 6.5 defines _CPC revision 3 and lists Read/Write as the Optional
-> Attribute of Desired Performance. ACPI 6.6 advances _CPC to revision 4 and
-> lists only Write, so invoking that workaround for revision 4 or later would
-> require a register read that the interface no longer specifies.
+> NULL sc_cm_id on the failure path and guard svc_rdma_detach()'s
+> rdma_disconnect() call against NULL so that the listener can
+> be torn down safely when the server shuts down.
 > 
-> Make cppc_get_desired_perf() return -EOPNOTSUPP for _CPC revision 4 or
-> later. Use the revision retained in the per-CPU CPC descriptor rather than
-> the platform-wide FADT revision.
-> 
-> The _CPC revision may still not accurately describe the implemented
-> register semantics. If a nominally revision 3 platform implements a
-> non-readable Desired Performance register, a read may return zero and make
-> cppc_cpufreq_get_rate() report 0 kHz. Treat a zero read as unusable and
-> fall back to the cached OSPM request, just as for a failed read.
-> 
-> Fixes: c47195631960 ("cppc_cpufreq: Use desired perf if feedback ctrs are 0 or unchanged")
+> Fixes: d1b586e75ec6 ("svcrdma: Handle ADDR_CHANGE CM event properly")
 > Cc: stable@vger.kernel.org
-> Suggested-by: Sumit Gupta <sumitg@nvidia.com>
-> Signed-off-by: Christian Loehle <christian.loehle@arm.com>
-> Link: https://patch.msgid.link/20260803203531.1268651-2-christian.loehle@arm.com
-> Signed-off-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-> [ preserved the original CPPC revision while parsing only the supported v3 prefix and retaining cppc_get_perf() ]
+> Acked-by: Jeff Layton <jlayton@kernel.org>
+> Link: https://patch.msgid.link/20260527-rdma-follow-on-v1-5-1b09bd87b6cd@oracle.com
+> Signed-off-by: Chuck Lever <chuck.lever@oracle.com>
+> [ added the missing sc_cm_id NULL guard to the existing __svc_rdma_free() cleanup worker. ]
 > Signed-off-by: Sasha Levin <sashal@kernel.org>
 > ---
->  drivers/acpi/cppc_acpi.c       | 13 +++++++++++--
->  drivers/cpufreq/cppc_cpufreq.c |  2 +-
->  2 files changed, 12 insertions(+), 3 deletions(-)
+>  net/sunrpc/xprtrdma/svc_rdma_transport.c | 12 ++++++++++--
+>  1 file changed, 10 insertions(+), 2 deletions(-)
 > 
-> diff --git a/drivers/acpi/cppc_acpi.c b/drivers/acpi/cppc_acpi.c
-> index fd6a83e3d4301..2f504034f321a 100644
-> --- a/drivers/acpi/cppc_acpi.c
-> +++ b/drivers/acpi/cppc_acpi.c
-> @@ -764,7 +764,6 @@ int acpi_cppc_processor_probe(struct acpi_processor *pr)
->  	}
->  	if (cpc_rev > CPPC_V3_REV) {
->  		num_ent = CPPC_V3_NUM_ENT;
-> -		cpc_rev = CPPC_V3_REV;
->  	}
+> diff --git a/net/sunrpc/xprtrdma/svc_rdma_transport.c b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+> index c8d994272f6f0..aa02c47ae5734 100644
+> --- a/net/sunrpc/xprtrdma/svc_rdma_transport.c
+> +++ b/net/sunrpc/xprtrdma/svc_rdma_transport.c
+> @@ -311,6 +311,7 @@ static int svc_rdma_listen_handler(struct rdma_cm_id *cma_id,
+>  		if (IS_ERR(listen_id)) {
+>  			pr_err("Listener dead, address change failed for device %s\n",
+>  				cma_id->device->name);
+> +			cma_xprt->sc_cm_id = NULL;
+>  		} else
+>  			cma_xprt->sc_cm_id = listen_id;
+>  		return 1;
+> @@ -610,14 +611,20 @@ static void svc_rdma_detach(struct svc_xprt *xprt)
+>  	struct svcxprt_rdma *rdma =
+>  		container_of(xprt, struct svcxprt_rdma, sc_xprt);
 >  
->  	cpc_ptr->num_entries = num_ent;
-> @@ -1220,10 +1219,20 @@ static int cppc_get_perf(int cpunum, enum cppc_regs reg_idx, u64 *perf)
->   * @cpunum: CPU from which to get desired performance.
->   * @desired_perf: Return address.
->   *
-> - * Return: 0 for success, -EIO otherwise.
-> + * Return: 0 for success, -EOPNOTSUPP for _CPC revision 4 or later, and a
-> + * negative errno otherwise.
->   */
->  int cppc_get_desired_perf(int cpunum, u64 *desired_perf)
->  {
-> +	struct cpc_desc *cpc_desc = per_cpu(cpc_desc_ptr, cpunum);
-> +
-> +	if (!cpc_desc)
-> +		return -ENODEV;
-> +
-> +	/* _CPC revision 4 no longer specifies Desired Performance as readable. */
-> +	if (cpc_desc->version > CPPC_V3_REV)
-> +		return -EOPNOTSUPP;
-> +
->  	return cppc_get_perf(cpunum, DESIRED_PERF, desired_perf);
+> -	rdma_disconnect(rdma->sc_cm_id);
+> +	if (rdma->sc_cm_id)
+> +		rdma_disconnect(rdma->sc_cm_id);
 >  }
->  EXPORT_SYMBOL_GPL(cppc_get_desired_perf);
-> diff --git a/drivers/cpufreq/cppc_cpufreq.c b/drivers/cpufreq/cppc_cpufreq.c
-> index 1abedcae50b26..d49753e88c79c 100644
-> --- a/drivers/cpufreq/cppc_cpufreq.c
-> +++ b/drivers/cpufreq/cppc_cpufreq.c
-> @@ -807,7 +807,7 @@ static unsigned int cppc_cpufreq_get_rate(unsigned int cpu)
->  	 * value first as some platforms may update the actual delivered perf
->  	 * there; if failed, resort to the cached desired perf.
->  	 */
-> -	if (cppc_get_desired_perf(cpu, &delivered_perf))
-> +	if (cppc_get_desired_perf(cpu, &delivered_perf) || !delivered_perf)
->  		delivered_perf = cpu_data->perf_ctrls.desired_perf;
 >  
->  	return cppc_perf_to_khz(&cpu_data->perf_caps, delivered_perf);
+>  static void __svc_rdma_free(struct work_struct *work)
+>  {
+>  	struct svcxprt_rdma *rdma =
+>  		container_of(work, struct svcxprt_rdma, sc_work);
+> -	struct ib_device *device = rdma->sc_cm_id->device;
+> +	struct ib_device *device;
+> +
+> +	if (!rdma->sc_cm_id)
+> +		goto out_free;
+> +
+> +	device = rdma->sc_cm_id->device;
+>  
+>  	/* This blocks until the Completion Queues are empty */
+>  	if (rdma->sc_qp && !IS_ERR(rdma->sc_qp))
+> @@ -648,6 +655,7 @@ static void __svc_rdma_free(struct work_struct *work)
+>  
+>  	if (!test_bit(XPT_LISTENER, &rdma->sc_xprt.xpt_flags))
+>  		rpcrdma_rn_unregister(device, &rdma->sc_rn);
+> +out_free:
+>  	kfree(rdma);
+>  }
+>  
 > -- 
 > 2.53.0
 > 
 > 
 
-Does not apply :(
+does not apply :(
