@@ -1,94 +1,103 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from vps0.lunn.ch (vps0.lunn.ch [156.67.10.101])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 89EB14B44D8;
-	Thu, 17 Sep 2026 15:04:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C2764973BA;
+	Thu, 17 Sep 2026 15:05:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=156.67.10.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657506; cv=none; b=lpdSuew+ygluk8xki+oUSY7h8mqSzRk2qwwA6fF9xDsCeXIxOk3OcqCzeTPEDG23Ub8pO+mGCj+RNR7JeIt7OvCG9In162S7jq11jjz7IhNlBAEIbruamIhsWVlsNFEJzPgiyxmoIcd6h3TaPM6BzaDN4rKr87+EV3IKUhHesOM=
+	t=1789657558; cv=none; b=aoVE+ly8ZSujstC3ra8atYeckytguZvWxewJgFovZ0DWeEApd8uToFC+pC1LLPqPT2eUx8+QwfGxDo9A4qMb6Nxoi1ARiVScb3OlPtv3/8NhQR9JAYp63kKswDNGAWVgSQcE21ETPT+pIh2gzV7a69lzkg+tKJI+/DSI/0E7r44=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657506; c=relaxed/simple;
-	bh=iUYMy/jPtd7swNRgdrUkgdWM4CgSi5DsQrBEn4Ousgo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=auj7wBnRKy3WqOlQE6DrgLQwPM/5j1pYha1PVsjFMUn3SjntZrhFtD4hT8+6iMnEaSo9UX7TCugO27BRTHEFnkYqR957GPh+NqnUps/FTmyICExyodfE99va55aomGrPg6lg0Sa54UmXDK26jwp7cXeoL+8WkV8dNwwfUngXDQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACH8z2EAaxqASKDCA--.5391S2;
-	Thu, 17 Sep 2026 23:04:36 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: hare@suse.de,
-	himanshu.madhani@oracle.com,
-	kashyap.desai@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	mpi3mr-linuxdrv.pdl@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	sumit.saxena@broadcom.com,
-	thenzl@redhat.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: mpi3mr: Fix tgtdev reference count in mpi3mr_sastopochg_evt_bh()
-Date: Thu, 17 Sep 2026 15:04:36 +0000
-Message-Id: <20260917150436.2158151-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789657558; c=relaxed/simple;
+	bh=LqL/0kljGKJhXL31YOmzbq3nfv6vRF4UJIBHY7IP5Sc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=uzxMpdaBBvd8ItUexv8s1YPhgN4Q5jgcpy/73le86XudTDc/frMnLTb9eH3HlruHfsHq3dAju6+vmvWI/fs9RWYNpKmsooarZtFoSWHNdOv+Fx1iSwvolSk7foOp6wDJebx2jxikrTc9oOHLBO9HZx/vSV4rsbmUrwbuKEszy5I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch; spf=pass smtp.mailfrom=lunn.ch; dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b=t2/qzzzy; arc=none smtp.client-ip=156.67.10.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lunn.ch
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=lunn.ch header.i=@lunn.ch header.b="t2/qzzzy"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=lunn.ch;
+	s=20171124; h=In-Reply-To:Content-Disposition:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:From:Sender:Reply-To:Subject:
+	Date:Message-ID:To:Cc:MIME-Version:Content-Type:Content-Transfer-Encoding:
+	Content-ID:Content-Description:Content-Disposition:In-Reply-To:References;
+	bh=xJOwgYi9AsLFETj5P07KS7icxDQTYVsi9d2yzmRT4T0=; b=t2/qzzzyp9tTNVrahR16BD/kfi
+	QGsz5UiuR0lAl4EpGn+qCgG78KupUM6RXniV88PUv3kprugmNm3aT5Xm+smJDRlIbg55yRhPd42ba
+	2qfi/hL9zPhWcg78bfSyCnRipuf2Qhzqwev7E2gYZyXWIrlJHyyFFbuIRCbcipo9cGkk=;
+Received: from andrew by vps0.lunn.ch with local (Exim 4.94.2)
+	(envelope-from <andrew@lunn.ch>)
+	id 1x7Dft-005hJS-1x; Thu, 17 Sep 2026 17:05:21 +0200
+Date: Thu, 17 Sep 2026 17:05:21 +0200
+From: Andrew Lunn <andrew@lunn.ch>
+To: Linkui Xiao <xiaolinkui@126.com>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	pabeni@redhat.com, mcoquelin.stm32@gmail.com,
+	alexandre.torgue@foss.st.com, netdev@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: stmmac: ethtool: validate TX coalesce before
+ reprogramming RX
+Message-ID: <15b8cbc2-f3ca-4845-9a93-7fff6c5aede6@lunn.ch>
+References: <20260917131235.1360959-1-xiaolinkui@126.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACH8z2EAaxqASKDCA--.5391S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7Zw48WrWfJF1fArWDWrWDCFg_yoW8JF43pa
-	n29a4Yyrs5WayIyw4xGF45WFyIy3ZFyrWrKayUKwn0gF4Fkry3CFy5CryDuFykAF97Xr1v
-	vr1DJryfZF1UtrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUmmb7Iv0xC_KF4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
-	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
-	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xF
-	xVAFwI0_Jrv_JF1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWw
-	C2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_Jr0_
-	JF4lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr
-	0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0D
-	YxBIdaVFxhVjvjDU0xZFpf9x07UWCJPUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAENA2qr9nAaqwABs0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917131235.1360959-1-xiaolinkui@126.com>
 
-mpi3mr_get_tgtdev_by_handle() takes a reference on the target device
-and the loop drops it with mpi3mr_tgtdev_put() at the end of every
-iteration. The MPI3_EVENT_SAS_TOPO_PHY_RC_TARG_NOT_RESPONDING branch
-drops the same reference a second time before breaking out, so the
-reference is put twice and the kref can be released prematurely.
+On Thu, Sep 17, 2026 at 09:12:35PM +0800, Linkui Xiao wrote:
+> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+> 
+> __stmmac_set_coalesce() applies the RX part of the request first and
+> only afterwards checks the TX parameters. The RX path already calls
+> stmmac_rx_watchdog() and stores rx_riwt[] and rx_coal_frames[], so when
+> the TX check rejects the request the driver returns -EINVAL after having
+> silently changed the hardware. A following ethtool -c then reports the
+> new RX values even though the command failed.
+> 
+> This became easy to hit once the per-queue interface was added.
+> __stmmac_get_coalesce() reports tx-usecs and tx-frames as 0 for a queue
+> index that is RX-only, and ethtool applies per-queue coalesce by reading
+> the current values first and sending them straight back. The next set is
+> therefore guaranteed to trip the test for both TX fields being zero,
+> right after the RX watchdog has been reprogrammed.
+> 
+> Move both TX checks in front of the RX block so a request is either
+> applied completely or rejected without touching the device.
+> 
+> Fixes: db2f2842e6f5 ("net: stmmac: add per-queue TX & RX coalesce ethtool support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+> ---
+>  .../ethernet/stmicro/stmmac/stmmac_ethtool.c  | 21 ++++++++++++-------
+>  1 file changed, 13 insertions(+), 8 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> index 154cc0c7623d..325db062f72a 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
+> @@ -850,6 +850,19 @@ static int __stmmac_set_coalesce(struct net_device *dev,
+>  	else if (queue >= max_cnt)
+>  		return -EINVAL;
+>  
+> +	/* Check the TX parameters before anything is applied: the RX part
+> +	 * below already writes to the hardware, so rejecting the request
+> +	 * afterwards would leave the device with only half of the settings
+> +	 * the caller asked for while reporting a failure.
+> +	 */
 
-Drop the redundant put and let the loop release the reference once.
+Why such a verbose comment? Look at the rest of the code and make your
+comments similar in verbosity.
 
-Fixes: 13ef29ea4aa0 ("scsi: mpi3mr: Add support for device add/remove event handling")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+    Andrew
+
 ---
- drivers/scsi/mpi3mr/mpi3mr_os.c | 1 -
- 1 file changed, 1 deletion(-)
+pw-bot: cr
 
-diff --git a/drivers/scsi/mpi3mr/mpi3mr_os.c b/drivers/scsi/mpi3mr/mpi3mr_os.c
-index 0c974f2627d1..5ff5720f2491 100644
---- a/drivers/scsi/mpi3mr/mpi3mr_os.c
-+++ b/drivers/scsi/mpi3mr/mpi3mr_os.c
-@@ -1869,7 +1869,6 @@ static void mpi3mr_sastopochg_evt_bh(struct mpi3mr_ioc *mrioc,
- 			if (tgtdev->host_exposed)
- 				mpi3mr_remove_tgtdev_from_host(mrioc, tgtdev);
- 			mpi3mr_tgtdev_del_from_list(mrioc, tgtdev, false);
--			mpi3mr_tgtdev_put(tgtdev);
- 			break;
- 		case MPI3_EVENT_SAS_TOPO_PHY_RC_RESPONDING:
- 		case MPI3_EVENT_SAS_TOPO_PHY_RC_PHY_CHANGED:
--- 
-2.34.1
 
