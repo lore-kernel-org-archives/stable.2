@@ -1,64 +1,77 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from mail-oo2-f39.google.com (mail-oo2-f39.google.com [74.125.231.167])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B40B4214812
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 23:59:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5CB724BD355
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 23:59:48 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.167
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789689547; cv=none; b=r8Ba92QRXwZtMtPtfq5f1I6jTxJtODLhIh3YkuRRYFs4xqa2hHuDMZUrYkO6azgKZvdOP2oxlAkKo7Z3gXH9iDZds2LdWF2jjPrLKgIIbSoV/2DRuGAUf0AOHmLbGa2rFX8NYxRHEvQeFkhn8fIoHA7RF/EATRjegl/Qi0YM7xc=
+	t=1789689595; cv=none; b=GOX9hl43NX6qhqVeUPY+imX+10FocmkYnsct0IGJtaJWytXKVMro22BUXKFRZD1bZXUuIhtnmRLqd2AMgHhB5Habjc1+eRqgB5o/y2vcGrk5mAhkLQ3iNm0ylV5HD+p0QnUgo1l03W7YwhpBn2ZTU1kBE+wOHIJU9sIvuCCdE20=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789689547; c=relaxed/simple;
-	bh=HQ3G/9Gls9Yp2q+4jNAVoTcvDy6l+LosXL0ad7P3/ug=;
-	h=Content-Type:MIME-Version:Subject:From:To:Cc:Date:Message-ID; b=LM1LmZHU5grMRx2RiHIZXNAGBL1RtY4FbCERvBc380n6QbVkY+hUrDKuzH0O+PXvvVr7f9Df8BjozHEh/AtX3w0HlRWadhmRLcXjMqo2ksDiEqLW1nqxc8PbUfIuxg49Yxqm0yD0RUZAwMoE30YKJ+1Jp/MTLzaete9+0rwOMnA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org; spf=pass smtp.mailfrom=kernelci.org; dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b=PwZGzyfb; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=kernelci.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernelci.org
+	s=arc-20240116; t=1789689595; c=relaxed/simple;
+	bh=X5fBI29rdRgQVD/lVN6Y+RY6XP/n3DxCK2eTWygRAJQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=I1z7gOpHXjHB6u4yK8TFi6hCylaaeahgcPB6zMGTn/FgI2mZZbYuXCYAR6NTDFHbUHrc4q/XUiSNnc9p7jF7tPfjOwPZr40fV187N6SLqGM/qnJph9M6WTx8hatrojH2Qs+3XY5NNSckYtD4NJEJmZOnUNxgnlfwi0AtFh+WcUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bnfiiOZF; arc=none smtp.client-ip=74.125.231.167
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernelci.org header.i=@kernelci.org header.b="PwZGzyfb"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5121bcf1aso65573a12.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:59:05 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bnfiiOZF"
+Received: by mail-oo2-f39.google.com with SMTP id 006d021491bc7-6b4bff33d18so63659eaf.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 16:59:48 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=kernelci.org; s=google; t=1789689545; x=1790294345; darn=vger.kernel.org;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=vMEsPmzL54sy7vfjV2WjwFXyVMgYd8lXUVEf19p4Y7I=;
-        b=PwZGzyfbPuIt+Httd19SKyDyC5/dPbLlm/oxfXjDDZMbwNfptqaKIrE3JiycqfTR3c
-         XIzdScMwRL0BLbW1QFewg2BvAXIOujT58hiGYYJ9QUWB7xNAwZlz7eiuPSB9DxUCvGM9
-         Tynq9mMBeOTsH5g9MDr2XindvWq4f5stEQcpCJdxvTzV5PlHDRxj+zExhTxPjBJPfUSJ
-         xZlTPOWyP7+LU49LKorQqpyJnJ/RUrutwJ7lu9wZ6VeA9e78dwO7dZxvItZt2lNgwzRw
-         jr5BGftrlAwmLqro2J+6TVNv5urhhufbFbOevT/BcJS68yOKM2qs6uKlRXKdnOoDG0nk
-         dQnA==
+        d=gmail.com; s=20251104; t=1789689585; x=1790294385; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=qXNjnaKjCC9zA9Voyk96teJyXfaJqLPqZodkmIpeNdc=;
+        b=bnfiiOZF9vVf60nLw/WuDtszEvQJREgpavcWGqg8LOBIW98u+ziHqNVyvWimISovqh
+         FEfY5wevRgbIIfZgluZjW0TGKlHcaLPb8QrBG7F/Ykba7/tboZAS4RTK1YWecZsrE7cm
+         lqseVNuonJMhkRcpp7x42MwgAQUp1APM1YfhpvIAD2h/0NCSJ4JzH0gKV49WdwQwG6r0
+         2Kd5K1+KuO8Yij1inpsK8/W24QzGWJqe6fBoPP1/1xjCmTC6WLnLaNWwnqdncnt/vEx8
+         JqiJjaPEq09QgwT5vgINdFaechkY5Uil5DMew1/hlFE+Ma/kCobE35ZEZz3ADpn9XIZ0
+         YL6Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789689545; x=1790294345;
-        h=message-id:date:reply-to:cc:to:from:subject
-         :content-transfer-encoding:mime-version:content-type:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vMEsPmzL54sy7vfjV2WjwFXyVMgYd8lXUVEf19p4Y7I=;
-        b=SL+4VvfcWEkxMur+Y6QGfGVN+ZQDe9Ej7/I62OHFxlRRymEz+gKlhqrA55Y20OlZOh
-         Ui/tnnse9gghOyEBX1YxgZPwlAHNqxP6aSkF2BzX/3rCIRWjf64s9F8PdHpS7X+DKHP8
-         8/7QtNPWhbsfeCxdpixrevAJx9o/5Q1wRtLAZlm2et1i3nhkQQlbrIxQr5Ybfmw6pnQv
-         Ad3E26int4muuYO3JHto9+tJdT5sz/dyLkw4m5LspSzxF9sGVJDIvr0QF9M4YwjZ6Ty6
-         Zy+yTivGqx7kwsidE1OFQQyNk8AN6bHZO0PrGfwSuQxBH5vZaqE2LYU9W9ByN2pC4OGc
-         iDYA==
-X-Gm-Message-State: AFuF++m8ReLpx1v5jYtJp0zggxoYoaUAXissmKgsN6BJv7cPnm8j4wPY
-	43zG87eHGSVRJ/gOOKDu8AljxGHL9L6AXVg5CuEA9xGPxcjUlozhB3Nsv4TPqRnp/YMvIKyL5aT
-	CkwGG
-X-Gm-Gg: AYBFou2T+9C6U7Wc7ew3qHzHXozCio3AifGnIrcNy7u03bDA1ZHgWHQ679gdkeTwMzj
-	YJUsJnITdS+SAymk4GpfMY5V460Bv/Ki5WscEEyn8rt/EFDqq5VDF02jkP+1PunSkp0TQRP+lmk
-	5240hReCZxR2lPduypapzwzRlErUuX770No7Z8cedwjajRxkL+X85Awlwzf74HLWcB7KWRPRD09
-	IZtuiU/NjCG/oBN6TR4Vyyt6EIUC1hqHVUwa8ZCPE/6xmCQi3zAO8o4f48bXRQeHtY5Tf4rxjjl
-	hiSLAR5b+cH8s+Eife2B0seMukApoqv1STfljQ0FxjpIgQ2KPa038B5Aa5ikx1RIhi9mf4obTeE
-	ATnEGMGf5AogVodDf3LsQy9pIp1HJaaH6B+Gjn5ywG9WQeic0BqjcXnvA8x3+dVnqfR4KdL0EO2
-	nwES8sbSS4W2lT7iZOeRfF3wKs3OrYf5VIWr5EZBczvPsDwGiXXT5kI8kW4g8Y+pw=
-X-Received: by 2002:a17:90b:48c5:b0:39d:f247:bb3 with SMTP id 98e67ed59e1d1-39e54e7c1camr1565179a91.21.1789689544744;
-        Thu, 17 Sep 2026 16:59:04 -0700 (PDT)
-Received: from ec7b70f3a45c ([20.38.40.137])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144cddb4cf8sm160112c88.1.2026.09.17.16.59.04
+        d=1e100.net; s=20260707; t=1789689585; x=1790294385;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=qXNjnaKjCC9zA9Voyk96teJyXfaJqLPqZodkmIpeNdc=;
+        b=qSUXZyR3NBFbtGcp7kUtC+nrks7yxcaJ38U4Bif20nwWhv+LQM6zPqTaijsr5cVFLN
+         qmoj2SQzeGURtzKvhM5YjqxmOqCiJgFKVGcL9ogquTNkzTo8OrjmISUwf9+dMo7sP4CX
+         T5Hp/VxlOT5mG+jWk3+qU2f/84KGHzKLbQhMz48XITe+wNxj3yEPP/oAq+GslKnPjiS/
+         Y8oLu+vinYmCYYxahYo5dzQJJUbFhBe8m4Q5gruEoQ2H48V19+ShH9J+AsVWgMpF3IEP
+         xO5Lo+R8ahNUqZFIA6wO/QNA/g3V4ghAqcCZ7vMZ18hDxiv4NFNdovCIW4IE4+O9Ze2s
+         dCvA==
+X-Forwarded-Encrypted: i=1; AKwUvBzT8s6CI4l3L9T62Q86090Mqa80EaWQLfcUCSGxuobHBwxPoZ4++7zVfDrWsSCd9156Mt918fI=@vger.kernel.org
+X-Gm-Message-State: AFuF++lMVLrfDhH0Mg/kVTh8L7h3WKFYmAWaGDMvl+wPbGSl6AUi4L1l
+	oWpyY0Xa7iO2fQfQsID/pplWj9vD1MMHZL1fyDwd9R2WTpBkv71e2eV6
+X-Gm-Gg: AYBFou1kdTqnuhmTZkyAF6gqd1Tx68MbXNAJ69jMB2z9E7UBVSUPWqIIGUpexMYi3P9
+	5R+X2Iwd5QkxGAPIfdClDWHHYEucnxvu2Zuh45CPS/A2mb/x+Sa1LO//iCvnpcCJCEdsoaEX0pg
+	23RJK8UvpLvowO1IjA9LOm5F53u1ypo+Q55QA44EYqtYa4tuy90k8cqpr0+7pCknys+4Nite8vi
+	txvvrFdQsnTuIwreyWu9xQ9csT5KotKM3SbhCDfHEs+B0qtAHxhYc2V/QGtF2e5WeL1vl68l12F
+	rHdSL0vkvdnT6+WNcTwSk0EC74pHYotVNWjWZX7UFeSkn0MWke9d6yNPrnuxJLFCDXk2Rc/kR4d
+	FcejK7ohmKifjGJKa2kVXZd779d4ZVJI5v/YOI87l97YzujEYXixh9NS31Pa/PWuAxyHQoG4Bbb
+	PNr4ga7KfukE0NREgPxQTOPtxHizq42P/BSqYAzL1EqSAwfLjCzrOwX2iA/6JNdWe+WAgG+3jAB
+	n8/lV33jG56Z8Rws2SnTwrlKrW1pHxGxOKoOk4EE0m+Ow==
+X-Received: by 2002:a05:6820:4d06:b0:6be:7782:5a40 with SMTP id 006d021491bc7-6ca9ac3f6f7mr779525eaf.28.1789689584793;
+        Thu, 17 Sep 2026 16:59:44 -0700 (PDT)
+Received: from cachyos-x8664 (fixed-186-96-141-48.totalplay.net. [186.96.141.48])
+        by smtp.gmail.com with ESMTPSA id 586e51a60fabf-4870b228179sm237307fac.9.2026.09.17.16.59.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 16:59:04 -0700 (PDT)
-Content-Type: text/plain; charset="utf-8"
+        Thu, 17 Sep 2026 16:59:41 -0700 (PDT)
+From: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+To: Patrice Chotard <patrice.chotard@foss.st.com>,
+	Krzysztof Kozlowski <krzk@kernel.org>
+Cc: Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Christophe Kerello <christophe.kerello@foss.st.com>,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
+Subject: [PATCH] memory: stm32_omm: fix child clock leak on set_amcr() error path
+Date: Thu, 17 Sep 2026 17:59:25 -0600
+Message-ID: <20260917235925.44185-1-diegomancera.dev@gmail.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,54 +79,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: 
- =?utf-8?q?=5BREGRESSION=5D_stable-rc/linux-6=2E6=2Ey=3A_=28build=29implicit_?=
- =?utf-8?q?declaration_of_function_=E2=80=98sized=5Fstrscpy=E2=80=99_=5B-Wim?=
- =?utf-8?q?plicit-functi=2E=2E=2E?=
-From: KernelCI bot <bot@kernelci.org>
-To: kernelci-results@groups.io
+
+When the mux is enabled, stm32_omm_configure() enables the two OSPI
+child clocks via stm32_omm_toggle_child_clock(dev, true); they are meant
+to stay enabled for the device's lifetime and are disabled again in
+stm32_omm_remove() and on the devm_of_platform_populate() error path.
+
+However, if the subsequent stm32_omm_set_amcr() call fails, the function
+jumps to the "error:" label which only calls pm_runtime_put_sync_suspend()
+before returning, leaving the two child clocks enabled. As this happens
+during probe, the error is propagated and .remove() is never called, so
+the clock enable references are leaked. devm_clk_bulk_get() only releases
+the clock handles on unwind, it does not undo clk_prepare_enable().
+
+Disable the child clocks on the set_amcr() error path, mirroring the
+cleanup already done on the devm_of_platform_populate() failure path.
+
+Fixes: 8181d061dcff ("memory: Add STM32 Octo Memory Manager driver")
 Cc: stable@vger.kernel.org
-Reply-To: kernelci@lists.linux.dev
-Date: Thu, 17 Sep 2026 23:59:04 -0000
-Message-ID: <178968954371.166080.15020453237932822382@kernelci.org>
-
-New build issue found on stable-rc/linux-6.6.y:
-
+Signed-off-by: Diego Fernando Mancera Gomez <diegomancera.dev@gmail.com>
 ---
-implicit declaration of function ‘sized_strscpy’ [-Wimplicit-function-declaration] in arch/s390/boot/ipl_parm.o (arch/s390/boot/ipl_parm.c) [logspec:kbuild,kbuild.compiler.error]
----
+ drivers/memory/stm32_omm.c | 2 ++
+ 1 file changed, 2 insertions(+)
 
-Log excerpt:
-=====================================================
-/tmp/kci/linux/arch/s390/boot/ipl_parm.c:170:25: error: implicit declaration of function ‘sized_strscpy’ [-Wimplicit-function-declaration]
-  170 |                         sized_strscpy(delim + 1, command_line_buf, COMMAND_LINE_SIZE - len - 1);
-      |                         ^~~~~~~~~~~~~
+diff --git a/drivers/memory/stm32_omm.c b/drivers/memory/stm32_omm.c
+index 84eb23c824f5..3599683ab04a 100644
+--- a/drivers/memory/stm32_omm.c
++++ b/drivers/memory/stm32_omm.c
+@@ -274,6 +274,8 @@ static int stm32_omm_configure(struct device *dev)
+ 	writel_relaxed(omm->cr, omm->io_base + OMM_CR);
+ 
+ 	ret = stm32_omm_set_amcr(dev, true);
++	if (ret && (mux & CR_MUXEN))
++		stm32_omm_toggle_child_clock(dev, false);
+ 
+ error:
+ 	pm_runtime_put_sync_suspend(dev);
+-- 
+2.55.0
 
-=====================================================
-
-When fixing this issue, please attribute this report according to the
-patch submission rules:
-
-Reported-by: kernelci.org bot <bot@kernelci.org>
-
-For complete logs and details about the environment used, see the issue
-on the KernelCI dashboard:
-
-- dashboard: https://d.kernelci.org/i/maestro:ec6c0498fec452e0776b230caf5d0eff194b9b43
-- giturl: https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git
-- commit HEAD:  b3e867981242a1161809dfee76d6ae8fe106bc60
-
-# Builds where the incident occurred:
-
-## defconfig on (s390):
-- compiler: gcc-14
-- config: None
-- dashboard: https://d.kernelci.org/build/maestro:6aabdcf4fc1857a999ded386
-
-#kernelci issue maestro:ec6c0498fec452e0776b230caf5d0eff194b9b43
-
---
-This is an experimental report format. Please send feedback in!
-Talk to us at kernelci@lists.linux.dev
-
-Made with love by the KernelCI team - https://kernelci.org
