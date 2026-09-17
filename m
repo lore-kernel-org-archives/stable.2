@@ -1,134 +1,159 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADB64EF13E
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 17:16:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1820F3B3BE7;
+	Thu, 17 Sep 2026 17:16:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789665415; cv=none; b=pjQyPPCofDVXt9kjI1jOIxPbohM6Hgf7jM8+MZVh4OPl3ErT0uejltryW2jla3jrXiN5aYXah5MBq3KbMsndnbmwkFLjTGoHz6R7c0XDeh3TVP8l0BYrklAQBPbN9Qe9oRL8WI1Eo0+fbyc8JnUlD9+oQaws8O7pghDeSlJWxuM=
+	t=1789665416; cv=none; b=LRcqm43WZGiFAHMJS6dKixIvkkEtlimisT6Y8AgeW9TFmH8Q+ZwtuCBbZssq6qmuUdVakktGRjqrm2xlbd+9nlav/2MRDil+aReARFvTtu4vWDxHu4is5qi3sE0GPrqTwNiThB7DB+Mi3olWLPGpdQVjFd1X3d8UblI4JCIQVYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789665415; c=relaxed/simple;
-	bh=yMFfWGZ+PoRdGpMVU94qylirYpyWyHJ+HDsE48mS7L8=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=qPyHMYxgjB79e8xvqM2PEfm+Jj6/rmqQnDIJJzlnLeF4PPmoXB3rhIr/qNxKbWdyGZYe3OtMlQPg1h82eHzlpzTiq6+IX+y+oznRGozVxPZDgcYfag82ii5uxCGvOxW0Bs9BXGTk4WUIkhw/k3snMYj5WsAgnVJj8iwi4ypAHpc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Xu9MhY/k; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=CrhSFGZb; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789665416; c=relaxed/simple;
+	bh=w8z1iDckyk6RNhPfR/3L8H9Dq5FbVeN1JXcgCawGwWQ=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=A1caTZeE/5mdVyXAA69PgYIYey76iI0M2KQmY0QJqAtbfD/75Ur6IhLzmwGDUYkGYFhJbDCa/E5ybzJ43X7ZUyJtCDrSH/oTkkWofQK/+ll5W7iQuwh+rryt3CMX+LS+BCPgPyTaoel+zMWziHwLctnU48OM6UaJo0TXMfK/QJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=QxLOn8SE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Xu9MhY/k";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="CrhSFGZb"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789665412;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uC98k1DYNd0VN7AyfHY1vWTx0QXpdNax6z4iHwpWNLQ=;
-	b=Xu9MhY/kOVKXC+9wySmIjRXmxhr89Ts+V8KS54D1v1ZbBe7KJvgKkIxGoKg419QV2oo3t1
-	v+JRU5dGlXaeWcjZJTtn97Ynv3KGD7g76OP7ubgBrNeRdSui5xT1M/9xqqLePWuZWijodn
-	/pBCPcPn8oX/PPbj/h8fvw15hNmbRG0=
-Received: from mail-qv1-f70.google.com (mail-qv1-f70.google.com
- [209.85.219.70]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-553-EDTgBrajPm2RYCWiE0nFDg-1; Thu, 17 Sep 2026 13:16:51 -0400
-X-MC-Unique: EDTgBrajPm2RYCWiE0nFDg-1
-X-Mimecast-MFC-AGG-ID: EDTgBrajPm2RYCWiE0nFDg_1789665411
-Received: by mail-qv1-f70.google.com with SMTP id 6a1803df08f44-9123c523d0cso12102366d6.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 10:16:51 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789665411; x=1790270211; darn=vger.kernel.org;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:from:to
-         :cc:subject:date:message-id:reply-to:content-type;
-        bh=uC98k1DYNd0VN7AyfHY1vWTx0QXpdNax6z4iHwpWNLQ=;
-        b=CrhSFGZbN8lyNYVZ2WfZ3829RDkLCUUNPmb2jLchkf/2/e7OtzX+e5cyifVbPoWQse
-         rukkruRgZJCKfHxSR9PaDwV/o2Km8b9fwa274/nTH+Kbx+jR8K1WLPJH3A36KQjrcOLZ
-         9re03Ohc5Zyhn13PLNucNGvqFdZrTlEfGGBmumUxiXnodm5pqDEa12b1vQ1qbgDv3DU+
-         yoNbJYX6IsgC5NurQPallQ+XId3ZFVHFBxxbAvyksUrSkQOy5mqm+z1gFMrY4CROgJvA
-         CLeqGDEq7QlFH72qINw6FA6JmdiSzwlKCOYfbJvtcV52Fqx5RteDkxay0MNzUYh3r+Xd
-         AOug==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789665411; x=1790270211;
-        h=mime-version:user-agent:content-transfer-encoding:content-type
-         :references:in-reply-to:date:cc:to:from:subject:message-id:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uC98k1DYNd0VN7AyfHY1vWTx0QXpdNax6z4iHwpWNLQ=;
-        b=FcPSyTnfeKTY+TIR8/lJ2XzLiMR2rfyuv9r+fpc3C0v8vI5aCo/EhqdHaFdbPgTP/Y
-         CgS2dPDUw0+ViXpntWT6Tre3B0arUDSraB5aETLb0f6X+fYMxxZYpF3pR2UMcqaUREBN
-         RD1Gkvgo7+r1q8Ybg+dU3Sg1K41+qjXR2gs7CjZ4YBU8Cf5KENWRFIy68zivgaX+lIGV
-         g2y7KXPVgwOX2+hBkKlFyt0hzqcXIuJtBOM7peXvEcsKo0SJRoXpeZ5vZpS+8x+XmeGY
-         k+6EdPBEOohKYoTnwLgipiwWHGPjI/sn/TD85CI4JCtZ1snS6c9MYr14v8G6c4SUeWeZ
-         uGIA==
-X-Forwarded-Encrypted: i=1; AKwUvBx8y/4tOXrc4fycp7i65HqaQd0J9ytKUzuA69W4fDQnSEnhiFcpgN0fxBMeG5ljYhLIofCWQ3s=@vger.kernel.org
-X-Gm-Message-State: AFuF++mRKOJQieH8wtnaVm/zhVaXO8vFSW2ag3swnM2/ejQPntwAemxd
-	JGoppJIXHrtO4202GDumThursdpJUbWiBHqYvEknQePX+XI23XzNiiVXMssqYzLiwolkIKUPskE
-	8BWCc45M7olMnzr/Hx5igKfyxgjJoU17jab+/poEBNHr5/7y6GPdjiU/GPQ==
-X-Gm-Gg: AYBFou3DOgKfJLwRkEi1Jse/gDsSPzbmYKT6Yk28d9ah0hyvIePCG5EBgD0UUSUjb67
-	Trw9rQiL30CrTxSZlXYOUOSjmR4grxiDh0U1WlIINfjqvPCmC3AKITKQBahCT1+l1SuV98Qs3MY
-	fexDXRjrglGLnxL5e3am2gpez6RWe4K3EuhTObot6oe0E61zYSq4HcxaZzrunENhdlVEE3RZ1wj
-	fE5KXHjK28rNXtDsO6b9Zv4D53QPz0J1oM+F8jB08eGp4eJX5wgzziWg0pIL3Bdvo0GSa+5P8re
-	OMHYd/dTxAjDGpghtrVuYx30ABlQj29/6XpVgVH8dc539Ws+g8OwJQuX1heitvfdXVhUYXzE
-X-Received: by 2002:a05:6214:2a45:b0:8ef:4ed2:316 with SMTP id 6a1803df08f44-9123d70ceabmr135426996d6.1.1789665410452;
-        Thu, 17 Sep 2026 10:16:50 -0700 (PDT)
-X-Received: by 2002:a05:6214:2a45:b0:8ef:4ed2:316 with SMTP id 6a1803df08f44-9123d70ceabmr135426346d6.1.1789665409997;
-        Thu, 17 Sep 2026 10:16:49 -0700 (PDT)
-Received: from [192.168.8.4] ([100.0.180.93])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91252d2b826sm2374926d6.47.2026.09.17.10.16.47
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 10:16:48 -0700 (PDT)
-Message-ID: <6a934ca2b3caeb20f1b3d2e9d71e987d5d78af15.camel@redhat.com>
-Subject: Re: [PATCH] drm/nouveau: Fix bridge reference leak in nv1a_ram_new()
-From: lyude@redhat.com
-To: Wentao Liang <vulab@iscas.ac.cn>, airlied@gmail.com
-Cc: dakr@kernel.org, dri-devel@lists.freedesktop.org, helgaas@kernel.org, 
-	linux-kernel@vger.kernel.org, maarten.lankhorst@linux.intel.com, 
-	mripard@kernel.org, nouveau@lists.freedesktop.org, okaya@codeaurora.org, 
-	simona@ffwll.ch, tzimmermann@suse.de, stable@vger.kernel.org
-Date: Thu, 17 Sep 2026 13:16:47 -0400
-In-Reply-To: <20260916180036.2090118-1-vulab@iscas.ac.cn>
-References: <20260916180036.2090118-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.58.3 (3.58.3-1.fc43) 
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="QxLOn8SE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 744E81F000FF;
+	Thu, 17 Sep 2026 17:16:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789665415;
+	bh=opssT6o6z74rR49RX0CvQJr1xhQHlGrVu967UD4LJ5Y=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QxLOn8SEkKWBLSRv071D33VFmKvBLZZU1zMUl+d+lLfjJrnm9kpwHoXCW/xXh0XDl
+	 wCfbjTTRjSf2Y1rEBsB6HSWAgvXVfcVQiR/uUW0x8ifbcz4xEVllM82ZdxmajGKFpO
+	 4YYNm3NfI/wWX72AEq9yxk+euZUT6UkvNiKMkhDQ=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	syzbot+73df3f89e1e13089e466@syzkaller.appspotmail.com,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Willem de Bruijn <willemb@google.com>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0690/1250] af_packet: Dont cast tpacket_hdr.tp_len to int in tpacket_parse_header().
+Date: Thu, 17 Sep 2026 16:08:05 +0100
+Message-ID: <20260917151610.592980533@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Reviewed-by: Lyude Paul <lyude@redhat.com>
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Will push to drm-misc-fixes in just a moment
+------------------
 
-On Wed, 2026-09-16 at 18:00 +0000, Wentao Liang wrote:
-> pci_get_domain_bus_and_slot() takes a reference to the PCI device,
-> which is never released once the memory size has been read from its
-> config space.=C2=A0 Drop the reference before returning.
->=20
-> Fixes: 2fa6d6cdaf283c05 ("drm/nouveau: deprecate
-> pci_get_bus_and_slot()")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
-> =C2=A0drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv1a.c | 2 ++
-> =C2=A01 file changed, 2 insertions(+)
->=20
-> diff --git a/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv1a.c
-> b/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv1a.c
-> index 18241c6ba5fa..4d52a158f320 100644
-> --- a/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv1a.c
-> +++ b/drivers/gpu/drm/nouveau/nvkm/subdev/fb/ramnv1a.c
-> @@ -51,6 +51,8 @@ nv1a_ram_new(struct nvkm_fb *fb, struct nvkm_ram
-> **pram)
-> =C2=A0		mib =3D ((mem >> 4) & 127) + 1;
-> =C2=A0	}
-> =C2=A0
-> +	pci_dev_put(bridge);
-> +
-> =C2=A0	return nvkm_ram_new_(&nv04_ram_func, fb,
-> NVKM_RAM_TYPE_STOLEN,
-> =C2=A0			=C2=A0=C2=A0=C2=A0=C2=A0 mib * 1024 * 1024, pram);
-> =C2=A0}
+From: Kuniyuki Iwashima <kuniyu@google.com>
+
+[ Upstream commit 73e594c19b4f815d8343461cec7074c4713bbde7 ]
+
+syzbot reported BUG() in sock_sendmsg_nosec(). [0]
+
+The problem is that tpacket_parse_header() casts user-provided
+tpacket_hdr.tp_len, which is u32, to int.
+
+If the length is larger than INT_MAX, the following condition
+in tpacket_parse_header() passes,
+
+  if (unlikely(tp_len > size_max))
+
+and any negative value can be returned to the caller, up to
+sock_sendmsg_nosec().
+
+The repro set tpacket_hdr.tp_len to 0xfffffdef, which is cast
+to -EIOCBQUEUED (-529), triggering BUG() in sock_sendmsg_nosec().
+
+  *(uint64_t*)0x200000000008 = 0xfffffdef;
+  ...
+  syscall(__NR_write, /*fd=*/r[0], /*buf=*/0x200000000000ul, /*count=*/1ul);
+
+Let's define the local tp_len as u32 in tpacket_parse_header().
+
+[0]:
+kernel BUG at net/socket.c:803!
+Oops: invalid opcode: 0000 [#1] SMP KASAN PTI
+CPU: 0 UID: 0 PID: 5628 Comm: syz-executor176 Not tainted syzkaller #0 PREEMPT(full)
+Hardware name: Google Google Compute Engine/Google Compute Engine, BIOS Google 07/24/2026
+RIP: 0010:sock_sendmsg_nosec+0x145/0x180 net/socket.c:803
+Code: 06 67 48 0f b9 3a eb 95 e8 e8 3a 22 f8 48 89 df 4c 89 f6 4c 89 e2 4d 89 fb 2e e8 32 a5 5c 16 e9 51 ff ff ff e8 cc 3a 22 f8 90 <0f> 0b e8 c4 3a 22 f8 48 83 c3 18 48 89 d8 48 c1 e8 03 42 80 3c 28
+RSP: 0018:ffffc90003aefb48 EFLAGS: 00010293
+RAX: ffffffff89a578d4 RBX: ffff8880764c67c0 RCX: ffff88807fb23e80
+RDX: 0000000000000000 RSI: 00000000fffffdef RDI: 00000000fffffdef
+RBP: 00000000fffffdef R08: ffffc90003aef747 R09: 1ffff9200075dee8
+R10: dffffc0000000000 R11: fffff5200075dee9 R12: 0000000000000001
+R13: dffffc0000000000 R14: ffffc90003aefbc0 R15: ffffffff8aac4310
+FS:  000055559101b400(0000) GS:ffff888124ce0000(0000) knlGS:0000000000000000
+CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+CR2: 0000200000000210 CR3: 0000000073dca000 CR4: 00000000003526f0
+Call Trace:
+ <TASK>
+ __sock_sendmsg net/socket.c:815 [inline]
+ sock_write_iter+0x2de/0x3e0 net/socket.c:1266
+ new_sync_write fs/read_write.c:595 [inline]
+ vfs_write+0x612/0xba0 fs/read_write.c:687
+ ksys_write+0x150/0x270 fs/read_write.c:739
+ do_syscall_x64 arch/x86/entry/syscall_64.c:61 [inline]
+ do_syscall_64+0x166/0x520 arch/x86/entry/syscall_64.c:84
+ entry_SYSCALL_64_after_hwframe+0x77/0x7f
+RIP: 0033:0x7f173130ecb9
+Code: c0 79 93 eb d5 48 8d 7c 1d 00 eb 99 0f 1f 44 00 00 48 89 f8 48 89 f7 48 89 d6 48 89 ca 4d 89 c2 4d 89 c8 4c 8b 4c 24 08 0f 05 <48> 3d 01 f0 ff ff 73 01 c3 48 c7 c1 d8 ff ff ff f7 d8 64 89 01 48
+RSP: 002b:00007ffd67e44248 EFLAGS: 00000246 ORIG_RAX: 0000000000000001
+RAX: ffffffffffffffda RBX: 0000200000000000 RCX: 00007f173130ecb9
+RDX: 0000000000000001 RSI: 0000200000000000 RDI: 0000000000000003
+RBP: 0000000000000001 R08: 0000000000000000 R09: 0000000000000000
+R10: 0000000000000000 R11: 0000000000000246 R12: 00007ffd67e44388
+R13: 0000000000000002 R14: 00002000000000c0 R15: 0000000000000002
+ </TASK>
+
+Fixes: 69e3c75f4d54 ("net: TX_RING and packet mmap")
+Reported-by: syzbot+73df3f89e1e13089e466@syzkaller.appspotmail.com
+Closes: https://lore.kernel.org/netdev/6a946ffa.1d9ded08.62e62.0123.GAE@google.com/
+Signed-off-by: Kuniyuki Iwashima <kuniyu@google.com>
+Reviewed-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Willem de Bruijn <willemb@google.com>
+Link: https://patch.msgid.link/20260830180915.260225-1-kuniyu@google.com
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
+---
+ net/packet/af_packet.c | 5 +++--
+ 1 file changed, 3 insertions(+), 2 deletions(-)
+
+diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
+index cb3376f04dfa8..772ecfa13cd78 100644
+--- a/net/packet/af_packet.c
++++ b/net/packet/af_packet.c
+@@ -2674,7 +2674,8 @@ static int tpacket_parse_header(struct packet_sock *po, void *frame,
+ 				int size_max, void **data)
+ {
+ 	union tpacket_uhdr ph;
+-	int tp_len, off;
++	u32 tp_len;
++	int off;
+ 
+ 	ph.raw = frame;
+ 
+@@ -2694,7 +2695,7 @@ static int tpacket_parse_header(struct packet_sock *po, void *frame,
+ 		break;
+ 	}
+ 	if (unlikely(tp_len > size_max)) {
+-		pr_err("packet size is too long (%d > %d)\n", tp_len, size_max);
++		pr_err("packet size is too long (%u > %d)\n", tp_len, size_max);
+ 		return -EMSGSIZE;
+ 	}
+ 
+-- 
+2.53.0
+
+
 
