@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CBFE14DDB2C;
-	Thu, 17 Sep 2026 18:39:42 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 562734D4881
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:39:42 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789670384; cv=none; b=uS7Obzxo1tHoJg0jKRWKn2ZP2JpKofDblDFElB7rgjV61Scv0CWS1zGswn5N/gzSgDpwSs6IMh8DCu5YTSv8urn4SDcHr76iN/qqULRn4PT8QlwbQMleHvvzMErPWiDf6xh7aZRUcQpOQ2ADlsVgs62190GvwZafFq8vRgJjTTQ=
+	t=1789670384; cv=none; b=gKruBbAehOwmvtJeQ69HNPemTim9dOfZPNMtTXLCjZbGsP3TQpsHoyv4y2QjSLQbLLczFIovaoIxHvafsDSTx90fYkjBaobSz+UjnbxRerOKm2gvu+nQV3DZEysDocJce3Q0MngCsQsoifp7ZQZfkTer/l9yZDVN3dhKrT6B/dw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789670384; c=relaxed/simple;
-	bh=o0HwnSz+OB54opmNLKMb/GDa6bMIVQcQ4X1lEB8oEEU=;
+	bh=UbR+JdWtqzr3kRqs/U+bSP8foeE4VpVkoJLBExAkNmQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=lOx0sBzQHTvc+xMvrFJiNszcU/p2Kfx0V6oNUb3yOKa1VYiQjJ1BM8IfM/eMMY6nfe1BgFoYrhnkklpsDk1YLB5kqvYdI8oBOZjHVqyguEbS17aBl0KAX1We/Hc9bXPJjUXGM1FwsuzeKj7PzJ20Vv4t1ucY1uxe2RWqd3hzhZ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PjAvwbJY; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Qe4311gvIrlooJrDRglaTJDwXIqPRxsC56xX4wndrZqdS9dSOR1SAW3z76G+yNtF4FS0h/+nim8nYWBDQNcnyjxHUCRR8sQ6SjFcm2SABldQ42rFzaDjqdOfm7RJdtdnLJANl52wcZPo0p6U+8mM1FyDb9jyI+Z/Gbs6WNuXHTU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YF1ieY7p; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PjAvwbJY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8E2DC1F000FF;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YF1ieY7p"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5F5131F0089C;
 	Thu, 17 Sep 2026 18:39:41 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789670382;
-	bh=WJQYeUGeujo092OCsOyL/7bdKbcDqXI5Z28AZoho5yI=;
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789670382;
+	bh=ks0B8ebo7eU0J1E+SlxWud5U+ZMoZj/yEOQzyXhN3uc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PjAvwbJYxFNXPCuSTM2FZyL+mfFI1bzCKF29cNI5HAIR7v+brCSS9Hl2mPq0Q/glR
-	 3GUT+OshXmLX2gaznVuc0P6fq65pAgUSFHdcyck5ykrLwB8A8rMb8I99+BXKfEZnt4
-	 yeMkoJ+7SjpCfxuw+76subf8qpDadhF70IZbD93Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	b=YF1ieY7pLTQoZczS9T3k/CSVC0EX7rwX1xuVMW5mSGPEdmslOcdpo++lNO6Wtaodg
+	 d7BW8Rh7esc5BmNtPTJiyI2PR9luEMoIN9saYOWDSN5eWoyGIfNta/N9EncQ0hBuqR
+	 WFCIePWawFig4EIHBd9ayrAtmwa38ryl+beAN2n2CTg34wdFe72VSyAVTAmzUGqvNM
+	 0ozPDSz6hNUyVCexE7ygy7sLGGUrSCSK9S0muQyoquSwhHHdecf/gre+geuaodORZY
+	 rI+YsBnfJZIHm0FywHN2fs2Rw4GtFEW69voiBOja+pE53JTh7O+wdox1hN1zF7Ytoz
+	 O8GWKN5BOaxKw==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Hannes Reinecke <hare@kernel.org>,
-	Xixin Liu <liuxixin@kylinos.cn>,
-	Keith Busch <kbusch@kernel.org>,
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cem@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 0647/1102] nvme-tcp: defer TLS inline send to io_work
-Date: Thu, 17 Sep 2026 16:09:50 +0100
-Message-ID: <20260917151556.394777319@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.12.y 2/2] xfs: don't stash removename operations with unknown ftype
+Date: Thu, 17 Sep 2026 14:39:38 -0400
+Message-ID: <20260917183939.1201122-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917183939.1201122-1-sashal@kernel.org>
+References: <2026091654-contented-triceps-9bbc@gregkh>
+ <20260917183939.1201122-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,52 +47,62 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-6.12-stable review patch.  If anyone has any objections, please let me know.
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-------------------
+[ Upstream commit 865b751e75039fc07838b3200f9740256653da9a ]
 
-From: Xixin Liu <liuxixin@kylinos.cn>
+LOLLM notices that the behavior of xrep_dir_replay_update changes based
+on the ftype recorded in the stashed removename information.  It also
+notices that the unlink iops sometimes set that ftype to FT_UNKNOWN
+because the regular directory tree update code paths don't need to know
+the ftype of the child.
 
-[ Upstream commit 08acb54b063a33730eb1ae1e0f89bf36542bac9f ]
+Unfortunately, this results in incorrect link counts, which eventually
+trips link count errors in later phases of xfs_scrub, or in xfs_repair.
+Fix this by creating a second xfs_name with the type set correctly.
 
-blk_mq holds set->srcu while queuing and running requests.  The kTLS
-software send path takes ctx->tx_lock.  lockdep knows that tx_lock
-nests under elevator_lock which then waits on srcu, so an inline
-send from that path under TLS triggers circular locking.
-
-Skip the inline send optimization for TLS queues so the send runs
-from the workqueue instead.  The same workqueue already retries TLS
-sends on write-space notifications.  Plain TCP keeps the inline path.
-
-Fixes: be8e82caa685 ("nvme-tcp: enable TLS handshake upcall")
-Reviewed-by: Hannes Reinecke <hare@kernel.org>
-Signed-off-by: Xixin Liu <liuxixin@kylinos.cn>
-Signed-off-by: Keith Busch <kbusch@kernel.org>
+Cc: stable@vger.kernel.org # v6.10
+Fixes: 8559b21a64d983 ("xfs: implement live updates for directory repairs")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/nvme/host/tcp.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ fs/xfs/scrub/dir_repair.c | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/nvme/host/tcp.c b/drivers/nvme/host/tcp.c
-index 8a6707a592930..1a1a11671826f 100644
---- a/drivers/nvme/host/tcp.c
-+++ b/drivers/nvme/host/tcp.c
-@@ -418,8 +418,13 @@ static inline void nvme_tcp_queue_request(struct nvme_tcp_request *req,
- 	 * if we're the first on the send_list and we can try to send
- 	 * directly, otherwise queue io_work. Also, only do that if we
- 	 * are on the same cpu, so we don't introduce contention.
-+	 *
-+	 * TLS kTLS send takes ctx->tx_lock while blk_mq holds set->srcu.
-+	 * lockdep reports circular locking via elevator_lock.  Defer TLS
-+	 * sends to the io workqueue instead of inline from this path.
- 	 */
- 	if (queue->io_cpu == raw_smp_processor_id() &&
-+	    !nvme_tcp_queue_tls(queue) &&
- 	    empty && mutex_trylock(&queue->send_mutex)) {
- 		nvme_tcp_send_all(queue);
- 		mutex_unlock(&queue->send_mutex);
+diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
+index 0cdd763250cc3..5d594085a6c1b 100644
+--- a/fs/xfs/scrub/dir_repair.c
++++ b/fs/xfs/scrub/dir_repair.c
+@@ -1373,9 +1373,24 @@ xrep_dir_live_update(
+ 		if (p->delta > 0)
+ 			error = xrep_dir_stash_createname(rd, p->name,
+ 					I_INO(p->ip));
+-		else
+-			error = xrep_dir_stash_removename(rd, p->name,
++		else {
++			/*
++			 * xfs_dentry_to_name in unlink or rename-exchange can
++			 * pass us names with ftype FT_UNKNOWN, but we really
++			 * must know the ftype of the child that is being
++			 * removed so that we can do nlink updates correctly
++			 * without holding inode references.
++			 */
++			struct xfs_name	name = {
++				.name	= p->name->name,
++				.len	= p->name->len,
++				.type	= xfs_mode_to_ftype(
++						VFS_IC(p->ip)->i_mode),
++			};
++
++			error = xrep_dir_stash_removename(rd, &name,
+ 					I_INO(p->ip));
++		}
+ 		mutex_unlock(&rd->pscan.lock);
+ 		if (error)
+ 			goto out_abort;
 -- 
 2.53.0
-
-
 
