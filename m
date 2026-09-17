@@ -1,145 +1,108 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D6094E77EA;
-	Thu, 17 Sep 2026 16:09:22 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 87B3E4ED185;
+	Thu, 17 Sep 2026 16:09:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661363; cv=none; b=fbyS3ZygE3YTnnThwzJ1C0uZqp+CuAYiy8T5S0rt86HcYmRqzB2iaR+hxPzBjY9J0dGD8vKqjInRH86ctAvazd6z7XYAuB/PLvhzt1OPwrPAnExvM97PgCvCxOzWPBK/r8NRdVxl/tudDSp1VGcW1tYc95rool/82Oc2mD1oYw4=
+	t=1789661385; cv=none; b=izrw9IAWm/60/KWXJxQhc02WS8PLEpwz0iznmzeHUoKo70VPaOvx2vu6fwKcL943D+JBfekzJx7bmBDRg/hmO/DTn+W+PRDaqne+ZozPNAfcypD4OZjgCYpRdUWiSmf8RSF97MF7HPRoH4via9Lh14CnQRKDTm8/F5SolwH5zVw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661363; c=relaxed/simple;
-	bh=Q+WDzO4wjv8Gd5zCZBa8DgX5nhGx4wSgTgfN4yu6sIE=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fxtHZTXHM9qNGTsnWDNof2PKEWhl+SfocB8EiwJ8WRe6lPOS6ZcxMxofjKvRjX3NnhQ5Fep/tYTe4R6ZKx56QuuHl/7AVytPnp5UJZB46NYp+vgYtoSo1vNqfC8xiez8Syj0OedbQUfQkLDLQBw+eTN4bxB9ywdw0FlePTI1UWI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=15+6eF2D; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789661385; c=relaxed/simple;
+	bh=y5azVuUQo0EKF38LkZBCTZ34UL5VDnoxn5clT/4I1jM=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=k8Bg9NA8+5oDaNOjU1UPyrWzdty7wF92ieRDFF89PKtUg0CXH939MiM8olam9/dkDUwLS1IxVxsvDU2xmn2wOASh+l5nJiSaLT4+Jd9FJf4ifesf6OGC9A7AscqnBDpMnupDwReuRzfM9ky1SfY/qOM9H8Fbz9lSkCRxOBpAWeE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=NLYO0Hfc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="15+6eF2D"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C24941F000FF;
-	Thu, 17 Sep 2026 16:09:21 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="NLYO0Hfc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E14001F00898;
+	Thu, 17 Sep 2026 16:09:43 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789661362;
-	bh=m9K3GhASpI5t+2iOsIBK74nhhEBKrFBuVyOt0QdKTOQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=15+6eF2DvpjpgMPRD8cfKCARY39q+YaV9sPXLzEEXeFBHd+BIZ4nz+Ahv+vuEiIr0
-	 5tNZR3KP8bWFbnXVv6X61PEtBzNflFUvqFqYVZ8+oA1cMLgnargsTCBLslWhkW7nW8
-	 qDfrbHi0yD3dSaLWpTVO03A3KFu8NQWHWsmeq/ZE=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Jan Volckaert <janvolck@gmail.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0168/1250] net: usb: qmi_wwan: add MeiG SRM813Q
-Date: Thu, 17 Sep 2026 15:59:23 +0100
-Message-ID: <20260917151556.645356188@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-References: <20260917151551.901433442@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=korg; t=1789661384;
+	bh=kr5LGH29uDKquRiQJXiJGsHjLAXb24yTBoZUaAV3cJo=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=NLYO0HfcQp1DARE5KfoKBObCkPc/3sDlDJIXN08teLGPNvzNzIQQkbzmbL8rN2kPp
+	 /qKUUng5fwkeqdh6SvjbcXEka2CaJL/UKxW4HlJJOFPCMgoBTu2X6EBHDubJGdEmbZ
+	 epd97epfWyCRtUF5kN2t1AQJOE7Wc+KPHCD/14y8=
+Date: Thu, 17 Sep 2026 16:21:48 +0100
+From: Greg KH <gregkh@linuxfoundation.org>
+To: Adarsh Das <adarshdas950@gmail.com>
+Cc: dakr@kernel.org, driver-core@lists.linux.dev,
+	linux-kernel@vger.kernel.org, rafael@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com
+Subject: Re: [PATCH] kobject: fix uevent socket use-after-free on net
+ namespace delete
+Message-ID: <2026091753-bootleg-manicotti-5c1a@gregkh>
+References: <2026091756-widen-doozy-399c@gregkh>
+ <20260917151830.89024-1-adarshdas950@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917151830.89024-1-adarshdas950@gmail.com>
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+A: http://en.wikipedia.org/wiki/Top_post
+Q: Were do I find info about this thing called top-posting?
+A: Because it messes up the order in which people normally read text.
+Q: Why is top-posting such a bad thing?
+A: Top-posting.
+Q: What is the most annoying thing in e-mail?
 
-------------------
+A: No.
+Q: Should I include quotations after my reply?
 
-From: Jan Volckaert <janvolck@gmail.com>
+http://daringfireball.net/2007/07/on_top
 
-[ Upstream commit 9758c11fc6c138a79a28a5659feeaa3abde7aa6a ]
+On Thu, Sep 17, 2026 at 08:48:30PM +0530, Adarsh Das wrote:
+> Hi,
+> 
+> Sorry, I wasn't aware of the Assisted-by tag before. Should I send a
+> V2 with it?
 
-Add support for the Qualcomm Technology Snapdragon X35-based MeiG SRM813Q
-module.
+Please do.
 
-The module can be put in different modes via AT commands
-to enable/disable GPS functionality:
+> For testing I ran syzbot's C repro with -smp 4 on master, with
+> multiple parallel instances of the repro. I was able to reproduce
+> the bug:
+> 
+>   BUG: KASAN: slab-use-after-free in kobject_uevent_env+
+>   Read of size 8 at addr ffff88800fa7f090 by task kworker/u16:5
+>   CPU: 3
+>   Workqueue: ib-unreg-wq ib_unregister_work
+>   Call Trace:
+>     kasan_report
+>     kobject_uevent_env+0xc71/0xd90
+>     device_del+0x7c7/0xcf0
+>     disable_device+0x1d2/0x260
+>     __ib_unregister_device+0x26b/0x400
+>     ib_unregister_work+0x19/0x30
+>     worker_thread
+>     kthread
+>   Allocated by task 498:
+>     uevent_net_init+0xe5/0x340
+>     setup_net
+>     copy_net_ns
+>     unshare_nsproxy_namespaces
+>     ksys_unshare
+>   Freed by task 63:
+>     kfree
+>     ops_undo_list
+>     cleanup_net
+>     worker_thread
+>   The buggy address belongs to the cache kmalloc-32 of size 32
+> 
+> With this patch applied, I ran the same repro repeatedly (including
+> parallel runs) and did not see the KASAN error anymore.
 
-MODEM - PPP mode(2dee:4d63): AT+SER=1,1
+Did syzbot also test this?
 
-If#= 0: RMNET
-If#= 1: DIAG/ADB
-If#= 2: MODEM
-If#= 3: AT
+And I have no context here at all, sorry, please realize that some of us
+get 1000+ emails a day...
 
-P:  Vendor=2dee ProdID=4d63 Rev=05.15
-S:  Manufacturer=MEIG
-S:  Product=LTE-A Module
-S:  SerialNumber=1bd51f0e
-C:  #Ifs= 4 Cfg#= 1 Atr=80 MxPwr=500mA
-I:  If#= 0 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=qmi_wwan
-E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=82(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
-I:  If#= 1 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
-E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
-E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=84(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=85(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
-I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
-E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=86(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=87(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
+thanks,
 
-NMEA mode(2dee:4d64): AT+SER=51,1
-
-If#= 0: RMNET
-If#= 1: DIAG/ADB
-If#= 2: NMEA
-If#= 3: AT
-
-P:  Vendor=2dee ProdID=4d64 Rev=05.15
-S:  Manufacturer=MEIG
-S:  Product=LTE-A Module
-S:  SerialNumber=1bd51f0e
-C:  #Ifs= 4 Cfg#= 1 Atr=80 MxPwr=500mA
-I:  If#= 0 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=50 Driver=qmi_wwan
-E:  Ad=01(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=81(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=82(I) Atr=03(Int.) MxPS=   8 Ivl=32ms
-I:  If#= 1 Alt= 0 #EPs= 2 Cls=ff(vend.) Sub=ff Prot=30 Driver=option
-E:  Ad=02(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=83(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-I:  If#= 2 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=60 Driver=option
-E:  Ad=03(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=84(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=85(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
-I:  If#= 3 Alt= 0 #EPs= 3 Cls=ff(vend.) Sub=ff Prot=40 Driver=option
-E:  Ad=04(O) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=86(I) Atr=02(Bulk) MxPS= 512 Ivl=0ms
-E:  Ad=87(I) Atr=03(Int.) MxPS=  10 Ivl=32ms
-
-Signed-off-by: Jan Volckaert <janvolck@gmail.com>
-Link: https://patch.msgid.link/20260517153237.55995-2-janvolck@gmail.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- drivers/net/usb/qmi_wwan.c | 2 ++
- 1 file changed, 2 insertions(+)
-
-diff --git a/drivers/net/usb/qmi_wwan.c b/drivers/net/usb/qmi_wwan.c
-index c6d9ea259c0b8..8178a8758cd3f 100644
---- a/drivers/net/usb/qmi_wwan.c
-+++ b/drivers/net/usb/qmi_wwan.c
-@@ -1453,6 +1453,8 @@ static const struct usb_device_id products[] = {
- 	{QMI_QUIRK_SET_DTR(0x1546, 0x1342, 4)},	/* u-blox LARA-L6 */
- 	{QMI_QUIRK_SET_DTR(0x33f8, 0x0104, 4)}, /* Rolling RW101 RMNET */
- 	{QMI_FIXED_INTF(0x2dee, 0x4d22, 5)},    /* MeiG Smart SRM825L */
-+	{QMI_QUIRK_SET_DTR(0x2dee, 0x4d63, 0)}, /* MeiG SRM813Q w/ Modem(PPP) */
-+	{QMI_QUIRK_SET_DTR(0x2dee, 0x4d64, 0)}, /* MeiG SRM813Q w/ NMEA */
- 
- 	/* 4. Gobi 1000 devices */
- 	{QMI_GOBI1K_DEVICE(0x05c6, 0x9212)},	/* Acer Gobi Modem Device */
--- 
-2.53.0
-
-
-
+greg k-h
