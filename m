@@ -1,33 +1,44 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C90A4B7A30;
-	Thu, 17 Sep 2026 16:08:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84FB84F4CEA;
+	Thu, 17 Sep 2026 16:08:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661285; cv=none; b=hs0Oh7NcCUNoWX5gO6CxaFhTaNdpoBrSvkk8E1dFBN6jC2+16x4gjvLeKq7LWAFhBuWNAqdY/9xZMOKMXxnWJVlUDYw6/Fe72nZqRxe7Fh5eVYaDSemUfXM3JurKK5+KgvUAo3/YAXJWb9M9xdaR46wcigAlA/R0j3bbc4/OB2A=
+	t=1789661286; cv=none; b=Ujay/VlLrNuELQZtNJAKEfogrGnu8E2glgfsQclt201hwSHQdnEdF1Cra3FFzngNyzIr9Jywsbibqjh+C6DlB8eIsS0iXb7SPOzQ09vXdo/FZqDxSEyFjNJPKogIRefl2J9KTjOLHuviq+VEVTpnXkWc9+sgUoSTPjMJAOacJMU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661285; c=relaxed/simple;
-	bh=kyLNYI+hqqLQRI9p6z2axNlHWPE91dvDEuCJRQLgbPQ=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JcWIPWmX+zdwTzQPN1OQYNjGEBYc02AEB2JwewKkjXWrblzI8hKicoetKYVKZ46LeuLjlrQ1XwyCAGxnoMbpBnB8LnD3/4Dfh2Nzl86AAoDOKr2pQegEVDSHDCo3OFhZcbEv9WEM2QdvIqG3WKR+TVDnyxfZDHXUT8SsOWBuUc0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB34jxeEKxqdCiECA--.6483S2;
-	Fri, 18 Sep 2026 00:07:58 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org,
-	linux-usb@vger.kernel.org,
-	pawell@cadence.com,
-	peter.chen@nxp.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] usb: cdnsp: Fix runtime PM reference leak in __cdnsp_gadget_init()
-Date: Thu, 17 Sep 2026 16:07:58 +0000
-Message-Id: <20260917160758.2161710-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789661286; c=relaxed/simple;
+	bh=6YQyYStRkp82QSoyCbVS2LSJCVzG9PyxaPTUx1/61Wg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=XR+nPjyBcfJnv+2PDW7qGWSI7sFlkstsEHPpUnJ376a2Rm8/1mYV1LQcNdHp2kpI31k+aYpGW874O4pIyoCpvSw46pZJm/eElnbJrou6eVMFpTbbWVfuGw/U2v7mp37lUs0b8LAG4cIIP2/6+ffeYBQYOufKWp/IWpnLZsARkIc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=s6pQGIGZ; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="s6pQGIGZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D41781F00893;
+	Thu, 17 Sep 2026 16:08:04 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789661285;
+	bh=MoDz3R++YPwMMiYKcfZdZhe3HKOqoHmhdDOSKWI7PbA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=s6pQGIGZ1VgR9Y7r5hZiyEGEPChgiMo/A/fVyIyIH5L3mYFe7Odc/7igtKQFaxReJ
+	 dzYbcBjWSPsa1FOP9FmJyFoK7Z0Iy7gAAmSYfJQjVw0BGXwOty6Hk3Ikd8XXkhgcZe
+	 HYXlU98+8Jt02BT1gpgAWtmz3OZAZFMeNG8y7SDo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Osama Abdelkader <osama.abdelkader@gmail.com>,
+	Will Deacon <will@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0145/1250] arm64: panic from init_IRQ if IRQ handler stacks cannot be allocated
+Date: Thu, 17 Sep 2026 15:59:00 +0100
+Message-ID: <20260917151555.989373100@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,52 +46,104 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB34jxeEKxqdCiECA--.6483S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Gry3Gr1kKr1DKw18Cw1xKrg_yoWDArc_Wr
-	45uF17AFyjga4DCw1kGw43urWj9FyDXw4kWan7t3y3CayUKr18Zry3Xrs5Cr1xZ3y7GryD
-	t3W8KFsIkFnrujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbskFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c
-	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
-	WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
-	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
-	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
-	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
-	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjx
-	v20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
-	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
-	IFyTuYvjfUY9a9DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgNA2qr9tg9FQAAsG
 
-__cdnsp_gadget_init() takes a runtime PM reference with
-pm_runtime_get_sync(), which is only released by cdnsp_gadget_exit().
-If the initialization fails after the get, the role is never marked
-active, so cdns_role_stop() does not call the ->stop callback and the
-reference is leaked.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-Drop the reference on the error path as well.
+------------------
 
-Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Osama Abdelkader <osama.abdelkader@gmail.com>
+
+[ Upstream commit 7dc6922f7fdd3496de4e7d8fb99284fc08f98003 ]
+
+init_irq_stacks() and init_irq_scs() may fail when arch_alloc_vmap_stack
+or scs_alloc return NULL. Return -ENOMEM from both and call panic() once
+from init_IRQ(), covering per-CPU IRQ stacks and shadow IRQ stacks
+consistently.
+
+Signed-off-by: Osama Abdelkader <osama.abdelkader@gmail.com>
+Signed-off-by: Will Deacon <will@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/usb/cdns3/cdnsp-gadget.c | 1 +
- 1 file changed, 1 insertion(+)
+ arch/arm64/kernel/irq.c | 29 ++++++++++++++++++++---------
+ 1 file changed, 20 insertions(+), 9 deletions(-)
 
-diff --git a/drivers/usb/cdns3/cdnsp-gadget.c b/drivers/usb/cdns3/cdnsp-gadget.c
-index 6b3815f8a6e5..53c395631955 100644
---- a/drivers/usb/cdns3/cdnsp-gadget.c
-+++ b/drivers/usb/cdns3/cdnsp-gadget.c
-@@ -1990,6 +1990,7 @@ static int __cdnsp_gadget_init(struct cdns *cdns)
- 	kfree(pdev->setup_buf);
- free_pdev:
- 	kfree(pdev);
-+	pm_runtime_put_autosuspend(cdns->dev);
+diff --git a/arch/arm64/kernel/irq.c b/arch/arm64/kernel/irq.c
+index c0065a1d77cf3..00ebbf18b1c18 100644
+--- a/arch/arm64/kernel/irq.c
++++ b/arch/arm64/kernel/irq.c
+@@ -10,6 +10,7 @@
+  * Copyright (C) 2012 ARM Ltd.
+  */
  
- 	return ret;
++#include <linux/errno.h>
+ #include <linux/hardirq.h>
+ #include <linux/init.h>
+ #include <linux/irq.h>
+@@ -32,34 +33,43 @@ DEFINE_PER_CPU(struct nmi_ctx, nmi_contexts);
+ 
+ DEFINE_PER_CPU(unsigned long *, irq_stack_ptr);
+ 
+-
+ DECLARE_PER_CPU(unsigned long *, irq_shadow_call_stack_ptr);
+ 
+ #ifdef CONFIG_SHADOW_CALL_STACK
+ DEFINE_PER_CPU(unsigned long *, irq_shadow_call_stack_ptr);
+ #endif
+ 
+-static void init_irq_scs(void)
++static int __init init_irq_scs(void)
+ {
+ 	int cpu;
++	void *s;
+ 
+ 	if (!scs_is_enabled())
+-		return;
++		return 0;
++
++	for_each_possible_cpu(cpu) {
++		s = scs_alloc(early_cpu_to_node(cpu));
++		if (!s)
++			return -ENOMEM;
++		per_cpu(irq_shadow_call_stack_ptr, cpu) = s;
++	}
+ 
+-	for_each_possible_cpu(cpu)
+-		per_cpu(irq_shadow_call_stack_ptr, cpu) =
+-			scs_alloc(early_cpu_to_node(cpu));
++	return 0;
  }
+ 
+-static void __init init_irq_stacks(void)
++static int __init init_irq_stacks(void)
+ {
+ 	int cpu;
+ 	unsigned long *p;
+ 
+ 	for_each_possible_cpu(cpu) {
+ 		p = arch_alloc_vmap_stack(IRQ_STACK_SIZE, early_cpu_to_node(cpu));
++		if (!p)
++			return -ENOMEM;
+ 		per_cpu(irq_stack_ptr, cpu) = p;
+ 	}
++
++	return 0;
+ }
+ 
+ #ifndef CONFIG_PREEMPT_RT
+@@ -109,8 +119,9 @@ int __init set_handle_fiq(void (*handle_fiq)(struct pt_regs *))
+ 
+ void __init init_IRQ(void)
+ {
+-	init_irq_stacks();
+-	init_irq_scs();
++	if (init_irq_stacks() || init_irq_scs())
++		panic("Failed to allocate IRQ stack resources\n");
++
+ 	irqchip_init();
+ 
+ 	if (system_uses_irq_prio_masking()) {
 -- 
-2.34.1
+2.53.0
+
+
 
