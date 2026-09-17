@@ -1,39 +1,39 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 386DA5476C2;
-	Thu, 17 Sep 2026 15:34:11 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94CE04E73D1;
+	Thu, 17 Sep 2026 15:34:16 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659258; cv=none; b=bi3xW7GXlHAaSYWICRfvyvEqI/N26EFIsG9ZmdcaPMEcR0F6xJ1ro6I6g43YKDmySUdN/rN/ATGDWHe95dfL7B31zyisqCnasLaN966xsqifYNJvWbQUOU5l5zjrKbg4z1MFJQN7Xss8XWDx72OAZVImOdBNWO5SklsJF0qS/fY=
+	t=1789659263; cv=none; b=MC93sdXI2PG/JdoqW4QSgtpm5OejzczRBgQOKEBzKkx4lthmbgFS6LYrR9uwFh0OT6+oEinIHD22y1+WOgQZJD893ILV9dun+h7bThimjF2ss3+tJ5/pvPOXb0ZFqQbf78Q/FnFtEeahkcprGvEO5EaD6HFkjwWVSWwcngpliOU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659258; c=relaxed/simple;
-	bh=Zu2OHyGPuZymDK0BpGJBwdth12auDsDHjWyy76VIVyg=;
+	s=arc-20240116; t=1789659263; c=relaxed/simple;
+	bh=GIpkshkCk/TFxsHveOuWWJfCaITfktVMwTfRuu7gU6w=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=rJQ8HYV2v9xo58RAnbocPsM4nEShzWZ3+9o5WfKmR9LWd7rwdlpKycn/udu3V20OvyYOhaeycyy8L1DvJQjA+wEkI6alhT9P4ISUp+84WD87JxhGJaXStwx3nGzb0Hdiox/zEE9pMXPM06K3JiOhHK3hWHJA9t7n3qstAPX3FtY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=jrq77zmN; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=kdC55qea2nJGJgX9pohM5YyRFkAVuyYzVI+czt3JZg+XZRGRdnWRDMF4TrEmhY1HRf4JoKFgHYB5O6ElDfWgS2Uf2388+jO1SiGHdnCVdEhNBy/Rktrxb9+wW3av9H07ptoP0Xa/8spoE5MZFC+qLuT3OGID7JNe9LEEHb3Oltk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=XD7TywTs; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="jrq77zmN"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7C2771F000FF;
-	Thu, 17 Sep 2026 15:34:07 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="XD7TywTs"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 81CC91F00898;
+	Thu, 17 Sep 2026 15:34:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659248;
-	bh=/YeL4zvtiBTPc6kOQUIC5n25yb0uRNUQcnBAHR6+DP8=;
+	s=korg; t=1789659254;
+	bh=ceIoBpw4jcOhGl8IpcgYi+setd4GT0p+Uohty0/IkbQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jrq77zmN3j5nLtnKHWGUzj46kakLzzhyBc5XVLPZerriC+iOwSXcRocHGK+dtRSTL
-	 O9egBLTRP0QNJPcpm1em5Jkwb/xAVJ+GnYrwr7EWzKreSEgFs9icHHg4qG+Lw+Fh76
-	 tfYo1Dyo8+X9d94iHB4gQjNonTP3lGiMwpr2nUQg=
+	b=XD7TywTsxLYR+MlynrecsxSEFwbQHxHqKJoshP+YjMMHJvLRMC+qKl9z8v7HrEqA1
+	 WL1EgwuhVA62CfPgBmgiNkQkzmmxBTCQ0+DEE2LNH25Qku8uMXbYXoMQHJRaqLGdse
+	 ciCbYe4QqX+wNIiN2nYvN+gBgLtXiWDmM7CjldWI=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
+	Johannes Thumshirn <johannes.thumshirn@wdc.com>,
 	Qu Wenruo <wqu@suse.com>,
-	Shuangpeng Bai <shuangpeng.kernel@gmail.com>,
 	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 192/733] btrfs: fix transaction use-after-free in raid stripe insertion
-Date: Thu, 17 Sep 2026 16:08:20 +0100
-Message-ID: <20260917151355.932414415@linuxfoundation.org>
+Subject: [PATCH 7.2 194/733] btrfs: return proper negative error code for update_raid_extent_item()
+Date: Thu, 17 Sep 2026 16:08:22 +0100
+Message-ID: <20260917151355.988000326@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -52,49 +52,55 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+From: Qu Wenruo <wqu@suse.com>
 
-[ Upstream commit a8813a923f9e43f788b357fb55c35f7f6ed6f98c ]
+[ Upstream commit a03fa65184545837d6461413275da71f30527385 ]
 
-If allocation of a RAID stripe extent fails,
-btrfs_insert_one_raid_extent() aborts and ends the transaction before
-returning -ENOMEM.
+The function btrfs_abort_transaction() only accepts negative error code,
+and have the macro VERIFY_NEGATIVE_ERROR() to verify that error code.
 
-btrfs_finish_one_ordered(), the production caller through
-btrfs_insert_raid_extent(), still owns the transaction handle. It handles
-the error by aborting the transaction and then reaches the common exit
-path, which ends the transaction again.
+But inside update_raid_extent_item(), if there is such key found, we
+return 1, breaking the negative error code scheme.
 
-The premature end can free the handle and drop its transaction reference.
-Transaction cleanup can then free the transaction before the caller's
-second abort accesses the handle and transaction, resulting in
-use-after-free.
+Furthermore if we hit some real error during the tree search, e.g. -EIO,
+then the error code is always over-written to -EINVAL.
 
-Keep the abort at the failure site, but let the caller's common exit path
-end the transaction once, after it has finished using both objects.
+Fix both problems by following other call sites by overwriting @ret to
+-ENOENT if the btrfs_search_slot() failed to locate the key.
 
-Fixes: 02c372e1f016 ("btrfs: add support for inserting raid stripe extents")
-Assisted-by: Codex:GPT-5
-Reviewed-by: Qu Wenruo <wqu@suse.com>
-Signed-off-by: Shuangpeng Bai <shuangpeng.kernel@gmail.com>
+This is very unlikely to hit, as we only enter update_raid_extent_item()
+if there is a conflicting key already in the raid stripe tree.
+
+This was reported by Sashiko when reviewing another patch.
+
+Link: https://sashiko.dev/#/patchset/20260817021512.3010812-1-shuangpeng.kernel%40gmail.com
+Fixes: 8c4cba2adbb0 ("btrfs: update stripe extents for existing logical addresses")
+Reviewed-by: Johannes Thumshirn <johannes.thumshirn@wdc.com>
+Signed-off-by: Qu Wenruo <wqu@suse.com>
+Reviewed-by: David Sterba <dsterba@suse.com>
 Signed-off-by: David Sterba <dsterba@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/btrfs/raid-stripe-tree.c | 1 -
- 1 file changed, 1 deletion(-)
+ fs/btrfs/raid-stripe-tree.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
 diff --git a/fs/btrfs/raid-stripe-tree.c b/fs/btrfs/raid-stripe-tree.c
-index b210371ce91e3..89e259a47d8de 100644
+index 6291775dbe0e7..d9e660447205f 100644
 --- a/fs/btrfs/raid-stripe-tree.c
 +++ b/fs/btrfs/raid-stripe-tree.c
-@@ -337,7 +337,6 @@ int btrfs_insert_one_raid_extent(struct btrfs_trans_handle *trans,
- 	stripe_extent = kzalloc(item_size, GFP_NOFS);
- 	if (unlikely(!stripe_extent)) {
- 		btrfs_abort_transaction(trans, -ENOMEM);
--		btrfs_end_transaction(trans);
- 		return -ENOMEM;
- 	}
+@@ -310,8 +310,10 @@ static int update_raid_extent_item(struct btrfs_trans_handle *trans,
  
+ 	ret = btrfs_search_slot(trans, trans->fs_info->stripe_root, key, path,
+ 				0, 1);
+-	if (ret)
+-		return (ret == 1 ? ret : -EINVAL);
++	if (ret > 0)
++		ret = -ENOENT;
++	if (ret < 0)
++		return ret;
+ 
+ 	leaf = path->nodes[0];
+ 	slot = path->slots[0];
 -- 
 2.53.0
 
