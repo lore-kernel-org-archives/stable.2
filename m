@@ -1,37 +1,37 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B39C143E4BE;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B956C43F09B;
 	Thu, 17 Sep 2026 19:01:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789671684; cv=none; b=eC4A1HzWDvyQEUmScooWoi9vK6lW0kaOkt/kDKAFuL45r8qgCry6x5zlpjF5EG+mBddYASP1Pyo+2eDucGLzQgMd1NAuP33DDkVASAqxDwYrvClAdGK1vPDEzvgrGKgrQR2nRqmlQYpRw8hl4d1El+/rg1ZPJD5fTEZnh/Zz3c8=
+	t=1789671683; cv=none; b=o3i3Bb6ClIiR6Bq4p1Ud6easjy157CoyZZkIJrmwIEjp8Egjz6BMtQAXWn4YaOPheZIOBxSj4UvYul1wbMZz2F2UYgU5DjOYi7Qyl+511xu1fs/BIfHMoMQU+ZTAAsB/1RlPIzxOzlx6GDc6XuWiQc9EgQoqrAR6jnxlV4uhkX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789671684; c=relaxed/simple;
-	bh=83zvQONYY/KIFTq4fGkHCYABwN28wOY/5O4PtBjFliY=;
+	s=arc-20240116; t=1789671683; c=relaxed/simple;
+	bh=KQd+sWNMz0lrhsayC8t16eZ97BRCXf+nhptUNwCZGho=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=VLgaJEw+L0oYepSvXXjRC7v0wBMXpIuuNgUiCCeZlhpvmV5UJEc2jLRHzWv71nUgwp9K+8d2F3XdxLnICNfxpo7vQl2qC+1K2ZKp9lU3ban3pzqLTY/yAwC181TOydhzD0bT3itERxh8e2YCr3Zyqc4J0cH4S9rzujVstcjhiyg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=pXtAoV9v; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=F2F7HgxcspmrnlI1ocYGvVk9F7NGq6PQXtEDdYdzXBM0vB+4NlW3PXtaPYytbw0ZSrrVeCwpd5Z6YbaDxrKOIGCZbm14qPLlUanofXqHGUi9Pe+AdbGag8VgAYcz+jKmNHGUDFNqz+ocal52vDiSK5aKofGOPLWcOYyOlEZ1xxg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BIir7BaC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="pXtAoV9v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 082121F0089F;
-	Thu, 17 Sep 2026 19:00:53 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BIir7BaC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4775C1F008A2;
+	Thu, 17 Sep 2026 19:01:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789671654;
-	bh=Ka45sBtE3jecZSYpS/a9V2iWl4sNIlp3GaXzzRXCHzY=;
+	s=korg; t=1789671669;
+	bh=a9s3GVhON+qMC6d457Bw7UKoGpLYlb4poJGYOHmp2u4=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=pXtAoV9viOkMxCN2lO4aXTQ+2uCWnpN6/HU3COCzlhGL+7RD13oTRDsupJvnAHpxL
-	 0gdWZNybwWbzoLCvCNpACRO3cW6d7qVQPaYYMPejq+LkgyeCFsLBlbf90Uv3dUArDk
-	 1/vWHvUkDBiHFdBKj+N0n7IahP3OKUrmY+rXC208=
+	b=BIir7BaCom0wkjcUW+2pCHNRSmYvEVNa8Mt+luGnXKnUaaYCtVrLg6q5WavNsT9cO
+	 2cvgh9wmQLMzvc43r+TbKT5c3SMYBRwkPLJDBaRoYa26dPajy+WLg+0OqL7JuojbqZ
+	 knuYfd6mQUHgCZbcMU7lnod7iwmPtQoguW/B+1II=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Gabriel Prostitis <prostitisgabriel@gmail.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12 1009/1102] USB: gadget: ffs: fix mm lifetime handling
-Date: Thu, 17 Sep 2026 16:15:52 +0100
-Message-ID: <20260917151606.078013515@linuxfoundation.org>
+Subject: [PATCH 6.12 1045/1102] btrfs: parameter constification in ioctl.c
+Date: Thu, 17 Sep 2026 16:16:28 +0100
+Message-ID: <20260917151607.028911699@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
 References: <20260917151539.408551884@linuxfoundation.org>
@@ -50,94 +50,133 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Gabriel Prostitis <prostitisgabriel@gmail.com>
+From: David Sterba <dsterba@suse.com>
 
-[ Upstream commit 5eb5c72c72fef76cb765ef1669b62b6a3ba1bfc8 ]
+[ Upstream commit 5e54f9420fc9b8096d0a4b579a84806a3ef0bf88 ]
 
-io_data stores a pointer to the submitting task's mm_struct,
-but does not currently hold a reference to it while async
-requests are pending.
+Add const to function parameters that are not changed.
 
-This can result in a use-after-free if the task exits before
-completion handling finishes.
-
-Take a reference with mmgrab() when queuing the read request
-and release it with mmdrop() on request completion.
-
-Reported-by: Gabriel Prostitis <prostitisgabriel@gmail.com>
-Signed-off-by: Gabriel Prostitis <prostitisgabriel@gmail.com>
-Link: https://patch.msgid.link/20260601-mm-uaf-fix-v2-1-3c942a707bce@gmail.com
-Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Stable-dep-of: e78dcb1f7ec2 ("usb: gadget: f_fs: Fix Use-After-Free in AIO error path")
+Signed-off-by: David Sterba <dsterba@suse.com>
+Stable-dep-of: 15f7c86215e8 ("btrfs: do not overwrite NODATASUM flag when removing NODATACOW flag")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 ---
- drivers/usb/gadget/function/f_fs.c |   27 ++++++++++++++++++++-------
- 1 file changed, 20 insertions(+), 7 deletions(-)
+ fs/btrfs/ioctl.c |   28 ++++++++++++++--------------
+ 1 file changed, 14 insertions(+), 14 deletions(-)
 
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -866,9 +866,15 @@ static void ffs_user_copy_worker(struct
- 	unsigned long flags;
+--- a/fs/btrfs/ioctl.c
++++ b/fs/btrfs/ioctl.c
+@@ -117,8 +117,8 @@ struct btrfs_ioctl_encoded_io_args_32 {
+ #endif
  
- 	if (io_data->read && ret > 0) {
--		kthread_use_mm(io_data->mm);
--		ret = ffs_copy_to_iter(io_data->buf, ret, &io_data->data);
--		kthread_unuse_mm(io_data->mm);
-+		if (mmget_not_zero(io_data->mm)) {
-+			kthread_use_mm(io_data->mm);
-+			ret = ffs_copy_to_iter(io_data->buf, ret, &io_data->data);
-+			kthread_unuse_mm(io_data->mm);
-+			mmput(io_data->mm);
-+		} else {
-+			ret = -EFAULT;
-+		}
-+		mmdrop(io_data->mm);
- 	}
- 
- 	io_data->kiocb->ki_complete(io_data->kiocb, ret);
-@@ -1258,16 +1264,20 @@ static ssize_t ffs_epfile_write_iter(str
- 
- 	kiocb->private = p;
- 
--	if (p->aio)
-+	if (p->aio) {
-+		mmgrab(p->mm);
- 		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
-+	}
- 
- 	res = ffs_epfile_io(kiocb->ki_filp, p);
- 	if (res == -EIOCBQUEUED)
- 		return res;
--	if (p->aio)
-+	if (p->aio) {
-+		mmdrop(p->mm);
- 		kfree(p);
--	else
-+	} else {
- 		*from = p->data;
-+	}
- 	return res;
+ /* Mask out flags that are inappropriate for the given type of inode. */
+-static unsigned int btrfs_mask_fsflags_for_type(struct inode *inode,
+-		unsigned int flags)
++static unsigned int btrfs_mask_fsflags_for_type(const struct inode *inode,
++						unsigned int flags)
+ {
+ 	if (S_ISDIR(inode->i_mode))
+ 		return flags;
+@@ -132,7 +132,7 @@ static unsigned int btrfs_mask_fsflags_f
+  * Export internal inode flags to the format expected by the FS_IOC_GETFLAGS
+  * ioctl.
+  */
+-static unsigned int btrfs_inode_flags_to_fsflags(struct btrfs_inode *binode)
++static unsigned int btrfs_inode_flags_to_fsflags(const struct btrfs_inode *binode)
+ {
+ 	unsigned int iflags = 0;
+ 	u32 flags = binode->flags;
+@@ -218,7 +218,7 @@ static int check_fsflags(unsigned int ol
+ 	return 0;
  }
  
-@@ -1302,14 +1312,17 @@ static ssize_t ffs_epfile_read_iter(stru
+-static int check_fsflags_compatible(struct btrfs_fs_info *fs_info,
++static int check_fsflags_compatible(const struct btrfs_fs_info *fs_info,
+ 				    unsigned int flags)
+ {
+ 	if (btrfs_is_zoned(fs_info) && (flags & FS_NOCOW_FL))
+@@ -247,7 +247,7 @@ static int btrfs_check_ioctl_vol_args2_s
+  */
+ int btrfs_fileattr_get(struct dentry *dentry, struct fileattr *fa)
+ {
+-	struct btrfs_inode *binode = BTRFS_I(d_inode(dentry));
++	const struct btrfs_inode *binode = BTRFS_I(d_inode(dentry));
  
- 	kiocb->private = p;
+ 	fileattr_fill_flags(fa, btrfs_inode_flags_to_fsflags(binode));
+ 	return 0;
+@@ -485,7 +485,7 @@ void btrfs_exclop_balance(struct btrfs_f
+ 	}
+ }
  
--	if (p->aio)
-+	if (p->aio) {
-+		mmgrab(p->mm);
- 		kiocb_set_cancel_fn(kiocb, ffs_aio_cancel);
-+	}
+-static int btrfs_ioctl_getversion(struct inode *inode, int __user *arg)
++static int btrfs_ioctl_getversion(const struct inode *inode, int __user *arg)
+ {
+ 	return put_user(inode->i_generation, arg);
+ }
+@@ -557,7 +557,7 @@ static noinline int btrfs_ioctl_fitrim(s
+  * Calculate the number of transaction items to reserve for creating a subvolume
+  * or snapshot, not including the inode, directory entries, or parent directory.
+  */
+-static unsigned int create_subvol_num_items(struct btrfs_qgroup_inherit *inherit)
++static unsigned int create_subvol_num_items(const struct btrfs_qgroup_inherit *inherit)
+ {
+ 	/*
+ 	 * 1 to add root block
+@@ -967,7 +967,7 @@ static int btrfs_may_delete(struct mnt_i
  
- 	res = ffs_epfile_io(kiocb->ki_filp, p);
- 	if (res == -EIOCBQUEUED)
- 		return res;
+ /* copy of may_create in fs/namei.c() */
+ static inline int btrfs_may_create(struct mnt_idmap *idmap,
+-				   struct inode *dir, struct dentry *child)
++				   struct inode *dir, const struct dentry *child)
+ {
+ 	if (d_really_is_positive(child))
+ 		return -EEXIST;
+@@ -1539,8 +1539,8 @@ out:
+ 	return ret;
+ }
  
- 	if (p->aio) {
-+		mmdrop(p->mm);
- 		kfree(p->to_free);
- 		kfree(p);
- 	} else {
+-static noinline int key_in_sk(struct btrfs_key *key,
+-			      struct btrfs_ioctl_search_key *sk)
++static noinline int key_in_sk(const struct btrfs_key *key,
++			      const struct btrfs_ioctl_search_key *sk)
+ {
+ 	struct btrfs_key test;
+ 	int ret;
+@@ -1565,7 +1565,7 @@ static noinline int key_in_sk(struct btr
+ 
+ static noinline int copy_to_sk(struct btrfs_path *path,
+ 			       struct btrfs_key *key,
+-			       struct btrfs_ioctl_search_key *sk,
++			       const struct btrfs_ioctl_search_key *sk,
+ 			       u64 *buf_size,
+ 			       char __user *ubuf,
+ 			       unsigned long *sk_offset,
+@@ -2843,7 +2843,7 @@ out_free:
+ 	return ret;
+ }
+ 
+-static long btrfs_ioctl_fs_info(struct btrfs_fs_info *fs_info,
++static long btrfs_ioctl_fs_info(const struct btrfs_fs_info *fs_info,
+ 				void __user *arg)
+ {
+ 	struct btrfs_ioctl_fs_info_args *fi_args;
+@@ -2897,7 +2897,7 @@ static long btrfs_ioctl_fs_info(struct b
+ 	return ret;
+ }
+ 
+-static long btrfs_ioctl_dev_info(struct btrfs_fs_info *fs_info,
++static long btrfs_ioctl_dev_info(const struct btrfs_fs_info *fs_info,
+ 				 void __user *arg)
+ {
+ 	BTRFS_DEV_LOOKUP_ARGS(args);
+@@ -4355,7 +4355,7 @@ static int btrfs_ioctl_get_features(stru
+ 	return 0;
+ }
+ 
+-static int check_feature_bits(struct btrfs_fs_info *fs_info,
++static int check_feature_bits(const struct btrfs_fs_info *fs_info,
+ 			      enum btrfs_feature_set set,
+ 			      u64 change_mask, u64 flags, u64 supported_flags,
+ 			      u64 safe_set, u64 safe_clear)
 
 
