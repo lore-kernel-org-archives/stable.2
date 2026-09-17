@@ -1,81 +1,85 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB874A1E19;
-	Thu, 17 Sep 2026 22:24:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBB074AA593;
+	Thu, 17 Sep 2026 22:27:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683846; cv=none; b=hV2gX+gfPN3gaBbqm1lrs6DIMoaGJDA4LVCjLHMuDS6/Obu8UHBQ91SCyVFaT6OBu6cf/Z6lu9wlbkixHklfXyE67QEcTpVwdBR4Hx9he3mSvnx0Y0Dfo7fvvLe17ix8WqKgDFHovGM4/kAHR8eg/OdRoO9GnaYlPTkFassIaiA=
+	t=1789684022; cv=none; b=bPCytG8SZ85jhKv6guhVUKMumd1PAzJ5j/1ww+9xCyJ/r30j3CFAU9WeKKamhcIPF+QOT6VuE5gXC0fMI/nZ2CpjKz/96kWRN/TzZAQaB8rYdcMp84//rfXvtx1dw+aJ9IRELZtC1Ge0cTkgz7Sikxz7WUNeqgFiRwJuQ+6u25Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683846; c=relaxed/simple;
-	bh=DngOUU3PrpW3GHcTycPXn35MuZ0jXd3DuXkkv2n28Ss=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lu7DNlWzcX6ZFR9L9BnSb6ip2qnbehZxcgQcMGxEj91k/eWKpx//ktZDECoASz3/c4jZ9lyKhRR4ISrgB3iD4e0s6R8Mr/gqRoMiBLq3U6WJiWtTna6Ky9ktuPO4xea0HjFeAOmF88GiRj/YfXARqmfTqmaM4hMMTODvCCSmJUQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5Rp/lhg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789684022; c=relaxed/simple;
+	bh=dQTC9TkPJgydmhYfBsQYl9MojASDlaJ/9nZB2/9xisg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=VgH4jjmDDRHgAS2iH+T2egCW818l2uYGfeEuDr/0uqxcv1xan+BkEGBHlOzFpGojs7puSgxZS7tDgVCOkZ+2GyvrvI8P2RTo8M8FVGHSRTMPhiO0GpSLOJUPG4b6lOEvXSWNGW+36eWc9vOglkEE+Owmee+3XrxgS3wG1pNEjJ4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Cvdffjmh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5Rp/lhg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619271F000FF;
-	Thu, 17 Sep 2026 22:24:03 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Cvdffjmh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 219661F00899;
+	Thu, 17 Sep 2026 22:26:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789683844;
-	bh=DngOUU3PrpW3GHcTycPXn35MuZ0jXd3DuXkkv2n28Ss=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=K5Rp/lhgLcEVaZt3CCRwiyw1e3ah3cPvX7BX8gLC6Aer0eMbtZBTIvVki66+sP69o
-	 tQhfkrPCTGH8FqMfcd1aC7a3GpalCRCQMt95YcQbmBklFQjpIunAEQEqjWLIEJl+Av
-	 DUuIm73i6GB9tdHv/zG85LtXxoYvY7jVvqSPUSlnJW93po4B8dFLeHBCTF9YH20LEW
-	 vVDjzIwFPcC1AUOX6aW7JQDBCqHvC4NnhwYG3CYZEel4ms86+p9xja+NQ4EfmoyR7+
-	 Ir8kJrQyUCq2WGvAAxgTCHZAhnp8n4B0caNuooNJ+LAaSmhPYDg/TWuilC4JUdHsid
-	 m3NiAR6OuzfUA==
-Date: Thu, 17 Sep 2026 23:24:00 +0100
-From: Mark Brown <broonie@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: hansg@kernel.org, linux-kernel@vger.kernel.org,
-	linux-spi@vger.kernel.org, sbinding@opensource.cirrus.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] spi: fix controller reference leak in
- acpi_spi_device_alloc()
-Message-ID: <01e2065b-8ebe-4cd3-b80a-bbb6e7719873@sirena.org.uk>
-References: <20260917154826.2160933-1-vulab@iscas.ac.cn>
+	s=k20260515; t=1789684019;
+	bh=gEiIJyyKtrv62zUu183o4SDBSVBXFGY7UjsvYnEA6UQ=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=CvdffjmhyoU0j23RhYsHJglOXeJg2wvzgtKGra6w4Lk9V5/5zYJM9psFqT76lscfz
+	 hqsqwpDPkQsssA0lTPbCWEbbM1+ejCfQMrr9CbpgD5WjQi/ghXRZguj/+IiXJZkpsz
+	 98nLiNfqZSYQnHTIY9Bvv2GHTpVzVdy+tLGVI2+3zBOdeUA2x5L7K0Kx8M+XHqzCL4
+	 eozQAh9DSbk6DNPllS7qzNvMxcgEGD9SX/ljZGcHImDdahK9obVfZF03VDvQOrMc+t
+	 7wW6xuzl6KRBJFXTBfu8UmkfrNElz7KpVFA3A6kiZiejuuEbyZM2zTV8jOa2UVIPYG
+	 G7gbcvze+324g==
+Message-ID: <ce5e9669-cab0-475a-87fc-cb555a87505e@kernel.org>
+Date: Thu, 17 Sep 2026 23:26:56 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="oXuJvBPixL6sPYYC"
-Content-Disposition: inline
-In-Reply-To: <20260917154826.2160933-1-vulab@iscas.ac.cn>
-X-Cookie: Whip it, whip it good!
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] slimbus: qcom-ngd-ctrl: match downstream DEF_ACT_CHAN
+ encoding
+To: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>,
+ casey@samaritansolutions.net, Srinivas Kandagatla <srini@kernel.org>
+Cc: linux-arm-msm@vger.kernel.org, linux-sound@vger.kernel.org,
+ linux-kernel@vger.kernel.org, phone-devel@vger.kernel.org,
+ stable@vger.kernel.org
+References: <20260807-slimbus-def-act-chan-v1-1-fd542efb3d30@samaritansolutions.net>
+ <84be0a35-b088-4ab2-9111-80809d6d2d53@oss.qualcomm.com>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <84be0a35-b088-4ab2-9111-80809d6d2d53@oss.qualcomm.com>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
---oXuJvBPixL6sPYYC
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
 
-On Thu, Sep 17, 2026 at 03:48:26PM +0000, Wentao Liang wrote:
-> acpi_spi_add_resource() stores the controller returned by
-> acpi_spi_find_controller_by_adev() in lookup->ctlr. That lookup takes a
-> reference via class_find_device(), which acpi_spi_device_alloc() never
-> releases, leaking it on the error paths and on the success path too,
-> where spi_alloc_device() takes its own reference. Drop the lookup
-> reference when the caller did not pass a controller.
+On 8/18/26 1:50 PM, Konrad Dybcio wrote:
+> On 8/8/26 2:35 AM, Casey Tunturi via B4 Relay wrote:
+>> From: Casey Tunturi <casey@samaritansolutions.net>
+>>
+>> During my investigations, and some rather incessant cross-checking of
+>> blueline's SLIMbus path, I found that Qualcomm's downstream driver
+>> packs the first DEF_ACT_CHAN byte differently from mainline. Bits [7:5]
+>> hold the data format; bits [4:0] hold the five-bit client number.
+>>
+>> I changed ours to match. It made no immediate difference on my own
+>> hardware: blueline's current values produce 0x0f either way. The
+>> downstream layout is correct and should help devices that use upper
+>> logical-address bits or a non-zero data format.
+>>
+>> Fixes: 52490169cddf ("slimbus: ngd: add stream support")
+>> Cc: stable@vger.kernel.org
 
-This doesn't apply against current code, please check and resend.
+there is no regression
 
---oXuJvBPixL6sPYYC
-Content-Type: application/pgp-signature; name="signature.asc"
+We already set this in(stream.c) define_channel_content for each port
+after enabling the channel.
 
------BEGIN PGP SIGNATURE-----
+--srini
+>> Signed-off-by: Casey Tunturi <casey@samaritansolutions.net>
+>> ---
+> 
+> The semantics match, I don't know what side effects that may uncover>
+> Acked-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+> 
+> Konrad
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsaIAACgkQJNaLcl1U
-h9D/Lwf+OTtUmiNxcWSVu+1PsZRS/ZISuDSrS2QSxPLZKRGC78Huru9il2pqqVIa
-K5HinymltkO0gMOZdW/zcwBsOobg8JnCssx5m6Tgl7EhByhrVuMGYQNotjj+FcBU
-h7JlzhJcJJ+613c1HXHcukTCIIlyUv7fDrVyalkg2yNgA6gWDiTSVj6VVLzy1jO8
-0Q7JWqcO1TnUpSco/AsXvsjibWu+8jUVpBWTJSvNvPdKS9+GPe439sW9a0+hRjzU
-PfbROJkJ5Z8ltuIm+aRiwiO2mLyuEtn9gD7Gw2EB9qjP/+NxPsZU8DwYlgNrZB9t
-h7up/mu7yr+J4e9PlMOHKbAVFon5Vw==
-=cUqX
------END PGP SIGNATURE-----
-
---oXuJvBPixL6sPYYC--
