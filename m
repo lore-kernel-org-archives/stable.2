@@ -1,84 +1,201 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E59DD58F070;
-	Thu, 17 Sep 2026 14:19:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86B7B4DE72D;
+	Thu, 17 Sep 2026 14:20:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789654761; cv=none; b=bSQdbYgMZzyIoVGtGN9qeR+f9t5x/ymAbNdMzdzW1M0kRyx8kRasplKyyB/8nOhdwZjy5Iwn4yd464WjJ7tZCjlVkYjVKl50atKrGEPyA2aepMH/sdftucGyqQy+9XISzrLtkQqSLEydemxKQCPYK+5/YhbS44fLlIoOZddXMCY=
+	t=1789654808; cv=none; b=CKw4rkb7DfnNqoBAvUYcIrx2H+xaMslqqyZ5nzvJ/Z6qz7pZqR01RLJ0USvA2x/ejHENVdHPk9r/F2hnckapXGlNzP3id4SnIWiydRuJaxM+f6uHQwctx200AdT0FAHLgiFMvWr3PYIiqUDelv9R8kIwfDEO/D7sfYZzRfueXwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789654761; c=relaxed/simple;
-	bh=eFWknGnJynLWlo8q/9erZE+UVp85mIa1OjF467VhGCY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BvXEihoFYgtUsN86h8KXDRY8P2ls8HzMiOB8PxDpt8eGNjRDBTJvGbS7BMqs/w7NML1UNKsuhwvbweA/i2iWMtiqkYE1UWf0WGAZJlt21p8d2XEQGh57osBM9x/nM5cZHT0w0zJc74UATf5CpaKXvB1ZydV2m9aSPJMtESWfskc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDrg9qtq9UiCCA--.4388S2;
-	Thu, 17 Sep 2026 22:19:12 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: linux-kernel@vger.kernel.org
-Cc: linux-pm@vger.kernel.org,
-	philipp@uvos.xyz,
-	sre@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] power: supply: cpcap-battery: Fix nvmem device leak in cpcap_battery_detect_battery_type()
-Date: Thu, 17 Sep 2026 14:19:12 +0000
-Message-Id: <20260917141912.2156487-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789654808; c=relaxed/simple;
+	bh=xa57NPFmTC5Yj/MpeYtU7y7Y4kssDDqDWXCcU5XWsSY=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=X9rAkkzHFBnqBFNruG35/wWckYLDsvGMUoy9RvmdQy0/Z06CEXb7JQsins6pOZ9BJNFrDR1A14ZUBk/9zRd8+MRJMt3fxDJEEBmLpvt9rVCSuqGi6LVhuMLtIMRhV7FVDtCnM7NW3FARlVdB68yLj4tTGTbz7/BCKsg4k1IXI2Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SFgMRizz; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SFgMRizz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C4EA61F000FF;
+	Thu, 17 Sep 2026 14:20:06 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789654807;
+	bh=2b6Fc6mZqxGMWHKPgaUO0EmAKAWEWiz9CQ8Lh3O1i7Q=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=SFgMRizzakEYYR4ek8mkV+aeeiwakh5m4snf49LOhCvyaR9S8o/LMQ4Mfhov86mwU
+	 4IUg601urXAc0fJn4WT6EASrkXz0LhNOgLWI4Svqze14bBkxxxTWjwqzHCDgljqvUu
+	 9dBAOK/QCGVXWSi9ZlPjpDu4XkJzUSbZMx2K5RtPmIT2uuC1vTckyR6++ExsNzpMxt
+	 DlSDVSlotQGkLnBdxGWZ+LaaOn5zyo9BqxuQSBXiEEhdEdrKTgLkZ/7UHoUzu7jOXq
+	 RQHdA5VaRTh1NkKxG9MwunETgAaK4ptxsCOZNW8ktAF2MPUYEoqGBpa4iKrr8lWmrm
+	 S9fhATAF5x0bg==
+Subject: Re: [PATCH] vsock: preserve child namespace mode on an empty write
+From: netdev-bot+sashiko@kernel.org
+To: qwe.aldo@gmail.com
+Cc: sgarzare@redhat.com, virtualization@lists.linux.dev,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+ kuba@kernel.org
+Date: Thu, 17 Sep 2026 14:20:06 +0000
+Message-ID: <178965480627.22033.2840574060294474673@kernel.org>
+In-Reply-To: <20260915111417.2726515-1-qwe.aldo@gmail.com>
+References: <20260915111417.2726515-1-qwe.aldo@gmail.com>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDrg9qtq9UiCCA--.4388S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruF1DCF1DJrWDXrWDAF48Xrb_yoWkWFcE93
-	WS9r97Jry8CF1UtF1Utr13Zr1vgFyvqFW8ZF4ktwn3XF13Wr1DXrn3Z3WUWF1kXr47CrZ8
-	uFWDtF4rtFyj9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfxYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Gr0_Xr1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr0_Cr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gc
-	CE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E
-	2Ix0cI8IcVAFwI0_JF0_Jw1lYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7v_Jr
-	0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY1x02
-	62kKe7AKxVWUAVWUtwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
-	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUAVWUtwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1j6r1xMIIF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20E
-	Y4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I
-	0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UuWlkUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwENA2qrrRneLQABsP
 
-cpcap_battery_detect_battery_type() takes a reference on the nvmem
-device with nvmem_device_find(), but never releases it, so the
-reference leaks on every call. Drop it once the battery ID has been
-read.
+Thank you for your contribution! Sashiko AI review found 1 potential
+issue(s) to consider:
 
-Fixes: fd46821e85de ("power: supply: cpcap-battery: Add battery type auto detection for mapphone devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/power/supply/cpcap-battery.c | 3 +++
- 1 file changed, 3 insertions(+)
+Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
 
-diff --git a/drivers/power/supply/cpcap-battery.c b/drivers/power/supply/cpcap-battery.c
-index 7b7bdce3162f..b7ed4f2d3826 100644
---- a/drivers/power/supply/cpcap-battery.c
-+++ b/drivers/power/supply/cpcap-battery.c
-@@ -445,6 +445,9 @@ static void cpcap_battery_detect_battery_type(struct cpcap_battery_ddata *ddata)
- 		dev_warn(ddata->dev, "Can not read battery nvmem device. Assuming generic lipo battery\n");
- 	}
- 
-+	if (!IS_ERR_OR_NULL(nvmem))
-+		nvmem_device_put(nvmem);
-+
- 	switch (battery_id) {
- 	case CPCAP_BATTERY_EB41_HW4X_ID:
- 		ddata->config = cpcap_battery_eb41_data;
+- [High] Incomplete fix: a zero-length write to
+  /proc/sys/net/vsock/child_ns_mode still consumes the write-once child-…
+
+Pre-existing issues:
+- [Medium] Non-atomic publication in vsock_net_set_child_mode()
+  (include/net/af_vsock.h:289-302): child_ns_mode_locked is published by…
+
+--
+
+vsock: preserve child namespace mode on an empty write
+
+This initializes new_mode in vsock_net_child_mode_string() from the current
+child mode, so the caller no longer reads an uninitialized enum when
+__vsock_net_mode_string() returns success for a zero-length write.
+
+> diff --git a/net/vmw_vsock/af_vsock.c b/net/vmw_vsock/af_vsock.c
+> index f840498b58afb..9f89f199478b9 100644
+> --- a/net/vmw_vsock/af_vsock.c
+> +++ b/net/vmw_vsock/af_vsock.c
+> @@ -2888,6 +2888,7 @@ static int vsock_net_child_mode_string(const struct ctl_table *table, int write,
+>  	int ret;
+>  
+>  	net = container_of(table->data, struct net, vsock.child_ns_mode);
+> +	new_mode = vsock_net_child_mode(net);
+>  
+>  	ret = __vsock_net_mode_string(table, write, buffer, lenp, ppos,
+>  				      vsock_net_child_mode(net), &new_mode);
+
+[Severity: High]
+The changelog says "Initialize new_mode from the current child mode so that
+an empty write is a no-op."  Is the empty write really a no-op after this
+change?
+
+A zero-length write still reaches the handler with write == 1 and
+*lenp == 0.  fs/read_write.c:vfs_write() has no count == 0 early return
+(rw_verify_area() only rejects negative counts), and
+fs/proc/proc_sysctl.c:proc_sys_call_handler() does not short-circuit
+either:
+
+	if (write) {
+		error = -EFAULT;
+		if (!copy_from_iter_full(kbuf, count, iter))
+			goto out_free_buf;
+		kbuf[count] = '\0';
+	}
+	...
+	error = table->proc_handler(table, write, kbuf, &count, &iocb->ki_pos);
+
+copy_from_iter_full(kbuf, 0, iter) returns true, so
+vsock_net_child_mode_string() is entered with *lenp == 0.
+
+__vsock_net_mode_string() then returns 0 without parsing anything:
+
+	if (!table->data || !table->maxlen || !*lenp) {
+		*lenp = 0;
+		return 0;
+	}
+
+Since that return value is indistinguishable from "a mode was parsed",
+vsock_net_child_mode_string() falls into its write block anyway:
+
+	if (write) {
+		...
+		if (!vsock_net_set_child_mode(net, new_mode))
+			return -EBUSY;
+	}
+
+so vsock_net_set_child_mode() is still called, now with the seeded current
+mode rather than a stack value.
+
+Does that still consume the write-once latch?  In
+include/net/af_vsock.h:vsock_net_set_child_mode():
+
+	int new_locked = mode + 1;
+	int old_locked = 0; /* unlocked */
+
+	if (try_cmpxchg(&net->vsock.child_ns_mode_locked,
+			&old_locked, new_locked)) {
+		WRITE_ONCE(net->vsock.child_ns_mode, mode);
+		return true;
+	}
+
+On a fresh namespace vsock_net_init() leaves child_ns_mode_locked at 0, so
+the cmpxchg succeeds and the mode is latched permanently.
+
+Would this sequence then break a later legitimate lockdown on a global-mode
+namespace?
+
+	write(fd, "", 0);                     /* returns 0, latches GLOBAL+1 */
+	echo local > .../child_ns_mode        /* cmpxchg fails, -EBUSY */
+
+Documentation/admin-guide/sysctl/net.rst describes the behaviour as:
+
+  The first write to ``child_ns_mode`` locks its value. Subsequent writes of
+  the same value succeed, but writing a different value returns ``-EBUSY``.
+
+which ties the lock and the -EBUSY to writing a mode value, not to a write
+that supplies no value.
+
+Would it be more in line with the changelog to skip the write handling
+entirely when nothing was parsed, for example an early
+"if (write && !*lenp) return 0;" in vsock_net_child_mode_string(), or having
+__vsock_net_mode_string() report "no value parsed" distinctly from success,
+instead of re-applying the current mode through the cmpxchg?
+
+[Severity: Medium]
+This is a pre-existing issue and not introduced by this patch, but while
+looking at vsock_net_set_child_mode() in include/net/af_vsock.h: is the
+publication of the lock and of the mode value atomic with respect to
+namespace creation?
+
+	if (try_cmpxchg(&net->vsock.child_ns_mode_locked,
+			&old_locked, new_locked)) {
+		WRITE_ONCE(net->vsock.child_ns_mode, mode);
+		return true;
+	}
+
+	return old_locked == new_locked;
+
+The lock becomes observable before the child_ns_mode store, and a second
+writer of the same mode returns success from the last line without waiting
+for that store:
+
+CPU0 (writes "local" on a global-mode netns)
+	try_cmpxchg() succeeds, child_ns_mode_locked = LOCAL+1
+	/* preempted here, before WRITE_ONCE(child_ns_mode, LOCAL) */
+
+CPU1 (writes "local")
+	try_cmpxchg() fails, old_locked == LOCAL+1 == new_locked
+	return true;			/* sysctl write reports success */
+
+CPU2 (creates a netns after CPU1's write returned)
+net/vmw_vsock/af_vsock.c:vsock_net_init()
+	net->vsock.mode = vsock_net_child_mode(current->nsproxy->net_ns);
+	net->vsock.child_ns_mode = net->vsock.mode;
+
+Can the new namespace read VSOCK_NET_MODE_GLOBAL here and permanently
+inherit the more permissive mode even though userspace was told the "local"
+lockdown was committed?
+
+A barrier does not seem sufficient, since the reader has already observed
+the lock publication that precedes the value store.  Would publishing the
+mode and its locked state together help, for example deriving child_ns_mode
+from child_ns_mode_locked, or adding an in-progress state that the second
+writer waits on?
+
 -- 
-2.34.1
-
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260915111417.2726515-1-qwe.aldo%40gmail.com
