@@ -1,84 +1,102 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D335939DBD4;
-	Thu, 17 Sep 2026 21:41:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from foss.arm.com (foss.arm.com [217.140.110.172])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 7359A4A7C83;
+	Thu, 17 Sep 2026 21:42:44 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.140.110.172
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789681295; cv=none; b=Pxv2QOlR0aDPynycQtiwiUnvcLiK0qMkZOvcsN/CXh3+KgEQq51DafEL4vR0SwZKZidDHn3EbHF4FZF0pijWL8bWIQ7BiclhySiJ0hocqvNpW2j9cvV38NQRzc7C1FTBdKxQTivL7Z7Sqy+o048McQA0qVUD/gholvbemw2LG3o=
+	t=1789681368; cv=none; b=ZGAwEwoY/DSi/OHJcbV+WPXs9oEf4Tir8c0ca0vfyC2yBjuyRUWEQirpoLWZo6x/aEbx5YIobPnxNk3lAPeO2jsEpxn6PMZlsqoJ73imWXalliIRwIb8D6lQNtdggGt1NLX+rcmVLGVv/+bl6r0/uJgj0g7eN9LbcB7ONLivgko=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789681295; c=relaxed/simple;
-	bh=boUHk/skY66kP+y3bHiEAtk+qGJNkIAMMWTZ+35HUJs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LdgDWGkMnXjCQyq0YRYScU8/cwdNCg3N5j3+pBh1+CuRW/JAtvFe7ETRt7iXvuXNYg1BXACwxrGRsJ+R6UYyEQfp4SsvndxRHw1snW7q+s+/PbTpYei58EDVvg8Ltyu5eKkotVOKaW9/WOJZdG7Ev3dEojUshEZe1n4NwRTYrJo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cgxYBXBK; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789681368; c=relaxed/simple;
+	bh=kUZhUVbts+ndC39LiYRFJ2AH2v71NBpBnvqeaYZgEFs=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=RGhnDKVS5kslF/8t4nPydFMdWwlWjq2R8EGhpIymN2FTtNIWTxVaVx/NdXp+vEcO8BtUZvYj2DLlRXXIVyXQTiJJD4uHC5ymcpx5hrwbnRGJFVCyVABoWQWSh1rCImMoe5jwWajImO0KRPNB/nXbPE4T4XKKviMrhH0/pTG2l5A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com; spf=pass smtp.mailfrom=arm.com; dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b=IkH+u8se; arc=none smtp.client-ip=217.140.110.172
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=arm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=arm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cgxYBXBK"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4C5831F000FF;
-	Thu, 17 Sep 2026 21:41:34 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789681294;
-	bh=4vNKMNshTA/HjzXjwQ/qVz15MnrjiCLTEuI/UAhq7cQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cgxYBXBK1emnwC2JEmWau0y7s/pn/ofxYWw2FGorAz9UdDJ+mZW6Au6ZwpaRGgwey
-	 UrRadFsL3nd3olKwx90J6r4bACnbq5sR/2OK02nnOz8CGweMSMC4aUKcDWzEtUgOlS
-	 yiBnC4j91xF6TKHGSqvMixBNRumZr4EZm0ADSiZcTnX2n9ZdIBlT5iH2i78qjEZNhI
-	 9ffddxJ2UeQVtgcBIJKhCCsaNyCEh2y0z2Ih/BGz/OZzexrNKnY5w2/Sa//aZjZwN6
-	 mCGmak+3lCrKygQelJt7qgzhWoNuH3toqJtjJhD2+aRQTFtk/oBMKiLldeX3IzQUEQ
-	 3qCJAVi6QBO+w==
-Date: Thu, 17 Sep 2026 16:41:32 -0500
-From: Rob Herring <robh@kernel.org>
-To: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-Cc: Saravana Kannan <saravanak@kernel.org>,
-	Frank Rowand <frowand.list@gmail.com>,
-	"David S. Miller" <davem@davemloft.net>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Grant Likely <grant.likely@secretlab.ca>,
-	Grant Likely <grant.likely@linaro.org>,
-	Pantelis Antoniou <pantelis.antoniou@konsulko.com>,
-	David Daney <david.daney@cavium.com>, devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Geert Uytterhoeven <geert@linux-m68k.org>,
-	Geert Uytterhoeven <geert+renesas@glider.be>,
-	Sashiko AI <sashiko-bot@kernel.org>
-Subject: Re: [PATCH v7 00/10] of: teach overlay code to keep /aliases in sync
-Message-ID: <20260917214132.GA3844826-robh@kernel.org>
-References: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
+	dkim=pass (1024-bit key) header.d=arm.com header.i=@arm.com header.b="IkH+u8se"
+Received: from usa-sjc-imap-foss1.foss.arm.com (unknown [10.121.207.14])
+	by usa-sjc-mx-foss1.foss.arm.com (Postfix) with ESMTP id 01A6C1596;
+	Thu, 17 Sep 2026 14:42:40 -0700 (PDT)
+Received: from workstation-e142269.cambridge.arm.com (usa-sjc-imap-foss1.foss.arm.com [10.121.207.14])
+	by usa-sjc-imap-foss1.foss.arm.com (Postfix) with ESMTPSA id 429C43F7B4;
+	Thu, 17 Sep 2026 14:42:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=simple/simple; d=arm.com; s=foss;
+	t=1789681363; bh=kUZhUVbts+ndC39LiYRFJ2AH2v71NBpBnvqeaYZgEFs=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=IkH+u8seP17fq+zdfbRfFgZAD2GQ4dWL+zSuTnoa+he3GN5+gyMfZ9VB1WpbShiC4
+	 VoxLtkoAUg7GXqndsVgmbVOip0wMw3B2cy0EyLUeIs+4p1bOulE8IWZ4jO7zhJVvfZ
+	 wRBIzpHB33TB9mYB9XKOThpWiXQPUIopn20KLDhA=
+From: Wei-Lin Chang <weilin.chang@arm.com>
+To: linux-arm-kernel@lists.infradead.org,
+	kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org
+Cc: Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>,
+	Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>,
+	Mark Rutland <mark.rutland@arm.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Mark Brown <broonie@kernel.org>,
+	Sascha Bischoff <Sascha.Bischoff@arm.com>,
+	James Clark <james.clark@linaro.org>,
+	Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	Anshuman Khandual <anshuman.khandual@arm.com>,
+	Thomas Huth <thuth@redhat.com>,
+	Ganapatrao Kulkarni <gankulkarni@os.amperecomputing.com>,
+	Wei-Lin Chang <weilin.chang@arm.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/4] KVM: arm64: nv: Don't advertise FEAT_LPA2 for guest stage-1
+Date: Thu, 17 Sep 2026 22:42:11 +0100
+Message-ID: <20260917214215.74135-2-weilin.chang@arm.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <20260917214215.74135-1-weilin.chang@arm.com>
+References: <20260917214215.74135-1-weilin.chang@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260831-nh-of-alias-overlay-v7-0-02754604805a@nexthop.ai>
+Content-Transfer-Encoding: 8bit
 
-On Mon, Aug 31, 2026 at 06:29:18PM -0700, Abdurrahman Hussain wrote:
-> /aliases entries added by a device-tree overlay are stored in the live
-> tree but never enter the global aliases_lookup list that of_alias_scan()
-> builds at boot. As a result, of_alias_get_id() returns -ENODEV for
-> aliases declared inside overlays, and any driver that relies on
-> alias-based numbering (i2c-xiic, spi, tty, mmc, ...) silently loses its
-> pinned id and falls back to auto-assignment.
+There is no FEAT_LPA2 support for NV guests as of now, but we missed
+limiting it for the non-stage-2 granule size fields (TGRAN4, TGRAN16) in
+ID_AA64MMFR0_EL1. Add the sanitisation.
 
-[...]
+Fixes: 9f75b6d447d7 ("KVM: arm64: nv: Filter out unsupported features from ID regs")
+Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: stable@vger.kernel.org
+---
+ arch/arm64/kvm/nested.c | 11 +++++++++++
+ 1 file changed, 11 insertions(+)
 
-> Assisted-by: Claude:claude-fable-5 [Claude Code]
-> Signed-off-by: Abdurrahman Hussain <abdurrahman@nexthop.ai>
-> ---
-> Abdurrahman Hussain (10):
->       of: hold a reference on of_aliases during alias path resolution
->       of: update /aliases lookup on reconfig notifications
->       of/overlay: look up absolute target-paths absolutely
+diff --git a/arch/arm64/kvm/nested.c b/arch/arm64/kvm/nested.c
+index 3c4fc566eafc..4a860904c1ce 100644
+--- a/arch/arm64/kvm/nested.c
++++ b/arch/arm64/kvm/nested.c
+@@ -1731,6 +1731,17 @@ u64 limit_nv_id_reg(struct kvm *kvm, u32 reg, u64 val)
+ 		/* Hide CNTPOFF if present */
+ 		val = ID_REG_LIMIT_FIELD_ENUM(val, ID_AA64MMFR0_EL1, ECV, IMP);
+ 
++		/* NV does not support FEAT_LPA2. */
++		if (SYS_FIELD_GET(ID_AA64MMFR0_EL1, TGRAN4, val) == ID_AA64MMFR0_EL1_TGRAN4_52_BIT) {
++			val &= ~ID_AA64MMFR0_EL1_TGRAN4;
++			val |= SYS_FIELD_PREP_ENUM(ID_AA64MMFR0_EL1, TGRAN4, IMP);
++		}
++
++		if (SYS_FIELD_GET(ID_AA64MMFR0_EL1, TGRAN16, val) == ID_AA64MMFR0_EL1_TGRAN16_52_BIT) {
++			val &= ~ID_AA64MMFR0_EL1_TGRAN16;
++			val |= SYS_FIELD_PREP_ENUM(ID_AA64MMFR0_EL1, TGRAN16, IMP);
++		}
++
+ 		/* Disallow unsupported S2 page sizes */
+ 		switch (PAGE_SIZE) {
+ 		case SZ_64K:
+-- 
+2.43.0
 
->       of/overlay: put property on deadprops only after changeset add succeeds
->       of/overlay: only treat a positive changeset id as registered
->       of/overlay: don't leak fragment references when changeset init fails
->       of/overlay: don't create "//" paths for fragments targeting the root
-
-Patches 4-7 applied.
-
->       of/overlay: return ERR_PTR from dup_and_fixup_symbol_prop()
->       of/overlay: rewrite /aliases path values to live-tree paths
->       of: unittest: cover /aliases updates from overlay apply/revert
