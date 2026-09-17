@@ -1,209 +1,150 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lr2-f12.google.com (mail-lr2-f12.google.com [74.125.230.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CD533D6CA;
-	Thu, 17 Sep 2026 04:53:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6625F3FC5AE
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 05:04:16 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789620811; cv=none; b=tdai2GkGBGnXQoMZTt2xDhr9OHayCcpBIqSUN7yuZLEwZ0PefN05IwyU5qcZ+1sOdaYazNpZBnw/AD7K+J+cGOlTx9uZGaPV0Ew2NcI+QaVs+QIW9wrDFCDejGyixLl4ZYIBUow+gRrllac3Ep5dCo6auNao58XQ89w43ol965A=
+	t=1789621459; cv=none; b=i+QOQtQTR+GdfEYtg1/HIap5oSqVF00Ih13EAo5fkFqthMjA0GzDIPlg/C7IuNSCH0UQ6yYlCarHZoq/0xf1VV6PVUtphRIrQnMd1l6vtal0LTJwQHbXsWeDQs3qFcfPyKHKGPQA6BMN359M6MIvJF8BOP5GchnsPG99qS5X+dc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789620811; c=relaxed/simple;
-	bh=mmm7o7N6Lw7ByP16zajA0WXABcIztVAyaGTEDsqylks=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZWMWPRcrwIrKMmBqFH+Rdt4lL2csMoR/n+KvdQURl/E+tsEx2VRxliIRtmz7n7bUH6CeVpJvUqq5dyVwhwCiwCuv/cXk7eZWgcq+HlNdPO6YL81L+i3XXV7mPr3EDINM9UGdoM67HbfeECvihOP5RePQ6PsiJFQ1ueiIWmoykNg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f/glVN5L; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789621459; c=relaxed/simple;
+	bh=Fo+sfbiaynX50FZ3e2l/qI3EVG40HYWAxAwO9e8v/T8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=C50oLQ6s6o5iU8n7sJZ1MjpSeXTxeMaEbwws9q+8UPozq9DSgN9ZBN0SgWYlu4sw0bzZzZ4kM7NJk5vd/aRKIp7KMPrjkUwiRyyOdkveNWi6BQkFSX739jCHvRLTALfMHr3fzfHK2AizoW2s0NFV85MDvJyKkhZCbKMH0/fJdqA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=e+tDtQCF; arc=none smtp.client-ip=74.125.230.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f/glVN5L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A28051F000FF;
-	Thu, 17 Sep 2026 04:53:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789620809;
-	bh=8pkmHG2dnlc2UQMeYp0dXCe3ELJF/DIESwxhTUqAvI8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=f/glVN5Lc9URTH/2XaU7rMpQrhosqnb05CJfODfOQPBu9JTiOAjfZrUcIIer1i23w
-	 3VuVkGxbj9eeLlfCR9RMe9j/MIW5HthiBQqlkAN6jFcznxJUYUDxyu53S5HevS4Omc
-	 ad2t44P2YhInQTtUy3DNTuy6WRYIKUIOl3460P0xTvy2d2mGHZSYLC5YEFa89RSGYz
-	 MzuRBdvenYixMj6uFVqAA89e1XFR1BrPKvRlZh0ziJLMBnr83pujf3JSB2BpKqRYri
-	 V5bZLnMUERRWiDqgdkLZyl9S5dOF3iGeN1IQl94rHiImDbHEhVFHRtdKYY9Cema/0Q
-	 SZqckZ13skj0w==
-Date: Thu, 17 Sep 2026 06:53:07 +0200
-From: Manivannan Sadhasivam <mani@kernel.org>
-To: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
-Cc: Bjorn Andersson <andersson@kernel.org>, 
-	Michael Turquette <mturquette@baylibre.com>, Stephen Boyd <sboyd@kernel.org>, Rob Herring <robh@kernel.org>, 
-	Krzysztof Kozlowski <krzk+dt@kernel.org>, Conor Dooley <conor+dt@kernel.org>, 
-	Robert Foss <rfoss@kernel.org>, Todor Tomov <todor.too@gmail.com>, 
-	Mauro Carvalho Chehab <mchehab@kernel.org>, Konrad Dybcio <konradybcio@kernel.org>, 
-	Vladimir Zapolskiy <vladimir.zapolskiy@linaro.org>, Bryan O'Donoghue <bod@kernel.org>, 
-	Loic Poulain <loic.poulain@oss.qualcomm.com>, Vinod Koul <vkoul@kernel.org>, 
-	Neil Armstrong <neil.armstrong@linaro.org>, Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	Kishon Vijay Abraham I <kishon@kernel.org>, Felipe Balbi <balbi@ti.com>, linux-arm-msm@vger.kernel.org, 
-	linux-clk@vger.kernel.org, devicetree@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	linux-media@vger.kernel.org, linux-phy@lists.infradead.org, 
-	Krzysztof Kozlowski <krzk@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH v17 1/5] phy: core: Fix use-after-free in phy_get paths
-Message-ID: <4jzaqafeeecrp7c56bqh7asop2hucv6h4eem5esmoamckk33jz@k2jkerutehs2>
-References: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-0-e2197a3e2551@linaro.org>
- <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-1-e2197a3e2551@linaro.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="e+tDtQCF"
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a5d0ad9b89so3469761fa.2
+        for <stable@vger.kernel.org>; Wed, 16 Sep 2026 22:04:15 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789621454; x=1790226254; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=xVRhUpNhNdTq48LbqzJgmbnOl6QrDZN44ur0P2rl/Qc=;
+        b=e+tDtQCFYPyrul2pdnN0dWvTSAizO7lMjAxSytz2iWGgJ50yzuwebCk4uSPWjDilVl
+         4QFuyavDqYP8KuybB64wytjVG6iUvCaw9WIERplGTAXf2AKUMZ6Q4H9XH3cJLaqrdunl
+         uItqQmge6r0AT4yx8MU5U30WGbbEDrO04mHD7HAcEDBd1Zn808eHTtkPjgZ9/ie2rLnt
+         m+nHSXDYsL6gsuYn+6R95ZZq1TG3nHhmx300UqA1UaKykrHl/iWXpfdLO2zUpevcgSGO
+         dq+uMoAcVnOoJIZ8z1KjJJ25PHnQd6gIuhwyva7pw1dkXHD7Inukc2kNdzLn7VfCHtJY
+         C7Qg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789621454; x=1790226254;
+        h=content-transfer-encoding:content-type:in-reply-to:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xVRhUpNhNdTq48LbqzJgmbnOl6QrDZN44ur0P2rl/Qc=;
+        b=tkTSCkvfQXF7u7sOoxrl52d0GVvus4GuMIhCEVsyim8FVrmY4vGd6mraylm2iOIV4E
+         pcs/XbV2Tqip2rS/VEDyidMy5MOC68FgVNQ6lSZrs1R35BjAmXDB1r5Ba0YA/3RXhxmK
+         l1fnJcR4zAZIy2CrBySBKZWKJYprdAMSN+2dOsNFqm7bR0WhXOhHmMs3hF9au5etilSj
+         qj0V9fom1cl8s95XQ7DMwjdWNXKyc6ctnO19Vw7UB1ALuejOucpj3xddsn9bnGanMF2U
+         CEXScYZPo8QBgUlF+vCPG9tvZ74F05XgRCgdKSlrM5QIMHBHp7YZ7jUbdU+DAeW2e8+4
+         Cv8Q==
+X-Gm-Message-State: AFuF++mI0BWpcPc45HNk6JUBHVOrZffZEsN2fnvw9JuWvTQztZr7JqqL
+	DwO1ze4Y8ru1Ayb/qS8GJyXTWmZo2nTdiV3X42rmFaj7fcoCeHFFt054
+X-Gm-Gg: AYBFou2FjW6VXHoXJij6wG4saq2YpmvZXXXR7/pprd0xXx2dz7ZMJOPD8ToYMKD8G8B
+	BPWe0cH4IDGetEC8P+PRgik2xbrNFQ1TAnKNGkssSASr8dISB0VhyQPQPqjY1mfStZKsZjlL9+j
+	hFDTYquxoGAqUrtkvGxHnosE1Rq43pMtZI84ATveuCyI1x7B5+m+U9GeKeAaTnmnv1kYA+C7rcm
+	jeBXKZmPZZN21B8tdsXAuFu6Yl8TK27noq7MB9dB3VoIAZWRQIv3CpgI2EbFhpHc3Z9+JcJ1ACP
+	wpdgAfP8Qzhy8vPJxvIjvMghyR6tJhMY6cqEpeTeZBGBDG0sUFUYtvLAWBozWGJVN24cGRzfvfD
+	wVH/TB/gQ4Z2Q0vTCivsjhMkPLh1C2+24WMeq9H6oOKm9FnPL8JcWT/LyqoGQG5PTpvDMrK6J7L
+	4+9DBO/wXF7KHWlDKRSZFUSXEcLNFzqrLZBhUxuINntL/OnZePFklOaw9vHjPJ1TVWOLvAO3+7o
+	J9kYB08dqDKvug71Q7Ycvc3Ekxnah5or00+/7I3A+1d1R6mVHDGXYo=
+X-Received: by 2002:a05:6512:31ca:b0:5b5:e0dd:1c6c with SMTP id 2adb3069b0e04-5b8b66123bbmr1555083e87.4.1789621453651;
+        Wed, 16 Sep 2026 22:04:13 -0700 (PDT)
+Received: from ?IPV6:2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703? ([2a10:a5c0:800d:dd00:8fdf:935a:2c85:d703])
+        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8b57e7e3esm1452052e87.75.2026.09.16.22.04.12
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Wed, 16 Sep 2026 22:04:13 -0700 (PDT)
+Message-ID: <43bdf1d5-bd82-496b-8408-871646fe59d4@gmail.com>
+Date: Thu, 17 Sep 2026 08:04:12 +0300
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260906-b4-linux-next-25-03-13-dtsi-x1e80100-camss-v17-1-e2197a3e2551@linaro.org>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] iio: accel: kxcjk-1013: disable autosuspend on remove
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+ Jonathan Cameron <jic23@kernel.org>, David Lechner <dlechner@baylibre.com>,
+ =?UTF-8?Q?Nuno_S=C3=A1?= <nuno.sa@analog.com>,
+ Andy Shevchenko <andy@kernel.org>,
+ =?UTF-8?Q?Uwe_Kleine-K=C3=B6nig_=28The_Capable_Hub=29?=
+ <u.kleine-koenig@baylibre.com>, Siratul Islam <email@sirat.me>,
+ Danilo Krummrich <dakr@kernel.org>,
+ Srinivas Pandruvada <srinivas.pandruvada@linux.intel.com>,
+ linux-iio@vger.kernel.org, linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260914112053.1686061-1-lgs201920130244@gmail.com>
+Content-Language: en-US, en-AU, en-GB, en-BW
+From: Matti Vaittinen <mazziesaccount@gmail.com>
+In-Reply-To: <20260914112053.1686061-1-lgs201920130244@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Sun, Sep 06, 2026 at 03:17:05PM +0100, Bryan O'Donoghue wrote:
-> Sashiko asked during a patch review if the existing usage pattern had a
-> race condition; specifically in of_phy_get() if it was possible between
-> returning from _of_phy_get() and running try_module_get() that a module
-> might be unbound leading to use-after-free.
+On 14/09/2026 14:20, Guangshuo Li wrote:
+> kxcjk1013_probe() enables runtime PM autosuspend with
+> pm_runtime_use_autosuspend(). The probe error path correctly undoes
+> this setting with pm_runtime_dont_use_autosuspend(), but the normal
+> remove path only disables runtime PM.
 > 
-> Looking at the code this appears to be so, there is no linkage between the
-> phy and module under a synchronisation primitive.
+> The runtime PM API requires pm_runtime_use_autosuspend() to be undone
+> with pm_runtime_dont_use_autosuspend() at driver exit unless runtime PM
+> was enabled with devm_pm_runtime_enable(). Leaving the autosuspend flag
+> set therefore leaves the runtime PM state incompletely cleaned up after
+> the driver is unbound.
 > 
-> Using the phy_provider_mutex in phy_get() will ensure there is a link between
-> the returned phy pointer and the module_get() bumping the module reference
-> count.
+> Add the missing pm_runtime_dont_use_autosuspend() call to the remove
+> path.
 > 
-> Amend phy_get(), of_phy_get() and devm_of_phy_get_by_index() to fix the
-> same usage pattern.
+> This issue was found by manual code inspection.
 > 
-> phy_provider_unregister() must take the phy_provider_mutex so amending
-> phy_get()/of_phy_get() to take that same mutex guarantees there is no
-> use-after-free.
-> 
-> Fixes: ff764963479a1 ("drivers: phy: add generic PHY framework")
+> Fixes: 124e1b1d0924 ("iio: accel: kxcjk-1013: support runtime pm")
 > Cc: stable@vger.kernel.org
-> Reviewed-by: Loic Poulain <loic.poulain@oss.qualcomm.com>
-> Signed-off-by: Bryan O'Donoghue <bryan.odonoghue@linaro.org>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/phy/phy-core.c | 45 ++++++++++++++++++++++++++++++---------------
->  1 file changed, 30 insertions(+), 15 deletions(-)
+>   drivers/iio/accel/kxcjk-1013.c | 1 +
+>   1 file changed, 1 insertion(+)
 > 
-> diff --git a/drivers/phy/phy-core.c b/drivers/phy/phy-core.c
-> index 21aaf2f76e53e..89addd732bff3 100644
-> --- a/drivers/phy/phy-core.c
-> +++ b/drivers/phy/phy-core.c
-> @@ -124,13 +124,13 @@ static struct phy *phy_find(struct device *dev, const char *con_id)
->  	const char *dev_id = dev_name(dev);
->  	struct phy_lookup *p, *pl = NULL;
->  
-> -	mutex_lock(&phy_provider_mutex);
-> +	lockdep_assert_held(&phy_provider_mutex);
-> +
->  	list_for_each_entry(p, &phys, node)
->  		if (!strcmp(p->dev_id, dev_id) && !strcmp(p->con_id, con_id)) {
->  			pl = p;
->  			break;
->  		}
-> -	mutex_unlock(&phy_provider_mutex);
->  
->  	return pl ? pl->phy : ERR_PTR(-ENODEV);
->  }
-> @@ -624,6 +624,8 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
->  	struct phy *phy = NULL;
->  	struct of_phandle_args args;
->  
-> +	lockdep_assert_held(&phy_provider_mutex);
-> +
->  	ret = of_parse_phandle_with_args(np, "phys", "#phy-cells",
->  		index, &args);
->  	if (ret)
-> @@ -635,11 +637,10 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
->  		goto out_put_node;
->  	}
->  
-> -	mutex_lock(&phy_provider_mutex);
->  	phy_provider = of_phy_provider_lookup(args.np);
->  	if (IS_ERR(phy_provider) || !try_module_get(phy_provider->owner)) {
->  		phy = ERR_PTR(-EPROBE_DEFER);
-> -		goto out_unlock;
-> +		goto out_put_node;
->  	}
->  
->  	if (!of_device_is_available(args.np)) {
-> @@ -653,8 +654,6 @@ static struct phy *_of_phy_get(struct device_node *np, int index)
->  out_put_module:
->  	module_put(phy_provider->owner);
->  
-> -out_unlock:
-> -	mutex_unlock(&phy_provider_mutex);
->  out_put_node:
->  	of_node_put(args.np);
->  
-> @@ -678,15 +677,21 @@ struct phy *of_phy_get(struct device_node *np, const char *con_id)
->  	if (con_id)
->  		index = of_property_match_string(np, "phy-names", con_id);
->  
-> +	mutex_lock(&phy_provider_mutex);
-> +
+> diff --git a/drivers/iio/accel/kxcjk-1013.c b/drivers/iio/accel/kxcjk-1013.c
+> index 166fb786425f..c6b030f64be1 100644
+> --- a/drivers/iio/accel/kxcjk-1013.c
+> +++ b/drivers/iio/accel/kxcjk-1013.c
+> @@ -1547,6 +1547,7 @@ static void kxcjk1013_remove(struct i2c_client *client)
+>   
+>   	iio_device_unregister(indio_dev);
+>   
+> +	pm_runtime_dont_use_autosuspend(&client->dev);
+>   	pm_runtime_disable(&client->dev);
+>   	pm_runtime_set_suspended(&client->dev);
+>   
 
-I was tempted to suggest using "guard(mutex)(&phy_provider_mutex)" in all 3
-functions, but then realised that this patch is pointing the Fixes commit dating
-back to the origin of the PHY framework. So cleanup.h won't be available and
-backporting to older kernels won't be possible. So manual lock/unlock is OK
-here.
+I am not sure if it matters, but it bugs me a bit to see that the 
+clean-up path for PM here, and clean-up path at probe error, do still 
+not have same steps. As far as I see the probe error path omits the 
+pm_runtime_set_suspended(). Do you think this should/could be fixed?
 
->  	phy = _of_phy_get(np, index);
->  	if (IS_ERR(phy))
-> -		return phy;
-> +		goto out_unlock;
->  
-> -	if (!try_module_get(phy->ops->owner))
-> -		return ERR_PTR(-EPROBE_DEFER);
-> +	if (!try_module_get(phy->ops->owner)) {
-> +		phy = ERR_PTR(-EPROBE_DEFER);
-> +		goto out_unlock;
-> +	}
->  
->  	get_device(&phy->dev);
->  
-> +out_unlock:
-> +	mutex_unlock(&phy_provider_mutex);
->  	return phy;
->  }
->  EXPORT_SYMBOL_GPL(of_phy_get);
-> @@ -786,6 +791,7 @@ struct phy *phy_get(struct device *dev, const char *string)
->  	struct phy *phy;
->  	struct device_link *link;
->  
-> +	mutex_lock(&phy_provider_mutex);
->  	if (dev->of_node) {
->  		if (string)
->  			index = of_property_match_string(dev->of_node, "phy-names",
-> @@ -796,15 +802,18 @@ struct phy *phy_get(struct device *dev, const char *string)
->  	} else {
->  		if (string == NULL) {
->  			dev_WARN(dev, "missing string\n");
-> -			return ERR_PTR(-EINVAL);
-> +			phy = ERR_PTR(-EINVAL);
-> +			goto out_unlock;
->  		}
->  		phy = phy_find(dev, string);
->  	}
->  	if (IS_ERR(phy))
-> -		return phy;
-> +		goto out_unlock;
->  
-> -	if (!try_module_get(phy->ops->owner))
-> -		return ERR_PTR(-EPROBE_DEFER);
-> +	if (!try_module_get(phy->ops->owner)) {
-> +		phy = ERR_PTR(-EPROBE_DEFER);
-> +		goto out_unlock;
-> +	}
->  
->  	get_device(&phy->dev);
+Oh, and if it is fine as it is - I would really appreciate education as 
+to why :)
 
-You could've dropped the mutex here itself instead of covering the whole
-function. But that's not a deal breaker here. So,
+Other than that:
 
-Reviewed-by: Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>
+Reviewed-by: Matti Vaittinen <mazziesaccount@gmail.com>
 
-- Mani
+(I know I am late with the tag as Jonathan applied this already - I 
+suppose it's still Ok to say I am "Ok" with the fix :] )
+
+Yours,
+	-- Matti
 
 -- 
-மணிவண்ணன் சதாசிவம்
+Matti Vaittinen
+Linux kernel developer at ROHM Semiconductors
+Oulu Finland
+
+~~ When things go utterly wrong vim users can always type :help! ~~
