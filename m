@@ -1,67 +1,100 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 246344F7984;
-	Thu, 17 Sep 2026 14:36:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54BDF4D2ED9;
+	Thu, 17 Sep 2026 14:38:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789655818; cv=none; b=Z7uZc8mJoBc3j1OntEyfgYO/sCpdc02WORi8Hap/p6xo4L/RXdeR6lRufgP3rAMhcG08RaYx0GoRu5p2uLj/0RGPcYm5LUycoI9n9e57liiTViLSoSC0yRx4bOHvl5qcd2cI+sefPClXMICSV9HZgnt+Lx2P3HOUxPxLD/Zf1wQ=
+	t=1789655895; cv=none; b=Dfljw/spU3oxLZq2lAz8rES/zNO1wmIGtixz3QBqdB2uFHSZkLnXhfxAyIboHkWovAofIVfitsDs+g1QdJQXkvy2Fz7mPCpVHS0UVl7KRbQVG9FmWKJRK7Jv3WVgPvwfcA8Rm9P0ynVSFt4KNapLvh0IbNvGTyFs+qH7qgvg+B4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789655818; c=relaxed/simple;
-	bh=nszi45kXm73Y7NgYq5onAqIMX+LJwX1ohh2P6iyEr3c=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KQDUsLQXquSna2ZL65OndxRZCGJxrL+BD/EFeWiNpsLyKFZyWbkkwJvL/jHp6ZwUOJ8v7cgBmMhI9LE3FbweCrAmB8ndPK88ErTENMieXjf8yFvBsklF/Xh/IKnxA/0pYWdPcD9JQSBZH9GJ4uEUapL7vC7CSSkcglrsYfU51GE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZkU8BSbq; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZkU8BSbq"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7F6501F000FF;
-	Thu, 17 Sep 2026 14:36:56 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789655816;
-	bh=wbTtNovbZeKMcq+Fme6uVDAlmL8EXwA2kL/1U7fmOOo=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=ZkU8BSbqtg1MvUzQghAYB/EEHMgRjbmvz4b+h7ap4WJKOXkkw6YlL1KSpf89Pscy2
-	 B5MATM+0LGHT1dnDxFBe4wfPtHYfOSf7T53E0t9bXlItT0WbAMRG30PzpaLqBxR36c
-	 QY6O+jKe1JJhnyXPwMr7nfEFYroUK02zY7xPtZF90lnTpihTk/Yj5oJ69BhBNyzdkr
-	 R7MbKadAsopryAllSVRFaBnzduAg3DQ1IdcqfXACOjrHXZ+Qv7p6Ag2hDNp7KX0TCn
-	 abRJPKkJldCyee3eei/CSyRZ9rEdrendzzVBzrO/NgOqNtAXeFnj+60nqQz203ZETa
-	 2s/9349+QT/5Q==
-Date: Thu, 17 Sep 2026 07:36:55 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- jeff@garzik.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- pabeni@redhat.com, stephen@networkplumber.org, stable@vger.kernel.org
-Subject: Re: [PATCH] net: cxgb: Fix skb reference leak in
- espibug_workaround_t204()
-Message-ID: <20260917073655.5d7c9ecb@kernel.org>
-In-Reply-To: <20260917105425.2147804-1-vulab@iscas.ac.cn>
-References: <20260917105425.2147804-1-vulab@iscas.ac.cn>
+	s=arc-20240116; t=1789655895; c=relaxed/simple;
+	bh=g1kI8CaQJuUyNGXO/JnpYheG/Qk/YV0V3SBNBh5sC6M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=COqKCtiXE+OeUaEM/XDaIgydyPDALB7xtEC48WNG3eB5LcExtpzd1//umQOlD3z9lfYitlToJEEFj5MBbMHwQdPChA/uBBOuXpBf6nOQ42M6mfpc3z/adHKJJybVBUFNHfnxWc3cXsY1eOHKoX0SCuD/zFZBufAOUx6ZM2Tbl4Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowACXAz5I+6tquqaCCA--.4856S2;
+	Thu, 17 Sep 2026 22:38:00 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: JBottomley@Parallels.com
+Cc: James.Bottomley@HansenPartnership.com,
+	djbw@kernel.org,
+	jacek.danecki@intel.com,
+	john.g.garry@oracle.com,
+	linux-kernel@vger.kernel.org,
+	linux-scsi@vger.kernel.org,
+	martin.petersen@oracle.com,
+	stern@rowland.harvard.edu,
+	yanaijie@huawei.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: libsas: Fix use-after-free in sas_suspend_devices()
+Date: Thu, 17 Sep 2026 14:38:00 +0000
+Message-Id: <20260917143800.2157286-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowACXAz5I+6tquqaCCA--.4856S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7tF1DCw1xAr1DKryfWF1fXrb_yoW8Wr1xpF
+	s3AFy2kFWDJa18Wan8Ww4q9FWYga4kK3yrCw45G345Ka4fAr98JFy8Gr4UZryrCrZ7WFZ0
+	vr4DtryDJa1kJ3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPvb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
+	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
+	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26F4UJVW0owAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
+	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
+	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
+	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
+	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
+	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
+	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
+	vjxUFsjjDUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwENA2qr9tgKTAAAsh
 
-On Thu, 17 Sep 2026 10:54:25 +0000 Wentao Liang wrote:
-> The timer handler takes an extra reference with skb_get() before handing
-> the skb to t1_sge_tx(), so that the skb survives until the DMA has
-> completed. When the command queue is full, t1_sge_tx() returns
-> NETDEV_TX_BUSY without queueing the skb, and the return value is
-> ignored, so the extra reference is never dropped.
+sas_suspend_devices() walks port->dev_list with list_for_each_entry()
+while sas_notify_lldd_dev_gone() may drop the last reference and free
+the current device, so the next iteration dereferences freed memory.
 
-You have sent way too many patches at once. We have a hard limit of 
-15 patches per person, but really if you're sending low value garbage
-you should not send more than 8. So that you can apply the feedback
-you receive to later postings.
+Use list_for_each_entry_safe() to keep the next entry around.
 
-You may repost new version of the patches to which you receive feedback.
-But I don't want to see any new patches from @iscas.ac.cn for
-drivers/net and net/ for a month.
+Fixes: 303694eeee5e ("[SCSI] libsas: suspend / resume support")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+---
+ drivers/scsi/libsas/sas_discover.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
 
-Please tell your coworkers/friends.
+diff --git a/drivers/scsi/libsas/sas_discover.c b/drivers/scsi/libsas/sas_discover.c
+index b07062db50b2..91045966612e 100644
+--- a/drivers/scsi/libsas/sas_discover.c
++++ b/drivers/scsi/libsas/sas_discover.c
+@@ -231,7 +231,7 @@ static void sas_probe_devices(struct asd_sas_port *port)
+ static void sas_suspend_devices(struct work_struct *work)
+ {
+ 	struct asd_sas_phy *phy;
+-	struct domain_device *dev;
++	struct domain_device *dev, *n;
+ 	struct sas_discovery_event *ev = to_sas_discovery_event(work);
+ 	struct asd_sas_port *port = ev->port;
+ 	struct Scsi_Host *shost = port->ha->shost;
+@@ -245,7 +245,7 @@ static void sas_suspend_devices(struct work_struct *work)
+ 	 * suspension, we force the issue here to keep the reference
+ 	 * counts aligned
+ 	 */
+-	list_for_each_entry(dev, &port->dev_list, dev_list_node)
++	list_for_each_entry_safe(dev, n, &port->dev_list, dev_list_node)
+ 		sas_notify_lldd_dev_gone(dev);
+ 
+ 	/* we are suspending, so we know events are disabled and
 -- 
-pv-bot: 15cnt
+2.34.1
+
