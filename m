@@ -1,121 +1,157 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 00CC823E334
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:19:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 79FA82E737E
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 00:19:23 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789604363; cv=none; b=uujI96S8PSUo6BZsiyVgNlqRwBjfABq16aazc02HanpAJ5MmsfwofC2K4kAOFT0Lq0PF9CsbcX1UyNSLA28BD1aA2D4zMzEz1kbLlrmxHxM4TF0ZhOPTOWKFFv0DkzSUlciAP+Al7/4FI+5f6JASWFB+htvHPXZgVsaLzLJJcK4=
+	t=1789604364; cv=none; b=rQ9cYt+Dy9o1S1YteYyRTYu8ExC4jDV3jiduyRJIdSRg+SjQivgqwkBDlTi1+vWcQ2/7BrodOlgvVrIuKRTlP8m9I73cKYuvpbRXX/ScZWICnImQOK+muM8BsIOqTXAtpl7mLAcXXbo+IQHQwh6zSsm/tYKSgd4BTrvWDi3bhm8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789604363; c=relaxed/simple;
-	bh=VYtuxR1u1DpG8BSr7UKIcOk4t1GexC6m1EojmmKDdHc=;
+	s=arc-20240116; t=1789604364; c=relaxed/simple;
+	bh=viKG1W2+Wxq17N0+TlvxgZfJXt1LkztezdMfqaP/reM=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aby9jToK6vspzaaYB856DyWVneQNIFOiQvSq/+JPbTvIxQ90bFGIAoWjqrtkSxznX99yURk+EN7aA5LznHtcN/U8mRVnK9/YPCFz7ZWP9E7qEsNtjYbXQyJsonuYh/zRwfa9k1j2fz/s9c6e+uOJ4ygGKvkacOw/92p8jGb2G6U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFyMLcCh; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=R3SlbSQSX3oETXi09MAEO9ul5tl6eVZWzTyhy0MjBWdoigKsr9AhhiZTjWwAsxhnJl1/hpIMjMUgB6z9IRVe9ROccu090qQDu+tOrHbXFaTmB5zvNYwgK9rq0YYGZKr6yUITBl+KN/0bvaN6rl0rx5m8QVHtRPIkJtslKdXliyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hiL9Gd3a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFyMLcCh"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3D201F00893;
-	Thu, 17 Sep 2026 00:19:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hiL9Gd3a"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 05F911F00898;
+	Thu, 17 Sep 2026 00:19:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789604361;
-	bh=Ade+elf8BZNO72EgEHFtzWV6noKpdiRwL/qOexJMRkA=;
+	s=k20260515; t=1789604363;
+	bh=lL/+lv4KL24uFmURpVzTDHE3IUvPREfx4bmTwe5XVoA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=NFyMLcChxPjNaHhpYKQWJ5rPiVb4PgIL+2fo+Q9xTTgz6GZZYietkk+QMpYlWThi3
-	 1NzNyhiti24PG+lHavZ2F39ylXhygOn8wgDvpr+KPNyWcqDLbvJkdHVtscOphNvI7r
-	 YL/6iUm0/FPeTJDnXX1pwXHYwP/MrKJOmcDMw997LD9yam3YPdunxp1fuZcj/qOQRp
-	 xR8EFdoRIYc+SsvWxzsMiUrunbu+AkK1LnmhYi8dhU5JKhxcS3Q723Y+hLgrPDD/37
-	 FHL56qQkDy4jVKgBn14R62QNnZ+l+bQ6IqjJzENafFGozVZfMoiFdyPxJauIqs7UVt
-	 omOTdZB0qiURw==
+	b=hiL9Gd3as/45ifk5J6TP16/rNOn018vBlSI5vbLHgIZWaL93T+rA93bqXKfSDfRRS
+	 TYGa+vtDMByk9aFkluF03AyfnEmBNNbZkZqkZIhYOjr0dssMGVdB6DBHAzFuukoCgR
+	 I4Z8ataY+eIKHVDMOFpbUP5eTLR1HcnGH6brbpvb+eAOYj2ZdsUVgJY+3W92xu/pUU
+	 dDSk/BV9whKA74G2z5PMQnENBR6b9ZQaVCkIcZUZRtgkNB55hGQ/taQlhYlQChVSPf
+	 LXE3hgxSipWeZ1uEiFOIF2ndnw/3iXMZs1lMKl+E6er404Gg/hRs3k0DnbjK+c7a8Y
+	 /eY64Xv8YcG9w==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Gao Xiang <hsiangkao@linux.alibaba.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 4/4] net: macb: initialize PTP state before registering clock
-Date: Wed, 16 Sep 2026 20:19:17 -0400
-Message-ID: <20260917001917.3360958-4-sashal@kernel.org>
+Subject: [PATCH 6.18.y 1/2] erofs: separate plain and compressed filesystems formally
+Date: Wed, 16 Sep 2026 20:19:20 -0400
+Message-ID: <20260917001921.3361341-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917001917.3360958-1-sashal@kernel.org>
-References: <2026091643-urethane-talon-e5b2@gregkh>
- <20260917001917.3360958-1-sashal@kernel.org>
+In-Reply-To: <2026091649-edging-stroller-a208@gregkh>
+References: <2026091649-edging-stroller-a208@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Gao Xiang <hsiangkao@linux.alibaba.com>
 
-[ Upstream commit e1406330d70e56dd44fa6fbafc86e77e5c80c122 ]
+[ Upstream commit 7cef3c8341940febf75db6c25199cd83fb74d52f ]
 
-gem_ptp_init() registers the PTP clock before initializing
-bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
-publishes the PTP character device, userspace may invoke PTP callbacks
-before the lock and hardware are ready.
+The EROFS on-disk format uses a tiny, plain metadata design that
+prioritizes performance and minimizes complex inconsistencies against
+common writable disk filesystems (almost all serious metadata
+inconsistency cannot happen in well-designed immutable filesystems like
+EROFS). EROFS deliberately avoids artificial design flaws to eliminate
+serious security risks from untrusted remote sources by design,
+although human-made implementation bugs can still happen sometimes.
 
-In addition, gem_ptp_init() is called from both the interface open and
-resume paths. Reinitializing tsu_clk_lock there can reset the lock while
-timestamp processing is using it.
+Currently, there is no strict check to prevent compressed inodes,
+especially LZ4-compressed inodes, from being read in plain filesystems.
 
-This race is theoretical and has not been observed in practice.
+Starting with erofs-utils 1.0 and Linux 5.3, LZ4_0PADDING sb feature
+is automatically enabled for LZ4-compressed EROFS images to support
+in-place decompression. Furthermore, since Linux 5.4 LTS is no longer
+supported, we no longer need to handle ancient LZ4-compressed EROFS
+images generated by erofs-utils prior to 1.0.
 
-Initialize tsu_clk_lock once during probe and initialize the TSU before
-registering the PTP clock.
+To formally distinguish different filesystem types for improved
+security:
 
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260904030439.3994047-1-runyu.xiao@seu.edu.cn/
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260908103924.607033-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+ - Use the presence of LZ4_0PADDING or a non-zero
+   `dsb->u1.lz4_max_distance` as a marker for compressed filesystems
+   containing LZ4-compressed inodes only;
+
+ - For other algorithms, use `dsb->u1.available_compr_algs` bitmap.
+
+Note: LZ4_0PADDING has been supported since Linux 5.4 (the first formal
+kernel version), so exposing it via sysfs is no longer necessary and is
+now deprecated (but remain it for five more years until 2031):
+
+  `dsb->u1` has been strictly non-zero for all EROFS images containing
+  compressed inodes starting with erofs-utils v1.3 and it is actually
+  a much better marker for compressed filesystems.
+
+Signed-off-by: Gao Xiang <hsiangkao@linux.alibaba.com>
+
+Backport dependency note for Linux 6.18:
+
+Retain only the zero_padding sysfs feature removal and the corresponding
+feature-list documentation update.  The documentation layout is required
+for target 839f075aabdf5c21048f9801b87c0b841dd3d064 ("erofs: add sysfs
+feature entry for xattr prefixes") to apply without modification, and the
+sysfs removal keeps that list consistent with the attributes exposed.
+
+Drop the decompressor, inode, superblock, and internal-header changes.
+Those changes are unrelated to the target, and the decompressor hunks
+assume upstream's newer string-based error reporting instead of this
+stable branch's integer-return implementation.  Leave the existing
+compression behavior intact; no functions are added by this dependency.
+
+[ sashal: Reduced backport -- upstream 7cef3c8341940 touches 7 file(s), this
+  backport carries 2. Not backported here:
+  fs/erofs/decompressor.c
+  fs/erofs/erofs_fs.h
+  fs/erofs/inode.c
+  fs/erofs/internal.h
+  fs/erofs/super.c
+  This note is generated from the file lists only; see the resolution record
+  for the reasoning. ]
+
+Stable-dep-of: 839f075aabdf ("erofs: add sysfs feature entry for xattr prefixes")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 1 +
- drivers/net/ethernet/cadence/macb_ptp.c  | 5 +----
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ Documentation/ABI/testing/sysfs-fs-erofs | 6 +++---
+ fs/erofs/sysfs.c                         | 2 --
+ 2 files changed, 3 insertions(+), 5 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 3940d15ae8c92..5c8322cb7d2f5 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -5227,6 +5227,7 @@ static int macb_probe(struct platform_device *pdev)
- 	}
- 	spin_lock_init(&bp->lock);
- 	spin_lock_init(&bp->stats_lock);
-+	spin_lock_init(&bp->tsu_clk_lock);
+diff --git a/Documentation/ABI/testing/sysfs-fs-erofs b/Documentation/ABI/testing/sysfs-fs-erofs
+index b9243c7f28d71..e4cf6fc6a1066 100644
+--- a/Documentation/ABI/testing/sysfs-fs-erofs
++++ b/Documentation/ABI/testing/sysfs-fs-erofs
+@@ -3,9 +3,9 @@ Date:		November 2021
+ Contact:	"Huang Jianan" <huangjianan@oppo.com>
+ Description:	Shows all enabled kernel features.
+ 		Supported features:
+-		zero_padding, compr_cfgs, big_pcluster, chunked_file,
+-		device_table, compr_head2, sb_chksum, ztailpacking,
+-		dedupe, fragments, 48bit, metabox.
++		compr_cfgs, big_pcluster, chunked_file, device_table,
++		compr_head2, sb_chksum, ztailpacking, dedupe, fragments,
++		48bit, metabox.
  
- 	/* setup capabilities */
- 	macb_configure_caps(bp, macb_config);
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index 085795e8aae72..d961a5faf355d 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -332,6 +332,7 @@ void gem_ptp_init(struct net_device *netdev)
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
- 	gem_ptp_init_timer(bp);
-+	gem_ptp_init_tsu(bp);
- 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
- 	if (IS_ERR(bp->ptp_clock)) {
- 		pr_err("ptp clock register failed: %ld\n",
-@@ -343,10 +344,6 @@ void gem_ptp_init(struct net_device *netdev)
- 		return;
- 	}
+ What:		/sys/fs/erofs/<disk>/sync_decompress
+ Date:		November 2021
+diff --git a/fs/erofs/sysfs.c b/fs/erofs/sysfs.c
+index 86b22b9f0c191..3a9a5fa000ae9 100644
+--- a/fs/erofs/sysfs.c
++++ b/fs/erofs/sysfs.c
+@@ -86,7 +86,6 @@ static struct attribute *erofs_attrs[] = {
+ ATTRIBUTE_GROUPS(erofs);
  
--	spin_lock_init(&bp->tsu_clk_lock);
--
--	gem_ptp_init_tsu(bp);
--
- 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
- 		 GEM_PTP_TIMER_NAME);
- }
+ /* Features this copy of erofs supports */
+-EROFS_ATTR_FEATURE(zero_padding);
+ EROFS_ATTR_FEATURE(compr_cfgs);
+ EROFS_ATTR_FEATURE(big_pcluster);
+ EROFS_ATTR_FEATURE(chunked_file);
+@@ -100,7 +99,6 @@ EROFS_ATTR_FEATURE(48bit);
+ EROFS_ATTR_FEATURE(metabox);
+ 
+ static struct attribute *erofs_feat_attrs[] = {
+-	ATTR_LIST(zero_padding),
+ 	ATTR_LIST(compr_cfgs),
+ 	ATTR_LIST(big_pcluster),
+ 	ATTR_LIST(chunked_file),
 -- 
 2.53.0
 
