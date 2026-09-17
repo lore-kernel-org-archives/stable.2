@@ -1,44 +1,35 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B19F4E3251;
-	Thu, 17 Sep 2026 15:33:11 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0B2FE4D487C;
+	Thu, 17 Sep 2026 15:33:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659200; cv=none; b=UeADpHhXtOClJMdiPcBdqPvZuH6B3QYjLxOhrytWhn0x2JKzYoS+iyazQQLEzlbB/iI0S/hxV6EdHwJdggKxVcU+9iR1AE6fslnvvflY9TrvS2SBBRLvDttne7JwAozDwSdpy2oRt63kkKUxTEQnArXPd3tQGwZo+bAK4mV4zR0=
+	t=1789659206; cv=none; b=NR4DwBUEXd+8fWY6GHcSFwiplTUjWenvSWgz5e/x1Mhji6af+PN3r7Y0SoCm0d2zaa0IgmBEl09yMET2MX4xjhnRXM7Eu3YrhISs1fWIHY3FYjUlJucUROzW08W7uLkEmzjzqc7GS5hEDfDZQ3MukgW5rn5pT+fuxMpYGKKzuAI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659200; c=relaxed/simple;
-	bh=BzizlHacUDjxpQqgPDLZuluLHWZbRz5V5Z9zCgJll9c=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=dOGZV3nzmCyYZlYJiUY+GATrcLpeQcaCSyQDSmpKl3VtRjDlj27RoZKHoj56pyRsGpPWuizIVUwG+7DCVPXmnrgLC11r5zFAXYram5wTG1oLJ0G6WCsTJfG+23jojfaw5eR7W7gqwVKLkGXfzK1x0Q4y4Sf5Zp9JeCi4mUqS/PU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Zvx7Pfuf; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Zvx7Pfuf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D44ED1F00898;
-	Thu, 17 Sep 2026 15:33:10 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659191;
-	bh=zeY8+qLiyJVDGq3itclYuaWuCqFf/BeAnKpxzpN7iMc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Zvx7PfufORotyxS0gyt/TFl9qFUnYidesgH1/FMwiXCj1xGkoX+kcd6+Yl5axgNBi
-	 ZW7wL0pepc25BABGoppbIX8y0dAoeadubLOvaH7LoBABNc7t/OXujObAI0qwSkCMkc
-	 Uxk0yUzTBLBkEwGVxBdgL2kQXkM/35u72HEfFe1A=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	kernel test robot <lkp@intel.com>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 175/733] ksmbd: fix sparc build with atomic work state
-Date: Thu, 17 Sep 2026 16:08:03 +0100
-Message-ID: <20260917151355.469109046@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1789659206; c=relaxed/simple;
+	bh=CdgRycZL3CvfqlhLX/AjZSwJtu40UTHd89J+mO8n5wU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=f8flPXKh2Q6zdqzPjHLsDBwXGDGM29v7WpzXWqpqOrCuygYaFmeTE2PQFKS+erLZ/YvKV/cRw8rSB/PEcrNNl6ohx9PFOFoc98sLN6uQO9w84JjHTIguIqsdvLfRNjYsfT+0VWhxMxxWEcPDRyFrEZZq8g5Xsq1O9cyOgqEULpY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHtD45CKxqAp+DCA--.5832S2;
+	Thu, 17 Sep 2026 23:33:13 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: angelogioacchino.delregno@collabora.com
+Cc: khilman@baylibre.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linux-mediatek@lists.infradead.org,
+	matthias.bgg@gmail.com,
+	roger.lu@mediatek.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] soc: mediatek: mtk-svs: Fix device leak in svs_add_device_link()
+Date: Thu, 17 Sep 2026 15:33:13 +0000
+Message-Id: <20260917153313.2160581-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,42 +37,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHtD45CKxqAp+DCA--.5832S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Zw1ktr15Wr1rKw4rXr1UZFb_yoW8JFWDpF
+	WDKayqyryYqr129a17Ar1UZF15uayIk3s5Cr4rXwn7Zwn5Jr43XrWaqa4Fqw10yFWkGa13
+	JryqyrWxCw4xAr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUBFb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
+	7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
+	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
+	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r43MIIYrxkI7VAKI48JMIIF0xvE2I
+	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
+	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
+	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07UC38nUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qr888vQgABsb
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+svs_get_subsys_device() returns a reference to the supplier device that
+the caller must drop.  svs_add_device_link() returns the reference to
+its callers on success, but the device_link_add() failure path and the
+probe deferral path return an error pointer without putting the device,
+so the reference is leaked.
 
-------------------
+Drop the reference on both error paths.
 
-From: Namjae Jeon <linkinjeon@kernel.org>
-
-[ Upstream commit 636abbe7a66d80e179011a31754d55001cd44f63 ]
-
-Use an unsigned int for the work state so xchg() uses a supported
-4-byte operation on sparc.
-
-Fixes: d12168084c8c ("ksmbd: safely drain sessions during logoff")
-Reported-by: kernel test robot <lkp@intel.com>
-Closes: https://lore.kernel.org/oe-kbuild-all/202609021157.8f7Wx34I-lkp@intel.com/
-Signed-off-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 681a02e95000 ("soc: mediatek: SVS: introduce MTK SVS engine")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/smb/server/ksmbd_work.h | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/soc/mediatek/mtk-svs.c | 5 ++++-
+ 1 file changed, 4 insertions(+), 1 deletion(-)
 
-diff --git a/fs/smb/server/ksmbd_work.h b/fs/smb/server/ksmbd_work.h
-index 5f1d3ebab4fb5..0844aa929f55d 100644
---- a/fs/smb/server/ksmbd_work.h
-+++ b/fs/smb/server/ksmbd_work.h
-@@ -82,7 +82,7 @@ struct ksmbd_work {
- 	/* Contiguous SMB2 compression transform owned by this work item. */
- 	void				*compress_buf;
+diff --git a/drivers/soc/mediatek/mtk-svs.c b/drivers/soc/mediatek/mtk-svs.c
+index 99edecb204f2..dd9643026c66 100644
+--- a/drivers/soc/mediatek/mtk-svs.c
++++ b/drivers/soc/mediatek/mtk-svs.c
+@@ -2155,11 +2155,14 @@ static struct device *svs_add_device_link(struct svs_platform *svsp,
+ 				   DL_FLAG_AUTOREMOVE_CONSUMER);
+ 	if (!sup_link) {
+ 		dev_err(svsp->dev, "sup_link is NULL\n");
++		put_device(dev);
+ 		return ERR_PTR(-EINVAL);
+ 	}
  
--	unsigned char			state;
-+	unsigned int			state;
- 	/* No response for cancelled request */
- 	bool                            send_no_response:1;
- 	/* Request is encrypted */
+-	if (sup_link->supplier->links.status != DL_DEV_DRIVER_BOUND)
++	if (sup_link->supplier->links.status != DL_DEV_DRIVER_BOUND) {
++		put_device(dev);
+ 		return ERR_PTR(-EPROBE_DEFER);
++	}
+ 
+ 	return dev;
+ }
 -- 
-2.53.0
-
-
+2.34.1
 
