@@ -1,44 +1,33 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B0514B44C5;
-	Thu, 17 Sep 2026 16:08:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6C90A4B7A30;
+	Thu, 17 Sep 2026 16:08:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789661284; cv=none; b=CNYZG/ePkSGb9oP5Jr7TW+ZlPTdWiB4xGHXaNoO1f6moQqDehuMNkyp/DSvXYScJ66BAKiSnuovevQ1tZ0ILMxqxZTcvqUHqpdlsAaiD2su2v6OcODOe6hUQFGFjOmELYZqHXBN+UbmcY0NaEHEM18DCu6dGWh9LtgRSinClXsY=
+	t=1789661285; cv=none; b=hs0Oh7NcCUNoWX5gO6CxaFhTaNdpoBrSvkk8E1dFBN6jC2+16x4gjvLeKq7LWAFhBuWNAqdY/9xZMOKMXxnWJVlUDYw6/Fe72nZqRxe7Fh5eVYaDSemUfXM3JurKK5+KgvUAo3/YAXJWb9M9xdaR46wcigAlA/R0j3bbc4/OB2A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789661284; c=relaxed/simple;
-	bh=9Ha8MtyYW8At0r3iII5Awj9xSduQdSM281xYLhkr7RQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=qvaQSzhSJwk2hfBmvlsFIpHSHXzrQueMFzDGSIo8cxszXCYccYzPg0bULe/zylAhFUTJW1NWBuVmTtoM0MyycWNF8F0Pgt+KsD+6xeaa+k9TIOvrlMqWvjsWRcQO+VKm65luQO3LLxAWUwr31UQqXDbtDNbDh7avcV85rFhwEo0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=loC9JUsm; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="loC9JUsm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C67C01F00893;
-	Thu, 17 Sep 2026 16:08:01 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789661282;
-	bh=wCC7TMxcv0cIvAMLgLDY3Iw9aH5WACpCvatIYTI5KCQ=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=loC9JUsmrPuSriGXTbbmkzNsPhP6XCEpS/1ICSFQS4X8vlx5HuHiuWoxvEcs0uqfE
-	 VOWrqy+b7Jmk1/ybXhZkE/NOZnUG+8V3GjQi8kVztFptMREVNQygxrB/RLcVR9sbYV
-	 yZdDAhCjFVp2MvhswDGc9oeaWBWBY+Va+6E8jV4Y=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Pierre Barre <pierre@barre.sh>,
-	Dominique Martinet <asmadeus@codewreck.org>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18 0144/1250] 9p: invalidate readdir buffer on seek
-Date: Thu, 17 Sep 2026 15:58:59 +0100
-Message-ID: <20260917151555.961040515@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-References: <20260917151551.901433442@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1789661285; c=relaxed/simple;
+	bh=kyLNYI+hqqLQRI9p6z2axNlHWPE91dvDEuCJRQLgbPQ=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JcWIPWmX+zdwTzQPN1OQYNjGEBYc02AEB2JwewKkjXWrblzI8hKicoetKYVKZ46LeuLjlrQ1XwyCAGxnoMbpBnB8LnD3/4Dfh2Nzl86AAoDOKr2pQegEVDSHDCo3OFhZcbEv9WEM2QdvIqG3WKR+TVDnyxfZDHXUT8SsOWBuUc0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB34jxeEKxqdCiECA--.6483S2;
+	Fri, 18 Sep 2026 00:07:58 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: gregkh@linuxfoundation.org
+Cc: linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org,
+	pawell@cadence.com,
+	peter.chen@nxp.com,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] usb: cdnsp: Fix runtime PM reference leak in __cdnsp_gadget_init()
+Date: Thu, 17 Sep 2026 16:07:58 +0000
+Message-Id: <20260917160758.2161710-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,113 +35,52 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB34jxeEKxqdCiECA--.6483S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Gry3Gr1kKr1DKw18Cw1xKrg_yoWDArc_Wr
+	45uF17AFyjga4DCw1kGw43urWj9FyDXw4kWan7t3y3CayUKr18Zry3Xrs5Cr1xZ3y7GryD
+	t3W8KFsIkFnrujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbskFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
+	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
+	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
+	jsIE14v26r1j6r4UM28EF7xvwVC2z280aVCY1x0267AKxVW8JVW8Jr1le2I262IYc4CY6c
+	8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2WlYx0E2Ix0cI8IcVAFwI0_Jw0_
+	WrylYx0Ex4A2jsIE14v26r1j6r4UMcvjeVCFs4IE7xkEbVWUJVW8JwACjcxG0xvY0x0EwI
+	xGrwACjI8F5VA0II8E6IAqYI8I648v4I1lc7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij
+	64vIr41l42xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8Jw
+	C20s026c02F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAF
+	wI0_JF0_Jw1lIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjx
+	v20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E
+	87Iv67AKxVWUJVW8JwCI42IY6I8E87Iv6xkF7I0E14v26r4j6r4UJbIYCTnIWIevJa73Uj
+	IFyTuYvjfUY9a9DUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwgNA2qr9tg9FQAAsG
 
-6.18-stable review patch.  If anyone has any objections, please let me know.
+__cdnsp_gadget_init() takes a runtime PM reference with
+pm_runtime_get_sync(), which is only released by cdnsp_gadget_exit().
+If the initialization fails after the get, the role is never marked
+active, so cdns_role_stop() does not call the ->stop callback and the
+reference is leaked.
 
-------------------
+Drop the reference on the error path as well.
 
-From: Pierre Barre <pierre@barre.sh>
-
-[ Upstream commit e661e17ddbed524b5fbda789a091b48b6b677067 ]
-
-The per-fid readdir buffer (fid->rdir) is populated lazily and only
-refilled when fully drained (rdir->head == rdir->tail). userspace
-lseek() on a directory fd updates file->f_pos via generic_file_llseek()
-but does not touch the cached buffer, so the next getdents() iterates
-the stale cache and emits entries from the previous position instead
-of the one the caller asked for.
-
-Track the file position the cached data corresponds to in
-struct p9_rdir, and drop the cache on entry to iterate_shared when it
-no longer matches ctx->pos. The 9p protocol's Tread/Treaddir already
-take an arbitrary offset on every request, so a refill at the new
-position is always legal; no .llseek override or seek restriction is
-needed.
-
-Reported-by: Pierre Barre <pierre@barre.sh>
-Link: https://lore.kernel.org/v9fs/496d10b9-40fe-4f81-8014-37497c37ff63@app.fastmail.com/
-Signed-off-by: Pierre Barre <pierre@barre.sh>
-Message-ID: <20260512132032.369281-2-pierre@barre.sh>
-Signed-off-by: Dominique Martinet <asmadeus@codewreck.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 3d82904559f4 ("usb: cdnsp: cdns3 Add main part of Cadence USBSSP DRD Driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- fs/9p/vfs_dir.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
+ drivers/usb/cdns3/cdnsp-gadget.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/fs/9p/vfs_dir.c b/fs/9p/vfs_dir.c
-index e0d34e4e9076e..edef553bbd59e 100644
---- a/fs/9p/vfs_dir.c
-+++ b/fs/9p/vfs_dir.c
-@@ -27,6 +27,7 @@
-  * struct p9_rdir - readdir accounting
-  * @head: start offset of current dirread buffer
-  * @tail: end offset of current dirread buffer
-+ * @offset: file position the data at @head corresponds to
-  * @buf: dirread buffer
-  *
-  * private structure for keeping track of readdir
-@@ -36,6 +37,7 @@
- struct p9_rdir {
- 	int head;
- 	int tail;
-+	loff_t offset;
- 	uint8_t buf[];
- };
+diff --git a/drivers/usb/cdns3/cdnsp-gadget.c b/drivers/usb/cdns3/cdnsp-gadget.c
+index 6b3815f8a6e5..53c395631955 100644
+--- a/drivers/usb/cdns3/cdnsp-gadget.c
++++ b/drivers/usb/cdns3/cdnsp-gadget.c
+@@ -1990,6 +1990,7 @@ static int __cdnsp_gadget_init(struct cdns *cdns)
+ 	kfree(pdev->setup_buf);
+ free_pdev:
+ 	kfree(pdev);
++	pm_runtime_put_autosuspend(cdns->dev);
  
-@@ -102,6 +104,9 @@ static int v9fs_dir_readdir(struct file *file, struct dir_context *ctx)
- 	kvec.iov_base = rdir->buf;
- 	kvec.iov_len = buflen;
- 
-+	if (rdir->head < rdir->tail && rdir->offset != ctx->pos)
-+		rdir->head = rdir->tail = 0;
-+
- 	while (1) {
- 		if (rdir->tail == rdir->head) {
- 			struct iov_iter to;
-@@ -117,6 +122,7 @@ static int v9fs_dir_readdir(struct file *file, struct dir_context *ctx)
- 
- 			rdir->head = 0;
- 			rdir->tail = n;
-+			rdir->offset = ctx->pos;
- 		}
- 		while (rdir->head < rdir->tail) {
- 			err = p9stat_read(fid->clnt, rdir->buf + rdir->head,
-@@ -134,6 +140,7 @@ static int v9fs_dir_readdir(struct file *file, struct dir_context *ctx)
- 
- 			rdir->head += err;
- 			ctx->pos += err;
-+			rdir->offset = ctx->pos;
- 		}
- 	}
- }
-@@ -161,6 +168,9 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 	if (!rdir)
- 		return -ENOMEM;
- 
-+	if (rdir->head < rdir->tail && rdir->offset != ctx->pos)
-+		rdir->head = rdir->tail = 0;
-+
- 	while (1) {
- 		if (rdir->tail == rdir->head) {
- 			err = p9_client_readdir(fid, rdir->buf, buflen,
-@@ -170,6 +180,7 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 
- 			rdir->head = 0;
- 			rdir->tail = err;
-+			rdir->offset = ctx->pos;
- 		}
- 
- 		while (rdir->head < rdir->tail) {
-@@ -190,6 +201,7 @@ static int v9fs_dir_readdir_dotl(struct file *file, struct dir_context *ctx)
- 
- 			ctx->pos = curdirent.d_off;
- 			rdir->head += err;
-+			rdir->offset = ctx->pos;
- 		}
- 	}
+ 	return ret;
  }
 -- 
-2.53.0
-
-
+2.34.1
 
