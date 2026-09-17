@@ -1,139 +1,261 @@
-Received: from smtp-190e.mail.infomaniak.ch (smtp-190e.mail.infomaniak.ch [185.125.25.14])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AD8484896
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:00:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.14
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DCA26538D7D
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:01:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657279; cv=none; b=c7Bz918MAjaC54jqSGNkxihwPrWs1bcLuo4pzHNJUwqrcL4h3A7Xjnq/d9ztihdfZBRnRHVnm1pW3r9XkzDeH7nb/YcaKDgGT8DrX+18CQEKrbVY8cE/k7JcVkrpEzChoFPN6cG/ymM4L0pB9V9N3xfiCjZZSYWz4tudCMu6T2g=
+	t=1789657293; cv=none; b=GCrlmivX70R6wf9VYwFqEZe40/uS/ZzvhHbS0nnyVMqXp7ycINOHH65AUzLEW+Gytop4KGEgaSVt/TRiHyU4D3wmwoePU+cNGKkTh8o9seHgxThmfIAiFIK6cry0avkfCpgL8vC6+p51PLtW5J/+rZ3J/0IYZ1g+w3c1sBdl898=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657279; c=relaxed/simple;
-	bh=0m7Y88fV0dWH85L8Qp0r+3GXJ+3nTEkVngv40ATPdt4=;
+	s=arc-20240116; t=1789657293; c=relaxed/simple;
+	bh=MrSkeKWervhVFyxZFb+kIGCfMOcK5gAx2oZB4tY40vQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=KqtepGSlm3rkKRqguz9x9Rk6jTDDjxOmeGRNkIRNYdNwiximTHwwyTj5I6pafzJuqzsVWYZxb9fTZvPfVbD95gpCTOpYnxtGkNQCemZbfu0pFRlmuKA0lcyBY57mFAZ2PXNHNDDY/xpUNKj5Jxx6vsgAaeg6b180GVp94IE78S4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=e3cHohy7; arc=none smtp.client-ip=185.125.25.14
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	 MIME-Version; b=dur1uzcK2IzFpP1813OT1mvbwIldn/H8DFoneEvkl2oXf6x3U0pouTSOlrAel0DaotFmmYi7UQaflG5D+0a/BnA7+9k4VaUodWSLtwHmteJU/wmJmkkO0vFYUpX4vYWYf0miWarwfV/VeQ2D/pk6sNocQ5kTebKWqjwf8f/gm30=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bzgnhgbh; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="e3cHohy7"
-Received: from smtp-4-0001.mail.infomaniak.ch (smtp-4-0001.mail.infomaniak.ch [10.7.10.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hlzTf0pjkz3yj;
-	Thu, 17 Sep 2026 17:00:54 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1789657253;
-	bh=71BgvP1k8eHPwNTYeZZj+YyDryF7umHQRV/B+HsUXbc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=e3cHohy7y+AVE+AQ851nf0CkPVFKyGR43BIfJ4LroYgs8M78mHxtfQOTV1COwrI4A
-	 vjWApW6KQxcfX14miR4jjj9vhA9x2woOlIpYdVGHxQ+7L+eFeUJI34GZv9SQPRHVLy
-	 j+O1bRdA1Kc47OXK4mLxz0Knw0k44dgylGyFfus0=
-Received: from unknown by smtp-4-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hlzTd251Nzcng;
-	Thu, 17 Sep 2026 17:00:53 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bzgnhgbh"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC99C1F0089A;
+	Thu, 17 Sep 2026 15:01:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789657286;
+	bh=FyZvuRPgPHWm8DO3x1Z/6hh+gAg9tqYUR/hr8Fbyi/o=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=bzgnhgbhdXJLUmwmDZvSiYGZxCQ8Oa9P7fjMWtqniUbs9kheyWhQ3qvHBL8dDm/SQ
+	 yiH5qoTX4fZDwqvS5DmgPr6Jym879IRb899OyxqHMJXUrSgp22Ay0n/IblmdKgvbkr
+	 EjBOfiiL0XcYga+QoVfVIIHNJLzIr4QaG1ShNBkh2Jy29hFQTdRUaTPX6erreO6Qnv
+	 PNdezSnm4WOHxk6Onkdw9UFtBYb65U6Zt/9aco686bKlVADcliMGN6KpcjuPbP+IxH
+	 kbDYx1l5sx3rp0TFY0HoZsxex+3COgZUzzJq/2HGmSWKfkNRmRg1myGI2cxRsNBWYX
+	 DmjnNQRRFlVdA==
+From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
-	Paul Moore <paul@paul-moore.com>,
-	syzbot+bf4903dc7e12b18ebc87@syzkaller.appspotmail.com
-Subject: [PATCH 6.1.y] selftests/landlock: Add layout1.refer_mount_root
-Date: Thu, 17 Sep 2026 17:00:49 +0200
-Message-ID: <661e8a7821258da80d7ab0e2c2d7e19b07ccfae0.1789655724.git.mic@digikod.net>
-In-Reply-To: <20240619125600.199822604@linuxfoundation.org>
-References: <20240619125600.199822604@linuxfoundation.org>
+Cc: "Darrick J. Wong" <djwong@kernel.org>,
+	floss@jetm.me,
+	dgc@kernel.org,
+	Christoph Hellwig <hch@lst.de>,
+	Carlos Maiolino <cmaiolino@redhat.com>,
+	Carlos Maiolino <cem@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/2] xfs: fix under-reservation of blocks when repairing sf directories
+Date: Thu, 17 Sep 2026 11:01:23 -0400
+Message-ID: <20260917150123.670190-2-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260917150123.670190-1-sashal@kernel.org>
+References: <2026091629-runway-straddle-168c@gregkh>
+ <20260917150123.670190-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-[ Upstream commit 0055f53aac80fd938bf7cdfad7ad414ca6c0e198 ]
+From: "Darrick J. Wong" <djwong@kernel.org>
 
-Add tests to check error codes when linking or renaming a mount root
-directory.  This previously triggered a kernel warning, but it is fixed
-with the previous commit.
+[ Upstream commit 4d3c07591534517c633945c8d8e6526f10e3fabc ]
 
-Cc: Günther Noack <gnoack@google.com>
-Cc: Paul Moore <paul@paul-moore.com>
-Link: https://lore.kernel.org/r/20240516181935.1645983-3-mic@digikod.net
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
-[mic: Backport: adapt to the older selftest header layout]
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+Whilst running QA on XFS for-next as of 7.3-rc2 with MKFS_OPTIONS="-n
+size=8192", I observed the following (trimmed) dmesg splat:
+
+ XFS: Assertion failed: args->total >= dp->i_nblocks - nblks, file: fs/xfs/libxfs/xfs_da_btree.c, line: 2387
+ WARNING: fs/xfs/xfs_message.c:104 at assfail+0x46/0x4a [xfs], CPU#0: xfs_scrub/1426511
+ CPU: 0 UID: 0 PID: 1426511 Comm: xfs_scrub Tainted: G        W           7.3.0-rc2-djwx #rc2 PREEMPT(lazy)  6e418570b606a39783b0e7e7b30dc407b965f9e8
+ Tainted: [W]=WARN
+ RIP: 0010:assfail+0x46/0x4a [xfs]
+ RSP: 0018:ffffc900010d7890 EFLAGS: 00010246
+ RAX: 0000000000000000 RBX: 0000000000000000 RCX: 00000000ffffffd1
+ RDX: 0000000000000000 RSI: 0000000000000021 RDI: ffffffffa059fd38
+ RBP: 0000000000000002 R08: 0000000000000000 R09: 0000000000000000
+ R10: 000000000000000a R11: 000000007fffffff R12: ffffc900010d7940
+ R13: ffff888368d8f980 R14: ffffc900010d7a48 R15: ffffc900010d78d0
+ FS:  00007f445c5ce680(0000) GS:ffff8884a97ea000(0000) knlGS:0000000000000000
+ CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
+ CR2: 00007f443803b9a8 CR3: 0000000107a4b000 CR4: 00000000003506f0
+ Call Trace:
+  <TASK>
+  xfs_da_grow_inode_int+0x2e0/0x300 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xfs_dir2_grow_inode+0x6e/0x150 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xfs_dir2_sf_to_block+0x149/0x870 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xrep_dir_swap_prep+0xe2/0x110 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xrep_dir_swap+0xfb/0x2f0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xrep_dir_rebuild_tree+0x99/0x100 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xrep_directory+0x83/0x1c0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xrep_attempt+0x4f/0x1e0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xfs_scrub_metadata+0x393/0x5b0 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xfs_ioc_scrubv_metadata+0x306/0x570 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  xfs_file_ioctl+0xa4f/0x1150 [xfs 5de2257e14108c136f11317e6bbb8ac77efd392c]
+  __x64_sys_ioctl+0x76/0xc0
+  do_syscall_64+0x7a/0x3b0
+  entry_SYSCALL_64_after_hwframe+0x4b/0x53
+
+This is a consequence of commit 0fe77e57588b98, which added the
+following assertion to xfs_da_grow_inode_int:
+
+ ASSERT(args->total >= dp->i_nblocks - nblks);
+
+Tracing this back to xrep_dir_swap_prep, I noticed that the xfs_da_args
+object that's passed to xfs_dir2_sf_to_block sets args->total to 1.
+This is incorrect because mkfs set the directory block size to 8k and
+the filesystem block size to 4k.  In other words, args->total should be
+2 here, not 1.
+
+Dave Chinner tripped over the same problem with the same branch through
+a different channel -- his test setup set the fs block size to 1k, in
+which case the directory block size is still set to 4k.  Here,
+args->total should be 4.
+
+Changing the assignment of args->total to sc->mp->m_dir_geo->fsbcount
+makes the assertion go away, but that isn't a complete fix.  In
+xrep_tempexch_estimate, we also incorrectly assume that a shortform
+conversion requires 1 fsblock when it should be m_dir_geo->fsbcount.
+Without that, we can under-reserve space in the transaction and cause a
+filesystem shutdown.
+
+Note that the xfs_dabuf_nfsb helper will compute the correct value for
+directories and xattr, so we use that instead of open-coding the logic.
+Also fix xrep_xattr_swap_prep to assign args->total via xfs_dabuf_nfsb
+to avoid one logic bomb if we ever support multi-fsblock attrs.
+
+Cc: stable@vger.kernel.org # v6.10
+Cc: floss@jetm.me
+Reported-by: dgc@kernel.org
+Fixes: 629fdaf5f5b1b7 ("xfs: use atomic extent swapping to fix user file fork data")
+Tripped-by: 0fe77e57588b98 ("xfs: assert the reservation covers each da fork growth")
+Signed-off-by: Darrick J. Wong <djwong@kernel.org>
+Reviewed-by: Christoph Hellwig <hch@lst.de>
+Reviewed-by: Carlos Maiolino <cmaiolino@redhat.com>
+Signed-off-by: Carlos Maiolino <cem@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/landlock/fs_test.c | 45 ++++++++++++++++++++++
- 1 file changed, 45 insertions(+)
+ fs/xfs/libxfs/xfs_da_btree.c |  2 +-
+ fs/xfs/libxfs/xfs_da_btree.h |  2 ++
+ fs/xfs/scrub/attr_repair.c   |  2 +-
+ fs/xfs/scrub/dir_repair.c    |  2 +-
+ fs/xfs/scrub/tempfile.c      | 29 ++++++++++++++++++++++-------
+ 5 files changed, 27 insertions(+), 10 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 864309ebb0b4..b37c694d5c10 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -10,6 +10,7 @@
- #define _GNU_SOURCE
- #include <fcntl.h>
- #include <linux/landlock.h>
-+#include <linux/mount.h>
- #include <sched.h>
- #include <stdio.h>
- #include <string.h>
-@@ -32,6 +33,13 @@ int renameat2(int olddirfd, const char *oldpath, int newdirfd,
- }
- #endif
- 
-+#ifndef open_tree
-+int open_tree(int dfd, const char *filename, unsigned int flags)
-+{
-+	return syscall(__NR_open_tree, dfd, filename, flags);
-+}
-+#endif
-+
- #ifndef RENAME_EXCHANGE
- #define RENAME_EXCHANGE (1 << 1)
- #endif
-@@ -2178,6 +2186,43 @@ TEST_F_FORK(layout1, refer_denied_by_default4)
- 				layer_dir_s1d1_refer);
+diff --git a/fs/xfs/libxfs/xfs_da_btree.c b/fs/xfs/libxfs/xfs_da_btree.c
+index 90f7fc219fccc..90fbdef23def1 100644
+--- a/fs/xfs/libxfs/xfs_da_btree.c
++++ b/fs/xfs/libxfs/xfs_da_btree.c
+@@ -130,7 +130,7 @@ xfs_da_state_reset(
+ 	state->mp = state->args->dp->i_mount;
  }
  
-+/*
-+ * Tests walking through a denied root mount.
-+ */
-+TEST_F_FORK(layout1, refer_mount_root_deny)
-+{
-+	const struct landlock_ruleset_attr ruleset_attr = {
-+		.handled_access_fs = LANDLOCK_ACCESS_FS_MAKE_DIR,
-+	};
-+	int root_fd, ruleset_fd;
-+
-+	/* Creates a mount object from a non-mount point. */
-+	set_cap(_metadata, CAP_SYS_ADMIN);
-+	root_fd =
-+		open_tree(AT_FDCWD, dir_s1d1,
-+			  AT_EMPTY_PATH | OPEN_TREE_CLONE | OPEN_TREE_CLOEXEC);
-+	clear_cap(_metadata, CAP_SYS_ADMIN);
-+	ASSERT_LE(0, root_fd);
-+
-+	ruleset_fd =
-+		landlock_create_ruleset(&ruleset_attr, sizeof(ruleset_attr), 0);
-+	ASSERT_LE(0, ruleset_fd);
-+
-+	ASSERT_EQ(0, prctl(PR_SET_NO_NEW_PRIVS, 1, 0, 0, 0));
-+	ASSERT_EQ(0, landlock_restrict_self(ruleset_fd, 0));
-+	EXPECT_EQ(0, close(ruleset_fd));
-+
-+	/* Link denied by Landlock: EACCES. */
-+	EXPECT_EQ(-1, linkat(root_fd, ".", root_fd, "does_not_exist", 0));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/* renameat2() always returns EBUSY. */
-+	EXPECT_EQ(-1, renameat2(root_fd, ".", root_fd, "does_not_exist", 0));
-+	EXPECT_EQ(EBUSY, errno);
-+
-+	EXPECT_EQ(0, close(root_fd));
-+}
-+
- TEST_F_FORK(layout1, reparent_link)
+-static inline int xfs_dabuf_nfsb(struct xfs_mount *mp, int whichfork)
++inline int xfs_dabuf_nfsb(struct xfs_mount *mp, int whichfork)
  {
- 	const struct rule layer1[] = {
+ 	if (whichfork == XFS_DATA_FORK)
+ 		return mp->m_dir_geo->fsbcount;
+diff --git a/fs/xfs/libxfs/xfs_da_btree.h b/fs/xfs/libxfs/xfs_da_btree.h
+index 354d5d65043e4..cd2e213f5e74f 100644
+--- a/fs/xfs/libxfs/xfs_da_btree.h
++++ b/fs/xfs/libxfs/xfs_da_btree.h
+@@ -242,4 +242,6 @@ xfs_failaddr_t xfs_da3_node_header_check(struct xfs_buf *bp, xfs_ino_t owner);
+ 
+ extern struct kmem_cache	*xfs_da_state_cache;
+ 
++int xfs_dabuf_nfsb(struct xfs_mount *mp, int whichfork);
++
+ #endif	/* __XFS_DA_BTREE_H__ */
+diff --git a/fs/xfs/scrub/attr_repair.c b/fs/xfs/scrub/attr_repair.c
+index 8dd88d775376a..6f668ddea8197 100644
+--- a/fs/xfs/scrub/attr_repair.c
++++ b/fs/xfs/scrub/attr_repair.c
+@@ -1294,7 +1294,7 @@ xrep_xattr_swap_prep(
+ 			.geo		= sc->mp->m_attr_geo,
+ 			.whichfork	= XFS_ATTR_FORK,
+ 			.trans		= sc->tp,
+-			.total		= 1,
++			.total		= xfs_dabuf_nfsb(sc->mp, XFS_ATTR_FORK),
+ 			.owner		= I_INO(sc->ip),
+ 		};
+ 
+diff --git a/fs/xfs/scrub/dir_repair.c b/fs/xfs/scrub/dir_repair.c
+index 09e8d389a4ab6..13278c978ff54 100644
+--- a/fs/xfs/scrub/dir_repair.c
++++ b/fs/xfs/scrub/dir_repair.c
+@@ -1465,7 +1465,7 @@ xrep_dir_swap_prep(
+ 			.geo		= sc->mp->m_dir_geo,
+ 			.whichfork	= XFS_DATA_FORK,
+ 			.trans		= sc->tp,
+-			.total		= 1,
++			.total		= xfs_dabuf_nfsb(sc->mp, XFS_DATA_FORK),
+ 			.owner		= I_INO(sc->ip),
+ 		};
+ 
+diff --git a/fs/xfs/scrub/tempfile.c b/fs/xfs/scrub/tempfile.c
+index 56fef13bc7730..8fa8b6d7ca271 100644
+--- a/fs/xfs/scrub/tempfile.c
++++ b/fs/xfs/scrub/tempfile.c
+@@ -536,6 +536,19 @@ xrep_tempexch_prep_request(
+ 	return 0;
+ }
+ 
++static inline unsigned int
++xrep_tempexch_estimate_sf_resblks(
++	struct xfs_scrub	*sc,
++	int			whichfork)
++{
++	/* repairing a symlink target */
++	if (S_ISLNK(VFS_I(sc->ip)->i_mode) && whichfork == XFS_DATA_FORK)
++		return 1;
++
++	/* everything else is a directory or an xattr structure */
++	return xfs_dabuf_nfsb(sc->mp, whichfork);
++}
++
+ /*
+  * Fill out the mapping exchange resource estimation structures in preparation
+  * for exchanging the contents of a metadata file that we've rebuilt in the
+@@ -550,6 +563,8 @@ xrep_tempexch_estimate(
+ 	struct xfs_ifork	*ifp;
+ 	struct xfs_ifork	*tifp;
+ 	int			whichfork = xfs_exchmaps_reqfork(req);
++	unsigned int		sf_resblks =
++		xrep_tempexch_estimate_sf_resblks(sc, whichfork);
+ 	int			state = 0;
+ 
+ 	/*
+@@ -580,9 +595,9 @@ xrep_tempexch_estimate(
+ 		 * plus the block we converted.
+ 		 */
+ 		req->ip1_bcount = sc->tempip->i_nblocks;
+-		req->ip2_bcount = 1;
++		req->ip2_bcount = sf_resblks;
+ 		req->nr_exchanges = 1 + tifp->if_nextents;
+-		req->resblks = 1;
++		req->resblks = sf_resblks;
+ 		break;
+ 	case 2:
+ 		/*
+@@ -594,10 +609,10 @@ xrep_tempexch_estimate(
+ 		 * is (worst case) the extent count of the file being repaired
+ 		 * plus the block we converted.
+ 		 */
+-		req->ip1_bcount = 1;
++		req->ip1_bcount = sf_resblks;
+ 		req->ip2_bcount = sc->ip->i_nblocks;
+ 		req->nr_exchanges = 1 + ifp->if_nextents;
+-		req->resblks = 1;
++		req->resblks = sf_resblks;
+ 		break;
+ 	case 3:
+ 		/*
+@@ -609,10 +624,10 @@ xrep_tempexch_estimate(
+ 		 * fileoff 0.  Presumably, the caller could not exchange the
+ 		 * two inode fork areas directly.
+ 		 */
+-		req->ip1_bcount = 1;
+-		req->ip2_bcount = 1;
++		req->ip1_bcount = sf_resblks;
++		req->ip2_bcount = sf_resblks;
+ 		req->nr_exchanges = 1;
+-		req->resblks = 2;
++		req->resblks = 2 * sf_resblks;
+ 		break;
+ 	}
+ 
+-- 
+2.53.0
+
