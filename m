@@ -1,143 +1,81 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81C054A7CBF;
-	Thu, 17 Sep 2026 22:22:51 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1FB874A1E19;
+	Thu, 17 Sep 2026 22:24:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789683772; cv=none; b=SYAdkQmKSvoKM/M/yvuZnSp9DuoZA4Jkw64zbzrUvW/9luZFrX//6AkAPHkpQx8T6lny98ayVa8gQdlAEvm1gOPRuaU0OqViF/panYWs26wF/XWpeZCBp/zAuxFhz7ln+HNGqyuTcNJe5PKz5faTIlYPefxMhUBQ3+daZwIFirg=
+	t=1789683846; cv=none; b=hV2gX+gfPN3gaBbqm1lrs6DIMoaGJDA4LVCjLHMuDS6/Obu8UHBQ91SCyVFaT6OBu6cf/Z6lu9wlbkixHklfXyE67QEcTpVwdBR4Hx9he3mSvnx0Y0Dfo7fvvLe17ix8WqKgDFHovGM4/kAHR8eg/OdRoO9GnaYlPTkFassIaiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789683772; c=relaxed/simple;
-	bh=yl3bEdZWBwGjPVi4lZ537ug+Tkpi0akx5iqNL1iryGY=;
-	h=Date:To:From:Subject:Message-Id; b=LqLd/4V9KUQTMMw4QQDbvS0g4k6NjOw0P0g+RonQ8GRieGKYF8do+G95I6Bfl4sLfdo10TS8j+qANbV0MiMKgjppWPHb9H//9oquJl/1mK+UyNY1PiqAy3LhLmt7o50i44/kaHmVgVvH+RPPR9fHzpw2efST5x0TvNMb9nn74P8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Psah268b; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789683846; c=relaxed/simple;
+	bh=DngOUU3PrpW3GHcTycPXn35MuZ0jXd3DuXkkv2n28Ss=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lu7DNlWzcX6ZFR9L9BnSb6ip2qnbehZxcgQcMGxEj91k/eWKpx//ktZDECoASz3/c4jZ9lyKhRR4ISrgB3iD4e0s6R8Mr/gqRoMiBLq3U6WJiWtTna6Ky9ktuPO4xea0HjFeAOmF88GiRj/YfXARqmfTqmaM4hMMTODvCCSmJUQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=K5Rp/lhg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Psah268b"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A981F000FF;
-	Thu, 17 Sep 2026 22:22:50 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789683770;
-	bh=O08KkwWLSId7tdgI2XXwZypsTpY8W7M6m8WT5KIfN1o=;
-	h=Date:To:From:Subject;
-	b=Psah268bbu1W0ejEpDCamdq3efgzee8nlilS/QmEJ0FXNlUeLDCQkw8VgcEhhsuDf
-	 BrqgMriFXSN0EJxzhL2FOubrJi4v0eRpp4qxSVdvjgy3y6IKHre6PwXVqCDSDQbaNF
-	 3S/aPiuMfBXI5pzfSe9Nc4j7by4OiWyfrx1Zl61k=
-Date: Thu, 17 Sep 2026 15:22:50 -0700
-To: mm-commits@vger.kernel.org,tchibo@google.com,stable@vger.kernel.org,glider@google.com,elver@google.com,dvyukov@google.com,andreyknvl@gmail.com,fangxy@xiaopeng.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch added to mm-nonmm-unstable branch
-Message-Id: <20260917222250.D5A981F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="K5Rp/lhg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 619271F000FF;
+	Thu, 17 Sep 2026 22:24:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789683844;
+	bh=DngOUU3PrpW3GHcTycPXn35MuZ0jXd3DuXkkv2n28Ss=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=K5Rp/lhgLcEVaZt3CCRwiyw1e3ah3cPvX7BX8gLC6Aer0eMbtZBTIvVki66+sP69o
+	 tQhfkrPCTGH8FqMfcd1aC7a3GpalCRCQMt95YcQbmBklFQjpIunAEQEqjWLIEJl+Av
+	 DUuIm73i6GB9tdHv/zG85LtXxoYvY7jVvqSPUSlnJW93po4B8dFLeHBCTF9YH20LEW
+	 vVDjzIwFPcC1AUOX6aW7JQDBCqHvC4NnhwYG3CYZEel4ms86+p9xja+NQ4EfmoyR7+
+	 Ir8kJrQyUCq2WGvAAxgTCHZAhnp8n4B0caNuooNJ+LAaSmhPYDg/TWuilC4JUdHsid
+	 m3NiAR6OuzfUA==
+Date: Thu, 17 Sep 2026 23:24:00 +0100
+From: Mark Brown <broonie@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: hansg@kernel.org, linux-kernel@vger.kernel.org,
+	linux-spi@vger.kernel.org, sbinding@opensource.cirrus.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] spi: fix controller reference leak in
+ acpi_spi_device_alloc()
+Message-ID: <01e2065b-8ebe-4cd3-b80a-bbb6e7719873@sirena.org.uk>
+References: <20260917154826.2160933-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="oXuJvBPixL6sPYYC"
+Content-Disposition: inline
+In-Reply-To: <20260917154826.2160933-1-vulab@iscas.ac.cn>
+X-Cookie: Whip it, whip it good!
 
 
-The patch titled
-     Subject: kcov: ignore an out-of-range comparison count in write_comp_data()
-has been added to the -mm mm-nonmm-unstable branch.  Its filename is
-     kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch
+--oXuJvBPixL6sPYYC
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch
+On Thu, Sep 17, 2026 at 03:48:26PM +0000, Wentao Liang wrote:
+> acpi_spi_add_resource() stores the controller returned by
+> acpi_spi_find_controller_by_adev() in lookup->ctlr. That lookup takes a
+> reference via class_find_device(), which acpi_spi_device_alloc() never
+> releases, leaking it on the error paths and on the success path too,
+> where spi_alloc_device() takes its own reference. Drop the lookup
+> reference when the caller did not pass a controller.
 
-This patch will later appear in the mm-nonmm-unstable branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+This doesn't apply against current code, please check and resend.
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+--oXuJvBPixL6sPYYC
+Content-Type: application/pgp-signature; name="signature.asc"
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+-----BEGIN PGP SIGNATURE-----
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsaIAACgkQJNaLcl1U
+h9D/Lwf+OTtUmiNxcWSVu+1PsZRS/ZISuDSrS2QSxPLZKRGC78Huru9il2pqqVIa
+K5HinymltkO0gMOZdW/zcwBsOobg8JnCssx5m6Tgl7EhByhrVuMGYQNotjj+FcBU
+h7JlzhJcJJ+613c1HXHcukTCIIlyUv7fDrVyalkg2yNgA6gWDiTSVj6VVLzy1jO8
+0Q7JWqcO1TnUpSco/AsXvsjibWu+8jUVpBWTJSvNvPdKS9+GPe439sW9a0+hRjzU
+PfbROJkJ5Z8ltuIm+aRiwiO2mLyuEtn9gD7Gw2EB9qjP/+NxPsZU8DwYlgNrZB9t
+h7up/mu7yr+J4e9PlMOHKbAVFon5Vw==
+=cUqX
+-----END PGP SIGNATURE-----
 
-------------------------------------------------------
-From: Fang Xieyan <fangxy@xiaopeng.com>
-Subject: kcov: ignore an out-of-range comparison count in write_comp_data()
-Date: Thu, 17 Sep 2026 18:43:06 +0800
-
-write_comp_data() reads the comparison record count from area[0] and uses
-it to index the coverage buffer:
-
-	area = (u64 *)t->kcov_area;
-	max_pos = t->kcov_size * sizeof(unsigned long);
-
-	count = READ_ONCE(area[0]);
-
-	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
-	start_index = 1 + count * KCOV_WORDS_PER_CMP;
-	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
-	if (likely(end_pos <= max_pos)) {
-
-The buffer is mmap'd writable into the collecting process, so count is
-under its control and end_pos <= max_pos is its only bound.  A count that
-wraps the u64 multiply leaves end_pos below max_pos, so the check passes
-while the record store lands 24 bytes before the buffer, in the unmapped
-vmalloc guard page, and faults:
-
-  BUG: unable to handle page fault for address: ffa0000000b60fe8
-  #PF: supervisor write access in kernel mode
-  #PF: error_code(0x0002) - not-present page
-  Oops: 0002 [#1] SMP KASAN NOPTI
-  RIP: 0010:write_comp_data+0x7e/0xa0
-  ...
-  Kernel panic - not syncing: Fatal exception
-
-Bound count first: only max_pos / (sizeof(u64) * KCOV_WORDS_PER_CMP)
-records fit, so a larger count is not a valid index and is dropped. 
-kcov_move_area() bounds the same untrusted count this way, and no count
-the end_pos <= max_pos check accepts reaches that limit, so no valid
-record is lost.
-
-kcov is a root-only debugfs file (debugfs_create_file_unsafe("kcov", 0600,
-...)) and write_comp_data() exists only under
-CONFIG_KCOV_ENABLE_COMPARISONS, so this is a local, debug-kernel
-robustness fix: the process corrupts its own buffer and the kernel oopses.
-It crosses no privilege boundary.  Additonal details at [1]
-
-Link: https://lore.kernel.org/20260917104306.22145-1-fangxy@xiaopeng.com [1]
-Fixes: ded97d2c2b2c ("kcov: support comparison operands collection")
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Cc: Alexander Potapenko <glider@google.com>
-Cc: Andrey Konovalov <andreyknvl@gmail.com>
-Cc: Dmitry Vyukov <dvyukov@google.com>
-Cc: Marco Elver <elver@google.com>
-Cc: Victor Chibotaru <tchibo@google.com>
-Cc: <stable@vger.kernel.org>
----
-
- kernel/kcov.c |    8 ++++++++
- 1 file changed, 8 insertions(+)
-
---- a/kernel/kcov.c~kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data
-+++ a/kernel/kcov.c
-@@ -253,6 +253,14 @@ static void notrace write_comp_data(u64
- 
- 	count = READ_ONCE(area[0]);
- 
-+	/*
-+	 * area[0] is writable by the collecting process, so count cannot be
-+	 * trusted. Bound it to the records that fit, as kcov_move_area()
-+	 * does, so the end_pos multiply below cannot wrap past its check.
-+	 */
-+	if (count >= max_pos / (sizeof(u64) * KCOV_WORDS_PER_CMP))
-+		return;
-+
- 	/* Every record is KCOV_WORDS_PER_CMP 64-bit words. */
- 	start_index = 1 + count * KCOV_WORDS_PER_CMP;
- 	end_pos = (start_index + KCOV_WORDS_PER_CMP) * sizeof(u64);
-_
-
-Patches currently in -mm which might be from fangxy@xiaopeng.com are
-
-kcov-ignore-an-out-of-range-comparison-count-in-write_comp_data.patch
-
+--oXuJvBPixL6sPYYC--
