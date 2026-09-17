@@ -1,33 +1,78 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 86DE045BE3;
-	Thu, 17 Sep 2026 15:18:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58E8C4E3233
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:18:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658328; cv=none; b=uyvmfN16uZlOpZusbqV6DPivQuNHeTLp5M9VjXkPiEA8FRGkvCqpPIXE7DeEHGsQB1ZM1KzxYNyha2LskSxs8CAhQzxRpe8HczFtq28QY2Jf9gjuWto75vHx4l7Fg/Okj4CtaYBzwDtkyeBEB2LOYlc5YcASfhPmKJnCRq8xAyA=
+	t=1789658330; cv=none; b=dWBt9XOgrs9sk2K4QzGgRu1ohvyvrAd172PidsNhDhpPt2OA8rxzDcPlCrdC2r5MohLUNdgUTggWH+O4e/S7WgJfWdb8/mtNfsDdF44MAVr8pgugijJ5QT17lg+1rh47AQT33t8bzG5N4hyCpjX+gn8S+Z+lMyNTTix/MPTLe8w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658328; c=relaxed/simple;
-	bh=jPFR28v535VHgmUsZ2xAjS5/Sf1zVqdsI8NvQfGMpvg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=YSkZt4PTAcvIvyVq7nViMFrbflKggje+qIAuvNes2jqo9868WdfJnfWrAAq4OIdukqm3rLduTQeMzVm0B9Nyn0hQ1zrIaox+x6U4IC5CqUqLQnZgNHeJ0JpSyxVROLFHntvFmRioXdjstN2ZUQjYn4rVKbOTR9e6UoRf0BjJnzE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowABHtD7EBKxq5GKDCA--.5596S2;
-	Thu, 17 Sep 2026 23:18:28 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@HansenPartnership.com
-Cc: hare@kernel.org,
+	s=arc-20240116; t=1789658330; c=relaxed/simple;
+	bh=ei97T4Navrh7XZYuh9kk6IMlxOtE/I5ajJ7jAqFv5B4=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=Y9YL7bq+OOLMuki7bLaLSKRAB+FopY+5VBMTv2NaGe27ittK/LfzYSOn54mTWEDvAQDaCyZHAULQqxGSfJm/aLd+h3E6zCbGtnx3PYPRnvSl1LTGK0RFSsanjTKfSUEjY398kFdwnkVOZfpsLuxs7w3rzWwJeEE8Y1A19tjyVHw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HEMx/Zer; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HEMx/Zer"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5256c2a4bso407825a12.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 08:18:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789658320; x=1790263120; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=an16D1BLDmpgdn+H3vzSxv0+HLMXqJ/V96lgL35ts2o=;
+        b=HEMx/ZerTPHLwefRMu7XN+F97Wr3CHoygco/2SJvT892+UpFyaHSmd/9EdLOQz3HIk
+         eSdpBrMcuGisjBk0XftBS7NfREdc0d8RjFNrcu8cOY3A06RsvYDVRPRSOpDvlFp8+/Bb
+         PbsOl6HH9TUKs0lL+ydnaQazegZdsR9mR2j0j2HkY3ghvHnts/N/vLpQ+WxtrpQfIM3q
+         jwN7XMWPARuMyKoZcF/p80c/j/KXgnmtao0+meUpukOJGJXeCmwVMNrSM/uXgUabxl8J
+         NjoBHk4V4g9xYHgILphtyBKpoE5YoiW+cQlJa41E9OCrRJL4qiRVZNESVnk5+8R4eLIh
+         ki8A==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789658320; x=1790263120;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=an16D1BLDmpgdn+H3vzSxv0+HLMXqJ/V96lgL35ts2o=;
+        b=TJ0RCnRBfcyHNCXFdHVmCYG6+QclHj7Zy+EaLsU0SeEThq9yR/I3U0Ea7f3MyS1yEk
+         d2Bl2P8+O/xs/ZkDRq1FV5/DyGLbz9ffNp81nig+8mxLPjMo2vJX/LEGKx3h9TA+Ooa0
+         IIhCkitJjbGLS0zcknVmixHbCO48yPd5zue2/KVtEcG3bW+neES+jxpujBrYPNDBXdGf
+         Wo6TGW7YOG173PCRVg6Ya8VjsNhK2RyoskW3kYqqQNsa4WvKgbSAW6RxC8e6L3WoFqhw
+         iUKybhNOoAo1VejlC7f/Fn0u41HeTDqGAiexsWC/OjXQl5eoK7KUXrpwojQNiB1RB/hz
+         dQ+A==
+X-Forwarded-Encrypted: i=1; AKwUvBz2zeR2hNCUSWyyepLH9rJojmTUilrCpIyU2PDZTzqF8/ytJwMK5SGGudQxDQgKkut82h+Lhzg=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9fG+Rek7FnL9hRJbyKcTViPvMj/+CClv8oxHmC4Mspl5Y/HAW
+	VK3CQYUuxCNhPPsGWorFgMIHOZc4VElYl2hteNKBzKLcd/MwNqWyK+zm
+X-Gm-Gg: AYBFou25ow/DIR7N9zMfummqnzoLSXndpZkKUv/uZARji6VX6JLWTLGfUWxuG/acBIE
+	/twNfR77ZUI1Fgx1Hv5SnB25QHVn7kKA6lPrVC/cwcayEBBcAqac0G8VrDrEKEk7KIS6lB1MYeF
+	jhQlMszBWcf5zaA1hF8mnUtmckMrSxo43ghsSEVEUxh/LzH8PZ6k3gGl8qMdbu2/RBx7Y1FpFWE
+	A2O/dHPtp1Sj/Rlsrr/yKzHAPbFtImehmLM+qjaDn35HfCiSHTaL0RTr65dKeT/KmMd/pFzzlYe
+	fUKtjvtJy1937DJTi/T6AdjMafQfC+nJW//DAts75gmG5hxt4JW3DSxNkflAfROFS1dkYDoFeiL
+	/xYo7w3WRHtL7tgA7Js4KEd1JlqY1MvNeRJ8K7/DGFY75PE9TbFNPqRWQiSxeVZj7y/XyyNdOn5
+	PySb0niZk83D4orTAvnQXCYRt9M/6mlbivCVE44czxuz2KEOO4xo3UWaD5IySL4YrSbZdbcrEyL
+	A==
+X-Received: by 2002:a17:90b:5848:b0:39e:3558:f91c with SMTP id 98e67ed59e1d1-39e3558fa60mr9348150a91.24.1789658319683;
+        Thu, 17 Sep 2026 08:18:39 -0700 (PDT)
+Received: from archlinux ([2402:e280:411b:ec:aa93:b1ec:5a6b:5fce])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3909d02asm1525287a91.0.2026.09.17.08.18.35
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 08:18:38 -0700 (PDT)
+From: Adarsh Das <adarshdas950@gmail.com>
+To: gregkh@linuxfoundation.org
+Cc: dakr@kernel.org,
+	driver-core@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	martin.petersen@oracle.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: myrs: Fix scsi_device reference leak in myrs_log_event()
-Date: Thu, 17 Sep 2026 15:18:28 +0000
-Message-Id: <20260917151828.2158730-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	rafael@kernel.org,
+	stable@vger.kernel.org,
+	syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com
+Subject: Re: [PATCH] kobject: fix uevent socket use-after-free on net namespace delete
+Date: Thu, 17 Sep 2026 20:48:30 +0530
+Message-ID: <20260917151830.89024-1-adarshdas950@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <2026091756-widen-doozy-399c@gregkh>
+References: <2026091756-widen-doozy-399c@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,52 +80,41 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowABHtD7EBKxq5GKDCA--.5596S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtw4UurW7GF48tF47AryxZrb_yoWfuwc_Wr
-	4Fvr9rXFyUCF92k34xtrnrAr9a93ZrW3yrCw1ktr93CFW8XFyIvr45ZrZ0v3y7Ww48Aa4Y
-	gw1DAF4Fyw17WjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbS8YjsxI4VWkKwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAqx4xG67AKxVWUJVWUGwC20s026x8G
-	jcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMIIYrxkI7VAKI48JMIIF0xvE2I
-	x0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwCI42IY6xAI
-	w20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr1j6F4UJwCI42IY6I8E87Iv6x
-	kF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07b818PUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwENA2qr9tghpAAAsi
 
-scsi_device_lookup() returns a scsi_device with an extra reference
-that the caller has to drop with scsi_device_put(). The physical device
-event handler never releases it, so the scsi_device reference is leaked
-for every physical device event reported by the controller.
+Hi,
 
-Drop the reference after the device state has been updated.
+Sorry, I wasn't aware of the Assisted-by tag before. Should I send a
+V2 with it?
 
-Fixes: 77266186397c ("scsi: myrs: Add Mylex RAID controller (SCSI interface)")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/scsi/myrs.c | 2 ++
- 1 file changed, 2 insertions(+)
+For testing I ran syzbot's C repro with -smp 4 on master, with
+multiple parallel instances of the repro. I was able to reproduce
+the bug:
 
-diff --git a/drivers/scsi/myrs.c b/drivers/scsi/myrs.c
-index afd68225221a..79ee3a352524 100644
---- a/drivers/scsi/myrs.c
-+++ b/drivers/scsi/myrs.c
-@@ -875,6 +875,8 @@ static void myrs_log_event(struct myrs_hba *cs, struct myrs_event *ev)
- 				break;
- 			}
- 		}
-+		if (sdev)
-+			scsi_device_put(sdev);
- 		break;
- 	case 'L':
- 		shost_printk(KERN_INFO, shost,
--- 
-2.34.1
+  BUG: KASAN: slab-use-after-free in kobject_uevent_env+
+  Read of size 8 at addr ffff88800fa7f090 by task kworker/u16:5
+  CPU: 3
+  Workqueue: ib-unreg-wq ib_unregister_work
+  Call Trace:
+    kasan_report
+    kobject_uevent_env+0xc71/0xd90
+    device_del+0x7c7/0xcf0
+    disable_device+0x1d2/0x260
+    __ib_unregister_device+0x26b/0x400
+    ib_unregister_work+0x19/0x30
+    worker_thread
+    kthread
+  Allocated by task 498:
+    uevent_net_init+0xe5/0x340
+    setup_net
+    copy_net_ns
+    unshare_nsproxy_namespaces
+    ksys_unshare
+  Freed by task 63:
+    kfree
+    ops_undo_list
+    cleanup_net
+    worker_thread
+  The buggy address belongs to the cache kmalloc-32 of size 32
 
+With this patch applied, I ran the same repro repeatedly (including
+parallel runs) and did not see the KASAN error anymore.
