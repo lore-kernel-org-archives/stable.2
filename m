@@ -1,121 +1,194 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49AA837BE8E
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:49:25 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5C7A633BBC5
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:51:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789609766; cv=none; b=SwosILIvsJE3OllCWOcQiRyqBKZeDAI32Qof6d8R/gwYIO4UsRZx9sEwLnfRd3+jWFz7KWmONsN8lTG08/jeq4KCbanPECwNW+97irJjjbBICS7yvpnD8m+S9w3jwhTjfgyADZ457WrWqyAlPP7UW0DjcnwUu+clIRJYFnkq2gk=
+	t=1789609868; cv=none; b=nmgaJeh3hlKy8rcm2iSiigyC4R6Oa2uUZYSQmlxtWg7YrSEkXNBRTP1bWdIL49ez4mp3YAyQdN6wTTyB8ytn2OK6GzhmTM1rSURJAPMt6PEDExmLCkI8xlVuS2qBps3mBbNwBbojzgYA9s9yBH6zBY6ZPft9T7dQBdCDqzuLQeA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789609766; c=relaxed/simple;
-	bh=rvZJFNLRrrZx9NJwSNQNjCxXI8gxfZ8n9nEBIVxfgWA=;
+	s=arc-20240116; t=1789609868; c=relaxed/simple;
+	bh=FDP7VT+lU0NNOfPFWdJUMSAvzlv1zLdsXN54KK0bB10=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=n3+JKGMh8kjHwvyjOfac6tBrEJHNi4AAh9do7AgV7ZQNCmr+1FGZO4A8hCS3N/NoJZccuPwK6naY49xf9I9rL2NDSb3DomHbXnkWPv3Dh4CYcpql0DJpd7lk6qbqu5HqMVYPIwRictJJQVRI09q5Cdj8XuYl6+EQ+3VPerfwyu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YTdtKWlg; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=AQZLweThCZUoK5ZRaRnrWonrZi509CSYHwjAVMTaHH6uQmN+jpEXIlJTI/MnViioDiwzmvwc2lTLn5FcyQacSg9R6s11NIEt6ivSdJa+ovRFj1ACxkJ9dJ+dBfZmrUitsQHlXQdNji1OPkzIF3I+Wup+AQihwwii/O0Yu/vjaso=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R7PkLYhJ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YTdtKWlg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 463DD1F00893;
-	Thu, 17 Sep 2026 01:49:24 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R7PkLYhJ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 805E11F000FF;
+	Thu, 17 Sep 2026 01:51:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789609764;
-	bh=A3OQlubwWGogVk8x57TXMhsS3soFlNKFqsr9g6dUTJU=;
+	s=k20260515; t=1789609866;
+	bh=BaHtXFOk7uwxxtmD0+Oh/MihRcTdzZrEsKzz/2TAmpc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=YTdtKWlg5awcfBZWTWKPSR6OfrsirsJHRtZLIuqFcgtKFyxcBRT5oWxlc4hVSivtg
-	 ey3IZoAbDrW0dU+kpGzcqY97Aq9ypt9+fbmrA0c9+w6HcifYtisqnP/o299fCEiCDJ
-	 Eo8lcaCUN4QyLDNa7PUUEtkDauG9i5iRCGClH79n4HjqwbkfEaAKxJgjyMTEsTfVI5
-	 xQ3dO22Se9SAToOiSUIF/E94UrlbCO3IIMx8X+8rpswAJOf5H2Qu1021PDCXVD0oEJ
-	 KouR0pm4eTwfLsRmmRdIWf95kemYQ+wkBor5KQ4zAUCj0el3AtT/pVZI5kRXQSZx3t
-	 YvRQGCiph+mrw==
+	b=R7PkLYhJYUg0e5D/MuwLPSTktsaeB/lxYX6xlfVosPrkC15cWFMhPy7Bv2tYdXXcw
+	 95QOf/TNQc4h2um87hTIkX8BO+KdAvBqy5Zm42HvQNCQQAuXp76gRJpXw2L4WVVIrB
+	 aCZtg8mbJHkU7aOu2lRi6gHTSkC9ygzomXILTSA1sWqXz4a4aN44HGB8QTVoO1uPiq
+	 Lo+E395BR1Hwja1da6Xmy8ieQb4AR/maKiXGhOPhoZxVRHZCpPMx5Kj4WdsZ8SrN37
+	 5txevh+Hyoo5cbWd4OdAM5mqgOAe58WYONBpmhEyr+hiQmKuSOD5f1FT2OidDx0PIt
+	 VyINH/9yyS8ng==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	=?UTF-8?q?Th=C3=A9o=20Lebrun?= <theo.lebrun@bootlin.com>,
-	Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Jakub Kicinski <kuba@kernel.org>,
+Cc: Guenter Roeck <linux@roeck-us.net>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.15.y 2/2] net: macb: initialize PTP state before registering clock
-Date: Wed, 16 Sep 2026 21:49:21 -0400
-Message-ID: <20260917014922.3697068-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 1/3] hwmon: (asus_rog_ryujin) Rely on subsystem locking
+Date: Wed, 16 Sep 2026 21:51:03 -0400
+Message-ID: <20260917015105.3705183-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917014922.3697068-1-sashal@kernel.org>
-References: <2026091647-cranberry-striking-e506@gregkh>
- <20260917014922.3697068-1-sashal@kernel.org>
+In-Reply-To: <2026091604-activism-jackpot-afcf@gregkh>
+References: <2026091604-activism-jackpot-afcf@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+From: Guenter Roeck <linux@roeck-us.net>
 
-[ Upstream commit e1406330d70e56dd44fa6fbafc86e77e5c80c122 ]
+[ Upstream commit b4306c0c8e24f9e031185fb87de45391bc8c7fe9 ]
 
-gem_ptp_init() registers the PTP clock before initializing
-bp->tsu_clk_lock and the TSU hardware. Since ptp_clock_register()
-publishes the PTP character device, userspace may invoke PTP callbacks
-before the lock and hardware are ready.
+Attribute access is now serialized in the hardware monitoring core,
+so locking in the driver code is no longer necessary. Drop it.
 
-In addition, gem_ptp_init() is called from both the interface open and
-resume paths. Reinitializing tsu_clk_lock there can reset the lock while
-timestamp processing is using it.
-
-This race is theoretical and has not been observed in practice.
-
-Initialize tsu_clk_lock once during probe and initialize the TSU before
-registering the PTP clock.
-
-Fixes: ab91f0a9b5f4 ("net: macb: Add hardware PTP support")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/netdev/20260904030439.3994047-1-runyu.xiao@seu.edu.cn/
-Reviewed-by: Théo Lebrun <theo.lebrun@bootlin.com>
-Reviewed-by: Vadim Fedorenko <vadim.fedorenko@linux.dev>
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
-Link: https://patch.msgid.link/20260908103924.607033-1-runyu.xiao@seu.edu.cn
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Stable-dep-of: 8042312e73c5 ("hwmon: (asus_rog_ryujin) Validate HID report lengths")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 1 +
- drivers/net/ethernet/cadence/macb_ptp.c  | 5 +----
- 2 files changed, 2 insertions(+), 4 deletions(-)
+ drivers/hwmon/asus_rog_ryujin.c | 48 +++++++--------------------------
+ 1 file changed, 9 insertions(+), 39 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index 41c7af7432acf..ccd491cbd3ffb 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -4807,6 +4807,7 @@ static int macb_probe(struct platform_device *pdev)
- 	}
- 	spin_lock_init(&bp->lock);
- 	spin_lock_init(&bp->stats_lock);
-+	spin_lock_init(&bp->tsu_clk_lock);
- 
- 	/* setup capabilities */
- 	macb_configure_caps(bp, macb_config);
-diff --git a/drivers/net/ethernet/cadence/macb_ptp.c b/drivers/net/ethernet/cadence/macb_ptp.c
-index 010e6d1776ec7..d4d3b70f1b94b 100644
---- a/drivers/net/ethernet/cadence/macb_ptp.c
-+++ b/drivers/net/ethernet/cadence/macb_ptp.c
-@@ -373,6 +373,7 @@ void gem_ptp_init(struct net_device *netdev)
- 	bp->tsu_rate = bp->ptp_info->get_tsu_rate(bp);
- 	bp->ptp_clock_info.max_adj = bp->ptp_info->get_ptp_max_adj();
- 	gem_ptp_init_timer(bp);
-+	gem_ptp_init_tsu(bp);
- 	bp->ptp_clock = ptp_clock_register(&bp->ptp_clock_info, &netdev->dev);
- 	if (IS_ERR(bp->ptp_clock)) {
- 		pr_err("ptp clock register failed: %ld\n",
-@@ -384,10 +385,6 @@ void gem_ptp_init(struct net_device *netdev)
- 		return;
- 	}
- 
--	spin_lock_init(&bp->tsu_clk_lock);
+diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
+index e5e93a20723c4..10a1f5aca988d 100644
+--- a/drivers/hwmon/asus_rog_ryujin.c
++++ b/drivers/hwmon/asus_rog_ryujin.c
+@@ -81,10 +81,6 @@ static const char *const rog_ryujin_speed_label[] = {
+ struct rog_ryujin_data {
+ 	struct hid_device *hdev;
+ 	struct device *hwmon_dev;
+-	/* For locking access to buffer */
+-	struct mutex buffer_lock;
+-	/* For queueing multiple readers */
+-	struct mutex status_report_request_mutex;
+ 	/* For reinitializing the completions below */
+ 	spinlock_t status_report_request_lock;
+ 	struct completion cooler_status_received;
+@@ -153,18 +149,10 @@ static umode_t rog_ryujin_is_visible(const void *data,
+ /* Writes the command to the device with the rest of the report filled with zeroes */
+ static int rog_ryujin_write_expanded(struct rog_ryujin_data *priv, const u8 *cmd, int cmd_length)
+ {
+-	int ret;
 -
--	gem_ptp_init_tsu(bp);
+-	mutex_lock(&priv->buffer_lock);
 -
- 	dev_info(&bp->pdev->dev, "%s ptp clock registered.\n",
- 		 GEM_PTP_TIMER_NAME);
+ 	memcpy_and_pad(priv->buffer, MAX_REPORT_LENGTH, cmd, cmd_length, 0x00);
+-	ret = hid_hw_output_report(priv->hdev, priv->buffer, MAX_REPORT_LENGTH);
+-
+-	mutex_unlock(&priv->buffer_lock);
+-	return ret;
++	return hid_hw_output_report(priv->hdev, priv->buffer, MAX_REPORT_LENGTH);
  }
+ 
+-/* Assumes priv->status_report_request_mutex is locked */
+ static int rog_ryujin_execute_cmd(struct rog_ryujin_data *priv, const u8 *cmd, int cmd_length,
+ 				  struct completion *status_completion)
+ {
+@@ -196,14 +184,11 @@ static int rog_ryujin_execute_cmd(struct rog_ryujin_data *priv, const u8 *cmd, i
+ 
+ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
+ {
+-	int ret = mutex_lock_interruptible(&priv->status_report_request_mutex);
+-
+-	if (ret < 0)
+-		return ret;
++	int ret;
+ 
+ 	if (!time_after(jiffies, priv->updated + msecs_to_jiffies(STATUS_VALIDITY))) {
+ 		/* Data is up to date */
+-		goto unlock_and_return;
++		return 0;
+ 	}
+ 
+ 	/* Retrieve cooler status */
+@@ -211,36 +196,30 @@ static int rog_ryujin_get_status(struct rog_ryujin_data *priv)
+ 	    rog_ryujin_execute_cmd(priv, get_cooler_status_cmd, GET_CMD_LENGTH,
+ 				   &priv->cooler_status_received);
+ 	if (ret < 0)
+-		goto unlock_and_return;
++		return ret;
+ 
+ 	/* Retrieve controller status (speeds) */
+ 	ret =
+ 	    rog_ryujin_execute_cmd(priv, get_controller_speed_cmd, GET_CMD_LENGTH,
+ 				   &priv->controller_status_received);
+ 	if (ret < 0)
+-		goto unlock_and_return;
++		return ret;
+ 
+ 	/* Retrieve cooler duty */
+ 	ret =
+ 	    rog_ryujin_execute_cmd(priv, get_cooler_duty_cmd, GET_CMD_LENGTH,
+ 				   &priv->cooler_duty_received);
+ 	if (ret < 0)
+-		goto unlock_and_return;
++		return ret;
+ 
+ 	/* Retrieve controller duty */
+ 	ret =
+ 	    rog_ryujin_execute_cmd(priv, get_controller_duty_cmd, GET_CMD_LENGTH,
+ 				   &priv->controller_duty_received);
+-	if (ret < 0)
+-		goto unlock_and_return;
+-
+-	priv->updated = jiffies;
+-
+-unlock_and_return:
+-	mutex_unlock(&priv->status_report_request_mutex);
+ 	if (ret < 0)
+ 		return ret;
+ 
++	priv->updated = jiffies;
+ 	return 0;
+ }
+ 
+@@ -303,14 +282,11 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
+ 		 * Retrieve cooler duty since both pump and internal fan are set
+ 		 * together, then write back with one of them modified.
+ 		 */
+-		ret = mutex_lock_interruptible(&priv->status_report_request_mutex);
+-		if (ret < 0)
+-			return ret;
+ 		ret =
+ 		    rog_ryujin_execute_cmd(priv, get_cooler_duty_cmd, GET_CMD_LENGTH,
+ 					   &priv->cooler_duty_received);
+ 		if (ret < 0)
+-			goto unlock_and_return;
++			return ret;
+ 
+ 		memcpy(set_cmd, set_cooler_duty_cmd, SET_CMD_LENGTH);
+ 
+@@ -329,11 +305,7 @@ static int rog_ryujin_write_fixed_duty(struct rog_ryujin_data *priv, int channel
+ 			set_cmd[RYUJIN_SET_COOLER_FAN_DUTY_OFFSET] = val;
+ 		}
+ 
+-		ret = rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
+-unlock_and_return:
+-		mutex_unlock(&priv->status_report_request_mutex);
+-		if (ret < 0)
+-			return ret;
++		return rog_ryujin_execute_cmd(priv, set_cmd, SET_CMD_LENGTH, &priv->cooler_duty_set);
+ 	} else {
+ 		/*
+ 		 * Controller fan duty (channel == 2). No need to retrieve current
+@@ -538,8 +510,6 @@ static int rog_ryujin_probe(struct hid_device *hdev, const struct hid_device_id
+ 		goto fail_and_close;
+ 	}
+ 
+-	mutex_init(&priv->status_report_request_mutex);
+-	mutex_init(&priv->buffer_lock);
+ 	spin_lock_init(&priv->status_report_request_lock);
+ 	init_completion(&priv->cooler_status_received);
+ 	init_completion(&priv->controller_status_received);
 -- 
 2.53.0
 
