@@ -1,239 +1,161 @@
-Received: from SN4PR2101CU001.outbound.protection.outlook.com (mail-southcentralusazon11012022.outbound.protection.outlook.com [40.93.195.22])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B6A554BEE37;
-	Thu, 17 Sep 2026 20:00:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.195.22
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675254; cv=fail; b=qWkG+jXI+HQK68sRUgzMxh6PwxnQHoDx5VPWtZu8kyHrgz/W4xH2r75YF+vCr+Q+cW13fk/Eo25VaUIq7u3Oj5c+VH2NDPFdaLS1JUB7mfgbBmQ8Q9TvjQ3yDAdt+hZIfzoHpfbQV7ZJ92liXsRqMvX9P87yT+eHefpjFoHf8Tc=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675254; c=relaxed/simple;
-	bh=JYi5kuJ682vr4rCOUXRHfp2y+Z5GIKwHtV4ZmDuflhs=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:Content-Type:
-	 Content-Disposition:In-Reply-To:MIME-Version; b=AS1GW+CaZG8RobMMvRio8glzfwP6OeXqYHJh08LoszLdlmEcp+H8IyjvAEA5jxyx92vFVEyphp6uOI16dWIS8+gzN6fpflgrZstbGzaNgTCnSD6PgziEnnj87+edqO12llhSpGul09xIc94nJqcg/PT69ynqKaZdjbUC30CcuiI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=okfGyiTs; arc=fail smtp.client-ip=40.93.195.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F35B0547042;
+	Thu, 17 Sep 2026 20:04:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789675465; cv=none; b=K76mRhy+FPntnRpprO9wrx2vUaq4eUMw3j18ac19tOezlO37ZLdt6T6FQ8jtGhcb4k8ARmQgIuVkYUj08dYRi8TKtS7BiPV0IDNLUbeItWbzzkkJeSI0IB4yzNwBT8+QACROAFUfE61hmaa88y9jcCJDjEyq19gYFa4eyorKs/I=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789675465; c=relaxed/simple;
+	bh=Mr2SWEULNIyWKssATACvJHFK+HIf5bkG+CO21DBtg5M=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=LRloxDzdSP/kJVXuahPb0oH9pzfVk6mIw990qAQw/flVKBWUp/Rko7/IaHydUn4rfDBLcBJJ8uF6wTP9ENGCMc27Vpxqn4htDnlg4GA/fA6MDwMOy5INKiazfb8dJe5Jqyq6UP+RRXkmblgri5nwZJrMBick/STVD1lnuSlF8qg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jvWq7MPr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="okfGyiTs"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EZPYERhENCGcQoTzlhGoFcd0e049HLZedOAlHAMIG9/LQCF+TBKGqAQYlMcy7R8WUQpgIVIxUd0pl8aOPGqf7BJQ4h5ZaKhjT3gbDIpmtDgpovztpXUB38Ev/SxCeEXAmDK6MqyZkqEt9yZXGvb0G8RI1To6uubaIWn/Cjwf2RjseVNRwB/WXaMSAMKqlD74qApS+cHL3N2CBuXWLk0nQUzfyROFYpFpMINogmfaG6NhxSBAB56vEGbE7QqK63lbX29JKNg3uNQOgzhh+MlJ8Pi8pvE8sJeZHBfRw42R3HYTIOC0rItvf4pUAb7IHELuqhQfhq9c2wEjkhEEWOQGVg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=aSULpbotcOIiLD8O8r3GUcPpbY7ZdsYa4myXNWCcS7I=;
- b=AM9XMMNrrldWn5n4jjgQ2mfQp8rQf2yPKXfVwcLLLg0xxCf0jpcTVSV/ViQZGdFe36tpJVwnAamYdNVN417qeQWmnEUUmObsl6YZsGco7hR08alEt68RgmV341yDQMqoOJHcl/Y7BZyTwKHQDiEpjv0DhvM4PXuUL4ciSkq5x64xs2tdxtpdbBwxSGVkFC7A5NEzpdgpzixDtkZxJ81HRyhoN3V6VA/UQZYUL3hFZS/DRvKhATnM1NEayitfDLODs4s/uxE7K7HK8OZI6ZzeG+PIkMcyNYwDnFp66ciYlIHgejDA5hlDy6S3xEGhVbyu+vf0Auw41gVPvmnW67eOQw==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=aSULpbotcOIiLD8O8r3GUcPpbY7ZdsYa4myXNWCcS7I=;
- b=okfGyiTs+qG5TQqFmcrT6GeMEHh6uFte6dMIFZx5m1uRGzshxYo68therTqESqYB86pFjkD4EvtStyDmajvit5XGr6XHFSesNJIKEgGuOFSwFauH+ZutN8DeLYjDX4THRfoFCKMmufcByIcqoWog9ialSWRQylVzYuUzva0xHkM8/Ncte2quqesBNLPDDxkYSIafyg1OldI/naoT5ThQK+/NGqG58+nJBnGvwLhYU1Bcshp1SDU+KsKyNfR/whaSF7I3zGhjX0357vbvd/VPoSSlALTIAqhU8RruG2EbCriu+9fQilgQ9wGEqfYi8qhWcoeFsSrdZp6S1ruA9fPb7g==
-Authentication-Results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com (2603:10b6:510:281::22)
- by BY5PR12MB4050.namprd12.prod.outlook.com (2603:10b6:a03:207::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Thu, 17 Sep
- 2026 20:00:49 +0000
-Received: from PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499]) by PH0PR12MB7957.namprd12.prod.outlook.com
- ([fe80::9251:acc2:cc63:3499%3]) with mapi id 15.21.0406.007; Thu, 17 Sep 2026
- 20:00:49 +0000
-Date: Thu, 17 Sep 2026 23:00:39 +0300
-From: Ido Schimmel <idosch@nvidia.com>
-To: Flo =?iso-8859-1?Q?M=FCller?= <flo@max06.net>
-Cc: Sasha Levin <sashal@kernel.org>, patches@lists.linux.dev,
-	stable@vger.kernel.org, David Ahern <dsahern@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>, davem@davemloft.net,
-	edumazet@google.com, pabeni@redhat.com, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH AUTOSEL 6.18-5.10] ipv6: Honor oif when choosing nexthop
- for locally generated traffic
-Message-ID: <20260917200039.GA1454296@shredder>
-References: <20260831133314.4125787-1-sashal@kernel.org>
- <20260831133314.4125787-211-sashal@kernel.org>
- <6b4dfa7d-09c1-4717-bd4a-5bca2d984139@app.fastmail.com>
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <6b4dfa7d-09c1-4717-bd4a-5bca2d984139@app.fastmail.com>
-X-ClientProxiedBy: TL2P290CA0026.ISRP290.PROD.OUTLOOK.COM
- (2603:1096:950:3::13) To PH0PR12MB7957.namprd12.prod.outlook.com
- (2603:10b6:510:281::22)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jvWq7MPr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D151B1F000FF;
+	Thu, 17 Sep 2026 20:04:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789675463;
+	bh=fzsN54GY0rHruAu/P7z9k5svS20PsIAJgVkPpUcXeWA=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=jvWq7MPrQFsqkF4lWQHn1mmYqZkKWtH+6i1hYvwLFOLoHbDSJqGz/dONI3N8xD2qN
+	 mIpjr2PMm8ZDF5CEfTf+z9YoMDm3o+W+VQAKK5Wfb7nub7mynEqe24YTQ4/XxR0nR4
+	 NuIacKhNprh8MRrGhawNKlsGN7YsnV4dIHbDzpzeHjLCpmZUuys8bNxPBgcIXvOLzs
+	 pFAnQXQNKWUfX5rtqvCYRZ4kEND1xcsFKE5CcjwqZeBV3e0IWRWZtQYFKSvF73UYPr
+	 Xa1kU0ofF1yqGQPHQyAi5cR/PMlZBpOPXrPaCho6QiVB+bK0PIMqyxmLv8JxSR7M1M
+	 UUbZzjmQvT3gw==
+Message-ID: <8e430ea8692853928f71d65f15654751a9888c4f.camel@kernel.org>
+Subject: Re: [PATCH] nfsd: Fix id-to-name cache entry leak in
+ idtoname_parse()
+From: Jeff Layton <jlayton@kernel.org>
+To: Chuck Lever <cel@kernel.org>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, Dai.Ngo@oracle.com, akpm@osdl.org, 
+	chuck.lever@oracle.com, linux-kernel@vger.kernel.org,
+ linux-nfs@vger.kernel.org, 	neil@brown.name, okorniev@redhat.com,
+ tom@talpey.com, stable@vger.kernel.org
+Date: Thu, 17 Sep 2026 16:04:21 -0400
+In-Reply-To: <9cc180f6-f408-42f2-b143-e155df6f542a@slotpi15m67>
+References: <20260917163154.2162438-1-vulab@iscas.ac.cn>
+	 <f0ce5336a4062ff88775f81ba26726085dcb95a2.camel@kernel.org>
+	 <9cc180f6-f408-42f2-b143-e155df6f542a@slotpi15m67>
+Autocrypt: addr=jlayton@kernel.org; prefer-encrypt=mutual;
+ keydata=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
+ QZIQXVeAA+smfTT0tDrisj1U5x6ZB9b3nBg65kc=
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.60.2 (3.60.2-1.fc44) 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: PH0PR12MB7957:EE_|BY5PR12MB4050:EE_
-X-MS-Office365-Filtering-Correlation-Id: 03483055-0450-4230-0a35-08df14f65e95
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|23010399003|366016|376014|7416014|1800799024|56012099006|4143699003|10067099003|11063799006|6133799003|22082099003|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	KwDLDyJJz/0++q9FTuODoq0DG7ofYFigupICdoORofN4mAbsBqHqSJ3sVEBZfI7GzmGxBMARWWl5Y3BUKwSYvpX94YprlFBJgssOywBgeZu8rL0Vq87HMcqGQxENF/lkbAxp5SU8LYVHSJrJx/aXObrYMff9mwFU1Qwr4luwFfgjRrIN2VpcSzVZp2QpF5IFd0a5OnM8mkL7Yivfa0ySfhDlzqTI0DQlKrGnrqP+Qp7ZybkwUfjOMpwe5SfZGxYvXKGh+enuXwlLO9dTTyFYF3liXOUJbWAUZooDJ9iP/lYRMzd0FzpQAGDqEq+ZSodIXwM9sjwMkjVW9lzLDVmeMfOX1r87dQp5WGhWeZpP/K/nsj65Dxdz5yepfDdXwrArADtPYpaPRS5zt1sy4kdzZx0kSWlSoLqiSMcLYO0vyHH4uHk64J80SNskPh9cr+Rx7lJawtuu/qNZlfv3Ha7Q/jQXKYNcJl/kej8ZLVrRvEksOEjY0Qx1waI8+TeQbPrkKshq2hJ/9e3we9juyJIAywJ3qJvqfbqq7Gse1ccHWchN85NDpFaBqTDOex+XW8YHQhz2CUz7r7+DjKwsI0Z+4n2Sn1M2b+9MBdS9H0DkGyY6g8wZuoDPyDf4JYJsbkFCSEqdIwNlsXRnWUuA0wmMGW6rvEJtla6dCYgTBx4Xm6I=
-X-Forefront-Antispam-Report:
-	CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:PH0PR12MB7957.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(23010399003)(366016)(376014)(7416014)(1800799024)(56012099006)(4143699003)(10067099003)(11063799006)(6133799003)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	=?utf-8?B?SXpqY0MrN2Y4MmRrcHNTYXRQRVJNMkJKMWZrOWNnSmRjaWgwK3pxMzUveFEz?=
- =?utf-8?B?NTB1amdUdVdPMjNtREduQ2dFejRTSXBLZmNhQldFUFVGN0xCTnF2b0tVUUd5?=
- =?utf-8?B?aDdKTmQzK3BLZ1dxUmlFK3NMV21QUGZpZENyYVFQNTlkZFlCZUZVaW5BOGF4?=
- =?utf-8?B?WHZRQ05pVFF4T2RYa1JkVHdTd3hVVGl0QXVPeHE2bGdxK1YrMzlWZDNKL0ls?=
- =?utf-8?B?dFA3dEVmNTFPempDazBpazVWSDh5NnkvVUpXdUt1SnQ4S3FnN1NRN0p0blIv?=
- =?utf-8?B?T1B6eS8vRmtVaGhMb2RkZ0RUL3FubUlTNHFGU0RjRTVuNjJEYUtiOU96NXNW?=
- =?utf-8?B?TXB4V2syN0FuRmxaTExkeUR4WGZlZlFoTTlQbTRtNFhGckFwR2xWckZjbVpH?=
- =?utf-8?B?QXJidkM3c01VTzJaVEJtZjFBd2tXYzd4c2dvRkorVEhxVTIyZkxVWFRCU2FC?=
- =?utf-8?B?UGNQOFhDMjVEd1BEZlZ4NTRraU5rdlBLV0xrdnlETW1KL2g1THNpLzRHTnI5?=
- =?utf-8?B?Z2lxUFp5Yk5xR00wZU5NczcrUjRlVzVMTnJlSklTbXRqVnF4UXRBWVhXZTFH?=
- =?utf-8?B?TlpEQTl6MDQ5c0x5N3BSbFV6b0kreWJhQlE5YlJlUFZDV0VjdkM1a2FGbEhS?=
- =?utf-8?B?cDJ4RFpRS3YzNDJ1WkgvekZtY2ZOcmp2YkRTU0hrdEFCcTcwSUthdXh6WWRp?=
- =?utf-8?B?Y0JINVVyVGZMak96dDVIcHJESXQ0Qks0dlg5WEpsdVdLODNUMk9JSHdoVjI0?=
- =?utf-8?B?bWtUUXlIOFh1Y2hnYkRITXVUckZSdDg5ZFh6S2VMeVdJU3FoT3lObG5DU2pp?=
- =?utf-8?B?TDhLVi9IOU9BUkdNbWRWVmdvQndKbElwenNYM3p6S1owWVh3V2pVS2dnaGhF?=
- =?utf-8?B?dmhoVGx1M3pkQ2h1MFhYM0VUR21TaXpkVzdxUFhpSnFrUG9nbWtndStjTEZr?=
- =?utf-8?B?aEZ6NXJFQjg3dFZ4VG1TU203UERqdmM2VXVJRDJNTGFzYloxT3htMkdpWnJD?=
- =?utf-8?B?UjhzNG1xV09NKy9nLzlZRkFIZ3drWG1ORWhKZFFEYjYydmI1aTdmMUEzS295?=
- =?utf-8?B?R1VLZ0VQNmN5ZDFIdFJTOXBVZC83QnEyenRVODNZdmhpUzVMUDdDdUJDd0JZ?=
- =?utf-8?B?TTh0djRSbnhqK0tVRE13RHE0eWllNjdESVYxWklOZ1hCN1I5aDFHbXRnUktZ?=
- =?utf-8?B?Y3Rsc1FFcytrQmszTjk2Vy9oOGszN2VESWJacjhKaFU2TWpZS0lvL2tOMkUr?=
- =?utf-8?B?cGF4SS91dnNscTNPajZrY0lxdVhFTVErdzMrOTBjQUFnL1N0ek1uM0pwbzB3?=
- =?utf-8?B?T2lKY2JPeXN4eENHTEdKNUlJcVlRUU1TT0hITENxdU1rSXN0ajR2WDNqbU9p?=
- =?utf-8?B?RTRnY2RUS0U1QXI5S2p5VXFnZ0EybjVES0FGeXBidk9mWUhOLzF3TnB5YkdQ?=
- =?utf-8?B?dmVvZTFSV0ZqNCtXNCtFRGYrbWNTRVdVc1JuaEhldnRnelFiRkN0RElmYXhC?=
- =?utf-8?B?eDlpUHlXRVd3QjVqU0J3dVlWODZlaVFuZi9xRWZIUkdYM2VhRU85UGJCV2FG?=
- =?utf-8?B?Qmo4eFVqSHk3dEhTczMyQ2pXMXBlTkdhVUxBbzFUaU1CWDVJMXFvQU82dlJU?=
- =?utf-8?B?KzZBb29QNCtMa1FWWUxoREQxUGtnNE43WTRORFhJWGRzRkJmUlI4RHBxTTVl?=
- =?utf-8?B?WWlOVU9lMFZGL1lYZDI2Y3VjMlNsbWVwUnVvU0hVbG5mTVc5ZTlib1RWYWxp?=
- =?utf-8?B?dzl0UTJjbjJaNG9QSmMxLzJEU2ozZGw3VjRWVVZvVDhLcFJpT2UzOXN0RVo3?=
- =?utf-8?B?UHd5Z25rcC8yL1FUQW5rUHA5c25IbGFqb1hhNmdVcnMvMG9jV0dORUVIN1Zs?=
- =?utf-8?B?eUk1NDg0Y0lmYS8rVm1GazdWYkhMN1NpMW5kRlBSNEwwaG5rYkFqbFVLMVZC?=
- =?utf-8?B?SXpOZFZWZEJqbGdPQ3dNZk9VazdyWHlLc1M3MmpaVUdudlI4cXNtRTU5NU5J?=
- =?utf-8?B?ZUsyVnArU1d3TXpPSUF0TEJXbXVWYXRiK1FjSkFBT3VwUnZITmRFSVFnb0tF?=
- =?utf-8?B?a0I1ME5vQzFFdXdzdUdPeDh5NWFPazBYYnpnT3hsY1RJRUgrN3FrQ2lNWjFj?=
- =?utf-8?B?MHNsMUVTVGZYQWovTExxRGZhL1hkelg0K0x3aFJ3cFd1MllWM2tJV2szUDJG?=
- =?utf-8?B?WGt6Q3c0SWw2UHBEMmliVzNNKzZBZFc4T3Q0MVUzWlZpdE83dmNqbExqU0pX?=
- =?utf-8?B?cExJN2FZSmg2WlBSYWhZcHZ3WDE5dHFaZ2JLUGJWNTU4SnR0cHBsNXJicWxT?=
- =?utf-8?B?ejlJbEI5ZmRaUGcweDlTVmR1OFdJNEpxVVk0QlpiTmlDWGFndkZZdz09?=
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: 03483055-0450-4230-0a35-08df14f65e95
-X-MS-Exchange-CrossTenant-AuthSource: PH0PR12MB7957.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 17 Sep 2026 20:00:49.4162
- (UTC)
-X-MS-Exchange-CrossTenant-FromEntityHeader: Hosted
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-MailboxType: HOSTED
-X-MS-Exchange-CrossTenant-UserPrincipalName: k2F7OsZhgDYHfBbtwXbvt/oeNCGhfM0FvwC/hwwelGFHh77caSvbJl72WsVFDOya0UeQ5XkgHdm3iby6AIS/vw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: BY5PR12MB4050
 
-On Thu, Sep 17, 2026 at 08:56:17PM +0200, Flo Müller wrote:
-> On Mon, Aug 31, 2026 at 09:23:59AM -0400, Sasha Levin wrote:
-> > From: Ido Schimmel <idosch@nvidia.com>
-> >
-> > [ Upstream commit d25e7e9d8a6c1e2afb854613e417c6aa1a28ce6f ]
-> [...]
-> > **Step 3.5 — Dependencies**
-> > Record: Patch 2 is **standalone for classic multipath routes**
-> > (reproducer in commit message). For **nexthop object** multipath, patch
-> > 1/3 is also needed so `fib6_table_lookup()` picks the best-scoring
-> > nexthop before path selection is skipped. Patch 1 not in tree; patch 2
-> > alone does not worsen nexthop-object behavior.
-> [...]
-> > **Recommendation for v6.18.y:** Backport this commit. Ideally backport
-> > patch 1/3 from the same series together for complete nexthop-object
-> > multipath coverage; patch 2 alone is still valuable and safe for classic
-> > multipath routes.
-> 
-> Hi Sasha,
-> 
-> we are the nexthop-object case from your dependency note, hit in
-> production on 6.12.y, so here is a real-world data point and a request
-> to carry patch 1/3 along.
+On Thu, 2026-09-17 at 14:53 -0400, Chuck Lever wrote:
+> On Thu, 2026-09-17 at 14:10 -0400, Jeff Layton wrote:
+> > Looks like we have the same bug later if idtoname_update() fails too?
+>=20
+> I don't think so: when sunrpc_cache_update() fails to allocate the
+> replacement entry, it drops the reference on the old entry itself:
+>=20
+> 	tmp =3D detail->alloc();
+> 	if (!tmp) {
+> 		cache_put(old, detail);
+> 		return NULL;
+> 	}
+>=20
+> So that exit is already balanced.
+>=20
+> > +out_put:
+> > +       cache_put(&res->h, cd);
+> >  out:
+>=20
+> On the update failure path, res is NULL here, and cache_put()
+> dereferences it. A shared label would need the "if (res)" guard that
+> expkey_parse() uses.
+>=20
+> A shared put label might be a reasonable clean-up, but for a fix
+> headed to stable, the two-line version Wentao posted looks OK
+> to me.
+>=20
 
-Just to be clear, this report is from a kernel that lacks both patches,
-right? I fetched linux-6.12.y and I can't find my patches there.
+I stand corrected then re: the other bug. It might be nice to clean
+that up and make the refcounting more evident, but I agree that should
+wait for a later patch.
 
-Note that I targeted both patches at net-next since they don't fix
-regressions. This use case never worked correctly.
+You can add this:
 
-> 
-> (Disclaimer: Analysis below done by AI, watched and confirmed by human)
-> 
-> Setup: Debian 13 host, kernel 6.12.101, dual-homed to two ToR switches
-> over unnumbered eBGP (FRR). FRR installs the default route through a
-> nexthop group, which is what every FRR or Cilium dual-homed host looks
-> like:
-> 
->   $ ip -6 route show default
->   default nhid 20 proto bgp metric 20 pref medium
->           nexthop via fe80::<tor-a> dev ens31f0np0 weight 1
->           nexthop via fe80::<tor-b> dev ens30f0np0 weight 1
->           nexthop via fe80::<tor-a> dev ens31f1np1 weight 1
->           nexthop via fe80::<tor-b> dev ens30f1np1 weight 1
-> 
-> The kernel's own lookup ignores the oif for this route, with and
-> without a source address:
-> 
->   $ ip -6 route get 2606:4700:4700::1111 oif ens31f1np1
->   2606:4700:4700::1111 from :: via fe80::<tor-b> dev ens30f1np1 \
->       proto bgp src fd00:2:1::11 metric 20 pref medium
->   $ ip -6 route get 2606:4700:4700::1111 oif ens31f1np1 from 2001:db8:a::1
->   2606:4700:4700::1111 from 2001:db8:a::1 via fe80::<tor-b> dev ens30f1np1 \
->       proto bgp src fd00:2:1::11 metric 20 pref medium
-
-fib6_select_path() overwrites whatever fib6_table_lookup() returned and
-selects a nexthop based on the calculated hash. In this case, both
-hashes ended up picking the same nexthop.
-
-> 
-> Same for a socket. A test tool sends UDP on an AF_INET6/SOCK_RAW/
-> IPPROTO_UDP socket with IPV6_HDRINCL and SO_BINDTODEVICE=ens31f1np1
-> (root; the source address is a service address of the host, not the
-> interface address). The option is accepted and readable back:
-> 
->   setsockopt(SO_BINDTODEVICE, "ens31f1np1") = 0
->   getsockopt(SO_BINDTODEVICE) -> "ens31f1np1"
-> 
-> but the frames leave the sibling interface. tcpdump on both NICs while
-> 3 packets are sent:
-> 
->   ens31f1np1 (the bound device):  0 packets captured
->   ens30f1np1:                     3 packets captured
->     IP6 2001:db8:a::1.41022 > 2606:4700:4700::1111.53: ...
-> 
-> Impact for us: anything that pins traffic to one uplink of a dual-homed
-> BGP host (per-link probes, validation of switch-side policy routing)
-> silently takes another link. We lost a day to it before suspecting the
-> kernel.
-
-I don't think that it matters if you bind to a device or not. AFAICT,
-with nexthop groups, 6.12.y completely ignores the oif and simply
-chooses a nexthop based on the calculated hash.
-
-> 
-> From reading 6.12 route.c: with nexthop objects, fib6_table_lookup()
-> returns the first nexthop of the group unless the lookup is strict, so
-> the have_oif_match test that this patch adds to ip6_pol_route() only
-> becomes true for nexthop groups once 484bb9d164df ("ipv6: Select best
-> matching nexthop object in fib6_table_lookup()") makes the table lookup
-> prefer the oif-matching nexthop. Its commit message describes it as
-> preparation for this patch. For nexthop-object users this patch is
-> therefore incomplete on its own; please consider queueing both:
-> 
->   484bb9d164df ipv6: Select best matching nexthop object in fib6_table_lookup()
->   d25e7e9d8a6c ipv6: Honor oif when choosing nexthop for locally generated traffic
-> 
->   https://patch.msgid.link/20260611154605.992528-2-idosch@nvidia.com
->   https://patch.msgid.link/20260611154605.992528-3-idosch@nvidia.com
-> 
-> Happy to test a 6.12.y tree with one or both applied on these hosts and
-> report back.
-
-Can you test 7.2.y? It already has both patches.
+Reviewed-by: Jeff Layton <jlayton@kernel.org>
