@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 434A8495059;
-	Thu, 17 Sep 2026 22:29:58 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 583A54A1E05;
+	Thu, 17 Sep 2026 22:34:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789684200; cv=none; b=G0Vf1nJ7Es60VACboYlZKcNjF/JjR944VvYF+OCzS8fvaLaFb1I7wBSp13jEL9bTEwkwSvh2BKEWb5jllFqs+MfjHT4HCWV0PMX9cdQqiOCtrB4472nH8GGV0lFhSc8UUDFbl7qN1FKHJ5hkRh54+YOmIVgGFdcUJ9l7eOeivpI=
+	t=1789684441; cv=none; b=U81WjfOgXcz6fQSFSbrsqvDgC5Xtmss9o/3GI0JxIc8K/aneRm1eF01JFFqK4A0XlQT6hSD1ZhiqNFEHOXAdgqPxSvdoiaaBCoRH32EaozqxNkVZyINcb5l61JU/G9yr5z2DIyw5IyUeG8YFkmZBy+KFARnLnrRT0vW5AuZ4DlY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789684200; c=relaxed/simple;
-	bh=zF1jZ2y/W2JhFoI4myqzn+siVnTYK47RwOCQ1PPgOqU=;
+	s=arc-20240116; t=1789684441; c=relaxed/simple;
+	bh=tXkh16j/Thv+s9cP7UX0gqw0LlvCxf76Arv3zXbeDrY=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=NuvRf0Id/w+f/+DYhKg4IT7/WDQrE9O1BjIOMnciZP3BE55vK2G7RJwPCCmmgiVPp8YhlT6H956xDXTNgOktznHwB4O0hWpfWt4RXmpnXZZop0gjpp2od4JAf52V31Oz0vz9jbvq7eVt6KrKoBucTzS7CyDM0QwrMiuyowSnNoI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g3DrAFGC; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fFPEGXz1/zlZrkmwJDt12sfuy9uH2VfWbB8GsnC6N3aGqXc1GC5KT6tW4OEZN3duYtvihKqCUOhScAP7AWVR3+IVMAUhzFMy0ngfICjGAFwDA/B50W8VnabXkHN7iS82sF3QrzuxuDIF9mYka8+lFD+c31ZCg5pPDbcgXVvl8x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WNdgG5DS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g3DrAFGC"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 695AA1F000FF;
-	Thu, 17 Sep 2026 22:29:56 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WNdgG5DS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 93EE61F000FF;
+	Thu, 17 Sep 2026 22:33:57 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789684198;
-	bh=zF1jZ2y/W2JhFoI4myqzn+siVnTYK47RwOCQ1PPgOqU=;
+	s=k20260515; t=1789684440;
+	bh=tXkh16j/Thv+s9cP7UX0gqw0LlvCxf76Arv3zXbeDrY=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g3DrAFGCXodJgXf8lrkUeFKFopTWa2xYEacf93xGv6ZYtyLzyqKtzaaDe3MVfDFqD
-	 An3uxil+l8Uf4hVzs/Yrp1kg3B461zNoGzoIiRmAs96LnaDYhPdxoe9NniGragGqIj
-	 ++L9k8HW/31w4toD9phIV3nZHZcCddEBiYL9VIrsD9PC76xCRrvyzBVwmnPgw5Ti0O
-	 lyvJEPlcSUmKkk0X/uOGuxgBjyLlLu5J0VFp6O00EzFu+Nh97JEKTS85orxDXcxrpE
-	 bAEby48luqnTPVMvrI1nOmmUgO+G5XK7RY4D3dToafgBREG2C7HkKf5SX0F+OhebN5
-	 FoxD/BXF1NVCg==
-Date: Thu, 17 Sep 2026 23:29:53 +0100
+	b=WNdgG5DS3KQnHaWNU+TDLlgSaj3d54kvjXav4ma5fjCLAES1Bl113qxoQgiY1TrOj
+	 ZlqxNeiNKMsMqahjxk8FGzgsO30737PX2VT2GFlnoRCCvSqj92vT469DaDPG/Om2ah
+	 IdB7ICbLYWpxYHUbPz8OEpfkay4B2wVB1caQskAy1McvHiwpmp4ZJiqTMF5fciQ77S
+	 1ZG0i55cgy5rJd1ZiC20J0IlOfAewOjliScvCe21NmzCV382tiCh5/Zy+qmcrw02wL
+	 ojG+6OmI/81SJ8L19Jkn+tAHoUJtBLvwBipUpKeDSsaFeYt4qrn0CUzP56I6ldCqgG
+	 8pvulrTcU4XyA==
+Date: Thu, 17 Sep 2026 23:33:55 +0100
 From: Mark Brown <broonie@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
 Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, lgirdwood@gmail.com,
@@ -34,10 +34,10 @@ Cc: Xiubo.Lee@gmail.com, festevam@gmail.com, lgirdwood@gmail.com,
 	linuxppc-dev@lists.ozlabs.org, nicoleotsuka@gmail.com,
 	perex@perex.cz, shengjiu.wang@gmail.com, tiwai@suse.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix codec device leak in
+Subject: Re: [PATCH] ASoC: fsl-asoc-card: Fix ASRC device leak in
  fsl_asoc_card_probe()
-Message-ID: <1ff14ab8-fa35-45c3-abcc-1075a848be2d@sirena.org.uk>
-References: <20260917165654.2163461-1-vulab@iscas.ac.cn>
+Message-ID: <1d80b89f-7b33-4036-a450-bf32c603a238@sirena.org.uk>
+References: <20260917165430.2163372-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,38 +45,38 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="daAMsHLhBjcveUdx"
+	protocol="application/pgp-signature"; boundary="P1ZmkZ7HWziaZSjA"
 Content-Disposition: inline
-In-Reply-To: <20260917165654.2163461-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917165430.2163372-1-vulab@iscas.ac.cn>
 X-Cookie: Whip it, whip it good!
 
 
---daAMsHLhBjcveUdx
+--P1ZmkZ7HWziaZSjA
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
-On Thu, Sep 17, 2026 at 04:56:54PM +0000, Wentao Liang wrote:
-> The codec device reference taken by of_find_i2c_device_by_node() is kept
-> in codec_dev[] and never released, leaking the I2C client on both the
-> error paths and the successful registration path. The same slot also
-> holds the reference of_find_device_by_node() takes when the codec is a
-> platform device, which leaks in the same way.
+On Thu, Sep 17, 2026 at 04:54:30PM +0000, Wentao Liang wrote:
+> of_find_device_by_node() returns the ASRC platform device with a
+> reference taken, but asrc_pdev is only used during probe to set up the
+> DPCM DAI links and is never released. The shared exit path already drops
+> the CPU device reference, so release the ASRC one there too, covering
+> both the error paths and the successful registration path.
 
 This doesn't apply against current code, please check and resend.
 
---daAMsHLhBjcveUdx
+--P1ZmkZ7HWziaZSjA
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsaeEACgkQJNaLcl1U
-h9AKRAf+I5U/zFfzbOfGdHHHyloZBavITTecgnUthXRxd031B60RwgXz4kFI59vb
-GLorypBTYwytxvXSpg4SrNRYJTjDz2vD8o7oGPjzTDn7Hwb4ZlaiywYisezZqg5C
-KOP9AZfQgIRao95uGpkPoH4EVi86dOUYUbUaU6z16GLkbPHI54svv36Y4qbTTi8I
-SpBGBEOAu7rm5FJdTPg/eZtFuO3bh2Cdggd7oh/Q/oijLlaOt9MhPrHHP25CSD4W
-kjzrjfmNBaQUnOD222LZd+aMQLEVrekPGwLzY00dr00z54kt70JB88frXUOuILji
-2R4OnnuUVOMnwhpYgPyv1bRJYkADtw==
-=TPUY
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqsatIACgkQJNaLcl1U
+h9C0Ygf/RPsRzvwwH4gsQUTDa5a8UQsKSpt0ClJpUzd9B3N82yCZlVAtHxZBcgUj
+tHCfZEKD+1B9Glr+QJGAN+8NesYn3HRKfbKiW4Jt5NESTK5QAIAjsMrWxhNrFN3x
+KD3sph6e2rbMmYV0ghCw0/S5EZ/uEtePvuWKIZ+c2bgfx5XVFfG1TvUOOlj6kXP8
+U8PLUZQeyUmnhexe09hMc5+i0SDW4IiM5p+vB4fHy6Aip6qz+zIX/NocqexZhrhd
+j22M3Qgvz3klweIoHpxTZqR/MLYY6lxLcL7Wj9mVCG8qzL/8dZh5HcE83TCzc139
+7+M0UMSahUdK1AC4hZiK15UGanLF7g==
+=+L6c
 -----END PGP SIGNATURE-----
 
---daAMsHLhBjcveUdx--
+--P1ZmkZ7HWziaZSjA--
