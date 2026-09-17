@@ -1,33 +1,33 @@
-Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
+Received: from smtp-190a.mail.infomaniak.ch (smtp-190a.mail.infomaniak.ch [185.125.25.10])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7F4AE599A27
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:00:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF83E3911B2
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:00:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.125.25.10
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789657247; cv=none; b=Oy2VwAMpy3vmVPFkkoJjVS0/XhDkwPUhPd+ZLNgmv8PxVOc0n/Co+WAyNFXSNRnuQSovHEh+0u+bcduegwOKQQ8FdZwv5h+BttrXfzR879jMEP8CGsfaAuqWaeIn6C9Qu1xMY7Zi9QyJRLAVA3rkOUjBpIDHK3XqaBASDp+F/Qo=
+	t=1789657255; cv=none; b=fZzSOz3HyU+zl+KDUnTFHrJ7UKUHZktsFiN2WVtccKIe5h17ybzi6L+Xt2rnvChdTsAGT7W53iuaFtmp2071+RgD0bN7xjBpFueAvzC6p6JSbvdTL1T6kwyg34SQSzy0rtlVez3cdH3p/h7/XXsyvTU3ETAVTCdd8EY3otZ0Cj4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789657247; c=relaxed/simple;
-	bh=sZocPZ9c9t6AThgbjpVQJ9YT26OounuAvQazny2ZYQM=;
+	s=arc-20240116; t=1789657255; c=relaxed/simple;
+	bh=RUemFhJU+5+Svw8eOzDO+pzLLIIf40WApr0NDJsP7nk=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=E2KBJ4pikIkgWs01BVMF4K7ACN9WbcDtAmLu1REc+mqQJtBnaJr/UuzY0A/yDLnlMHbY/LyfL7F4/lFSQLpRe2u2xfaBDmi4RN4VREuTKtkzQmjEwcw0Okk5YmxM9117oKLtuxDvPtqiUv+w0OY2Z8ZfjtSsHJLL5mKyhuMEbi8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=S0cq3mar; arc=none smtp.client-ip=83.166.143.174
+	 MIME-Version:Content-Type; b=VFVYOt06n8oW3VUj8iUH40PYBNhsMZpJ89YLmxDxtwrKgJK0ff6zYSZmtgsa+4SaEZ3lJ5mrx7k2hO86o82aRgkkkR04xb4SaPUibU8bgUNH/MT/JJOz871Sb++eRvvmktLh8T+KidE34hT+TrSCEi89tzgTvJ3ihXpG6PG7R/4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=Z7xzyOL8; arc=none smtp.client-ip=185.125.25.10
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="S0cq3mar"
-Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hlzT02SPwz1bD;
-	Thu, 17 Sep 2026 17:00:20 +0200 (CEST)
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="Z7xzyOL8"
+Received: from smtp-3-0000.mail.infomaniak.ch (unknown [IPv6:2001:1600:4:17::246b])
+	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hlzSv67d1z1vw;
+	Thu, 17 Sep 2026 17:00:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1789657220;
-	bh=xNjXcr8xEVtwVK4u1zICWsNKrEd1EXZ/zuTmYhSyQzc=;
+	s=20191114; t=1789657215;
+	bh=OWrjANAHqdKBCCawebuNE8n8Jg/xZvN7MQe+OtV6Pgc=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=S0cq3marZcBidZcFr7c6Ct+y2YAL62RM8r33+4Fo//nQ7FIctVq6wIA7Ebjs+V3rE
-	 DC+0/8d2ME72JnAGmde/DSuJYfOWVOv0VgXjVI/0VfBYXHtPev2sUvict2nF6Gwp3u
-	 t97oBnZA/wxN1l+5iinxSNAS9pFPgBFCa5IAv5YE=
-Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hlzSz3DQ1zCrJ;
-	Thu, 17 Sep 2026 17:00:19 +0200 (CEST)
+	b=Z7xzyOL8RxQEtogyiLpyceRdSh/kRxeYLCTwFyI8XAkdLHlbkZNy8oPUC2dc9epIq
+	 wU3JEgRi+GPwS57ryq/29G+HRTERWUwvuhhRTbXVYvYvYNlOkOxMrJ8QxicyQEZwoD
+	 jrjpm1xUA6QuJccddgj0eWgImTqaLqhaUZJ3sKBk=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hlzSt6jJDz8qR;
+	Thu, 17 Sep 2026 17:00:14 +0200 (CEST)
 From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
 Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
@@ -37,9 +37,9 @@ Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
 	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
 	Song Liu <song@kernel.org>,
 	Tingmao Wang <m@maowtm.org>
-Subject: [PATCH 6.1.y 4/4] selftests/landlock: Add tests for whiteout object creation
-Date: Thu, 17 Sep 2026 17:00:05 +0200
-Message-ID: <1b6b0763e8d42e60d4d86489dab9972e554b94bc.1789655724.git.mic@digikod.net>
+Subject: [PATCH 6.1.y 1/4] landlock: Fix handling of disconnected directories
+Date: Thu, 17 Sep 2026 17:00:02 +0200
+Message-ID: <71ca68abf74762f78612f635123cbfe1773b6de5.1789655724.git.mic@digikod.net>
 In-Reply-To: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
 References: <2026-09-05-daily-reply-0020-landlock-whiteout-6-1@kernel.org>
 Precedence: bulk
@@ -52,280 +52,163 @@ Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 X-Infomaniak-Routing: alpha
 
-From: Günther Noack <gnoack@google.com>
+[ Upstream commit 49c9e09d961025b22e61ef9ad56aa1c21b6ce2f1 ]
 
-[ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
+Disconnected files or directories can appear when they are visible and
+opened from a bind mount, but have been renamed or moved from the source
+of the bind mount in a way that makes them inaccessible from the mount
+point (i.e. out of scope).
 
-Add tests to check that whiteout object creation is guarded by
-LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
-userspace:
+Previously, access rights tied to files or directories opened through a
+disconnected directory were collected by walking the related hierarchy
+down to the root of the filesystem, without taking into account the
+mount point because it couldn't be found. This could lead to
+inconsistent access results, potential access right widening, and
+hard-to-debug renames, especially since such paths cannot be printed.
 
-* Conventional creation with mknod()
-* Linking or renaming an existing whiteout object
-* renameat2() with RENAME_WHITEOUT,
-  which creates a new whiteout object in the source location
-* renameat2() with RENAME_EXCHANGE,
-  with one of the renamed objects being a whiteout object
+For a sandboxed task to create a disconnected directory, it needs to
+have write access (i.e. FS_MAKE_REG, FS_REMOVE_FILE, and FS_REFER) to
+the underlying source of the bind mount, and read access to the related
+mount point.   Because a sandboxed task cannot acquire more access
+rights than those defined by its Landlock domain, this could lead to
+inconsistent access rights due to missing permissions that should be
+inherited from the mount point hierarchy, while inheriting permissions
+from the filesystem hierarchy hidden by this mount point instead.
 
-Signed-off-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260813093157.1436894-4-gnoack@google.com
-[mic: Update commit message as requested]
+Landlock now handles files and directories opened from disconnected
+directories by taking into account the filesystem hierarchy when the
+mount point is not found in the hierarchy walk, and also always taking
+into account the mount point from which these disconnected directories
+were opened.  This ensures that a rename is not allowed if it would
+widen access rights [1].
+
+The rationale is that, even if disconnected hierarchies might not be
+visible or accessible to a sandboxed task, relying on the collected
+access rights from them improves the guarantee that access rights will
+not be widened during a rename because of the access right comparison
+between the source and the destination (see LANDLOCK_ACCESS_FS_REFER).
+It may look like this would grant more access on disconnected files and
+directories, but the security policies are always enforced for all the
+evaluated hierarchies.  This new behavior should be less surprising to
+users and safer from an access control perspective.
+
+Remove a wrong WARN_ON_ONCE() canary in collect_domain_accesses() and
+fix the related comment.
+
+Because opened files have their access rights stored in the related file
+security properties, there is no impact for disconnected or unlinked
+files.
+
+Cc: Christian Brauner <brauner@kernel.org>
+Cc: Günther Noack <gnoack@google.com>
+Cc: Song Liu <song@kernel.org>
+Reported-by: Tingmao Wang <m@maowtm.org>
+Closes: https://lore.kernel.org/r/027d5190-b37a-40a8-84e9-4ccbc352bcdf@maowtm.org
+Closes: https://lore.kernel.org/r/09b24128f86973a6022e6aa8338945fcfb9a33e4.1749925391.git.m@maowtm.org
+Fixes: b91c3e4ea756 ("landlock: Add support for file reparenting with LANDLOCK_ACCESS_FS_REFER")
+Fixes: cb2c7d1a1776 ("landlock: Support filesystem access-control")
+Link: https://lore.kernel.org/r/b0f46246-f2c5-42ca-93ce-0d629702a987@maowtm.org [1]
+Reviewed-by: Tingmao Wang <m@maowtm.org>
+Link: https://lore.kernel.org/r/20251128172200.760753-2-mic@digikod.net
 Signed-off-by: Mickaël Salaün <mic@digikod.net>
-[mic: Backport: adapt the tests to the older filesystem fixture and
-ruleset helper]
+[mic: Backport: adjust the filesystem walk and errata insertion context]
 Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- tools/testing/selftests/landlock/fs_test.c | 205 ++++++++++++++++++++-
- 1 file changed, 203 insertions(+), 2 deletions(-)
+ security/landlock/errata/abi-1.h | 15 ++++++++++++
+ security/landlock/fs.c           | 40 +++++++++++++++++++++++---------
+ 2 files changed, 44 insertions(+), 11 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index d4b3de74eb6b..0c3bfda86e87 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -70,6 +70,8 @@ static const char dir_s3d1[] = TMP_DIR "/s3d1";
- /* dir_s3d2 is a mount point. */
- static const char dir_s3d2[] = TMP_DIR "/s3d1/s3d2";
- static const char dir_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3";
-+static const char file1_s3d3[] = TMP_DIR "/s3d1/s3d2/s3d3/f1";
-+static const char file1_s3d4[] = TMP_DIR "/s3d1/s3d2/s3d4/f1";
+diff --git a/security/landlock/errata/abi-1.h b/security/landlock/errata/abi-1.h
+index 53c96c2057fa..80930957e84d 100644
+--- a/security/landlock/errata/abi-1.h
++++ b/security/landlock/errata/abi-1.h
+@@ -1,5 +1,20 @@
+ /* SPDX-License-Identifier: GPL-2.0-only */
  
- /*
-  * layout1 hierarchy:
-@@ -266,7 +268,8 @@ static void create_layout1(struct __test_metadata *const _metadata)
- 	ASSERT_EQ(0, mount("tmp", dir_s3d2, "tmpfs", 0, "size=4m,mode=700"));
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
- 
--	ASSERT_EQ(0, mkdir(dir_s3d3, 0700));
-+	create_file(_metadata, file1_s3d3);
-+	create_file(_metadata, file1_s3d4);
- }
- 
- static void remove_layout1(struct __test_metadata *const _metadata)
-@@ -283,7 +286,8 @@ static void remove_layout1(struct __test_metadata *const _metadata)
- 	EXPECT_EQ(0, remove_path(file1_s2d2));
- 	EXPECT_EQ(0, remove_path(file1_s2d1));
- 
--	EXPECT_EQ(0, remove_path(dir_s3d3));
-+	EXPECT_EQ(0, remove_path(file1_s3d3));
-+	EXPECT_EQ(0, remove_path(file1_s3d4));
- 	set_cap(_metadata, CAP_SYS_ADMIN);
- 	umount(dir_s3d2);
- 	clear_cap(_metadata, CAP_SYS_ADMIN);
-@@ -624,6 +628,27 @@ static void enforce_ruleset(struct __test_metadata *const _metadata,
++/**
++ * DOC: erratum_3
++ *
++ * Erratum 3: Disconnected directory handling
++ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
++ *
++ * This fix addresses an issue with disconnected directories that occur when a
++ * directory is moved outside the scope of a bind mount.  The change ensures
++ * that evaluated access rights include both those from the disconnected file
++ * hierarchy down to its filesystem root and those from the related mount point
++ * hierarchy.  This prevents access right widening through rename or link
++ * actions.
++ */
++LANDLOCK_ERRATUM(3)
++
+ /**
+  * DOC: erratum_4
+  *
+diff --git a/security/landlock/fs.c b/security/landlock/fs.c
+index dd7f0fd921cf..8f20a146648c 100644
+--- a/security/landlock/fs.c
++++ b/security/landlock/fs.c
+@@ -607,19 +607,31 @@ static int check_access_path_dual(
+ 				break;
+ 			}
+ 		}
++
+ 		if (unlikely(IS_ROOT(walker_path.dentry))) {
++			if (likely(walker_path.mnt->mnt_flags & MNT_INTERNAL)) {
++				/*
++				 * Stops and allows access when reaching disconnected root
++				 * directories that are part of internal filesystems (e.g. nsfs,
++				 * which is reachable through /proc/<pid>/ns/<namespace>).
++				 */
++				allowed_parent1 = true;
++				allowed_parent2 = true;
++				break;
++			}
++
+ 			/*
+-			 * Stops at disconnected root directories.  Only allows
+-			 * access to internal filesystems (e.g. nsfs, which is
+-			 * reachable through /proc/<pid>/ns/<namespace>).
++			 * We reached a disconnected root directory from a bind mount.
++			 * Let's continue the walk with the mount point we missed.
+ 			 */
+-			allowed_parent1 = allowed_parent2 =
+-				!!(walker_path.mnt->mnt_flags & MNT_INTERNAL);
+-			break;
++			dput(walker_path.dentry);
++			walker_path.dentry = walker_path.mnt->mnt_root;
++			dget(walker_path.dentry);
++		} else {
++			parent_dentry = dget_parent(walker_path.dentry);
++			dput(walker_path.dentry);
++			walker_path.dentry = parent_dentry;
+ 		}
+-		parent_dentry = dget_parent(walker_path.dentry);
+-		dput(walker_path.dentry);
+-		walker_path.dentry = parent_dentry;
  	}
- }
+ 	path_put(&walker_path);
  
-+static void enforce_fs(struct __test_metadata *const _metadata,
-+		       const __u64 access_fs, const struct rule rules[])
-+{
-+	int ruleset_fd;
-+
-+	if (rules) {
-+		ruleset_fd = create_ruleset(_metadata, access_fs, rules);
-+	} else {
-+		const struct landlock_ruleset_attr ruleset_attr = {
-+			.handled_access_fs = access_fs,
-+		};
-+
-+		ruleset_fd = landlock_create_ruleset(&ruleset_attr,
-+						     sizeof(ruleset_attr), 0);
-+		ASSERT_LE(0, ruleset_fd);
-+	}
-+
-+	enforce_ruleset(_metadata, ruleset_fd);
-+	EXPECT_EQ(0, close(ruleset_fd));
-+}
-+
- TEST_F_FORK(layout1, proc_nsfs)
- {
- 	const struct rule rules[] = {
-@@ -2000,6 +2025,170 @@ TEST_F_FORK(layout1, rename_file)
- 			       RENAME_EXCHANGE));
- }
+@@ -721,6 +733,9 @@ static inline access_mask_t maybe_remove(const struct dentry *const dentry)
+  * file.  While walking from @dir to @mnt_root, we record all the domain's
+  * allowed accesses in @layer_masks_dom.
+  *
++ * Because of disconnected directories, this walk may not reach @mnt_dir.  In
++ * this case, the walk will continue to @mnt_dir after this call.
++ *
+  * This is similar to check_access_path_dual() but much simpler because it only
+  * handles walking on the same mount point and only checks one set of accesses.
+  *
+@@ -759,8 +774,11 @@ static bool collect_domain_accesses(
+ 			break;
+ 		}
  
-+TEST_F_FORK(layout1, rename_whiteout_denied)
-+{
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Deny MAKE_REG, but allow MAKE_FIFO. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, NULL);
-+
-+	/*
-+	 * Try to rename a file with RENAME_WHITEOUT.
-+	 * file1_s3d3 is in dir_s3d2 (tmpfs), so it supports RENAME_WHITEOUT.
-+	 * Denied, because whiteout creation is guarded with MAKE_REG.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+}
-+
-+static bool is_whiteout(const char *const path)
-+{
-+	struct stat st;
-+
-+	if (stat(path, &st) == -1)
-+		return false;
-+
-+	return S_ISCHR(st.st_mode) && st.st_rdev == makedev(0, 0);
-+}
-+
-+static bool is_fifo(const char *const path)
-+{
-+	struct stat st;
-+
-+	return stat(path, &st) == 0 && S_ISFIFO(st.st_mode);
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_allowed)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The affected file is a FIFO. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+
-+	/* Allow MAKE_REG below dir_s3d3. */
-+	enforce_fs(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, rules);
-+
-+	/*
-+	 * Rename a file with RENAME_WHITEOUT within the same directory.
-+	 * Allowed, because MAKE_REG is granted for the whiteout object which
-+	 * gets created in the source location.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d3/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_reparenting)
-+{
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The moved files are FIFOs. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * The whiteout object is created in the source directory: Moving the
-+	 * FIFO out of dir_s3d4 is denied because MAKE_REG is not granted
-+	 * there, even though it is granted in the destination directory
-+	 * dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD,
-+				TMP_DIR "/s3d1/s3d2/s3d3/f2", RENAME_WHITEOUT));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Moving the FIFO out of dir_s3d3 is allowed, because MAKE_REG is
-+	 * granted there for the created whiteout object.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD,
-+			       TMP_DIR "/s3d1/s3d2/s3d4/f2", RENAME_WHITEOUT));
-+
-+	/* A whiteout object took the place of the moved FIFO. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(TMP_DIR "/s3d1/s3d2/s3d4/f2"));
-+}
-+
-+TEST_F_FORK(layout1, rename_whiteout_exchange)
-+{
-+	const char *const whiteout_s3d3 = TMP_DIR "/s3d1/s3d2/s3d3/f2";
-+	const struct rule rules[] = {
-+		{
-+			.path = dir_s3d2,
-+			.access = LANDLOCK_ACCESS_FS_REFER,
-+		},
-+		{
-+			.path = dir_s3d3,
-+			.access = LANDLOCK_ACCESS_FS_MAKE_REG,
-+		},
-+		{},
-+	};
-+
-+	/* The exchanged files are FIFOs and an existing whiteout object. */
-+	ASSERT_EQ(0, unlink(file1_s3d3));
-+	ASSERT_EQ(0, mknod(file1_s3d3, S_IFIFO | 0600, 0));
-+	ASSERT_EQ(0, mknod(whiteout_s3d3, S_IFCHR | 0600, makedev(0, 0)));
-+	ASSERT_EQ(0, unlink(file1_s3d4));
-+	ASSERT_EQ(0, mknod(file1_s3d4, S_IFIFO | 0600, 0));
-+
-+	/* Allow REFER below dir_s3d2, but MAKE_REG only below dir_s3d3. */
-+	enforce_fs(_metadata,
-+		   LANDLOCK_ACCESS_FS_MAKE_REG | LANDLOCK_ACCESS_FS_REFER,
-+		   rules);
-+
-+	/*
-+	 * With RENAME_EXCHANGE, the whiteout object moves into the source
-+	 * directory of the rename: Exchanging the FIFO in dir_s3d4 with the
-+	 * whiteout object is denied because MAKE_REG is not granted in
-+	 * dir_s3d4, even though it is granted in the whiteout object's own
-+	 * directory dir_s3d3.
-+	 */
-+	EXPECT_EQ(-1, renameat2(AT_FDCWD, file1_s3d4, AT_FDCWD, whiteout_s3d3,
-+				RENAME_EXCHANGE));
-+	EXPECT_EQ(EACCES, errno);
-+
-+	/*
-+	 * Exchanging the FIFO in dir_s3d3 with the whiteout object is
-+	 * allowed, because MAKE_REG is granted in the directory into which
-+	 * the whiteout object moves.
-+	 */
-+	EXPECT_EQ(0, renameat2(AT_FDCWD, file1_s3d3, AT_FDCWD, whiteout_s3d3,
-+			       RENAME_EXCHANGE));
-+
-+	/* The FIFO and the whiteout object swapped places. */
-+	EXPECT_TRUE(is_whiteout(file1_s3d3));
-+	EXPECT_TRUE(is_fifo(whiteout_s3d3));
-+}
-+
- TEST_F_FORK(layout1, rename_dir)
- {
- 	const struct rule rules[] = {
-@@ -3053,6 +3242,18 @@ TEST_F_FORK(layout1, make_char)
- 		       makedev(1, 3));
- }
+-		/* We should not reach a root other than @mnt_root. */
+-		if (dir == mnt_root || WARN_ON_ONCE(IS_ROOT(dir)))
++		/*
++		 * Stops at the mount point or the filesystem root for a disconnected
++		 * directory.
++		 */
++		if (dir == mnt_root || unlikely(IS_ROOT(dir)))
+ 			break;
  
-+TEST_F_FORK(layout1, make_whiteout)
-+{
-+	/*
-+	 * Creates a whiteout object (creation guarded by MAKE_REG).
-+	 *
-+	 * Contrary to the other character devices, this does not require
-+	 * CAP_MKNOD, cf. vfs_mknod().
-+	 */
-+	test_make_file(_metadata, LANDLOCK_ACCESS_FS_MAKE_REG, S_IFCHR,
-+		       makedev(0, 0));
-+}
-+
- TEST_F_FORK(layout1, make_block)
- {
- 	/* Creates a /dev/loop0 device. */
+ 		parent_dentry = dget_parent(dir);
