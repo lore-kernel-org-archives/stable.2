@@ -1,38 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CDE3598BEB;
-	Thu, 17 Sep 2026 15:43:04 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0E84B44C4;
+	Thu, 17 Sep 2026 15:43:05 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659793; cv=none; b=N5zET5mX6XyyJZJLJaq/Gg0bYyEUXpiSWGDGLayhwkqRjZBZqWOPHUwrxOuBFqsPF65AE1mxsPeCYviAXdOAhELAkS1t7fLiCRlGhUGAEdzZsiDWXNE/qyIWwOSfeWuIGloLWSDeDkiucz0q2HOuN4FoHufLu49E9i5HbwbtS3Q=
+	t=1789659796; cv=none; b=nvNylAH4TxB3kxI07JLDTEay5C4YvweqOzheuvdurvDA5aZfvyzZ1j5PIljHZlJik+GWcOb4dCTSqKR0huZytQUyLru8pUOms3FbGLuIfCZANU7j0JnH8vNERFjpRS7koGzQKyRxUSNp1b8aw5NY6ZykphRyw35LC0t7sgMg0ss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659793; c=relaxed/simple;
-	bh=Hr9AME3czMdETmjkyDhnbCm9lVeiXF8XI9O6VdZG3tc=;
+	s=arc-20240116; t=1789659796; c=relaxed/simple;
+	bh=Sr6bH8BP32iL3z0ofgmIzvMg4xvJCJVu1iFu3CE/Gyw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=adlAHVsI+Cgai2T91lZetj2BecT38/6IXxLjJ+6pMTBJXyMxw5wZ7fI6c/seMo+RG00PB991jVvoVfTfHetnB2n009CYQHzs187s+yVyKUVcy93JKM6wrUbkJ13cRcB191MCCqeY0NorZU73uSxMNfBuil4BJXTwz2BUKEdryYI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=BdA+J3LG; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=ej23m/XDUI5End0SC0BI1hUhtb4ij4Gj8QAJy1WPQI/IvO/+2GX689/ANshU8QREDED89jmbtHc6q+FXCwszTuo3sis8OO+eysY5AtLclobfD6YdMD14vtJisky41NEbpiGGVCdvFqQJJFBkA+nXrOhL1v2Bd10i2PB2DGL+kP8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=isUu7zTK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="BdA+J3LG"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CB6171F000FF;
-	Thu, 17 Sep 2026 15:43:01 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="isUu7zTK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D3D71F00893;
+	Thu, 17 Sep 2026 15:43:04 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659782;
-	bh=d/r1tEKIeylz3o0AMXf6th4GCbQizw7vE/rqQqRU1dg=;
+	s=korg; t=1789659785;
+	bh=ULU2rDjuO8YIZm7rcbvHcn1nZtMtm+yvhhz1V8Mwf3A=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=BdA+J3LG7whsk9Uk022lDvsjrwjZHJ/11b6E0d51AWw7BiZepNNwTGp834GsrXYKS
-	 FBYQpfsc6iayNNBs+cowOW5IxPODhePIKk63FyeUDXg19gdNg+UBFRiaZI4SVo7zwa
-	 7MXN38JCvxz9trYGOZn1inbbI/j0dEcfdgku0n5E=
+	b=isUu7zTKgVM/u5CLgHQ+bQWI88lBaauityeZv5XbULH8C0sEXOVTmYaobLkEyU/wV
+	 ynKzh/L4XY2ROPbL5X7+Yh+ct9NBRm+nC0jlynwHmjQ9s51L1zxHra2yiC5/7ezH8I
+	 GZgx8k4Kj3bnwcCzSnmrzqaKtvckhuHjtrgBBhVE=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	"hpp.iscas" <hppiscas@163.com>,
-	Mark Brown <broonie@kernel.org>,
+	Boris Burkov <boris@bur.io>,
+	Qu Wenruo <wqu@suse.com>,
+	Filipe Manana <fdmanana@suse.com>,
+	David Sterba <dsterba@suse.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 334/733] ASoC: Intel: SST: Publish the PCI module aliases
-Date: Thu, 17 Sep 2026 16:10:42 +0100
-Message-ID: <20260917151359.854719527@linuxfoundation.org>
+Subject: [PATCH 7.2 335/733] btrfs: fix unnecessary transaction commit fallback from btrfs_log_all_parents()
+Date: Thu, 17 Sep 2026 16:10:43 +0100
+Message-ID: <20260917151359.883332314@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -51,38 +53,61 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: hpp.iscas <hppiscas@163.com>
+From: Filipe Manana <fdmanana@suse.com>
 
-[ Upstream commit d112159df5c6cc5ee6ab91cc32bf6ed29939df38 ]
+[ Upstream commit 36f9aafa46f5b9fecf92d9218c5574f1ef6b4907 ]
 
-The legacy SST PCI driver matches Intel Tangier devices using
-intel_sst_ids, but its only explicit module alias is "sst". That alias
-does not match PCI modalias events when this driver is built as a module.
+When btrfs_log_all_parents() returns without doing any work (because all
+parent directories were already logged), it returns 1, which is propagated
+up the fsync call chain up to btrfs_log_dentry_safe(), and that causes
+btrfs_sync_file() to trigger am unnecessary transaction commit.
 
-Publish its PCI table. The independently configurable SOF driver does
-not provide aliases for the legacy SST module.
+This all happens because the call to btrfs_search_slot() in
+btrfs_log_all_parents() always returns 1, as there can not be any inode
+ref keys with an offset 0 (an invalid inode number), so if the while loop
+below it does not do any work because all parent directories were already
+logged, the 'ret' variable remains with a value of 1, which is then
+returned up the call chain to btrfs_sync_file().
 
-Fixes: f533a035e4da ("ASoC: Intel: mrfld - create separate module for pci part")
-Signed-off-by: hpp.iscas <hppiscas@163.com>
-Link: https://patch.msgid.link/20260905133133.63661-1-hppiscas@163.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
+Fix this by setting 'ret' to 0 after the call to btrfs_search_slot().
+
+Fixes: 0f24ea456ae1 ("btrfs: tracepoints: add trace event for btrfs_log_all_parents()")
+Reviewed-by: Boris Burkov <boris@bur.io>
+Reviewed-by: Qu Wenruo <wqu@suse.com>
+Signed-off-by: Filipe Manana <fdmanana@suse.com>
+Signed-off-by: David Sterba <dsterba@suse.com>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/atom/sst/sst_pci.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/btrfs/tree-log.c | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
 
-diff --git a/sound/soc/intel/atom/sst/sst_pci.c b/sound/soc/intel/atom/sst/sst_pci.c
-index 44bb11c694905..1a53c993b57fc 100644
---- a/sound/soc/intel/atom/sst/sst_pci.c
-+++ b/sound/soc/intel/atom/sst/sst_pci.c
-@@ -167,6 +167,7 @@ static const struct pci_device_id intel_sst_ids[] = {
- 	{ PCI_DEVICE_DATA(INTEL, SST_TNG, 0) },
- 	{ 0, }
- };
-+MODULE_DEVICE_TABLE(pci, intel_sst_ids);
+diff --git a/fs/btrfs/tree-log.c b/fs/btrfs/tree-log.c
+index 875e4ddc68eae..c87f6a7e8d612 100644
+--- a/fs/btrfs/tree-log.c
++++ b/fs/btrfs/tree-log.c
+@@ -7307,6 +7307,22 @@ static int btrfs_log_all_parents(struct btrfs_trans_handle *trans,
+ 	ret = btrfs_search_slot(NULL, root, &key, path, 0, 0);
+ 	if (ret < 0)
+ 		goto out;
++	/*
++	 * There can't be an inode ref key with offset 0 because inode numbers
++	 * start at BTRFS_FIRST_FREE_OBJECTID.
++	 */
++	if (WARN_ON_ONCE(ret == 0)) {
++		btrfs_err(trans->fs_info,
++		  "found inode ref key with offset 0 for root %llu inode %llu",
++			  btrfs_root_id(root), ino);
++		ret = BTRFS_LOG_FORCE_COMMIT;
++		goto out;
++	}
++	/*
++	 * Set to 0 so that in case we don't do any work below, we won't return
++	 * 1 and trigger an unnecessary transaction commit.
++	 */
++	ret = 0;
  
- static struct pci_driver sst_driver = {
- 	.name = SST_DRV_NAME,
+ 	while (true) {
+ 		struct extent_buffer *leaf = path->nodes[0];
 -- 
 2.53.0
 
