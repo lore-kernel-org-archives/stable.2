@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AC29286D60
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 313EA9475
 	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608788; cv=none; b=jWkXs5JuxAWgArFsP/KtdImoUOMq86N9Lf2RiPUDTcTEKzaGwY2vuBzxFjM1V9m6M7JdVsNXQ1fESMcH4Kfey6TtOiFpH35kl0Q+LRm8Mmt3zB9DEIzXC9dOF40ruQySRd1PizgVyrpZqORb+SCqT60IG7Use+VykQD11tszbCQ=
+	t=1789608789; cv=none; b=mOF6Cm3DwExBt/MDve/UcIAeEIdKtHJzbTGMfpm/9Mofg/DszJ1QnCgzvBzJXbQDWx0EV2kY55mBCNQ0/6FnflRsUaHaVMMGt17DT3iOePTpc7/mEDeR6cluvdAhh6JheJhTOuJfHFQcNLt0nRQrZVv224JJ2db4E376BW9HZ28=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608788; c=relaxed/simple;
-	bh=BwCmCrPescqKCwrmyW6yiTElIlSVxhSzQkAtNdZsffk=;
+	s=arc-20240116; t=1789608789; c=relaxed/simple;
+	bh=+qhvR6VpKNyCMJSxi69jLS8Hwc2Dc9lofOU3aULsPs8=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Mhu8RRwubycXDMCng7A89+UJN4H3yVBbQcuxK3Lr+e87VDLxPw+yXgTIfgor4kC9cgAf97sKHOJU880wZoCIbod6mIdkhFUKHflyhaBx8cW16o0aBwrgRJu52GO8kIPQMEa3niY6DJnEnQx2s5DF0pWBoFSkWIL9O2CPcUFyIds=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=i6/hJv3S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=HWL31CqJtl13UtBkaucUVBv+0obXcKvQbxXflZzzCOTUzaGIxPVdfPCGrvmmC8KHsa8ayuBFLPCYRfkSF6LaNHJF5BtyzYEyA8DyOwr9VjZsK3FwKwFMB7nzeU9+yToQPeBWNlphHY58jzmpXcIwBJqBd9zIJJZ/njurSot3CgU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UuoWODKU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="i6/hJv3S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 49FE61F00893;
-	Thu, 17 Sep 2026 01:33:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UuoWODKU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 306B71F00898;
+	Thu, 17 Sep 2026 01:33:07 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789608786;
-	bh=OA9xM8YA3GUwd1zp+jH07qipOuNsrl0tcEmr4BGgkEk=;
+	s=k20260515; t=1789608787;
+	bh=QsT/kkWPXdw44MN6LqrsC0bJ/cvm4RBDXw+qM4pfPDg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=i6/hJv3SNTAcz++s9GHPQ2HiAn0m3D9PX0h/jyqdGaFnNR4D2mKr1KoXwWyygc4h0
-	 cUrFgDfBC6P7ITB9Tf6BjF+epY3uu4eJwomZHZ1rNXJrSFpEfq0XBcVeM12U+kDpYV
-	 wGE+T/Ojgcd3EnETM/YI2NT4l8e6QvspaTg0imWZkQEn6yKQLJ9/Ox+5WfNn1F+URs
-	 z6lULpchayTvROWsAvsB8rmOLTICUBvTN+RG+hlQDiKQoxXrOxxqLKskFVQ8/libJc
-	 VXPOuApTNQ46Wi5PF0pZ/Fmd3wtCpAFG0VV1IYulbNNxAXVqenf+TaWwF7iSTWtJNk
-	 WiqNMXrqx1zmQ==
+	b=UuoWODKUaW/oMs+JMy6htITGdZdz7y1tZH17RxCeD9PzZi3JVmjmeK2vDSD4U5mla
+	 1f3W7MAAo3py7tAAQDpOaeqxgOryDSSl7bTFi+nGKL12j0tTUEIi0csMFm4812JU0K
+	 x4tjcsNS4Kowazt8+0nKW8+GvWtm+uo2uBCqsngOFI5z/XqGrzEgPUKsZw9fYB3I6i
+	 dltpAUcJVkAHu+VVd9wwaI1BkCi3tGuOExD6s81YkmWy6P3wXJiPe7pmKsPpmarQ5e
+	 WcKhDz2+e6Li6re3YDar5pdy7aeNVVroqffD44utzJIfpe9YqHEZaIRkJLggrUQbas
+	 Ulrmp9rlhjrbQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Thomas Richter <tmricht@linux.ibm.com>,
-	Sumanth Korikkar <sumanthk@linux.ibm.com>,
+	Jan Polensky <japo@linux.ibm.com>,
 	Heiko Carstens <hca@linux.ibm.com>,
 	Vasily Gorbik <gor@linux.ibm.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/3] s390/pai: Move locking to event init and delete
-Date: Wed, 16 Sep 2026 21:33:02 -0400
-Message-ID: <20260917013303.3594106-2-sashal@kernel.org>
+Subject: [PATCH 7.2.y 3/3] s390/pai: Support CPU hotplug for PMU PAI
+Date: Wed, 16 Sep 2026 21:33:03 -0400
+Message-ID: <20260917013303.3594106-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
 In-Reply-To: <20260917013303.3594106-1-sashal@kernel.org>
 References: <2026091643-probably-sprinkled-c1c7@gregkh>
@@ -50,122 +50,367 @@ Content-Transfer-Encoding: 8bit
 
 From: Thomas Richter <tmricht@linux.ibm.com>
 
-[ Upstream commit e8df39dacb7d98d2b2aea431ca652d9fadf5efa3 ]
+[ Upstream commit 9ecc4d033879f7761f2df07e20cd2fbec00fd90b ]
 
-Move mutex locking from per CPU allocation to event allocation.
-No functional change.
+The command 'perf stat -e pai_crypto/CRYPTO_ALL/ -- <command>'
+crashes the kernel when CPUs are hotplug added during that run.
 
+Root cause is the missing allocation of per-CPU data structures
+for that new CPU. The allocation is dynamic and the first
+event that has task context creates such a structure for
+each online CPU. This is not sufficient. CPUs may be offline
+during event creation and can be set online during the
+perf run time. For example commands
+
+ # echo 0 > /sys/devices/system/cpu/cpu1/online
+ # perf stat -e cycles -i -- stress-ng -t10s --matrix X
+ # sleep 1
+ # echo 1 > /sys/devices/system/cpu/cpu1/online
+
+Currently without a CPU hotplug handler, that new CPU has no
+per-CPU data infrastructure. The scheduler runs PMU call back
+function pai_add() to install the PMU support for that CPU before
+the task is being scheduled on that new CPU.
+In pai_add() instructions
+
+    mp = this_cpu_ptr(pai_root[idx].mapptr);
+    cpump = mp->mapptr;
+
+return a NULL pointer and the result is a kernel panic as variable
+cpump is used inside that function.
+
+Add CPU hotplug support for CPU add and delete and create
+the necessary per-CPU data infrastructure during CPU hotplug
+add processing. Same for CPU hotplug remove.
+This is done when the CPU is offline to ensure the data structures
+are available when CPU is made online and tasks are scheduled on it.
+
+[hca@linux.ibm.com: fixup error path in pai_init()]
+
+Cc: stable@vger.kernel.org # v6.19
+Fixes: 582cc1b28e8c ("s390/pai_ext: Enable per-task and system-wide sampling event")
+Fixes: 9f66572f2889 ("s390/pai_crypto: Enable per-task and system-wide sampling event")
 Signed-off-by: Thomas Richter <tmricht@linux.ibm.com>
-Reviewed-by: Sumanth Korikkar <sumanthk@linux.ibm.com>
+Reviewed-by: Jan Polensky <japo@linux.ibm.com>
 Signed-off-by: Heiko Carstens <hca@linux.ibm.com>
 Signed-off-by: Vasily Gorbik <gor@linux.ibm.com>
-Stable-dep-of: 9ecc4d033879 ("s390/pai: Support CPU hotplug for PMU PAI")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- arch/s390/kernel/perf_pai.c | 25 ++++++++++++-------------
- 1 file changed, 12 insertions(+), 13 deletions(-)
+ arch/s390/include/asm/pai.h |   1 -
+ arch/s390/kernel/perf_pai.c | 178 ++++++++++++++++++++++++++----------
+ 2 files changed, 128 insertions(+), 51 deletions(-)
 
-diff --git a/arch/s390/kernel/perf_pai.c b/arch/s390/kernel/perf_pai.c
-index 7c13f5586c793..52d9f654346a2 100644
---- a/arch/s390/kernel/perf_pai.c
-+++ b/arch/s390/kernel/perf_pai.c
-@@ -138,21 +138,19 @@ static void pai_free(struct pai_mapptr *mp)
+diff --git a/arch/s390/include/asm/pai.h b/arch/s390/include/asm/pai.h
+index 534d0320e2aa0..a3456a36aaa72 100644
+--- a/arch/s390/include/asm/pai.h
++++ b/arch/s390/include/asm/pai.h
+@@ -76,7 +76,6 @@ static __always_inline void pai_kernel_exit(struct pt_regs *regs)
  }
  
- /* Adjust usage counters and remove allocated memory when all users are
-- * gone.
-+ * gone. Called under mutex_lock.
-  */
- static void pai_event_destroy_cpu(int idx, int cpu)
- {
- 	struct pai_mapptr *mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
- 	struct pai_map *cpump = mp->mapptr;
+ #define PAI_SAVE_AREA(x)	((x)->hw.event_base)
+-#define PAI_CPU_MASK(x)		((x)->hw.addr_filters)
+ #define PAI_PMU_IDX(x)		((x)->hw.last_tag)
+ #define PAI_SWLIST(x)		(&(x)->hw.tp_list)
  
--	mutex_lock(&pai_reserve_mutex);
- 	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
- 			    __func__, cpump->active_events,
- 			    refcount_read(&cpump->refcnt));
- 	if (refcount_dec_and_test(&cpump->refcnt))
+diff --git a/arch/s390/kernel/perf_pai.c b/arch/s390/kernel/perf_pai.c
+index 52d9f654346a2..ddb6b96b89660 100644
+--- a/arch/s390/kernel/perf_pai.c
++++ b/arch/s390/kernel/perf_pai.c
+@@ -67,6 +67,7 @@ struct pai_mapptr {
+ 
+ static struct pai_root {		/* Anchor to per CPU data */
+ 	refcount_t refcnt;		/* Overall active events */
++	atomic_t tskctx;		/* Overall per-task events */
+ 	struct pai_mapptr __percpu *mapptr;
+ } pai_root[PAI_PMU_MAX];
+ 
+@@ -93,14 +94,15 @@ struct pai_pmu {			/* Define PAI PMU characteristics */
+ static struct pai_pmu pai_pmu[];	/* Forward declaration */
+ 
+ /* Free per CPU data when the last event is removed. */
+-static void pai_root_free(int idx)
++static void pai_root_free(int idx, int tasks)
+ {
+-	if (refcount_dec_and_test(&pai_root[idx].refcnt)) {
++	if (refcount_sub_and_test(tasks, &pai_root[idx].refcnt)) {
+ 		free_percpu(pai_root[idx].mapptr);
+ 		pai_root[idx].mapptr = NULL;
+ 	}
+-	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d\n", __func__,
+-			    idx, refcount_read(&pai_root[idx].refcnt));
++	debug_sprintf_event(paidbg, 5, "%s root[%d].refcount %d tskctx %d\n",
++			    __func__, idx, refcount_read(&pai_root[idx].refcnt),
++			    atomic_read(&pai_root[idx].tskctx));
+ }
+ 
+ /*
+@@ -137,20 +139,36 @@ static void pai_free(struct pai_mapptr *mp)
+ 	mp->mapptr = NULL;
+ }
+ 
+-/* Adjust usage counters and remove allocated memory when all users are
+- * gone. Called under mutex_lock.
+- */
+-static void pai_event_destroy_cpu(int idx, int cpu)
++/* Called under mutex_lock */
++static void pai_event_destroy_cpu(int idx, int cpu, bool hotplug)
+ {
+-	struct pai_mapptr *mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
+-	struct pai_map *cpump = mp->mapptr;
++	struct pai_mapptr *mp;
++	struct pai_map *cpump;
++	int tasks = 1;
+ 
+-	debug_sprintf_event(paidbg, 5, "%s users %d refcnt %u\n",
+-			    __func__, cpump->active_events,
+-			    refcount_read(&cpump->refcnt));
+-	if (refcount_dec_and_test(&cpump->refcnt))
++	/* Check reference count and return when all gone.
++	 * 1. An event is installed on online CPU X.
++	 * 2. CPU x is offlined and the per-CPU data is removed.
++	 * 3. Event is destroyed via close system call.
++	 */
++	if (!refcount_read(&pai_root[idx].refcnt))
++		return;			/* No events at all */
++	mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
++	if (!mp || !mp->mapptr)		/* No events on that CPU */
++		return;
++
++	/* When hotplug is true, invocation is from CPU hotplug callback.
++	 * Delete per-CPU resource and adjust refcnt when per-task events
++	 * are currently active. This can be more than one.
++	 * In this case adjust counters.
++	 */
++	if (hotplug)
++		tasks = atomic_read(&pai_root[idx].tskctx);
++
++	cpump = mp->mapptr;
++	if (refcount_sub_and_test(tasks, &cpump->refcnt))
  		pai_free(mp);
- 	pai_root_free(idx);
--	mutex_unlock(&pai_reserve_mutex);
+-	pai_root_free(idx);
++	pai_root_free(idx, tasks);
  }
  
  static void pai_event_destroy(struct perf_event *event)
-@@ -160,6 +158,7 @@ static void pai_event_destroy(struct perf_event *event)
+@@ -158,17 +176,17 @@ static void pai_event_destroy(struct perf_event *event)
  	int cpu = 0, idx = PAI_PMU_IDX(event);
  
  	free_page(PAI_SAVE_AREA(event));
-+	mutex_lock(&pai_reserve_mutex);
++	cpus_read_lock();
+ 	mutex_lock(&pai_reserve_mutex);
  	if (event->cpu == -1) {
- 		struct cpumask *mask = PAI_CPU_MASK(event);
- 
-@@ -169,6 +168,7 @@ static void pai_event_destroy(struct perf_event *event)
+-		struct cpumask *mask = PAI_CPU_MASK(event);
+-
+-		for_each_cpu(cpu, mask)
+-			pai_event_destroy_cpu(idx, cpu);
+-		kfree(mask);
++		atomic_dec(&pai_root[idx].tskctx);
++		for_each_online_cpu(cpu)
++			pai_event_destroy_cpu(idx, cpu, false);
  	} else {
- 		pai_event_destroy_cpu(idx, event->cpu);
+-		pai_event_destroy_cpu(idx, event->cpu);
++		pai_event_destroy_cpu(idx, event->cpu, false);
  	}
-+	mutex_unlock(&pai_reserve_mutex);
+ 	mutex_unlock(&pai_reserve_mutex);
++	cpus_read_unlock();
  }
  
  static void paicrypt_event_destroy(struct perf_event *event)
-@@ -232,12 +232,10 @@ static u64 paicrypt_getall(struct perf_event *event)
+@@ -232,17 +250,25 @@ static u64 paicrypt_getall(struct perf_event *event)
  	return sum;
  }
  
--/* Check concurrent access of counting and sampling for crypto events.
-- * This function is called in process context and it is save to block.
-- * When the event initialization functions fails, no other call back will
-- * be invoked.
-- *
-- * Allocate the memory for the event.
-+/* Allocate all per-CPU data structures. This function is called in
-+ * process context and can block. In case of error all partly allocated
-+ * memory is released and the reference counters adjusted correctly.
-+ * Called under mutex_lock.
-  */
- static int pai_alloc_cpu(int idx, int cpu)
+-/* Allocate all per-CPU data structures. This function is called in
+- * process context and can block. In case of error all partly allocated
+- * memory is released and the reference counters adjusted correctly.
+- * Called under mutex_lock.
+- */
+-static int pai_alloc_cpu(int idx, int cpu)
++/* Called under mutex_lock */
++static int pai_alloc_cpu(int idx, int cpu, bool hotplug)
  {
-@@ -246,11 +244,10 @@ static int pai_alloc_cpu(int idx, int cpu)
+ 	struct pai_map *cpump = NULL;
+ 	bool need_paiext_cb = false;
  	struct pai_mapptr *mp;
- 	int rc;
+-	int rc;
++	int tasks = 1, rc = 0;
++
++	/* When hotplug is true, invocation is from CPU hotplug callback.
++	 * Allocate per-CPU resource when per-task events are currently active.
++	 * This can be more than one. In this case adjust all reference
++	 * counters. Otherwise return, this ensures memory is only allocated
++	 * when needed.
++	 */
++	if (hotplug) {
++		tasks = atomic_read(&pai_root[idx].tskctx);
++		if (!tasks)
++			goto out;
++	}
  
--	mutex_lock(&pai_reserve_mutex);
  	/* Allocate root node */
  	rc = pai_root_alloc(idx);
- 	if (rc)
--		goto unlock;
-+		goto out;
- 
- 	/* Allocate node for this event */
- 	mp = per_cpu_ptr(pai_root[idx].mapptr, cpu);
-@@ -308,12 +305,12 @@ static int pai_alloc_cpu(int idx, int cpu)
- 		 */
- 		pai_root_free(idx);
+@@ -291,26 +317,42 @@ static int pai_alloc_cpu(int idx, int cpu)
+ 			goto undo;
+ 		}
+ 		INIT_LIST_HEAD(&cpump->syswide_list);
+-		refcount_set(&cpump->refcnt, 1);
++		refcount_set(&cpump->refcnt, tasks);
+ 		rc = 0;
+ 	} else {
+-		refcount_inc(&cpump->refcnt);
++		refcount_add(tasks, &cpump->refcnt);
  	}
--unlock:
--	mutex_unlock(&pai_reserve_mutex);
-+out:
++	/* If tasks is greater than 1, we are called from CPU hotplug path
++	 * and need to adjust the pai_root[idx].refcnt by the number of
++	 * per-process events. Function pai_root_alloc(idx) already
++	 * incremented by one. Adjust for the rest.
++	 */
++	if (tasks > 1)
++		refcount_add(tasks - 1, &pai_root[idx].refcnt);
+ 
+ undo:
+ 	if (rc) {
+ 		/* Error in allocation of event, decrement anchor. Since
+ 		 * the event in not created, its destroy() function is never
+ 		 * invoked. Adjust the reference counter for the anchor.
++		 * The failure happened in the case of variable
++		 * cpump == NULL branch above. The pai_root[XXX].refcnt has
++		 * been incremented by one. Then the per-CPU allocation
++		 * failed, so decrement it by one, regardless of tasks.
+ 		 */
+-		pai_root_free(idx);
++		pai_root_free(idx, 1);
+ 	}
+ out:
  	/* If rc is non-zero, no increment of counter/sampler was done. */
  	return rc;
  }
  
-+/* Called under mutex_lock */
+-/* Called under mutex_lock */
++/* Check concurrent access of counting and sampling for PAI events.
++ * This function is called in process context and it is safe to block.
++ * When the event initialization functions fails, no other call back will
++ * be invoked.
++ * Called under mutex_lock.
++ */
  static int pai_alloc(struct perf_event *event)
  {
  	int idx = PAI_PMU_IDX(event);
-@@ -390,10 +387,12 @@ static int pai_event_init(struct perf_event *event, int idx)
+@@ -322,24 +364,20 @@ static int pai_alloc(struct perf_event *event)
+ 		goto out;
+ 
+ 	for_each_online_cpu(cpu) {
+-		rc = pai_alloc_cpu(idx, cpu);
++		rc = pai_alloc_cpu(idx, cpu, false);
+ 		if (rc) {
+ 			for_each_cpu(cpu, maskptr)
+-				pai_event_destroy_cpu(idx, cpu);
+-			kfree(maskptr);
+-			goto out;
++				pai_event_destroy_cpu(idx, cpu, false);
++			goto undo;
+ 		}
+ 		cpumask_set_cpu(cpu, maskptr);
+ 	}
+ 
+-	/*
+-	 * On error all cpumask are freed and all events have been destroyed.
+-	 * Save of which CPUs data structures have been allocated for.
+-	 * Release them in pai_event_destroy call back function
+-	 * for this event.
+-	 */
+-	PAI_CPU_MASK(event) = maskptr;
+ 	rc = 0;
++	/* Trace per-task events for CPU hotplug. */
++	atomic_inc(&pai_root[idx].tskctx);
++undo:
++	kfree(maskptr);
+ out:
+ 	return rc;
+ }
+@@ -387,12 +425,14 @@ static int pai_event_init(struct perf_event *event, int idx)
  		}
  	}
  
-+	mutex_lock(&pai_reserve_mutex);
++	cpus_read_lock();
+ 	mutex_lock(&pai_reserve_mutex);
  	if (event->cpu >= 0)
- 		rc = pai_alloc_cpu(idx, event->cpu);
+-		rc = pai_alloc_cpu(idx, event->cpu);
++		rc = pai_alloc_cpu(idx, event->cpu, false);
  	else
  		rc = pai_alloc(event);
-+	mutex_unlock(&pai_reserve_mutex);
+ 	mutex_unlock(&pai_reserve_mutex);
++	cpus_read_unlock();
  	if (rc) {
  		free_page(PAI_SAVE_AREA(event));
  		goto out;
+@@ -1216,8 +1256,35 @@ static int __init paipmu_setup(void)
+ 	return install_ok;
+ }
+ 
++static int pai_online_cpu(unsigned int cpu)
++{
++	int rc;
++
++	mutex_lock(&pai_reserve_mutex);
++	rc = pai_alloc_cpu(PAI_PMU_CRYPTO, cpu, true);
++	if (rc)
++		goto out;
++	rc = pai_alloc_cpu(PAI_PMU_EXT, cpu, true);
++	if (rc)
++		pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
++out:
++	mutex_unlock(&pai_reserve_mutex);
++	return rc;
++}
++
++static int pai_offline_cpu(unsigned int cpu)
++{
++	mutex_lock(&pai_reserve_mutex);
++	pai_event_destroy_cpu(PAI_PMU_CRYPTO, cpu, true);
++	pai_event_destroy_cpu(PAI_PMU_EXT, cpu, true);
++	mutex_unlock(&pai_reserve_mutex);
++	return 0;
++}
++
+ static int __init pai_init(void)
+ {
++	int state, rc;
++
+ 	/* Setup s390dbf facility */
+ 	paidbg = debug_register("pai", 32, 256, 128);
+ 	if (!paidbg) {
+@@ -1226,13 +1293,24 @@ static int __init pai_init(void)
+ 	}
+ 	debug_register_view(paidbg, &debug_sprintf_view);
+ 
+-	if (!paipmu_setup()) {
+-		/* No PMU registration, no need for debug buffer */
+-		debug_unregister_view(paidbg, &debug_sprintf_view);
+-		debug_unregister(paidbg);
+-		return -ENODEV;
+-	}
++	/* CPUHP_BP_PREPARE_DYN --> before CPU is brought online */
++	state = cpuhp_setup_state(CPUHP_BP_PREPARE_DYN, "perf/pai:prepare",
++				  pai_online_cpu, pai_offline_cpu);
++	rc = state < 0 ? state : 0;
++	if (rc < 0)
++		goto out_debug;
++
++	rc = -ENODEV;
++	if (!paipmu_setup())
++		goto out_cpuhp;
+ 	return 0;
++
++out_cpuhp:
++	cpuhp_remove_state(state);
++out_debug:
++	debug_unregister_view(paidbg, &debug_sprintf_view);
++	debug_unregister(paidbg);
++	return rc;
+ }
+ 
+ device_initcall(pai_init);
 -- 
 2.53.0
 
