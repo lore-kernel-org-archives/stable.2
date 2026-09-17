@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 81F6339EF16
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 585683A5E71
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613451; cv=none; b=hkx+/NBJsUZKBIBIKqUYEpW0ZdzQuCUuNGch0fqlVK3siS9MMmeWkLcI4uO7zAiTN459hvZbfRjT/2woe/ian+iptQu6p0YfLausli+hbhmgtO1EegEntYeEHbtk0aGAAlx6P2YoauOYWOPwUVEAztzOquGcac/8RZpokZHcMPg=
+	t=1789613448; cv=none; b=TRBeTO9JMtdoypXQqnsBtewlBPKTungU7YtETHFe896/KV7tSS5sOkHGVzKuZ5w5Iwn8/lwXb5HE5QttM2wh4flQTu1WTSc8xtwj8WGjzMkbwaxP7mq1VQmkORX6NLlaCRXxUbC3uHr6ElDvO1mQwNm0Xdmzpr9PMQj6lNrG7ug=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613451; c=relaxed/simple;
-	bh=IXMIgayGskeGbQSt+nBnKHl8X9gVPqDrMRIGfwDlRLo=;
+	s=arc-20240116; t=1789613448; c=relaxed/simple;
+	bh=z9ZfZkrvo/mFNuyiuyOXaiUt+lXAoteKCUgna+fbzEE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Oec8NOQgqRSYoBNzA7GDSWGqiMlem9q56PJRLDFrHsABJirvZMgr3Wb2zq0I7ukFws1Ju67yJ7XAMXIuZpaiYzv+FqfQJdhtyFPb7bh9v7AeF2YKEXMH8UT+fuzivNefnG831gNkfeeI0Dph32jFyMiLGpeFvl4n9/+pKZuKwnk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WcBKzT2v; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=enhs+7b2n1vetcw6WpeKfD2Nt2HZyKpdQbDOBckgGtYyIcgI+g0hXhgWgXvllfQohHkfByNTEFhQiHy92oUbrND9FBjvSJLIJFseMuF2nddBBJY3pN4VKSsde18wR8symPZLhuBT7QiDdpicKpyuzsz6qW6CLUwqUBv3j2aR+Hg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=USiIizk6; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WcBKzT2v"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8A9501F0089D;
-	Thu, 17 Sep 2026 02:50:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="USiIizk6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DF9741F008A6;
+	Thu, 17 Sep 2026 02:50:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789613418;
-	bh=+99HS/5Q1myT+i1F8la1HAM8ZZkujLFXP319OI9UZ68=;
+	s=k20260515; t=1789613427;
+	bh=pJLviyb9UhcbxMU83ydtedGrVV+1AsndwZllQpPGk68=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WcBKzT2v4m7RXBMdz9C+9qqB877OovPUcYB2ILaPAOjVDmNOCVvn7HS266QUtersW
-	 efJRZPtmzo6kMkK37GaeOsbVLaaU/5x8/drrouSoJv5GAx1JKEzFUHLLOBTBIwhS8j
-	 MYunH0TvV58fvUhlZaSPGNFpxVahTVU2osY7b6qhui2DlghqiPXhlWNa9NwWaoCulp
-	 qmrwduwz+74gAlr5rO8qTSbnRjS6xthWGLDTI4UOqpfKEys7+0rYU1n/Mqs5/l73CB
-	 nR+yvdcANzIeDAburEqPbBPIqXBMbGB8FcvqB4FJiAWeQkjzgSOBGFouGdqntGAND0
-	 xkkRpLHjv/1ig==
+	b=USiIizk6r+rM7FvNtuQatYWAbjcI+7NBFYmocwvqdKu83mlkbH6IiAseKxAoLqWq3
+	 D0mYAOi7fdQgndmgSpoSSvftpCUvlRCQiN9HCIBv+38FsOEm+KSqOmokfvJBlf/IeB
+	 KO1boyT2Pjsgwg+ayNzDeWSaP4DSfwzktYY2dVq0SAACDiUXfHI7PRasCXB0CP0rb3
+	 a3jdp3/20I8D/Jtl07CBE84HCr5YkpfTFi4K19waM2xAwOmZFaGzWwMp3DwBSfD4Jf
+	 W7phI/L7by/ewwIAiRfLIfzBL2THuHBmM+xbTdLsyTcAcYCHXz/SsVTmxDY0n2Rrdu
+	 i+1WwAMTTXklA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Eric Dumazet <edumazet@google.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
+Cc: Pavel Begunkov <asml.silence@gmail.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.18.y 2/4] tcp: introduce icsk->icsk_keepalive_timer
-Date: Wed, 16 Sep 2026 22:50:13 -0400
-Message-ID: <20260917025015.3917201-2-sashal@kernel.org>
+Subject: [PATCH 6.12.y 2/4] eth: bnxt: store rx buffer size per queue
+Date: Wed, 16 Sep 2026 22:50:22 -0400
+Message-ID: <20260917025024.3917679-2-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917025015.3917201-1-sashal@kernel.org>
-References: <2026091620-haziness-luridness-ad42@gregkh>
- <20260917025015.3917201-1-sashal@kernel.org>
+In-Reply-To: <20260917025024.3917679-1-sashal@kernel.org>
+References: <2026091604-recall-carnivore-5fe5@gregkh>
+ <20260917025024.3917679-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,285 +46,354 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Eric Dumazet <edumazet@google.com>
+From: Pavel Begunkov <asml.silence@gmail.com>
 
-[ Upstream commit 08dfe370239e53494453cee1e2ded2cdaa1efd12 ]
+[ Upstream commit f57efb32aae1da5c0a25acf473ef4ab559894adf ]
 
-sk->sk_timer has been used for TCP keepalives.
+Instead of using a constant buffer length, allow configuring the size
+for each queue separately. There is no way to change the length yet, and
+it'll be passed from memory providers in a later patch.
 
-Keepalive timers are not in fast path, we want to use sk->sk_timer
-storage for retransmit timers, for better cache locality.
+Suggested-by: Jakub Kicinski <kuba@kernel.org>
+Signed-off-by: Pavel Begunkov <asml.silence@gmail.com>
 
-Create icsk->icsk_keepalive_timer and change keepalive
-code to no longer use sk->sk_timer.
+Stable adaptation for 6.12:
 
-Added space is reclaimed in the following patch.
+Keep the per-queue buffer size change using the existing page-based RX
+and XDP interfaces. Apply aggregation truesize accounting in
+bnxt_rx_agg_pages_skb(), and program the size in the existing firmware
+ring allocation path instead of adding the newer helper functions.
 
-This includes changes to MPTCP, which was also using sk_timer.
+This tree has no unreadable netmem pools. Derive head-pool separation
+from the queue buffer size, keep head allocations at order zero, and
+use the same queue-specific decision for allocation and cleanup. Keep
+the existing pool sizing and NAPI association. Queue sizes start at
+BNXT_RX_PAGE_SIZE and are inherited by restart clones.
 
-Alias icsk->mptcp_tout_timer and icsk->icsk_keepalive_timer
-for inet_sk_diag_fill() sake.
+Initialize the clone's rx_agg_bmap to NULL to separate it from the live
+ring and provide the common initialization context needed to cherry-pick
+5ce7f36c334d ("bnxt_en: Don't free the live ring's TPA state on queue
+restart failure") cleanly. The target's TPA pointer resets are left to
+that commit. No functions are added.
 
-Signed-off-by: Eric Dumazet <edumazet@google.com>
-Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
-Link: https://patch.msgid.link/20251124175013.1473655-4-edumazet@google.com
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: 85c580b0d859 ("mptcp: prevent race between disconnect() and rtx")
+Stable-dep-of: 5ce7f36c334d ("bnxt_en: Don't free the live ring's TPA state on queue restart failure")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- .../net_cachelines/inet_connection_sock.rst           |  1 +
- include/net/inet_connection_sock.h                    | 11 +++++++++--
- net/ipv4/inet_connection_sock.c                       |  6 +++---
- net/ipv4/inet_diag.c                                  |  4 ++--
- net/ipv4/tcp_ipv4.c                                   |  4 ++--
- net/ipv4/tcp_timer.c                                  |  9 +++++----
- net/ipv6/tcp_ipv6.c                                   |  4 ++--
- net/mptcp/protocol.c                                  | 10 ++++++----
- net/mptcp/protocol.h                                  |  2 +-
- tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c     |  4 ++--
- tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c     |  4 ++--
- 11 files changed, 35 insertions(+), 24 deletions(-)
+ drivers/net/ethernet/broadcom/bnxt/bnxt.c     | 60 +++++++++++--------
+ drivers/net/ethernet/broadcom/bnxt/bnxt.h     |  1 +
+ drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c |  6 +-
+ drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.h |  2 +-
+ 4 files changed, 39 insertions(+), 30 deletions(-)
 
-diff --git a/Documentation/networking/net_cachelines/inet_connection_sock.rst b/Documentation/networking/net_cachelines/inet_connection_sock.rst
-index 8fae85ebb7730..4f65de2def8c9 100644
---- a/Documentation/networking/net_cachelines/inet_connection_sock.rst
-+++ b/Documentation/networking/net_cachelines/inet_connection_sock.rst
-@@ -14,6 +14,7 @@ struct inet_bind_bucket             icsk_bind_hash         read_mostly
- struct inet_bind2_bucket            icsk_bind2_hash        read_mostly                             tcp_set_state,inet_put_port
- struct timer_list                   icsk_retransmit_timer  read_write                              inet_csk_reset_xmit_timer,tcp_connect
- struct timer_list                   icsk_delack_timer      read_mostly                             inet_csk_reset_xmit_timer,tcp_connect
-+struct timer_list                   icsk_keepalive_timer
- u32                                 icsk_rto               read_write                              tcp_cwnd_validate,tcp_schedule_loss_probe,tcp_connect_init,tcp_connect,tcp_write_xmit,tcp_push_one
- u32                                 icsk_rto_min
- u32                                 icsk_rto_max           read_mostly                             tcp_reset_xmit_timer
-diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
-index 3a239b655d548..53de8565e3c27 100644
---- a/include/net/inet_connection_sock.h
-+++ b/include/net/inet_connection_sock.h
-@@ -59,6 +59,9 @@ struct inet_connection_sock_af_ops {
-  * @icsk_bind_hash:	   Bind node
-  * @icsk_bind2_hash:	   Bind node in the bhash2 table
-  * @icsk_retransmit_timer: Resend (no ack)
-+ * @icsk_delack_timer:     Delayed ACK timer
-+ * @icsk_keepalive_timer:  Keepalive timer
-+ * @mptcp_tout_timer: mptcp timer
-  * @icsk_rto:		   Retransmit timeout
-  * @icsk_pmtu_cookie	   Last pmtu seen by socket
-  * @icsk_ca_ops		   Pluggable congestion control hook
-@@ -83,8 +86,12 @@ struct inet_connection_sock {
- 	struct request_sock_queue icsk_accept_queue;
- 	struct inet_bind_bucket	  *icsk_bind_hash;
- 	struct inet_bind2_bucket  *icsk_bind2_hash;
-- 	struct timer_list	  icsk_retransmit_timer;
-- 	struct timer_list	  icsk_delack_timer;
-+	struct timer_list	  icsk_retransmit_timer;
-+	struct timer_list	  icsk_delack_timer;
-+	union {
-+		struct timer_list icsk_keepalive_timer;
-+		struct timer_list mptcp_tout_timer;
-+	};
- 	__u32			  icsk_rto;
- 	__u32                     icsk_rto_min;
- 	u32			  icsk_rto_max;
-diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
-index 5db36e323e683..2976b819ff5ce 100644
---- a/net/ipv4/inet_connection_sock.c
-+++ b/net/ipv4/inet_connection_sock.c
-@@ -750,7 +750,7 @@ void inet_csk_init_xmit_timers(struct sock *sk,
- 
- 	timer_setup(&icsk->icsk_retransmit_timer, retransmit_handler, 0);
- 	timer_setup(&icsk->icsk_delack_timer, delack_handler, 0);
--	timer_setup(&sk->sk_timer, keepalive_handler, 0);
-+	timer_setup(&icsk->icsk_keepalive_timer, keepalive_handler, 0);
- 	icsk->icsk_pending = icsk->icsk_ack.pending = 0;
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.c b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+index 09306e706997d..1aa8c26bf71a1 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.c
+@@ -867,9 +867,9 @@ static void bnxt_tx_int(struct bnxt *bp, struct bnxt_napi *bnapi, int budget)
+ 		bnapi->events &= ~BNXT_TX_CMP_EVENT;
  }
  
-@@ -763,7 +763,7 @@ void inet_csk_clear_xmit_timers(struct sock *sk)
- 
- 	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
- 	sk_stop_timer(sk, &icsk->icsk_delack_timer);
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &icsk->icsk_keepalive_timer);
+-static bool bnxt_separate_head_pool(void)
++static bool bnxt_separate_head_pool(struct bnxt_rx_ring_info *rxr)
+ {
+-	return PAGE_SIZE > BNXT_RX_PAGE_SIZE;
++	return rxr->rx_page_size != PAGE_SIZE;
  }
  
- void inet_csk_clear_xmit_timers_sync(struct sock *sk)
-@@ -778,7 +778,7 @@ void inet_csk_clear_xmit_timers_sync(struct sock *sk)
+ static struct page *__bnxt_alloc_rx_page(struct bnxt *bp, dma_addr_t *mapping,
+@@ -879,9 +879,9 @@ static struct page *__bnxt_alloc_rx_page(struct bnxt *bp, dma_addr_t *mapping,
+ {
+ 	struct page *page;
  
- 	sk_stop_timer_sync(sk, &icsk->icsk_retransmit_timer);
- 	sk_stop_timer_sync(sk, &icsk->icsk_delack_timer);
--	sk_stop_timer_sync(sk, &sk->sk_timer);
-+	sk_stop_timer_sync(sk, &icsk->icsk_keepalive_timer);
- }
- 
- struct dst_entry *inet_csk_route_req(const struct sock *sk,
-diff --git a/net/ipv4/inet_diag.c b/net/ipv4/inet_diag.c
-index 9f63c09439a05..3f5b1418a6109 100644
---- a/net/ipv4/inet_diag.c
-+++ b/net/ipv4/inet_diag.c
-@@ -293,11 +293,11 @@ int inet_sk_diag_fill(struct sock *sk, struct inet_connection_sock *icsk,
- 		r->idiag_retrans = READ_ONCE(icsk->icsk_probes_out);
- 		r->idiag_expires =
- 			jiffies_delta_to_msecs(tcp_timeout_expires(sk) - jiffies);
--	} else if (timer_pending(&sk->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		r->idiag_timer = 2;
- 		r->idiag_retrans = READ_ONCE(icsk->icsk_probes_out);
- 		r->idiag_expires =
--			jiffies_delta_to_msecs(sk->sk_timer.expires - jiffies);
-+			jiffies_delta_to_msecs(icsk->icsk_keepalive_timer.expires - jiffies);
+-	if (PAGE_SIZE > BNXT_RX_PAGE_SIZE) {
++	if (rxr->rx_page_size < PAGE_SIZE) {
+ 		page = page_pool_dev_alloc_frag(rxr->page_pool, offset,
+-						BNXT_RX_PAGE_SIZE);
++						rxr->rx_page_size);
+ 	} else {
+ 		page = page_pool_dev_alloc_pages(rxr->page_pool);
+ 		*offset = 0;
+@@ -1101,9 +1101,9 @@ static struct sk_buff *bnxt_rx_multi_page_skb(struct bnxt *bp,
+ 		return NULL;
  	}
+ 	dma_addr -= bp->rx_dma_offset;
+-	dma_sync_single_for_cpu(&bp->pdev->dev, dma_addr, BNXT_RX_PAGE_SIZE,
++	dma_sync_single_for_cpu(&bp->pdev->dev, dma_addr, rxr->rx_page_size,
+ 				bp->rx_dir);
+-	skb = napi_build_skb(data_ptr - bp->rx_offset, BNXT_RX_PAGE_SIZE);
++	skb = napi_build_skb(data_ptr - bp->rx_offset, rxr->rx_page_size);
+ 	if (!skb) {
+ 		page_pool_recycle_direct(rxr->page_pool, page);
+ 		return NULL;
+@@ -1135,7 +1135,7 @@ static struct sk_buff *bnxt_rx_page_skb(struct bnxt *bp,
+ 		return NULL;
+ 	}
+ 	dma_addr -= bp->rx_dma_offset;
+-	dma_sync_single_for_cpu(&bp->pdev->dev, dma_addr, BNXT_RX_PAGE_SIZE,
++	dma_sync_single_for_cpu(&bp->pdev->dev, dma_addr, rxr->rx_page_size,
+ 				bp->rx_dir);
  
- 	if ((ext & (1 << (INET_DIAG_INFO - 1))) && handler->idiag_info_size) {
-diff --git a/net/ipv4/tcp_ipv4.c b/net/ipv4/tcp_ipv4.c
-index b4ee14c769213..caefe3db53a97 100644
---- a/net/ipv4/tcp_ipv4.c
-+++ b/net/ipv4/tcp_ipv4.c
-@@ -2932,9 +2932,9 @@ static void get_tcp4_sock(struct sock *sk, struct seq_file *f, int i)
- 	} else if (icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active	= 4;
- 		timer_expires	= tcp_timeout_expires(sk);
--	} else if (timer_pending(&sk->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active	= 2;
--		timer_expires	= sk->sk_timer.expires;
-+		timer_expires	= icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active	= 0;
- 		timer_expires = jiffies;
-diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
-index 9565b37773b87..4f2df3a692115 100644
---- a/net/ipv4/tcp_timer.c
-+++ b/net/ipv4/tcp_timer.c
-@@ -759,12 +759,12 @@ EXPORT_IPV6_MOD(tcp_syn_ack_timeout);
+ 	if (unlikely(!payload))
+@@ -1149,7 +1149,7 @@ static struct sk_buff *bnxt_rx_page_skb(struct bnxt *bp,
  
- void tcp_reset_keepalive_timer(struct sock *sk, unsigned long len)
+ 	skb_mark_for_recycle(skb);
+ 	off = (void *)data_ptr - page_address(page);
+-	skb_add_rx_frag(skb, 0, page, off, len, BNXT_RX_PAGE_SIZE);
++	skb_add_rx_frag(skb, 0, page, off, len, rxr->rx_page_size);
+ 	memcpy(skb->data - NET_IP_ALIGN, data_ptr - NET_IP_ALIGN,
+ 	       payload + NET_IP_ALIGN);
+ 
+@@ -1253,7 +1253,7 @@ static u32 __bnxt_rx_agg_pages(struct bnxt *bp,
+ 			return 0;
+ 		}
+ 
+-		dma_sync_single_for_cpu(&pdev->dev, mapping, BNXT_RX_PAGE_SIZE,
++		dma_sync_single_for_cpu(&pdev->dev, mapping, rxr->rx_page_size,
+ 					bp->rx_dir);
+ 
+ 		total_frag_len += frag_len;
+@@ -1268,6 +1268,7 @@ static struct sk_buff *bnxt_rx_agg_pages_skb(struct bnxt *bp,
+ 					     struct sk_buff *skb, u16 idx,
+ 					     u32 agg_bufs, bool tpa)
  {
--	sk_reset_timer(sk, &sk->sk_timer, jiffies + len);
-+	sk_reset_timer(sk, &inet_csk(sk)->icsk_keepalive_timer, jiffies + len);
++	struct bnxt_rx_ring_info *rxr = cpr->bnapi->rx_ring;
+ 	struct skb_shared_info *shinfo = skb_shinfo(skb);
+ 	u32 total_frag_len = 0;
+ 
+@@ -1281,7 +1282,7 @@ static struct sk_buff *bnxt_rx_agg_pages_skb(struct bnxt *bp,
+ 
+ 	skb->data_len += total_frag_len;
+ 	skb->len += total_frag_len;
+-	skb->truesize += BNXT_RX_PAGE_SIZE * agg_bufs;
++	skb->truesize += rxr->rx_page_size * agg_bufs;
+ 	return skb;
  }
  
- static void tcp_delete_keepalive_timer(struct sock *sk)
+@@ -2222,8 +2223,7 @@ static int bnxt_rx_pkt(struct bnxt *bp, struct bnxt_cp_ring_info *cpr,
+ 			if (!skb)
+ 				goto oom_next_rx;
+ 		} else {
+-			skb = bnxt_xdp_build_skb(bp, skb, agg_bufs,
+-						 rxr->page_pool, &xdp);
++			skb = bnxt_xdp_build_skb(bp, skb, agg_bufs, rxr, &xdp);
+ 			if (!skb) {
+ 				/* we should be able to free the old skb here */
+ 				bnxt_xdp_buff_frags_free(rxr, &xdp);
+@@ -3647,7 +3647,7 @@ static void bnxt_free_rx_rings(struct bnxt *bp)
+ 			xdp_rxq_info_unreg(&rxr->xdp_rxq);
+ 
+ 		page_pool_destroy(rxr->page_pool);
+-		if (bnxt_separate_head_pool())
++		if (bnxt_separate_head_pool(rxr))
+ 			page_pool_destroy(rxr->head_pool);
+ 		rxr->page_pool = rxr->head_pool = NULL;
+ 
+@@ -3672,12 +3672,14 @@ static int bnxt_alloc_rx_page_pool(struct bnxt *bp,
+ 	pp.pool_size = bp->rx_agg_ring_size;
+ 	if (BNXT_RX_PAGE_MODE(bp))
+ 		pp.pool_size += bp->rx_ring_size;
++
++	pp.order = get_order(rxr->rx_page_size);
+ 	pp.nid = numa_node;
+ 	pp.napi = &rxr->bnapi->napi;
+ 	pp.netdev = bp->dev;
+ 	pp.dev = &bp->pdev->dev;
+ 	pp.dma_dir = bp->rx_dir;
+-	pp.max_len = PAGE_SIZE;
++	pp.max_len = PAGE_SIZE << pp.order;
+ 	pp.flags = PP_FLAG_DMA_MAP | PP_FLAG_DMA_SYNC_DEV;
+ 
+ 	pool = page_pool_create(&pp);
+@@ -3685,7 +3687,9 @@ static int bnxt_alloc_rx_page_pool(struct bnxt *bp,
+ 		return PTR_ERR(pool);
+ 	rxr->page_pool = pool;
+ 
+-	if (bnxt_separate_head_pool()) {
++	if (bnxt_separate_head_pool(rxr)) {
++		pp.order = 0;
++		pp.max_len = PAGE_SIZE;
+ 		pp.pool_size = max(bp->rx_ring_size, 1024);
+ 		pool = page_pool_create(&pp);
+ 		if (IS_ERR(pool))
+@@ -4140,6 +4144,8 @@ static void bnxt_init_ring_struct(struct bnxt *bp)
+ 		if (!rxr)
+ 			goto skip_rx;
+ 
++		rxr->rx_page_size = BNXT_RX_PAGE_SIZE;
++
+ 		ring = &rxr->rx_ring_struct;
+ 		rmem = &ring->ring_mem;
+ 		rmem->nr_pages = bp->rx_nr_pages;
+@@ -4299,7 +4305,7 @@ static void bnxt_init_one_rx_agg_ring_rxbd(struct bnxt *bp,
+ 	ring = &rxr->rx_agg_ring_struct;
+ 	ring->fw_ring_id = INVALID_HW_RING_ID;
+ 	if ((bp->flags & BNXT_FLAG_AGG_RINGS)) {
+-		type = ((u32)BNXT_RX_PAGE_SIZE << RX_BD_LEN_SHIFT) |
++		type = ((u32)rxr->rx_page_size << RX_BD_LEN_SHIFT) |
+ 			RX_BD_TYPE_RX_AGG_BD;
+ 
+ 		/* On P7, setting EOP will cause the chip to disable
+@@ -6864,6 +6870,7 @@ static void bnxt_hwrm_ring_grp_free(struct bnxt *bp)
+ }
+ 
+ static int hwrm_ring_alloc_send_msg(struct bnxt *bp,
++				    struct bnxt_rx_ring_info *rxr,
+ 				    struct bnxt_ring_struct *ring,
+ 				    u32 ring_type, u32 map_index)
  {
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &inet_csk(sk)->icsk_keepalive_timer);
- }
+@@ -6936,7 +6943,7 @@ static int hwrm_ring_alloc_send_msg(struct bnxt *bp,
+ 			/* Association of agg ring with rx ring */
+ 			grp_info = &bp->grp_info[ring->grp_idx];
+ 			req->rx_ring_id = cpu_to_le16(grp_info->rx_fw_ring_id);
+-			req->rx_buf_size = cpu_to_le16(BNXT_RX_PAGE_SIZE);
++			req->rx_buf_size = cpu_to_le16(rxr->rx_page_size);
+ 			req->stat_ctx_id = cpu_to_le32(grp_info->fw_stats_ctx);
+ 			req->enables |= cpu_to_le32(
+ 				RING_ALLOC_REQ_ENABLES_RX_RING_ID_VALID |
+@@ -7092,7 +7099,7 @@ static int bnxt_hwrm_rx_ring_alloc(struct bnxt *bp,
+ 	u32 map_idx = bnapi->index;
+ 	int rc;
  
- void tcp_set_keepalive(struct sock *sk, int val)
-@@ -781,8 +781,9 @@ EXPORT_IPV6_MOD_GPL(tcp_set_keepalive);
+-	rc = hwrm_ring_alloc_send_msg(bp, ring, type, map_idx);
++	rc = hwrm_ring_alloc_send_msg(bp, rxr, ring, type, map_idx);
+ 	if (rc)
+ 		return rc;
  
- static void tcp_keepalive_timer(struct timer_list *t)
+@@ -7112,7 +7119,7 @@ static int bnxt_hwrm_rx_agg_ring_alloc(struct bnxt *bp,
+ 	int rc;
+ 
+ 	map_idx = grp_idx + bp->rx_nr_rings;
+-	rc = hwrm_ring_alloc_send_msg(bp, ring, type, map_idx);
++	rc = hwrm_ring_alloc_send_msg(bp, rxr, ring, type, map_idx);
+ 	if (rc)
+ 		return rc;
+ 
+@@ -7144,7 +7151,7 @@ static int bnxt_hwrm_ring_alloc(struct bnxt *bp)
+ 
+ 		vector = bp->irq_tbl[map_idx].vector;
+ 		disable_irq_nosync(vector);
+-		rc = hwrm_ring_alloc_send_msg(bp, ring, type, map_idx);
++		rc = hwrm_ring_alloc_send_msg(bp, NULL, ring, type, map_idx);
+ 		if (rc) {
+ 			enable_irq(vector);
+ 			goto err_out;
+@@ -7175,7 +7182,7 @@ static int bnxt_hwrm_ring_alloc(struct bnxt *bp)
+ 			ring = &cpr2->cp_ring_struct;
+ 			ring->handle = BNXT_SET_NQ_HDL(cpr2);
+ 			map_idx = bnapi->index;
+-			rc = hwrm_ring_alloc_send_msg(bp, ring, type2, map_idx);
++			rc = hwrm_ring_alloc_send_msg(bp, NULL, ring, type2, map_idx);
+ 			if (rc)
+ 				goto err_out;
+ 			bnxt_set_db(bp, &cpr2->cp_db, type2, map_idx,
+@@ -7184,7 +7191,7 @@ static int bnxt_hwrm_ring_alloc(struct bnxt *bp)
+ 		}
+ 		ring = &txr->tx_ring_struct;
+ 		map_idx = i;
+-		rc = hwrm_ring_alloc_send_msg(bp, ring, type, map_idx);
++		rc = hwrm_ring_alloc_send_msg(bp, NULL, ring, type, map_idx);
+ 		if (rc)
+ 			goto err_out;
+ 		bnxt_set_db(bp, &txr->tx_db, type, map_idx, ring->fw_ring_id);
+@@ -7208,7 +7215,7 @@ static int bnxt_hwrm_ring_alloc(struct bnxt *bp)
+ 
+ 			ring = &cpr2->cp_ring_struct;
+ 			ring->handle = BNXT_SET_NQ_HDL(cpr2);
+-			rc = hwrm_ring_alloc_send_msg(bp, ring, type2, map_idx);
++			rc = hwrm_ring_alloc_send_msg(bp, NULL, ring, type2, map_idx);
+ 			if (rc)
+ 				goto err_out;
+ 			bnxt_set_db(bp, &cpr2->cp_db, type2, map_idx,
+@@ -15381,6 +15388,7 @@ static int bnxt_queue_mem_alloc(struct net_device *dev, void *qmem, int idx)
+ 	clone->rx_agg_prod = 0;
+ 	clone->rx_sw_agg_prod = 0;
+ 	clone->rx_next_cons = 0;
++	clone->rx_agg_bmap = NULL;
+ 
+ 	rc = bnxt_alloc_rx_page_pool(bp, clone, rxr->page_pool->p.nid);
+ 	if (rc)
+@@ -15439,7 +15447,7 @@ static int bnxt_queue_mem_alloc(struct net_device *dev, void *qmem, int idx)
+ 	xdp_rxq_info_unreg(&clone->xdp_rxq);
+ err_page_pool_destroy:
+ 	page_pool_destroy(clone->page_pool);
+-	if (bnxt_separate_head_pool())
++	if (bnxt_separate_head_pool(clone))
+ 		page_pool_destroy(clone->head_pool);
+ 	clone->page_pool = NULL;
+ 	clone->head_pool = NULL;
+@@ -15458,7 +15466,7 @@ static void bnxt_queue_mem_free(struct net_device *dev, void *qmem)
+ 	xdp_rxq_info_unreg(&rxr->xdp_rxq);
+ 
+ 	page_pool_destroy(rxr->page_pool);
+-	if (bnxt_separate_head_pool())
++	if (bnxt_separate_head_pool(rxr))
+ 		page_pool_destroy(rxr->head_pool);
+ 	rxr->page_pool = NULL;
+ 	rxr->head_pool = NULL;
+@@ -15602,7 +15610,7 @@ static int bnxt_queue_stop(struct net_device *dev, void *qmem, int idx)
+ 	bnxt_hwrm_rx_agg_ring_free(bp, rxr, false);
+ 	rxr->rx_next_cons = 0;
+ 	page_pool_disable_direct_recycling(rxr->page_pool);
+-	if (bnxt_separate_head_pool())
++	if (bnxt_separate_head_pool(rxr))
+ 		page_pool_disable_direct_recycling(rxr->head_pool);
+ 
+ 	memcpy(qmem, rxr, sizeof(*rxr));
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt.h b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+index 24f777832ed62..c10f8ad8bfbd4 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt.h
+@@ -1098,6 +1098,7 @@ struct bnxt_rx_ring_info {
+ 
+ 	unsigned long		*rx_agg_bmap;
+ 	u16			rx_agg_bmap_size;
++	u32			rx_page_size;
+ 
+ 	dma_addr_t		rx_desc_mapping[MAX_RX_PAGES];
+ 	dma_addr_t		rx_agg_desc_mapping[MAX_RX_AGG_PAGES];
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+index 850dabebdbf22..2c16348d3b8cb 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.c
+@@ -182,7 +182,7 @@ void bnxt_xdp_buff_init(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
+ 			u16 cons, u8 *data_ptr, unsigned int len,
+ 			struct xdp_buff *xdp)
  {
--	struct sock *sk = timer_container_of(sk, t, sk_timer);
--	struct inet_connection_sock *icsk = inet_csk(sk);
-+	struct inet_connection_sock *icsk =
-+		timer_container_of(icsk, t, icsk_keepalive_timer);
-+	struct sock *sk = &icsk->icsk_inet.sk;
- 	struct tcp_sock *tp = tcp_sk(sk);
- 	u32 elapsed;
+-	u32 buflen = BNXT_RX_PAGE_SIZE;
++	u32 buflen = rxr->rx_page_size;
+ 	struct bnxt_sw_rx_bd *rx_buf;
+ 	struct pci_dev *pdev;
+ 	dma_addr_t mapping;
+@@ -454,7 +454,7 @@ int bnxt_xdp(struct net_device *dev, struct netdev_bpf *xdp)
  
-diff --git a/net/ipv6/tcp_ipv6.c b/net/ipv6/tcp_ipv6.c
-index fa94bdafbd02a..aca71fbb6c292 100644
---- a/net/ipv6/tcp_ipv6.c
-+++ b/net/ipv6/tcp_ipv6.c
-@@ -2204,9 +2204,9 @@ static void get_tcp6_sock(struct seq_file *seq, struct sock *sp, int i)
- 	} else if (icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active	= 4;
- 		timer_expires	= tcp_timeout_expires(sp);
--	} else if (timer_pending(&sp->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active	= 2;
--		timer_expires	= sp->sk_timer.expires;
-+		timer_expires	= icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active	= 0;
- 		timer_expires = jiffies;
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 4c318438b844c..5f24f4c4a7d7e 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -2348,7 +2348,9 @@ static void mptcp_retransmit_timer(struct timer_list *t)
- 
- static void mptcp_tout_timer(struct timer_list *t)
+ struct sk_buff *
+ bnxt_xdp_build_skb(struct bnxt *bp, struct sk_buff *skb, u8 num_frags,
+-		   struct page_pool *pool, struct xdp_buff *xdp)
++		   struct bnxt_rx_ring_info *rxr, struct xdp_buff *xdp)
  {
--	struct sock *sk = timer_container_of(sk, t, sk_timer);
-+	struct inet_connection_sock *icsk =
-+		timer_container_of(icsk, t, mptcp_tout_timer);
-+	struct sock *sk = &icsk->icsk_inet.sk;
+ 	struct skb_shared_info *sinfo = xdp_get_shared_info_from_buff(xdp);
  
- 	mptcp_schedule_work(sk);
- 	sock_put(sk);
-@@ -2804,7 +2806,7 @@ void mptcp_reset_tout_timer(struct mptcp_sock *msk, unsigned long fail_tout)
- 	 */
- 	timeout = inet_csk(sk)->icsk_mtup.probe_timestamp ? close_timeout : fail_tout;
+@@ -463,7 +463,7 @@ bnxt_xdp_build_skb(struct bnxt *bp, struct sk_buff *skb, u8 num_frags,
  
--	sk_reset_timer(sk, &sk->sk_timer, timeout);
-+	sk_reset_timer(sk, &inet_csk(sk)->mptcp_tout_timer, timeout);
+ 	xdp_update_skb_shared_info(skb, num_frags,
+ 				   sinfo->xdp_frags_size,
+-				   BNXT_RX_PAGE_SIZE * num_frags,
++				   rxr->rx_page_size * num_frags,
+ 				   xdp_buff_is_frag_pfmemalloc(xdp));
+ 	return skb;
  }
- 
- static void mptcp_mp_fail_no_response(struct mptcp_sock *msk)
-@@ -2936,7 +2938,7 @@ static void __mptcp_init_sock(struct sock *sk)
- 
- 	/* re-use the csk retrans timer for MPTCP-level retrans */
- 	timer_setup(&msk->sk.icsk_retransmit_timer, mptcp_retransmit_timer, 0);
--	timer_setup(&sk->sk_timer, mptcp_tout_timer, 0);
-+	timer_setup(&msk->sk.mptcp_tout_timer, mptcp_tout_timer, 0);
- }
- 
- static void mptcp_ca_reset(struct sock *sk)
-@@ -3138,7 +3140,7 @@ static void __mptcp_destroy_sock(struct sock *sk)
- 	might_sleep();
- 
- 	mptcp_stop_rtx_timer(sk);
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &inet_csk(sk)->mptcp_tout_timer);
- 	msk->pm.status = 0;
- 	mptcp_release_sched(msk);
- 
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 3e0ad5de09585..6eab87ce7b353 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -880,7 +880,7 @@ static inline void mptcp_stop_tout_timer(struct sock *sk)
- 	if (!inet_csk(sk)->icsk_mtup.probe_timestamp)
- 		return;
- 
--	sk_stop_timer(sk, &sk->sk_timer);
-+	sk_stop_timer(sk, &inet_csk(sk)->mptcp_tout_timer);
- 	inet_csk(sk)->icsk_mtup.probe_timestamp = 0;
- }
- 
-diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-index 164640db3a29c..685811326a041 100644
---- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-+++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
-@@ -103,9 +103,9 @@ static int dump_tcp_sock(struct seq_file *seq, struct tcp_sock *tp,
- 	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active = 4;
- 		timer_expires = icsk->icsk_retransmit_timer.expires;
--	} else if (timer_pending(&sp->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active = 2;
--		timer_expires = sp->sk_timer.expires;
-+		timer_expires = icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active = 0;
- 		timer_expires = bpf_jiffies64();
-diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-index 591c703f5032f..0f4a927127517 100644
---- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-+++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
-@@ -103,9 +103,9 @@ static int dump_tcp6_sock(struct seq_file *seq, struct tcp6_sock *tp,
- 	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
- 		timer_active = 4;
- 		timer_expires = icsk->icsk_retransmit_timer.expires;
--	} else if (timer_pending(&sp->sk_timer)) {
-+	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
- 		timer_active = 2;
--		timer_expires = sp->sk_timer.expires;
-+		timer_expires = icsk->icsk_keepalive_timer.expires;
- 	} else {
- 		timer_active = 0;
- 		timer_expires = bpf_jiffies64();
+diff --git a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.h b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.h
+index 220285e190fcd..8933a0dec09a6 100644
+--- a/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.h
++++ b/drivers/net/ethernet/broadcom/bnxt/bnxt_xdp.h
+@@ -32,6 +32,6 @@ void bnxt_xdp_buff_init(struct bnxt *bp, struct bnxt_rx_ring_info *rxr,
+ void bnxt_xdp_buff_frags_free(struct bnxt_rx_ring_info *rxr,
+ 			      struct xdp_buff *xdp);
+ struct sk_buff *bnxt_xdp_build_skb(struct bnxt *bp, struct sk_buff *skb,
+-				   u8 num_frags, struct page_pool *pool,
++				   u8 num_frags, struct bnxt_rx_ring_info *rxr,
+ 				   struct xdp_buff *xdp);
+ #endif
 -- 
 2.53.0
 
