@@ -1,40 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E32F74CDDDE;
-	Thu, 17 Sep 2026 15:25:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C86093A6B66;
+	Thu, 17 Sep 2026 15:25:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789658715; cv=none; b=ANs5qIOnIeDLS5B/5AyuKtYGUD8D9u2+yTBiDNX1po9ntxlWviLnS3svdEQZm6wHdKdP6XvIC+iz/xZ5n7f5M6+iRqhqRU+EtCDJ7wSHVRQRLWbGCRw8wpXU059LrW/XYyMxirEQG3e7d1t0Jd0Co5Q+hHDDpBo/vzJHV0Aa6tY=
+	t=1789658714; cv=none; b=krmagV/QRGy/P/H8blTd5rD6zg17r8zCe7DmSEpoWXVgP2dkGd+j9zgPU7yN+RQexo4F+l8kKlLFaR2iFGHLuwwmhodzx3yoTLrtvhSjYf6MLOlQpGZuHn5nUEPyEBwb9uMyNKfTqJKCmnt5yqo1Fi89/fYrkXAegFhJl3NBYHk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789658715; c=relaxed/simple;
-	bh=14Ke7cXYsVVNOi1kOvUD8b7mBtTvWxlWmoBLTYYpCVs=;
+	s=arc-20240116; t=1789658714; c=relaxed/simple;
+	bh=bIINg8THVd426YSZi5FAgHULUkOANLIG1EOjwoR3T60=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=cBnqYSqLpBLZ6S1gYRcuMwxqjHqnbz9UCStPotrfVEtSy07ZYo215xQHTo1GQpxH5dVOWRniFOL1gaLIsmuioTfAxWyEKhY5YWh7gC+iWUTRYuQFJRW1G+pDF3g+1Gh8UFJCLEqzj94i9VaEiUGN+RMpBtOCn5DTt3iWnxZ2qGQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=Mks2e7dz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=VZcrYpNJwh8+H8TI1xjIECzHvtpzeFsUXN5fpNpQqJDqwnWpL6YWIrSwkEiQS9jqHs1q3oS/OFtqIjwmKfeabXFIhjCfMiuHnPJAADzRNMYHf0phUde7UuBCJ/hHEtShMftXhbKgBmzsxdXtzcnv7YEWhRxaX0wOzu6wmkX8pf4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=trnBf4t2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="Mks2e7dz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 904861F00898;
-	Thu, 17 Sep 2026 15:25:09 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="trnBf4t2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 78DE21F000FF;
+	Thu, 17 Sep 2026 15:25:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789658710;
-	bh=2qBuLwkdxDDpYSCa/ou3dR72t+LGjF78PbfRk7mOrWY=;
+	s=korg; t=1789658704;
+	bh=aT+nWSZHoVfRu+kFQCmEv3J9ZUx/o/yiagrawl3KCTA=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Mks2e7dztcK07qTkDs1RC+OanLa0M0WJmnhqrpZg389KzQ4EV1QlRns7XdTVdCHqX
-	 6i5jKIG2+Eql8eD0vFmpEHvZ2XFgQXBYQTM225yu3tVEyyNnqft92JOqe5XhW4A8pL
-	 rRB7ttQx2N38/zjYkTktvKXojW12ZPFbr/p4ElDs=
+	b=trnBf4t2yAN3mGOb4kpRdevP8O1IiDHs05I/CzKell9s6/GbAfdFD+n+lDCuv75Je
+	 eyZwMNpo0xk1/J13+4nPcnjehKA/+raLjx9ntcDrnjOzq/AP6lsDXgXyS1JbzMqGZX
+	 msQE11YQtnbny0kWaIMxCyz0phhniE+WTX2HAyrA=
 From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
 Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Ruikai Peng <ruikai@pwno.io>,
-	Jeff Hugo <jeff.hugo@oss.qualcomm.com>,
-	Lizhi Hou <lizhi.hou@amd.com>,
-	Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>,
+	Manuel Fombuena <fombuena@outlook.com>,
+	Lee Jones <lee@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 014/733] accel/qaic: Address potential out-of-bounds read in resp_worker()
-Date: Thu, 17 Sep 2026 16:05:22 +0100
-Message-ID: <20260917151351.019790322@linuxfoundation.org>
+Subject: [PATCH 7.2 004/733] leds: st1202: Validate pattern input before stopping the sequence
+Date: Thu, 17 Sep 2026 16:05:12 +0100
+Message-ID: <20260917151350.730727438@linuxfoundation.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 References: <20260917151350.597953846@linuxfoundation.org>
@@ -53,123 +51,55 @@ Content-Transfer-Encoding: 8bit
 
 ------------------
 
-From: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
+From: Manuel Fombuena <fombuena@outlook.com>
 
-[ Upstream commit ab243f74ab4084ca5c8dec608cb5b0deb27db067 ]
+[ Upstream commit fd2529ba8fb44cd4b56f1069363b949644b42cec ]
 
-Although 'commit 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation if the
-owner went away")' fixes the scenario it was intended for by walking the
-message and only decoding QAIC_TRANS_DEACTIVATE_FROM_DEV, if present, it
-skipped over the bounds checking code that is included in decode_message().
-This could lead to issues such as reading past the slab allocation's end,
-infinite loops or kernel panics. For those issues to happen, a malformed
-wire message is needed to be sent from the device.
+Input validation for pattern duration is performed inside the write
+loop, after the pattern sequence has already been stopped. If
+validation fails mid-loop the chip is left with the sequence stopped
+and partially written pattern data, with no recovery.
 
-Instead of duplicating the bounds checking code already present in
-decode_message(), use the function inside resp_worker().
+Move all input validation before the mutex and before any hardware
+interaction, so an invalid input leaves the chip state unchanged.
 
-Reported-by: Ruikai Peng <ruikai@pwno.io>
-Fixes: 2feec5ae5df7 ("accel/qaic: Handle DBC deactivation if the owner went away")
-Reviewed-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Reviewed-by: Lizhi Hou <lizhi.hou@amd.com>
-Signed-off-by: Youssef Samir <youssef.abdulrahman@oss.qualcomm.com>
-Signed-off-by: Jeff Hugo <jeff.hugo@oss.qualcomm.com>
-Link: https://patch.msgid.link/20260731152344.1905882-1-youssef.abdulrahman@oss.qualcomm.com
+Signed-off-by: Manuel Fombuena <fombuena@outlook.com>
+Assisted-by: Claude:claude-sonnet-4-6
+Link: https://patch.msgid.link/GV1PR08MB84975929B6ED7CDFBCEB7D76C5F52@GV1PR08MB8497.eurprd08.prod.outlook.com
+Signed-off-by: Lee Jones <lee@kernel.org>
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/accel/qaic/qaic_control.c | 46 ++++++++++++++++---------------
- 1 file changed, 24 insertions(+), 22 deletions(-)
+ drivers/leds/leds-st1202.c | 10 ++++++----
+ 1 file changed, 6 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/accel/qaic/qaic_control.c b/drivers/accel/qaic/qaic_control.c
-index 50bf3340e49ce..2ccc55486aac0 100644
---- a/drivers/accel/qaic/qaic_control.c
-+++ b/drivers/accel/qaic/qaic_control.c
-@@ -963,11 +963,13 @@ static int decode_status(struct qaic_device *qdev, void *trans, struct manage_ms
- 
- static int decode_message(struct qaic_device *qdev, struct manage_msg *user_msg,
- 			  struct wire_msg *msg, struct ioctl_resources *resources,
--			  struct qaic_user *usr)
-+			  struct qaic_user *usr, bool orphaned_deactivate)
- {
-+	u32 msg_hdr_count = le32_to_cpu(msg->hdr.count);
- 	u32 msg_hdr_len = le32_to_cpu(msg->hdr.len);
- 	struct wire_trans_hdr *trans_hdr;
- 	u32 msg_len = 0;
-+	int trans_type;
- 	int ret;
- 	int i;
- 
-@@ -975,10 +977,12 @@ static int decode_message(struct qaic_device *qdev, struct manage_msg *user_msg,
- 	    msg_hdr_len > QAIC_MANAGE_MAX_MSG_LENGTH)
+diff --git a/drivers/leds/leds-st1202.c b/drivers/leds/leds-st1202.c
+index 2593ff39f22a6..168df5ecf27b7 100644
+--- a/drivers/leds/leds-st1202.c
++++ b/drivers/leds/leds-st1202.c
+@@ -237,6 +237,12 @@ static int st1202_led_pattern_set(struct led_classdev *ldev,
+ 	if (len > ST1202_MAX_PATTERNS)
  		return -EINVAL;
  
--	user_msg->len = 0;
--	user_msg->count = le32_to_cpu(msg->hdr.count);
-+	if (user_msg) {
-+		user_msg->len = 0;
-+		user_msg->count = msg_hdr_count;
++	for (int patt = 0; patt < len; patt++) {
++		if (pattern[patt].delta_t < ST1202_MILLIS_PATTERN_DUR_MIN ||
++				pattern[patt].delta_t > ST1202_MILLIS_PATTERN_DUR_MAX)
++			return -EINVAL;
 +	}
- 
--	for (i = 0; i < user_msg->count; ++i) {
-+	for (i = 0; i < msg_hdr_count; ++i) {
- 		u32 hdr_len;
- 
- 		if (msg_len > msg_hdr_len - sizeof(*trans_hdr))
-@@ -990,7 +994,20 @@ static int decode_message(struct qaic_device *qdev, struct manage_msg *user_msg,
- 		    size_add(msg_len, hdr_len) > msg_hdr_len)
- 			return -EINVAL;
- 
--		switch (le32_to_cpu(trans_hdr->type)) {
-+		trans_type = le32_to_cpu(trans_hdr->type);
-+		/*
-+		 * orphaned_deactivate is the case where a deactivate response
-+		 * is received from the device after the user owning the DBC,
-+		 * and the message requesting deactivation, has gone away.
-+		 * In this case, only process QAIC_TRANS_DEACTIVATE_FROM_DEV
-+		 * transaction and skip the others.
-+		 */
-+		if (orphaned_deactivate && trans_type != QAIC_TRANS_DEACTIVATE_FROM_DEV) {
-+			msg_len += hdr_len;
-+			continue;
-+		}
 +
-+		switch (trans_type) {
- 		case QAIC_TRANS_PASSTHROUGH_FROM_DEV:
- 			ret = decode_passthrough(qdev, trans_hdr, user_msg, &msg_len);
- 			break;
-@@ -1281,7 +1298,7 @@ static int qaic_manage(struct qaic_device *qdev, struct qaic_user *usr, struct m
- 		goto dma_cont_failed;
- 	}
+ 	guard(mutex)(&chip->lock);
  
--	ret = decode_message(qdev, user_msg, rsp, &resources, usr);
-+	ret = decode_message(qdev, user_msg, rsp, &resources, usr, false);
+ 	ret = st1202_write_reg(chip, ST1202_CONFIG_REG, ST1202_CONFIG_REG_SHFT);
+@@ -244,10 +250,6 @@ static int st1202_led_pattern_set(struct led_classdev *ldev,
+ 		return ret;
  
- dma_cont_failed:
- 	free_dbc_buf(qdev, &resources);
-@@ -1446,22 +1463,7 @@ static void resp_worker(struct work_struct *work)
- 		 * response to the QAIC_TRANS_TERMINATE_TO_DEV transaction,
- 		 * otherwise, the user can issue an soc_reset to the device.
- 		 */
--		u32 msg_count = le32_to_cpu(msg->hdr.count);
--		u32 msg_len = le32_to_cpu(msg->hdr.len);
--		u32 len = 0;
--		int j;
+ 	for (int patt = 0; patt < len; patt++) {
+-		if (pattern[patt].delta_t < ST1202_MILLIS_PATTERN_DUR_MIN ||
+-				pattern[patt].delta_t > ST1202_MILLIS_PATTERN_DUR_MAX)
+-			return -EINVAL;
 -
--		for (j = 0; j < msg_count && len < msg_len; ++j) {
--			struct wire_trans_hdr *trans_hdr;
--
--			trans_hdr = (struct wire_trans_hdr *)(msg->data + len);
--			if (le32_to_cpu(trans_hdr->type) == QAIC_TRANS_DEACTIVATE_FROM_DEV) {
--				if (decode_deactivate(qdev, trans_hdr, &len, NULL))
--					len += le32_to_cpu(trans_hdr->len);
--			} else {
--				len += le32_to_cpu(trans_hdr->len);
--			}
--		}
-+		decode_message(qdev, NULL, msg, NULL, NULL, true);
- 		/* request must have timed out, drop packet */
- 		kfree(msg);
- 	}
+ 		ret = st1202_pwm_pattern_write(chip, led->led_num, patt, pattern[patt].brightness);
+ 		if (ret != 0)
+ 			return ret;
 -- 
 2.53.0
 
