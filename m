@@ -1,77 +1,87 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from canpmsgout03.his.huawei.com (canpmsgout03.his.huawei.com [113.46.200.218])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7EC1936F91F;
-	Thu, 17 Sep 2026 02:28:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2CFAF391E77;
+	Thu, 17 Sep 2026 02:31:11 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=113.46.200.218
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789612142; cv=none; b=D2iDVinms+59MtCmizKPx44Fzru7c8XdTC4Q+d7rNuBf81ARVy/gI/AUdEEeAswMdloLvwNbVpnePXyNkoMePF5Sujdipd5JZD9IVqs90Nyqu+xbB+TnkxkLfpVki07pqwU0QUbEzw9+wE+ZVCpazaYuSYSJqcf9TJaF4c7tf0I=
+	t=1789612284; cv=none; b=J2Jcm/gvXe6r9XqrgpmCc54i0Ls5P+Wg6JujhprHRI9l7j8TeJiXfuvanSe6xMbe0KtbbvDzXXHFnb5zfKP24R8zw8Ye+76qoDg6pXf1DRcHLLkU5DUtaTil04vAXJ3Po8umytZ8ZuucKuwPmo/GfqIuW/G36ZvbkNMuWmfVrgo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789612142; c=relaxed/simple;
-	bh=6T0htSUKggTZSOVYP5NupG0kBLY0eJqrRFVzqPEVOgU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=f2y0YMLUBoAbRiJiEa++Ivye1+hD462XllMbqWPgOvmS5J6FHvVQbDKSCcxCgJoaZ0sf3MX1FdDZU1X12Ntw/MXEK9lhQDMOkEPm9Wxcz77Ok1M+o5V4fEnqEykvxvDom3n62tVMq69vZoutocSxlWGFzc66J44nUvljny0O+Ng=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XIwgSBng; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789612284; c=relaxed/simple;
+	bh=GMDDHNUV8K+jWRx4wueZtHvHBvnQ0sSfw9cwYxdmeoY=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=IL8f6i9v0nS7LPJ1RFfQ/WAQtya4+ZgmS6mcxbD5eaeUfUE3cMtusSNV18VOmHYjyGeRRdwOjub4I0CJxGePbEPkVQEWm0SxFfqp4m77MjoPNTKohbiL21Rv5anYevmJ6WyWX5lH/GIV2uJerNMUfcfXf79MiM2Dip1FuReIieg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com; spf=pass smtp.mailfrom=huawei.com; dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b=Afbf6X7B; arc=none smtp.client-ip=113.46.200.218
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=huawei.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=huawei.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XIwgSBng"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EDDA01F008A1;
-	Thu, 17 Sep 2026 02:28:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789612120;
-	bh=hIpu4x3R6eS/r998XLlVkZd76MGS2NwC15636aNwGtY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=XIwgSBng5ahUjY8A0tk/E828hYUSrb1nfg3x66f1s2hOOSvkCGHMY4oqDqc2CvsUc
-	 4Uhh2Iu1VRPuAhcG8LX4n8KLplMqbIYM9LEr9GbZSrJ+1RZlebUZ96uwicxzjkAJzf
-	 CWjwXQzTeoBhOl26RPHRyO08sW3juh8Uu/SIU0QuL/N6Xxuaaax4o6Uo9FWIn/4SQ8
-	 go2JdvnbLYtZWI0QOw/Ao0BHpr+lIsOXDgsf4unqs8yZZklLZAW02dN60Tm3fx7a5q
-	 MRubnMNL6A9iSLPCd7CFTg2hrcGmUH/A+cQ4iJdT/8GPLRuTj1I0Tcz6DrH8QHJbCv
-	 XkvNtzz3kVmuQ==
-From: "Martin K. Petersen (Oracle)" <mkp@kernel.org>
-To: linux-scsi@vger.kernel.org,
-	"Martin K. Petersen" <mkp@kernel.org>,
-	Stanley Jhu <stanleyjhu@google.com>
-Cc: Bart Van Assche <bvanassche@acm.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	Avri Altman <avri.altman@sandisk.com>,
-	Peter Wang <peter.wang@mediatek.com>,
-	Brian Kao <powenkao@google.com>,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH v3] scsi: ufs: core: Keep internal commands dispatchable during error handling
-Date: Wed, 16 Sep 2026 22:28:21 -0400
-Message-ID: <178961190588.3672510.10414436987166637617.b4-ty@b4>
+	dkim=pass (1024-bit key) header.d=huawei.com header.i=@huawei.com header.b="Afbf6X7B"
+dkim-signature: v=1; a=rsa-sha256; d=huawei.com; s=dkim;
+	c=relaxed/relaxed; q=dns/txt;
+	h=From;
+	bh=lm2fU6VUAA2CcshNsS+yIrHI71OwF94jThA5xdU69NA=;
+	b=Afbf6X7Bbv2cvH58IBnVCBfWLbO+BuHzxIRgq3MS/gKTU9eFLkULQKwza3cBJier2BVbBi5Nu
+	lukb2TFfnUaOX9gAqL51uTva94FcFrAIP++92jVtHiuy61GC5MXPxk1Pb4B3HLUvYCRK242r1pU
+	KNOTN0xrNv6V3fxW5095ZY0=
+Received: from mail.maildlp.com (unknown [172.19.163.0])
+	by canpmsgout03.his.huawei.com (SkyGuard) with ESMTPS id 4hlfZt543NzpSyG;
+	Thu, 17 Sep 2026 10:19:18 +0800 (CST)
+Received: from kwepemk300012.china.huawei.com (unknown [7.202.194.175])
+	by mail.maildlp.com (Postfix) with ESMTPS id 7E73140537;
+	Thu, 17 Sep 2026 10:31:05 +0800 (CST)
+Received: from DESKTOP-A37P9LK.huawei.com (10.67.109.17) by
+ kwepemk300012.china.huawei.com (7.202.194.175) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.45; Thu, 17 Sep 2026 10:31:04 +0800
+From: Xie Yuanbin <xieyuanbin1@huawei.com>
+To: <sashal@kernel.org>, <gregkh@linuxfoundation.org>,
+	<linux@armlinux.org.uk>, <bigeasy@linutronix.de>, <clrkwllms@kernel.org>,
+	<rostedt@goodmis.org>, <rmk+kernel@armlinux.org.uk>, <linusw@kernel.org>,
+	<kuninori.morimoto.gx@renesas.com>, <arnd@arndb.de>, <xiqi2@huawei.com>,
+	<ljs@kernel.org>, <wozizhi@huaweicloud.com>
+CC: <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
+	<linux-rt-devel@lists.linux.dev>, <stable@vger.kernel.org>,
+	<patches@lists.linux.dev>, <lisongze2@huawei.com>, <wangbing6@huawei.com>,
+	Xie Yuanbin <xieyuanbin1@huawei.com>
+Subject: [PATCH v2 5.10.y/5.15.y 0/3] ARM: fix might_sleep() WARNING for mmap_write_lock() around show_pte()
+Date: Thu, 17 Sep 2026 10:30:53 +0800
+Message-ID: <20260917023056.2280-1-xieyuanbin1@huawei.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260912131625.2301486-1-stanleyjhu@google.com>
-References: <20260912131625.2301486-1-stanleyjhu@google.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: kwepems100002.china.huawei.com (7.221.188.206) To
+ kwepemk300012.china.huawei.com (7.202.194.175)
 
-On Sat, 12 Sep 2026 21:16:25 +0800, Stanley Jhu wrote:
+On linux-5.10.y and linux-5.15.y, commit 07e4d5380f2a844ab7a1 ("ARM:
+9485/1: mm: acquire mmap write lock around show_pte() for user faults")
+introduces a might_sleep() WARNING when using mmap write lock. This is
+due to the lack of upstream commit 59e4f3b45b96a24fc9b7 ("ARM: ensure
+interrupts are enabled in __do_user_fault()") and
+commit e79ca91165d4fd18549c ("ARM: 9484/1: enable interrupts when
+unhandled user faults are triggered") .
 
-> Commit 08b12cda6c44 ("scsi: ufs: core: Switch to scsi_get_internal_cmd()")
-> switched UFS internal commands to allocate requests on
-> hba->host->pseudo_sdev->request_queue, which shares the host tagset with
-> regular LUNs.
-> 
-> During error recovery, ufshcd_err_handling_prepare() calls
-> blk_mq_quiesce_tagset(&hba->host->tag_set), marking all queues in the
-> tagset as quiesced, including pseudo_sdev->request_queue. When
-> ufshcd_verify_dev_init() subsequently issues internal commands (e.g. NOP
-> OUT UPIU) via blk_execute_rq(), blk_mq_run_hw_queue() skips running the
-> quiesced queue, resulting in an unrecoverable circular wait deadlock.
-> 
-> [...]
+This series backports all these upstream patches into the linux-5.10.y:
+1. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault")
+2. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening")
+3. commit 59e4f3b45b96a24fc9b7 ("ARM: ensure interrupts are enabled in
+   __do_user_fault()")
 
-Applied to 7.3/scsi-fixes, thanks!
+In the upstream version, the following patches are a patch set:
+a. commit dea20281ac8822661576 ("ARM: group is_permission_fault() with
+   is_translation_fault()")
+b. commit 40b466db1dffb41f0529 ("ARM: allow __do_kernel_fault() to report
+   execution of memory faults")
+c. commit 7733bc7d299d682f2723 ("ARM: fix hash_name() fault"):
+   which is 1.
+d. commit fd2dee1c6e2256f726ba ("ARM: fix branch predictor hardening"):
+   which is 2.
+The fixed issues by this patch set also exist in linux-5.10 && linux-5.15.
+a. and b. do not need to be backported, and after c. and d.
+is backported, 3. can be safely patched.
 
-[1/1] scsi: ufs: core: Keep internal commands dispatchable during error handling
-      https://git.kernel.org/mkp/scsi/c/b52d695d0620
-
--- 
-Martin K. Petersen
+V1->V2: https://lore.kernel.org/20260916084807.176359-1-xieyuanbin1@huawei.com
