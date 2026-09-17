@@ -1,33 +1,34 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 350D04DD3C9;
-	Thu, 17 Sep 2026 12:02:28 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57A649C4D3;
+	Thu, 17 Sep 2026 12:04:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789646576; cv=none; b=Rn6Af7QORKXn/+n4uzMRNSj65mZjTfOYd2Q0uoP8sodSsObhYC3fFIVCmtiwlzSHbn7AP7WhQoJCQUQzKKvT7v8QCOK6btPVOqD7m+mB053LgSTqGLkTa7/OLld+7DGsRTzcfryNnOKaKr5i5MFwlIslcvFx88kl97FZooEsr+k=
+	t=1789646708; cv=none; b=M0cBGspIHQaCQVoCS74jKUdJH4/WBWCSGdIs4UF61BYdiB9oLWazWS8qu0LlTh0ah/I9yAq3l1UuRErXaYErh3f8b4R4cORH+kyv5Nn7EZ1n6Zf1f49l8zCb5oWjEwVffK2vHwpSPyikwjqoK0+7Iee+4MNagdxDIi4F2+ulYn8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789646576; c=relaxed/simple;
-	bh=DqonLIgOSDYWFJ7C2hZaxxsxEfs7IMmyBqtrVrLze98=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=SfHfCUztKHbwFpPeyBgp8BeGA4G5esfMG2HMQrzoY9LFnOycASOi+Rn4fMApngL9fh0QLX6LNbcJlww5NktZHzOt4V6bfD0kKPLFNvfOvcH9+FvYYA+3NqgPUO79vCs4c16O+YHnHdwaFijKWtKSnaaYrM+e7XBPIITs0nE5hqg=
+	s=arc-20240116; t=1789646708; c=relaxed/simple;
+	bh=f6dEYUg3qwnuiNz8knI4frPeCoas5Lo7cFmz+uMmNZ0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=W/0ViLk3a1VZG3aYxf2fD1OCd1iX1Hmco9uzzXptUBQQ/9WzET2rvvkJ5ByCsEIlkMuvBsXgUgk+JM7xRPXHM+wWxw1+ZE2FMUKNt78HC8bgiP9JTk4c1rfv+gAbo0O4j6O9nlNAQpDfrDjziYJSv2tG9oxLa6D38soAB/oe/3M=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oz3N1qtqLxqACA--.2315S2;
-	Thu, 17 Sep 2026 20:02:21 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAAXgDpb16tqDiSACA--.8S2;
+	Thu, 17 Sep 2026 20:04:44 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: ath11k@lists.infradead.org
-Cc: govinds@codeaurora.org,
-	jjohnson@kernel.org,
-	kvalo@kernel.org,
+To: ath12k@lists.infradead.org
+Cc: jjohnson@kernel.org,
 	linux-kernel@vger.kernel.org,
 	linux-wireless@vger.kernel.org,
+	quic_rajkbhag@quicinc.com,
+	quic_ssreeela@quicinc.com,
+	vasanthakumar.thiagarajan@oss.qualcomm.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] wifi: ath11k: Fix rproc reference leak in ath11k_ahb_probe()
-Date: Thu, 17 Sep 2026 12:02:21 +0000
-Message-Id: <20260917120221.2150282-1-vulab@iscas.ac.cn>
+Subject: [PATCH] wifi: ath12k: Fix rproc reference leak when configuring rproc IRQs
+Date: Thu, 17 Sep 2026 12:04:43 +0000
+Message-Id: <20260917120443.2150370-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -36,85 +37,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oz3N1qtqLxqACA--.2315S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7CrWfGrWkZFWktry3tF43KFg_yoW8Kr4rpF
-	srX3WDKFZ5Ca12gws7Xr4UA3W8uF13ta129rW7Kwn3uas3tFyDt3WrXFyjqryftFW8GFya
-	vFW2y348CFyvyrJanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDU0xBIdaVrnRJUUUBIb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
-	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
-	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
-	6r4UJVWxJr1l84ACjcxK6I8E87Iv67AKxVW0oVCq3wA2z4x0Y4vEx4A2jsIEc7CjxVAFwI
-	0_GcCE3s1le2I262IYc4CY6c8Ij28IcVAaY2xG8wAqx4xG64xvF2IEw4CE5I8CrVC2j2Wl
-	Yx0E2Ix0cI8IcVAFwI0_Jw0_WrylYx0Ex4A2jsIE14v26r4UJVWxJr1lOx8S6xCaFVCjc4
-	AY6r1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1l
-	c7CjxVAaw2AFwI0_JF0_Jw1l42xK82IYc2Ij64vIr41l42xK82IY6x8ErcxFaVAv8VW8GF
-	yrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02F40E14v26r1j6r18MI8I3I0E
-	7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GFylIxkGc2Ij64vIr41lIxAIcV
-	C0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7CjxVAFwI0_Cr0_Gr1UMIIF0xvE
-	42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxVW8Jr0_Cr1UMIIF0xvEx4A2js
-	IEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7IU5gZ2DUUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAQNA2qrrJqB0wAAsj
+X-CM-TRANSID:zQCowAAXgDpb16tqDiSACA--.8S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrKw1DWF4xJw1UArW7GFWUtwb_yoWkAwcE9F
+	4rXw1xZ3yIkrWjkF15Ca12vw4IvFyDXFWxJFWqqFWfJFWxJr4v9ryrZFn8AFsrtry8Cr1f
+	GFZ2qr47A3srWjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbSxYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
+	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwCY
+	1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48Zr
+	WUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCj
+	r7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6x
+	IIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF
+	04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4UJVWxJr1lIxAIcVC2z280aV
+	CY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuYvjxU2U73DUUUU
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwUNA2qrrRmBsQAAsJ
 
-ath11k_core_get_rproc() gets the remoteproc with rproc_get_by_phandle(),
-which takes a reference on the rproc device, and stores it in
-ab_ahb->tgt_rproc. That reference is never released, neither when the
-probe fails after the rproc was acquired nor when the driver is removed
-or shut down, so the remoteproc can never go away. Drop the reference on
-both paths.
+ath12k_ahb_configure_rproc() returns the result of
+ath12k_ahb_config_rproc_irq() directly, so a failure there leaves the
+rproc notifier registered and the rproc reference taken by
+ath12k_ahb_get_rproc() unreleased. Route this failure through the error
+path that unregisters the notifier and drops the reference.
 
-Fixes: ba929d6fe31a ("ath11k: Remove rproc references from common core layer")
+Fixes: 10a355ba6238 ("wifi: ath12k: Power up root PD")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/wireless/ath/ath11k/ahb.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ drivers/net/wireless/ath/ath12k/ahb.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/net/wireless/ath/ath11k/ahb.c b/drivers/net/wireless/ath/ath11k/ahb.c
-index 08d3a0c8f105..0f7891a286ad 100644
---- a/drivers/net/wireless/ath/ath11k/ahb.c
-+++ b/drivers/net/wireless/ath/ath11k/ahb.c
-@@ -1107,6 +1107,7 @@ static int ath11k_ahb_fw_resource_deinit(struct ath11k_base *ab)
- static int ath11k_ahb_probe(struct platform_device *pdev)
- {
- 	struct ath11k_base *ab;
-+	struct ath11k_ahb *ab_ahb;
- 	const struct ath11k_hif_ops *hif_ops;
- 	const struct ath11k_pci_ops *pci_ops;
- 	enum ath11k_hw_rev hw_rev;
-@@ -1147,6 +1148,7 @@ static int ath11k_ahb_probe(struct platform_device *pdev)
- 	ab->pdev = pdev;
- 	ab->hw_rev = hw_rev;
- 	ab->fw_mode = ATH11K_FIRMWARE_MODE_NORMAL;
-+	ab_ahb = ath11k_ahb_priv(ab);
- 	platform_set_drvdata(pdev, ab);
+diff --git a/drivers/net/wireless/ath/ath12k/ahb.c b/drivers/net/wireless/ath/ath12k/ahb.c
+index 2dcf0a52e4c1..0b69ff42dd7a 100644
+--- a/drivers/net/wireless/ath/ath12k/ahb.c
++++ b/drivers/net/wireless/ath/ath12k/ahb.c
+@@ -889,7 +889,11 @@ static int ath12k_ahb_configure_rproc(struct ath12k_base *ab)
+ 		}
+ 	}
  
- 	ret = ath11k_pcic_register_pci_ops(ab, pci_ops);
-@@ -1223,6 +1225,8 @@ static int ath11k_ahb_probe(struct platform_device *pdev)
- 	ath11k_ahb_ce_unmap(ab);
- 
- err_core_free:
-+	if (ab_ahb->tgt_rproc)
-+		rproc_put(ab_ahb->tgt_rproc);
- 	ath11k_core_free(ab);
- 	platform_set_drvdata(pdev, NULL);
- 
-@@ -1247,6 +1251,7 @@ static void ath11k_ahb_remove_prepare(struct ath11k_base *ab)
- 
- static void ath11k_ahb_free_resources(struct ath11k_base *ab)
- {
-+	struct ath11k_ahb *ab_ahb = ath11k_ahb_priv(ab);
- 	struct platform_device *pdev = ab->pdev;
- 
- 	ath11k_ahb_free_irq(ab);
-@@ -1256,6 +1261,8 @@ static void ath11k_ahb_free_resources(struct ath11k_base *ab)
- 	ath11k_ce_free_pipes(ab);
- 	ath11k_ahb_ce_unmap(ab);
- 
-+	rproc_put(ab_ahb->tgt_rproc);
+-	return ath12k_ahb_config_rproc_irq(ab);
++	ret = ath12k_ahb_config_rproc_irq(ab);
++	if (ret < 0)
++		goto err_unreg_notifier;
 +
- 	ath11k_core_free(ab);
- 	platform_set_drvdata(pdev, NULL);
- }
++	return 0;
+ 
+ err_unreg_notifier:
+ 	ath12k_ahb_unregister_rproc_notifier(ab);
 -- 
 2.34.1
 
