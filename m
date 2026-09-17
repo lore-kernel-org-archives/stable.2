@@ -1,44 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3E8D3A1A21
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A0E4A299929
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 02:50:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789613432; cv=none; b=i/ACkY6yB9XZi7xrwKAvJmARWZPawj9QxXqV9V4PlwjdNttT92OQB6+see/Z9eXLCl0V2lvxe3R4Z6zuHaQnXK4GAH5x+B5UfbLDKQQW2Wuj+YkTcSfrVvzd3TLt0eiUYX1SR9S2eg8azToHEUdcsB2d2hKX6BWTk0M/oS8Q4H8=
+	t=1789613441; cv=none; b=jz7WA0RXMhaFphSkRNqI4RVyLVotQZ4MixiIq78rXn64t+/Q4m7ZZeDYJa2I5ykcK3sXHDf73nr3dLIeKxzjoODAcyX/c+39aBupU0tJTmzZMbiIfQwODZe4yCF0TInpGehh5HxST18Dmgi6sdkfF37SxqZgUNrwHMxnVylq0I8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789613432; c=relaxed/simple;
-	bh=+ZLNKfyoU7MKsW1TkT7z0lTahs4Y0Oy4YErv5cykqQU=;
+	s=arc-20240116; t=1789613441; c=relaxed/simple;
+	bh=W4nsOBYtWsxw3Vhets062WVNemj1J9Hes/E3wv55BXY=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bsuFvKKesx5iVZ+73ImSuYD3DObCipm3Xed6bO+JwDhiwhitx/4azfsZY1yzvRRkwjuCWsMGe1D89tkglk43xwGCuQVlJ3fDbKHWhckKreYF2jqwGvHguODL3VCkondrV/yDtBAH9cHGuJ3KVV4f94jhiSj/OBLR5tbo956Ykjw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UPxb9AvE; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=WNF9cM1Cz1N1qMySX/BGrEsduwH6ItPkBNTxLcZwITWKftnvH5HnBJfHWjC1X2fznWJaOaslBzQSlCIna94l/vWkiu4S7piXN+83OwTTry8ziTQZz4KNY1QOnZtR/1oP5ns4utQ2PnjKBqHmT7sCizSsfEy6tz0A570Jy4CM29U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Rm3GmFeP; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UPxb9AvE"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 460301F00899;
-	Thu, 17 Sep 2026 02:50:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Rm3GmFeP"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5A2121F000FF;
+	Thu, 17 Sep 2026 02:50:18 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789613414;
-	bh=f7E6mrE8/HRMcIGLeMMzJTrtH1+ayEy9OcboAV90iFw=;
+	s=k20260515; t=1789613419;
+	bh=65bBxEjxGwwai+cEBMa2prErWogzO0McyyT4OMG52+s=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=UPxb9AvE/AEb+ZcrG7RMgX76ppk5tto5fr74b+bv/nSa5Tf3meJTAN03TFtKvt/YL
-	 SWroAor75njU4TeD4FkSE2JLFNiEUW3LvXmg1gBHLz/qht4q5xt03ZnoUSWBjINler
-	 nFN4Gw0F5UUfvieU+YoIi63J4xKn4pVk/4qYY9Mvah3MDWErwvA5iyVB84jH9VC1Lt
-	 luL9Sa6MQl5I5JAw3Bds11HMyXpx0rJ6aY3OSUITC6EvmeYEE7ZOz91H+UKDjh34ul
-	 IHyMsU2aR7G+l5Lklqn1xJ5wrennAum+jK6C7BXHhoD6woEc85spqDJu4C0bFIcl+1
-	 GU6ibRjN6BF2w==
+	b=Rm3GmFeP6YrFa+uUwY0mVn28mJ9D3IPeP4qONmRNhftW7yABJ18Cbw1abXUb0UjYQ
+	 NMZHgeKznI3hTCi8MMfDPA13xDrQF5R1thT3lyi7Sl9RGCc+Go/zMPsYrRh1WW7mxW
+	 hC4jECqjEkIENvymNQg9Cw60GEAzd8nZgG2D+IAzBzzcsEX/BNSge0/zbuoWSHatMZ
+	 1o1dD0mIB1Q88vmqwLMtLd/q8vr8KQVjIpxgxQr+o0ZQR78QUzR12vUwfJ/9tn9BhE
+	 wXhpgQDOCuHuRn0llVaf/9K9KKLN9L7x3ae+Lfkbg/fJ6B7Ubgq0sY2V8PEZlkAcel
+	 zRSc2syUz1giA==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Mina Almasry <almasrymina@google.com>,
-	Stanislav Fomichev <sdf@fomichev.me>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
 	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 6.12.y 2/4] net: page_pool: rename page_pool_alloc_netmem to *_netmems
-Date: Wed, 16 Sep 2026 22:50:09 -0400
-Message-ID: <20260917025012.3917055-2-sashal@kernel.org>
+Subject: [PATCH 6.18.y 3/4] tcp: remove icsk->icsk_retransmit_timer
+Date: Wed, 16 Sep 2026 22:50:14 -0400
+Message-ID: <20260917025015.3917201-3-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917025012.3917055-1-sashal@kernel.org>
-References: <2026091638-excretory-liquid-7149@gregkh>
- <20260917025012.3917055-1-sashal@kernel.org>
+In-Reply-To: <20260917025015.3917201-1-sashal@kernel.org>
+References: <2026091620-haziness-luridness-ad42@gregkh>
+ <20260917025015.3917201-1-sashal@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,76 +47,268 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Mina Almasry <almasrymina@google.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit 91a152cbb49c26609d217cf2f116d46143b9b8be ]
+[ Upstream commit 9a5e5334adc039fa652aa071ea95b18db0bc1f43 ]
 
-page_pool_alloc_netmem (without an s) was the mirror of
-page_pool_alloc_pages (with an s), which was confusing.
+Now sk->sk_timer is no longer used by TCP keepalive, we can use
+its storage for TCP and MPTCP retransmit timers for better
+cache locality.
 
-Rename to page_pool_alloc_netmems so it's the mirror of
-page_pool_alloc_pages.
-
-Signed-off-by: Mina Almasry <almasrymina@google.com>
-Acked-by: Stanislav Fomichev <sdf@fomichev.me>
-Link: https://patch.msgid.link/20241211212033.1684197-2-almasrymina@google.com
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@google.com>
+Link: https://patch.msgid.link/20251124175013.1473655-5-edumazet@google.com
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Stable-dep-of: b814dfbfeb0a ("bnxt_en: Propagate TPA buffer allocation failures in bnxt_queue_mem_alloc()")
+Stable-dep-of: 85c580b0d859 ("mptcp: prevent race between disconnect() and rtx")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- include/net/page_pool/types.h | 2 +-
- net/core/page_pool.c          | 8 ++++----
- 2 files changed, 5 insertions(+), 5 deletions(-)
+ .../net_cachelines/inet_connection_sock.rst       |  1 -
+ include/net/inet_connection_sock.h                |  8 +++-----
+ include/net/sock.h                                |  9 +++++++--
+ net/ipv4/inet_connection_sock.c                   |  6 +++---
+ net/ipv4/tcp_timer.c                              |  8 +++-----
+ net/mptcp/protocol.c                              | 15 +++++----------
+ tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c |  4 ++--
+ tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c |  4 ++--
+ 8 files changed, 25 insertions(+), 30 deletions(-)
 
-diff --git a/include/net/page_pool/types.h b/include/net/page_pool/types.h
-index 7fae0d4eef5eb..092e52b7eba70 100644
---- a/include/net/page_pool/types.h
-+++ b/include/net/page_pool/types.h
-@@ -252,7 +252,7 @@ struct page_pool {
- };
+diff --git a/Documentation/networking/net_cachelines/inet_connection_sock.rst b/Documentation/networking/net_cachelines/inet_connection_sock.rst
+index 4f65de2def8c9..cc2000f55c298 100644
+--- a/Documentation/networking/net_cachelines/inet_connection_sock.rst
++++ b/Documentation/networking/net_cachelines/inet_connection_sock.rst
+@@ -12,7 +12,6 @@ struct inet_sock                    icsk_inet              read_mostly         r
+ struct request_sock_queue           icsk_accept_queue
+ struct inet_bind_bucket             icsk_bind_hash         read_mostly                             tcp_set_state
+ struct inet_bind2_bucket            icsk_bind2_hash        read_mostly                             tcp_set_state,inet_put_port
+-struct timer_list                   icsk_retransmit_timer  read_write                              inet_csk_reset_xmit_timer,tcp_connect
+ struct timer_list                   icsk_delack_timer      read_mostly                             inet_csk_reset_xmit_timer,tcp_connect
+ struct timer_list                   icsk_keepalive_timer
+ u32                                 icsk_rto               read_write                              tcp_cwnd_validate,tcp_schedule_loss_probe,tcp_connect_init,tcp_connect,tcp_write_xmit,tcp_push_one
+diff --git a/include/net/inet_connection_sock.h b/include/net/inet_connection_sock.h
+index 53de8565e3c27..d50e0afc3193f 100644
+--- a/include/net/inet_connection_sock.h
++++ b/include/net/inet_connection_sock.h
+@@ -58,7 +58,6 @@ struct inet_connection_sock_af_ops {
+  * @icsk_accept_queue:	   FIFO of established children
+  * @icsk_bind_hash:	   Bind node
+  * @icsk_bind2_hash:	   Bind node in the bhash2 table
+- * @icsk_retransmit_timer: Resend (no ack)
+  * @icsk_delack_timer:     Delayed ACK timer
+  * @icsk_keepalive_timer:  Keepalive timer
+  * @mptcp_tout_timer: mptcp timer
+@@ -86,7 +85,6 @@ struct inet_connection_sock {
+ 	struct request_sock_queue icsk_accept_queue;
+ 	struct inet_bind_bucket	  *icsk_bind_hash;
+ 	struct inet_bind2_bucket  *icsk_bind2_hash;
+-	struct timer_list	  icsk_retransmit_timer;
+ 	struct timer_list	  icsk_delack_timer;
+ 	union {
+ 		struct timer_list icsk_keepalive_timer;
+@@ -195,7 +193,7 @@ static inline void inet_csk_delack_init(struct sock *sk)
  
- struct page *page_pool_alloc_pages(struct page_pool *pool, gfp_t gfp);
--netmem_ref page_pool_alloc_netmem(struct page_pool *pool, gfp_t gfp);
-+netmem_ref page_pool_alloc_netmems(struct page_pool *pool, gfp_t gfp);
- struct page *page_pool_alloc_frag(struct page_pool *pool, unsigned int *offset,
- 				  unsigned int size, gfp_t gfp);
- netmem_ref page_pool_alloc_frag_netmem(struct page_pool *pool,
-diff --git a/net/core/page_pool.c b/net/core/page_pool.c
-index af4c7e62fe8d3..ce35c859e0ffb 100644
---- a/net/core/page_pool.c
-+++ b/net/core/page_pool.c
-@@ -673,7 +673,7 @@ static noinline netmem_ref __page_pool_alloc_pages_slow(struct page_pool *pool,
- /* For using page_pool replace: alloc_pages() API calls, but provide
-  * synchronization guarantee for allocation side.
-  */
--netmem_ref page_pool_alloc_netmem(struct page_pool *pool, gfp_t gfp)
-+netmem_ref page_pool_alloc_netmems(struct page_pool *pool, gfp_t gfp)
+ static inline unsigned long tcp_timeout_expires(const struct sock *sk)
  {
- 	netmem_ref netmem;
- 
-@@ -689,11 +689,11 @@ netmem_ref page_pool_alloc_netmem(struct page_pool *pool, gfp_t gfp)
- 		netmem = __page_pool_alloc_pages_slow(pool, gfp);
- 	return netmem;
+-	return READ_ONCE(inet_csk(sk)->icsk_retransmit_timer.expires);
++	return READ_ONCE(sk->tcp_retransmit_timer.expires);
  }
--EXPORT_SYMBOL(page_pool_alloc_netmem);
-+EXPORT_SYMBOL(page_pool_alloc_netmems);
  
- struct page *page_pool_alloc_pages(struct page_pool *pool, gfp_t gfp)
+ static inline unsigned long
+@@ -211,7 +209,7 @@ static inline void inet_csk_clear_xmit_timer(struct sock *sk, const int what)
+ 	if (what == ICSK_TIME_RETRANS || what == ICSK_TIME_PROBE0) {
+ 		smp_store_release(&icsk->icsk_pending, 0);
+ #ifdef INET_CSK_CLEAR_TIMERS
+-		sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
++		sk_stop_timer(sk, &sk->tcp_retransmit_timer);
+ #endif
+ 	} else if (what == ICSK_TIME_DACK) {
+ 		smp_store_release(&icsk->icsk_ack.pending, 0);
+@@ -243,7 +241,7 @@ static inline void inet_csk_reset_xmit_timer(struct sock *sk, const int what,
+ 	if (what == ICSK_TIME_RETRANS || what == ICSK_TIME_PROBE0 ||
+ 	    what == ICSK_TIME_LOSS_PROBE || what == ICSK_TIME_REO_TIMEOUT) {
+ 		smp_store_release(&icsk->icsk_pending, what);
+-		sk_reset_timer(sk, &icsk->icsk_retransmit_timer, when);
++		sk_reset_timer(sk, &sk->tcp_retransmit_timer, when);
+ 	} else if (what == ICSK_TIME_DACK) {
+ 		smp_store_release(&icsk->icsk_ack.pending,
+ 				  icsk->icsk_ack.pending | ICSK_ACK_TIMER);
+diff --git a/include/net/sock.h b/include/net/sock.h
+index 50b9178cc827f..9e13e1233e417 100644
+--- a/include/net/sock.h
++++ b/include/net/sock.h
+@@ -303,6 +303,8 @@ struct sk_filter;
+   *	@sk_txrehash: enable TX hash rethink
+   *	@sk_filter: socket filtering instructions
+   *	@sk_timer: sock cleanup timer
++  *	@tcp_retransmit_timer: tcp retransmit timer
++  *	@mptcp_retransmit_timer: mptcp retransmit timer
+   *	@sk_stamp: time stamp of last packet received
+   *	@sk_stamp_seq: lock for accessing sk_stamp on 32 bit architectures only
+   *	@sk_tsflags: SO_TIMESTAMPING flags
+@@ -480,8 +482,11 @@ struct sock {
+ 	u32			sk_dst_pending_confirm;
+ 	u32			sk_pacing_status; /* see enum sk_pacing */
+ 	struct page_frag	sk_frag;
+-	struct timer_list	sk_timer;
+-
++	union {
++		struct timer_list	sk_timer;
++		struct timer_list	tcp_retransmit_timer;
++		struct timer_list	mptcp_retransmit_timer;
++	};
+ 	unsigned long		sk_pacing_rate; /* bytes per second */
+ 	atomic_t		sk_zckey;
+ 	atomic_t		sk_tskey;
+diff --git a/net/ipv4/inet_connection_sock.c b/net/ipv4/inet_connection_sock.c
+index 2976b819ff5ce..6193db63b2973 100644
+--- a/net/ipv4/inet_connection_sock.c
++++ b/net/ipv4/inet_connection_sock.c
+@@ -748,7 +748,7 @@ void inet_csk_init_xmit_timers(struct sock *sk,
  {
--	return netmem_to_page(page_pool_alloc_netmem(pool, gfp));
-+	return netmem_to_page(page_pool_alloc_netmems(pool, gfp));
+ 	struct inet_connection_sock *icsk = inet_csk(sk);
+ 
+-	timer_setup(&icsk->icsk_retransmit_timer, retransmit_handler, 0);
++	timer_setup(&sk->tcp_retransmit_timer, retransmit_handler, 0);
+ 	timer_setup(&icsk->icsk_delack_timer, delack_handler, 0);
+ 	timer_setup(&icsk->icsk_keepalive_timer, keepalive_handler, 0);
+ 	icsk->icsk_pending = icsk->icsk_ack.pending = 0;
+@@ -761,7 +761,7 @@ void inet_csk_clear_xmit_timers(struct sock *sk)
+ 	smp_store_release(&icsk->icsk_pending, 0);
+ 	smp_store_release(&icsk->icsk_ack.pending, 0);
+ 
+-	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
++	sk_stop_timer(sk, &sk->tcp_retransmit_timer);
+ 	sk_stop_timer(sk, &icsk->icsk_delack_timer);
+ 	sk_stop_timer(sk, &icsk->icsk_keepalive_timer);
  }
- EXPORT_SYMBOL(page_pool_alloc_pages);
- ALLOW_ERROR_INJECTION(page_pool_alloc_pages, NULL);
-@@ -1051,7 +1051,7 @@ netmem_ref page_pool_alloc_frag_netmem(struct page_pool *pool,
+@@ -776,7 +776,7 @@ void inet_csk_clear_xmit_timers_sync(struct sock *sk)
+ 	smp_store_release(&icsk->icsk_pending, 0);
+ 	smp_store_release(&icsk->icsk_ack.pending, 0);
+ 
+-	sk_stop_timer_sync(sk, &icsk->icsk_retransmit_timer);
++	sk_stop_timer_sync(sk, &sk->tcp_retransmit_timer);
+ 	sk_stop_timer_sync(sk, &icsk->icsk_delack_timer);
+ 	sk_stop_timer_sync(sk, &icsk->icsk_keepalive_timer);
+ }
+diff --git a/net/ipv4/tcp_timer.c b/net/ipv4/tcp_timer.c
+index 4f2df3a692115..a26d161b2a649 100644
+--- a/net/ipv4/tcp_timer.c
++++ b/net/ipv4/tcp_timer.c
+@@ -701,7 +701,7 @@ void tcp_write_timer_handler(struct sock *sk)
+ 		return;
+ 
+ 	if (time_after(tcp_timeout_expires(sk), jiffies)) {
+-		sk_reset_timer(sk, &icsk->icsk_retransmit_timer,
++		sk_reset_timer(sk, &sk->tcp_retransmit_timer,
+ 			       tcp_timeout_expires(sk));
+ 		return;
  	}
+@@ -728,12 +728,10 @@ void tcp_write_timer_handler(struct sock *sk)
  
- 	if (!netmem) {
--		netmem = page_pool_alloc_netmem(pool, gfp);
-+		netmem = page_pool_alloc_netmems(pool, gfp);
- 		if (unlikely(!netmem)) {
- 			pool->frag_page = 0;
- 			return 0;
+ static void tcp_write_timer(struct timer_list *t)
+ {
+-	struct inet_connection_sock *icsk =
+-			timer_container_of(icsk, t, icsk_retransmit_timer);
+-	struct sock *sk = &icsk->icsk_inet.sk;
++	struct sock *sk = timer_container_of(sk, t, tcp_retransmit_timer);
+ 
+ 	/* Avoid locking the socket when there is no pending event. */
+-	if (!smp_load_acquire(&icsk->icsk_pending))
++	if (!smp_load_acquire(&inet_csk(sk)->icsk_pending))
+ 		goto out;
+ 
+ 	bh_lock_sock(sk);
+diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
+index 5f24f4c4a7d7e..2dd6840089f86 100644
+--- a/net/mptcp/protocol.c
++++ b/net/mptcp/protocol.c
+@@ -425,9 +425,7 @@ static bool __mptcp_move_skb(struct sock *sk, struct sk_buff *skb)
+ 
+ static void mptcp_stop_rtx_timer(struct sock *sk)
+ {
+-	struct inet_connection_sock *icsk = inet_csk(sk);
+-
+-	sk_stop_timer(sk, &icsk->icsk_retransmit_timer);
++	sk_stop_timer(sk, &sk->mptcp_retransmit_timer);
+ 	mptcp_sk(sk)->timer_ival = 0;
+ }
+ 
+@@ -936,12 +934,11 @@ static void __mptcp_flush_join_list(struct sock *sk, struct list_head *join_list
+ 
+ static bool mptcp_rtx_timer_pending(struct sock *sk)
+ {
+-	return timer_pending(&inet_csk(sk)->icsk_retransmit_timer);
++	return timer_pending(&sk->mptcp_retransmit_timer);
+ }
+ 
+ static void mptcp_reset_rtx_timer(struct sock *sk)
+ {
+-	struct inet_connection_sock *icsk = inet_csk(sk);
+ 	unsigned long tout;
+ 
+ 	/* prevent rescheduling on close */
+@@ -949,7 +946,7 @@ static void mptcp_reset_rtx_timer(struct sock *sk)
+ 		return;
+ 
+ 	tout = mptcp_sk(sk)->timer_ival;
+-	sk_reset_timer(sk, &icsk->icsk_retransmit_timer, jiffies + tout);
++	sk_reset_timer(sk, &sk->mptcp_retransmit_timer, jiffies + tout);
+ }
+ 
+ bool mptcp_schedule_work(struct sock *sk)
+@@ -2328,9 +2325,7 @@ static int mptcp_recvmsg(struct sock *sk, struct msghdr *msg, size_t len,
+ 
+ static void mptcp_retransmit_timer(struct timer_list *t)
+ {
+-	struct inet_connection_sock *icsk = timer_container_of(icsk, t,
+-							       icsk_retransmit_timer);
+-	struct sock *sk = &icsk->icsk_inet.sk;
++	struct sock *sk = timer_container_of(sk, t, mptcp_retransmit_timer);
+ 	struct mptcp_sock *msk = mptcp_sk(sk);
+ 
+ 	bh_lock_sock(sk);
+@@ -2937,7 +2932,7 @@ static void __mptcp_init_sock(struct sock *sk)
+ 	spin_lock_init(&msk->fallback_lock);
+ 
+ 	/* re-use the csk retrans timer for MPTCP-level retrans */
+-	timer_setup(&msk->sk.icsk_retransmit_timer, mptcp_retransmit_timer, 0);
++	timer_setup(&sk->mptcp_retransmit_timer, mptcp_retransmit_timer, 0);
+ 	timer_setup(&msk->sk.mptcp_tout_timer, mptcp_tout_timer, 0);
+ }
+ 
+diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
+index 685811326a041..b1e509b231cd9 100644
+--- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
++++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp4.c
+@@ -99,10 +99,10 @@ static int dump_tcp_sock(struct seq_file *seq, struct tcp_sock *tp,
+ 	    icsk->icsk_pending == ICSK_TIME_REO_TIMEOUT ||
+ 	    icsk->icsk_pending == ICSK_TIME_LOSS_PROBE) {
+ 		timer_active = 1;
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
+ 	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
+ 		timer_active = 4;
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
+ 	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
+ 		timer_active = 2;
+ 		timer_expires = icsk->icsk_keepalive_timer.expires;
+diff --git a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
+index 0f4a927127517..dbc7166aee91f 100644
+--- a/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
++++ b/tools/testing/selftests/bpf/progs/bpf_iter_tcp6.c
+@@ -99,10 +99,10 @@ static int dump_tcp6_sock(struct seq_file *seq, struct tcp6_sock *tp,
+ 	    icsk->icsk_pending == ICSK_TIME_REO_TIMEOUT ||
+ 	    icsk->icsk_pending == ICSK_TIME_LOSS_PROBE) {
+ 		timer_active = 1;
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
+ 	} else if (icsk->icsk_pending == ICSK_TIME_PROBE0) {
+ 		timer_active = 4;
+-		timer_expires = icsk->icsk_retransmit_timer.expires;
++		timer_expires = sp->tcp_retransmit_timer.expires;
+ 	} else if (timer_pending(&icsk->icsk_keepalive_timer)) {
+ 		timer_active = 2;
+ 		timer_expires = icsk->icsk_keepalive_timer.expires;
 -- 
 2.53.0
 
