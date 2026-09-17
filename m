@@ -1,39 +1,35 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E2FEE4DAF98;
-	Thu, 17 Sep 2026 11:39:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 02A474DAFAF;
+	Thu, 17 Sep 2026 11:41:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789645204; cv=none; b=NhfGp+IGa3aHTZOqR31GLgD7+dXoGTzukvQhC+MU2xG3deyG7RniCRpG77RzlW4FE+h1KhVFpnVZ5n2XWzNugljOL2gqujC66afTzK1bnFLLgq/o/RIHcpVpbNahsUF1MsIfThwLoqmjTZLzFe7wii3LnPrNoD3s5J+inC3ixcc=
+	t=1789645288; cv=none; b=oTUFl8ssGuQP996nK6buORQ/wy/Zk59U4rXe0O9+G9uAkAoUzsomcxVeCnUJY7gEUnn+jwAQmI8d6HYuj3IiAIwpXcpb2LcPU/nWywzPjMoKdwv8qTvX7qTfqs9QRWrqOnlycV911VBef5DCxICCv3cjBXo+3AC1+Ljv3/uNbos=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789645204; c=relaxed/simple;
-	bh=NoxzKN8cAx+3h795kfAfNwSlZamFjjRAyGkJWepcSro=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=rjgD4KUA9j+iEtccYOjGlyk83grgKc2PeTjqYK2sYFxc2B+rNCYX/SvwYN8l1njSNkyWh8KtJyfHiAsEcsl9kVksAm6JGg3y4HyqvqHkfQOuYeqzfjf30r+n9VWx93KrXBe6TTjsSJKqwEYMqF5xDbAmXvygvSQ+9NyNYXjaHCs=
+	s=arc-20240116; t=1789645288; c=relaxed/simple;
+	bh=G4tBU2xwzzN7nP3tiN75K2XSOzpLIfR7AQF2wau8C6M=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=RMs11XE5JXClteDPjwqpAsDCirrIfQqHYFy/3v37bTZ2x40XZyODaEH7/uYrVPxzqHHBUIQs12YcL6zK+xlnOWtwPO1PlqR9rAUzSoBOSoWmWd83vOMQG9JckFvUUeguxBTQCMZp46yP3CqDyo9ox10GEF0HSTtlZT11Lcpxd7I=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAA3oDqB0atqp7x_CA--.1766S2;
-	Thu, 17 Sep 2026 19:39:45 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowAC3Hzre0atqzcJ_CA--.1971S2;
+	Thu, 17 Sep 2026 19:41:19 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
-To: alexandre.torgue@foss.st.com
-Cc: andrew+netdev@lunn.ch,
-	davem@davemloft.net,
+To: andrew+netdev@lunn.ch
+Cc: davem@davemloft.net,
 	edumazet@google.com,
 	kuba@kernel.org,
-	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	mcoquelin.stm32@gmail.com,
 	netdev@vger.kernel.org,
 	pabeni@redhat.com,
-	treding@nvidia.com,
+	wellslutw@gmail.com,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] net: stmmac: Fix MDIO node leak in stmmac_mdio_setup()
-Date: Thu, 17 Sep 2026 11:39:45 +0000
-Message-Id: <20260917113945.2149361-1-vulab@iscas.ac.cn>
+Subject: [PATCH] net: ethernet: sunplus: Fix ethernet-ports node leak in spl2sw_probe()
+Date: Thu, 17 Sep 2026 11:41:18 +0000
+Message-Id: <20260917114118.2149439-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -42,10 +38,10 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAA3oDqB0atqp7x_CA--.1766S2
-X-Coremail-Antispam: 1UD129KBjvJXoW7AFyDtr17WF13CF1UKr17KFg_yoW8GrWrp3
-	y7Ca9Fvr95Gr97tw4kJr40vFWFkayayrWUGr1Ikanavan8GFWaqryaqrWjvas7GrWDWa4a
-	qr10kw4UZF1DArUanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+X-CM-TRANSID:zQCowAC3Hzre0atqzcJ_CA--.1971S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7Jr4UZw17XF1kJryDtr4fKrg_yoW8Jr1Dpa
+	1UG3yYkrZ7KrsrG3Z29F48AF98Ca4Dt3yUuF18twnY93s5Zry3Jr4jvF4j9r43ArW0gFW7
+	tryqyr98AFZ8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
 	9KBjDU0xBIdaVrnRJUUUPmb7Iv0xC_tr1lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
 	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
 	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
@@ -60,40 +56,33 @@ X-Coremail-Antispam: 1UD129KBjvJXoW7AFyDtr17WF13CF1UKr17KFg_yoW8GrWrp3
 	c7CjxVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67
 	AKxVW8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZE
 	Xa7IU878n5UUUUU==
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgYNA2qrq3Z7RAAAst
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJpz6AAAsu
 
-stmmac_mdio_setup() acquires a reference on the MDIO node through
-stmmac_of_get_mdio() and stores it in plat->mdio_node. If the allocation
-of plat->mdio_bus_data fails, the function returns -ENOMEM and the
-caller takes the error_put_phy path, which only releases plat->phy_node,
-so the MDIO node reference is leaked.
+spl2sw_probe() gets a reference on the "ethernet-ports" child node but
+never releases it, neither on the error paths that go to out_free_mdio
+and out_unregister_dev nor on the successful return. Release the
+reference automatically by declaring the node with __free(device_node).
 
-Release plat->mdio_node on this error path.
-
-Fixes: 1a981c0586c0 ("net: stmmac: Make MDIO bus reset optional")
+Fixes: fd3040b9394c ("net: ethernet: Add driver for Sunplus SP7021")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 5 ++++-
- 1 file changed, 4 insertions(+), 1 deletion(-)
+ drivers/net/ethernet/sunplus/spl2sw_driver.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-index 5cae2aa72906..09359ccb32ef 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
-@@ -356,8 +356,11 @@ static int stmmac_mdio_setup(struct plat_stmmacenet_data *plat,
- 		plat->mdio_bus_data = devm_kzalloc(dev,
- 						   sizeof(*plat->mdio_bus_data),
- 						   GFP_KERNEL);
--		if (!plat->mdio_bus_data)
-+		if (!plat->mdio_bus_data) {
-+			of_node_put(plat->mdio_node);
-+			plat->mdio_node = NULL;
- 			return -ENOMEM;
-+		}
+diff --git a/drivers/net/ethernet/sunplus/spl2sw_driver.c b/drivers/net/ethernet/sunplus/spl2sw_driver.c
+index 5e0e4c9ecbb0..fdc9c3196738 100644
+--- a/drivers/net/ethernet/sunplus/spl2sw_driver.c
++++ b/drivers/net/ethernet/sunplus/spl2sw_driver.c
+@@ -319,7 +319,7 @@ static struct device_node *spl2sw_get_eth_child_node(struct device_node *ether_n
  
- 		plat->mdio_bus_data->needs_reset = true;
- 	}
+ static int spl2sw_probe(struct platform_device *pdev)
+ {
+-	struct device_node *eth_ports_np;
++	struct device_node *eth_ports_np __free(device_node) = NULL;
+ 	struct device_node *port_np;
+ 	struct spl2sw_common *comm;
+ 	struct device_node *phy_np;
 -- 
 2.34.1
 
