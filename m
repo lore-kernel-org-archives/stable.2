@@ -1,42 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52F3D346FA1
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 04:15:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A21B736E477
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 04:16:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789618521; cv=none; b=kvmONmXVMpUun15nMvmaLrGuh9dug8bAgntrql9QHuYG88FgIAOMRnZgvlov6E63pTFEDSdNjCMVuWNKkuGcWyj6Xp7kHxedjZ44xYDQMCFHn+s1yWjTNeWDF+3MsU2MwtqmKg4QbALdANwj0+efrTHX/NcY3IufkbCLz4dt4TY=
+	t=1789618589; cv=none; b=rifK3oyvMptuYgCrvduOeAoE0qlPL0AonB9s3gq2QpsIUH5Ux2y/n7pBCH8n5NUvS8hRQmlKtvSw7H+XUFP51qVIK/ACgUtkbNapakdZEWqylDTIsjpBbbGe36/nxI0fKhtrzigQh5PFc8Gskj0db4JAiXVP8jokPql/rQqwXJg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789618521; c=relaxed/simple;
-	bh=QIxD4nHbHmkHmCUJegigbyxZ2W6eWXC/Sej1MkYrkvk=;
+	s=arc-20240116; t=1789618589; c=relaxed/simple;
+	bh=GvCfAGWfryb9EVfuNcbjLpROssqHTMPPZMs/ORw1+FU=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=bkQspsKkYK1mH7Fy3wfibhzlk73WzG3Oow5nNmUYAEyy8H9SC1PspNxkeXtwNnE4D61jXHIlZQxR741pcz2Sg5BcF73CYg2owg6f8uAYjrDZgUk8Buz62PKOsRomim2ff4gM1M2IwNrnr6u+emg6/jwahROuZ/OVxcPGRpp70rY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=R1Wdb76S; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=mmnjp4okixppyzfUr0nxKujJQTCSeLOxAdsn308r7QYftYv/zh2BUGz7o983hI/GUPkqgjq2p6Iqhgp887GwceX3MopUv79TsSsW4SGjLqEAQi+ibpPcgMO0GiudKzulcr/tY73TCDhpFvEdK+u0jjYjtxQzZb4DjpGFeWyADsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RgrXaexG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="R1Wdb76S"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 75A841F00893;
-	Thu, 17 Sep 2026 04:15:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RgrXaexG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACABB1F000FF;
+	Thu, 17 Sep 2026 04:16:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789618519;
-	bh=+7WxG+xaZScvqHYOujJOAPG36qqbLiTpugQ9nXQjn10=;
+	s=k20260515; t=1789618588;
+	bh=yC89rfKhllr73TONSKJ1f68uknez3bagwneOrnK3Tqo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=R1Wdb76SikQNy/imBXJ9I3pJx5WYqxD+6LJpxQ8meiIewSJckRfnUYB3pmZXULh1R
-	 upVwzBBl8r1GeO1oJuDQk1LqwGyn+XuxHVKEA+HkkQZ5LxRgb4mJx+3f9SifOeYHc/
-	 4/0f1thk8YwVMHTc1RyUiFzNzEM6r2UuCakmnsDUBXw0LwgPSb95qDYyVeBRqRClKS
-	 0vLQllsxzJyPj+XaTxsftUqiXKVmA4jpz++ST5xO02SZNhq7DW9JnW5ry6V/V9btjv
-	 MBQOVnqgDTbTiT3G1eoVYoiG8tl1+kw/0bKUmhq+uMDnF69A0kEwjJ+i4U/vx42FuZ
-	 k/ALtt1SHutHg==
+	b=RgrXaexGKo5bhbAVyWl7l5HVdwYu2BTp3GPfrGVLDzkAhNVIaQio6eMDAuLkrAtKd
+	 5OW5jmXeQcijq0aC1fRfNwOjIHAt9FIYXeCrEVipcD+dky+KfBldyDtjnD9UOo40bj
+	 9698K3YXQmstfwcQiKxejOW/7pl5KYxgt6C3uVg0X70IOzx/KCIBcKrwFqBVxWzYBv
+	 +spog5vn4xr39zPKiXFvezovfxSQPFI0yHNhJ8qdrE53V7owOxvApIxAm8T8TVF5FI
+	 RAIxDMRKlNqYa6u5eS5PwlqyztGRUiH6vpzH+nnqKZpb1JgRB2QZS161fLL24c8bgc
+	 qUwNRGvCYS3Zw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	Paulo Alcantara <pc@manguebit.org>,
+Cc: Eric Dumazet <edumazet@google.com>,
+	Kuniyuki Iwashima <kuniyu@amazon.com>,
+	David Ahern <dsahern@kernel.org>,
+	Jakub Kicinski <kuba@kernel.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y] smb: client: pin DFS superblock in iterator callback
-Date: Thu, 17 Sep 2026 00:15:17 -0400
-Message-ID: <20260917041517.4183691-1-sashal@kernel.org>
+Subject: [PATCH 5.10.y 1/5] ipv4: remove fib_devindex_hashfn()
+Date: Thu, 17 Sep 2026 00:16:22 -0400
+Message-ID: <20260917041626.4188780-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091644-blouse-acre-e296@gregkh>
-References: <2026091644-blouse-acre-e296@gregkh>
+In-Reply-To: <2026091657-spree-snowbound-d932@gregkh>
+References: <2026091657-spree-snowbound-d932@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,73 +47,77 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Karl Mehltretter <kmehltretter@gmail.com>
+From: Eric Dumazet <edumazet@google.com>
 
-[ Upstream commit d806d5a85dcbe2a0f181b2f0f9f61ddfbefa1818 ]
+[ Upstream commit 8a0f62fdeb9ea66ad3d0e959c7c4addbabeac1be ]
 
-tcon_super_cb() stores a raw superblock pointer, but __cifs_get_super()
-takes its active reference only after iterate_supers_type() has dropped
-s_umount and its passive reference. Concurrent DFS automount expiry can
-therefore free the superblock before cifs_sb_active() uses it.
+fib_devindex_hashfn() converts a 32bit ifindex value to a 8bit hash.
 
-A deterministic KASAN test reproduces the race as:
+It makes no sense doing this from fib_info_hashfn() and
+fib_find_info_nh().
 
-  BUG: KASAN: slab-use-after-free in cifs_sb_active+0x77/0x80
+It is better to keep as many bits as possible to let
+fib_info_hashfn_result() have better spread.
 
-The same test passes with this change applied.
+Only fib_info_devhash_bucket() needs to make this operation,
+we can 'inline' trivial fib_devindex_hashfn() in it.
 
-Take the active reference in the callback while iterate_supers_type()
-still holds s_umount shared. cifs_put_tcp_super() remains the matching
-release.
-
-Fixes: bacd704a95ad ("cifs: handle prefix paths in reconnect")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Karl Mehltretter <kmehltretter@gmail.com>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-[ Adapted tcon_super_cb() changes to the older tcp_super_cb() callback and its server-only matching logic. ]
+Signed-off-by: Eric Dumazet <edumazet@google.com>
+Reviewed-by: Kuniyuki Iwashima <kuniyu@amazon.com>
+Reviewed-by: David Ahern <dsahern@kernel.org>
+Link: https://patch.msgid.link/20241004134720.579244-2-edumazet@google.com
+Signed-off-by: Jakub Kicinski <kuba@kernel.org>
+Stable-dep-of: 8d6cd1885085 ("ipv6: flowlabel: cap duplicate leases per socket")
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- fs/cifs/misc.c | 17 ++++++++---------
- 1 file changed, 8 insertions(+), 9 deletions(-)
+ net/ipv4/fib_semantics.c | 13 ++++---------
+ 1 file changed, 4 insertions(+), 9 deletions(-)
 
-diff --git a/fs/cifs/misc.c b/fs/cifs/misc.c
-index b4199b4085db3..d6542b073add4 100644
---- a/fs/cifs/misc.c
-+++ b/fs/cifs/misc.c
-@@ -1054,8 +1054,14 @@ static void tcp_super_cb(struct super_block *sb, void *arg)
- 
- 	cifs_sb = CIFS_SB(sb);
- 	tcon = cifs_sb_master_tcon(cifs_sb);
--	if (tcon->ses->server == server)
-+	if (tcon->ses->server == server) {
-+		/*
-+		 * Take the active reference while iterate_supers_type() still
-+		 * holds s_umount shared.
-+		 */
-+		cifs_sb_active(sb);
- 		sd->sb = sb;
-+	}
+diff --git a/net/ipv4/fib_semantics.c b/net/ipv4/fib_semantics.c
+index bf722eb5efac3..bff948df756e5 100644
+--- a/net/ipv4/fib_semantics.c
++++ b/net/ipv4/fib_semantics.c
+@@ -320,17 +320,12 @@ static inline int nh_comp(struct fib_info *fi, struct fib_info *ofi)
+ 	return 0;
  }
  
- static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void *),
-@@ -1071,15 +1077,8 @@ static struct super_block *__cifs_get_super(void (*f)(struct super_block *, void
+-static inline unsigned int fib_devindex_hashfn(unsigned int val)
+-{
+-	return hash_32(val, DEVINDEX_HASHBITS);
+-}
+-
+ static struct hlist_head *
+ fib_info_devhash_bucket(const struct net_device *dev)
+ {
+ 	u32 val = net_hash_mix(dev_net(dev)) ^ dev->ifindex;
  
- 	for (; *fs_type; fs_type++) {
- 		iterate_supers_type(*fs_type, f, &sd);
--		if (sd.sb) {
--			/*
--			 * Grab an active reference in order to prevent automounts (DFS links)
--			 * of expiring and then freeing up our cifs superblock pointer while
--			 * we're doing failover.
--			 */
--			cifs_sb_active(sd.sb);
-+		if (sd.sb)
- 			return sd.sb;
--		}
+-	return &fib_info_devhash[fib_devindex_hashfn(val)];
++	return &fib_info_devhash[hash_32(val, DEVINDEX_HASHBITS)];
+ }
+ 
+ static unsigned int fib_info_hashfn_1(int init_val, u8 protocol, u8 scope,
+@@ -361,10 +356,10 @@ static inline unsigned int fib_info_hashfn(struct fib_info *fi)
+ 				fi->fib_priority);
+ 
+ 	if (fi->nh) {
+-		val ^= fib_devindex_hashfn(fi->nh->id);
++		val ^= fi->nh->id;
+ 	} else {
+ 		for_nexthops(fi) {
+-			val ^= fib_devindex_hashfn(nh->fib_nh_oif);
++			val ^= nh->fib_nh_oif;
+ 		} endfor_nexthops(fi)
  	}
- 	return ERR_PTR(-EINVAL);
- }
+ 
+@@ -379,7 +374,7 @@ static struct fib_info *fib_find_info_nh(struct net *net,
+ 	struct fib_info *fi;
+ 	unsigned int hash;
+ 
+-	hash = fib_info_hashfn_1(fib_devindex_hashfn(cfg->fc_nh_id),
++	hash = fib_info_hashfn_1(cfg->fc_nh_id,
+ 				 cfg->fc_protocol, cfg->fc_scope,
+ 				 (__force u32)cfg->fc_prefsrc,
+ 				 cfg->fc_priority);
 -- 
 2.53.0
 
