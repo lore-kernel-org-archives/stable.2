@@ -1,33 +1,43 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F50C72621;
-	Thu, 17 Sep 2026 13:03:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0879051119B
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:03:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789650207; cv=none; b=gVWNGFIHdbllXdkg/oVmaAwhkRs8Ssse2G9L01PbossS3e64SaQ382VXLxAOODILdjlII1tPoooXH+6jNvvzNosdU2xuo14JsvBZGv8RHTT+WwRr2wScYGWFf4ok7elS5HflzeS7EeQQsDYJa+nmqBVK1SU00USXLT6QZ2gGhJw=
+	t=1789650234; cv=none; b=OVEshiQvu//D7NYzSNoZJm3Q8sM8/QAuJx3+rhOB1j+Q3yzVv7R7eICpBwXhaPa+CB9T2sNks4usHJ08ealpJrXHAT5cOoK2rRaHYtra3RaF79Y094PZkdZ14UBucJ4ZDm64hRDIo9Bi4pecCsoNXyrOxdRibtVmFXQA4ajTX4M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789650207; c=relaxed/simple;
-	bh=cMKffZKhIq2MmaepcEQR4J2ib6YDoo/Fu6tdVfQx0to=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=GpbW/cl/A/6Iu/9lXDj3IfHzJv5Yi5nZAtmY++wk3IoOL3XvR1bHRmOnph1LlNVeWIh0OXjPFtuOl5uY+iDO1HTS4rZ9Rhqi0JKlmS0u3A56EXmfJSscKnKlW1M6xwYFrIuTtlBpFpCLjMVSB7GG0rpbVUSv6skg5B3G+GSyblM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACXAj0L5atqXw6BCA--.3230S2;
-	Thu, 17 Sep 2026 21:03:07 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: andrea.porta@suse.com
-Cc: devicetree@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	robh@kernel.org,
-	saravanak@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_pci_empty_dma_ranges()
-Date: Thu, 17 Sep 2026 13:03:07 +0000
-Message-Id: <20260917130307.2152615-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789650234; c=relaxed/simple;
+	bh=/4RS5KUXy5/AvjE5nVaAy+UguzSIj/SoGQ6OdGKLezU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=fRpC58tjY1+04DRZ9uVODsqHd8mjA+JM1YNvnpvB0FoRYSdD+AK+zTrDcf+vGvMyBxSh3onRqVs3D5GXD4ynE0PwLdTSOAF5oDhgDZuEyiDBbSvW2/pVTz/k5eVWNQQOqus1jXnrGw0vqvAPYSA0bInHYBwNS4wixszy0kI+C5g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NR9Soh+Q; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NR9Soh+Q"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A7F7C1F00893;
+	Thu, 17 Sep 2026 13:03:46 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789650227;
+	bh=EQbpLfdcN7DFDFRAkPByVNqiTGXNo0eDp+ZVSfI2gQo=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=NR9Soh+QDDz29YrBMgPMuRijO76bMtKkaRAQkoO+a2nWJWKj2NjbB9dbXWUTrvGsZ
+	 v9WBX2INywU1fZ/uHK7JGJxwBoU/y1QNn+EJ2FqZNlFY4frPYnqb5he1pm20l2ooth
+	 0ubvg4i2rv6sBoqRSMnihRZML7TQL2777T5wzkBBiIDr5qh8UKhZvEy5XoM7rFM5XZ
+	 wicBydr8txdbcqeGMuE0OVPt7v7S7uL4P7uD9+KNZo0sR//ovH8vg0Gtk5CXnBuJYx
+	 hYbP/5HwaLeIePq1S3NkRpdKMPWRuXZ4TZkHLxTF5xiqCzkMhP5JENvRRW9MOTc//N
+	 i5wxJrYj7LqeA==
+From: Sasha Levin <sashal@kernel.org>
+To: stable@vger.kernel.org
+Cc: Diego Oliva <diego@bynar.io>,
+	Paulo Alcantara <pc@manguebit.org>,
+	David Howells <dhowells@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 5.10.y] smb: client: reject short READ responses in CIFSSMBRead()
+Date: Thu, 17 Sep 2026 09:03:45 -0400
+Message-ID: <20260917130345.320177-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <2026091606-quickstep-handstand-fba1@gregkh>
+References: <2026091606-quickstep-handstand-fba1@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,49 +45,55 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACXAj0L5atqXw6BCA--.3230S2
-X-Coremail-Antispam: 1UD129KBjvdXoWrtw1DWF45KF13Ar1UGw4fGrg_yoWfJFg_WF
-	9YvrnxWFs5CF1Ig34fAr13ZF9F9a48Wr4kAFnFya43C3yYvr13Wr1q9r95Gw1rCF4Yvasr
-	trWkXry8trnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbqkYjsxI4VW3JwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
-	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
-	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVW8Jr0_Cr1UMcvjeVCFs4IE7xkEbV
-	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7MxkF
-	7I0En4kS14v26r126r1DMxAIw28IcxkI7VAKI48JMxAIw28IcVCjz48v1sIEY20_Gr43Wr
-	1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1l4IxYO2xFxVAFwI0_JF0_Jw1lx2IqxVAqx4xG
-	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
-	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
-	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j5
-	CzZUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq021EQABsR
 
-of_pci_dma_range_parser_init() can fail when the node lacks a dma-ranges
-property. That error path returns without dropping the reference taken
-by of_find_node_by_path(). Add the missing of_node_put().
+From: Diego Oliva <diego@bynar.io>
 
-Fixes: 1a75e81baf4f ("of/unittest: Add empty dma-ranges address translation tests")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+[ Upstream commit e6142a8bfc230c7263eb8b0475249c958ce49367 ]
+
+CIFSSMBRead() reads DataLengthHigh, DataLength and DataOffset out of
+the READ_RSP returned by the server without first checking that a
+whole READ_RSP was actually received. The length of the response is
+recorded in rsp_iov.iov_len, but nothing constrains it to be at least
+read_rsp_size before those fields are dereferenced.
+
+A malicious or compromised SMB1 server can return a response shorter
+than the READ_RSP header, so that parsing the header itself reads past
+the end of the receive buffer. SMB1 is not negotiated by default;
+reaching this code requires an explicit vers=1.0 mount.
+
+Reject the response unless it is at least read_rsp_size bytes long.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Suggested-by: Paulo Alcantara <pc@manguebit.org>
+Cc: stable@vger.kernel.org # 6.19.x
+Assisted-by: Bynario AI
+Signed-off-by: Diego Oliva <diego@bynar.io>
+Reviewed-by: David Howells <dhowells@redhat.com>
+Signed-off-by: Paulo Alcantara <pc@manguebit.org>
+[ Replaced unavailable smb_EIO2() with a direct rc = -EIO assignment. ]
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/of/unittest.c | 1 +
- 1 file changed, 1 insertion(+)
+ fs/cifs/cifssmb.c | 7 +++++++
+ 1 file changed, 7 insertions(+)
 
-diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 939cbff45ab1..6bc5babddf0a 100644
---- a/drivers/of/unittest.c
-+++ b/drivers/of/unittest.c
-@@ -1250,6 +1250,7 @@ static void __init of_unittest_pci_empty_dma_ranges(void)
- 
- 	if (of_pci_dma_range_parser_init(&parser, np)) {
- 		pr_err("missing dma-ranges property\n");
-+		of_node_put(np);
- 		return;
- 	}
- 
+diff --git a/fs/cifs/cifssmb.c b/fs/cifs/cifssmb.c
+index 67ff1669cab2a..ec003e785d201 100644
+--- a/fs/cifs/cifssmb.c
++++ b/fs/cifs/cifssmb.c
+@@ -1806,6 +1806,13 @@ CIFSSMBRead(const unsigned int xid, struct cifs_io_parms *io_parms,
+ 	pSMBr = (READ_RSP *)rsp_iov.iov_base;
+ 	if (rc) {
+ 		cifs_dbg(VFS, "Send error in read = %d\n", rc);
++	} else if (rsp_iov.iov_len < tcon->ses->server->vals->read_rsp_size) {
++		/* check that the received response can hold a whole READ_RSP */
++		cifs_dbg(FYI, "%s: server returned short header. got=%zu expected=%zu\n",
++			 __func__, rsp_iov.iov_len,
++			 tcon->ses->server->vals->read_rsp_size);
++		rc = -EIO;
++		*nbytes = 0;
+ 	} else {
+ 		int data_length = le16_to_cpu(pSMBr->DataLengthHigh);
+ 		data_length = data_length << 16;
 -- 
-2.34.1
+2.53.0
 
