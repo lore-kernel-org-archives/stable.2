@@ -1,222 +1,222 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A011356771
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 08:10:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 985453DBD41
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 08:11:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789632606; cv=none; b=G93K0/T0jOag0b2jfq1Mw3Ed45irnXhnuPndcFSAkVdItkqIESYpnX8Efmke4a7bA2cCU27rqXQMsOWa9Sxkt5miMrZZcutz60oQ8FzdB4MdDUGdyhLTKaetxW2lMOhXeA9YE/P+fbw932AbcZLLIXs5r2LvT8j1GyoXIU6jJ44=
+	t=1789632719; cv=none; b=Q8yTsWsp95lfWB7TiDnIfiTROv4x2yVv7ZJW6p9+44wNU2eK6Jl7OQEWf/SaxB34FGOh09EDJ1rYnFoH0mD7ealWfVbnihIDqwrGpMDwCY0f/wQuU31ks2JrgalwAW8r3asWuhwdTUpH1cs8LWwD0f0fiUpDeAg6yXpRAEbFAAM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789632606; c=relaxed/simple;
-	bh=zTBX4uJ2je0sZHFIO4v5F3vRjCpVCYmo9zYr4T5Pizo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=C+LRx0HTEzCLwVguDvuTk/MM1q4y7v5Vu6H+hSE8gGxsApLctO6q0eire2c4oZuqT2A9QaIIoyU0EoEhYBFooAu8a59n20rCoP9np82ZwPqFInYKcw7e9NbQn4LU6unFb+Y/sLbgVIBBMy0G74SvTeZkB43ZdJVv5eH0QHu+tiE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=TuytHM4N; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=J1QB0+Hc; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789632719; c=relaxed/simple;
+	bh=aXi4Ocl4wPLP6DaqHSusLJmAe9fUehN8EncBiZqZaT4=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=RxcL2D9756BiQCYaYl8B3sqIqfgh1hBKSjrOqgwaDEdEQBg71a//r3yWb202lrMcvvfhaqxREifjCyx3FJ4SUmXKqFDHj04/wPMuor60ATg0xFXZOmLyTJGdQH7uEbheiSUJnUFvScFpYYFT6qYkUpJYfjuQlsDf2JNY+mmyiUg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=UTY17t2U; arc=none smtp.client-ip=74.125.225.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="TuytHM4N";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="J1QB0+Hc"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789632602;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=uxpwaWgqlb3l6AI1MIqjUVNiDYcws9hnLKUyrIEJE2Q=;
-	b=TuytHM4N5vxx1sK390bPleroBqMOd8qGfzwTD5prDRCIqb2xlC75OXAT95WRwVhj3EmFeB
-	mmYvK8oZhyRgx1r3fk8b50D12ux58uKRgTdlJl7+wqawLQt6GacqSaURIdcvsylYlHrlf6
-	u1NoFBKXGiKTns2kxDSDn4v/TgKehao=
-Received: from mail-wr1-f71.google.com (mail-wr1-f71.google.com
- [209.85.221.71]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-332-Hpyhwcv7OTKv_aXJaNJfAQ-1; Thu, 17 Sep 2026 04:10:01 -0400
-X-MC-Unique: Hpyhwcv7OTKv_aXJaNJfAQ-1
-X-Mimecast-MFC-AGG-ID: Hpyhwcv7OTKv_aXJaNJfAQ_1789632600
-Received: by mail-wr1-f71.google.com with SMTP id ffacd0b85a97d-482e8e1ac69so271774f8f.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:10:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="UTY17t2U"
+Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b912d37b5so3235895e9.2
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:11:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1789632600; x=1790237400; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=uxpwaWgqlb3l6AI1MIqjUVNiDYcws9hnLKUyrIEJE2Q=;
-        b=J1QB0+Hcn38E+Q29javUrajdxaCiCO75PNfX5FdW9DEzGGSuvfajFIUgNaqPsce1fd
-         wgAZAVxBCB4mndB43aG236sr1pYCgYPdNoWrYimWkQbDxKMTVokwe6eLkcvUPGdHl2Z2
-         TVhGbksqXqRnFltjtuTSTOuGk8KIW9B74liKyU9qIpl7Z8UtQwj0BGEWNOmOC49v+Ea+
-         Ube4X7VoWi2LeKLB+gP3OWI5PoGoC3XqIfRqIfD53GFR2Jp0tE3dTtQGcPZqOXiOOQ6K
-         ry0BcGIHpDSJV+jr++sCweZ+q7ktwrTxu7B8eHQBiljlzwMA6Zv6ogBxiNKWz+c9s/lr
-         eoJQ==
+        d=google.com; s=20251104; t=1789632715; x=1790237515; darn=vger.kernel.org;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fAnlR2dtGuXBbIrYg+IuvuLox4jTD1pnpks7H3lzGUg=;
+        b=UTY17t2Uka+1gu+2nEo/zLhkh2d56fc5F5iW0iC7t6Mce/6Z9QPlq7nk0LXp5OEYyi
+         byI2k1D12ov9XV58yaMim7dOdTiEiHIglGzxonOoxUYHT4IkqN4eIUVl7E4w4vHsZwBE
+         wXheRV0fRltVEx1AYsoFq66PFgl3h2wqQf311wIx2oKLzm22Ucss34ngiF1CqRyvF/rw
+         eyx5PCBoNxWJ/2z05jG1kB3IuMrmmhj5wKlmblKc7CHTsQG9PVlWim81qDlxZq8AIc3o
+         GZbsS2K7TxFFscYDcPHbNQiY5oQ6IIINLA7TFgahxbc0Ar97Ffogd6BQmUzFbOdAWhpv
+         qPGw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789632600; x=1790237400;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=uxpwaWgqlb3l6AI1MIqjUVNiDYcws9hnLKUyrIEJE2Q=;
-        b=TD3d7RZb4oakMMpqxbIjPO2sxRI7E1vJ9OK0DaQLiDaJebyn3HB7KSO8W8FfzS42Gs
-         5IwDaHUOwEQY8O2o3edhwyXTC4bRwbZlJkQJTQeTMSzptKC1/jfHwdYHuZj9zVBpKjJQ
-         JUBGQTpLI3HZvTjx5bcA5m6Czx+a7zS/yA6BPtUy9FFs4TBppUBVjJ41ADHZYbpPEa9a
-         aFDIg2gqTSecRWirC+5xpsfRxsluNNU3F7TOknwLlKxbgmZBkw9/acG5kVGnT5SguqIw
-         AYLAcocUMOL+8K8zm5i25L0neVgWeWfdmorFj3Of2OsUIIJrxxP0k69ULOhV+FrT6J2b
-         iIog==
-X-Forwarded-Encrypted: i=1; AKwUvBx8gkgu+iPM2WgXfygntDD2crxToMoxikPMSVcJDEM4dq052hB5OvWhUoUAQW1ep9xOPz/i5PE=@vger.kernel.org
-X-Gm-Message-State: AFuF++mYEPoQTXeagqOetr+XuFhuG5hvhJWSkgAeooySZPkFJfC2i061
-	/zaPduvGy8hAMWyDrE6hMFHx4T2kKgBQdf6/Wz+Xm2NHTGoD2uyXLURbZTFrBFZYRmvVMk6fpjS
-	Ei1bxRIUfChX5UPMbyzoTGmKVaH6WulmTztnWyOTYV30mhfiWOIpTtLJwqQ==
-X-Gm-Gg: AYBFou3lNx4g7YbUYJ5eNzycKs3AI4RkORm7jA7iyfQ17LLVjavuE1fHkx4z/EkSlXr
-	D+kAisqB1ltd3JhXNLucPdvcBZrpiuSZ0uH2B9jc9EQwkgG6LAyJjZI62N2Uu6tLtB786XXRKoS
-	L5dMLMbgcy7+28OfPNN244ZKhmS/VtoFoEEfrdftJoTGQ/mS0woWorIjaM/3jPBBWz7PVSq0/2N
-	m5BsV71UEJ0f+NsyRYomsaEzsstUe+Gn+7yr2gkP6ZGXQ37QcxTA4LXRhxeMHDrYw8L7ESY3ZNJ
-	Xjmtg7rNYS+hjhmwmvhIIqwIuB+X23cRB6tRl4e0C6ZM8+HFgPJlB5Lr30UxpdbR44NmZRWokCt
-	BFEKWJAWvLg1zuA8pepYgM7Zi5a5SRoKB3hiVzYF8Q0o6uqu79rM6ds0dEuNbu6JxaxD+ZuJcgQ
-	==
-X-Received: by 2002:a05:600d:8643:20b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49fbd1c9005mr22472685e9.7.1789632599794;
-        Thu, 17 Sep 2026 01:09:59 -0700 (PDT)
-X-Received: by 2002:a05:600d:8643:20b0:49e:7c8c:bc77 with SMTP id 5b1f17b1804b1-49fbd1c9005mr22472315e9.7.1789632599375;
-        Thu, 17 Sep 2026 01:09:59 -0700 (PDT)
-Received: from [192.168.188.234] (ip232-47-231-195.pool-bba.aruba.it. [195.231.47.232])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd17051fsm57323325e9.0.2026.09.17.01.09.56
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 01:09:58 -0700 (PDT)
-Message-ID: <126c1419-0df6-49b5-9cef-cb9f45c716c0@redhat.com>
-Date: Thu, 17 Sep 2026 10:09:56 +0200
+        d=1e100.net; s=20260707; t=1789632715; x=1790237515;
+        h=in-reply-to:content-transfer-encoding:content-disposition
+         :content-type:mime-version:references:message-id:subject:cc:to:from
+         :date:x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=fAnlR2dtGuXBbIrYg+IuvuLox4jTD1pnpks7H3lzGUg=;
+        b=0PeIOR5Cu9MbTIH2/8KlcXimNHjfPhw1PYB+ghA9U+qOb6hRmqJM2Um6YeK3BsmmSF
+         OgVawHj/aRZF2PAY1h8k4Fna7ogqqietl+G2soAi/+1DzSmh/Iu47mWThl16lRo5NaUP
+         c18qZo8gmG12OQJ9P4uCSpjwNppkSoS+CEcOjB2mVOipFN+MRrlkyOnRldOrGZu5HPw4
+         XO/2mgvjOfYXJzz07LkanHe915u4WJgtKTcVCaoI5owfcBPb7iMQ5f3cibvPtpu6Ld5n
+         feLEBwo7+So48xDgi7ShO7H4ljvE0oFvOkImMfV85W0eI/CcIKd7+iiwHgKg3OqZgLjC
+         kWQg==
+X-Forwarded-Encrypted: i=1; AKwUvBzBoB4G/8Blq2CvbEGl72eqc1E+Oj6KlMZ/TON0mCZK08nGw1rJTrf07t9Yc9iLFwt5nnfqyzE=@vger.kernel.org
+X-Gm-Message-State: AFuF++kJW9jpqS7zvp0VFf0Z13n6GDlwCTb3eYLwWSeL5XM9etMHAMX1
+	zRR+HXJnwuX2VWx/jKj6f72MscL/IhfRlpWCS5DYqYOqlJucRpIFY6abV++JUwC7AA==
+X-Gm-Gg: AYBFou3sKaOhQrPrGN02Xom6lgh+TYZEOpxiQ9KHescHrW2R7Mmx2gwBbxW1uepQs3/
+	fM85TFVdTaGLjNcRHpRHnfXq05kjj5igP7pgewABGEErUQwYyH/B4f/cmrMqKCMsS3Nv6krNnbx
+	iCsoR2yiPP3B3qvRvM5LXPD9aUxqXvMtQA/Is71If7qzuEvkyZ/jOKHEaH6Dq5WubXUpfQENncY
+	EvNm7MKOSE1TEfjzBpTGBAqPXuriUJvHtp8iPglTVTsi9V+MWpy/6CrWMr7MEfHDTFolZ0pYE2w
+	m+97PM+uvrp39clFBRvTM4B2LU0/zandMlu1djxI1nw8jnMQJtqkX8UyBWiyJKtMtbDsQGCCDOs
+	fLV4eIsymFc/TFgI4P3J3q4CbU2lcYic+6d67syOXHiRpe99sOnJC5VH8dcl+W5f3rYYo1DaDlj
+	7IbZxVhMIg22CUnsGdUm9hdHJDs6cBVsKeXC7tc+qDUr+sExNrxI7I2Cj5REHWW7wdLXdcL66I+
+	gkSPQfSZ+Ge8p28GK7eGbf2cVYsBUH+puswyYCrY7TdLrRXULb2DA==
+X-Received: by 2002:a05:600c:3b97:b0:49e:6050:9fbe with SMTP id 5b1f17b1804b1-49ebcc010d5mr137864965e9.15.1789632714827;
+        Thu, 17 Sep 2026 01:11:54 -0700 (PDT)
+Received: from google.com (135.91.155.104.bc.googleusercontent.com. [104.155.91.135])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd22dbf2sm50558415e9.10.2026.09.17.01.11.54
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 01:11:54 -0700 (PDT)
+Date: Thu, 17 Sep 2026 09:11:50 +0100
+From: Vincent Donnefort <vdonnefort@google.com>
+To: Wei-Lin Chang <weilin.chang@arm.com>
+Cc: linux-arm-kernel@lists.infradead.org, kvmarm@lists.linux.dev,
+	linux-kernel@vger.kernel.org, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oupton@kernel.org>, Fuad Tabba <fuad.tabba@linux.dev>,
+	Joey Gouly <joey.gouly@arm.com>,
+	Steffen Eiden <seiden@linux.ibm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, Mark Rutland <mark.rutland@arm.com>,
+	Sebastian Ene <sebastianene@google.com>,
+	Itaru Kitayama <itaru.kitayama@fujitsu.com>,
+	Sashiko AI <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3 1/2] KVM: arm64: ptdump: Check the page tables aren't
+ freed when accessing
+Message-ID: <aqugxlnqegPzMpB-@google.com>
+References: <20260916230337.4162485-1-weilin.chang@arm.com>
+ <20260916230337.4162485-2-weilin.chang@arm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net] tipc: reject invalid and unexpected GRP_ACK_MSG to
- prevent bc_ackers underflow
-To: edumazet@google.com, tung.quang.nguyen@est.tech
-Cc: davem@davemloft.net, kuba@kernel.org, horms@kernel.org,
- netdev@vger.kernel.org, eric.dumazet@gmail.com, jamesburton@meta.com,
- stable@vger.kernel.org, security@1seal.org, jmaloy@redhat.com,
- netdev-bot+sashiko@kernel.org
-References: <20260913044233.193927-1-edumazet@google.com>
- <178936156410.22033.16977639465746131797@kernel.org>
-Content-Language: en-US
-From: Paolo Abeni <pabeni@redhat.com>
-In-Reply-To: <178936156410.22033.16977639465746131797@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260916230337.4162485-2-weilin.chang@arm.com>
 
-On 9/14/26 06:52, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
-> 
-> Critical: 0 · High: 0 · Medium: 1 (1) · Low: 0
-> 
-> - [Medium] Incomplete ACK accounting in tipc_group_proto_rcv()
->    (net/tipc/group.c:799-808): the new validation gates the decrement of…
-> 
-> Pre-existing issues:
-> - [Medium] Pre-existing (not introduced or claimed by this patch): in
->    tipc_send_group_bcast() (net/tipc/socket.c:1131-1137) the packets…
-> 
-> --
-> 
-> tipc: reject invalid and unexpected GRP_ACK_MSG to prevent bc_ackers underflow
-> 
-> This tightens the GRP_ACK_MSG path in tipc_group_proto_rcv() so that the
-> message is dropped when grp->bc_ackers is zero, and so that only an ACK
-> whose value equals grp->bc_snd_nxt (and which is not a repeat of the
-> member's own last ACK) is allowed to decrement grp->bc_ackers.
-> 
->> diff --git a/net/tipc/group.c b/net/tipc/group.c
->> index 14e6732624e28..74f6d3dac0784 100644
->> --- a/net/tipc/group.c
->> +++ b/net/tipc/group.c
->> @@ -797,10 +797,10 @@ void tipc_group_proto_rcv(struct tipc_group *grp, bool *usr_wakeup,
->>   		tipc_group_open(m, usr_wakeup);
->>   		return;
->>   	case GRP_ACK_MSG:
->> -		if (!m)
->> +		if (!m || !grp->bc_ackers)
->>   			return;
->>   		acked = msg_grp_bc_acked(hdr);
->> -		if (less_eq(acked, m->bc_acked))
->> +		if (acked != grp->bc_snd_nxt || m->bc_acked == acked)
->>   			return;
->>   		m->bc_acked = acked;
->>   		if (--grp->bc_ackers)
-> 
-> [Severity: Medium]
-> The new test gates the decrement on the sequence value and on per-member
-> duplication.  Does it also need to check that the acking member was one of
-> the members actually counted into grp->bc_ackers for the current round?
-> 
-> tipc_group_update_bc_members() counts and re-arms receivers only:
-> 
-> net/tipc/group.c:tipc_group_update_bc_members() {
-> 	u16 prev = grp->bc_snd_nxt - 1;
-> 	...
-> 	for (n = rb_first(&grp->members); n; n = rb_next(n)) {
-> 		m = container_of(n, struct tipc_member, tree_node);
-> 		if (tipc_group_is_receiver(m)) {
-> 			tipc_group_update_member(m, len);
-> 			m->bc_acked = prev;
-> 			ackers++;
-> 		}
-> 	}
-> 
-> 	/* Mark number of acknowledges to expect, if any */
-> 	if (ack)
-> 		grp->bc_ackers = ackers;
-> 	grp->bc_snd_nxt++;
-> }
-> 
-> A member in MBR_JOINING or MBR_LEAVING is therefore neither summed into
-> ackers nor re-armed, so it keeps a stale m->bc_acked.  The same holds for a
-> member created after the round was published, since
-> tipc_group_create_member() sets:
-> 
-> 	m->bc_acked = grp->bc_snd_nxt - 1;
-> 
-> In both cases m->bc_acked differs from grp->bc_snd_nxt, so a GRP_ACK_MSG
-> from that member passes both new conditions and still executes
-> --grp->bc_ackers although it contributed no increment.  The lookup on this
-> path, tipc_group_find_member(), applies no state filter.
-> 
-> Can that let grp->bc_ackers reach zero while a counted receiver still owes
-> an ACK?  The number of accepted decrements per round looks bounded by
-> grp->member_cnt rather than by the counted acker set.
-> 
-> If bc_ackers is cleared early, tipc_group_bc_cong() stops reporting
-> congestion:
-> 
-> net/tipc/group.c:tipc_group_bc_cong() {
-> 	/* If prev bcast was replicast, reject until all receivers have acked */
-> 	if (grp->bc_ackers) {
-> 		*grp->open = false;
-> 		return true;
-> 	}
-> 
-> so the sender releases the next group broadcast while the previous replicast
-> round is still outstanding, which is the ordering guarantee from
-> 2f487712b893, one of the Fixes tags on this patch.  The zero-transition
-> branch also runs list_del_init(&m->small_win) and *m->group->open = true for
-> the acking member, which need not be a receiver, and the genuine acker's
-> later ACK is then swallowed by the new !grp->bc_ackers guard, so its
-> small_win / tipc_group_update_member() bookkeeping never runs.
-> 
-> The commit message states that "each member can acknowledge at most once per
-> round" - that part holds per member, but does it cover members that were
-> never counted for the round?
-> 
-> Would a per-round marker set in tipc_group_update_bc_members(), or accepting
-> only members whose m->bc_acked == grp->bc_snd_nxt - 2, close the remaining
-> gap?
-> 
-> The u16 wrap to 65535 itself does look closed by the new !grp->bc_ackers
-> guard, so what is left here is the premature clearing of the counter that
-> item 2 of the commit message also mentions.
+On Thu, Sep 17, 2026 at 12:03:36AM +0100, Wei-Lin Chang wrote:
+> An open debugfs file keeps the KVM structure alive, but does not prevent
+> mmu notifier release from freeing the stage-2 page tables when the VMM’s
+> address space is torn down. Therefore page tables belonging to the mmus
+> could have been freed when a thread opens or reads the ptdump files.
+> Take the mmu_lock and check mmu->pgt is still alive before accessing the
+> page tables.
 
-My reading of the above is that it's a slightly different problem, that 
-could/should deserve a separate patch. WDYT?
+As Sashiko said, the read_lock is probably enough, including the existing one in
+kvm_ptdump_guest_show()
 
-/P
+With that change:
 
+Reviewed-by: Vincent Donnefort <vdonnefort@google.com>
+Tested-by: Vincent Donnefort <vdonnefort@google.com>
+
+> 
+> Also for the ipa_range file and stage2_levels file, switch from keeping
+> the pointer to the page tables to keeping the pointer to the mmu.
+> 
+> Fixes: 7c4f73548ed1 ("KVM: arm64: Register ptdump with debugfs on guest creation")
+> Reported-by: Sashiko AI <sashiko-bot@kernel.org>
+> Closes: https://lore.kernel.org/kvmarm/20260623144054.B91D21F000E9@smtp.kernel.org/
+> Signed-off-by: Wei-Lin Chang <weilin.chang@arm.com>
+> Cc: stable@vger.kernel.org
+> ---
+>  arch/arm64/kvm/ptdump.c | 43 +++++++++++++++++++++++++++++++----------
+>  1 file changed, 33 insertions(+), 10 deletions(-)
+> 
+> diff --git a/arch/arm64/kvm/ptdump.c b/arch/arm64/kvm/ptdump.c
+> index 69899797dbad..4ead856c181a 100644
+> --- a/arch/arm64/kvm/ptdump.c
+> +++ b/arch/arm64/kvm/ptdump.c
+> @@ -115,15 +115,28 @@ static int kvm_ptdump_build_levels(struct ptdump_pg_level *level, u32 start_lvl)
+>  
+>  static struct kvm_ptdump_guest_state *kvm_ptdump_parser_create(struct kvm_s2_mmu *mmu)
+>  {
+> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+>  	struct kvm_ptdump_guest_state *st;
+> -	struct kvm_pgtable *pgtable = mmu->pgt;
+> +	s8 start_level;
+>  	int ret;
+>  
+> +	/*
+> +	 * We only need the pgt start level to initialize the ptdump, get it
+> +	 * while holding the mmu_lock. It's fine if the pgt gets freed
+> +	 * afterwards, we'll check again when doing the actual dump.
+> +	 */
+> +	scoped_guard(write_lock, &kvm->mmu_lock) {
+> +		if (mmu->pgt)
+> +			start_level = mmu->pgt->start_level;
+> +		else
+> +			return ERR_PTR(-ENOENT);
+> +	}
+> +
+>  	st = kzalloc_obj(struct kvm_ptdump_guest_state, GFP_KERNEL_ACCOUNT);
+>  	if (!st)
+>  		return ERR_PTR(-ENOMEM);
+>  
+> -	ret = kvm_ptdump_build_levels(&st->level[0], pgtable->start_level);
+> +	ret = kvm_ptdump_build_levels(&st->level[0], start_level);
+>  	if (ret) {
+>  		kfree(st);
+>  		return ERR_PTR(ret);
+> @@ -149,6 +162,9 @@ static int kvm_ptdump_guest_show(struct seq_file *m, void *unused)
+>  	};
+>  
+>  	guard(write_lock)(&kvm->mmu_lock);
+> +	if (!mmu->pgt)
+> +		return 0;
+> +
+>  	st->parser_state = (struct ptdump_pg_state) {
+>  		.marker		= &st->ipa_marker[0],
+>  		.end_address	= BIT(mmu->pgt->ia_bits),
+> @@ -211,17 +227,27 @@ static const struct file_operations kvm_ptdump_guest_fops = {
+>  
+>  static int kvm_pgtable_range_show(struct seq_file *m, void *unused)
+>  {
+> -	struct kvm_pgtable *pgtable = m->private;
+> +	struct kvm_s2_mmu *mmu = m->private;
+> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+> +
+> +	guard(write_lock)(&kvm->mmu_lock);
+> +
+> +	if (mmu->pgt)
+> +		seq_printf(m, "%2u\n", mmu->pgt->ia_bits);
+>  
+> -	seq_printf(m, "%2u\n", pgtable->ia_bits);
+>  	return 0;
+>  }
+>  
+>  static int kvm_pgtable_levels_show(struct seq_file *m, void *unused)
+>  {
+> -	struct kvm_pgtable *pgtable = m->private;
+> +	struct kvm_s2_mmu *mmu = m->private;
+> +	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+> +
+> +	guard(write_lock)(&kvm->mmu_lock);
+> +
+> +	if (mmu->pgt)
+> +		seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - mmu->pgt->start_level);
+>  
+> -	seq_printf(m, "%1d\n", KVM_PGTABLE_MAX_LEVELS - pgtable->start_level);
+>  	return 0;
+>  }
+>  
+> @@ -230,15 +256,12 @@ static int kvm_pgtable_debugfs_open(struct inode *m, struct file *file,
+>  {
+>  	struct kvm_s2_mmu *mmu = m->i_private;
+>  	struct kvm *kvm = kvm_s2_mmu_to_kvm(mmu);
+> -	struct kvm_pgtable *pgtable;
+>  	int ret;
+>  
+>  	if (!kvm_get_kvm_safe(kvm))
+>  		return -ENOENT;
+>  
+> -	pgtable = mmu->pgt;
+> -
+> -	ret = single_open(file, show, pgtable);
+> +	ret = single_open(file, show, mmu);
+>  	if (ret < 0)
+>  		kvm_put_kvm(kvm);
+>  	return ret;
+> -- 
+> 2.43.0
+> 
+
+-- 
+Vincent
