@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D4B69236453
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3756286D60
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 01:33:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789608791; cv=none; b=Kj0rzNRUxukfFHpCRuqf6V5CTfNS35DXr+9eDBw+eWhUQqWB7FNN8oTfJxJGxvQ1ORJq0o4JVgJ6Ykes3pQGUlpsRTf4Iz7GMW6o1PWyW3Ou4bEi5/tw+05+TNigs5Y4NwEtIN3NvfKD2H1lDJHchEdpL3z1Y+XFNigCcWooKa0=
+	t=1789608792; cv=none; b=DUfsWTGwMIOQx4rXBOnWsRbfVkWP/wXP5bBowdlEmrTh9FsDhLOnCX8kEw9LZ55gwQN/wpBbC+DS6m0EbK3WOAFpZFplxt43sd2pdnaz3Qtk/2WFRHZWonjPNigd+K3NHKXOif4coGFK8IuEFCX6FthMx/4dQjn75o2j7KEbkic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789608791; c=relaxed/simple;
-	bh=gDgW7ToPm4SURDmCrZ0YvXI+VVFYecgqPi05csIMCWg=;
+	s=arc-20240116; t=1789608792; c=relaxed/simple;
+	bh=8HEnvYibECYvyebUZdlANB2x7Ia39M56OqjkYzIXWsE=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=d1e+1upGtMOYJMe6X25TmYAfisqqz6TNyUr2/oroPRI/znWhRRefKfHLI/dAz79IkjNN6p8eJiXXzj0HYv30VubnOgiytxEJjVl7gtvxHLH6hzDoxNljgCUlypYTuX737jzFTrSIRUKAE6zZVkAePsoeQuMjcrFZoifh8v5/3vc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iUdxMWZ+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=XXShju6hSktfoBpiGOZcHKLQg+cK50026I+R9bfzMvOSyZfi95sxyrY3gY/QGor+c2DJITgJZO07/vjEUYvz2d/a2wtrq06h2LXBiMzMX8Ohc4Q0jQZktfau2l/9LLrmL4UP6KQsv/+dDiEVIHCHJXwFodrm/BJl/JqQuE1Nvg0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GW9kz5G3; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iUdxMWZ+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2F31F1F00893;
-	Thu, 17 Sep 2026 01:33:09 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GW9kz5G3"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5118D1F00898;
+	Thu, 17 Sep 2026 01:33:10 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789608789;
-	bh=7mJczzme1VPuusuasrjV5eS+pQcLg2feKK9SXHRjLeA=;
+	s=k20260515; t=1789608790;
+	bh=A/cRpXSAd7+x20J6qm4iUPu04difzhe3bAB+gQ1RIrk=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=iUdxMWZ+3i0min7Qn5BtgMz5rg7Jgo0G5DMuaNVqrxjazIGhnPsai0XLp3Uj7Z+9M
-	 jPyXicHzv/Az7OXIC1X95SAV6omU49gIZYgmS1RedAJ/N+3VKywuMtTc7a6+EMKQyk
-	 cHSF7z5Pnwcl35/JXtf+8N+/1ZLfFEIX/dIMDSlgwA36+6MKHabLHqZ7ee0aPbm1vp
-	 DmJaKL8GNgz+ELBmBC/nZ9tfPhTXH7UIzActPDrTc8GZMVbYVSO/b5jw/GFIAopS9L
-	 augy2ojcQ9JWwqTO+NNv6WimdtnMlg9SdDeGiORJU7/vjA5nOlGYQEFrE2MLfKjMDK
-	 igKgn3KGl1ugA==
+	b=GW9kz5G3imLV/mYGjbcYSInU4ACcCsuQZli6cab//i5Hfxcshu5oEHUpjAP484es0
+	 ai02hbZM6KwfISwxs0ex2/Kzn3g9ERYRpMti/RNKnkkLKiJnAO4y5EKfHNiojIKpGt
+	 tlMATWuyhtTekesS021FQ63zrvST12uqZKJuMdYzA18LlYFmHmgC4FNDUk9S+SYsyp
+	 wiufCQKQ/++NiuaxUMh7TUVeoJWfSEn24LH21qcbdyhB/8143z6vgYJRi6FKlM+dHB
+	 wfsLuSPzztnKN/hfx11wVI6NdUIkp6ULYC8URrQnQ6KG6AfiStUxe4930MwiQGqNI/
+	 bD2xC8X/gSSQQ==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
-Cc: Arie Miller <renari@arimil.com>,
-	Sashiko <sashiko-bot@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>,
+Cc: David Carlier <devnexen@gmail.com>,
+	syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com,
+	Stefan Schmidt <stefan@datenfreihafen.org>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2.y 2/2] hwmon: (asus_rog_ryujin) Validate HID report lengths
-Date: Wed, 16 Sep 2026 21:33:07 -0400
-Message-ID: <20260917013307.3594404-2-sashal@kernel.org>
+Subject: [PATCH 5.10.y] ieee802154: hwsim: serialize pib updates to fix double-free
+Date: Wed, 16 Sep 2026 21:33:08 -0400
+Message-ID: <20260917013308.3594458-1-sashal@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917013307.3594404-1-sashal@kernel.org>
-References: <2026091601-wrongness-chase-78d5@gregkh>
- <20260917013307.3594404-1-sashal@kernel.org>
+In-Reply-To: <2026091659-marry-gender-6432@gregkh>
+References: <2026091659-marry-gender-6432@gregkh>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,82 +46,76 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-From: Arie Miller <renari@arimil.com>
+From: David Carlier <devnexen@gmail.com>
 
-[ Upstream commit 8042312e73c50de82634ce63eae7cf219464b481 ]
+[ Upstream commit 979d5b8de8ed4e1f997aef12da5694b99be7b871 ]
 
-rog_ryujin_raw_event() parses response headers and payload fields without
-first checking that they are present in the received report. A short report
-can therefore make the driver consume uninitialized bytes from the HID
-transport buffer and expose them as sensor values through sysfs.
+hwsim_update_pib() does an unserialized read-swap-free of phy->pib:
 
-Validate the response header and the fields used by each response type
-before parsing them.
+	pib_old = rtnl_dereference(phy->pib);
+	...
+	rcu_assign_pointer(phy->pib, pib);
+	kfree_rcu(pib_old, rcu);
 
-Fixes: ed3e03790c5c ("hwmon: Add driver for ASUS ROG RYUJIN II 360 AIO cooler")
-Reported-by: Sashiko <sashiko-bot@kernel.org>
-Closes: https://lore.kernel.org/linux-hwmon/20260812104617.858D01F000E9@smtp.kernel.org/
+It assumes the RTNL is held, but ->set_channel is not always called
+under it: the mac802154 scan worker changes channels via
+drv_set_channel() without the RTNL. Such an update can race an
+RTNL-held one on the same phy; both read the same pib_old and both
+kfree_rcu() it, double-freeing the object. With SLUB percpu sheaves
+batching kfree_rcu(), this surfaces as a KASAN invalid-free in
+rcu_free_sheaf().
+
+struct hwsim_phy has no lock for pib. Add one and make the swap atomic
+with rcu_replace_pointer() under it, dropping the misleading
+rtnl_dereference().
+
+Reported-by: syzbot+60332fd095f8bb2946ad@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=60332fd095f8bb2946ad
+Fixes: f25da51fdc38 ("ieee802154: hwsim: add replacement for fakelb")
+Signed-off-by: David Carlier <devnexen@gmail.com>
 Cc: stable@vger.kernel.org
-Assisted-by: Codex:gpt-5.6-sol sparse
-Signed-off-by: Arie Miller <renari@arimil.com>
-Link: https://patch.msgid.link/20260904022129.97896-2-renari@arimil.com
-Signed-off-by: Guenter Roeck <linux@roeck-us.net>
+Link: https://lore.kernel.org/20260709221858.158063-1-devnexen@gmail.com
+Signed-off-by: Stefan Schmidt <stefan@datenfreihafen.org>
+[ Adapted hwsim_update_pib() changes to hwsim_hw_channel() because the older branch lacks the helper. ]
 Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- drivers/hwmon/asus_rog_ryujin.c | 16 +++++++++++++++-
- 1 file changed, 15 insertions(+), 1 deletion(-)
+ drivers/net/ieee802154/mac802154_hwsim.c | 9 +++++++--
+ 1 file changed, 7 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/hwmon/asus_rog_ryujin.c b/drivers/hwmon/asus_rog_ryujin.c
-index 80563ce38519d..593950802b39d 100644
---- a/drivers/hwmon/asus_rog_ryujin.c
-+++ b/drivers/hwmon/asus_rog_ryujin.c
-@@ -411,10 +411,15 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
- {
- 	struct rog_ryujin_data *priv = hid_get_drvdata(hdev);
+diff --git a/drivers/net/ieee802154/mac802154_hwsim.c b/drivers/net/ieee802154/mac802154_hwsim.c
+index 344f63bc94a21..e6a68d522baec 100644
+--- a/drivers/net/ieee802154/mac802154_hwsim.c
++++ b/drivers/net/ieee802154/mac802154_hwsim.c
+@@ -69,6 +69,8 @@ struct hwsim_phy {
+ 	struct ieee802154_hw *hw;
+ 	u32 idx;
  
--	if (data[0] != RYUJIN_CMD_PREFIX)
-+	if (size < 2 || data[0] != RYUJIN_CMD_PREFIX)
- 		return 0;
++	/* Serializes phy->pib_updates. */
++	spinlock_t pib_lock;
+ 	struct hwsim_pib __rcu *pib;
  
- 	if (data[1] == RYUJIN_GET_COOLER_STATUS_CMD_RESPONSE) {
-+		if (size <= priv->info->temp_offset + 1 ||
-+		    size <= priv->info->pump_speed_offset + 1 ||
-+		    size <= priv->info->fan_speed_offset + 1)
-+			return 0;
-+
- 		/* Received coolant temp and speeds of pump and internal fan */
- 		priv->temp_input[0] = data[priv->info->temp_offset] * 1000 +
- 			data[priv->info->temp_offset + 1] * 100;
-@@ -426,6 +431,9 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
- 		if (!completion_done(&priv->cooler_status_received))
- 			complete_all(&priv->cooler_status_received);
- 	} else if (data[1] == RYUJIN_GET_CONTROLLER_SPEED_CMD_RESPONSE) {
-+		if (size <= RYUJIN_CONTROLLER_SPEED_3 + 1)
-+			return 0;
-+
- 		/* Received speeds of four fans attached to the controller */
- 		priv->speed_input[2] = get_unaligned_le16(data + RYUJIN_CONTROLLER_SPEED_1);
- 		priv->speed_input[3] = get_unaligned_le16(data + RYUJIN_CONTROLLER_SPEED_2);
-@@ -435,6 +443,9 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
- 		if (!completion_done(&priv->controller_status_received))
- 			complete_all(&priv->controller_status_received);
- 	} else if (data[1] == RYUJIN_GET_COOLER_DUTY_CMD_RESPONSE) {
-+		if (size <= RYUJIN_INTERNAL_FAN_DUTY)
-+			return 0;
-+
- 		/* Received report for pump and internal fan duties (in %) */
- 		if (data[RYUJIN_PUMP_DUTY] == 0 && data[RYUJIN_INTERNAL_FAN_DUTY] == 0) {
- 			/*
-@@ -461,6 +472,9 @@ static int rog_ryujin_raw_event(struct hid_device *hdev, struct hid_report *repo
- 		if (!completion_done(&priv->cooler_duty_received))
- 			complete_all(&priv->cooler_duty_received);
- 	} else if (data[1] == RYUJIN_GET_CONTROLLER_DUTY_CMD_RESPONSE) {
-+		if (size <= RYUJIN_CONTROLLER_DUTY)
-+			return 0;
-+
- 		/* Received report for controller duty for fans (in PWM) */
- 		if (data[RYUJIN_CONTROLLER_DUTY] == 0) {
- 			/*
+ 	bool suspended;
+@@ -100,8 +102,10 @@ static int hwsim_hw_channel(struct ieee802154_hw *hw, u8 page, u8 channel)
+ 	pib->page = page;
+ 	pib->channel = channel;
+ 
+-	pib_old = rtnl_dereference(phy->pib);
+-	rcu_assign_pointer(phy->pib, pib);
++	spin_lock_bh(&phy->pib_lock);
++	pib_old = rcu_replace_pointer(phy->pib, pib,
++				      lockdep_is_held(&phy->pib_lock));
++	spin_unlock_bh(&phy->pib_lock);
+ 	kfree_rcu(pib_old, rcu);
+ 	return 0;
+ }
+@@ -788,6 +792,7 @@ static int hwsim_add_one(struct genl_info *info, struct device *dev,
+ 		goto err_pib;
+ 	}
+ 
++	spin_lock_init(&phy->pib_lock);
+ 	pib->channel = 13;
+ 	rcu_assign_pointer(phy->pib, pib);
+ 	phy->idx = idx;
 -- 
 2.53.0
 
