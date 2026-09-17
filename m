@@ -1,81 +1,114 @@
-Received: from smtp-8fae.mail.infomaniak.ch (smtp-8fae.mail.infomaniak.ch [83.166.143.174])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9060A4EFFD3
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:42:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.174
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E78D54EFFBE;
+	Thu, 17 Sep 2026 15:42:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659767; cv=none; b=KnsBFR7KOvqmSVDKDo+BMKgkhBHpaOkCtd6g1ZH724DK9N22PMQBrRcIuOLpfHfAyuKs7NG9FK6x1T2SzrykX9z+YLXbdcikQEFHIo/hN50O3vYfYLWh3hGaR+YUx4aLLPOjJRXe3rvfuZzBvNWH5lZ6Hgfw/KJbND4EQkgmdsA=
+	t=1789659767; cv=none; b=f1iyuNTO8JdYmvhYrqoPfP/m/jsaoHiP2RVXpcTlokMd/glum/2j+lh4tXILN5Qu3T6a0dCEBNWpia1Kpe0UiNETbBpXiY5d60Z9QiazVwxKO1dppFkhuUKjj5LXh/fnELOP+HTASGLoHk8Auu6TYuW3Zwa3DawBZ1paTYsYBpw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789659767; c=relaxed/simple;
-	bh=xFvgNitfMvo65FADLIbS9Nu1T8sk1RSn3GrcQ2vUUes=;
+	bh=fUmfU24zlZgMTUyvFc3e7WIGAS7g2I4bH7cqkC2tLhc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=aiY4L0m/OcHGHOAHZouJbm0XesA6VdOn5nhTR0SlO/3WiWbo9q6XDGtUoMiz9jQV7/G6IjPi9wmE+gKreXRSlmciTVm7l2BD3btYXWLdha+FM9K5XjXNiZVddph2wuqnF+643CpfIXjgGM1OTPCHQQ3O1r/C2eDpo6YKiDEDKVk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=x67mbk2p; arc=none smtp.client-ip=83.166.143.174
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
+	 MIME-Version; b=h2jAB2QAtm/ABp6xS04q+bDi/en1JNmjhdSGjWwGP7z6feMUa0QjJ2lkrK2EfIBvtyAaNLgukjP2XLrmp42tnGAemWTIv4qBsTDJcLMwmbOPNECwDWsXDZ/0/QV4rELwoUgZYw6HmyLeUoK3jrjL9D14igdWKfP1dbnEEwxS0OQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=rjNfSSht; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="x67mbk2p"
-Received: from smtp-3-0001.mail.infomaniak.ch (smtp-3-0001.mail.infomaniak.ch [10.4.36.108])
-	by smtp-3-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm0Pj15bdzcmB;
-	Thu, 17 Sep 2026 17:42:33 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
-	s=20191114; t=1789659752;
-	bh=TuhqDm8FDSxFczLLbID82yK/CBX52AdJb09RSZAIB80=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
-	b=x67mbk2pO3WCDOqIJriniHeF731V/3oFNWg9ZQg28dh+TyndkdYok0KdGbWYYTELL
-	 wpovOy2UERjYVTdN6Cd0JasToUN1EVFWEyW0EpTAQ7sa1XiVuJzLRfbCFctTwM3hBV
-	 erXyG67VAhqWj9RTUXw+2B4D6NZp6cSLobAwKAy8=
-Received: from unknown by smtp-3-0001.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm0Ph0KcxzLmD;
-	Thu, 17 Sep 2026 17:42:32 +0200 (CEST)
-From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="rjNfSSht"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 359FF1F00898;
+	Thu, 17 Sep 2026 15:42:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789659758;
+	bh=gWO4pwWvl0N1psbeHpCaQgcw/O/GUX1Xc3w0sAex87E=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=rjNfSShtZJfsZ+vdZZjRYp/sEnwtUu7sd/lioQn1iojn28xBJHntwY0i7CID9X6D4
+	 z5b3o4o2djCFK+bBsbmwE3qqsMC6l/XW0z5Djg0b0sJywpKjBERIL07y97FbHCgTWI
+	 ceIsCgIKK/rYmFbSwPBs1JxUZzA38YknaVIT0N5M=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 To: stable@vger.kernel.org
-Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Christian Brauner <brauner@kernel.org>,
-	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>
-Subject: [PATCH 7.2.y 1/3] selftests/landlock: Use an actual chardev for MAKE_CHAR audit test
-Date: Thu, 17 Sep 2026 17:42:27 +0200
-Message-ID: <1aa1d524419bd5119577f0ccb8b6c058b32021e4.1789655724.git.mic@digikod.net>
-In-Reply-To: <20260904045811.854612571@linuxfoundation.org>
-References: <20260904045811.854612571@linuxfoundation.org>
+	Joe Damato <joe@dama.to>,
+	Linus Walleij <linusw@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 7.2 363/733] net: ethernet: cortina: Finish RX updates before NAPI completion
+Date: Thu, 17 Sep 2026 16:11:11 +0100
+Message-ID: <20260917151400.657753512@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+References: <20260917151350.597953846@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-Infomaniak-Routing: alpha
 
-From: Günther Noack <gnoack@google.com>
+7.2-stable review patch.  If anyone has any objections, please let me know.
 
-[ Upstream commit 173b1bd8730825e1f6862dbd07856e7d68447a41 ]
+------------------
 
-By passing a (0, 0) device number, the audit test for
-LANDLOCK_ACCESS_FS_MAKE_CHAR was accidentally creating a whiteout object
-rather than a char device.  In preparation to treating whiteout objects
-differently, use an actual character device instead.
+From: Linus Walleij <linusw@kernel.org>
 
-Signed-off-by: Günther Noack <gnoack@google.com>
-Link: https://patch.msgid.link/20260813093157.1436894-2-gnoack@google.com
-Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[ Upstream commit baa26841cb9a2cdc7e0e99d6854a4e3359bf7393 ]
+
+napi_complete_done() releases ownership of the NAPI instance, but the
+Gemini poll keeps the RX statistics writer section open and updates the
+free queue after calling it. A new poll can therefore start while the old
+writer is still active.
+
+Finish the statistics and free queue updates before releasing ownership.
+Only re-enable RX interrupts when napi_complete_done() reports successful
+completion.
+
+Fixes: 4d5ae32f5e1e ("net: ethernet: Add a driver for Gemini gigabit ethernet")
+Suggested-by: Joe Damato <joe@dama.to>
+Assisted-by: LLM
+Signed-off-by: Linus Walleij <linusw@kernel.org>
+Link: https://patch.msgid.link/20260903-gemini-ethernet-fixes-v2-2-2bbbd598ca6e@kernel.org
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- tools/testing/selftests/landlock/fs_test.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/net/ethernet/cortina/gemini.c | 12 ++++++------
+ 1 file changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
-index 86e08aa6e0a7..e82b56a74c5f 100644
---- a/tools/testing/selftests/landlock/fs_test.c
-+++ b/tools/testing/selftests/landlock/fs_test.c
-@@ -7436,7 +7436,7 @@ TEST_F(audit_layout1, make_char)
+diff --git a/drivers/net/ethernet/cortina/gemini.c b/drivers/net/ethernet/cortina/gemini.c
+index 1d9824d1716cf..6502220362cbd 100644
+--- a/drivers/net/ethernet/cortina/gemini.c
++++ b/drivers/net/ethernet/cortina/gemini.c
+@@ -1581,12 +1581,10 @@ static int gmac_napi_poll(struct napi_struct *napi, int budget)
+ 	u64_stats_update_begin(&port->rx_stats_syncp);
  
- 	enforce_fs(_metadata, ACCESS_ALL, NULL);
+ 	received = gmac_rx(napi->dev, budget);
+-	if (received < budget) {
+-		napi_gro_flush(napi, false);
+-		napi_complete_done(napi, received);
+-		gmac_enable_rx_irq(napi->dev, 1);
++	if (received < budget)
+ 		++port->rx_napi_exits;
+-	}
++
++	u64_stats_update_end(&port->rx_stats_syncp);
  
--	EXPECT_EQ(-1, mknod(file1_s1d3, S_IFCHR | 0644, 0));
-+	EXPECT_EQ(-1, mknod(file1_s1d3, S_IFCHR | 0644, makedev(7, 0)));
- 	EXPECT_EQ(EACCES, errno);
- 	EXPECT_EQ(0, matches_log_fs(_metadata, self->audit_fd, "fs\\.make_char",
- 				    dir_s1d3));
+ 	port->freeq_refill += received;
+ 	if (port->freeq_refill > freeq_threshold) {
+@@ -1594,7 +1592,9 @@ static int gmac_napi_poll(struct napi_struct *napi, int budget)
+ 		geth_fill_freeq(geth, true);
+ 	}
+ 
+-	u64_stats_update_end(&port->rx_stats_syncp);
++	if (received < budget && napi_complete_done(napi, received))
++		gmac_enable_rx_irq(napi->dev, 1);
++
+ 	return received;
+ }
+ 
+-- 
+2.53.0
+
+
+
