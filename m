@@ -1,79 +1,36 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F85154B1B4
-	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 13:53:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18101559C84;
+	Thu, 17 Sep 2026 13:55:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789653238; cv=none; b=WHa0bSZQC7oVk0nw5wl+Gy91cMOX9s1VikksRjBXCaH6d5w955QL2NY3m7FMUnOe4yH+bQxiQMqTC/5Gj5u4IWB0nrJ10vC9QPi+0RSXSQ7kNH41lLBPhIZa543Wg/0EARw27yzezn22be4JCdt1NWG4OkvJ2sZe3QFI0JGW1yE=
+	t=1789653312; cv=none; b=Y/r7KWBNRqMTO40qhl95vMGvEwtSC/TgHIHDFR6TKllp2w04eGoZT6B06Z86SSDRLxYyn3e9Ixp8YKg3UdA5C9/QCIuuXhxExUCoXtF7QZ9TlnXw/Fwm90EEtrzR9w5OZ0GoBKPj1vGrzEB+zxe/80cbtsmQDkf/5I+sc+qkqOM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789653238; c=relaxed/simple;
-	bh=mfzetHJUn51ArerYHqF6aiA8NuXaOVldE7r6LWhO0uw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=W5F9tre7fr6NKBdwPeL63mRek44ZQUN6glC8EG/HxGfJoNWWZvxRdI4HCOjEq7JdJnEkAXAi7Try33/IJgNSAeTf5Y1DkVBBAwgHX7krF/dl8FGPB/WChUA1jIBfd4T/faFUPqM9KUWMlAUpkMow1InXsTTWyzEnBKeNME4CdD0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=En7S3FAl; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="En7S3FAl"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2dd88a115c1so9216735ad.3
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 06:53:49 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789653229; x=1790258029; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=LNzuklJ6syncehvRtPRFyTK25DIYgkrFQvB75keaveQ=;
-        b=En7S3FAlvb7xVAltzwxtYNx6weFJxSA9G721seTvYqMG/5AxdoRiOV4uoXMN8E/5dT
-         PY5h60hPKDNjabO8buj8Ilq4c33Uo48tIAQnqnox34Cp+RdePYdm5VezPfZSsa5YWYsZ
-         EUyo+MpLRAS9Lbl2t5VRWOzxtOdIArs7tGYgVWyurAKMvLPZ9RuV7NjM0IXMfa8g4+RZ
-         bOojSlI5lggddrHVadGBi7sy0rQ0zgD1MysNrvb/+KavfbHSmFBtAa1u2P9JY6CbYefZ
-         CoZNUoy7xCslO0s7nwgFqA/B3YegNZqYU5X0K8VEQhg1NANIJbXvx3ISm74IvEK792no
-         bKoA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789653229; x=1790258029;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=LNzuklJ6syncehvRtPRFyTK25DIYgkrFQvB75keaveQ=;
-        b=HlZTCddiVoTr/xffSWazQpW57I5AVHn3qdBkXA/OYlGe8ocRbVCJigoZLsde2JVb0S
-         fIQwls+uTcuJicutaqp96hJRxnQYuCHOQfz44Y3OP6X3J33bIb6ETAfJZB2xK7OKoXrn
-         BMvFa9YKYNkGmiv58p/fOm6CdarRU4wilnMX8dJWBagKo42w6qqLOaWgvLi2wdSdimW4
-         HsEl4GRt6H75WeG88ZEsS6WQmvkI628MxUqjMg5bMPJIek7BoDb2THlXJLfSGqP+opdq
-         hhnMMS+OWSyHtt+7cFm30jds4i55PdW/KdkJiwDFZrNYuGaTqqwYfnECPUx/jOrIhyZO
-         +K4w==
-X-Forwarded-Encrypted: i=1; AKwUvBzUyKVsazuabxLIlbhsI7/bkva/o+HOzIM805ao6mYcs/CRqcvnkv1XzSjzA+Mxf4cezeY6YZI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mbh/J9oRORVV5cTCSiCgKGjQL5rrbCtbLdmbzjYgpbHWB/+Lbn
-	ZltHH0XkOyEWZW0GSD2LmSegKA8gELaCarBAqTUefA4iM6FEnwdIdg7b
-X-Gm-Gg: AYBFou2tzxYevzcu6HjRh9yigTM8HIPoF5Up3KFpbVsYGA86zi8DnfayMhVLH1hb8OM
-	cmRTvNJXrlYN3KapiqBZlxX46x0wk1fNnfo3ZW4nmdy3oig0K+Q0aXUOgM4x1VLfedzhw7jrt12
-	sL6xospN7/MzMzE0k7NvyMgYvoPos20FAFfhzcJHIL7LL0Sxz6rUMeM07kGcbsO1P5kLgdNcTas
-	/YsTW7cOuzuKdrEA82QM4q9VWCMXL6lDfPwd8jsazIQH6tnKLmRLUqa+Ep4NzcBm4c3Y2r4C2Jy
-	uefNyWhHqVzlIASwiy/taCYSXR1+BezoPTTDLYXJesp/I2HkXTSON0iZRRRhL6dAEoKTppPfSAb
-	zK/SCY5dqTdQVJdXxJEP956k9a6+WiSh8HfSJZpIETCQWSGPDg0ngxq0dAEsvPVWft3MnvSExH0
-	h7lNddZ/dHFjqdkFOVa6SB8PnjrtEUpnQbscz80wOfBtBXstoVS2KRTZ7Wa1eDwhuB09uIclosI
-	Rn8x2Y+9KnhIqVZAu1hCq9cGGi1IkRZDQ==
-X-Received: by 2002:a17:90b:2ec7:b0:39d:f317:44cd with SMTP id 98e67ed59e1d1-39e1e4907f3mr22997029a91.14.1789653228453;
-        Thu, 17 Sep 2026 06:53:48 -0700 (PDT)
-Received: from localhost.localdomain ([2409:8a1e:2e81:7320:2428:17da:9062:91b2])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e360ddfc2sm5303334a91.16.2026.09.17.06.53.45
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 06:53:48 -0700 (PDT)
-From: zjamg <ndaugoing@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Michal Nazarewicz <mina86@mina86.com>,
-	Robert Baldyga <r.baldyga@samsung.com>,
-	Felipe Balbi <balbi@ti.com>,
-	linux-usb@vger.kernel.org,
+	s=arc-20240116; t=1789653312; c=relaxed/simple;
+	bh=tAd5jRQW1MuK32N+LAIe11aQsRo22duPh8kQNsJ7+tU=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=IqBQ08RCW9otFaBLyIGqSW8yJrM/C+PnwtBIvCwMh5m2D/4ERBd7VvitmlejeIJt7OtEdrvJKDQEUrw8FLcWNfYwo+Zf94MSNu9Az53D/JGjkpX4vaE39rKSq1gmixL5nDDGeyUd2Ip4Lx+UjiKB3f54HoV+NT4E6UqHvvSRO7s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowABHtD4r8atqj+GBCA--.4034S2;
+	Thu, 17 Sep 2026 21:54:51 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: bcm-kernel-feedback-list@broadcom.com
+Cc: florian.fainelli@broadcom.com,
+	gregkh@linuxfoundation.org,
+	linux-arm-kernel@lists.infradead.org,
 	linux-kernel@vger.kernel.org,
-	zjamg <ndaugoing@gmail.com>,
+	linux-rpi-kernel@lists.infradead.org,
+	uajain@igalia.com,
+	wahrenst@gmx.net,
+	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH 1/1] usb: gadget: f_fs: Fix NULL pointer dereference in FUNCTIONFS_ENDPOINT_DESC
-Date: Thu, 17 Sep 2026 21:53:37 +0800
-Message-ID: <20260917135337.65444-2-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260917135337.65444-1-ndaugoing@gmail.com>
-References: <20260917135337.65444-1-ndaugoing@gmail.com>
+Subject: [PATCH] platform/raspberrypi: Fix service use-after-free in vchiq_blocking_bulk_transfer()
+Date: Thu, 17 Sep 2026 13:54:51 +0000
+Message-Id: <20260917135451.2154073-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,85 +38,77 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowABHtD4r8atqj+GBCA--.4034S2
+X-Coremail-Antispam: 1UD129KBjvJXoW7CF4rKrWkZFWUKw1xurWUCFg_yoW8ZrWxpr
+	WUurW0yr4rtF1ay3yUXa15CryF9393t3yfur97AwnrZrsxZF9IvwnFkFyYqF4DArn3Wa9x
+	trWavw15u3yUAw7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUUPqb7Iv0xC_Kw4lb4IE77IF4wAFc2x0x2IEx4CE42xK8VAvwI8I
+	cIk0rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2
+	AK021l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v2
+	6F4j6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
+	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
+	7VC0I7IYx2IY67AKxVWUtVWrXwAv7VC2z280aVAFwI0_Cr1j6rxdMcvjeVCFs4IE7xkEbV
+	WUJVW8JwACjcxG0xvY0x0EwIxGrwACjI8F5VAI37AI020EjII2zVCS5cI20VAGYxC7M4II
+	rI8v6xkF7I0E8cxan2IY04v7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMx
+	AIw28IcVCjz48v1sIEY20_Gr43Wr1UJr1l4I8I3I0E4IkC6x0Yz7v_Jr0_Gr1lx2IqxVAq
+	x4xG67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r1q6r
+	43MIIYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF
+	7I0E14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI
+	0_Gr1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x
+	07bbXocUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBwMNA2qrrRnLTwAAs7
 
-When user space sets up FunctionFS with only full-speed descriptors
-(e.g., flags = FUNCTIONFS_HAS_FS_DESC) and the gadget operates at a
-higher speed (such as USB_SPEED_HIGH or USB_SPEED_SUPER),
-config_ep_by_speed() detects that the function lacks descriptors for
-the current speed, logs a warning, and falls back to full-speed
-descriptors. The endpoint is then successfully enabled via
-usb_ep_enable(), and epfile->ep becomes valid.
+find_service_by_handle() returns the service with a reference taken,
+but vchiq_blocking_bulk_transfer() drops it immediately and then keeps
+dereferencing service->state to reach the bulk_waiter spinlock on the
+"not a retry" and "cancel the signal" paths.  Once a concurrent
+vchiq_free_service_internal() releases the last reference the service
+is freed, so those accesses use freed memory.
 
-However, when user space subsequently issues the FUNCTIONFS_ENDPOINT_DESC
-ioctl to query the endpoint descriptor, ffs_epfile_ioctl() selects the
-descriptor index solely based on gadget->speed:
+Hold the reference until the end of the function instead, as
+vchiq_service_callback() already does.
 
-	switch (epfile->ffs->gadget->speed) {
-	case USB_SPEED_SUPER:
-	case USB_SPEED_SUPER_PLUS:
-		desc_idx = 2;
-		break;
-	case USB_SPEED_HIGH:
-		desc_idx = 1;
-		break;
-	default:
-		desc_idx = 0;
-	}
-	desc = epfile->ep->descs[desc_idx];
-	memcpy(&desc1, desc, desc->bLength);
-
-Because user space only supplied full-speed descriptors,
-epfile->ep->descs[1] is NULL. Dereferencing desc->bLength triggers an
-immediate kernel NULL pointer dereference panic.
-
-Fix this by falling back through lower speed descriptors if the current
-speed descriptor was not supplied, matching the fallback logic in
-config_ep_by_speed() and historical f_fs behavior. If still missing,
-fall back to epfile->ep->ep->desc (the active descriptor), and return
--EINVAL safely if no valid descriptor is found. In addition, mark desc
-as const to match struct usb_ep::desc and avoid discarding qualifiers.
-
-Fixes: c559a3534109 ("usb: gadget: f_fs: add ioctl returning ep descriptor")
+Fixes: 12cc5f92c159 ("staging: vc04_services: Move spinlocks to vchiq_state")
 Cc: stable@vger.kernel.org
-Signed-off-by: zjamg <ndaugoing@gmail.com>
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/usb/gadget/function/f_fs.c | 15 +++++++++++++--
- 1 file changed, 13 insertions(+), 2 deletions(-)
+ drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c | 8 +++++---
+ 1 file changed, 5 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/usb/gadget/function/f_fs.c b/drivers/usb/gadget/function/f_fs.c
-index 43962e05eacf..c64a268e98a4 100644
---- a/drivers/usb/gadget/function/f_fs.c
-+++ b/drivers/usb/gadget/function/f_fs.c
-@@ -1877,8 +1877,9 @@ static long ffs_epfile_ioctl(struct file *file, unsigned code,
- 		break;
- 	case FUNCTIONFS_ENDPOINT_DESC:
- 	{
-+		const struct usb_endpoint_descriptor *desc;
-+		struct usb_endpoint_descriptor desc1;
- 		int desc_idx;
--		struct usb_endpoint_descriptor desc1, *desc;
+diff --git a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
+index e78641703252..10f33a04e22a 100644
+--- a/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
++++ b/drivers/platform/raspberrypi/vchiq-interface/vchiq_arm.c
+@@ -588,8 +588,6 @@ vchiq_blocking_bulk_transfer(struct vchiq_instance *instance, unsigned int handl
+ 	if (!service)
+ 		return -EINVAL;
  
- 		switch (epfile->ffs->gadget->speed) {
- 		case USB_SPEED_SUPER:
-@@ -1892,7 +1893,17 @@ static long ffs_epfile_ioctl(struct file *file, unsigned code,
- 			desc_idx = 0;
+-	vchiq_service_put(service);
+-
+ 	mutex_lock(&instance->bulk_waiter_list_mutex);
+ 	list_for_each_entry(iter, &instance->bulk_waiter_list, list) {
+ 		if (iter->pid == current->pid) {
+@@ -619,8 +617,10 @@ vchiq_blocking_bulk_transfer(struct vchiq_instance *instance, unsigned int handl
  		}
- 
--		desc = epfile->ep->descs[desc_idx];
-+		do {
-+			desc = epfile->ep->descs[desc_idx];
-+		} while (!desc && --desc_idx >= 0);
-+
-+		if (!desc)
-+			desc = epfile->ep->ep->desc;
-+		if (!desc) {
-+			ret = -EINVAL;
-+			break;
+ 	} else {
+ 		waiter = kzalloc_obj(*waiter);
+-		if (!waiter)
++		if (!waiter) {
++			vchiq_service_put(service);
+ 			return -ENOMEM;
 +		}
-+
- 		memcpy(&desc1, desc, desc->bLength);
+ 	}
  
- 		spin_unlock_irq(&epfile->ffs->eps_lock);
+ 	bulk_params->waiter = &waiter->bulk_waiter;
+@@ -645,6 +645,8 @@ vchiq_blocking_bulk_transfer(struct vchiq_instance *instance, unsigned int handl
+ 			waiter, current->pid);
+ 	}
+ 
++	vchiq_service_put(service);
++
+ 	return ret;
+ }
+ 
 -- 
-2.53.0
+2.34.1
 
