@@ -1,32 +1,32 @@
 Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
 	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B733C509F1B;
-	Thu, 17 Sep 2026 12:59:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 82B1F50AC2F;
+	Thu, 17 Sep 2026 13:02:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789649997; cv=none; b=d6VoYybThUEYjEMMpR0JZpqm+vWis0Lb/i2KST3bwaoQGVxJfeYTDQO8Tb3V3w8LZyoESMQmd/dGHLJyw/7QRCaDPXaW8c1vMGHRQUcRRx15Krp1H7iORG7ct/y8HvHFVbo4Q7rVDSw+0ZgLEaBmkJzj08nRgD42gIWyR9w34H4=
+	t=1789650135; cv=none; b=i/kaL6//wEPCoeeVkbXN8vriifaTt0bZgFkbL5ltcvurOd87TpsXTf0nAMYiO/t2uNUFGsjFqnyxnW7aTHM8kQKUz0zZLhaCdaRcmrrtv3yrYulN3vg88WCqH7R2EUBj0M0xZxlkqBSetOHd7yYSaB0jg34ok2PAlVf214fLJS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789649997; c=relaxed/simple;
-	bh=FJxrWK1gBiGxRvr+NWkzixtKYf/0QH/dX/R6Xx3kh9c=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DKNU2EciB9Ycy41AZAA9Ly7QDsjDm0GulHdUu/WXcbtl/q/AqnU2VhwLEoKsKjIg3lMEiJzQ/3JIec6UQEe2DL2xQT3LxEv10skPEDDcgmPm3mPY++S+FSb0qGsOyyd/aD5k6YERpZg2ePZCJx/Rs/dOSk30S5gPzTd5/SwCq1g=
+	s=arc-20240116; t=1789650135; c=relaxed/simple;
+	bh=OSXwh9Ig+PQq5u8inJX/lP1U/PzoQjfh/DEEYEIS1t0=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=mRdV9OIWX5b2DR5K+oyO3mQUMv66/Zc+OJZ3vPTyoDJ+t7tZTSXfK/tN1QD90xlhQ1aF50cNUXvhnGcrXX+RkPfKC0DlX1A96l9M5NjH1dP0C6jZxgdCIEE2irbheNethJUlZiV21YjRJzYRz7TgJ5KdXmYdo+WpTaVH4L+CojM=
 ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
 Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
 Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowADnF0I45KtqhwGBCA--.3200S2;
-	Thu, 17 Sep 2026 20:59:36 +0800 (CST)
+	by APP-05 (Coremail) with SMTP id zQCowACXAz7B5KtqRgmBCA--.3240S2;
+	Thu, 17 Sep 2026 21:01:53 +0800 (CST)
 From: Wentao Liang <vulab@iscas.ac.cn>
 To: devicetree@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
+	nsaenz@kernel.org,
 	robh@kernel.org,
 	saravanak@kernel.org,
-	stephen.boyd@linaro.org,
 	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_parse_phandle_with_args_map()
-Date: Thu, 17 Sep 2026 12:59:36 +0000
-Message-Id: <20260917125936.2152450-1-vulab@iscas.ac.cn>
+Subject: [PATCH] of: unittest: Fix np reference leak in of_unittest_pci_dma_ranges()
+Date: Thu, 17 Sep 2026 13:01:53 +0000
+Message-Id: <20260917130153.2152542-1-vulab@iscas.ac.cn>
 X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -35,11 +35,11 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowADnF0I45KtqhwGBCA--.3200S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Jry3tF45GFWfZr15XF4UXFb_yoWkGFb_uF
-	yvvr9xXrW8CF4DurW3Xrn3ur92v3W8WFWkZr10y3Wak34jvrn0qr109r95Jw1DurWS9r9x
-	Gr4DCry0krnrZjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbqkYjsxI4VWDJwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+X-CM-TRANSID:zQCowACXAz7B5KtqRgmBCA--.3240S2
+X-Coremail-Antispam: 1UD129KBjvdXoWrtw1DWF45Kr4rGFW5AF4kCrg_yoW3KFc_uF
+	yvvr9rWrs5Ca1Ig34fAr13ZF9F9a48WrWkZwnFya43Ca4Yvr13Wr1j9r1kGw1rAF4avasr
+	KrWkXr18trnrujkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbqkYjsxI4VW3JwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
 	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
 	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
 	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
@@ -51,42 +51,33 @@ X-Coremail-Antispam: 1UD129KBjvdXoW7Jry3tF45GFWfZr15XF4UXFb_yoWkGFb_uF
 	67AKxVWUJVWUGwC20s026x8GjcxK67AKxVWUGVWUWwC2zVAF1VAY17CE14v26r126r1DMI
 	IYrxkI7VAKI48JMIIF0xvE2Ix0cI8IcVAFwI0_JFI_Gr1lIxAIcVC0I7IYx2IY6xkF7I0E
 	14v26F4j6r4UJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4lIxAIcVC2z280aVAFwI0_Gr
-	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07jn
-	gAwUUUUU=
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRQNA2qrq02y3QAAsb
+	1j6F4UJwCI42IY6I8E87Iv6xkF7I0E14v26rxl6s0DYxBIdaVFxhVjvjDU0xZFpf9x07j5
+	CzZUUUUU=
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRINA2qrq021DwAAsI
 
-of_find_node_by_path() returns a node with an elevated reference count,
-but the function returns without dropping it both when a provider node
-is missing and after the last check. Add the missing of_node_put() calls.
+of_pci_dma_range_parser_init() can fail when the node lacks a dma-ranges
+property. That error path returns without dropping the reference taken
+by of_find_node_by_path(). Add the missing of_node_put().
 
-Fixes: 357aa4b61c82 ("of: unittest: Add phandle remapping test")
+Fixes: 04db93a95aef ("of/unittest: Add dma-ranges address translation tests")
 Cc: stable@vger.kernel.org
 Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/of/unittest.c | 3 +++
- 1 file changed, 3 insertions(+)
+ drivers/of/unittest.c | 1 +
+ 1 file changed, 1 insertion(+)
 
 diff --git a/drivers/of/unittest.c b/drivers/of/unittest.c
-index 36c64d485a53..e10fff3f68c4 100644
+index e10fff3f68c4..939cbff45ab1 100644
 --- a/drivers/of/unittest.c
 +++ b/drivers/of/unittest.c
-@@ -581,6 +581,7 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
- 	for (i = 0; i < ARRAY_SIZE(p); ++i) {
- 		if (!p[i]) {
- 			pr_err("missing testcase data\n");
-+			of_node_put(np);
- 			return;
- 		}
- 		prefs[i] = OF_KREF_READ(p[i]);
-@@ -711,6 +712,8 @@ static void __init of_unittest_parse_phandle_with_args_map(void)
- 			 i, prefs[i], OF_KREF_READ(p[i]));
- 		of_node_put(p[i]);
- 	}
-+
-+	of_node_put(np);
- }
+@@ -1198,6 +1198,7 @@ static void __init of_unittest_pci_dma_ranges(void)
  
- static void __init of_unittest_property_string(void)
+ 	if (of_pci_dma_range_parser_init(&parser, np)) {
+ 		pr_err("missing dma-ranges property\n");
++		of_node_put(np);
+ 		return;
+ 	}
+ 
 -- 
 2.34.1
 
