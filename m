@@ -1,33 +1,33 @@
 Received: from mx.nabladev.com (mx.nabladev.com [178.251.229.89])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BCC4EF150;
-	Thu, 17 Sep 2026 20:06:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A977F4E780C;
+	Thu, 17 Sep 2026 20:06:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.251.229.89
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789675585; cv=none; b=kGiSfIeVSNRexgG2ktUKQDOrNjQ9299JYymBxI/xCigNixSLTdfa6ZTUC1ksobOtbIw3SFhJ2bV9PiYW9vH52+aJ9UpEP2K9bGNcFZMaTVxC6gTUMdNRK6EuhLfIm1iY5ctIua9Nc/Ck+HAkURHStPMW+kbAgJZ1oJBj9gMha0U=
+	t=1789675607; cv=none; b=rQRmaUKkwIfquPdvBbwy62rx0tKP1dHFtymXOV8Irp+R9HlKIyuShGRe084UHNQ4q4C1EF1INjWvoQ2MZ21Az+qFTF2BozS2FtxWjueuDKkqYt46YP2naxUmWKkt34jF9WEiyPpNfbRcXvZG2qVE4PTeNev8S5AHeF/aj3h1xiA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789675585; c=relaxed/simple;
-	bh=rXqOrBzH+IpO/T9r5pYGLtHXHgZqd6dQVDwK7JGlgOU=;
+	s=arc-20240116; t=1789675607; c=relaxed/simple;
+	bh=cMQ0OP8bNQlQvbq/DvZK0twSGp3MkIQB3Ui9Dqk4Ubg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=N8gvr+Cak3gKCyAz1ghHyVp1RyROzdaaA6M0EfQD/oX0Kd+6gR/7kKOHZvCmX3EiON3ROxmWIF0nXiDaa9SKzXk/TqtgSVjDmezW3WWmK5EH4pOgZlGgW4ZZjBy+Q8ULwS75G2xSJdlDh6zQiGdGFl7oH8SSp1F9KCVOUb57+ew=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=GzlgwMys; arc=none smtp.client-ip=178.251.229.89
+	 Content-Type:Content-Disposition:In-Reply-To; b=fpnIrIBuUUpjLJp+Oa+YtUAy09k2Bq5LvBRSD7GOvTZAias7pVuApV4FPrp4QAavxH2Ot6Vu5qvPa2G5xwXOI52k4AtA3m8YTP4sppqTIcXlU6PRHBCjIGbRUskzcWKcurWRgFjDJcIomLERbS5y9RtMEY0CZMYiCeABnVSgXdU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com; spf=pass smtp.mailfrom=nabladev.com; dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b=I73AnYRg; arc=none smtp.client-ip=178.251.229.89
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=nabladev.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="GzlgwMys"
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id A746A10194D;
-	Thu, 17 Sep 2026 22:06:05 +0200 (CEST)
+	dkim=pass (2048-bit key) header.d=nabladev.com header.i=@nabladev.com header.b="I73AnYRg"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 9BE73104392;
+	Thu, 17 Sep 2026 22:06:38 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=nabladev.com;
-	s=dkim; t=1789675570;
+	s=dkim; t=1789675599;
 	h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=mqPcUB1khjYQ1hJGnWqfia0CXyzKOVdpspPXxD3fg9Y=;
-	b=GzlgwMysH5PNLpFEBiRGT3YzjFFVhCueBI3cIud3cUf8NKCZF+nVyjZ+jZs2CgHjx0HgW+
-	Dal1o0DehzK9QXXw/rmBNKKBX8ugW8mWBypNLP2JqZ7mlNd5awTo8OR5NQU59ruthEGDub
-	GM2c4Oqn2WD52SK5XBxt2VA4XIiWRnNH4sorwP6Gnhn0JqrmFnfFuRz4Y9zKOUNLJcoiu4
-	CTdJuCZqeorzXrKgmfEatR0/WhwTaMtD9jA3el9NKd1BsDUafoKwgOMXSjKl6Voltm6tbd
-	1TZ0HA1mmiK7K90jLp3nBTNOaV6785GQ1c9RiLrIu3LkzZ6olJZr2kag59sUJg==
-Date: Thu, 17 Sep 2026 22:06:04 +0200
+	 in-reply-to:references; bh=Jk7CRDRYhqaWQIorgmt53Z1vef2DzmvCTID6Zli1PwM=;
+	b=I73AnYRgzeW2/iXoD7JyqNnhGe4uM/M0m1EKAIymLLvhvyja3RlrzPOvr7wsf39NS3kT9r
+	PdmtC5r8IkiWg1I9JGI8ILHTPxuZT7ndQPl/NGajgAmDvqsz1GmxD88OtV9mspZjaE3W+q
+	y7Ik2IZBfWqKL7LmykxNTRcJ8BM50cLdGTZvo4DFxESZSRN6ZMY8NhR1yi/HwDP7GRXRis
+	tXAz0umZmJLQLkEb75tn0kCAtPBLT+3YsamWpNaBFrqfAeU+0Rz0pSEvpc36zjNDyD/r6s
+	rxrJqY1MrlFU73daHWzIwRl3+3G0ry1efwnXsf/J9UxCfrr8l/YdXGpMBAzTGw==
+Date: Thu, 17 Sep 2026 22:06:37 +0200
 From: Pavel Machek <pavel@nabladev.com>
 To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
 Cc: stable@vger.kernel.org, patches@lists.linux.dev,
@@ -38,9 +38,9 @@ Cc: stable@vger.kernel.org, patches@lists.linux.dev,
 	sudipm.mukherjee@gmail.com, rwarsow@gmx.de, conor@kernel.org,
 	hargar@microsoft.com, broonie@kernel.org, achill@achill.org,
 	sr@sladewatkins.com
-Subject: Re: [PATCH 6.18 0000/1250] 6.18.53-rc1 review
-Message-ID: <aqxILAWpEUT0dDvf@duo.ucw.cz>
-References: <20260917151551.901433442@linuxfoundation.org>
+Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
+Message-ID: <aqxITZsEiuplaSj9@duo.ucw.cz>
+References: <20260917151350.597953846@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,40 +48,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha1;
-	protocol="application/pgp-signature"; boundary="/Hsi6LWReVhcSLhh"
+	protocol="application/pgp-signature"; boundary="IAuoAgIQ4kbi0dbT"
 Content-Disposition: inline
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
 X-Last-TLS-Session-Version: TLSv1.3
 
 
---/Hsi6LWReVhcSLhh
+--IAuoAgIQ4kbi0dbT
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 
 Hi!
 
-> This is the start of the stable review cycle for the 6.18.53 release.
-> There are 1250 patches in this series, all will be posted as a response
+> This is the start of the stable review cycle for the 7.2.7 release.
+> There are 733 patches in this series, all will be posted as a response
 > to this one.  If anyone has any issues with these being applied, please
 > let me know.
 
 CIP testing did not find any problems here:
 
-https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-6.18.y
+https://gitlab.com/cip-project/cip-testing/linux-stable-rc-ci/-/tree/linux-7.2.y
 
 Tested-by: Pavel Machek (CIP) <pavel@nabladev.com>
 
 Best regards,
                                                                 Pavel
 
---/Hsi6LWReVhcSLhh
+--IAuoAgIQ4kbi0dbT
 Content-Type: application/pgp-signature; name="signature.asc"
 
 -----BEGIN PGP SIGNATURE-----
 
-iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaqxILAAKCRAw5/Bqldv6
-8ggYAJ9Kn6007QsLCz3CSxWzg2iCRMiBKwCgqx2hvYD8SvkRLMipJoWI7UAI/Hc=
-=jzlm
+iF0EABECAB0WIQRPfPO7r0eAhk010v0w5/Bqldv68gUCaqxITQAKCRAw5/Bqldv6
+8vSJAJ9DfjpZIU45R2ZNL53wB/VHJ8nCsACfcbfkHpbXicAMOdKm7cUpMtIrad8=
+=019t
 -----END PGP SIGNATURE-----
 
---/Hsi6LWReVhcSLhh--
+--IAuoAgIQ4kbi0dbT--
