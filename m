@@ -1,40 +1,45 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 99E6352CCE6;
-	Thu, 17 Sep 2026 17:01:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D00B74ED184;
+	Thu, 17 Sep 2026 17:01:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789664466; cv=none; b=KJiTJaR5imy7anHD1VfhfLmVz5WZ8//JTjYKt+1+omRBwWJGdHLXn/iFZNeV5oyyFdWYRyt+EzCdrC8zzKGv/9JAaslJ9q5bra/O8vI97ud5+qEt8s/guXisVnFs1tFulIK0UjdlqvhG6kNyk3crPOhe0HkoIzd/1UflRcAqbcw=
+	t=1789664467; cv=none; b=ga95ip+JjFxNa6NBgFrLiwosj5nEm8yH++1nLyTk0MdZJMtJMKCDG/CQDwTBJPBFFfn44L8V4xH1oyraVt4y3YgPFMpWPPaFAzMR1lzn+0UblDtyvYxMajsFU24giSjsjEiH5VtJXE4PwxbEqvF1UDNP45CQMAit07nJSzjK76g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789664466; c=relaxed/simple;
-	bh=XwRE6lz8zzUWQqfe5tl5Xvwgi8WlYNQ6+FgbwConfCE=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=B9UJ9ROrBpud2Z0UV/Ci3LdQGEwJ9lXluhn12QJf3gLbqg0N3pTFM2N8juBI8PtV3MCPr8fizJFZx8s25jdkW6RIDx7mzHxf+1l1XC2b8wyzrnSPoE8wPcHB+T7/g5qMAyA5OcLnKvT6IvGMdeJQ3A5MwnOX0Qsv4SmM9fEcB9Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowAB3pkDDHKxqzfaECA--.7220S2;
-	Fri, 18 Sep 2026 01:00:52 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: broonie@kernel.org
-Cc: cezary.rojewski@intel.com,
-	hansg@kernel.org,
-	kai.vehmanen@linux.intel.com,
-	liam.r.girdwood@linux.intel.com,
-	linux-kernel@vger.kernel.org,
-	linux-sound@vger.kernel.org,
-	perex@perex.cz,
-	peter.ujfalusi@linux.intel.com,
-	pierre-louis.bossart@linux.dev,
-	tiwai@suse.com,
-	yung-chuan.liao@linux.intel.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH] ASoC: Intel: bytcr_rt5640: Fix use-after-free in snd_byt_rt5640_mc_probe()
-Date: Thu, 17 Sep 2026 17:00:52 +0000
-Message-Id: <20260917170052.2163636-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+	s=arc-20240116; t=1789664467; c=relaxed/simple;
+	bh=gmYlqeeXtqMkjl6QlKIf+amRNnjef67xFVQXA2y08oc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ItBpoGzuKaVROoA3BhSfYvy4zEE/mc/c2dM6lEReogZdWL7YiGB6igADSkbncPj7ZTtQZ8y7XHYUMPcYf3LKQHTgEMW5CmWPSynjnlyLEYrawnqsgR3hqRbd4QvIU9gSjKIuah0csvR9r2B9TZg5AxFkdgn5jyeNzfhUarrYMWk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=vL2vKUhq; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="vL2vKUhq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30C101F00893;
+	Thu, 17 Sep 2026 17:01:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789664464;
+	bh=PBYmlxH6ZQgOp4uVsUAWYBuoCpL4BdPiqXbFd0URpU8=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=vL2vKUhqRp/mUWvOeo+e2MgcurEX1CFV4A+r450entUhLUSyNvRyuQlJRc4SFcxyx
+	 ZC+iu2Nc9sdXe7mvbVBoetrKphgK8HrCIWdGPh/9SitvvfSugDJghiCChCp0ep/TuK
+	 fHnqRauC0xuDARaBqfwCjLE7U43vSlv8hetOfyDo=
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: stable@vger.kernel.org
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	patches@lists.linux.dev,
+	Xu Rao <raoxu@uniontech.com>,
+	Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>,
+	Sasha Levin <sashal@kernel.org>
+Subject: [PATCH 6.18 0381/1250] ata: libata-pmp: add JMicron JMS562 quirk
+Date: Thu, 17 Sep 2026 16:02:56 +0100
+Message-ID: <20260917151602.374107831@linuxfoundation.org>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
+References: <20260917151551.901433442@linuxfoundation.org>
+User-Agent: quilt/0.69
+X-stable: review
+X-Patchwork-Hint: ignore
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -42,52 +47,68 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowAB3pkDDHKxqzfaECA--.7220S2
-X-Coremail-Antispam: 1UD129KBjvdXoW7Xr13CF47Jr48Cry7Zw1fWFg_yoWkXwcEka
-	4j9348Xa48CFsa9rs8AasIkwn7Xr13tFW0g3WxtF4kJFWrXFWfJa98KrZ09F4DWw4vgryj
-	93Wj9rWxCryS9jkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbfkFc2x0x2IEx4CE42xK8VAvwI8IcIk0rVWrJVCq3wAFIxvE14AK
-	wVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK021l84ACjcxK6xIIjxv20x
-	vE14v26r4j6ryUM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j6r4UJwA2z4x0Y4vEx4A2
-	jsIE14v26F4j6r4UJwA2z4x0Y4vEx4A2jsIEc7CjxVAFwI0_Gr1j6F4UJwAS0I0E0xvYzx
-	vE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWU
-	tVWrXwAv7VC2z280aVAFwI0_Gr0_Cr1lOx8S6xCaFVCjc4AY6r1j6r4UM4x0Y48IcxkI7V
-	AKI48JM4x0x7Aq67IIx4CEVc8vx2IErcIFxwACI402YVCY1x02628vn2kIc2xKxwCY1x02
-	62kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrwCF04k20xvE74AGY7Cv6cx26r48ZrWUJr
-	1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xv
-	wVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjx
-	v20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY1x0267AKxVWxJVW8Jr1lIxAIcVCF04k2
-	6cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14v26r4j6F4UMIIF0xvEx4A2jsIEc7CjxV
-	AFwI0_Gr1j6F4UJbIYCTnIWIevJa73UjIFyTuYvjfU5byZUUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiBgINA2qr889g2wAAsM
 
-When the device found by name is not an i2c_client, the reference taken
-by bus_find_device_by_name() is dropped, but execution continues with
-the stale codec_dev pointer, which is stored in priv->codec_dev and
-dereferenced later in the probe.
+6.18-stable review patch.  If anyone has any objections, please let me know.
 
-The device is not usable as the codec, so return an error after dropping
-the reference.
+------------------
 
-Fixes: d48696b91552 ("ASoC: Intel: bytcr_rt5640: Add support for non ACPI instantiated codec")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+From: Xu Rao <raoxu@uniontech.com>
+
+[ Upstream commit c62aff1174cf88e10716c7513702443c47551fc6 ]
+
+JMicron JMS562, as used in QNAP QDA-A2AR RAID1 adapters, may
+keep the exported ATA device not ready while the array is rebuilding.
+
+In this state, libata may repeatedly try to softreset and classify
+the fan-out link.  On the affected adapter, this can time out, make
+PMP/SCR access fail, and eventually disable the fan-out link before
+the RAID volume is exported.
+
+A failing boot shows the fan-out link failing SRST, PMP access
+timing out, SCR read failing, and the link being disabled:
+
+  ata4.00: softreset failed (device not ready)
+  ata4.15: qc timeout after 3000 msecs (cmd 0xe4)
+  ata4.00: failed to read SCR 0 (Emask=0x4)
+  ata4.00: failed to recover link after 3 tries, disabling
+
+After that, the root filesystem on the exported RAID volume cannot
+be found.
+
+Add JMS562 to the existing JMicron PMP quirk that disables LPM,
+avoids softreset on fan-out links, and assumes an ATA device.  This
+prevents libata from dropping the exported RAID volume during rebuild
+recovery.
+
+Signed-off-by: Xu Rao <raoxu@uniontech.com>
+Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Signed-off-by: Niklas Cassel <cassel@kernel.org>
+Signed-off-by: Sasha Levin <sashal@kernel.org>
 ---
- sound/soc/intel/boards/bytcr_rt5640.c | 1 +
- 1 file changed, 1 insertion(+)
+ drivers/ata/libata-pmp.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-diff --git a/sound/soc/intel/boards/bytcr_rt5640.c b/sound/soc/intel/boards/bytcr_rt5640.c
-index 40da3eea5fa7..557486c6f28d 100644
---- a/sound/soc/intel/boards/bytcr_rt5640.c
-+++ b/sound/soc/intel/boards/bytcr_rt5640.c
-@@ -1764,6 +1764,7 @@ static int snd_byt_rt5640_mc_probe(struct platform_device *pdev)
- 			dev_err(dev, "Error '%s' is not an i2c_client\n",
- 				BYT_RT5640_FALLBACK_CODEC_DEV_NAME);
- 			put_device(codec_dev);
-+			return -ENODEV;
- 		}
- 
- 		/* fixup codec name */
+diff --git a/drivers/ata/libata-pmp.c b/drivers/ata/libata-pmp.c
+index 48ac09d9031e6..299b1823e0d09 100644
+--- a/drivers/ata/libata-pmp.c
++++ b/drivers/ata/libata-pmp.c
+@@ -457,8 +457,13 @@ static void sata_pmp_quirks(struct ata_port *ap)
+ 		 * otherwise.  Don't try hard to recover it.
+ 		 */
+ 		ap->pmp_link[ap->nr_pmp_links - 1].flags |= ATA_LFLAG_NO_RETRY;
+-	} else if (vendor == 0x197b && (devid == 0x2352 || devid == 0x0325)) {
++	} else if (vendor == 0x197b &&
++		   (devid == 0x0562 || devid == 0x2352 || devid == 0x0325)) {
+ 		/*
++		 * 0x0562: JMicron JMS562, as used in QNAP QDA-A2AR RAID1
++		 *         adapters.  The exported device may stay not ready
++		 *         while the array is rebuilding, and SRST/classify can
++		 *         time out before the RAID volume is exported.
+ 		 * 0x2352: found in Thermaltake BlackX Duet, jmicron JMB350?
+ 		 * 0x0325: jmicron JMB394.
+ 		 */
 -- 
-2.34.1
+2.53.0
+
+
 
