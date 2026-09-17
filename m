@@ -1,322 +1,567 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtp-42af.mail.infomaniak.ch (smtp-42af.mail.infomaniak.ch [84.16.66.175])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B3FF53939A3;
-	Thu, 17 Sep 2026 15:30:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96D854ABBD5
+	for <stable@vger.kernel.org>; Thu, 17 Sep 2026 15:30:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=84.16.66.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659039; cv=none; b=cEx3SCIS0yhiQOYEqrKyw8O2kEAqZ+j05RlH3mjbOZxiJ4RJdhP0v4EBegFz6hxEYuRtEOO1VfjB+cXEKoWJAvhbGe0I/yYLxl3Plj37mLTC/dYB4bBT+CLdXEZS9TnRXL9YYIvTDsuyXf5C2L/OnJt1MdvhQgz4Dmj6iy8idZ8=
+	t=1789659043; cv=none; b=sWhwNCRUBaDM5CxlM4a9iU2iRgPB8iiaTVKypDDifGO4bKnjFD/Aqb34cda062D/YJGLtfgO3AJLZv5Ove2D5Mxl46M+hx/mkMdbVv+q9jGsJaUSOdUeEikgceUKe7eo8y+QNkGuQcmD/jLQr5RK+xRx9R6k46F5c/5LtbcobWY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659039; c=relaxed/simple;
-	bh=WtvHap/VksEFhF20HouaNm7/oh2GMUir+Q5mGIGDJz8=;
+	s=arc-20240116; t=1789659043; c=relaxed/simple;
+	bh=sdbbM10mYEjo0N0Kr5d+WRpMDJKcpiMPQi3Ct9QUCos=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fPx+JranHpawk/7oXGhLgmRxGhh3GkzaahZnsl4xR+t3ulnhOjYVrR2BsBkxHSil4iPcOUKrYgSz+m+R+gQzRzAHXX8HRaU//BTgh4CzP7OGRO9jgFpYDFj4d1+aQeIKw7VvchNJUt0TAgzAjpwBdZmb4qLbUan5TL4SJjDa5Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PiVNNBp6; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=eHBM82LaGxI+0qeCQF2pz1XPk8aoRoQjPc4IoyHUHsEL4ABkqA1BQGzABz/3mlkkxQFCyLxazL4Sa58/7vy37jbWdR6zVCxa7/1SDWssDmVbP/puxiB11XnEbR6stEks4yioDxXK5KJyoRk/zwBPNuQM8gyYNeCspK4acusALfE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=bMYyy6dt; arc=none smtp.client-ip=84.16.66.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PiVNNBp6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA7C21F000FF;
-	Thu, 17 Sep 2026 15:30:30 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659031;
-	bh=c5dWH9Hm2wno2/xpJzKAD6OBX1rnfs/8f6hQgYUlm68=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PiVNNBp6XJLoQ2Oq+KTyVWpj1kQzQOIyex0MCT7eTaizdnQlWpQTC0r1pR05w3Sha
-	 k/VtCGwpUMPSsUJ/WFGGJdmVDFaFXqXGzZzBREhBHYJgyoT+NQzT//1ZJiEWHZICS9
-	 napScQuTNLfT1P9OnP5E9guUuLYsz3F8gCMuE6D4=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="bMYyy6dt"
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hm07q2rLwz1wt;
+	Thu, 17 Sep 2026 17:30:31 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789659031;
+	bh=1JxOe4dQeGYTTIRfzle/FlzxcWiQDkwSsfu6T/Un8tc=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References:From;
+	b=bMYyy6dt5fdPudhiI3RSeDOYDLDYc8EQ7Ajeua8uDt2i4oZfIzH9W7ZPYf2O20qHe
+	 IgtpT2C+1fth1VcLnonpvQAT+EzDhzi4uuIDkfnU2p8xOLppGRcPyk5wYSAthpPuSL
+	 5/dBanY5YMIOQAAeell/23mgJgWn4PME1OzVDLeo=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hm07m6yTDzRlg;
+	Thu, 17 Sep 2026 17:30:28 +0200 (CEST)
+From: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>
 To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+Cc: =?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
 	patches@lists.linux.dev,
-	Linus Walleij <linusw@kernel.org>,
-	Mark Brown <broonie@kernel.org>,
+	Christian Brauner <brauner@kernel.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Song Liu <song@kernel.org>,
+	Tingmao Wang <m@maowtm.org>,
+	Bin Lan <bin.lan.cn@windriver.com>,
 	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 118/733] ASoC: ab8500: Repair the DAPM capture graph
-Date: Thu, 17 Sep 2026 16:07:06 +0100
-Message-ID: <20260917151353.940853277@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+Subject: [PATCH 6.6.y 1/2] selftests/landlock: Add tests for access through disconnected paths
+Date: Thu, 17 Sep 2026 17:30:24 +0200
+Message-ID: <f4f140aadf2807ece05a50f267b7c916678ba135.1789655724.git.mic@digikod.net>
+In-Reply-To: <20260616145128.015202824@linuxfoundation.org>
+References: <20260616145128.015202824@linuxfoundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-Infomaniak-Routing: alpha
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+From: Tingmao Wang <m@maowtm.org>
 
-------------------
+[ Upstream commit a18ee3f31fd714173a62515d049d77e76ab55649 ]
 
-From: Linus Walleij <linusw@kernel.org>
+This adds tests for the edge case discussed in [1], with specific ones
+for rename and link operations when the operands are through
+disconnected paths, as that go through a separate code path in Landlock.
 
-[ Upstream commit 103fe1a37f040ef6ac9ed1cf33be786149d2bb15 ]
+This has resulted in a warning, due to collect_domain_accesses() not
+expecting to reach a different root from path->mnt:
 
-The capture stream routes point away from the stream widget. Digital
-microphone mux routes are unconditional and bypass their enable bits,
-and several widgets independently own shared AD path enable bits. The
-dummy ADC and DAC widgets hide the resulting power graph errors.
+  #  RUN           layout1_bind.path_disconnected ...
+  #            OK  layout1_bind.path_disconnected
+  ok 96 layout1_bind.path_disconnected
+  #  RUN           layout1_bind.path_disconnected_rename ...
+  [..] ------------[ cut here ]------------
+  [..] WARNING: CPU: 3 PID: 385 at security/landlock/fs.c:1065 collect_domain_accesses
+  [..] ...
+  [..] RIP: 0010:collect_domain_accesses (security/landlock/fs.c:1065 (discriminator 2) security/landlock/fs.c:1031 (discriminator 2))
+  [..] current_check_refer_path (security/landlock/fs.c:1205)
+  [..] ...
+  [..] hook_path_rename (security/landlock/fs.c:1526)
+  [..] security_path_rename (security/security.c:2026 (discriminator 1))
+  [..] do_renameat2 (fs/namei.c:5264)
+  #            OK  layout1_bind.path_disconnected_rename
+  ok 97 layout1_bind.path_disconnected_rename
 
-Connect each real AIF widget to the stream and main supply, use the mux
-item names on digital microphone routes, and model shared AD enables as
-supplies. Also make the ANC DAPM switch writable.
+Move the const char definitions a bit above so that we can use the path
+for s4d1 in cleanup code.
 
-Fixes: 679d7abdc754 ("ASoC: codecs: Add AB8500 codec-driver")
-Assisted-by: LLM
-Signed-off-by: Linus Walleij <linusw@kernel.org>
-Link: https://patch.msgid.link/20260831-ab8500-codec-fixes-v1-2-f85024e717e3@kernel.org
-Signed-off-by: Mark Brown <broonie@kernel.org>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Cc: Günther Noack <gnoack@google.com>
+Cc: Song Liu <song@kernel.org>
+Link: https://lore.kernel.org/r/027d5190-b37a-40a8-84e9-4ccbc352bcdf@maowtm.org [1]
+Signed-off-by: Tingmao Wang <m@maowtm.org>
+Link: https://lore.kernel.org/r/20251128172200.760753-4-mic@digikod.net
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
+[mic: Backport: adapt the tests to the older fixture API]
+Signed-off-by: Mickaël Salaün <mic@digikod.net>
 ---
- sound/soc/codecs/ab8500-codec.c | 120 +++++++++++++++-----------------
- 1 file changed, 56 insertions(+), 64 deletions(-)
+ tools/testing/selftests/landlock/fs_test.c | 423 ++++++++++++++++++++-
+ 1 file changed, 415 insertions(+), 8 deletions(-)
 
-diff --git a/sound/soc/codecs/ab8500-codec.c b/sound/soc/codecs/ab8500-codec.c
-index 2f920eb907254..7137561ef9309 100644
---- a/sound/soc/codecs/ab8500-codec.c
-+++ b/sound/soc/codecs/ab8500-codec.c
-@@ -258,7 +258,7 @@ static const struct snd_kcontrol_new dapm_anc_in_select[] = {
- /* ANC - Enable/Disable */
- static const struct snd_kcontrol_new dapm_anc_enable[] = {
- 	SOC_DAPM_SINGLE("Switch", AB8500_ANCCONF1,
--			AB8500_ANCCONF1_ENANC, 0, 0),
-+			AB8500_ANCCONF1_ENANC, 1, 0),
- };
+diff --git a/tools/testing/selftests/landlock/fs_test.c b/tools/testing/selftests/landlock/fs_test.c
+index 96a5bf9eb6e9..dab0e45ed13a 100644
+--- a/tools/testing/selftests/landlock/fs_test.c
++++ b/tools/testing/selftests/landlock/fs_test.c
+@@ -3783,6 +3783,18 @@ TEST(memfd_ftruncate)
+ FIXTURE(layout1_bind) {};
+ /* clang-format on */
  
- /* ANC to Earpiece - Mute */
-@@ -340,12 +340,6 @@ static const struct snd_soc_dapm_widget ab8500_dapm_widgets[] = {
- 
- 	/* DA/AD */
- 
--	SND_SOC_DAPM_INPUT("ADC Input"),
--	SND_SOC_DAPM_ADC("ADC", "ab8500_0c", SND_SOC_NOPM, 0, 0),
--
--	SND_SOC_DAPM_DAC("DAC", NULL, SND_SOC_NOPM, 0, 0),
--	SND_SOC_DAPM_OUTPUT("DAC Output"),
--
- 	SND_SOC_DAPM_AIF_IN("DA_IN1", NULL, 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_AIF_IN("DA_IN2", NULL, 0, SND_SOC_NOPM, 0, 0),
- 	SND_SOC_DAPM_AIF_IN("DA_IN3", NULL, 0, SND_SOC_NOPM, 0, 0),
-@@ -537,9 +531,8 @@ static const struct snd_soc_dapm_widget ab8500_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIXER("AD3 Channel Volume",
- 			SND_SOC_NOPM, 0, 0,
- 			NULL, 0),
--	SND_SOC_DAPM_MIXER("AD3 Enable",
--			AB8500_ADPATHENA, AB8500_ADPATHENA_ENAD34, 0,
--			NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("AD34 Enable", AB8500_ADPATHENA,
-+			    AB8500_ADPATHENA_ENAD34, 0, NULL, 0),
- 
- 	/* Mic 2 */
- 
-@@ -598,9 +591,8 @@ static const struct snd_soc_dapm_widget ab8500_dapm_widgets[] = {
- 			SND_SOC_NOPM, 0, 0,
- 			NULL, 0),
- 
--	SND_SOC_DAPM_MIXER("AD12 Enable",
--			AB8500_ADPATHENA, AB8500_ADPATHENA_ENAD12, 0,
--			NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("AD12 Enable", AB8500_ADPATHENA,
-+			    AB8500_ADPATHENA_ENAD12, 0, NULL, 0),
- 
- 	/* HD Capture path */
- 
-@@ -614,12 +606,8 @@ static const struct snd_soc_dapm_widget ab8500_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIXER("AD6 Channel Volume",
- 			SND_SOC_NOPM, 0, 0,
- 			NULL, 0),
--	SND_SOC_DAPM_MIXER("AD57 Enable",
--			AB8500_ADPATHENA, AB8500_ADPATHENA_ENAD5768, 0,
--			NULL, 0),
--	SND_SOC_DAPM_MIXER("AD68 Enable",
--			AB8500_ADPATHENA, AB8500_ADPATHENA_ENAD5768, 0,
--			NULL, 0),
-+	SND_SOC_DAPM_SUPPLY("AD5768 Enable", AB8500_ADPATHENA,
-+			    AB8500_ADPATHENA_ENAD5768, 0, NULL, 0),
- 
- 	/* Digital Microphone path */
- 
-@@ -651,10 +639,6 @@ static const struct snd_soc_dapm_widget ab8500_dapm_widgets[] = {
- 	SND_SOC_DAPM_MIXER("AD4 Channel Volume",
- 			SND_SOC_NOPM, 0, 0,
- 			NULL, 0),
--	SND_SOC_DAPM_MIXER("AD4 Enable",
--			AB8500_ADPATHENA, AB8500_ADPATHENA_ENAD34,
--			0, NULL, 0),
--
- 	/* Acoustical Noise Cancellation path */
- 
- 	SND_SOC_DAPM_INPUT("ANC Configure Input"),
-@@ -702,24 +686,17 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
- 	{"Main Supply", NULL, "Audio Power"},
- 	{"Main Supply", NULL, "Audio Analog Power"},
- 
--	{"DAC", NULL, "ab8500_0p"},
--	{"DAC", NULL, "Main Supply"},
--	{"ADC", NULL, "ab8500_0c"},
--	{"ADC", NULL, "Main Supply"},
--
- 	/* ANC Configure */
- 	{"ANC Configure Input", NULL, "Main Supply"},
- 	{"ANC Configure Output", NULL, "ANC Configure Input"},
- 
--	/* AD/DA */
--	{"ADC", NULL, "ADC Input"},
--	{"DAC Output", NULL, "DAC"},
--
- 	/* Powerup charge pump if DA1/2 is in use */
- 
- 	{"DA_IN1", NULL, "ab8500_0p"},
-+	{"DA_IN1", NULL, "Main Supply"},
- 	{"DA_IN1", NULL, "Charge Pump"},
- 	{"DA_IN2", NULL, "ab8500_0p"},
-+	{"DA_IN2", NULL, "Main Supply"},
- 	{"DA_IN2", NULL, "Charge Pump"},
- 
- 	/* Headset path */
-@@ -754,8 +731,10 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
- 	/* HF or LineOut path */
- 
- 	{"DA_IN3", NULL, "ab8500_0p"},
-+	{"DA_IN3", NULL, "Main Supply"},
- 	{"DA3 Channel Volume", NULL, "DA_IN3"},
- 	{"DA_IN4", NULL, "ab8500_0p"},
-+	{"DA_IN4", NULL, "Main Supply"},
- 	{"DA4 Channel Volume", NULL, "DA_IN4"},
- 
- 	{"Speaker Left Source", "Audio Path", "DA3 Channel Volume"},
-@@ -813,8 +792,10 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
- 	/* Vibrator path */
- 
- 	{"DA_IN5", NULL, "ab8500_0p"},
-+	{"DA_IN5", NULL, "Main Supply"},
- 	{"DA5 Channel Volume", NULL, "DA_IN5"},
- 	{"DA_IN6", NULL, "ab8500_0p"},
-+	{"DA_IN6", NULL, "Main Supply"},
- 	{"DA6 Channel Volume", NULL, "DA_IN6"},
- 
- 	{"VIB1 DAC", NULL, "DA5 Channel Volume"},
-@@ -856,13 +837,15 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
- 	{"AD1 Channel Volume", NULL, "AD1 Source Select"},
- 	{"AD2 Channel Volume", NULL, "AD2 Source Select"},
- 
--	{"AD12 Enable", NULL, "AD1 Channel Volume"},
--	{"AD12 Enable", NULL, "AD2 Channel Volume"},
-+	{"AD1 Channel Volume", NULL, "AD12 Enable"},
-+	{"AD2 Channel Volume", NULL, "AD12 Enable"},
- 
--	{"AD_OUT1", NULL, "ab8500_0c"},
--	{"AD_OUT1", NULL, "AD12 Enable"},
--	{"AD_OUT2", NULL, "ab8500_0c"},
--	{"AD_OUT2", NULL, "AD12 Enable"},
-+	{"ab8500_0c", NULL, "AD_OUT1"},
-+	{"AD_OUT1", NULL, "Main Supply"},
-+	{"AD_OUT1", NULL, "AD1 Channel Volume"},
-+	{"ab8500_0c", NULL, "AD_OUT2"},
-+	{"AD_OUT2", NULL, "Main Supply"},
-+	{"AD_OUT2", NULL, "AD2 Channel Volume"},
- 
- 	/* Mic 1 */
- 
-@@ -879,11 +862,11 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
- 	{"AD3 Source Select", "Mic 1", "MIC1 ADC"},
- 
- 	{"AD3 Channel Volume", NULL, "AD3 Source Select"},
-+	{"AD3 Channel Volume", NULL, "AD34 Enable"},
- 
--	{"AD3 Enable", NULL, "AD3 Channel Volume"},
--
--	{"AD_OUT3", NULL, "ab8500_0c"},
--	{"AD_OUT3", NULL, "AD3 Enable"},
-+	{"ab8500_0c", NULL, "AD_OUT3"},
-+	{"AD_OUT3", NULL, "Main Supply"},
-+	{"AD_OUT3", NULL, "AD3 Channel Volume"},
- 
- 	/* HD Capture path */
- 
-@@ -892,14 +875,15 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
- 
- 	{"AD5 Channel Volume", NULL, "AD5 Source Select"},
- 	{"AD6 Channel Volume", NULL, "AD6 Source Select"},
-+	{"AD5 Channel Volume", NULL, "AD5768 Enable"},
-+	{"AD6 Channel Volume", NULL, "AD5768 Enable"},
- 
--	{"AD57 Enable", NULL, "AD5 Channel Volume"},
--	{"AD68 Enable", NULL, "AD6 Channel Volume"},
--
--	{"AD_OUT57", NULL, "ab8500_0c"},
--	{"AD_OUT57", NULL, "AD57 Enable"},
--	{"AD_OUT68", NULL, "ab8500_0c"},
--	{"AD_OUT68", NULL, "AD68 Enable"},
-+	{"ab8500_0c", NULL, "AD_OUT57"},
-+	{"AD_OUT57", NULL, "Main Supply"},
-+	{"AD_OUT57", NULL, "AD5 Channel Volume"},
-+	{"ab8500_0c", NULL, "AD_OUT68"},
-+	{"AD_OUT68", NULL, "Main Supply"},
-+	{"AD_OUT68", NULL, "AD6 Channel Volume"},
- 
- 	/* Digital Microphone path */
- 
-@@ -910,17 +894,25 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
- 	{"DMic 5", NULL, "V-DMIC"},
- 	{"DMic 6", NULL, "V-DMIC"},
- 
--	{"AD1 Source Select", NULL, "DMic 1"},
--	{"AD2 Source Select", NULL, "DMic 2"},
--	{"AD3 Source Select", NULL, "DMic 3"},
--	{"AD5 Source Select", NULL, "DMic 5"},
--	{"AD6 Source Select", NULL, "DMic 6"},
-+	{"DMIC1", NULL, "DMic 1"},
-+	{"DMIC2", NULL, "DMic 2"},
-+	{"DMIC3", NULL, "DMic 3"},
-+	{"DMIC4", NULL, "DMic 4"},
-+	{"DMIC5", NULL, "DMic 5"},
-+	{"DMIC6", NULL, "DMic 6"},
++static const char bind_dir_s1d3[] = TMP_DIR "/s2d1/s2d2/s1d3";
++static const char bind_file1_s1d3[] = TMP_DIR "/s2d1/s2d2/s1d3/f1";
 +
-+	{"AD1 Source Select", "DMic 1", "DMIC1"},
-+	{"AD2 Source Select", "DMic 2", "DMIC2"},
-+	{"AD3 Source Select", "DMic 3", "DMIC3"},
-+	{"AD5 Source Select", "DMic 5", "DMIC5"},
-+	{"AD6 Source Select", "DMic 6", "DMIC6"},
++/* Move targets for disconnected path tests. */
++static const char dir_s4d1[] = TMP_DIR "/s4d1";
++static const char file1_s4d1[] = TMP_DIR "/s4d1/f1";
++static const char file2_s4d1[] = TMP_DIR "/s4d1/f2";
++static const char dir_s4d2[] = TMP_DIR "/s4d1/s4d2";
++static const char file1_s4d2[] = TMP_DIR "/s4d1/s4d2/f1";
++static const char file1_name[] = "f1";
++static const char file2_name[] = "f2";
++
+ FIXTURE_SETUP(layout1_bind)
+ {
+ 	prepare_layout(_metadata);
+@@ -3800,14 +3812,14 @@ FIXTURE_TEARDOWN(layout1_bind)
+ 	EXPECT_EQ(0, umount(dir_s2d2));
+ 	clear_cap(_metadata, CAP_SYS_ADMIN);
  
--	{"AD4 Channel Volume", NULL, "DMic 4"},
--	{"AD4 Enable", NULL, "AD4 Channel Volume"},
-+	{"AD4 Channel Volume", NULL, "DMIC4"},
-+	{"AD4 Channel Volume", NULL, "AD34 Enable"},
++	remove_path(file1_s4d1);
++	remove_path(file2_s4d1);
++
+ 	remove_layout1(_metadata);
  
--	{"AD_OUT4", NULL, "ab8500_0c"},
--	{"AD_OUT4", NULL, "AD4 Enable"},
-+	{"ab8500_0c", NULL, "AD_OUT4"},
-+	{"AD_OUT4", NULL, "Main Supply"},
-+	{"AD_OUT4", NULL, "AD4 Channel Volume"},
+ 	cleanup_layout(_metadata);
+ }
  
- 	/* LineIn Bypass path */
+-static const char bind_dir_s1d3[] = TMP_DIR "/s2d1/s2d2/s1d3";
+-static const char bind_file1_s1d3[] = TMP_DIR "/s2d1/s2d2/s1d3/f1";
+-
+ /*
+  * layout1_bind hierarchy:
+  *
+@@ -3818,20 +3830,25 @@ static const char bind_file1_s1d3[] = TMP_DIR "/s2d1/s2d2/s1d3/f1";
+  * │   └── s1d2
+  * │       ├── f1
+  * │       ├── f2
+- * │       └── s1d3
++ * │       └── s1d3 [disconnected by path_disconnected]
+  * │           ├── f1
+  * │           └── f2
+  * ├── s2d1
+  * │   ├── f1
+- * │   └── s2d2
++ * │   └── s2d2 [bind mount from s1d2]
+  * │       ├── f1
+  * │       ├── f2
+  * │       └── s1d3
+  * │           ├── f1
+  * │           └── f2
+- * └── s3d1
+- *     └── s3d2
+- *         └── s3d3
++ * ├── s3d1
++ * │   └── s3d2
++ * │       └── s3d3
++ * └── s4d1 [renamed from s1d3 by path_disconnected]
++ *     ├── f1
++ *     ├── f2
++ *     └── s4d2
++ *         └── f1
+  */
  
-@@ -945,13 +937,13 @@ static const struct snd_soc_dapm_route ab8500_dapm_routes[] = {
+ TEST_F_FORK(layout1_bind, no_restriction)
+@@ -4030,6 +4047,396 @@ TEST_F_FORK(layout1_bind, reparent_cross_mount)
+ 	ASSERT_EQ(0, rename(bind_file1_s1d3, file1_s2d2));
+ }
  
- 	/* Sidetone Filter path */
- 
--	{"Sidetone Left Source", "LineIn Left", "AD12 Enable"},
--	{"Sidetone Left Source", "LineIn Right", "AD12 Enable"},
--	{"Sidetone Left Source", "Mic 1", "AD3 Enable"},
-+	{"Sidetone Left Source", "LineIn Left", "AD1 Channel Volume"},
-+	{"Sidetone Left Source", "LineIn Right", "AD2 Channel Volume"},
-+	{"Sidetone Left Source", "Mic 1", "AD3 Channel Volume"},
- 	{"Sidetone Left Source", "Headset Left", "DA_IN1"},
--	{"Sidetone Right Source", "LineIn Right", "AD12 Enable"},
--	{"Sidetone Right Source", "Mic 1", "AD3 Enable"},
--	{"Sidetone Right Source", "DMic 4", "AD4 Enable"},
-+	{"Sidetone Right Source", "LineIn Right", "AD2 Channel Volume"},
-+	{"Sidetone Right Source", "Mic 1", "AD3 Channel Volume"},
-+	{"Sidetone Right Source", "DMic 4", "AD4 Channel Volume"},
- 	{"Sidetone Right Source", "Headset Right", "DA_IN2"},
- 
- 	{"STFIR1 Control", NULL, "Sidetone Left Source"},
--- 
-2.53.0
-
-
-
++/*
++ * Make sure access to file through a disconnected path works as expected.
++ * This test moves s1d3 to s4d1.
++ */
++TEST_F_FORK(layout1_bind, path_disconnected)
++{
++	const struct rule layer1_allow_all[] = {
++		{
++			.path = TMP_DIR,
++			.access = ACCESS_ALL,
++		},
++		{},
++	};
++	const struct rule layer2_allow_just_f1[] = {
++		{
++			.path = file1_s1d3,
++			.access = LANDLOCK_ACCESS_FS_READ_FILE,
++		},
++		{},
++	};
++	const struct rule layer3_only_s1d2[] = {
++		{
++			.path = dir_s1d2,
++			.access = LANDLOCK_ACCESS_FS_READ_FILE,
++		},
++		{},
++	};
++
++	/* Landlock should not deny access just because it is disconnected. */
++	int ruleset_fd_l1 =
++		create_ruleset(_metadata, ACCESS_ALL, layer1_allow_all);
++
++	/* Creates the new ruleset now before we move the dir containing the file. */
++	int ruleset_fd_l2 =
++		create_ruleset(_metadata, ACCESS_RW, layer2_allow_just_f1);
++	int ruleset_fd_l3 =
++		create_ruleset(_metadata, ACCESS_RW, layer3_only_s1d2);
++	int bind_s1d3_fd;
++
++	ASSERT_LE(0, ruleset_fd_l1);
++	ASSERT_LE(0, ruleset_fd_l2);
++	ASSERT_LE(0, ruleset_fd_l3);
++
++	enforce_ruleset(_metadata, ruleset_fd_l1);
++	EXPECT_EQ(0, close(ruleset_fd_l1));
++
++	bind_s1d3_fd = open(bind_dir_s1d3, O_PATH | O_CLOEXEC);
++	ASSERT_LE(0, bind_s1d3_fd);
++
++	/* Tests access is possible before we move. */
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file2_name, O_RDONLY));
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, "..", O_RDONLY | O_DIRECTORY));
++
++	/* Makes it disconnected. */
++	ASSERT_EQ(0, rename(dir_s1d3, dir_s4d1))
++	{
++		TH_LOG("Failed to rename %s to %s: %s", dir_s1d3, dir_s4d1,
++		       strerror(errno));
++	}
++
++	/* Tests that access is still possible. */
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file2_name, O_RDONLY));
++
++	/*
++	 * Tests that ".." is not possible (not because of Landlock, but just
++	 * because it's disconnected).
++	 */
++	EXPECT_EQ(ENOENT,
++		  test_open_rel(bind_s1d3_fd, "..", O_RDONLY | O_DIRECTORY));
++
++	/* This should still work with a narrower rule. */
++	enforce_ruleset(_metadata, ruleset_fd_l2);
++	EXPECT_EQ(0, close(ruleset_fd_l2));
++
++	EXPECT_EQ(0, test_open(file1_s4d1, O_RDONLY));
++	/*
++	 * Accessing a file through a disconnected file descriptor can still be
++	 * allowed by a rule tied to this file, even if it is no longer visible in
++	 * its mount point.
++	 */
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++	EXPECT_EQ(EACCES, test_open_rel(bind_s1d3_fd, file2_name, O_RDONLY));
++
++	enforce_ruleset(_metadata, ruleset_fd_l3);
++	EXPECT_EQ(0, close(ruleset_fd_l3));
++
++	EXPECT_EQ(EACCES, test_open(file1_s4d1, O_RDONLY));
++	/*
++	 * Accessing a file through a disconnected file descriptor can still be
++	 * allowed by a rule tied to the original mount point, even if it is no
++	 * longer visible in its mount point.
++	 */
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++	EXPECT_EQ(EACCES, test_open_rel(bind_s1d3_fd, file2_name, O_RDONLY));
++}
++
++/*
++ * Test that renameat with disconnected paths works under Landlock.  This test
++ * moves s1d3 to s4d2, so that we can have a rule allowing refers on the move
++ * target's immediate parent.
++ */
++TEST_F_FORK(layout1_bind, path_disconnected_rename)
++{
++	const struct rule layer1[] = {
++		{
++			.path = dir_s1d2,
++			.access = LANDLOCK_ACCESS_FS_REFER |
++				  LANDLOCK_ACCESS_FS_MAKE_DIR |
++				  LANDLOCK_ACCESS_FS_REMOVE_DIR |
++				  LANDLOCK_ACCESS_FS_MAKE_REG |
++				  LANDLOCK_ACCESS_FS_REMOVE_FILE |
++				  LANDLOCK_ACCESS_FS_READ_FILE,
++		},
++		{
++			.path = dir_s4d1,
++			.access = LANDLOCK_ACCESS_FS_REFER |
++				  LANDLOCK_ACCESS_FS_MAKE_DIR |
++				  LANDLOCK_ACCESS_FS_REMOVE_DIR |
++				  LANDLOCK_ACCESS_FS_MAKE_REG |
++				  LANDLOCK_ACCESS_FS_REMOVE_FILE |
++				  LANDLOCK_ACCESS_FS_READ_FILE,
++		},
++		{}
++	};
++
++	/* This layer only handles LANDLOCK_ACCESS_FS_READ_FILE. */
++	const struct rule layer2_only_s1d2[] = {
++		{
++			.path = dir_s1d2,
++			.access = LANDLOCK_ACCESS_FS_READ_FILE,
++		},
++		{},
++	};
++	int ruleset_fd_l1, ruleset_fd_l2;
++	pid_t child_pid;
++	int bind_s1d3_fd, status;
++
++	ASSERT_EQ(0, mkdir(dir_s4d1, 0755))
++	{
++		TH_LOG("Failed to create %s: %s", dir_s4d1, strerror(errno));
++	}
++	ruleset_fd_l1 = create_ruleset(_metadata, ACCESS_ALL, layer1);
++	ruleset_fd_l2 = create_ruleset(_metadata, LANDLOCK_ACCESS_FS_READ_FILE,
++				       layer2_only_s1d2);
++	ASSERT_LE(0, ruleset_fd_l1);
++	ASSERT_LE(0, ruleset_fd_l2);
++
++	enforce_ruleset(_metadata, ruleset_fd_l1);
++	EXPECT_EQ(0, close(ruleset_fd_l1));
++
++	bind_s1d3_fd = open(bind_dir_s1d3, O_PATH | O_CLOEXEC);
++	ASSERT_LE(0, bind_s1d3_fd);
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++
++	/* Tests ENOENT priority over EACCES for disconnected directory. */
++	EXPECT_EQ(EACCES, test_open_rel(bind_s1d3_fd, "..", O_DIRECTORY));
++	ASSERT_EQ(0, rename(dir_s1d3, dir_s4d2))
++	{
++		TH_LOG("Failed to rename %s to %s: %s", dir_s1d3, dir_s4d2,
++		       strerror(errno));
++	}
++	EXPECT_EQ(ENOENT, test_open_rel(bind_s1d3_fd, "..", O_DIRECTORY));
++
++	/*
++	 * The file is no longer under s1d2 but we should still be able to access it
++	 * with layer 2 because its mount point is evaluated as the first valid
++	 * directory because it was initially a parent.  Do a fork to test this so
++	 * we don't prevent ourselves from renaming it back later.
++	 */
++	child_pid = fork();
++	ASSERT_LE(0, child_pid);
++	if (child_pid == 0) {
++		enforce_ruleset(_metadata, ruleset_fd_l2);
++		EXPECT_EQ(0, close(ruleset_fd_l2));
++		EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++		EXPECT_EQ(EACCES, test_open(file1_s4d2, O_RDONLY));
++
++		/*
++		 * Tests that access widening checks indeed prevents us from renaming it
++		 * back.
++		 */
++		EXPECT_EQ(-1, rename(dir_s4d2, dir_s1d3));
++		EXPECT_EQ(EXDEV, errno);
++
++		/*
++		 * Including through the now disconnected fd (but it should return
++		 * EXDEV).
++		 */
++		EXPECT_EQ(-1, renameat(bind_s1d3_fd, file1_name, AT_FDCWD,
++				       file1_s2d2));
++		EXPECT_EQ(EXDEV, errno);
++		_exit(_metadata->passed ? EXIT_SUCCESS : EXIT_FAILURE);
++		return;
++	}
++
++	EXPECT_EQ(child_pid, waitpid(child_pid, &status, 0));
++	EXPECT_EQ(1, WIFEXITED(status));
++	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
++
++	ASSERT_EQ(0, rename(dir_s4d2, dir_s1d3))
++	{
++		TH_LOG("Failed to rename %s back to %s: %s", dir_s4d1, dir_s1d3,
++		       strerror(errno));
++	}
++
++	/* Now checks that we can access it under l2. */
++	child_pid = fork();
++	ASSERT_LE(0, child_pid);
++	if (child_pid == 0) {
++		enforce_ruleset(_metadata, ruleset_fd_l2);
++		EXPECT_EQ(0, close(ruleset_fd_l2));
++		EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++		EXPECT_EQ(0, test_open(file1_s1d3, O_RDONLY));
++		_exit(_metadata->passed ? EXIT_SUCCESS : EXIT_FAILURE);
++		return;
++	}
++
++	EXPECT_EQ(child_pid, waitpid(child_pid, &status, 0));
++	EXPECT_EQ(1, WIFEXITED(status));
++	EXPECT_EQ(EXIT_SUCCESS, WEXITSTATUS(status));
++
++	/*
++	 * Also test that we can rename via a disconnected path.  We move the
++	 * dir back to the disconnected place first, then we rename file1 to
++	 * file2 through our dir fd.
++	 */
++	ASSERT_EQ(0, rename(dir_s1d3, dir_s4d2))
++	{
++		TH_LOG("Failed to rename %s to %s: %s", dir_s1d3, dir_s4d2,
++		       strerror(errno));
++	}
++	ASSERT_EQ(0,
++		  renameat(bind_s1d3_fd, file1_name, bind_s1d3_fd, file2_name))
++	{
++		TH_LOG("Failed to rename %s to %s within disconnected %s: %s",
++		       file1_name, file2_name, bind_dir_s1d3, strerror(errno));
++	}
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file2_name, O_RDONLY));
++	ASSERT_EQ(0, renameat(bind_s1d3_fd, file2_name, AT_FDCWD, file1_s2d2))
++	{
++		TH_LOG("Failed to rename %s to %s through disconnected %s: %s",
++		       file2_name, file1_s2d2, bind_dir_s1d3, strerror(errno));
++	}
++	EXPECT_EQ(0, test_open(file1_s2d2, O_RDONLY));
++	EXPECT_EQ(0, test_open(file1_s1d2, O_RDONLY));
++
++	/* Move it back using the disconnected path as the target. */
++	ASSERT_EQ(0, renameat(AT_FDCWD, file1_s2d2, bind_s1d3_fd, file1_name))
++	{
++		TH_LOG("Failed to rename %s to %s through disconnected %s: %s",
++		       file1_s1d2, file1_name, bind_dir_s1d3, strerror(errno));
++	}
++
++	/* Now make it connected again. */
++	ASSERT_EQ(0, rename(dir_s4d2, dir_s1d3))
++	{
++		TH_LOG("Failed to rename %s back to %s: %s", dir_s4d2, dir_s1d3,
++		       strerror(errno));
++	}
++
++	/* Checks again that we can access it under l2. */
++	enforce_ruleset(_metadata, ruleset_fd_l2);
++	EXPECT_EQ(0, close(ruleset_fd_l2));
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++	EXPECT_EQ(0, test_open(file1_s1d3, O_RDONLY));
++}
++
++/*
++ * Test that linkat(2) with disconnected paths works under Landlock. This
++ * test moves s1d3 to s4d1.
++ */
++TEST_F_FORK(layout1_bind, path_disconnected_link)
++{
++	/* Ruleset to be applied after renaming s1d3 to s4d1. */
++	const struct rule layer1[] = {
++		{
++			.path = dir_s4d1,
++			.access = LANDLOCK_ACCESS_FS_REFER |
++				  LANDLOCK_ACCESS_FS_READ_FILE |
++				  LANDLOCK_ACCESS_FS_MAKE_REG |
++				  LANDLOCK_ACCESS_FS_REMOVE_FILE,
++		},
++		{
++			.path = dir_s2d2,
++			.access = LANDLOCK_ACCESS_FS_REFER |
++				  LANDLOCK_ACCESS_FS_READ_FILE |
++				  LANDLOCK_ACCESS_FS_MAKE_REG |
++				  LANDLOCK_ACCESS_FS_REMOVE_FILE,
++		},
++		{}
++	};
++	int ruleset_fd, bind_s1d3_fd;
++
++	/* Removes unneeded files created by layout1, otherwise it will EEXIST. */
++	ASSERT_EQ(0, unlink(file1_s1d2));
++	ASSERT_EQ(0, unlink(file2_s1d3));
++
++	bind_s1d3_fd = open(bind_dir_s1d3, O_PATH | O_CLOEXEC);
++	ASSERT_LE(0, bind_s1d3_fd);
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY));
++
++	/* Disconnects bind_s1d3_fd. */
++	ASSERT_EQ(0, rename(dir_s1d3, dir_s4d1))
++	{
++		TH_LOG("Failed to rename %s to %s: %s", dir_s1d3, dir_s4d1,
++		       strerror(errno));
++	}
++
++	/* Need this later to test different parent link. */
++	ASSERT_EQ(0, mkdir(dir_s4d2, 0755))
++	{
++		TH_LOG("Failed to create %s: %s", dir_s4d2, strerror(errno));
++	}
++
++	ruleset_fd = create_ruleset(_metadata, ACCESS_ALL, layer1);
++	ASSERT_LE(0, ruleset_fd);
++	enforce_ruleset(_metadata, ruleset_fd);
++	EXPECT_EQ(0, close(ruleset_fd));
++
++	/* From disconnected to connected. */
++	ASSERT_EQ(0, linkat(bind_s1d3_fd, file1_name, AT_FDCWD, file1_s2d2, 0))
++	{
++		TH_LOG("Failed to link %s to %s via disconnected %s: %s",
++		       file1_name, file1_s2d2, bind_dir_s1d3, strerror(errno));
++	}
++
++	/* Tests that we can access via the new link... */
++	EXPECT_EQ(0, test_open(file1_s2d2, O_RDONLY))
++	{
++		TH_LOG("Failed to open newly linked %s: %s", file1_s2d2,
++		       strerror(errno));
++	}
++
++	/* ...as well as the old one. */
++	EXPECT_EQ(0, test_open(file1_s4d1, O_RDONLY))
++	{
++		TH_LOG("Failed to open original %s: %s", file1_s4d1,
++		       strerror(errno));
++	}
++
++	/* From connected to disconnected. */
++	ASSERT_EQ(0, unlink(file1_s4d1));
++	ASSERT_EQ(0, linkat(AT_FDCWD, file1_s2d2, bind_s1d3_fd, file2_name, 0))
++	{
++		TH_LOG("Failed to link %s to %s via disconnected %s: %s",
++		       file1_s2d2, file2_name, bind_dir_s1d3, strerror(errno));
++	}
++	EXPECT_EQ(0, test_open(file2_s4d1, O_RDONLY));
++	ASSERT_EQ(0, unlink(file1_s2d2));
++
++	/* From disconnected to disconnected (same parent). */
++	ASSERT_EQ(0,
++		  linkat(bind_s1d3_fd, file2_name, bind_s1d3_fd, file1_name, 0))
++	{
++		TH_LOG("Failed to link %s to %s within disconnected %s: %s",
++		       file2_name, file1_name, bind_dir_s1d3, strerror(errno));
++	}
++	EXPECT_EQ(0, test_open(file1_s4d1, O_RDONLY))
++	{
++		TH_LOG("Failed to open newly linked %s: %s", file1_s4d1,
++		       strerror(errno));
++	}
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, file1_name, O_RDONLY))
++	{
++		TH_LOG("Failed to open %s through newly created link under disconnected path: %s",
++		       file1_name, strerror(errno));
++	}
++	ASSERT_EQ(0, unlink(file2_s4d1));
++
++	/* From disconnected to disconnected (different parent). */
++	ASSERT_EQ(0,
++		  linkat(bind_s1d3_fd, file1_name, bind_s1d3_fd, "s4d2/f1", 0))
++	{
++		TH_LOG("Failed to link %s to %s within disconnected %s: %s",
++		       file1_name, "s4d2/f1", bind_dir_s1d3, strerror(errno));
++	}
++	EXPECT_EQ(0, test_open(file1_s4d2, O_RDONLY))
++	{
++		TH_LOG("Failed to open %s after link: %s", file1_s4d2,
++		       strerror(errno));
++	}
++	EXPECT_EQ(0, test_open_rel(bind_s1d3_fd, "s4d2/f1", O_RDONLY))
++	{
++		TH_LOG("Failed to open %s through disconnected path after link: %s",
++		       "s4d2/f1", strerror(errno));
++	}
++}
++
+ #define LOWER_BASE TMP_DIR "/lower"
+ #define LOWER_DATA LOWER_BASE "/data"
+ static const char lower_fl1[] = LOWER_DATA "/fl1";
