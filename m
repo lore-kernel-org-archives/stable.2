@@ -1,97 +1,89 @@
-Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
-	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 207984A2046;
-	Thu, 17 Sep 2026 10:32:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4D57B3DE43B;
+	Thu, 17 Sep 2026 10:33:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789641160; cv=none; b=GhCF5DdDDobHs8w6qgT/Xhirl8zMvrExmdVrjlhRmsTkx6ACYNyWp5QaH6NVTeCrcNKkuC7eFqKjFP2QnGHR/+eFe1jxc3yxCPPk/EpfUhukoVuAQYS4GbT5vod9t6bFueg+dJMu4IzmI3R8qzyuf2UK2DPrZ0DEQTJpQgL74fs=
+	t=1789641198; cv=none; b=I70/RTVc0rAW2YgffswceVZp6MTPtyAWwhEcVYDtFYrMvQygeI37J9zgmx2cfoIZ/nQexYp7hPCI7yiWxZUxB1+o8oucpiwxdzu6rIRd9f31TelOksMYJYGcLcgi+GEzoYcuhxyAGGZaVlM0TC7gdfa+orYtYW6smWHcwqIx8Bs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789641160; c=relaxed/simple;
-	bh=f2kr8PmdCVWr86p1NW2i3K28lMuauysr3sb4zu+meQY=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=p44tlyrozN8o0TtaHh6PhcjvRB/Dd+dTe4b7Sgg+4YUIZOv46ohVZ8T8FLpzgD8lmZoAyCD809fzUhcli7S0R7BGoCY2tWvpvqotr9sNUXtpFtLychx6rkNO+vxLpBqMiufs8rp6BA0E/Wt7+JKpHE07yrCt4ETMjYV2IpSnSL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
-Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
-	by APP-05 (Coremail) with SMTP id zQCowACH8z27watqobB+CA--.787S2;
-	Thu, 17 Sep 2026 18:32:27 +0800 (CST)
-From: Wentao Liang <vulab@iscas.ac.cn>
-To: James.Bottomley@suse.de
-Cc: MPT-FusionLinux.pdl@broadcom.com,
-	kashyap.desai@lsi.com,
+	s=arc-20240116; t=1789641198; c=relaxed/simple;
+	bh=80XD9S5ITmny7QiTJMLakTTVPE6tw/cqdXx5ulS4tx8=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=RpG3+7ERthYsDl+EEw0nGKofJaTeuJNNhU4fMRXy6na1s6W94/x1sPe4k4SVB8rT8R+CFgAEtaaBE7mPYUbijFpasq4PCFWiA1CZdob75MKFKAIn0ySto0U9UCeDqep+txi8wI+jKHoUqhV0qrl4w759n4UiKsNyV9ukctl1ZW4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UIL5jHfg; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UIL5jHfg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E5551F00893;
+	Thu, 17 Sep 2026 10:33:08 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789641191;
+	bh=45lxnxrmgTvvTAazCnIv6gwMgCDwiPn9pKDY7jBHkBI=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=UIL5jHfgB6nWcbr6PGZnH8JagxrAwVEwCT8hK45Q8pfCB+4+iicGiX7IfCTeBYBNl
+	 omRkY/W/+U1XZ33fBb9yFlrTpMHph70uHR69/5owUmKO8weFCOxdKG9tpACfkB9aF+
+	 J3gTniqKsMBAkIfjY2Mj+P/NLJmB5HMbfqzgdcxiOgOQQ1eg2ovkDs8HY2wekEdthd
+	 1V9DCFqAsgY9NNPzfFETRm3w7XMv7flMoTe50u0KPKIGYNpx3Fmow3x0haSg3IZP12
+	 l/SkyDGRrbizzx2WNr8amrJmkhpuGVpHxc/tND8rUt8c5EEp1tOgKuAwPAmN5k6+zd
+	 Thf8sYXdXcSlA==
+From: Christian Brauner <brauner@kernel.org>
+To: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Jan Kara <jack@suse.cz>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Dennis Zhou <dennis@kernel.org>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Tejun Heo <tj@kernel.org>,
+	"Matthew Wilcox (Oracle)" <willy@infradead.org>,
+	"Patrick Lu (Anthropic)" <perf.patrick.lu@gmail.com>
+Cc: Christian Brauner <brauner@kernel.org>,
+	linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	linux-scsi@vger.kernel.org,
-	ranjan.kumar@broadcom.com,
-	sathya.prakash@broadcom.com,
-	sreekanth.reddy@broadcom.com,
-	suganath-prabu.subramani@broadcom.com,
-	Wentao Liang <vulab@iscas.ac.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] scsi: message: fusion: Fix scsi_device reference leak in mptspi_write_spi_device_pg1()
-Date: Thu, 17 Sep 2026 10:32:27 +0000
-Message-Id: <20260917103227.2147120-1-vulab@iscas.ac.cn>
-X-Mailer: git-send-email 2.34.1
+Subject: Re: [PATCH v2] writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes
+Date: Thu, 17 Sep 2026 12:33:04 +0200
+Message-ID: <20260917-jagdbeute-achtzehn-klischee-976527317cd5@brauner>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260911-wb-cgwb-rotate-v2-1-a9ab253a1295@gmail.com>
+References: <20260911-wb-cgwb-rotate-v2-1-a9ab253a1295@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1575; i=brauner@kernel.org; h=from:subject:message-id; bh=80XD9S5ITmny7QiTJMLakTTVPE6tw/cqdXx5ulS4tx8=; b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWStPvhQKiCn/d+MxZ11gvYmS39wxwV8nNhg0y+z8KByl dGLDJMVHaUsDGJcDLJiiiwO7Sbhcst5KjYbZWrAzGFlAhnCwMUpABNRkGX4K7NZ2OXf7+Dra+Ru 3+e8cvHOKq8lDlOM1bWepO9+xsoRys3wz/izytl1Dp6GRVNumR+4ui71+YqaWxWiz9u6JJc0t+Y /5QYA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp; fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:zQCowACH8z27watqobB+CA--.787S2
-X-Coremail-Antispam: 1UD129KBjvdXoWruF18KryxKr1UAw4fXFW5Wrg_yoWktFX_uF
-	1FvFn7X348WF1Iva4fZr9I9ryfKFsrW392qa4IqFs3trWUZry8Xr1fZFZ8Cw4DuF48ur13
-	C3WkAayrGw15GjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
-	9fnUUIcSsGvfJTRUUUbgkYjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
-	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
-	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
-	Gr1j6F4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxV
-	W0oVCq3wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC0VAKzVAqx4xG6I80ewAv
-	7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F4UJwAm72CE4IkC6x0Yz7
-	v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0E0s8F02x267IIx4CEVc8vx2IErcIFxwAC
-	I402YVCY1x02628vn2kIc2xKxwCY1x0262kKe7AKxVWUtVW8ZwCF04k20xvY0x0EwIxGrw
-	CF04k20xvE74AGY7Cv6cx26r48ZrWUJr1UMxC20s026xCaFVCjc4AY6r1j6r4UMI8I3I0E
-	5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE17CEb7AF67AKxVWUtV
-	W8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1I6r4UMIIF0xvE2Ix0cI8IcVCY
-	1x0267AKxVWxJVW8Jr1lIxAIcVCF04k26cxKx2IYs7xG6r1j6r1xMIIF0xvEx4A2jsIE14
-	v26r4UJVWxJr1lIxAIcVC2z280aVCY1x0267AKxVW0oVCq3bIYCTnIWIevJa73UjIFyTuY
-	vjxU7WE_DUUUU
-X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiDAANA2qrrJpLFwAAsp
 
-scsi_device_lookup_by_target() returns the scsi_device with an extra
-reference that the caller has to drop with scsi_device_put().  The
-loop that looks for a tape device to enable inline data padding
-never releases that reference, neither when it breaks out on a
-match nor when it keeps iterating over the other target ids, so a
-reference is leaked on every write of the device page.
+On Fri, 11 Sep 2026 18:49:49 +0000, Patrick Lu (Anthropic) wrote:
+> cleanup_offline_cgwb() prepares at most WB_MAX_INODES_PER_ISW inodes
+> per call and is called again until the dying wb is drained, but every
+> call walks wb->b_attached and then wb->b_dirty_time from the same end.
+> Inodes already prepared (they stay on the list with I_WB_SWITCH set
+> until the switch worker runs) and inodes that cannot be switched
+> (I_FREEING, I_WILL_FREE, !SB_ACTIVE, DAX, already on the target wb)
+> stay where they are, so each pass rescans a growing run of them under
+> wb->list_lock and a full drain is quadratic in the number of inodes on
+> the list. With ~17M inodes attached to one dying cgwb we saw this end
+> in soft lockups, with CPUs reported stuck for 21-48s.
+> 
+> [...]
 
-Drop the reference in both cases.
+Applied to the vfs.fixes branch of the vfs/vfs.git tree.
+Patches in the vfs.fixes branch should appear in linux-next soon.
 
-Fixes: 19fff154e7ee ("[SCSI] mptfusion: Adding inline data padding support for TAPE drive.")
-Cc: stable@vger.kernel.org
-Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
----
- drivers/message/fusion/mptspi.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Please report any outstanding bugs that were missed during review in a
+new review to the original patch series allowing us to drop it.
 
-diff --git a/drivers/message/fusion/mptspi.c b/drivers/message/fusion/mptspi.c
-index 56892b1f3de2..89d6beba08ca 100644
---- a/drivers/message/fusion/mptspi.c
-+++ b/drivers/message/fusion/mptspi.c
-@@ -914,8 +914,12 @@ static int mptspi_write_spi_device_pg1(struct scsi_target *starget,
- 				nego_parms |= MPI_SCSIDEVPAGE1_RP_IDP;
- 				pg1->RequestedParameters =
- 				    cpu_to_le32(nego_parms);
-+				scsi_device_put(sdev);
- 				break;
- 			}
-+
-+			if (sdev)
-+				scsi_device_put(sdev);
- 		}
- 	}
- 
--- 
-2.34.1
+It's encouraged to provide Acked-bys and Reviewed-bys even though the
+patch has now been applied. If possible patch trailers will be updated.
 
+Note that commit hashes shown below are subject to change due to rebase,
+trailer updates or similar. If in doubt, please check the listed branch.
+
+tree:   https://git.kernel.org/pub/scm/linux/kernel/git/vfs/vfs.git
+branch: vfs.fixes
+
+[1/1] writeback: bound cleanup_offline_cgwb() rescans by rotating scanned inodes
+      https://git.kernel.org/vfs/vfs/c/f6988c90671e
