@@ -1,107 +1,96 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp25.cstnet.cn [159.226.251.25])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5307459E355;
-	Thu, 17 Sep 2026 15:30:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 74F804ABBA7;
+	Thu, 17 Sep 2026 15:30:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.25
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789659031; cv=none; b=RXlFO10W52cNpVl+OvNZ/S/xxH8AHmILeNN8AtfRv+/EBS5lyU4nydfr31AJLYK2DSgcGwUc3495vW2ubparfEAcoGjf1fHPCUaXgg8Y5Gt9FRf+FsbOj0IKTyHxBW99Awz4bGVehkB4Z5XJrdezx5f617/iq6NdCVk6ZgRGm4c=
+	t=1789659035; cv=none; b=VmRo7fIPxsNGDEKo36Bb8AhIdAubna09LBLtuC8ZFwTguFPDVa05zivlZn0bU78Cwln/xIdiqCnKmmRXTgEJGT6WttHvwenian8HvC3+ZCyHsy94WzhAxlk1yynXlnW0JID5bQ8CHeW46/OAQ+0U6sD1ROxWOGmeMva1xVImYwE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789659031; c=relaxed/simple;
-	bh=RKvA1Xe8N9+QROrypKiA4PXo/3yXnCpsjHm5aBOCCUk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Z9KpjNI+Z67w93ylBpnDuh/JCOQAmzW9ErP6odtqO/d6rwl66sjWPd7svI8tGvZ4oUPrMn4H9odO8NT9xv0qX8vGJP32JTCl3KaJlyNGcLRCMks7OQQay5aDlbWIXZer0wV7fHqBkcYitBo+ar/pa2ccCvPyLykQX0Iyv2HrCmc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=PYRkRwef; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="PYRkRwef"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E56F31F00893;
-	Thu, 17 Sep 2026 15:30:21 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
-	s=korg; t=1789659022;
-	bh=Uk67zEDKWrmkDCCbQ1Q3Px2NsU0Z0FwFhRz/v+wdo2Q=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=PYRkRwefPnFworSag71Xp5o8gdVsqU8Ga5FReJFD+eqhbUFtoSy90BjRltguKQ8gV
-	 Ae6I9hO0UYvIn0NB3SEbnvKNz+QWOEQ4pLCXsuVhNNIvbXJA/0EKmKzE+nlsvFY3HX
-	 s3M41IWnRppAAdyIK6Oq86Sw7hDT7O8SmRSJiL/w=
-From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Mo Jun <royclark086@gmail.com>,
-	Armin Wolf <W_Armin@gmx.de>,
-	"Rafael J. Wysocki" <rafael.j.wysocki@intel.com>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 7.2 116/733] platform/x86: asus-laptop: Fix ACPI event handling
-Date: Thu, 17 Sep 2026 16:07:04 +0100
-Message-ID: <20260917151353.885744661@linuxfoundation.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-References: <20260917151350.597953846@linuxfoundation.org>
-User-Agent: quilt/0.69
-X-stable: review
-X-Patchwork-Hint: ignore
+	s=arc-20240116; t=1789659035; c=relaxed/simple;
+	bh=rjxjxjCm5eP3oG6tiKkX29qzR7KTYswnfa41DXHDFAI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=DdE49aoAhJr5p2NPxXi/Pse4GnguEgVkXyu5Ffg7e6T8kpuXgTLl7+86scJkyoac364JtPnyn5OqDcO5i6gERqd73lRmbSW4J8DTxmDN0wxehBABSgJGgFCO/k0TyCo/bWCtFxZcwRKYM0neqzU2eXlOK8u8az4Uh6xiVasN0X8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn; spf=pass smtp.mailfrom=iscas.ac.cn; arc=none smtp.client-ip=159.226.251.25
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=iscas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=iscas.ac.cn
+Received: from dfae2b116770.home.arpa (unknown [36.110.52.2])
+	by APP-05 (Coremail) with SMTP id zQCowAB3qEKEB6xqk5GDCA--.5709S2;
+	Thu, 17 Sep 2026 23:30:12 +0800 (CST)
+From: Wentao Liang <vulab@iscas.ac.cn>
+To: Frank.Li@nxp.com
+Cc: festevam@gmail.com,
+	imx@lists.linux.dev,
+	kernel@pengutronix.de,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	m.felsch@pengutronix.de,
+	peng.fan@nxp.com,
+	s.hauer@pengutronix.de,
+	shawnguo@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>,
+	stable@vger.kernel.org
+Subject: [PATCH] soc: imx8m: Fix clock leak in imx8m_soc_prepare()
+Date: Thu, 17 Sep 2026 15:30:12 +0000
+Message-Id: <20260917153012.2160500-1-vulab@iscas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:zQCowAB3qEKEB6xqk5GDCA--.5709S2
+X-Coremail-Antispam: 1UD129KBjvdXoW7Wr45XFy3Zry5JrWxtw1rCrg_yoWDZFg_ua
+	1rW3s7WrWUurZ2k34UG3yUAryq9F97Xr4xWrZFvaySkFyUZF1UuFZ0ganxKrWDXw4rJF98
+	Cr18ZrW8Cr9rCjkaLaAFLSUrUUUUjb8apTn2vfkv8UJUUUU8Yxn0WfASr-VFAUDa7-sFnT
+	9fnUUIcSsGvfJTRUUUbg8YjsxI4VWkCwAYFVCjjxCrM7CY07I20VC2zVCF04k26cxKx2IY
+	s7xG6rWj6s0DM7CIcVAFz4kK6r1j6r18M28lY4IEw2IIxxk0rwA2F7IY1VAKz4vEj48ve4
+	kI8wA2z4x0Y4vE2Ix0cI8IcVAFwI0_Xr0_Ar1l84ACjcxK6xIIjxv20xvEc7CjxVAFwI0_
+	Cr0_Gr1UM28EF7xvwVC2z280aVAFwI0_GcCE3s1l84ACjcxK6I8E87Iv6xkF7I0E14v26r
+	xl6s0DM2AIxVAIcxkEcVAq07x20xvEncxIr21l5I8CrVACY4xI64kE6c02F40Ex7xfMcIj
+	6xIIjxv20xvE14v26r1q6rW5McIj6I8E87Iv67AKxVWxJr0_GcWlOx8S6xCaFVCjc4AY6r
+	1j6r4UM4x0Y48IcxkI7VAKI48JM4x0x7Aq62Iq12xI8VA0II8E6IAqYI8I648v4I1lFIxG
+	xcIEc7CjxVA2Y2ka0xkIwI1lc7CjxVAaw2AFwI0_Jw0_GFyl42xK82IYc2Ij64vIr41l42
+	xK82IY6x8ErcxFaVAv8VW8GFyrJr1UJwCFx2IqxVCFs4IE7xkEbVWUJVW8JwC20s026c02
+	F40E14v26r1j6r18MI8I3I0E7480Y4vE14v26r106r1rMI8E67AF67kF1VAFwI0_Jw0_GF
+	ylIxkGc2Ij64vIr41lIxAIcVC0I7IYx2IY67AKxVWUCVW8JwCI42IY6xIIjxv20xvEc7Cj
+	xVAFwI0_Cr0_Gr1UMIIF0xvE42xK8VAvwI8IcIk0rVWUJVWUCwCI42IY6I8E87Iv67AKxV
+	W8Jr0_Cr1UMIIF0xvEx4A2jsIEc7CjxVAFwI0_GcCE3sUvcSsGvfC2KfnxnUUI43ZEXa7I
+	U1aZX5UUUUU==
+X-CM-SenderInfo: pyxotu46lvutnvoduhdfq/1tbiCRUNA2qr9LYrTwABs0
 
-7.2-stable review patch.  If anyone has any objections, please let me know.
+When clk_prepare_enable() fails, imx8m_soc_prepare() jumps to err_clk,
+which only undoes the iounmap.  The reference obtained by
+of_clk_get_by_name() is not dropped, and imx8m_soc_probe() returns the
+error without calling imx8m_soc_unprepare(), so the clock reference is
+leaked.
 
-------------------
+Release it before leaving the prepare function.
 
-From: Armin Wolf <W_Armin@gmx.de>
-
-[ Upstream commit 6bb4fb72c00dc2a9cb663e2d16adce15e4170cdf ]
-
-The event codes inside asus_keymap[] span a wide range from 0x02
-till 0xC5, but using ACPI_DEVICE_NOTIFY prevents us from receiving
-event codes below 0x80.
-
-Fix this by using ACPI_ALL_NOTIFY instead.
-
-Fixes: 378500dc1313 ("platform/x86: asus-laptop: Register ACPI notify handler directly")
-Reported-by: Mo Jun <royclark086@gmail.com>
-Closes: https://bugs.debian.org/1146124
-Tested-by: Mo Jun <royclark086@gmail.com>
-Signed-off-by: Armin Wolf <W_Armin@gmx.de>
-Reviewed-by: Rafael J. Wysocki <rafael.j.wysocki@intel.com>
-Link: https://patch.msgid.link/20260830235058.324140-1-W_Armin@gmx.de
-Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
+Fixes: 390c01073f5d ("soc: imx8m: Cleanup with adding imx8m_soc_[un]prepare")
+Cc: stable@vger.kernel.org
+Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 ---
- drivers/platform/x86/asus-laptop.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ drivers/soc/imx/soc-imx8m.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/platform/x86/asus-laptop.c b/drivers/platform/x86/asus-laptop.c
-index 140ac8a105372..19024fa3796e6 100644
---- a/drivers/platform/x86/asus-laptop.c
-+++ b/drivers/platform/x86/asus-laptop.c
-@@ -1887,7 +1887,7 @@ static int asus_acpi_probe(struct platform_device *pdev)
- 	if (result && result != -ENODEV)
- 		goto fail_pega_rfkill;
+diff --git a/drivers/soc/imx/soc-imx8m.c b/drivers/soc/imx/soc-imx8m.c
+index 77763a107edb..f4c2d5e37ec7 100644
+--- a/drivers/soc/imx/soc-imx8m.c
++++ b/drivers/soc/imx/soc-imx8m.c
+@@ -149,8 +149,10 @@ static int imx8m_soc_prepare(struct platform_device *pdev, const char *ocotp_com
+ 	}
  
--	result = acpi_dev_install_notify_handler(device, ACPI_DEVICE_NOTIFY,
-+	result = acpi_dev_install_notify_handler(device, ACPI_ALL_NOTIFY,
- 						 asus_acpi_notify, asus);
- 	if (result)
- 		goto fail_pega_rfkill;
-@@ -1917,7 +1917,7 @@ static void asus_acpi_remove(struct platform_device *pdev)
- {
- 	struct asus_laptop *asus = platform_get_drvdata(pdev);
+ 	ret = clk_prepare_enable(drvdata->clk);
+-	if (ret)
++	if (ret) {
++		clk_put(drvdata->clk);
+ 		goto err_clk;
++	}
  
--	acpi_dev_remove_notify_handler(asus->device, ACPI_DEVICE_NOTIFY,
-+	acpi_dev_remove_notify_handler(asus->device, ACPI_ALL_NOTIFY,
- 				       asus_acpi_notify);
- 	asus_backlight_exit(asus);
- 	asus_rfkill_exit(asus);
+ 	return 0;
+ 
 -- 
-2.53.0
-
-
+2.34.1
 
