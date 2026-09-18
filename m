@@ -1,170 +1,125 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
+Received: from mail.tipi-net.de (mail.tipi-net.de [194.13.80.246])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A98CE35E956;
-	Fri, 18 Sep 2026 19:59:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 33647492E26;
+	Fri, 18 Sep 2026 20:10:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=194.13.80.246
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789761591; cv=none; b=lGcXUfRSXMUi2C/0YgfGxhCIzKcCX9RUtQpXOWYibNobTFCZ5lJL3fhjpICVMvbVjnsYUcQJn0Qol9y/7hq2Gj20JAXCytIkP3iKI0xQHmqqK6GHhGBBUa+yrAn3V0juN28uIks+E70SapC2IEk1vBLwZTokXiQYzKDM6/FUaNc=
+	t=1789762238; cv=none; b=Ca8KVgh3IUQWwf/B4sXoQTqWytml7Aa976HnkOf1D0H5Yl+QwCVS4ez2czHoFMwoEsWnFtYWlkwMoPeJ/qwyV6KueqTCgTdwkXa0SObeYBbsnPKnPWvw1yXe7ze8cUpmg9txUq5Afh+c0zxHt6YtfhUiL2gs48Ek+V8QwAIiNQ0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789761591; c=relaxed/simple;
-	bh=X9XU9RNBrOVJynv+zAUP6Ketsd7FbbI4e+VigF5/FUY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:To:Cc; b=JQcF4sGAa+z3rsYNbxUcheNWPH8MV+nzIMIFbCKfVRP8d0T3b/0LU7URWJRt0bbUG2GfY//vZPm4ftphfUgk8HE+BpGdcPvOGdADRzfTblnVKmsW80iTCqQGNU5TAkvej1NttrpPnBQCu5KYy9KfZ7wihxt8VfLlJSbCfP4dLdw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=rYYVoP6H; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789762238; c=relaxed/simple;
+	bh=hkIw7zFGx6FzXsWIzPFaO6mhHbNUTJ1Tx5WZHrJbPVs=;
+	h=MIME-Version:Date:From:To:Cc:Subject:In-Reply-To:References:
+	 Message-ID:Content-Type; b=NWSRsc+Yy1hWd1FdSmYuJMn9scDfHGnBPDPXLMTu3aqegPcJBrCG4CLSmy6UDRU4hJ9/AyDnvJSRtEaNgAeG9S0dL8xMfAyejdHs7O6EON3SZPh1XJksGWTeKQHl1JTRYJre9OJBNU5WLG5xrdnMorYu28yHLmkOy9We+Ut5lbk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de; spf=pass smtp.mailfrom=tipi-net.de; dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b=iaS9PGQI; arc=none smtp.client-ip=194.13.80.246
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=tipi-net.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=tipi-net.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="rYYVoP6H"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id DDB474E4087E;
-	Fri, 18 Sep 2026 19:59:45 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 926E560649;
-	Fri, 18 Sep 2026 19:59:45 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EC56010329075;
-	Fri, 18 Sep 2026 21:59:36 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789761580; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=15bsGnenTWO9f3acWlYUaevEUJQ4D57tNbNdixb/HX4=;
-	b=rYYVoP6HZ/kINjt3APcXnLuJqpawnWLKDB1V0qRK3Xqas5Ejw1IFJ6NIhtg2iZ+zzX35Dy
-	JEL/neYba+PerObIJn1zO/k4ML5KbV1zMQTPjQVho57lL/kjJLszyzbOxKA4mjGeYnusY3
-	Mz1RHbpix8RVFonFLdPwknzGmWm1decG68LShouuPCOWbo8tx5yF7JGuNuvD1PO4h8k/Z0
-	RlRFm2ujIU3x6Y3iAE/bbGqMh35UQFo/nfNgluTLoB0QS9NtrA/qV6GOP2AE2jmPGfj4uI
-	oKfJNNW5f2f7u9mfGh5TEoXfcVzXZS4+m8a+aSqm2d/VRN+Gj1MlfHEtuyRpDg==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Fri, 18 Sep 2026 21:59:35 +0200
-Subject: [PATCH net] net: macb: take bp->lock around NCR read-modify-writes
+	dkim=pass (2048-bit key) header.d=tipi-net.de header.i=@tipi-net.de header.b="iaS9PGQI"
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 0D5BDA8E53;
+	Fri, 18 Sep 2026 22:10:26 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=tipi-net.de; s=dkim;
+	t=1789762230; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=MbZ4PjXhvExVlTqbwqbIHq7pRdDYaSJpFUR4LtFdkNw=;
+	b=iaS9PGQIRAkL0FExUmM2zFgrEgM9ns7IHpnlChwiaJ0q1GZkZY5oYztjVbLcs0buYpq4a5
+	5lkLC7FV7CFnYbRW7hw7EZGV0qmkJWUMj0lA93pTugH4MldC3oZ7sW2P9NaN9VkMio9nsC
+	fez4dQggz5YGnzZD6qU4xNs9Op/UIwrBqbN3UysprTj0HAXlqnzET0vti5pvS0Gg/9QvPf
+	WSWOcUGp3WIXUNb3jEZPJcr3rFkyRtBPqbPV6xZdfqAlr4v/famlVV77MYpfTkLIkwhvsO
+	52rjAGN/MEA7HfC3b3qz5c0gsG1Obv3YQTnao8yTrCeB3Wkc5IRSqlwsu4fb6g==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
+Date: Fri, 18 Sep 2026 22:10:26 +0200
+From: Nicolai Buchwitz <nb@tipi-net.de>
+To: =?UTF-8?Q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Cc: Conor Dooley <conor.dooley@microchip.com>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni
+ <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, Nicolas Ferre
+ <nicolas.ferre@microchip.com>, Sean Anderson <sean.anderson@linux.dev>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, Vladimir Kondratiev
+ <vladimir.kondratiev@mobileye.com>, Gregory CLEMENT
+ <gregory.clement@bootlin.com>, Tawfik Bayouk <tawfik.bayouk@mobileye.com>,
+ Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org
+Subject: Re: [PATCH net] net: macb: fix dma_alloc_coherent() leak on
+ macb_alloc() error paths
+In-Reply-To: <20260918-macb-alloc-leak-v1-1-aba9a3d4f6e3@bootlin.com>
+References: <20260918-macb-alloc-leak-v1-1-aba9a3d4f6e3@bootlin.com>
+Message-ID: <f66297b8318f8217778b786d3b02b2e5@tipi-net.de>
+X-Sender: nb@tipi-net.de
+Content-Type: text/plain; charset=UTF-8;
+ format=flowed
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260918-macb-ncr-rmw-v1-1-30c3494f93cd@bootlin.com>
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWM2wrCMBAFf6WcZxeSFuvlV6QPTTzVFRplU61Q+
- u9GfZyBmQWZpsw4VguML816TwX8pkK89ulC0XNh1K5u3cHvZexjkBRNbJwlcOubHVs3uICSPIy
- Dvn+7ExIndH+Zn+HGOH1HWNcPyMFciHUAAAA=
-X-Change-ID: 20260918-macb-ncr-rmw-be5137e60f0b
-To: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Sean Anderson <sean.anderson@linux.dev>, 
- Antoine Tenart <atenart@kernel.org>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, stable@vger.kernel.org, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 
-NCR is read-modify-written from many contexts:
+Hi Théo
 
- - macb_mac_link_down() clears RE|TE,
- - macb_mac_link_up() sets RE|TE|PTPUNI,
- - macb_hresp_error_task() clears then re-sets RE|TE,
- - macb_start_xmit() / macb_tx_restart() / macb_tx_error_task() set
-   TSTART (already under bp->lock),
- - macb_interrupt() might toggle RE (also under bp->lock).
+On 18.9.2026 21:53, Théo Lebrun wrote:
+> Fix 3 leaks in macb_alloc() error paths:
+> - Tx buffer allocated but crossing a 4G boundary: Tx leaked.
+> - Rx buffer allocation fails: Tx leaked.
+> - Rx buffer allocated but crossing a 4G boundary: Tx & Rx leaked.
+> 
+> This is because our error handling calls macb_free(bp) which in turn
+> frees the buffers stored in bp->queues[0], but nothing has been stored
+> in there. Fix by storing allocated buffers into bp->queues[0] ASAP.
+> 
+> Fixes: 78d901897b3c ("net: macb: single dma_alloc_coherent() for DMA 
+> descriptors")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+> ---
+>  drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++++--
+>  1 file changed, 12 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/cadence/macb_main.c 
+> b/drivers/net/ethernet/cadence/macb_main.c
+> index b8234ac4b602..8e5c034dc3a4 100644
+> --- a/drivers/net/ethernet/cadence/macb_main.c
+> +++ b/drivers/net/ethernet/cadence/macb_main.c
+> @@ -2749,14 +2749,24 @@ static int macb_alloc(struct macb *bp)
+> 
+>  	size = bp->num_queues * macb_tx_ring_size_per_queue(bp);
+>  	tx = dma_alloc_coherent(dev, size, &tx_dma, GFP_KERNEL);
+> -	if (!tx || upper_32_bits(tx_dma) != upper_32_bits(tx_dma + size - 1))
+> +	if (!tx)
+> +		goto out_err;
+> +	/* Record the buffer so that the error path frees it. */
+> +	bp->queues[0].tx_ring = tx;
+> +	bp->queues[0].tx_ring_dma = tx_dma;
+> +	if (upper_32_bits(tx_dma) != upper_32_bits(tx_dma + size - 1))
+>  		goto out_err;
+>  	netdev_dbg(bp->netdev, "Allocated %zu bytes for %u TX rings at %08lx 
+> (mapped %p)\n",
+>  		   size, bp->num_queues, (unsigned long)tx_dma, tx);
+> 
+>  	size = bp->num_queues * macb_rx_ring_size_per_queue(bp);
+>  	rx = dma_alloc_coherent(dev, size, &rx_dma, GFP_KERNEL);
+> -	if (!rx || upper_32_bits(rx_dma) != upper_32_bits(rx_dma + size - 1))
+> +	if (!rx)
+> +		goto out_err;
+> +	/* Record the buffer so that the error path frees it. */
+> +	bp->queues[0].rx_ring = rx;
+> +	bp->queues[0].rx_ring_dma = rx_dma;
+> +	if (upper_32_bits(rx_dma) != upper_32_bits(rx_dma + size - 1))
+>  		goto out_err;
+>  	netdev_dbg(bp->netdev, "Allocated %zu bytes for %u RX rings at %08lx 
+> (mapped %p)\n",
+>  		   size, bp->num_queues, (unsigned long)rx_dma, rx);
+> 
+> ---
+> base-commit: 994db8ab9d90c64dd641b7ead6efe2eaea7a50dc
+> change-id: 20260918-macb-alloc-leak-ef38989605c7
+> 
+> Best regards,
+> --
+> Théo Lebrun <theo.lebrun@bootlin.com>
 
-The first three risk concurrent RMW with anyone from the list as they
-don't grab bp->lock.
+Reviewed-by: Nicolai Buchwitz <nb@tipi-net.de>
 
-Theoretical bugfix only, it has never reproduced on hardware. Also note
-it does *not* take the lock hoping to protect against full races
-inbetween BH scheduling concurrently. We only want to ensure consistent
-NCR RMW operations.
-
-Fixes: 7897b071ac3b ("net: macb: convert to phylink")
-Cc: stable@vger.kernel.org
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
----
- drivers/net/ethernet/cadence/macb_main.c | 14 ++++++++++++--
- 1 file changed, 12 insertions(+), 2 deletions(-)
-
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index b8234ac4b602..b58d3f01f2cc 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -777,6 +777,7 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
- 	struct net_device *netdev = to_net_dev(config->dev);
- 	struct macb *bp = netdev_priv(netdev);
- 	struct macb_queue *queue;
-+	unsigned long flags;
- 	unsigned int q;
- 	u32 ctrl;
- 
-@@ -786,8 +787,10 @@ static void macb_mac_link_down(struct phylink_config *config, unsigned int mode,
- 				     bp->rx_intr_mask | MACB_TX_INT_FLAGS | MACB_BIT(HRESP));
- 
- 	/* Disable Rx and Tx */
-+	spin_lock_irqsave(&bp->lock, flags);
- 	ctrl = macb_readl(bp, NCR) & ~(MACB_BIT(RE) | MACB_BIT(TE));
- 	macb_writel(bp, NCR, ctrl);
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_tx_stop_all_queues(netdev);
- }
-@@ -940,11 +943,13 @@ static void macb_mac_link_up(struct phylink_config *config,
- 	}
- 
- 	/* Enable Rx and Tx; Enable PTP unicast */
-+	spin_lock_irqsave(&bp->lock, flags);
- 	ctrl = macb_readl(bp, NCR);
- 	if (gem_has_ptp(bp))
- 		ctrl |= MACB_BIT(PTPUNI);
- 
- 	macb_writel(bp, NCR, ctrl | MACB_BIT(RE) | MACB_BIT(TE));
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_tx_wake_all_queues(netdev);
- }
-@@ -1995,6 +2000,7 @@ static void macb_hresp_error_task(struct work_struct *work)
- 	struct macb *bp = from_work(bp, work, hresp_err_bh_work);
- 	struct net_device *netdev = bp->netdev;
- 	struct macb_queue *queue;
-+	unsigned long flags;
- 	unsigned int q;
- 	u32 ctrl;
- 
-@@ -2003,9 +2009,11 @@ static void macb_hresp_error_task(struct work_struct *work)
- 					 MACB_TX_INT_FLAGS |
- 					 MACB_BIT(HRESP));
- 	}
-+	spin_lock_irqsave(&bp->lock, flags);
- 	ctrl = macb_readl(bp, NCR);
- 	ctrl &= ~(MACB_BIT(RE) | MACB_BIT(TE));
- 	macb_writel(bp, NCR, ctrl);
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_tx_stop_all_queues(netdev);
- 	netif_carrier_off(netdev);
-@@ -2022,8 +2030,10 @@ static void macb_hresp_error_task(struct work_struct *work)
- 			     MACB_TX_INT_FLAGS |
- 			     MACB_BIT(HRESP));
- 
--	ctrl |= MACB_BIT(RE) | MACB_BIT(TE);
--	macb_writel(bp, NCR, ctrl);
-+	spin_lock_irqsave(&bp->lock, flags);
-+	ctrl = MACB_BIT(RE) | MACB_BIT(TE);
-+	macb_writel(bp, NCR, macb_readl(bp, NCR) | ctrl);
-+	spin_unlock_irqrestore(&bp->lock, flags);
- 
- 	netif_carrier_on(netdev);
- 	netif_tx_start_all_queues(netdev);
-
----
-base-commit: 994db8ab9d90c64dd641b7ead6efe2eaea7a50dc
-change-id: 20260918-macb-ncr-rmw-be5137e60f0b
-
-Best regards,
---  
-Théo Lebrun <theo.lebrun@bootlin.com>
-
+Thanks,
+Nicolai
