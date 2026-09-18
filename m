@@ -1,42 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B49752BE29;
-	Fri, 18 Sep 2026 21:04:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A8EEE52BE29;
+	Fri, 18 Sep 2026 21:04:45 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789765465; cv=none; b=uEc1xbR/lNcg6OM+0xiqWuOiZG+TkRHt19OIqagNA+JZ7CRNUVczYGjDTc3oAShrVfGvKtoKfj2CWL+YG4le3L3APdzmcafien12HpeqawtB+A5/4bwm9Q0aHN+CZma305u3Fjx4BDeVQgu7OHljAGMi+3yUQwOcHp33rFvq8ls=
+	t=1789765486; cv=none; b=VdOhYHAdLiXEXFCtCgrV6rxyWlcQiIUu60mVYaXXNGnUD+cgmUwlA9JSIrwVrx0Bk/UDvUSNIBtADMqiuekxaL9weBkfVxnDiAhW5ulcC3imzbyNKLb5HiBwE/R1SKqdUpZmmJNJpyJWGUcjTlhw456Bo7oLOxrOyaBASJZO7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789765465; c=relaxed/simple;
-	bh=5AJlRz9VmMd0OmWTXop9FJL4TPvwVoWnT9Jf+6NkEaA=;
+	s=arc-20240116; t=1789765486; c=relaxed/simple;
+	bh=ckePIfgoka0Rf4mwt80S3uV3xBUMBRQgF7iWoRQakm8=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=q82bFR30zBJa/YEMu8x4YEs6BKCScKraPf4RPoVgqHLq8PZbe8qhs1V0qSAq3s98tXTq28ygNXFUyOVwTICu522mHtbTyTIBQd9Z7DJvBK2FqKuPgwtbjzVBIlS1uICpe1hoX7B8t6IPT+nOYDc5V6BmdhV3AAGsLNMZAo8KNRY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=W2UINi1L; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=cSfvNF+hlfUg4zmsfC36N+zrsSyhhNN8iRhdItg10ydrr+QTSMyz96AUdNRQdPdDc91dHm8qvgHC0BC1Ta+RmyOjHB3piDFoIfXfbhku2yHHifcTaFaOkzaJ2rpyV/ZsE6NwbZAPfuhGGNJGu7QDTq8iQwLzsyaftYqcsX/+G2U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GnCWyOlD; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="W2UINi1L"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4328A1F00899;
-	Fri, 18 Sep 2026 21:04:22 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GnCWyOlD"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B84501F000FF;
+	Fri, 18 Sep 2026 21:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789765464;
-	bh=ApD+IxRfwZUnT2P7M+n95fYPEL8KAIfr7X/2oYpfSuQ=;
+	s=k20260515; t=1789765485;
+	bh=fsss2wB7f+lxa1B6M3RPy+oqjwmiHVsAVHF6YEIzzQE=;
 	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=W2UINi1LQ06TsZlVrYZ91Z8a5wH67ZqHsW7XguLmauRTQvn7Smjnb0w7SZ3WIz1lD
-	 dU7AuzpxxuY/SadZnYDKZnbPMiF0zacU47uPSvB05Heof2rK6qdV253sHpYGhv1naS
-	 OSLzK7WLLE1sY6XyneC7d1dVTE27f/R7J8HzfMCYDZVt9iLAMOhnE4KiBDQidYTTPY
-	 TJxTcjJ8abSCyRmn4+rhbCwWMZg9KjxVbo9Mw1m3+ccxzC/l3w4WBTNY/oHRk281Ex
-	 Wz2ie2A2olaE3b6PjPmToLRpeJev/JQiO8xMQgkpg7/AUUfcc5dukZUt7deavaWzRn
-	 SzRTOz3m4LC2w==
+	b=GnCWyOlD2Q1/FdbnjDaIWSVnLqmLOl4BDMV9zaC0UnRAuYHgZUB6QZ9ZQWMhKAv0f
+	 rFH1lze6gvxJzHVgaalZNUcnHoIdLGiZf8UtbS0NBdFbqdp7fHqrh8iIokPBbR88Bl
+	 m2RQpYVBxyHk5hW9fv71kfXkyGunYeqIWJz6H/s5oZtUaoqcYEwVg7B61a9L6CQYYg
+	 Sk7rjLywyEhtG8jFpgZAI01j8QzH6aqml9p3Fd3SA0BX/OTWVo1qYNRPHS9mllEnO1
+	 QGu4J2yvsgH3DkkVN8UAXyOoFaa6QesOxEqS84Qx9DTdASwmKM2nga12rC740kVnQx
+	 VFmNo0lxrKjJQ==
 From: Mark Brown <broonie@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: kuninori.morimoto.gx@renesas.com, lgirdwood@gmail.com, 
- linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, perex@perex.cz, 
+Cc: ckeepax@opensource.cirrus.com, krzk@kernel.org, lgirdwood@gmail.com, 
+ linux-kernel@vger.kernel.org, linux-sound@vger.kernel.org, 
+ patches@opensource.cirrus.com, perex@perex.cz, s.nawrocki@samsung.com, 
  tiwai@suse.com, stable@vger.kernel.org
-In-Reply-To: <20260917165851.2163548-1-vulab@iscas.ac.cn>
-References: <20260917165851.2163548-1-vulab@iscas.ac.cn>
-Subject: Re: [PATCH] ASoC: audio-graph-card2: Fix use-after-free in
- audio_graph2_link_c2c()
-Message-Id: <178975107344.1812520.14001092387774117021.b4-ty@b4>
-Date: Fri, 18 Sep 2026 18:04:33 +0100
+In-Reply-To: <20260917165130.2163278-1-vulab@iscas.ac.cn>
+References: <20260917165130.2163278-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH] ASoC: codecs: wm8994: Fix runtime PM leak in
+ wm8994_mic_detect()
+Message-Id: <178975136505.1812520.14638556027707618597.b4-ty@b4>
+Date: Fri, 18 Sep 2026 18:09:25 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,20 +47,20 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
 X-Mailer: b4 0.17-dev
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1158; i=broonie@kernel.org;
- h=from:subject:message-id; bh=5AJlRz9VmMd0OmWTXop9FJL4TPvwVoWnT9Jf+6NkEaA=;
- b=owGbwMvMwMWocq27KDak/QLjabUkhqy1y4MDDCI+ZfnraG78y7xqrfPDOKHatKtPpm69/jLB4
- aQsqxFPJ6MxCwMjF4OsmCLL2mcZq9LDJbbOfzT/FcwgViaQKQxcnAIwkVVP2P9X7l9WqqKu69F1
- 5JbDzKaA5Z3fP/rznv/0KflsqtLxiCkWraK8NWVhb7uOcqm2uvFPCfmzaM6JKTXcHi4WUTETX/0
- 8GcMqUfmW/S1bgdhswycXpDuC6jxFZI+5BL2bst035u2c9FciZprnjGQ2he/eqq1QouWu2aFj9p
- flYfbjjMvT2pi8bHY0PPTW5J7TmbRI8OjycIWtGcdMOXwipvM/yXF88XLNIhf2Y52qyQluX2NT/
- GdGs38SizWV/RV5gfGhBcPyEGWGn5P/v9x11LO4oLFrR++EtGWSy2r/us+o0LV2z2qdJKR+5Lni
- KlGh/e5rjj7heNq2p6s3q3+LmdIPdQP+5p0J/FwcTJp6AA==
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1146; i=broonie@kernel.org;
+ h=from:subject:message-id; bh=ckePIfgoka0Rf4mwt80S3uV3xBUMBRQgF7iWoRQakm8=;
+ b=owEBbQGS/pANAwAKASTWi3JdVIfQAcsmYgBqradomm2SSXxOvZt8Nrd972H9J6IEjXpewRVgO
+ 3vRNvSDowiJATMEAAEKAB0WIQSt5miqZ1cYtZ/in+ok1otyXVSH0AUCaq2naAAKCRAk1otyXVSH
+ 0J3SB/99D6YBfuifpYnuHkLLg0mWAX/4un8CBXR+lx8jwjws0o9yuTZuftSNyTN2+Zaj07Ztgtd
+ /FEvgs50MB8MT9WY7kZ5xBoGyQmBwtFnv5wX8jA/CwwFWh7WaspSQXr/4UC5AwXyhKqdEyioH/6
+ Rcv6tBjkTuS8hiRo3k2L1OaLCztzvVkuNStp9A7iIS/aPCp6Yqprxl5JdoDnk2qqf4NWJVbEGKI
+ 181Zway1XcfjdRVM/5YRbmjLWLIIMxFnMQ50pGDZIZpQxxm6XpmhV6kiHAaq9yBpZ/vVHpoPQKX
+ BuVQM9iwPsC2BbUYuEzvLR4UjWlO7xJZHnujwX5HBVOQdYiX
 X-Developer-Key: i=broonie@kernel.org; a=openpgp;
  fpr=3F2568AAC26998F9E813A1C5C3F436CA30F5D8EB
 
-On Thu, 17 Sep 2026 16:58:51 +0000, Wentao Liang wrote:
-> ASoC: audio-graph-card2: Fix use-after-free in audio_graph2_link_c2c()
+On Thu, 17 Sep 2026 16:51:30 +0000, Wentao Liang wrote:
+> ASoC: codecs: wm8994: Fix runtime PM leak in wm8994_mic_detect()
 
 Applied to
 
@@ -67,8 +68,8 @@ Applied to
 
 Thanks!
 
-[1/1] ASoC: audio-graph-card2: Fix use-after-free in audio_graph2_link_c2c()
-      https://git.kernel.org/broonie/sound/c/5ea495bccfd7
+[1/1] ASoC: codecs: wm8994: Fix runtime PM leak in wm8994_mic_detect()
+      https://git.kernel.org/broonie/sound/c/b2c0e5bf750e
 
 All being well this means that it will be integrated into the linux-next
 tree (usually sometime in the next 24 hours) and sent to Linus during
