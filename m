@@ -1,149 +1,105 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62229415F2C;
-	Fri, 18 Sep 2026 10:32:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BED49D59B;
+	Fri, 18 Sep 2026 10:33:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727560; cv=none; b=sr1F3or+1V3QZk39lRaeMmoVAsKPmq5LyIvpO0hhL/O+tG0HKfXYFtF29VDb9fV5uecIy5oNDywOTl9JxyPNLj9HcKxsTLAzmCUHMneqUNsLWi+TBJrVUF1YDrwepgabd0D/h9xIhk/XUguRN55QJMZVQFVIpL0WqZ2bFOkcXqs=
+	t=1789727603; cv=none; b=qv/iso1WJAVeIgTq2NZHCEKAgkw/GVxbw0UQHglSGnWV6dD4TMinhi36b4MQKHorqbyBLaBjNtaRDFbfwvNxCRexuhdj7QHSgZq9VjMWA+Em+HcnZx+VAba9ow+sGny59c42FAQ0D0gBqlMgcMQupqs4GM2avxBS7iwdhDZtgrc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727560; c=relaxed/simple;
-	bh=ow9Vzb2TFVcMYcSLJbocUzWmCZHBM+RGMk1vfKKnAGE=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=CwN24U/o3/05LYSPm3D0FCg3b+EPDF+u7QWaBkZm53vcY5//HRz5iCpEDBIIrbcYFB12675vUC2vkOe5JSynMjh+iGkDcMBxyfoRXvpn11av7ThF7X/mctqKinuD7EABtot+7FA0hf8h0gTGzKOCp44G53VtzWVhKATFSOTX8fY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IlnS3bnw; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789727603; c=relaxed/simple;
+	bh=Pp8+qYV14aM+8W8YxzWRx95w9FPTwKpIBNo9Up4J1BQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=JgJXDdfOX275Zi4O9QHJuiYg8A++iJwYK18wfNvL9kOv/F+Jx8w11UE2SEsQ1YTo2Go4AZHLN27or0vNObAlNjvtVXf+tN/JS7UZP/8J5Cp6N4K/kNBDWiLHCdd/zXQy5uN6Et9FfY3T2xlMO7Hqg8VdEiFlLZqSwwsLC8FzQrI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=UnSOAEVN; arc=none smtp.client-ip=90.155.92.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IlnS3bnw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789727559; x=1821263559;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=ow9Vzb2TFVcMYcSLJbocUzWmCZHBM+RGMk1vfKKnAGE=;
-  b=IlnS3bnwxzGWj5XH6zYQsnI1/YlWA2v89iml0tZe7t5BOKq0eokS7+BX
-   S8ZIYM1eA4QWMPnpMDZdjKK4vGp5K3ECmFmalwqHAAfhIfQFxmUQsa6tI
-   GU9zJgUUspO6y70YNaQqlLwsgH0wVMkQ5JjFddLobIVb1VL/dm1nyDAsS
-   i6fb/dlvx5FCOpUdngBRyFRYwJWnyFxNfZWFBYE0rA/+aZd9nbJYX6bfD
-   dkxxO9kL6OvxneA6gxvSyJBYRRsI7jEQ9eNEGTpt75jNU4S5Pl8IjlURy
-   DcCgKJZxzlfJgAFg75vVgFcu4/KGMQ0kaCnE88/EuarEfWSOwSArAUHXt
-   A==;
-X-CSE-ConnectionGUID: n1zqBEepS7+dUMOx2D2KLQ==
-X-CSE-MsgGUID: aUuc5KwuTsiqTZVyAiOXcQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90090839"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90090839"
-Received: from fmviesa008.fm.intel.com ([10.60.135.148])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:32:38 -0700
-X-CSE-ConnectionGUID: L1MaPcwgTXOtRsxI1A2SSg==
-X-CSE-MsgGUID: EEjyDNo+QryHsWbHIcY/CA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="271652556"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
-  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:32:34 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 18 Sep 2026 13:32:31 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: platform-driver-x86@vger.kernel.org, jorge.lopez2@hp.com, 
-    Hans de Goede <hansg@kernel.org>, linux@weissschuh.net, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
-    Josh Snyder <josh@code406.com>
-Subject: Re: [PATCH v3 1/2] platform/x86: hp-bioscfg: fix 16-byte heap overflow
- for empty auth token
-In-Reply-To: <20260818191120.38556-2-meatuni001@gmail.com>
-Message-ID: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com>
-References: <20260818191120.38556-1-meatuni001@gmail.com> <20260818191120.38556-2-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="UnSOAEVN"
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
+	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
+	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
+	Content-Transfer-Encoding:Content-ID:Content-Description;
+	bh=Hg7QkNef5zMThE+MRw8udQqkGZAjpML9pXHh4uxv5K8=; b=UnSOAEVNKYj/W3EgeF6N+/mXS/
+	sTndR9zyc6HFJY+aOzLsorEmd/dUtVp4iaVerhqfpAZGewFUgvV8FCOelcRLyw+Ti8HHUYO0RLTTC
+	okWxf1cF972zBGB/x97EtpSA0w7JdHX4omJjiJcsyIDfSneZdPSJ/T7lUQSPauWJ829E/mo3slvh7
+	AVvOf2gGlp4/8L8VXyimdliN3zf++rvpabQJTiBop+lIfaEQ6b9qIWJcThLgfalyCyiMAgKRJzv96
+	Uh7ZkU29r22Efp9HmRKN3orQ+m4Ov1hR85gsH6hSTuXqDUKvKP5TUc/3VeAuil+j6tj42heWdIAGL
+	1wv4mqfQ==;
+Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
+	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
+	id 1x7Vtx-00000009w0D-3SuZ;
+	Fri, 18 Sep 2026 10:33:06 +0000
+Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
+	id 377FB30057F; Fri, 18 Sep 2026 12:33:04 +0200 (CEST)
+Date: Fri, 18 Sep 2026 12:33:04 +0200
+From: Peter Zijlstra <peterz@infradead.org>
+To: "H. Peter Anvin" <hpa@zytor.com>
+Cc: Matthew Schwartz <matthew.schwartz@linux.dev>, Xin Li <xin@zytor.com>,
+	Andy Lutomirski <luto@kernel.org>,
+	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
+	Paul Gofman <pgofman@codeweavers.com>,
+	Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
+	Shuah Khan <shuah@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] x86/fred: Reconstruct the #GP context for rejected
+ INT instructions
+Message-ID: <20260918103304.GK776954@noisy.programming.kicks-ass.net>
+References: <20260917230907.2080792-1-matthew.schwartz@linux.dev>
+ <20260917230907.2080792-2-matthew.schwartz@linux.dev>
+ <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/mixed; boundary="8323328-414600178-1789727551=:15314"
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
 
-  This message is in MIME format.  The first part should be readable text,
-  while the remaining parts are likely unreadable without MIME-aware tools.
+On Thu, Sep 17, 2026 at 05:07:45PM -0700, H. Peter Anvin wrote:
+> On 2026-09-17 16:09, Matthew Schwartz wrote:
+> > FRED event delivery does not use the IDT, so the gate DPL check that
+> > rejects a user INT n falls to software (Intel FRED specification [1],
+> > section 8.3). fred_intx() rejects the same vectors as IDT delivery, but
+> > reports a zero error code and the IP after the INT. This breaks the
+> > signal ABI. Wine uses the error code to recognize INT 0x2d, so the
+> > changed context turns a handled breakpoint into an access violation in
+> > Elden Ring.
+> > 
+> > Rewind IP using the instruction length in the augmented SS and
+> > synthesize the IDT selector error code, (vector << 3) | 2. Set RF in the
+> > saved flags, as the CPU does for a #GP fault. Section 5.2.1 defines the
+> > saved vector, instruction length and RF state. The supplied length
+> > handles prefixes without reading user memory. Limit the changes to
+> > already-rejected software interrupts, preserving the accepted INT3, INT4
+> > and enabled INT80 paths and hardware exceptions. With IA32 emulation
+> > disabled, INT 0x80 now reports the same #GP as the DPL 0 gate IDT
+> > installs there. The rewound IP also stops fixup_iopl_exception() from
+> > inspecting the byte after the INT.
+> > 
+> > Also clear the software event flag. Section 6.2.3 specifies that ERETU
+> > with this flag and TF set traps before executing any user instruction. A
+> > tracer that suppresses SIGSEGV and resumes with TF set expects the next
+> > instruction to run first, as after IRET. The sigreturn path clears the
+> > same flag for this reason in prevent_single_step_upon_eretu().
+> > 
+> > [1] Intel Flexible Return and Event Delivery (FRED) Specification,
+> > revision 9.0 (346446-009US), sections 5.2.1, 6.2.3 and 8.3.
+> > 
+> > Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
+> > Reported-by: Paul Gofman <pgofman@codeweavers.com>
+> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15745
+> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16132
+> > Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
+> > Link: https://cdrdv2.intel.com/v1/dl/getContent/678938 # [1]
+> 
+> Reviewed-by: H. Peter Anvin <hpa@zytor.com>
+> 
+> This really should go into -stable.
 
---8323328-414600178-1789727551=:15314
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: QUOTED-PRINTABLE
-
-On Wed, 19 Aug 2026, Muhammad Bilal wrote:
-
-> hp_calculate_security_buffer() special-cases an empty authentication
-> string and returns a fixed 4 bytes (sizeof(u16) * 2). But
-> hp_populate_security_buffer() does not special-case that same input:
-> for any authentication string that does not start with BEAM_PREFIX,
-> including the empty string, it always builds "UTF_PREFIX +
-> authentication" and converts the result to UTF-16, writing a 2-byte
-> length header plus 2 bytes per character of "<utf-16/>" (9 characters),
-> 20 bytes total, regardless of how long "authentication" itself is.
->=20
-> The caller, hp_set_attribute(), sizes its kmalloc() buffer using
-> hp_calculate_security_buffer()'s return value, so for an empty
-> authentication token it allocates 4 bytes for the security area but
-> hp_populate_security_buffer() then writes 20 bytes into it, causing a
-> 16-byte heap buffer overflow.
->=20
-> The authentication token used here is the current admin/setup
-> password, which is an empty string by default until one is
-> configured. Any write to a writable BIOS attribute while no admin
-> password has been set reaches this path.
->=20
-> Fix by removing the special-case early return for an empty string in
-> hp_calculate_security_buffer(). The generic calculation that follows
-> already accounts for the UTF_PREFIX correctly, which naturally yields
-> the same 20 bytes that hp_populate_security_buffer() writes for an empty
-> string, avoiding duplicate logic for special cases.
->=20
-> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
-> Reported-by: Josh Snyder <josh@code406.com>
-> Closes: https://lore.kernel.org/platform-driver-x86/20260402-hp-bioscfg-o=
-verflow-v1-1-6985f8c9e67c@code406.com/
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
-> Changes in v3:
->   - Remove the special-case return entirely instead of adjusting its
->     formula, avoiding code duplication as suggested by Ilpo J=C3=A4rvinen=
-=2E
->   - Credit Josh Snyder who previously noted this approach.
->=20
-> Changes in v2:
->   - None for this patch; resubmitted as part of the v2 series.
->=20
-> Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.c=
-om [v1]
-> Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.=
-com [v2]
-> ---
->  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 4 ----
->  1 file changed, 4 deletions(-)
->=20
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/dri=
-vers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> index 4d94e48c1a4c..136585141e6e 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
-> @@ -47,10 +47,6 @@ size_t hp_calculate_security_buffer(const char *authen=
-tication)
->  =09if (!authentication)
->  =09=09return sizeof(u16) * 2;
-> =20
-> -=09authlen =3D strlen(authentication);
-> -=09if (!authlen)
-> -=09=09return sizeof(u16) * 2;
-> -
->  =09authlen =3D strlen(authentication);
->  =09size =3D sizeof(u16) + authlen * sizeof(u16);
-
-authlen is not uninitialized, so only the early return should be dropped.
-
-I've dropped this patch from the review-ilpo-next branch.
-
---=20
- i.
-
---8323328-414600178-1789727551=:15314--
+It has a Fixes tag, afaik they really good at picking those up. Let me
+go queue them in x86/urgent.
