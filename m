@@ -1,132 +1,141 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A048A4FD263
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 13:50:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E764F93B5;
+	Fri, 18 Sep 2026 13:54:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739440; cv=none; b=dIJzkXFqrv7xAqVNBFodc3NK2/vIEE/wBQ3uHBwTrko+aYzr4yp+LnUqPfPo7c8KtQ+gsHfTnfhx/SF9KFjC8px3vKbD8fuABTgAz03H8teqFe/DCVDq7QmeNGmdEFdIvPmXY6IKuU3spD2fQw05HLb8VVB8OKhgFUirpxjuAic=
+	t=1789739669; cv=none; b=IIkHYsgtq9037IuuFjB0gGXyL/5rJ+CUU39S3K7nfp0YxL9MwMMzs4jcLRcFUBA++6RvQ0x7OXWEiAUPC5x+G210yaktLfm8+6bsArTOE0VpP+k0TO3kesDrdOXJbC+mF8gWXwpFu/nTQljEwF1lX0NbSkmZ6sJ7cBAul54wDJQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739440; c=relaxed/simple;
-	bh=6ylVGzoVg5WyGnxqAmFcToYzZVklKcib90G+PvfoyT0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=pAKn9iHdls7GL3wFMapQ1QTSLgzkiwktxo1ad7PFDf9IvN7T/VtwNwxR7D8d82FHPHYJ4ys0Now5HGCPjeRSju9WQaZkO5urRS1QZT56Mxbv9fvebdFvWUwG6h3DY1UqNfPP6IP3lli/iprUPfzyhZC4K26uRPOyNGGZ+78DSO0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cd4fAaKE; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789739669; c=relaxed/simple;
+	bh=AuMiDhFMblXy0IqBDjT1yFy4y+GlouICGZTNEKp77JE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=cf7Ev8hVBgdc5X0rWTjkY+KzK93Nkol22C/cFpFJmA0aMnKYkUgfgZm44AJqFPYAzgtGn2BgbER3RXLhhj0UtLsf0V7O689J3w8l/9/a9Cg3EvwHDWNnI4e271jWPHhFFH8Ca3+UFkKcdSf0N3ES1Rh4Y0dRketseHHhcUlYC5c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LckJnu9C; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cd4fAaKE"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789739437;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=EPIhTn4sDBuz0G96LEXoKpjhT6oJylIi4yaM6st+xoA=;
-	b=Cd4fAaKE1mDoEzNeanSbzTioEBnuR1r2NOBLedZ19djyEhg8+nRASWRN1kdifY1WRslDCo
-	c20m35sgoN7DF32gUx3L6JoUQJLq/xKfy+xDniSzWdjDYsyUE2X1AprfV2dHcEQg4KNPJz
-	bo90NaTb3ADBAoZKe4Hd5MTXPdpBzZo=
-Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-180-iQVw_cmHPXu5g8v5gitnTA-1; Fri,
- 18 Sep 2026 09:50:34 -0400
-X-MC-Unique: iQVw_cmHPXu5g8v5gitnTA-1
-X-Mimecast-MFC-AGG-ID: iQVw_cmHPXu5g8v5gitnTA_1789739433
-Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 08F7D1828B4A;
-	Fri, 18 Sep 2026 13:50:33 +0000 (UTC)
-Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
-	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 45BAF1956042;
-	Fri, 18 Sep 2026 13:50:32 +0000 (UTC)
-From: Paolo Bonzini <pbonzini@redhat.com>
-To: linux-kernel@vger.kernel.org,
-	kvm@vger.kernel.org
-Cc: nsaenz@amazon.com,
-	vkuznets@redhat.com,
-	snambakam@linux.microsoft.com,
-	stable@vger.kernel.org
-Subject: [PATCH 01/31] KVM: x86/hyperv: do not overwrite hc->ingpa for slow SIGNAL_EVENT hypercall
-Date: Fri, 18 Sep 2026 09:50:00 -0400
-Message-ID: <20260918135030.171564-2-pbonzini@redhat.com>
-In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
-References: <20260918135030.171564-1-pbonzini@redhat.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LckJnu9C"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789739665; x=1821275665;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=AuMiDhFMblXy0IqBDjT1yFy4y+GlouICGZTNEKp77JE=;
+  b=LckJnu9CiiENDJrmWxq/5ESJyIPenvFk5m3gRXv5gOt3txrlCuqc2IjW
+   Pi5yxkSVK+NQVf1bVQo3P1EBeISKfN4kF2zXaRmQES24EDl/Mm8pQMIu7
+   2uq8o+27ziZVUWrFoTILKs2V9kGvMLsUaOSYLhPT1sazzRwavLeFWoO2t
+   cdusNqr85i4PePRF9c4a1B2I2Nsfoprq3IW/+WjBtMNV5EQLMuqVzfvgM
+   Gw2e5t0S6CgPURp8RVmxuOL0sNH14NyD/N93UVvEMPheHe+yyeUqhsyDX
+   FgVmLx2xsoPKulIG+boXpiO4ROU1K+6Erf/0ZkOg9ot4TgzxthmAEmo22
+   Q==;
+X-CSE-ConnectionGUID: p/deSa/MTMWxNLssAF9hNQ==
+X-CSE-MsgGUID: vp8mvx6WTwqczo7KUk6oeA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="107750100"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="107750100"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:54:22 -0700
+X-CSE-ConnectionGUID: dSIGPUQxTNm8gHvb5a2a7Q==
+X-CSE-MsgGUID: X7xVVCUFR2ShCFu28xxsEg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="2842259"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:54:20 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 16:54:11 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: jorge.lopez2@hp.com, Hans de Goede <hansg@kernel.org>, 
+    linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 1/2] platform/x86: hp-bioscfg: fix OOB read in
+ hp_get_integer_from_buffer() on unaligned input
+In-Reply-To: <20260824225610.18471-2-meatuni001@gmail.com>
+Message-ID: <7dfd5559-5ad0-e12c-b26c-96abe139bc17@linux.intel.com>
+References: <20260824225610.18471-1-meatuni001@gmail.com> <20260824225610.18471-2-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-Content-Transfer-Encoding: 8bit
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
+Content-Type: text/plain; charset=US-ASCII
 
-When a guest makes a slow HVCALL_SIGNAL_EVENT hypercall with a connection ID
-that is valid in userspace but not registered in the kernel conn_to_evt,
-kvm_hvcall_signal_event() reads the connection ID and overwrites hc->ingpa.
-However, hc->param still signals that the hypercall was a slow one, and
-userspace will then treat the connection ID as an address.
+On Tue, 25 Aug 2026, Muhammad Bilal wrote:
 
-Cc: stable@vger.kernel.org
-Fixes: bd38b32053eb ("KVM: hyper-v: Collect hypercall params into struct")
-Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
----
- arch/x86/kvm/hyperv.c | 15 +++++++++------
- 1 file changed, 9 insertions(+), 6 deletions(-)
+> hp_get_integer_from_buffer() aligns the read pointer before dereferencing
+> it:
+> 
+>   int *ptr = PTR_ALIGN((int *)*buffer, sizeof(int));
+> 
+> When *buffer is not 4-byte aligned, PTR_ALIGN() advances ptr forward by
+> 1-3 bytes to reach the next aligned address. The bounds check that
+> follows does not account for that advance:
+> 
+>   if (*buffer_size < sizeof(int))
+>           return -EINVAL;
+> 
+> This only confirms 4 bytes remain from the original *buffer, not from
+> the aligned ptr. If *buffer is unaligned and *buffer_size is between 4
+> and (pad + 3) bytes, *(ptr++) reads up to 3 bytes past the end of the
+> buffer.
+> 
+> *buffer_size is also under-decremented on every call, aligned or not:
+> 
+>   *buffer_size -= sizeof(int);
+> 
+> *buffer is advanced to the aligned, post-read position, but
+> *buffer_size only accounts for the 4 bytes of the integer itself, not
+> the alignment padding skipped to reach it. Each unaligned read leaves
+> *buffer_size overstating the true remaining space by the pad amount,
+> an error that compounds across repeated calls against the same buffer
+> (hp_get_common_data_from_buffer() calls this in a sequence), making
+> later bounds checks against *buffer_size progressively less reliable.
+> 
+> Compute the padding explicitly, check for it, and account for it when
+> advancing *buffer_size, so the pointer and the remaining-length count
+> stay consistent with each other.
+> 
+> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+>  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 10 +++++++---
+>  1 file changed, 7 insertions(+), 3 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> index 0edc6e7cfa9a..32b99a862082 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> @@ -39,14 +39,18 @@ struct kobj_attribute common_display_langcode =
+>  int hp_get_integer_from_buffer(u8 **buffer, u32 *buffer_size, u32 *integer)
+>  {
+>  	int *ptr = PTR_ALIGN((int *)*buffer, sizeof(int));
+> +	u32 pad = (u8 *)ptr - *buffer;
+>  
+> -	/* Ensure there is enough space remaining to read the integer */
+> -	if (*buffer_size < sizeof(int))
+> +	/*
+> +	 * Ensure there is enough space remaining to read the integer,
+> +	 * including any padding PTR_ALIGN() introduced to reach it.
+> +	 */
+> +	if (*buffer_size < pad + sizeof(int))
+>  		return -EINVAL;
+>  
+>  	*integer = *(ptr++);
+>  	*buffer = (u8 *)ptr;
+> -	*buffer_size -= sizeof(int);
+> +	*buffer_size -= pad + sizeof(int);
 
-diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
-index 604651cb2739..d2921d443fde 100644
---- a/arch/x86/kvm/hyperv.c
-+++ b/arch/x86/kvm/hyperv.c
-@@ -2436,19 +2436,22 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
- {
- 	struct kvm_hv *hv = to_kvm_hv(vcpu->kvm);
- 	struct eventfd_ctx *eventfd;
-+	u64 conn_id;
- 
- 	if (unlikely(!hc->fast)) {
- 		int ret;
- 		gpa_t gpa = hc->ingpa;
- 
--		if ((gpa & (__alignof__(hc->ingpa) - 1)) ||
--		    offset_in_page(gpa) + sizeof(hc->ingpa) > PAGE_SIZE)
-+		if ((gpa & (__alignof__(conn_id) - 1)) ||
-+		    offset_in_page(gpa) + sizeof(conn_id) > PAGE_SIZE)
- 			return HV_STATUS_INVALID_ALIGNMENT;
- 
- 		ret = kvm_vcpu_read_guest(vcpu, gpa,
--					  &hc->ingpa, sizeof(hc->ingpa));
-+					  &conn_id, sizeof(conn_id));
- 		if (ret < 0)
- 			return HV_STATUS_INVALID_ALIGNMENT;
-+	} else {
-+		conn_id = hc->ingpa;
- 	}
- 
- 	/*
-@@ -2456,15 +2459,15 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
- 	 * have no use for it, and in all known usecases it is zero, so just
- 	 * report lookup failure if it isn't.
- 	 */
--	if (hc->ingpa & 0xffff00000000ULL)
-+	if (conn_id & 0xffff00000000ULL)
- 		return HV_STATUS_INVALID_PORT_ID;
- 	/* remaining bits are reserved-zero */
--	if (hc->ingpa & ~KVM_HYPERV_CONN_ID_MASK)
-+	if (conn_id & ~KVM_HYPERV_CONN_ID_MASK)
- 		return HV_STATUS_INVALID_HYPERCALL_INPUT;
- 
- 	/* the eventfd is protected by vcpu->kvm->srcu, but conn_to_evt isn't */
- 	rcu_read_lock();
--	eventfd = idr_find(&hv->conn_to_evt, hc->ingpa);
-+	eventfd = idr_find(&hv->conn_to_evt, conn_id);
- 	rcu_read_unlock();
- 	if (!eventfd)
- 		return HV_STATUS_INVALID_PORT_ID;
+Shouldn't all thse sizeof()s be based on sizeof(*integer) or sizeof(*ptr) 
+instead of unbound "int"?
+
+And is type of ptr correct? If it is, this lacks an underflow check?
+
+This driver is such a nightmare... :-( Thanks for helping to clean it up.
+
+
 -- 
-2.52.0
-
+ i.
 
