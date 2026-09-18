@@ -1,140 +1,207 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39726398910;
-	Fri, 18 Sep 2026 13:59:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D794E395D98;
+	Fri, 18 Sep 2026 14:18:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739996; cv=none; b=FBuJuZsPcpu2IlkQbmrDgYD04UyUpxKqFjF/jJcI7TAdx5YWUtlt1TP9pb7yNN6tEEAvUI1oPKrBx4htQOdslgvl0XgeQPVTgg+BT1NVP0yvnWaczPF62eeAzwZeMsNh26Dk8/NILlMp3k50jUh1EyUy5G6eKgwWqgBhGBFXLr0=
+	t=1789741090; cv=none; b=H1Xx7jhAMyYpuWCdsB8wmCIDq30SACT8iYG2KAeci9fkcry4gTfelYi3jX630jwp+/CJ7Vxxi7OhbJhlrjFcVnrZVGlop+WPbkKVSTOTmDHUa38/SlMeZjrEFmYzSK+r04gKME3Q/HUmz9Ll9CvQigsT2Zl3GdWKfaV5W/fo5dg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739996; c=relaxed/simple;
-	bh=FRi32tHhJDmiDtBAKc+h0IlInEgXG3wkqzxRhXS0T70=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VlD6/Y+lwI2DEDWRnhA9k0hrVoThR5M8trF5k1ALct6LsweFCPQ38vnB9fnz0zhywtIIa0L0wyaIZNu0nj3UojsBy8u/Xl7QMkjhrucFZPFUSoEgh3fr4XogK5rrsYSmNX2Zcn58ZkmK5X9AV3qVii1+TIugjvvMHeNvCUU3pGI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=k0c7Y5oB; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789741090; c=relaxed/simple;
+	bh=z30lrQPWTLUK69YDeqm3Vt6qZbUGZk0KZ8R+9cEMCm8=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=YAC8c5X6PFRHTyZfukowahF0TTBX7WWWBhmS6P6McjPPDxfmAWsOpkPxDFLdI4UCaNuf0mclQYGI7fcXPVPqLVqrdMZAz/5unEFbpHBvIgDmNNzeb15Dxt6megUXc5r1nnZKHbQl4ybkuy11vYipSZTTaddP0GtDhGvQb7D8Cmc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=mISaDRCY; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="k0c7Y5oB"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6E7861F00898;
-	Fri, 18 Sep 2026 13:59:43 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789739994;
-	bh=ql4h3PEpCH97QLxzKmGsLy1Pw0p7ejqCRrfChbDXmb0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=k0c7Y5oB7pdEPndHGOltPARlBz2zL8Frb8nHWDaLzFB3ZCtLzImQOcO9EMc29l8qj
-	 oj8aAavCc+qpeDE/F0yXnmu5iseQqKQPJ3WPc/ZW76rcF5p9w0Y3lOxj+UlNZ/XJZf
-	 zdjJZXBpsHLv4l6iK1SC+MRSWotYv59D/LgCcljylTbQ0r+tT6ABKW6payUhGnUdIo
-	 QfgAmg19DXQOlXtCzrx0M+xcCSoaks2YAt+OYedsE54NGkFLaCt98We2nURAwwOQUd
-	 AkY48NHNMmsDVl9vWSX3VUy8afhOxdMAkO68reCJkZJbPXPb1S0cgOKvM0a9lgSvwU
-	 P4kUjcp1y0HJQ==
-Message-ID: <c445a20c-ae83-4571-ae97-031ce7facc45@kernel.org>
-Date: Fri, 18 Sep 2026 15:59:40 +0200
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="mISaDRCY"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789741088; x=1821277088;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=z30lrQPWTLUK69YDeqm3Vt6qZbUGZk0KZ8R+9cEMCm8=;
+  b=mISaDRCYXeCL/pVAE/sfBIGpMNTkA9+W9RnZdR4CEoZ1E2c97ym0XUNF
+   SlkBaLXH3A+dZb8o+SqcGTUTuJUvsMGGiTW1L/Ag+Wu1PvOvsGQETi9Zz
+   aaEqowlJWL9rfUS7rww1eVHowNaDcV2o/ReFEXyFLpUR9u9/esszMZRra
+   2SNZxBbQCegMouPn+zeiqP57rlOfObMgPMWmb68S9gCwDsnFWUnJq6MLh
+   aGfmx6Z2DLetO+r9ITWCe9URYrcRUo371NfIDE7E2ivm+pHQn1uEI+Hbg
+   Y70CJJJ07oxDDPfqntjB3twUJ1ZSw99E1IJLYv7rLZfSqjFMBngkFMpg5
+   Q==;
+X-CSE-ConnectionGUID: unL72u6GQU+379p8i0zFuw==
+X-CSE-MsgGUID: iIZfhZz0QzSrfDObbZy1cg==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="89385534"
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="89385534"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:18:07 -0700
+X-CSE-ConnectionGUID: 5YHrGFCoSziLXxLRRX/Bwg==
+X-CSE-MsgGUID: r3ZJJ7rKTwyP6Q1b9i0Qeg==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
+   d="scan'208";a="271742144"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 07:17:57 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 17:17:05 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: jorge.lopez2@hp.com, Hans de Goede <hansg@kernel.org>, 
+    linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] platform/x86: hp-bioscfg: fix heap OOB read and
+ buffer desync in hp_get_string_from_buffer()
+In-Reply-To: <20260824225610.18471-3-meatuni001@gmail.com>
+Message-ID: <a67d4e52-5e87-0e76-4c91-cb8ba2be31f9@linux.intel.com>
+References: <20260824225610.18471-1-meatuni001@gmail.com> <20260824225610.18471-3-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] sched/numa: scan read-only file mappings in
- tiering mode
-To: Gregory Price <gourry@gourry.net>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
- akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
- vbabka@kernel.org, rppt@kernel.org, surenb@google.com, mhocko@suse.com,
- mingo@redhat.com, peterz@infradead.org, juri.lelli@redhat.com,
- vincent.guittot@linaro.org, dietmar.eggemann@arm.com, rostedt@goodmis.org,
- bsegall@google.com, mgorman@suse.de, vschneid@redhat.com,
- kprateek.nayak@amd.com, ziy@nvidia.com, baolin.wang@linux.alibaba.com,
- nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com,
- baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev,
- kas@kernel.org, matthew.brost@intel.com, joshua.hahnjy@gmail.com,
- rakie.kim@sk.com, byungchul@sk.com, ying.huang@linux.alibaba.com,
- apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, osalvador@suse.de,
- hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-4-gourry@gourry.net>
- <0ed3ab3a-80b4-492f-867a-0584441722a9@kernel.org>
- <aq1Cwh9hNw4wWEUP@gourry-fedora-PF4VCD3F>
-From: "David Hildenbrand (Arm)" <david@kernel.org>
-Content-Language: en-US
-Autocrypt: addr=david@kernel.org; keydata=
- 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
- qIws/H2t
-In-Reply-To: <aq1Cwh9hNw4wWEUP@gourry-fedora-PF4VCD3F>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=US-ASCII
 
-On 9/18/26 15:57, Gregory Price wrote:
-> On Fri, Sep 18, 2026 at 02:58:36PM +0200, David Hildenbrand (Arm) wrote:
->>> +/*
->>> + * Read-only file-backed mappings are expected to be cache replicated between
->>> + * accessor nodes, so they are not worth sampling for placement.  They can
->>> + * still strand on the slow tier like anything else.
->>> + */
->>> +static bool vma_is_ro_file(struct vm_area_struct *vma)
->>> +{
->>> +	return vma->vm_file && (vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ;
->>
->>
->> MAP_PRIVATE can easily map a read-only file with write permissions. So the
->> function name is a bit misleading.
->>
->> This smells like a helper that should go next to other vma helpers and have
->> clear semantics.
->>
+On Tue, 25 Aug 2026, Muhammad Bilal wrote:
+
+> hp_get_string_from_buffer() has several buffer boundary and memory
+> safety bugs when parsing UTF-16 strings from WMI BIOS buffers:
+
+Can these be fixed separately? It would help review.
+
+> First, the loop that counts how many characters will need backslash-
+> escaping uses the same variable as both the accumulator and the loop
+> bound:
 > 
-> No argument here.  Would like to balance improvement vs backportable
-> bugfix though.  I broke out the name to try to make it at least a bit
-> more readable.
+>   size = src_size / sizeof(u16);
+>   ...
+>   for (i = 0; i < size; i++)
+>           if (src[i] == '\\' || src[i] == '\r' ||
+>               src[i] == '\n' || src[i] == '\t')
+>                   size++;
+> 
+> Each escape character found extends size, which is also what i is
+> compared against, so the loop keeps going past the buffer's true
+> character count once any escape character is seen at or near the end
+> of the valid range. Every escape character found causes one additional
+> out-of-bounds src[i] read.
+> 
+> Second, once conv_dst_size is computed, the conversion call passes the
+> byte length instead of the character count:
+> 
+>   utf16s_to_utf8s(src, src_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
+> 
+> utf16s_to_utf8s()'s inlen parameter is a count of u16 units: its main
+> loop decrements inlen once and advances the source pointer by one
+> wchar_t per character consumed. src_size here is a byte count (the
+> code's own preceding comment, "size value in u16 chars", computes the
+> true character count separately as src_size / sizeof(u16)), so passing
+> it directly makes the conversion loop walk up to twice as many u16
+> units as the source buffer actually holds whenever maxout does not
+> run out first.
+> 
+> Third, the bounds check 'if (*buffer_size < src_size)' is checked after
+> src++ has already stepped over the 2-byte prefix. If *buffer_size equals
+> src_size, only src_size - 2 bytes remain, so reading src_size bytes
+> reads 2 bytes past the end of the input buffer.
+> 
+> Finally, at the end of the function, the pointer and remaining buffer
+> size are adjusted using the escape-inflated size rather than the actual
+> number of input bytes consumed from the WMI buffer (sizeof(u16) +
+> src_size), causing the buffer pointer and remaining length to drift out
+> of sync for subsequent property parsers.
+> 
+> Fix these by:
+> - Keeping the true, unmodified character count in a separate orig_size
+>   variable.
+> - Checking *buffer_size against sizeof(u16) + src_size before reading.
+> - Accurately advancing *buffer and *buffer_size by sizeof(u16) + src_size.
+>
+> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+>  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 29 +++++++++++---------
+>  1 file changed, 16 insertions(+), 13 deletions(-)
+> 
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> index 32b99a862082..dd453a9b962f 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
+> @@ -60,6 +60,7 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+>  	u16 *src = (u16 *)*buffer;
+>  	u16 src_size;
+>  
+> +	u16 orig_size;
+>  	u16 size;
+>  	int i;
+>  	int conv_dst_size;
+> @@ -67,17 +68,16 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+>  	if (*buffer_size < sizeof(u16))
+>  		return -EINVAL;
+>  
+> -	src_size = *(src++);
+> -	/* size value in u16 chars */
+> -	size = src_size / sizeof(u16);
+> -
+> -	/* Ensure there is enough space remaining to read and convert
+> -	 * the string
+> -	 */
+> -	if (*buffer_size < src_size)
+> +	src_size = *src;
+> +	if (*buffer_size < sizeof(u16) + src_size)
+>  		return -EINVAL;
+>  
+> -	for (i = 0; i < size; i++)
+> +	src++;
+> +	/* size value in u16 chars */
+> +	orig_size = src_size / sizeof(u16);
+> +	size = orig_size;
+> +
+> +	for (i = 0; i < orig_size; i++)
+>  		if (src[i] == '\\' ||
+>  		    src[i] == '\r' ||
+>  		    src[i] == '\n' ||
+> @@ -93,9 +93,12 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+>  		conv_dst_size = dst_size - 1;
+>  
+>  	/*
+> -	 * convert from UTF-16 unicode to ASCII
+> +	 * Convert from UTF-16 unicode to ASCII. utf16s_to_utf8s() counts
+> +	 * its length argument in u16 units, not bytes, so pass the
+> +	 * original character count rather than src_size (bytes) or the
+> +	 * escape-inflated size.
+>  	 */
+> -	utf16s_to_utf8s(src, src_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
+> +	utf16s_to_utf8s(src, orig_size, UTF16_HOST_ENDIAN, dst, conv_dst_size);
+>  	dst[conv_dst_size] = 0;
+>  
+>  	for (i = 0; i < conv_dst_size; i++) {
+> @@ -121,8 +124,8 @@ int hp_get_string_from_buffer(u8 **buffer, u32 *buffer_size, char *dst, u32 dst_
+>  		src++;
+>  	}
+>  
+> -	*buffer = (u8 *)src;
+> -	*buffer_size -= size * sizeof(u16);
+> +	*buffer += sizeof(u16) + src_size;
+> +	*buffer_size -= sizeof(u16) + src_size;
 
-I understand, but I am not asking about much.
+I really don't even understand how this function is even supposed to 
+work... So lets try to agree on its functionalit first and if that makes 
+any sense...
 
-Maybe Lorenzo can help us out.
+1. Function calculates some lengths
 
-/me summons Lorenzo
+2. Calls utf16s_to_utf8s() to do src -> dst conversion
+
+3. It overwrites dst in a loop by copying from src or escaping the src 
+   char.
+
+What is the purpose of step 2 if step 3 overwrites dst? Does this happen 
+to work just because ASCII chars in src are <= 0x7f so the copy in step 3 
+won't mess _most_ strings up??
+
 
 -- 
-Cheers,
+ i.
 
-David
