@@ -1,106 +1,92 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8D8DF4A3F04;
-	Fri, 18 Sep 2026 07:18:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DE186305677
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 07:22:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789715905; cv=none; b=Lf0n/Xzw++p8AWg48vkGEe7iywKZav0d71JxGOFZZN7u8XKZ1uF3Ji5bXjP9gDlXbJEJ0fbJ/AuauGZK7Mbz5LhWlfcVFqGQTXu6GJRik2Pn4wRYt3wV532zEZnhKm7pXgqrN2RbFlLUzrivCPcssu5OZ+uhhIJhrn9ILWIJMyU=
+	t=1789716177; cv=none; b=svPF+Mr/vnHIQiv7spRqcr/Rh6NXjr5lBSJP8qDRC2LUb2+I9cj4xy+3Azl2FCtvl7jlAupvL6UfMNFxvtlaowDiDx52Cl6xqiMWuyNuXn1rAK8XcO69bBRz2+TJ9ulhbJnG7b5jXBOyoWwg3YGOuBtxBweUvHTDmFuFtwUL1R0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789715905; c=relaxed/simple;
-	bh=2AbXGEropJ1FK9sttlez8I6vO8EmC62kKsePA/4GnuM=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=D3na2U5P3U4zUYJWE59N2Hfhw47GoBbv8cWtJh95SsamFYfYpX2W81viUuBwAYhC2+H+cR8oGB13FwtMXSPF5qOn6k0igkHapTdknrzWnNEFceHv56yU7ZPTAdxizrdGil/hvV1IMiqZiR2PApXW/7zInFkc9UUri/gUv8UsTdQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=BbXNN0L9; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	s=arc-20240116; t=1789716177; c=relaxed/simple;
+	bh=dNme8uRIYN0dXbX3fo0hsH8S0MXXz3OARTVkTdVwCds=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TceboXwogXY42kGcROgNpbMzRS19Iej6+PKjBj2Ww/x9N931IVbn0guX2IQUewcwOAjaROh3s9vgrKzh+YA/vJrnCGW2wMlIHuSVgqrdAwESAjSvE4sVBkIHdIPOudtjkqd72krss7QIBsJPPADxlN3KglTf8CJrocLWNAsCCnU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=azSJLlBY; arc=none smtp.client-ip=91.218.175.110
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="BbXNN0L9"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789715830;
-	bh=2AbXGEropJ1FK9sttlez8I6vO8EmC62kKsePA/4GnuM=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=BbXNN0L9+ReoIIZG8T5PVdCa45F8pH0kcjh8u5Id8/OEPV5ozeS1blXQ+zRQDSZ93
-	 ZCjYfr6vSCdJM0LnUgEyBaSlIHoaCKH1GSzjD6hllYMgAw15jwtDFLqoTQC/Sakz0+
-	 1FELmU4CF2U4+wsEuFTwCEb/J4rLqByOD0uF9maI=
-X-QQ-mid: zesmtpsz7t1789715824t3852a7dc
-X-QQ-Originating-IP: EFvozvUxYboS5Cyg/5DIkor+h1w8leEM04n1VxFF5A0=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 15:17:01 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10064841184218593118
-EX-QQ-RecipientCnt: 21
-From: Wentao Guan <guanwentao@uniontech.com>
-To: gregkh@linuxfoundation.org
-Cc: achill@achill.org,
-	akpm@linux-foundation.org,
-	broonie@kernel.org,
-	conor@kernel.org,
-	f.fainelli@gmail.com,
-	hargar@microsoft.com,
-	jonathanh@nvidia.com,
-	linux-kernel@vger.kernel.org,
-	linux@roeck-us.net,
-	lkft-triage@lists.linaro.org,
-	patches@kernelci.org,
-	patches@lists.linux.dev,
-	pavel@nabladev.com,
-	rwarsow@gmx.de,
-	shuah@kernel.org,
-	sr@sladewatkins.com,
-	stable@vger.kernel.org,
-	sudipm.mukherjee@gmail.com,
-	torvalds@linux-foundation.org,
-	Wentao Guan <guanwentao@uniontech.com>
-Subject: Re: [PATCH 6.18 0000/1250] 6.18.53-rc1 review
-Date: Fri, 18 Sep 2026 15:16:57 +0800
-Message-Id: <20260918071656.60841-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-References: <20260917151539.408551884@linuxfoundation.org>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="azSJLlBY"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=dNme8uRIYN0dXbX3fo0hsH8S0MXXz3OARTVkTdVwCds=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789716173; v=1; x=1790320973;
+ b=azSJLlBY+Ud7Zbrksgh3OGEzgNVPYu6TeLzMhPkuGRywPEpjiJqKNu48dEQr1B6lprapAMIG
+ unhqKIj9quN5X52808jZjCSV2J77mDO3Dh7kHj5N6e8tWO479HKw1esg4G/92/7wqVg2Cjke/0Q
+ M1uQZZcm0x0yWe6VV3kzPnhU=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 067db40a20321829;
+	Fri, 18 Sep 2026 07:22:53 +0000
+X-Mizu-Trace-ID: 067db40a20321829
+X-Migadu-Flow: FLOW_OUT
+Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b83c1421ecso4634e87.1
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 00:22:49 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBwhN7pvxG1aKoKdDRu+LhNy0COrOXkbxHQTRE6nm0bOPPdqx6SARy6Idtjfz9GWC+sFllWpfz0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kuuJCd5VM2wDT6U4Lm3O5dT160R5h9bhy+jEr79ma2ZALmy+TA
+	FhrBV6Zj1JhY3FmEgwRx+ZzHRwdToiXiwq9xK/Nwyk7Qe5CDUVXy8mF8m75QfEWtX6doDdz8Prq
+	bieP8ZWh+20etYFM7NfpDyHWdrlIgzjhyO+KamccB
+X-Received: by 2002:a05:6512:2344:b0:5b1:ca0b:25d2 with SMTP id
+ 2adb3069b0e04-5b8c101ffcdmr104708e87.4.1789716168414; Fri, 18 Sep 2026
+ 00:22:48 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: NjZvhLDkUWIWkQMuETxr0jSIxI9F7jingtXSRCZr9u8NyAti4mgNghSq
-	BSCirneek1bHN3K1e0mF5qh+32ePNnvNrD3WVoGxx2A8g35igAQ8A6qLqIurZiGyHO/XHx0
-	NG5vkIjBwMaY/WqnG5IGHh3spQw/1NHtXKBm5DU6WzYl6KLnj7W3inFHULJl30I4oWJS/9Y
-	dfCCzBbuQuimoDk0iaRYeCvxbqS60DcGBCLq1X/y7nCSkYxQSbI1rA88TOQJtOZiiqqcQfK
-	1rFgaBZmFzaD5hkUIzpG1jRkLtzj8Vz64rvpYMUfn0wRhuQ79O3qsz4IpyPpTF9RK03MA5b
-	kS5sdRgKTAFCjVwwxKunUADkoLTjPkET5/MFQPY/BR3sSYWhFwHVwkcXlkR3hlJu/SRzg0c
-	WXZCCogrkcsuy+PdkENVWpkZ1ABbvc1zkmgcgHqehmqB0+FcEVpwVrjBV1Q4l7LYwtU7Rey
-	hVTX67SmQfbys/RHyGvbbu1TbfQS2j+lMq1DHbYJ0+EtrB9QY67j0gqOfqhWgt0nq5zbT/5
-	qOybGA8GCGX34CuKUMTzDzTABVJSWI6MfdAkH0T7aF5wv/BM+tCDzucqjwc28LV/KpcUZVJ
-	4Cy4dMp2rIKH5P/8UahGkQF8QNu+YYL7KKC43Sh8QOU3NzoJfGw7OlB/o5fwv9pI9+txNgL
-	W8Nig2Ks6/djPd0DcSAvxdKB21j042c9G7jooL1yvKfCjCJ4ExnQi71lti6Oe/5XbzLZZgY
-	pbe3/m1Hosd+ZqKnlkiEBw03GZSmICIvQW7MB8DdKBAOxqlel5xn5AQWoeet6GiGrPf0uJd
-	nuw+MaoLcfnZftblIXbWJ1PhjUuNowYp41nWeiHKYFMccpv5F4mOVLvh0D7+TT/kLVICY6u
-	7GkWIsAOfDXZ5ytVphJcovfDIzaq24sYIMFj0y/H1Cmy+Kky7Rk5Dj6Ikq/cYwyDl67CxQA
-	xlUxtsN1mETrEkHAVUmw/HsE+vPIoRMaBKPUGQ3i1dbydvZ5ZaYdOhi9Z2qpUB8DrKx8lkI
-	sJIBNOt/QZgMhi6C8bu4SA7lRwbUpB++FRZkYvS+nBzqHwitjS/zYOmCzB5Qt2wU/Xw25zV
-	bCwwBxG5nQqeXoW9Xr7q4mGmK3aCRMhdkylsI63f41IumlaHHVrkH82w9dZCB8Uy7RMgLtp
-	Hywq8STV93isXcEiRHZGYrObZy3TAh9fN1pm
-X-QQ-XMRINFO: NyFYKkN4Ny6FuXrnB5Ye7Aabb3ujjtK+gg==
-X-QQ-RECHKSPAM: 0
+References: <20260918040214.85580-1-ndaugoing@gmail.com> <20260918040214.85580-2-ndaugoing@gmail.com>
+In-Reply-To: <20260918040214.85580-2-ndaugoing@gmail.com>
+From: Fuad Tabba <fuad.tabba@linux.dev>
+Date: Fri, 18 Sep 2026 08:22:12 +0100
+X-Gmail-Original-Message-ID: <CA+EHjTx8zzvgqj99TKWfRD58X-M8v+hs9358_r_1zZonFNEsgw@mail.gmail.com>
+X-Gm-Features: AcwNN1VwD5DsYs2cjOJY92QTdxd3reBSIUtzU8JUmsF3mGfW8sf3G3EvUGgiBaw
+Message-ID: <CA+EHjTx8zzvgqj99TKWfRD58X-M8v+hs9358_r_1zZonFNEsgw@mail.gmail.com>
+Subject: Re: [PATCH v2] KVM: arm64: vgic: Do not remove in-flight LPIs from AP
+ list on disable
+To: zjamg <ndaugoing@gmail.com>
+Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, 
+	James Morse <james.morse@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
+	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
+	Will Deacon <will@kernel.org>, kvmarm@lists.linux.dev, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-Build tested in our x86,arm64,loongarch,riscv config successfully without error.
+Hi Yuchao,
 
-Tested-by: Wentao Guan <guanwentao@uniontech.com>
+On Fri, 18 Sep 2026 12:02:14 +0800, Yuchao Zhang <ndaugoing@gmail.com> wrote:
 
-Best Regards
-Wentao Guan
+[...]
 
-Log:
-Linux version 6.18.53-rc1-g644a9858f3fc (guanwentao@uos-PC) (aarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #2 SMP PREEMPT_DYNAMIC Fri Sep 18 05:42:43 CST 2026
-Linux version 6.18.53-rc1-g644a9858f3fc (guanwentao@uos-PC) (loongarch64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #3 SMP PREEMPT_DYNAMIC Fri Sep 18 06:00:26 CST 2026
-Linux version 6.18.53-rc1+ (guanwentao@uos-PC) (riscv64-linux-gnu-gcc-12 (Deepin 12.3.0-17deepin8) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #4 SMP PREEMPT Fri Sep 18 06:17:35 CST 2026
-Linux version 6.18.53-rc1-g644a9858f3fc (guanwentao@uos-PC) (gcc (Deepin 12.3.0-17deepin18) 12.3.0, GNU ld (GNU Binutils for Deepin) 2.41) #1 SMP PREEMPT_DYNAMIC Fri Sep 18 05:18:12 CST 2026
+> Note: this closes the primary race (the last_lr_irq node itself is no
+> longer unlinkable while in-flight), but the fold traversal can still
+> race with a remote flush unlinking a subsequent non-LR node in the
+> ap_list tail. Fully closing that window needs the fold side to take
+> references before dropping locks (in the spirit of the prune-side fix
+> in commit 7258770e5814 ("KVM: arm64: vgic: Handle race between
+> interrupt affinity change and LPI disabling")) and is left as a
+> follow-up.
 
+This is the same race Hyunwoo reported back in June [1]. You might
+want to have a look at that thread first: Oliver and Marc's view there
+was that the fix is to take the ap_list_lock in
+vgic_v3_fold_lr_state() [2][3], and Hyunwoo posted a draft of that
+[4].
 
+Cheers,
+/fuad
+
+[1] https://lore.kernel.org/r/aiHrGM1f8czcUby4@v4bel
+[2] https://lore.kernel.org/r/aiJi5a3JJ-TbWL-s@kernel.org
+[3] https://lore.kernel.org/r/87a4t99z9n.wl-maz@kernel.org
+[4] https://lore.kernel.org/r/aiXvwGD1hS6vwLEd@v4bel
