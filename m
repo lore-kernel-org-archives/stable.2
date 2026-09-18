@@ -1,121 +1,177 @@
-Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777804AAC4D;
-	Fri, 18 Sep 2026 15:42:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746174; cv=none; b=kl40MF6pp2Cling/3MZRqChCsdE4BZ+g1JQi4+HpuSbVNmJ3AwIWJFewCdWjBBxlD1Ts4EIDcMPKzSEXnB2ctnk1BfEiAZyTb7RUdt7n7OdwsJ6SIaQwctgYYaRnP4wfY/q24F4eO6Jygl4hoDbHWaEIYTsjH4kygZOtnN0UFI4=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746174; c=relaxed/simple;
-	bh=X4Nal4dVzruiKWaSEYsGNCg4TNbqPVOO4N2xKunInrM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Eg/JCL902vVLZ/HtdEonoo7Y3O2UlQbZ7qv0rwE5oRP+tExTEVjTeOOa6NdSO8dqzuO7WzC7q3GboKVgj4VKb8p8ezjnN4qe85LiQ9z5M9ET3I4OvJiXzy1MqEXw7mi9F6TnFnI+T6/uEYDok9tu/sGgnM4L0xEeoJvmoX5ZcWE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=nG4OWRHL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fhytSGHf; arc=none smtp.client-ip=202.12.124.147
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 933E0509EE3
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 15:45:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789746307; cv=pass; b=jGw6mI9I3BEY2jj2416f1t1lHlK0CIy2qbPHqmRQFwhRYmF2TZUS4ORt+sj5ThWsZUvZRl3+wuwhKKsVwJZ10mppZZuSRlQ7+Bl3jTvL3dzA3TYMP9XgWOk0x+e06a2gqROK2fotzpQS7t0qvIa/trwJmJlb8L43VO56UYTc6iM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789746307; c=relaxed/simple;
+	bh=0/1+4lJRG/Hkv6PdUL67hZJoHTNmoGhPPghynZYaz+U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=WtWIWK9xGvOcU2kbFrTXSgOomD3DGN9ndUlpqD7i3UoAMJhDYHJQoZYxxLnAwunBQsqW19QgVQaFGuGgXrFdFGA0uuqFqXAuufz0klDa+v9rMuIHWrfHev42OMSAsLzQhyxws3BIWn5AMMU+sW2llpKqzhZOOnDV3AVIu8RbbaM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rN9c9dUC; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="nG4OWRHL";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fhytSGHf"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 5BF981D00060;
-	Fri, 18 Sep 2026 11:42:51 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-02.internal (MEProxy); Fri, 18 Sep 2026 11:42:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789746171;
-	 x=1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=
-	nG4OWRHLqJg24+nBVbPIJOFmuotLG5k5pCoJp6zlpn/YwSWpfM3vBFKv7DqiG6EL
-	NcT560VsCSKSIXPGpVA9m8RXE7Humzx5+s8K/0uHQAjFT1MWQx1XMPFXpQ5XG1RI
-	3Vw8u5/g2f7DJPLX/SzK4hACQiag/6S2mm4I5a+CyttZztDltR9L+Dg2k+5kHqZw
-	SypTqoHcFHrDr/pn2m+x8WYlMwFRLNp4xFXuPb04+tkBUPbgr29dEwSyi2/IX1kF
-	wlQDUAwRTJDzw7R5on0qaw+2pwtjgZph3g/qbfa9IvSMCqJJY4DDxsaZ1JdeA9CO
-	ZiXqBZWg0Lykkjm/EIrkwg==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789746171; x=
-	1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=f
-	hytSGHfzWMLX/IPCErKoTfQmVc2Z3hFsXPnBwi7p7kkjTwzfO9q7FowppzHzxe9G
-	ih14sYnbvXBuNVvR5uN/q45r74CEy/SG3i7cgAbaKcJlX5GATmP513RrGqJX7Ozf
-	oQapokY/Oys10B8QL+ooKEbPrqHyFxfch8DAsW/Mxaa+orKjbxgcI6LHuO41jqbG
-	eGy78+Sa8psM6m6TWqJ4L7vYrXZDslCp5Il3tp8RuvyQXjeaR0YMXsLt+sYCI+dx
-	L54NZHH5DIfGy3BlR8x1aMlW3U4U9UJOhwl9OA2N8bkhhkzVwEFkzlklFW6SzSHm
-	/IihcXzcN4gabA4wdXFvQ==
-X-ME-Sender: <xms:-lutatxoiA2kcTBCkET4C99jhbOQZndqoaTNBGuXC5rRJK_tE518TQ>
-    <xme:-lutapKcHaBwFOymtKtAfWfWcpFKB6lLJ5_yCrTDBKAKwi2ubjeFNmAPEQEQoUP7b
-    1Kzbwyy4j0Bbj8bqoExgjYM_LdfTug6R55QYFOVmqLWi_B8X98YxQ>
-X-ME-Received: <xmr:-lutai298sLvhXQtBz3rNxrXoo0M_dww0CzBqZHhGXHN30VI8ZtskuGGmAcuGeTOQSj_IZNiLnnrI8g5pS7tbWqKiLX-7ASe>
-X-ME-Proxy-Cause: dmFkZTFi1A0oYdbKDak8eiKur6KTMrjOFJhUId6lGXsSvv1WVZlngbMKYROlWdB9kCWkCQ
-    94gk0YY+zhCtrYaPvWhtsqFiIUF94MHT/87NGOrqR3HZq5rWoDIn0YaMeZO86FCre/B94I
-    CMFLnNJVdfd8o9/jmIytsAeYSxegKXwCmBiBdjKUq97jD2c9DbRuZe+n1i42D/bS8e/0Op
-    tkAGzZ2P+ntwLFKlXWNXUbVRyxc8qpGfaDJg7y46XgQOyOGq3fOtBOTFMzi2OqKoE9ahDl
-    yJ6ooxD4Q75YjKHqxWY5IeSA7FzGsV8RYQgQBpzrtxPty/hsAj+u90d/A6oqDjtc36aJpO
-    peWHnfWALMsBV4o7CmwvJzfdBsy4m2+ouvAKyPHv57rmhWi3GUBzZZ2zBhCB4mwjwnNkeZ
-    c436l/IZ4nzN5xT718H0vjov6+3C6yrONmlBPN5WZeDQ1+USjYAEDy+UgTnWrJyWEFs3KB
-    LXdR3hynUfFuALqA4KafN3EDSf0r8mt+UXYjlTJxGqw1BaJUJKC2dnONbewQevjzagbh0p
-    1ces62+P0o0SjnSAYVmLC8iuiMxBakh3wVNDOzCALgPsAqrvYUETgfOhpyAdneCsU/xRUC
-    U+137LyqUXCWyPY0WyI2xm0uR5ra5dO38+bHhzFClTADqmE/TBdBBU8gJU0A
-X-ME-Proxy: <xmx:-lutajfkP9YVa0P6yErEFSccpHuFjdqIThqt-P1-_P9HxNp_BQTPbg>
-    <xmx:-lutam5OXTBRo9m1zvYOVY5CxgYh2VvV6nBO9m4n9LSUNocK7pU6uw>
-    <xmx:-lutam_P9N25CIt6H_MnfgHIk4H47JxA8yI2PD8DBzfoCLymj8sCxg>
-    <xmx:-lutatItuPnOKiWaav5jkikZTPxCbGQRuBCeCHjmGyxgbfY6S-u4vg>
-    <xmx:-1utaikzqus5RhH0lKUPWksN73Jrn-_5Hg-rD33moTDJTiZaufSsgHty>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Sep 2026 11:42:47 -0400 (EDT)
-Message-ID: <a6b16511-b93a-42ca-99e9-084121793bf5@pobox.com>
-Date: Fri, 18 Sep 2026 08:42:46 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rN9c9dUC"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b74d0133e0so881059e87.2
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 08:45:04 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789746302; cv=none;
+        d=google.com; s=arc-20260327;
+        b=kiqlkoChTSFfpMUvwG81KsxHv3GptfwTp3uoM5wlGJJ4qWzwh4saWH+5Z3qQcZxsBc
+         lgFFx38RXlNX4tY9HBmzV1PWB2y4RoMzI8NJz59S5VvZjHfJzqfuGhctHioWbVfyCUp4
+         bY0Aq1mDRl7ddn2ZYN3otsYYPkVRKMnAsI3yBe9HAMe2/TNeuNC4jUxpjJ+LwSI1iBa/
+         q+CWUgmX/hj+UL8Eal3Ck3bz5nUOV1YvQTr2YWA/gY41tnG49/vG+4fmTTYG2+14je3K
+         CSjKe8wpuob1eDer2Ts+o6+SD3FaogTO31zCGFxkOx3pXlxSph373oPO3QqXLvXM/vss
+         kYhg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=M849De+JfrPs8EHvjdLAqoSNF4UdGYALe/nW+DKp+kQ=;
+        fh=Uu9e3B5nEl74f2JWfyRjCh2aZz2KRRLoJ+JkPMEk0kQ=;
+        b=CMxQ70V7YOKoS8S8xJVal7UDzADAQunMF2pwkeC2QQeSdCeJT935NnBvusORJDJPJx
+         wQjoacY0gFECxtyK9HIT/fCnh3Te8nPpvNs5fgSDmEvF9MFQST/kq8tYLkf4I5H2nxpq
+         LwpP4C8lef5WLADfE0bgAFDWAFOAaPsa7pLc4LAtMPBKYriuhazOG6HsfeBbn+MRzZoa
+         SnEMLF3qFHO7xswnUyywPKyplUy+5Ffxx4l/rDZ9T8ZkPOh8ZKM+tTO0xEg4f7q3mV7V
+         XXwr/51k80xAL2gkGVouvXspvtUjZMEJ+l6NgLZSDAunsUxhhhM02XBQCmrYzjsu2yj+
+         Deiw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789746302; x=1790351102; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=M849De+JfrPs8EHvjdLAqoSNF4UdGYALe/nW+DKp+kQ=;
+        b=rN9c9dUCTI9ToiFMxQfilOfTl96zquqW8mheYkG2SBFD7lbxkBzwUiyptMGlJYr5U3
+         hOTpxqHWkGu6GVbkCibvwak9iwAWO7gq6B7kWV5NIl5FVGwiQ6jPwuD34zlL81DITyNb
+         kQ/vY4zhzgWfVi0feesRv6Sfx2QSN/rbf/HSRL38PUPVzdkF0LaR+3GCj+g2ksycVDJ2
+         lKfghT/rrlEccuToZDjTkliZDRSObjT/JjS+9axFdJlmuKTilw4RshGlfahJBykIHZZQ
+         fjQ9DLzW2yzyoqPGhBThGf5n0rgst44yI2JbymtBEiG9Xk4biJCMXtOw5+UF/Hqbpi29
+         c8jQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789746302; x=1790351102;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=M849De+JfrPs8EHvjdLAqoSNF4UdGYALe/nW+DKp+kQ=;
+        b=VXEG9JGeSqArJ/knZE3EN4ohSaIYG5stEHkWE79i9IBCJzk5BP/r3R4UjMI0lkz3T4
+         n8GzcnMHsQFzGwxqLgHwFa02XecryqtsT5J/fmV3OWwbkWmg2wEVYesTr2zATd3diLr2
+         lGGTB1M75gLhF2c2KwarEvHCcz90sRj7BM8xZEY9roF7emldFTWBfXTzRhV02A7nlg8A
+         xKuBCRMuEW/RStU43oLkO7Sr6P35R4BxZBmE32h9chC3BVUW6G+xBiCCloDZXLaGGRHB
+         SGAqPBhc985Zj8fySbgcijvcdZH3WN5UxN36M+2aHWub0dAgC5CuVW1OkACBxIIpb//q
+         qlEQ==
+X-Forwarded-Encrypted: i=1; AKwUvByLIfo8jJSC99sDM+fduLHOnwiCa5Dpt5JtsSgN6ZpAERFjV1yv2TguqwE1tz/Bb4RbTF/DsLc=@vger.kernel.org
+X-Gm-Message-State: AFuF++lIBy/33nzZTXhWXzDnHPyQggNO8N9Ma7pPoXgfhRxgHxXCuntm
+	8klEkgXGNb3KLHZAusL9d+ozPvLXHQJvhAOL48mRSQGLnP+CeHTLr1unijsyg19MeKVGWKU56hY
+	89vOcGHr8+9T0g0Ow1jDYPhVA0H0hQXoHZUNOIzI=
+X-Gm-Gg: AYBFou11SdI+QDDoWIPQo55RRLSxzkpfC97rbm2yEnTp+CfjFnYG2+Vp0DFnKmmhcyl
+	ViBQxHt34OxhhFf5m6X4z3UIPIhSTKsNvcfWfRbizVayUPS1ToIegqT+bgBdJCr3Jn1F5BLxybX
+	0CFax+75z2KFdU/sk1jVAckCVardJyrZhdOZbIOtBlR/Bjm8H1ISQRbBzffhXBq2UIfjRWpmfNq
+	SI13HwpLHEA3Wmx9CUr/hYZU3lCXKLun+RbcL9zNezjLPTKa56LvrMd+A6da/xWeXJjMFUsSifG
+	JyHwSlM7coHyeY+XyfnwsvPjm+1PjTRti2F8mgGOX6F5AQOcThlQGOWz
+X-Received: by 2002:a05:6512:3da8:b0:5b6:1a80:865b with SMTP id
+ 2adb3069b0e04-5b8c198d00cmr959162e87.66.1789746302161; Fri, 18 Sep 2026
+ 08:45:02 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151350.597953846@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+References: <20260915111351.2726334-1-qwe.aldo@gmail.com>
+In-Reply-To: <20260915111351.2726334-1-qwe.aldo@gmail.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Sat, 19 Sep 2026 00:44:45 +0900
+X-Gm-Features: AcwNN1X8ej3rRCLkfczv2RVOrS0_dkKqsBj2-sWdfA8x3U0GxRBrhWL40nsH-Ls
+Message-ID: <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
+Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
+To: Viacheslav Dubeyko <slava@dubeyko.com>
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On 9/17/26 8:05 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.7 release.
-> There are 733 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Tue, Sep 15, 2026 at 8:14=E2=80=AFPM Aldo Ariel Panzardo wrote:
+>
+> nilfs_scan_dsync_log() trusts the block counts in each on-disk file
+> information entry. If fi_ndatablk is greater than fi_nblocks, the data
+> block loop can consume excessive summary entries and the later subtractio=
+n
+> used to derive the number of node blocks underflows.
+>
+> Reject inconsistent file information entries before consuming their block
+> information.
+>
+> Fixes: 0f3e1c7f23f8 ("nilfs2: recovery functions")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+>  fs/nilfs2/recovery.c | 5 +++++
+>  1 file changed, 5 insertions(+)
+>
+> diff --git a/fs/nilfs2/recovery.c b/fs/nilfs2/recovery.c
+> index 4d5a6aa521..6e4e0cf4cc 100644
+> --- a/fs/nilfs2/recovery.c
+> +++ b/fs/nilfs2/recovery.c
+> @@ -322,6 +322,7 @@ static void nilfs_skip_summary_info(struct the_nilfs =
+*nilfs,
+>   *
+>   * Return: 0 on success, or one of the following negative error codes on
+>   * failure:
+> + * * %-EINVAL  - Invalid block counts in a file information entry.
+>   * * %-EIO     - I/O error.
+>   * * %-ENOMEM  - Insufficient memory available.
+>   */
+> @@ -359,6 +360,10 @@ static int nilfs_scan_dsync_log(struct the_nilfs *ni=
+lfs, sector_t start_blocknr,
+>                 ino =3D le64_to_cpu(finfo->fi_ino);
+>                 nblocks =3D le32_to_cpu(finfo->fi_nblocks);
+>                 ndatablk =3D le32_to_cpu(finfo->fi_ndatablk);
+> +               if (ndatablk > nblocks) {
+> +                       err =3D -EINVAL;
+> +                       goto out;
+> +               }
+>                 nnodeblk =3D nblocks - ndatablk;
+>
+>                 while (ndatablk-- > 0) {
+> --
+> 2.43.0
 
-Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
-no regressions observed.
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
+Hi Viacheslav,
 
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Please apply this v1 patch instead of the v2 patch.
+
+This function is called as part of mount operations.  When format
+errors are detected during superblock reading or log scanning at mount
+time, returning -EINVAL rather than -EIO is in line with the mount
+system call behavior, so the v1 implementation is the correct one.
+
+Also, please replace the 'Cc: stable' tag with the following tag, as
+with the previous patch:
+
+Cc: stable+noautosel@kernel.org # Non-fatal bug fix; defer backport
+until a real issue is reported
+
+I actually ran a test where a pseudo underflow of the nnodeblk
+variable occurred, but no issues that compromise system stability
+happened.
+
+Even if nnodeblk becomes a large value, long-duration block device
+scanning does not occur; it simply skips the position and abandons
+roll-forward recovery midway.  Since the mount normally succeeds, if
+anything, this silent failure is the issue.
+
+However, this is based on the assumption that the file system image
+was intentionally tampered with (anything goes) with root privileges,
+including log checksums.  Therefore, as long as it does not break the
+system, I do not believe it meets the stable kernel rules for
+backporting.
+
+Thanks,
+Ryusuke Konishi
