@@ -1,212 +1,111 @@
-Received: from mta0.migadu.com (out-208.mta0.migadu.com [91.218.175.208])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 853BD395AFE
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 01:38:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.208
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC3C397942;
+	Fri, 18 Sep 2026 01:43:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789695505; cv=none; b=ltaNNpErqmkYn82gHsF8+W9WSL/0+73HyYM4eYOKvcPQU63V/l6F6ArXFRYMn2THomJ+JBIkGpGuxXIPtLNwmmbdEJvwKpKsJYZTvnACoOUAVnxjdmxUaX2T5OciM7955oDEg0lv2m8QGqLObLw9c5wod4rRqc0yk5Kl5XD03dc=
+	t=1789695791; cv=none; b=P13dRin0ZY5uGxkPc3eslQOtUxbRFBhgIGQlSOWSIWxZ4ZsZ+OEOvVrIHtxCoVl4xlRoh8EUt7QOD7PXIXSzrxl9wt/Hj7rvwJdDKfMK76dX6ificANn8NAvaXHhhpyoemOUqQm+NSOPbd9REBB8LJ2yYxXo24+mMt5CWp/idsE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789695505; c=relaxed/simple;
-	bh=nhaB4QCyvY2vj/8aUqYIKXSALA608i9qAGxN94zUC5o=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=dmFf8b1tViZTubXXCl3e1ozIDzqL2GmL7dl2omC2IV/D6CYPnDLTfe1q7RxWDPXwnOA+b8t1bJosMQim/Agrc3KdMCnXESRyL9ZK7pgprmzolis/lJGp+0RCfOOPJl9I1Gvw9FDJ8xoNUXGcHjyeCwjdd4i2PTw72euasKd+lkE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=HAvJJQz0; arc=none smtp.client-ip=91.218.175.208
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789695791; c=relaxed/simple;
+	bh=0QrKtCdUouZWwbmAn+XLAoZlUwCYU5IPuvFhlx5OqlQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=tWNwQAHT5SGv4mN1XN38XqaPjn097ynrCutaormOjZEzd4eB44yDf6Zgi+I1Ia7OXCWg9zi31De3TPyAYwzvNn6DVkCll1GawLhS3sdx5WSqtENwVLvM7D/VXxCWqeoOnNistY6Cv328OYZJ0wdavYXNlaotz9tuTTl5z26dkx0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6RqC20m; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="HAvJJQz0"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=nhaB4QCyvY2vj/8aUqYIKXSALA608i9qAGxN94zUC5o=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789695500; v=1; x=1790300300;
- b=HAvJJQz0TIzLUIFAdl3YNUx8wR5LfXsxyzZEgqmASqxWFXXgizDSQfifrtIrPdNXMJ1PYVQt
- jTrjTQqLJZDPgoVDGZzAtVGKUI0luDbEqDIVBhf0SZKlkDzkWoKMPXvaWY0kp/CZdpffFB4BuSQ
- licyAOnlz1qtWlDCslxcgpyk=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 9f10f04cf85e3f6a;
-	Fri, 18 Sep 2026 01:38:20 +0000
-X-Mizu-Trace-ID: 9f10f04cf85e3f6a
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <d7327cdd-43df-46f8-92d4-c25dda7ae684@linux.dev>
-Date: Fri, 18 Sep 2026 09:39:12 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6RqC20m"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6482C1F000FF;
+	Fri, 18 Sep 2026 01:43:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789695790;
+	bh=dofvagGQeEInWWYgb/YqczbGV/3rzAsbrfnScLnrygI=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=g6RqC20mPLaL28EGOKbp9Ip2RABYku3mIEnhl+ZPhJF/qdj8+/dpOg5Ucn5f7GWTG
+	 87h3J3zbkd/hlmREgtuDMVDOH3DLZyg395lRQGSzF4MFfgx9MXCQUajIoOLFVJO2Ry
+	 sVVz3fRhE0xeg592LjbmIWY23uhIbW2wn2CHqw/QJ/lomPbE26QMMY5KoLCg0PpVgj
+	 yqn7yUuoC2rrNZDjMBiD5+3zjaccWkd5zooL/WPdR5VqOX0PG2p7XAwysBMXuppbWf
+	 cgQ8cbRz3J25E3sOEg7XFDbRAxjDR2GJNHGai3Eyr+0ny+mtHdjY4PnBc+fa/oeWXv
+	 GR9KCiPJ/DvFw==
+Date: Fri, 18 Sep 2026 04:43:06 +0300
+From: Jarkko Sakkinen <jarkko@kernel.org>
+To: Stefano Garzarella <sgarzare@redhat.com>
+Cc: linux-integrity@vger.kernel.org, stable@vger.kernel.org,
+	co+6a581c4284f721d4@bugs.sh,
+	James Bottomley <James.Bottomley@hansenpartnership.com>,
+	Mimi Zohar <zohar@linux.ibm.com>,
+	David Howells <dhowells@redhat.com>,
+	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Jonathan McDowell <noodles@meta.com>,
+	Ross Philipson <ross.philipson@gmail.com>,
+	Stefan Berger <stefanb@linux.ibm.com>,
+	Srish Srinivasan <ssrish@linux.ibm.com>, keyrings@vger.kernel.org,
+	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] KEYS: trusted: Fix tpm2_load_cmd() boundary check
+Message-ID: <aqyXKrC4hhFP1mEd@kernel.org>
+References: <20260901205809.2028454-1-jarkko@kernel.org>
+ <apfoKo-BdwaLXtkT@sgarzare-redhat>
+ <aqHIwoKcEWeI_yjs@kernel.org>
+ <aqJhkjPdib-MQTCT@sgarzare-redhat>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v10 6/6] alloc_tag: Defer /proc/allocinfo removal to a
- workqueue
-To: Suren Baghdasaryan <surenb@google.com>
-Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
- Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
- Aaron Tomlin <atomlin@atomlin.com>,
- Kent Overstreet <kent.overstreet@linux.dev>,
- Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
- linux-mm@kvack.org, linux-kernel@vger.kernel.org,
- Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
-References: <20260915070001.113559-1-hao.ge@linux.dev>
- <20260915070001.113559-7-hao.ge@linux.dev>
- <CAJuCfpGMQqjHsAvW=XUA1Q3AyaVJKM2bKYVja_fgn0wa1tk7DA@mail.gmail.com>
-Content-Language: en-US
-From: Hao Ge <hao.ge@linux.dev>
-In-Reply-To: <CAJuCfpGMQqjHsAvW=XUA1Q3AyaVJKM2bKYVja_fgn0wa1tk7DA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <aqJhkjPdib-MQTCT@sgarzare-redhat>
 
-Hi Suren
-
-
-On 2026/9/18 09:09, Suren Baghdasaryan wrote:
-> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
->>
->> shutdown_mem_profiling() calls remove_proc_entry() from
->> reserve_module_tags(), which runs under mod_lock held for write.
->> remove_proc_entry() waits for readers, and a reader takes mod_lock for
->> read in allocinfo_start():
->>
->>   CPU0 (insmod)                      CPU1 (read /proc/allocinfo)
->>   ----------------                   ----------------------------
->>   reserve_module_tags()
->>     down_write(&mod_lock)  [held]
->>                                      use_pde()            [in_use++]
->>                                      allocinfo_start()
->>                                        down_read(&mod_lock)  <- blocks
->>     shutdown_mem_profiling()
->>       remove_proc_entry()
->>         wait for in_use == 0         <- blocks
->>
->> Move remove_proc_entry() to a workqueue.
->>
->> The file creation is moved to the end of alloc_tag_init() as well.
->> If alloc_tag_init() fails with alloc_tag_cttype still NULL or an
->> error pointer, a concurrent reader of the leftover file would
->> dereference it in allocinfo_start() and panic.
->>
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Hao Ge <hao.ge@linux.dev>
->> ---
->>  mm/alloc_tag.c | 26 +++++++++++++++++---------
->>  1 file changed, 17 insertions(+), 9 deletions(-)
->>
->> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
->> index 1ca0409b492b..cfa0fc84b68f 100644
->> --- a/mm/alloc_tag.c
->> +++ b/mm/alloc_tag.c
->> @@ -15,6 +15,7 @@
->>  #include <linux/seq_file.h>
->>  #include <linux/string_choices.h>
->>  #include <linux/vmalloc.h>
->> +#include <linux/workqueue.h>
->>  #include <linux/kmemleak.h>
->>  #include <uapi/linux/alloc_tag.h>
->>
->> @@ -591,6 +592,13 @@ void pgalloc_tag_swap(struct folio *new, struct folio *old)
->>         put_page_tag_ref(handle_new);
->>  }
->>
->> +static void remove_allocinfo_file(struct work_struct *work)
->> +{
->> +       remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
->> +}
->> +
->> +static DECLARE_WORK(remove_allocinfo_work, remove_allocinfo_file);
->> +
->>  static void shutdown_mem_profiling(bool remove_file)
->>  {
->>         if (mem_alloc_profiling_enabled())
->> @@ -600,7 +608,7 @@ static void shutdown_mem_profiling(bool remove_file)
->>                 return;
->>
->>         if (remove_file)
->> -               remove_proc_entry(ALLOCINFO_FILE_NAME, NULL);
->> +               schedule_work(&remove_allocinfo_work);
->>         mem_profiling_support = false;
->>  }
->>
->> @@ -1358,16 +1366,10 @@ static int __init alloc_tag_init(void)
->>                 return 0;
->>         }
->>
->> -       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
->> -               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
->> -               shutdown_mem_profiling(false);
->> -               return -ENOMEM;
->> -       }
->> -
->>         res = alloc_mod_tags_mem();
->>         if (res) {
->>                 pr_err("Failed to reserve address space for module tags, errno = %d\n", res);
->> -               shutdown_mem_profiling(true);
->> +               shutdown_mem_profiling(false);
->>                 return res;
->>         }
->>
->> @@ -1375,10 +1377,16 @@ static int __init alloc_tag_init(void)
->>         if (IS_ERR(alloc_tag_cttype)) {
->>                 pr_err("Allocation tags registration failed, errno = %pe\n", alloc_tag_cttype);
->>                 free_mod_tags_mem();
->> -               shutdown_mem_profiling(true);
->> +               shutdown_mem_profiling(false);
->>                 return PTR_ERR(alloc_tag_cttype);
->>         }
->>
->> +       if (!proc_create(ALLOCINFO_FILE_NAME, 0400, NULL, &allocinfo_proc_ops)) {
->> +               pr_err("Failed to create %s file\n", ALLOCINFO_FILE_NAME);
->> +               shutdown_mem_profiling(false);
+On Thu, Sep 10, 2026 at 09:52:38AM +0200, Stefano Garzarella wrote:
+> On Wed, Sep 09, 2026 at 11:59:46PM +0300, Jarkko Sakkinen wrote:
+> > On Wed, Sep 02, 2026 at 11:24:16AM +0200, Stefano Garzarella wrote:
+> > > On Tue, Sep 01, 2026 at 11:58:06PM +0300, Jarkko Sakkinen wrote:
+> > > > tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
+> > > > payload->blob_len. Address this by passing the decoded blob size to
+> > > > tpm2_load_cmd(), and use it for the boundary checks.
+> > > >
+> > > > Cc: stable@vger.kernel.org # v5.13+
+> > > > Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
+> > > > Reported-by: co+6a581c4284f721d4@bugs.sh
+> > > > Closes: https://bugs.sh/b/6a581c4284f721d4/
+> > > > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
+> > > > ---
+> > > > security/keys/trusted-keys/trusted_tpm2.c | 12 +++++++-----
+> > > > 1 file changed, 7 insertions(+), 5 deletions(-)
+> > > >
+> > > > diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
+> > > > index 67225dd562a9..01f18bb37047 100644
+> > > > --- a/security/keys/trusted-keys/trusted_tpm2.c
+> > > > +++ b/security/keys/trusted-keys/trusted_tpm2.c
+> > > > @@ -99,7 +99,7 @@ struct tpm2_key_context {
+> > > >
+> > > > static int tpm2_key_decode(struct trusted_key_payload *payload,
+> > > > 			   struct trusted_key_options *options,
+> > > > -			   u8 **buf)
+> > > > +			   u8 **buf, unsigned int *blob_len)
+> > > > {
+> > > > 	int ret;
+> > > > 	struct tpm2_key_context ctx;
+> > > > @@ -120,6 +120,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
+> > > 
+> > > 	blob = kmalloc(ctx.priv_len + ctx.pub_len + 4, GFP_KERNEL);
+> > > 
+> > > Pre-existing, but is `+ 4` here useless?
+> > 
+> > I checked this through in detail.
+> > 
+> > It should not be like that given that callbacks tpm2_key_{pub,priv}
+> > provide the length of TPM2B_PUBLIC and TPM2B_PRIVATE.
+> > 
+> > Thus, it is a bug introduced by f2219745250f ("security: keys: trusted:
+> > use ASN.1 TPM2 key format for the blobs")
 > 
-> You need free_mod_tags_mem() here.
->
+> Yep, agree. Do you want me to send a fix?
 
-Right. Another problem is exposed here: moving proc_create() to the end
-implies successful return from codetag_register_type(),
-so alloc_tag is already added into codetag_types.
-That looks a bit odd to me. Because all places inside codetag that access this
-linked list will access this incompletely‑initialized codetag_type.
-There is currently no matching unregister interface to tear it down.
-So I drafted one previously:
-void codetag_unregister_type(struct codetag_type *cttype)                                                                                                                                                                                                                      
-{                                                                                                                                                                                                                                                                              
-	struct codetag_module *cmod;                                                                                                                                                                                                                                                 
-	unsigned long id, tmp;                                                                                                                                                                                                                                                       
-                                                                                                                                                                                                                                                                             
-	mutex_lock(&codetag_lock);                                                                                                                                                                                                                                                   
-	list_del(&cttype->link);                                                                                                                                                                                                                                                     
-	mutex_unlock(&codetag_lock);                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                              
-	codetag_lock_module_list(cttype);                                                                                                                                                                                                                                               
-	idr_for_each_entry_ul(&cttype->mod_idr, cmod, tmp, id)                                                                                                                                                                                                                       
-		kfree(cmod);                                                                                                                                                                                                                                                               
-	idr_destroy(&cttype->mod_idr);                                                                                                                                                                                                                                               
-	codetag_unlock_module_list(cttype);                                                                                                                                                                                                                                                 
-                                                                                                                                                                                                                                                                             
-	kfree(cttype);                                                                                                                                                                                                                                                               
-}
+Sure, go ahead.
 
-But looking back, do we really need to do this? I'm not so sure.
-I previously thought the issue reported by Sashiko was a false positive,
-and I laid out my thoughts back then:
-https://lore.kernel.org/all/afa606df-3d5b-47c2-9972-f3e0c2e13c12@linux.dev/
-and I thought the change would be straightforward, and defensive programming
-felt acceptable to me, but it turns out to be a little more complex than I expected.
+> Thanks,
+> Stefano
 
-Suren, could you help me analyze this? Thank you very much for your valuable feedback
-
-Thanks
-Best Regards
-Hao
-
->> +               return -ENOMEM;
->> +       }
->> +
->>         return 0;
->>  }
->>  module_init(alloc_tag_init);
->> --
->> 2.25.1
->>
+BR, Jarkko
