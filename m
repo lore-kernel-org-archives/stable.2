@@ -1,52 +1,29 @@
-Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.6])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F25846A
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 08:42:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DFAAB632;
+	Fri, 18 Sep 2026 08:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.6
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720929; cv=none; b=EyxMmTpyW67rSEzA+JJMIMQyxlkvqKC2U/ggSis5fb/oED4f+7nq+tNKETJ+Xm+6afNAXkINVwCwoVsjgEEjj9GIYnUuzi6HTZQYiCmh+JircTIaQjDTfBMw22VuzIgObtUJvIvewfL4Hs0Q6E1AqmZY1O4ixXeqkGUuiUu29AY=
+	t=1789720964; cv=none; b=IVMbY1N9dzmkU1K3JMHpmNlfJBkTKCwFxHlDgAtU4lLDEpGlOrbudao8cyBxXy4zm0J2FCvLtCNt7twc/j4zpLc98/HzEBPQGjsZ+nS0fvjQLG9F7D6sEm9EFLRju7nGJF9VRAqYRY9oh7V0NX3sbm0BI1EW3KtlE0Bb0Uk57U4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720929; c=relaxed/simple;
-	bh=GE01ZJk1Dnk5jP3hnMdHMT3hWSSM0IaDfbBRWneCa4s=;
+	s=arc-20240116; t=1789720964; c=relaxed/simple;
+	bh=PzldztNMS5Cjgu3kblAv99hJJzzoSjGJ8ayBAiYY3I8=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=QMFQZ07rWct5AwkkGKkXvNBaRZ2TWflm/vOFDMZ8w9WWMD0kEDacoQx8H6ayzzl8MUcJu26+Oq6O053l5RROBosP7f2vJmpyngp0i8qNYmYT1SioTjGN+I9uA0NxlvWoQGVooinVFZUgB5H2fcVPncDYxpUUEzFGK4SARN9V9d8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=JGUETni/; arc=none smtp.client-ip=44.202.169.37
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
+	 In-Reply-To:Content-Type; b=sm2ud4BIFPOdBENbwPd+ana+rqAYymL535Wwp87nx46a0bE84P6QwbIi3TzKxLYZZgqlMI2xISh1UL616EjJzKavlNGav3Y82t0qb1qmt0YDYWVZ54rXiT4yHmC+86KdrnrcLXVAAvibtLSYckFFUmtPMQvsAb9/+onhD++RcfU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=WJXSZjZQ; arc=none smtp.client-ip=220.197.31.6
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="JGUETni/"
-Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
-	by cmsmtp with ESMTPS
-	id 7NifxkjW3JFmF7U8yxBMKe; Fri, 18 Sep 2026 08:40:28 +0000
-Received: from box5620.bluehost.com ([162.241.219.59])
-	by cmsmtp with ESMTPS
-	id 7U8yxEWiaZOPw7U8yxuOe4; Fri, 18 Sep 2026 08:40:28 +0000
-X-Authority-Analysis: v=2.4 cv=H8Xbw/Yi c=1 sm=1 tr=0 ts=6aacf8fc
- a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
- a=HaFmDPmJAAAA:8 a=qhrrstFoYj4ExQeanoMA:9 a=QEXdDO2ut3YA:10
- a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
-	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
-	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
-	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
-	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
-	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
-	bh=MjnUq/dY/fWPJe3QMgR+iwGz28UusEz4Z6VVJBzj2jI=; b=JGUETni/P4Wn27DeM/P4APGYSU
-	jWVbOTTzbhJeduk3s1TAW4GPoQ7MSzGs9Bemrr4XHFnaHcSm/yGIxLY3ifO3+AR81Bkq+PG7z+mBt
-	j5SFDmGWIRC3+R/Lv4SHUe0dhA923rHgSez7hIRXnPsV8ZobBSeGUyin860DbD6TrQoMWlxlHzDJs
-	18RMriKCDpHLUOPI2bsWjZd/vJ7ONtfTqJM6GFyKcfPMEjXhxG2QLO8yO1xQ3S9JSeBIZofGLdl2L
-	puM+UjVL9BoQ6RVjf69S3sCUCjqmzOKlcHKXNlAQK0imqYauEZWIZL/rCUKYxZlgH0N97ZV2ZeznL
-	dMEK2m8Q==;
-Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33456 helo=[10.0.1.180])
-	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
-	(Exim 4.100)
-	(envelope-from <re@w6rz.net>)
-	id 1x7U8x-00000002hF0-237G;
-	Fri, 18 Sep 2026 02:40:27 -0600
-Message-ID: <86ef5c9f-effd-43a1-8f6f-c6118b5e8c82@w6rz.net>
-Date: Fri, 18 Sep 2026 01:40:25 -0700
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="WJXSZjZQ"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=7+g8+UxJXbBTwX2N40/dzce93+bWOJpHxoj4kNEwGWQ=;
+	b=WJXSZjZQzxzO2WgIdscOrxkCYknvi3aF6qRYuiZt4MsL+/VuWUnKEWD/O5Q7z5
+	mUuj6ATRg+1lk/hBMV5EuKHBa11aQQuBwpd2i+slidDkf/Wmzu5oL5Visd85IEaO
+	e4Rj5Q8NqWMzJvmdAb0EW2wBOzrH7eYQx2XoywR3yuG3M=
+Message-ID: <514b0d85-c6b6-4e31-af41-5df45319e770@126.com>
+Date: Fri, 18 Sep 2026 16:41:16 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -54,62 +31,80 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151350.597953846@linuxfoundation.org>
+Subject: Re: [PATCH net] net: stmmac: request the MDIO reset GPIO only once
+To: Maxime Chevallier <maxime.chevallier@bootlin.com>, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com
+Cc: netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+References: <20260917125457.1353718-1-xiaolinkui@126.com>
+ <ff811e9f-4d4b-4b26-a0b5-84cb2eb52618@bootlin.com>
 Content-Language: en-US
-From: Ron Economos <re@w6rz.net>
-In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <ff811e9f-4d4b-4b26-a0b5-84cb2eb52618@bootlin.com>
 Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
-X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
-X-AntiAbuse: Primary Hostname - box5620.bluehost.com
-X-AntiAbuse: Original Domain - vger.kernel.org
-X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
-X-AntiAbuse: Sender Address Domain - w6rz.net
-X-BWhitelist: no
-X-Source-IP: 73.162.206.103
-X-Source-L: No
-X-Exim-ID: 1x7U8x-00000002hF0-237G
-X-Source: 
-X-Source-Args: 
-X-Source-Dir: 
-X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33456
-X-Source-Auth: re@w6rz.net
-X-Email-Count: 19
-X-Org: HG=bhshared;ORG=bluehost;
-X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
-X-Local-Domain: yes
-X-CMAE-Envelope: MS4xfGHKlaZIKPFWrKLSqy8fXTj0RtFDbQBb+xQV9Sfe1lCNPN/fq7E1iIOQA8nBOsrMduUVXADoWRXlzXn97UbzZLBMPXOf/wsIhwMUl1S5nAm58qhEMPAl
- nLNq1PRagNJahw6xaaP9GqHiCOHCRHMpZjlIOS/fbypXpSmP7k99A5OWglCczDv+fNej4wGpedhQ1w==
+X-CM-TRANSID:_____wD3V80s+axqJuOTBg--.3829S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW7ury5WF45tr48GFy7tr4fKrg_yoW8AryUpr
+	4rXF45JF98A3yxtrWDXw4kuF9YyrnIyF4DGr1I9w4Ikwn8Xr4ftrWxtr15Xay2kryqk3ya
+	gr4xua4DuFyvyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UcBMNUUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlA5PJmqs+S6tCQAA3G
 
-On 9/17/26 08:05, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 7.2.7 release.
-> There are 733 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
->
-> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
-> Anything received after that time might be too late.
->
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
-> and the diffstat can be found below.
->
-> thanks,
->
-> greg k-h
+Hi Maxime,
 
-Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
+Thanks for the review.
 
-Tested-by: Ron Economos <re@w6rz.net>
+On 2026/9/18 00:10, Maxime Chevallier wrote:
+> Hello,
+> 
+>> @@ -389,11 +389,21 @@ int stmmac_mdio_reset(struct mii_bus *bus)
+>>   		struct gpio_desc *reset_gpio;
+>>   		u32 delays[3] = { 0, 0, 0 };
+>>   
+>> -		reset_gpio = devm_gpiod_get_optional(priv->device,
+>> -						     "snps,reset",
+>> -						     GPIOD_OUT_LOW);
+>> -		if (IS_ERR(reset_gpio))
+>> -			return PTR_ERR(reset_gpio);
+>> +		/* Request the reset line only once and reuse the descriptor
+>> +		 * afterwards. A second request of the very same line makes
+>> +		 * gpiolib fail with -EBUSY, which devm_gpiod_get_optional()
+>> +		 * passes through because it only filters out -ENOENT. The
+>> +		 * reset would then abort early and leave the PHY un-reset.
+>> +		 */
+>> +		if (!priv->mdio_reset_gpio) {
+>> +			priv->mdio_reset_gpio =
+>> +				devm_gpiod_get_optional(priv->device,
+>> +							"snps,reset",
+>> +							GPIOD_OUT_LOW);
+>> +			if (IS_ERR(priv->mdio_reset_gpio))
+>> +				return PTR_ERR(priv->mdio_reset_gpio);
+>> +		}
+>> +		reset_gpio = priv->mdio_reset_gpio;
+> 
+> The problem is real, but this isn't the correct approach to solve that.
+> 
+> Instead of requesting the reset gpio on-the-fly at reset time (good example
+> of when not to use devm_xxx) , let's request the gpio at probe time.
+> 
+> I suggest you move the devm_gpiod_get_optional() in stmmac_mdio_register(),
+> which is called at probe time. Here, it makes sense to use devm_xxx.
+> 
+
+You're right, requesting the GPIO in the reset callback is the wrong
+place for devm_xxx.
+
+I'll send a v2 that moves the devm_gpiod_get_optional() call to
+stmmac_mdio_register(), which runs at probe time. stmmac_mdio_reset()
+will then just use the descriptor stored in stmmac_priv.
+
+Thanks,
+Linkui
+
+> Thanks :)
+> 
+> Maxime
+> 
 
