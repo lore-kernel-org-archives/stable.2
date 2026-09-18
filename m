@@ -1,111 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AC3C397942;
-	Fri, 18 Sep 2026 01:43:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B72E2D5436
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 01:44:26 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789695791; cv=none; b=P13dRin0ZY5uGxkPc3eslQOtUxbRFBhgIGQlSOWSIWxZ4ZsZ+OEOvVrIHtxCoVl4xlRoh8EUt7QOD7PXIXSzrxl9wt/Hj7rvwJdDKfMK76dX6ificANn8NAvaXHhhpyoemOUqQm+NSOPbd9REBB8LJ2yYxXo24+mMt5CWp/idsE=
+	t=1789695868; cv=none; b=Y2ZxD2YMbxEtuZy1Q8XE3fJUd+wCfWMEXnTG6UGYNo0C90orlB0Aty9PhGTxkgtbNXSz+xVxwOHulwhGx8cLKt0i8nBS9NcfFg153VDai7YmSegOxao8wx8ZRFqtsxwVMVSB5bVUyQcBBTAq8AWr24902fMrK8RWhgQXfFjxx1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789695791; c=relaxed/simple;
-	bh=0QrKtCdUouZWwbmAn+XLAoZlUwCYU5IPuvFhlx5OqlQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=tWNwQAHT5SGv4mN1XN38XqaPjn097ynrCutaormOjZEzd4eB44yDf6Zgi+I1Ia7OXCWg9zi31De3TPyAYwzvNn6DVkCll1GawLhS3sdx5WSqtENwVLvM7D/VXxCWqeoOnNistY6Cv328OYZJ0wdavYXNlaotz9tuTTl5z26dkx0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=g6RqC20m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789695868; c=relaxed/simple;
+	bh=AhuZwVTTC/1nU6YkD/HCUC2pbhEU63P/DHqLsiNyDk0=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=Ruc8jrHIDAUcfhSSz0oIbp/RaGNVv4qt8AS3HIwzoYSrTpqlJD/KSyA1U5wTgfjiGYoURbeQyrsSiKenWHCeViLUK47QKAe6X4fwdQtnhRp53+M2ZzhF7Oq5YylldBgnh5eT5NqTqda8M3lhGSKtGCgK34P26Y+5OXRbDIbqhn8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=SyuAnGqC; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=TmLEfcEj; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="g6RqC20m"
-Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 6482C1F000FF;
-	Fri, 18 Sep 2026 01:43:09 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789695790;
-	bh=dofvagGQeEInWWYgb/YqczbGV/3rzAsbrfnScLnrygI=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=g6RqC20mPLaL28EGOKbp9Ip2RABYku3mIEnhl+ZPhJF/qdj8+/dpOg5Ucn5f7GWTG
-	 87h3J3zbkd/hlmREgtuDMVDOH3DLZyg395lRQGSzF4MFfgx9MXCQUajIoOLFVJO2Ry
-	 sVVz3fRhE0xeg592LjbmIWY23uhIbW2wn2CHqw/QJ/lomPbE26QMMY5KoLCg0PpVgj
-	 yqn7yUuoC2rrNZDjMBiD5+3zjaccWkd5zooL/WPdR5VqOX0PG2p7XAwysBMXuppbWf
-	 cgQ8cbRz3J25E3sOEg7XFDbRAxjDR2GJNHGai3Eyr+0ny+mtHdjY4PnBc+fa/oeWXv
-	 GR9KCiPJ/DvFw==
-Date: Fri, 18 Sep 2026 04:43:06 +0300
-From: Jarkko Sakkinen <jarkko@kernel.org>
-To: Stefano Garzarella <sgarzare@redhat.com>
-Cc: linux-integrity@vger.kernel.org, stable@vger.kernel.org,
-	co+6a581c4284f721d4@bugs.sh,
-	James Bottomley <James.Bottomley@hansenpartnership.com>,
-	Mimi Zohar <zohar@linux.ibm.com>,
-	David Howells <dhowells@redhat.com>,
-	Paul Moore <paul@paul-moore.com>, James Morris <jmorris@namei.org>,
-	"Serge E. Hallyn" <serge@hallyn.com>,
-	Jonathan McDowell <noodles@meta.com>,
-	Ross Philipson <ross.philipson@gmail.com>,
-	Stefan Berger <stefanb@linux.ibm.com>,
-	Srish Srinivasan <ssrish@linux.ibm.com>, keyrings@vger.kernel.org,
-	linux-security-module@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] KEYS: trusted: Fix tpm2_load_cmd() boundary check
-Message-ID: <aqyXKrC4hhFP1mEd@kernel.org>
-References: <20260901205809.2028454-1-jarkko@kernel.org>
- <apfoKo-BdwaLXtkT@sgarzare-redhat>
- <aqHIwoKcEWeI_yjs@kernel.org>
- <aqJhkjPdib-MQTCT@sgarzare-redhat>
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="SyuAnGqC";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="TmLEfcEj"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789695866;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=/gmK8P3XeCEw2Kl7yv61jHybl1lElrtzJ9/W+3yl0xM=;
+	b=SyuAnGqC5FxKHX5ynKkZ0sMgvada9IOvu2kuUExIx/yxoP7Lc6QR3QkVPZzVn/Z9vdz7Pi
+	GS9jattHRJ1r4TJEfVp8olRu2QpdqPH7IMlU98RtzUyon1qagwqcu7u9ESUfqX7LcnjtQk
+	fDutCKYnGye9LvzZ3EwK0Ss1v9Gd1oA=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-541-PsUvJdobPjW-LjkHIpIzjQ-1; Thu, 17 Sep 2026 21:44:20 -0400
+X-MC-Unique: PsUvJdobPjW-LjkHIpIzjQ-1
+X-Mimecast-MFC-AGG-ID: PsUvJdobPjW-LjkHIpIzjQ_1789695857
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-530f968ccb3so2996441cf.2
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:44:20 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789695857; x=1790300657; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=/gmK8P3XeCEw2Kl7yv61jHybl1lElrtzJ9/W+3yl0xM=;
+        b=TmLEfcEjrV5d1Nh0DFP2CNJrspFy/qj4cQfo3bA5Uk2ugileilIaAHWn4qn0JK5xpM
+         OSW3iZkFfXv5riPKD8KA/PZR4iznRbjETd+mgwegeUvReluP6RH8ytPzejKrE1fpgc42
+         p6BoxRwuwkMxY/6JG3J5NvHJZr9KF5Shd1fERDab0wjUVol0WEH2KnHHSWyVVNkg8XWI
+         S5k6ey+qiZbviuta5+DNNB3qtrARCUDnoxr2Tsnsi3MvQBvWRpyu3HIos8gtkPZB+xpI
+         ryGv6zzRMAk7E/HOmTuYcMeP1NOFOE3QSWqm4RcBNZ0diL/xxsJ5Gfi0jiMp64b97Cwn
+         y4uA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789695857; x=1790300657;
+        h=content-transfer-encoding:content-type:in-reply-to:content-language
+         :references:cc:to:from:subject:user-agent:mime-version:date
+         :message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=/gmK8P3XeCEw2Kl7yv61jHybl1lElrtzJ9/W+3yl0xM=;
+        b=XqCJrhp8IjRbqMgDNFelSd34X8CGEqjOymRVcH3GTY69NlegwyR+18nAkW3egmJFyZ
+         b+dZtLyyAo1mPYYm3r5QPP2ZFoXcVYkDd/mpCyioz0z82LA5d7att1nhLiqtdVXI3aqt
+         blPH+AhDf5d3X22ahfB3+y191d2UjrFBQwdXGzRKE2b16XOYYZJ9FhZHmDOEXpTWZTCi
+         Fe75ZkTCm89ZsgvkBNtzdkbhrCsBez57FQAZg+oOqugrKf3Xs/5WdEmeRuqztEB+mCkI
+         ZtuvDKIF+cNDkb3hc44m110gOC9Y+eYLzTkOac0CbS9rLdDcJMVOVdeRjGwB3gkKgpjr
+         EGkg==
+X-Forwarded-Encrypted: i=1; AKwUvBwQxpYfCisvJFIx/hNbzNw8bnjZ8rTb0BlBbVUJEce33upVBCRzgzv8IIeK7KdRDoahkfZqkgM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mLQBYYjaczH/iEk7bOACnA3xNXKLl/8tbk7mA/nwIxz+JVLJfR
+	cuz+vlfnwxR07WiFqIK8nmxMXjJvdXFCldYVXtxnitlB6OQv7IecUWIVfPnuYRi6l0C5nw3OCp3
+	ojKFj95ipLzRv48P6MRR/OkqNYtniuryW60xB8iUkD/swPWGfp8uYjhdKpaMGlzOJzQ==
+X-Gm-Gg: AYBFou3JlXtQqksRThT7Yloa5lAbyf77Jxc8Q7Zs85NjNcnChU9Dzymalt9GTgFTOpL
+	fpvY+daBUQm7w7i3JJmASZgkphcZcjsGPTNu1bAMagIKVp/IMM7C6AwmQo2icPRM1HruOqn7/BX
+	AUZtUZrx7Mki4jSkk8VFHlf4k3M7GnL1phe/951Fjdakk2gNCiaEREAfiP9ufI9vADSuTETUkIe
+	Dm+QjJnzfg9gv2UIPY8Y1RM1qGyHkGULaEb2/9YxK8kO76HmAt4E8BuZlsmsVy6x9xyt9IK2J20
+	gBn4i2D/pcFg5agx/H5Blo6KEgyHVFNWTHhiGNcGqmPqWnqw+gOfuU647gNx9OAOKRmn4C+TbLz
+	ajZVPFS395+VEtZAJnZxj09YfD/jN/qpn5BMzYLFZ
+X-Received: by 2002:a05:622a:4292:b0:530:dab5:d43a with SMTP id d75a77b69052e-5329e2aafa3mr19749081cf.24.1789695857496;
+        Thu, 17 Sep 2026 18:44:17 -0700 (PDT)
+X-Received: by 2002:a05:622a:4292:b0:530:dab5:d43a with SMTP id d75a77b69052e-5329e2aafa3mr19748911cf.24.1789695857054;
+        Thu, 17 Sep 2026 18:44:17 -0700 (PDT)
+Received: from [172.16.0.69] (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532a19a452asm1997361cf.14.2026.09.17.18.44.14
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Thu, 17 Sep 2026 18:44:15 -0700 (PDT)
+Message-ID: <798adeb8-ef0f-47d6-9934-a19a23cafa4f@redhat.com>
+Date: Thu, 17 Sep 2026 20:44:13 -0500
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <aqJhkjPdib-MQTCT@sgarzare-redhat>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] smb: client: fix potential use-after-free with
+ TCP_Server_Info->hostname
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org, pc@manguebit.org
+Cc: linkinjeon@kernel.org, stable@vger.kernel.org
+References: <20260918003327.2539470-1-sorenson@redhat.com>
+Content-Language: en-US
+In-Reply-To: <20260918003327.2539470-1-sorenson@redhat.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 8bit
 
-On Thu, Sep 10, 2026 at 09:52:38AM +0200, Stefano Garzarella wrote:
-> On Wed, Sep 09, 2026 at 11:59:46PM +0300, Jarkko Sakkinen wrote:
-> > On Wed, Sep 02, 2026 at 11:24:16AM +0200, Stefano Garzarella wrote:
-> > > On Tue, Sep 01, 2026 at 11:58:06PM +0300, Jarkko Sakkinen wrote:
-> > > > tpm2_load_cmd() does boundary checks against the ASN.1 size i.e.,
-> > > > payload->blob_len. Address this by passing the decoded blob size to
-> > > > tpm2_load_cmd(), and use it for the boundary checks.
-> > > >
-> > > > Cc: stable@vger.kernel.org # v5.13+
-> > > > Fixes: f2219745250f ("security: keys: trusted: use ASN.1 TPM2 key format for the blobs")
-> > > > Reported-by: co+6a581c4284f721d4@bugs.sh
-> > > > Closes: https://bugs.sh/b/6a581c4284f721d4/
-> > > > Signed-off-by: Jarkko Sakkinen <jarkko@kernel.org>
-> > > > ---
-> > > > security/keys/trusted-keys/trusted_tpm2.c | 12 +++++++-----
-> > > > 1 file changed, 7 insertions(+), 5 deletions(-)
-> > > >
-> > > > diff --git a/security/keys/trusted-keys/trusted_tpm2.c b/security/keys/trusted-keys/trusted_tpm2.c
-> > > > index 67225dd562a9..01f18bb37047 100644
-> > > > --- a/security/keys/trusted-keys/trusted_tpm2.c
-> > > > +++ b/security/keys/trusted-keys/trusted_tpm2.c
-> > > > @@ -99,7 +99,7 @@ struct tpm2_key_context {
-> > > >
-> > > > static int tpm2_key_decode(struct trusted_key_payload *payload,
-> > > > 			   struct trusted_key_options *options,
-> > > > -			   u8 **buf)
-> > > > +			   u8 **buf, unsigned int *blob_len)
-> > > > {
-> > > > 	int ret;
-> > > > 	struct tpm2_key_context ctx;
-> > > > @@ -120,6 +120,7 @@ static int tpm2_key_decode(struct trusted_key_payload *payload,
-> > > 
-> > > 	blob = kmalloc(ctx.priv_len + ctx.pub_len + 4, GFP_KERNEL);
-> > > 
-> > > Pre-existing, but is `+ 4` here useless?
-> > 
-> > I checked this through in detail.
-> > 
-> > It should not be like that given that callbacks tpm2_key_{pub,priv}
-> > provide the length of TPM2B_PUBLIC and TPM2B_PRIVATE.
-> > 
-> > Thus, it is a bug introduced by f2219745250f ("security: keys: trusted:
-> > use ASN.1 TPM2 key format for the blobs")
-> 
-> Yep, agree. Do you want me to send a fix?
+Please disregard this patch.  Two of the cifs_server_dbg() are called
+with 'type=ONCE', for which cifs_dbg_func() doesn't ever print.
 
-Sure, go ahead.
+I will re-evaluate the rest of the patch and may resubmit the
+other hunks later.
 
-> Thanks,
-> Stefano
+Frank
 
-BR, Jarkko
+
+On 9/17/26 7:33 PM, Frank Sorenson wrote:
+> The TCP_Server_Info->hostname pointer may be updated during a reconnect
+> event. Accessing ses->server->hostname outside of the srv_lock is
+> unsafe and can lead to a use-after-free if another thread reallocates
+> the hostname string.
+>
+> Fix this by replacing instances of cifs_dbg() that print the hostname
+> with cifs_server_dbg() across multiple files (smb2ops.c, sess.c, and
+> smb2pdu.c).  cifs_server_dbg() correctly acquires the srv_lock before
+> printing and standardizes the output by prepending the server hostname
+> to the message.
+>
+> Fixes: 4659f01e3cd9 ("smb3: do not log confusing message when server returns no network interfaces")
+> Fixes: a6d8fb54a515 ("cifs: distribute channels across interfaces based on speed")
+> Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+> ---
+>   fs/smb/client/sess.c    | 5 ++---
+>   fs/smb/client/smb2ops.c | 7 +++----
+>   fs/smb/client/smb2pdu.c | 5 ++---
+>   3 files changed, 7 insertions(+), 10 deletions(-)
+>
+> diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
+> index e095f41b5882..5c2c9cabf7ef 100644
+> --- a/fs/smb/client/sess.c
+> +++ b/fs/smb/client/sess.c
+> @@ -192,8 +192,7 @@ int cifs_try_adding_channels(struct cifs_ses *ses)
+>   		spin_lock(&ses->iface_lock);
+>   		if (!ses->iface_count) {
+>   			spin_unlock(&ses->iface_lock);
+> -			cifs_dbg(ONCE, "server %s does not advertise interfaces\n",
+> -				      ses->server->hostname);
+> +			cifs_server_dbg(ONCE, "server does not advertise interfaces\n");
+>   			break;
+>   		}
+>   
+> @@ -395,7 +394,7 @@ cifs_chan_update_iface(struct cifs_ses *ses, struct TCP_Server_Info *server)
+>   	spin_lock(&ses->iface_lock);
+>   	if (!ses->iface_count) {
+>   		spin_unlock(&ses->iface_lock);
+> -		cifs_dbg(ONCE, "server %s does not advertise interfaces\n", ses->server->hostname);
+> +		cifs_server_dbg(ONCE, "server does not advertise interfaces\n");
+>   		return;
+>   	}
+>   
+> diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+> index 3464470d3297..08ea340f01b6 100644
+> --- a/fs/smb/client/smb2ops.c
+> +++ b/fs/smb/client/smb2ops.c
+> @@ -632,6 +632,7 @@ static int
+>   parse_server_interfaces(struct network_interface_info_ioctl_rsp *buf,
+>   			size_t buf_len, struct cifs_ses *ses, bool in_mount)
+>   {
+> +	struct TCP_Server_Info *server = ses->server;
+>   	struct network_interface_info_ioctl_rsp *p;
+>   	struct sockaddr_in *addr4;
+>   	struct sockaddr_in6 *addr6;
+> @@ -666,10 +667,8 @@ parse_server_interfaces(struct network_interface_info_ioctl_rsp *buf,
+>   	if (bytes_left == 0) {
+>   		/* avoid spamming logs every 10 minutes, so log only in mount */
+>   		if ((ses->chan_max > 1) && in_mount)
+> -			cifs_dbg(VFS,
+> -				 "multichannel not available\n"
+> -				 "Empty network interface list returned by server %s\n",
+> -				 ses->server->hostname);
+> +			cifs_server_dbg(VFS,
+> +					"multichannel not available - Empty network interface list returned by server\n");
+>   		rc = -EOPNOTSUPP;
+>   		goto out;
+>   	}
+> diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+> index dea05aeb53a1..bb30cfa156aa 100644
+> --- a/fs/smb/client/smb2pdu.c
+> +++ b/fs/smb/client/smb2pdu.c
+> @@ -173,9 +173,8 @@ cifs_chan_skip_or_disable(struct cifs_ses *ses,
+>   	unsigned int chan_index;
+>   
+>   	if (SERVER_IS_CHAN(server)) {
+> -		cifs_dbg(VFS,
+> -			"server %s does not support multichannel anymore. Skip secondary channel\n",
+> -			 ses->server->hostname);
+> +		cifs_server_dbg(VFS,
+> +				"server does not support multichannel anymore. Skip secondary channel\n");
+>   
+>   		spin_lock(&ses->chan_lock);
+>   		chan_index = cifs_ses_get_chan_index(ses, server);
+
+-- 
+Frank Sorenson
+sorenson@redhat.com
+Principal Software Maintenance Engineer, filesystems
+Red Hat
+
