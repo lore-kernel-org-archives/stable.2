@@ -1,123 +1,141 @@
-Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
+Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 445234CA27E
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 11:58:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F3CA4E2F2F
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 12:00:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789732742; cv=none; b=hf43BKeV6pCuV/Up0lPu5+ntO4YHovAUwrAJJLPRUeXPzWwXzUoUNjV+omvd+o9VGVhd0BGz62g62KRfev3kJeSG/IQjFVoQQZ8ViVrho4mkpoVF8hKijaEcOXzxLR3lXviBALQhPcoT1uYHC8u/Vjc6x/MdE0We2g3kGuhpQj0=
+	t=1789732802; cv=none; b=HG7/Rtyo/7bIKTVj/gvM2+Q2x7J0mcxmnV7U38L6XBFT0/X9QwLfyzoanf1Im9iAGoxroLY50CzTkp/YBWYbHqVvRfQtCnm5tshArZAVmaHvlEpxg6Uz5J6prHhiWlPhI5EBhvvEnQSQtN+t3CJ17eJ0iNCWROOpvfnfzfXvbbI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789732742; c=relaxed/simple;
-	bh=dZ+UU0cW7lO7sc/YWjbCFQdvW29aK3TMctUKE8s0RwA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=jUEqo36pem7VB1VDyClzyulFpKV1ZpJQbAE20BZ3TsvKA/PV0SRsK5ZgG5YOSX8Gb0zqzDYO67IXoET1utFTlST7lWjSKOdttAOlfmXpn9iWLhujUnUutaNFjDLXYcI3qRudOYA55gbA1GaD5l+F11Wzec+RPQeerFmutqrMeTI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ldKEMTrF; arc=none smtp.client-ip=91.218.175.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789732802; c=relaxed/simple;
+	bh=txhqtuEPWi7nD3urKElDbbpKMOAPkwNT8dosnT1pZE8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Gi796guVSDDEcUhlcum7ifk9U2JBuxsuOKcivzF6bJIkrtDebkuq1k989lG045Is+dJmYcXl+faoNckfexzPGl5i0hbbJ5Fb/9CuYypIAd3X5Ia+IjJ8cgxW4FNOeFmcj2vZ1/E9vLrac6ehenLu6ETZw6Vodggddn7wtmmDkk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=mCiSmCRR; arc=none smtp.client-ip=74.125.228.12
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ldKEMTrF"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=dZ+UU0cW7lO7sc/YWjbCFQdvW29aK3TMctUKE8s0RwA=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789732738; v=1; x=1790337538;
- b=ldKEMTrFEy3fmKEVUcGHUBddV4/P9fTB3fA8AVfBU/OtKa+YViYhDrOqfKBcA9/FzLerUcYJ
- +WhO1hmKDnphOMGOEVszkvAVYumPbFtorQCdA9scFqpQNrsH5Uulh7crREiWacPSIwLET2M83hc
- sPs+LPXMFcMv7RpKzp/+P5DU=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id 92bd7e6bfd46f09c;
-	Fri, 18 Sep 2026 11:58:58 +0000
-X-Mizu-Trace-ID: 92bd7e6bfd46f09c
-X-Migadu-Flow: FLOW_OUT
-Received: by mail-lf1-f43.google.com with SMTP id 2adb3069b0e04-5b83c1421ecso6311e87.1
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 04:58:54 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBz70lS6H0gp1UPscJEdWfj3HSJYh3cAtOrFq0HRITm2vzn8/lJXb+rS7YVOw/Kcc1xzuQjN/io=@vger.kernel.org
-X-Gm-Message-State: AFuF++liyhQ/fWDa6xMQvi6vw5jPf+5HIj8b9A76VVghqxmSACT3lnfu
-	/1DK1lk7u6O/WVwdarosUT8/NHNtRRW3s7NpTchQ+D4oX9cTOqTUlRfkMaAtz4VH24/2yRHUEz0
-	sEQpQfLYnJ+QSgbvr4lwhlpi+/PTOFJkXpyAZq9ZK
-X-Received: by 2002:a05:6512:3c9f:b0:5b2:a967:c0e1 with SMTP id
- 2adb3069b0e04-5b8c0fcad95mr166760e87.0.1789732733287; Fri, 18 Sep 2026
- 04:58:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="mCiSmCRR"
+Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cea50dc1so357813a12.0
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 05:00:01 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789732800; x=1790337600; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=xYcJRra+LcCNHLwBdH8ymzEfMxOB7CWtfUUDK8cCiZQ=;
+        b=mCiSmCRRXRTw81ytFymGzhKFcq+EM6p0FTeNRtVASeu7qaMcuILfgl42DAChfoB3RS
+         S4mBT0fvnmc8ny+pLciMQ9F3Lkb4Rq4mmMi+5dX5vQTbZH6si3lSEcDnOAyP3sY6hNkr
+         g2/H04cnZ7fW7XFYqV16nBQAkJoHRW26WiE4O5hnmzqseDTThD419+1VtdvEwc7yAawJ
+         OY7SgH3n7YjJ1oJl4u2/yZ45ki4huvPd5vVQmohnmYb0E5vVjG3KK/RUuTkcEUFVP1VC
+         NDgewBmjmiwr8dkCyXc+VG9SwrYp7jwo90Avt/NUGaEL+nMXyDCS1kSC2VIpIHgj2FT4
+         GEdg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789732800; x=1790337600;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=xYcJRra+LcCNHLwBdH8ymzEfMxOB7CWtfUUDK8cCiZQ=;
+        b=PBNb8qi7xtr8lIhmmnOaRM+OIyAxkc/5N13TYmC/5g7M0rSUcGUcM2fy6zH5IiVzL9
+         3BcJspaoKAULfkONrBSFSt7POVa2J/3L9K3uT/3XlTbEQbMAg8808mf3OddPgqwa2Jl2
+         pX3hePNnwuTZZJFJ/Ajv89Fk3r0Flum1zfTfjMV2kjAuV3v2U05YGg/kWzfusioME37d
+         dnvka7KS9k95E4ATGpjfRh430t8BkZB1hTmSZ8uY53JndwFcZoKe6v1PXmO9bWXXzlN+
+         +kAN9WSr7Tik2OlfC4qWLhi5EEQBACa0wlDArdk7ieFTUrTCJT87f9JF6lPqZGe1NzUI
+         F8Dw==
+X-Forwarded-Encrypted: i=1; AKwUvBwe1iiEN1/oCaWQTNMZl4LYGRgefLsLHcdgc9HjP8ZB2Mw4nmZVsCARQbQ7SmZoek7U99t3yd0=@vger.kernel.org
+X-Gm-Message-State: AFuF++kc5FFnsBnU/3TbZvTVN3H19LvqskReJJ0nj7nCLhEyW/YWO6SE
+	WcMH50mJ8GJN4hWiRKCMdJWGWXPXsNtNpt+955ZQskrQVrNVPLFUTj/2
+X-Gm-Gg: AYBFou0Gui80vGsibIrXV0YPWGmEJphS7+EOP+5qyivsZVwNObUTL4IvIsuNVLLnsm5
+	EFjvGhnmIX0VdJ+vhBisPOYdwGk1iIOEfSdOTY27ngT6Q6J5k8bAuUUtMfFVWEyesLqi5ni64fD
+	khGHbMmee8ZOHb7HkJyC8C/k9zLBHA/sYnv9EjvrePd7XWYxRyqcFOJ4p3vfCBaig0NtdltEyiW
+	Rdz2u3mV8s9sx6xGBrTJh8MjCyKJ67onC+wb+xMew1ZNmg5D0lhMBHv42ldlJmsQGwqVXQSzdfZ
+	vsdrfa0LW0Bvs50SZCHOOtiJ548MLPWxVzpY9ndJEUwDQz/OGxyXRATDlDEM0wIBP1s9T+Lngag
+	pKhefG58VHTRGWzdCQWmQ+G7zyeg5V4s7Uu5KR9FU8OcQpOhD0jlQx0pndhSsY4lvjxWlzk4b74
+	o5mVQvy7jb6gi8GMIHf+rHzUSqjBxNu6JrL8EKPq2THbAp52xkv0G6YWphXLLEReJRjaeR798OL
+	cdrGhpCh+np3ZKzfK4=
+X-Received: by 2002:a17:90b:4b87:b0:39e:345b:3323 with SMTP id 98e67ed59e1d1-39e54fb121dmr4831022a91.22.1789732800428;
+        Fri, 18 Sep 2026 05:00:00 -0700 (PDT)
+Received: from kernel ([103.219.206.97])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2876a52esm4179626eec.20.2026.09.18.04.59.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 04:59:59 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: herbert@gondor.apana.org.au,
+	davem@davemloft.net
+Cc: clabbe@baylibre.com,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v3] crypto: amlogic: Fix IRQ handler return value and fallthrough logic
+Date: Fri, 18 Sep 2026 17:29:50 +0530
+Message-ID: <20260918115950.9121-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918040214.85580-1-ndaugoing@gmail.com> <20260918040214.85580-2-ndaugoing@gmail.com>
- <CA+EHjTx8zzvgqj99TKWfRD58X-M8v+hs9358_r_1zZonFNEsgw@mail.gmail.com> <CAC2BP3K-fvW2s2j2ys+kPMuxrzeMw9yc6MrAk7U7CqCpb2WePQ@mail.gmail.com>
-In-Reply-To: <CAC2BP3K-fvW2s2j2ys+kPMuxrzeMw9yc6MrAk7U7CqCpb2WePQ@mail.gmail.com>
-From: Fuad Tabba <fuad.tabba@linux.dev>
-Date: Fri, 18 Sep 2026 12:58:17 +0100
-X-Gmail-Original-Message-ID: <CA+EHjTx9bTDuTnGgkrCcaAG+1S1Lx6+1BZnuhJcWNTJxWXkAHw@mail.gmail.com>
-X-Gm-Features: AcwNN1W8n3dmMVZr53drbRK261wAXv8qWFmrNE31MdA1aY5Yy24oy1p3VG9UCp8
-Message-ID: <CA+EHjTx9bTDuTnGgkrCcaAG+1S1Lx6+1BZnuhJcWNTJxWXkAHw@mail.gmail.com>
-Subject: Re: [PATCH v2] KVM: arm64: vgic: Do not remove in-flight LPIs from AP
- list on disable
-To: Yuchao Zhang <ndaugoing@gmail.com>
-Cc: Marc Zyngier <maz@kernel.org>, Oliver Upton <oliver.upton@linux.dev>, 
-	James Morse <james.morse@arm.com>, Suzuki K Poulose <suzuki.poulose@arm.com>, 
-	Zenghui Yu <yuzenghui@huawei.com>, Catalin Marinas <catalin.marinas@arm.com>, 
-	Will Deacon <will@kernel.org>, kvmarm@lists.linux.dev, 
-	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-Hi Yuchao,
+In meson_irq_handler(), when an interrupt matches a flow but the status
+register is empty, the driver prints an error but doesn't return. It
+falls through the loop and incorrectly prints an `unknown irq` message.
 
-On Fri, 18 Sept 2026 at 12:51, Yuchao Zhang <ndaugoing@gmail.com> wrote:
->
-> Hi Fuad,
->
-> Thanks a lot for pointing me to that thread! I was not aware of
-> Hyunwoo's earlier report and the discussion with Oliver and Marc.
->
-> I'll read through the thread and their rationale on the ap_list_lock
-> approach. I'm happy to defer to Hyunwoo's effort to avoid duplicate
-> work.
+Fix this by returning immediately. For empty status registers, return
+IRQ_NONE instead of IRQ_HANDLED to avoid masking spurious interrupts and
+allow the kernel to detect interrupt storms. Also use
+dev_err_ratelimited() to prevent console lockups during an interrupt
+storm.
 
-I'm not sure you should defer to their effort. It doesn't seem like
-Hyunwoo has done any work on this for a while. I just wanted to point
-you to the existing discussion.
+Additionally, the handler returned IRQ_HANDLED for genuinely unknown
+interrupts. Return IRQ_NONE instead for unhandled interrupts.
 
-Cheers,
-/fuad
+Cc: stable@vger.kernel.org
+Fixes: 48fe583fe5417 ("crypto: amlogic - Add crypto accelerator for amlogic GXL")
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+---
+I have addressed the IRQ specific issues in this v3. The other
+pre-exisiting issues mentioned by Sashiko are already addressed in my
+separate patch.
 
-> Thanks again for the pointer!
->
-> Best regards,
-> Yuchao
->
-> Fuad Tabba <fuad.tabba@linux.dev> =E4=BA=8E2026=E5=B9=B49=E6=9C=8818=E6=
-=97=A5=E5=91=A8=E4=BA=94 15:22=E5=86=99=E9=81=93=EF=BC=9A
-> >
-> > Hi Yuchao,
-> >
-> > On Fri, 18 Sep 2026 12:02:14 +0800, Yuchao Zhang <ndaugoing@gmail.com> =
-wrote:
-> >
-> > [...]
-> >
-> > > Note: this closes the primary race (the last_lr_irq node itself is no
-> > > longer unlinkable while in-flight), but the fold traversal can still
-> > > race with a remote flush unlinking a subsequent non-LR node in the
-> > > ap_list tail. Fully closing that window needs the fold side to take
-> > > references before dropping locks (in the spirit of the prune-side fix
-> > > in commit 7258770e5814 ("KVM: arm64: vgic: Handle race between
-> > > interrupt affinity change and LPI disabling")) and is left as a
-> > > follow-up.
-> >
-> > This is the same race Hyunwoo reported back in June [1]. You might
-> > want to have a look at that thread first: Oliver and Marc's view there
-> > was that the fix is to take the ap_list_lock in
-> > vgic_v3_fold_lr_state() [2][3], and Hyunwoo posted a draft of that
-> > [4].
-> >
-> > Cheers,
-> > /fuad
-> >
-> > [1] https://lore.kernel.org/r/aiHrGM1f8czcUby4@v4bel
-> > [2] https://lore.kernel.org/r/aiJi5a3JJ-TbWL-s@kernel.org
-> > [3] https://lore.kernel.org/r/87a4t99z9n.wl-maz@kernel.org
-> > [4] https://lore.kernel.org/r/aiXvwGD1hS6vwLEd@v4bel
+Changes in v3:
+- Revert accidental clock management changes that were squashed into v2.
+
+Changes in v2:
+- Return IRQ_NONE instead of IRQ_HANDLED when status register is empty
+  to avoid masking spurious interrupts.
+- Use dev_err_ratelimited() to prevent console lockups.
+
+Link to v2: https://lore.kernel.org/all/20260918110504.7207-1-raizudeen.kerneldev@gmail.com/T/
+
+ drivers/crypto/amlogic/amlogic-gxl-core.c | 7 ++++---
+ 1 file changed, 4 insertions(+), 3 deletions(-)
+
+diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
+index 169c6eeb51e5..09d3ccd92b80 100644
+--- a/drivers/crypto/amlogic/amlogic-gxl-core.c
++++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+@@ -37,12 +37,13 @@ static irqreturn_t meson_irq_handler(int irq, void *data)
+ 				complete(&mc->chanlist[flow].complete);
+ 				return IRQ_HANDLED;
+ 			}
+-			dev_err(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
++			dev_err_ratelimited(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
++			return IRQ_NONE;
+ 		}
+ 	}
+ 
+-	dev_err(mc->dev, "%s %d from unknown irq\n", __func__, irq);
+-	return IRQ_HANDLED;
++	dev_err_ratelimited(mc->dev, "%s %d from unknown irq\n", __func__, irq);
++	return IRQ_NONE;
+ }
+ 
+ static struct meson_alg_template mc_algs[] = {
+-- 
+2.53.0
+
