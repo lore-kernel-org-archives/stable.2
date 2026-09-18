@@ -1,36 +1,37 @@
 Received: from layka.disroot.org (layka.disroot.org [178.21.23.139])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EB01AA1D5;
-	Fri, 18 Sep 2026 09:16:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3AED364927;
+	Fri, 18 Sep 2026 09:16:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=178.21.23.139
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789722998; cv=none; b=dK2jNfmhoTN4W7Wl6iWYkQVT4iXOX2KOi9LhLkz7QriKZtaPH9p3pqvNJSvCy7ZPkrMomtPkhY+QV51ZAr3GOiNugKIU3YZP9gBHEAkIk6OpMaPIFUCL0xig5DOIPa8yNj4jHSx46V7UNC8D3LI5THf6N2jkPRE4q6GN7e5uTx0=
+	t=1789722999; cv=none; b=g1BxRPsIUDLKDzV1jsKoCvhbM40AUAn5+eauOvbXflYIlxuJqafnzI96TtEzcNa+woQ7N07KvbU+VIvRrr+ElMz5Esofg3Mka3LgNuFktyy9tYEArK3KUvCqgaVeH1BqYAdWzXJ37u3M6PHAGtS0Ve17I0klpL62FoUd1QI9r70=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789722998; c=relaxed/simple;
-	bh=6Whwp4PCCSrdaf9ovni71s2JM8RT4iYDS9A+tyEds2M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=G4eJ81VGpwA8h2ODVTe060eAjpI0Tp5B+Th+GfMyL4N3z7vrcZQgYmZiCrBnZHitQ2afz6qYp+s7tvFUieDMaLT3hAW4JbebIBBtdOouNVGay2DNePAdHD1Dh8g7wZQ8u71Np54vMm8c4g1x76JaKJWdXmeAom0gk1eRQ9cR3Wc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=eNByspGH; arc=none smtp.client-ip=178.21.23.139
+	s=arc-20240116; t=1789722999; c=relaxed/simple;
+	bh=7HP5JsYQd16uu9uvZXEXmpVum1FlQW2TA2dhY7SSqXw=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=WNOojPVdUyh0OMXM3iBbK3haNq13pCyVWOcO4w3QOpOKi8aCJg7dqmb4Jq7TYwP3goIF6GSJLBJjTV0zaJ8LBZ10g6cvkRzhnAHhSgNH+3cJwZj/N8gabLYRZXdGEK3yJ1gbBU5J95bsl9z/PHMgyclGpA70YCvp8OBbnTLxOAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org; spf=pass smtp.mailfrom=disroot.org; dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b=jwPsbS9V; arc=none smtp.client-ip=178.21.23.139
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=disroot.org
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=disroot.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="eNByspGH"
+	dkim=pass (2048-bit key) header.d=disroot.org header.i=@disroot.org header.b="jwPsbS9V"
 Received: from mail01.layka.lan (localhost [127.0.0.1])
-	by disroot.org (Postfix) with ESMTP id A5CD481191;
-	Fri, 18 Sep 2026 11:16:28 +0200 (CEST)
+	by disroot.org (Postfix) with ESMTP id 77CB78104E;
+	Fri, 18 Sep 2026 11:16:29 +0200 (CEST)
 X-Virus-Scanned: SPAM Filter at disroot.org
 Received: from layka.disroot.org ([127.0.0.1])
  by localhost (disroot.org [127.0.0.1]) (amavis, port 10024) with ESMTP
- id 8V-LhdPYbjUy; Fri, 18 Sep 2026 11:16:27 +0200 (CEST)
+ id Je7zDcAKGo7s; Fri, 18 Sep 2026 11:16:28 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=disroot.org; s=mail;
-	t=1789722987; bh=6Whwp4PCCSrdaf9ovni71s2JM8RT4iYDS9A+tyEds2M=;
-	h=From:To:Cc:Subject:Date;
-	b=eNByspGHv987imF3OdyJdhvq6JuDEuFMIt5cgV8+4/OPbwLs06Q90i1ZnSKTAfmVU
-	 o9rBqM7tJg+jcceRFkpmjgbAYfh/fmEQtq+Gw4AhEwMnA4Fr5vZ3K8utkpkTjm/ekW
-	 AOXetkK7TnW2UAYviT3lEk2QkKjF80484GJasKS6wYL2Sw/DOBZbs0flVpMMXJokjq
-	 Llekv3wCz5Wh9bo7zF2Mc9FilUDLgx9vndMzZOZWL8OHVt7fO0hHcMjaX52cHkRiX1
-	 8LBzS05SBolEx/XUY6rHJICFyZTLW59ktIc2iMy2OCibKg7SCe4Cq3xlyw1htuqSmS
-	 YHEWK9RNr41GQ==
+	t=1789722988; bh=7HP5JsYQd16uu9uvZXEXmpVum1FlQW2TA2dhY7SSqXw=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=jwPsbS9V5bBGHGMt9fw9tH7vDhA5qZvqOWQyebY0cn8q+YrqxFNnNNxDPAfvBF5gA
+	 /PjFoTkmg5k3Y8KvY0hQKpgp0PMojcgFT0d0D1mWuGBtwcPB9NRmr6qorKKsdZ2qax
+	 ie1nTVvm445A7pn2tQ0JWBocYSN8WrcLz3iFdkNNHtpvQXhVHVu6wDRLl2AvSz6yyn
+	 fhopmIdPBXnI+M+S1UuqLdZPIEiM/G2zIpmA7DQ2j63OJnT9pDmokBKkwsfjiubFMh
+	 WG/6/HJgK1AZW9R5i9Q/5c/fUTmZYZAnWLEGInfdm7zVST7qGLtSrGUB98TiAkky1c
+	 5Qd3CgSEWDyQQ==
 From: Marco Scardovi <scardracs@disroot.org>
 To: platform-driver-x86@vger.kernel.org
 Cc: linux-kernel@vger.kernel.org,
@@ -40,9 +41,11 @@ Cc: linux-kernel@vger.kernel.org,
 	Denis Benato <denis.benato@linux.dev>,
 	Corentin Chary <corentin.chary@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH 0/2] platform/x86: asus-wmi: Serialize WMI evaluations and drop redundant rfkill lock
-Date: Fri, 18 Sep 2026 11:14:58 +0200
-Message-ID: <cover.1789722252.git.scardracs@disroot.org>
+Subject: [PATCH 2/2] platform/x86: asus-wmi: Remove redundant per-device wmi_lock and duplicate rfkill ops
+Date: Fri, 18 Sep 2026 11:15:00 +0200
+Message-ID: <035f8cc544ebedc31f29bf1918ee54c623147717.1789722252.git.scardracs@disroot.org>
+In-Reply-To: <cover.1789722252.git.scardracs@disroot.org>
+References: <cover.1789722252.git.scardracs@disroot.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,35 +54,100 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-ASUS WMI management methods share a single firmware/EC mailbox that is
-not re-entrant. Concurrent evaluations from ACPI notify, sysfs, HID
-callers (hid-asus, asus-armoury) and debugfs can trigger nested SMIs or
-corrupt the mailbox.
+With all WMI method evaluations serialized globally by asus_wmi_eval_lock
+in asus_wmi_evaluate_method_locked(), the per-device wmi_lock in struct
+asus_wmi is completely redundant.
 
-This series serializes every ASUS_WMI_MGMT_GUID evaluation through a
-global mutex, then drops the old per-device wmi_lock that only covered
-WLAN rfkill hotplug.
+Remove wmi_lock from struct asus_wmi, its initialization in
+asus_wmi_rfkill_init(), and its manual locking in asus_rfkill_hotplug().
 
-The mutex is static because asus_wmi_evaluate_method() is exported and
-callers outside asus-wmi have no struct asus_wmi. Fixes points at the
-original shared evaluate helper rather than the later export, so stable
-backports are not limited to kernels that carry that export.
+Consequently, asus_rfkill_wlan_set() becomes a simple pass-through to
+asus_rfkill_set(), rendering asus_rfkill_wlan_ops identical to
+asus_rfkill_ops. Drop asus_rfkill_wlan_set() and asus_rfkill_wlan_ops,
+allocating WLAN rfkill devices with &asus_rfkill_ops directly.
 
-Patch 1 introduces asus_wmi_evaluate_method_locked() and routes method3,
-method5, method_buf and show_call through it.
+Signed-off-by: Marco Scardovi <scardracs@disroot.org>
+Reviewed-by: Denis Benato <denis.benato@linux.dev>
+---
+ drivers/platform/x86/asus-wmi.c | 37 ++-------------------------------
+ 1 file changed, 2 insertions(+), 35 deletions(-)
 
-Patch 2 removes the now-redundant wmi_lock and the pass-through
-asus_rfkill_wlan_ops.
-
-Link: https://github.com/OpenGamingCollective/asusctl/issues/328
-
-Marco Scardovi (2):
-  platform/x86: asus-wmi: Serialize WMI method evaluations with a mutex
-  platform/x86: asus-wmi: Remove redundant per-device wmi_lock and
-    duplicate rfkill ops
-
- drivers/platform/x86/asus-wmi.c | 67 +++++++++++----------------------
- 1 file changed, 23 insertions(+), 44 deletions(-)
-
+diff --git a/drivers/platform/x86/asus-wmi.c b/drivers/platform/x86/asus-wmi.c
+index 9c69b9b24104..9ceaea504e94 100644
+--- a/drivers/platform/x86/asus-wmi.c
++++ b/drivers/platform/x86/asus-wmi.c
+@@ -332,7 +332,6 @@ struct asus_wmi {
+ 
+ 	struct hotplug_slot hotplug_slot;
+ 	struct mutex hotplug_lock;
+-	struct mutex wmi_lock;
+ 	struct workqueue_struct *hotplug_workqueue;
+ 	struct work_struct hotplug_work;
+ 
+@@ -2245,9 +2244,7 @@ static void asus_rfkill_hotplug(struct asus_wmi *asus)
+ 	bool absent;
+ 	u32 l;
+ 
+-	mutex_lock(&asus->wmi_lock);
+ 	blocked = asus_wlan_rfkill_blocked(asus);
+-	mutex_unlock(&asus->wmi_lock);
+ 
+ 	mutex_lock(&asus->hotplug_lock);
+ 	pci_lock_rescan_remove();
+@@ -2449,30 +2446,6 @@ static void asus_rfkill_query(struct rfkill *rfkill, void *data)
+ 	rfkill_set_sw_state(priv->rfkill, !result);
+ }
+ 
+-static int asus_rfkill_wlan_set(void *data, bool blocked)
+-{
+-	struct asus_rfkill *priv = data;
+-	struct asus_wmi *asus = priv->asus;
+-	int ret;
+-
+-	/*
+-	 * This handler is enabled only if hotplug is enabled.
+-	 * In this case, the asus_wmi_set_devstate() will
+-	 * trigger a wmi notification and we need to wait
+-	 * this call to finish before being able to call
+-	 * any wmi method
+-	 */
+-	mutex_lock(&asus->wmi_lock);
+-	ret = asus_rfkill_set(data, blocked);
+-	mutex_unlock(&asus->wmi_lock);
+-	return ret;
+-}
+-
+-static const struct rfkill_ops asus_rfkill_wlan_ops = {
+-	.set_block = asus_rfkill_wlan_set,
+-	.query = asus_rfkill_query,
+-};
+-
+ static const struct rfkill_ops asus_rfkill_ops = {
+ 	.set_block = asus_rfkill_set,
+ 	.query = asus_rfkill_query,
+@@ -2491,13 +2464,8 @@ static int asus_new_rfkill(struct asus_wmi *asus,
+ 	arfkill->dev_id = dev_id;
+ 	arfkill->asus = asus;
+ 
+-	if (dev_id == ASUS_WMI_DEVID_WLAN &&
+-	    asus->driver->quirks->hotplug_wireless)
+-		*rfkill = rfkill_alloc(name, &asus->platform_device->dev, type,
+-				       &asus_rfkill_wlan_ops, arfkill);
+-	else
+-		*rfkill = rfkill_alloc(name, &asus->platform_device->dev, type,
+-				       &asus_rfkill_ops, arfkill);
++	*rfkill = rfkill_alloc(name, &asus->platform_device->dev, type,
++			       &asus_rfkill_ops, arfkill);
+ 
+ 	if (!*rfkill)
+ 		return -EINVAL;
+@@ -2571,7 +2539,6 @@ static int asus_wmi_rfkill_init(struct asus_wmi *asus)
+ 	int result = 0;
+ 
+ 	mutex_init(&asus->hotplug_lock);
+-	mutex_init(&asus->wmi_lock);
+ 
+ 	result = asus_new_rfkill(asus, &asus->wlan, "asus-wlan",
+ 				 RFKILL_TYPE_WLAN, ASUS_WMI_DEVID_WLAN);
 -- 
 2.55.0
