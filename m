@@ -1,207 +1,156 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 525DA2836A6;
-	Fri, 18 Sep 2026 12:38:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD6C2836A6;
+	Fri, 18 Sep 2026 12:38:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789735117; cv=none; b=kw6tpJt2TPjpQlVM1fzzZcQiq6MqynF674xh/EzYfNUlS2rDAN0PRJ79ujxRMj8CE1zqHN5NonUQ4tKABh4SFdkyCTxYyYXym2jNIHVmqsLTxDx0IarTDjBgAXXyYVDit6HwJLXixZNbW5Iaudwg47bsyQ6Jdz7k3pClBZc4QrE=
+	t=1789735130; cv=none; b=eezFTZJaRf48sPcFMaymE4yKUJzw18eUdEh+ryz4QtSdckc6UUKmDld7YdCHaDXHZ2SMccxqbmf2amp3FpPE2u+Xj8jzwvSkV9x7ykg9ED61xXtZGYyUnBBI8I4+5n5uThENaphhbCK/Xu4t4FoutPiZrdP4bPWPJu3WVv2zEEc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789735117; c=relaxed/simple;
-	bh=iYeutQZD6Gk9hpc7D02W+Xmug8i3J61E0WyDI1nrRPA=;
+	s=arc-20240116; t=1789735130; c=relaxed/simple;
+	bh=v0D30XdnWAvAbeRE19PhPRcH4pTMxxvHgKyrSnCkpXg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=HPOecKqFw8VGgRcHDefxejLaEqkfj/8lSNYcnMl2ykbM0zqzb9t1FG02I2FHOf/5ckZrbbCUmAcSELWZhxZrRtcm6JufvEE+Da0y7dzrv9ovhAkK7Hyl6OVMI6HVyjvNWvstgvEer2tRaF+9y0y6FtlAWwCkO8LINe4n+P/WVu4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dgkelU60; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=LKliUNW3n3sIPui7dVP9RcxfVsfP0+aWuz2fm1kMpBRFG9zx5olP1RLkMCJ9ggELI2IRn5MGdiTw1sN8cfGBZX9cMMrGpUSQBGmn8JtlAr+amLeMHVwoHldhrz1UzHtg5cZxhEChq3dEWbWSK4Pv1kDHadHHvV1KaSL/lnkFkOM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DP929awr; arc=none smtp.client-ip=192.198.163.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dgkelU60"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 48DA21F000FF;
-	Fri, 18 Sep 2026 12:38:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789735116;
-	bh=DGlZyW22wJe57M3Ug03904sWsQaDF2JZcMWEjWw8WtQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=dgkelU60004YG6IzlKdKWEjY1QsNBsqRM6/g+hO9vX0nM3L8IHILae7SY0OXlV2iB
-	 6sPwDa/5KLa5BRCwtAxjBROwyXokuCoAQN7ga7RD7IxXj0lOjG6LddIFY22diqYZ5Z
-	 Q5HhjC/lQa8GJwhnpfU78+ryylXNMNoQh6xum0f5syysExvbIsUjqCNBX4fCvIJLLX
-	 Uvusf5RavxZp90klCjUzKkyu0We8Q95OuUy4GR/dNROzuG5Yg6Y0xHFSnLOiDHJah0
-	 4Gn0206KZ0KCKk0f8l+5BZLhBuhLDbRivBUKC1Ne+CHiRUJczBgBIb6ONsLJc10be3
-	 Bqn1q6jDh5oag==
-Date: Fri, 18 Sep 2026 13:38:28 +0100
-From: Simon Horman <horms@kernel.org>
-To: netdev-bot+sashiko@kernel.org
-Cc: liuc63@xiaopeng.com, david@ixit.cz, davem@davemloft.net,
-	edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
-	dan.carpenter@linaro.org, oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH net] nfc: hci: add bounds checking in
- nfc_hci_create_pipe()
-Message-ID: <20260918123828.GI51261@horms.kernel.org>
-References: <20260912115720.530715-1-liuc63@xiaopeng.com>
- <178952042575.22033.9676833200303972344@kernel.org>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DP929awr"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789735127; x=1821271127;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=v0D30XdnWAvAbeRE19PhPRcH4pTMxxvHgKyrSnCkpXg=;
+  b=DP929awrBjWZete7t/W5V2AQ/DHUDlx+sGfi3WTuPV88V4BWvPQqZ4k7
+   Wxq9h+eRyOlrqq8QdRItHzPaysJcQoxOujGtDr9TcUlWMwKKDP2uDTd2P
+   sohbps+vJRwrOAw1SHOR5aocVkQsvGSrUUIcnMRon8jx0xNcEtg7VdRrZ
+   K3Y7K7tLtr/mO/T3g3dkSZ+3Mrt6F3QpeqEwX4s591I7ZWD3YKD4nNDX4
+   W8aEyJq9+f6uhgsw3HIh6JLERj7WoyYhs7qnQw025z1nk6zWNw1nNy01n
+   F7L5xAVo7ee9a7QuH0Ajp/jHJy64bpC5iycV2u8uCicxWFeWF+jRvvlDG
+   A==;
+X-CSE-ConnectionGUID: C5VBN8rORCuBVvGjZa3Y3A==
+X-CSE-MsgGUID: Fj27AAZTRDmJXg0PswcULQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="107739668"
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="107739668"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 05:38:46 -0700
+X-CSE-ConnectionGUID: 5tt/Sdj0Q+OaHZQR6fQV3A==
+X-CSE-MsgGUID: cpPK04BwS6qDYCxotWmOmQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
+   d="scan'208";a="271061162"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa007.fm.intel.com with ESMTP; 18 Sep 2026 05:38:42 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7XrK-000000009mn-2qP8;
+	Fri, 18 Sep 2026 12:38:30 +0000
+Date: Fri, 18 Sep 2026 20:37:31 +0800
+From: kernel test robot <lkp@intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>, Liviu.Dudau@arm.com
+Cc: oe-kbuild-all@lists.linux.dev, bhelgaas@google.com,
+	kwilczynski@kernel.org, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
+	lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org,
+	tinamdar@apm.com, toan@os.amperecomputing.com,
+	Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
+Subject: Re: [PATCH] PCI: xgene: Fix device node reference leak in
+ xgene_pcie_probe()
+Message-ID: <202609182039.WWGUVgS7-lkp@intel.com>
+References: <20260917132235.2153154-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
+Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <178952042575.22033.9676833200303972344@kernel.org>
+In-Reply-To: <20260917132235.2153154-1-vulab@iscas.ac.cn>
 
-On Wed, Sep 16, 2026 at 01:00:25AM +0000, netdev-bot+sashiko@kernel.org wrote:
-> Thank you for your contribution! Sashiko AI review found 1 potential
-> issue(s) to consider:
+Hi Wentao,
 
-Hi Liu,
+kernel test robot noticed the following build errors:
 
-There is an expectation that AI-generated reviews forwarded to
-the netdev ML are responded to. That can take a variety of forms
-including an email response that agrees with or refutes the review,
-or an updated version of the patch with an appropriate changelog.
+[auto build test ERROR on pci/next]
+[also build test ERROR on pci/for-linus linus/master v7.3-rc3 next-20260916]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
 
-The expectation is the patch author or submitter handles this.
-But in order to move things along, in this case I've taken a look over it.
+url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/PCI-xgene-Fix-device-node-reference-leak-in-xgene_pcie_probe/20260917-132235
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
+patch link:    https://lore.kernel.org/r/20260917132235.2153154-1-vulab%40iscas.ac.cn
+patch subject: [PATCH] PCI: xgene: Fix device node reference leak in xgene_pcie_probe()
+config: arm64-defconfig (https://download.01.org/0day-ci/archive/20260918/202609182039.WWGUVgS7-lkp@intel.com/config)
+compiler: aarch64-linux-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609182039.WWGUVgS7-lkp@intel.com/reproduce)
 
-> 
-> Critical: 0 · High: 1 (1) · Medium: 0 (1) · Low: 0
-> 
-> - [High] The patch validates the pipe id inside nfc_hci_create_pipe()
->   only, but the out-of-bounds store the commit message names as the…
-> 
-> Pre-existing issues:
-> - [High] Incomplete fix for the same bug class: the ST NFC drivers still
->   index hdev->pipes[NFC_HCI_MAX_PIPES] (128 entries) with a raw…
-> - [Medium] hdev->pipes[] and hdev->gate2pipe[] are mutated from two
->   contexts with no lock in common.
-> 
-> --
-> 
-> nfc: hci: add bounds checking in nfc_hci_create_pipe()
-> 
-> This adds a length check on the ADM_CREATE_PIPE response before casting it
-> to struct hci_create_pipe_resp, and rejects pipe ids at or above
-> NFC_HCI_MAX_PIPES in nfc_hci_create_pipe().  The result code is set so the
-> caller does not treat a rejected pipe as success.
-> 
-> > diff --git a/net/nfc/hci/command.c b/net/nfc/hci/command.c
-> > index af6bacb3ba986..9c8bcb98b9677 100644
-> > --- a/net/nfc/hci/command.c
-> > +++ b/net/nfc/hci/command.c
-> > @@ -225,10 +225,19 @@ static u8 nfc_hci_create_pipe(struct nfc_hci_dev *hdev, u8 dest_host,
-> >  	if (*result < 0)
-> >  		return NFC_HCI_INVALID_PIPE;
-> >  
-> > +	if (skb->len < sizeof(*resp)) {
-> > +		kfree_skb(skb);
-> > +		*result = -EPROTO;
-> > +		return NFC_HCI_INVALID_PIPE;
-> > +	}
-> >  	resp = (struct hci_create_pipe_resp *)skb->data;
-> >  	pipe = resp->pipe;
-> >  	kfree_skb(skb);
-> >  
-> > +	if (pipe >= NFC_HCI_MAX_PIPES) {
-> > +		*result = -EINVAL;
-> > +		return NFC_HCI_INVALID_PIPE;
-> > +	}
-> 
-> [Severity: High]
-> 
-> Does this placement actually cover the store named in the commit message?
-> The changelog says:
-> 
->   "A response carrying a pipe id above 127 makes the caller,
->    nfc_hci_connect_gate(), write past the end of hdev->pipes[]."
-> 
-> But nfc_hci_connect_gate() also receives a pipe id directly as an argument,
-> and in that case nfc_hci_create_pipe() is never called:
-> 
-> net/nfc/hci/command.c:nfc_hci_connect_gate() {
-> 	if (pipe == NFC_HCI_DO_NOT_CREATE_PIPE)
-> 		return 0;
-> 	...
-> 	if (pipe != NFC_HCI_INVALID_PIPE)
-> 		goto open_pipe;
-> 	...
-> open_pipe:
-> 	r = nfc_hci_open_pipe(hdev, pipe);
-> 	...
-> 	hdev->pipes[pipe].gate = dest_gate;
-> 	hdev->pipes[pipe].dest_host = dest_host;
-> 	hdev->gate2pipe[dest_gate] = pipe;
-> }
-> 
-> Only 0x81 (NFC_HCI_DO_NOT_CREATE_PIPE) returns early and 0x80
-> (NFC_HCI_INVALID_PIPE) falls into the create path, so any value in
-> 0x82..0xff takes the goto open_pipe branch and, once the controller ACKs
-> ANY_OPEN_PIPE, writes two bytes at offset 2 * pipe in the 256-byte
-> hdev->pipes[] array.
-> 
-> Can that argument hold an out-of-range value?  The ST driver stores the raw
-> controller byte into init_data:
-> 
-> drivers/nfc/st21nfca/core.c:st21nfca_hci_load_session() {
-> 	...
-> 	hdev->init_data.gates[j].pipe = pipe_info[2];
-> 	...
-> }
-> 
-> hdev->init_data is assigned once in nfc_hci_allocate_device() and is never
-> re-initialized, and the session-id-mismatch branch of
-> hci_dev_session_init() calls nfc_hci_disconnect_all_gates() (which resets
-> gate2pipe[], removing the -EADDRINUSE early return) before replaying those
-> ids:
-> 
-> net/nfc/hci/core.c:hci_dev_session_init() {
-> 	...
-> 	r = nfc_hci_disconnect_all_gates(hdev);
-> 	if (r < 0)
-> 		goto exit;
-> 
-> 	r = hci_dev_connect_gates(hdev, hdev->init_data.gate_count,
-> 				  hdev->init_data.gates);
-> 	...
-> }
-> 
-> net/nfc/hci/core.c:hci_dev_connect_gates() {
-> 	...
-> 	r = nfc_hci_connect_gate(hdev, NFC_HCI_HOST_CONTROLLER_ID,
-> 				 gates->gate, gates->pipe);
-> 	...
-> }
-> 
-> Would it be better to validate at the write site in nfc_hci_connect_gate(),
-> or in a single helper used by both paths, so the out-of-bounds store the
-> changelog describes is actually closed?
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609182039.WWGUVgS7-lkp@intel.com/
 
-This does seem to be a valid concern and I suggest handling it by add
-validation to nfc_hci_connect_gate() rather than nfc_hci_create_pipe().
+All errors (new ones prefixed by >>):
 
-> 
-> [Severity: High]
-> 
-> This isn't a bug introduced by this patch, but the same two defect classes
-> still exist in the ST NFC drivers, which index the same 128-entry
-> hdev->pipes[] array with a raw controller byte.
+   drivers/pci/controller/pci-xgene.c: In function 'xgene_pcie_probe':
+>> drivers/pci/controller/pci-xgene.c:646:25: error: 'struct xgene_pcie' has no member named 'node'
+     646 |         of_node_put(port->node);
+         |                         ^~
 
-I think that this is orthogonal to the purpose of this patch and
-should be treated as a separate issue; I don't think it needs
-to affect progress of this patch.
 
-...
+vim +646 drivers/pci/controller/pci-xgene.c
 
-> [Severity: Medium]
-> 
-> This is a pre-existing issue and not something this patch changes, but
-> hdev->pipes[] and hdev->gate2pipe[] are updated from two contexts with no
-> lock in common, which is worth noting since the newly validated pipe id
-> feeds one of them.
+   603	
+   604	static int xgene_pcie_probe(struct platform_device *pdev)
+   605	{
+   606		struct device *dev = &pdev->dev;
+   607		struct xgene_pcie *port;
+   608		struct pci_host_bridge *bridge;
+   609		int ret;
+   610	
+   611		if (!xgene_check_pcie_msi_ready())
+   612			return dev_err_probe(&pdev->dev, -EPROBE_DEFER,
+   613					     "MSI driver not ready\n");
+   614	
+   615		bridge = devm_pci_alloc_host_bridge(dev, sizeof(*port));
+   616		if (!bridge)
+   617			return -ENOMEM;
+   618	
+   619		port = pci_host_bridge_priv(bridge);
+   620	
+   621		port->dev = dev;
+   622		port->version = XGENE_PCIE_IP_VER_1;
+   623	
+   624		ret = xgene_pcie_map_reg(port, pdev);
+   625		if (ret)
+   626			goto err_put_node;
+   627	
+   628		ret = xgene_pcie_init_port(port);
+   629		if (ret)
+   630			goto err_put_node;
+   631	
+   632		ret = xgene_pcie_setup(port);
+   633		if (ret)
+   634			goto err_put_node;
+   635	
+   636		bridge->sysdata = port;
+   637		bridge->ops = &xgene_pcie_ops;
+   638	
+   639		ret = pci_host_probe(bridge);
+   640		if (ret)
+   641			goto err_put_node;
+   642	
+   643		return 0;
+   644	
+   645	err_put_node:
+ > 646		of_node_put(port->node);
+   647		return ret;
+   648	}
+   649	
 
-Ditto.
-
-...
-
--- 
-pw-bot: changes-requested
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
