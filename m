@@ -1,107 +1,122 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8838C5C613;
-	Fri, 18 Sep 2026 06:38:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15755365A14;
+	Fri, 18 Sep 2026 06:40:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789713514; cv=none; b=A/4qeuVjqvCtUlHrmVPe5dNvn0MYxU+mGkMqWf0vuLpa7rhCTI/a7WXSEcfJjCFyhynNJ8ZR6mXOIDmrkrMlHJt9n48lXPsaL0Ws/6F8gSmvd/egz0Z9ULNqUtnRF07f+KN5+hsqM5lAxPVxx7s00V3GO056/baNsFOhB9Jljbk=
+	t=1789713614; cv=none; b=dqEQ9E451ZCI1CEGlLdePK+dMsUqKxzKhaLKMbQdB5HEaNtMnlLnSSbM/h6bXHTvMyhDbFHfWKJQZNhCmKwYwk86Kq41v4+V228Pn93/qBUMD+kWI2lyaSyLs4MZxgXniNTBcc9bIjaO7Il/DuOSIjUzfIoh9lPlCoJahhyWzuQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789713514; c=relaxed/simple;
-	bh=L9bvzIPM+ftK2bxDWRtS5jd/RgMKrldKEwiztXhRBqA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=DxMjRZGmYnVUMnwvKGxMpImDbA9kDdKQ76pK7XGER6BhM1R4nsOQkrXHrbxHavBelAsgbs5c3piejX1DcjvXOyI/i/1sNlHXkUD2XKHq0j1texgDelqVM78jx2/v/5MTBZ0O6xmCM3B9QGCKGE/OLsN+iVAVB+FqnFtGCreXb0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=TncbaiR6; arc=none smtp.client-ip=192.198.163.17
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789713614; c=relaxed/simple;
+	bh=jbCz3/l/IS3j3i0ZlvXXWgqv2Qhoy5HUJUfa0PhdFB4=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=sKfzkmNiM0xDt3gIYk3e5qPvscWxD7i8th5IZ+fWcf3hQugQ7XGAoPt+4Vf+QNXWtqW6yXPTOLohIFLHQop7pJV1Iv8xa33qKBWphKN/NlNh0wak9+vzP4PiAdwe2JVv9CHA05KPY/etfWI4YrljMTfxtS9eBnlT809IM2S1LbI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gr6iWbfN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="TncbaiR6"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789713512; x=1821249512;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=L9bvzIPM+ftK2bxDWRtS5jd/RgMKrldKEwiztXhRBqA=;
-  b=TncbaiR6o2E0XC19all3o+N8MhLwQ4DxYdXodXt/zNciIg7aE9xQRpJ7
-   aBDCk+GANTkCrkl6Re1WC0Nb5X8Y/d8xnXwYeVoiORFFpjB+Zj535AX4y
-   Zs2j3jmHtqKp7tSJfqSn4PPq6tGIH0Mz2SD07OGCMz+B0zygBlLyZjoeq
-   OUoIWWd0z8HOSdMtja5WKulL6b7a16LALW7VJ1rvi7kNrOWNJ9WfTzpi3
-   FC4YYyrIYKc6roPwH+JxUwezudo1iaHfnqykdBdUWMeJdgxICJubiMtuR
-   FRBvIMfoepIkLTgyIrmIGdkFXVK3da3RM+0I+9IgourBHO4jqI507Onu+
-   g==;
-X-CSE-ConnectionGUID: 9xHbcQQnSXq6aZlSfNoExA==
-X-CSE-MsgGUID: sFMWokhASFSryUJNrxiZ3g==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90063035"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90063035"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:38:31 -0700
-X-CSE-ConnectionGUID: 16zabr9TRyyP+M/QWOEnIQ==
-X-CSE-MsgGUID: bsmVT5NNRnqbrTyfZQM6Yg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="299344374"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 23:38:29 -0700
-Date: Fri, 18 Sep 2026 09:38:22 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Kent Gibson <warthog618@gmail.com>
-Cc: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Bartosz Golaszewski <brgl@kernel.org>,
-	Linus Walleij <linusw@kernel.org>, linux-gpio@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org,
-	Sashiko <sashiko-bot@kernel.org>
-Subject: Re: [PATCH] gpio: cdev: fix kernel stack leak to user-space in error
- path
-Message-ID: <aqzcXsWQnhOprEHp@ashevche-desk.local>
-References: <20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com>
- <aqwEeLLuIC1AoLQ1@ashevche-desk.local>
- <20260918032743.GA29370@rigel>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gr6iWbfN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 96D771F000FF;
+	Fri, 18 Sep 2026 06:40:07 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789713612;
+	bh=hDfUhIaZu4KPqHePo0HBKv6V2o+AaHKMEhi4wd6/0Kw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=gr6iWbfNeA85FUBO4vzbDmRqzAzqO/U6FyVeujEvSVdtuiMSQXXNP0JJ3mFzxgfxj
+	 pQWXc8thrMBiOyfp4JXjDpmnDu0FuuVs99NSQNAVwQTvIoYFpGKuxr+Jce8GRu076W
+	 zqPXGkP4aBvOQLE/w+dOcWtZ0KQ1u+DbDPJyuqHfp42X67GKQYTcfpcwjD0tVN9TGn
+	 aocNjhWuPZgDolbOCpssn9tVuMGldBcAmIMpOvdlx0Noj9/RAE/8DRuQE1zGdyFBjl
+	 nws+0zfzdfG3PL/GpqFg05fhvKhPtsgRAJF/qkvwgGygZtiP3rO0mDqv9JxZrV+h4A
+	 mqKeVU6T4oeeg==
+Message-ID: <23676471-d90c-40cd-a357-e71b3d426425@kernel.org>
+Date: Fri, 18 Sep 2026 08:40:05 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918032743.GA29370@rigel>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
+To: Salvatore Dipietro <dipiets@amazon.it>, hannes@cmpxchg.org,
+ akpm@linux-foundation.org
+Cc: abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
+ brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
+ dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
+ hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org, linux-xfs@vger.kernel.org,
+ mhocko@suse.com, ritesh.list@gmail.com, rvvandan@amazon.com,
+ stable@vger.kernel.org, surenb@google.com, willy@infradead.org,
+ ziy@nvidia.com
+References: <aqlvnm8AKp5f_UhG@cmpxchg.org>
+ <20260918063203.2802342-1-dipiets@amazon.it>
+From: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Content-Language: en-US
+Autocrypt: addr=vbabka@kernel.org; keydata=
+ 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
+In-Reply-To: <20260918063203.2802342-1-dipiets@amazon.it>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 11:27:43AM +0800, Kent Gibson wrote:
-> On Thu, Sep 17, 2026 at 06:17:12PM +0300, Andy Shevchenko wrote:
-> > On Thu, Sep 17, 2026 at 04:39:05PM +0200, Bartosz Golaszewski wrote:
-
-...
-
-> > It might be not obvious for a reader, perhaps a short comment why it's done
-> > here?
+On 9/18/26 08:32, Salvatore Dipietro wrote:
 > 
-> So we should always add comments highlighting initialisation of return values?
-> No problem with adding one here btw, as we do it elsewhere, just
-> wondering if you think this should always be the case.
+> On Tue, Sep 15, 2026 at 04:17:00PM +0000, Johannes Weiner wrote:
+>> It would be possible to remove the costly_order gate here and just
+>> bail on __GFP_NORETRY. But no strong feelings.
+> 
+> Will do, I'll drop the costly_order gate and bail on __GFP_NORETRY.
+> 
+> Andrew, since you dropped v5 and restored v4 in mm-unstable, I'll send a
+> v6 (v4 plus the above change) unless you'd rather have an incremental
+> patch on top of v4. Let me know if anything else is needed on my side.
 
-Yes, when return value is initialised in case of error. We know that we are
-going to return an error, why would we initialise? So, the answer here is
-because we don't want to leak kernel memory to the user space. A short comment
-makes sense to me.
+v4 is in mm-hotfixes-stable now, so an incremental fix will be easier now I
+think.
 
-> Hmmm, after some sleep and taking another look, what does bother me is that
-> when the guard was added the behaviour of gpio_desc_to_lineinfo() changed,
-> in that it can now fail, but its signature did not.
-> As a consequence, lineinfo_get() and lineinfo_get_v1() now return
-> empty/zeroed line info and success when the guard has failed.
-> Elsewhere when the guard fails the operations return -ENODEV.
-> So, while this patch no longer leaks stack, it would be better to propagate
-> the failure.  That could also make the memset ordering mute, or even a
-> trivial waste of CPU time, as it could prevent ANY line info being copied
-> to user in the failure case.
-
-Right, this can be done to cover all cases at once.
-
--- 
-With Best Regards,
-Andy Shevchenko
-
+> Thanks,
+> Salvatore
+> 
+> 
+> 
+> 
+> AMAZON DEVELOPMENT CENTER ITALY SRL, viale Monte Grappa 3/5, 20124 Milano, Italia, Registro delle Imprese di Milano Monza Brianza Lodi REA n. 2504859, Capitale Sociale: 10.000 EUR i.v., Cod. Fisc. e P.IVA 10100050961, Societa con Socio Unico
+> 
+> 
+> 
 
