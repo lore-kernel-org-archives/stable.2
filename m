@@ -1,348 +1,118 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from out162-62-58-211.mail.qq.com (out162-62-58-211.mail.qq.com [162.62.58.211])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CAD26399D10
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 05:49:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0BD474503FB;
+	Fri, 18 Sep 2026 05:50:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710594; cv=none; b=jGrb6r03SN0EbSeEyonfdpda1c8aFy8X9zY40l0DBPAA5CCRA0csgJ4rwvBDXuEijrGtieLBZZUvlhgpfLCVZUi2bGIt2u/cJBRB7Je/xFKpkOiitUuCRPNXY2y2OZl+xcMsrRlmCZC34VRjbc0GV603/7H+3URspK3UAZ2sITg=
+	t=1789710628; cv=none; b=dPy0OWMoIUv2spOyYEdNI/A4/LZJZsPy5uHmpN8SuflvcS4Bj3RM4V2wvM+EGbCQXFM/gU3xP6Dzc+73hqD7/42E1MwjvuykmiSEgLJH+4jC3V03FZLuRe+Ltx0QsqGlKSiyxevmbCJ8MeABm6Lp2Kk1GakoZsIK6dCDwdf9dpI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710594; c=relaxed/simple;
-	bh=V0fVo31wuNmyh+k84lQm2ZKBD2M0OKtxI4N5iEV+OCA=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=emZ4TzynXpOts69B706IrvvhsdWbnHm4aDJW67m96HMdRSQytMG1i427iJVP1JqGVWIvgFKj19bY3eHitXft2pYZWR1dnkTBzDD3BGzqiNrYBDkh++cjnI5jV/ouvHrTtt+WxD5cBK1bnFM3RM2xRL9Qzc+4I4fTQwromtlK0mg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com; spf=pass smtp.mailfrom=googlemail.com; dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b=CtVJpJyE; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=googlemail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=googlemail.com
+	s=arc-20240116; t=1789710628; c=relaxed/simple;
+	bh=8MufMY9lIRnGTi5h9BPJYfykr099yQoG0Pih9buPj40=;
+	h=Message-ID:From:To:Cc:Subject:Date:In-Reply-To:References:
+	 MIME-Version; b=mKBF+HWclrVP/gi3qQEaMUmO+OnGPYKaAK+A3FQOOkaUxGf5caa8wjSW7F7qMh2Z4eiLxfSwjyZgQDdfJMhxVxNeGiziV0EZvWQCCev7MfhFmHx6Ib0SJGM02ny9++JLtgd8EAvNSsjCwpCR+vNhhXaKHspXtRCoSfAtW7okHuM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=QAt/GI0q; arc=none smtp.client-ip=162.62.58.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=googlemail.com header.i=@googlemail.com header.b="CtVJpJyE"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so2061475e9.2
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 22:49:52 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=googlemail.com; s=20251104; t=1789710591; x=1790315391; darn=vger.kernel.org;
-        h=content-type:in-reply-to:autocrypt:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=V0fVo31wuNmyh+k84lQm2ZKBD2M0OKtxI4N5iEV+OCA=;
-        b=CtVJpJyEG77R4xb7QfBp47Q2eWHLLCh8z4bWmQ4ebIRmjKPIBEoCAOIvXJJnMcAg3g
-         QG4ugVWDQluDsWxM/ilHfgaxA/qtnftHJ+5WSfqQwTP6w4XtJKS5HLgqflVF2j5ahw1I
-         vXEWozAdCPrb20iXETt03HTxnvsb4KJYlCGPi9OSvj5vR+mu3ORGK5qnZY5KMZ5jGPAM
-         5bb90fxZQ6aOID0kRSC+Ei63PW54I83KBdn0nlXxTe+aOqJt+zBWAvLPzNnaJDgVZ7UU
-         hILEZIIbnjlcTSM1kuTk3KKIq4eC/N7FsQ9KUwiNpbl7L3CKfsmWxXLFrdKKkNqmgKaU
-         Vu2Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789710591; x=1790315391;
-        h=content-type:in-reply-to:autocrypt:references:cc:to:from
-         :content-language:subject:user-agent:mime-version:date:message-id
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=V0fVo31wuNmyh+k84lQm2ZKBD2M0OKtxI4N5iEV+OCA=;
-        b=tGkmcTCo+E/vTmcPZwOYonIwBMVV2Sbvzyr2bVv7jbz9TOiopFKIspHlCeeQmwR+DH
-         gZiEPdcgmy2Mm3pcOb4ocpAJHIJg69ZLQLOd71hAcKPXNBt2PodhaP8Su3Hctr9O/Nnc
-         CG9w2FbkhSVsqYOgPrCqgJrlxs3FGoIJj9scWz8X7Lsh5zwBFr7Oz7yZYGfu2CxYKU3z
-         tsLkb7+abyloJPqVk5il9owCbyrPPjJGux+fAXRZOt+3je212DK8O3HCP/Oo0HLX8cds
-         N7xUFI4dwIceJidzySu4sWgy5pG5ZCZopAG+vm3bz4oYx3ioPz8k+dOzzW7b7KKEZlkK
-         ombw==
-X-Gm-Message-State: AFuF++lw7irSugQHUYB8I0dII5fuOKtGufsAfvtCjc0S9GogpKZsS+oN
-	xt8hR/IwTHo9Y2t++ynhOrjThdQQczbO72GI0Tq7u9kfBuadB0L4neEQIRd4
-X-Gm-Gg: AYBFou0b8N1TT2edGqDt9BlZPuP7AFI9kXIeRZ4Qh/AAUOOE2sUMpwTfVqIO+hUt8bi
-	vMIFQ6ze3Ri/TL1AhnhHqITuf3tl0ZoncB86tsHv0jI6gx1lX8ZCR27jg39elK+xDPHUEmAKqVB
-	jAESVcCot1lM9sKW7KFPIXtnvR+U7VguePAtatRa3/wsSDKtzEiDaPBekFbmrhK7irYC8+DScqj
-	frqONJ/MFKqs8dVQ2NM6142H7TmuuFJGls1kfLMKcv4ScxjTvgnzOAwylt0dhCXHG4hVUxRBm4h
-	a7MzjxV1eFUdlZL09CcSklesJdXhm1Cs8XNfx2Ba63sNU0sEyyGmRUXRWTz/bduvaCGSA0o6899
-	mMKnTAZPDaEmOvFi+GqMV/hj9lpbCKnhoJEEfUHI+Ib25ZDIDXSaWI/A/JL9jhwX/GbUKIdVjfr
-	C93L+1djZJS8oitfkKixezxU1wh2Ux6BmaI5JIEvg9EMVOQUSf67wVbHijbEbIobY+VEW5oYvQm
-	jSCmrPv10wmrD3KevQRzsPtdM1M6/+0YZvA8W7EScWjqkvDag==
-X-Received: by 2002:a05:600c:3ba0:b0:49e:73d3:78ab with SMTP id 5b1f17b1804b1-49fc55adc12mr15978125e9.0.1789710590813;
-        Thu, 17 Sep 2026 22:49:50 -0700 (PDT)
-Received: from [192.168.1.3] (p5b2b47fd.dip0.t-ipconnect.de. [91.43.71.253])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc7d4b9ecsm23044735e9.14.2026.09.17.22.49.49
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Thu, 17 Sep 2026 22:49:50 -0700 (PDT)
-Message-ID: <1e80f4b3-3919-4568-aabd-f0172581831d@googlemail.com>
-Date: Fri, 18 Sep 2026 07:49:48 +0200
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="QAt/GI0q"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789710614; bh=l4vt2RgI+Np3N8Wg3Ybz8eb3RVuLRt/R9ZyL/paN+7M=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=QAt/GI0qpUZxHkcaVyoYAuH6efpCDGtTUbC1kXn4i+4/QNTnXEn3Y4m8MQ6bN/JGt
+	 6XpnqTh1r0AUXpbbnEsasXnWuGdLiUKCCY/aj7/fmRVUmEhLl8x3iDA5SPAK571c1A
+	 nZETciNH4aHiOQW3BLmMOUll9L0X2q5G7cj4Qq8g=
+Received: from XJSH01426.meizu.com ([210.13.72.171])
+	by newxmesmtplogicsvrszc50-0.qq.com (NewEsmtp) with SMTP
+	id BB1B8E26; Fri, 18 Sep 2026 13:46:49 +0800
+X-QQ-mid: xmsmtpt1789710409t0a17l4zi
+Message-ID: <tencent_25C26948D9C4B056CBF12565F0600C4C2509@qq.com>
+X-QQ-XMAILINFO: Od++Svt5p/ChIvJnY7Kp28UcdL91q3n2D9numSKrnNEc2IY/xjBuIKrvEotTQj
+	 gEZNGpjuPNRZ8PFx9KagA/iudpU/dosFH62M9gixDs/kBd4fMSt8OP/vFpJCRMVFFTLsmM+zxHp8
+	 nO7+NY1dmwIQri+NyAsYuU8XTx0FZeuwU7Bm7ZL4EpfjCyO3rreLyF3dgX2aNGZixCNctE0PcrOB
+	 /Bdsn8Ni8nTHIuset3NyKibNhq1hjR3Z0gD+Fso8fQ4nTA7N/kUkN31szqQVijSemSGEXFC1yq+w
+	 BaMshHw+mOxOT/qY01v8LEdoyJXejhKgpmzKO69zrHWlhaPuimwbpCMnmls6utvMLZwge37JS5r5
+	 lq7WwoXuO+xS+STQrgNFFczLxq+U3y8RQa64XUwX0Q1hsIZIwqq9fJM0Y4oZvdg962nJ1ySE08S3
+	 MM4VsXNVLXdTVwls0UIQTZEtqAyyn/WebpczM+iM+iLQ4E4haoHQ1/1L6/84Z7YKTvHTAEkME1D2
+	 w0kNZbVv4cav7jubQodWVMkIq+AmlB9AEExvh/pc+fI4T6+rLkEIj0mE/XipLL52XGjk/vj6qQbp
+	 CJcAQceP+4tDt6ZRooyU8hUgLq1BMzed+6m+kXhAl5MwpVxFLOXkjWJ+YaL4ahkeEiRL+POdOU77
+	 ap7bckstJRMbKwM8iY5KLcg3E1wrM4KFk/GK+w2Hqoka4Ikdx+QLfRii9Bm+bPPUYB1zqEaMq+qG
+	 SfkjkcXXKe6WUTuG3weVqUq27+00jACGIZAt4U1+e3EVCWS5vEM1WRwBgh5STel59xojExMlTXVD
+	 ILGYIPV0ZkZUf+dnDs42mxcm/hs9Xz0/3Ea23rogNHSWNsQWJKOq9MaMxcxKgPm1vGgHRjeMyi/q
+	 EqVizJQ1Stttl8VpRHXJgZ/v92T8chD9s9KfghdknZ5i/vXAJsebW23aU7Qw6E3HdRpyCwYLWZAO
+	 pL+3R819jEazbCH2aD6ZSEpKEI1K0l1gDrPOl4xFd4d0Rnk96z3dY7quwqmmRP+MlM6H8K+Ro+cq
+	 gp7w1LRB6gMvd/tBXAI2KjoaSCFHo8jG3d3Hw+BA==
+X-QQ-XMRINFO: MSVp+SPm3vtSI1QTLgDHQqIV1w2oNKDqfg==
+From: Zhenghui Hao <zhenghui.hao@qq.com>
+To: Helge Deller <deller@gmx.de>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	linux-parisc@vger.kernel.org,
+	Mike Rapoport <rppt@kernel.org>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] parisc: parse early parameters in setup_arch()
+Date: Fri, 18 Sep 2026 13:46:49 +0800
+X-OQ-MSGID: <20260918054649.958466-1-zhenghui.hao@qq.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <7c90662b-903e-4624-bc97-96b1187332c5@gmx.de>
+References: <7c90662b-903e-4624-bc97-96b1187332c5@gmx.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-To: Brett A C Sheffield <bacs@librecast.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
- akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
- patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
- jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
- rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151539.408551884@linuxfoundation.org>
- <aqxBBu5GXVhHcqTz@auntie.librecast.net>
- <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
-Autocrypt: addr=pschneider1968@googlemail.com; keydata=
- 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
- IX+NNrIwDpXrzCypeM2L5WtGyw==
-In-Reply-To: <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
-Content-Type: multipart/signed; micalg=pgp-sha256;
- protocol="application/pgp-signature";
- boundary="------------520sGd7UOHI319C7Qhab8cRx"
+Content-Transfer-Encoding: 8bit
 
-This is an OpenPGP/MIME signed message (RFC 4880 and 3156)
---------------520sGd7UOHI319C7Qhab8cRx
-Content-Type: multipart/mixed; boundary="------------JStB9dRl2FQEbR0CZRykSojS";
- protected-headers="v1"; hp="clear"
-Message-ID: <1e80f4b3-3919-4568-aabd-f0172581831d@googlemail.com>
-Date: Fri, 18 Sep 2026 07:49:48 +0200
-MIME-Version: 1.0
-User-Agent: Betterbird (Windows)
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Content-Language: de-DE
-From: Peter Schneider <pschneider1968@googlemail.com>
-To: Brett A C Sheffield <bacs@librecast.net>,
- Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: stable@vger.kernel.org, patches@lists.linux.dev,
- linux-kernel@vger.kernel.org, torvalds@linux-foundation.org,
- akpm@linux-foundation.org, linux@roeck-us.net, shuah@kernel.org,
- patches@kernelci.org, lkft-triage@lists.linaro.org, pavel@nabladev.com,
- jonathanh@nvidia.com, f.fainelli@gmail.com, sudipm.mukherjee@gmail.com,
- rwarsow@gmx.de, conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151539.408551884@linuxfoundation.org>
- <aqxBBu5GXVhHcqTz@auntie.librecast.net>
- <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
-Autocrypt: addr=pschneider1968@googlemail.com; keydata=
- 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
- IX+NNrIwDpXrzCypeM2L5WtGyw==
-In-Reply-To: <0dc35fd5-ee4c-4140-b154-78a49981ddb7@googlemail.com>
+parisc is one of the few architectures that does not call
+parse_early_param() from setup_arch().  That was mostly harmless until
+commit d49004c5f0c1 ("arch, mm: consolidate initialization of nodes,
+zones and memory map") moved the consumer of several hugetlb command
+line parameters into mm_core_init_early(), which runs before the
+generic parse_early_param() call in start_kernel().
 
---------------JStB9dRl2FQEbR0CZRykSojS
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+As a result hugepages=, hugepagesz=, default_hugepagesz=, hugetlb_cma=
+and hugetlb_free_vmemmap= are recorded after they have already been
+consumed and are silently dropped on parisc.
 
-QW0gMTcuMDkuMjAyNiB1bSAyMjoxOSBzY2hyaWViIFBldGVyIFNjaG5laWRlcjoNCj4gQW0g
-MTcuMDkuMjAyNiB1bSAyMTozNSBzY2hyaWViIEJyZXR0IEEgQyBTaGVmZmllbGQ6DQo+PiAj
-IGZpcnN0ICdiYWQnIGNvbW1pdDogWzIyYWU0MjhiMDA0NTk4MWJkMTlmOGM3NWY3MDBhNjcx
-OTgwNjJmMzJdIG1tL2h1Z2V0bGI6IGluaXRpYWxpemUgZ2lnYW50aWMgYm9vdG1lbSBodWdl
-cGFnZSANCj4+IHN0cnVjdCBwYWdlcyBlYXJsaWVyDQo+IA0KPiBZZXMsIHRoYXQncyB3aGF0
-IEkgZm91bmQsIHRvby4NCj4gDQo+IFdoZW4gSSByZXZlcnQgMjJhZTQyOGIwMDQ1OTgxYmQx
-OWY4Yzc1ZjcwMGE2NzE5ODA2MmYzMiBmcm9tIHJjMSwgdGhlIGJvb3QgY3Jhc2ggZ29lcyBh
-d2F5IGFuZCBteSBtYWNoaW5lIGJvb3RzIA0KPiBzdWNjZXNzZnVsbHkuDQo+IA0KPiBIb3dl
-dmVyLCB0aGVuIEkgaGF2ZSBhbm90aGVyIHdlaXJkbyBpbiB0aGUgZG1lc2cgb3V0cHV0Og0K
-PiANCj4gW8KgwqAgNjUuNTczMzA0XSAtLS0tLS0tLS0tLS1bIGN1dCBoZXJlIF0tLS0tLS0t
-LS0tLS0NCj4gW8KgwqAgNjUuNTczMzA3XSBXQVJOSU5HOiBDUFU6IDE0IFBJRDogMCBhdCBr
-ZXJuZWwvc2NoZWQvZmFpci5jOjUzMDMgcGxhY2VfZW50aXR5KzB4MTNiLzB4MTQwDQo+IFvC
-oMKgIDY1LjU3MzMxNl0gTW9kdWxlcyBsaW5rZWQgaW46IHVhcyB1c2JoaWQgdXNiX3N0b3Jh
-Z2UgaGlkIGlzY2kgcHNtb3VzZSBpZ2IgY3JjMzJfcGNsbXVsIGxpYnNhcyBhYWNyYWlkIHNl
-cmlvX3JhdyANCj4gaTJjX2k4MDEgaW9hdGRtYSBhaGNpIGVoY2lfcGNpIGkyY19tdXggZWhj
-aV9oY2QgaTJjX2FsZ29fYml0IGxpYmFoY2kgaTJjX3NtYnVzIHNjc2lfdHJhbnNwb3J0X3Nh
-cyBscGNfaWNoIGRjYSB3bWkNCj4gW8KgwqAgNjUuNTczMzM2XSBDUFU6IDE0IFVJRDogMCBQ
-SUQ6IDAgQ29tbTogc3dhcHBlci8xNCBOb3QgdGFpbnRlZCA2LjEyLjExMS1yYzErICMxDQo+
-IFvCoMKgIDY1LjU3MzMzOV0gSGFyZHdhcmUgbmFtZTogQVNVU1RlSyBDT01QVVRFUiBJTkMu
-IFo5UEUtRDE2IFNlcmllcy9aOVBFLUQxNiBTZXJpZXMsIEJJT1MgNTYwMSAwNi8xMS8yMDE1
-DQo+IFvCoMKgIDY1LjU3MzM0Ml0gUklQOiAwMDEwOnBsYWNlX2VudGl0eSsweDEzYi8weDE0
-MA0KPiBbwqDCoCA2NS41NzMzNDVdIENvZGU6IDQxIDVkIDQxIDVlIDVkIDMxIGMwIDMxIGQy
-IDMxIGM5IDMxIGY2IDMxIGZmIGMzIGNjIGNjIGNjIGNjIGJlIDAyIDAwIDAwIDAwIDQ4IGMx
-IGU5IDBhIDQ4IDM5IGYxIDQ4IA0KPiAwZiA0MiBjZSA0OCA4ZCAzNCAxMSBlYiBhOSA8MGY+
-IDBiIGViIGI2IDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkwIDkw
-IDkwIDkwIDBmDQo+IFvCoMKgIDY1LjU3MzM0N10gUlNQOiAwMDE4OmZmZmZkMDkxODgyODdj
-ZDggRUZMQUdTOiAwMDAxMDA0Ng0KPiBbwqDCoCA2NS41NzMzNTBdIFJBWDogMDAwMDAwMDAw
-MDAwMDAwMCBSQlg6IGZmZmY4YmMxY2IzMmNlMDAgUkNYOiAwMDAwMDAwMDAwMDAwM2NiDQo+
-IFvCoMKgIDY1LjU3MzM1Ml0gUkRYOiAwMDAwMDAwMDAwMDAwMDAwIFJTSTogMDAwMDAwMDAw
-MDAwMDNjYiBSREk6IDAwMDAwMDAwMDAyZDBlN2YNCj4gW8KgwqAgNjUuNTczMzUzXSBSQlA6
-IGZmZmZkMDkxODgyODdjZjggUjA4OiAwMDAwMDAwMDAwMDAwMDAwIFIwOTogMDAwMDAwMDAw
-MDAwMDAwMA0KPiBbwqDCoCA2NS41NzMzNTVdIFIxMDogMDAwMDAwMDAwMDAwMDAwMCBSMTE6
-IDAwMDAwMDAwMDAwMDAwMDAgUjEyOiAwMDAwMDAwMDM3ZTQ5MmE5DQo+IFvCoMKgIDY1LjU3
-MzM1Nl0gUjEzOiBmZmZmOGJlMTNmMzM3MjgwIFIxNDogMDAwMDAwMDAwMDAwMDAwMCBSMTU6
-IDAwMDAwMDAwMDAwMDAwMDANCj4gW8KgwqAgNjUuNTczMzU3XSBGUzrCoCAwMDAwMDAwMDAw
-MDAwMDAwKDAwMDApIEdTOmZmZmY4YmUxM2YzMDAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAw
-MDAwMDAwMA0KPiBbwqDCoCA2NS41NzMzNTldIENTOsKgIDAwMTAgRFM6IDAwMDAgRVM6IDAw
-MDAgQ1IwOiAwMDAwMDAwMDgwMDUwMDMzDQo+IFvCoMKgIDY1LjU3MzM2MV0gQ1IyOiAwMDAw
-NjUwZjViN2QyMTE4IENSMzogMDAwMDAwMjA4Y2NjYTAwNiBDUjQ6IDAwMDAwMDAwMDAxNzA2
-ZjANCj4gW8KgwqAgNjUuNTczMzYzXSBDYWxsIFRyYWNlOg0KPiBbwqDCoCA2NS41NzMzNjZd
-wqAgPFRBU0s+DQo+IFvCoMKgIDY1LjU3MzM2OF3CoCByZXdlaWdodF9lbnRpdHkrMHgxZDIv
-MHgyMDANCj4gW8KgwqAgNjUuNTczMzcyXcKgIHVwZGF0ZV9jZnNfZ3JvdXArMHhiNC8weGYw
-DQo+IFvCoMKgIDY1LjU3MzM3NF3CoCBlbnF1ZXVlX3Rhc2tfZmFpcisweDI4NS8weDhmMA0K
-PiBbwqDCoCA2NS41NzMzNzddwqAgZW5xdWV1ZV90YXNrKzB4M2IvMHgyMjANCj4gW8KgwqAg
-NjUuNTczMzgzXcKgIHR0d3VfZG9fYWN0aXZhdGUrMHg3NS8weDI3MA0KPiBbwqDCoCA2NS41
-NzMzODZdwqAgc2NoZWRfdHR3dV9wZW5kaW5nKzB4ZmUvMHgxZTANCj4gW8KgwqAgNjUuNTcz
-Mzg5XcKgIF9fZmx1c2hfc21wX2NhbGxfZnVuY3Rpb25fcXVldWUrMHgxNTUvMHg0NDANCj4g
-W8KgwqAgNjUuNTczMzk0XcKgIGZsdXNoX3NtcF9jYWxsX2Z1bmN0aW9uX3F1ZXVlKzB4Mzcv
-MHg4MA0KPiBbwqDCoCA2NS41NzMzOTddwqAgZG9faWRsZSsweDE1ZC8weDJjMA0KPiBbwqDC
-oCA2NS41NzM0MDFdwqAgPyBjb21wbGV0ZSsweDZkLzB4ODANCj4gW8KgwqAgNjUuNTczNDA2
-XcKgIGNwdV9zdGFydHVwX2VudHJ5KzB4MjkvMHgzMA0KPiBbwqDCoCA2NS41NzM0MDldwqAg
-c3RhcnRfc2Vjb25kYXJ5KzB4MTE5LzB4MTQwDQo+IFvCoMKgIDY1LjU3MzQxNF3CoCBjb21t
-b25fc3RhcnR1cF82NCsweDEzZS8weDE0MQ0KPiBbwqDCoCA2NS41NzM0MjBdwqAgPC9UQVNL
-Pg0KPiBbwqDCoCA2NS41NzM0MjFdIC0tLVsgZW5kIHRyYWNlIDAwMDAwMDAwMDAwMDAwMDAg
-XS0tLQ0KPiANClNvIEkgaGF2ZSBiaXNlY3RlZCB0aGlzIHdhcm5pbmcsIGFuZCB0aGUgZmly
-c3QgYmFkIGNvbW1pdCBpcw0KDQpbYWY1Nzc1MDA0YzljMDJmMzdiZTA2ZDIwMzVhMDU2YjZh
-YmIxY2I2Y10gc2NoZWQvZmFpcjogRml4IEVFVkRGIGVudGl0eSBwbGFjZW1lbnQgYnVnIGNh
-dXNpbmcgc2NoZWR1bGluZyBsYWcNCg0KVHJ5aW5nIHRvIHJldmVydCB0aGlzIGZyb20gNi4x
-Mi4xMTEtcmMxIGhvd2V2ZXIgcmVzdWx0ZWQgaW4gc29tZSBjb25mbGljdHMgSSB3YXMgdW5h
-YmxlIHRvIHJlc29sdmUuIFRoZXJlIGFyZSBvdGhlciANCmRlcGVuZGVuY2llcyBsaWtlOg0K
-DQpTdGFibGUtZGVwLW9mOiA1MWIwZTY4Y2ZhMGEgKCJzY2hlZC9lZXZkZjogRml4IHJiIGF1
-Z21lbnRlZCB3aXRoIG11bHRpIGZpZWxkcyIpLCB3aGljaCBpcyANClswOWNkNDY5YzczMzAz
-NWIwMWI0NDVhNmY5MTZlOGVhNDI1MzMwYzQ1XSBpbiBsaW51eC1uZXh0LXJjKQ0KYW5kIGFs
-c28gWzNiYzcwNjgwYzdhYjMzM2VkMDBhNWUxZmUzM2VkNjY5YzQ0ZDU1NDRdICgic2NoZWQv
-ZmFpcjogRml4IGxhZyBjbGFtcCIpLg0KDQpUaGlzIGlzIG15IGJpc2VjdCBsb2c6DQoNCg0K
-cm9vdEBsaW51czovdXNyL3NyYy9saW51eC1zdGFibGUtcmMjIGNhdCBteV9iaXNlY3QubG9n
-DQpnaXQgYmlzZWN0IHN0YXJ0DQojIFN0YXR1czogd2FydGUgYXVmIGd1dGVuIHVuZCBzY2hs
-ZWNodGVuIENvbW1pdA0KIyBiYWQ6IFthZTUzZjRiN2M3ZjYwZWNhMzIxYWY1NGI0YWRhM2Yy
-NDA4MmMyNDJlXSBSZXZlcnQgIm1tL2h1Z2V0bGI6IGluaXRpYWxpemUgZ2lnYW50aWMgYm9v
-dG1lbSBodWdlcGFnZSBzdHJ1Y3QgcGFnZXMgDQplYXJsaWVyIg0KZ2l0IGJpc2VjdCBiYWQg
-YWU1M2Y0YjdjN2Y2MGVjYTMyMWFmNTRiNGFkYTNmMjQwODJjMjQyZQ0KIyBTdGF0dXM6IHdh
-cnRlIGF1ZiBndXRlKG4pIENvbW1pdChzKSwgc2NobGVjaHRlciBDb21taXQgYmVrYW5udA0K
-IyBnb29kOiBbZmE1YjA2ODY2YjY0M2NjZTcwNzJhNGU3YzZiZTdlZTNmMGYxYjk1Y10gTGlu
-dXggNi4xMi4xMTANCmdpdCBiaXNlY3QgZ29vZCBmYTViMDY4NjZiNjQzY2NlNzA3MmE0ZTdj
-NmJlN2VlM2YwZjFiOTVjDQojIGdvb2Q6IFswYjcwYzRkMzY1NGY4OWI3ZmRmY2FlNjg0ZWE3
-MzcxZmJjN2RlNzJjXSBCbHVldG9vdGg6IGhjaV9jb3JlOiBGaXggcmFjZSBjb25kaXRpb24g
-ZHVyaW5nIGRldmljZSByZWdpc3RyYXRpb24NCmdpdCBiaXNlY3QgZ29vZCAwYjcwYzRkMzY1
-NGY4OWI3ZmRmY2FlNjg0ZWE3MzcxZmJjN2RlNzJjDQojIGJhZDogWzgxOGQ3ZmEwYTUzYjgy
-ZjJlOGRiNTZhYWM2MTVkMDhkM2RhNzI1NDhdIEFTb0M6IHNwcmQ6IHZhbGlkYXRlIGNvbXBy
-ZXNzIGJ1ZmZlciBzaXplcyBhZ2FpbnN0IGZpeGVkIGFsbG9jYXRpb25zDQpnaXQgYmlzZWN0
-IGJhZCA4MThkN2ZhMGE1M2I4MmYyZThkYjU2YWFjNjE1ZDA4ZDNkYTcyNTQ4DQojIGdvb2Q6
-IFs1NmM3Y2E5ZDcwMzdhY2I4ODBjYWQ5ZWFlNjhjNDc5Y2M0ZDZmMjAwXSBuZXQvbWx4NTog
-RS1Td2l0Y2g6IGZpeCB1c2UtYWZ0ZXItZnJlZSBpbiBtbHg1X2Vzd2l0Y2hfdGVybXRibF9w
-dXQNCmdpdCBiaXNlY3QgZ29vZCA1NmM3Y2E5ZDcwMzdhY2I4ODBjYWQ5ZWFlNjhjNDc5Y2M0
-ZDZmMjAwDQojIGdvb2Q6IFswM2Q0YTNiNjYxMGJjOWY4NmQ4ZWM0ZDlhNzVhMmQ1Mzc2YjQ3
-YmI3XSBuZXQ6IGtzODg1MTogRml4IHJlY2VpdmVyIGVycm9yIGluIDEwMEJBU0UtVFggbW9k
-ZSBmb2xsb3dpbmcgc29mdHdhcmUgDQpwb3dlci1kb3duDQpnaXQgYmlzZWN0IGdvb2QgMDNk
-NGEzYjY2MTBiYzlmODZkOGVjNGQ5YTc1YTJkNTM3NmI0N2JiNw0KIyBiYWQ6IFsxZDhlZTRm
-NTYwYmU4YjM0NzE3M2RjN2MwN2ZkNDFlNGJhYTMxOGQ3XSBuZXQ6IHN0bW1hYzogYWRkIHN0
-bW1hY190c29faGVhZGVyX3NpemUoKQ0KZ2l0IGJpc2VjdCBiYWQgMWQ4ZWU0ZjU2MGJlOGIz
-NDcxNzNkYzdjMDdmZDQxZTRiYWEzMThkNw0KIyBiYWQ6IFthZjU3NzUwMDRjOWMwMmYzN2Jl
-MDZkMjAzNWEwNTZiNmFiYjFjYjZjXSBzY2hlZC9mYWlyOiBGaXggRUVWREYgZW50aXR5IHBs
-YWNlbWVudCBidWcgY2F1c2luZyBzY2hlZHVsaW5nIGxhZw0KZ2l0IGJpc2VjdCBiYWQgYWY1
-Nzc1MDA0YzljMDJmMzdiZTA2ZDIwMzVhMDU2YjZhYmIxY2I2Yw0KIyBnb29kOiBbN2I2OTg4
-NzUwZmVlYzBiZDNkYTI1NmU5ZmU4MDI0NGZhMzU4YWI3NF0gbmV0OiBzdG1tYWM6IGluaXRp
-YWxpemUgcHRwX2xvY2sgYXQgcHJvYmUgdGltZQ0KZ2l0IGJpc2VjdCBnb29kIDdiNjk4ODc1
-MGZlZWMwYmQzZGEyNTZlOWZlODAyNDRmYTM1OGFiNzQNCiMgZ29vZDogWzUyMDgwY2VmZWIy
-ZjQ1NGNkYjE0ZmI3YTA1MmQzNTU2NjYwOWMxYWRdIHBlcmYvY29yZTogQ2hlY2sgc2FtcGxl
-X3R5cGUgaW4gcGVyZl9zYW1wbGVfc2F2ZV9jYWxsY2hhaW4NCmdpdCBiaXNlY3QgZ29vZCA1
-MjA4MGNlZmViMmY0NTRjZGIxNGZiN2EwNTJkMzU1NjY2MDljMWFkDQojIGdvb2Q6IFtlZGVj
-YTNmMzIxNjE0NjI1OTZlNmUwM2U2OWEzNDQzZGQ4MGM1NjAzXSBwZXJmL3g4Ni9pbnRlbC9k
-czogUmVtb3ZlIHJlZHVuZGFudCBhc3NpZ25tZW50cyB0byBzYW1wbGUucGVyaW9kDQpnaXQg
-YmlzZWN0IGdvb2QgZWRlY2EzZjMyMTYxNDYyNTk2ZTZlMDNlNjlhMzQ0M2RkODBjNTYwMw0K
-IyBnb29kOiBbZmM2MDJlYjE0NTE0MjJiZjBlNDc5OGFjNjhmOGMxNTkwNGUwYjdhYV0gcGVy
-Zi94ODYvaW50ZWw6IENvcnJlY3QgcHRfcmVncy0+ZmxhZ3MgdXBkYXRlIGZvciBQRUJTIHBh
-dGgNCmdpdCBiaXNlY3QgZ29vZCBmYzYwMmViMTQ1MTQyMmJmMGU0Nzk4YWM2OGY4YzE1OTA0
-ZTBiN2FhDQojIGZpcnN0IGJhZCBjb21taXQ6IFthZjU3NzUwMDRjOWMwMmYzN2JlMDZkMjAz
-NWEwNTZiNmFiYjFjYjZjXSBzY2hlZC9mYWlyOiBGaXggRUVWREYgZW50aXR5IHBsYWNlbWVu
-dCBidWcgY2F1c2luZyANCnNjaGVkdWxpbmcgbGFnDQoNCg0KQmVzdGUgR3LDvMOfZSwNClBl
-dGVyIFNjaG5laWRlcg0KDQotLSANCkNsaW1iIHRoZSBtb3VudGFpbiBub3QgdG8gcGxhbnQg
-eW91ciBmbGFnLCBidXQgdG8gZW1icmFjZSB0aGUgY2hhbGxlbmdlLA0KZW5qb3kgdGhlIGFp
-ciBhbmQgYmVob2xkIHRoZSB2aWV3LiBDbGltYiBpdCBzbyB5b3UgY2FuIHNlZSB0aGUgd29y
-bGQsDQpub3Qgc28gdGhlIHdvcmxkIGNhbiBzZWUgeW91LiAgICAgICAgICAgICAgICAgICAg
-LS0gRGF2aWQgTWNDdWxsb3VnaCBKci4NCg0K
+Call parse_early_param() from setup_arch(), after the command line has
+been set up and the memory inventory has been taken.  jump_label_init()
+must be called first because early parameter handlers may enable or
+disable static keys.  Both functions are safe to call more than once:
+the generic calls in start_kernel() remain in place and turn into no-ops.
 
---------------JStB9dRl2FQEbR0CZRykSojS--
+Suggested-by: Mike Rapoport (Microsoft) <rppt@kernel.org>
+Fixes: d49004c5f0c1 ("arch, mm: consolidate initialization of nodes, zones and memory map")
+Cc: <stable@vger.kernel.org>
+Signed-off-by: Zhenghui Hao <zhenghui.hao@qq.com>
+---
+ arch/parisc/kernel/setup.c | 12 ++++++++++++
+ 1 file changed, 12 insertions(+)
 
---------------520sGd7UOHI319C7Qhab8cRx
-Content-Type: application/pgp-signature; name="OpenPGP_signature.asc"
-Content-Description: OpenPGP digital signature
-Content-Disposition: attachment; filename="OpenPGP_signature.asc"
+diff --git a/arch/parisc/kernel/setup.c b/arch/parisc/kernel/setup.c
+index d3e17a7a8901..4d3015a411d6 100644
+--- a/arch/parisc/kernel/setup.c
++++ b/arch/parisc/kernel/setup.c
+@@ -132,6 +132,18 @@ void __init setup_arch(char **cmdline_p)
+ 	parisc_cache_init();
+ 	paging_init();
+ 
++	/*
++	 * Parse early parameters before mm_core_init_early() runs.
++	 * Several early_param() handlers only record data that is consumed
++	 * from there - for example hugepages=, hugepagesz=,
++	 * default_hugepagesz=, hugetlb_cma= and hugetlb_free_vmemmap= - so
++	 * the generic parse_early_param() call in start_kernel() is too late
++	 * for them.  jump_label_init() must come first, since early param
++	 * handlers may enable or disable static keys.
++	 */
++	jump_label_init();
++	parse_early_param();
++
+ #ifdef CONFIG_PA11
+ 	dma_ops_init();
+ #endif
 
------BEGIN PGP SIGNATURE-----
+base-commit: 4982d3552a3bf94de503acf93433277d08421de6
+-- 
+2.53.0
 
-wsF5BAABCAAjFiEEJlc7Dq7rXmY041HeEaDYA0mmnLQFAmqs0P0FAwAAAAAACgkQEaDYA0mmnLS8
-jA/+KA03kQu6mLBOaTx1Ra39i8r0KhuCZQcQz8ZMD3XqAIS79YZx93FteUvwyXhReUBtiKhrH2eQ
-aj2Bu6b15rNzgqw8k88MwqsdIR2XKYI+s9EEYWTBMY1jU+34saCv0HwX+Yg0zjkMxrlv6zgIgOFN
-VfYIk09PIa0VRn+U6Y3nSJfEcdOuwcenft88XxpbMWkFGOI3WBWa9wIDgfy2jarKeSCjiHkNWHQK
-Rr6DRG5BIK1Ze589p81w9lkH7ZvxsgaLsYmYHKxl57ZpT9WqzNSw4nReXPU8220zIaqUw7V42igy
-drKQbnC2iBRjrovjXbia9tPA+hUBz6K8h8cImy4Z4Rxnp58t5LJaRa22qPu2Z1bNu4qBzpa3jaKn
-DCojx1TX8/J/j2OuhqAsbB9OOrW6a50BD1IJAivSrTbyI8+YojGW8Ip4WQRBxC4voEb4wC1OFvje
-04pXBM3TMoxm7NKrRGU8V8mi0BX7g3dPnOCNFRvdS5cAaUkqsAF6w63ctLgljrpGRvXPwmQwcLWv
-+NtEAOfxt7sjt30iCaPLVqvuR7yYy+EmhC+aEg9vs1TGYJ/tUXEaw+QgLwomRQaNZGLGQH324sSb
-gC5bvoBK8kT9Lt81CzJ1mdziL6ycMXKXRqxeBQswmQYXaASpnK0Mtk4nzfmXajjq7KYGwyY1z5aT
-Ia0=
-=KOOY
------END PGP SIGNATURE-----
-
---------------520sGd7UOHI319C7Qhab8cRx--
