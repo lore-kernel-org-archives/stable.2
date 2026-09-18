@@ -1,83 +1,80 @@
-Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CC438E5DC;
-	Fri, 18 Sep 2026 14:28:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 09EDB3C1D62;
+	Fri, 18 Sep 2026 14:29:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741698; cv=none; b=mTzy7dYoIm0qAn7PvQjyoVxdRPEiVbAVZbHx6+19pR2qZRSr6jr0C63qiVLwA3Lbb6qPkzjIW2GOHa6Mw/nOEki97e4HDxbs5fxxxYd6rouFvT5f0mV1ssPbDYIgmr5ajK6Q1yNq1c9Y1oEI3bq1Pd0btRGxXWYuCP3k0R4jMwM=
+	t=1789741788; cv=none; b=KgIwRm5qjyk4tvvddgwez07pKcpRwjShcLKUGg9al3XXKY9DUHw+JXcWA/RQl17U3uRzuspa1TP040O5wKbPMYB/MHLysqCGHX10F9dulO//SvEqybKwGCE8oOWpmZtqjrRW0LZW99NAW/qRbJpHwOc8F02XMXT/vdvCbepBK9E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741698; c=relaxed/simple;
-	bh=30qmVMzX/J9BfiIXdu4Nb25WhGl5li/5+4BhYPYCtn0=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=s23BexY86HP2t8uh1JIPhGiT0jSbNWu1S0o5UAFreyKU6Ol4ge0iMNrmpKdhpl0Ldu8hF2yD4nzIN91zcvELHl3Fo+dQK3HFX9Q9tkTFw0HYJKmcas2JCm0fJ3Jx1zv5HrKDE/lV2MQEBndUJY4g3a5Jxef7O5SyivXfKAv6d3o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=MEVttQ33; arc=none smtp.client-ip=162.62.58.216
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
+	s=arc-20240116; t=1789741788; c=relaxed/simple;
+	bh=xNDIe4xQhd6rDetWv6az1RvXDpleYlAx/7+sFXaDpY0=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=kpkoSxU8lFkbpBE7OEgrNbf0R1wZ/RQnzuCEiLhsGTmdy8NUfVjmeILQRkWXgrBSMnxs+7aO7DvLvaXhW6Ax6coXXiwR8vbA5SDvge+ZNeUjdgfNMh9AI8OMVc0ZIlxATMXmTlHCWL1fgRKVRTVD9JA/BVErzjbYz7+o0bA5K6w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=niy30VT4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="MEVttQ33"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
-	t=1789741684; bh=30qmVMzX/J9BfiIXdu4Nb25WhGl5li/5+4BhYPYCtn0=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MEVttQ33rHSgI5YAox63QKMTqf5Z3vgFjlLw2MgTmghFAMp5J8CZeJUYcMxFA2EDE
-	 VSjxbqd8ugITSwZRT2geBW7CN2wZOy+O0ZbAXKoh0B5Aaux8FG+PDa+h8vvxWrUYhF
-	 61cObnIORLNyfEvSr9mmS9iap4vy9pPv3im0BPQg=
-Received: from [IPV6:2409:8a1e:a1f6:6291:8109:68a1:36b:c182] ([2409:8a1e:a1f6:6291:8109:68a1:36b:c182])
-	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
-	id 7020406B; Fri, 18 Sep 2026 22:28:02 +0800
-X-QQ-mid: xmsmtpt1789741682td5iy8zfd
-Message-ID: <tencent_EDFF4CC61926DDD4305C89B451CC67B51E05@qq.com>
-X-QQ-XMAILINFO: NT7dO8ok7FP2TrCQG9lCaxo/hQmEV4JMnfTUmdg2z9Kyby9aFcVn2Xp6s18j4E
-	 V2kRUIPzlp95YQTkw8uXERVDSvnN3wRYC34eJ8zOI6OvUlEXYl6dWubDVsaMdUhktabYPwAU/6bx
-	 jExGL1l1Nmqa4jeG/jdW9hjj2fBpDoW6BH1YDeXle83JiOgxI7CParesHNtBLh+0jRk0JDnlVulM
-	 3AZVGql1/c62NqUfB0+T+1TReNX78sM7I72c7ubIdIuBBudZTlEUS7Jy7+DjxA3Hmo7Nf/TlQpSM
-	 3t3O2u5w3RwgqFmW9XD6ZJjAMbA7txVzhB33EbTLVJdFcz6W38KqCi7F/o/nHll8Vw0tFUDgvB3D
-	 NXBOngVMsIl+8zx1TpxmHHfK4GDIcuYlrkUVNuZ4F4+VQWOImRNvS0doX2itLWOYcG2nLKxnwyjo
-	 XTLD6J5E2tE4v7hX9WeQdUTbeFbYA4kKIJ12ThOWXT7Pcdi79Vl1pVf/2sRxrWGWGiujC41ZpZes
-	 a5Piq4OHaJlRwQzk+pnsQOz69d8cvIqTod0uFzdEl+hw6RNxWfC4lHuGTUVIxqcR3lQ+CPhIgl4r
-	 TXYV/HAh4FtMIgFem8dVoykRUR0fBMiYQzm2Hgtj6bm3RCsfKHaGSeErdr9VTO97zXjtDPAUAwmd
-	 d61qvdCo1SplO7WJSN/lzMGo/SiG5px6l6KqCtQc82QsbjaCVT9R20YPORmrZ0jcOJ+LVTm8hgBH
-	 vVtMmjGDzZ41ZVdbPPktvEtouGc+bLHGPTmjOCYE7oKk7z4TKJ/ppiije5ZWtDnBC430p+hgWdP0
-	 urO1t5AUvCZP+3EcamLRk8IUO2N7bk+Nbjm+UNLH8B5AoDMs1ODfWd2iJQ/BFmDeeH9qBFadHKJj
-	 uFp9hmqQAfzR28Mxe48W1Ac7SmY/YkZaymHm0wWDLh4pAdPEYhAedLN0UGjdjEqb2cSBApKfCIeP
-	 GJ6xQ3hNhOHofdZdNs1pfsZjrMQOZMr1Hd6Rsb1BB1q6CyR3dA/2wRtKeSWNIqKks89mfIpq+dfd
-	 pZoW/9RGvq3363EyB4E3Z5gA88YyoYVCPRjoHIZxuwxkuC0ew/qaq3ma0PrbqLJk6rBeQ+Prhs5c
-	 TMIlEBYtcu/WydIh06ESxM+t9BrQ==
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-OQ-MSGID: <b04c01ae-d953-4b3f-a3c4-39657da6ebb5@qq.com>
-Date: Fri, 18 Sep 2026 22:29:21 +0800
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="niy30VT4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28B521F000FF;
+	Fri, 18 Sep 2026 14:29:43 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789741786;
+	bh=C3spve4byqYzWkhtX7Z1uSwfKm3Dog4UDZegAdsYF48=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=niy30VT4DpS3IqJE3lE2Y38gqFkVE24N7haV1aSclNsAlIay2KKYOxlSYTspkkKe8
+	 /oSj6ITWVBwXnyYHbckgRQdDTisYbCE0wzuyBwPxWfanIu5FxNvrSm+lqNBJyCURL0
+	 HYLuktP6BDmXqLR7kL3FXIapydJQvdHSUWIYAurv4EKg4/i0HBfEXVX7mzKi8nLfA5
+	 8O5nDFCa2ycK2jLsOjwY7bZTygYhMbKDlstsJx2oyBQnEXZIsTjf4H7XEEvCSEliYo
+	 QYxVYcc/9gVGUkb3Jbq8vWklRjnbyAwuRpDOFxF9+979ek2oywaWuWTD8Mja64awcl
+	 0FhnLa2vmlUmw==
+Date: Fri, 18 Sep 2026 16:29:41 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, NeilBrown <neil@brown.name>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org, 
+	io-uring@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] fork: refuse new threads while a coredump or an
+ exec is in progress
+Message-ID: <20260918-elstern-potenzieren-marotten-71ebd0744753@brauner>
+References: <20260917-work-coredump-fixes-v2-0-f3787fcda051@kernel.org>
+ <20260917-work-coredump-fixes-v2-1-f3787fcda051@kernel.org>
+ <aq0VLTyxNatFmLOK@redhat.com>
+ <20260918-irrsinn-pickt-vermummen-d7167c397398@brauner>
+ <20260918-disput-maden-parkdeck-2bc22dd90398@brauner>
+ <aq0_lvHDViIpX_Mu@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] parisc: parse early parameters in setup_arch()
-To: Helge Deller <deller@gmx.de>
-Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
- linux-parisc@vger.kernel.org, Mike Rapoport <rppt@kernel.org>,
- stable@vger.kernel.org
-References: <7c90662b-903e-4624-bc97-96b1187332c5@gmx.de>
- <tencent_25C26948D9C4B056CBF12565F0600C4C2509@qq.com>
- <42e0fc0c-caaa-4d2b-bedc-164323bddac5@gmx.de>
-From: Zhenghui Hao <zhenghui.hao@qq.com>
-In-Reply-To: <42e0fc0c-caaa-4d2b-bedc-164323bddac5@gmx.de>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aq0_lvHDViIpX_Mu@redhat.com>
 
-On 9/18/26 16:22, Helge Deller wrote:
+On Fri, Sep 18, 2026 at 03:41:42PM +0200, Oleg Nesterov wrote:
+> On 09/18, Christian Brauner wrote:
+> >
+> > I think this works but they also need to check ->in_execve as the
+> > exec'ing thread is obviously never signaled:
+> >
+> > @@ -2709,6 +2707,10 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+> >                 .user_worker    = 1,
+> >         };
+> >
+> > +       /* A creator past its fatal signal or in execve gets no thread. */
+> > +       if ((current->flags & PF_SIGNALED) || current->in_execve)
+> > +               return ERR_PTR(-EINTR);
+> 
+> Ah, I forgot to mention...
+> 
+> Can we shift io_uring_task_cancel() up, after setting bprm->point_of_no_return
+> but before de_thread() ?
+> 
+> I know nothing about io_uring, not sure this would be enough...
 
-> Tested-by: Helge Deller <deller@gmx.de>
->
-> Thanks!
-> Helge 
-Hi Helge,
-
-Thank you very much for taking the time to test this patch. I really appreciate it.
-
-Since you have successfully tested it, do you have any further comments or concerns regarding the code? Or is this patch ready to be picked up?
-
-Thanks,
-Zhenghui Hao
-
+From my reading of this code it works.
+The cancel runs task work and any create_worker_cb() queued before the
+exec can still create an io-wq worker. If that happens before
+de_thread(), that worker just becomes a sibling that de_thread() kills
+and waits for. After the cancel nothing new can be queued.
