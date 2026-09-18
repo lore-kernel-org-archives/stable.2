@@ -1,191 +1,132 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A80C4F93DD
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 13:47:02 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A048A4FD263
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 13:50:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739224; cv=none; b=U/a4KCUofKQWjBQjSaI7sKUf/oWJi1LKP9LuiNXjkrjneL2t2Jn11Ykd7Nt3XqjUioMjYK5YCwDg9wo10cqgbxlvHLUkjQSEL2jjoinnIwAMyxmm4gsMf6lx2XNHMSpHL/90ne0S9TN9EaFg1wCxmwLcEQEasUnlGe0TcFTsgto=
+	t=1789739440; cv=none; b=dIJzkXFqrv7xAqVNBFodc3NK2/vIEE/wBQ3uHBwTrko+aYzr4yp+LnUqPfPo7c8KtQ+gsHfTnfhx/SF9KFjC8px3vKbD8fuABTgAz03H8teqFe/DCVDq7QmeNGmdEFdIvPmXY6IKuU3spD2fQw05HLb8VVB8OKhgFUirpxjuAic=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739224; c=relaxed/simple;
-	bh=p5fI5L9DX2MDhuLbEK8/QoiotSUe44g5xg1NiPDCA0E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=OzSgjqaScBgC9oy17dj3LM8xLLXTSecwfiDNx6Je77VZckVDz9Ok/4svw+Q+hMIR3zGJrJA/Uu4SGu9L1KJK/ZhRh4O7yT2u8QZEG1K+bkY3RJKcOvfGbcaVddNYG34nQXTJk0LxUs2gPMNucDEuEI5qHGOY2lrmAL60QskLCsA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=iaEW3ZC8; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	s=arc-20240116; t=1789739440; c=relaxed/simple;
+	bh=6ylVGzoVg5WyGnxqAmFcToYzZVklKcib90G+PvfoyT0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=pAKn9iHdls7GL3wFMapQ1QTSLgzkiwktxo1ad7PFDf9IvN7T/VtwNwxR7D8d82FHPHYJ4ys0Now5HGCPjeRSju9WQaZkO5urRS1QZT56Mxbv9fvebdFvWUwG6h3DY1UqNfPP6IP3lli/iprUPfzyhZC4K26uRPOyNGGZ+78DSO0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Cd4fAaKE; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="iaEW3ZC8"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067eso74131185a.0
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 06:47:02 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789739221; x=1790344021; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=pC80FFx3P+R/wVH2EKfilVtA17zP1wc/C+ZmKYlpplI=;
-        b=iaEW3ZC8sHzuz03oP8sgRmSco1WSJcJ6ctqqsP9wejGLncfWqurgGfnalmbDAHSxjh
-         pCe+5wsCWkYa5S/wWqEus6m+Q3h/FPxTMwvkNsJcH4af9XLJ6aDCsKKsaBYChi4alhH2
-         oxcvWXUCzsE1QWS7kXSXn/bYd7erhpO3jKX2+lxc14U1xC+Q0kMvXdSLvdcUnbozYsgt
-         fKaOvI10PwXyeCiH2mo0htaDV+0vSR9WI47OLeN6sMcj2NoeQxYDVRqqV9KxUcS1JhLt
-         NHkcssDb2Qz3PK5kD0/MJEm2YnfrgOQ2bhGb8FQUeQjZcu/7fvtZKpd20xWhzBFfL+Ex
-         1wJg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789739221; x=1790344021;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=pC80FFx3P+R/wVH2EKfilVtA17zP1wc/C+ZmKYlpplI=;
-        b=0iybw+qUSMT8NXGbSHjiOH1OPaEvgZ49v2fSSOdfYHx4ovjsAcROWkb7WjaPkRxpxZ
-         ZJel+RVNt/6D5DOsgnBCFjg1C7HEPQgKiUBRPDZkhkcikLz4ID9UbdZmTQieGB/gVI8u
-         H324SL0DsCWBBKxZCYJtWNPlENakrbsNUJxcjv3rsqQL2HXoRdIt/2N1zbJWfPSHNBks
-         BHyhaRq4aklbtqkkYRUGQnEZ/W4WadsXOIlWFR1eP/e/jRJozo01nv8llCtGP8EtvU8y
-         qG8Iqa5dsAEVdNlF4SPqZWXxkOCS7BCR0v1b4RO+bMjFKhbhmD+6aLn68zxWELZALNST
-         Wlkg==
-X-Forwarded-Encrypted: i=1; AKwUvBySjZqlNLL/KgyKkxwKlRImeNYAhFa0TVu62inhJdb8ebagQH+1yidcgNFG50vkKeyH153re0M=@vger.kernel.org
-X-Gm-Message-State: AFuF++kvfjPGsfsL6IjEhfO1B7g8P41BwPLyphsNUOmsl+zNyxX8P+5G
-	3gMQHh+hOywI1uFi/LajNoikB2y913257K+RCS3p2xB5b+FmIuvSXTew3VLV88+GSYQ=
-X-Gm-Gg: AYBFou0+xcUbRF4sCpGfFWW4Eh1MbAvzlVyb5ojJSj6ecqeUCl9HKHU+W4xl848jWbR
-	CSA/v8r5MBUiHBEsW/BiCdLUag74TIaY+7dGzxssZcllIKyT/h4ugfFmE6DTWOqpgRMPRygv+Ws
-	H73w2Qjert0e5PXj8JiJLwNmTBMQmVM52YTzWdsxbRhytjiLuvV2KMjRAw6UnE9GM77BGUecM9u
-	8SptYM2NfenVIjxQJ0YpJk7Xd4d+1w0m0aqrA+tSCR3pZvjUpFjfETN/NkWUMtGfhIkkxDH+wGj
-	UQQLKIMq3UmDtxgzL/Aa6toDT23Ll5iwT2i9Mm2ODV3BpYDXl8MRh5goTy2wVIA0rd+tBIpIhux
-	4G3QFnHxObr7/fgv/a2idWY71AWSsD6EP01IIG+C1ELD2dde5FMG/bXA6SKID6L2c7jZQW2l6fP
-	Ne1pmBVbreGEZRW2KLuTi+qlQv9sgqL2mLixELfOP0vQSECeUn1jVvE4H6IHOugDyhBnNx2goIN
-	p1hzt9YcJp90rWd4qrVEAeTE4zgGSD/f4DryZUCicg45Aq7mEBdWRY=
-X-Received: by 2002:a05:620a:1b99:b0:939:7835:8f87 with SMTP id af79cd13be357-93bdc6a6dacmr356633385a.17.1789739220927;
-        Fri, 18 Sep 2026 06:47:00 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0e9e752sm144316085a.22.2026.09.18.06.46.59
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:47:00 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:46:58 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
-	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
-	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Cd4fAaKE"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789739437;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=EPIhTn4sDBuz0G96LEXoKpjhT6oJylIi4yaM6st+xoA=;
+	b=Cd4fAaKE1mDoEzNeanSbzTioEBnuR1r2NOBLedZ19djyEhg8+nRASWRN1kdifY1WRslDCo
+	c20m35sgoN7DF32gUx3L6JoUQJLq/xKfy+xDniSzWdjDYsyUE2X1AprfV2dHcEQg4KNPJz
+	bo90NaTb3ADBAoZKe4Hd5MTXPdpBzZo=
+Received: from mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-180-iQVw_cmHPXu5g8v5gitnTA-1; Fri,
+ 18 Sep 2026 09:50:34 -0400
+X-MC-Unique: iQVw_cmHPXu5g8v5gitnTA-1
+X-Mimecast-MFC-AGG-ID: iQVw_cmHPXu5g8v5gitnTA_1789739433
+Received: from mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.17])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-06.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 08F7D1828B4A;
+	Fri, 18 Sep 2026 13:50:33 +0000 (UTC)
+Received: from virtlab1023.virt.eng.rdu2.dc.redhat.com (virtlab1023.virt.eng.rdu2.dc.redhat.com [10.18.48.26])
+	by mx-prod-int-05.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTP id 45BAF1956042;
+	Fri, 18 Sep 2026 13:50:32 +0000 (UTC)
+From: Paolo Bonzini <pbonzini@redhat.com>
+To: linux-kernel@vger.kernel.org,
+	kvm@vger.kernel.org
+Cc: nsaenz@amazon.com,
+	vkuznets@redhat.com,
+	snambakam@linux.microsoft.com,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/4] mm: support promotion-only NUMA hinting scans
-Message-ID: <aq08OIJ5mCnDVIfs@gourry-fedora-PF4VCD3F>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-2-gourry@gourry.net>
- <9b5e1573-6fd8-48a5-a274-a6e7ff83d2fe@kernel.org>
+Subject: [PATCH 01/31] KVM: x86/hyperv: do not overwrite hc->ingpa for slow SIGNAL_EVENT hypercall
+Date: Fri, 18 Sep 2026 09:50:00 -0400
+Message-ID: <20260918135030.171564-2-pbonzini@redhat.com>
+In-Reply-To: <20260918135030.171564-1-pbonzini@redhat.com>
+References: <20260918135030.171564-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <9b5e1573-6fd8-48a5-a274-a6e7ff83d2fe@kernel.org>
+Content-Type: text/plain
+Content-Transfer-Encoding: 8bit
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.17
 
-On Fri, Sep 18, 2026 at 02:37:52PM +0200, David Hildenbrand (Arm) wrote:
-> > diff --git a/include/linux/mm.h b/include/linux/mm.h
-> > index 969594074fd2..2d1b59a27629 100644
-> > --- a/include/linux/mm.h
-> > +++ b/include/linux/mm.h
-> > @@ -3408,6 +3408,8 @@ int get_cmdline(struct task_struct *task, char *buffer, int buflen);
-> >  #define  MM_CP_UFFD_RWP_RESOLVE            (1UL << 5) /* resolve rwp */
-> >  #define  MM_CP_UFFD_RWP_ALL                (MM_CP_UFFD_RWP | \
-> >  					    MM_CP_UFFD_RWP_RESOLVE)
-> > +/* Whether a MM_CP_PROT_NUMA change is for promotion only */
-> > +#define  MM_CP_PROT_NUMA_PROMO_ONLY        (1UL << 6)
-> 
-> BTW, shouldn't we just be using BIT()?
->
+When a guest makes a slow HVCALL_SIGNAL_EVENT hypercall with a connection ID
+that is valid in userspace but not registered in the kernel conn_to_evt,
+kvm_hvcall_signal_event() reads the connection ID and overwrites hc->ingpa.
+However, hc->param still signals that the hypercall was a slow one, and
+userspace will then treat the connection ID as an address.
 
-I originally had a 5th patch to convert it, but i dropped it while
-making multiple attempts to avoid a CP bit at all.
+Cc: stable@vger.kernel.org
+Fixes: bd38b32053eb ("KVM: hyper-v: Collect hypercall params into struct")
+Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
+---
+ arch/x86/kvm/hyperv.c | 15 +++++++++------
+ 1 file changed, 9 insertions(+), 6 deletions(-)
 
-I can add it back to the end of the series if you like.
+diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+index 604651cb2739..d2921d443fde 100644
+--- a/arch/x86/kvm/hyperv.c
++++ b/arch/x86/kvm/hyperv.c
+@@ -2436,19 +2436,22 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
+ {
+ 	struct kvm_hv *hv = to_kvm_hv(vcpu->kvm);
+ 	struct eventfd_ctx *eventfd;
++	u64 conn_id;
+ 
+ 	if (unlikely(!hc->fast)) {
+ 		int ret;
+ 		gpa_t gpa = hc->ingpa;
+ 
+-		if ((gpa & (__alignof__(hc->ingpa) - 1)) ||
+-		    offset_in_page(gpa) + sizeof(hc->ingpa) > PAGE_SIZE)
++		if ((gpa & (__alignof__(conn_id) - 1)) ||
++		    offset_in_page(gpa) + sizeof(conn_id) > PAGE_SIZE)
+ 			return HV_STATUS_INVALID_ALIGNMENT;
+ 
+ 		ret = kvm_vcpu_read_guest(vcpu, gpa,
+-					  &hc->ingpa, sizeof(hc->ingpa));
++					  &conn_id, sizeof(conn_id));
+ 		if (ret < 0)
+ 			return HV_STATUS_INVALID_ALIGNMENT;
++	} else {
++		conn_id = hc->ingpa;
+ 	}
+ 
+ 	/*
+@@ -2456,15 +2459,15 @@ static u16 kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
+ 	 * have no use for it, and in all known usecases it is zero, so just
+ 	 * report lookup failure if it isn't.
+ 	 */
+-	if (hc->ingpa & 0xffff00000000ULL)
++	if (conn_id & 0xffff00000000ULL)
+ 		return HV_STATUS_INVALID_PORT_ID;
+ 	/* remaining bits are reserved-zero */
+-	if (hc->ingpa & ~KVM_HYPERV_CONN_ID_MASK)
++	if (conn_id & ~KVM_HYPERV_CONN_ID_MASK)
+ 		return HV_STATUS_INVALID_HYPERCALL_INPUT;
+ 
+ 	/* the eventfd is protected by vcpu->kvm->srcu, but conn_to_evt isn't */
+ 	rcu_read_lock();
+-	eventfd = idr_find(&hv->conn_to_evt, hc->ingpa);
++	eventfd = idr_find(&hv->conn_to_evt, conn_id);
+ 	rcu_read_unlock();
+ 	if (!eventfd)
+ 		return HV_STATUS_INVALID_PORT_ID;
+-- 
+2.52.0
 
-> > +		promo_only = !(numab_mode & NUMA_BALANCING_NORMAL);
-> 
-> bool promo_only = !(numab_mode & NUMA_BALANCING_NORMAL);
-> 
-> 
-> and in the later patch
-> 
-> if (vma_is_ro_file(vma))
-> 	promo_only = true;
-> 
-> ?
 
-Yeah this is confusing, but it is correct.
-
-1) If we're in the code at all, balancing was on at some point.
-
-2) If !NORMAL - then TIERING must have been set - so always true
-   (promo_only says: only PROT_NONE low-tier folios)
-
-3) In (NORMAL | TIERING) mode.  promo_only = !NORMAL = false
-   (so in numab=3 - we PROT_NONE top-tier folios)
-
-4) But this causes socket-to-socket bouncing when (NORMAL) is set
-   so we retain the "no R/O file" filter by checking it and setting
-   the promo_only filter back it.
-
-It is, decidedly, quite awful.
-
-But the problem isn't the fix - the introduction of the R/O filter broke
-TIERING first.  The problem is that these filters never took both modes
-(NORMAL, TIERING) into account in the first place.  They optimized for
-NORMAL and broke TIERING.
-
-> 
-> Stupid question: why can't/shouldn't change_prot_numa() query
-> sysctl_numa_balancing_mode? Why do we have to query this outside of the function
-> and forward it?
-> 
-
-We need to calculate it anyway for patch #4 to track when the last full
-vma scan occurred in numab=3 mode.
-
-We certainly can, but then we calculate it twice in the stack and it can
-change out from under us.  I didn't want to have to think about that
-split-state problem, so I err'd on the side of calculate-once and do the
-whole operation based on that state.
-
-I'll need to pull up some investigation notes, but I also remember there
-being a situation where checking it underneath this caused more scanning
-work - didn't want to regress anyone. This might be resolved by patch #4.
-
-> I mean, change_prot_numa() gets the vma and can query
-> sysctl_numa_balancing_mode. Why not move that into the function and avoid the
-> boolean parameter?
-> 
-> We do have a single change_prot_numa() caller in the tree ...
-> 
-> >  
-> >  			/*
-> >  			 * Try to scan sysctl_numa_balancing_size worth of
-> > diff --git a/mm/huge_memory.c b/mm/huge_memory.c
-> > index 30b7c63b0e35..2f9ada1bbcfc 100644
-> > --- a/mm/huge_memory.c
-> > +++ b/mm/huge_memory.c
-> > @@ -2784,7 +2784,8 @@ int change_huge_pmd(struct mmu_gather *tlb, struct vm_area_struct *vma,
-> >  			goto unlock;
-> >  
-> >  		if (!folio_can_map_prot_numa(pmd_folio(*pmd), vma,
-> > -					     vma_is_single_threaded_private(vma)))
-> > +					     vma_is_single_threaded_private(vma),
-> > +					     cp_flags & MM_CP_PROT_NUMA_PROMO_ONLY))
-> 
-> As raised, maybe just forward cp_flags
-> 
-
-Yeah fair, i'll do that and just add (or eliminate) the
-single_threaded_private argument if possible.
-
-~Gregory
