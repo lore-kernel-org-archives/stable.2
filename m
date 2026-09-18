@@ -1,226 +1,165 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
-	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1D4722C21DF
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 00:28:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
+	by smtp.subspace.kernel.org (Postfix) with ESMTP id 203DE239068;
+	Fri, 18 Sep 2026 00:28:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.228.1.57
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789691326; cv=none; b=PIkl3aBk12g7FZrFkmGXcUYs16a2ylbkK149MyrEd3WSKop/TW1ZZblMsuVq9z+A2vKFBhCWPIu/g2S/WPpCGHnqgWqSRWWwIIsCKh+41nrVaOfA1k/UvNRhnU/qo9RE6Dh3WkTjkCZwAH24bH84ZAbZvXjMQobQMgVLU0KZoiE=
+	t=1789691337; cv=none; b=OFGOLAUZ1CdKWRjb381+QPvvEUU9BjugXpfIAPWmVjoUb9evy8PQEVm3cpTbzbxx6Pem1i9WQ6scvwgfyAoGwImdoHXI4LmwX021xSjnlEXh0a3tW/P79dbTkuSFM+pmRA6sKGfeDMFdOaM4bFnxeqwIp0dzSBvEZRlmd3iIduk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789691326; c=relaxed/simple;
-	bh=MGX3ws5kpbyACDFYYG3CBIamCZPj825Ty/u1H8SDJj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=hHUAF47FuuXQM4wFYu6syMuhlqudxLvXL+xAw1eHi8P3PHK8nmpFsE0cM1u5mgpJsp90aOrr/uOAM48Km7daw8H4BAAACztCltjrsRgqJKIs9JyfezvCK7JSDLLHtXI9OOCii7GaLhHtAQ5EC67eK1czUEAZ8E8kJKF4vsA/VSo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=d2uDsVyu; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="d2uDsVyu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6BD481F00899;
-	Fri, 18 Sep 2026 00:28:36 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789691317;
-	bh=M0Byq+jT802MLWRz8kmD3EuLXsU+XnyHV2/iSvrFTOg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=d2uDsVyuPpXkjn1h3AIlD5htrH9i8ePwwT97MeDdr7pvMEOhbtoVi7fXC3ynD1i63
-	 JPmDUKC6deHHiPgoevGzdI7BVMd4C8WmfkgG4MsE4YNJYwpm/9WE+AMZ3zb8aAV8os
-	 qrJ/JEMzgeZWO7LVuDhEjwAN8zV0TFWeu3csMoQMPzvCk/v+yHPScCR1ZWej+WzP5n
-	 k7vkfa6585fqhDeFM7ufDIpGFqz9oPxa8WRCYaCqJzrBSRR4dKSbHgxNJC3gc1QKuZ
-	 BOyvZYJ7rsR8pEu0aWuc7q7M++rAbio+ZI+TG9yU7A70zs43248aXXRPS33VJfsR1V
-	 ItIOXdb7taY+g==
-From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
-Cc: Paulo Alcantara <pc@manguebit.org>,
-	Namjae Jeon <linkinjeon@kernel.org>,
-	Ronnie Sahlberg <ronniesahlberg@gmail.com>,
-	Shyam Prasad N <sprasad@microsoft.com>,
-	Tom Talpey <tom@talpey.com>,
-	Bharath SM <bharathsm@microsoft.com>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10.y 1/2] smb: client: honor forceuid/forcegid when mapping SIDs to uid/gid
-Date: Thu, 17 Sep 2026 20:28:34 -0400
-Message-ID: <20260918002835.1323758-1-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <2026091630-sherry-congenial-9b1f@gregkh>
-References: <2026091630-sherry-congenial-9b1f@gregkh>
+	s=arc-20240116; t=1789691337; c=relaxed/simple;
+	bh=HDkuNFY7TXKZNIx+1grKeivnyY8OQt4wbVDA1oAHYS0=;
+	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=M1t9ejtH/62m1XrL2aA4pqVO7uBr0+7wQKQsITqIlIuVAS1CJAV+GmMMbjXAShSjStcdtZ2RwOvO2YCJyxaii4Ydt57zfY78PyhOirJKiS6rgL9kl3HkSUcyMmJtaXtLImLg8Os49MLqD0kjZU6FQ/NAz3/zfPkNtob/oQnNdHk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org; spf=pass smtp.mailfrom=kernel.crashing.org; arc=none smtp.client-ip=63.228.1.57
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.crashing.org
+Received: from [IPv6:::1] (localhost [127.0.0.1])
+	by gate.crashing.org (8.18.1/8.18.1/Debian-2) with ESMTP id 68I0IPF23974234;
+	Thu, 17 Sep 2026 19:18:33 -0500
+Message-ID: <d607e8d94d17ac7b7832725b0672560fb1346ada.camel@kernel.crashing.org>
+Subject: Re: [PATCH] usb: gadget: aspeed-vhub: cancel wake work on device
+ removal
+From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+To: Fan Wu <fanwu01@zju.edu.cn>, gregkh@linuxfoundation.org,
+        linux-usb@vger.kernel.org
+Cc: joel@jms.id.au, andrew@codeconstruct.com.au, linux-aspeed@lists.ozlabs.org,
+        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org, Song Li
+ <songl@zju.edu.cn>
+Date: Fri, 18 Sep 2026 10:18:24 +1000
+In-Reply-To: <20260908041740.613713-1-fanwu01@zju.edu.cn>
+References: <20260908041740.613713-1-fanwu01@zju.edu.cn>
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-From: Paulo Alcantara <pc@manguebit.org>
+On Tue, 2026-09-08 at 04:17 +0000, Fan Wu wrote:
+> wake_work is armed from the gadget .wakeup callback to resume suspended
+> downstream ports, and it is never cancelled in ast_vhub_remove(), so a
+> work item queued before or during removal can run after devm has freed
+> vhub and its ports, a use-after-free.
+>=20
+> Cancelling the work alone is not sufficient: usb_gadget_wakeup() takes
+> no lock and the unbind path never clears wakeup_en, so a remote-wakeup
+> request in flight on another CPU can re-arm the work after the cancel
+> and before vhub is freed.
+>=20
+> ast_vhub_del_dev() already clears d->registered under vhub->lock before
+> unregistering the gadget. Refuse the wakeup in ast_vhub_udc_wakeup()
+> once d->registered is clear: the check and the schedule_work() are then
+> atomic against the unbind, so a wakeup that passed before the flag was
+> cleared is drained by the cancel_work_sync() after the del_dev loop,
+> and one that arrives later returns without arming. Also move INIT_WORK()
+> to the top of ast_vhub_probe(), since the probe error path reuses
+> ast_vhub_remove() and would otherwise cancel a never-initialized work
+> item.
+>=20
+> This issue was found by an in-house static analysis tool.
 
-[ Upstream commit 18a72975e9f35aadecc75b031f693f2d1f49308f ]
+Reviewed-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
 
-When the administrator mounts with forceuid or forcegid (uid=/gid=
-mount options), they expect all files to appear owned by the specified
-user/group.  However, several code paths unconditionally called
-sid_to_id() to overwrite cf_uid/cf_gid with server-provided values,
-ignoring the administrator's explicit override:
-
-  - smb311_posix_info_to_fattr() (stat via POSIX extensions)
-  - cifs_posix_to_fattr() (readdir via POSIX extensions)
-  - parse_sec_desc() (CIFS ACL ownership mapping)
-
-This allowed an untrusted server to dictate local file ownership even
-when the mount was configured to force specific uid/gid values.
-
-Fix all three call sites to check CIFS_MOUNT_OVERR_UID and
-CIFS_MOUNT_OVERR_GID before calling sid_to_id(), following the
-same pattern already used by cifs_unix_basic_to_fattr() for unix
-extensions.
-
-Closes: https://sashiko.dev/#/patchset/20260906155816.603278-1-pc%40manguebit.org
-Reviewed-by: Namjae Jeon <linkinjeon@kernel.org>
-Signed-off-by: Paulo Alcantara <pc@manguebit.org>
-Cc: Ronnie Sahlberg <ronniesahlberg@gmail.com>
-Cc: Shyam Prasad N <sprasad@microsoft.com>
-Cc: Tom Talpey <tom@talpey.com>
-Cc: Bharath SM <bharathsm@microsoft.com>
-Cc: stable@vger.kernel.org
-
-Backport notes for 5.10:
-- Keep the client in fs/cifs and use the existing mnt_cifs_flags value.
-- Drop the inode.c hunk: smb311_posix_info_to_fattr() already takes both
-  IDs from mnt_uid/mnt_gid and does not map ownership SIDs in this tree.
-- Apply the ACL checks to fs/cifs/cifsacl.c, retaining its existing
-  parse_sid() validation and initializing ownership from the mount IDs.
-- Alias ctx[0].linux_uid/linux_gid and mnt_uid/mnt_gid through an anonymous
-  union. The aliases share the existing storage, require no allocation or
-  initialization, and preserve updates through either spelling. This is
-  only an ownership compatibility view, not a new filesystem context.
-  Keeping the upstream ownership assignments in cifs_posix_to_fattr()
-  lets the target SID-parsing fix cherry-pick without the
-  adjacent-line conflict caused by replacing those assignments with the
-  older field names. Preserve the existing file-type/revalidation logic.
-
-[ sashal: Reduced backport -- upstream 18a72975e9f35 touches 3 file(s), this
-  backport carries 3. Not backported here:
-  fs/smb/client/cifsacl.c
-  fs/smb/client/inode.c
-  fs/smb/client/readdir.c
-  This note is generated from the file lists only; see the resolution record
-  for the reasoning. ]
-
-Stable-dep-of: da6e25842431 ("smb: client: avoid using uninitialized SIDs in cifs_posix_to_fattr()")
-Signed-off-by: Sasha Levin <sashal@kernel.org>
----
- fs/cifs/cifs_fs_sb.h | 13 +++++++++++--
- fs/cifs/cifsacl.c    | 29 ++++++++++++++++++-----------
- fs/cifs/readdir.c    |  9 +++++++--
- 3 files changed, 36 insertions(+), 15 deletions(-)
-
-diff --git a/fs/cifs/cifs_fs_sb.h b/fs/cifs/cifs_fs_sb.h
-index 6e7c4427369d8..8a029006cb380 100644
---- a/fs/cifs/cifs_fs_sb.h
-+++ b/fs/cifs/cifs_fs_sb.h
-@@ -66,8 +66,17 @@ struct cifs_sb_info {
- 	unsigned int wsize;
- 	unsigned long actimeo; /* attribute cache timeout (jiffies) */
- 	atomic_t active;
--	kuid_t	mnt_uid;
--	kgid_t	mnt_gid;
-+	/* Share mount ownership with the names used by newer SID mapping code. */
-+	union {
-+		struct {
-+			kuid_t mnt_uid;
-+			kgid_t mnt_gid;
-+		};
-+		struct {
-+			kuid_t linux_uid;
-+			kgid_t linux_gid;
-+		} ctx[1];
-+	};
- 	kuid_t	mnt_backupuid;
- 	kgid_t	mnt_backupgid;
- 	umode_t	mnt_file_mode;
-diff --git a/fs/cifs/cifsacl.c b/fs/cifs/cifsacl.c
-index c8a0a2edc6500..486bccf548c35 100644
---- a/fs/cifs/cifsacl.c
-+++ b/fs/cifs/cifsacl.c
-@@ -947,6 +947,7 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- {
- 	int rc = 0;
- 	struct cifs_sid *owner_sid_ptr, *group_sid_ptr;
-+	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
- 	struct cifs_acl *dacl_ptr; /* no need for SACL ptr */
- 	char *end_of_acl = ((char *)pntsd) + acl_len;
- 	__u32 dacloffset;
-@@ -964,17 +965,21 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 		 pntsd->revision, pntsd->type, le32_to_cpu(pntsd->osidoffset),
- 		 le32_to_cpu(pntsd->gsidoffset),
- 		 le32_to_cpu(pntsd->sacloffset), dacloffset);
--/*	cifs_dump_mem("owner_sid: ", owner_sid_ptr, 64); */
-+	fattr->cf_uid = cifs_sb->mnt_uid;
-+	fattr->cf_gid = cifs_sb->mnt_gid;
-+
- 	rc = parse_sid(owner_sid_ptr, end_of_acl);
- 	if (rc) {
- 		cifs_dbg(FYI, "%s: Error %d parsing Owner SID\n", __func__, rc);
- 		return rc;
- 	}
--	rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID)) {
-+		rc = sid_to_id(cifs_sb, owner_sid_ptr, fattr, SIDOWNER);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Owner SID to uid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
- 
- 	rc = parse_sid(group_sid_ptr, end_of_acl);
-@@ -983,11 +988,13 @@ static int parse_sec_desc(struct cifs_sb_info *cifs_sb,
- 			 __func__, rc);
- 		return rc;
- 	}
--	rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
--	if (rc) {
--		cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
--			 __func__, rc);
--		return rc;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID)) {
-+		rc = sid_to_id(cifs_sb, group_sid_ptr, fattr, SIDGROUP);
-+		if (rc) {
-+			cifs_dbg(FYI, "%s: Error %d mapping Group SID to gid\n",
-+				 __func__, rc);
-+			return rc;
-+		}
- 	}
- 
- 	if (dacloffset)
-diff --git a/fs/cifs/readdir.c b/fs/cifs/readdir.c
-index 9a7315aa24e0d..f0c3b51b984df 100644
---- a/fs/cifs/readdir.c
-+++ b/fs/cifs/readdir.c
-@@ -246,6 +246,7 @@ static void
- cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 		    struct cifs_sb_info *cifs_sb)
- {
-+	unsigned int sbflags = cifs_sb->mnt_cifs_flags;
- 	struct smb2_posix_info_parsed parsed;
- 
- 	posix_info_parse(info, NULL, &parsed);
-@@ -290,8 +291,12 @@ cifs_posix_to_fattr(struct cifs_fattr *fattr, struct smb2_posix_info *info,
- 	if (reparse_file_needs_reval(fattr))
- 		fattr->cf_flags |= CIFS_FATTR_NEED_REVAL;
- 
--	sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
--	sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
-+	fattr->cf_uid = cifs_sb->ctx->linux_uid;
-+	fattr->cf_gid = cifs_sb->ctx->linux_gid;
-+	if (!(sbflags & CIFS_MOUNT_OVERR_UID))
-+		sid_to_id(cifs_sb, &parsed.owner, fattr, SIDOWNER);
-+	if (!(sbflags & CIFS_MOUNT_OVERR_GID))
-+		sid_to_id(cifs_sb, &parsed.group, fattr, SIDGROUP);
- }
- 
- static void __dir_info_to_fattr(struct cifs_fattr *fattr, const void *info)
--- 
-2.53.0
-
+> Fixes: 7ecca2a4080c ("usb/gadget: Add driver for Aspeed SoC virtual hub")
+> Cc: stable@vger.kernel.org
+> Assisted-by: Codex:gpt-5.6
+> Co-developed-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Song Li <songl@zju.edu.cn>
+> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
+> ---
+> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/core.c | 4 ++++
+> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/dev.c=C2=A0 | 2 +-
+> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/hub.c=C2=A0 | 5 +++--
+> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/vhub.h | 1 +
+> =C2=A04 files changed, 9 insertions(+), 3 deletions(-)
+>=20
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c b/drivers/usb/gadg=
+et/udc/aspeed-vhub/core.c
+> index 4a8b9ff83..069673f0d 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
+> @@ -267,6 +267,9 @@ static void ast_vhub_remove(struct platform_device *p=
+dev)
+> =C2=A0	for (i =3D 0; i < vhub->max_ports; i++)
+> =C2=A0		ast_vhub_del_dev(&vhub->ports[i].dev);
+> =C2=A0
+> +	/* Final drain; the worker takes vhub->lock, so stay outside of it */
+> +	cancel_work_sync(&vhub->wake_work);
+> +
+> =C2=A0	spin_lock_irqsave(&vhub->lock, flags);
+> =C2=A0
+> =C2=A0	/* Mask & ack all interrupts=C2=A0 */
+> @@ -328,6 +331,7 @@ static int ast_vhub_probe(struct platform_device *pde=
+v)
+> =C2=A0		return -ENOMEM;
+> =C2=A0
+> =C2=A0	spin_lock_init(&vhub->lock);
+> +	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
+> =C2=A0	vhub->pdev =3D pdev;
+> =C2=A0	vhub->port_irq_mask =3D GENMASK(VHUB_IRQ_DEV1_BIT + vhub->max_port=
+s - 1,
+> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 VHUB_IRQ_DEV1_BIT);
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/dev.c b/drivers/usb/gadge=
+t/udc/aspeed-vhub/dev.c
+> index 8b9449d16..4b389de0d 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/dev.c
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
+> @@ -280,7 +280,7 @@ static int ast_vhub_udc_wakeup(struct usb_gadget* gad=
+get)
+> =C2=A0	int rc =3D -EINVAL;
+> =C2=A0
+> =C2=A0	spin_lock_irqsave(&d->vhub->lock, flags);
+> -	if (!d->wakeup_en)
+> +	if (!d->wakeup_en || !d->registered)
+> =C2=A0		goto err;
+> =C2=A0
+> =C2=A0	DDBG(d, "Device initiated wakeup\n");
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/hub.c b/drivers/usb/gadge=
+t/udc/aspeed-vhub/hub.c
+> index 02fe1a08d..d0345f310 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/hub.c
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
+> @@ -558,7 +558,7 @@ void ast_vhub_device_connect(struct ast_vhub *vhub,
+> =C2=A0		ast_vhub_send_host_wakeup(vhub);
+> =C2=A0}
+> =C2=A0
+> -static void ast_vhub_wake_work(struct work_struct *work)
+> +void ast_vhub_wake_work(struct work_struct *work)
+> =C2=A0{
+> =C2=A0	struct ast_vhub *vhub =3D container_of(work,
+> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 struct ast_vhub,
+> @@ -588,6 +588,8 @@ static void ast_vhub_wake_work(struct work_struct *wo=
+rk)
+> =C2=A0
+> =C2=A0void ast_vhub_hub_wake_all(struct ast_vhub *vhub)
+> =C2=A0{
+> +	lockdep_assert_held(&vhub->lock);
+> +
+> =C2=A0	/*
+> =C2=A0	 * A device is trying to wake the world, because this
+> =C2=A0	 * can recurse into the device, we break the call chain
+> @@ -1076,7 +1078,6 @@ static int ast_vhub_init_desc(struct ast_vhub *vhub=
+)
+> =C2=A0int ast_vhub_init_hub(struct ast_vhub *vhub)
+> =C2=A0{
+> =C2=A0	vhub->speed =3D USB_SPEED_UNKNOWN;
+> -	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
+> =C2=A0
+> =C2=A0	return ast_vhub_init_desc(vhub);
+> =C2=A0}
+> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h b/drivers/usb/gadg=
+et/udc/aspeed-vhub/vhub.h
+> index aca2050e2..96f1c3709 100644
+> --- a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
+> +++ b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
+> @@ -547,6 +547,7 @@ void ast_vhub_hub_suspend(struct ast_vhub *vhub);
+> =C2=A0void ast_vhub_hub_resume(struct ast_vhub *vhub);
+> =C2=A0void ast_vhub_hub_reset(struct ast_vhub *vhub);
+> =C2=A0void ast_vhub_hub_wake_all(struct ast_vhub *vhub);
+> +void ast_vhub_wake_work(struct work_struct *work);
+> =C2=A0
+> =C2=A0/* dev.c */
+> =C2=A0int ast_vhub_init_dev(struct ast_vhub *vhub, unsigned int idx);
