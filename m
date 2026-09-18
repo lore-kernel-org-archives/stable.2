@@ -1,41 +1,41 @@
 Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E10151DAF6;
-	Fri, 18 Sep 2026 20:32:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6AB523783;
+	Fri, 18 Sep 2026 20:32:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763542; cv=none; b=NQ/R7k6oZY50pDFkMcO4y8Zmzkzv2LiSd8MznZWmH7sxwC3xyXe95WlQH8s95+304RB/qEYXGE4+jeesTsdCIS1xWnPpKy5mH45b87wYi1VOT8ojc6sPOTJFnMLXKG2brNsAsVOgbpw7KA8hKm2F2yAsVBZ1sHbWksv8UT2NROM=
+	t=1789763547; cv=none; b=Jjw6C00R+/Sm0vB/I0eYc9tlN+df7lw8iPyJO84NYvZIJeg/YRNmvzUcXuEw6KNJRLIL6lX0wzcD9ED7DSVcgmu0Vj6/s8+OWbdxiAfq+mJ3TqD3n5NBW8erZkXYPsDU29Xg7BiQu+FwqahkM14QVUzdq8DpzH22jZh38Xnbn4g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763542; c=relaxed/simple;
-	bh=HVAtzJ5U2BABuFs+55ExxjU4LDiPYSzIMYVo1pqtQxg=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=KnWpgzHrkp8W1bbJJYwyPqKyaPZvvz+c1cjPaFbuaLnmWrSWThVZlr89krQ7Gpg+6uxVZ7P7F5gJ2fBPPu8nuPqem4fisOriRYT9GmfHBL+ADqfSAkNPNoXA2qarlSRY7sfTxoSN7dqHkWfEyfuhlUI2CEY7z9eape+dvrFGWL4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=uCWwrLfH; arc=none smtp.client-ip=185.171.202.116
+	s=arc-20240116; t=1789763547; c=relaxed/simple;
+	bh=awCtQKR8zVzOsWS0w8h31o5Rv/jqZJtos1/c2hzAfLo=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=bDDpm738qXrtfCV8e0hWOpRdNVR2HgTtPfs7wp9UfoaEJz+FvcOS8WUCDu8MsF3PaKphurzKysF58Y6W6ga871oMT0poE7B1O0qLxH25yd2At64MCQ9gqAaEX0bogYemwHH/sAb/p8OjzUCrLMiL7SEPstMi2UTr4pUCP93cN88=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vJb1Ch8y; arc=none smtp.client-ip=185.171.202.116
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="uCWwrLfH"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vJb1Ch8y"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 39ACAC5846F;
-	Fri, 18 Sep 2026 20:33:02 +0000 (UTC)
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 3FBABC5847A;
+	Fri, 18 Sep 2026 20:33:09 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 0E5AC60649;
-	Fri, 18 Sep 2026 20:32:17 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 3CB2910329075;
-	Fri, 18 Sep 2026 22:32:04 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 43B3F60649;
+	Fri, 18 Sep 2026 20:32:24 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 97BCE1032907C;
+	Fri, 18 Sep 2026 22:32:15 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789763531; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding; bh=2VX0CCuPHCsxlaJh+H4kCzMlneu6/Jn+nKdTKO3KJ0I=;
-	b=uCWwrLfHGptD+ypseLy+70sNGeF2t+5t7CR1qgkBVVsUxkv3h7NQ3vU/fOz2QorFfMofP6
-	GZgqhmpiLKpega2wGKoEcDXt1F7PLrLJxDlpojFUVodPmKgnwQwY2Al8E7TZk7d1d8Oz7K
-	T2ZZgZ4UPTnFs2QQwhBi2T0sITLDb1332KOi0/v+33xlmytI7XS8sMXi7aicdM0ZLk9iOG
-	/oylsUdu6fxaSbfPc63d8R8QkdRPQzQSMTcLZnlBH4q/htJ3zteOYb9izRF1+BWeH7Ja95
-	HnuzcvKPqSeui4vCZTw0O8xvUohfw0QFHgUvnhgzcSI640RhSyXQDoPGyeI/oA==
+	t=1789763538; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=iUeXAsB+eMon3IGQKZXDkNH5ztxmcZZI6qhivhfoRbY=;
+	b=vJb1Ch8yo8UAJzD5Re1Y0ODtI9XUQ2BMaUEeS5Dki+NHglcVkW3iW9lb1y15qdO92LfsOZ
+	qAj7skragOfolPss0xBM4SSlm+intz5rZ/cuEfickX+bIQhHx6A71Ck5fHlGFTTYC6LQTB
+	dydcFlcJofhfupwvywcnfnnKkBnEUGNsFFfUu2KLBRFw4z3P3M4ai1YUm1ODuXbycM7Qml
+	7ZggXQWBywJnGk4oTLb2hqh0xniEBhZI82M3SmqFB2ixBtXCR2zgC1VWHOvm9m25+MsDB+
+	Sffv98abychmOpsbHWwqK2ZLj1BzPAIIQ0d2lKajVbpPLcmCBKiDg6yyGnCzFw==
 From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Subject: [PATCH 0/3] net: macb: fix close races (and RX refill error
- handling)
-Date: Fri, 18 Sep 2026 22:32:01 +0200
-Message-Id: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
+Date: Fri, 18 Sep 2026 22:32:02 +0200
+Subject: [PATCH 1/3] net: macb: never give hardware a NULL RX buffer
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,10 +44,9 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yXMTQ5AMBBA4avIrDWhRHAVsTDtYMRfOohE3F2x/
- BbvXSDkmATK4AJHBwsvs0ccBmD6Zu5IsfUGHeksKuJcTY1BZcZFSFlEqxNMMW81+GB11PL5zar
- 6t+w4kNneA9z3AxSI52FuAAAA
-X-Change-ID: 20260918-macb-close-dbbd23b4b8f2
+Message-Id: <20260918-macb-close-v1-1-221d916b7961@bootlin.com>
+References: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
+In-Reply-To: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
 To: Conor Dooley <conor.dooley@microchip.com>, 
  Andrew Lunn <andrew+netdev@lunn.ch>, 
  "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
@@ -68,51 +67,57 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 
-The context-swapping series [0] has been ongoing for a while. The most
-interesting part is a proper hardware shutdown sequence, which is truly
-lacking in other parts of the MACB driver: at close, at suspend and in
-the HRESP error task.
+The refill logic is simple: iterate over all pending rx slots, allocate
+SKB (& DMA map) if needed and hand it off the to hardware by clearing
+the RX_USED flag.
 
-Instead of introducing that sequence for a new feature, apply it now to
-fix the main offender, the close path. That fixes the races listed in
-patch 3 and will allow the sequence to be reused later.
+If the refill operation fails mid-way, it early returns leaving the
+following slots untouched. In the normal case that is fine, because all
+slots have been properly initialised (and might have been already used
+by HW meaning they won't be reused). When slots have not been
+initialised however, we are in trouble.
 
-The first two patches are also fixes, but not related to the shutdown
-sequence: they address allocation-failure codepaths. They are sent
-alongside patch 3 because they touch the same code and would cause
-merge conflicts if applied separately.
+After dma_alloc_coherent() of the rx ring buffer, all slots have NULL
+pointers and RX_USED cleared meaning HW will try using them. Ensure
+this does not happen by setting the RX_USED flag on all slots before
+calling refill at buffer alloc, in gem_init_rx_ring(). That way even if
+refill fails on an alloc/dma_map, the HW won't try using NULL pointers
+as buffers.
 
-Now, let me list issues I'm aware of that we do *not* fix here, to make
-the scope explicit:
- - HRESP task should sync with all other contexts. It frees buffers
-   under the feet of the whole driver. The hardware shutdown sequence
-   will help.
- - Suspend callback is also racy with BH primitives. We'll be able to
-   reuse the hardware shutdown sequence.
- - Even if we assume tasks are frozen, the phylink ops aren't and might
-   trigger between suspend and resume callbacks. Here we need to
-   (1) early return in phylink ops and (2) at resume put the HW in its
-   proper state according to phylink ops that occured.
- - Alloc failure codepaths aren't perfect outside open. Hardware and
-   ring buffers are left in a sad state. We can probably do better.
+Theoretical bugfix, never encountered in practice. To reproduce,
+introduce memory pressure (less than 512 SKBs of free memory) and open
+the interface.
 
-[0]: https://lore.kernel.org/all/20260812-macb-context-v9-0-7ddbf5f715e0@bootlin.com/
+Note that this codepath also hits at resume, on HRESP errors and on
+set_ringparam (while interface is running).
 
+Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
+Cc: stable@vger.kernel.org
 Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
 ---
-Théo Lebrun (3):
-      net: macb: never give hardware a NULL RX buffer
-      net: macb: propagate RX ring refill errors
-      net: macb: quiesce IRQs and drain BH on interface close
+ drivers/net/ethernet/cadence/macb_main.c | 5 +++++
+ 1 file changed, 5 insertions(+)
 
- drivers/net/ethernet/cadence/macb.h      |   7 +-
- drivers/net/ethernet/cadence/macb_main.c | 119 ++++++++++++++++++++++++-------
- 2 files changed, 98 insertions(+), 28 deletions(-)
----
-base-commit: 994db8ab9d90c64dd641b7ead6efe2eaea7a50dc
-change-id: 20260918-macb-close-dbbd23b4b8f2
+diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
+index b8234ac4b602..751fa9e68099 100644
+--- a/drivers/net/ethernet/cadence/macb_main.c
++++ b/drivers/net/ethernet/cadence/macb_main.c
+@@ -2785,9 +2785,14 @@ static int macb_alloc(struct macb *bp)
+ 
+ static void gem_init_rx_ring(struct macb_queue *queue)
+ {
++	unsigned int i;
++
+ 	queue->rx_tail = 0;
+ 	queue->rx_prepared_head = 0;
+ 
++	for (i = 0; i < queue->bp->rx_ring_size; i++)
++		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
++
+ 	gem_rx_refill(queue);
+ }
+ 
 
-Best regards,
---  
-Théo Lebrun <theo.lebrun@bootlin.com>
+-- 
+2.55.0
 
