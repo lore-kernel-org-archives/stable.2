@@ -1,141 +1,127 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2E764F93B5;
-	Fri, 18 Sep 2026 13:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57BD4FC33E
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 13:54:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739669; cv=none; b=IIkHYsgtq9037IuuFjB0gGXyL/5rJ+CUU39S3K7nfp0YxL9MwMMzs4jcLRcFUBA++6RvQ0x7OXWEiAUPC5x+G210yaktLfm8+6bsArTOE0VpP+k0TO3kesDrdOXJbC+mF8gWXwpFu/nTQljEwF1lX0NbSkmZ6sJ7cBAul54wDJQ=
+	t=1789739688; cv=none; b=bLKO4iF7Hkt5AY+kkAcnBI8FMAn0VTnZ0fNtK0gB+DapxoLKz14/MXFg2JAxlRKYLxdjZY2jt26SJSXfMlSEcP6ukuLrS4A1P5Bw7Gnc4c6uJcpDjaOjzXnjcELkZWWyBjBrwpR31cnDqYJK9kdwtOUtPyqhKWN9oxAdNhP92oE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739669; c=relaxed/simple;
-	bh=AuMiDhFMblXy0IqBDjT1yFy4y+GlouICGZTNEKp77JE=;
-	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
-	 MIME-Version:Content-Type; b=cf7Ev8hVBgdc5X0rWTjkY+KzK93Nkol22C/cFpFJmA0aMnKYkUgfgZm44AJqFPYAzgtGn2BgbER3RXLhhj0UtLsf0V7O689J3w8l/9/a9Cg3EvwHDWNnI4e271jWPHhFFH8Ca3+UFkKcdSf0N3ES1Rh4Y0dRketseHHhcUlYC5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=LckJnu9C; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	s=arc-20240116; t=1789739688; c=relaxed/simple;
+	bh=HBA4UGDBkv/vn1j9Qy2I4DNOs12GdkwlUY7HLsx5OjE=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=Orf4d+p5FBblmSa1DoNbeOHyk8r3vUeaALdkTlHKtDWze31gp39cwXU8X/3Jm6+XAMbmP/Lb7MNRfiXC/QT5hCo41lyQ35ASvy9XVkwAaXeDao6SKzBgENj9buXvqoEfprrHt6hqP/TDnuRiN/Mka4kTaOxS5hmOg6Xtec+ynLs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=b1hWbXqF; arc=none smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="LckJnu9C"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789739665; x=1821275665;
-  h=from:date:to:cc:subject:in-reply-to:message-id:
-   references:mime-version;
-  bh=AuMiDhFMblXy0IqBDjT1yFy4y+GlouICGZTNEKp77JE=;
-  b=LckJnu9CiiENDJrmWxq/5ESJyIPenvFk5m3gRXv5gOt3txrlCuqc2IjW
-   Pi5yxkSVK+NQVf1bVQo3P1EBeISKfN4kF2zXaRmQES24EDl/Mm8pQMIu7
-   2uq8o+27ziZVUWrFoTILKs2V9kGvMLsUaOSYLhPT1sazzRwavLeFWoO2t
-   cdusNqr85i4PePRF9c4a1B2I2Nsfoprq3IW/+WjBtMNV5EQLMuqVzfvgM
-   Gw2e5t0S6CgPURp8RVmxuOL0sNH14NyD/N93UVvEMPheHe+yyeUqhsyDX
-   FgVmLx2xsoPKulIG+boXpiO4ROU1K+6Erf/0ZkOg9ot4TgzxthmAEmo22
-   Q==;
-X-CSE-ConnectionGUID: p/deSa/MTMWxNLssAF9hNQ==
-X-CSE-MsgGUID: vp8mvx6WTwqczo7KUk6oeA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="107750100"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="107750100"
-Received: from fmviesa013.fm.intel.com ([10.60.135.153])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:54:22 -0700
-X-CSE-ConnectionGUID: dSIGPUQxTNm8gHvb5a2a7Q==
-X-CSE-MsgGUID: X7xVVCUFR2ShCFu28xxsEg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="2842259"
-Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
-  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 06:54:20 -0700
-From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Date: Fri, 18 Sep 2026 16:54:11 +0300 (EEST)
-To: Muhammad Bilal <meatuni001@gmail.com>
-cc: jorge.lopez2@hp.com, Hans de Goede <hansg@kernel.org>, 
-    linux@weissschuh.net, platform-driver-x86@vger.kernel.org, 
-    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] platform/x86: hp-bioscfg: fix OOB read in
- hp_get_integer_from_buffer() on unaligned input
-In-Reply-To: <20260824225610.18471-2-meatuni001@gmail.com>
-Message-ID: <7dfd5559-5ad0-e12c-b26c-96abe139bc17@linux.intel.com>
-References: <20260824225610.18471-1-meatuni001@gmail.com> <20260824225610.18471-2-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="b1hWbXqF"
+Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067cso81282585a.3
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 06:54:43 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gourry.net; s=google; t=1789739680; x=1790344480; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=JQrKgT91q1ivpfGUE5/zHrleZU+aU6ToiCAfQUtBMlw=;
+        b=b1hWbXqFKhJCjVHlbXMLM+dvb0Zi1mGM2j3wYECD/ezK1ONNPo+wUzI9Z9Br4KearP
+         ZlIonRo58CwfNBjl0XEmFd2K0926ZqQLsfDUaFSaWEqt3m15HKM7d6rxxfjxzbCnOAmV
+         pDhfRgiTPa29pkaDkZN8kR3I6xdReqVGUaNNOCZwZPuK5oclmR0RDmGNZCa64QQW32Oy
+         cWUrIkHi1EQ2J1OSNqSmhfUDmKdAqXC1VV+XqHg0lj9FF7bS0vW8k83OX/vEoYtf7yQo
+         kccfXWvx4uqtt47JYpwVYk8FZDIW7NEYdvHAhwL8Q5TNKM9qJMjtpvwVoBCd4lFUMV1Y
+         PFpg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789739680; x=1790344480;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=JQrKgT91q1ivpfGUE5/zHrleZU+aU6ToiCAfQUtBMlw=;
+        b=p4SykshkGJ1oOvR6KmrSebSA+u2FCwXfPdF1Co1HDSuRjkjquiMqcine+dbmnlwMry
+         ZURZRBrYROl+v/xAo+tYbHHS7nIPO0IT+ep5LDTf4zC8H563Gaebn2wJK2Rl8pkp/wWY
+         OAG0CeX5zqVd2JsnByd2D466zqlKgouS8mzHjueBkNGOUUPwOXjU9gbvGUrPBd6fqwVp
+         6V8kFmFfla5l5/bH8wzqLOPFPW9Gx+0AvM/uOywmp0wrOy7yQxPQ6O64LpiHJigX9zx1
+         Az91aTncqzYsdXNrI+csgSIgi/IV0apTEtdFlE+11YYeGAvaqcMyterIxoEMcUsoG2Yt
+         X1Bw==
+X-Forwarded-Encrypted: i=1; AKwUvBymy3DDV2E+O8P2J+ChBXxL7KBgonitBlpzeridlb3S8ZG6GunQfOeUlWE74jxf7tEGMHtFEVY=@vger.kernel.org
+X-Gm-Message-State: AFuF++n9JK95ZvsGW1GU7kgpKB0wnrSGS6VDG+ewWinjU4PUA8zQcCI+
+	mQ44xQc2i2KLZ0xW0AoFrh/0SsLqLJJkwZkmD5x7WeDRmB4ZRcwXdvivxA//q7TmcmY=
+X-Gm-Gg: AYBFou0DkaDfGHRZDb0ig+5iuoNyAmdUjdtcqrQtXeu2mFzv4gRvoxRFCrenHUKJ0Mn
+	nYkfefD3EwsYnqB35nXxanhnBw0hOXFN34QACz3d7ndl1IcujIKBuw3zRKh1Bt+Az9y3HrEeMjo
+	egsVwv7Z6fa/fOdOiWfyjhHs8HIxdKH2etK5mn6+IW/32lTdLKFAvcD4oChRcOVfa2kjK6I1pdH
+	hQJ1UgEgr9dr4sdZB7wKS8GEvgU5CIOYlalncsY2kQfI8nnCrmDt61JS6T0qPji87NRNBUDMs0w
+	TREJO1B05UI2r9lAfEbaJP5HLRAHIoNQuALgV/VSIKW27sfoGFxPBtL81/JP5yP/vctwRZLYH9y
+	E03jFbH+P7k1clNVmlGCE6Zj4qUdmXJSpUXLPUeUFYp0bfb4b3Q+z+P0pV2ATOISp1+1WZI7R0U
+	CLpkWYRLTcWqrwMMI7bxVUnNjXhkb4lY9gLh++CbVYjK41tlHNDWKeg61tclsqBmSDnWrDwnnuM
+	jCF+2u/2S2xNrGO47FnybLfDRMuRY5VGJ7tVehUe3tYi0zBWnv1xqc=
+X-Received: by 2002:a05:620a:2806:b0:93b:d79f:d949 with SMTP id af79cd13be357-93bdca2c16bmr338384985a.62.1789739679965;
+        Fri, 18 Sep 2026 06:54:39 -0700 (PDT)
+Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0ea6560sm145221785a.24.2026.09.18.06.54.38
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 06:54:39 -0700 (PDT)
+Date: Fri, 18 Sep 2026 09:54:37 -0400
+From: Gregory Price <gourry@gourry.net>
+To: "David Hildenbrand (Arm)" <david@kernel.org>
+Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
+	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
+	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
+	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
+	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
+	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
+	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
+	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
+	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
+	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
+	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
+ tier
+Message-ID: <aq1A90ltg9Qn6pWZ@gourry-fedora-PF4VCD3F>
+References: <20260911001826.2109390-1-gourry@gourry.net>
+ <20260911001826.2109390-3-gourry@gourry.net>
+ <41b46756-ed02-439c-ab72-e32a84fc7f17@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <41b46756-ed02-439c-ab72-e32a84fc7f17@kernel.org>
 
-On Tue, 25 Aug 2026, Muhammad Bilal wrote:
+On Fri, Sep 18, 2026 at 02:53:40PM +0200, David Hildenbrand (Arm) wrote:
+> On 9/11/26 02:18, Gregory Price wrote:
+> > From: "Gregory Price (Meta)" <gourry@gourry.net>
+> > 
+> > NUMA balancing rejects shared copy-on-write folios and executable
+> > file folios mapped by multiple processes to avoid placement bouncing.
+> > These checks also block promotion from slow memory.
+> 
+> Right. How to we know the direction of promotion vs. demotion, though?
+>
 
-> hp_get_integer_from_buffer() aligns the read pointer before dereferencing
-> it:
-> 
->   int *ptr = PTR_ALIGN((int *)*buffer, sizeof(int));
-> 
-> When *buffer is not 4-byte aligned, PTR_ALIGN() advances ptr forward by
-> 1-3 bytes to reach the next aligned address. The bounds check that
-> follows does not account for that advance:
-> 
->   if (*buffer_size < sizeof(int))
->           return -EINVAL;
-> 
-> This only confirms 4 bytes remain from the original *buffer, not from
-> the aligned ptr. If *buffer is unaligned and *buffer_size is between 4
-> and (pad + 3) bytes, *(ptr++) reads up to 3 bytes past the end of the
-> buffer.
-> 
-> *buffer_size is also under-decremented on every call, aligned or not:
-> 
->   *buffer_size -= sizeof(int);
-> 
-> *buffer is advanced to the aligned, post-read position, but
-> *buffer_size only accounts for the 4 bytes of the integer itself, not
-> the alignment padding skipped to reach it. Each unaligned read leaves
-> *buffer_size overstating the true remaining space by the pad amount,
-> an error that compounds across repeated calls against the same buffer
-> (hp_get_common_data_from_buffer() calls this in a sequence), making
-> later bounds checks against *buffer_size progressively less reliable.
-> 
-> Compute the padding explicitly, check for it, and account for it when
-> advancing *buffer_size, so the pointer and the remaining-length count
-> stay consistent with each other.
-> 
-> Fixes: a34fc329b189 ("platform/x86: hp-bioscfg: bioscfg")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
-> ---
->  drivers/platform/x86/hp/hp-bioscfg/bioscfg.c | 10 +++++++---
->  1 file changed, 7 insertions(+), 3 deletions(-)
-> 
-> diff --git a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> index 0edc6e7cfa9a..32b99a862082 100644
-> --- a/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> +++ b/drivers/platform/x86/hp/hp-bioscfg/bioscfg.c
-> @@ -39,14 +39,18 @@ struct kobj_attribute common_display_langcode =
->  int hp_get_integer_from_buffer(u8 **buffer, u32 *buffer_size, u32 *integer)
->  {
->  	int *ptr = PTR_ALIGN((int *)*buffer, sizeof(int));
-> +	u32 pad = (u8 *)ptr - *buffer;
->  
-> -	/* Ensure there is enough space remaining to read the integer */
-> -	if (*buffer_size < sizeof(int))
-> +	/*
-> +	 * Ensure there is enough space remaining to read the integer,
-> +	 * including any padding PTR_ALIGN() introduced to reach it.
-> +	 */
-> +	if (*buffer_size < pad + sizeof(int))
->  		return -EINVAL;
->  
->  	*integer = *(ptr++);
->  	*buffer = (u8 *)ptr;
-> -	*buffer_size -= sizeof(int);
-> +	*buffer_size -= pad + sizeof(int);
+numa balancing never demotes.  It either:
 
-Shouldn't all thse sizeof()s be based on sizeof(*integer) or sizeof(*ptr) 
-instead of unbound "int"?
+1) moves between sockets (nodes w/ N_CPU) (NORMAL)
+ or
+2) moves from !top_tier to top_tier (TIERING)
 
-And is type of ptr correct? If it is, this lacks an underflow check?
+Demotion is only enacted in reclaim / vmscan, and has no coupling with
+numa balancing.
 
-This driver is such a nightmare... :-( Thanks for helping to clean it up.
+> > +	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio) &&
+> > +	    !folio_use_access_time(folio))
+> 
+> 
+> While I understand a "!node_is_toptier(node)" to say "this is a slow tier", I am
+> clueless about the folio_use_access_time() check.
+> 
+> Confusing.
+> 
 
+agree, and agree with Zi's request to rename.  I can add that to the end
+of the series as well if you like (avoid backport headaches).
 
--- 
- i.
-
+~Gregory
