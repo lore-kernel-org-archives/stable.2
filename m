@@ -1,60 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9184A522EE3
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 19:45:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4872051CF65
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 19:46:00 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760760; cv=none; b=UJevakGKzsra/p+5UT/Z6PynjhZhND3SC8KPuMsQD4usZtuo6XLp6bi/ineOKSGWKa6j8ZmjHMWuvOFjwtgGPmZB6ue80TK02lfTpc2d4dIaz+y5jGN+FBoc+8TV6v8VTgWiPXj2eS7kM7EMd6yWhkYu3Gtim5eoXe2MKN1XYBw=
+	t=1789760763; cv=none; b=H6A6Ug/LM7e7P7y2gUgS3Dkv/x0PHFiY2pzLw7Tty/BQWv5R6LEMedt+PPc0l/6qyfmSWgXD3/j3Mj4HL1kcVpZ+yViD7iULF/1KdcLnpwbZ6vPOokB5jl3Pv+uk5GKzQRPbaaGAQmdYi3zIyxmJq+PQRyfJ8yjOhY8fQOA53Wg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789760760; c=relaxed/simple;
-	bh=Gg097xY+dI3y3zEr2JJRJUf4Rt9V+5hso3IHcJ51I64=;
+	s=arc-20240116; t=1789760763; c=relaxed/simple;
+	bh=8qzfFL2oxrizSjd1qa+767IuEE8a1w7yLOT9blyylTw=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=a0Io0q/feW6SmuLVLR/CFfdd8Guw/u5z2dTYxAzjBf7OLMMAI7MO/FQToD+j5h+NQOmFjKZM0UDofJ+Yep9Sa7NKzkjYosKLRstpm9jcFjLyr6vWV8hpa8bVTEfxhX+EJBhqYylvyAFa6cjG2f4CCxVb7w6DuxKv9YVW3TsgN5c=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EyryJofT; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=ujlf2lU/Xf/7or7AKIOJVCoR/cv5l1uZ6NLRLhjkashlEyKml4xdhWJYfzrC5VzUN2z0gHmQmxkjKbl3bSJugD3fe0UB8cwz4YQnLxPFa+oyY/xPoGy7F+7jjrb/GerPsolyhFWNPDDdElk5rrsO1Zb/e6PlKTWCcJodhVpNp+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=J3D89Cqj; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EyryJofT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E2C4B1F00899;
-	Fri, 18 Sep 2026 19:45:58 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="J3D89Cqj"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9BA5F1F00898;
+	Fri, 18 Sep 2026 19:45:59 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789760759;
-	bh=38tMtFrnP1ZwBqtuwuaaks8w6JRU0yG78mgM5K1sSG8=;
+	s=k20260515; t=1789760760;
+	bh=sbFEtDXq0dp4t34lEbYfe3Qi3hs/YneIRi1bTm64CAg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EyryJofTP8PYsNZIWNeBWYN0ExikdE2SJfK5+vvk6wET8cmp00kHhAisHTZpDiss3
-	 vBNjK2xouCey1aw3wj7u/IWnBdxOlyDdb3chyrVsJtOQVBv/Us5kE/KBh2jmBbrgCD
-	 DhFGcEydVL8o3hgllCQFol2SSduCkt1QBuun6YgOs7KAnRWm4avOjS8W6RH25Pc2bm
-	 a8SuIafxgojM719/LLd3s43A6HPxFHp5N9gS8kzDftRgD0m7d7MjQKINdhJYppbUHM
-	 X1nVsTN9vpVH16YaVHA5IYePYmhh7utgvy/oaeBHWzBSxVBCKKCQf8uA5bTlbmDlIR
-	 dzca5z37306SA==
+	b=J3D89CqjU4l/KxA87078rfCLqT9PHOpWtZH6lFdm5/EVQ3UFX+oLHLwKfZvwvJabU
+	 z87BeskXEL4yjVePx6sjcGu32m66Utncy8hqGi54BoHsrxSALIjqxlPV5DShss55GI
+	 sK4YQYdLTaRaDMew66PnOS3VRpEfoewEcWNnknwaJmxCi3//bXD2A+rfU0zdzJNIse
+	 WwCdVlQL271cRaKU9pvx0S0EZelT/Z8HH/JLPBLaa1KGKr7h3Kvogwf9LkxeHDitgQ
+	 RTNOJg+++TTgXZ08MprbgGNGc+q8HGAzjm22dgapP+U4UpJvwEQHkgc9z1JniQQl9Z
+	 Id7xR/AoyqZLQ==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: kernelci-results@groups.io
 Cc: Sasha Levin <sashal@kernel.org>,
-	Guenter Roeck <linux@roeck-us.net>
-Subject: Re: [PATCH 6.12.y 1/3] hwmon: (asus_rog_ryujin) Rely on subsystem locking
-Date: Fri, 18 Sep 2026 15:45:39 -0400
-Message-ID: <2026-09-18-daily-reply-0012-re-hwmon-subsystem-locking@kernel.org>
+	stable@vger.kernel.org,
+	KernelCI bot <bot@kernelci.org>,
+	Kevin Hao <haokexin@gmail.com>
+Subject: =?UTF-8?q?Re=3A=20=5BREGRESSION=5D=20stable-rc/linux-6=2E6=2Ey=3A=20=28build=29in=20expansion=20of=20macro=20=E2=80=98container=5Fof=E2=80=99=20in=20drivers/net/ethernet/ti/cps=2E=2E=2E?=
+Date: Fri, 18 Sep 2026 15:45:40 -0400
+Message-ID: <2026-09-18-daily-reply-0013-re-cpsw-rx-mode-work@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <82dc4e6a-0114-48ed-9fa1-1696cc5fdc08@roeck-us.net>
-References: <82dc4e6a-0114-48ed-9fa1-1696cc5fdc08@roeck-us.net>
+In-Reply-To: <178965354369.144182.3820631599752867786@kernelci.org>
+References: <178965354369.144182.3820631599752867786@kernelci.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-> No, it isn't, and if the patch introducing it ends up being backported
-> to 6.12.y it will trigger follow-up bugs in a couple of drivers.
-> 
-> NACK
+> /tmp/kci/linux/drivers/net/ethernet/ti/cpsw.c:310:34: note: in expansion of macro 'container_of'
+>   310 |         struct cpsw_priv *priv = container_of(work, struct cpsw_priv, rx_mode_work);
+> /tmp/kci/linux/include/linux/stddef.h:16:33: error: 'struct cpsw_priv' has no member named 'rx_mode_work'
 
-Makes sense.
+The queue took 0b8c878d1173 ("net: cpsw: Execute ndo_set_rx_mode callback in a
+work queue") without its sibling c0b5dc73a38f ("net: cpsw_new: Execute
+ndo_set_rx_mode callback in a work queue"), which is the commit that adds
+rx_mode_work to struct cpsw_priv. It is dropped from 6.12, 6.6 and 5.15 now.
+Note that the cpsw.c half applies textually clean on all three trees on its own
+and only fails at compile.
 
-> ... and commit 52dfb8be29d9 ("hwmon: (emc1403) Rely on subsystem locking")
-> should be reverted from 6.12.y.
-
-That revert is already queued for 6.12 and 6.6.
+Kevin, could you send a backport of the pair for 6.12, 6.6 and 5.15? 6.6 and
+5.15 have no disable_work_sync(), so those two need adapting. 6.1 and 5.10 do
+not need it, the Fixes: commit 1767bb2d47b7 ("ipv6: mcast: Don't hold RTNL for
+IPV6_ADD_MEMBERSHIP and MCAST_JOIN_GROUP.") is not there.
 
 -- 
 Thanks,
