@@ -1,211 +1,181 @@
-Received: from SA9PR02CU001.outbound.protection.outlook.com (mail-southcentralusazon11013065.outbound.protection.outlook.com [40.93.196.65])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4B65850EBE6;
-	Fri, 18 Sep 2026 16:40:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.196.65
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789749615; cv=fail; b=MoGU/AUcakR+7oGm5P3esGNxuEkxXweYdgNk2rj7DDefMy/fzdzqP5HTygGZ0RLRCIWuK+epVjxVd1kiFJJzE6w6kQ/O0j7070yuUrqAstw6fOqKHsXr6W7vLyYYCOgLgGSUauRVIKOcQPAq1rpod1yMf1TpmRnY/1W5FtAe4CM=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789749615; c=relaxed/simple;
-	bh=s05+1eA7Jp/WCw3CLdye5o6GrNjvGaScisApD5nU6Ug=;
-	h=From:To:CC:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=lMEaMJZrpKL2+WVxYdW1tDQSbINHwkOx6Kx48CFMgS9lkwxL01UWt9Dg0OG+qt9Lbeq8lJuvLtUsjx6icptTNms/iug8MDKYNAV4IGJIkSX9Ri7bhCQaR5UtnD4/P0sF5HFtGZS+/mpK0JwZ5xmE7dFSHLONPFI1CsEZMFE8vKo=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=MJlJUtpc; arc=fail smtp.client-ip=40.93.196.65
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E9F3D5187E1
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 16:46:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789750012; cv=none; b=iG/on3h1OftGd8QcjPQQRcJN+rOSU9P0cQgkzPA6UCGTk3Lf6CqZ9fA4iVJCbKsHEBMKLkLTKtjdep8Vq+vrAgMNKIRX8MmU8wFVWp0wym6KKK1jeBL0D6vr2zg/UkggVePmWeLjJAnmth051qa9LVuT/MuMwJngYl7Lmpni3XE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789750012; c=relaxed/simple;
+	bh=wKMEjBLMtgcuZryZ1Ys60OL4D/gso7hVRXG0PKiZqjg=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Br9i4E0kIWEA4FPCQMCNM4udAbLgq6HdFexXJMtZ4k1EGYZc4w1QcXV6N+wmi5UpPPZ/1Aq/Xc0cyZJwjsfC4ThbBYxcAMTDwVp+FhondUhgzlfiBwqqbXCI3TyqWBFPOB3XZrWdJ5Vbyj0HKkCKoLTAUdntbp8/upkdCCfMlGM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bUjSi4R/; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="MJlJUtpc"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=X607xOM3P7fRZNfDBbLkEkgLpuEtsyi+wdXNu39yDkc6/GvDnjWhq46tw/0sE//pdSC1T//gB6IQp3+14zrDJLTMV6r3JgkvqoalgKvKtQdRYmR8rt3lPeLObyqsr6pfxUAKbE4v3AkYibqvt0T9i3kO7+g1yDQYxZtUDf6yKjQgext14N7x2biCfbjWORcK4b9qX/RiwkgeqPooewC7EQo/ZmQmqG2CLFj+G5Ti4QrGtJQJKj5XIFzzSfsXvrbO4lNwW03SeFec2HFNQqIcsnIxoJNNrIam6qnCJwbvfMPGpCrpf8fI7xIzuMn9vGhJGeSTRIyI7fe0ZFe8SLmueQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=sNb9wH1onmBaewpoHesqOYaCFR72oQrV+R3Fbe4Unz0=;
- b=U0TyzMJvyC/PhD5xQfK0IWGZ0/3PhITM06E1mlG+BcHmH4jXK+2pw4EOwcYAgVKndhS+wGazmWFMRi8voEVTBKilaCujUhGbTQjH1TL1Wf6likLE3u6yubplcVWO3Z1tbsPCaHxNvzj7VyjNOr6UVNF5Yl9Zf6L10cIJm9kfy+dP7ncb0vKIYmzB7g9edjAISdyFyowOvBbsAHQofB4vBmxWyrbkL12MtOBMKxTDHyeHEebEJPdncDKNy/FavmXBB4ljuUqQr+nlvFtZKuECwYpN2Dq5z5pBh7rJs2pnPPf6cz3JZ27yXbHOk5uaxikpJAbQHymRG4Zmfchc9C9enQ==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 216.228.117.161) smtp.rcpttodomain=vger.kernel.org smtp.mailfrom=nvidia.com;
- dmarc=pass (p=reject sp=reject pct=100) action=none header.from=nvidia.com;
- dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=sNb9wH1onmBaewpoHesqOYaCFR72oQrV+R3Fbe4Unz0=;
- b=MJlJUtpcArlh4M5u17m5W3QgUXTBXoCqQeOjnn8QaYB5bvlMBuNxqP38w0iaxiMvQ4Egijo0sNKnbe7TgzH3tPBrzKf3wokxOapB6gJZmbUiJC3h9FDkaOVW0c8wGRqpuZ4cG4xgH1BT9d5Ni67vsFZHFHex94shHDDzuYZIPMTQYjfvMEn6jIJhZtZKv+SW/40gI2kdQsrQ7ojMnrMNNWbfQhwTgLvsO2+Q73uoyvkSRDVkB00oPzBRUkefekjUaQmwOGCh/yIlmS47KabPwDg/QQbZp48CYUy1QhjXxppQMDbaibVNqh/G8Uk2NgoI64uef4vdlfqfES64CF/afA==
-Received: from BN9PR03CA0089.namprd03.prod.outlook.com (2603:10b6:408:fc::34)
- by CYYPR12MB8890.namprd12.prod.outlook.com (2603:10b6:930:c7::8) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Fri, 18 Sep
- 2026 16:40:09 +0000
-Received: from BN3PEPF00022BC2.namprd05.prod.outlook.com
- (2603:10b6:408:fc:cafe::10) by BN9PR03CA0089.outlook.office365.com
- (2603:10b6:408:fc::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.382.15 via Frontend Transport; Fri,
- 18 Sep 2026 16:40:09 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 216.228.117.161)
- smtp.mailfrom=nvidia.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=nvidia.com;
-Received-SPF: Pass (protection.outlook.com: domain of nvidia.com designates
- 216.228.117.161 as permitted sender) receiver=protection.outlook.com;
- client-ip=216.228.117.161; helo=mail.nvidia.com; pr=C
-Received: from mail.nvidia.com (216.228.117.161) by
- BN3PEPF00022BC2.mail.protection.outlook.com (10.167.248.213) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 16:40:09 +0000
-Received: from rnnvmail201.nvidia.com (10.129.68.8) by mail.nvidia.com
- (10.129.200.67) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
- 2026 09:39:43 -0700
-Received: from tuxedo (10.126.230.37) by rnnvmail201.nvidia.com (10.129.68.8)
- with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Fri, 18 Sep
- 2026 09:39:37 -0700
-From: Petr Machata <petrm@nvidia.com>
-To: Wentao Liang <vulab@iscas.ac.cn>
-CC: <andrew+netdev@lunn.ch>, <davem@davemloft.net>, <edumazet@google.com>,
-	<idosch@nvidia.com>, <kuba@kernel.org>, <linux-kernel@vger.kernel.org>,
-	<netdev@vger.kernel.org>, <pabeni@redhat.com>, <petrm@nvidia.com>,
-	<stable@vger.kernel.org>
-Subject: Re: [PATCH] mlxsw: spectrum_flower: Fix port range register leak
-In-Reply-To: <20260917113236.2149095-1-vulab@iscas.ac.cn> (Wentao Liang's
-	message of "Thu, 17 Sep 2026 11:32:36 +0000")
-References: <20260917113236.2149095-1-vulab@iscas.ac.cn>
-User-Agent: mu4e 1.12.15; emacs 30.2
-Date: Fri, 18 Sep 2026 18:39:32 +0200
-Message-ID: <87pkyawm2j.fsf@pmachata.org>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bUjSi4R/"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f633ece3so748133f8f.3
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 09:46:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789750008; x=1790354808; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=7otw+sAMt71PNBKElWj0ae0gBS5tnkAn3QFMjtVJGHE=;
+        b=bUjSi4R/BmY86PhE+0uls2LFddbG7rje3EZa8EmpGtOkSLeBODSsAqr8gkRZ+mebrU
+         dgbQ0oq8DdorB+DaMVTx84kyXvF4u857L8FYGpqfoSmpQEr5+4+3KTLjht3W54TKgrFO
+         Tx6NKfyLYF0cRVwqSwBgdOoiCiGo/Iae+rY5XuvaWyc/Booip0m8RnIO5ptTd3gNR78a
+         Sm/GAtbHb22b+xl829j2vJ/pgB7iMLALYLMwEe6eVZEsUA0cgqJtDxcWj9ZIGC4PZV+J
+         ZoAPs8y8fZXdv/eX14baBqxzPXLkMnPs23GW5mUJtDUrJD0AGNDyKJI5kKk/QLK63Dx4
+         ujuA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789750008; x=1790354808;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=7otw+sAMt71PNBKElWj0ae0gBS5tnkAn3QFMjtVJGHE=;
+        b=hZSv4vDFnmFYYwh8bsadhNLflyRM5ZU27XQgVy2xkuXfWwy4Nz6e7XzmJEbuvXUhOn
+         CmMx/tnWZEK8RBKkQc9pnbzUzv7vDgXgS4dBt5GIpFKyOoXDePFin05Jbv47zuJ3Sftz
+         BDhwMxuIz9FjRhapT4MtU9986rTMsGw/wNmPSkcYW0Kw5aE+kv0gSKVoanQQglv2phVp
+         VZJVTnPLwn+USA1+7ho0+pWTALZOT6QQbs+KCOXnleaUsoJo0amsrh1BCE36LI8KuXmK
+         WAWHtOVv9/hxZhkBhJ8Ipv9yqsFt8KpX3LoKviWM1YqURVg8/Og8gG0Wq4ptV5BrHkZQ
+         hVKQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxlwZqAbWS7lhe8nsmpFpq7tRgi3WOS6Qvc1sHHIMNAjYb/jA7k1zZw5e1sCFsVkf4UWzSDUs8=@vger.kernel.org
+X-Gm-Message-State: AFuF++md1pnQD8D4eanHSAbaGMA/Hjh1NuG8BCqIA8gX57qqaYUVrqtG
+	hRUZsuQYOjbiwBOvzEqWpqowGUveDHmB8gT/oBew9MW2h44Tqh7DHPbE
+X-Gm-Gg: AYBFou3tCC4CpF3tH4CBH7EOaKmxOJzS7Am8fDYTZC2fse8YmKEi2sSNeG3C6Mc8Jgx
+	uUMn8MiTMPiJ7iYzrr2p6bR3X23TP3g2N8wg7ZVePJW12UtH5NaxWBG/y70gTJ5p7y8qRozL7BO
+	S6LHwWFrC6ocF7/HyljT2LgzkYOhzfTx7WA1ghJCYX8iPLUXI6xZGFpM+qD5hw+XJwM3qIWc6Cn
+	pzfcBOxKi8EKF4zDR3VaTVndEV3Exw3yDY9f6ow1LvlgUsap4HmKd2km1VKiOCEScrdHndXvH2X
+	N0IdzLt95phoSBpVV+kSzSUaNJ1N71bpzG6pQaVcmSTiYUYlq5eqJwqUQIJY7Eu7f4YqpO+qxsx
+	zlkx7UkdnkBIkbLd7428+LjSPzhznrNeW8LVZfm5i9zrt0aGUK0cPPBBs7GwazumVPggVxU1mlb
+	c+zixwKynIw0wMY8LJ4pVAExAhRcX5hdK6Er+79QBKwxo3lI0TnoCDHr5OTsvClOwejzdCp/34q
+	j9iJBFt8mSFdZlJudmZWAhzkquEUwMWRjOfMzPOjAUe93xFiJu6qUb7Dc3lbodfxxvl
+X-Received: by 2002:a05:6000:178a:b0:487:1266:5be7 with SMTP id ffacd0b85a97d-4871e26674emr4855205f8f.26.1789750007431;
+        Fri, 18 Sep 2026 09:46:47 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48720072efcsm5135585f8f.25.2026.09.18.09.46.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 09:46:46 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: linux-fsdevel@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com,
+	stable@vger.kernel.org,
+	=?UTF-8?q?=EC=9D=B4=EC=83=81=ED=98=B8?= <kudo3228@gmail.com>,
+	Mateusz Guzik <mjguzik@gmail.com>,
+	Jan Kara <jack@suse.cz>,
+	Deepanshu Kartikey <kartikey406@gmail.com>
+Subject: [PATCH RESEND] romfs: reject directory entry chains that do not move forward
+Date: Fri, 18 Sep 2026 17:46:41 +0100
+Message-Id: <20260918164645.9230-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-ClientProxiedBy: rnnvmail202.nvidia.com (10.129.68.7) To
- rnnvmail201.nvidia.com (10.129.68.8)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN3PEPF00022BC2:EE_|CYYPR12MB8890:EE_
-X-MS-Office365-Filtering-Correlation-Id: 2bb786a0-3001-4066-10f0-08df15a380db
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|1800799024|23010399003|376014|36860700016|10067099003|11063799006|56012099006|6133799003|22082099003|18002099003|3023799007;
-X-Microsoft-Antispam-Message-Info:
-	ql+bBZLzb4NYs6zFYqgu/ReFry1ch1cz1Ejlz0o1ocpbY16xG0n8jgSNOBRiIdwMFjASQnLJ8hyAriuUWjPMAGRX6jUtQAH0EzV5qBOBpMoQ77rgKBF8M1iRQXwz9xTRscRoCGrXwgOPFxervudske2WuA+xJFnuGjiFcMuxKA0x9w5CHhcojsZoQbuKJgyNPkZIryDQChcPOhXW15wf0NAElBaFjj/1mGBNYHZ8+p76shO2i08TZDHvQokx1XaXuHvCD8fO6BgvfQVyHCv0Yn3riIvNwxwH3ch3hoj5yeGRCl4q881P20z/qmJSs+/X0GDnWcG7FJvrKVqtaEffpmzEz2sDdnHHBX3M97f1+5ZxxEqYt2IRhtAqasds6OZqJRYKZWrj2k6sw9GZCWHiVGaIS4aTM7EsjRrCgBbPnBgAeGGJY6RVsV8IW66D8ScREKTQeKPHk/J+rEjcOS3ZdKS4szKzU6zwP39h6dZ9tzBrs7dvmFKHDeO2/LdQehW9TNftx4JlU9ikabVJpVl7n3c0XuZ8Vx30KaiE0lxqOcKhPN+3vajBlHI9FIwBQMVfckhIlQqYRBlQMRwLvr+6PPKkdqVYLg5vCUJ0LAObba6yxcigSHYnlMkLAj0UTJk8OtGyuVJXu7VIggJmy+oMJy3jgA28CBprMzARVhncuIte5sroYk0D6VM0LyILYPxLnJggmsbeodlseQx3oXKhag==
-X-Forefront-Antispam-Report:
-	CIP:216.228.117.161;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:mail.nvidia.com;PTR:dc6edge2.nvidia.com;CAT:NONE;SFS:(13230040)(82310400026)(1800799024)(23010399003)(376014)(36860700016)(10067099003)(11063799006)(56012099006)(6133799003)(22082099003)(18002099003)(3023799007);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	RSXn3EowF7uzkFd4ci6x+9ZbV0G3lxjjAcZvZEK1KjkH4VsicyM9gJ37+Wf2stJOsYkDU08qj3hCUS68pVINSyAWX3c+8MmZycH5ik+OrJDFXo5BT4xZP/v3+692ZPyb+ZTcY/c5EohdYduMUzk6ZR4LxZUYaJ1NPGP3+FBkoWwLhbcOi8rE8qJeO5TBBMdPmeKLRYYGpBhC9b4ssAEqJGma2a4wJXA3cdzxaXcefVvFHDyOHf1EsbQguiMQ+MVYegok+QogkPhSonNrDEfFv5XjuLD9UxTzVDdwM08J2nDuBw7/Ak7y6cqPo42DwBT87K+uj2Ho/7LoLodx1xKDUmzFkDuImZRuTipy5TAu9nyZAIoSudIdusv6dYpftFb74Xy3Rn6Ipo0ss6JeoZEo5MXXJdJCy9g6Y6sWMyIoL3qGn/aLhTXSjpUMJHyzpjLK
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 16:40:09.3240
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 2bb786a0-3001-4066-10f0-08df15a380db
-X-MS-Exchange-CrossTenant-Id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=43083d15-7273-40c1-b7db-39efd9ccc17a;Ip=[216.228.117.161];Helo=[mail.nvidia.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN3PEPF00022BC2.namprd05.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CYYPR12MB8890
+Content-Transfer-Encoding: 8bit
 
-Wentao Liang <vulab@iscas.ac.cn> writes:
+romfs_lookup() and romfs_readdir() walk a directory's entry chain by
+following ri.next, and stop only once the offset is zero or past the end
+of the image. Nothing stops an entry from pointing at itself, so on a
+crafted image a lookup of a name that is not present spins forever.
 
-> mlxsw_sp_flower_parse_ports_range() acquires the source port range
-> register before the destination one.  If the destination lookup then
-> fails, the source register reference is left behind in a partially
-> filled rule info, and callers that pass a stack allocated rule info
-> never release it.  Release the source register before returning the
-> error so that the reference is not leaked.
+That loop has no cond_resched() and no signal check, so the task cannot
+be killed, and it spins with i_rwsem held and the dentry left in the
+in-lookup state. A second lookup of the same name then waits forever in
+d_alloc_parallel(), and it is that waiter the hung task watchdog
+reports, which makes this look like a dcache problem:
 
-I think this is fixing the wrong issue in fact.
+  INFO: task syz-executor239:5636 blocked for more than 143 seconds.
+   d_alloc_parallel+0xd13/0x16c0 fs/dcache.c:2839
+   __lookup_slow+0x82/0x2f0 fs/namei.c:1904
 
-This does fix something, namely the issue of trying to add a new tc
-chain filter with both src_port and dst_port ranges in a situation where
-only one resource is left. Before the fix, we end up with full resource
-allocation even as the offload fails, because the register for the
-src_port range is not released. After the fix, the src_port register is
-correctly released.
+Require the chain to move forward and return -EIO if it does not. File
+headers are laid out in increasing order and both loops already treat
+the chain as a bounded forward-only walk, so this only enforces what
+they assume. In romfs_readdir() a cycle never advances ctx->pos and has
+getdents() repeat entries forever, so check there too.
 
-But look:
+The hard link chain bounded by commit d30b5a954e0a ("romfs: detect hard
+link cycles") is a separate one. Sangho Lee posted a fix for this chain
+in July 2026 that validates it at inode instantiation; it has had no
+replies.
 
-# tc qdisc add dev swp1 ingress
-# tc chain add dev swp1 ingress chain 90 protocol ip flower ip_proto udp src_port 100-9000 dst_port 200-9000
-# devlink -j resource show pci/0000:06:00.0  | jq '.resources.[][] | select(.name == "port_range_registers") | .occ'
-2
-# tc chain del dev swp1 ingress chain 90
-# devlink -j resource show pci/0000:06:00.0  | jq '.resources.[][] | select(.name == "port_range_registers") | .occ'
-2
+Reported-by: syzbot+e8ebfecec06a009dd2d3@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=e8ebfecec06a009dd2d3
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
+---
+ fs/romfs/super.c | 26 +++++++++++++++++++++-----
+ 1 file changed, 21 insertions(+), 5 deletions(-)
 
-So it's much more broken than just this cleanup path edge case.
-(Notably, 'tc filter' cleans up properly, it is really just 'tc
-template' that triggers it.)
-
-I.e. let's not have this.
-
-
-I think this is the fix that we need, and it fixes the cleanup path
-issue as well.
-
-modified   drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-@@ -862,14 +862,24 @@ int mlxsw_sp_flower_tmplt_create(struct mlxsw_sp *mlxsw_sp,
- 	memset(&rulei, 0, sizeof(rulei));
- 	err = mlxsw_sp_flower_parse(mlxsw_sp, block, &rulei, f);
- 	if (err)
--		return err;
-+		goto out;
-+
- 	ruleset = mlxsw_sp_acl_ruleset_get(mlxsw_sp, block,
- 					   f->common.chain_index,
- 					   MLXSW_SP_ACL_PROFILE_FLOWER,
- 					   &rulei.values.elusage);
+diff --git a/fs/romfs/super.c b/fs/romfs/super.c
+index 7f783d6173e8..846b57f265ef 100644
+--- a/fs/romfs/super.c
++++ b/fs/romfs/super.c
+@@ -143,7 +143,7 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+ {
+ 	struct inode *i = file_inode(file);
+ 	struct romfs_inode ri;
+-	unsigned long offset, maxoff;
++	unsigned long offset, maxoff, next;
+ 	int j, ino, nextfh;
+ 	char fsname[ROMFS_MAXFN];	/* XXX dynamic? */
+ 	int ret;
+@@ -191,7 +191,16 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+ 			    romfs_dtype_table[nextfh & ROMFH_TYPE]))
+ 			goto out;
  
- 	/* keep the reference to the ruleset */
--	return PTR_ERR_OR_ZERO(ruleset);
-+	err = PTR_ERR_OR_ZERO(ruleset);
-+
-+out:
-+	if (rulei.src_port_range_reg_valid)
-+		mlxsw_sp_port_range_reg_put(mlxsw_sp,
-+					    rulei.src_port_range_reg_index);
-+	if (rulei.dst_port_range_reg_valid)
-+		mlxsw_sp_port_range_reg_put(mlxsw_sp,
-+					    rulei.dst_port_range_reg_index);
-+	return err;
- }
+-		offset = nextfh & ROMFH_MASK;
++		/* likewise, a chain that does not move forward would have
++		 * getdents() repeat entries forever
++		 */
++		next = nextfh & ROMFH_MASK;
++		if (next && next <= offset) {
++			offset = maxoff;
++			ctx->pos = offset;
++			goto out;
++		}
++		offset = next;
+ 	}
+ out:
+ 	return 0;
+@@ -203,7 +212,7 @@ static int romfs_readdir(struct file *file, struct dir_context *ctx)
+ static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+ 				   unsigned int flags)
+ {
+-	unsigned long offset, maxoff;
++	unsigned long offset, maxoff, next;
+ 	struct inode *inode = NULL;
+ 	struct romfs_inode ri;
+ 	const char *name;		/* got from dentry */
+@@ -245,8 +254,15 @@ static struct dentry *romfs_lookup(struct inode *dir, struct dentry *dentry,
+ 			break;
+ 		}
  
- void mlxsw_sp_flower_tmplt_destroy(struct mlxsw_sp *mlxsw_sp,
+-		/* next entry */
+-		offset = be32_to_cpu(ri.next) & ROMFH_MASK;
++		/* next entry; the chain must move forward, or a corrupt image
++		 * will keep us here forever
++		 */
++		next = be32_to_cpu(ri.next) & ROMFH_MASK;
++		if (next && next <= offset) {
++			ret = -EIO;
++			goto error;
++		}
++		offset = next;
+ 	}
+ 
+ 	return d_splice_alias(inode, dentry);
+-- 
+2.34.1
 
-The template parser just needs to figure out which keys are used (the
-rulei.values.elusage), it doesn't need to allocate any registers, but it
-neglects to make the appropriate cleanups.
-
-I'll test the above fix some more and send it sometime next week.
-
-> Fixes: fe22f7410527 ("mlxsw: spectrum_flower: Add ability to match on port ranges")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
->
-> diff --git a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-> index 353fd9ca89a6..4cad6c46b07e 100644
-> --- a/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-> +++ b/drivers/net/ethernet/mellanox/mlxsw/spectrum_flower.c
-> @@ -486,8 +486,14 @@ mlxsw_sp_flower_parse_ports_range(struct mlxsw_sp *mlxsw_sp,
->  
->  		err = mlxsw_sp_port_range_reg_get(mlxsw_sp, &range,
->  						  f->common.extack, &prr_index);
-> -		if (err)
-> +		if (err) {
-> +			if (rulei->src_port_range_reg_valid) {
-> +				mlxsw_sp_port_range_reg_put(mlxsw_sp,
-> +							    rulei->src_port_range_reg_index);
-> +				rulei->src_port_range_reg_valid = false;
-> +			}
->  			return err;
-> +		}
->  
->  		rulei->dst_port_range_reg_index = prr_index;
->  		rulei->dst_port_range_reg_valid = true;
