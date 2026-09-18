@@ -1,83 +1,83 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+Received: from out162-62-58-216.mail.qq.com (out162-62-58-216.mail.qq.com [162.62.58.216])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A0DC4052C5
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 14:24:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 84CC438E5DC;
+	Fri, 18 Sep 2026 14:28:13 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=162.62.58.216
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789741458; cv=none; b=TGTYcyAaJDEDcFXh7o9klbedo1hDS87sALyyhdmbpn2kO0GqGfe3VK+PLx2EaFDGKUUSya8AWe7Ey0TciJ/FmJIX8CWSE0k3CHbHLaX1wk5Ctw/dL6tJiqO2aK3AbvQlJTX5YO73QO7IsbEFnSy2ZasiMtrObTMFyXPHRAnxVuI=
+	t=1789741698; cv=none; b=mTzy7dYoIm0qAn7PvQjyoVxdRPEiVbAVZbHx6+19pR2qZRSr6jr0C63qiVLwA3Lbb6qPkzjIW2GOHa6Mw/nOEki97e4HDxbs5fxxxYd6rouFvT5f0mV1ssPbDYIgmr5ajK6Q1yNq1c9Y1oEI3bq1Pd0btRGxXWYuCP3k0R4jMwM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789741458; c=relaxed/simple;
-	bh=1H1osbXaC7JZx474r3JdopArxaI4SmiR3L4D7z0R4JA=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RVxdCvivsLGBIUXDyxGwbaB+6s5t0c7jSvNg6SRgpD5sT7hWr8Eq+FFzk4Uma1FVBgGVEM58s2XpVnQSYxEXa5FiLAAOSIdgstSw5ILh7mIVEPulcrjuS2ltjnE/ms0IczJHC6mBPkkU67r2TQYNEo9fTS+uYM/CojEZasUV5DU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=QH/gd1QN; arc=none smtp.client-ip=170.10.129.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	s=arc-20240116; t=1789741698; c=relaxed/simple;
+	bh=30qmVMzX/J9BfiIXdu4Nb25WhGl5li/5+4BhYPYCtn0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=s23BexY86HP2t8uh1JIPhGiT0jSbNWu1S0o5UAFreyKU6Ol4ge0iMNrmpKdhpl0Ldu8hF2yD4nzIN91zcvELHl3Fo+dQK3HFX9Q9tkTFw0HYJKmcas2JCm0fJ3Jx1zv5HrKDE/lV2MQEBndUJY4g3a5Jxef7O5SyivXfKAv6d3o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com; spf=pass smtp.mailfrom=qq.com; dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b=MEVttQ33; arc=none smtp.client-ip=162.62.58.216
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=qq.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=qq.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="QH/gd1QN"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1789741456;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=COGJ2JvndcwpiY85nNJ0ortnJmNdGWOwG92Ky7RrAcw=;
-	b=QH/gd1QNItoZrAt3/60FFm+xmBKvmFkF8D3MymibwgUxXBsgFuvxO5zlQp1wK2Xa5xUk8S
-	JaA0KNWbvtsZ/MriitIxWOCZeBMUrM3yI+D+CLKWBV5BxZ2paASnr190mRKEdCZwDAb1XR
-	UODBcpvCeHs1rR5e/O22hKYby+vSbXE=
-Received: from mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-35-165-154-97.us-west-2.compute.amazonaws.com [35.165.154.97]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-655-_WEziOAXOlWM0WqjR88tKg-1; Fri,
- 18 Sep 2026 10:24:12 -0400
-X-MC-Unique: _WEziOAXOlWM0WqjR88tKg-1
-X-Mimecast-MFC-AGG-ID: _WEziOAXOlWM0WqjR88tKg_1789741450
-Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-08.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 811BE188307C;
-	Fri, 18 Sep 2026 14:24:09 +0000 (UTC)
-Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 6FDD5195604D;
-	Fri, 18 Sep 2026 14:24:05 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Fri, 18 Sep 2026 16:24:09 +0200 (CEST)
-Date: Fri, 18 Sep 2026 16:24:04 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
-	io-uring@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2 6/7] signal: don't retarget shared signals in a dying
- thread group
-Message-ID: <aq1JhBwfJKSKNNCU@redhat.com>
-References: <20260917-work-coredump-fixes-v2-0-f3787fcda051@kernel.org>
- <20260917-work-coredump-fixes-v2-6-f3787fcda051@kernel.org>
+	dkim=pass (1024-bit key) header.d=qq.com header.i=@qq.com header.b="MEVttQ33"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qq.com; s=s201512;
+	t=1789741684; bh=30qmVMzX/J9BfiIXdu4Nb25WhGl5li/5+4BhYPYCtn0=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=MEVttQ33rHSgI5YAox63QKMTqf5Z3vgFjlLw2MgTmghFAMp5J8CZeJUYcMxFA2EDE
+	 VSjxbqd8ugITSwZRT2geBW7CN2wZOy+O0ZbAXKoh0B5Aaux8FG+PDa+h8vvxWrUYhF
+	 61cObnIORLNyfEvSr9mmS9iap4vy9pPv3im0BPQg=
+Received: from [IPV6:2409:8a1e:a1f6:6291:8109:68a1:36b:c182] ([2409:8a1e:a1f6:6291:8109:68a1:36b:c182])
+	by newxmesmtplogicsvrszb51-1.qq.com (NewEsmtp) with SMTP
+	id 7020406B; Fri, 18 Sep 2026 22:28:02 +0800
+X-QQ-mid: xmsmtpt1789741682td5iy8zfd
+Message-ID: <tencent_EDFF4CC61926DDD4305C89B451CC67B51E05@qq.com>
+X-QQ-XMAILINFO: NT7dO8ok7FP2TrCQG9lCaxo/hQmEV4JMnfTUmdg2z9Kyby9aFcVn2Xp6s18j4E
+	 V2kRUIPzlp95YQTkw8uXERVDSvnN3wRYC34eJ8zOI6OvUlEXYl6dWubDVsaMdUhktabYPwAU/6bx
+	 jExGL1l1Nmqa4jeG/jdW9hjj2fBpDoW6BH1YDeXle83JiOgxI7CParesHNtBLh+0jRk0JDnlVulM
+	 3AZVGql1/c62NqUfB0+T+1TReNX78sM7I72c7ubIdIuBBudZTlEUS7Jy7+DjxA3Hmo7Nf/TlQpSM
+	 3t3O2u5w3RwgqFmW9XD6ZJjAMbA7txVzhB33EbTLVJdFcz6W38KqCi7F/o/nHll8Vw0tFUDgvB3D
+	 NXBOngVMsIl+8zx1TpxmHHfK4GDIcuYlrkUVNuZ4F4+VQWOImRNvS0doX2itLWOYcG2nLKxnwyjo
+	 XTLD6J5E2tE4v7hX9WeQdUTbeFbYA4kKIJ12ThOWXT7Pcdi79Vl1pVf/2sRxrWGWGiujC41ZpZes
+	 a5Piq4OHaJlRwQzk+pnsQOz69d8cvIqTod0uFzdEl+hw6RNxWfC4lHuGTUVIxqcR3lQ+CPhIgl4r
+	 TXYV/HAh4FtMIgFem8dVoykRUR0fBMiYQzm2Hgtj6bm3RCsfKHaGSeErdr9VTO97zXjtDPAUAwmd
+	 d61qvdCo1SplO7WJSN/lzMGo/SiG5px6l6KqCtQc82QsbjaCVT9R20YPORmrZ0jcOJ+LVTm8hgBH
+	 vVtMmjGDzZ41ZVdbPPktvEtouGc+bLHGPTmjOCYE7oKk7z4TKJ/ppiije5ZWtDnBC430p+hgWdP0
+	 urO1t5AUvCZP+3EcamLRk8IUO2N7bk+Nbjm+UNLH8B5AoDMs1ODfWd2iJQ/BFmDeeH9qBFadHKJj
+	 uFp9hmqQAfzR28Mxe48W1Ac7SmY/YkZaymHm0wWDLh4pAdPEYhAedLN0UGjdjEqb2cSBApKfCIeP
+	 GJ6xQ3hNhOHofdZdNs1pfsZjrMQOZMr1Hd6Rsb1BB1q6CyR3dA/2wRtKeSWNIqKks89mfIpq+dfd
+	 pZoW/9RGvq3363EyB4E3Z5gA88YyoYVCPRjoHIZxuwxkuC0ew/qaq3ma0PrbqLJk6rBeQ+Prhs5c
+	 TMIlEBYtcu/WydIh06ESxM+t9BrQ==
+X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
+X-OQ-MSGID: <b04c01ae-d953-4b3f-a3c4-39657da6ebb5@qq.com>
+Date: Fri, 18 Sep 2026 22:29:21 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260917-work-coredump-fixes-v2-6-f3787fcda051@kernel.org>
-X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] parisc: parse early parameters in setup_arch()
+To: Helge Deller <deller@gmx.de>
+Cc: "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ linux-parisc@vger.kernel.org, Mike Rapoport <rppt@kernel.org>,
+ stable@vger.kernel.org
+References: <7c90662b-903e-4624-bc97-96b1187332c5@gmx.de>
+ <tencent_25C26948D9C4B056CBF12565F0600C4C2509@qq.com>
+ <42e0fc0c-caaa-4d2b-bedc-164323bddac5@gmx.de>
+From: Zhenghui Hao <zhenghui.hao@qq.com>
+In-Reply-To: <42e0fc0c-caaa-4d2b-bedc-164323bddac5@gmx.de>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 8bit
 
-On 09/17, Christian Brauner wrote:
->
-> --- a/kernel/signal.c
-> +++ b/kernel/signal.c
-> @@ -3117,6 +3117,10 @@ static void retarget_shared_pending(struct task_struct *tsk, sigset_t *which)
->  	sigset_t retarget;
->  	struct task_struct *t;
->
-> +	/* Nobody dequeues them in a dying group, see get_signal(). */
-> +	if (tsk->signal->flags & SIGNAL_GROUP_EXIT)
-> +		return;
+On 9/18/26 16:22, Helge Deller wrote:
 
-Acked-by: Oleg Nesterov <oleg@redhat.com>
+> Tested-by: Helge Deller <deller@gmx.de>
+>
+> Thanks!
+> Helge 
+Hi Helge,
+
+Thank you very much for taking the time to test this patch. I really appreciate it.
+
+Since you have successfully tested it, do you have any further comments or concerns regarding the code? Or is this patch ready to be picked up?
+
+Thanks,
+Zhenghui Hao
 
