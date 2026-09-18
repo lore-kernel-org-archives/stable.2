@@ -1,137 +1,149 @@
-Received: from va-1-112.ptr.blmpb.com (va-1-112.ptr.blmpb.com [209.127.230.112])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8E9A64E06D1
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 10:15:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.127.230.112
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 62229415F2C;
+	Fri, 18 Sep 2026 10:32:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726522; cv=none; b=q8DearFbzlKGA0Roa/QT8fEMULk9LEuhu6HqvA923eWN4W2XCzGWiemoI2zAmKP0VkyL0S+hbrqDrTUPrtyTHGEQjk4gOHWsoY3bHSc8NeG8Cyg8OlaYVIPw0hSeMSLZUAnBWJ4SVR6feO3BTd/HpS40f4xbZZD+6+3B9BDV9CY=
+	t=1789727560; cv=none; b=sr1F3or+1V3QZk39lRaeMmoVAsKPmq5LyIvpO0hhL/O+tG0HKfXYFtF29VDb9fV5uecIy5oNDywOTl9JxyPNLj9HcKxsTLAzmCUHMneqUNsLWi+TBJrVUF1YDrwepgabd0D/h9xIhk/XUguRN55QJMZVQFVIpL0WqZ2bFOkcXqs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726522; c=relaxed/simple;
-	bh=dZHhw90Zo7hwyMM0KWsX/6pY2ExSGOUDO83AkrjYefY=;
-	h=Cc:Subject:Date:Message-Id:Content-Type:To:From:Mime-Version; b=I/ytKy7qcfgjVWvERPT3UklWMzywtOxp6d4UoT4sRPS7aSeZG4awNfPneRdntcNLGuszw7YLtl7y+IyK9iZ8t14dOS+y8cxSB8/331JlNYwPUmW9EMCwGQclUgN0ynFj0E9bp2yEAMKGa8EJNxIhqEXmCJnGdg9SINOYjBzjPy8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com; spf=pass smtp.mailfrom=bytedance.com; dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b=nOS2JkU9; arc=none smtp.client-ip=209.127.230.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=bytedance.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bytedance.com
+	s=arc-20240116; t=1789727560; c=relaxed/simple;
+	bh=ow9Vzb2TFVcMYcSLJbocUzWmCZHBM+RGMk1vfKKnAGE=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=CwN24U/o3/05LYSPm3D0FCg3b+EPDF+u7QWaBkZm53vcY5//HRz5iCpEDBIIrbcYFB12675vUC2vkOe5JSynMjh+iGkDcMBxyfoRXvpn11av7ThF7X/mctqKinuD7EABtot+7FA0hf8h0gTGzKOCp44G53VtzWVhKATFSOTX8fY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=IlnS3bnw; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bytedance.com header.i=@bytedance.com header.b="nOS2JkU9"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
- s=2212171451; d=bytedance.com; t=1789726394; h=from:subject:
- mime-version:from:date:message-id:subject:to:cc:reply-to:content-type:
- mime-version:in-reply-to:message-id;
- bh=jUh0oO6Klx+ZE+PWk/0c8jcKPhTLuXbCHk9sShXLA5g=;
- b=nOS2JkU9i6ZySyKuqTa1toPHrOdppKcv171Y8ix4e2Ym6UP4y6JrZ6uZmhzKgwO5Un3HQ1
- KGvtf5TYSe6bNS+54h2soxzkt6Jt0WLn9ckbGDqI4RRUm1C07LHArPYdedjQTcp64WKU4R
- YjTjEHh/X+2Mguxq7Sx5ynged0YVL9La0vUaf9GG9pNDTjnfKBTsmfWApXmvuvb9D9Bnn9
- cZ6GsvWCyFmCi5H9UTg+g1CS4rmIkSaJ37/0eOre7lCqIcadwtxMYMP+b3VMxlaNhuNNEG
- 8KZomwBWGJGjYKJDRu7uN7XA/Vp1cwVdIOy/cgeQav44A1eMTyzsWAWVbkKGDQ==
-Cc: "Andreas Dilger" <adilger.kernel@dilger.ca>, 
-	"Baokun Li" <libaokun@linux.alibaba.com>, "Jan Kara" <jack@suse.cz>, 
-	"Ojaswin Mujoo" <ojaswin@linux.ibm.com>, 
-	"Ritesh Harjani (IBM)" <ritesh.list@gmail.com>, 
-	"Zhang Yi" <yi.zhang@huawei.com>, <linux-ext4@vger.kernel.org>, 
-	<linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>, 
-	"Zhao Gongyi" <zhaogongyi@bytedance.com>
-X-Lms-Return-Path: <lba+26aad0eb8+74b509+vger.kernel.org+zhaogongyi@bytedance.com>
-Subject: [PATCH] ext4: fix OOB memmove in ext4_xattr_set_entry
-Date: Fri, 18 Sep 2026 18:12:49 +0800
-Message-Id: <20260918101249.43643-1-zhaogongyi@bytedance.com>
-X-Original-From: Zhao Gongyi <zhaogongyi@bytedance.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-Content-Type: text/plain; charset=UTF-8
-To: "Theodore Ts'o" <tytso@mit.edu>
-From: "Zhao Gongyi" <zhaogongyi@bytedance.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="IlnS3bnw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789727559; x=1821263559;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=ow9Vzb2TFVcMYcSLJbocUzWmCZHBM+RGMk1vfKKnAGE=;
+  b=IlnS3bnwxzGWj5XH6zYQsnI1/YlWA2v89iml0tZe7t5BOKq0eokS7+BX
+   S8ZIYM1eA4QWMPnpMDZdjKK4vGp5K3ECmFmalwqHAAfhIfQFxmUQsa6tI
+   GU9zJgUUspO6y70YNaQqlLwsgH0wVMkQ5JjFddLobIVb1VL/dm1nyDAsS
+   i6fb/dlvx5FCOpUdngBRyFRYwJWnyFxNfZWFBYE0rA/+aZd9nbJYX6bfD
+   dkxxO9kL6OvxneA6gxvSyJBYRRsI7jEQ9eNEGTpt75jNU4S5Pl8IjlURy
+   DcCgKJZxzlfJgAFg75vVgFcu4/KGMQ0kaCnE88/EuarEfWSOwSArAUHXt
+   A==;
+X-CSE-ConnectionGUID: n1zqBEepS7+dUMOx2D2KLQ==
+X-CSE-MsgGUID: aUuc5KwuTsiqTZVyAiOXcQ==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90090839"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="90090839"
+Received: from fmviesa008.fm.intel.com ([10.60.135.148])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:32:38 -0700
+X-CSE-ConnectionGUID: L1MaPcwgTXOtRsxI1A2SSg==
+X-CSE-MsgGUID: EEjyDNo+QryHsWbHIcY/CA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="271652556"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.245.223])
+  by fmviesa008-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 03:32:34 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Fri, 18 Sep 2026 13:32:31 +0300 (EEST)
+To: Muhammad Bilal <meatuni001@gmail.com>
+cc: platform-driver-x86@vger.kernel.org, jorge.lopez2@hp.com, 
+    Hans de Goede <hansg@kernel.org>, linux@weissschuh.net, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org, 
+    Josh Snyder <josh@code406.com>
+Subject: Re: [PATCH v3 1/2] platform/x86: hp-bioscfg: fix 16-byte heap overflow
+ for empty auth token
+In-Reply-To: <20260818191120.38556-2-meatuni001@gmail.com>
+Message-ID: <9d60ef62-a53c-bb13-ff6a-0a195cf2f6f3@linux.intel.com>
+References: <20260818191120.38556-1-meatuni001@gmail.com> <20260818191120.38556-2-meatuni001@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: 7bit
+MIME-Version: 1.0
+Content-Type: multipart/mixed; boundary="8323328-414600178-1789727551=:15314"
 
-A corrupted filesystem can leave an inode marked as having inline data
-while the system.data xattr is missing. ext4_destroy_inline_data_nolock()
-then asks ext4_xattr_set_entry() to remove an entry even though
-ext4_xattr_ibody_find() left the search state at the insertion position.
+  This message is in MIME format.  The first part should be readable text,
+  while the remaining parts are likely unreadable without MIME-aware tools.
 
-In the syzkaller reproducer, the old xattr value offset is smaller than
-min_offs. ext4_xattr_set_entry() then computes val - first_val for
-memmove(), the length wraps to a huge size_t, and memmove() can run out of
-the xattr buffer. This results in an out-of-bounds memmove and a kernel
-page fault.
+--8323328-414600178-1789727551=:15314
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: QUOTED-PRINTABLE
 
-A crafted corrupted ext4 image can trigger this while inline data is being
-converted out of the inode. Treat the inconsistent inline/xattr state as
-filesystem corruption before updating the xattr entry.
+On Wed, 19 Aug 2026, Muhammad Bilal wrote:
 
-The issue was found by syzkaller and reproduced with the generated C
-reproducer. The crash signature is:
+> hp_calculate_security_buffer() special-cases an empty authentication
+> string and returns a fixed 4 bytes (sizeof(u16) * 2). But
+> hp_populate_security_buffer() does not special-case that same input:
+> for any authentication string that does not start with BEAM_PREFIX,
+> including the empty string, it always builds "UTF_PREFIX +
+> authentication" and converts the result to UTF-16, writing a 2-byte
+> length header plus 2 bytes per character of "<utf-16/>" (9 characters),
+> 20 bytes total, regardless of how long "authentication" itself is.
+>=20
+> The caller, hp_set_attribute(), sizes its kmalloc() buffer using
+> hp_calculate_security_buffer()'s return value, so for an empty
+> authentication token it allocates 4 bytes for the security area but
+> hp_populate_security_buffer() then writes 20 bytes into it, causing a
+> 16-byte heap buffer overflow.
+>=20
+> The authentication token used here is the current admin/setup
+> password, which is an empty string by default until one is
+> configured. Any write to a writable BIOS attribute while no admin
+> password has been set reaches this path.
+>=20
+> Fix by removing the special-case early return for an empty string in
+> hp_calculate_security_buffer(). The generic calculation that follows
+> already accounts for the UTF_PREFIX correctly, which naturally yields
+> the same 20 bytes that hp_populate_security_buffer() writes for an empty
+> string, avoiding duplicate logic for special cases.
+>=20
+> Fixes: b2715aa2e135 ("platform/x86: hp-bioscfg: spmobj-attributes")
+> Reported-by: Josh Snyder <josh@code406.com>
+> Closes: https://lore.kernel.org/platform-driver-x86/20260402-hp-bioscfg-o=
+verflow-v1-1-6985f8c9e67c@code406.com/
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
+> ---
+> Changes in v3:
+>   - Remove the special-case return entirely instead of adjusting its
+>     formula, avoiding code duplication as suggested by Ilpo J=C3=A4rvinen=
+=2E
+>   - Credit Josh Snyder who previously noted this approach.
+>=20
+> Changes in v2:
+>   - None for this patch; resubmitted as part of the v2 series.
+>=20
+> Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.c=
+om [v1]
+> Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.=
+com [v2]
+> ---
+>  drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c | 4 ----
+>  1 file changed, 4 deletions(-)
+>=20
+> diff --git a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c b/dri=
+vers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+> index 4d94e48c1a4c..136585141e6e 100644
+> --- a/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+> +++ b/drivers/platform/x86/hp/hp-bioscfg/spmobj-attributes.c
+> @@ -47,10 +47,6 @@ size_t hp_calculate_security_buffer(const char *authen=
+tication)
+>  =09if (!authentication)
+>  =09=09return sizeof(u16) * 2;
+> =20
+> -=09authlen =3D strlen(authentication);
+> -=09if (!authlen)
+> -=09=09return sizeof(u16) * 2;
+> -
+>  =09authlen =3D strlen(authentication);
+>  =09size =3D sizeof(u16) + authlen * sizeof(u16);
 
-  BUG: unable to handle page fault for address: ffff8880074cf000
-  RIP: 0010:memmove+0x28/0x1b0
-  Call Trace:
-   ext4_xattr_set_entry+0xe2f/0x1e90 fs/ext4/xattr.c:1761
-   ext4_xattr_ibody_set+0x3d6/0x5d0 fs/ext4/xattr.c:2268
-   ext4_destroy_inline_data_nolock+0x288/0x5b0 fs/ext4/inline.c:467
-   ext4_convert_inline_data_nolock+0x178/0xe80 fs/ext4/inline.c:1222
-   ext4_convert_inline_data+0x52a/0x610 fs/ext4/inline.c:2083
-   ext4_fallocate+0x1a0/0x3ba0 fs/ext4/extents.c:4752
+authlen is not uninitialized, so only the early return should be dropped.
 
-Reject the missing system.data xattr before destroying inline data, and
-validate the old value offset before ext4_xattr_set_entry() reaches the
-memmove().
+I've dropped this patch from the review-ilpo-next branch.
 
-The crash was reproduced on unpatched 7.3.0-rc3 and 6.6.122 kernels. With
-this fix applied to both versions, the same syzkaller C reproducer ran for
-120 seconds without triggering KASAN, Oops, a memmove fault, or panic.
+--=20
+ i.
 
-Fixes: 67cf5b09a46f ("ext4: add the basic function for inline data support")
-Cc: stable@vger.kernel.org # v3.8+
-Signed-off-by: Zhao Gongyi <zhaogongyi@bytedance.com>
----
- fs/ext4/inline.c |  6 ++++++
- fs/ext4/xattr.c  | 12 ++++++++++++
- 2 files changed, 18 insertions(+)
-
-diff --git a/fs/ext4/inline.c b/fs/ext4/inline.c
-index ceee69a66..0a30d40cb 100644
---- a/fs/ext4/inline.c
-+++ b/fs/ext4/inline.c
-@@ -461,6 +461,12 @@ static int ext4_destroy_inline_data_nolock(handle_t *handle,
- 	error = ext4_xattr_ibody_find(inode, &i, &is);
- 	if (error)
- 		goto out;
-+	if (is.s.not_found) {
-+		EXT4_ERROR_INODE(inode,
-+				 "corrupted inline data without system.data xattr");
-+		error = -EFSCORRUPTED;
-+		goto out;
-+	}
- 
- 	BUFFER_TRACE(is.iloc.bh, "get_write_access");
- 	error = ext4_journal_get_write_access(handle, inode->i_sb, is.iloc.bh,
-diff --git a/fs/ext4/xattr.c b/fs/ext4/xattr.c
-index 5c310747b..9a0ee5779 100644
---- a/fs/ext4/xattr.c
-+++ b/fs/ext4/xattr.c
-@@ -1712,6 +1712,18 @@ static int ext4_xattr_set_entry(struct ext4_xattr_info *i,
- 		}
- 	}
- 
-+	if (!s->not_found && here->e_value_size && !here->e_value_inum) {
-+		size_t offs = le16_to_cpu(here->e_value_offs);
-+
-+		if (offs < min_offs) {
-+			EXT4_ERROR_INODE(inode,
-+					 "corrupted xattr: value offset %zu < min_offs %zu",
-+					 offs, min_offs);
-+			ret = -EFSCORRUPTED;
-+			goto out;
-+		}
-+	}
-+
- 	/*
- 	 * Getting access to old and new ea inodes is subject to failures.
- 	 * Finish that work before doing any modifications to the xattr data.
--- 
-2.39.5 (Apple Git-154)
+--8323328-414600178-1789727551=:15314--
