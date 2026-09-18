@@ -1,201 +1,93 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CE7E95208DF;
-	Fri, 18 Sep 2026 19:28:24 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 398023B7B66;
+	Fri, 18 Sep 2026 19:32:40 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789759709; cv=none; b=hIU7Vrh93OZMgPOaskW6h69kDjUlkzkJo2jJH2EV2xSJuxK4A+ZmHxNY/Z2ct6NWtfdbBYK1fYQU670MSseVr0C5LjbZNhlors6EGNFHVGJQdTvkqcp80+boRW0TIA2DXwfFv4pr8lYqfmhreFDyosCt/3JkpZqSE/eLXvQ8H9o=
+	t=1789759963; cv=none; b=KSzJJC++4WdJB2l72orcmuBjFHCcpa3eSzpflBp8kVX7oGm5UaTfq5/o+y508VUUarmimcjojVNHcUEZhsQFyw8so4AsQ7j+F6uM2ISJ5za9CCkzvHJ09pwzc2RN9VcalBfkda1QOu3mzZW1ZaNZ8/uIFRP+Y7Ob3TimvBFjDPA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789759709; c=relaxed/simple;
-	bh=tw2Vyuwd4+Dh5gxZoHj/gJNqhm25qkl41kbImDVXZck=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=KJdAdDVuYXjrUwTjbIXlifHUrRpOIE5VQKqtnPyOyrfU/uSgO0rba7SqLjZ9Kh9vxfOyJD0IpFVYIF3QMaS43GnMLMirR1q6z1DWpLusQKsLfDxp0l9T2gqDeP7+Ygr3kj6V5GlUkhLLh4DLdR8Jr349kXL1bquSu59BkwZ1v48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Xvf9Vbeu; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789759963; c=relaxed/simple;
+	bh=zUx7Kuxn+6eJHxt0lkTaqPSM5PnlhZSlkXq1l2wW4eo=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=GDQb7EGWal+vF/BlC9YDgvM7N00WWMMTnYvepWWjo/dhU61GeH+MS3Hh8pfqd0UcoYlHLAK2aruASZVXaMlI/S1/L++c2kx1VCHd4KdaihUBcbPlQKy+D5+vCuR+6pNOUxeKxFoCs+S1YFbKOXMMn2pQsoj2vHaLUZESwrwmnUY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=kr5npqUT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Xvf9Vbeu"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id D99BB1F00898;
-	Fri, 18 Sep 2026 19:28:20 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789759701;
-	bh=vfQpgzL0yQfcKMep+p5Od+GqI+HCHPfznhvSO3/vutY=;
-	h=Date:From:To:Cc:Subject:In-Reply-To;
-	b=Xvf9VbeupeHL6KGvvHdN2PaAbMhDbiWGTlBP4AwduEIqaPXlc07HWgHs/m0pG866p
-	 S9/4STpZuQc9pU890xPT/fNHiSO+Swb3mRDVGHxoH9wCZ0TchVr/uPeeT0pb8oZkpF
-	 blHs+xCc1/awYUPoyn3kRrzqWFggqRhIJF2MkELIc7gtajn9ZRknWAPwx5owHfdT/I
-	 BCrnChZyijlVFbNE32b74qXO3snhpGnTy/2/w7cm4BUuldv9NY2cwn5YCotki3ggAG
-	 lcrA9nUdwquE7nK3nh3KRfYKCJaZpilEMGQ2kYv/2LhesE2SARxF5EJQoSS3Iz6gbW
-	 nGpiVHooHfBQw==
-Date: Fri, 18 Sep 2026 14:28:19 -0500
-From: Bjorn Helgaas <helgaas@kernel.org>
-To: Liz Fong-Jones <lizf@honeycomb.io>
-Cc: Bjorn Helgaas <bhelgaas@google.com>,
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>,
-	linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
-	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org,
-	Jon Nettleton <jon@solid-run.com>,
-	Jon Nettleton <jon.nettleton@gmail.com>,
-	Jacob Martin <jacob.martin@canonical.com>,
-	Thorsten Leemhuis <regressions@leemhuis.info>,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v6] PCI: Fix BAR resize for devices on a root bus
-Message-ID: <20260918192819.GA1179462@bhelgaas>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="kr5npqUT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9B8391F000FF;
+	Fri, 18 Sep 2026 19:32:39 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789759959;
+	bh=VABaJiNkB+07BojV48SKGNtgg2IwaRyrt+EONkqTGrg=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=kr5npqUTuUYIza0EGwv8Pg0oNpVs/9IBZjeSpnYCPu6IPmMsPIRAUgoG3t7c4L2kz
+	 LVnje1t/pJHBSKi241YC/xgs60r2ae+81Xt09eCek58jEYUAcGTfyqSoN/L/TtYEUX
+	 HrejmoiEpUBqYcpsbCg8muFi3WxyiezK9mUxrI1w=
+Date: Fri, 18 Sep 2026 12:32:39 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Hugh Dickins <hughd@google.com>, Baolin Wang
+ <baolin.wang@linux.alibaba.com>, "Paul E. McKenney" <paulmck@kernel.org>,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com,
+ stable@vger.kernel.org
+Subject: Re: [PATCH] mm/shmem: report RCU-tasks quiescent states while
+ undoing a range
+Message-Id: <20260918123239.8f25b984ca280fcc11ef6e6a@linux-foundation.org>
+In-Reply-To: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
+References: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-Content-Transfer-Encoding: 8bit
-In-Reply-To: <20260918035633.566823-1-lizf@honeycomb.io>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 03:56:33AM +0000, Liz Fong-Jones wrote:
-> pci_do_resource_release_and_resize() releases the device BARs that
-> share a bridge window with the BAR being resized, but when the device
-> sits directly on a root bus (pdev->bus->self == NULL) it then skips
-> resource assignment entirely and returns success, leaving the BARs it
-> just released unassigned (IORESOURCE_UNSET).
+On Fri, 18 Sep 2026 04:24:37 -0700 Breno Leitao <leitao@debian.org> wrote:
+
+> This shows up in the Meta fleet on ftruncate() of large tmpfs files:
 > 
-> Skipping pbus_reassign_bridge_resources() is correct in that case --
-> there is no bridge window to adjust -- but the device BARs still have
-> to be reassigned. Before the BAR release was consolidated into the PCI
-> core, this case worked for amdgpu because the driver released the BARs
-> itself and then called pci_assign_unassigned_bus_resources()
-> unconditionally after the resize, which assigns unassigned device BARs
-> also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
-> side BAR release before resize") removed that call, so nothing assigns
-> the released BARs anymore.
+>   INFO: rcu_tasks detected stalls on tasks:
+>   00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
+>   task:rocksdb:bottom  state:R  running task
+>     __folio_split
+>     find_get_entry
+>     find_get_entries
+>     truncate_inode_partial_folio
+>     shmem_undo_range
+>     shmem_setattr
+>     notify_change
+>     do_ftruncate
+>     __x64_sys_ftruncate
+>     do_syscall_64
 > 
-> This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
-> LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
-> on the root bus of its segment (there is no root port device, so
-> pdev->bus->self is NULL):
+> shmem_undo_range() walks the whole of the requested range in folio_batch
+> sized steps, twice, and its two cond_resched() calls are the only
+> reschedule points in that walk.
 > 
->   amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
->   amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
->   amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
->   amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
->   amdgpu 0004:01:00.0: Fatal error during GPU init
-> 
-> No error is logged because the resize path reports success; amdgpu
-> then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
-> 
-> When there is no upstream bridge, call pci_bus_assign_resources() on
-> the root bus to place the BARs released above, using the same
-> alignment-sorted algorithm as normal enumeration instead of a manual
-> per-BAR loop. This also walks the rest of the hierarchy under the
-> root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
-> before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
-> release before resize") removed that call -- the core-side fix that
-> commit asked for ("such a problem should be fixed inside
-> pci_resize_resource() instead").
-> 
-> pci_bus_assign_resources() returns void, so failure is detected by
-> checking whether the released BARs are still assigned afterward; if
-> not, roll back as in the bridged case. This is stricter than the
-> bridged path -- it fails on any unplaced resource, not just required
-> ones -- since a root bus typically has one shared window, and failing
-> loudly seemed better than leaving something silently unassigned.
-> 
-> The root bus path also had a locking bug that any fix here necessarily
-> touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
-> matching down_read() (as does the "goto restore" taken when
-> pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
-> before the BAR release loop so every path through the function holds
-> it exactly once.
-> 
-> Use pci_upstream_bridge() rather than testing pdev->bus->self
-> directly. The two are usually equivalent, but pci_upstream_bridge()
-> is the canonical test -- pci_is_root_bus(), which it's built on,
-> warns that bus->self == NULL doesn't necessarily mean a root bus
-> (SR-IOV virtual buses from virtfn_add_bus() are the same).
-> 
-> Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+> cond_resched() is not an RCU-tasks quiescent state.  Use
+> cond_resched_tasks_rcu_qs() at both points so the walk reports an
+> RCU-tasks quiescent state as it proceeds.
+
+We keep hitting this.  Whyohwhy doesn't cond_resched() imply
+cond_resched_tasks_rcu_qs().
+
+> Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
 > Cc: stable@vger.kernel.org
-> Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
-> Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
-> Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
-> Assisted-by: Claude:claude-fable-5 checkpatch
-> Assisted-by: Claude:claude-sonnet-5
-> Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
 
-Applied to pci/for-linus for v7.3, thank you!
+That's 2014.
 
-> ---
-> 
-> Confirmed against v7.3-rc3: drivers/pci/setup-bus.c is unpatched
-> there, pci_do_resource_release_and_resize() still returns without
-> reassigning the released BARs when bus->self is NULL.
-> 
-> Tested on the real root-bus hardware this fixes (SolidRun HoneyComb
-> LX2K): both a manual resize via the resource0_resize sysfs attribute
-> (shrink to 256M then back to 4G, forcing the release+reassign path
-> both directions) and amdgpu's own natural probe-time resize (with the
-> amdgpu.rebar=0 workaround removed) succeed cleanly -- VRAM and BAR
-> size match, no "Fatal error during GPU init", full IP block init.
-> 
-> Changes in v6:
-> - Repost, confirmed still affects v7.3-rc3
-> - Added real-hardware test confirmation (both a manual sysfs-triggered
->   resize and amdgpu's own natural probe-time resize)
-> - Picked up Reviewed-by from Ilpo
-> - Link to v5: https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
-> 
->  drivers/pci/setup-bus.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
-> 
-> diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
-> index e8c94aa1d3c12..ed16ef7c26fa7 100644
-> --- a/drivers/pci/setup-bus.c
-> +++ b/drivers/pci/setup-bus.c
-> @@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  	struct resource *res = pci_resource_n(pdev, resno);
->  	struct pci_dev_resource *dev_res;
->  	struct pci_bus *bus = pdev->bus;
-> +	struct pci_dev *bridge = pci_upstream_bridge(pdev);
->  	struct resource *b_win, *r;
->  	LIST_HEAD(saved);
->  	unsigned int i;
-> @@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  	if (ret)
->  		return ret;
->  
-> +	down_read(&pci_bus_sem);
-> +
->  	pci_dev_for_each_resource(pdev, r, i) {
->  		if (i >= PCI_BRIDGE_RESOURCES)
->  			break;
-> @@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
->  
->  	pci_resize_resource_set_size(pdev, resno, size);
->  
-> -	if (!bus->self)
-> -		goto out;
-> +	if (bridge) {
-> +		ret = pbus_reassign_bridge_resources(bus, res, &saved);
-> +		if (ret)
-> +			goto restore;
-> +	} else {
-> +		/* No bridge window to adjust; let the core reassign the bus. */
-> +		pci_bus_assign_resources(bus);
->  
-> -	down_read(&pci_bus_sem);
-> -	ret = pbus_reassign_bridge_resources(bus, res, &saved);
-> -	if (ret)
-> -		goto restore;
-> +		list_for_each_entry(dev_res, &saved, list) {
-> +			if (!resource_assigned(dev_res->res)) {
-> +				ret = -ENOSPC;
-> +				goto restore;
-> +			}
-> +		}
-> +	}
->  
->  out:
->  	up_read(&pci_bus_sem);
-> -- 
-> 2.53.0
-> 
+> --- a/mm/shmem.c
+> +++ b/mm/shmem.c
+> @@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+>  		}
+>  		folio_batch_remove_exceptionals(&fbatch);
+>  		folio_batch_release(&fbatch);
+> -		cond_resched();
+> +		cond_resched_tasks_rcu_qs();
+
+Won't this change remove the cond_resched() function from old kernels
+which really want it?
+
