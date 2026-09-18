@@ -1,127 +1,83 @@
-Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp-8faf.mail.infomaniak.ch (smtp-8faf.mail.infomaniak.ch [83.166.143.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B57BD4FC33E
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 13:54:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.204
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF00F4FECE8
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 13:56:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=83.166.143.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789739688; cv=none; b=bLKO4iF7Hkt5AY+kkAcnBI8FMAn0VTnZ0fNtK0gB+DapxoLKz14/MXFg2JAxlRKYLxdjZY2jt26SJSXfMlSEcP6ukuLrS4A1P5Bw7Gnc4c6uJcpDjaOjzXnjcELkZWWyBjBrwpR31cnDqYJK9kdwtOUtPyqhKWN9oxAdNhP92oE=
+	t=1789739763; cv=none; b=KdaRPy4f9Rsm+0gQiNDKzFdrltaYrNG+Pd5sL8x38wzzxd6RvuvDbWnnLH2jq73/tGGvE5ewof2goDBajp74VWoMXHgDb3nRjwev/e9sELbCydkGtaV2xr/MwgCaAAYwgb1ZmBGct5d3446AczIwRHq5ZI+BCyTaX7RXXpuayYY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789739688; c=relaxed/simple;
-	bh=HBA4UGDBkv/vn1j9Qy2I4DNOs12GdkwlUY7HLsx5OjE=;
+	s=arc-20240116; t=1789739763; c=relaxed/simple;
+	bh=oLmGdDlmT9FsQ8Nns5gbaXtz/Y7Q4xu35sluIs2bD/s=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Orf4d+p5FBblmSa1DoNbeOHyk8r3vUeaALdkTlHKtDWze31gp39cwXU8X/3Jm6+XAMbmP/Lb7MNRfiXC/QT5hCo41lyQ35ASvy9XVkwAaXeDao6SKzBgENj9buXvqoEfprrHt6hqP/TDnuRiN/Mka4kTaOxS5hmOg6Xtec+ynLs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net; spf=pass smtp.mailfrom=gourry.net; dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b=b1hWbXqF; arc=none smtp.client-ip=74.125.230.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=gourry.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gourry.net
+	 Content-Type:Content-Disposition:In-Reply-To; b=XbbZ3gOOJ9lbNYFkhqgSlHKq2ZoceCmMB6APY7dln6NCtWLjmguSZ1AwbQMfwy71kNK26OieiWLchZVOobDCohXthkN0yxtBmOt/3uKZXc1Q7q9L9m+dGWEygUF2Q7f+FzDDAZTR6IkRm2t/txYHvnVBjTQtJuMwGjAhbyXZb1E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net; spf=pass smtp.mailfrom=digikod.net; dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b=tQJui7wD; arc=none smtp.client-ip=83.166.143.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=digikod.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=digikod.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gourry.net header.i=@gourry.net header.b="b1hWbXqF"
-Received: by mail-qk2-f12.google.com with SMTP id af79cd13be357-939109f067cso81282585a.3
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 06:54:43 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gourry.net; s=google; t=1789739680; x=1790344480; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=JQrKgT91q1ivpfGUE5/zHrleZU+aU6ToiCAfQUtBMlw=;
-        b=b1hWbXqFKhJCjVHlbXMLM+dvb0Zi1mGM2j3wYECD/ezK1ONNPo+wUzI9Z9Br4KearP
-         ZlIonRo58CwfNBjl0XEmFd2K0926ZqQLsfDUaFSaWEqt3m15HKM7d6rxxfjxzbCnOAmV
-         pDhfRgiTPa29pkaDkZN8kR3I6xdReqVGUaNNOCZwZPuK5oclmR0RDmGNZCa64QQW32Oy
-         cWUrIkHi1EQ2J1OSNqSmhfUDmKdAqXC1VV+XqHg0lj9FF7bS0vW8k83OX/vEoYtf7yQo
-         kccfXWvx4uqtt47JYpwVYk8FZDIW7NEYdvHAhwL8Q5TNKM9qJMjtpvwVoBCd4lFUMV1Y
-         PFpg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789739680; x=1790344480;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=JQrKgT91q1ivpfGUE5/zHrleZU+aU6ToiCAfQUtBMlw=;
-        b=p4SykshkGJ1oOvR6KmrSebSA+u2FCwXfPdF1Co1HDSuRjkjquiMqcine+dbmnlwMry
-         ZURZRBrYROl+v/xAo+tYbHHS7nIPO0IT+ep5LDTf4zC8H563Gaebn2wJK2Rl8pkp/wWY
-         OAG0CeX5zqVd2JsnByd2D466zqlKgouS8mzHjueBkNGOUUPwOXjU9gbvGUrPBd6fqwVp
-         6V8kFmFfla5l5/bH8wzqLOPFPW9Gx+0AvM/uOywmp0wrOy7yQxPQ6O64LpiHJigX9zx1
-         Az91aTncqzYsdXNrI+csgSIgi/IV0apTEtdFlE+11YYeGAvaqcMyterIxoEMcUsoG2Yt
-         X1Bw==
-X-Forwarded-Encrypted: i=1; AKwUvBymy3DDV2E+O8P2J+ChBXxL7KBgonitBlpzeridlb3S8ZG6GunQfOeUlWE74jxf7tEGMHtFEVY=@vger.kernel.org
-X-Gm-Message-State: AFuF++n9JK95ZvsGW1GU7kgpKB0wnrSGS6VDG+ewWinjU4PUA8zQcCI+
-	mQ44xQc2i2KLZ0xW0AoFrh/0SsLqLJJkwZkmD5x7WeDRmB4ZRcwXdvivxA//q7TmcmY=
-X-Gm-Gg: AYBFou0DkaDfGHRZDb0ig+5iuoNyAmdUjdtcqrQtXeu2mFzv4gRvoxRFCrenHUKJ0Mn
-	nYkfefD3EwsYnqB35nXxanhnBw0hOXFN34QACz3d7ndl1IcujIKBuw3zRKh1Bt+Az9y3HrEeMjo
-	egsVwv7Z6fa/fOdOiWfyjhHs8HIxdKH2etK5mn6+IW/32lTdLKFAvcD4oChRcOVfa2kjK6I1pdH
-	hQJ1UgEgr9dr4sdZB7wKS8GEvgU5CIOYlalncsY2kQfI8nnCrmDt61JS6T0qPji87NRNBUDMs0w
-	TREJO1B05UI2r9lAfEbaJP5HLRAHIoNQuALgV/VSIKW27sfoGFxPBtL81/JP5yP/vctwRZLYH9y
-	E03jFbH+P7k1clNVmlGCE6Zj4qUdmXJSpUXLPUeUFYp0bfb4b3Q+z+P0pV2ATOISp1+1WZI7R0U
-	CLpkWYRLTcWqrwMMI7bxVUnNjXhkb4lY9gLh++CbVYjK41tlHNDWKeg61tclsqBmSDnWrDwnnuM
-	jCF+2u/2S2xNrGO47FnybLfDRMuRY5VGJ7tVehUe3tYi0zBWnv1xqc=
-X-Received: by 2002:a05:620a:2806:b0:93b:d79f:d949 with SMTP id af79cd13be357-93bdca2c16bmr338384985a.62.1789739679965;
-        Fri, 18 Sep 2026 06:54:39 -0700 (PDT)
-Received: from gourry-fedora-PF4VCD3F (pool-173-79-60-52.washdc.fios.verizon.net. [173.79.60.52])
-        by smtp.gmail.com with ESMTPSA id af79cd13be357-93be0ea6560sm145221785a.24.2026.09.18.06.54.38
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 06:54:39 -0700 (PDT)
-Date: Fri, 18 Sep 2026 09:54:37 -0400
-From: Gregory Price <gourry@gourry.net>
-To: "David Hildenbrand (Arm)" <david@kernel.org>
-Cc: linux-mm@kvack.org, linux-kernel@vger.kernel.org, kernel-team@meta.com, 
-	akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org, vbabka@kernel.org, 
-	rppt@kernel.org, surenb@google.com, mhocko@suse.com, mingo@redhat.com, 
-	peterz@infradead.org, juri.lelli@redhat.com, vincent.guittot@linaro.org, 
-	dietmar.eggemann@arm.com, rostedt@goodmis.org, bsegall@google.com, mgorman@suse.de, 
-	vschneid@redhat.com, kprateek.nayak@amd.com, ziy@nvidia.com, 
-	baolin.wang@linux.alibaba.com, nico.pache@linux.dev, ryan.roberts@arm.com, dev.jain@arm.com, 
-	baohua@kernel.org, lance.yang@linux.dev, usama.arif@linux.dev, kas@kernel.org, 
-	matthew.brost@intel.com, joshua.hahnjy@gmail.com, rakie.kim@sk.com, byungchul@sk.com, 
-	ying.huang@linux.alibaba.com, apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, 
-	osalvador@suse.de, hannes@cmpxchg.org, raghavendra.kt@amd.com, 
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast
- tier
-Message-ID: <aq1A90ltg9Qn6pWZ@gourry-fedora-PF4VCD3F>
-References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-3-gourry@gourry.net>
- <41b46756-ed02-439c-ab72-e32a84fc7f17@kernel.org>
+	dkim=pass (1024-bit key) header.d=digikod.net header.i=@digikod.net header.b="tQJui7wD"
+Received: from smtp-3-0000.mail.infomaniak.ch (smtp-3-0000.mail.infomaniak.ch [10.4.36.107])
+	by smtp-4-3000.mail.infomaniak.ch (Postfix) with ESMTPS id 4hmZ0H3VnLz16rf;
+	Fri, 18 Sep 2026 15:55:59 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=digikod.net;
+	s=20191114; t=1789739759;
+	bh=GBaWyZsNpf6Mq6Ba//QGR2wROdsbPFqMBuqnMq9IDG0=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=tQJui7wDq4/ekdYf4Z5P+itPMeWB1+eROfLneiMxKaPJjblrptTytYohso+/Nyzk7
+	 QWxKnpqxdzJUEDI2PBQLWODCAVNnBkbsnBWrbTKLnMFQHQScgMKs2TORQgP47xjU/7
+	 +iJ2yS5CzCPRdvYorvW2Xemgv8+2KR89FfS0C/Ss=
+Received: from unknown by smtp-3-0000.mail.infomaniak.ch (Postfix) with ESMTPA id 4hmZ091z8BzcBq;
+	Fri, 18 Sep 2026 15:55:53 +0200 (CEST)
+Date: Fri, 18 Sep 2026 15:55:51 +0200
+From: =?utf-8?Q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, =?utf-8?Q?G=C3=BCnther?= Noack <gnoack@google.com>, 
+	Christian Brauner <brauner@kernel.org>, John Johansen <john.johansen@canonical.com>, 
+	James Morris <jmorris@namei.org>, "Serge E. Hallyn" <serge@hallyn.com>, 
+	Kentaro Takeda <takedakn@nttdata.co.jp>, Tetsuo Handa <penguin-kernel@i-love.sakura.ne.jp>, 
+	linux-kernel@vger.kernel.org, linux-security-module@vger.kernel.org, 
+	Al Viro <viro@zeniv.linux.org.uk>, Jann Horn <jannh@google.com>, Kees Cook <keescook@chromium.org>, 
+	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>, Paul Moore <paul@paul-moore.com>, Shuah Khan <shuah@kernel.org>, 
+	linux-doc@vger.kernel.org, linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 5.15.y 2/2] selftests/landlock: Add tests for whiteout
+ object creation
+Message-ID: <20260918.ineeFoh3ooHi@digikod.net>
+References: <88432dfe86f2aaa9ae499587fd7acff9d34a338b.1789655723.git.mic@digikod.net>
+ <2026-09-17-daily-reply-0015-landlock-whiteout-tests-hold@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
+Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <41b46756-ed02-439c-ab72-e32a84fc7f17@kernel.org>
+In-Reply-To: <2026-09-17-daily-reply-0015-landlock-whiteout-tests-hold@kernel.org>
+X-Infomaniak-Routing: alpha
 
-On Fri, Sep 18, 2026 at 02:53:40PM +0200, David Hildenbrand (Arm) wrote:
-> On 9/11/26 02:18, Gregory Price wrote:
-> > From: "Gregory Price (Meta)" <gourry@gourry.net>
-> > 
-> > NUMA balancing rejects shared copy-on-write folios and executable
-> > file folios mapped by multiple processes to avoid placement bouncing.
-> > These checks also block promotion from slow memory.
+On Thu, Sep 17, 2026 at 08:52:42PM -0400, Sasha Levin wrote:
+> > [ Upstream commit ee890889b30b22f9a21636061def7a04e4f89380 ]
+> >
+> > Add tests to check that whiteout object creation is guarded by
+> > LANDLOCK_ACCESS_FS_MAKE_REG, in the cases where these are created from
+> > userspace:
 > 
-> Right. How to we know the direction of promotion vs. demotion, though?
->
-
-numa balancing never demotes.  It either:
-
-1) moves between sockets (nodes w/ N_CPU) (NORMAL)
- or
-2) moves from !top_tier to top_tier (TIERING)
-
-Demotion is only enacted in reclaim / vmscan, and has no coupling with
-numa balancing.
-
-> > +	if (vma_is_cow_mapping(vma) && folio_maybe_mapped_shared(folio) &&
-> > +	    !folio_use_access_time(folio))
+> I am holding these until the newer trees are covered. 7.2 and 6.18 already
+> carry 672fa082d48b ("landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout
+> creation") but not ee890889b30b ("selftests/landlock: Add tests for whiteout
+> object creation"), and taking a fix on 6.12 and older while 6.18 lacks it is
+> the wrong order.
 > 
+> 7.2 can take the upstream commit as is, but 6.18 cannot: it has no enforce_fs()
+> and dc75f8904694 ("selftests/landlock: Simplify ruleset creation and
+> enforcement in fs_test") does not apply there.
 > 
-> While I understand a "!node_is_toptier(node)" to say "this is a slow tier", I am
-> clueless about the folio_use_access_time() check.
-> 
-> Confusing.
-> 
+> Could you send a 6.18.y version? The 6.12, 6.6, 6.1 and 5.15 patches themselves
+> look good and I will take them once 6.18 is in hand.
 
-agree, and agree with Zi's request to rename.  I can add that to the end
-of the series as well if you like (avoid backport headaches).
+I sent the 6.18.y version here:
+https://lore.kernel.org/stable/22492930911630bb9724ed1c34248143f8913f68.1789655724.git.mic@digikod.net/
 
-~Gregory
+and the 7.2.y version here:
+https://lore.kernel.org/stable/732f5f5e0f5bb22d5717577d9c382b00c87725c4.1789655724.git.mic@digikod.net/
