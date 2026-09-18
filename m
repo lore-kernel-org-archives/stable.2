@@ -1,298 +1,199 @@
-Received: from smtpbgbr2.qq.com (smtpbgbr2.qq.com [54.207.22.56])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.13])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8343C1ABEDE;
-	Fri, 18 Sep 2026 02:57:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.207.22.56
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700266; cv=none; b=EFTRWzmGwFHhiKg2oSbrTvLn1WVYkg7RVpSaL81g0meddmfqNsYs/RIL0sMOKCgxzsNSG2Cjx1JOEEpifeumOAHsyhyVEXiXQH2zI7URBL2mxJO57FPDp6J2FWMICsliGSb39/e9QHsjhtk+VINJi1BVdkNf6GUCliYfJYUNb6E=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700266; c=relaxed/simple;
-	bh=aAjpa6bnnLolC2AH0MQcbXXLVxzjP3SG082xAduKhq4=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=kbT3goVr8Sj7FRJJot6YC7sSsxM3QkS4zsVr3G/Ykj3GRqaGzGXr48gLHwtGCa9jYhv8dHh120OIE0s74Vq7PBTNM6rJWaWNjFfEPGXVAiZudTh/fWg+jQZGPzliZEXdW6Ci5LgkWNOir+vtX9u+mHX9pQ7XyMb7BuxsMoQN6w8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=w95KzQGy; arc=none smtp.client-ip=54.207.22.56
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 46D773EAC80;
+	Fri, 18 Sep 2026 03:05:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=192.198.163.13
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789700712; cv=fail; b=L6fAYgn8bFF0Wh6wjsSJw9pDbIQLDEee8/r3mZwN1JA9PzkbXRZWCCoq/dHP8gk95N1fwGl6T6bIn92V/b6Z1XJGZ23ksXFLZ9sHQ8e1aM5b2xDQGOmSbGNtU1W6+ZbKX3vf3ZS3KkUBTA+nPD178ImbPpbsfWM7oSoSfsnT2vQ=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789700712; c=relaxed/simple;
+	bh=XjTrBnjt3sD5UrtEpK290AK7g6wxVUWUyTqYFtmkFvw=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=AvrUTw6QwX7bNuvLp9XnZr8sqZZqweFKOAEXUI8bN877eVFqhs1OlvpBJeoBN/b2VC8wQkUSdPTsMC14bqVYpce5GmBMWbWSAzZRm4Q1MK1HaqOp22TeHU4ZvGtS0/dnBatdeCg+VWn8eoK60StwUrTB0g0pkQksMciD0dIgmm8=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=UMnEJrwS; arc=fail smtp.client-ip=192.198.163.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="w95KzQGy"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1789700171;
-	bh=xQ+zTE+9vU49o9RNcQsSxTV6kk2iH8SW9z3RxuGwdfo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:From;
-	b=w95KzQGyaMM//iF6gTjs6Tk9n/LNyXS+GGDxD68MvvF4Ekh/e+evgc/T+aWXtVmfF
-	 ZtOvVWpR0UH4Oy86w5rdxN1vlrRkDyk/iumO5OcfA56a/AsQpXVhRgFhOiVXld0oOu
-	 LlfX4kfwyC5vHMCHxTZU40/sUA+Lc0EQALLm41/8=
-X-QQ-mid: zesmtpip4t1789700166tfa6ff522
-X-QQ-Originating-IP: +IoAnuJOqXSFdaflOmt99MkgoaB2Z5g2bJ7LVggAuA0=
-Received: from [127.0.0.1] ( [localhost])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 10:56:03 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15218402641133599604
-Message-ID: <D5E5A48ABBA3A691+6cc38c11-c7a0-4e2f-b3b7-501fc1685808@smail.nju.edu.cn>
-Date: Fri, 18 Sep 2026 10:56:03 +0800
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="UMnEJrwS"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789700709; x=1821236709;
+  h=from:to:cc:subject:date:message-id:references:
+   in-reply-to:content-transfer-encoding:mime-version;
+  bh=XjTrBnjt3sD5UrtEpK290AK7g6wxVUWUyTqYFtmkFvw=;
+  b=UMnEJrwSKrLm93G1dLPaXOMlAIWKPKqG27BZZr3CZ6W21EduaEBmKzuA
+   dh8LhRdC9VfT19JFII9FlSaLY4u4tNXJPXTnXVMK5jVSWEOimmiRWfLzl
+   TnRl0+RFADSn5KtwBYy+WRTWRqgw1qqQSo0wtNCwjND6tGuicuF+xLXj7
+   jLCaLeUw4BqjMmi27xQtrrt6vmOO2rr5pMkSjcE+LGpOFXI3TGNAMb5Gd
+   wTgZ0BSue4rj56Pcm2E+ipkbpabflsCAYwskNatZ5kEt5sbjhmikqAAaV
+   FeSTKvQhyDTgqRao2C6Hn7LVbKq0WtMSLc2BtGjemOVX5gBKDZqv6VlOK
+   Q==;
+X-CSE-ConnectionGUID: qcfYEPSHS+S8MkziLe+0Mg==
+X-CSE-MsgGUID: d0mZLpRJQaC1tG08kSA5iA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="92690803"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="92690803"
+Received: from fmviesa003.fm.intel.com ([10.60.135.143])
+  by fmvoesa107.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 20:05:03 -0700
+X-CSE-ConnectionGUID: Ty/qRSqDRYuNInAqwpMaMQ==
+X-CSE-MsgGUID: 0xGqf155SoCxJOItfik4FA==
+X-ExtLoop1: 1
+Received: from orsmsx902.amr.corp.intel.com ([10.22.229.24])
+  by fmviesa003.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 20:05:02 -0700
+Received: from ORSMSX901.amr.corp.intel.com (10.22.229.23) by
+ ORSMSX902.amr.corp.intel.com (10.22.229.24) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 20:05:02 -0700
+Received: from ORSEDG903.ED.cps.intel.com (10.7.248.13) by
+ ORSMSX901.amr.corp.intel.com (10.22.229.23) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46 via Frontend Transport; Thu, 17 Sep 2026 20:05:02 -0700
+Received: from BL0PR03CU003.outbound.protection.outlook.com (52.101.53.14) by
+ edgegateway.intel.com (134.134.137.113) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.46; Thu, 17 Sep 2026 20:05:01 -0700
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=V/SuxOidYqKpDWu2jrwVmGMS3j3YaM9Ffg8IN9oHmawhTRX9SQcOwengyZqiWgsN/EAW2k0++4tlQv4djyoW+hmA82h40NmbbqKrYrIktFgZ9Mxe29p7x6Rpog35o+qqMpWyDhi4or+GxBdUcMgx8SK6PCJV+ZPEZwYhNPBQCA/tT4BA591c1DzkwIBxo2AJa0xxlYhb0qyXpPkM4bMPG8j7yy1gU3TClc4Hqyw9Bjb+yDIbVGVjuTMx8JFc19kB4QuelQIsWfDAwQDU9FVYcF809DQ/MB4uIocjT5c9Jkt7B5RAhRvgrIuPusGfBIryqueRs0ikuVrIXCaLjFaTcQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=9REasuyhDKytht7Nd1dzQaBBPP48rWWOL3GUkCcS7gE=;
+ b=P3DrcWa5iHWUUZhd96E75xMjnwXVIvPpQQvNt/MVRaQj9cHhAe8OcKbfsjz8SHlvTOMwJhF+uBBI/MBkjBr2MJ8IOMzqhrs6O/8sf2WH/nebndhBuTSru8/M24MT58GflL3egGc7UZi+q0eIyx59+V8uTfqbJF3sEDYQhL18e8ENSh5jG9+BbfPzXSskkBpbjjG2qVCR1z3Fu8PAC1na4jZPaOWaSXAMlVN/Xi1l6wCYHisyC4N/LY5N/eb3qQA2itvwIrJgK9NqSTzy2T66iLkxJl50jfBJPzZZaUuaA7wR3MoD9+DxI3ZBy47iSdLseIxhv6G3EWLXaiBwn5puGg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
+ smtp.mailfrom=intel.com; dmarc=pass action=none header.from=intel.com;
+ dkim=pass header.d=intel.com; arc=none
+Received: from LV1PR11MB8790.namprd11.prod.outlook.com (2603:10b6:408:2b1::16)
+ by SJ5PPF20F246184.namprd11.prod.outlook.com (2603:10b6:a0f:fc02::819) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.11; Fri, 18 Sep
+ 2026 03:04:57 +0000
+Received: from LV1PR11MB8790.namprd11.prod.outlook.com
+ ([fe80::27cb:7a60:19bb:584a]) by LV1PR11MB8790.namprd11.prod.outlook.com
+ ([fe80::27cb:7a60:19bb:584a%5]) with mapi id 15.21.0428.011; Fri, 18 Sep 2026
+ 03:04:54 +0000
+From: "Nowlin, Alexander" <alexander.nowlin@intel.com>
+To: "xuanqiang.luo@linux.dev" <xuanqiang.luo@linux.dev>,
+	"intel-wired-lan@lists.osuosl.org" <intel-wired-lan@lists.osuosl.org>
+CC: "Nguyen, Anthony L" <anthony.l.nguyen@intel.com>, "Kitszel, Przemyslaw"
+	<przemyslaw.kitszel@intel.com>, "andrew+netdev@lunn.ch"
+	<andrew+netdev@lunn.ch>, "davem@davemloft.net" <davem@davemloft.net>,
+	"edumazet@google.com" <edumazet@google.com>, "kuba@kernel.org"
+	<kuba@kernel.org>, "pabeni@redhat.com" <pabeni@redhat.com>, "tj@kernel.org"
+	<tj@kernel.org>, "netdev@vger.kernel.org" <netdev@vger.kernel.org>, Xuanqiang
+ Luo <luoxuanqiang@kylinos.cn>, "stable@vger.kernel.org"
+	<stable@vger.kernel.org>
+Subject: RE: [Intel-wired-lan] [PATCH iwl-net v1] igb/igbvf: disable work
+ items before device removal
+Thread-Topic: [Intel-wired-lan] [PATCH iwl-net v1] igb/igbvf: disable work
+ items before device removal
+Thread-Index: AQHdGPzjJZCT8cec6EKBKYEDbf2cBrbUArEA
+Date: Fri, 18 Sep 2026 03:04:54 +0000
+Message-ID: <LV1PR11MB879069BE4FE975BEE23CF3E290872@LV1PR11MB8790.namprd11.prod.outlook.com>
+References: <20260721103539.57990-1-xuanqiang.luo@linux.dev>
+In-Reply-To: <20260721103539.57990-1-xuanqiang.luo@linux.dev>
+Accept-Language: en-US
+Content-Language: en-US
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+authentication-results: dkim=none (message not signed)
+ header.d=none;dmarc=none action=none header.from=intel.com;
+x-ms-publictraffictype: Email
+x-ms-traffictypediagnostic: LV1PR11MB8790:EE_|SJ5PPF20F246184:EE_
+x-ms-office365-filtering-correlation-id: 0bd5b1e5-3530-49fd-4c8a-08df15319d55
+x-ms-exchange-senderadcheck: 1
+x-ms-exchange-antispam-relay: 0
+x-microsoft-antispam: BCL:0;ARA:13230040|7416014|376014|366016|1800799024|23010399003|38070700021|18002099003|10067099003|56012099006|11063799006|22082099003;
+x-microsoft-antispam-message-info: f7oQIfAwKb6ueVnuxI7nUBHoK9rlXF7bhmd3YQXj4EnNrNNl/scgb/RAsb1sl00xKodGs5BYojMYIUEhblD0mQUyeE5AqCxgGXiLW9pYhGDkARVyWurqcYpzKftjw7o8oI5DipZxMe9P8yFrZtr4U3MscN9GumeW4FTVD+LRiQkRXK34UpAloXMrzSzXsTfQ+Rl43GIHnHfoOMEeGgLYIyE0pMcOePc5vvOIi5+eUpOd0C9AwYvy44qPCxVvxeyOuMKlNjP8UZCHaJS9KXqyTo+GsEBArSHqTdOb4Ae8+y8FytKW4y9SChjlY6jcHvF7MgAVQb1Tp2Me9hDAMgYg/B2/kTgNYrfSfj0gKb5SgBO5cWnCkaESJq5xTJWAk7XsH9JAawKtWOzVcTrUwb5xJlbGT6zu+GyvHNncYRmGCAKqJZq0vfP83GO9hQsal++tUT57gl8+stqwuvPY62/n+VYL5gFnfnMH/2CwNGfEDqooZEu9nJGKdo4IXdALHY0+KT9BFD3C1hUn3GLuYkbnw+OKMy0j0nP1Me+89C0+7RU9F/jgn7oaiOpdLovSQ+Y3tWawvMYgHCCgn49juZRTPcFCE99dyYGNcq+aZfDqhPWdXsgUsmKUZFnbEV4tsmhz9MGoL+HxoAfZHLM6wMMYHSjAKxKjRSZm7xu65yyJ65YBNNQN+IJ7/gRDOJpKYgu6frptXekfbauNEDxfU9uDF3ydS7RrHZy9lRNHL+IjdnM=
+x-forefront-antispam-report: CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:LV1PR11MB8790.namprd11.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(7416014)(376014)(366016)(1800799024)(23010399003)(38070700021)(18002099003)(10067099003)(56012099006)(11063799006)(22082099003);DIR:OUT;SFP:1101;
+x-ms-exchange-antispam-messagedata-chunkcount: 1
+x-ms-exchange-antispam-messagedata-0: =?us-ascii?Q?0d2MpXShE5LYbeoaGcKUjcIwnicqbsP9wbvbm9S8H8InNoN6kHlWee8d8gdZ?=
+ =?us-ascii?Q?bk7vm98yt7PGvvycTvInYPLVd+e5QZGLwEaZhd+DuJitrH4Zrz8HdZ+1wGhw?=
+ =?us-ascii?Q?ssPKBw3VNyEhSZYa99M/0stcoHEnkDHuvrN1DPAR3s6m240ibflcvLmQ2Udw?=
+ =?us-ascii?Q?0UAJJuoSkeIa+cQe98mSj3CwmwEICHD3doKQq6Tb1GjOtwceRtedt4uENWYN?=
+ =?us-ascii?Q?ARMr3/8HNz+rropc19xdT/pMyK8gZvjuCWNlhW7fwSSORGE5Ct/wJV5IQZmy?=
+ =?us-ascii?Q?xMtLQR/Z8NUhHQW7QNyMKR41ijpTJ3qFoHxPV8VIhZ466VTb5WsTJcIPFQSJ?=
+ =?us-ascii?Q?S/SmGp4cWKjUMwIVkk6/BvI+SYoH44dsmCLZcukAQZYtDSPGZ4nX5AnTceNS?=
+ =?us-ascii?Q?0QDmMaCzj++iyD/oKWnHi6wmus4GUEX3CpKSz0b0pScBrAkb3+3Q5QW3cF3P?=
+ =?us-ascii?Q?MNFw5yHf/+vUpxwwRD86PEzDUAOfj0o8u0UqojUyLvk8wglSb0b444Lp13Qm?=
+ =?us-ascii?Q?RT9/2CdH9b8hMf3OSY0xiM/oaM94FeBbSdCXzCR2epUKfMhVHGNnIOjGO7Hl?=
+ =?us-ascii?Q?goSr0ub9owg0xCga/tnxhv98X62jnmeWtFacpQ7W/o6gVILpDQKUT8P3uxV8?=
+ =?us-ascii?Q?COHQhRHi7W9Nr+euriSNDba+Vb328e4+RMLz2CdHcYZ/MnubBdPA6WWv9CbQ?=
+ =?us-ascii?Q?OS9QMi7ccSsWNu4W7ZideSanWs+m+hGKK5j/ZsUEbBBwXGoBDEhgVh8c1gzQ?=
+ =?us-ascii?Q?Ea+Sl5dgATKCZG5QIyNtzF0PU88wOx1AsWJ36J7KOgKTgVasMipkYOeEo7xA?=
+ =?us-ascii?Q?+1i0+Tb/2TlblUDoYOpkPj+kl17Vk+g4s5v/qFUoUX7muxeR2BppTHwAQr1b?=
+ =?us-ascii?Q?utlnfroYEnLU1CSeW4bccaLARRvRRKAF1Th64D2pmQ/6w0c5Ao4cafRzIKFW?=
+ =?us-ascii?Q?y2GeRDeBdjWV2CMkHokmsPDfMSz5g4e8VFLh4yfMdKYmIhzll8m2Qla1xW3j?=
+ =?us-ascii?Q?N8/ya+sZEKXl2jQPFvJq+TTLLAb1BO6O93Ujtsfupaa+oC6adfumu5w3Tjjh?=
+ =?us-ascii?Q?oYSbwaYRMsb0dB7gNi/2zNAwQ/4b9RcT/U/ljpyMQfknomfQgn0KPh9bj9HE?=
+ =?us-ascii?Q?9BBJTWFuFJTTBSxrjmpv9Q+x6Y9o36DTxSNJgeQTWymhdCke3ofVaVPZVuXN?=
+ =?us-ascii?Q?OhoMbXZOdb7YkpmIemaOGcnJxPtkJTmVGXWcnQzDvIhi5pzByKo6vN5qiwFp?=
+ =?us-ascii?Q?2eGKQXEr+eFFpmqJagD5NAjbydN543uXJQI7LF8xXGi/mSi99oGl9NDnv7A1?=
+ =?us-ascii?Q?HLVT0JK2HjeBGP3gw6P/31Ra2nSNEekebd7I9pU5aOtAYTKkLRMC92iz0V8p?=
+ =?us-ascii?Q?mSdIHBcVBqn9ot5BVLKqIGYtPMokBUoiX9Eo0nYHj1Svq4p1FVHefBAK43/8?=
+ =?us-ascii?Q?+fRETZ6Xuo7Zhi8KkZ/y8eORiASm8lNHYeGGJWABsyIJ4ES1df1dxEXJthT/?=
+ =?us-ascii?Q?AlOs+2Qnww+CHWi/Q4e556RdG8EY1T2CWCuWc5R0whHj5tjfFEei4YLVb4Mr?=
+ =?us-ascii?Q?srEr+HWjvwgH3mRHpoZURXlCEc+v6aBEGbWCjR6W0TNElqI0nKajx9J3yP/b?=
+ =?us-ascii?Q?V+ziUUTn3JYEtpMcqD4O4N7DkDm3VlEAnQRvARfu0HoENaNbMrC1SNVbte+w?=
+ =?us-ascii?Q?2IqD532Z5n9dmxlm2mKafkECqYftvflPvtyyQQeW0HsacowGaaMMSokJ9zQv?=
+ =?us-ascii?Q?MEX3eL1Qhg=3D=3D?=
+Content-Type: text/plain; charset="us-ascii"
+Content-Transfer-Encoding: quoted-printable
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] drm/nouveau: don't bump pin count on failed re-pin in
- nouveau_bo_pin_locked()
-To: lyude@redhat.com, dakr@kernel.org, dri-devel@lists.freedesktop.org,
- nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org, stable@vger.kernel.org, bskeggs@redhat.com
-References: <4C61D1CE5BB7CD58+20260910080659.2798052-1-peiyang_he@smail.nju.edu.cn>
- <fb1701bbd7fb65ae808f495488880e2f0fbbced3.camel@redhat.com>
-Content-Language: en-US
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Autocrypt: addr=peiyang_he@smail.nju.edu.cn; keydata=
- xsDNBGqqAfgBDACk1BxLFOgSjF57JzfV9XX3ewQLmxzRsnYT+JlcUJjF4X6iWtHl8zuCPLsp
- fR2Cx2w/N0+BmpbW/0wLYLEr+jFdoQ0YluSlJNOYrh7H+b9KTBu5N7zZGfjJ/8eQkm3EwHkD
- jbUWbimizeodF6PV0LOYikqO26Y/VJA4vhxZ9mR5N9ALduvDmwwiA7YSEstVsZRqtWHNkL6G
- s+k4c/g3DpIleY4giCxIljmjIJQg7Hldd4zTNKOaU2NNiq4EPif0lEWWYT4Sayq1GlU8R6Cc
- /+ehRxbzoj8m/+bMTJq+Z94COm4XZU8ItG2AjNP3qsXfOJnFXLyxuQPpcU3X10H/y5gMKlgJ
- YBgtQgbp99CQioHDbYBDoxRN/+3eaXxtxVrsLz8WRmqkola724kEdic7UhFyMO1aNpLKCLXK
- Ska+tpJDB91wnOOhQ5odA49EazunGDjwaomwnvt4RBeecUpE8KxuQ4gKmkzj/K7MJZegdlnO
- WQXzl6jUz6v5j3Bktt3aWJUAEQEAAc0oUGVpeWFuZyBIZSA8cGVpeWFuZ19oZUBzbWFpbC5u
- anUuZWR1LmNuPsLBBwQTAQgAMRYhBMFuq5ZgA1KM5X2ZrSImfKiv6Rz5BQJqqgH4AhsDBAsJ
- CAcFFQgJCgsFFgIDAQAACgkQIiZ8qK/pHPlwaQv/RjrnhUSeAFXoWP9TphIQN1Lxu+hx7LA+
- VKVn3UNH3hu7PonMfLWCu4X8dfygiy/5DiuQvMVxClFQ95LxqoGxUm2urCau3h2UdOc0JRlp
- tNFl9fsSQbLRFIZZCs4SpcSMNLpBY5PnvaoXuR0Kzxlzbm0sPGDIMqT8fO3kY8px6rcGNDX5
- fhtk5jEi6jXOJ9U4dE8keJp6w3MED0N+TwAN9eMZeNIVnXO7IywotWCDU56tSKK2QA8mCNP7
- u3FBqMfvADlzCcqhDn0WAi7eKnnchUr6/PxcTKT5FTAVzWO8/OFDEgkx95YNh/8CNMhD47Rn
- gCFiYGYwTTdbyTLR+ApH1ZAsYQ6vFekjSswCmTQsFYtNKJYae9anCZCNl9irdzs3WC0VWAuW
- /f1VjPxWoB23rV4asl42pilZQy7al19h+77jDoeafyIrccSa3CPCDWcMCHKYlZvM6x8uyJUz
- HRXDkoB5hIvh323DVw/aPtUh1C0pwstiRLjX144W3K+lzX6mzsDNBGqqAfgBDADx0LVXGzb0
- ZTDRheAaYaJRIQPuDmWSeioqgAqmIBwjejvDyXD9a2ma0MVHeE1P+DMbYKyu/KFZJPISn9c2
- N9E/BD9WAkh7Ghhv7iJpW2yzAFGmf4o+0xs70vs50xw7BLW4nzzmhAbpsx2YeV4Z7MLKRdYc
- ZESVEVShhaTqZc6JJ8r1DxWIpZuXXfeWodSAE/3MOOCa0n2ApKSjlwFVTXgMYVzWGW5q2ozr
- 4mCEPDfU+XSKxOVJl1OWe0WUhaUlSb7/U/3rsp20We89Ok3cEGtem4msrFGIg0MkjJu8SDEI
- mklbep120r3MuA08LTR8JWMBxe4uByHsUZod/AD+FmLZgoItgq9PIB7zmbEzWXO8NfIJGAJx
- lkm8fj55WgQnbxZU51hV0Qpjq3mU6AyZd/SMhC3UGCjKOKDuwcuUC0i16bhBFQbFVrgM1FpK
- KEBjYIfN8MeK+NbJvbw25s/rmDjFE5Hof9oVHalVWda7W/nSmjT6OcaFXD5/+FxDCtUyB4EA
- EQEAAcLA9gQYAQgAIBYhBMFuq5ZgA1KM5X2ZrSImfKiv6Rz5BQJqqgH4AhsMAAoJECImfKiv
- 6Rz5aSYL/iiU50c3o2Vr8834HDw5okpJv5JkSoq/e82CLA+cuC5PYNbTHkiHfDHWWFafNEEK
- H7gB+pZKsuZbCaJZEZJUI0dTfugv8ZenEU6sSR2l1ApqKsWW8et3SREXS4Bl4iYaMUoNW8J0
- WTkVxvAuQe96IVWLrGRWsiACU1h8lYqPd+yvNac2BMk5gOH8ALg383ZLgWmUaPbifEoqa2hl
- B5N7p73mDGielBX77KngoqIatwIf/Iy8dPy2tyyIZGNVJYjcfogl2EUKHej3dfhNresZ+Szt
- +y8yrujk3kvxIj870UOW0TTUSmEJON8YCi4d/gWz8dxO3TuBsACrfyv8049X/aUVGl3cGXFa
- gk/5S4A+jdx2kvx4wx9sczpvXj2EA855iVbem2248raXUv3ITcaA+nneufrokFXqV/sPJNrg
- EI8AG1ZZD3ka1kiHf2NmL8XQAjh6zCZtevoQbwhtm494WWts9wYTjr047i88tGG7cTH1W53J
- Jf2f8FkzVjySi3JGfg==
-In-Reply-To: <fb1701bbd7fb65ae808f495488880e2f0fbbced3.camel@redhat.com>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpip:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: Ocns8ug84zPh5VotyTHfI4UHS7UOULyEAEOvhoMPudxzBr21g123S6We
-	fot8rKdR4ABJwRRwO9Q1GhDwwcrISwTABQxlSUMBvWkDCU/9FhGlvdR3MMpowyfKFMLKtCd
-	JdYs0RvgFXRgnlWlGMJ9qEjsrbks+yUeow7hXWfj7hqiB9z7gb95HmDYIAhw7lTlMmPRmKJ
-	ZasalP88OvT2eEX2KnAe5lYb2k38d53pAM9+1VJ42/yzxlSzBCnXpdml4kyAHXw78shLIU6
-	h5ekvbRDLwK/I+uS9G/JAm7CpTKV8CAQQeljcoYDw/JT6Jd8H8rrQEq9BZATOBO9rb3XD+R
-	4GIxEvMscmLQEh05xLMsJQIS5wsrzcvlI+LMeYDFWZP78/3akpF7QSrV8bywhe+9SXI3klZ
-	Pmk5KzPSb2f6ymqgJZw0cAncqXFBESxBoH3HUW4IoSN1R6gQUlOBS56jrKy282eeu/4nNXM
-	xdziFO89/cfW6BB/XQ1BRwbLafGbts5zbiKhLR5DINdlsQLlyCPsfBwNJ1zp1I5v5L/yPfa
-	nNN8iar2xd5NO+UFVcgNitIQ1Ih92PWXEB17T5vRiGXT0sszGekQ3/roUbAtPP92PW7PIfg
-	D4E26mwfXaahPct+pRsJ8S2BNjphpUE1yctj2GNXt/tFMnsUmd/jYI2iXTCeiaqfUwF93hH
-	44J3hpIq+SKEPd5UIfAe75wdO4wb+hzrpZf6v4wOmoTtmxZ6MpXGbfx4L7Y7wiiYRzKHDhv
-	ELehWuf1WVhwHbtvC2mLpMNbR8wbpzxK9wpghV/i/Knwn1MBIPXJbj7aGv6ArKonj5OX6B2
-	r2hi0QhQ+v2ecmWd0Bryu0+8bXU3jZpnIMXledFNL0pDYdtU1TErXh5BlAMbDWm6Au+0IrV
-	Ua7M1E7gPY+4vdv/lmYUvT9QewYXGSvmOkIj1lGJo3VILKf5Me7ygWHkC0GaPaki0PUTZPo
-	nVSU/Xggfi/zKfpPeDJe0QDiSKhynT0FyQpw+JDUe0kM7ytT8twfIwOX/t1yhffU03XUNK/
-	4WusBxHawRQuF21Kr/+Jq0RGEn511yTaWV+iLcu9/uo3YUqLDR0WA7uT4aJzWgYpBwP11SG
-	tjhqookUwp4cVdUNXuXmwn2cMaBUghfTQ==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+X-Exchange-RoutingPolicyChecked: gVjNvlnfJVQA/l8tFmSBlKvnNaF79oglY5LpN58VJlZb6/YqVYSEWVRFwIWu5ijVQK7EC8BUmBMyR5i7qW85rlcg6eNGwBJgMLg7xUILGQnPChHFv+0nWgS9HOpvgRPfQE2KeFRjgFK3EDYuRtccWurUIcYwE7f4ArbbajVwgnOuQccv3qQoM85a3O0dyTM2hyXQTpPzRAvjhq1KYo7+hyA5+hWDBvmksS9rYah6pjW8B76kOjQfqWXRSfKf3pVD2+fFmfPK/9HIhXlPD4UqaTwtRlfs3wxkQ/8AC/aBN8gu6zV9h7XoAxjN23pK8N0p4+F+SAztSiiDkII/DTL+sA==
+X-MS-Exchange-CrossTenant-AuthAs: Internal
+X-MS-Exchange-CrossTenant-AuthSource: LV1PR11MB8790.namprd11.prod.outlook.com
+X-MS-Exchange-CrossTenant-Network-Message-Id: 0bd5b1e5-3530-49fd-4c8a-08df15319d55
+X-MS-Exchange-CrossTenant-originalarrivaltime: 18 Sep 2026 03:04:54.6788
+ (UTC)
+X-MS-Exchange-CrossTenant-fromentityheader: Hosted
+X-MS-Exchange-CrossTenant-id: 46c98d88-e344-4ed4-8496-4ed7712e255d
+X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
+X-MS-Exchange-CrossTenant-userprincipalname: 2casMfDdxM5L7316jOxU/6bxWG/hyOu4cdA0ckPAokCdZGqA/lMhUeRf9qGuCY2suQ2650mtFGh5CUPtMyC2F3qh6CMCL6hr99Cw6j0wINo=
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: SJ5PPF20F246184
+X-OriginatorOrg: intel.com
 
-On 2026/9/18 05:20, lyude@redhat.com wrote:
-> On Thu, 2026-09-10 at 16:06 +0800, Peiyang He wrote:
->> nouveau_bo_pin_locked() checks whether an already pinned BO is in a
->> memory domain compatible with a new pin request. When the domains are
->> incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
->> returning.
->>
->> Callers treat a failed nouveau_bo_pin() as not having acquired a new
->> pin,
->> so the extra pin count is never decreased by a matching unpin.
->> This triggers the warning in ttm_bo_release():
->>
->> 	WARN_ON_ONCE(bo->pin_count);
->>
->> Found when fuzzing the nouveau driver with a modified Syzkaller:
->>
->> 	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at
->> ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1:
->> syz.3.24/2212
->> 	Modules linked in:
->> 	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24
->> PREEMPT(lazy) 
->> 	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19
->> resp:0x19
->> 	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS
->> 1.16.3-debian-1.16.3-2 04/01/2014
->> 	RIP: 0010:ttm_bo_release+0x827/0x9e0
->> drivers/gpu/drm/ttm/ttm_bo.c:256
->> 	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9
->> 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe
->> 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7
->> e8
->> 	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00
->> 00  .........0..-...
->> 	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
->> 	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX:
->> ffffffff82bb1b36
->> 	RDX: ffff888017b68000 RSI: 0000000000000004 RDI:
->> ffff888018e5d2a8
->> 	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00
->> 00  ................
->> 	RBP: ffff88801261c720 R08: 0000000000000001 R09:
->> ffffed10031cba55
->> 	R10: ffff888018e5d2ab R11: 00000000000000f3 R12:
->> ffff888018e5d290
->> 	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15:
->> dffffc0000000000
->> 	FS:  0000000000000000(0000) GS:ffff8880e0f6f000(0000)
->> knlGS:0000000000000000
->> 	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
->> 	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4:
->> 0000000000770ef0
->> 	PKRU: 80000000
->> 	Call Trace:
->> 	<TASK>
->> 	kref_put include/linux/kref.h:65 [inline]
->> 	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
->> 	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
->> 	nouveau_gem_object_del+0xb2/0x1b0
->> drivers/gpu/drm/nouveau/nouveau_gem.c:90
->> 	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
->> 	kref_put include/linux/kref.h:65 [inline]
->> 	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
->> 	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
->> 	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0
->> drivers/gpu/drm/nouveau/nouveau_abi16.c:195
->> 	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle
->> 0x00000000
->> 	nouveau_abi16_fini+0x1d0/0x340
->> drivers/gpu/drm/nouveau/nouveau_abi16.c:225
->> 	nouveau_drm_postclose+0x18b/0x3e0
->> drivers/gpu/drm/nouveau/nouveau_drm.c:1284
->> 	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
->> 	drm_file_free.part.0+0x6d6/0xb60
->> drivers/gpu/drm/drm_file.c:267
->> 	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
->> 	drm_close_helper.isra.0+0x11a/0x160
->> drivers/gpu/drm/drm_file.c:290
->> 	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
->> 	__fput+0x39c/0xa60 fs/file_table.c:512
->> 	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
->> 	task_work_run+0x15a/0x230 kernel/task_work.c:233
->> 	exit_task_work include/linux/task_work.h:40 [inline]
->> 	do_exit+0x82b/0x25a0 kernel/exit.c:1009
->> 	do_group_exit+0xc2/0x280 kernel/exit.c:1152
->> 	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
->> 	arch_do_signal_or_restart+0x7d/0x6e0
->> arch/x86/kernel/signal.c:337
->> 	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
->> 	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
->> 	__exit_to_user_mode_prepare include/linux/irq-entry-
->> common.h:207 [inline]
->> 	syscall_exit_to_user_mode_prepare include/linux/irq-entry-
->> common.h:230 [inline]
->> 	syscall_exit_to_user_mode include/linux/entry-common.h:318
->> [inline]
->> 	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
->> 	entry_SYSCALL_64_after_hwframe+0x77/0x7f
->> 	RIP: 0033:0x7f12bac8594d
->> 	Code: Unable to access opcode bytes at 0x7f12bac85923.
->> 	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX:
->> 00000000000000ca
->> 	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX:
->> 00007f12bac8594d
->> 	RDX: 00000000000f4240 RSI: 0000000000000081 RDI:
->> 00007f12baf15fac
->> 	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09:
->> 0000000000000000
->> 	R10: 0000000000000000 R11: 0000000000000246 R12:
->> 0000000000000000
->> 	R13: 00007f12baf16038 R14: 0000000000000006 R15:
->> 00007ffe2ed394b0
->> 	</TASK>
->> 	irq event stamp: 47867
->> 	hardirqs last  enabled at (47883): [<ffffffff815cafc6>]
->> __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
->> 	hardirqs last disabled at (47892): [<ffffffff815cafab>]
->> __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
->> 	softirqs last  enabled at (47880): [<ffffffff81434277>]
->> __do_softirq kernel/softirq.c:656 [inline]
->> 	softirqs last  enabled at (47880): [<ffffffff81434277>]
->> invoke_softirq kernel/softirq.c:496 [inline]
->> 	softirqs last  enabled at (47880): [<ffffffff81434277>]
->> __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
->> 	softirqs last disabled at (47875): [<ffffffff81434277>]
->> __do_softirq kernel/softirq.c:656 [inline]
->> 	softirqs last disabled at (47875): [<ffffffff81434277>]
->> invoke_softirq kernel/softirq.c:496 [inline]
->> 	softirqs last disabled at (47875): [<ffffffff81434277>]
->> __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
->>
->> Fix by going to the out path as soon as the incompatible placement
->> is detected. This matches the correct bahaviour in other DRM drivers
->> such as amdgpu_bo_pin() in amdgpu.
->>
->> Cc: stable@vger.kernel.org
->> Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to
->> force a contig vram allocation")
->> Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
->> Assisted-by: Codex:gpt-5.5
-> 
-> This can and probably should just be:
-> 
-> Assisted-by: LLM
-> 
-> Instead of mentioning the LLM specifically used.
-> 
->> ---
->>  drivers/gpu/drm/nouveau/nouveau_bo.c | 1 +
->>  1 file changed, 1 insertion(+)
->>
->> diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c
->> b/drivers/gpu/drm/nouveau/nouveau_bo.c
->> index 0e8de6d4b36f..bdd0390b590e 100644
->> --- a/drivers/gpu/drm/nouveau/nouveau_bo.c
->> +++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
->> @@ -578,6 +578,7 @@ int nouveau_bo_pin_locked(struct nouveau_bo
->> *nvbo, uint32_t domain, bool contig)
->>  				      "0x%08x vs 0x%08x\n", bo,
->>  				 bo->resource->mem_type, domain);
->>  			ret = -EBUSY;
->> +			goto out;
-> 
-> Would probably be better to just turn this into an else:
-> 
-> 	if (error) {
-> 		NV_ERROR(drm, "bo %p pinned elsewhere: "
-> 			      "0x%08x vs 0x%08x\n", bo,
-> 			 bo->resource->mem_type, domain);
-> 		ret = -EBUSY;
-> 	} else {
-> 		ttm_bo_pin(&nvbo->bo);
-> 	}
-> 
-> 
->>  		}
->>  		ttm_bo_pin(&nvbo->bo);
->>  		goto out;
->>
->> base-commit: df2908090cda368b01ff43709f51890076c56157
-> 
-> 
+> -----Original Message-----
+> From: Intel-wired-lan <intel-wired-lan-bounces@osuosl.org> On Behalf Of x=
+uanqiang.luo@linux.dev
+> Sent: Tuesday, July 21, 2026 3:36 AM
+> To: intel-wired-lan@lists.osuosl.org
+> Cc: Nguyen, Anthony L <anthony.l.nguyen@intel.com>; Kitszel, Przemyslaw <=
+przemyslaw.kitszel@intel.com>; andrew+netdev@lunn.ch; davem@davemloft.net; =
+edumazet@google.com; kuba@kernel.org; pabeni@redhat.com; tj@kernel.org; net=
+dev@vger.kernel.org; Xuanqiang Luo <luoxuanqiang@kylinos.cn>; stable@vger.k=
+ernel.org
+> Subject: [Intel-wired-lan] [PATCH iwl-net v1] igb/igbvf: disable work ite=
+ms before device removal
+>=20
+> From: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+>=20
+> A watchdog work item that is already running can queue the reset work aft=
+er the remove path has canceled it. The netdev Tx timeout handler can also =
+queue the reset work until unregister_netdev() shuts the interface down.
+> In igb, device reset interrupts provide another enqueue path. The reset w=
+ork may then run after free_netdev(), resulting in access to the freed adap=
+ter memory.
+>=20
+> Although igb_reset_task() checks __IGB_DOWN, checking the bit already der=
+eferences the adapter and therefore cannot protect its lifetime.
+>=20
+> Disable the watchdog work first and the reset work second in both drivers=
+.
+> Disabling the work items also prevents racing attempts to queue them duri=
+ng device removal.
+>=20
+> Fixes: 760141a53e5d ("igb[v],ixgbe: don't use flush_scheduled_work()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Xuanqiang Luo <luoxuanqiang@kylinos.cn>
+> ---
+>  drivers/net/ethernet/intel/igb/igb_main.c | 4 ++--  drivers/net/ethernet=
+/intel/igbvf/netdev.c | 4 ++--
+>  2 files changed, 4 insertions(+), 4 deletions(-)
 
-Thanks for your review! V2 sent.
-
-Best,
-Peiyang He
-
+Tested-by: Alexander Nowlin <alexander.nowlin@intel.com>
