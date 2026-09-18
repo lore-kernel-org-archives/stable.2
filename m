@@ -1,45 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 760BB5226A3;
-	Fri, 18 Sep 2026 19:45:56 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E7769522EE7
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 19:45:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789760758; cv=none; b=GibqaBCw5EaMmlTFHOmsfnL1E99oM373YvgrSQuYL6znvnDvEs/XKdaX7MZlIheCNr9QaObOooyW1QtG5KAgKNXkgTIIE9WE+QfTL07rm7yTKoP9E8KkynhOwbUlNkJJ9zqk6/qXpqliVJpML27OfBHqoJyJHi25koDe8K+RPcc=
+	t=1789760758; cv=none; b=JP3coBQ5CSdmu3VupSrsrA8Mf2yrEtkG8qhxRu/H0U1rcYYJ1e4pzea2vdBmuv0Fef2YgDxZxUeWBgMcLXyz0CvC9Cc3Ofvn1TyGOQaAdG62PPNF+PUozGfxWmADTdLHxQ+cKPauYbvbRP+ErPprJ8iiK6OIWiQMcnuPdSgx6LA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789760758; c=relaxed/simple;
-	bh=Dwjeo8yoCVp1CIuQC7lFe3Q/EQfkbj8ztnJ4kqCrb1c=;
+	bh=TmYMzbjQg14V364YtovL0IZ5ZdlgJxQY8LrSotY3ATo=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uIcPW/ogglZlxh1jaDK1T3yBEE8cAH1Adgdk/tmqtEZ0UGHWETl62GCj765PeOJEz4LbphhTiGp/rPORWLyY5cO2w8FIlMBR3wpyWz6RX2BtA8baL4sK6y0MxS0Gq49q7yGhl/rNMDFvkDQyZvEc9+KVBAcntLBHnjMLfA5qaI0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=JOYXd2jD; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=gBGGTnWYJRUcCGmhLS/i6L+5yv7BsxMaR0TyclPdGP1w+NNU/q969RflRRtJsYgBzI5xh/DzSa0xHGm6e2ii2E+cFO41d01R07DZuybA0CRgg2AprZbG6o1gZOUM7xTIWFfLJMQTXFzp2yqluV6HccPaQMrLm/ipFMshWG5cyx8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=HjRXbQAr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="JOYXd2jD"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1C62A1F00898;
-	Fri, 18 Sep 2026 19:45:54 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="HjRXbQAr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 404E41F000FF;
+	Fri, 18 Sep 2026 19:45:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789760754;
-	bh=pMoGLHx68/CtLohLjnvJ9dDPie991nMF5rPkh4IKIhE=;
+	s=k20260515; t=1789760756;
+	bh=wFgl2k6ExjZFni0DkOK/zXc7dRntcDX2BrvESWGJ9AU=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=JOYXd2jDqO8zPpeVKzhVnP9VQM0tDuDpIjOLFg5n5uxVp6Or2j0uTU28+84uj/dW/
-	 9fEiwc7MccJqPA24SdMrGjghBB1jROXbDV/7g6aSTT8DGCJmyykHxCY4reyllqlFyL
-	 SObjS+HlovwYoBXWO1ttS+NjRurVmK+y2yOWhSx4EdxwswpHvfrIzTd4FuipyNDnT8
-	 LK37yYSGwaOpt8zzqCDznVzpSUC0C5u3V2t39K8pF7FfZo0GoYvcmODnDM7hlVZzgs
-	 GY2JsesuGb6szTFTu8HjGwQNQeZtXDO5RdVZf8pHKYDK58dZl9waw4yFklw2NG9IKU
-	 m78GNvjw8wNyg==
+	b=HjRXbQArd/p+zl7i65vgb+DQDkR42UtwFu+DPHWyvAuHlSJquPqOkC7bq77qNG/q4
+	 C/cZMtdKZ12f3OUkggx0GY9BPzMbNlQ2vAYDtuP2Ushj4L+jFQ2xd2SEulesTK4ud8
+	 PEZUAfscime6q5Ox81C18pzOo0/GyPDtgtQbyzPKjSx4ZletajH1GnzJj15I4EBjZU
+	 PE2cm6yat+kqNK+IYlbGYTP24eKCc6R2wVPHHJoW6jvr4NotgHghZLs5LIrwTXF4xC
+	 efAJJySh2SOumIE95r0Ffj1tZCJnSjNoMAMEw9Hyp4snPyqGxpZ1oJicRGYdbej0GT
+	 ed0npx9uT3x8Q==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: kernelci-results@groups.io
 Cc: Sasha Levin <sashal@kernel.org>,
-	=?UTF-8?q?Micka=C3=ABl=20Sala=C3=BCn?= <mic@digikod.net>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	patches@lists.linux.dev,
-	Christian Brauner <brauner@kernel.org>,
-	=?UTF-8?q?G=C3=BCnther=20Noack?= <gnoack@google.com>
-Subject: Re: [PATCH 7.2.y 1/3] selftests/landlock: Use an actual chardev for MAKE_CHAR audit test
-Date: Fri, 18 Sep 2026 15:45:34 -0400
-Message-ID: <2026-09-18-daily-reply-0007-re-landlock-whiteout-7-2@kernel.org>
+	stable@vger.kernel.org,
+	KernelCI bot <bot@kernelci.org>
+Subject: Re: [REGRESSION] stable-rc/linux-6.12.y: (build)Error in arch/s390/boot/vmlinux.syms (/tmp/kci/linux/arch/s390/boot...
+Date: Fri, 18 Sep 2026 15:45:36 -0400
+Message-ID: <2026-09-18-daily-reply-0009-re-s390-boot-ipl-parm@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <1aa1d524419bd5119577f0ccb8b6c058b32021e4.1789655724.git.mic@digikod.net>
-References: <1aa1d524419bd5119577f0ccb8b6c058b32021e4.1789655724.git.mic@digikod.net>
+In-Reply-To: <178966794363.152940.6540163997608818842@kernelci.org>
+References: <178966794363.152940.6540163997608818842@kernelci.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,12 +45,16 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> By passing a (0, 0) device number, the audit test for
-> LANDLOCK_ACCESS_FS_MAKE_CHAR was accidentally creating a whiteout object
-> rather than a char device.  In preparation to treating whiteout objects
-> differently, use an actual character device instead.
+> New build issue found on stable-rc/linux-6.12.y:
+> 
+> ---
+> Error in arch/s390/boot/vmlinux.syms (/tmp/kci/linux/arch/s390/boot/Makefile:74) [logspec:kbuild,kbuild.other]
+> ---
 
-Queued the series for 7.2, thanks.
+The 6.12 queue took the IPL parameter append fix without the commit that
+adds sized_strscpy() to the decompressor, so the new strscpy() call had
+no definition to link against. Both are queued for 6.12 now, the helper
+first.
 
 -- 
 Thanks,
