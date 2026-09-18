@@ -1,165 +1,182 @@
-Received: from gate.crashing.org (gate.crashing.org [63.228.1.57])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 203DE239068;
-	Fri, 18 Sep 2026 00:28:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=63.228.1.57
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C96552D3EEB
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 00:33:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789691337; cv=none; b=OFGOLAUZ1CdKWRjb381+QPvvEUU9BjugXpfIAPWmVjoUb9evy8PQEVm3cpTbzbxx6Pem1i9WQ6scvwgfyAoGwImdoHXI4LmwX021xSjnlEXh0a3tW/P79dbTkuSFM+pmRA6sKGfeDMFdOaM4bFnxeqwIp0dzSBvEZRlmd3iIduk=
+	t=1789691623; cv=none; b=fK+mINfIhoDJmHsALVmD89KdI+vBcn8YLsoMVfYGEYS78xE8BNTd2E9breolvADGTOvzmBucjLGoVo0FjIjzD1+GeWyLrvpfPxM3ih00FoGBSruQa4OZtlD6RzH/9eoBqUGEvXOe+uZnhP4fxzX2vaK9Br8QYnj5vvE5TVnzMxY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789691337; c=relaxed/simple;
-	bh=HDkuNFY7TXKZNIx+1grKeivnyY8OQt4wbVDA1oAHYS0=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=M1t9ejtH/62m1XrL2aA4pqVO7uBr0+7wQKQsITqIlIuVAS1CJAV+GmMMbjXAShSjStcdtZ2RwOvO2YCJyxaii4Ydt57zfY78PyhOirJKiS6rgL9kl3HkSUcyMmJtaXtLImLg8Os49MLqD0kjZU6FQ/NAz3/zfPkNtob/oQnNdHk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org; spf=pass smtp.mailfrom=kernel.crashing.org; arc=none smtp.client-ip=63.228.1.57
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kernel.crashing.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kernel.crashing.org
-Received: from [IPv6:::1] (localhost [127.0.0.1])
-	by gate.crashing.org (8.18.1/8.18.1/Debian-2) with ESMTP id 68I0IPF23974234;
-	Thu, 17 Sep 2026 19:18:33 -0500
-Message-ID: <d607e8d94d17ac7b7832725b0672560fb1346ada.camel@kernel.crashing.org>
-Subject: Re: [PATCH] usb: gadget: aspeed-vhub: cancel wake work on device
- removal
-From: Benjamin Herrenschmidt <benh@kernel.crashing.org>
-To: Fan Wu <fanwu01@zju.edu.cn>, gregkh@linuxfoundation.org,
-        linux-usb@vger.kernel.org
-Cc: joel@jms.id.au, andrew@codeconstruct.com.au, linux-aspeed@lists.ozlabs.org,
-        linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
-        stable@vger.kernel.org, Song Li
- <songl@zju.edu.cn>
-Date: Fri, 18 Sep 2026 10:18:24 +1000
-In-Reply-To: <20260908041740.613713-1-fanwu01@zju.edu.cn>
-References: <20260908041740.613713-1-fanwu01@zju.edu.cn>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.62.0-0ubuntu1~ppa1~24.04 
+	s=arc-20240116; t=1789691623; c=relaxed/simple;
+	bh=OaRiEJu4atHniZ69WA7py5r58HEAXTPcIoVxpK3a2d0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=uxtQ1GqusQdzaBO/3kZBmYSRIR2tNJdiZ+aTGHbUzqN9P6xMvb6QGKkWSaJUlqMf+neOB0xvlwgiyGJL5URqHsUDyt35W9CXQnlzi9uJ+SHjGsKQO37MSnKL4lzv3WTP6HITNLO+XtIFudMyKaJ98Y4ZbBK6zZh+LfqMUZVh1KE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=e1EuvSy9; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=IUEYkSf9; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="e1EuvSy9";
+	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="IUEYkSf9"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789691620;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:
+	 content-transfer-encoding:content-transfer-encoding;
+	bh=Mr7JPQ7cAKM9KbsSYSken92+dByUvyo6IiwGLWbzzyk=;
+	b=e1EuvSy9GjZkA0Vyf+4izFN/Sx0SZitjqzEJq3wH4/zx3Es6TfACpdsDfKreExH8TtokZJ
+	speigz2cVyQtrTM2cWBUVbr+i8REQ8oGrz+JFhcTty3UKmRAk1wzj3iJ13b9fWtBy4/CBq
+	HutPJFBviER+xKywZQPrv9xtnhZaHUc=
+Received: from mail-qt1-f199.google.com (mail-qt1-f199.google.com
+ [209.85.160.199]) by relay.mimecast.com with ESMTP with STARTTLS
+ (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
+ us-mta-121-82ZjstcNO6u6yH9oClqGxA-1; Thu, 17 Sep 2026 20:33:32 -0400
+X-MC-Unique: 82ZjstcNO6u6yH9oClqGxA-1
+X-Mimecast-MFC-AGG-ID: 82ZjstcNO6u6yH9oClqGxA_1789691611
+Received: by mail-qt1-f199.google.com with SMTP id d75a77b69052e-51bf321d786so1760621cf.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 17:33:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=redhat.com; s=google; t=1789691611; x=1790296411; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Mr7JPQ7cAKM9KbsSYSken92+dByUvyo6IiwGLWbzzyk=;
+        b=IUEYkSf9mVdLPfvSbbjMzKOxYBF29C4H6wxSShDl9OMuQI4Lp5kM2gvy/Q0uhxWcYN
+         r9Ifio+xWwJbi+ealOKdJj4fDDeRrVGLx+W557VVi0MbE3gJhNqA93dpQMswaWnpUrdT
+         OlrsvPxFpJ64cf5bHqP9Qr6Z6W1pfP1YHv3ZMwznoAfRzqwPneq0VViDQlkQP1E5Xid9
+         fica6h7WYLV6TiPgnQVRyUVcrxcIq63oEAnFBOvwBMUyj4LO6InoSOgadUYMoga5S6oR
+         Y+z9ll8FNma9i8zFIvXgQABXfax+g+ZpCDSVd/MK8ErhSRa24VL65+k1GpGqeTra0XOy
+         9mLA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789691611; x=1790296411;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Mr7JPQ7cAKM9KbsSYSken92+dByUvyo6IiwGLWbzzyk=;
+        b=p/suCqPR8RoadocngPpChDBIzQ2CNKAA6xCuTLEYSRCpyEuO6im/Z0Ic2Xws2CKWr4
+         pUZczdapuzXi7Dgh9vNMWVFmgyss3pJjs3GbnuBqXMboH27pXXKOrzPnPP85+p0HKxja
+         89OP7wWxTPBaUPi+a/8AzlFKIhXP+vJUriG4v9RWgD+p85jtk0GUtQrWnabrwNq7GZjM
+         VFvIxxb0gRvxdJ7Ma0HbQ+4nxC9R9ougS5E/0QCGPHg3bZqtTxDB9xViV08VPdnuoNpd
+         MqOF/my+RTyEv/dOTW/Uvo6TTwCApLPVMQ8d8e66tZb9PRxFAswd4avdGTXNVBe2Ndn+
+         cYBw==
+X-Forwarded-Encrypted: i=1; AKwUvByOBeJubpawJ8h4PaX55GTNhi52CyCe1uH4cW3P2Ymv6lKQmgNXQI9ylaGNgZvcRpIozhoSJ6c=@vger.kernel.org
+X-Gm-Message-State: AFuF++njdd2xDKfRfQgY0MMZA4Pl9n+2Ud8JuJEU8iawwr7wZBWWAxyk
+	ZwXMfk8mj9V+8AJvYmzN40PmhTtQWb+6srCZJgqeGIJY4JX12DmfGMAe7Dl2hmROwXVa5o5CgNg
+	1vr24KoX+gTJ7SS1D2RfJhkMLoBMPchQNi85BVO9oIoYvzsE4QZ1yPGGxbzXdSXJ7Fg==
+X-Gm-Gg: AYBFou0EIaPNl742MetzgQW3VoVKjRnh/vXTskaywOjAUShLY+3oIw2D0BmrCZdkCaa
+	j6OgrPF7MXsHNgJwKyULGzJZaa0GqW8/3napwGDch1t13HzEWcrsbYQsEAF0dcstfDpy/xZRcx3
+	VsR+CY56g2stdh5SWGQpu2+zjb2IogqlT32ZiltXKj7fobG7gx5gsqzuhnvadgTYItEYwa50dcP
+	we2evEadJaEjUgYxp+9b7RfVTBIt5S6FPvVr1zZcambI5QDh0Cqgx8hmZN0JPXSAjGJAtpLXauv
+	fnjtLlSrbaL4Pp6IJiVuP0gzb4ivgBzgZw1rewPUA2XCdQWwcFmSRj97GK+67jroYu3KgEkC1FA
+	gKq9fTxVokjZ6C2U4MNvGlmAgS8QOyczTU60iHx+xnDZ77XkyRqgNimmX4Fax+U4RSQ==
+X-Received: by 2002:a05:622a:1648:b0:530:b2e1:8e42 with SMTP id d75a77b69052e-5329e512f81mr15558121cf.61.1789691611300;
+        Thu, 17 Sep 2026 17:33:31 -0700 (PDT)
+X-Received: by 2002:a05:622a:1648:b0:530:b2e1:8e42 with SMTP id d75a77b69052e-5329e512f81mr15557661cf.61.1789691610776;
+        Thu, 17 Sep 2026 17:33:30 -0700 (PDT)
+Received: from bearskin.sorenson.redhat.com.com (c-98-227-24-213.hsd1.il.comcast.net. [98.227.24.213])
+        by smtp.gmail.com with ESMTPSA id d75a77b69052e-532a19d261asm729761cf.18.2026.09.17.17.33.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 17:33:29 -0700 (PDT)
+From: Frank Sorenson <sorenson@redhat.com>
+To: linux-cifs@vger.kernel.org,
+	pc@manguebit.org
+Cc: linkinjeon@kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH] smb: client: fix potential use-after-free with TCP_Server_Info->hostname
+Date: Thu, 17 Sep 2026 19:33:19 -0500
+Message-ID: <20260918003327.2539470-1-sorenson@redhat.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-On Tue, 2026-09-08 at 04:17 +0000, Fan Wu wrote:
-> wake_work is armed from the gadget .wakeup callback to resume suspended
-> downstream ports, and it is never cancelled in ast_vhub_remove(), so a
-> work item queued before or during removal can run after devm has freed
-> vhub and its ports, a use-after-free.
->=20
-> Cancelling the work alone is not sufficient: usb_gadget_wakeup() takes
-> no lock and the unbind path never clears wakeup_en, so a remote-wakeup
-> request in flight on another CPU can re-arm the work after the cancel
-> and before vhub is freed.
->=20
-> ast_vhub_del_dev() already clears d->registered under vhub->lock before
-> unregistering the gadget. Refuse the wakeup in ast_vhub_udc_wakeup()
-> once d->registered is clear: the check and the schedule_work() are then
-> atomic against the unbind, so a wakeup that passed before the flag was
-> cleared is drained by the cancel_work_sync() after the del_dev loop,
-> and one that arrives later returns without arming. Also move INIT_WORK()
-> to the top of ast_vhub_probe(), since the probe error path reuses
-> ast_vhub_remove() and would otherwise cancel a never-initialized work
-> item.
->=20
-> This issue was found by an in-house static analysis tool.
+The TCP_Server_Info->hostname pointer may be updated during a reconnect
+event. Accessing ses->server->hostname outside of the srv_lock is
+unsafe and can lead to a use-after-free if another thread reallocates
+the hostname string.
 
-Reviewed-by: Benjamin Herrenschmidt <benh@kernel.crashing.org>
+Fix this by replacing instances of cifs_dbg() that print the hostname
+with cifs_server_dbg() across multiple files (smb2ops.c, sess.c, and
+smb2pdu.c).  cifs_server_dbg() correctly acquires the srv_lock before
+printing and standardizes the output by prepending the server hostname
+to the message.
 
-> Fixes: 7ecca2a4080c ("usb/gadget: Add driver for Aspeed SoC virtual hub")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> ---
-> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/core.c | 4 ++++
-> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/dev.c=C2=A0 | 2 +-
-> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/hub.c=C2=A0 | 5 +++--
-> =C2=A0drivers/usb/gadget/udc/aspeed-vhub/vhub.h | 1 +
-> =C2=A04 files changed, 9 insertions(+), 3 deletions(-)
->=20
-> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/core.c b/drivers/usb/gadg=
-et/udc/aspeed-vhub/core.c
-> index 4a8b9ff83..069673f0d 100644
-> --- a/drivers/usb/gadget/udc/aspeed-vhub/core.c
-> +++ b/drivers/usb/gadget/udc/aspeed-vhub/core.c
-> @@ -267,6 +267,9 @@ static void ast_vhub_remove(struct platform_device *p=
-dev)
-> =C2=A0	for (i =3D 0; i < vhub->max_ports; i++)
-> =C2=A0		ast_vhub_del_dev(&vhub->ports[i].dev);
-> =C2=A0
-> +	/* Final drain; the worker takes vhub->lock, so stay outside of it */
-> +	cancel_work_sync(&vhub->wake_work);
-> +
-> =C2=A0	spin_lock_irqsave(&vhub->lock, flags);
-> =C2=A0
-> =C2=A0	/* Mask & ack all interrupts=C2=A0 */
-> @@ -328,6 +331,7 @@ static int ast_vhub_probe(struct platform_device *pde=
-v)
-> =C2=A0		return -ENOMEM;
-> =C2=A0
-> =C2=A0	spin_lock_init(&vhub->lock);
-> +	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
-> =C2=A0	vhub->pdev =3D pdev;
-> =C2=A0	vhub->port_irq_mask =3D GENMASK(VHUB_IRQ_DEV1_BIT + vhub->max_port=
-s - 1,
-> =C2=A0				=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 VHUB_IRQ_DEV1_BIT);
-> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/dev.c b/drivers/usb/gadge=
-t/udc/aspeed-vhub/dev.c
-> index 8b9449d16..4b389de0d 100644
-> --- a/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-> +++ b/drivers/usb/gadget/udc/aspeed-vhub/dev.c
-> @@ -280,7 +280,7 @@ static int ast_vhub_udc_wakeup(struct usb_gadget* gad=
-get)
-> =C2=A0	int rc =3D -EINVAL;
-> =C2=A0
-> =C2=A0	spin_lock_irqsave(&d->vhub->lock, flags);
-> -	if (!d->wakeup_en)
-> +	if (!d->wakeup_en || !d->registered)
-> =C2=A0		goto err;
-> =C2=A0
-> =C2=A0	DDBG(d, "Device initiated wakeup\n");
-> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/hub.c b/drivers/usb/gadge=
-t/udc/aspeed-vhub/hub.c
-> index 02fe1a08d..d0345f310 100644
-> --- a/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-> +++ b/drivers/usb/gadget/udc/aspeed-vhub/hub.c
-> @@ -558,7 +558,7 @@ void ast_vhub_device_connect(struct ast_vhub *vhub,
-> =C2=A0		ast_vhub_send_host_wakeup(vhub);
-> =C2=A0}
-> =C2=A0
-> -static void ast_vhub_wake_work(struct work_struct *work)
-> +void ast_vhub_wake_work(struct work_struct *work)
-> =C2=A0{
-> =C2=A0	struct ast_vhub *vhub =3D container_of(work,
-> =C2=A0					=C2=A0=C2=A0=C2=A0=C2=A0 struct ast_vhub,
-> @@ -588,6 +588,8 @@ static void ast_vhub_wake_work(struct work_struct *wo=
-rk)
-> =C2=A0
-> =C2=A0void ast_vhub_hub_wake_all(struct ast_vhub *vhub)
-> =C2=A0{
-> +	lockdep_assert_held(&vhub->lock);
-> +
-> =C2=A0	/*
-> =C2=A0	 * A device is trying to wake the world, because this
-> =C2=A0	 * can recurse into the device, we break the call chain
-> @@ -1076,7 +1078,6 @@ static int ast_vhub_init_desc(struct ast_vhub *vhub=
-)
-> =C2=A0int ast_vhub_init_hub(struct ast_vhub *vhub)
-> =C2=A0{
-> =C2=A0	vhub->speed =3D USB_SPEED_UNKNOWN;
-> -	INIT_WORK(&vhub->wake_work, ast_vhub_wake_work);
-> =C2=A0
-> =C2=A0	return ast_vhub_init_desc(vhub);
-> =C2=A0}
-> diff --git a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h b/drivers/usb/gadg=
-et/udc/aspeed-vhub/vhub.h
-> index aca2050e2..96f1c3709 100644
-> --- a/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-> +++ b/drivers/usb/gadget/udc/aspeed-vhub/vhub.h
-> @@ -547,6 +547,7 @@ void ast_vhub_hub_suspend(struct ast_vhub *vhub);
-> =C2=A0void ast_vhub_hub_resume(struct ast_vhub *vhub);
-> =C2=A0void ast_vhub_hub_reset(struct ast_vhub *vhub);
-> =C2=A0void ast_vhub_hub_wake_all(struct ast_vhub *vhub);
-> +void ast_vhub_wake_work(struct work_struct *work);
-> =C2=A0
-> =C2=A0/* dev.c */
-> =C2=A0int ast_vhub_init_dev(struct ast_vhub *vhub, unsigned int idx);
+Fixes: 4659f01e3cd9 ("smb3: do not log confusing message when server returns no network interfaces")
+Fixes: a6d8fb54a515 ("cifs: distribute channels across interfaces based on speed")
+Fixes: f591062bdbf4 ("cifs: handle servers that still advertise multichannel after disabling")
+Cc: stable@vger.kernel.org
+Signed-off-by: Frank Sorenson <sorenson@redhat.com>
+---
+ fs/smb/client/sess.c    | 5 ++---
+ fs/smb/client/smb2ops.c | 7 +++----
+ fs/smb/client/smb2pdu.c | 5 ++---
+ 3 files changed, 7 insertions(+), 10 deletions(-)
+
+diff --git a/fs/smb/client/sess.c b/fs/smb/client/sess.c
+index e095f41b5882..5c2c9cabf7ef 100644
+--- a/fs/smb/client/sess.c
++++ b/fs/smb/client/sess.c
+@@ -192,8 +192,7 @@ int cifs_try_adding_channels(struct cifs_ses *ses)
+ 		spin_lock(&ses->iface_lock);
+ 		if (!ses->iface_count) {
+ 			spin_unlock(&ses->iface_lock);
+-			cifs_dbg(ONCE, "server %s does not advertise interfaces\n",
+-				      ses->server->hostname);
++			cifs_server_dbg(ONCE, "server does not advertise interfaces\n");
+ 			break;
+ 		}
+ 
+@@ -395,7 +394,7 @@ cifs_chan_update_iface(struct cifs_ses *ses, struct TCP_Server_Info *server)
+ 	spin_lock(&ses->iface_lock);
+ 	if (!ses->iface_count) {
+ 		spin_unlock(&ses->iface_lock);
+-		cifs_dbg(ONCE, "server %s does not advertise interfaces\n", ses->server->hostname);
++		cifs_server_dbg(ONCE, "server does not advertise interfaces\n");
+ 		return;
+ 	}
+ 
+diff --git a/fs/smb/client/smb2ops.c b/fs/smb/client/smb2ops.c
+index 3464470d3297..08ea340f01b6 100644
+--- a/fs/smb/client/smb2ops.c
++++ b/fs/smb/client/smb2ops.c
+@@ -632,6 +632,7 @@ static int
+ parse_server_interfaces(struct network_interface_info_ioctl_rsp *buf,
+ 			size_t buf_len, struct cifs_ses *ses, bool in_mount)
+ {
++	struct TCP_Server_Info *server = ses->server;
+ 	struct network_interface_info_ioctl_rsp *p;
+ 	struct sockaddr_in *addr4;
+ 	struct sockaddr_in6 *addr6;
+@@ -666,10 +667,8 @@ parse_server_interfaces(struct network_interface_info_ioctl_rsp *buf,
+ 	if (bytes_left == 0) {
+ 		/* avoid spamming logs every 10 minutes, so log only in mount */
+ 		if ((ses->chan_max > 1) && in_mount)
+-			cifs_dbg(VFS,
+-				 "multichannel not available\n"
+-				 "Empty network interface list returned by server %s\n",
+-				 ses->server->hostname);
++			cifs_server_dbg(VFS,
++					"multichannel not available - Empty network interface list returned by server\n");
+ 		rc = -EOPNOTSUPP;
+ 		goto out;
+ 	}
+diff --git a/fs/smb/client/smb2pdu.c b/fs/smb/client/smb2pdu.c
+index dea05aeb53a1..bb30cfa156aa 100644
+--- a/fs/smb/client/smb2pdu.c
++++ b/fs/smb/client/smb2pdu.c
+@@ -173,9 +173,8 @@ cifs_chan_skip_or_disable(struct cifs_ses *ses,
+ 	unsigned int chan_index;
+ 
+ 	if (SERVER_IS_CHAN(server)) {
+-		cifs_dbg(VFS,
+-			"server %s does not support multichannel anymore. Skip secondary channel\n",
+-			 ses->server->hostname);
++		cifs_server_dbg(VFS,
++				"server does not support multichannel anymore. Skip secondary channel\n");
+ 
+ 		spin_lock(&ses->chan_lock);
+ 		chan_index = cifs_ses_get_chan_index(ses, server);
+-- 
+2.55.0
+
