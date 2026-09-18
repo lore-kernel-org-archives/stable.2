@@ -1,64 +1,64 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pz2-f38.google.com (mail-pz2-f38.google.com [74.125.228.38])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA5433ACF18
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 09:21:34 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 27AB03B42CC
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 09:21:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.38
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789723296; cv=none; b=R5f95CDZGGSBtTEUUefbWul1bKwI/CZAwmjwCgIKrp3zva7EHNHW+KvdSl1m23LPSH1JClrph7fkbCBeuy9y9drT3Ed/trHShVL8+YHowbWV9ZuIey32iw2eQVp6sP4/4FWHAObiQLUwZ3jday8tov0mhws41hoaUawcMRSk//I=
+	t=1789723300; cv=none; b=MH/a2006Cqh6tBkI8jYN0hDW9ygLejDjeIFXlpvXFh2Ruorut37KCmBudHKC+4ynRUcLbfuPdU3J4PSiqlHrrRcIaNJMyVTstGJQlZD8pt1WWHk6vuQm92T/2ORCFhWDAAW9B7DXQWl9h/RyQ6pvJzoQY7w/EZ3Pr0RfQ+y/clY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789723296; c=relaxed/simple;
-	bh=LgQwq0lqcthkLYGKPObYEllQc/Znk/K8NYI2hj7hZzs=;
+	s=arc-20240116; t=1789723300; c=relaxed/simple;
+	bh=6IcpDBPVeKpK7pxb2P51FzmHJu0Pw6iOdwz/Gqh99hg=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=nrxHBXo5HSKmJrClRv4kbELbNP/5XCt6gdf9f8u6pC7xrNu0NualoltNplD5hGul+LnyQQLs+6iNyqcv56ybIvMc1L23d14Zd+1zTcbYKb/74p1Xg7tJojYWoIKrQsW8oTf0saQgFsCDqsLFuoDEb3a1rNF9tBfyp/wYvu/cYPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HFF2hfp3; arc=none smtp.client-ip=74.125.227.171
+	 MIME-Version; b=Vj0oocyXxgYzhQv0knTzTVEahio8GhbVj4gB/Gz3Y2hq4gz6r/PMdMgy6Ms0LiNi/lBncRZkM2EFDqbv5uBz/ikbWlKFRViJuaTvP1aIuljPZLpd8ONVkm1sWCsbKpdu0Z1+UOz68TcJsvVz3ThIibXoKXgiEn2X+sqFixHKepw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hDZW+XaI; arc=none smtp.client-ip=74.125.228.38
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HFF2hfp3"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d90ba1d807so5905305ad.3
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 02:21:34 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hDZW+XaI"
+Received: by mail-pz2-f38.google.com with SMTP id 41be03b00d2f7-cc1cea4c7a0so283931a12.1
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 02:21:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789723294; x=1790328094; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789723298; x=1790328098; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=5470ZJyWN3bHAzgTPv/D/YMrDeBQ3kUcDTovrPyBs0I=;
-        b=HFF2hfp3n9RYwkiKPnbempJf+cb1WnGUFIyB2ZPgqwmAwpm8IzVAURAw/Wzm1+tN+2
-         o6pkViOkHn+j520oFF6gZOPf3wXm6/5FEifUL1AlxEVPFzEb5kQ6+8FQ60hn4TB3N62N
-         f1BHzPqanP/p3/mQJKX+NCoiFNd8ZPvLy9w7fpSOqn9cCi04nT/2IMGJ935G0TDs0F9r
-         cqRs8S0O1Dgu+P3TWBII/Hu/uad3uKwcx3Ua1+L82cLaMW7Cdg5WGLE/2Q6PmXdskz2N
-         r1n/XVcXJPSoTx2LHq8LIm0DoWjv3BW3sM5ZnDfSWrIcTRu1WD77Ae4J9qDIie2h9+GA
-         T1wg==
+        bh=T1Vs33RF9861v3+J3mo7dJ02ANXeWdtG1TRyC/RC/J0=;
+        b=hDZW+XaIoTF38bmKJBT0YNIC96x9b10tb4cKedr/mLTOqyRsS10q1SdEaOjf4XlrEf
+         JOZALnrcwwPmJ/GZT3BBX6mTAykiIoAKdbusVv4HGQW+sLsZXG9sTCze+lVU3IlfbxYF
+         JB99oUpcJPkoUkokpjJgimE1q+ybX0OUPsES476pVE+loBqIbzR70Uy4a1D7RyyXTj/t
+         S4mUZAxgR9XQCvYNBgbfw4o27Jj9oH5p1/t3P01IUY09z0hTQMvIJxTOk7jaPf7x/shg
+         UEpnv3MF3tr+A2EwjT+eLcnzbQpdv9qjOJgwRHlwr8OfWXBLb7brTFbMVyppQhh0TBMi
+         po/A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789723294; x=1790328094;
+        d=1e100.net; s=20260707; t=1789723298; x=1790328098;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=5470ZJyWN3bHAzgTPv/D/YMrDeBQ3kUcDTovrPyBs0I=;
-        b=KGj7fU3u+xlM85mfxtF5tOJtcmPqi6P6xfxHpjT5KUuQyZNHUYphhfVgVGbH3xhFug
-         0/Fb1wEeYUMi+foxxN2i6YDqFftYd7uabjRxiEzaaQqWJJ10NPVRfbEyUTrRTIr3YOQw
-         iff1Oh8ZGMozoK8zKOuWAN9IP0dgb5Wda4rqpsIyXl9fIOx8cLleHv4ft4qs8V7OvQrD
-         pdYD6OLnK0mRN2quB3DnXRfK3H5BhPhAxL38GtGkFhcbGKEeDQNKartt1Day7elu3ey3
-         UDYeUz5VTci0gFS16y1LP3gSDy/EmUsWmW2tHY64UT0H6sUJ8s7Afr19UIdKVbn1bpg3
-         /vIg==
-X-Forwarded-Encrypted: i=1; AKwUvBz9oKz2oMOVQfBrSnM6kWS0cd4zyTsE/rl5JMhihoaTAkPzX7UWy+CahQW4KOt/toPGTijyVNw=@vger.kernel.org
-X-Gm-Message-State: AFuF++lY9OLqk+7msvy+485IHkFscxMZpnCOXe/0Mv8xJ5Wyv0E01wmY
-	0xVme7FC9SL8SoYCDhNtM2KJGHPNaPwo3rv6q86lBIq7msPAafqJQww6
-X-Gm-Gg: AYBFou2vlBnNvRdBXIPVPHHMpIGfEau+oA4yk5pjTMJpN25RCDVEIMMIHQDHeXWlCkU
-	UjUacMfXrprw83uedEo6fCxajvvXnWoKC0F1bVM25Wn0P5DJDoAdHYfdLzPBfuQhVEvf4vAN9Gd
-	FqUym+K/bl+jxMxz8BFfbaItWaYd3pV0aJSz0ZJQqQ52AgTqhikGIkeF0B2pDskoUxHTerit6Jr
-	qxh+naZ1L2ra4Q9yWAQh2haR/SUJYtGwUWd1iY5yj1Kt4J4Ep+uXAg8et+ubmkDxDn+i8CNyW4Q
-	P6WzqEU9LPIwj12lx0ol7WCGkqgMjXRWJaIALhNqC4ug1nbYkIVIaEMAwmv+S2OnrmI7QoxmtSz
-	JdpL+E+R+e9R6ZvrP4dNeqx8GHa/bbsfTrykOC7VQ+2eu1PwIrqPUZWOBIq4kjTtgeHlEiHU2gE
-	MdOTUozCDAi+q+WE0t97ylEKIVnK5Ya93/ZFQ5GGvzXV8s1Tpeuj91DVca2WK9GPyKBYeF5sOJg
-	lgEuWBexi975G67KQ5PPO2LEIDBLKAIHZz2ijUyeQ5VGgU3NKsq4rr14f03oHPo8eiaB6OKjXAy
-X-Received: by 2002:a17:90b:5623:b0:39e:53a:c8d4 with SMTP id 98e67ed59e1d1-39e54d160b7mr4950618a91.12.1789723294171;
-        Fri, 18 Sep 2026 02:21:34 -0700 (PDT)
+        bh=T1Vs33RF9861v3+J3mo7dJ02ANXeWdtG1TRyC/RC/J0=;
+        b=Wn7LYDL0JQWJJXfhMLTvT3+Ayk8n33/07I6gnKcr1yHl5vCICPmHQD5GEtAS3L/2aB
+         XDw6weRS8uVQ5V7ALDLYVhx1xKDJ8Gej+ayjNJHu5Sf2EGYJaLV8Hr6LcThu8vpskoDT
+         9FGm7l0QNkj/aoZ5mj4EG9ycyaAr7TPX76Tca/XUI6vmcejYfuxr8lj5qeiFcrJ4OgdA
+         6TZbkthnrrSoDQqB31e/w097A5+HfdG1/4wbwIiT9LPSgNWaQybMfLPC+aCYBxiWD2nM
+         Iw5eXTx9lqoaGAeRhXmpIaBJHWIBUGeRKYm9v8bXzJuezqQ/G5gxPkbDd+TWKqGyQHmq
+         /4DQ==
+X-Forwarded-Encrypted: i=1; AKwUvByHeraY8F+0sF8w+ko2JWPJDfsWpkQKEo6xJlKJ0xxjdORUoW3o7kiVLFK266hDmSPSil2cVLA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k3NRymj8LnJ+ErbqOnHusYMyKReZNKZC0x1pbnl7pEFf8LsOYP
+	sar9Ffmh2e9VX5QLowe6tjEh5xnedeQN8Avq3H13NcM4LyxHvTLdp5Xc
+X-Gm-Gg: AYBFou058kcF+PG2L9uQAm/jVrd9jX6ppl7mDPKVuCnCi78Ys0vLrWKzwMl1f5aRj5H
+	QgvHDhjAsHBDw21F2dI4Jqj/2xZ+S+xupsG3uiNz/OM1FMEypuRgaStN7MviBHhUqPQMLNwvub2
+	DaT3wn3NgDbUg05KqN9qgB1FZblYA+gmaeD6bjb7+Laeny9ZDb5g05s90gCzKt9yfGQVh5RzY4R
+	JciZ5yB33p/KuMHAFqb1z9RF8YCw0Vy4aq5on5xrj/M6A8l35VLUfNe1FzqKhYRD3o4TZfxcGau
+	RUIrX9wbCBjsThPwVrZLhru0mOju4LBWKRi/ehjYrUG39bMtOGVcnrNVAI06GIYE/xujnOsT5Xs
+	GQGcbYdPp/Pnhy2nabCoMjFM70JQDhg1uQS2clqQHkQyn+2DuNT04B4C6gu/V1nf33HTbq+58Uz
+	trg8nz0ft4zUXyi3qyW48aonfDaDUvym9MGDBJJRA4QDWXp4W03fuRPtUPDHeO+OGBi3/2EC/c3
+	AnwwT3gUpmPIvdk+6cDCZGmc/wL3u5eGJ4uMrW/HxeXKSeJiw4wSUq7QuV2znEJvED8JJZxMnmX
+X-Received: by 2002:a17:90b:5305:b0:39e:4c81:6c63 with SMTP id 98e67ed59e1d1-39e54dbe3c1mr4210633a91.30.1789723298457;
+        Fri, 18 Sep 2026 02:21:38 -0700 (PDT)
 Received: from lenovo-thinkbook.lenovo.com (n11212025079.netvigator.com. [112.120.25.79])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6137e111sm677341a91.1.2026.09.18.02.21.29
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6137e111sm677341a91.1.2026.09.18.02.21.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 02:21:33 -0700 (PDT)
+        Fri, 18 Sep 2026 02:21:38 -0700 (PDT)
 From: Yuqi Xu <xuyuqiabc@gmail.com>
 To: netdev@vger.kernel.org
 Cc: Jon Maloy <jmaloy@redhat.com>,
@@ -74,9 +74,9 @@ Cc: Jon Maloy <jmaloy@redhat.com>,
 	stable@vger.kernel.org,
 	Vega <vega@nebusec.ai>,
 	Ren Wei <enjou1224z@gmail.com>
-Subject: [PATCH net 1/2] tipc: stop the listener before draining connections
-Date: Fri, 18 Sep 2026 17:21:12 +0800
-Message-ID: <48f16f41da6ece5aa646c28617031d00a126411d.1789722780.git.xuyuqiabc@gmail.com>
+Subject: [PATCH net 2/2] tipc: make conn_idr teardown safe
+Date: Fri, 18 Sep 2026 17:21:13 +0800
+Message-ID: <909d83251b5e7d4b0cbe00e5e7246604ee03bb47.1789722780.git.xuyuqiabc@gmail.com>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <cover.1789722780.git.xuyuqiabc@gmail.com>
 References: <cover.1789722780.git.xuyuqiabc@gmail.com>
@@ -88,52 +88,59 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-tipc_topsrv_stop() destroyed the receive workqueue while the listener
-socket still had its data-ready callback and sk_user_data installed.
-An incoming connection request could then queue srv->awork on the freed
-workqueue from tipc_topsrv_listener_data_ready().
+The teardown walk iterated conn_idr by incrementing a numeric ID while
+holding idr_lock, so it could scan a large range of unused IDs without
+letting a connection's final reference release make progress. An entry
+whose last reference had already been dropped could also be resurrected
+by the unconditional conn_get() while its release callback was blocked
+on the same lock.
 
-Reject new accepts, clear sk_user_data under sk_callback_lock and cancel
-pending accept work before the workqueues are torn down.
+Walk conn_idr with idr_get_next(), release the lock and reschedule when
+no entry can be taken, and use kref_get_unless_zero() so a connection
+that is already being released cannot be revived.
 
-Fixes: 0ef897be12b8 ("tipc: separate topology server listener socket from subcsriber sockets")
+Fixes: 35e22e49a5d6 ("tipc: fix cleanup at module unload")
+Fixes: 667eeab4999e ("tipc: Fix use-after-free in tipc_conn_close().")
 Cc: stable@vger.kernel.org
 Reported-by: Vega <vega@nebusec.ai>
 Assisted-by: LLM
 Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
 Reviewed-by: Ren Wei <enjou1224z@gmail.com>
 ---
- net/tipc/topsrv.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
+ net/tipc/topsrv.c | 17 +++++++++++------
+ 1 file changed, 11 insertions(+), 6 deletions(-)
 
 diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-index af530c9ed840..908622a3d0fc 100644
+index 908622a3d0fc..9333e36a74de 100644
 --- a/net/tipc/topsrv.c
 +++ b/net/tipc/topsrv.c
-@@ -700,6 +700,15 @@ static void tipc_topsrv_stop(struct net *net)
- 	struct tipc_conn *con;
- 	int id;
+@@ -710,15 +710,20 @@ static void tipc_topsrv_stop(struct net *net)
+ 	cancel_work_sync(&srv->awork);
  
-+	spin_lock_bh(&srv->idr_lock);
-+	srv->listener = NULL;
-+	spin_unlock_bh(&srv->idr_lock);
-+
-+	write_lock_bh(&lsock->sk->sk_callback_lock);
-+	lsock->sk->sk_user_data = NULL;
-+	write_unlock_bh(&lsock->sk->sk_callback_lock);
-+	cancel_work_sync(&srv->awork);
-+
  	spin_lock_bh(&srv->idr_lock);
- 	for (id = 0; srv->idr_in_use; id++) {
- 		con = idr_find(&srv->conn_idr, id);
-@@ -713,7 +722,6 @@ static void tipc_topsrv_stop(struct net *net)
+-	for (id = 0; srv->idr_in_use; id++) {
+-		con = idr_find(&srv->conn_idr, id);
+-		if (con) {
+-			conn_get(con);
++	for (id = 0; srv->idr_in_use;) {
++		con = idr_get_next(&srv->conn_idr, &id);
++		if (!con || !kref_get_unless_zero(&con->kref)) {
+ 			spin_unlock_bh(&srv->idr_lock);
+-			tipc_conn_close(con);
+-			conn_put(con);
++			cond_resched();
+ 			spin_lock_bh(&srv->idr_lock);
++			id = 0;
++			continue;
+ 		}
++		id++;
++		spin_unlock_bh(&srv->idr_lock);
++		tipc_conn_close(con);
++		conn_put(con);
++		spin_lock_bh(&srv->idr_lock);
  	}
  	__module_get(lsock->ops->owner);
  	__module_get(lsock->sk->sk_prot_creator->owner);
--	srv->listener = NULL;
- 	spin_unlock_bh(&srv->idr_lock);
- 
- 	tipc_topsrv_work_stop(srv);
 -- 
 2.55.0
 
