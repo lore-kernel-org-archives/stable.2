@@ -1,102 +1,117 @@
-Received: from mail-oi2-f12.google.com (mail-oi2-f12.google.com [74.125.231.204])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D06C94E36E6
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 12:10:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.231.204
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789733451; cv=pass; b=Bkm73YezV847CFxT8PFjGfZsvNtHUqdReKv8z4R48cZrKMC0neRyW+w3vcyx0roMjtp2bxUXI6cj8Cz+1zmBrv5i/id0XprT3Zb+KYEeneJQFeAxFFEFWqJGyY816tbtombR3x4PP9CA6xX24A3ZkfZfdFvXEDvnvJtQFpANi+4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789733451; c=relaxed/simple;
-	bh=K7ZluiYUYcSbvc0z9QMWO/augRKhUTEPpypnqljjxCU=;
-	h=MIME-Version:From:Date:Message-ID:Subject:To:Cc:Content-Type; b=W5b8ipkNdBsCfRvdXYtE3/F3JNzGkNkZy7+uiNtG0tTo5kOka1bTjA2FxnVaFI1PjiA+Dp8gNn2H46Xwk+DW7B/h44JXCyKPwp/n32gbOI/LJ6C6jbnMkMja/fDfPSrIYiiv6T9XZLTBh2UVeZECX7IoavUhjklAn1COnYP2V/s=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QXIQD9ub; arc=pass smtp.client-ip=74.125.231.204
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C55C34C2253;
+	Fri, 18 Sep 2026 12:24:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789734253; cv=none; b=sXzoDyTatfZE7g0dWvRxQMoYwj7JVXqPTEZSAkxCWHdfxN2e72nYUjif597VdKW8h1d+TGiKLGkFAZIBAI6HYohRzTxnZxTTjp3kfAmucyu7F9VbHhNZB826XxEciyJzrgqM//3Ex0OijRJkPxyTngG98Q3K+TETJCimycwhMmQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789734253; c=relaxed/simple;
+	bh=/3mBRjErhvrUAidKGNnQM9MPjiGzRc3EgGWMhwBiMNA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=NhNNmDLYb6ptwCvuRwOpjDHdQ+HftpCJODlaRqYLHJU1S57+2rTqfUOheD84DMLCEfQy/ml4CMLZn93A8V1kcsBn2/dRsFsms6j7AzKaaTJom2/I68Xp4JTMGjwACmvcFoEb3D8txzTqJZe6pdLjE6mqvuIBwFt4DsQLRoqI3Lo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UzoCNVPQ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QXIQD9ub"
-Received: by mail-oi2-f12.google.com with SMTP id 46e09a7af769-7f4f0c89e34so368304a34.1
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 05:10:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789733449; cv=none;
-        d=google.com; s=arc-20260327;
-        b=agFmb71Xmd+cwfIg7WNPt8moaWENUj8WwqkKmOLuL+dR1Mrbj6yBkZRWLVP7h1MKPx
-         HV8n0IrWR8iS1+A+Li4K7lJen24ciI6ifNykUFcO+P+HtFTyvu47PdKNwbfdwnL6nfwV
-         5OtWsA1mPbN+9OLbLkobYIfUL9bKwve/utBfLeLnHTtWbnOTLKHWrZ4AZ1CcEnJ39IGi
-         zLePdemOQK+9g67ylZeQObmtf8Y75Wzl7xkpKH9XlyWJC+23r4OFTmw4ozoJJb2ckvwb
-         YL/6CWrPOp7KEXDQFoUzEx9lz0vsssO2v8I6a25LzlUdRigorJBVCTtb67HCG8eMSpYt
-         0NMg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:mime-version:dkim-signature;
-        bh=R+/N2TasieDArJgvhLgm736EZPCPdtsjAgNgRN49nPs=;
-        fh=u3CldR1aPwUPtSyrZVcibdfeyciSJ8WKEC+0eNdim9I=;
-        b=QVXqndHJWRONhTOTupUGJ/6qHRrW4NlhIz9WZNa5u15PND67ONKmUKUpBnmSDHho7t
-         WhcIma34qKMukI6QSJO4tJHBnIudob9hUVL+ElnBjeESDpMNxGQRX6yv23RWK3a5fyhh
-         48IzQbRRrbR+8EqWrSVdk35e2dkayW7Gi9GITxW7nrLDLbJDsvfAS+H98b+fUxDkE5/I
-         /s5cWOeLT8q5Jk0Mw5/x1ntjzgjCSA4SOKvGmjr64vNG+XBsk+lK086YfHb5tfvcnIRB
-         BmHgnae5+pQt/2gM61FEctRMybR0DumKlSgWNAoYakgBEGb/IHYSch83M9vz6r3Ad5yo
-         yIkQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789733449; x=1790338249; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=R+/N2TasieDArJgvhLgm736EZPCPdtsjAgNgRN49nPs=;
-        b=QXIQD9ubXMb6vQ0ZfhO+cCRcvAJ7lEQD6V06XY961GoAxWFPtgOObcZRYn9DQ+Ov+D
-         f+JBOyi9l3hbAGXdI1amesB4qDG/yg/6edRwtjcJsLhsCmx4vNQ0rlNLao1Z9AvU3SBv
-         pa9yJjRbuamyLHSsCEVfu80vWxPj3H4mfEnIDCvrpzZX9aA8MoKne2o/D9+S2C/hZ5DJ
-         pSw61dgl03pmbUMR3KXgJwoy+baEVInKQ4ujlDbaPAvSWKKqvIwkzYGn7v2TV2Dg0wuZ
-         pclBo4zqzDrtt1cauQPywDwEQga6MHqmTZK3A5Vx6pqQ1w/goaECXYBZlBIKEiWOz5Pb
-         HlfA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789733449; x=1790338249;
-        h=content-type:cc:to:subject:message-id:date:from:mime-version
-         :x-gm-gg:x-gm-message-state:from:to:cc:subject:date:message-id
-         :reply-to:content-type;
-        bh=R+/N2TasieDArJgvhLgm736EZPCPdtsjAgNgRN49nPs=;
-        b=ouOpLiC4ec1O2WvUgnYdVfdvJk8qZX//pkKub0SZ0RTSYMnsSgTz9rtPXjCWKMiA7y
-         OADP8TrkfPT+6aqORY/Xx0m7NT2QP7vXa2HsGCbhWOJYvuIDL/xE5EgyCClEv7xYGcKX
-         y6iLYR8IR7pakbD1UjTYXQa6M+jVY+yqZNk3DBeXWHcDgqSMptLiHeFcl0HWSno4rJbS
-         QC8aqHg0dAS8B5PQOlLrVsHbUf/z0m7XLHo1qaTZufB4p9ddM1j6tVtmsqp/Rq0ajcM/
-         p2Ka/vB8hm9yUzHrc/s9388+f9YR6Gc0pQWeaSSKa3LEKDVAjnNlKSre/RFW4rsGY9Cf
-         FZPQ==
-X-Gm-Message-State: AFuF++ks2M8dplKyXmP1k1hD8owL6/7FvDppwUaUHbIdlPMMON8eRvY2
-	EXHkL+UxBsRnGgxraQuBvqmQeksVEeCC+Y3c4g4mMwEdlsZlI66Qz9jZFgWqrwXWkC06oXZa+6V
-	fMogvsdjhEFf28O4+A3+u2GTllbd4ekxpt+W35CI=
-X-Gm-Gg: AYBFou0nbsZkH58WvuvTyO55gEX3u7RNTuQpeq+7Kq2oqN69xc73OksUwtBgwP7KbA4
-	0MfmcId3eC4H/qbSJ9kgzjn++KSg5d9Dy6H6yNJF7BL074hWKwjrZ/hUxsnn+PkAQVp5zgj6ubK
-	JIVZ2Ew8ISxc1KGF9JTpNJWPsIcNJaFVyV0iIWHMtQzLq4XXfCRBMRT9OgTo2Hpk12+kj6SUlAt
-	6esnUx/xJ+Vos707fCmgJ7rGmXRtErHN15lFdWqUjn9FNBPXE8/dVMM+hs+YuW94EqjptbCmhVt
-	bvlPUS/l34mIlWNY7wf4q/m3hc4STho3l42e5DLa00Kl0ogy9Os2jEpiUiHFTYm7IJVYUcqe4Cz
-	q8VSGpr0h0Gi/QPu0x57z4EPI5F4wN036MhQ08qmUEw==
-X-Received: by 2002:a05:6808:30a3:b0:4c0:9d00:b46d with SMTP id
- 5614622812f47-4ccf69673bfmr2964764b6e.13.1789733448674; Fri, 18 Sep 2026
- 05:10:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UzoCNVPQ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8EF61F000FF;
+	Fri, 18 Sep 2026 12:24:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789734252;
+	bh=Q6oMeyEK/1JyGwnyMfukKkQ88mHLG2Cz9KdlVILMP34=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=UzoCNVPQCiXKBTYtowh0ZR/LLXxwdtOWPoKneKGSAqYgMe/WyRWSHetaw5EiwvjGR
+	 WeJjNKZGrrIKcTSvmpF9VUP7qcYlgwmR+JOMpRHTLxGy4gvjeGqsqYoW1dqqJtpRsQ
+	 pLRV8irhFy6iyo7XbFIlM0X78irC7zNhMx7hrAcrZuH2mE9R3FGJsGhauhMMXRE0nv
+	 u7NAYalvWl01s1XENCPDT0fZQGWMwcxcPTXDtkYUbnhW0wFCBhfqv7L4OZygWUlzpY
+	 3iXAodlCgCOPfV6hy0tzot8Vh/NWc8PNRMLoj5iJ4JCbVagqL7TOphRI1Soo7q/i9h
+	 l+YtUxsU2NFHA==
+Date: Fri, 18 Sep 2026 14:24:07 +0200
+From: Christian Brauner <brauner@kernel.org>
+To: Oleg Nesterov <oleg@redhat.com>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org, 
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>, NeilBrown <neil@brown.name>, 
+	Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org, 
+	io-uring@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] fork: refuse new threads while a coredump or an
+ exec is in progress
+Message-ID: <20260918-irrsinn-pickt-vermummen-d7167c397398@brauner>
+References: <20260917-work-coredump-fixes-v2-0-f3787fcda051@kernel.org>
+ <20260917-work-coredump-fixes-v2-1-f3787fcda051@kernel.org>
+ <aq0VLTyxNatFmLOK@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-From: arash golgol <arash.golgol@gmail.com>
-Date: Fri, 18 Sep 2026 15:40:35 +0330
-X-Gm-Features: AcwNN1VHTQcvJAx5UHLqFpWuZqO8u4eojtMOF-6Drot_JdeWdjwhSqVny6An6Ls
-Message-ID: <CAMxPZkjojOOqT=jyX=zyzLT5-AYqL0=obJxnPKsgewfCeH+U2g@mail.gmail.com>
-Subject: media: video-i2c: fix buffer queue ordering
-To: stable@vger.kernel.org
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, Hans Verkuil <hverkuil+cisco@kernel.org>, 
-	sashal@kernel.org, arash golgol <arash.golgol@gmail.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aq0VLTyxNatFmLOK@redhat.com>
 
-Hi,
+On Fri, Sep 18, 2026 at 12:40:45PM +0200, Oleg Nesterov wrote:
+> On 09/17, Christian Brauner wrote:
+> >
+> > Say a SQPOLL thread is a member of a thread-group that coredumps.
+> > The coredump code uses zap_process() and sends SIGKILL. The SQPOLL
+> > thread uses io_sqd_handle_event() and calls get_signal(). It removes
+> > SIGKILL from the pending set and returns. The SQPOLL thread breaks out
+> > of the loop and drains its own task work.
+> >
+> > Any pending io_req_task_submit() with REQ_F_FORCE_ASYNC creates a new
+> > worker when no other worker is free. So it ends up calling
+> > create_io_thread() from a thread whose fatal signal is gone.
+> 
+> Oh.. Can we fix this in the io_uring/ code somehow? The very fact that
+> copy_process() can be called after get_signal() returns SIGKILL looks
+> very wrong to me. See below.
 
-Please consider the following upstream commit for the relevant stable/LTS tree.
+Yeah, I agree but the io_uring solution I came up with all where a bit
+involved...
 
-Upstream commit bc4574c265ed738849e46d942617100580fcedd2
-("media: video-i2c: fix buffer queue ordering")
+> 
+> > --- a/kernel/fork.c
+> > +++ b/kernel/fork.c
+> > @@ -2491,8 +2491,10 @@ __latent_entropy struct task_struct *copy_process(
+> >  		goto bad_fork_core_free;
+> >  	}
+> >
+> > -	/* Let kill terminate clone/fork in the middle */
+> > -	if (fatal_signal_pending(current)) {
+> > +	/* Let kill or a group exit, exec or coredump abort clone/fork */
+> > +	if (fatal_signal_pending(current) ||
+> > +	    (current->signal->flags & SIGNAL_GROUP_EXIT) ||
+> > +	    current->signal->group_exec_task || current->in_execve) {
+> 
+> Well, the comment doesn't explain why should we care about exec or coredump,
+> if we forget about the problem above fatal_signal_pending() must be true.
+> 
+> At least, can we move these additional checks into create_io_thread() ?
+> To not uglify copy_process()...
+> 
+> Hmm... get_signal() sets PF_SIGNALED before it checks PF_USER_WORKER, so
+> perhaps something like below can work?
+> 
+> And perhaps io_should_retry_thread() should check PF_SIGNALED too?
 
-I forgot to add a Cc: stable tag when I originally submitted this patch.
+Hm, I like this idea...
+Let's see.
+
+> 
+> Oleg.
+> 
+> --- x/kernel/fork.c
+> +++ x/kernel/fork.c
+> @@ -2700,6 +2700,9 @@ struct task_struct *create_io_thread(int
+>  		.user_worker	= 1,
+>  	};
+>  
+> +	if (current->flags && PF_SIGNALED)
+> +		return -EINTR;
+> +
+>  	return copy_process(NULL, 0, node, &args);
+>  }
+>  
+> 
 
 -- 
-Regards,
-Arash Golgol
