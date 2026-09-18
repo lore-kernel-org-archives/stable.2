@@ -1,65 +1,42 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0DD6C2836A6;
-	Fri, 18 Sep 2026 12:38:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20EE6481DD;
+	Fri, 18 Sep 2026 12:50:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789735130; cv=none; b=eezFTZJaRf48sPcFMaymE4yKUJzw18eUdEh+ryz4QtSdckc6UUKmDld7YdCHaDXHZ2SMccxqbmf2amp3FpPE2u+Xj8jzwvSkV9x7ykg9ED61xXtZGYyUnBBI8I4+5n5uThENaphhbCK/Xu4t4FoutPiZrdP4bPWPJu3WVv2zEEc=
+	t=1789735832; cv=none; b=XYokt+txLlYrOYHq0zR6gqAfXPa+2uY7KrI0YW+ur3DG3yQ9OfOJcttuk0C1zIGiWTueYRtM9Sm1fvZwWy9ylRxZXimKV/gEfPxw6JEbY/tNwQgxHz/z3Mm+ig+GxivjTlXmVyY3Bso+sR1XjAsw9lZfogW8RH+DABUxAkbC68s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789735130; c=relaxed/simple;
-	bh=v0D30XdnWAvAbeRE19PhPRcH4pTMxxvHgKyrSnCkpXg=;
+	s=arc-20240116; t=1789735832; c=relaxed/simple;
+	bh=d4wbW/sNLpm6GDuPVHGXrH+UuCL7KDo9SWcCK8ULgjQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=LKliUNW3n3sIPui7dVP9RcxfVsfP0+aWuz2fm1kMpBRFG9zx5olP1RLkMCJ9ggELI2IRn5MGdiTw1sN8cfGBZX9cMMrGpUSQBGmn8JtlAr+amLeMHVwoHldhrz1UzHtg5cZxhEChq3dEWbWSK4Pv1kDHadHHvV1KaSL/lnkFkOM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=DP929awr; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=V8aXEA5H25wOx4eVcXo7y4eRR8UPITPDKPbOBJnbPJGU+u00+pmJfbgjjU2ft2gkDDT8OarUndKEteArOsddaQ4gQrtZ3f5v5JLFA/Ql3qmvr0YPJ4q7IFyAOeVXYiYGwsiq+9FJGbGShTrFxHFHhUadn6yp/dRBhudVQYGtYXY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mCtjIEhk; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="DP929awr"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789735127; x=1821271127;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=v0D30XdnWAvAbeRE19PhPRcH4pTMxxvHgKyrSnCkpXg=;
-  b=DP929awrBjWZete7t/W5V2AQ/DHUDlx+sGfi3WTuPV88V4BWvPQqZ4k7
-   Wxq9h+eRyOlrqq8QdRItHzPaysJcQoxOujGtDr9TcUlWMwKKDP2uDTd2P
-   sohbps+vJRwrOAw1SHOR5aocVkQsvGSrUUIcnMRon8jx0xNcEtg7VdRrZ
-   K3Y7K7tLtr/mO/T3g3dkSZ+3Mrt6F3QpeqEwX4s591I7ZWD3YKD4nNDX4
-   W8aEyJq9+f6uhgsw3HIh6JLERj7WoyYhs7qnQw025z1nk6zWNw1nNy01n
-   F7L5xAVo7ee9a7QuH0Ajp/jHJy64bpC5iycV2u8uCicxWFeWF+jRvvlDG
-   A==;
-X-CSE-ConnectionGUID: C5VBN8rORCuBVvGjZa3Y3A==
-X-CSE-MsgGUID: Fj27AAZTRDmJXg0PswcULQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11908"; a="107739668"
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="107739668"
-Received: from fmviesa007.fm.intel.com ([10.60.135.147])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 05:38:46 -0700
-X-CSE-ConnectionGUID: 5tt/Sdj0Q+OaHZQR6fQV3A==
-X-CSE-MsgGUID: cpPK04BwS6qDYCxotWmOmQ==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,108,1787036400"; 
-   d="scan'208";a="271061162"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa007.fm.intel.com with ESMTP; 18 Sep 2026 05:38:42 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7XrK-000000009mn-2qP8;
-	Fri, 18 Sep 2026 12:38:30 +0000
-Date: Fri, 18 Sep 2026 20:37:31 +0800
-From: kernel test robot <lkp@intel.com>
-To: Wentao Liang <vulab@iscas.ac.cn>, Liviu.Dudau@arm.com
-Cc: oe-kbuild-all@lists.linux.dev, bhelgaas@google.com,
-	kwilczynski@kernel.org, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, linux-pci@vger.kernel.org,
-	lpieralisi@kernel.org, mani@kernel.org, robh@kernel.org,
-	tinamdar@apm.com, toan@os.amperecomputing.com,
-	Wentao Liang <vulab@iscas.ac.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH] PCI: xgene: Fix device node reference leak in
- xgene_pcie_probe()
-Message-ID: <202609182039.WWGUVgS7-lkp@intel.com>
-References: <20260917132235.2153154-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mCtjIEhk"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DA4321F000FF;
+	Fri, 18 Sep 2026 12:50:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789735830;
+	bh=4ZFIgBf3dFbr9mkY07ho6ySuIxAVZa2yD5JuJV/yFSM=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=mCtjIEhkI3tc42+aMwhuVcT66zISUnOher23d94JiYfpAKPgP8czeOK1N0/0XU27Y
+	 MgjtdMGUut2YXNIs/YcEbWvbGXmn/a2E7T5wue33lVdxvjzcaySn0rLOxCmkuiF5EK
+	 aA3UpkgZ5Wcic9hD1lTS5L1Rq7bm6EffI9RYmfX8l+5MIGmx3cKrOML6Dw2S+ZZHKu
+	 HQXMFEC0Q/msKaNaAFxCWKEkhCHUQZmN/WAcaXGjeVh1g8TfsA8wB8KDy+Tu82gK0H
+	 sa7CzXFirv+6gDFX6L9tjqOvXrYnk0mRYp658539NG98hf+wTv7qoeGzR1P10DQ1yr
+	 rEt07xlBSXLog==
+Date: Fri, 18 Sep 2026 15:50:25 +0300
+From: Leon Romanovsky <leon@kernel.org>
+To: norbert@doyensec.com
+Cc: Zhu Yanjun <zyjzyj2000@gmail.com>, Jason Gunthorpe <jgg@ziepe.ca>,
+	Bob Pearson <rpearsonhpe@gmail.com>,
+	Daisuke Matsuda <dskmtsd@gmail.com>, linux-rdma@vger.kernel.org,
+	linux-kernel@vger.kernel.org, Zhu Yanjun <yanjun.zhu@linux.dev>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH v2 0/2] RDMA/rxe: fix ADVISE_MR prefetch on non-ODP MRs
+Message-ID: <20260918125025.GY13683@unreal>
+References: <20260913-rxe-advise-mr-v2-v2-0-b806c789871c@doyensec.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -68,89 +45,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260917132235.2153154-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260913-rxe-advise-mr-v2-v2-0-b806c789871c@doyensec.com>
 
-Hi Wentao,
+On Sun, Sep 13, 2026 at 01:45:14PM +0200, Norbert Szetei via B4 Relay wrote:
+> ADVISE_MR prefetch on a plain MR runs to_ib_umem_odp() on a struct
+> ib_umem, giving a KASAN slab-out-of-bounds read in
+> ib_umem_odp_map_dma_and_lock() (splat in patch 2).
+> 
+> v1 checked is_odp_mr() after lookup_mr(). Leon asked for lookup_mr() to
+> do the check itself, off mr->access. That only holds once mr->access
+> cannot disagree with the umem, so patch 1 stops the two paths that
+> assign mr->access after registration from touching IB_ACCESS_ON_DEMAND,
+> and patch 2 passes the flag to lookup_mr() in both prefetch arms.
+> 
+> Patch 1 adds another failure return to rxe_rereg_user_mr(), so it
+> depends on ae36a5b609ae ("RDMA/rxe: validate access flags before
+> swapping the MR's PD"), which moved the validation above the
+> mr->ibmr.pd swap. The series is based on for-rc.
 
-kernel test robot noticed the following build errors:
+Please rebase it on top of for-next.
 
-[auto build test ERROR on pci/next]
-[also build test ERROR on pci/for-linus linus/master v7.3-rc3 next-20260916]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Wentao-Liang/PCI-xgene-Fix-device-node-reference-leak-in-xgene_pcie_probe/20260917-132235
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/pci/pci.git next
-patch link:    https://lore.kernel.org/r/20260917132235.2153154-1-vulab%40iscas.ac.cn
-patch subject: [PATCH] PCI: xgene: Fix device node reference leak in xgene_pcie_probe()
-config: arm64-defconfig (https://download.01.org/0day-ci/archive/20260918/202609182039.WWGUVgS7-lkp@intel.com/config)
-compiler: aarch64-linux-gcc (GCC) 16.1.0
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260918/202609182039.WWGUVgS7-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609182039.WWGUVgS7-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
-   drivers/pci/controller/pci-xgene.c: In function 'xgene_pcie_probe':
->> drivers/pci/controller/pci-xgene.c:646:25: error: 'struct xgene_pcie' has no member named 'node'
-     646 |         of_node_put(port->node);
-         |                         ^~
-
-
-vim +646 drivers/pci/controller/pci-xgene.c
-
-   603	
-   604	static int xgene_pcie_probe(struct platform_device *pdev)
-   605	{
-   606		struct device *dev = &pdev->dev;
-   607		struct xgene_pcie *port;
-   608		struct pci_host_bridge *bridge;
-   609		int ret;
-   610	
-   611		if (!xgene_check_pcie_msi_ready())
-   612			return dev_err_probe(&pdev->dev, -EPROBE_DEFER,
-   613					     "MSI driver not ready\n");
-   614	
-   615		bridge = devm_pci_alloc_host_bridge(dev, sizeof(*port));
-   616		if (!bridge)
-   617			return -ENOMEM;
-   618	
-   619		port = pci_host_bridge_priv(bridge);
-   620	
-   621		port->dev = dev;
-   622		port->version = XGENE_PCIE_IP_VER_1;
-   623	
-   624		ret = xgene_pcie_map_reg(port, pdev);
-   625		if (ret)
-   626			goto err_put_node;
-   627	
-   628		ret = xgene_pcie_init_port(port);
-   629		if (ret)
-   630			goto err_put_node;
-   631	
-   632		ret = xgene_pcie_setup(port);
-   633		if (ret)
-   634			goto err_put_node;
-   635	
-   636		bridge->sysdata = port;
-   637		bridge->ops = &xgene_pcie_ops;
-   638	
-   639		ret = pci_host_probe(bridge);
-   640		if (ret)
-   641			goto err_put_node;
-   642	
-   643		return 0;
-   644	
-   645	err_put_node:
- > 646		of_node_put(port->node);
-   647		return ret;
-   648	}
-   649	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Thanks
