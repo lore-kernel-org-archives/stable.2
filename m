@@ -1,95 +1,121 @@
-Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+Received: from fout-b4-smtp.messagingengine.com (fout-b4-smtp.messagingengine.com [202.12.124.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAAD37268A;
-	Fri, 18 Sep 2026 15:38:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 777804AAC4D;
+	Fri, 18 Sep 2026 15:42:52 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745887; cv=none; b=kyQzTD1yxXlGBVeWYirBYuDi0Um67CpYX8/hW0zZrwQlXsdw0CY3fLAArVDIy/pbAtikwVidld57p2OseHjUZcNuFp+tMoRnuJFupgS5PabQYMybPaL2jt8DSLoTrUQXuGG1yRbJtVxXsUf/oElHdH3DDOtQSyEyqy9TyKRjdhk=
+	t=1789746174; cv=none; b=kl40MF6pp2Cling/3MZRqChCsdE4BZ+g1JQi4+HpuSbVNmJ3AwIWJFewCdWjBBxlD1Ts4EIDcMPKzSEXnB2ctnk1BfEiAZyTb7RUdt7n7OdwsJ6SIaQwctgYYaRnP4wfY/q24F4eO6Jygl4hoDbHWaEIYTsjH4kygZOtnN0UFI4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745887; c=relaxed/simple;
-	bh=m0YxD7VmkTrQ9BK7RawhfiNW848wHmn5GitM21kxqtU=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=httBAQUhh75HpOJgOMhnXNwKXRd62KlwOIJQv8mAex1LcZAxQxMT+2qVIydv13YGRGQSepu/PrQml5MB9ugEK9xh6l5f6sBy/QhuuKv/2eCyFdfTFf9NIcQOoXxTtxotUZay4zlGHD9w0fUgjyxouhTa5Ss/537dAh2qa6XyDts=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=DOkpGsAy; arc=none smtp.client-ip=65.109.113.108
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
+	s=arc-20240116; t=1789746174; c=relaxed/simple;
+	bh=X4Nal4dVzruiKWaSEYsGNCg4TNbqPVOO4N2xKunInrM=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=Eg/JCL902vVLZ/HtdEonoo7Y3O2UlQbZ7qv0rwE5oRP+tExTEVjTeOOa6NdSO8dqzuO7WzC7q3GboKVgj4VKb8p8ezjnN4qe85LiQ9z5M9ET3I4OvJiXzy1MqEXw7mi9F6TnFnI+T6/uEYDok9tu/sGgnM4L0xEeoJvmoX5ZcWE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=nG4OWRHL; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=fhytSGHf; arc=none smtp.client-ip=202.12.124.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="DOkpGsAy"
-Received: from localhost (localhost.localdomain [127.0.0.1])
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BB0D040E022C;
-	Fri, 18 Sep 2026 15:38:01 +0000 (UTC)
-X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
-Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
-	header.d=alien8.de
-Received: from mail.alien8.de ([127.0.0.1])
-	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
-	with ESMTP id lXDPEcajzFne; Fri, 18 Sep 2026 15:37:52 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
-	t=1789745871; bh=36JNwdFzxccnGIjCQpZ9YpuxHSaUKRaCuz6LQSxaurw=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=DOkpGsAyt2wg3Z5tDnHQMEL+kRzGE1upsbkmP5oTtY2s6eTk/JCU4fYUGHilG/mV0
-	 5csSClOXi6NRBcKaJhHA3xp+tCf4ABBvHrFQTe1V5ST9s8/SQPYiI5+bE9S7FXpI7G
-	 X6jN0fRdCwTvGO/7qbjjUzVGTXxa7SKmQuz9eRp3gmePUzcRokfYcT+v3n1ivAW28H
-	 gli51IruRU6GmhDgkLapgFadw66M6AO+ZbUFyb/TRJfoEL/Us1Sm5aWwhFZyWOGn6p
-	 Spq//fSHDpbeEzccHAHlJoyPT+UBtWXpadz/PpWA+eUS5K9B6Lv+QYGIBwZ2d9K4G5
-	 UKlqPE+pRlzayA8g59KG2yIYE2a5Txq9XpdHkQJeRMMMGT1bFQNM7CV08Dgkd329P8
-	 3OY2KSTqQYa6XStqJttQPONUxcTcsjQGC6tS/wKP9KQvF2WxfAj7Qp5ujUu6bHfuYr
-	 W01cm55dMB0YOwiqAWD7s/zMmUtpECgDH2PPOU5TDFLva49lnffXj/tKtN3Srusjff
-	 JS8boS5f6cV8QOnSwVO9gc8ZdEAOR52pbu2t7qfNrpdkvX8LCc6IPcMw2H72QP0FvH
-	 LSflkc/kS9KmbGCp821n5+6QUgKBUJfBqfN8/XCTiz8eMq/qYG7/T1hzVpnTE2e+KR
-	 IK4arvGgttykH5XXGXqmHcUA=
-Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
-	(No client certificate requested)
-	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2E94B40E00E5;
-	Fri, 18 Sep 2026 15:37:39 +0000 (UTC)
-Date: Fri, 18 Sep 2026 08:37:33 -0700
-From: Borislav Petkov <bp@alien8.de>
-To: Ingo Molnar <mingo@kernel.org>
-Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
-	x86@kernel.org, tglx@kernel.org, mingo@redhat.com,
-	dave.hansen@linux.intel.com, hpa@zytor.com,
-	andrew.cooper3@citrix.com, arjan.van.de.ven@intel.com,
-	sohil.mehta@intel.com, stable@vger.kernel.org
-Subject: Re: [PATCH v3] x86/microcode/intel: Reject problematic loading on
- Granite Rapids systems
-Message-ID: <20260918153733.GAaq1avUE5atQ6yfKT@fat_crate.local>
-References: <20260908223209.916758-1-chang.seok.bae@intel.com>
- <20260916225939.1144524-1-chang.seok.bae@intel.com>
- <aqzgCatxdoLDvS1B@gmail.com>
+	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="nG4OWRHL";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="fhytSGHf"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfout.stl.internal (Postfix) with ESMTP id 5BF981D00060;
+	Fri, 18 Sep 2026 11:42:51 -0400 (EDT)
+Received: from phl-frontend-01 ([10.202.2.160])
+  by phl-compute-02.internal (MEProxy); Fri, 18 Sep 2026 11:42:51 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
+	:cc:content-transfer-encoding:content-type:content-type:date
+	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to; s=fm3; t=1789746171;
+	 x=1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=
+	nG4OWRHLqJg24+nBVbPIJOFmuotLG5k5pCoJp6zlpn/YwSWpfM3vBFKv7DqiG6EL
+	NcT560VsCSKSIXPGpVA9m8RXE7Humzx5+s8K/0uHQAjFT1MWQx1XMPFXpQ5XG1RI
+	3Vw8u5/g2f7DJPLX/SzK4hACQiag/6S2mm4I5a+CyttZztDltR9L+Dg2k+5kHqZw
+	SypTqoHcFHrDr/pn2m+x8WYlMwFRLNp4xFXuPb04+tkBUPbgr29dEwSyi2/IX1kF
+	wlQDUAwRTJDzw7R5on0qaw+2pwtjgZph3g/qbfa9IvSMCqJJY4DDxsaZ1JdeA9CO
+	ZiXqBZWg0Lykkjm/EIrkwg==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-transfer-encoding
+	:content-type:content-type:date:date:feedback-id:feedback-id
+	:from:from:in-reply-to:in-reply-to:message-id:mime-version
+	:references:reply-to:subject:subject:to:to:x-me-proxy
+	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789746171; x=
+	1789832571; bh=6hzt/ehdmet/uE6Jl1g7uhHtpkqXvD2yN4nNLwESikk=; b=f
+	hytSGHfzWMLX/IPCErKoTfQmVc2Z3hFsXPnBwi7p7kkjTwzfO9q7FowppzHzxe9G
+	ih14sYnbvXBuNVvR5uN/q45r74CEy/SG3i7cgAbaKcJlX5GATmP513RrGqJX7Ozf
+	oQapokY/Oys10B8QL+ooKEbPrqHyFxfch8DAsW/Mxaa+orKjbxgcI6LHuO41jqbG
+	eGy78+Sa8psM6m6TWqJ4L7vYrXZDslCp5Il3tp8RuvyQXjeaR0YMXsLt+sYCI+dx
+	L54NZHH5DIfGy3BlR8x1aMlW3U4U9UJOhwl9OA2N8bkhhkzVwEFkzlklFW6SzSHm
+	/IihcXzcN4gabA4wdXFvQ==
+X-ME-Sender: <xms:-lutatxoiA2kcTBCkET4C99jhbOQZndqoaTNBGuXC5rRJK_tE518TQ>
+    <xme:-lutapKcHaBwFOymtKtAfWfWcpFKB6lLJ5_yCrTDBKAKwi2ubjeFNmAPEQEQoUP7b
+    1Kzbwyy4j0Bbj8bqoExgjYM_LdfTug6R55QYFOVmqLWi_B8X98YxQ>
+X-ME-Received: <xmr:-lutai298sLvhXQtBz3rNxrXoo0M_dww0CzBqZHhGXHN30VI8ZtskuGGmAcuGeTOQSj_IZNiLnnrI8g5pS7tbWqKiLX-7ASe>
+X-ME-Proxy-Cause: dmFkZTFi1A0oYdbKDak8eiKur6KTMrjOFJhUId6lGXsSvv1WVZlngbMKYROlWdB9kCWkCQ
+    94gk0YY+zhCtrYaPvWhtsqFiIUF94MHT/87NGOrqR3HZq5rWoDIn0YaMeZO86FCre/B94I
+    CMFLnNJVdfd8o9/jmIytsAeYSxegKXwCmBiBdjKUq97jD2c9DbRuZe+n1i42D/bS8e/0Op
+    tkAGzZ2P+ntwLFKlXWNXUbVRyxc8qpGfaDJg7y46XgQOyOGq3fOtBOTFMzi2OqKoE9ahDl
+    yJ6ooxD4Q75YjKHqxWY5IeSA7FzGsV8RYQgQBpzrtxPty/hsAj+u90d/A6oqDjtc36aJpO
+    peWHnfWALMsBV4o7CmwvJzfdBsy4m2+ouvAKyPHv57rmhWi3GUBzZZ2zBhCB4mwjwnNkeZ
+    c436l/IZ4nzN5xT718H0vjov6+3C6yrONmlBPN5WZeDQ1+USjYAEDy+UgTnWrJyWEFs3KB
+    LXdR3hynUfFuALqA4KafN3EDSf0r8mt+UXYjlTJxGqw1BaJUJKC2dnONbewQevjzagbh0p
+    1ces62+P0o0SjnSAYVmLC8iuiMxBakh3wVNDOzCALgPsAqrvYUETgfOhpyAdneCsU/xRUC
+    U+137LyqUXCWyPY0WyI2xm0uR5ra5dO38+bHhzFClTADqmE/TBdBBU8gJU0A
+X-ME-Proxy: <xmx:-lutajfkP9YVa0P6yErEFSccpHuFjdqIThqt-P1-_P9HxNp_BQTPbg>
+    <xmx:-lutam5OXTBRo9m1zvYOVY5CxgYh2VvV6nBO9m4n9LSUNocK7pU6uw>
+    <xmx:-lutam_P9N25CIt6H_MnfgHIk4H47JxA8yI2PD8DBzfoCLymj8sCxg>
+    <xmx:-lutatItuPnOKiWaav5jkikZTPxCbGQRuBCeCHjmGyxgbfY6S-u4vg>
+    <xmx:-1utaikzqus5RhH0lKUPWksN73Jrn-_5Hg-rD33moTDJTiZaufSsgHty>
+Feedback-ID: i6289494f:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 18 Sep 2026 11:42:47 -0400 (EDT)
+Message-ID: <a6b16511-b93a-42ca-99e9-084121793bf5@pobox.com>
+Date: Fri, 18 Sep 2026 08:42:46 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <aqzgCatxdoLDvS1B@gmail.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260917151350.597953846@linuxfoundation.org>
+Content-Language: en-US
+From: "Barry K. Nathan" <barryn@pobox.com>
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 08:54:01AM +0200, Ingo Molnar wrote:
->    It should at minimum say something like:
+On 9/17/26 8:05 AM, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.7 release.
+> There are 733 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
 > 
->       Erratum GNR98: new revision %x is unsafe to apply until 0x1000405 is applied first, skipping it. Please upgrade firmware tools.
+> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
+> Anything received after that time might be too late.
+> 
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+> 
+> thanks,
+> 
+> greg k-h
 
-Even if you put prose in a warning message, it still doesn't explain the issue
-fully. For stuff like that you need some properly written longer explanation
-in the documentation.
+Tested on an amd64 laptop (Lenovo ThinkPad T14 Gen 1). Working well,
+no regressions observed.
 
-Which I'm hoping we'll get eventually once the dust has settled down.
-
-That's what the rest of this thread is trying to do but I haven't reviewed
-yet.
-
-> So this patch is still problematic IMO.
-
-This patch is a minimal stable fix to stop it from #MCing. The real stuff
-comes later. It all has been discussed on this very thread.
+Tested-by: Barry K. Nathan <barryn@pobox.com>
 
 -- 
-Regards/Gruss,
-    Boris.
-
-https://people.kernel.org/tglx/notes-about-netiquette
+-Barry K. Nathan  <barryn@pobox.com>
