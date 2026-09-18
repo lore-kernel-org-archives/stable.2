@@ -1,50 +1,69 @@
-Received: from smtpbguseast1.qq.com (smtpbguseast1.qq.com [54.204.34.129])
+Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010059.outbound.protection.outlook.com [52.101.56.59])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F9E3F482C;
-	Fri, 18 Sep 2026 04:43:23 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.204.34.129
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789706610; cv=none; b=gx9y9rjQf5j5xuPl/wcFajThY7aQ8W5OBvsdTyh3Q6pdFqJkqu/NuoxlhfsYH2gu8m+nG7klqmpTIoZxMsDb2p0NITIu72uppbNsww4ZtrFgzEx5pQ3rFxnYT4xhffr8i60eetmMuQW+WPV7BTx0YyfHdGum07tRZOjvQlB0eW8=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789706610; c=relaxed/simple;
-	bh=ctT6/vFqCvmzUB4BzaDOakENPF2YtZmtVFw/C+EeL7s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=JzXzjhVrmY/icN8BDymhBnltxSRXyRjtpG0h4Zsv6dy222LN8X3NcqjWJ9KGTP6yVyJ0lGFsKSv5iFJNTngXvHWPQYBSATcysY1hOvithz6IygjFVjNxuJ/n0ht6kHKX/1B1SjUTZkN7lpMBWSbnfwX9WBm2uKSiXXdjY8fG+E4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com; spf=pass smtp.mailfrom=uniontech.com; dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b=bD2OasoY; arc=none smtp.client-ip=54.204.34.129
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=uniontech.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=uniontech.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527BF34CFDD;
+	Fri, 18 Sep 2026 04:45:36 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.59
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789706737; cv=fail; b=uUMSi1CvErukQHJsELQh4zGemCjsCoL0fI68QyyypMDMcCsVScOMkqbYmpGg7fj8aELkPbMD9Q52wRRMerRXo+aodWAZqvKZRVNXQqWOnWS6rLT+vMG8tg/aBMAjmOjt9Ewuw5sgPceCoKW0dfMkwq5u/ZNfHS2ZhlhFB7Os2no=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789706737; c=relaxed/simple;
+	bh=n9VMxM6jl9G+mAy6XqpKLpb+jw8gQH+C2SLhjVOtXpI=;
+	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jODHq5dUyq02DSe77ziO1rsCuyT8CghRx6/JIElbBH/VrqwsG8O81W8YKNaG4EweDJPF5dlB2SNNw81I7QnrYeJ3dcDthvNkr77qt4SidY6XLD47CnAM4rsV8+5p8mOu4K3an5Ev2/kWEgK5D+tkUiQ6MBwNqKeff840Eln0VJc=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DJ1L9I8S; arc=fail smtp.client-ip=52.101.56.59
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=uniontech.com header.i=@uniontech.com header.b="bD2OasoY"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=uniontech.com;
-	s=onoh2408; t=1789706561;
-	bh=scvXxlF6NEZhARvuoJyXBq5j+D19qfu3CYC0s+82v5k=;
-	h=From:To:Subject:Date:Message-Id:MIME-Version;
-	b=bD2OasoYiW5SZZIfoMhbSE0aa9nr+RdKWOy4wpjMbCyq1jepx6R6BRA1O81LJlhk1
-	 4iTTGXhWveTGtd6pWBAC63ci/ydHuRU8ecdsWasUfr1wg6rM1XX2a4EV+WN+2ryMWL
-	 sTYVwsSuEjBEEPXgpTSzgB7e6sr2nMsd1uRCxQ3M=
-X-QQ-mid: esmtpsz21t1789706542ta9530e46
-X-QQ-Originating-IP: 6Rkv2n1RlcwXAJ9DANlh8itmzSa3wvLc8R3FeYeuZBU=
-Received: from localhost.localdomain ( [113.57.152.160])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 12:42:19 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 1
-X-BIZMAIL-ID: 10535435220871461170
-EX-QQ-RecipientCnt: 9
-From: Wentao Guan <guanwentao@uniontech.com>
-To: kprateek.nayak@amd.com,
-	ray.huang@amd.com
-Cc: scardracs@disroot.org,
-	superm1@kernel.org,
-	linux-pm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Wentao Guan <guanwentao@uniontech.com>,
-	stable@vger.kernel.org,
-	LFRon <ronforever@outlook.com>
-Subject: [PATCH] cpufreq/amd-pstate: Do not fail init when auto_sel cannot be written
-Date: Fri, 18 Sep 2026 12:42:15 +0800
-Message-Id: <20260918044215.41400-1-guanwentao@uniontech.com>
-X-Mailer: git-send-email 2.30.2
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DJ1L9I8S"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=EDjEpd9qqQyAEjtyxqtzzsv8ePtKtFuOqmQnS4D7MIOsYGsDUgj5O52Hl+872CXcofLtGwLUvEiLmkLxuVtJcldwkTHzWFnodI6xM418VW+mmx5aXMJbd6skoYkPvieGoYSGCqQNVEl8mm46cHyYAkHYsRsjaJ9TvADdoA2hQJkwOFXMN191/n/seGDeDOuGF8dQ55LGe6gyO7MYrkdAQvKHs+rewLUzwX2oY20QBr0dPF6wAPX61IYWNpIvKtjrh4Epxk8jXDjnJ/6pYRRjmjeFRGm/PwcGnUCbKn5XQvqzX1cU5bU34h1jB3Suhnu0DUDrwg/9AUSUXnfA/ov3lQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
+ b=pkcJTNrd9NJB+/iINDvrHiLDo2Fh27eKBwC06ChbMSXW2F1eHcHjyLJ0rGXYoin2YaHRWOg4bSdcJ6esv9iBVHH8E15ttWroYXyRK6gepgGBGTxHE898bC9H/dw7pJN8WXuKk1hap4gKM8fzhMcwGGirdbxIM46AwmOBtH/7Ar21O8CbvaCB5R9U28xqkY/z1Y+tUSCSVStb7PHNZCzfxj7qPkvwMfjHVlXbbW0SPbUXQlRpuRN6DXTUv5FH/tmLvaSTl2YkQHyjMAx/HzEfRP160TXdkQjy56dfk8I4a282XT5wSmp4JIO6jZHjYYe6e8jFINo8YMZYWUAjCCotHg==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
+ dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
+ header.from=amd.com; dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
+ b=DJ1L9I8S2XpC9d59SGMJHlkrjwQkWKk4Buv3aTL5yssC9r8aUaJEzZ28xF+n51+2XFCtduAHJozvNX4uh8PzV91xEngGzgfVURvSuyCfavTtijnULqUnLhvKcjZitpOPVklYGovsSBV/VQET9IwtH8hyOx7uAiNPaf4vv67Zruk=
+Received: from MW3PR06CA0029.namprd06.prod.outlook.com (2603:10b6:303:2a::34)
+ by PH7PR12MB6810.namprd12.prod.outlook.com (2603:10b6:510:1b4::12) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.16; Fri, 18 Sep
+ 2026 04:45:32 +0000
+Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
+ (2603:10b6:303:2a:cafe::81) by MW3PR06CA0029.outlook.office365.com
+ (2603:10b6:303:2a::34) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
+ 18 Sep 2026 04:45:32 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:45:31 +0000
+Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
+ 2026 23:45:28 -0500
+From: Ankit Soni <Ankit.Soni@amd.com>
+To: <iommu@lists.linux.dev>
+CC: <vasant.hegde@amd.com>, <suravee.suthikulpanit@amd.com>,
+	<arunkod@amd.com>, <joro@8bytes.org>, <will@kernel.org>,
+	<robin.murphy@arm.com>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>
+Subject: [PATCH] iommu/amd: Fix IRTE allocation when DMA translation is off
+Date: Fri, 18 Sep 2026 04:45:15 +0000
+Message-ID: <9a0c163409807c709511c335018c9e5b504abbb4.1789705496.git.Ankit.Soni@amd.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -52,69 +71,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:uniontech.com:qybglogicsvrgz:qybglogicsvrgz3a-0
-X-QQ-XMAILINFO: MPAlP4yRn0xgLBU+73ErcF0cH+m0lKAYqQ8KYm7LsmpgD8duNzS4cYM0
-	meYu9SXtEBFqJMsLII1XI3BKrpg39zkwQ4hmiWZoiEgfdU7vcxHFT/hXiVS/Wnbz1Oi5RWQ
-	y+fuRLLSTZJ0Y1AuwaJWFpv8LChScTkiRhWiKRkM3k8ikGcVBXBN88RvPNN6QMcrtZqwFKT
-	hsWf3E+3CtTD2onNP91IDJkzNq8s3xvGiKqCUNgVSaFK+/OSX3gyGLPMlBCe3y3olhpT/yj
-	191EsT4n6kKlVIfIotcMvzogFCpo4SDvJxqnXmuq4a0xWf3mz2SQKy+TcLA4JKzUoBRt+/m
-	u1x5/QGLKgRJMVl+quaBNdI3Aqm9GlNFGbybO+e2e4ZZ1vwlbTgu2/iGzwvMDt7lf7S1AYi
-	5VgacT4jPU7yC1WSYi0Uzi44dspwUwYFBxfKVYd9oZfPAY9a/Jrg4n1wAxmkx7xis7yOZG5
-	i4Sy+4oDaahQbpdXkNx7tNjTUSsiOKVn5Y6CSDP5oE7xSyGx+0lW6zMhE3hFH3lOhkg5SXC
-	7DO2pTGlCkt7PjcwhVKolrGVY3dC1WSCbot1CA9jywkUlGRTiDVywF7vBkUPsovVabvTwPV
-	aA/N8uA7i87YqgaPISnCdIG1XamGHfDRgaqZ2mgyhoY7NfmjS5e+VXgIfFU8OrOqc/bZ857
-	MDq+iamRjoY1q/eASpBGF6MU22s5RojahuSbA9zwxHS7+C+7iqqsz/bCAEcnqRLsuqxHATK
-	ft/jV588VxKHRZu6p8VDSxeVRIAfEjVuPHw63OSZt9mxB/sUS2nF8x4PVCnYoxP91gInTVE
-	rnVnglRIdpIThT/SfhdFbXfFu7LGQAUOKrV0+KSre+rry+V4xDt8sj3GUbKwpW5KQwapG+P
-	dCj2dsYXMrvrYlpeBF92kpu4IOlQm7FvjOks+Q9FglMywNU3X64JnLg1ij6ZAqty9Y/A9sJ
-	uM8Vz3qNvgyVtNJNLGXsVkn5XPV9nUP52VgMMGpo2EgO2/PetjyT6tGuuejBfBk8EOvRyZm
-	ZoAO4H8vUhPa2qcQgLRHPE0k6nhV35MDWNIonN2GRAbmMPy6wx
-X-QQ-XMRINFO: NI4Ajvh11aEjEMj13RCX7UuhPEoou2bs1g==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|PH7PR12MB6810:EE_
+X-MS-Office365-Filtering-Correlation-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|18002099003;
+X-Microsoft-Antispam-Message-Info:
+	18WAfZ5sABdU3aPZ78hysvFHyXLqhTPu2q0kB9muUR9D+U37vZn/g6WVKPquclrMzb1gYSmH2/q3eGfA/pl6p18Z1VPqCM3Jyeui7K994zCOSLk5XASid4sEjmNrlYojB0rpWQ08jLaX2Qny5q+/7pMNjwar3oh7VBAqnf7NuL9KjHABpoxGD9G0g4L7gBQxIP5BmYh8aqpGVsgEklVCdTZEhmFzSxvSMgEDSUfy8AK8+qXfKZvaW7VcZ2cDNqSB+ah9W322N5Y2kAO1pw3xKW6KljLpmgmMwY749Ioh1gAulv03lEpdc5hyGz6AF+6ZO0imE+p570neJV7lAK0Zxasu3mITzNwvrUvQ75Ur9OIqlhmzEmySGEN3dQJD4D//5NwvPN3qphZveI+O3zaNLVeIBNBz6CDf3izTePkh6+8qdh0jG10mefzBpWp5l6SElpEmwyG6bhU/9QbtL7bpZOTTjqNXm4hjy5rs1J1C7IQ1VXU/6idca+R+QdgryqlbOMuThZyDcoH358wCjROWcpZiWF5RdMgKPat/sGXQtdVoHlha0XihfttnfyH3r9a9AGhoT8XP8otXgTTks8hd7I6XbBrzEAlv9wxUwsEReGCqkmWeUHQKJqtyt7XrVndNKX44smu+Lq9szpr6vd2GLBbuyLQG3CyNOiHcRQhvEidQl6TF8OsQ8eDz7tZRzSf4n3Tw5HnKLetVmpx+9fCHHQ==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	ThhRgmBjpERyZ1FCOnv32kKJ7bHzR3dq/jxXghBJuWxAEWic/GRKSTMjo4lVLagklepoUEjEBFbhfelFta0zCU5aYIz+ru8mfe6hn8WQs3TSd7YNIrrkMWS5RAFOWNV6e23uB8ym4UcXgKP/uQ28iCdU6469GlXZI0vBeBvvbkfwFuhNzPGHfjdfbNVEEbmnaqAHKUCvILStv/MdvZC6G/ZknJcqVSJXNegnqvAycIVo2aGNSXSDBjRLrd1X9kSbccWF92y1e2lqTDzdZoKvj3x73m8GCym7BmZeO9uQr9n2zvDxEyrEGx8SdwtCjafNZ2mnyvarsBpyw6TPCbCBditQZHFJXG0mbmuO6M2v3EJwG7bZZ7Va5D8pdLs1/LiIVcHPo0OZGr0FGtEJazImz6Ovil2saHzfbJsUBM/CVTfWbRzrxeLEWr7NBCHm/P0/
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:45:31.9502
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	SJ1PEPF000026C3.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6810
 
-Since commit 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active
-mode on shared memory systems"), shmem_init_perf() programs
-AUTONOMOUS_SELECTION_ENABLE unconditionally, including in active mode.
+On an emulated IOMMU, DMA translation can be off while interrupt remapping
+stays on. Probe path skips DMA setup as intended, but it also skips IRQ
+table size setup. Interrupt remapping then fails with "Failed to allocate
+IRTE".
 
-On platforms implementing CPPC v2 and below, _CPC reports Autonomous
-Selection Enable as a plain integer rather than as a register descriptor.
-Such a field is a read-only capability flag: cppc_get_reg_val() reads it
-back successfully (the firmware reports it as enabled), while
-cppc_set_reg_val() rejects the write with -EOPNOTSUPP because the entry is
-not an ACPI_TYPE_BUFFER.
+Fall through after the PD_MODE_NONE check so the IRQ table size is still
+set.
 
-shmem_init_perf() propagates that error, so every amd_pstate_epp_cpu_init()
-fails, cpufreq_register_driver() ends up with an empty policy list and
-returns -ENODEV, and amd-pstate refuses to load at all:
-
-  amd_pstate: failed to set auto_sel, ret: -95
-  amd_pstate: Failed to initialize CPU 0: -95
-  ...
-  amd_pstate: failed to register with return -19
-
-Failing to write auto_sel is not fatal: the register is either already
-enabled, as reported by the cppc_get_auto_sel() call right above, or not
-writable at all, and active mode worked in both cases before the offending
-commit.  Downgrade the failure to a warning and let initialization
-continue, matching how the cppc_get_auto_sel() failure is handled.
-
-Fixes: 9dfd13f80c85 ("cpufreq/amd-pstate: Toggle auto_sel in active mode on shared memory systems")
-Cc: stable@vger.kernel.org
-Tested-by: LFRon <ronforever@outlook.com>
-Signed-off-by: Wentao Guan <guanwentao@uniontech.com>
+Fixes: 3222b6de5145 ("iommu/amd: Fix error path in amd_iommu_probe_device()")
+Cc: stable@vger.kernel.org # 6.19+
+Suggested-by: Sairaj Kodilkar <sarunkod@amd.com>
+Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
 ---
- drivers/cpufreq/amd-pstate.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ drivers/iommu/amd/iommu.c | 1 -
+ 1 file changed, 1 deletion(-)
 
-diff --git a/drivers/cpufreq/amd-pstate.c b/drivers/cpufreq/amd-pstate.c
-index 80d99ba1902c9..3657c5cccd4d8 100644
---- a/drivers/cpufreq/amd-pstate.c
-+++ b/drivers/cpufreq/amd-pstate.c
-@@ -538,5 +538,5 @@ static int shmem_init_perf(struct amd_cpudata *cpudata)
- 	if (ret)
- 		pr_warn("failed to set auto_sel, ret: %d\n", ret);
+diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
+index 56262f6b1f70..77ef2749206a 100644
+--- a/drivers/iommu/amd/iommu.c
++++ b/drivers/iommu/amd/iommu.c
+@@ -2531,7 +2531,6 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
+ 		pr_warn_once("%s: DMA translation not supported by iommu.\n",
+ 			     __func__);
+ 		iommu_dev = ERR_PTR(-ENODEV);
+-		goto out_err;
+ 	}
  
--	return ret;
-+	return 0;
- }
+ 	iommu_completion_wait(iommu);
+-- 
+2.43.0
+
