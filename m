@@ -1,118 +1,102 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A39C282F3F;
-	Fri, 18 Sep 2026 21:43:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9BB043F39E4;
+	Fri, 18 Sep 2026 21:44:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767811; cv=none; b=pPRMSrOa9TUCIr7o9/BaeV5V9MFtaZqIAnjdnUo5rjGaaT49RuTQXU5CrUYTtn4eM4SlHVIdUTSGHj5jH+nf0Fzx0g01IQcWSFd+Vl1phbmZQMbuXAh8sFgx3gyMZ88TBaTd3Zw4W7Y+j0YugZhjQOJ307+PRfAd/MfsES7NbYs=
+	t=1789767855; cv=none; b=azkf0Zp1Ozr89/j14Fhz/lEqdQzAEkUJ7mlLnOYpbOjRQLywmVkW6c9+upmlG19ciKXqBVOiNZrem1qLboXZ82L4h2MdzVtAjuTmoTbHsg/VkNG1QAr/o/IF4zmCpcW4lA7QRHF/iuLbmDPRcLnd0pDRCToNH0y3C+Zr+IwIVmw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767811; c=relaxed/simple;
-	bh=AsVtusUixwmmy3M9myCe+BR+NyMp1aRRF2NxWrafoK0=;
-	h=Date:To:From:Subject:Message-Id; b=q3Uv86XWESQl01cIPEJdrwGUx22qmUxUOu68l005S+LBgf3In6+k0cBWBB9+3yyLZF5ih4+ConHFeFri5hpeQbmHBCK/KrvRaqbLurA+NoVDAfOgoQpMCRShRhmlz0v09jaaSX+F1p9FpwVsptnTs2SAqOGzjJd9kkfDX0t57TM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=s66FDOn7; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789767855; c=relaxed/simple;
+	bh=lGcZs9Ya685F4IECF8X0D5dii1TMdSeuiUW9ZnB0SuU=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=qM+P8wrSlh9v6j7TL3b7zr8P+wHZcC4xtkx2ByjKnggDdrfKz2wutT1EGyfZCILOHPGm9AhhRSaRLSsMm5YWMEkmsFjGA9Ry3SxFCvkE7CPAwzjMrM8WWGRyRQJYazrT6rvGVioRQ8DeoBq0eytbjqqJMRkKTbsAH2NpwHT8stA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=IIqIr83l; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="s66FDOn7"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E87F1F000FF;
-	Fri, 18 Sep 2026 21:43:29 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789767809;
-	bh=eu0YRngYLFL7ctP+6nzbwFHIB9XI4Py7Z0Yh2iQNhGQ=;
-	h=Date:To:From:Subject;
-	b=s66FDOn7FwYLecjOvsCVhS41HiMhkbwDd7+KEhJgcLPXzTvyoJ1iI1I2rT1iUYBbJ
-	 tfCAD4/5P81EGAkkYwEm2ChaJ9JWlRP/PJ/8ScYDeKxFQ51rC4RajlaR0AghaAgZh/
-	 c3awjLg6OZz3imQCY4N/PbzBsh/npS9lFmSpvcc4=
-Date: Fri, 18 Sep 2026 14:43:29 -0700
-To: mm-commits@vger.kernel.org,surenb@google.com,stable@vger.kernel.org,hao.ge@linux.dev,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch added to mm-new branch
-Message-Id: <20260918214329.9E87F1F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="IIqIr83l"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CC6D1F000FF;
+	Fri, 18 Sep 2026 21:44:13 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789767854;
+	bh=j5IG9Rqy0v+njwZWEYcAlUJQDLI7QibMVy2LlvQ4GpE=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=IIqIr83l9kya388yLaqvpfg+q9HbEyZsQDdFgpJFCLvoJxuY5G0bbsuOHd/Sb/RXP
+	 3lrhoyKHdPCqQrl1eZ/Iwg+ykLzyYbCS6G4AZPbfgWh05ZUaT0YefFz64xtO7XrrDV
+	 D0CvvVI7WqfcJMEPbT0/Xu55v/Y49I5mT/TWoy4y/zf68ZTM/gsh700Fm27aV3Hwf4
+	 SKh8Qgwu1uXDR4dt0E7U4Fp8kuxdBEd146dnUPxMldoREWCuH+e1KDGg8cydrggAnf
+	 HRYzsNkW2Zw178WBoEXmRiYeamu8tP3p2g/FQdnipYJG/Ru0dEC0en5K71uFBfPjIP
+	 LNtUKmrOYgA6g==
+Message-ID: <91b23d5a-b923-48da-9ab5-bf2aabe1afca@kernel.org>
+Date: Fri, 18 Sep 2026 22:44:12 +0100
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] nvmem: u-boot-env: Fix mtd reference leak in
+ u_boot_env_probe()
+To: Wentao Liang <vulab@iscas.ac.cn>, a.fatoum@pengutronix.de
+Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+ rafal@milecki.pl, srini@kernel.org, stable@vger.kernel.org
+References: <20260917123839.2151503-1-vulab@iscas.ac.cn>
+Content-Language: en-US
+From: Srinivas Kandagatla <srini@kernel.org>
+In-Reply-To: <20260917123839.2151503-1-vulab@iscas.ac.cn>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
 
-The patch titled
-     Subject: mm/alloc_tag: account for reserved tag ids in the kernel tag check
-has been added to the -mm mm-new branch.  Its filename is
-     mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch
+On 9/17/26 1:38 PM, Wentao Liang wrote:
+> of_get_mtd_device_by_node() takes a reference on the returned MTD device
+> that the caller has to drop with put_mtd_device(). The probe function
+> returns early when devm_nvmem_register() or u_boot_env_parse() fails
+> without releasing that reference, so add the missing put_mtd_device()
+> calls on both error paths.
+> 
+> Fixes: d5542923f200 ("nvmem: add driver handling U-Boot environment variables")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/nvmem/u-boot-env.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/nvmem/u-boot-env.c b/drivers/nvmem/u-boot-env.c
+> index ced414fc9e60..893fbd2a8520 100644
+> --- a/drivers/nvmem/u-boot-env.c
+> +++ b/drivers/nvmem/u-boot-env.c
+> @@ -52,6 +52,7 @@ static int u_boot_env_probe(struct platform_device *pdev)
+>  	struct device *dev = &pdev->dev;
+>  	struct device_node *np = dev->of_node;
+>  	struct u_boot_env *priv;
+> +	int ret;
+>  
+>  	priv = devm_kzalloc(dev, sizeof(*priv), GFP_KERNEL);
+>  	if (!priv)
+> @@ -71,10 +72,16 @@ static int u_boot_env_probe(struct platform_device *pdev)
+>  	config.size = priv->mtd->size;
+>  
+>  	priv->nvmem = devm_nvmem_register(dev, &config);
+> -	if (IS_ERR(priv->nvmem))
+> +	if (IS_ERR(priv->nvmem)) {
+> +		put_mtd_device(priv->mtd);
+>  		return PTR_ERR(priv->nvmem);
+> +	}
+> +
+> +	ret = u_boot_env_parse(dev, priv->nvmem, priv->format);
+> +	if (ret)
+> +		put_mtd_device(priv->mtd);
+>  
+> -	return u_boot_env_parse(dev, priv->nvmem, priv->format);
+> +	return ret;
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+consider devm_add_action_or_reset() that should cover one more case this
+patch missed.
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Hao Ge <hao.ge@linux.dev>
-Subject: mm/alloc_tag: account for reserved tag ids in the kernel tag check
-Date: Wed, 16 Sep 2026 15:55:57 +0800
-
-The tag ids stored in the page flags include two reserved markers.
-Id 0 means the page has no tag and id 1 means the tag was cleared,
-so real tags start at CODETAG_ID_FIRST. The kernel-side check in
-alloc_tag_sec_init() compared kernel_tags.count alone against the
-addressable limit, so with the count at or just under the limit
-the last tag ids wrapped into those markers. Pages allocated
-through them then look the same as untagged pages on free, nothing
-is ever subtracted from the real tag and /proc/allocinfo shows
-that memory as still allocated.
-
-Add the missing CODETAG_ID_FIRST, same as tags_addressable().
-
-Link: https://lore.kernel.org/20260916075557.121316-1-hao.ge@linux.dev
-Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
-Signed-off-by: Hao Ge <hao.ge@linux.dev>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Suren Baghdasaryan <surenb@google.com>
-Cc: <stable@vger.kernel.org>
----
-
- mm/alloc_tag.c |    2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
---- a/mm/alloc_tag.c~mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check
-+++ a/mm/alloc_tag.c
-@@ -629,7 +629,7 @@ void __init alloc_tag_sec_init(void)
- 	kernel_tags.count = last_codetag - kernel_tags.first_tag;
- 
- 	/* Check if kernel tags fit into page flags */
--	if (kernel_tags.count > (1UL << NR_UNUSED_PAGEFLAG_BITS)) {
-+	if (CODETAG_ID_FIRST + kernel_tags.count > (1UL << NR_UNUSED_PAGEFLAG_BITS)) {
- 		shutdown_mem_profiling(false); /* allocinfo file does not exist yet */
- 		pr_err("%lu allocation tags cannot be references using %d available page flag bits. Memory allocation profiling is disabled!\n",
- 			kernel_tags.count, NR_UNUSED_PAGEFLAG_BITS);
-_
-
-Patches currently in -mm which might be from hao.ge@linux.dev are
-
-module-fix-lost-error-code-from-codetag_load_module.patch
-alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled.patch
-alloc_tag-remove-proc-allocinfo-outside-of-mod_lock.patch
-mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch
+--srini
+>  }
+>  
+>  static const struct of_device_id u_boot_env_of_match_table[] = {
 
