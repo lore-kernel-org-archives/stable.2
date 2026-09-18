@@ -1,81 +1,99 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from 013.lax.mailroute.net (013.lax.mailroute.net [199.89.1.16])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A53A1511191;
-	Fri, 18 Sep 2026 15:54:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 493C34E50DA;
+	Fri, 18 Sep 2026 16:06:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=199.89.1.16
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789746866; cv=none; b=kV/oHTIN217d5SBTlIfBrFdxBTfzIS4KnxueUXOOmPhBqxvWVCoXa5xc/tzlyiYIfnnapg7xkCPqu+m7gXq2yxOIH8FfD+4cLg7io/KVYT0q0IsEQR3oyR4sx0sZsiRB0F2qJgkN+6Gn4bXoGSNWPDbkHMiFnud1dK7FnY3KA+Y=
+	t=1789747578; cv=none; b=dz5FNSSu4tKrJRpJpukOIIPb71ENcrgYsg20fQV/UmaEdEo9lYm//9GfBGeTXY8RZFzSJAoqP55ZsmqEEjNJDzVBbcnOS6LC2Rk6DtrF598v8C+NPlTuVdiGXBmAtIjvLKvipG8S9jq1xPyMTn/HK/+pfhpIAWDZnZ2zZm70isA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789746866; c=relaxed/simple;
-	bh=peulqKYmVPW0msB4c0GTfd51rxsopByUZTSKNltenqc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=jWtGSP4VZYl5YJltdk3embprEQVLHq/YPikiN1k0al89H2aw/Kc/2pEmWaTGJqYU1lUxlMHRs6vDyINcAq3FivLZCQIotBba+MPt+PNpLdUNfGv/YB7Gqy8Kx7R9DN/QZvkzvL8SjWBY9QFyOc6sK7xXcd9Rq1HXxBXnEp6zBG8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RYeOJOdp; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789747578; c=relaxed/simple;
+	bh=DtRxiNCsFLQWcS+gNBg0UEsVy/nFi9uPGmGGpQ3qQG0=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=dEQmToZrqFq9U0JGAypfMkTRJg5maWG0wQKzQYMxzgHJXyoXOv0dFye6eg6KNejhpQmi6JO3l4wbpwT2MpVjcFsSwaKWMCQ/lt8aZ1ucV3Gy7G8xvNDNFuQHrNWSrJRbUvdkx3g0wqEhwOi70CC2OMNWtYzqwDqDfOi+nFZogpo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org; spf=pass smtp.mailfrom=acm.org; dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b=V3U/6ml5; arc=none smtp.client-ip=199.89.1.16
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=acm.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=acm.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RYeOJOdp"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 659A31F0089A;
-	Fri, 18 Sep 2026 15:54:23 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789746865;
-	bh=SMflwobboO00hd2qWckgVats2PLXIerCxVxrM8bbJnc=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=RYeOJOdpS3WV6iRpeYEANqSPNDvWCn2zoDWhciW3Duls22h4wBDa2aTfD+gO+ggXr
-	 7f1xeIxewj5fjdnGqWyHFAixS8sdV6RhXBkQsp4TJlmlhqlmvQiveLLhbWGLd9ekJ9
-	 ROEtpODUe8pxUJxYogqGvcbVhaZOi2CT10idJ3irNKel3hc0on0Bmvynm3KDvJo8/R
-	 hHlm+8z9CY6OMzK8a55fQEkVIdHGY1o7PiKXyfMTF7J7qaQ68QSN7sIfcWajillcTz
-	 w8qBI2vOhzLBir/BcAJ9BbCe+VNfxI+ZgNTq7Ll6EIik1zzwXqGxAq4f5/G0zc0kvL
-	 1TI1AEr9jFkUw==
-From: Sasha Levin <sashal@kernel.org>
-To: Pavel Machek <pavel@nabladev.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Sasha Levin <sashal@kernel.org>,
-	stable@vger.kernel.org,
-	patches@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	torvalds@linux-foundation.org,
-	akpm@linux-foundation.org,
-	linux@roeck-us.net,
-	shuah@kernel.org,
-	patches@kernelci.org,
-	lkft-triage@lists.linaro.org,
-	f.fainelli@gmail.com,
-	sudipm.mukherjee@gmail.com,
-	rwarsow@gmx.de,
-	conor@kernel.org,
-	hargar@microsoft.com,
-	broonie@kernel.org,
-	achill@achill.org,
-	sr@sladewatkins.com,
-	Jon Hunter <jonathanh@nvidia.com>
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-Date: Fri, 18 Sep 2026 11:54:08 -0400
-Message-ID: <20260918151141.2101477306-sashal@kernel.org>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <8cc48d19-ccb9-46f0-92c9-b26916a349da@nvidia.com>
-References: <20260917151539.408551884@linuxfoundation.org> <aqxLGIyiWCdsQoyR@duo.ucw.cz> <8cc48d19-ccb9-46f0-92c9-b26916a349da@nvidia.com>
+	dkim=pass (2048-bit key) header.d=acm.org header.i=@acm.org header.b="V3U/6ml5"
+Received: from localhost (localhost [127.0.0.1])
+	by 013.lax.mailroute.net (Postfix) with ESMTP id 4hmctc42hCzlfvpd;
+	Fri, 18 Sep 2026 16:06:16 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=acm.org; h=
+	content-transfer-encoding:content-type:content-type:in-reply-to
+	:from:from:content-language:references:subject:subject
+	:user-agent:mime-version:date:date:message-id:received:received;
+	 s=mr01; t=1789747570; x=1792339571; bh=g22YdFd18HrAra8XnJnITid7
+	9Lyg8I2qKQy/Um1nggU=; b=V3U/6ml5ilNiVaNfdTA97xlJ7kHSduz35SzsAL4g
+	EAe2gr6UbkBwyFZOGxEa0wUTIck7gpcsIQb9TO6bfoIg1ui66tvGzj72R3bjwpOb
+	BM8UVIL8PrZ9pl2qJqbqBEZm3s5nxNOqiyakhP/IlUD1OMDvbzUFhr8NPKDHKho0
+	29DvMsMM6AyvEW6s7EmVQFskaQI4NFMdWRhKCPgFavWPcq+Rq70fg4pIrC5vzVKO
+	j+wTEd3fVyvqiZqPaq+sBPd00xlBkl3xEEeoA1H/Wd6cpGvympKW25sWkuX9h8b6
+	4RgJpY6BGhlWYAkZiIwSxET3xGi7vbN/qDER/noxkIFF9g==
+X-Virus-Scanned: by MailRoute
+Received: from 013.lax.mailroute.net ([127.0.0.1])
+ by localhost (013.lax [127.0.0.1]) (mroute_mailscanner, port 10029) with LMTP
+ id mOBrM7M96SoE; Fri, 18 Sep 2026 16:06:10 +0000 (UTC)
+Received: from [100.80.231.125] (unknown [104.135.182.41])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	(Authenticated sender: bvanassche@acm.org)
+	by 013.lax.mailroute.net (Postfix) with ESMTPSA id 4hmctP70DJzlfvpc;
+	Fri, 18 Sep 2026 16:06:05 +0000 (UTC)
+Message-ID: <1ddc5181-f547-465c-bfbe-dbf14a91493e@acm.org>
+Date: Fri, 18 Sep 2026 09:06:04 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
+ iterator in MCQ
+To: Stanley Jhu <stanleyjhu@google.com>,
+ "Martin K . Petersen" <martin.petersen@oracle.com>,
+ Bean Huo <beanhuo@micron.com>
+Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>,
+ "James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+ Manivannan Sadhasivam <mani@kernel.org>, Peter Wang
+ <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
+ <20260918143809.3034592-1-stanleyjhu@google.com>
+ <20260918143809.3034592-3-stanleyjhu@google.com>
+Content-Language: en-US
+From: Bart Van Assche <bvanassche@acm.org>
+In-Reply-To: <20260918143809.3034592-3-stanleyjhu@google.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 12:27:18PM +0100, Jon Hunter wrote:
-> FWIW, I am seeing the same build error for ARM.
+On 9/18/26 7:38 AM, Stanley Jhu wrote:
+> In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
+> blk_mq_tagset_busy_iter() to iterate over busy requests during error
+> recovery and host reset. However, both iterator callbacks perform
+> whole-queue operations redundantly for each visited request:
+> 
+> - force_compl == true: ufshcd_mcq_force_compl_one() calls
+>    ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping the
+>    entire completion ring (hwq->max_entries slots) once per active
+>    request under spin_lock_irqsave even though the first sweep already
+>    cleared all completion entries.
+> - force_compl == false: ufshcd_mcq_compl_one() acquires cq_lock and
+>    polls CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every busy
+>    request without doing any per-request work.
+> 
+> Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
+> ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
+> blk_mq_tagset_busy_iter() afterward to complete residual in-flight
+> requests with DID_REQUEUE, and remove the now-unused
+> ufshcd_mcq_compl_one() callback.
 
-Thanks for the confirmation. Dropped from the 6.12 and 6.6 queues:
+Forcibly completing SCSI commands from inside the UFS SCSI host reset
+error handling callback is incompatible with the SCSI core error
+handler. The "force_compl" behavior should be removed instead of
+reworking it. If you take a look at the SDB (single doorbell) code you
+will see that forcibly completing requests doesn't happen for SDB mode.
 
-  0b8c878d1173 ("net: cpsw: Execute ndo_set_rx_mode callback in a work
-                 queue")
-
-The patch only touches drivers/net/ethernet/ti/cpsw.c, but the 'struct
-work_struct rx_mode_work' member it dereferences is added to cpsw_priv.h by a
-separate commit, c0b5dc73a38f ("net: cpsw_new: Execute ndo_set_rx_mode callback
-in a work queue"), which is not queued anywhere.  6.6 also lacks
-disable_work_sync(), so it had a second reason to fail there.
-
--- 
-Thanks,
-Sasha
+Bart.
