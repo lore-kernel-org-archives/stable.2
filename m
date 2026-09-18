@@ -1,81 +1,51 @@
-Received: from fout-b1-smtp.messagingengine.com (fout-b1-smtp.messagingengine.com [202.12.124.144])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 73C1351E43C;
-	Fri, 18 Sep 2026 19:15:52 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.144
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E363493D57;
+	Fri, 18 Sep 2026 19:16:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789758958; cv=none; b=cbF3m9LS4jQfWo4zwTmglO8+hCKz6DJy/sMQ6Pu38OUnz5ciSP4HsuAUpt/4Yqjuw/9lqI6vB0jlHyjcE2wCakb0E0odTlHa6VqYA56T6dGqnZCdw1U+BL11b4h6uSsuZrCVCdf+gnF5iZDIVUrkrhZxYT8MbqO+LXMKAGlwFWo=
+	t=1789758965; cv=none; b=BGrXeN/cXJtLo25OoCzcx7s0W0Sie7EZpJAp/Ph7064tPiTxQlp2jja8o15X1FfX0KiuTddWPCi/djjkZ6fXC+CExG7UVgMmVZtIVxibzZTwJXYECVoIiJpin5MqRKMWk3DUeU0kjwKKgpElwO5D/jZhNGPcsIC1025uXeGyA6w=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789758958; c=relaxed/simple;
-	bh=p5WFh6dxNr3VyKKjQ9+/1pjidS0TxY0HBEYjnS/a9zk=;
+	s=arc-20240116; t=1789758965; c=relaxed/simple;
+	bh=02Tc3qN4e2T7uvZ8T6wuZ3F3SvaD4Aa6PB7Tar/GMWk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=TBYZJ58iWzP1paVaE7FdWbGqqXGROALKQzrphfgXejCMwOuAeJPpjPC46KmMOs0Mbhu62GBejAfjsiOip7EFNqzcS5JWo7L4WAixXMLT4h8NjdCzX/yDWKGX0pN3pCpLfuLZOr5lc8eMTwR3Cv0p1EMJ4Qn8evAZrFmXDPQ8SIw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io; spf=pass smtp.mailfrom=bur.io; dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b=KRtzX1aB; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=ftidCt9u; arc=none smtp.client-ip=202.12.124.144
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
+	 Content-Type:Content-Disposition:In-Reply-To; b=cQybX5cvJoN8iiZbEeWn2Tfk7AdGSfiyIGR98fSaqLJhDGvjHl4RdrbXSpzhRuArA6onfby/H9pHF29h4/ixbWqZKQddMud8sAJ7FzvDv5cTZUwH1Wfy2eZ6Pe3kpj3JeLIjYD3NuZSorIomjSMDb/dTBL19ArnWhw6UFztNqNM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YKw6sfhq; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b="KRtzX1aB";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="ftidCt9u"
-Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
-	by mailfout.stl.internal (Postfix) with ESMTP id 0906B1D0004B;
-	Fri, 18 Sep 2026 15:15:51 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-02.internal (MEProxy); Fri, 18 Sep 2026 15:15:51 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
-	:content-type:content-type:date:date:from:from:in-reply-to
-	:in-reply-to:message-id:mime-version:references:reply-to:subject
-	:subject:to:to; s=fm2; t=1789758950; x=1789845350; bh=J9nWZf5AYr
-	tOVFVnkFY6HG7AFePU2WrnrLnsh6ZCK9Y=; b=KRtzX1aBQIRtz/iVynBdRwo4xc
-	K02yunkpfQiYm3zYnQj0RFcsDvlNHCpARstW9NLWR9JJ28ty6FcfIA3zhySZGyXF
-	mb6HVhFH0mnNnDDN9xSqXzEr3WsOoJPVkQ7ft/ZGTKyvGVNYMsV8NLUlPJmvbz3U
-	9TikEKttzSrAAKJX7OW98J58TPbeLlm/FXxig1k8pShN1k9nTLitINPZukSx+yWd
-	DKfXWwUIB+UuQVIxWJaQGUbQZJ+yrPq9YMSxRufnFc9utvJGzip6VI0tlbQGsX65
-	S/3OGKOrPcZZn+Cm40QSXQ1URujene0W0gyGXLjagKYZ3avXcp2cbdaKyXHA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789758950; x=1789845350; bh=J9nWZf5AYrtOVFVnkFY6HG7AFePU2WrnrLn
-	sh6ZCK9Y=; b=ftidCt9uSH6ZYJsWQciKfGdphAX4z2qCzMysoeZctgvphHNX9oP
-	2jITy2BR2ZcDvsvFneCc0s1RhFyT/enMpUgVMTNH+7STODdcsZpNyX1O2JH43XtS
-	Cwz0nv7ynUF4XgjM64ojr8rmwLkqHyERtS+WxyKD/ZjQX+GG4br2a1KD9SvsgDcy
-	87HUtDfkxtnuqUrm5yhd89Cor5kbhweZCe2jB+l/ckMBCkqc+3SkpJrawANzfY74
-	t5XOadTx0GjY+Y+n9AWdxzVMUi9lkm2eSMomrxFNi5EYctU139e0Xvamg62E0neB
-	abUGdx8MAF4vaDVU5zNSLtebG9OPIBrNLzA==
-X-ME-Sender: <xms:5o2tagJQ8sEAHWuTuM-keZcEm96epzf8uxePvhZF3GwYwUARb87HqQ>
-    <xme:5o2tavPXTlT20GRWRpICAI2z77vRUo_5j5C6o2KQTLuE3tT3mUF_gDpDUuNmuSbHC
-    2v1LWJ_ze0daWpH3AxPNIaDyDTIuCQfkOBomQQICjGwJG-Z23e2jBgG>
-X-ME-Received: <xmr:5o2tam4CJx1XzQ1U0FJZjRvGOce4YfOeE6Ynx4MlW-G8BtNCfSHkmFQ>
-X-ME-Proxy-Cause: dmFkZTE0AoeRETnm0A/ec5JkBzkAN6/QBdm2Q0BdpiiaNPJLk1gz78iQhps5wjxJp6zQE3
-    BzS+Sdqz5hTitB6pAP2yab9BAX5BC1DE+ztCbhkDv1/3QVGru42UI0Nny5Lt+T3LLNpYD3
-    AaXkN4/2s/P+sKm0kno5DT8CpH+LHHORAFOElbB8gi7TMPLd6nwhEgydcaK0AV/fw22kRz
-    g05B2VsO9Xg+87TC/8fPT3Ag4AGfdBoFk9UEgfAOqssr79KavS4u5GGdjQXD24It7hfCHy
-    vRo+hY8R9jmBalyPPaVeuzPG1eucSJGfKQyldXBCzE56epYg0w+6H1STAqXKyjo9iXkUec
-    xHq8YRZqmw5txZ5LP39nrz9cRhOMRKAFpn0KZTQp2sdyM3n7S0Uz0C/W9yoCkfys1o1OuU
-    tO/alA/xgabm3ALTVeAF8o6J4RU3u9AmlfSWjLvtAXF3hqDwhmrkYMioLCqBly3+Roh/LJ
-    nZS+xP3TA9G+st7eb3jXv5Gcq6nNiqObi9YnUyMwPe65h3UNEEJKSBRHFd7rmHPNWGxb7v
-    d7jFaCxXkEap3tPHTlKmeV4fxQQXae0M0wTzK02erTD1odbuXX0R6E80TDDedOkqi/pXFv
-    1M9B9gFdGDn/6C56zcBwO3Y5yMAQsqL5RntQp69SdMn19gtPv39H+gIV4KhA
-X-ME-Proxy: <xmx:5o2tap76G4xMzSahjDuOWzh0Q0b9UkdiPWl5pJSXnDdJZ_LJI6WyUA>
-    <xmx:5o2tasE3-gDotfuzyFjsuDEXQl7sRAycrByIB2YNThI9aj88JtJNQg>
-    <xmx:5o2tahUhRd1lopPynDlvAZmAwcVAF3lkRSpgcGnYxQ6zY0DvtY69_Q>
-    <xmx:5o2taoVER4r8MhY0aR9sJP0lp66OS8Dg0o8DOi0rmWuhRuMe2YVdcA>
-    <xmx:5o2tanSFbNxJgbOmdxKU5a5eOPP8RTEtm7aKOqPS7xeu9wHQX7fEj6md>
-Feedback-ID: i083147f8:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
- 18 Sep 2026 15:15:50 -0400 (EDT)
-Date: Fri, 18 Sep 2026 12:16:02 -0700
-From: Boris Burkov <boris@bur.io>
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: dsterba@suse.com, josef@toxicpanda.com, linux-btrfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org, naohiro.aota@wdc.com,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YKw6sfhq"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B71C01F000FF;
+	Fri, 18 Sep 2026 19:15:57 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789758957;
+	bh=c8IYTH9i4dCWQ3YBYlg4BiRyNyAFEn5b5sEjDutkcG8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=YKw6sfhqahSo98FQ4YDH83GDubZmslsBOzCwRX5YmDgRq4HgmZJeuxuuLlj7Wn12F
+	 JIG9OZfecc0o4NNUKdBwXgChQhS5qOW5SdJLY5S/tVMCBbxqGzDuUYl3TxbWLC4EWy
+	 gUwN/Y4EcNvvttHTWMxLeq+kzDOwANwRuOCT/6YcFyJh6UdAjROaC9kgfsRGBH8KH+
+	 A4JafannxaoNil5bz7YTyuzn0Hju8miNiJ13qxM+0cR67wm7FhxSZFInUOc9moQ2PD
+	 81EZNkvRtpWmJJtckhzdjUremJPwG4eaSA0hyhPDyp97TmxvhDFVwX9xBfBgsD8hcd
+	 GD22mktcJix5g==
+Date: Fri, 18 Sep 2026 12:15:56 -0700
+From: Oliver Upton <oupton@kernel.org>
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Yuchao Zhang <ndaugoing@gmail.com>, Marc Zyngier <maz@kernel.org>,
+	Oliver Upton <oliver.upton@linux.dev>,
+	James Morse <james.morse@arm.com>,
+	Suzuki K Poulose <suzuki.poulose@arm.com>,
+	Zenghui Yu <yuzenghui@huawei.com>,
+	Catalin Marinas <catalin.marinas@arm.com>,
+	Will Deacon <will@kernel.org>, kvmarm@lists.linux.dev,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] btrfs: Fix block group reference leak in
- btrfs_repair_one_zone()
-Message-ID: <20260918191602.GC2956775@zen.localdomain>
-References: <20260916171716.2087024-1-vulab@iscas.ac.cn>
+Subject: Re: [PATCH v2] KVM: arm64: vgic: Do not remove in-flight LPIs from
+ AP list on disable
+Message-ID: <aq2N7HYbQw7zbpCq@kernel.org>
+References: <20260918040214.85580-1-ndaugoing@gmail.com>
+ <20260918040214.85580-2-ndaugoing@gmail.com>
+ <CA+EHjTx8zzvgqj99TKWfRD58X-M8v+hs9358_r_1zZonFNEsgw@mail.gmail.com>
+ <CAC2BP3K-fvW2s2j2ys+kPMuxrzeMw9yc6MrAk7U7CqCpb2WePQ@mail.gmail.com>
+ <CA+EHjTx9bTDuTnGgkrCcaAG+1S1Lx6+1BZnuhJcWNTJxWXkAHw@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -84,53 +54,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916171716.2087024-1-vulab@iscas.ac.cn>
+In-Reply-To: <CA+EHjTx9bTDuTnGgkrCcaAG+1S1Lx6+1BZnuhJcWNTJxWXkAHw@mail.gmail.com>
 
-On Wed, Sep 16, 2026 at 05:17:16PM +0000, Wentao Liang wrote:
-> btrfs_repair_one_zone() hands the block group reference taken by
-> btrfs_lookup_block_group() over to relocating_repair_kthread(), which
-> drops it.  However the return value of kthread_run() is not checked,
-> so when the kernel thread fails to spawn, nothing executes the put and
-> the block group reference is leaked.
+On Fri, Sep 18, 2026 at 12:58:17PM +0100, Fuad Tabba wrote:
+> Hi Yuchao,
 > 
-> Check kthread_run() and drop the reference if the thread failed to
-> start.
+> On Fri, 18 Sept 2026 at 12:51, Yuchao Zhang <ndaugoing@gmail.com> wrote:
+> >
+> > Hi Fuad,
+> >
+> > Thanks a lot for pointing me to that thread! I was not aware of
+> > Hyunwoo's earlier report and the discussion with Oliver and Marc.
+> >
+> > I'll read through the thread and their rationale on the ap_list_lock
+> > approach. I'm happy to defer to Hyunwoo's effort to avoid duplicate
+> > work.
 > 
-> Fixes: f7ef5287a63d ("btrfs: zoned: relocate block group to repair IO failure in zoned filesystems")
-> Cc: stable@vger.kernel.org
+> I'm not sure you should defer to their effort. It doesn't seem like
+> Hyunwoo has done any work on this for a while. I just wanted to point
+> you to the existing discussion.
 
-Reviewed-by: Boris Burkov <boris@bur.io>
+Yuchao if you have cycles I would definitely appreciate it if you can
+pursue a fix. My view hasn't changed since before: let's make that
+traversal of the ap_list is done under the ap_list_lock, as this is not
+intended to be walked lock-free.
 
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  fs/btrfs/volumes.c | 7 +++++--
->  1 file changed, 5 insertions(+), 2 deletions(-)
-> 
-> diff --git a/fs/btrfs/volumes.c b/fs/btrfs/volumes.c
-> index a88e68f90564..541bcd65a6f6 100644
-> --- a/fs/btrfs/volumes.c
-> +++ b/fs/btrfs/volumes.c
-> @@ -8770,6 +8770,7 @@ static int relocating_repair_kthread(void *data)
->  bool btrfs_repair_one_zone(struct btrfs_fs_info *fs_info, u64 logical)
->  {
->  	struct btrfs_block_group *cache;
-> +	struct task_struct *task;
->  
->  	if (!btrfs_is_zoned(fs_info))
->  		return false;
-> @@ -8787,8 +8788,10 @@ bool btrfs_repair_one_zone(struct btrfs_fs_info *fs_info, u64 logical)
->  		return true;
->  	}
->  
-> -	kthread_run(relocating_repair_kthread, cache,
-> -		    "btrfs-relocating-repair");
-> +	task = kthread_run(relocating_repair_kthread, cache,
-> +			   "btrfs-relocating-repair");
-> +	if (IS_ERR(task))
-> +		btrfs_put_block_group(cache);
->  
->  	return true;
->  }
-> -- 
-> 2.34.1
-> 
+Taking a step back, the whole cross-vCPU LPI disabling always leaves me
+feeling ill... Really when RWP=0 becomes visible from another vCPU we
+need to guarantee that the LPIs have been actually retired, meaning we
+can't have one sitting in an LR. Even with the locking fix I think we
+miss this.
+
+Given how unlikely it is for well-behaved software to disable LPIs
+remotely in the first place, I wonder if we should just halt the VM
+similar to how we handle accesses to the active state. That's a really
+big hammer but we've had a lot of bugs in this department and I'm
+somewhat biased towards an obviously correct solution.
+
+We wouldn't need to do this for a vCPU disabling LPIs on its own
+redistributor since we've already exited the guest.
+
+I'll think on it a bit more.
+
+Oliver
