@@ -1,41 +1,41 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB6AB523783;
-	Fri, 18 Sep 2026 20:32:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA2A522699;
+	Fri, 18 Sep 2026 20:32:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763547; cv=none; b=Jjw6C00R+/Sm0vB/I0eYc9tlN+df7lw8iPyJO84NYvZIJeg/YRNmvzUcXuEw6KNJRLIL6lX0wzcD9ED7DSVcgmu0Vj6/s8+OWbdxiAfq+mJ3TqD3n5NBW8erZkXYPsDU29Xg7BiQu+FwqahkM14QVUzdq8DpzH22jZh38Xnbn4g=
+	t=1789763555; cv=none; b=O0w3hvBUHeK5yIgNJKy8Z56lKZyVc4M1Vs/DbCgucqZm7i1R5Zkte+X27KoPpJM/YO5d7YBH6ERHae/wZOqd32b16gp7TpFefjqMrlsZpp82SEZvPGjNuDr484MyEgepgpMjt7NQf7+wYJx5MJesRSI4Ji2K+t00rIOSKkXGcR0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763547; c=relaxed/simple;
-	bh=awCtQKR8zVzOsWS0w8h31o5Rv/jqZJtos1/c2hzAfLo=;
+	s=arc-20240116; t=1789763555; c=relaxed/simple;
+	bh=qXeso4G9JOJSfSUyHMb0bEYqyspr0J0X6c8OuiOuc+E=;
 	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=bDDpm738qXrtfCV8e0hWOpRdNVR2HgTtPfs7wp9UfoaEJz+FvcOS8WUCDu8MsF3PaKphurzKysF58Y6W6ga871oMT0poE7B1O0qLxH25yd2At64MCQ9gqAaEX0bogYemwHH/sAb/p8OjzUCrLMiL7SEPstMi2UTr4pUCP93cN88=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=vJb1Ch8y; arc=none smtp.client-ip=185.171.202.116
+	 In-Reply-To:To:Cc; b=VP+ae8ZO6Sb6to8wghdTT+XqleRiHMlYxDxzWkPACaPSDORORav+ItjCXX1ilVzP6CUBLIkD+fbCkW8ymvMOaGHatHyGla7ZMR3tSsLPFv+bkOjf4hfVer5uNxu3QGE5wPyM48UG3qqUL3CT7ZeSidBUiYX8a4ke9QxYdUA//g0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=XFGVX85/; arc=none smtp.client-ip=185.246.85.4
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="vJb1Ch8y"
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="XFGVX85/"
 Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 3FBABC5847A;
-	Fri, 18 Sep 2026 20:33:09 +0000 (UTC)
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 934164E40885;
+	Fri, 18 Sep 2026 20:32:31 +0000 (UTC)
 Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id 43B3F60649;
-	Fri, 18 Sep 2026 20:32:24 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 97BCE1032907C;
-	Fri, 18 Sep 2026 22:32:15 +0200 (CEST)
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 61F9A60649;
+	Fri, 18 Sep 2026 20:32:31 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id CF23910329075;
+	Fri, 18 Sep 2026 22:32:22 +0200 (CEST)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789763538; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	t=1789763545; h=from:subject:date:message-id:to:cc:mime-version:content-type:
 	 content-transfer-encoding:in-reply-to:references;
-	bh=iUeXAsB+eMon3IGQKZXDkNH5ztxmcZZI6qhivhfoRbY=;
-	b=vJb1Ch8yo8UAJzD5Re1Y0ODtI9XUQ2BMaUEeS5Dki+NHglcVkW3iW9lb1y15qdO92LfsOZ
-	qAj7skragOfolPss0xBM4SSlm+intz5rZ/cuEfickX+bIQhHx6A71Ck5fHlGFTTYC6LQTB
-	dydcFlcJofhfupwvywcnfnnKkBnEUGNsFFfUu2KLBRFw4z3P3M4ai1YUm1ODuXbycM7Qml
-	7ZggXQWBywJnGk4oTLb2hqh0xniEBhZI82M3SmqFB2ixBtXCR2zgC1VWHOvm9m25+MsDB+
-	Sffv98abychmOpsbHWwqK2ZLj1BzPAIIQ0d2lKajVbpPLcmCBKiDg6yyGnCzFw==
+	bh=/mAkVh9vqUyP4Y71/1fJoyfrZD8rk6C0eOjg+j/FQBw=;
+	b=XFGVX85/nyIIXfbk/8WgQ11cpgA4UrhZsPqeOTfF2nznbYvJSIiLar47MRqPOVPdvd8Z57
+	UKga1PLrRME3a+v3pmDdT1pfoRMRkXMSMXz8sSiUx4VFiINOVtdz0NimjAdYDANoBvPRMK
+	CKBo/sjM/IJJ1SY9i1PE/Pp4gt2z1Wk62rpHrbcfKTJOnRNLJTWCTi3qZdNgRGm4XSKxCS
+	98Zmeimhznkt/mfHg8oTldY8mfft1fPv+66Wr9iScLPQGCMzk9dAgCCynmY22eRtD1AeQb
+	Yug3nfSrra3SENqTRznTZWXEHB9f0poGgxi9lgrYp7OJn6KVb0Ae0A4GH3x3HQ==
 From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Fri, 18 Sep 2026 22:32:02 +0200
-Subject: [PATCH 1/3] net: macb: never give hardware a NULL RX buffer
+Date: Fri, 18 Sep 2026 22:32:03 +0200
+Subject: [PATCH 2/3] net: macb: propagate RX ring refill errors
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,7 +44,7 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260918-macb-close-v1-1-221d916b7961@bootlin.com>
+Message-Id: <20260918-macb-close-v1-2-221d916b7961@bootlin.com>
 References: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
 In-Reply-To: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
 To: Conor Dooley <conor.dooley@microchip.com>, 
@@ -67,56 +67,168 @@ Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
 X-Mailer: b4 0.15.2
 X-Last-TLS-Session-Version: TLSv1.3
 
-The refill logic is simple: iterate over all pending rx slots, allocate
-SKB (& DMA map) if needed and hand it off the to hardware by clearing
-the RX_USED flag.
+gem_rx_refill() is responsible for Rx SKB allocation, including at open,
+but its prototype indicates a void return value.
 
-If the refill operation fails mid-way, it early returns leaving the
-following slots untouched. In the normal case that is fine, because all
-slots have been properly initialised (and might have been already used
-by HW meaning they won't be reused). When slots have not been
-initialised however, we are in trouble.
-
-After dma_alloc_coherent() of the rx ring buffer, all slots have NULL
-pointers and RX_USED cleared meaning HW will try using them. Ensure
-this does not happen by setting the RX_USED flag on all slots before
-calling refill at buffer alloc, in gem_init_rx_ring(). That way even if
-refill fails on an alloc/dma_map, the HW won't try using NULL pointers
-as buffers.
+Therefore we change the code to propagate allocation and DMA mapping
+errors back up the stack, making sure the open fails if it occurs.
+Change all those to return errno-style ints:
+ - gem_rx_refill()
+ - its parent gem_init_rx_ring()
+ - its grand-parent gem_init_rings()
+ - the macbgem_ops.mog_init_rings function pointer
+ - its grand-uncle macb_init_rings()
 
 Theoretical bugfix, never encountered in practice. To reproduce,
 introduce memory pressure (less than 512 SKBs of free memory) and open
-the interface.
+the interface. I expect the last queue to be unuseable because it has
+zero usable rx buffers. Nothing will ever trigger a refill on that
+queue which only happens once a frame has been received.
 
-Note that this codepath also hits at resume, on HRESP errors and on
-set_ringparam (while interface is running).
+Note that other callers of refill (resume, HRESP error task, NAPI)
+cannot do anything useful with that error and keep their best-effort
+refill, hoping it will improve.
 
 Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
 Cc: stable@vger.kernel.org
 Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
 ---
- drivers/net/ethernet/cadence/macb_main.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ drivers/net/ethernet/cadence/macb.h      |  2 +-
+ drivers/net/ethernet/cadence/macb_main.c | 30 +++++++++++++++++++++++-------
+ 2 files changed, 24 insertions(+), 8 deletions(-)
 
+diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
+index d6931c41f39d..cfaa0ca49f1a 100644
+--- a/drivers/net/ethernet/cadence/macb.h
++++ b/drivers/net/ethernet/cadence/macb.h
+@@ -1197,7 +1197,7 @@ struct macb_queue;
+ struct macb_or_gem_ops {
+ 	int	(*mog_alloc_rx_buffers)(struct macb *bp);
+ 	void	(*mog_free_rx_buffers)(struct macb *bp);
+-	void	(*mog_init_rings)(struct macb *bp);
++	int	(*mog_init_rings)(struct macb *bp);
+ 	int	(*mog_rx)(struct macb_queue *queue, struct napi_struct *napi,
+ 			  int budget);
+ };
 diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index b8234ac4b602..751fa9e68099 100644
+index 751fa9e68099..c418f859cc34 100644
 --- a/drivers/net/ethernet/cadence/macb_main.c
 +++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -2785,9 +2785,14 @@ static int macb_alloc(struct macb *bp)
- 
- static void gem_init_rx_ring(struct macb_queue *queue)
- {
-+	unsigned int i;
-+
- 	queue->rx_tail = 0;
- 	queue->rx_prepared_head = 0;
- 
-+	for (i = 0; i < queue->bp->rx_ring_size; i++)
-+		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
-+
- 	gem_rx_refill(queue);
+@@ -1486,13 +1486,14 @@ static int macb_tx_complete(struct macb_queue *queue, int budget)
+ 	return packets;
  }
  
+-static void gem_rx_refill(struct macb_queue *queue)
++static int gem_rx_refill(struct macb_queue *queue)
+ {
+ 	struct macb *bp = queue->bp;
+ 	struct macb_dma_desc *desc;
+ 	struct sk_buff *skb;
+ 	unsigned int entry;
+ 	dma_addr_t paddr;
++	int err = 0;
+ 
+ 	while (CIRC_SPACE(queue->rx_prepared_head, queue->rx_tail,
+ 			bp->rx_ring_size) > 0) {
+@@ -1509,6 +1510,7 @@ static void gem_rx_refill(struct macb_queue *queue)
+ 			if (unlikely(!skb)) {
+ 				netdev_err(bp->netdev,
+ 					   "Unable to allocate sk_buff\n");
++				err = -ENOMEM;
+ 				break;
+ 			}
+ 
+@@ -1518,6 +1520,7 @@ static void gem_rx_refill(struct macb_queue *queue)
+ 					       DMA_FROM_DEVICE);
+ 			if (dma_mapping_error(&bp->pdev->dev, paddr)) {
+ 				dev_kfree_skb(skb);
++				err = -ENOMEM;
+ 				break;
+ 			}
+ 
+@@ -1558,6 +1561,8 @@ static void gem_rx_refill(struct macb_queue *queue)
+ 
+ 	netdev_vdbg(bp->netdev, "rx ring: queue: %p, prepared head %d, tail %d\n",
+ 		    queue, queue->rx_prepared_head, queue->rx_tail);
++
++	return err;
+ }
+ 
+ /* Mark DMA descriptors from begin up to and not including end as unused */
+@@ -2783,7 +2788,7 @@ static int macb_alloc(struct macb *bp)
+ 	return -ENOMEM;
+ }
+ 
+-static void gem_init_rx_ring(struct macb_queue *queue)
++static int gem_init_rx_ring(struct macb_queue *queue)
+ {
+ 	unsigned int i;
+ 
+@@ -2793,14 +2798,16 @@ static void gem_init_rx_ring(struct macb_queue *queue)
+ 	for (i = 0; i < queue->bp->rx_ring_size; i++)
+ 		macb_rx_desc(queue, i)->addr |= MACB_BIT(RX_USED);
+ 
+-	gem_rx_refill(queue);
++	return gem_rx_refill(queue);
+ }
+ 
+-static void gem_init_rings(struct macb *bp)
++static int gem_init_rings(struct macb *bp)
+ {
+ 	struct macb_queue *queue;
+ 	struct macb_dma_desc *desc = NULL;
++	int last_err = 0;
+ 	unsigned int q;
++	int err;
+ 	int i;
+ 
+ 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+@@ -2813,11 +2820,15 @@ static void gem_init_rings(struct macb *bp)
+ 		queue->tx_head = 0;
+ 		queue->tx_tail = 0;
+ 
+-		gem_init_rx_ring(queue);
++		err = gem_init_rx_ring(queue);
++		if (err)
++			last_err = err;
+ 	}
++
++	return last_err;
+ }
+ 
+-static void macb_init_rings(struct macb *bp)
++static int macb_init_rings(struct macb *bp)
+ {
+ 	int i;
+ 	struct macb_dma_desc *desc = NULL;
+@@ -2832,6 +2843,8 @@ static void macb_init_rings(struct macb *bp)
+ 	bp->queues[0].tx_head = 0;
+ 	bp->queues[0].tx_tail = 0;
+ 	desc->ctrl |= MACB_BIT(TX_WRAP);
++
++	return 0;
+ }
+ 
+ static void macb_reset_hw(struct macb *bp)
+@@ -3162,7 +3175,9 @@ static int macb_open(struct net_device *netdev)
+ 		goto pm_exit;
+ 	}
+ 
+-	bp->macbgem_ops.mog_init_rings(bp);
++	err = bp->macbgem_ops.mog_init_rings(bp);
++	if (err)
++		goto free_rings;
+ 	macb_init_buffers(bp);
+ 
+ 	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
+@@ -3200,6 +3215,7 @@ static int macb_open(struct net_device *netdev)
+ 		napi_disable(&queue->napi_rx);
+ 		napi_disable(&queue->napi_tx);
+ 	}
++free_rings:
+ 	macb_free(bp);
+ pm_exit:
+ 	pm_runtime_put_sync(&bp->pdev->dev);
 
 -- 
 2.55.0
