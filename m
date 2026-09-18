@@ -1,213 +1,195 @@
-Received: from mx07-00376f01.pphosted.com (mx07-00376f01.pphosted.com [185.132.180.163])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from cstnet.cn (smtp81.cstnet.cn [159.226.251.81])
+	(using TLSv1.2 with cipher DHE-RSA-AES256-SHA (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43FEC47ECD0;
-	Fri, 18 Sep 2026 10:06:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.132.180.163
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0D0C4BE450;
+	Fri, 18 Sep 2026 10:07:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=159.226.251.81
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789726019; cv=none; b=HJ2ykcMbFEcEqqEQ1fZTZCUC6S2VdIJKhnS5KObC4GaEK5YDiqR3rM1YYdyymJBVk2/AKDqSaVzlWGbB5c3VFtO3lu2iHoWsQHWOhg7Kz7Tkjreq+NPFk3VBbGbrP+iOdOv1z+nrPGZ2jo2ijfKqERofU6q+QIIXn0caxNMO0iQ=
+	t=1789726050; cv=none; b=Pg1sBKyBdfiyobfEayPy/PT2NOKooqrT/v9ikJPrQR+Sh/eeq6sunnrMBzQvmWUYAfu/oURuvVeb9VXWRFyRCV+qS16r0tXu+3KGbE4Zbt5xhzvd09Dmw4msFlvQXhsVa771WYYHZv4p0Ct3FvmMsEIdlco0kVfbXaAJQOI76TA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789726019; c=relaxed/simple;
-	bh=1JZ6dr3RaQ/2JsraylDDhOUeryJgVYQqI872oCK/kpw=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-ID:References:
-	 In-Reply-To:To:CC; b=nC7WJVoOXbWXtlRfd79W9cRchv8xl+AmerZt/cmIsf6hRx4HnqFTSBn45/td9l/S4iG0MxrJoRBHM+lV27gA8FNFDb5fJUtpsgIOZz2hisrXT1EypMZ6DwVPEWhokgz9q8uyBZD54dPy6LvSw3YGZrnRKrYzXU086fy1k+YUyyM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com; spf=pass smtp.mailfrom=imgtec.com; dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b=iuhmwc9b; arc=none smtp.client-ip=185.132.180.163
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=imgtec.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=imgtec.com header.i=@imgtec.com header.b="iuhmwc9b"
-Received: from pps.filterd (m0168889.ppops.net [127.0.0.1])
-	by mx07-00376f01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68I9dJ3Z1686889;
-	Fri, 18 Sep 2026 11:06:36 +0100
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=imgtec.com; h=cc
-	:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=dk201812; bh=Q
-	+jjfCSxS8ZCzm89Vz+Ws2BYXa5D5Adj6ace8/Ys57Q=; b=iuhmwc9bvup4Qy6f0
-	BGeICcuuKVi6G929agTjSBXCP2XyV5fq/7nR/dFOgm6H3RSqNM424BbajJLTjCDF
-	PnVLQ0u4FF9ByJaW50Yp+2xTYOyyDBElw6EiRRX01eYuIUwD4r/Aq1GDF/K2gWtD
-	q4uCH802N26WgcwTOjTaCdWgoNy2zkGsduLUnfRMrvzuTYzptaTCq//3KohL+HrF
-	qz+Owr8RSvfMgcwqAT8hA7078S6h7ocH8ReFvYDA74KmceREtI6L6WOvuunIqyW1
-	ZmBcxN8acSI8fK4N+5JxszMkNy4QpCIxQx9jEGJ1DYWKzOWFOYqi0JO4cLkgNWbg
-	Piwyg==
-Received: from hhmail01.hh.imgtec.org (83-244-153-141.cust-83.exponential-e.net [83.244.153.141])
-	by mx07-00376f01.pphosted.com (PPS) with ESMTPS id 4gmxtung39-1
-	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
-	Fri, 18 Sep 2026 11:06:36 +0100 (BST)
-Received: from [127.0.1.1] (172.25.128.225) by HHMAIL01.hh.imgtec.org
- (10.100.10.19) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.46; Fri, 18 Sep
- 2026 11:06:32 +0100
-From: Brajesh Gupta <brajesh.gupta@imgtec.com>
-Date: Fri, 18 Sep 2026 15:35:40 +0530
-Subject: [PATCH v2 2/2] drm/imagination: Fix page count for page table for
- map() interface
+	s=arc-20240116; t=1789726050; c=relaxed/simple;
+	bh=qQAXMpl6kaEpRcN4/tOcZYMxGs17v3oKNSI/FOISC9k=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=r2Pyn6bmY7nmk/1PDYJMm9fmt8VJ0LE58hE+qfBM3kMRzJRPsHpL90rydNuLaSfZUFuqTzqtAW+YazzJ61+1kMwsnXs1A4geNqiypLmLAcja5E/gDsCzVlMDstgo/P9/Qu+BW1yQpq6qwAwkxNKLhSdOMkD1g28VcsCio1eucx4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn; spf=pass smtp.mailfrom=mails.ucas.ac.cn; arc=none smtp.client-ip=159.226.251.81
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mails.ucas.ac.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mails.ucas.ac.cn
+Received: from fric.. (unknown [36.110.52.2])
+	by APP-03 (Coremail) with SMTP id rQCowABXXDpTDa1qEnAICA--.4167S2;
+	Fri, 18 Sep 2026 18:07:15 +0800 (CST)
+From: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+To: Petr Pavlu <petr.pavlu@suse.com>,
+	Andrew Morton <akpm@linux-foundation.org>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Shyam Saini <shyamsaini@linux.microsoft.com>,
+	Sami Tolvanen <samitolvanen@google.com>,
+	Kees Cook <kees@kernel.org>,
+	stable@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Subject: [PATCH v2] params: serialize lookup_or_create_module_kobject()
+Date: Fri, 18 Sep 2026 10:07:12 +0000
+Message-Id: <20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-Message-ID: <20260918-mmu_fix-v2-2-f7c004fbe203@imgtec.com>
-References: <20260918-mmu_fix-v2-0-f7c004fbe203@imgtec.com>
-In-Reply-To: <20260918-mmu_fix-v2-0-f7c004fbe203@imgtec.com>
-To: Alessio Belle <alessio.belle@imgtec.com>,
-        Luigi Santivetti
-	<luigi.santivetti@imgtec.com>,
-        Frank Binns <frank.binns@imgtec.com>,
-        Alexandru Dadu <alexandru.dadu@imgtec.com>,
-        Maarten Lankhorst
-	<maarten.lankhorst@linux.intel.com>,
-        Maxime Ripard <mripard@kernel.org>,
-        Thomas Zimmermann <tzimmermann@suse.de>,
-        David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>
-CC: <imagination@lists.freedesktop.org>, <dri-devel@lists.freedesktop.org>,
-        <linux-kernel@vger.kernel.org>, <stable@vger.kernel.org>,
-        Brajesh Gupta
-	<brajesh.gupta@imgtec.com>
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=5045;
- i=brajesh.gupta@imgtec.com; h=from:subject:message-id;
- bh=1JZ6dr3RaQ/2JsraylDDhOUeryJgVYQqI872oCK/kpw=;
- b=owEBbQKS/ZANAwAKAdAmd1l+AvFwAcsmYgBqrQ0fWdtmyMuzQJzktM3vy+2a35AyHD2dZm7Hg
- oTbb0MKrJWJAjMEAAEKAB0WIQSQIkZAwD1cxcAsz3LQJndZfgLxcAUCaq0NHwAKCRDQJndZfgLx
- cNShD/9y+fCd1u8FusyhRN+Zrm+HK7QIfSy7c4VxuOTU31kt5PSybjPmiOXg5KSGBm/CiN8Ncmn
- y3qeHK2PUHuAb9Wn6+lVeO+Jzq7fwmW/so4xGW+RxrsWSbN2u+zxZ3N5Ti8VV4vj87fCqYOkTFo
- EZhybfaP2P01CDGMjgEv5tfqTDXLmo2Lq9VjZ/xrfyO9jeuvbNS7SXxiJTNaSFlSBtA8BWGKacD
- URVB/RwvGiI+rOqBrOCLRZgF+DStHwDoXw8bC8054HI8Ccl5j6t2S/7An9ohdXOaJJlC80u9I/P
- AfZP1hQYO8nJQbcE/vXuRELPynrLjRMoP+p/nlMeYMVEI++IjJascdwJFL5liVIL+JZfXO6mUZ0
- LelXO3Xz9g5eZFn2vUPQuGlVv/6BbUZFZxzsY1NifwRd/wCEfrsEFdYVYKwWVgYuu0VHiSyQ6Al
- F866HCjjraWGjhTounQO2t2Tj00PaZ2KtSElfUlWpmhR7MNPZgimJRszp0Sy7NSV+7eXrnRqFe2
- JdoKMp53ztnXfHqr9+0rLtxqIEI2E1ORnYHsHzbwqPRUDsW4oNcPe4U8YI0DwTwQbIsx78vczt6
- PN/o0uJwoIpkGOMiiVKwFL1rdsQIvadGtSCJMOOkHDsz5O4XxnGKPVjrH3+Vv9ZNivilG8YQZbP
- OXsLED6zU/WxUVg==
-X-Developer-Key: i=brajesh.gupta@imgtec.com; a=openpgp;
- fpr=05BAA300FD5C580EFD3F8D2F073292BAD0D39671
-X-Authority-Analysis: v=2.4 cv=Se9i5fRu c=1 sm=1 tr=0 ts=6aad0d2c cx=c_pps
- a=AKOq//PuzOIrVTIF9yBwbA==:117 a=AKOq//PuzOIrVTIF9yBwbA==:17
- a=HYrZrZQ_E1YA:10 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=kQ-hrUj2-E3RCbRHssb7:22 a=7RYWX5rxfSByPNLylY2M:22
- a=r_1tXGB3AAAA:8 a=lyzDSBJAejP7XBH9i10A:9 a=0bXxn9q0MV6snEgNplNhOjQmxlI=:19
- a=QEXdDO2ut3YA:10 a=t8nPyN_e6usw4ciXM-Pk:22
-X-Proofpoint-ORIG-GUID: lgXLQ4WjxLEVZfXOPu0h697Oz5DRpw8E
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfX/i5vnAn88lYd
- h6hdh1/mYt7tMTsQ6We5vyh7BERaePWSPbmlwj3bCa47ICa5yaeK+WT/EHcscjGqDEr1EpOWpkk
- RhBcPpgN5ub8ZLhN2wfsBscjCMl1umqliHPx7SQlX7c+zJ7E2PjGmIrEPqwb/30sT+OOz3jSApz
- MrseoKOVL7ZjZZ6fKtbpsBxtukw9jIrLqhr2Aw+vhsdaZerwPkahtMOnTNdJDDcut/7cbNHozr0
- hKpnfY4WLEwRYBZN8zpejZpP+LVGRir5lrzklFzzMFiEPboH0YkbOWPkX/g5nGG2iVgBIzzKL6e
- fh0f5RGOEbEu/2+NWhSjg6NJIx6qqjS/ItTSfUmPrecIwTecYQygltenCfV+iRo17bIOslDxl9w
- WATJZXM0FHGBNUy7s21bHE0WJuIEIzbabpYMVzmaERwYtfIH8F+cvXa7CYA08fHPay7Zno4Lyas
- +4Hw/gZErJohLClqIYw==
-X-Proofpoint-GUID: lgXLQ4WjxLEVZfXOPu0h697Oz5DRpw8E
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTE4MDE0MCBTYWx0ZWRfX1JknfVqsKdea
- W36j2PwI/7CBrojRchhRFtpw8BGKkAEmeS6Ej1Niu/TMdqGVHJNH5W/oi2nBlNTp935lnQVN3kS
- hVplVC64cNUGo6zI+fj6p1tdtx6wiIo=
+Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:rQCowABXXDpTDa1qEnAICA--.4167S2
+X-Coremail-Antispam: 1UD129KBjvJXoWxtr13uF4UWr1ruF43Aw15CFg_yoWxGFW3pr
+	WYqrZ0k3y8XFs7Ca97A3WkZ34fX3WkZrW7WFZ3Kw1avF1Yyr1vvFnrKrySvF1UA340yay2
+	qF1UArs0kFWDAaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDU0xBIdaVrnRJUUU9j14x267AKxVW8JVW5JwAFc2x0x2IEx4CE42xK8VAvwI8IcIk0
+	rVWrJVCq3wAFIxvE14AKwVWUJVWUGwA2ocxC64kIII0Yj41l84x0c7CEw4AK67xGY2AK02
+	1l84ACjcxK6xIIjxv20xvE14v26ryj6F1UM28EF7xvwVC0I7IYx2IY6xkF7I0E14v26F4j
+	6r4UJwA2z4x0Y4vEx4A2jsIE14v26rxl6s0DM28EF7xvwVC2z280aVCY1x0267AKxVW0oV
+	Cq3wAac4AC62xK8xCEY4vEwIxC4wAS0I0E0xvYzxvE52x082IY62kv0487Mc02F40EFcxC
+	0VAKzVAqx4xG6I80ewAv7VC0I7IYx2IY67AKxVWUAVWUtwAv7VC2z280aVAFwI0_Gr1j6F
+	4UJwAm72CE4IkC6x0Yz7v_Jr0_Gr1lF7xvr2IYc2Ij64vIr41lF7I21c0EjII2zVCS5cI2
+	0VAGYxC7MxkF7I0En4kS14v26r1q6r43MxAIw28IcxkI7VAKI48JMxC20s026xCaFVCjc4
+	AY6r1j6r4UMI8I3I0E5I8CrVAFwI0_Jr0_Jr4lx2IqxVCjr7xvwVAFwI0_JrI_JrWlx4CE
+	17CEb7AF67AKxVWUtVW8ZwCIc40Y0x0EwIxGrwCI42IY6xIIjxv20xvE14v26r1j6r1xMI
+	IF0xvE2Ix0cI8IcVCY1x0267AKxVW8JVWxJwCI42IY6xAIw20EY4v20xvaj40_Jr0_JF4l
+	IxAIcVC2z280aVAFwI0_Jr0_Gr1lIxAIcVC2z280aVCY1x0267AKxVW8JVW8JrUvcSsGvf
+	C2KfnxnUUI43ZEXa7VUbMKZJUUUUU==
+X-CM-SenderInfo: 50xmxthndljko6pdxz3voxutnvoduhdfq/
 
-GPU virtual start address wasn't included in page count for page table
-calculation for mapping an BO object in map() interface. It resulted in
-map failure later due to not enough pages at L0/L1 level.
-Update pvr_mmu_op_context_create() interface to pass device address as well
-to allow correct calculation for page table memory.
+lookup_or_create_module_kobject() first looks up the module kobject with
+kset_find_obj() and, if not found, creates a new one with
+kobject_init_and_add().  The function is called at runtime from
+module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
+module_kobject creation"), which means two concurrent driver
+registrations for the same built-in module name can both miss the
+lookup and race to create the same kobject.
 
-Miscalculation of page table pages for mapping a BO starting at a device
-address 0x8001b45000 of size 0x8ca000:
-               old       new
-L0 count       5          6
-L1 count       1          1
+The loser of the race gets -EEXIST from kobject_init_and_add() and its
+kobject is removed from module_kset by kobject_add_internal() before
+the failure is reported.  The error path then calls kobject_put(),
+which invokes module_kobj_release(), but that only completes
+->kobj_completion and never frees the dynamically allocated
+module_kobject, leaking it (96 bytes) along with the object having been
+detached from the kset.
 
-Fixes: ff5f643de0bf ("drm/imagination: Add GEM and VM related code")
-Signed-off-by: Brajesh Gupta <brajesh.gupta@imgtec.com>
+This is triggerable by unprivileged users, e.g. by concurrently issuing
+the RAW_IOCTL_INIT ioctl of the raw-gadget driver, which registers the
+"raw_gadget" driver on the gadget bus:
 
-Reviewed-by: Alexandru Dadu <alexandru.dadu@imgtec.com>
-Reviewed-by: Alessio Belle <alessio.belle@imgtec.com>
+  sysfs: cannot create duplicate filename '/module/raw_gadget'
+  ...
+  Adding module 'raw_gadget' to sysfs failed (-17), the system may be
+  unstable.
+  ...
+  unreferenced object 0xffff8880188dacc0 (size 96):
+    backtrace:
+      lookup_or_create_module_kobject+0x47/0x100
+      module_add_driver+0x73/0x1b0
+      bus_add_driver+0x1d9/0x340
+      driver_register+0xde/0x170
+
+Fix it by serializing the lookup and the creation with a mutex, so that
+the second caller finds the kobject created by the first one instead of
+racing with it.
+
+Fixes: f95bbfe18512 ("drivers: base: handle module_kobject creation")
+Fixes: 7c76c813cfc4 ("kernel: globalize lookup_or_create_module_kobject()")
+Cc: stable@vger.kernel.org   # v6.15+
+Assisted-by: OpenCode:DeepSeek-V4-Flash
+Signed-off-by: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
 ---
- drivers/gpu/drm/imagination/pvr_mmu.c | 14 ++++++++------
- drivers/gpu/drm/imagination/pvr_mmu.h |  2 +-
- drivers/gpu/drm/imagination/pvr_vm.c  |  4 ++--
- 3 files changed, 11 insertions(+), 9 deletions(-)
+V1 -> V2:
+- Use guard(mutex) to hold mod_kobject_mutex instead of the explicit
+  mutex_lock()/mutex_unlock() pair with the goto out unwinding, as
+  suggested by Greg Kroah-Hartman.
+- Fix the multi-line comment style at the mod_kobject_mutex
+  declaration ("/*" on its own line).
+- Add the missing "Cc: stable@vger.kernel.org" tag, as both Fixes
+  commits are in v6.15.
+- Add the "Assisted-by: OpenCode:DeepSeek-V4-Flash" tag per
+  Documentation/process/coding-assistants.rst.
 
-diff --git a/drivers/gpu/drm/imagination/pvr_mmu.c b/drivers/gpu/drm/imagination/pvr_mmu.c
-index 23261d9ad3fd..62eae7fcd5a2 100644
---- a/drivers/gpu/drm/imagination/pvr_mmu.c
-+++ b/drivers/gpu/drm/imagination/pvr_mmu.c
-@@ -2336,6 +2336,7 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_op_context *op_ctx)
-  * pvr_mmu_op_context_create() - Create an MMU op context.
-  * @ctx: MMU context associated with owning VM context.
-  * @sgt: Scatter gather table containing pages pinned for use by this context.
-+ * @device_addr: Virtual device address at the start of the requested mapping.
-  * @sgt_offset: Start offset of the requested device-virtual memory mapping.
-  * @size: Size in bytes of the requested device-virtual memory mapping. For an
-  * unmapping, this should be zero so that no page tables are allocated.
-@@ -2347,8 +2348,9 @@ void pvr_mmu_op_context_destroy(struct pvr_mmu_op_context *op_ctx)
+V1: https://lore.kernel.org/all/20260918013445.1849655-1-xujiakai24@mails.ucas.ac.cn/
+---
+
+ kernel/params.c | 14 ++++++++++++++
+ 1 file changed, 14 insertions(+)
+
+diff --git a/kernel/params.c b/kernel/params.c
+index 8b25133fed242..a45a0201cb4fb 100644
+--- a/kernel/params.c
++++ b/kernel/params.c
+@@ -3,6 +3,7 @@
+  * Helpers for initial module or kernel cmdline parsing
+  * Copyright (C) 2001 Rusty Russell.
   */
- struct pvr_mmu_op_context *
- pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_table *sgt,
--			  u64 sgt_offset, u64 size)
-+			  u64 device_addr, u64 sgt_offset, u64 size)
- {
-+	u64 start_addr = device_addr + sgt_offset;
++#include <linux/cleanup.h>
+ #include <linux/ctype.h>
+ #include <linux/device.h>
+ #include <linux/err.h>
+@@ -20,6 +21,12 @@
+ /* Protects all built-in parameters, modules use their own param_lock */
+ static DEFINE_MUTEX(param_lock);
+ 
++/*
++ * Serializes module kobject lookup and creation in
++ * lookup_or_create_module_kobject()
++ */
++static DEFINE_MUTEX(mod_kobject_mutex);
++
+ /* Use the module's mutex, or if built-in use the built-in mutex */
+ #ifdef CONFIG_MODULES
+ #define KPARAM_MUTEX(mod)	((mod) ? &(mod)->param_lock : &param_lock)
+@@ -754,6 +761,13 @@ lookup_or_create_module_kobject(const char *name)
+ 	struct kobject *kobj;
  	int err;
  
- 	struct pvr_mmu_op_context *op_ctx = kzalloc_obj(*op_ctx);
-@@ -2364,16 +2366,16 @@ pvr_mmu_op_context_create(struct pvr_mmu_context *ctx, struct sg_table *sgt,
- 	if (size) {
- 		/*
- 		 * The number of page table objects we need to prealloc is
--		 * indicated by the mapping size, start offset and the sizes
-+		 * indicated by the mapping size, start address and the sizes
- 		 * of the areas mapped per PT or PD. The range calculation is
- 		 * identical to that for the index into a table for a device
- 		 * address, so we reuse those functions here.
- 		 */
--		const u32 l1_start_idx = pvr_page_table_l2_idx(sgt_offset);
--		const u32 l1_end_idx = pvr_page_table_l2_idx(sgt_offset + size);
-+		const u32 l1_start_idx = pvr_page_table_l2_idx(start_addr);
-+		const u32 l1_end_idx = pvr_page_table_l2_idx(start_addr + size);
- 		const u32 l1_count = l1_end_idx - l1_start_idx + 1;
--		const u32 l0_start_idx = pvr_page_table_l1_idx(sgt_offset);
--		const u32 l0_end_idx = pvr_page_table_l1_idx(sgt_offset + size);
-+		const u32 l0_start_idx = pvr_page_table_l1_idx(start_addr);
-+		const u32 l0_end_idx = pvr_page_table_l1_idx(start_addr + size);
- 		const u32 l0_count = l0_end_idx - l0_start_idx + 1;
- 
- 		/*
-diff --git a/drivers/gpu/drm/imagination/pvr_mmu.h b/drivers/gpu/drm/imagination/pvr_mmu.h
-index a8ecd460168d..2c02d61ba0a2 100644
---- a/drivers/gpu/drm/imagination/pvr_mmu.h
-+++ b/drivers/gpu/drm/imagination/pvr_mmu.h
-@@ -99,7 +99,7 @@ dma_addr_t pvr_mmu_get_root_table_dma_addr(struct pvr_mmu_context *ctx);
- void pvr_mmu_op_context_destroy(struct pvr_mmu_op_context *op_ctx);
- struct pvr_mmu_op_context *
- pvr_mmu_op_context_create(struct pvr_mmu_context *ctx,
--			  struct sg_table *sgt, u64 sgt_offset, u64 size);
-+			  struct sg_table *sgt, u64 device_addr, u64 sgt_offset, u64 size);
- 
- int pvr_mmu_map(struct pvr_mmu_op_context *op_ctx, u64 size, u64 flags,
- 		u64 device_addr);
-diff --git a/drivers/gpu/drm/imagination/pvr_vm.c b/drivers/gpu/drm/imagination/pvr_vm.c
-index 396d349fb6ce..867a4a44958a 100644
---- a/drivers/gpu/drm/imagination/pvr_vm.c
-+++ b/drivers/gpu/drm/imagination/pvr_vm.c
-@@ -276,7 +276,7 @@ pvr_vm_bind_op_map_init(struct pvr_vm_bind_op *bind_op,
- 		goto err_bind_op_fini;
- 
- 	bind_op->mmu_op_ctx =
--		pvr_mmu_op_context_create(vm_ctx->mmu_ctx, sgt, offset, size);
-+		pvr_mmu_op_context_create(vm_ctx->mmu_ctx, sgt, device_addr, offset, size);
- 	err = PTR_ERR_OR_ZERO(bind_op->mmu_op_ctx);
- 	if (err) {
- 		bind_op->mmu_op_ctx = NULL;
-@@ -318,7 +318,7 @@ pvr_vm_bind_op_unmap_init(struct pvr_vm_bind_op *bind_op,
- 	}
- 
- 	bind_op->mmu_op_ctx =
--		pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, 0, 0);
-+		pvr_mmu_op_context_create(vm_ctx->mmu_ctx, NULL, device_addr, 0, 0);
- 	err = PTR_ERR_OR_ZERO(bind_op->mmu_op_ctx);
- 	if (err) {
- 		bind_op->mmu_op_ctx = NULL;
++	/*
++	 * The lookup and the creation must be done atomically, otherwise
++	 * concurrent callers may race to create the same kobject, and the
++	 * loser of the race gets -EEXIST from kobject_init_and_add().
++	 */
++	guard(mutex)(&mod_kobject_mutex);
++
+ 	kobj = kset_find_obj(module_kset, name);
+ 	if (kobj)
+ 		return to_module_kobject(kobj);
+-- 
+2.34.1
+
 
 -- 
-2.43.0
+Crash report (raw_report0) of the syzkaller crash this patch fixes:
+---
+BUG: memory leak
+unreferenced object 0xffff8880188dacc0 (size 96):
+  comm "syz.3.569", pid 12998, jiffies 4294992047
+  hex dump (first 32 bytes):
+    12 4e fe 86 ff ff ff ff c8 ac 8d 18 80 88 ff ff  .N..............
+    c8 ac 8d 18 80 88 ff ff 00 00 00 00 00 00 00 00  ................
+  backtrace (crc 8dccd85e):
+    kmemleak_alloc_recursive home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/kmemleak.h:44 [inline]
+    slab_post_alloc_hook home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4696 [inline]
+    slab_alloc_node home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:4996 [inline]
+    __kmalloc_cache_noprof+0x1bf/0x420 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/mm/slub.c:5559
+    _kmalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:991 [inline]
+    _kzalloc_noprof home/zzzrrll/tmp/kf_src/linux-7.3-rc2/include/linux/slab.h:1312 [inline]
+    lookup_or_create_module_kobject+0x47/0x100 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/kernel/params.c:761
+    module_add_driver+0x73/0x1b0 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/module.c:46
+    bus_add_driver+0x1d9/0x340 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/bus.c:767
+    driver_register+0xde/0x170 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/base/driver.c:174
+    usb_gadget_register_driver_owner+0x50/0x140 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/udc/core.c:1752
+    raw_ioctl_run home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:596 [inline]
+    raw_ioctl+0xa26/0x1830 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/drivers/usb/gadget/legacy/raw_gadget.c:1307
+    vfs_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:51 [inline]
+    __do_sys_ioctl home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:597 [inline]
+    __se_sys_ioctl+0xbc/0x130 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/fs/ioctl.c:583
+    do_syscall_x64 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:61 [inline]
+    do_syscall_64+0x12b/0x350 home/zzzrrll/tmp/kf_src/linux-7.3-rc2/arch/x86/entry/syscall_64.c:84
+    entry_SYSCALL_64_after_hwframe+0x77/0x7f
+
+
+<<<<<<<<<<<<<<< tail report >>>>>>>>>>>>>>>
+
+---
 
