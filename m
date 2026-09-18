@@ -1,191 +1,300 @@
-Received: from PH0PR06CU001.outbound.protection.outlook.com (mail-westus3azon11011036.outbound.protection.outlook.com [40.107.208.36])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-yx2-f13.google.com (mail-yx2-f13.google.com [74.125.224.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A9AB728488F;
-	Fri, 18 Sep 2026 04:15:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.208.36
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA34E377AA0
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 04:16:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.141
 ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789704931; cv=fail; b=Jo7XU/tVKigy4fuY/WsLGlaha5vcdtgMpx+cjAdOV9nqg2P3vch4D19PJr3Km2xn5Fz8gtp+YnzcAqrrnMMrjyOnNFScHWqTP14upIJWy12LSYC1nBdSr+T31FnITxaw4kWkox/myUjFeQxmJXu8Ml5Zy8OcSpPYI67MQGKJ7ec=
+	t=1789704993; cv=pass; b=nMGXSD02VtxSmn+ogQOTeK01R3OAJDnYtp6MScmhIGtERM7rrXWCPIkp0glweM30PpuNb+0MlcAc5GACvZAZEas1y9A/GKrXAiceHz622ycCStxJzt8u63cAT77pX4nRvJM5A3Mcu/g9tfW+BxUD/Or+NF0AUafc/EbkdYMLcCQ=
 ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789704931; c=relaxed/simple;
-	bh=N4n6Q3+21H3ET3bkUqbhlBZfxsv7TAzCuocYsLXACw8=;
-	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=bqp9J1EeUd6Og7SnD9+4IxUW7onNoPF3OLtH1Dm7OLM00WhOfmq+BG5/zxkFnt3iOtxRa6m585abISh7LC2KcTQmkMzgpSOb6Yf8XMocGsYcS3kiKZMeL4FH9prDcbe2N74JGjPKcQyjZVbCUB/mfv/vJDtpt5K+azcq6lixBwE=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0rUOpuIF; arc=fail smtp.client-ip=40.107.208.36
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	s=arc-20240116; t=1789704993; c=relaxed/simple;
+	bh=Ru2OV2CffCL9NpSNIMTei8TR1QcXxODWTos4dcRwWHU=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=T4hdMD7jTCv73cl40xqTuZl7nebu+/CiXh82jRT2SemV6rx86pWSswfi0tcGEiJkBz+oJncW33Hhhbfq3NCsGt2Hw4jdq2Z0FUqoMkdmQorbW6facB4vv4TOIN+I+DLKxaHsS1XK2McfUmRj5HdxhuKtuEpn8xaX4wZk7w3NoIU=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org; spf=pass smtp.mailfrom=chromium.org; dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b=M5jSN6CV; arc=pass smtp.client-ip=74.125.224.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=chromium.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=chromium.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0rUOpuIF"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=DKGFKtgX/oNb0PNFAKuNX7CB9C0IkDv4xCBTLfdi5kfRM6Y0TvZ7Uv4sxdgsK2dDvkWH9eov/nTZp0YAYCbTZZzOuqhg7L6BoqCaAHZHy6FwreMrkyTPXSMIGi0Ct/gsR5kWfWiP5mk7UlG9a9vvYVgEkhPLux8YZKQqWC8Gp7nYwD+SmlbGdUKhN3DG0TaDI9l7Nm3kgloTBzjgOdmNPkdv/pSNHC2l7tKxzLzXzg7w071ofKV1uZNICkOvKUVqfrSDx94oFnEYmXpWc6VGAP/3NHrn71iKOm/ySll4fS0lj3uIk8pw9Am93zsNttU6qT8qwi3Dp5P31489c6/YsQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=cGzSJvfzwe5+nkB/WrNnRuX57PjsDokXUYQ8Vj9joxY=;
- b=JfQ3QAi8qaUJGQrzH19zSEi0I2yqtuiXyrUZ5UsyMa+zBTqLy5mjdwY0dCtrMQKP1IW+glLWPa/AkH93w7L0B3yttgo/GIIvqX+3dI/Wf5sSzd3kGggNXo7AvLN+Y06QCkrRZ+2hqb3/+VGaLFLEBqCU2Udag90WM90k3sq2x6DA2A5gkE04SM0Q+UuIT6G1MaZI1V5s3t5ErKPwOcRcGKBRX4AdsUdgBHkYKut55k0Oc++M6Ov4xiPd8UpWElCnVxQWzklj1enF52wyyjzYpDL5FMBV/TpTm+bPEJCdp5bJggCwTT6fn5tbZOpsJUCzMw1ufhpPudWxaIKu2VcVRA==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=infradead.org smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=cGzSJvfzwe5+nkB/WrNnRuX57PjsDokXUYQ8Vj9joxY=;
- b=0rUOpuIFLNtvXswgYSW1J0jbHf6/YTffe5UwrDcUlzslpthLNhcGvW/WBxaX3XS50jObxr1qpb+efvTZ3iYcniTeSkGtxV60J1taJFvwjX6DWPgyTAhbWnMsdgkWpUci+07BN7nUWJNZrwMkmadkaODypgHe4xnP3Mfn+LsiFUU=
-Received: from BL1PR13CA0177.namprd13.prod.outlook.com (2603:10b6:208:2bd::32)
- by PH7PR12MB5925.namprd12.prod.outlook.com (2603:10b6:510:1d8::10) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.12; Fri, 18 Sep
- 2026 04:15:20 +0000
-Received: from BN2PEPF000044A6.namprd04.prod.outlook.com
- (2603:10b6:208:2bd:cafe::6e) by BL1PR13CA0177.outlook.office365.com
- (2603:10b6:208:2bd::32) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.11 via Frontend Transport; Fri,
- 18 Sep 2026 04:15:19 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- BN2PEPF000044A6.mail.protection.outlook.com (10.167.243.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:15:19 +0000
-Received: from BLR-L-BHARARAO.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 23:15:09 -0500
-From: Bharata B Rao <bharata@amd.com>
-To: <peterz@infradead.org>
-CC: <akpm@linux-foundation.org>, <apopple@nvidia.com>, <baohua@kernel.org>,
-	<baolin.wang@linux.alibaba.com>, <bsegall@google.com>, <byungchul@sk.com>,
-	<david@kernel.org>, <dev.jain@arm.com>, <dietmar.eggemann@arm.com>,
-	<gourry@gourry.net>, <hannes@cmpxchg.org>, <jannh@google.com>,
-	<joshua.hahnjy@gmail.com>, <juri.lelli@redhat.com>, <kas@kernel.org>,
-	<kernel-team@meta.com>, <kprateek.nayak@amd.com>, <lance.yang@linux.dev>,
-	<liam@infradead.org>, <linux-kernel@vger.kernel.org>, <linux-mm@kvack.org>,
-	<ljs@kernel.org>, <matthew.brost@intel.com>, <mgorman@suse.de>,
-	<mhocko@suse.com>, <mingo@redhat.com>, <nico.pache@linux.dev>,
-	<osalvador@suse.de>, <pfalcato@suse.de>, <raghavendra.kt@amd.com>,
-	<rakie.kim@sk.com>, <rostedt@goodmis.org>, <rppt@kernel.org>,
-	<ryan.roberts@arm.com>, <stable@vger.kernel.org>, <surenb@google.com>,
-	<usama.arif@linux.dev>, <vbabka@kernel.org>, <vincent.guittot@linaro.org>,
-	<vschneid@redhat.com>, <ying.huang@linux.alibaba.com>, <ziy@nvidia.com>
-Subject: Re: [PATCH v2 2/4] mm: allow shared folios to be promoted to a fast tier
-Date: Fri, 18 Sep 2026 09:44:52 +0530
-Message-ID: <20260918041452.270875-1-bharata@amd.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
-References: <20260917162324.GP4121339@noisy.programming.kicks-ass.net>
+	dkim=pass (1024-bit key) header.d=chromium.org header.i=@chromium.org header.b="M5jSN6CV"
+Received: by mail-yx2-f13.google.com with SMTP id 956f58d0204a3-66e4ab201ebso284579d50.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 21:16:29 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789704989; cv=none;
+        d=google.com; s=arc-20260327;
+        b=ImrC9PdH6LeY512jQW41j+hb+2VqYANP8wLULgE/dGCMhIvnorqUkH6hPG1Ivm2Duu
+         8rWJPHddQgnQjCH0SbMlHs0TGvTFyeZlTBZJ2JoEUjEbQ6M3pdu2XZJw8xrDiDsC4LXT
+         LtZIynVmg4o0kkL5XH7UgNq6wnG3+NZpigVWB6VAUUZvpwwzda3WZaDO27ZdTBzMIZzD
+         ZmFXox/Pkcpb2XGbmUBtOHC6vSnBrXGwmvYil8jBnNs/jWOwPlpGR3qqSXWHCFMrxyDR
+         Bl5qs03f4UXVFLkI+aYR7WvVIdt4Q+IDAmuQKfYhkgk9r4LtyPr2urB0U8/roGs+PH77
+         MiRw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=g5DKEYyvWEAWVKejXJm1cVbz3X+KIz29ykH7P6jopns=;
+        fh=J9R73Wb6Z20dcDa9dfSMwQbYsWtTuV+rXehq3ydZMwQ=;
+        b=hCzS1XdzG7Ym817LwwSh0nNndCuE6UECZMVzGB+AbAXnfBmqJguhkb/5UxgQVHh/Wr
+         JLEZZ+SFT++b7dH1ueQrd4rp5Xg+7w+NNV8d0qBDTISh/CuZULqalLHN1GfXjB7iCd5W
+         FAzBQQSwD/XaLH78uVSpYPh+qp+En6giKHUMJ9ObDXLGGjIDkEQvRQyAZEUE+ElD46lQ
+         CpvskOvjWnHFVvPnOiwXPGCPzwAzEG+TOZDc/NdihEK5Kimo5AJEMSUeKynwqM9bOFA1
+         sAp4Z/voo2qz1hqBHEkOKAE16SSL/TiSp29+6EMYRg0YkqXBMotGAwHjQv9BVVvnytgF
+         1/cw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=chromium.org; s=google; t=1789704989; x=1790309789; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=g5DKEYyvWEAWVKejXJm1cVbz3X+KIz29ykH7P6jopns=;
+        b=M5jSN6CVQwtcaWLE5zehzEUl3mQl7m/M7NbwZ+Ne9nQLUPG+OjhBEdOOrgDPUEc95J
+         Q2Y9hm9AH08NwIm6pgnN3RTbSEYDmnUdeVDuxmMTAGZP6HkevuIFeXihB/PAd2/HiTtO
+         VM9wYA80eOkSLKEDrjcvTAzaB8S1OOOzB3Y9o=
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789704989; x=1790309789;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=g5DKEYyvWEAWVKejXJm1cVbz3X+KIz29ykH7P6jopns=;
+        b=wKPcQERU0RU+MkXVjsCYJ+HdjOPa1TW4MOMAnLWh918vkYxL6L6lGPiDijnCqO52CW
+         uokSPqVHxOy7uuyjHd1eEbHZI4oqA3PlJI/LFcunfXQEi07Kv0p5n6o8J8M0AgsYGKHn
+         PjR+5HcofecRLefrBXdRGvac+pOhOC1V11JjOnQc4o1DdeQ4VCRK02J591/TB3sdT54a
+         1gbq/FVqZpmdUGGbepsrhpVSlEfmW39BCPUjxKPH4bebaPocwReRLSufwBG9PgtG6gDW
+         5HJGV+gWg+uObaeoS5BshKCcqBi9CJXxJV4qLPgpqxgxfy3QXoJIh4J2wAT43Y8XISKM
+         YSMw==
+X-Forwarded-Encrypted: i=1; AKwUvBywBZbhbT7xv3mWqBgdKaDTYVk89h5deye9l1uqJs9Lb/lZOtGE9ThmAtneVLBus7FVzPFs46A=@vger.kernel.org
+X-Gm-Message-State: AFuF++nAyaXIQ/1ZLXtM/B3zZnU9MCIT2OHXS3AjQT/semRZciTIJRBS
+	tpmzccRFOWoaaBEEvw27kpzAocup2LXzjulEHgBN4amtDg3j7Ykzbi3iHS8w+vcBWgjeVj23va/
+	L3WrXeYIzu4c2VVYOvau9MRM8RW9ABBnZt7ki7MAu
+X-Gm-Gg: AYBFou0oqLkyxpAMknKTZH0VKEmdc6cWM+lmHPQm5C4GPPoUGsNjyq9cxkDGTahpCXo
+	jZVne55NPE8D6sCWvex55To6Mqtde17yAqFCfaE1I9q55Nql8T0hqnZG6VeEqjpkCq4u/9lWeeZ
+	ac80+3dl5dJ1ljzSD0ynCemQH3HWFeNZR3YQXaTHx5Hv99Ej2u0/Hw+y5lbnjZ4OeIiUSFdQpaq
+	PDPZULhGJmoMJq519CQBHoduotGbxRVhGZWJ+JOoZViI4p9fslSdVhuKPEHMAvfLxEb18fXzbkB
+	o29qeaF67MYt9Q7TbGAol6xSVGy5iDwqkui8pMKwdB0siBZiIFM9oU2o2Nd7BQIlsqQiE6yrZQZ
+	gbeNxGVvR1Q==
+X-Received: by 2002:a05:690e:809:10b0:671:3141:3832 with SMTP id
+ 956f58d0204a3-6717fc76ff0mr285169d50.4.1789704988719; Thu, 17 Sep 2026
+ 21:16:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb07.amd.com (10.181.42.216) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: BN2PEPF000044A6:EE_|PH7PR12MB5925:EE_
-X-MS-Office365-Filtering-Correlation-Id: 9eb6e5d5-db54-4b8b-dda8-08df153b7391
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|376014|7416014|82310400026|1800799024|23010399003|36860700016|22082099003|18002099003|13003099007|56012099006|10067099003|11063799006;
-X-Microsoft-Antispam-Message-Info:
-	HeZbWRI0GI31+ZcLR+ekhEifAhVPHw5Qjfpr+nk/adra3Y+Nbha7tczFDkBxQJXVd6L1eFf24RvYwHonTGT/NQnEHX27/opEHZlFpMwxvfLlgzOC0IWaSrA5vzycDqXOuKVVuB2tP22h6BP+YTxZJ9GZ02IT3mGx7/BPfUc908OGUw/FOheSsha/0EcWZWk3W8IVgBEsEHMNXyyapcCdMjt3FxWeaB0DXmpRJLFbZPnaQ12+0rPy1/SnRfgaWZM8xy8WUjYed9MNEMuQOjrk3h0QGikEQ5eCGU6PmfxyR4dOx5N2ven/5l2jmKAQcPPDPmnPV2MYtVoswaLbw7W5RJAtjX8jGHftE7egu2baFt34wXFy0YbJ/mqhUZz+A5lxkYEYWZqSEP5YQldsKLWUmISpG6ZmJIqaicF22Hw4sDKwwiRwNX3aYfSseWA1AxRl8dlKImelYEBXTylsa6wdIwmuLFwml+belwL/A7fbkI21AouH5mPLKTe/0HqdK4tdzRXGnTEAxhuKqvHTN4bKP6bQTEAnVRfQgEDfW31g1SCD6tjel4nriJWrhfKREp6d4AKd20wloTxfQE7AkhziFWPoTCaNH8QWdadPGght9MnUNFNZs7Ww7pbGPNYDwWnt+44gi9glo2wHklnqKb82FtVRODXWJvvQ7SB904Tzcu+G54FQYYGS7DKLJCsFB8EO7Wxcd1y19rGUEEDIiSdPqg==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(7416014)(82310400026)(1800799024)(23010399003)(36860700016)(22082099003)(18002099003)(13003099007)(56012099006)(10067099003)(11063799006);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	spi5ID4qRKeyi6Jd+ztRUBL3zSXwvifp+mZH5gf7ipwBUP22AQln5gQpzc+cjtsgjjls6yyY4LctMEhb4iRV2nxeTr3SvP3sqcaHXh24ZPtQTz+g3y5kWeOYliooMXvmzA2QD5PDfOdPaXlj81BvDo7/Or/W4vxu6u6VYSOfeYhTDogEXwYCAhuVVPRKpZRT7XSsLt+9wkL7O455MScSM4Fxy/efNZD6CpIHV+vhcb6tz6tuCYqefgJDTyVlbxH4BdXVbHQoqVA4v2ZAQ+BKhi09HfbZPYZLoLse6qwtLVPAtelAANsdZszXYlxspmBdd8gGuzPycrurXjd34bpMK7ozXDIhENhSh/gCInO2qhIoRG2jMfxU5KgsM3+R4IQ+ntYOKyRbqsv9tqezosOqrGHI0yzWgz5UCUfpbEwPWzG4wSl1iRG9gRnchkTvOWrr
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:15:19.5636
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 9eb6e5d5-db54-4b8b-dda8-08df153b7391
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	BN2PEPF000044A6.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB5925
+References: <20260916033327.3054126-1-wenst@chromium.org> <20260916033327.3054126-2-wenst@chromium.org>
+ <f6ace486-70d8-4e81-89cb-e9d55ad9ac8b@suse.de>
+In-Reply-To: <f6ace486-70d8-4e81-89cb-e9d55ad9ac8b@suse.de>
+From: Chen-Yu Tsai <wenst@chromium.org>
+Date: Fri, 18 Sep 2026 12:16:17 +0800
+X-Gm-Features: AcwNN1UR3eVFLoBD9oF0TIdnuDNIVRYA94Woweb8vmhnl_ZgpInsWYdL86x54Xk
+Message-ID: <CAGXv+5ErgWVNtnRiW+QA7+Mzh=W_Y+HGL_iRa1fOaXCYSoAwMA@mail.gmail.com>
+Subject: Re: [PATCH RFT v2 1/5] drm: Split framebuffer pixel offset
+ calculation from drm_fb_dma_get_gem_addr()
+To: Thomas Zimmermann <tzimmermann@suse.de>
+Cc: Liu Ying <victor.liu@nxp.com>, Laurentiu Palcu <laurentiu.palcu@oss.nxp.com>, 
+	Lucas Stach <l.stach@pengutronix.de>, Chen-Yu Tsai <wens@kernel.org>, 
+	Jernej Skrabec <jernej@kernel.org>, Samuel Holland <samuel@sholland.org>, 
+	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>, Maxime Ripard <mripard@kernel.org>, 
+	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, linux-sunxi@lists.linux.dev, 
+	imx@lists.linux.dev, dri-devel@lists.freedesktop.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-> On Thu, Sep 17, 2026 at 12:18:24PM -0400, Gregory Price wrote:
-> > On Thu, Sep 17, 2026 at 06:08:27PM +0200, Peter Zijlstra wrote:
-> > 
-> > Honestly I'm starting to think hint faults are a big hammer making up
-> > for the lack of hardware support for getting this data.
-> > 
-> > Would be nice to just have the hardware report what's hot (and how hot)
-> > rather than depending on a software-heuristic like deriving hotness
-> > from a page fault.
-> 
-> Yeah, there is/was this patch-set from AMD that uses their IBS counters
-> for this, but 'ab'-using the performance counters for this also has ick.
-> PMU data isn't ideal either. Mostly they generate a ton of data that
-> needs to be analyzed as well. Its not clear cut and easy.
+On Thu, Sep 17, 2026 at 11:20=E2=80=AFPM Thomas Zimmermann <tzimmermann@sus=
+e.de> wrote:
+>
+> Hi
+>
+> Am 16.09.26 um 05:33 schrieb Chen-Yu Tsai:
+> > Currently drm_fb_dma_get_gem_addr() calculates the offset into the
+> > framebuffer memory for the framebuffer's unclipped source coordinates,
+> > adds that to the framebuffer's backing storage, and returns the result.
+> >
+> > We are about to add a variant that uses the clipped source coordinates,
+> > so there is already some reuse of code. However, calculating the data
+> > offset for a given pixel is not specific to the DMA FB helpers. The
+> > offset is only related to the framebuffer.
+> >
+> > Split out the offset calculation into a new framebuffer helper so that
+> > non-DMA users can also reuse the same code.
+> >
+> > Suggested-by: Thomas Zimmermann <tzimmermann@suse.de>
+> > Cc: <stable@vger.kernel.org> # dependency for next patch
+> > Signed-off-by: Chen-Yu Tsai <wenst@chromium.org>
+> > ---
+> > Changes since v1:
+> > - New patch
+> > ---
+> >   drivers/gpu/drm/drm_fb_dma_helper.c | 28 ++----------------
+> >   drivers/gpu/drm/drm_framebuffer.c   | 45 ++++++++++++++++++++++++++++=
++
+> >   include/drm/drm_framebuffer.h       |  3 ++
+> >   3 files changed, 51 insertions(+), 25 deletions(-)
+> >
+> > diff --git a/drivers/gpu/drm/drm_fb_dma_helper.c b/drivers/gpu/drm/drm_=
+fb_dma_helper.c
+> > index fd71969d2fb1..ab0f37d8a5ff 100644
+> > --- a/drivers/gpu/drm/drm_fb_dma_helper.c
+> > +++ b/drivers/gpu/drm/drm_fb_dma_helper.c
+> > @@ -75,36 +75,14 @@ dma_addr_t drm_fb_dma_get_gem_addr(struct drm_frame=
+buffer *fb,
+> >                                  unsigned int plane)
+> >   {
+> >       struct drm_gem_dma_object *obj;
+> > -     dma_addr_t dma_addr;
+> > -     u8 h_div =3D 1, v_div =3D 1;
+> > -     u32 block_w =3D drm_format_info_block_width(fb->format, plane);
+> > -     u32 block_h =3D drm_format_info_block_height(fb->format, plane);
+> > -     u32 block_size =3D fb->format->char_per_block[plane];
+> > -     u32 sample_x;
+> > -     u32 sample_y;
+> > -     u32 block_start_y;
+> > -     u32 num_hblocks;
+> >
+> >       obj =3D drm_fb_dma_get_gem_obj(fb, plane);
+> >       if (!obj)
+> >               return 0;
+> >
+> > -     dma_addr =3D obj->dma_addr + fb->offsets[plane];
+> > -
+> > -     if (plane > 0) {
+> > -             h_div =3D fb->format->hsub;
+> > -             v_div =3D fb->format->vsub;
+> > -     }
+> > -
+> > -     sample_x =3D (state->src_x >> 16) / h_div;
+> > -     sample_y =3D (state->src_y >> 16) / v_div;
+> > -     block_start_y =3D (sample_y / block_h) * block_h;
+> > -     num_hblocks =3D sample_x / block_w;
+> > -
+> > -     dma_addr +=3D fb->pitches[plane] * block_start_y;
+> > -     dma_addr +=3D block_size * num_hblocks;
+> > -
+> > -     return dma_addr;
+> > +     return obj->dma_addr + drm_framebuffer_get_block_offset(fb, plane=
+,
+> > +                                                             state->sr=
+c_x >> 16,
+> > +                                                             state->sr=
+c_y >> 16);
+> >   }
+> >   EXPORT_SYMBOL_GPL(drm_fb_dma_get_gem_addr);
+> >
+> > diff --git a/drivers/gpu/drm/drm_framebuffer.c b/drivers/gpu/drm/drm_fr=
+amebuffer.c
+> > index d32aceb6ca9b..9e1231162047 100644
+> > --- a/drivers/gpu/drm/drm_framebuffer.c
+> > +++ b/drivers/gpu/drm/drm_framebuffer.c
+> > @@ -1208,6 +1208,51 @@ void drm_framebuffer_print_info(struct drm_print=
+er *p, unsigned int indent,
+> >       }
+> >   }
+> >
+> > +/**
+> > + * drm_framebuffer_get_block_offset() - Get offset to start of pixel b=
+lock for
+> > + * the given framebuffer and coordinates.
+> > + * @fb: The framebuffer
+> > + * @plane: Which plane
+> > + * @x: x coordinate for pixel
+> > + * @y: y coordinate for pixel
+> > + *
+> > + * This function will usually be called from the PLANE callback functi=
+ons,
+> > + * or from one of the helpers that calculates the framebuffer's DMA ad=
+dress.
+> > + *
+> > + * Return: offset from start of framebuffer to start of pixel block
+> > + */
+> > +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, unsig=
+ned int plane,
+> > +                                  unsigned int x, unsigned int y)
+>
+> Better use u64 as return type.
 
-Here are my experiments with using IBS for memory access profiling:
+To avoid overflow? Not sure who would use crazy large framebuffers, but
+doesn't hurt to play it safe.
 
-1. My very early attempt was to replace NUMA hint faults with IBS
-provided memory access information to drive NUMA Balancing. This
-worked for all the modes of NUMA Balancing (kernel.numa_balancing=1
-or 2) [1]
+> > +{
+> > +     u8 h_div =3D 1, v_div =3D 1;
+> > +     u32 block_w =3D drm_format_info_block_width(fb->format, plane);
+> > +     u32 block_h =3D drm_format_info_block_height(fb->format, plane);
+> > +     u32 block_size =3D fb->format->char_per_block[plane];
+> > +     u32 sample_x;
+> > +     u32 sample_y;
+> > +     u32 block_start_y;
+> > +     u32 num_hblocks;
+> > +     u32 offset;
+> > +
+> > +     offset =3D fb->offsets[plane];
+> > +
+> > +     if (plane > 0) {
+> > +             h_div =3D fb->format->hsub;
+> > +             v_div =3D fb->format->vsub;
+> > +     }
+> > +
+> > +     sample_x =3D x / h_div;
+> > +     sample_y =3D y / v_div;
+> > +     block_start_y =3D (sample_y / block_h) * block_h;
+> > +     num_hblocks =3D sample_x / block_w;
+> > +
+> > +     offset +=3D fb->pitches[plane] * block_start_y;
+> > +     offset +=3D block_size * num_hblocks;
+>
+> User space controls the values in fb->offsets and fb->pitches.  I'm not
+> sure how well they have been validated already at this point. Did you
+> investigate this?
 
-2. The next attempt was to use IBS data to drive only hot page promotion.
-In this approach, IBS was used as one of the sources of page hotness
-information to pghot (existing NUMA hintfaults being the other) [2]
+It wouldn't be worse than before, since this changes is purely code movemen=
+t.
 
-Both the above approaches used the primary IBS instance that was being
-used by perf sub-system also and I had made the use mutually exclusive.
+There are minimal sanity checks done by drm_internal_framebuffer_create()
+in framebuffer_check(), such as offset overflow or pitch size too small,
+but that's about it. It would be up to individual drivers to perform more
+checks that match their hardware limitations.
 
-> 
-> I'm not sure there's been proposals for better hardware support.
+What sort of issues are you thinking about?
 
-Then AMD Zen6 processors introduced a 2nd light-weight IBS instance
-called IBS Memory Profiler which is separate, works independently
-of the primary IBS instance (which continues to be used by perf)
-and which is primarily targeted for memory access profiling.
 
-I have used this as source of page hotness with pghot (pghot-hwhints)
-and the benchmark results are encouraging. [3]
+ChenYu
 
-Also it is worth reiterating here that neither primary IBS nor this
-new IBS Memory Profiler have got anything to do with PMU sub-system.
-
-In this context, I would also like to point out that pghot patchset [4]
-is trying to move hot page promotion from scheduler to its own dedicated
-sub-system. I have done the following till now:
-
-- Extracted out hot page promotion engine and moved it to pghot
-  so that the same gets used for other sources of page hotness.
-- Moved fault-time migration to async and batched kernel-thread driven
-  migration (kmigrated)
-- Used NUMA hint faults as page hotness source to pghot (pghot-hintfaults)
-
-I have often wondered if it makes sense to move out complete hint faulting
-mechanism out of scheduler but then I see that task-follows-memory part,
-the scanning logic, fault stats heuristics are tightly tied to the scheduler.
-
-Also apt is to remember the PTE-A bit scanning approach [5] that was started
-as a potential replacement to NUMA hint faults based scanning. We are
-planning to revive that effort and make it as another source for pghot
-if we get good results with different benchmarks.
-
-Regards,
-Bharata.
-
-[1] Primary IBS instance driving NUMA Balancing
-    https://lore.kernel.org/lkml/20230208073533.715-1-bharata@amd.com/
-[2] The last pghot version (v5)  which used primary IBS instance as page hotness source
-    https://lore.kernel.org/linux-mm/20260129144043.231636-1-bharata@amd.com/
-[3] IBS Memory Profiler as page hotness source for pghot
-    https://lore.kernel.org/linux-mm/92c26cce-0608-4c0d-bb13-fe87afc225ba@amd.com/T/#m6d17d0d58a5026c16d63c34e1abfd67a57a66256
-[4] The last posted pghot (v8) patchset
-    https://lore.kernel.org/linux-mm/20260728054356.291998-1-bharata@amd.com/
-[5] Kscand - PTE A bit based scanning
-    https://lore.kernel.org/linux-mm/20250814153307.1553061-1-raghavendra.kt@amd.com/
+> Best regards
+> Thomas
+>
+>
+> > +
+> > +     return offset;
+> > +}
+> > +EXPORT_SYMBOL(drm_framebuffer_get_block_offset);
+> > +
+> >   #ifdef CONFIG_DEBUG_FS
+> >   static int drm_framebuffer_info(struct seq_file *m, void *data)
+> >   {
+> > diff --git a/include/drm/drm_framebuffer.h b/include/drm/drm_framebuffe=
+r.h
+> > index 38b24fc8978d..c07aea1cc59f 100644
+> > --- a/include/drm/drm_framebuffer.h
+> > +++ b/include/drm/drm_framebuffer.h
+> > @@ -220,6 +220,9 @@ void drm_framebuffer_remove(struct drm_framebuffer =
+*fb);
+> >   void drm_framebuffer_cleanup(struct drm_framebuffer *fb);
+> >   void drm_framebuffer_unregister_private(struct drm_framebuffer *fb);
+> >
+> > +u32 drm_framebuffer_get_block_offset(struct drm_framebuffer *fb, unsig=
+ned int plane,
+> > +                                  unsigned int x, unsigned int y);
+> > +
+> >   /**
+> >    * drm_framebuffer_get - acquire a framebuffer reference
+> >    * @fb: DRM framebuffer
+>
+> --
+> --
+> Thomas Zimmermann
+> Graphics Driver Developer
+> SUSE Software Solutions Germany GmbH
+> Frankenstr. 146, 90461 N=C3=BCrnberg, Germany, www.suse.com
+> GF: Jochen Jaser, Andrew McDonald, (HRB 36809, AG N=C3=BCrnberg)
+>
+>
