@@ -1,64 +1,59 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.17])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5642418A29;
-	Fri, 18 Sep 2026 09:52:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9248B418A29;
+	Fri, 18 Sep 2026 09:53:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.17
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725181; cv=none; b=ViTZyZoOEtYKIzNnCbBX37JVkbCZSHc9hAUJfhhlMytF0l8GC/BWSeNSXGdcake7K7sZYRaQ+DJUz8CTbqEQY2XUap8xV75OJmct85R36Mpvx8yAPKto2v2BEUxfgp1nRrio4sZqc8MtLRy0VXxRN2MJz18k7IQ8AWlsxLiqVYM=
+	t=1789725189; cv=none; b=X6AZ2xt8T74E3Wok8s4ZnlYHjJtBoMorYUcz8xb1OuiZY8gRoFhz6PRNu+cP6Uy6Ij1E2rahp5fIHD9+V1RJ+tM3hlcSqjcqgJG16tnGGcCDDYCaSscqKT53b2cGhcay39uZwfcn50P3mhd0smPMNMfCMxvQCJj6WW98zKUt0Ok=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725181; c=relaxed/simple;
-	bh=rwq4Ul/REmuMGoa5ZUeyF4tn5EsdqaXf0ExdF6sYWaU=;
+	s=arc-20240116; t=1789725189; c=relaxed/simple;
+	bh=A2BCPxbyBOcu7X3icYlUuLbRwiLcqIjGSpxVUnQ2rDc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=gjpF9g+PCC/8o5/WgUT05T7Y1xydm44so+f3N0JYUmw3nXc+r0AAzBc0NS06qBkmGMeIF6oUVPhiMSYRXFn+wIpR507dZriIW3FogsRNZvs0emQUyeKnoXfZWui+fnukgjhiYvRp6zNG0S4diDvNCy6qkgi4d/58aj2hevXwPP4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=YKb6AUl4; arc=none smtp.client-ip=192.198.163.15
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=WkQZZuaOo0sZc6r0K4S0XwmVLl67YgabYIkqPjltqVJxQnH06pu3D6j14slLEjGwg9/FAx66iS3/EMm7GGzHm8rZ3wz6cZzEOadSA6EmOGpCJQpDJeZzQ1uMJCtNmctCLESkeEZUj8P81QPvGDTi4ioJpPtejt5JUrHzp8uAdS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Uesenlux; arc=none smtp.client-ip=192.198.163.17
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="YKb6AUl4"
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Uesenlux"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
   d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789725179; x=1821261179;
+  t=1789725187; x=1821261187;
   h=date:from:to:cc:subject:message-id:references:
    mime-version:in-reply-to;
-  bh=rwq4Ul/REmuMGoa5ZUeyF4tn5EsdqaXf0ExdF6sYWaU=;
-  b=YKb6AUl4FEtx6jtakS5uCgM3ObAVi4NUa+VgLA+FKhpiHws2UC/TSvuv
-   ke5GB5S5znx2DxxDQyLcEJDMw3Seybs1gy2pkKHZXg3GyH1a9wrYVgs3G
-   rmvv7dqH8XdeQMCqO3+XO0Mg1GC6X47jFYF3VkQkOxRGTJpEypGdyXNru
-   vRrFzSJBo5lqLuVEkD/ySU5ICw9AbG0wXcPZOR+Mv54M1asNpiXHtdwjs
-   /m5X6jAhaTPXDubUkna8DfYWZdYFiiVLI2i8MMqSXqT+MtTpo38tKP0yR
-   5W4PrtR90aCrZlvlLsVHkXHNs3oEPVpVVMcaqRbbBEPHHtUzjgcILxN3F
-   A==;
-X-CSE-ConnectionGUID: n8QkvvSNRHa4YiA3rP5CMg==
-X-CSE-MsgGUID: U9JVOHifTHO7wX2KnXrhAg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90351320"
+  bh=A2BCPxbyBOcu7X3icYlUuLbRwiLcqIjGSpxVUnQ2rDc=;
+  b=UesenluxtXyx5EScbqUh+X08XINN7DB0Xs/gN7z2EzELSPLb4S9PAc+r
+   ASbwInQF40yGtdu13ittnzsHXeSAkVLLnZEqYzwpBqoJybEl5YmMByHUV
+   XHdSZiwqs5lQkKjehi/gpwjCJXOUiUMCJByNjV+WM2QzBMLv3iyPzmgj8
+   LT7FQv959Udxd3IqHljct/qIaWVOlvSg0tTgmM1Z4srAtMOP9ZsE8Uxxm
+   7pDiKQKHmKe+Q1MonaSMceTQFyJKReU4CqEml0rGg8C3HkJnI70vKpkUN
+   om/sHwEkuzsdQZC2NGcJ5L61EgNi4QjeH65VMLiTU/9AygdzKRVQeIxVj
+   w==;
+X-CSE-ConnectionGUID: uQCBPyz4Q4Wjr7co041UxA==
+X-CSE-MsgGUID: 3FxkxgrGQJqUQKijZs8yfw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="90085849"
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="90351320"
-Received: from fmviesa004.fm.intel.com ([10.60.135.144])
-  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:52:58 -0700
-X-CSE-ConnectionGUID: u48c0T0hQIG38KRtmRdXjA==
-X-CSE-MsgGUID: ym6KSDOuTsOTxxXmnIGV2A==
+   d="scan'208";a="90085849"
+Received: from fmviesa009.fm.intel.com ([10.60.135.149])
+  by fmvoesa111.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:53:07 -0700
+X-CSE-ConnectionGUID: 35Z2PhwCRF+Bwer0KXRtBQ==
+X-CSE-MsgGUID: w4LxUBk0SruRMJi41bUAKA==
 X-ExtLoop1: 1
 X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="276290347"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
-  by fmviesa004-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:52:55 -0700
-Date: Fri, 18 Sep 2026 12:52:53 +0300
-From: Andy Shevchenko <andriy.shevchenko@intel.com>
-To: Ariana Lazar <ariana.lazar@microchip.com>
-Cc: Jonathan Cameron <jic23@kernel.org>,
-	David Lechner <dlechner@baylibre.com>,
-	Nuno =?iso-8859-1?Q?S=E1?= <nuno.sa@analog.com>,
-	Andy Shevchenko <andy@kernel.org>, Rob Herring <robh@kernel.org>,
-	Krzysztof Kozlowski <krzk+dt@kernel.org>,
-	Conor Dooley <conor+dt@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-iio@vger.kernel.org, devicetree@vger.kernel.org,
-	sashiko-bot@kernel.org, stable@vger.kernel.org,
-	Joshua Crofts <joshua.crofts1@gmail.com>
-Subject: Re: [PATCH v7 00/11] Refactor Microchip MCP47FEB02 I2C driver in
- separate modules to add support for MCP48FEB02 SPI driver
-Message-ID: <aq0J9Vs1_rUAlcoA@ashevche-desk.local>
-References: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
+   d="scan'208";a="268066188"
+Received: from black.igk.intel.com ([10.91.253.5])
+  by fmviesa009.fm.intel.com with ESMTP; 18 Sep 2026 02:53:05 -0700
+Received: by black.igk.intel.com (Postfix, from userid 1008)
+	id 57B9699; Fri, 18 Sep 2026 11:53:00 +0200 (CEST)
+Date: Fri, 18 Sep 2026 11:53:00 +0200
+From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+	linux-usb@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] usb: typec: Fix PD object leak in
+ select_usb_power_delivery_store()
+Message-ID: <aq0J_PL-T0ccaAGf@black.igk.intel.com>
+References: <20260916170139.2085947-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -67,23 +62,46 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260918-mcp47feb02_refactor-v7-0-82ca794eafe2@microchip.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+In-Reply-To: <20260916170139.2085947-1-vulab@iscas.ac.cn>
 
-On Fri, Sep 18, 2026 at 12:06:26PM +0300, Ariana Lazar wrote:
-> Refactor I2C driver implementation into separate modules in order to add
-> support for SPI MCP48FxBy1/2/4/8 DAC family on top of the I2C
-> implementation. The I2C and SPI devices have the same memory map and
-> supported functionalities.
+On Wed, Sep 16, 2026 at 05:01:39PM +0000, Wentao Liang wrote:
+> select_usb_power_delivery_store() looks up the requested USB Power
+> Delivery object with usb_power_delivery_find(), which returns the
+> object with a reference taken by class_find_device_by_name(). The
+> reference is never dropped, neither when port->ops->pd_set() fails nor
+> when it succeeds, leaking a reference to the USB PD object on every
+> sysfs store.
+> 
+> Drop the reference with put_device() once the pd_set() callback has
+> returned and the object is no longer needed.
+> 
+> Fixes: a7cff92f0635 ("usb: typec: USB Power Delivery helpers for ports and partners")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Jonathan, can you pick up the fixes from the series, please?
-It will reduce a burden a lot (yeah, I know that it might mess with
-Sashiko, but wouldn't simple delay fix this, I mean to give Sashiko
-a time it needs and then update the branch?).
+There seems to already be a fix for this:
+https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=43ae2f90b70cda374c487c1639a01d0f14e5d583
+
+Thanks,
+
+> ---
+>  drivers/usb/typec/class.c | 1 +
+>  1 file changed, 1 insertion(+)
+> 
+> diff --git a/drivers/usb/typec/class.c b/drivers/usb/typec/class.c
+> index 0977581ad1b6..0595e8cb83aa 100644
+> --- a/drivers/usb/typec/class.c
+> +++ b/drivers/usb/typec/class.c
+> @@ -1619,6 +1619,7 @@ static ssize_t select_usb_power_delivery_store(struct device *dev,
+>  		return -EINVAL;
+>  
+>  	ret = port->ops->pd_set(port, pd);
+> +	put_device(&pd->dev);
+>  	if (ret)
+>  		return ret;
+>  
+> -- 
+> 2.34.1
 
 -- 
-With Best Regards,
-Andy Shevchenko
-
-
+heikki
