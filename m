@@ -1,164 +1,95 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E0073CEB9E
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 15:32:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789745553; cv=pass; b=lkOi9xt3hJE/y1n8qts+1b8nV901mPtGWp1NOhMrc1ktsZbk1CIwPpG6HtkMcdROG3mrZP/TBM9sl19f11CN0mdC1q8anwPFxH+ERhJqmpbWDhl5kZl1guW6OWRc3GFgQ7tUxPhP+DFOQ3YSXCLxg/D10yQtVeJeYCon+dlsxQs=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789745553; c=relaxed/simple;
-	bh=ymSNiHBv0rxNjhBEBzAQ3e5pEXSbhOPJPBVgbAV4qGc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Ctd/Yn1elLSf2gmoeC+Q4gaZo6E49g3LTwUszLTP1ZhfIeyOF5o2oP221kO2gFDXLV5nfme04M+kS2uNd96M1jPXp29J/k5l78BxdGlLKJTzKpUuOHsf3bW3li/jQwfwJquM2IHJ/4to+0M2S45kf82IWeCSc4YpmkKjsmAi67o=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Y6O1VpwI; arc=pass smtp.client-ip=74.125.228.43
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5DAAD37268A;
+	Fri, 18 Sep 2026 15:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789745887; cv=none; b=kyQzTD1yxXlGBVeWYirBYuDi0Um67CpYX8/hW0zZrwQlXsdw0CY3fLAArVDIy/pbAtikwVidld57p2OseHjUZcNuFp+tMoRnuJFupgS5PabQYMybPaL2jt8DSLoTrUQXuGG1yRbJtVxXsUf/oElHdH3DDOtQSyEyqy9TyKRjdhk=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789745887; c=relaxed/simple;
+	bh=m0YxD7VmkTrQ9BK7RawhfiNW848wHmn5GitM21kxqtU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=httBAQUhh75HpOJgOMhnXNwKXRd62KlwOIJQv8mAex1LcZAxQxMT+2qVIydv13YGRGQSepu/PrQml5MB9ugEK9xh6l5f6sBy/QhuuKv/2eCyFdfTFf9NIcQOoXxTtxotUZay4zlGHD9w0fUgjyxouhTa5Ss/537dAh2qa6XyDts=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=DOkpGsAy; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Y6O1VpwI"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469d249c5so765453b3a.3
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 08:32:29 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789745549; cv=none;
-        d=google.com; s=arc-20260327;
-        b=BeY9+jMGPWur6LJQpJOABiXb+HfjL/4EePeSM3vr+bmc85/adE82r+F+WLeEug4c1X
-         7k9hY7LF/3jOGCTf9pIpktltW7qWQ2VAgeSNM0ej03f1oISmjvQ5PZ7NYpT4qYjBWaUU
-         YAlBrNI7Ggar5SboW3dJQ7zyS7plTXjaQOl0HSQS4PrpobB50a20RvB2OAf6th08vzfZ
-         zxHobi+5GT4XRaGbYGGmKAE8DrXFAEu6BqKc6oxZRoWpUXzi0GdalB1tC2FcwcSx+NS5
-         y8UB0tea8sTVN6QcP3NAjvxEG21OtPO/l870G6krBpCG2wagHdjpPHgnEJ5/RCPmlPrv
-         uisQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=W1ylXOncdQ/xqG+G6xMvP7qzdxs98+NQiLMh31Gq++0=;
-        fh=aiGkOu6iKL+w+EOtqzTU7lyhrS+XSp3yUtVsY51On1w=;
-        b=J+OaFkQxop72/2GDX3XCF2z0kAnYqx0djIpJvsXFIV0iP6FOT3kWA4nwuawnV+J6Ja
-         mgZBUDVG5nIJVL5vzm+bscKjwGp7Ea6WzOpHl/0h2l+XcMklm8I5fvFjmUUdkpvH8J1C
-         P05lA0yF+ha/gz8rWNiae/yJdmt1MJoBVnLmzQE0ZGOUMWBJEEABeEiLVIo0Aw0oPxug
-         5Sj/6r1lCtPqM1rWll38DpR+6ew3T6ZbAS/KirXIHyeHIw7lMqayI6SC+RB8k6q/vfRL
-         z5QvHsjl11gMoV5uqemIdYOTjPq0545fz+EiOvG1W7Ra8n6i+v1AfhJtq3VukC+t8yzI
-         PNYQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789745549; x=1790350349; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=W1ylXOncdQ/xqG+G6xMvP7qzdxs98+NQiLMh31Gq++0=;
-        b=Y6O1VpwI3Meq1JdZzi31TXfQpcpanZ4wlV9iuXpd5sjIig7phQgfCU47aWyfR6vo5k
-         fF5qI7YbZKJqfy+x8XAZFltiJon4GuQN8WBUzqUeSKaguTIN3WWM42KofwVy992IGB3D
-         A/KwLB5orHlmqbo35PsAsbVq8pWeMtHNIK0XxYEMlpSTBYYH6K1HR6U62pwvfxU6uZZJ
-         QX9pHkygNT6TFTQDXgl7UFGsE89L7ug/iJ1SDQBdIjMEx4okR95NWxfMUcFzo2x7Tnf3
-         0vdbG2BYhFcpGWJ8wwNFfDRQ8xHV1NJxG+crmfcpyiZ5BtlOGzbEKTHAhPTV/xTWj6Tu
-         LwWA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789745549; x=1790350349;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=W1ylXOncdQ/xqG+G6xMvP7qzdxs98+NQiLMh31Gq++0=;
-        b=BUuJ/zVYfKMgDmRBzuMqxE1LwoA+CGJrrQEX9BHHTts1N0Eg54ftmVf6XA0giVw+V2
-         6ZFAh/+68X2LpEXJEaX+975mVf310aB52GQST2Z1Wk6T6Xspz2+KqZLeFUW/hp4FJL33
-         /rZhLgslD6FKZhRPN6Uncz0WudlAtzMlMpliOlsWzTosD3QtcTfHoO8Z6Vk3XyZMIupa
-         UeIsJe02kJTKJgmQob0okxEzeDlgiDdkpSGk0y2cHIG2dw5eHfXduPt5Y+rDwsVA/bpC
-         n4kf31H8fLR9G0isgnMce7Gq3Go+Eg3+rZu8j8MVKO7C8tYD+hj0DAKQFreCljEy5dMx
-         OneA==
-X-Forwarded-Encrypted: i=1; AKwUvBy4p7SmwQIWOypXHgxsY3cnd03nJwHfM+EFK9xSNwQHEZarfMkpKBPtiyFe4y0sHjw0sQvK/KQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnQo/zNAcZsw5tvyaNxz2sakZ/IwZAz9zbtlNIdrmjb3aJTXs7
-	NiK6eh0Esh7ucWjppJRikOrrWV4bvyyYlEpWr6POvADCvw3XsJy6pSYP6IJzQnmT+zRfT45PpXE
-	dyU0A7Q62XFxLBN9XP28QQXD/iVr2Ffo=
-X-Gm-Gg: AYBFou36i1+fSwEhzJNQ9ss+zjOjvFI9l84ZLR0+Ckhfy68l9dfuvjTrBc5Pxpr3BVP
-	AuL/Dqf2j5lRb4BUZhad8nSfxU1ScPJNqxFnRDoLi+IV5lz1nFJa+ey/0TJroJToi9a//7h+qr2
-	WGYUhhp7NE1eGBFy3xmgh/sb7VSPyWxq+UYUs2oZyJmy5R37khUqGf6DrZqu2nsaXHeeCvhiSWX
-	0daUbx52gEPI+DAfTmTaDyXDYt69eLuauleZTeWvQBrsdRBUa+7w4/UrijjQCB2gW1+UPK2DZpS
-	Z+xRHDsuGf28/48/k4LvTP3aP3X87F3QYM9wE1LBgAdOoM0mdjc92FU59BQFt7mKALfzq89maEZ
-	bYbQ6BtbtCUlM/f//9+L4rUcVnIh0nLT1GG5BgaNPN8L4y5H+3F0kGwPk
-X-Received: by 2002:a05:6a00:300c:b0:86f:394c:5c68 with SMTP id
- d2e1a72fcca58-874dc0f8b8amr5619824b3a.13.1789745549406; Fri, 18 Sep 2026
- 08:32:29 -0700 (PDT)
+	dkim=pass (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="DOkpGsAy"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id BB0D040E022C;
+	Fri, 18 Sep 2026 15:38:01 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=pass (4096-bit key)
+	header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id lXDPEcajzFne; Fri, 18 Sep 2026 15:37:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789745871; bh=36JNwdFzxccnGIjCQpZ9YpuxHSaUKRaCuz6LQSxaurw=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=DOkpGsAyt2wg3Z5tDnHQMEL+kRzGE1upsbkmP5oTtY2s6eTk/JCU4fYUGHilG/mV0
+	 5csSClOXi6NRBcKaJhHA3xp+tCf4ABBvHrFQTe1V5ST9s8/SQPYiI5+bE9S7FXpI7G
+	 X6jN0fRdCwTvGO/7qbjjUzVGTXxa7SKmQuz9eRp3gmePUzcRokfYcT+v3n1ivAW28H
+	 gli51IruRU6GmhDgkLapgFadw66M6AO+ZbUFyb/TRJfoEL/Us1Sm5aWwhFZyWOGn6p
+	 Spq//fSHDpbeEzccHAHlJoyPT+UBtWXpadz/PpWA+eUS5K9B6Lv+QYGIBwZ2d9K4G5
+	 UKlqPE+pRlzayA8g59KG2yIYE2a5Txq9XpdHkQJeRMMMGT1bFQNM7CV08Dgkd329P8
+	 3OY2KSTqQYa6XStqJttQPONUxcTcsjQGC6tS/wKP9KQvF2WxfAj7Qp5ujUu6bHfuYr
+	 W01cm55dMB0YOwiqAWD7s/zMmUtpECgDH2PPOU5TDFLva49lnffXj/tKtN3Srusjff
+	 JS8boS5f6cV8QOnSwVO9gc8ZdEAOR52pbu2t7qfNrpdkvX8LCc6IPcMw2H72QP0FvH
+	 LSflkc/kS9KmbGCp821n5+6QUgKBUJfBqfN8/XCTiz8eMq/qYG7/T1hzVpnTE2e+KR
+	 IK4arvGgttykH5XXGXqmHcUA=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::48])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 2E94B40E00E5;
+	Fri, 18 Sep 2026 15:37:39 +0000 (UTC)
+Date: Fri, 18 Sep 2026 08:37:33 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Ingo Molnar <mingo@kernel.org>
+Cc: "Chang S. Bae" <chang.seok.bae@intel.com>, linux-kernel@vger.kernel.org,
+	x86@kernel.org, tglx@kernel.org, mingo@redhat.com,
+	dave.hansen@linux.intel.com, hpa@zytor.com,
+	andrew.cooper3@citrix.com, arjan.van.de.ven@intel.com,
+	sohil.mehta@intel.com, stable@vger.kernel.org
+Subject: Re: [PATCH v3] x86/microcode/intel: Reject problematic loading on
+ Granite Rapids systems
+Message-ID: <20260918153733.GAaq1avUE5atQ6yfKT@fat_crate.local>
+References: <20260908223209.916758-1-chang.seok.bae@intel.com>
+ <20260916225939.1144524-1-chang.seok.bae@intel.com>
+ <aqzgCatxdoLDvS1B@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918033942.85061-1-ndaugoing@gmail.com> <20260918033942.85061-2-ndaugoing@gmail.com>
-In-Reply-To: <20260918033942.85061-2-ndaugoing@gmail.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Fri, 18 Sep 2026 11:32:18 -0400
-X-Gm-Features: AcwNN1WmYHIGdIjR33SQlazp2k78HvrE9WOuXYfeYWpG_Q_w2uIVAZW-9f1-pjs
-Message-ID: <CADvbK_dQdro_x-=ma2=bRgosYf2cZfEaqrbpeg-8odoBHnzqVA@mail.gmail.com>
-Subject: Re: [PATCH 1/1] sctp: check return value of sctp_get_af_specific in sctp_process_init
-To: Yuchao Zhang <ndaugoing@gmail.com>
-Cc: Marcelo Ricardo Leitner <marcelo.leitner@gmail.com>, "David S . Miller" <davem@davemloft.net>, 
-	Eric Dumazet <edumazet@google.com>, Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
-	Simon Horman <horms@kernel.org>, linux-sctp@vger.kernel.org, netdev@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <aqzgCatxdoLDvS1B@gmail.com>
 
-On Thu, Sep 17, 2026 at 11:39=E2=80=AFPM Yuchao Zhang <ndaugoing@gmail.com>=
- wrote:
->
-> In sctp_process_init(), when matching the source address of a COOKIE
-> ECHO against the embedded address parameters of the INIT chunk carried
-> in the cookie, the address family handler is dereferenced without a
-> NULL check:
->
->         af =3D sctp_get_af_specific(param_type2af(param.p->type));
->         if (!af->from_addr_param(&addr, param.addr,
->                                  chunk->sctp_hdr->source, 0))
->                 continue;
->
-> On kernels built without IPv6 (CONFIG_IPV6=3Dn) sctp_af_v6_specific is
-> never registered and sctp_get_af_specific(AF_INET6) returns NULL.  A
-> remote peer can reach this path by completing a regular INIT/INIT ACK
-> exchange over IPv4 with an SCTP_PARAM_IPV6_ADDRESS parameter embedded
-> in its INIT (ignored at INIT time by the address family gate in
-> sctp_process_param(), but the cookie embeds the whole INIT chunk), and
-> then sending the COOKIE ECHO from a different source address, e.g. a
-> second interface of a multihomed peer.  sctp_unpack_cookie() does not
-> compare the packet source address against the peer address stored in
-> the cookie, so src_match is 0 and the walk dereferences the NULL af.
->
-> This crashes the kernel with a NULL pointer dereference in softirq
-> context, remotely and without authentication.
->
-> The other from_addr_param call sites of the same family already check
-> af (__sctp_rcv_init_lookup() and the ASCONF path in
-> sctp_process_param(), fixed by commit e40607cbe270 ("net: sctp: fix
-> NULL pointer dereference in af->from_addr_param on malformed packet")),
-> which missed this one.
->
-> Fixes: 0c5dc070ff3d ("sctp: validate from_addr_param return")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
-> ---
->  net/sctp/sm_make_chunk.c | 2 ++
->  1 file changed, 2 insertions(+)
->
-> diff --git a/net/sctp/sm_make_chunk.c b/net/sctp/sm_make_chunk.c
-> index 84a4c97d0f75..ff1c013e2575 100644
-> --- a/net/sctp/sm_make_chunk.c
-> +++ b/net/sctp/sm_make_chunk.c
-> @@ -2381,6 +2381,8 @@ int sctp_process_init(struct sctp_association *asoc=
-, struct sctp_chunk *chunk,
->                     (param.p->type =3D=3D SCTP_PARAM_IPV4_ADDRESS ||
->                      param.p->type =3D=3D SCTP_PARAM_IPV6_ADDRESS)) {
->                         af =3D sctp_get_af_specific(param_type2af(param.p=
-->type));
-> +                       if (!af)
-> +                               continue;
->                         if (!af->from_addr_param(&addr, param.addr,
->                                                  chunk->sctp_hdr->source,=
- 0))
->                                 continue;
-> --
-> 2.53.0
->
+On Fri, Sep 18, 2026 at 08:54:01AM +0200, Ingo Molnar wrote:
+>    It should at minimum say something like:
+> 
+>       Erratum GNR98: new revision %x is unsafe to apply until 0x1000405 is applied first, skipping it. Please upgrade firmware tools.
 
-I think this is a dup of
-https://lore.kernel.org/netdev/20260917030505.4176635-1-hdthky0@gmail.com/
+Even if you put prose in a warning message, it still doesn't explain the issue
+fully. For stuff like that you need some properly written longer explanation
+in the documentation.
 
-Thanks.
+Which I'm hoping we'll get eventually once the dust has settled down.
+
+That's what the rest of this thread is trying to do but I haven't reviewed
+yet.
+
+> So this patch is still problematic IMO.
+
+This patch is a minimal stable fix to stop it from #MCing. The real stuff
+comes later. It all has been discussed on this very thread.
+
+-- 
+Regards/Gruss,
+    Boris.
+
+https://people.kernel.org/tglx/notes-about-netiquette
