@@ -1,82 +1,118 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 210AC270575;
-	Fri, 18 Sep 2026 21:40:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A39C282F3F;
+	Fri, 18 Sep 2026 21:43:29 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767650; cv=none; b=VvfXo2TDENlidyFCgV/nz8yUiepj7JTJRmSwTlaY2DPArfhEQ+YnFzbR/06iOaObgrEtMZotIi/IXnVzzaxmy2wTAXI5vZ7UX9bo8Qi/CpYr0e1SOblEI3kRO7lIp7qQRiomOO4bVcaFSicniWIT76UbELY6k/7lZEJql7Z2TIo=
+	t=1789767811; cv=none; b=pPRMSrOa9TUCIr7o9/BaeV5V9MFtaZqIAnjdnUo5rjGaaT49RuTQXU5CrUYTtn4eM4SlHVIdUTSGHj5jH+nf0Fzx0g01IQcWSFd+Vl1phbmZQMbuXAh8sFgx3gyMZ88TBaTd3Zw4W7Y+j0YugZhjQOJ307+PRfAd/MfsES7NbYs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767650; c=relaxed/simple;
-	bh=Lv1aUjpHiM+ZpoixPXC1t7RIfxI1hsCjCKdjkeyW7Ac=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Lea5yjWE3NACy+QeZng5YoIVn2yV2k1RBzXZWQIFjjJianv0ebFHSojNwUNLjBqvo5E/B+q4gAub6bX6q13JOBexA7RwaB1VvWbiTfNiPJbuf0DTeg9VAXAtPNqC9Dknk10+VU8HcO21ngePYp8+CeGB5ta2w7u7TuZc8hOvPwU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MdgbQzPn; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789767811; c=relaxed/simple;
+	bh=AsVtusUixwmmy3M9myCe+BR+NyMp1aRRF2NxWrafoK0=;
+	h=Date:To:From:Subject:Message-Id; b=q3Uv86XWESQl01cIPEJdrwGUx22qmUxUOu68l005S+LBgf3In6+k0cBWBB9+3yyLZF5ih4+ConHFeFri5hpeQbmHBCK/KrvRaqbLurA+NoVDAfOgoQpMCRShRhmlz0v09jaaSX+F1p9FpwVsptnTs2SAqOGzjJd9kkfDX0t57TM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=s66FDOn7; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MdgbQzPn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A71371F000FF;
-	Fri, 18 Sep 2026 21:40:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789767648;
-	bh=OuoHiyIJPzQjjc8nJ4SI/y9+bjZS6wJxmuFUU8K9JVA=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=MdgbQzPnI5p9zA1klESPlN1jFMwXwCA8bqbQb7PXk0PdmJXwCEHLWnTDVmv4+58hz
-	 D2Ai8y6rPYFAETkwWC5U2q012Sh+UQNIicZwN2MC8npsxxYtGg9PP/sQIMX/LX1WU0
-	 d+hTDzuozeTCdt6VYK/oTCwWKbmGZ2QhxynYxcBB9gjlSc0CUE8GN7Ab4JedMSNogP
-	 Be7DVGctCO5KQiFtDnydmRPOoO/EKdODvTnXRPKyEIKCL2GofPXbkpninQ7lCMsSnq
-	 QjsMEbF7I/vLWmnO6pDSAASLR9etEVkF00nIrI0fHgpxIrACq9qcauwtUOSMhJSCeN
-	 edBbN76HmXWZw==
-Message-ID: <6b916ff3-aeed-4d7e-af81-65ba8cb6d66f@kernel.org>
-Date: Fri, 18 Sep 2026 22:40:46 +0100
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="s66FDOn7"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9E87F1F000FF;
+	Fri, 18 Sep 2026 21:43:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789767809;
+	bh=eu0YRngYLFL7ctP+6nzbwFHIB9XI4Py7Z0Yh2iQNhGQ=;
+	h=Date:To:From:Subject;
+	b=s66FDOn7FwYLecjOvsCVhS41HiMhkbwDd7+KEhJgcLPXzTvyoJ1iI1I2rT1iUYBbJ
+	 tfCAD4/5P81EGAkkYwEm2ChaJ9JWlRP/PJ/8ScYDeKxFQ51rC4RajlaR0AghaAgZh/
+	 c3awjLg6OZz3imQCY4N/PbzBsh/npS9lFmSpvcc4=
+Date: Fri, 18 Sep 2026 14:43:29 -0700
+To: mm-commits@vger.kernel.org,surenb@google.com,stable@vger.kernel.org,hao.ge@linux.dev,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch added to mm-new branch
+Message-Id: <20260918214329.9E87F1F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] nvmem: layouts: onie-tlv: Fix np reference leak in
- onie_tlv_add_cells()
-To: Wentao Liang <vulab@iscas.ac.cn>, gregkh@linuxfoundation.org
-Cc: linux-kernel@vger.kernel.org, miquel.raynal@bootlin.com,
- srini@kernel.org, stable@vger.kernel.org
-References: <20260917123514.2151346-1-vulab@iscas.ac.cn>
-Content-Language: en-US
-From: Srinivas Kandagatla <srini@kernel.org>
-In-Reply-To: <20260917123514.2151346-1-vulab@iscas.ac.cn>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
 
 
+The patch titled
+     Subject: mm/alloc_tag: account for reserved tag ids in the kernel tag check
+has been added to the -mm mm-new branch.  Its filename is
+     mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch
 
-On 9/17/26 1:35 PM, Wentao Liang wrote:
-> of_get_child_by_name() returns a node with an elevated reference count.
-> nvmem_add_one_cell() only takes ownership of that reference on success,
-> so the caller must drop it when the call fails. Add the missing
-> of_node_put() before returning so that cell.np is not leaked.
-> 
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch
 
-Same comment, do not waste time with duplicate patches.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
---srini
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-> Fixes: d3c0d12f6474 ("nvmem: layouts: onie-tlv: Add new layout driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
-> ---
->  drivers/nvmem/layouts/onie-tlv.c | 1 +
->  1 file changed, 1 insertion(+)
-> 
-> diff --git a/drivers/nvmem/layouts/onie-tlv.c b/drivers/nvmem/layouts/onie-tlv.c
-> index 0967a32319a2..3d77680f089b 100644
-> --- a/drivers/nvmem/layouts/onie-tlv.c
-> +++ b/drivers/nvmem/layouts/onie-tlv.c
-> @@ -128,6 +128,7 @@ static int onie_tlv_add_cells(struct device *dev, struct nvmem_device *nvmem,
->  
->  		ret = nvmem_add_one_cell(nvmem, &cell);
->  		if (ret) {
-> +			of_node_put(cell.np);
->  			of_node_put(layout);
->  			return ret;
->  		}
+The mm-new branch of mm.git is not included in linux-next
+
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
+
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
+
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
+
+------------------------------------------------------
+From: Hao Ge <hao.ge@linux.dev>
+Subject: mm/alloc_tag: account for reserved tag ids in the kernel tag check
+Date: Wed, 16 Sep 2026 15:55:57 +0800
+
+The tag ids stored in the page flags include two reserved markers.
+Id 0 means the page has no tag and id 1 means the tag was cleared,
+so real tags start at CODETAG_ID_FIRST. The kernel-side check in
+alloc_tag_sec_init() compared kernel_tags.count alone against the
+addressable limit, so with the count at or just under the limit
+the last tag ids wrapped into those markers. Pages allocated
+through them then look the same as untagged pages on free, nothing
+is ever subtracted from the real tag and /proc/allocinfo shows
+that memory as still allocated.
+
+Add the missing CODETAG_ID_FIRST, same as tags_addressable().
+
+Link: https://lore.kernel.org/20260916075557.121316-1-hao.ge@linux.dev
+Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: Suren Baghdasaryan <surenb@google.com>
+Cc: <stable@vger.kernel.org>
+---
+
+ mm/alloc_tag.c |    2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+--- a/mm/alloc_tag.c~mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check
++++ a/mm/alloc_tag.c
+@@ -629,7 +629,7 @@ void __init alloc_tag_sec_init(void)
+ 	kernel_tags.count = last_codetag - kernel_tags.first_tag;
+ 
+ 	/* Check if kernel tags fit into page flags */
+-	if (kernel_tags.count > (1UL << NR_UNUSED_PAGEFLAG_BITS)) {
++	if (CODETAG_ID_FIRST + kernel_tags.count > (1UL << NR_UNUSED_PAGEFLAG_BITS)) {
+ 		shutdown_mem_profiling(false); /* allocinfo file does not exist yet */
+ 		pr_err("%lu allocation tags cannot be references using %d available page flag bits. Memory allocation profiling is disabled!\n",
+ 			kernel_tags.count, NR_UNUSED_PAGEFLAG_BITS);
+_
+
+Patches currently in -mm which might be from hao.ge@linux.dev are
+
+module-fix-lost-error-code-from-codetag_load_module.patch
+alloc_tag-skip-percpu-counter-allocation-when-profiling-is-disabled.patch
+alloc_tag-remove-proc-allocinfo-outside-of-mod_lock.patch
+mm-alloc_tag-account-for-reserved-tag-ids-in-the-kernel-tag-check.patch
 
