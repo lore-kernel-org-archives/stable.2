@@ -1,99 +1,75 @@
-Received: from sender4-pp-f112.zoho.com (sender4-pp-f112.zoho.com [136.143.188.112])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 45D0B52BE54;
-	Fri, 18 Sep 2026 21:31:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=136.143.188.112
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789767067; cv=pass; b=K2mGERCY2UtOitYWEJUgs9dd2dcRBK0aSNodxgMrAJf5ZibDa6c6kObj1OifxAGV808FIiccVc/AF6+6hpLVH1Yv4EMnQuMCVp0Yk12dEUoRnp/v1QpKWfRWb/T2WkkpICZNl7/n9wDDbap0UdsDbSFaVBuZtCI0z77bRbigIAk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789767067; c=relaxed/simple;
-	bh=SqGJJ5G1fioLU2t/CmvjPf5oyG671BrLlJ3FuwhtKfo=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VXIHrgSI3pBMQRxJ2+/War0f9NSPxuxuLcWY8dUVgtCctdPvjtS+ouiRwiM0SpKQ8djsvyrPWIVyvvhsaAH+bo3JBUxHfD5gzrFqKDVK8GCXltcGW461eE6lTkAaT1RSAmFm7fGgJaaEs6sKGtilHfuIqSm+rxZQ5vA47LXL1Nk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com; spf=pass smtp.mailfrom=collabora.com; dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b=jFooVyTt; arc=pass smtp.client-ip=136.143.188.112
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=collabora.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=collabora.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EE1F38AC6A;
+	Fri, 18 Sep 2026 21:35:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789767304; cv=none; b=hu3dlsm4FGD1N8Tsdk1QAGTV7A3reP6UBBiII4b3zdPPorixRj1bTEGKQK5Ehfpkld6cP/8zYK1N9JgwC4JgdJ3OQhA7EuxKIzO35f2kqNMleuilXbcp3GgXuAjiwmQr3FgRoZqo+X09w5PpSpxoYgjeWLKuZChj/oLbJhYFfiY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789767304; c=relaxed/simple;
+	bh=NIMK8UH78gzW0ExsqRycQX21cVR/xFMXkxs3i+XwKkA=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=eSCBQ6SMp+DsInrfpsdkImDsC7SLK4RrHYsyak6T/iduZUR/sYsyK6HCoh+wVswgoxbDasvLxP+kcFgAiyJ/hjgBoxVp6vhuOXzfxBCzKUYw2F9M6Zln+cwZSX37gTyBm9pOV6Emm+e0zt1p1cZb/9zqrV4CoSvO2ToS2BqPqew=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YaJzyj12; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=collabora.com header.i=michael.riesch@collabora.com header.b="jFooVyTt"
-ARC-Seal: i=1; a=rsa-sha256; t=1789767052; cv=none; 
-	d=zohomail.com; s=zohoarc; 
-	b=BJqRUl17C5cSdFCNk87K5I0UObDR81A6Ln1yrCWgs1O0OLbV7EG4TjzxfqRSlxGoFGxkrX0yGhEhL0tIh2o0fHjdstdR3AUxF7NyX2jENiJXd7dBClEJ5UIQxFbrP1lRhF2Auh3l/ibrvQOdiWzFHk45/IuVpIJdT16qq4DKgKo=
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=zohomail.com; s=zohoarc; 
-	t=1789767052; h=Content-Type:Content-Transfer-Encoding:Cc:Cc:Date:Date:From:From:In-Reply-To:MIME-Version:Message-ID:Subject:Subject:To:To:Message-Id:Reply-To; 
-	bh=wOdYVCAYXvONYslNNR7wiaBs5rl7Cl0Yr9264UP/uBY=; 
-	b=RpKdJD1K+pCzoNRNvurNEkzRkxpjo3KsX0NtDhAIQeiI1VUqat3Vp2h/ebeqFM8QGDL5Ol6aGiL5/E9m9/79yOdqoY8hFsFItzCZqw6H0sOqsvlnMZ/tEV0t7YP8giQo3KiwMQdP066VdG59abwbq07dGqCIoABweMxkDwP4dkM=
-ARC-Authentication-Results: i=1; mx.zohomail.com;
-	dkim=pass  header.i=collabora.com;
-	spf=pass  smtp.mailfrom=michael.riesch@collabora.com;
-	dmarc=pass header.from=<michael.riesch@collabora.com>
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; t=1789767052;
-	s=zohomail; d=collabora.com; i=michael.riesch@collabora.com;
-	h=Message-ID:Date:Date:MIME-Version:Subject:Subject:To:To:Cc:Cc:From:From:In-Reply-To:Content-Type:Content-Transfer-Encoding:Message-Id:Reply-To;
-	bh=wOdYVCAYXvONYslNNR7wiaBs5rl7Cl0Yr9264UP/uBY=;
-	b=jFooVyTti62icv3fQnr31WdiT+sHQO4if8/f8xEcE31TCH3npzyY2EV2ibmYJr7W
-	ZPaJclh/2s20nqdMcYoXdhyCc6RVFb5rthcl/7CvHLRMcjUT11N+sn/wYutlyjXOwY5
-	8HttStAWtX7MRq3DGrZ6kSO2X49COgsfJaLa/B58=
-Received: by smtp.zohomail.com with SMTPS id 1789767051697815.3455949100515;
-	Fri, 18 Sep 2026 14:30:51 -0700 (PDT)
-Message-ID: <9bf16301-ab58-4d55-bd32-b807bef1f53b@collabora.com>
-Date: Fri, 18 Sep 2026 23:30:47 +0200
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YaJzyj12"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AE40B1F000FF;
+	Fri, 18 Sep 2026 21:35:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789767303;
+	bh=LzrOWb7USfc3PFDPqWSCCytYQOmFmHMArNmcS4CbPM4=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=YaJzyj12zdYNf/Sp38pmFEguIVwlNkjfuCugKp+g1uMkq72x92tnb3Et0wjp9U07l
+	 DUbSRVJH/CR+z0Ecq4e/rcWN+XMiqAWAEyRnYEN/5gbxIlIEAGgaMT3Zii8mPQdvlb
+	 g6kBbv+wBsEiBEwDI5r0bdsPAAJ3zEJj47RpGvAY=
+Date: Fri, 18 Sep 2026 14:35:02 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
+Cc: Salvatore Dipietro <dipiets@amazon.it>, hannes@cmpxchg.org,
+ abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
+ brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
+ dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
+ hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
+ linux-kernel@vger.kernel.org, linux-mm@kvack.org,
+ linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
+ rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
+ willy@infradead.org, ziy@nvidia.com
+Subject: Re: [PATCH v5] mm/page_alloc: avoid direct compaction for costly
+ __GFP_NORETRY allocations
+Message-Id: <20260918143502.b4fb3587b64e260e14485348@linux-foundation.org>
+In-Reply-To: <23676471-d90c-40cd-a357-e71b3d426425@kernel.org>
+References: <aqlvnm8AKp5f_UhG@cmpxchg.org>
+	<20260918063203.2802342-1-dipiets@amazon.it>
+	<23676471-d90c-40cd-a357-e71b3d426425@kernel.org>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 2/5] media: i2c: imx415: Add missing v4l2_subdev_cleanup()
- call
-To: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>,
- sakari.ailus@linux.intel.com, laurent.pinchart@ideasonboard.com,
- mchehab@kernel.org, mani@kernel.org, jacopo.mondi@ideasonboard.com,
- nicholas@rothemail.net, benjamin.mugnier@foss.st.com,
- sylvain.petinot@foss.st.com
-Cc: linux-media@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <cover.1788940469.git.chubuchnyi@gmail.com>
- <6a7bc243c8cab077de57fc9c3d6a3d005c110f64.1788940469.git.chubuchnyi@gmail.com>
-Content-Language: en-US
-From: Michael Riesch <michael.riesch@collabora.com>
-In-Reply-To: <6a7bc243c8cab077de57fc9c3d6a3d005c110f64.1788940469.git.chubuchnyi@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
-X-ZohoMailClient: External
 
-Hi Aleksandr,
+On Fri, 18 Sep 2026 08:40:05 +0200 "Vlastimil Babka (SUSE)" <vbabka@kernel.org> wrote:
 
-Thanks for the patch, LGTM!
-
-On 9/9/26 10:02, Aleksandr Chubuchnyi wrote:
-> The subdev active state allocated by v4l2_subdev_init_finalize() is leaked
-> on unbind.
+> On 9/18/26 08:32, Salvatore Dipietro wrote:
+> > 
+> > On Tue, Sep 15, 2026 at 04:17:00PM +0000, Johannes Weiner wrote:
+> >> It would be possible to remove the costly_order gate here and just
+> >> bail on __GFP_NORETRY. But no strong feelings.
+> > 
+> > Will do, I'll drop the costly_order gate and bail on __GFP_NORETRY.
+> > 
+> > Andrew, since you dropped v5 and restored v4 in mm-unstable, I'll send a
+> > v6 (v4 plus the above change) unless you'd rather have an incremental
+> > patch on top of v4. Let me know if anything else is needed on my side.
 > 
-> Fixes: 14cd15e7a1e2 ("media: i2c: add imx415 cmos image sensor driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Aleksandr Chubuchnyi <chubuchnyi@gmail.com>
-
-Reviewed-by: Michael Riesch <michael.riesch@collabora.com>
-
-Best regards,
-Michael
-
-> ---
->  drivers/media/i2c/imx415.c | 1 +
->  1 file changed, 1 insertion(+)
+> v4 is in mm-hotfixes-stable now, so an incremental fix will be easier now I
+> think.
 > 
-> diff --git a/drivers/media/i2c/imx415.c b/drivers/media/i2c/imx415.c
-> index c3b22b238..12c2f3df6 100644
-> --- a/drivers/media/i2c/imx415.c
-> +++ b/drivers/media/i2c/imx415.c
-> @@ -1125,6 +1125,7 @@ static int imx415_subdev_init(struct imx415 *sensor)
->  
->  static void imx415_subdev_cleanup(struct imx415 *sensor)
->  {
-> +	v4l2_subdev_cleanup(&sensor->subdev);
->  	media_entity_cleanup(&sensor->subdev.entity);
->  	v4l2_ctrl_handler_free(&sensor->ctrls);
->  }
 
+I just demoted it into mm-hotfixes-unstable.
+
+So a clean v6 would be best now, please.
