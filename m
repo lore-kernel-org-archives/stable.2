@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CEC924A43F0;
-	Fri, 18 Sep 2026 12:58:48 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB82C331222;
+	Fri, 18 Sep 2026 13:01:46 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789736330; cv=none; b=ok7CTSwqXCU1C7jrVlNZ1ihW0mOmr9Fqu/1eHHhCiXCtBEbo5tuJWZz0v26mf1m/AAJnkdXmbAiZ83JJYTsxmou81fJ4RDnqxslE09FfqVRZ5fTkiripM1ZhsYg0uqYNx6UQvqwbg78aN2fxFNdo6YZtzJ7+H8KXTklh78Hagnw=
+	t=1789736508; cv=none; b=E/OU/IlF4SJUN8J9GdjqN0DobrQm4DQnN/+jEYmf1giTd3evkBF7m5fjSvIf3+82Uk2csXuLMNsltFPrEbCbQdYC/pphwQJZFIdQqfqrlA6PUkP0zuSzMRm9559xQ6yPP2NR3W/glbwdzGt0W2TDn60noELfHDphaKlkTQul+04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789736330; c=relaxed/simple;
-	bh=WxqZ61mMuVqMTe5YeTQl+SJ7FZkoLSJJCToLORqgHt0=;
+	s=arc-20240116; t=1789736508; c=relaxed/simple;
+	bh=A0YCqCerf6OQiNmegnN4ibIcZmildcavxwaSxj7VHRc=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rIWodWr5j7jbM+ulSpIpfV9a1TycuSkjjA03u5pieEcC3FnGjuMMoHV64g39MnpPMd0fv8MiJpJMbcsq9/Sr/bnEFfGGs3rE1K1dajVZoqaI/NX7lTutLJXn1HAZbXNwEhYcdAKXxqI3hZ4/IIikP+Zvy+J++ilmylIe7p3pumg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XoaTwcqT; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=ODi7HKwBw/PiFsTqpGGJadF4uLX3SkgWIHpz7MC4a9IxqJ9Y22+l7VGlh/y5xWb//3ap9PhI+JwdhRdgKUVAVIJmCZvPlVWfdLUvzWtElX9/H4ZoMZRPJ5ep/1FooanrqJC5+XYC+WLutRlCX9K/90ewMCPRZdxNk9RrDDWz0tc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=BTFy3VJ1; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XoaTwcqT"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41D591F00898;
-	Fri, 18 Sep 2026 12:58:39 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="BTFy3VJ1"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 055651F00898;
+	Fri, 18 Sep 2026 13:01:36 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789736328;
-	bh=MXNzm2EBtVrG5YWANXIx1ens6jQokApRm++6DNIyLho=;
+	s=k20260515; t=1789736506;
+	bh=jF0Fqx0D9BN/bx3T4LakfuQqI9yz0xCHFuvGoarFd6Y=;
 	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=XoaTwcqT1v0uZ8DLx8mV+oKIzWxyzzPbESClbMZb+aw/KPnSEpJ31OUP/ozP2WJcb
-	 zy7hjqz+floTcOOtyMGBZXw8dB8kjN4u4qsdWyGXiSbPBjlGKRmcJWvIyjOBOodau+
-	 CnB/Pxxu5IQ4EiCZma5H/vbZW72d8E0c+NwzdYmCOzi8jZ1GO0WXBgdgEay2C9WQbN
-	 ODjpt0llCNaevDSr7yaHa1/slFBNMrNf9PIW87u63O7rzDTnlTqJsmn4RSHKoDhcpB
-	 zB1BkiIiJtidvLSRa1D69aXsgD/Uz2tsd3aXV1t8llB8RrXXzjZjmqbHZekC4aHQEC
-	 EkAk58QZjwjAw==
-Message-ID: <0ed3ab3a-80b4-492f-867a-0584441722a9@kernel.org>
-Date: Fri, 18 Sep 2026 14:58:36 +0200
+	b=BTFy3VJ1gOB8D4G66EGthBw7gAJP9TwoZSDgcELlqZlHmEi+zVJwgMyp4pu3iTuYF
+	 8jfoGBmhWIQTQo8SbaVKpfLaSIOwZ2tsMbgCfviOH3T9EJ6EMxQyAObWc+T17jNFvv
+	 qFDD0YYyiSPx4Se1fJr3ZqgDv1tIsL21qjlwFzd8LVG0q1Yz7WMNgAIXhbx6TRoCxs
+	 7J+C7fJmnwePAixORyLBtDzwukDqux8gh9CjzD9BZY9Pvt5cADAySTnlDxgPYUwpVn
+	 ig9hj3YxTV0PMZlS2dWv9J9yK7TaaJpNp0YB5oSRvRnXot0WePLXFfCCe1a6J8VG32
+	 bxSsI12AfxV8Q==
+Message-ID: <e2695249-ea36-4a4e-a5ba-22bb5f7299d6@kernel.org>
+Date: Fri, 18 Sep 2026 15:01:34 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,8 +35,8 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2 3/4] sched/numa: scan read-only file mappings in
- tiering mode
+Subject: Re: [PATCH v2 4/4] sched/numa: do not let VMA PID activity gate
+ promotion
 To: Gregory Price <gourry@gourry.net>, linux-mm@kvack.org
 Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
  akpm@linux-foundation.org, ljs@kernel.org, liam@infradead.org,
@@ -52,7 +52,7 @@ Cc: linux-kernel@vger.kernel.org, kernel-team@meta.com,
  apopple@nvidia.com, jannh@google.com, pfalcato@suse.de, osalvador@suse.de,
  hannes@cmpxchg.org, raghavendra.kt@amd.com, stable@vger.kernel.org
 References: <20260911001826.2109390-1-gourry@gourry.net>
- <20260911001826.2109390-4-gourry@gourry.net>
+ <20260911001826.2109390-5-gourry@gourry.net>
 From: "David Hildenbrand (Arm)" <david@kernel.org>
 Content-Language: en-US
 Autocrypt: addr=david@kernel.org; keydata=
@@ -99,100 +99,169 @@ Autocrypt: addr=david@kernel.org; keydata=
  3iyY2Nsd7JxfKu1PRhCGwXzRw5TlfEsoRI7V9A8isUCoqE2Dzh3FvYHVeX4Us+bRL/oqareJ
  CIFqgYMyvHj7Q06kTKmauOe4Nf0l0qEkIuIzfoLJ3qr5UyXc2hLtWyT9Ir+lYlX9efqh7mOY
  qIws/H2t
-In-Reply-To: <20260911001826.2109390-4-gourry@gourry.net>
+In-Reply-To: <20260911001826.2109390-5-gourry@gourry.net>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
 On 9/11/26 02:18, Gregory Price wrote:
 > From: "Gregory Price (Meta)" <gourry@gourry.net>
 > 
-> Commit 4591ce4f2d22 ("sched/numa: Do not trap hinting faults for
-> shared libraries") excludes read-only file mappings from NUMA hinting to
-> prevent placement bouncing. This also hides hot file folios on slow memory
-> from the tiering code.
+> Commit fc137c0ddab2 ("sched/numa: enhance vma scanning logic")
+> skips VMAs without recent PID activity. Since only NUMA hint faults record
+> that activity, the filter can suppress the fault needed to promote hot
+> slow-tier memory.
 > 
-> Scan these mappings when memory tiering is enabled, but make their scans
-> promotion-only. Ordinary NUMA placement retains the existing restriction.
+> In tiering mode, scan PID-inactive VMAs using promotion-only scans.
+> Reevaluate this choice whenever the scanner visits a VMA and pass it with
+> each protection walk.
 > 
-> On a host with 768 GB of DRAM and 256 GB of CXL memory running a roughly
-> 430 GB database service, 169 MB of its 185 MB main binary accumulated on
-> CXL before this change. Afterwards its tier residency tracked runtime load.
+> Record socket-placement scans in prev_placement_scan_seq. Promotion-only
+> scans still update prev_scan_seq, but no longer postpone the starvation
+> fallback for placement scans.
 > 
-> Fixes: c574bbe91703 ("NUMA balancing: optimize page placement for memory tiering system")
+> On a host with 768 GB of DRAM and 256 GB of CXL memory running two roughly
+> 430 GB database workloads, a large shmem VMA occupied each scan while 2,537
+> other VMAs covering 84 GB were skipped as inactive. A hot 20 GB hash table
+> remained entirely on CXL before this change and was split evenly between
+> DRAM and CXL afterwards.
+> 
+> Fixes: fc137c0ddab2 ("sched/numa: enhance vma scanning logic")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Gregory Price (Meta) <gourry@gourry.net>
 > ---
->  kernel/sched/fair.c | 23 +++++++++++++++++------
->  1 file changed, 17 insertions(+), 6 deletions(-)
+>  include/linux/mm_types.h |  7 ++++++
+>  kernel/sched/fair.c      | 48 ++++++++++++++++++++++++++--------------
+>  2 files changed, 39 insertions(+), 16 deletions(-)
 > 
+> diff --git a/include/linux/mm_types.h b/include/linux/mm_types.h
+> index 5413bd10fff2..9f042d6ad465 100644
+> --- a/include/linux/mm_types.h
+> +++ b/include/linux/mm_types.h
+> @@ -803,6 +803,13 @@ struct vma_numab_state {
+>  	 * A VMA is not eligible for scanning if prev_scan_seq == numa_scan_seq
+>  	 */
+>  	int prev_scan_seq;
+> +
+> +	/*
+> +	 * MM scan sequence ID when the VMA was last scanned for placement.
+> +	 * The starvation horizon in vma_is_accessed() counts against this, so
+> +	 * promotion-only scans cannot postpone placement indefinitely.
+> +	 */
+> +	int prev_placement_scan_seq;
+>  };
+>  
+>  #ifdef __HAVE_PFNMAP_TRACKING
 > diff --git a/kernel/sched/fair.c b/kernel/sched/fair.c
-> index 81359b414947..e636e8de53f1 100644
+> index e636e8de53f1..6d1da13a2ef5 100644
 > --- a/kernel/sched/fair.c
 > +++ b/kernel/sched/fair.c
-> @@ -4061,6 +4061,16 @@ void task_numa_fault(int last_cpupid, int mem_node, int pages, int flags)
->  	p->numa_faults_locality[local] += pages;
+> @@ -4085,6 +4085,10 @@ static void reset_ptenuma_scan(struct task_struct *p)
+>  	p->mm->numa_scan_offset = 0;
 >  }
 >  
 > +/*
-> + * Read-only file-backed mappings are expected to be cache replicated between
-> + * accessor nodes, so they are not worth sampling for placement.  They can
-> + * still strand on the slow tier like anything else.
+> + * Decide whether this VMA should be sampled for NUMA placement.  In addition
+> + * to recent accesses, periodically allow a scan to avoid starvation.
 > + */
-> +static bool vma_is_ro_file(struct vm_area_struct *vma)
-> +{
-> +	return vma->vm_file && (vma->vm_flags & (VM_READ | VM_WRITE)) == VM_READ;
-
-
-MAP_PRIVATE can easily map a read-only file with write permissions. So the
-function name is a bit misleading.
-
-This smells like a helper that should go next to other vma helpers and have
-clear semantics.
-
-> +}
-> +
->  static void reset_ptenuma_scan(struct task_struct *p)
+>  static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struct *vma)
 >  {
+>  	unsigned long pids;
+> @@ -4101,22 +4105,13 @@ static bool vma_is_accessed(struct mm_struct *mm, struct vm_area_struct *vma)
+>  	if (test_bit(hash_32(current->pid, ilog2(BITS_PER_LONG)), &pids))
+>  		return true;
+>  
+> -	/*
+> -	 * Complete a scan that has already started regardless of PID access, or
+> -	 * some VMAs may never be scanned in multi-threaded applications:
+> -	 */
+> -	if (mm->numa_scan_offset > vma->vm_start) {
+> -		trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_IGNORE_PID);
+> -		return true;
+> -	}
+> -
 >  	/*
-> @@ -4220,13 +4230,13 @@ static void task_numa_work(struct callback_head *work)
+>  	 * This vma has not been accessed for a while, and if the number
+>  	 * the threads in the same process is low, which means no other
+>  	 * threads can help scan this vma, force a vma scan.
+>  	 */
+>  	if (READ_ONCE(mm->numa_scan_seq) >
+> -	   (vma->numab_state->prev_scan_seq + get_nr_threads(current)))
+> +	   (vma->numab_state->prev_placement_scan_seq + get_nr_threads(current)))
+>  		return true;
+>  
+>  	return false;
+> @@ -4142,7 +4137,7 @@ static void task_numa_work(struct callback_head *work)
+>  	unsigned int numab_mode = READ_ONCE(sysctl_numa_balancing_mode);
+>  	bool vma_pids_skipped;
+>  	bool vma_pids_forced = false;
+> -	bool promo_only;
+> +	bool accessed, scan_started, promo_only;
+>  
+>  	WARN_ON_ONCE(p != container_of(work, struct task_struct, numa_work));
+>  
+> @@ -4278,6 +4273,7 @@ static void task_numa_work(struct callback_head *work)
+>  			 * first scan:
+>  			 */
+>  			 vma->numab_state->prev_scan_seq = mm->numa_scan_seq - 1;
+> +			 vma->numab_state->prev_placement_scan_seq = mm->numa_scan_seq - 1;
 >  		}
 >  
 >  		/*
-> -		 * Shared library pages mapped by multiple processes are not
-> -		 * migrated as it is expected they are cache replicated. Avoid
-> -		 * hinting faults in read-only file-backed mappings or the vDSO
-> -		 * as migrating the pages will be of marginal benefit.
-> +		 * Read-only file-backed folios are poor NUMA placement
-> +		 * candidates, but slow-tier folios still need to be scanned for
-> +		 * promotion.
->  		 */
->  		if (!vma->vm_mm ||
-> -		    (vma->vm_file && (vma->vm_flags & (VM_READ|VM_WRITE)) == (VM_READ))) {
-> +		    (vma_is_ro_file(vma) &&
-> +		     !(numab_mode & NUMA_BALANCING_MEMORY_TIERING))) {
-
-I'd vote for >80c here and but it into a singe line.
-
-Or just use a magical helper
-
-const bool tiering = numab_mode & NUMA_BALANCING_MEMORY_TIERING;
-
-or sth like that.
-
->  			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_SHARED_RO);
->  			continue;
->  		}
-> @@ -4306,7 +4316,8 @@ static void task_numa_work(struct callback_head *work)
->  			continue;
+> @@ -4307,17 +4303,30 @@ static void task_numa_work(struct callback_head *work)
 >  		}
 >  
-> -		promo_only = !(numab_mode & NUMA_BALANCING_NORMAL);
-> +		promo_only = !(numab_mode & NUMA_BALANCING_NORMAL) ||
-> +			     vma_is_ro_file(vma);
+>  		/*
+> -		 * Do not scan the VMA if task has not accessed it, unless no other
+> -		 * VMA candidate exists.
+> +		 * The PID filter must not gate promotion.  Scan PID-inactive
+> +		 * VMAs in tiering mode using promotion-only scans.
+>  		 */
+> -		if (!vma_pids_forced && !vma_is_accessed(mm, vma)) {
+> +		accessed = vma_is_accessed(mm, vma);
+> +		scan_started = mm->numa_scan_offset > vma->vm_start;
+> +
+> +		if (!vma_pids_forced && !accessed && !scan_started &&
+> +		    !(numab_mode & NUMA_BALANCING_MEMORY_TIERING)) {
+>  			vma_pids_skipped = true;
+>  			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_PID_INACTIVE);
+>  			continue;
+>  		}
+> +		if (!vma_pids_forced && !accessed &&
+> +		    !(numab_mode & NUMA_BALANCING_MEMORY_TIERING) &&
+> +		    scan_started)
+> +			trace_sched_skip_vma_numa(mm, vma, NUMAB_SKIP_IGNORE_PID);
+>  
+> +		/*
+> +		 * In combined mode, only VMAs the task uses need placement
+> +		 * samples. Without tiering, every VMA reaching here does.
+> +		 */
+>  		promo_only = !(numab_mode & NUMA_BALANCING_NORMAL) ||
+> -			     vma_is_ro_file(vma);
+> +			     ((numab_mode & NUMA_BALANCING_MEMORY_TIERING) &&
+> +			      !accessed) || vma_is_ro_file(vma);
+>  
+>  		do {
+>  			start = max(start, vma->vm_start);
+> @@ -4345,8 +4354,15 @@ static void task_numa_work(struct callback_head *work)
+>  			cond_resched();
+>  		} while (end != vma->vm_end);
+>  
+> -		/* VMA scan is complete, do not scan until next sequence. */
+> +		/*
+> +		 * VMA scan is complete, do not scan until next sequence.  A
+> +		 * promotion-only scan reached the end of the VMA but did not
+> +		 * sample placement, so it does not count towards the starvation
+> +		 * horizon in vma_is_accessed().
+> +		 */
+>  		vma->numab_state->prev_scan_seq = mm->numa_scan_seq;
+> +		if (!promo_only)
+> +			vma->numab_state->prev_placement_scan_seq = mm->numa_scan_seq;
 
-As I said, maybe that flag could be voided.
 
+This is all rather ... messy. I mean, just look at that promo_only() computation ...
+
+There must be a cleaner way ;)
 -- 
 Cheers,
 
