@@ -1,72 +1,73 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B1F744064C
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 17:58:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 307C844064C
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 18:02:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789754325; cv=none; b=SkFKw5gvQSOjw5v4UBNm/EBMeb2kaiDGCXCHUeyWL1nzodCHjathbJQCi+redPqdCbPHiNX9pkE4owtAi6Z1ph9cYgM/K8Jl7j0z7fRfxuSPQTXfSMdiT7PHglQTgaE55yKlgo0wB3KZQY7MzXhrgSEtfs3gFZahDfqRMGdOGkQ=
+	t=1789754535; cv=none; b=be7w8Xw7itd8IKqES0LVL7XoGZUwL6Yei42a5Qeaz0cH+42p0lJ7WfOTnD3aV6UvemM0Blz8nR8C3lvywSiy3PeAIIJHcRxJdUVVJgz82pd+yU6wJ4GnPnTE55juTKSWshQlNzLRebkXcl8rTk53FUR6sv1M2uH9Xx1yrER6md0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789754325; c=relaxed/simple;
-	bh=+Mg8EFKwkdqT02bF8v5cO7MWrzRs8xUgBeDxWVc0CRQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=HohIn4Cv7U4hvVhR2vNR6kJBgwTrhCo7Yf/Zvyl29oMWROOpnJq/Gx5emeLp4K/4t1VUIiwtmLL/GJ2cW/z5SsESL4rPfaCw+1RWUoj5jaLFhpftQCgxT49BXVcZWaD2uWoqSO1L0OXjsGy5h+uDT+R6Ly2ot/Hyg8wId9+Vqe4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=fE1F9aJm; arc=none smtp.client-ip=74.125.227.171
+	s=arc-20240116; t=1789754535; c=relaxed/simple;
+	bh=2ywI+x99AL1vVsJgsYse4XwvQoMzKOlrEMnWJuVwfm4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nP3sCQcXeIHs+s8eOgZiee5m6vsDU9jwLZGHZOxQ03DvtnCzX02y8YLZT5pxqT6QXFC7exm2dvuwIFe2PGfPfFr1O8oRY5hLIo82xPfmTS8XGf/9G26rBw6m/nZwxf12I50weQw7IyJGhdbrO7+ec8+BFWyt05ECXvBrw8oOP9w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=HUKg6Iwt; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="fE1F9aJm"
-Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ee1f9bso9448535ad.3
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 10:58:44 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="HUKg6Iwt"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so932171a91.0
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 11:02:12 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789754324; x=1790359124; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789754532; x=1790359332; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=O/ALC021jyvVUyJohqb4fsm6d/IW7/IWPNFCS11cgBw=;
-        b=fE1F9aJmB8BeDwV5Pn8zC+aM1dgaj6b5bMxVYpPhB0FEHMdWHtCbffU748nNFm46nC
-         k8p66fUD3uXbQxfBw0N2LEYn9LLVohpTGcdjy137d8r1F+c0dv4UBZBQW/mK2DhwEJyv
-         e7EJ8OYZStYQ/a4A+0yQ8i85izNH7t57aWcUPyb99Cv8pszFXkJ6NSMkF4/uMot80sq0
-         cQHC0oDa2k8B4pEiaEV9oNQBzqZpQzc+cJ7SfqydecfxNFslaLL2UzjO/10QBKR28ePH
-         udYrllwNAt46HSd5PWm/E+OFlpOm1VCNROeQSZ/WCgy1nq5K3mGnXp+64fSoUi3ha5yd
-         DnVw==
+        bh=p0aRkG/STOJZPyiXgGevwP+glg/s3VjB+O2AFDUKik0=;
+        b=HUKg6Iwt7Fmv7nhI+bv25a+k4qi85ouKgXDnISeXtE+6Og4GAP2AXh8eHA2Ic60ZGt
+         QtJy4qOFWLGidVISaIxKO1eaMYAwKsXnzaYnHLeAvGfgzyvcJv98kYlFbwC9Y80U5Jen
+         oMNJutI/qa7D5Lzvcb98Q2kc4cM0ZFsXdqv7apuu/uGXb++gWI4VWOIzQhOxU29/q2Vl
+         qLKraGVGEgCHGKBCG2PFe8kjq2L+Lm8fZmUOsmsvkTZdiym0H0YnLNvresFiDv8znbMg
+         okEUWyor52lduVfzpd+01c1BHDVY7xgcm+zkFuUiIgB7mD6I7G6W8oGLjWNy6boyhjfe
+         f7FA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789754324; x=1790359124;
+        d=1e100.net; s=20260707; t=1789754532; x=1790359332;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=O/ALC021jyvVUyJohqb4fsm6d/IW7/IWPNFCS11cgBw=;
-        b=SIb2mE8HVVQvOTTQ4bMOSUSYwRYTixqkTtcZuignsj7N4fu461/XAXRl3W7yx27x0B
-         0/FMT3dVMHxWPUyXeZdGAKn+XgFTayHCawjqU076eZyO/2njHFbknLGyLkn1n6/NXMY0
-         DJzvzhaU9s/9GzWHS9GNFdfR/TwpcteSRUm1LHUBv1/7The0k5GrwsWVTEffnpO9Eix8
-         ggUOyGd5fodxmbw62S70XDmGqVpvL0ZbtVfCH5wkJVh+pNLKjExJkaqncNmSOsCZreJC
-         GTtKxXj/+Ev5TFzVKQ/QMjQnLKa+APfMKQ7XeLoEBl0SrFAxR7u+ZBIjSixn9nLangEb
-         n77g==
-X-Forwarded-Encrypted: i=1; AKwUvBxcwwTPmL8Tzan2nDekmr0/2yb10h0tvYWVZqrT84JRj8RV5FkOW8BI1wah1SsjC7riukTMNkU=@vger.kernel.org
-X-Gm-Message-State: AFuF++kS2rgl3VZYiAoxAxwpQCCmYBnXMHE3BbMUFIOzj6zP4mkv++GT
-	S99gUMoe9ArEVmJpypS9vYZ4yMk6KLG7I3HEDOPHmMy2HRH6LORZ+Wjr
-X-Gm-Gg: AYBFou2NuY9v3OYNSliW79WghAxb78/DkPYzp9PsFr0aD49uKi0xPNod+cg+QBavjtV
-	naHjFT5OB2Ah83i6X7Sb/9rBsAxVS1LiWLsoHWGvD/FHLFx7w0MujHdpsBc3qC1ntlvvIb/CQtl
-	6f3FFFkdIm6FZc1WXP4+kzeV40ZifheBLyQQNnvwgbX9rToieViXF9TUiO7VRn5sKBcjtWNMFSh
-	IgSatqqprxWWDet3RJfObiOGCDs0urAsUh1U53HE7qKBPSuKRrRReEWqQLjOB5+kLysre2Cv5Qz
-	NNmCUddNbYsMQoiHs8A4Mm7bCu2oZdqZK6WAS1NwxLnbX6TDAEIWN6Obgpr8N3GTv3QdGtDxtJa
-	k1jIgw7FoKK2PfH6k472L2YhMw4UReLEIlM2toRQOQHf9kRIs97iZtJPPGbDgZl7daLYSHU+3zq
-	is42o/mkP3jK5bhgFACeSaOJdxhKoSjIbrp+rkTnVCTveWoHSjyeyduQ==
-X-Received: by 2002:a17:902:d592:b0:2dd:c100:7cb6 with SMTP id d9443c01a7336-2ddc1007d6amr4356465ad.50.1789754323643;
-        Fri, 18 Sep 2026 10:58:43 -0700 (PDT)
+        bh=p0aRkG/STOJZPyiXgGevwP+glg/s3VjB+O2AFDUKik0=;
+        b=lJPBfUH4thnSFvxl/PXwA9lLbYAQDRkddKTOAWXSnKeJZ7L5w/Ubk8ObPB1zyIi/qc
+         MsrQ4qca77eiZGRMBGc76mk/ZHftea0MGGEFPEYmAqVQzYm/UQUPfCby+qCL+V1sAFsx
+         YwjRgqHAl5U34SvUIcs/g5by1/DHHunUAhgOA0YAwxpqt77n8S8lGuxjf5MwOO1gfuU5
+         CPkRehCshjPLIz8ESrJy7w3gamJu1vhtY1bKzp+EQAWhcnrEtxqhbGniCPTtnb2Ejo7f
+         nrtEuTxxpgeijgTq/kB3LQbGd4thXC/TVGQ+D13uyxX/qbkmKL6Qey9+FA93qKI2Vc7T
+         K85w==
+X-Forwarded-Encrypted: i=1; AKwUvByr8a8cW+hDLwiH3P4Aqcpimjd1Z0wsPxcOIQ8CxlXr/eJuyoUdXCTAuDJCRWuvFmY4MZnvpLk=@vger.kernel.org
+X-Gm-Message-State: AFuF++nu2Anc3hxom/6wANzgqWHEj+vhLKCvZQ1NbEJ5Uij/bLn+6gi8
+	GHf2zY3ovmvFz0P0G/d2IxRRjkSYQVaErmTCK33aAjky7CGJ6mbNONUm
+X-Gm-Gg: AYBFou2dOMddcLSR/Atl4DgChs+KQD8Wp53CIomSLCyIVHOfYMRVQPFW5qaBjeOl4A0
+	xh1d2I/uss3y+NYMIKdaZn2kO1R4p7/52aPxmhZ+dVF7PtUuPSrTaJrWiDbFBb+pat8K1BU2N1d
+	+ZRU9hErM5p1Prk7tTq+w2iTQlVyjSm+AiDWzILnbT/US+cMJ4I39UIuk6VgpS8s7PMwaci5ohJ
+	1Mc5e8MW5BY787aJ5Vp41XuexLJox+dXu+w5lJ68jWUMGU6d0RqAayvMTO9mVxsXY5DDLiXpt/I
+	ntq+xwTlOW00xrG5Pposhvj8vdAhGtjNQ5U2W2h5Z2G3iovbuek/PDM8lvkJqfeBJJo7dot5Uhi
+	tVxITcb+YUrz3xciaLvAhrip5W6as0HK9VNJlOh/0Cj8W+BNZoURumcWJGiro/b5gEu0PSYcsQI
+	zIX+8sd5wc1JLMJRzpc9L/jGxgv/eGENgrqhn9vlhch34gWhfXFGnV+Q==
+X-Received: by 2002:a17:90b:280a:b0:39e:2530:2102 with SMTP id 98e67ed59e1d1-39e54f4221amr13366348a91.11.1789754532323;
+        Fri, 18 Sep 2026 11:02:12 -0700 (PDT)
 Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc16b471fsm682465ad.3.2026.09.18.10.58.41
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e554e5529sm2016932a91.4.2026.09.18.11.02.07
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 10:58:43 -0700 (PDT)
+        Fri, 18 Sep 2026 11:02:10 -0700 (PDT)
 From: Guangshuo Li <lgs201920130244@gmail.com>
 To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
 	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Thomas Bogendoerfer <tsbogend@alpha.franken.de>,
+	James Bottomley <James.Bottomley@SteelEye.com>,
+	Geert Uytterhoeven <geert@linux-m68k.org>,
 	linux-scsi@vger.kernel.org,
 	linux-kernel@vger.kernel.org
 Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH] scsi: sun3x_esp: unmap registers on remove
-Date: Sat, 19 Sep 2026 01:58:35 +0800
-Message-ID: <20260918175835.3622269-1-lgs201920130244@gmail.com>
+Subject: [PATCH] scsi: zorro7xx: put SCSI host on remove
+Date: Sat, 19 Sep 2026 02:02:01 +0800
+Message-ID: <20260918180201.3624568-1-lgs201920130244@gmail.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -76,39 +77,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-esp_sun3x_probe() maps both the ESP registers and DMA registers with
-ioremap(). The probe failure path unmaps both regions, but the normal
-remove path does not perform the corresponding cleanup.
+zorro7xx_init_one() obtains a SCSI host through NCR_700_detect(). The
+probe failure path drops the host reference with scsi_host_put(), but
+the normal remove path does not perform the corresponding cleanup.
 
-As a result, both MMIO mappings remain allocated after the driver is
-removed.
+As a result, the SCSI host reference remains allocated after the
+device is removed.
 
-Unmap the DMA and ESP register regions before releasing the SCSI host,
-matching the probe error path.
+Call scsi_host_put() after all users of the SCSI host have been torn
+down to release the reference acquired during probe.
 
 This issue was found by manual code inspection.
 
-Fixes: 0bb67f181834 ("[SCSI] sun3x_esp: convert to esp_scsi")
+Fixes: 45804fbb00ee ("[SCSI] 53c700: Amiga Zorro NCR53c710 SCSI")
 Cc: stable@vger.kernel.org
 Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- drivers/scsi/sun3x_esp.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/scsi/zorro7xx.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/drivers/scsi/sun3x_esp.c b/drivers/scsi/sun3x_esp.c
-index 365406885b8e..101d3b0f8f2f 100644
---- a/drivers/scsi/sun3x_esp.c
-+++ b/drivers/scsi/sun3x_esp.c
-@@ -259,7 +259,8 @@ static void esp_sun3x_remove(struct platform_device *dev)
- 	dma_free_coherent(esp->dev, 16,
- 			  esp->command_block,
- 			  esp->command_block_dma);
--
-+	iounmap(esp->dma_regs);
-+	iounmap(esp->regs);
- 	scsi_host_put(esp->host);
+diff --git a/drivers/scsi/zorro7xx.c b/drivers/scsi/zorro7xx.c
+index 21c769dc1ecb..a8b0c2d4a9cb 100644
+--- a/drivers/scsi/zorro7xx.c
++++ b/drivers/scsi/zorro7xx.c
+@@ -164,6 +164,7 @@ static void zorro7xx_remove_one(struct zorro_dev *z)
+ 	kfree(hostdata);
+ 	free_irq(host->irq, host);
+ 	zorro_release_device(z);
++	scsi_host_put(host);
  }
  
+ static struct zorro_driver zorro7xx_driver = {
 -- 
 2.43.0
 
