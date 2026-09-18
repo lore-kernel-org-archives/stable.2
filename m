@@ -1,74 +1,80 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A7DF0411F93
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 23:40:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA36175A74
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 23:43:43 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789774819; cv=none; b=Eab9Q06llBcUrpEsXzS5CaHWxV6RRfdvmKtBWoBWoptwu/J9FgxPU8/WTjxusxVWBjcsP+6JEhEtjtL0BtG2r6UjWsEOcEDitqbTRuASAbW1Q6oEBLLtmtOHlN5QpD4PcRkELkAnsQXNbAYv8PYu+mbZnPZU8v+oxKxHndS/S9o=
+	t=1789775026; cv=none; b=IqJaCLF93/D7MoN29E7YVxbEY5E8uFd1Jl62FutUXez13f4+4sXhRSyDkJpwpagiKJ4l7ozowsvvCJ0CanwFsqWQoLCma9Q9zE4b1+z/M7mdImlCkDNlRdTTQqN0UXEEbEjH9Nt8EYx6KD/cVclIoz9TcekpfYXtg6jBPkSiHss=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789774819; c=relaxed/simple;
-	bh=bYAj3zJU4/bhOKYqpiP9deo18jfkgkWwofMdpY9Zt9M=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=jBqRfZBFWDJrzjM6JLJ08jplcZfa04AhJqe1lBORuoq1Dar6AJNVwYuWqbW7r+68rpVLMxPoHktJ5wHhajh25mfjiLlZkhXvayt5g6zxe+aXoCM0uMgU03M7Vzw8BB+OSLJNrQPUQFTEjIjplZbuNIILEWtxxmxKkQ4uwZalXzA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=dtY+0Lnl; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
+	s=arc-20240116; t=1789775026; c=relaxed/simple;
+	bh=yVjbgC4CMiNqZuadtlsece2kkWi9WaJOKCsG9Uk68RI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iwXv8ztAy+Wgnp0yrw2ZBmvGbCW1F2ND8NNejUhZSS6/1cmCviQ3BodaGeDVTWFGQuisKotZGOvzScS8Tfc/bjzt2j9CwLe5YwoxZyDebZnfklQI6BBlMPZy8Ssm8KWXXkv5FVyPBIjouFdvruX9prP2SG2qBRT7ea9P0mES2bs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZXMSHp8; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="dtY+0Lnl"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396cccbba91so947969a91.1
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 16:40:17 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZXMSHp8"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so442261f8f.1
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 16:43:43 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=asu.edu; s=google; t=1789774817; x=1790379617; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789775022; x=1790379822; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=QFXPOWlkcWbkw0VizSZPMIGc1O/sr7Ro7vwjf0xy78U=;
-        b=dtY+0Lnl6GgHFEkuuJrdft4BBznq3MKJy44Cm7Hl+IviF0h07VX/v1ih2pbvFlJ3d8
-         ZyAozFZXh94MxZKFhCfgoIS/Nx4Q/tPTXzDCpE/b6miWBc38Psfu4eECpfvI1yiaOEPJ
-         2JMPYmxb2zCEoseV8lr+bDJAKfL7tr8xsC8/BVx7wXyIN9qByuvPJBVqLWbJxG0PsLGo
-         O8q+IfjnSHY4TI36J1CnHZb2apZwytONBP8vLqdoLiQXzggCpnTuYoyERC1Se/nubD07
-         ptEitp4Y/r7BnUyDW/TozI5dgKLbBSlycACTfPb5bVt7Frg3Wpb30sJHKj7su/DM+Gy6
-         Iqcw==
+        bh=jgKahnX9yPSvT7KZdkfKMgtKpfOFWThRfybvZ/wWJSo=;
+        b=NZXMSHp84YGtCFRmJFYCDqhkKxUslBDetCa5tIf4XG7TQ+1B1QCvp58Y3Iu5+1lS91
+         PYbPMj2w9WdusSxKYF4dWX0ZGBrlhBbpdkQXIQm3zYT0n4y3vmCQ3Bsrh0wkMGoS1lxg
+         m/exOdYTgivaMXMi8deGo+R+gYRTNRxRm77HwacrLOwGwXEhaNvipqYGb6pecKlUXMWA
+         HTkldxvBnQCelRpMxive7gCjNpN63ECWIgDiaAtoKweKizKXL/O6aLWBmH+e7q59bTVb
+         fkexvAMpQeUjW7sVen5rvgHRlO9XN82cnK3K0qKLbKVVEjeNa0B3uNMrnY6JOjaGn/6Y
+         +/uw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789774817; x=1790379617;
+        d=1e100.net; s=20260707; t=1789775022; x=1790379822;
         h=content-transfer-encoding:mime-version:message-id:date:subject:cc
          :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=QFXPOWlkcWbkw0VizSZPMIGc1O/sr7Ro7vwjf0xy78U=;
-        b=d6kO/ItAHygmfrLnxfXrCxfEIZGiGucyXGppxfXlUpUCIy4/5wRIxSoBl07DoIPx3U
-         qmh6SPPd2K9GXfXSYnBkIkPSUb+JEDJ/jG8hlwtMpTzIn6czpA3Mupfb33ty9Wa8BVu6
-         wV+qyi0vD+Pe/OBzKPawxXg72sz8w6yUh0rrYCvk0Qjmcf+7q1y9c7RivuMaEY/dzceG
-         unSomGMlZD3pcGXDqLzj+0dULMpjXUgxsDs9KUEpjQsNKKnzhEhbIS6k2XuneYy2tsom
-         vP9B1vQXiQ5xlu3T1LqdMKWUg0vWy/9vC5kM53po/KqNZ4LX9QFdzN7k16Z0ST46GFBU
-         /y+Q==
-X-Forwarded-Encrypted: i=1; AKwUvBzhO0sROUbZUo1pmM2kn/VZJKP1Kqg6EhNIcI4jt+APqVQheDg72ctsOuZzby0GWyJIY77E8YQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++nXDOujn9xSYCc5LQHVKm70VgIY8d4GK3+ChC+JjaOky+syKsBo
-	dLdBjZ3Z394f0acq5LL+1CPiQ2ZG+AYAAyBOctLM4bXREVMihy05mLbvoXiWNoy/3g==
-X-Gm-Gg: AYBFou3wM/33/iwu9tXz/X9UdPwEDNSApAuMb/Rl4ir9OhSYwY9L/HsNLkfjUfrsJif
-	KUjVI2bDVYd/JRNQ8yTrICn+VxtXPItFE0QBo3sVIoUsbqcKZIiACPoD8XiMZkz3kVrEgdmJwzz
-	gDJx7cSwXKc+sRoLxSlAqMuiuM2MdOt01kFELWFXdBEMlDvB+tbrBttU9020aJFCSly+S4K9S14
-	3/FdpuOGDIIZx7UY64vUwNgwvOiE4zDHYztoNju9Cn8AXEuyIfTYczXS/NuX3JyaDi7kVNqYZgf
-	IeNqddHZxWLvo3sesPUx620KI32Qq0PrQCS4on2dpZ5hEf1GkfBoMJQ88lFamMwOkDYWSlSZd59
-	f5vyzYPLk6RyE5NfqNCqLnekLylPqCiGGPw2Ma3lp+KeG2iSJWYQlOZYy0NlHVnjqtjUG/AhOT/
-	h5P9vZ4tORCM00rw7/R0OKRAv/gH9SgmYDH11YBk8RPavOsiQbLrHqME+Px6cJWUrFAGh7SHQOj
-	hzu5TaKtpY0ClpX+RjM/OqXNGfoC4UEPTpTRQ==
-X-Received: by 2002:a17:90a:e7cd:b0:39e:4c81:6c5f with SMTP id 98e67ed59e1d1-39e54d5ca0emr7917972a91.26.1789774816934;
-        Fri, 18 Sep 2026 16:40:16 -0700 (PDT)
-Received: from p1.. (209-147-138-4.nat.asu.edu. [209.147.138.4])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d55cef9bsm1609458c88.10.2026.09.18.16.40.15
+        bh=jgKahnX9yPSvT7KZdkfKMgtKpfOFWThRfybvZ/wWJSo=;
+        b=IGV9nynLRxsZVPdqVd+k9OlgGBnpf/8pOERXiHbJ5EIBOUhBhaGz69zPMtUKY62y1h
+         tqlqwomTKgMha72nYiD04LBF7V84PpExAs4uUsCMeQjyk9LLCtv3UJI7vJGtjkJO3152
+         bVpOQLZyiNaCK2I97eYXvbvCtqmBpZq8Kx85XzrrgyDFtrFL9+u5CvPsinDjiqMN5iIi
+         HMyctrVakUKTjTKsSfS+Q5wHA1ZHSaYSdyDbfXnJb0CexP0H7wYqvw5WFNhe7mpSlAKc
+         tshMv3oN3aiAgPz8hc8eW8Z6GwaO6y7yuIPOQePsemOEWnESUYc57LtlU57vp/1EXJtI
+         OdVQ==
+X-Forwarded-Encrypted: i=1; AKwUvBwX9cZS6P/rjHOxmbHge+goQMnJ2dO7OBFlFUSNQbKwrBNDBG7/LaYkxVPfx3wHf5O/uiaFDKY=@vger.kernel.org
+X-Gm-Message-State: AFuF++nx24joyzBGDjIxIae5hKNqAmz+gmwqkn5MfqqfHfMLOtEg8eqS
+	umYJ41yq2zKyItssCs3YK/ZZgzvyQVxJInAQtwJFxIHCKDjG3UmWQMvs
+X-Gm-Gg: AYBFou0fHUmHlfQkHaUncs5IaEJl4Od6nvWqs8h6KvWb7J3Ul/rnpRNklYjDQ2/8+NS
+	FcJRbUx8EJGLQy5WyZjMRwFQPi538Ibtx8HsT13Dljl9Nh2wM18jPMitZkPYZ3ZLOICdwUiIwgh
+	EE3MKjLXCBXXHK2D4oqY0Bu6XenmZQ5lUqt61WGgJ+zkkydzbNykgZqLDq51im0rlkrCMKV7EUk
+	q9XCU5lJb65PI4qjKOn5ft7VFmeUYEvUhKta5OPj2dhrcr00mXKx8FgDemfUzQJTfYHyPNCmznS
+	nNmHTwtolKVcm2CrfY2CODrUthPwvlLX83udz/XQ19Vwx5UDJ4FE7Lx6thH29fLJC/GnOPypIHQ
+	PiHPgCwfIZsOEEvGpcfFPhfnjKfVK2b5ouhQCkZjPVAIqnXdFtW79mWbL2EMEQZlDSHluoJr/vT
+	e3905UY0U7cv/FsJiiioGe2kTR1AHKZJT/hNhtgBm5uxJvIRF1yToweH8m9ZGHu2t1JlMPqUyOT
+	XRuqxpkbH/3PJRN+OtGMg8o3ARbmhxZlQXi1gWYoNsrvwnDmy/hPnOAti4oO5RdPN0=
+X-Received: by 2002:a05:6000:2688:b0:487:146f:7c88 with SMTP id ffacd0b85a97d-4871d98cdcfmr6375274f8f.4.1789775021601;
+        Fri, 18 Sep 2026 16:43:41 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487243cede9sm2482874f8f.0.2026.09.18.16.43.40
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 16:40:16 -0700 (PDT)
-From: Xiang Mei <xmei5@asu.edu>
-To: tiwai@suse.com,
-	perex@perex.cz,
-	linux-sound@vger.kernel.org
-Cc: linux-kernel@vger.kernel.org,
-	co+be8fa7ea6f77fdce@bugs.sh,
-	stable@vger.kernel.org,
-	Xiang Mei <xmei5@asu.edu>
-Subject: [PATCH] ALSA: line6: reject oversized playback packets
-Date: Fri, 18 Sep 2026 16:40:14 -0700
-Message-ID: <20260918234014.1318325-1-xmei5@asu.edu>
-X-Mailer: git-send-email 2.43.0
+        Fri, 18 Sep 2026 16:43:41 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Alasdair Kergon <agk@redhat.com>,
+	Mike Snitzer <snitzer@kernel.org>,
+	Mikulas Patocka <mpatocka@redhat.com>
+Cc: Benjamin Marzinski <bmarzins@redhat.com>,
+	Milan Broz <mbroz@redhat.com>,
+	dm-devel@lists.linux.dev,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] dm ioctl: don't let data_start run past the buffer
+Date: Sat, 19 Sep 2026 00:43:39 +0100
+Message-Id: <20260918234339.54105-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -77,79 +83,53 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Each playback URB is handed a slice of out.buffer that is exactly
-LINE6_ISO_PACKETS * max_packet_size_out bytes, sized from the OUT
-endpoint, but the number of bytes written into that slice is never
-compared against it.
+struct dm_ioctl has seven bytes of trailing padding, so the smallest
+buffer userspace is allowed to ask for, offsetof(struct dm_ioctl, data),
+is seven bytes shorter than sizeof(struct dm_ioctl).
 
-submit_audio_out_urb() takes the frame count from prev_fsize, which
-audio_in_callback() derived from the *IN* endpoint's received packet
-length, and rescales it with the playback frame size; when prev_fsize is
-still zero it synthesizes a length from the sample rate instead.  On a
-device declaring a large IN wMaxPacketSize and a small OUT
-wMaxPacketSize, the resulting memcpy(), or the memset() when the
-playback stream is idle, runs past its slice and, as the reproducer
-below shows, beyond the allocation.
+get_result_buffer() sets data_start to sizeof(struct dm_ioctl) without
+looking at how big the buffer actually is. Ask for the minimum and
+data_start ends up seven bytes past the end. Callers add it to
+data_size, and ctl_ioctl() copies that much back to userspace:
 
-usb_submit_urb() is not a backstop.  max_packet_size_out comes from
-usb_maxpacket(), which returns only the low 11 bits of wMaxPacketSize,
-while USB core validates a high-speed isochronous length against that
-base scaled by usb_endpoint_maxp_mult().  A length of up to three times
-the allocated slice is therefore accepted, and even a rejected URB is
-only rejected after the write.
+  BUG: KASAN: slab-out-of-bounds in _copy_to_user+0xad/0xd0
+  Read of size 312 at addr ffff8880169e4c00 by task repro-dm/140
+   ctl_ioctl+0x5e3/0xcb0
+   dm_ctl_ioctl+0x25/0x40
+  allocated 305-byte region [ffff8880169e4c00, ffff8880169e4d31)
 
-Reject a packet that does not fit the slice the driver allocated for it.
-Clamping it instead would silently shorten the capture-derived rate
-feedback and desynchronize the two streams.
+A DM_LIST_DEVICES with data_size set to 305 is enough to hit it, and the
+seven bytes that leak are whatever sat next to the allocation.
 
-  BUG: KASAN: slab-out-of-bounds in submit_audio_out_urb (sound/usb/line6/playback.c:229)
-  Write of size 1024 at addr ffff888100bbd400 by task kworker/1:2/5002
-  Workqueue: events line6_startup_work
-  Call Trace:
-   __asan_memcpy (mm/kasan/shadow.c:106)
-   submit_audio_out_urb (sound/usb/line6/playback.c:229)
-   line6_submit_audio_out_all_urbs (sound/usb/line6/playback.c:291)
-   line6_stream_start (sound/usb/line6/pcm.c:194)
-   line6_pcm_acquire (sound/usb/line6/pcm.c:337)
-   line6_startup_work (sound/usb/line6/driver.c:728)
-   process_one_work (kernel/workqueue.c:3396)
-   worker_thread (kernel/workqueue.c:3479 kernel/workqueue.c:3560)
-   kthread (kernel/kthread.c:436)
-   ret_from_fork (arch/x86/kernel/process.c:158)
-   ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+Clamp data_start to the buffer size.
 
-  The buggy address belongs to the object at ffff888100bbd400
-   which belongs to the cache kmalloc-256 of size 256
-  The buggy address is located 0 bytes inside of
-   allocated 256-byte region [ffff888100bbd400, ffff888100bbd500)
-
+Reported-by: syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=48d935cf48a4a76be346
+Fixes: 76c072b48e39 ("dm ioctl: move compat code")
 Cc: stable@vger.kernel.org
-Fixes: 7a0f55aeeb8f ("ALSA: line6: Support assymetrical in/out configurations")
-Reported-by: <co+be8fa7ea6f77fdce@bugs.sh>
-Assisted-by: LLM
-Signed-off-by: Xiang Mei <xmei5@asu.edu>
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 ---
- sound/usb/line6/playback.c | 7 +++++++
+ drivers/md/dm-ioctl.c | 7 +++++++
  1 file changed, 7 insertions(+)
 
-diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
-index 7ebaf125f969..aa6ddf8746a0 100644
---- a/sound/usb/line6/playback.c
-+++ b/sound/usb/line6/playback.c
-@@ -182,6 +182,13 @@ static int submit_audio_out_urb(struct snd_line6_pcm *line6pcm)
+diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
+index a6b8e97755cd..211569dd3c54 100644
+--- a/drivers/md/dm-ioctl.c
++++ b/drivers/md/dm-ioctl.c
+@@ -656,6 +656,13 @@ static void *get_result_buffer(struct dm_ioctl *param, size_t param_size,
+ {
+ 	param->data_start = align_ptr(param + 1) - (void *) param;
  
- 		fsize *= bytes_per_frame;
- 
-+		if (fsize > line6pcm->max_packet_size_out) {
-+			dev_err(line6pcm->line6->ifcdev,
-+				"playback packet too large: %d > %d\n",
-+				fsize, line6pcm->max_packet_size_out);
-+			return -EMSGSIZE;
-+		}
++	/*
++	 * The buffer can be as small as offsetof(*param, data), which is
++	 * less than sizeof(*param), so don't run off the end of it.
++	 */
++	if (param->data_start > param_size)
++		param->data_start = param_size;
 +
- 		fout->offset = urb_size;
- 		fout->length = fsize;
- 		urb_size += fsize;
+ 	if (param->data_start < param_size)
+ 		*len = param_size - param->data_start;
+ 	else
 -- 
-2.43.0
+2.34.1
 
