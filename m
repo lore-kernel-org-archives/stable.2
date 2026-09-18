@@ -1,134 +1,208 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from o1.ptr9745.em.honeycomb.io (o1.ptr9745.em.honeycomb.io [149.72.141.136])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70FCA39A7E1
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 03:56:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C3A9838C406
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 03:56:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=149.72.141.136
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789703786; cv=none; b=cTIEaWk7iWNfMVUQG7Y1zhhuA6sf6/2uDnj9x1Fk7jo/EN05VklZqyJXUpfmHfGg1pGwJufyrf7qkFAqTEs8bKw6y+mXIkZw5DvvDy6P1k8PYco0g8ea5LQDnttIfOK7/lJaRurbdK1h9/SidSLW4xTaW08PDFheIIbRVPKt/64=
+	t=1789703796; cv=none; b=aSUgZLEJURin7HR4VcWw5QJNU54yW6ot34okyY0s1pEPG3URuS1ONcxMsvxDHc8mWKlcHMZb1frJsVw/AJMdQCZNjhnhkOH6JdPZuz+qNWUU6PD2nXf+BwVbKir5Ejj2Cbwm3Yt1v7TvfbuprU3Oddup4+UZyxdpKdahZIsLkKU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789703786; c=relaxed/simple;
-	bh=pkNHXt5gdQSHxwxTqenzPOdTbJOI7BzP6Y7cUui9JRk=;
-	h=Content-Type:Mime-Version:Subject:From:In-Reply-To:Date:Cc:
-	 Message-Id:References:To; b=dSjDlu3NZpvVLNbwQ+B28IXXl0XRfnn6vRM8JYdoCwn6Py67eSZeFfoiJMsyB7sQYi73FXh7QuuqC5WV9Qi7eirdP8TjNZ4kk+O2+874A4DUL4PsMFZLpVPbz6YBO5rZmYujZqsT/9XzPz6kZUbr8H/69xXM4/BpsjgUDjs7zkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=net-swift.com; spf=pass smtp.mailfrom=net-swift.com; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=net-swift.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=net-swift.com
-X-QQ-mid: esmtpsz20t1789703772t7637d381
-X-QQ-Originating-IP: 2w5xdtdlO4Bev8ojz+MFY/d6nb+kMkzlVODl9mwoWCA=
-Received: from smtpclient.apple ( [125.118.25.28])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 11:56:09 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 3536635797696143373
-EX-QQ-RecipientCnt: 14
-Content-Type: text/plain;
-	charset=utf-8
+	s=arc-20240116; t=1789703796; c=relaxed/simple;
+	bh=FKO8LhQW1CX8/c5mIrCI5Vk14ANaYMcYDCy36i5ZkLA=;
+	h=From:Subject:Date:Message-ID:MIME-Version:To:Cc:Content-Type; b=nc9igmzoEMEjzfAGglXCDDInWgy34hcikFbFgTpjr2cZmY8HVVhm1WDLq0i73o5LBALLUMLyomXCnF0lmJHoC4Jq7JgApQWzb6t9AzeheotG/LLntlrC3kMVTLi//iTock41QrI+UvaIO3h6yEUW0oeF0lDPFFpuo3hhj5SvZ70=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io; spf=pass smtp.mailfrom=em.honeycomb.io; dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b=TcPMU7my; arc=none smtp.client-ip=149.72.141.136
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=em.honeycomb.io
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=honeycomb.io header.i=@honeycomb.io header.b="TcPMU7my"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=honeycomb.io;
+	h=from:subject:date:mime-version:to:cc:content-type:
+	content-transfer-encoding:cc:content-type:date:from:subject:to;
+	s=s1; t=1789703794;
+	bh=ByQ3HjxGq3mISarOfpCbkfBfl3mweeLSYVmVj0cAQbw=;
+	b=TcPMU7mypK99BY/rkIaDkQWezP5ZU/NQeGQvFbmr3SCxE/+aV7ZvfO1eyWgNORAAsIpE
+	Zuwa9npWKvlnpVycfZJ6GY5LT5ScdbhwsYf+YhBw57kK51ioO0IZ+lQW4vPIUbz7T8WVPN
+	mu/mMLJpE2bz2lk1YhoJFhtm45R/VGuUuie0tU+7QUA8qMzN9Ul5AcfcDWorUhv1w49F8t
+	+pBsbRs+VrcWjZlngDX26/Si53VA3+5Com3GCMkXpWrmXHIbyDq0FKacw+WSbhj9roat2X
+	fqOT90hSnIG/2VKFt2MIGILlg4waA7ywptOY/rkX7rrsEDb75gaUjg5CPwEozcAg==
+Received: by recvd-7d7dd758d8-fn74v with SMTP id recvd-7d7dd758d8-fn74v-1-6AACB671-3C
+	2026-09-18 03:56:33.7941501 +0000 UTC m=+1485602.227445126
+Received: from daisy.dens.ffj.family (unknown)
+	by geopod-ismtpd-19 (SG)
+	with ESMTP
+	id Jvjjs0mySB-kvyIuCIscTA
+	Fri, 18 Sep 2026 03:56:33.721 +0000 (UTC)
+From: Liz Fong-Jones <lizf@honeycomb.io>
+Subject: [PATCH v6] PCI: Fix BAR resize for devices on a root bus
+Date: Fri, 18 Sep 2026 03:56:34 +0000 (UTC)
+Message-ID: <20260918035633.566823-1-lizf@honeycomb.io>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0 (Mac OS X Mail 16.0 \(3864.600.51.1.1\))
-Subject: Re: [PATCH net 2/2] net: ngbe: clear DRV_LOAD bit when ngbe_open()
- fails
-From: "mengyuanlou@net-swift.com" <mengyuanlou@net-swift.com>
-In-Reply-To: <20260917090050.1927999-3-zhangyunfei1@kylinos.cn>
-Date: Fri, 18 Sep 2026 11:55:59 +0800
-Cc: netdev@vger.kernel.org,
- jiawenwu@trustnetic.com,
- andrew+netdev@lunn.ch,
- davem@davemloft.net,
- edumazet@google.com,
- kuba@kernel.org,
- pabeni@redhat.com,
- aleksandr.loktionov@intel.com,
- leitao@debian.org,
- weirongguang@kylinos.cn,
- u.kleine-koenig@baylibre.com,
- linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Content-Transfer-Encoding: quoted-printable
-Message-Id: <9D109671-17F9-4BA3-8814-534E238FA0E2@net-swift.com>
-References: <20260917090050.1927999-1-zhangyunfei1@kylinos.cn>
- <20260917090050.1927999-3-zhangyunfei1@kylinos.cn>
-To: Zhang Yunfei <zhangyunfei1@kylinos.cn>
-X-Mailer: Apple Mail (2.3864.600.51.1.1)
-X-QQ-SENDSIZE: 520
-Feedback-ID: esmtpsz:net-swift.com:qybglogicsvrgz:qybglogicsvrgz5b-1
-X-QQ-XMAILINFO: MuYPkxQe3jgCQbjeRlFX2cNRykAWePd9yRxtjkXfSuDPxW6BGTnYWCxZ
-	dZg/VFmQccL2PrEb4jTQqSI23o1U9/RTV+D4x9zNjsVJihXsihxAjEk64ZyEEhErQqYVV5V
-	cBv+BxBSkEwb/uCDUz4zt7vj9liBNUrYrWTKXwuslVHmgLSRC2k1s9SBeAWXbLUG1yXv2nj
-	gBWjxZpKafyUTqYdy7M7WncrYT/40Dv1hXvhkRusmQOco6KTFC45Q/rjR4ZuqMbU0euToqN
-	MSssbqMf66SeG5BbD9FYw8RqpRui0JwDR7a6toImfakLUaUWvn3rKIUXLEaP6W8B8znDUaR
-	gtuvMGJvpeSHj5sHdsMlJeUpjhOudUdYV/e4NKkHmbtx+SapG/YpHURlEHc0cwCwk7W8kJL
-	4SkelGg00jYMCOsRaZLDY+nl7m5JT3NqzFHG2Fcr9thzWm0pRdkZSVFyRVC1M83wZtXYYIe
-	/pvhYjcxZjloa4F9X2QdJFYVFIWEWX1kXiCJ2ZwHf6PPZZc8RAjU6jadzZ6hKSe+Hfo6U2F
-	/cnim+IOa4rgG/9rH+nBehYXkrWqW3iVJgQam/uxLP44RJ2rILhv0KF2euBr/FEjs2OIgty
-	xHaLfhcn7oYa7jm754xO3FPL5etmpq1hqU/RVduqHd/GN1l/afTmQ6Nw0dixMfUMuSg1O6X
-	lOPcrrdFoX1By9tjn6mYhb/u/WQUjyZvkbrbPdagNTpRdlxgV+UnPZqT8dxt7YeYyY87P/z
-	3xA1p0d0NoPFiwQHRJTd/z9zBLXQmzSB72aMVXqoKbFLQ+ra0byJhAWVffw3cyvkbS2pC29
-	ZCayq2sPNoFrFq4R2t2C7JgmRufzs0a6o5OW2H+avJkt7LMIg88HRBedtPapmQifKndykk1
-	JwrIkWCPlzUmDuSAbwzYFUjfwU7pcW3D+1NX+n6+gWdZJsTGe9Jw5dRo9IV3LjQAcau48+4
-	wy3I+lqgTVrtuRb70OVD9QGGzUUY5NbMhUpU+dyAX01z9nBxYk0Lar9hGBSkwvLxduaG26u
-	D4sFgscVetPZpPjWT/ESob1FD7xB+bj5cQvWf28+98xR2/nZLPZyzgTRvVcA7VZm3XnHL3f
-	WCCxfx6/7mO
-X-QQ-XMRINFO: NI4Ajvh11aEjRFH9cCmhAbSrxRZSSeBQhw==
-X-QQ-RECHKSPAM: 0
+MIME-Version: 1.0
+X-SG-EID: 
+ =?us-ascii?Q?u001=2ECuH7N2XAoeMR1zrzr=2F6NZrhli2vbKPOHff5fJuZuba6ZIE8QPyIf9mn4Y?=
+ =?us-ascii?Q?ezqeFFjUkh=2FeROy4LtnO7KN9jZmeTg5nVuRRDKF?=
+ =?us-ascii?Q?THtSYYaKDWLtyCa2ILtxfj5ijKKKbNpm1Uu=2FWbm?=
+ =?us-ascii?Q?rgic8xPn0fHnVNEpIDrwzROnAWIQTJH8wKVdWxF?=
+ =?us-ascii?Q?aZtj9aGiKeB9Z5I7CuuLf=2FXDb1Kp70VnwtO7e=2Fc?=
+ =?us-ascii?Q?tu6=2FVG=2FctyBgolynzCtgkd3=2FdRZx1+MXu0GeKHE?=
+ =?us-ascii?Q?nGkH?=
+To: lizf@honeycomb.io, Bjorn Helgaas <bhelgaas@google.com>,
+	Ilpo =?iso-8859-1?q?J=E4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Cc: linux-pci@vger.kernel.org, linux-kernel@vger.kernel.org,
+	regressions@lists.linux.dev, amd-gfx@lists.freedesktop.org, Jon Nettleton
+	<jon@solid-run.com>, Jon Nettleton <jon.nettleton@gmail.com>, Jacob Martin
+	<jacob.martin@canonical.com>, Thorsten Leemhuis <regressions@leemhuis.info>,
+	stable@vger.kernel.org
+X-Entity-ID: u001.GRlkmHQ+Ka/CKxmoC/CxTw==
+Content-Type: text/plain; charset=iso-8859-1
+Content-Transfer-Encoding: 8bit
 
+pci_do_resource_release_and_resize() releases the device BARs that
+share a bridge window with the BAR being resized, but when the device
+sits directly on a root bus (pdev->bus->self == NULL) it then skips
+resource assignment entirely and returns success, leaving the BARs it
+just released unassigned (IORESOURCE_UNSET).
 
+Skipping pbus_reassign_bridge_resources() is correct in that case --
+there is no bridge window to adjust -- but the device BARs still have
+to be reassigned. Before the BAR release was consolidated into the PCI
+core, this case worked for amdgpu because the driver released the BARs
+itself and then called pci_assign_unassigned_bus_resources()
+unconditionally after the resize, which assigns unassigned device BARs
+also on a root bus. Commit db92e3fef53e ("drm/amdgpu: Remove driver
+side BAR release before resize") removed that call, so nothing assigns
+the released BARs anymore.
 
-> 2026=E5=B9=B49=E6=9C=8817=E6=97=A5 17:00=EF=BC=8CZhang Yunfei =
-<zhangyunfei1@kylinos.cn> =E5=86=99=E9=81=93=EF=BC=9A
->=20
-> ngbe_open() sets the WX_CFG_PORT_CTL_DRV_LOAD bit via
-> wx_control_hw(wx, true) to tell the management firmware that the
-> host driver has taken over the port (NCSI/OOB firmware stops using
-> its management channel). Every error path of ngbe_open() returns
-> without clearing it, leaving rings, IRQs and the PHY torn down
-> while the firmware still believes the host owns the port, an
-> inconsistent driver-firmware handshake state that persists until
-> the next successful ifup.
->=20
-> Roll the bit back on all open error paths, matching ngbe_close()
-> and ngbe_dev_shutdown(), which already clear it.
->=20
-> Fixes: e7956139a6cf ("net: ngbe: Add irqs request flow")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Zhang Yunfei <zhangyunfei1@kylinos.cn>
+This breaks amdgpu completely on the SolidRun HoneyComb LX2K (NXP
+LX2160A, arm64, ACPI), where the GPU endpoint is enumerated directly
+on the root bus of its segment (there is no root port device, so
+pdev->bus->self is NULL):
 
-Reviewed-by: Mengyuan Lou <mengyuanlou@net-swift.com>
+  amdgpu 0004:01:00.0: BAR 0 [mem 0xa400000000-0xa40fffffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: BAR 2 [mem 0xa410000000-0xa4101fffff 64bit pref]: releasing
+  amdgpu 0004:01:00.0: sw_init of IP block <gmc_v8_0> failed -19
+  amdgpu 0004:01:00.0: amdgpu_device_ip_init failed
+  amdgpu 0004:01:00.0: Fatal error during GPU init
 
-> ---
-> drivers/net/ethernet/wangxun/ngbe/ngbe_main.c | 4 +++-
-> 1 file changed, 3 insertions(+), 1 deletion(-)
->=20
-> diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c =
-b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> index 6d8289e2532d..88f00b72a512 100644
-> --- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> +++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> @@ -494,7 +494,7 @@ static int ngbe_open(struct net_device *netdev)
->=20
-> err =3D wx_setup_resources(wx);
-> if (err)
-> - return err;
-> + goto err_control_hw;
->=20
-> wx_configure(wx);
->=20
-> @@ -526,6 +526,8 @@ static int ngbe_open(struct net_device *netdev)
-> err_free_resources:
-> wx_free_isb_resources(wx);
-> wx_free_resources(wx);
-> +err_control_hw:
-> + wx_control_hw(wx, false);
-> return err;
-> }
->=20
-> --=20
-> 2.25.1
->=20
->=20
+No error is logged because the resize path reports success; amdgpu
+then finds BAR0 IORESOURCE_UNSET and bails out with -ENODEV.
+
+When there is no upstream bridge, call pci_bus_assign_resources() on
+the root bus to place the BARs released above, using the same
+alignment-sorted algorithm as normal enumeration instead of a manual
+per-BAR loop. This also walks the rest of the hierarchy under the
+root bus, as pci_assign_unassigned_bus_resources() used to for amdgpu
+before commit db92e3fef53e ("drm/amdgpu: Remove driver side BAR
+release before resize") removed that call -- the core-side fix that
+commit asked for ("such a problem should be fixed inside
+pci_resize_resource() instead").
+
+pci_bus_assign_resources() returns void, so failure is detected by
+checking whether the released BARs are still assigned afterward; if
+not, roll back as in the bridged case. This is stricter than the
+bridged path -- it fails on any unplaced resource, not just required
+ones -- since a root bus typically has one shared window, and failing
+loudly seemed better than leaving something silently unassigned.
+
+The root bus path also had a locking bug that any fix here necessarily
+touches: the old "goto out" jumped to up_read(&pci_bus_sem) without a
+matching down_read() (as does the "goto restore" taken when
+pci_dev_res_add_to_list() fails in the release loop). Take pci_bus_sem
+before the BAR release loop so every path through the function holds
+it exactly once.
+
+Use pci_upstream_bridge() rather than testing pdev->bus->self
+directly. The two are usually equivalent, but pci_upstream_bridge()
+is the canonical test -- pci_is_root_bus(), which it's built on,
+warns that bus->self == NULL doesn't necessarily mean a root bus
+(SR-IOV virtual buses from virtfn_add_bus() are the same).
+
+Fixes: 337b1b566db0 ("PCI: Fix restoring BARs on BAR resize rollback path")
+Cc: stable@vger.kernel.org
+Link: https://bugs.launchpad.net/ubuntu/+source/linux-hwe-7.0/+bug/2159596
+Suggested-by: Bjorn Helgaas <bhelgaas@google.com>
+Suggested-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Reviewed-by: Ilpo Järvinen <ilpo.jarvinen@linux.intel.com>
+Assisted-by: Claude:claude-fable-5 checkpatch
+Assisted-by: Claude:claude-sonnet-5
+Signed-off-by: Liz Fong-Jones <lizf@honeycomb.io>
+---
+
+Confirmed against v7.3-rc3: drivers/pci/setup-bus.c is unpatched
+there, pci_do_resource_release_and_resize() still returns without
+reassigning the released BARs when bus->self is NULL.
+
+Tested on the real root-bus hardware this fixes (SolidRun HoneyComb
+LX2K): both a manual resize via the resource0_resize sysfs attribute
+(shrink to 256M then back to 4G, forcing the release+reassign path
+both directions) and amdgpu's own natural probe-time resize (with the
+amdgpu.rebar=0 workaround removed) succeed cleanly -- VRAM and BAR
+size match, no "Fatal error during GPU init", full IP block init.
+
+Changes in v6:
+- Repost, confirmed still affects v7.3-rc3
+- Added real-hardware test confirmation (both a manual sysfs-triggered
+  resize and amdgpu's own natural probe-time resize)
+- Picked up Reviewed-by from Ilpo
+- Link to v5: https://patch.msgid.link/20260908-pci-rebar-root-bus-v5-1-a210f405ea81@honeycomb.io
+
+ drivers/pci/setup-bus.c | 23 +++++++++++++++++------
+ 1 file changed, 17 insertions(+), 6 deletions(-)
+
+diff --git a/drivers/pci/setup-bus.c b/drivers/pci/setup-bus.c
+index e8c94aa1d3c12..ed16ef7c26fa7 100644
+--- a/drivers/pci/setup-bus.c
++++ b/drivers/pci/setup-bus.c
+@@ -2380,6 +2380,7 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	struct resource *res = pci_resource_n(pdev, resno);
+ 	struct pci_dev_resource *dev_res;
+ 	struct pci_bus *bus = pdev->bus;
++	struct pci_dev *bridge = pci_upstream_bridge(pdev);
+ 	struct resource *b_win, *r;
+ 	LIST_HEAD(saved);
+ 	unsigned int i;
+@@ -2397,6 +2398,8 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 	if (ret)
+ 		return ret;
+ 
++	down_read(&pci_bus_sem);
++
+ 	pci_dev_for_each_resource(pdev, r, i) {
+ 		if (i >= PCI_BRIDGE_RESOURCES)
+ 			break;
+@@ -2415,13 +2418,21 @@ int pci_do_resource_release_and_resize(struct pci_dev *pdev, int resno, int size
+ 
+ 	pci_resize_resource_set_size(pdev, resno, size);
+ 
+-	if (!bus->self)
+-		goto out;
++	if (bridge) {
++		ret = pbus_reassign_bridge_resources(bus, res, &saved);
++		if (ret)
++			goto restore;
++	} else {
++		/* No bridge window to adjust; let the core reassign the bus. */
++		pci_bus_assign_resources(bus);
+ 
+-	down_read(&pci_bus_sem);
+-	ret = pbus_reassign_bridge_resources(bus, res, &saved);
+-	if (ret)
+-		goto restore;
++		list_for_each_entry(dev_res, &saved, list) {
++			if (!resource_assigned(dev_res->res)) {
++				ret = -ENOSPC;
++				goto restore;
++			}
++		}
++	}
+ 
+ out:
+ 	up_read(&pci_bus_sem);
+-- 
+2.53.0
 
