@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ED2CE28C840;
-	Fri, 18 Sep 2026 05:43:59 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9ED4628C840;
+	Fri, 18 Sep 2026 05:44:02 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710241; cv=none; b=iJPrHoDLFN5BKWKFxdPepVxZ7iyu/mNkFiS0/0XXlY4eSFTX6Yx0AzL6oASIdornBfKyH/MgzxRKHLs5gZ5siZdcyZN30dtECauqh7KcOQyIKu/X6Au+JnznavnQq7d8OMcS1mQyKnLgv27QlMjuQDlTSku14KAuWX1Fzf+ERHY=
+	t=1789710244; cv=none; b=QowTUBhdMC27ymaiLiYFQDYB5aEc5w4FP/TmLI2EdR45x0k8J7I6XTskj5ETagk+i8ZhID1VRW7bhGPVsccmMhEah9odRUDwiJtr9QKJajQ8FebqWntxBD/0S1vyR00oHZI7VhznocRmE2/3/j/dOucjl3LxX7B/Xfj/e/mntSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710241; c=relaxed/simple;
-	bh=cWdbAR+fXr0NpU7IFz3PbfvpItoyQIJTKZiHoUcRQXI=;
-	h=Date:To:From:Subject:Message-Id; b=Rh92JhR2nSvWoCAu2TrC3rNd/cZxuj9qhOyHUvAgOEOcqUIgdLb7bSaYXaJvPZjaKjlUN7z7BwRkL8EiukYx79wC1psArtLhaID9EDirQ/x85gyCAyJa9JsFyA21FXNgP+nt5aGPsDeiAXlOADCX4xDw6BrzU/L1pp+sQPjVf8o=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=DD6COYbo; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789710244; c=relaxed/simple;
+	bh=dRetilftXs8Cv6zB+sTJERBOiItL9PFs7YTeAwoUycI=;
+	h=Date:To:From:Subject:Message-Id; b=AdshMSGS6a6f3LhrlaLNGpz47RDnjPSjf4ibZ57OhURHn1SIDmVqik4WHjJZH6wsQ/pRYPmG5v9nUMCZMU3/kVLxCPU6wO8NzDOjADH2FqSgB4vmqvf3I0B1fdzvu8q81YRJmZsEKX+UyHg6VI8lNIWQnAeehMuQUS+QTn1euKI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=dSzxScVM; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="DD6COYbo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5DA941F000FF;
-	Fri, 18 Sep 2026 05:43:59 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="dSzxScVM"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 450411F000FF;
+	Fri, 18 Sep 2026 05:44:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789710239;
-	bh=8O6G8xLXK19RL/5rP4/g9AOL5zdi8Dle/XILYJic8mw=;
+	d=linux-foundation.org; s=korg; t=1789710242;
+	bh=ETa1feUboeUZb91ljptIHj5zkGlm15enCRgQBx4HAdo=;
 	h=Date:To:From:Subject;
-	b=DD6COYbo2sgzgSvof1yx6b8Ba7MrkrMlXH25r4s2U6BFKlSnBeAQYqkCRhEIZITY7
-	 gbONHjwX04PhpQJVFDsrnci3Bo791yc4EWfDYIFStHPYHhHHTJC8rBbiR7p5yLIJat
-	 8qy1J6R6Kercv+LcyRi3ffXTHx2dDnCyHrWaZuno=
-Date: Thu, 17 Sep 2026 22:43:58 -0700
-To: mm-commits@vger.kernel.org,wangkefeng.wang@huawei.com,vbabka@kernel.org,sunnanyong@huawei.com,stable@vger.kernel.org,riel@surriel.com,minchan@kernel.org,lwoodman@redhat.com,ljs@kernel.org,liam@infradead.org,lance.yang@linux.dev,kamezawa.hiroyu@jp.fujitsu.com,jannh@google.com,harry@kernel.org,david@kernel.org,tujinjiang@huawei.com,akpm@linux-foundation.org
+	b=dSzxScVMLpXGZO1SIbW3ERep2xXWct/VEoX89kFwsf4lqx2jcrHFTqMKXWqs6YxbT
+	 wiGjAIn5LZhD4NRjWmGRXaisv0k2+fxeIJqwXEsuZKC2X7XNYj/pEzYk7p9TSNPLnf
+	 W+s+0NEHVfgfzNnqnvRTskG9qQ6LOwMQPT8SnEwE=
+Date: Thu, 17 Sep 2026 22:44:01 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,lienze@kylinos.cn,sj@kernel.org,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish.patch removed from -mm tree
-Message-Id: <20260918054359.5DA941F000FF@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-damon-core-reset-invalid-quota-charge_target_from.patch removed from -mm tree
+Message-Id: <20260918054402.450411F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,193 +35,184 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: mm/rmap: fix missing barrier between anon_vma init and vma->anon_vma publish
+     Subject: mm/damon/core: reset invalid quota->charge_target_from
 has been removed from the -mm tree.  Its filename was
-     mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish.patch
+     mm-damon-core-reset-invalid-quota-charge_target_from.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Jinjiang Tu <tujinjiang@huawei.com>
-Subject: mm/rmap: fix missing barrier between anon_vma init and vma->anon_vma publish
-Date: Tue, 8 Sep 2026 20:29:24 +0800
+From: SJ Park <sj@kernel.org>
+Subject: mm/damon/core: reset invalid quota->charge_target_from
+Date: Thu, 10 Sep 2026 07:28:45 -0700
 
-On arm64 server, we find that a task trying to grab the anon_vma lock
-triggers hungtask.
+DAMOS can suddenly stop working if a target process that the quota is just
+fully charged on is terminated.  Fix by catching and processing the corner
+case.
 
-INFO: task main:2354726 blocked for more than 120 seconds.
-      Tainted: G            E     5.10.0-0021.aarch64 #1
-"echo 0 > /proc/sys/kernel/hung_task_timeout_secs" disables this message.
-task:main            state:D stack:    0 pid:2354726 ppid:2350673 flags:0x00000a01
-Call trace:
- __switch_to+0x7c/0xbc
- __schedule+0x3b4/0x8a0
- schedule+0x50/0xe0
- rwsem_down_write_slowpath+0x3cc/0x6cc
- down_write+0x60/0x260
- __anon_vma_prepare+0x6c/0x210
- do_anonymous_page+0x258/0x660
- handle_pte_fault+0x188/0x214
- __handle_mm_fault+0x1b0/0x380
- handle_mm_fault+0xf4/0x284
- do_page_fault+0x19c/0x494
- do_translation_fault+0xcc/0xf8
- do_mem_abort+0x48/0xac
- el0_da+0x44/0x80
- el0_sync_handler+0x88/0xb4
- el0_sync+0x160/0x180
+When DAMOS quota is fully charged, the target and the region to continue
+applying the action in the next round is saved in
+damos_quota->charge_{target,addr}_from.  In the next round, DAMOS iterates
+targets and regions from the beginning.  It skips applying the action to
+the regions until it visits and skips the saved target/region.
 
-After analyzing the vmcore, we found the anon_vma->root->rwsem.count is
--1.  There is another anon_vma whose anon_vma->root->rwsem.count is 1, the
-anon_vma->root->rwsem.owner shows the lock is held, but the stack of the
-task shows the task doesn't hold the anon_vma lock.
+Virtual address space targets become invalid if the process is terminated.
+Trying to apply the scheme to invalid target is just a waste of time. 
+Hence commit 6e4930e33329 ("mm/damon/core: fix wasteful CPU calls by
+skipping non-existent targets") made the logic to skip invalid targets. 
+However, it does skip before the charged target/region skipping/updating.
 
-After adding more debugging info, we found __anon_vma_prepare() reuses
-anon_vma and triggers the UAF of anon_vma->root due to missing memory
-barrier, leading to locking and unlocking two different anon_vma->root,
-thus leading to an anon_vma will never be unlocked, and another anon_vma
-couldn't be locked anymore.
+Let's suppose the user runs DAMOS for multiple virtual address spaces with
+a quota.  The quota exceeded in the middle of a virtual address space. 
+And the process of the address space is terminated.  Then the
+charge_target_from points to the invalid target.  The pointer update logic
+is skipped for the invalid target, so the charge_target_from is never
+updated.  DAMOS action to every target/region is skipped.  From the user's
+perspective, it would look like suddenly DAMOS has stopped working.
 
-This race requires two adjacent VMAs that are not merged but are
-anon_vma-compatible (e.g., they differ in VMA_ACCESS_FLAGS that can be
-changed by mprotect()).  Two threads fault on each VMA concurrently, both
-calling __anon_vma_prepare() with only mmap_lock held for reading.
+No critical leak or crash can happen.  The user could reinstall the
+scheme.  But this makes use of DAMOS under certain setups quite
+unreliable.
 
-    THREAD A                             THREAD B
-__anon_vma_prepare                __anon_vma_prepare
- find_mergeable_anon_vma() -> NULL
- anon_vma = anon_vma_alloc();
-   anon_vma->root = anon_vma;
- // the two stores may be reordered
- vma->anon_vma = anon_vma;
-                                   // finds A's anon_vma
-                                   anon_vma = find_mergeable_anon_vma(vma);
-                                   anon_vma_lock_write(anon_vma);
-                                     // may still see the old root
-                                     down_write(&anon_vma->root->rwsem);
-                                   anon_vma_unlock_write(anon_vma);
-                                     // see the new root, never unlock old
-                                     up_write(&anon_vma->root->rwsem);
+When the invalid target is found, further check the corner case and reset
+the pointer.
 
-thread A triggers page fault and calls __anon_vma_prepare() to prepare
-anon_vma for the faulting vma.  __anon_vma_prepare() allocates and
-initializes a new anon_vma, and then publishes it to the vma with a plain
-store.  anon_vma_prepare() only requires the mmap_lock to be held for
-reading, so two threads can fault on adjacent VMAs at the same time. 
-While thread A publishes a new anon_vma, thread B could find the anon_vma
-via find_mergeable_anon_vma() and then locks anon_vma->root->rwsem.
+This issue was discovered [1] by Sashiko.
 
-The store to anon_vma->root in anon_vma_alloc() and the store to
-vma->anon_vma can be reordered.  The anon_vma_lock_write() and spin_lock()
-only provide acquire semantics, which do not prevent prior stores from
-being reordered after them.  The release semantics of the corresponding
-spin_unlock() and anon_vma_unlock_write() come too late, the store to
-vma->anon_vma is already published before they take effect.  As a result,
-thread B can observe the following order:
-
-    vma->anon_vma = anon_vma;
-    anon_vma->root = anon_vma;
-
-The anon_vma slab is SLAB_TYPESAFE_BY_RCU, so a newly allocated anon_vma
-may reuse memory from a previously freed one.  The constructor
-(anon_vma_ctor) does not reset anon_vma->root, and __put_anon_vma()
-doesn't clear it either, so the old root value persists until
-anon_vma_alloc() overwrites it.  If that store isn't visible, thread B
-reads a root that points to the old anon_vma and locks it.
-
-As a result, thread B can call anon_vma_lock_write() with the old root,
-and call anon_vma_unlock_write() with the new root, leading to an anon_vma
-will never be unlocked, and another anon_vma couldn't be locked anymore
-(its count is dropped from 0 to -1 due to wrong unlock).
-
-To fix it, change the plain store `vma->anon_vma = anon_vma` to store
-release, so that the fields of anon_vma are visible before anon_vma is
-published to vma->anon_vma.
-
-At read side, the load of anon_vma and anon_vma->root have address
-dependency.  According to Documentation/memory-barriers.txt and some
-investigations, only Alpha needs address-dependency barriers and it has
-been handled by READ_ONCE() in reusable_anon_vma().
-
-We reproduced this issue in v5.10 with KSM enabled.  The kernel doesn't
-merge commit cf7e7a3503df ("mm: prevent KSM from breaking VMA merging for
-new VMAs"), so there are many adjacent VMAs that aren't merged but are
-compatible for anon_vma.
-
-Without this fix, our production environment could reproduce this issue
-about 2-5 times each month.  After adding a smp_mb() before
-anon_vma_lock_write(anon_vma) in __anon_vma_prepare(), which is different
-to this patch, this issue hasn't been reproduced for one month.
-
-Link: https://lore.kernel.org/20260908122924.554373-1-tujinjiang@huawei.com
-Fixes: 5c341ee1dfc8 ("mm: track the root (oldest) anon_vma")
-Signed-off-by: Jinjiang Tu <tujinjiang@huawei.com>
+Link: https://lore.kernel.org/20260910142846.172957-1-sj@kernel.org
+Link: https://lore.kernel.org/20260830064708.40CA61F000E9@smtp.kernel.org [1]
+Fixes: 6e4930e33329 ("mm/damon/core: fix wasteful CPU calls by skipping non-existent targets")
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: Lance Yang <lance.yang@linux.dev>
-Reviewed-by: Lorenzo Stoakes (ARM) <ljs@kernel.org>
-Acked-by: David Hildenbrand (Arm) <david@kernel.org>
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Cc: Minchan Kim <minchan@kernel.org>
-Cc: Harry Yoo <harry@kernel.org>
-Cc: Hiroyouki Kamezawa <kamezawa.hiroyu@jp.fujitsu.com>
-Cc: Jann Horn <jannh@google.com>
-Cc: Jinjiang Tu <tujinjiang@huawei.com>
-Cc: Kefeng Wang <wangkefeng.wang@huawei.com>
-Cc: Larry Woodman <lwoodman@redhat.com>
-Cc: Liam R. Howlett <liam@infradead.org>
-Cc: Nanyong Sun <sunnanyong@huawei.com>
-Cc: Rik van Riel <riel@surriel.com>
-Cc: <stable@vger.kernel.org>
+Cc: Enze Li <lienze@kylinos.cn>
+Cc: <stable@vger.kernel.org> # 7.0.x
 ---
 
- mm/rmap.c |    6 +++++-
- mm/vma.c  |    8 ++++++++
- 2 files changed, 13 insertions(+), 1 deletion(-)
+ mm/damon/core.c |    9 ++++++++-
+ 1 file changed, 8 insertions(+), 1 deletion(-)
 
---- a/mm/rmap.c~mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish
-+++ a/mm/rmap.c
-@@ -209,7 +209,11 @@ int __anon_vma_prepare(struct vm_area_st
- 	/* page_table_lock to protect against threads */
- 	spin_lock(&mm->page_table_lock);
- 	if (likely(!vma->anon_vma)) {
--		vma->anon_vma = anon_vma;
-+		/*
-+		 * Make anon_vma fields visible before anon_vma is published.
-+		 * Paired with an address dependency in reusable_anon_vma().
-+		 */
-+		smp_store_release(&vma->anon_vma, anon_vma);
- 		anon_vma_chain_assign(vma, avc, anon_vma);
- 		anon_rmap_tree_insert(avc, anon_vma);
- 		anon_vma->num_active_vmas++;
---- a/mm/vma.c~mm-rmap-fix-missing-barrier-between-anon_vma-init-and-vma-anon_vma-publish
-+++ a/mm/vma.c
-@@ -2094,6 +2094,13 @@ static int anon_vma_compatible(struct vm
-  * acceptable for merging, so we can do all of this optimistically. But
-  * we do that READ_ONCE() to make sure that we never re-load the pointer.
-  *
-+ * The READ_ONCE() establishes an address dependency between anon_vma and
-+ * any access to its fields, which pairs with the assignment to
-+ * vma->anon_vma performed with release semantics in __anon_vma_prepare().
-+ *
-+ * This is especially important as anon_vma's are SLAB_TYPESAFE_BY_RCU so
-+ * accessing an uninitialised anon_vma's fields may result in a UAF.
-+ *
-  * IOW: that the "list_is_singular()" test on the anon_vma_chain only
-  * matters for the 'stable anon_vma' case (ie the thing we want to avoid
-  * is to return an anon_vma that is "complex" due to having gone through
-@@ -2108,6 +2115,7 @@ static struct anon_vma *reusable_anon_vm
- 					  struct vm_area_struct *b)
- {
- 	if (anon_vma_compatible(a, b)) {
-+		/* Paired with a memory barrier in __anon_vma_prepare(). */
- 		struct anon_vma *anon_vma = READ_ONCE(old->anon_vma);
+--- a/mm/damon/core.c~mm-damon-core-reset-invalid-quota-charge_target_from
++++ a/mm/damon/core.c
+@@ -3245,8 +3245,15 @@ static void kdamond_apply_schemes(struct
+ 	max_region_sz = damon_region_sz_limit(c);
+ 	mutex_lock(&c->walk_control_lock);
+ 	damon_for_each_target(t, c) {
+-		if (c->ops.target_valid && c->ops.target_valid(t) == false)
++		if (c->ops.target_valid && c->ops.target_valid(t) == false) {
++			damon_for_each_scheme(s, c) {
++				if (s->quota.charge_target_from != t)
++					continue;
++				s->quota.charge_target_from = NULL;
++				s->quota.charge_addr_from = 0;
++			}
+ 			continue;
++		}
+ 		damos_apply_target(c, t, max_region_sz);
+ 	}
  
- 		if (anon_vma && list_is_singular(&old->anon_vma_chain))
 _
 
-Patches currently in -mm which might be from tujinjiang@huawei.com are
+Patches currently in -mm which might be from sj@kernel.org are
 
-docs-ksm-fix-typos-in-sysfs-knob-names.patch
-mm-ksm-fix-advisor_min_pages_to_scan-description.patch
+mm-damon-core-dont-skip-damos_adjust_quota-while-esz-is-not-zero.patch
+mm-damon-core-skip-applying-scheme-if-region-split-for-quota-fails.patch
+mm-damon-paddr-respect-folio-end-for-damos_stat.patch
+mm-damon-paddr-respect-folio-end-for-damos-actions-except-stat.patch
+mm-damon-vaddr-respect-folio-end-for-damos_stat.patch
+mm-damon-vaddr-respect-folio-end-for-damos_migrate_hotcold.patch
+mm-damon-core-handle-extreme-memory-state-in-damon_get_node_mem_bp.patch
+mm-damon-core-handle-extreme-memory-state-in-get_node_memcg_used_bp.patch
+mm-damon-core-handle-extreme-memory-state-in-get_in_active_mem_bp.patch
+mm-damon-core-introduce-damon_filter_type_pgidle_unset.patch
+mm-damon-paddr-support-pgidle_unset-probe-filter-type.patch
+mm-damon-sysfs-support-pgidle_unset-probe-filter-type.patch
+docs-mm-damon-design-document-pgidle_unset-probe-filter-type.patch
+mm-damon-core-introduce-damon_prep-struct.patch
+mm-damon-core-commit-preps.patch
+mm-damon-core-introduce-damon_operations-prep_probes.patch
+mm-damon-paddr-support-damon_prep.patch
+mm-damon-sysfs-implement-preps-directory.patch
+mm-damon-sysfs-implement-preps-nr_preps-file.patch
+mm-damon-sysfs-create-directories-for-nr_preps-writes.patch
+mm-damon-sysfs-implement-prep_action-file.patch
+mm-damon-sysfs-pass-preps-to-damon-core.patch
+selftests-damon-sysfssh-test-probe-prep-sysfs-files.patch
+docs-mm-damon-design-document-probe-preps.patch
+docs-admin-guide-mm-damon-usage-document-probe-preps-sysfs-files.patch
+docs-abi-damon-document-probe-prep-sysfs-files.patch
+mm-damon-tests-core-kunit-test-committing-psi-goal-to-psi-goal.patch
+mm-damon-core-handle-uninitialized-damos_quota_goal-last_psi_total.patch
+mm-damon-core-copy-nid-for-eligible_mem_bp-damos-quota-goal-commit.patch
+mm-damon-sysfs-set-next-refresh-jiffies-per-sysfs-context.patch
+mm-damon-tests-core-kunit-test-damon_commit_filter.patch
+mm-damon-tests-core-kunit-add-damon_commit_probes-test.patch
+selftests-damon-_damon_sysfs-implement-damonprobes.patch
+selftests-damon-drgn_dump_damon_status-dump-probes.patch
+selftests-damon-sysfspy-extend-commit-assertion-function-for-probes.patch
+selftests-damon-sysfspy-test-damon-probes.patch
+mm-damon-core-use-damon_nr_samples_per_aggr-for-max-merge-threshold.patch
+mm-damon-core-remove-debug-messages.patch
+mm-damon-core-remove-debug-messages-fix.patch
+mm-damon-vaddr-remove-a-debug-message.patch
+mm-damon-core-validate-number-of-probes-in-valid_probe_params.patch
+mm-damon-sysfs-remove-probes-number-validation.patch
+mm-damon-tests-core-kunit-extend-set_regions-test-for-error-case.patch
+mm-damon-tests-core-kunit-test-=0-size-damon_set_regions-inputs.patch
+mm-damon-tests-core-kunit-test-overlapping-ranges-for-set_regions.patch
+mm-damon-tests-core-kunit-test-damon_nr_samples_per_aggr.patch
+selftests-damon-sysfssh-test-hugepage_mem_bp-quota-goal.patch
+docs-mm-damon-maintainer-profile-update-ai-review-for-sashiko-replies.patch
+docs-abi-damon-recommend-subsystem-doc-instead-of-admin-guide.patch
+mm-damon-core-error-damos_commit_quota_goal-for-zero-target_value.patch
+revert-mm-damon-lru_sort-error-out-for-10000-active_mem_bp.patch
+revert-samples-damon-mtier-error-out-for-zero-quota-goal-target-values.patch
+mm-damon-core-handle-null-ctx-parameter-in-damon_call.patch
+mm-damon-core-set-ctx-call_controls_obsolete-in-damon_new_ctx.patch
+mm-damon-reclaim-remove-unnecessary-damon_call-param-validation.patch
+mm-damon-lru_sort-remove-unnecessary-damon_call-param-validation.patch
+mm-damon-vaddr-support-prep_probes.patch
+mm-damon-paddr-move-probe-filter-handling-to-ops-common.patch
+mm-damon-vaddr-support-apply_probe.patch
+mm-damon-vaddr-extend-apply_probes-for-hugetlb.patch
+mm-damon-vaddr-support-pgidle_unset-probe-filter-type.patch
+mm-damon-api-introduce-damon_filter_type_pgidle_set.patch
+mm-damon-paddr-support-damon_filter_type_pgidle_set.patch
+mm-damon-vaddr-support-damon_filter_type_pgidle_set.patch
+mm-damon-sysfs-support-damon_filter_type_pgidle_set.patch
+docs-mm-damon-design-update-for-pgidle_set-probe-filter.patch
+mm-damon-api-introduce-damos_filter_type_probe_hits_wsum.patch
+mm-damon-api-introduce-damos_filter_type_probe_hits_wsum-fix.patch
+mm-damon-core-extend-probe_hits_wsum-for-moving-sum-based-calculation.patch
+mm-damon-core-support-probe_hits_wsum-damos-core-filter.patch
+mm-damon-sysfs-schemes-rename-sysfs_filter-sz_range-to-range_minmax.patch
+mm-damon-sysfs-schemes-support-probe_hits_wsum-damos-core-filter.patch
+docs-mm-damon-design-update-for-probe_hits_wsum-damos-core-filter.patch
+docs-admin-guide-mm-damon-usage-update-for-probe_hits_wsum-damos-filter.patch
+mm-damon-sysfs-schemes-read-sysfs_filter-addr_range-only-once.patch
+mm-damon-sysfs-schemes-read-sysfs_filter-sz_range-only-once.patch
+mm-damon-core-return-an-error-from-damos_commit_filter_arg.patch
+mm-damon-core-disallow-max-min-damos-filter-range-arguments-commit.patch
+mm-damon-sysfs-schemes-drop-centralized-filter-range-arg-validations.patch
+mm-damon-sysfs-schemes-use-switch-case-in-add_scheme_filters.patch
+mm-damon-core-kunit-extend-damos_commit_filter_for-for-wrong-input.patch
+mm-damon-core-kunit-test-invalid-damos-filter-commits.patch
+mm-damon-api-introduce-damon_filter_type_hugepage_size.patch
+mm-damon-core-commit-hugepage_size-type-damon-filter.patch
+mm-damon-ops-common-support-hugepage_size-damon-filter-matching.patch
+mm-damon-sysfs-add-minmax-files-under-probe-filter-directory.patch
+mm-damon-sysfs-support-hugepage_size-probe-filter.patch
+docs-mm-damon-design-update-for-hugepage_size-probe-filter.patch
+docs-admin-guide-mm-damon-usage-update-for-hugepage_size.patch
+docs-abi-damon-update-for-hugepage_size-probe-filter.patch
+mm-damon-api-remove-nr_damos_filter_types.patch
+mm-damon-core-use-abs_diff-in-damon_feed_loop_next_input.patch
+mm-damon-core-use-mult_frac-in-damon_feed_loop_next_input.patch
+mm-damon-core-set-damon_ctx-walk_control_obsolete-in-damon_new_ctx.patch
+mm-damon-core-document-damon_call-damon_start-race-hang-issue.patch
+mm-damon-paddr-remove-pa-parameter-from-damon_pa_filter_pass.patch
+mm-damon-tests-core-kunit-test-eligible_mem_bp-commitment.patch
+mm-damon-tests-core-kunit-add-probe_hits_wsum-damos-filter-commit-test.patch
+selftests-damon-sysfs_memcg_path_leak-fail-only-for-real-damon-leak.patch
+docs-mm-damon-design-clarify-bp-is-basis-point.patch
 
