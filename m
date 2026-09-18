@@ -1,212 +1,335 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mta0.migadu.com (out-8.mta0.migadu.com [91.218.175.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3CB03B52FF
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 02:46:41 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 43ED43546D7
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 02:50:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789699609; cv=none; b=tHche5e/Y6+U/DjoXwZEbPPzVD9OXYtBZiUTsz+K3CQVBRYQPJOOx4ZpsoHxR8ctcCUwfEz1l/Lw2kuAAbDP9OWr/Gnkky/hjbCfutEdcSp5gPKETAwF/Gy/juqkMNuTa17HPUpjh4lsso2wuFPUG3zFLbCF49SdN8go3pGovY0=
+	t=1789699844; cv=none; b=OT11HSveYryayK5wkbYFAEEM3aYQY6u/yJSp7PS23AuOyp1ArXAR8+spZAR9RBPm9N/01OKKBQ6Pl0x0G+jqY5DTThtUONxcRR+O8tH7kv3nJU2TevIpC0rmjKSM2wMUsAbBGmOAvSySEpPc9cCcJAaPS7JRUw8KkjjZ/d+F/Os=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789699609; c=relaxed/simple;
-	bh=dwjlFa/K9V/FlCSuEo2COBXLlzeVVphfTyK1djlBGbw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CtFa4oSgPwgI++lHBEMye6eebc/G+nCEoCm8H84RvZwsdLYZJDH89Yad+Z+ec3HTirKU/PBWXN1kd31Od4EI3gDBW9C4kbAnUClUB8Ma3ZsDaMDh+MEg6RAVzAh5ApDorf2gKszw+EtVphlF/opbZ474nnAV2Srq5B+i0ys35Cw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YtxPnCa2; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789699844; c=relaxed/simple;
+	bh=N6CEd0l0gJW6eAjQ3ySm2d8Yd/dkGeFlWotcwVS5SyY=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=DKpvGX4b86ZvTFevz0ggs6H/r2TvPJusj4XUZFWbuIqi30cOOqeXpxu8iJJj5dtn5bMDK6rEF14hvHY5mCmwyeOIubbXbblYO/ke0HqDNMKpS5fFJnK+47QI5Oi2HGvpjabN7Fm9UKyIHJkJJhm7X54SuVbG/sljFu4yWFMHdj4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=q8L+LzCh; arc=none smtp.client-ip=91.218.175.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YtxPnCa2"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469f20513so230949b3a.0
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 19:46:40 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789699599; x=1790304399; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=6lGfz1siIT5q4E2uH8NernSgbLLCtHEciMJJUl+iNLo=;
-        b=YtxPnCa2f60qsbjunv8REnS7zQJxPotqbtKB3y9fZKS3CiGrG9Mwxvgpxs1DXpXT5A
-         aQQxb2C554zIRLL0JojiiYoZkHY3G+aw6EIamBVwubdvQFoVkva0eaaOshLiuZbtmS9E
-         7+jM4MwN3DxtlF5Y9DygZ8ip37dCaO1rcm45YApVTfEsNDi55RjVJhLDJtg9R67SLj5d
-         q8h/iXeIGSR+03Q9oZiFwcsPFP64X9psxxWmSUwpfTKo7onVz/5ZhATksAmIiCGib+XS
-         a0zROPQqBVRcpjzVPul49qSoyxdwsMrpmr1ggGEnFsBq24gkPkJJgp/SqCTl1JsWfepe
-         1UjA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789699599; x=1790304399;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=6lGfz1siIT5q4E2uH8NernSgbLLCtHEciMJJUl+iNLo=;
-        b=S414yIVwxvbIwnRsuu6Bv2QT21ALHrhlYhXAGcIDfq0k/HZECB3FoRyp639yLL2J7e
-         5xQjjZGMyWlbu0mfi9rADReaGr1zhKB6oM22UDZNQUfs3hMlVi4y//xLK8RYh15Amf0c
-         Coa/QRDgcSR8fnKzzLIj3NLnZjMVKJg69yRQBjMdrEICnOmXbDtQx9pRIVcYBUBzPCag
-         7PCNxVH4yJ5Ks1WtISd7rGWgSbdDX2xN0vmOrZnOYlAqjukflm58STp4nfQBS+GTij02
-         2pbf+WHwHcGj6wD6nIm7oZZJ+FPrfddOpd6VA5aMOMlltB9xjpHo+NLX7RNIJeN78+mD
-         y43w==
-X-Forwarded-Encrypted: i=1; AKwUvBz7W+MgknOgET8Uab7pgo8VvBdqM48m8lA0r0oEpgTE9nroy1C00IZXIbmtnTG9XOgyd1BDJIY=@vger.kernel.org
-X-Gm-Message-State: AFuF++mQRbee+LNaqbEfo0m42R/HksGdoQP4AjlpzX1G3saImcfLDbl6
-	kAtN7L4TFujAB3nJ2LIVXQrHiQEpGpkBLWA8p8XQaB/kStU16Nd7K8I0
-X-Gm-Gg: AYBFou1mX8e3MN+O6fbGWsar71nFZ56uog2iuZBKoQtasS4/A9wjvXFNF2Quajb22sf
-	r45U9Rj+dgrOat5rgDhExycDFWMawK+Z6tBIf7+2564Hiqq1rCWLFZsi5O7fg8x96iJ+YYR+NlL
-	4kHX10nG+Rk3wa55jd0d1RuguXVlQnDn0s/lg1xFHveYQWjaAuz6Ve9+fFbTNH32AgsFySUhQlP
-	sbpzhBc0wdJ+6LEeuKgBsQ9P4Gbi4WBYYeG4GL5ylgv/B2/s2qIiSXOHlBpF3neQS0BtMnpOkQa
-	lM5x9f04mvDYymNmX+DagV4+Pz3tZltnEM2uv0+PuTlD5PGKp1lLW/rk30jmFlDuT1d12rl3aDE
-	s1ZHbtdolOt8tE4iu/UnpQBqvfV1rVm35bjYeBBCEI53LzctmvVadAoqPilBz3W3QuyEV3+iujh
-	dPpEXEETYhbVIjvkgx3eaFJU2zU2NxwqstuxPBx6ABlrhC2qUtLXLFDaCEpvMMKzAMcz9q/GJli
-	JzXqGNHz0cNAqFksYeN9g1VfvretjXu/M96J0A=
-X-Received: by 2002:a05:6a20:cc97:b0:3cc:9288:99aa with SMTP id adf61e73a8af0-3dd8c21565fmr2275776637.0.1789699598611;
-        Thu, 17 Sep 2026 19:46:38 -0700 (PDT)
-Received: from localhost.localdomain ([2409:8a1e:2e81:7320:ec74:2ce6:f939:d0ad])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c287b0293sm349521eec.24.2026.09.17.19.46.34
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Thu, 17 Sep 2026 19:46:38 -0700 (PDT)
-From: zjamg <ndaugoing@gmail.com>
-To: Marc Zyngier <maz@kernel.org>,
-	Oliver Upton <oupton@kernel.org>
-Cc: Fuad Tabba <fuad.tabba@linux.dev>,
-	Joey Gouly <joey.gouly@arm.com>,
-	Steffen Eiden <seiden@linux.ibm.com>,
-	Suzuki K Poulose <suzuki.poulose@arm.com>,
-	Zenghui Yu <yuzenghui@huawei.com>,
-	Catalin Marinas <catalin.marinas@arm.com>,
-	Will Deacon <will@kernel.org>,
-	kvmarm@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	kvm@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Yuchao Zhang <ndaugoing@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH 1/1] KVM: arm64: vgic: Do not remove in-flight LPIs from AP list on disable
-Date: Fri, 18 Sep 2026 10:46:20 +0800
-Message-ID: <20260918024620.83869-2-ndaugoing@gmail.com>
-X-Mailer: git-send-email 2.50.1
-In-Reply-To: <20260918024620.83869-1-ndaugoing@gmail.com>
-References: <20260918024620.83869-1-ndaugoing@gmail.com>
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="q8L+LzCh"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=N6CEd0l0gJW6eAjQ3ySm2d8Yd/dkGeFlWotcwVS5SyY=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789699832; v=1; x=1790304632;
+ b=q8L+LzChO5BJ4zN/c+/2DaJ/1RGJ8LSa8XmeBKkXK9Y3/ees52CMnAbfwvYH6EP/oxh/quPU
+ vLr0ldVTl6kib3XrtDxoqBVQTeJ7NV8dfPT1xrWAA/54XuhOOQsNqcswzNpU8g61oSv/rqkvYbv
+ Ul2ToTd5G9rOUsAnk23E8rTI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 9d9f438652b75181;
+	Fri, 18 Sep 2026 02:50:12 +0000
+X-Mizu-Trace-ID: 9d9f438652b75181
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <887bab46-1959-4e1b-acba-082f91294055@linux.dev>
+Date: Fri, 18 Sep 2026 10:51:10 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v10 3/6] module: introduce SH_ENTSIZE_STANDALONE for
+ separately allocated sections
+To: Suren Baghdasaryan <surenb@google.com>
+Cc: Luis Chamberlain <mcgrof@kernel.org>, Petr Pavlu <petr.pavlu@suse.com>,
+ Daniel Gomez <da.gomez@kernel.org>, Sami Tolvanen <samitolvanen@google.com>,
+ Aaron Tomlin <atomlin@atomlin.com>,
+ Kent Overstreet <kent.overstreet@linux.dev>,
+ Andrew Morton <akpm@linux-foundation.org>, linux-modules@vger.kernel.org,
+ linux-mm@kvack.org, linux-kernel@vger.kernel.org,
+ Sashiko <sashiko-bot@kernel.org>, stable@vger.kernel.org
+References: <20260915070001.113559-1-hao.ge@linux.dev>
+ <20260915070001.113559-4-hao.ge@linux.dev>
+ <CAJuCfpHz6V0zT5+QkYdQsBzG9kWCFhP+gris2XRrvSu4hHD6Hw@mail.gmail.com>
+Content-Language: en-US
+From: Hao Ge <hao.ge@linux.dev>
+In-Reply-To: <CAJuCfpHz6V0zT5+QkYdQsBzG9kWCFhP+gris2XRrvSu4hHD6Hw@mail.gmail.com>
+Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
 
-From: Yuchao Zhang <ndaugoing@gmail.com>
+Hi Suren
 
-By code inspection, a race condition and potential Use-After-Free/crash
-exists between remote LPI disabling and local LR folding when EOImode==0.
+On 2026/9/18 01:25, Suren Baghdasaryan wrote:
+> On Mon, Sep 14, 2026 at 11:59 PM Hao Ge <hao.ge@linux.dev> wrote:
+>>
+>> SHF_ALLOC means, per the ELF spec, that a section occupies memory
+>> during process execution. Some module sections occupy memory
+>> outside the regular module layout, for example the percpu section
+>> with its per-CPU allocations. The loader currently excludes such
+>> a section from the layout by clearing its SHF_ALLOC, which
+>> overloads the flag with a loader-internal meaning.
+>> apply_relocations() needs a special case for the section, and
+>> find_sec(".data..percpu") returns different results before and
+>> after layout_and_allocate().
+>>
+>> Introduce SH_ENTSIZE_STANDALONE to mark sections with a separate
+>> allocation. The percpu section is its first user. layout_sections()
+>> and move_module() skip marked sections, and apply_relocations() goes
+>> back to testing only SHF_ALLOC. Based on a patch by Petr Pavlu [1].
+>>
+>> .data..percpu keeps SHF_ALLOC, so it would now show up under
+>> /sys/module/*/sections/. The section has one instance per CPU and no
+>> single address to report, and the entry never existed before, so
+>> skip it in add_sect_attrs(). add_notes_attrs() indexes its attrs[]
+>> array and skips it too. No functional change otherwise.
+> 
+> And IIUC no userspace-visible changes too, right?
+>
 
-Commit 6da5e537f5af ("KVM: arm64: vgic: Pick EOIcount deactivations from
-AP-list tail") introduced tracking the last interrupt placed in a List
-Register in per-CPU host data (*host_data_ptr(last_lr_irq)) and traverses
-the remaining ap_list via list_for_each_entry_continue() in
-vgic_v3_fold_lr_state().
+Right, I'll fold this into the commit message for the next version:
+"No functional or userspace-visible changes otherwise."
 
-However, an interrupt loaded into an LR can be an LPI. While vCPU-B is
-running the guest, another vCPU-A can write to vCPU-B's redistributor
-GICR_CTLR to clear EnableLPIs, which dispatches vgic_flush_pending_lpis().
+>>
+>> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compression")
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Link: https://lore.kernel.org/all/499bb60c-c6e3-43a3-bd92-95a0567ece5e@suse.com/ [1]
+>> Suggested-by: Petr Pavlu <petr.pavlu@suse.com>
+>> Reviewed-by: Petr Pavlu <petr.pavlu@suse.com>
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+> 
+> Reviewed-by: Suren Baghdasaryan <surenb@google.com>
+>
 
-vgic_flush_pending_lpis() unconditionally removes all LPIs from ap_list
-without checking whether the interrupt is currently in an LR
-(irq->on_lr):
-- It calls list_del(&irq->ap_list), setting ap_list.next to LIST_POISON1,
-  and drops the AP-list reference.
-- If the LPI is unmapped or its translation cache was invalidated, the
-  vgic_irq refcount drops to zero and the object is freed via RCU.
-- Meanwhile, vCPU-B's per-CPU *host_data_ptr(last_lr_irq) cannot be
-  cleared by remote vCPUs and is left dangling.
+Thanks.
 
-When vCPU-B subsequently exits the guest:
-1. vgic_v3_fold_lr_state() resumes using the unlinked last_lr_irq.
-2. list_for_each_entry_continue() unconditionally evaluates
-   list_next_entry(irq, ap_list) during loop initialization, accessing
-   LIST_POISON1 (or freed memory).
-3. If eoicount > 0, it attempts guard(raw_spinlock)(&irq->irq_lock) on
-   the poisoned address, leading to an immediate host kernel panic.
+Best Regards
+Hao
 
-Fix this by:
-1. In vgic_flush_pending_lpis(), do not remove LPIs that are currently
-   in-flight in an LR (irq->on_lr == true). They will be naturally pruned
-   by the owning vCPU's vgic_prune_ap_list() after LR folding.
-2. In vgic_fold_state(), clear *host_data_ptr(last_lr_irq) after folding
-   so that no stale pointer survives past guest execution.
-3. In vgic_v3_fold_lr_state() and vgic_v2_fold_lr_state(), bail out
-   immediately if eoicount is zero, avoiding unnecessary list_next_entry()
-   evaluation.
-
-Note: this closes the primary race (the last_lr_irq node itself is no
-longer unlinkable while in-flight), but the fold traversal can still
-race with a remote flush unlinking a subsequent non-LR node in the
-ap_list tail. Fully closing that window needs the fold side to take
-references before dropping locks (in the spirit of the prune-side fix
-in commit 7258770e5814 ("KVM: arm64: vgic: Handle race between
-interrupt affinity change and LPI disabling")) and is left as a
-follow-up.
-
-Fixes: 6da5e537f5af ("KVM: arm64: vgic: Pick EOIcount deactivations from AP-list tail")
-Cc: stable@vger.kernel.org
-Signed-off-by: Yuchao Zhang <ndaugoing@gmail.com>
----
- arch/arm64/kvm/vgic/vgic-v2.c |  3 +++
- arch/arm64/kvm/vgic/vgic-v3.c |  3 +++
- arch/arm64/kvm/vgic/vgic.c    | 10 +++++++---
- 3 files changed, 13 insertions(+), 3 deletions(-)
-
-diff --git a/arch/arm64/kvm/vgic/vgic-v2.c b/arch/arm64/kvm/vgic/vgic-v2.c
-index 7182f63fc938..7b6cd05ce32d 100644
---- a/arch/arm64/kvm/vgic/vgic-v2.c
-+++ b/arch/arm64/kvm/vgic/vgic-v2.c
-@@ -122,6 +122,9 @@ void vgic_v2_fold_lr_state(struct kvm_vcpu *vcpu)
- 	for (int lr = 0; lr < vgic_cpu->vgic_v2.used_lrs; lr++)
- 		vgic_v2_fold_lr(vcpu, cpuif->vgic_lr[lr]);
- 
-+	if (!eoicount)
-+		return;
-+
- 	/* See the GICv3 equivalent for the EOIcount handling rationale */
- 	list_for_each_entry_continue(irq, &vgic_cpu->ap_list_head, ap_list) {
- 		u32 lr;
-diff --git a/arch/arm64/kvm/vgic/vgic-v3.c b/arch/arm64/kvm/vgic/vgic-v3.c
-index 726e20a1da6e..c6eb5d9dca2d 100644
---- a/arch/arm64/kvm/vgic/vgic-v3.c
-+++ b/arch/arm64/kvm/vgic/vgic-v3.c
-@@ -155,6 +155,9 @@ void vgic_v3_fold_lr_state(struct kvm_vcpu *vcpu)
- 	for (int lr = 0; lr < cpuif->used_lrs; lr++)
- 		vgic_v3_fold_lr(vcpu, cpuif->vgic_lr[lr]);
- 
-+	if (!eoicount)
-+		return;
-+
- 	/*
- 	 * EOIMode=0: use EOIcount to emulate deactivation. We are
- 	 * guaranteed to deactivate in reverse order of the activation, so
-diff --git a/arch/arm64/kvm/vgic/vgic.c b/arch/arm64/kvm/vgic/vgic.c
-index b25303d9919f..0d7d75c3ac93 100644
---- a/arch/arm64/kvm/vgic/vgic.c
-+++ b/arch/arm64/kvm/vgic/vgic.c
-@@ -205,10 +205,12 @@ void vgic_flush_pending_lpis(struct kvm_vcpu *vcpu)
- 		if (irq_is_lpi(vcpu->kvm, irq->intid)) {
- 			raw_spin_lock(&irq->irq_lock);
- 			irq->pending_latch = false;
--			list_del(&irq->ap_list);
--			irq->vcpu = NULL;
-+			if (!irq->on_lr) {
-+				list_del(&irq->ap_list);
-+				irq->vcpu = NULL;
-+				deleted |= vgic_put_irq_norelease(vcpu->kvm, irq);
-+			}
- 			raw_spin_unlock(&irq->irq_lock);
--			deleted |= vgic_put_irq_norelease(vcpu->kvm, irq);
- 		}
- 	}
- 
-@@ -873,6 +875,8 @@ static void vgic_fold_state(struct kvm_vcpu *vcpu)
- 		vgic_v2_fold_lr_state(vcpu);
- 	else
- 		vgic_v3_fold_lr_state(vcpu);
-+
-+	*host_data_ptr(last_lr_irq) = NULL;
- }
- 
- /* Requires the irq_lock to be held. */
--- 
-2.53.0
-
+>> ---
+>>  include/linux/module.h   |  2 ++
+>>  kernel/module/internal.h |  8 ++++++++
+>>  kernel/module/kallsyms.c | 13 +++----------
+>>  kernel/module/main.c     | 32 +++++++++++++++++---------------
+>>  kernel/module/sysfs.c    | 17 +++++++++++++----
+>>  5 files changed, 43 insertions(+), 29 deletions(-)
+>>
+>> diff --git a/include/linux/module.h b/include/linux/module.h
+>> index 96cc98568eea..0c6f32ddcbf2 100644
+>> --- a/include/linux/module.h
+>> +++ b/include/linux/module.h
+>> @@ -325,6 +325,8 @@ enum mod_mem_type {
+>>         MOD_INIT_RODATA,
+>>
+>>         MOD_MEM_NUM_TYPES,
+>> +
+>> +       MOD_STANDALONE = -2,
+>>         MOD_INVALID = -1,
+>>  };
+>>
+>> diff --git a/kernel/module/internal.h b/kernel/module/internal.h
+>> index 061161cc79d9..4c738074a27b 100644
+>> --- a/kernel/module/internal.h
+>> +++ b/kernel/module/internal.h
+>> @@ -29,6 +29,14 @@
+>>  #define SH_ENTSIZE_TYPE_MASK   ((1UL << SH_ENTSIZE_TYPE_BITS) - 1)
+>>  #define SH_ENTSIZE_OFFSET_MASK ((1UL << (BITS_PER_LONG - SH_ENTSIZE_TYPE_BITS)) - 1)
+>>
+>> +/*
+>> + * Marker for sections with a separate allocation, which are not placed
+>> + * into mod->mem[].
+>> + */
+>> +#define SH_ENTSIZE_STANDALONE                                  \
+>> +       (((unsigned long)MOD_STANDALONE & SH_ENTSIZE_TYPE_MASK) \
+>> +        << SH_ENTSIZE_TYPE_SHIFT)
+>> +
+>>  /* Maximum number of characters written by module_flags() */
+>>  #define MODULE_FLAGS_BUF_SIZE (TAINT_FLAGS_COUNT + 4)
+>>
+>> diff --git a/kernel/module/kallsyms.c b/kernel/module/kallsyms.c
+>> index f23126d804b2..0dca6d40160e 100644
+>> --- a/kernel/module/kallsyms.c
+>> +++ b/kernel/module/kallsyms.c
+>> @@ -76,7 +76,7 @@ static char elf_type(const Elf_Sym *sym, const struct load_info *info)
+>>  }
+>>
+>>  static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+>> -                          unsigned int shnum, unsigned int pcpundx)
+>> +                          unsigned int shnum)
+>>  {
+>>         const Elf_Shdr *sec;
+>>         enum mod_mem_type type;
+>> @@ -86,11 +86,6 @@ static bool is_core_symbol(const Elf_Sym *src, const Elf_Shdr *sechdrs,
+>>             !src->st_name)
+>>                 return false;
+>>
+>> -#ifdef CONFIG_KALLSYMS_ALL
+>> -       if (src->st_shndx == pcpundx)
+>> -               return true;
+>> -#endif
+>> -
+>>         sec = sechdrs + src->st_shndx;
+>>         type = sec->sh_entsize >> SH_ENTSIZE_TYPE_SHIFT;
+>>         if (!(sec->sh_flags & SHF_ALLOC)
+>> @@ -131,8 +126,7 @@ void layout_symtab(struct module *mod, struct load_info *info)
+>>         /* Compute total space required for the core symbols' strtab. */
+>>         for (ndst = i = 0; i < nsrc; i++) {
+>>                 if (i == 0 || is_livepatch_module(mod) ||
+>> -                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>> -                                  info->index.pcpu)) {
+>> +                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+>>                         strtab_size += strlen(&info->strtab[src[i].st_name]) + 1;
+>>                         ndst++;
+>>                 }
+>> @@ -199,8 +193,7 @@ void add_kallsyms(struct module *mod, const struct load_info *info)
+>>         for (ndst = i = 0; i < kallsyms->num_symtab; i++) {
+>>                 kallsyms->typetab[i] = elf_type(src + i, info);
+>>                 if (i == 0 || is_livepatch_module(mod) ||
+>> -                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum,
+>> -                                  info->index.pcpu)) {
+>> +                   is_core_symbol(src + i, info->sechdrs, info->hdr->e_shnum)) {
+>>                         ssize_t ret;
+>>
+>>                         mod->core_kallsyms.typetab[ndst] =
+>> diff --git a/kernel/module/main.c b/kernel/module/main.c
+>> index c1b34dc1e89a..ae2678ac7840 100644
+>> --- a/kernel/module/main.c
+>> +++ b/kernel/module/main.c
+>> @@ -1619,12 +1619,13 @@ static int apply_relocations(struct module *mod, const struct load_info *info)
+>>
+>>                 /*
+>>                  * Don't bother with non-allocated sections.
+>> -                * An exception is the percpu section, which has separate allocations
+>> -                * for individual CPUs. We relocate the percpu section in the initial
+>> -                * ELF template and subsequently copy it to the per-CPU destinations.
+>> +                *
+>> +                * Note that .data..percpu has separate allocations for
+>> +                * individual CPUs. We relocate the section in the
+>> +                * initial ELF template and subsequently copy it to the
+>> +                * per-CPU destinations.
+>>                  */
+>> -               if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC) &&
+>> -                   (!infosec || infosec != info->index.pcpu))
+>> +               if (!(info->sechdrs[infosec].sh_flags & SHF_ALLOC))
+>>                         continue;
+>>
+>>                 if (info->sechdrs[i].sh_flags & SHF_RELA_LIVEPATCH)
+>> @@ -1715,7 +1716,7 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
+>>
+>>                         if ((s->sh_flags & masks[m][0]) != masks[m][0]
+>>                             || (s->sh_flags & masks[m][1])
+>> -                           || s->sh_entsize != ~0UL
+>> +                           || s->sh_entsize != ~0UL /* offset or standalone */
+>>                             || is_init != module_init_layout_section(sname))
+>>                                 continue;
+>>
+>> @@ -1745,16 +1746,10 @@ static void __layout_sections(struct module *mod, struct load_info *info, bool i
+>>  /*
+>>   * Lay out the SHF_ALLOC sections in a way not dissimilar to how ld
+>>   * might -- code, read-only data, read-write data, small data.  Tally
+>> - * sizes, and place the offsets into sh_entsize fields: high bit means it
+>> - * belongs in init.
+>> + * sizes, and place the offsets into sh_entsize fields.
+>>   */
+>>  static void layout_sections(struct module *mod, struct load_info *info)
+>>  {
+>> -       unsigned int i;
+>> -
+>> -       for (i = 0; i < info->hdr->e_shnum; i++)
+>> -               info->sechdrs[i].sh_entsize = ~0UL;
+>> -
+>>         pr_debug("Core section allocation order for %s:\n", mod->name);
+>>         __layout_sections(mod, info, false);
+>>
+>> @@ -2822,7 +2817,8 @@ static int move_module(struct module *mod, struct load_info *info)
+>>                 Elf_Shdr *shdr = &info->sechdrs[i];
+>>                 const char *sname;
+>>
+>> -               if (!(shdr->sh_flags & SHF_ALLOC))
+>> +               if (!(shdr->sh_flags & SHF_ALLOC)
+>> +                   || shdr->sh_entsize == SH_ENTSIZE_STANDALONE)
+>>                         continue;
+>>
+>>                 sname = info->secstrings + shdr->sh_name;
+>> @@ -2954,6 +2950,7 @@ core_param(module_blacklist, module_blacklist, charp, 0400);
+>>  static struct module *layout_and_allocate(struct load_info *info, int flags)
+>>  {
+>>         struct module *mod;
+>> +       unsigned int i;
+>>         int err;
+>>
+>>         /* Allow arches to frob section contents and sizes.  */
+>> @@ -2967,8 +2964,13 @@ static struct module *layout_and_allocate(struct load_info *info, int flags)
+>>         if (err < 0)
+>>                 return ERR_PTR(err);
+>>
+>> +       /* Repurpose sh_entsize to track where each section is allocated. */
+>> +       for (i = 0; i < info->hdr->e_shnum; i++)
+>> +               info->sechdrs[i].sh_entsize = ~0UL;
+>> +
+>>         /* We will do a special allocation for per-cpu sections later. */
+>> -       info->sechdrs[info->index.pcpu].sh_flags &= ~(unsigned long)SHF_ALLOC;
+>> +       if (info->index.pcpu)
+>> +               info->sechdrs[info->index.pcpu].sh_entsize = SH_ENTSIZE_STANDALONE;
+>>
+>>         /*
+>>          * Mark relevant sections as SHF_RO_AFTER_INIT so layout_sections() can
+>> diff --git a/kernel/module/sysfs.c b/kernel/module/sysfs.c
+>> index 01c65d608873..15c6baeb39c4 100644
+>> --- a/kernel/module/sysfs.c
+>> +++ b/kernel/module/sysfs.c
+>> @@ -62,6 +62,15 @@ static void free_sect_attrs(struct module_sect_attrs *sect_attrs)
+>>         kfree(sect_attrs);
+>>  }
+>>
+>> +/*
+>> + * .data..percpu has a separate allocation per CPU and no single
+>> + * address to report.
+>> + */
+>> +static bool sect_visible(const struct load_info *info, unsigned int i)
+>> +{
+>> +       return !sect_empty(&info->sechdrs[i]) && i != info->index.pcpu;
+>> +}
+>> +
+>>  static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>  {
+>>         struct module_sect_attrs *sect_attrs;
+>> @@ -72,7 +81,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>
+>>         /* Count loaded sections and allocate structures */
+>>         for (i = 0; i < info->hdr->e_shnum; i++)
+>> -               if (!sect_empty(&info->sechdrs[i]))
+>> +               if (sect_visible(info, i))
+>>                         nloaded++;
+>>         sect_attrs = kzalloc_flex(*sect_attrs, attrs, nloaded);
+>>         if (!sect_attrs)
+>> @@ -92,7 +101,7 @@ static int add_sect_attrs(struct module *mod, const struct load_info *info)
+>>         for (i = 0; i < info->hdr->e_shnum; i++) {
+>>                 Elf_Shdr *sec = &info->sechdrs[i];
+>>
+>> -               if (sect_empty(sec))
+>> +               if (!sect_visible(info, i))
+>>                         continue;
+>>                 sysfs_bin_attr_init(sattr);
+>>                 sattr->attr.name =
+>> @@ -159,7 +168,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
+>>         /* Count notes sections and allocate structures.  */
+>>         notes = 0;
+>>         for (i = 0; i < info->hdr->e_shnum; i++)
+>> -               if (!sect_empty(&info->sechdrs[i]) &&
+>> +               if (sect_visible(info, i) &&
+>>                     info->sechdrs[i].sh_type == SHT_NOTE)
+>>                         ++notes;
+>>
+>> @@ -181,7 +190,7 @@ static int add_notes_attrs(struct module *mod, const struct load_info *info)
+>>
+>>         nattr = &notes_attrs->attrs[0];
+>>         for (loaded = i = 0; i < info->hdr->e_shnum; ++i) {
+>> -               if (sect_empty(&info->sechdrs[i]))
+>> +               if (!sect_visible(info, i))
+>>                         continue;
+>>                 if (info->sechdrs[i].sh_type == SHT_NOTE) {
+>>                         sysfs_bin_attr_init(nattr);
+>> --
+>> 2.25.1
+>>
