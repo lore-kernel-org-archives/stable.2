@@ -1,117 +1,111 @@
-Received: from abb.hmeau.com (abb.hmeau.com [180.181.231.80])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f33.google.com (mail-pj2-f33.google.com [74.125.227.161])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E002C23E334;
-	Fri, 18 Sep 2026 05:10:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=180.181.231.80
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3768A3876C1
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 05:13:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.161
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789708250; cv=none; b=gwnej90MfzN7bvDUxj3ts+GwBcsNNHqqBHfzOW3lyvctEF1ogBdlJZGr9fTezPiNXVr+WCkFPplZGy/qyd3gxuW9+mGFD0BMCaP3k/mQx2XAdNP++mdIB25D79piUmXycE2SfGOeyvtOlABBaxkQha9qN+GpRBqk/2HT5jL25bM=
+	t=1789708431; cv=none; b=dmVBUm6iXWm2FZhcNBzg3QCE65vtoaJpSF4PpY8JSxl9xdJLk67f7uhK/9WPhqcCNhJi1xydf+fhiYA8QaLvBPyng42Ynb2yNguDcTDZcwyUhe23fem578tYErqhcNdZ5LaTe9Z5qZF4fdILcsnaGGoEWvHU59Y6yBhB+iS/2fQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789708250; c=relaxed/simple;
-	bh=21moiKY/FBQh7xVP87M9aTah01d7JTo/e8F5cR8Qomg=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition:In-Reply-To; b=EZqXXPJRWHvj5h2sq9z0Vzx6jPTlT0lSNZIT1ptg5YZtLXMvs6NHYTbQT+p3LzLffIjbGfP1teUmJ3i8LJpUhcYIbLpDZwKFVNUliC03IygIA6dLrzK1pxas/5z1ChzH5BzpOmqwXDNwkSf2nOr8lJRH0V3PxDHSbh/5vw7Bwj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au; spf=pass smtp.mailfrom=gondor.apana.org.au; dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b=cJeZCLZm; arc=none smtp.client-ip=180.181.231.80
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=gondor.apana.org.au
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gondor.apana.org.au
+	s=arc-20240116; t=1789708431; c=relaxed/simple;
+	bh=ulA5Ml9aBNWFkPyTYzxj3umiIvCtlQZWCthJVuYoA7w=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Elq8/6kifPjZyYRPoFjbG81MW19yG9WyENdK9jKwP6oS8QcSeXpp2FXCjGkwWpi7ab4LAaTr7s5h7Np9yUDmL9JnV3qm4cAtuzL8jkfrAu4ffrYaGEZQjdowYGCVsKhffDfDwihdWjVhRsiNd7edHwlCif0w5AUm4i71A5vYvfs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=iKZmIX1m; arc=none smtp.client-ip=74.125.227.161
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gondor.apana.org.au header.i=@gondor.apana.org.au header.b="cJeZCLZm"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=gondor.apana.org.au; s=h01; h=In-Reply-To:Content-Type:MIME-Version:
-	Message-ID:Subject:Cc:To:From:Date:cc:to:subject:message-id:date:from:
-	content-type:references:reply-to;
-	bh=sNFtuRqhjn/xnv0qfgiTqs7G5W2xe1Y7dYd6ZZmN9XY=; b=cJeZCLZmYZ/V3g/8eq9tRY18qH
-	0w+BJz1dw/sLQMuchlvLGnzJRxFvzACHsLEqfF0zMZQwaPEAmOZH4EQU6neH7g2Q9KnaALnkP2S1P
-	qfNYanuKlKpsYJZSuCuVTc3E4lX/yPA6t2cX+qaRtJct/0flLJD4OZkUZtNGCbNBKDPXzgEf6TQg4
-	hpWhGoFDCWr7hUqHYPwS+6WdXDrKLC83vq3yDfE4/mRgx2U+jkkFpMhpPNwqWQ9x1TAGCxstlCv3I
-	nsRol3jknpG3V5pm1cl18PDG3POZJmqOTHFarG1sFuL7PGuS5XnnYu+vt0eh5ID236g/DWwO928BB
-	6QOi0S2A==;
-Received: from loth.rohan.me.apana.org.au ([192.168.167.2])
-	by formenos.hmeau.com with smtp (Exim 4.98.2 #2 (Debian))
-	id 1x7Qrw-0000000FHMx-0vdU;
-	Fri, 18 Sep 2026 13:10:41 +0800
-Received: by loth.rohan.me.apana.org.au (sSMTP sendmail emulation); Fri, 18 Sep 2026 15:10:40 +1000
-Date: Fri, 18 Sep 2026 15:10:40 +1000
-From: Herbert Xu <herbert@gondor.apana.org.au>
-To: Fan Wu <fanwu01@zju.edu.cn>
-Cc: thomas.lendacky@amd.com, john.allen@amd.com, davem@davemloft.net,
-	linux-crypto@vger.kernel.org, linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org, fanwu01@zju.edu.cn, songl@zju.edu.cn
-Subject: Re: [PATCH] crypto: ccp - Fix use-after-free in backlog cmd
- advancement
-Message-ID: <aqzH0FhaluDxMZMH@gondor.apana.org.au>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="iKZmIX1m"
+Received: by mail-pj2-f33.google.com with SMTP id d9443c01a7336-2d747ed1368so4162315ad.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 22:13:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789708429; x=1790313229; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=fD5FYGWqbEawclsuAKqnAhQHLJbtl85EqSDEc6sInv0=;
+        b=iKZmIX1mwH3JLXYBvSi8YG5x7BBNqBVvoZKDDAIiYkpWKpEx79Dpd3/JBv/FHfm3IA
+         OF8j3bJxEP0tp4pWHq1p8eMEkTcoacBQRehcxJY+f+2thtyiwHWUwO1yRf6C47wJLceO
+         i3AkWyaxCD9TnmNvPt4gSRlPPk0HA12WbXSPm79w1ZCzgmN2ZmPnbnRadP/GUUzh7hcE
+         PeC60udJ0jkLxdE7cKzEjLFk3QYRyNEx9iPNoFjhXe9l3l3q0C77d1SU3I8sFvUd5Hxt
+         CE3wuHYYLkKurPLvp8bKhQWB4CPkdHrYrszHgkqETv+iT4efGpzN3/y+ZLzTKHPgfYDd
+         aSUQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789708429; x=1790313229;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=fD5FYGWqbEawclsuAKqnAhQHLJbtl85EqSDEc6sInv0=;
+        b=ubx6IHsqYG+xphJDXA5jkSEyScJDDtG6tOb89E9kSSMn+g+80apzKUgTWDtfOBQ6k7
+         vzEGNfuolBM21hE+iBrrS+BqOD7IDaMAV7mW31rqnv10WQ6WtgZsRErhH6tPMOXseHjC
+         SIT+I3sgR7qoL7jKdIYoVMWU19JusbTkthgPtcHVlmOVzIVd2Pu0wY390Sg6CGM2av5H
+         AbhRp2fa6LVVRycPblJiS9TLfWBTNZCkHvjk1vzBE7WfGgoQpGKBY8yOgsH9NyH8H7dd
+         rip99gqAZS9GFIYoUndLgL5RyDWAUhULMh5ztAef/cerzSh9HjtQCPJXuHdSfIpu8HAs
+         N+yg==
+X-Forwarded-Encrypted: i=1; AKwUvByA1+01yVU8iX3UBZAGKbw8L0zp/FLoA+JpnpaeOCbtDWIxXaFBeUFQ4YBHz2prp6fFlHeN+us=@vger.kernel.org
+X-Gm-Message-State: AFuF++kE+tzfkDWsVLAmfnBWhfT6PHlAr7iLEx7O4tDse34JsTDst7Hk
+	AlcPonF+PJxjwiZ06pwjWXOnPrsHtNaHZj1wM2ZrQXcTlkxLKGOqLmdT
+X-Gm-Gg: AYBFou3qINWJ2Q4EXtLoEDGXpZFuYn4Cwu5DccECaLC2XIPOgs44qO+8Cx/yC3dNRjB
+	J6AY8ACmdLWGfiHCIUI3OBKjfC+Kg9OiZnRpntlp6E8JKSuYbQA8Ku3iTqWx3y11jDI2sMV2jM+
+	Co5hjMMskp9KOMYHxyKZPjh5GT+P3VBwM0hm9yD3KPkbQ7Ozl2DjambzXDfjG8Tf1VmkmVIPIxb
+	dXNJRZeQ21z3r7GExc5goq0ezNlJjcti84jlkDrFHeBrZ0HuFrXhg+d6wGpGP4QEMx8sR9DEp7l
+	ZHRupdIU+DNSHOROFWn5ATpJMEi7jzN22pvR/xv9AK0QsoYcvIUZDIjkD1F12T5QHLKDuAEjciy
+	IF2t7/5ZHgfwxjZsxvzQAgQ4xf+PzuXD4dCZaSeARmcUXyamsy7bU0/aNx9vfL5EA1h8RnhbB/t
+	SGhtVlmFsX8k6Qj9Mn8TERNUIrLo921k3NB87Gi2BLJSF6TiVLLCAdfQ7dwwJTeKDc
+X-Received: by 2002:a17:903:9ce:b0:2db:20fa:9443 with SMTP id d9443c01a7336-2ddb1b1133cmr31729675ad.13.1789708429446;
+        Thu, 17 Sep 2026 22:13:49 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddb73dae10sm2177985ad.1.2026.09.17.22.13.46
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 22:13:48 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: a100u2w: disable PCI device on remove
+Date: Fri, 18 Sep 2026 13:13:40 +0800
+Message-ID: <20260918051340.3549545-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260907060415.575656-1-fanwu01@zju.edu.cn>
-X-Newsgroups: apana.lists.os.linux.cryptoapi,apana.lists.os.linux.kernel
+Content-Transfer-Encoding: 8bit
 
-Fan Wu <fanwu01@zju.edu.cn> wrote:
-> CCP_CMD_MAY_BACKLOG commands are removed from ccp->backlog by a
-> queue kthread and advanced asynchronously by ccp_do_cmd_backlog().
-> The promoted command is no longer on either command list.
-> 
-> During device removal, ccp*_destroy() stops the queue kthreads and
-> flushes the lists, but does not wait for a promoted work on system_wq.
-> That work can subsequently access the devm-allocated ccp_device after
-> it has been released, and wake a queue kthread whose task_struct
-> kthread_stop() has already released.
-> 
-> Use a per-device workqueue for backlog advancement and destroy it after
-> stopping all queue kthreads, so every promoted work has completed before
-> the command lists are flushed. The queue kthreads are the only source
-> of backlog works, so no new work can be queued once they are stopped.
-> Individual cancellation is not possible because a promoted command is
-> no longer reachable from either list.
-> 
-> Mark the device as halting before teardown. A draining backlog work
-> then completes its command with -ENODEV instead of re-queuing it.
-> Keep the halting check and the kthread wake under cmd_lock so teardown
-> cannot stop the selected kthread between them.
-> 
-> This issue was found by an in-house static analysis tool.
-> 
-> Fixes: 63b945091a07 ("crypto: ccp - CCP device driver and interface support")
-> Cc: stable@vger.kernel.org
-> Assisted-by: Codex:gpt-5.6
-> Co-developed-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Song Li <songl@zju.edu.cn>
-> Signed-off-by: Fan Wu <fanwu01@zju.edu.cn>
-> ---
-> drivers/crypto/ccp/ccp-dev-v3.c | 19 +++++++++++++++++++
-> drivers/crypto/ccp/ccp-dev-v5.c | 18 ++++++++++++++++++
-> drivers/crypto/ccp/ccp-dev.c    | 33 ++++++++++++++++++++++++++++-----
-> drivers/crypto/ccp/ccp-dev.h    |  4 ++++
-> 4 files changed, 69 insertions(+), 5 deletions(-)
+inia100_probe_one() enables the PCI device with pci_enable_device().
+The probe failure paths disable the device before returning, but the
+normal remove path does not perform the corresponding cleanup.
 
-Thanks for catching this!
+As a result, the PCI device enable state remains unbalanced after the
+driver is removed.
 
-The backlog handling still looks a bit wrong though.  When you detach
-a backlogged request after processing a normal request, there is
-a gap before the backlogged request is added to the normal queue.
+Call pci_disable_device() from inia100_remove_one() to match the probe
+error path.
 
-In that gap new requests could have come in and taken up the space
-meant for the backlogged request.
+This issue was found by manual code inspection.
 
-I think this should be done atomically so that there is no gap
-between the two operations, to ensure that the space is actually
-reserved for the backlogged entry.
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/scsi/a100u2w.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-Once this is done, there should be no need to have a per-backlog
-work struct, which means that you don't need to add a separate
-work queue.  In fact, there may not be a need for a work struct
-at all since this is all running out of process context anyway.
-
-On a higher level, this driver should probably switch over to
-using crypto_engine rather than doing backlog handling manually.
-
-Cheers,
+diff --git a/drivers/scsi/a100u2w.c b/drivers/scsi/a100u2w.c
+index 4365b896f5c4..827d8715138c 100644
+--- a/drivers/scsi/a100u2w.c
++++ b/drivers/scsi/a100u2w.c
+@@ -1204,6 +1204,7 @@ static void inia100_remove_one(struct pci_dev *pdev)
+         release_region(shost->io_port, 256);
+ 
+ 	scsi_host_put(shost);
++	pci_disable_device(pdev);
+ } 
+ 
+ static const struct pci_device_id inia100_pci_tbl[] = {
 -- 
-Email: Herbert Xu <herbert@gondor.apana.org.au>
-Home Page: http://gondor.apana.org.au/~herbert/
-PGP Key: http://gondor.apana.org.au/~herbert/pubkey.txt
+2.43.0
+
