@@ -1,82 +1,46 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from verein.lst.de (verein.lst.de [213.95.11.211])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D40CA4BD370;
-	Fri, 18 Sep 2026 12:28:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C1BD83A838A;
+	Fri, 18 Sep 2026 12:31:21 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.95.11.211
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789734497; cv=none; b=CwT2CoFyxHW3XD8Mh8RRgNxUQQj/Nrf3Z0SFyU4oasEr8d1LPoYa/pBvAktVPe5KJSPUzfjtRH98lI5lDeqO2+mq/gWrtssAmezlyjJ419QmiLwwu8Y51711MtlX+GEGnxKg0udatLbiUV/GzVi6xvHlgQsaYzbhk3rgA3MBer0=
+	t=1789734683; cv=none; b=NNP3XD0vTbvc0buM7Y0swL5fr9xtYsRpS1ycqHoA9qN1YE28PTrT2guHy6aY4uxCejJy+hW8uki10FiDIGUdG3LVV01M3XhQR/063k8H9bqjPlp0IPez0g/mQcuv1JHYUt3yhFPaKcXR2By5ccqhIGbfEA+FZyEk0394snCqsgg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789734497; c=relaxed/simple;
-	bh=FcF/CoiAitZeJ7aRj74ekADOE+YPKZ2/KzjUjBOz7j0=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=HDIpuu1F7jjLcfP71YBnkG6xXAW84qgCL3rHXz4mAlKmFtrPCqav0xpD5MtiXRK/rZCjHvvC3ZdW7YirfDK52/MzFTM5z9bYnBx/x/OhnKGvuR48NW2Mjcuq114pebRlMrA6clVcq8qvNyFuSVkelx94OZjC5mxrrEnx+MfZXIA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WCqy2Ksy; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WCqy2Ksy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 864791F00898;
-	Fri, 18 Sep 2026 12:28:13 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789734495;
-	bh=7t4xYZPS5/zZ1VngL4kG1hvUave8IACXX7PMjAjWykg=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=WCqy2KsyM+zvVJpaZisBGtEEzqYvC9v7ViEJhlwJLp4DUW+lZkn7+Y5fFG+Fl3hzf
-	 joPmMHB3+CmpBBEup2zZxaGtud/kQ8Zi6YOlJwSUJ6zCLMK97GGfNKMLgixZXRJbIg
-	 64zdfeP6tvvgQN/A2JXcXKcL2XV0hUpfsZFRLNmcSv+/B7QrNJKZtmfyD96aWlBBZI
-	 KqcOqkP4Pm6bZI50foFQLtoipVmXK/dr3zT1tDpW/CqcQYZ6jGeLQREmQQUhE4I6fA
-	 phLLTFrOcl/GGY5yzkMcVc2FFgYz/uIiMR2410X5xcnQ6CYz4/H+QhE7YNpWyvpB3C
-	 xQ6GggrRq6zkw==
-From: Will Deacon <will@kernel.org>
-To: Catalin Marinas <catalin.marinas@arm.com>,
-	David Carlier <devnexen@gmail.com>
-Cc: mark.rutland@arm.com,
-	kernel-team@android.com,
-	Will Deacon <will@kernel.org>,
-	Shameer Kolothum <skolothumtho@nvidia.com>,
-	Sascha Bischoff <sascha.bischoff@arm.com>,
-	Khushit Shah <khushit.shah@nutanix.com>,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
+	s=arc-20240116; t=1789734683; c=relaxed/simple;
+	bh=M7NmYC/Iylm9myghHwqILim55SAUt9QrM+UZYk0eJlw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=HisQ2LrRuhuPNA5+ZXKg4zCI2qK2mgO+/zYmrjyMvxKJz+mIeHDLoQbsPEpZWbTDLrtJZo5QneMk2hcnKVk23UqrITCEVg4pELxWc0HcmEboXdGs1nCeXaRn9kHvc8C4n+ltasgJZzVPJB5k8A1f/7DoM6O7hm67SR8B6bxWyf8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de; spf=pass smtp.mailfrom=lst.de; arc=none smtp.client-ip=213.95.11.211
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=lst.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lst.de
+Received: by verein.lst.de (Postfix, from userid 2407)
+	id 06D4D68BEB; Fri, 18 Sep 2026 14:31:15 +0200 (CEST)
+Date: Fri, 18 Sep 2026 14:31:15 +0200
+From: Christoph Hellwig <hch@lst.de>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Hannes Reinecke <hare@suse.de>, Christoph Hellwig <hch@lst.de>,
+	Sagi Grimberg <sagi@grimberg.me>,
+	Chaitanya Kulkarni <kch@nvidia.com>, linux-nvme@lists.infradead.org,
+	linux-kernel@vger.kernel.org, Jens Axboe <axboe@kernel.dk>,
+	co+77553a7fc66ac133@bugs.sh, Xiang Mei <xmei5@asu.edu>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] arm64: errata: match the target implementation CPU's own MIDR
-Date: Fri, 18 Sep 2026 13:28:05 +0100
-Message-ID: <178973065688.2324564.11650949029036534707.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260906121421.60575-1-devnexen@gmail.com>
-References: <20260906121421.60575-1-devnexen@gmail.com>
+Subject: Re: [PATCH] nvmet-auth: fix out-of-bounds write in
+ nvmet_auth_challenge()
+Message-ID: <20260918123115.GA17110@lst.de>
+References: <20260912171009.1513289-3-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260912171009.1513289-3-bestswngs@gmail.com>
+User-Agent: Mutt/1.5.17 (2007-11-01)
 
-On Sun, 06 Sep 2026 13:14:16 +0100, David Carlier wrote:
-> __is_affected_midr_range() is handed the MIDR and REVIDR of one target
-> implementation CPU, but tests the erratum's range with is_midr_in_range(),
-> which re-scans all of target_impl_cpus[] and ignores the @midr argument.
-> The range test is thus constant across the per-CPU loop in
-> is_affected_midr_range() and only answers "is any target CPU in range".
-> 
-> Since just the fixed_revs REVIDR check uses the iteration's own registers,
-> an out-of-range target CPU can decide whether a MIDR_FIXED() exemption
-> applies. A VM then enables a workaround whose only in-range CPU is fixed
-> silicon, e.g. erratum 2658417 on a Cortex-A510 r1p1 with REVIDR_EL1[25]
-> set.
-> 
-> [...]
+Looks good:
 
-Applied to arm64 (for-next/fixes), thanks!
+Reviewed-by: Christoph Hellwig <hch@lst.de>
 
-[1/1] arm64: errata: match the target implementation CPU's own MIDR
-      https://git.kernel.org/arm64/c/b7403afb7a5f
-
-Cheers,
--- 
-Will
-
-https://fixes.arm64.dev
-https://next.arm64.dev
-https://will.arm64.dev
