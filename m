@@ -1,190 +1,139 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA8717D6
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 03:31:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0CFF72AE68
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 03:36:40 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702323; cv=none; b=izLs3fPs6MZEBLYQ6+id6wqSOeJ3rGDok/INcKsksoo/PsKixP/NvSHLgTXlJspzvEcxvAU+Sgfjgws6oRqIoSd6EKBKDl9g2zic//3dQwtDQO4Ra31DpT9W3HURK1aTH7gHDH7o11ywARum7x6Ux5N1qnJJdjg7PRxDsAbtNMQ=
+	t=1789702602; cv=none; b=m8SDiIT5ufanNamhH5E2MMc8Kz53XGJ91WXCAiScwy1J9NA3LE8s9xx72OlDGejcT1lGSLMJU4XNJ1Ktj/rOnT9foUOQJDOYqWWHJxPzlC+YyNj7D8/9lpcRbYqCkCgI0I+5loTMvP1fSJvOm/olrsOn2v0ZQ9DpS/1J0qJEo7A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702323; c=relaxed/simple;
-	bh=ofbGnonuhMWHIHVrMioDm+COfo4E6fbBUBFRCUoAZGE=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=YddZB/g/dJEGy4BQQBEvnjwadvcoL7OU6ujhESby0o6NPIjjiPXPkzRRo3kQObWPDmfT1Ouc1oDar8D3/tZNBty4EDyzaateZyhhOFjO3uS8a/TJzNQf1AqMJw0x7fnhq1Y41Df/EIaQ0f9wBH5LH6pr6IY893AaDrPiDlxycUs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XQqCAIzo; arc=none smtp.client-ip=220.197.31.5
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789702602; c=relaxed/simple;
+	bh=7Nomsb/xDKrPOkA0ofpplDA2nR4k4Siox+coXCiEXD8=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=XZGgrHg4/6EVZowkHm88GbiKFwh2+Ooxpwg/WucJkJaUFPpVpzG4dNWPgAmP9toj57Yrj7aNDNIwd3lvcduwyEhTAA+g+CEu6sIhXaKmx2mR7FSXuzc0u6PokEjjkyIqhaLB+aDTT8wVTbiF62FBxXlmpP68gNOcBJDGb4c29fM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=UrIxcZce; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XQqCAIzo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=gDqFiXsIFxVLwgl8nROCme0E0boM641YgzTeXdujsAQ=;
-	b=XQqCAIzoaocwtrH7zcDHh9K4fHB/J1Oi/oqYAM0D1gJmm0dnHlyK5x1KLMtjH3
-	xUtAIpnsiJiMxoiOjGFsGnaLkVWsVvdK4JCZBgGuiLgh8eW56uR8VEkCJQ2XXQXZ
-	dwSwRwa8DzzkdjQtLiKemA8gmYqYfZ/WQ0c27eL3gji4g=
-Received: from [IPV6:2409:8900:1a8a:969c:2bfb:b58b:268a:b9c5] (unknown [])
-	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wC3h5eMsKxqfAaeBQ--.14493S2;
-	Fri, 18 Sep 2026 11:31:26 +0800 (CST)
-Message-ID: <81eb8e1b-b20a-4b50-a46f-a425465e4ef7@163.com>
-Date: Fri, 18 Sep 2026 11:31:24 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="UrIxcZce"
+Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso107910a12.3
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 20:36:40 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789702600; x=1790307400; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=CzacXgjnCoLQ6IPo+mqTZNiDTIejYQZRENtjYEht/kA=;
+        b=UrIxcZceGmnLW8Vs8qr6dSUYwSpSRaQC8v3+1mcumKMt5DokHlGQB+78dyLkCw9cKV
+         imuA0YsXn2mradbUB2OLmw8mUv1c+OZS/gUKvMUhhlhsbFKnAj4pbEhdGlWS+hCzaWlL
+         FC8OJtgtqAo77gHuoLDumUUg3+nfTfi2F+5WhwuXiU3XMOAXzQvt4k3JCB4JPi6N2cvO
+         ktOAxJM3RokyPCfatLXhwsZ2CTOFZKnLL0IMw+PyQflNaLfXhctdgE4diXet4qaVv1FD
+         A7NXwqeJvq1iz/3Xo0b35nMelRopvlCjcNtaF5K0gcJyUA4r5mqcDyZMcl1cuYlpk4Ga
+         3/eg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789702600; x=1790307400;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=CzacXgjnCoLQ6IPo+mqTZNiDTIejYQZRENtjYEht/kA=;
+        b=n5tiLB7mZZJXu9z/zOJP4zq8eHonihnYwEHmZkE18zmHzQN8frxwBze3CJnuwvMHcn
+         dS3xTl6FbUAwwJBCnTM79m7HToDxDnDkQD7NOjNn3FibYIWPDYm4FvUcabIUm9llMXZB
+         kjS3GYVj/k+ncwqOnJIsluunbKkFwKp7f8h9RLKGCFz3ektIS8TlMthWd88w9sY5lSzf
+         ydvEZ6WsHeZunh/Py8PBVkAmF8r/RtkATo+sxALjU4Sod1rnQTvghvO7gaU7fNTIYhxf
+         3wXkkzouce9R9T0i+6ayeMe4enbEXJDu1YBJ9GI82JEo8JQn+j199+4bdgl6W16UtzqD
+         EYPg==
+X-Gm-Message-State: AFuF++l7HuF4S11rR6PhtMLGt7eBKcT2UjgI7lvPeiHyIW2xZnKSWLQe
+	dTxjkBnAoQXU8e5gime6LK6mqaufsTJ9D3J7PR/e5qmA6SHpb74M//WaQOwMysijDjbosA==
+X-Gm-Gg: AYBFou2s/PZjsSk/e8V0AHfuH9ty7HbspJv7R/J8dWctHugy0GbtN6YAmANmWVG7vv6
+	g3F5bJ+f+1yPpmPi2Os1jgcIMwomuuUbANwX/M9kRg/Po2hl5uosJUB+VkzqgtTC4Ekvxle1Bx9
+	zReUiieHlnOPGhUHWodrtAVB3vS0+GdQNHZPsIYlS567ka9TPtT4fVol5bBSVMA1L/pb8Lfe+AX
+	1raon1UK7pwL0ltPv+F2XWzTSkp762kTx+/uFb8k0Ooh2UvLcc6EN81zyMEuktYOuDZXReiQap0
+	uZb2+7r8rlO+TssbGJn3gsDoZ/J0lXZkPZQCJgvlx8zQHjMCeOfgMepPTGbHTCZN8dLEYFOzf57
+	5Y+ctn45SHjuYl9gRPXmzG6YTtaLu39y1mti0W1OpAuKRjooXzDXK7folsaMbGTFjRs2a6A6TaO
+	EUl/l15kSaSlS+53it2v6HnuyDKaRzsICZZTV0vFmNrPw/ijshxMVJxqgh6R6kU2YLpoUS92JD
+X-Received: by 2002:a17:90b:3f84:b0:39e:4c7e:f042 with SMTP id 98e67ed59e1d1-39e54f91d4amr2604206a91.31.1789702600118;
+        Thu, 17 Sep 2026 20:36:40 -0700 (PDT)
+Received: from io.local ([159.196.197.79])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3618ab38sm8027102a91.10.2026.09.17.20.36.37
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Thu, 17 Sep 2026 20:36:39 -0700 (PDT)
+From: Jamie Bainbridge <jamie.bainbridge@gmail.com>
+To: stable@vger.kernel.org
+Cc: Davide Caratti <dcaratti@redhat.com>,
+	Hannes Frederic Sowa <hannes@stressinduktion.org>,
+	Jann Horn <jannh@google.com>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Jamie Bainbridge <jamie.bainbridge@gmail.com>
+Subject: [PATCH 6.1.y] af_unix: Fix peek then tail dereference UAF in unix_stream_data_wait()
+Date: Fri, 18 Sep 2026 13:36:28 +1000
+Message-ID: <16dd5af86510d1fed6e9dc9aaa4b1e350e0087d8.1789702442.git.jamie.bainbridge@gmail.com>
+X-Mailer: git-send-email 2.47.3
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ntfs: fix incorrect VCN units for index blocks in
- large clusters
-To: Hyunchul Lee <hyc.lee@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>
-Cc: ntfs@lists.linux.dev, stable@vger.kernel.org
-References: <20260918-fix-c8k-index-v2-1-7c7c5d0b78ac@gmail.com>
-Content-Language: en-US
-From: liubaolin <liubaolin12138@163.com>
-In-Reply-To: <20260918-fix-c8k-index-v2-1-7c7c5d0b78ac@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wC3h5eMsKxqfAaeBQ--.14493S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3JF4kWF48KFyDKrWDCrWkCrg_yoW7CFy3pr
-	9Iyr1Skw47Jr12ywsxKa1jvryru34DK3WUKw4UJr17tr97Jrnag3W8KryrWF9ay395A3s7
-	XFn0gr4ru398Xr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uj385UUUUU=
-X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4V32qssI6vhAAA3+
 
+Upstream commit be309f8eae8b474a4a617eaae01324da996fc719
 
+Linux mainline commit be309f8eae8b ("af_unix: Fix UAF read of tail->len
+in unix_stream_data_wait()") describes a UAF which it fixes by removing
+the offending tail->len dereference. This was assigned CVE-2026-64109.
 
-在 2026/9/18 08:18, Hyunchul Lee 写道:
-> NTFS stores VCNs for index blocks smaller than their cluster in fixed
-> 512-byte units, independent of logical sector size. Use correct block
-> units when initializing and traversing these indexes so directory indexes
-> are located correctly.
-> 
-> Verified on a Windows-created 4Kn/32KB-cluster NTFS volume that when the
-> index block is smaller than the cluster, the VCN unit is 512 bytes.
-> 
-> Fixes: 27d5cd2d940b ("ntfs: fix directory lookup on large-page systems")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
-> ---
-> Changes in v2:
->    - Add a Fixes and Cc tags
-> ---
->   fs/ntfs/index.c  | 2 +-
->   fs/ntfs/index.h  | 2 +-
->   fs/ntfs/inode.c  | 8 ++++----
->   fs/ntfs/layout.h | 6 +++---
->   fs/ntfs/namei.c  | 7 +++----
->   5 files changed, 12 insertions(+), 13 deletions(-)
-> 
-> diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
-> index 46a8b19c0723..3e901004bcbf 100644
-> --- a/fs/ntfs/index.c
-> +++ b/fs/ntfs/index.c
-> @@ -852,7 +852,7 @@ int ntfs_index_lookup(const void *key, const u32 key_len, struct ntfs_index_cont
->   	if (ni->vol->cluster_size <= icx->block_size)
->   		icx->vcn_size_bits = ni->vol->cluster_size_bits;
->   	else
-> -		icx->vcn_size_bits = ni->vol->sector_size_bits;
-> +		icx->vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
->   
->   	icx->cr = ir->collation_rule;
->   	if (!ntfs_is_collation_rule_supported(icx->cr)) {
-> diff --git a/fs/ntfs/index.h b/fs/ntfs/index.h
-> index 9a03f53bba47..a898e348f2c9 100644
-> --- a/fs/ntfs/index.h
-> +++ b/fs/ntfs/index.h
-> @@ -37,7 +37,7 @@
->    *		(maximum is MAX_PARENT_VCN)
->    * @ib_dirty:	true if the current index block (@ia/@ib) was modified
->    * @block_size:	size of index blocks in bytes (from $INDEX_ROOT or $Boot)
-> - * @vcn_size_bits: log2(cluster size)
-> + * @vcn_size_bits: log2 of the VCN unit size
->    * @sync_write:	true if synchronous writeback is requested for this context
->    *
->    * @idx_ni is the index inode this context belongs to.
-> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-> index 4375ad477809..d389d89b3ff5 100644
-> --- a/fs/ntfs/inode.c
-> +++ b/fs/ntfs/inode.c
-> @@ -1021,8 +1021,8 @@ static int ntfs_read_locked_inode(struct inode *vi)
->   			ni->itype.index.vcn_size = vol->cluster_size;
->   			ni->itype.index.vcn_size_bits = vol->cluster_size_bits;
->   		} else {
-> -			ni->itype.index.vcn_size = vol->sector_size;
-> -			ni->itype.index.vcn_size_bits = vol->sector_size_bits;
-> +			ni->itype.index.vcn_size = NTFS_BLOCK_SIZE;
-> +			ni->itype.index.vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
->   		}
->   
->   		/* Setup the index allocation attribute, even if not present. */
-> @@ -1612,8 +1612,8 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
->   		ni->itype.index.vcn_size = vol->cluster_size;
->   		ni->itype.index.vcn_size_bits = vol->cluster_size_bits;
->   	} else {
-> -		ni->itype.index.vcn_size = vol->sector_size;
-> -		ni->itype.index.vcn_size_bits = vol->sector_size_bits;
-> +		ni->itype.index.vcn_size = NTFS_BLOCK_SIZE;
-> +		ni->itype.index.vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
->   	}
->   
->   	/* Find index allocation attribute. */
-> diff --git a/fs/ntfs/layout.h b/fs/ntfs/layout.h
-> index 9438fd9b668e..8f5792139d71 100644
-> --- a/fs/ntfs/layout.h
-> +++ b/fs/ntfs/layout.h
-> @@ -1880,8 +1880,8 @@ struct index_header {
->    * @index_block_size:   Size of each index block in bytes
->    *                      (in $INDEX_ALLOCATION).
->    * @clusters_per_index_block:
-> - *                      Clusters per index block (or log2(bytes)
-> - *                      if < cluster).
-> + *                      Clusters per index block, or 512-byte units when
-> + *                      the index block is smaller than a cluster.
->    *                      Power of 2; used for encoding block size.
->    * @reserved:           3 bytes reserved/alignment (zero).
->    * @index:              Index header for root entries (entries follow
-> @@ -1921,7 +1921,7 @@ struct index_root {
->    * @lsn:                Log sequence number of last modification.
->    * @index_block_vcn:    VCN of this index block.
->    *                      Units: clusters if cluster_size <= index_block_size;
-> - *                      sectors otherwise.
-> + *                      512-byte blocks otherwise.
->    * @index:              Index header describing entries in this block.
->    *
->    * When creating the index block, we place the update sequence array at this
-> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
-> index 3e0adb9a0ea4..75e201096525 100644
-> --- a/fs/ntfs/namei.c
-> +++ b/fs/ntfs/namei.c
-> @@ -433,9 +433,8 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
->   			ni->itype.index.vcn_size_bits =
->   				vol->cluster_size_bits;
->   		} else {
-> -			ni->itype.index.vcn_size = vol->sector_size;
-> -			ni->itype.index.vcn_size_bits =
-> -				vol->sector_size_bits;
-> +			ni->itype.index.vcn_size = NTFS_BLOCK_SIZE;
-> +			ni->itype.index.vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
->   		}
->   	}
->   
-> @@ -569,7 +568,7 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
->   				NTFS_B_TO_CLU(vol, ni->vol->index_record_size);
->   		else
->   			ir->clusters_per_index_block =
-> -				ni->vol->index_record_size >> ni->vol->sector_size_bits;
-> +				ni->vol->index_record_size >> NTFS_BLOCK_SIZE_BITS;
->   		ir->index.entries_offset = cpu_to_le32(sizeof(struct index_header));
->   		ir->index.index_length = cpu_to_le32(index_len);
->   		ir->index.allocated_size = cpu_to_le32(index_len);
-> 
-> ---
-> base-commit: 27d5cd2d940b53718f66fb682475587aa993d760
-> change-id: 20260918-fix-c8k-index-e91b078b1290
-> 
-> Best regards,
+However, while the quote from Kuniyuki Iwashima at the end of that
+commit says "this fix is not suitable for kernels before 6.5", the UAF
+and CVE still exists in any kernel since v4.2 commit 2b514574f7e8 ("net:
+af_unix: implement splice for stream af_unix sockets") and so it
+remains unresolved on stable kernels such as 5.10.y, 5.15.y, and 6.1.y.
 
-Looks good to me.
+The problem is that unix_stream_data_wait() performs a skb_peek_tail()
+then dereferences that tail without taking the receive queue lock, and
+taking the queue lock is a requirement for peeking a receive queue.
 
-Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
+Resolve by wrapping the skb_peek_tail() and tail->len dereference in
+the receive queue spinlock then unlock them again as soon as possible.
+This is the same lock pattern that unix_stream_sendpage() already uses.
+
+Tested: I could not reproduce the UAF under KASAN with the reproducer
+provided on be309f8eae8b, despite running many thousands of times,
+even adding thread affinity and a thread barrier to start both threads
+together. I also could not produce a KASAN error or any other error
+with this commit, which is the expected good result.
+
+Fixes: 2b514574f7e8 ("net: af_unix: implement splice for stream af_unix sockets")
+Cc: stable@vger.kernel.org # 6.1.x
+Cc: stable@vger.kernel.org # 5.15.x
+Cc: stable@vger.kernel.org # 5.10.x
+Reviewed-by: Davide Caratti <dcaratti@redhat.com>
+Signed-off-by: Jamie Bainbridge <jamie.bainbridge@gmail.com>
+---
+ net/unix/af_unix.c | 6 +++++-
+ 1 file changed, 5 insertions(+), 1 deletion(-)
+
+diff --git a/net/unix/af_unix.c b/net/unix/af_unix.c
+index a4fa3c279a465e1b254928872aeba113ac8d7461..6756ecc62169b3ee05d2a52b68f245fd8c5ef54e 100644
+--- a/net/unix/af_unix.c
++++ b/net/unix/af_unix.c
+@@ -2581,14 +2581,18 @@ static long unix_stream_data_wait(struct sock *sk, long timeo,
+ 	for (;;) {
+ 		prepare_to_wait(sk_sleep(sk), &wait, state);
+ 
++		spin_lock(&sk->sk_receive_queue.lock);
+ 		tail = skb_peek_tail(&sk->sk_receive_queue);
+ 		if (tail != last ||
+ 		    (tail && tail->len != last_len) ||
+ 		    sk->sk_err ||
+ 		    (sk->sk_shutdown & RCV_SHUTDOWN) ||
+ 		    signal_pending(current) ||
+-		    !timeo)
++		    !timeo) {
++			spin_unlock(&sk->sk_receive_queue.lock);
+ 			break;
++		}
++		spin_unlock(&sk->sk_receive_queue.lock);
+ 
+ 		sk_set_bit(SOCKWQ_ASYNC_WAITDATA, sk);
+ 		unix_state_unlock(sk);
+-- 
+2.47.3
 
