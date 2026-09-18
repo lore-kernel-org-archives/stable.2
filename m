@@ -1,80 +1,80 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from fhigh-b8-smtp.messagingengine.com (fhigh-b8-smtp.messagingengine.com [202.12.124.159])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 19452493D41
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 19:08:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3B33C4078DA;
+	Fri, 18 Sep 2026 19:13:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.159
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789758538; cv=none; b=L5GfT0IbNEXwvPGezme46xs1HvUuDQg68613pAeVxlbdRJYYrnVVaCqqYICwMsNmHlGYmNnxZfZL5UKWt5pl1ule/QrzRJeDek0u/x6L8pgMlnF0gc9RuS++jXy45RlN6v5+52TUt2z9FM8ZyufSxjphyR2nVfZgpCSPlhFKzCs=
+	t=1789758817; cv=none; b=PiJJXRphdQrkG03jIcFi1kQgdg1vAZYdOB/cMHtb8q6NOCD4p2dNNcV/yAncyvZVYDq4MbMHiY5HERpmZRqibGgmcv0C/qf6Cg9noaFLSbqWN0AJx2zEN0iFoY1iTTw2W0KmleNtclAssSlCRK1tPmd5EPTz8DIMswwUfoTY3Qw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789758538; c=relaxed/simple;
-	bh=vtzHYOZsL+DsQ6OU9w78rV8QDnNXXiUdKTEDMcuSfOU=;
-	h=Date:From:To:Cc:Subject:Message-ID:MIME-Version:Content-Type:
-	 Content-Disposition; b=oQA7yJJU9Sdb/lsCygtGB1XK1FjtBxn0N0k4iOIBCLT7+mBVOxyrH4JvrOZ6muI62bFsPF6gGZEFZ+TY5q2LxuNkH6E8c/BVa8RAwE+ewlsqNjKBHJeVlxpO9B8wjEPUcj0ybnaj6U06Yi/mpgsDXfcwguWbyNqnOkevERsw/SI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=tAO9a1HG; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=fail (p=none dis=none) header.from=debian.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789758817; c=relaxed/simple;
+	bh=ypWBO+e7Bovj7JbSht7N4ucJApYBb7+KAB606NK3mpo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=DllgGNEQs5G/mFvS+UpSWjO3qEv3SA1iV58Q6Fvkk6OnvScR/7JR22ICOkSvSBt1y+x6C12TnPunhn0n/42sCnKrQNy0cZrB8ShTM3B8S4nGRlxAX+Zzgxp6BSuWPyc+bxEyXFKCWMoGjDf2RhdRLN7ebqkSVCF9zqBbf0SrgmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io; spf=pass smtp.mailfrom=bur.io; dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b=FnbU5zU8; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=UUTn6e0u; arc=none smtp.client-ip=202.12.124.159
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=bur.io
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bur.io
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="tAO9a1HG"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49d097b4939so5613085e9.0
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 12:08:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789758530; x=1790363330; darn=vger.kernel.org;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:sender:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=KlR8Li9AQguqMj6ZVMr+f+KkK5/jHymLg1fc6OgUNdE=;
-        b=tAO9a1HG7XGoxqkPakxi3HIQETvzhB6Mh5wmYoYTbJBS5K4++O6jVR8fhGXM2Z4YjE
-         ikpKBFsKE3QJ5FoCH/6wmgZCTlJduc6RNSzwjJd7+8G9HOuHgdyrF0oD4NC2gAyrbQS/
-         5Q63wh3DuniqtjfkcHorOr94t4no5mNREH21rK9ZUa/c2h8RWmAVerfc6eBYYzLK9HVm
-         oEAOkE8jvshinrKvF6vdYyc/hReFGrbFZ8oUW9uiQFLwDo76tlJ8X5Bzt8I9X5U9Qs2G
-         Nm+WuL/w0eXqXGSdcN56FJ526L9GQyKsXqRg0Oe2M9IJWZN5oJJeFBuD7gTtvXK03Wlg
-         NmYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789758530; x=1790363330;
-        h=content-disposition:content-type:mime-version:message-id:subject:cc
-         :to:from:date:sender:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=KlR8Li9AQguqMj6ZVMr+f+KkK5/jHymLg1fc6OgUNdE=;
-        b=Aqzg6uRH8XoluPv3z3ecYCN1xzbO8+PB6xGmbgfWScEaUcls/0VUkAthqniRmzl2Eh
-         rxYk2A464fUKBxw8gWwikF90otoIrQyiTwHjGPqJC7ViT07WFPO4o5Om8M+VjqWZInJP
-         XRxiWJ9HOv3Zuco5zG/dC9d8/cYjrXeDXmA266AN5TGnlyd/bSjrcRZLe4DMdusFOMeb
-         99Pz7xRoPM/tDCGcIBoSyQITKJBJ/l4EaWylhTdx7ZDW3TEaXfk0JNjVmvNYeX67mK0P
-         P6xmmNs5A4q5ZoJNPBZ/g/hsNaRfnM7Nx+zXc5nIfO4TLkC6MC9WursQ6C/DY6ZnBpgW
-         S9pg==
-X-Gm-Message-State: AFuF++mb7PJZrbbazLMyvF9IiZXX6p1hoetO6Yp8cjIFmXi+pVIeDkNw
-	yNRW5QiV6Z7eYQvHjau908ZvAtUv4/lzrtsfULaYh1fL14h02/l+zlfJ
-X-Gm-Gg: AYBFou1Kdawjf1X+XeFoazpaRnW5qLlU7Iwvn3mnMTu5wm9Dza6g7ObXlFI++G57bDJ
-	kyCbkjj72/aMwxSZyR3blFic0t2kKF3FrWL3u7RD9Db7OjyMVS/KB1JdqHi91AVnVynH5KFd1Hb
-	kPT+x8Ll4tK8mm6B2h4va8UVvGXifanzYTlIspr0+Q/YynVUAJfWQ5SXLRHDtk69RPeJMs9pXkl
-	tfuX761ZZDjvzddegcGnol09ZIAqOlzi/D/8wJ+tt/fyu/zf/PFjpxPzOIjX3HgUeorroGhaSNU
-	ehZ4AIPug440i3sNBOMXm1jSzVA7g8iH4mFOCKwutvh2okLmhGFhrctBLmeVBTO1h1mPM/Y5UL+
-	wReM/vNxKRZeEslb9GGFi/W4q7QM/QIpSQpaMbVHl2CzWMjrx4YvWHeI5ew3eBI64TGI+GHcu9T
-	OnOHQdt5jyrkFbzwhzPEVw08XzVYL/aMg1pj+HEISg+Ibzt4Pcrxc0Gc7Tf2vpThLB/CNt8Vn/E
-	SKot5TAE3diwpbAbTXTAXkodB4k4VqivRw=
-X-Received: by 2002:a05:600c:c1c8:10b0:49e:81a7:9fbc with SMTP id 5b1f17b1804b1-49fc574aacbmr35802825e9.24.1789758530233;
-        Fri, 18 Sep 2026 12:08:50 -0700 (PDT)
-Received: from eldamar.lan (c-82-192-247-196.customer.ggaweb.ch. [82.192.247.196])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0874c3sm20217525e9.14.2026.09.18.12.08.49
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 12:08:49 -0700 (PDT)
-Sender: Salvatore Bonaccorso <salvatore.bonaccorso@gmail.com>
-Received: by eldamar.lan (Postfix, from userid 1000)
-	id CE28FBE2EED; Fri, 18 Sep 2026 21:08:48 +0200 (CEST)
-Date: Fri, 18 Sep 2026 21:08:48 +0200
-From: Salvatore Bonaccorso <carnil@debian.org>
-To: stable <stable@vger.kernel.org>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>
-Cc: linux-perf-users@vger.kernel.org, linux-kernel@vger.kernel.org,
-	James Clark <james.clark@linaro.org>,
-	Collin Funk <collin.funk1@gmail.com>,
-	Arnaldo Carvalho de Melo <acme@redhat.com>,
-	Namhyung Kim <namhyung@kernel.org>, Ian Rogers <irogers@google.com>
-Subject: Please backport subset of 2f5d370dec3f ("perf test: Change all
- remaining #!/bin/sh to #!/bin/bash") for stat_bpf_counters.sh script to
- v6.12.y and older
-Message-ID: <aq2MQLKmyrxkFd0Y@eldamar.lan>
+	dkim=pass (2048-bit key) header.d=bur.io header.i=@bur.io header.b="FnbU5zU8";
+	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="UUTn6e0u"
+Received: from phl-compute-02.internal (phl-compute-02.internal [10.202.2.42])
+	by mailfhigh.stl.internal (Postfix) with ESMTP id 8D7C67A00B3;
+	Fri, 18 Sep 2026 15:13:32 -0400 (EDT)
+Received: from phl-frontend-03 ([10.202.2.162])
+  by phl-compute-02.internal (MEProxy); Fri, 18 Sep 2026 15:13:32 -0400
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bur.io; h=cc:cc
+	:content-type:content-type:date:date:from:from:in-reply-to
+	:in-reply-to:message-id:mime-version:references:reply-to:subject
+	:subject:to:to; s=fm2; t=1789758812; x=1789845212; bh=zbQw5bsCmw
+	yMqn3fZqqtDfVh5dJ9aftS0TuIvTXR55M=; b=FnbU5zU8zkxf2CJ6b9SOM7O5+F
+	AeAeHnc1tN68A3Xp2WMGNaHXHaAQgCKoERSxVx564cxlpfleiAyDRjwdbbOceRR4
+	zqDKGcOt4Gyx08Atrb50orQMbENoV4A3ruo1oRnx9ZgfXAxGUrhlxcV56TvFmTma
+	KerZeVLwp1Uv58lLDcWkSIPnUaPgqYk+oUPgy5UhJdB3AWhT8dhUdVhthn5OxY/A
+	EbA2fQeOnfj3dkYfPhTs2o0bspewHc9OmYeQ1Jg7kpb8HCciNbeK7QHRhomI6qrL
+	pMnho4JSJVZX+rAAxc7g2y4P0ygmzxgXIC/l8qfmvM3qn5tvLDyMJ1Wx991w==
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
+	messagingengine.com; h=cc:cc:content-type:content-type:date:date
+	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
+	:message-id:mime-version:references:reply-to:subject:subject:to
+	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
+	1789758812; x=1789845212; bh=zbQw5bsCmwyMqn3fZqqtDfVh5dJ9aftS0Tu
+	IvTXR55M=; b=UUTn6e0uVgP0OrUrqFo/FvNl1IRmSo3+7fmteb6UzbWoVqQ7VdQ
+	tIGMaoWCQP7XUgjKt9FJxLbuoDrjCVEhs7byxeOxxA/a1Hiqft9pwFlMXLv0oXrT
+	2ZCC3wldk+pOauK2aLpxv0d5//4ruzp0ct+7BOmQIBvmP2cZR8f4xMA1mV6O5IsP
+	XqcrV0mfOMU0jm7s7495lPQ4iZw+FrqAQOzHv6vdgeUcXYgb35LDG5bk6Kq2TJVe
+	HeDkQDzV28koMmyjU5jYDDalVFXo5h4eUXsiuH4WlUQOBVVoqVtY6uHiu7ypmCUP
+	vHWEKPPf92sjrWZBkiiLDTmUtZ4wToRS/Iw==
+X-ME-Sender: <xms:W42tamjhPT_vptwFrFKIJh7He6sFmm5Xy31pHqkYRt_ChMkTLI9M3g>
+    <xme:W42tamFkJRALQx4yMdh277_5zJhmsNaCChAdikzg5qBHy3mzavz4BUsj-8d6hjayB
+    Nwn3PwtKBGaBdmc93cUa3xi2wSvL8yrSQEvyKAfjqwtxwNSaiMXqsk>
+X-ME-Received: <xmr:W42takShE7N98vGuVS5KEvOXal9_CCwxk0k8EiOXEX3UxGQnOmyO-Gc>
+X-ME-Proxy-Cause: dmFkZTFYAgdrwYS9Q+qC2s0sfBujxpW3HYjRb9jmdB+U9OFh78SRfbKJK0tx2V5/J8DeQQ
+    rX9i9/jR8gamHkO/TJs56/AjkxHntCVOf97AQEKbve+aCUL0PblN+6oMNM6beRTKenM0en
+    pbW4aYhy73s4053WP1gLtb5CHQRCrqRliSLI0zQyT9NlWhQcN7ooJU5RtU2mwi5r1BM1+R
+    ad9QcpjXc5bBf2xYjy8tLlhzddsq7A+ps0JeCVf00ZJNi3ABmwbMr3alYAX6TcDfK37ahF
+    INEIPju3vJmHW58AhFsSNUe4qSCmZZU8XDLU+SsbnXLqSlXyZZJDVPCiAucWdQFvarKdnP
+    sEO2v8KpowI3aW74CZUFNSg23+rro41FveSuQGK3YmlQl8NBGJzTBDmLwy2slEuCCYbLi2
+    PXgZRvEksFGeAGHnVvE4WY9igSJJJFn+gG8BoJrBA7Wuu1JudR4LyOL295PZ2qqhsws7EX
+    QC/r/+CX+zXfuHD4b0fw4TmLgu/l3/obCox8A8MkXBPsQEgqaRZy4yEaHPfH6GDo+yzr4g
+    YyDsIOtXOowOEInQSiyrsIY1Ja7I1u9NzcM7Z8cTn1KsKK1Lis4K8z090WbAqothjAjnhS
+    6YhbFBkDLJffcyVupYzqxdJdbfgqNUmSk2+obDhsMvzKWRlmY3m9BNYrmMIA
+X-ME-Proxy: <xmx:W42tarzf1_mMNOj6HSE5kAt2laPkt1aoUNb64ahVh84ErojGdRF_bg>
+    <xmx:W42taoe5e8VgDLJyIOxAC3j4Mti6cTSxSnaYL6XVgw3cYXYBBgwXuQ>
+    <xmx:W42tamNGiTkYpDfGP1v4_8nCs7OBp0umdeOGzOFDv8yri1637nazxQ>
+    <xmx:W42tars6txRish0LExiG7c5cQdNHLq2mj4An-VomNiWtR4TtNKtmwQ>
+    <xmx:XI2tamzGAStdedKZfikY9rqhECcaCfAwxMJO-d_nH7HrxY26gsCHwJGK>
+Feedback-ID: i083147f8:Fastmail
+Received: by mail.messagingengine.com (Postfix) with ESMTPA; Fri,
+ 18 Sep 2026 15:13:30 -0400 (EDT)
+Date: Fri, 18 Sep 2026 12:13:42 -0700
+From: Boris Burkov <boris@bur.io>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: clm@fb.com, dsterba@suse.com, linux-btrfs@vger.kernel.org,
+	linux-kernel@vger.kernel.org, wqu@suse.com, stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: Fix root reference leak in
+ handle_indirect_tree_backref()
+Message-ID: <20260918191342.GB2956775@zen.localdomain>
+References: <20260916171319.2086756-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,81 +83,47 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
+In-Reply-To: <20260916171319.2086756-1-vulab@iscas.ac.cn>
 
-Hi
+On Wed, Sep 16, 2026 at 05:13:19PM +0000, Wentao Liang wrote:
+> handle_indirect_tree_backref() walks up the tree from @cur, storing the
+> reference returned by btrfs_get_fs_root() in lower->root when the top
+> of the searched path is reached, and dropping it once a node already in
+> the backref cache is found.  If the walk instead reaches
+> BTRFS_MAX_LEVEL without hitting either of those two exits, the
+> reference is neither stored nor dropped and is leaked on return.
 
-Recently for v5.15.221, v6.1.188, v6.6.157, v6.12.110, v6.18.52 and
-v7.2.6, the commit b02027776ac5 ("perf tests: Fix flakiness in BPF
-counters test on hybrid systems") was backported, but it introduced
-bash specific syntax.  For versions after 2f5d370dec3f ("perf test:
-Change all remaining #!/bin/sh to #!/bin/bash") aka before v6.17-rc1
-this is not a problem.
+Are you able to reproduce this bug? If so, can you include that
+information in the commit message.
 
-The proposed patch is a stable series backports specific one, as one
-cannot simply backport 2f5d370dec3f ("perf test: Change all remaining
-#!/bin/sh to #!/bin/bash") without picking as well some other context
-related changes to make it possible. So I was proposing to only change
-shebang to #!/bin/bash in stable series were it is a problem, as in
-the stat_bpf_counters.sh script.
-
-Regards,
-Salvatore
-
-From 1e3d5b5f62047b147428d20bf2cb794bb0bb300d Mon Sep 17 00:00:00 2001
-From: Salvatore Bonaccorso <carnil@debian.org>
-Date: Fri, 18 Sep 2026 20:48:59 +0200
-Subject: [PATCH] perf tests: Change shebang for stat_bpf_counters.sh to
- #!/bin/bash
-
-When commit b02027776ac5 ("perf tests: Fix flakiness in BPF counters
-test on hybrid systems") was backported to several stable series
-(v5.15.221, v6.1.188, v6.6.157, v6.12.110, v6.18.52, v7.2.6) it
-introduced specific bash syntax. For versions after 2f5d370dec3f ("perf
-test: Change all remaining #!/bin/sh to #!/bin/bash") in v6.17-rc1 this
-is not a problem as the shebang was already hanged to #!/bin/bash. For
-the older stable series this introduced invalid syntax if #!/bin/sh is
-not bash:
-
-	$ sh -n tools/perf/tests/shell/stat_bpf_counters.sh
-	tools/perf/tests/shell/stat_bpf_counters.sh: 12: Syntax error: "(" unexpected
-
-	$ checkbashism tools/perf/tests/shell/stat_bpf_counters.sh
-	possible bashism in tools/perf/tests/shell/stat_bpf_counters.sh line 52 (bash arrays, ${name[0|*|@]}):
-		base_instructions=$(perf stat --no-big-num -e instructions:u -- "${workload[@]}" 2>&1 | \
-					awk -v i=0 -v c=0 '/instructions/ { \
-						if ($1 != "<not") { i++; c += $1 } \
-					} END { if (i > 0) printf "%.0f", c; else print "<not" }')
-	possible bashism in tools/perf/tests/shell/stat_bpf_counters.sh line 57 (bash arrays, ${name[0|*|@]}):
-		bpf_instructions=$(perf stat --no-big-num --bpf-counters -e instructions:u \
-					-- "${workload[@]}"  2>&1 | \
-					awk -v i=0 -v c=0 '/instructions/ { \
-						if ($1 != "<not") { i++; c += $1 } \
-					} END { if (i > 0) printf "%.0f", c; else print "<not" }')
-	possible bashism in tools/perf/tests/shell/stat_bpf_counters.sh line 68 (bash arrays, ${name[0|*|@]}):
-		stat_output=$(perf stat --no-big-num \
-			-e instructions/name=base_instructions/u,instructions/name=bpf_instructions/bu \
-			-- "${workload[@]}" 2>&1)
-
-Change shebang for the stat_bpf_counters.sh script.
-
-No upstream commit exists for this change as for versions post 6.17-rc1
-the scripts were converted to #!/bin/bash already.
-
-Signed-off-by: Salvatore Bonaccorso <carnil@debian.org>
----
- tools/perf/tests/shell/stat_bpf_counters.sh | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/tools/perf/tests/shell/stat_bpf_counters.sh b/tools/perf/tests/shell/stat_bpf_counters.sh
-index 76d4a7f15a43..c4f71bfc0fc6 100755
---- a/tools/perf/tests/shell/stat_bpf_counters.sh
-+++ b/tools/perf/tests/shell/stat_bpf_counters.sh
-@@ -1,4 +1,4 @@
--#!/bin/sh
-+#!/bin/bash
- # perf stat --bpf-counters test
- # SPDX-License-Identifier: GPL-2.0
- 
--- 
-2.55.0
-
+> 
+> Drop the reference and return -EUCLEAN if the walk reaches
+> BTRFS_MAX_LEVEL without finding the root of the tree.
+> 
+> Fixes: 1b60d2ec982a ("btrfs: backref: rename and move handle_one_tree_block()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  fs/btrfs/backref.c | 6 ++++++
+>  1 file changed, 6 insertions(+)
+> 
+> diff --git a/fs/btrfs/backref.c b/fs/btrfs/backref.c
+> index 273924ca912c..e889fbec4fe1 100644
+> --- a/fs/btrfs/backref.c
+> +++ b/fs/btrfs/backref.c
+> @@ -3426,6 +3426,12 @@ static int handle_indirect_tree_backref(struct btrfs_trans_handle *trans,
+>  		lower = upper;
+>  		upper = NULL;
+>  	}
+> +	/* We walked up to BTRFS_MAX_LEVEL without reaching the tree root. */
+> +	if (level == BTRFS_MAX_LEVEL) {
+> +		btrfs_put_root(root);
+> +		ret = -EUCLEAN;
+> +		goto out;
+> +	}
+>  out:
+>  	btrfs_release_path(path);
+>  	return ret;
+> -- 
+> 2.34.1
+> 
