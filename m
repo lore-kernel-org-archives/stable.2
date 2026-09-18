@@ -1,161 +1,135 @@
-Received: from mail-pf1-f198.google.com (mail-pf1-f198.google.com [209.85.210.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout.kundenserver.de (mout.kundenserver.de [212.227.126.130])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E7574AAC5A
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 14:38:16 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.210.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EAF94340260;
+	Fri, 18 Sep 2026 14:44:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=212.227.126.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789742298; cv=none; b=LIdoHzPbMBv6yyO2R/ez0WbCMOF8SCEqpihKY6iC+C4Jwn3/ya+0Rene6xSe6n7Az9SGyiY0+DmeNQCK5OY9FC5iMNY2LTp+QsE4C9UNqwq5Fx1yNOYpUInBGpb1/Q2zhgK6MpyMP1Kz9RyR1dZ6on0lxjsi9Gnyk7jWgHWfuE0=
+	t=1789742662; cv=none; b=t+OvqkwysRhWhd+LKlskq9kW1qUXl+BsqzaYHaythxpdGOLOBlgWS7tWIhAG2CMIii+DlQ1sQ2ofR2awhNyEI1CpLYpw3kRb/qsbyIbG1oZHZ5JXVG4ah7KF5zpKQ1Kj9TIMHJQ8PM4G9LLHUzBzOgbU/uvOPcf3tymsU4b5rWM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789742298; c=relaxed/simple;
-	bh=+KPB1lKxojDRY5zT5v7uCSLpxLCh41smyn55eJFDsZA=;
-	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
-	 To:Cc:Content-Type; b=XWZgsZro43XiB4/88VYoMXJaOKs2g6m1t3+1QKxZiT/ekg2xJ4IkkvNflQ1hVkPQAviCwf8XHd7i55Jgf68YAJwFjetW7N2Zr0Ka3qk7Hiix78FqFLk0clmHhZBemyhHyHlUwKdRIdU+GNjxW8apDVcoDhkqX0MbRDxJI7VUdzY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=aVA9Qz11; arc=none smtp.client-ip=209.85.210.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--stanleyjhu.bounces.google.com
+	s=arc-20240116; t=1789742662; c=relaxed/simple;
+	bh=UEKJ21gw1Dw3LJ9CKd1SZJBDvs/uzGNvB87MAehHrC8=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=IAqiWOHHc3+nXZpYwXZAWdrf6Bj+rD3OUsKptUO8DiApl8OG7/R+G9o0XKOUO13VeKYFfXA72i2HWMbVwDyDjRfoFhqaAHBa03Ne2Rh6myQ2qdn6QPXkfdyqRj9nR07hMOEg2RjiSmDiVJHu2n02uhUu27ltcVFzne5zrKLKs7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz; spf=pass smtp.mailfrom=oldschoolsolutions.biz; dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b=Em9zythH; arc=none smtp.client-ip=212.227.126.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=oldschoolsolutions.biz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oldschoolsolutions.biz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="aVA9Qz11"
-Received: by mail-pf1-f198.google.com with SMTP id d2e1a72fcca58-8716b158692so544505b3a.3
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 07:38:16 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=oldschoolsolutions.biz header.i=jens.glathe@oldschoolsolutions.biz header.b="Em9zythH"
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789742295; x=1790347095; darn=vger.kernel.org;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=3OT5P6cXKt1EfvL7fMqaW1ELy2bttp1x4RCZYKi6/zc=;
-        b=aVA9Qz11E+sndk2B8QAwwmKWPBlneksH4yfSSdzKeubSpR/SVYdfogf1Bryyx2iccS
-         o6k0zdw2O5U5b/7T9+oxnt2pyd043paq04LFdy/1oGuwA+kFO4U6NqMAIsGO2Q3eM+FS
-         unXb9a6zllXduCkfxvcBeYdy8anD/0rRayKqneJzzdEjYHHXzNKJnwyR+bmaQFV6zL8X
-         NVchZyw9bN3H7UDpLmzzRM4GRGdPe8Bfa6NZyLFbxTsfinuJ+Yk+l4vyYdZ4glW272Ix
-         sS+2k4hh+1BLD8wbno5iRA5P2giVQ4NM1BrwMGXKwZkeN7RVJA0kZ2aAEBoiLY9oX+qP
-         ILLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789742295; x=1790347095;
-        h=content-type:cc:to:from:subject:message-id:references:mime-version
-         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=3OT5P6cXKt1EfvL7fMqaW1ELy2bttp1x4RCZYKi6/zc=;
-        b=LYjFgOEqUgzpfhSaYQ7QYo34FW8dffkp2r/1FmMGpuDY7fXMaWtfQg8RrDV08swNQ5
-         NficbqicfS6f2tZWkCHJ/opHdGcF7JiZo5vn6DgjsCiwaMfZQ6j1npD2tr8KezT+slH/
-         2fe0YZaljcgxdJv3qvtv8ZifbsOVTk69VZp1GAHL+FP+VQQjTcfyAOqABXrAgriEXrjK
-         tnh/3j9kE3R8Qykkeh4poCU2PNHvtVo7qpG4TTzw7bH6GyKHu+1VrdsXJy8zKJ3EZIuI
-         1FggO/Tji4C3+O9cYb24r1w9NAgmxcpJs1xg0HAC81foQwFX14tKd2SPi36qmaclkqN4
-         cITg==
-X-Forwarded-Encrypted: i=1; AKwUvByaQSyCClEe5bLuOj+mEROsAoDRIRjupovt0igQeBwaw8aiI6fuvh+m7Vj/3hn7F3ZjDhZMELo=@vger.kernel.org
-X-Gm-Message-State: AFuF++lSbH/EsVmZ6vOR3+SRuqKbPc5QwMbdzX+32sHhux3A8aRUoumq
-	UGCrewy7MVOyUy6rJqqI6a1dPd6Krjmppl5cgL6Pu3Cp0PRzgdHks3M11qb2VGPWb3K58EbOthO
-	aktpn8pfYGfKGpnEOjHm3ug==
-X-Received: from pfqf14.prod.google.com ([2002:aa7:9d8e:0:b0:847:9be8:84d5])
- (user=stanleyjhu job=prod-delivery.src-stubby-dispatcher) by
- 2002:a05:6a00:4409:b0:872:b1f1:aa8d with SMTP id d2e1a72fcca58-874dc0f8b95mr5056873b3a.14.1789742295298;
- Fri, 18 Sep 2026 07:38:15 -0700 (PDT)
-Date: Fri, 18 Sep 2026 22:38:08 +0800
-In-Reply-To: <20260918143809.3034592-1-stanleyjhu@google.com>
+	d=oldschoolsolutions.biz; s=s1-ionos; t=1789742658; x=1790347458;
+	i=jens.glathe@oldschoolsolutions.biz;
+	bh=UEKJ21gw1Dw3LJ9CKd1SZJBDvs/uzGNvB87MAehHrC8=;
+	h=X-UI-Sender-Class:Message-ID:Date:MIME-Version:Subject:To:Cc:
+	 References:From:In-Reply-To:Content-Type:
+	 Content-Transfer-Encoding:cc:content-transfer-encoding:
+	 content-type:date:from:message-id:mime-version:reply-to:subject:
+	 to;
+	b=Em9zythHedAab0tT6vtSYz2OGXzNRgqm6cWBNXmMubmAQT0LsW2bs/DGlQtPkdst
+	 CWmTbipm7HyuwMCKR+baeeLl0WoLqO0tHxSd4mZKnyybw6w+ShOcf+YKQ2Vz/Djae
+	 tTnxPZLkjhTkRKIpii0gSZbl299u3EzRbst9VYg4bWWIwUqKByIpKUvLT6+TvSvwW
+	 mmNci2Mm+F3Ya5uAkT/iDuFmMTY9Hqq1sP1qT3VGfVZpjp4xIBYrraKM01uBfMSir
+	 jKspOWasduIdtf9HXkaLwngdcFSrbjEjscS12873Uq47EwKBuFkG2Rkegse7Y9+/v
+	 phwWtCbTDJpAWOg6BA==
+X-UI-Sender-Class: 55c96926-9e95-11ee-ae09-1f7a4046a0f6
+Received: from client.hidden.invalid by mrelayeu.kundenserver.de (mreue011
+ [212.227.15.167]) with ESMTPSA (Nemesis) id 1N5FtF-1wftvp3c1d-00rPlS; Fri, 18
+ Sep 2026 16:38:40 +0200
+Message-ID: <35f0856d-2f39-4a03-b056-fa22b1e56589@oldschoolsolutions.biz>
+Date: Fri, 18 Sep 2026 16:38:36 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-References: <CAE14pdek6ynze+muDZrK+yNX-3ioe3vprxOA4W22qokg352tJQ@mail.gmail.com>
- <20260918143809.3034592-1-stanleyjhu@google.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-Message-ID: <20260918143809.3034592-3-stanleyjhu@google.com>
-Subject: [PATCH v2 2/2] scsi: ufs: core: Decouple CQ sweep from request
- iterator in MCQ
-From: Stanley Jhu <stanleyjhu@google.com>
-To: "Martin K . Petersen" <martin.petersen@oracle.com>, Bean Huo <beanhuo@micron.com>, 
-	Bart Van Assche <bvanassche@acm.org>
-Cc: Alim Akhtar <alim.akhtar@samsung.com>, Avri Altman <avri.altman@wdc.com>, 
-	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Peter Wang <peter.wang@mediatek.com>, linux-scsi@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stanleyjhu@google.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
+MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2 3/3] usb: typec: mux: ps883x: disable USB4 on
+ incomplete USB4 platforms
+To: Heikki Krogerus <heikki.krogerus@linux.intel.com>
+Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+ Abel Vesa <abelvesa@kernel.org>, Bjorn Andersson <andersson@kernel.org>,
+ Konrad Dybcio <konradybcio@kernel.org>, Sebastian Reichel <sre@kernel.org>,
+ linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org,
+ linux-arm-msm@vger.kernel.org, stable@vger.kernel.org,
+ "Dr. David Alan Gilbert" <dave@treblig.org>,
+ Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
+References: <20260914-ps883x-disable-usb4-v2-0-523c32b4e4d7@oldschoolsolutions.biz>
+ <20260914-ps883x-disable-usb4-v2-3-523c32b4e4d7@oldschoolsolutions.biz>
+ <aq0ENUZzJYKZ6V9f@black.igk.intel.com>
+Content-Language: en-US
+From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+In-Reply-To: <aq0ENUZzJYKZ6V9f@black.igk.intel.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: quoted-printable
+X-Provags-ID: V03:K1:5LPT74JtNpAEV3vGrXpAlrLVKmERpDn4nZVgAi8ZLO859LD5EhK
+ jDLfgoJCk6zMl9jvgyitALWPMM2foRSx97R8XPPgt3+0C0EfIu37V+69Mm0oIiEyeDNwaPT
+ CXUGVLP/JklpOAz7B38q6TeZMfz3NMV8jFko9ijo/eky/cm77w9zYYiT9LfO3fBH7vBKwtB
+ CKTOm8Tdk0MZzc/kSg+YA==
+X-Spam-Flag: NO
+UI-OutboundReport: notjunk:1;M01:P0:Z3j4yR01WYU=;U0eBHeCaZGMehBIEEkx8rHq2Yak
+ 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
 
-In MCQ mode, ufshcd_mcq_compl_pending_transfer() uses
-blk_mq_tagset_busy_iter() to iterate over busy requests during error
-recovery and host reset. However, both iterator callbacks perform
-whole-queue operations redundantly for each visited request:
+HI Heikki,
 
-- force_compl == true: ufshcd_mcq_force_compl_one() calls
-  ufshcd_mcq_compl_all_cqes_lock() on every busy request, sweeping the
-  entire completion ring (hwq->max_entries slots) once per active
-  request under spin_lock_irqsave even though the first sweep already
-  cleared all completion entries.
-- force_compl == false: ufshcd_mcq_compl_one() acquires cq_lock and
-  polls CQTPy over MMIO via ufshcd_mcq_poll_cqe_lock() for every busy
-  request without doing any per-request work.
+On 9/18/26 11:28, Heikki Krogerus wrote:
+> On Mon, Sep 14, 2026 at 08:05:03AM +0200, Jens Glathe via B4 Relay wrote=
+:
+>> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+>>
+[...]
+>> stays inside the kernel and can be removed later without creating ABI.
+>>
+>> Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapat=
+i@oss.qualcomm.com
+> What's the purpose of that link?
+>
+> I think you want to make a reference to the commit 0c8ee850572b ("usb:
+> typec: ucsi: Add UCSI_USB4_IMPLIES_USB quirk for X1E80100"), right?
+>
+> Is this meant to fix that commit? If so, then please use a proper
+> "Fixes: 0c8ee850572b ("usb: typec: ucsi: Add UCSI_USB4_IMPLIES_USB
+> quirk for X1E80100")" tag.
 
-Sweep or poll each hardware queue (hba->uhq[i]) once at the start of
-ufshcd_mcq_compl_pending_transfer(). When force_compl is true, run
-blk_mq_tagset_busy_iter() afterward to complete residual in-flight
-requests with DID_REQUEUE, and remove the now-unused
-ufshcd_mcq_compl_one() callback.
+Hmm its not a fixes tag. It is a residual of the thinking process that=20
+prompted me to go looking what goes wrong. So its semi-related. Since=20
+you acked v3 with the link in (thanks!), do you want a v4 without the link=
+?
 
-Fixes: ab248643d3d6 ("scsi: ufs: core: Add error handling for MCQ mode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Stanley Jhu <stanleyjhu@google.com>
----
- drivers/ufs/core/ufshcd.c | 31 ++++++++++++-------------------
- 1 file changed, 12 insertions(+), 19 deletions(-)
+with best regards
 
-diff --git a/drivers/ufs/core/ufshcd.c b/drivers/ufs/core/ufshcd.c
-index 2ba244cf40ac..a69dcb04d985 100644
---- a/drivers/ufs/core/ufshcd.c
-+++ b/drivers/ufs/core/ufshcd.c
-@@ -6044,8 +6044,6 @@ static bool ufshcd_mcq_force_compl_one(struct request *rq, void *priv)
- 	if (blk_mq_is_reserved_rq(rq) || !hwq)
- 		return true;
- 
--	ufshcd_mcq_compl_all_cqes_lock(hba, hwq);
--
- 	/*
- 	 * For those cmds of which the cqes are not present in the cq, complete
- 	 * them explicitly.
-@@ -6061,19 +6059,6 @@ static bool ufshcd_mcq_force_compl_one(struct request *rq, void *priv)
- 	return true;
- }
- 
--static bool ufshcd_mcq_compl_one(struct request *rq, void *priv)
--{
--	struct scsi_device *sdev = rq->q->queuedata;
--	struct Scsi_Host *shost = sdev->host;
--	struct ufs_hba *hba = shost_priv(shost);
--	struct ufs_hw_queue *hwq = ufshcd_mcq_req_to_hwq(hba, rq);
--
--	if (!blk_mq_is_reserved_rq(rq) && hwq)
--		ufshcd_mcq_poll_cqe_lock(hba, hwq);
--
--	return true;
--}
--
- /**
-  * ufshcd_mcq_compl_pending_transfer - MCQ mode function. It is
-  * invoked from the error handler context or ufshcd_host_reset_and_restore()
-@@ -6088,10 +6073,18 @@ static bool ufshcd_mcq_compl_one(struct request *rq, void *priv)
- static void ufshcd_mcq_compl_pending_transfer(struct ufs_hba *hba,
- 					      bool force_compl)
- {
--	blk_mq_tagset_busy_iter(&hba->host->tag_set,
--				force_compl ? ufshcd_mcq_force_compl_one :
--					      ufshcd_mcq_compl_one,
--				NULL);
-+	int i;
-+
-+	for (i = 0; i < hba->nr_hw_queues; i++) {
-+		if (force_compl)
-+			ufshcd_mcq_compl_all_cqes_lock(hba, &hba->uhq[i]);
-+		else
-+			ufshcd_mcq_poll_cqe_lock(hba, &hba->uhq[i]);
-+	}
-+
-+	if (force_compl)
-+		blk_mq_tagset_busy_iter(&hba->host->tag_set,
-+					ufshcd_mcq_force_compl_one, NULL);
- }
- 
- /**
--- 
-2.55.0.1082.g2b9226bbc0-goog
+Jens
+
 
