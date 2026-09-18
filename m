@@ -1,259 +1,202 @@
-Received: from remote.fiveco.ch (remote.fiveco.ch [46.14.118.250])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 405E14DA9C9
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 11:05:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=46.14.118.250
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAB704E2F33
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 11:05:19 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789729518; cv=none; b=jK8v04kXuIYPK1MEnh3dLgafCExvdV98+cZPZIuSsfJHb391T+VlIPZzzBTOWBxlzQf8XVFuy0Lx5U19Ex1uRGsMh+Hh5UbO7EhRzz17Ng0fC3/AAHSRf2o5UeGfvRUfhIlvqSbO6nt5/z9fdy58cSthgsHcyJ5NUf0gPPiygsM=
+	t=1789729527; cv=none; b=Swpw3/Cm2oLG0gW9px8Y7l7fGpAcPmYBO3VQvqAAtweqbeIrY5ljNi0K12KgvWTNhmyiNPaPISunkrHYJwc8ckuLNqAYV7jVKCqef8EG0hNa+NSJXFSxxARRCRbyX9K2gq1mhpykQ2ZzOFgIcLRvRJsegzJak/XFwaBIXg5Th6E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789729518; c=relaxed/simple;
-	bh=0FJ7/88WdZZITzJIreUYjTVNk2kYMCw/QA7eNVZh1OA=;
-	h=Content-Type:From:To:CC:Subject:Date:Message-ID:In-Reply-To:
-	 References:MIME-Version; b=MC92T9zeT6La3W+BKjTufCL1G8bvc9PAYh8IijyPRfUs8+5653DNvzQiDKPopBcgAASxMpfhW0FVF6s0m9Z93EdT2ml5NkLTxJp7Mu8kBJ4oHACDNH6vY1b2p4HvW82bxXuZQm1qJdJRe0gflkCvXWfqm9UIiuk1yTPoFNZmuW8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch; spf=pass smtp.mailfrom=fiveco.ch; dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b=vFcH0wDB; arc=none smtp.client-ip=46.14.118.250
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=fiveco.ch
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=fiveco.ch
+	s=arc-20240116; t=1789729527; c=relaxed/simple;
+	bh=hUcoqwH/HxxZ783HKyQpgJVCFgXZ5I76kDE2zpLnBQ4=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=dqQ288LrPI8Sz5L53TB1eydOfjeD8MOcVBJgT7mPNQPIM/qNVzsFmmLdRQ28K25zsQh4Msavc0G+8DEqwSmXeaBN8DDkBgo4idAzaj2ClNv3Nl1ymoNYLXE67dguNoCiQ9Rv9Dydv3UQMO2L5M4SNtllj0o+aT6ua//vQEsx7+s=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=QLi67qLz; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=fiveco.ch header.i=@fiveco.ch header.b="vFcH0wDB"
-Received: from [192.168.16.44] (port=43574 helo=remote.fiveco.ch)
-	by remote.fiveco.ch with esmtps  (TLS1.2) tls TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256
-	(Exim 4.96)
-	(envelope-from <valentin.kindschi@fiveco.ch>)
-	id 1x7WO8-000000002Ql-3UT1;
-	Fri, 18 Sep 2026 13:04:16 +0200
-Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-DKIM-Signature: v=1; a=rsa-sha256; d=fiveco.ch; s=fiveco; c=simple/simple;
-	t=1789729456; h=from:subject:to:date:message-id;
-	bh=0FJ7/88WdZZITzJIreUYjTVNk2kYMCw/QA7eNVZh1OA=;
-	b=vFcH0wDB5asHvJDldioPwx30qhzhndSnN1reUeqXTx6CWJQFdHYCEh6cw8inpVLv0VdKg7WXq2a
-	k1LxwBDCR8AZqf+TAG95LUyMLO+jPAJLCKDEiSzl3678BNbhCDG74jgmn6PdUbG6RJtPst7o9pvRC
-	b/1nPQ9t0XjzmQz54G4=
-Received: from fiveco-vm-vk1.fiveco.local (192.168.16.29) by
- FIVECO-MX01.fiveco.local (192.168.16.44) with Microsoft SMTP Server
- (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_128_GCM_SHA256) id
- 15.1.2507.61; Fri, 18 Sep 2026 13:04:16 +0200
-From: Valentin Kindschi <valentin.kindschi@fiveco.ch>
-To: <linux-bluetooth@vger.kernel.org>
-CC: <marcel@holtmann.org>, <johan.hedberg@gmail.com>, <luiz.dentz@gmail.com>,
-	<linux-kernel@vger.kernel.org>, Valentin Kindschi
-	<valentin.kindschi@fiveco.ch>, <stable@vger.kernel.org>
-Subject: [PATCH v5 2/2] Bluetooth: hci_sync: pause advertising for the scan address update
-Date: Fri, 18 Sep 2026 13:03:58 +0200
-Message-ID: <20260918110358.3863635-2-valentin.kindschi@fiveco.ch>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <20260918110358.3863635-1-valentin.kindschi@fiveco.ch>
-References: <20260918110358.3863635-1-valentin.kindschi@fiveco.ch>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="QLi67qLz"
+Received: by mail-pj2-f43.google.com with SMTP id d9443c01a7336-2d747ee1f38so5401835ad.2
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 04:05:18 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789729517; x=1790334317; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Df5rt+V5n08gio2qwrmwg+kssDbj2qjq7f0a+gBkW+g=;
+        b=QLi67qLzXQ85mrbI2AI/wwldKikbDnMDDPtKdofJ77bEJvOxOyQPrdy7YfXX6+RQfl
+         nIPEHws/7O9CHcvAeEgTHyA0OFeZHLKtITCQfdWxc5oQwRggl/sK5sNjv5d18pc3+CzA
+         V9PMqlqvPmbCGzn9VySQJRjD3tK3d4qs40tBkbNWePhML8IQsOyOJf/ijHwT+/n0ESkM
+         AxBE9uw3EBGiOVkPgbLwP41PqHNhz8KbJ0iMhMPu1HnNk5DxlHNKlQNJte8BFPoOmoCM
+         IK2eYCRoqDUCBI4C5g0MF1v7fDWNZGLiy+OwJZU2/SO54VRPi8AmsdOAQhHK4YwuMM3i
+         LkxQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789729517; x=1790334317;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Df5rt+V5n08gio2qwrmwg+kssDbj2qjq7f0a+gBkW+g=;
+        b=0QBLXyG/hVTd+MHcHnIFC9fPw0dOsnOtEESOvHEsWHuB70DBLD4hI70pL91Eq4m7Aw
+         BtY8JsUqqlpb7VU10L9gQPxTXjsZ5mX2UYuGEDc43gQgQDJfSSvT8n3oPRr0XOidGMdM
+         CMIK5CvdzBiC8bLlnZvD4zFP4Vfr4TfTkM3eYhhxO9aprHbtMGPWzA3p9erCrOubOkPb
+         wKRK+Q4so43yZRVNkCqPLD7lycNCFFT0frkrCUGFiW32Izw1z2hlWXJ8DafdAL/XF+GR
+         oOGi8DFYZXgtRj93A+VjSEiL4pa3glRL438/LsjdLacydxJ0hAzt/39Rosmd6xLhJtqi
+         refQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxlZOz57161Cwsu7pWlNxZqZ8whb7yI2RcG4SxkbJhhwCIU3bJG6Hiptk209g3KZeo9rnfM8c4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nMVVrXfet5/IEy2kyVp2kk3+GbqtXDWuOQfrirT80Kpl50iGx9
+	MOzc5SbFo5C2dUqbR6zn//iQkTlXX0odObx/NI1kLtkV4cLr5Lh41O+rs0W9n6/i
+X-Gm-Gg: AYBFou31QTK+0DG4pYelCK01z0IjZYklKbsEIrM4ERzCQHZCLfi38VFpemQIKkzh3Da
+	FD/tQW8ANClySG1xdGewY+cNQZzo2AH+HLwwpdV5FsqHABKTZv7E8jpSSYu774FLLQuZCJn5JIe
+	Nxzhas5XeBZEzSMSXd0qk3FTjIOAggZIoezMtAWoXb41YNIND3imnqsUvCiAGRLseAPIJ9d8U6T
+	9vEcomQTs9fNLV+qIrNjAahUMjbBjJYkh03tkZ7+pe5YLKRo4fDHFGWsPo+p2eIT23ym4am1nnY
+	mZ0FpADV3CnNBjR7/xyqQTJYeD08zS7G3e+Kt4mYVn7HgUnvK2SVQR5kUeyDt4qQuuEDtEj+qOr
+	lmtXa71kjNQcsu5JolXDPUoymJzkV79yNyrs3H/euDZe3zROCxDcpVlkzTQazKd3rBhVZNp/1/x
+	ADR9Hsro1MpOBcQCmudBXaC6cTqyAeAzOlSjepoP7TMMlceJqydzu1LWbXefWxXWX7e/LxQ4ehI
+	Y1f8bkCMQH5BtNwYfA=
+X-Received: by 2002:a17:903:3d06:b0:2dd:ad73:5b73 with SMTP id d9443c01a7336-2ddb1d5bd18mr43767255ad.35.1789729516398;
+        Fri, 18 Sep 2026 04:05:16 -0700 (PDT)
+Received: from kernel ([103.219.206.97])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c28180a4dsm4721501eec.0.2026.09.18.04.05.10
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 04:05:15 -0700 (PDT)
+From: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
+To: herbert@gondor.apana.org.au,
+	davem@davemloft.net
+Cc: clabbe@baylibre.com,
+	skhan@linuxfoundation.org,
+	me@brighamcampbell.com,
+	jkoolstra@xs4all.nl,
+	linux-crypto@vger.kernel.org,
+	linux-amlogic@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH v2] crypto: amlogic: Fix IRQ handler return value and fallthrough logic
+Date: Fri, 18 Sep 2026 16:35:04 +0530
+Message-ID: <20260918110504.7207-1-raizudeen.kerneldev@gmail.com>
+X-Mailer: git-send-email 2.53.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-ClientProxiedBy: FIVECO-MX01.fiveco.local (192.168.16.44) To
- FIVECO-MX01.fiveco.local (192.168.16.44)
-X-Sophos-OBS: success
-X-SASI-Version: Antispam-Engine: 6.0.0.1, AntispamData: 2026.9.18.102719
-X-SASI-RCODE: 200
-X-SASI-SpamProbability: 8%
-X-SASI-Hits: BODY_SIZE_8000_8999 0.000000, CTE_8BIT 0.000000,
- DKIM_ALIGNS 0.000000, DKIM_SIGNATURE 0.000000, HTML_00_01 0.050000,
- HTML_00_10 0.050000, IN_REP_TO 0.000000, MULTIPLE_RCPTS 0.100000,
- NO_CTA_URI_FOUND 0.000000, NO_FUR_HEADER 0.000000, NO_URI_HTTPS 0.000000,
- OUTBOUND 0.000000, OUTBOUND_SOPHOS 0.000000, REFERENCES 0.000000,
- SENDER_NO_AUTH 0.000000, WEBMAIL_SOURCE 0.000000, WEBMAIL_XOIP 0.000000,
- WEBMAIL_X_IP_HDR 0.000000, __ANY_URI 0.000000, __BODY_NO_MAILTO 0.000000,
- __BULK_NEGATE 0.000000, __CC_NAME 0.000000, __CC_NAME_DIFF_FROM_ACC 0.000000,
- __CC_REAL_NAMES 0.000000, __CT 0.000000, __CTE 0.000000,
- __CT_TEXT_PLAIN 0.000000, __DKIM_ALIGNS_1 0.000000, __DKIM_ALIGNS_2 0.000000,
- __DQ_NEG_DOMAIN 0.000000, __DQ_NEG_HEUR 0.000000, __DQ_NEG_IP 0.000000,
- __FRAUD_CONTACT_ADDY 0.000000, __FUR_RDNS_SOPHOS 0.000000,
- __HAS_CC_HDR 0.000000, __HAS_FROM 0.000000, __HAS_MSGID 0.000000,
- __HAS_REFERENCES 0.000000, __HAS_XOIP 0.000000, __HAS_X_MAILER 0.000000,
- __IN_REP_TO 0.000000, __MIME_TEXT_ONLY 0.000000, __MIME_TEXT_P 0.000000,
- __MIME_TEXT_P1 0.000000, __MIME_VERSION 0.000000,
- __MSGID_DOMAIN_IN_REFERENCES 0.000000, __MULTIPLE_RCPTS_CC_X2 0.000000,
- __NO_HTML_TAG_RAW 0.000000, __OUTBOUND_SOPHOS_FUR 0.000000,
- __OUTBOUND_SOPHOS_FUR_IP 0.000000, __OUTBOUND_SOPHOS_FUR_RDNS 0.000000,
- __PHISH_SPEAR_SUBJ_PREDICATE 0.000000, __RCVD_CTE 0.000000,
- __RCVD_EXIM_4_96_AES_128 0.000000, __RCVD_FROM_HOMEUSER 0.000000,
- __REFERENCES 0.000000, __SANE_MSGID 0.000000, __SHIPPING_ACTION 0.000000,
- __SL_HEAVY 0.000000, __SUBJ_ALPHA_END 0.000000, __SUBJ_ALPHA_NEGATE 0.000000,
- __SUBJ_STARTS_S_BRACKETS 0.000000, __TO_MALFORMED_2 0.000000,
- __TO_NO_NAME 0.000000, __URI_MAILTO 0.000000, __URI_NO_WWW 0.000000,
- __URI_NS 0.000000
+Content-Transfer-Encoding: 8bit
 
-hci_active_scan_sync() programs a non-resolvable private address with LE
-Set Random Address on every active scan start.
+In meson_irq_handler(), when an interrupt matches a flow but the status
+register is empty, the driver prints an error but doesn't return. It
+falls through the loop and incorrectly prints an `unknown irq` message.
 
-BLUETOOTH CORE SPECIFICATION Vol 4, Part E, 7.8.4 says the controller
-shall return Command Disallowed (0x0C) for that command while legacy
-advertising or scanning is enabled. hci_pause_addr_resolution(), called
-just above, only stops advertising when LL privacy is in use, so on a
-controller without it the command is issued while advertising is still
-on:
+Fix this by returning immediately. For empty status registers, return
+IRQ_NONE instead of IRQ_HANDLED to avoid masking spurious interrupts and
+allow the kernel to detect interrupt storms. Also use
+dev_err_ratelimited() to prevent console lockups during an interrupt
+storm.
 
-  Bluetooth: hci0: Opcode 0x2005 failed: -16
+Additionally, the handler return IRQ_HANDLED for genuinely unknown
+interrupts. Return IRQ_NONE instead for unhandled interrupts.
 
-It does not converge either. hdev->random_addr is only set on a
-successful command complete, so it stays BDADDR_ANY, and the deferral
-added by commit c2994b008492 ("Bluetooth: hci_sync: Fix not setting
-Random Address when required") requires it to be set. Unlike the
-resolvable address a few lines above, which is reused while rpa_valid(),
-the non-resolvable one is regenerated and rewritten on every call, so a
-controller that refuses the write is asked again at the scan restart
-period of about 10 s, for as long as discovery keeps restarting.
-Observed on a BCM43455, which has no LL privacy and no extended
-advertising, 190 rejections in one capture, every one retrying the same
-address:
-
-  < LE Set Random Address  Address: 02:16:91:90:F1:D4 (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-  < LE Set Random Address  Address: 26:90:57:96:9A:3E (Non-Resolvable)
-  > Command Complete       LE Set Random Address, Command Disallowed
-
-Pause advertising for the address update, and resume it once the update
-is done and before the scan is started. The pause does not outlive the
-function: it is taken only when nothing else holds it, and released on
-every exit. A failed pause returns before marking anything paused, so
-the error path is a no-op.
-
-The resume in the error path is no longer guarded by ll_privacy_capable().
-That guard matched a pause taken only under LL privacy; the pause added
-here is unconditional, and hci_resume_advertising_sync() returns early
-when nothing was paused.
-
-One caveat this widens, raised on the previous posting. When
-HCI_ADVERTISING is set, hci_pause_advertising_sync() also clears
-HCI_DISCOVERABLE and HCI_LIMITED_DISCOVERABLE and zeroes discov_timeout,
-and hci_resume_advertising_sync() restores only HCI_ADVERTISING, so the
-discoverable state is lost. It reproduces today on an LL privacy
-controller through hci_pause_addr_resolution(); the unconditional pause
-makes it reachable without LL privacy as well. hci_suspend_sync() also
-pauses unconditionally, so a device that suspends loses the same state
-on any controller today. That asymmetry is pre-existing and is left
-alone here rather than folded into a scan path fix.
-
-Legacy controllers have one random address register, shared by the
-scanner and the advertiser. Restoring the advertiser here can reprogram
-it when the advertiser is non-connectable, so the scan then uses that
-address rather than the one generated for it. Both are non-resolvable
-and neither is linkable to the identity address. With privacy enabled
-both roles already share one resolvable address the same way.
-
-With the patch, on the same hardware:
-
-  < LE Set Advertising Enable    Enable: 0x00              Success
-  < LE Set Random Address                                  Success
-  < LE Set Advertising Parameters                          Success
-  < LE Set Advertising Enable    Enable: 0x01              Success
-  < LE Set Scan Parameters                                 Success
-  < LE Set Scan Enable           Enable: 0x01              Success
-
-The address write is accepted, and advertising is restored before the
-scan is started.
-
-Over 119369 btmon records and about 12 minutes of the normal workload of
-that device, alternating active and passive scanning with ten outgoing
-connection attempts, every LE Set Random Address succeeded and there were
-no Command Disallowed responses of any opcode, against one per scan
-restart before.
-
-Patch 1 is required: without it the resume added here returns -EPERM on
-the controllers this fixes and leaves advertising disabled.
-
-Fixes: 3c44a431d62b ("Bluetooth: hci_sync: Resume adv with no RPA when active scan")
-Cc: stable@vger.kernel.org # depends on "Bluetooth: hci_sync: re-enable legacy advertising on resume"
-Assisted-by: Claude:claude-opus-5 btmon
-Signed-off-by: Valentin Kindschi <valentin.kindschi@fiveco.ch>
+Cc: stable@vger.kernel.org
+Fixes: 48fe583fe5417 ("crypto: amlogic - Add crypto accelerator for amlogic GXL")
+Signed-off-by: Mohamad Raizudeen <raizudeen.kerneldev@gmail.com>
 ---
-Changes in v5:
-- Split into two patches. v4's resume was reached through
-  hci_schedule_adv_instance_sync(), which refuses HCI_ADVERTISING on a
-  controller without extended advertising, so advertising was never
-  re-enabled. Patch 1 fixes that and is a prerequisite for this one.
-- Do not resume on the success path. hci_resume_advertising_sync()
-  reaches hci_update_random_address_sync(), which for a non-connectable
-  advertiser programs a fresh address, and doing that with the scan
-  already enabled is refused the same way. Resume before the scan is
-  started instead.
-- Take the pause only when nothing else holds it and release it on every
-  exit, so it cannot be released by another user of
-  hdev->advertising_paused.
-- v4 claimed the resume commands in the capture were issued with the scan
-  already running and succeeded. That capture came from a build whose
-  resume ran elsewhere; the claim is dropped. The capture above is from
-  this version, on the device, under its normal workload.
-- Fixes: now points at 3c44a431d62b, where the pause became conditional
-  on LL privacy, rather than at the introduction of the scan function.
-
-Changes in v4:
-- Report the HCI_DISCOVERABLE asymmetry raised in review rather than fix
-  it, with a reproducer in the commit message.
-- Keep the explicit return on the success path, so the resume runs there
-  and the function no longer falls through into failed:.
-- Shorten the added comments to one line each.
-
-Changes in v3:
-- Resend, no code change; v2 had no reply. Rechecked that it still applies
-  to bluetooth-next.
-- Added the second capture described above, taken with the two patches from
-  the "endless adv params retry" series applied, since in bluetooth-next,
-  confirming the fix holds with cancelled outgoing connections in the mix.
+I have addressed the IRQ specific issues in this v2. The other
+pre-existing issues mentioned by Sashiko are already addressed in my
+separate patch.
 
 Changes in v2:
-- Rebased onto bluetooth-next: mainline renamed use_ll_privacy() to
-  ll_privacy_capable(). No functional change.
+- Return IRQ_NONE instead of IRQ_HANDLED when status register is empty
+  to avoid masking spurious interrupts.
+- Use dev_err_ratelimited() to prevent console lockups.
 
- net/bluetooth/hci_sync.c | 16 ++++++++++++----
- 1 file changed, 12 insertions(+), 4 deletions(-)
+ drivers/crypto/amlogic/amlogic-gxl-core.c | 38 ++++++++++-------------
+ 1 file changed, 16 insertions(+), 22 deletions(-)
 
-diff --git a/net/bluetooth/hci_sync.c b/net/bluetooth/hci_sync.c
---- a/net/bluetooth/hci_sync.c
-+++ b/net/bluetooth/hci_sync.c
-@@ -6246,6 +6246,7 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	u8 filter_policy = 0x00;
- 	/* Default is to enable duplicates filter */
- 	u8 filter_dup = LE_SCAN_FILTER_DUP_ENABLE;
-+	bool paused;
- 	int err;
+diff --git a/drivers/crypto/amlogic/amlogic-gxl-core.c b/drivers/crypto/amlogic/amlogic-gxl-core.c
+index 169c6eeb51e5..d5d84524c110 100644
+--- a/drivers/crypto/amlogic/amlogic-gxl-core.c
++++ b/drivers/crypto/amlogic/amlogic-gxl-core.c
+@@ -37,12 +37,13 @@ static irqreturn_t meson_irq_handler(int irq, void *data)
+ 				complete(&mc->chanlist[flow].complete);
+ 				return IRQ_HANDLED;
+ 			}
+-			dev_err(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
++			dev_err_ratelimited(mc->dev, "%s %d Got irq for flow %d but ctrl is empty\n", __func__, irq, flow);
++			return IRQ_NONE;
+ 		}
+ 	}
  
- 	bt_dev_dbg(hdev, "");
-@@ -6269,6 +6270,12 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	if (err)
- 		goto failed;
+-	dev_err(mc->dev, "%s %d from unknown irq\n", __func__, irq);
+-	return IRQ_HANDLED;
++	dev_err_ratelimited(mc->dev, "%s %d from unknown irq\n", __func__, irq);
++	return IRQ_NONE;
+ }
  
-+	/* LE Set Random Address is disallowed while advertising is enabled. */
-+	paused = !hdev->advertising_paused;
-+	err = hci_pause_advertising_sync(hdev);
-+	if (err)
-+		goto failed;
-+
- 	/* All active scans will be done with either a resolvable private
- 	 * address (when privacy feature has been enabled) or non-resolvable
- 	 * private address.
-@@ -6278,6 +6285,9 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
- 	if (err < 0)
- 		own_addr_type = ADDR_LE_DEV_PUBLIC;
+ static struct meson_alg_template mc_algs[] = {
+@@ -243,34 +244,30 @@ static int meson_crypto_probe(struct platform_device *pdev)
+ 	if (IS_ERR(mc->base))
+ 		return PTR_ERR(mc->base);
  
-+	if (paused)
-+		hci_resume_advertising_sync(hdev);
-+
- 	if (hci_is_adv_monitoring(hdev) ||
- 	    (hci_test_quirk(hdev, HCI_QUIRK_STRICT_DUPLICATE_FILTER) &&
- 	    hdev->discovery.result_filtering)) {
-@@ -6301,9 +6311,8 @@ static int hci_active_scan_sync(struct hci_dev *hdev, uint16_t interval)
+-	mc->busclk = devm_clk_get(&pdev->dev, "blkmv");
++	mc->busclk = devm_clk_get_enabled(&pdev->dev, "blkmv");
+ 	if (IS_ERR(mc->busclk)) {
+ 		err = PTR_ERR(mc->busclk);
+-		dev_err(&pdev->dev, "Cannot get core clock err=%d\n", err);
++		dev_err(&pdev->dev, "Cannot get/enable core clock err=%d\n", err);
  		return err;
+ 	}
  
- failed:
--	/* Resume advertising if it was paused */
--	if (ll_privacy_capable(hdev))
--		hci_resume_advertising_sync(hdev);
-+	/* No-op when advertising was not paused. */
-+	hci_resume_advertising_sync(hdev);
++	err = meson_allocate_chanlist(mc);
++	if (err)
++		return err;
++
+ 	for (i = 0; i < MAXFLOW; i++) {
+ 		mc->irqs[i] = platform_get_irq(pdev, i);
+-		if (mc->irqs[i] < 0)
+-			return mc->irqs[i];
++		if (mc->irqs[i] < 0) {
++			err = mc->irqs[i];
++			goto error_chanlist;
++		}
  
- 	/* Resume passive scanning */
- 	hci_update_passive_scan_sync(hdev);
---
-2.34.1
+ 		err = devm_request_irq(&pdev->dev, mc->irqs[i], meson_irq_handler, 0,
+ 				       "gxl-crypto", mc);
+ 		if (err < 0)
+-			return err;
+-	}
+-
+-	err = clk_prepare_enable(mc->busclk);
+-	if (err != 0) {
+-		dev_err(&pdev->dev, "Cannot prepare_enable busclk\n");
+-		return err;
++			goto error_chanlist;
+ 	}
+ 
+-	err = meson_allocate_chanlist(mc);
+-	if (err)
+-		goto error_flow;
+-
+ 	err = meson_register_algs(mc);
+ 	if (err)
+ 		goto error_alg;
+@@ -289,9 +286,8 @@ static int meson_crypto_probe(struct platform_device *pdev)
+ 	return 0;
+ error_alg:
+ 	meson_unregister_algs(mc);
++error_chanlist:
+ 	meson_free_chanlist(mc, MAXFLOW - 1);
+-error_flow:
+-	clk_disable_unprepare(mc->busclk);
+ 	return err;
+ }
+ 
+@@ -306,8 +302,6 @@ static void meson_crypto_remove(struct platform_device *pdev)
+ 	meson_unregister_algs(mc);
+ 
+ 	meson_free_chanlist(mc, MAXFLOW - 1);
+-
+-	clk_disable_unprepare(mc->busclk);
+ }
+ 
+ static const struct of_device_id meson_crypto_of_match_table[] = {
+-- 
+2.53.0
+
