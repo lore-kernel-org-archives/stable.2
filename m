@@ -1,193 +1,185 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 240BE3F12EF
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 09:34:30 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789724073; cv=pass; b=CZDaCYCCtnwZpA0Z6a3IGLV4Ox/jY2l1FbdMSng04/O2XnvhI01Wb+AFogcjKpxuLrfNKdvOsKyI3KsZexGmlBFgDG3wgH8QZipbyYMM5o69aA+3A+rgcDmnzs+85dlAJS95SEo4BwvE4jrCxXKdcBkShzCzO3JNYHlOJdr5OMk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789724073; c=relaxed/simple;
-	bh=nPqvOZbKoz5l5VUtbF5GpE4Rhvh9PCwXzLfj2fWH7Gc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=njEai1VpeRe92DVxNu+NArM+ojMZucsN/XwM8y0N9M6NQLeaccpSAuMgx+LVbzoG9IGmU1y857r1bbgfUIM+zgPejXAgcLYbIGQAT/yf9WHMEEknyqoi5ovs1NCCJdc1cLm7SDatNd1IYoCCGZxdHEH01Q4ONp4hUogX9WkbL+Y=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nccAKZb6; arc=pass smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5939D3F106B;
+	Fri, 18 Sep 2026 09:34:55 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789724096; cv=none; b=gsl0tFio3z+RvFOyHkyq0B4IXrjZVW9k2DHRQphKMKievLVWsWgkfX+kunlShtz5kLGqnOymtwbppCJvd3MO0myTMNLywrmHWLia0vjJGYbHweSTBY6ENqegwjaFsRGvdC/OSyFNXMR7+6HEmtHlx0HWjlPktVAer+pS9YaEkzE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789724096; c=relaxed/simple;
+	bh=d+wGjGFpPrAban2UlUUjGfJt48Dfm5A26bgOXi74jJk=;
+	h=Mime-Version:Content-Type:Date:Message-Id:From:To:Subject:Cc:
+	 References:In-Reply-To; b=J034fYRyaysS26bJatgaDLEVRF+LXiQZ0rBzMVlZv6OwxgytBm/CVdXMh6UG37+ChAuCFR5t3kPpx3POn/jpZoELBP+bE7z0H5AnRVeRnEfQ7YKZcSLMsZ1j6RNsn4RLByTZrFmKvcil2pwGKSH1ak3McTV2SJ32FhSBzf73m9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NdgoCwwY; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nccAKZb6"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469f204f6so345765b3a.2
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 02:34:30 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789724070; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V3bSKMeC7szyZneA/mdGP3DML22ThnR5D8F6WIOZZ71JXRT+D25DahDjhZSKuw3ajB
-         qqHDKTfdUEL65GReVfY9NNUmmlcmoOxQbTETInJqXEvcib0505wGZbsUSPulXTyjKpEq
-         ESATLqg05qbPmvUxfXeq61GGIXfZMQfj1U9IkXn5H+RMbLOymfv5Sjfw6X99fsZIkOVd
-         px6DATTNHvsZnY4ml0xY6YegImknibzXmmx7gHThjKctfVGp8gVIOipOG9qVQBXfagCQ
-         fjzLghLfMk/v+1ZVtgoLoTEumhJBKmIrLYLrv9qyK/cyw0Rr0AFMUmH1mAVIWVej3DNT
-         GHvA==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=5Uw8V/tjzi/pvdnamMY2FGLe6nYrEvNwyYPwFQRYV9I=;
-        fh=5G45mtGr0kOWmPCUrdi2ftLnprtXUvxoVMHFtuTOBTU=;
-        b=i7RRWhMGH6Yw8F7E3fgj30WxG3CdaUkK8VjyqxThw8v1NOsZlu+MqzFNtzPb0lyRmw
-         whjAFp64RjrkrxDuzz2scZVSiFIHyf3/DmfWQy+IYXC6ap5wMyXoveLqo6dyE5g4oLTe
-         THQ7R1ZNur2/6r+Q+j7UhynHkC8arKAvqO/nTKjNYrB+pQA4Ap2W4ip0XuktIJyN4Pkm
-         6Jb8z9491VLlBBH6wtq/v/5Eir1MdVHY9bXqzQb24Cto4MVAxxuXpxvScTMACVurRJVt
-         yxBqiaFTq5QGW9gAfbFVV/LGHR5aNJEM0uGr051gbWRE4sYus1xkvC7jzH91E9AT8Lb8
-         aD2Q==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789724070; x=1790328870; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=5Uw8V/tjzi/pvdnamMY2FGLe6nYrEvNwyYPwFQRYV9I=;
-        b=nccAKZb6SQJzVdJB6lrFzgbkcA7favEBSnB55ElHrjyYp6b58L01TvW0vLZ7ElHVyZ
-         lLggy32wEAjC1OxOzr54XNIWkqbxgCZXeWhiqPY/X7WdlA3d8OIF+O/P3vSfY4iYlTJx
-         jgwsAbUnDBDIQjDJZqnfbW2LktfYhnaPh59fBVXdVjsY1RUReVBOnwsmpLjzGo7Fy6rK
-         6ZqezFLoHV0n4HugEtQ8C3JQG1OWxW8ds9vI/VPu4waVC5ovduElviK07vzTojkILnU5
-         tlGnsNGiws+ZJ0wL4EaZQcxnBERjRf611lagFBq1CE64RT1KVx5aRYxBoXfw2OKYx7W7
-         5QFQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789724070; x=1790328870;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=5Uw8V/tjzi/pvdnamMY2FGLe6nYrEvNwyYPwFQRYV9I=;
-        b=GummCoAOq6nkas8OOnk9smqokYqddUKSpdq3afX8x0iJW8Gr43p95Zwrzlj+anhaTE
-         x1czEvo641uYpVlAnbnAdEJRrizN/NCJD1yDnWYn8SZIODene5YQvrGVEhaedfVT5UYe
-         O6G9fuB8hHoS/3W2auL+2C3N3BMJN1uEBi5DEz51s2jSdOPnADfhKpRU8ciwDQtXi5a1
-         Dd2u/KAE4VgTCj4DOIpa1YCYV+vzIeepPXBrgrIZMn8nddsuPIPf/fcC8ZInlmMgsy3j
-         EQjiFxJpq5BeZvBEocusq+WQ2TuGqF6u/ZZtjkw0QBG9Mq5PN61Su/vgZAu5TVOSBA70
-         6FKA==
-X-Forwarded-Encrypted: i=1; AKwUvByWFkP09rapnfGtiJ8dAgMb9FVdRC2PXR8S3+S/+24tEXw02HHrmP0niJQLDMjdZQsR980GyQA=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWJsSguscW7GiGojOn2RYcO5WzYvBNeu/hH1jj2YWClqKmEPOw
-	15vAO65VY0owJvnTrNzrRQSuQfLRdDprxMKIL8KcBxV0wTPPx9D5T2xz+5278Zoga+epljxRZcc
-	4C/2vnuOwL1Q4omtHDEwPdsme/DfwANA=
-X-Gm-Gg: AYBFou0hmLsFXxu1pV/jiPB38RYlHr7js4W2+h9F9RfoET4xiFXid+y5UWXn7M9UyD+
-	ZAdUqhKMQm2icPZEyAFshr2eD0b7ywXVvoFA6mlgIba/zrgSO9xCPiJ/wZQNoZqIHW4xL4iBqna
-	7O7gTk1YtJD6KXtdOgaMWPZXW3ggUCq0xLn3F1iL9fQG/zLmtlpI6NY5W9pEnLZ1HVOXD1VA4gz
-	UtCfzWnlSGguVF7muaYR2vawNr9jw3YDWX301Hj77Ll3Ifnw5VmCCIhNvyMBzjOS0n5IDB9gnsv
-	VCOupgMafXRIja0lXLpkSV4GuabqQfH3AaypMTXCdvtMeQDD87xQKcFtKRmv4JdDRTDJ7C8gTPy
-	G8eu+u6WN
-X-Received: by 2002:a05:6a21:32a3:b0:3dd:85aa:d26d with SMTP id
- adf61e73a8af0-3dd8c5c7cd1mr4479780637.37.1789724070188; Fri, 18 Sep 2026
- 02:34:30 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NdgoCwwY"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id 675421F000FF;
+	Fri, 18 Sep 2026 09:34:54 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789724094;
+	bh=QPHM4C13uUGm9R4hEl1eSTnmriAUGxPz23GgFIjAtCc=;
+	h=Date:From:To:Subject:Cc:References:In-Reply-To;
+	b=NdgoCwwYKkR3ypH0YDmw8gy1EKRmBVG4VgG/GV/pXWOXDRoQGIarEI1mZLiMfxqP1
+	 73oOjm39Pu8r5EngSjEkB+I6ZX8hDi8Y7/wLycxfxuem5tan0OnNWx36l3xCJhpwQt
+	 pdYereCG6Svcnhjgdf9Eolzha5fSk96gJc/MSj8Nj6AASc+GV0fduCjFVRcvPMoudm
+	 QjjF0EMHuoeUHVnNvAwOkejn1p406zXPenCgzKLtNtaYlzTCA6V+rLim5kYqAsIDvW
+	 M59n0S4jjiURMgf1UG/ZFNRsZ17K2Zgw2OKBx/E0gatBTdvUSdk8y+igRwXz+yd3kE
+	 C9QE6NrttOAOQ==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-References: <QDISC-LQFE.v1.20260911041746.1@mojatatu.com> <20260917120801.GA51261@horms.kernel.org>
- <CAKYWH0RMJ+sxMku8UGmmcujnO9fJBg3Ok_ofbvyh5eTJm=2uTQ@mail.gmail.com> <CAM0EoM=uw-3EAVQBWWMtNSHJjzcS-ftfFYpbSX+BXJyx-gdjuQ@mail.gmail.com>
-In-Reply-To: <CAM0EoM=uw-3EAVQBWWMtNSHJjzcS-ftfFYpbSX+BXJyx-gdjuQ@mail.gmail.com>
-From: Alexandre Ferrieux <alexandre.ferrieux@gmail.com>
-Date: Fri, 18 Sep 2026 11:34:17 +0200
-X-Gm-Features: AcwNN1UzjY3rarwg-alFhA-7zbkCReJl4rhHIs9sOcz_PArn3s5cZxt8Ai-scw4
-Message-ID: <CAKYWH0SYbfjEgpqQMkdQ91VZnT8vwcc0TaH4xs5hHkLCc1BqMg@mail.gmail.com>
-Subject: Re: [PATCH net 1/2] net/sched: cls_u32: fix manual hash table handle
- IDR aliasing
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: Simon Horman <horms@kernel.org>, netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, Victor Nogueira <victor@mojatatu.com>, 
-	hybris <hybris@mojatatu.ai>
-Content-Type: text/plain; charset="UTF-8"
+Mime-Version: 1.0
+Content-Type: multipart/signed;
+ boundary=375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883;
+ micalg=pgp-sha384; protocol="application/pgp-signature"
+Date: Fri, 18 Sep 2026 11:34:51 +0200
+Message-Id: <DLIC8P2V43E6.34ICV316K7HUK@kernel.org>
+From: "Michael Walle" <mwalle@kernel.org>
+To: <sashiko-reviews@lists.linux.dev>, "Itai Handler"
+ <itai.handler@gmail.com>, <pratyush@kernel.org>
+Subject: Re: [PATCH v3] mtd: spi-nor: take the flash lock around
+ spi_nor_restore()
+Cc: <linux-kernel@vger.kernel.org>, <vigneshr@ti.com>,
+ <linux-mtd@lists.infradead.org>, <takahiro.kuwano@infineon.com>,
+ <richard@nod.at>, <stable@vger.kernel.org>, <miquel.raynal@bootlin.com>
+X-Mailer: aerc 0.20.0
+References: <20260915113811.2429311-1-itai.handler@gmail.com>
+ <20260915115206.CCEE41F000FF@smtp.kernel.org>
+In-Reply-To: <20260915115206.CCEE41F000FF@smtp.kernel.org>
+
+--375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883
 Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
 
-Le ven. 18 sept. 2026 =C3=A0 10:22, Jamal Hadi Salim <jhs@mojatatu.com> a =
-=C3=A9crit :
->
-> On Fri, Sep 18, 2026 at 1:37=E2=80=AFAM Alexandre Ferrieux
-> <alexandre.ferrieux@gmail.com> wrote:
-> >
-> > Le jeu. 17 sept. 2026 =C3=A0 14:08, Simon Horman <horms@kernel.org> a =
-=C3=A9crit :
-> > >
-> > > On Wed, Sep 16, 2026 at 06:01:14AM -0400, Jamal Hadi Salim wrote:
-> > > > A u32 hash table created with an explicit handle ('tc filter add ..=
-.
-> > > > handle 801: u32 divisor N') keys its IDR entry on the raw handle, w=
-hile
-> > > > the destroy paths free it under handle2id(handle). The two key doma=
-ins
-> > > > disagree for handles in the 0x800..0xFFF htid range:
-> > > > handle2id() folds them back into the auto-allocated id space (1..0x=
-7FF).
-> > > >
-> > > > A manual table therefore leaves its raw-keyed IDR entry unreachable=
- on
-> > > > delete (a permanent leak), and its delete can drop the idr entry of=
- an
-> > > > unrelated live auto table. A later auto allocation can then hand ou=
-t a
-> > > > handle that aliases the live manual table; u32_lookup_ht() first-ma=
-tch
-> > > > routes lookups and TCA_U32_LINK for that htid to the wrong table.
-> > > >
-> > > > Key the divisor-path alloc on handle2id(handle) so allocation and
-> > > > removal share one key domain. A manual handle that maps onto an id
-> > > > already in use is rejected with -ENOSPC, and auto allocation skips =
-ids
-> > > > held by live manual tables.
-> > > >
-> > > > Conditions to recreate:
-> > > >   ip link add test0 type dummy
-> > > >   tc qdisc add dev test0 clsact
-> > > >   tc filter add dev test0 ingress protocol ip pref 1 \
-> > > >           handle 801: u32 divisor 16
-> > > >   tc filter add dev test0 ingress protocol ip pref 2 u32 divisor 16
-> > > >   tc -d filter show dev test0 ingress | grep 'fh 801:'
-> > > >   # unpatched: two live tables with handle 0x80100000 (the pref 2 r=
-oot
-> > > >   # hnode is auto-allocated id 1); patched: the auto hnode takes id=
- 2.
-> > > >
-> > > > Also tested with a poc with a live u32 table on the block, add/dele=
-te a manual
-> > > > table 'handle 901: u32 divisor 1' twice; unpatched, the re-add fail=
-s with
-> > > > -ENOSPC because the raw key leaked on the first delete.
-> > > >
-> > > > Fixes: 73af53d82076 ("net: sched: cls_u32: Fix u32's systematic fai=
-lure to free IDR entries for hnodes.")
-> > > > Reported-by: Sashiko (gemini + nipa) <sashiko-bot@kernel.org>
-> > > > Closes: https://sashiko.dev/#/patchset/20260822222049.114526-1-jhs@=
-mojatatu.com
-> > > > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-> > > > Tested-by: hybris <hybris@mojatatu.ai>
-> > > > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > >
-> > > Reviewed-by: Simon Horman <horms@kernel.org>
-> > >
-> >
-> > Hi Jamal, Simon,
-> >
-> > Thanks a lot for the fix.
-> > One nit I'd like to pick is the "Fixes:" header.
-> > Specifically, it mentions my patch:
-> >
-> >      Fixes: 73af53d82076 ("net: sched: cls_u32: Fix u32's systematic
-> > failure to free IDR entries for hnodes.")
-> >
-> > However, what this does fix is *not* a regression introduced by the
-> > above patch,
->
-> This patch fixes the alloc/remove key-domain asymmetry introduced by
-> 73af53d82076
-> Prior to your patch, the alloc/remove key domain was symmetric; you
-> forgot to convert the "else {" part in your conversion, which this
-> patch fixes. The comment tries to explain this detail.
->
-> cheers,
-> jamal
+On Tue Sep 15, 2026 at 1:52 PM CEST, sashiko-bot wrote:
+> Thank you for your contribution! Sashiko AI review found 2 potential issu=
+e(s) to consider:
+> - [High] mtd: spi-nor: skipped flash restore on fatal signal breaks boot
+> - [High] mtd: spi-nor: shutdown hang due to ongoing erase operation
 
-Oh, I stand corrected. Thank you !
+Does Sashiko have some valid points here?=20
 
--Alex
+-michael
+
+> --
+>
+> commit c0578fac7581b63c39bfd99ac3a6f934256685d3
+> Author: Itai Handler <itai.handler@gmail.com>
+>
+> mtd: spi-nor: take the flash lock around spi_nor_restore()
+>
+> This commit changes spi_nor_shutdown() and spi_nor_remove() to acquire
+> nor->lock around spi_nor_restore(). It aims to prevent operations like
+> reads from overlapping with the restore, which could leave the chip in
+> 3-byte addressing mode.
+>
+>> diff --git a/drivers/mtd/spi-nor/core.c b/drivers/mtd/spi-nor/core.c
+>> index ccf4396cdcd04..c891197ffa5b3 100644
+>> --- a/drivers/mtd/spi-nor/core.c
+>> +++ b/drivers/mtd/spi-nor/core.c
+>> @@ -3849,11 +3849,26 @@ static int spi_nor_probe(struct spi_mem *spimem)
+>>  				   data ? data->nr_parts : 0);
+>>  }
+>> =20
+>> +/*
+>> + * Restore between operations, not during one. Removal and shutdown bot=
+h run
+>> + * with MTD users still attached: a busy flash silently ignores the com=
+mands
+>> + * spi_nor_restore() sends, and a restore landing inside a read changes=
+ the
+>> + * chip's address width under the transfer.
+>> + */
+>> +static void spi_nor_restore_locked(struct spi_nor *nor)
+>> +{
+>> +	if (spi_nor_prep_and_lock(nor))
+>> +		return;
+>
+> [Severity: High]
+> Does this code silently skip the flash restore if a fatal signal breaks t=
+he
+> lock acquisition?=20
+>
+> For example, if a privileged user runs rmmod while an erase or read opera=
+tion
+> is actively holding the RWW lock, and the rmmod process receives SIGKILL,
+> spi_nor_prep_and_lock() (via wait_event_killable()) will return -ERESTART=
+SYS:
+>
+> drivers/mtd/spi-nor/core.c:spi_nor_prep_and_lock() {
+>     ...
+>     if (!spi_nor_use_parallel_locking(nor))
+>         mutex_lock(&nor->lock);
+>     else
+>         ret =3D wait_event_killable(nor->rww.wait,
+>                                   spi_nor_rww_start_exclusive(nor));
+>
+>     return ret;
+> }
+>
+> Bypassing the hardware teardown path here leaves the flash in 4-byte addr=
+essing
+> mode. This might cause the bootloader to fail to read the kernel on the n=
+ext
+> reboot, soft-bricking the device until a power cycle.
+>
+>> +
+>> +	spi_nor_restore(nor);
+>> +	spi_nor_unlock_and_unprep(nor);
+>> +}
+>> +
+>
+> [ ... ]
+>
+>> @@ -3863,7 +3878,7 @@ static void spi_nor_shutdown(struct spi_mem *spime=
+m)
+>>  {
+>>  	struct spi_nor *nor =3D spi_mem_get_drvdata(spimem);
+>> =20
+>> -	spi_nor_restore(nor);
+>> +	spi_nor_restore_locked(nor);
+>
+> [Severity: High]
+> Could this hang the system indefinitely during shutdown if an erase opera=
+tion
+> is ongoing?
+>
+> Erase operations (like spi_nor_erase_multi_sectors) hold nor->lock
+> continuously for their entire duration, looping over spi_nor_wait_till_re=
+ady()
+> with cond_resched(). A large chip erase can take several minutes.
+>
+> Because device_shutdown() iterates devices synchronously without a timeou=
+t,
+> this synchronous wait for nor->lock could hang the reboot process until t=
+he
+> erase finishes, forcing the user to hard-reset the machine.
+
+Also I'm not sure, what would be the actual expected behavior here.
+Cancel the erase? Wait until the erase is completed? Pratyush,
+Miquel, do you have any thoughts on that?
+
+-michael
+
+>
+>>  }
+>> =20
+>>  /*
+
+
+--375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883
+Content-Type: application/pgp-signature; name="signature.asc"
+
+-----BEGIN PGP SIGNATURE-----
+
+iKgEABMJADAWIQTIVZIcOo5wfU/AngkSJzzuPgIf+AUCaq0FuxIcbXdhbGxlQGtl
+cm5lbC5vcmcACgkQEic87j4CH/gw/QF/QsmvZhq/GNNoZGx0bFxmGzPhiNCF/Y7w
+NTO8T+aTZC/rVBA8f1tL2oEj+ItKRhIDAYDNbzuEV3wIexW+YcU6CLomaBd9NXbE
+ZlrX8iC8hHjxSWSH/4DENWbECuKJ03Ec4yU=
+=uqCV
+-----END PGP SIGNATURE-----
+
+--375f650e369e42fd6ad726978df45da2316eabb327bc1c8e1cde82126883--
