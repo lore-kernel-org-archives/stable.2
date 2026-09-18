@@ -1,78 +1,73 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 634FA38DC70
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 06:09:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF1D455171
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 06:18:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789711748; cv=none; b=C/Vi2Wg2Cbpq/LojZYL8Jc9NUcLdazXnF+8JX3Grqen9xAFyAsvRFHxhn2oYkeeVC4UAySPKCUEQbPU+oupWCw3M4aCsIUkkWqr3dWzLfn1b5Jy2pW4q5lpztFDN3cBX64B4vgGGE5L0/y9WYu2rr70tKX60anJEHFnwM+UGjDk=
+	t=1789712296; cv=none; b=etLGQ+ofKYLalhRGBT2P5jEZOx7LQADQUbQtfP+vrH0YuMQOzPH/TBKbJK+8AuinDirakvD785DNalkVecWRoJp9NcviJT0/upQeLUN81rPzLKeya/AzuKgF5HOZaQ0kehQttQPzMBQeUoZNa2nn/xRgV/wnljySocHSRmURbZI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789711748; c=relaxed/simple;
-	bh=9MMcQqbCyatW417RSOpUlF7r32cLepJryAxtTXy4U5A=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GdpZ2eM5jAwJ8bK6+h1mNOdAKdZlFdZmvdUCqtBh6N2P3TOiGRc+TGxmn4UT73d28Lg5cMcPWBY/8xSa9Zzgsx69fYvJLkg/ZijEtSb1+lJH9Yrg/B8j4wVUvH51rP4uxXBOTMDznjwCOMcInmsCCPI8BEj6Butnfo2Rs/2E+sY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=hNsVGr6i; arc=none smtp.client-ip=74.125.228.43
+	s=arc-20240116; t=1789712296; c=relaxed/simple;
+	bh=yfmN4VgJWiM2K0qD+/ELhW7GlVZmQtDwQsE1uxCYWOM=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CFW1BoHyqlOadWMtfjv+8euurS4JdNQ8/th/2BnVYDX8v5lL54U0aEAk3t/kwHwNCwkKyCtyN+ybOQry4kllyw3rGrFeU1R056Ze0UBvXMyiH5x7nspUDhTkfqpnCdcOGsPOjC3wcDscD1yrDoFCrnxOe02ZlkyH7W1yVuRApy4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=STRGQ+B9; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="hNsVGr6i"
-Received: by mail-pz2-f43.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2dso162291a12.3
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 23:09:07 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STRGQ+B9"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso317386a91.1
+        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 23:18:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789711746; x=1790316546; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ORxTFOuB2ucPeCFRcbiCodxruveHPk2zly7F4fcoL7c=;
-        b=hNsVGr6iJ211g6Yz3v/3Zd7/ujiIO8X2ip21ScNXz4JddZbrde7ZAQZvYPCEPBqFdr
-         AiDDbQ8XmLwFhLsncw+VdihGHcaDVNFKZJcTKHCX28zkzbPZFja5f7OuhE7Mx2fUOAvF
-         PyX1OhbmHAZ+t5O6T6XLmotE0vOMPYuESg43+IrIGQek8UlF5ODfX3NVYNUhovU0AtM+
-         mvBPCcXVdCDLS3doBHU2rGBkE3IhJ8vzQhjX7HFJoWNf20G/hRLueRfiLSr313o+h1uQ
-         uLbZLW9vDYVeb+NHlZqR4FqoR2xkXg/3MUIYtq/A4qf/WS5LUDqx4VeFQbedOCT72gkl
-         vqPQ==
+        d=gmail.com; s=20251104; t=1789712294; x=1790317094; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=F9Fiem68UhKZxOAnlG3cQI4tsKfNk/QxfQ4iK/+ITaM=;
+        b=STRGQ+B9nQu77R/g5add3+Eh/f4ekXW+gi+Sep32DFDEOASu/YtP4FOFGVuOmfDPzM
+         UrSQWGI2ps6GaIpcTlHTEEJFizibbSo/Qxjchl6lysI27QXTLm5M4Kj7aUB4wNyHeDpZ
+         NdNyb5Wet3XKCUzWTV/c0exVSyFO4LvU/ngRsjHwgQzsE9bXPBxItdfIr/dytiy+XPJ9
+         NU4OkBMFjOTH1XlNuXeJ6AChPL5Nm1gxFlw6GYwmszc5Dt3X+NfDXkmTzS1yvTKIeuo0
+         fce3BJskEaEpaE2+geSc5zb1/cJCAFYRvbb2Ssn9h5Mats21TQ8LAJoY8bJQ94QFUORA
+         TKRw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789711746; x=1790316546;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ORxTFOuB2ucPeCFRcbiCodxruveHPk2zly7F4fcoL7c=;
-        b=gymaaNfHnb9HxnywPLP2gHdPNqle3ckFQY5GGJ804l84zymEGCbBpJ2VRp38WdZOF2
-         CVZSRegpxFaRixMsI3NHsx3qcKzI0fL8Sp4u0SVJNUP7j/fQQAb4FfbMgV7Gfs2oCS7P
-         IW0Rj1iZM3jz7HD676i8b4l4qK4kuHVBB/1cG8GLqxcgusy6fJI9iMrhll+x0PKNUo/8
-         JuF+94SZsuT/4LrrA95xtTM+WRZXAB8hCxfwL30VxXsrgeLl9Krnwezowf+7YYmb5dA0
-         cWLT8wvQNlwwkQ9IHuIy5+U1IIE32Ghi7mRbyxw4Iaw87puv2XnYw69KGNipUAhFW4F0
-         xNLw==
-X-Forwarded-Encrypted: i=1; AKwUvByjcuez3rSJZ9MoJUklNt6hHaZMlMY30Nnp6F3wxAVdH3JAzlZbKAOIkwfo3Dd5UgVoF/KsMv0=@vger.kernel.org
-X-Gm-Message-State: AFuF++lFiKJJsYefxuGJSy5pcY6ODWgHXAcQTBbvsqUGoPPaxiKFCLUQ
-	e8ybGrN08n2LyIi2tJAZCRKtq8rp3gMjsYEGlTw4FwGR5RCfSV/Zhlkp
-X-Gm-Gg: AYBFou2JgvMdJ4p8WYsyS/9vuGsfa4JQR7ezVjqBtl8z6N4uKTWkUCfZXMbzEncDMAu
-	fXTKdVHlc2d3D9oHsHGcnByLIsDEhPVEXR/wFXWCQ03LflHU0GTB/mbX/ZpYqpW+oB8plSl4tBt
-	k3TIrWGrAioXziZ70JqnARb4LCr0aeV8SH2/zpxym257j8GBxcly2gagYv+6oO/b9Xywto2QdeO
-	yMdSHezQv/jzbGeTvoB93MYHZ8AAQ0Q8NY/eboZMLT0fLhOg/v61unHmy/l/wkg8fWJBYbbhwNv
-	hs/+eg05TnpR/2c4g3t2Tp8T+z/+lcZkBHQ+L00fJXb8IaYgh9qnnNX/aUXjsG2U/ZLfYxZmC8n
-	9/d91ifRN4/Alq9TmRKIEb1VITQe50x/76K0G6HqJL/5QlETw6XLGEmPe9CFhHGDFJDLnkJ6lQM
-	qKWExz//W9ceFcWX5g2UqV6nAREABKY0kmINtX4jfewz+LrA1qzdMvoQApUYo8AJkTdzS2EyQo
-X-Received: by 2002:a17:90b:4d8b:b0:39b:92bb:9ef0 with SMTP id 98e67ed59e1d1-39e54e7899dmr3123205a91.20.1789711746550;
-        Thu, 17 Sep 2026 23:09:06 -0700 (PDT)
-Received: from archlinux ([2402:e280:411b:ec:aa93:b1ec:5a6b:5fce])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e3abada87sm7695043a91.14.2026.09.17.23.08.57
+        d=1e100.net; s=20260707; t=1789712294; x=1790317094;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=F9Fiem68UhKZxOAnlG3cQI4tsKfNk/QxfQ4iK/+ITaM=;
+        b=dt5OTgbA9mD2KA/Td1+sXuX8P4MzRqX3LDba33B57iYWmCPzkr7eMmvfF7KahjgKz1
+         iAOlgz4f4OgMvxbd1l5aEQVuktFr+GKs76Ffg+QzDbLPo64FmnevNbiXvPJpT88WGI80
+         8pKu6E/aa8hhOd/9nnFuoK98JEDm3oHhla7V4CM/VOJI1ezvhjvrlvVdMatdCtGhGJMb
+         S59WOwJR+cvqSBkdV6BvhNsQP2lC4KrHo8irgwtEW9tySlhxacoP7suoaqbvyf4OlvMU
+         28v9ogfAOB5UgqUukOCN/l7kxY+tdVeXVcRq3jg9dzA2oAOPGw15zR40osrqHPcnhtK9
+         0kUg==
+X-Forwarded-Encrypted: i=1; AKwUvByU/bGGGkTYsIDoPRfKlrUoHk4nRUwO+QKDukkTNBD0ZEgT17251ogquvGUynsVxVFGKTfQhYk=@vger.kernel.org
+X-Gm-Message-State: AFuF++kFQIomoUQnE4zrdRfk0/eQPBIzLJ4yHMJFsdqCoZweLIGrvYSK
+	SQBVspkw4fAlzoP9T+E9s0lvvBxcvkg+zQPwmQQD9H/B7/twcmYEIFQf
+X-Gm-Gg: AYBFou0f8VGf+iCPGRR+TRlompZPz+FojIPwM+3hx0k67rKiWJh/TSH5D/KkGpharwz
+	5P78qoMNA69o8KaeYp4/8NVl8m7XAAKQuyEU6k0+9VZLe9SrXUuKObHMnueNd1SUDki8Hr5Dt35
+	g06BUjiwDupSMeSsHMWhz/57kcAh30yFV3ALjxDKHRoP7fSpwfWpzrTLEPN/ek1vPde90eOg/yI
+	B8nh/UoLoR1K9knOl9ImQb5qzHa8THyWIM9hwZosni7u2xJzu1pfg5l2t+/vYYo3lA5r+8Mp0mS
+	RVanufgxZ+gnueD5T8iI6hIPiSmJIyP7p1e36eSnIZb0AouTfpG0nn4DScoSpDbfBVrhX9EDUlx
+	SJbxKwZuYvLJy9N0D3aKPGMf72z2rYt/2Ki6IDsWzvo3DjRcnLhZHxxAfgBZA6ruCKxRs7RRYPD
+	9r8J2kZuIKT8F57LJ5WZI97l4vRhHhcsGVC0a6/kgbQ5oCcriJ4kBuzi1gjMrdQEQb
+X-Received: by 2002:a17:90b:3909:b0:39e:359f:8539 with SMTP id 98e67ed59e1d1-39e54f35cf7mr5196439a91.15.1789712293559;
+        Thu, 17 Sep 2026 23:18:13 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a5993bbsm1441555a91.17.2026.09.17.23.18.10
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 23:09:06 -0700 (PDT)
-From: Adarsh Das <adarshdas950@gmail.com>
-To: gregkh@linuxfoundation.org
-Cc: rafael@kernel.org,
-	dakr@kernel.org,
-	driver-core@lists.linux.dev,
-	stable@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com,
-	Adarsh Das <adarshdas950@gmail.com>
-Subject: [PATCH v3] kobject: fix uevent socket use-after-free on net namespace delete
-Date: Fri, 18 Sep 2026 11:38:26 +0530
-Message-ID: <20260918060826.8434-1-adarshdas950@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <2026091732-armored-lilac-fec9@gregkh>
-References: <2026091732-armored-lilac-fec9@gregkh>
+        Thu, 17 Sep 2026 23:18:13 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	James Bottomley <James.Bottomley@SteelEye.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] scsi: initio: free SCB array on remove
+Date: Fri, 18 Sep 2026 14:18:03 +0800
+Message-ID: <20260918061803.3561680-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,80 +76,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a network namespace is deleted, we free its uevent socket. But
-sometimes a device in that namespace is still being removed and tries to
-send a uevent through that socket. The socket is already freed, so KASAN
-reports a use-after-free.
+initio_probe_one() allocates an SCB array and stores it in host->scb.
+The probe failure paths free this array, but the normal remove path
+does not perform the corresponding cleanup.
 
-This patch attempts the fix of taking a lock around both the send path
-and the free path, and clear the pointer before freeing so nobody uses
-it after free.
+As a result, the SCB array remains allocated after the driver is
+removed and becomes unreachable once the SCSI host is released.
 
-Reported-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-Link: https://syzkaller.appspot.com/bug?extid=4393dfdddf166f2de2b0
-Tested-by: syzbot <syzbot+4393dfdddf166f2de2b0@syzkaller.appspotmail.com>
-Tested-by: Adarsh Das <adarshdas950@gmail.com>
-Assisted-by: LLM
-Signed-off-by: Adarsh Das <adarshdas950@gmail.com>
+Free the SCB array in initio_remove_one(), matching the probe error
+path.
+
+This issue was found by manual code inspection.
+
+Fixes: 72d39fea9017 ("[SCSI] initio: Convert into a real Linux driver and update to modern style")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
- lib/kobject_uevent.c | 27 +++++++++++++++++++--------
- 1 file changed, 19 insertions(+), 8 deletions(-)
+ drivers/scsi/initio.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/lib/kobject_uevent.c b/lib/kobject_uevent.c
-index ddbc4d7482d2..cb674c2c3432 100644
---- a/lib/kobject_uevent.c
-+++ b/lib/kobject_uevent.c
-@@ -13,6 +13,7 @@
-  *	Greg Kroah-Hartman	<greg@kroah.com>
-  */
- 
-+#include <linux/cleanup.h>
- #include <linux/spinlock.h>
- #include <linux/string.h>
- #include <linux/kobject.h>
-@@ -411,9 +412,14 @@ static int kobject_uevent_net_broadcast(struct kobject *kobj,
- 						    devpath);
- 	else {
- 		const struct net *net = container_of(ns, struct net, ns);
--
--		ret = uevent_net_broadcast_tagged(net->uevent_sock->sk, env,
--						  action_string, devpath);
-+		struct uevent_sock *ue_sk;
-+
-+		guard(mutex)(&uevent_sock_mutex);
-+		ue_sk = net->uevent_sock;
-+		if (ue_sk && ue_sk->sk)
-+			ret = uevent_net_broadcast_tagged(ue_sk->sk, env,
-+							  action_string,
-+							  devpath);
- 	}
- #endif
- 
-@@ -804,14 +810,19 @@ static int uevent_net_init(struct net *net)
- 
- static void uevent_net_exit(struct net *net)
- {
--	struct uevent_sock *ue_sk = net->uevent_sock;
-+	struct uevent_sock *ue_sk;
- 
--	if (sock_net(ue_sk->sk)->user_ns == &init_user_ns) {
--		mutex_lock(&uevent_sock_mutex);
--		list_del(&ue_sk->list);
--		mutex_unlock(&uevent_sock_mutex);
-+	{
-+		guard(mutex)(&uevent_sock_mutex);
-+		ue_sk = net->uevent_sock;
-+		net->uevent_sock = NULL;
-+		if (ue_sk && sock_net(ue_sk->sk)->user_ns == &init_user_ns)
-+			list_del(&ue_sk->list);
- 	}
- 
-+	if (!ue_sk)
-+		return;
-+
- 	netlink_kernel_release(ue_sk->sk);
- 	kfree(ue_sk);
- }
+diff --git a/drivers/scsi/initio.c b/drivers/scsi/initio.c
+index 06fbe85dccfa..b373828bddf1 100644
+--- a/drivers/scsi/initio.c
++++ b/drivers/scsi/initio.c
+@@ -2934,6 +2934,7 @@ static void initio_remove_one(struct pci_dev *pdev)
+ 	struct initio_host *s = (struct initio_host *)host->hostdata;
+ 	scsi_remove_host(host);
+ 	free_irq(pdev->irq, host);
++	kfree(s->scb);
+ 	release_region(s->addr, 256);
+ 	scsi_host_put(host);
+ 	pci_disable_device(pdev);
 -- 
-2.55.0
+2.43.0
 
