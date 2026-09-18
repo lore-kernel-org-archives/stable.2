@@ -1,73 +1,40 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BCF1D455171
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 06:18:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 287F43AA1BB;
+	Fri, 18 Sep 2026 06:22:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789712296; cv=none; b=etLGQ+ofKYLalhRGBT2P5jEZOx7LQADQUbQtfP+vrH0YuMQOzPH/TBKbJK+8AuinDirakvD785DNalkVecWRoJp9NcviJT0/upQeLUN81rPzLKeya/AzuKgF5HOZaQ0kehQttQPzMBQeUoZNa2nn/xRgV/wnljySocHSRmURbZI=
+	t=1789712550; cv=none; b=u6OHjohTeMn3wuySo8bHmII84wA0tEn7DoqqzPAh7Co3HqiL6e8DulEYTocn+ZGEDp51f8yCamCljXmLxFX76HJ93cho3ep55UmJwfKOKru7b9oWN8Ev+1IdyR5/VAxnSMiJD+Hv1zfmTl3oZaFikXalz8kiyWeeUYQfvD634Gk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789712296; c=relaxed/simple;
-	bh=yfmN4VgJWiM2K0qD+/ELhW7GlVZmQtDwQsE1uxCYWOM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=CFW1BoHyqlOadWMtfjv+8euurS4JdNQ8/th/2BnVYDX8v5lL54U0aEAk3t/kwHwNCwkKyCtyN+ybOQry4kllyw3rGrFeU1R056Ze0UBvXMyiH5x7nspUDhTkfqpnCdcOGsPOjC3wcDscD1yrDoFCrnxOe02ZlkyH7W1yVuRApy4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=STRGQ+B9; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789712550; c=relaxed/simple;
+	bh=+IC0YJIYx+ucaCyhm/5LDSwx8BTFDb0NiEuU93prER0=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version; b=HqMNgCQ0iuIlRbvJMWGSx1F8S8AqZ2kKMynMGC8ATZbj8hbn8RWULC9tiEuSNze9fhZjNYH2I29w9R64PGN1OC8QydqGvhkPKRw2K5eacgt4ZpTgPDNhEVXgZYBBJ7k0e7D5M1lYywiNn7egJeoY0zSkybVxRs0xIhxNSD2gywM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=dRQwKQcc; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="STRGQ+B9"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-398c066106cso317386a91.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 23:18:14 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789712294; x=1790317094; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=F9Fiem68UhKZxOAnlG3cQI4tsKfNk/QxfQ4iK/+ITaM=;
-        b=STRGQ+B9nQu77R/g5add3+Eh/f4ekXW+gi+Sep32DFDEOASu/YtP4FOFGVuOmfDPzM
-         UrSQWGI2ps6GaIpcTlHTEEJFizibbSo/Qxjchl6lysI27QXTLm5M4Kj7aUB4wNyHeDpZ
-         NdNyb5Wet3XKCUzWTV/c0exVSyFO4LvU/ngRsjHwgQzsE9bXPBxItdfIr/dytiy+XPJ9
-         NU4OkBMFjOTH1XlNuXeJ6AChPL5Nm1gxFlw6GYwmszc5Dt3X+NfDXkmTzS1yvTKIeuo0
-         fce3BJskEaEpaE2+geSc5zb1/cJCAFYRvbb2Ssn9h5Mats21TQ8LAJoY8bJQ94QFUORA
-         TKRw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789712294; x=1790317094;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=F9Fiem68UhKZxOAnlG3cQI4tsKfNk/QxfQ4iK/+ITaM=;
-        b=dt5OTgbA9mD2KA/Td1+sXuX8P4MzRqX3LDba33B57iYWmCPzkr7eMmvfF7KahjgKz1
-         iAOlgz4f4OgMvxbd1l5aEQVuktFr+GKs76Ffg+QzDbLPo64FmnevNbiXvPJpT88WGI80
-         8pKu6E/aa8hhOd/9nnFuoK98JEDm3oHhla7V4CM/VOJI1ezvhjvrlvVdMatdCtGhGJMb
-         S59WOwJR+cvqSBkdV6BvhNsQP2lC4KrHo8irgwtEW9tySlhxacoP7suoaqbvyf4OlvMU
-         28v9ogfAOB5UgqUukOCN/l7kxY+tdVeXVcRq3jg9dzA2oAOPGw15zR40osrqHPcnhtK9
-         0kUg==
-X-Forwarded-Encrypted: i=1; AKwUvByU/bGGGkTYsIDoPRfKlrUoHk4nRUwO+QKDukkTNBD0ZEgT17251ogquvGUynsVxVFGKTfQhYk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kFQIomoUQnE4zrdRfk0/eQPBIzLJ4yHMJFsdqCoZweLIGrvYSK
-	SQBVspkw4fAlzoP9T+E9s0lvvBxcvkg+zQPwmQQD9H/B7/twcmYEIFQf
-X-Gm-Gg: AYBFou0f8VGf+iCPGRR+TRlompZPz+FojIPwM+3hx0k67rKiWJh/TSH5D/KkGpharwz
-	5P78qoMNA69o8KaeYp4/8NVl8m7XAAKQuyEU6k0+9VZLe9SrXUuKObHMnueNd1SUDki8Hr5Dt35
-	g06BUjiwDupSMeSsHMWhz/57kcAh30yFV3ALjxDKHRoP7fSpwfWpzrTLEPN/ek1vPde90eOg/yI
-	B8nh/UoLoR1K9knOl9ImQb5qzHa8THyWIM9hwZosni7u2xJzu1pfg5l2t+/vYYo3lA5r+8Mp0mS
-	RVanufgxZ+gnueD5T8iI6hIPiSmJIyP7p1e36eSnIZb0AouTfpG0nn4DScoSpDbfBVrhX9EDUlx
-	SJbxKwZuYvLJy9N0D3aKPGMf72z2rYt/2Ki6IDsWzvo3DjRcnLhZHxxAfgBZA6ruCKxRs7RRYPD
-	9r8J2kZuIKT8F57LJ5WZI97l4vRhHhcsGVC0a6/kgbQ5oCcriJ4kBuzi1gjMrdQEQb
-X-Received: by 2002:a17:90b:3909:b0:39e:359f:8539 with SMTP id 98e67ed59e1d1-39e54f35cf7mr5196439a91.15.1789712293559;
-        Thu, 17 Sep 2026 23:18:13 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5a5993bbsm1441555a91.17.2026.09.17.23.18.10
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 23:18:13 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: "James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	James Bottomley <James.Bottomley@SteelEye.com>,
-	linux-scsi@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] scsi: initio: free SCB array on remove
-Date: Fri, 18 Sep 2026 14:18:03 +0800
-Message-ID: <20260918061803.3561680-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="dRQwKQcc"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e3ed536a;
+	Fri, 18 Sep 2026 14:22:16 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Steve Longerbeam <slongerbeam@gmail.com>
+Cc: Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Mauro Carvalho Chehab <mchehab@kernel.org>,
+	Hans Verkuil <hverkuil@kernel.org>,
+	linux-media@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH v2] media: ov5640: Initialize mutex before probe cleanup
+Date: Fri, 18 Sep 2026 14:22:09 +0800
+Message-Id: <20260918062209.2937067-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
+In-Reply-To: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
+References: <20260910081608.1264077-1-runyu.xiao@seu.edu.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -75,38 +42,86 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0b32e11a203a1kunmd85d9d8339153c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTRpLVktOTx5LHU0ZGkpCQ1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=dRQwKQccx9PFtQlClu+haHbUqePnyejFwKsAHqS0jhDDcwmMUSBjXYm2AyY7ibaDLOz8yJ0Yg9ioWR9sszdEt1qPEW5lUgEoSk7II3aDTXrrJxBzYQvTwHTtFmfSqVAMNd162dyLpWL/Hu0xwd/rzsM0Aqta3RdGA7q8cgh+6CA=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=yAMkqGbLlF5Fl7ax4v5q0xfkZjhr2qGa9YXS2R6e8ZM=;
+	h=date:mime-version:subject:message-id:from;
 
-initio_probe_one() allocates an SCB array and stores it in host->scb.
-The probe failure paths free this array, but the normal remove path
-does not perform the corresponding cleanup.
+ov5640_probe() can jump to entity_cleanup when regulator setup fails,
+before sensor->lock is initialized. The cleanup path unconditionally
+destroys the mutex, so this error path passes an uninitialized mutex to
+mutex_destroy().
 
-As a result, the SCB array remains allocated after the driver is
-removed and becomes unreachable once the SCSI host is released.
+Initialize the mutex after media_entity_pads_init() succeeds and before
+ov5640_get_regulators(). This keeps earlier direct-return paths outside
+the mutex lifetime while ensuring that every path reaching entity_cleanup
+has initialized the mutex.
 
-Free the SCB array in initio_remove_one(), matching the probe error
-path.
+Use devm_mutex_init() so the mutex is destroyed by the device-managed
+cleanup path when lock debugging is enabled. Remove the manual
+mutex_destroy() calls from probe cleanup and remove.
 
-This issue was found by manual code inspection.
-
-Fixes: 72d39fea9017 ("[SCSI] initio: Convert into a real Linux driver and update to modern style")
+Fixes: 19a81c1426c1 ("[media] add Omnivision OV5640 sensor driver")
 Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Link: https://lore.kernel.org/linux-media/20260910081608.1264077-1-runyu.xiao@seu.edu.cn/
+Found by PatchProof Module 4 candidates
+PILOT-4c6b03072e508260 and PILOT-4f9a36d855eb7c54.
+
+No runtime reproducer was available; the failure path was verified by
+inspection and the affected object was built successfully.
+
+Tested-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- drivers/scsi/initio.c | 1 +
- 1 file changed, 1 insertion(+)
+v2:
+- Use devm_mutex_init() and remove manual mutex destruction as requested
+  by the reviewer.
 
-diff --git a/drivers/scsi/initio.c b/drivers/scsi/initio.c
-index 06fbe85dccfa..b373828bddf1 100644
---- a/drivers/scsi/initio.c
-+++ b/drivers/scsi/initio.c
-@@ -2934,6 +2934,7 @@ static void initio_remove_one(struct pci_dev *pdev)
- 	struct initio_host *s = (struct initio_host *)host->hostdata;
- 	scsi_remove_host(host);
- 	free_irq(pdev->irq, host);
-+	kfree(s->scb);
- 	release_region(s->addr, 256);
- 	scsi_host_put(host);
- 	pci_disable_device(pdev);
+ drivers/media/i2c/ov5640.c | 8 ++++----
+ 1 file changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/drivers/media/i2c/ov5640.c b/drivers/media/i2c/ov5640.c
+index 8deb5f550..7f3af6a59 100644
+--- a/drivers/media/i2c/ov5640.c
++++ b/drivers/media/i2c/ov5640.c
+@@ -3930,11 +3930,13 @@ static int ov5640_probe(struct i2c_client *client)
+ 	if (ret)
+ 		return ret;
+ 
+-	ret = ov5640_get_regulators(sensor);
++	ret = devm_mutex_init(dev, &sensor->lock);
+ 	if (ret)
+ 		goto entity_cleanup;
+ 
+-	mutex_init(&sensor->lock);
++	ret = ov5640_get_regulators(sensor);
++	if (ret)
++		goto entity_cleanup;
+ 
+ 	ret = ov5640_init_controls(sensor);
+ 	if (ret)
+@@ -3972,7 +3974,6 @@ static int ov5640_probe(struct i2c_client *client)
+ 	v4l2_ctrl_handler_free(&sensor->ctrls.handler);
+ entity_cleanup:
+ 	media_entity_cleanup(&sensor->sd.entity);
+-	mutex_destroy(&sensor->lock);
+ 	return ret;
+ }
+ 
+@@ -3990,7 +3991,6 @@ static void ov5640_remove(struct i2c_client *client)
+ 	v4l2_async_unregister_subdev(&sensor->sd);
+ 	media_entity_cleanup(&sensor->sd.entity);
+ 	v4l2_ctrl_handler_free(&sensor->ctrls.handler);
+-	mutex_destroy(&sensor->lock);
+ }
+ 
+ static const struct dev_pm_ops ov5640_pm_ops = {
 -- 
-2.43.0
-
+2.34.1
