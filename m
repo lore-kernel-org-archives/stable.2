@@ -1,32 +1,32 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BFF3245D90F;
-	Fri, 18 Sep 2026 05:43:47 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58D52466B17;
+	Fri, 18 Sep 2026 05:43:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710229; cv=none; b=rD3FcXqKLk0kYFQiym0KNHa220nON0n1aCB3fcYnUBAoIB0ms3OmIbgp+E2Abgqd9CgUViKfKQOZi8xZ+qoFIj+If0OWseTqbebjZlIgzL/kCrgEAHtqLPrFsjexyc82/dW82G3mkjs0/caH7KWRKFDthEvoGc1VV8saWVPXtAk=
+	t=1789710232; cv=none; b=AVbYz4XaP5r8yC3/28vj1rzHUjBIy9/3t9MvNEtJNSpUOhNuYL6Y7CHe65DmgzZRiYkpZHfQJJ8BHN8gI/L7cOb0bosuA1XxwLyYgEv1zVdkTkTHJKAZBULdoyW9hGyVzSYe3Z6XxqwniXT64HgbSw4ZGCO2Fshbg5IvkPxxV80=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710229; c=relaxed/simple;
-	bh=H5jqX+RN6rLp6Eumoi0WrSF0aeyqX9xppaqMs5eOSak=;
-	h=Date:To:From:Subject:Message-Id; b=B1M98IvI9+Xv/wmzQfc4liFgLqfCdFG/koBp+Ld80M5zOIy61cu3hdr2e5BJXIVQGFhvR5eu1tpQTzh2XsK5RxYLpto1YLMPzOz3ldqyIvzrRCNYMl8mzgk2Fisbi9mnWQ3ty8QtjTXnLCMdK4Hlgm2qGUFF3kGwJCa0q7lTHKY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=YQudlWoU; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789710232; c=relaxed/simple;
+	bh=wF618LWWJpb9x1F/ZFY4fXGlrX2e+v7jxa+VH2HGr+U=;
+	h=Date:To:From:Subject:Message-Id; b=CtPxyENrjnwW3juE4j/1XZk0cDSEmKf+2BhTq5alXtGSkvByNi0gdlFbNI0VHErsfRqYyKpFqZVTsEFrTSiZycmiy6naCiw/diwxzGBoTv/rQ/+tZmWn4RjMlMEcI1TGQA7kW6cNZ6FlXUJW68jJCeXfAtcrwVBJ9tkOJZ0uqJs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=2hCWlSWT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="YQudlWoU"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 490351F000FF;
-	Fri, 18 Sep 2026 05:43:47 +0000 (UTC)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="2hCWlSWT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2FB761F00893;
+	Fri, 18 Sep 2026 05:43:51 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789710227;
-	bh=JIKLXyGRzyzUuLCALhca9biA7J6xbTbFJmdjvlcAKA4=;
+	d=linux-foundation.org; s=korg; t=1789710231;
+	bh=7QcIDhVTCKkOv8SUP+wxeT7c/0RoKju/urrcuuKv7PQ=;
 	h=Date:To:From:Subject;
-	b=YQudlWoUWBu6dDl9SGuGvWGTA4tKseI8uPM7lhZ6Q03G3qWBNXZjyUH2xZ8wEioCn
-	 r7cFK0bigPU9cf8et0BS92SvnJCDG9b1XOAMkfBJq7g1jU4GPySXqxfoSLUyPM87aR
-	 6rtNc/NjyUSiKiYdoFM/8WCXk8BsyB7dJDd7g3Mo=
-Date: Thu, 17 Sep 2026 22:43:46 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,nphamcs@gmail.com,krushchavan@outlook.com,joshua.hahnjy@gmail.com,akpm@linux-foundation.org
+	b=2hCWlSWTZeK5fOYK4534uxbmialNuckE4lWFXueCFiMJW6100G7vfmbfylD+cwqPQ
+	 7gB/LgPRXRnkRcNxW4C2zw3BxyTeLHa/KHhs1PDaljgSXhtrsHN7d0gbJKMn0dOUXV
+	 hdw6L4FUeeOK4guKQ715trWJZ5OxL8s1l5g0iTWY=
+Date: Thu, 17 Sep 2026 22:43:50 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,ryan.roberts@arm.com,david@kernel.org,baolin.wang@linux.alibaba.com,zcgao@amazon.com,akpm@linux-foundation.org
 From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] selftests-cgroup-account-for-zswap-shrinker-writeback.patch removed from -mm tree
-Message-Id: <20260918054347.490351F000FF@smtp.kernel.org>
+Subject: [merged mm-hotfixes-stable] mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold.patch removed from -mm tree
+Message-Id: <20260918054351.2FB761F00893@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,115 +35,120 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 
 
 The quilt patch titled
-     Subject: selftests/cgroup: account for zswap shrinker writeback
+     Subject: mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
 has been removed from the -mm tree.  Its filename was
-     selftests-cgroup-account-for-zswap-shrinker-writeback.patch
+     mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold.patch
 
 This patch was dropped because it was merged into the mm-hotfixes-stable branch
 of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
 ------------------------------------------------------
-From: Joshua Hahn <joshua.hahnjy@gmail.com>
-Subject: selftests/cgroup: account for zswap shrinker writeback
-Date: Wed, 2 Sep 2026 12:45:20 -0700
+From: Nathan Gao <zcgao@amazon.com>
+Subject: mm/damon/ops-common: use a page-aligned address in damon_ptep_mkold()
+Date: Thu, 3 Sep 2026 17:28:27 -0700
 
-The test_no_invasive_cgroup_shrink selftest checks that when a cgroup has
-zswapped out more memory than memory.zswap.max, it does not trigger
-writeback for other cgroups.  To do this, it compares the writeback count
-in a control cgroup and makes sure that it is 0, and then checks the
-writeback count in an aggressor cgroup who does expect to see writeback.
+__damon_va_prepare_access_check() picks a random byte address within the
+region and stores it in r->sampling_addr.  damon_va_mkold() passes it into
+a page table walk, which hands it to damon_ptep_mkold() as the address of
+the page to sample:
 
-However, when the zswap shrinker is enabled, the victim cgroup can see
-legitimate writebacks not triggered by the aggressor.  In some Meta CI
-tests, we have seen this failure mode happen.
+  damon_va_mkold(mm, r->sampling_addr)
+    damon_va_walk_page_range(mm, addr, addr + 1)
+      damon_mkold_pmd_entry()
+        damon_ptep_mkold(pte, vma, addr)
+          ptep_test_and_clear_young(vma, addr, pte)
+          mmu_notifier_clear_young(mm, addr, addr + PAGE_SIZE)
 
-Instead of checking that the victim cgroup has 0 writeback, compare the
-writeback values before and after the aggressor runs and check that the
-victim cgroup did not perform any additional writeback.  Note that this
-can still lead to probabilistic failures if writebacks take longer than
-5 seconds, but this should fix the systematic failure case and make
-"not ok test_no_invasive_cgroup_shrink" less likely.
+For arm64, before commit 6f0e1142173a ("arm64: mm: support batch clearing
+of the young flag for large folios"), the contpte helper walked exactly
+CONT_PTES entries from the aligned-down page table pointer and used @addr
+only to pass down to each entry, so an unaligned value was harmless:
 
-Link: https://lore.kernel.org/20260902194521.3652178-1-joshua.hahnjy@gmail.com
-Fixes: b5ba474f3f51 ("zswap: shrink zswap pool based on memory pressure")
-Signed-off-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+        ptep = contpte_align_down(ptep);
+        addr = ALIGN_DOWN(addr, CONT_PTE_SIZE);
+        for (i = 0; i < CONT_PTES; i++, ptep++, addr += PAGE_SIZE)
+
+Now the range to walk is derived from @addr instead: end = addr + nr *
+PAGE_SIZE, rounded up to CONT_PTE_SIZE.  For a sample in the last page of
+a contpte block, the sub-page offset puts end just past the block
+boundary, so the round-up lands a whole block further and the walk clears
+PTE_AF in CONT_PTES entries beyond the sampled block.  For the last block
+in a page table page, those entries are past the end of that page, so the
+walk writes into the page that follows.
+
+Triggered by the full 7.1/7.2 kernel selftest suite on arm64 (EC2
+c/m6g.4xlarge).  The kernel sometimes crashes at or shortly after the
+DAMON test.
+
+What the overrun does depends on the page that happens to follow the page
+table, so there is no single signature.  If that page is read-only, the
+write faults in the sampling path itself:
+
+  Unable to handle kernel write to read-only memory at virtual address ffff0003c5d2d000
+    FSC = 0x0f: level 3 permission fault
+    CM = 0, WnR = 1, TnD = 0, TagAccess = 0
+  CPU: 10 UID: 0 PID: 3487 Comm: kdamond.2
+  pc : contpte_test_and_clear_young_ptes+0x70/0xc0
+  lr : damon_ptep_mkold+0x1e8/0x1f8
+  Call trace:
+   contpte_test_and_clear_young_ptes+0x70/0xc0 (P)
+   damon_mkold_pmd_entry+0x150/0x170
+   walk_pmd_range+0x110/0x2b0
+   walk_pud_range+0x10c/0x208
+   walk_pgd_range+0x134/0x258
+   __walk_page_range+0x98/0x1b0
+   walk_page_range_vma_unsafe+0x90/0x148
+   walk_page_range_vma+0x28/0x40
+   damon_va_walk_page_range+0x114/0x2b8
+   damon_va_prepare_access_checks+0xec/0x1a8
+   kdamond_fn+0x534/0x770
+   kthread+0x128/0x138
+   ret_from_fork+0x10/0x20
+
+Otherwise the page is writable, the PTE_AF clearing succeeds silently and
+the damage only surfaces later, in whatever happened to own the page, so
+the backtrace is unrelated to DAMON and differs between runs.
+
+Pass a page-aligned address to the ptep_test_and_clear_young() call in
+damon_ptep_mkold(), which is the only place DAMON can reach
+contpte_test_and_clear_young_ptes() from.  Nothing else sees the aligned
+address, and r->sampling_addr itself is left as is, so the sampling and
+region bookkeeping semantics are unchanged.
+
+Link: https://lore.kernel.org/20260904002829.116381-1-sj@kernel.org
+Fixes: 6f0e1142173a ("arm64: mm: support batch clearing of the young flag for large folios")
+Signed-off-by: Nathan Gao <zcgao@amazon.com>
+Signed-off-by: SJ Park <sj@kernel.org>
 Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reported-by: Krush Chavan <krushchavan@outlook.com>
-Suggested-by: Nhat Pham <nphamcs@gmail.com>
+Reviewed-by: SJ Park <sj@kernel.org>
+Reviewed-by: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
+Cc: David Hildenbrand (Arm) <david@kernel.org>
+Cc: Ryan Roberts <ryan.roberts@arm.com>
 Cc: <stable@vger.kernel.org>
 ---
 
- tools/testing/selftests/cgroup/test_zswap.c |   28 ++++++++++++++++--
- 1 file changed, 26 insertions(+), 2 deletions(-)
+ mm/damon/ops-common.c |    7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
---- a/tools/testing/selftests/cgroup/test_zswap.c~selftests-cgroup-account-for-zswap-shrinker-writeback
-+++ a/tools/testing/selftests/cgroup/test_zswap.c
-@@ -20,6 +20,7 @@ static int page_size;
- 
- #define PATH_ZSWAP "/sys/module/zswap"
- #define PATH_ZSWAP_ENABLED "/sys/module/zswap/parameters/enabled"
-+#define PATH_ZSWAP_SHRINKER_ENABLED "/sys/module/zswap/parameters/shrinker_enabled"
- #define PATH_ZSWAP_STORED_PAGES "/sys/kernel/debug/zswap/stored_pages"
- 
- static int read_int(const char *path, size_t *value)
-@@ -444,6 +445,16 @@ static int test_zswap_writeback_disabled
- 	return test_zswap_writeback(root, false);
- }
- 
-+static bool zswap_shrinker_enabled(void)
-+{
-+	char value[2];
-+
-+	if (read_text(PATH_ZSWAP_SHRINKER_ENABLED, value, sizeof(value)) <= 0)
-+		return 0;
-+
-+	return value[0] == 'Y';
-+}
-+
- /*
-  * When trying to store a memcg page in zswap, if the memcg hits its memory
-  * limit in zswap, writeback should affect only the zswapped pages of that
-@@ -453,6 +464,7 @@ static int test_no_invasive_cgroup_shrin
- {
- 	int ret = KSFT_FAIL;
- 	unsigned int off;
-+	long zswpwb_before, zswpwb_after, zswpwb_target;
- 	size_t allocation_size = page_size * 1024;
- 	unsigned int nr_pages = allocation_size / page_size;
- 	char zswap_max_buf[32], mem_max_buf[32];
-@@ -488,6 +500,14 @@ static int test_no_invasive_cgroup_shrin
- 	if (cg_read_key_long(zw_group, "memory.stat", "zswapped") < 1)
- 		goto out;
- 
-+	/* If the shrinker is enabled, try to let the writebacks finish first */
-+	if (zswap_shrinker_enabled())
-+		sleep(5);
-+
-+	zswpwb_before = get_cg_wb_count(zw_group);
-+	if (zswpwb_before < 0)
-+		goto out;
-+
- 	/* Push wb_group memory into zswap with hard-to-compress data to trigger wb */
- 	if (cg_enter_current(wb_group))
- 		goto out;
-@@ -500,9 +520,13 @@ static int test_no_invasive_cgroup_shrin
- 		getrandom(&wb_allocation[off], page_size/4, 0);
- 	}
- 
--	/* Verify that only zswapped memory from gwb_group has been written back */
--	if (wait_for_writeback(wb_group, 5000) > 0 && get_cg_wb_count(zw_group) == 0)
-+	/* Verify that only zswapped memory from wb_group has been written back */
-+	zswpwb_target = wait_for_writeback(wb_group, 5000);
-+	zswpwb_after = get_cg_wb_count(zw_group);
-+
-+	if (zswpwb_target > 0 && zswpwb_before == zswpwb_after)
- 		ret = KSFT_PASS;
-+
- out:
- 	cg_enter_current(root);
- 	if (zw_group) {
+--- a/mm/damon/ops-common.c~mm-damon-ops-common-use-a-page-aligned-address-in-damon_ptep_mkold
++++ a/mm/damon/ops-common.c
+@@ -61,7 +61,12 @@ void damon_ptep_mkold(pte_t *pte, struct
+ 	 * device aspects.
+ 	 */
+ 	if (likely(pte_present(pteval)))
+-		young |= ptep_test_and_clear_young(vma, addr, pte);
++		/*
++		 * Arch implementation of ptep_test_and_clear_young() may
++		 * require aligned @addr
++		 */
++		young |= ptep_test_and_clear_young(vma, PAGE_ALIGN_DOWN(addr),
++				pte);
+ 	young |= mmu_notifier_clear_young(vma->vm_mm, addr, addr + PAGE_SIZE);
+ 	if (young)
+ 		folio_set_young(folio);
 _
 
-Patches currently in -mm which might be from joshua.hahnjy@gmail.com are
+Patches currently in -mm which might be from zcgao@amazon.com are
 
 
