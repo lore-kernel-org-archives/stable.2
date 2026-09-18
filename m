@@ -1,105 +1,179 @@
-Received: from desiato.infradead.org (desiato.infradead.org [90.155.92.199])
+Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 88BED49D59B;
-	Fri, 18 Sep 2026 10:33:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=90.155.92.199
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 31F444A49B2;
+	Fri, 18 Sep 2026 10:34:18 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789727603; cv=none; b=qv/iso1WJAVeIgTq2NZHCEKAgkw/GVxbw0UQHglSGnWV6dD4TMinhi36b4MQKHorqbyBLaBjNtaRDFbfwvNxCRexuhdj7QHSgZq9VjMWA+Em+HcnZx+VAba9ow+sGny59c42FAQ0D0gBqlMgcMQupqs4GM2avxBS7iwdhDZtgrc=
+	t=1789727664; cv=none; b=BIjG1tZZCKN6w1X0FaJlpTdtCNdM4KlQHQOxsZsHjbEDjG+SaRSPPMLMSIg40KIjTRbgXMqmVPlWfIhlH/yktvcxzOskPX5GUdDpZfuf7U9X7Ye9nBiEqaVhiLaN4Geg0tzpKHtDLXkEEPGyoZGaZ9v+FlR2BA27jO8ECAkbeA4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789727603; c=relaxed/simple;
-	bh=Pp8+qYV14aM+8W8YxzWRx95w9FPTwKpIBNo9Up4J1BQ=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=JgJXDdfOX275Zi4O9QHJuiYg8A++iJwYK18wfNvL9kOv/F+Jx8w11UE2SEsQ1YTo2Go4AZHLN27or0vNObAlNjvtVXf+tN/JS7UZP/8J5Cp6N4K/kNBDWiLHCdd/zXQy5uN6Et9FfY3T2xlMO7Hqg8VdEiFlLZqSwwsLC8FzQrI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org; spf=pass smtp.mailfrom=infradead.org; dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b=UnSOAEVN; arc=none smtp.client-ip=90.155.92.199
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=infradead.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=infradead.org
+	s=arc-20240116; t=1789727664; c=relaxed/simple;
+	bh=u6XsNCelDRkK9eb5s39wI4hiOut0FxwgdIFI24z4NgI=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=kfxdC3dALcp+n0qaMhxWFMmzVuq9BkrgauUy1/pllXx3oAkpjq7iDvhV4uhPrfUYKtC6ojSfEb36cWfLH+hURzUTjYd+gIbQF7XuaLJ01X0cUk+AHcugYNlQzIMeJ5oV/2iRcXIxJgJsmZDNaVWCJ6hPyMp4hp8/EP+Nd7z7e8M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=Mdj+wLod; arc=none smtp.client-ip=220.197.31.8
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=infradead.org header.i=@infradead.org header.b="UnSOAEVN"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=infradead.org; s=desiato.20200630; h=In-Reply-To:Content-Type:MIME-Version:
-	References:Message-ID:Subject:Cc:To:From:Date:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=Hg7QkNef5zMThE+MRw8udQqkGZAjpML9pXHh4uxv5K8=; b=UnSOAEVNKYj/W3EgeF6N+/mXS/
-	sTndR9zyc6HFJY+aOzLsorEmd/dUtVp4iaVerhqfpAZGewFUgvV8FCOelcRLyw+Ti8HHUYO0RLTTC
-	okWxf1cF972zBGB/x97EtpSA0w7JdHX4omJjiJcsyIDfSneZdPSJ/T7lUQSPauWJ829E/mo3slvh7
-	AVvOf2gGlp4/8L8VXyimdliN3zf++rvpabQJTiBop+lIfaEQ6b9qIWJcThLgfalyCyiMAgKRJzv96
-	Uh7ZkU29r22Efp9HmRKN3orQ+m4Ov1hR85gsH6hSTuXqDUKvKP5TUc/3VeAuil+j6tj42heWdIAGL
-	1wv4mqfQ==;
-Received: from 77-249-17-252.cable.dynamic.v4.ziggo.nl ([77.249.17.252] helo=noisy.programming.kicks-ass.net)
-	by desiato.infradead.org with esmtpsa (Exim 4.99.2 #2 (Red Hat Linux))
-	id 1x7Vtx-00000009w0D-3SuZ;
-	Fri, 18 Sep 2026 10:33:06 +0000
-Received: by noisy.programming.kicks-ass.net (Postfix, from userid 1000)
-	id 377FB30057F; Fri, 18 Sep 2026 12:33:04 +0200 (CEST)
-Date: Fri, 18 Sep 2026 12:33:04 +0200
-From: Peter Zijlstra <peterz@infradead.org>
-To: "H. Peter Anvin" <hpa@zytor.com>
-Cc: Matthew Schwartz <matthew.schwartz@linux.dev>, Xin Li <xin@zytor.com>,
-	Andy Lutomirski <luto@kernel.org>,
-	Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
-	Borislav Petkov <bp@alien8.de>,
-	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
-	linux-kernel@vger.kernel.org, linux-kselftest@vger.kernel.org,
-	Paul Gofman <pgofman@codeweavers.com>,
-	Lionel Landwerlin <lionel.g.landwerlin@intel.com>,
-	Shuah Khan <shuah@kernel.org>, stable@vger.kernel.org
-Subject: Re: [PATCH 1/2] x86/fred: Reconstruct the #GP context for rejected
- INT instructions
-Message-ID: <20260918103304.GK776954@noisy.programming.kicks-ass.net>
-References: <20260917230907.2080792-1-matthew.schwartz@linux.dev>
- <20260917230907.2080792-2-matthew.schwartz@linux.dev>
- <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
+	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="Mdj+wLod"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=o+oZnGlHZIGMyCuHE5hh6qyYk862NKFKTYCCieZ2ADg=;
+	b=Mdj+wLodmw30hc3o+5LCnBT1zwxAS4bhZq8B3ESj2ef5vZ9UbKE+ggW/FtnHtv
+	VY8pQMpDfaMEhTDPVPrhX/3c6bRL5gZV8PhXP7Q/MIhO2xRJgSiYWVW4zUP+YC9V
+	ox9SWy9QePhHw3+e86s3IcRL6vkJiKfVP0qdHLF0JTQR4=
+Message-ID: <62d9f679-68dd-45bc-9754-9e0ae931d2af@126.com>
+Date: Fri, 18 Sep 2026 18:32:53 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <6141901e-b7a2-4b8e-bf77-eca4a40644e7@zytor.com>
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH net] net: stmmac: do not cache the new TSO MSS before it
+ reaches the DMA
+To: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
+ davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+ pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
+ netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+ Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
+References: <20260917124234.1348673-1-xiaolinkui@126.com>
+ <aqwlUWN3rAXfcaWr@lore-qca>
+Content-Language: en-US
+From: Linkui Xiao <xiaolinkui@126.com>
+In-Reply-To: <aqwlUWN3rAXfcaWr@lore-qca>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-CM-TRANSID:_____wDnNx9WE61q7PYEBg--.785S2
+X-Coremail-Antispam: 1Uf129KBjvJXoWxXr1DGFW7ZFWkZry5Ww15Jwb_yoWrKFy8pF
+	WUAa90y395Jr4fZw4kCw40qa4rJay3tF4Yyw18Kr9xCw43tr9Ygry3KrW5Wa4Uur95Zr1S
+	ka1qka47CF4DZrDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UZZ2-UUUUU=
+X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqBfftmqtE1ckogAA3T
 
-On Thu, Sep 17, 2026 at 05:07:45PM -0700, H. Peter Anvin wrote:
-> On 2026-09-17 16:09, Matthew Schwartz wrote:
-> > FRED event delivery does not use the IDT, so the gate DPL check that
-> > rejects a user INT n falls to software (Intel FRED specification [1],
-> > section 8.3). fred_intx() rejects the same vectors as IDT delivery, but
-> > reports a zero error code and the IP after the INT. This breaks the
-> > signal ABI. Wine uses the error code to recognize INT 0x2d, so the
-> > changed context turns a handled breakpoint into an access violation in
-> > Elden Ring.
-> > 
-> > Rewind IP using the instruction length in the augmented SS and
-> > synthesize the IDT selector error code, (vector << 3) | 2. Set RF in the
-> > saved flags, as the CPU does for a #GP fault. Section 5.2.1 defines the
-> > saved vector, instruction length and RF state. The supplied length
-> > handles prefixes without reading user memory. Limit the changes to
-> > already-rejected software interrupts, preserving the accepted INT3, INT4
-> > and enabled INT80 paths and hardware exceptions. With IA32 emulation
-> > disabled, INT 0x80 now reports the same #GP as the DPL 0 gate IDT
-> > installs there. The rewound IP also stops fixup_iopl_exception() from
-> > inspecting the byte after the INT.
-> > 
-> > Also clear the software event flag. Section 6.2.3 specifies that ERETU
-> > with this flag and TF set traps before executing any user instruction. A
-> > tracer that suppresses SIGSEGV and resumes with TF set expects the next
-> > instruction to run first, as after IRET. The sigreturn path clears the
-> > same flag for this reason in prevent_single_step_upon_eretu().
-> > 
-> > [1] Intel Flexible Return and Event Delivery (FRED) Specification,
-> > revision 9.0 (346446-009US), sections 5.2.1, 6.2.3 and 8.3.
-> > 
-> > Fixes: 14619d912b65 ("x86/fred: FRED entry/exit and dispatch code")
-> > Reported-by: Paul Gofman <pgofman@codeweavers.com>
-> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/15745
-> > Closes: https://gitlab.freedesktop.org/mesa/mesa/-/work_items/16132
-> > Signed-off-by: Matthew Schwartz <matthew.schwartz@linux.dev>
-> > Link: https://cdrdv2.intel.com/v1/dl/getContent/678938 # [1]
-> 
-> Reviewed-by: H. Peter Anvin <hpa@zytor.com>
-> 
-> This really should go into -stable.
+Hi Lorenzo,
 
-It has a Fixes tag, afaik they really good at picking those up. Let me
-go queue them in x86/urgent.
+thanks for the review.
+
+On 2026/9/18 01:37, Lorenzo Bianconi wrote:
+>> From: Linkui Xiao <xiaolinkui@kylinos.cn>
+>>
+>> stmmac_tso_xmit() fills the MSS context descriptor and stores the new
+>> MSS in tx_q->mss right away, but the descriptor only gets its OWN bit
+>> much later, right before the frame is handed to the DMA. Every error
+>> path in between - the dma_map_single() of the linear part and the
+>> skb_frag_dma_map() of each fragment - returns with tx_q->mss already
+>> updated while the MAC is still programmed with the previous MSS; the
+>> abandoned context descriptor is later reclaimed by stmmac_tx_clean().
+>>
+>> The next skb carrying the same MSS then compares equal to the cached
+>> value, so no context descriptor is emitted and the hardware segments
+>> the TCP stream with a stale MSS, generating frames whose payload size
+>> does not match what the stack accounted for.
+>>
+>> Only update tx_q->mss once the context descriptor has been given to the
+>> DMA so that the cached value always describes what the hardware is
+>> actually programmed with.
+>>
+>> Fixes: f748be531d70 ("stmmac: support new GMAC4")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+>> ---
+>>   drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 2 +-
+>>   1 file changed, 1 insertion(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> index af2d38a2bb3d..a8f94cd6abb4 100644
+>> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+>> @@ -4563,7 +4563,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>>   			mss_desc = &tx_q->dma_tx[tx_q->cur_tx];
+>>   
+>>   		stmmac_set_mss(priv, mss_desc, mss);
+>> -		tx_q->mss = mss;
+>>   		tx_q->cur_tx = STMMAC_NEXT_ENTRY(tx_q->cur_tx,
+>>   						priv->dma_conf.dma_tx_size);
+>>   		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
+>> @@ -4714,6 +4713,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *skb, struct net_device *dev)
+>>   		 */
+>>   		dma_wmb();
+>>   		stmmac_set_tx_owner(priv, mss_desc);
+>> +		tx_q->mss = mss;
+> 
+> I think the issue is real. A couple of comments:
+> - do you think we should run stmmac_release_tx_desc() on mss descritpr in order
+>    to clean it up?
+> - I guess we should use the same approach used for data descriptor and advance
+>    tx_q->cur_tx when there are no other possible error condition. What do you
+>    think?
+
+I started from your second suggestion, because that is the one that 
+makes the
+error handling consistent: tx_q->cur_tx is no longer advanced while the
+context descriptor is being filled, it moves past it together with the data
+descriptors, exactly like stmmac_xmit() does. On failure the ring index is
+therefore still where it was and there is nothing to unwind.
+
+That in turn makes your first suggestion mandatory rather than optional.
+stmmac_tx_clean() walks the ring until it reaches tx_q->cur_tx, and the
+context descriptor now sits exactly at the slot cur_tx points to, so the
+cleaner cannot reach it and a descriptor tagged with CTXT|TCMSSV would stay
+in the ring until the slot is reused. The error paths release it explicitly
+instead, using the same helper the cleaner uses for descriptors. OWN is 
+never
+granted on that descriptor on these paths, so zeroing des0-des3 cannot race
+with the DMA engine.
+
+Concretely, v2:
+
+  - keeps tx_q->cur_tx untouched while the context descriptor is filled 
+and lets
+    it advance together with the data descriptors;
+
+  - moves first_entry past the context slot, so the error_dma_unmap 
+unwind loop
+    does not call stmmac_free_tx_buffer() on a slot that has no skb 
+attached, and
+    is_last_segment = CIRC_CNT(tx_q->cur_tx, first_entry, ...) == 1 
+keeps the
+    correct value for single descriptor frames;
+
+  - updates tx_q->mss only after stmmac_set_tx_owner(mss_desc);
+
+  - releases the context descriptor at the common "error:" label, which 
+covers
+    both the dma_map_single() of the linear part and the 
+skb_frag_dma_map() of
+    every fragment.
+
+Nothing else changes. first_tx is sampled before the context descriptor is
+allocated, so the tx_packets accounting used by the coalescing logic is
+unaffected, and stmmac_tso_get_num_desc() already counts the context 
+descriptor,
+so the stmmac_tx_avail() check is unchanged as well. The
+WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]) that followed the old cur_tx 
+update is
+dropped: it checked the first data slot, which the WARN_ON on
+tx_q->tx_skbuff[entry] right after the first_entry assignment already 
+covers.
+
+v2 follows in a moment.
+
+Regards,
+Linkui
+
+> 
+> Regards,
+> Lorenzo
+> 
+>>   	}
+>>   
+>>   	if (netif_msg_pktdata(priv)) {
+>> -- 
+>> 2.25.1
+>>
+>>
+
