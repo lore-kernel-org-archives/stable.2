@@ -1,135 +1,162 @@
-Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DA36175A74
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 23:43:43 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B015744E041
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 23:46:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789775026; cv=none; b=IqJaCLF93/D7MoN29E7YVxbEY5E8uFd1Jl62FutUXez13f4+4sXhRSyDkJpwpagiKJ4l7ozowsvvCJ0CanwFsqWQoLCma9Q9zE4b1+z/M7mdImlCkDNlRdTTQqN0UXEEbEjH9Nt8EYx6KD/cVclIoz9TcekpfYXtg6jBPkSiHss=
+	t=1789775202; cv=none; b=alb/otX56DHwmspIz12Dm7cX8j2ejJwjbPbtL+mBuHFnAdKUWGuoIy8DSxBEJPmeDXSDm/pCmk02J/t+zze4KA+l8iJgxInYUydOomoNorQgixDI+6MjBkvXzbYyp5l+vJ/lIHgoywxtmSrJ3HCmzQdwFtVEHSr5OdRNB1YUBSQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789775026; c=relaxed/simple;
-	bh=yVjbgC4CMiNqZuadtlsece2kkWi9WaJOKCsG9Uk68RI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=iwXv8ztAy+Wgnp0yrw2ZBmvGbCW1F2ND8NNejUhZSS6/1cmCviQ3BodaGeDVTWFGQuisKotZGOvzScS8Tfc/bjzt2j9CwLe5YwoxZyDebZnfklQI6BBlMPZy8Ssm8KWXXkv5FVyPBIjouFdvruX9prP2SG2qBRT7ea9P0mES2bs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NZXMSHp8; arc=none smtp.client-ip=74.125.225.76
+	s=arc-20240116; t=1789775202; c=relaxed/simple;
+	bh=WITBwmjQ6YgkJFK36iLqV9GnsUYX+fX/wU9MGqkhguA=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=V8r2IVlhQNU3jmNu4SdcKFDES2ldKd2xo3fLW8Bpb9eLCFEZSaI0ZHj7a4UQGGIm8iGNZ+Ws4aU5FmpsYW5lwwTtmDMQlr81rALUwtqQ+cJb8YZAkW63FJFJqvSBtBQ9JklTpU3jBqUdxMAyXZZbb8Pk5x6J87FtvygWbdcME9c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=bZjP7GYQ; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NZXMSHp8"
-Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-482f62ccdb1so442261f8f.1
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 16:43:43 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="bZjP7GYQ"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e71974de4so578115e9.1
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 16:46:39 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789775022; x=1790379822; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=jgKahnX9yPSvT7KZdkfKMgtKpfOFWThRfybvZ/wWJSo=;
-        b=NZXMSHp84YGtCFRmJFYCDqhkKxUslBDetCa5tIf4XG7TQ+1B1QCvp58Y3Iu5+1lS91
-         PYbPMj2w9WdusSxKYF4dWX0ZGBrlhBbpdkQXIQm3zYT0n4y3vmCQ3Bsrh0wkMGoS1lxg
-         m/exOdYTgivaMXMi8deGo+R+gYRTNRxRm77HwacrLOwGwXEhaNvipqYGb6pecKlUXMWA
-         HTkldxvBnQCelRpMxive7gCjNpN63ECWIgDiaAtoKweKizKXL/O6aLWBmH+e7q59bTVb
-         fkexvAMpQeUjW7sVen5rvgHRlO9XN82cnK3K0qKLbKVVEjeNa0B3uNMrnY6JOjaGn/6Y
-         +/uw==
+        d=gmail.com; s=20251104; t=1789775197; x=1790379997; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=XhFK29n+MC5nuBbvPBOhbnlgDf/9/2f5NLz1t43GcV4=;
+        b=bZjP7GYQ9TRybeVTShJpqereBP0iHRakc7kvmuS1vXRyw6uovMvdpDUqjoLZh7HMUA
+         TZL/hyFCFpipRJZAMVzzy+ICXEv6QmpYYETgGDpl9ud1V8Uir5OVYBBrPq9WWjOQ2oPD
+         H62E05W8TysdgjxwWApKJ1XeO1OaPxw/s3CEYzq09/e8wXf8VbZaLZgvGr/iaeQl8tLA
+         4u4b57ZSmmdNFvAnDVCWdMTyMdWMkQFDoGkMOshVUhoIYQ2ftEC+Uqqy67QYv73wcP/l
+         q0ImsaF4MT1P0qWDsDDCQrLcyr3JAfS17b758d8LDpBFDJ4/7ZjbVcsNIGgcMNND/krZ
+         Rk6g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789775022; x=1790379822;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=1e100.net; s=20260707; t=1789775197; x=1790379997;
+        h=content-transfer-encoding:content-type:in-reply-to:autocrypt:from
+         :content-language:references:cc:to:subject:user-agent:mime-version
+         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=jgKahnX9yPSvT7KZdkfKMgtKpfOFWThRfybvZ/wWJSo=;
-        b=IGV9nynLRxsZVPdqVd+k9OlgGBnpf/8pOERXiHbJ5EIBOUhBhaGz69zPMtUKY62y1h
-         tqlqwomTKgMha72nYiD04LBF7V84PpExAs4uUsCMeQjyk9LLCtv3UJI7vJGtjkJO3152
-         bVpOQLZyiNaCK2I97eYXvbvCtqmBpZq8Kx85XzrrgyDFtrFL9+u5CvPsinDjiqMN5iIi
-         HMyctrVakUKTjTKsSfS+Q5wHA1ZHSaYSdyDbfXnJb0CexP0H7wYqvw5WFNhe7mpSlAKc
-         tshMv3oN3aiAgPz8hc8eW8Z6GwaO6y7yuIPOQePsemOEWnESUYc57LtlU57vp/1EXJtI
-         OdVQ==
-X-Forwarded-Encrypted: i=1; AKwUvBwX9cZS6P/rjHOxmbHge+goQMnJ2dO7OBFlFUSNQbKwrBNDBG7/LaYkxVPfx3wHf5O/uiaFDKY=@vger.kernel.org
-X-Gm-Message-State: AFuF++nx24joyzBGDjIxIae5hKNqAmz+gmwqkn5MfqqfHfMLOtEg8eqS
-	umYJ41yq2zKyItssCs3YK/ZZgzvyQVxJInAQtwJFxIHCKDjG3UmWQMvs
-X-Gm-Gg: AYBFou0fHUmHlfQkHaUncs5IaEJl4Od6nvWqs8h6KvWb7J3Ul/rnpRNklYjDQ2/8+NS
-	FcJRbUx8EJGLQy5WyZjMRwFQPi538Ibtx8HsT13Dljl9Nh2wM18jPMitZkPYZ3ZLOICdwUiIwgh
-	EE3MKjLXCBXXHK2D4oqY0Bu6XenmZQ5lUqt61WGgJ+zkkydzbNykgZqLDq51im0rlkrCMKV7EUk
-	q9XCU5lJb65PI4qjKOn5ft7VFmeUYEvUhKta5OPj2dhrcr00mXKx8FgDemfUzQJTfYHyPNCmznS
-	nNmHTwtolKVcm2CrfY2CODrUthPwvlLX83udz/XQ19Vwx5UDJ4FE7Lx6thH29fLJC/GnOPypIHQ
-	PiHPgCwfIZsOEEvGpcfFPhfnjKfVK2b5ouhQCkZjPVAIqnXdFtW79mWbL2EMEQZlDSHluoJr/vT
-	e3905UY0U7cv/FsJiiioGe2kTR1AHKZJT/hNhtgBm5uxJvIRF1yToweH8m9ZGHu2t1JlMPqUyOT
-	XRuqxpkbH/3PJRN+OtGMg8o3ARbmhxZlQXi1gWYoNsrvwnDmy/hPnOAti4oO5RdPN0=
-X-Received: by 2002:a05:6000:2688:b0:487:146f:7c88 with SMTP id ffacd0b85a97d-4871d98cdcfmr6375274f8f.4.1789775021601;
-        Fri, 18 Sep 2026 16:43:41 -0700 (PDT)
-Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487243cede9sm2482874f8f.0.2026.09.18.16.43.40
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 16:43:41 -0700 (PDT)
-From: Palla Raghunath <raghunathpalla.0209@gmail.com>
-To: Alasdair Kergon <agk@redhat.com>,
-	Mike Snitzer <snitzer@kernel.org>,
-	Mikulas Patocka <mpatocka@redhat.com>
-Cc: Benjamin Marzinski <bmarzins@redhat.com>,
-	Milan Broz <mbroz@redhat.com>,
-	dm-devel@lists.linux.dev,
-	Shuah Khan <shuah@kernel.org>,
-	Brigham Campbell <me@brighamcampbell.com>,
-	linux-kernel@vger.kernel.org,
-	linux-kernel-mentees@lists.linux.dev,
-	raghunathpalla.0209@gmail.com,
-	syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com,
-	stable@vger.kernel.org
-Subject: [PATCH] dm ioctl: don't let data_start run past the buffer
-Date: Sat, 19 Sep 2026 00:43:39 +0100
-Message-Id: <20260918234339.54105-1-raghunathpalla.0209@gmail.com>
-X-Mailer: git-send-email 2.34.1
+        bh=XhFK29n+MC5nuBbvPBOhbnlgDf/9/2f5NLz1t43GcV4=;
+        b=zq2nkF7A3dON1vODLK91clWFNWIBEPuU7EbYkDNrDhkxlwi0bgocvaP07l0wZey4Ib
+         7kddRxWKPei3X2pYfumw8glD50OieOozjaQVOhYnTH2l+YZY4nG2+gb3FnUJgnMT2f9s
+         LfbVzBzPC3+g7qRfZwkODhJ1zjVZJDhO0BK9b57pm+k/ua5s7sdFDqUzyNfQYpARp6Z1
+         RoTpaBNT1GXmUPLbHE42iL6fXV5tBHVS5wWN882pWDZovh6TgrcclBeu3Tj3yP4NDXhJ
+         1rGMX0n6sWg+Z264ovnj1CRj5lTx1jx9yVoCvRrIKhCc3Nu4/nlMTXzhywyYyQtZpmCU
+         7HMg==
+X-Forwarded-Encrypted: i=1; AKwUvBwhWlUg/3HWN+aeV2GeKCdNmi0xuABKMZ4nyiD1LdbKlckEk3dv/hZ+etHMhr2V+G6wSDoOovI=@vger.kernel.org
+X-Gm-Message-State: AFuF++kF/aReOVt6VYZAfRV1rG2Hhqz5WnlYXVcCAAoUra0U2tNIhJ7K
+	aqnDRv4pUlSQLhT1e49kqNtNe1TYfOsQD8SLUPhWYru881RAjBOtRTrp
+X-Gm-Gg: AYBFou2tN6HdGqBVMIVLYRUnUQdpt0uMXH/urRaQ40Ed7znOS81B11F+kzkyMmZqvUR
+	nGp9cWLm7Bnl+MtiKis2NOgn9xl8u/wRgcF0ydRR1110JaE8N9tjly2ga/Mpkiwtza20tVjwvvw
+	kffeRwBybTjycvQsdxldqzibaP6YfOe2p3J37d+YFNsUflUlDK1IVpz+YtjYhmIzfse8azDzoiv
+	Z8xtT3xHkBU9PSSSuoxqIm5gd4ZH/xGwBtNMLiz4OhBRqVxPWtY2c9uRNgortl+AirPHAdIlQFC
+	civB8OUY+4i4c3VKtrHS1HBMvgPgUFuvC/1TBzyFrY2hHjJmrA0h5O0dQUIOhcct3KOHKw+otMa
+	4y0J1fx4lwZ8f5O0VwYQHQ+jvnR8Ubyv3IGT57y46lY7FVYI9oLVrGrwh3F3hGIDyNfc2zs6/ia
+	IHPNpoSQ5cTiZ7wuDYGOJK8hINFz4ASwwPrpC02wmIwAmPRT2HGROg0ZxjsX/CePMBdXKExKvoZ
+	HPMXwQ2YxoP1LXz43/Bh1YZbQgYlcnF3NHYyQwXcl9Dv1w7b6pH1CeJOQBtd51o5Wd2d8xuPDtE
+	Rve07zQNhgmFXEKbiSz9bZtF3e1abJ7jEvxButTOrNrE4n6hyk+PbN/l16LKGlbSAV3pOOfiVBl
+	W1Deiouy7lwbrgh+j+w==
+X-Received: by 2002:a05:600c:1d1b:b0:49e:7cc6:ec88 with SMTP id 5b1f17b1804b1-49fc7e00555mr43611665e9.1.1789775197074;
+        Fri, 18 Sep 2026 16:46:37 -0700 (PDT)
+Received: from ?IPV6:2a02:3100:59ae:19fc:400:b6b0:efdd:810c? (dynamic-2a02-3100-59ae-19fc-0400-b6b0-efdd-810c.310.pool.telefonica.de. [2a02:3100:59ae:19fc:400:b6b0:efdd:810c])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd0f8563sm32070215e9.6.2026.09.18.16.46.35
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Fri, 18 Sep 2026 16:46:35 -0700 (PDT)
+Message-ID: <7c09a44a-19d9-43f5-a852-12f5b6579641@gmail.com>
+Date: Sat, 19 Sep 2026 01:46:34 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 1/4] net: hsr: fix packet drops caused by GRO superpackets
+To: Jakub Kicinski <kuba@kernel.org>
+Cc: netdev@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, davem@davemloft.net, edumazet@google.com,
+ pabeni@redhat.com, horms@kernel.org, andrew+netdev@lunn.ch,
+ shuah@kernel.org, kees@kernel.org, petr.wozniak@gmail.com,
+ qingfang.deng@linux.dev, fmaurer@redhat.com, luka.gejak@linux.dev,
+ bigeasy@linutronix.de, xiaoliang.yang_1@nxp.com, skhawaja@google.com,
+ liuhangbin@gmail.com, stable@vger.kernel.org, sdf.kernel@gmail.com
+References: <20260809121455.1745-1-xiexinet@gmail.com>
+ <20260809121455.1745-2-xiexinet@gmail.com>
+ <20260813182111.088aee3d@kernel.org>
+Content-Language: en-GB
+From: Xin Xie <xiexinet@gmail.com>
+Autocrypt: addr=xiexinet@gmail.com; keydata=
+ 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
+ sNySbH3veZ/55EtlXA==
+In-Reply-To: <20260813182111.088aee3d@kernel.org>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-struct dm_ioctl has seven bytes of trailing padding, so the smallest
-buffer userspace is allowed to ask for, offsetof(struct dm_ioctl, data),
-is seven bytes shorter than sizeof(struct dm_ioctl).
+On 14/08/2026 03:21, Jakub Kicinski wrote:
+> 1) could you explain in more detail why GRO is breaking things?
+> GRO shouldn't merge packets with different L2/L2.5 and packets
+> with trailers?
+The reproducer is plain SAN traffic entering a PRP RedBox's
+interlink: matching Ethernet headers, no RCT yet, so GRO can merge it.
+PRP then appends one RCT to the aggregate, using its length for
+LSDU_size and assigning one sequence number. If the aggregate LSDU
+exceeds 4095, the 12-bit field truncates it. Later TCP segmentation
+cannot generate per-segment RCTs. An aggregate left unsegmented may
+instead be dropped for exceeding the lower device's frame-size limit.
+Our wire captures showed segments without RCTs and duplicate delivery
+through the two LANs.Disabling interlink GRO raised single-stream TCP 
+throughput from 27-37 Mbit/s to about 94 Mbit/s on the 100 Mbit/s rig.
 
-get_result_buffer() sets data_start to sizeof(struct dm_ioctl) without
-looking at how big the buffer actually is. Ask for the minimum and
-data_start ends up seven bytes past the end. Callers add it to
-data_size, and ctl_ioctl() copies that much back to userspace:
-
-  BUG: KASAN: slab-out-of-bounds in _copy_to_user+0xad/0xd0
-  Read of size 312 at addr ffff8880169e4c00 by task repro-dm/140
-   ctl_ioctl+0x5e3/0xcb0
-   dm_ctl_ioctl+0x25/0x40
-  allocated 305-byte region [ffff8880169e4c00, ffff8880169e4d31)
-
-A DM_LIST_DEVICES with data_size set to 305 is enough to hit it, and the
-seven bytes that leak are whatever sat next to the allocation.
-
-Clamp data_start to the buffer size.
-
-Reported-by: syzbot+48d935cf48a4a76be346@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=48d935cf48a4a76be346
-Fixes: 76c072b48e39 ("dm ioctl: move compat code")
-Cc: stable@vger.kernel.org
-Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
----
- drivers/md/dm-ioctl.c | 7 +++++++
- 1 file changed, 7 insertions(+)
-
-diff --git a/drivers/md/dm-ioctl.c b/drivers/md/dm-ioctl.c
-index a6b8e97755cd..211569dd3c54 100644
---- a/drivers/md/dm-ioctl.c
-+++ b/drivers/md/dm-ioctl.c
-@@ -656,6 +656,13 @@ static void *get_result_buffer(struct dm_ioctl *param, size_t param_size,
- {
- 	param->data_start = align_ptr(param + 1) - (void *) param;
+> 2) the code seems inspired by LRO but LRO also has
+> NETIF_F_UPPER_DISABLES. This change looks rather incomplete.
+> Calling it "best effort" seems like an excuse.
+NETIF_F_UPPER_DISABLES prevents a lower's ethtool request from
+overriding an upper's LRO-off policy. GRO is outside that mask and
+remains changeable; extending the global mask would affect other
+stacked devices too. Patch 1 sets the GRO-off default, while patch 3
+segments plain, trailer-free aggregates before tagging, including
+when GRO is re-enabled or GSO arrives directly. GRO_HW can also be
+fixed on, so feature disabling alone cannot exclude all aggregates;
+device-specific hardware-coalesced formats remain outside v6's
+segmentation guarantee. I should have explained this distinction
+from LRO explicitly.
  
-+	/*
-+	 * The buffer can be as small as offsetof(*param, data), which is
-+	 * less than sizeof(*param), so don't run off the end of it.
-+	 */
-+	if (param->data_start > param_size)
-+		param->data_start = param_size;
-+
- 	if (param->data_start < param_size)
- 		*len = param_size - param->data_start;
- 	else
--- 
-2.34.1
+> 3) Clashiko has a number of other comments:
+> https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260809121455.1745-1-xiexinet@gmail.com
+I have retrieved both v6 AI reviews and will address each comment
+with a fix or technical explanation before posting another revision.
 
+-- 
+Xin
