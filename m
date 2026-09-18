@@ -1,194 +1,103 @@
-Received: from smtpbgeu1.qq.com (smtpbgeu1.qq.com [52.59.177.22])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-92.mta0.migadu.com [91.218.175.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B7D13BFE33;
-	Fri, 18 Sep 2026 02:54:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=52.59.177.22
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0C3F61C2AA
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 02:56:29 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789700076; cv=none; b=Obmocx6mClQa+hRB3Q+fEIpPDBzDb89TcFkbUl6RCxaWezXnlN42cM/bg5FVI5xHNY4OuHUPb5ZRlMY4QqdCxiiQwYwsRtNf0ClJQ1/WdsG9BskagCNpujPOd/djYb+4a+VG00Y8N8KVrKU5K2IMcMqxcCvOSsjDjQ3wSuOdGWA=
+	t=1789700193; cv=none; b=hVs9xN9jWmjTMRyBYPjmPgr9zvFfOLkYQvEd996q+KqVVCqKe6fiVBaBeA1F/7T47msfCrcF8QyOnbRlsoKf1PoI/2mPf+ZHfzQcoMEItVZAq3vOKEuLLRutL/BSgXaZtTrhNH8KXA1n9oWHJhDEQNxGa7fzXXpZZ/cggxpS1AQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789700076; c=relaxed/simple;
-	bh=9QxRyDdG8aZRlEDR8VSb3fn44o1LRBGrhLBxQ0Jbwgk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=q7HdJMOFs7Ld2Qw/sbQtFD5LJP362xMV19xPGmj0nEgivl0hcLVxxDJkYivApuO359ZnT+hDy8saE4tqW4T8a0lNTASFGHPvnPzYkANr/PHHy0p1raoJgwL9qa/pfbnvGR14xc+hwaD4UN93UGgvJ60CrT21vbqmJQnE6QAfR9U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn; spf=pass smtp.mailfrom=smail.nju.edu.cn; dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b=o74alXKo; arc=none smtp.client-ip=52.59.177.22
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=smail.nju.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=smail.nju.edu.cn
+	s=arc-20240116; t=1789700193; c=relaxed/simple;
+	bh=6olkN3MFF993IEc0YK161XKRjhyK4yyClEXXjugfK5U=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=HG3nH49F7FJJ/8tSKqBU+3csthMLdhLznerbTpCbbwVqHozK+uWVTkLNCIxhIr0RUsFXu74zl3ii+z3jgWZaVfUo9ShEcPP/OpnaOd3+GOp1CT5EthPlByeaBN/3K3L0wKmsvjlvokGWXOay6/ujvKO3yGDzbd/PVQ7lR9qdOuo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=ghvlcicp; arc=none smtp.client-ip=91.218.175.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=smail.nju.edu.cn header.i=@smail.nju.edu.cn header.b="o74alXKo"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=smail.nju.edu.cn;
-	s=iohv2404; t=1789700025;
-	bh=nvNhm30bTkmpK3DlDj1rjF67y0Iph2DAMagdKkZjH7E=;
-	h=From:To:Subject:Date:Message-ID:MIME-Version;
-	b=o74alXKoJqH9H+cVUyE6hodMGIIczClWt7Z9AiDMlkzbmlCHJjNi+Xbb+VvvLwe2M
-	 21kuUIu5kOM16JdMsrLx60iSudvhWvFohkil2K/zGPzL/z4kp4KMtfLt6190AigbLc
-	 9mSg4zXuRsJCg6DjPBlI7H2W/P/5x271t4IKwe/w=
-X-QQ-mid: zesmtpsz7t1789700020t017278c2
-X-QQ-Originating-IP: SEBRYKhRUBS3UfK9etoK6JS/aqRVVuu1ncdaA015qI0=
-Received: from hepeiyang-vm.wu.lxd ( [114.212.83.113])
-	by bizesmtp.qq.com (ESMTP) with 
-	id ; Fri, 18 Sep 2026 10:53:38 +0800 (CST)
-X-QQ-SSF: 0000000000000000000000000000000
-X-QQ-GoodBg: 0
-X-BIZMAIL-ID: 15087163559953025601
-EX-QQ-RecipientCnt: 7
-From: Peiyang He <peiyang_he@smail.nju.edu.cn>
-To: lyude@redhat.com,
-	dakr@kernel.org,
-	dri-devel@lists.freedesktop.org,
-	nouveau@lists.freedesktop.org
-Cc: linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Peiyang He <peiyang_he@smail.nju.edu.cn>
-Subject: [PATCH v2] drm/nouveau: don't bump pin count on failed re-pin in nouveau_bo_pin_locked()
-Date: Fri, 18 Sep 2026 10:53:12 +0800
-Message-ID: <EACEF2F4E098413F+20260918025312.2814889-1-peiyang_he@smail.nju.edu.cn>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="ghvlcicp"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=6olkN3MFF993IEc0YK161XKRjhyK4yyClEXXjugfK5U=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789700186; v=1; x=1790304986;
+ b=ghvlcicpnL0xK6UZMXLU+bpHh++qH/SG3QP7UX0sOAowfd/zilH1uNGyvCPi+rV8DZkKdkZA
+ y5/wf+xDrwyf74CR0n3DqLWnjfqB69AmrJiykIryNfVuqB6d4xp/nu1V+JfGsnkvHvpG4FZnxZ6
+ gCC6BcNy0/JgouMC3TP+uNsk=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 97b504da42608a61;
+	Fri, 18 Sep 2026 02:56:26 +0000
+X-Mizu-Trace-ID: 97b504da42608a61
+X-Migadu-Flow: FLOW_OUT
+From: Hongfu Li <hongfu.li@linux.dev>
+Subject: [PATCH v2 0/2] mm/hugetlb_cgroup: move the per-node usage along
+ with the folio
+Date: Fri, 18 Sep 2026 10:56:09 +0800
+Message-Id: <20260918-for-hugetlb-charge-v2-0-2b6d8c2bdc36@kylinos.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-QQ-SENDSIZE: 520
-Feedback-ID: zesmtpsz:smail.nju.edu.cn:qybglogicsvrsz:qybglogicsvrsz4b-0
-X-QQ-XMAILINFO: NgaJKxROpQTjQ/vxQilMFXJhaxbLfLcdJkTqcNpOCBsOkeHlcnT2Z4uD
-	/q9OrKzhFLE34/PIAlpb/TUQdvrieOQbPHze+SvvhtPeOOGCmG06LnXzTabZJNNCLcgJWNm
-	anjlQn75a/PKde8M2eVqJqHHOceDycJZRC6hUJusx4nYY+LP0dXqdGDyyziXWJSOvnfArAb
-	nYMq84WS/MExcFRbljnUfEK7Qq3sOKkkoaGfEIThz6I+VXr5/lkeU4fyiwTVAGuc1NzRAfC
-	lW2yc2J3RBR+SKiptwR2nWkEqdAg/rH2Wh2pgnNS2vfYJlpCs2g0OcEI0AKkcYoGx/3mELX
-	ed4wldfwLlV7178bRamJS8JlA+9BD+HUPPRXRhMO8HhxkxFYzU/19poktQBVdNAiblhSd9G
-	mj/OeCdbb052Dyner60lDvdQQ28nYJy/YdnCBJjkDAdMML9MJM/9yIpEl7J2I2EuPZIv5QR
-	tV+D57agjMGtm1XignSBtRSTlHxhA02hlPN0fF69BFySCJwNh1tMzk3IHuF8LLLcNvK4k47
-	hXzyrpHXC+DI0kpzuGmWzUV0fSNyNpyuVcb2j9noxA6SoOvC4d+7nlskuf3d09Pv8sl5/30
-	MP693Dopb0iVIYZ5evCwGrWV28e7m3maTcmC1p87KJk8sL/66wgBpUAWRhCR/6xQmfeOno0
-	huEwINUbClP19DOK7qd/lRT81vatz2vFz5haR9oqeM1OS6dqa9glttlpHtZdGm6JFn0XzLx
-	xLbTt9c84+z1M4voVQJ4jTdb5rWEcJsmV3ieHZIroT2QmjQVV2PCqKXxnidr4RfwGHvMYO4
-	VjdkXK90TuaBQObfEkaK8NGG3qOvq0GBsoQxqPdnUqh1I3jKIxYT35PTzuTtZx+5KN9wd9/
-	Gp1Ae6Oz3aU/r5bSFrZnpLJ+MY/ntA0WfIsiQnoUumbYSBFSvjDY/634zutzWKI7dLJ5sWq
-	gWnqgiphl0STcF1lJaP8sSgt58HVykSHklGsBMqWrLb6scrjgKtBvGsg+xVSE46sxc9LYMy
-	/n1LenTwhVWLXdZhcAU1WM4Txe+zLK6IiRjLvhPJoiBgSBj+uxtJRKi+3lRxYZPkqjp5PTj
-	Q==
-X-QQ-XMRINFO: NS+P29fieYNwqS3WCnRCOn9D1NpZuCnCRA==
-X-QQ-RECHKSPAM: 0
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/22NwQ6CMBAFf4Xs2ZrSIKAn/8NwaMsWVklL2kIkh
+ H+3YLx5nGTemxUCesIAt2wFjzMFcjaBOGWge2k7ZNQmBsFFya/5hRnnWT91GAfFkuGTIbSRray
+ xLQqENBw9Gnofp4/my2FST9Rxf9qNnkJ0fjmqc757v0D5LzDnjLOKG1XxWgks5P21DGRdOGsLz
+ bZtH90sTlnHAAAA
+X-Change-ID: 20260915-for-hugetlb-charge-2cfada8ed44e
+To: Muchun Song <muchun.song@linux.dev>, Oscar Salvador <osalvador@suse.de>, 
+ David Hildenbrand <david@kernel.org>, 
+ Andrew Morton <akpm@linux-foundation.org>, Kees Cook <kees@kernel.org>, 
+ Colin Ian King <colin.i.king@gmail.com>, 
+ Shakeel Butt <shakeel.butt@linux.dev>, 
+ Mina Almasry <almasrymina@google.com>
+Cc: Mike Kravetz <mike.kravetz@oracle.com>, linux-mm@kvack.org, 
+ linux-kernel@vger.kernel.org, hongfu.li@linux.dev, 
+ Hongfu Li <lihongfu@kylinos.cn>, stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789700179; l=1456;
+ i=lihongfu@kylinos.cn; s=20260915; h=from:subject:message-id;
+ bh=6olkN3MFF993IEc0YK161XKRjhyK4yyClEXXjugfK5U=;
+ b=jQlOWteG7im1UP87y0ch6aWT5/7TKFYwrPyD+MFHD+aPffzfHC8yMSAYwnJ4hpniRNVsUb3yO
+ VD73DczGDh5B0oo1EvbsKypHa8PkjLPR7iMjM7nmjT0GMBLjPHoUESB
+X-Developer-Key: i=lihongfu@kylinos.cn; a=ed25519;
+ pk=rUpDSpB3neoNZRlGG6dHlFb3RepiJakcev+ucyqaZzw=
 
-nouveau_bo_pin_locked() checks whether an already pinned BO is in a
-memory domain compatible with a new pin request. When the domains are
-incompatible, it sets -EBUSY but still calls ttm_bo_pin() before
-returning.
+The per-node usage reported by hugetlb.<size>.numa_stat is accounted
+against folio_nid() in __hugetlb_cgroup_commit_charge() and
+__hugetlb_cgroup_uncharge_folio(), so it is only correct while a folio
+stays charged on the same node and in the same hugetlb_cgroup.
 
-Callers treat a failed nouveau_bo_pin() as not having acquired a new pin,
-so the extra pin count is never decreased by a matching unpin.
-This triggers the warning in ttm_bo_release():
+Two paths move a folio which stays charged, and neither moves the usage
+with it. hugetlb_cgroup_migrate() only moves the hugetlb_cgroup pointers
+of a folio migrated to another node, and hugetlb_cgroup_move_parent()
+only moves the page_counter charges and the hugetlb_cgroup pointer of
+the folios of a dying cgroup. In both cases the node (or cgroup) which
+was charged keeps a usage which never goes away, while the node
+(or cgroup) which ends up uncharging the folio underflows as soon as
+the folio is freed.
 
-	WARN_ON_ONCE(bo->pin_count);
+Patch 1/2 moves the usage along with the folio on cross node migration,
+patch 2/2 does the same for the folios a dying cgroup reparents.
 
-Found when fuzzing the nouveau driver with a modified Syzkaller:
-
-	WARNING: drivers/gpu/drm/ttm/ttm_bo.c:256 at ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256, CPU#1: syz.3.24/2212
-	Modules linked in:
-	CPU: 1 UID: 0 PID: 2212 Comm: syz.3.24 Not tainted 7.2.0 #24 PREEMPT(lazy)
-	nouveau 0000:01:00.0: gsp:msg fn:103 len:0x40/0x20 res:0x19 resp:0x19
-	Hardware name: QEMU Standard PC (Q35 + ICH9, 2009), BIOS 1.16.3-debian-1.16.3-2 04/01/2014
-	RIP: 0010:ttm_bo_release+0x827/0x9e0 drivers/gpu/drm/ttm/ttm_bo.c:256
-	Code: 02 00 0f 85 51 01 00 00 48 8b 7b 08 e8 d2 20 01 00 e9 80 fd ff ff e8 d8 15 c0 fe 90 0f 0b 90 e9 e1 f8 ff ff e8 ca 15 c0 fe 90 <0f> 0b 90 e9 a4 f8 ff ff e8 bc 15 c0 fe be 03 00 00 00 4c 89 e7 e8
-	msg: 00000000: 05 00 d0 c1 04 00 f0 f1 01 30 00 00 2d 90 00 00  .........0..-...
-	RSP: 0018:ffffc9000f5cf710 EFLAGS: 00010293
-	RAX: 0000000000000000 RBX: ffff888018e5d2a8 RCX: ffffffff82bb1b36
-	RDX: ffff888017b68000 RSI: 0000000000000004 RDI: ffff888018e5d2a8
-	msg: 00000010: 19 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
-	RBP: ffff88801261c720 R08: 0000000000000001 R09: ffffed10031cba55
-	R10: ffff888018e5d2ab R11: 00000000000000f3 R12: ffff888018e5d290
-	R13: ffff888018e5d2d4 R14: ffff88801b219c18 R15: dffffc0000000000
-	FS:  0000000000000000(0000) GS:ffff8880e0f6f000(0000) knlGS:0000000000000000
-	CS:  0010 DS: 0000 ES: 0000 CR0: 0000000080050033
-	CR2: 0000001b31223ffc CR3: 0000000028e00005 CR4: 0000000000770ef0
-	PKRU: 80000000
-	Call Trace:
-	<TASK>
-	kref_put include/linux/kref.h:65 [inline]
-	ttm_bo_put drivers/gpu/drm/ttm/ttm_bo.c:325 [inline]
-	ttm_bo_fini+0x55/0x80 drivers/gpu/drm/ttm/ttm_bo.c:330
-	nouveau_gem_object_del+0xb2/0x1b0 drivers/gpu/drm/nouveau/nouveau_gem.c:90
-	drm_gem_object_free+0x5f/0x90 drivers/gpu/drm/drm_gem.c:1165
-	kref_put include/linux/kref.h:65 [inline]
-	__drm_gem_object_put include/drm/drm_gem.h:562 [inline]
-	drm_gem_object_put include/drm/drm_gem.h:575 [inline]
-	nouveau_abi16_chan_fini.constprop.0+0x44f/0x5a0 drivers/gpu/drm/nouveau/nouveau_abi16.c:195
-	nouveau 0000:01:00.0: syz.2.23[2209]: Unknown handle 0x00000000
-	nouveau_abi16_fini+0x1d0/0x340 drivers/gpu/drm/nouveau/nouveau_abi16.c:225
-	nouveau_drm_postclose+0x18b/0x3e0 drivers/gpu/drm/nouveau/nouveau_drm.c:1284
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate_init
-	drm_file_free.part.0+0x6d6/0xb60 drivers/gpu/drm/drm_file.c:267
-	drm_file_free drivers/gpu/drm/drm_file.c:237 [inline]
-	drm_close_helper.isra.0+0x11a/0x160 drivers/gpu/drm/drm_file.c:290
-	drm_release+0x1ab/0x330 drivers/gpu/drm/drm_file.c:438
-	__fput+0x39c/0xa60 fs/file_table.c:512
-	nouveau 0000:01:00.0: syz.2.23[2209]: validate: -2
-	task_work_run+0x15a/0x230 kernel/task_work.c:233
-	exit_task_work include/linux/task_work.h:40 [inline]
-	do_exit+0x82b/0x25a0 kernel/exit.c:1009
-	do_group_exit+0xc2/0x280 kernel/exit.c:1152
-	get_signal+0x1d6e/0x1f30 kernel/signal.c:3046
-	arch_do_signal_or_restart+0x7d/0x6e0 arch/x86/kernel/signal.c:337
-	__exit_to_user_mode_loop kernel/entry/common.c:66 [inline]
-	exit_to_user_mode_loop+0xdf/0x440 kernel/entry/common.c:101
-	__exit_to_user_mode_prepare include/linux/irq-entry-common.h:207 [inline]
-	syscall_exit_to_user_mode_prepare include/linux/irq-entry-common.h:230 [inline]
-	syscall_exit_to_user_mode include/linux/entry-common.h:318 [inline]
-	do_syscall_64+0x4f8/0x690 arch/x86/entry/syscall_64.c:100
-	entry_SYSCALL_64_after_hwframe+0x77/0x7f
-	RIP: 0033:0x7f12bac8594d
-	Code: Unable to access opcode bytes at 0x7f12bac85923.
-	RSP: 002b:00007f12b96e70d8 EFLAGS: 00000246 ORIG_RAX: 00000000000000ca
-	RAX: 0000000000000001 RBX: 00007f12baf15fa8 RCX: 00007f12bac8594d
-	RDX: 00000000000f4240 RSI: 0000000000000081 RDI: 00007f12baf15fac
-	RBP: 00007f12baf15fa0 R08: 00007f12baee8000 R09: 0000000000000000
-	R10: 0000000000000000 R11: 0000000000000246 R12: 0000000000000000
-	R13: 00007f12baf16038 R14: 0000000000000006 R15: 00007ffe2ed394b0
-	</TASK>
-	irq event stamp: 47867
-	hardirqs last  enabled at (47883): [<ffffffff815cafc6>] __up_console_sem+0x66/0x70 kernel/printk/printk.c:347
-	hardirqs last disabled at (47892): [<ffffffff815cafab>] __up_console_sem+0x4b/0x70 kernel/printk/printk.c:345
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last  enabled at (47880): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
-	softirqs last disabled at (47875): [<ffffffff81434277>] __do_softirq kernel/softirq.c:656 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] invoke_softirq kernel/softirq.c:496 [inline]
-	softirqs last disabled at (47875): [<ffffffff81434277>] __irq_exit_rcu+0x137/0x1c0 kernel/softirq.c:735
-
-Fix by calling ttm_bo_pin() only when the existing placement is compatible
-with the new pin request. This matches the correct behavior in other DRM
-drivers such as amdgpu_bo_pin() in amdgpu.
-
-Cc: stable@vger.kernel.org
-Fixes: ad76b3f7c7a0 ("drm/nouveau: teach nouveau_bo_pin() how to force a contig vram allocation")
-Signed-off-by: Peiyang He <peiyang_he@smail.nju.edu.cn>
-Assisted-by: LLM
 ---
-Changes in v2:
-  - replace goto with else branch (suggested by Lyude Paul)
-  - fix Assisted-by tag
+v2:
+- Drop the unnecessary READ_ONCE() in hugetlb_cgroup_move_usage().
+- Add Acked-by tag.
 
- drivers/gpu/drm/nouveau/nouveau_bo.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+---
+Hongfu Li (2):
+      mm/hugetlb_cgroup: move per-node usage on cross node migration
+      mm/hugetlb_cgroup: move per-node usage on cgroup reparenting
 
-diff --git a/drivers/gpu/drm/nouveau/nouveau_bo.c b/drivers/gpu/drm/nouveau/nouveau_bo.c
-index 0e8de6d4b36f..6dcb92575eb4 100644
---- a/drivers/gpu/drm/nouveau/nouveau_bo.c
-+++ b/drivers/gpu/drm/nouveau/nouveau_bo.c
-@@ -578,8 +578,9 @@ int nouveau_bo_pin_locked(struct nouveau_bo *nvbo, uint32_t domain, bool contig)
- 				      "0x%08x vs 0x%08x\n", bo,
- 				 bo->resource->mem_type, domain);
- 			ret = -EBUSY;
-+		} else {
-+			ttm_bo_pin(&nvbo->bo);
- 		}
--		ttm_bo_pin(&nvbo->bo);
- 		goto out;
- 	}
- 
+ mm/hugetlb_cgroup.c | 33 +++++++++++++++++++++++++++++++++
+ 1 file changed, 33 insertions(+)
+---
+base-commit: baa8de2f3448d1466a888a805c18d01c998fe052
+change-id: 20260915-for-hugetlb-charge-2cfada8ed44e
 
-base-commit: df2908090cda368b01ff43709f51890076c56157
--- 
-2.43.0
+Best regards,
+--  
+Hongfu Li <lihongfu@kylinos.cn>
+
