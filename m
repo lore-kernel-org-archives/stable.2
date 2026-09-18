@@ -1,87 +1,116 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68386222580;
-	Fri, 18 Sep 2026 20:48:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F04FD42885A;
+	Fri, 18 Sep 2026 20:57:36 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764500; cv=none; b=WnjyTs1jJL6DX7TP/JazCsZtsTI2a5o12+Z29ozr3dN1vuR5coU2WsAyjkcUQ6lCebLb+2xF3uIvxDoSDAjoRRJbxMddP+b2LxCX8eusVzMcsK9ODVLplzcuqEQPrH7WXjeyDqr8G2JNSs1JDAJU8f8hQBk6aNbh71ErvqF8VKI=
+	t=1789765063; cv=none; b=tca9uhHuXVdOM/oS8e69ZBOg3/rXFuMo1MJIieL6Xc/PZ+AsPWVZq1IKZu5XN7d/PaDArxqqNIqXnmLaCVf4UpVYcqQGMuNf3qDInHOTWGO+JUHegY7uXePgufmRDNCe6KWlQTNDvvSLu7rfNWtTcrfPxgUVscuXBrh1iuJFP04=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764500; c=relaxed/simple;
-	bh=POh5GW85wfXj7ebEI8T7SHI3danecazc0eCvr9IRjDc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=haGwSWfqj8J2UaZYiT83Fgc5DeIfX/rjoey026u52MetkK3aBJ13yuQ5rcX9YKI9Rpnp/WClfsFL4BGet43XQ7YnIMG79C91FCVWAW1G0N7tjWY/LYnWV32GhD2sBw6XmdPG149ntthZD3Z0L1xuulwOcZhtVTRveOKWowGZn0E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhH1EZxi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789765063; c=relaxed/simple;
+	bh=N0SHi8xKHinefEDAgMTst5UzFrhkZrh0J08pKF8Jvd0=;
+	h=Date:From:To:Cc:Subject:Message-Id:In-Reply-To:References:
+	 Mime-Version:Content-Type; b=i+lYeFQ9kvTWXiOISJ3EadcNIIrSOyMAqRBMt1sekva7ceC/Kl8rkJdkEYI8uf2RA5AtzlLWQnZzpiDINK5fDtbqKlC0YipaFh2l9JuLjcwW1TIOSqqn3uVDW5z/ntwiED2eFW0SfAlhLWoKBshTPZ5I3on9ugNCTq6WjL+xOAo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=UeHxFe/U; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhH1EZxi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA90D1F000FF;
-	Fri, 18 Sep 2026 20:48:18 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789764499;
-	bh=F3DLy+3kNg2/wHbf2EqxrOXhPJ3Jfo/SncNlpx7Uc1o=;
-	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
-	b=XhH1EZxiDYkIZHt9a5/V37pg/Sarp1e3Qe5lMO0l+rbQFqnKHefScnL4wdDDBhxD+
-	 1IKmTGM+ZquVGfG6+twDL03GIBz6MYywQDt/asVqrQkDZDOMW515TK21G9TP/djRHE
-	 lO30B14/lAhYinNnfOAMgBBYmZzkb1+gk+Xk4Sk42LUyBGxYeN2FGwDn1Al208N+yZ
-	 kv/CFzM/vBlqPJwhfQpG6aQKLJx4PRawtNKD51PUgzl+/NGxNDib+NYwqdOFa/YesB
-	 G5/9eRJyUXAH2LOBeldllXEe3A9mMn7lxPjLry/5GDH10znpKuID0t8DuufHkHHvGZ
-	 Vt3b6oPwrlqwQ==
-Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
-	id C2552CE09DC; Fri, 18 Sep 2026 13:48:18 -0700 (PDT)
-Date: Fri, 18 Sep 2026 13:48:18 -0700
-From: "Paul E. McKenney" <paulmck@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Breno Leitao <leitao@debian.org>, Hugh Dickins <hughd@google.com>,
-	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org, kernel-team@meta.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] mm/shmem: report RCU-tasks quiescent states while
- undoing a range
-Message-ID: <bcce9339-92bf-4702-a336-f572e6e1ba7b@paulmck-laptop>
-Reply-To: paulmck@kernel.org
-References: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
- <20260918123239.8f25b984ca280fcc11ef6e6a@linux-foundation.org>
- <a67e8b91-ebc2-4d3d-b6ea-d221b297fad0@paulmck-laptop>
- <20260918134342.c50423cfe3b2910e899226f2@linux-foundation.org>
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="UeHxFe/U"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E2641F000FF;
+	Fri, 18 Sep 2026 20:57:36 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+	d=linux-foundation.org; s=korg; t=1789765056;
+	bh=6zhKq5MrlmQB5MmNUgnIkrKHbJbgm7N+fP68EJa9Dho=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=UeHxFe/Uz8NCqN2Knd/+O1vgZ2/IKtZq4zfynuC/wEViOKurCFgnIk8L9/kB/pn+j
+	 VH8ofGgxV++57+U5IuR2IeNrJNyPRNjBmjZyBA3fE13fAfNk9jgbsmdyKlccffS5Wn
+	 z/YuL/0p7dpSbM37a3ntOsO2q2q8pSfPUxX4PqRQ=
+Date: Fri, 18 Sep 2026 13:57:35 -0700
+From: Andrew Morton <akpm@linux-foundation.org>
+To: Jiakai Xu <xujiakai24@mails.ucas.ac.cn>
+Cc: Petr Pavlu <petr.pavlu@suse.com>, Greg Kroah-Hartman
+ <gregkh@linuxfoundation.org>, Shyam Saini <shyamsaini@linux.microsoft.com>,
+ Sami Tolvanen <samitolvanen@google.com>, Kees Cook <kees@kernel.org>,
+ stable@vger.kernel.org, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH v2] params: serialize lookup_or_create_module_kobject()
+Message-Id: <20260918135735.678bac31c1771e0226c00822@linux-foundation.org>
+In-Reply-To: <20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn>
+References: <20260918100712.3124994-1-xujiakai24@mails.ucas.ac.cn>
+X-Mailer: Sylpheed 3.8.0beta1 (GTK+ 2.24.33; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918134342.c50423cfe3b2910e899226f2@linux-foundation.org>
+Mime-Version: 1.0
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-On Fri, Sep 18, 2026 at 01:43:42PM -0700, Andrew Morton wrote:
-> On Fri, 18 Sep 2026 13:24:53 -0700 "Paul E. McKenney" <paulmck@kernel.org> wrote:
+On Fri, 18 Sep 2026 10:07:12 +0000 Jiakai Xu <xujiakai24@mails.ucas.ac.cn> wrote:
+
+> lookup_or_create_module_kobject() first looks up the module kobject with
+> kset_find_obj() and, if not found, creates a new one with
+> kobject_init_and_add().  The function is called at runtime from
+> module_add_driver() since commit f95bbfe18512 ("drivers: base: handle
+> module_kobject creation"), which means two concurrent driver
+> registrations for the same built-in module name can both miss the
+> lookup and race to create the same kobject.
 > 
-> > > 
-> > > > --- a/mm/shmem.c
-> > > > +++ b/mm/shmem.c
-> > > > @@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
-> > > >  		}
-> > > >  		folio_batch_remove_exceptionals(&fbatch);
-> > > >  		folio_batch_release(&fbatch);
-> > > > -		cond_resched();
-> > > > +		cond_resched_tasks_rcu_qs();
-> > > 
-> > > Won't this change remove the cond_resched() function from old kernels
-> > > which really want it?
-> > 
-> > The cond_resched_tasks_rcu_qs() macro implies cond_resched():
-> > 
-> > 	#define cond_resched_tasks_rcu_qs() \
-> > 	do { \
-> > 		rcu_tasks_qs(current, false); \
-> > 		cond_resched(); \
-> > 	} while (0)
+> The loser of the race gets -EEXIST from kobject_init_and_add() and its
+> kobject is removed from module_kset by kobject_add_internal() before
+> the failure is reported.  The error path then calls kobject_put(),
+> which invokes module_kobj_release(), but that only completes
+> ->kobj_completion and never frees the dynamically allocated
+> module_kobject, leaking it (96 bytes) along with the object having been
+> detached from the kset.
 > 
-> Oh, should've looked.
+> This is triggerable by unprivileged users, e.g. by concurrently issuing
+> the RAW_IOCTL_INIT ioctl of the raw-gadget driver, which registers the
+> "raw_gadget" driver on the gadget bus:
+> 
+>   sysfs: cannot create duplicate filename '/module/raw_gadget'
+>   ...
+>   Adding module 'raw_gadget' to sysfs failed (-17), the system may be
+>   unstable.
+>   ...
+>   unreferenced object 0xffff8880188dacc0 (size 96):
+>     backtrace:
+>       lookup_or_create_module_kobject+0x47/0x100
+>       module_add_driver+0x73/0x1b0
+>       bus_add_driver+0x1d9/0x340
+>       driver_register+0xde/0x170
+> 
+> Fix it by serializing the lookup and the creation with a mutex, so that
+> the second caller finds the kobject created by the first one instead of
+> racing with it.
 
-No problem, and yes, I do know that feeling.  ;-)
+You're sure we there's no race with module removal as well?
 
-							Thanx, Paul
+> @@ -20,6 +21,12 @@
+>  /* Protects all built-in parameters, modules use their own param_lock */
+>  static DEFINE_MUTEX(param_lock);
+>  
+> +/*
+> + * Serializes module kobject lookup and creation in
+> + * lookup_or_create_module_kobject()
+> + */
+> +static DEFINE_MUTEX(mod_kobject_mutex);
 
-> And it appears to have been this way forever, so
-> s/cond_resched/cond_resched_tasks_rcu_qs/ won't break old kernels.
+minor: this could be static inside lookup_or_create_module_kobject().
+
+>  /* Use the module's mutex, or if built-in use the built-in mutex */
+>  #ifdef CONFIG_MODULES
+>  #define KPARAM_MUTEX(mod)	((mod) ? &(mod)->param_lock : &param_lock)
+> @@ -754,6 +761,13 @@ lookup_or_create_module_kobject(const char *name)
+>  	struct kobject *kobj;
+>  	int err;
+>  
+> +	/*
+> +	 * The lookup and the creation must be done atomically, otherwise
+> +	 * concurrent callers may race to create the same kobject, and the
+> +	 * loser of the race gets -EEXIST from kobject_init_and_add().
+> +	 */
+> +	guard(mutex)(&mod_kobject_mutex);
+> +
+>  	kobj = kset_find_obj(module_kset, name);
+>  	if (kobj)
+>  		return to_module_kobject(kobj);
+
