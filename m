@@ -1,68 +1,65 @@
-Received: from BN1PR04CU002.outbound.protection.outlook.com (mail-eastus2azon11010059.outbound.protection.outlook.com [52.101.56.59])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 527BF34CFDD;
-	Fri, 18 Sep 2026 04:45:36 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=52.101.56.59
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789706737; cv=fail; b=uUMSi1CvErukQHJsELQh4zGemCjsCoL0fI68QyyypMDMcCsVScOMkqbYmpGg7fj8aELkPbMD9Q52wRRMerRXo+aodWAZqvKZRVNXQqWOnWS6rLT+vMG8tg/aBMAjmOjt9Ewuw5sgPceCoKW0dfMkwq5u/ZNfHS2ZhlhFB7Os2no=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789706737; c=relaxed/simple;
-	bh=n9VMxM6jl9G+mAy6XqpKLpb+jw8gQH+C2SLhjVOtXpI=;
-	h=From:To:CC:Subject:Date:Message-ID:MIME-Version:Content-Type; b=jODHq5dUyq02DSe77ziO1rsCuyT8CghRx6/JIElbBH/VrqwsG8O81W8YKNaG4EweDJPF5dlB2SNNw81I7QnrYeJ3dcDthvNkr77qt4SidY6XLD47CnAM4rsV8+5p8mOu4K3an5Ev2/kWEgK5D+tkUiQ6MBwNqKeff840Eln0VJc=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=DJ1L9I8S; arc=fail smtp.client-ip=52.101.56.59
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5A2C33DC857;
+	Fri, 18 Sep 2026 04:54:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.4
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789707249; cv=none; b=Jwrec02wC9BLXzkkeBCDv81h3EHxOdXOK2I6gWR0TmfSdKO5iOH1lgQgQxd23BQlUOaSBjip86bHIGUaaqF8FLaWVzVUP1icOfQweqdMUDs713GD8DIERVUQ5WRWKWifs4T0UNfftdW9Y+p6LAnykkYCPwxM5b/7LN8Mv2OeFf8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789707249; c=relaxed/simple;
+	bh=rFLnT4ixhIXXDQ8Ami7C64ucmDIFkvzEFio9TdNSY9I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=KhQs8aQd++dJS4NaJt691jE8Uaj7H5ShoWbCRIrUWbJJ83Q8C6QdCNhSXSMiW3OzTWu7vlfKjYaEWU6bA0JvmxesLSPRPsAGTLlZEuOa1s4Xxqmv4g429RQ88AvajuTeV7niVsuioMvtWeVJ7k4+akKOnjbSqcr/MWmImdKtVlo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=CLZr0xrl; arc=none smtp.client-ip=192.198.163.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="DJ1L9I8S"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=EDjEpd9qqQyAEjtyxqtzzsv8ePtKtFuOqmQnS4D7MIOsYGsDUgj5O52Hl+872CXcofLtGwLUvEiLmkLxuVtJcldwkTHzWFnodI6xM418VW+mmx5aXMJbd6skoYkPvieGoYSGCqQNVEl8mm46cHyYAkHYsRsjaJ9TvADdoA2hQJkwOFXMN191/n/seGDeDOuGF8dQ55LGe6gyO7MYrkdAQvKHs+rewLUzwX2oY20QBr0dPF6wAPX61IYWNpIvKtjrh4Epxk8jXDjnJ/6pYRRjmjeFRGm/PwcGnUCbKn5XQvqzX1cU5bU34h1jB3Suhnu0DUDrwg/9AUSUXnfA/ov3lQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
- b=pkcJTNrd9NJB+/iINDvrHiLDo2Fh27eKBwC06ChbMSXW2F1eHcHjyLJ0rGXYoin2YaHRWOg4bSdcJ6esv9iBVHH8E15ttWroYXyRK6gepgGBGTxHE898bC9H/dw7pJN8WXuKk1hap4gKM8fzhMcwGGirdbxIM46AwmOBtH/7Ar21O8CbvaCB5R9U28xqkY/z1Y+tUSCSVStb7PHNZCzfxj7qPkvwMfjHVlXbbW0SPbUXQlRpuRN6DXTUv5FH/tmLvaSTl2YkQHyjMAx/HzEfRP160TXdkQjy56dfk8I4a282XT5wSmp4JIO6jZHjYYe6e8jFINo8YMZYWUAjCCotHg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
- 165.204.84.17) smtp.rcpttodomain=lists.linux.dev smtp.mailfrom=amd.com;
- dmarc=pass (p=quarantine sp=quarantine pct=100) action=none
- header.from=amd.com; dkim=none (message not signed); arc=none (0)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=TLC9vamC+EYpJa6ViPLNNNDdMjrJNB+owur4k1s9SXY=;
- b=DJ1L9I8S2XpC9d59SGMJHlkrjwQkWKk4Buv3aTL5yssC9r8aUaJEzZ28xF+n51+2XFCtduAHJozvNX4uh8PzV91xEngGzgfVURvSuyCfavTtijnULqUnLhvKcjZitpOPVklYGovsSBV/VQET9IwtH8hyOx7uAiNPaf4vv67Zruk=
-Received: from MW3PR06CA0029.namprd06.prod.outlook.com (2603:10b6:303:2a::34)
- by PH7PR12MB6810.namprd12.prod.outlook.com (2603:10b6:510:1b4::12) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.406.16; Fri, 18 Sep
- 2026 04:45:32 +0000
-Received: from SJ1PEPF000026C3.namprd04.prod.outlook.com
- (2603:10b6:303:2a:cafe::81) by MW3PR06CA0029.outlook.office365.com
- (2603:10b6:303:2a::34) with Microsoft SMTP Server (version=TLS1_3,
- cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.13 via Frontend Transport; Fri,
- 18 Sep 2026 04:45:32 +0000
-X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
- smtp.mailfrom=amd.com; dkim=none (message not signed)
- header.d=none;dmarc=pass action=none header.from=amd.com;
-Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
- 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
- client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
-Received: from satlexmb07.amd.com (165.204.84.17) by
- SJ1PEPF000026C3.mail.protection.outlook.com (10.167.244.100) with Microsoft
- SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
- 15.21.451.8 via Frontend Transport; Fri, 18 Sep 2026 04:45:31 +0000
-Received: from BLRANKISONI.amd.com (10.180.168.240) by satlexmb07.amd.com
- (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Thu, 17 Sep
- 2026 23:45:28 -0500
-From: Ankit Soni <Ankit.Soni@amd.com>
-To: <iommu@lists.linux.dev>
-CC: <vasant.hegde@amd.com>, <suravee.suthikulpanit@amd.com>,
-	<arunkod@amd.com>, <joro@8bytes.org>, <will@kernel.org>,
-	<robin.murphy@arm.com>, <linux-kernel@vger.kernel.org>,
-	<stable@vger.kernel.org>
-Subject: [PATCH] iommu/amd: Fix IRTE allocation when DMA translation is off
-Date: Fri, 18 Sep 2026 04:45:15 +0000
-Message-ID: <9a0c163409807c709511c335018c9e5b504abbb4.1789705496.git.Ankit.Soni@amd.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="CLZr0xrl"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789707248; x=1821243248;
+  h=from:to:cc:subject:date:message-id:mime-version:
+   content-transfer-encoding;
+  bh=rFLnT4ixhIXXDQ8Ami7C64ucmDIFkvzEFio9TdNSY9I=;
+  b=CLZr0xrlrbC6DtS28dTL24syxHI6X+juJb+oPuBvIpCtfNjzGOikHcIp
+   3Gpa7mD/5ucEpiTEEk/++r4p7k2NYFiCtQz9z3Al6OS+2i1Uain3uOfLB
+   2DiUZ7OaZ0Lmp2AdpJabKA25qChmPvm0/gbLNIALDrTDP0zqcEQKKiby/
+   bP9s7aM5dPpoyRkpkvKSenR+Uhg4Wim8QVHvHR3aaO2a0cuMw+dZ5ZhWm
+   HWzWXz/XCkpYLEE2PQ0qcuLYwGdv9mEvPUyEIW6wFYowIsUv3+oX/16kB
+   KPlgLYchWE6tNk9UYO0opO+A/ocATPXOpLr4stam9wU8cjORqQLC3h0pM
+   A==;
+X-CSE-ConnectionGUID: 6MobfpCfQGCB6oel3bWJ3A==
+X-CSE-MsgGUID: hqKzws1RQ8+RjVaxuuYuZA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="696946"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="696946"
+Received: from fmviesa007.fm.intel.com ([10.60.135.147])
+  by fmvoesa114.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 21:54:07 -0700
+X-CSE-ConnectionGUID: Ze/B+emsQNusqVZ5mhd/Bg==
+X-CSE-MsgGUID: IfUTt0c0Qyqg1htGQpJnfw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="270888943"
+Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
+  by fmviesa007-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 17 Sep 2026 21:54:03 -0700
+From: Junjie Cao <junjie.cao@intel.com>
+To: stable@vger.kernel.org
+Cc: gregkh@linuxfoundation.org,
+	sashal@kernel.org,
+	guangguan.wang@linux.alibaba.com,
+	alibuda@linux.alibaba.com,
+	dust.li@linux.alibaba.com,
+	sidraya@linux.ibm.com,
+	mjambigi@linux.ibm.com,
+	tonylu@linux.alibaba.com,
+	guwen@linux.alibaba.com,
+	linux-rdma@vger.kernel.org,
+	linux-s390@vger.kernel.org,
+	netdev@vger.kernel.org,
+	"David S . Miller" <davem@davemloft.net>
+Subject: [PATCH 6.1.y] net/smc: check v2_ext_offset/eid_cnt/ism_gid_cnt when receiving proposal msg
+Date: Fri, 18 Sep 2026 12:53:53 +0800
+Message-ID: <20260918045353.686837-1-junjie.cao@intel.com>
 X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -71,64 +68,109 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Content-Type: text/plain
-X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
- (10.181.42.216)
-X-EOPAttributedMessage: 0
-X-MS-PublicTrafficType: Email
-X-MS-TrafficTypeDiagnostic: SJ1PEPF000026C3:EE_|PH7PR12MB6810:EE_
-X-MS-Office365-Filtering-Correlation-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
-X-MS-Exchange-SenderADCheck: 1
-X-MS-Exchange-AntiSpam-Relay: 0
-X-Microsoft-Antispam:
-	BCL:0;ARA:13230040|82310400026|36860700016|1800799024|23010399003|376014|10067099003|56012099006|11063799006|18002099003;
-X-Microsoft-Antispam-Message-Info:
-	18WAfZ5sABdU3aPZ78hysvFHyXLqhTPu2q0kB9muUR9D+U37vZn/g6WVKPquclrMzb1gYSmH2/q3eGfA/pl6p18Z1VPqCM3Jyeui7K994zCOSLk5XASid4sEjmNrlYojB0rpWQ08jLaX2Qny5q+/7pMNjwar3oh7VBAqnf7NuL9KjHABpoxGD9G0g4L7gBQxIP5BmYh8aqpGVsgEklVCdTZEhmFzSxvSMgEDSUfy8AK8+qXfKZvaW7VcZ2cDNqSB+ah9W322N5Y2kAO1pw3xKW6KljLpmgmMwY749Ioh1gAulv03lEpdc5hyGz6AF+6ZO0imE+p570neJV7lAK0Zxasu3mITzNwvrUvQ75Ur9OIqlhmzEmySGEN3dQJD4D//5NwvPN3qphZveI+O3zaNLVeIBNBz6CDf3izTePkh6+8qdh0jG10mefzBpWp5l6SElpEmwyG6bhU/9QbtL7bpZOTTjqNXm4hjy5rs1J1C7IQ1VXU/6idca+R+QdgryqlbOMuThZyDcoH358wCjROWcpZiWF5RdMgKPat/sGXQtdVoHlha0XihfttnfyH3r9a9AGhoT8XP8otXgTTks8hd7I6XbBrzEAlv9wxUwsEReGCqkmWeUHQKJqtyt7XrVndNKX44smu+Lq9szpr6vd2GLBbuyLQG3CyNOiHcRQhvEidQl6TF8OsQ8eDz7tZRzSf4n3Tw5HnKLetVmpx+9fCHHQ==
-X-Forefront-Antispam-Report:
-	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(82310400026)(36860700016)(1800799024)(23010399003)(376014)(10067099003)(56012099006)(11063799006)(18002099003);DIR:OUT;SFP:1101;
-X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
-X-MS-Exchange-AntiSpam-MessageData-0:
-	ThhRgmBjpERyZ1FCOnv32kKJ7bHzR3dq/jxXghBJuWxAEWic/GRKSTMjo4lVLagklepoUEjEBFbhfelFta0zCU5aYIz+ru8mfe6hn8WQs3TSd7YNIrrkMWS5RAFOWNV6e23uB8ym4UcXgKP/uQ28iCdU6469GlXZI0vBeBvvbkfwFuhNzPGHfjdfbNVEEbmnaqAHKUCvILStv/MdvZC6G/ZknJcqVSJXNegnqvAycIVo2aGNSXSDBjRLrd1X9kSbccWF92y1e2lqTDzdZoKvj3x73m8GCym7BmZeO9uQr9n2zvDxEyrEGx8SdwtCjafNZ2mnyvarsBpyw6TPCbCBditQZHFJXG0mbmuO6M2v3EJwG7bZZ7Va5D8pdLs1/LiIVcHPo0OZGr0FGtEJazImz6Ovil2saHzfbJsUBM/CVTfWbRzrxeLEWr7NBCHm/P0/
-X-OriginatorOrg: amd.com
-X-MS-Exchange-CrossTenant-OriginalArrivalTime: 18 Sep 2026 04:45:31.9502
- (UTC)
-X-MS-Exchange-CrossTenant-Network-Message-Id: 6303a1f7-c5d7-4f6d-6928-08df153fabe2
-X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
-X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
-X-MS-Exchange-CrossTenant-AuthSource:
-	SJ1PEPF000026C3.namprd04.prod.outlook.com
-X-MS-Exchange-CrossTenant-AuthAs: Anonymous
-X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: PH7PR12MB6810
 
-On an emulated IOMMU, DMA translation can be off while interrupt remapping
-stays on. Probe path skips DMA setup as intended, but it also skips IRQ
-table size setup. Interrupt remapping then fails with "Failed to allocate
-IRTE".
+From: Guangguan Wang <guangguan.wang@linux.alibaba.com>
 
-Fall through after the PD_MODE_NONE check so the IRQ table size is still
-set.
+commit 7863c9f3d24ba49dbead7e03dfbe40deb5888fdf upstream.
 
-Fixes: 3222b6de5145 ("iommu/amd: Fix error path in amd_iommu_probe_device()")
-Cc: stable@vger.kernel.org # 6.19+
-Suggested-by: Sairaj Kodilkar <sarunkod@amd.com>
-Signed-off-by: Ankit Soni <Ankit.Soni@amd.com>
+When receiving proposal msg in server, the fields v2_ext_offset/
+eid_cnt/ism_gid_cnt in proposal msg are from the remote client
+and can not be fully trusted. Especially the field v2_ext_offset,
+once exceed the max value, there has the chance to access wrong
+address, and crash may happen.
+
+This patch checks the fields v2_ext_offset/eid_cnt/ism_gid_cnt
+before using them.
+
+Fixes: 8c3dca341aea ("net/smc: build and send V2 CLC proposal")
+Signed-off-by: Guangguan Wang <guangguan.wang@linux.alibaba.com>
+Reviewed-by: Wen Gu <guwen@linux.alibaba.com>
+Reviewed-by: D. Wythe <alibuda@linux.alibaba.com>
+Signed-off-by: David S. Miller <davem@davemloft.net>
+[ jcao: SMCD_CLC_MAX_V2_GID_ENTRIES does not exist in 6.1;
+  SMC_MAX_ISM_DEVS is the same limit (8) under its pre-b40584d14570 name ]
+Signed-off-by: Junjie Cao <junjie.cao@intel.com>
 ---
- drivers/iommu/amd/iommu.c | 1 -
- 1 file changed, 1 deletion(-)
+Backport of the CVE-2024-49568 fix to 6.1.y. The CNA record lists
+6.6.68, 6.12.7 and 6.13 as fixed and nothing for 6.1; the affected
+code (v2 CLC proposal parsing) dates from 5.10. The other five fixes
+from the same series are in 6.1.y since v6.1.122; this is the only
+one missing.
 
-diff --git a/drivers/iommu/amd/iommu.c b/drivers/iommu/amd/iommu.c
-index 56262f6b1f70..77ef2749206a 100644
---- a/drivers/iommu/amd/iommu.c
-+++ b/drivers/iommu/amd/iommu.c
-@@ -2531,7 +2531,6 @@ static struct iommu_device *amd_iommu_probe_device(struct device *dev)
- 		pr_warn_once("%s: DMA translation not supported by iommu.\n",
- 			     __func__);
- 		iommu_dev = ERR_PTR(-ENODEV);
--		goto out_err;
- 	}
+The upstream commit cherry-picks cleanly onto v6.1.188 but does not
+build there because SMCD_CLC_MAX_V2_GID_ENTRIES does not exist yet;
+6.1 names the same limit SMC_MAX_ISM_DEVS (6.6.y has the new name
+only because b40584d14570, a 12-file virtual-ISM change, went in as
+v6.6.66). net/smc builds on x86_64 with CONFIG_SMC=m, W=1 clean.
+
+5.15.y and 5.10.y are in the affected range as well; the commit
+conflicts in af_smc.c there and needs a separate backport.
+
+ net/smc/af_smc.c  | 3 ++-
+ net/smc/smc_clc.c | 8 +++++++-
+ net/smc/smc_clc.h | 8 +++++++-
+ 3 files changed, 16 insertions(+), 3 deletions(-)
+
+diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
+index 6713296fffd99..89fa7295275ca 100644
+--- a/net/smc/af_smc.c
++++ b/net/smc/af_smc.c
+@@ -2225,7 +2225,8 @@ static void smc_find_rdma_v2_device_serv(struct smc_sock *new_smc,
+ 		goto not_found;
  
- 	iommu_completion_wait(iommu);
+ 	smc_v2_ext = smc_get_clc_v2_ext(pclc);
+-	if (!smc_clc_match_eid(ini->negotiated_eid, smc_v2_ext, NULL, NULL))
++	if (!smc_v2_ext ||
++	    !smc_clc_match_eid(ini->negotiated_eid, smc_v2_ext, NULL, NULL))
+ 		goto not_found;
+ 
+ 	/* prepare RDMA check */
+diff --git a/net/smc/smc_clc.c b/net/smc/smc_clc.c
+index ad1120a43dbd9..762e50354e11f 100644
+--- a/net/smc/smc_clc.c
++++ b/net/smc/smc_clc.c
+@@ -352,7 +352,6 @@ static bool smc_clc_msg_prop_valid(struct smc_clc_msg_proposal *pclc)
+ 	struct smc_clc_msg_hdr *hdr = &pclc->hdr;
+ 	struct smc_clc_v2_extension *v2_ext;
+ 
+-	v2_ext = smc_get_clc_v2_ext(pclc);
+ 	pclc_prfx = smc_clc_proposal_get_prefix(pclc);
+ 	if (!pclc_prfx ||
+ 	    pclc_prfx->ipv6_prefixes_cnt > SMC_CLC_MAX_V6_PREFIX)
+@@ -369,6 +368,13 @@ static bool smc_clc_msg_prop_valid(struct smc_clc_msg_proposal *pclc)
+ 			sizeof(struct smc_clc_msg_trail))
+ 			return false;
+ 	} else {
++		v2_ext = smc_get_clc_v2_ext(pclc);
++		if ((hdr->typev2 != SMC_TYPE_N &&
++		     (!v2_ext || v2_ext->hdr.eid_cnt > SMC_CLC_MAX_UEID)) ||
++		    (smcd_indicated(hdr->typev2) &&
++		     v2_ext->hdr.ism_gid_cnt > SMC_MAX_ISM_DEVS))
++			return false;
++
+ 		if (ntohs(hdr->length) !=
+ 			sizeof(*pclc) +
+ 			sizeof(struct smc_clc_msg_smcd) +
+diff --git a/net/smc/smc_clc.h b/net/smc/smc_clc.h
+index 0f6102cd5de17..cdba392b6ec9c 100644
+--- a/net/smc/smc_clc.h
++++ b/net/smc/smc_clc.h
+@@ -347,8 +347,14 @@ static inline struct smc_clc_v2_extension *
+ smc_get_clc_v2_ext(struct smc_clc_msg_proposal *prop)
+ {
+ 	struct smc_clc_msg_smcd *prop_smcd = smc_get_clc_msg_smcd(prop);
++	u16 max_offset;
+ 
+-	if (!prop_smcd || !ntohs(prop_smcd->v2_ext_offset))
++	max_offset = offsetof(struct smc_clc_msg_proposal_area, pclc_v2_ext) -
++		     offsetof(struct smc_clc_msg_proposal_area, pclc_smcd) -
++		     offsetofend(struct smc_clc_msg_smcd, v2_ext_offset);
++
++	if (!prop_smcd || !ntohs(prop_smcd->v2_ext_offset) ||
++	    ntohs(prop_smcd->v2_ext_offset) > max_offset)
+ 		return NULL;
+ 
+ 	return (struct smc_clc_v2_extension *)
 -- 
 2.43.0
 
