@@ -1,318 +1,194 @@
-Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f28.google.com (mail-wr2-f28.google.com [74.125.225.92])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 385A84FDA68
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 20:32:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DDF5A29E116
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 20:33:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.92
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789763560; cv=none; b=H3HqeQ0Vsja791bnSQhwJeBCObQUWei+B026jHezUnhacNt575BFI8ez+reSI7fkGfJys68blRTYa5e+Rc7ar822tpXQJUWu6sVy9/tqXEkKOXnrNMdkoP7EnVOk5gcLk1ExL1iWV4cQyliLXNnkIgVDeRycKdx0tManzvb1VnM=
+	t=1789763636; cv=none; b=e7ZKmqW6sHTAG1NIqdrK2cmbLbTOqHmw51KRBg4eT1YfJ6EIvQP3iqLGtweFUI4fXkVnBWfvmqk6p7O1gJlz2e2EagsBKWbEH70ByHvtz+B4diiBn3U5TVOVWUXrloyziiHLWMVKac8dH2yZDIctCK/1h9eBBV69/nLk3oxqSQ8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789763560; c=relaxed/simple;
-	bh=lYVIRWYpEJbrhQ/oBp9dfFrspCsE0CzlZ1NBrrCWUHY=;
-	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
-	 In-Reply-To:To:Cc; b=mRfZ4w0IeZhOi7FhW4o1XbJalI58/U2zAU3STYnY4LRIT1ZlPVoyB435y9LUkTs4WwixuQ4Vq+HkwuJZuQs682XzTE9KmoxCZuNirl3vSRUnmFWfhbresdJCOATUfG7ad9tpH2ij5Hq8EKX3AvAGUaI3iXwuLL453viQqptQZJU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=bmwDgNBk; arc=none smtp.client-ip=185.246.85.4
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789763636; c=relaxed/simple;
+	bh=nyQjs6qGtq5QNA/EbyRHoqdZ70kqIUrdwHJqjIjPaf8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=QtJMmwFV3qxXK+v7id1OtnF1x4XeqgaiWz+I0e32wpQE9vT1tZ/6BhvHWxITy8ADZcr37BfMtLqW0Vf6Lj34eNXB0wdUGlGD8MAT2eI/5oBT6q9k+pq58EJ5bRV9voC/2ljE3mp83lDySpC1dgooOLC6ooRilIkGhgfW8jrrxUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LBx4w/Wz; arc=none smtp.client-ip=74.125.225.92
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="bmwDgNBk"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-03.galae.net (Postfix) with ESMTPS id D43234E40885;
-	Fri, 18 Sep 2026 20:32:37 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id A163F60649;
-	Fri, 18 Sep 2026 20:32:37 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id D05631032907F;
-	Fri, 18 Sep 2026 22:32:29 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789763552; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 content-transfer-encoding:in-reply-to:references;
-	bh=KiYXgWSHGS4Z5hj8EXdVamYzUDB+odt7GHe4rRMG7F4=;
-	b=bmwDgNBkkAgcSE8Vop2hXB0nwLRabo+2AURiZijWpL6i8fg7JXSD8aNrajTzlxCsSGlblf
-	wbo5vRqJ6MRp30zP7mRmq+TY91g41vKRAEuwR9lxi7Xf/TxnjAvBEovP4lWDpxy0gMwCy6
-	JN+N2L1k3DCi8ntiOu8kk/jEJXnFENBsdBBQ7RQDh3uMkBOy3kee2DEhjqy8xiFT2ckDPb
-	Hc9b60xTi2gcW7UvkK7EmN673fJzRNpAcvJu6CJTfrV2pK3uXyuZ9ypdIzxHnYtFpvbDKw
-	fk91mrbPHIUGH2GtPXdpmYkT137Y9JQ402CW375rcI5Di60FYzP/oHV+/6LXfA==
-From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
-Date: Fri, 18 Sep 2026 22:32:04 +0200
-Subject: [PATCH 3/3] net: macb: quiesce IRQs and drain BH on interface
- close
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LBx4w/Wz"
+Received: by mail-wr2-f28.google.com with SMTP id ffacd0b85a97d-485b1d2874aso851747f8f.1
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 13:33:54 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789763633; x=1790368433; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=aAJIejnvtde5v61mIPnWt2m5isbDctpD+89Zywxo9UU=;
+        b=LBx4w/WzX+sUzZKqAJBEizN7vza/Hy7kkZcV3Jd5Nmde2RojpD8AY79MHUTGQ7Kh9+
+         OSbfeFxJ/OMkuG1Tj6i3b4HoIV2m3KRWcMqm6B90hFrkBzkQgdw22EzXftpYR+7q72wl
+         5fL0brWTRjcWLzjbXujqd/lYlo4b4WVAQvwzCni/c7DuJnEkSwLFanIYjbOLVo8fHQLe
+         udTl4WUrfW9Pf62Nzrmdz0wGyFXgaeqMUh3kCOW1FQM+cqGk64QvirGrfdup9pxvxL3U
+         PoNJMLrdNVxjIFqngRRVu9vES3qjH6hCKU2RaxWf3zzr1yWYehfSv3lwaLIeu+4UDjhJ
+         zKeA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789763633; x=1790368433;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=aAJIejnvtde5v61mIPnWt2m5isbDctpD+89Zywxo9UU=;
+        b=a2I+Yi/FwGV8wVsYnMCGBobLPeJhpb/GyMCnpZQ4gEsvCkkCp2VW7hU4d8nFzzDLbw
+         +sfQEcQIHiUWJUncFyB5JthCtcx7cYCb+2Cc9Aqwu0UdPUnR9JQkqBfFtRjSpStUuyjX
+         MsxF9b90p6orw4DtkHgRgqbTCc0NGP+MQZvkwppbLVKD9nXHPKzJ09AzFRYEaJ48FPWX
+         gJsdmIFMGwfcrzG3U3Huc7JfMcTboc9LrGX6xMxzcOL/qB2Q+KOSdawbWWM+DpbycSpl
+         Wq4wSc60Nc2DHA3PmHV8w+epUd445GXaFxgbSzVKVpT6ZHpCMY3V/R2ABa2EmLksSmOk
+         e5cw==
+X-Forwarded-Encrypted: i=1; AKwUvBztq3GW4XMACrqnLgbd+ViDMrXWBgjQ7nxbPsvkA9sUh8KAdSahoTn7b6357AvyjqW7Pg9+JVQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++mIkg0pqse9p9dYSDRFA21lwHPipr/vxPybFav3TN7+aAGA+d1F
+	25jDpJir1S4Zc2C8YJBMSKmn9xnbRuyqtIPQBaG9p6e5PjRr0iQehUvk
+X-Gm-Gg: AYBFou2BF4GvFRgKN42g+4aIP/J/JISHWbfb9GFo5Gk99wHzAxk59zTmx45nga83Gsq
+	7y94/lQetxaBs/RPbdbsJ92PzPIKd8T3xU/mBYfIsBMcVmbLLMZ62AYn8mNgD0aCxDjHiY5ZrM1
+	lTMlrml1Pu99BBLfoUbqgAacRiUfeBWI4qTnZgIMZp1lni9UyJwKeqZsGH6hXyBTGg+4L8CyNQ/
+	2g9jFR9qIZr8ffxFVxu2iotGyxLqNn895Bh7Te1gmgRj27vDmweL+rDq/l7t2GI8Dkk9izebbB0
+	fMuKCo/PD7HBii8lW8Tgzu7isyejZGUQGtOwxFbPGeXqCW3x15mWycqrKaSi5WJZqXvstpcrJzh
+	OuR72+q3tGu7sC/xqbjclN9ySC7DypWBEXpFFKNN31OmqrhOunE90txSvatz8wrx1dXihWcrTOW
+	w0y+m9hv5t5w+vZZ2m61HZtqZhsOqte8C3oAsd1eaEnGue6+xYM/dgTW/aD4HC85weu+EVbuH/D
+	xftMlaJ63vtqdbhiBrgs8/TF2cTzxhcOuVZc68GMFajpucaV6gC9/QfG8O6Qst6zlbS
+X-Received: by 2002:a05:6000:4021:b0:484:3314:eff6 with SMTP id ffacd0b85a97d-4871e3941f5mr9789385f8f.28.1789763632871;
+        Fri, 18 Sep 2026 13:33:52 -0700 (PDT)
+Received: from Raghu007.. (sgyl-44-b2-v4wan-174108-cust110.vm6.cable.virginm.net. [80.1.81.111])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-487244608a3sm1239936f8f.8.2026.09.18.13.33.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 13:33:52 -0700 (PDT)
+From: Palla Raghunath <raghunathpalla.0209@gmail.com>
+To: Mauro Carvalho Chehab <mchehab@kernel.org>
+Cc: linux-media@vger.kernel.org,
+	Kees Cook <kees@kernel.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Brigham Campbell <me@brighamcampbell.com>,
+	linux-kernel@vger.kernel.org,
+	linux-kernel-mentees@lists.linux.dev,
+	raghunathpalla.0209@gmail.com,
+	syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] media: ttusb-budget: check the endpoints before using them
+Date: Fri, 18 Sep 2026 21:33:46 +0100
+Message-Id: <20260918203350.48218-1-raghunathpalla.0209@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-Message-Id: <20260918-macb-close-v1-3-221d916b7961@bootlin.com>
-References: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
-In-Reply-To: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
-To: Conor Dooley <conor.dooley@microchip.com>, 
- Andrew Lunn <andrew+netdev@lunn.ch>, 
- "David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
- Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
- Simon Horman <horms@kernel.org>, 
- Nicolas Ferre <nicolas.ferre@microchip.com>, 
- Sean Anderson <sean.anderson@linux.dev>, 
- Antoine Tenart <atenart@kernel.org>, Russell King <linux@armlinux.org.uk>
-Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
- Nicolai Buchwitz <nb@tipi-net.de>, 
- Vladimir Kondratiev <vladimir.kondratiev@mobileye.com>, 
- Gregory CLEMENT <gregory.clement@bootlin.com>, 
- Tawfik Bayouk <tawfik.bayouk@mobileye.com>, 
- Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
- Maxime Chevallier <maxime.chevallier@bootlin.com>, 
- =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>, 
- stable@vger.kernel.org
-X-Mailer: b4 0.15.2
-X-Last-TLS-Session-Version: TLSv1.3
 
-The macb_close() operation is facing races as it disables IRQs late in
-its sequence and keeps BH primitives alive while shutdown.
+ttusb_setup_interfaces() decides on the endpoint numbers and their
+transfer types up front and never looks at what the device actually
+offered:
 
-Non exhaustive list of races that could occur:
+	usb_set_interface(ttusb->dev, 1, 1);
 
- - macb_tx_error_task() could be scheduled and access the buffers freed
-   by macb_close().
+	ttusb->bulk_out_pipe = usb_sndbulkpipe(ttusb->dev, 1);
+	ttusb->bulk_in_pipe = usb_rcvbulkpipe(ttusb->dev, 1);
+	ttusb->isoc_in_pipe = usb_rcvisocpipe(ttusb->dev, 2);
 
- - macb_tx_error_task() or macb_hresp_error_task() might re-enable
-   interrupts after the IDR write in macb_close().
+Give it a descriptor where endpoint 2 is an interrupt endpoint and it
+still builds an isochronous pipe for it. ttusb_start_iso_xfer() later
+submits an URB on that pipe with URB_ISO_ASAP set, and usb_submit_urb()
+notices:
 
- - macb_close() calls napi_disable() meaning that if
-   macb_tx_error_task() occurs later, it will deadlock on napi_disable()
-   that shouldn't be called if NAPI is already disabled.
+  usb 1-1: BOGUS urb xfer, pipe 0 != type 1
+  usb 1-1: BOGUS urb flags, 202 --> 200
+  WARNING: drivers/usb/core/urb.c:532 at usb_submit_urb+0x863/0x1870
+   ttusb_start_feed+0x819/0xc20
+   dmx_ts_feed_start_filtering+0xf6/0x220
+   dvb_dmxdev_start_feed+0x27c/0x400
+   dvb_dmxdev_filter_start+0x1b9/0xe10
+   dvb_demux_do_ioctl+0xadd/0x13d0
 
- - macb_hresp_error_task() might reinit every RX/TX ring under
-   macb_close()'s foot.
+The URB is refused, so nothing is transferred, but the warning alone is
+enough to take down a machine running panic_on_warn, and attaching a USB
+device is not a privileged operation.
 
- - macb_interrupt() might re-enable NAPI just after it has been
-   disabled by macb_close().
+So check first: usb_check_bulk_endpoints() covers the two bulk ones, and
+since there is no isochronous equivalent the altsetting is walked here
+to find the isochronous IN endpoint. Bail out with -ENODEV if either is
+missing. This has to happen after usb_set_interface(), as the endpoints
+we care about are in altsetting 1.
 
-Instead, disable all our primitives one by one:
- - (1) mask and sync on IRQ handlers,
- - (2) drain any scheduled bp->hresp_err_bh_work,
- - (3) drain any scheduled queue->tx_error_task,
- - (4) drain queue->napi_rx/napi_tx,
- - (5) drain bp->tx_lpi_work.
+ttusb_probe() was throwing the return value away, so it needs to start
+checking it too, otherwise none of the above makes any difference.
 
-Careful! Ordering is important because our scheduling primitives can
-wake each other up. Recap table:
-
-|               |   enable/disable   |           schedule            |
-|               |----|-------|-------|------|----|----|--------|-----|
-|               |IRQs|napi_tx|napi_rx|tx_lpi|napi|napi|tx_error|hresp|
-| Context       |    |       |       | task | rx | tx |  task  |task |
-|===============|====|=======|=======|======|====|====|========|=====|
-| open          | X  |   X   |   X   |      |    |    |        |     |
-| link_up       | X  |       |       |      |    |    |        |     |
-| link_down     | X  |       |       |      |    |    |        |     |
-| close         | X  |   X   |   X   |      |    |    |        |     |
-| enable_tx_lpi |    |       |       |  X   |    |    |        |     |
-| swap          | X  |   X   |   X   |  X   |    |    |        |     |
-| suspend       | X  |   X   |   X   |      |    |    |        |     |
-| resume        | X  |   X   |   X   |      |    |    |        |     |
-|---------------|----|-------|-------|------|----|----|--------|-----|
-| irq & netpoll | X  |       |       |      | X  | X  |   X    | X   |
-|---------------|----|-------|-------|------|----|----|--------|-----|
-| napi_rx       | X  |       |       |      | X  |    |        |     |
-| napi_tx       | X  |       |       |  X   |    | X  |        |     |
-|---------------|----|-------|-------|------|----|----|--------|-----|
-| tx_error_task | X  |   X   |       |      |    |    |        |     |
-| hresp task    | X  |       |       |      |    |    |        |     |
-
-As example, one ordering constraint that can be deduced from the table:
-napi_tx can schedule tx_lpi_task meaning napi_tx must be disabled
-before tx_lpi_task, else we risk napi_tx re-enabling tx_lpi_task after
-it has been disabled by macb_close().
-
-We do *not* use IDR masking to shutdown IRQs because that risks
-conflicting with BH primitives we have not disabled yet. For example if
-we writel(IDR) in macb_close() and napi_rx is pending then IRQs might
-be unmasked by the NAPI poll. As for why we do not use disable_irq():
-we will have situations where we are quiesced but want to listen to
-some IRQs and (minor reason) we register shared IRQ handlers so we
-shouldn't disable the full IRQ line.
-
-Instead we introduce a bool that tells macb_interrupt() to self-disarm.
-Its default value is true as we start closed. It gets set to false
-while interface is active. Reading into my crystal ball, we'll reuse
-that flag in suspend/WOL, set_ringparam and change_mtu (context swap).
-
-Note that old IRQ handler tried preventing a race with close by
-self-disarming based on netif_running(). This might work, but it does
-not prevent a race with the error codepath of macb_open() which needs
-to run with IRQs dis-armed but netif_running() returns true during that
-time.
-
-Fixes: e86cd53afc59 ("net/macb: better manage tx errors")
+Reported-by: syzbot+3caf6a60e5f9be12de08@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=3caf6a60e5f9be12de08
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 Cc: stable@vger.kernel.org
-Signed-off-by: Théo Lebrun <theo.lebrun@bootlin.com>
+Signed-off-by: Palla Raghunath <raghunathpalla.0209@gmail.com>
 ---
- drivers/net/ethernet/cadence/macb.h      |  5 ++
- drivers/net/ethernet/cadence/macb_main.c | 84 ++++++++++++++++++++++++--------
- 2 files changed, 69 insertions(+), 20 deletions(-)
+ .../media/usb/ttusb-budget/dvb-ttusb-budget.c | 45 ++++++++++++++++++-
+ 1 file changed, 43 insertions(+), 2 deletions(-)
 
-diff --git a/drivers/net/ethernet/cadence/macb.h b/drivers/net/ethernet/cadence/macb.h
-index cfaa0ca49f1a..1cb2778fe49e 100644
---- a/drivers/net/ethernet/cadence/macb.h
-+++ b/drivers/net/ethernet/cadence/macb.h
-@@ -1382,6 +1382,11 @@ struct macb {
- 	struct delayed_work	tx_lpi_work;
- 	u32			tx_lpi_timer;
+diff --git a/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c b/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
+index 7a4d28cc3242..9d6e0dfecf56 100644
+--- a/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
++++ b/drivers/media/usb/ttusb-budget/dvb-ttusb-budget.c
+@@ -915,7 +915,42 @@ static int ttusb_stop_feed(struct dvb_demux_feed *dvbdmxfeed)
  
-+	/* ISR must not drive NAPI & BH mechanisms. True when the interface
-+	 * is closed. Protected by bp->lock.
+ static int ttusb_setup_interfaces(struct ttusb *ttusb)
+ {
+-	usb_set_interface(ttusb->dev, 1, 1);
++	static const u8 bulk_ep_addrs[] = { 0x01, 0x81, 0 };
++	struct usb_host_interface *alt;
++	struct usb_interface *intf;
++	bool have_isoc_in = false;
++	int i, ret;
++
++	ret = usb_set_interface(ttusb->dev, 1, 1);
++	if (ret < 0)
++		return ret;
++
++	intf = usb_ifnum_to_if(ttusb->dev, 1);
++	if (!intf)
++		return -ENODEV;
++
++	/*
++	 * The pipes below hardcode endpoint numbers and transfer types, so
++	 * make sure the device actually has what we are about to assume it
++	 * has. Otherwise an isochronous URB ends up aimed at, say, an
++	 * interrupt endpoint and usb_submit_urb() WARNs about it.
 +	 */
-+	bool			irq_quiesced;
++	if (!usb_check_bulk_endpoints(intf, bulk_ep_addrs))
++		return -ENODEV;
 +
- 	int	rx_bd_rd_prefetch;
- 	int	tx_bd_rd_prefetch;
- 
-diff --git a/drivers/net/ethernet/cadence/macb_main.c b/drivers/net/ethernet/cadence/macb_main.c
-index c418f859cc34..75bbde81d62c 100644
---- a/drivers/net/ethernet/cadence/macb_main.c
-+++ b/drivers/net/ethernet/cadence/macb_main.c
-@@ -1995,6 +1995,53 @@ static int macb_tx_poll(struct napi_struct *napi, int budget)
- 	return work_done;
- }
- 
-+static void macb_quiesce_start(struct macb *bp)
-+{
-+	struct macb_queue *queue;
-+	unsigned long flags;
-+	unsigned int q;
++	/* no usb_check_isoc_endpoints() to call, so look for it by hand */
++	alt = intf->cur_altsetting;
++	for (i = 0; i < alt->desc.bNumEndpoints; i++) {
++		struct usb_endpoint_descriptor *desc = &alt->endpoint[i].desc;
 +
-+	spin_lock_irqsave(&bp->lock, flags);
-+	bp->irq_quiesced = true;
-+	spin_unlock_irqrestore(&bp->lock, flags);
-+
-+	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue)
-+		synchronize_irq(queue->irq);
-+
-+	cancel_work_sync(&bp->hresp_err_bh_work);
-+
-+	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-+		/* Must be done before NAPI is disabled: the task ends with a
-+		 * napi_enable() call.
-+		 */
-+		cancel_work_sync(&queue->tx_error_task);
-+
-+		napi_disable(&queue->napi_rx);
-+		napi_disable(&queue->napi_tx);
++		if (usb_endpoint_is_isoc_in(desc) &&
++		    usb_endpoint_num(desc) == 2) {
++			have_isoc_in = true;
++			break;
++		}
 +	}
-+
-+	/* Must be done after napi_tx is disabled: its completion re-arms
-+	 * the LPI timer.
-+	 */
-+	cancel_delayed_work_sync(&bp->tx_lpi_work);
-+}
-+
-+static void macb_quiesce_end(struct macb *bp)
-+{
-+	struct macb_queue *queue;
-+	unsigned long flags;
-+	unsigned int q;
-+
-+	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
-+		napi_enable(&queue->napi_rx);
-+		napi_enable(&queue->napi_tx);
++	if (!have_isoc_in)
++		return -ENODEV;
+ 
+ 	ttusb->bulk_out_pipe = usb_sndbulkpipe(ttusb->dev, 1);
+ 	ttusb->bulk_in_pipe = usb_rcvbulkpipe(ttusb->dev, 1);
+@@ -1618,7 +1653,13 @@ static int ttusb_probe(struct usb_interface *intf, const struct usb_device_id *i
+ 
+ 	mutex_init(&ttusb->semusb);
+ 
+-	ttusb_setup_interfaces(ttusb);
++	result = ttusb_setup_interfaces(ttusb);
++	if (result < 0) {
++		dprintk("ttusb_setup_interfaces - failed\n");
++		mutex_unlock(&ttusb->semi2c);
++		kfree(ttusb);
++		return result;
 +	}
-+
-+	spin_lock_irqsave(&bp->lock, flags);
-+	bp->irq_quiesced = false;
-+	spin_unlock_irqrestore(&bp->lock, flags);
-+}
-+
- static void macb_hresp_error_task(struct work_struct *work)
- {
- 	struct macb *bp = from_work(bp, work, hresp_err_bh_work);
-@@ -2137,8 +2184,8 @@ static irqreturn_t macb_interrupt(int irq, void *dev_id)
- 	spin_lock(&bp->lock);
  
- 	while (status) {
--		/* close possible race with dev_close */
--		if (unlikely(!netif_running(netdev))) {
-+		/* self-disarm while the netdev is closed */
-+		if (unlikely(bp->irq_quiesced)) {
- 			queue_writel(queue, IDR, -1);
- 			macb_queue_isr_clear(bp, queue, -1);
- 			break;
-@@ -3155,8 +3202,6 @@ static int macb_open(struct net_device *netdev)
- {
- 	size_t bufsz = netdev->mtu + ETH_HLEN + ETH_FCS_LEN + NET_IP_ALIGN;
- 	struct macb *bp = netdev_priv(netdev);
--	struct macb_queue *queue;
--	unsigned int q;
- 	int err;
- 
- 	netdev_dbg(bp->netdev, "open\n");
-@@ -3180,10 +3225,7 @@ static int macb_open(struct net_device *netdev)
- 		goto free_rings;
- 	macb_init_buffers(bp);
- 
--	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		napi_enable(&queue->napi_rx);
--		napi_enable(&queue->napi_tx);
--	}
-+	macb_quiesce_end(bp);
- 
- 	macb_init_hw(bp);
- 
-@@ -3210,11 +3252,10 @@ static int macb_open(struct net_device *netdev)
- 	phy_power_off(bp->phy);
- 
- reset_hw:
-+	/* The netdev stays down: quiesce and drain, as macb_close() does. */
-+	macb_quiesce_start(bp);
-+
- 	macb_reset_hw(bp);
--	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		napi_disable(&queue->napi_rx);
--		napi_disable(&queue->napi_tx);
--	}
- free_rings:
- 	macb_free(bp);
- pm_exit:
-@@ -3225,19 +3266,17 @@ static int macb_open(struct net_device *netdev)
- static int macb_close(struct net_device *netdev)
- {
- 	struct macb *bp = netdev_priv(netdev);
--	struct macb_queue *queue;
- 	unsigned long flags;
- 	unsigned int q;
- 
-+	macb_quiesce_start(bp);
-+
-+	/* Drain the BH contexts before stopping the queues: NAPI completion
-+	 * and tx_error_task wake them up.
-+	 */
- 	netif_tx_stop_all_queues(netdev);
--
--	for (q = 0, queue = bp->queues; q < bp->num_queues; ++q, ++queue) {
--		napi_disable(&queue->napi_rx);
--		napi_disable(&queue->napi_tx);
-+	for (q = 0; q < bp->num_queues; ++q)
- 		netdev_tx_reset_queue(netdev_get_tx_queue(netdev, q));
--	}
--
--	cancel_delayed_work_sync(&bp->tx_lpi_work);
- 
- 	phylink_stop(bp->phylink);
- 	phylink_disconnect_phy(bp->phylink);
-@@ -4759,6 +4798,11 @@ static int macb_init_dflt(struct platform_device *pdev)
- 	bp->tx_ring_size = DEFAULT_TX_RING_SIZE;
- 	bp->rx_ring_size = DEFAULT_RX_RING_SIZE;
- 
-+	/* No locking needed because the IRQs are not requested yet. The
-+	 * flag is cleared by macb_open() and re-armed by macb_close().
-+	 */
-+	bp->irq_quiesced = true;
-+
- 	/* set the queue register mapping once for all: queue0 has a special
- 	 * register mapping but we don't want to test the queue index then
- 	 * compute the corresponding register offset at run time.
-
+ 	result = ttusb_alloc_iso_urbs(ttusb);
+ 	if (result < 0) {
 -- 
-2.55.0
+2.34.1
 
