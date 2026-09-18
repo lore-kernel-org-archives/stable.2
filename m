@@ -1,75 +1,115 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from omta038.useast.a.cloudfilter.net (omta038.useast.a.cloudfilter.net [44.202.169.37])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94E13C9EC2;
-	Fri, 18 Sep 2026 08:39:50 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 57F25846A
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 08:42:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=44.202.169.37
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720792; cv=none; b=qcCidCql26i4v7u+wMg3hOvVocO2YBBCWyypbf9JkSojMCQ0gED9X3kyEmlAkeNY7Lha3VY9IDNzUSOVgpI8UQhAaRYZ0g5yx4SHlSEhnJtbqdKX1Aamzo3UKkCdSg8cEIeQQsEIo5jHQusR+NwL0J0UQO7MTGFYSo4728AGSGY=
+	t=1789720929; cv=none; b=EyxMmTpyW67rSEzA+JJMIMQyxlkvqKC2U/ggSis5fb/oED4f+7nq+tNKETJ+Xm+6afNAXkINVwCwoVsjgEEjj9GIYnUuzi6HTZQYiCmh+JircTIaQjDTfBMw22VuzIgObtUJvIvewfL4Hs0Q6E1AqmZY1O4ixXeqkGUuiUu29AY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720792; c=relaxed/simple;
-	bh=3Dy3YtypLKkP6JwV5QFwiqAKZVgzsNJ1z8c5ksVcBsc=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=PO3jjO8XoJwmsOQSBhWy1stUE96pYf16Xm26RJrFlM8Xsoz+I85/vKATRi33+yvh2duqZ5Y67PUxTII7cJTs78pa8Ubz+ir6Mdpc+fif3xCs7LsURdwDS7gk44QQVxSLvH5zhmusajKPHfuUo/o+j8vDWrizqdggfvadQansBAY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oj77CiL4; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789720929; c=relaxed/simple;
+	bh=GE01ZJk1Dnk5jP3hnMdHMT3hWSSM0IaDfbBRWneCa4s=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=QMFQZ07rWct5AwkkGKkXvNBaRZ2TWflm/vOFDMZ8w9WWMD0kEDacoQx8H6ayzzl8MUcJu26+Oq6O053l5RROBosP7f2vJmpyngp0i8qNYmYT1SioTjGN+I9uA0NxlvWoQGVooinVFZUgB5H2fcVPncDYxpUUEzFGK4SARN9V9d8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net; spf=pass smtp.mailfrom=w6rz.net; dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b=JGUETni/; arc=none smtp.client-ip=44.202.169.37
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=w6rz.net
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=w6rz.net
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oj77CiL4"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF931F000FF;
-	Fri, 18 Sep 2026 08:39:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789720790;
-	bh=4NyvQt/xrr7/J2Rj9IMwy3V+McdYcbrXcfwVdArfFoA=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=oj77CiL48FknHrG/C+PhbXizZUrccbyaIuo3sONdOz2U0EvXATU7wC8FbnrJo60pH
-	 QpAm2SeEbdoxJ/yoATNd0P0VxnhXE6fJu7qNIUQ2UTuBxXG3u/MFGuSliTvss13rZF
-	 v5pAsTYW3qNHQ56yCV6KcYHzt5z9hfjHNxw87z+4T6hpY6dfai1Zr3fgq32vL5eG7L
-	 HsGhskkQPvusqC2fGVVPyVjpqnLE3a0QHxAVnXHiXL6Qb7G30yPK7oUIe8l87lgHeN
-	 ltaNmSB+jSb8Z8G7ksFALjofzsIkOaju8gcqyyij9pL1VP+UFwqeUouFc2aB/0ZeMV
-	 6kb8zmJwnr0OA==
-From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
-To: broonie@kernel.org,
-	Wentao Liang <vulab@iscas.ac.cn>
-Cc: Christophe Leroy <chleroy@kernel.org>,
-	herve.codina@bootlin.com,
-	leoyang.li@nxp.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	linuxppc-dev@lists.ozlabs.org,
-	qiang.zhao@nxp.com,
-	stable@vger.kernel.org
-Subject: Re: [PATCH] soc: fsl: cpm1: tsa: Fix clock leak in tsa_of_parse_tdms()
-Date: Fri, 18 Sep 2026 10:39:38 +0200
-Message-ID: <178972077003.546774.17878987805855996127.b4-ty@kernel.org>
-X-Mailer: git-send-email 2.54.0
-In-Reply-To: <20260917152719.2160395-1-vulab@iscas.ac.cn>
-References: <20260917152719.2160395-1-vulab@iscas.ac.cn>
+	dkim=pass (2048-bit key) header.d=w6rz.net header.i=@w6rz.net header.b="JGUETni/"
+Received: from eig-obgw-5005b.ext.cloudfilter.net ([10.0.29.189])
+	by cmsmtp with ESMTPS
+	id 7NifxkjW3JFmF7U8yxBMKe; Fri, 18 Sep 2026 08:40:28 +0000
+Received: from box5620.bluehost.com ([162.241.219.59])
+	by cmsmtp with ESMTPS
+	id 7U8yxEWiaZOPw7U8yxuOe4; Fri, 18 Sep 2026 08:40:28 +0000
+X-Authority-Analysis: v=2.4 cv=H8Xbw/Yi c=1 sm=1 tr=0 ts=6aacf8fc
+ a=30941lsx5skRcbJ0JMGu9A==:117 a=30941lsx5skRcbJ0JMGu9A==:17
+ a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=7vwVE5O1G3EA:10 a=VwQbUJbxAAAA:8
+ a=HaFmDPmJAAAA:8 a=qhrrstFoYj4ExQeanoMA:9 a=QEXdDO2ut3YA:10
+ a=nmWuMzfKamIsx3l42hEX:22 a=L5EjiQpGQaFGZdqT14z7:22
+DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed; d=w6rz.net;
+	s=default; h=Content-Transfer-Encoding:Content-Type:In-Reply-To:From:
+	References:Cc:To:Subject:MIME-Version:Date:Message-ID:Sender:Reply-To:
+	Content-ID:Content-Description:Resent-Date:Resent-From:Resent-Sender:
+	Resent-To:Resent-Cc:Resent-Message-ID:List-Id:List-Help:List-Unsubscribe:
+	List-Unsubscribe-Post:List-Subscribe:List-Post:List-Owner:List-Archive;
+	bh=MjnUq/dY/fWPJe3QMgR+iwGz28UusEz4Z6VVJBzj2jI=; b=JGUETni/P4Wn27DeM/P4APGYSU
+	jWVbOTTzbhJeduk3s1TAW4GPoQ7MSzGs9Bemrr4XHFnaHcSm/yGIxLY3ifO3+AR81Bkq+PG7z+mBt
+	j5SFDmGWIRC3+R/Lv4SHUe0dhA923rHgSez7hIRXnPsV8ZobBSeGUyin860DbD6TrQoMWlxlHzDJs
+	18RMriKCDpHLUOPI2bsWjZd/vJ7ONtfTqJM6GFyKcfPMEjXhxG2QLO8yO1xQ3S9JSeBIZofGLdl2L
+	puM+UjVL9BoQ6RVjf69S3sCUCjqmzOKlcHKXNlAQK0imqYauEZWIZL/rCUKYxZlgH0N97ZV2ZeznL
+	dMEK2m8Q==;
+Received: from c-73-162-206-103.hsd1.ca.comcast.net ([73.162.206.103]:33456 helo=[10.0.1.180])
+	by box5620.bluehost.com with esmtpsa  (TLS1.3) tls TLS_AES_128_GCM_SHA256
+	(Exim 4.100)
+	(envelope-from <re@w6rz.net>)
+	id 1x7U8x-00000002hF0-237G;
+	Fri, 18 Sep 2026 02:40:27 -0600
+Message-ID: <86ef5c9f-effd-43a1-8f6f-c6118b5e8c82@w6rz.net>
+Date: Fri, 18 Sep 2026 01:40:25 -0700
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-X-Developer-Signature: v=1; a=openpgp-sha256; l=614; i=chleroy@kernel.org; h=from:subject:message-id; bh=pC3q+eVOwKtbzxx0BZcSBlwLSzb+dYpbfXOvP0gz5ns=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWSt+XH6buLtv9na7FOKuo6fmv0y1mOv4ZXC3YLNRmFf5 xSlCDU86ChlYRDjYpAVU2Q5/p9714yuL6n5U3fpw8xhZQIZwsDFKQATOVrHyLBd81a/VUC7/Lvs V8wR18VXh8btmL879cL1SyfqXllejt3H8D/hjcFkRYddXBcy5nGpc3U/+rEidmt79dx94flrQvX 7r7AAAA==
-X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 7.2 000/733] 7.2.7-rc1 review
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
+Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
+ torvalds@linux-foundation.org, akpm@linux-foundation.org,
+ linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
+ lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
+ f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
+ conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
+ achill@achill.org, sr@sladewatkins.com
+References: <20260917151350.597953846@linuxfoundation.org>
+Content-Language: en-US
+From: Ron Economos <re@w6rz.net>
+In-Reply-To: <20260917151350.597953846@linuxfoundation.org>
+Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Transfer-Encoding: 7bit
+X-AntiAbuse: This header was added to track abuse, please include it with any abuse report
+X-AntiAbuse: Primary Hostname - box5620.bluehost.com
+X-AntiAbuse: Original Domain - vger.kernel.org
+X-AntiAbuse: Originator/Caller UID/GID - [47 12] / [47 12]
+X-AntiAbuse: Sender Address Domain - w6rz.net
+X-BWhitelist: no
+X-Source-IP: 73.162.206.103
+X-Source-L: No
+X-Exim-ID: 1x7U8x-00000002hF0-237G
+X-Source: 
+X-Source-Args: 
+X-Source-Dir: 
+X-Source-Sender: c-73-162-206-103.hsd1.ca.comcast.net ([10.0.1.180]) [73.162.206.103]:33456
+X-Source-Auth: re@w6rz.net
+X-Email-Count: 19
+X-Org: HG=bhshared;ORG=bluehost;
+X-Source-Cap: d3NpeHJ6bmU7d3NpeHJ6bmU7Ym94NTYyMC5ibHVlaG9zdC5jb20=
+X-Local-Domain: yes
+X-CMAE-Envelope: MS4xfGHKlaZIKPFWrKLSqy8fXTj0RtFDbQBb+xQV9Sfe1lCNPN/fq7E1iIOQA8nBOsrMduUVXADoWRXlzXn97UbzZLBMPXOf/wsIhwMUl1S5nAm58qhEMPAl
+ nLNq1PRagNJahw6xaaP9GqHiCOHCRHMpZjlIOS/fbypXpSmP7k99A5OWglCczDv+fNej4wGpedhQ1w==
 
+On 9/17/26 08:05, Greg Kroah-Hartman wrote:
+> This is the start of the stable review cycle for the 7.2.7 release.
+> There are 733 patches in this series, all will be posted as a response
+> to this one.  If anyone has any issues with these being applied, please
+> let me know.
+>
+> Responses should be made by Sat, 19 Sep 2026 15:12:28 +0000.
+> Anything received after that time might be too late.
+>
+> The whole patch series can be found in one patch at:
+> 	https://www.kernel.org/pub/linux/kernel/v7.x/stable-review/patch-7.2.7-rc1.gz
+> or in the git tree and branch at:
+> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-7.2.y
+> and the diffstat can be found below.
+>
+> thanks,
+>
+> greg k-h
 
-On Thu, 17 Sep 2026 15:27:19 +0000, Wentao Liang wrote:
-> The error cleanup loop puts l1rsync_clk and l1rclk_clk a second time
-> and never puts l1tsync_clk or l1tclk_clk, because the branches that
-> guard the transmit clocks use the receive clock field names.
-> 
-> Use the matching field in each branch so every clock acquired by
-> tsa_of_parse_tdms() is released exactly once.
-> 
-> [...]
+Built and booted successfully on RISC-V RV64 (HiFive Unmatched).
 
-Applied, thanks!
+Tested-by: Ron Economos <re@w6rz.net>
 
-[1/1] soc: fsl: cpm1: tsa: Fix clock leak in tsa_of_parse_tdms()
-      commit: 7b3b0598c00e67f2df85d0b4cd99eaa3be6c9bfd
-
-Best regards,
--- 
-Christophe Leroy (CS GROUP) <chleroy@kernel.org>
