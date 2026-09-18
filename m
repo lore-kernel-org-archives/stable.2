@@ -1,144 +1,114 @@
-Received: from mail-qt1-f172.google.com (mail-qt1-f172.google.com [209.85.160.172])
+Received: from mta0.migadu.com (out-87.mta0.migadu.com [91.218.175.87])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E241E3546F5
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 01:12:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.160.172
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789693950; cv=pass; b=GGT6X3Q1wUTwxzHzYf1aBMIkHSa5W9dSKPaxexELuXDllFicmFE7TZom9HK1lmdCeqHNB8zeEHQ23E8U+CeWjQAAtC8Wu2+SSLCN0WZgjKw4sZ7m7Igiqb7Yllo+JEYr+us48tqNlK4NE20puWCtda1N+qtsL9SxKDm20Sg/2Co=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789693950; c=relaxed/simple;
-	bh=59DjG7Ba/Synu3HWYr+dx4VKBXTxHzy5pOOnrA3rtp4=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=KOLdmKbZrWkCfhaBflsqdLGowu/JRYog9iC6dsxm1N85fruLununa1vJ3O3doOxd46A+fXz2DFDisVSRxPZt+tE9KRr01Ni9HSPfgUqv9UlF+jiVaEPVcm6WR1N7/KEYfTU2UJQUhBEEnL2pFv/XbobidBeeJZUUaArWRdsPhwA=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=lVLqegIL; arc=pass smtp.client-ip=209.85.160.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 49F5B345CAA
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 01:14:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.87
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789694058; cv=none; b=ZtlwymA9VMTuHX6LkXjzs+7zwy5TbrK9xJPGFIoz4v1JHJkokcuJORCBTQNXedgwPsNNLb+UQtczdrRlQCJ2E/kwVE8gY09eocBt5cRGEP0H+wkufcgwQn2Q1KOUVWHVkKmSGGG3m0hE2i88XEL+qyChZuqMVrdZM2WBT0AV2M8=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789694058; c=relaxed/simple;
+	bh=xd3HLoWCvqAvLmFf1rcOFjGuOS7Rbqozm40WR+knmgo=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=lezJSuWceDv/ONtUi+mt0Er6OwEprzs48WrVEku7e3ueXWhqcuaJex2Vjt3e1DcKItFaY9zpLly+VBaT5r4LiojTkpPA5rKPUxupcjZCXS50ZhKA+GJfWhkjfuNHGUeFTv+r3Own5RikXxFixbetHzsdPmeWgAoWESYXnzuupXU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=MgD/1O1n; arc=none smtp.client-ip=91.218.175.87
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="lVLqegIL"
-Received: by mail-qt1-f172.google.com with SMTP id d75a77b69052e-53113d72966so106321cf.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 18:12:26 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789693945; cv=none;
-        d=google.com; s=arc-20260327;
-        b=Ko82QvWqE7PjSBfW0//3avFTDxNONUMCPukPHNzlGZ/BWG73ytnDRSNeDosHu4QxOo
-         7JABuNDurltocNyHaiii5KgbgJkdwtHqJsSilrRMRjBPZMfHtmIz5RuCDICT1ExWyyur
-         d4rIleNn5PwK3zzXikojLGmI8qIyqltIbgR2BLjD8BSQ2xmhOpOpDO6LW/FMK90cTUC9
-         4TZbLJt0DMG29bzpAMOkFo2YCH80pGK+HT8Fq6z3oEs08DVwrbQfQlzT0cn9iFA2ajVO
-         +cxlkrLA56S5FdJDx+M1psQROLy0l6PlmA/acvsR274IuXFmfDFu/P/6McG5WQJ8grVc
-         yd8A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=8CaD0rfqQizy2B+GSoa1ONFRM1MKoZPF6ZVzgGYvBiY=;
-        fh=6rjIKCxUXHn0kKvt0d9+F0mhxpPZ9hMR7e4Ilq9n7AY=;
-        b=Zu3dubcPiIWYj1IhlTyXK2NXRfq4i1GhfOcjMyfkcp6iutJ8XDP5IGVDhSLXX/YPXR
-         26q6TKrACPq6e07O4GzS5mRrmcQZ/ZZCrSSQ9AN6Ph0mbfee0Oq3kPih+t/qlr3poNMH
-         Q7J6bzDHdNzKXKLqWzRdxmPBbJ/1rVrlU/SPTTxiR6VTRH253pw3vxrod7hZcIVqBRnw
-         5BWaR4umnTdlfW146wKiESkUx6E8QEvN3eJZjY8EIIfCyMdcG05T6XlTfmVJ4awYWUQl
-         tLsYWmfVZL/ThZ3jUm5QD24X2Z5Urm5z03ZqMiI2ASQa+cfGcC3smd7FCxztcxkjvyLv
-         VlgQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=google.com; s=20251104; t=1789693945; x=1790298745; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=8CaD0rfqQizy2B+GSoa1ONFRM1MKoZPF6ZVzgGYvBiY=;
-        b=lVLqegILju+hw11l+C/Iw5Shf5jMp6jDg9awwycuxGQggFRdas3PfE/HHiMtyJRFZP
-         CCw/Vli1C25Cj/djNEE7RfDNgwLXwhZjSuoFbRW5Jldnv2CoZKrBA29+rh/IdUv94fRK
-         OTDKrshjc+i9JXO9cgMtvPcrr/oMg1xmaXweAskfNMT6fsoeLk07WDPpPD/FvjQ/BUux
-         Sr8Lm6TLwEcpEv5RQyXUOJdQ4NcofgxIivd5jwSMrhryxIBK7pmTG5vZnSsP9yrHoxNI
-         w57pckW4imUEaif/rmWTYQHx2D8fy/pZrQvm69cWtJw5y8+tZo+dz/3OSGVYDwxidf6+
-         f72w==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789693945; x=1790298745;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=8CaD0rfqQizy2B+GSoa1ONFRM1MKoZPF6ZVzgGYvBiY=;
-        b=YJoQ3gyceMAyQxAdtzEgDsTbJFqxTtyzM4yzOwedWhykuaUcawt4j029MPsD67Qqga
-         0o6zT+yv6gjh6ZTzMZV7sz7Wfza3OIGjQMc3ycgJESX/LSVk8pvAtNE4T/lZGMTQcc16
-         4io5RcXEVcnHKv4XrJ4Aku/0qHsYsy6kViW6XwYw8kfurpRu1N/eCwbEr/BMxzslvA/2
-         IkO+Z290O0dVBI9AFmjnE4vo6qoWo2qjsGssEp05U4L0C2KtdWmsDNMISomJNfggAF9B
-         R3FXb4fPVVFPxBYnlrGgbCvFUIeIk7T22jc/KSq70vJb+yCbDSDccaQIRMwwbX1epJsN
-         hzAw==
-X-Forwarded-Encrypted: i=1; AKwUvBwZEDHP2OAKcK5ReJ98OOAl5qxko4Pb6UBgftYYv/w+AOJb+QpMZU/gtfMwKSSsugT0X3/Cqog=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrsHtDFx5yWA6Z9Jf26JsYQQR1+9Oe+tT9FjqRweQrXkXMW4G2
-	uW8+Sn4rlHBcJHzQfjszdSFblxQMbSy2/koVD8JXRPx4yvMSOBvHyOaIRE7YpRRtiwrpIfna4Kl
-	pO9QMXbSid2kG88Hn+YVBoAKSH63ngLfMfEEWewgl33GMG1uCLWF2SKeY
-X-Gm-Gg: AYBFou3yJnOGunI9yWjEoSjpHRITJbeM9giKRMdBuG1rQh9ZKbBWHQNgesZ3do8wrLL
-	Z8fuiedFQpOm0BfhZ9qieaccGzsx70HCQx1dCEhGv3xyORLQdAKtLQMq6WCCodJJJBjhsOSj3Dp
-	teUZG6VypihkgorUe/sXlQEWmGy7I+lThd+ko+eCZGM5WCc/JMxKj70JGFvgJBXxRB7kAzv2+qA
-	4neWFo+QrWSRwgYCPPB9/d3q3VKo3G/KkolrBPjh60/nFF7BRjsvoKzHOYmWfKv3djX1hWXnV7T
-	8z9TOXri4hXempuRZkFcT1wqO05WTub6UTzif27hzOGBAOyeWowyBQ==
-X-Received: by 2002:a05:622a:649:b0:52f:9ed4:8d74 with SMTP id
- d75a77b69052e-5329d7ebce3mr7824921cf.14.1789693944193; Thu, 17 Sep 2026
- 18:12:24 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="MgD/1O1n"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=xd3HLoWCvqAvLmFf1rcOFjGuOS7Rbqozm40WR+knmgo=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789694053; v=1; x=1790298853;
+ b=MgD/1O1nHCFy5UJMXRpRv9e/PAXTgqh7zpohvNNOBzry2FJlKlJfjv8VUVfOEF2AIJnKTAkH
+ wjEVosSIUK7TKL78dpu5NRwPrAsHq2okpd4JD2X3TDGDQrCOuGzlLucMusyd3OaxW9mIOBKLlzN
+ SxQEu9jWVK31SsKLkTv49sJI=
+X-Envelope-To: stable@vger.kernel.org
+Received: by mta11.migadu.com with ESMTPS id 1ba77223abdbd243;
+	Fri, 18 Sep 2026 01:14:03 +0000
+X-Mizu-Trace-ID: 1ba77223abdbd243
+X-Migadu-Flow: FLOW_OUT
+Date: Fri, 18 Sep 2026 09:13:47 +0800
+From: Hangbin Liu <hangbin.liu@linux.dev>
+To: Andrea Mayer <andrea.mayer@uniroma2.it>
+Cc: netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+	dsahern@kernel.org, davem@davemloft.net, edumazet@google.com,
+	kuba@kernel.org, pabeni@redhat.com, horms@kernel.org,
+	idosch@nvidia.com, alex.aring@gmail.com, justin.iurman@gmail.com,
+	bestswngs@gmail.com, stefano.salsano@uniroma2.it, xmei5@asu.edu,
+	stable@vger.kernel.org
+Subject: Re: [PATCH net v3] ipv6: rpl: fix NULL dereference of idev in
+ ipv6_rpl_srh_rcv()
+Message-ID: <aqyQS7knJ2SwKxPG@fedora>
+References: <20260817132644.2223-1-andrea.mayer@uniroma2.it>
+ <aqjflqdySFG51YEa@fedora>
+ <aqk49jT8tGsqn61d@fedora>
+ <20260917194128.c078117a13eca6f3c97e3dde@uniroma2.it>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916075557.121316-1-hao.ge@linux.dev>
-In-Reply-To: <20260916075557.121316-1-hao.ge@linux.dev>
-From: Suren Baghdasaryan <surenb@google.com>
-Date: Thu, 17 Sep 2026 18:12:12 -0700
-X-Gm-Features: AcwNN1XNY6AqvHO92sUp1uSClBs9D9k4LNE8UFQHN5IMJcofHqzZ4rP2n34CQxs
-Message-ID: <CAJuCfpFSP1oq_ANWqVbhS_3kzdLkK76aGUf6S73_rC++NTL-CQ@mail.gmail.com>
-Subject: Re: [PATCH] mm/alloc_tag: account for reserved tag ids in the kernel
- tag check
-To: Hao Ge <hao.ge@linux.dev>
-Cc: Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+Content-Transfer-Encoding: 8bit
+In-Reply-To: <20260917194128.c078117a13eca6f3c97e3dde@uniroma2.it>
 
-On Wed, Sep 16, 2026 at 12:55=E2=80=AFAM Hao Ge <hao.ge@linux.dev> wrote:
->
-> The tag ids stored in the page flags include two reserved markers.
-> Id 0 means the page has no tag and id 1 means the tag was cleared,
-> so real tags start at CODETAG_ID_FIRST. The kernel-side check in
-> alloc_tag_sec_init() compared kernel_tags.count alone against the
-> addressable limit, so with the count at or just under the limit
-> the last tag ids wrapped into those markers. Pages allocated
-> through them then look the same as untagged pages on free, nothing
-> is ever subtracted from the real tag and /proc/allocinfo shows
-> that memory as still allocated.
->
-> Add the missing CODETAG_ID_FIRST, same as tags_addressable().
->
-> Fixes: 4835f747d3ed ("alloc_tag: support for page allocation tag compress=
-ion")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Hao Ge <hao.ge@linux.dev>
+Hi Andrea,
+On Thu, Sep 17, 2026 at 07:41:28PM +0200, Andrea Mayer wrote:
+> On Tue, 15 Sep 2026 20:24:22 +0800
+> Hangbin Liu <hangbin.liu@linux.dev> wrote:
+> 
+> > On Tue, Sep 15, 2026 at 02:03:12PM +0800, Hangbin Liu wrote:
+> > > Hi Andrea,
+> > > 
+> > > While reviewing the SRv6 code, I noticed you added an `idev` check in
+> > > `ipv6_rthdr_rcv()`. I’m wondering whether it makes sense to also halt
+> > > processing for `IPV6_SRCRT_TYPE_2` when `!idev`, given that IPv6 is
+> > > disabled on that device.
+> > > 
+> > > If so, could we drop the skb early at the entry point of `ipv6_rthdr_rcv()`?
+> > > The downside is that subsequent processing and `__IP6_INC_STATS()` would be
+> > > skipped.
+> > 
+> > Oh, another behavior change. At present, if !idev, we can still process the
+> > IPV6_SRCRT_TYPE_2 message. And the process will be skipped if we return early.
+> > I'm not sure if this kind of change is acceptable or not in kernel.
+> > 
+> > But on the other hand, is it correct to accept and forward SRCRT Type 2
+> > packets on device that IPv6 is disabled?
+> > 
+> > Thanks
+> > Hangbin
+> 
+> Hi Hangbin,
+> 
+> One case is when IPv6 is already disabled as the packet arrives:
+> ip6_rcv_core() drops the packet before ipv6_rthdr_rcv().
+> The other is the transient window: dev->ip6_ptr can be cleared after
+> that check, and ipv6_rthdr_rcv() can then find idev NULL.
+> In that window the TYPE_2 path can run without idev. ipv6_srh_rcv() and
+> ipv6_rpl_srh_rcv() cannot: they read idev->cnf. That is why the check
+> sits before those two calls.
 
-Nice catch!
+Thanks for your reply. So in fact, if IPv6 is disabled on an interface,
+*all* SRCRT types get dropped in ip6_rcv_core(). The idev check inside
+ipv6_rthdr_rcv() exists to close this transient window.
 
-Acked-by: Suren Baghdasaryan <surenb@google.com>
+> 
+> On the counters: __IP6_INC_STATS() goes through _DEVINC(), which skips
+> the per-device bump when idev is NULL and still increments the per-net one.
+> Stopping TYPE_2 in that window as well is a behaviour change, and I think
+> it would need a reason of its own.
 
-> ---
->  mm/alloc_tag.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
->
-> diff --git a/mm/alloc_tag.c b/mm/alloc_tag.c
-> index cfa0fc84b68f..cf100e7a852f 100644
-> --- a/mm/alloc_tag.c
-> +++ b/mm/alloc_tag.c
-> @@ -629,7 +629,7 @@ void __init alloc_tag_sec_init(void)
->         kernel_tags.count =3D last_codetag - kernel_tags.first_tag;
->
->         /* Check if kernel tags fit into page flags */
-> -       if (kernel_tags.count > (1UL << NR_UNUSED_PAGEFLAG_BITS)) {
-> +       if (CODETAG_ID_FIRST + kernel_tags.count > (1UL << NR_UNUSED_PAGE=
-FLAG_BITS)) {
->                 shutdown_mem_profiling(false); /* allocinfo file does not=
- exist yet */
->                 pr_err("%lu allocation tags cannot be references using %d=
- available page flag bits. Memory allocation profiling is disabled!\n",
->                         kernel_tags.count, NR_UNUSED_PAGEFLAG_BITS);
-> --
-> 2.25.1
->
+My understanding is that handling TYPE_2 within that window is also mismatched
+with ip6_rcv_core(), theoretically it should not be processed.
+
+However, since there is no harm for TYPE_2 with the current code. We can
+retain the existing behavior unless someone reports issues, or until I have
+time to restructure this function.
+
+Thanks
+Hangbin
