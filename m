@@ -1,55 +1,59 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 70D8E36F8E5;
-	Fri, 18 Sep 2026 00:53:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69901363C73;
+	Fri, 18 Sep 2026 00:53:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789692783; cv=none; b=pXMiZtRw0yBHEDfQzXkztoItWNTMbgy0pfqubx44q+88esfoQLJxP17G3m3z5UlDpijhkJg8TxbSKKyg6k7CVMFBejO8zaNb+8/iuaSxuaT5icpxGh6xKnjqJzNMRAo0hlB9jkQPLe5et139pjvGGFzMRhfS3Vazh91gnxt/+cM=
+	t=1789692785; cv=none; b=CtfLx4bDViMIdGBo/eeB9J60/tzofYGFwyRiay1WtUcuz5MZtDGfpNxecgeaQPzlXz/dDwhClVEGqnbSPx0H2G6F+zZyj8YW/HViV7oh5QnLAXLVDQ0pONVwfys/pmKTjBscYmY7moWJ9Ip2ib6Kq8eF0Ogbm2EJDpAZNkBOpLw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789692783; c=relaxed/simple;
-	bh=g5RZNF9tPHYnxTjTao/Qe4K5FWQrk358BezNw7gSAN0=;
+	s=arc-20240116; t=1789692785; c=relaxed/simple;
+	bh=4rSpVDRw3KfRqQElYQ/6U7vvVqZlwdtdJ+OIY5ZbNd0=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=WK/RjS4LSgqMiPuzUdVVwiTMIfUTB4tB3bMeK1Th6Y5gYZ5+VMmTqPJVbM51I0XAEX/oUF6xOpPEN4NFp45BPwMOl1b/TT0IdkMcmT2r32F8hHn3S344STfX3VoISuxZczdAiGnxr6dgcmO8wix94o7EAAlpp+S8eLeliz5wosA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mLLxNoII; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=KLfLxWLNicQzURE/8MQ5XP0bqzpn5LicbFMKwn1FDyZElyrWQhK9tI74u7lKAE9N7kvLXcVJeSL2PfQ7kiJmw5MZ1onuScvg1H7sVKMSUHjT7WbJJkgeRHobViAVlNjrfDtfXPJ3Tk+YJWBoBqrYtzH+E+X8bxdj7eIetR2RAX8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QoqApIKH; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mLLxNoII"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 39DDB1F0089A;
-	Fri, 18 Sep 2026 00:53:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QoqApIKH"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 17BF71F00893;
+	Fri, 18 Sep 2026 00:53:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789692781;
-	bh=KW7JYefcv10fFdJtdqBL6oXYa+3elg1lBk14sv+TqT4=;
+	s=k20260515; t=1789692784;
+	bh=FufOZFrat4/V9B8FOuTnerSR/nqhw6zOwuLUreu9eYg=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=mLLxNoIIw6DM814yZ11ckfQuWZ5biVUA6HXJifbqdZRiySvfSXeBFqLNQkMIZi+Y9
-	 aLp10Z0d+yTcoo681yiwv8VPD5hDEb82bjAwvL8Nd1KvkgWY7m8cmrEljhAjH4nu/o
-	 BsjBvhJnEYxjMEu4rp5FEezH84p0kClcVZpfzZdjZt9JYiaw9t8ohoV7ixnSytgjo9
-	 JxAuDfT9rGuoKv2sSMSMhmLZzdTFa1pWcVDaiX2xmwinre0mS49KCVa6eF8n/Pxgop
-	 23bVP+16o0J1EdQHdo+9fSPzgJ243rLokmJWVVKBd3OU/KLorovazQLlLc225phH3j
-	 jFoGDNG8r3F2g==
+	b=QoqApIKHjqIhbOFqp7ZSNmC9CRR3JHer2GL6nAmfnbwQtM3kT8N2Ipj5oBsDtqrvu
+	 WFh6zjDpgjv1voQdVGv1G5yEXjv7RILdnAdn0KAKUnYwWJ1sHXrN2rADNX+Bw2aKjy
+	 /wWL7itsjkjx/GDOkFFSZo5Q6AB3BZhs9gkTRAYULTZWpOUCB0kzO9j31J66yFT3Wj
+	 Znj5cGB7Besfg1lYdp210t+alohXKkWkWXs+dvirdNeF0sFf5AMuSW0px1kB1kvpg1
+	 sFIwlJJ6MowrEyDvL+KEk7nJHoXSybSfqs9Cu28byZeFZJBGjPzp8UOM6ZOdgQc8uJ
+	 Vwai9xkQ62HXw==
 From: Sasha Levin <sashal@kernel.org>
 To: stable@vger.kernel.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	Karl Mehltretter <kmehltretter@gmail.com>,
-	gregkh@linuxfoundation.org,
-	luiz.dentz@gmail.com,
-	luiz.von.dentz@intel.com,
-	marcel@holtmann.org,
-	johan.hedberg@gmail.com,
-	eadavis@qq.com,
-	pav@iki.fi,
-	davem@davemloft.net,
-	kuba@kernel.org,
-	linux-bluetooth@vger.kernel.org,
-	netdev@vger.kernel.org,
+	=?utf-8?q?Micka=C3=ABl_Sala=C3=BCn?= <mic@digikod.net>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	=?utf-8?q?G=C3=BCnther_Noack?= <gnoack@google.com>,
+	Christian Brauner <brauner@kernel.org>,
+	John Johansen <john.johansen@canonical.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E. Hallyn" <serge@hallyn.com>,
+	Kentaro Takeda <takedakn@nttdata.co.jp>,
+	Tetsuo Handa <penguin-kernel@I-love.SAKURA.ne.jp>,
 	linux-kernel@vger.kernel.org,
-	patches@lists.linux.dev,
-	syzbot+b7f6f8c9303466e16c8a@syzkaller.appspotmail.com
-Subject: Re: [PATCH 5.15.y 0/2] Bluetooth: L2CAP: fix connectionless receive path
-Date: Thu, 17 Sep 2026 20:52:37 -0400
-Message-ID: <2026-09-17-daily-reply-0010-l2cap-connectionless-5-15@kernel.org>
+	linux-security-module@vger.kernel.org,
+	Al Viro <viro@zeniv.linux.org.uk>,
+	Jann Horn <jannh@google.com>,
+	Kees Cook <keescook@chromium.org>,
+	Konstantin Meskhidze <konstantin.meskhidze@huawei.com>,
+	Paul Moore <paul@paul-moore.com>,
+	Shuah Khan <shuah@kernel.org>,
+	linux-doc@vger.kernel.org,
+	linux-fsdevel@vger.kernel.org
+Subject: Re: [PATCH 5.15.y 1/2] landlock: Require LANDLOCK_ACCESS_FS_MAKE_REG for whiteout creation
+Date: Thu, 17 Sep 2026 20:52:38 -0400
+Message-ID: <2026-09-17-daily-reply-0011-landlock-whiteout-5-15@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260917040004.21041-1-kmehltretter@gmail.com>
-References: <20260917040004.21041-1-kmehltretter@gmail.com>
+In-Reply-To: <a1915a39f4c8469dae12d207e202588d6954bb92.1789655723.git.mic@digikod.net>
+References: <a1915a39f4c8469dae12d207e202588d6954bb92.1789655723.git.mic@digikod.net>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -58,13 +62,13 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> 5.15.y has two problems on the L2CAP connectionless receive path. The first
-> comes from a backport that landed without its prerequisite, the second from
-> a fix that never landed at all. Upstream contains both fixes.
+> [ Upstream commit 672fa082d48b21e1fb62cdb184fee41513e53421 ]
+>
+> Whiteout objects are used in the upper layer of an OverlayFS to
+> indicate that the file with this name does not exist in the unified
+> view, even if it is present in one of the lower layer file systems.
 
-Queued the series for 5.15, thanks. The write-up of why only the
-l2cap_core.c half of f1a8f402f13f ("Bluetooth: L2CAP: Fix deadlock")
-belongs here was useful.
+Queued for 5.15, thanks.
 
 -- 
 Thanks,
