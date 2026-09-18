@@ -1,66 +1,73 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 456AC3AAF4A;
-	Fri, 18 Sep 2026 09:56:56 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2064A429827
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 09:58:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789725424; cv=none; b=TG/URBgYlvBH+kEAmpvsdbUiY+aC6j4uOTYyT12IcNoAfOR/FEU8jzIndZadtp3V3Ye8/IHUY2AvcXR1BcM/Ud0sDnMQGpbRIvkZGXUFAjl0SVW/PzFKG51OpdaZvdJ3tLzqrylRJKTWIwo8QVIID07CNRCaiKKMDPNNHivHhkM=
+	t=1789725513; cv=none; b=tYI2SG+w1h/6AM7DJr4wXjZia5UZWpMdHn1ZxKL4ou0x/bqZkiwSuoRbUntVNS01BV0eOfjDnY5UNM8xcAvOTsGN0uf3JwSGj7VmHa3fAyv/N/B6F/KZhRTY7pDcQGQ67mmat+X9HCd5wafkPw6c0nJBVpD0urRLx9XMrrt0x1M=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789725424; c=relaxed/simple;
-	bh=hZ1x00CmvH/v3SfkzJvQTSbvvIy+fDJWOOfZXXMnCSc=;
+	s=arc-20240116; t=1789725513; c=relaxed/simple;
+	bh=WU6NM8wroOJIrsIpnzjpcTgYrVBEM+WJz3vung4Fs/E=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Nu/LaLnH9tkPNDr11OhHhKX0gRYLQuOqyqUeo/gowNNGyDv6rB9NZOFDCE6ZhlaJ/M4e92BgowPeHFPlIxZeGR0vmlx1SVLh6rIwkvTtSoMJxb/R1YNYM2buM3WOxs8j34xJ9l5tKzn/RCtxy/bmpmspP2Oqq1tWODrEDEDdrkk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=nM/Joy5T; arc=none smtp.client-ip=192.198.163.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=aP8acMZqOw3l8IKy8Ygozm/nH6QQLpmDC5bhweAXY+jm9lt2ikXy9VJY2idkbvcbCYn8Z+Lz6qpvxF1Cm9ozcVPtjGN5L/YjCYbpP2uHqCL8VlQu/nLkmVJ3Ysxe1oxJQRmD+RxoUgqgYf/4eNXp7pNxGEPtAnmWrs6AT+c0YvI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=A5OTakIU; arc=none smtp.client-ip=74.125.225.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="nM/Joy5T"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789725420; x=1821261420;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=hZ1x00CmvH/v3SfkzJvQTSbvvIy+fDJWOOfZXXMnCSc=;
-  b=nM/Joy5Tx9d7T7IguFOUYEnEUsGtEz2HFbuuA5Fmd7xHiT2N2Scl0BMz
-   nYUwTPIQZR7OoSxnvqQvh2eIZOvINoxdebHQg7oDphsOMKZpXpUrfu/Fd
-   hpCvrT2GWqBOWfAZ0U5Owo5jeYOIo+seIfLPtDqcnfdrZBzooOrbxrQzO
-   Ldwpaftnt6nI1QJHgyBSpjN77ix0FdURhw5hkKsDblSJA6dAavy2raYqa
-   7VFrjKH+qP2sZpowjRjnCdrETalpEmTE6b2T1zI+WUY07CG5pduUkHqUa
-   muUv3uYJw5rlCkG2VIVSCSigCEjf+ww+mEHvkOTsRvDhNUPp1BSKUymi/
-   Q==;
-X-CSE-ConnectionGUID: 77026hMORE2kGrzHrfs4FA==
-X-CSE-MsgGUID: dLlbpJE+RAa+Obnl1UvnkA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="100882634"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="100882634"
-Received: from fmviesa001.fm.intel.com ([10.60.135.141])
-  by fmvoesa103.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 02:56:54 -0700
-X-CSE-ConnectionGUID: TCzrHF1/RhWzhNMUEHoKGw==
-X-CSE-MsgGUID: 37tYMD3SSuClkfINO9FYoA==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="299431634"
-Received: from black.igk.intel.com ([10.91.253.5])
-  by fmviesa001.fm.intel.com with ESMTP; 18 Sep 2026 02:56:51 -0700
-Received: by black.igk.intel.com (Postfix, from userid 1008)
-	id F08B999; Fri, 18 Sep 2026 11:56:50 +0200 (CEST)
-Date: Fri, 18 Sep 2026 11:56:50 +0200
-From: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-To: jens.glathe@oldschoolsolutions.biz
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Abel Vesa <abelvesa@kernel.org>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Konrad Dybcio <konradybcio@kernel.org>,
-	Sebastian Reichel <sre@kernel.org>, linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-arm-msm@vger.kernel.org,
-	stable@vger.kernel.org, "Dr. David Alan Gilbert" <dave@treblig.org>,
-	Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>
-Subject: Re: [PATCH v3 3/3] usb: typec: mux: ps883x: disable USB4 on
- incomplete USB4 platforms
-Message-ID: <aq0K4ryxva5sdbjr@black.igk.intel.com>
-References: <20260916-ps883x-disable-usb4-v3-0-8f19386456d0@oldschoolsolutions.biz>
- <20260916-ps883x-disable-usb4-v3-3-8f19386456d0@oldschoolsolutions.biz>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="A5OTakIU"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e7bcb94d3so3687395e9.2
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 02:58:31 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789725509; x=1790330309; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Th6fKAxOCUzA+clN5Rhs3GDQzw7PKXL/ripfjQjtVQY=;
+        b=A5OTakIUeuIZiGEjAz9+PqGmhQXOCObXlWewiWmtKWDPqdA7msA8O6xN4q5lLXio0y
+         /U8dyNPCnGlTIP49q4+4FdXJgmi4r5REifuompZ+TVe029nXN2IdTgj2eRLTvMchsiyk
+         gZz83j1a3ckAn2jPN3BvnR89RJ57Dto4Ae+pd66nGAwOQRomt09VhaHOs931bztfAgjt
+         csXfyq/x05wdV/+/eMBm1k7fBaglNGSHlZlAvxtqfOn9Gj5ZQOR2B1vxjIlF/V1jv95d
+         EGoAdX3OG1RiGGRK1A2xiHhQdfKdaEXKq2SLCUHL98QG7KvkyeDLKUK5zzW3A4yrJ7Wz
+         uK/g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789725509; x=1790330309;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Th6fKAxOCUzA+clN5Rhs3GDQzw7PKXL/ripfjQjtVQY=;
+        b=OKMJtLuHF/Kjh+qg3j5Jnp20EeVoQID9Z0x7rTg6f08KFOxTwOXxURmXW2yVJ6yt+2
+         wZbkjUgR6IuaASp82hQeP4GWKQr8GCc0ljLPE13KIrwscsEWLyYRnBUA/zGN+663DLSo
+         zezw/XUWz521QFzpC/C+WfJpa3zRD9miy258yzc20VJrQzq0EtaxItszC8aqxAxckQRe
+         7UWce1mc3KpAJbRSr36zmMfvD5N2mcfGNlAvEEOsM5XPoFLN1JtqrMP5+4SSDYz5S+aQ
+         ibuthhDo2Am0e17kk6Cfy7bCdczXiZ93nm+Y34Ano24X4CPXXhNeUHOdvEVcoaVivK2h
+         YRwA==
+X-Forwarded-Encrypted: i=1; AKwUvByPFuGcBEUPNtR5JzPFKUz/f88jfBNQgLA4cTQLmHckZFXI0o7bwCWTwf26MGzTsU1csBrZeQE=@vger.kernel.org
+X-Gm-Message-State: AFuF++l+m2vCUHpGFgW+0MTvhr6ocOYMxaV9N4X4NZBRFeM5dfTaW3kT
+	NHEhpV1ppKEeG1/7BaXRQ7mmOnNmnfXK/PwBIKR45VmgcAHEb5YoXRxh
+X-Gm-Gg: AYBFou1JDMXR3mmsdFzEsHMXJyM2Bz+t+zpU1Z2wtCtlpilZuq/nBcuPBTkzdbppBa6
+	ucFJSTPWlv8ib7wktCOgoMirC4gdsPvhLmv7nahcsyTDwXnLZ8kOTBDciVCC7rZOn0TKz90cwT+
+	ImoT8kwuD9fgKMSCEWkVZQvb/uDVSWNwlVwrIxMYRQZVKWoKoqCPJP2Yoj8akDsvek/YlQFGwfy
+	fyJUARhN8g1DH4vAxWUuqAkUiZ4ixwkIQSsKrGV0CFVk6qjD8bx3RPipIgO9UiTESCQvd6EDJ6F
+	ac5FXx2AWZjSd1qYlA/dj3x70iGCsVeGwT38nvJMWngOwCKBleF1uUWYMp4+DkBZa3oWB75YOil
+	0w1YVbJMuWAbr72Xe9MGDjFpRXQ7JkdM/j0zBQ9RXBmer189+49n//TARKWEkgWOfGjH/jd9DAv
+	Fy/Cgufyq/l2ASjcJgfcgkVQOlvvpF2oNXSOgB71CDZN5HNU896WT7eiCEBtBNzC0yZWaraJoBe
+	WQVP/rpBc/g/20=
+X-Received: by 2002:a05:600c:468c:b0:49d:16df:8521 with SMTP id 5b1f17b1804b1-49fc56811dcmr25712105e9.4.1789725508897;
+        Fri, 18 Sep 2026 02:58:28 -0700 (PDT)
+Received: from egonzo (82-64-73-52.subs.proxad.net. [82.64.73.52])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fbd1d0978sm141705625e9.2.2026.09.18.02.58.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 02:58:28 -0700 (PDT)
+Date: Fri, 18 Sep 2026 11:58:27 +0200
+From: Dave Penkler <dpenkler@gmail.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: gregkh@linuxfoundation.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] gpib: tnt4882: Fix device reference leak in mite_init()
+Message-ID: <aq0LQw2mrEYJ-jNx@egonzo>
+References: <20260916094558.2007240-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -69,121 +76,42 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260916-ps883x-disable-usb4-v3-3-8f19386456d0@oldschoolsolutions.biz>
+In-Reply-To: <20260916094558.2007240-1-vulab@iscas.ac.cn>
 
-On Wed, Sep 16, 2026 at 09:36:34PM +0200, Jens Glathe via B4 Relay wrote:
-> From: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
+On Wed, Sep 16, 2026 at 09:45:58AM +0000, Wentao Liang wrote:
+> In mite_init(), each pci_get_device() iteration returns a new
+> reference to a National Instruments PCI device, which is consumed by
+> the next iteration.  If kzalloc_obj() fails, the function returns
+> without consuming or putting that reference, leaking it.
 > 
-> On Qualcomm X1E80100 / X1P42100 platforms using the Parade PS883x
-> retimer, hotplugging USB4-capable docks such as the Lenovo 40B0 can
-> result in working USB but no DisplayPort output.
+> Put the device reference before returning when the allocation fails.
 > 
-> When the dock negotiates USB4, the retimer receives TYPEC_MODE_USB4
-> and forwards it via typec_mux_set(). The qmp-combo PHY then selects
-> USB3-only because no classic DP altmode SVID is present in the state,
-> leaving the DP transmitter and AUX channel disabled.
-> 
-> Reject USB4 with -EOPNOTSUPP on platforms whose USB4 / DP-tunneling
-> stack is not ready yet. The Type-C stack then falls back to USB3 + DP
-> Alt Mode. DP altmode configuration continues to use the existing
-> ps883x_set() path.
-> 
-> Use a machine-compatible table rather than a DT property so the quirk
-> stays inside the kernel and can be removed later without creating ABI.
-> 
-> Link: https://patch.msgid.link/20260312101431.2375709-1-krishna.kurapati@oss.qualcomm.com
-> Assisted-by: Grok(xAI):4.6
-> Tested-by: Dr. David Alan Gilbert <dave@treblig.org>
-> Signed-off-by: Jens Glathe <jens.glathe@oldschoolsolutions.biz>
-
-Acked-by: Heikki Krogerus <heikki.krogerus@linux.intel.com>
-
+> Fixes: 0cd5b05551e0 ("staging: gpib: Add TNT4882 chip based GPIB driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/usb/typec/mux/ps883x.c | 37 +++++++++++++++++++++++++++++++++++++
->  1 file changed, 37 insertions(+)
+>  drivers/gpib/tnt4882/mite.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
-> diff --git a/drivers/usb/typec/mux/ps883x.c b/drivers/usb/typec/mux/ps883x.c
-> index 15aee1d613b1a..2ec57cfe748a9 100644
-> --- a/drivers/usb/typec/mux/ps883x.c
-> +++ b/drivers/usb/typec/mux/ps883x.c
-> @@ -13,6 +13,7 @@
->  #include <linux/kernel.h>
->  #include <linux/module.h>
->  #include <linux/mutex.h>
-> +#include <linux/of.h>
->  #include <linux/regmap.h>
->  #include <linux/regulator/consumer.h>
->  #include <linux/usb/pd.h>
-> @@ -42,6 +43,22 @@
->  #define CONN_STATUS_2_TBT_UNIDIR_LSRX_ACT_LT	BIT(4)
->  #define CONN_STATUS_2_USB4_CONNECTED		BIT(7)
+> diff --git a/drivers/gpib/tnt4882/mite.c b/drivers/gpib/tnt4882/mite.c
+> index c75c45cdf03f..3e411653ffc7 100644
+> --- a/drivers/gpib/tnt4882/mite.c
+> +++ b/drivers/gpib/tnt4882/mite.c
+> @@ -58,8 +58,10 @@ void mite_init(void)
+>  		pcidev;
+>  		pcidev = pci_get_device(PCI_VENDOR_ID_NATINST, PCI_ANY_ID, pcidev)) {
+>  		mite = kzalloc_obj(*mite);
+> -		if (!mite)
+> +		if (!mite) {
+> +			pci_dev_put(pcidev);
+>  			return;
+> +		}
 >  
-> +/*
-> + * Platforms where the USB4 / DP-tunneling stack is not ready yet. Rejecting
-> + * USB4 here lets the Type-C stack fall back to USB3 + DP Alt Mode instead of
-> + * negotiating USB4 and then failing to drive DisplayPort.
-> + *
-> + * This is a temporary, kernel-contained quirk (not DT ABI). Drop the entries
-> + * once the corresponding USB4 support is complete.
-> + */
-> +static const char * const ps883x_disable_usb4_compats[] = {
-> +	"qcom,x1e80100",
-> +	"qcom,x1p42100",
-> +	"qcom,hamoa",
-> +	"qcom,purwa",
-> +	NULL,
-> +};
-> +
->  struct ps883x_retimer {
->  	struct i2c_client *client;
->  	struct gpio_desc *reset_gpio;
-> @@ -63,8 +80,21 @@ struct ps883x_retimer {
->  
->  	enum typec_orientation orientation;
->  	bool in_reset;
-> +	bool disable_usb4;
->  };
->  
-> +static bool ps883x_should_disable_usb4(void)
-> +{
-> +	const char * const *compat;
-> +
-> +	for (compat = ps883x_disable_usb4_compats; *compat; compat++) {
-> +		if (of_machine_is_compatible(*compat))
-> +			return true;
-> +	}
-> +
-> +	return false;
-> +}
-> +
->  static int ps883x_enable_vregs(struct ps883x_retimer *retimer)
->  {
->  	struct device *dev = &retimer->client->dev;
-> @@ -260,6 +290,9 @@ static int ps883x_set(struct ps883x_retimer *retimer, struct typec_retimer_state
->  			cfg0 |= CONN_STATUS_0_USB_3_1_CONNECTED;
->  			break;
->  		case TYPEC_MODE_USB4:
-> +			if (retimer->disable_usb4)
-> +				return -EOPNOTSUPP;
-> +
->  			eudo_data = state->data;
->  
->  			cfg2 |= CONN_STATUS_2_USB4_CONNECTED;
-> @@ -389,6 +422,10 @@ static int ps883x_retimer_probe(struct i2c_client *client)
->  
->  	retimer->client = client;
->  
-> +	retimer->disable_usb4 = ps883x_should_disable_usb4();
-> +	if (retimer->disable_usb4)
-> +		dev_info(dev, "USB4 disabled until platform USB4 support is complete\n");
-> +
->  	mutex_init(&retimer->lock);
->  
->  	retimer->regmap = devm_regmap_init_i2c(client, &ps883x_retimer_regmap);
-> 
-> -- 
-> 2.53.0
-> 
+>  		mite->pcidev = pcidev;
+>  		pci_dev_get(mite->pcidev);
 
--- 
-heikki
+Acked-by: Dave Penkler <dpenkler@gmail.com>
+thanks
+> -- 
+> 2.34.1
+> 
