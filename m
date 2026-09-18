@@ -1,96 +1,138 @@
-Received: from m16.mail.163.com (m16.mail.163.com [117.135.210.2])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0CE12DA775;
-	Fri, 18 Sep 2026 07:37:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11AA3BE155;
+	Fri, 18 Sep 2026 07:39:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717064; cv=none; b=h8UyTyJSrg3V2uYkSUUNz1IM5oSCOjw7Mskc4hiXhCWuyCZr4zUprb3ghXPmrRJjSX9aPIRCiRXd7FjSpofZOSsOEXjFSJBI2w7RDYBTkfZMVonBRwaXN3DCURz9X7B+1oLql/jPZEPgyt/KmTE1k1WuValp3CkCS9I4na3C0+g=
+	t=1789717206; cv=none; b=hYDlk1cJH2VfA8mxfaBl8gcaZZlVtJ9dept19ql2gKBtzp8GTlafuYga3G4FLp4wSh+BY/AHt5GtptQYOIuC+uUOAvScHrWUfzZq+8KNDv21B2ftSltkVktJpS6z7EX2jBJH75frm4+u5HR4wVBWP6rnFeIVKuvSjhnQy6QCpZc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717064; c=relaxed/simple;
-	bh=zEwIv5nV9kBlQtke+WYPJv2JXm3NHjpHCgQ0avWbAUU=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version; b=kU6dYlqkqhkBQo7i3dObkYXi6wRvE7A7sbej65EEXwLzKeTFHjZwnLntDuu0uApgx1TOSWddaCAqDjWcdTp536LZnAnotf9HVilgSHKh2epEl1zqQfg2MqSu9dyUpFMZo+M5cmjBLrsNg6oV33s4v5N+KFVj20ReswVbsRH42UM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=nb4QuX5P; arc=none smtp.client-ip=117.135.210.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789717206; c=relaxed/simple;
+	bh=9HjgM9JbkGt1A3yefJhN4x6xA3Vg7LoR3hGeySb0Qow=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=AeFfo2fQ5C/dcYEqvUuJ+dXQYu+ZmubxzEW9cM55fVZAREs4jiFOV9NZfI3rLp4K5q+TjSMioqeqZ8bevOX1EHvr5JekoPLitO+zFRVYNITxV9QMuwnr+z20UXWI6jcGno6QOvmoIpLb9k5JL24jDXpTvsw5VHZd4eKJdleGp04=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QRyltiK/; arc=none smtp.client-ip=192.198.163.18
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="nb4QuX5P"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Ie
-	PUHtWxOWzcjYvDTkI/eozzGuxXVCGuAvz56k1anIs=; b=nb4QuX5Ppt1sxIBsLK
-	AIswLUmukSIKMEnbNs55s1+1Tz+rqUSOgkqf0zgcIh5WGjiw7xoMy3DIu8JQoSbE
-	EGlO0G5iQ/IEHa3w6T4sEnVmRuwvuRnHUpKPEsS/QC+jNrGF+OrgAd4zUepQ2/wo
-	wX0Yz1OLn7OHxk0uF+zHrxJlw=
-Received: from thinkpadx13gen2i.. (unknown [])
-	by gzsmtp2 (Coremail) with SMTP id PSgvCgAHJZAU6qxq7+01AA--.4395S2;
-	Fri, 18 Sep 2026 15:36:52 +0800 (CST)
-From: Zongmin Zhou <min_halo@163.com>
-To: jtaubepe@redhat.com
-Cc: alex@ghiti.fr,
-	aou@eecs.berkeley.edu--cc=palmer@dabbelt.com,
-	pjw@kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-riscv@lists.infradead.org,
-	Zongmin Zhou <zhouzongmin@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] riscv: hwprobe: use _BITULL() rather than BIT() in MIPS vendor uapi header
-Date: Fri, 18 Sep 2026 15:36:50 +0800
-Message-Id: <20260918073650.42586-1-min_halo@163.com>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <CADRr4beOuFxa4A+CCLC8MFAALKBUptLaVANvDb6ZS42m_UMrbQ@mail.gmail.com>
-References: <CADRr4beOuFxa4A+CCLC8MFAALKBUptLaVANvDb6ZS42m_UMrbQ@mail.gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QRyltiK/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789717199; x=1821253199;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=9HjgM9JbkGt1A3yefJhN4x6xA3Vg7LoR3hGeySb0Qow=;
+  b=QRyltiK/8VXtmYoDNqHqSA6+r/9gYRqGlcGdjn5gfRAhfQYAn5XrGY+x
+   /+35p6LcSwkm7LHxQ0H0T7RP61tFADN8S0MIQBnpTXmqy1wJlBfBetV8D
+   M0sM5sNh7CvD6aBqts1P3nYb3nGLGHE4yU652I33CC3bngi3TQwFTcxAM
+   pP7c2U8bSt06+1+1/MKj2IhZGMSCRZDLIqtfLwiyHZoMUaLXo/e34lt73
+   3eMaFW6VmLVdJy13a1YgT2W8h/AwUBXpEMCyuMjYl9a4V6QWavGhOpmcL
+   LT+mt+THYI+YR8kQ1SogLaARS2dQsaUtbsHxCqQ4tDduzF5sjo4nlVIAA
+   Q==;
+X-CSE-ConnectionGUID: 9td86wudQRe8nBfvawUHFg==
+X-CSE-MsgGUID: uZRVMeamQZSrFr1z7FHMXA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89340112"
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="89340112"
+Received: from fmviesa002.fm.intel.com ([10.60.135.142])
+  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:39:52 -0700
+X-CSE-ConnectionGUID: EQSigIixQTGHBye9zTlPZA==
+X-CSE-MsgGUID: SCwZTKvvQfmatyBz20cYNw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
+   d="scan'208";a="297731196"
+Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
+  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:39:47 -0700
+Date: Fri, 18 Sep 2026 10:39:41 +0300
+From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
+	Sascha Hauer <s.hauer@pengutronix.de>,
+	Pengutronix Kernel Team <kernel@pengutronix.de>,
+	Fabio Estevam <festevam@gmail.com>,
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Wentao Liang <vulab@iscas.ac.cn>, Miaoqian Lin <linmq006@gmail.com>,
+	Shawn Guo <shawnguo@kernel.org>,
+	Lucas Stach <l.stach@pengutronix.de>,
+	Dong Aisheng <aisheng.dong@nxp.com>, linux-pm@vger.kernel.org,
+	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] pmdomain: imx: gpc: remove all initialized power domains
+Message-ID: <aqzqvfbeh653jUce@ashevche-desk.local>
+References: <20260918031323.3376849-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PSgvCgAHJZAU6qxq7+01AA--.4395S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW7ZFW3Zry3Zw13JFWrGw4UArb_yoW8Xr1DpF
-	Z8ursYgrWrWr1xCF9rGF1xZryaqw4rKw4YgFWUuw48J39aqry0qw4Yvw43Z3WUtF4vqF4j
-	gFn8Cry0yayDA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07jnzVbUUUUU=
-X-CM-SenderInfo: pplqsxxdorqiywtou0bp/xtbC9BSFMWqs6hQwfgAA3i
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918031323.3376849-1-lgs201920130244@gmail.com>
+Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
+ krs, Bertel Jungin Aukio 5, 02600 Espoo
 
-From: Zongmin Zhou <zhouzongmin@kylinos.cn>
+On Fri, Sep 18, 2026 at 11:13:22AM +0800, Guangshuo Li wrote:
+> imx_gpc_old_dt_init() initializes all power domains described by
+> of_id_data->num_domains. Its probe failure path removes all of these
+> domains, but imx_gpc_remove() only removes the PU and ARM domains.
+> 
+> On SoCs with more than two domains, such as i.MX6SL and i.MX6SX, the
+> additional DISPLAY and PCI generic power domains can remain registered
+> after the GPC driver is removed.
+> 
+> Remove all initialized power domains in reverse order. Keep releasing
+> the PU clocks immediately after the PU domain has been successfully
+> removed.
+> 
+> This issue was found by manual code inspection.
 
-BIT() is a kernel-internal macro that is not available to userspace, but
-the MIPS vendor extension uapi header uses it without defining or
-including it. Any userspace program that includes this header and uses
-RISCV_HWPROBE_VENDOR_EXT_XMIPSEXECTL fails to build.
+...
 
-Use _BITULL(0) from linux/const.h instead, which keeps the value at 1,
-so there is no ABI change.
+>  static void imx_gpc_remove(struct platform_device *pdev)
+>  {
+> +	const struct imx_gpc_dt_data *of_id_data =
+> +		device_get_match_data(&pdev->dev);
 
-Fixes: bb4b0f8a1bcb ("riscv: hwprobe: Add MIPS vendor extension probing")
-Cc: stable@vger.kernel.org
-Signed-off-by: Zongmin Zhou <zhouzongmin@kylinos.cn>
-Reviewed-by: Jesse Taube <jtaubepe@redhat.com>
----
-Changes in v2:
-- Add Cc: stable@vger.kernel.org as suggested by Jesse Taube.
-- Collect Reviewed-by from Jesse Taube (no code changes).
+No...
 
- arch/riscv/include/uapi/asm/vendor/mips.h | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+>  	struct device_node *pgc_node;
+> -	int ret;
+> +	int i, ret;
 
-diff --git a/arch/riscv/include/uapi/asm/vendor/mips.h b/arch/riscv/include/uapi/asm/vendor/mips.h
-index e65ab268b265..a31c23afe74f 100644
---- a/arch/riscv/include/uapi/asm/vendor/mips.h
-+++ b/arch/riscv/include/uapi/asm/vendor/mips.h
-@@ -1,3 +1,5 @@
- /* SPDX-License-Identifier: GPL-2.0 WITH Linux-syscall-note */
- 
--#define RISCV_HWPROBE_VENDOR_EXT_XMIPSEXECTL	BIT(0)
-+#include <linux/const.h>
-+
-+#define RISCV_HWPROBE_VENDOR_EXT_XMIPSEXECTL	_BITULL(0)
+...and no.
+
+The result of the device_get_match_data() better to be checked, in some cases
+it might lead to NULL dereference.
+
+It's better to split semantically different variables, also naming 'i' is not
+good, num_domains is better. Besides that, why is it signed?
+
+...
+
+> +		for (i = of_id_data->num_domains - 1; i >= 0; i--) {
+
+What you are doing here can be written in a shorter form
+
+		num_domains = of_id_data->num_domains;
+		while (num_domains--) {
+
+> +			ret = pm_genpd_remove(&imx_gpc_domains[i].base);
+> +			if (ret) {
+> +				dev_err(&pdev->dev,
+> +					"Failed to remove %s power domain (%pe)\n",
+> +					imx_gpc_domains[i].base.name,
+> +					ERR_PTR(ret));
+> +				return;
+> +			}
+>  
+> +			if (i == GPC_PGC_DOMAIN_PU)
+> +				imx_pgc_put_clocks(&imx_gpc_domains[i]);
+>  		}
+
 -- 
-2.34.1
+With Best Regards,
+Andy Shevchenko
 
-
-No virus found
-		Checked by Hillstone Network AntiVirus
 
