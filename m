@@ -1,155 +1,195 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.3])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A14E46984D;
-	Fri, 18 Sep 2026 05:44:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 83B952CCC5;
+	Fri, 18 Sep 2026 05:48:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.3
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789710247; cv=none; b=Q6lVh4DCfMzcg/pmD6pRTXFPRLDpSLPaLzAmDbLIkyJyFBLH29KWGwzz8AQUzZRhiZKoop5KuleCEA43j8IG1BDbUo7+zey+eOQPyHsr5frz7oOlvjnkfHX1c2sPoEfK8rnUi3Ywul0OjyNIPrHMjEGtxV9Kjh530NwUaKRhllg=
+	t=1789710532; cv=none; b=a7FTi7m+BdkuqdfNB++AoswbUBg8xkDFdeCxpF7fd7G5b09q5OKAI4TpHhKlQvYef9fS5zabKoHOYOtnz+f0ARAFPyNvjc84OtkW7bOzwjmFvszP8i5RphgGsjcsbT2+y1t/SNaGG1JABtu101MzAFchWrmj3iTAwM56pG2e12g=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789710247; c=relaxed/simple;
-	bh=U0hgwO+FYWoeHeamgOGcjNBOn36JB3IvsmZssBKeufY=;
-	h=Date:To:From:Subject:Message-Id; b=T+jLRBYVdY13tP19CDWQlmZwjdQN9eji8c66dGoBPsU/QJF5vS+59ga94mDq28Q+4Jo6wRipPnf9/JkBHi6qRFWL/YYMZkGollZZWv2VCnlWDQJ9eXW1ldoomRcr5d9YpvYoL56X/jWzgV7aLEhAdJaMGjbMLdROKv3QYpDBU3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=GuUwkTNH; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789710532; c=relaxed/simple;
+	bh=rQj5cq82Vf/LntBACJzXT8GyfW0+uIRKhaB8VEz4bzk=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References:Content-Type:
+	 MIME-Version:Message-ID; b=UsJu3khksUWt/riESfPPmOQ1citSufCKgKR1kuDIjuWkmszA0ousicRW3/MmEOSW3+pZpUVPlgNHjecTbTih+EayGQQ4Aa5CwQ80QWG8MnP3DOKzriDKHLQ9GTZT9vxk2zArEXKVIHYIJuM+CzLsXm0xgw0wLd0e25Qxttrz8pY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=BayCrVZM; arc=none smtp.client-ip=220.197.31.3
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="GuUwkTNH"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 117881F00893;
-	Fri, 18 Sep 2026 05:44:06 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789710246;
-	bh=cqXHws+8N6ps8i2EAHuoI+pdXeRlnsLYtEE0GW9wRyo=;
-	h=Date:To:From:Subject;
-	b=GuUwkTNHqhwnP4wXpiowOWtslCRzwmeK00tl5olQeJSJe0hSAHsINCzr0nwtBX/7M
-	 e3GwL7Sd+4/Be6hfsFr1d/fX7Q4DMBdIrQLMG4IsnIIcyOvRYZ+9Bnuh1XRfv7+UQN
-	 jum7ELUzQKlFnU8hVxNUwpPwYjAFZNH72zoUJtS8=
-Date: Thu, 17 Sep 2026 22:44:05 -0700
-To: mm-commits@vger.kernel.org,ziy@nvidia.com,willy@infradead.org,vbabka@kernel.org,stable@vger.kernel.org,ritesh.list@gmail.com,mhocko@suse.com,hch@lst.de,hannes@cmpxchg.org,dgc@kernel.org,david@redhat.com,dipiets@amazon.it,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: [merged mm-hotfixes-stable] mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations.patch removed from -mm tree
-Message-Id: <20260918054406.117881F00893@smtp.kernel.org>
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="BayCrVZM"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Date:From:To:Subject:Content-Type:MIME-Version:
+	Message-ID; bh=rQj5cq82Vf/LntBACJzXT8GyfW0+uIRKhaB8VEz4bzk=; b=B
+	ayCrVZMxv8/5X+lzq2hIirouGrgZ/Q6a1UNaQpveFCHDsvoPFugV8mx7YGH3GCvC
+	6rGBnEYOLDULZT/lZJENHnyetFpxSs4J50huVNzkioPGf5J4TZnXLUA7qcgv/I0c
+	RDrSXA6DWSUPo4A7n9jcbQlvy3XWULMZcBDNmouxFc=
+Date: Fri, 18 Sep 2026 13:48:21 +0800 (CST)
+From: =?GBK?B?wO7T07roIA==?= <dayou5941@163.com>
+To: yukuai@fygo.io
+Cc: song@kernel.org, magiclinan@didiglobal.com, xiao@kernel.org,
+	linux-raid@vger.kernel.org, linux-kernel@vger.kernel.org,
+	"Li Youhong" <liyouhong@kylinos.cn>, stable@vger.kernel.org
+Subject: Re:Re:Re: [PATCH] md/raid5: serialize plug list add with
+ device_lock
+X-Priority: 3
+X-Mailer: Coremail Webmail Server Version 2023.4-cmXT build
+ 20260511(2e539873) Copyright (c) 2002-2026 www.mailtech.cn 163com
+In-Reply-To: <755ed382.67bf.1a0ae5a7bbb.Coremail.dayou5941@163.com>
+References: <20260902095307.358569-1-dayou5941@163.com>
+ <826d82e9-0f0c-450e-a5f9-ea6675b7adc6@fygo.io>
+ <6edbeca2.341a.1a079e5507c.Coremail.dayou5941@163.com>
+ <116efada-45f3-4c68-92d9-2bf56fcc7629@fygo.io>
+ <755ed382.67bf.1a0ae5a7bbb.Coremail.dayou5941@163.com>
+X-NTES-SC: AL_Qu2TC/uav00r5yeQZekckk4Wjug8Wcexufwj34NTc8oEly3j+zInTFFRBFfI6s+2IT2VjDawUx580MNaQ4d4p8ASoBcQdvkVRtvqesG+qw==
+Content-Transfer-Encoding: base64
+Content-Type: text/plain; charset=GBK
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Message-ID: <4fbdb007.4565.1a0b30f079a.Coremail.dayou5941@163.com>
+X-Coremail-Locale: zh_CN
+X-CM-TRANSID:fCgvCgD3d5Sm0KxqEVdJAA--.37041W
+X-CM-SenderInfo: 5gd103ivzuiqqrwthudrp/xtbC3gYj0Wqs0KbQZwAA3t
+X-Coremail-Antispam: 1U5529EdanIXcx71UUUUU7vcSsGvfC2KfnxnUU==
 
-
-The quilt patch titled
-     Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
-has been removed from the -mm tree.  Its filename was
-     mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations.patch
-
-This patch was dropped because it was merged into the mm-hotfixes-stable branch
-of git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-------------------------------------------------------
-From: Salvatore Dipietro <dipiets@amazon.it>
-Subject: mm/page_alloc: avoid direct compaction for costly __GFP_NORETRY allocations
-Date: Fri, 4 Sep 2026 11:56:28 +0000
-
-Commit 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-introduced high-order folio allocations in the iomap buffered write path. 
-When memory is fragmented, each failed costly-order allocation enters
-__alloc_pages_slowpath() which runs direct compaction and
-drain_all_pages(), causing a 0.38x throughput drop on PostgreSQL pgbench
-(simple-update) with 1024 clients on a 96-vCPU arm64 system.
-
-The root issue is that direct compaction is too expensive for hot
-allocation paths that have fallbacks to smaller allocations. 
-__filemap_get_folio_mpol() already marks higher-order allocations with
-__GFP_NORETRY | __GFP_NOWARN, signalling that the caller can handle
-failure.  However, the page allocator still attempts full direct
-compaction for costly orders with __GFP_NORETRY, which is unnecessarily
-aggressive when the caller will simply retry at a lower order.
-
-For costly-order allocations with __GFP_NORETRY, clear
-__GFP_DIRECT_RECLAIM at the very start of the slowpath, before
-can_direct_reclaim, can_compact and the nofail checks are evaluated.  This
-makes the entire slowpath treat the request as non-blocking: no direct
-reclaim, no direct compaction and no drain_all_pages() IPI across every
-CPU.  kswapd (and in turn kcompactd) is still woken further down for
-background defragmentation, so compaction keeps working for long-term
-system health while being removed from the latency-critical direct
-allocation path.
-
-Allocations that also request __GFP_THISNODE are exempted.  That flag
-pairing identifies the local-node-first THP attempt issued by
-alloc_pages_mpol() (mempolicy.c), which relies on direct compaction to
-form transparent huge pages.
-
-Test environment:
-  Hardware:  AWS EC2 m8g.24xlarge (96 vCPU, arm64)
-             12x 1TB IO2 32000 IOPS RAID0 XFS
-  OS:        AL2023
-  Kernel:    v7.3-rc1
-  Database:  PostgreSQL 18.4
-  Workload:  pgbench simple-update, 1024 clients, 96 threads, 1200s
-
-Results (average of 3 runs, TPS):
-
-  Config                   Avg TPS      % vs Baseline
-  baseline (no patch)       59,408       -
-  With this patch          155,409      +161.6%
-
-Link: https://lore.kernel.org/20260904115629.3993331-1-dipiets@amazon.it
-Link: https://lore.kernel.org/all/20260403193535.9970-1-dipiets@amazon.it/T/#t [v1]
-Link: https://lore.kernel.org/linux-mm/20260420161404.642-1-dipiets@amazon.it/T/#u [v2]
-Link: https://lore.kernel.org/all/20260710143437.12379-1-dipiets@amazon.it/T/#u [v3]
-Fixes: 5d8edfb900d5 ("iomap: Copy larger chunks from userspace")
-Signed-off-by: Salvatore Dipietro <dipiets@amazon.it>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Acked-by: Vlastimil Babka (SUSE) <vbabka@kernel.org>
-Acked-by: Zi Yan <ziy@nvidia.com>
-Reviewed-by: Johannes Weiner <hannes@cmpxchg.org>
-Reviewed-by: Christoph Hellwig <hch@lst.de>
-Cc: David Hildenbrand <david@redhat.com>
-Cc: Michal Hocko <mhocko@suse.com>
-Cc: Matthew Wilcox <willy@infradead.org>
-Cc: Dave Chinner <dgc@kernel.org>
-Cc: Ritesh Harjani <ritesh.list@gmail.com>
-Cc: <stable@vger.kernel.org>
----
-
- mm/page_alloc.c |   18 +++++++++++++++---
- 1 file changed, 15 insertions(+), 3 deletions(-)
-
---- a/mm/page_alloc.c~mm-page_alloc-avoid-direct-compaction-for-costly-__gfp_noretry-allocations
-+++ a/mm/page_alloc.c
-@@ -4784,10 +4784,10 @@ static inline struct page *
- __alloc_pages_slowpath(gfp_t gfp_mask, unsigned int order,
- 						struct alloc_context *ac)
- {
--	bool can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
--	bool can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
--	bool nofail = gfp_mask & __GFP_NOFAIL;
- 	const bool costly_order = order > PAGE_ALLOC_COSTLY_ORDER;
-+	bool can_direct_reclaim;
-+	bool can_compact;
-+	bool nofail;
- 	struct page *page = NULL;
- 	unsigned int alloc_flags;
- 	unsigned long did_some_progress;
-@@ -4802,6 +4802,18 @@ __alloc_pages_slowpath(gfp_t gfp_mask, u
- 	bool can_retry_reserves = true;
- 	unsigned long alloc_start_time = jiffies;
- 
-+	/*
-+	 * Costly __GFP_NORETRY callers have a cheap fallback, so don't stall
-+	 * them in reclaim or compaction. __GFP_THISNODE callers are exempt.
-+	 */
-+	if (costly_order && (gfp_mask & __GFP_NORETRY) &&
-+	    !(gfp_mask & __GFP_THISNODE))
-+		gfp_mask &= ~__GFP_DIRECT_RECLAIM;
-+
-+	can_direct_reclaim = gfp_mask & __GFP_DIRECT_RECLAIM;
-+	can_compact = can_direct_reclaim && gfp_compaction_allowed(gfp_mask);
-+	nofail = gfp_mask & __GFP_NOFAIL;
-+
- 	if (unlikely(nofail)) {
- 		/*
- 		 * Also we don't support __GFP_NOFAIL without __GFP_DIRECT_RECLAIM,
-_
-
-Patches currently in -mm which might be from dipiets@amazon.it are
-
-
+CgoKCgoKCgoKCgoKCgoKCgpBdCAyMDI2LTA5LTE3IDE1OjUyOjQwLCAiwO7T07roICIgPGRheW91
+NTk0MUAxNjMuY29tPiB3cm90ZToKPgo+Cj4KPgo+Cj4KPgo+Cj4KPgo+Cj4KPgo+Cj4KPgo+Cj5B
+dCAyMDI2LTA5LTEyIDIyOjA0OjEyLCAieXUga3VhaSIgPHl1a3VhaUBmeWdvLmlvPiB3cm90ZToK
+Pj5IaSwKPj4KPj7U2iAyMDI2LzkvNyAxMToyNCwgwO7T07roINC0tcA6Cj4+Pgo+Pj4KPj4+Cj4+
+PiBIaSBLdWFpLAo+Pj4KPj4+Cj4+Pgo+Pj4KPj4+Cj4+Pgo+Pj4KPj4+Cj4+Pgo+Pj4KPj4+Cj4+
+Pgo+Pj4gQXQgMjAyNi0wOS0wNSAxMToxNzo1OCwgInl1IGt1YWkiIDx5dWt1YWlAZnlnby5pbz4g
+d3JvdGU6Cj4+Pj4gSGksCj4+Pj4KPj4+PiDU2iAyMDI2LzkvMiAxNzo1MywgTGkgWW91aG9uZyDQ
+tLXAOgo+Pj4+PiBGcm9tOiBMaSBZb3Vob25nIDxsaXlvdWhvbmdAa3lsaW5vcy5jbj4KPj4+Pj4K
+Pj4+Pj4gcmFpZDVfdW5wbHVnKCkgY2FuIHNwaW4gZm9yZXZlciB1bmRlciBjb25mLT5kZXZpY2Vf
+bG9jayB3aGVuCj4+Pj4+IHJhaWQ1X3BsdWdfY2IubGlzdCBzdGlsbCBwb2ludHMgYXQgYSBzdHJp
+cGUgd2hvc2Ugc2gtPmxydSBoYXMKPj4+Pj4gYWxyZWFkeSBiZWVuIHJlaW5pdGlhbGl6ZWQgKHNl
+bGYtbG9vcGVkKS4gVGhhdCBkaXNhYmxlcyBJUlFzIG9uCj4+Pj4+IHRoZSBob2xkZXIgQ1BVIGFu
+ZCBjYXVzZXMgbXVsdGktQ1BVIGhhcmQgbG9ja3VwcyBvbiB3YWl0ZXJzIG9mCj4+Pj4+IHRoZSBz
+YW1lIGxvY2suCj4+Pj4+Cj4+Pj4+IFRoaXMgaGFwcGVucyBiZWNhdXNlIHJlbGVhc2Vfc3RyaXBl
+X3BsdWcoKSBzZXRzCj4+Pj4+IFNUUklQRV9PTl9VTlBMVUdfTElTVCBhbmQgbGlzdF9hZGRfdGFp
+bChzaC0+bHJ1KSB3aXRob3V0Cj4+Pj4+IGRldmljZV9sb2NrLCB3aGlsZSBkb19yZWxlYXNlX3N0
+cmlwZSgpIG1heSBjb25jdXJyZW50bHkgbW92ZSB0aGUKPj4+Pj4gc2FtZSBscnUgb250byBoYW5k
+bGUvaW5hY3RpdmUgd2hlbiB0aGUgbGFzdCByZWZlcmVuY2UgZHJvcHMuCj4+Pj4+Cj4+Pj4+IE5v
+dGU6IGEgMjAyMCBwcm9wb3NhbCB0cmllZCBleHRyYSByZWZzIC8gY2hlY2tpbmcKPj4+Pj4gU1RS
+SVBFX09OX1VOUExVR19MSVNUIGluIGRvX3JlbGVhc2Vfc3RyaXBlKCkgd2l0aG91dCBzZXJpYWxp
+emluZwo+Pj4+PiB0aGUgcGx1ZyBlbnF1ZXVlOgo+Pj4+PiBodHRwczovL2xvcmUua2VybmVsLm9y
+Zy9saW51eC1yYWlkLzIwMjAwMTA4MTYzMDIzLjkzMDEtMS1ndW9xaW5nLmppYW5nQGNsb3VkLmlv
+bm9zLmNvbS8KPj4+Pj4gVGhhdCBzdGlsbCBsZWF2ZXMgYSBUT0NUT1Ugd2luZG93IHdoZXJlIHRo
+ZSBiaXQgaXMgY2xlYXIgZHVyaW5nCj4+Pj4+IHRoZSBjaGVjayBhbmQgc2V0IGFmdGVyd2FyZHMs
+IGFsbG93aW5nIHR3byBsaXN0X2FkZCBvbiB0aGUgc2FtZQo+Pj4+PiBscnUuIEl0IHdhcyBub3Qg
+bWVyZ2VkLgo+Pj4+Pgo+Pj4+PiBTZXJpYWxpemUgdGhlIGJpdCB1cGRhdGUgYW5kIGxpc3RfYWRk
+IHdpdGggZGV2aWNlX2xvY2suIElmCj4+Pj4+IGRvX3JlbGVhc2Vfc3RyaXBlKCkgc3RpbGwgc2Vl
+cyBTVFJJUEVfT05fVU5QTFVHX0xJU1QsIHJlc3RvcmUgdGhlCj4+Pj4+IHJlZmVyZW5jZSBhbmQg
+bGV0IHJhaWQ1X3VucGx1ZygpIG93biB0aGUgZmluYWwgcmVsZWFzZS4KPj4+Pj4KPj4+Pj4gT2Jz
+ZXJ2ZWQgb24gcHJvZHVjdGlvbiA5LWRpc2sgTlZNZSBSQUlENSB1bmRlciBNeVNRTCBBSU8KPj4+
+Pj4gKGlvX3N1Ym1pdCAtPiBibGtfZmluaXNoX3BsdWcgLT4gcmFpZDVfdW5wbHVnKS4KPj4+Pj4K
+Pj4+Pj4gRml4ZXM6IDg4MTFiNTk2OGY2MiAoInJhaWQ1OiBtYWtlX3JlcXVlc3QgdXNlIGJhdGNo
+IHN0cmlwZSByZWxlYXNlIikKPj4+Pj4gQ2M6IHN0YWJsZUB2Z2VyLmtlcm5lbC5vcmcKPj4+Pj4g
+U2lnbmVkLW9mZi1ieTogTGkgWW91aG9uZyA8bGl5b3Vob25nQGt5bGlub3MuY24+Cj4+Pj4+IC0t
+LQo+Pj4+PiAgICBkcml2ZXJzL21kL3JhaWQ1LmMgfCAzMyArKysrKysrKysrKysrKysrKysrKysr
+KysrKysrKystLS0KPj4+Pj4gICAgMSBmaWxlIGNoYW5nZWQsIDMwIGluc2VydGlvbnMoKyksIDMg
+ZGVsZXRpb25zKC0pCj4+Pj4+Cj4+Pj4+IGRpZmYgLS1naXQgYS9kcml2ZXJzL21kL3JhaWQ1LmMg
+Yi9kcml2ZXJzL21kL3JhaWQ1LmMKPj4+Pj4gaW5kZXggYjkxNTQ1Y2UwOTBkLi5jOTE5N2I2M2Ix
+YzQgMTAwNjQ0Cj4+Pj4+IC0tLSBhL2RyaXZlcnMvbWQvcmFpZDUuYwo+Pj4+PiArKysgYi9kcml2
+ZXJzL21kL3JhaWQ1LmMKPj4+Pj4gQEAgLTIyOSw2ICsyMjksMTcgQEAgc3RhdGljIHZvaWQgZG9f
+cmVsZWFzZV9zdHJpcGUoc3RydWN0IHI1Y29uZiAqY29uZiwgc3RydWN0IHN0cmlwZV9oZWFkICpz
+aCwKPj4+Pj4gICAgCWludCBpOwo+Pj4+PiAgICAJaW50IGluam91cm5hbCA9IDA7CS8qIG51bWJl
+ciBvZiBkYXRlIHBhZ2VzIHdpdGggUjVfSW5Kb3VybmFsICovCj4+Pj4+ICAgIAo+Pj4+PiArCS8q
+Cj4+Pj4+ICsJICogU3RyaXBlIGlzIG93bmVkIGJ5IHJlbGVhc2Vfc3RyaXBlX3BsdWcoKSdzIGNi
+LT5saXN0LiBBIGNvbmN1cnJlbnQKPj4+Pj4gKwkgKiBsYXN0LXJlZiByZWxlYXNlIGNhbiByZWFj
+aCBoZXJlIGFmdGVyIHRoZSBzdHJpcGUgd2FzIHF1ZXVlZCBmb3IKPj4+Pj4gKwkgKiB1bnBsdWcg
+KGxydSBtYXkgYWxyZWFkeSBiZSBub24tZW1wdHkpLiBEbyBub3QgcmUtYWRkIGxydSBlbHNld2hl
+cmU7Cj4+Pj4+ICsJICogcmVzdG9yZSB0aGUgcmVmZXJlbmNlIGFuZCBsZXQgcmFpZDVfdW5wbHVn
+KCkgZmluaXNoIHRoZSByZWxlYXNlLgo+Pj4+PiArCSAqLwo+Pj4+PiArCWlmICh0ZXN0X2JpdChT
+VFJJUEVfT05fVU5QTFVHX0xJU1QsICZzaC0+c3RhdGUpKSB7Cj4+Pj4+ICsJCWF0b21pY19pbmMo
+JnNoLT5jb3VudCk7Cj4+Pj4+ICsJCXJldHVybjsKPj4+Pj4gKwl9Cj4+Pj4+ICsKPj4+Pj4gICAg
+CUJVR19PTighbGlzdF9lbXB0eSgmc2gtPmxydSkpOwo+Pj4+PiAgICAJQlVHX09OKGF0b21pY19y
+ZWFkKCZjb25mLT5hY3RpdmVfc3RyaXBlcyk9PTApOwo+Pj4+PiAgICAKPj4+Pj4gQEAgLTU3NjAs
+NiArNTc3MSw5IEBAIHN0YXRpYyB2b2lkIHJlbGVhc2Vfc3RyaXBlX3BsdWcoc3RydWN0IG1kZGV2
+ICptZGRldiwKPj4+Pj4gICAgCQlyYWlkNV91bnBsdWcsIG1kZGV2LAo+Pj4+PiAgICAJCXNpemVv
+ZihzdHJ1Y3QgcmFpZDVfcGx1Z19jYikpOwo+Pj4+PiAgICAJc3RydWN0IHJhaWQ1X3BsdWdfY2Ig
+KmNiOwo+Pj4+PiArCXN0cnVjdCByNWNvbmYgKmNvbmYgPSBtZGRldi0+cHJpdmF0ZTsKPj4+Pj4g
+Kwl1bnNpZ25lZCBsb25nIGZsYWdzOwo+Pj4+PiArCWJvb2wgcXVldWVkID0gZmFsc2U7Cj4+Pj4+
+ICAgIAo+Pj4+PiAgICAJaWYgKCFibGtfY2IpIHsKPj4+Pj4gICAgCQlyYWlkNV9yZWxlYXNlX3N0
+cmlwZShzaCk7Cj4+Pj4+IEBAIC01Nzc1LDkgKzU3ODksMjIgQEAgc3RhdGljIHZvaWQgcmVsZWFz
+ZV9zdHJpcGVfcGx1ZyhzdHJ1Y3QgbWRkZXYgKm1kZGV2LAo+Pj4+PiAgICAJCQlJTklUX0xJU1Rf
+SEVBRChjYi0+dGVtcF9pbmFjdGl2ZV9saXN0ICsgaSk7Cj4+Pj4+ICAgIAl9Cj4+Pj4+ICAgIAo+
+Pj4+PiAtCWlmICghdGVzdF9hbmRfc2V0X2JpdChTVFJJUEVfT05fVU5QTFVHX0xJU1QsICZzaC0+
+c3RhdGUpKQo+Pj4+PiAtCQlsaXN0X2FkZF90YWlsKCZzaC0+bHJ1LCAmY2ItPmxpc3QpOwo+Pj4+
+PiAtCWVsc2UKPj4+Pj4gKwkvKgo+Pj4+PiArCSAqIFNlcmlhbGl6ZSB3aXRoIGRvX3JlbGVhc2Vf
+c3RyaXBlKCkgb24gZGV2aWNlX2xvY2sgc28gc2gtPmxydSBjYW5ub3QKPj4+Pj4gKwkgKiBiZSBh
+ZGRlZCB0byBoYW5kbGUvaW5hY3RpdmUgYW5kIGNiLT5saXN0IGF0IHRoZSBzYW1lIHRpbWUuCj4+
+Pj4+ICsJICovCj4+Pj4+ICsJc3Bpbl9sb2NrX2lycXNhdmUoJmNvbmYtPmRldmljZV9sb2NrLCBm
+bGFncyk7Cj4+Pj4+ICsJaWYgKCF0ZXN0X2FuZF9zZXRfYml0KFNUUklQRV9PTl9VTlBMVUdfTElT
+VCwgJnNoLT5zdGF0ZSkpIHsKPj4+Pj4gKwkJaWYgKHVubGlrZWx5KCFsaXN0X2VtcHR5KCZzaC0+
+bHJ1KSkpIHsKPj4+Pj4gKwkJCWNsZWFyX2JpdChTVFJJUEVfT05fVU5QTFVHX0xJU1QsICZzaC0+
+c3RhdGUpOwo+Pj4+PiArCQl9IGVsc2Ugewo+Pj4+PiArCQkJbGlzdF9hZGRfdGFpbCgmc2gtPmxy
+dSwgJmNiLT5saXN0KTsKPj4+Pj4gKwkJCXF1ZXVlZCA9IHRydWU7Cj4+Pj4+ICsJCX0KPj4+Pj4g
+Kwl9Cj4+Pj4+ICsJc3Bpbl91bmxvY2tfaXJxcmVzdG9yZSgmY29uZi0+ZGV2aWNlX2xvY2ssIGZs
+YWdzKTsKPj4+PiBEbyB5b3UgcnVuIHNvbWUgcGVyZm9ybWFuY2UgdGVzdCBvbiB0aGlzIHBhdGNo
+PyBJIGJlbGlldmUgdGhpcyBpcyBmcm9tIElPIGhvdCBwYXRoLAo+Pj4+IGEgc3BpbmxvY2sgaXMg
+bm90IGFjY2VwdGFibGUuIEkga25vdyB0aGVyZSBpcyBhbHJlYWR5IHNvbWUgc3BpbmxvY2sgZm9y
+IHJhaWQ1LCBidXQKPj4+PiBJJ2QgbGlrZSBub3QgdG8gaW50cm9kdWNlIG5ldyBsb2NrIGNvbnRl
+bnRpb24uCj4+Pj4KPj4+PiBDYW4gdGhpcyBwcm9ibGVtIGJlIGZpeGVkIGJ5IGEgbmV3IGxsaXN0
+IGluIHN0cmlwZV9oZWFkPwo+Pj4KPj4+IEkgYWdyZWUgdGhhdCBhZGRpbmcgZGV2aWNlX2xvY2sg
+b24gdGhpcyBwYXRoIGNhbiBicmluZyBzb21lCj4+PiBvdmVyaGVhZDsgSSB3aWxsIGZvbGxvdyB1
+cCB3aXRoIHBlcmZvcm1hbmNlIG51bWJlcnMuCj4+Pgo+Pj4KPj4+IFJlZ2FyZGluZyB0aGUgYWx0
+ZXJuYXRpdmU6IGRpZCB5b3UgbWVhbiBhZGRpbmcgYSBkZWRpY2F0ZWQKPj4+IGxsaXN0X25vZGUg
+aW4gc3RyaXBlX2hlYWQgZm9yIHRoZSBwbHVnL3VucGx1ZyBwYXRoIChpbnN0ZWFkIG9mCj4+PiBy
+ZXVzaW5nIHNoLT5scnUpLCBzbyB0aGF0IHJlbGVhc2Vfc3RyaXBlX3BsdWcoKSBhbmQKPj4+IGRv
+X3JlbGVhc2Vfc3RyaXBlKCkgbm8gbG9uZ2VyIHNoYXJlIHRoZSBzYW1lIGxpc3Qgbm9kZT8KPj4+
+Cj4+Pgo+Pj4gSWYgd2Ugc3RpbGwgcXVldWUgdGhlIHBsdWcgbGlzdCB2aWEgc2gtPmxydSwgc3dp
+dGNoaW5nIHRoYXQgbGlzdAo+Pj4gdG8gYW4gbGxpc3Qgd291bGQgbm90IHJlbW92ZSB0aGUgcmFj
+ZSwgYmVjYXVzZSBkb19yZWxlYXNlX3N0cmlwZSgpCj4+PiBjYW4gc3RpbGwgbGlzdF9hZGQgdGhl
+IHNhbWUgbHJ1IG9udG8gaGFuZGxlL2luYWN0aXZlIGNvbmN1cnJlbnRseS4KPj4+IEEgc2VwYXJh
+dGUgbm9kZSB3b3VsZCBhdm9pZCB0aGF0LCBidXQgdW5wbHVnIHdvdWxkIHRoZW4gbmVlZCB0bwo+
+Pj4gbW92ZSBzdHJpcGVzIGZyb20gdGhlIHBsdWcgbGxpc3Qgb250byB0aGUgZXhpc3RpbmcgbHJ1
+LWJhc2VkCj4+PiByZWxlYXNlIHBhdGgsIHdoaWNoIGlzIGEgbGFyZ2VyIGNoYW5nZS4KPj4KPj5J
+IG1lYW4gYSBuZXcgbGlzdCBmb3IgdW5wbHVnIGluIHNoIGxpa2UgdW5wbHVnX2xsaXN0LiBBbmQg
+SSB0aGluayBpdCdzCj4+ZmluZSB0byB1c2UgdGhlIGxsaXN0IGRpcmVjdGx5IGZvciB1bnBsdWcs
+IHRoZXJlIGlzIG5vIG5lZWQgdG8gbW92ZQo+PnNoIGZyb20gdW5wbHVnIGxsaXN0IHRvIGxydSBs
+aXN0IGZpcnN0Lgo+Pgo+Cj5BIGRlZGljYXRlZCBsbGlzdCB3b3VsZCBhdm9pZCB0d28gbGlzdF9h
+ZGRzIG9uIHRoZSBzYW1lIHNoLT5scnUgZnJvbSBwbHVnIGFuZCBkb19yZWxlYXNlX3N0cmlwZSgp
+LiAKPkxhc3QtcmVmIGVucXVldWUgc3RpbGwgZG9lcyBub3QgZHJvcCBzaC0+Y291bnQ7IHRoZSBk
+ZWNyZW1lbnQgaGFwcGVucyBsYXRlciBpbiBfX3JlbGVhc2Vfc3RyaXBlKCkuIAo+U28gYXQgY291
+bnQgPT0gMSB0aGUgc2FtZSBzdHJpcGUgY2FuIHNpdCBvbiBib3RoIHRoZSBwbHVnIGxpc3QgYW5k
+IHJlbGVhc2VkX3N0cmlwZXMuIFdoYXQgZm9sbG93cyBpcyAKPnRoYXQgb25lIHVuZHJvcHBlZCBs
+YXN0LXJlZiBiZWluZyByZWxlYXNlZCB0d2ljZSBieSBfX3JlbGVhc2Vfc3RyaXBlKCksIG5vdCBh
+IHNlcGFyYXRlIGJ1Zy4KPgo+cmFpZDVfdW5wbHVnKCkgYW5kIHJlbGVhc2Vfc3RyaXBlX2xpc3Qo
+KSBib3RoIHRha2UgZGV2aWNlX2xvY2ssIHNvIHRoZXkgZG8gbm90IHJ1biBfX3JlbGVhc2Vfc3Ry
+aXBlKCkgaW4gcGFyYWxsZWwuIAo+VGhleSBydW4gb25lIGFmdGVyIHRoZSBvdGhlci4gVGhlIG9u
+bHkgZGlmZmVyZW5jZSBpcyB3aGV0aGVyIGFub3RoZXIgZ2V0IGhhcHBlbnMgYmV0d2VlbiB0aGUg
+dHdvIGRyYWlucy4KPgo+MS4gTm8gZ2V0IGluIGJldHdlZW4KPlRoZSBmaXJzdCBfX3JlbGVhc2Vf
+c3RyaXBlKCkgZG9lcyAxofowIGFuZCBwdXRzIHRoZSBzdHJpcGUgb24gaW5hY3RpdmUuCj5UaGUg
+c2Vjb25kIGRvZXMgMKH6LTEuIGRlY19hbmRfdGVzdCBpcyBmYWxzZSwgc28gaXQgZG9lcyBub3Qg
+ZW50ZXIgZG9fcmVsZWFzZV9zdHJpcGUoKSAKPmFuZCB0aGVyZSBpcyBubyBzZWNvbmQgbGlzdF9h
+ZGQobHJ1KS4gQ291bnQgaXMgYWxyZWFkeSAtMSwgc28gYSBsYXRlciBnZXRfZnJlZV9zdHJpcGUo
+KSCh+iBpbml0X3N0cmlwZSgpIGhpdHMgdGhlIEJVRy4KPgo+Mi4gQSBnZXQgaW4gYmV0d2Vlbgo+
+VGhlIGZpcnN0IF9fcmVsZWFzZV9zdHJpcGUoKSBkb2VzIDGh+jAuCj5UaGUgc3RyaXBlIGlzIGdv
+dHRlbiBhZ2FpbiBhbmQgY291bnQgaXMgMTsgdGhhdCBpcyB0aGUgbmV3IEkvTydzIHJlZmVyZW5j
+ZS4KPlRoZSBzZWNvbmQgX19yZWxlYXNlX3N0cmlwZSgpIGRyb3BzIHRoYXQgbmV3IDEgdG8gMC4K
+Pgo+VGhlIHNlY29uZCBkcmFpbiBpcyBub3QgbmVjZXNzYXJpbHkgdW5wbHVnOyByZWxlYXNlX3N0
+cmlwZV9saXN0KCkgcnVubmluZyBzZWNvbmQgaXMgdGhlIHNhbWUuIAo+QXQgZHJhaW4gdGltZSBj
+b3VudCA9PSAxIGRvZXMgbm90IHRlbGwgeW91IHdoZXRoZXIgdGhpcyBpcyB0aGUgcGFya2VkIGxh
+c3QtcmVmIG9yIGEgcmVmIGFmdGVyIHJldXNlLgo+Cj5FbnF1ZXVlIHRvIHJlbGVhc2VkX3N0cmlw
+ZXMgaGFwcGVucyBvbmx5IGF0IGNvdW50ID09IDEuIFdoZW4gY291bnQgPiAxLCByYWlkNV9yZWxl
+YXNlX3N0cmlwZSgpIG9ubHkgZG9lcyBhZGRfdW5sZXNzIGFuZCByZXR1cm5zOyAKPml0IGRvZXMg
+bm90IGVucXVldWUuIElmIHRoZSBzdHJpcGUgaXMgYWxyZWFkeSBvbiByZWxlYXNlZF9zdHJpcGVz
+LCBhIGdldCByYWlzZXMgY291bnQgYWJvdmUgMSwgYW5kIHRoZW4gcGx1ZyBydW5zLCBib3RoIGxp
+c3RzIGNhbiBiZSBvY2N1cGllZC4gCj5UaGF0IGlzIHR3byByZWZlcmVuY2VzIGFuZCB0d28gZHJh
+aW5zIGVhY2ggZHJvcHBpbmcgb25lOyBvbmx5IHRoZSBkcm9wIHRvIDAgZG9lcyBsaXN0X2FkZChs
+cnUpLiBDYXNlcyAxIGFuZCAyIGFyZSBvbmx5IGFib3V0IHBhcmtpbmcgdHdpY2UgYXQgY291bnQg
+PT0gMS4KPgo+U28gYW4gbGxpc3Qgb25seSBmaXhlcyB0aGUgbHJ1IGNvbGxpc2lvbi4gSXQgZG9l
+cyBub3QgZml4IGxhc3QtcmVmIG93bmVyc2hpcC4gSSBkbyBub3Qgc2VlIGEgbG9ja2xlc3Mgd2F5
+IHRvIGZpeCB0aGF0Lgo+Cj5UaGFua3MsCj5MaSBZb3Vob25nCgo+CgpTb3JyeSBmb3IgdGhlIG5v
+aXNlIG9uIHRoZSBsYXN0LXJlZiAvIGR1YWwtbGlzdCBwYXJ0LgoKSSBzYWlkIGEgc3RyaXBlIGF0
+IGNvdW50ID09IDEgY291bGQgc2l0IG9uIGJvdGggdGhlIHBsdWcgbGlzdCBhbmQgCnJlbGVhc2Vk
+X3N0cmlwZXMsIHNvIHR3byBsYXRlciBfX3JlbGVhc2Vfc3RyaXBlKCkgY2FsbHMgd291bGQgZHJv
+cCAKdGhlIHNhbWUgdW5kcm9wcGVkIGxhc3QtcmVmLiBJIGRvIG5vdCBoYXZlIGEgY29kZSBwYXRo
+IHRoYXQgc2hvd3MgCnJhaWQ1X3JlbGVhc2Vfc3RyaXBlKCkgdW5wYWlyZWQgd2l0aCBnZXQsIHNv
+IEkgc2hvdWxkIG5vdCBoYXZlIHRyZWF0ZWQgCnRoYXQgYXMgYSByZWFzb24gdG8gcmVqZWN0IGxs
+aXN0LgoKQSBkZWRpY2F0ZWQgbGxpc3Qgc3RpbGwgbG9va3MgcmlnaHQ6IGl0IHN0b3BzIHBsdWcg
+YW5kIGRvX3JlbGVhc2Vfc3RyaXBlKCkgCmZyb20gbGlzdF9hZGQoKWluZyB0aGUgc2FtZSBzaC0+
+bHJ1LiBJJ2xsIHBvc3QgYSB2MiB0aGF0IHdheS4KClRoYW5rcywgCkxpIFlvdWhvbmc+Cg==
