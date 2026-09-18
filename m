@@ -1,113 +1,190 @@
-Received: from mail-pj1-f42.google.com (mail-pj1-f42.google.com [209.85.216.42])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9B37E35AC2C
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 03:30:32 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AA8717D6
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 03:31:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789702234; cv=none; b=mBEnLthe1+q2MSy5W9mfh5+3eHAq4uYhgdP+o+Jm2kZJf0wA4GdaM0fcrpgB67gjXWXKx5+1+ddPhyU+iVFX888pnsc5YXJPof82w1DJ3vV81rEhB72LH3f8Wo1JnlSS6Bi9kwX5lolpPJBq+1bxMaMLIBkEgRoAXitbDVFEueU=
+	t=1789702323; cv=none; b=izLs3fPs6MZEBLYQ6+id6wqSOeJ3rGDok/INcKsksoo/PsKixP/NvSHLgTXlJspzvEcxvAU+Sgfjgws6oRqIoSd6EKBKDl9g2zic//3dQwtDQO4Ra31DpT9W3HURK1aTH7gHDH7o11ywARum7x6Ux5N1qnJJdjg7PRxDsAbtNMQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789702234; c=relaxed/simple;
-	bh=oL7iBYRGTXGLUYEI615o03nOb0m0bTLF3HdlXZTknbY=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=rhjze0lDQgMJHShKUxyqyH+jvSTL46XDJXv1iWGokcxuF8uVukrDQB0gN68yGVxCpfe6teS1nObfphdkVsVn6fW9cka0IMAtAcWQd8gEsToF+AUvHepcOvBhxp6GpNfoNv9fRBIbbty/Kt3vorQvaSKAeSuoTdNksFGX0SZYUik=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Mhkmqi3n; arc=none smtp.client-ip=209.85.216.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789702323; c=relaxed/simple;
+	bh=ofbGnonuhMWHIHVrMioDm+COfo4E6fbBUBFRCUoAZGE=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=YddZB/g/dJEGy4BQQBEvnjwadvcoL7OU6ujhESby0o6NPIjjiPXPkzRRo3kQObWPDmfT1Ouc1oDar8D3/tZNBty4EDyzaateZyhhOFjO3uS8a/TJzNQf1AqMJw0x7fnhq1Y41Df/EIaQ0f9wBH5LH6pr6IY893AaDrPiDlxycUs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=XQqCAIzo; arc=none smtp.client-ip=220.197.31.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Mhkmqi3n"
-Received: by mail-pj1-f42.google.com with SMTP id 98e67ed59e1d1-39647184c73so1230269a91.1
-        for <stable@vger.kernel.org>; Thu, 17 Sep 2026 20:30:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789702232; x=1790307032; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=NsTXXf0bosmROP35BjT3pvO2TNvWL1hxMB3vfvtmPCY=;
-        b=Mhkmqi3n/qPy4geBhcotXJHzyx2Es70VcFh2hL+VhOw/XMh+f+hDb5mxtWhGN0XO0s
-         bQvMZG6gHxAEMcxBe/kjtedQ680T7cMj/xeYppEoWDZLDFdehcsyoIQeoC5qwll8ac+1
-         716FO/PcB52SwuwUl3+u48UZIQbLJyPJtkjq3xVzFYH34m7q0YGVoXGQ5jN2w/C+qpq9
-         CCAAbmPZos3NCYYd48Qn4AmVS8t5vjT/l1IEoNO1f8lRsd655QyoM0fJkV4soOlxeQkK
-         YF01lYpwfVQA6BZI9oXZOnyqoDphQrBLAWFsMNQXe8Ek0T0Tot1ykXSdZzCl9xoS8yxb
-         CkDw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789702232; x=1790307032;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=NsTXXf0bosmROP35BjT3pvO2TNvWL1hxMB3vfvtmPCY=;
-        b=KO1XPeK0lYMZlQoP2Jp57jcnC1DSCWi5IIpLurw6/YHs0jhzPMLheZc0FP4r/ARl/6
-         Xs0x5jqAihA+vhVt7fJEoI4qmfl6Q1c1nTu0F6D8lia+j/ptICnSjSzliD6xO4IuuAM9
-         0URpz36eXSbOzqzSH/YD1Bs6U/LDsxEPMIGlgMDuOhFTBne4jqGTeg4gv3qBnb8tD+AV
-         ei0nAy10bjIf3gR1Fq5nErFdaplwiXlF8dJzqaxjHnRe6piOJxc444Ksj1G/WW88OyWE
-         WvTGHe2ZXNBqhwPQZ4bOI4hn40D2mdyTXUy6TCbqRRk1rVjmPT1G+puB5yeFOKXqsofD
-         909w==
-X-Forwarded-Encrypted: i=1; AKwUvBz4wWluS7tL80XB+RyOz9jWA7+adZw60/WqD2PMDRWu1hd/lWMWNz+D2t8elYqlo0ocgs9VhM4=@vger.kernel.org
-X-Gm-Message-State: AFuF++lnT0QE+DP3jx5wxSxh/YkBtihY/r1I7Ytwhnoxdk+g4sVzrtk1
-	YVKMPOqmVjs+/QQ4URnEoSgOiuLJSKl0OOodeaEalcffNdq8pdjZJ7Et
-X-Gm-Gg: AYBFou30Hb4TOVFxKLvJjVLgqzYXuCcljGtkKDdSFB8PxPLsZOm/agbWZUSmybQrUk9
-	/A4YIopkaqnmSyBgnZEvlcl3r++cB1ki0jKor+fL/VmLQah/4+FgR5KKe3+ym47s/Gvz6dBG1+z
-	QVFmHY5PT8VtS9S+3gJ2DhMdIEXRB+qiKyw+0DpBCzKT7gZROheE0oj0TfUD7ISQRWGvytm3DTI
-	/edVEz8rm8Yna6MbJWAW7VvwW5U9xPxiieec9DBuBNo0PSuFVIv2bX3GOeY7xbP3atxRGhKdOBR
-	7M2jb3IsuHVxqNZAZPelv95fh4Hj4S5Tjo6bj5b4qiOa+yVgvatWkilTFotqx1jrvs4JDoYbB2X
-	gjZjaanh91w+xyCYzTcTstr9ZUamdL0KSMktdXHFTrCSCV7cuXxQiNaBsaufbp9eDR377/rmm7w
-	ONv/NA1XMcHPA7M6nK8SR+yu19U8SBRmuKJIr8O+BoAxPT7JZQWiP9Bw==
-X-Received: by 2002:a17:90b:4acc:b0:39e:5ba1:ccee with SMTP id 98e67ed59e1d1-39e5ba1d12amr457366a91.24.1789702231551;
-        Thu, 17 Sep 2026 20:30:31 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c2874bb0csm613271eec.16.2026.09.17.20.30.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Thu, 17 Sep 2026 20:30:31 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: =?UTF-8?q?Uwe=20Kleine-K=C3=B6nig?= <ukleinek@kernel.org>,
-	Thierry Reding <thierry.reding@gmail.com>,
-	Ed Blake <ed.blake@sondrel.com>,
-	linux-pwm@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] pwm: img: stop using autosuspend on remove
-Date: Fri, 18 Sep 2026 11:30:17 +0800
-Message-ID: <20260918033017.3441183-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="XQqCAIzo"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
+	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
+	Content-Type; bh=gDqFiXsIFxVLwgl8nROCme0E0boM641YgzTeXdujsAQ=;
+	b=XQqCAIzoaocwtrH7zcDHh9K4fHB/J1Oi/oqYAM0D1gJmm0dnHlyK5x1KLMtjH3
+	xUtAIpnsiJiMxoiOjGFsGnaLkVWsVvdK4JCZBgGuiLgh8eW56uR8VEkCJQ2XXQXZ
+	dwSwRwa8DzzkdjQtLiKemA8gmYqYfZ/WQ0c27eL3gji4g=
+Received: from [IPV6:2409:8900:1a8a:969c:2bfb:b58b:268a:b9c5] (unknown [])
+	by gzga-smtp-mtada-g0-3 (Coremail) with SMTP id _____wC3h5eMsKxqfAaeBQ--.14493S2;
+	Fri, 18 Sep 2026 11:31:26 +0800 (CST)
+Message-ID: <81eb8e1b-b20a-4b50-a46f-a425465e4ef7@163.com>
+Date: Fri, 18 Sep 2026 11:31:24 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH v2] ntfs: fix incorrect VCN units for index blocks in
+ large clusters
+To: Hyunchul Lee <hyc.lee@gmail.com>, Namjae Jeon <linkinjeon@kernel.org>
+Cc: ntfs@lists.linux.dev, stable@vger.kernel.org
+References: <20260918-fix-c8k-index-v2-1-7c7c5d0b78ac@gmail.com>
+Content-Language: en-US
+From: liubaolin <liubaolin12138@163.com>
+In-Reply-To: <20260918-fix-c8k-index-v2-1-7c7c5d0b78ac@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 8bit
+X-CM-TRANSID:_____wC3h5eMsKxqfAaeBQ--.14493S2
+X-Coremail-Antispam: 1Uf129KBjvJXoW3JF4kWF48KFyDKrWDCrWkCrg_yoW7CFy3pr
+	9Iyr1Skw47Jr12ywsxKa1jvryru34DK3WUKw4UJr17tr97Jrnag3W8KryrWF9ay395A3s7
+	XFn0gr4ru398Xr7anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
+	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07Uj385UUUUU=
+X-CM-SenderInfo: xolxutxrol0iasrtmqqrwthudrp/xtbC6Q4V32qssI6vhAAA3+
 
-img_pwm_probe() enables runtime PM autosuspend with
-pm_runtime_use_autosuspend(). The probe failure path disables
-autosuspend again, but the remove path only disables runtime PM.
 
-As a result, the runtime PM autosuspend setting is left enabled after
-the driver is unbound.
 
-Call pm_runtime_dont_use_autosuspend() from img_pwm_remove() to undo
-the setting established during probe, matching the probe error path
-and the runtime PM API requirements.
+在 2026/9/18 08:18, Hyunchul Lee 写道:
+> NTFS stores VCNs for index blocks smaller than their cluster in fixed
+> 512-byte units, independent of logical sector size. Use correct block
+> units when initializing and traversing these indexes so directory indexes
+> are located correctly.
+> 
+> Verified on a Windows-created 4Kn/32KB-cluster NTFS volume that when the
+> index block is smaller than the cluster, the VCN unit is 512 bytes.
+> 
+> Fixes: 27d5cd2d940b ("ntfs: fix directory lookup on large-page systems")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
+> ---
+> Changes in v2:
+>    - Add a Fixes and Cc tags
+> ---
+>   fs/ntfs/index.c  | 2 +-
+>   fs/ntfs/index.h  | 2 +-
+>   fs/ntfs/inode.c  | 8 ++++----
+>   fs/ntfs/layout.h | 6 +++---
+>   fs/ntfs/namei.c  | 7 +++----
+>   5 files changed, 12 insertions(+), 13 deletions(-)
+> 
+> diff --git a/fs/ntfs/index.c b/fs/ntfs/index.c
+> index 46a8b19c0723..3e901004bcbf 100644
+> --- a/fs/ntfs/index.c
+> +++ b/fs/ntfs/index.c
+> @@ -852,7 +852,7 @@ int ntfs_index_lookup(const void *key, const u32 key_len, struct ntfs_index_cont
+>   	if (ni->vol->cluster_size <= icx->block_size)
+>   		icx->vcn_size_bits = ni->vol->cluster_size_bits;
+>   	else
+> -		icx->vcn_size_bits = ni->vol->sector_size_bits;
+> +		icx->vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
+>   
+>   	icx->cr = ir->collation_rule;
+>   	if (!ntfs_is_collation_rule_supported(icx->cr)) {
+> diff --git a/fs/ntfs/index.h b/fs/ntfs/index.h
+> index 9a03f53bba47..a898e348f2c9 100644
+> --- a/fs/ntfs/index.h
+> +++ b/fs/ntfs/index.h
+> @@ -37,7 +37,7 @@
+>    *		(maximum is MAX_PARENT_VCN)
+>    * @ib_dirty:	true if the current index block (@ia/@ib) was modified
+>    * @block_size:	size of index blocks in bytes (from $INDEX_ROOT or $Boot)
+> - * @vcn_size_bits: log2(cluster size)
+> + * @vcn_size_bits: log2 of the VCN unit size
+>    * @sync_write:	true if synchronous writeback is requested for this context
+>    *
+>    * @idx_ni is the index inode this context belongs to.
+> diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
+> index 4375ad477809..d389d89b3ff5 100644
+> --- a/fs/ntfs/inode.c
+> +++ b/fs/ntfs/inode.c
+> @@ -1021,8 +1021,8 @@ static int ntfs_read_locked_inode(struct inode *vi)
+>   			ni->itype.index.vcn_size = vol->cluster_size;
+>   			ni->itype.index.vcn_size_bits = vol->cluster_size_bits;
+>   		} else {
+> -			ni->itype.index.vcn_size = vol->sector_size;
+> -			ni->itype.index.vcn_size_bits = vol->sector_size_bits;
+> +			ni->itype.index.vcn_size = NTFS_BLOCK_SIZE;
+> +			ni->itype.index.vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
+>   		}
+>   
+>   		/* Setup the index allocation attribute, even if not present. */
+> @@ -1612,8 +1612,8 @@ static int ntfs_read_locked_index_inode(struct inode *base_vi, struct inode *vi)
+>   		ni->itype.index.vcn_size = vol->cluster_size;
+>   		ni->itype.index.vcn_size_bits = vol->cluster_size_bits;
+>   	} else {
+> -		ni->itype.index.vcn_size = vol->sector_size;
+> -		ni->itype.index.vcn_size_bits = vol->sector_size_bits;
+> +		ni->itype.index.vcn_size = NTFS_BLOCK_SIZE;
+> +		ni->itype.index.vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
+>   	}
+>   
+>   	/* Find index allocation attribute. */
+> diff --git a/fs/ntfs/layout.h b/fs/ntfs/layout.h
+> index 9438fd9b668e..8f5792139d71 100644
+> --- a/fs/ntfs/layout.h
+> +++ b/fs/ntfs/layout.h
+> @@ -1880,8 +1880,8 @@ struct index_header {
+>    * @index_block_size:   Size of each index block in bytes
+>    *                      (in $INDEX_ALLOCATION).
+>    * @clusters_per_index_block:
+> - *                      Clusters per index block (or log2(bytes)
+> - *                      if < cluster).
+> + *                      Clusters per index block, or 512-byte units when
+> + *                      the index block is smaller than a cluster.
+>    *                      Power of 2; used for encoding block size.
+>    * @reserved:           3 bytes reserved/alignment (zero).
+>    * @index:              Index header for root entries (entries follow
+> @@ -1921,7 +1921,7 @@ struct index_root {
+>    * @lsn:                Log sequence number of last modification.
+>    * @index_block_vcn:    VCN of this index block.
+>    *                      Units: clusters if cluster_size <= index_block_size;
+> - *                      sectors otherwise.
+> + *                      512-byte blocks otherwise.
+>    * @index:              Index header describing entries in this block.
+>    *
+>    * When creating the index block, we place the update sequence array at this
+> diff --git a/fs/ntfs/namei.c b/fs/ntfs/namei.c
+> index 3e0adb9a0ea4..75e201096525 100644
+> --- a/fs/ntfs/namei.c
+> +++ b/fs/ntfs/namei.c
+> @@ -433,9 +433,8 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
+>   			ni->itype.index.vcn_size_bits =
+>   				vol->cluster_size_bits;
+>   		} else {
+> -			ni->itype.index.vcn_size = vol->sector_size;
+> -			ni->itype.index.vcn_size_bits =
+> -				vol->sector_size_bits;
+> +			ni->itype.index.vcn_size = NTFS_BLOCK_SIZE;
+> +			ni->itype.index.vcn_size_bits = NTFS_BLOCK_SIZE_BITS;
+>   		}
+>   	}
+>   
+> @@ -569,7 +568,7 @@ static struct ntfs_inode *__ntfs_create(struct mnt_idmap *idmap, struct inode *d
+>   				NTFS_B_TO_CLU(vol, ni->vol->index_record_size);
+>   		else
+>   			ir->clusters_per_index_block =
+> -				ni->vol->index_record_size >> ni->vol->sector_size_bits;
+> +				ni->vol->index_record_size >> NTFS_BLOCK_SIZE_BITS;
+>   		ir->index.entries_offset = cpu_to_le32(sizeof(struct index_header));
+>   		ir->index.index_length = cpu_to_le32(index_len);
+>   		ir->index.allocated_size = cpu_to_le32(index_len);
+> 
+> ---
+> base-commit: 27d5cd2d940b53718f66fb682475587aa993d760
+> change-id: 20260918-fix-c8k-index-e91b078b1290
+> 
+> Best regards,
 
-This issue was found by manual code inspection.
+Looks good to me.
 
-Fixes: e690ae526216 ("pwm: img: Add runtime PM")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/pwm/pwm-img.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/drivers/pwm/pwm-img.c b/drivers/pwm/pwm-img.c
-index 91e0b19f0c08..c0747f5e0020 100644
---- a/drivers/pwm/pwm-img.c
-+++ b/drivers/pwm/pwm-img.c
-@@ -339,6 +339,7 @@ static void img_pwm_remove(struct platform_device *pdev)
- 	struct pwm_chip *chip = platform_get_drvdata(pdev);
- 
- 	pm_runtime_disable(&pdev->dev);
-+	pm_runtime_dont_use_autosuspend(&pdev->dev);
- 	if (!pm_runtime_status_suspended(&pdev->dev))
- 		img_pwm_runtime_suspend(&pdev->dev);
- 
--- 
-2.43.0
+Reviewed-by: Baolin Liu <liubaolin@kylinos.cn>
 
