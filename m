@@ -1,87 +1,75 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D1422E7386
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 08:39:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D94E13C9EC2;
+	Fri, 18 Sep 2026 08:39:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789720763; cv=none; b=IXQ2KBu9IV5/pnH3omZ1iyKj5A6GDITXWCcCTYPpVAaikndkvSW+2Cscx22f66Of1JS7cOipdAFG560gEavKopu99QcUP+mgP0wJsXEk9ICV00iYo7Br8ip+bV4WGmVeEhj+hDvSoY6I9LqZMGhUXFNQLNF16vDIVXFE6QaWXdc=
+	t=1789720792; cv=none; b=qcCidCql26i4v7u+wMg3hOvVocO2YBBCWyypbf9JkSojMCQ0gED9X3kyEmlAkeNY7Lha3VY9IDNzUSOVgpI8UQhAaRYZ0g5yx4SHlSEhnJtbqdKX1Aamzo3UKkCdSg8cEIeQQsEIo5jHQusR+NwL0J0UQO7MTGFYSo4728AGSGY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789720763; c=relaxed/simple;
-	bh=zsMpUP/mg9BVSWDGNZRyk0AJH29HIpIfT4obPwwxJ+w=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=JwxQ62Gk++zUYcmVocdMkq5lrI6m2FUMAUI8JjEXRGsvr9g/T7vg2XKZCh3JTnDL41+wikRhcPR5MrAbnC+Pi7sYdK+/40TEiZEqehd4A1pQVpsVuWBd1lkzXOHHdIZbkPtSj/U+e3zewBL7StmO3FkMmzoVgd8mIwTFaybIBqU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hBDcD3hf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789720792; c=relaxed/simple;
+	bh=3Dy3YtypLKkP6JwV5QFwiqAKZVgzsNJ1z8c5ksVcBsc=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=PO3jjO8XoJwmsOQSBhWy1stUE96pYf16Xm26RJrFlM8Xsoz+I85/vKATRi33+yvh2duqZ5Y67PUxTII7cJTs78pa8Ubz+ir6Mdpc+fif3xCs7LsURdwDS7gk44QQVxSLvH5zhmusajKPHfuUo/o+j8vDWrizqdggfvadQansBAY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oj77CiL4; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hBDcD3hf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C38121F008A2
-	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 08:39:20 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oj77CiL4"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FF931F000FF;
+	Fri, 18 Sep 2026 08:39:47 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789720760;
-	bh=zsMpUP/mg9BVSWDGNZRyk0AJH29HIpIfT4obPwwxJ+w=;
-	h=References:In-Reply-To:From:Date:Subject:To:Cc;
-	b=hBDcD3hfiwvSH57FClY99ov2uc4BAeIAoOmmD2zOXzFCR0M4z+qOD98GWdYuYYrMI
-	 ZlW+cLUQggo56owN75M0ZZEJUEjc+1nwR3j65kZsHjH0V+Vf69TGYm9ruxiOhYUG06
-	 QgoprMRxnA2g/Ovb0azBbLYJPo38VAp92yjkztYD3slIyu5KMzhFfwyg4HZXA3hK6d
-	 Hw0xSkWsfgc9Adf0cLhJ4/lfMfVCgHASlMyUvMU5hcsXSoif+gG90W9EEpvauDPmNi
-	 KU0PElLaB6qST6dYaNq1kJAxJ3XB7IMAi1NqWyclZbRtJtLq9f3ZI54/pkf1vRWQs4
-	 Zw+XHMZYHfREA==
-Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b74d0133e0so437778e87.2
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 01:39:20 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvBwfPVrfkq3vSqVpHGvBd+bMoe/rxdMbc1rnWUt83cWXSQ2TUea+U/Dsg466ck2DXwHFWxnAy5I=@vger.kernel.org
-X-Gm-Message-State: AFuF++ngjS9ZdubIl60bu/7VLNdy+oS16pYZlDlALVtOiIEsSS+Ve4fU
-	xOpPxY99KQ9w4nejDFP2SmwLTlNfDRQ9ylNlxx/NHO2vOduWjBt/zpkjJTGx0Ln8/kGlBtnmaSf
-	riTZhG6pCQUXgLTXT0dZC2JSAElZvS6g=
-X-Received: by 2002:a05:6512:3d14:b0:5b0:82d:e90e with SMTP id
- 2adb3069b0e04-5b8c18429c1mr465853e87.19.1789720759430; Fri, 18 Sep 2026
- 01:39:19 -0700 (PDT)
+	s=k20260515; t=1789720790;
+	bh=4NyvQt/xrr7/J2Rj9IMwy3V+McdYcbrXcfwVdArfFoA=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=oj77CiL48FknHrG/C+PhbXizZUrccbyaIuo3sONdOz2U0EvXATU7wC8FbnrJo60pH
+	 QpAm2SeEbdoxJ/yoATNd0P0VxnhXE6fJu7qNIUQ2UTuBxXG3u/MFGuSliTvss13rZF
+	 v5pAsTYW3qNHQ56yCV6KcYHzt5z9hfjHNxw87z+4T6hpY6dfai1Zr3fgq32vL5eG7L
+	 HsGhskkQPvusqC2fGVVPyVjpqnLE3a0QHxAVnXHiXL6Qb7G30yPK7oUIe8l87lgHeN
+	 ltaNmSB+jSb8Z8G7ksFALjofzsIkOaju8gcqyyij9pL1VP+UFwqeUouFc2aB/0ZeMV
+	 6kb8zmJwnr0OA==
+From: "Christophe Leroy (CS GROUP)" <chleroy@kernel.org>
+To: broonie@kernel.org,
+	Wentao Liang <vulab@iscas.ac.cn>
+Cc: Christophe Leroy <chleroy@kernel.org>,
+	herve.codina@bootlin.com,
+	leoyang.li@nxp.com,
+	linux-arm-kernel@lists.infradead.org,
+	linux-kernel@vger.kernel.org,
+	linuxppc-dev@lists.ozlabs.org,
+	qiang.zhao@nxp.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] soc: fsl: cpm1: tsa: Fix clock leak in tsa_of_parse_tdms()
+Date: Fri, 18 Sep 2026 10:39:38 +0200
+Message-ID: <178972077003.546774.17878987805855996127.b4-ty@kernel.org>
+X-Mailer: git-send-email 2.54.0
+In-Reply-To: <20260917152719.2160395-1-vulab@iscas.ac.cn>
+References: <20260917152719.2160395-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260917104920.2147568-1-vulab@iscas.ac.cn> <CAD++jLn8zuuBQKXTp_-Z9An2Qb-axBet5jwtyp+iecyUR_c0Og@mail.gmail.com>
- <26e9c43d-74a8-4d70-ba71-f50c2ac77e65@lunn.ch>
-In-Reply-To: <26e9c43d-74a8-4d70-ba71-f50c2ac77e65@lunn.ch>
-From: Linus Walleij <linusw@kernel.org>
-Date: Fri, 18 Sep 2026 10:39:06 +0200
-X-Gmail-Original-Message-ID: <CAD++jLn11d+t7i6dpz5NnpiKwJKywOoqLbb86tEbpqdOvuqQ9g@mail.gmail.com>
-X-Gm-Features: AcwNN1XU7qBGncguGdfMfitY6zlKnJQaSupT-LXWndyDgyt4fGLUsBEs1OwT8NI
-Message-ID: <CAD++jLn11d+t7i6dpz5NnpiKwJKywOoqLbb86tEbpqdOvuqQ9g@mail.gmail.com>
-Subject: Re: [PATCH] net: dsa: vitesse-vsc73xx: Fix SPI device reference leak
- in vsc73xx_spi_probe()
-To: Andrew Lunn <andrew@lunn.ch>
-Cc: Wentao Liang <vulab@iscas.ac.cn>, davem@davemloft.net, edumazet@google.com, 
-	f.fainelli@gmail.com, kuba@kernel.org, linux-kernel@vger.kernel.org, 
-	netdev@vger.kernel.org, olteanv@gmail.com, pabeni@redhat.com, 
-	paweldembicki@gmail.com, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset="utf-8"
+X-Developer-Signature: v=1; a=openpgp-sha256; l=614; i=chleroy@kernel.org; h=from:subject:message-id; bh=pC3q+eVOwKtbzxx0BZcSBlwLSzb+dYpbfXOvP0gz5ns=; b=owGbwMvMwCV2d0KB2p7V54MZT6slMWSt+XH6buLtv9na7FOKuo6fmv0y1mOv4ZXC3YLNRmFf5 xSlCDU86ChlYRDjYpAVU2Q5/p9714yuL6n5U3fpw8xhZQIZwsDFKQATOVrHyLBd81a/VUC7/Lvs V8wR18VXh8btmL879cL1SyfqXllejt3H8D/hjcFkRYddXBcy5nGpc3U/+rEidmt79dx94flrQvX 7r7AAAA==
+X-Developer-Key: i=chleroy@kernel.org; a=openpgp; fpr=10FFE6F8B390DE17ACC2632368A92FEB01B8DD78
+Content-Transfer-Encoding: 8bit
 
-On Fri, Sep 18, 2026 at 3:53=E2=80=AFAM Andrew Lunn <andrew@lunn.ch> wrote:
-> On Fri, Sep 18, 2026 at 12:22:12AM +0200, Linus Walleij wrote:
-> > On Thu, Sep 17, 2026 at 12:49=E2=80=AFPM Wentao Liang <vulab@iscas.ac.c=
-n> wrote:
-> >
-> > > spi_dev_get() takes a reference on the SPI device, but neither the
-> > > probe error paths nor vsc73xx_spi_remove() ever release it, so the
-> > > spi_device can never be freed after the driver has been unbound.
-> > >
-> > > Release the reference on both probe error paths and in remove().
-> > >
-> > > Fixes: 95711cd5f0b4 ("net: dsa: vsc73xx: Split vsc73xx driver")
-> > > Cc: stable@vger.kernel.org
-> >
-> > I think we don't set this on networking patches, the network maintainer
-> > decides himself what is stable material.
->
-> That was true when DaveM did all the Maintainer work. But it is no
-> longer true. Please follow the normal stable rules.
 
-Aha! I didn't know that.
+On Thu, 17 Sep 2026 15:27:19 +0000, Wentao Liang wrote:
+> The error cleanup loop puts l1rsync_clk and l1rclk_clk a second time
+> and never puts l1tsync_clk or l1tclk_clk, because the branches that
+> guard the transmit clocks use the receive clock field names.
+> 
+> Use the matching field in each branch so every clock acquired by
+> tsa_of_parse_tdms() is released exactly once.
+> 
+> [...]
 
-Thanks Andrew.
+Applied, thanks!
 
-Yours,
-Linus Walleij
+[1/1] soc: fsl: cpm1: tsa: Fix clock leak in tsa_of_parse_tdms()
+      commit: 7b3b0598c00e67f2df85d0b4cd99eaa3be6c9bfd
+
+Best regards,
+-- 
+Christophe Leroy (CS GROUP) <chleroy@kernel.org>
