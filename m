@@ -1,143 +1,87 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D31CC498915;
-	Fri, 18 Sep 2026 20:45:33 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 68386222580;
+	Fri, 18 Sep 2026 20:48:19 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789764335; cv=none; b=qJwDZ1/6HqHpUz5oWalbtaW46qzXV7GGYV5Zj0usQjl5ZdrheGiUhXy0TS0/5k61yYPRxKCoHhvEIbF1h+oz83ANj3AhArxZC4wkaetBstfAJjM7NvfuN27BztS1Q6PDiWztOXzzsCVLDihTyaFRuCoTWgJpUIhXj9PQloBOI14=
+	t=1789764500; cv=none; b=WnjyTs1jJL6DX7TP/JazCsZtsTI2a5o12+Z29ozr3dN1vuR5coU2WsAyjkcUQ6lCebLb+2xF3uIvxDoSDAjoRRJbxMddP+b2LxCX8eusVzMcsK9ODVLplzcuqEQPrH7WXjeyDqr8G2JNSs1JDAJU8f8hQBk6aNbh71ErvqF8VKI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789764335; c=relaxed/simple;
-	bh=qQ6hTjmO3qr+aAoczoG+LFOLL7D2rzssTtc7NcmPevU=;
-	h=Date:To:From:Subject:Message-Id; b=O9hytI4NCZvLOPnO3fVygRgpXfK+jcTrRBrv2U8jIgjyqGk9MwNr0t7TXfV28NX9yzoQGDyPeoQS/JQf8jvawPFBIpdD1n0DQD8ffGS/MrZBJdfPiNRuIKSUhnLaGqIymqqYJJRqwtLFmJ5NBHRAbveHI3FKVoNrtn7plRDnN74=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=Q0Dvu0MF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789764500; c=relaxed/simple;
+	bh=POh5GW85wfXj7ebEI8T7SHI3danecazc0eCvr9IRjDc=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=haGwSWfqj8J2UaZYiT83Fgc5DeIfX/rjoey026u52MetkK3aBJ13yuQ5rcX9YKI9Rpnp/WClfsFL4BGet43XQ7YnIMG79C91FCVWAW1G0N7tjWY/LYnWV32GhD2sBw6XmdPG149ntthZD3Z0L1xuulwOcZhtVTRveOKWowGZn0E=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=XhH1EZxi; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="Q0Dvu0MF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 41B961F000FF;
-	Fri, 18 Sep 2026 20:45:33 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1789764333;
-	bh=CmLOODNIhj53oxfLflzcaSfPQc2kewIj0bGMUzWB9ho=;
-	h=Date:To:From:Subject;
-	b=Q0Dvu0MFq+ZotC3meomhTCTJdDz8w5ljy0H6l4UCb93IocIzuw5olGFzQhNfDVIGy
-	 pW6/OW3bDiEQ/QkqvtYoeWw8BrdyHREOK2gbViGz2EjdeRmQOaxzGG3ysKQP22k+GF
-	 HLT7hVTxQaUa8CXARswNgpzWO8j6ZC9tyVMx7M8A=
-Date: Fri, 18 Sep 2026 13:45:32 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,paulmck@kernel.org,hughd@google.com,baolin.wang@linux.alibaba.com,leitao@debian.org,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range.patch added to mm-new branch
-Message-Id: <20260918204533.41B961F000FF@smtp.kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="XhH1EZxi"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EA90D1F000FF;
+	Fri, 18 Sep 2026 20:48:18 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789764499;
+	bh=F3DLy+3kNg2/wHbf2EqxrOXhPJ3Jfo/SncNlpx7Uc1o=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=XhH1EZxiDYkIZHt9a5/V37pg/Sarp1e3Qe5lMO0l+rbQFqnKHefScnL4wdDDBhxD+
+	 1IKmTGM+ZquVGfG6+twDL03GIBz6MYywQDt/asVqrQkDZDOMW515TK21G9TP/djRHE
+	 lO30B14/lAhYinNnfOAMgBBYmZzkb1+gk+Xk4Sk42LUyBGxYeN2FGwDn1Al208N+yZ
+	 kv/CFzM/vBlqPJwhfQpG6aQKLJx4PRawtNKD51PUgzl+/NGxNDib+NYwqdOFa/YesB
+	 G5/9eRJyUXAH2LOBeldllXEe3A9mMn7lxPjLry/5GDH10znpKuID0t8DuufHkHHvGZ
+	 Vt3b6oPwrlqwQ==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C2552CE09DC; Fri, 18 Sep 2026 13:48:18 -0700 (PDT)
+Date: Fri, 18 Sep 2026 13:48:18 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Andrew Morton <akpm@linux-foundation.org>
+Cc: Breno Leitao <leitao@debian.org>, Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/shmem: report RCU-tasks quiescent states while
+ undoing a range
+Message-ID: <bcce9339-92bf-4702-a336-f572e6e1ba7b@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
+ <20260918123239.8f25b984ca280fcc11ef6e6a@linux-foundation.org>
+ <a67e8b91-ebc2-4d3d-b6ea-d221b297fad0@paulmck-laptop>
+ <20260918134342.c50423cfe3b2910e899226f2@linux-foundation.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918134342.c50423cfe3b2910e899226f2@linux-foundation.org>
 
+On Fri, Sep 18, 2026 at 01:43:42PM -0700, Andrew Morton wrote:
+> On Fri, 18 Sep 2026 13:24:53 -0700 "Paul E. McKenney" <paulmck@kernel.org> wrote:
+> 
+> > > 
+> > > > --- a/mm/shmem.c
+> > > > +++ b/mm/shmem.c
+> > > > @@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inode *inode, loff_t lstart, uoff_t lend,
+> > > >  		}
+> > > >  		folio_batch_remove_exceptionals(&fbatch);
+> > > >  		folio_batch_release(&fbatch);
+> > > > -		cond_resched();
+> > > > +		cond_resched_tasks_rcu_qs();
+> > > 
+> > > Won't this change remove the cond_resched() function from old kernels
+> > > which really want it?
+> > 
+> > The cond_resched_tasks_rcu_qs() macro implies cond_resched():
+> > 
+> > 	#define cond_resched_tasks_rcu_qs() \
+> > 	do { \
+> > 		rcu_tasks_qs(current, false); \
+> > 		cond_resched(); \
+> > 	} while (0)
+> 
+> Oh, should've looked.
 
-The patch titled
-     Subject: mm/shmem: report RCU-tasks quiescent states while undoing a range
-has been added to the -mm mm-new branch.  Its filename is
-     mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range.patch
+No problem, and yes, I do know that feeling.  ;-)
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range.patch
+							Thanx, Paul
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
-
-The mm-new branch of mm.git is not included in linux-next
-
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
-
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
-
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
-
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Breno Leitao <leitao@debian.org>
-Subject: mm/shmem: report RCU-tasks quiescent states while undoing a range
-Date: Fri, 18 Sep 2026 04:24:37 -0700
-
-This shows up in the Meta fleet on ftruncate() of large tmpfs files:
-
-  INFO: rcu_tasks detected stalls on tasks:
-  00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
-  task:rocksdb:bottom  state:R  running task
-    __folio_split
-    find_get_entry
-    find_get_entries
-    truncate_inode_partial_folio
-    shmem_undo_range
-    shmem_setattr
-    notify_change
-    do_ftruncate
-    __x64_sys_ftruncate
-    do_syscall_64
-
-shmem_undo_range() walks the whole of the requested range in folio_batch
-sized steps, twice, and its two cond_resched() calls are the only
-reschedule points in that walk.
-
-cond_resched() is not an RCU-tasks quiescent state.  Use
-cond_resched_tasks_rcu_qs() at both points so the walk reports an
-RCU-tasks quiescent state as it proceeds.
-
-Link: https://lore.kernel.org/20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org
-Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
-Signed-off-by: Breno Leitao <leitao@debian.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Cc: Baolin Wang <baolin.wang@linux.alibaba.com>
-Cc: Hugh Dickins <hughd@google.com>
-Cc: "Paul E . McKenney" <paulmck@kernel.org>
-Cc: <stable@vger.kernel.org>
----
-
- mm/shmem.c |    4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
-
---- a/mm/shmem.c~mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range
-+++ a/mm/shmem.c
-@@ -1367,7 +1367,7 @@ static void shmem_undo_range(struct inod
- 		}
- 		folio_batch_remove_exceptionals(&fbatch);
- 		folio_batch_release(&fbatch);
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 	}
- 
- 	/*
-@@ -1408,7 +1408,7 @@ whole_folios:
- 
- 	index = start;
- 	while (index < end) {
--		cond_resched();
-+		cond_resched_tasks_rcu_qs();
- 
- 		if (!find_get_entries(mapping, &index, end - 1, &fbatch,
- 				indices)) {
-_
-
-Patches currently in -mm which might be from leitao@debian.org are
-
-mm-swap-distinguish-a-malformed-swap-entry-from-a-dying-device.patch
-mm-fail-the-fault-on-a-malformed-swap-entry-instead-of-retrying-it.patch
-documentation-kmemleak-describe-the-metadata-pool-not-the-early-log.patch
-documentation-kmemleak-fix-stale-statements-about-scanning.patch
-mm-kmemleak-raise-min_unref_scans-to-3-for-verbose-auto-scan.patch
-mm-shmem-report-rcu-tasks-quiescent-states-while-undoing-a-range.patch
-
+> And it appears to have been this way forever, so
+> s/cond_resched/cond_resched_tasks_rcu_qs/ won't break old kernels.
