@@ -1,47 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2A39E3FFAA4;
-	Fri, 18 Sep 2026 23:54:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 021273FFAA4;
+	Fri, 18 Sep 2026 23:55:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789775680; cv=none; b=FF+J5an2WLQPp/DYvQDpUjhHJJFeG5Q6vk5gsil9pVcWJGcOah7jfBlC5MDbIFHDUnMcvJYDie3BkDtAThzoxKrEXatoZK0zlupc488BUM+K12ggTPXj6ns66dW93SO4gBm+JbqMniwqm2W/fIrM92dDL7dI+wu/JWkcjxdt63c=
+	t=1789775758; cv=none; b=j2rk6JlNug/L2Fn4bISNXrH+h/vy95DyO3uDU8631k76lCy7Nf5Goe26OYVAd2mqJtpWgIBfpCV+zbD+pE5Gz0dkUvJbVhzT3FuJKuWob99y9gloRf4oXcWQ9M3i+pKZLcj6XQU88Bs75h8bDwgatdJFGu9CI2CUZInL7SEIH3s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789775680; c=relaxed/simple;
-	bh=KkYrC+VyJ129vVG0c1M+e94Q1PA1VVhgobo8fdnfE3s=;
+	s=arc-20240116; t=1789775758; c=relaxed/simple;
+	bh=IZjgsioofP6mEB0HjIeoG/NJqCekguLttEz4/HPlwGQ=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=fSQKrI1MCr2e0sJoA3Xe5QJRIBENOX1gnhjt/TIPBNUTkoGFg3varCd9FC8c9bD4UYY/WGPIwUsEefXEq/RikyUTUkm8bT/IFYo8wEffDf6jO5VncMaDIQkTSySSGjHR/7Q+KWi8B+qjGd+8e8HIn3H6hA/2nNHTqFHe1WuHLC0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aI+BCSD+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=XzBBt1TN6NQMFX9z2laYYG+zc5+1EQr7Og4cIcrYpdintga1Uh4gpfmn3PR2hn2fNpmFjZtddGbGrMYekuBbAQwQvzbaJA6vZLqmAXFjZRVhITe4nEYiaPgVlnspCYd3KwFoDqISmfEuKNqKx3Ya0NYAsHTyxLYchnSxyOzau9Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UoHFroeg; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aI+BCSD+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8C24C1F000FF;
-	Fri, 18 Sep 2026 23:54:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UoHFroeg"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 5EB231F00898;
+	Fri, 18 Sep 2026 23:55:56 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789775679;
-	bh=5n3Ww3R4PYb3U2Dik8qAMEL/ILunEErkQeQHnRuKj+4=;
+	s=k20260515; t=1789775756;
+	bh=VU0n0fb/ImTWy2/iDVAElKp7yccMyh1tca355nHr6VU=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=aI+BCSD+hUEz0Aihjmq5s63q827T45f0dU4SlX6R8/M3q8lD84o7W4C4dfexkp7ac
-	 kr92EctSd/ww3fyDMk19LSbJWhXgRqLA6XHL5dJpgdsFjCPdXdNJ73UnmUgwNVgntb
-	 ogN4aSRUFqWpI8ou4zL5+U3FJ/5Fg+ulEoGvyeMtGGVWhZ7ar9ZRG0mkbJApEjavIa
-	 Yk1M7wbHdBQbNtoCU9w71iLzUeifHFKIDkJuDdajLt4y0LeWIkvW1ZqfhBcSzqy+li
-	 Jciov+dziR40MWdkiYswQY62sJ0xWYG9D2Llbxs+7TQ3W8SbUj58gtnQaTBXb+mewV
-	 gmE+SIIg6lzXw==
-Date: Fri, 18 Sep 2026 16:54:37 -0700
+	b=UoHFroeg6L3WkLGMSF/bnNmcN3Xmhv3BakLwyl4y4TwzXPxF5YTXb449kzRLr79mY
+	 uZitANbGjXX3x/rQXqlPTNvkZQ5GOtx6YX11P40A+djeG/cGJF8oPWvhWFWBzgbpTo
+	 9UOeyig9CkoNWGZUGqhHw/XRwcborwt1UNf6z1l+f6D2zMb7SnFeJia3V73WMarWCy
+	 gnDytR81u/NgFUZ0gyaUcZqkqPmUCUUJE22YXf4fhuU6GMMYJ28Jz3S3iSd866tm1l
+	 fMcFTfiOrr75iN5IrYbTZ2K2SPBx0k1g86otqaZZfUHmKM8IisONJjJuE1bvi8/WbY
+	 KoaGGPH6MEFGg==
+Date: Fri, 18 Sep 2026 16:55:55 -0700
 From: Jakub Kicinski <kuba@kernel.org>
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Petr Machata <petrm@nvidia.com>, Aleksandr Loktionov
- <aleksandr.loktionov@intel.com>, Jacob Keller <jacob.e.keller@intel.com>,
- Jijie Shao <shaojijie@huawei.com>, "Uwe =?UTF-8?B?S2xlaW5lLUvDtm5pZw==?=
- (The Capable Hub)" <u.kleine-koenig@baylibre.com>, Ruoyu Wang
- <ruoyuw560@gmail.com>, Jakub Raczynski <j.raczynski@samsung.com>,
+Cc: Kevin Curtis <kevin.curtis@farsite.co.uk>, Andrew Lunn
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, Eric
+ Dumazet <edumazet@google.com>, Paolo Abeni <pabeni@redhat.com>,
  netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
  stable@vger.kernel.org
-Subject: Re: [PATCH] net: sungem: disable PCI device on remove
-Message-ID: <20260918165437.196b057c@kernel.org>
-In-Reply-To: <20260916055913.2910349-1-lgs201920130244@gmail.com>
-References: <20260916055913.2910349-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] net: wan: farsync: disable PCI device on removal
+Message-ID: <20260918165555.2ed3bf2d@kernel.org>
+In-Reply-To: <20260916063118.2924049-1-lgs201920130244@gmail.com>
+References: <20260916063118.2924049-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -51,12 +47,18 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 13:59:13 +0800 Guangshuo Li wrote:
-> gem_init_one() enables the PCI device with pci_enable_device().
+On Wed, 16 Sep 2026 14:31:18 +0800 Guangshuo Li wrote:
+> fst_add_one() calls pci_enable_device() to enable the PCI device. The
+> probe failure paths call pci_disable_device() to release the matching
+> enable reference, but fst_remove_one() does not disable the device
+> after a successful probe.
 > 
-> The probe failure path balances this operation with
-> pci_disable_device(). However, after a successful probe,
-> gem_remove_one() releases the PCI resources and netdev without
-> disabling the PCI device.
+> As a result, the PCI device enable reference remains unbalanced after
+> the driver is removed.
+> 
+> Call pci_disable_device() after the existing interrupt, tasklet,
+> mapping, DMA and PCI region cleanup to release the enable reference.
+> 
+> This issue was found by manual code inspection.
 
-We don't accept trivial fixes to obsolete drivers.
+Ancient stuff, no point.
