@@ -1,138 +1,135 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A11AA3BE155;
-	Fri, 18 Sep 2026 07:39:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.18
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789717206; cv=none; b=hYDlk1cJH2VfA8mxfaBl8gcaZZlVtJ9dept19ql2gKBtzp8GTlafuYga3G4FLp4wSh+BY/AHt5GtptQYOIuC+uUOAvScHrWUfzZq+8KNDv21B2ftSltkVktJpS6z7EX2jBJH75frm4+u5HR4wVBWP6rnFeIVKuvSjhnQy6QCpZc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789717206; c=relaxed/simple;
-	bh=9HjgM9JbkGt1A3yefJhN4x6xA3Vg7LoR3hGeySb0Qow=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AeFfo2fQ5C/dcYEqvUuJ+dXQYu+ZmubxzEW9cM55fVZAREs4jiFOV9NZfI3rLp4K5q+TjSMioqeqZ8bevOX1EHvr5JekoPLitO+zFRVYNITxV9QMuwnr+z20UXWI6jcGno6QOvmoIpLb9k5JL24jDXpTvsw5VHZd4eKJdleGp04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=QRyltiK/; arc=none smtp.client-ip=192.198.163.18
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6B643AAF73
+	for <stable@vger.kernel.org>; Fri, 18 Sep 2026 07:52:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789717927; cv=pass; b=BjretZfZDSncUSj68ssuns+O6MWJaxYlQGHkGnqtFAZoImOFedkANyDVoqkC8XArtWSjM9ZELU3i28TG/WCWe1QcxbPQp+zd1DF0hxEtlL8aINxcLXF3MFeJfUmqwASlHcMRuc+kyyMISidgIuY1KFHxgKjs/HLu9RCQ/7aLooY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789717927; c=relaxed/simple;
+	bh=HmU3O9u9jVAkFRCkWEdl+bin1iaF6HrroVvtBQG2j9U=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=uY52oHJ/8UQ3+Cua7rQWzVKkQ8XxeGiUTYnZoUqBtcze5VBeA3EFnunsOYSW+KoNbaQLvV3XXlXWxHmPgIlvhqTGbF6svYsBBwzFnsLxh+2hduzVEVaD7TYeyoIpCamdYMT3SFPM/ewFktdGHT6vq+cAqFan8UJhlqie4WtsXtg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Q/xlBZRl; arc=pass smtp.client-ip=74.125.230.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="QRyltiK/"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789717199; x=1821253199;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=9HjgM9JbkGt1A3yefJhN4x6xA3Vg7LoR3hGeySb0Qow=;
-  b=QRyltiK/8VXtmYoDNqHqSA6+r/9gYRqGlcGdjn5gfRAhfQYAn5XrGY+x
-   /+35p6LcSwkm7LHxQ0H0T7RP61tFADN8S0MIQBnpTXmqy1wJlBfBetV8D
-   M0sM5sNh7CvD6aBqts1P3nYb3nGLGHE4yU652I33CC3bngi3TQwFTcxAM
-   pP7c2U8bSt06+1+1/MKj2IhZGMSCRZDLIqtfLwiyHZoMUaLXo/e34lt73
-   3eMaFW6VmLVdJy13a1YgT2W8h/AwUBXpEMCyuMjYl9a4V6QWavGhOpmcL
-   LT+mt+THYI+YR8kQ1SogLaARS2dQsaUtbsHxCqQ4tDduzF5sjo4nlVIAA
-   Q==;
-X-CSE-ConnectionGUID: 9td86wudQRe8nBfvawUHFg==
-X-CSE-MsgGUID: uZRVMeamQZSrFr1z7FHMXA==
-X-IronPort-AV: E=McAfee;i="6800,10657,11905"; a="89340112"
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="89340112"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa112.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:39:52 -0700
-X-CSE-ConnectionGUID: EQSigIixQTGHBye9zTlPZA==
-X-CSE-MsgGUID: SCwZTKvvQfmatyBz20cYNw==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,103,1787036400"; 
-   d="scan'208";a="297731196"
-Received: from carterle-desk.ger.corp.intel.com (HELO localhost) ([10.245.245.170])
-  by fmviesa002-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 18 Sep 2026 00:39:47 -0700
-Date: Fri, 18 Sep 2026 10:39:41 +0300
-From: Andy Shevchenko <andriy.shevchenko@linux.intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Ulf Hansson <ulfh@kernel.org>, Frank Li <Frank.Li@nxp.com>,
-	Sascha Hauer <s.hauer@pengutronix.de>,
-	Pengutronix Kernel Team <kernel@pengutronix.de>,
-	Fabio Estevam <festevam@gmail.com>,
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Wentao Liang <vulab@iscas.ac.cn>, Miaoqian Lin <linmq006@gmail.com>,
-	Shawn Guo <shawnguo@kernel.org>,
-	Lucas Stach <l.stach@pengutronix.de>,
-	Dong Aisheng <aisheng.dong@nxp.com>, linux-pm@vger.kernel.org,
-	imx@lists.linux.dev, linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] pmdomain: imx: gpc: remove all initialized power domains
-Message-ID: <aqzqvfbeh653jUce@ashevche-desk.local>
-References: <20260918031323.3376849-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Q/xlBZRl"
+Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76ef19aso4285821cf.2
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 00:52:05 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789717925; cv=none;
+        d=google.com; s=arc-20260327;
+        b=fFMbWsMKj8rD/41x95iMJfgIaYc+8rtWE59HiOmhExkrugzjMDdDmX4KJLB8oDjA41
+         derjW3bkfloS1Mmq3yvVGO0KRKeeL+aSS/TuB96ffx8YQvXRLQKxd1gzjlaHH0/D/UkQ
+         lIAP3UfORRWNbgDSyZ20i+PnIrr7r8ntzjA0r1m5fYeRN4Pz0vtSt4kpBXK3Zu60oXZc
+         Pvv/q9jeBZc4XLWDSC3Sxra7kqBwWNkQaDs558XEyfjhrRJ7aQe4Vx1o5P/YakgsFQv2
+         oH/46iQLvcOX8NYI6FkIfp6IPKLEp69lP9IYKB+jL/WQQmasXPDmB8VltQbyYlpldgEN
+         mYgg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=GENi4md1c446ap3YU+8WbAIKW0z2UxkHlaNTGXc/qAc=;
+        fh=8bvWN2zE8Dz9vUK3FDuZJmec8oRmcO/+E5UkgtNL4jA=;
+        b=AESV++QJTskwv+8LxBL2cUFPb8cy+rg4DgiqQHoJWs2KIJy86n24Aph0yz7Y/jAUTQ
+         tR7yISu06NjlKLRV3Y+WklcVWoqh6dYwvbrO3Q0Wg+kTtxMMpnExRHRFODHHZfLMyrLN
+         Guso39KdT3HSxx5X9QULYNk8+oCFgH9vmqGPXUD67WxMid+pQ+BE0oGxiGNoW4L7CDiN
+         cXCEPengMD0gFMZoaLjXdqI8ucAA2hKpak+FW79aOfl1Q2G2CR6ghIH/nCoW9ZwCgpGA
+         iz3zuvxKCJzENaX29gs3ZJTKoAD83D5ztzAm3eHyWIiCaR1jW1kkJROkWtj1xu+F51oo
+         mmsQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789717925; x=1790322725; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=GENi4md1c446ap3YU+8WbAIKW0z2UxkHlaNTGXc/qAc=;
+        b=Q/xlBZRl0d1u4TvTkrjunTffRGdneS3ZGZ9KpeYJHWJ4j5vBeZcAQcajCRBlEKtZ1R
+         9qcHZNY5Tj5gTnWw/gxSY2grlwWTayC403wG+ZHKG/+1xWWkQuPRWkXkon96eOxoaw9+
+         /oYMDZTPmGa+r0JdjAfetHzpzN0FauE9zA26ewQG/lWJhMe/UklgcqWuQQxN/otC+U5X
+         rOMzHO3e4TEQq+/C6ufRmdM/X83CNDZ8IJEtojCF+bJ1eGsugbqQR/iKWNmmazYU59RU
+         HPs01ABdOHAM+JFkSrpRcEN7oPgBFJRVdHfjt3e7gfIzRjFWaQNio5RQqDhuVwjyXa2C
+         CjsA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789717925; x=1790322725;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=GENi4md1c446ap3YU+8WbAIKW0z2UxkHlaNTGXc/qAc=;
+        b=LpnLxpNB3MgrWvb9wBCGGCUkemBv05KeKERhNL3gX7+KA5nwKLpdy7aQptcsoLTvMj
+         X8iL5WtUAiMjLqBO3npseReuyBUUr5tjthPamkS5wqz/0oTVOlWJn6jqITJK6xSNSB5+
+         sOt4hSor/EtDt7fHTDeLk55jAeoGDiO0/l92/vS7b8xs6HANTCHERFBKfz8dM8wVF7H1
+         4QDp6v95vU4ALc2emsWk95c+riVl543/PqNwE5S2c7ve7/6SXY9qcoPJs9GkdA6PB5SH
+         1w5czdTs5HkZdQ9uAlNWywFkaa/awmoX5CTxuHrWgjtB/ocOP2q5YMBNClsksTWyZiTs
+         p9jg==
+X-Forwarded-Encrypted: i=1; AKwUvBwcRvTwyEe3hlEqzAiysqA/Fw9Q/d4M9WF/M/KkNLdsUDfniJycpACcVV/aR5kvm+PqstciqQg=@vger.kernel.org
+X-Gm-Message-State: AFuF++m/5pJXGRLBTdJlWC7YCxrRft+lIstjMKV5dG0TBYrUlnxmqksA
+	E0bZjx2tTz3fLymugkTGjbwXu9oBCGmNVl5IDQxhqTeiVemijbhXFeHVo0RM235pbwBYGdEizbD
+	7NJTiT9F0HH4OSKxARFPQpJnljyuph7U=
+X-Gm-Gg: AYBFou22yamU8AJYDwZ+sIgiG1033ALdKDrJfAzURhJCbWra/CfNIYT1jYyporUEGlY
+	L5BpxQFr+3oFhsTOg5zmaDg+/BR2uE4divbDvTN2W4H/UignGKgI6j3jW5JYgAy8yMeTx/DpQpj
+	qC6mC6FYvu5+dPskVIqSlBfPtbMQrOvTbr/VAZcDzCeMsx9Oourjpbjrn6Y87Zsd284HhA1dl4n
+	6znKfZZcXEcqJGrMtrxsZ9SNcW7IDrfwKMZzLaJsxeERsB6udvVqA8IJ9+7d4F1UCpGuVDNZ5ni
+	o6SNhidAy2ENWPghjL9P6RC118IgWu7k7nmNlMCV4/Mrq0C/BdHtbxymeZHTpOdkBwP/07PUvat
+	hsDd6AJw0/fwgEA==
+X-Received: by 2002:a05:622a:54b:b0:530:e6b9:f5d9 with SMTP id
+ d75a77b69052e-5329e2887c3mr28806961cf.20.1789717924743; Fri, 18 Sep 2026
+ 00:52:04 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918031323.3376849-1-lgs201920130244@gmail.com>
-Organization: Intel Finland Oy - BIC 0357606-4 - c/o Alberga Business Park, 6
- krs, Bertel Jungin Aukio 5, 02600 Espoo
+References: <20260917155834.2161361-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260917155834.2161361-1-vulab@iscas.ac.cn>
+From: Alexey Charkov <alchark@gmail.com>
+Date: Fri, 18 Sep 2026 11:51:56 +0400
+X-Gm-Features: AcwNN1WPnMYUOHlV-frab_8tJfPEncIhhSiRLeqBqP4mXUOCMzFeKOSH0f4nq-I
+Message-ID: <CABjd4Yy-9A0xWCDfZemHOTZDrDdtdO05nUjmN=w=sLwYjzZn8Q@mail.gmail.com>
+Subject: Re: [PATCH] serial: vt8500: Fix clock reference leak in vt8500_serial_probe()
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: gregkh@linuxfoundation.org, jirislaby@kernel.org, krzk@kernel.org, 
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, 
+	linux-serial@vger.kernel.org, linux@prisktech.co.nz, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Fri, Sep 18, 2026 at 11:13:22AM +0800, Guangshuo Li wrote:
-> imx_gpc_old_dt_init() initializes all power domains described by
-> of_id_data->num_domains. Its probe failure path removes all of these
-> domains, but imx_gpc_remove() only removes the PU and ARM domains.
-> 
-> On SoCs with more than two domains, such as i.MX6SL and i.MX6SX, the
-> additional DISPLAY and PCI generic power domains can remain registered
-> after the GPC driver is removed.
-> 
-> Remove all initialized power domains in reverse order. Keep releasing
-> the PU clocks immediately after the PU domain has been successfully
-> removed.
-> 
-> This issue was found by manual code inspection.
+On Thu, Sep 17, 2026 at 7:58=E2=80=AFPM Wentao Liang <vulab@iscas.ac.cn> wr=
+ote:
+>
+> of_clk_get() returns a clock with a reference that has to be released
+> with clk_put(). If clk_prepare_enable() fails the function returns
+> without doing so, leaking the reference.
+>
+> Add the missing clk_put() on that error path.
+>
+> Fixes: 12faa35ae5cb ("serial: vt8500: UART uses gated clock rather than 2=
+4Mhz reference")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/tty/serial/vt8500_serial.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/drivers/tty/serial/vt8500_serial.c b/drivers/tty/serial/vt85=
+00_serial.c
+> index 78a1c1eea11b..fc6fdc751b16 100644
+> --- a/drivers/tty/serial/vt8500_serial.c
+> +++ b/drivers/tty/serial/vt8500_serial.c
+> @@ -656,6 +656,7 @@ static int vt8500_serial_probe(struct platform_device=
+ *pdev)
+>         ret =3D clk_prepare_enable(vt8500_port->clk);
+>         if (ret) {
+>                 dev_err(&pdev->dev, "failed to enable clock\n");
+> +               clk_put(vt8500_port->clk);
 
-...
+The probe function currently mixes devm-managed and manual resource
+allocations, with the clk standing out in particular. Instead of
+adding a manual clk_put, could you please switch the clk calls to
+devm_clk_get_enabled and drop redundant boilerplate?
 
->  static void imx_gpc_remove(struct platform_device *pdev)
->  {
-> +	const struct imx_gpc_dt_data *of_id_data =
-> +		device_get_match_data(&pdev->dev);
-
-No...
-
->  	struct device_node *pgc_node;
-> -	int ret;
-> +	int i, ret;
-
-...and no.
-
-The result of the device_get_match_data() better to be checked, in some cases
-it might lead to NULL dereference.
-
-It's better to split semantically different variables, also naming 'i' is not
-good, num_domains is better. Besides that, why is it signed?
-
-...
-
-> +		for (i = of_id_data->num_domains - 1; i >= 0; i--) {
-
-What you are doing here can be written in a shorter form
-
-		num_domains = of_id_data->num_domains;
-		while (num_domains--) {
-
-> +			ret = pm_genpd_remove(&imx_gpc_domains[i].base);
-> +			if (ret) {
-> +				dev_err(&pdev->dev,
-> +					"Failed to remove %s power domain (%pe)\n",
-> +					imx_gpc_domains[i].base.name,
-> +					ERR_PTR(ret));
-> +				return;
-> +			}
->  
-> +			if (i == GPC_PGC_DOMAIN_PU)
-> +				imx_pgc_put_clocks(&imx_gpc_domains[i]);
->  		}
-
--- 
-With Best Regards,
-Andy Shevchenko
-
-
+Best regards,
+Alexey
