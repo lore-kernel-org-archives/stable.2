@@ -1,121 +1,102 @@
-Received: from fout-a6-smtp.messagingengine.com (fout-a6-smtp.messagingengine.com [103.168.172.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-wr2-f12.google.com (mail-wr2-f12.google.com [74.125.225.76])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D57E5225403;
-	Sat, 19 Sep 2026 04:49:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=103.168.172.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4BED2D595B
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 05:21:03 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.76
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789793349; cv=none; b=dFBLQQwaudf0BEKyaOqavb38Nk4oBrz4JrvPO7H31+GlCkBvUzgud0BXrp5WoIrc21DPkmcshIuHBu30OHI0XrFiWFcNN55rf7Zaxh7mhopHnpGTabwDAKj4e27weJWdwTaFfIIs7w6imIp61vjxRYpgvUFmMbDUcuKVIQF2qfg=
+	t=1789795266; cv=none; b=Ne8bI/Ps/jaI4mVUZSQwgssFC+GB9wuL9GS7BKUodBEtjFFuqCGpVNKzD0aq9T3dHF99xGjhhH8JFNf2DH2dM8uRK/d1YShqmLxgpkbLH6cRNaMYfk2fEa8r6+Qp781hX0KfvcEvRi0e4FUGEB+jpKXRfqysVWjmozAhzFe+xYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789793349; c=relaxed/simple;
-	bh=k4r68afq6hyUxZs7ajqElMYcuJO4Q2v9bYqx1d2Wn5M=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=PgMAvTSlzYbPOOL6TaClfwp/ZlQAq9wbVJQshBbqpuMSzInjlem0CVw54BikKT32dDFdG5HWhzBIejUm//449qTy0VH02+5wfM0Ix8qUehgB3xCAJTBOA4QapO+RmgeuVsT6hZeRC8fsWd5+YdMIdjUFnaP4aeO8Qkpdm/fnhKs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=g4qjmJfh; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=YIRo3927; arc=none smtp.client-ip=103.168.172.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789795266; c=relaxed/simple;
+	bh=wbl/b1wY6W+ED0XWbMPTjA4NropJyaS+Z6oeRQIiRso=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WKAg4TniqvBQ4+mmpDmOsXbSuiFpJlBkyWL1hQb5joOcysfjqCxq+nUqjvjRSZ8TOrNev7ZA4JxwmTYm+RoiS189MfuIrcEm8u+RxFDSHFvrAHAGU5DSYEPJK1ogYqxlfyYuOX/goCJPGjKjTS9d2RTuBv6HUzh5xGTiKJ3FGJE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GbmYOiJd; arc=none smtp.client-ip=74.125.225.76
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="g4qjmJfh";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="YIRo3927"
-Received: from phl-compute-04.internal (phl-compute-04.internal [10.202.2.44])
-	by mailfout.phl.internal (Postfix) with ESMTP id E7172EC01FF;
-	Sat, 19 Sep 2026 00:49:06 -0400 (EDT)
-Received: from phl-frontend-01 ([10.202.2.160])
-  by phl-compute-04.internal (MEProxy); Sat, 19 Sep 2026 00:49:06 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789793346;
-	 x=1789879746; bh=Cdmab0n4jYt37Kqta2KSUpk0MbgPi+pANQeQwzXiufA=; b=
-	g4qjmJfhok4pGO38SPBX9Kf8qLA+uzywQ01u1C8FqCBFfYjRcSBcDCVsssX0w36F
-	IhRPm6+Lpz77jzr504tc3ta7wYfTIpyYbo8CbVjguEL6rOVaGXSpX23JghjmENaf
-	6XuyJccx+ecKuYILRjNNHVaJhUCzjFwkP0pq9ZmZICi4vamrKb5q5h8xBkKA2qBc
-	H2CShqhGRIThE6+ulsEccLi610gbETjyVOrqYgXkcFxll05ogn/KKvBCVV5gIct+
-	S3tjFEM8UOH6q096jYXLosnVAU2JlGP5njjuOp4vSUjeyDOEt9vwLzlePjvABtxw
-	kuBUxlLlcSfjGQf1t1r8bA==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789793346; x=
-	1789879746; bh=Cdmab0n4jYt37Kqta2KSUpk0MbgPi+pANQeQwzXiufA=; b=Y
-	IRo3927fviYoc9Vae/pGzRqI41aiotYg6KzqD4lx+/b9FolSOOqy+/QMTRVfTK/L
-	evLnu17OVqjf1NESMOg/G33dk0tAEZnXN5Hmn5D03JzTjCT8dMEbhWpldyIyzDfY
-	wch8U8i95ZQ5pReMaW0OOieYKwrbX9bmob5imnJ0yqImsARaNKYgfIUIcFEnQvkV
-	e7tQk9VsKUmV5LBrarOAx5c3jKBeSc294L/qX2YkdfjsRRmYjnQPz4t+zMH2Y0ci
-	Bl1hL5agQ7BBA4Y3fAJVVHPRY+C46O7aN3OXsFM2kNx5L1iYubDjeGSIShxboMPz
-	GRX0vCQj4dVTp4EKwst6w==
-X-ME-Sender: <xms:QhSuarlvr3JngImMbVlFO2H05pVTsJ7ZtNY6BGD1JCDPsD0Ls8SRuA>
-    <xme:QhSuaqsWors7QTfOA7bQAMbt9oBrFoN01yzQnrNeX9hIHq46zjCjM7KY3peSpBOp_
-    UxCXoPulwQrEbTjSaj2dfv5JyoEaRhe2BFfYl1680M3nwxjhS70fUk>
-X-ME-Received: <xmr:QhSuatIvGb0Gva8cmCtXQnb12LhakwSkm-V2nfPFyR7Z1o7rbVwkHXfD5dCzirQfVW8HwhxObh_BGY874fwn0AGYVTU6BHc0>
-X-ME-Proxy-Cause: dmFkZTEmPDgo12bE/rZK7Jply7ERprqgnefXmqY0zJIzCAOcmHsAXwErDtVK0xJOEWQ/+x
-    oqADmOlOZOFG7OuUjtHfmCtVlQPJ9IFqB6f5Ea7TSyHMyEm1cgepgTkqf2Knt+TNNOI/MM
-    tI65HZrG8jLtwxTjhcejNyfsykIePq1DZ4VcFT0QL1xiT/Zrog5racKF08XsxvjcSQN4Oa
-    tI1G+g0LT/Gyyp3iMK4RWiBdjk+6Qc2v5moUTM1OGFiEZ5WWFvblctZoSg+wZVkGuLgu2m
-    VmVfKb5jC7mT1NQvPrJZoOcYoOQMvV0/IaPz/7FfDCfLyMp8h9Gh8+azqgzMc1ZlTfcfst
-    zSCbouR8X9g0hfdDIExXMJqG0ocUJGQ03pVA6z6MJiZQtPaSNrFUVvhdI9on2xQkGAn6UZ
-    Wl0ZG3J6hbfLhvjWQ+KlyXUCch8TEsVD4GtJCmjPZSotQ5VJ8NzHihZF+qZW6c6JIYtldf
-    t6szrTQDD1qB/ziS1wgrWxla+iShRPEEZjesk0u5DFBHUgtBty0tG9XMAio85TxOT+0RxT
-    8w4+5BEInOE22NDg58dQdNAvlOGYJlgk2jORg4575YDRiMv4op7Vh2eOtCVrh7ZQloiVkO
-    /2tf8Kld2qZPhKN0Q8crM/qHJBiqWDkyjXMI8fA2OiNlWSdOHPb4s/nDU0gw
-X-ME-Proxy: <xmx:QhSuanjyuqn6nd6UwnFzIXaZ_YQmHouCK6Nj5u6IML6jpxyN9OTBBg>
-    <xmx:QhSuahvGfEzOUMsi8WQpbh4RDOrSVVavyTRywOZv3LEQstN4ZZWfpw>
-    <xmx:QhSuahgyXHYyaG8a8JKmPWEUsVc95yMqFWdB4_8cM1hzJ-ZZBIVDzA>
-    <xmx:QhSuascFLUJBRchN1rR24SND5XSoU7dEnoFBsWWLOaWzIXMpCf_5Wg>
-    <xmx:QhSuaj6KDAfpkfOpS848UpQw2nKZKyxjdwx3Tzj-MKnt-YNLp7RP0wGN>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 19 Sep 2026 00:49:03 -0400 (EDT)
-Message-ID: <7fc82ef5-8daf-4f3b-b747-600231e702ab@pobox.com>
-Date: Fri, 18 Sep 2026 21:49:02 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GbmYOiJd"
+Received: by mail-wr2-f12.google.com with SMTP id ffacd0b85a97d-4843172bff4so705913f8f.0
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 22:21:03 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789795262; x=1790400062; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=j71MR9mSV+x9BS9VkLQyl8CosM5qjIOpfqaZrZTUdQ8=;
+        b=GbmYOiJdiQtLLFhAfH0/eR+T2OcdjMZzpLAAi9npE+7+DT+iK8AQ7lut6CLbBWwrmj
+         6EEU7ouaJsJclQ0LpUGWg/aDVsV7yejy1um3XG6lOiuD5cn3+XJa2834AtgUZRj9z0dN
+         0NoZjnXbN+Dxm4mtZkNaDUsEGRVIVITncRURYZ+icHE3rmDKxD19muatpD3Mo3gVbZah
+         KxVOb9ZHciJNzRK2Sjd/nEySOl7lX9xxdcG6hoSMghnwSSGf53tLGrtPoOgY7e+2UStI
+         LDXE9D3PPa4WF5i85+TnN2GNu/QqezYLtalvmTLVwWgq/7O42Rcsqk/mv93fQXRtvGxg
+         FZKw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789795262; x=1790400062;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=j71MR9mSV+x9BS9VkLQyl8CosM5qjIOpfqaZrZTUdQ8=;
+        b=WJViKZKfE4sNfzhQTJFtVFzCx+U7+BCUN8bTvcBUySkFJ+t2BlpnW9Sa7D60Q8u1CG
+         FiEmmlM5MW3/zpnb04xffoyc4y4t/tyBOMokqK9fGn4xvY2PLILCwVC8DdqvM0yc49A8
+         ew2IiM7IZJiwugeOCzKxsGxjIcTVXkAhP/IQd+96Em+FWyxPT1W0h0oCvLH61RvpqTCG
+         1AIW3sVw2W/jwzjvWxp8HD8W1r8qD9AxDemwRwCXyuh6nuuzNXfsb7Bh4NUQIkPmyPxf
+         XwPcO8eWJQ5BOtD9d8J5ev1wGhqxVfOdCotoWqYKSLL+YQWySt+/xIb9pKh20d720T/P
+         NSPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxUB1BEFAZYOt4eDqSckEBr3Vw405p6DMovMHzfj4kT02RsjZEGTFmVVfSInHbZFfBq2EuMLMg=@vger.kernel.org
+X-Gm-Message-State: AFuF++mV9KK/dx494xgoeeaLUoSsDSF6aoP0b+tzikhlaUbvveh3J/L+
+	tWPJrisdcpUm1wm+f0ppD9xdM1PLY5ZIQaIfOffk53XKsG9vpxLTrK+R
+X-Gm-Gg: AYBFou1I9fkCsRcQudm1DGf3R8mpC450sHUHyUcnGNM1c+kW6DbPIKizjvUdIltIeL+
+	Xn1+LwxpFyuDBlN8L7jlDishAzqFCRkHE5mIKClqrMRhEhgNix5YbugN46kf2WywKjO9Zcp6u6u
+	9fRgmmMcDHmQu6iQQTF2CMpEkx7KzUDtekK0acUyB4ZhAVMTUU+YYSD1cWWk3Bev1U0XkNvrX0+
+	XBdKkqFx6IpucsaUCk0QVoEgLkYMHiI+fY/2T56seiAoXDz81MZKlwwT/+FrK02lpwfWMkS0YFW
+	CwiQLpXFb9aKdnaUjx8AlB5Sp/Gyp50xv/AB+XuiI5GVoNpQET6xXkBH+aGiX8aXx+LT7l2c/vm
+	0t417mZaESOnWwOnaso2dwHGHE/uBwFgF7NB5Vh0xyeqHLhW17OR3+gUheEQOi7MYHCBWagO2K1
+	2uYeWjyrQw5e9X1nWdYkHX9upRzu72Qh4RgLAtF0Ea7JP377NonRgW4FhDqus9izd7IDyFUIaPK
+	eVr0rg0J33O5/XyYGMR327Xbvmg2N34qvHO4TYYAw87nm7QfmAQmSBjAmI7+om/maThG2Ypj4ce
+	NBKMozEh2DE0Pxfx4VhDOarqfWbrWJGCLMe3ZDeV/2rRzlyAOpbztIBkFCCi0jXWBqm7rgFUpCa
+	hnQOwtVUzlFF4cKo=
+X-Received: by 2002:a05:6000:4b09:b0:485:8ee0:dfc8 with SMTP id ffacd0b85a97d-4871e26e3ffmr6296658f8f.41.1789795262086;
+        Fri, 18 Sep 2026 22:21:02 -0700 (PDT)
+Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-48724460753sm4170213f8f.10.2026.09.18.22.21.00
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 22:21:01 -0700 (PDT)
+Date: Sat, 19 Sep 2026 07:21:00 +0200
+From: Karl Mehltretter <kmehltretter@gmail.com>
+To: Miklos Szeredi <miklos@szeredi.hu>, fuse-devel@lists.linux.dev
+Cc: Joanne Koong <joannelkoong@gmail.com>, 
+	Jingbo Xu <jefflexu@linux.alibaba.com>, "Darrick J. Wong" <djwong@kernel.org>, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] fuse: fix GCC 8 build with CONFIG_PROFILE_ALL_BRANCHES
+Message-ID: <aq4bhxra9UsLG56n@gmail.com>
+References: <20260811195733.38489-1-kmehltretter@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.18 0000/1250] 6.18.53-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151551.901433442@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260917151551.901433442@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260811195733.38489-1-kmehltretter@gmail.com>
 
-On 9/17/26 7:56 AM, Greg Kroah-Hartman wrote:
-> This is the start of the stable review cycle for the 6.18.53 release.
-> There are 1250 patches in this series, all will be posted as a response
-> to this one.  If anyone has any issues with these being applied, please
-> let me know.
-> 
-> Responses should be made by Sat, 19 Sep 2026 15:13:46 +0000.
-> Anything received after that time might be too late.
-> 
-> The whole patch series can be found in one patch at:
-> 	https://www.kernel.org/pub/linux/kernel/v6.x/stable-review/patch-6.18.53-rc1.gz
-> or in the git tree and branch at:
-> 	git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable-rc.git linux-6.18.y
-> and the diffstat can be found below.
-> 
-> thanks,
-> 
-> greg k-h
+On Tue, Aug 11, 2026 at 09:57:33PM +0100, Karl Mehltretter wrote:
+> diff --git a/fs/fuse/notify.c b/fs/fuse/notify.c
+> index 29578104ae6cd..3370ae344f751 100644
+> --- a/fs/fuse/notify.c
+> +++ b/fs/fuse/notify.c
+> @@ -153,7 +153,7 @@ static int fuse_notify_store(struct fuse_conn *fc, unsigned int size,
+>  
+>  	nodeid = outarg.nodeid;
+>  	pos = outarg.offset;
+> -	num = min(outarg.size, MAX_LFS_FILESIZE - pos);
+> +	num = umin(outarg.size, MAX_LFS_FILESIZE - pos);
+>  
+>  	down_read(&fc->killsb);
+>  
 
-Tested on 3 different amd64 systems and an arm64 virtual machine.
-Working well, no regressions observed.
+Friendly ping on this build fix. Is anything else needed from my side?
 
-Tested-by: Barry K. Nathan <barryn@pobox.com>
-
--- 
--Barry K. Nathan  <barryn@pobox.com>
+Thanks,
+Karl
