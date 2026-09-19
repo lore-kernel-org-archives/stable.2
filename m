@@ -1,79 +1,74 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 327413C81B9
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 08:47:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F0B0235C69D
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 08:47:50 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789807642; cv=none; b=MCZULWZ/InMshbpwNVp0WcjMVjiWBhfOJrGIfKuM/HS6qWZFMO50xJTMKjRQUfUbfHlJkhmFDJ0O7iTbcMrzCYXt1XNupKySNcKQcPgi0GvMZBN3V9meMF/lM0XPUF29q3++oXgs2BvbmAVSGheLNZsTqnMRfdLvs6wU0WuL4aE=
+	t=1789807673; cv=none; b=b7y+YniTt4g0q88JXf/Ea9Mkm5PljXeseZpElL8qlTrkMwNbSOruyyVxzLqT212NKupH1J9DORhH7dNZS/yTWrVII0iuEJNnewHQX9g5zxRA2CnpV6XYy1vnf0VhiK6Eg6IC/wTZNF4FgH6SJWBazMLhzIP+sW2BbiK/IDaQUEg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789807642; c=relaxed/simple;
-	bh=j80gGp1mQQqYOGLc25zXbELHZ56zd+Nm2USR78qFXA8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=uqGW5qxEJGwdwBkSBByu6vtplJt5V6yfGCGzntQV45860WnH4oeZONH9H1CY0XIm2vJ4MidGMllnbYy7Lf74yMSBry7bcexa9Q5dA9IdHWUVoGm17uf9e/zZTw3RfglfLMG5m1o+kzShcLfNpxlNfxmfe3bpey+kwxTqkR4YB04=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=P5UGpiLg; arc=none smtp.client-ip=74.125.228.12
+	s=arc-20240116; t=1789807673; c=relaxed/simple;
+	bh=DYAShckXomVDJr3XAdzG+ca5X7Lx2QNQjGhHsqoCEaI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=BYjvbhjWtJU76legre9kkR59bZTTCrN6ccxiy/1S2Os0aAtEB3bHDlHBFCh1FKYnJF6v3icJgZwXAJT8aCDnoBSHgIix2RXkzjK9UaOlhQgYL05Bxwc8HrweMopwst5C925AScmXbnR0GX53waMhkbhDpZn4ziMeFFh5iqZuVg8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nT9aGyZ7; arc=none smtp.client-ip=74.125.228.43
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="P5UGpiLg"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1cebcb8d7so472365a12.0
-        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 01:47:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nT9aGyZ7"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469b355ffso961029b3a.1
+        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 01:47:50 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789807639; x=1790412439; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=eKrINCbjz06iI3XHAyCAb5A7LBzsyEXpm4t3U5fKalE=;
-        b=P5UGpiLgCKwdiIFY48xloNe+TX+JpH8KVHS0sicyoA6mw5cHeULZzvf4AB+3Vrtxqg
-         WB6jQcllgZi4l5VcHKYLC7zy5tVlN4EVqbwBjnEWez66u0qrnKKBOMzGh/zOFzCQ6x+U
-         7O/FSsQYI3sANdAn84dFhCuxnYVeZjOqffeGdS99FArK2k/dpqrHEIhjQVwxZS46iaFn
-         +6olXjCjAZc3XWx1SVb1D0VAlt22iJzfsCuXa6jyiMqhPZDy/f5Np75ErqoxSxAPZD64
-         bk2/SHvq7pxDJRSCfomOyAklH0hMpStEQDb/4G3z8+iLlL+lXcBFxfFdjpTvXcy4Er2u
-         HbBg==
+        d=gmail.com; s=20251104; t=1789807670; x=1790412470; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=HgdoQnywZtJ2LcW7ra2+q0vZEMEzGxqganpX19bHuVg=;
+        b=nT9aGyZ7mLzLt4zAdQXFH9vdGQ+qW+rvoxcLUtfMvUycBvW84mBjowkk5Qv/gb54pf
+         mmu2rBkDdTB3elTiivIvmQfzPYbFe+mR44xa6rhMzgU1EyEp0yJYMB1ytAiXJOCvDyBk
+         RSTedzdoCyLF3li7YyJxMIKg4MLx05jsH0ueGLDyMYedtt7o4DpGNAvNCI0rcpPgp9oZ
+         Rb6+D+c6+oMYmoBumupfn/aw1TffPEi69Qas8mRycSOFvNUXAgVH+woGO2oj+cwoU2Z6
+         8b7IgGK4/3Zwfistzwb7kf++uZUxHGLdGdmQ3Ia+2zaH2DjEw3FJ79DNSlUDetr1kOuu
+         E91Q==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789807639; x=1790412439;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=eKrINCbjz06iI3XHAyCAb5A7LBzsyEXpm4t3U5fKalE=;
-        b=lcZMvbWqZViI0vbE5MB9OUqtwwmQzxxPgnhgUZaIQ6lKRW+nkQPyOh0OH+Jl/U9WmP
-         flZ2tFTdiJsyB5hJrv7tnLlFYIR8scBjH/YqCOoBIQCUfEqu4LpHVElfhc3QBYG5ezUU
-         JxRBcV3FZ6U7F1TNsXGxTbDULmLvioc7F5uY0BnU3ValsA8LpH7aOok64bacQVuRXX4U
-         hSLFdPF35I0k81xzAFV2Ety4IxmMoIxERyByxuVkeMkjUCoSVjRKFX7n3h3iwyeSiByX
-         RX27WorFIJxAadJjgni/dCF3oKP689QiXvwSb1VYhR6DKjEkSfcswi7Svh5WHR2frxXa
-         2zdQ==
-X-Forwarded-Encrypted: i=1; AKwUvBzAOgrqeQmly3nQiSW3ENXq3BvnLTuLM5NoPvlEbmnrGx5RACDoNnz5o6EGN5r6LLWNO+vU7zk=@vger.kernel.org
-X-Gm-Message-State: AFuF++kT+FyeP0bYYTC2unvCZToIqkm/vAZajszG5x910ZgMV59xtMSO
-	zJXg0LRwsXUz5Ml1tIacHhABUccFLUWTEXiK2pamZIBWjY6tXZaew0HF
-X-Gm-Gg: AYBFou2wwl4Dwb5534213lu6mj2lw2RcB+fvw/egygMqHNL44RaZvCNQYvioJkKNF5N
-	jTCG2QIUVhX5R/5wcNxFVap8gSLQS+gDwITA+1ZloTA/3nto/xNCwnyFla6Xus1cwcAvsxGGGZ+
-	1dy29OSN5U83wdCfgERkxOUZ+RBZYIceFZ8Q0b3ol6esGjIonF7tFHgaMcuK5YQhw2QjHcfN4pA
-	+ikby+VtXHdvPGAPUWV/w8L1jadMKLsg5/aFkn6wpYF6fgS/LR94Xa1MK/1VB0uNwQgbzqH1ZNx
-	lGq3v2YeWto25Os+p2cCGAigVrUxPR2JFCxzCHn1LRa6Wm7bgpDqb74bV8q3MeCXSDlkmpju1Sw
-	qen44rUvpmeop7fO27BvaBBaiJUgqgHf3+IZY9CVi5YSWbWQ1cKScamWmI7RZXIqg72k+5zgc18
-	yvfw2Yz9eA/b2nkg0x0i0W0wNUmkVA8Y8j9yApMk7GKlAX5sp2UOZ5XxRoSiuGuyZD1BnMFXCRg
-	dL0Z0pqDm3I14/FGdsurFr8GTg5YpXuDe0O+ImwGHMCcrJo/qwzzcF03kcULppFkBxjwg==
-X-Received: by 2002:a17:90b:3908:b0:39e:3d38:7ef1 with SMTP id 98e67ed59e1d1-39e5565236dmr5237971a91.10.1789807638878;
-        Sat, 19 Sep 2026 01:47:18 -0700 (PDT)
-Received: from lenovo-thinkbook (42-2-127-248.static.netvigator.com. [42.2.127.248])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6ca871edsm3492881a91.5.2026.09.19.01.47.15
+        d=1e100.net; s=20260707; t=1789807670; x=1790412470;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=HgdoQnywZtJ2LcW7ra2+q0vZEMEzGxqganpX19bHuVg=;
+        b=wQSV1aiD1TGSrJAt85cpMy8cHhU3e2uKaMHuIYshnIBGq9CEBNIhujBYhz78OJjWxt
+         So+X4vaD8+cSECKbtdJurmA2eFFVWKgL35fAEQWwmKZ1FG3Z5BWw9CwpuZJAwSRmOoC+
+         D9VfcxbTREoIiZPyFiZ8bz8h8h6yvWaB7hPO33EbzDJUQgZ3MMOTNmF5dRAkvAp3J6Xy
+         MpO8+gxL623FYYFeC4fdDR678by8y82rGtemOEL1RiLrv3RmmzNqnB4jEm6PlDUfi0eX
+         m3ndU71fu6h84YYQx3GSTfnuWveYHb03akxq6CA619yLTW8MdxCmD19/fqPIcbjPq7bV
+         ofPg==
+X-Forwarded-Encrypted: i=1; AKwUvBz4iPFBSbHNRZG0M0E35e5HfkUkvwoNpeA5pY+AUU8q5yoYzDhHjhSt3dtUoBhHP3fkZKijqeA=@vger.kernel.org
+X-Gm-Message-State: AFuF++kzk/KX33N2iYVoVoh5moqok2114OmPtcNo4xM8lbuuRy5kplNy
+	6gACUQ/GIrfH+7UMGELxq51rdZACaTUG0z3PXKxz/wEMZvRRgPdWTshCHjRhQijXtFo=
+X-Gm-Gg: AYBFou3t4xC020eMP6bZOZDm2Z3/g7gNArqIrc5LX3SwQLlE0HuIeRBa3tuwx/JeSvI
+	S9QJy+mMUktVcAMQOg9lxAzyQmkVXfMlIaF2LWGHQmPra+tDlGjGuTCXm06WjLZ2lV9fWMhx1sf
+	OntW7huRYyzrmhsAhXzKyIL6Q+ySKJ49VKTptjdp4AiGkbs/0nte1d3G5aeCzj+akBHXNiybtpg
+	467BqSAbjK4PLVmwoq4Xl/8ITgPZObRgA1knw1say9YeaneNhGwxuQSUJJfoe6vh//GWBX/1xdf
+	HbqsiyMDDmmzpFNCSyKd3dxjOcNdzV6hYbBo9IaQeQNZlT59OBZdvC+f+sYADU3eMnAI/qL2td2
+	iqTE2z34i+1GyEaiHI+PtqinlthmBe/FasTVTaZoTwo7PhvSc9KrbTW7W4dNGRVVqPJWsp9+bIG
+	T0khYMp5YnntPEslvKmtOAk8QnRHQHS3NBOLmX+bRX3Nl6BQYGP81txoxBGQCjUGVLlYQ/3Xeky
+	OEUZQ1rezD0cVHhTA==
+X-Received: by 2002:a05:6a20:6f90:b0:3dd:a195:dd5b with SMTP id adf61e73a8af0-3dda195e52dmr2980024637.61.1789807669769;
+        Sat, 19 Sep 2026 01:47:49 -0700 (PDT)
+Received: from localhost.localdomain ([2409:8a00:1a32:5e90:b876:a980:6e09:6daf])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae8eae3sm737021a12.14.2026.09.19.01.47.47
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 01:47:18 -0700 (PDT)
-From: Yuqi Xu <xuyuqiabc@gmail.com>
-To: linux-integrity@vger.kernel.org
-Cc: Peter Huewe <peterhuewe@gmx.de>,
-	Jarkko Sakkinen <jarkko@kernel.org>,
-	Jason Gunthorpe <jgg@ziepe.ca>,
+        Sat, 19 Sep 2026 01:47:49 -0700 (PDT)
+From: Baineng Shou <shoubaineng@gmail.com>
+To: Eugeniy.Paltsev@synopsys.com,
+	vkoul@kernel.org
+Cc: Frank.Li@kernel.org,
+	dmaengine@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	xuyq21@lenovo.com
-Subject: [PATCH 1/1] tpm: ignore duplicate PCR banks in tpm2_get_pcr_allocation
-Date: Sat, 19 Sep 2026 16:47:00 +0800
-Message-ID: <85b8cbb1985c743325d57e05d51d8814d3c56549.1789800840.git.xuyuqiabc@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1789800840.git.xuyuqiabc@gmail.com>
-References: <cover.1789800840.git.xuyuqiabc@gmail.com>
+	Baineng Shou <shoubaineng@gmail.com>
+Subject: [PATCH] dmaengine: dw-axi-dmac: restart the next queued transfer after completion
+Date: Sat, 19 Sep 2026 16:47:32 +0800
+Message-Id: <20260919084732.502247-1-shoubaineng@gmail.com>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -82,63 +77,99 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-The TPM2_CAP_PCRS response is external input and may contain duplicate
-hash algorithms.  tpm2_get_pcr_allocation() adds every active selection
-to allocated_banks, while tpm_sysfs_add_device() has one group slot per
-distinct hash algorithm.  Eight duplicate selections can therefore make
-it write past chip->groups[].
+Commit 333e11bf47fa ("Avoid hw_desc array overrun in dw-axi-dmac") removed
+the axi_chan_start_first_queued() call from the non-cyclic completion path,
+after observing that a descriptor started there could be dropped by the
+non-idle check in axi_chan_block_xfer_start() because the channel has not
+fully stopped yet when the transfer-complete interrupt arrives.
 
-Keep allocated_banks unique by ignoring duplicate hash algorithms while
-parsing the response.
+That removes more than the race: with more than one descriptor issued on
+a channel, the first completion now leaves the remaining descriptors
+queued forever - nothing starts them and no further interrupt arrives,
+so their callbacks never run.
 
-Fixes: aab73d952402 ("tpm: add sysfs exports for all banks of PCR registers")
+Fix it by waiting for the channel to actually go idle after the
+completion and error paths disable it, restore the start of the next
+queued descriptor in the non-cyclic completion path, and skip the start
+attempt from issue_pending() while the channel is still busy.
+
+Fixes: 333e11bf47fa ("Avoid hw_desc array overrun in dw-axi-dmac")
 Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
-Reviewed-by: Ren Wei <weir@nebusec.ai>
+Signed-off-by: Baineng Shou <shoubaineng@gmail.com>
 ---
- drivers/char/tpm/tpm2-cmd.c | 18 +++++++++++++-----
- 1 file changed, 13 insertions(+), 5 deletions(-)
+ .../dma/dw-axi-dmac/dw-axi-dmac-platform.c    | 31 ++++++++++++++++++-
+ 1 file changed, 30 insertions(+), 1 deletion(-)
 
-diff --git a/drivers/char/tpm/tpm2-cmd.c b/drivers/char/tpm/tpm2-cmd.c
-index ae22295df798..99e9d89b18e1 100644
---- a/drivers/char/tpm/tpm2-cmd.c
-+++ b/drivers/char/tpm/tpm2-cmd.c
-@@ -527,6 +527,7 @@ ssize_t tpm2_get_pcr_allocation(struct tpm_chip *chip)
- 	u32 rsp_len;
- 	int rc;
- 	int i = 0;
-+	int j;
+diff --git a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+index eebed2474210..f3d89f5cc12a 100644
+--- a/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
++++ b/drivers/dma/dw-axi-dmac/dw-axi-dmac-platform.c
+@@ -263,6 +263,26 @@ static inline bool axi_chan_is_hw_enable(struct axi_dma_chan *chan)
+ 		return !!(val & (BIT(chan->id) << DMAC_CHAN_EN_SHIFT));
+ }
  
- 	struct tpm_buf *buf __free(kfree) = kzalloc(TPM_BUFSIZE, GFP_KERNEL);
- 	if (!buf)
-@@ -569,13 +570,20 @@ ssize_t tpm2_get_pcr_allocation(struct tpm_chip *chip)
- 		pcr_select_offset = memchr_inv(pcr_selection.pcr_select, 0,
- 					       pcr_selection.size_of_select);
- 		if (pcr_select_offset) {
--			chip->allocated_banks[nr_alloc_banks].alg_id = hash_alg;
-+			for (j = 0; j < nr_alloc_banks; j++) {
-+				if (chip->allocated_banks[j].alg_id == hash_alg)
-+					break;
-+			}
- 
--			rc = tpm2_init_bank_info(chip, nr_alloc_banks);
--			if (rc < 0)
--				break;
-+			if (j == nr_alloc_banks) {
-+				chip->allocated_banks[nr_alloc_banks].alg_id = hash_alg;
- 
--			nr_alloc_banks++;
-+				rc = tpm2_init_bank_info(chip, nr_alloc_banks);
-+				if (rc < 0)
-+					break;
++static int axi_chan_wait_idle(struct axi_dma_chan *chan)
++{
++	unsigned int timeout = 50; /* 50 x 2us = 100us */
 +
-+				nr_alloc_banks++;
-+			}
- 		}
++	/*
++	 * Writing the channel-disable bit is asynchronous: the hardware
++	 * finishes the current burst, flushes the FIFO and only then
++	 * clears the enable bit. Wait until the channel is really idle
++	 * before (re)starting a transfer, otherwise the non-idle check
++	 * in axi_chan_block_xfer_start() would silently drop it.
++	 */
++	while (axi_chan_is_hw_enable(chan)) {
++		if (!--timeout)
++			return -ETIMEDOUT;
++		udelay(2);
++	}
++
++	return 0;
++}
++
+ static void axi_dma_hw_init(struct axi_dma_chip *chip)
+ {
+ 	int ret;
+@@ -501,7 +521,7 @@ static void dma_chan_issue_pending(struct dma_chan *dchan)
+ 	unsigned long flags;
  
- 		sizeof_pcr_selection = sizeof(pcr_selection.hash_alg) +
+ 	spin_lock_irqsave(&chan->vc.lock, flags);
+-	if (vchan_issue_pending(&chan->vc))
++	if (vchan_issue_pending(&chan->vc) && !axi_chan_is_hw_enable(chan))
+ 		axi_chan_start_first_queued(chan);
+ 	spin_unlock_irqrestore(&chan->vc.lock, flags);
+ }
+@@ -1067,6 +1087,9 @@ static noinline void axi_chan_handle_err(struct axi_dma_chan *chan, u32 status)
+ 	spin_lock_irqsave(&chan->vc.lock, flags);
+ 
+ 	axi_chan_disable(chan);
++	if (axi_chan_wait_idle(chan))
++		dev_warn(chan2dev(chan), "%s failed to go idle\n",
++			 axi_chan_name(chan));
+ 
+ 	/* The bad descriptor currently is in the head of vc list */
+ 	vd = vchan_next_desc(&chan->vc);
+@@ -1108,6 +1131,9 @@ static void axi_chan_block_xfer_complete(struct axi_dma_chan *chan)
+ 		dev_err(chan2dev(chan), "BUG: %s caught DWAXIDMAC_IRQ_DMA_TRF, but channel not idle!\n",
+ 			axi_chan_name(chan));
+ 		axi_chan_disable(chan);
++		if (axi_chan_wait_idle(chan))
++			dev_warn(chan2dev(chan), "%s failed to go idle\n",
++				 axi_chan_name(chan));
+ 	}
+ 
+ 	/* The completed descriptor currently is in the head of vc list */
+@@ -1141,6 +1167,9 @@ static void axi_chan_block_xfer_complete(struct axi_dma_chan *chan)
+ 		/* Remove the completed descriptor from issued list before completing */
+ 		list_del(&vd->node);
+ 		vchan_cookie_complete(vd);
++
++		/* Restart the next queued descriptor, if any */
++		axi_chan_start_first_queued(chan);
+ 	}
+ 
+ out:
 -- 
-2.55.0
+2.34.1
 
