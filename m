@@ -1,149 +1,127 @@
-Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013019.outbound.protection.outlook.com [40.107.201.19])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.15])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C5B8B345EB8;
-	Sat, 19 Sep 2026 12:56:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.19
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789822617; cv=fail; b=rd/bgcgHZ5FCTMyzNdXaDhs+uvHsO5yEM4tj3NOI4ga5KUPe3b8fenVKQ+XQl2Th6h4EW6QlPGRmK2Ng6YBYwr7LcnD3T4/Q8lAhjaFss1fV18eixg6JfS+Yux4+BSPCvHu27ijdCHpTCTm0J2LhnQKi3AU/ne7JVuRpJ7zXEK4=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789822617; c=relaxed/simple;
-	bh=DUdq3+wVUWWsjFa6JlDAW3YVlZ4kHE50FuK0NSvciT0=;
-	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
-	 Content-Type:MIME-Version; b=FboKZ0EwsSzU5s7aWrUXmZKuhU5MNa0jEVErYaHJtWZrifdkmH4anj1wa2BqGzj1mu8RUqh+eeAFTVHsjFSmgTluDsqEzQ2oKqYV8fiMZqhlYiVnqyRmrOKqDrJ/fuc2puhzNdqh6jP2UHKc0UhKYeha57ZAt5VNgU5yWRgDBSI=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com; spf=fail smtp.mailfrom=nvidia.com; dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b=F16W2r8N; arc=fail smtp.client-ip=40.107.201.19
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=nvidia.com
-Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=nvidia.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BB198376A03;
+	Sat, 19 Sep 2026 13:13:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.15
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789823621; cv=none; b=HJvMcqPS09aDS/xyotL3VoraNqgnoA80ZThdtl8LwlDK4p5emBEDx+2rKJ5IzWnP6cuxU85oPOikBDABLuZRBGYLhu2wUCOpwmN79qZ/8snLqjX9a1N2yMA+En89hlE9lYjJ0L/fmiNcyiQz4tGlm8gabrH458GEVqjD4VQeMZc=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789823621; c=relaxed/simple;
+	bh=K016Xuspy0+i4gvt1BjSnZ/7rNHp4XWw8iWjdQD++EY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=mGZ4FI/nR1Be9vecLEkgR28UqDSVJVnhimA5h5btIdoOmPlR269DqmnlJzoZp5exSrqvPs3ANseWM7v+yp2LmHM4DrbEmZjFk/NJb6mdLBSuRbDtjpHimjmm6jNdxB0j3B2w0EB/WY1LVVICRu8ANbR9yPm3NTn17qQkNpe9R+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=aXD6mpca; arc=none smtp.client-ip=192.198.163.15
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=Nvidia.com header.i=@Nvidia.com header.b="F16W2r8N"
-ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
- b=Q3OMHuYiJVRuya8xd5f+8w/gtSMW/YKKrYsdQnRAFNVFA8LW3a0sf6NxTLR6wFdCBt9G1yQGnRyER28SS9o5oZ1UnXCp4lSFXNVvjnXw/EGZevDuUA1brFu9nyXCOPIsYfqenLJc8hD+U1kJjWaOdmrXxe4OQcKpXsxfCMhgrxKmdw+6KiO00RWrAGN/K3c0+e9NlCFQB/fHdPrqQ8x7C2zN8+Xl7Lcdj7MD7CopG36WV21bdh12YhPilkL35kOlZa3TR8bDKHsYfDzA9f210zzpPz7bu+zIb3FRV8VkAmHgOURFcAJbXIDXz1l7THFZoXnNBXXh0j+TNZeojv2w1w==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
- s=arcselector10001;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
- bh=DUdq3+wVUWWsjFa6JlDAW3YVlZ4kHE50FuK0NSvciT0=;
- b=uTxkib5aM3R2SjhHfe3ABQlKrrEcm8yU662PCkLUzEbR0WD9cQ5m77rnc0GPzkVXegIoLO4j0zYVE8/ZwYlIfXSYv0AWAo8e1AzeagicY308LlIPCwMEnfvpNv5sS94zvRW2B3baGdqBKUTmBZ/uuhyNpdcJx6g2631RC8kTdFZM4DEg4ifoLtEectWijTy/3/1zxx0YvuE0L0nkuIveh7+RP/hJnTJPqdUmQDUDpbMBJx71DhFwpAAAo85RVp4ISsZiRdrfetvMhjZJGN1gV0drdtLKApIH5QzteWsDlfp9AnMVaf7EQT1zjQ3mjjqzYpMUCXjV1W/+InB+U0Avrg==
-ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass
- smtp.mailfrom=nvidia.com; dmarc=pass action=none header.from=nvidia.com;
- dkim=pass header.d=nvidia.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=Nvidia.com;
- s=selector2;
- h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
- bh=DUdq3+wVUWWsjFa6JlDAW3YVlZ4kHE50FuK0NSvciT0=;
- b=F16W2r8N98rvFbqHEUqBPf9Ox6l5oeC6f40GFGLsbLc8PCVmbi/6YaF1H0hEWq2zBSAWkPGRxe3tkU7hMKEwP+JMPGDBc/lBJqv6ocKd3enUpH5sQXHPEpEPnCW46YNuY+X0jEbetM4dMVQ8hLkgcWVn9Pf/8zTeyAdQkjzk44QyqKTvliPI0BKjSbiqtwG3LuYJ33aNU13E7VtofpiXwjriDVW+sSgc4R1MizWsa5bgnYzMlIrvF89mrXjhvZrUk++18PFnpEGIatWsdA2rFLjrR2bMWwxTsLBfjMn+Dt2FVc1Iak6IEOCNL3Iq9B9RQXp8oqX6PXRCDF8zsl9zrQ==
-Received: from CY8PR12MB7290.namprd12.prod.outlook.com (2603:10b6:930:55::13)
- by CY5PR12MB6226.namprd12.prod.outlook.com (2603:10b6:930:22::5) with
- Microsoft SMTP Server (version=TLS1_2,
- cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.13; Sat, 19 Sep
- 2026 12:56:51 +0000
-Received: from CY8PR12MB7290.namprd12.prod.outlook.com
- ([fe80::a8ce:7b9b:3e72:d1cc]) by CY8PR12MB7290.namprd12.prod.outlook.com
- ([fe80::a8ce:7b9b:3e72:d1cc%5]) with mapi id 15.21.0428.011; Sat, 19 Sep 2026
- 12:56:51 +0000
-From: "Qiuxu (Leo) Zhuo" <qzhuo@nvidia.com>
-To: Borislav Petkov <bp@alien8.de>
-CC: Wentao Liang <vulab@iscas.ac.cn>, "akpm@linux-foundation.org"
-	<akpm@linux-foundation.org>, "dougthompson@xmission.com"
-	<dougthompson@xmission.com>, "juhlenko@akamai.com" <juhlenko@akamai.com>,
-	"linux-edac@vger.kernel.org" <linux-edac@vger.kernel.org>,
-	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
-	"tony.luck@intel.com" <tony.luck@intel.com>, "stable@vger.kernel.org"
-	<stable@vger.kernel.org>
-Subject: RE: [PATCH] EDAC/i3000: Fix mci_pdev reference leak in
- i3000_init_one()
-Thread-Topic: [PATCH] EDAC/i3000: Fix mci_pdev reference leak in
- i3000_init_one()
-Thread-Index: AQHdRbwmloFXom/3l0GkqUM8IpurvbbRSLpAgAQdXwCAAHq/gA==
-Date: Sat, 19 Sep 2026 12:56:51 +0000
-Message-ID:
- <CY8PR12MB72908CC5DD1E3A1F1F82A9C4D1862@CY8PR12MB7290.namprd12.prod.outlook.com>
-References: <20260916091415.1997923-1-vulab@iscas.ac.cn>
- <CY8PR12MB7290DC961329B90C7A836907D1B92@CY8PR12MB7290.namprd12.prod.outlook.com>
- <20260919053614.GFaq4fTt4vElAM_4p6@fat_crate.local>
-In-Reply-To: <20260919053614.GFaq4fTt4vElAM_4p6@fat_crate.local>
-Accept-Language: en-US
-Content-Language: en-US
-X-MS-Has-Attach:
-X-MS-TNEF-Correlator:
-authentication-results: dkim=none (message not signed)
- header.d=none;dmarc=none action=none header.from=nvidia.com;
-x-ms-publictraffictype: Email
-x-ms-traffictypediagnostic: CY8PR12MB7290:EE_|CY5PR12MB6226:EE_
-x-ms-office365-filtering-correlation-id: f92bee53-e2fa-4306-ea0c-08df164d796f
-x-ms-exchange-senderadcheck: 1
-x-ms-exchange-antispam-relay: 0
-x-microsoft-antispam:
- BCL:0;ARA:13230040|366016|10070799003|376014|23010399003|1800799024|38070700021|10067099003|11063799006|4143699003|56012099006|22082099003|18002099003;
-x-microsoft-antispam-message-info:
- isb4nOQP7Bq848FuJhy9RPZh3D5D4ermB6Me2aIF72CUNJxCz5jsTI3lCCodPtBHahc1tQ416W5xTfYTHMs1KgxFrhEtgJnNO1B0QwDEg0XZlp/ymxyZ6LeHsFKjaFAuHV1kbiHn7sJCfAGGUqNugMXWYF/zVayZCttlgkCpxCi42Ut0yXaOrKHiow2qvWxXyoRRl0s4ui5OMoaR4dQ+ZWIBKHYUVHDBIR2IVfvijCZyG1944ljn5dFyqgjs/lsuTtXSos4LnCFGkrzAqW5mEKqgvNd85YX45zk+aXO6UbMsOkGSVjqApGSWf4NBC0XY88/bMaLXRZX/JzSfbSxkqKQHuB7BQ2JnP/7ywiTrOPuh8ouF+tBxqr+h9rQHpx/koq0+VAuvS1biO9FlmJ479HpyBSHVvCzrDpIhvr9t666//1ftGRVKXV3gDtDmMQWINlIsUfbVd3Ia+V4AQADk+qnTT1Rr+rQb7dyRN/Vo5X0ek4IKMp3vx57nb89VTVboi2JYN2VcSNQ6NeMS+kv4upfMX8ES1W8UW7/C33cD7WkxL7anVtOFy/2o/qyh6p2zQa1QllDTsvSaA7bAl4TNCE/hOqexPqTm2WWuxAdfPKOnOR4S4ZsGAhFGP17GIoEz/DPl+qslaVx+XtYTTE/EBg1+P3XrV30O7Ujx77JQYlANLEJPbdX0zdWNhPhk8culjibL/aQh9ADKl0C7o9bU1VepXh+9tAPTU6aPHGUmTzk=
-x-forefront-antispam-report:
- CIP:255.255.255.255;CTRY:;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:CY8PR12MB7290.namprd12.prod.outlook.com;PTR:;CAT:NONE;SFS:(13230040)(366016)(10070799003)(376014)(23010399003)(1800799024)(38070700021)(10067099003)(11063799006)(4143699003)(56012099006)(22082099003)(18002099003);DIR:OUT;SFP:1101;
-x-ms-exchange-antispam-messagedata-chunkcount: 1
-x-ms-exchange-antispam-messagedata-0:
- =?utf-8?B?ZjFHRG9RQUdaZXpXd2tITEQ2YTA4aExiZ25vZ3pLSU53R0lyaWwxNE9mQ096?=
- =?utf-8?B?SlNQSllkZ1JkT2p6QURYQzk3YUg3Z29wdFF5RVZxenpRVEs3UE4wSi9PL3dn?=
- =?utf-8?B?NUtyRmxrV2NtMnJsS1NmTWRnUVJBSm92RXRaSmJyWS9NaHM3Qk8rSFYrMktq?=
- =?utf-8?B?M1hIQUY2dC82RENmeFM4K21JU2JkRE5FZFYvVzBvN0kzTm1GZnVEYXBwcmoy?=
- =?utf-8?B?NGl1STFFZDdvOXJnaytuS1NVRksvZnZyOWwvWnFvZ1dEZkF4N0JuNm02V0Ew?=
- =?utf-8?B?U3NVYWYyNS9ZZ3dabTVpUmlvY2R0Q2puQ1BjMHRNYzJ4MUFHSU5DUWhSOWhC?=
- =?utf-8?B?OVdoVm5uYy9MaG4rRjRidTdidTdYR3U3cHFVZUxHTWdXb0d1RFk0TVZteHR5?=
- =?utf-8?B?eEJQRU9JZGNXbDVBQjFseTk0RjBRNzZuVnppa3ZVR0FhcjQwSDR6WmVZRmw2?=
- =?utf-8?B?amx5OXZaUjJZTW1UYXdndTFNYjZjUk4vd2gwRnlkMlU4TVhZRC8rZnAxTUtq?=
- =?utf-8?B?MHZiM0hFeVg2SVZUbzJoZUU3dTJjaVFlM1N3bXR0SlM3SnRlakpVcHYwUEtQ?=
- =?utf-8?B?Y2JHZFVoRnM4VzhJRlVWejUwd25IRzY0NUdGOWY2cmpLOGlSTGxNZ3RkRlRQ?=
- =?utf-8?B?RmY4dFZUNHEzZ3Jsdi9tRDJOV2dLNkpuaHRTaTAwQ0hDVnZOVkovdk1ET2t0?=
- =?utf-8?B?UHd1a0NMUDZSVWVtbERRY2pQZVdrc2trY1NmSFBSS2VxZUJVbElUanlIODNP?=
- =?utf-8?B?ZkdnRzRBYTA1azVJNHJTekI4WE0wWldJMURWZEZOYTZzMldKaTFOUjgxTmFR?=
- =?utf-8?B?cEtMSEw3c2RYTm9JdjlIK2RkUVEzc1VtOHdUZlVVeVptMWZ2ZXhzbXZxeVd0?=
- =?utf-8?B?dWRYQ2xBLzlnb3ZrK0ZpOTMzMy95ZXJEa1Biay80SkVSblJsanZZYlVJMXU2?=
- =?utf-8?B?YkNCTmwwdTNiRmxSRWIvSGp3NWFzVUpPMFJHbVl3UVFRbUJRNm05bjdpRklU?=
- =?utf-8?B?a0YvUStvenhXMkRLSmFWZXBUVzdjbFJOaTIzZ0lhWHo0ckNYa0NxYUR6NFg4?=
- =?utf-8?B?RUVFWG1Yc3c1M1hqMWw5Yi9aNlJ4bkpwQ1ZRWGJoem40OVQyNFVtREttd2Yv?=
- =?utf-8?B?WWtJVUNDM2REOEJyMCtVS01qYjk3SWlMTW1zSHY5N3dGRFlaODFJQmRlZkUz?=
- =?utf-8?B?RW1aa21kSE9xalVNNkFBL1BFRjVZOUptR3JwOVhkdnpnemowSkFldW9wQlNP?=
- =?utf-8?B?SG9ISUVGR0dtUy8vcGUzV0xHak5zeExnN1hPSXlwMFZ5SGpVZEZBQVl2dkZM?=
- =?utf-8?B?OGdqOE5oWkhLMytacGt3cVN1bURIZi9INUJQL0xjSXJxRldtU3pSaEY3b3dj?=
- =?utf-8?B?VW1pd2dQbnZSRzkrbWxKVzNqc25Db0xZczZDb1pXdE5EdU1ncW9sYUpyelk2?=
- =?utf-8?B?MjUydzk1TERQaE9Yekk3amNUOCtSbndINzFZSmRpT2djeVdpSFgyaDVIdXkw?=
- =?utf-8?B?N0RCdlFoUGdnaDZiM1Z4aXBnaWxPL2krbm9GQ04rSnorV2RvcFVPM1l5bEUr?=
- =?utf-8?B?QXQySWJ5YVR5eGo1dVlDR0dwQzlBNi8rQ3dLNlp2anVDcTBCU0xmSm5FKzI0?=
- =?utf-8?B?NDRjWUU2UFhvUmlROEFHK2VwRThTazJONnNBZnkyUFRMcVF3R3AyWjl5VkI2?=
- =?utf-8?B?OWtyRzlhOUFPR3pnQTVEZTd2VWdabHNwcklJODY4aFBwYkQrbnlQajQ5d2hw?=
- =?utf-8?B?MXYyUmFIRXBGRWtiTU0zY0V1clBBSjJ4TXM5Q00yNDJuSmF1MHpIempna2Fj?=
- =?utf-8?B?dDJnVEw5Z0xQd1BxVUljRk1WVnh5N3VjQjNuSkZQVFpCMW9oVDRpcHJRVTc2?=
- =?utf-8?B?c2FITWNBUHNFTHhZSUxXWjlEaDVqS1ZHeVB4VlVPTWpUZFc5Ky9xVjN2ejhZ?=
- =?utf-8?B?UGhBWEVscVd5b3lRYUNMMkJZVm9OeXFtTG1OdURZaXZpclpjWmdkNllTOGdh?=
- =?utf-8?B?QVpwalhqeXdwaXZhUFo1R0w4UjlqRngwT3AvR25TQWlPazNiUHpyQlIvSm4z?=
- =?utf-8?B?VjRCUnZBQTZXMUJucGZOcXVmb3dWTzlIUFpzSTlaWnJNMHBkUTg4VTBvTXlN?=
- =?utf-8?B?VnJRVCtva2xtbmVpaDBhMTNrRDNnby9YSlVxNnBrT1BWdy9RcFJ5bFl0QWdj?=
- =?utf-8?B?VlJqVjZ2MnBnVGd2elAvYUFtUzVTNzJKMWliaG5tY3dFK3F0bzRWL1pNVTNC?=
- =?utf-8?B?alFvZmhac0Q3UlBxTnpWS3Z4cjI5SEE0SDlNZU1mZGxJUTdoeTg3MzViR1Fz?=
- =?utf-8?B?SHRuY0ZjUkVVNEJlSkFyRk9uS2xxMlFjNW5jTXE3OGcrL2JtOVBpR3dQSmhp?=
- =?utf-8?Q?Zs8GF+7xeOW3BW7fSrcpxJ+sVrGLY4Zj1nWSO?=
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: base64
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="aXD6mpca"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789823620; x=1821359620;
+  h=date:from:to:cc:subject:message-id:references:
+   mime-version:in-reply-to;
+  bh=K016Xuspy0+i4gvt1BjSnZ/7rNHp4XWw8iWjdQD++EY=;
+  b=aXD6mpcagrWDyT4Eyhidxz2yYEKb2w2a2LCYiudvPJc7HpQu2edZyVnh
+   sGmcIYu0px9SpAg8HIM6Waf0mlrOG9P0uecyZ97A8kHwDrDBreY5+YnQ2
+   /vykwXnqLsnM3PFY7hPpA3aHmWFQvHERm+gYVSPr9I2ldU8CaQXLivkjk
+   m9SehQ917AH1TBx79Wpfeo/DAsn8h7W06SoRNooTWPpE5sTWWN8b/jrHF
+   VPcmYzSz4FcJvspHur2u6KLmgbHVTSELtgWndqM/WYjqjeUxoPO1X8+Q4
+   LXNeyqh6YF0xdY/OKp2mC4W/gmdPkBlcZdWxxsvWG5yvoBJsSSYHjhVPQ
+   w==;
+X-CSE-ConnectionGUID: TrYM4lyXTl6TIhpwEPWemg==
+X-CSE-MsgGUID: wvBhi80VQb+STLjWgD/4pA==
+X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="90478348"
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="90478348"
+Received: from fmviesa006.fm.intel.com ([10.60.135.146])
+  by fmvoesa109.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 06:13:39 -0700
+X-CSE-ConnectionGUID: FXgk4xsOTbyvnrr1GehSDQ==
+X-CSE-MsgGUID: WhW5rkOxRee7qkVSAOOVjw==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
+   d="scan'208";a="270519051"
+Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
+  by fmviesa006.fm.intel.com with ESMTP; 19 Sep 2026 06:13:37 -0700
+Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
+	(envelope-from <lkp@intel.com>)
+	id 1x7usn-00000000Aw9-4374;
+	Sat, 19 Sep 2026 13:13:33 +0000
+Date: Sat, 19 Sep 2026 21:13:19 +0800
+From: kernel test robot <lkp@intel.com>
+To: Guangshuo Li <lgs201920130244@gmail.com>,
+	Bjorn Andersson <andersson@kernel.org>,
+	Mathieu Poirier <mathieu.poirier@linaro.org>,
+	Sivaprakash Murugesan <sivaprak@codeaurora.org>,
+	Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
+	Govind Singh <govinds@codeaurora.org>,
+	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: oe-kbuild-all@lists.linux.dev, Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on
+ unbind
+Message-ID: <202609192136.6T6AV8Dt-lkp@intel.com>
+References: <20260918041321.3532355-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-OriginatorOrg: Nvidia.com
-X-MS-Exchange-CrossTenant-AuthAs: Internal
-X-MS-Exchange-CrossTenant-AuthSource: CY8PR12MB7290.namprd12.prod.outlook.com
-X-MS-Exchange-CrossTenant-Network-Message-Id: f92bee53-e2fa-4306-ea0c-08df164d796f
-X-MS-Exchange-CrossTenant-originalarrivaltime: 19 Sep 2026 12:56:51.4588
- (UTC)
-X-MS-Exchange-CrossTenant-fromentityheader: Hosted
-X-MS-Exchange-CrossTenant-id: 43083d15-7273-40c1-b7db-39efd9ccc17a
-X-MS-Exchange-CrossTenant-mailboxtype: HOSTED
-X-MS-Exchange-CrossTenant-userprincipalname: tbrpC//YFFg6gukXuzbrbGwFvt7/0rDZLdW5EV4bFkoHeF7OLGVqBWY4+Q3PvmGw74ZVgk+EBN4biH9pieG7Mw==
-X-MS-Exchange-Transport-CrossTenantHeadersStamped: CY5PR12MB6226
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918041321.3532355-1-lgs201920130244@gmail.com>
 
-PiBGcm9tOiBCb3Jpc2xhdiBQZXRrb3YgPGJwQGFsaWVuOC5kZT4NCj4gWy4uLl0NCj4gU3ViamVj
-dDogUmU6IFtQQVRDSF0gRURBQy9pMzAwMDogRml4IG1jaV9wZGV2IHJlZmVyZW5jZSBsZWFrIGlu
-IGkzMDAwX2luaXRfb25lKCkNCj4gWy4uLl0NCg0KPiA+DQo+ID4gIG1vZHVsZV9pbml0KGkzMjAw
-X2luaXQpOw0KPiANCj4gJCAuL3NjcmlwdHMvZ2V0X21haW50YWluZXIucGwgLWYgZHJpdmVycy9l
-ZGFjL2kzMDAwX2VkYWMuYyAuLi4NCj4gRURBQy1JMzAwMCBzdGF0dXM6IE9ycGhhbg0KPiANCj4g
-Tm8gbmVlZCB0byBmaXggYW55dGhpbmcgaGVyZS4NCg0KT0ssIGdvdCBpdC4gVGh4Lg0KDQotUWl1
-eHUNCg==
+Hi Guangshuo,
+
+kernel test robot noticed the following build errors:
+
+[auto build test ERROR on remoteproc/rproc-next]
+[also build test ERROR on linus/master v7.3-rc3 next-20260918]
+[If your patch is applied to the wrong git tree, kindly drop us a note.
+And when submitting patch, we suggest to use '--base' as documented in
+https://git-scm.com/docs/git-format-patch#_base_tree_information]
+
+url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/remoteproc-qcom-q6v5-wcss-remove-all-subdevices-on-unbind/20260918-121321
+base:   https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git rproc-next
+patch link:    https://lore.kernel.org/r/20260918041321.3532355-1-lgs201920130244%40gmail.com
+patch subject: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on unbind
+config: arm-allyesconfig (https://download.01.org/0day-ci/archive/20260919/202609192136.6T6AV8Dt-lkp@intel.com/config)
+compiler: arm-linux-gnueabi-gcc (GCC) 16.1.0
+reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609192136.6T6AV8Dt-lkp@intel.com/reproduce)
+
+If you fix the issue in a separate patch/commit (i.e. not just a new version of
+the same patch/commit), kindly add following tags
+| Reported-by: kernel test robot <lkp@intel.com>
+| Closes: https://lore.kernel.org/oe-kbuild-all/202609192136.6T6AV8Dt-lkp@intel.com/
+
+All errors (new ones prefixed by >>):
+
+   drivers/remoteproc/qcom_q6v5_wcss.c: In function 'q6v5_wcss_remove':
+>> drivers/remoteproc/qcom_q6v5_wcss.c:1051:1: error: invalid use of void expression
+    1051 | +       qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
+         | ^
+
+
+vim +1051 drivers/remoteproc/qcom_q6v5_wcss.c
+
+  1039	
+  1040	static void q6v5_wcss_remove(struct platform_device *pdev)
+  1041	{
+  1042		struct rproc *rproc = platform_get_drvdata(pdev);
+  1043		struct q6v5_wcss *wcss = rproc->priv;
+  1044	
+  1045		rproc_del(rproc);
+  1046	
+  1047		qcom_q6v5_deinit(&wcss->q6v5);
+  1048		qcom_remove_glink_subdev(rproc, &wcss->glink_subdev);
+  1049		qcom_remove_pdm_subdev(rproc, &wcss->pdm_subdev);
+  1050		qcom_remove_sysmon_subdev(wcss->sysmon);
+> 1051	+	qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
+  1052	}
+  1053	
+
+--
+0-DAY CI Kernel Test Service
+https://github.com/intel/lkp-tests/wiki
