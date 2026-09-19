@@ -1,128 +1,68 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.8])
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 974C47083C;
-	Sat, 19 Sep 2026 07:35:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56EA53B3883
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 07:45:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789803317; cv=none; b=kYypFOsk62zR85BDFmgeBqg/wqg0YrEpWlzQ9kq1mPSw8h3eZryew0BpG0iST/ccMYQokCxTX3Q29BBR9uRaHg7LGp6atow0sgFfUuTlRmDck4GBb4uHD6olj8eQZhe4tYYyYfDKVWJV48obHxnIQbTsbZ0c+NsN4813EjppINY=
+	t=1789803905; cv=none; b=ZLa3nSZ2CiV2Fz83qUeStDa5q6jBdYpzM/R4f8kK5ow68bt3A1m1Zny6/fnR7JDm2ojZVLPXreskqq4vC0ZFLjWFVfZOm0s55xprw3KwF3KfnoyjyjCR4NCLem7iMIrX20BkYhtxQbZtAx8+8L499gax8cRlIZnX7QpiyC3p2e4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789803317; c=relaxed/simple;
-	bh=XxiSV9KB15uxRCUse5WjXjM7dc35/5V4z8ZQW4Zp7c8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=c6421mmvr8BCgKhpSpWmH7hmTpmvm4ZXmHe/ibyydKQklV5fJ0aqdMOXSgHMltMgUrsOBgtH+uTfapkKV+gCiM4DqPfRSwhw9hFIjd4KCD1cq92s1TTuKxqopsXGuPNqhdlfaru8B+x4KOxetsk1lQBPphtjFN0ipqIydM4PrZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=BgNfBydL; arc=none smtp.client-ip=192.198.163.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
+	s=arc-20240116; t=1789803905; c=relaxed/simple;
+	bh=Q1nUjk9VuBCM7ULANZtpDZsdAc2C3fd8JSuzKbgnvQ4=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=suIkpomWoEADibjaG1FnJPMMgdZhrCjKSiZ4A0fAhFDPy5IXUfYzxSi1J+TAu23lPJXpa4kWgEbe+pQDraNSyvIJx3sbunLzvhOnDax9Z+QXv0hioBL5PO4RQD5vQZ6EJgxTS4bgI+9KCGTEzEIQItvBuR/wqKYsvIllffPrpko=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=jHPYmXIC; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="BgNfBydL"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789803316; x=1821339316;
-  h=date:from:to:cc:subject:message-id:references:
-   mime-version:in-reply-to;
-  bh=XxiSV9KB15uxRCUse5WjXjM7dc35/5V4z8ZQW4Zp7c8=;
-  b=BgNfBydLE4BdrbsegmX/JR74P1UEk5Qx1dO96Sx+SDO2ug+pNB8Zd0Dq
-   A/BJoSDHLg0tNLkiYfF63Nceu1+4QNZ/vyeOYHLpCi7JJjwJfEvPdojt2
-   /azMdLutGlQkxSk7ErX6j0K8NlFWXGcq91HhkmcbM5GrMxcwDqrPDqFZT
-   KOBBOv5jgLGER3al2I40ljHTXLDOM8l2rsu0AlhoFshh6t7ZSUMqz0T8l
-   MaoYJK4JgRZ5friOwLCyRThqx3l1c0/+aeTJ67z2ie6PRNXJLlZFXkz9p
-   dbzvw3fU743hUKVllS4SwDY3SxiUAf/qe1WWCTmONujUcLNw3vXITSL3P
-   w==;
-X-CSE-ConnectionGUID: QBgzJU9JRSyvl2hdIAa45g==
-X-CSE-MsgGUID: mx/Gm1ZVSTeSuz/xKGrXzQ==
-X-IronPort-AV: E=McAfee;i="6800,10657,11909"; a="107842584"
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="107842584"
-Received: from fmviesa002.fm.intel.com ([10.60.135.142])
-  by fmvoesa102.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 00:35:14 -0700
-X-CSE-ConnectionGUID: ZLvkaXWbQ1mcTnyE200BSw==
-X-CSE-MsgGUID: O9PN042rRV6YzZkAkRxv0g==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,109,1787036400"; 
-   d="scan'208";a="298187384"
-Received: from lkp-server01.sh.intel.com (HELO 462990a40a85) ([10.239.97.150])
-  by fmviesa002.fm.intel.com with ESMTP; 19 Sep 2026 00:35:11 -0700
-Received: from kbuild by 462990a40a85 with local (Exim 4.98.2)
-	(envelope-from <lkp@intel.com>)
-	id 1x7pbI-00000000AjZ-3904;
-	Sat, 19 Sep 2026 07:35:08 +0000
-Date: Sat, 19 Sep 2026 15:34:37 +0800
-From: kernel test robot <lkp@intel.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>,
-	Bjorn Andersson <andersson@kernel.org>,
-	Mathieu Poirier <mathieu.poirier@linaro.org>,
-	Sivaprakash Murugesan <sivaprak@codeaurora.org>,
-	Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>,
-	Govind Singh <govinds@codeaurora.org>,
-	linux-arm-msm@vger.kernel.org, linux-remoteproc@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: llvm@lists.linux.dev, oe-kbuild-all@lists.linux.dev,
-	Guangshuo Li <lgs201920130244@gmail.com>, stable@vger.kernel.org
-Subject: Re: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on
- unbind
-Message-ID: <202609191513.bywryVFw-lkp@intel.com>
-References: <20260918041321.3532355-1-lgs201920130244@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="jHPYmXIC"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 56AC71A09D6;
+	Sat, 19 Sep 2026 07:45:00 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id BB066606CA;
+	Sat, 19 Sep 2026 07:44:59 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id EA9C31032907B;
+	Sat, 19 Sep 2026 09:44:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789803898; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=Q1nUjk9VuBCM7ULANZtpDZsdAc2C3fd8JSuzKbgnvQ4=;
+	b=jHPYmXICISt0CBNQjPTDTCC2qeZGvMsEMJrbnwLOm3YogxWf3b761RqRUgHk4k/qiSDy7e
+	W/YLodLm8ONW3xTvS2dp3x/JSSjNy3k/Q9BQKZFU0WRIc7/gEPd3koACUfo2mPE6HKqVOb
+	cPZMjC4/1pc4R+u/YZUQXVgi615GFpnT1TbLF/cbrIE9PftbtkKQTrQL0tidZO5ZvryMYE
+	we+X/a+wBLsMrbDUD9Vaw9ZOeLPWg7gxzcA3DJ5VBlUFDUMPbtXyRUr/IEYmQPcRG5qsQu
+	O0uSGkuHhtt8p51XvVvFo4mUEqAyuhWx2UDpVn4VdsiKCih4gqaTshLp7R82Ow==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: sashiko-bot@kernel.org
+Cc: "Wentao Liang" <vulab@iscas.ac.cn>,  alexandre.belloni@bootlin.com,
+  sashiko-reviews@lists.linux.dev,  linux-mtd@lists.infradead.org,
+  linux-kernel@vger.kernel.org,  vigneshr@ti.com,
+  claudiu.beznea@tuxon.dev,  stable@vger.kernel.org,
+  linux-arm-kernel@lists.infradead.org,  nicolas.ferre@microchip.com,
+  bbrezillon@kernel.org,  richard@nod.at
+Subject: Re: [PATCH] mtd: rawnand: atmel: Fix HSMC clock leak in legacy
+ controller init
+In-Reply-To: <20260917103855.934A81F000FF@smtp.kernel.org>
+	(sashiko-bot@kernel.org's message of "Thu, 17 Sep 2026 10:38:55
+	+0000")
+References: <20260917102804.2146887-1-vulab@iscas.ac.cn>
+	<20260917103855.934A81F000FF@smtp.kernel.org>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sat, 19 Sep 2026 09:44:51 +0200
+Message-ID: <87se35elcc.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260918041321.3532355-1-lgs201920130244@gmail.com>
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-Hi Guangshuo,
+On 17/09/2026 at 10:38:55 GMT, sashiko-bot@kernel.org wrote:
 
-kernel test robot noticed the following build errors:
+> Thank you for your contribution! Sashiko AI review found 1 potential issue(s) to consider:
+> - [Low] mtd: backward goto in error handling path violates kernel
+> style
 
-[auto build test ERROR on remoteproc/rproc-next]
-[also build test ERROR on linus/master v7.3-rc3 next-20260918]
-[If your patch is applied to the wrong git tree, kindly drop us a note.
-And when submitting patch, we suggest to use '--base' as documented in
-https://git-scm.com/docs/git-format-patch#_base_tree_information]
-
-url:    https://github.com/intel-lab-lkp/linux/commits/Guangshuo-Li/remoteproc-qcom-q6v5-wcss-remove-all-subdevices-on-unbind/20260918-121321
-base:   https://git.kernel.org/pub/scm/linux/kernel/git/remoteproc/linux.git rproc-next
-patch link:    https://lore.kernel.org/r/20260918041321.3532355-1-lgs201920130244%40gmail.com
-patch subject: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on unbind
-config: arm64-allmodconfig (https://download.01.org/0day-ci/archive/20260919/202609191513.bywryVFw-lkp@intel.com/config)
-compiler: clang version 24.0.0git (https://github.com/llvm/llvm-project 7252edd9aa82ef1c570ff6694ef7f4763a8a5d2f)
-rustc: rustc 1.96.0 (ac68faa20 2026-05-25)
-reproduce (this is a W=1 build): (https://download.01.org/0day-ci/archive/20260919/202609191513.bywryVFw-lkp@intel.com/reproduce)
-
-If you fix the issue in a separate patch/commit (i.e. not just a new version of
-the same patch/commit), kindly add following tags
-| Reported-by: kernel test robot <lkp@intel.com>
-| Closes: https://lore.kernel.org/oe-kbuild-all/202609191513.bywryVFw-lkp@intel.com/
-
-All errors (new ones prefixed by >>):
-
->> drivers/remoteproc/qcom_q6v5_wcss.c:1051:1: error: invalid argument type 'void' to unary expression
-    1051 | +       qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
-         | ^       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   1 error generated.
-
-
-vim +/void +1051 drivers/remoteproc/qcom_q6v5_wcss.c
-
-  1039	
-  1040	static void q6v5_wcss_remove(struct platform_device *pdev)
-  1041	{
-  1042		struct rproc *rproc = platform_get_drvdata(pdev);
-  1043		struct q6v5_wcss *wcss = rproc->priv;
-  1044	
-  1045		rproc_del(rproc);
-  1046	
-  1047		qcom_q6v5_deinit(&wcss->q6v5);
-  1048		qcom_remove_glink_subdev(rproc, &wcss->glink_subdev);
-  1049		qcom_remove_pdm_subdev(rproc, &wcss->pdm_subdev);
-  1050		qcom_remove_sysmon_subdev(wcss->sysmon);
-> 1051	+	qcom_remove_ssr_subdev(rproc, &wcss->ssr_subdev);
-  1052	}
-  1053	
-
---
-0-DAY CI Kernel Test Service
-https://github.com/intel/lkp-tests/wiki
+Yes, it is strange, can you please fix this?
