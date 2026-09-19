@@ -1,42 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39AFF3921E7;
-	Sat, 19 Sep 2026 19:56:55 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5D65733122A;
+	Sat, 19 Sep 2026 19:56:57 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789847818; cv=none; b=sSUG7ivz776aRi3Kw7RTc3sTlxlZu/UXNFfPaI3Rkcrc41io5Z7TByWU5+IrI5gFZbGEKU7/7X+Eu4gnFMXqwBaCRwki2lwt3PypELa20WTiy4Jc5YVmqsyjHPTSGREP5Ul9snRAWbaq+TSHQ2FPXq877UrqyY1je5b7SlQVsfA=
+	t=1789847819; cv=none; b=D6hyZUmGwQN8vXhWx5RnR2MOAA4bTqK1/MzuBqyzKky0EVWrXZTvYnv53RaBHKuenEZ/b1noTg+F7Nsr9sjwNOWGoSQMYeMfZTouQwqev9lypKh+WQ+LgmSbJkQ0ZmnKleVrvT1A8ftBEQDJT/WirLpVvwYR7GWjXHeieUgloP0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789847818; c=relaxed/simple;
-	bh=L/U/q3GwSp1dCDuBP16nYLIlbyjw8YUla85CzeN6vxg=;
+	s=arc-20240116; t=1789847819; c=relaxed/simple;
+	bh=pGLpKsWWZHEgJzlaDIV+DTjXeBPIzL1OgOIVS0C9GR4=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=NAk5PiuI1W8tpjnF8zNVaGJhOWomACH1tIJSn+L6nBcWjJKp7B4caJoEBnGpioTqWxYDIgiiR+l+4s8vrc9SdBnjYILOHhjJCXOM7WwgGtbsOtQ6uOW9CTpL8P+loagaKljY2pi/N4GxQZhfv2F0WWr/m9SL/V5r0nunlyIUJ9w=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QTqTDbj5; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Rmv4f+/fJBB0C6HeDlTRTSiduaXZR/Z8m+CNKB+MkqED2UUwAXg9WcF8i+nQGHJMofM0CqEi93gcvWxrGXs15wn206IL1KIN8shk/7utyMETslNrGltxJq4UWC3krOAa+/J/HmoW9lMvDo+cMz2vt8BlSOWgCRG16KmfEN+X9x8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=f6MF0qQm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QTqTDbj5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 42CBC1F00898;
-	Sat, 19 Sep 2026 19:56:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="f6MF0qQm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id F2D0E1F00893;
+	Sat, 19 Sep 2026 19:56:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789847814;
-	bh=z98abEKY+Cl6qz8dNFUF6hxJAMW2tSEpFi/bfLMaIEc=;
+	s=k20260515; t=1789847816;
+	bh=eE6XX+yaNM954WMOmqfQTOWWRu6GiUdVHiB01E/7LAQ=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=QTqTDbj5mzICk0SUn7qQREnag8svKxOJO01qaTRVCzMSGUr+A6qkq6cQw3QOHY25a
-	 +MFiFDbwXFuCTccKe+5xWCYG4eGnPnZfWdvz7yFCe0kj6Z3U6hiLVvPL7rpFtpkAbC
-	 5RyOS/UkA654nU6efl2+S4GKooFHSnu9IvjCJaNQPOli+lYkFz4P+UanjSH93aqKPM
-	 3lq5rFEtLqLbwrQCZglOGqCGF5mdMC8NDgsDvmqmAOnK0+kqsqQ8oRrptvqnR+Um/p
-	 bzkG5F9V0CNdX2ssa+FPBzSSpQCPqOs19m4wy0MPLD0WXRI29VdTrpMQoMD26YiGPj
-	 PVUW2fJxu7wEg==
+	b=f6MF0qQmwio6t7yJMpOp5rGbwUwhSP8ech1qAu3xwazEDyS7fdAvKgdDgv3krl20g
+	 BcGUiPnr/O3jtBnJbCeq0pbjt3D4O2ekONtT8Oj/iZTbp2XasvBgu5eLt+WnBCMoLl
+	 pAnSN3gixdnP4bX7H+rpXqi6J5fix7Y2kHJ4p7SSIbTU551cRy3L0QBt7ywUbYL698
+	 eLlLrcaTzsAt7pVRVuV2oFWQPlBS394vSfpmM4y0HKZNa69ARpnHfGuAayq1tuhR/7
+	 QxJVeWZwn8e0ebDXEVyUtD/NwxoYGy2GER0pbkMYXB9dBy1lO4IODqv4EatHvZXRNo
+	 1fk3tZfJ5qZsg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
 To: mptcp@lists.linux.dev,
 	stable@vger.kernel.org,
 	gregkh@linuxfoundation.org
-Cc: Gang Yan <yangang@kylinos.cn>,
+Cc: Paolo Abeni <pabeni@redhat.com>,
 	sashal@kernel.org,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.12.y 1/5] mptcp: annotate data-races around subflow->fully_established
-Date: Sat, 19 Sep 2026 21:56:44 +0200
-Message-ID: <20260919195642.1977885-8-matttbe@kernel.org>
+Subject: [PATCH 6.12.y 2/5] mptcp: remove unneeded READ_ONCE() annotation
+Date: Sat, 19 Sep 2026 21:56:45 +0200
+Message-ID: <20260919195642.1977885-9-matttbe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260919195642.1977885-7-matttbe@kernel.org>
 References: <20260919195642.1977885-7-matttbe@kernel.org>
@@ -46,49 +46,41 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3405; i=matttbe@kernel.org; h=from:subject; bh=G9nFiKTkNU/3i3ucIlDwZs2EsvszO6Vxtaywsd+5bQM=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWvfhjOuPrbT+pW9uU+/j/l9xYnLx0Htfk6/GcW+Wfh 5eENcvGdpSyMIhxMciKKbJIt0Xmz3xexVvi5WcBM4eVCWQIAxenAExE6zrD/2SXqPTjMZaV3ySv c75+v3XCJbnajfqMpjeCzPepXTtl0Mnwz+jZv9s6rKaHf1zZ3bLCSHabPjuv2xTTKt+8C9JOfIX L+QA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2487; i=matttbe@kernel.org; h=from:subject; bh=zFMRbwkAqOiVyRygY2AAMK/aVZaI+rC9wn7I23Kj0fU=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWvfjrZOMkGWFhHLDkzDEH8XaNtKvfF3y+vOR6wGJ5o XCOS/tUOkpZGMS4GGTFFFmk2yLzZz6v4i3x8rOAmcPKBDKEgYtTACYysZWRYUWm0KInvVZxjfZC u+ZuzneJumfyppT7wonbTcuDDEJ9OxgZnnmatn2++6iHNaXDhGWfVFjt7edx+7SWhx52/lu5ccc NFgA=
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp; fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 Content-Transfer-Encoding: 8bit
 
-From: Gang Yan <yangang@kylinos.cn>
+From: Paolo Abeni <pabeni@redhat.com>
 
-commit 581c8cbfa934aaa555daa4e843242fcecc160f05 upstream.
+commit caa4a79f74f32084ce28aee8653bc04df745970d upstream.
 
-We introduce the same handling for potential data races with the
-'fully_established' flag in subflow as previously done for
-msk->fully_established.
+The subflow->fully_established flag is always written under the subflow
+socket lock. Reading such value under the same lock does not require any
+ONCE annotation.
 
-Additionally, we make a crucial change: convert the subflow's
-'fully_established' from 'bit_field' to 'bool' type. This is
-necessary because methods for avoiding data races don't work well
-with 'bit_field'. Specifically, the 'READ_ONCE' needs to know
-the size of the variable being accessed, which is not supported in
-'bit_field'. Also, 'test_bit' expect the address of 'bit_field'.
-
-Closes: https://github.com/multipath-tcp/mptcp_net-next/issues/516
-Signed-off-by: Gang Yan <yangang@kylinos.cn>
+Fixes: 581c8cbfa934 ("mptcp: annotate data-races around subflow->fully_established")
+Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20241021-net-next-mptcp-misc-6-13-v1-2-1ef02746504a@kernel.org
+Link: https://patch.msgid.link/20260908-net-mptcp-misc-fixes-7-3-rc1-v2-10-df1de70348b6@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Stable-dep-of: 2b0f561f21b2 ("mptcp: avoid unneeded actions on subflow reset")
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
  net/mptcp/options.c  | 4 ++--
  net/mptcp/protocol.c | 2 +-
- net/mptcp/protocol.h | 2 +-
- 3 files changed, 4 insertions(+), 4 deletions(-)
+ 2 files changed, 3 insertions(+), 3 deletions(-)
 
 diff --git a/net/mptcp/options.c b/net/mptcp/options.c
-index d238dd374ce9..123c3691833f 100644
+index 123c3691833f..d238dd374ce9 100644
 --- a/net/mptcp/options.c
 +++ b/net/mptcp/options.c
 @@ -532,7 +532,7 @@ static bool mptcp_established_options_mp(struct sock *sk, struct sk_buff *skb,
  		return false;
  
  	/* MPC/MPJ needed only on 3rd ack packet, DATA_FIN and TCP shutdown take precedence */
--	if (subflow->fully_established || snd_data_fin_enable ||
-+	if (READ_ONCE(subflow->fully_established) || snd_data_fin_enable ||
+-	if (READ_ONCE(subflow->fully_established) || snd_data_fin_enable ||
++	if (subflow->fully_established || snd_data_fin_enable ||
  	    subflow->snd_isn != TCP_SKB_CB(skb)->seq ||
  	    sk->sk_state != TCP_ESTABLISHED)
  		return false;
@@ -96,37 +88,24 @@ index d238dd374ce9..123c3691833f 100644
  	/* here we can process OoO, in-window pkts, only in-sequence 4th ack
  	 * will make the subflow fully established
  	 */
--	if (likely(subflow->fully_established)) {
-+	if (likely(READ_ONCE(subflow->fully_established))) {
+-	if (likely(READ_ONCE(subflow->fully_established))) {
++	if (likely(subflow->fully_established)) {
  		/* on passive sockets, check for 3rd ack retransmission
  		 * note that msk is always set by subflow_syn_recv_sock()
  		 * for mp_join subflows
 diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 2f34e92d9cce..a4054ed24605 100644
+index a4054ed24605..2f34e92d9cce 100644
 --- a/net/mptcp/protocol.c
 +++ b/net/mptcp/protocol.c
 @@ -3685,7 +3685,7 @@ static void schedule_3rdack_retransmission(struct sock *ssk)
  	struct tcp_sock *tp = tcp_sk(ssk);
  	unsigned long timeout;
  
--	if (mptcp_subflow_ctx(ssk)->fully_established)
-+	if (READ_ONCE(mptcp_subflow_ctx(ssk)->fully_established))
+-	if (READ_ONCE(mptcp_subflow_ctx(ssk)->fully_established))
++	if (mptcp_subflow_ctx(ssk)->fully_established)
  		return;
  
  	/* reschedule with a timeout above RTT, as we must look only for drop */
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 2ac28f6ddff5..cd4481c93b6d 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -545,7 +545,7 @@ struct mptcp_subflow_context {
- 		is_mptfo : 1,	    /* subflow is doing TFO */
- 		close_event_done : 1,       /* has done the post-closed part */
- 		mpc_drop : 1,	    /* the MPC option has been dropped in a rtx */
--		__unused : 8;
-+		__unused : 9;
- 	bool	data_avail;
- 	bool	scheduled;
- 	bool	pm_listener;	    /* a listener managed by the kernel PM? */
 -- 
 2.55.0
 
