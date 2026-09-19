@@ -1,43 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D424A35FF6C;
-	Sat, 19 Sep 2026 19:36:08 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2987137C923;
+	Sat, 19 Sep 2026 19:36:10 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789846570; cv=none; b=Q0tdP9Ui3MTYVMF/XTH4PGsT5Wgkal93DFu2/b4/7OUNHZAZkWJOs0NEevssL4JX7pwX8+kzLDs9KfXc1XAjtLLraSDeyE0vxtTTALWxp632ZxAHD1GRAVquZ0cXulrRysJORl81yj03dDtzJ75GqemhUxFE1/N2aM3qVzq53TI=
+	t=1789846572; cv=none; b=LRK7heq/4+Fx/YBpF6eYfRaPCG/ePXLeT20fzMY07pq5RlMsBfZQLV2pQsPAOTPJjYHksWX/kb1v47fX4VnMKcfIh0LHCHQvsJs0VGbv20fI8Y3Rw5ZnnlnemYzUfbLe8/RAIlKlGUB5jvMpbCMJa4De63JmFMMN1scrapUoO4Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789846570; c=relaxed/simple;
-	bh=/zyBhep2tMYKrPaNAHIGYIl40eFmKLj8No/Z6mxW1N8=;
+	s=arc-20240116; t=1789846572; c=relaxed/simple;
+	bh=CN1/SK+Y8yFbsameLPvNWaUmOIDS2T5f+NmuRjL+7hc=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=CKnVHpBPGIVABn8i8ZkOwyPFunPwQbG8TlxmgHwUd3O0ae/iQSzXLGzUoRSVghcl8ySUsEmgasO3GdB9PJ+76Td0b2bkt75QXnPAC8KytGge2sTOXVtO/6HPoZyabLHtoGIf2CLNheris3GHm4O9/W4vxy7T3hLux5cXURD0kmI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Lg09bk/E; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=Bwj3VIEnl0MCvSxmgjqt8wavJqnW8zJwxE/BQGLY0KFfouE4INrzvH4NTBbzuu4FFKxZOj/nZzyz1R/LqsNVks4IsQrQg92CWY/T4PclCLXoiIjFUq9w2hfI9TD+UjYjhdk1IbHKIwff09pGMFwLB+8fMH2DAoap+3kSb5oUDGE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kz85fqWn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Lg09bk/E"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id F3E231F00898;
-	Sat, 19 Sep 2026 19:36:06 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kz85fqWn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D89AF1F000FF;
+	Sat, 19 Sep 2026 19:36:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789846568;
-	bh=c4TeFYzXb2H8L3hwwqpe+jEoL2EFuS6ojdVr9hrJqFk=;
+	s=k20260515; t=1789846570;
+	bh=5xA+FJH7GWS4YusAZCGPKyUllf//BAWDWX7tMuc6SeE=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=Lg09bk/Ew8KwRVHgDLE12V/2UYWpipQKKA9W6t7vyo/6il9DtIg8qECX1kIDkfSbB
-	 p3+BGx/KgWJR9X448+aHi7K+O+4EQqkHLn+QlNOF/b2ugIGXJlhV5MyAacDUgiN73Z
-	 NzFJe/A3KLDz1uYjN+I/Up/y/68UtDF10Xq97aP3+jFMV+bZrc8MsNcj+jfNhDJJYO
-	 aeasneBGk4Sfs/R6xk8M0jD68IC60aL7LzLABEqi8y7sf3QKfSd+u2UwQBV/IybCZC
-	 PpRRXXNriVBiQVN3YyIyQfNUKbqisx5Vol+VAO1dFXwosziur3Ln5mc6ueNHjVyElW
-	 YH6l9Pv8Q9WYA==
+	b=kz85fqWnWw6OCA4hFNZA1BvCgQNmnt1kpGJu7R5DgixImfLhdokvhMg6cP6DLp0ht
+	 ZVwqsWD7zpdDFGj9kKWxwpLfYkEZdYMYIbD/fEoLPpdpoA8ufxbVQj6uBWUHTtyvCl
+	 0f2jzmeJK/rItfHUekuGVAE6pJUcPpgSA6MKEc+fTjkg5zPX2H4bAV2+A9mdQCeXwz
+	 BO/66qGm34QbETdgnYhOVTq1f22o+WRLvG0n4eLnFtQqTMiNHRrdPBFuqGrjrzJulk
+	 xaaiqE5k+Ly455NCG5Q9/KDj/ecasy0M796UTGO9GcOGYBon/diaYlEQHnic09jJsv
+	 FKNGzzOhafaKw==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
 To: mptcp@lists.linux.dev,
 	stable@vger.kernel.org,
 	gregkh@linuxfoundation.org
 Cc: Paolo Abeni <pabeni@redhat.com>,
 	sashal@kernel.org,
+	Shardul Bankar <shardul.b@mpiricsoftware.com>,
 	Xinyang Ge <xinyang@anthropic.com>,
 	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
 	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 7.2.y 2/4] mptcp: avoid unneeded actions on subflow reset
-Date: Sat, 19 Sep 2026 21:35:44 +0200
-Message-ID: <20260919193541.1915297-8-matttbe@kernel.org>
+Subject: [PATCH 7.2.y 3/4] mptcp: close race between scheduler and state change
+Date: Sat, 19 Sep 2026 21:35:45 +0200
+Message-ID: <20260919193541.1915297-9-matttbe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 In-Reply-To: <20260919193541.1915297-6-matttbe@kernel.org>
 References: <20260919193541.1915297-6-matttbe@kernel.org>
@@ -47,110 +48,50 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=3752; i=matttbe@kernel.org; h=from:subject; bh=AVrDwnrVWRrcQWUftTQ0Y0xp0+rHHcsERJzquA85cwI=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWPRFwsdI43n67s2u6QHOUQnbSv/W/Im4FKn534SvjU WVa7Dulo5SFQYyLQVZMkUW6LTJ/5vMq3hIvPwuYOaxMIEMYuDgFYCLy8xj+J0XN2rNvxiu5sDf2 tXHNr5Vfht2Rbnn+7DhXkKFi/qYETkaGzTNSf21/cytp6m1jz4MfvsisPbfRunBvyKzA1zvea/z K4QIA
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1636; i=matttbe@kernel.org; h=from:subject; bh=+/aiUzZzfqJ31ICMVpIbl3dR0DbObCOaPqDPmlz8uUU=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWPRH8p3ek5VnAc6kdx3tXr19TxLud4TDD7H+rpm7N5 83by/Rco6OUhUGMi0FWTJFFui0yf+bzKt4SLz8LmDmsTCBDGLg4BWAiJ8QYGRbW51fn9W0ovxn8 5rBGtQS33DK9KQXGpYuOpfntf2rjX83IcIfjVOtN7Y4ngnctRSbOeXcj8N2Vqnk1tixrc6YxhrN q8wMA
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp; fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 Content-Transfer-Encoding: 8bit
 
 From: Paolo Abeni <pabeni@redhat.com>
 
-commit 2b0f561f21b27c40c91ea4975268a06092bd7e9c upstream.
+commit 42064de57fb83231fcc89663a94885f228a1ee53 upstream.
 
-Once in a blue moon, the mptcp receive path can recursively call
-mptcp_data_ready() via state change under unlucky error conditions, and
-then try to hold the data lock again.
+The mptcp scheduler may race with subflow sockets state change: data
+transmission on the selected socket may fail and a later release could
+try to use mss_now reset to 0 for a divide operation.
 
-Break the recursion loop explicitly checking for the exceptional
-condition.
+Address the issue by explicitly checking for the critical scenario.
 
-Add a new flag instead of using an existing one like 'closing', to exit
-early in subflow_state_change(), and explicitly flush the RX queue at
-reset time.
-
-This avoids unneeded processing to check for available data -- calling
-get_mapping_status() and more on a dying subflow -- but also in error
-reporting and worker scheduling.
-
-Note that we must consume the currently peeked skb before invoking
-mptcp_dss_corruption to avoid consuming it again after the eventual
-reset has freed it.
-
-Fixes: e32d262c89e2 ("mptcp: handle consistently DSS corruption")
+Fixes: c886d70286bf ("mptcp: do not queue data on closed subflows")
 Cc: stable@vger.kernel.org
+Reported-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
 Reported-by: Xinyang Ge <xinyang@anthropic.com>
+Closes: https://lore.kernel.org/20260525194828.1137119-1-shardul.b@mpiricsoftware.com
 Signed-off-by: Paolo Abeni <pabeni@redhat.com>
 Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260917-net-mptcp-misc-fixes-7-3-rc4-v2-1-0cf5c72667c8@kernel.org
+Link: https://patch.msgid.link/20260917-net-mptcp-misc-fixes-7-3-rc4-v2-2-0cf5c72667c8@kernel.org
 Signed-off-by: Jakub Kicinski <kuba@kernel.org>
 Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
 ---
- net/mptcp/protocol.c |  4 ++--
- net/mptcp/protocol.h |  3 ++-
- net/mptcp/subflow.c  | 11 +++++++++++
- 3 files changed, 15 insertions(+), 3 deletions(-)
+ net/mptcp/protocol.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index 6db944b5c423..b6581858979d 100644
+index b6581858979d..99fd31036222 100644
 --- a/net/mptcp/protocol.c
 +++ b/net/mptcp/protocol.c
-@@ -773,12 +773,12 @@ static bool __mptcp_move_skbs_from_subflow(struct mptcp_sock *msk,
- 				mptcp_dss_corruption(msk, ssk);
- 			}
- 		} else {
-+			sk_eat_skb(ssk, skb);
-+
- 			if (unlikely(!fin)) {
- 				DEBUG_NET_WARN_ON_ONCE(1);
- 				mptcp_dss_corruption(msk, ssk);
- 			}
--
--			sk_eat_skb(ssk, skb);
- 		}
+@@ -1588,7 +1588,9 @@ struct sock *mptcp_subflow_get_send(struct mptcp_sock *msk)
  
- 		WRITE_ONCE(tp->copied_seq, seq);
-diff --git a/net/mptcp/protocol.h b/net/mptcp/protocol.h
-index 825533614468..d44aaa783c22 100644
---- a/net/mptcp/protocol.h
-+++ b/net/mptcp/protocol.h
-@@ -585,7 +585,8 @@ struct mptcp_subflow_context {
- 		is_mptfo : 1,	    /* subflow is doing TFO */
- 		close_event_done : 1,       /* has done the post-closed part */
- 		mpc_drop : 1,	    /* the MPC option has been dropped in a rtx */
--		__unused : 9;
-+		resetting : 1,	    /* subflow is resetting */
-+		__unused : 8;
- 	bool	data_avail;
- 	bool	scheduled;
- 	bool	pm_listener;	    /* a listener managed by the kernel PM? */
-diff --git a/net/mptcp/subflow.c b/net/mptcp/subflow.c
-index bde79720098a..edd33dc9367f 100644
---- a/net/mptcp/subflow.c
-+++ b/net/mptcp/subflow.c
-@@ -436,6 +436,10 @@ void mptcp_subflow_reset(struct sock *ssk)
- 	/* must hold: tcp_done() could drop last reference on parent */
- 	sock_hold(sk);
+ static void mptcp_push_release(struct sock *ssk, struct mptcp_sendmsg_info *info)
+ {
+-	tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle, info->size_goal);
++	if (info->mss_now)
++		tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle,
++			 info->size_goal);
+ 	release_sock(ssk);
+ }
  
-+	subflow->resetting = 1;
-+
-+	/* No need to delay the actual close for to-be discarded data. */
-+	__skb_queue_purge(&ssk->sk_receive_queue);
- 	mptcp_send_active_reset_reason(ssk);
- 	tcp_done(ssk);
- 	if (!test_and_set_bit(MPTCP_WORK_CLOSE_SUBFLOW, &mptcp_sk(sk)->flags))
-@@ -1873,6 +1877,13 @@ static void subflow_state_change(struct sock *sk)
- 
- 	__subflow_state_change(sk);
- 
-+	/* Rx queue processing is unneeded, error reporting will take place at
-+	 * __mptcp_close_ssk() time and subflow reset can't happen in case of
-+	 * fallback: subflow_sched_work_if_closed() would be a no-op.
-+	 */
-+	if (subflow->resetting)
-+		return;
-+
- 	/* as recvmsg() does not acquire the subflow socket for ssk selection
- 	 * a fin packet carrying a DSS can be unnoticed if we don't trigger
- 	 * the data available machinery here.
 -- 
 2.55.0
 
