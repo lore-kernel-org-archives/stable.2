@@ -1,253 +1,161 @@
-Received: from fout-b6-smtp.messagingengine.com (fout-b6-smtp.messagingengine.com [202.12.124.149])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A8A4238C1A;
-	Sat, 19 Sep 2026 07:00:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.149
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2436C3A6B73
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 07:13:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789801259; cv=none; b=s8CqDoDzzDz1f7trp32zqtjNxTboAQEzLUj7nKt1cJVqhtxsKkaBRmNFA3ezSrGXFnB09S+gQCeKyVsl3tn1tsZ7nelpg9L2pItG+qcSZx6vLfN7SKk1eUbIkyNZ0BLyxhNnb5yT3LnLylvzJ4zk3H/GJRCYMb9015MeUuGXc1c=
+	t=1789802017; cv=none; b=fPn9Wp+2SaEhoI7Q0cvS66S53n7YoFZuIdmmQ8tMI48lxsLNXDilvb/s9aMeupA8YN5bdG4zln6Wt3g1E+MP0XssY++5TyT2xxXnMMsPxm7BToRG5EIr+/UGbqcDjG5T2dhvIsUE8UfYO1mIjmp95tVtuo8cO1iXxiApZ5Zm2EY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789801259; c=relaxed/simple;
-	bh=aZ+IHRx4c1+8Lgac9YD2AhoPTXL3KmAQoZkHfxj9lfg=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=JkzquPOJL0pQbja3RCxYuysl4qmi3HyP05f51g7CBgyEtkKWS+9bm0+VYKHnPwiyT3gkA8z18Sf1/3Pdc3/PByyJX8yVkkILL9ltYJ7+W1XhUCAxTT8bouHIbRnYwIJYX1EZ7610mA4vWuj5qMRt+A3NwXtiquuvbhqJJSNLqtQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com; spf=pass smtp.mailfrom=pobox.com; dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b=ZRSzNLYE; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=bmj69UNY; arc=none smtp.client-ip=202.12.124.149
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=pobox.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pobox.com
+	s=arc-20240116; t=1789802017; c=relaxed/simple;
+	bh=tCJZ0sGm20CQt/SDkdnQQGWtqC2TWAOAbuUKE9smfFY=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=R072rNZD24J13SqZf8mQQA68qktWxf2LJoOf2rEXI1FEfjUw70k7+94zmd3U5YD211LYmTXTSWb1kWVl/ottCfJoPzUs0EJTGMm5RYE09jo3t72mQzY1DYCVqmqcmFq9byYWvY9jY6L3hezuX9X+vlAqW7Ejv7o5CxLUyTe1slo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1sx5NTc; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=pobox.com header.i=@pobox.com header.b="ZRSzNLYE";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="bmj69UNY"
-Received: from phl-compute-03.internal (phl-compute-03.internal [10.202.2.43])
-	by mailfout.stl.internal (Postfix) with ESMTP id 393E91D000D7;
-	Sat, 19 Sep 2026 03:00:56 -0400 (EDT)
-Received: from phl-frontend-02 ([10.202.2.161])
-  by phl-compute-03.internal (MEProxy); Sat, 19 Sep 2026 03:00:56 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=pobox.com; h=cc
-	:cc:content-transfer-encoding:content-type:content-type:date
-	:date:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to; s=fm3; t=1789801256;
-	 x=1789887656; bh=aZ+IHRx4c1+8Lgac9YD2AhoPTXL3KmAQoZkHfxj9lfg=; b=
-	ZRSzNLYE0PTt5Rg3nzO4SvBKyrL/gGKMA/Sa2AWt+OGTOnSVRVDfJBZCwpOp7W+X
-	8btxvwkEhGFaMq2Kx0H/dH/CTBezJCsVGf1it4brp/e2plRC3oL0IvZ+8QG/RDrs
-	MuiuqYFnjdUDKoiigqDvdEHEeV0EdJdyoTIDg9g9Xk0ordFvGrncgGpgkW7/SrnY
-	Yzs7osIbGVi6k9rAj/BGDKN4bOgj05w35Jfeey4I5xX85vSEMju+D0E59dGZ3N43
-	g8IFW+4ldzBpqaa8wsgcigamoE11cTXfCfsXvJQHm1iw4xdVhiaESs8c8GqM6i42
-	LkWWsAai5zvAVBXLGWgPkw==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-transfer-encoding
-	:content-type:content-type:date:date:feedback-id:feedback-id
-	:from:from:in-reply-to:in-reply-to:message-id:mime-version
-	:references:reply-to:subject:subject:to:to:x-me-proxy
-	:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=1789801256; x=
-	1789887656; bh=aZ+IHRx4c1+8Lgac9YD2AhoPTXL3KmAQoZkHfxj9lfg=; b=b
-	mj69UNY41+werO7M/5W620/y3C/IHS2W+2fMpE30PMrdPeiONIj8sDhhT/yFZv9u
-	7fLl8QX+ojs+1O7Eyig27UnAOiPN9D0Fc2ZGuHDIk79C00ufq/qHZPf+IIcRC7zs
-	P8VTTN5sgDR/oQp4+dQEQW5u0/PGmfDdvRBeleuyXvccWOcrWDTyrfcAEgcTGB29
-	tjbVWzTe2q9z98VYZE9WOM8kK37gn8JYtu9FXROM7kMFwy6DtCUR9qcLAnPMXMOw
-	Hq26I2EjBZFeT7z3hv92LhG55b5gLjEbovmuMDqB18FY8SC+9u+jIOjju6DOgvhi
-	RaLOzXxLrzFLDlyRaxXqg==
-X-ME-Sender: <xms:JzOuaroq8pG9DKnt-LGWtJjYAfjsg7Eap2VXsbQ8v9MhiFwYewmM3A>
-    <xme:JzOuahic-kGW3eWUy0gqLiUyH3bDBnak_jxECm36yn3X68PGvBhLKBuWm5hFS7Red
-    E1Rl8i9uEhd6c61jRDJ-sLeJ9S6xslYddwNOJuLUbLzihxUyXvGrzF2>
-X-ME-Received: <xmr:JzOuajvtJf_iR0K-Mvovh_7YgpaFOXfQalFfKWkhHDj-c0sRsMx6xcfoEiFuBNkufI7G004uLU_c_5jyxkcpVNnd2E4BTnn9>
-X-ME-Proxy-Cause: dmFkZTE64bIsEZZaqd2g2TtIMedWcvQTg80iBJHYOxnJBhUE2R8wIO1dpxO5YOkyKOFLy5
-    5qoLRE7XBpD/NwNczYOFWt3HUNUdZrlMB1K3upJCUPOcjtxYfE8+sqMk+ZInNmBfn9jqPM
-    EPa4G12NVBiZIdczM7++p3Jb19UdFkRH1dnvJkIOU7IDFd8ngg8QaMmlCsd55OQIYk0tyg
-    Ju/QmvzxYAG8BfWUVLx+R5eCzrtsBogi32avd2dHp316V4p7ihf3lRIXd9lLJwGUo9hJ0c
-    iWWyZDueCPjvvlGdlWdKlkm70t0xcksscU9Gs4RwLL+UPT8ZbMjv7jCOTMwaHsmTmvDAl0
-    7fY2oCTOI2SaajpuB7RPCIJtkw8DFxLqYONs+xAmD8gaANR7tCWtSrXaSDSFCekrVeaN+0
-    LUSLTm5MGXsnxr9XlKvBSn1j7dbsCX8AGaei2qENNdfr8q5pVW0ajtXiEOyULQ8sHPjLyt
-    zVMMAxtcq91F2Xg1VURfuZLev0khSofNqSD6c5W4/7WHbdhbdIZS+Vhwv4ge1OaJMFk3yk
-    I3V5ABnDPf91r0WB+O4+LEl2LYCdkxh0KN5HWHU72XoccCyY4W19MZii3UZqvlkR5f+8ja
-    mfFGJYGrjnEFxkEXrOOpnKBmb+XkeFTSbIpZXbZP2zIRBghwII6xG9QsryhA
-X-ME-Proxy: <xmx:JzOuai3uH-b3mJY2ivtQWTQe2HtY1DN-ngDkAfxNaR-8mH1RKcRE1g>
-    <xmx:JzOuaiyQfL4wB6mumJkzGU4wkDCgV1q21y6JJUXRrjkcl2v0YL3k1g>
-    <xmx:JzOualWBfNUTqafGVH2zlV7bOkoqE8pfCVksg91X7vABPygtNfW94Q>
-    <xmx:JzOuasCQW7z8eh-qAmDiLYHAzk8BPEfqGTfk-6bOSXpedMlXazsHpQ>
-    <xmx:KDOuas8b6btqB6ilyioPQuV1UDWKiNrC_AvLWzCkbZK7PWoIEtwfTZGe>
-Feedback-ID: i6289494f:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sat,
- 19 Sep 2026 03:00:53 -0400 (EDT)
-Message-ID: <be8641ad-ed0c-4e6e-a915-0874076159d3@pobox.com>
-Date: Sat, 19 Sep 2026 00:00:51 -0700
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1sx5NTc"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd4f99dso1597493a91.2
+        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 00:13:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789802014; x=1790406814; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=v7zSksbU63dtRbVANyp6hQdrkXI5XkDjvPOFv3Zg/ek=;
+        b=h1sx5NTcu7OAzsLtYlj3jReNjm5t3xAT5U/8dc1JDe3jrhepppxrs/L5/UceRHHpqs
+         4xWpcjFumj/UB5ZWMKv2AnwqPZOvuUqI88Aa3Y2GjmDPRqe0NKqjxD1gv40gJapfarxX
+         baUP7rjHjB5oy5xIpKVqh8gF7J6eASZwDtyBBdPPWVnSjxRMHy6zzEWd11Sq+6Iz9ycr
+         6CraFCIST8Er6GpP/7eb6ycQUmZmB50AIE+3QriP9a11cIe9MvqtWX3SJvz3v7gKtSyu
+         4AeSLF/0CtkcDTSd0cujlD83zrlDIDMn1HLfWChduub6luUaaGfjuwkUgjaO3cy830gd
+         ZPeg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789802014; x=1790406814;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=v7zSksbU63dtRbVANyp6hQdrkXI5XkDjvPOFv3Zg/ek=;
+        b=NXPqeAXq0j1rJyXRCjXDUGlyHfIoyB3+ZXTRd4JhlnvZs2nqnevEwXStFmKB8a2mm/
+         1QO+mP3jISuI0wh1Q0fsuXSlYijyMqDJnEPyyh/4ZvKve9wuIqK13aNA3KR8MdUeuzxZ
+         kUEwASzaDKu2ZgEFS6G+roqkm3X28vsF+VY+1wdhKmHRs3nR8kcGl2U6QEjS2NZkp7YZ
+         2i2NAdB9VBWOpGAP5vuRxF40fecY1JQQBey7DKDtXmAHzV7Vk0YcsHTfBxj2OPkvnjLp
+         y6o6RGCkH3mWE2UzPCDwk6mDU960OrW+4LFvA2rtT7fI0gJ5zpTaIvoPy8Ud2LLqpp/K
+         mwiw==
+X-Forwarded-Encrypted: i=1; AKwUvBzDgoQTXln5yKekoWQGsJBkmeGKyNrEJItJq0AoVVf3zDvzdTWlFRU7VzYCZPhTX/VSUxz4rMs=@vger.kernel.org
+X-Gm-Message-State: AFuF++k2pPgiLUIWBvtNlVp4mUaZPB4N1oPJtfZydW5N2oYlcqDOYSqB
+	vs5Gv84Dogs1NCozuUzYv9EqiAtioShmW4a8zZL4xjwoF/P1zFRNRiwF/AopDKATrw==
+X-Gm-Gg: AYBFou29kmIXxwaHJo+YF159SOMr6y/ToLHXI5m4uP6+ofkAbANgG4pjirj/Yj/9jiT
+	buZ0IzXtg5n5MZSfDm+juVkGnzJrkcYpmi29y3J2DsvpffzkoKJN7Rc1OV+5U5kRKiCWVnmE18e
+	AXTseDHPUF1yqRUYDxX4EVPX9FAVl3m9Tjos7CrTiA1Bl8euukItKVO/admHNeQcgl8Z/T+9ntH
+	rXg3tGUWhVFeIBF87GJEhKEfZyuRCEOK8BNF2qw6e1npyhug6qXVHSk0NJ7HRCqkKkhFwhdH7KX
+	ATePeHnYj4xQBkWr/a0Mtyn8yeNZjlTDU/5AuaSUwsHR21Sl9n0C+w6QQa5ghp7NhCGHkcUo1dE
+	7KsgHmk4CFAdRPNzQHKzbe9AkH+qAEUEeulxfHTrcsFLDanDTv2XQn7BURM9xr0sJxDdYf9Sqzq
+	kyNY5S0Bzc1Kv59N7Q0fP6zHOVA/pFqr6oFYy9N44eBfh/0CLot3ev/0MVkgeTu+BPUm4d+OubP
+	W5jrFnW4rtPqHZhUX3wQdmFYZM=
+X-Received: by 2002:a17:90b:164a:b0:39e:4d7b:b247 with SMTP id 98e67ed59e1d1-39e54ea66cbmr9161582a91.19.1789802013941;
+        Sat, 19 Sep 2026 00:13:33 -0700 (PDT)
+Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:45e5:9e39:6356:6164])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02738654csm1050170a91.3.2026.09.19.00.13.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 00:13:33 -0700 (PDT)
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+To: sj@kernel.org,
+	akpm@linux-foundation.org
+Cc: damon@lists.linux.dev,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	donggeunyoo.kernel@gmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH v1 1/2] mm/damon/core: prevent size quota overflow in the temporal goal tuner
+Date: Sat, 19 Sep 2026 16:13:23 +0900
+Message-ID: <20260919071324.1583280-2-donggeunyoo.kernel@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260919071324.1583280-1-donggeunyoo.kernel@gmail.com>
+References: <20260919071324.1583280-1-donggeunyoo.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org
-Cc: patches@lists.linux.dev, linux-kernel@vger.kernel.org,
- torvalds@linux-foundation.org, akpm@linux-foundation.org,
- linux@roeck-us.net, shuah@kernel.org, patches@kernelci.org,
- lkft-triage@lists.linaro.org, pavel@nabladev.com, jonathanh@nvidia.com,
- f.fainelli@gmail.com, sudipm.mukherjee@gmail.com, rwarsow@gmx.de,
- conor@kernel.org, hargar@microsoft.com, broonie@kernel.org,
- achill@achill.org, sr@sladewatkins.com
-References: <20260917151539.408551884@linuxfoundation.org>
-Content-Language: en-US
-From: "Barry K. Nathan" <barryn@pobox.com>
-In-Reply-To: <20260917151539.408551884@linuxfoundation.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: base64
+Content-Transfer-Encoding: 8bit
 
-T24gOS8xNy8yNiA3OjU5IEFNLCBHcmVnIEtyb2FoLUhhcnRtYW4gd3JvdGU6DQo+IFRoaXMg
-aXMgdGhlIHN0YXJ0IG9mIHRoZSBzdGFibGUgcmV2aWV3IGN5Y2xlIGZvciB0aGUgNi4xMi4x
-MTEgcmVsZWFzZS4NCj4gVGhlcmUgYXJlIDExMDIgcGF0Y2hlcyBpbiB0aGlzIHNlcmllcywg
-YWxsIHdpbGwgYmUgcG9zdGVkIGFzIGEgcmVzcG9uc2UNCj4gdG8gdGhpcyBvbmUuICBJZiBh
-bnlvbmUgaGFzIGFueSBpc3N1ZXMgd2l0aCB0aGVzZSBiZWluZyBhcHBsaWVkLCBwbGVhc2UN
-Cj4gbGV0IG1lIGtub3cuDQo+IA0KPiBSZXNwb25zZXMgc2hvdWxkIGJlIG1hZGUgYnkgU2F0
-LCAxOSBTZXAgMjAyNiAxNToxMzo0OSArMDAwMC4NCj4gQW55dGhpbmcgcmVjZWl2ZWQgYWZ0
-ZXIgdGhhdCB0aW1lIG1pZ2h0IGJlIHRvbyBsYXRlLg0KPiANCj4gVGhlIHdob2xlIHBhdGNo
-IHNlcmllcyBjYW4gYmUgZm91bmQgaW4gb25lIHBhdGNoIGF0Og0KPiAJaHR0cHM6Ly93d3cu
-a2VybmVsLm9yZy9wdWIvbGludXgva2VybmVsL3Y2Lngvc3RhYmxlLXJldmlldy9wYXRjaC02
-LjEyLjExMS1yYzEuZ3oNCj4gb3IgaW4gdGhlIGdpdCB0cmVlIGFuZCBicmFuY2ggYXQ6DQo+
-IAlnaXQ6Ly9naXQua2VybmVsLm9yZy9wdWIvc2NtL2xpbnV4L2tlcm5lbC9naXQvc3RhYmxl
-L2xpbnV4LXN0YWJsZS1yYy5naXQgbGludXgtNi4xMi55DQo+IGFuZCB0aGUgZGlmZnN0YXQg
-Y2FuIGJlIGZvdW5kIGJlbG93Lg0KPiANCj4gdGhhbmtzLA0KPiANCj4gZ3JlZyBrLWgNCg0K
-SSB0ZXN0ZWQgNi4xMi4xMTAgKyB1cC10by1kYXRlIHN0YWJsZS1xdWV1ZSBhcyBvZiB0aGlz
-IHdyaXRpbmcsIGNvbW1pdA0KMDFiMjBiYjg0Yjk5NGZkY2RhNjRmZDA3YTY2YmE4NGM4NWQw
-MTY4Ziwgb24gbXkgTGVub3ZvIFRoaW5rUGFkIFQxNCBHZW4gMS4NCihJZiBuZWNlc3Nhcnks
-IEkgY2FuIGV4cGxhaW4gbGF0ZXIgaG93IG15IHdvcmtmbG93IGVuZHMgdXAgZ2l2aW5nIHRo
-aXMNCmtlcm5lbCB0aGUgdmVyc2lvbiBudW1iZXIgIjYuMTIuMTExLXByZTE1OCIsIGJ1dCBo
-b3BlZnVsbHkgdGhhdCBkZXRhaWwNCndvbid0IGJlIHJlbGV2YW50LikNCg0KSSdtIHNlZWlu
-ZyBkaWZmZXJlbnQga2VybmVsIHdhcm5pbmdzIHRoYW4gdGhlIG90aGVyIG9uZXMgdGhhdCBo
-YXZlIGJlZW4NCnBvc3RlZCBpbiB0aGlzIHRocmVhZCBzbyBmYXIuIEhlcmUgaXMgb25lIG9m
-IHRoZW07IEkgY2FuIHJlcHJvZHVjZSB0aGlzDQp3aXRoIHRoZSBmb2xsb3dpbmcgc3RlcHM6
-DQoNCjEuIEJvb3QNCjIuIExvZyBpbg0KMy4gV2FpdCAzMCBzZWNvbmRzIG9yIHNvDQo0LiBD
-bG9zZSB0aGUgbGFwdG9wIGxpZCBhbmQgd2FpdCBmb3IgaXQgdG8gc3VzcGVuZA0KNS4gT3Bl
-biB0aGUgbGFwdG9wIGxpZCBhbmQgdW5sb2NrIG15IGRlc2t0b3ANCjYuIENoZWNrIGRtZXNn
-IGFuZCBzZWUgaWYgdGhlcmUncyBhIHdhcm5pbmcgdGhlcmUuIElmIHNvLCBJJ20gZG9uZS4g
-SWYgbm90LA0KICAgIHJlcGVhdCBzdGVwcyA0IGFuZCA1Lg0KDQpTb21ldGltZXMgdGhlIHdh
-cm5pbmcgYXBwZWFycyBhZnRlciBvbmx5IDEgc3VzcGVuZC93YWtlIGN5Y2xlLCBidXQgaXQN
-CmFsd2F5cyBzaG93cyB1cCBubyBsYXRlciB0aGFuIHRoZSBzZWNvbmQgc3VzcGVuZC93YWtl
-IGN5Y2xlLg0KDQpJJ2xsIHZlcmlmeSB0aGF0IHRoaXMgc3RpbGwgcmVwcm9kdWNlcyB3aXRo
-IGEgbW9yZSBtaW5pbWFsIGNvbmZpZywgdGhlbg0KSSdsbCBnbyBhaGVhZCBhbmQgYmlzZWN0
-Li4uDQoNCihPbiB0aGlzIFRoaW5rUGFkIEknbSBydW5uaW5nIERlYmlhbiB0cml4aWUgYW5k
-IEdOT01FLCBpbiBjYXNlIGl0DQptYXR0ZXJzLikNCg0KWyAgIDk4LjM2MzgzNl0gLS0tLS0t
-LS0tLS0tWyBjdXQgaGVyZSBdLS0tLS0tLS0tLS0tDQpbICAgOTguMzYzODQzXSBSVE5MOiBh
-c3NlcnRpb24gZmFpbGVkIGF0IG5ldC9pcHY2L21jYXN0LmMgKDEwMTQpDQpbICAgOTguMzYz
-ODk2XSBXQVJOSU5HOiBDUFU6IDYgUElEOiA5NjEgYXQgbmV0L2lwdjYvbWNhc3QuYzoxMDE0
-IF9faXB2Nl9kZXZfbWNfZGVjKzB4MTdiLzB4MTkwIFtpcHY2XQ0KWyAgIDk4LjM2Mzk3N10g
-TW9kdWxlcyBsaW5rZWQgaW46IHNkX21vZCBzY3NpX21vZCBzY3NpX2NvbW1vbiBzbmRfc2Vx
-X2R1bW15IHNuZF9ocnRpbWVyIHNuZF9zZXEgc25kX3NlcV9kZXZpY2UgcmZjb21tIGFsZ2lm
-X2hhc2ggYWxnaWZfc2tjaXBoZXIgYWZfYWxnIHFydHIgYm5lcCBzbmRfc29jX3NrbF9oZGFf
-ZHNwIHNuZF9zb2NfaW50ZWxfc29mX2JvYXJkX2hlbHBlcnMgc25kX3NvZl9wcm9iZXMgc25k
-X3NvY19pbnRlbF9oZGFfZHNwX2NvbW1vbiBpbnRlbF91bmNvcmVfZnJlcXVlbmN5IGludGVs
-X3VuY29yZV9mcmVxdWVuY3lfY29tbW9uIGJpbmZtdF9taXNjIGludGVsX3BtY19jb3JlX3Bs
-dGRydiBpbnRlbF9wbWNfY29yZSBpbnRlbF92c2VjIHBtdF90ZWxlbWV0cnkgcG10X2NsYXNz
-IHg4Nl9wa2dfdGVtcF90aGVybWFsIG5sc19hc2NpaSBubHNfY3A0Mzcgc25kX2hkYV9jb2Rl
-Y19yZWFsdGVrIHZmYXQgZmF0IHNuZF9oZGFfY29kZWNfZ2VuZXJpYyBzbmRfaGRhX3Njb2Rl
-Y19jb21wb25lbnQgc25kX3NvY19kbWljIHNuZF9zb2ZfcGNpX2ludGVsX2NubCBzbmRfc29m
-X2ludGVsX2hkYV9nZW5lcmljIHNvdW5kd2lyZV9pbnRlbCBzb3VuZHdpcmVfY2FkZW5jZSBz
-bmRfc29mX2ludGVsX2hkYV9jb21tb24gc25kX3NvY19oZGFjX2hkYSBpbnRlbF9wb3dlcmNs
-YW1wIHNuZF9zb2ZfaW50ZWxfaGRhX21saW5rIGNvcmV0ZW1wIHNuZF9zb2ZfaW50ZWxfaGRh
-IHNuZF9oZGFfY29kZWNfaGRtaSBzbmRfc29mX3BjaSBrdm1faW50ZWwgc25kX3NvZl94dGVu
-c2FfZHNwIHNuZF9zb2Ygc25kX3NvZl91dGlscyBzbmRfc29jX2FjcGlfaW50ZWxfbWF0Y2gg
-a3ZtIHNvdW5kd2lyZV9nZW5lcmljX2FsbG9jYXRpb24gc25kX3NvY19hY3BpIHNvdW5kd2ly
-ZV9idXMgaXdsbXZtIHNuZF9zb2NfYXZzIGlycWJ5cGFzcyBzbmRfc29jX2hkYV9jb2RlYyBz
-bmRfaGRhX2V4dF9jb3JlIGNyY3QxMGRpZl9wY2xtdWwgbWFjODAyMTEgc25kX3NvY19jb3Jl
-IGdoYXNoX2NsbXVsbmlfaW50ZWwgbWVpX3dkdCBtZWlfaGRjcA0KWyAgIDk4LjM2NDA0M10g
-IHNoYTUxMl9zc3NlMyBpbnRlbF9yYXBsX21zciBzaGEyNTZfc3NzZTMgbWVpX3B4cCBzaGEx
-X3Nzc2UzIHV2Y3ZpZGVvIHNuZF9jb21wcmVzcyBzbmRfcGNtX2RtYWVuZ2luZSBhZXNuaV9p
-bnRlbCBsaWJhcmM0IHNuZF9oZGFfaW50ZWwgdXZjIGNyeXB0b19zaW1kIHZpZGVvYnVmMl92
-bWFsbG9jIHNuZF9pbnRlbF9kc3BjZmcgY3J5cHRkIGJ0dXNiIHZpZGVvYnVmMl9tZW1vcHMg
-dmlkZW9idWYyX3Y0bDIgYnRydGwgc25kX2ludGVsX3Nkd19hY3BpIGJ0aW50ZWwgcmFwbCBi
-dGJjbSBzbmRfaGRhX2NvZGVjIHZpZGVvZGV2IGludGVsX2NzdGF0ZSBpd2x3aWZpIGJ0bXRr
-IHByb2Nlc3Nvcl90aGVybWFsX2RldmljZV9wY2lfbGVnYWN5IHNuZF9oZGFfY29yZSB2aWRl
-b2J1ZjJfY29tbW9uIHJtaV9zbWJ1cyBwcm9jZXNzb3JfdGhlcm1hbF9kZXZpY2UgaW50ZWxf
-dW5jb3JlIHNuZF9jdGxfbGVkIHBjc3BrciBwcm9jZXNzb3JfdGhlcm1hbF93dF9oaW50IG1j
-IGJsdWV0b290aCBybWlfY29yZSBwcm9jZXNzb3JfdGhlcm1hbF9yZmltIHNuZF9od2RlcCBw
-cm9jZXNzb3JfdGhlcm1hbF9yYXBsIGNmZzgwMjExIHRoaW5rX2xtaSBpbnRlbF93bWlfdGh1
-bmRlcmJvbHQgc25kX3BjbSBpbnRlbF9yYXBsX2NvbW1vbiBmaXJtd2FyZV9hdHRyaWJ1dGVz
-X2NsYXNzIHRoaW5rcGFkX2FjcGkgZWUxMDA0IHNuZF90aW1lciBwcm9jZXNzb3JfdGhlcm1h
-bF93dF9yZXEgY3JjMTYgbWVpX21lIG52cmFtIHdtaV9ibW9mIHByb2Nlc3Nvcl90aGVybWFs
-X3Bvd2VyX2Zsb29yIHBsYXRmb3JtX3Byb2ZpbGUgbWVpIHByb2Nlc3Nvcl90aGVybWFsX21i
-b3ggc25kIGludGVsX3NvY19kdHNfaW9zZiBpbnRlbF9wY2hfdGhlcm1hbCBpbnQzNDAzX3Ro
-ZXJtYWwgam95ZGV2IHNvdW5kY29yZSBpbnQzNDB4X3RoZXJtYWxfem9uZSBhYyBpbnQzNDAw
-X3RoZXJtYWwgaW50ZWxfaGlkIGFjcGlfdGhlcm1hbF9yZWwgc3BhcnNlX2tleW1hcCBidXR0
-b24gYWNwaV9wYWQgZXZkZXYgbXNyIGkyY19kZXYgcGFycG9ydF9wYyBwcGRldiBscA0KWyAg
-IDk4LjM2NDEyNF0gIHBhcnBvcnQgZG1fbW9kIG52bWVfZmFicmljcyBlZmlfcHN0b3JlIGNv
-bmZpZ2ZzIG5mbmV0bGluayBpcF90YWJsZXMgeF90YWJsZXMgaXB2NiBhdXRvZnM0IHhmcyBi
-dHJmcyBibGFrZTJiX2dlbmVyaWMgcmFpZDEwIHJhaWQ0NTYgYXN5bmNfcmFpZDZfcmVjb3Yg
-YXN5bmNfbWVtY3B5IGFzeW5jX3BxIGFzeW5jX3hvciBhc3luY190eCB4b3IgcmFpZDZfcHEg
-bGliY3JjMzJjIGNyYzMyY19nZW5lcmljIHJhaWQxIHJhaWQwIGxpbmVhciBtZF9tb2QgaGlk
-X211bHRpdG91Y2ggaGlkX2dlbmVyaWMgdXNiaGlkIGhpZCBpOTE1IGRybV9idWRkeSBpMmNf
-YWxnb19iaXQgaVRDT193ZHQgZHJtX2Rpc3BsYXlfaGVscGVyIGludGVsX3BtY19ieHQgaVRD
-T192ZW5kb3Jfc3VwcG9ydCBydHN4X3BjaV9zZG1tYyB3YXRjaGRvZyB1Y3NpX2FjcGkgbW1j
-X2NvcmUgcHNtb3VzZSBpMmNfaTgwMSBjZWMgdHlwZWNfdWNzaSB4aGNpX3BjaSBudm1lIHZp
-ZGVvIGNyYzMyX3BjbG11bCByY19jb3JlIHRodW5kZXJib2x0IHhoY2lfaGNkIGUxMDAwZSBj
-cmMzMmNfaW50ZWwgc2VyaW9fcmF3IHJvbGVzIG52bWVfY29yZSB0dG0gaTJjX3NtYnVzIHJ0
-c3hfcGNpIHR5cGVjIGJhdHRlcnkgd21pIGVmaXZhcmZzDQpbICAgOTguMzY0MjA4XSBDUFU6
-IDYgVUlEOiAxMDUgUElEOiA5NjEgQ29tbTogYXZhaGktZGFlbW9uIE5vdCB0YWludGVkIDYu
-MTIuMTExLXByZTE1OCAjMw0KWyAgIDk4LjM2NDIxNF0gSGFyZHdhcmUgbmFtZTogTEVOT1ZP
-IDIwUzFTNkQ3MDAvMjBTMVM2RDcwMCwgQklPUyBOMlhFVDQ2VyAoMS4zNiApIDA2LzAyLzIw
-MjYNClsgICA5OC4zNjQyMTddIFJJUDogMDAxMDpfX2lwdjZfZGV2X21jX2RlYysweDE3Yi8w
-eDE5MCBbaXB2Nl0NClsgICA5OC4zNjQyOTFdIENvZGU6IDg4IGY1IDAyIDAwIDAwIDBmIDg1
-IGM0IGZlIGZmIGZmIGJhIGY2IDAzIDAwIDAwIDQ4IGM3IGM2IDMwIDhmIDNiIGMxIDQ4IGM3
-IGM3IDU4IDdiIDNiIGMxIGM2IDA1IDY4IGY1IDAyIDAwIDAxIGU4IDk1IGZkIGY1IGU0IDww
-Zj4gMGIgZTkgOWUgZmUgZmYgZmYgNjYgNjYgMmUgMGYgMWYgODQgMDAgMDAgMDAgMDAgMDAg
-MGYgMWYgMDAgOTANClsgICA5OC4zNjQyOTZdIFJTUDogMDAxODpmZmZmZDNkYTgwNzRiOGMw
-IEVGTEFHUzogMDAwMTAyNDYNClsgICA5OC4zNjQzMDFdIFJBWDogMDAwMDAwMDAwMDAwMDAw
-MCBSQlg6IGZmZmY4ZTVlMDM2Mzg4MDAgUkNYOiAwMDAwMDAwMDAwMDAwMDAwDQpbICAgOTgu
-MzY0MzA0XSBSRFg6IDAwMDAwMDAwMDAwMDAwMDAgUlNJOiAwMDAwMDAwMDAwMDAwMDAwIFJE
-STogMDAwMDAwMDAwMDAwMDAwMA0KWyAgIDk4LjM2NDMwN10gUkJQOiBmZmZmOGU1ZTA5MjM4
-NTQwIFIwODogMDAwMDAwMDAwMDAwMDAwMCBSMDk6IDAwMDAwMDAwMDAwMDAwMDANClsgICA5
-OC4zNjQzMTFdIFIxMDogMDAwMDAwMDAwMDAwMDAwMCBSMTE6IDAwMDAwMDAwMDAwMDAwMDAg
-UjEyOiBmZmZmOGU1ZTIwODhhZTgwDQpbICAgOTguMzY0MzE0XSBSMTM6IGZmZmY4ZTVlMDM2
-Mzg4MDAgUjE0OiBmZmZmOGU1ZTAzNjM4YTcwIFIxNTogMDAwMDAwMDAwMDAwMDAwMA0KWyAg
-IDk4LjM2NDMxOF0gRlM6ICAwMDAwN2Y2NzE5YTg5ODQwKDAwMDApIEdTOmZmZmY4ZTY1MmM1
-MDAwMDAoMDAwMCkga25sR1M6MDAwMDAwMDAwMDAwMDAwMA0KWyAgIDk4LjM2NDMyMl0gQ1M6
-ICAwMDEwIERTOiAwMDAwIEVTOiAwMDAwIENSMDogMDAwMDAwMDA4MDA1MDAzMw0KWyAgIDk4
-LjM2NDMyNl0gQ1IyOiAwMDAwN2YzOGFlN2ZjZDU4IENSMzogMDAwMDAwMDEwYjY0YzAwNCBD
-UjQ6IDAwMDAwMDAwMDAzNzI2ZjANClsgICA5OC4zNjQzMjldIENhbGwgVHJhY2U6DQpbICAg
-OTguMzY0MzM0XSAgPFRBU0s+DQpbICAgOTguMzY0MzM5XSAgaXB2Nl9zb2NrX21jX2Ryb3Ar
-MHgxMjIvMHgxZTAgW2lwdjZdDQpbICAgOTguMzY0NDA5XSAgZG9faXB2Nl9zZXRzb2Nrb3B0
-KzB4YjliLzB4MWEzMCBbaXB2Nl0NClsgICA5OC4zNjQ0NzldICA/IF9fd2FrZV91cF9zeW5j
-X2tleSsweDNiLzB4NjANClsgICA5OC4zNjQ0ODZdICA/IHNvY2tfZGVmX3JlYWRhYmxlKzB4
-NDIvMHhjMA0KWyAgIDk4LjM2NDQ5MF0gID8gdW5peF9kZ3JhbV9zZW5kbXNnKzB4NWQ1LzB4
-OWMwDQpbICAgOTguMzY0NDk5XSAgaXB2Nl9zZXRzb2Nrb3B0KzB4NWUvMHhhMCBbaXB2Nl0N
-ClsgICA5OC4zNjQ1NzBdICBkb19zb2NrX3NldHNvY2tvcHQrMHhiOS8weDE5MA0KWyAgIDk4
-LjM2NDU3OF0gIF9fc3lzX3NldHNvY2tvcHQrMHg5NC8weGUwDQpbICAgOTguMzY0NTg0XSAg
-X194NjRfc3lzX3NldHNvY2tvcHQrMHgxZi8weDQwDQpbICAgOTguMzY0NTg5XSAgZG9fc3lz
-Y2FsbF82NCsweDgyLzB4MWIwDQpbICAgOTguMzY0NTk1XSAgPyBzeXNjYWxsX2V4aXRfdG9f
-dXNlcl9tb2RlKzB4MzIvMHgxOTANClsgICA5OC4zNjQ2MDFdICA/IGRvX3N5c2NhbGxfNjQr
-MHg4ZS8weDFiMA0KWyAgIDk4LjM2NDYwN10gID8gZmlsZV91cGRhdGVfdGltZSsweDFiLzB4
-OTANClsgICA5OC4zNjQ2MTVdICA/IHBpcGVfd3JpdGUrMHg0MjQvMHg2NzANClsgICA5OC4z
-NjQ2MjNdICA/IHZmc193cml0ZSsweDNiNi8weDQ1MA0KWyAgIDk4LjM2NDYzMF0gID8gYXJj
-aF9leGl0X3RvX3VzZXJfbW9kZV9wcmVwYXJlLmlzcmEuMCsweDFlLzB4MTAwDQpbICAgOTgu
-MzY0NjM2XSAgPyBzeXNjYWxsX2V4aXRfdG9fdXNlcl9tb2RlKzB4MzIvMHgxOTANClsgICA5
-OC4zNjQ2NDNdICA/IGRvX3N5c2NhbGxfNjQrMHg4ZS8weDFiMA0KWyAgIDk4LjM2NDY0OV0g
-ID8gZG9fc3lzY2FsbF82NCsweDhlLzB4MWIwDQpbICAgOTguMzY0NjU1XSAgPyBhcmNoX2V4
-aXRfdG9fdXNlcl9tb2RlX3ByZXBhcmUuaXNyYS4wKzB4MWUvMHgxMDANClsgICA5OC4zNjQ2
-NjFdICA/IHN5c2NhbGxfZXhpdF90b191c2VyX21vZGUrMHgzMi8weDE5MA0KWyAgIDk4LjM2
-NDY2N10gID8gZG9fc3lzY2FsbF82NCsweDhlLzB4MWIwDQpbICAgOTguMzY0Njc1XSAgPyBf
-X3N5c19zZW5kbXNnKzB4ODcvMHhmMA0KWyAgIDk4LjM2NDY4MV0gID8gYXJjaF9leGl0X3Rv
-X3VzZXJfbW9kZV9wcmVwYXJlLmlzcmEuMCsweDFlLzB4MTAwDQpbICAgOTguMzY0Njg2XSAg
-PyBzeXNjYWxsX2V4aXRfdG9fdXNlcl9tb2RlKzB4MzIvMHgxOTANClsgICA5OC4zNjQ2OTJd
-ICA/IGRvX3N5c2NhbGxfNjQrMHg4ZS8weDFiMA0KWyAgIDk4LjM2NDY5OF0gID8gZG9fc3lz
-Y2FsbF82NCsweDhlLzB4MWIwDQpbICAgOTguMzY0NzAzXSAgPyBhcmNoX2V4aXRfdG9fdXNl
-cl9tb2RlX3ByZXBhcmUuaXNyYS4wKzB4MWUvMHgxMDANClsgICA5OC4zNjQ3MDhdICA/IHN5
-c2NhbGxfZXhpdF90b191c2VyX21vZGUrMHgzMi8weDE5MA0KWyAgIDk4LjM2NDcxNF0gID8g
-ZG9fc3lzY2FsbF82NCsweDhlLzB4MWIwDQpbICAgOTguMzY0NzE5XSAgPyBjbGVhcl9iaGJf
-bG9vcCsweDcwLzB4YzANClsgICA5OC4zNjQ3MjZdICA/IGNsZWFyX2JoYl9sb29wKzB4NzAv
-MHhjMA0KWyAgIDk4LjM2NDczMl0gIGVudHJ5X1NZU0NBTExfNjRfYWZ0ZXJfaHdmcmFtZSsw
-eDc2LzB4N2UNClsgICA5OC4zNjQ3MzhdIFJJUDogMDAzMzoweDdmNjcxOWM4ZmZmYQ0KWyAg
-IDk4LjM2NDc2M10gQ29kZTogNDggODMgZWMgMTAgNDggNjMgYzkgNDggNjMgZmYgNDUgODkg
-YzkgNmEgMmMgZTggZGMgZDMgZjcgZmYgNDggODMgYzQgMTggYzMgMGYgMWYgODAgMDAgMDAg
-MDAgMDAgNDkgODkgY2EgYjggMzYgMDAgMDAgMDAgMGYgMDUgPDQ4PiAzZCAwMCBmMCBmZiBm
-ZiA3NyAwNiBjMyAwZiAxZiA0NCAwMCAwMCA0OCA4YiAxNSBlMSAyZCAwZCAwMCBmNw0KWyAg
-IDk4LjM2NDc2N10gUlNQOiAwMDJiOjAwMDA3ZmZjMmVhMmFiMDggRUZMQUdTOiAwMDAwMDI0
-NiBPUklHX1JBWDogMDAwMDAwMDAwMDAwMDAzNg0KWyAgIDk4LjM2NDc3M10gUkFYOiBmZmZm
-ZmZmZmZmZmZmZmRhIFJCWDogMDAwMDAwMDAwMDAwMDAwZCBSQ1g6IDAwMDA3ZjY3MTljOGZm
-ZmENClsgICA5OC4zNjQ3NzddIFJEWDogMDAwMDAwMDAwMDAwMDAxNSBSU0k6IDAwMDAwMDAw
-MDAwMDAwMjkgUkRJOiAwMDAwMDAwMDAwMDAwMDBkDQpbICAgOTguMzY0NzgxXSBSQlA6IDAw
-MDAwMDAwMDAwMDAwMDIgUjA4OiAwMDAwMDAwMDAwMDAwMDE0IFIwOTogMDAwMDAwMDBmZmZm
-ZmZmOQ0KWyAgIDk4LjM2NDc4NF0gUjEwOiAwMDAwN2ZmYzJlYTJhYjEwIFIxMTogMDAwMDAw
-MDAwMDAwMDI0NiBSMTI6IDAwMDAwMDAwMDAwMDAwMDANClsgICA5OC4zNjQ3ODddIFIxMzog
-MDAwMDU1Y2M4ZjIyMDFhMCBSMTQ6IDAwMDAwMDAwMDAwMDAwMDAgUjE1OiAwMDAwNTVjYzhm
-MjFkZWMwDQpbICAgOTguMzY0Nzk1XSAgPC9UQVNLPg0KWyAgIDk4LjM2NDc5N10gLS0tWyBl
-bmQgdHJhY2UgMDAwMDAwMDAwMDAwMDAwMCBdLS0tDQoNCi0tIA0KLUJhcnJ5IEsuIE5hdGhh
-biAgPGJhcnJ5bkBwb2JveC5jb20+DQo=
+damos_goal_tune_esz_bp_temporal() converts the scheme's size quota into
+basis points with "quota->esz_bp = quota->sz * 10000", both unsigned long,
+and damos_set_effective_quota() divides the result back by 10000.
+quotas/bytes is unbounded; bytes_store() hands it to kstrtoul() as is.
+
+On 32-bit the product wraps for any size quota above ULONG_MAX / 10000,
+that is 429496 bytes.  Documentation/admin-guide/mm/damon/usage.rst
+instructs "echo $((1024*1024*1024)) > quotas/bytes", and 1 GiB * 10000 is
+2500 * 2^32, so that documented value wraps to exactly zero; 256 MiB and
+every multiple of it do the same.  quota->esz then becomes zero while the
+goal is not achieved, the trailing "if (quota->sz && quota->sz < esz)" can
+only lower esz further, and damos_quota_is_full() is true on the first test
+of every charge window, so the scheme applies nothing and the goal is never
+approached.  Other sizes are wrong without being zero: 500000 yields 70503.
+
+Saturate to ULONG_MAX, which is what the same function already writes for a
+scheme with no size quota.  Widening esz_bp instead would reach the consist
+tuner, which runs the same field through damon_feed_loop_next_input(),
+unsigned long in and out; bounding the multiply keeps the change to this
+branch.  On 32-bit a large size quota then behaves like no size quota
+rather than like a dead scheme.
+
+Fixes: af738a6a00c1 ("mm/damon/core: introduce DAMOS_QUOTA_GOAL_TUNER_TEMPORAL")
+Cc: <stable@vger.kernel.org> # 7.1.x
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+---
+Measured on i386 under QEMU: one paddr context with a stat scheme, the
+temporal goal tuner, and one unachieved user_input goal.  Each size is
+written to quotas/bytes, the kdamond is started, and
+quotas/effective_bytes is read back after
+update_schemes_effective_quotas.
+
+  quotas/bytes    effective_bytes    effective_bytes
+                  before             after
+  4096            4096               4096
+  429496          429496             429496
+  429497          0                  429496
+  268435456       0                  429496
+  1073741824      0                  429496
+  500000          70503              429496
+  4294967295      429495             429496
+  0               429496             429496
+
+Everything the conversion can hold is unchanged, and 429496 is what the
+no-size-quota row already produced before the patch.
+
+Patch 2 pins the same boundary at ULONG_MAX / 10000 and so runs on any
+word size.  Without this patch it fails on x86_64:
+
+  # damos_test_esz_goal_temporal: EXPECTATION FAILED at mm/damon/tests/core-kunit.h:1959
+  Expected s.quota.esz == max_sz, but
+      s.quota.esz == 0 (0x0)
+      max_sz == 1844674407370955 (0x68db8bac710cb)
+
+ mm/damon/core.c | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 2258b72da7a7..5ec476cef4db 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -3274,10 +3274,10 @@ static void damos_goal_tune_esz_bp_temporal(struct damon_ctx *c,
+ 
+ 	if (score >= 10000)
+ 		quota->esz_bp = 0;
+-	else if (quota->sz)
+-		quota->esz_bp = quota->sz * 10000;
+-	else
++	else if (!quota->sz || quota->sz > ULONG_MAX / 10000)
+ 		quota->esz_bp = ULONG_MAX;
++	else
++		quota->esz_bp = quota->sz * 10000;
+ }
+ 
+ /*
+-- 
+2.53.0
+
