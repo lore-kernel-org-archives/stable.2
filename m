@@ -1,72 +1,102 @@
-Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAF733F8CA
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 07:46:15 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DEA7357A3E;
+	Sat, 19 Sep 2026 08:04:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789803978; cv=none; b=JW7kiGuqHn6KlsE6/dtkd4u/ZSI1Bh79/iE6/6Q/TzQRu/F2jJCJTZFsBtgN1PZtbx0TKZf2hvyGhQ0kApTsj16a20xGc2CdoMwlOiBOgqLc90MOZ71gCDS9TAfGus8ZVy+XHJi/uwbrGKVVV+zfoS/V1Na345QeJmJp62ngkEM=
+	t=1789805074; cv=none; b=Zsm0UDFXTUAOgZvf7nVwvT+bUUjE8edjZM8dW6Wvtvek4cyJP5nY+ihP+2AlozOdoq8IDMH6LGRYQGMf8Ur6ESArxVah0xqpoY+RqVreQY2Br3Cft1fO/L9G0QGBi069WpDUy5efep7Atlm25YA7j82fzEyMPZIIXQir+/U8tSY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789803978; c=relaxed/simple;
-	bh=hBrURUYdSvExW4H+R5fGi50ARQU+zVjzHlkBJGQkD+g=;
-	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
-	 MIME-Version:Content-Type; b=bTzJr4L91RD75BJ1Qt9Zy+5nR7Qcgkzk40nBGBm0c0aauH0h0V7fB8pcC+oDTEdB5vyAnZpcBn5azXl6tn9i+EQsMxR+w75OvOP9MnvZiyxnZbLuA8O7UcJ014uEzDrt+2tFaXifdqAlRrfDFDDaz6S5TfM40aC3DqBrMQoWM7k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wZSRH7kn; arc=none smtp.client-ip=185.171.202.116
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
+	s=arc-20240116; t=1789805074; c=relaxed/simple;
+	bh=EvHlpgivnDBPjAAAymcIR46sHhOLQzwTTV8L+BIXLPI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=eGO+BwKNt+Gcd7dex53vv3pW8TqZa2uqO/A0y2PkbBoCX/bXU+6kzYqVqYcnscWERRTdT3Dmu22LroF1nQQTYYVxmXLcFJzhrhH0FefoKmdpFgLcNHqSKR1PQh4DeyN+YtBsMdX8VtYHEEVHKvSR1MC28NdbXKhwm8CxMr9Ur1c=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=fT5FmWnC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wZSRH7kn"
-Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
-	by smtpout-04.galae.net (Postfix) with ESMTPS id 02A49C51459;
-	Sat, 19 Sep 2026 07:46:59 +0000 (UTC)
-Received: from mail.galae.net (mail.galae.net [212.83.136.155])
-	by smtpout-01.galae.net (Postfix) with ESMTPS id CD89A606CA;
-	Sat, 19 Sep 2026 07:46:13 +0000 (UTC)
-Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 104F21032907B;
-	Sat, 19 Sep 2026 09:46:07 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
-	t=1789803972; h=from:subject:date:message-id:to:cc:mime-version:content-type:
-	 in-reply-to:references; bh=hBrURUYdSvExW4H+R5fGi50ARQU+zVjzHlkBJGQkD+g=;
-	b=wZSRH7knEB6j1Jv5yj9aZBXFT7dUyU+pxX0jNlCh3fIsf488iQ+rIhTLme03tTZzPqwYfa
-	Lu97U8j+mwh5mZoyt12Y3CGL2UdnI4PWQKiXP/BYweBhKtV4emN/w/Zc3zFP7jwDdWNLd/
-	KFcuE5qQif8HpEvR/KsiWUFRrvhl7zPoftY24ijDppeDNydl+eQ/VhtBMw51RgImiYiasy
-	XQxcVBKT6uoCqgVymjLakogILCbdM1jQHiDJkPkqmiaAMbqiM6rcBPRP+D93IR/BKDHEb3
-	dpDVoq1wHZN+9jpnCCU8PgtLeOviSHIJ/iLVQFe7tr1XZ8B/qoaRU7zCb/pVaw==
-From: Miquel Raynal <miquel.raynal@bootlin.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="fT5FmWnC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9D3381F000FF;
+	Sat, 19 Sep 2026 08:04:30 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789805072;
+	bh=1A7zgHl0PbBLd/G+UwbWmI0Rmra8zyDI6VGB+cnjPfQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=fT5FmWnCQH/R4jOAvwjIAtCiR82HrqyVJUdOc8n4B1aNGfnl1DnNFC/0NHthvULGz
+	 GoKY8ymNDlmUSj6FEZZAeMDVs5IRtWApb0N066dzm3am1c4mMXVzYTy/f8f+Ama2Bg
+	 iNhPmJ8iVCNAXma7VMGdN07UCQf4GvMyFj/5T8JaY8VykSHVvl3nzl0/2BrD8UbS7d
+	 5bIrwZdrlOLjrQj+mOX8fEsP8Z79EZxFhTzcMCFpoTqefsIqSwkvnOGU60Af8MvaQ1
+	 PH2Jl/NBHoA7/O+0iu5RYgOfbkPuO7VTWciryLK8l6W5Gf+8M1Ma9bJ1OE46/UU4tl
+	 +CIPjJuLVUnVw==
+Date: Sat, 19 Sep 2026 09:04:28 +0100
+From: Simon Horman <horms@kernel.org>
 To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: alex.aring@gmail.com,  andrew+netdev@lunn.ch,  davem@davemloft.net,
-  edumazet@google.com,  kuba@kernel.org,  linux-kernel@vger.kernel.org,
-  linux-wpan@vger.kernel.org,  marcel@holtmann.org,
-  netdev@vger.kernel.org,  pabeni@redhat.com,  stefan@datenfreihafen.org,
-  stable@vger.kernel.org
-Subject: Re: [PATCH] ieee802154: atusb: Fix URB reference leak in
- atusb_work_urbs()
-In-Reply-To: <20260917114821.2149704-1-vulab@iscas.ac.cn> (Wentao Liang's
-	message of "Thu, 17 Sep 2026 11:48:21 +0000")
-References: <20260917114821.2149704-1-vulab@iscas.ac.cn>
-User-Agent: mu4e 1.12.12; emacs 30.2
-Date: Sat, 19 Sep 2026 09:46:06 +0200
-Message-ID: <87mrtdela9.fsf@bootlin.com>
+Cc: andrew+netdev@lunn.ch, ayush.sawal@chelsio.com, davem@davemloft.net,
+	edumazet@google.com, kuba@kernel.org, linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org, pabeni@redhat.com, rohitm@chelsio.com,
+	stable@vger.kernel.org, Sabrina Dubroca <sd@queasysnail.net>
+Subject: Re: [PATCH] chtls: Fix skb reference leak in chtls_send_reset()
+Message-ID: <20260919080428.GX51261@horms.kernel.org>
+References: <20260917105846.2147976-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
-X-Last-TLS-Session-Version: TLSv1.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917105846.2147976-1-vulab@iscas.ac.cn>
 
++ Sabrina
 
-> usb_get_from_anchor() hands over a reference to the URB, which the caller
-> has to release. atusb_work_urbs() never does, so every URB collected from
-> the idle anchor keeps an extra reference: the reference count grows on
-> each retry cycle and the URBs are never freed on disconnect. Drop the
-> reference after a successful submission, and after the URB has been put
-> back on the idle anchor when submission failed, as the HCD holds its own
-> reference while the URB is in flight.
->
-> Fixes: 7490b008d123 ("ieee802154: add support for atusb transceiver")
+On Thu, Sep 17, 2026 at 10:58:46AM +0000, Wentao Liang wrote:
+> chtls_send_reset() is given a skb holding one reference, to be sent as
+> CPL_ABORT_REQ. It consumes that reference on every path except the
+> TCP_SYN_RECV one: there it sends a TCB field reply built from a freshly
+> allocated skb and never releases the passed-in one.
+> 
+> This leaks the reference taken by reset_listen_child(), which resets
+> half-open children in TCP_SYN_RECV found on the SYN queue.
+> 
+> Release the skb on the TCP_SYN_RECV path as well.
+> 
+> Fixes: 8ad2a970d201 ("cxgb4/chtls: Fix tid stuck due to wrong update of qid")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c | 6 ++++--
+>  1 file changed, 4 insertions(+), 2 deletions(-)
+> 
+> diff --git a/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c b/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
+> index 0e3e5cf52c2c..a363f20452fa 100644
+> --- a/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
+> +++ b/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
+> @@ -265,12 +265,14 @@ static void chtls_send_reset(struct sock *sk, int mode, struct sk_buff *skb)
+>  	chtls_purge_write_queue(sk);
+>  
+>  	csk_set_flag(csk, CSK_ABORT_SHUTDOWN);
+> -	if (sk->sk_state != TCP_SYN_RECV)
+> +	if (sk->sk_state != TCP_SYN_RECV) {
+>  		chtls_send_abort(sk, mode, skb);
+> -	else
+> +	} else {
+>  		chtls_set_tcb_field_rpl_skb(sk, TCB_T_FLAGS_W,
+>  					    TCB_T_FLAGS_V(TCB_T_FLAGS_M), 0,
+>  					    TCB_FIELD_COOKIE_TFLAG, 1);
+> +		kfree_skb(skb);
+> +	}
+>  
+>  	return;
+>  out:
 
-Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
+This code change looks reasonable to me.
+But the driver was removed in v7.2 by
+cdae65fc43f2 ("tls: remove tls_toe and the related driver")
+And, as a result it didn't run through our CI.
+
+So while I think it could go to stable
+It probably needs more eyes on it.
+
+As an aside, I notice that this driver still appears
+in MAINTAINERS in net-next. I will send a patch to remove it.
+
+
