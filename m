@@ -1,35 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B95EF59B56;
-	Sat, 19 Sep 2026 00:11:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9AD864A8C;
+	Sat, 19 Sep 2026 00:26:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776690; cv=none; b=nGQ7qg0hZEMxFowcoxTo0RrUAHmYVNz5QBCMSaYVWTn8WOXVqzF8ta0SV7D/yxqpMay8N1it9GzGx61Qc6IIJB8xFFKdSUgEbtOBsVqoAOdbejKN9EIL5DeZwJlv9Ui5PA7MXNKfOsGdZkQhNhmcNgfJ+n1UK/NUDnYB3eqT7Q8=
+	t=1789777568; cv=none; b=BLkZsxW7Gzu+32+6SJD0GqRORwStb6p8fAjb1l8AfkqwN3vRYLASsv7fFv41LLHK7/GaoD31TBX2R9BIY5yWRPw+E+3eJdts3yCURDsvOhEgHebob7u8M3EXoSR++s9uIkN6KJcYD8ug6twdd5j3rUHzz/an4bY5rQ1BO1cVRM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776690; c=relaxed/simple;
-	bh=zlnNvibZ9UECBOhcxsqRmSALx8GJ4J/HotslRkKs6Dc=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=VlF6wzzO1S6w6O0GnKhkO7WIiOsxTSJqrc1Ohvf11ejtXTHCYb059DbjP7ZQDSYYl6TM90FQoqC0GxONsUEPE2hhbDTSN1WJ2nr8fn6h0FX6YT0iMbd0nHNHFw8zxipp2jB3tJlBC9Ax8A7scfRsEtVfb55gD+ZzhCZ+EXRLyZ8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D0JvA1Ez; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789777568; c=relaxed/simple;
+	bh=Yoyql3cjZgmbP2RVwcMSapgV6fogC2z04BUy9vju/v0=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=U2uCSq6Id3nPBykUEkpJHFVaXTjOd3ktp/1N6EAMJKH/jlCPcQCmUR4F3k5Gl+5bGVq3wDWi7+FtzflRrvfM36UaCqZ4dX0iwU8zTdQarX8NfynAR8b2DMBRAwHPUvOCthRND6lcbaRtRZBVfnhio5iuMpmEr31XdZ+EmV0amkQ=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TV3bGKNT; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D0JvA1Ez"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 690DF1F00898;
-	Sat, 19 Sep 2026 00:11:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TV3bGKNT"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id D5A801F000FF;
+	Sat, 19 Sep 2026 00:26:06 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789776689;
-	bh=lhf5uqL5K15bNYATsjdroq30RYPaV17sToVOTYUPIVk=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=D0JvA1Ez8GvKLnHpfL9Fd6apsvbE/2cW6FGj0MHi+qP6nUfq6Q6LDUU3loXnLnh+S
-	 aKrMbDvdg6Bg7QbJE2fDgzVS/+5FSbn0SkDuNSV68bEGhkKYV2ItwLsbJgNzh9FjQS
-	 t7db3gmfKdZt170CqMYQB227F4mRmtnthcCa3k8qjQr5HuujO0rhaN3G1yJP0KFvKu
-	 6fiE8UZWXi12v8/8wAD4bEiHReQ4dOLxeVwdVQX8iMJA1MChc4PVsozKd9hAYqqB4S
-	 e71jvwbiAKE9nC8KQg4rhe54eo4U5PoYdMhguQTtehRwX/fqfRcgcL3ECjcFjqtnzz
-	 GwZ/gEx+M1VGQ==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 939133811977;
-	Sat, 19 Sep 2026 00:10:23 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789777567;
+	bh=GELPEbFVXKBklHiVlViGJWcS9YhkAO9x07HDRK0Qds4=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=TV3bGKNTwt+dkaw3NYtbnogRbP7A4Fi+w35zUwtO1TuyPq0NINwHeY5n/wakATuno
+	 uyGjDCfSlS0O1xEFzVIL1rXT7NBO9Jzdqa+SByrG9LvpD8YlE2S914XaajU5ISUpEd
+	 jvFA26hMiyQLQi1o7hSESoH9n0XSesNoLYx1Y7BXRzYfshv06+6JfJVH8vqSeuz1MV
+	 AUgjctXXZk7BV2l9ahtxhEfEN2BfWFHIgHx1F5QUNoMN85fyKiN9BA0aSQ+l0t1hQr
+	 G4ONe9h6qe3s/Oujmq9+uLFdqYPimkS9LC3ayndEFuiaOcqlMj/72pH/rNIE5HwLlB
+	 JFLjCPqxwQsZw==
+From: SJ Park <sj@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: SJ Park <sj@kernel.org>,
+	Hugh Dickins <hughd@google.com>,
+	Baolin Wang <baolin.wang@linux.alibaba.com>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	"Paul E. McKenney" <paulmck@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	kernel-team@meta.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] mm/shmem: report RCU-tasks quiescent states while undoing a range
+Date: Fri, 18 Sep 2026 17:25:58 -0700
+Message-ID: <20260919002559.77365-1-sj@kernel.org>
+X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260918-shmem-tasks-rcu-v1-1-79acf91a2569@debian.org>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,41 +50,47 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: ionic: free VF resources on remove
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178977662214.1197442.13036951567761793356.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Sep 2026 00:10:22 +0000
-References: <20260916053117.2906446-1-lgs201920130244@gmail.com>
-In-Reply-To: <20260916053117.2906446-1-lgs201920130244@gmail.com>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: brett.creeley@amd.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, tglx@kernel.org,
- kees@kernel.org, tiwai@suse.de, wangruikang@iscas.ac.cn, sln@onemain.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
 
-Hello:
+On Fri, 18 Sep 2026 04:24:37 -0700 Breno Leitao <leitao@debian.org> wrote:
 
-This patch was applied to netdev/net-next.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
-
-On Wed, 16 Sep 2026 13:31:17 +0800 you wrote:
-> ionic_probe() allocates VF tracking data and maps a statistics buffer
-> for each already enabled VF with ionic_vf_alloc().
+> This shows up in the Meta fleet on ftruncate() of large tmpfs files:
 > 
-> The probe failure path releases these resources with
-> ionic_vf_dealloc(). However, after a successful probe, ionic_remove()
-> tears down the LIF and device without releasing the VF resources.
+>   INFO: rcu_tasks detected stalls on tasks:
+>   00000000752fd185: .. nvcsw: 59455/59455 holdout: 1 idle_cpu: -1/0
+>   task:rocksdb:bottom  state:R  running task
+>     __folio_split
+>     find_get_entry
+>     find_get_entries
+>     truncate_inode_partial_folio
+>     shmem_undo_range
+>     shmem_setattr
+>     notify_change
+>     do_ftruncate
+>     __x64_sys_ftruncate
+>     do_syscall_64
 > 
-> [...]
+> shmem_undo_range() walks the whole of the requested range in folio_batch
+> sized steps, twice, and its two cond_resched() calls are the only
+> reschedule points in that walk.
+> 
+> cond_resched() is not an RCU-tasks quiescent state.  Use
+> cond_resched_tasks_rcu_qs() at both points so the walk reports an
+> RCU-tasks quiescent state as it proceeds.
 
-Here is the summary with links:
-  - net: ionic: free VF resources on remove
-    https://git.kernel.org/netdev/net-next/c/9f1c440f9283
+Makes sense to me.
 
-You are awesome, thank you!
--- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
+Btw I wonder how many cond_resched() will survive from the Mutphy's machine.
+Just thinking loud.
+
+> 
+> Fixes: 8315f42295d2 ("rcu: Add call_rcu_tasks()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
+
+Reviewed-by: SJ Park <sj@kernel.org>
 
 
+Thanks,
+SJ
+
+[...]
