@@ -1,86 +1,81 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 712EE3AEF2E;
-	Sat, 19 Sep 2026 01:10:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 586BA3B9DA7;
+	Sat, 19 Sep 2026 01:21:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789780261; cv=none; b=fVBCMmhOQrRdHvyxVmM7krGVcsT3dsGEu9HFNBFtLfeiBoo4icREpUHWNU9WunJNNnt/clGI8zC0Yx2rggVyHOhSc0xKmfc3nAGZN1RqjP380fMeVhAj7xLxgPLujLQjqXbHGF9vYFnwFyn08d3HzqpwWGwl1t5dyLL0/MTUduA=
+	t=1789780889; cv=none; b=QdTZ5kALwTACjHd8CESEjotvLsS1ZcFsh1bEILfd/0cmYTwFIM2wEkqnXFzfwTwd6D0PbGYtejenE5fpThIB+2mIw0HW5lSOhNgsG5L0PsXfsR9rUSJGLX/STJSsE5P9E13HYMJoDd/7cZSjL2KAoS1BPTVVUUx8WQ26l+hbQwI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789780261; c=relaxed/simple;
-	bh=/uFvDU0eh29LSha4tX/8NfQlZ8H3dSXMwwqga3OqBNw=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Sby5lu5B8/cj6HoJKrzCPpW6lbnQV6op8PlWjCALSLa9IapD9Y152tiR6zMJeu/VXjWhWvKHwPM9yZ92YaaUJByuvSOfpnCjh40jRYoALdsL9u1pD8pA8FCv58rLYU/1ca2bw7XU6c/a2FdlT8kfcHNEJDYWtepZ0vsN5wu498A=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=WW1fcCZ/; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789780889; c=relaxed/simple;
+	bh=OYdMBBiyMG0yAA7jK+T8oYaNQizfScsWVE59F9Ha8m8=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=LzsmZHXibr9jG6bELMJFSJFOrOjUD9Ht3pELXf0tgSD20TbS5T/GMcL64JrhApcX78wkSZL08Akbt2+whFKN2AXYqbW5OXYD1C0IeGQCpFO+P8A/kG/n+P8EROzzDdHdrUO93/mdDikL4fz/pZd5HGkY+EajIX26KPCNWgFcNF4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=WIikHbkK; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="WW1fcCZ/"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e57bef79;
-	Sat, 19 Sep 2026 09:10:42 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Eugen Hristev <ehristev@kernel.org>
-Cc: mchehab@kernel.org,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: Re: [PATCH] media: microchip: isc: Initialize DMA lock before requesting IRQ
-Date: Sat, 19 Sep 2026 09:10:13 +0800
-Message-Id: <20260919011013.3383669-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
-In-Reply-To: <77440bae-7381-451f-861d-1399bac4d925@kernel.org>
-References: <20260830023228.2054498-1-runyu.xiao@seu.edu.cn> <77440bae-7381-451f-861d-1399bac4d925@kernel.org>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="WIikHbkK"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EE6DD1F000FF;
+	Sat, 19 Sep 2026 01:21:11 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789780872;
+	bh=sLkauqrG9cJJazGhRAmL1C5dD6B5Im/JEJm/qQv759M=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=WIikHbkKCVuruURgVsTLBYcRg1Fu5hHTalv+l9gMJWD7Btw7+gA0KxFywbMshdthc
+	 NaU4UiMBf90enqZAytGC+iAwdYcK2MIE/YvBmVAF61vL+EbUS2w+aDY5UzmXUo1om3
+	 T8cRJ5yPzG0teYTyhslz+TXFc6RhNIKDSF8zCjAmdjDIc8/fFRjq9KTD+/tH+Vgox1
+	 +XvHD7eLU2c8Pp2j2WvTDKgXdMGhA6cx3XwWoFpcDjAGgexEZUGQJCKMKtiQqYGxcA
+	 VKjzEY8+50qHULuqlYzOiCfP/6WNOrYAioyYU1REgaWx4QXnPBdpNu0Ln/+yM/KQ1l
+	 Yw3yhMRpd484A==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 1980F381197A;
+	Sat, 19 Sep 2026 01:20:06 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0b7372f1f03a1kunm3e30bd173c544d
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaHU5JVhhKTEhNTk5DH0kdSVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUJCSU
-	5LVUpLS1VKQktCWQY+
-DKIM-Signature: a=rsa-sha256;
-	b=WW1fcCZ/BhtAK9Thi5+jeYyF6SRlRv2/jTmkwr1+L0aAEHVRBq+c//Oe3hXsLcdDH0+kIk7b/9V9VfRXCys4RwsDqkPO8DaDZISwHF0kOtvnC873DlOssV0IWprxPC+5b/49nTeMuWrGh95Bg3qxzKFWAKgkZgfjN7Ga8b1ng4g=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=/uFvDU0eh29LSha4tX/8NfQlZ8H3dSXMwwqga3OqBNw=;
-	h=date:mime-version:subject:message-id:from;
+Subject: Re: [PATCH net v3] net/mlx5e: advertise MACsec offload only when
+ supported
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178978080490.1218950.811303206106717319.git-patchwork-notify@kernel.org>
+Date: Sat, 19 Sep 2026 01:20:04 +0000
+References: <20260917122724.654639-1-ralf@mandelbit.com>
+In-Reply-To: <20260917122724.654639-1-ralf@mandelbit.com>
+To: Ralf Lici <ralf@mandelbit.com>
+Cc: saeedm@nvidia.com, tariqt@nvidia.com, mbloch@nvidia.com,
+ netdev@vger.kernel.org, leon@kernel.org, borisp@nvidia.com,
+ sd@queasysnail.net, andrew+netdev@lunn.ch, davem@davemloft.net,
+ edumazet@google.com, kuba@kernel.org, pabeni@redhat.com, ehakim@nvidia.com,
+ sbhatta@marvell.com, horms@kernel.org, stable@vger.kernel.org
 
-Hi Hans and Eugen,
+Hello:
 
-Thanks for taking a look at this.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
 
-On Sun, 30 Aug 2026, I wrote:
-> The ISC interrupt can run before asynchronous subdevice completion,
-> but the DMA queue lock was initialized from isc_async_complete().
-> Initialize it in each SoC probe before requesting the auto-enabled IRQ.
+On Thu, 17 Sep 2026 14:27:23 +0200 you wrote:
+> Commit 339ccec8d43d ("net/mlx5: Enable MACsec offload feature for VLAN
+> interface") added NETIF_F_HW_MACSEC unconditionally to vlan_features so
+> that VLAN devices could inherit MACsec offload support.
+> 
+> mlx5e_build_nic_netdev subsequently copies vlan_features into
+> hw_features and features. As a result, all mlx5e NIC netdevices
+> advertise MACsec hardware offload, even when the firmware does not
+> support it and the driver does not install macsec_ops.
+> 
+> [...]
 
-On Thu, 10 Sep 2026, Hans Verkuil wrote:
-> It's dubious to just init dma_queue_lock here but not
-> INIT_LIST_HEAD(&isc->dma_queue);
->
-> I think Eugen needs to look at this as well to see if this is actually
-> a valid issue at all.
->
-> In any case, this patch doesn't look right to me.
+Here is the summary with links:
+  - [net,v3] net/mlx5e: advertise MACsec offload only when supported
+    https://git.kernel.org/netdev/net/c/4581c3d2adc3
 
-You're right that moving dma_queue_lock alone is not enough. The interrupt
-handler also accesses dma_queue, comp, and awb_work, which are initialized
-later from isc_async_complete(). I also need to confirm whether an interrupt
-can actually be pending at this point, and whether the required clocks and
-hardware state are ready during probe.
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
 
-I have not established that yet, so I'll drop this version for now rather
-than send a v2 that only moves another initialization. Eugen, could you
-please confirm the expected reset and interrupt state during probe? If there
-is a real probe-time path, I'll revisit this with the complete ordering.
 
-Thanks,
-Runyu
