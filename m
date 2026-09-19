@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DA33032C937;
-	Sat, 19 Sep 2026 00:51:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3268F34041B;
+	Sat, 19 Sep 2026 00:51:18 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789779079; cv=none; b=jjxRTpne4aiROcxo1cvPfKCm5G9JEPWAqkquSZ+8HR5SX6LTTLKVQh/py1pqvCOpkEjgD0vKMo1VSkAZF710hn5RE6wwf6HVhDb1fWmGxhR2ktXdY/+BQ23fFaEzL6E7zuae1fZCYY6Nn86cXh5l2C4PVDwx6vhiTV4/jTjkc/g=
+	t=1789779081; cv=none; b=jcxRa5T8KYtnftv+L3klmjoURt0wSmIa6Y61SrH3/4FdE+HPGpvGJh/Kfbrl98K/saOrntbMdOzxGRhMi9eF+Jd/OYLYoxP/U3OJdP0M1yn4iPNnDK4wgNVPAOiMvV5HXCEGW0cxyuVmXplbPQL8xHSqxEJ+ARhHKBs5EQ+dZzs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789779079; c=relaxed/simple;
-	bh=HilSvSQ4yLUiKHRmolkzokAMmeJPgM9mLWksF322B28=;
+	s=arc-20240116; t=1789779081; c=relaxed/simple;
+	bh=DyVehS0txZ7oFOo+S0bMk7v9RZOvRvFwjkMQ3VSSDUE=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=rrWucQDtU1sycA2NxbZAlJPMFs6JEGkKOmgiuTpMoeNuB4Yz5+MopmeyC2G4d7NXq3KT8l1ZJtEGVcSUQQ7pr64WWWzZNGq4qHDCrfKBPboPdwFwuqj4udZK32hlCx7TjL25Z+2jk0CK8X9EWLlHV5ucPwZ2RIMFu+8F295Y1e0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=H7yKy1Bo; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=hipLW9IbZHTeVH8N+PVagPfmhe+Ww2dwoHbYbJwn/RRGwEXi2mnlxXPKTeQ30qw16d4CwM4DpK6crxSDg/2F/ZFJUn/nLlYvLmzR67Efvp8alN3Fi+HtzT0lHm7llqPIua/XIvjvlBtKd1Y7NVIyMTSPg3NrmjexOJDfNPI+LKg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jWu4wBpC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="H7yKy1Bo"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 31A8C1F00898;
-	Sat, 19 Sep 2026 00:51:16 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jWu4wBpC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AA29C1F00899;
+	Sat, 19 Sep 2026 00:51:17 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789779076;
-	bh=APJRPQQ8l/sUsDmP3jOOlOOG5TW1M5rYEXlJvTnGoew=;
+	s=k20260515; t=1789779077;
+	bh=rc7y5122sbWh1tOA4lDgYnN7hntOUg/sYT6sc2pWEpk=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=H7yKy1BovtIlUFapscNWLtJS1P+8pDS06rsyqHpBK+coAb2daOtF9dgqIBRGmRW2u
-	 6b6NLTizS0FuvRFl6cDsJu78H0NzC8GJS7nLGapynq2q52xBgt2PJdCsfIi4gTfosi
-	 2EN1TSvESz1kEzeBUFd6o+weP6LMOjOzyqcqFrWTl704MRhrOKqlCJk2DTbJDBh2pl
-	 6yDmSJ2U/GurQwBTpZvQL/EG3w6slt5hxPK0m+rlO6WBdJ/CZ9+ELS88YfxtZ7uWAE
-	 PN9mgP8gi1x/WWuPGMqzbRXLLyhBac8t3sXhIT2xFcDLY6QpC/wlnWp8+ontM0HgS1
-	 NmfLbWdmvsWGA==
+	b=jWu4wBpCq+qHMcVf+CrPyi+Fh8bwoQW32qpdpCsS4QyzwEGKn3dm+FGoSqA1s2bER
+	 lEDXSqLe8nw8kGJj7/E6oQln1gJTh9dwgzO2M2z1RtL1ecoO6dRXxTY/s4L8SwJCwm
+	 owQNuU1IwvygGhHFSKemW7zD9ISe5JJ6aL30lmlyFHOjHRBlaPXL3qVyFad91ib9ef
+	 zpwOtymU4YzcXpZ/TJ8zQyVzEeJFtvSsi/m4DTHUikCywewj3D9M1ufhChALNLZLpW
+	 HXJDvoTSg9IZMUxYLRolDUEWd+J2bZakhE4eBi+6WQKCILOp+eq2AtrUOBvvv7JUgl
+	 aSBGXaRlY03EQ==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569AA3811978;
-	Sat, 19 Sep 2026 00:50:10 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id D0A353811978;
+	Sat, 19 Sep 2026 00:50:11 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,38 +37,42 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH] net: phy: micrel: Advance register data pointer in write
- loop
+Subject: Re: [PATCH v3 net] sctp: avoid livelock while updating retransmit
+ path
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178977900889.1211687.16787571187832684308.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Sep 2026 00:50:08 +0000
-References: <20260916231928.1336305-1-abhishek.ojha@savoirfairelinux.com>
-In-Reply-To: <20260916231928.1336305-1-abhishek.ojha@savoirfairelinux.com>
-To: Abhishek Ojha <abhishek.ojha@savoirfairelinux.com>
-Cc: andrew@lunn.ch, hkallweit1@gmail.com, linux@armlinux.org.uk,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- rmk+kernel@armlinux.org.uk, horatiu.vultur@microchip.com,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, stable@vger.kernel.org
+ <178977901039.1211687.5015867154963492333.git-patchwork-notify@kernel.org>
+Date: Sat, 19 Sep 2026 00:50:10 +0000
+References: <20260915095017.942213-1-sunyiqixm@gmail.com>
+In-Reply-To: <20260915095017.942213-1-sunyiqixm@gmail.com>
+To: Yiqi Sun <sunyiqixm@gmail.com>
+Cc: lucien.xin@gmail.com, marcelo.leitner@gmail.com, davem@davemloft.net,
+ edumazet@google.com, horms@kernel.org, kuba@kernel.org,
+ linux-kernel@vger.kernel.org, linux-sctp@vger.kernel.org,
+ netdev@vger.kernel.org, pabeni@redhat.com, stable@vger.kernel.org,
+ sunyiqixm@hotmai.com
 
 Hello:
 
 This patch was applied to netdev/net.git (main)
 by Jakub Kicinski <kuba@kernel.org>:
 
-On Wed, 16 Sep 2026 19:19:28 -0400 you wrote:
-> lanphy_write_reg_data() does not advance the data pointer while iterating
-> over the register table. As a result, it writes the first entry num times
-> and leaves the remaining errata registers unconfigured.
+On Tue, 15 Sep 2026 17:50:17 +0800 you wrote:
+> sctp_assoc_update_retran_path() can loop forever when every remaining
+> transport, including retran_path, is SCTP_UNCONFIRMED: the state check
+> runs before the wraparound test, so the loop cannot observe that it has
+> completed a full pass.
 > 
-> Single-entry tables are unaffected, but tables with multiple entries
-> leave every entry after the first unapplied.
+> Fix this by considering a transport only when it is not UNCONFIRMED,
+> then checking whether the walk has returned to retran_path. This makes
+> the full-pass termination independent of the transport state while
+> preserving the existing fallback selection semantics.
 > 
 > [...]
 
 Here is the summary with links:
-  - net: phy: micrel: Advance register data pointer in write loop
-    https://git.kernel.org/netdev/net/c/95c4d54ed022
+  - [v3,net] sctp: avoid livelock while updating retransmit path
+    https://git.kernel.org/netdev/net/c/d2c31b837406
 
 You are awesome, thank you!
 -- 
