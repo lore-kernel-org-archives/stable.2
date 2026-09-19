@@ -1,34 +1,34 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BEC1ACEDE;
-	Sat, 19 Sep 2026 23:21:14 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3738133BBCD;
+	Sat, 19 Sep 2026 23:31:13 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789860075; cv=none; b=GB78BYNmVbVyPlJXfhnBNFIHfzKurpXVtuO3ahXLwz6Ts9z2QsR97DDC56TjIU+lcc/JgfljnfPGvTxr+dAsNuWtuuXh+r8S8ykcMoPNk+CrJCxtH73fsjvJ9i+PVebybKlhl5sW3fUBYVp6QBMsbxQkvbyYn6Bh12Hs+wydDdk=
+	t=1789860675; cv=none; b=SiIBKE3HQxlnUXW+PuwKRVhkuElvsuUN1XtWIwM0OvUkyZvcXDEVJ+nSsfn5o5z1vGhrnqLUSRDIJI0EmDd9l5eHry39LkQjLvZNQx6JqUIYIeYYmdboTkBNMXB1Ux5xT1oZajYVyNNxl5x/pvC4wTQVoHCJKf67Ir0LE/k8dj0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789860075; c=relaxed/simple;
-	bh=AZb+kScGG4PiiruSgXKlU3T7M3DKD2mW+8q/vno4rMc=;
+	s=arc-20240116; t=1789860675; c=relaxed/simple;
+	bh=Uc6riLnBz5+J8dYqDHj3zzGSsYAXRgnidFsH6sDHDE4=;
 	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=Luft+FcUj+CyYjPMlEWxeURvqHuj4tBcIHTUykiy7dzCWH50coFD13AJ9JkrjMwm/ePMzkrTHnz1bvS5P6fhK6XUryVM9SJxQbj3aJawXXPqfVSAjBwgqMTUiu5DvfmDPxFTvn6LXzCkgp9NJAGbtRX3ffENQDS8M1CJoMoMw8k=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/mBXBMa; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:To:Cc; b=hLTqXXU+w9B0ppDANn+FJkhbpKCM/NCRSOWECVmuHiMYH8MLz2SzeaExq2yPtWuwbexzJovYX0oxI98QXTHoZiQklfjKVg7oSboMJjr6wH31rdb0RP4nhYL8F4A8rR0mumiPEhkMa1NQ6QiZGXPOVCU6VJ89Ih6GUShyCkKN2fs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lNE8Q2Sf; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/mBXBMa"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629FF1F000FF;
-	Sat, 19 Sep 2026 23:21:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lNE8Q2Sf"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A1A1F000FF;
+	Sat, 19 Sep 2026 23:31:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789860074;
-	bh=iq5dAyUVLkaFGRL8cxxr6glqE0y8QGW2cBUUD1enuwQ=;
+	s=k20260515; t=1789860673;
+	bh=TXB54+NWb8Funxwz7w7i+S5lnrzAQ9Mim6+8OjJPVgw=;
 	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=B/mBXBMa56uwxFfA5ic92suV9u1k5JIGgSgGgP6yeNUJbOPY09uIOKQX2Nb39Gntc
-	 Epqca4GFEBOIGczJvwhg0squzRDKpONl3hwBcrQE9qkOzCxkMP0SU4l2BhSBNpgjcc
-	 6BwHxZjJtLnC8JWnyLckW8kYZTa7LbeMpI6iN56sljxt4462+pCHiZK+sLZHLj/sbP
-	 C1PgOqCdH6mXXTwpztLYcIfkcC3+Pws0sqis1bPxm4JcSZq+T+beDqzy4oeNTjrRJB
-	 jtr18LA3Qq3jXhalNid/x/NcgJqTekrKAwBRHdrAPAjShVA8Y+2flg7uY5cnZAhlxi
-	 ptx8FlVWNqwQQ==
+	b=lNE8Q2SfZ+0fSu4KbAWRLsD0luqqtvqmPXzdnLR8GaGC9O14PEfliQ2N9rHDARSa+
+	 algKbc4YGwUbib7Yl8k2FxqYNF19ZG6yAP8GqPS4ol1+WRVdOwj6hw6FhHUz+9oDep
+	 BqNJ2BqwmUghHN7ULQBSxN/69Ttoiy0njq+9kgWm6Lm31az25qhdvo72iGkx5aw02V
+	 VtlVuAsMYWybhtMTeC08ZtkWwOGQnNgkO23bbQlXXpU0LzbXHIwDZp4n+xQaEJmpyR
+	 kLk26OYqip3KObvJEsBuILxljvHYHZffXnRbaKERH1MEVQyqCNJtuvT7vaQB4n9/4Z
+	 702EpTDSCgf4A==
 Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19731392447F;
-	Sat, 19 Sep 2026 23:20:08 +0000 (UTC)
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569DB392447F;
+	Sat, 19 Sep 2026 23:30:07 +0000 (UTC)
 Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -37,39 +37,40 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH net] vlan: require the MAC header to be present in
- __vlan_insert_inner_tag()
+Subject: Re: [PATCH bpf 0/1] bpf: crypto: check params size before reading
+ reserved fields
 From: patchwork-bot+netdevbpf@kernel.org
 Message-Id: 
- <178986000690.1491217.13452537576986378858.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Sep 2026 23:20:06 +0000
-References: <20260915083152.705309-1-xmei5@asu.edu>
-In-Reply-To: <20260915083152.705309-1-xmei5@asu.edu>
-To: Xiang Mei <xmei5@asu.edu>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
- bpf@vger.kernel.org, linux-kernel@vger.kernel.org, jakub@cloudflare.com,
- stable@vger.kernel.org, co+0ea1ac045375cf05@bugs.sh
+ <178986060614.1492995.17864006434061147722.git-patchwork-notify@kernel.org>
+Date: Sat, 19 Sep 2026 23:30:06 +0000
+References: <cover.1789802413.git.xuyuqiabc@gmail.com>
+In-Reply-To: <cover.1789802413.git.xuyuqiabc@gmail.com>
+To: Yuqi Xu <xuyuqiabc@gmail.com>
+Cc: bpf@vger.kernel.org, vadim.fedorenko@linux.dev, ast@kernel.org,
+ daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
+ martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
+ jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
+ stable@vger.kernel.org, vega@nebusec.ai, weir@nebusec.ai, xuyq21@lenovo.com
 
 Hello:
 
-This patch was applied to netdev/net.git (main)
-by Jakub Kicinski <kuba@kernel.org>:
+This patch was applied to bpf/bpf.git (master)
+by Alexei Starovoitov <ast@kernel.org>:
 
-On Tue, 15 Sep 2026 01:31:52 -0700 you wrote:
-> __vlan_insert_inner_tag() only guarantees head room via skb_cow_head(),
-> never that mac_len bytes of MAC header are present.  Its ETH_HLEN
-> wrappers - __vlan_insert_tag() under skb_vlan_push(), and
-> vlan_insert_tag() under validate_xmit_vlan() on the generic transmit
-> path - therefore rewrite the first 16 bytes at skb->data: a 12-byte
-> memmove plus two 2-byte stores at +12 and +14.  No caller supplies the
-> bound, while the pop helpers use skb_ensure_writable()/pskb_may_pull().
+On Sat, 19 Sep 2026 16:45:01 +0800 you wrote:
+> Hi Linux kernel maintainers,
+> 
+> We found and validated an issue in kernel/bpf/crypto.c.  The reproducer
+> below runs as root because loading a BPF_PROG_TYPE_SYSCALL program is
+> gated by bpf_capable(), so a user namespace is not sufficient.
+> 
+> We've tested it, and it should not affect any other functionality.
 > 
 > [...]
 
 Here is the summary with links:
-  - [net] vlan: require the MAC header to be present in __vlan_insert_inner_tag()
-    https://git.kernel.org/netdev/net/c/ab888242fce4
+  - [bpf,1/1] bpf: crypto: check params size before reading reserved fields
+    https://git.kernel.org/bpf/bpf/c/a11212910cf0
 
 You are awesome, thank you!
 -- 
