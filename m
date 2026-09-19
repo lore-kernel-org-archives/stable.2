@@ -1,134 +1,121 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mout-p-102.mailbox.org (mout-p-102.mailbox.org [80.241.56.152])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A846336897
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 03:53:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76B5A1A6835;
+	Sat, 19 Sep 2026 04:11:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.152
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789790040; cv=none; b=JaVux8ZrnF6UIDnir9UcKFWf+axhuNZFaHSpffqBOFUGiGDUHzd8e5UTTjIhAGi1myXQsupuqKIGvhGlYgkEbdS8ZkgZ2AQpEPubiY7ej3zcmUXJbzaTQH9JSxat9V+ffbQK2gCtHV2Nmp/bYSNFkq4i/Ajs5e4bnYIrS2zuPDQ=
+	t=1789791119; cv=none; b=s36cXME7l3DOek7G0jd1TOUaQyVnJzbmnV0uAaCpoIEHlUiu+bW+FJG301xKnJobtu6PwKGKhn/SvINa6RBp3fJs3oI5gGtiLOuNutrE+1pVj35evr/ojdWGwp4OLyjfNnBCy/oBSXkVBtjnFcqLnY7ZF7Z+6hTOCzHLz89rlAA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789790040; c=relaxed/simple;
-	bh=ar2zcNlv7+c1OyTtkaddUuGasqJNqHnuUoJCpv2NdIk=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c1JpiS/vNyWHSR/M5gMVwQ8P8zQamUNeIQQ25gQzsqbU3tEoFFTBPCqspsvyAcKgjomk0UVhQNehjvBMOVVv1CvqDSt9upiBXxFfJLRn+H7SHN5nWJRZ+Qb/6tT9902NRQK++Pb5KFMaUh4P9SDy+Ut6lhUzFQR8+keVlgjcvm0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GMW7Rq2U; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789791119; c=relaxed/simple;
+	bh=RjTWz4LAIN4EHUgEKsf39ko8jdsdlJmzQX4ba8aLM/0=;
+	h=Date:From:To:Cc:Message-ID:In-Reply-To:References:Subject:
+	 MIME-Version:Content-Type; b=XNueUDIaY8yr4NnngmdyI3uWG9q0//xmXl0XlPt6mmwSM2AwTbAtQb6cjgVGR/Nww2mxlP7JjUbmpfkGUOnLYOUs1NoT9OYF700qYYUbUUDPaCb15uxgifcvaJOIugGxqHx/Q0wSCvpTAx7/FA9uMMzoT+5Q6nBWgfMV0N0ZRiU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=XCL6zRRC; arc=none smtp.client-ip=80.241.56.152
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GMW7Rq2U"
-Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so1192200a91.0
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 20:53:58 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789790038; x=1790394838; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=vINPVP5099LZ8ihUeZp3zwJQXFHBAyqFeLchbfWgNgA=;
-        b=GMW7Rq2U6iBEIU5Camq06FyvBFRmvxCvNmgq7F55xS7rqCbz4sS8Owb2vP2W7ajGIa
-         MYkQy50pfCiBGWsrmUe8h/AWPZ4jWnRnC7c9cLzLMwIo34gOt/Gwni9UN1Z1rKkR3+zR
-         idiiBgG2nertauxD/eheJ4OtL5UdNclmwa0spVlFpcojo+OvZQLY9vuBAxFRwsKkFb0K
-         QpPuksMAUJ9x/55YN3M6a8VJPwJ4+r+cJD6O9twIz+/qb6CIWcaWLjd3algWN93NwZS/
-         GTJjXXVQ5sDe07BsHukcjMcmun+K8n0tlutL9pbgtEGvH8WDxCoXHv6U1KPZcktJqdKT
-         tcLA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789790038; x=1790394838;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=vINPVP5099LZ8ihUeZp3zwJQXFHBAyqFeLchbfWgNgA=;
-        b=wf3ilw2hSP6CcwteECFiIi0mhagNvoa2Y4fhvEPYXwz3sioCZg2yczKNFUfH5NRYux
-         D6du5wKwgkGi2olU23jfOaqMdRl6E3C/tNTrgN5aQrVtuqetS0hGjyKugiM47FUr0db4
-         JuSbLHS5yhhF6Egs9OGEkuJczpiS+qvqGm9+hh+6eHZsyYYlMxfrV4a1A3ujIOXosApY
-         CsHzWObtNbdv64H+jjEuBG2X137u5JnM9lqk24+KiYKNztCIx6sFG7xvEOU1maccMRGJ
-         aGwO0wtT60W1H0uV86P9Svbqp6wJQwDfb0eFRcZFnD1ArgYd+wStwigaoprYa5SBCi22
-         Yl8g==
-X-Forwarded-Encrypted: i=1; AKwUvBy34lU4gCzdcNLJNZeHE3HJsFFqMME8yzmLkcLya6+vgoKf4Dr00Gw50pLuXIIUwSgUXuWXpu0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrKqyqlycrXGlZpbVVzj0rCZf4JG3QoomLDm1dDR4QjyR4u2UC
-	XAJ+ACFd3Clq8Y4UKMxF9uSAEXQiKeDHi2fXxb9hNQkIXoK1KpwhUtuO
-X-Gm-Gg: AYBFou0H9jJN07f8xSY00gyWe8dhk7/ZIloLjQ87GUuDCLAHekXjFpgF3J3XqaR76V9
-	78A2bJVPgiRqrmVFSmF3pWM6+bhX+y8bKv8dXxO5qUTmqOWLQicewaRGJdlAX5tfcyN5Pm4hzrd
-	WgD6f+VY2z2jEWS7d2XgemZpzStI9OMpQjzhh7ya4p7UE15keu6dAuNXGA5aXDNbweih3/adjtr
-	mIMJkwxLnQyaTBpiX2tAn0KHO9gXNe9QsdFmGM7mz/VpYiu0iGU4LSNLaSrpLpHULnXqi2E20yy
-	DEukj99Rrf7mksQkXFOUZWIovUZ8D4i6kK1IHLrbArypuyzaoGcYim1SC4EUc1kpy3fzapaUUN0
-	iNSyvAL2NSa4Ig/1pZoX8NK5W6sIDqFPJLuQ1GFX5xwHs6VlFvVIE+ZSQ0nDFhKn/yXWV/vnJxM
-	z8YXDz1095AgdyQwMztenZMC8JzaeRh+3+uhin+kSuzc6xTPOxUMApbLKvFeleNVTaZX4SCoUvx
-	1jxqqswlU/slMPe
-X-Received: by 2002:a17:90a:e7c9:b0:39e:6c69:7771 with SMTP id 98e67ed59e1d1-39e6c69794bmr2720506a91.26.1789790038175;
-        Fri, 18 Sep 2026 20:53:58 -0700 (PDT)
-Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb3607csm2287560a91.16.2026.09.18.20.53.55
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 20:53:57 -0700 (PDT)
-From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-To: Casey Schaufler <casey@schaufler-ca.com>
-Cc: Paul Moore <paul@paul-moore.com>,
-	James Morris <jmorris@namei.org>,
-	"Serge E . Hallyn" <serge@hallyn.com>,
-	Rafal Krypa <r.krypa@samsung.com>,
-	Zbigniew Jasinski <z.jasinski@samsung.com>,
-	linux-security-module@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
-	syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com,
+	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="XCL6zRRC"
+Received: from smtp2.mailbox.org (smtp2.mailbox.org [IPv6:2001:67c:2050:b231:465::2])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mout-p-102.mailbox.org (Postfix) with ESMTPS id 4hmwzs3FwLzKn9X;
+	Sat, 19 Sep 2026 06:11:53 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
+	t=1789791113;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=HLbR/+UEx2bhf0/HsuB/ZyBuo0TWZ9TVU+4TmozdlKI=;
+	b=XCL6zRRC/i7TSKQeNfWOco8GC2nbzfLA/kX7ig2hXnz38yMVtYpcgaYVLEk62J6+/bB8d1
+	E5M7vR/0I9emlbQehrS4o4Z0XfP+IlMhiROJi02s/GPsAFno1xZDurdrpjgJHOC2+POKwe
+	TLqPHDaPYUogZkFi1mh8DxNAoGeOXe5zw2q8XsyYmP/AYEpBhTTFw6IwgsRlrrHpn3PdVX
+	p2JaICiQMLFjdBT7GCJfMB2u32c/M+1FatIukxR0bB7sLi5HSDWa3pZGfoUuJ5HqOf/g9B
+	pP31xcmMyRo4FMexQ7c/M0aSWalBRmQrNoIgRkNQA8KdTQWiyO07B2Kn2lHHkA==
+Date: Fri, 18 Sep 2026 21:11:50 -0700 (PDT)
+From: vdso@mailbox.org
+To: Naman Jain <namjain@linux.microsoft.com>
+Cc: glx@kernel.org, mingo@redhat.com, bp@alien8.de,
+	dave.hansen@linux.intel.com, x86@kernel.org, hpa@zytor.com,
+	decui@microsoft.com, yunhong.jiang@linux.intel.com,
+	ricardo.neri-calderon@linux.intel.com, rahul.tanwar@linux.intel.com,
+	linux-kernel@vger.kernel.org, linux-hyperv@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] smack: reject relabel-self writes from io_uring workers
-Date: Sat, 19 Sep 2026 10:53:51 +0700
-Message-ID: <20260919035351.88453-1-ngocthang2710.1999@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Message-ID: <15750262.186413.1789791110042@app.mailbox.org>
+In-Reply-To: <210aa40c-88e1-4d88-ba6b-9224b05b0820@linux.microsoft.com>
+References: <20260831082528.1623843-1-namjain@linux.microsoft.com>
+ <aqTInOmsyr8AiciA@xps-8930>
+ <210aa40c-88e1-4d88-ba6b-9224b05b0820@linux.microsoft.com>
+Subject: Re: [PATCH] x86/init: Initialize wall clock in get_rtc_noop()
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
+X-Priority: 3
+Importance: Normal
+X-MBO-RS-META: w37tqeymr6wn4d5uq7nsxgcsmsr5a85w
+X-MBO-RS-ID: a755947659e7d29af1e
 
-smk_write_relabel_self() calls commit_creds() on current. When the write
-is issued through io_uring it runs on an io-wq worker, and io_uring
-override_creds()es the submitter's creds when they differ from the
-worker's. commit_creds() then trips BUG_ON(task->cred != task->real_cred):
 
-  kernel BUG at kernel/cred.c:376!
-  commit_creds
-  smk_write_relabel_self
-  loop_rw_iter
-  io_write
-  io_wq_submit_work
-  io_worker_handle_work
-  io_wq_worker
+> On 09/14/2026 4:31 AM PDT Naman Jain <namjain@linux.microsoft.com> wrote:
+> 
+>  
+> On 9/12/2026 9:05 AM, Roman Kisel wrote:
+> > On Mon, Aug 31, 2026 at 08:25:28AM +0000, Naman Jain wrote:
 
-Even without the override, committing creds on a worker would relabel
-the worker rather than the submitting task. Refuse the write from
-PF_IO_WORKER context.
+[...]
 
-Fixes: 38416e53936e ("Smack: limited capability for changing process label")
-Reported-by: syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com
-Closes: https://syzkaller.appspot.com/bug?extid=fa63184795283ac3f842
-Cc: stable@vger.kernel.org
-Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
----
-Reproduced under QEMU (x86, v7.3-rc3 + 00834fcb20d0) with a small io_uring
-program: async IORING_OP_WRITE to /sys/fs/smackfs/relabel-self to spawn
-the worker, a direct write() to change the submitter's creds, then a
-second async write. Before: BUG at kernel/cred.c:376. After: the write
-fails with -EOPNOTSUPP and the program completes.
+> >> +void get_rtc_noop(struct timespec64 *now) { *now = (struct timespec64){0}; }
+> > 
+> > Hi Naman,
+> > 
+> > Could be
+> > 
+> > *now = (struct timespec64){};
+> > 
+> > to save a byte :)
+> 
+> hi Roman,
+> Thanks for reviewing.
+> 
+> Tianyu pointed out offline that this is handled in yet another way in 
+> jailhouse code:
+> 
+> arch/x86/kernel/jailhouse.c
+> static void jailhouse_get_wallclock(struct timespec64 *now)
+> {
+>        memset(now, 0, sizeof(now));
+> }
 
- security/smack/smackfs.c | 4 ++++
- 1 file changed, 4 insertions(+)
+Appreciate sharing! Makes sense to me, looks way more explicit. Most
+importantly imo, the memset isn't actually producing a call here so
+the clock no-op stays cheap when choosing `memset` over ` = {}`.
 
-diff --git a/security/smack/smackfs.c b/security/smack/smackfs.c
-index a72bc7fabea9..0061220e2d00 100644
---- a/security/smack/smackfs.c
-+++ b/security/smack/smackfs.c
-@@ -2678,6 +2678,10 @@ static ssize_t smk_write_relabel_self(struct file *file, const char __user *buf,
- 	if (!smack_privileged(CAP_MAC_ADMIN))
- 		return -EPERM;
- 
-+	/* commit_creds() must act on the caller, not an io_uring worker. */
-+	if (current->flags & PF_IO_WORKER)
-+		return -EOPNOTSUPP;
-+
- 	/*
- 	 * No partial write.
- 	 * Enough data must be present.
--- 
-2.43.0
+One can see that the kernel build compiles ` = {0}`, ` = {}` into
 
+pxor ...
+movups ...
+
+on x64 in the above. I made sure the memset "call" is relaxed/optimized
+away into the same sequence `pxor ...; movups ...`.
+
+> 
+> Regards,
+> Naman
+> 
+> > 
+> > LGTM.
+> > Reviewed-by: Roman Kisel <vdso@mailbox.org>
+> > 
+> >>   
+> >>   static __initconst const struct of_device_id of_cmos_match[] = {
+> >>   	{ .compatible = "motorola,mc146818" },
+> >> -- 
+> >> 2.43.0
+> >>
