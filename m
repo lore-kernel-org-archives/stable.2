@@ -1,104 +1,72 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-04.galae.net (smtpout-04.galae.net [185.171.202.116])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3DA8036E477;
-	Sat, 19 Sep 2026 07:45:40 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9EAF733F8CA
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 07:46:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.171.202.116
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789803942; cv=none; b=WBPArSNznHLCWwb+GG/TgC9oAkJC3Uq/BoHj0IHFVLdmjcsT9eoIodS15Hw+ecJK95Kh5ramtxjc+cSJdzeHnL3W4BU2tq73GFfBDslLVnVWJn6NF/Tq8DNr4t48xnxClF8ZzgGE2OF4gkxh/yY78EF35SVZcHOFOENlwy9m0R4=
+	t=1789803978; cv=none; b=JW7kiGuqHn6KlsE6/dtkd4u/ZSI1Bh79/iE6/6Q/TzQRu/F2jJCJTZFsBtgN1PZtbx0TKZf2hvyGhQ0kApTsj16a20xGc2CdoMwlOiBOgqLc90MOZ71gCDS9TAfGus8ZVy+XHJi/uwbrGKVVV+zfoS/V1Na345QeJmJp62ngkEM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789803942; c=relaxed/simple;
-	bh=iHjEtvjbwZp8MtMoOBYjMuSiYtqWJ+rzoYqQalSQTnI=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Vp28GYBD/J2wPSWtHqkxihjTZtdZO2GRaUUwWgWQTMxUGiVP+NvY+qDadd8AdD3M87d9RP1/MY0E9JJvA4UmAEJ75rksJzWWNaD5BvWqABTCLubR4tLHyh98l0sPqOMF2bb8sEOik+vp5/i8dRQe7heDkepCjljrTPgKqtuDzqE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Dfd46SK0; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789803978; c=relaxed/simple;
+	bh=hBrURUYdSvExW4H+R5fGi50ARQU+zVjzHlkBJGQkD+g=;
+	h=From:To:Cc:Subject:In-Reply-To:References:Date:Message-ID:
+	 MIME-Version:Content-Type; b=bTzJr4L91RD75BJ1Qt9Zy+5nR7Qcgkzk40nBGBm0c0aauH0h0V7fB8pcC+oDTEdB5vyAnZpcBn5azXl6tn9i+EQsMxR+w75OvOP9MnvZiyxnZbLuA8O7UcJ014uEzDrt+2tFaXifdqAlRrfDFDDaz6S5TfM40aC3DqBrMQoWM7k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=wZSRH7kn; arc=none smtp.client-ip=185.171.202.116
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Dfd46SK0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 98D591F000FF;
-	Sat, 19 Sep 2026 07:45:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789803940;
-	bh=MdyQMSas/1xgWPnQhVBvbmhKhHLwQVZ7dSRO+2CofI4=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Dfd46SK0WLkecWkYIvnhZC9LwPN+FexFxPAX6WuJ2YU7GK/sTDCZN7u6nk8aXXHe+
-	 8jkE+poTI9/hwU8+2pr31D31oIUmFNiEiqU4I0qEgd0zSGxCDDtzshYF56zdxvSCEY
-	 bRpI3Hr7EsCiJFBt5vTM/diAVFVv563gkoWfnKQ4whODGcnNxQnERlC6PSS44NhFHx
-	 9cNRzdLizOTu0D53MSOV58Vw9q6Epb/wcX5FIcJZ25HKU7jAnOOm5v2wbY34I7xl0b
-	 V0UdrTncbd4utGF9QeYcyxIhdCHhb+c4VZnItdFJviXF4Evls9S1gTsoIIpCbtcSSj
-	 VBM2gBsYgHiow==
-Date: Sat, 19 Sep 2026 08:45:35 +0100
-From: Simon Horman <horms@kernel.org>
-To: Xiang Mei <xmei5@asu.edu>
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jakub@cloudflare.com, stable@vger.kernel.org,
-	co+0ea1ac045375cf05@bugs.sh
-Subject: Re: [PATCH net] vlan: require the MAC header to be present in
- __vlan_insert_inner_tag()
-Message-ID: <20260919074535.GW51261@horms.kernel.org>
-References: <20260915083152.705309-1-xmei5@asu.edu>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="wZSRH7kn"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-04.galae.net (Postfix) with ESMTPS id 02A49C51459;
+	Sat, 19 Sep 2026 07:46:59 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id CD89A606CA;
+	Sat, 19 Sep 2026 07:46:13 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 104F21032907B;
+	Sat, 19 Sep 2026 09:46:07 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789803972; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 in-reply-to:references; bh=hBrURUYdSvExW4H+R5fGi50ARQU+zVjzHlkBJGQkD+g=;
+	b=wZSRH7knEB6j1Jv5yj9aZBXFT7dUyU+pxX0jNlCh3fIsf488iQ+rIhTLme03tTZzPqwYfa
+	Lu97U8j+mwh5mZoyt12Y3CGL2UdnI4PWQKiXP/BYweBhKtV4emN/w/Zc3zFP7jwDdWNLd/
+	KFcuE5qQif8HpEvR/KsiWUFRrvhl7zPoftY24ijDppeDNydl+eQ/VhtBMw51RgImiYiasy
+	XQxcVBKT6uoCqgVymjLakogILCbdM1jQHiDJkPkqmiaAMbqiM6rcBPRP+D93IR/BKDHEb3
+	dpDVoq1wHZN+9jpnCCU8PgtLeOviSHIJ/iLVQFe7tr1XZ8B/qoaRU7zCb/pVaw==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: alex.aring@gmail.com,  andrew+netdev@lunn.ch,  davem@davemloft.net,
+  edumazet@google.com,  kuba@kernel.org,  linux-kernel@vger.kernel.org,
+  linux-wpan@vger.kernel.org,  marcel@holtmann.org,
+  netdev@vger.kernel.org,  pabeni@redhat.com,  stefan@datenfreihafen.org,
+  stable@vger.kernel.org
+Subject: Re: [PATCH] ieee802154: atusb: Fix URB reference leak in
+ atusb_work_urbs()
+In-Reply-To: <20260917114821.2149704-1-vulab@iscas.ac.cn> (Wentao Liang's
+	message of "Thu, 17 Sep 2026 11:48:21 +0000")
+References: <20260917114821.2149704-1-vulab@iscas.ac.cn>
+User-Agent: mu4e 1.12.12; emacs 30.2
+Date: Sat, 19 Sep 2026 09:46:06 +0200
+Message-ID: <87mrtdela9.fsf@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260915083152.705309-1-xmei5@asu.edu>
+Content-Type: text/plain
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Tue, Sep 15, 2026 at 01:31:52AM -0700, Xiang Mei wrote:
-> __vlan_insert_inner_tag() only guarantees head room via skb_cow_head(),
-> never that mac_len bytes of MAC header are present.  Its ETH_HLEN
-> wrappers - __vlan_insert_tag() under skb_vlan_push(), and
-> vlan_insert_tag() under validate_xmit_vlan() on the generic transmit
-> path - therefore rewrite the first 16 bytes at skb->data: a 12-byte
-> memmove plus two 2-byte stores at +12 and +14.  No caller supplies the
-> bound, while the pop helpers use skb_ensure_writable()/pskb_may_pull().
-> 
-> An IFF_TUN device has hard_header_len == 0, so packet_snd() accepts a
-> one-byte AF_PACKET/SOCK_RAW frame.  The first vlan push only sets a
-> hwaccel tag; the next - clsact "action vlan push" or
-> bpf_skb_vlan_push() - enters the helper with skb->len still 1.  The
-> head comes from skbuff_small_head without __GFP_ZERO, so each push
-> drags bytes from beyond skb->tail into the frame.  After three the
-> one-byte send leaves as 13 bytes carrying 11 bytes of uninitialised
-> slab:
-> 
->   0000: 5a b3 62 12 80 88 ff ff 00 b3 62 12 81
->            `------------------------------'
->   only 0x5a was sent; the rest is slab, here the top 56 bits of a
->   linear-map address
-> 
-> Require the MAC header the helper rewrites to be present, so such a
-> frame is dropped rather than transmitted.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+
+> usb_get_from_anchor() hands over a reference to the URB, which the caller
+> has to release. atusb_work_urbs() never does, so every URB collected from
+> the idle anchor keeps an extra reference: the reference count grows on
+> each retry cycle and the URBs are never freed on disconnect. Drop the
+> reference after a successful submission, and after the URB has been put
+> back on the idle anchor when submission failed, as the HCD holds its own
+> reference while the URB is in flight.
+>
+> Fixes: 7490b008d123 ("ieee802154: add support for atusb transceiver")
 > Cc: stable@vger.kernel.org
-> Reported-by: co+0ea1ac045375cf05@bugs.sh
-> Assisted-by: LLM
-> Signed-off-by: Xiang Mei <xmei5@asu.edu>
-> ---
->  include/linux/if_vlan.h | 3 +++
->  1 file changed, 3 insertions(+)
-> 
-> diff --git a/include/linux/if_vlan.h b/include/linux/if_vlan.h
-> index 20cc16ea4e5a..4846032bf4ff 100644
-> --- a/include/linux/if_vlan.h
-> +++ b/include/linux/if_vlan.h
-> @@ -365,6 +365,9 @@ static inline int __vlan_insert_inner_tag(struct sk_buff *skb,
->  	const u8 meta_len = mac_len > ETH_TLEN ? skb_metadata_len(skb) : 0;
->  	struct vlan_ethhdr *veth;
->  
-> +	if (unlikely(!pskb_may_pull(skb, mac_len)))
-> +		return -EINVAL;
-> +
->  	if (skb_cow_head(skb, meta_len + VLAN_HLEN) < 0)
->  		return -ENOMEM;
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-TBH I am surprised that we have a bug like this in this function.
-But your analysis matches my understanding of the code.
-
-Reviewed-by: Simon Horman <horms@kernel.org>
-
+Reviewed-by: Miquel Raynal <miquel.raynal@bootlin.com>
