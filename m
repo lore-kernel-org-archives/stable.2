@@ -1,78 +1,39 @@
-Received: from mail-wr1-f54.google.com (mail-wr1-f54.google.com [209.85.221.54])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1E4C7250BF2
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 19:15:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.221.54
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 63DB8336897;
+	Sat, 19 Sep 2026 19:36:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789845339; cv=none; b=F31oWcN2lp5FSvSYzjlDM5hRbirP2+teacCnhT5NbrvrhNH0GyfFRVslfpzSSKwCrRkF7muGdBaeb/2dQ6hQdeDa/iPlFxfP0J8lxvT3CvCIPhewVo9+C4W04hDk+S+V1pcJKYkxHye9ItVFkDtUu+5Ws7Hs9gQZs0yHyxRskOs=
+	t=1789846566; cv=none; b=j0u8ZG9J5qbwf+FOEMzwe+o0JcLspUiC42GJoqv1NaVMe5Lu3G3slhnpufMZllj1drLn3vP4gXuFSUfHya9IY6+8YehxkyQa3uUPXHzfHEnUn6KmRLN3B9GWRx5kd/s4oaHDQfM74z+yyXHeQTLAETiEQrKgeEDV8sEJhYei+zI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789845339; c=relaxed/simple;
-	bh=vZGBjZO+3pK6P6r+j1Br2A8tEHTya3afTzlQC352TVg=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=qK76vi4i3mfinI3OqUq0wGD0+UsO2oPNf1HzmcE9cxtVtjydOWpFCeoW6oCVA33ONW4a7jxPpqLqMnknyLK7dIOcsn6iVDeLy5WrUarJqXemZxQuUTniqeTtuaOF24YORdeKL0QRblYJYG+nsH+OziuKAgri+0fGaU7QbQpAk80=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YYQT2uRw; arc=none smtp.client-ip=209.85.221.54
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789846566; c=relaxed/simple;
+	bh=Z7tW9nOA9SNyMpAYQM5shGGa2hmNAkaKn4Kv3tvlEaA=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NEIPob/88l6SF3H/9J3dmr+BRXUg8OD89L7v94jiTIyafl33MlV4KPiaGX8LhtJ8RH/wK8JGEl7NBtgx/m1cloxC9J7Cpe2Vnw/kOmlvpYbtj7XhC3DaF44QBMO6t/bN82JRZV3ODXBnSDxPMFz0ICtmH2xwrC9BDJn8YqQGgo0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=agtG2KPz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YYQT2uRw"
-Received: by mail-wr1-f54.google.com with SMTP id ffacd0b85a97d-48431648f33so1153914f8f.0
-        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 12:15:37 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789845336; x=1790450136; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=TYG31FNdE+jTjB9/DDoxQaNK7idCKtZmhwSMIq4k/44=;
-        b=YYQT2uRwk2WVmGwAzs4bRf8V6lu0LEgT+argTljooI1ga2NlMxCds7Z/1XDGSMGqN6
-         1ygd2nP4ISMN+VUPGDbLRm4G/j4Kc9uwW+kIVsiFWTXTGAU1OIIf8/OSjS7aoJu5+SrO
-         lAp1K+dETzsu3B8e9bKxYTc1dgRrcSnxvZ2LDYmZePDw4nnyU8Bu0q9Nz9nHL7IovVjr
-         s3xwmBRC0L4XL2ha7QAoF7cG4SWaLbzbSfOPoKfgtDfteAQJsOxfQjZIr49SRKERxH01
-         K2ddBNFLeKO7A4Fd9jEhc4of4H8hAMBotlrbJJ15sbT1/Lge6xijrIkn2ze88uWY8XWG
-         Nx0A==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789845336; x=1790450136;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=TYG31FNdE+jTjB9/DDoxQaNK7idCKtZmhwSMIq4k/44=;
-        b=bT0X9vVbFjKzUqJPPo/JAmHxSmCpN9S/PUlnntsiBPi+hrb6lSliW85mSnkOKD8plB
-         u7T4IECEgnZxisQc8RJ00/2weLuawhIC1VHADrxBIV0EjCMac4GaqU9hdOAAnSDQselh
-         dCEjBZ6NwmD+JhCi2VqOG1/paiahcOKL6fyfU4lq2mE5fPNH1gxVBf0WYrKFtP6BSMpw
-         64h/t1LWoYi0FR4uxMU70HQVoSA9QweO9rng6OzhNuUe2aDBYQq0QqgzWnE7IvuHLQvg
-         y1qniJFwHuvhfEr9urpUEGRfyN8P59ZqtCSQpbT8cricbDjTWQ4IqkPAKRPie4nMhWqe
-         mjLw==
-X-Forwarded-Encrypted: i=1; AKwUvBwFM32RMUuRuJHWWnqmDOPb/BhibFo2Dys5bQ/BIanv6KNvpz48G1N/yr+S016zlAWapeklM+Q=@vger.kernel.org
-X-Gm-Message-State: AFuF++l2bv1dUinztQ7A2e33uVyH2VcZhtUMnO+IdX9Rc1LJCnrVvzu1
-	Eo44vxzv0VAgXCmESEIP9L1Z8kTLypHQDXG/me2a8WbrAmBovIp61Oju
-X-Gm-Gg: AYBFou0ib97p7r7qFjx1sP13g2eS3agTdd/bulEfxpOgvQ3fUmSIzuYkZ+vzQJtJING
-	qdEHn09Lh/eyx5vexbp+xIfs4TyRGgMfZaG3ADLazCbIA7Yj1mHVFEibn0XTw/vvbJA1EYhtlM8
-	uxqxrP8L9wRufGCUUWorsCbSH2wsmRt/yRxmfTlZFMU8eu0tltp1e05DzuIr9sLfRLdbCe2y5Pr
-	IQNLjMU9Vnu3pua0ib/vCxGt8y/+q/0tcgypJ4bNk5NPDWDtx/LpcSQZoWw67RMwlwG6Et3Lhsf
-	LCBPZnaDhrojRlfQ88o0MUS/IBePeKeWpigJggvl3V3FI6aIM1qo8YsTnzoDJIRW5KHeja1pOQU
-	28h86XUT5jKOG2PDC2weZ/CvW8tN8F4pG+EgwAO4pkFW4/eSr/xBXDmWpNBDoY4CkiZ0dwX2JAp
-	FGVO1xRJN6mGB/GcGbWjuNWw7saTkGCFxzVuNgEUCNe4vW3Pr4IeAET0gOeMLMgj1kf2G58eaR6
-	SINWp5AC9cfEREmzJanciPPCJFd4Ll08eGgvHmTkOvWcV297Y6A
-X-Received: by 2002:a05:600c:81c5:b0:49d:28fc:d6a0 with SMTP id 5b1f17b1804b1-49fbd200256mr159837415e9.18.1789845336038;
-        Sat, 19 Sep 2026 12:15:36 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872458f7e3sm8932380f8f.25.2026.09.19.12.15.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 12:15:35 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: neil.armstrong@linaro.org
-Cc: jesszhan0024@gmail.com,
-	maarten.lankhorst@linux.intel.com,
-	mripard@kernel.org,
-	tzimmermann@suse.de,
-	airlied@gmail.com,
-	simona@ffwll.ch,
-	sam@ravnborg.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] drm/panel: tdo-tl070wsh30: Remove panel on attach failure
-Date: Sun, 20 Sep 2026 00:15:23 +0500
-Message-ID: <20260919191524.268810-1-meatuni001@gmail.com>
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="agtG2KPz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CA52C1F000FF;
+	Sat, 19 Sep 2026 19:36:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789846564;
+	bh=XuMWs1YM+VTHaEpYpWldHjI0bBRpXXkCQTDqHyt/Cxc=;
+	h=From:To:Cc:Subject:Date;
+	b=agtG2KPz+HOueZ6JPU1vSvF7mXQwmkeXNhxX6T8s3z3zapw9822phVSSvADzhjmC9
+	 5xtqzIghSYgirsIp4hqb20Ik867pHTs1xbpZo+Iy6AOonoyZbIfxN83j9LJ+jk9azD
+	 wOQHysEnI70WspcdOvtCvboQlMQQmYtnSSL2Ox1Iru18Kwv3XfD0n3z2TF2hs/FYWj
+	 +4YCzmTEAWlBO4ClS4tDkGe630zmmfociNO8G8PTnlKOIdVlV6Tbgz1lU/oDKKpnhv
+	 Z7n/vKgfvYnp/pzStv0Pu4VFQzpLdK0TxjpCQK8BXuNgjZQhodwJgeDmR9X2qadlH/
+	 xfLQRhk6cw64g==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+To: mptcp@lists.linux.dev,
+	stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
+Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	sashal@kernel.org
+Subject: [PATCH 7.2.y 0/4] mptcp: fix recent failed backports (20260919)
+Date: Sat, 19 Sep 2026 21:35:42 +0200
+Message-ID: <20260919193541.1915297-6-matttbe@kernel.org>
 X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -80,58 +41,33 @@ List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=939; i=matttbe@kernel.org; h=from:subject; bh=Z7tW9nOA9SNyMpAYQM5shGGa2hmNAkaKn4Kv3tvlEaA=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWPeFjK163183VRMu18H/iHrZXotmdT13fRf9NLuf+H 3Cv5P/3jlIWBjEuBlkxRRbptsj8mc+reEu8/Cxg5rAygQxh4OIUgIlkbGT4KzjHIcOIZfkvpuJl CoyPjyldEPn6VnBdm/4M69PHTedwBDEyzDgwc+vmbczFb6dG6iay2axsXeWw+tbsU1P5s/VMnW5 UcAEA
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp; fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 Content-Transfer-Encoding: 8bit
 
-tdo_tl070wsh30_panel_add() calls drm_panel_add() to link the panel
-into the global panel_list before tdo_tl070wsh30_panel_probe() calls
-mipi_dsi_attach(). The panel object itself is allocated with
-devm_drm_panel_alloc(), which only arranges for an automatic
-drm_panel_put() (via devm_add_action_or_reset()) when the DSI device
-is torn down; unlike devm_drm_panel_add(), it does not call
-drm_panel_remove() for you.
+The following patches could not be applied without conflicts in this
+tree:
 
-If mipi_dsi_attach() fails, probe() returns the error directly:
+- 2b0f561f21b2 ("mptcp: avoid unneeded actions on subflow reset")
+- 42064de57fb8 ("mptcp: close race between scheduler and state change")
+- f3ef03357396 ("mptcp: fix bad accounting in __mptcp_subflow_push_pending()")
 
-	return mipi_dsi_attach(dsi);
+I backported the following commit to avoid conflicts:
 
-Once probe() returns an error, the driver core releases devres
-resources for the device, which drops the allocation's own
-reference. But drm_panel_add() had already taken its own reference
-and linked panel->list into the global panel_list, and nothing
-undoes that. The panel is left registered in panel_list pointing at
-a device that failed to bind, where it can still be found and
-dereferenced by later lookups/iterations such as
-of_drm_find_panel() or find_panel_by_fwnode().
+- 6cafe51e0f98 ("mptcp: move the stale logic out of retrans scheduler")
 
-Call drm_panel_remove() when mipi_dsi_attach() fails, mirroring what
-tdo_tl070wsh30_panel_remove() already does on the normal teardown
-path, and matching the pattern used by other MIPI-DSI panel drivers
-that pair a manual drm_panel_add() with mipi_dsi_attach().
+Paolo Abeni (4):
+  mptcp: move the stale logic out of retrans scheduler
+  mptcp: avoid unneeded actions on subflow reset
+  mptcp: close race between scheduler and state change
+  mptcp: fix bad accounting in __mptcp_subflow_push_pending()
 
-Fixes: cf40c6600592 ("drm: panel: add TDO tl070wsh30 panel driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
- drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c | 6 +++++-
- 1 file changed, 5 insertions(+), 1 deletion(-)
+ net/mptcp/pm.c       | 41 +++++++++++++++++++++++++++--------------
+ net/mptcp/protocol.c | 15 +++++++++------
+ net/mptcp/protocol.h | 10 +++++++---
+ net/mptcp/subflow.c  | 11 +++++++++++
+ 4 files changed, 54 insertions(+), 23 deletions(-)
 
-diff --git a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-index fa961abdd2d7..32f2dd2bcee7 100644
---- a/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-+++ b/drivers/gpu/drm/panel/panel-tdo-tl070wsh30.c
-@@ -179,7 +179,11 @@ static int tdo_tl070wsh30_panel_probe(struct mipi_dsi_device *dsi)
- 	if (err < 0)
- 		return err;
- 
--	return mipi_dsi_attach(dsi);
-+	err = mipi_dsi_attach(dsi);
-+	if (err < 0)
-+		drm_panel_remove(&tdo_tl070wsh30->base);
-+
-+	return err;
- }
- 
- static void tdo_tl070wsh30_panel_remove(struct mipi_dsi_device *dsi)
 -- 
 2.55.0
 
