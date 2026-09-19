@@ -1,147 +1,134 @@
-Received: from mail-lf1-f50.google.com (mail-lf1-f50.google.com [209.85.167.50])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BF254312837
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 03:07:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.50
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789787268; cv=pass; b=KaSQVVpx4KuLjTjSnzTeL9/V+yWWPt1aaimJn9UiTKSLnN1lLER4n49ZjAqRNz7/GRln5SOAhl8DCpT2rutYo7ChlBUPxj5gGAzmXyCav+gBFt//3y3vsKn9x8pR36TSyUhcW/N7z+9SH3K0BajUBSNzHgde3zfvAiOibAV1M1Y=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789787268; c=relaxed/simple;
-	bh=w0FzqTkWxvgr+7fjcUx1t+0g43Cb2S3hJxh82YqqopA=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=SGtzT9jKnE7F8iPAcxX9xwLCC4OwvwL8kh1/rSQYPBAPdMN9W3XLNKNvI4bE2LehXMre0tA5zCeV5aPEHdvX5BNkQ5do8rB6/AIGwk3bKqjcKbVBd+6qxF2jWWe7RksPAeR45fW5CQnugI/D9wKwLtxB7TzUts5ooxmpvUBr/iM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=PWF0nMm3; arc=pass smtp.client-ip=209.85.167.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A846336897
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 03:53:58 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789790040; cv=none; b=JaVux8ZrnF6UIDnir9UcKFWf+axhuNZFaHSpffqBOFUGiGDUHzd8e5UTTjIhAGi1myXQsupuqKIGvhGlYgkEbdS8ZkgZ2AQpEPubiY7ej3zcmUXJbzaTQH9JSxat9V+ffbQK2gCtHV2Nmp/bYSNFkq4i/Ajs5e4bnYIrS2zuPDQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789790040; c=relaxed/simple;
+	bh=ar2zcNlv7+c1OyTtkaddUuGasqJNqHnuUoJCpv2NdIk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=c1JpiS/vNyWHSR/M5gMVwQ8P8zQamUNeIQQ25gQzsqbU3tEoFFTBPCqspsvyAcKgjomk0UVhQNehjvBMOVVv1CvqDSt9upiBXxFfJLRn+H7SHN5nWJRZ+Qb/6tT9902NRQK++Pb5KFMaUh4P9SDy+Ut6lhUzFQR8+keVlgjcvm0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=GMW7Rq2U; arc=none smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="PWF0nMm3"
-Received: by mail-lf1-f50.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso1223896e87.0
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 20:07:45 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789787263; cv=none;
-        d=google.com; s=arc-20260327;
-        b=V/MSzyM3eN2uXACKpwWXh97lolzKw+6LxJqc8gYJKlnOotMG0aaaroHwneIfFk37DY
-         fzsgPYeUxEjcR2ECaG8OPsppw/elghsIwBZ/J7qmGCYlkLJfObo5kCzikyUyHazEM53o
-         myiv25XnH+VxPxy5CxEC9UwBXwrUqn5fjzeeEYt6LsXkGndIBLjjPaf52bqV5qRYQ00J
-         pvnJkamtPegH+hwJf2MKpAjIiuMzOGlHYgbmDbfJHEXdwM19MFWd2RZti0jjmzay0/tq
-         H9as4L/EGu9i1FAqtU+6fKa8nX8C2urO1HMGd9w57GNR6rz2f4JrwFftVGR4lwMLBUnD
-         OGng==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=w0FzqTkWxvgr+7fjcUx1t+0g43Cb2S3hJxh82YqqopA=;
-        fh=Wetyi8SZgxpC1NL/Jv7JaX0oZlZmx0fMiDfnZxsUBGY=;
-        b=eYj3ooamy55RVGth8LrIlfmrXtAPYaDgWVr502XK4i/h0rH4+R7KrzhcB6Tx+GafLT
-         AkoPMRRkgZ+D5ROM7zafzV0PBeHbEP9rlAw7X2EuyNBirj0xLaNwwXVKOOthQ7l602RC
-         6JU4UcMTebbfX1dOcqDTb3JzCvMPCWx/LXwc/fUC3pd/8oRK0SaG640nnFDuhTk3AIVR
-         42vDrDmXzYyGS2P6IGIDVBxUBWNArk8ykCIX6tNK4D+6wmxh/ebxb6vlfnu6CExFVLZ5
-         WVgTCQis6zDVPp2Q8Y5JDzOIpjrWAT3bTiKmwbEOaM4nsN7+rYPxpY3BBhXqn8ekPJ2p
-         MppQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="GMW7Rq2U"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396ccafb752so1192200a91.0
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 20:53:58 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789787263; x=1790392063; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=w0FzqTkWxvgr+7fjcUx1t+0g43Cb2S3hJxh82YqqopA=;
-        b=PWF0nMm32bsts05N9GBf+6CFTSNwZOkQCILOyYWvogxl1k3kk/xkXI5Chx4ImKcGoA
-         I70f2KwLZG5JgygwJ+/bw1ZokfCxdEt6YNxYNPTC8la47zSKSEy3Ch7BUnzf0Y5B87L0
-         NGZauxfGZ3VpPHQqGuSJgwNN7MyZjfdZa3mLb2aRnxI6NOxo/IBJKET9XIrZt2O7enj/
-         XYGYND3Evss+W8ixfwVRFJFcqOJpt4Lk0K0ovlRtiDe2NXrrLJVIFnG+zVtp/2TflS/f
-         7Xdb744AMBpG0+kwwvujDcghWQA+ofTYeAHpIm5xJVN/f9CnXdRIPLoJU/1Qy3gI41H2
-         If8w==
+        d=gmail.com; s=20251104; t=1789790038; x=1790394838; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=vINPVP5099LZ8ihUeZp3zwJQXFHBAyqFeLchbfWgNgA=;
+        b=GMW7Rq2U6iBEIU5Camq06FyvBFRmvxCvNmgq7F55xS7rqCbz4sS8Owb2vP2W7ajGIa
+         MYkQy50pfCiBGWsrmUe8h/AWPZ4jWnRnC7c9cLzLMwIo34gOt/Gwni9UN1Z1rKkR3+zR
+         idiiBgG2nertauxD/eheJ4OtL5UdNclmwa0spVlFpcojo+OvZQLY9vuBAxFRwsKkFb0K
+         QpPuksMAUJ9x/55YN3M6a8VJPwJ4+r+cJD6O9twIz+/qb6CIWcaWLjd3algWN93NwZS/
+         GTJjXXVQ5sDe07BsHukcjMcmun+K8n0tlutL9pbgtEGvH8WDxCoXHv6U1KPZcktJqdKT
+         tcLA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789787263; x=1790392063;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=w0FzqTkWxvgr+7fjcUx1t+0g43Cb2S3hJxh82YqqopA=;
-        b=TRhpzIuBoTlQkoyHmG/1S6UHMlizVEfs6YzRGlSCwxdkatD16ycQ92RBBw5yJdXNVc
-         G29OCbLMejb4FVzY5Z27ayV9ypqArzZKY1UCrY2g0Y6stufJe0NRUrGEAlnhGjHDh081
-         7Pz4/2qVTUlw/W3AYtS7SMLVz0U4Qn5RJeWXmyE6YIrZt8bNh9e4R4mzmuFQtRWmY+VY
-         LR/JHuKOdNlFZ5jbYm8fTE4pNlAmSk5o03DZieV+jFKLURUEDS0N0ef9Gqptj4oi1GaR
-         mIBa3NeGsvqILhHSp7K2xBcfWvaaTh4bzf5sjgSUNH9gOt8tzx9uw/2yK1ycamkg9GUZ
-         E/Kw==
-X-Forwarded-Encrypted: i=1; AKwUvBxawIjFzjXaFR0jjDJyMHe5LNiV1i7QkhfXw3sR6R7HgQclYdmYibgi4oFuDnAlAiDHLOv29mE=@vger.kernel.org
-X-Gm-Message-State: AFuF++lqZezaibJwizF/Yf1STJwSnvUtcOupXRpamSVOHGPMmx+i8AJd
-	rRuudkDBi+3Lp3KsxB4oEGX2/10xdujhFM0LH5231wH37XcfkGGXTnwoDLbs+/tCXkelcS2t3Ae
-	qGoPbOKFF33pYR9jVvPQ71AxRGX5zmPs=
-X-Gm-Gg: AYBFou1a8PmmRcOZ0oApEbOVSr92PzQUtZo/PEMCNJso470OyOQm/NS9vcHt1ktW2iz
-	VsagzgfjFF5VjhxNAhyiuu+lg8C8lAE/GBFyOjWhupjxQgRM/2M7K322gRUcg6uGIp8hukpXfsw
-	fHH10ZsuL3bqKH3fOP0Q9oQdiro2QJnygzQaeO7y5zfo7C2ZUU4CpX+SgmvJ95st5xAOUnUuUDw
-	OgOgZNqhmCBznNYOk2MQy3K3Vtp/5biOEA82GEIKqGxA6tFh2V3JeJyVKAoYe2l/nk0Cj5MIgEG
-	w9D++fh6165jCliZxZiVJ2JN2cXgpGJ8AGd4EpVC18bcYzZzSfubck3JQeeFSRbPt4M=
-X-Received: by 2002:a05:6512:31d1:b0:5b8:c53c:468 with SMTP id
- 2adb3069b0e04-5b8c53c0572mr850142e87.40.1789787263185; Fri, 18 Sep 2026
- 20:07:43 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789790038; x=1790394838;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=vINPVP5099LZ8ihUeZp3zwJQXFHBAyqFeLchbfWgNgA=;
+        b=wf3ilw2hSP6CcwteECFiIi0mhagNvoa2Y4fhvEPYXwz3sioCZg2yczKNFUfH5NRYux
+         D6du5wKwgkGi2olU23jfOaqMdRl6E3C/tNTrgN5aQrVtuqetS0hGjyKugiM47FUr0db4
+         JuSbLHS5yhhF6Egs9OGEkuJczpiS+qvqGm9+hh+6eHZsyYYlMxfrV4a1A3ujIOXosApY
+         CsHzWObtNbdv64H+jjEuBG2X137u5JnM9lqk24+KiYKNztCIx6sFG7xvEOU1maccMRGJ
+         aGwO0wtT60W1H0uV86P9Svbqp6wJQwDfb0eFRcZFnD1ArgYd+wStwigaoprYa5SBCi22
+         Yl8g==
+X-Forwarded-Encrypted: i=1; AKwUvBy34lU4gCzdcNLJNZeHE3HJsFFqMME8yzmLkcLya6+vgoKf4Dr00Gw50pLuXIIUwSgUXuWXpu0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nrKqyqlycrXGlZpbVVzj0rCZf4JG3QoomLDm1dDR4QjyR4u2UC
+	XAJ+ACFd3Clq8Y4UKMxF9uSAEXQiKeDHi2fXxb9hNQkIXoK1KpwhUtuO
+X-Gm-Gg: AYBFou0H9jJN07f8xSY00gyWe8dhk7/ZIloLjQ87GUuDCLAHekXjFpgF3J3XqaR76V9
+	78A2bJVPgiRqrmVFSmF3pWM6+bhX+y8bKv8dXxO5qUTmqOWLQicewaRGJdlAX5tfcyN5Pm4hzrd
+	WgD6f+VY2z2jEWS7d2XgemZpzStI9OMpQjzhh7ya4p7UE15keu6dAuNXGA5aXDNbweih3/adjtr
+	mIMJkwxLnQyaTBpiX2tAn0KHO9gXNe9QsdFmGM7mz/VpYiu0iGU4LSNLaSrpLpHULnXqi2E20yy
+	DEukj99Rrf7mksQkXFOUZWIovUZ8D4i6kK1IHLrbArypuyzaoGcYim1SC4EUc1kpy3fzapaUUN0
+	iNSyvAL2NSa4Ig/1pZoX8NK5W6sIDqFPJLuQ1GFX5xwHs6VlFvVIE+ZSQ0nDFhKn/yXWV/vnJxM
+	z8YXDz1095AgdyQwMztenZMC8JzaeRh+3+uhin+kSuzc6xTPOxUMApbLKvFeleNVTaZX4SCoUvx
+	1jxqqswlU/slMPe
+X-Received: by 2002:a17:90a:e7c9:b0:39e:6c69:7771 with SMTP id 98e67ed59e1d1-39e6c69794bmr2720506a91.26.1789790038175;
+        Fri, 18 Sep 2026 20:53:58 -0700 (PDT)
+Received: from thangnn-ASUS.. ([2405:4802:1d4a:e90:814e:e9d3:767e:9a2a])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6cb3607csm2287560a91.16.2026.09.18.20.53.55
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 20:53:57 -0700 (PDT)
+From: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+To: Casey Schaufler <casey@schaufler-ca.com>
+Cc: Paul Moore <paul@paul-moore.com>,
+	James Morris <jmorris@namei.org>,
+	"Serge E . Hallyn" <serge@hallyn.com>,
+	Rafal Krypa <r.krypa@samsung.com>,
+	Zbigniew Jasinski <z.jasinski@samsung.com>,
+	linux-security-module@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>,
+	syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com,
+	stable@vger.kernel.org
+Subject: [PATCH] smack: reject relabel-self writes from io_uring workers
+Date: Sat, 19 Sep 2026 10:53:51 +0700
+Message-ID: <20260919035351.88453-1-ngocthang2710.1999@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915111351.2726334-1-qwe.aldo@gmail.com> <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
- <e197037b70377be78b296380bcb31b8c3e8f8d74.camel@dubeyko.com>
- <CAKFNMo=0-rxN0BKG1v+KhrGwnh2ZL_Hn2Jbcqc9sWRV8cwxPrQ@mail.gmail.com> <2f638ff0568a55233899b2a7ef4dba3ed945bc51.camel@dubeyko.com>
-In-Reply-To: <2f638ff0568a55233899b2a7ef4dba3ed945bc51.camel@dubeyko.com>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Sat, 19 Sep 2026 12:07:26 +0900
-X-Gm-Features: AcwNN1XrKGMdprmXwaOngP5OHZSqj1InSVDqZdmSH5-4vyq3vJ2CKSIXed7wrwo
-Message-ID: <CAKFNMonz0QUmCL2L7dcx=sxNp7Ept78QMLvy9hZ766LkOXj-vA@mail.gmail.com>
-Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 12:01=E2=80=AFPM Viacheslav Dubeyko wrote:
->
-> On Sat, 2026-09-19 at 09:46 +0900, Ryusuke Konishi wrote:
-> > On Sat, Sep 19, 2026 at 4:33=E2=80=AFAM Viacheslav Dubeyko wrote:
-> > >
-> > > On Sat, 2026-09-19 at 00:44 +0900, Ryusuke Konishi wrote:
-> > > > Also, please replace the 'Cc: stable' tag with the following tag,
-> > > > as
-> > > > with the previous patch:
-> > > >
-> > > > Cc: stable+noautosel@kernel.org # Non-fatal bug fix; defer
-> > > > backport
-> > > > until a real issue is reported
-> > >
-> > > Damn! I missed this request. I already pushed the commit. Are you
-> > > OK
-> > > with that? :)
-> >
-> > Viacheslav,
-> >
-> > Since we haven't hit the merge window yet, and linux-next (the
-> > destination where your for-next branch is integrated) is a daily
-> > integration tree intended to be rebased before being pulled into
-> > Linus's tree, updating the commit message on your branch now should
-> > be
-> > completely fine.
-> >
-> > As documented in Documentation/maintainer/rebasing-and-merging.rst:
-> > "Some trees (linux-next being a significant example) are frequently
-> > rebased by their nature..."
-> >
-> > I think it would be better to fix the tag and overwrite-push it now
-> > rather than leaving it as is, though of course it will need to be
-> > frozen once we hit the merge window (or after the official release).
-> >
->
-> Sorry, I have too busy day.
->
-> The commit message has been updated and pushed.
->
-> Thanks,
-> Slava.
+smk_write_relabel_self() calls commit_creds() on current. When the write
+is issued through io_uring it runs on an io-wq worker, and io_uring
+override_creds()es the submitter's creds when they differ from the
+worker's. commit_creds() then trips BUG_ON(task->cred != task->real_cred):
 
-No problem.
+  kernel BUG at kernel/cred.c:376!
+  commit_creds
+  smk_write_relabel_self
+  loop_rw_iter
+  io_write
+  io_wq_submit_work
+  io_worker_handle_work
+  io_wq_worker
 
-Thanks for handling this.
+Even without the override, committing creds on a worker would relabel
+the worker rather than the submitting task. Refuse the write from
+PF_IO_WORKER context.
 
-Ryusuke Konishi
+Fixes: 38416e53936e ("Smack: limited capability for changing process label")
+Reported-by: syzbot+fa63184795283ac3f842@syzkaller.appspotmail.com
+Closes: https://syzkaller.appspot.com/bug?extid=fa63184795283ac3f842
+Cc: stable@vger.kernel.org
+Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
+---
+Reproduced under QEMU (x86, v7.3-rc3 + 00834fcb20d0) with a small io_uring
+program: async IORING_OP_WRITE to /sys/fs/smackfs/relabel-self to spawn
+the worker, a direct write() to change the submitter's creds, then a
+second async write. Before: BUG at kernel/cred.c:376. After: the write
+fails with -EOPNOTSUPP and the program completes.
+
+ security/smack/smackfs.c | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/security/smack/smackfs.c b/security/smack/smackfs.c
+index a72bc7fabea9..0061220e2d00 100644
+--- a/security/smack/smackfs.c
++++ b/security/smack/smackfs.c
+@@ -2678,6 +2678,10 @@ static ssize_t smk_write_relabel_self(struct file *file, const char __user *buf,
+ 	if (!smack_privileged(CAP_MAC_ADMIN))
+ 		return -EPERM;
+ 
++	/* commit_creds() must act on the caller, not an io_uring worker. */
++	if (current->flags & PF_IO_WORKER)
++		return -EOPNOTSUPP;
++
+ 	/*
+ 	 * No partial write.
+ 	 * Enough data must be present.
+-- 
+2.43.0
+
