@@ -1,128 +1,160 @@
-Received: from mail-lf1-f44.google.com (mail-lf1-f44.google.com [209.85.167.44])
+Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7499A3264DA
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 00:47:07 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=209.85.167.44
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789778831; cv=pass; b=SvYRAIV6OLECESRN7Q/FlSsbqGPElMHYUx4A5g69u8E0xnpbWOiu8mTO+TBUL7URZzaxoFaiz+mo5cGz0XoUVIIR8Ec53jfc/9tdOUr73+KNcVaeYPLvRTO6GV+T6feOdXJr5cSpUPnHBy1SNJt8mHyQxJAbOnK4vGw0LqhSchY=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789778831; c=relaxed/simple;
-	bh=ULS1O9H2vl1xXhjc8PA6+XCr3+Fn6BHRdst9HWjSmQs=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=ZGpZXXCEYU+NedT0cXDenb/jPdGM+Z0N77RHPKaFOnTJqY3+KiA12EZuxTSo13d1Z0+/Dh47iTQHoVj2XuwyNBBy4ligJSMTFc7t1eoshCCONv539v1+w1f5/OYZo1YnHvWE38ZyQyY3GKDvYml7CyB0yxoF3KTuqUs4YHaGGtY=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Kpn0g1O9; arc=pass smtp.client-ip=209.85.167.44
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 04AE6331EDD
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 00:47:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.224.140
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789778881; cv=none; b=UVzYyPLtd8yZu1njcReZQApIDSe8wO/eE4tNTUxqO6sGDCrXAlD13e6ZdnZHG5YAnv8aR9hafCMntvnMIOg8Phu6Z8T3st4wIVDZK/QRXOfwM1tUmd52alNk/uYHwxtFAYfxXW3CskiQgHkaAQBhL5CyfM9z9Zo+94IzkaQ9E9M=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789778881; c=relaxed/simple;
+	bh=+mogkCZ91YORXT0VVZ847oEi+tvqSVDBDcgwDwPEQGI=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=MVyCbO1bDTXunVowLnOQP7Y7W6pRiTYS6qZ6U+Ef3jIGx1yok3qGytESPbNsdZUEDO0QU1x4M2W50lEsj+R2Ajjh4p1zMSAAJ5jpxjWZRF5r5lDotMBCJrZHBYppsXSc7fhGP9jwZ3tw6fexR3R8UDzrj02CcY7St87Uaq2bHOY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ULPfnTLk; arc=none smtp.client-ip=74.125.224.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Kpn0g1O9"
-Received: by mail-lf1-f44.google.com with SMTP id 2adb3069b0e04-5b76694fb7aso1168189e87.0
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 17:47:07 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789778824; cv=none;
-        d=google.com; s=arc-20260327;
-        b=k38uBe8aTn7Ke32M5mIUZeErgClANR0PYFIlHcDKQJkOEwbeKgR7M238IsLwqaXVBb
-         9jZ3yQVnSdk3wWNfmaNkFsLoBZRejpEONsfwU0g50aqOqPJPcczoXbUu9er3U0UCMY5f
-         qCa4koIkX5nB+xR06H5m5xr4N4EkOx95NjIWm1Iyd4KB/WFoUP4ZFQiCK6RVwNhHa0Zk
-         t8LjFMbQpsQmk6PcCzKIZ/628Hol4FLISDc9wsS90kFyM7IEnTyicL82mAmrElTaupw7
-         LGDBxcg8GjGQ5Y8TA8ugfCXuL/frwkNswBlX364Okr27F+m3VCtIH8ATNjW86lU9UZJt
-         oRzw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=ULS1O9H2vl1xXhjc8PA6+XCr3+Fn6BHRdst9HWjSmQs=;
-        fh=1UpTrhs22TVHYLSObIsWrDiwbRjDiqgg7lQB6N/zfGw=;
-        b=GLOYTzTAbctZk72WStBEtG4ULTTmZLvSH7tiB+EYPjoerB5auiGFKhTenA2b4FVLRf
-         7aRRDkq5YjHKO3aLHoRajh/UpUOXCPMV4nROshB0Q1IkxH8rER1iaNgD2583q4MHNMr1
-         /OAEnbsmEjuTTkAxs/W8nK9p6YX8Oja56uUorhsBRrLDJfCQ4MtRJdmbnL09aBH/4zYu
-         ZdCULlTfptkXkPUeKFQAGisi/0rMKRohYpbDzS+oVdkZQHCIuSGHvpK/JtCX3sj846jU
-         YNIp/2wbmT3JvbGX4WvZs9jGqzbdOM95+HyQOVPIAdjixFNQ1ypgVVQVnTUckr8ysnm2
-         GSBA==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ULPfnTLk"
+Received: by mail-yx2-f12.google.com with SMTP id 00721157ae682-85d43ac6089so10018227b3.1
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 17:47:56 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789778824; x=1790383624; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ULS1O9H2vl1xXhjc8PA6+XCr3+Fn6BHRdst9HWjSmQs=;
-        b=Kpn0g1O9/UWfCTZBkJUmCb365BAxASdEW72zhbBFwtvvJ/oydoACBLO0Dt6FNC0S0c
-         4O1FhJIO66yaoCNjPx1lwDg2bmK6nMX1BAs8HjlTSsuGdUu9cxke5NogT72PLBUVENK4
-         ts4bMqbRZLbYWA1WS0bv/oFvzAPtBAmWhAe9mEE2f7Qd8DvnkLfNEfeCsV6Z9TuZ48B0
-         8ZRBMcU2B8YHtb59Qq8qzG9AewLT2kdCw+3Ck9XOlpIPRU6M2xihUnHQher5pnSosdzZ
-         bZ9ahl1YjKSgRRO0bvRbZ+JPW3zXWZjAJPcHh9z5Jr0UpiIV1agd4K0f+QCdLMo/+FzE
-         zXTA==
+        d=gmail.com; s=20251104; t=1789778874; x=1790383674; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gmQdeC/7WtnxFir3/Y9/uG3vqCUZqvSTleXCCkU4qnk=;
+        b=ULPfnTLkwK8ztBaGawzz+Da70pbIC/9Gb5q3HnCwjLht1wxsSOemfHx8yKenSmLCBo
+         QeQBKVK5BZYSzr6bHpNs06OrJ38DwhIF647ibcxaPq6y2q641S+bDWE0tPbVHWAJj7Uz
+         mZ3orMIOUOzYz8necPwKc2HbDvT+ycNWOOp/U/n05hJ1NoA0GxcS1E/PMg30jKGfNtvl
+         QBVzz5gUmRRvKedxlAUkEg3+3tSK/woDbgKs3ozF4t1mF7TJlrpv0R2r6t5p4XnDc5Be
+         1hQxWdsTXM3BidD7ChsHFnRuAe9OXz2bASjdVcQGBr44BIfz0qeEV094DjQbtDM1b5S0
+         ItQA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789778824; x=1790383624;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ULS1O9H2vl1xXhjc8PA6+XCr3+Fn6BHRdst9HWjSmQs=;
-        b=ultLH8B067zLaroEldl/y2WohrdSPWUpxoxuBFNVC9bHa5+mlbkMHAUVmY4h4Q7PBJ
-         EzA0neJUqoVNLIIknJUAZyZk6nYqE2j8IbvGJSM4DNruxrz/1h2S9wPeqC0fE3b5e2Oe
-         oRtFdKspnNy3qPENRKtt1JREYhleiHezhF5qbsQ1Md/Vj7F6i8PErwI22THeS2L5MM8q
-         WxMiDY/IlXFqnthjfjy6DM4NfBX7vWuj4IriF8DMbKLSpx5pGWh0LfJLd2TNjTQK/42X
-         q48KjNcX+6CPoXX6ZyLIyM+BwSsJxulMxyhcOr0CVPHI9FmkQFkBXagdXWbJxht6ssUZ
-         2Hqg==
-X-Forwarded-Encrypted: i=1; AKwUvByswgFO7VWUm3tFp0vkrolNDHi4n4O0hcNdn6KnWLVi8kmVbg3s2apr+ugMAo3zzQ9xvHDq/PQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++lW/2QAyIVuZ8Aljai5FZYhGcmIb4qmBpvRl2KqXqYvS9iUYiQT
-	rq0DRfES/sCo6s5IzBMTKKri2e0DX8n0NQLBRYKABneunzARYNTLhrgmnLIIhfokI06vfyhRRql
-	pKFq910B/qlGqGBRBLazpg41M0i5Jefnj10CO9n8=
-X-Gm-Gg: AYBFou1HbND+pL5H0G0h7r/MVw2tYOigxKEhugsx15wX7vY2uus+IxZ9jXFMbQ5a1CP
-	/HbFZsf8wf1TuRJh1L4ueEg34vJ2l4PqTo0c57OSX36sHVHWU3YfiybTk0q+/cHC2bNgHhYShhE
-	6zrLsIk1RA7ia7+80z1VytVQFp882IVHndA18zv+LccdFu2BUNqjM/zQzg9MBBw/RvCNyyn8/4w
-	GH1WbDuZR2LjZAO2HXxfF3aHLLLsw7T8+mjAH3iuaVWGmpA3uzIwmRcIfDvcdOgdY1UtRZcuzPp
-	P4mPWY4NaoOfQUnqIFM1TgKDd9wBi0skUgxuqowSUmW6VxjcfeC8qk3H
-X-Received: by 2002:a05:6512:219:b0:5b5:e2c0:510b with SMTP id
- 2adb3069b0e04-5b8ba5d1c46mr1750846e87.4.1789778823638; Fri, 18 Sep 2026
- 17:47:03 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789778874; x=1790383674;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gmQdeC/7WtnxFir3/Y9/uG3vqCUZqvSTleXCCkU4qnk=;
+        b=Ll5cvfCcfvD5q/Fs5gUndvPvM4ikkZpOGBX+HAMTPuW10+nEgQVs40yjnEZT9u9Eat
+         +UN2dh1TAaJIU4Jp8p01rIvL8evLEkt/9hH9JXUKvjQO/JdkSAW5kyIlbAmd+d+gX2V4
+         1VFygk2yiOKoAKYgN0wu1hZIfg/3XcOpgjHOV9oPfnSertc8WSLr/NNQgnDLIHKMvaBT
+         JMAnOhB4qpMAaL4BxXatNcCgHJkABu22j5J9HLnn/bJZBYqtpT3OuEntq9otX5VJftiU
+         cRwKSaGQum4WknvS12TNhCR6zSwttV9fcASaSfd9Be50jkB8/aCyqHTTAAv40PMzuYhL
+         R97A==
+X-Forwarded-Encrypted: i=1; AKwUvByI4bGvM7b03mGO4o6IEj3dlle2zvhKep97HlDxGydK43Vm6aJ/EQjoVRUjE0iQYVclKuReOL0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nbT1MBBlgXiMF3QmAF2JNGIHhfBvWTomvl00DlVg9mmllU66rv
+	246/9rVww/80I9peGja57SFkHyOs9akdUXtUk7wcLmrQkmEFUb3d0pen
+X-Gm-Gg: AYBFou3rw+JI2drR+ixvdAOO0W0TCwKh81pdu6oAzhlxlQzOypBE00bwAe4J/gNZLdk
+	LDvs/GP42VP9xTky1UrLV+sUtBVUZSgR3lNPr1OFHHOydeLWToRt++s0u148Qn6qAfSAMWT9Kz9
+	X2CA5x/qpk5c1CoD0HOhC1pnBgICfCvWIGey5+E6XDNoYvPTnoi34rlPee8lx14Krm15NiNznqj
+	fmA6ThTIkyLMo29w8zyWUUvR7mhx/NAMpIVD7ymsKixphvKKPTHwUacrWL4rMEstPGpvOmYXAD+
+	NVkEuY2TRrmjuLJEsBvgbQHIZKH2LVy0zlKbZMtrFmlWMuP06PX6bo/C4PzLd/GrBFcWfGR93KG
+	hGzFDjfxcmEK/zWjodvVSRuJjzGcRoRwgyo61HqyU+VZ8PwKpn4D+87f+3b71bFwl+ltpUYBnUt
+	B+0yQcOU1K2hA0fl7inikfR4e/ICdvlp/ONsu2wKvsqEkDAPQjyLxNHDNVDdDtXn0xNb4f7o9BO
+	CXo0LVfUcgo2ln2uGV/pQuQIFxsxH14flJ5hpiIRnuhse3WDPZqt1c24dvdOU8jHZeRCXvysnI=
+X-Received: by 2002:a05:690c:ec7:b0:871:a319:3ee8 with SMTP id 00721157ae682-897311d4f82mr15049737b3.10.1789778874607;
+        Fri, 18 Sep 2026 17:47:54 -0700 (PDT)
+Received: from willemb.c.googlers.com.com (111.46.245.35.bc.googleusercontent.com. [35.245.46.111])
+        by smtp.gmail.com with ESMTPSA id 00721157ae682-89a478ff1fbsm4999977b3.31.2026.09.18.17.47.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Fri, 18 Sep 2026 17:47:54 -0700 (PDT)
+From: Willem de Bruijn <willemdebruijn.kernel@gmail.com>
+To: netdev@vger.kernel.org
+Cc: davem@davemloft.net,
+	kuba@kernel.org,
+	edumazet@google.com,
+	pabeni@redhat.com,
+	horms@kernel.org,
+	andrew+netdev@lunn.ch,
+	Willem de Bruijn <willemb@google.com>,
+	stable@vger.kernel.org,
+	mst@redhat.com,
+	jasowangio@gmail.com
+Subject: [PATCH net v2 1/2] virtio_net: copy zerocopy frags in start_xmit without NAPI
+Date: Fri, 18 Sep 2026 20:47:28 -0400
+Message-ID: <20260919004748.1463985-2-willemdebruijn.kernel@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <20260919004748.1463985-1-willemdebruijn.kernel@gmail.com>
+References: <20260919004748.1463985-1-willemdebruijn.kernel@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260915111351.2726334-1-qwe.aldo@gmail.com> <CAKFNMo=0hDANOd+DxxvKA=RNbiG-zygkWh6EUC6Vr2MYe4npLQ@mail.gmail.com>
- <e197037b70377be78b296380bcb31b8c3e8f8d74.camel@dubeyko.com>
-In-Reply-To: <e197037b70377be78b296380bcb31b8c3e8f8d74.camel@dubeyko.com>
-From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
-Date: Sat, 19 Sep 2026 09:46:47 +0900
-X-Gm-Features: AcwNN1XvQ7oA7wJs8qNTVXqjcIufwo1diKErI4eQMLUq2UxbIuNp6roz-nIE5Rg
-Message-ID: <CAKFNMo=0-rxN0BKG1v+KhrGwnh2ZL_Hn2Jbcqc9sWRV8cwxPrQ@mail.gmail.com>
-Subject: Re: [PATCH] nilfs2: validate file block counts during recovery
-To: Viacheslav Dubeyko <slava@dubeyko.com>
-Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 4:33=E2=80=AFAM Viacheslav Dubeyko wrote:
->
-> On Sat, 2026-09-19 at 00:44 +0900, Ryusuke Konishi wrote:
-> > Also, please replace the 'Cc: stable' tag with the following tag, as
-> > with the previous patch:
-> >
-> > Cc: stable+noautosel@kernel.org # Non-fatal bug fix; defer backport
-> > until a real issue is reported
->
-> Damn! I missed this request. I already pushed the commit. Are you OK
-> with that? :)
+From: Willem de Bruijn <willemb@google.com>
 
-Viacheslav,
+Virtio-net without NAPI frees completed skbs lazily on the next
+start_xmit. Senders waiting for in-flight zerocopy buffers can
+deadlock if they cannot transmit more packets, as then no
+completed packets will be freed.
 
-Since we haven't hit the merge window yet, and linux-next (the
-destination where your for-next branch is integrated) is a daily
-integration tree intended to be rebased before being pulled into
-Linus's tree, updating the commit message on your branch now should be
-completely fine.
+When !use_napi, virtio-net already calls skb_orphan to avoid waiting
+up for transmitted skbs to be freed. For zerocopy packets that
+require deep copying on orphan (i.e. those that do not set
+SKBFL_DONT_ORPHAN, such as PACKET_TX_RING), call skb_orphan_frags
+before orphaning to release the buffers.
 
-As documented in Documentation/maintainer/rebasing-and-merging.rst:
-"Some trees (linux-next being a significant example) are frequently
-rebased by their nature..."
+This fixes the tpacket_snd slot reuse bug on skb_orphan for
+virtio-net, and prevents PACKET_TX_RING from running out of slots.
 
-I think it would be better to fix the tag and overwrite-push it now
-rather than leaving it as is, though of course it will need to be
-frozen once we hit the merge window (or after the official release).
+This fix also touches vhost_net zerocopy packets, which also do not
+set SKBFL_DONT_ORPHAN. This is fine: vhost_net packets only encounter
+virtio-net in nested virtualization, and only if napi_tx is
+explicitly disabled (it has been default-enabled since Linux 4.12).
+In that rare case, copying the frags is desirable anyway to prevent
+holding guest descriptors pinned across unbounded intervals.
 
-Thanks,
-Ryusuke Konishi
+This is a prerequisite for the next patch, which converts
+PACKET_TX_RING to standard zerocopy completion. Without this patch
+first, a bounded ring sender can stall indefinitely behind a
+virtio-net virtqueue that cannot reclaim.
+
+Fixes: 5cd8d46ea156 ("packet: copy user buffers before orphan or clone")
+Cc: stable@vger.kernel.org
+Cc: mst@redhat.com
+Cc: jasowangio@gmail.com
+Signed-off-by: Willem de Bruijn <willemb@google.com>
+
+---
+
+v1->v2
+  - Do not suppress device kick on skb_orphan_frags error when !xmit_more
+
+---
+ drivers/net/virtio_net.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+
+diff --git a/drivers/net/virtio_net.c b/drivers/net/virtio_net.c
+index e34c52d059d3..bf82ef9874ab 100644
+--- a/drivers/net/virtio_net.c
++++ b/drivers/net/virtio_net.c
+@@ -3349,6 +3349,14 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 	else
+ 		virtqueue_disable_cb(sq->vq);
+ 
++	if (!use_napi &&
++	    unlikely(skb_orphan_frags(skb, GFP_ATOMIC))) {
++		DEV_STATS_INC(dev, tx_dropped);
++		dev_kfree_skb_any(skb);
++		kick = !xmit_more || netif_xmit_stopped(txq);
++		goto kick_vq;
++	}
++
+ 	/* timestamp packet in software */
+ 	skb_tx_timestamp(skb);
+ 
+@@ -3381,6 +3389,7 @@ static netdev_tx_t start_xmit(struct sk_buff *skb, struct net_device *dev)
+ 
+ 	kick = use_napi ? __netdev_tx_sent_queue(txq, skb->len, xmit_more) :
+ 			  !xmit_more || netif_xmit_stopped(txq);
++kick_vq:
+ 	if (kick) {
+ 		if (virtqueue_kick_prepare(sq->vq) && virtqueue_notify(sq->vq)) {
+ 			u64_stats_update_begin(&sq->stats.syncp);
+-- 
+2.55.0.1082.g2b9226bbc0-goog
+
