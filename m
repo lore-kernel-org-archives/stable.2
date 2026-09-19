@@ -1,132 +1,150 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail.alien8.de (mail.alien8.de [65.109.113.108])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 58BBE78F2B
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 17:49:29 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E47922E3F0;
+	Sat, 19 Sep 2026 17:53:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=65.109.113.108
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789840171; cv=none; b=I/45DdK6Y9bqHgqXt3bCX0BOH5WcqECmzyj/lVzLFXyOuwLuYlc8QaIGRhSEQlgbWOYIPc86I3R4o3VCkduRmdmpyxMAiIt9Smar2NHWesSyIiLn6N9kIqjlfgHF4IXcqCJHHyt/efvrZ5N/8ug2hrQUFcS8u8e5slGcvKs5Q1A=
+	t=1789840436; cv=none; b=fPJddVOadlzcijY8DjU4bNssE9zzKAGt3bvB7tI2cLtGLmnWLTVJUYG0Y0wx9w9S56sMXg2NKHi2lVsPCH+B1d9ZhAsbRfJen52VJhBzegKmgfmBzE1rmlcCbJB6KjT8C5uKzoBb4Z3FzC4E7cbfnNjVj+NcD1PZtVBDgBTVclg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789840171; c=relaxed/simple;
-	bh=g6tsjX6Qa/+gUKGSA+7Kv+QYuIKzwo+FzO1cUxU6D7I=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Z08iQ1oVBLCClRsYAX2lQXX0rww5S11mYnMKS6woz2PDvSbYgaekdr10YWKcSLyq/GWliKQbI8X5XakacSEAmHeEdvoscRKtieX0lbXcmVxpZDBmM3BkFlNBanzAEUBL1Q+xg2uFdSt+bJdNCT70uZEn8l/UHEzB9hJHqsT3y4E=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BVP5UP2a; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789840436; c=relaxed/simple;
+	bh=Lze/nS1hhnL/kziNlIsE34/oTHnyvYq7icyZckjoLnA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=a75S87kmYon6jLXfXlzli/hUXFQKE8+Vgw/OPsyqdpuPbQTkwCP4zhTUAI7WraceQpFS1zimsJtDJv6pfNesEfU6pGN4LsjbZ1/o2vNJKpd3gQHrEEk+zfBBFFxE+WhKhInDzkQioA+ESGcGn7AhWTRUMN3DM2YhJndfsW1Elr4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de; spf=pass smtp.mailfrom=alien8.de; dkim=fail (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b=UWEyhuG8 reason="signature verification failed"; arc=none smtp.client-ip=65.109.113.108
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=alien8.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=alien8.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BVP5UP2a"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398c066106cso1426499a91.1
-        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 10:49:29 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789840169; x=1790444969; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=GMcAlqV/8gbRvywKZc2/TEvRO6KQIityZ14E3909GDg=;
-        b=BVP5UP2aW+2uHY3qAE4/6Zk6A93dSwyAhMeED0JxnSybyosnaeXzuYlEEr1dZiBVhN
-         d0K1nol3825CTjwTo46tEIAVP3NHaDapyiIP8JviZ0vq5zFf6KZ2wT0mq8fFbPVvSjEC
-         FXfQ+9fKZbkBw3ylxmrYLScG2IzUMMgjfXrWyQmKkfu6mND/QuUiV8b6zPs9wUb/7ypO
-         bK87KU4ctFDjcuf94jYlrMean+x4fon2KIO+rtBhHl5X9bX5vuhBFnoUwyohGVnA+5mP
-         NfCc1VJj0sBzPBnNsiSE6B7ZTlJcp8Zo4RaisAsmIjeOWY3N87xAU7tufhHo5UFiXXaX
-         xpmg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789840169; x=1790444969;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=GMcAlqV/8gbRvywKZc2/TEvRO6KQIityZ14E3909GDg=;
-        b=e5kwql4EXQaKSG4tgnwPFtxDczwPYf8cHH3M+Uywny0qoalVmYdh3qNYqOtqeOWnme
-         OFPY50sIUngCEzzRulSiKBlICKzAT2F1o39ratNvsJBcikCU5sMAPXQXCXSHttdLBjJn
-         UmEnlaRYh0dIeOzLo3fXZvll4raIqZv7TnrnjQN6DK0jOoOfRnhcoMk9mLO3myWM70kK
-         6RoGu21rz+2aGCx905xPlIgiEJK4CJOvNqIYyqxAAoNwzDiKXsUAM4a/lPiXLj26G38k
-         WpuNVCg7Y3XNNs7rkwf3ux65uF87qdKE5DGRcGd7oKZZl3wQaunkTdebqZHuMGKcm8NJ
-         BGBg==
-X-Gm-Message-State: AFuF++kBBE8T15DCs0bQiM+Hjza0y34xAFqgSFEDouQY8oGYeWSNowBA
-	hDy3NrXw/WHK6CipCrmQgOAR1G/sQeAYZ8ibJwBU/g7OjxpYSoEWTIZW
-X-Gm-Gg: AYBFou3rvRjsIefWESw4NyXjcGWa63tCP5hOYN+Y4ZP39A7xMPlqQiKUzrTyE+8IBNj
-	AJL/Gb/ok/ovEKFQeGrJxv8Un2MntvkhfXxl0C7PyQ8yO3Ftrjk0QAtpUTlyLfqD6cZeYoPS0CQ
-	O2qHExTkkL9pJdmdYpBYnZK1k5XAJn5XVyctYU5lwm42XwWrmb2g689x6Td5tE7JbjXsnxQP6V9
-	CJY1JXFoxc6zo1VxwrR43WC6SX0c9LzX/ykr5bsN8nCBt86aObGVDsYn1wtmYgGjhZ/y/HluHj3
-	MFuu1A7H3m6bCvVKWrVxWwrtTH7rHSrDMuggEZAdWKIALbmNQiZVl6uTuUlRSPvg5kE21PBUL8B
-	Ikfbh22ElEQPGayhjAKE6ny/Y5K/huHoSzWobaexSf/esZbLy/JL/XMpeExxXOxoR5a1FwUmjF5
-	9sInlrU+muMXFO1a5Ngom1pymmiwCiqPjyz7CQER9U//NkriNnWlIYp9WlIY5Cr669Zegu
-X-Received: by 2002:a17:90b:4c46:b0:366:3517:1aa2 with SMTP id 98e67ed59e1d1-39e54922644mr15032744a91.0.1789840168712;
-        Sat, 19 Sep 2026 10:49:28 -0700 (PDT)
-Received: from lgs.. ([101.76.249.46])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6d83e253sm2082331a91.1.2026.09.19.10.49.25
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 10:49:28 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Ram Vegesna <ram.vegesna@broadcom.com>,
-	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
-	"Martin K. Petersen" <martin.petersen@oracle.com>,
-	Kees Cook <kees@kernel.org>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Daniel Wagner <dwagner@suse.de>,
-	James Smart <jsmart2021@gmail.com>,
-	Hannes Reinecke <hare@suse.de>,
-	linux-scsi@vger.kernel.org,
-	target-devel@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] scsi: elx: efct: fix Scsi_Host memory leaks on add failure
-Date: Sun, 20 Sep 2026 01:48:35 +0800
-Message-ID: <20260919174835.3729156-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=fail reason="signature verification failed" (4096-bit key) header.d=alien8.de header.i=@alien8.de header.b="UWEyhuG8"
+Received: from localhost (localhost.localdomain [127.0.0.1])
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTP id D6C4840E0173;
+	Sat, 19 Sep 2026 17:53:43 +0000 (UTC)
+X-Virus-Scanned: Debian amavisd-new at mail.alien8.de
+Authentication-Results: mail.alien8.de (amavisd-new); dkim=fail (4096-bit key)
+	reason="fail (body has been altered)" header.d=alien8.de
+Received: from mail.alien8.de ([127.0.0.1])
+	by localhost (mail.alien8.de [127.0.0.1]) (amavisd-new, port 10026)
+	with ESMTP id bBIJx-YJV69X; Sat, 19 Sep 2026 17:53:34 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=alien8.de; s=alien8;
+	t=1789840413; bh=SXiqwKtdNNUw70nrLfz6bcKBIdshJmQNRlHzGsoGp7E=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
+	b=UWEyhuG87+5c3DEkcI6k9kbCf7oqNuWc7NNVp+B0jdkCEFaq+bUs3xutwcASp62Dm
+	 xBdQHX+gY060/K34myaFqGgQe+2f/z3C6mpkz6uOkpM01sUZzWw/aSPJsD8Z24qiLI
+	 Z7vqWAQbgKb6wHT7E1CBmb4dnbAsxOY2OJ05fCl1kSnIqEcGHIpe6aaV3+jzi6lJhP
+	 cbU8nC6dsoKI2Qyb2fvOVN+oU+2fKN38Alu/a4rPUApwm0ccFCz4IAWeO15OO1aOTE
+	 UYVdJU357+iOqhipNfoJXMn+ETz0RFXxRlNDMIrGWhVRUzduCPwkeRBSyuGTSPMMxu
+	 aOphzimH8sxfRQfHLI5C7d0/rJFlUDBpQW0gR3rqbUZ+nWFkcYaNksQVFRPXsdgNbJ
+	 bKx1DXIoi3wmz5BqmhsveI6MCk1Qq6PZU9spJoDhgwKKEecM9ON5EVsxz1XxPcQowK
+	 LyByULYfxFktJ100cN6FT/nzQSE5HxRuoF/iRJSgndbYT5FdTvPkvQ5vV+RXJXxq4b
+	 SHlmUxnFz34Xj/7YurGtkbj8n8tIL7lvtnMSdOkFVIu6Gl70ewQ/HFNOYSjlaYWWIf
+	 59OINNfItYdX/nmbWo4bsu07fF2iTiY7QrOF1wL4vdDyonaaah6s9CFyEBhbZD91UY
+	 3MKqf3aAd5VBi4CrKQFnm7NM=
+Received: from stx.tnic (unknown [IPv6:2600:1700:38ca:c00::3a])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature ECDSA (P-256) server-digest SHA256)
+	(No client certificate requested)
+	by mail.alien8.de (SuperMail on ZX Spectrum 128k) with ESMTPSA id 5DB9140E00B9;
+	Sat, 19 Sep 2026 17:53:20 +0000 (UTC)
+Date: Sat, 19 Sep 2026 10:53:16 -0700
+From: Borislav Petkov <bp@alien8.de>
+To: Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>,
+	Dave Hansen <dave.hansen@intel.com>
+Cc: Thomas Gleixner <tglx@kernel.org>, Ingo Molnar <mingo@redhat.com>,
+	Dave Hansen <dave.hansen@linux.intel.com>, x86@kernel.org,
+	"H. Peter Anvin" <hpa@zytor.com>,
+	Oscar Salvador <osalvador@suse.de>,
+	Andrew Morton <akpm@linux-foundation.org>, linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH] x86/mm: don't apply va_align to hugetlb mappings on AMD
+ F15h
+Message-ID: <20260919175316.GAaq7MDHnfhdJFPtsM@fat_crate.local>
+References: <20260828135747.724789-1-l.wandrebeck@quelquesmots.fr>
+ <3faecf65-7edb-4cec-be7a-e5266dd3a649@intel.com>
+ <20260829174704.GAapMbGAZMwImcvIN7@fat_crate.local>
+ <0B48BE2C-2E72-4961-91D9-35E215F537A9@quelquesmots.fr>
+ <20260829185120.GBapMqKFM35KtL0Mod@fat_crate.local>
+ <78225f07785ed89e0c3e5def8a8bb1a48e444322.camel@quelquesmots.fr>
+ <20260916200247.GFaqr15333nu5IAfjU@fat_crate.local>
+ <45dc4a4f62e49107de788b4be9a4039e0d772fa1.camel@quelquesmots.fr>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
+Content-Disposition: inline
+In-Reply-To: <45dc4a4f62e49107de788b4be9a4039e0d772fa1.camel@quelquesmots.fr>
+Content-Transfer-Encoding: quoted-printable
 
-efct_scsi_new_device() and efct_scsi_new_vport() allocate a Scsi_Host
-with scsi_host_alloc() before registering it with
-scsi_add_host_with_dma().
+On Sat, Sep 19, 2026 at 10:47:46AM +0200, Laurent Wandrebeck wrote:
+> Here=E2=80=99s the =C2=AB v2 =C2=BB patch I used instead, on top of 7.3=
+-rc3.
+> Works without problem (several hours uptime).
+> If this looks ok to you,
 
-If scsi_add_host_with_dma() fails, both functions return without
-dropping the initial host reference returned by scsi_host_alloc().
-Although scsi_add_host_with_dma() unwinds the resources acquired while
-adding the host, it does not release that initial reference. As a result,
-scsi_host_dev_release() is never reached and the Scsi_Host allocation is
-leaked.
+I can't complain about that too much, but let's see what Dave thinks.
 
-Call scsi_host_put() on both failure paths so the initial reference is
-dropped and scsi_host_dev_release() can free the host. Also clear
-efct->shost on the physical host failure path since it is assigned before
-the host is registered.
+Dave?
+=20
+> diff --git a/arch/x86/kernel/sys_x86_64.c b/arch/x86/kernel/sys_x86_64.=
+c
+> index 776ae6fa7f2d..a54f930e2c9a 100644
+> --- a/arch/x86/kernel/sys_x86_64.c
+> +++ b/arch/x86/kernel/sys_x86_64.c
+> @@ -28,7 +28,7 @@
+>   */
+>  static unsigned long get_align_mask(struct file *filp)
+>  {
+> -       if (filp && is_file_hugepages(filp))
+> +       if (is_file_hugepages(filp))
+>                 return huge_page_mask_align(filp);
+>         /* handle 32- and 64-bit case with a single conditional */
+>         if (va_align.flags < 0 || !(va_align.flags & (2 - mmap_is_ia32(=
+))))
+> @@ -50,9 +50,13 @@ static unsigned long get_align_mask(struct file *fil=
+p)
+>   * value before calling vm_unmapped_area() or ORed directly to the
+>   * address.
+>   */
+> -static unsigned long get_align_bits(void)
+> +static unsigned long get_align_bits(struct file *filp)
+>  {
+> -       return va_align.bits & get_align_mask(NULL);
+> +       /* hugetlb mappings must stay on the huge page boundary. */
+> +       if (is_file_hugepages(filp))
+> +               return 0;
+> +
+> +       return va_align.bits & get_align_mask(filp);
+>  }
+> =20
+>  static int __init control_va_addr_alignment(char *str)
+> @@ -157,7 +161,7 @@ arch_get_unmapped_area(struct file *filp, unsigned =
+long addr, unsigned long len,
+>         }
+>         if (filp) {
+>                 info.align_mask =3D get_align_mask(filp);
+> -               info.align_offset +=3D get_align_bits();
+> +               info.align_offset +=3D get_align_bits(filp);
+>         }
+> =20
+>         return vm_unmapped_area(&info);
+> @@ -222,7 +226,7 @@ arch_get_unmapped_area_topdown(struct file *filp, u=
+nsigned long addr0,
+> =20
+>         if (filp) {
+>                 info.align_mask =3D get_align_mask(filp);
+> -               info.align_offset +=3D get_align_bits();
+> +               info.align_offset +=3D get_align_bits(filp);
+>         }
+>         addr =3D vm_unmapped_area(&info);
+>         if (!(addr & ~PAGE_MASK))
+>=20
+> --=20
+> Laurent Wandrebeck <l.wandrebeck@quelquesmots.fr>
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+--=20
+Regards/Gruss,
+    Boris.
 
-Fixes: 4df84e846624 ("scsi: elx: efct: Driver initialization routines")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/scsi/elx/efct/efct_xport.c | 3 +++
- 1 file changed, 3 insertions(+)
-
-diff --git a/drivers/scsi/elx/efct/efct_xport.c b/drivers/scsi/elx/efct/efct_xport.c
-index 9dcaef6fc188..c00ad9176aee 100644
---- a/drivers/scsi/elx/efct/efct_xport.c
-+++ b/drivers/scsi/elx/efct/efct_xport.c
-@@ -416,6 +416,8 @@ efct_scsi_new_device(struct efct *efct)
- 				       &efct->pci->dev);
- 	if (error) {
- 		efc_log_debug(efct, "failed scsi_add_host_with_dma\n");
-+		efct->shost = NULL;
-+		scsi_host_put(shost);
- 		return -EIO;
- 	}
- 
-@@ -930,6 +932,7 @@ efct_scsi_new_vport(struct efct *efct, struct device *dev)
- 	error = scsi_add_host_with_dma(shost, dev, &efct->pci->dev);
- 	if (error) {
- 		efc_log_debug(efct, "failed scsi_add_host_with_dma\n");
-+		scsi_host_put(shost);
- 		return NULL;
- 	}
- 
--- 
-2.43.0
-
+https://people.kernel.org/tglx/notes-about-netiquette
