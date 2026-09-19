@@ -1,120 +1,171 @@
-Received: from outbound.ms.icloud.com (ms-2001c-snip4-1.eps.apple.com [57.103.73.152])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qv2-f43.google.com (mail-qv2-f43.google.com [74.125.230.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 28A23B67E
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 00:09:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=57.103.73.152
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789776557; cv=none; b=XpXz8AZbTJnxWWuRVwd2KBHjsCVKWjtMRH9XA8k9UnoDtYYz76bmbNFfc9wzmWAlR2XF9fRnfYs/qWNIbr9oZkQBa0P5/w20Ogb8YSPfdeAErLxsPTI1jYb7Kks/VubvmJ8cPRijNFxLFs/NniFvguk018qhNDPS4PKIc0oUoOc=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789776557; c=relaxed/simple;
-	bh=nVD/Wq1bffouIXB6sEuIEnn5KaOl+dJUz6TNKysi7PQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=O+yM5XNncnllRMPz3yCof6yh+rI+Tk6pWJDhXbz9CUMdsitswUKVhiisFju62uajpAnXI8dlPCIKzsR59GFwK97jAgV41H26Ga0L3kTFOgici4hrVEEy1/D8mZ0sbWBzJ6kTLofryl+cPM6QTa+GT4dPx0nfUo1Jf88DCmGHntw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it; spf=pass smtp.mailfrom=lcb.to.it; dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b=gxSzVl8M; arc=none smtp.client-ip=57.103.73.152
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=lcb.to.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=lcb.to.it
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2E2072AE78
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 00:09:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.171
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789776559; cv=pass; b=JTAWia97sIqg0BKUYH5T1M0Zv7UcmG8FUY5kYtzEl5Vtxrx6n+qewi4WoiWlmBvPDS7i+seHP9yyR/zKH2KFTpkBe7t1OvJ4Cm6cTBxdC22OhpPAdMNw4LWaP4LJxJ74CehvA9shKbAMtFHVhnDVgTL0uCBNpxyPY9DhqiBtZRM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789776559; c=relaxed/simple;
+	bh=PU+L/CdtC8xOCmRNhBf0E5me78uniQkeih3uFXRDgt4=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=aO7akbtVb5nWXQZlTNiuLBi1fp8JlCaGKxALZnFUThqGpdQWVjMC08YVJ6SecsXDiSRuHQcN/qKZJQK2qdkfLRCPhI6yKW9ZiZcKAtuA34+JmAbG2f1PGUh2HeRvIv4sCpACQSIxWk9IQxu6wVoeZyBj31UPwhdjtBZrqn+UQpM=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu; spf=pass smtp.mailfrom=asu.edu; dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b=D6ZZ6QdG; arc=pass smtp.client-ip=74.125.230.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=asu.edu
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=asu.edu
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=lcb.to.it header.i=@lcb.to.it header.b="gxSzVl8M"
-Received: from outbound.ms.icloud.com (unknown [127.0.0.2])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-2 (Postfix) with ESMTPS id E1ADD1800192;
-	Sat, 19 Sep 2026 00:09:11 +0000 (UTC)
-X-ICL-RepId: 01a0b6fe-df24-7d74-b4c1-7b16bc828ad8
-X-ICL-Out-Info: HUtFAUMHWwJACUgATUQeDx5WFlZNRAJCTQhBBkMEWRxBCU0dXwVcEhVdRV4MRR9bHlZWQwxHDkAfeRRQDxkfXV5QDBMLU1ZeE1tWRwIZAkZQSxsOWxcDVxxWRVwYQwldBVccHQBERVsTVRdGCRkIXR0ZCEcfCjADQg5WA0MHRQAtGRxXUFsIUF5NFx0EQ0tfGV1FDwsPXwsVAE4KQARdBhMUTAJeD0ZQRF1IHghUXARBCUoBDARZVDBVG1FDQwQcGU1GExlOG1dNWg1AGVgGbRRWFVIEWQ==
-Dkim-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=lcb.to.it; s=sig1; t=1789776554; x=1792368554; bh=xKp4/RRNjf7CFluY7B04eZM12U9KQe4R3f9PTydW+qI=; h=Message-ID:Date:MIME-Version:Subject:To:From:Content-Type:x-icloud-hme; b=gxSzVl8MvV5AGhXU/3+/2soWY0fhHsIu/TYOdJ7rrksEPSuQ/bCXTlCGl2u6jeT2msbZGYsfyN2anMfCo011O0xmTBWJh/tpkLl1DWbZLLXCm5u8QmIkdWWVY31aJGh1dS1aLZSccpppzsYoa+NvUZqKSWbXsw0JL3NLaA28WAenBgNqBJTBSpom5f8d6qcVB0uY2pZWx4g38Ex5LbJvm1B0ogXMnPU40S3sVVVWS9XiWdHm3fIFaLlJrlInXcDYLPuiGGa2Q0UTOdk2M0vcg9CUa5kuzQF4NNkgaspVmOwyxiouU0yHid/cgksyqc1ALREsla47y6shKPuk5StKsA==
-mail-alias-created-date: 1748381178872
-Received: from [10.69.1.69] (unknown [17.156.208.39])
-	by p00-icloudmta-asmtp-us-west-3a-60-percent-2 (Postfix) with ESMTPSA id 15DF3180018F;
-	Sat, 19 Sep 2026 00:09:09 +0000 (UTC)
-Message-ID: <f849e969-364c-4138-b4d0-ec761022a32f@lcb.to.it>
-Date: Sat, 19 Sep 2026 02:09:07 +0200
+	dkim=pass (2048-bit key) header.d=asu.edu header.i=@asu.edu header.b="D6ZZ6QdG"
+Received: by mail-qv2-f43.google.com with SMTP id 6a1803df08f44-90cdfc93e00so7722926d6.3
+        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 17:09:16 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789776556; cv=none;
+        d=google.com; s=arc-20260327;
+        b=R509Flw3vd2rY/P1zR6A2JvL2IvjI4FQ1MaX2tEVavNzVp6ut+Cvs9Yg9VhFVqHNNe
+         cRbbHV/5vSG/NYhq7qHLvaP9+7S4XZzF1Ymf09zhLUGZh81C2UQLHUysfzNFz8gv5gLS
+         +q314pmEBklca9YwdvTUsQYHRHsKk1YcbMolYmGficLJLKrFKRtT+QNumh32Yi8gk69K
+         pnqOSDTasMJ6XRMPISG2pnLudMY9wwzXNXPL1iKASM8GRVYEo9pZrG7xVvofhS4AtMkx
+         OatY+dWzI6/s8QX50PouLTm8JU362bEXic5xk0BblKQRqe+MjbsFb3+dgUGVpNzZyOFI
+         b1fA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=gVNibac69RIusTZEUWTx905GNnSCni+ehiSaDallFpI=;
+        fh=u1t5w6JQ1O4rcZN4/IlBhElDKKhcLGvPgMpvSu25Xhk=;
+        b=bjKU3w1Ru/j1QAorkuQsSBVhRmYXxcHISpr7QmUuu/wkPtHbPs1AnZgWj9lf62w/Ak
+         oiRzw74XSE/OuTYj0dubCCdjcKyGuN0I/ojdM0ijy1tKPUleqhvQNCgv6rDbws7dz8P+
+         PXOvIKnACJl25P74OBnGnszAbFoQwQeSsjgOMqfHWvF3jdg7t+N7pAAr2pwoPwiOfcvs
+         yLa47kzMK/BJi0WcnJrlPHk77M49O8po8Lzf1mB0br8CzvxJrYPeXWe8dHzCBzGK+Zhd
+         vgaZJDRqxohHSbrjuGIIaLRFYJPG+9P/NDPGnS9LFra8WszXUdrrZOs9rPrg74VLuSvo
+         4ONg==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=asu.edu; s=google; t=1789776556; x=1790381356; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=gVNibac69RIusTZEUWTx905GNnSCni+ehiSaDallFpI=;
+        b=D6ZZ6QdG2JAgYwEEX/SLW1Iv3TC3qoqNr0ZpUCcUdQT1CbZxHzsHEidgy63BvwJri6
+         AkbSD5K3Cg88r40G4X70eRGGJrm/ThIk17HI6jyCfpjuKtMxma2UU93xGZjlBYruIsEG
+         VN/ZYCvU/kD7oep01vdqnvAzsDGnZNDgLJ50fDVIoZ/4R/nWqYYspF7gyAuleCGx9oTA
+         dCldyLfR5wODDvO49AU8FLEJe9M0m5/UDkFSiTcn5K3xebt8orerp6Scxj3VKt6BOU9p
+         /vxZQ4UprImXC57ejg+wdkGSKWSgm3ylrSIGRo8QNK4/UH9XZdhjvll7tykwbBDyX0sY
+         g5ZQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789776556; x=1790381356;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=gVNibac69RIusTZEUWTx905GNnSCni+ehiSaDallFpI=;
+        b=ZjaJ8A/5wiDaxncDYNLeXYakMpbjvNG0wZJiPlFX2laCwc7vG/F/zEmJh9iL6fDq1A
+         dKUleJjURtfwzuMdj7PQV/p+tG3cpXd2b6OSQqfIO1qYW8txAzK8JUGJQ7UVHH7Tsr30
+         lwGLRotBUwjyf84G7137lM0aZhRYpCBIGcPbwN3qGwYTvWM7avXq652/4gM+TEXWK5oN
+         Zk2kuCmx7qLecNXfx09gO9IuVyjngdt996E+rYrgXuBtBcxEKzd3efEQT6zVF9CChC8k
+         G/IU9niRT92HdMWDYl2supC4R3tp5jWdPoXByCFyHRnS2jYg4ui12SDR0eAgupTpAUgF
+         br/Q==
+X-Forwarded-Encrypted: i=1; AKwUvBxtQSxFZo70t4aqDDMwJHSxulvjdzOJRiSOuNIgCaYIxxkyTSEydRHytVcdOV+Vs4pZtY3w+hM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mK0uHC6asU7kAExJE4m0VLScyawvzVAuZsk8VB7bwrrAltM0q6
+	UuFGc8OoE/UQtmU4uh2UJUBM5NQZR3JAhhtHe7eU2/d9hnLlgpRhUoUMufGR4PcpPPllayXplNx
+	g5t0mYo809RWDnJIJWLXO8Vf58ycw1OJjXrI9w99Q
+X-Gm-Gg: AYBFou1HQeIno3OztwGVWJX/PsWgnUJiUYGyfSFvJlg0MzyBYYxsMZfgNE/Ne6XhV64
+	JDTFPWRogILogg29KsvxaEnVUG/yEd9CVhub/KSkoMNbrhq6sphtMqlHZHAqWo0wxWFLG1sa8Dn
+	BF2P3Tmo9DsTB1XXJl38Gppk940YIlqRCna3kB+9A1z9ZnspIpYwaKAyq0ffiMv/CLGI+ljEB8x
+	ydlcVdJUiJ5inU7RfTuJo9No9qOn85NhrjCmItomdixLT/kjBZVbd52jPg2XedV2glkMcM+QpPM
+	c4LYamfeKXCKfKSnU2vvHHlO/E7RuXZbOefN96MpRm7V4Y5L46UlqcTXuHutlEsqFd9a/9HiSTR
+	VdtVMpQxQ232o7BhKece6bw==
+X-Received: by 2002:a05:6214:3982:b0:912:59f5:7178 with SMTP id
+ 6a1803df08f44-91259f572b9mr51296146d6.31.1789776555939; Fri, 18 Sep 2026
+ 17:09:15 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] Input: atkbd - skip deactivate for Lenovo IdeaPad Slim 3
- 14IWC11
-To: Hans de Goede <hansg@kernel.org>, Iustin Ivan <iustinivan2002@gmail.com>,
- Dmitry Torokhov <dmitry.torokhov@gmail.com>
-Cc: linux-input@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260911182328.9267-1-iustinivan2002@gmail.com>
- <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
-Content-Language: en-US, it-IT
-From: Martino Papero <martino.papero@lcb.to.it>
-In-Reply-To: <db8af2fe-481d-454b-a205-4f22cd9b7a0d@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-Authority-Info-Out: v=2.4 cv=M+BA6iws c=1 sm=1 tr=0 ts=6aadd2a8
- cx=c_apl:c_pps:t_out a=kRaGL2Q7qLiahLf3O6OaIA==:117
- a=kRaGL2Q7qLiahLf3O6OaIA==:17 a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=VwQbUJbxAAAA:8 a=pGLkceISAAAA:8
- a=l0MiAaP3XIdLQyEXZS4A:9 a=QEXdDO2ut3YA:10
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTE5MDAwMCBTYWx0ZWRfX2YRQCxa8cX12
- Ctg5yDcoGE6Kgj0rji0/y1mTPGr2n9KyDGjzH6gW0AgJ1+ybIPuncUEAQLQejw4wHK0RUPLXW6O
- 1ySCd7e0rEhKJ4eHbkdAOTOl0CS7OLtf/X+3gqJF6j5PHlVZAyt4owMg7drDXEy8ecLS8GjMtaD
- 2ZafeRbxbLKTafLqQyfgULWGUlNbhpyyKUCnu5RlqwOUWc49RakAuH4y4ZmPVRyePPU0w7++cAx
- v0Clbx/pXoEBlvpbpzwAhAjk7j6myOuNtOpQwEa+GVWGWpcMHs4No3Qb9dcxLlmd7vpl7wZCpov
- P6q6a2dx9Q54jbN5Skwkied/Mr/t10wXO8lE8uwAOTysIuSO5B4v4a3f0Z7Z5c=
-X-Proofpoint-ORIG-GUID: frZBqAUdx1N_rdLCK-4fVDxq8vqKt9jR
-X-Proofpoint-GUID: frZBqAUdx1N_rdLCK-4fVDxq8vqKt9jR
-X-JNJ: AAAAAAABTVUeWKANSERCDdK+LL5hNOoqj3KVzwZdON6F+8LTIE6d6GWdwRjW2kXWsUA6pr3nKwpc7h2KProF9S/2DBuJYy0Yr40b1ow9ysNTBTsC3xVJlpowZBL319tFBma8ujABpn9+lnFUhsvYh/3eIOfFcuxV/sVMGRnXkF6qHfrKF8/y3Y0TDXe6rR8KkIuRmeQWGirnZNpK9Vi0904p0Xz2L0Xwwvn50NcP5HXz81RM0IuH4MpiAkR5rhU6VmiHrsxtjz4aMwY+DH224xl/8UmBJqjb2p/iyMhsB9Ie7co8QIipaHA08xMH4si+LCXTByguY3tT122+dnUPxZ5a6Jmmhma4wWsSykki1SLHds6jlRb+mCjoAUrVN+MWg7PGeg5xrM7sHmIm6+5CtSXUvartyDvMZ78mfxrdJMadH9SoJO4zv8kPFY/sOczKsRvCpkV1ZaDEzVax21API0wFeSG0C1JIHocTCFRsm25EemX+qpbg4KJwJXwnn8FOlzOs7dbMXnbCznq0RD/LHt4IBsxzGXuyaWI3lIJWNmNE60kc3k3ywBLqNgT1/m2vJkSRs5BNw68vPXLST4E+kdmyErcKPrys91lBCwGRKj7C03UF6JbzsN5cysZGnKobEAS26QNZCKYYFa8JX8Bxv09ZQxhrRuU5xz0hMcO8gUG2fANGp5bDVyuSVDfkUQrZZXWvQ9gLgbYBakqRM/a5mf9ehRhw+O+ik+nNzMSfRCNooybz8UtiIdRRpY1AvIaa0EBz0iqW8UtITg8QmjeIvRKT364S00xH4A/iCvEET51FEDrriaOev0EdtqCRUr+KA3xk1eoTgvCoKnqKotr3/nBhoHipvd1WWLS5/if+m9sQTTDWO4KQ8awl9/CZ33EmxKKcR/KwQVFNqcn2fQSziu+9FuaEaTycKF6l+yEyMuMfqLQN/Pt0ZpgnOGjT3M8SenYlaxhJtHcD82dn1VDmstA8236frF3
- I9vybrkpD/uk1SSM2ZGs2NMarNWhlagCQ2CZ3u1EpJses7lK3nW2WOz4lGJ/MluPYh+4hdOYhGN3oP/7UG3iBdR56KOLc8V4Bx5l6tuAUKSrj9hWd7KEvgWpwjjyEeehJFwuz+J8l9f0vk3tp2GQSLz8LY/iYiWm+aw1nv0Dl3VBKZTGyuQmXTzZXCdhg4TxsJswK5VFg6EBROCjAMHmBqqjP5jW6o118uxXskzJZ9Xf9st3enZ4du+COZeVZUm4dREoipE9Z8edCsdzFj7fDELkCaz/r+pJEfY8fAD7F3lNjVfTdMHuB2330UKojKiCF9c1M+QhfhxYVlCYQncLpdzAtUvo3HSHPkRRtnmDXmLoSyNs=
+References: <20260918212231.1193758-1-xmei5@asu.edu>
+In-Reply-To: <20260918212231.1193758-1-xmei5@asu.edu>
+From: Xiang Mei <xmei5@asu.edu>
+Date: Fri, 18 Sep 2026 17:09:02 -0700
+X-Gm-Features: AcwNN1VEk0TFmo665Y4k-d2dWdC5cPVRtdRowVAey1-mRjtQf5TJXnzVkPticXg
+Message-ID: <CAPpSM+TuDm2GRg=JTn_Qb6GzWQfik1j2iVt6AO9Ooa3HyvsD2w@mail.gmail.com>
+Subject: Re: [PATCH] ALSA: line6: Clamp the playback URB size to the OUT
+ endpoint packet size
+To: perex@perex.cz, tiwai@suse.com, linux-sound@vger.kernel.org
+Cc: dev@andree.sk, co+f595d33a1b0a565b@bugs.sh, stable@vger.kernel.org, 
+	linux-kernel@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-
-Il 11/09/26 20:52, Hans de Goede ha scritto:
-> Hi,
-> I'm starting to wonder if we should not just make this behavior the default.
+On Fri, Sep 18, 2026 at 2:22=E2=80=AFPM Xiang Mei <xmei5@asu.edu> wrote:
 >
-> IIRC the whole deactivate thing was added as a workaround for multi-byte scancodes
-> getting split-up during suspend/resume. I wonder if we can come-up with some
-> better fix for that ?
+> The playback buffer is sized from the OUT endpoint's max_packet_size_out,
+> but submit_audio_out_urb() takes the length to write into it from
+> prev_fsize, which audio_in_callback() derived from the IN endpoint.  Both
+> come from the device's own descriptors and nothing relates them, so a
+> device declaring a large iso IN and a small iso OUT wMaxPacketSize
+> overflows the buffer.  usb_submit_urb() rejects the oversized URB, but
+> only after the write has run.
 >
-> Regards,
+> Attaching the device is the whole trigger: toneport_startup() acquires th=
+e
+> monitor stream and starts both URB streams on its own, so the overflow
+> happens in the URB completion handler with no local process involved.
 >
-> Hans
+> Clamp the length to max_packet_size_out.  A device whose OUT endpoint
+> matches the audio format it announces never reaches the limit.
+>
+> BUG: KASAN: slab-out-of-bounds in submit_audio_out_urb (sound/usb/line6/p=
+layback.c:242)
+> Write of size 1024 at addr ffff88801b94bc00 by task vhci_rx/183
+>
+> Call Trace:
+>  kasan_report (mm/kasan/report.c:595)
+>  kasan_check_range (mm/kasan/generic.c:186 mm/kasan/generic.c:200)
+>  __asan_memset (mm/kasan/shadow.c:84)
+>  submit_audio_out_urb (sound/usb/line6/playback.c:242)
+>  audio_out_callback (sound/usb/line6/playback.c:354)
+>  __usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1657)
+>  usb_hcd_giveback_urb (drivers/usb/core/hcd.c:1741)
+>  vhci_rx_loop (drivers/usb/usbip/vhci_rx.c:107)
+>  kthread (kernel/kthread.c:436)
+>  ret_from_fork (arch/x86/kernel/process.c:158)
+>  ret_from_fork_asm (arch/x86/entry/entry_64.S:245)
+>
+> The buggy address belongs to the object at ffff88801b94bc00
+>  which belongs to the cache kmalloc-512 of size 512
+>
+> Cc: stable@vger.kernel.org
+> Fixes: 7a0f55aeeb8f ("ALSA: line6: Support assymetrical in/out configurat=
+ions")
+> Reported-by: <co+f595d33a1b0a565b@bugs.sh>
+> Assisted-by: LLM
+> Signed-off-by: Xiang Mei <xmei5@asu.edu>
+> ---
+>  sound/usb/line6/playback.c | 1 +
+>  1 file changed, 1 insertion(+)
+>
+> diff --git a/sound/usb/line6/playback.c b/sound/usb/line6/playback.c
+> index 7ebaf125f969..cfb20585c5ea 100644
+> --- a/sound/usb/line6/playback.c
+> +++ b/sound/usb/line6/playback.c
+> @@ -181,6 +181,7 @@ static int submit_audio_out_urb(struct snd_line6_pcm =
+*line6pcm)
+>                 }
+>
+>                 fsize *=3D bytes_per_frame;
+> +               fsize =3D min(fsize, line6pcm->max_packet_size_out);
+>
+>                 fout->offset =3D urb_size;
+>                 fout->length =3D fsize;
+> --
+> 2.43.0
+>
 
+Please disregard this patch. It duplicates my other submission
+addressing the same out-of-bounds write in submit_audio_out_urb().
 
-Hi,
+Sorry for the duplicate submission and noise.
 
-I tested the same atkbd_deactivate_fixup on a Lenovo IdeaPad Slim 3 
-15IWC11 (83RR), which was affected by the keyboard issue previously 
-discussed here:
-
-https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/ 
-<https://lore.kernel.org/all/20260628-ideapad-kbd-leds-v1-0-50b421d94927@gmail.com/>
-
-Without any kernel quirk, the internal keyboard does not work. I had 
-been using:
-
-|i8042.nopnp=1 i8042.dumbkbd=1|
-
-which makes the keyboard work, but prevents the Caps Lock LED from working.
-
-I built Fedora kernel 7.2.5 with the following additional DMI entry:
-
-|{ /* Lenovo IdeaPad Slim 3 15IWC11 (83RR) */ .matches = { 
-DMI_MATCH(DMI_SYS_VENDOR, "LENOVO"), DMI_MATCH(DMI_PRODUCT_NAME, 
-"83RR"), }, .callback = atkbd_deactivate_fixup, },|
-
-I booted this kernel without any i8042 command-line parameters.
-
-The internal keyboard and Caps Lock LED both work correctly. I also 
-tested suspend/resume and a cold boot, with no issues so far.
-
-DMI:
-LENOVO 83RR
-LENOVO_MT_83RR_BU_idea_FM_IdeaPad Slim 3 15IWC11
-
-So it looks like the 83RR can use the same atkbd_deactivate_fixup as the 
-83RQ.
-
-I can test a revised patch if needed.
-
-Regards,
-Martino
-
-
+Thanks,
+Xiang
