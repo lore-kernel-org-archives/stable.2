@@ -1,190 +1,144 @@
-Received: from perceval.ideasonboard.com (perceval.ideasonboard.com [213.167.242.64])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B339A22F767;
-	Sat, 19 Sep 2026 17:17:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=213.167.242.64
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D99F125A0
+	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 17:34:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789838279; cv=none; b=rpQSAIsR+zBBcKNWulgORnOSZjfWRvAfWN8K9sJC76qhe4DNK5tQw2+Lr700ZM1NLgg6HkkubqTjd97N7IDvkTqWSLk5W2chLdNkjGfa8+rbDHvMA9DSZs/S+qvDYXkxuP3ggcukY3qZfAHXKShq45X6D29jyCNiiNFYIqFyuYs=
+	t=1789839292; cv=none; b=TdfSiIb5FEuVRQ5KmadJeNguGICDVAOnkKqLPfzA0+6tdqkO5tvaMIpWRM7Avjp/Gv1J9BKzVbtpoFT4gDKUpCXmxKdz8CH2Nq26kwHTAlK7JSMMoSpfcdPWpCTMFkW5VuCaDwV0TAFVKuzYpQLy4Fz9TPpKPqxLn3i3Bcve7HM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789838279; c=relaxed/simple;
-	bh=KnXxMD5/wR+3SsE9UJ34M3vGhBJlAjGKivIDjFoXIEk=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=AT71JvlhYEh6I7b+4x6fRf3GVFBxKW9T6bfbEnHKzv8dnkR8OGAdnaMFV+1sRwG5PtzVUe1V4roMLjLhm3o24GSw1N9aLJYtcCx8Gz0VBveq5AtLP2BU48sq5PD2Bao0hNzWCR+dA7q7VyI0fwjFsXvNwbyqMAWbHUCK5DvHsrE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com; spf=pass smtp.mailfrom=ideasonboard.com; dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b=RqzgZR0T; arc=none smtp.client-ip=213.167.242.64
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=ideasonboard.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=ideasonboard.com
+	s=arc-20240116; t=1789839292; c=relaxed/simple;
+	bh=tXPMv/Z528AzLwHoqZJSLZNkBxU0ltXfHPgB+kUGM0I=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=TKYBMJL6BSXFS7pg8YPGStFDpZAoxVJhyTDCMNno6naEqApJzqXWh5oGvWt7Iyuk/luqV9V0v2qSO0KDm8G5aYQpAArdrTqEIZ0ZTw+s35sQ3agTURAm/ZbWla8divv69a2NSon2GTXgZVkmWfOJK2Wzo2zwC4lPXb3g4/++KkM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aCoFo3lF; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=ideasonboard.com header.i=@ideasonboard.com header.b="RqzgZR0T"
-Received: from killaraus.ideasonboard.com (2001-14ba-70f3-e800--a06.rev.dnainternet.fi [IPv6:2001:14ba:70f3:e800::a06])
-	by perceval.ideasonboard.com (Postfix) with ESMTPSA id C928D15BF;
-	Sat, 19 Sep 2026 19:16:11 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=ideasonboard.com;
-	s=mail; t=1789838172;
-	bh=KnXxMD5/wR+3SsE9UJ34M3vGhBJlAjGKivIDjFoXIEk=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To:From;
-	b=RqzgZR0Tlo4FOb8xHxKewAvBFc6rJc5NXbVEa3SSEOgB8Nw281HMVh1Oj35o76sjp
-	 SW3m9Qye46M9naDYfDYhjWIrEDjfUuQsv90ycX63cR1afVvOzLO0BSe5ZhZWNtIraa
-	 pinArp0TJxhZiFIbIaMt/OXbpRO5fp6SMTsw9k/Q=
-Date: Sat, 19 Sep 2026 20:17:54 +0300
-From: Laurent Pinchart <laurent.pinchart@ideasonboard.com>
-To: =?utf-8?B?Tmfhu41jIFRo4bqvbmcgTmd1eeG7hW4=?= <ngocthang2710.1999@gmail.com>
-Cc: Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Hans Verkuil <hverkuil@kernel.org>, linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aCoFo3lF"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-396cccbba91so1218050a91.1
+        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 10:34:51 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789839291; x=1790444091; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=E3sjbzhb8LLlJu3Xq4nSK1HUp2gy9IN+rCu4DEVUfQU=;
+        b=aCoFo3lFTKMrg7PIcA1ejGDI13I3vmHJBmZnC8El2K/sCTwSTghub9PQNrVm3hIzPH
+         zE91qUQTHGt+8hP1wjX0wJ6p02E6neQ4IActu8nvkh50uU44QbP7FN3ApDSpIDUH5QgJ
+         n8ReyfqBrdL0GMSrmXp4my3nW6LGdKXxuXC2ttTnT8VD9B1dCEHXj4cpGxW7XFZnfz/O
+         kIMAr9bqHrz1WQ0sy0//sk/uumvk0YjDluST7jUh95HELb/m4lTa0UGAUrqG81uoVlHe
+         BJtDY8BbuSBo9aL1o80wIQLCeEkVbUNc0MvIhuMmAGR467maNOrQk3JeFPL8osGhgGYw
+         08TA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789839291; x=1790444091;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=E3sjbzhb8LLlJu3Xq4nSK1HUp2gy9IN+rCu4DEVUfQU=;
+        b=FYMNuIlY6Fq5qIYCa/E9Tx7db/0/wqsijtE/0xuHhC/dmylxLsJVdh60WbHMbP/E3H
+         HXfyKcOxba0PIZ/ObSMBCvwpvZBhCp1rGStZthT2kJ2J3qDJkj10nhZRkRpmpXRyTprU
+         EHQibOKaj0eL7x2/fi1AQnz2kKXF+qmfQ8rLoWlNmzluzmRam/FALNy2JxXqUfOLoFt5
+         21tw6MpESjyUEePjAd0X8XGG4sdWKQO4n9j/+GhIp9v9mZb7Fyv9+T2taKJciPbVgE9N
+         pA7KIQ8jZ4wwYLOj83d4ps1t7SfVKLRDWcDXa5NprDDOfp3TupKsSWky6r7YI4SteOOl
+         pRmA==
+X-Forwarded-Encrypted: i=1; AKwUvBz6j48vZCjI4O163gW+T7hG2YUk5ZR10VGazWbw11rVpGtbJVko1AN8hY03+65/rJ1wj5sYdp4=@vger.kernel.org
+X-Gm-Message-State: AFuF++nztHdK4Pdaj1JkXTrFSNp3Zundwl0Uqclpw4BoKV9ZapSLblAk
+	rW0zMvB3Aqgwh8Joc0+I76xEZlmTa0iPNbnPDCXRYKqXFuy63XqMhPUQ
+X-Gm-Gg: AYBFou31ZTGpmDVrU3XQ3Ss0iXM6QlHZAMeE58PTC2wgLtjLH8E9tRIKpgtq/giHkNk
+	8xwOMOfOMaqJGeevLON4uwG7rzGyBy0rBdh4ITdvZrTA/KlCjxd6QgfF6ddP++PVHo8muRTTyOC
+	tG39xnYEsAxF2sqXHNpvwDrHHXqXOTHZUBkuKLi2jv5PbOFXff7mRU1KUCZik7/yH8JFK6D1uJD
+	6gjgtQwuS6n8ykqoNd0eNEbAjxD1LDIIVsW2W74pWJKyLlTFIfFGNCjcHC5hd0w5CUlVU+3OJNd
+	Qwir7tuS+8sl3WV6pVo7aOLoVRVzusSxVNfJCtQSlNweXE7OcQ8iIcWNM716LNQu5v3lUCeaoCV
+	xHPxX9GbnJ0HnxLvd0bB4y3MgpcQBDZ0y/FjX45J7vRTPwvAHLjBJ8peUxBN9/8ZytPwqXuxeL1
+	3ynniOlnjEKossAd6v2L6C3GghVhcz4uju/qpShvWQLtCj/Rf5knkKPg==
+X-Received: by 2002:a17:90b:1dce:b0:39e:6a80:dda3 with SMTP id 98e67ed59e1d1-39e6a810c76mr4792250a91.42.1789839290805;
+        Sat, 19 Sep 2026 10:34:50 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a026898b76sm3234229a91.16.2026.09.19.10.34.45
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 10:34:50 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Hannes Reinecke <hare@suse.de>,
+	"James E.J. Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K. Petersen" <martin.petersen@oracle.com>,
+	Robert Love <robert.w.love@intel.com>,
+	James Bottomley <James.Bottomley@suse.de>,
+	Joe Eykholt <jeykholt@cisco.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] media: v4l2-subdev: fix NULL deref in subdev_open()
- racing with unbind
-Message-ID: <20260919171754.GF1124359@killaraus.ideasonboard.com>
-References: <20260919162709.314464-1-ngocthang2710.1999@gmail.com>
- <20260919170212.GE1124359@killaraus.ideasonboard.com>
- <CANfSzAtc0O0qfa0GmzdpnuT6Dn0sxGjhfpW333asYS=Le553sg@mail.gmail.com>
+Subject: [PATCH] scsi: libfc: fix directory server rport memory leak
+Date: Sun, 20 Sep 2026 01:34:05 +0800
+Message-ID: <20260919173405.3718408-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
 Content-Transfer-Encoding: 8bit
-In-Reply-To: <CANfSzAtc0O0qfa0GmzdpnuT6Dn0sxGjhfpW333asYS=Le553sg@mail.gmail.com>
 
-On Sun, Sep 20, 2026 at 12:12:11AM +0700, Ngọc Thắng Nguyễn wrote:
-> Hi Laurent,
-> 
-> Fair point. The patch only narrows the window: sd can still be
-> unregistered right after the mdev check, before internal_ops->open() runs,
-> so the race between v4l2_open() and v4l2_device_unregister_subdev() is not
-> actually closed.
-> 
-> What I see (syzbot repro, vimc bind/unbind vs. open of /dev/v4l-subdevN):
-> v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's mdev
-> before video_unregister_device() on the node, while v4l2_open() only checks
-> video_is_registered() without any lock held across fops->open().
-> 
-> How would you prefer this to be fixed? For example:
+fc_rport_recv_plogi_req() creates an rport before allocating the frame
+used for the PLOGI LS_ACC response.
 
-By actually reasoning about it without the use of an LLM.
+fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
+rport list. If fc_frame_alloc() fails while handling a PLOGI from the
+directory server, the function returns without starting the rport state
+machine or dropping the initial rport reference.
 
->   a) unregister the devnode first in v4l2_device_unregister_subdev(),
->      and make open/unregister mutually exclusive somehow, or
->   b) something else you have in mind.
-> 
-> Happy to rework it and test with the reproducer.
-> 
-> Thanks,
-> Nguyen Ngoc Thang
-> 
-> Vào CN, 20 thg 9, 2026 vào lúc 00:02 Laurent Pinchart đã viết:
-> >
-> > On Sat, Sep 19, 2026 at 11:27:09PM +0700, Nguyen Ngoc Thang wrote:
-> > > subdev_open() dereferences sd->v4l2_dev->mdev and then
-> > > sd->entity.graph_obj.mdev->dev->driver->owner. v4l2_open() only checks
-> > > that the node is still registered, while
-> > > v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's mdev
-> > > before it unregisters the node. Opening a sub-device node while the
-> > > driver is being unbound (e.g. vimc through sysfs) can therefore see a
-> > > NULL entity mdev, or a NULL dev->driver once remove() has finished, and
-> > > oops:
-> > >
-> > >   Oops: general protection fault, probably for non-canonical address 0xdffffc0000000000
-> > >   KASAN: null-ptr-deref in range [0x0000000000000000-0x0000000000000007]
-> > >   RIP: 0010:subdev_open+0x193/0x510 drivers/media/v4l2-core/v4l2-subdev.c:115
-> > >   Call Trace:
-> > >    v4l2_open+0x1d2/0x490 drivers/media/v4l2-core/v4l2-dev.c:433
-> > >    chrdev_open+0x234/0x6a0 fs/char_dev.c:411
-> > >
-> > > Read the entity's mdev once and treat NULL as "no media device". Take
-> > > the driver module reference under device_lock(), which is what unbind
-> > > holds while it clears dev->driver, and fail with -ENODEV if the driver
-> > > is already gone.
-> > >
-> > > Reported-by: syzbot+74de6401dbdd377b5746@syzkaller.appspotmail.com
-> > > Closes: https://syzkaller.appspot.com/bug?extid=74de6401dbdd377b5746
-> > > Fixes: 218bf10e39ed ("media: v4l2-subdev: handle module refcounting here")
-> > > Cc: stable@vger.kernel.org
-> > > Signed-off-by: Nguyen Ngoc Thang <ngocthang2710.1999@gmail.com>
-> > > ---
-> > > Root cause
-> > >   v4l2_open() checks video_is_registered() and then calls subdev_open().
-> > >   v4l2_device_unregister_subdev() clears sd->v4l2_dev and the entity's
-> > >   graph_obj.mdev *before* video_unregister_device() on the node, so an open
-> > >   in that window sees a NULL mdev. After remove() returns, dev->driver is
-> > >   also NULL. subdev_open() dereferences both unchecked (v4l2-subdev.c:115).
-> > >
-> > > Fix
-> > >   Snapshot entity mdev once (NULL == no media device), and take the driver
-> > >   module reference under device_lock(dev), the lock unbind holds while it
-> > >   clears dev->driver; return -ENODEV if the driver is gone. Errors go
-> > >   through the existing "err" label.
-> > >
-> > > Testing (QEMU x86_64, KASAN, vimc built in, syzbot's C reproducer:
-> > > 16 threads opening /dev/v4l-subdevN vs. one thread doing vimc bind/unbind,
-> > > vivid.n_devs=1 to avoid minor exhaustion at boot):
-> > >   before: 32 x "RIP: subdev_open+0x193/0x510" GPF (same as syzbot report)
-> > >   after : 0 oopses, 0 KASAN reports, reproducer runs to completion
-> > >   (checked with 1 ms and 30 ms bind/unbind period)
-> > >
-> > > Unrelated finding (not addressed here)
-> > >   If the sub-device node registration in vimc_probe() fails (e.g.
-> > >   "videodev: could not get a free minor"), the error path in
-> > >   vimc_register_devices() frees the entities and then
-> > >   v4l2_device_unregister() hits a slab-use-after-free. Easy to trigger
-> > >   with the same reproducer if minors are exhausted. I'll look at it
-> > >   separately.
-> > >
-> > >  drivers/media/v4l2-core/v4l2-subdev.c | 20 ++++++++++++++------
-> > >  1 file changed, 14 insertions(+), 6 deletions(-)
-> > >
-> > > diff --git a/drivers/media/v4l2-core/v4l2-subdev.c b/drivers/media/v4l2-core/v4l2-subdev.c
-> > > index e9f81b9be9e2..cec63694a658 100644
-> > > --- a/drivers/media/v4l2-core/v4l2-subdev.c
-> > > +++ b/drivers/media/v4l2-core/v4l2-subdev.c
-> > > @@ -97,6 +97,7 @@ static int subdev_open(struct file *file)
-> > >       struct video_device *vdev = video_devdata(file);
-> > >       struct v4l2_subdev *sd = vdev_to_v4l2_subdev(vdev);
-> > >       struct v4l2_subdev_fh *subdev_fh;
-> > > +     struct media_device *mdev;
-> > >       int ret;
-> > >
-> > >       subdev_fh = kzalloc_obj(*subdev_fh);
-> > > @@ -112,15 +113,22 @@ static int subdev_open(struct file *file)
-> > >       v4l2_fh_init(&subdev_fh->vfh, vdev);
-> > >       v4l2_fh_add(&subdev_fh->vfh, file);
-> > >
-> > > -     if (sd->v4l2_dev->mdev && sd->entity.graph_obj.mdev->dev) {
-> > > -             struct module *owner;
-> > > +     /* Unregistration clears the entity's mdev without waiting for open. */
-> > > +     mdev = READ_ONCE(sd->entity.graph_obj.mdev);
-> > > +     if (mdev && mdev->dev) {
-> > > +             struct device *dev = mdev->dev;
-> > >
-> > > -             owner = sd->entity.graph_obj.mdev->dev->driver->owner;
-> > > -             if (!try_module_get(owner)) {
-> > > +             /* Unbind clears dev->driver under the device lock. */
-> > > +             device_lock(dev);
-> > > +             if (!dev->driver)
-> > > +                     ret = -ENODEV;
-> > > +             else if (!try_module_get(dev->driver->owner))
-> > >                       ret = -EBUSY;
-> > > +             else
-> > > +                     subdev_fh->owner = dev->driver->owner;
-> > > +             device_unlock(dev);
-> > > +             if (ret)
-> > >                       goto err;
-> > > -             }
-> > > -             subdev_fh->owner = owner;
-> > >       }
-> >
-> > This seems the kind of completely wrong fix that would be generated by
-> > an LLM.
-> >
-> > >
-> > >       if (sd->internal_ops && sd->internal_ops->open) {
+Since the directory server rport is not present in the discovery list,
+there is no later teardown path that can find the object and release
+that reference. The allocated fc_rport_priv is therefore leaked.
 
+Record when the failed frame allocation leaves an unlisted directory
+server rport behind and drop its initial reference after releasing the
+rport mutex. Keep the existing lifetime unchanged for ordinary rports,
+which remain owned by the discovery list.
+
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
+
+Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/scsi/libfc/fc_rport.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/libfc/fc_rport.c b/drivers/scsi/libfc/fc_rport.c
+index c25979d96808..884b233c2f72 100644
+--- a/drivers/scsi/libfc/fc_rport.c
++++ b/drivers/scsi/libfc/fc_rport.c
+@@ -1848,6 +1848,7 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+ 	struct fc_els_flogi *pl;
+ 	struct fc_seq_els_data rjt_data;
+ 	u32 sid;
++	bool drop_rdata = false;
+ 
+ 	lockdep_assert_held(&lport->lp_mutex);
+ 
+@@ -1940,8 +1941,10 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+ 	 * Send LS_ACC.	 If this fails, the originator should retry.
+ 	 */
+ 	fp = fc_frame_alloc(lport, sizeof(*pl));
+-	if (!fp)
++	if (!fp) {
++		drop_rdata = sid == FC_FID_DIR_SERV;
+ 		goto out;
++	}
+ 
+ 	fc_plogi_fill(lport, fp, ELS_LS_ACC);
+ 	fc_fill_reply_hdr(fp, rx_fp, FC_RCTL_ELS_REP, 0);
+@@ -1949,6 +1952,8 @@ static void fc_rport_recv_plogi_req(struct fc_lport *lport,
+ 	fc_rport_enter_prli(rdata);
+ out:
+ 	mutex_unlock(&rdata->rp_mutex);
++	if (drop_rdata)
++		kref_put(&rdata->kref, fc_rport_destroy);
+ 	fc_frame_free(rx_fp);
+ 	return;
+ 
 -- 
-Regards,
+2.43.0
 
-Laurent Pinchart
