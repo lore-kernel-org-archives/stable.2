@@ -1,97 +1,67 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07A0A1E7C18;
-	Sat, 19 Sep 2026 20:13:10 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 15FE82CCC6;
+	Sat, 19 Sep 2026 20:29:28 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789848791; cv=none; b=h5vDbQ9d1XXpXSGK6vL0Cc9NKu+mXxJrmJf2ZHkcKoQjm8zJmfok1wXqWp/ijZaaF6nOe1OvdT9j0dM/6sJS0NoXCaDENiye8if/Qw99SzL4IbkEhOsHgZlZctFVn3ejcMNp/P1N5BULADfBhhnPxJbpE+1SRYsEs0qqmEoGAf8=
+	t=1789849770; cv=none; b=gHA9yLLDh/1y4uvgt/9MegxuyuvoexQoMjyf42QPkafyLJHj6tBfutaEDsqfu++UAJxwV14xuazKIjXKrSH6P81VbcvS4NMi5rx1yhDlfB+vyppS/npmQQkbEKnUeIsrnXfwWd6J1bmnI27bdY/I10WG8nlzNfIQE2ALUWgIS88=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789848791; c=relaxed/simple;
-	bh=dwhocoWCq7rJOiLDrwA64Y6T/zGO94j072keG0FzDLM=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=RXmvYhpKA7PCsDJg9j+NtgBkZTakjoVrkgiv2SP/DjsjNhCPhIf9CuwiC+g3VS+ETKWolrNfRWJo3zEI74AMs54zapPKgLwHsAVv3siBpxPU3+Y1RPNehpF6gHoZayWt99FieLfZEofZkRXW1uhPCCygB2D9sfeBS3y3X3MYE7Y=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dGSmk6Fi; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789849770; c=relaxed/simple;
+	bh=nL+UUumm0MLX4tpK98oludYV8hT5z6aR0ALYdH8sKcE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=g8Ea0He7/TdX2JdSDrSyepSbMTPVxB1zAsqKzpAAkPitk6tw+DeenhQE2I3ogYaMkUZJCpWXuU317douaF4sc3wkabRmQo98EuYReu7WwXpTw3FHXJWmZyyrWb8a3L9EtyzDbj+ItkGzyOm/qhtphCKkpg4w0swg9LpjWWpTfwU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=VLH809wF; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dGSmk6Fi"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 4A0711F00893;
-	Sat, 19 Sep 2026 20:13:08 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="VLH809wF"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7EB4A1F000FF;
+	Sat, 19 Sep 2026 20:29:27 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789848789;
-	bh=VGv5bcygaPAIYafDfFrgO8tRS847RoBkPdxQSzJbqEM=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=dGSmk6Fib+CKh9hvVJMuflpifkMl0u7f7UXLTNN8MJDKAaiCMcpxom9LmIqDHWsvJ
-	 LihUGL0uF78KYkTsemKY9rIJsY8eTdExqEJzGeIAyNWBIEJ87GJr9x0+uGRH0AymQL
-	 QztpCcvYMOjdATw55Jpw6gv3q7nH36FPuvOKb8eGgkWRHLSiOcUNidqZzwZlCsd4ep
-	 wkyxU2mU9hH5o+UEUoO2ts6JjDwIK5tHYdic9dF4u6XeqEs7402FycYGcM41g9+v//
-	 QvIR2UFma5HHujlSlnyCck/uK7tTo+W8BKC3JUTYflK4PuzF27N8DIsvGmDMgsEs/v
-	 dmQ9EwUcFzRZw==
+	s=k20260515; t=1789849768;
+	bh=Qe1+oBg0bKI2AATIT14qxP73tT0czcD+cr9n0vMiKhs=;
+	h=From:To:Cc:Subject:Date;
+	b=VLH809wFIXZCc7BbWsBbvuzNJct1SUJAAKyQTi1fgg33jPI1WANxhHP39Ufw1yVVj
+	 n/HQ3tc4Ym/SRvO1LljBNsjAlYoCqI0MsqZXbijF/PK5c9JSAzIzX0OgP5c0QgE+2V
+	 6WD+8+ZPltx9r1Ochc4SPLFBO5A2GdvqlyxzhhNljuN1iusZEnHSVodcMDsM4om++b
+	 A03oIVkEG8wOxIgEbz7BJ2bGubhH6v81Gaz1x/cCZnSgNlSEcTw4d3zFVijpm5vCT/
+	 /lugwJ54wM3NbLNd9RFBdZyDO+M00mV3zkTAGxbvKc3IXGK74TWrtolmm61TsCXig3
+	 SGXNJnRixSFKg==
 From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
 To: mptcp@lists.linux.dev,
 	stable@vger.kernel.org,
 	gregkh@linuxfoundation.org
-Cc: Paolo Abeni <pabeni@redhat.com>,
-	sashal@kernel.org,
-	Shardul Bankar <shardul.b@mpiricsoftware.com>,
-	Xinyang Ge <xinyang@anthropic.com>,
-	"Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: [PATCH 6.1.y 3/3] mptcp: close race between scheduler and state change
-Date: Sat, 19 Sep 2026 22:12:56 +0200
-Message-ID: <20260919201252.2025112-8-matttbe@kernel.org>
+Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	sashal@kernel.org
+Subject: [PATCH 5.15.y 0/2] mptcp: fix recent failed backports (20260919)
+Date: Sat, 19 Sep 2026 22:29:19 +0200
+Message-ID: <20260919202918.2074632-4-matttbe@kernel.org>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260919201252.2025112-5-matttbe@kernel.org>
-References: <20260919201252.2025112-5-matttbe@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=1643; i=matttbe@kernel.org; h=from:subject; bh=YCaJS/uVeKh2uLBYtsClOmVMEQ7iEBR2miH8Bkb8vGg=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWvTm5fae/hR7DxOVbtx8u5EvTa9rwIuJMRYhbQy3jV EdOzr35HaUsDGJcDLJiiizSbZH5M59X8ZZ4+VnAzGFlAhnCwMUpABMxKWf47/3F4ULyAlcBI04N ERGuKX93PLFx81V8+N5bJ/5u8/VCLUaGfWv4K64W+Mx2tdoU7n30S1nXj/lpjF+0vJUfcP99b/y SDwA=
+X-Developer-Signature: v=1; a=openpgp-sha256; l=597; i=matttbe@kernel.org; h=from:subject; bh=nL+UUumm0MLX4tpK98oludYV8hT5z6aR0ALYdH8sKcE=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWfZh/x5mlOnnJhkS3Jxq+Dn17uuZvvRq+6G2986ZMz mI/4RytjlIWBjEuBlkxRRbptsj8mc+reEu8/Cxg5rAygQxh4OIUgIncbWBkOD2DXWiZQUiE9NMv 35jFnXKklH1O1kkefvOB9+AFERkdM4b/tVeTQo5ZFFgu0nxfVmmb6F/x5/6ctYtDj8YwT23zef+ aEwA=
 X-Developer-Key: i=matttbe@kernel.org; a=openpgp; fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
 Content-Transfer-Encoding: 8bit
 
-From: Paolo Abeni <pabeni@redhat.com>
+The following patches could not be applied without conflicts in this
+tree:
 
-commit 42064de57fb83231fcc89663a94885f228a1ee53 upstream.
+- 2b0f561f21b2 ("mptcp: avoid unneeded actions on subflow reset")
+- 42064de57fb8 ("mptcp: close race between scheduler and state change")
 
-The mptcp scheduler may race with subflow sockets state change: data
-transmission on the selected socket may fail and a later release could
-try to use mss_now reset to 0 for a divide operation.
+Conflicts (if any) have been resolved, and documented in each patch.
 
-Address the issue by explicitly checking for the critical scenario.
+Paolo Abeni (2):
+  mptcp: avoid unneeded actions on subflow reset
+  mptcp: close race between scheduler and state change
 
-Fixes: c886d70286bf ("mptcp: do not queue data on closed subflows")
-Cc: stable@vger.kernel.org
-Reported-by: Shardul Bankar <shardul.b@mpiricsoftware.com>
-Reported-by: Xinyang Ge <xinyang@anthropic.com>
-Closes: https://lore.kernel.org/20260525194828.1137119-1-shardul.b@mpiricsoftware.com
-Signed-off-by: Paolo Abeni <pabeni@redhat.com>
-Reviewed-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
-Link: https://patch.msgid.link/20260917-net-mptcp-misc-fixes-7-3-rc4-v2-2-0cf5c72667c8@kernel.org
-Signed-off-by: Jakub Kicinski <kuba@kernel.org>
-Signed-off-by: Matthieu Baerts (NGI0) <matttbe@kernel.org>
----
- net/mptcp/protocol.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+ net/mptcp/protocol.c | 10 ++++++----
+ net/mptcp/protocol.h |  3 ++-
+ net/mptcp/subflow.c  | 11 +++++++++++
+ 3 files changed, 19 insertions(+), 5 deletions(-)
 
-diff --git a/net/mptcp/protocol.c b/net/mptcp/protocol.c
-index ab83cf46a8c3..ca78add7670d 100644
---- a/net/mptcp/protocol.c
-+++ b/net/mptcp/protocol.c
-@@ -1636,7 +1636,9 @@ static struct sock *mptcp_subflow_get_send(struct mptcp_sock *msk)
- 
- static void mptcp_push_release(struct sock *ssk, struct mptcp_sendmsg_info *info)
- {
--	tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle, info->size_goal);
-+	if (info->mss_now)
-+		tcp_push(ssk, 0, info->mss_now, tcp_sk(ssk)->nonagle,
-+			 info->size_goal);
- 	release_sock(ssk);
- }
- 
 -- 
 2.55.0
 
