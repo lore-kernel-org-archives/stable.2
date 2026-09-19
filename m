@@ -1,94 +1,79 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 12B463630AC;
-	Sat, 19 Sep 2026 23:02:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D2BEC1ACEDE;
+	Sat, 19 Sep 2026 23:21:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789858975; cv=none; b=ZwHaP0CncVAZIchWZu2EWkKGKT6JX1DZ+XSpspC1NoB846IPJT5CJZeq8/0jcmJJFRBTaEg3dm7sDBsgNRM0Qkqa6L2opTetUSUPXcv+datBM95GqIBCiVJxy5I511yb4F/351oslyiBhnnDkfvCaqrgCsd/2lWDAhG9s11/+wM=
+	t=1789860075; cv=none; b=GB78BYNmVbVyPlJXfhnBNFIHfzKurpXVtuO3ahXLwz6Ts9z2QsR97DDC56TjIU+lcc/JgfljnfPGvTxr+dAsNuWtuuXh+r8S8ykcMoPNk+CrJCxtH73fsjvJ9i+PVebybKlhl5sW3fUBYVp6QBMsbxQkvbyYn6Bh12Hs+wydDdk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789858975; c=relaxed/simple;
-	bh=aLcHy+tRIvfthrGREUYSdcd+VtIPry1piG+pXHYG38g=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=vCiMtaxSthJ1AXjPVBdoAdqky12brShupTohPidt3Y85V1i/1wYwTkNjGEukx7c8F7RVUWS6gulYrYaELzBlNQMk7gjsJih7t/hpz7Nk0F3txUPGUeWaNmvm+u+eIE0AzP3gT8tIYs8WVRXqBphjGgMmpdkmRdK0HiFfZrr5BL8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DuJIstdr; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789860075; c=relaxed/simple;
+	bh=AZb+kScGG4PiiruSgXKlU3T7M3DKD2mW+8q/vno4rMc=;
+	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
+	 In-Reply-To:To:Cc; b=Luft+FcUj+CyYjPMlEWxeURvqHuj4tBcIHTUykiy7dzCWH50coFD13AJ9JkrjMwm/ePMzkrTHnz1bvS5P6fhK6XUryVM9SJxQbj3aJawXXPqfVSAjBwgqMTUiu5DvfmDPxFTvn6LXzCkgp9NJAGbtRX3ffENQDS8M1CJoMoMw8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=B/mBXBMa; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DuJIstdr"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0B46A1F000FF;
-	Sat, 19 Sep 2026 23:02:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="B/mBXBMa"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 629FF1F000FF;
+	Sat, 19 Sep 2026 23:21:14 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789858973;
-	bh=UdaaWIUOK9NvtNlCweVVV4He/hsXV40fNOtj8Y5b8LQ=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=DuJIstdrDYIQK29WTnhvCenUcGbEDVptA6TEKHI18CDKRiJblksJji/AEZKHMY9kH
-	 MigDsgiO1/NADHC6uHVq2iy2UR8Re1kO+y9ovKI9dMBtLSVgjKSucp/Kx050vbd6Fu
-	 0jO0R7mx1hdeDJ2xRS2MRO+ra2+hrc1lfgyTXyEMxR30z96MQBRJS2rZXXv8VDjHUD
-	 JPL+mEWg9fUSIIDpmIpEzikNFSZIy5iIAkq4HCH3eHMGsB71BIOyw0yv6uUhkcF2d2
-	 wCNVltg7MWYP4s9Nkc64QRAdlxafTkb57rtTLT9GFfqe55zwixEP7V1xjdLb/bW6lR
-	 jyG/fEIwrCppw==
-Date: Sat, 19 Sep 2026 16:02:51 -0700
-From: Wei Liu <wei.liu@kernel.org>
-To: Naman Jain <namjain@linux.microsoft.com>
-Cc: Hardik Garg <hargar@linux.microsoft.com>, kys@microsoft.com,
-	haiyangz@microsoft.com, wei.liu@kernel.org, decui@microsoft.com,
-	mhklinux@outlook.com, ssengar@linux.microsoft.com,
-	romank@linux.microsoft.com, linux-hyperv@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH] mshv_vtl: Check per-CPU register page before mmap
-Message-ID: <20260919230251.GB1008213@liuwe-devbox-debian-v2.local>
-References: <20260911175146.1370148-1-hargar@linux.microsoft.com>
- <3f771293-f5df-4e74-aca7-5d34966d00e0@linux.microsoft.com>
+	s=k20260515; t=1789860074;
+	bh=iq5dAyUVLkaFGRL8cxxr6glqE0y8QGW2cBUUD1enuwQ=;
+	h=Subject:From:Date:References:In-Reply-To:To:Cc;
+	b=B/mBXBMa56uwxFfA5ic92suV9u1k5JIGgSgGgP6yeNUJbOPY09uIOKQX2Nb39Gntc
+	 Epqca4GFEBOIGczJvwhg0squzRDKpONl3hwBcrQE9qkOzCxkMP0SU4l2BhSBNpgjcc
+	 6BwHxZjJtLnC8JWnyLckW8kYZTa7LbeMpI6iN56sljxt4462+pCHiZK+sLZHLj/sbP
+	 C1PgOqCdH6mXXTwpztLYcIfkcC3+Pws0sqis1bPxm4JcSZq+T+beDqzy4oeNTjrRJB
+	 jtr18LA3Qq3jXhalNid/x/NcgJqTekrKAwBRHdrAPAjShVA8Y+2flg7uY5cnZAhlxi
+	 ptx8FlVWNqwQQ==
+Received: from [10.30.226.235] (localhost [IPv6:::1])
+	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 19731392447F;
+	Sat, 19 Sep 2026 23:20:08 +0000 (UTC)
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <3f771293-f5df-4e74-aca7-5d34966d00e0@linux.microsoft.com>
+Content-Transfer-Encoding: 8bit
+Subject: Re: [PATCH net] vlan: require the MAC header to be present in
+ __vlan_insert_inner_tag()
+From: patchwork-bot+netdevbpf@kernel.org
+Message-Id: 
+ <178986000690.1491217.13452537576986378858.git-patchwork-notify@kernel.org>
+Date: Sat, 19 Sep 2026 23:20:06 +0000
+References: <20260915083152.705309-1-xmei5@asu.edu>
+In-Reply-To: <20260915083152.705309-1-xmei5@asu.edu>
+To: Xiang Mei <xmei5@asu.edu>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, netdev@vger.kernel.org,
+ bpf@vger.kernel.org, linux-kernel@vger.kernel.org, jakub@cloudflare.com,
+ stable@vger.kernel.org, co+0ea1ac045375cf05@bugs.sh
 
-On Tue, Sep 15, 2026 at 10:11:36AM +0530, Naman Jain wrote:
-> 
-> 
-> On 9/11/2026 11:21 PM, Hardik Garg wrote:
-> > Register-page setup is optional for each CPU. If allocation or
-> > registration fails, mshv_vtl_configure_reg_page() warns and leaves that
-> > CPU's reg_page NULL, but initial context setup continues successfully.
-> > Meanwhile, successful setup on another CPU sets the global
-> > mshv_has_reg_page flag.
-> > 
-> > mshv_vtl_fault() checks this global flag before selecting the requested
-> > CPU's register page. With mixed setup results across online CPUs, the
-> > check passes even for a CPU with no register page, reaching
-> > get_page(NULL) when userspace faults in that mapping.
-> > 
-> > Check the selected per-CPU register page before taking its reference and
-> > return VM_FAULT_SIGBUS if it is absent.
-> > 
-> > Fixes: 7bfe3b8ea6e3 ("Drivers: hv: Introduce mshv_vtl driver")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Hardik Garg <hargar@linux.microsoft.com>
-> > ---
-> >   drivers/hv/mshv_vtl_main.c | 3 +++
-> >   1 file changed, 3 insertions(+)
-> > 
-> > diff --git a/drivers/hv/mshv_vtl_main.c b/drivers/hv/mshv_vtl_main.c
-> > index fc993560a45c..3296ab5c0243 100644
-> > --- a/drivers/hv/mshv_vtl_main.c
-> > +++ b/drivers/hv/mshv_vtl_main.c
-> > @@ -912,6 +912,9 @@ static vm_fault_t mshv_vtl_fault(struct vm_fault *vmf)
-> >   		return VM_FAULT_NOPAGE;
-> >   	}
-> > +	if (!page)
-> > +		return VM_FAULT_SIGBUS;
-> > +
-> >   	get_page(page);
-> >   	vmf->page = page;
-> 
-> 
-> LGTM. Thanks.
-> 
-> Reviewed-by: Naman Jain <namjain@linux.microsoft.com>
+Hello:
 
-Applied. Thanks.
+This patch was applied to netdev/net.git (main)
+by Jakub Kicinski <kuba@kernel.org>:
+
+On Tue, 15 Sep 2026 01:31:52 -0700 you wrote:
+> __vlan_insert_inner_tag() only guarantees head room via skb_cow_head(),
+> never that mac_len bytes of MAC header are present.  Its ETH_HLEN
+> wrappers - __vlan_insert_tag() under skb_vlan_push(), and
+> vlan_insert_tag() under validate_xmit_vlan() on the generic transmit
+> path - therefore rewrite the first 16 bytes at skb->data: a 12-byte
+> memmove plus two 2-byte stores at +12 and +14.  No caller supplies the
+> bound, while the pop helpers use skb_ensure_writable()/pskb_may_pull().
+> 
+> [...]
+
+Here is the summary with links:
+  - [net] vlan: require the MAC header to be present in __vlan_insert_inner_tag()
+    https://git.kernel.org/netdev/net/c/ab888242fce4
+
+You are awesome, thank you!
+-- 
+Deet-doot-dot, I am a bot.
+https://korg.docs.kernel.org/patchwork/pwbot.html
+
+
