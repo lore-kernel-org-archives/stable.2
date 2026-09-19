@@ -1,144 +1,167 @@
-Received: from mail-wm2-f12.google.com (mail-wm2-f12.google.com [74.125.225.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from relay.yourmailgateway.de (relay.yourmailgateway.de [188.68.63.166])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 254F13750A9
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 06:11:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0AF203403E8;
+	Sat, 19 Sep 2026 06:57:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=188.68.63.166
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789798284; cv=none; b=ZlmwqxwMTCYlWLE6i5TQagFCDK9AZJlDvuR31Ej5UUY0PpUQ/jr/il7ENoy2NWvGyfIBSc+j2cEpSwUbCdI/tPkWHCdjhLkt++YM7wUc4bgc6rVmynsoWQwo5unto25OK/RSXbH8TqkC3zQxEhHUI/uPkIXc1J7RsGl3zBeG1n8=
+	t=1789801032; cv=none; b=kbHUAtrDcSudQe9cbhiOxjRHDMTqx0MpUuF0T0AYZsHEEltxoht6FLP33X5SlDOcyrNXIpXvt/+KOKewD0ZWMCQpYZXnibHFNk4tPIDIddpaAJsSxTd67MaRZk5KDxjV9lLVl2vZsAKBN7R1os/dDoZXJzxhEQ+rY0nXsKf2PH8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789798284; c=relaxed/simple;
-	bh=lwcvsGM7dkF7romeMnX3Ds75/0ZlM0UvamxerXT9LbA=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version:Content-Type; b=VFexumvyDD7inIKBPxGlUe4oHXlKor1WGklcwTsf3uf9GVmAyibZ0KY3aoowBQK1V9Ylr/hwYl33Oo0/dkS6IGoUiYDcqP+dVbsne0cXxKs1DcIBi6xYRvhKsZmIaL6X5r0aB1tUlGtNCSaWH0W00UX/TRWDNTn2rbYvYFTGOaI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Uh6Atq+H; arc=none smtp.client-ip=74.125.225.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789801032; c=relaxed/simple;
+	bh=45MegNFsAtWYZexybcxxREXKZcERntxf2K3y+Plbqwg=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=lkbRCIsVN07Y1r290wWDHRktzyTOxT/My5ALATt1y30Jpl5gIxzeMwlnkRY6zLxHJ44f9GVPAKgGcxKXaYIG2qA/8ip3YNg84AQoUHHJOLfHtd5yTiUUmvqjLrKykiQpHI7jKZ1Kud7vj6DR4e74xfutp4px78AgIlvBNVsCId4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info; spf=pass smtp.mailfrom=leemhuis.info; dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b=U/CB9llW; arc=none smtp.client-ip=188.68.63.166
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=leemhuis.info
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=leemhuis.info
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Uh6Atq+H"
-Received: by mail-wm2-f12.google.com with SMTP id 5b1f17b1804b1-49b965f447cso11741115e9.3
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 23:11:21 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789798280; x=1790403080; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=Wzv5spbilUO1qSlslWoXOyl5RLYwHziQsHbiWKOWqZ0=;
-        b=Uh6Atq+HTmmPQ8WVekaEkCIekTTuRWPtOpnha3hf2CkpKiIGzivqKtbYwUegyZWNct
-         LkFtvu/85nlr2r1+D1steBNiVBU0KW3S8mMmPgl4b7fB+RVVULF9/IK+8BOelZvB/bT1
-         U5ZjlUBEaUclJKxwBgm8W1FxCdnHOjaqFEsu0t42jlrXuthmr21q88jHgnstb/n/hfmB
-         LSIyuKQz2P/n3BiZINOb63bUHTksrqs72ECXZ5bdrtXqSxqLSGZmEFnDyEfEQVjFyj4c
-         GN++ech6YB2l4GtQj1+j7RSoS5keexlycup7R+xjG/w2DmYIngW1mWdFLo2FHMEhg13W
-         PHBw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789798280; x=1790403080;
-        h=content-transfer-encoding:content-type:mime-version:message-id:date
-         :subject:cc:to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=Wzv5spbilUO1qSlslWoXOyl5RLYwHziQsHbiWKOWqZ0=;
-        b=JqpTgJZXYLx8QlldQqmmioqq4UNJkZXnB7cHl8FpF1HWiWkTquJAj1LpoxEzO4Iy6M
-         OoTiYiprGtOC0QGjjwyNd4u9nkiWPHedn1P1dmXtYkQDwvIi7RqV/oIpukCLuqBPdtpk
-         Yxg2eL3FZvTD3CkBar+CcK/XxN7UmslLk5Xuq/LkWw2Qc4CY2BCwdTxjNoO46DuQ0iS/
-         MythTQfoxtPYnjRI/Zo7tcGaSFsYwwyycue995+4t+Wh1ih9KxQMrMCGC+7Snx1bSZGP
-         fzYr3PvAwfd3loYA6ENmXRusQKl7SsdZtwrLLkqK4jTikHIiJ/vGENrGjgrysv87bpH2
-         LUpA==
-X-Forwarded-Encrypted: i=1; AKwUvBwuk0adhksFjBwpHvVBje9Y/BCMCiOiRFKO+//RZPb1pI4Z1fdWKB79mjWffqb203Sh9FCmgJ8=@vger.kernel.org
-X-Gm-Message-State: AFuF++mKbyI50cWg4l3dfVof8lRJhHyoo/wy0ijHPXWcqdJMQRoPbI9Q
-	wA06gn//Gun50nAkMTqCad1eJNBhYpgjKs3OXa8X3Qj0cQ8wSwjxc1eOWLLNP5p9m17WVA==
-X-Gm-Gg: AYBFou2Wr51gjEa+tGmtbtFIUMuvoWP5hVpkYbEauehi+g8sX2DjBhXT3Hi52QSROwZ
-	v8G2OxqhQb+4lL6Rv4KqIgZ85enO9hS+C0NH/F+PdMWTSW/nGfnALR/Cs1nLD49T04dVcd7K3KI
-	4En8S+HtGUSzAdcg2oKfWOZD+BJXOBR+Z3Gl9qokQz6KAuHMNTbzmogRNGIZCvYf24YUHZAfWWc
-	MY5ZkdXmYBwBL9fWftHLCDpAPtq4iJq9Y/fKA83ijdlGCiUuWsIvthrcOCnuSikhm3rFDZsHEjV
-	rGwdBLA9ulvHuRfQsJgk+2R5w3OXOu0+btO+bwsFSmXkkANxva5e8ldooTC5Y1qLLZUUdnOOcj0
-	OUtUX3oSHWzXlgUdO4rLIxuIVj5UcUQYoL+eifVUnL04T5FnUQLrsant7+bU2JIzxnopqt57vY5
-	f9HJp1zmeYtaMM0yRSKvI08ScKyqxYAWXMrFYTm9maiQ904kVLj1on/3PBXvxqQLrxtCbcOJosk
-	lXEsTEmOkNLOC5J7E0vhlAIoR0lZITlaGn50Jma0z+hQHGkKvRy
-X-Received: by 2002:a05:600c:6211:b0:49c:fa20:cbfb with SMTP id 5b1f17b1804b1-49fc5728f84mr58855245e9.18.1789798280343;
-        Fri, 18 Sep 2026 23:11:20 -0700 (PDT)
-Received: from fedora ([202.47.63.86])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd1026f4sm52016675e9.8.2026.09.18.23.11.17
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Fri, 18 Sep 2026 23:11:19 -0700 (PDT)
-From: Muhammad Bilal <meatuni001@gmail.com>
-To: Jorge Lopez <jorge.lopez2@hp.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
-Cc: =?UTF-8?q?Thomas=20Wei=C3=9Fschuh?= <linux@weissschuh.net>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Muhammad Bilal <meatuni001@gmail.com>
-Subject: [PATCH v3] platform/x86: hp-bioscfg: remove dead bounds check in audit_log_entries_show
-Date: Sat, 19 Sep 2026 11:11:08 +0500
-Message-ID: <20260919061108.87240-1-meatuni001@gmail.com>
-X-Mailer: git-send-email 2.55.0
+	dkim=pass (2048-bit key) header.d=leemhuis.info header.i=@leemhuis.info header.b="U/CB9llW"
+Received: from mors-relay-8202.netcup.net (localhost [127.0.0.1])
+	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hn0fT5GN9z4Hxr;
+	Sat, 19 Sep 2026 08:57:05 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=leemhuis.info;
+	s=key2; t=1789801025;
+	bh=45MegNFsAtWYZexybcxxREXKZcERntxf2K3y+Plbqwg=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To:From;
+	b=U/CB9llWNSX1S9/H1CeQaSFueCxQ7sLv0IYESdRM5+9dlWxE366shfod4dIM71S2x
+	 FWGB/buUtdsU18ZfaUlORZ8Sihx2tJuDp9hNTgbTCvwo8dJoyBDpZIoe36NRFX9hgs
+	 YhoUwtz2AjdhEuo387ng5Qn2YfFIQH5aMMGU9eOsr3sFY/GItlvuBSTBVvqATv6rlC
+	 iV9pZsGYpY6h63uL1svqQAPNA3efL+tQpbduO8G4G8oowwJTQ8Qme7I5EEM24iaAfC
+	 0V1+U/m5JRtRry1IBIFmNK3+iZ1H+eWrETQaLG7UuA4lN4waVfdqMJGA3roSClErkd
+	 VF/kj0rhM5lyw==
+Received: from policy01-mors.netcup.net (unknown [46.38.225.35])
+	by mors-relay-8202.netcup.net (Postfix) with ESMTPS id 4hn0fT4Xccz4HxW;
+	Sat, 19 Sep 2026 08:57:05 +0200 (CEST)
+X-Virus-Scanned: Debian amavisd-new at policy01-mors.netcup.net
+X-Spam-Flag: NO
+X-Spam-Score: -2.898
+X-Spam-Level: 
+Received: from mxe9fb.netcup.net (unknown [10.243.12.53])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange ECDHE (P-256) server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by policy01-mors.netcup.net (Postfix) with ESMTPS id 4hn0fR751Sz8tg2;
+	Sat, 19 Sep 2026 08:57:03 +0200 (CEST)
+Received: from [IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f] (unknown [IPv6:2a02:8108:8984:1d00:a0cf:1912:4be:477f])
+	by mxe9fb.netcup.net (Postfix) with ESMTPSA id 24A405FA32;
+	Sat, 19 Sep 2026 08:57:03 +0200 (CEST)
+Authentication-Results: mxe9fb;
+        spf=pass (sender IP is 2a02:8108:8984:1d00:a0cf:1912:4be:477f) smtp.mailfrom=regressions@leemhuis.info smtp.helo=[IPV6:2a02:8108:8984:1d00:a0cf:1912:4be:477f]
+Received-SPF: pass (mxe9fb: connection is authenticated)
+Message-ID: <344d9e26-769e-4551-9dba-f48ccbd6793b@leemhuis.info>
+Date: Sat, 19 Sep 2026 08:57:02 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] PCI: imx6: Keep Root Port MSI capability also for i.MX6Q
+To: Bjorn Helgaas <helgaas@kernel.org>, Soeren Moch <smoch@web.de>
+Cc: Richard Zhu <hongxing.zhu@nxp.com>, stable@vger.kernel.org,
+ Manivannan Sadhasivam <mani@kernel.org>, Lucas Stach
+ <l.stach@pengutronix.de>, Bjorn Helgaas <bhelgaas@google.com>,
+ Frank Li <Frank.Li@nxp.com>, Fabio Estevam <festevam@gmail.com>,
+ linux-pci@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ imx@lists.linux.dev, linux-kernel@vger.kernel.org
+References: <20260918230015.GA1205610@bhelgaas>
+From: Thorsten Leemhuis <regressions@leemhuis.info>
+Content-Language: de-DE, en-US
+In-Reply-To: <20260918230015.GA1205610@bhelgaas>
 Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-PPP-Message-ID: <178980102368.147768.7933732274283946620@mxe9fb.netcup.net>
+X-NC-CID: sWpGcjgseDQL8M6+YmxU2Mdbf5E3igADS7Oh7gQWPZPo/0Cxv9Y=
 
-audit_log_entries_show() checks "count * LOG_ENTRY_SIZE > PAGE_SIZE"
-prior to entering the loop. Because "count" is already bounded to fit
-within PAGE_SIZE, the inner loop check "(LOG_ENTRY_SIZE * i) > PAGE_SIZE"
-can never be reached and is dead code.
+On 9/19/26 01:00, Bjorn Helgaas wrote:
+> [+cc Thorsten, possible regzbot confusion?]
+> 
+> On Mon, Apr 27, 2026 at 01:58:04PM +0200, Soeren Moch wrote:
+>> Also on the NXP i.MX6Q chipset MSIs from the endpoints won't be received by
+>> the iMSI-RX MSI controller if the Root Port MSI capability is disabled.
+>>
+>> Even though the Root Port MSIs won't be received by the iMSI-RX controller
+>> due to design, this chipset has some weird hardware bug that prevents
+>> the endpoint MSIs from reaching when the Root Port MSI capability is
+>> disabled.
+>>
+>> Hence, always keep the Root Port MSI capability for this chipset.
+>>
+>> Note that by keeping Root Port MSI capability, Root Port MSIs such as AER,
+>> PME and others won't be received by default. So users need to use
+>> workarounds such as passing 'pcie_pme=nomsi' cmdline param.
+>>
+>> Fixes: 3a4e8302e72f ("PCI: imx6: Keep Root Port MSI capability with iMSI-RX to work around hardware bug")
+>> Cc: <stable@vger.kernel.org> # 7.0.x
+>> Signed-off-by: Soeren Moch <smoch@web.de>
+> 
+> This thread is still listed as a regression:
+> https://linux-regtracking.leemhuis.info/regzbot/regression/lore/20260427115804.134231-1-smoch@web.de/
 
-Remove the redundant inner bounds check and eliminate the unnecessary
-"else" block after "break" to clean up the loop control flow.
+My fault, afaics; sorry.
 
-Signed-off-by: Muhammad Bilal <meatuni001@gmail.com>
----
-Resending v3 2/2 unchanged: the previous attempt reached the list with
-a corrupted hunk (header/diffstat didn't match the body), which is
-what "patch: **** malformed patch at line 65" was. No content change
-from the previous v3, this is a clean re-generation of the same diff.
+> But I *think* it's been resolved by:
+> 
+>   b4bee12ebecc ("PCI: imx6: Keep i.MX6 Root Port MSI/MSI-X Capabilities with iMSI-RX to work around hardware bug")> 
+> Can you confirm?
+>
+> Maybe regzbot is confused by the fact that the regression was first
+> attributed to 3a4e8302e72f, and then later attributed to
+> f5cd8a929c825?
 
-Changes in v3:
-  - Remove the dead inner loop check completely instead of adjusting
-    the boundary arithmetic, as noted by Ilpo Järvinen.
-  - Remove the redundant else block after break.
+The main problem is something different: Sometimes one commit causes
+multiple issues that in rare cases might even be reported by the same
+person -- and regzbot needs to keep them and fixes for them apart. Which
+is why it is cautions and will only auto-close a tracked regressions
+when a Link:/Closes: tags points to what regzbot considers the report,
+as Linus demands those anyway. And b4bee12ebeccfc didn't to that. No
+problem, happens all the time, normally I notice these things and tell
+regzbot manually. And I kinda did when I noticed that a fix was in the
+works, but then the subject of the fix changed later -- and I missed that.
 
-Changes in v2:
-  - None for this patch; resubmitted as part of the v2 series.
+These things happen and in a ideal world regzbot should be little more
+gentle and likely auto-close tracked regressions when a Fixes: tag
+combined with a Reported-by: or Tested-by: matches. That is kinda on the
+todo list, but not near the top (wait for by LPC talk). Anyway, thx for
+mentioning it and let me update regzbot:
 
-Link: https://lore.kernel.org/r/20260803143037.93105-1-meatuni001@gmail.com [v1]
-Link: https://lore.kernel.org/r/20260812111829.172273-1-meatuni001@gmail.com [v2]
----
- .../x86/hp/hp-bioscfg/surestart-attributes.c   | 18 ++++++++----------
- 1 file changed, 8 insertions(+), 10 deletions(-)
+#regzbot fix: b4bee12ebecc
 
-diff --git a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-index b57e42f..d689ee8 100644
---- a/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-+++ b/drivers/platform/x86/hp/hp-bioscfg/surestart-attributes.c
-@@ -90,17 +90,15 @@ static ssize_t audit_log_entries_show(struct kobject *kobj,
- 					   HPWMI_SURESTART,
- 					   audit_log_buffer, 1, 128);
- 
--		if (ret < 0 || (LOG_ENTRY_SIZE * i) > PAGE_SIZE) {
--			/*
--			 * Encountered a failure while reading
--			 * individual logs. Only a partial list of
--			 * audit log will be returned.
--			 */
-+		/*
-+		 * Encountered a failure while reading individual logs.
-+		 * Only a partial list of audit log will be returned.
-+		 */
-+		if (ret < 0)
- 			break;
--		} else {
--			memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
--			buf += LOG_ENTRY_SIZE;
--		}
-+
-+		memcpy(buf, audit_log_buffer, LOG_ENTRY_SIZE);
-+		buf += LOG_ENTRY_SIZE;
- 	}
- 
- 	return i * LOG_ENTRY_SIZE;
--- 
-2.43.0
+Ciao, Thorsten
+>> ---
+>> Cc: Manivannan Sadhasivam <mani@kernel.org>
+>> Cc: Richard Zhu <hongxing.zhu@nxp.com>
+>> Cc: Lucas Stach <l.stach@pengutronix.de>
+>> Cc: Bjorn Helgaas <bhelgaas@google.com>
+>> Cc: Frank Li <Frank.Li@nxp.com>
+>> Cc: Fabio Estevam <festevam@gmail.com>
+>> Cc: linux-pci@vger.kernel.org
+>> Cc: linux-arm-kernel@lists.infradead.org
+>> Cc: imx@lists.linux.dev
+>> Cc: linux-kernel@vger.kernel.org
+>>
+>> Tested on a tbs2910 board [1]
+>> [1] arch/arm/boot/dts/nxp/imx/imx6q-tbs2910.dts
+>> ---
+>>  drivers/pci/controller/dwc/pci-imx6.c | 3 ++-
+>>  1 file changed, 2 insertions(+), 1 deletion(-)
+>>
+>> diff --git a/drivers/pci/controller/dwc/pci-imx6.c b/drivers/pci/controller/dwc/pci-imx6.c
+>> index 6d6a1688e7eb..3d461bdef967 100644
+>> --- a/drivers/pci/controller/dwc/pci-imx6.c
+>> +++ b/drivers/pci/controller/dwc/pci-imx6.c
+>> @@ -1865,7 +1865,8 @@ static const struct imx_pcie_drvdata drvdata[] = {
+>>  		.flags = IMX_PCIE_FLAG_IMX_PHY |
+>>  			 IMX_PCIE_FLAG_SPEED_CHANGE_WORKAROUND |
+>>  			 IMX_PCIE_FLAG_BROKEN_SUSPEND |
+>> -			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND,
+>> +			 IMX_PCIE_FLAG_SUPPORTS_SUSPEND |
+>> +			 IMX_PCIE_FLAG_KEEP_MSI_CAP,
+>>  		.dbi_length = 0x200,
+>>  		.gpr = "fsl,imx6q-iomuxc-gpr",
+>>  		.ltssm_off = IOMUXC_GPR12,
+>> -- 
+>> 2.43.0
+>>
 
