@@ -1,108 +1,186 @@
-Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from galois.linutronix.de (Galois.linutronix.de [193.142.43.55])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EB54532695F
-	for <stable@vger.kernel.org>; Sat, 19 Sep 2026 05:29:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3AB3016F288;
+	Sat, 19 Sep 2026 05:32:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=193.142.43.55
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789795752; cv=none; b=AjgMg/5+Ei8GlRH11azrPa+AE5lNSKie7QaOCkT3OFUhNvOsDoLhR/NrjXwT/lUKkmUAR6hK/h4U9mibjKP144guta0dEimcRtnc40AI1eJMXuHw9nioxCbU9dRdtpY88xQvKlYf2r8ssPnOLALNmjODfXX79JlYl67bfr4eKfw=
+	t=1789795952; cv=none; b=HhAPsBEdAbM9y0c+Xd084rWotjcMiAmAAiORt04JluFmAj6/JIjHgUNRr2qeivSwb4jQSU+rNO0JZ5SjHryZABRn61HdK4IEC2qBYXwsxQf4rHMRdIpYD6iEFXY4xmNSK8Cfmo+mhkCd50u85DcFnY2jmeKRXmdoK7rj1WgCpWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789795752; c=relaxed/simple;
-	bh=ekSDbC6S/5AfZ2Iah9TGW0ydX/g6qRFKlYWSxfRX59A=;
-	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=hIwvkcHMD+/v+jsgan2LAxgpquULd0CmT8Fe0WdGalSJxm2yqurNt2cSv+VURZAUIxJUfN1S3cRB8bWAhSGS+m+wDRDIIH74rJZX7ymkzuhQytxh5qbK9VBswBmiULT7mu2nPdT2MAzUE+ERuAC9gsWmx2Ukdjq29AS7cxwtLlo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IJKLTzOY; arc=none smtp.client-ip=74.125.225.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789795952; c=relaxed/simple;
+	bh=4A4g8E/94IeZz64wUX3jkkEDhfzm9SSK2/uRX4TZ6f4=;
+	h=Date:From:To:Subject:Cc:In-Reply-To:References:MIME-Version:
+	 Message-ID:Content-Type; b=NvVcYLGflzpo4Dsxk5r+sPdO4di88hP3PMQoVgBpsuUvuTU2quVwgdExvzO91aNSmKDeUWMWHXmnAoA8KfduoxDZX4qsFb+M4UoJ/Qz37LwaKCWAW5ihmSyB4HAUezrwJZmc08Aq43UPPNN3+FnEL9RZsx3C2vVI8z8jyk5kzcw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de; spf=pass smtp.mailfrom=linutronix.de; dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=FEUttQhs; dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b=/fC751Rd; arc=none smtp.client-ip=193.142.43.55
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linutronix.de
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IJKLTzOY"
-Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49ccff31419so11723995e9.3
-        for <stable@vger.kernel.org>; Fri, 18 Sep 2026 22:29:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789795749; x=1790400549; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=ekSDbC6S/5AfZ2Iah9TGW0ydX/g6qRFKlYWSxfRX59A=;
-        b=IJKLTzOYSCrsRRFWzva18ymo0fxc8p23icvyB41lEzhUTKksA+L3AZuA4HqgINmgku
-         mBdabaHYIXe5mMVok9iRle8X/tCJIakd+3sDgTz6DBPtvuo9I4zXvtl+kQ66SoWv49Y+
-         CnC3C5iY+I2Rg7Pm9AECE4h1mF8wD1XD10PxuUE+u9QRWDVFkTk5C1Ex/opZm94/K7To
-         9TTpJALXzSvetc4K2Pg/1rrJzidDIQLasisu1KZPVnaH4Zaxvfd5qaekNbS2EzZAxozQ
-         luDjGOXZaSwBdtYBwr9uHN9Zt59gUKt87JCSkdLHn6dmERiLktz8Bg4fcO1uU3qgLaOV
-         4Fgg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789795749; x=1790400549;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=ekSDbC6S/5AfZ2Iah9TGW0ydX/g6qRFKlYWSxfRX59A=;
-        b=pAXbzxm6IGvPWXtAvINSJHfqDU/fXERzooEHOxjqwwVImrILgPhY/SHoiKIjrgF7O8
-         YbMDhDeuBU7EJis16OxaR7xitNeruuPgPEkpmdHL9kZf/SLFH5n3cFg8ZfRuhA+OQHCT
-         EZ/5b5GvV0RcuKyGF39JDW5UPeRKjH0BUh/XGHxtKcsTCWCjEaUnQqJh46lmnOWT5lKk
-         JMCT4nou37btu2qGKPdCsilAzuLnWL67RxL7lBtl/emmixMS4KH0snXrMu4CrT4rIkm+
-         3NGA3xbeYAYPirh/eYgu4PRjWP/VfbFs6nPoXIjADQcUxvi5zMpzywPwjs0UpweFtvAD
-         KysQ==
-X-Forwarded-Encrypted: i=1; AKwUvByc9ct1NkbafBAUGLG7+EZBEzSN0TsYSwBSibxFXYMvzI+6N5Zs/U4LgbNQKrMSJaB0tuP2CmM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nLTdtYP++3IqZhd5YN+U3MBotD2oH3xQOlJgawHFDaEm7Vy5UB
-	zP49heGbM4IcWQgsBWcCumEaoBViCdS598anwbaoX9aMQ7vxtYy7dbR/HvSTB68Z
-X-Gm-Gg: AYBFou3oahvanYZzA/grnqPeymjDax183JWzqPE8WD4FxtbzEf738Xgqsin3N23Ku4B
-	FAz6QVePhc36lQPkKgiJi4Ib+cjtawaGQL0BI4T8GHda5ZUPEiDSXjrLrkyqfTyEIqVd9FJXydd
-	34AxEGCGpP6WoIgPBJizlfT5f7T+1zLb1JQL3leuPr7Q0ixfrX4xdJ8eDGjRob4wVnAcrKalJn1
-	CFfk+YzSNLwbtBzCStwSazpDwaaUWDRF8+Gc2W8OfOMYGeM0HuhvBUOd4t9PUW7hsiR5QciDsje
-	Cw5husguqeMcJY5tHdza2q2pm/B6/vmrjlTQSvzIu3+tC7g4BrMxxCHC81v9WpkfHx3yZc7WViA
-	LWmWt5FgSdYSwsPsEbi5IW+FmmXuU8Fd7+tT+6FqvL35uhht7Clo+DWSY4HhGAUm9rqOF2xo0oh
-	OsxxSGjZyz9KnrrCf0KYOaepb+uw2+pH2rjK09WsDsd0k3BvbzIjm95mCCBhSIj1wpJafurakfq
-	FmKz7qA+jcPR8qdP+XQz+A4OHTb+FWB77buJXW5YPgtKOx207MLs+HI0yVG3hgy12qZKMrOjsT9
-	ZQ8z0TpUz5r8k3pIDsztF2GLAoXjiPT3yRKV5Ywc/n/aQRgQilsfDSp7vLPf7PnazEsyZe+CKAU
-	XU9VRa2EnIDlNn4mk
-X-Received: by 2002:a05:600c:3b05:b0:49f:c196:47b9 with SMTP id 5b1f17b1804b1-49fc567318bmr60705515e9.4.1789795749070;
-        Fri, 18 Sep 2026 22:29:09 -0700 (PDT)
-Received: from MacBook-Pro-von-Karl.localdomain (dynamic-2a02-3100-a017-2b01-05fe-203b-7cd2-a640.310.pool.telefonica.de. [2a02:3100:a017:2b01:5fe:203b:7cd2:a640])
-        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4872459d409sm4258691f8f.33.2026.09.18.22.29.07
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Fri, 18 Sep 2026 22:29:08 -0700 (PDT)
-From: Karl Mehltretter <kmehltretter@gmail.com>
-To: Maxime Ripard <mripard@kernel.org>,
-	Dave Stevenson <dave.stevenson@raspberrypi.com>
-Cc: Karl Mehltretter <kmehltretter@gmail.com>,
-	=?utf-8?q?Ma=C3=ADra_Canal?= <mcanal@igalia.com>,
-	Raspberry Pi Kernel Maintenance <kernel-list@raspberrypi.com>,
-	Maarten Lankhorst <maarten.lankhorst@linux.intel.com>,
-	Thomas Zimmermann <tzimmermann@suse.de>,
-	David Airlie <airlied@gmail.com>,
-	Simona Vetter <simona@ffwll.ch>,
-	Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Cezary Rojewski <cezary.rojewski@intel.com>,
-	Kuninori Morimoto <kuninori.morimoto.gx@renesas.com>,
-	linux-sound@vger.kernel.org,
-	dri-devel@lists.freedesktop.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v3] drm/vc4: hdmi: Unregister the ASoC card on unbind
-Date: Sat, 19 Sep 2026 07:29:05 +0200
-Message-Id: <20260919052905.26038-1-kmehltretter@gmail.com>
-X-Mailer: git-send-email 2.39.5 (Apple Git-154)
-In-Reply-To: <20260825063735.14676-1-kmehltretter@gmail.com>
-References: <20260825063735.14676-1-kmehltretter@gmail.com>
+	dkim=pass (2048-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="FEUttQhs";
+	dkim=permerror (0-bit key) header.d=linutronix.de header.i=@linutronix.de header.b="/fC751Rd"
+Date: Sat, 19 Sep 2026 05:32:27 -0000
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020; t=1789795949;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2bh4/Pvt+6PM+GRHdHym4RUzbWHoaJ0JCApvTw4ywPM=;
+	b=FEUttQhsodwMUsmiqhLoH4053fUbHQeTqYGA6bVg8lMSVNo5w0BcMkSLAtCqrwAa1JnnEZ
+	ln7MvYxZ2eN7dKoJ5s54xgLtbIAo/kDenr4V61kklqMMBVRi3sOt7kq6d6lqjlrL//ZJOk
+	Ropnfou6LgFyLo2OO3XLYOiYsChDLuTWERclp4otIIR2bAlFfxjTKVqqIhoktIx5LYNCmT
+	loAjjNwleko60go6uMOa4F6YF2DEtn50PcSmOGcyQUGq6wkywWCBjESV0Ovj+OXrYNLCHk
+	csotkHxXe3+4YsT2tuCQSjQl17ZBepHr+ySlynVCBzvG7NMETlUffHcBrM9dGg==
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=linutronix.de;
+	s=2020e; t=1789795949;
+	h=from:from:sender:sender:reply-to:reply-to:subject:subject:date:date:
+	 message-id:message-id:to:to:cc:cc:mime-version:mime-version:
+	 content-type:content-type:
+	 content-transfer-encoding:content-transfer-encoding:
+	 in-reply-to:in-reply-to:references:references;
+	bh=2bh4/Pvt+6PM+GRHdHym4RUzbWHoaJ0JCApvTw4ywPM=;
+	b=/fC751RdXgy2q2NVwhUahqNBvOACz3lj0f/qWihw43m1oTAMHqJnGbCj3NF8li23dTvu95
+	6hTx6/0RkApV8wAA==
+From: "tip-bot2 for Chang S. Bae" <tip-bot2@linutronix.de>
+Sender: tip-bot2@linutronix.de
+Reply-to: linux-kernel@vger.kernel.org
+To: linux-tip-commits@vger.kernel.org
+Subject: [tip: x86/urgent] x86/build/64: Prevent native builds from generating
+ EGPR use
+Cc: Omar Avelar <omar.avelar@intel.com>,
+ "Chang S. Bae" <chang.seok.bae@intel.com>,
+ "Borislav Petkov (AMD)" <bp@alien8.de>, Nathan Chancellor <nathan@kernel.org>,
+ Miguel Ojeda <ojeda@kernel.org>, stable@vger.kernel.org, x86@kernel.org,
+ linux-kernel@vger.kernel.org
+In-Reply-To: <20260916230003.1144622-1-chang.seok.bae@intel.com>
+References: <20260916230003.1144622-1-chang.seok.bae@intel.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 8bit
+Message-ID: <178979594725.2819794.8429178653655710718.tip-bot2@tip-bot2>
+Robot-ID: <tip-bot2@linutronix.de>
+Robot-Unsubscribe:
+ Contact <mailto:tglx@kernel.org> to get blacklisted from these emails
+Precedence: bulk
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: quoted-printable
 
-On Tue, 25 Aug 2026 08:37:35 +0200, I wrote:
-> Register the card without devm and unregister it from the component unbind
-> callback, where both the HDMI device resources and vc4_hdmi are alive. This
-> makes the card lifetime independent of when the final DRM reference is
-> dropped.
+The following commit has been merged into the x86/urgent branch of tip:
 
-Friendly ping on v3. Is anything else needed from my side before this
-can be picked up?
+Commit-ID:     63edf5a009ae366369a1b484cd9ae4ee7c51946c
+Gitweb:        https://git.kernel.org/tip/63edf5a009ae366369a1b484cd9ae4ee7c5=
+1946c
+Author:        Chang S. Bae <chang.seok.bae@intel.com>
+AuthorDate:    Wed, 16 Sep 2026 23:00:03=20
+Committer:     Borislav Petkov (AMD) <bp@alien8.de>
+CommitterDate: Fri, 18 Sep 2026 21:43:38 -07:00
 
-Thanks,
-Karl
+x86/build/64: Prevent native builds from generating EGPR use
+
+Omar reports that CONFIG_X86_NATIVE_CPU=3Dy allows builds to opportunistically
+emit instructions using %r16-%r31 (EGPRs) when the build host supports APX
+since the commit:
+
+  ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to local=
+ly optimize the kernel with '-march=3Dnative'")
+
+But the kernel is not yet prepared to use new registers internally. For
+example, there is no context-switch support for general in-kernel use.
+
+Explicitly disable EGPR use when building with -march=3Dnative.
+
+For C, since GCC 14 and Clang 18, both compilers support suppressing EGPR
+use with -mno-apx-features=3Degpr, whose availability can be detected via
+cc-option.
+
+For Rust, pass features=3D-apxf through the generated JSON to avoid
+unstable-feature warnings, see
+
+  https://github.com/rust-lang/rust/issues/139284
+
+Note Rust only accepts the option to disable APX instructions entirely or not.
+
+Support for this gating also depends on the Rust/LLVM combination. Rust
+1.88 introduced the `apxf` feature option, but versions prior to 1.93 may
+emit an `apxf` attribute to the backend that only LLVM 23 or later can
+interpret. Restrict native Rust builds accordingly.
+
+Fixes: ea1dcca1de12 ("x86/kbuild/64: Add the CONFIG_X86_NATIVE_CPU option to =
+locally optimize the kernel with '-march=3Dnative'")
+Reported-by: Omar Avelar <omar.avelar@intel.com>
+Signed-off-by: Chang S. Bae <chang.seok.bae@intel.com>
+Signed-off-by: Borislav Petkov (AMD) <bp@alien8.de>
+Reviewed-by: Nathan Chancellor <nathan@kernel.org>
+Acked-by: Miguel Ojeda <ojeda@kernel.org>
+Cc: stable@vger.kernel.org
+Link: https://patch.msgid.link/20260916230003.1144622-1-chang.seok.bae@intel.=
+com
+---
+ arch/x86/Kconfig.cpu            | 11 +++++++++++
+ arch/x86/Makefile               |  5 +++++
+ scripts/generate_rust_target.rs |  5 +++++
+ 3 files changed, 21 insertions(+)
+
+diff --git a/arch/x86/Kconfig.cpu b/arch/x86/Kconfig.cpu
+index e465438..6e7a366 100644
+--- a/arch/x86/Kconfig.cpu
++++ b/arch/x86/Kconfig.cpu
+@@ -204,10 +204,21 @@ config CC_HAS_MARCH_NATIVE
+ 	# usage warnings that only appear wth '-march=3Dnative'.
+ 	depends on CC_IS_GCC || CLANG_VERSION >=3D 190100
+=20
++config RUSTC_HAS_APXF
++	# The kernel isn't ready for in-kernel APX instructions. Without
++	# explicit frontend gating of APX, the backend may emit those
++	# instructions in native builds.
++	#
++	# Rust 1.88 added the `apxf` feature option, but versions before 1.93
++	# emit an `apxf` target attribute that only LLVM 23+ can interpret.
++	def_bool (RUSTC_VERSION >=3D 108800 && RUSTC_LLVM_MAJOR_VERSION >=3D 23) ||=
+ \
++		 RUSTC_VERSION >=3D 109300
++
+ config X86_NATIVE_CPU
+ 	bool "Build and optimize for local/native CPU"
+ 	depends on X86_64
+ 	depends on CC_HAS_MARCH_NATIVE
++	depends on !RUST || RUSTC_HAS_APXF
+ 	help
+ 	  Optimize for the current CPU used to compile the kernel.
+ 	  Use this option if you intend to build the kernel for your
+diff --git a/arch/x86/Makefile b/arch/x86/Makefile
+index 598f178..8af6b80 100644
+--- a/arch/x86/Makefile
++++ b/arch/x86/Makefile
+@@ -161,6 +161,11 @@ else
+=20
+ ifdef CONFIG_X86_NATIVE_CPU
+         KBUILD_CFLAGS +=3D -march=3Dnative
++        # Prevent the compiler from generating EGPR use. The kernel is
++        # not yet prepared for general in-kernel use.
++        KBUILD_CFLAGS +=3D $(call cc-option,-mno-apx-features=3Degpr)
++
++        # generate_rust_target.rs handles Rust APX gating.
+         KBUILD_RUSTFLAGS +=3D -Ctarget-cpu=3Dnative
+ else
+         KBUILD_CFLAGS +=3D -march=3Dx86-64 -mtune=3Dgeneric
+diff --git a/scripts/generate_rust_target.rs b/scripts/generate_rust_target.rs
+index 3bf2965..7687b0d 100644
+--- a/scripts/generate_rust_target.rs
++++ b/scripts/generate_rust_target.rs
+@@ -224,6 +224,11 @@ fn main() {
+             features +=3D ",+harden-sls-ijmp";
+             features +=3D ",+harden-sls-ret";
+         }
++        if cfg.has("X86_NATIVE_CPU") {
++            // Prevent the backend from generating APX instructions. The ker=
+nel is not yet prepared
++            // for general in-kernel EGPR use.
++            features +=3D ",-apxf";
++        }
+         ts.push("features", features);
+         ts.push("llvm-target", "x86_64-linux-gnu");
+         ts.push("supported-sanitizers", ["kcfi", "kernel-address"]);
