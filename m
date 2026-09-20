@@ -1,63 +1,49 @@
-Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.16])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7653C175A9C;
-	Sun, 20 Sep 2026 02:42:46 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.16
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AA520367B70;
+	Sun, 20 Sep 2026 03:00:05 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789872169; cv=none; b=E411hgibFM09eV4Z77Z0GH0IlHI8XomPd9nnELxFVG9QoJ9KHMI4z9E6YVpgWZS+TV9t4byqHgJ5gvC1B5k0wjQY3SglYQN/apGbB5ND2U8NPArF/BEFofyGv0nESWNBTbzdUFlwXtt21rYDys0XbKJrmj897he0Mx4qV2IsD1s=
+	t=1789873208; cv=none; b=DBQJf27gPWy0k1avYdrDs5PrIfqd0vvWqxJo+ovMeHyYNC/ouZVT0UhDJ1TsEfv+VxgE1x0IPkDhWlMM2Ppa2aHH0o9uqBY7u+pM97VenmAS/IwAGH9AucYvhHB0kqReUTCxpiRAuy9Lg8Liz9N3ZbfwOIwROFN3+roDvalNJNU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789872169; c=relaxed/simple;
-	bh=odp0zXhuJ25xtcNo60On5RQmjhndEnyqpfoyX1JO9rs=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=FxyawdluRsznWsZlTGFt37aZQsnEsSMdrKGlCZzWZeRbLCRDcX2kug9nmVJ6hz7ZSOhzpzVSPllgQsnvBdqeLz8E3ULqCUkiFKYfOxtQ+cu4HIquV+4Fo3t+l/CkDR65f4dApKMoB8dswRCwR9Z2dJgnZ8dWle4Xa+C7vuOzICs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com; spf=pass smtp.mailfrom=intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Vbk3QDwF; arc=none smtp.client-ip=192.198.163.16
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=intel.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=intel.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Vbk3QDwF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
-  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
-  t=1789872167; x=1821408167;
-  h=from:to:cc:subject:date:message-id:mime-version:
-   content-transfer-encoding;
-  bh=odp0zXhuJ25xtcNo60On5RQmjhndEnyqpfoyX1JO9rs=;
-  b=Vbk3QDwFstRWANnbabw55hH/mAuzGLVsdW/BGCZTU99rMofUgpSK1z9A
-   YSOT+KUB2PJIOqLOuPmQpjjaRdi/0APc1uNTZxTiZ2H5BCKJJLndOxKQk
-   rh0wh07Aj34KJgLvXacTroMqu0n1t/jmY9eJvg1Je2h9ysWqPoGtxMF2x
-   k+7fD1DFJtI7pfVbP+2LjvGgqEnhJsE2FJEHiOX2kNG7nOgyQsneHsYwl
-   Sct/RijW+GD08MWiD4/DDdRpPEljVX/gnqY/opv0i+n/DaKTt9Rvvg2Wn
-   Q6+E9hqx4Y+lmKnSfwAnVIUVf57S8YwRLlAXoleFfrqY2IIKmNFi6SDH3
-   Q==;
-X-CSE-ConnectionGUID: YT9bdpMTT0K3/j7H2OMJuQ==
-X-CSE-MsgGUID: IjIKXbd3RF2byuebOVfHfg==
-X-IronPort-AV: E=McAfee;i="6800,10657,11910"; a="77949180"
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="77949180"
-Received: from fmviesa005.fm.intel.com ([10.60.135.145])
-  by fmvoesa110.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:42:45 -0700
-X-CSE-ConnectionGUID: n2KMD/YsRhe1p1QNkYIEdg==
-X-CSE-MsgGUID: X2t4uyOtR3qnkvOmM9ZWNg==
-X-ExtLoop1: 1
-X-IronPort-AV: E=Sophos;i="6.27,111,1787036400"; 
-   d="scan'208";a="280184439"
-Received: from junjie-desk-dev.bj.intel.com ([10.238.152.71])
-  by fmviesa005-auth.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 19 Sep 2026 19:42:43 -0700
-From: Junjie Cao <junjie.cao@intel.com>
-To: Mark Brown <broonie@kernel.org>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Oder Chiou <oder_chiou@realtek.com>
-Cc: Shuming Fan <shumingf@realtek.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	linux-sound@vger.kernel.org,
+	s=arc-20240116; t=1789873208; c=relaxed/simple;
+	bh=wC1HqIIymDvpLY4qtFz7iU5GRoa1xNjRJvD0ZJ7Mcu8=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=einRKrKXuFcOks17qY1PNZDliBV27flXf2PJrwPWuSk3UMra/YzNdj2ygDjuUO60rLEE6qD2DZpH6dcmFuvSmu4uAK79qZqSpu1d2v3BhNJb4rVlmTSwPNODqUk/5m8sic5Q/nwLMEChooCL7kxZ8eSkK9UIJp16bDjsCUIV0EI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 5e812b44b49f11f19a56ed5b684f684d-20260920
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:d8185d58-d7b6-49fd-ab98-ecf96aa70cbb,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:a6422464d4c6a77a4ad749c65008c46c,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 5e812b44b49f11f19a56ed5b684f684d-20260920
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1615079036; Sun, 20 Sep 2026 11:00:00 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: [PATCH] ASoC: rt712-sdca-dmic: fix drvdata type in the gain controls
-Date: Sun, 20 Sep 2026 10:42:32 +0800
-Message-ID: <20260920024232.710189-1-junjie.cao@intel.com>
-X-Mailer: git-send-email 2.43.0
+Subject: [PATCH v5] ntfs: mount hibernated volumes read-only regardless of errors=
+Date: Sun, 20 Sep 2026 10:59:55 +0800
+Message-Id: <20260920025955.31209-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -66,61 +52,108 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-rt712_sdca_dmic_set_gain_get() and rt712_sdca_dmic_set_gain_put() take
-the component drvdata as struct rt712_sdca_priv, but this driver stores
-a struct rt712_sdca_dmic_priv.
+The hibernation check in load_system_files() only converts the
+superblock to read-only under errors=remount-ro.  With the default
+errors=continue (and with errors=panic), a hibernated volume is
+mounted read-write and the mount-time $LogFile emptying writes to it,
+although a hibernated volume must not be written to at all.
 
-regmap and mbq_regmap are at the same offsets in both structs, so the
-register accesses work. slave is not: rt712_sdca_priv has dmic_component
-in front of it, so its slave overlays rt712_sdca_dmic_priv's params,
-which this driver never writes. When regmap_write() fails in the put
-handler, dev_err() is called with &NULL->dev (RSI below):
+Drop the on_errors term so that a hibernated volume, or a volume whose
+hibernation state cannot be determined, always mounts read-only.
+NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+remounts to read-write, and the $LogFile emptying is skipped by its
+!sb_rdonly() check.
 
-  rt712-sdca-dmic sdw:0:3:025d:1713:01: Defer on undeferrable control: 40800f13
-  BUG: kernel NULL pointer dereference, address: 0000000000000058
-  RIP: 0010:__dev_printk+0x10/0x70
-  RDX: ffffcdac45f83cd0 RSI: 0000000000000008 RDI: ffffffffa09cb5cb
-  Call Trace:
-   _dev_err+0x7f/0x99
-   rt712_sdca_dmic_set_gain_put.cold+0x20/0x25 [snd_soc_rt712_sdca_dmic]
-   snd_ctl_elem_write+0x19a/0x1f0 [snd]
-   snd_ctl_ioctl+0x658/0x8a0 [snd]
+The check itself must not apply the errors= policy either: it runs
+before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and
+ntfs_iget() call ntfs_error() internally on corruption or I/O errors,
+which under errors=panic would panic the machine before the read-only
+fallback has made its decision.  Run the check with the super block
+temporarily marked read-only, which makes ntfs_handle_error() ignore
+any ntfs_error() issued on this path; the super block is not
+published yet at this point, so the temporary flag is not visible
+elsewhere.
 
-Seen on a Dell Precision 5690 running 7.2.5-200.fc44, with alsactl
-writing the control during boot. Compile-tested only.
+Restore read-write access only if the check succeeded and no errors
+were recorded earlier during the mount, e.g. when loading the LogFile,
+so that a volume with recorded errors stays read-only, matching what
+ntfs_reconfigure() enforces for remounts, and a message is logged for
+that case.
 
-Fixes: 63a511284c9e ("ASoC: rt712-sdca: Add RT712 SDCA driver for Mic topology")
-Closes: https://bugzilla.redhat.com/show_bug.cgi?id=2532834
+Fixes: 6251f0b0de7d ("ntfs: update super block operations")
 Cc: stable@vger.kernel.org
-Signed-off-by: Junjie Cao <junjie.cao@intel.com>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
 ---
- sound/soc/codecs/rt712-sdca-dmic.c | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+Change in v5:
+ -Rework the errors=panic handling per review feedback.
+---
+ fs/ntfs/super.c | 36 +++++++++++++++++++++++++++++++-----
+ 1 file changed, 31 insertions(+), 5 deletions(-)
 
-diff --git a/sound/soc/codecs/rt712-sdca-dmic.c b/sound/soc/codecs/rt712-sdca-dmic.c
-index a9f3aa4e143ae..882390890738e 100644
---- a/sound/soc/codecs/rt712-sdca-dmic.c
-+++ b/sound/soc/codecs/rt712-sdca-dmic.c
-@@ -246,7 +246,7 @@ static int rt712_sdca_dmic_set_gain_get(struct snd_kcontrol *kcontrol,
- 		struct snd_ctl_elem_value *ucontrol)
- {
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
--	struct rt712_sdca_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
- 	struct rt712_sdca_dmic_kctrl_priv *p =
- 		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
- 	unsigned int regvalue, ctl, i;
-@@ -277,7 +277,7 @@ static int rt712_sdca_dmic_set_gain_put(struct snd_kcontrol *kcontrol,
- 	struct snd_soc_component *component = snd_kcontrol_chip(kcontrol);
- 	struct rt712_sdca_dmic_kctrl_priv *p =
- 		(struct rt712_sdca_dmic_kctrl_priv *)kcontrol->private_value;
--	struct rt712_sdca_priv *rt712 = snd_soc_component_get_drvdata(component);
-+	struct rt712_sdca_dmic_priv *rt712 = snd_soc_component_get_drvdata(component);
- 	unsigned int gain_val[4];
- 	unsigned int i, adc_vol_flag = 0, changed = 0;
- 	unsigned int regvalue[4];
-
-base-commit: 174d160884199cad97413f33fe1b56027dc0d3e1
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f4a73e45773d..ab91cd1a8515 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	struct restart_page_header *rp;
+ 	int err;
++	bool temporary_ro = false;
+ 
+ 	ntfs_debug("Entering.");
+ 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
+@@ -1572,8 +1573,20 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	 * NVolErrors() without setting the dirty volume flag and mount
+ 	 * read-only.  This will prevent read-write remounting and it will also
+ 	 * prevent all writes.
++	 *
++	 * The check runs with the super block temporarily marked read-only, so
++	 * that ntfs_error() calls issued internally by ntfs_lookup_inode_by_name()
++	 * and ntfs_iget() cannot trigger errors=panic before the read-only
++	 * fallback has run.  The super block is not published yet, so the flag
++	 * is not visible elsewhere.
+ 	 */
++	if (!sb_rdonly(sb)) {
++		sb->s_flags |= SB_RDONLY;
++		temporary_ro = true;
++	}
+ 	err = check_windows_hibernation_status(vol);
++	if (temporary_ro && !err && !NVolErrors(vol))
++		sb->s_flags &= ~SB_RDONLY;
+ 	if (unlikely(err)) {
+ 		static const char *es1a = "Failed to determine if Windows is hibernated";
+ 		static const char *es1b = "Windows is hibernated";
+@@ -1581,12 +1594,25 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 		const char *es1;
+ 
+ 		es1 = err < 0 ? es1a : es1b;
+-		/* If a read-write mount, convert it to a read-only mount. */
+-		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+-			sb->s_flags |= SB_RDONLY;
+-			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+-		}
++		/*
++		 * A Windows hibernation image is not a filesystem error, so
++		 * this is a safety interlock rather than something the
++		 * errors= policy may downgrade.  The super block is already
++		 * read-only here: the temporary flag taken for the check
++		 * above is not restored when the check failed.
++		 */
++		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 		NVolSetErrors(vol);
++	} else if (unlikely(temporary_ro && sb_rdonly(sb))) {
++		static const char *es1 = "Errors were recorded during mount";
++		static const char *es2 = ".  Run chkdsk.";
++
++		/*
++		 * Errors were recorded during the check or earlier, e.g. when
++		 * loading the LogFile.  Stay read-only, like ntfs_reconfigure()
++		 * does for volumes with recorded errors.
++		 */
++		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 	}
+ 
+ 	/* If (still) a read-write mount, empty the logfile. */
 -- 
-2.43.0
+2.25.1
 
