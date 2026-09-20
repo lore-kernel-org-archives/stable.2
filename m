@@ -1,123 +1,116 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AAA8646C82A;
-	Sun, 20 Sep 2026 17:05:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D8F2947011C
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 17:06:42 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789923948; cv=none; b=DysQSbVz798YqlN+AYW1s9gq/Qd5iwCi1gjlxwpCyHenwVww59UmN0vgxtvCiQg7wzL2S+Kod8BN6UxR2YT0w/GqXVXNGVaUk5z1jc8v61+WdDvIjYfJhwikehiM/ZAqEDfIBQXlNe7VgWGaBDvbPVb4z/+w0c9CE3u5Jhrmlnw=
+	t=1789924004; cv=none; b=ItOdvTp3BbFOV3Vyi34xYSut/of07sqCBxMvty+Fi02wtyKN4hAjoEk+n3BZq6HHlljFBb1ZeNsNfpMyri8iOVjYM97Y5qrlTL+aqEE1QlBJ0N3xQTBOc6yCKDiN9tZrB0Le+0JvQzpv2V3djzjysfueSNjWpkcnk8DbxlEHWs8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789923948; c=relaxed/simple;
-	bh=Px6qNtjxAUOxlis1EKxQF7UzsshyhnSY33KPJTEaBlU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=B9AmP6pRhVo2iWlWkvUREbC85C3atQVr1/42dnk29nwX7MPsG3ZWm25RSLDYsEvRvTx3/o5dK/zHxV0C7DpemChwy5d/hoTovYOf4v9qf/3RaoWjz0J5aO/O5RK+DyQq2dDCz3xD2bwqcGLSZ26Y1X/AKmYjCM6RNg0lqqZjsQM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ODsXaE8B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789924004; c=relaxed/simple;
+	bh=anUHqomupBKyPucADmKWr9oN0Lgpc9m6vAMueRhAlHM=;
+	h=Content-Type:Date:Message-Id:Cc:Subject:From:To:In-Reply-To:
+	 References:MIME-Version; b=ij9ahJojMbEm03ufN4H/fPxM9tEC/g/qtL6npG873plb9IEBcSbeaDLLhAiZXq5rSxrBa3FliPTKdGbUCYdhqBnD2t4WcTpST8yPPHYS1RIwDUwCK8Q0NJhPui4Lmx/I2aQ0ntaQSiALnsm9Oi8Slv2gUm6Lf5P0Fvb+A8uSsyo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=nxIcDwdW; arc=none smtp.client-ip=74.125.227.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ODsXaE8B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A87181F000FF;
-	Sun, 20 Sep 2026 17:05:46 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789923947;
-	bh=nqzKVEoidCP6b282EQb7sYAmyyy5aQUCyjpcO9zBIwk=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ODsXaE8BO4b74Pe3mnbB+gvDF7olH46CflpkR+DQssbRdGdXCb5Y5yP86jDcswJSS
-	 EiR+WQD/iQ2S/sboQHBpmQfFysk7Xj8ewtIKOXls9jNa2GKUPeDjNERRyQUjU2Jf66
-	 Wd+OUPhPTpu0bWzp+M1KT1IpThn7pLEOvk7UGuoL0QoGcWKiZZ0bKSv4nQfwLpBNXd
-	 V82mwL10l03f9HR61x1itBmoIZdgxzFX+uJfSTjakpG9SJFCiJdTOTNRHveoHA1aT9
-	 6W3AqY/8nmk7jWJuUkLt57HXFcfo8RnY1MX+STYd3Z7WxGzraPa5zPbv7grKELzryj
-	 KPdk0EgJ5104Q==
-Message-ID: <de1b64ff-ee8c-4b76-aae8-ca29628b2db1@kernel.org>
-Date: Sun, 20 Sep 2026 12:05:45 -0500
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="nxIcDwdW"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-398b3b189e0so1938136a91.2
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 10:06:42 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789924002; x=1790528802; darn=vger.kernel.org;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=KO1TTBeh5iVCqAjmzagpi1LUqmont0PjLJhUCpfZPPo=;
+        b=nxIcDwdWDjBJZS9ID3vArupICAVAo9uuDSrADAxhxNFy7Br3c3xfHcCv4s2lW58eq9
+         ka7dfoKV3Qm21Ij8lojw5vilLHVik4UMe2ubopT7aDZXzH9pBXNf1GPdHJyNlprfKFMj
+         5LY0/j+n3sHrmBO7GfHMrFKQoyxX3jo8MQa+jOgea2rTdW5o/Z50odX+/dCoT5IfJWjd
+         BIW4k4P1raSU/506ZdtdXZYKQJApsGpyOhOExFWDPmjDcMvuFJHK8AEnRr+/jzy5cHT3
+         o28Y1eeHIFe//C5JFHIbCT0mFYuOraLLo2yeHrED4eTlZRukUknUVy6kFW5UhhZ9JsS1
+         PVoQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789924002; x=1790528802;
+        h=mime-version:content-transfer-encoding:references:in-reply-to:to
+         :from:subject:cc:message-id:date:content-type:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=KO1TTBeh5iVCqAjmzagpi1LUqmont0PjLJhUCpfZPPo=;
+        b=RMWO2I4SMnsPnFs1rhrDmbOG5M78dyrNMsOY0LiPs52HRBS5DkuL5Gqc9wbEQ+ovmx
+         3d2fD8VnE7wEju9XdIu3dmPxWLSankJls6p0bUmlbZ1htg2QXICKMXlgdDTDqPtEu200
+         L7otDw16CL95uBIc/yPXY2iMWdd+jkH/cGpjJH9Uz2Gz9sgyswu2JPNYj070W63fMSiP
+         eXJ/oq4n/E23M68+g7dFPW7xJw7ftktUsxLmn3wtTIO5qxgegAb3SOw4cAL2flhl0lZE
+         iGIMZ2ZpBHXkNYNpqvLtL+dSYbYpvLB3Ifuni155QwDgah7+pGcGxnuS917Jpbra9chU
+         CMnA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTKeZI7amJegtZ7oE9yqEkbmVbK9cejW8+3J6STschFxz+NuDEvdAYLE2wRvQ76qaZDmY6cvA=@vger.kernel.org
+X-Gm-Message-State: AFuF++k8jhlp1ylvxvNRpoGP1uvTttd04WIgFIbLOfCAypVzPNHJMwA6
+	ULdS5ncT2fwoVu/CdymA4sLwEXw7i94HQshyVdxSLhiqCdeUeTkadQWA
+X-Gm-Gg: AYBFou1AZClakVjGVNFz9Ngax3WTe1yT33rFasTyWfdvP9qC/OKQ7lA2cOzeRTykyub
+	8wZGW03+gI2rdef/HFr5pcrOwQAQF0D2LW++WMymaEM5N5mUvIaPOwc0PDY8175yfeFb9W2jrZb
+	Dk1Kqh76yTnMg2WzQoroKv8ZpSF9tr4Ee6iAPJr2IjoR5Lb/GOBbStPtJnqcgn2MHQZmwcWb+iv
+	PxytJiRE5bhdP5rRuCIuvekGRpEtML+l/t9xWX8FZSxAAH5nAt4jMFOn/RAGr3dAzGoLwhU09JN
+	5hQnJ0RlUhs0XNIngmJ7iGRGwgG2tR/c1b4IME+eTHXMXGRIn794pZWhCImksFb7sam5ktfJcTb
+	9m8+FS/toNiAUM7uGuzZrECoN9bIdtqSqnYNkwl88TWZ0ZVCZ1lIp1aqy6Db6tEZZOik2YYliAP
+	DvyGNFBC4eJWNiuVFVHDLwysRgDZ1diPT/aECO0ztwlKYleNjz+XOU7TM3kcqbhlj6HnaQKieFq
+	wqg5TTgE6JEeI3oCsTC+1Wt9A84CrgrN3iw3bo7Q/X0BHJIlF42OJtAe1/KdGdSugqC9SV36IqV
+	5Ig=
+X-Received: by 2002:a17:90b:6c5:b0:3a0:295e:6e58 with SMTP id 98e67ed59e1d1-3a0295e7719mr4719850a91.2.1789924002207;
+        Sun, 20 Sep 2026 10:06:42 -0700 (PDT)
+Received: from localhost ([153.61.198.240])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a038ff8c39sm4175693a91.7.2026.09.20.10.06.41
+        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
+        Sun, 20 Sep 2026 10:06:41 -0700 (PDT)
+Content-Type: text/plain; charset=UTF-8
+Date: Sun, 20 Sep 2026 17:06:40 +0000
+Message-Id: <DLKB3QCTZH4F.243J1I4BAEBOA@gmail.com>
+Cc: <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
+ <netdev@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
+ =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>, "Peter
+ Oskolkov" <posk@google.com>, "Xiang Mei" <xmei5@asu.edu>,
+ <stable@vger.kernel.org>
+Subject: Re: [PATCH v3 1/3] bpf: propagate cb_access from freplace programs
+From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
+To: "Weiming Shi" <bestswngs@gmail.com>, "Daniel Borkmann"
+ <daniel@iogearbox.net>, "John Fastabend" <john.fastabend@gmail.com>,
+ "Andrii Nakryiko" <andrii@kernel.org>, "Eduard Zingerman"
+ <eddyz87@gmail.com>, "Kumar Kartikeya Dwivedi" <memxor@gmail.com>, "Martin
+ KaFai Lau" <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong
+ Song" <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
+ Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
+ <ihor.solodrai@linux.dev>, "David S . Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Shuah Khan"
+ <shuah@kernel.org>
+In-Reply-To: <20260920163211.795547-2-bestswngs@gmail.com>
+References: <20260920163211.795547-1-bestswngs@gmail.com> <20260920163211.795547-2-bestswngs@gmail.com>
+X-Mailer: mkdraft (claude review draft; edit before sending)
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [REGRESSION] pinctrl-amd: Don't clear S4 wake bits at probe
- causes power off to reboot AMD Ryzen laptop
-To: Olzhas <marat.olzhasss@gmail.com>,
- "mario.limonciello@amd.com" <mario.limonciello@amd.com>, linusw@kernel.org
-Cc: linux-gpio@vger.kernel.org, regressions@lists.linux.dev,
- stable@vger.kernel.org, linux-kernel@vger.kernel.org, sashal@kernel.org
-References: <CANzgjV0YWUX6=ZGTbn4KEKqQmVhsZTsDPeRf0Nfq=YFT1eoPzA@mail.gmail.com>
-Content-Language: en-US
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <CANzgjV0YWUX6=ZGTbn4KEKqQmVhsZTsDPeRf0Nfq=YFT1eoPzA@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
 
+On Mon, Sep 21, 2026 at 12:32 AM Weiming Shi <bestswngs@gmail.com> wrote:
+> Cc: stable@vger.kernel.org
+> Fixes: be8704ff07d2 ("bpf: Introduce dynamic program extensions")
 
+That shouldn't go to stable. Loading an EXT prog takes CAP_BPF +
+CAP_NET_ADMIN + CAP_PERFMON.
 
-On 9/20/26 12:00 PM, Olzhas wrote:
-> Hi Mario,
-> 
-> I am experiencing a regression on my laptop where attempting to power
-> off the machine results in an immediate reboot instead of a shutdown.
-> 
-> The last known good kernel is v7.1.7, while v7.1.8 is the first known
-> bad release.
-> 
-> I bisected the regression across 9 kernel builds and identified the
-> following commit as the first bad commit:
-> 
-> a7c855969b1a ("pinctrl-amd: Don't clear S4 wake bits at probe")
-> 
-> With this commit present, running:
-> 
->      systemctl poweroff
-> 
-> causes the laptop to power off and then immediately power back on.
-> 
-> I reverted this specific commit on top of v7.3.0-rc3 and the issue is
-> completely resolved. The laptop now powers off correctly and remains
-> off.
-> 
-> Hardware:
-> - Laptop: Chuwi CoreBook Plus 16
-> - DMI board vendor: Default string
-> - DMI board name: Default string
-> - DMI BIOS version: AB8139_S_2C_V00.01_007
-> - DMI BIOS date: 2025-08-05
-> - CPU reported by the system: AMD Ryzen 5 7430U with Radeon Graphics
-> - The CPU/hardware appears to correspond to Ryzen 5 5500U / Lucienne
->    silicon, although I am not certain whether this is relevant.
-> 
-> Software:
-> - Distribution: Arch Linux
-> - Last known good: v7.1.7
-> - First known bad: v7.1.8
-> - Current test kernel: v7.3.0-rc3 with a7c855969b1a reverted
-> 
-> I have verified the fix by booting the reverted kernel and testing
-> poweroff successfully.
-> 
-> Since the DMI board strings are generic ("Default string"), I would be
-> happy to provide an ACPI dump, dmesg output, kernel configuration,
-> bisect log, or perform additional testing if needed.
-> 
-> I suspect this may be related to an S4 wake source left enabled by the
-> firmware, but I have not identified the exact wake source yet.
-> 
-> Best regards,
-> Olzhas Marat
-> 
-> #regzbot introduced: a7c855969b1a
-> 
+[...]
 
-This is most likely a BIOS bug, but we need to dig into the details to 
-understand more and decide what to do.  It could also be a driver bug, 
-most likely in a WLAN driver.
+> +	if (prog->type == BPF_PROG_TYPE_EXT && READ_ONCE(prog->cb_access)) {
+> +		WRITE_ONCE(tgt_prog->cb_access, true);
+> +		/* Drain runs that observed cb_access=false before enabling freplace. */
+> +		synchronize_rcu();
+> +	}
 
-Can you please open a kernel bugzilla with the following information:
+tc doesn't look at cb_access at all, yet every tc freplace that touches
+cb[] now waits for an RCU grace period in attach.
 
-1) /sys/kernel/debug/gpio without the commit
-2) /sys/kernel/debug/gpio with the commit
-3) acpidump (just once)
-4) amd-s2idle report (this will capture and associate some information 
-that will make this easier to triage)
-
-Please CC me into the bug report.
-
-Thanks
+This is a separate issue from the LWT one. Patch 2 resets the cb after
+the run whether the prog has cb_access or not, so it doesn't depend on
+this patch. Pls drop it from this series.
