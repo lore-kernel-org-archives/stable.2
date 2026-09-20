@@ -1,103 +1,99 @@
-Received: from cmccmta4.chinamobile.com (cmccmta4.chinamobile.com [111.22.67.137])
-	by smtp.subspace.kernel.org (Postfix) with ESMTP id 29949388E58
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 07:41:25 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=111.22.67.137
+Received: from mta1.migadu.com (out-80.mta1.migadu.com [95.215.58.80])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+	(No client certificate requested)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 295443DDB03
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 07:42:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.80
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789890091; cv=none; b=jiuPZDpliHDoLmRKFDUwvBzE3ygidynxID4BxpO3qQ7Il6SVoxl2TElDYmn/A0hBe3Abx6TFphgI20Lu5hhSSk1iuUvz+OzIYq0pzBbV4EEfEi0a8IpnCfxFvGfHQRzMrdJtiWwjhI/zsWRrk+R9HzRlngYNsbS/e7a/Sn5LsdI=
+	t=1789890165; cv=none; b=tdX7yqkcqo4iz7xS/e2AQJkqbiTmfmWPckz4qsUr4Nbyuct5XveEgRSXb1Eob6QfFOMgBBJTPq/BlFCL4yG4jHfWtc5t7YCsMa+LSiVeVRtQYtkdSeYKT31VN/XCw5HZoZbgnQuU8Yjg9AF2BmQN4e12nqoCFcibrKHrDe8bV+Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789890091; c=relaxed/simple;
-	bh=c4o9uPcSRAvzb80Ft2JVIWMtMqCxVLaSqy/MjuZ/4ZM=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=suEVqWwBEvtzsVFfvHUQ2P0yetxZxz2PKHnLw354oq6CmUlB9+EIM4xQcCs22zYjhQra2eSWo9cZyF8QllRuxLAA/A02fjoLWSz3+k8F+nGtAk8B2nGcmi80wn79c1udWGlLN7jNkMBgOpVyuYVYOX2hi5c62+24PzLr+YC0jOE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com; spf=pass smtp.mailfrom=cmss.chinamobile.com; dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b=wQCDhzhJ; arc=none smtp.client-ip=111.22.67.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmss.chinamobile.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmss.chinamobile.com
+	s=arc-20240116; t=1789890165; c=relaxed/simple;
+	bh=XACIHRk7pvR3ne8CI5yYmGZaL8q2kgBI23W8AaJmnmw=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=e9lzKARHlnZw/VTp+TctTXEwTZxamJfsqwx9lAZU5DS/KRmCxGzLiHHDmcerw4SWifRTXf13lukMy+pN+PF2bOdvHXKPLrLMCIkE5mFQaIS/BtRakYRwA/rpBcMg9CY88HNQ/PawxT44L2HBas2ME5B0wO2uW7+U7R3nmu3Yce4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=hLqtI2js; arc=none smtp.client-ip=95.215.58.80
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=cmss.chinamobile.com header.i=@cmss.chinamobile.com header.b="wQCDhzhJ"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=cmss.chinamobile.com; s=default; l=0;
-	h=from:subject:message-id:to:cc:mime-version;
-	bh=47DEQpj8HBSa+/TImW+5JCeuQeRkm5NMpJWZG3hSuFU=;
-	b=wQCDhzhJNUelsH7e0vWSvVhE5ijxpvsnLFaC9wfH5YbGidxmbydlQLuUy6D+Lu4bpMr26oh3Gdzgd
-	 4Fuphl4ZLschLFiPytDkpV4r+K2LEXmZDlnUrflvmG/51cbtZOaiD/6aeEU+/d2UR03GqmEZbJ2Cjm
-	 Cbffe3zDNiEaaxp4=
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from spf.mail.chinamobile.com (unknown[10.188.0.87])
-	by rmmx-syy-dmz-app08-12008 (RichMail) with SMTP id 2ee86aaf8d64ca2-d9cbe;
-	Sun, 20 Sep 2026 15:38:14 +0800 (CST)
-X-RM-TRANSID:2ee86aaf8d64ca2-d9cbe
-X-RM-TagInfo: emlType=0                                       
-X-RM-SPAM-FLAG:00000000
-Received:from localhost.localdomain (unknown[223.108.79.102])
-	by rmsmtp-syy-appsvr02-12002 (RichMail) with SMTP id 2ee26aaf8d63e0a-80a49;
-	Sun, 20 Sep 2026 15:38:14 +0800 (CST)
-X-RM-TRANSID:2ee26aaf8d63e0a-80a49
-From: lvjunyu <lvjunyu@cmss.chinamobile.com>
-To: lvjunyu@cmss.chinamobile.com
-Cc: stable@vger.kernel.org
-Subject: [PATCH] netfilter: nf_nat: Fix stale outer UDP checksum on VXLAN encapsulated packets
-Date: Wed, 16 Sep 2026 16:12:17 +0800
-Message-ID: <20260916081217.522624-1-lvjunyu@cmss.chinamobile.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="hLqtI2js"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=XACIHRk7pvR3ne8CI5yYmGZaL8q2kgBI23W8AaJmnmw=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789890160; v=1; x=1790494960;
+ b=hLqtI2jsb1Yi6iEZM0kP6YcXRZ/BParR6qhARgb/niOqQZdg4wc6QnflM31u6EHVwIXc4ayl
+ kYHk6jsaJrF5Dabu9dPkmD3+TajvGV92MApTW9Eqj0yvYZjRaevpZ8PREQIlGreSTFbdbfKWMuh
+ fidqhWWqbxiQSFU9sSHGV4kA=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 6ff25d7f64fa7a0b;
+	Sun, 20 Sep 2026 07:42:39 +0000
+X-Mizu-Trace-ID: 6ff25d7f64fa7a0b
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <327d0a31-7a04-4ec2-b184-c801a95750e9@linux.dev>
+Date: Sun, 20 Sep 2026 15:42:31 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH 0/3] irqchip/gic-v3: Lifetime and range fixes in the GICv3
+ and ITS drivers
+To: Fuad Tabba <fuad.tabba@linux.dev>
+Cc: Marc Zyngier <maz@kernel.org>, Thomas Gleixner <tglx@kernel.org>,
+ Radu Rendec <radu@rendec.net>, Kemeng Shi <shikemeng@huaweicloud.com>,
+ Will Deacon <will@kernel.org>, Fuad Tabba <tabba@google.com>,
+ stable@vger.kernel.org, linux-arm-kernel@lists.infradead.org,
+ linux-kernel@vger.kernel.org
+References: <20260908142632.2795308-1-fuad.tabba@linux.dev>
+Content-Language: en-US
+From: Zenghui Yu <zenghui.yu@linux.dev>
+In-Reply-To: <20260908142632.2795308-1-fuad.tabba@linux.dev>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-When MASQUERADE --random-fully rewrites the outer UDP source port of a
-VXLAN-encapsulated packet whose inner header has CHECKSUM_PARTIAL, the
-outer UDP checksum is not updated.  inet_proto_csum_replace2() is a
-no-op for CHECKSUM_PARTIAL skb's, so the stale checksum causes remote
-VTEP to drop the first packet (UdpInCsumErrors) until a ~1s SYN
-retransmission.
+Hi Fuad,
 
-Add an explicit csum_replace2() call to update the outer UDP checksum
-when the skb is encapsulated, has CHECKSUM_PARTIAL, and is not GSO
-(hardware offload handles the non-encapsulated case).
+On 9/8/26 10:26 PM, Fuad Tabba wrote:
+> Hi folks,
+> 
+> Three fixes to the GICv3 and ITS drivers, from reviewing the GIC series
+> floating around and chasing down Sashiko's reports.
+> 
+> The first releases the partition node that gic_irq_get_fwspec_info()
+> takes from of_find_node_by_phandle() and never puts. Sashiko raised it
+> on an of/irq patch of mine, and I said a fix was forthcoming [1].
+> 
+> The second widens the per-device MSI clamp, which truncates to zero when
+> GITS_TYPER.ID_bits is at its maximum and then denies every MSI on that
+> ITS. I couldn't find an implementation that reports that maximum, so
+> this is one value at the edge rather than something anyone is hitting.
+> It carries Cc: stable because the commit it fixes was itself
+> backported, so drop the tag if you'd rather.
+> 
+> The third clears vpt_page once its_vpe_teardown() has freed it, so the
+> NULL guard holds if teardown runs again on the same vPE.
+> 
+> Based on Linux 7.3-rc2 (df2908090cda3).
+> 
+> Cheers,
+> /fuad
+> 
+> [1] https://lore.kernel.org/all/CA+EHjTx7eP_30vP47=UFk_wMAut-2uf+2DF-MZqn2SLE_k-8qg@mail.gmail.com/
+> 
+> Fuad Tabba (3):
+>   irqchip/gic-v3: Release the partition node in
+>     gic_irq_get_fwspec_info()
+>   irqchip/gic-v3-its: Don't clamp nvecs to zero when id_bits is 32
+>   irqchip/gic-v3-its: Clear vpt_page after freeing the pending table
+> 
+>  drivers/irqchip/irq-gic-v3-its.c | 3 ++-
+>  drivers/irqchip/irq-gic-v3.c     | 7 ++++---
+>  2 files changed, 6 insertions(+), 4 deletions(-)
 
-Test results (10 connections, single netns vxlan + veth environment):
-  Before fix: ~1080ms avg first-connection latency, 10 SYN retransmits,
-              UdpInCsumErrors incremented per connection
-  After fix:  ~29ms avg first-connection latency, 0 SYN retransmits,
-              UdpInCsumErrors unchanged
+All look good to me.  Thanks for the fixes!
 
-Fixes: faec18dbb0405 ("netfilter: nat: remove l4proto->manip_pkt")
-Cc: stable@vger.kernel.org
-Signed-off-by: lvjunyu <lvjunyu@cmss.chinamobile.com>
----
- net/netfilter/nf_nat_proto.c | 14 ++++++++++++++
- 1 file changed, 14 insertions(+)
+Reviewed-by: Zenghui Yu (Huawei) <zenghui.yu@linux.dev>
 
-diff --git a/net/netfilter/nf_nat_proto.c b/net/netfilter/nf_nat_proto.c
-index 64b9bac228e..35cc6e10b5b 100644
---- a/net/netfilter/nf_nat_proto.c
-+++ b/net/netfilter/nf_nat_proto.c
-@@ -57,6 +57,20 @@ __udp_manip_pkt(struct sk_buff *skb,
- 		nf_csum_update(skb, iphdroff, &hdr->check, tuple, maniptype);
- 		inet_proto_csum_replace2(&hdr->check, skb, *portptr, newport,
- 					 false);
-+		/* For CHECKSUM_PARTIAL encapsulated non-GSO packets,
-+		 * inet_proto_csum_replace2() above is a no-op because the
-+		 * port field is data, not pseudo-header. The outer uh->check
-+		 * was computed by udp_set_csum() with a temporary sport, and
-+		 * the subsequent NAT sport rewrite leaves it stale. On devices
-+		 * without hw_enc_features, the software fallback
-+		 * skb_checksum_help() honors csum_start which points at the
-+		 * inner transport header and only recomputes the inner
-+		 * checksum. The stale outer checksum goes out and the
-+		 * receiver drops the packet with UdpInCsumErrors.
-+		 */
-+		if (skb->ip_summed == CHECKSUM_PARTIAL &&
-+		    skb->encapsulation && !skb_is_gso(skb))
-+			csum_replace2(&hdr->check, *portptr, newport);
- 		if (!hdr->check)
- 			hdr->check = CSUM_MANGLED_0;
- 	}
--- 
-2.43.0
-
-
-
+Zenghui
