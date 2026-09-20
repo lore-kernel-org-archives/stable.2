@@ -1,130 +1,195 @@
-Received: from fout-b3-smtp.messagingengine.com (fout-b3-smtp.messagingengine.com [202.12.124.146])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f19.google.com (mail-pj2-f19.google.com [74.125.227.147])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E43762D7DF1;
-	Sun, 20 Sep 2026 16:25:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=202.12.124.146
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D1242466B1B
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 16:32:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789921552; cv=none; b=jXCYnxfaFtInggBEAX5o8pCArTWo7cTdaxnxgmBaVFfbJjvJqR6xkoj+kU3z/k74jD0hh4qyptJQPlN3bkq211FgadGRj2uamd+B+pIzC51VTMwchAQ/7Qf9UuWvgwZn/iMO7XMyLxrZqzu/yy3VkrnKFaeiLZzuSzQJW3CSJWk=
+	t=1789921976; cv=none; b=GfOfuAMaXNGFzKi94jz/woOX19vlOC0idTYbtO+jgSI5DVx1OG0JViG3KYL3WoJbOCYVw9T1kSAN3pVDkKrRK25gtW3u+1GPoHaGF8TbDP113ufNTt4nJcRA10jzuoN6BCvQKAaCHFiaRZq9toEeQMZWiNuIWySBY9AOOwxAZQE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789921552; c=relaxed/simple;
-	bh=d2MlFTveKjxRY0wtc80I6nUBdByXe0KUB2Rgx7U+510=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=BP8rmFw5sxVuaZz2X3wVZ97rmV9PVCJhlb+SGFH2bfM85FtXKcehzBJffZ0uOFfB4X//p/zdI2IhLoOEsb2lCcYNP46ukbV5QQPuJlF9antr/X6BxxLAh3SMPk8+8vNK2nA8QCvY2VvrctfLCIBn2+TbDBFc38pLGfOKR3uQoHg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net; spf=pass smtp.mailfrom=queasysnail.net; dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b=ngK05mlo; dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b=Y5yv9gV8; arc=none smtp.client-ip=202.12.124.146
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=queasysnail.net
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=queasysnail.net
+	s=arc-20240116; t=1789921976; c=relaxed/simple;
+	bh=ISMr9k/4ayfp7cIsuOtuFI3mL3SoCez2K155WDMQWyU=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=iQDldUCyzPTftFQyo4t1Z+W+W8H9CYMhl7wUd0jx7N0XPcSUKgXXm+hSRUe6A7qjb5NBrxsNFZmaVV0nwtr6/sneKiI6niLogKmuhtKGk927SpnILtfa3cVzGV4uYC8xvX+e5vcjV6NTnFCI2cWuUerpwQBUMWMThBQbp/adatk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=SB4EHrZy; arc=none smtp.client-ip=74.125.227.147
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=queasysnail.net header.i=@queasysnail.net header.b="ngK05mlo";
-	dkim=pass (2048-bit key) header.d=messagingengine.com header.i=@messagingengine.com header.b="Y5yv9gV8"
-Received: from phl-compute-06.internal (phl-compute-06.internal [10.202.2.46])
-	by mailfout.stl.internal (Postfix) with ESMTP id 85E1A1D000FB;
-	Sun, 20 Sep 2026 12:25:48 -0400 (EDT)
-Received: from phl-frontend-04 ([10.202.2.163])
-  by phl-compute-06.internal (MEProxy); Sun, 20 Sep 2026 12:25:48 -0400
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=queasysnail.net;
-	 h=cc:cc:content-type:content-type:date:date:from:from
-	:in-reply-to:in-reply-to:message-id:mime-version:references
-	:reply-to:subject:subject:to:to; s=fm2; t=1789921548; x=
-	1790007948; bh=uKa0UKRyOFRFPJ9hTIM9DrO+qTY1MbP0REohWq4oE+c=; b=n
-	gK05mlow/6hS7w3yfog4jJ0JMljkkYA/6IHouBPRXPCFFN6jRQKR4Yo549vKfX6v
-	N6Jg65G9pga8FrHRhtIFAGBj+GIf6fPYtMrSZQS23ZH70FaodbCw0B6jd6JIPvHO
-	jeIPlzvo8fbo8mf0HAg5/stgm0exXYRa06Kd7SFhRpoPfkRN60ayWsXwNIqvHV83
-	pYRTmlQ3EWJBU22TFy+Ru2vkGjaHYRqZoa+xC4HNiuTW/Y2uTDSkRq04xhcoNhYn
-	FuqLZj1iO7x68RZAA3G87lEMBIfOGnp+3HWSGfSNpUTUD23/cvtlue4fGayKfE09
-	OjMi5hRbdyTbV8pySMoRQ==
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=
-	messagingengine.com; h=cc:cc:content-type:content-type:date:date
-	:feedback-id:feedback-id:from:from:in-reply-to:in-reply-to
-	:message-id:mime-version:references:reply-to:subject:subject:to
-	:to:x-me-proxy:x-me-sender:x-me-sender:x-sasl-enc; s=fm1; t=
-	1789921548; x=1790007948; bh=uKa0UKRyOFRFPJ9hTIM9DrO+qTY1MbP0REo
-	hWq4oE+c=; b=Y5yv9gV860a9pTOxyImtYmmIlV07rDuq4aMlu2Zj2LoYeFor1xd
-	jwuK0VT8jz7JoekFRVsrpm9SL9CRUTZA5C6pcLND2vXYCALgXJD3NSNHcr4+116M
-	JKjGY8wiF2FVB0XBLo00GD/8+XHoeUcG46NaQe8Z9zLZ8P2msKGq70lYqYMQ9Wkb
-	0bTrbAiNpnPOBhJ2TP5nBnChXBSPikFS+3z7sq4ny6eWNrhXyLPkv3OAMDCb5o9H
-	/ypxCHnVZzcv7OWBDVHUPkmswQSca9I9InxTJbgoofqrbU5b0PgWZKigm1Ttx15/
-	iW9bLvvQEtH5iI8amh+GoeG0FrdH4g50jMg==
-X-ME-Sender: <xms:CwmwaiTgO5Mepgdqf26uDmVKzPSWiP1wz7IYCMCa04EAqAMlTCK8rw>
-    <xme:CwmwauJFeadPzop4HJKHcKnTrm2ZUJGAdOloF135rnV38xcdhGcTcILe2xpkSp9gJ
-    65yVgMgmw65BV22IhDBKJm57OBOOlGUqp2xJO-7f-oab3piHK8hpupD>
-X-ME-Received: <xmr:CwmwasHusygI4-PZThi9kcMMuq989bjNa_UbhLNNzH42z67sj8lDEZc8cHTq>
-X-ME-Proxy-Cause: dmFkZTFBc1TPBpr/LM9c9kHBtWvzNuUjGBUVRa+QYJQpVvspV0TJNc5ATtkHRnnmq6vv+5
-    eK3unvJ4+8cQKt5BexqxPewf8Cr0OhUGwsEDWAajP/7TZIGK+siVNNuWG6Te7Z2pgBh7to
-    olWRSEoBCjO48HVfiRFf6ELXEwYzuiy2iNIxozOJVN2mnE9nyzVU7JFzOMnFMXeK3VJwq+
-    Db4JLXXX8TuHHFC1VqUSutvEB7WEEaQqzW006TKtEY247EFIV8vM+UjNJvHTgM0lIiI/Qb
-    4w7HyHDnZ6tf+ACXfu7GoQWP2g2Q0W0Bm0dMjueaAMIh151ctxCmKllD+18LBhlPQZakh5
-    rlw2oAOgtJnRRvSwLuUZX+Zc5uf1buNrGcSODcn1j0cRF37DS0ELE41SQ+IruhbmXA/EF1
-    W3W3zFgnzKV2ALouRxDPobUBG967VuIfTPd52gNpGTXgjWJ72c4BqQsAqr8pYJp9aC+3+9
-    yOcE6JxoD0oDexcH54lYp2DhIXp3bPNCiw9EcCd/g8LgqNTO9isxMnVQO+qH9z/GTYv2+D
-    KUJeFGSzm1ZJueGgP1rLvQztEkhxDanMrvYsHKRc54VaqesiUoJXXr11ZAeM9O2rr5D/Ug
-    OUGsAaaglMhBBeTPF2EGsA+77qR2K4eIjMDqNnexZugDiRb5gZ9DOgpLIKAQ
-X-ME-Proxy: <xmx:Cwmwar2td9p8JzQijfXenKCFHm6KWJhG0UcrJLI9kljUgiQQ4MKgNA>
-    <xmx:CwmwakLSMjSTv-56ZdEbbbTfl9uXOjkz2h6_PDOX0OcLe1moEoXgrQ>
-    <xmx:Cwmwag0eDQFwnwI4OowdAX3nyMG6xIif2th0nTJIr2SS8erShG289Q>
-    <xmx:Cwmwaolcf6-U539gkABvA8MlllcPdmv9FGDjzj4E41JODBVUwPLCPA>
-    <xmx:DAmwaqroV7oB5DL_PuFL1L93Gq7T73Ztr03gUVfUqW4k8y0TMgIuyRIa>
-Feedback-ID: i934648bf:Fastmail
-Received: by mail.messagingengine.com (Postfix) with ESMTPA; Sun,
- 20 Sep 2026 12:25:46 -0400 (EDT)
-Date: Sun, 20 Sep 2026 18:25:44 +0200
-From: Sabrina Dubroca <sd@queasysnail.net>
-To: Simon Horman <horms@kernel.org>
-Cc: Wentao Liang <vulab@iscas.ac.cn>, andrew+netdev@lunn.ch,
-	ayush.sawal@chelsio.com, davem@davemloft.net, edumazet@google.com,
-	kuba@kernel.org, linux-kernel@vger.kernel.org,
-	netdev@vger.kernel.org, pabeni@redhat.com, rohitm@chelsio.com,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="SB4EHrZy"
+Received: by mail-pj2-f19.google.com with SMTP id d9443c01a7336-2db18fe433fso19427865ad.2
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 09:32:53 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789921971; x=1790526771; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=VxrYw5XYqojCDttriJ4CNjE+Rxifl6ZmijYb7xfnw6E=;
+        b=SB4EHrZydpEUlLfwAIrxMb/vSHzMILHeky8mJrePffr9xV/4uoNxd0IcWezRAtp6aI
+         mp2KK8qQ6ud98djfGG8C2EpEDn2Dq2ClxMhmEb/NdpaZvjFw1SDgbtx5b6NiaM1ma7Q1
+         YthFBhKJd9H7GrInfl4D6n0raeu89h7pOdGeQ2yhAi+yYxZ30f+QEaNwJH96gKBb9UeG
+         izxgqDA+eu/plJfl9VPUI+GCCjJ4xK5Xtg9Gn+SrkELJSLDtrNYvXMRqwu8avXrpyFCi
+         2urqYrT2e6/hkyjk7nu3j9t3N7n8HiYVKD+AksT6BMz15d8N05wbQtrn/5CDNtx+UgiQ
+         NMjg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789921971; x=1790526771;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=VxrYw5XYqojCDttriJ4CNjE+Rxifl6ZmijYb7xfnw6E=;
+        b=aCrGeZT15ZtJOmJ4lkl9gbJPOlRsKUYb/ZrddbH3X0j3woTvYZI1wmurQBdu7IDJP6
+         HDWs+ICpnKnCEiNgE+OwxfOOFUVjNbG/3qrBJ1SIoM/b7X7HUXOIoufDDWCyg+bbMxcN
+         rpy68VXV51y41HCJTSLx7UW+M96iaytnkKYDmQ+a2cpTmSu6STOp2bQR9mm+L0DgjurZ
+         +OaJprT1qiKXLNnooLjzHPdEaqGV8pcDmEL/lJdXFuZfzRZIm3o2g4uROTw82vIeU9c8
+         bZCD+LpqD/Jzd15O/qSFDbzXrIk1uNB8VS0w+ALtUjk6Csv6Ja5U4LCnC6DIcPoT7OGc
+         kBPA==
+X-Forwarded-Encrypted: i=1; AKwUvBxJafcQZ4+uS+914eM19UIFzEx8VBFUcDVdp3gxwlFhMg6RrsGYnAQjodX8H7xw9MZvDPHkgUM=@vger.kernel.org
+X-Gm-Message-State: AFuF++mNGPd9x0GR1lzr+rzG04Z7Y+flZOFJ+8zwLh4Q58pqkGGSMUyr
+	7Z6bmRU4+Iamw83rwktWHTRVSkuiQeFUrnGVl8HfLuOsnVZpiPD2HS5x
+X-Gm-Gg: AYBFou2GwUtRKZiyDR9JlXzibEIiTgptelDEqCDRt+vWbWW2XNbrvLeMX98AggEG8o8
+	la9e0pY8psAhy/D7glrmsApj7ylZmsSRAYJno0BvrX1bubVxtGiYqKhqKXUUbX/ciXPHVkCsMNa
+	ygsMsIgTAo5VhiUy407GsQgJ8ZymJBk4BzRytZP2HciZVWF8uDVUH/4pwLloIn2K77/7Xguqy4O
+	V/oWikDles/bIGltrA5sFBYDw5HvI7vWQJdYdnAqhaB8RM2cS/W5UpgzvwKGuheC5t+U+HEGaoJ
+	pul0iJk/O4HE1gtyRIK/NxPQIeYriLntSqloMVxSEOS89tuAzjmYSpiMyDeu27Xmr2dfXLVJZKj
+	qMkX0GvVnXHxZDTnhrQty0MdEVQDCm5eJigeKCYbofKkNzPQpgW1FfNRlgVUuet3jO6ilqHoUPz
+	uBvYohftFhTYbrUS/cYkdVOrMg/MxJFx2SQRaRk98wDoJDpCSLcTqNZD9D1+/LdxGCNsOiZuBVB
+	VhfV9IQQrUjmvQDa+6n0y+kIhPQmzNO
+X-Received: by 2002:a17:903:380d:b0:2dd:c100:b2ce with SMTP id d9443c01a7336-2ddc100b384mr67923315ad.57.1789921970736;
+        Sun, 20 Sep 2026 09:32:50 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17e17e0sm21784355ad.70.2026.09.20.09.32.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 09:32:49 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	John Fastabend <john.fastabend@gmail.com>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: linux-kernel@vger.kernel.org,
+	bpf@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	=?UTF-8?q?Toke=20H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>,
+	Peter Oskolkov <posk@google.com>,
+	Xiang Mei <xmei5@asu.edu>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH] chtls: Fix skb reference leak in chtls_send_reset()
-Message-ID: <arAJCMpzSVKDiLqe@krikkit>
-References: <20260917105846.2147976-1-vulab@iscas.ac.cn>
- <20260919080428.GX51261@horms.kernel.org>
+Subject: [PATCH v3 1/3] bpf: propagate cb_access from freplace programs
+Date: Mon, 21 Sep 2026 00:32:09 +0800
+Message-ID: <20260920163211.795547-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260920163211.795547-1-bestswngs@gmail.com>
+References: <20260920163211.795547-1-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=utf-8
-Content-Disposition: inline
-In-Reply-To: <20260919080428.GX51261@horms.kernel.org>
+Content-Transfer-Encoding: 8bit
 
-2026-09-19, 09:04:28 +0100, Simon Horman wrote:
-> > diff --git a/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c b/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
-> > index 0e3e5cf52c2c..a363f20452fa 100644
-> > --- a/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
-> > +++ b/drivers/net/ethernet/chelsio/inline_crypto/chtls/chtls_cm.c
-> > @@ -265,12 +265,14 @@ static void chtls_send_reset(struct sock *sk, int mode, struct sk_buff *skb)
-> >  	chtls_purge_write_queue(sk);
-> >  
-> >  	csk_set_flag(csk, CSK_ABORT_SHUTDOWN);
-> > -	if (sk->sk_state != TCP_SYN_RECV)
-> > +	if (sk->sk_state != TCP_SYN_RECV) {
-> >  		chtls_send_abort(sk, mode, skb);
-> > -	else
-> > +	} else {
-> >  		chtls_set_tcb_field_rpl_skb(sk, TCB_T_FLAGS_W,
-> >  					    TCB_T_FLAGS_V(TCB_T_FLAGS_M), 0,
-> >  					    TCB_FIELD_COOKIE_TFLAG, 1);
-> > +		kfree_skb(skb);
-> > +	}
-> >  
-> >  	return;
-> >  out:
-> 
-> This code change looks reasonable to me.
-> But the driver was removed in v7.2 by
-> cdae65fc43f2 ("tls: remove tls_toe and the related driver")
-> And, as a result it didn't run through our CI.
-> 
-> So while I think it could go to stable
-> It probably needs more eyes on it.
+bpf_prog_run_save_cb() and bpf_prog_run_clear_cb() use the target
+program's cb_access flag to decide whether skb->cb must be saved or
+cleared.  An extension program can introduce ctx->cb[] access behind a
+target which does not access it itself, leaving protocol-owned control
+block contents visible to the replacement and preventing the wrapper
+from restoring them.
 
-But there isn't anyone around that has even a remote understanding of
-what this driver does... Since stable@ seems willing to take patches
-that remove broken features [1], maybe we should just do that?
+Make cb_access independently addressable and propagate it to the target
+before activating a replacement.  Wait for wrappers which observed the
+old value, and snapshot the flag once per invocation so save and restore
+decisions remain paired.
 
-[1] https://lore.kernel.org/netdev/apbqjuv6l20bTjQI@laps/
+Cc: stable@vger.kernel.org
+Fixes: be8704ff07d2 ("bpf: Introduce dynamic program extensions")
+Suggested-by: Daniel Borkmann <daniel@iogearbox.net>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ include/linux/bpf.h    | 2 +-
+ include/linux/filter.h | 7 ++++---
+ kernel/bpf/syscall.c   | 6 ++++++
+ 3 files changed, 11 insertions(+), 4 deletions(-)
 
+diff --git a/include/linux/bpf.h b/include/linux/bpf.h
+index e57af902560c3..606e7cf397af2 100644
+--- a/include/linux/bpf.h
++++ b/include/linux/bpf.h
+@@ -1864,11 +1864,11 @@ struct bpf_prog_aux {
+ 
+ struct bpf_prog {
+ 	u16			pages;		/* Number of allocated pages */
++	bool			cb_access;	/* Is control block accessed? */
+ 	u32			jited:1,	/* Is our filter JIT'ed? */
+ 				jit_requested:1,/* archs need to JIT the prog */
+ 				jit_required:1,	/* program strictly requires JIT compiler */
+ 				gpl_compatible:1, /* Is filter GPL compatible? */
+-				cb_access:1,	/* Is control block accessed? */
+ 				dst_needed:1,	/* Do we need dst entry? */
+ 				blinding_requested:1, /* needs constant blinding */
+ 				blinded:1,	/* Was blinded */
+diff --git a/include/linux/filter.h b/include/linux/filter.h
+index 39decde7fc730..788c2d625db4a 100644
+--- a/include/linux/filter.h
++++ b/include/linux/filter.h
+@@ -1047,16 +1047,17 @@ static inline u32 __bpf_prog_run_save_cb(const struct bpf_prog *prog,
+ 	const struct sk_buff *skb = ctx;
+ 	u8 *cb_data = bpf_skb_cb(skb);
+ 	u8 cb_saved[BPF_SKB_CB_LEN];
++	bool cb_access = READ_ONCE(prog->cb_access);
+ 	u32 res;
+ 
+-	if (unlikely(prog->cb_access)) {
++	if (unlikely(cb_access)) {
+ 		memcpy(cb_saved, cb_data, sizeof(cb_saved));
+ 		memset(cb_data, 0, sizeof(cb_saved));
+ 	}
+ 
+ 	res = bpf_prog_run(prog, skb);
+ 
+-	if (unlikely(prog->cb_access))
++	if (unlikely(cb_access))
+ 		memcpy(cb_data, cb_saved, sizeof(cb_saved));
+ 
+ 	return res;
+@@ -1079,7 +1080,7 @@ static inline u32 bpf_prog_run_clear_cb(const struct bpf_prog *prog,
+ 	u8 *cb_data = bpf_skb_cb(skb);
+ 	u32 res;
+ 
+-	if (unlikely(prog->cb_access))
++	if (unlikely(READ_ONCE(prog->cb_access)))
+ 		memset(cb_data, 0, BPF_SKB_CB_LEN);
+ 
+ 	res = bpf_prog_run_pin_on_cpu(prog, skb);
+diff --git a/kernel/bpf/syscall.c b/kernel/bpf/syscall.c
+index c7bc9ba9b331f..43a29e47c8d01 100644
+--- a/kernel/bpf/syscall.c
++++ b/kernel/bpf/syscall.c
+@@ -3812,6 +3812,12 @@ static int bpf_tracing_prog_attach(struct bpf_prog *prog,
+ 	if (err)
+ 		goto out_unlock;
+ 
++	if (prog->type == BPF_PROG_TYPE_EXT && READ_ONCE(prog->cb_access)) {
++		WRITE_ONCE(tgt_prog->cb_access, true);
++		/* Drain runs that observed cb_access=false before enabling freplace. */
++		synchronize_rcu();
++	}
++
+ 	err = bpf_trampoline_link_prog(&link->link.node, tr, tgt_prog);
+ 	if (err) {
+ 		bpf_link_cleanup(&link_primer);
 -- 
-Sabrina
+2.55.0
+
