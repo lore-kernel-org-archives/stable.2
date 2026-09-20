@@ -1,41 +1,45 @@
-Received: from m16.mail.163.com (m16.mail.163.com [220.197.31.2])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta0.migadu.com (out-140.mta0.migadu.com [91.218.175.140])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F3F7E2931C1;
-	Sun, 20 Sep 2026 03:44:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.2
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0F67F1F94F
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 04:20:53 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.140
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789875899; cv=none; b=jymOTIiT1CDuValGdnPlxp7Gn0t8L41ibzLngMLGky4iihSwCDB/S6khb1S05lOj9+i5d8pkJEZGM/jlBTNWCpb+voDkVULs+mXfapeWRADfpQj339J43qvpFlptpATFjnwyT7VozK0UUPLESMVKrHLnXRX/7rucVTDrchepR0I=
+	t=1789878055; cv=none; b=ihMybV88mGf3AWVlfQ6yyHLyfVBgrmO1mZpI8oat79kVnwM5GN2i6PQpXivobdyzJ8/+ei3yOcexui8kB0f0VKHl+fzLCG7YNS+sM9jSdo/SpZHq7s5CvQpzJ+EurWYQPQMfet1auEIiYrAmJgbj3awRgR6bADIMY8ErvY7U+TE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789875899; c=relaxed/simple;
-	bh=v/ryXX14uxu441FylU9bkqvTa+aB551HhVV58EKBz/k=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=W/MaJ6sHLTTa0llV+22gflGZDCtSutFW2amROP2h9H5EiU5q6DfhPM7xypQjC8K3KAVED2iyW6xodOfaFQm9PRLKwmQFj7mcQrDpP3n0KFUiZfD8YnsYWZM1FVpXuFLKiJlBwLuq3CDJGRl/wgUau9xi0ENvMNr1UKJAF8G27NE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com; spf=pass smtp.mailfrom=163.com; dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b=YKJ01d0L; arc=none smtp.client-ip=220.197.31.2
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=163.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=163.com
+	s=arc-20240116; t=1789878055; c=relaxed/simple;
+	bh=i3fx8YLMM25rGFTkB/3MYE/SKkwCBHP2NgBwbXTXgc4=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=aFLui1rvfuZ0zYFizlyJyr+iFWlhD7BjLb8B9KIzrJJ5Dn8VilE2LXMRqVt69cSdpM4Vahr0DLSKC2/yNM0zKRyshPXCHyYqG0e6F+fhawwRqVi4TEtfHbdYhVv85W+PARGGQGnXhc3p/kKTsZIR9V35MTz2oX1zVnMFIljeJS4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=XX4Z0raJ; arc=none smtp.client-ip=91.218.175.140
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=163.com header.i=@163.com header.b="YKJ01d0L"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=163.com;
-	s=s110527; h=From:To:Subject:Date:Message-ID:MIME-Version; bh=iw
-	W17lpQbLLbRPGN1g79TKomNjjKcvqflnJ75C8Wfic=; b=YKJ01d0Liuhbgtb+uX
-	M+4Q05TLxS/DsBbTBczeAQVwSctfQstBIx3iUOrtJleo6Hu6yllaFdWVI7PbXqlI
-	NAgfNqq7C4HT+uT6uajta6hhAbzPkYwl/Hk1baahZn1oQPNbiy0TLubXYIvhXfRU
-	z9+qjtvkVDzY623yhJ44fmnFE=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-2 (Coremail) with SMTP id _____wD3F7aQVq9q_LsDBw--.15248S2;
-	Sun, 20 Sep 2026 11:44:16 +0800 (CST)
-From: Pengpeng Hou <hppiscas@163.com>
-To: arend.vanspriel@broadcom.com
-Cc: linux-wireless@vger.kernel.org,
-	brcm80211@lists.linux.dev,
-	brcm80211-dev-list.pdl@broadcom.com,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	hppiscas@163.com
-Subject: [PATCH v2] wifi: brcmfmac: bound NVRAM comment parsing
-Date: Sun, 20 Sep 2026 11:44:14 +0800
-Message-ID: <20260920034414.16948-1-hppiscas@163.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="XX4Z0raJ"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=i3fx8YLMM25rGFTkB/3MYE/SKkwCBHP2NgBwbXTXgc4=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789878051; v=1; x=1790482851;
+ b=XX4Z0raJnBR5tTovOnOLRc6GH8am+962N6sA5Dop8weDpvh4uzRsOlEKxVJVfpeOeOE3lNE1
+ bs31NXyjYP/U25tO8omBGkvLKaICnX5T90JQVoNke2MZDOmXV4raeFz8Z2jFizL+7rrEWPvf4su
+ 8/MuWbwu+TKKadNxbGkP/ue8=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id 2345de5eea115e61;
+	Sun, 20 Sep 2026 04:20:41 +0000
+X-Mizu-Trace-ID: 2345de5eea115e61
+X-Migadu-Flow: FLOW_OUT
+From: Hao Ge <hao.ge@linux.dev>
+To: Steven Rostedt <rostedt@goodmis.org>,
+	Masami Hiramatsu <mhiramat@kernel.org>,
+	Mathieu Desnoyers <mathieu.desnoyers@efficios.com>
+Cc: linux-kernel@vger.kernel.org,
+	linux-trace-kernel@vger.kernel.org,
+	Hao Ge <hao.ge@linux.dev>,
+	stable@vger.kernel.org
+Subject: [PATCH] tracing: Fix crash in print_graph_function_event()
+Date: Sun, 20 Sep 2026 12:21:39 +0800
+Message-Id: <20260920042139.70736-1-hao.ge@linux.dev>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,88 +47,95 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3F7aQVq9q_LsDBw--.15248S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFy3XrWrAr4DCw13tryrZwb_yoW5WrWxpr
-	Z3GFyj9r4DJan7CrWUKr43ZFyFg3Z3G3yUKa98A3WSvF4Dur18uw18KFya9r4YyFy8Ja12
-	yrWDtr90vF4DJ37anT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x0zRJkuxUUUUU=
-X-CM-SenderInfo: 5kssx2xfdvqiywtou0bp/xtbC7RJACWqvVpKrgAAA3c
 
-The NVRAM comment handler searches for a newline with strchr() even
-though its input is a firmware buffer with an explicit length. A comment
-at the end of an unterminated buffer can make the search read past that
-input.
+tracing_set_tracer() assigns the flags of the newly selected tracer
+with:
 
-Keep the input extent in the parser and use bounded searches for newline
-and NUL. Preserve the full input length: the capped size used to
-allocate the output is not a bound on the input, which may contain more
-than 64KiB of comments. Leave the outer parsing limit unchanged.
+	tr->current_trace_flags = t->flags ? : t->tracer->flags;
 
-The issue was found by our static-analysis tool.
+If the new tracer defines neither static flags nor default flags, like
+hwlat, irqsoff or wakeup, add_tracer() has no per instance flags copy
+for it, and both operands are NULL, so tr->current_trace_flags ends up
+being NULL as well.
 
-Fixes: 3e99b08ab53c ("brcmfmac: enhance nvram processing")
+The ring buffer is not cleared when switching tracers: it is reset
+inside tracer_init(), after current_trace_flags was already assigned.
+If the buffer still holds function_graph entries of the previous
+tracer, printing one of them dereferences the NULL pointer. This was
+hit by cat trace during an ftrace stress test:
+
+  BUG: kernel NULL pointer dereference, address: 0000000000000000
+  #PF: supervisor read access in kernel mode
+  RIP: 0010:print_graph_function_event+0xe/0x20
+  Call Trace:
+   s_show+0x4d/0x110
+   seq_read_iter+0x2d4/0x490
+   seq_read+0x130/0x170
+   vfs_read+0xb5/0x370
+   ksys_read+0x6d/0xe0
+   do_syscall_64+0xbc/0x450
+
+The snapshot buffer is not reset at all, so this can be reproduced
+without a race:
+
+  echo function_graph > /sys/kernel/tracing/current_tracer
+  echo 1 > /sys/kernel/tracing/snapshot
+  echo hwlat > /sys/kernel/tracing/current_tracer
+  cat /sys/kernel/tracing/snapshot
+
+Rather than teaching every user of tr->current_trace_flags about this
+corner case, make sure every tracer has a set of flags:
+register_tracer() assigns the empty no_tracer_flags to tracers that
+define none. The existing users already handle opts == NULL, so these
+tracers keep behaving as before.
+
+Fixes: e29aa918a928 ("tracing: Have function graph tracer define options per instance")
 Cc: stable@vger.kernel.org
-Assisted-by: gpt 5
-Signed-off-by: Pengpeng Hou <hppiscas@163.com>
+Signed-off-by: Hao Ge <hao.ge@linux.dev>
 ---
-Changes since v1:
-https://lore.kernel.org/all/20260830135328.12321-1-pengpeng@iscas.ac.cn/
-Store data_len, not the capped output allocation size, as Arend
-requested. Use size_t for the input extent and add the stable Cc
-trailer.
-
- .../broadcom/brcm80211/brcmfmac/firmware.c         |   13 +++++++++----
+ kernel/trace/trace.c | 13 +++++++++----
  1 file changed, 9 insertions(+), 4 deletions(-)
 
-diff --git a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c
-index 22ff326f1924..a2ee7b43aa21 100644
---- a/drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c
-+++ b/drivers/net/wireless/broadcom/brcm80211/brcmfmac/firmware.c
-@@ -37,6 +37,7 @@ enum nvram_parser_state {
-  *
-  * @state: current parser state.
-  * @data: input buffer being parsed.
-+ * @data_len: size of the input buffer, including comments.
-  * @nvram: output buffer with parse result.
-  * @nvram_len: length of parse result.
-  * @line: current line.
-@@ -51,6 +52,7 @@ enum nvram_parser_state {
- struct nvram_parser {
- 	enum nvram_parser_state state;
- 	const u8 *data;
-+	size_t data_len;
- 	u8 *nvram;
- 	u32 nvram_len;
- 	u32 line;
-@@ -171,12 +173,14 @@ brcmf_nvram_handle_value(struct nvram_parser *nvp)
- static enum nvram_parser_state
- brcmf_nvram_handle_comment(struct nvram_parser *nvp)
- {
--	char *eoc, *sol;
-+	const char *eoc, *sol;
-+	size_t remaining;
+diff --git a/kernel/trace/trace.c b/kernel/trace/trace.c
+index e4a490d3d08c..1bd757b65be4 100644
+--- a/kernel/trace/trace.c
++++ b/kernel/trace/trace.c
+@@ -99,6 +99,12 @@ struct tracers {
+ 	struct tracer_flags	*flags;
+ };
  
--	sol = (char *)&nvp->data[nvp->pos];
--	eoc = strchr(sol, '\n');
-+	sol = (const char *)&nvp->data[nvp->pos];
-+	remaining = nvp->data_len - nvp->pos;
-+	eoc = strnchr(sol, remaining, '\n');
- 	if (!eoc) {
--		eoc = strchr(sol, '\0');
-+		eoc = memchr(sol, '\0', remaining);
- 		if (!eoc)
- 			return END;
++/*
++ * Tracers that do not define their own flags use these empty flags,
++ * as tr->current_trace_flags must never be NULL.
++ */
++static struct tracer_flags no_tracer_flags;
++
+ /*
+  * To prevent the comm cache from being overwritten when no
+  * tracing is active, only save the comm when a trace event
+@@ -1485,9 +1491,11 @@ int __init register_tracer(struct tracer *type)
+ 		}
  	}
-@@ -210,6 +214,7 @@ static int brcmf_init_nvram_parser(struct nvram_parser *nvp,
  
- 	memset(nvp, 0, sizeof(*nvp));
- 	nvp->data = data;
-+	nvp->data_len = data_len;
- 	/* Limit size to MAX_NVRAM_SIZE, some files contain lot of comment */
- 	if (data_len > BRCMF_FW_MAX_NVRAM_SIZE)
- 		size = BRCMF_FW_MAX_NVRAM_SIZE;
-
-base-commit: 518e5b794c06c0f0eb40df3e202274a66202c137
+-	/* store the tracer for __set_tracer_option */
++	/* All tracers must have flags, use the empty flags if none are defined */
+ 	if (type->flags)
+ 		type->flags->trace = type;
++	else if (!type->default_flags)
++		type->default_flags = &no_tracer_flags;
+ 
+ 	ret = do_run_tracer_selftest(type);
+ 	if (ret < 0)
+@@ -8096,9 +8104,6 @@ static int add_tracer(struct trace_array *tr, struct tracer *tracer)
+ 
+ 	flags = tracer->flags;
+ 	if (!flags) {
+-		if (!tracer->default_flags)
+-			return 0;
+-
+ 		/*
+ 		 * If the tracer defines default flags, it means the flags are
+ 		 * per trace instance.
 -- 
-2.50.1 (Apple Git-155)
+2.25.1
 
