@@ -1,37 +1,38 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56259385D7A;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5641C3E5EF8;
 	Sun, 20 Sep 2026 12:02:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789905772; cv=none; b=IJKQOLC4wLAFnUVYBbvPn8mII8MCiXCgLZ+bZJwRBU0kX1pNS9hoTAvpCiLmYH3dEvjEi19cPKpNMbxvG0Q2d12GS8N2+DHcJ0TI+W6aDmQ1TjbQzqmbCYL9OwufXBZZKzNhuM7Kr+fNxhSqDhDdnypbaIzsJdFm3TDiGH32/SM=
+	t=1789905772; cv=none; b=Ul2ZbD8fGKMjLsNeDFBaysYW2y5ruRc6SopCixFkVBDjHLvysd5w+5obVnMm18RM4HjRA3JpPhvaeqzPJqq2iVU1A5r4n6tvgesEPUO8i9e1iPMrdOUd1oSQ+LGO6oK9yo1zU58sJjljRjlnw2eyj+9UGgQ/LytmmZiAplfqLt8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1789905772; c=relaxed/simple;
-	bh=C7iMPqjB6P9Qg3T5TaDcr5AHKJP1Kwje+7b4vnJCSJY=;
-	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=javvrfZwtgRJiJWnfoqIwZkrmza6mn9Cmr1uJJKA0y7oKQvaIED2nMx1icgKVkRYOJpFQYeZxi87wAjGxnNfcy6HBiaILQH9RY9eIibnznNwuBD+d1Mlizf4gCwxdanxICO7MouzS92MAZFmAtuWIHxUqVIdyPSWVEV4ie653L4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=pak+w7dJ; arc=none smtp.client-ip=10.30.226.201
+	bh=EmlQF7MKA+mSQxHFuLAhipdko6cuIMhOh4NeHmdUiNQ=;
+	h=From:Date:Subject:MIME-Version:Content-Type:Message-Id:References:
+	 In-Reply-To:To:Cc; b=fSSGcW8CRZEhUgLuGJi9agpRoAZxOLG0KkHQ3e1FFD2gBuHn6+Y/MCO6Cw0a3ydC3VBCwxn+63hTfFqzaQh8MooA7Hssc5UEJ0dBPvZlFtrAlnYchnWxEYow2Cv2XpAsJELr6zI+4LBHpFh+EAdvbh7Tl4xvsvifr3MAq6pJI1g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=UoNB6j/S; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="pak+w7dJ"
-Received: by smtp.kernel.org (Postfix) with ESMTPS id EEC27C2BCB3;
-	Sun, 20 Sep 2026 12:02:51 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="UoNB6j/S"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 1404BC2BCF6;
+	Sun, 20 Sep 2026 12:02:52 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
 	s=k20201202; t=1789905772;
-	bh=C7iMPqjB6P9Qg3T5TaDcr5AHKJP1Kwje+7b4vnJCSJY=;
-	h=From:Subject:Date:To:Cc:Reply-To:From;
-	b=pak+w7dJA518VcHNjVjj31wgk4vDud/pFOCFzi/Osg3iCq6fQEuxZsO9VhUkLr/nM
-	 XCnDkeKgWtIEP2IgpEO6nhRuDLluHS5FSMnJvRs4Rd6pm8SN/3Xm1du3K8UjTQVVn+
-	 5yAR8Gbo+gsDgF2bxuQGfLeMAIrxN7gcJhjcwgLu5a3DqIWywdEyvJZXCcRIcjkWw1
-	 FlqATor4CFFiFPfwIx2U7tadi7LR5KO9S3NbROFTfxFAPC2XmjaPtS0DXi5Wt79amg
-	 LRdsF8SNYgq8NOCSPL5R4KLs0SwRWSjbGPp8SC/nd0z+jUd8Dw+hcwx84b42fwNyV/
-	 z7zT0K3Xb7tJw==
+	bh=EmlQF7MKA+mSQxHFuLAhipdko6cuIMhOh4NeHmdUiNQ=;
+	h=From:Date:Subject:References:In-Reply-To:To:Cc:Reply-To:From;
+	b=UoNB6j/Sig6nuLWPcm+RHSGZ8zYCe7G7aIUU6lYpRikjQMtou0c3S4Gza9rungwfK
+	 g4JaKV19jIun6G3vG7OMBOarxbOl83sILFwatqqzJtMRZNyUW1PrVJ22PPIcG9NnTm
+	 ygpHEnyCpcMqqeOOCbouLiR1whwxP01A/nrrzXcgXBmnwElCVy87waiNTYjBn4XUfM
+	 0RE2ddWTVtAiF7cVpOo5Z+kisvz/Ttj7zh6IUPs+kNbhN1samBpt9bRG1OhfsoZkUX
+	 +l+f6S0Erp/ojp9dfC4mvCsaaNwXYO6oji4Y94S3XYrZX44DnnxqFUv+UuSxv1oMa2
+	 oLRaYJZvbWdJQ==
 Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
-	by smtp.lore.kernel.org (Postfix) with ESMTP id CB740C982E6;
+	by smtp.lore.kernel.org (Postfix) with ESMTP id E9EA6C982EB;
 	Sun, 20 Sep 2026 12:02:51 +0000 (UTC)
 From: Keguang Zhang via B4 Relay <devnull+keguang.zhang.gmail.com@kernel.org>
-Subject: [PATCH v4 0/3] pwm: loongson: Fix PWM configuration handling
-Date: Sun, 20 Sep 2026 20:02:05 +0800
-Message-Id: <20260920-pwm-loongson-fix-v4-0-41b36b3c6497@gmail.com>
+Date: Sun, 20 Sep 2026 20:02:07 +0800
+Subject: [PATCH v4 2/3] pwm: loongson: Reset the counters before enabling
+ PWM
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -40,20 +41,19 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 8bit
-X-B4-Tracking: v=1; b=H4sIAD3Lr2oC/23NTQ6CMBQE4KuQrq3pf6kr72FcFCjQRFrSmqoh3
- N1CYiTKciZvvjeBaII1EZyKCQSTbLTe5cAOBah77ToDbZMzIIgIJDCB42OAN+9dF72DrX1CXFI
- pKOPYKArybAwm1yt5uebc23j34bV+SHhpP5j4xxKGCDKFm6rNJ1q2527Q9nas/QAWLJENQPYAk
- gHOFGkqxWkp1S9Av4DEfAegGUBaV6Rk0mgtt8A8z2+Q2rZHMgEAAA==
+Message-Id: <20260920-pwm-loongson-fix-v4-2-41b36b3c6497@gmail.com>
+References: <20260920-pwm-loongson-fix-v4-0-41b36b3c6497@gmail.com>
+In-Reply-To: <20260920-pwm-loongson-fix-v4-0-41b36b3c6497@gmail.com>
 To: Binbin Zhou <zhoubinbin@loongson.cn>, 
  =?utf-8?q?Uwe_Kleine-K=C3=B6nig?= <ukleinek@kernel.org>
 Cc: linux-pwm@vger.kernel.org, linux-kernel@vger.kernel.org, 
  Keguang Zhang <keguang.zhang@gmail.com>, stable@vger.kernel.org
 X-Mailer: b4 0.14.0
-X-Developer-Signature: v=1; a=ed25519-sha256; t=1789905770; l=2038;
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789905770; l=1375;
  i=keguang.zhang@gmail.com; s=20231129; h=from:subject:message-id;
- bh=C7iMPqjB6P9Qg3T5TaDcr5AHKJP1Kwje+7b4vnJCSJY=;
- b=9TAWLI2ipQysFG5uqGcYQ6LMazBUQ3pQJHa9CvZt+BhBNy1FV4odRYp8thAN4UxlEV1rvqzWF
- PyBqJvQb3RPAAvamqJ5mb6gJ9Fv1jeZ1g/vTosgsTVvqJuv5erzaUwX
+ bh=NyDNTlsnJdK4cl0ga4IeWZLMrmPfP3DVW7yBKqicjC4=;
+ b=/Ly+hsfIlgz3pdAE1Sn8R2ixiFAUhwfEbv8E/4H2cjhVMkTojBjj4aAHFVbxAza5y5pS40oEg
+ fvjNVzJg++YCwVn/bKGFN38eCoq0TFqK34L+aGve13mcv+iqyi0Gy61
 X-Developer-Key: i=keguang.zhang@gmail.com; a=ed25519;
  pk=FMKGj/JgKll/MgClpNZ3frIIogsh5e5r8CeW2mr+WLs=
 X-Endpoint-Received: by B4 Relay for keguang.zhang@gmail.com/20231129 with
@@ -61,58 +61,42 @@ X-Endpoint-Received: by B4 Relay for keguang.zhang@gmail.com/20231129 with
 X-Original-From: Keguang Zhang <keguang.zhang@gmail.com>
 Reply-To: keguang.zhang@gmail.com
 
-This series fixes two issues in the Loongson PWM driver:
+From: Keguang Zhang <keguang.zhang@gmail.com>
 
-- Fix the handling of the Low Pulse Buffer Register, which was
-  incorrectly treated as a duty-cycle register.
+The PWM controller may retain its initial hardware state when the driver
+binds. Reset the counters before enabling to ensure that the PWM starts
+from a known state.
 
-- Reset the PWM counters before enabling to ensure that
-  the PWM starts from a known state.
-
-It also includes a follow-up rework:
-
-- Use field helpers for period validation.
-
-The whole patchset was verified on LS1B, LS1C, and LS2K0300 boards.
-
+Fixes: 2b62c89448dd ("pwm: Add Loongson PWM controller support")
+Fixes: 0de9b836a3bc ("pwm: loongson: Reload PWM configuration through counter reset")
+Cc: stable@vger.kernel.org
+Suggested-by: Uwe Kleine-König <ukleinek@kernel.org>
 Signed-off-by: Keguang Zhang <keguang.zhang@gmail.com>
 ---
-Changes in v4:
-- Split the period validation rework into a separate patch from the
-  functional fixes.
-- Limit the duty cycle to the period before calculating the low pulse.
-- Add a fix to reset the PWM counters before enabling, as suggested by
-  Uwe Kleine-König.
-- Drop v3 patch 2/3 (0de9b836a3bc), which has already been applied to
-  pwm/for-next.
-- Link to v3: https://lore.kernel.org/r/20260715-pwm-loongson-fix-v3-0-0aab2847eaa7@gmail.com
+ drivers/pwm/pwm-loongson.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
-Changes in v3:
-- Calculate the low pulse as period - duty after rounding the duty cycle.
-- Handle LOW > PERIOD in pwm_loongson_get_state().
-- Add a Fixes tag to the second patch.
-- Link to v2: https://lore.kernel.org/r/20260626-pwm-loongson-fix-v2-0-5492db953879@gmail.com
+diff --git a/drivers/pwm/pwm-loongson.c b/drivers/pwm/pwm-loongson.c
+index 7af5d4ce1060..977d867bdb8a 100644
+--- a/drivers/pwm/pwm-loongson.c
++++ b/drivers/pwm/pwm-loongson.c
+@@ -110,6 +110,14 @@ static int pwm_loongson_enable(struct pwm_chip *chip, struct pwm_device *pwm)
+ 	struct pwm_loongson_ddata *ddata = to_pwm_loongson_ddata(chip);
+ 
+ 	val = pwm_loongson_readl(ddata, LOONGSON_PWM_REG_CTRL);
++
++	/*
++	 * Ensure that the values of LOW and PERIOD are sampled into
++	 * the shadow register when the hardware starts running.
++	 */
++	if (!(val & LOONGSON_PWM_CTRL_REG_RST))
++		pwm_loongson_writel(ddata, val | LOONGSON_PWM_CTRL_REG_RST, LOONGSON_PWM_REG_CTRL);
++
+ 	val &= ~LOONGSON_PWM_CTRL_REG_RST;
+ 	val |= LOONGSON_PWM_CTRL_REG_EN;
+ 	pwm_loongson_writel(ddata, val, LOONGSON_PWM_REG_CTRL);
 
-Changes in v2:
-- Drop the -ERANGE return change and restore the original behavior.
-- Use mul_u64_u64_div_u64_roundup() to calculate the low pulse width.
-- Update the commit message accordingly.
-- Link to v1: https://lore.kernel.org/r/20260616-pwm-loongson-fix-v1-0-491dbf260a7f@gmail.com
-
----
-Keguang Zhang (3):
-      pwm: loongson: Fix low pulse buffer register handling
-      pwm: loongson: Reset the counters before enabling PWM
-      pwm: loongson: Use field helpers for period validation
-
- drivers/pwm/pwm-loongson.c | 44 ++++++++++++++++++++++++++++++--------------
- 1 file changed, 30 insertions(+), 14 deletions(-)
----
-base-commit: 17dbb6938d3ab444cd6be1c95506450595a8800d
-change-id: 20260612-pwm-loongson-fix-183763451e93
-
-Best regards,
 -- 
-Keguang Zhang <keguang.zhang@gmail.com>
+2.43.0
 
 
