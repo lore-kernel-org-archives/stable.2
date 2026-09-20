@@ -1,78 +1,49 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 666D13B0599
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 02:37:38 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1AB5A3C4168;
+	Sun, 20 Sep 2026 02:39:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789871859; cv=none; b=hHFNIqmdWKAzUZ5zsE+QowT9p1uP616IzlpOmC2GFX49fsGQG9da57hf4olkVPgg6qkEUz66wf8t0uabdLyQj3tS108VKcl5z3GThWrVk1qzhHmqktOQcBiwnNNQu3uGe7U8fm/rz02FAaFu81125P7/WBQho74VKnPa0SLsg78=
+	t=1789871973; cv=none; b=NbPHpl/vP2/4eihwmHdx9gYLat6BeotPMRX6/mXvceM0MdFbw8VGlU2uKjKKRFhFM/I3SSBYv5/NejmnNOwB8MFEIKv6jlK6Bjt0BmLswcL2KITlkekXedL81cYeJ1D3nMuNTpClpLsVHZB3FzLsnSnKZzxRbgScTfiQhQv2LfY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789871859; c=relaxed/simple;
-	bh=G6MJJlrNk7Yn2tf9+AziitycZl/J9WfVYQtX5uMidQY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fDD83jSGo+HEM2UAOt3FTHgG9FREpUmAYoGRrIR10pRc/HXls+/CQRNqsQnys/ckg88qzuxsfGptrDoarLEPRBpG/SzgVP2/T+iw3G+O4UmlNf9MMoEe5ROoWXNXyHBRWUVaKLum4OB080/8uMajcBvOPqAiZXK1+xhPdqDKbA4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ii+T/T2M; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ii+T/T2M"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-398a1676000so1622251a91.2
-        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 19:37:38 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789871858; x=1790476658; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a661l6/McfJBsW6ih7SIBpxNulf6pfTW6jSdeP75Wo8=;
-        b=Ii+T/T2MwKaO7skORU1boqRpOaVrEcp3e8oqndIwu2ERt0KDnpmW9h8xWO5cY8eFQP
-         E/m72jwqtJhKeiMvLitw4U9ovFAP02nOVnG+82kobDsT924RLOsbrL8l0lL2Fl7NI0lb
-         Dz6HS9Kviu4vd5YZA5sVs5R+EwpGkbLMDhEQRTuZx/vxzAvj1w6ZmPhaaM0sy40utcDG
-         PjmUyfIW3FIdpFaMCxSaxa2af95cI3knjNttxq3RjvGsWgOnfhbU3YKNyoKoCxefJjiB
-         mYQtWskSUw7L0xSLzxU5L2BGb7n7VQQ41BSMG9mNrOI4ALVgDqplldyEVI1BjI8tKR7l
-         7Y0Q==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789871858; x=1790476658;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a661l6/McfJBsW6ih7SIBpxNulf6pfTW6jSdeP75Wo8=;
-        b=R+X5p24tHu5hZh9Pk7yilQi+PovsAbBWP54heiUbBij9a+MmVyZ6pwxvEbQo5m0G/5
-         Bv5WtSokxu8SG9uo+v6y3hFKiwySiS30BMICAoEvojFKYGKWqQxKfNu2lLHj0gfhX+Iz
-         Dz/nYhomCw3QUKbZYoPCfhWdflPMpzepXyVV0GPpVVgg9paMnNuVSly0nhaA3ZS0NQ6d
-         oh9p2e/fx6cOYJq234wjean4oc7ubNr4Y5GNjBweZK0waPYteVQ/Xr9XErz9iCpvx3Rv
-         ihZbUy4QZmIFsprgu3JnQBHeWp85njhzlnxc2Dn+dilSsFhu95TzVq10RlcfIidEIB/q
-         aROg==
-X-Forwarded-Encrypted: i=1; AKwUvBzxJ94Sw0LtFa0XfRUpq1ZXwpxFAmAww0SBfgGZIU+8EkdeIpIc2IOOziMDZG3sC3uwKDsdh+U=@vger.kernel.org
-X-Gm-Message-State: AFuF++lAl/qZjww0fU8yraC7WAYbvygQhy2L3OHiKTONqBzzlL/jtq08
-	E0vDZJWJMHGM5ysKOfkW5ZXIyor8BksgM/WXHgQq2y2H1opHq9ZGmlc=
-X-Gm-Gg: AYBFou23fEOQXJgWLoJxRpsfFac4kCqdZb9asvX+gr77ulwYNzD1/ewQD2ISFy6Yu3m
-	XNZ9/0q2GlvuH/mUKYV9Chk3xt/3X6cZDo5LtwPfDp6wttlH/WKQA+H5y2yXA8GfXt73rLgaes+
-	Co2krjN0vWCZxv8UjCRX9kDPk49ugDsAzOp2hNIdkWYaGpVH8hROdy5D8Xhvot7zWzVWaTZvJdV
-	8uo/W+51/LrpBl+KlGHoUmJNHJzQRMmNqlqCOFup3LkngAXt1BnyWzZWO9WxHs0uwDuAiBTFptK
-	XZiEQH4ErCytbvW6JI0cSxXkXv7e/7rNSZHOYlbyuBjD0oyh8v1s9v0Xxokq8RvhV6u9iDwbAwV
-	IkMCyScvPUwpAqeIo4GVqf43SCV4d9THcgcnx3n2NIATAR3jdECA9TadMbTf221GWyntqfq1sL3
-	7fXoxFkJ5QQeYjRiLcvjnSJDr+MS/DyywzDU2vmnb/q0ifo4vA3HqmjNdWS+4Vf9Z68gwQRyodc
-	Ngl0KRxlcaE1XX1sRxo8Bu+wg==
-X-Received: by 2002:a17:90b:5287:b0:38e:7168:281 with SMTP id 98e67ed59e1d1-39e54ce361emr12233813a91.10.1789871857656;
-        Sat, 19 Sep 2026 19:37:37 -0700 (PDT)
-Received: from ydg-Zenbook-14-UM3406GA ([2001:2d8:7f00:8c85:36d8:54a:e0bc:3e5e])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c37c8e7sm6799764a91.9.2026.09.19.19.37.32
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sat, 19 Sep 2026 19:37:35 -0700 (PDT)
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-To: SJ Park <sj@kernel.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	akpm@linux-foundation.org,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
+	s=arc-20240116; t=1789871973; c=relaxed/simple;
+	bh=GCsAjX7R52Y2q8IvLXpU3GYW2cvTKh7EKXfmh1yWEPk=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=cO61a0TMBr5ErqsMA9gJRSszbJSJxrA0jGiJ2emLrIwGuJWG5tjV6ngz/PdetfnOh9r5M6SheXsC7c1QjswBakLRkmdjSde9YNQhhBv1vxj993+cbHDB4d/V2wSy29ZcDYgXZtfrwwcHrui3g/qlrWaT4PTm5Lib19ICihUXl3A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 7b50f8e2b49c11f19a56ed5b684f684d-20260920
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:3ee9096d-b447-4d39-a64a-9a7b0de0730e,IP:0,U
+	RL:0,TC:0,Content:-5,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION
+	:release,TS:-5
+X-CID-META: VersionHash:7db8b62,CLOUDID:520877f7efa71a7e04ec182b30ba4bc6,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 7b50f8e2b49c11f19a56ed5b684f684d-20260920
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1947193105; Sun, 20 Sep 2026 10:39:20 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
 	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
 	stable@vger.kernel.org
-Subject: Re: [PATCH v1 1/2] mm/damon/core: prevent size quota overflow in the temporal goal tuner
-Date: Sun, 20 Sep 2026 11:37:28 +0900
-Message-ID: <20260920023730.2468388-1-donggeunyoo.kernel@gmail.com>
-X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260919165509.86678-1-sj@kernel.org>
-References: <20260919071324.1583280-2-donggeunyoo.kernel@gmail.com> <20260919165509.86678-1-sj@kernel.org>
+Subject: [PATCH v4] ntfs: mount hibernated volumes read-only regardless of errors=
+Date: Sun, 20 Sep 2026 10:39:14 +0800
+Message-Id: <20260920023914.21881-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -81,31 +52,109 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi SJ,
+The hibernation check in load_system_files() only converts the
+superblock to read-only under errors=remount-ro.  With the default
+errors=continue (and with errors=panic), a hibernated volume is
+mounted read-write and the mount-time $LogFile emptying writes to it,
+although a hibernated volume must not be written to at all.
 
-Thank you for the review, and for pointing me at addr_unit -- I did not
-know about it.
+Drop the on_errors term so that a hibernated volume, or a volume whose
+hibernation state cannot be determined, always mounts read-only.
+NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+remounts to read-write, and the $LogFile emptying is skipped by its
+!sb_rdonly() check.
 
-On Sat, 19 Sep 2026 09:55:08 -0700 SJ Park <sj@kernel.org> wrote:
-> For 32-bit machines, we have addr_unit parameter.  I believe use of it could
-> effectively solve this kind of issues.  Correct me if I'm wrong.
+The check itself must not apply the errors= policy either: it runs
+before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and
+ntfs_iget() call ntfs_error() internally on corruption or I/O errors,
+which under errors=panic would panic the machine before the read-only
+fallback has made its decision.  Run the check with the super block
+temporarily marked read-only, which makes ntfs_handle_error() ignore
+any ntfs_error() issued on this path; the super block is not
+published yet at this point, so the temporary flag is not visible
+elsewhere.
 
-You are right that it helps, and quite a lot: with a larger unit the same
-amount of memory is written to quotas/bytes as a smaller number, so the
-boundary is much harder to reach in practice.  It does not move the
-boundary itself, though, since the multiply is on the value written
-whatever the unit means.  And as you say, only paddr implements addr_unit,
-so vaddr and fvaddr get nothing from it.
+Restore read-write access only if the check succeeded and no errors
+were recorded earlier during the mount, e.g. when loading the LogFile,
+so that a volume with recorded errors stays read-only, matching what
+ntfs_reconfigure() enforces for remounts, and a message is logged for
+that case.
 
-The 64-bit case turned out to be a little more than theoretical too.
-bytes_store() takes whatever kstrtoul() parses, so a quotas/bytes above
-1844674407370955 wraps there with no scaling involved.
+Fixes: 6251f0b0de7d ("ntfs: update super block operations")
+Cc: stable@vger.kernel.org
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Change in v4:
+ -Rework the errors=panic handling per review feedback.
+---
+ fs/ntfs/super.c | 36 ++++++++++++++++++++++++++++++++----
+ 1 file changed, 32 insertions(+), 4 deletions(-)
 
-v2 says both in the changelog, and your suggestion about the user
-documents became a third patch.  I also took your form of the guard; it is
-a one-line diff and it reads better.
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f4a73e45773d..473c76d2962f 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	struct restart_page_header *rp;
+ 	int err;
++	bool temporary_ro = false;
+ 
+ 	ntfs_debug("Entering.");
+ 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
+@@ -1572,8 +1573,20 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	 * NVolErrors() without setting the dirty volume flag and mount
+ 	 * read-only.  This will prevent read-write remounting and it will also
+ 	 * prevent all writes.
++	 *
++	 * The check runs with the super block temporarily marked read-only, so
++	 * that ntfs_error() calls issued internally by ntfs_lookup_inode_by_name()
++	 * and ntfs_iget() cannot trigger errors=panic before the read-only
++	 * fallback has run.  The super block is not published yet, so the flag
++	 * is not visible elsewhere.
+ 	 */
++	if (!sb_rdonly(sb)) {
++		sb->s_flags |= SB_RDONLY;
++		temporary_ro = true;
++	}
+ 	err = check_windows_hibernation_status(vol);
++	if (temporary_ro && !err && !NVolErrors(vol))
++		sb->s_flags &= ~SB_RDONLY;
+ 	if (unlikely(err)) {
+ 		static const char *es1a = "Failed to determine if Windows is hibernated";
+ 		static const char *es1b = "Windows is hibernated";
+@@ -1581,12 +1594,27 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 		const char *es1;
+ 
+ 		es1 = err < 0 ? es1a : es1b;
+-		/* If a read-write mount, convert it to a read-only mount. */
+-		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
++		/*
++		 * A Windows hibernation image is not a filesystem error, so
++		 * this is a safety interlock rather than something the
++		 * errors= policy may downgrade: always convert a read-write
++		 * mount to read-only.
++		 */
++		if (!sb_rdonly(sb))
+ 			sb->s_flags |= SB_RDONLY;
+-			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+-		}
++
++		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 		NVolSetErrors(vol);
++	} else if (unlikely(temporary_ro && sb_rdonly(sb))) {
++		static const char *es1 = "Errors were recorded during mount";
++		static const char *es2 = ".  Run chkdsk.";
++
++		/*
++		 * Errors were recorded during the check or earlier, e.g. when
++		 * loading the LogFile.  Stay read-only, like ntfs_reconfigure()
++		 * does for volumes with recorded errors.
++		 */
++		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+ 	}
+ 
+ 	/* If (still) a read-write mount, empty the logfile. */
+-- 
+2.25.1
 
-  https://lore.kernel.org/damon/20260920023111.2466265-1-donggeunyoo.kernel@gmail.com/
-
-Thanks,
-Donggeun
