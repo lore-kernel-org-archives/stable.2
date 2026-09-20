@@ -1,84 +1,84 @@
-Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 126C73E49C3
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 08:07:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 914AB3DB632
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 08:19:38 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789891627; cv=none; b=tOUiNArwx9Ww0+uPNbvmFV5uJyuqNeSSIRDDfBXe50jm3ikv0wQ2ODT+9ZpEp1xqBSraQa2ENxb52GDCIo3LoQP6HBUCxzQ22FA8kDnckCh8YJnHr/goTWPsRSHgFvDcffgrn9PKMQpu9pkCsaylOXEHn7CNbTo6zFSySXoW8mU=
+	t=1789892380; cv=none; b=VgSJo7fDL8G1290qZL/iOzgaOb+YtsEfIzwEJfSrt9Fd/7p6zCk+tbsEf+n2G6VIOc9d5XcQOOWELtY1P1/l4K5glmigMMPwqE6oxkMqqbT1w464r9ZXUg7JQIS9wLH0f5HzAJBfMQgXu0+4ncQlyWKBn9HOoIfiLP73Qwg0Aqc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789891627; c=relaxed/simple;
-	bh=NxKn2zgdt91w1kXFCzpOjTEpxO7DBd/+TEc3QoOOwRk=;
+	s=arc-20240116; t=1789892380; c=relaxed/simple;
+	bh=BjneHlFoqL1wFeaUf6/92cx/QVIzjq+vH5GwZgLBfqw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F0dcQ6J4fYM7FCIxaWLbKK7+L9RgV/dlTOrWtHnysXlF/O18mCjW8r/5sNGO66DMcNVQCCd6Ldil8afBPtabJdwYteoKY80LmjXkiE+G1kx5BZJmtq8JkK/vDYcIieTgvttmWcgsJ3HYcEpRnPnFiX4+4/ScxcdMl+Q+kkRdI/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=Kty1hwW4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=D6OAkr6+; arc=none smtp.client-ip=205.220.168.131
+	 Content-Type:Content-Disposition:In-Reply-To; b=qZoNRNv+azFt+nycw4ZuMKizDGNcX/NrEwptMs2EJMKsJEVz/uCc9WaGwb2EtuzwQ0ZcHTsfZfgLWlAJfT2O0C8pXnFTzuIrxhDnaYPa7inen6RKyDtHzRXPqtKdId9ykUTKisjLAXGKlwC42Itb5QG5uOX2jXrCsKjFRb+u/zs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=pfXP6JY4; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=NOt4X9BE; arc=none smtp.client-ip=205.220.180.131
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="Kty1hwW4";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="D6OAkr6+"
-Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68K55ZY12632871
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 08:07:04 GMT
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="pfXP6JY4";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="NOt4X9BE"
+Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68K569K4828447
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 08:19:37 GMT
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
 	cc:content-type:date:from:in-reply-to:message-id:mime-version
-	:references:subject:to; s=qcppdkim1; bh=e5jUCEkf9yLnafQe149Ub/uG
-	ZIIw9CugVMd5LhvprM4=; b=Kty1hwW416uA8gajdA7yNh0yY+XBuf1N7vMsN3UU
-	zxxkWksof4NOoXgHcirirZU6rUOPJlhCeVnM5VolI9KftZO1xKVU+aimHRjYN7BQ
-	eGkvzUlwuf2rnRAQuMwBwjJFXlhIHtCI+bwySg2c4ZkOhUjog6AQgKE8hriAR5z1
-	uWLrjPkPBUo78q/fGFEY/yVx+TbYOO9LloQ8/Egwj0g+gkh2ndhR5TRsxSqWOi/B
-	7Z9oNZ5AWCJ4k3KJp0P/wWh9clA1Uyz0Y9ixKmOdLjqiUrIdpXjl4W/VsBs8zGsb
-	WDkNsVtuFtlQ6Mq32mKXR+euyskVuwluBixrn/UM981OXw==
-Received: from mail-qk1-f200.google.com (mail-qk1-f200.google.com [209.85.222.200])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gsg3f2wbe-1
+	:references:subject:to; s=qcppdkim1; bh=tVuBfRM6hSH7bdNrYC43eEuM
+	mYCLe63rDtFa+xag5MI=; b=pfXP6JY4DnCBiJRRqLLq4GC53wH/2llSz804NQdy
+	Sj/pSvLWm1EEnGneNra/2PGP2EfR4mKBEnxGCArCsWVRowRB6jBkutthASeU7T1v
+	npjATBwkOl+nVmTgWG+QQ+XVxaRmm89QEcPZFbW8jhG4tNbD9PEo8biBG1x2+5Ds
+	wLzEfD1lD6KnIrNZlMCYHLCqUzuvL/4ubh/ugNZXqHMgSiPyB9qZ8A0Si8VZMNrY
+	DanhYowD1V+3uTLZakUQ9ht5Q9avMbsSCIWvR3EbDgyrVaKHQe3Nar2TNmxcZC0a
+	x+ew65F6cCM7sfoH1gOqHsRYDezvuO2Ozwb5w4YrRPXYsQ==
+Received: from mail-qk1-f199.google.com (mail-qk1-f199.google.com [209.85.222.199])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gsjs82gtm-1
 	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 08:07:03 +0000 (GMT)
-Received: by mail-qk1-f200.google.com with SMTP id af79cd13be357-93a183a0e93so493061685a.1
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 01:07:03 -0700 (PDT)
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 08:19:37 +0000 (GMT)
+Received: by mail-qk1-f199.google.com with SMTP id af79cd13be357-93be6ed214eso293052085a.2
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 01:19:37 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789891623; x=1790496423; darn=vger.kernel.org;
+        d=oss.qualcomm.com; s=google; t=1789892376; x=1790497176; darn=vger.kernel.org;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:from:to:cc:subject
          :date:message-id:reply-to:content-type;
-        bh=e5jUCEkf9yLnafQe149Ub/uGZIIw9CugVMd5LhvprM4=;
-        b=D6OAkr6+6g/R472yARxyArSMcc5perYQGwMmkq2ZUXzGhgC4618VY7VBD8NvF3pmPP
-         bld+YnHMR9uANqaqlRngBd2PiK7iTXGZdLPbMzqsUAFz5HwDQExvHmlBcvTk6six4tnK
-         Wj8GOGGkpiYZ1o1xNIfYL9yI9CJ+reELrI7OqmNuqmmptTSqh5jlFblpMiQbowr0zP6e
-         xD5q/fvSxFZbHeaGNX1nOSmJIHNG+KJT+oqnfT6+sJ/q4JFBXfImkuRv5WWFEBF6lx0C
-         iLlxCLZ4A4V4+/rcZlN7v99E07gdDfJ6+Om7uI+uhXIdzQrFRhO4+i8iC+1ogzJjG+1P
-         yABQ==
+        bh=tVuBfRM6hSH7bdNrYC43eEuMmYCLe63rDtFa+xag5MI=;
+        b=NOt4X9BESsWSB9yc1cHxsNCgld466bSeBNXmmIHngmkFpTiNdXqfZAZSWFqVnoivdZ
+         HtSNgbk9I9BLUUFr066ARYCrwwhbPczA6SSboxp+hVrFiatPziL95wZv3QLtwWTL5zT4
+         AgBpgaXnDuLT7G5NWIhmMXyyFig7HgTGwjoYt7lLvykFCeHpl8nczGfxgUcfVnfuDFvB
+         tZbdnppXry3pU9t8jxl7G7EeT0AR0mbwgP43FOQGLEGJm9EMu/RxqHThUdzCqCkuqY+W
+         d2z1iKlRMnC3plIRfVEPw/JLwXhQLDclWGRDkp83f9n+QRWo+uiNPnMEE3ZjOgLMPkMa
+         BFlw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789891623; x=1790496423;
+        d=1e100.net; s=20260707; t=1789892376; x=1790497176;
         h=in-reply-to:content-disposition:content-type:mime-version
          :references:message-id:subject:cc:to:from:date:x-gm-gg
          :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
          :content-type;
-        bh=e5jUCEkf9yLnafQe149Ub/uGZIIw9CugVMd5LhvprM4=;
-        b=m1+o8dvEG9g5n0k8V3Ugzrksdht4MOdpzqXvCAX2gxH4cXfFQA7Dnnfw5vJzzCAqE9
-         Tu4ZOGuNO795v2XcEvbOoN06NB/wMITk2ciftezb0ZSzT6rgRy3A+nLCGZhSwHY9/A58
-         uwk5ZzhsoQesnslfJnyCnH75HMq7TE42edbUNknyOF9dEdRXCi97de2So4ggqqW3oOaJ
-         JQMPyyIo+SNk81rOQf5mkRvFKqP/wq0oZwumEC1WXJp9Kr+oKgroJPEyftVWRJjaJlgQ
-         uWoEabu/VRenxLMjUllgQrx5wpC4jvOGd/vbP4W/DxGoreFNkNRCGCXJUs3K2aekAIeV
-         PVkA==
-X-Forwarded-Encrypted: i=1; AKwUvBy1aLq2WG9KbkjwiaDK5Z5k/tfm2SZhfnH5oD8i8Dmg1Z13fWa00GiEAw5sImP0QGiNSnPeOxo=@vger.kernel.org
-X-Gm-Message-State: AFuF++m0VMJjvGlWjE+neCUo1s5CHO5GZs+CPDo60oHlbBXbITEuoagq
-	Xgtm8GDVkCMJN2iw18AGyCaGb/+bgRnIx9NGUvnNIzHf1z81g274vV5eKJMUaSG7234Jtzxa6oO
-	3MbYXQE1mug52I8c1JuAv+MWgnM6WWxCl83JGmSXnaaXYXYlXSihnj+/YFRw=
-X-Gm-Gg: AYBFou017BgvOIS2YQIp3TcA6MaRO9K7eztOtgEEo0DUF+p3j5Hgis+ZbrK5We/o0H7
-	9M9/GnBOW18APjpLIYRFmy1gS0Kr1vnVyfHVxxd5bqO4Y6yWBak1Lh2jYDb0vcq/FGH+LloYd3c
-	mlaLiEToRfloBjOV548A2a7ON2iimxsr+bdvwsasgcduavubhLAR3a8EEpCffMN7qn3Yd0QT5ua
-	tzmiM9XWgqWici02iwWhW1VdOXBSuceQCsqXe031nvDdxDKEWE9bhftaNlX/3UnRgheE5kTF3a6
-	0Z9KNqpUvkGufYhVC9SrN0XkqKoDhN2SjxjzdS8M5bCRPwyOrBIoNrHsKlSblXV0kgpSp97fKeq
-	aJCctj9vyUSY3qA==
-X-Received: by 2002:a05:620a:2311:10b0:93b:fb3c:2d09 with SMTP id af79cd13be357-93bfb3c2d27mr213524785a.66.1789891622754;
-        Sun, 20 Sep 2026 01:07:02 -0700 (PDT)
-X-Received: by 2002:a05:620a:2311:10b0:93b:fb3c:2d09 with SMTP id af79cd13be357-93bfb3c2d27mr213522885a.66.1789891622276;
-        Sun, 20 Sep 2026 01:07:02 -0700 (PDT)
+        bh=tVuBfRM6hSH7bdNrYC43eEuMmYCLe63rDtFa+xag5MI=;
+        b=oGIMTm8xBKiSdTEQU+0yCcUN873B862QrZeLVEMX+8lAQgpHENLrD6EpyXzn+aWS4J
+         ffdlrJPaNsFrOV1fVjYFNsljib66mpX3Qy0jBORuwn2pMiAWsGpjwk7zTG8mYbSUB7IG
+         7ul6IVsJX2kvfp74wjVogJ/ariMPl6TvYrlxoijuI5zWgEgzyXfKF2vH3Zgn23TZ4uT9
+         alurQslI8oFYPHB8tybM86OY0D5I+5DTVkInLKjpuYcwNYh2TTGm3YWKOmNmIR8ZlBbj
+         0R/+RQDRGfGcbFm+Ff0RLUuDxYN2yXJFGgwk9tiRxD+LeblLblWchRxXCpI7xqe58MLP
+         FYhw==
+X-Forwarded-Encrypted: i=1; AKwUvBztA5fKRCCykAgE1UJJPWvcTBF/2jGjqjGUAuM9O4ZgYBmijpKo3e6BkIGxlv+8GAwftHDZihs=@vger.kernel.org
+X-Gm-Message-State: AFuF++kyPKhVF74bu6GyYRguIoOojMS0kC+DcX+3GpKANNxU9bfmOnDR
+	afWO341tBLYY8+G1J7kULC3ufxVE4l+34z8fiNQIhDoSNEjNFxgMOXIdvS3jP2F4xNd3raJDfMP
+	kk/cDzBKdVSzfnri6ORo3meHpycgA4a72jvBr94ARAXvGR8Omlas31DANvv0=
+X-Gm-Gg: AYBFou0+wTT4OHBBiL6K4taTq6jbxfj08ND/Gn2fs23SqbploUT9DtTtGlCj8jSwXsd
+	pJZrdheCgyZBedCtnUBTSsd80MODwqRlt5WpjhbRmsQM/01LKGoeFCEbTOoNFUka/IZyqjNSekE
+	bgbTSSitRKBZad4ZuAhLM0RYkFaj2AG4Un+jBbpBzDPCw6z+klNUPtXM7wtMZAgJqgiJdTQk9J0
+	xNaY2LB+Bmsvs2DFDIL3hCjD/uJyr4ahuetYbQyBPdx7zCg3y2DNhSkKavCkHekxnLPNrXv09rd
+	6IVWinX0t/hIN00PKMeKVOiLlgasPQe2lxLngNUqohrZaPFVsdXYJhCwdlAO9iKWDjnvWe4546o
+	CQXeWJtiFhrtb5w==
+X-Received: by 2002:a05:620a:c47:b0:93b:c332:3d9e with SMTP id af79cd13be357-93bf560c669mr438973685a.30.1789892376521;
+        Sun, 20 Sep 2026 01:19:36 -0700 (PDT)
+X-Received: by 2002:a05:620a:c47:b0:93b:c332:3d9e with SMTP id af79cd13be357-93bf560c669mr438970585a.30.1789892375995;
+        Sun, 20 Sep 2026 01:19:35 -0700 (PDT)
 Received: from localhost ([188.216.77.92])
-        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fc55cd8a8sm196415225e9.0.2026.09.20.01.07.00
+        by smtp.gmail.com with ESMTPSA id ffacd0b85a97d-4885a0549c3sm557784f8f.25.2026.09.20.01.19.34
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 01:07:01 -0700 (PDT)
-Date: Sun, 20 Sep 2026 10:07:00 +0200
+        Sun, 20 Sep 2026 01:19:34 -0700 (PDT)
+Date: Sun, 20 Sep 2026 10:19:34 +0200
 From: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
 To: Linkui Xiao <xiaolinkui@126.com>
 Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
@@ -87,9 +87,10 @@ Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
         netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
         linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
         Linkui Xiao <xiaolinkui@kylinos.cn>, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] net: stmmac: request the MDIO reset GPIO only once
-Message-ID: <aq-UJEFIq2aHfEee@lore-desk>
-References: <20260920054703.1897755-1-xiaolinkui@126.com>
+Subject: Re: [PATCH net v2] net: stmmac: do not cache the new TSO MSS before
+ it reaches the DMA
+Message-ID: <aq-XFrxqzeQvYEAn@lore-desk>
+References: <20260920061609.1919876-1-xiaolinkui@126.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -97,182 +98,148 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="5yyGVeVacvTbMRAa"
+	protocol="application/pgp-signature"; boundary="hdZmFPt14xPP7efX"
 Content-Disposition: inline
-In-Reply-To: <20260920054703.1897755-1-xiaolinkui@126.com>
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDExNSBTYWx0ZWRfX80sG1JJAtbgC
- zzYDQhRZjYdlkKAz8TrHQJ7TKS/Ek1wclXptyxWYBSHpK0Bbm12KEm0NhN3t4mlX2it2A8qUc92
- owfXJdCpinHv0/Sk/yN+8SSaHdD98cs=
-X-Proofpoint-ORIG-GUID: KeQac0-OPYva_RhIwVk6jSsW4PL0iATb
-X-Proofpoint-GUID: KeQac0-OPYva_RhIwVk6jSsW4PL0iATb
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDExNSBTYWx0ZWRfX2eDcvrbj+Aj9
- 3t78ASlee3AVb3XOY7I4SLzeN4O/EUOIBiEC1eDE22LP7/kk3/zpgIj92h1VZjkTTnI9a8nC2ji
- d2CaY2QpHlxnZZ6g7v4deZWEY4l64AxkEZQLxi/ODYO0Ca+OAcM+N3h1NsGYRZVwGu5A0gYYfdf
- qi2Cqpasebi94INmIn8VX5RB9BGI35+aGmoBns8TnM7vi9CfsiNOJBPGJtX4iseQlt3WT6DW7kR
- sJUO+wKCmxyZXLdkCmSnmVX2c7+WzsZK8sWcpKULn8uUSRLbTd/SitE7WKY7HQatrs+43GdrFS+
- vhxTkwCz+gm77Sj+dp7GOHsLtEW7CRlmSEXDCV5tsDqYQRQXv0Zh7wysjhCTejlboZdO9Ny9tIr
- 579JtO6aPTk7wTMlZx9c5ttHt4JbhE2EpMk7Xpx4Z7UAQx+uaXDfvmw1O/No89O8u1Nk+TOj5Ee
- fhghhnOGSA7I7Rig6+w==
-X-Authority-Analysis: v=2.4 cv=N6S8hG9B c=1 sm=1 tr=0 ts=6aaf9427 cx=c_pps
- a=hnmNkyzTK/kJ09Xio7VxxA==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
- a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
- a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22 a=VwQbUJbxAAAA:8
- a=ROrK7FBXa46LgAKx6Y4A:9 a=CjuIK1q_8ugA:10 a=3qf_Ru5Olzpm8D4UWuwA:9
- a=PEH46H7Ffwr30OY-TuGO:22
+In-Reply-To: <20260920061609.1919876-1-xiaolinkui@126.com>
+X-Proofpoint-ORIG-GUID: uq-rmUswhAyMW_cUkyiI-vKvKfSFPK8k
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIwMDExOSBTYWx0ZWRfX9gcKqCHa39cF
+ HYF0BZdIbFGczFoMCZAOB1ZhToTbpuyV0Hkr0XAzFfFtzhbelrDzQNbFQKIQnuAxIu3gA72X2Ai
+ 5kw76OAzho/obKo0aeUAW1dvGWCiUG4=
+X-Authority-Analysis: v=2.4 cv=YqWa1IYX c=1 sm=1 tr=0 ts=6aaf9719 cx=c_pps
+ a=HLyN3IcIa5EE8TELMZ618Q==:117 a=WpTaRW6qxYHRGzLzQsVYzg==:17
+ a=IWBWnCfD7v3Vv49I:21 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=W4vQ8E46j4nzeUKewMYA:9 a=CjuIK1q_8ugA:10
+ a=6340d-lrAPSOr5qSYlQA:9 a=bTQJ7kPSJx9SKPbeHEYW:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIwMDExOSBTYWx0ZWRfX88oYNLAgDckp
+ ARGqRAFNOPVsADy33/GHOXdRfvo641vNJ+aBGihesYMUXek/b53Wi/u6jlrvj+/3Lm3E6lEKEJd
+ 3MDRQ1yvC2sZFFe1HeuXoQ5DhmdQgxVc15p1j+L7Sx71p6w+vD2ZegWsjG9eAIn+SXuIIIeOXW3
+ YrujTvU6Guvwcq345l/x8xbGH6H+wXj7U2plLKC49ceL7rKRpX1log+F8IPffPTqPG3u9SID9nS
+ 2Ov+cipZS/lE9Zluln4LGbnTl6MrgSO7k04sCuXkxuRziKPW5ZK4hvygGJQyAuJ95AZb1otbPhN
+ 0egtn+aZ/0QYwyYxOygHw6QsijtBlh6y336TMEnC1LAsmkgNLLXM+X8UzzFZjl1ZWMl4VWwpmOW
+ od4VSz4s5+9XXN8WhLbkSKGTjwJ2h8cQLJlysofb3+/2M/M8NsYowxYX6en66An2BmEIOvV0mXR
+ 2HQWOrKoC2vtdRT6IbA==
+X-Proofpoint-GUID: uq-rmUswhAyMW_cUkyiI-vKvKfSFPK8k
 X-Proofpoint-Virus-Version: vendor=baseguard
  engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
  definitions=2026-09-20_02,2026-09-16_02,2025-10-01_01
 X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- bulkscore=0 phishscore=0 adultscore=0 spamscore=0 suspectscore=0
- priorityscore=1501 clxscore=1015 impostorscore=0 lowpriorityscore=0
- malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609200115
+ suspectscore=0 clxscore=1015 lowpriorityscore=0 spamscore=0 phishscore=0
+ malwarescore=0 priorityscore=1501 bulkscore=0 impostorscore=0 adultscore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609200119
 
---5yyGVeVacvTbMRAa
+--hdZmFPt14xPP7efX
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
 Content-Transfer-Encoding: quoted-printable
 
 > From: Linkui Xiao <xiaolinkui@kylinos.cn>
 >=20
-> stmmac_mdio_reset() calls devm_gpiod_get_optional() every time it runs.
-> A GPIO line can only be requested once, so from the second call on
-> gpiod_request_commit() returns -EBUSY. devm_gpiod_get_optional() only
-> turns -ENOENT into NULL, hence the error is passed straight back and
-> stmmac_mdio_reset() bails out before pulsing "snps,reset" and before
-> running the STE101P MDC workaround.
+> stmmac_tso_xmit() fills the MSS context descriptor and stores the new MSS
+> in tx_q->mss right away, but the descriptor only gets its OWN bit much
+> later, right before the frame is handed to the DMA. Every error path in
+> between - the dma_map_single() of the linear part and the
+> skb_frag_dma_map() of each fragment - returns with tx_q->mss already
+> updated while the MAC is still programmed with the previous MSS; the
+> abandoned context descriptor is later reclaimed by stmmac_tx_clean().
 >=20
-> The first call, made by of_mdiobus_register(), succeeds, so the failure
-> is only visible later on: every resume that does not use WoL goes
-> through stmmac_resume() -> stmmac_mdio_reset(), and that caller ignores
-> the return value, so the PHY silently stays un-reset.
+> The next skb carrying the same MSS then compares equal to the cached
+> value, so no context descriptor is emitted and the hardware segments the
+> TCP stream with a stale MSS, generating frames whose payload size does
+> not match what the stack accounted for.
 >=20
-> The descriptor used to be requested exactly once: stmmac_mdio_reset()
-> resolved "snps,reset-gpio" itself and cached the GPIO number in
-> stmmac_mdio_bus_data::reset_gpio, and commit ae26c1c6cb9b ("stmmac: fix
-> PHY reset during resume") relies on that cache to reuse the line on
-> every call. commit 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in
-> stmmac_mdio_reset") replaced it with a devm_gpiod_get_optional() that
-> caches nothing, so the request is repeated on every call and fails from
-> the second one on.
+> Update tx_q->mss only once the context descriptor has been given to the
+> DMA, so that the cached value always describes what the hardware is
+> actually programmed with.
 >=20
-> Request the GPIO in stmmac_mdio_register(), at probe time, and keep the
-> descriptor in struct stmmac_priv. This is where devm-gpiod is meant to be
-> used: the line is acquired with the device and released with it, and any
-> failure to acquire it is reported during probe instead of being ignored
-> by stmmac_resume(). stmmac_mdio_reset() then only pulses the cached line.
+> The context descriptor is now handled like the data descriptors are:
+> tx_q->cur_tx is not advanced while it is being filled. Whether the frame
+> can be queued is only known after every dma_map_single() and
+> skb_frag_dma_map() has succeeded, so the descriptor stays at the slot
+> tx_q->cur_tx points to and the index moves past it later, together with
+> the data descriptors. That also keeps the context descriptor outside the
+> range stmmac_tx_clean() walks when the ring is cleaned after a failure,
+> so the error paths have to release it explicitly.
 >=20
-> The request is still gated on mdio_bus_data->needs_reset, which is the
-> condition that installs the reset callback, and on the device using DT,
-> as the reset itself is.
->=20
-> Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_re=
-set")
+> Fixes: f748be531d70 ("stmmac: support new GMAC4")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+
+Acked-by: Lorenzo Bianconi <lorenzo.bianconi@oss.qualcomm.com>
+
 > ---
 > Changes in v2:
-> - Do not request the GPIO from stmmac_mdio_reset(); request it once in
->   stmmac_mdio_register() at probe time instead. (Maxime Chevallier)
+> - Do not advance tx_q->cur_tx while the context descriptor is filled, as
+>   for the data descriptors, and release the context descriptor on the
+>   error paths instead of leaving it to stmmac_tx_clean(). (Lorenzo Bianco=
+ni)
 >=20
->  drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
->  .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 19 ++++++++++---------
->  2 files changed, 12 insertions(+), 9 deletions(-)
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_main.c | 11 +++++++----
+>  1 file changed, 7 insertions(+), 4 deletions(-)
 >=20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/e=
-thernet/stmicro/stmmac/stmmac.h
-> index 7582fca63741..986fb43db45f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-> @@ -25,6 +25,7 @@
->  #include <net/xdp.h>
->  #include <uapi/linux/bpf.h>
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c b/drivers/=
+net/ethernet/stmicro/stmmac/stmmac_main.c
+> index af2d38a2bb3d..e2e680dd980c 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_main.c
+> @@ -4563,10 +4563,6 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff =
+*skb, struct net_device *dev)
+>  			mss_desc =3D &tx_q->dma_tx[tx_q->cur_tx];
 > =20
-> +struct gpio_desc;
->  struct stmmac_pcs;
-> =20
->  struct stmmac_resources {
-> @@ -287,6 +288,7 @@ struct stmmac_priv {
-> =20
->  	unsigned int pause_time;
->  	struct mii_bus *mii;
-> +	struct gpio_desc *mdio_reset_gpio;
-> =20
->  	struct stmmac_pcs *integrated_pcs;
-> =20
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/=
-net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> index afe98ff5bdcb..346f93f86abe 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-> @@ -386,15 +386,8 @@ int stmmac_mdio_reset(struct mii_bus *bus)
-> =20
->  #ifdef CONFIG_OF
->  	if (priv->device->of_node) {
-> -		struct gpio_desc *reset_gpio;
->  		u32 delays[3] =3D { 0, 0, 0 };
-> =20
-> -		reset_gpio =3D devm_gpiod_get_optional(priv->device,
-> -						     "snps,reset",
-> -						     GPIOD_OUT_LOW);
-> -		if (IS_ERR(reset_gpio))
-> -			return PTR_ERR(reset_gpio);
-> -
->  		device_property_read_u32_array(priv->device,
->  					       "snps,reset-delays-us",
->  					       delays, ARRAY_SIZE(delays));
-
-nit: what about moving even these properties to stmmac_mdio_register()? It
-seems a bit odd to have half of the parsing in stmmac_mdio_register() and
-half in stmmac_mdio_reset(). What do you think?
-
-Regards,
-Lorenzo
-
-> @@ -402,11 +395,11 @@ int stmmac_mdio_reset(struct mii_bus *bus)
->  		if (delays[0])
->  			msleep(DIV_ROUND_UP(delays[0], 1000));
-> =20
-> -		gpiod_set_value_cansleep(reset_gpio, 1);
-> +		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 1);
->  		if (delays[1])
->  			msleep(DIV_ROUND_UP(delays[1], 1000));
-> =20
-> -		gpiod_set_value_cansleep(reset_gpio, 0);
-> +		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 0);
->  		if (delays[2])
->  			msleep(DIV_ROUND_UP(delays[2], 1000));
+>  		stmmac_set_mss(priv, mss_desc, mss);
+> -		tx_q->mss =3D mss;
+> -		tx_q->cur_tx =3D STMMAC_NEXT_ENTRY(tx_q->cur_tx,
+> -						priv->dma_conf.dma_tx_size);
+> -		WARN_ON(tx_q->tx_skbuff[tx_q->cur_tx]);
 >  	}
-> @@ -608,6 +601,14 @@ int stmmac_mdio_register(struct net_device *ndev)
->  	if (!mdio_bus_data)
->  		return 0;
 > =20
-> +	if (mdio_bus_data->needs_reset && dev_of_node(priv->device)) {
-> +		priv->mdio_reset_gpio =3D
-> +			devm_gpiod_get_optional(priv->device, "snps,reset",
-> +						GPIOD_OUT_LOW);
-> +		if (IS_ERR(priv->mdio_reset_gpio))
-> +			return PTR_ERR(priv->mdio_reset_gpio);
-> +	}
+>  	if (netif_msg_tx_queued(priv)) {
+> @@ -4577,6 +4573,9 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *=
+skb, struct net_device *dev)
+>  	}
+> =20
+>  	first_entry =3D tx_q->cur_tx;
+> +	if (mss_desc)
+> +		first_entry =3D STMMAC_NEXT_ENTRY(first_entry,
+> +						priv->dma_conf.dma_tx_size);
+>  	entry =3D first_entry;
+> =20
+>  	WARN_ON(tx_q->tx_skbuff[entry]);
+> @@ -4714,6 +4713,7 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *=
+skb, struct net_device *dev)
+>  		 */
+>  		dma_wmb();
+>  		stmmac_set_tx_owner(priv, mss_desc);
+> +		tx_q->mss =3D mss;
+>  	}
+> =20
+>  	if (netif_msg_pktdata(priv)) {
+> @@ -4745,6 +4745,9 @@ static netdev_tx_t stmmac_tso_xmit(struct sk_buff *=
+skb, struct net_device *dev)
+>  						priv->dma_conf.dma_tx_size);
+>  	}
+>  error:
+> +	if (mss_desc)
+> +		stmmac_release_tx_desc(priv, mss_desc, priv->descriptor_mode);
 > +
->  	stmmac_mdio_bus_config(priv);
-> =20
->  	new_bus =3D mdiobus_alloc();
+>  	dev_err(priv->device, "Tx dma map failed\n");
+>  	dev_kfree_skb(skb);
+>  	priv->xstats.tx_dropped++;
 > --=20
 > 2.25.1
 >=20
 >=20
 
---5yyGVeVacvTbMRAa
+--hdZmFPt14xPP7efX
 Content-Type: application/pgp-signature; name=signature.asc
 
 -----BEGIN PGP SIGNATURE-----
 
-iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaq+UJAAKCRA6cBh0uS2t
-rG2zAP9gsrCleSZRt7ExqFD7e5Mo2sDtzXBvEdUjogUqIwHIFgEA/iL8xVFwvzmN
-CrJXix3dYybHYLP1NiQCPZif+Yis2A4=
-=/udT
+iHUEABYKAB0WIQTquNwa3Txd3rGGn7Y6cBh0uS2trAUCaq+XFgAKCRA6cBh0uS2t
+rKz0AQDQOKlvoWo/v6YdVyqg7wc3sX8gVj0oK+SpKbYYAjMZFQEAi+/NjQU08Sjg
+F7zosScZjl1GSR20UvITwQJmXwNs+QY=
+=Efwo
 -----END PGP SIGNATURE-----
 
---5yyGVeVacvTbMRAa--
+--hdZmFPt14xPP7efX--
