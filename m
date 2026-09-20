@@ -1,140 +1,107 @@
-Received: from mail-pj1-f50.google.com (mail-pj1-f50.google.com [209.85.216.50])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 52CF03FF8B6
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 12:41:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.216.50
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E94CA74E1D
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 12:44:32 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789908086; cv=none; b=RvMwewrMkw7nuxEL9tzeYOeeTeij6SPVz7Oj0q1a76gLefGvsdp54EaYRjwxgFODo0G2YFvzHU0/f2ajJSIUknV608RI42Zzfp5C84G9AK6mIJ7ALU3iM7nBqr7NJeGm4eGnL1r9QVKI02NVmNXs81xNJ6qu8YE8zHs5v/2LwxA=
+	t=1789908284; cv=none; b=B/0g+PGucEflfv3zU0WFdpwCPD4EpgG2Z/KKY7i6b+wBPsrBtvjPvItuKV+zkobotdwC2LXHxJskD4rX4EyAPFjWlcr9MXF1Qi+Q0TZLWa0NqQ6bZdLpf2j6+zKMnUQqAxSx80r03A9i2sWFPVAUj0H0Dh7cJj2dLMq5hAuMP9Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789908086; c=relaxed/simple;
-	bh=FiDW52r4aEut1QWROMUkSg1UFsKkBZoECLAVKtOtqH4=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lj5f2kPJLr6fdgjUzK3ts7Lw617i7AwL8nYpKbMlvaFFmsd7b3gpeL/yd0t4bafa0PN83ZmTFZmiQQOV/TvdQ5DLLxo6P9OtwBelKVEwjTUJDbvLUUouGLmLM/BLsA6Iha9SVKDuwLqggYuaYBHLthgJDjek+E5CVNQsbrfINFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=OJUpBSV2; arc=none smtp.client-ip=209.85.216.50
+	s=arc-20240116; t=1789908284; c=relaxed/simple;
+	bh=83M7wwCMjhqZfqGuGqRu74qM8OUaBkA8RtITx7gFqnw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=lVRITFzAsUE1w4D0rsI/8yWwS/rht7N/+R86bOdVJdlYy7TbSW2Tp8/3umBfxVOI7Ow3kUSuEpZWiiWub4eF9ZH9z0siTGjscz4FFMJd9WDlWexqZmAuncmd0eqb0GJYTGZrlWCuyngfNi0Mh5emE0fMI51DtCvoMrFRvSNO9Ek=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Fz4ivTT9; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="OJUpBSV2"
-Received: by mail-pj1-f50.google.com with SMTP id 98e67ed59e1d1-398b1e63c49so2340903a91.0
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 05:41:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Fz4ivTT9"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso2144414a91.2
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 05:44:31 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789908070; x=1790512870; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=FShkQP9FjjcmWIMEBaHGEh9TKajc5Rm5deyrnT3Pixw=;
-        b=OJUpBSV2n95S9Dw+mmXEdbD7Zt8lsbur7V3le+m1SiHRJQFv52xkpfDBLo1vQmb1is
-         V+u9X3gqCZdd4P0SWnntKuhTgq/4BPVxrfOLKzplQeT0h7jRYH8moaWGGx6CEIiMRsyY
-         VTNuA2oMtpWm5jVRlykEfhCFhPqOKvDBJMu3dvy/kz+NvOVyf55cS468NpHYh9WWRT9a
-         BsfOlQRkKdXFBnVvK0D8qyDmLbXOiBkVNw8hfVcagVd7efn5MmJDB1OSDWN0thM6NwmR
-         ZfgDzzqhRxS6Ys8rKzqiHXBLurUlmdT6xrQyPIOJFlPpLmL6lVjd7rTdVUZJqCWHZK7x
-         LzVw==
+        d=gmail.com; s=20251104; t=1789908270; x=1790513070; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=88A4P29kDkshugNm/BCcrVL2Ujjw491ho4GN7oaB6GI=;
+        b=Fz4ivTT9Bja5XAyrwSFYbqfb06aJXsFDy9MwuEhv5bZgx3OZtBmRjMRVsGKeLHxcYt
+         pq+GU3sPDrjZ7oIab3Y1W4iHRJTDdCCjwUOqx3qxqkhQaXkudnjQ5ABgHl3pSkoO/JKg
+         w8xU/P8sx9L8W5deIH0IXzd3DcnMFexDK3Joy+PEwlGf7AQ6l/jc9TUwt+sRGW30bYpp
+         AJWpL5EBwcw0YsKL/PVOgMkEdJbQnRO800W2mM4inwIz0VrXlUhFRfm79JUlgr6ddu5q
+         g3QPuYDmyE6Pljsagai2ZCLIrjzZyz+pLbUgppe8e63zR7qvXFgYxOKPY4grYHDNGpAe
+         Hkzw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789908070; x=1790512870;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=FShkQP9FjjcmWIMEBaHGEh9TKajc5Rm5deyrnT3Pixw=;
-        b=rF39sidh0yDjlNZgexvzolRFqs1N0kG3B1pVU+X4O1uXUXIxJUFpx/ksV9P4EiOcX8
-         nGMZ1mq88BFUwJGYRL1Cjgmv17JgbPKwhtJYl4nVSo9YBqEgzzojt0NsAH3r6kdcRJJw
-         MiI4QxHzxRvcGBKYKPzQTjClDveZKPDikx5hhjs26VlHuK0LLJWDbtsUjsggb14oVkIT
-         /oYxrV8EE6UB9Y2jfm0YkwWk2dWz8Yi7BJ6qWkyUj7x6b9aMVfoNX5FAv329LmEQZcfj
-         0CVW8CN3tFiu2y7pIDBl+5ctxUGwI+YCWIkCLW796mf/dUg9H8dtTGy/SRP1KizCfl8a
-         T1JQ==
-X-Forwarded-Encrypted: i=1; AKwUvByzK/9OM7pkdBtwGIDZb56qudzpshmtiFZ3jEfiwAFFakIMO8HKdMlJUrFSKEiWFkQLKD2OZAQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++mCjpfcp9vjrvylWBsI9OJwWyTfYGOp/g3m5sGAgdp6VBEhnTRs
-	D5dDcjPOhskO9Is6+WXJQayqmNBvwiOX6riK+Usf6CHmjUpNYAHTioWz
-X-Gm-Gg: AYBFou27XvM30HwTEy8Xn9iezV8RWvc5GMN3tMwVUcMHZ5ZuAx0g/WUkoUJAUK1rS5y
-	dr0VMdAm5jZ6rdE5Wpgr9lxVXlzuwv4rGegToU1rX6IP+7pjUTJ42jCSjS/etdIj+4NQ/L5a0pu
-	+/0pjd+hncmI1iKfW88OjdJd7Lwf34Jta3rYX8ioGQPOCBK/0xhBYgnWC0eg28EoOZKBerV06+I
-	hAvCIN/5AhF3/gL61+aMQbZlXpbM8CMvK3wLbGVt2/fxHBeMZ+N4w+eqVYfNV8c7zaZJjFCJgA1
-	KtTCTZNSKK0IUVqokg/GVEvmvjoAQAEg+pQdGVCEMUVv8HWxa+ByJyW63nTNEWca1C5ISg+qIun
-	Z0KXg/q98TotI4rO1lAg7OJyVemaBlCUNAfT2X1RG2DwhTywWOCb/WUPfJOvmnyUO6IpU9OuK4U
-	4AZAZKO55JOXCK1xSYJlQD54PUdxQZ9QQBmaWKuPA4e+hGY+gCnNdVnoKi67+Mkbbpag==
-X-Received: by 2002:a17:90b:3952:b0:3a0:25f0:d89e with SMTP id 98e67ed59e1d1-3a025f0ddb8mr3886407a91.53.1789908069737;
-        Sun, 20 Sep 2026 05:41:09 -0700 (PDT)
-Received: from xiaowei ([2406:da18:1aa1:6600:7a60:aa58:4b0c:e1c0])
-        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144d53968afsm13173337c88.0.2026.09.20.05.41.07
+        d=1e100.net; s=20260707; t=1789908270; x=1790513070;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=88A4P29kDkshugNm/BCcrVL2Ujjw491ho4GN7oaB6GI=;
+        b=WZQa+3gbxgj7gluySGaOCwIIa1WO1zagr31CSo6+IxwCV4djHIgubpRk/GMHhKchAD
+         6NkHCzKblp+02BaLhEeyhBNzK/YrfF1A+Ol+rL+i+wH9EfcLUvY2+xwN5V3tEhq11yuC
+         dwSRzbbDNrvNkTlM+5hQrqXF/NicRJjyGfghN8hsNQ8E7W8GYPjhFa+EgESFQuTp0kQm
+         WR0gu5Maf5enEoLWucy6Z86/bQNDIz2oyYasQRb/048sJPNl/SNEnYoYNt7LLkCr12y3
+         X8m1IG95/bT6neVxMBJyCk0rqxjDqJHGM6cWGKLDNONsIz8AiwD9BOrWjXQlbrptLn3i
+         DSJg==
+X-Gm-Message-State: AFuF++mKAyQTtl80lEH6YE/U3J3R+8S2ue7/jsLf+jeg74LRAb1ZFSfc
+	vmKX2YU/NP0a9+J6fBbKHDihgB1g1+lhVSBkw1REFiRASFQCfSszTGAl
+X-Gm-Gg: AYBFou3Pr6uSBAqgFLFCkpCWlEWVJQE1w9bXKUD2vXpyY8CexSc55ohly+lTUJhAb8/
+	9Q0UdYQvkMr/7DJYHeVX3j0v1dz4M/+IgyAV8eIlTmUT4TXWPbi296M7y1jWjgs9Z/q1zIOP+yS
+	0hUV0h2eK6z59ntniKJ7Ar91Vqkhhjj+39l7XrLSztBGjSda+rM2TlmmrRpWoPlT8801xdLKnK8
+	Yi5Hq4EJiJg0DcrrRXuyHmIKEA12NN28K6Ak9d6pgxvChjBIRh12bj8kyl86FHWjt5ype/nqRPH
+	zxsgNzlQXsFk0oK3mfyQoVQoKsiX4J5PuySDO/6ONsf5sOg0nSg3HaFgkrkzK8pfmP1rdZsFx8x
+	V7yLr3Dx4Mk1Cp606BPv8QYrAYa7aNi0iPumyIWixniRhkiVb+8O4W12mv5vBN9XdhRxISOiC6f
+	dAU8LrgkOxoS2USKgRhlE8EN7Ye0oAIViQbiTFP6T8CgaBbfPwDFATFIW+ZzwSfTI94LGu3Rflp
+	Tt45sYGhhKA
+X-Received: by 2002:a17:90a:d005:b0:39d:f731:e5f3 with SMTP id 98e67ed59e1d1-39e54f0e839mr13510604a91.24.1789908269665;
+        Sun, 20 Sep 2026 05:44:29 -0700 (PDT)
+Received: from localhost.localdomain ([2406:da18:1aa1:6600:7a60:aa58:4b0c:e1c0])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e55b83602sm6080026a91.1.2026.09.20.05.44.27
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 05:41:09 -0700 (PDT)
-Date: Sun, 20 Sep 2026 20:41:04 +0800
+        Sun, 20 Sep 2026 05:44:28 -0700 (PDT)
 From: Kevin Hao <haokexin@gmail.com>
-To: Sasha Levin <sashal@kernel.org>
-Cc: kernelci-results@groups.io, stable@vger.kernel.org,
-	KernelCI bot <bot@kernelci.org>
-Subject: Re: [REGRESSION] =?utf-8?Q?stable-rc=2Flin?=
- =?utf-8?Q?ux-6=2E6=2Ey=3A_=28build=29in_expansion_of_macro_=E2=80=98conta?=
- =?utf-8?B?aW5lcl9vZuKAmQ==?= in drivers/net/ethernet/ti/cps...
-Message-ID: <aq_UX31cS15phx6Z@xiaowei>
-References: <178965354369.144182.3820631599752867786@kernelci.org>
- <2026-09-18-daily-reply-0013-re-cpsw-rx-mode-work@kernel.org>
+Subject: [PATCH 6.12.y 0/2] Porting two fixes for the cpsw Ethernet driver
+ to the v6.12.y stable kernel
+Date: Sun, 20 Sep 2026 20:43:43 +0800
+Message-Id: <20260920-v6-12-cpsw-v1-0-b8490c4ef019@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: multipart/signed; micalg=pgp-sha512;
-	protocol="application/pgp-signature"; boundary="eLyoggJzZEbFl4F3"
-Content-Disposition: inline
-In-Reply-To: <2026-09-18-daily-reply-0013-re-cpsw-rx-mode-work@kernel.org>
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/yWMwQrCQAwFf6W8sym7ERb0V8RDuyYaD7VstCql/
+ +7aHmdgZoZLMXEcmxlFJnN7DBXirkG+dcNVyC6VwYFTOHCgKVFkyqO/SVn6bh80qjJqMBZR+6y
+ zE1Ibuf3ivHl/9XfJz/8Jy/IDve9XWnYAAAA=
+X-Change-ID: 20260920-v6-12-cpsw-f2eba30f1ff2
+To: stable@vger.kernel.org
+Cc: Jakub Kicinski <kuba@kernel.org>, Sasha Levin <sashal@kernel.org>, 
+ Kevin Hao <haokexin@gmail.com>
+X-Mailer: b4 0.17-dev-5895e
 
---eLyoggJzZEbFl4F3
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-Content-Transfer-Encoding: quoted-printable
+A previous attempt ported only commit 0b8c878d1173 ("net: cpsw: Execute
+ndo_set_rx_mode callback in a work queue") to the v6.12, v6.6, and v5.15 stable
+kernels. That attempt introduced a build regression, because its companion
+commit c0b5dc73a38f ("net: cpsw_new: Execute ndo_set_rx_mode callback in a work
+queue")—which adds rx_mode_work to struct cpsw_priv—was left out.
 
-On Fri, Sep 18, 2026 at 03:45:40PM -0400, Sasha Levin wrote:
-> > /tmp/kci/linux/drivers/net/ethernet/ti/cpsw.c:310:34: note: in expansio=
-n of macro 'container_of'
-> >   310 |         struct cpsw_priv *priv =3D container_of(work, struct cp=
-sw_priv, rx_mode_work);
-> > /tmp/kci/linux/include/linux/stddef.h:16:33: error: 'struct cpsw_priv' =
-has no member named 'rx_mode_work'
->=20
-> The queue took 0b8c878d1173 ("net: cpsw: Execute ndo_set_rx_mode callback=
- in a
-> work queue") without its sibling c0b5dc73a38f ("net: cpsw_new: Execute
-> ndo_set_rx_mode callback in a work queue"), which is the commit that adds
-> rx_mode_work to struct cpsw_priv. It is dropped from 6.12, 6.6 and 5.15 n=
-ow.
-> Note that the cpsw.c half applies textually clean on all three trees on i=
-ts own
-> and only fails at compile.
->=20
-> Kevin, could you send a backport of the pair for 6.12, 6.6 and 5.15?
+As requested by Sasha, both commits are now being ported together to the v6.12,
+v6.6, and v5.15 stable kernels. The two patches apply cleanly to v6.12.y.
 
-Sure.
+---
+Kevin Hao (2):
+      net: cpsw_new: Execute ndo_set_rx_mode callback in a work queue
+      net: cpsw: Execute ndo_set_rx_mode callback in a work queue
 
-Thanks,
-Kevin
+ drivers/net/ethernet/ti/cpsw.c      | 41 +++++++++++++++++++++++++++++++------
+ drivers/net/ethernet/ti/cpsw_new.c  | 35 +++++++++++++++++++++++++------
+ drivers/net/ethernet/ti/cpsw_priv.h |  1 +
+ 3 files changed, 65 insertions(+), 12 deletions(-)
+---
+base-commit: fa5b06866b643cce7072a4e7c6be7ee3f0f1b95c
+change-id: 20260920-v6-12-cpsw-f2eba30f1ff2
 
-> 6.6 and
-> 5.15 have no disable_work_sync(), so those two need adapting. 6.1 and 5.1=
-0 do
-> not need it, the Fixes: commit 1767bb2d47b7 ("ipv6: mcast: Don't hold RTN=
-L for
-> IPV6_ADD_MEMBERSHIP and MCAST_JOIN_GROUP.") is not there.
->=20
-> --=20
-> Thanks,
-> Sasha
+Best regards,
+--  
+Kevin Hao <haokexin@gmail.com>
 
---eLyoggJzZEbFl4F3
-Content-Type: application/pgp-signature; name=signature.asc
-
------BEGIN PGP SIGNATURE-----
-
-iQEzBAEBCgAdFiEEHc6qFoLCZqgJD98Zk1jtMN6usXEFAmqv1GAACgkQk1jtMN6u
-sXEXgQgAk/ffYeqFykEIBlfaIf6P0udpvRcw3mdDbnMeWdlVcZC1cpdaejOII2zb
-GnhDzAlkhPVnyNgRteMoAWLw/A9od13943nuS9yCNfmWuojRvHAG/Ke9I4S80rU0
-ItedXhLS5FbLsa/i7joxYIUaHxovSHhFJmbGXdL2x0etybjsiqlPlvum6d4K6dtG
-sqZ4MZtk/qD7GnZJGT1jP8adiMV2ENgTZEDh4MwiPijxYrZYIxgiBXzkntHDPr1G
-FBWNbDuLdXBZspfDD6uVqcCvaK9f+Ttdiq6WD5o4xGfmteiZzi/4zl8u+hLBhfhZ
-/ioM1sO8vq7cCLze+7jfe/wbaeatMQ==
-=9nx1
------END PGP SIGNATURE-----
-
---eLyoggJzZEbFl4F3--
