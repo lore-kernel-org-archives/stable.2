@@ -1,69 +1,71 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 10BCB42E428;
-	Sun, 20 Sep 2026 13:15:31 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB7B3264D9;
+	Sun, 20 Sep 2026 13:20:06 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789910136; cv=none; b=jM3msqv4XcS6vAQzJBX8aFhUlhpf2Z7DAR8EWKTB5zhhvpSdyBJZl5I/8e1xI0MS8+0xjCpV19+X2VPTep6NEirb7oyEigNVym2uXvkEmVgBCCugxdkdBAIfou/Xq0ISOOYkQVkGhzGl41JUtS3MBiRiNKnNA+SugzViHfyAGYk=
+	t=1789910411; cv=none; b=DQb/66DMhTx6ZLvgVAWe39nENxd6zGR6FxXtQFunBY70AnDU4wGhh+3g8YSRps21kW30+VrYP0eQjVo7c4QiKbst6O+oBmU5X6fWfyhZ9LCDvh96C4JXhcX0nxHJ5ApTOzIbUnOrNoy4YX6Ms+qEZCwXVpyosxpTApO+02nQeHY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789910136; c=relaxed/simple;
-	bh=O9IiKP2yRjWpYxt+UwYSnK+euahPbkA5JKVd7Gw702E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GPU7qRZ82kecoAUoRIqESYt382tFGtyzsR7kRMyq/giqjkqN8kp7y5U9DGPA2GXG8A38m+5Eq/iKsjgiiPCas7b3UM3++7tFwyTfh6q1blwszCKRk50ixVXgGBbGjoEApR1BNc2yQgDGorzApMDqOj3WxzUUTmEdMxq1iOBGRJ0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jNNVVhJc; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789910411; c=relaxed/simple;
+	bh=T+VFsNEimWOmCWeQN2AvdPJYneHU6r5Lgh7xEdroxvI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=oNWFJ+5KxJHxHQU/F/cLqJ8xELq63WJKukDN/LKcr6Om7AHpwsJ0GqhVyLV8qr4InjhTJICGG7jNSuvLTrHafpUHSdvkT07yTaa8rksQmC1EZx2wlHeTTzNM57im2OoipaYJ9bF3GlpvQS3OLzdNlOjJBTCQbHtc7zFgGD9Iwos=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=utCv7/H+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jNNVVhJc"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BEB571F000FF;
-	Sun, 20 Sep 2026 13:15:27 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789910129;
-	bh=2ClvUqa3gFqi46vuVPqQXMQRykM+sC9yZ5XUitC0GKI=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=jNNVVhJc2J27yBQ2EaxxhZUQgKfvsfTeZtyDcVrWX0st4XLFQL5vswTsazFTMwvIb
-	 2e5tsoyhxKb9hNf47SEhj97BQ8f+5z6tvMuCqEBlBA4QGADGyZhF2wUM3JTu4UEqpo
-	 Qf9HfS7SNP+gdvAxJk6FisVXpe07MPHyneriYq38+7x3xV6zwulbeNLY3GbQUBWOmc
-	 ovsekqyPRlI5P9I0W0Wy1NLKKSyJhw8tJGRCFLo6xVs6h5O38nARLT3l9nkDoDbBrd
-	 M0QvrhJwTLmEo7zu/2hF6U1CZ7jR/mqnkH8SVlRpY3CkmTYwnD7nMVgL6DvCrKaQkp
-	 Y4MSZyXRUHLsw==
-From: SJ Park <sj@kernel.org>
-To: SJ Park <sj@kernel.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	Andrew Morton <akpm@linux-foundation.org>,
-	damon@lists.linux.dev,
-	linux-mm@kvack.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH v2 1/3] mm/damon/core: prevent size quota overflow in the temporal goal tuner
-Date: Sun, 20 Sep 2026 06:15:24 -0700
-Message-ID: <20260920131525.49087-1-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260920103714.47722-1-sj@kernel.org>
-References: 
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="utCv7/H+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A48BF1F000FF;
+	Sun, 20 Sep 2026 13:20:03 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1789910404;
+	bh=pPFVXIeyUzoKPDgRYX7SBIEkwWiNuyzRuLcAvRm8EJA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=utCv7/H+2eF280Ci5OigggL9Vfd23kpmDIoYr3S5lSN1GJR7Sam27oxd5f+a41Arn
+	 +ezjtetiWSqJyndy9WseoObXg/djoU5VX7oqViolnV1SbBpGezDBKbISIBDCqhCnBI
+	 yETjpj9x+kLA4w9Csm3Rrr7H3RX3wio1WGgDpqvs=
+Date: Sun, 20 Sep 2026 15:19:56 +0200
+From: Greg KH <gregkh@linuxfoundation.org>
+To: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+Cc: mptcp@lists.linux.dev, stable@vger.kernel.org, sashal@kernel.org
+Subject: Re: [PATCH 6.12.y v2 0/3] mptcp: fix recent failed backports
+ (20260919)
+Message-ID: <2026092050-wisplike-trustful-6c97@gregkh>
+References: <20260920094135.2431797-5-matttbe@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920094135.2431797-5-matttbe@kernel.org>
 
-On Sun, 20 Sep 2026 03:37:13 -0700 SJ Park <sj@kernel.org> wrote:
-
-> On Sun, 20 Sep 2026 11:31:09 +0900 Donggeun Yoo <donggeunyoo.kernel@gmail.com> wrote:
+On Sun, Sep 20, 2026 at 11:41:36AM +0200, Matthieu Baerts (NGI0) wrote:
+> The following patches could not be applied without conflicts in this
+> tree:
 > 
-> > damos_goal_tune_esz_bp_temporal() converts the scheme's size quota into
-> > basis points with "quota->esz_bp = quota->sz * 10000", both unsigned long,
+> - 2b0f561f21b2 ("mptcp: avoid unneeded actions on subflow reset")
+> - 42064de57fb8 ("mptcp: close race between scheduler and state change")
+> - f3ef03357396 ("mptcp: fix bad accounting in __mptcp_subflow_push_pending()")
 > 
-> Let's break commit message lines with 72 columns limit.
+> Conflicts (if any) have been resolved, and documented in each patch.
+> 
+> v2: Drop these two patches that have been already backported to this 
+>     version, but git didn't complain about that. Instead, resolve a 
+>     small conflict in patch 1 ("mptcp: avoid unneeded actions on subflow
+>     reset"): decrement the '__unused' variable.
+> 
+> Paolo Abeni (3):
+>   mptcp: avoid unneeded actions on subflow reset
+>   mptcp: close race between scheduler and state change
+>   mptcp: fix bad accounting in __mptcp_subflow_push_pending()
+> 
+>  net/mptcp/protocol.c | 13 ++++++++-----
+>  net/mptcp/protocol.h |  3 ++-
+>  net/mptcp/subflow.c  | 11 +++++++++++
+>  3 files changed, 21 insertions(+), 6 deletions(-)
 
-Zenghui pointed out [1] the documented recommendation is 75 columns limit.
-Let's use 75 columns limit.  Sorry for confusing you.
+Now queued up, thanks.
 
-[1] https://lore.kernel.org/20260920131300.48929-1-sj@kernel.org
-
-
-Thanks,
-SJ
-
-[...]
+greg k-h
