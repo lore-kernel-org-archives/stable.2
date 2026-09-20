@@ -1,35 +1,46 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3738133BBCD;
-	Sat, 19 Sep 2026 23:31:13 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D24A298CAF;
+	Sun, 20 Sep 2026 00:47:14 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789860675; cv=none; b=SiIBKE3HQxlnUXW+PuwKRVhkuElvsuUN1XtWIwM0OvUkyZvcXDEVJ+nSsfn5o5z1vGhrnqLUSRDIJI0EmDd9l5eHry39LkQjLvZNQx6JqUIYIeYYmdboTkBNMXB1Ux5xT1oZajYVyNNxl5x/pvC4wTQVoHCJKf67Ir0LE/k8dj0=
+	t=1789865236; cv=none; b=h8Tk5P1SoDKodDKjKN9qFvsMW95ckqmuOHdZQAEi183hrYPJYFPpOjMehsZDe5wJGcbF4XwZNuRBm5tlY5uNZG0fLmXsV5O5f2IYe+hxTcwemTfaba4nzCvzNbUqdt1fhXno4oOCOqmJiCDNgfgHhLw/3K/IoowO6cGLIyu8LTU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789860675; c=relaxed/simple;
-	bh=Uc6riLnBz5+J8dYqDHj3zzGSsYAXRgnidFsH6sDHDE4=;
-	h=Content-Type:MIME-Version:Subject:From:Message-Id:Date:References:
-	 In-Reply-To:To:Cc; b=hLTqXXU+w9B0ppDANn+FJkhbpKCM/NCRSOWECVmuHiMYH8MLz2SzeaExq2yPtWuwbexzJovYX0oxI98QXTHoZiQklfjKVg7oSboMJjr6wH31rdb0RP4nhYL8F4A8rR0mumiPEhkMa1NQ6QiZGXPOVCU6VJ89Ih6GUShyCkKN2fs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lNE8Q2Sf; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789865236; c=relaxed/simple;
+	bh=uWKDnEujUaLAltLGmlKe7m7QoDeqXeG7pyjjL/6lT3s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=eBdsVVyWd/CnAV64B6dVCYVAtVUGTrQ2Nqz8ez0mCRLSTqjf+AWbP3ht79sUSQOgXUUmzy3i/NVoXSrivxPHoBPXU0/+YJv8UJAoRrjWb3SF0OWKYbwcbRHSM7ouMfxiwZ+PLCffGXepA1ICKqXvHYJXSPHDWOVwKWT93+I5ftY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MjUwFv8F; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lNE8Q2Sf"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B8A1A1F000FF;
-	Sat, 19 Sep 2026 23:31:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MjUwFv8F"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E5B371F000FF;
+	Sun, 20 Sep 2026 00:47:13 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789860673;
-	bh=TXB54+NWb8Funxwz7w7i+S5lnrzAQ9Mim6+8OjJPVgw=;
-	h=Subject:From:Date:References:In-Reply-To:To:Cc;
-	b=lNE8Q2SfZ+0fSu4KbAWRLsD0luqqtvqmPXzdnLR8GaGC9O14PEfliQ2N9rHDARSa+
-	 algKbc4YGwUbib7Yl8k2FxqYNF19ZG6yAP8GqPS4ol1+WRVdOwj6hw6FhHUz+9oDep
-	 BqNJ2BqwmUghHN7ULQBSxN/69Ttoiy0njq+9kgWm6Lm31az25qhdvo72iGkx5aw02V
-	 VtlVuAsMYWybhtMTeC08ZtkWwOGQnNgkO23bbQlXXpU0LzbXHIwDZp4n+xQaEJmpyR
-	 kLk26OYqip3KObvJEsBuILxljvHYHZffXnRbaKERH1MEVQyqCNJtuvT7vaQB4n9/4Z
-	 702EpTDSCgf4A==
-Received: from [10.30.226.235] (localhost [IPv6:::1])
-	by aws-us-west-2-korg-oddjob-rhel9-1.codeaurora.org (Postfix) with ESMTP id 569DB392447F;
-	Sat, 19 Sep 2026 23:30:07 +0000 (UTC)
-Content-Type: text/plain; charset="utf-8"
+	s=k20260515; t=1789865234;
+	bh=bVkCNHgGvHUNWJ/JvmnQwk8xOIxeLPFbfU1Y3x9KZhU=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=MjUwFv8F5H8adkefrb0+a517F1L4ElVYar0yELj5jrhkIzYBQOKdQvMZNkmax+00O
+	 JrbYjZHO/OF6GiZVkGAAp6OYe+CqeiRmz64T3dbuq/3Sfi7/pK1g3zYMz2GGSqK40V
+	 xJV636vx9euFwVkGC1MywxA8yi6T3P5QD28bDlXHDsY+1s3c8wyhxk2q92F2efisD7
+	 ouII3DMXGi89uyqr4kK5FOyk8bKcsDzfsOF/BIKKc16EjBngmus9noK5gHr3X9eNpo
+	 edKcXosunhLdkEJeiWXPAjvYmbqnfz/UER0YW8cvJQAaO7EmHJ/gHf6VNtbMKISk+D
+	 OXko1EsarHdlQ==
+From: Sasha Levin <sashal@kernel.org>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org
+Cc: Sasha Levin <sashal@kernel.org>,
+	patches@lists.linux.dev,
+	Jan Kara <jack@suse.cz>,
+	Christian Brauner <brauner@kernel.org>,
+	Vegard Nossum <vegard.nossum@oracle.com>,
+	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
+Subject: Re: [PATCH 6.12 0991/1102] nscommon: simplify initialization
+Date: Sat, 19 Sep 2026 20:47:05 -0400
+Message-ID: <20260920000825.1-1-sashal@kernel.org>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <275530c5-71cc-4dd4-bb00-d39c236c9edd@oracle.com>
+References: <20260917151539.408551884@linuxfoundation.org> <20260917151605.594963317@linuxfoundation.org> <275530c5-71cc-4dd4-bb00-d39c236c9edd@oracle.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -37,44 +48,19 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-Subject: Re: [PATCH bpf 0/1] bpf: crypto: check params size before reading
- reserved fields
-From: patchwork-bot+netdevbpf@kernel.org
-Message-Id: 
- <178986060614.1492995.17864006434061147722.git-patchwork-notify@kernel.org>
-Date: Sat, 19 Sep 2026 23:30:06 +0000
-References: <cover.1789802413.git.xuyuqiabc@gmail.com>
-In-Reply-To: <cover.1789802413.git.xuyuqiabc@gmail.com>
-To: Yuqi Xu <xuyuqiabc@gmail.com>
-Cc: bpf@vger.kernel.org, vadim.fedorenko@linux.dev, ast@kernel.org,
- daniel@iogearbox.net, andrii@kernel.org, eddyz87@gmail.com, memxor@gmail.com,
- martin.lau@linux.dev, song@kernel.org, yonghong.song@linux.dev,
- jolsa@kernel.org, emil@etsalapatis.com, ihor.solodrai@linux.dev,
- stable@vger.kernel.org, vega@nebusec.ai, weir@nebusec.ai, xuyq21@lenovo.com
 
-Hello:
+On Fri, Sep 19, 2026 at 09:39:54PM +0530, Harshit Mogalapalli wrote:
+> The commit claims to backport 5612ff3ec588
+> ("nscommon: simplify initialization").  That upstream commit changes
+> ten namespace initialization files.  The stable commit changes only
+> fs/pidfs.c, so the two changed-file sets are disjoint.
+[...]
+> I think we should drop the change. Thoughts ?
 
-This patch was applied to bpf/bpf.git (master)
-by Alexei Starovoitov <ast@kernel.org>:
+I'll drop it.
 
-On Sat, 19 Sep 2026 16:45:01 +0800 you wrote:
-> Hi Linux kernel maintainers,
-> 
-> We found and validated an issue in kernel/bpf/crypto.c.  The reproducer
-> below runs as root because loading a BPF_PROG_TYPE_SYSCALL program is
-> gated by bpf_capable(), so a user namespace is not sufficient.
-> 
-> We've tested it, and it should not affect any other functionality.
-> 
-> [...]
+Thanks for catching this one.
 
-Here is the summary with links:
-  - [bpf,1/1] bpf: crypto: check params size before reading reserved fields
-    https://git.kernel.org/bpf/bpf/c/a11212910cf0
-
-You are awesome, thank you!
 -- 
-Deet-doot-dot, I am a bot.
-https://korg.docs.kernel.org/patchwork/pwbot.html
-
-
+Thanks,
+Sasha
