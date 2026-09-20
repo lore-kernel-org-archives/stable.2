@@ -1,45 +1,47 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 18AEE472F61;
-	Sun, 20 Sep 2026 17:51:03 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 76E20472520;
+	Sun, 20 Sep 2026 17:51:04 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789926664; cv=none; b=Y8QM7F0QpcOBXZQ13MUKSc+SdkIPscGSx6fygiN8G8RXaJNYuU/xoRIuvY7455EyaT8QKZXDqaR6FONpVzriC7zqSYTmHTcnQFgg3I7p6rw02S5AiE+fdHVWwRyOQB370OcRoWk5b/+Hf5wiSa6EK0EEc7Xsx6MdB0omTyDnuFg=
+	t=1789926665; cv=none; b=ueaLRGt0n9p2+zstOLB7AL40WMfdsUkDoz4bWtEwguwt+GncWaFKEi0iJrJ+hl5ePUe+nge3hY7+NI4avjSmMl8Dl5sv/hvpuDXgMpnJ9UY0DsUUX2tHSIz9273CNA4pMhKzz6TsTrf932gBDP0NOZ6DzwZXS32hbztz8iBPvZY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789926664; c=relaxed/simple;
-	bh=aKtCQ8EQksz0kTvpq/6BjM7GAR9kex6Bbgr2Gpah+Uc=;
+	s=arc-20240116; t=1789926665; c=relaxed/simple;
+	bh=3QvSPWIbvJRfBI2KJAUuR0allRS2f1zcnaKS9heRVCI=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ulD5JIHnZbBHiNL2xlLlnR3a8Q+rObz/MX90qjjLVEm3EmTYyVXk28vV+k2ofNToYFavgp1vNoW5albGP+7V3lGViOuo8ApfHxZLjsVcEW1V39umTvuIPaS89q2Zn6NMWmWuHAMN5OryOqmg/wDS44vC+g3yYtnhTlcxEFlUNSM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CXXEmssX; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=i1QvcVFK9q3RPzWvozjYHrwee9bOSnPIn5i5AnjW5GgiKkFSK3aUypN12lpDERtrdTm5X/mkmECoAFb72nHrurySEqJo1hr5ooYUn6fPz2pZoYq/DqOtAR6P/KdmEwGET1uOD1+gSaU3riV7tXuwamKZrYmOryZHRJDCPUJIW1w=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZbFynyQz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CXXEmssX"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3CB1C1F00898;
-	Sun, 20 Sep 2026 17:51:02 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZbFynyQz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EB601F00893;
+	Sun, 20 Sep 2026 17:51:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789926663;
-	bh=N04XbJXXjle6GDQt1BliGEChPTGaFsZotHb3+Czrv6A=;
+	s=k20260515; t=1789926664;
+	bh=JkiK1l40zgx8qead8nkgW71sHetsJh5WyduFCv696Uo=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=CXXEmssXEBBzn8tOVedy+6SgSJFh5aPX5NwcCTTn0tcxPj4ZeDroMmC7PILlwx8AE
-	 rrxpff5QqRH9YJIG3MR6dzGKF8l+ONxpvAqZfiCDhpw8BfHw+lApmqxIazC2rH1u5U
-	 O7Q3uovx/rAuoeTBbc625kihbDxyNZbUFgAJgtUUSsRLAQ2Sl3InFt0+hk3Dqeb20/
-	 uWMbwZhAkTAImXGGafTgsguS/Yza7BvoSZZvZcfI6nM3CJ9plrzkN6IrjzkHCZQieD
-	 u/bCXXd7h169g8xoaSubRoEfwbKYwUtvHoqZMHBIRdFdPnchOwOGZsf2IbWp5GYCMw
-	 G660e0uygUVjA==
+	b=ZbFynyQz8Y7/IWtRsTpRjO3/Bd5/MSvrhnTtGcNz6flEzP+pP1nGMywTMqfPQ0HDZ
+	 PWjbbgAvE65XEcTYAc/2xHvGpJAA5Ex/6f9YDa7/eCDQJwjAWB+ebKi9W6PHHtIQ+z
+	 q815twKUOboO3h3b0mFOEZsu4DWhwyfCsyHDhVGnz4gFpVIV1ukpiAOYeyhY5AdFU8
+	 t71zgudjHX2jyr0mieG1dHrXzNeAtV2GVsZEFqpd5DMA9CvMNRkvQD7uGnrp4aM38w
+	 QXNSoJ2S30W0cbzV/U1SVMYNTAbnlFwy+wDHgg1q8M1H386GV+gnfdivsFcrd2/655
+	 1ojs6OfQZNxgw==
 From: Sasha Levin <sashal@kernel.org>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	stable@vger.kernel.org
+To: gregkh@linuxfoundation.org
 Cc: Sasha Levin <sashal@kernel.org>,
-	patches@lists.linux.dev,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-Subject: Re: [PATCH 5.15 424/935] bpftool: Update btf_dump__new() and perf_buffer__new_raw() calls
-Date: Sun, 20 Sep 2026 13:50:42 -0400
-Message-ID: <2026-09-20-daily-reply-0010-re-bpftool-5-15-build-break@kernel.org>
+	stable@vger.kernel.org,
+	rafael.j.wysocki@intel.com,
+	matthew.leach@collabora.com,
+	superm1@kernel.org,
+	linux-pm@vger.kernel.org,
+	regressions@lists.linux.dev,
+	David Lomas <david.s.lomas@gmail.com>
+Subject: Re: [PATCH 6.18 0167/1250] PM: hibernate: call preallocate_image() after freeze prepare
+Date: Sun, 20 Sep 2026 13:50:43 -0400
+Message-ID: <2026-09-20-daily-reply-0011-re-hibernate-preallocate-deadlock@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <9f5619f7-f726-4214-b87c-c052144134ea@oracle.com>
-References: <9f5619f7-f726-4214-b87c-c052144134ea@oracle.com>
+In-Reply-To: <CALjEBWQo0-Sdimo+aRNKUQvgDGw=jBFCcfwCXaqVdtoPrHLAQA@mail.gmail.com>
+References: <CALjEBWQo0-Sdimo+aRNKUQvgDGw=jBFCcfwCXaqVdtoPrHLAQA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,26 +50,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> Would you be planning to revert the commits ?
->
-> Don't see it here: 
-> https://git.kernel.org/pub/scm/linux/kernel/git/stable/stable-queue.git/log/queue-5.15 
-> , so reminded.
+>   task:systemd-sleep   state:D pid:36677
+>    throttle_direct_reclaim+0x358/0x3e0
+>    try_to_free_pages+0xbf/0x220
+>    preallocate_image_memory+0x35/0x9b
+>    hibernate_preallocate_memory+0x25b/0x390
+>    hibernation_snapshot+0xc1/0x4e0
 
-Nothing queued yet, you are right.
+Rafael, Matthew: there is no fix or revert in mainline, and 7.2 has the
+commit in its base release, so 7.2.y users keep the hang whatever the
+stable queues do. Should the ordering go back, or should the hibernation
+task bypass the pfmemalloc throttle?
 
-164b04f27fbd ("bpftool: Update btf_dump__new() and perf_buffer__new_raw()
-calls") cannot come out on its own: it conflicts in btf.c and gen.c against the
-libbpf_get_error() conversion above it, which in turn conflicts in map.c. The
-clean removal is the whole six-commit chain, newest first, which also takes
-66d7e39e49b0 ("tools/bpf/bpftool: Reset vmlinux BTF after map commands") and
-two other bpftool fixes. 5.10 never had the chain, so that realigns the two
-trees.
-
-There is a third break the log does not reach: btf.c and gen.c call
-btf_dump__new() with the post-1.0 argument order, so on 5.15 the callback is
-passed where the btf_ext pointer is expected. Any revert has to cover those two
-files, not just map_perf_ring.c.
+The commit has no Fixes: and no Cc: stable, so nothing is lost by
+holding it out of 6.18.y until that is settled.
 
 -- 
 Thanks,
