@@ -1,71 +1,74 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 54C663DD525;
-	Sun, 20 Sep 2026 09:27:02 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CB9DB3EA962;
+	Sun, 20 Sep 2026 09:41:47 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789896423; cv=none; b=V5a5aVWN+OsY0O7EEcxwWpUTvLylHM72RB31V1n5sIxEIusa3cPR7uB4YmsdFPJESPP02aOrT5ode1IshIa+aO//4i8/+8CK2pTv1FQNGp3kHoOKJE/Lbz/ikkoiWncn7m8pFyBgqeps2/w8CcHUwT5z/qXnq7xkFqGc+8bTc4U=
+	t=1789897308; cv=none; b=ngyb+aiVi4D7WWqTiwQochg16nFjpzTO0ruNG+2XTLBQUfeXRoe+no3cs8oFWP3EYR331KNgK6Gva4z3MwJiVfo3dm+JaNXJuWcQsqJqZbo8ZWG8/+6+4m+E9TdaC/ItDbEWiFk8uXPsIeopKQCiH1BPwDOwiOHVDBaNi9yhgb8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789896423; c=relaxed/simple;
-	bh=Fd4NH91IHpBfE5nh8j7n8QVkABIowpo1/jSDVGNjAQ8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lbvU43OlbGuEE+nn4yLSRd9TQoB35sTYgwOXOzsjGN0Iqr8wFzBgG01Dla3gSNK2OvgqgMomrlY3qjHCVpAV6CjcsDV2DCx9aCKtNXK3ZivwvKyLy5ITfPfxa/hj4TE6ChZyuBASX7tbXkkIypWjlfLuXo5n88TO3YNDl8qgdok=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lQcf4LUF; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789897308; c=relaxed/simple;
+	bh=uXp0H7XteirnL4+eZcP9BYEzUWF5kbIJMAxeVGcWwgc=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=Uu0xiY23LWJmjqZROFSMg4Snir50MIxQrKDPlc9cQLTFjKLCiVMr0mm6imYvL2jeImO9Qzo6FX6uCmvmTWUuKDXDe99H+QkVt7CKlL2LMEQBFEIVALFzx5SOg/rsPmOrqHXoTRYTR8gAjKOBthkEnL57JIraUTw74+pb4mXw5VY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=go+O/OOS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lQcf4LUF"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CBEAB1F000FF;
-	Sun, 20 Sep 2026 09:26:59 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="go+O/OOS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 53BEB1F000FF;
+	Sun, 20 Sep 2026 09:41:46 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789896421;
-	bh=3NMeU7tF9nrFiPFgCGKge/XFjjtDJmpo93ZYBHwOb7E=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=lQcf4LUF+JvPt2NshpVB49GBqGlU+x1gzcFNmvNHRV8TCW51sziWv30Ois0CoHa9v
-	 dqsKkj6qbTGQcphiyZQEu8AH8NTxf2Qu462ZRvr+DnYFpm5fxBjCjUztxNqACOzALa
-	 vVmx4d4mEwLlO1BVqv7ha99BBjXG5u51hO58NZnTl4zmHbSowyngcnY4ekn5nUBi6V
-	 s5IDg6BCYHs4a7TcJnqd1zFmtl8qBzzfeLpTg5BQsmDqQ0zggtvYGe/QDYm4YVDf/3
-	 V59AZo5U8msxQ+zLhTrirmRIkM3LqBorZZjVkJR8D37tQzSBX2GmlHXD2a920zKLB2
-	 FEXkFW+jkl0eA==
-Date: Sun, 20 Sep 2026 10:26:57 +0100
-From: Simon Horman <horms@kernel.org>
-To: Jakub Kicinski <kuba@kernel.org>
-Cc: Xiang Mei <xmei5@asu.edu>, andrew+netdev@lunn.ch, davem@davemloft.net,
-	edumazet@google.com, pabeni@redhat.com, netdev@vger.kernel.org,
-	bpf@vger.kernel.org, linux-kernel@vger.kernel.org,
-	jakub@cloudflare.com, stable@vger.kernel.org,
-	co+0ea1ac045375cf05@bugs.sh
-Subject: Re: [PATCH net] vlan: require the MAC header to be present in
- __vlan_insert_inner_tag()
-Message-ID: <20260920092657.GB13925@horms.kernel.org>
-References: <20260915083152.705309-1-xmei5@asu.edu>
- <20260919074535.GW51261@horms.kernel.org>
- <20260919154911.642616cf@kernel.org>
+	s=k20260515; t=1789897307;
+	bh=ZLtQzsdixH/4zcei5rEvVGXPwB0bJ2/QIZu0lvAnFBA=;
+	h=From:To:Cc:Subject:Date;
+	b=go+O/OOSTsknoD+rBJFieHsjxFbjE+pchVS8ggFcWzekiTjUWn08gL1cVLGBw9vdT
+	 PD+Y1jdWVm5f0p3oMdTN4oC8tv0h9uqa87hlv+loX+yrS4TVYPRyeRgClOdN4D9SNI
+	 GuQRnilMCSuWEw4u5iTX9sCFXDf31XZ4TayoDj76StupdhDxG7Qvsw4jQkyh1Ax8wD
+	 oXYrXsOiVXP7d+b5i9Q8flsDvqEZaffRbL+RpYklpsXX6WHcZoWKlU38+YnBYkI1dL
+	 Md5kvK0baWzxHZbKZmi/VrHrJp8BH/UiB3gPQpeMjbDMJAwQoKmSX0hrufDThJzjuk
+	 bN2Lgqk3AA3iA==
+From: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>
+To: mptcp@lists.linux.dev,
+	stable@vger.kernel.org,
+	gregkh@linuxfoundation.org
+Cc: "Matthieu Baerts (NGI0)" <matttbe@kernel.org>,
+	sashal@kernel.org
+Subject: [PATCH 6.12.y v2 0/3] mptcp: fix recent failed backports (20260919)
+Date: Sun, 20 Sep 2026 11:41:36 +0200
+Message-ID: <20260920094135.2431797-5-matttbe@kernel.org>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260919154911.642616cf@kernel.org>
+X-Developer-Signature: v=1; a=openpgp-sha256; l=1009; i=matttbe@kernel.org; h=from:subject; bh=uXp0H7XteirnL4+eZcP9BYEzUWF5kbIJMAxeVGcWwgc=; b=owGbwMvMwCVWo/Th0Gd3rumMp9WSGLLWrwoIXyK5lWFNeFZdRfysN77xcRzR15K12NbuPaDmk dO9VmBmRykLgxgXg6yYIot0W2T+zOdVvCVefhYwc1iZQIYwcHEKwESEYxgZjkx0s1fXUj3kPYfH /uoNTflGPe23zuFcZsZ7RW9Pvngyl+E328wJeQtOq+95fcC77Iq/bYjD9/7MD/pl2y5FMsbneL1 nAQA=
+X-Developer-Key: i=matttbe@kernel.org; a=openpgp; fpr=E8CB85F76877057A6E27F77AF6B7824F4269A073
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 03:49:11PM -0700, Jakub Kicinski wrote:
-> On Sat, 19 Sep 2026 08:45:35 +0100 Simon Horman wrote:
-> > > +	if (unlikely(!pskb_may_pull(skb, mac_len)))
-> > > +		return -EINVAL;
-> > > +
-> > >  	if (skb_cow_head(skb, meta_len + VLAN_HLEN) < 0)
-> > >  		return -ENOMEM;  
-> > 
-> > TBH I am surprised that we have a bug like this in this function.
-> > But your analysis matches my understanding of the code.
-> 
-> FWIW I suspect it's because non-ethernet packets shouldn't normally
-> reach ethernet helpers.
+The following patches could not be applied without conflicts in this
+tree:
 
-Yes, I agree that seems likely.
+- 2b0f561f21b2 ("mptcp: avoid unneeded actions on subflow reset")
+- 42064de57fb8 ("mptcp: close race between scheduler and state change")
+- f3ef03357396 ("mptcp: fix bad accounting in __mptcp_subflow_push_pending()")
 
-> But I'm not sure how practical it would be
-> to push mac_len checks to the callers or anything of the sort,
-> so we can as well check here..
+Conflicts (if any) have been resolved, and documented in each patch.
+
+v2: Drop these two patches that have been already backported to this 
+    version, but git didn't complain about that. Instead, resolve a 
+    small conflict in patch 1 ("mptcp: avoid unneeded actions on subflow
+    reset"): decrement the '__unused' variable.
+
+Paolo Abeni (3):
+  mptcp: avoid unneeded actions on subflow reset
+  mptcp: close race between scheduler and state change
+  mptcp: fix bad accounting in __mptcp_subflow_push_pending()
+
+ net/mptcp/protocol.c | 13 ++++++++-----
+ net/mptcp/protocol.h |  3 ++-
+ net/mptcp/subflow.c  | 11 +++++++++++
+ 3 files changed, 21 insertions(+), 6 deletions(-)
+
+-- 
+2.55.0
+
