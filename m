@@ -1,48 +1,73 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.9])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4A4EA356748;
-	Sun, 20 Sep 2026 05:48:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.9
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3306D35C19B
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 05:55:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.43
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789883310; cv=none; b=G9tYGBOgdifqzrwzroGKMDWk9esvB106URLIznkJeZykeQu//KtSuWBJGwSo80zB+6yti3ljvRscSJgjQLcCLLczFov8SFXRwvUs26EC+a7LtV/9e5y8rKpLwK51StHx/oMbVQwsb/f2QQQdC+e4Eo1x+ofP+f46raghGF/k+nY=
+	t=1789883736; cv=none; b=nVUaGjDQ8PNjBRjOpw6TwZ2NyLKk4C0Rw2FQtLpFv6y14ULV5pLd787Ql9ynooCxUUEzn8iRnLlAfC+8EJ8XTazikmbLeJobTELzYAhN/lm3BeartMEY651zBApn7dyQkUJudvJRBObGAnNP8XU/j8vRJw5CiZGheceTKA/y7Ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789883310; c=relaxed/simple;
-	bh=hXcXwB5qKvjy4yfU3TBUAP1GYhCqF9sbdZbOkL4gKUM=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oMGWxDOWaVhE+zDb38qJUnZM4QlFu4azhzqHF/zLcoJxVKhgdC8mcYwCMNEos5n5RP+NbsymefA80E0xh+IESDRSgNaT2BS99uYdhS3Rc0ydPdcGuJnhjqLCGLGFJDkJw4xyQAFxzYhPrfvpw6vMLovffQnsAqgRDKM5rhwTHvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=nkKW5prF; arc=none smtp.client-ip=220.197.31.9
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789883736; c=relaxed/simple;
+	bh=2zXVKzY1EV/eEZ1HHKfbuHYp6YveuxCN/3PVtHgb4xI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=spN2NBVvxHBojDqIVuf7+9BNej80lI85Wxf8+umbIYc/ZKf4YgklwJ7iM13WPavH7FGARjnyn+lkq5qpq1uHWlHwS6bPEVczI4gzburbD92OrkevCSPrMSl5GrpiM4PahxU+osP/ZnB33LHs6v4wVoNFq2u0/R02wnl7nwpQbTo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=sEQgRUO/; arc=none smtp.client-ip=74.125.228.43
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="nkKW5prF"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=Z3
-	+Fx9EZEE+VQ2/YVvwLsbnZUCmzfjGk9Iv40ZT2s+o=; b=nkKW5prFP4eZ4hKYBY
-	OxqKTBzPbriILyLcLBPOsdnB3Ael6YuXSjDjjBhMGTQlGyamj2wJlgdl481EDZ5J
-	uUqImrus8zyMQ9F94kRV2/faxn/ofvEoey4MsTWwbFr+y3VvciDZLZ/32auEQnDC
-	1DfHJp5ph9NBsXkmDGea0TGtY=
-Received: from localhost.localdomain (unknown [])
-	by gzsmtp3 (Coremail) with SMTP id PikvCgD3v_VZc69qjRGcAA--.48413S2;
-	Sun, 20 Sep 2026 13:47:05 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: maxime.chevallier@bootlin.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	mcoquelin.stm32@gmail.com,
-	alexandre.torgue@foss.st.com
-Cc: netdev@vger.kernel.org,
-	linux-stm32@st-md-mailman.stormreply.com,
-	linux-arm-kernel@lists.infradead.org,
-	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="sEQgRUO/"
+Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e211a0so2284245b3a.1
+        for <stable@vger.kernel.org>; Sat, 19 Sep 2026 22:55:34 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789883734; x=1790488534; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=gXb5vXQC6wyOIwFGpwsGYB1mvujwkacakBxQlyORKIw=;
+        b=sEQgRUO/WwEd1BHiIojv8uNxg0Ru6dS8/7h49UnZH86s9fb9WXrmSJ88UDTfKK2kVI
+         xbnUzMWzb3kxDWjHfOqCo/Fn+/G2zhEgx1TTJExj1DLOVgQme7d71ENz5TQhJPCyVaro
+         qx6AIAfwYtvzt8lMuz553sFmJUn9xI3C5MS/RGkKjAAw8iuoINpZIQbvjwDTkWIlDAor
+         qYtjT3PXxIXbcAtOosmctC1+wv1WSele3X2Rrj7jc3PTEitudfbH3YHZYAda/Vx7o7Bn
+         iYb4gICMx2t/sW71qWFo92fKeaYGSuMExPxRomoKgBVAW3e87UTxi5adv2jmz53DInVn
+         Mmcw==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789883734; x=1790488534;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=gXb5vXQC6wyOIwFGpwsGYB1mvujwkacakBxQlyORKIw=;
+        b=Y6mzt9km6hBbOpMuqhcROtq/23WZ97jWgIKcZ/SecrNQdtsS6wlrcv7boQQjQONtVM
+         abBdp3sa3Sp5RSc08oqSIdtl7F5KAIBoEAfaBXzXofvl2huKiHHtUjQlnKB8v2i/NYtG
+         blrG3eFL4b3Dw41lnspCWUTiYUi0Ve0i8da0wxd3ykUdCDxlBRuuxtq0lFS+jbn/kdSS
+         mqgmft7jjC0lfaSxHqgq1Ndv/eJLu5Yjx+1GFiw/e8B+p9EcPHy4DwOpSAF0ceymGFVh
+         5XOTKuHQtrl1VDZvK0o1426YsL/rdYOLjkHdyOA34/wxEAf6BTuV4qFLT29+BmE88a8M
+         QXfQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzwvTmsEOVTXNvG6fYzDwig6BMdbGL34UWoqmg9lsg78miGk4t8B97QQrhuniHbkHqXrZ9/m3U=@vger.kernel.org
+X-Gm-Message-State: AFuF++leEYTusxQ1FSSWlhTpTfCvfvPtFQBSf9VkP7LTijs3jD8rbTYw
+	ZllNoT3nFF3gI4yX7eeeG2szEw/sbtzpdY8rijSyMMJhVNZvhIvnmGLU
+X-Gm-Gg: AYBFou06rjV+bznp8IWEK76xvVLNG1rLTMlB/Wi3UcYe2Fy/pOfonz0wpAhXvBDDbEn
+	huzElTbTwbxjI+ExYZbfQSGPbJPe8rs+qaHCkaGZbOjM08Eij9PWYvvp2JPJLqg/BmBLVXKfTaN
+	WRuMfjXpxM8pmrkl88fgW66VvwKwH4inkjIR40B7MWMxEpn8HqkLA5Z03GhVq/qXFOin+gXMYY8
+	9ATq6St9MogU4JnJI9Z2RrwyPNxTgPS/pTShxbydrHtxYDweADZlx9XiEhmTuuJwmwsJ0wKw7vm
+	JG0nrkSNNt9S6xiISsjDnvLQ+0cVv+Z8KaOSkHY9WGbkx051P5CErcLfoWG5z4VvDxTeTY4LFXU
+	AziXutf6Fy9LaLoo9+6wbPH28aZsvYcU7isg58PYN/ynVVzWIMuKUKDXQj6v0dQGsKxbChNyb7u
+	Ldor0SmjZYRjWsX7QHGtjQcLBUQTXOFWHGrzqcOUZOHlfuk3drqaL1iRhCxOHZQ/e8
+X-Received: by 2002:a05:6a00:1788:b0:878:3811:238 with SMTP id d2e1a72fcca58-8783811099fmr3448017b3a.52.1789883734376;
+        Sat, 19 Sep 2026 22:55:34 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a9b0d564sm1622718b3a.35.2026.09.19.22.55.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sat, 19 Sep 2026 22:55:33 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>,
+	Borislav Petkov <bp@alien8.de>,
+	Tony Luck <tony.luck@intel.com>,
+	linux-edac@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v2] net: stmmac: request the MDIO reset GPIO only once
-Date: Sun, 20 Sep 2026 13:47:03 +0800
-Message-Id: <20260920054703.1897755-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+Subject: [PATCH] EDAC/versalnet: fix memory leak on device registration failure
+Date: Sun, 20 Sep 2026 13:55:19 +0800
+Message-ID: <20260920055519.3778269-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,127 +75,60 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:PikvCgD3v_VZc69qjRGcAA--.48413S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxAFWxKrWUKFW7Jr48Gw17ZFb_yoWruw4Up3
-	y3Zay5ArykJr4xtw4kJw48ZF9Ykay3tr4Uuw109rWS9a1DKrWavr1Sqry5ZFy7KrWDWFya
-	qr18uF1Uua1qyaDanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYiiDUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqRl5UGqvc1kKygAA32
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+init_one_mc() allocates dev with kzalloc() and registers it with
+device_register(). If device_register() fails, the device has already
+been initialized and holds its initial device reference.
 
-stmmac_mdio_reset() calls devm_gpiod_get_optional() every time it runs.
-A GPIO line can only be requested once, so from the second call on
-gpiod_request_commit() returns -EBUSY. devm_gpiod_get_optional() only
-turns -ENOENT into NULL, hence the error is passed straight back and
-stmmac_mdio_reset() bails out before pulsing "snps,reset" and before
-running the STE101P MDC workaround.
+The current error path eventually frees dev directly with kfree().
+This bypasses the device release path and can leak driver-core
+resources associated with the initialized device. The existing
+versal_edac_release() callback is responsible for freeing dev once the
+device reference reaches zero.
 
-The first call, made by of_mdiobus_register(), succeeds, so the failure
-is only visible later on: every resume that does not use WoL goes
-through stmmac_resume() -> stmmac_mdio_reset(), and that caller ignores
-the return value, so the PHY silently stays un-reset.
+Call put_device() when device_register() fails so the initialized
+device reference is dropped and versal_edac_release() performs the
+proper cleanup. Return after freeing mci to avoid falling through to
+the direct kfree() path, which remains necessary for failures that
+occur before device_register() is called.
 
-The descriptor used to be requested exactly once: stmmac_mdio_reset()
-resolved "snps,reset-gpio" itself and cached the GPIO number in
-stmmac_mdio_bus_data::reset_gpio, and commit ae26c1c6cb9b ("stmmac: fix
-PHY reset during resume") relies on that cache to reuse the line on
-every call. commit 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in
-stmmac_mdio_reset") replaced it with a devm_gpiod_get_optional() that
-caches nothing, so the request is repeated on every call and fails from
-the second one on.
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-Request the GPIO in stmmac_mdio_register(), at probe time, and keep the
-descriptor in struct stmmac_priv. This is where devm-gpiod is meant to be
-used: the line is acquired with the device and released with it, and any
-failure to acquire it is reported during probe instead of being ignored
-by stmmac_resume(). stmmac_mdio_reset() then only pulses the cached line.
-
-The request is still gated on mdio_bus_data->needs_reset, which is the
-condition that installs the reset callback, and on the device using DT,
-as the reset itself is.
-
-Fixes: 7c86f20d15b7 ("net: stmmac: use GPIO descriptors in stmmac_mdio_reset")
+Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR controller")
 Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 ---
-Changes in v2:
-- Do not request the GPIO from stmmac_mdio_reset(); request it once in
-  stmmac_mdio_register() at probe time instead. (Maxime Chevallier)
+ drivers/edac/versalnet_edac.c | 6 ++++--
+ 1 file changed, 4 insertions(+), 2 deletions(-)
 
- drivers/net/ethernet/stmicro/stmmac/stmmac.h  |  2 ++
- .../net/ethernet/stmicro/stmmac/stmmac_mdio.c | 19 ++++++++++---------
- 2 files changed, 12 insertions(+), 9 deletions(-)
-
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac.h b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-index 7582fca63741..986fb43db45f 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac.h
-@@ -25,6 +25,7 @@
- #include <net/xdp.h>
- #include <uapi/linux/bpf.h>
+diff --git a/drivers/edac/versalnet_edac.c b/drivers/edac/versalnet_edac.c
+index 3a06b41c1d84..db3bf5a1345b 100644
+--- a/drivers/edac/versalnet_edac.c
++++ b/drivers/edac/versalnet_edac.c
+@@ -829,8 +829,10 @@ static int init_one_mc(struct mc_priv *priv, struct platform_device *pdev, int i
+ 	dev->release = versal_edac_release;
  
-+struct gpio_desc;
- struct stmmac_pcs;
- 
- struct stmmac_resources {
-@@ -287,6 +288,7 @@ struct stmmac_priv {
- 
- 	unsigned int pause_time;
- 	struct mii_bus *mii;
-+	struct gpio_desc *mdio_reset_gpio;
- 
- 	struct stmmac_pcs *integrated_pcs;
- 
-diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-index afe98ff5bdcb..346f93f86abe 100644
---- a/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-+++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_mdio.c
-@@ -386,15 +386,8 @@ int stmmac_mdio_reset(struct mii_bus *bus)
- 
- #ifdef CONFIG_OF
- 	if (priv->device->of_node) {
--		struct gpio_desc *reset_gpio;
- 		u32 delays[3] = { 0, 0, 0 };
- 
--		reset_gpio = devm_gpiod_get_optional(priv->device,
--						     "snps,reset",
--						     GPIOD_OUT_LOW);
--		if (IS_ERR(reset_gpio))
--			return PTR_ERR(reset_gpio);
--
- 		device_property_read_u32_array(priv->device,
- 					       "snps,reset-delays-us",
- 					       delays, ARRAY_SIZE(delays));
-@@ -402,11 +395,11 @@ int stmmac_mdio_reset(struct mii_bus *bus)
- 		if (delays[0])
- 			msleep(DIV_ROUND_UP(delays[0], 1000));
- 
--		gpiod_set_value_cansleep(reset_gpio, 1);
-+		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 1);
- 		if (delays[1])
- 			msleep(DIV_ROUND_UP(delays[1], 1000));
- 
--		gpiod_set_value_cansleep(reset_gpio, 0);
-+		gpiod_set_value_cansleep(priv->mdio_reset_gpio, 0);
- 		if (delays[2])
- 			msleep(DIV_ROUND_UP(delays[2], 1000));
- 	}
-@@ -608,6 +601,14 @@ int stmmac_mdio_register(struct net_device *ndev)
- 	if (!mdio_bus_data)
- 		return 0;
- 
-+	if (mdio_bus_data->needs_reset && dev_of_node(priv->device)) {
-+		priv->mdio_reset_gpio =
-+			devm_gpiod_get_optional(priv->device, "snps,reset",
-+						GPIOD_OUT_LOW);
-+		if (IS_ERR(priv->mdio_reset_gpio))
-+			return PTR_ERR(priv->mdio_reset_gpio);
+ 	rc = device_register(dev);
+-	if (rc)
++	if (rc) {
++		put_device(dev);
+ 		goto err_mc_free;
 +	}
-+
- 	stmmac_mdio_bus_config(priv);
  
- 	new_bus = mdiobus_alloc();
+ 	mci->pdev = dev;
+ 	mc_init(mci, dev);
+@@ -852,9 +854,9 @@ static int init_one_mc(struct mc_priv *priv, struct platform_device *pdev, int i
+ 	device_unregister(mci->pdev);
+ err_mc_free:
+ 	edac_mc_free(mci);
++	return rc;
+ err_dev_free:
+ 	kfree(dev);
+-
+ 	return rc;
+ }
+ 
 -- 
-2.25.1
+2.43.0
 
