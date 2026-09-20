@@ -1,88 +1,83 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C639F3E00A6
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 07:25:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5E8723DD86F
+	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 07:25:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789889103; cv=none; b=kIemO+45S8zzbFDECbxgSw56CGRelXjzCHauZDtNihedjnz2aniBGkARluEK/9gI96tVhLQwcfJ2JF7JGFXQA8NtfsI8t4QQut9Pq8AdhfcL+z1rpCoV16s0wkb7Jww69bu0unYP6Ul0kLFXFrQzkqvIC68PsaIfQP9C/xND7R0=
+	t=1789889155; cv=none; b=L84Cmr8ZTNMCs154HCEMc1K2hAfV/HmGKZOCXDciuPPaKAO68ZG5V/MPw5uNvzit9uV1zJ/dTMMpWhtt+WAHRBNq4D7ZYWUW6jxRoHO/s1PCOcGOPU7vedtEKFLRQbhLqmpjw0swiuYEKf01e9aTa1JvSg5rim5tfsBoh7y5UkQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789889103; c=relaxed/simple;
-	bh=ObADTlzoiTA6U2yvY2GshZzVd6tdDp6Ev6J9pWdWFpo=;
+	s=arc-20240116; t=1789889155; c=relaxed/simple;
+	bh=zh5Ol2TuPLH0d4OoeJAaGteSoIwYvBaEbtNs4QWKGvs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=oisx/wPf4Hd7Hq1YvZP+Wi4BE/U8sCwOTrYmnmxwMr/st/5AIRkcmWrkoIoRdUJDoXwcQktuANgBXJluynGSxcRcSeCgh34V0zCct/4z2vDYrXfOvXWqXCQgD+lJQ0HOrHjir6nvt32qhH+mKejFKXiHSdtjF3mI+KplNSZ+seo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=aeJz9tJD; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=MZr+dBW2hOJDCPOhKYpB7HFOtoDid9WKAfRXdCfpSH34xUTlSYR1Wq2FVhpI255xvDtX+qLjg+XUEcdhUwMGz8pkZnZkTpwfBevcpl9AX9YFivjeKD4cfr0fr+To5lWYZnzhL3a6srQjTV4UfMAkWGVFQVZ1riS0Rwzj12cFd6Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=XoARAIA8; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="aeJz9tJD"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8631d0023daso1435296b3a.2
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 00:25:00 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="XoARAIA8"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccd66bb4so1784037a91.1
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 00:25:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789889099; x=1790493899; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789889153; x=1790493953; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=gOTpVBg6yPuc/XTyIpDgsbvA7J2tB8bOdXuJs8CMv5I=;
-        b=aeJz9tJDlgGqXDpwmg17rdebHsEgNeKwq56CrolZAU66C5Povl95IUNMoKEyA7kcaA
-         DokxkG3N9QWO7QfzxbhDlAVPu4JMlTnXNXRpYtgA8x8EaMUjTXqus6Dgat+JL+Fevk3c
-         rac9kaJ5SpDDLlfgXR0QzTcKGpc576/2chR+3skHz+/kDrMse/BaPVV5iVZnLPCFu1/c
-         ReV1IxLvAEOkmov53j6O3QDKUtI69JFNMZFVD2qOdRQjp4UWDZbMo+h2vjQuAfRd++6v
-         8OPXItDNSibKLfMMmre0nKQhJ5BkMbKYKNOFs3x+AR05r2jz410qscYXJI88YsbdhGuw
-         mmqQ==
+        bh=dW4gs9SAniP9kxUqfZ2XWITnN57K9b7RZGjbG0t6JAs=;
+        b=XoARAIA8VigVO5HCZjH1NGMNoP3hps6yNiwZ3AncyCgViDK7upWcbMp8cwwxBKVNVS
+         n21Mlqpv3jXQrAnzcowYkUD/2voSpPPh+K6eM/LJn3rPs+mG5NN6CutQq0FbtlD9iJHQ
+         Hd9s6Njm2j2YURP3wjcz9u5LQ6t4uxpN0OhCHUasjMk8Nt5JT6kpZVsqr4f11SsU5sKL
+         ZHQlZQYRUMnY5LT+59sohDJNFQBIdURPXxcvTwgrFMspM+Aa9n+MYd0ejBYHX589C9GX
+         m7oG14h6zBICGXRJcaYogeExxJuKLVcLMoA/4W6NSmdV4ggROoO8iQMulLCNhHlSs8r5
+         +BzQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789889099; x=1790493899;
+        d=1e100.net; s=20260707; t=1789889153; x=1790493953;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=gOTpVBg6yPuc/XTyIpDgsbvA7J2tB8bOdXuJs8CMv5I=;
-        b=DfSPRc7j3hicRxfIna3Y4E0lpq1MW91FhCh0RYIddT3M6Ne+DKPnLgX5gGwJvOFplL
-         +Z22pI8wX8qGE8yAhnzYsW3RgbFNK7GbMbnBQpgbEBNF9vyzT7POt2HH45xiSUejPw/t
-         sVd02VNJNqDyAc0pIW1yxAAnoUC6xrsh/0b++6EE7zKjU7DAXkj2BNHPLIGgBM80TYux
-         Aplv4VghNinnRY9w+bwTELZpYTeDKu/hFZTuniWrSm6bsCjQSxB644zLQ7ElkIPt/ZHt
-         p8Ryb0GiMLCkC5HAQ1c9FXbjbqnoYh3p1PYHBrh+Cew8Rn3dt5r7kSOsPvawbZd9REvK
-         FgtA==
-X-Forwarded-Encrypted: i=1; AKwUvByIuwBRgJLr347Pl3RlwLsm+A5jU16oGU/tynohXFwewvEXL32a5pHbQ9IPzQJ/optQeM69S7E=@vger.kernel.org
-X-Gm-Message-State: AFuF++kBxLfJ96PWoPc36NbcmG+FMRoVeZ8Ga4cTd3yJ5f914YujlacC
-	57wHZ9xF/nD2h00QXXTyDvKbSWaCDuQbSsWQOMVVxQlmqsx8m9MRgogE
-X-Gm-Gg: AYBFou1kzh0Sed+P5JHResVBG/c7kMfPwFK5f6EWBHzTeIRXcY2t3hJo3WJ5DM+1fj+
-	NihvZYTyHeOVl3Ku3PyAwZqGG97VzMZt5UulM2bBEZRnJNLoqeWfDxJQf1eR7nEwnUHz12H8D7+
-	zuSka+himvEwKEniUVo1hb+en75M2Zot82tLaHbtFZb8bk99xDevOUQNQgUUXmWlJrz4VDnIqpJ
-	vH6nNGPWfqurur95ygPsuTaYrI7TRYjiaoxJsfhK2rSS6fnEFlxpxiVsQrVO+YzCMpbcPnAbRpW
-	ajDwYR/z6TZbkVXsduOhwQzLSwJuJjv7+2mIQdFspr7It7swg2u6I5GiBpUTTbmt3SK7XRCH0sH
-	/9nQenC4eP4lB4gzg9W2BPivh/pNefEmzkSDBuctx106hw8iVuM9KjaWlskdyyw5wFEkhffTbHg
-	R78FhgQb/S2s0KfrhVJZ01xAFeZj07D1s5Rgy1xdmBytJcU0KL0QBLUxHJig+qn2eRRpTIQcRmf
-	kWHQ2Z8xef+XP7c7veh4VYWtQ/+0Ii+deoJkWBmcE0A3fX92RE=
-X-Received: by 2002:aa7:88c3:0:b0:878:3783:8a4b with SMTP id d2e1a72fcca58-87837839351mr3593980b3a.51.1789889099106;
-        Sun, 20 Sep 2026 00:24:59 -0700 (PDT)
+        bh=dW4gs9SAniP9kxUqfZ2XWITnN57K9b7RZGjbG0t6JAs=;
+        b=HZBuG5H5GYI/v2U+jUT3IM2WZibPSVy3rKPRioOmM4AsRCLDvwkJfTVC2h1ZTgBQur
+         tq0a4vgnp9/Y2Ko0YSCHZHk5K4EQVVBvW0+miazDYXVIQ8eh9mQxl8Hvzlb6NmnMOUYA
+         6CvO4wPkaSpDaqAqpHKpq0s3+mJvsd7ooZjUPbwavjaNpyYb5bzne3B3uHLy4NX7UR/B
+         gFjNRo52I8ADDfU2pqKhVYGWTQVOaQVT+XXiEweav+t9K5pyKuD85m3dLGAfWyTDHgYT
+         L9dauyMCh1i4RlSmVicliPxqc3Cf9jg+KvCsZmiryY2bG2oM6dcmtYKs8gNyh1/f+YPk
+         ZdAQ==
+X-Forwarded-Encrypted: i=1; AKwUvBz1zYIQlysSfH5qP+Yu17Fa8ZsDC1wO0cRR1TbomlGa8hjX08LLDCDucAePnytZAZWX9rPTNeA=@vger.kernel.org
+X-Gm-Message-State: AFuF++mS3OMVfDFj/f2N5rjtDObZyP7bf/HVdFCXvULshPaDgmabaG0f
+	uhT4mZ6EKjdYLpFKLVSAOCcZuYE+Fy8R+kjQHeBNinrNc4OjByJ6CAVJ
+X-Gm-Gg: AYBFou2i+vW0OLShc/jNufMXFY52FYLywte9MXfaGK65q0Mp1nSGKuwZmTQPAN7qJPY
+	dI4F88TAzOkMnvux+jOlYV/APIbyv6daa/fHK+vnsEKfnAUsMdN6e2e1bLRYlFnXjbOwGJtQt/U
+	FmG86xmoRkfQ66uAjeDfGD4UnJvd3oujkc3RKJbeMhVh9PG30vIsykDaOUra3k7o08iWja2K18z
+	HvQQU60bMklX0TdBej6pe5+PAm8xb23pZAYdbumDyd8vCQS9jokhNYgRpbj3pp5rb2DXvPh6b29
+	YlMF0n+GKk5Dns+1DcgCfr7ZL0/AK4G8pdJdq3vdouTN4gPOmlwryEdem9i8eYrPPU6HORe2ELW
+	aPFuKCN1duviMD1Xwvma4IRbYvKOuow+jTmcy8htSa4UgLoUUjT+BfsnD+HdDmjX4rGlge3W5XG
+	AEuEccmEhOlkc4+4aPfyfbrP6+frCET5KZQhItcsn8AH/5mgedXxNmqeEXlp74aQ8Ml7kKGt+xG
+	AuP7/NK39NVprGnU9hf0TWm0ad76jonPfQuSk40ZPSEtzoiTKMxl8Fmuvuc
+X-Received: by 2002:a17:90b:4d11:b0:39e:6c69:34cf with SMTP id 98e67ed59e1d1-39e6c69373bmr5984342a91.51.1789889153573;
+        Sun, 20 Sep 2026 00:25:53 -0700 (PDT)
 Received: from lenovo-thinkbook.lenovo.com ([58.247.171.4])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a9b0d62csm1668019b3a.39.2026.09.20.00.24.47
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c379c4bsm8342727a91.7.2026.09.20.00.25.45
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 00:24:58 -0700 (PDT)
+        Sun, 20 Sep 2026 00:25:52 -0700 (PDT)
 From: Yuqi Xu <xuyuqiabc@gmail.com>
-To: bpf@vger.kernel.org
-Cc: Vadim Fedorenko <vadim.fedorenko@linux.dev>,
-	Alexei Starovoitov <ast@kernel.org>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	Andrii Nakryiko <andrii@kernel.org>,
-	Eduard Zingerman <eddyz87@gmail.com>,
-	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
-	Martin KaFai Lau <martin.lau@linux.dev>,
-	Song Liu <song@kernel.org>,
-	Yonghong Song <yonghong.song@linux.dev>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Emil Tsalapatis <emil@etsalapatis.com>,
-	Ihor Solodrai <ihor.solodrai@linux.dev>,
+To: netdev@vger.kernel.org
+Cc: David Ahern <dsahern@kernel.org>,
+	Ido Schimmel <idosch@nvidia.com>,
+	"David S. Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
 	stable@vger.kernel.org,
 	Vega <vega@nebusec.ai>,
 	Ren Wei <weir@nebusec.ai>,
 	xuyq21@lenovo.com
-Subject: Re: [PATCH bpf 1/1] bpf: crypto: check params size before reading reserved fields
-Date: Sun, 20 Sep 2026 15:24:41 +0800
-Message-ID: <20260920072441.60435-1-xuyuqiabc@gmail.com>
+Subject: Re: [PATCH net 1/1] net: ipconfig: bound DHCP option construction
+Date: Sun, 20 Sep 2026 15:25:03 +0800
+Message-ID: <20260920072503.60706-1-xuyuqiabc@gmail.com>
 X-Mailer: git-send-email 2.55.0
-In-Reply-To: <4f3ab4b03e79017e215521743996555439bf0bb3.1789802413.git.xuyuqiabc@gmail.com>
-References: <4f3ab4b03e79017e215521743996555439bf0bb3.1789802413.git.xuyuqiabc@gmail.com>
+In-Reply-To: <7808dfbfa2162dfd0b19f59aff5742d6e0db2abb.1789798023.git.xuyuqiabc@gmail.com>
+References: <7808dfbfa2162dfd0b19f59aff5742d6e0db2abb.1789798023.git.xuyuqiabc@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -91,96 +86,50 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi all,
+Sashiko reported the following finding on the patchset page; it has not
+been posted to lore:
 
-This note is about a Sashiko finding on the already-applied patch
-(a11212910cf0); that review was not posted to the list.  The note
-below is analysis only; I am not asking to change the merged patch.
+> Blind copies in BOOTP extension parsing (`ic_do_bootp_ext`) cause
+> out-of-bounds reads if an attacker provides a truncated option length.
+> location: net/ipv4/ipconfig.c
 
-> The `algo` string in `struct bpf_crypto_params` is not checked for
-> null-termination before being passed to the crypto API. A BPF program
-> can fill this array and subsequent fields with non-null bytes, causing
-> `vsnprintf` in `request_module` to read out-of-bounds, potentially
-> resulting in a kernel panic or leaking kernel memory to user-space.
-> locations: kernel/bpf/crypto.c:165 `bpf_crypto_ctx_create`;
-> kernel/bpf/crypto.c:185
+This finding is about the receive path, not the code this patch changes.
+It is a real, pre-existing issue; this series does not introduce it.
 
-This is a valid finding.  It is also pre-existing and independent of the
-params__sz out-of-bounds read that this patch fixes.
+This series only touches the transmit side, ic_dhcp_init_options()
+(net/ipv4/ipconfig.c:698) and the new ic_dhcp_add_option() helper
+(net/ipv4/ipconfig.c:680). The function named in the finding,
+ic_do_bootp_ext() (net/ipv4/ipconfig.c:919), is reached only from
+ic_bootp_recv() (net/ipv4/ipconfig.c:1156) and is not modified here; the
+diff contains no receive-path hunks, so this series neither introduces
+nor worsens the issue.
 
-The kfunc's __sz annotation only bounds-checks the buffer: the verifier
-calls check_mem_size_reg() on the params / params__sz pair and checks
-that params__sz bytes of the pointer are readable.  It neither zeroes
-nor NUL-terminates the buffer.  After the size check in
-bpf_crypto_ctx_create(), params__sz == sizeof(struct bpf_crypto_params)
-== 408, so algo[] (offset 16, 128 bytes, kernel/bpf/crypto.c:33) lies
-inside the validated region, but nothing guarantees a NUL anywhere in
-it.  A program can pass reserved[0] = reserved[1] = 0 (which the
-function requires) and fill algo[] and the trailing fields with non-NUL
-bytes.
+The receive loop is:
 
-type->has_algo(params->algo) (kernel/bpf/crypto.c:165) then reaches an
-unbounded read:
+	u8 *opt = ext++;
+	if (*opt == 0)
+		continue;
+	ext += *ext + 1;
+	if (ext < end)
+		ic_do_bootp_ext(opt);
 
-  bpf_crypto_lskcipher_has_algo()
-    crypto_has_skcipher()          crypto/skcipher.c:666
-      crypto_type_has_alg()        crypto/algapi.c:1039
-        crypto_find_alg()          crypto/api.c:535
-          crypto_alg_mod_lookup()  crypto/api.c:338
-            crypto_larval_lookup()  crypto/api.c:290
-              request_module("crypto-%s", name)   crypto/api.c:303
-                vsnprintf(module_name, MODULE_NAME_LEN, fmt, args)
-                                                  kernel/module/kmod.c:150
+with end = (u8 *)b + ntohs(b->iph.tot_len) (net/ipv4/ipconfig.c:1078).
+An option whose length byte overruns the remaining space drives ext to
+or past end and is skipped. That is not the case the finding describes.
 
-The "%s" conversion has no precision, so vsnprintf() does a plain
-strlen() on name; it keeps reading through key[], key_len and authsize
-and past the 408-byte region that the verifier validated, until it finds
-a zero byte.  KASAN reports a slab-out-of-bounds read if the object ends
-before the next zero.  That is the extent of the bug: the OOB is only
-that strlen()/string_nocheck walk past the 408-byte region.  An
-unterminated algo makes vsnprintf()'s "%s" read unbounded, but when the
-return value is >= MODULE_NAME_LEN, kmod.c returns -ENAMETOOLONG and
-does not reach call_modprobe() or the usermode helper.
+The truncated length in the finding is a short option length, not a
+length greater than the remaining space. After switch (*ext++), ext
+points at the length byte; the copies ignore it and memcpy a fixed-size
+value at ext+1. Option 1 and 3 always memcpy 4 bytes
+(net/ipv4/ipconfig.c:935 and :939); option 26 always memcpy 2 bytes
+(:968). When that option still satisfies ext < end, those copies can
+read past the declared option and past end. Options 1 and 3 do so even
+at length 2; option 26 only at length 0 with 3 bytes remaining. With
+skb->len == tot_len that is a real KASAN out-of-bounds read. It
+predates this patch.
 
-The finding also cites kernel/bpf/crypto.c:185.  That line is a blank
-line, not a second use of algo; if (!ctx) after kzalloc is at 181.
-The nearby second use of params->algo is type->alloc_tfm() at 187;
-185 is a near miss for that line.  A 128-byte all-non-NUL algo cannot
-match any already-loaded cra_name, so has_algo() returns false,
-bpf_crypto_ctx_create() sets -EOPNOTSUPP, and type->alloc_tfm() is
-not reached.
+Since the receive-path issue is independent of the send-side overflow
+addressed here, we have kept it out of this series.
 
-This is only reachable from BPF_PROG_TYPE_SYSCALL (the
-crypt_init_kfunc_set registration at kernel/bpf/crypto.c:393), which
-requires CAP_BPF, so it is not an unprivileged attack.  Still, the
-verifier-validated buffer is the trust boundary, and reading past it is
-a bug regardless.
-
-Relationship to this patch: the patch only moves the params__sz
-comparison ahead of the reserved[] reads.  The algo[] termination
-problem exists identically before and after it, so it is a separate root
-cause and is neither fixed nor worsened here.
-
-A follow-up would validate that the strings are terminated before
-handing them to the crypto API, for example:
-
-  if (strnlen(params->algo, sizeof(params->algo)) == sizeof(params->algo) ||
-      strnlen(params->type, sizeof(params->type)) == sizeof(params->type)) {
-          *err = -EINVAL;
-          return NULL;
-  }
-
-(memchr(params->algo, '\0', sizeof(params->algo)) is equivalent.)
-params is const, so writing
-params->algo[sizeof(params->algo) - 1] = '\0' would modify the
-caller's buffer; explicitly rejecting an unterminated name is cleaner
-than silently truncating it.  params->type[] is only compared with
-strcmp() against the short, NUL-terminated registered type names, so
-it cannot drive the unbounded read, but validating both keeps them
-consistent.
-
-That would be a separate patch (Fixes: 3e1c6f35409f), not a change to
-the already-merged commit.  Happy to send it if you want it.
-
-Thanks,
+Best regards,
 Yuqi Xu
