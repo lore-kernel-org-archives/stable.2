@@ -1,109 +1,154 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mnc015mcc432.ss7-reroute.local (hss.epc.mnc015.mcc432.mobile-node.net [54.38.221.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C51B9470425
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 17:07:26 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1B31D3A9612;
+	Sun, 20 Sep 2026 17:38:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=54.38.221.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789924048; cv=none; b=WRUvEHaLBfZF3M9vYSlhK1f2CWeKlaPhJPOKTmNZFEjm+k4nnl8Gm3y1nWgdo+xnM3atgoR06r10b3aTLoCEtvw74gn32koKujQ1xWjmeXhawEv5/fXwBG8ce24vs7pR6HgON2ini/VRJrf5XRUJQCRBiQUt7j0KKbS3jjfdWH0=
+	t=1789925920; cv=none; b=GTe5xuHGk9fTNDEEjGSnXxLAlVC5bgDDxIAztyqvwySTB4aXEiJ/OQRk+XAv03AxrkQ1TdJeY22Jc7hOuSymKvoGV0nufAz4MX+eiXBrXiAEQ1boSrjx/GPctcqMxFFJuphGW0yR9pl08YrqANFqPLDV10mPeBjPjxo8D3RUzaA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789924048; c=relaxed/simple;
-	bh=MoNEDcWdGlP7UcyCq8wXBRR56spV4f4PPUO0eUL2OZE=;
-	h=Mime-Version:Content-Type:Date:Message-Id:Cc:Subject:From:To:
-	 References:In-Reply-To; b=ctVGSCGo5Uim86XuucXYv0lN8Dwen61IGDEMSz/F+oyh9kLnzz3YPtH47Ab7+ssTlOSK6zYq2VzWqQklTN9I7dVgec3KywCZLWZ8v1NYrpPYEhQ/ry9hnpCxaF9GNNkGzkfKCkyOl/lHE94pdne3hu5DMv255T/PAN39Z2EPm48=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=YxbYk8Rs; arc=none smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789925920; c=relaxed/simple;
+	bh=BFWxtLpjdhG4PSirV3O/j5PXlgZSxMjUcbtLx5OvGEk=;
+	h=From:To:Cc:Subject:Date:Message-Id:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=qPTXJOSU7gMFKoNheh7sV7SHo6JY8NVlHfVFjJaivyyPbIqfuBodz2VTaw2FHVm5PfznGAvXWcjAgY12tfKo+Caw/Sg5mQGdFPBejQfxdDWW0+tfafmx9e/TTickBMwhpP2TNL3qsF4+bSo9E2TF2+RqdeZ7Co7HPis/XhdMd9o=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=loljews.com; spf=pass smtp.mailfrom=loljews.com; dkim=pass (2048-bit key) header.d=loljews.com header.i=@loljews.com header.b=dTZk3pMO; arc=none smtp.client-ip=54.38.221.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=loljews.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=loljews.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="YxbYk8Rs"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-3a02902dce2so524264a91.1
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 10:07:26 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789924046; x=1790528846; darn=vger.kernel.org;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=+5OXkFTl19euajO1h3c9jy1KZ0WClYAUhVVTBNP2yF4=;
-        b=YxbYk8RstqpNoQLxSV22rHj2WD/9cVINT6vI6PCf3oDmUoVKamqBQMaITd6AMf88zW
-         +WmYeNe6xhJyLXwgGa6owSWwffxx4malxAJX6EA0iQyCCoQk0f12JSMk4cygi1+vHALH
-         ISbQsG/471I0i6Pyxu59MVm33urf6afCcopbGmfOwlZN1GPazdMyUSnUvQw6ob9EzVsU
-         kqw87eLGW250yl3z0Z0Hl1idiuFfetYTFeiYJ1bXPP6iWQeyLvngAy8ag0xFPqVX2fXb
-         Yb7oyGHZ5YMP6A4OIs3U3TsuiSYRS7TUs1lU955TL3Cob3eDECtyDjzqYXXfdApXH8Nw
-         VVYA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789924046; x=1790528846;
-        h=in-reply-to:references:to:from:subject:cc:message-id:date
-         :content-type:content-transfer-encoding:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=+5OXkFTl19euajO1h3c9jy1KZ0WClYAUhVVTBNP2yF4=;
-        b=e2iLknj82N6pWKC7BnzyTAlEQbjhGXo1j2SO9ksvzqblw36isn3KdaaaF/zzxw35Vp
-         AkAIBc3SluAgX5fQEHKynC+d0iUMFQeXINT5FKPAdc5Cr1g6VkL3JQc5thUFlegmdxn6
-         sLKtFUdCDhQ72plymSfR1eNbTy8fGc4WtBp75WmuJ4crnC5CgndSIN2dgQwvLuOVKM/+
-         /trNlm6N/ldVRU80cv/KmyXdepRtcWQKGJIVykTurjV7oddeMoJUazsTemsvmyl6XefZ
-         cBPQjilhbTSfeD7Rh5q/1rtk1aa1kKZ8KBM165/nYdTWi4byq0FmaPo5Ju9I1NADBrsF
-         0luA==
-X-Forwarded-Encrypted: i=1; AKwUvBx0KOSfdVin8tnz1ZWEHtQV33KiUI6nA7ZPnRaL2zq7PiRBpmYNzbS4D0EHdSqGpLl1g1Uz9s0=@vger.kernel.org
-X-Gm-Message-State: AFuF++mWR4Fw5JaE2UjC/hrP/Lnx+udNoHPBPzl6cnZ8qTwKORywqwxB
-	cPQOZUctMx3LgCJ5LkLt+TZUp61JV5aAJ/8KmnVLxEAa4lJSYEbK2xPt
-X-Gm-Gg: AYBFou39MFRbw8NMkqSv/qVFyMHMHQOpuyVhABw+LJFGWzsIm2yTLDc6X6QCdI0Pebl
-	JcpI97gjyWF8TPU7yy7pwHoG7hAUa3EGcN1Im/RjhE9HulCm8R4euokBdFGtjp5XRKOVK4B9tT3
-	EC7CfE1l07x9r54LSMY9gRs3ciN3VI/YBLQ25kb7TqFS64LLV6cUOaTuysnmZUkTMwJToGZIg6F
-	WBQoa3S2oFFFvkZnzxmRbBuouo3JGRiTpF3cDwawYMFad1hUv/aZIi/g/svzCdKJXx5dHGISbwa
-	LCxNt9eWZOqRaRnaoz+ihs/ahrha0GVcPZbH3LV/KP3jdVZlq9Ko+vE5YgHQ63vdl7sTPseMWvr
-	XecZ1AuUtyrHTPslS2LKQfSF9hqp8U9YxH40UTrJBCJrdzO0WBsChcGztAtRpmIIpaBw3LedVns
-	dWzz7mMQyWjuOJIgTyaC0jqUriwk1cg/sY2doqTpXc4xxhOeGJ1LyGPsy73TkFHi0H7ZTVEuugd
-	jYdLYOWCKGU87rYOpYwRr9Gn5nkRHgwK5L1WKeyrksuYiPRjlTdNlw1RRnGuWmUMjgWyQVMU0Nn
-	8JOD
-X-Received: by 2002:a17:90b:2b43:b0:39e:1ff0:331b with SMTP id 98e67ed59e1d1-39e54d37ad0mr12487465a91.2.1789924045869;
-        Sun, 20 Sep 2026 10:07:25 -0700 (PDT)
-Received: from localhost ([153.61.198.253])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a02900f84fsm8679011a91.2.2026.09.20.10.07.25
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Sun, 20 Sep 2026 10:07:25 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=loljews.com header.i=@loljews.com header.b="dTZk3pMO"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=loljews.com; s=mail;
+	t=1789925902; bh=rMvW9g6b98IWmu/JxIOw/6+KL8WT93Bp4R/k6rj/XJY=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=dTZk3pMOej0d2q3Dfxd4QN0BsHtpOZoCmzzXkki9UFSZTDdAB+8Qf/EkbgjgGw0PR
+	 O7e6HO3zKYWc9zMM7qA0uiKaAB9mK6j/CknHt375kpWFd1kRGkqNNyzi2y8mwv8QJ2
+	 uPWZQu/pfU4YtNuekXOVRFLzihZqe7zhj2LIzLuFDCyG2JBU/MGim1v6rDwZd+amG9
+	 ttdNDxgFpz0plhbRnZ474FoErx3BB/HHFFqNVHPRkm5/V9RZW0ONVRRO/4OM7s1AbQ
+	 fPelRVMveV4Qg2C8LLDHlTX9Xb0JKxLrUJ0+0hyGnzdVVk51wLHNwFD8XCeUKnpcvO
+	 2ikMYVV9MBzgg==
+Received: from mail.loljews.com (changwang [10.222.1.22])
+	by postfix (Postfix) with ESMTP id 4253D27A07E5;
+	Sun, 20 Sep 2026 20:38:22 +0300 (EEST)
+From: Sandeep Haemoon <sandeeph@loljews.com>
+To: netdev@vger.kernel.org
+Cc: Felix Fietkau <nbd@nbd.name>, Lorenzo Bianconi <lorenzo@kernel.org>, stable@vger.kernel.org
+Subject: [PATCH net v2] net: ethernet: mtk_eth_soc: allocate dummy netdev before registering netdevs
+Date: Sun, 20 Sep 2026 20:38:15 +0300
+Message-Id: <patch-33e50d280ef35a7fd2f2dc09deea463a@loljews.com>
+In-Reply-To: <patch-12c1a57b1d914b28b89455f24de55ee4@loljews.com>
+References: <patch-12c1a57b1d914b28b89455f24de55ee4@loljews.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-Mime-Version: 1.0
-Content-Transfer-Encoding: quoted-printable
-Content-Type: text/plain; charset=UTF-8
-Date: Sun, 20 Sep 2026 17:07:24 +0000
-Message-Id: <DLKB4AJ21W5Y.VSMC8ZB4EK9@gmail.com>
-Cc: <linux-kernel@vger.kernel.org>, <bpf@vger.kernel.org>,
- <netdev@vger.kernel.org>, <linux-kselftest@vger.kernel.org>,
- =?utf-8?q?Toke_H=C3=B8iland-J=C3=B8rgensen?= <toke@redhat.com>, "Peter
- Oskolkov" <posk@google.com>, "Xiang Mei" <xmei5@asu.edu>,
- <stable@vger.kernel.org>
-Subject: Re: [PATCH v3 1/3] bpf: propagate cb_access from freplace programs
-From: "Alexei Starovoitov" <alexei.starovoitov@gmail.com>
-To: "Weiming Shi" <bestswngs@gmail.com>, "Alexei Starovoitov"
- <ast@kernel.org>, "Daniel Borkmann" <daniel@iogearbox.net>, "John
- Fastabend" <john.fastabend@gmail.com>, "Andrii Nakryiko"
- <andrii@kernel.org>, "Eduard Zingerman" <eddyz87@gmail.com>, "Kumar
- Kartikeya Dwivedi" <memxor@gmail.com>, "Martin KaFai Lau"
- <martin.lau@linux.dev>, "Song Liu" <song@kernel.org>, "Yonghong Song"
- <yonghong.song@linux.dev>, "Jiri Olsa" <jolsa@kernel.org>, "Emil
- Tsalapatis" <emil@etsalapatis.com>, "Ihor Solodrai"
- <ihor.solodrai@linux.dev>, "David S . Miller" <davem@davemloft.net>, "Eric
- Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
- Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Shuah Khan"
- <shuah@kernel.org>
-X-Mailer: aerc 0.17.0
-References: <20260920163211.795547-1-bestswngs@gmail.com>
- <20260920163211.795547-2-bestswngs@gmail.com>
-In-Reply-To: <20260920163211.795547-2-bestswngs@gmail.com>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=utf-8
+Content-Transfer-Encoding: 8bit
 
-On Sun Sep 20, 2026 at 4:32 PM UTC, Weiming Shi wrote:
-> =20
->  struct bpf_prog {
->  	u16			pages;		/* Number of allocated pages */
-> +	bool			cb_access;	/* Is control block accessed? */
->  	u32			jited:1,	/* Is our filter JIT'ed? */
->  				jit_requested:1,/* archs need to JIT the prog */
->  				jit_required:1,	/* program strictly requires JIT compiler */
->  				gpl_compatible:1, /* Is filter GPL compatible? */
-> -				cb_access:1,	/* Is control block accessed? */
+The RX rings and the shared NAPI are carried by an internal "dummy" netdev
+(eth->dummy_dev). mtk_probe() creates that dummy device only after the MAC
+netdevs have been registered, so for a brief window the netdevs are visible
+to the network core while eth->dummy_dev is still NULL.
 
-No. keep the signle bit.
+If anything brings the first netdev up during that window (e.g. netifd
+opening the WAN link the instant the interface is registered), mtk_open()
+takes the first-open path and runs mtk_start_dma() -> mtk_dma_init() ->
+mtk_rx_alloc(), which calls __xdp_rxq_info_reg() with eth->dummy_dev ==
+NULL. That triggers
+
+  WARNING: CPU: ... Missing net_device from driver
+
+in net/core/xdp.c and returns -ENODEV, so mtk_open() fails and the
+interface stays down until it is manually brought up once probe finishes.
+
+Allocate the dummy netdev and add the shared tx/rx NAPI to it before the
+register_netdev() loop. Both the dummy-allocation failure and a
+register_netdev() failure now unwind through mtk_unreg_dev(), which
+unregisters the net_device notifiers and the netdevs registered so far -
+stopping a concurrently-opened netdev (ndo_stop) and its NAPI before the
+dummy carrier is freed. The never-registered netdevs are skipped thanks to
+the NETREG_REGISTERED guard in mtk_unreg_dev() and freed directly.
+
+Fixes: b209bd6d0bff ("net: mediatek: mtk_eth_sock: allocate dummy net_device dynamically")
+Signed-off-by: Sandeep Haemoon <sandeeph@loljews.com>
+---
+Version 2:
+  - Rebased on top of netdev/net.git, which now carries Lorenzo Bianconi's
+    "mtk_eth_soc: unregister net_devices in case of probe failure" fix; the
+    dummy allocation sits before the register_netdev() loop and both its
+    failure and a register_netdev() failure unwind through mtk_unreg_dev(),
+    unregistering the net_device notifiers and every netdev registered so
+    far (never-registered ones are skipped by the NETREG_REGISTERED guard)
+    before the dummy carrier is freed.
+  - Error path stops any concurrently-opened netdev (ndo_stop, NAPI
+    disabled) via that unregister, then frees the dummy carrier; a
+    dummy-allocation failure likewise cleans the notifier chain that
+    mtk_add_mac() registered.
+  - Add Fixes: b209bd6d0bff, the commit that made eth->dummy_dev dynamic
+    and introduced the NULL window.
+
+ drivers/net/ethernet/mediatek/mtk_eth_soc.c | 33 +++++++++++++--------
+ 1 file changed, 21 insertions(+), 12 deletions(-)
+
+diff --git a/drivers/net/ethernet/mediatek/mtk_eth_soc.c b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+index 2ea5dfe85..5e7d8b8be 100644
+--- a/drivers/net/ethernet/mediatek/mtk_eth_soc.c
++++ b/drivers/net/ethernet/mediatek/mtk_eth_soc.c
+@@ -5341,6 +5341,22 @@ static int mtk_probe(struct platform_device *pdev)
+ 		}
+ 	}
+ 
++	/* we run 2 devices on the same DMA ring so we need a dummy device
++	 * for NAPI to work. Allocate it before registering the netdevs so a
++	 * concurrent ndo_open (e.g. netifd bringing the first netdev up the
++	 * instant it is registered) never observes eth->dummy_dev == NULL in
++	 * mtk_dma_init() -> mtk_rx_alloc() -> __xdp_rxq_info_reg() (net/core/xdp.c
++	 * "Missing net_device from driver") and fails the first open.
++	 */
++	eth->dummy_dev = alloc_netdev_dummy(0);
++	if (!eth->dummy_dev) {
++		err = -ENOMEM;
++		dev_err(eth->dev, "failed to allocated dummy device\n");
++		goto err_unreg_netdev;
++	}
++	netif_napi_add(eth->dummy_dev, &eth->tx_napi, mtk_napi_tx);
++	netif_napi_add(eth->dummy_dev, &eth->rx_napi, mtk_napi_rx);
++
+ 	for (i = 0; i < MTK_MAX_DEVS; i++) {
+ 		if (!eth->netdev[i])
+ 			continue;
+@@ -5355,18 +5371,6 @@ static int mtk_probe(struct platform_device *pdev)
+ 				   eth->netdev[i]->base_addr, eth->irq[MTK_FE_IRQ_SHARED]);
+ 	}
+ 
+-	/* we run 2 devices on the same DMA ring so we need a dummy device
+-	 * for NAPI to work
+-	 */
+-	eth->dummy_dev = alloc_netdev_dummy(0);
+-	if (!eth->dummy_dev) {
+-		err = -ENOMEM;
+-		dev_err(eth->dev, "failed to allocated dummy device\n");
+-		goto err_unreg_netdev;
+-	}
+-	netif_napi_add(eth->dummy_dev, &eth->tx_napi, mtk_napi_tx);
+-	netif_napi_add(eth->dummy_dev, &eth->rx_napi, mtk_napi_rx);
+-
+ 	platform_set_drvdata(pdev, eth);
+ 	schedule_delayed_work(&eth->reset.monitor_work,
+ 			      MTK_DMA_MONITOR_TIMEOUT);
+@@ -5376,6 +5380,11 @@ static int mtk_probe(struct platform_device *pdev)
+ err_unreg_netdev:
+ 	mtk_unreg_dev(eth);
+ err_deinit_ppe:
++	if (eth->dummy_dev) {
++		netif_napi_del(&eth->tx_napi);
++		netif_napi_del(&eth->rx_napi);
++		free_netdev(eth->dummy_dev);
++	}
+ 	mtk_ppe_deinit(eth);
+ 	mtk_mdio_cleanup(eth);
+ err_free_dev:
+-- 
+2.53.0
+
+
