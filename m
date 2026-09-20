@@ -1,42 +1,62 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0888546D543
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 17:50:54 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D6993339394;
+	Sun, 20 Sep 2026 17:50:56 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789926655; cv=none; b=GY8ffH8s6MutHx1JHCJ6nQPyC9rQBuYHQJsP03kA/m8BW427MsN/Ru2Z9xewRJ+TxhyzEYQlNfvi4oLAgeq7gQfNGrZUaSGCAIYFic4PQYOnZKjB0PDZ4ptMNPaKBlb6d2UQjHjjwcUMlPFYhaYlBo6Dv4Hu6EMi7LkikX4+psI=
+	t=1789926657; cv=none; b=KxNc8ncvjpFc/7ByCfUCZgQkrSyWYzGJT4sUGcKskRrIMQsSmRUxQVQi4Bi4wRP5uMhDzNIjOdelM0/OHg6IFt/K+0JX3b08yCh0zeX36zzmeyVVTCLA60pWpiqbt2bToD43S5PMK8klo3yw1FO+tqNbysuY0hXjffyCpkGHpTo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789926655; c=relaxed/simple;
-	bh=cE3dreVchuyXl7ba9wI9mRF5T9GlzmWhL6pPb3FShpU=;
+	s=arc-20240116; t=1789926657; c=relaxed/simple;
+	bh=iluovNO9tbvFJPUuqsbE4neWvGMroohmhwwcYTm9J3M=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IgrY5YX3OMTNHiydt2S2bstWMcg7d06icdUpm1OSwhvKM342IFRB97NNlAdt8SffZl6JAvf9LMbt6ni5tPmdDOkJ4MipgGGsS0lJwFitaPm3D/2rTaLEzCDazpLJAWAEwd5NVtYjv9TATLKuHUTaauYLVrFkz5Pudj28+27ztAc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=EjEjAU2+; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version; b=GJspnbLKJ0fkDfFRIbbXpx8QS5+zrR2Fwv2JBWC8tu4GA7G/bgRrpT248Vde4tidofb+5YPdY/kYI9/cMECdzO9XhN/JGpJQ168VnSPrUd1y1qnaSpQTkHwWOmHKhMTan8aKqDebl6XZHr9vgb3mHzMmTHUl8PVkJLeX/RQI788=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=LtvFjb2M; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="EjEjAU2+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 63F131F00898;
-	Sun, 20 Sep 2026 17:50:53 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="LtvFjb2M"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2E7CA1F000FF;
+	Sun, 20 Sep 2026 17:50:54 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789926653;
-	bh=u9tC7KNlWPg/OeK6w6rk5GMKuOsMjZGiRKzrLiLMWWg=;
+	s=k20260515; t=1789926656;
+	bh=sh6PD9neCYVc9sJyYUFzkZ0D4zgOkh6toUXpB1T0aB8=;
 	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=EjEjAU2+9RkGjqZ97yS7rvZa0H3wMpKoFRBHfuxy32gsj96zudIse4DvRmiFFezNq
-	 8u1yq/0HoRgf4sSsttZr/xBO81PQC/q2QlKE0SEoqQf6Wqm6IeosYHYOpdY5e+OFkd
-	 4D664oxElHI2Lnxtng7Z8UmY3nja68Wtgr1jNGAc7yy/E4eMD+ttxzyo6qAxIYBqQw
-	 gVtoa0m1+HL68MqAtRhuvLBgzoaFl3L503YxMiftlVdW5u9hzrfEbDa50uBXTwhpkU
-	 M5ixcQPoBcDPkq+4zcRyo9yctFHGP7rYuHbF2+jiyiOsPNaBS8rrz3i9lQ3VAGe34f
-	 pmFukqATrCDFA==
+	b=LtvFjb2M6FPDou6/QcYuYhhzbj8rXKQcJdAWwbMZn7FyJAtRPZsFKTPrZschuDLam
+	 NV/Bxxbb1BhQkcHe2pawe5dzwf7DURtCr0eLRUjc7zMogAohbp6T8L4WFZ7FZxPosj
+	 3ckpovqHFhVu3hoUMNBuBwfbvmzrg4T7iTPLrNhACGw/Uje1t0tUnIuHnpk/wWFpSO
+	 /XyBMIVlxrVSRdApLhh7GDsutz3oBhP3ZLntjzlA8eORNpNdZFFkNQNNjklBgVLQBM
+	 5zcW7NVtMicTEFGhGHA1ygs+X6zruGEk/NimdlkKyBOfaDNidQEolOGVodWvfkZ6fM
+	 5h9/agtOLFPzg==
 From: Sasha Levin <sashal@kernel.org>
-To: stable@vger.kernel.org
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	stable@vger.kernel.org,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@google.com>
 Cc: Sasha Levin <sashal@kernel.org>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Kevin Hao <haokexin@gmail.com>
-Subject: Re: [PATCH 6.12.y 0/2] Porting two fixes for the cpsw Ethernet driver to the v6.12.y stable kernel
-Date: Sun, 20 Sep 2026 13:50:37 -0400
-Message-ID: <2026-09-20-daily-reply-0005-re-cpsw-rx-mode-work-6-12@kernel.org>
+	patches@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	torvalds@linux-foundation.org,
+	akpm@linux-foundation.org,
+	linux@roeck-us.net,
+	shuah@kernel.org,
+	patches@kernelci.org,
+	lkft-triage@lists.linaro.org,
+	pavel@nabladev.com,
+	jonathanh@nvidia.com,
+	f.fainelli@gmail.com,
+	sudipm.mukherjee@gmail.com,
+	rwarsow@gmx.de,
+	conor@kernel.org,
+	hargar@microsoft.com,
+	broonie@kernel.org,
+	achill@achill.org,
+	sr@sladewatkins.com,
+	"Barry K. Nathan" <barryn@pobox.com>
+Subject: Re: [PATCH 6.12 0000/1102] 6.12.111-rc1 review
+Date: Sun, 20 Sep 2026 13:50:38 -0400
+Message-ID: <2026-09-20-daily-reply-0006-re-ipv6-mcast-rtnl-requeue@kernel.org>
 X-Mailer: git-send-email 2.53.0
-In-Reply-To: <20260920-v6-12-cpsw-v1-0-b8490c4ef019@gmail.com>
-References: <20260920-v6-12-cpsw-v1-0-b8490c4ef019@gmail.com>
+In-Reply-To: <98538a44-63c3-455e-96f3-00124a825f9f@pobox.com>
+References: <98538a44-63c3-455e-96f3-00124a825f9f@pobox.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,15 +65,24 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-> As requested by Sasha, both commits are now being ported together to the v6.12,
-> v6.6, and v5.15 stable kernels. The two patches apply cleanly to v6.12.y.
+> I have now retested with 6.12.110 + stable-queue as of commit
+> afa3d2e7536e9034a4917d4b6e228a99d5bd7aa6 on my ThinkPad T14 Gen 1. I can
+> no longer reproduce this kernel warning (as expected with the patches
+> being dropped for now), and it's working well, and I have not observed
+> any other regressions.
+>
+> Tested-by: Barry K. Nathan <barryn@pobox.com>
 
-Queued the series for 6.12, thanks.
+Thanks for retesting so quickly.
 
-6.6 and 5.15 still need their own versions. Neither tree has
-disable_work_sync(), so the teardown in cpsw_unregister_ports() needs
-adapting rather than a straight port. Could you send those when you get
-a chance?
+The complete ordered set is back in the 6.12 queue, with the missing
+prerequisite in front this time, so the assertion is retired before the
+patches that stop taking RTNL land.
+
+6.6 and 5.15 are held for now. The conversion needs the two TI cpsw
+follow-ups that fix the ndo_set_rx_mode path, and those need
+disable_work_sync(), which neither tree has, so they need adapted
+backports first. I have asked Kevin Hao for them.
 
 -- 
 Thanks,
