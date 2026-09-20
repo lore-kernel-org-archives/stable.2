@@ -1,85 +1,71 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from SN4PR0501CU005.outbound.protection.outlook.com (mail-southcentralusazon11011011.outbound.protection.outlook.com [40.93.194.11])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6AAF5470136
-	for <stable@vger.kernel.org>; Sun, 20 Sep 2026 18:14:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789928095; cv=none; b=s8jzfbry5hqyr5ag9Jzv4pKeigEWQy75tSyyunQ9LauhDchgLFVpRle/2FOJIVeqcqzOHtX0c7hWdBELCy11r5G8Odz3tPQA8fXmmSkiJHR4rbzvC7mgjCxdmUMbsY8nqaBjogcx4Kc8MHz0c4FRn/J4F4ayaOAUi38mxccCNvE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789928095; c=relaxed/simple;
-	bh=ljrqpukr3NP5yrDjkb+Jpb6Ys4RNZtVj2TiTWC404Bw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=DRXeynKQ0COragSR1BriID8U3qxmpQHo/qhOPXUAWiN2BxVdaAmaReJRVnZ/lKWe90kxQK9Cnm/tKrVZ0gssQDhkLWZ0SHCIuJqlFTeWy+hNOTHnE4/YgwcNuIeoAitTv2eWqKTP+YF5RQ1CPagFxBOZPwxoME/xX+/vflESNg8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s0tG/0/1; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 65EFE1A0B15;
+	Sun, 20 Sep 2026 18:17:33 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.93.194.11
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789928254; cv=fail; b=hdxSGeO/RGvkuBafyC4iYYPiXlD6WoFc8J4LVsYlfE9eg8V4mw3RRISMstQVJihnZ/L3daCT9aD5fguEgl8BFghpfNUKE4Z7yaM3HJSa1zEkON70TYBrnqOLoNV3qwt21eNsmHvgWOxVt2WQX++T/2H7iybgCHi5DC2++WAyXXM=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789928254; c=relaxed/simple;
+	bh=tWfP2theVb+FGi6Df/pDgswTIV8hFpXpyLeYFndKyFg=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=Bkfq75H9aroeLnUNG+x8rqptvhcglimtg/EgJ0UqX/upTRYJj4eOdF7vJgz1+OszeN4MEstoU/2x0EJ5kEBX7DpReLKmvE7atUov57WzHgnEvtTjObsyo9yt5vPwmFPFh6nrg2xTwrEXtdWAIswjiPDzMMCoqwOG8oZmb1+Pw/c=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=0CF+RRVj; arc=fail smtp.client-ip=40.93.194.11
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s0tG/0/1"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db22383fe8so14039835ad.2
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 11:14:53 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789928093; x=1790532893; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=bIGxyqhgDCJxQrUSlOVUsvnBCPzikecf8ZgHQx68EUQ=;
-        b=s0tG/0/10XJx/mcuXgliPlt13qzin7Ife58BuWPaA8GnB7oHnfF2uQ0khztArpRVGN
-         m/pvCDSQs2O3UygsCyyPCucGMYS6o6laGb/UmOyfNiuTHaFkriExNuCYT3bIm0PUyrO5
-         CANDNEAzWsUaXAlceZn31C/hnzvGUF5cdrImyQXU8bQN9LsdHQGNI8arPKnfuD6sLmZw
-         cJyRg8eEoPICrdsD1d9/R0mX7PhaFDXqupWQ5lBHoorOvj0GOrdGebydMvmqJdrKOA50
-         M+mealyN4BAZYqkv6vKMrsHZJk7Fn8U6bxF//Ai+goL8YVSCO+KhyJGw/dt3KwGZPc8w
-         5iKQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789928093; x=1790532893;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=bIGxyqhgDCJxQrUSlOVUsvnBCPzikecf8ZgHQx68EUQ=;
-        b=VaDMa1ecEFT5NmZKMZ1k5z1lrWR3I4R61bSTqHoYft93F8o7tDQub8ThehD9l0DrVv
-         o5UU6oypc0lM6RNOqnZMdSbq7j37IV6J6alr8KJlu9ixyuhcLEBD8nDzBT1TCaYZpaFX
-         6JvVh1V7FCCQ6jPJuyf7aZxzdXC5MsUBIbHZgWlbDBzWUhX617GAZ2TsP1bW+8IxyXGZ
-         NWTChcDHcM2IqVTd/t4RYRgHl6rWLogJwIn3tuK07wKNSemx8rqQn5569yxRqqU9EcKv
-         DttmLOHNJkIU9Uy3S+6J4nAtSDAWpC5ylKE72Lqga7DIxAGO8LfjMmmJwb5EsvAo8UQT
-         Pg7w==
-X-Forwarded-Encrypted: i=1; AKwUvBzu48RjvBVwze+N0i3CLE1y9GFj8nrhyZyvTgoc4kYYLSYsRBRe/pQhQ/a360MzzXLL1Pr2b4o=@vger.kernel.org
-X-Gm-Message-State: AFuF++nJu64p+nkRseL8NNc3DoGgCCdcfQpzP1Cz50QV+UuA2zV0Z8As
-	WzQ/f/0GaW5U9cwQS11MV/ESfNVQceMIR6eXOjuPLOFZMTMYPDXTJK1w
-X-Gm-Gg: AYBFou35eChtsTxMDov/vUz3Y3clAvXCbNPOy8AIcFcnVmYS+qtfXjzAkAvXt10H2vm
-	Ph0+2E3kLFf9zplYjZe/m8aA3Yx1hLb84NXbZPPMkFE+DW2EGguHfNmfYuu5MDYhaT+LzTWcmDa
-	yCKzfys0Ax9z/vHcCQrapIDDRkGfd37e4kQ5Y7dG3a7YP2Z0cDec2SKmjffNPohpwCpy0fZRpjD
-	noeGhsd9KYrlvaZimR+QsB6h9nRgWlGwqd5rn+HZnHLeS25ICp5sKSxNnsuB9tnJ8+Wo1L2iycI
-	kYgG3Vkl6n+idur0HnLBpkO/ce5n/esVetRCxlGU0+BmvuKtTchYP8tt/3zzFdDOuc/OtmcaKxJ
-	Ptr9/yabasrZcXL0ksB6bRprCihIRHms48/Z8DO0+/HUik0P33t0g6WlzGUhQX9DQ4Dp1//2llz
-	mBmwzbpgAbt5LWK/nh00vVeRnDimsXx1mJQzpQYLpsTS5U3qReRJlEOOMB/QYoStKvvFBowRF4+
-	XQsPflsiVSrletClJiWAKoD/U5hSWsE/ZLNasOsqXS4o499+Atfc0/7D0+sLP6Q0jN6nI+6N+qT
-	rIYBhwRU5g==
-X-Received: by 2002:a17:903:1a26:b0:2dd:89b1:7fdb with SMTP id d9443c01a7336-2ddb1aeea09mr127586005ad.9.1789928092709;
-        Sun, 20 Sep 2026 11:14:52 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc179df35sm22087225ad.40.2026.09.20.11.14.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 11:14:52 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Guopeng Zhang <guopeng.zhang@linux.dev>,
-	Tejun Heo <tj@kernel.org>,
-	Johannes Weiner <hannes@cmpxchg.org>,
-	Waiman Long <longman@redhat.com>,
-	Ridong Chen <ridong.chen@linux.dev>
-Cc: Michal Koutny <mkoutny@suse.com>,
-	Shuah Khan <shuah@kernel.org>,
-	cgroups@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v3 3/3] cgroup/cpuset: check sibling effective_xcpus in cpus_excl_conflict()
-Date: Sun, 20 Sep 2026 18:14:49 +0000
-Message-ID: <20260920181449.3122336-3-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260920181449.3122336-1-benquike@gmail.com>
-References: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
- <20260920181449.3122336-1-benquike@gmail.com>
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="0CF+RRVj"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=L7SAwY5/dI/wnqupVIM7ZytCsb+TfB4nbZbXMugqyi4K3hjpYRng33R5yGp2t4fJIz6K4pIVdexBXY+/UR3ipSWY2DB2ZFb4V8ESQ1mW1jYxV/9MopU7fCJuZzYWo3na0Id6ZO3KbMwbHLDU6HcXSrc02XTegRBFsUesNlNzcFldokWksf42HmwMwexLNJj3V8WGzEP97rNpfhs/rLZ+MYzDAeJulC6w7vow70RnepYhQLIWeqiSUY5bD26HQkl5Vv0C0ZzxHYqiL3GzM4u/1ZjSvwQCJATbp3hHiztFnaypC4pEgb2pHa8nWtMKsxq42ek1arcYrtqEM9hk1Fp9aw==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Qey5GmSRMu7vCCFht38ElMGD+BbJq2EZTN5l9fXytiE=;
+ b=oZWbRS5ZZVDYtoF9CSSnLvRbUf0LfCTyUHHDgSzhSYF4BpRKerZ1D7VnmmHxDglmQF2ZTCpzntJF3wnv2Dh4z5u4RTcQb1ajARivNeMrHHwSBEzyEy+NGJVJkFbahnqXcyT960uu1DEgJALWRiZKRBOsSNmcmBKLWU4HgC+KmM7cpYw7gu2YQqyTSdkdyRYBgtzENHTT6msO7jc5a9sqpayEWbmqlY0bk8fuFgNSRAY5fPL7DhywG48OihAHp7Jg3BCnnFinNEaxM2ZVUKX0K9rr2o2btb5FQcSCQaLKMiFRTDd740LaI51xBr6Xua/Fy/HzS8APFHHqjpewolNMVw==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=kernel.org smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Qey5GmSRMu7vCCFht38ElMGD+BbJq2EZTN5l9fXytiE=;
+ b=0CF+RRVj1iNo19rE0GqmqS6ZU9w0H0xZTvTY2R1RDgL817NdF5Cq+W8Cf5tITi3MccodQieM/fEIrXFYRsbODxPfkvlW6ODU8jWKbjyXzOVo1hB0qNMx9x8M+8eBad6zVx/YQ77TjDNKGWnDeS3OrH1PvuHysi5OlPz3uqpapqg=
+Received: from LV3P220CA0004.NAMP220.PROD.OUTLOOK.COM (2603:10b6:408:234::16)
+ by MW4PR12MB6803.namprd12.prod.outlook.com (2603:10b6:303:20e::10) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Sun, 20 Sep
+ 2026 18:17:28 +0000
+Received: from BN7PEPF0000009C.namprd04.prod.outlook.com
+ (2603:10b6:408:234:cafe::2d) by LV3P220CA0004.outlook.office365.com
+ (2603:10b6:408:234::16) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.406.12 via Frontend Transport; Sun,
+ 20 Sep 2026 18:17:28 +0000
+X-MS-Exchange-Authentication-Results: spf=pass (sender IP is 165.204.84.17)
+ smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ BN7PEPF0000009C.mail.protection.outlook.com (10.167.248.148) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.8 via Frontend Transport; Sun, 20 Sep 2026 18:17:28 +0000
+Received: from purico-9dcchost.amd.com (10.180.168.240) by satlexmb07.amd.com
+ (10.181.42.216) with Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.2.2562.49; Sun, 20 Sep
+ 2026 13:17:25 -0500
+From: Melody Wang <huibo.wang@amd.com>
+To: <x86@kernel.org>
+CC: LKML <linux-kernel@vger.kernel.org>, Tom Lendacky
+	<thomas.lendacky@amd.com>, <ardb@kernel.org>, Melody Wang
+	<huibo.wang@amd.com>, <stable@vger.kernel.org>
+Subject: [PATCH v3 1/8] x86/sev: Make SVSM calls preemption-safe
+Date: Sun, 20 Sep 2026 18:16:53 +0000
+Message-ID: <252b622d9df5835a929f7cf8e34acbf0fea6b334.1789927246.git.huibo.wang@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <cover.1789927246.git.huibo.wang@amd.com>
+References: <cover.1789927246.git.huibo.wang@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -87,61 +73,91 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
+Content-Type: text/plain
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: BN7PEPF0000009C:EE_|MW4PR12MB6803:EE_
+X-MS-Office365-Filtering-Correlation-Id: a2550cdf-4d35-42c4-db0e-08df17436dc5
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|376014|1800799024|82310400026|36860700016|23010399003|11063799006|6133799003|3023799007|10067099003|56012099006|18002099003|22082099003;
+X-Microsoft-Antispam-Message-Info:
+	AUyGE09+C8ctASgQHNGgxZFd5GiK1zUg3AK3XVIjgSn9ism9dh3AQZEOCfMlZCZ0vX6p+sMrmLUVgmTkWdxGaF1pFGqW9+P678fTwVsAB8M7ANCMXzxSDdjpm0ASqKylzA76oueYOPf50lOgnwjkl6n4iV10F2mRinuD3ZIcFJvDbrHfZJQlW/3MeGt0Fm/pOxGe5gLBFoQl0g5xiiNm2Wpy5kYzqiQVij/Nn4oaPniuJMUu87Fob88i5u4IsiQrmE3dWCfkBj5WW4iq6piAndDDccq8xSrEl0nWpTIbyoy9W2UCqS+qnEJIY8ZlUNBrbL4BoiojQDiVEAJee4yv9Y3YXmK33P+WdY/aVTkBtIt0kLT1qasy1J0FpNgE/T/G/7FV5B3TmQGKmZ3jbTo3Zt439NDOAcRV1ngLvBOvQPc90iILxrPll5DwnBj6Kits5/ZO19095ud5ChruHAitntaru4XUrTQuWlOyLODsiykqQoOZfHQabDAVXREgu378ZMKtQiiBjD46K622nedwnIQ2OfwgKscpeYwxWcLwm9nIBqCDiYxQjab/cCpTC26h1VeQf3j3DGqVLGsAfPiznq8AV/VafU+JYaabVLkjmH3wnagY8/qUzJcyM6M6rMCOCJ+gHmjMm2XI89ITT/mcW+MMpc++fFFB6FN09IWiY2cMUfvD6k72/vkCIEU1qI8VKJDhDHyQRbcscqMdC1jhxw==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(376014)(1800799024)(82310400026)(36860700016)(23010399003)(11063799006)(6133799003)(3023799007)(10067099003)(56012099006)(18002099003)(22082099003);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	MnTof8PAmVGE5yp4a0EdYPyB6P1S0+f8GFzSYYBQJlYFQJmetXRD98PWNoRxBmQHDbcs+lGIItWUxxlivKXtFHL7CFqfwItlGOdJOkJLV54crTLRkctzASUoeQ5DIaffk3aKMoUxoCDLeb5aH+68B5u5+lCsG9oO6SSoghaw/VaU8z39yjxcEQtxTJY5zA4dWfgU8qUwF0g7AZniy6Yv5D1Do+VS1qKye6cm8seOi3NjxNSyQHMoqXZrypoGhzmfox2E1uZ2XoU3o6nhCA1h4EfCmdvfjguQZm2j7Kgoqcy//NstA28oI1f0u+rc3r4O+CyN1Om/O8uP5O9fhP8Iqj/9RpWRyxFclWd/HCIx9BhLEm71z5guGVOS/OyDJR/a7cQUjkXF64N2p5uvLmxPp6VCJsUTistDMRFbjCS971JZbWuPpgc4cAFgi4KDzRCp
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 20 Sep 2026 18:17:28.1393
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: a2550cdf-4d35-42c4-db0e-08df17436dc5
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	BN7PEPF0000009C.namprd04.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: MW4PR12MB6803
+Message-ID: <20260920181653.HC94DqD8lJ1ABHfegtl60KIwNAK2Fy4Mw90twWn-qOg@z>
 
-In cpus_excl_conflict(), when a valid local partition A1 uses implicit
-exclusive CPUs (cpuset.cpus set without cpuset.cpus.exclusive, so
-sibling->exclusive_cpus is empty while sibling->effective_xcpus is
-populated), a sibling cgroup B1 can still set cpuset.cpus.exclusive on
-the same CPUs because cpus_excl_conflict() only checks
-sibling->exclusive_cpus.
+Two functions in the the SVSM vTPM guest implementation do not disable
+preemption when fetching the SVSM Calling Area Address (CAA).
 
-Fall back to sibling->effective_xcpus in cpus_excl_conflict() when
-sibling->exclusive_cpus is empty, and add a regression test case to
-tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+The SVSM CAA is a per-CPU structure. When a thread is preempted and
+migrated to a different CPU after fetching the per-CPU CAA, the SVSM
+call will execute on the new CPU with the original CPU's CAA. Which is
+wrong.
 
-Tested in QEMU on Linux 7.3.0-rc3 using
-tools/testing/selftests/cgroup/test_cpuset_prs.sh.
+Move the CAA fetching operation inside svsm_perform_call_protocol()
+which disables interrupts around the SVSM call and thus runs
+preemption-safe.
 
-Fixes: 2a3602030d80 ("cgroup/cpuset: Don't invalidate sibling partitions on cpuset.cpus conflict")
+Fixes: 770de678bc28 ("x86/sev: Add SVSM vTPM probe/send_command functions")
+Signed-off-by: Melody Wang <huibo.wang@amd.com>
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
-Changes in v3:
-- Split out from the validate_partition() fix into patch 3/3 and add the
-  Fixes tag for commit 2a3602030d80, as pointed out by Guopeng Zhang.
+ arch/x86/coco/sev/svsm.c | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
 
- kernel/cgroup/cpuset.c                        | 5 ++++-
- tools/testing/selftests/cgroup/test_cpuset_prs.sh | 1 +
- 2 files changed, 5 insertions(+), 1 deletion(-)
-
-diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-index 7c5b4a8f1f3a..f46a51f07938 100644
---- a/kernel/cgroup/cpuset.c
-+++ b/kernel/cgroup/cpuset.c
-@@ -713,7 +713,10 @@ static inline bool cpus_excl_conflict(struct cpuset *trial, struct cpuset *sibli
- 		return true;
+diff --git a/arch/x86/coco/sev/svsm.c b/arch/x86/coco/sev/svsm.c
+index 916d62cd17dc..2d493d55ff2e 100644
+--- a/arch/x86/coco/sev/svsm.c
++++ b/arch/x86/coco/sev/svsm.c
+@@ -74,6 +74,14 @@ int svsm_perform_call_protocol(struct svsm_call *call)
  
- 	/* Exclusive_cpus cannot intersect */
--	return cpumask_intersects(trial->exclusive_cpus, sibling->exclusive_cpus);
-+	return cpumask_intersects(trial->exclusive_cpus,
-+				  cpumask_empty(sibling->exclusive_cpus)
-+				  ? sibling->effective_xcpus
-+				  : sibling->exclusive_cpus);
- }
+ 	flags = native_local_irq_save();
  
- static inline bool mems_excl_conflict(struct cpuset *cs1, struct cpuset *cs2)
-diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-index f4d1822d4e21..f62155cf6162 100755
---- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-+++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-@@ -445,6 +445,7 @@ TEST_MATRIX=(
++	/*
++	 * 'caa' is a per-CPU variable. To avoid using a stale or incorrect
++	 * 'caa' if the task is preempted or migrated to another CPU after it
++	 * is fetched, always fetch 'caa' and then issue the SVSM call with
++	 * interrupts disabled. This ensures the correct 'caa' is used.
++	 */
++	call->caa = svsm_get_caa();
++
+ 	ghcb = __sev_get_ghcb(&state);
  
- 	# Changes to cpuset.cpus.exclusive that violate exclusivity rule is rejected
- 	"   C0-3     .      .    C4-5   X0-3     .      .     X3-5   1 A1:0-3|B1:4-5"
-+	"  C0-3:P1   .      .    C4-5     .      .      .     X3-5   1 A1:0-3|B1:4-5 A1:P1|B1:P0"
+ 	do {
+@@ -321,7 +329,6 @@ int snp_svsm_vtpm_send_command(u8 *buffer)
+ {
+ 	struct svsm_call call = {};
  
- 	# cpuset.cpus.exclusive cannot be set to a superset of sibling's cpuset.cpus
- 	"   C0-3     .      .    C4-5   X3-5     .      .      .     1 A1:0-3|B1:4-5"
+-	call.caa = svsm_get_caa();
+ 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_CMD);
+ 	call.rcx = __pa(buffer);
+ 
+@@ -345,7 +352,6 @@ bool snp_svsm_vtpm_probe(void)
+ 	if (!snp_vmpl)
+ 		return false;
+ 
+-	call.caa = svsm_get_caa();
+ 	call.rax = SVSM_VTPM_CALL(SVSM_VTPM_QUERY);
+ 
+ 	if (svsm_perform_call_protocol(&call))
 -- 
-2.49.0
+2.43.0
+
