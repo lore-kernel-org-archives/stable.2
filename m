@@ -1,132 +1,254 @@
-Received: from mail-lr2-f7.google.com (mail-lr2-f7.google.com [74.125.230.71])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 69791367F31
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 06:15:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.71
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0E97436212C;
+	Mon, 21 Sep 2026 06:15:15 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789971312; cv=none; b=KpmNW4zOg9eY+PIAEeCXckUoW/AWLnZYpxd2WK1ShJ9XTPpR4nb8fxE/8ueeq8MLvQFNOpClEkJ8a3mZdNlJgX3QL9zSXRzcTAtoQvJWfMxGkcO3rW5jbv5kBKCQEdWJ8J353HW1TQABNTzo9t6sx06lAWlrjeCNrfDbQsYJNeM=
+	t=1789971316; cv=none; b=aevqfutCxeClizUA0kPxyz0tD4DwwOevzJXV/PVS28ZazNU7Cz7hjlh24f9qeeNHw97giVOqxvAl04WzObd644YDMNoS4v9jjNaJd8G46/AGoTa2UYzYxmf6o8r3weRwlpV58pUpVf3N/oAvwEEH9UsQ8Dal0NCnW1pxtstasAY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789971312; c=relaxed/simple;
-	bh=sV5QPs7DGYBPvqnJ7zT3vnO9o4CqLIZs3EEy4fJGu5o=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=iWPM3I1qEzVteVAidvl4SOYXMupi3lnQFGZad04ufCKHzImXK07oxyCzit8FaNZdfgUrUprCikLFEQSP+7+wQ2cWg/iIVnbwemACbsEjxhVJdadk/k5pXurFUrm0NmreV2FSx8wB3MUq5ldZkgcxy7IhYaGRuc8MwDX9Yf3Bm1M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ki+hoG2d; arc=none smtp.client-ip=74.125.230.71
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789971316; c=relaxed/simple;
+	bh=QDqgWxIRCqp5NrQCiQtQFtORRKhaPMTg8MYH5jm4PmI=;
+	h=Date:Subject:From:To:Cc:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=hEL1pYrAqStwgaVk5qJ6eofPv2Oo9tgJkt1zhXlHi/NrmjZRPbXzB6EDIh0V0kJgqHkzoRM8f0uvVbpIxaHZYJqPLbaomiUTwZM0Xr7Pcy+OdGbZTEklbd8/YNUWmNqBDwOVpNXZhf6NeyeCti4WxWPFPpuICPyBjmmiOGsqqOw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mjZFCc+a; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ki+hoG2d"
-Received: by mail-lr2-f7.google.com with SMTP id 38308e7fff4ca-3a5abfab93bso19785821fa.1
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 23:15:10 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789971308; x=1790576108; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=fuvF+SRLtU99nQlp2cXtrtRQVtC6maysR3JY+sX0IuU=;
-        b=Ki+hoG2dgElKjTuWJovhLh6if2bZBfaMh7tSjk00I1lpc9ai4LKH56g/YNScyxflVT
-         /fcvX1aXW9sKQhUDb+BYpDzMpRhg5fr59P8HKz9Cczs3uDqPgm3M7O1cchyT8v/lxzab
-         YdMIfAY64edIxeio+lEylxd+W+wINk7h5ARsLrZJOV6eK26mCuvWYtNdzbmTPTP1bOEG
-         HX3V6w1W1O5CcnjYBhg4lYEyoHpZ6oEjxY9GDr/kT7P7sF8VLk5IjYTLATon+n1gxsF8
-         /XocNsvFdnOtcbCnvXCd5YGy8AE26Sz1EYKE2ocd4tKNK3+H9cWxuKKSlF1iHBFmGV9k
-         spLQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789971308; x=1790576108;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fuvF+SRLtU99nQlp2cXtrtRQVtC6maysR3JY+sX0IuU=;
-        b=dPJWmg+qd5vqATBdTG+QK7wmbExP1/Rbeq/XrKUizhqPNBla7ud5QRLKMO/SOv7Fla
-         f0qzJ81GkyT9uSljCeGT7z0VKpVaHSANu07CsIxsp1ioibt8e256MPVZ3V0dpaoi2Ik4
-         bqnZyFJUwa76lqFuhjArfJtz2ePec+HcHgPr1pEJvjAm9rnaaBS0yBlB5fI7TR2CqcD9
-         JTpP5IMz1t4wXHS6o0WYPkV9ARqBQYYofOPconolDt/nXvZX2VcuI48tya0MD+Gp7D0Q
-         3aFzMnqOFVFKWSo3aU+U1PhyLldVkBw+y9Iy6/YcWi87vQtCf4Q6e0QHhCmprNtYQw4l
-         q2uQ==
-X-Gm-Message-State: AFuF++n7ZJxYszD25TPYh8Ghcxz5qatDDOkQkf3uzsENpeB5nbSbdHyp
-	O9a0a9Ct/7Mt3mBYFokqlixf65Wly33csYcHRP2unT+wQEpXr+Kn5cazpLlha6rrHkY=
-X-Gm-Gg: AYBFou0lxTMZWmSW6bTFCUn742VXj7ezMhOh68gLcCPfeqBNIEIs/KWbEt7sfQh7qCp
-	sJ1C+7WgavZLmtO2cGbgkOQqzUiJXse1uMwroamrMIgQH+DvuDnf5xh4HKpkHLhRCbsLxqqh1PG
-	Uj1SFPE6R2QpMTl4pUb4j5CUXp2llkt00kN1BX7gYUjfVN5PHnS9OdPBTPCN5TkU4NmzrTRhUuW
-	bEixhemTYabPwvbdXVURWBxAPqJgf3ZQqJvGWr2b9m16yiy0hMStJ3cJgYt8WdkIAgQsEXPs2Z0
-	Ir9HdrSgajzeChgiK+zxgADlodeT810x8/kZATpK4XkqGTZde8ZOosLwtqkpVED3YZh6zO9R7wW
-	kmDcLl+XvgAiOzk5hfaN1J1D4+nCLHRr5Wc9OnL0q0sHdmfcoUHJKDTwoMrDktVcgnGUWjQrgk+
-	wWkxj6o2RKiAsKVLAHBN+oqr7xxqzXjiKwU0G3PCTGVqL87W5u/nOkBNDyIiPGFFHylWkvBpFk2
-	FHMV3psDF7CXgJJ
-X-Received: by 2002:a05:6512:1090:b0:5b6:183c:5c9f with SMTP id 2adb3069b0e04-5b8c195a1c4mr3040448e87.61.1789971307991;
-        Sun, 20 Sep 2026 23:15:07 -0700 (PDT)
-Received: from localhost.localdomain ([78.40.184.2])
-        by smtp.gmail.com with ESMTPSA id 2adb3069b0e04-5b8c78c1398sm1691835e87.7.2026.09.20.23.15.07
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 23:15:07 -0700 (PDT)
-From: Roman Demidov <roman.demidov.nn@gmail.com>
-To: stable@vger.kernel.org,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Roman Demidov <roman.demidov.nn@gmail.com>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	=?UTF-8?q?C=C3=A1ssio=20Gabriel?= <cassiogabrielcontato@gmail.com>,
-	HyeongJun An <sammiee5311@gmail.com>,
-	bui duc phuc <phucduc.bui@gmail.com>,
-	Kyle Zeng <kylebot@openai.com>,
-	HanQuan <eilaimemedsnaimel@gmail.com>,
-	linux-sound@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	lvc-project@linuxtesting.org,
-	Takashi Iwai <tiwai@suse.de>,
-	Sasha Levin <sashal@kernel.org>
-Subject: [PATCH 5.10] ALSA: seq: Clear variable event pointer on read
-Date: Mon, 21 Sep 2026 09:14:53 +0300
-Message-ID: <20260921061454.6421-1-roman.demidov.nn@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mjZFCc+a"
+Received: by smtp.kernel.org (Postfix) with UTF8SMTPSA id D79EB1F000FF;
+	Mon, 21 Sep 2026 06:15:14 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789971314;
+	bh=ZANevMhG+M4xhoMYkT6ZgehOnr/MynVsP/6g/RKvWK8=;
+	h=Date:Subject:From:To:Cc:In-Reply-To:References;
+	b=mjZFCc+aiafdunb+MAzqjVO85mXPdou61BedlXKBO8CbnuWbIaWiaB23O2K5dFv6+
+	 rFWS9+36Hfrz0Tw60ZRvQvfHRlxXtFFn4XPICoAes1CVfGpifX5rbsKkncCAqw8Tgv
+	 MB4zG5vxEdWz5q89MIyRyUR1k09xge6CFROQUONhy1ako7G0XExJ5Q5WcDo9N3XJEo
+	 vI6TuZUf5im0cuI/HihRT/R3XA6XQHGfXHzfPJAZWHSbctQRH9DtPzqSeZO9Tyh61g
+	 TM2IhYg1Qpt0plR9dfBlagcp+9LsKv7TP1RKuTBWsSU/EvoAYUgpZM30IY1QJ/wU1f
+	 /vuAtPjCcSEWA==
+Date: Sun, 20 Sep 2026 23:15:14 -0700
+Subject: [PATCH 01/14] xfs: fix missing xfs_qm_adjust_dqlimits call in
+ quotacheck repair
+From: "Darrick J. Wong" <djwong@kernel.org>
+To: cem@kernel.org, djwong@kernel.org
+Cc: stable@vger.kernel.org, linux-xfs@vger.kernel.org
+Message-ID: <178996120572.181988.15018530254063783796.stgit@frogsfrogsfrogs>
+In-Reply-To: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
+References: <178996120463.181988.9152653965555322220.stgit@frogsfrogsfrogs>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
 
-From: Kyle Zeng <kylebot@openai.com>
+From: Darrick J. Wong <djwong@kernel.org>
 
-commit 705dd6dcbc0ea87351c660c1a6443f85f1001c76 upstream.
+LOLLM noticed that everywhere else in the kernel, a call to
+xfs_qm_adjust_dqlimits precedes every call to xfs_qm_adjust_dqtimers.
+In particular, mount-time quotacheck does this, but online quotacheck
+does not.
 
-snd_seq_read() copies a queued variable-length event header to userspace
-before expanding the payload. Queued variable-length events use
-SNDRV_SEQ_EXT_CHAINED internally, and data.ext.ptr points at the first
-extension cell.
+Looking at xfs_qm_adjust_dqlimits, that function is in charge of
+conveying default limits to a dquot if that dquot's limits have been
+zeroed.  That's quite possible in a repair, so we actually need to do
+that.
 
-The read side strips SNDRV_SEQ_EXT_* bits from data.ext.len before the
-copy, but it leaves data.ext.ptr untouched. A userspace sequencer client
-can therefore write a direct variable event to itself and read back the
-extension-cell kernel address from the returned header.
+However, there's a pre-existing pattern in the kernel -- for non-root
+dquots, first we call xfs_qm_adjust_dqlimits to set the dquot's limits
+to the defaults if they are zero, and then xfs_qm_adjust_dqtimers to
+start grace periods if the dquot's usage is above the softlimit.  The
+grace period decision cannot be made correctly if we forget to import
+the default limits.
 
-Clear the temporary header pointer before copy_to_user(). The original
-queued event remains unchanged and is still passed to
-snd_seq_expand_var_event(), so payload expansion keeps using the
-internal chain.
+Therefore, let's combine both into a single xfs_qm_adjust_dqenforcement
+helper that takes care of both pieces, which fixes quotacheck and makes
+it hard to repeat this mistake.
 
-Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
-Signed-off-by: Kyle Zeng <kylebot@openai.com>
-Link: https://patch.msgid.link/20260607004129.61345-1-kylebot@openai.com
-Signed-off-by: Takashi Iwai <tiwai@suse.de>
-Signed-off-by: Sasha Levin <sashal@kernel.org>
-Signed-off-by: Roman Demidov <roman.demidov.nn@gmail.com>
+Cc: <stable@vger.kernel.org> # v6.9
+Fixes: 96ed2ae4a9b06b ("xfs: repair dquots based on live quotacheck results")
+Signed-off-by: "Darrick J. Wong" <djwong@kernel.org>
+Assisted-by: LOLLM # finding obvious bugs
 ---
-Backport fix for CVE-2026-74339
+ fs/xfs/xfs_dquot.h               |    3 +--
+ fs/xfs/scrub/quota_repair.c      |    5 +----
+ fs/xfs/scrub/quotacheck_repair.c |    3 +--
+ fs/xfs/xfs_dquot.c               |   27 +++++++++++++++++----------
+ fs/xfs/xfs_qm.c                  |    6 +-----
+ fs/xfs/xfs_qm_syscalls.c         |   17 +++++++----------
+ fs/xfs/xfs_trans_dquot.c         |    6 +-----
+ 7 files changed, 29 insertions(+), 38 deletions(-)
 
- sound/core/seq/seq_clientmgr.c | 1 +
- 1 file changed, 1 insertion(+)
 
-diff --git a/sound/core/seq/seq_clientmgr.c b/sound/core/seq/seq_clientmgr.c
-index 0363670a56e7..27c8af14a39e 100644
---- a/sound/core/seq/seq_clientmgr.c
-+++ b/sound/core/seq/seq_clientmgr.c
-@@ -441,6 +441,7 @@ static ssize_t snd_seq_read(struct file *file, char __user *buf, size_t count,
- 			struct snd_seq_event tmpev;
- 			tmpev = cell->event;
- 			tmpev.data.ext.len &= ~SNDRV_SEQ_EXT_MASK;
-+			tmpev.data.ext.ptr = NULL;
- 			if (copy_to_user(buf, &tmpev, sizeof(struct snd_seq_event))) {
- 				err = -EFAULT;
- 				break;
--- 
-2.53.0
+diff --git a/fs/xfs/xfs_dquot.h b/fs/xfs/xfs_dquot.h
+index bbb824adca82ce..326f85d2b4116c 100644
+--- a/fs/xfs/xfs_dquot.h
++++ b/fs/xfs/xfs_dquot.h
+@@ -204,8 +204,7 @@ void xfs_dquot_to_disk(struct xfs_disk_dquot *ddqp, struct xfs_dquot *dqp);
+ void		xfs_qm_dqdestroy(struct xfs_dquot *dqp);
+ int		xfs_qm_dqflush(struct xfs_dquot *dqp, struct xfs_buf *bp);
+ void		xfs_qm_dqunpin_wait(struct xfs_dquot *dqp);
+-void		xfs_qm_adjust_dqtimers(struct xfs_dquot *d);
+-void		xfs_qm_adjust_dqlimits(struct xfs_dquot *d);
++void		xfs_qm_adjust_dqenforcement(struct xfs_dquot *d);
+ xfs_dqid_t	xfs_qm_id_for_quotatype(struct xfs_inode *ip,
+ 				xfs_dqtype_t type);
+ int		xfs_qm_dqget(struct xfs_mount *mp, xfs_dqid_t id,
+diff --git a/fs/xfs/scrub/quota_repair.c b/fs/xfs/scrub/quota_repair.c
+index 59302e8afc7ef0..89f7ea4f92ef4a 100644
+--- a/fs/xfs/scrub/quota_repair.c
++++ b/fs/xfs/scrub/quota_repair.c
+@@ -248,10 +248,7 @@ xrep_quota_item(
+ 
+ 	dq->q_flags |= XFS_DQFLAG_DIRTY;
+ 	xfs_trans_dqjoin(sc->tp, dq);
+-	if (dq->q_id) {
+-		xfs_qm_adjust_dqlimits(dq);
+-		xfs_qm_adjust_dqtimers(dq);
+-	}
++	xfs_qm_adjust_dqenforcement(dq);
+ 	xfs_trans_log_dquot(sc->tp, dq);
+ 	return xfs_trans_roll(&sc->tp);
+ 
+diff --git a/fs/xfs/scrub/quotacheck_repair.c b/fs/xfs/scrub/quotacheck_repair.c
+index dbb522e1513b0b..48ee08df302a42 100644
+--- a/fs/xfs/scrub/quotacheck_repair.c
++++ b/fs/xfs/scrub/quotacheck_repair.c
+@@ -110,8 +110,7 @@ xqcheck_commit_dquot(
+ 
+ 	/* Commit the dirty dquot to disk. */
+ 	dq->q_flags |= XFS_DQFLAG_DIRTY;
+-	if (dq->q_id)
+-		xfs_qm_adjust_dqtimers(dq);
++	xfs_qm_adjust_dqenforcement(dq);
+ 	xfs_trans_log_dquot(xqc->sc->tp, dq);
+ 	return xrep_trans_commit(xqc->sc);
+ 
+diff --git a/fs/xfs/xfs_dquot.c b/fs/xfs/xfs_dquot.c
+index e696ee36c2e8d2..56d990eb2d02ba 100644
+--- a/fs/xfs/xfs_dquot.c
++++ b/fs/xfs/xfs_dquot.c
+@@ -115,18 +115,15 @@ xfs_qm_dqdestroy(
+  * We overwrite the dquot limits only if they are zero and this
+  * is not the root dquot.
+  */
+-void
++static void
+ xfs_qm_adjust_dqlimits(
+ 	struct xfs_dquot	*dq)
+ {
+ 	struct xfs_mount	*mp = dq->q_mount;
+ 	struct xfs_quotainfo	*q = mp->m_quotainfo;
+-	struct xfs_def_quota	*defq;
++	struct xfs_def_quota	*defq = xfs_get_defquota(q, xfs_dquot_type(dq));
+ 	int			prealloc = 0;
+ 
+-	ASSERT(dq->q_id);
+-	defq = xfs_get_defquota(q, xfs_dquot_type(dq));
+-
+ 	if (!dq->q_blk.softlimit) {
+ 		dq->q_blk.softlimit = defq->blk.soft;
+ 		prealloc = 1;
+@@ -207,22 +204,32 @@ xfs_qm_adjust_res_timer(
+  * get reset to zero, however, when we find the count to be under
+  * the soft limit (they are only ever set non-zero via userspace).
+  */
+-void
++static void
+ xfs_qm_adjust_dqtimers(
+ 	struct xfs_dquot	*dq)
+ {
+ 	struct xfs_mount	*mp = dq->q_mount;
+ 	struct xfs_quotainfo	*qi = mp->m_quotainfo;
+-	struct xfs_def_quota	*defq;
+-
+-	ASSERT(dq->q_id);
+-	defq = xfs_get_defquota(qi, xfs_dquot_type(dq));
++	struct xfs_def_quota	*defq = xfs_get_defquota(qi, xfs_dquot_type(dq));
+ 
+ 	xfs_qm_adjust_res_timer(dq->q_mount, &dq->q_blk, &defq->blk);
+ 	xfs_qm_adjust_res_timer(dq->q_mount, &dq->q_ino, &defq->ino);
+ 	xfs_qm_adjust_res_timer(dq->q_mount, &dq->q_rtb, &defq->rtb);
+ }
+ 
++/* Adjust enforcement limits and timers after a change in usage. */
++void
++xfs_qm_adjust_dqenforcement(
++	struct xfs_dquot	*dq)
++{
++	if (dq->q_id == 0)
++		return;
++
++	xfs_qm_adjust_dqlimits(dq);
++	xfs_qm_adjust_dqtimers(dq);
++	dq->q_flags |= XFS_DQFLAG_DIRTY;
++}
++
+ /*
+  * initialize a buffer full of dquots and log the whole thing
+  */
+diff --git a/fs/xfs/xfs_qm.c b/fs/xfs/xfs_qm.c
+index 54d00d543b513a..008fed8624be2c 100644
+--- a/fs/xfs/xfs_qm.c
++++ b/fs/xfs/xfs_qm.c
+@@ -1294,11 +1294,7 @@ xfs_qm_quotacheck_dqadjust(
+ 	 *
+ 	 * There are no timers for the default values set in the root dquot.
+ 	 */
+-	if (dqp->q_id) {
+-		xfs_qm_adjust_dqlimits(dqp);
+-		xfs_qm_adjust_dqtimers(dqp);
+-	}
+-
++	xfs_qm_adjust_dqenforcement(dqp);
+ 	dqp->q_flags |= XFS_DQFLAG_DIRTY;
+ out_unlock:
+ 	mutex_unlock(&dqp->q_qlock);
+diff --git a/fs/xfs/xfs_qm_syscalls.c b/fs/xfs/xfs_qm_syscalls.c
+index 21a7849868288f..e2c5f57a7ba86c 100644
+--- a/fs/xfs/xfs_qm_syscalls.c
++++ b/fs/xfs/xfs_qm_syscalls.c
+@@ -371,16 +371,13 @@ xfs_qm_scall_setqlim(
+ 	if (newlim->d_fieldmask & QC_INO_TIMER)
+ 		xfs_setqlim_timer(mp, res, qlim, newlim->d_ino_timer);
+ 
+-	if (id != 0) {
+-		/*
+-		 * If the user is now over quota, start the timelimit.
+-		 * The user will not be 'warned'.
+-		 * Note that we keep the timers ticking, whether enforcement
+-		 * is on or off. We don't really want to bother with iterating
+-		 * over all ondisk dquots and turning the timers on/off.
+-		 */
+-		xfs_qm_adjust_dqtimers(dqp);
+-	}
++	/*
++	 * If the user is now over quota, start the timelimit.  The user will
++	 * not be 'warned'.  Note that we keep the timers ticking, whether
++	 * enforcement is on or off. We don't really want to bother with
++	 * iterating over all ondisk dquots and turning the timers on/off.
++	 */
++	xfs_qm_adjust_dqenforcement(dqp);
+ 	dqp->q_flags |= XFS_DQFLAG_DIRTY;
+ 	xfs_trans_log_dquot(tp, dqp);
+ 
+diff --git a/fs/xfs/xfs_trans_dquot.c b/fs/xfs/xfs_trans_dquot.c
+index 1606c614f205ae..93ec876792cc76 100644
+--- a/fs/xfs/xfs_trans_dquot.c
++++ b/fs/xfs/xfs_trans_dquot.c
+@@ -566,11 +566,7 @@ xfs_trans_apply_dquot_deltas(
+ 			 * Get any default limits in use.
+ 			 * Start/reset the timer(s) if needed.
+ 			 */
+-			if (dqp->q_id) {
+-				xfs_qm_adjust_dqlimits(dqp);
+-				xfs_qm_adjust_dqtimers(dqp);
+-			}
+-
++			xfs_qm_adjust_dqenforcement(dqp);
+ 			dqp->q_flags |= XFS_DQFLAG_DIRTY;
+ 			/*
+ 			 * add this to the list of items to get logged
 
