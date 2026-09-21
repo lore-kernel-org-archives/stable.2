@@ -1,40 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B02AC499F17;
-	Mon, 21 Sep 2026 15:13:53 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3412F691D;
+	Mon, 21 Sep 2026 15:14:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003634; cv=none; b=NKH7goQHKO4zQaXE/cWn+R9X5OYyzrDsSzzLL7fJ/xo/nQiccct5ZzlWa5RRKa8Xd0UoJZSb5fHA0Xf3zMWUxMe3S7lttOGWqKopQewDmWS5Upl16QG5sto2AmLfCcTa1qTFbLMezTXfFKsI5NWSaXO+Lamr5PiC+uIjyMzGFOI=
+	t=1790003667; cv=none; b=ZvZ0qhAf2ADOMtWkNiPz1OrWdYwpx8ghe6gALnq86g84CURPs/z+HvvxBafKg5q1wY2UkBwDeP8sggELnCZb2+m/YMLQGke+OIXd+uzqGBXmvTQJrLkuAsf07fO+E8i1E2YhMrg8qaGP21S5jjh1Q6mREscwM9BDtz9WZaXJvdg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003634; c=relaxed/simple;
-	bh=bqE1xEot6tiyL8ZmNNempke5NHtbffWU04ZTox5AuAs=;
+	s=arc-20240116; t=1790003667; c=relaxed/simple;
+	bh=IhIlpoErO6zQPf/LHi+a0obCzyy2h1v1zl7z4bCoLf8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=q+QGZ7tstSZmc5h2afTn2HBN5tm3HurxEB+ydbm3sKGO0cjiJTgqTdDcvANTdzndzLs5wUaoDDXxXdI3Jr9qYyK/6wGyLceAQ7V1nHx4TZeBzi6Es4iEK7hbHkwGnVrQYCEL0xRMOQikqD+U8780x6qiDsV2B9mQMrZsAb1+x3Q=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=cc1hCmak; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JrbbrPLPiktY5b7lKDXULAtkN3qN0/yOzt1Nqu5ZtRmrWPRC1vx8ulzgZ6ZRu5TOe+elzYw1WqWFF30ZLZtP9z4BY+LJRH0BTt4Vqz7epe+51mh7sEIuuZD4zI+y9fkU7Qiuk2l/VEtNXOk+rrE28Y7mZDDEXhjhQv15s7b0xC8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=MfhoR/R/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="cc1hCmak"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 99BD31F000FF;
-	Mon, 21 Sep 2026 15:13:52 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="MfhoR/R/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A8DE91F000FF;
+	Mon, 21 Sep 2026 15:14:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003633;
-	bh=ZDRQ8N++1ApttUwT3N9xaoQfi3XlqZ/LvnDqiBydZrQ=;
+	s=k20260515; t=1790003666;
+	bh=tpIxZoFZLYvOpLCQ29sIhaJI+A6RdgDAKvdZa2DVaz0=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=cc1hCmak9MnLVSyItvdYF19QPrqsY4ZANqMEsli5mCF1D/wouBXlfbJBRLXgsMN8d
-	 mXKE+hWDqXvxgduDPBHAvrEr1CCJFbKMIawi4wSxLtzF++qSLy33WQRglavpqQbv//
-	 czTJZ/5PuwE3ky01ofsn2ZaO90ZGtm3d+pMYhbQ/vpX21wzQZ2H0mvVmP1fmdTSMCI
-	 jOVRMTblUcTAD0KW6cRYiIVCratM1yr/zkPA27klgQySE0WtipE/kexJTaOb5s+LGP
-	 /sboowP4V7r+J5d9lp0hx9NqWN7GtDKjLEXH4RU3B/ph+nwOvrTf1OhpW2OWz5h3Gy
-	 AR9WQxLY2Ta3Q==
-Date: Mon, 21 Sep 2026 17:13:50 +0200
+	b=MfhoR/R/hLOP+JdkTPUvUbHpVbLShFnzEFRgffUkmroOdU31tNw8XSxqxD+cAPp2C
+	 bfzOXyOrnzLD7/Q4+I451qqTrJghuWBmXD4dVeo7Xu8U7KeFZLPfFkUYElqI2ee+YM
+	 otYDb6Mr6J7GkPleY9BrNmMfvxExfc4Xl7jgA6n/pAoVSBih+Jd5exuAPMcY/N8gZn
+	 8X470xxASVjXT7wu+hp1/R4ZkPOYglNKSEyH15m48gEb/mm0esqQW/pzMPRNkWKUaR
+	 tA3a78wkHcVsSmM4pStBoFHKS1d0MiEDMDZ67cz7AYCIf6K3LLNzuWXFGxjaP7Z+8l
+	 L2VFm9WeQ/Xzg==
+Date: Mon, 21 Sep 2026 17:14:21 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Vignesh Raghavendra <vigneshr@ti.com>, stable@vger.kernel.org, 
-	Miquel Raynal <miquel.raynal@bootlin.com>, Richard Weinberger <richard@nod.at>, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] mtd: rawnand: intel: fix OF node reference leak
-Message-ID: <arFJrf7S7IvAR27Y@quoll>
-References: <20260915163407.2487869-1-lgs201920130244@gmail.com>
+Cc: Bjorn Andersson <andersson@kernel.org>, stable@vger.kernel.org, 
+	linux-arm-msm@vger.kernel.org, Mathieu Poirier <mathieu.poirier@linaro.org>, 
+	Sivaprakash Murugesan <sivaprak@codeaurora.org>, Gokul Sriram Palanisamy <quic_gokulsri@quicinc.com>, 
+	linux-kernel@vger.kernel.org, linux-remoteproc@vger.kernel.org, 
+	Govind Singh <govinds@codeaurora.org>
+Subject: Re: [PATCH] remoteproc: qcom: q6v5-wcss: remove all subdevices on
+ unbind
+Message-ID: <arFJzYqY_mdeXr4C@quoll>
+References: <20260918041321.3532355-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,29 +46,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915163407.2487869-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260918041321.3532355-1-lgs201920130244@gmail.com>
 
 
-On Wed, 16 Sep 2026 00:34:07 +0800, Guangshuo Li wrote:
-> ebu_nand_probe() gets a reference to the NAND chip node with
-> of_get_next_child(). The probe failure paths release the reference with
-> of_node_put(), but the successful probe path keeps it for the lifetime
-> of the device and ebu_nand_remove() never drops it.
+On Fri, 18 Sep 2026 12:13:21 +0800, Guangshuo Li wrote:
+> q6v5_wcss_probe() registers GLINK, PDM and SSR remoteproc subdevices,
+> and may also register a sysmon subdevice. The probe failure path
+> removes all of these subdevices, but q6v5_wcss_remove() only removes
+> the PDM subdevice.
 > 
-> As a result, each bind/unbind cycle leaks a reference to the NAND chip
-> device node.
+> As a result, GLINK, SSR and sysmon resources and registrations can
+> remain after the WCSS driver is removed.
 > 
-> Drop the reference in ebu_nand_remove() after the NAND teardown using
-> the flash node stored in the NAND chip.
+> Call rproc_del() before tearing down the Qualcomm-specific resources,
+> matching the teardown order used by the other Qualcomm Q6 remoteproc
+> drivers, and remove the GLINK, sysmon and SSR subdevices together with
+> the existing PDM cleanup.
 > 
 > This issue was found by manual code inspection.
 > 
-> Fixes: bfc618fcc3f1 ("mtd: rawnand: intel: Read the chip-select line from the correct OF node")
+> Fixes: 8a226e2c71bb ("remoteproc: wcss: add support for rpmsg communication")
+> Fixes: 0af65b9b915e ("remoteproc: qcom: wcss: Add non pas wcss Q6 support for QCS404")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/mtd/nand/raw/intel-nand-controller.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  drivers/remoteproc/qcom_q6v5_wcss.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
 
 
