@@ -1,167 +1,119 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3A356355F46;
-	Mon, 21 Sep 2026 12:10:29 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F2D383C9ED0;
+	Mon, 21 Sep 2026 12:11:24 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992631; cv=none; b=F369kTWclndjX2ktm6WKG1WtP+qcJxy00sUxecgKW39P2BqhVb/OFzrB53wz8YVRDo0T5XTuUYIgnCB2o3XKdGnoJveRzHCs1P+gISo9EFBtjP7SaKsTXrIUdzZX4OiZl8OeMbMUHDakSJxfjNNYIha0+V5ix1mETJd88jd5r84=
+	t=1789992686; cv=none; b=XHVJkwSDDGG23uFdNnptOjjXb9ntbo6lZJ7u00zZ+PNILqDmN8eYAoBlkJwHTz2SYo2lX+hYUOI7Dq9rtwuqy5U/7/M/TDvkmHxb6IhpOGOx0Vr9GXu76ZbapmxrxtlKkzdL4RDs3GA5Krf0fITtYwTInE2S1Wq0jukSqOed3F8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992631; c=relaxed/simple;
-	bh=F0khSI8haFqLwK8ha/fAvJOllIzErtVACmDY7oV2nlk=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=dzEYsYA9g9cGf4d67H1/cHpE62X7ICSMHz8MawkolFw29ZxOJwB3hTPgLWEJzH8yGt6VXxh/5arTj242D7aT7s5oJzQCjxVKNSk5LPZjmnDuBofddB3+e+KPJTzx+f5Iduzjzi/06sWLZ7JUQFqZxUomy5dA3jVKZ0QQ1JP52jc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=dxy+sPTR; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789992686; c=relaxed/simple;
+	bh=JnSnm1lDJ01Rj969zxsQOwm25oRkglMxjPcUzNiA6/s=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=WeaVx44aw0alVoHhPuJBzEW9DPXfeb6d0UgBfumjGdPdskAXmKnSVKl4Xnq4tKOtJJAiJpjOVLaQjxbUqT0LyGQs34B1J49blsBzBUwBhyHKm5RF1r3bqCauIY7rH49gKTLibTbJoe/7ZaWh7HxU6lIP5c/URBAw3nF6FYWhq2M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OvoYvLux; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="dxy+sPTR"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 33A8B1F00899;
-	Mon, 21 Sep 2026 12:10:29 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OvoYvLux"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28D541F000FF;
+	Mon, 21 Sep 2026 12:11:22 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789992629;
-	bh=UeJmK4kWg3yRR+nNOTmEncPuh0kbRpSvlgt4fWTbY4k=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=dxy+sPTRpEbn+bWgh5JVaBkxYM6mn5vCclm7e4wB9isF7kbmExMGjCop/YetyovxP
-	 H90i5RIKCj5J/onxpK1LhKpCciGvuOr+o0xycc2SWAr/IZrq+OklA8XEe8hZYXuUlX
-	 I+htxKgKiMoz7gkhnwlQ4UR8RoGmPKKDZ/zIc8SReXIv91IHrYLly9mh3+dHJ6Hp+V
-	 piL08opKJXO2ai3CO1L1iafs9+b6IGcBmb4FLujNypc0DYRP+B9IlkHQDtqJCTWytG
-	 eVRho14dm5tAIZ4t5yrikoCHgzAtEObVJ9fy8nSJ3Sq3WsUgE2/WLyns6ipOg1uDte
-	 ELPzRDRoX+yEg==
-Subject: Re: [PATCH] fsl/fman: Fix fm_pdev reference leak in fman_port_probe()
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, linmq006@gmail.com, linux-kernel@vger.kernel.org,
- madalin.bucur@nxp.com, netdev@vger.kernel.org, pabeni@redhat.com,
- sean.anderson@linux.dev, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 12:10:28 +0000
-Message-ID: <178999262869.2160803.15157689217656066895@kernel.org>
-In-Reply-To: <20260917110726.2148318-1-vulab@iscas.ac.cn>
-References: <20260917110726.2148318-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=k20260515; t=1789992684;
+	bh=KyIzPYUauH3Qhtv7ngBSIIeQCucxdX5r54KBJoGH2DY=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OvoYvLuxrkWMzUmtMrJWdgyuY3V5JYSkgXPFET2ZXCEVwMONVViYf6st9m7LX0DyW
+	 SVgOXdYPEbqMpIDFwZr3k0ygfpkjIzGj4d/zIUUHPJNNxjcqA+NZIjK8wH5Ip2mNqU
+	 WIfbMlFM9KodAVdmzGQ863kgolIMZYDdBqT9ZbJddwYhv24Tdh/DwASdLwMEhdnrJF
+	 FLjfNv/hn9TQZebeShCgOMdzWQY0BbjzZgZW/cAsYFbKElu5niHPDhhkZ0HhXP/lsr
+	 NZBuMuqdG/MaxI5RObzlGVOfjW6qyu1jVv2/pSu/a1Cn8BjUjZEr5sc6SKOZ27Rsvz
+	 Hv1ogzJE4fqkw==
+Date: Mon, 21 Sep 2026 13:11:20 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: alexandre.torgue@foss.st.com, andrew+netdev@lunn.ch,
+	davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
+	linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com, mcoquelin.stm32@gmail.com,
+	netdev@vger.kernel.org, pabeni@redhat.com, treding@nvidia.com,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] net: stmmac: Fix MDIO node leak in stmmac_mdio_setup()
+Message-ID: <20260921121120.GK13925@horms.kernel.org>
+References: <20260917113945.2149361-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917113945.2149361-1-vulab@iscas.ac.cn>
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
-
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
-
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
-
-- [High] Incomplete fix plus inaccurate commit message in
-  fman_port_probe(): the commit claims the of_find_device_by_node()…
-
-Pre-existing issues:
-- [High] fman_port_probe()
-  (drivers/net/ethernet/freescale/fman/fman_port.c:1864-1873) treats a…
-
---
-
-fsl/fman: Fix fm_pdev reference leak in fman_port_probe()
-
-This adds a put_device(&fm_pdev->dev) on the success path of
-fman_port_probe(), so the reference taken by of_find_device_by_node() is
-dropped before returning 0.
-
-> diff --git a/drivers/net/ethernet/freescale/fman/fman_port.c b/drivers/net/ethernet/freescale/fman/fman_port.c
-> index 1b8fef69114ed..f44a890165127 100644
-> --- a/drivers/net/ethernet/freescale/fman/fman_port.c
-> +++ b/drivers/net/ethernet/freescale/fman/fman_port.c
-> @@ -1868,6 +1868,8 @@ static int fman_port_probe(struct platform_device *of_dev)
+On Thu, Sep 17, 2026 at 11:39:45AM +0000, Wentao Liang wrote:
+> stmmac_mdio_setup() acquires a reference on the MDIO node through
+> stmmac_of_get_mdio() and stores it in plat->mdio_node. If the allocation
+> of plat->mdio_bus_data fails, the function returns -ENOMEM and the
+> caller takes the error_put_phy path, which only releases plat->phy_node,
+> so the MDIO node reference is leaked.
+> 
+> Release plat->mdio_node on this error path.
+> 
+> Fixes: 1a981c0586c0 ("net: stmmac: Make MDIO bus reset optional")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> ---
+>  drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> index 5cae2aa72906..09359ccb32ef 100644
+> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+> @@ -356,8 +356,11 @@ static int stmmac_mdio_setup(struct plat_stmmacenet_data *plat,
+>  		plat->mdio_bus_data = devm_kzalloc(dev,
+>  						   sizeof(*plat->mdio_bus_data),
+>  						   GFP_KERNEL);
+> -		if (!plat->mdio_bus_data)
+> +		if (!plat->mdio_bus_data) {
+> +			of_node_put(plat->mdio_node);
+> +			plat->mdio_node = NULL;
+>  			return -ENOMEM;
+> +		}
 >  
->  	dev_set_drvdata(&of_dev->dev, port);
->  
-> +	put_device(&fm_pdev->dev);
-> +
->  	return 0;
->  
->  put_device:
+>  		plat->mdio_bus_data->needs_reset = true;
+>  	}
 
-[Severity: High]
-The commit message says the fm_pdev reference "is released on the error
-paths, but the successful path returns without dropping it".  Is that
-accurate for all error paths in fman_port_probe()?
+Hi Wentao,
 
-The __devm_request_region() failure branch jumps to free_port:, which sits
-below the put_device: label:
+As per my comment on another one of your recent patches, I think this
+change would be somewhat more robust against future changes to this
+function if it was implemented using a goto-driven unwind ladder, which is
+the generally preferred in Networking code.
 
-	dev_res = __devm_request_region(port->dev, &res, res.start,
-					resource_size(&res), "fman-port");
-	if (!dev_res) {
-		dev_err(port->dev, "%s: __devm_request_region() failed\n",
-			__func__);
-		err = -EINVAL;
-		goto free_port;
-	}
-	...
-put_device:
-	put_device(&fm_pdev->dev);
-return_err:
-	of_node_put(port_node);
-free_port:
-	kfree(port);
-	return err;
+Something like this (compile tested only!):
 
-Does that branch still leak the fm_pdev device reference after this patch?
+diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+index 3ea16d618215..ded352afd103 100644
+--- a/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
++++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_platform.c
+@@ -356,12 +356,17 @@ static int stmmac_mdio_setup(struct plat_stmmacenet_data *plat,
+ 						   sizeof(*plat->mdio_bus_data),
+ 						   GFP_KERNEL);
+ 		if (!plat->mdio_bus_data)
+-			return -ENOMEM;
++			goto err_put_mdio_node;
 
-Would a single put_device(&fm_pdev->dev) right after the last use of
-fm_pdev/fman cover both returns instead?
+ 		plat->mdio_bus_data->needs_reset = true;
+ 	}
 
-	port->dts_params.fman = fman;
-	put_device(&fm_pdev->dev);
+ 	return 0;
++
++err_put_mdio_node:
++	of_node_put(plat->mdio_node);
++	plat->mdio_node = NULL;
++	return -ENOMEM;
+ }
 
-	of_node_put(port_node);
-
-Note that redirecting free_port: to the existing put_device: label does not
-look workable, since return_err: would then run of_node_put(port_node) a
-second time after the of_node_put(port_node) already done just before
-__devm_request_region().
-
-[Severity: High]
-This isn't a bug introduced by this patch, but right above the newly added
-put_device() the devm_ioremap() failure is only logged and probe still
-returns 0:
-
-	port->dts_params.base_addr = devm_ioremap(port->dev, res.start,
-						  resource_size(&res));
-	if (!port->dts_params.base_addr)
-		dev_err(port->dev, "%s: devm_ioremap() failed\n", __func__);
-
-	dev_set_drvdata(&of_dev->dev, port);
-
-Can this publish a port with a NULL register base?  fman_port_bind() hands
-the drvdata to mac_probe() in fman/mac.c, and dpaa_eth_init_tx_port() /
-dpaa_eth_init_rx_port() then call fman_port_config(), which derives the
-register windows from that base without checking it:
-
-drivers/net/ethernet/freescale/fman/fman_port.c:fman_port_config() {
-	void __iomem *base_addr = port->dts_params.base_addr;
-	...
-	port->bmi_regs = base_addr + BMI_PORT_REGS_OFFSET;
-	port->qmi_regs = base_addr + QMI_PORT_REGS_OFFSET;
-	port->hwp_regs = base_addr + HWP_PORT_REGS_OFFSET;
-	...
-		reg = 0x00001013;
-		iowrite32be(reg, &port->bmi_regs->tx.fmbm_tfp);
-}
-
-With base_addr NULL, does that iowrite32be() for the A005127 errata (rev >=
-6, 1G TX) dereference a near-NULL __iomem pointer, followed by the
-ioread32be()/iowrite32be() calls in fman_port_init() and
-fman_port_enable()?
-
-Should the devm_ioremap() failure set err = -ENOMEM and take the cleanup
-path like the other fatal probe errors?
+ /**
 
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917110726.2148318-1-vulab%40iscas.ac.cn
+pw-bot: changes-requested
