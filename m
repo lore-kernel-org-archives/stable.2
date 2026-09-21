@@ -1,235 +1,144 @@
-Received: from mail-pz2-f43.google.com (mail-pz2-f43.google.com [74.125.228.43])
+Received: from mail-pj2-f14.google.com (mail-pj2-f14.google.com [74.125.227.142])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B10DD1A681C
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 01:11:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.43
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789953074; cv=pass; b=uHS1t88gNKi3VgR3jTkTJmMc+AliSTDHrcakMAi5qvYColu9UYNkrHkJaAy8Qv2hBxJa2HccmYBFL3oFdqvsjI+/b2JLvyk6HM5Wcnd/MhoAO6UkHf50K7Pz0ggomeOR1NtJMUqNdfGf8HqB3SfG88YvULV0sfjVwHXuBD0EQVI=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789953074; c=relaxed/simple;
-	bh=vqSNtO5meV4+WE7DqbwAyZZIifzcRSiOkZ5BFW9yVaM=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rOFo8PDUBG5zYoQ0V/5o/qTHy6UjG3VUsxfwnlMNIfyA7HC0/2eWcDx8bCv6px4B/qXi0YWDWopCZokyhgeKfSuS8ZPpIhElnGssQODMu5mml/SvF2uO0mWEYVdY2Igfnf6G2vQ1YHjBpuW+yj+yL+kAYsNm2+jxFq3KH3HNCp0=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AcxXH3Zs; arc=pass smtp.client-ip=74.125.228.43
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C52731A9F83
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 01:30:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.142
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789954232; cv=none; b=P8XZRf3sA4s1TDuRnGfGbhPGu+f/bMc+zJpT0Dk12HYT5d6f0EZheU3yHLg5SI7iSUPpvQKgzpaMz/4PAfvcB62JgUx2hNglf3IhCIGnGHaKFUzZmfS9KHhyJvksuj/Knk5JeRxiDKF74ed43IdPKNHwCBdoukeed01oZ/qBn6E=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789954232; c=relaxed/simple;
+	bh=BfHDrPzIQAQhJMIJzafnc+6Jyl6mkYuD2YaWxyH9SUg=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=LlAK8m6Us421VXtgiWFrT/bQMCcvvgpCDLE5X8aWiwW021t3z+uSIGJXstFGX4lzwl3bJEJuKisefdACxI85Gg3k7eGZwH7EgREEaiPzIFZmt9Pq2S/XRaDjuphb1B4SQOTQ4pTpTUYOm1u603u4buT7r2kTu+l+aytWOYNc6y8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=rEKAzgWv; arc=none smtp.client-ip=74.125.227.142
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AcxXH3Zs"
-Received: by mail-pz2-f43.google.com with SMTP id d2e1a72fcca58-85469e211a3so2104606b3a.2
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 18:11:12 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1789953072; cv=none;
-        d=google.com; s=arc-20260327;
-        b=AOMUrLyURBGcOzFJT4VwJIyGACDqQlcdcAEizx+C3/71YNens63TM2QHjhfaKmVsVg
-         kKhUdbY0x8JfYGZUfUPlTXlIxriWEc5wxuC1mPJQpkWULFDBtgJ7vAZprr7noG7rNFDU
-         GV+37DfkOPHFvJcLRkzp2SpdoBtM/jmuJRONsEWQ/q9kpH8QmIWo7DOb2+E2m3eK/T46
-         GmNjvPRxqz7yPm70JjlnVtgDAr9pCuCZQwSUgUjlP8Swbrrm7KYEEPQE3xw05XRan98h
-         qBvPiGu54V7PFhMaIiEsnvIieZ9tygAuRb8qodxhsvx6JlzxzAdGVEwALFXB+LqWoCmF
-         Wj6g==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=vGHQdXbKnraga4vIbrqTjYF7kHOHm2BrE5St1NlOjh4=;
-        fh=u5hPG4N65XEk6Iaov9MtLmedToZXdtf2quvF0j+xjHk=;
-        b=kQ2p4mDqmoCo1XrIxlfSIvmk2vsJqVghunUvAGd4TNMtVfCkcfOdGd939PmhR6UmJg
-         AEQL5OFTA+FKuc4Zz09ZZTt7UuqHdZo2bfSX4YkybRMkR/MTIDpB7vdiGXK5MrQmGmzM
-         dWjxFLUxf8JIWcDdQgM/HkA/XZSxv16y4LcjYfrWGqLP30clWUhxa3h6IYJWTX2myu9w
-         wcIVsQecqurRsMVBwmz33CJVlpPvGsVy7qOzdlZ0uHtuGXI+/4OHzlhqt9QCOgknnZzp
-         qzQVC4t5xUHx50JX3WplFlo+1caAwEBcelLT7pchMDpivOvNBQzD73WBQAkKlEDOImc+
-         YtDw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="rEKAzgWv"
+Received: by mail-pj2-f14.google.com with SMTP id d9443c01a7336-2d747f05ffcso18265855ad.0
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 18:30:30 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789953072; x=1790557872; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=vGHQdXbKnraga4vIbrqTjYF7kHOHm2BrE5St1NlOjh4=;
-        b=AcxXH3ZsGJPclkmKNeh02pYkKnjDt6sXrrW/Uojdq61t9Nw1vx+nC9l7mybm/JrR26
-         64G+MSZ7xA+JvRjWNJ4/rh7hT1YzUdz399FByjk38a5qp3xhy8rUh9J4VX07L9ySFsXo
-         dBQ/2TnIXvOOxSBQyyD7qAcdZ66dm9CgmWwuk5SwiOK/iBDlwV74jJfpVFW75XS+R2J9
-         NosfTZ5y5NTuR0EqijQa1wIAkUHYSxiwSn9nTv9aG7LZYwKNs2qS30qLD/VdGIPEE3+U
-         hojoPuWuiyzPHv8cSbktvrgF2hUdEGT3p+f2d9mRXUjgc98j8QHtuX08jn5lE0mGorJM
-         sW9w==
+        d=gmail.com; s=20251104; t=1789954230; x=1790559030; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=uyQ6KZnDsPL7Ni/aKvg7jNnj395nLO83FPzJNN2YGBM=;
+        b=rEKAzgWvaHNxi5wqbaxBCcR5I8y5hlOUC5EV/0kcLugOfSyCFseFXjFlHe7JczOlJf
+         TQtzkLAExakl/A89uIg98+Jg0CI84OellIAnyrIgJHX5JpXYix59r+OxAVy8DBfeax84
+         Ja1CjtfN1UYuULvc+479wnt5KIbYaAKMPOGZkTZkof+g+QPAOZ0sN+koEqkemR/Pjvhk
+         DwjAskwFoQbaetr35acf1jzOwIb1ywQBO0Lyqir6goyue/BYl8lPInP/fPIrvs1YTXnK
+         J3tHAm2pYGqdRTFMpHNdyuEMPB88g3qLp+YA+SX6GYHoT9RkemoZKg2cW1JOzqlR8e+G
+         5Blw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789953072; x=1790557872;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=vGHQdXbKnraga4vIbrqTjYF7kHOHm2BrE5St1NlOjh4=;
-        b=CcUKyc5IJ6z4809Fi4Dx5CU2BfMSVgVbsV/PaamjTkvkoraWlLjY+j0i7VavikCgBJ
-         sUmHSS15YFgH0H1LN1Q0VSrc3bOuW6gO+1s+crtijjimpCAEz3/Vebcg2HqLNeKYyENL
-         4iY25E4t8LO3FESS4ucEtgoB8D1GklGgo+3n3TDcGfVMzA3DwoW3esAAaRBB/RpaI6i0
-         tjxr4XRkBs79a14Akv2Vtoq0gw3KgPDffi025if/hkOHBSzeXGng2V5+VBC4BqKofQFm
-         YDG46w1B+nmKODwpIJS5Yn0wUPeA9UVHnqtufSCIZf/S5OYG5zFpgLbkDReRfT4WNH7e
-         eTbg==
-X-Forwarded-Encrypted: i=1; AKwUvByVAjN6ZIhEx7J3QctDG3R/vUMi8KJ8Ry22v7ntG0TcplRbTMutzljhDe8CdrVceB+B6V1SgdM=@vger.kernel.org
-X-Gm-Message-State: AFuF++mrfRx6JP6kK/DPF1lbOcYMI9V+/k8/cxl4V61iZOENvkalIDIX
-	7/F+Fc/c+zZzlH81PEBJGejrI5lmpwXx2CqAKlp957WDbtMevEqZXYy4b3zyKawnGbsj4jaY1V3
-	1qwd/bWVI7zDEdXeSfyuzjebjzPaIfxo=
-X-Gm-Gg: AYBFou0SsD5aaLJHKU4MBkJs+tWjqtIi9p/i4rKBXqOUBk8iDDEjjGobYd3BE51hHn4
-	zmaapncGvMAA6D2tzobtzQsxZfIkCDsbqRerjNP2ZzMg+Pjbv0Z/Jboeu0T2gTEup86XBMl8+0F
-	TKMtxT2/wrF+COcDYN1p3+aBe0tXgeuOKVw+nroBRHf13mxHITje2L37/Osv5Gw5jGZSfRJK77Y
-	Vyv8xuPO1vy1gmU2xC9u6uZbYeCetb7WCw9LGzfIt2sgB+sRD0iq7fSuxH6UrPUoEjPGxykcPsj
-	3rYp3TV7Q2Uqn4l2pXScmIZ42hTfynnh/zuBi9n4qf1zjzjoZVvRWmky/DDmCYDI43lG/E4vvhV
-	5y6ggGaXl81sVP8NONyRGM7EVQDxQTcpSsx+k/xjdDspqWymL/QUa
-X-Received: by 2002:a05:6a00:8089:b0:878:3830:a487 with SMTP id
- d2e1a72fcca58-8783830a797mr5720424b3a.55.1789953071869; Sun, 20 Sep 2026
- 18:11:11 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1789954230; x=1790559030;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=uyQ6KZnDsPL7Ni/aKvg7jNnj395nLO83FPzJNN2YGBM=;
+        b=k4AyCKm4DD0YklGyCdGbA2edoc90N2p6nAk5W1sp3V2gEBqabEMDOzD9FnorUI0H7j
+         gf9kgJEqhUvYPg2HQoGcbAN/Ht5UdTrLh1bY7bkRHOc1zz9GdO2yEP/5zpjjv+/1xPRb
+         PEnZd7fEiPn++QRBf9wFmsKyGGiv4DbN8rLFZjNjD9LqfhrHUtNk1+HMFABlePoyVspc
+         rXh5Kp9AuBrlsDBlPzP1grtcAmSU3GlZlz/G4cnKVLhXEyEXoz8jolvFKKNmw5YsAas9
+         kKmDDkXMPqn+x7qM7QiXiH1SR6DToGWnuIGc+E71TzescDdWc7H2wxJePrJ2Nz64R+OY
+         azBA==
+X-Forwarded-Encrypted: i=1; AKwUvBwjmnuFfLBWFKH879NQpOtNk1CQ8qjcGyOBbBEOOalJwsuvOHluqmLsIhngDRCJti06Axjr9kI=@vger.kernel.org
+X-Gm-Message-State: AFuF++nShS7c8AwaFtFFkwm9lGQlQkZibSENu2KSwkWdfVg++UrkYPWC
+	WKzYauVqWqondyNTvFsUuhCcgo+j/3BMxNr5hz/J5jHniopuLfQdK6uD
+X-Gm-Gg: AYBFou3shR7kCZ/s1siAnhsUZYK4VlAMSSS4mTTDi7Zc2dLfraeGsBEydgfDf6CytbV
+	9kiXrf5NLMMdhkCdVrJCm47elOuTAMhCyFDG2G1qgkPRIOXKzlhDjtgdnPO0ZzNKGpKuBAIZDgL
+	JMgmDr60VcCHP4YwKqEQr944kCOxVYRHc81g1bXWwoXNjZFD5sY+BKjtvjQm5HTcW44ujOF15++
+	yLNg1bTaXIZefLIkdHRScRkpkLCPZvoyYb+LWGkEVyyLUOkPTWttIIPz7wjsVTRmI++GCDyqDCs
+	34qfNyTutpYwDMrE7yb1c1x4aGsBHWkQd/XQ4ZXiYWDHFle5qQb6MJQDppY5c83RCyAwpl2RuMX
+	W8/CRr3FDDiN+tejrmuMvRppTDxe8t0erfRtnqpdLFusVMOS8L2zQJex6D3FJyb7fkMWALN35rE
+	hKXZd5wpv1s7gsUpTO+z6yL/4P8OKLP+ho0g3gBPjKmBi6d2UZudkHRBR7w+68SygE/YI4S1OEe
+	46c1XUmNii+SYP3u2d1BV4Eom5HdAThEDDVvWyO6rgjCvT5s7Kd/gV6SJFt2LPPPCnMl9iKF0PZ
+	kM+ax1NY7Q==
+X-Received: by 2002:a17:90b:3fcc:b0:39e:4c81:6c61 with SMTP id 98e67ed59e1d1-39e54d54a6amr15587389a91.28.1789954229870;
+        Sun, 20 Sep 2026 18:30:29 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c3145dasm11291460a91.4.2026.09.20.18.30.28
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 18:30:29 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Jiri Slaby <jirislaby@kernel.org>,
+	John Ogness <john.ogness@linutronix.de>
+Cc: Hui Peng <benquike@gmail.com>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-serial@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2 1/3] serial: 8250: hold hash_mutex across IRQ chain linking in serial_link_irq_chain()
+Date: Mon, 21 Sep 2026 01:30:25 +0000
+Message-ID: <20260921013027.659965-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <20260919222627.3797854-1-benquike@gmail.com>
+References: <20260919222627.3797854-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-4CSL.v1.20260917072652@mojatatu.com>
-In-Reply-To: <QDISC-4CSL.v1.20260917072652@mojatatu.com>
-From: Xin Long <lucien.xin@gmail.com>
-Date: Sun, 20 Sep 2026 21:11:00 -0400
-X-Gm-Features: AcwNN1UI-U9ZqzZRxGhcIy7flkhSjNQcvMfpBQ5kFBv0ac2yJrxJgEr6og10bsw
-Message-ID: <CADvbK_e0-1JsCSMAQXGP3yxrvmtJDvG3TBShft=EfLKEGkBR=A@mail.gmail.com>
-Subject: Re: [PATCH net] net/sched: cls_flower: exact-match ERSPAN key when no
- mask supplied
-To: Jamal Hadi Salim <jhs@mojatatu.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
-	Victor Nogueira <victor@mojatatu.com>, hybris <hybris@mojatatu.ai>
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Sat, Sep 19, 2026 at 5:51=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.com>=
- wrote:
->
-> Commit 292207809486 ("net: sched: fix erspan_opt settings in cls_flower")
-> removed the unconditional memset of the erspan_metadata mask in
-> fl_set_erspan_opt(). On the mask-parse pass, when userspace supplies the
-> encap option key but no mask (TCA_FLOWER_KEY_ENC_OPTS without
-> TCA_FLOWER_KEY_ENC_OPTS_MASK), the !depth early return leaves the mask
-> zeroed -- a wildcard. A filter keyed on an ERSPAN index (v1), or dir/hwid
-> (v2), then matches every ERSPAN packet's values instead of exact-matching=
-.
->
-> Mirror the with-mask per-version defaults on the no-mask path, keyed off
-> the key's own version: v1 index to 0xff, v2 dir and hwid to their
-> exact-match masks. The mask cannot just memset the whole union -- that
-> would re-mask the overlapping timestamp/sgt bytes of the v2 header that
-> the fix (292207809486) deliberately left to 0 in erspan_opt.
->
-> This is a follow-up to commit fee10655709c ("net/sched: cls_flower:
-> validate mask pointer after nla_next()").
->
-> Conditions to recreate the bug: add an ERSPAN encap-opts flower filter
-> with a key but no mask (raw netlink, TCA_FLOWER_KEY_ENC_OPTS present,
-> TCA_FLOWER_KEY_ENC_OPTS_MASK absent); dump the filter and observe the
-> match mask is zero (wildcard) instead of exact for the supplied fields.
->
-> Fixes: 292207809486 ("net: sched: fix erspan_opt settings in cls_flower")
-> Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
-> Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/2026082602512=
-3.62758-1-ljp1205831794@gmail.com
-> Link: https://lore.kernel.org/netdev/20260826025123.62758-1-ljp1205831794=
-@gmail.com/
-> Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-> Tested-by: hybris <hybris@mojatatu.ai>
-> Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> ---
->  net/sched/cls_flower.c | 25 ++++++++++++++++++++-----
->  1 file changed, 20 insertions(+), 5 deletions(-)
->
-> diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-> index 1cefea571efd..f5acdeb0e2a6 100644
-> --- a/net/sched/cls_flower.c
-> +++ b/net/sched/cls_flower.c
-> @@ -1358,17 +1358,29 @@ static int fl_set_vxlan_opt(const struct nlattr *=
-nla, struct fl_flow_key *key,
->
->  static int fl_set_erspan_opt(const struct nlattr *nla, struct fl_flow_ke=
-y *key,
->                              int depth, int option_len,
-> -                            struct netlink_ext_ack *extack)
-> +                            struct netlink_ext_ack *extack, u8 key_ver)
->  {
->         struct nlattr *tb[TCA_FLOWER_KEY_ENC_OPT_ERSPAN_MAX + 1];
->         struct erspan_metadata *md;
->         int err;
->
->         md =3D (struct erspan_metadata *)&key->enc_opts.data[key->enc_opt=
-s.len];
-> -       md->version =3D 1;
-> +       md->version =3D key_ver;
->
-> -       if (!depth)
-> +       if (!depth) {
-> +               /* No mask attribute supplied: exact-match every field th=
-e
-> +                * key set, keyed off the key's own version so the v2 dir=
-/hwid
-> +                * bytes are masked without touching the overlapping
-> +                * timestamp/sgt bytes of the union (see 292207809486).
-> +                */
-> +               if (md->version =3D=3D 1) {
-> +                       memset(&md->u.index, 0xff, sizeof(md->u.index));
-> +               } else if (md->version =3D=3D 2) {
-> +                       md->u.md2.dir =3D 1;
-> +                       set_hwid(&md->u.md2, 0xff);
-> +               }
->                 return sizeof(*md);
-> +       }
->
->         if (nla_type(nla) !=3D TCA_FLOWER_KEY_ENC_OPTS_ERSPAN) {
->                 NL_SET_ERR_MSG(extack, "Non-erspan option type for mask")=
-;
-> @@ -1509,6 +1521,7 @@ static int fl_set_enc_opt(struct nlattr **tb, struc=
-t fl_flow_key *key,
->  {
->         const struct nlattr *nla_enc_key, *nla_opt_key, *nla_opt_msk =3D =
-NULL;
->         int err, option_len, key_depth, msk_depth =3D 0;
-> +       u8 key_ver =3D 1;
->
->         err =3D nla_validate_nested_deprecated(tb[TCA_FLOWER_KEY_ENC_OPTS=
-],
->                                              TCA_FLOWER_KEY_ENC_OPTS_MAX,
-> @@ -1607,9 +1620,11 @@ static int fl_set_enc_opt(struct nlattr **tb, stru=
-ct fl_flow_key *key,
->                         key->enc_opts.dst_opt_type =3D IP_TUNNEL_ERSPAN_O=
-PT_BIT;
->                         option_len =3D fl_set_erspan_opt(nla_opt_key, key=
-,
->                                                        key_depth, option_=
-len,
-> -                                                      extack);
-> +                                                      extack, 1);
->                         if (option_len < 0)
->                                 return option_len;
-> +                       key_ver =3D ((struct erspan_metadata *)
-> +                                 &key->enc_opts.data[key->enc_opts.len])=
-->version;
-Do you think it would be better to pass &key_ver to fl_set_erspan_opt() and
-set it there, avoiding the dereference of erspan_metadata here?
+In serial_link_irq_chain(), serial_get_or_create_irq_info() acquires and
+releases hash_mutex before returning struct irq_info *i to the caller.
+Before serial_link_irq_chain() links the port into i->head, a concurrent
+serial_unlink_irq_chain() on the same shared IRQ line can observe a
+single-port i->head under hash_mutex, remove i from irq_lists, and
+kfree(i), causing a use-after-free when serial_link_irq_chain() accesses
+i->lock and i->head. In addition, if request_irq() fails at the end of
+serial_link_irq_chain(), serial_do_unlink(i, up) calls hlist_del(&i->node)
+and kfree(i) without holding hash_mutex.
 
-Thanks.
+Move guard(mutex)(&hash_mutex) from serial_get_or_create_irq_info() to its
+sole caller serial_link_irq_chain() so that hash_mutex is held across the
+lookup/allocation of struct irq_info, the insertion into i->head, and any
+error-path serial_do_unlink() cleanup.
 
->
->                         key->enc_opts.len +=3D option_len;
->                         /* At the same time we need to parse through the =
-mask
-> @@ -1618,7 +1633,7 @@ static int fl_set_enc_opt(struct nlattr **tb, struc=
-t fl_flow_key *key,
->                         mask->enc_opts.dst_opt_type =3D IP_TUNNEL_ERSPAN_=
-OPT_BIT;
->                         option_len =3D fl_set_erspan_opt(nla_opt_msk, mas=
-k,
->                                                        msk_depth, option_=
-len,
-> -                                                      extack);
-> +                                                      extack, key_ver);
->                         if (option_len < 0)
->                                 return option_len;
->
-> --
-> 2.43.0
->
+Tested in QEMU against Linux 7.3.0-rc3 by configuring /dev/ttyS1 and
+/dev/ttyS2 to share IRQ 3 with ASYNC_SHARE_IRQ via TIOCSSERIAL and
+concurrently opening and closing both ports from two threads in a tight
+loop with KASAN enabled, verifying 0 KASAN faults or warnings.
+
+Fixes: 25db8ad5c567 ("serial, 8250: remove NR_IRQ usage")
+Fixes: 99fc860fae83 ("serial: 8250: extract serial_get_or_create_irq_info()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Split the 8250_core.c and serial_core.c fixes into a 3-patch series,
+  add Cc: stable@vger.kernel.org, and document how the patch was tested,
+  as requested by Greg Kroah-Hartman.
+
+ drivers/tty/serial/8250/8250_core.c | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/drivers/tty/serial/8250/8250_core.c b/drivers/tty/serial/8250/8250_core.c
+index b875d394796f..0bc810f285a4 100644
+--- a/drivers/tty/serial/8250/8250_core.c
++++ b/drivers/tty/serial/8250/8250_core.c
+@@ -134,8 +134,6 @@ static struct irq_info *serial_get_or_create_irq_info(const struct uart_8250_por
+ {
+ 	struct irq_info *i;
+ 
+-	guard(mutex)(&hash_mutex);
+-
+ 	hash_for_each_possible(irq_lists, i, node, up->port.irq)
+ 		if (i->irq == up->port.irq)
+ 			return i;
+@@ -156,6 +154,8 @@ static int serial_link_irq_chain(struct uart_8250_port *up)
+ 	struct irq_info *i;
+ 	int ret;
+ 
++	guard(mutex)(&hash_mutex);
++
+ 	i = serial_get_or_create_irq_info(up);
+ 	if (IS_ERR(i))
+ 		return PTR_ERR(i);
+-- 
+2.49.0
