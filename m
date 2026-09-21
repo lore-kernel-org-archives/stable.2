@@ -1,133 +1,128 @@
-Received: from mta0.migadu.com (out-110.mta0.migadu.com [91.218.175.110])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.5])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6139318146
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 06:30:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=91.218.175.110
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 17D611A6834;
+	Mon, 21 Sep 2026 06:30:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.5
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789972247; cv=none; b=pYmAocuo5vP7C5WJsRutr86Bxle9m33DqWm3BSMP0BSjYtFhJ5smZ+uK4Q5uaIIbchHZhd8uQXonC4kgx+nr2g5rRn/VrS03JVwC+a3PQ25c2Fy2bPlvO5xoCE9NiD21X9ej/Twc01s+UGczXhRNExPWpDrZhReEJUBddhIe6qg=
+	t=1789972262; cv=none; b=abf1yxxdwybKVxhEqAqrU95MwLOkQHq3BdQgW8zOQ6vSc5IrlHtnXdyUJfPoOYlPlvuF1Jehj3EKLWlSzdM7/dbluFyz8igl/8Jl7O48ZmE3pEtK2OxxcRVD6c6t2CXvMb9x1dlSSxkvhOluMPaGqBNUDfgOO6zbEGyblosOqLc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789972247; c=relaxed/simple;
-	bh=Pw43fiogz5vKadBewsuWAaZ3YGjE5iqf3I+grhtQezc=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=lQmHddpU+Fgq1cCrzxj5oADNb1NpRK9N4iQ+PE1fv9CPpuCNWoOZECYjsSRtN0JzfLeVTTAMcAY4JqRohFAAGe6bnlYk3nqqkgfoqGaWYlCg+iswMKeB1EWG/rF8iNz9tQoENROASwQIxZ3eXaZqaCNl2tN5xNQv+gLxNRo61Ns=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=wybcGsJv; arc=none smtp.client-ip=91.218.175.110
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
+	s=arc-20240116; t=1789972262; c=relaxed/simple;
+	bh=HtBwz7MpjVfsvm3vZY/Sk05dMHNZT6Od24wsVNFrNxk=;
+	h=Content-Type:MIME-Version:In-Reply-To:References:Subject:From:Cc:
+	 To:Date:Message-ID; b=UiTnS7FI0FpWOsYFTkAre6mkj9ZR++sDwgGFNpnEh8n8KSd4U45yaXySWLaURpmzM8+F0SYGYz/oLNE+Z1OtBicge7ThW2yKf/8ekrCdei2qkpSe3tSxHEW51N2gyPWHQ9Bk0SNrTUc2qiCz0f3cKOCqE87xJmss6d/ue0yT5c8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=Wtk5edny; arc=none smtp.client-ip=192.198.163.5
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="wybcGsJv"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=Pw43fiogz5vKadBewsuWAaZ3YGjE5iqf3I+grhtQezc=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789972243; v=1; x=1790577043;
- b=wybcGsJvF+HCH2qTNMozklLEoixdJYHPpvX1lOcFN5MiSCkAE+vP88zxhPsrgzcoE/rQ9keQ
- znmDx4bFwhtz8j+AyNEn10z3dSWv/B2JeEyZ9WLpXYuyktLnvuvRxHzt4xxut0t5ne5kVt/J/Xq
- jThKOu6tEVkqOF4MChfnsBys=
-X-Envelope-To: stable@vger.kernel.org
-Received: by mta10.migadu.com with ESMTPS id dbd121085093f2de;
-	Mon, 21 Sep 2026 06:30:27 +0000
-X-Mizu-Trace-ID: dbd121085093f2de
-X-Migadu-Flow: FLOW_OUT
-Date: Mon, 21 Sep 2026 14:30:17 +0800
-From: Hangbin Liu <hangbin.liu@linux.dev>
-To: Hui Peng <benquike@gmail.com>
-Cc: Kuniyuki Iwashima <kuniyu@google.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Willem de Bruijn <willemb@google.com>,
-	Tom Herbert <therbert@google.com>, netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH net v2] fou: reject omitted FOU_ATTR_IPPROTO on
- FOU_ENCAP_DIRECT
-Message-ID: <arDOTqytCxWKOyxv@fedora>
-References: <CAAVpQUDwLnRfv1PkkexsC04D8wLSeARekuUDSTOenyRctWG8MA@mail.gmail.com>
- <20260921045920.1613098-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="Wtk5edny"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789972260; x=1821508260;
+  h=mime-version:content-transfer-encoding:in-reply-to:
+   references:subject:from:cc:to:date:message-id;
+  bh=HtBwz7MpjVfsvm3vZY/Sk05dMHNZT6Od24wsVNFrNxk=;
+  b=Wtk5edny4RduoWLcZxji1Oinn7JvOrHt/fpj1g75iCkUJkXoBeSY0w6m
+   7cnz7TrmmxffWzbv7ogfQw4Ai9gMlWPupli+UyaWFGu0c17j7FDmDyd+5
+   44V8lhBL5+0c78EqsuWTyL/lP29rBwcfZ/OvZFfLwgEHrCkW5fLbSSzk+
+   hIn8TmsoaTHJzFMfDInTdao+N951/4X7vksy0WnOrhcz90KNrXD/+Ld/9
+   Jub3oM+zeSIbw5Z11o+A7LhhTkS+sfvSnQHQdb+q2V+I0CPARtIKwswcf
+   iLtikAPbBBWGOE/pKqBeJLYU9pmdW/wuBsF/B1NKEHgbw9OPz8fJrXPRT
+   w==;
+X-CSE-ConnectionGUID: jp8lWRtzQjim8Is0zqeOMw==
+X-CSE-MsgGUID: MjmreMj1S1enHujj7SUKxw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="971835"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="971835"
+Received: from fmviesa001.fm.intel.com ([10.60.135.141])
+  by fmvoesa115.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:30:59 -0700
+X-CSE-ConnectionGUID: WdnO2D4rQri/9a2FF6dXig==
+X-CSE-MsgGUID: nX8TpcC+Q0+GS22QJVfQWQ==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="300460814"
+Received: from conormcd-mobl2.ger.corp.intel.com (HELO localhost) ([10.245.244.142])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 20 Sep 2026 23:30:56 -0700
+Content-Type: text/plain; charset="utf-8"
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921045920.1613098-1-benquike@gmail.com>
+Content-Transfer-Encoding: quoted-printable
+In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
+Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context allocation failure
+From: Joonas Lahtinen <joonas.lahtinen@linux.intel.com>
+Cc: stable@vger.kernel.org
+To: Chris Wilson <chris@chris-wilson.co.uk>, David Airlie <airlied@gmail.com>, Guangshuo Li <lgs201920130244@gmail.com>, Jani Nikula <jani.nikula@linux.intel.com>, Matthew Auld <matthew.auld@intel.com>, Rodrigo Vivi <rodrigo.vivi@intel.com>, Simona Vetter <simona@ffwll.ch>, Tvrtko Ursulin <tursulin@ursulin.net>, dri-devel@lists.freedesktop.org, intel-gfx@lists.freedesktop.org, linux-kernel@vger.kernel.org
+Date: Mon, 21 Sep 2026 09:30:49 +0300
+Message-ID: <178997224953.20141.15039837012698810465@jlahtine-mobl>
+User-Agent: alot/0.13.dev2+g40c57d620
 
-On Mon, Sep 21, 2026 at 04:59:20AM +0000, Hui Peng wrote:
-> Commit 7a9bc9e3f423 ("fou: Don't allow 0 for FOU_ATTR_IPPROTO.") added
-> NLA_POLICY_MIN(NLA_U8, 1) to fou_nl_policy[FOU_ATTR_IPPROTO], which
-> rejects an explicitly supplied FOU_ATTR_IPPROTO == 0 attribute with
-> -ERANGE.
-> 
-> However, FOU_ATTR_IPPROTO is an optional netlink attribute. When a user
-> sends FOU_CMD_ADD with FOU_ATTR_TYPE set to FOU_ENCAP_DIRECT and omits
-> FOU_ATTR_IPPROTO entirely, nla_policy validation succeeds and
-> parse_nl_config() leaves cfg->protocol as 0 (from memset(cfg, 0,
-> sizeof(*cfg))). fou_create() then creates a FOU_ENCAP_DIRECT socket with
-> fou->protocol == 0.
-> 
-> In fou_udp_recv(), returning -fou->protocol to udp_queue_rcv_one_skb()
-> triggers IP protocol resubmission when fou->protocol > 0, whereas
-> returning 0 tells the UDP tunnel layer that the skb was consumed without
-> freeing it. When fou->protocol == 0, every packet received on the socket
-> returns 0 from fou_udp_recv() and leaks the sk_buff.
-> 
-> Reject FOU_ENCAP_DIRECT when !cfg->protocol in fou_create() so that
-> creating a direct encapsulation port without FOU_ATTR_IPPROTO fails with
-> -EINVAL while leaving FOU_CMD_DEL and FOU_CMD_GET (which share
-> parse_nl_config()) unaffected.
-> 
-> Tested in QEMU against Linux 7.3.0-rc3 by sending a FOU_CMD_ADD Generic
-> Netlink request with FOU_ATTR_PORT = 5555 and FOU_ATTR_TYPE =
-> FOU_ENCAP_DIRECT while omitting FOU_ATTR_IPPROTO. On the unfixed kernel,
-> FOU_CMD_ADD succeeds (err = 0), FOU_CMD_GET reports fou->type = 1 and
-> fou->protocol = 0, and sending 4000 UDP packets to 127.0.0.1:5555 leaks
-> all 4000 sk_buffs (SUnreclaim in /proc/meminfo grows from 41456 kB to
-> 59008 kB, +17552 kB); with this patch applied, FOU_CMD_ADD is rejected
-> with -EINVAL (-22).
-> 
-> Fixes: 23461551c006 ("fou: Support for foo-over-udp RX path")
-> Fixes: 7a9bc9e3f423 ("fou: Don't allow 0 for FOU_ATTR_IPPROTO.")
+Quoting Guangshuo Li (2026-09-19 20:17:10)
+> mock_context_alloc() creates ce->ring before allocating and pinning the
+> context timeline. mock_ring() initializes the ring reference count and
+> returns the initial reference to the context.
+>=20
+> If intel_timeline_create() fails, mock_context_alloc() returns without
+> dropping the ring reference. The same leak occurs when
+> mock_timeline_pin() fails after the timeline has been created. Since
+> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
+> the later context teardown does not release the ring.
+>=20
+> Drop the initial ring reference with kref_put() on both failure paths.
+> When the reference count reaches zero, intel_ring_free() releases the
+> ring VMA and frees the ring allocation. Clear ce->ring after dropping
+> the reference to avoid retaining a stale pointer.
+>=20
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+>=20
+> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
 > Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
+
+We're not going to put Fixes and especially not Cc stable in
+for selftests.
+
+You should use onion teardown idiom instead of duplicating code.
+
+Commit message also reeks of LLM generation as an average developer
+doesn't need "explain to me like I have never programmed before".
+
+Regards, Joonas
+
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
-> Changes in v2:
-> - Clarify in the commit message that fou->protocol == 0 is reached on
->   current kernels by omitting the optional FOU_ATTR_IPPROTO attribute
->   when FOU_ATTR_TYPE is FOU_ENCAP_DIRECT (whereas an explicit 0
->   attribute is rejected by commit 7a9bc9e3f423), as noted by Kuniyuki
->   Iwashima and Sashiko.
-> - Move the !cfg->protocol check from parse_nl_config() into the
->   FOU_ENCAP_DIRECT branch of fou_create() so FOU_CMD_DEL and FOU_CMD_GET
->   are not affected, and drop the redundant check in fou_udp_recv(), as
->   suggested by Sashiko.
-> - Fix the Fixes: commit tags to 23461551c006 and 7a9bc9e3f423, as
->   pointed out by Hangbin Liu and Kuniyuki Iwashima.
-> 
->  net/ipv4/fou_core.c | 4 ++++
+>  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
 >  1 file changed, 4 insertions(+)
-> 
-> diff --git a/net/ipv4/fou_core.c b/net/ipv4/fou_core.c
-> index 5e867f1b5c1d..f30f22389283 100644
-> --- a/net/ipv4/fou_core.c
-> +++ b/net/ipv4/fou_core.c
-> @@ -600,6 +600,10 @@ static int fou_create(struct net *net, struct fou_cfg *cfg,
->  	/* Initial for fou type */
->  	switch (cfg->type) {
->  	case FOU_ENCAP_DIRECT:
-> +		if (!cfg->protocol) {
-> +			err = -EINVAL;
-> +			goto error;
-> +		}
->  		tunnel_cfg.encap_rcv = fou_udp_recv;
->  		tunnel_cfg.gro_receive = fou_gro_receive;
->  		tunnel_cfg.gro_complete = fou_gro_complete;
-> -- 
-> 2.49.0
-
-Looks good to me.
-
-Reviewed-by: Hangbin Liu <liuhangbin@kylinos.cn>
+>=20
+> diff --git a/drivers/gpu/drm/i915/gt/mock_engine.c b/drivers/gpu/drm/i915=
+/gt/mock_engine.c
+> index 79741f043f03..fa4368730d33 100644
+> --- a/drivers/gpu/drm/i915/gt/mock_engine.c
+> +++ b/drivers/gpu/drm/i915/gt/mock_engine.c
+> @@ -170,6 +170,8 @@ static int mock_context_alloc(struct intel_context *c=
+e)
+> =20
+>         ce->timeline =3D intel_timeline_create(ce->engine->gt);
+>         if (IS_ERR(ce->timeline)) {
+> +               kref_put(&ce->ring->ref, intel_ring_free);
+> +               ce->ring =3D NULL;
+>                 kfree(ce->engine);
+>                 return PTR_ERR(ce->timeline);
+>         }
+> @@ -178,6 +180,8 @@ static int mock_context_alloc(struct intel_context *c=
+e)
+>         if (err) {
+>                 intel_timeline_put(ce->timeline);
+>                 ce->timeline =3D NULL;
+> +               kref_put(&ce->ring->ref, intel_ring_free);
+> +               ce->ring =3D NULL;
+>                 return err;
+>         }
+> =20
+> --=20
+> 2.43.0
+>
