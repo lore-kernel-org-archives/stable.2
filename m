@@ -1,63 +1,64 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5946F3AE6E5
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:37:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 30A613B058C
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:38:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019478; cv=none; b=QZlgHL9pSubqjzM7EXmYKDmqTreJOmZsKfqMebQZDePFyQVog4rfgS8rdWuSQDV+ZdxVv1Mmx/z4ZSVrF8+sJ2cxavLRMmizGRvt2MgkoKd8Nw1Xn2iWad5Ckg4HU1Y8r0qZpBP23mN8ZelQH2pa/Qb1O632JSKjwny8SnCCh+4=
+	t=1790019483; cv=none; b=DOAMgZagzrWrDiydjx4Tnme52fbyAgg8DLNnXmI9PoUQ0Y19lPljorsBs1ce311EJohNAdxJhneFc5KdIzwHSssHT99zIjsRVmG0gGEubjUVLkG+co5aY+CF1YgNOYp9P9m8vLsp5WgSSu4JXXfsDntlkBFTpb5ezuhs4K1tghw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790019478; c=relaxed/simple;
-	bh=eHNgYE1BdIraErQxKLawRC+Z1VdbqupeZ4CgZlyhygI=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nxpCNvpUMwmhAMHk3llW7yHYY4D91EK3GNsoyB6MSp+0+4502MXbae/JCgZbzJgObEtN31PZw2j1nPLRo+CdOUuFn1YZFgyTJouUx8G8bVk4IO4xpeaU69swcajOBiMSP7wWd+JZcEv9Su+JFM2eiTch0a9IRC2qEC1IbERV6iM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=C7Nmjc0Q; arc=none smtp.client-ip=74.125.227.170
+	s=arc-20240116; t=1790019483; c=relaxed/simple;
+	bh=+WF0ufBR+LDxG6agMdm+AutmEyBysbg4FlgD0FxUJno=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=jcSFSrE2K53z3yDZRCxyeZ3azW7Jh4rSNpngeHuTJ/PALEcZMTmEyB7N2xfuWI8tdYKp39fbxXM1zsXE5dERVgjnLqiqZ59JDWt9oSKsngqJU7gXJW3vNZMAl73lt1rLAFr+ue2LTwEJR5qwmAr9ivorFLfPCtn1qhxtNX44xVw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=FXPGgt0d; arc=none smtp.client-ip=74.125.228.41
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="C7Nmjc0Q"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccda24afso2459715a91.3
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:37:57 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="FXPGgt0d"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469d249c5so2791987b3a.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:38:01 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790019477; x=1790624277; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=24oiYNmQVTuE9tYr8bmlTOafQfPGTBwHcSANDMCgTuY=;
-        b=C7Nmjc0QY8g4Vu/BpqzFyKr2Xy8mhSle7n2BvTkTs+zQU1adxgPgAdztx9xjGQ8Dkg
-         kAXV3+6uGJp/cdxD0vXZ1pZXcC9J29wWlFZJinvXOt7xA44X16s+HmcAaWJhPqkIryyr
-         Pf/ZnKeMy6ppYsAe/Py0Av35zo0Fy5rIpT3Yw5i3nre/hxM8fsGGObG8gktF0HtCI26e
-         63EJPs4cPhohy7qdwZSsXyaYz3PwGOCgi+WaiWtpaupTUwKQk9Ot8MboguweUz1X+1AS
-         eqvmEAjOZMMlILtK+v5CWiAESm8xz70sjs+sqD7huWzwjYM5Aj07QPIBM5T9dB8gaesl
-         uJOg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019477; x=1790624277;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=trailofbits.com; s=google; t=1790019480; x=1790624280; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=24oiYNmQVTuE9tYr8bmlTOafQfPGTBwHcSANDMCgTuY=;
-        b=RE41a/+rsuJsJ9b0vo9rmuqDODy4QxlIqHkEvHaS8BWL01/MIFfkrP8JDrC8hTGhBX
-         9HG+nlkrltn1yS8rYKh4pAUJoc1l2DfDdha/sKuXmyOjnDp/e3/9K/l0/NahfkwJlGSj
-         cHjXpFVZtQE95rDpS3Czi2myohMawm8tQDKNBKQoSVyMILKX6Ik/LE3z+pg2KJspdmqI
-         8ullifo9FhVQD+JfcBV6Pt5+5WCCvrVDWuE3UzuSnx225VxyIIpCj73lwFFXKOloAfgq
-         0toyJ+hVfAL+2cr932G3L2Cnlg44j70tyio62gbTTUyS8Zv7txTLcyHIwhn12n1PhjKd
-         u8Ag==
-X-Gm-Message-State: AFuF++nRlIqn2FFITYipcf/CetsL6b/12jvrd6ipiAXeCjw6LqSOf1lx
-	ux+ElLmjyzRTJIKNinw+qVVh9TnC7zxdbUiiRoelFqNFm5OPTfLEs1f82BX5m81nNPVtT7yGGJK
-	45GGigz8=
-X-Gm-Gg: AYBFou2Cn7V6/sgZwTBrE0Gb7Lh4r5McLU5lcM+yWgOKO/cUvTqyUHOmmxfJ7LdE+t3
-	sbJDmKozhKpRxVwsmWerGRw3sjOWCEYaH/UYTro/9JH264j1mISiZrADiN9xnJm+9CwDtqxxF8d
-	Ky3d7FziaksfLwcYcoPC2LxKIS7FgNJEyWIgQGG+Sm0ClqnDun+cXlpHUdk/A8j7UpcmvuC7YxN
-	1qitS8SarQZwbi3fsTNlNOZdoh2z2Tw9BKP/Y1nHFRxy+eQpFhyxPgRbwrWrK6yuCX5zFWzOgZg
-	9qMTAvMl7ijm0hnANwI+4GV4cV6TNnSVf086iu4Jj3qjCt2PTy4u0aHyLQpjYBCEoz1Y/lIPOEn
-	uzHOfvZYJaSB5d7dvm3ZRL+BpJEg11Ohf3UQlKtNbEFNY7anwkptJoBMdYoBWiLCVIVqPwjdQW+
-	demEaNdq1GxtSrpfXP9oQTxpEN/46oUV/ZpADfnR/GIdAtQv3n4BsRcMbK7RGx8JY6GLROR3w/j
-	gvwRv5TVK4arDDEilSMNxVKP19uhpM1XxUnRc/s3XrrYMTr24RMghPDkg2ckFqo1k30oks5xpJ5
-	CItY5A==
-X-Received: by 2002:a17:90b:582b:b0:398:a486:81ec with SMTP id 98e67ed59e1d1-39e54e3c640mr24749161a91.11.1790019476637;
-        Mon, 21 Sep 2026 12:37:56 -0700 (PDT)
+        bh=38v0xzft1ji55CfZ4GZ3Vuw4C0dyByFRbLq8VXUI3wE=;
+        b=FXPGgt0dasQYyN6YhoBLWCSz48K8rrRt2vBB6iUHEyNR8AkBXXz+SCYjegWzbT8fm6
+         8FEXRttURSbeoZFgBfUzZavNa6aVi/OezKOStwE4M3P0VYFXjvv6cx4yaehvtogEe2va
+         YisId50a7HYmsapPIPcGXrVB6Lo6OS+xEEcGTP+d1M59/AYLS3chAJKHXpHQzPD9t9Zl
+         R+kxBdTvlr0SW3E2Y2/5PLVcJxRwwBYpZXj3KG+OEn1VNqH/HwUn5bMWR/4yIKeouYfK
+         tAUzRYvp+9bMmU1A1Rgwgq1RbD5y/vL8AdjEwmR23gNR7F06NuCJp5JLk7ANluJlXW11
+         IW/Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790019480; x=1790624280;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=38v0xzft1ji55CfZ4GZ3Vuw4C0dyByFRbLq8VXUI3wE=;
+        b=LXNrzJ58m/3wUsG5EUZjqxZiLW5Q3ctHLJD2+EPigZK9Nap7P7cXhjmcT6UqRBiSZk
+         kHIPfLSBN+QaZgWJCSwJmdTF70sJFzvtJMYw0oYECbKI5m0Mg1XWl0WN1srz3Hgv2jtT
+         I97sr/1Dwp+e+1uNZuGRHLe5kOUIDp/XLj1P1q4gtup73XsYGilrVEtBpR0C1QmWEl9w
+         jnhMfLXcR1wr5vtzjfPJt6sPDJQbHyo9+zhiq1Se3v5agJie5syD6LXyiOnHXU1K9Eh1
+         k5hi/d/XEgQ/+kA/QID5PnOnhcrZA8VAvSR0teOwQWgZ1DdGTlUQdC8D87HFQgj6xaoP
+         gzYg==
+X-Gm-Message-State: AFuF++nI87DFuKXLsXdLapz5NN7c9D6cXhP10gnOEgdCbzp1HySdRssG
+	e/tJxlIcp3ep/Gn7mg4sQVRi7++VF/jN12s48Q5Qe1RXokuCOwEXqrnF4ps2Onc9aRoUn0Q/8H6
+	xzL1rrJ8=
+X-Gm-Gg: AYBFou04lQK50CCuHyecxppqdjgPCSZ6yxHiQ+SxYzYCAls1BeJLVoFl/Ecow+wvgLE
+	/Cf1LZmsKXDpyLEhdaPSZeJ1cKJEyBdlCFqGHHZlQYJik6BFjfi3AabBY53pJle82zhxmdOfDmJ
+	BSbzYkO4zwV3Z0NNxZi+W2a69r3LUJTs5Vmt+s+CAPxsP1GeTwnDMInO5HeHO1uXxp2//DDf2hT
+	5IIcgvHBydK5EbEAeZR1you+5YgxmvQMK7mX9j/k67WIr0dV4EfMF3VCFIvh1gZ6L1StYIR0Xg+
+	sz6MHpYyAx3E2lP+MLpwhw+GiDyelfEsNyIorhnLx1k6Q2l4t7XIurskL6zNLkK4QB9kXJKhuV+
+	iUIIbLoPU1lYeRtP6bvi85IiLEMwGYpE7xpax+B5BfbVvO0xqqcxDfmcrK9nblwaIWR0kSpXmUp
+	bX5iGSid9OuzRywH5fPoekJ5mzeNq3dCNLkAPytP+6J6WcyfXgVMtr2eykiBeP/Jgmq2eMwu8a0
+	D+fjjqOWhZNI+PKjB0k+elxEIAuDhJiDPOskbzeOMcdMqR/fqe4DIidT+gYfs7loY0HgGk=
+X-Received: by 2002:a05:6a20:7289:b0:3dd:a196:5393 with SMTP id adf61e73a8af0-3dda1965464mr11523095637.53.1790019480599;
+        Mon, 21 Sep 2026 12:38:00 -0700 (PDT)
 Received: from localhost.localdomain ([2603:8001:5f01:8bab:289a:f600:f11e:a45c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288500eec.16.2026.09.21.12.37.55
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288500eec.16.2026.09.21.12.37.59
         (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
-        Mon, 21 Sep 2026 12:37:56 -0700 (PDT)
+        Mon, 21 Sep 2026 12:38:00 -0700 (PDT)
 From: Artem Dinaburg <artem@trailofbits.com>
 To: stable@vger.kernel.org
 Cc: Artem Dinaburg <artem@trailofbits.com>,
@@ -78,10 +79,12 @@ Cc: Artem Dinaburg <artem@trailofbits.com>,
 	linux-kernel@vger.kernel.org,
 	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
 	Dan Carpenter <error27@gmail.com>
-Subject: [PATCH 6.1.y 0/2] ASoC: SOF: backport CVE-2023-54233 to 6.1.y
-Date: Mon, 21 Sep 2026 15:37:46 -0400
-Message-ID: <20260921193750.82134-1-artem@trailofbits.com>
+Subject: [PATCH 6.1.y 1/2] ASoC: SOF: avoid a NULL dereference with unsupported widgets
+Date: Mon, 21 Sep 2026 15:37:47 -0400
+Message-ID: <20260921193750.82134-2-artem@trailofbits.com>
 X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921193750.82134-1-artem@trailofbits.com>
+References: <20260921193750.82134-1-artem@trailofbits.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -90,34 +93,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-Hi Greg, Sasha, and SOF maintainers,
+From: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
 
-I am working through the smaller CVE backports that 6.1.y still needs.
-This series handles CVE-2023-54233. Patch 1 adds the missing module-info
-guards; patch 2 is its immediate diagnostic follow-up.
+[ Upstream commit e3720f92e0237921da537e47a0b24e27899203f8 ]
 
-The stable tag on patch 1 says 6.2+, but the same unsafe dereference is in
-6.1.y. I kept the pair together and did not bring in the later topology
-refactors.
+If an IPC4 topology contains an unsupported widget, its .module_info
+field won't be set, then sof_ipc4_route_setup() will cause a kernel
+Oops trying to dereference it. Add a check for such cases.
 
-Could you please queue this series for 6.1.y?
+Cc: stable@vger.kernel.org # 6.2
+Signed-off-by: Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>
+Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+Link: https://lore.kernel.org/r/20230329113828.28562-1-peter.ujfalusi@linux.intel.com
+Signed-off-by: Mark Brown <broonie@kernel.org>
 
-Thanks,
-Artem Dinaburg
+[ Backport to 6.1.y: although the upstream stable tag names 6.2, the
+  same module_info dereference is present here; the source change is
+  otherwise unchanged. ]
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Stable submission note: patch 1/2 in the CVE-2023-54233 series for Linux
+6.1.y.
 
-AI assistance: An LLM helped find the missing CVE fix, adapt
-it, and prepare the draft; I reviewed the code and build output.
+CVE: CVE-2023-54233
 
-Guennadi Liakhovetski (1):
-  ASoC: SOF: avoid a NULL dereference with unsupported widgets
+Build: This patch was included in the x86_64 allmodconfig and
+CONFIG_WERROR=y build.
+It produced vmlinux and 9,075 modules; the same four baseline objtool
+notices appeared, with no new warnings or errors.
 
-Peter Ujfalusi (1):
-  ASoC: SOF: ipc4-topology: Clarify bind failure caused by missing
-    fw_module
+ sound/soc/sof/ipc4-topology.c | 8 ++++++++
+ 1 file changed, 8 insertions(+)
 
- sound/soc/sof/ipc4-topology.c | 10 ++++++++++
- 1 file changed, 10 insertions(+)
-
+diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
+index 49289932ba7e69..9540ba6ef659e6 100644
+--- a/sound/soc/sof/ipc4-topology.c
++++ b/sound/soc/sof/ipc4-topology.c
+@@ -1600,6 +1600,14 @@ static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
+ 	int dst_queue = 0;
+ 	int ret;
+ 
++	if (!src_fw_module || !sink_fw_module) {
++		/* The NULL module will print as "(efault)" */
++		dev_err(sdev->dev, "source %s or sink %s widget weren't set up properly\n",
++			src_fw_module->man4_module_entry.name,
++			sink_fw_module->man4_module_entry.name);
++		return -ENODEV;
++	}
++
+ 	dev_dbg(sdev->dev, "bind %s -> %s\n",
+ 		src_widget->widget->name, sink_widget->widget->name);
+ 
 -- 
 2.39.5
 
