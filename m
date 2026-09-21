@@ -1,121 +1,145 @@
-Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+Received: from smtp-out1.suse.de (smtp-out1.suse.de [195.135.223.130])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3E8D83C0A04
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:26:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6B449427F8B;
+	Mon, 21 Sep 2026 12:27:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=195.135.223.130
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789993564; cv=none; b=N+CK+nJsQTH4kuKCdg0V8ROOh7KZH2fCcmxZx9/hE+k0o498UiftY9rqnIbHbgmR86Gs5ZbdXNLk471WrohIsJ40LsK1IObXa6qhWjoa2JlPeuHhqr9UO2Qkq7r6VHMSU08CIgqJSMQOjpptngixNKJIuNQ5c561fwqHX2fx41c=
+	t=1789993623; cv=none; b=Ss7hd6bCela9QhyextHWyIjcDPV00AecaZzL9LTp+z+x926NXBUQSe8kL2z1vkU4uFe04V7ZrYhTyrAF/GSC1i6RQaDWJTSOT0Xlc9Rp4kprS50tkM9rJWv39WL/zwko44ufDJEQKkVtp0owcyJFUQModg19QdCnrdbd6NQgzzc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789993564; c=relaxed/simple;
-	bh=JO8UXj44gMiPij6DfEkLk4FkAXvhQb6Ir6+VRKD+Jq8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MAI8PG5uL6LN96NDxeGWhVHyDfgklhHeRGFvnHR9mPKROI+qA25ZWSh9f9QHUeiqAkY/qExl3+wHAebn0g542aNrz2RsxNY3iPQfvNE98Yrteep0rNq74pNBsC0qgAwF5LFAy0NXovBAtxtaEnaiAou5Ob0dXFPXMjftUN09H58=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=eQ41R78i; arc=none smtp.client-ip=74.125.228.42
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789993623; c=relaxed/simple;
+	bh=iLDn2/y9elf9xjbQjXoGdAt+cFSH8BtPUQxX7ObRmec=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=f1JWPf11uEM9c/6CJ9hL5nP9RKHsF6rvP0ANYYUDPfymQzP1o9/O0QWcwhthR9JpKwmW5WDtOTdJm6i91xFs2iDJLJxheldVNaywXN9VYTHDkNDQUS2sIT8tY5PkKJ9cN2Dc6wdPwK2WdkTH21ngUNX51PX763Sb/YMOnKSw1+Y=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz; spf=pass smtp.mailfrom=suse.cz; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=icRfcgUh; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=+jkPJfiA; dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b=yoQoA39j; dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b=QJDS8jIh; arc=none smtp.client-ip=195.135.223.130
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=suse.cz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=suse.cz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="eQ41R78i"
-Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1e1b51234so210237a12.3
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 05:26:03 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789993562; x=1790598362; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oHO24PFyI/gRvEgCcw5OLI0HENmuN3p3mM4wqQ/TnrM=;
-        b=eQ41R78i0qWxNzUv52Je08iLuH6IJN6v3JPLHkF76eJpajc6Z2M7tuBv4ApENQghC9
-         4An09xkaPuMTK7y9Oy9jWWMdWghOvwaPQQNz2WhD9MZLPzBsgs4bLaNeohr8yn4mG1GZ
-         vN2nypaxaxvaJv0nP2MUODeQKhGcAT1897RwQhIJkhQ8Muz1YjNN79mDSAEpFLpDDwFi
-         cBaS7j91dJYfzZ/u5SscwJ92L0/UbL4cD6oDxqnra9Yh8nEm4sI+t1D4PNDTnoApi+eH
-         gMlw8acroUutn1Af5bXCrZFgsKdyXtIHAGbbUWMw8r55TLuwQRsnmSD882OKI0ZZtWI2
-         WzNA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789993562; x=1790598362;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oHO24PFyI/gRvEgCcw5OLI0HENmuN3p3mM4wqQ/TnrM=;
-        b=Hg9ESVMu7XUY5U6RoSlDFiG7mrudUgYQIHuhtYSSpNynL/osRywiA5RI86MD1qKXQF
-         C3ACRUTh5rmTQKntnkArzTIxi7KZGq06eg+XZfXDEjU18xtIWLcmdiUx47Q7r/HjNrDJ
-         7oaFQdtlJPgiBq7xyLAiu2gLaf75Cealp2TD8n6DsjGQ9rD7AjuVBwn3FTuOyyzXxmrZ
-         O+yLeXirFQCWbdQrqdDxM4P+6VtZT2INTP2TnSIISiNP1C/WQxI7wQsBcoU/Suj+Y3VN
-         kNyjAyqzj7RQtBNvdT1rSPU+dMwkFplf4elRUxJEzwaF12QZiSf7YRmwDDR8fZ5lb0lY
-         MQzw==
-X-Forwarded-Encrypted: i=1; AKwUvBy0XqpSn5ErIcuWxnAkXFch2PKTRX3y7Tel6m40X6IRKR0TxHy9NCl6xOxIeHOD/0SCAMF1C74=@vger.kernel.org
-X-Gm-Message-State: AFuF++myalR8HdwAdEnI09Fy0ESZ+Nz/a6sprZAnmv8PW3TUal0mY6PR
-	V/pGFcGRV0CTUaAAUaAehNRtsC2b80zVa+uOeOj29wv8e56Cui15B8Av
-X-Gm-Gg: AYBFou0HLeNQDWe55VpSk7TCV28Yv+oYpWdNASmNMbJ1NfpQQGJb9OBjmAGoAPeMvDI
-	F286BMJlMbt/TeisWpomt0HifnHbxqZ507IXRGgosacFJEisuaMF7Jk5HpqD8r0xhoL6ZcWoRVM
-	2NQ6BgS5ez+r4x6fyCeoWsgHYMR3/ORHqC37Cn8gw/CKaOgZefTIX/Lbgc7kJbXItt3t7oEq7Oq
-	0BHIZEceLsVPuIAeUKLFN07gATEfM+ynPkekCDMUgttxnUyUd9P0/Y8jJrtBtkTJHcI+50/oP40
-	VWHSmmVHStDeZfvHqPEtHcqcjXrLp3x2/CHBeyyerJnbi3BIJdSak2M4t+i2b2bE6XEK/AcS8L1
-	bo5vpzVNMG5juRShvp0AfMSUaHJJfvTcGCcaR4NiGh8JOj1PISBiL3E+DX1xS/xmoYKEA9t2Yi0
-	ZvBmmdkTOJIKm8LtF55ueGoHShZY0PoASy9rynOvhvDhXuI2NV004l/TwYL2w61ETJsAFR6g==
-X-Received: by 2002:a17:903:26c6:b0:2dd:6cb5:77c with SMTP id d9443c01a7336-2ddb69ce313mr200894355ad.2.1789993562471;
-        Mon, 21 Sep 2026 05:26:02 -0700 (PDT)
-Received: from LSSP.an0.nb ([47.82.118.101])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc179dbd5sm33198445ad.39.2026.09.21.05.26.00
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 05:26:01 -0700 (PDT)
-From: bruceli20040604@gmail.com
-To: dinghao.liu@sdu.edu.cn
-Cc: Guanxin Li <bruceli20040604@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] fpga: region: depopulate child devices on remove
-Date: Mon, 21 Sep 2026 20:25:56 +0800
-Message-ID: <20260921122556.3418339-1-bruceli20040604@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="icRfcgUh";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="+jkPJfiA";
+	dkim=pass (1024-bit key) header.d=suse.cz header.i=@suse.cz header.b="yoQoA39j";
+	dkim=permerror (0-bit key) header.d=suse.cz header.i=@suse.cz header.b="QJDS8jIh"
+Received: from imap1.dmz-prg2.suse.org (imap1.dmz-prg2.suse.org [IPv6:2a07:de40:b281:104:10:150:64:97])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by smtp-out1.suse.de (Postfix) with ESMTPS id 2D03221CA9;
+	Mon, 21 Sep 2026 12:26:52 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789993616;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZgMNcKf5nnm8Ds1/NwXov5Uj5kfQWAvQQqccvASKDlw=;
+	b=icRfcgUhNKr1MukliSqCISy62cLcPuvPZEE1rzTeUGdgVnlBl5EUHQrk0RUcyqkHrZpjWQ
+	cQppJsBWu0FnLpu4MhW8cPVpswcpOnRl1HLt6i6Wve9BybWEnvhugSm6lY/FZ9hEh9w4Yd
+	+ih3sLA/sqRH8lKy+9lzVgbSAlPZkcY=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789993616;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZgMNcKf5nnm8Ds1/NwXov5Uj5kfQWAvQQqccvASKDlw=;
+	b=+jkPJfiA2LGoPJR55VjoU1kOjz84Hvs17PVpMyGh2xYykVmRrH8H7pGtLt6iwo3r84oll4
+	MEq/4mRnW54rioAA==
+Authentication-Results: smtp-out1.suse.de;
+	dkim=pass header.d=suse.cz header.s=susede2_rsa header.b=yoQoA39j;
+	dkim=pass header.d=suse.cz header.s=susede2_ed25519 header.b=QJDS8jIh
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=suse.cz; s=susede2_rsa;
+	t=1789993612;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZgMNcKf5nnm8Ds1/NwXov5Uj5kfQWAvQQqccvASKDlw=;
+	b=yoQoA39jOpowYDC9rxQOSfYRHJA93Zwh7IHUKsuna+EI0yqixqNdvIrufZKT6h3XMPnSt4
+	0PN3ioWjB7XZGG5idYLdX4z2iNcQrmlS3HcPwY5GVLgrSsxU9yNnyPfPWnWFRM5zAvnwCL
+	JZCsRoLBMK8rIUTzTLtrsPqR/43NxdI=
+DKIM-Signature: v=1; a=ed25519-sha256; c=relaxed/relaxed; d=suse.cz;
+	s=susede2_ed25519; t=1789993612;
+	h=from:from:reply-to:reply-to:date:date:message-id:message-id:to:to:
+	 cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=ZgMNcKf5nnm8Ds1/NwXov5Uj5kfQWAvQQqccvASKDlw=;
+	b=QJDS8jIhHdcTArYkNY6bTPvVzFqQeTt0iKRfqSHnb/miH0+t5WtKHCsdnuoHT/2PkBiVms
+	ipqKbwKGaYsUUmBw==
+Received: from imap1.dmz-prg2.suse.org (localhost [127.0.0.1])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
+	(No client certificate requested)
+	by imap1.dmz-prg2.suse.org (Postfix) with ESMTPS id EA13D13793;
+	Mon, 21 Sep 2026 12:26:51 +0000 (UTC)
+Received: from dovecot-director2.suse.de ([2a07:de40:b281:106:10:150:64:167])
+	by imap1.dmz-prg2.suse.org with ESMTPSA
+	id ZC0tL4sisWrCPQAAD6G6ig
+	(envelope-from <dsterba@suse.cz>); Mon, 21 Sep 2026 12:26:51 +0000
+Date: Mon, 21 Sep 2026 14:26:46 +0200
+From: David Sterba <dsterba@suse.cz>
+To: Boris Burkov <boris@bur.io>
+Cc: Wentao Liang <vulab@iscas.ac.cn>, clm@fb.com, dsterba@suse.com,
+	linux-btrfs@vger.kernel.org, linux-kernel@vger.kernel.org,
+	wqu@suse.com, stable@vger.kernel.org
+Subject: Re: [PATCH] btrfs: Fix root reference leak in
+ handle_indirect_tree_backref()
+Message-ID: <20260921122646.GZ54722@twin.jikos.cz>
+Reply-To: dsterba@suse.cz
+References: <20260916171319.2086756-1-vulab@iscas.ac.cn>
+ <20260918191342.GB2956775@zen.localdomain>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918191342.GB2956775@zen.localdomain>
+User-Agent: Mutt/1.5.23.1-rc1 (2014-03-12)
+X-Spam-Level: 
+X-Rspamd-Action: no action
+X-Rspamd-Server: rspamd2.dmz-prg2.suse.org
+X-Rspamd-Queue-Id: 2D03221CA9
+X-Spamd-Result: default: False [-4.21 / 50.00];
+	BAYES_HAM(-3.00)[99.99%];
+	NEURAL_HAM_LONG(-1.00)[-1.000];
+	HAS_REPLYTO(0.30)[dsterba@suse.cz];
+	R_DKIM_ALLOW(-0.20)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	NEURAL_HAM_SHORT(-0.20)[-1.000];
+	MIME_GOOD(-0.10)[text/plain];
+	MX_GOOD(-0.01)[];
+	RECEIVED_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:106:10:150:64:167:received];
+	RBL_SPAMHAUS_BLOCKED_OPENRESOLVER(0.00)[2a07:de40:b281:104:10:150:64:97:from];
+	ARC_NA(0.00)[];
+	RCVD_VIA_SMTP_AUTH(0.00)[];
+	TO_DN_SOME(0.00)[];
+	MIME_TRACE(0.00)[0:+];
+	RCVD_TLS_ALL(0.00)[];
+	REPLYTO_DOM_NEQ_TO_DOM(0.00)[];
+	DKIM_SIGNED(0.00)[suse.cz:s=susede2_rsa,suse.cz:s=susede2_ed25519];
+	REPLYTO_ADDR_EQ_FROM(0.00)[];
+	FROM_EQ_ENVFROM(0.00)[];
+	FROM_HAS_DN(0.00)[];
+	RCPT_COUNT_SEVEN(0.00)[8];
+	RCVD_COUNT_TWO(0.00)[2];
+	TO_MATCH_ENVRCPT_ALL(0.00)[];
+	DBL_BLOCKED_OPENRESOLVER(0.00)[twin.jikos.cz:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo,suse.cz:dkim,suse.cz:replyto];
+	URIBL_BLOCKED(0.00)[suse.cz:dkim,suse.cz:replyto,twin.jikos.cz:mid,imap1.dmz-prg2.suse.org:rdns,imap1.dmz-prg2.suse.org:helo];
+	DKIM_TRACE(0.00)[suse.cz:+]
+X-Spam-Flag: NO
+X-Spam-Score: -4.21
 
-From: Guanxin Li <bruceli20040604@gmail.com>
+On Fri, Sep 18, 2026 at 12:13:42PM -0700, Boris Burkov wrote:
+> On Wed, Sep 16, 2026 at 05:13:19PM +0000, Wentao Liang wrote:
+> > handle_indirect_tree_backref() walks up the tree from @cur, storing the
+> > reference returned by btrfs_get_fs_root() in lower->root when the top
+> > of the searched path is reached, and dropping it once a node already in
+> > the backref cache is found.  If the walk instead reaches
+> > BTRFS_MAX_LEVEL without hitting either of those two exits, the
+> > reference is neither stored nor dropped and is leaked on return.
+> 
+> Are you able to reproduce this bug? If so, can you include that
+> information in the commit message.
 
-of_fpga_region_probe() populates child platform devices under the FPGA
-region using of_platform_populate(), but the remove path does not
-depopulate them before unregistering the region.
-
-Call of_platform_depopulate() before unregistering the FPGA region so
-that the child devices are properly unregistered and their references
-are released.
-
-Fixes: 0fa20cdfcc1f ("fpga: fpga-region: device tree control for FPGA")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guanxin Li <bruceli20040604@gmail.com>
----
- drivers/fpga/of-fpga-region.c | 16 ++++++++--------
- 1 file changed, 8 insertions(+), 8 deletions(-)
-
-diff --git a/drivers/fpga/of-fpga-region.c b/drivers/fpga/of-fpga-region.c
-index 9107a5b461d3..eb62427705b4 100644
---- a/drivers/fpga/of-fpga-region.c
-+++ b/drivers/fpga/of-fpga-region.c
-@@ -424,14 +424,14 @@ static int of_fpga_region_probe(struct platform_device *pdev)
- 	return ret;
- }
- 
--static void of_fpga_region_remove(struct platform_device *pdev)
--{
--	struct fpga_region *region = platform_get_drvdata(pdev);
--	struct fpga_manager *mgr = region->mgr;
--
--	fpga_region_unregister(region);
--	fpga_mgr_put(mgr);
--}
-+static void of_fpga_region_remove(struct platform_device *pdev){
-+ 	struct fpga_region *region = platform_get_drvdata(pdev);
-+ 	struct fpga_manager *mgr = region->mgr;
-+ 
-+	of_platform_depopulate(&region->dev);
-+ 	fpga_region_unregister(region);
-+ 	fpga_mgr_put(mgr);
-+ }
- 
- static struct platform_driver of_fpga_region_driver = {
- 	.probe = of_fpga_region_probe,
--- 
-2.43.0
-
+A filesystem with a tree of maximum height consumes a lot of metadata
+space and in practice it's difficult to create one. For completeness the
+check could be there, we have other impossible condition checks
+elsewhere too.
