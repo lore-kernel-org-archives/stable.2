@@ -1,166 +1,141 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B0483393DE0
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:26:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4F639B94A;
+	Mon, 21 Sep 2026 19:29:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018775; cv=none; b=fwxAuSirworoab1vP7p6p680IjmEuBPUOZvdEOaoTn3IbhAqtD7RZ3fZorxuOhkofmMccCMhO8Ht65LFCNH7fmpnLsQCi6Ufv48Xtvqp4fJBQbFYLMkLpZAZee7L3JT+8hjdG32tlFEdoPvK+rF77HN5GCfNLRSi1ftss8N4Ms4=
+	t=1790018944; cv=none; b=q/Ubf9uRY2HKk50CxibvOZLMVAJjx4yYbODP1uIks/OFDxa4L/NT8Tiiv4VYGAFDj74pO8GmhXPDWUCIaYojbb59bJ5V2pCBncNCN02weu/88GMMn52t5+fxhReeSvx6JmqUT2pFn3m7zdwtYS1ib8MejKY2cLnPYJpPkjKIL4A=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018775; c=relaxed/simple;
-	bh=RaJdotNRjQ7v4XLVdNOrJ2F3tz9HzM/CSax0HTuqhF8=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=baxX2C1BGlqJwWhB7FwsY09Mu6/GU30zH7wFXngaMOyWtwFsa3I4sygix2mZJEFQIiS+/5NOzAJ4f2JQ8ITD170SkzbgMK/kGP+d5PeBK1F1gv7xxlqKamePHnwhsWgMXSREa//fENghzUruVPO77qs2HCAc0zRfFnY1c0tLUno=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=LXukoIQK; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790018944; c=relaxed/simple;
+	bh=/zqAhZ6ZmATbRjUgB3nSfL79dTJ2lIPaH9WDZwj7u4k=;
+	h=Date:To:From:Subject:Message-Id; b=QcztXsp4zCH+NYPjlsef2hAYCkGOyadr9f/IhZvfnyGycSoxFqgsU7vH0wm1RZ5SSf281Vt6M75aiRGWoai0A0MXOi+VoEh+foyo7sHwWFPUox/JEIzTCCA5WOeBjahDuAtOFkp/vMcYuOy2Z39RLEadTLpNbM2wdQQOkqeURg4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=zIXSaqw+; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="LXukoIQK"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-8693af0d7c4so3713764b3a.3
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:26:13 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="zIXSaqw+"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 72C611F00898;
+	Mon, 21 Sep 2026 19:29:02 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790018773; x=1790623573; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=oPHA1/g/WcT24PIfBNMekc+zAjDKuj7dhADig3JaAok=;
-        b=LXukoIQK426K+iiG8WWqQTbuFr8W/3FAxv+LPeJ4BogbgxKA1oTs++AABGrEcZoIir
-         70lXi1yX7umnwdHC9EGHM5qTzyxEAjFrkY9KzQaul0vefpkAbM9ftf35JsDI9U/6IQzq
-         0t202wTH06AwnAz0N+9R3p/ryYlDttSIpBC3wfCUAeeIux5kB6unHGCSoOi259grhRCI
-         xf1PUwUhKq57IRmibl9yo8vrkt5aDMPVScAspL/6E++7wIiSgP9w/CsI7waIHFEC4Oby
-         HmFQWMrBwvl088hKmbw4QZglNSxYNQOo7Y5aep8wQHLmbGSfhE2aWgMd0SQb2L17mjIb
-         bAAg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790018773; x=1790623573;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=oPHA1/g/WcT24PIfBNMekc+zAjDKuj7dhADig3JaAok=;
-        b=uwtxMTzL7jtXUsRBoPzZjar72gNVMj1uA7Bo9yl9rn1pSB+p8aHhA8J/HbF7YJA+qf
-         VxFmPTAGDeRIZ5FVy51Z0C7fL/ZjH5sqmQEbggdbLGiFzc6IM497T9RsS7SrgpmhxUxc
-         9ZfOdb9kH9fjWDLh8P5bW222U4AW6WrOutRsEeP5qdxTxsOMVn+qbW1udOdHn2Cr+kxw
-         m0uXNQkeYqzrSG6cxXvI7HHcdDodIQv5uw3RKlqP2PSEvBD0Ym8q83fi45t4ATbcOQgQ
-         k9HPHfXMjHRPuv6r3in9nd/d8zRrNcmxctS+nAdtwEMSeS92G3uqoRsBxtIp2FPHEOSd
-         2Pzw==
-X-Forwarded-Encrypted: i=1; AKwUvBwaVX3buKyRdw5NCZexM4Sszsbf9xanq673cl/QIjI3JRHXWiCeFC7JZf6+3OMJck7gR5NdJtI=@vger.kernel.org
-X-Gm-Message-State: AFuF++nrm/vazB//2P/yW/VCt78BzVEftf0XiMHLRVlzkosj0D2ZL5pg
-	uCBFCjTb3qKOAEUGyEJoBjb6VamL2xn6hjl+ZVokh0C11480askd8Py4
-X-Gm-Gg: AYBFou0Ca28LJuvJKwwXg24wOoHephJP6+UT2jCaADt0OhsIT6KdmXjUSsQjZme6+R4
-	wXD/mAMymXx4AMr+7i9Fis5YNn4OmThqzOLHRb8EWWsWRyxUaoKu7jr96pW8V7ZjXPKMObLQ+th
-	42psbysvT1LI5GN7GNj/BI2j78+CgAbidSaZWbs8egJWtJa9GTi9+eFJVl7OSB7flESjGc0GWf7
-	AvVctSBpBxwUTF73DH++zJZWeb12AG69zYuTjAGaSJloQrpTA2L7hCA28YX9y66gBAYKHF4mxef
-	V/2XLL33jjx7Qv9BQx97RCjEzRgfeptXsEykyYw5Gyh3P1A1dYoTT0znrZdZc7Fbml0hMCGVNZB
-	NQKwRwLJeI1yumUa/N3QOlr2j2U5t5czjpHna9Yler3zFcvwqS2OWuWzOtAgXZs3dVyxevPEjpQ
-	Lkbf0rVNw4oVgkFXQCqoBBOnspsiU+YZTg7bESl5hexvZj56hiVgQt+jOioNExvwjXT6nPxor+
-X-Received: by 2002:a05:6a00:1d8c:b0:874:705d:f657 with SMTP id d2e1a72fcca58-874deced87fmr14985305b3a.37.1790018772523;
-        Mon, 21 Sep 2026 12:26:12 -0700 (PDT)
-Received: from localhost ([180.184.47.241])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-87bf7eb7514sm827b3a.38.2026.09.21.12.26.11
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 12:26:11 -0700 (PDT)
-From: Dairui Zhang <zhangdairui@gmail.com>
-To: netdev@vger.kernel.org
-Cc: Dairui Zhang <zhangdairui@gmail.com>,
-	Willem de Bruijn <willemb@google.com>,
-	Daniel Borkmann <daniel@iogearbox.net>,
-	stable@vger.kernel.org
-Subject: [PATCH net] af_packet: fix integer overflow in prb_calc_retire_blk_tmo()
-Date: Tue, 22 Sep 2026 03:26:08 +0800
-Message-ID: <20260921192608.1420047-1-zhangdairui@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	d=linux-foundation.org; s=korg; t=1790018942;
+	bh=2yQSBB9+QfEe/7UUwe9jeZMdSJEApqsxiD8a6QZJ57E=;
+	h=Date:To:From:Subject;
+	b=zIXSaqw+6yEVpXrlGUtyNvXXA4ZQfYj7shgJzEZsALus2OKP3HNNXBogSsddi5ZRq
+	 GzJUQWlKrNN8of7O+wdiNpo1EEGQkzbsiHVKXU4OLz7wH3Boypx6gJG6hB7wEmKVUh
+	 BcbpCXMqr/PNut9XSbxygiJJB8CWBohpFb9+chRY=
+Date: Mon, 21 Sep 2026 12:29:01 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,david@davidgow.net,brendan.higgins@linux.dev,donggeunyoo.kernel@gmail.com,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: + mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch added to mm-new branch
+Message-Id: <20260921192902.72C611F00898@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-prb_calc_retire_blk_tmo() computes in 32-bit int arithmetic:
 
-        mbits = (blk_size_in_bytes * 8) / (1024 * 1024);
+The patch titled
+     Subject: mm/damon/core: charge only the part of a region the filter left
+has been added to the -mm mm-new branch.  Its filename is
+     mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch
 
-If I'm reading the validation right, tp_block_size is user
-controlled and packet_set_ring() only rejects values that are <= 0
-as int or not page aligned, so a 256MiB block goes right through
-(and alloc_one_pg_vec_page() even has a vzalloc fallback for it).
-0x10000000 * 8 wraps to INT_MIN, and on a NIC reporting 1 Gbps
-(div == 1) the function ends up returning -2047.
+This patch will shortly appear at
+     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch
 
-The condition is actually (8 * size) mod 2^32 >= 2^31 && div == 1,
-so the trigger set is [256,512), [768,1024), [1280,1536) and
-[1792,2048) MiB. Other sizes wrap to non-negative values and faster
-links divide the unsigned value back below 2^31, which is why this
-doesn't blow up for everyone.
+This patch will later appear in the mm-new branch at
+    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
 
-What makes it fatal is what happens next in init_prb_bdqc():
+Note, mm-new is a provisional staging ground for work-in-progress
+patches, and acceptance into mm-new is a notification for others take
+notice and to finish up reviews.  Please do not hesitate to respond to
+review feedback and post updated versions to replace or incrementally
+fixup patches in mm-new.
 
-        p1->interval_ktime = ms_to_ktime(prb_calc_retire_blk_tmo(...));
-        hrtimer_start(&p1->retire_blk_timer, p1->interval_ktime,
-                      HRTIMER_MODE_REL_SOFT);
+The mm-new branch of mm.git is not included in linux-next
 
-A negative relative timeout expires immediately. The callback
-unconditionally returns HRTIMER_RESTART, and hrtimer_forward() turns
-the negative interval into hrtimer_resolution:
+If a few days of testing in mm-new is successful, the patch will me moved
+into mm.git's mm-unstable branch, which is included in linux-next
 
-        if (interval < hrtimer_resolution)
-                interval = hrtimer_resolution;
+Before you just go and hit "reply", please:
+   a) Consider who else should be cc'ed
+   b) Prefer to cc a suitable mailing list as well
+   c) Ideally: find the original patch on the mailing list and do a
+      reply-to-all to that, adding suitable additional cc's
 
-So the SOFT timer re-fires at the maximum rate forever, holding
-sk_receive_queue.lock each pass. One CPU spins in softirq until the
-socket is closed. Repeat with more rings and the machine is gone.
+*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
 
-This is mostly a new problem: the overflow is ancient, but with
-msecs_to_jiffies() a negative timeout just got clamped to a huge
-unsigned value, i.e. the retire timer effectively never fired.
-f7460d2989fa ("net: af_packet: Use hrtimer to do the retire
-operation", v6.18) turned it into "fire immediately and spin".
-Still present in 7.2.6 and in current mainline as of this
-writing.
+The -mm tree is included into linux-next via various
+branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+and is updated there most days
 
-(Unrelated to CVE-2019-20812 - that one was the ethtool failure path
-returning 0, which now returns DEFAULT_PRB_RETIRE_TOV.)
+------------------------------------------------------
+From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Subject: mm/damon/core: charge only the part of a region the filter left
+Date: Mon, 21 Sep 2026 08:24:41 -0700
 
-Reproducer, needs CAP_NET_RAW (a --network host container has it by
-default) and a 1 Gbps NIC (QEMU e1000 works):
+Patch series "mm/damon/core: fix the size charged for a filter-trimmed
+region", v2.
 
-        int fd = socket(AF_PACKET, SOCK_RAW, htons(ETH_P_ALL));
-        bind(fd, ...);
-        int v = TPACKET_V3;
-        setsockopt(fd, SOL_PACKET, PACKET_VERSION, &v, sizeof(v));
-        struct tpacket_req3 req = {
-                .tp_block_size = 0x10000000,
-                .tp_block_nr = 1,
-                .tp_frame_size = 2048,
-                .tp_frame_nr = 0x10000000 / 2048,
-                .tp_retire_blk_tov = 0,
-        };
-        setsockopt(fd, SOL_PACKET, PACKET_RX_RING, &req, sizeof(req));
+An address range DAMOS filter that partially overlaps a monitoring region
+splits it, so the scheme action reaches only one side of the boundary. 
+damos_apply_scheme() reads the region size before that split and never
+re-reads it, so the quota charge and schemes/<S>/stats/sz_tried account
+for the whole original region.
 
-Compute in 64 bits instead. The operands are already bounded by the
-existing validation, so nothing else changes. If you'd prefer a
-different fix, just say so and I'll respin.
+Patch 1 re-reads the size after the core filters have run.  Patch 2 adds
+KUnit coverage for what the function charges and reports, for the trimmed
+cases and for the cases that must not change.
 
-Fixes: f7460d2989fa ("net: af_packet: Use hrtimer to do the retire operation")
-Cc: stable@vger.kernel.org
-Signed-off-by: Dairui Zhang <zhangdairui@gmail.com>
+
+This patch (of 2):
+
+An address range DAMOS filter that partially overlaps a monitoring region
+splits the region at the filter boundary, so the scheme action is applied
+to only one side of it.  damos_apply_scheme() reads the region size once
+on entry, before damos_core_filter_out() performs that split.
+
+The quota charge and the statistics update therefore account for the
+region as it was before the trim.  schemes/<S>/stats/sz_tried counts
+memory the filter excluded, which Documentation/mm/damon/design.rst says
+is not counted as tried, and with quotas/bytes set the excluded part is
+charged against the budget, throttling the scheme to a fraction of what
+was configured.
+
+User impact is that DAMOS could unexpectedly slowly run, due to
+over-charged quota.  DAMOS stat could also be confusing.  No critical
+events such as crashes or leask happen.
+
+Re-read the region size after the core filters have run.
+
+Link: https://lore.kernel.org/20260921152443.80132-1-sj@kernel.org
+Link: https://lore.kernel.org/20260921152443.80132-2-sj@kernel.org
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Signed-off-by: SJ Park <sj@kernel.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Reviewed-by: SJ Park <sj@kernel.org>
+Cc: Brendan Higgins <brendan.higgins@linux.dev>
+Cc: David Gow <david@davidgow.net>
+Cc: <stable@vger.kernel.org>
 ---
-First patch to netdev, and compile-tested only - I don't have a
-1 Gbps setup to trigger it live. If I've misread the code, got the
-Fixes: tag wrong, or picked the wrong fix, please say so and I'll
-respin.
 
- net/packet/af_packet.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
+ mm/damon/core.c |    1 +
+ 1 file changed, 1 insertion(+)
 
-diff --git a/net/packet/af_packet.c b/net/packet/af_packet.c
-index b22cda3..24cf2d2 100644
---- a/net/packet/af_packet.c
-+++ b/net/packet/af_packet.c
-@@ -617,7 +617,7 @@ static int prb_calc_retire_blk_tmo(struct packet_sock *po,
- 		return DEFAULT_PRB_RETIRE_TOV;
- 
- 	div = ecmd.base.speed / 1000;
--	mbits = (blk_size_in_bytes * 8) / (1024 * 1024);
-+	mbits = (u64)blk_size_in_bytes * 8 / (1024 * 1024);
- 
- 	if (div)
- 		mbits /= div;
+--- a/mm/damon/core.c~mm-damon-core-charge-only-the-part-of-a-region-the-filter-left
++++ a/mm/damon/core.c
+@@ -2784,6 +2784,7 @@ static void damos_apply_scheme(struct da
+ 		}
+ 		if (damos_core_filter_out(c, t, r, s))
+ 			return;
++		sz = damon_sz_region(r);
+ 		ktime_get_coarse_ts64(&begin);
+ 		trace_damos_before_apply(cidx, sidx, tidx, r, nr_accesses,
+ 				damon_nr_regions(t), do_trace);
+_
+
+Patches currently in -mm which might be from donggeunyoo.kernel@gmail.com are
+
+mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch
+mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region.patch
+
