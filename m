@@ -1,149 +1,147 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f199.google.com (mail-pl1-f199.google.com [209.85.214.199])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F73351AFC1;
-	Mon, 21 Sep 2026 22:41:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C6FFD51813B
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 22:52:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.199
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790030511; cv=none; b=P385BNZFgCaoLaivCYY9f/9PRZOMVm2reQmyfrSEg044/iIsQpfG35+lvldhoVEm3PQVG4ebWGFQGX3vXI9jd513Cw1bMrnfRfkr4UF0ywUHYC9i1Lb7etSK22lf0mlORloZGdSkQabMm5oIDLQEHaIgrdvMgjO/4EPYdrOkOMo=
+	t=1790031164; cv=none; b=BFwJapwmDxYTsrvEz9xLgjjntuW1TxTBsLele1SJOV1tCJ0Axo+rWM4aClKIdeGYHWtmoofr50AmUTLgq6JAV1Y2QyRC9Dco4LbUW3HXe97DfrKlsXhWRw6AUBEQAz/gT6B4Pv6QAx8LNsoThgJK/S0oL8kI/34tCuCBnE+7qS8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790030511; c=relaxed/simple;
-	bh=OBX7XpNtC+yrBEvD6sPv+E9K03bWHgqVaHlrEWl+1PY=;
-	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=MGULqVant+5Wux78AKS+L6VAVM/zJSyttZ+aSyu+wH9Ac+evG2fE28s4xOQf3IScCqWndUue1EW5zSsMh/Pz+idZlSAXx4y8br1NXs0EYX4/A4IRcP2tZF7dQ15xxWr2tmEjny1Egb+km3d7GTHwWj48R+l1vnK5QPHzBTmn7FY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtldKd8/; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790031164; c=relaxed/simple;
+	bh=5mUIYpqg/GgZ0lOuvtS//1RReYW5YEsAvEh03yf5yiw=;
+	h=Date:In-Reply-To:Mime-Version:References:Message-ID:Subject:From:
+	 To:Cc:Content-Type; b=rDNLD2kmCrzxn0nAwATPvkvNqVbALNbtaNDu0joqNBfzJO17KMgo67shYIdTFYyYyTLuXCuniEbQPUaGQ8FIVPUmXFKlIlhvgzesPur7rCl0rW0nbI00HVwQKWpxCZloBHghvEO6bGJ9+IbBdY7bp9fKGBobZXTN6gcYD0BPydo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=vCFmWE9x; arc=none smtp.client-ip=209.85.214.199
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=flex--seanjc.bounces.google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtldKd8/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882FB1F000FF;
-	Mon, 21 Sep 2026 22:41:48 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790030509;
-	bh=dDu/I/jl47PhoBil2/ZTm2tiiw/rtG0yrhZ/WCeLz5E=;
-	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=GtldKd8/h1XxhH/vDHRTecc1tObnZv9wXiSMh1EyiUfhQARiF0HxrNO8iNcSfAPz3
-	 SBB4RpXgvPaKAEAtjGfhSmYtiIxIIiloKFZ6LZdhPnqZbDgjwAgRstFqIbUAmZ7aW1
-	 mC8/Kmafpd15IpnvlHawqqV4S+1hDfKqFW4OEU7bLX8Qyo5v/UVIFLxr/fMWrH8M/1
-	 B1ujLSiQM864nxLQTlNg0WQqUfnkW00nzvXbsocQBv22O/ZqhlPn7UOu8uKO2/zdYI
-	 CbKO28k4/jArJ1pFG0JWtWxHH3xkSJtVEA53JR/hwPZ/1RtBlLeBvJ9FVRYCkny6og
-	 7gdKVNjtoAd7g==
-Date: Mon, 21 Sep 2026 15:41:47 -0700
-From: Jakub Kicinski <kuba@kernel.org>
-To: Weiming Shi <bestswngs@gmail.com>
-Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
- <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
- <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
- <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, John
- Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
- netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
- co+65e5c76b187f08b2@bugs.sh, Xiang Mei <xmei5@asu.edu>,
- stable@vger.kernel.org
-Subject: Re: [PATCH net] veth: manage XDP program pointers during channel
- resize
-Message-ID: <20260921154147.4e1e092d@kernel.org>
-In-Reply-To: <20260917153923.904124-3-bestswngs@gmail.com>
-References: <20260917153923.904124-3-bestswngs@gmail.com>
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="vCFmWE9x"
+Received: by mail-pl1-f199.google.com with SMTP id d9443c01a7336-2dd1631d291so42499045ad.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 15:52:41 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790031160; x=1790635960; darn=vger.kernel.org;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=280FaeilVC3+HDwN2i88o7Kza4cuq7yeQh3TUVAgS6Y=;
+        b=vCFmWE9xHuNc3vlo2kOBI7oaqvY4JxnOT2I4d3VMnV1tUgMF7emSKbEDZYpwmltk56
+         VxanBerqBcIEgKCvyriuU9KomNv/KhoN32Mk/V27I1v9hWCJO4C/W9OuLaSHrzoD8z6i
+         xxBhwXoijSjnIAy6v5iVmrn9Y6vXUhg5WuRNUJdfRCmPPZ7R2Me5GLHw8B2jgcBitmYF
+         z3qewmBSgww4BBNoXN9bvE5NiF2Bh855h5gvQtrP8ps90xslII86Ntxpul+qs3+hhppo
+         mDJTioeE6jpBZJxWnaRbII7BpJ2C4zg8M0xhTk5nU3N4WJYi42LY1oLMW4hcPaP2b1vE
+         eWDQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790031160; x=1790635960;
+        h=content-type:cc:to:from:subject:message-id:references:mime-version
+         :in-reply-to:date:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=280FaeilVC3+HDwN2i88o7Kza4cuq7yeQh3TUVAgS6Y=;
+        b=fMxQePrG3pkGfRWW2LbsPSl/Fh5BS+qlvhuXOMkfAYO4N7VfqYMtLmAICGzkH0Sr5x
+         hysPu7QliDgko6OMIHHWHm5Pv3SEoceydMDOlxCJ/549F0EeFJsAwpWqKMT6hdbz6ZVZ
+         hPSWFssdCZEt0L9nLAqJK60E+ub1FiGVWaIpwbop1fo6wkXuBLUrCmZW/3XmwzoUYS2Z
+         e03ffdspg59qn98bxmaOh2AA9e3JxnbH3GGhDxJSVAjFbK/SOK5fOIfaNZdj813jRR1O
+         p1E/5a6QG9WkuMbyUwwfJtVLzHvmUAK+feLtNmCn9fKH4pGsm33Fp6Scups6ovo0NJ7q
+         uKsw==
+X-Forwarded-Encrypted: i=1; AKwUvBwiBeZmbSCIVtlHhhAgbsq1ODZnPfYIgtSc/ykr989FZVM2/i10Nosh1t6WKQLISSMkKNrCpaY=@vger.kernel.org
+X-Gm-Message-State: AFuF++mEnFhgtn14y38j/T2BTyebbIk8vcfyOC0HBcJOivKHqLNaiLuT
+	MIIT77suUTxhwl7mIX9UPVAak38CDptR2DNoTT8zjFtPjzqJ8rRy6LvHucscHIwklPiarFdv/4v
+	WI4JTVA==
+X-Received: from plw6.prod.google.com ([2002:a17:903:45c6:b0:2df:3ff0:6c24])
+ (user=seanjc job=prod-delivery.src-stubby-dispatcher) by 2002:a17:902:e889:b0:2dd:c100:80be
+ with SMTP id d9443c01a7336-2ddc100818bmr121287145ad.57.1790031159417; Mon, 21
+ Sep 2026 15:52:39 -0700 (PDT)
+Date: Mon, 21 Sep 2026 15:52:38 -0700
+In-Reply-To: <20260918094322.152817-1-pbonzini@redhat.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=US-ASCII
-Content-Transfer-Encoding: 7bit
+Mime-Version: 1.0
+References: <20260918094322.152817-1-pbonzini@redhat.com>
+Message-ID: <arG1Nh2yuMQyAdhV@google.com>
+Subject: Re: [PATCH] KVM: x86/hyperv: do not overwrite hc->ingpa for slow
+ SIGNAL_EVENT hypercall
+From: Sean Christopherson <seanjc@google.com>
+To: Paolo Bonzini <pbonzini@redhat.com>
+Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="us-ascii"
 
-On Thu, 17 Sep 2026 23:39:25 +0800 Weiming Shi wrote:
-> veth_set_channels() tears down XDP resources for removed RX queues
-> without clearing rq->xdp_prog.  If the program is then detached or
-> replaced, those queues keep the old pointer after bpf_prog_put().  A
-> later channel increase can re-enable NAPI and run the freed program.
-> 
-> Clear the program pointer after taking an RX queue offline, and publish
-> the current program only after bringing the queue back online succeeds.
-> 
->   BUG: unable to handle page fault for address: ffffc90000256048
->   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
->   RIP: veth_xdp_rcv_skb (include/linux/filter.h:779
->                          include/net/xdp.h:696 drivers/net/veth.c:820)
->   Call Trace:
->    veth_xdp_rcv (drivers/net/veth.c:941)
->    veth_poll (drivers/net/veth.c:986)
->    __napi_poll (net/core/dev.c:7787)
->    net_rx_action (net/core/dev.c:7850 net/core/dev.c:8007)
->    handle_softirqs (kernel/softirq.c:645)
->   Kernel panic - not syncing: Fatal exception in interrupt
+On Fri, Sep 18, 2026, Paolo Bonzini wrote:
+> When a guest makes a slow HVCALL_SIGNAL_EVENT hypercall with a connection ID
+> that is valid in userspace but not registered in the kernel conn_to_evt,
+> kvm_hvcall_signal_event() reads the connection ID and overwrites hc->ingpa.
+> However, hc->param still signals that the hypercall was a slow one, and
+> userspace will then treat the connection ID as an address.
 > 
 > Cc: stable@vger.kernel.org
-> Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
-> Reported-by: <co+65e5c76b187f08b2@bugs.sh>
-> Assisted-by: LLM
-> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> Fixes: bd38b32053eb ("KVM: hyper-v: Collect hypercall params into struct")
+> Signed-off-by: Paolo Bonzini <pbonzini@redhat.com>
 > ---
->  drivers/net/veth.c | 8 +++++++-
->  1 file changed, 7 insertions(+), 1 deletion(-)
+>         originally reported by sashiko at
+>         https://lore.kernel.org/kvm/20260918083322.C87F11F000FF@smtp.kernel.org/,
+>         but the issue is preexisting and unrelated to the patch that was being
+>         reviewed.
 > 
-> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-> index 6ed3ee81153fb..ef7624bc2c0ec 100644
-> --- a/drivers/net/veth.c
-> +++ b/drivers/net/veth.c
-> @@ -1247,12 +1247,15 @@ static int veth_napi_enable(struct net_device *dev)
->  static void veth_disable_range_safe(struct net_device *dev, int start, int end)
+>  arch/x86/kvm/hyperv.c | 15 +++++++++------
+>  1 file changed, 9 insertions(+), 6 deletions(-)
+> 
+> diff --git a/arch/x86/kvm/hyperv.c b/arch/x86/kvm/hyperv.c
+> index 9f5adcd26cba..e3a8e8236230 100644
+> --- a/arch/x86/kvm/hyperv.c
+> +++ b/arch/x86/kvm/hyperv.c
+> @@ -2501,6 +2501,7 @@ static int kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
 >  {
->  	struct veth_priv *priv = netdev_priv(dev);
-> +	int i;
+>  	struct kvm_hv *hv = to_kvm_hv(vcpu->kvm);
+>  	struct eventfd_ctx *eventfd;
+> +	u64 conn_id;
+>  	int ret;
+
+This doesn't apply to any branch I can find, and there is some unnecessary variable
+shadowing going on here as well.
+
+The actual change looks good, but the diff is wonky.
+
+>  	ret = kvm_hv_hypercall_check_params(vcpu, hc);
+> @@ -2511,14 +2512,16 @@ static int kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
+>  		int ret;
+>  		gpa_t gpa = hc->ingpa;
 >  
->  	if (start >= end)
->  		return;
+> -		if ((gpa & (__alignof__(hc->ingpa) - 1)) ||
+> -		    offset_in_page(gpa) + sizeof(hc->ingpa) > PAGE_SIZE)
+> +		if ((gpa & (__alignof__(conn_id) - 1)) ||
+> +		    offset_in_page(gpa) + sizeof(conn_id) > PAGE_SIZE)
+>  			return HV_STATUS_INVALID_ALIGNMENT;
 >  
->  	if (priv->_xdp_prog) {
->  		veth_napi_del_range(dev, start, end);
-> +		for (i = start; i < end; i++)
-> +			rcu_assign_pointer(priv->rq[i].xdp_prog, NULL);
->  		veth_disable_xdp_range(dev, start, end, false);
->  	} else if (veth_gro_requested(dev)) {
->  		veth_napi_del_range(dev, start, end);
-> @@ -1262,7 +1265,7 @@ static void veth_disable_range_safe(struct net_device *dev, int start, int end)
->  static int veth_enable_range_safe(struct net_device *dev, int start, int end)
->  {
->  	struct veth_priv *priv = netdev_priv(dev);
-> -	int err;
-> +	int err, i;
->  
->  	if (start >= end)
->  		return 0;
-> @@ -1281,6 +1284,9 @@ static int veth_enable_range_safe(struct net_device *dev, int start, int end)
->  			veth_disable_xdp_range(dev, start, end, true);
->  			return err;
->  		}
-> +		for (i = start; i < end; i++)
-> +			rcu_assign_pointer(priv->rq[i].xdp_prog,
-> +					   priv->_xdp_prog);
->  	} else if (veth_gro_requested(dev)) {
->  		return veth_napi_enable_range(dev, start, end);
+>  		ret = kvm_vcpu_read_guest(vcpu, gpa,
+> -					  &hc->ingpa, sizeof(hc->ingpa));
+> +					  &conn_id, sizeof(conn_id));
+>  		if (ret < 0)
+>  			return HV_STATUS_INVALID_ALIGNMENT;
+> +	} else {
+> +		conn_id = hc->ingpa;
 >  	}
-
-This is pure slop, cramming loops into functions which have none.
-Shameful, really.
-
-Please test this and submit it if it passes the tests:
-
-diff --git a/drivers/net/veth.c b/drivers/net/veth.c
-index 6ed3ee81153f..5d5e8ebce65a 100644
---- a/drivers/net/veth.c
-+++ b/drivers/net/veth.c
-@@ -1054,6 +1054,8 @@ static int __veth_napi_enable_range(struct net_device *dev, int start, int end)
-        for (i = start; i < end; i++) {
-                struct veth_rq *rq = &priv->rq[i];
- 
-+               if (priv->_xdp_prog)
-+                       rcu_assign_pointer(rq->xdp_prog, priv->_xdp_prog);
-                napi_enable(&rq->xdp_napi);
-                rcu_assign_pointer(priv->rq[i].napi, &priv->rq[i].xdp_napi);
-        }
-@@ -1088,6 +1090,7 @@ static void veth_napi_del_range(struct net_device *dev, int start, int end)
- 
-                rcu_assign_pointer(priv->rq[i].napi, NULL);
-                napi_disable(&rq->xdp_napi);
-+               rcu_assign_pointer(rq->xdp_prog, NULL);
-                __netif_napi_del(&rq->xdp_napi);
-        }
-        synchronize_net();
+>  
+>  	/*
+> @@ -2526,15 +2529,15 @@ static int kvm_hvcall_signal_event(struct kvm_vcpu *vcpu, struct kvm_hv_hcall *h
+>  	 * have no use for it, and in all known usecases it is zero, so just
+>  	 * report lookup failure if it isn't.
+>  	 */
+> -	if (hc->ingpa & 0xffff00000000ULL)
+> +	if (conn_id & 0xffff00000000ULL)
+>  		return HV_STATUS_INVALID_PORT_ID;
+>  	/* remaining bits are reserved-zero */
+> -	if (hc->ingpa & ~KVM_HYPERV_CONN_ID_MASK)
+> +	if (conn_id & ~KVM_HYPERV_CONN_ID_MASK)
+>  		return HV_STATUS_INVALID_HYPERCALL_INPUT;
+>  
+>  	/* the eventfd is protected by vcpu->kvm->srcu, but conn_to_evt isn't */
+>  	rcu_read_lock();
+> -	eventfd = idr_find(&hv->conn_to_evt, hc->ingpa);
+> +	eventfd = idr_find(&hv->conn_to_evt, conn_id);
+>  	rcu_read_unlock();
+>  	if (!eventfd)
+>  		return HV_STATUS_INVALID_PORT_ID;
+> -- 
+> 2.52.0
+> 
