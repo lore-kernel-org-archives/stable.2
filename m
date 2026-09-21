@@ -1,173 +1,119 @@
 Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B571C1EB5CE
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 00:33:09 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E28451A681C
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 01:08:53 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789950791; cv=none; b=U0kY2+bnMWdTQCKVnUIAp7kVkpxUufKVCC+wSyMyTwtXgKVs9/42csTohUZlEPFvLqH67oiE8Rn6kqv6tQhrT0IGsmCVBRqKO5iZndW3jPMzBKv/LAhzht+6m/NOz/NOWJfV/uGbFpfKOgqVhJvQJYf891Nahz2Y/M9f62JKXjY=
+	t=1789952935; cv=none; b=YvrLh1JG4olceTiusA/Co4TRxUBtorq/kDIFMo145uaa20EPy03KQcuwXAJBxMFVoas4gCPRwC70r1i1waYrbr5yaOgDt8fT/QGf306nO67zh1ZWPa5lcAB8iQ2m43WKAhzHnunu4YjqoN2FaH53TR4GaoW8F8N2ShqBtZVdnzw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789950791; c=relaxed/simple;
-	bh=JuCBa24Q8mcK4IKnzSx3OFgFtgWwVjqbYpPpkFwtRIU=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=Go6+d5Igi/C9HF6KVmFbOcdTcwzpQ8dNTXvCQJklrulOzi24vAedQrMkRgIQCh+uQvuX1K946aYqZlO2PhHgyzLmYUEnpH3KNvNcX/eK6MeLnYa8s4DE+/1norsIiyA/NtH9qUBKsfkijETQNT7gtDmNN7db5MQPD8AnYaXUjHc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=JHZvwieB; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789952935; c=relaxed/simple;
+	bh=1AWfg/RsvZy+Zxv8nWJwTgfp3smx0MABeryhzY0yBTI=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nffWTac1CrgslxKYTslH3C891147QidteGosFQDyAKv0f/A+Ad2YJEnYyev3VKDtHfI5DayTRz5ecqLyAMsa3SQH6SG5xLQ9B4RvyrV2Azjs2D9vNDUVMxMaZNdq5tFLZ6upkaKBEA0K8UPEbp6WhmEd7KMyC6Ox3hfH9DEophc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=BStrSG7a; arc=none smtp.client-ip=74.125.227.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="JHZvwieB"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ec6188so14523865ad.3
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 17:33:09 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="BStrSG7a"
+Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-396ccb1a990so2162587a91.3
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 18:08:53 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789950789; x=1790555589; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=rMRLgcYmgr1ReQQm9bu3ytCdU9X0QEixo1U1Eo8/PJA=;
-        b=JHZvwieBH0u7ScD1d6le0c8i4r3zobbI8/gzbWKCwb6tYkQXHTncEAJZpRWJm0vm3+
-         nzTunqQzwLzXwgN714hKUEtbcJ7C/LUuaRkVf9xDx6PxcKpcWaUnv4t5pfKyRWIu46tj
-         Uw3a275P4uAGyz/MSd09TQTWXSxmBA0nUWhiKLiXGwhJ9jeRbntTu6gKx96HY1sdDtev
-         IRO1OfUHeyIyQm1eZZp0l16FbCRjU8Ok6R4hDWM40CBZKdLkRqDghgbWR4jvRtEDzOsV
-         E/iUQQ8709WwV8O8wgMVVVpT6ov18Y21HK65w9VYMwWBZuqOhaonic4fVN9SzZXNaGXV
-         09vQ==
+        d=gmail.com; s=20251104; t=1789952933; x=1790557733; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=1AWfg/RsvZy+Zxv8nWJwTgfp3smx0MABeryhzY0yBTI=;
+        b=BStrSG7aFqy1AlNbhvZKI20VP35Yo75ORzTCAYqpJsPuqiT+DnVsFZRlYdECxQEsvb
+         Nhw3hxkQ2SrD4wCjRLrK8vmq1mrGVQ0ghiUFVDhNYHZzTAduayvj1xMf1VZYgqulSs1a
+         UL3hYfImZXpC36U9PObARBAaZu37CwXVa4HF1hPwhsznmvmRphuM9Q3+OhuLhjVW4nHH
+         6o8ni6IZNU4gxYXghMutzxnV0X+mSVJiYhVBBzsKDWdcqz4PgONeTt5+MW9oRFLZNYX5
+         nJ9nyEsDGEJbFpxot6vUspuPlZcaeOGA2q/OBHtE7ejgXNJBr3poOG+BVRgbQpkAtcwB
+         QdwA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789950789; x=1790555589;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=rMRLgcYmgr1ReQQm9bu3ytCdU9X0QEixo1U1Eo8/PJA=;
-        b=CQj6N1V7qIbmMRy3zLXF0FeIQAqsnKiO+PZwDclYU4ulKakzgR7Wx4vFMlCPxA5vfF
-         BZ9i4HnM9+v2xo19IW0aHpzQArdUE9t9rTdduQkTBNGW+X5+ksPIWDe/UkMMb1/ngvfD
-         Ye/LCl2eCBynFS/CgVoOeawNgOaauf3ooWExDP2hHDEI3kfJKrSrdXZ8PEVkPRDLiDTl
-         8YdkTqgW1Sj7I5DCCT5j9+G40igvzPvpZEn+MN/Rf/odgtUwdD9IPiuteHRAsJXGZAgA
-         /CShDGGd/ZckQdNOnb5xJ31IiguqQHL/NtHdV+X/56mRKPXfz8uufJIZ6bLjFmnMY6TX
-         kxTw==
-X-Forwarded-Encrypted: i=1; AKwUvBxKhcRZXN4C8i3sk7SvcT38ixwssB7hdT3BlGG6ZhNiJK4X5MtxTRSoheXt7a1dsCzjFNtL2/U=@vger.kernel.org
-X-Gm-Message-State: AFuF++nGHTxbm72Ko1O5J6qopKKnsaIYiZoXFn4+r1YgysIQGS3QHFvG
-	6MTV+AcR8/d1s2K03g6fG5x4v/B3Fb7lvitT9WElGuxcarROpO8dRhEY
-X-Gm-Gg: AYBFou1u6CdLblDPvfNDMBcHEvwqm6IaF6+zz2cBDw4W15W6bcdJpuXttDnADbKkGBb
-	Jfjw9QNAD8RFX19MpIjrmgwXp28UKLnJT8/XGuMqNpIbiWfOnIxikCwABluIJ0ZGmlTbGbWBSkR
-	xJ00kJYFj8yJrvsRKFT7Q/C/guTjvAG2w3SMSxqNOaKjttw1KEyasPMqcnbcqWrAxjL08QEagfQ
-	tTa74uSTrIkCO2//VPu7ZmhqnCRofBBycmuFZA4Z2ho12lVCmUBuf/GzktSK5BDq0ZSyku6faqH
-	TD2haIYwrvwMPbB8UlfnUclJOAqVl82lE4dJGX1RRYuZ2PgXLYLMV3m+Vf9ZnUfjULuGTVcKW9C
-	1W9tDlBe0QkhkBPyB8bwA6YQx/5xotUGkq641y9NjfonEkP5qKBrltnuJw8cyJH//Um1JTRy9Br
-	lvjLAO4zdSoGToghYjjHpxEkMbQx11WkS1Jt8GC/5wyQZjMxrgtzz+v92Ib9ksPA4UDfqqcvW3a
-	unBiPZiCPN7oxOLqoC3wBNZzKRIfj4cincM3T4kwjIgI/wod//oGhcsD1tTYyWXZ0L82sjGS+HA
-	GiBTNCAuCzohx1sdobO3
-X-Received: by 2002:a17:902:c948:b0:2d8:d4de:fa80 with SMTP id d9443c01a7336-2ddb1ab39edmr133532675ad.4.1789950788805;
-        Sun, 20 Sep 2026 17:33:08 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df44673b36sm8566115ad.0.2026.09.20.17.33.08
+        d=1e100.net; s=20260707; t=1789952933; x=1790557733;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=1AWfg/RsvZy+Zxv8nWJwTgfp3smx0MABeryhzY0yBTI=;
+        b=vkStBaE/JDBU3VaQShaCVovlQBtj1MRkpD243i62cnQciHald+SFTvROtQ9o22PQpI
+         94WC8vKNoXtL54gJ3nEYFC4zcdxq7cXW+TgBkukfknzR3X77xB76XxJyqb6MaCWDv2+8
+         GjJfiWVI9w6+dsQfgNIjZqavx2MGegytn4qWDTK6w2jVCDtnopV816Ks53GIVZq/yrLa
+         651/ItwtJFXUlx7psEEI9Y9bacPMGTb1eAAbpr1Gv0sgHFNW/NRLY1SS79ycFbghTZMS
+         iuxW+cNdB88sQdgsWWDznM7crmNCkMrQYEDTHeN0AxigximM8xI15631aYbh6b0ELHe6
+         WA0g==
+X-Gm-Message-State: AFuF++lvXShZCdPl7YIeUT1qATQmP8VKSllFjyKULf69GudsZdxmcjmk
+	y8DI3hmGpkzK6AfRIojBzFz+f6AN0Zxzqw5aKQfkUTNf9G/qyTWOuMfZ
+X-Gm-Gg: AYBFou3tY0Bv6h+Ag/d+wMKZnyUJhsNgWmGbh9tDsM7UcI54RksG0rYoTRul3YL8QQK
+	viTg/jdPl2Z54uM/RLSOMyj2aqECA8WLVFv+x2AlkXzPPvvUdgFOD2fMUJN2dfQFb1LcTiwPqHt
+	B+Skq6q1Q+s6ffO9boZz+IqbJirIzqEh/4eeq5MgAWKNkytbq0UqWOCNpiYQP+VJCSrB4EbGij0
+	oGFwH0GUdbECaJZuQJcrN8X49U/VUhCcKxP5gRk+x2+/j1Fui0mlvHWtqQhEziLq9S8KfH4xEd7
+	9LZmkpUwDTSGtxXxkxIgFEEtoNUCKWnkZqOmAclA587RK6BQbZkv0O2l9VD941cC4XYtMuP4A2J
+	ug6Zo5wW5UDgHe62ZVyPPDcFoMT/fNXd2P30N6lpNhLlxLWGiI9UWKrEXK1FVsraznDlEF3vj2U
+	yFBWb+JOSmxv/2wT4dbRjs1cBnQrxRGwHNvplr7mlwCTpAWO1hzQOO3YNOPkn+iFfC3w==
+X-Received: by 2002:a17:90a:38a5:b0:39e:6ec6:f4d0 with SMTP id 98e67ed59e1d1-39e6ec70cf9mr5218616a91.8.1789952932855;
+        Sun, 20 Sep 2026 18:08:52 -0700 (PDT)
+Received: from xiaowei ([2406:da18:1aa1:6600:7a60:aa58:4b0c:e1c0])
+        by smtp.gmail.com with ESMTPSA id a92af1059eb24-144e16a7f71sm5345934c88.8.2026.09.20.18.08.50
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 17:33:08 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Peter Zijlstra <peterz@infradead.org>,
-	Ingo Molnar <mingo@redhat.com>,
-	Arnaldo Carvalho de Melo <acme@kernel.org>,
-	Namhyung Kim <namhyung@kernel.org>
-Cc: Mark Rutland <mark.rutland@arm.com>,
-	Alexander Shishkin <alexander.shishkin@linux.intel.com>,
-	Jiri Olsa <jolsa@kernel.org>,
-	Ian Rogers <irogers@google.com>,
-	Adrian Hunter <adrian.hunter@intel.com>,
-	James Clark <james.clark@linaro.org>,
-	linux-perf-users@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH v2] perf/core: fix user->locked_vm leak on secondary mmap()
-Date: Mon, 21 Sep 2026 00:33:06 +0000
-Message-ID: <20260921003306.426050-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260919221728.3707189-1-benquike@gmail.com>
-References: <20260919221728.3707189-1-benquike@gmail.com>
+        Sun, 20 Sep 2026 18:08:52 -0700 (PDT)
+Date: Mon, 21 Sep 2026 09:08:46 +0800
+From: Kevin Hao <haokexin@gmail.com>
+To: Sasha Levin <sashal@kernel.org>
+Cc: stable@vger.kernel.org, Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [PATCH 6.12.y 0/2] Porting two fixes for the cpsw Ethernet
+ driver to the v6.12.y stable kernel
+Message-ID: <arCDnvm_wTpdYF0M@xiaowei>
+References: <20260920-v6-12-cpsw-v1-0-b8490c4ef019@gmail.com>
+ <2026-09-20-daily-reply-0005-re-cpsw-rx-mode-work-6-12@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="YqyfBPYSKkEoqpe6"
+Content-Disposition: inline
+In-Reply-To: <2026-09-20-daily-reply-0005-re-cpsw-rx-mode-work-6-12@kernel.org>
 
-Commit 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()") hoisted
-`user_extra = nr_pages` ahead of the existing-buffer checks (`if
-(event->rb)` and `if (rb_has_aux(rb))`), and subsequently
-commit 5d299897f1e3 ("perf: Split out the RB allocation") and
-commit 2aee37682391 ("perf: Split out the AUX buffer allocation")
-carried `long extra = 0, user_extra = nr_pages` into perf_mmap_rb() and
-perf_mmap_aux().
+--YqyfBPYSKkEoqpe6
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+Content-Transfer-Encoding: quoted-printable
 
-As a result, when an already-allocated ring buffer (`event->rb`) or AUX
-buffer (`rb_has_aux(rb)`) is mapped again via mmap(), perf_mmap_account()
-is called with `user_extra = nr_pages` instead of `0`, charging `nr_pages`
-to `current_user()->locked_vm` on every additional mapping. However,
-perf_mmap_unaccount() and perf_mmap_close() only subtract the ring buffer's
-and AUX buffer's pages once when the final `rb->mmap_count` /
-`rb->aux_mmap_count` reference drops to zero. Consequently, every secondary
-mmap() + munmap() cycle on a perf event permanently leaks `nr_pages` in
-`user->locked_vm`, eventually exhausting `perf_event_mlock_kb` and
-`RLIMIT_MEMLOCK` (-EPERM) for that user.
+On Sun, Sep 20, 2026 at 01:50:37PM -0400, Sasha Levin wrote:
+> > As requested by Sasha, both commits are now being ported together to th=
+e v6.12,
+> > v6.6, and v5.15 stable kernels. The two patches apply cleanly to v6.12.=
+y.
+>=20
+> Queued the series for 6.12, thanks.
+>=20
+> 6.6 and 5.15 still need their own versions. Neither tree has
+> disable_work_sync(), so the teardown in cpsw_unregister_ports() needs
+> adapting rather than a straight port. Could you send those when you get
+> a chance?
 
-Fix this by only calling perf_mmap_account() when allocating a new ring
-buffer in perf_mmap_rb() or a new AUX buffer in perf_mmap_aux().
+I sent the v5.15, v6.6, and v6.12 versions together at the same time.
 
-Tested in QEMU against Linux 7.3.0-rc3 with a standalone C reproducer
-running as an unprivileged user (UID 1000, RLIMIT_MEMLOCK=0,
-perf_event_paranoid=1) that opens a software perf event, maps a 65-page
-ring buffer, performs 10 secondary mmap() + munmap() cycles on the same
-event fd, and then unmaps and closes the event. On the unfixed kernel,
-subsequent perf_mmap() calls by UID 1000 permanently fail with -EPERM due
-to the leaked `user->locked_vm` (650 pages leaked), whereas with the fix
-applied `user->locked_vm` returns to 0 and subsequent perf_mmap() calls
-succeed.
+Thanks,
+Kevin
 
-Fixes: 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Dropped the cross-MM `pinned_vm` / `rb->mmap_mm` (`mmgrab`/`mmdrop`)
-  changes (which caused an RCU softirq context violation in `rb_free_rcu()`
-  in v1, flagged by sashiko-bot) to keep this patch focused on the
-  `user->locked_vm` leak on secondary `mmap()`.
-- Updated the `Fixes:` tag to `0c8a4e4139ad ("perf/core: Further simplify
-  perf_mmap()")` and added QEMU reproducer test details to the commit
-  message.
+--YqyfBPYSKkEoqpe6
+Content-Type: application/pgp-signature; name=signature.asc
 
- kernel/events/core.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
+-----BEGIN PGP SIGNATURE-----
 
-diff --git a/kernel/events/core.c b/kernel/events/core.c
-index fe33fe15689d..8fc15239bd7e 100644
---- a/kernel/events/core.c
-+++ b/kernel/events/core.c
-@@ -7311,7 +7311,6 @@ static int perf_mmap_rb(struct vm_area_struct *vma, struct perf_event *event,
- 			 * Success -- managed to mmap() the same buffer
- 			 * multiple times.
- 			 */
--			perf_mmap_account(vma, user_extra, extra);
- 			refcount_inc(&event->mmap_count);
- 			return 0;
- 		}
-@@ -7399,7 +7398,6 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
- 
- 	if (rb_has_aux(rb)) {
- 		refcount_inc(&rb->aux_mmap_count);
--
- 	} else {
- 		if (!perf_mmap_calc_limits(vma, &user_extra, &extra)) {
- 			refcount_dec(&rb->mmap_count);
-@@ -7420,9 +7418,9 @@ static int perf_mmap_aux(struct vm_area_struct *vma, struct perf_event *event,
- 
- 		refcount_set(&rb->aux_mmap_count, 1);
- 		rb->aux_mmap_locked = extra;
-+		perf_mmap_account(vma, user_extra, extra);
- 	}
- 
--	perf_mmap_account(vma, user_extra, extra);
- 	refcount_inc(&event->mmap_count);
- 
- 	return 0;
--- 
-2.47.3
+iQEzBAEBCgAdFiEEHc6qFoLCZqgJD98Zk1jtMN6usXEFAmqwg54ACgkQk1jtMN6u
+sXFtXAgAjB0hQ9yXf6uMw4oYe9fJ6Xr8fh7NWGAvyY0GxOQcbZmIaA5k7QC/dV7O
+AxIsVWDlRjKvTKAARhQu+fCdDexANDfJxSWoXGYz0/t7hsf4jqNYZpZkIAHYOX5e
+vn/Y9hNN0qJHO0gThjbv2fnYsDf8AuGHWZZm8EqB4nFqfNTglxcmNvzLfaTVWACU
+pTs1J+rNX+686xysqTrFs+LWoN0Q9D9ASTNadN6h0iM8Dl3gwYay5klOsZuiNBwM
+jiH3i4DAKLo1rVwrNNRm3Erepfhh3h4QwlL9t3+eeWvrWPwfHy7dVtkLCCP2J4vZ
+ThImC1d0CppFuAcrb0ciWi7bKsgugA==
+=Sbzl
+-----END PGP SIGNATURE-----
+
+--YqyfBPYSKkEoqpe6--
