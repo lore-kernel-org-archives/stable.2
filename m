@@ -1,40 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2832A4B2055;
-	Mon, 21 Sep 2026 15:13:01 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A75114AB1BE;
+	Mon, 21 Sep 2026 15:13:09 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003583; cv=none; b=igfY67So8N76v2sXEMvdk1E1psPKNLDzagFSDjVVQAWFahl57s1nuclFaU/cDcz07/XvI1h5RTexZxY9+uHKMSHlm2meZaPcGhSLN1lhZv7kGp0yGNwr+x3VhACftzJPLDpyFgUvCW7Nh4KYTUADu9PGFQLPem7nbUeDJQUUZGI=
+	t=1790003591; cv=none; b=K2VYVdzNqaOFehr4pfKpYlxEuili2zYXz77By5btwhuWsy5KJAkUmA8EcWUo0G+qxhmzNdTXCpcNvuQrTOEl94nMPNACjTKp1fDskd2LpZiZkiNQ8nthEs2hgfsMy2w5g7RzNObRcDbC/TVLHu8ZS+4AfXIPXlBKDYOCfT3nwso=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003583; c=relaxed/simple;
-	bh=JyC5SKc0mVJdeKRxQYzsllkALh44u8NaJMlLOF/8bqk=;
+	s=arc-20240116; t=1790003591; c=relaxed/simple;
+	bh=0jze5GfDJDGWzXj2PkuHYblZe4RxL8wIWdbwspX06lg=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=uUb1s+V4t+zzKWI+cJrxZKURC6ZMqv29pZ0DBIt+GMY8oCIFn8NYWhcOuHyphV2w6NHZWrshz4DKMntY180Fn2i8h4fSBz2gN+54JdHDIXPSIL6URDkaZj0ZKr4zyOnsWGJGtuf2l9Dngl48LbOWg0CasglS4IJ5SZWfVNNgcj0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mObJGkpn; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=JqA+WXM8lwtT/dd5kb4BsMovsCFbUq+0MPCxuWTWcwb1RTt81k/tg4VoInyPKjlD6TJny1h7GXQ/D/hLl6Oi9prwBLhogFdPcroTQl259jLe0G64fOFUdnCNhNTeswfH4KouzGZYR3bJH9I/Q7BBMoGLhNLyziSjSzIqmZame9I=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=iJCEI1oO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mObJGkpn"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC621F000FF;
-	Mon, 21 Sep 2026 15:13:00 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="iJCEI1oO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8D85E1F000FF;
+	Mon, 21 Sep 2026 15:13:08 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003581;
-	bh=dtteNIKoELjmMfexOABlmRFX07/QVUtrWRSjMp41NtA=;
+	s=k20260515; t=1790003589;
+	bh=QMTxb+mrtRH4SZa45PP2QG37d3OHVFOsk6tg8TRWT1Q=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=mObJGkpnxOSj67aBaUoHpyjEbC3nNkC/fmmjvGfrWhyU+Z9ZNcdscVeWHLuIdIcjL
-	 AIGd7b7Uo2hiOPy95zTqBCclgW9/ojaacxKhxjl87R3/OecMEH8OhyCBiO6eGOdo5E
-	 gFXv6yi0QySimQFtlvGlgyXZdlX3Xz/AubQ+MdIIgB8Efskju3AD2rt9MzqvgtKsI6
-	 ZkWWpGvaQ9XhRy1QYNYKeFjtIogFo5VdL/XAZuHiqPyeuxo+mJCDY4hvjic292r6rV
-	 gxwCCuI4+8PtEz5qnhQFJAXkTTyCDLhtbN2bjTj87uW/khPwma++HlpRzqrzkCe22C
-	 T+XJJn9fZYVIw==
-Date: Mon, 21 Sep 2026 17:12:58 +0200
+	b=iJCEI1oOSZdZ4wOPsD7JtxZtw8COX3cI+qeiJBArITZKgCViGq0E5FOiAnLvsGBVI
+	 ZSRYWgKerrALYWgng07D/4nnKr5lUd68rXvg5er+Q11vmS7L8pAmODUngLmS2oWM9o
+	 ly6hbus0vnsWmeif2oKqQvbfy9lz2kuafLFK7k8lXwo+5Ff4zl3+RP8J08DP1P08lD
+	 fKgI8Rw9diXgbHWfTPald21ls9kewQ07UZuG9t7slqWiTTxr8zFyJ38CcXce/vW1eK
+	 xP8dDhXYRlVxh7H9tM12rBkXUk6fKTei6WT16owIuOJRgbPI7w59BBPle8YP5gwzaS
+	 A38N6PnCXAsUQ==
+Date: Mon, 21 Sep 2026 17:13:06 +0200
 From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: stable@vger.kernel.org, Maciej Sosnowski <maciej.sosnowski@intel.com>, 
-	Dan Williams <djbw@kernel.org>, Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] dca: fix provider device memory leak on domain
- allocation failure
-Message-ID: <arFJeRFJdL-fwRmk@quoll>
-References: <20260919175925.3739806-1-lgs201920130244@gmail.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: linusw@kernel.org, stable@vger.kernel.org, sboyd@kernel.org, 
+	linux-clk@vger.kernel.org, bmasney@redhat.com, linux-arm-kernel@lists.infradead.org, 
+	linux-kernel@vger.kernel.org, mturquette@baylibre.com
+Subject: Re: [PATCH] clk: versatile: clk-icst: Fix node reference leak in
+ of_syscon_icst_setup()
+Message-ID: <arFJgR0SKZRd-EmK@quoll>
+References: <20260915070103.1733176-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,37 +44,21 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260919175925.3739806-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260915070103.1733176-1-vulab@iscas.ac.cn>
 
 
-On Sun, 20 Sep 2026 01:59:24 +0800, Guangshuo Li wrote:
-> register_dca_provider() calls dca_sysfs_add_provider() before looking up
-> or allocating the DCA domain. A successful dca_sysfs_add_provider()
-> allocates an IDR entry and creates the dca%d class device.
+On Tue, 15 Sep 2026 07:01:03 +0000, Wentao Liang wrote:
+> of_get_parent() takes a reference on the syscon parent node. The
+> reference is intentionally kept on the success path, but the error paths
+> return without dropping it, leaking the node reference. Release the
+> reference before returning on the error paths.
 > 
-> If no domain exists and dca_allocate_domain() fails, the function
-> returns -ENODEV without calling dca_sysfs_remove_provider(). The class
-> device therefore remains registered and the IDR entry remains
-> allocated. The caller may subsequently free the dca_provider, leaving
-> the IDR entry pointing to freed memory.
-> 
-> Since the class device is never unregistered, its device reference is
-> not dropped and device_create_release() is never reached, leaking the
-> struct device allocation.
-> 
-> Call dca_sysfs_remove_provider() before returning when domain allocation
-> fails. This unregisters the class device and removes the corresponding
-> IDR entry.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 1a5aeeecd550 ("dca: registering requesters in multiple dca domains")
+> Fixes: d430819d69a5 ("clk: versatile-icst: add device tree support")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/dca/dca-core.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/clk/versatile/clk-icst.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
 
 
