@@ -1,95 +1,140 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C0A14489FC0;
-	Mon, 21 Sep 2026 13:43:35 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 95AB74A1DF9;
+	Mon, 21 Sep 2026 13:45:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789998216; cv=none; b=fEbPbKYSU0849hlHaL1I+ewzdfVD3/VBEEYoED6fCCuMYJ+V2tsVglALWn8VFIi1IOJTzokGFwKrwSHE4dfwlgn+5z/Kmc6+bFo3mVQQh0Mm8g+e/uY1NiFigxgyKqQ9hWibt3uXOQmZ4qztffU4WYqpjxMSVHGBJfCrkXAjiPY=
+	t=1789998308; cv=none; b=VLUQEoDVq8AcZ4BiZhWIyqjOsFxvmGPDgVIWDwpRGDgfM9DlCRo/gclYRxz27CgL8Cqx+3JeGUgvmSr4JKqgLCo8hn9AlfeBTc9rJLZ5XSa15EyXl42kymc91WCezZf4p1HCNain8B1UllbHsPP6Ur5TqDes1BxkvuS49maXKWk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789998216; c=relaxed/simple;
-	bh=z6GXpVUOIolbv6op5mUTLouphlPpgs+Daf5RUJl/7Ss=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=bRktQC7kNo3EcDHU+w+seHIXP0DzIbPWd0K6kvMSXySj0MzMwOPBRNjZPVOXxkMscG6BWtFtuL/5i/3wLlZTbXmrrMnjyIGlH1JTwO6VTlX2oB3yd4Vzqy/c1N3XDvHPCdbyTyufbe/PefoGoI3UYOGD75KRYCknowt7Tr5pLmA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofXNvX/J; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789998308; c=relaxed/simple;
+	bh=5cmOqATVUXTDQgM82raywtxRqKGg+wRZ/gH8Sbkxogk=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=pV7Jn7fOBYeai6JZa2HGJVqo5SCJcwFUZrX6A9ustiS+MIRhIc24yXcsJXjPXgVbH8isnRaoZU3O0rkT7b/awY5NrRl1WCFLGul/mvOS7Wy7+Ap/za5LOLSIyQe8kR2QwwTbQcU5XeBDkcelkBcecnwLtWxgo3l191ieXdNEa8k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=CTElbC33; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofXNvX/J"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A91BE1F000FF;
-	Mon, 21 Sep 2026 13:43:34 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="CTElbC33"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E05531F000FF;
+	Mon, 21 Sep 2026 13:45:03 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789998215;
-	bh=OPMCj1O9GfQ79/EIaX3D3WpPzFtAZfDF8PGCRQy9UUU=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=ofXNvX/JK+qywD6hx7nOICFrThBZGiRyFK7rNxsuXeik+RkXTY2s4+RaLRuIOixH8
-	 agzKLey2VFfZKVRLGOejjFSuPCBJyiIVpFjdnpTdx9EQ9sF0iYgntKvdxxlzeEFbJY
-	 o7bMA2yTxRnKPscZObENvK5ibwnTyqz3RNZ/IWVZhoDwSvIBxxXR+q7/vdcqMpgOh1
-	 0AwZikH6gGn8nMJRanzqejxb8PiFc3+qHKqKv/I8Znd3l5Vf/T9rdQwesrRDnKcppq
-	 MKrwzmjso3w3tUVPYsxajLbgNsMFSkb14Svy/kkiQ+qDBfdHHkW6UmqmR9e4u2JzML
-	 gXm7xXCM+Dtxg==
-Message-ID: <ebdcd24a-dbca-4195-a9f1-ba224596b7d7@kernel.org>
-Date: Mon, 21 Sep 2026 08:43:32 -0500
+	s=k20260515; t=1789998307;
+	bh=e4AZu4AlntNt1aYig0/jFDygUFvaCLDRa7pO2XcQvUU=;
+	h=From:Subject:Date:To:Cc;
+	b=CTElbC33WCvK21eYsu1cvCUz+/OAaKUyDjGunBjoj3Dcxwg2gIpLoNBEYjRs5e1T9
+	 1IIWTK1qe4enooe2DuMaHz8FVVp5y9mOT9febxd9ltEsejyb+9XV+Fu8oA4wFtpAT1
+	 Muk5iJN0JjbzbdQC81KDOtVfLAAuYylKYAV07yerti0WXWcszEKbFdkztbdQstg86M
+	 TVbdoVXwAtkINnL4RohkYYVqQIHk9FGD2t4pJG2uTSw040ORzznD3C04jHQjDGCcKC
+	 T3cMPMvi1ImTtpFtM3ZRmZqslphJuY815B2ZFNNxWFNAectS+lRL2d0G0F4Lb7H6Tb
+	 SXcktS3b+k98A==
+From: Christian Brauner <brauner@kernel.org>
+Subject: [PATCH v3 00/17] coredump & signals: an impossible affair
+Date: Mon, 21 Sep 2026 15:44:49 +0200
+Message-Id: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init
- failure
-Content-Language: en-US
-To: Guangshuo Li <lgs201920130244@gmail.com>, Perry Yuan
- <perry.yuan@amd.com>, Hans de Goede <hansg@kernel.org>,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, platform-driver-x86@vger.kernel.org,
- linux-kernel@vger.kernel.org
-Cc: stable@vger.kernel.org
-References: <20260921082609.244774-1-lgs201920130244@gmail.com>
-From: Mario Limonciello <superm1@kernel.org>
-In-Reply-To: <20260921082609.244774-1-lgs201920130244@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/32Oyw6CMBBFf4V0bUnLw1ZX/odxUcoUKkrJFFBD+
+ HcpxkQT4/LOnHtyJ+IBLXiyjyaCMFpvXbuEdBMRXau2AmrLJZOEJVu24zm9OWyodgjlcO2osXf
+ wFEqzk1oyA0KSpdkhrI+leDy9sh+KM+g+qAJRKA+0QNXqOpyCNH5L47UbBySgtfW9w8e6cORB+
+ X/MyCmjJs0zrTIuJNOHBrCFS+ywImHNmHxKxG9JskqEFEaXiuX8SzLP8xN/7AjmOQEAAA==
+X-Change-ID: 20260915-work-coredump-fixes-edf98c80fe78
+To: Oleg Nesterov <oleg@redhat.com>, Chris Mason <mason@kernel.org>, 
+ linux-fsdevel@vger.kernel.org
+Cc: Jens Axboe <axboe@kernel.dk>, Alexander Viro <viro@zeniv.linux.org.uk>, 
+ Jan Kara <jack@suse.cz>, NeilBrown <neil@brown.name>, 
+ Ingo Molnar <mingo@redhat.com>, Peter Zijlstra <peterz@infradead.org>, 
+ linux-mm@kvack.org, io-uring@vger.kernel.org, 
+ "Christian Brauner (Amutable)" <brauner@kernel.org>, stable@vger.kernel.org
+X-Mailer: b4 0.17-dev-db0b7
+X-Developer-Signature: v=1; a=openpgp-sha256; l=3905; i=brauner@kernel.org;
+ h=from:subject:message-id; bh=5cmOqATVUXTDQgM82raywtxRqKGg+wRZ/gH8Sbkxogk=;
+ b=owGbwMvMwCU28Zj0gdSKO4sYT6slMWRtNLlTxbd8XWa+Kc+KiT/E91pz+7J8Ov7qyvJXT+94z
+ khOaavV7ShlYRDjYpAVU2RxaDcJl1vOU7HZKFMDZg4rE8gQBi5OAZjI/2eMDP+PuL2Sl6qrm/zZ
+ 2OzjVDbmL7/t903i+vJDpf3FncWnLi5iZPjJ3my/wPRveUdkuFHrju/LnFutHVxcCxeamzPGf18
+ +kREA
+X-Developer-Key: i=brauner@kernel.org; a=openpgp;
+ fpr=4880B8C9BD0E5106FC070F4F7B3C391EFEA93624
 
+Hey,
 
+I asked Chris to look at the coredump code with kres and it found a few
+bugs. I started looking as well and found a few more. Here's a fixes
+series. I also used TLA+ modeling for this.
 
-On 9/21/26 03:26, Guangshuo Li wrote:
-> amd_hfi_init() registers the HFI platform device before registering
-> the platform driver. If platform_driver_register() fails, the function
-> returns the error without unregistering the already registered platform
-> device.
-> 
-> Since the failed init path does not run amd_hfi_exit(), the platform
-> device remains registered and its reference is never dropped, preventing
-> the associated platform object from being released.
-> 
-> Unregister the platform device when platform driver registration fails
-> to properly unwind the successful device registration.
-> 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
-> 
-> Fixes: 5d902ee5609a ("platform/x86: hfi: Introduce AMD Hardware Feedback Interface Driver")
-> Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-Reviewed-by: Mario Limonciello (AMD) <superm1@kernel.org>
-> ---
->   drivers/platform/x86/amd/hfi/hfi.c | 4 +++-
->   1 file changed, 3 insertions(+), 1 deletion(-)
-> 
-> diff --git a/drivers/platform/x86/amd/hfi/hfi.c b/drivers/platform/x86/amd/hfi/hfi.c
-> index e0ebcb0c4acd..449aad914ad1 100644
-> --- a/drivers/platform/x86/amd/hfi/hfi.c
-> +++ b/drivers/platform/x86/amd/hfi/hfi.c
-> @@ -530,8 +530,10 @@ static int __init amd_hfi_init(void)
->   	}
->   
->   	ret = platform_driver_register(&amd_hfi_driver);
-> -	if (ret)
-> +	if (ret) {
->   		pr_err("failed to register HFI driver\n");
-> +		platform_device_unregister(device);
-> +	}
->   
->   	return ret;
->   }
+Fixes in here:
+
+- UAF in coredump_finish(): a parked thread can be freed before it is
+  woken
+- only SIGKILL and the freezers interrupt a dump now, cgroup v2 included
+- core_pattern is parsed from a snapshot instead of racing the sysctl
+- the io-wq exit bit wasn't ordered against worker creation task work,
+  exit could hang on worker_done
+- shared signals are no longer retargeted to the dumper, that truncated
+  cores
+- a failed fork released its files under scx_fork_rwsem, deadlock
+- a session leader's exit lost the SIGHUP for the foreground job
+- an io-wq worker of an SQPOLL ring as the dumper deadlocks the group,
+  user workers never dump now
+- PTRACE_SETSIGMASK can't unmask a user worker anymore, the only way in
+- exec cancels io_uring before de_thread(), nothing adds a thread after
+  it
+- no io threads from PF_SIGNALED or PF_POSTCOREDUMP creators, they
+  broke threads_remaining
+- descriptor tables are closed highest fd first again, the order the
+  deferred puts had
+
+Signed-off-by: Christian Brauner (Amutable) <brauner@kernel.org>
+---
+Changes in v3:
+- Address Oleg's reviews.
+- Add a couple more fixes.
+- Link to v2: https://patch.msgid.link/20260917-work-coredump-fixes-v2-0-f3787fcda051@kernel.org
+
+Changes in v2:
+- Add fixes for retarget_shared_signal().
+- Expand fixes for signal_pending().
+- Link to v1: https://patch.msgid.link/20260915-work-coredump-fixes-v1-0-f354ca41780c@kernel.org
+
+---
+Christian Brauner (18):
+      Merge patch series "files: make closing files synchronous for close_range(), exec, exit"
+      coredump: hold RCU while releasing parked threads
+      signal: only SIGKILL and the freezers interrupt a coredumping task
+      coredump: parse a snapshot of core_pattern
+      io-wq: order the exit bit against worker creation task work
+      signal: don't retarget shared signals in a dying thread group
+      selftests/coredump: test shared signal retargeting during a dump
+      fork: release the files of a failed fork after sched_cancel_fork()
+      exit: hang up the tty before closing the files
+      ptrace: refuse to change the signal mask of a user worker
+      selftests/coredump: test a user worker as the coredumping thread
+      selftests/coredump: expect PTRACE_SETSIGMASK to be refused on a user worker
+      exec: cancel io_uring requests before de_thread()
+      fork: move the coredump and exec checks into create_io_thread()
+      fork: don't create io threads once PF_POSTCOREDUMP is set
+      fork: use SIG_KERNEL_ONLY_MASK for the user worker signal mask
+      signal: enforce the user worker signal mask in __set_task_blocked()
+      fs: close files from the highest descriptor down
+
+ fs/coredump.c                                      |  73 ++--
+ fs/exec.c                                          |  11 +-
+ fs/file.c                                          |  55 +--
+ include/linux/sched/signal.h                       |  19 +-
+ io_uring/io-wq.c                                   |   2 +
+ kernel/exit.c                                      |   5 +-
+ kernel/fork.c                                      |  20 +-
+ kernel/ptrace.c                                    |   6 +
+ kernel/signal.c                                    |  22 +
+ tools/testing/selftests/coredump/.gitignore        |   2 +
+ tools/testing/selftests/coredump/Makefile          |   6 +-
+ .../selftests/coredump/coredump_signal_test.c      | 238 +++++++++++
+ .../selftests/coredump/coredump_worker_test.c      | 447 +++++++++++++++++++++
+ 13 files changed, 832 insertions(+), 74 deletions(-)
+---
+base-commit: dadceac9d20a1c90269aafd7746f7c0c05879ad3
+change-id: 20260915-work-coredump-fixes-edf98c80fe78
+
