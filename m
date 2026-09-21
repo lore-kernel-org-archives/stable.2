@@ -1,93 +1,171 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f41.google.com (mail-qk2-f41.google.com [74.125.230.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0064B66C2;
-	Mon, 21 Sep 2026 15:24:51 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 96C93471274
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 15:25:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.233
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004293; cv=none; b=gDtBjJ1Ytj0SSkaKMHH+kKZHX25OAuGonJ8sAKAZT7POp+wTB8gvnKwyvZCEH2e2MvhLlWLQUYGLzWAz9tvRf8kphwBpGJHn8RR1r0Z4P0oFH6y6hbbNoy1yleOV0TX27lqvgnNV4PpCgMlDHzpr7OuFjoqeUHgPUzcyZ23+qD0=
+	t=1790004319; cv=none; b=DxOeNflwZrZ49GE6gMvGcutLM3kkkPoagnc9kU+a+1OtWM+OboSoMatC4+8EF4AykuaZ2Sj4oU1RPh30Qxl+wt+LoTxS4lVt5BK3aPf2O4C0p4HTFwdu9vSYzTZEEQFlC+2Lu0zbGzw2Ipcn4NhOeUqG4vCBUH9PRswYy/9rnME=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004293; c=relaxed/simple;
-	bh=BoXoNj7iWXe4GhIAFX6wcc7SgGaQC7uegRD3ZFkwIyo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=IVtD0y1t4JkCd6sfjz1N4UhiZoD17HRZD8kXCWFkqKLO0BI62kUA4NG1WNk1w6b+NwZd7raix2L+q5tA0sPishcllXPPet8gYdrXmt8eBle2s6PeKAH3CQjiBzcBTbHwgASL+2+tyoklnFarrATa2R4pTxYuTiO8VFqipUdzb90=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYuNaofm; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790004319; c=relaxed/simple;
+	bh=ceIWGaK0yaMffpuhVyrXzV9aOWlqXkxFNwOJ1Bu9KsY=;
+	h=Message-ID:In-Reply-To:References:From:To:Subject:Date:
+	 MIME-Version:Content-Type; b=u8bojm6JptvuifEWvsMlsbS/OEvQi1m21tBjXqWjpWgFtg2u4Texfk/yugExDIHoJ0CHuwozL+YOw/pZ+mBjkIKCW9CZRjQPbyEEB4nVMQ/2r9bgJu6gAsopDVv0mZ0M0HMVoP/RTywVDrvKumiyGF8K11EV1vnmo6B5Rrqcz34=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz; spf=pass smtp.mailfrom=swiftden.buzz; dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b=x1nVPHeR; arc=none smtp.client-ip=74.125.230.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=swiftden.buzz
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=swiftden.buzz
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYuNaofm"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD611F00893;
-	Mon, 21 Sep 2026 15:24:49 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790004291;
-	bh=lhYZozQNlJ+OrzQg2fSGExZ1q1RyH+RT/pmgwytGQEE=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=SYuNaofmP9J/SPxw18OqPmlkKyGRAXDtPJwkLz2ge4Zt4g73J1V+L8QQbBE3zxTl1
-	 mzN/DcuVT9m2uTdBhhMCTQYbc/oeYG41Qspbm2xjDNfvKbSmNpl3voMqE4Cl3pPSzq
-	 HivvICv7TDF/CgK3KyLQMlMj7U0V3JslI+Nb+lHh/qLfXSECHfRWbm0zxwI+BVwlKm
-	 PoHGxbQrKVRuvBLyHb2/r8gedFlZAfrBlfodvXLA/s0B/2wZu16UB2dJGtszWXHX9p
-	 JV/xiDbGnIjztmy6rl48urDy4DSDr9He/mw6iZAzoR2rrZQWL+J0/Bzdy3Mi5A4Knc
-	 mMbiQEXCszn8Q==
-From: SJ Park <sj@kernel.org>
-To: Andrew Morton <akpm@linux-foundation.org>
-Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
-	stable@vger.kernel.org,
-	SJ Park <sj@kernel.org>,
-	damon@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	linux-mm@kvack.org
-Subject: [PATCH v2 1/2] mm/damon/core: charge only the part of a region the filter left
-Date: Mon, 21 Sep 2026 08:24:41 -0700
-Message-ID: <20260921152443.80132-2-sj@kernel.org>
-X-Mailer: git-send-email 2.47.3
-In-Reply-To: <20260921152443.80132-1-sj@kernel.org>
-References: <20260921152443.80132-1-sj@kernel.org>
+	dkim=pass (2048-bit key) header.d=swiftden.buzz header.i=@swiftden.buzz header.b="x1nVPHeR"
+Received: by mail-qk2-f41.google.com with SMTP id af79cd13be357-93bfa7b2093so153168385a.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 08:25:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=swiftden.buzz; s=google; t=1790004316; x=1790609116; darn=vger.kernel.org;
+        h=content-type:mime-version:date:content-transfer-encoding:subject:to
+         :from:references:in-reply-to:message-id:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ceIWGaK0yaMffpuhVyrXzV9aOWlqXkxFNwOJ1Bu9KsY=;
+        b=x1nVPHeRG10k219us5Hie+0jBlq0rTH+WrTnPSG5L7gFgr8cP8vSyzPR2FYIUwNHBe
+         pjd6aJ6FdX04Jz9J/1xEVn2vhgGJ7n33qonIQyet6Dn+LN0uTxWWZ5rEh5dnFGzy+Zfp
+         xN1VgrgEGd076mP9jhoac1/jFMh3ZJ7qFfSTGgLt2YlH/i2IYpMvgvKCqJKG2GMAIH2d
+         1KVxzMS+t8Z6Mzx3LbeKes3AKIt/lwRMe7kJtdQWdVlVWbam5YA217Fnlyafn7/YqocX
+         IT+dIvoK/z2xtRyRG+RiL2iHs0URo7+ltygHevbRIhmsbJw3jU+UXkEO17bxPBoa590I
+         JLKA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790004316; x=1790609116;
+        h=content-type:mime-version:date:content-transfer-encoding:subject:to
+         :from:references:in-reply-to:message-id:x-gm-gg:x-gm-message-state
+         :from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ceIWGaK0yaMffpuhVyrXzV9aOWlqXkxFNwOJ1Bu9KsY=;
+        b=pXLxAtEHDrM6GLO67H8UE/5io5OtgPICj+Ha2gstYrdimG29bb1IdTGGUdpABpjw7w
+         JrZhSD4KGM1jpbhwt2V3kGQ2XMQnjZi3s64XrwGnCDhOEGYjuh9DsjWD3bTR0cM8dCog
+         7kKw/BGwouiR2Q2Nwl2RMBLc6IgzXx0WRzKLvnlp+Hw+w6we4Z5MiDRd6QcavsdOW5Qy
+         7a6wrACgUJrE3wucUwPi+X09uqUjEsNvq1/Ry22lei7xgmDkwn4c6+mnjeigekJ9T6Zq
+         YvkQthreRkVmcRzBrFa0El2FY9sY9oy6eR/80BC7JkHGqvBflIrEGlD1j13Q4lKx5oV3
+         g98A==
+X-Gm-Message-State: AFuF++mmldBmjALgMIEm2VYrFDVKEJSel4xWKll55dfe/CLWcdt8WhwH
+	WaChDh8xRPigOwYLyiKPJeZnzUpjFcl9OEWK2iopjGiPd7gQ9nnl8eeVWdWig0Kzy9x2JgXAuUs
+	q1GdJig==
+X-Gm-Gg: AYBFou04mkYsJo2GKArVy2yzSVsf2ie+Xd4Osn5oavG1SN3mKVbjkrGE3e000SOwxjk
+	7c2cz13WGJc8fVEm1T5otGpN2LnWTueE8bWdO5k6JKE1FdrzSWV28uwHWn9M6uVbhad51XkfZX5
+	A1EWGXATT94WS1/10e5qb9aTdLpHI4dt05ZByRqtK0qiYcfYR9C5i0yxVwGdZ2F4JkV+VaC+r4V
+	s3lRPB3cpL9zXj0b3mJwH+W1Qh4NtAWA4DNAKWPjprRrdAFcigFWE9B5PZ5G+ePAfUV3QDmEJkA
+	zncmy0rFp0SlFy7htrQHyxx725tV9xJGpllvmIz0ILFEV87i+q/BpOO5qLViwZbxg5wzhD/9Y3m
+	rw1Lh1BMOo6MgYvRAlIAHoUOl7PP9tCKRvz0yeqbkSXwqyb+0GtSQeruPeVkoAYvWoXMnyncW8T
+	ZC7bfvhq7ak/WWHd/jftHdtSlUeGPiH++ZbETsjVjdE3Gh3qunv/bUDbGO9l6rJcvbbzhDn6H4s
+	MTXMd9TqSxtWnnjSGe/erVqlfbj8ELbJDbkcwouy97/Rdu8HMrQ2vOnj1QmBqeSVxcmrVHwmAng
+	2gkwnl+otNBHiMPfdQ==
+X-Received: by 2002:a05:620a:468e:b0:939:2c5c:7977 with SMTP id af79cd13be357-93c15d9ca6cmr110120185a.20.1790004316207;
+        Mon, 21 Sep 2026 08:25:16 -0700 (PDT)
+Received: from 01a0c492-4568-7248-97d0-4da0177aabc6.local (ec2-13-217-144-131.compute-1.amazonaws.com. [13.217.144.131])
+        by smtp.gmail.com with ESMTPSA id af79cd13be357-93befd5c2d0sm658385785a.4.2026.09.21.08.25.15
+        for <stable@vger.kernel.org>
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 08:25:15 -0700 (PDT)
+Message-ID: <01a0c492-4568-7248-97d0-4da0177aabc6@swiftden.buzz>
+In-Reply-To: <01a0a09d-3541-71f6-9bf2-3ece56b80167@swiftden.buzz>
+References: <01a0a09d-3541-71f6-9bf2-3ece56b80167@swiftden.buzz>
+X-Mail-Abuse-Inquiries:
+ https://app.instantly.ai/privacy/report-abuse/01a0c492-4568-7248-97d0-4da0177aabc6
+From: Todd Ford <todd@swiftden.buzz>
+To: stable@vger.kernel.org
+Subject: Re: Offline bad review
+Content-Transfer-Encoding: quoted-printable
+Date: Mon, 21 Sep 2026 15:25:15 +0000
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=utf-8
 
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Hey, did you see the 1-star reviews I sent over?
 
-An address range DAMOS filter that partially overlaps a monitoring
-region splits the region at the filter boundary, so the scheme action is
-applied to only one side of it.  damos_apply_scheme() reads the region
-size once on entry, before damos_core_filter_out() performs that split.
+I wanted to get them =
+taken down for you...
 
-The quota charge and the statistics update therefore account for the
-region as it was before the trim.  schemes/<S>/stats/sz_tried counts
-memory the filter excluded, which Documentation/mm/damon/design.rst says
-is not counted as tried, and with quotas/bytes set the excluded part is
-charged against the budget, throttling the scheme to a fraction of what
-was configured.
+Can I give you a call? @ +1 616-286-6687?
 
-User impact is that DAMOS could unexpectedly slowly run, due to
-over-charged quota.  DAMOS stat could also be confusing.  No critical
-events such as crashes or leask happen.
 
-Re-read the region size after the core filters have run.
+On Mon, September 14, 2026 3:50 PM, Todd Ford <todd@swiftden.buzz>
+[todd@swiftden.buzz]> wrote:
 
-Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
-Cc: <stable@vger.kernel.org> # 6.6.x
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Reviewee-by: SJ Park <sj@kernel.org>
-Signed-off-by: SJ Park <sj@kernel.org>
----
- mm/damon/core.c | 1 +
- 1 file changed, 1 insertion(+)
-
-diff --git a/mm/damon/core.c b/mm/damon/core.c
-index 0aa5d0ea8ebc..4687b909d42c 100644
---- a/mm/damon/core.c
-+++ b/mm/damon/core.c
-@@ -2784,6 +2784,7 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
- 		}
- 		if (damos_core_filter_out(c, t, r, s))
- 			return;
-+		sz = damon_sz_region(r);
- 		ktime_get_coarse_ts64(&begin);
- 		trace_damos_before_apply(cidx, sidx, tidx, r, nr_accesses,
- 				damon_nr_regions(t), do_trace);
--- 
-2.47.3
+> Reaching out one last time,
+>=20
+> It seems like getting rid of unfavorable feedback and bringing in new =
+customers isn't the focus at the moment?
+>=20
+> Kind regards,
+> Todd
+> On Thu, September 10, 2026 2:52 PM, Todd Ford <todd@swiftden.buzz>
+> [todd@swiftden.buzz]> wrote:
+>=20
+> > Hey, I'm a real person not a bot =
+lol
+> >=20
+> > Would removing a few of the negative reviews help bring in =
+more clients?
+> >=20
+> > Open to explore this?
+> >=20
+> > All the best,
+> > Todd
+> > On Wed, September 2, 2026 4:49 PM, Todd Ford <todd@swiftden.=
+buzz>
+> > [todd@swiftden.buzz]> wrote:
+> >=20
+> > > Greetings, just wanted =
+to follow up,
+> > >=20
+> > > I also came across Wendy left a review saying =
+"This was my first visit to the store. There were lots of cute clothes and =
+some good prices. However, when we checked out, an item rang up as 25% off =
+instead of the 40% off that was advertised. When we questioned it, the =
+cashier said that was how it rang up, so it was only 25% off.
+> > >=20
+> > > I walked back to the sign, which originally stated 40% off, and it =
+had been switched to 25%. I=E2=80=99m thankful that the customer behind me =
+in line spoke up and said she also thought it was 40% off, especially since=
+ the sign had been changed while we were still shopping.
+> > >=20
+> > > Another employee later told us that only the sweatshirts on the rack =
+were 40% off, which was not stated anywhere on the sign. This felt like =
+false advertising and was very disappointing, especially since the only =
+response we received was a brief =E2=80=9Csorry=E2=80=9D from the cashier."=
+.
+> > >=20
+> > > We can eliminate multiple bad reviews to strengthen your =
+online image.
+> > >=20
+> > > Can I give you a quick call?
+> > >=20
+> > > Best,
+> > > Todd
+> > > On Thu, August 20, 2026 2:35 PM, Todd Ford =
+<todd@swiftden.buzz>
+> > > [todd@swiftden.buzz]> wrote:
+> > >=20
+> > > > Hi there, are you in charge of Offline?
+> > > >=20
+> > > > I was browsing some of your Google reviews, and one from Angela =
+Russell caught my eye. If you=E2=80=99re interested, I can have it deleted =
+for you.
+> > > >=20
+> > > > They commented, "Had a staff member order me =
+sweat pants to ship, but they ordered me the wrong pair. Apon the returning=
+ I was asked if I wanted a refund to original payment or gift card. I asked=
+ for my original payment refund and they are now saying a week later they =
+can't (only able to do gift card apparently) and now I'm out my own money =
+because I will not be returning. Worst online customer service with little =
+to no help and a bunch of "I'm sorrys"
+> > > >=20
+> > > > Would you prefer =
+this review gone from your profile? We focus on removing unfavorable =
+reviews, and I observed you have a couple of other critical reviews we =
+could help remove.
+> > > >=20
+> > > > Looking forward to your thoughts
+> > > >=20
+> > > > Stay awesome,
+> > > > Todd
+> > > >
