@@ -1,46 +1,78 @@
-Received: from m16.mail.126.com (m16.mail.126.com [220.197.31.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9D2194C96;
-	Mon, 21 Sep 2026 03:17:14 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=220.197.31.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324C02D9EFB
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 03:25:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789960639; cv=none; b=GBOZWidNf4Hkgoa7KJajyvCu9DjV3gjPZOdq0VzY2pydhcpQONtbrsg/hHzL8FcOMbvAUqhm8r+T7kmTMcCTIMzSd6EC22VAxIkfBbbX2umIfIyZFMm+ngxoiuJlexDF+XucJJdw+CZs03Ik6+EQ+7rHppGhDlZQkoe8oKKm0Xg=
+	t=1789961161; cv=none; b=f5aLLkXn4uF7QQBiKf9abzu/7Fx+YIhPvTTjOxYscmU/QTsUN75PrC4K36Q8OJcNP9u47ne0GTyO13DxvOSMs+uMjVuA8eX9fnBP6KGP3ZWQlXLbYtcAueC/G/JKytkPjh4dUBCLR3cPSCQRHoNu4W1Vkdu9Krr4CbJBbjzjZtc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789960639; c=relaxed/simple;
-	bh=Hs15HYxGNxqVANaNisUHApsJspGhjqP0fRA347dQl/U=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=ZyW5/P++z+WDHWmZTi5KCt/C9/Bg7qCWBFsf2m9HHO1iPmxVQzomHGm25GG+nEfna5ZWdASLj5tj4HhOGro1go2edVUmVF1j9ylTt7KPwW7LE+xrNPeHE/C/0nSBu+LYmRmkPEULiz4iHTODVid+1OKSCVHwt3IftHiL8bBsKPY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=E5Sxtr9m; arc=none smtp.client-ip=220.197.31.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789961161; c=relaxed/simple;
+	bh=g+A9hiqbjdRm1wxc94/jFX4bCS9hLPFOLeL9XnppuiA=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=ofvV7rAFEXuB6A64lo7RCVicoZmmpJj4X3SQlwlfL6KxvX1eZBziM6Awlm1+O2i+BVwaUrzBAPflq+GkmK/xHK4RhA4RFc52/MPttZxDk9l2ZVQSvUqc4MFuedcI5wjG5eofcBjj/ne4frVX7s6wMw5WBEe2Hef2ZVqzCOWs7IU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6nx24SI; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="E5Sxtr9m"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=From:To:Subject:Date:Message-Id:MIME-Version; bh=I7
-	fYR/PDwkxcuXTwn2JWJPrIY5xxFViS+7lj7SyyQ5o=; b=E5Sxtr9mv7TTHc9AAA
-	LrEIXxnJfo5Yvkv5/6raj4FFU0qzpTX8CV3hMt9/4TRlCLMYlEDWB+t+kO4AErj3
-	qiMPan3xkxQiW3rYzB7QwHnA9Nc69H+HueBKRJXjK8nA2hpSDqJYE0CBMJP3+7qq
-	WZyGhI8NI2+JZG7rBdsHroXHo=
-Received: from localhost.localdomain (unknown [])
-	by gzga-smtp-mtada-g1-1 (Coremail) with SMTP id _____wDnr6yCobBq+hKqBg--.25902S2;
-	Mon, 21 Sep 2026 11:16:19 +0800 (CST)
-From: Linkui Xiao <xiaolinkui@126.com>
-To: anthony.l.nguyen@intel.com,
-	przemyslaw.kitszel@intel.com,
-	andrew+netdev@lunn.ch,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com
-Cc: intel-wired-lan@lists.osuosl.org,
-	netdev@vger.kernel.org,
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6nx24SI"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so1855010a91.0
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 20:25:59 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789961158; x=1790565958; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=ahFIIwQaTlAjng+rA2gaDe9OuP97cH36xpLgGOlzKso=;
+        b=U6nx24SIR7GarxQ2uXF/iDnqcW4ELWEfjlA0qUwrtqp91LHwJjMpxELtWhv+h8uvtx
+         U7pMM3l36kDlJo4My18hwSdZ/+Wgku3or0ZRrSFtdRo9hWuybN+aaZC0n164Wo5yKE0n
+         WF9TDtvGHNb37Lo3/hSLa4Pbw83FonqsExxZ0I3E8d98ANGS9+rJisLy/wWp42Tt6Kfa
+         NvW2rUVd6MsThAHvba5d4Z8ZYJeAi+MS01CAFFuzIStLL33y91cMWb6hvYuBK71KJyVD
+         ycQGs/sT/U+cxtAzHOBNFg9TElXx/dxSO1+ctNNiFEJKpilGjF5CMHA1FqMx8+3luyez
+         dHcA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789961158; x=1790565958;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=ahFIIwQaTlAjng+rA2gaDe9OuP97cH36xpLgGOlzKso=;
+        b=voJuNGOU5ImHbjeWsksd6TYUxd13WbUG8g2f5hXsQaKLTAvVwJYsSaJX2pFkJOa8fI
+         1mxSUr9Qu8q7zHsEDgBnxZbHAyG+caAmK66RRRJlY7ayxOiRBi0EIJ2DRp0NPgC3Q25g
+         ygc+w4R0+UCjUiAAMn/qQnLOPwgRfRj0+RFk0wGQ6oIA0OJRxOzbaCGw0qntSv93ohUk
+         QThR5Lq6Vz9s8KGLCSP+qWgWcakO9Cl/X4mzR4sJX+kvA1Rrbe4nEi0KCvEK1kmEMJrX
+         YUcolzCFnUY6QC+b3G970pZz9He81pCmrSc+uMz9+uNJQLUfSa+uB3Wb3skqCiGVhO0s
+         JLaA==
+X-Forwarded-Encrypted: i=1; AKwUvBwKXa5Bo4HdJt8jfBn6HFECBXJm9l/d35f9LRqE8bUVuGOAbcrO7eoXxd/sSushrVCv9Oo21L0=@vger.kernel.org
+X-Gm-Message-State: AFuF++nWK3qacasWPASdZU/U/N8JhYvj4MsypjKMjVoeI0RSVRxpb2Gg
+	MSJcZKyOhFz+RhxeT2rIGpqMxDIBbF4UblbYYMDFGl+hlyjpfUP/bPFQ+rDsix7G
+X-Gm-Gg: AYBFou3kgDorFk8K8G1UyquaZwks8OusImueMXQZEu90RVN9TdiioBLzjwhpDwxnhCQ
+	OGZPDAyD9p3Uxbm38xv11mUXRtNjxpyy2iRMPqrAX/XvbEnwe0DigmAiTbLhW6Ci5v8d2cp9Xhx
+	k8Qbs+7CbKLftDYq/lqVtf19tP6SFw3psR0cuT/nVo/sywr7LTTnfhflPwgePfUeqnsTJUUppeb
+	mvnpjPPBaUG+BSSmtq9Xkzf3mCjhO0qxagnjnOx3Mu+OYIPcQ18Uhl4gw4CR5RYdqUEfAMTQPft
+	q7aufXyZ1PGIFGNRAnaFOMS6EJnyBwOJ5A7qGea45VJB6oIgoqD7hCEZTemvy2EDXlkz5R3kvqN
+	KBcqJRDzgdefTjQ/Uc6cU0wgENXIdIrS9r1K9/uow/XhJ6OwSZ5fymBeVMeldoEur2ln9PanqDe
+	QAgQ/cvQcyAHrWcjaSiqUFvRofZUrfmM3C1s9wq0sIe7bRvuSowfPg1TMHM6mBsI2JYAZdJhho+
+	9l0bwUk1KqK9a44zYA0QvK9zhJeFcUqfJU6rm2OLhAWWKJuKlSvO4O3tOF/3gZ0AoAj4zoKXWAL
+	Uyn27IVwzDI=
+X-Received: by 2002:a17:90b:3bcb:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39e54eab3e6mr21858131a91.12.1789961158476;
+        Sun, 20 Sep 2026 20:25:58 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5547a04dsm6298293a91.3.2026.09.20.20.25.57
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 20:25:58 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Damien Le Moal <dlemoal@kernel.org>,
+	Niklas Cassel <cassel@kernel.org>
+Cc: linux-ide@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
-	Linkui Xiao <xiaolinkui@kylinos.cn>,
-	stable@vger.kernel.org
-Subject: [PATCH net] ice: detach the VF representor when ice_start_vfs() fails
-Date: Mon, 21 Sep 2026 11:16:16 +0800
-Message-Id: <20260921031616.3390259-1-xiaolinkui@126.com>
-X-Mailer: git-send-email 2.25.1
+	stable@vger.kernel.org,
+	Hui Peng <benquike@gmail.com>
+Subject: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through commands when multi_count is 0
+Date: Mon, 21 Sep 2026 03:25:55 +0000
+Message-ID: <20260921032556.1160734-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
+References: <20260919222625.3797581-1-benquike@gmail.com> <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,73 +80,76 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wDnr6yCobBq+hKqBg--.25902S2
-X-Coremail-Antispam: 1Uf129KBjvJXoWxGFy7Jw4kAF4DZF45GF17ZFb_yoW5Xw4rpr
-	Wvq34rGr4kJ3Wagw4Dua18u34ruayrCrWagr10k3WfCF45Jr9Ykr47KFy2yr18C3s7Cr1a
-	va1q9r1ru34DA3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UYzuZUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBqQNPJmqwoYNTJQAA3N
 
-From: Linkui Xiao <xiaolinkui@kylinos.cn>
+When an ATA_12, ATA_16, or ATA_32 pass-through command with a
+multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
+ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
+ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
+multiple-sector mode is not configured (dev->multi_count == 0),
+ata_scsi_pass_thru() currently logs a warning and still dispatches the
+taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
+WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
+nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
+to transfer any sectors:
 
-ice_start_vfs() attaches every VF it brings up to the eswitch with
-ice_eswitch_attach_vf(), but the teardown path only undoes the queue
-mappings and the VF VSI. Nothing calls ice_eswitch_detach_vf() for the
-VFs that were attached before the failure, and the caller, ice_ena_vfs(),
-goes straight to ice_free_vf_entries(), which drops its reference to
-every VF.
+  ata1.00: invalid multi_count 1 ignored
+  WARNING: drivers/ata/libata-sff.c:666 at ata_pio_sectors+0x27d/0x300
+  Call Trace:
+   <IRQ>
+   ata_sff_hsm_move+0x211/0x22e0
+   __ata_sff_port_intr+0x1c8/0x520
+   ata_bmdma_port_intr+0xa1/0x5b0
+   ata_bmdma_interrupt+0x1f5/0x550
 
-The port representors created for those VFs therefore outlive the
-failed VF creation:
+Per ACS-3 section 7.12.7.21, if IDENTIFY DEVICE word 59 bit 8 is cleared
+to zero (multi_count == 0) and a READ MULTIPLE or WRITE MULTIPLE command
+is received without a preceding successful SET MULTIPLE MODE command, the
+device returns command aborted (ABRT). Per the SAT specification, an ABRT
+error translates to the ABORTED COMMAND sense key with NO ADDITIONAL SENSE
+INFORMATION (0x00, 0x00).
 
-  - the representor netdev stays registered and its devlink port stays
-    registered too. That port is embedded in struct ice_vf, so it ends
-    up pointing into the memory that ice_sriov_free_vf() releases;
+Fail multi-sector taskfile commands in ata_scsi_pass_thru() with
+ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0) when
+dev->multi_count == 0.
 
-  - repr->vf keeps pointing at the freed struct ice_vf, and repr->src_vsi
-    at the VF VSI that ice_vf_vsi_release() tore down. The leftover
-    netdev is still visible to the user, so even a plain
-    "ip -s link show" of it reaches ice_repr_get_stats64(), which calls
-    repr->ops.ready() -> ice_check_vf_ready_for_cfg(repr->vf) and then
-    reads repr->src_vsi through ice_update_eth_stats();
+Tested in QEMU against Linux 7.3.0-rc3 (-device ide-cf, where
+dev->multi_count is 0) by issuing ATA_CMD_SET_MULTI (nsect=1) followed
+by an SG_IO ATA_16 ATA_CMD_READ_MULTI command: on the unfixed kernel
+this triggers WARNING: drivers/ata/libata-sff.c:666 in
+ata_pio_sectors(), whereas on the fixed kernel it immediately completes
+with sense key ABORTED_COMMAND (0x0b, 0x00, 0x00) and 0 warnings.
 
-  - the virtchnl ops of that VF, which ice_repr_add_vf() replaced with
-    ice_virtchnl_set_repr_ops(), are never handed back to
-    ice_virtchnl_set_dflt_ops();
-
-  - pf->eswitch.reprs never becomes empty, so ice_eswitch_detach() never
-    calls ice_eswitch_disable_switchdev(). pf->eswitch.is_running stays
-    true, with the bridge offloads and the devlink rate topology still
-    up, and ice_eswitch_release_env() is skipped, so the uplink VSI is
-    left in the switchdev configuration that ice_eswitch_setup_env()
-    gave it.
-
-Detach the representor in the teardown loop the way ice_free_vfs() does,
-ahead of ice_vf_vsi_release(), because ice_repr_rem_vf() and
-ice_eswitch_release_repr() both need repr->src_vsi to still be valid.
-Every VF the teardown loop walks completed ice_eswitch_attach_vf()
-successfully, and ice_eswitch_detach_vf() already returns early for a VF
-without a representor, so no extra condition is needed.
-
-Fixes: fff292b47ac1 ("ice: add VF representors one by one")
+Fixes: 1dce589c38c3 ("libata passthru: support PIO multi commands")
 Cc: stable@vger.kernel.org
-Signed-off-by: Linkui Xiao <xiaolinkui@kylinos.cn>
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
- drivers/net/ethernet/intel/ice/ice_sriov.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v2:
+- Report sense key ABORTED_COMMAND (0x00, 0x00) via ata_scsi_set_sense()
+  per ACS-3 and SAT specifications instead of ILLEGAL_REQUEST /
+  invalid_fld, as pointed out by Damien Le Moal.
+- Update the commit description to accurately describe the
+  ata_pio_sectors() WARN_ON_ONCE(qc->dev->multi_count == 0) and 0-sector
+  transfer path and fix the Fixes: tag to 1dce589c38c3.
 
-diff --git a/drivers/net/ethernet/intel/ice/ice_sriov.c b/drivers/net/ethernet/intel/ice/ice_sriov.c
-index e04de0215596..1b563aba3bbd 100644
---- a/drivers/net/ethernet/intel/ice/ice_sriov.c
-+++ b/drivers/net/ethernet/intel/ice/ice_sriov.c
-@@ -508,6 +508,7 @@ static int ice_start_vfs(struct ice_pf *pf)
- 		if (it_cnt == 0)
- 			break;
+ drivers/ata/libata-scsi.c | 5 +++++
+ 1 file changed, 5 insertions(+)
+
+diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
+index b3666519b648..29fd6d8d97ce 100644
+--- a/drivers/ata/libata-scsi.c
++++ b/drivers/ata/libata-scsi.c
+@@ -3507,6 +3507,11 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
+ 	if (is_multi_taskfile(tf)) {
+ 		unsigned int multi_count = 1 << (cdb[1] >> 5);
  
-+		ice_eswitch_detach_vf(pf, vf);
- 		ice_dis_vf_mappings(vf);
- 		ice_vf_vsi_release(vf);
- 		it_cnt--;
++		if (!dev->multi_count) {
++			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
++			return 1;
++		}
++
+ 		/* compare the passed through multi_count
+ 		 * with the cached multi_count of libata
+ 		 */
 -- 
-2.25.1
-
+2.49.0
