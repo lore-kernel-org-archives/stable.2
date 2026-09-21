@@ -1,122 +1,83 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3D46544F578
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 08:26:18 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2555B44F54B;
+	Mon, 21 Sep 2026 08:27:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789979179; cv=none; b=Lc6+4lfrsaqFLrXDtvDomXDy3IfJobqAi8R6V+5QJpFYphbNvAMSqDsRbemWki7M5e7ZHgChriBHm50koaAEWULNBx5P0zNprp95LgKY+4QXJICcdRX5DynSjcyzIZuooX4BLID/WHYealZIz0DapybsP+e07MeZOY4AH5WioVU=
+	t=1789979253; cv=none; b=toThGxTZb3cqVgpy25fkI8Rj+IPalCRHsj3eXxJFszNFxjSRVaVwpqmbRqLFZB2ap+7rR+iYFsOs83VDNuCXTU8rc+bdcnEGNcqaGUFcTv3/OPICmLufJ2dOZ7gpFtZXhRl7tiMngxxKYTBpj5ZkWHnhAMibROd3EwKzs/+yDKw=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789979179; c=relaxed/simple;
-	bh=+hgLRH0kg/URrpkpVtllXKugJJqqqN1Pj/iK4V01C3U=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=oKfk1EN0Ak8BvZ6CvFCSKxlpkMcLSIGH94ZOETzk4UvBJ7jNkjjp/kYn3a/I3zvq1OQQq03Hb+MhynzC7s/1yioYmRzGgdLLvrfnIQjEX8yIGszRCpFGp7HVDumL+zzpew2oWQt2fNTuGQvutODd0VjoyzMGWbEFkJmmxVLrpH8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ZPBJn6A6; arc=none smtp.client-ip=74.125.228.12
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789979253; c=relaxed/simple;
+	bh=pkyPTuTH+YKoglPBpvQOIpWF3ngNlLjfGTpiCPkEPZQ=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=OobRTyn4BlHUXLhLniHvEoDxfDi5lVec4eZMcr71ENRTmZFr//OfA6o6grGM/IvGeN/ELY06ew7kLQkZNpRx4+RAmLGJvsRRMLiH65x3otq5nOj5DH5wgiit7g9j2HSzxfao8cztPaplPQ7xpVp1DCC/R+Lb1nYt4jZp49i1o/A=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bSuy99SE; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ZPBJn6A6"
-Received: by mail-pz2-f12.google.com with SMTP id d2e1a72fcca58-85469a34908so2418768b3a.0
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 01:26:18 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789979177; x=1790583977; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ooL0yu/97MAI2sEUI7eblr213Ntkqb5Ie04YLHmVRm0=;
-        b=ZPBJn6A6UuIavQfwfEF3TMzBky5+JxVvdcC4bEd0urtHtwh13IixqcOynkeEyUNcDT
-         ZCOmX2U3vNF7m34zpui+btP3BKrLVzd/fUE2sPE2otYGFUWyCuWdz+lQbx5wK6JsLOzH
-         7TKt+tRywyt1usVGuEVFkazjoc06ABaT9vBSKZQV1lnIIIiV+3xvy+75aUE5qItfXMe0
-         ncvW7r0sLRE9aw3WtvTnQfq+ZMD7Q8n4b25Sfy0IhT/7Y2tb1F6UoTzbh0iy7kB2jYqk
-         JwFD1x7sRhS4lFLOy+R70PzYZ8gX+zGAwGErqPVbYKv7if2tYEnh/ktLG5WH9apb6b7O
-         R0VA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789979177; x=1790583977;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ooL0yu/97MAI2sEUI7eblr213Ntkqb5Ie04YLHmVRm0=;
-        b=Kd4L2P83mMXPfMsqHGT8qd1Ye//aGtXyczPPPEdNVMpmcpdbpQYda6v1fsh0e0hjl3
-         +to1rBIpToCl7xQZU8cU4rTgWtH234A5rfA6WkoAsF7mDv5z5oEVuSPGf8bms0qYD7tw
-         e7MusVhFtcFJS6j/7OfaMGv3hONHMn5xMyG8I2Bbupsy6r330836H+YNUtsd4TE6Spcq
-         9yEw92JSQbH34bao9R33IzwNVdSqw+fG170jAf3rtOG3GGxnbboJCUZkqFHFfb63qrPf
-         Pc9lWL6aiP4fu3vSGTXhoQz4lG0bUkOymr1KnN26acRItZDeC03o4paPBLpFHinq40uI
-         vrbg==
-X-Forwarded-Encrypted: i=1; AKwUvBzDsXZx2mGmk+Kqu2+xJCLx9785Cg5LlBuxifxjzzabeteO96Fa5QVQgG2PInxwJSRPL7dkobs=@vger.kernel.org
-X-Gm-Message-State: AFuF++kz/1EFF9ZJYuByQhJ70ZehMNuhHRAu09jnzY9Tibg+VF21F4XF
-	1HsUuXcpktH5sAdV7HlKNA7WiyNpg4VQ8FormhwT5FPP3zlLjK7LKUMe
-X-Gm-Gg: AYBFou3nyoBRFCvLSvZm0My5hdR62IFMftPUfTxGOPn+y6sGfnUA7dTaYvxIwJYAwwK
-	lujRLN2KaDqIG1Sea4b4eJQIr6P/YMZNEjaddqJX7nty/6fyewJ2YO7+UDqZ5X1/EXEJwuiai/t
-	0lc0j8Km1thlPBuAuvJxKna1fXoHTQTkX0fNVfwELdTSxTu3YhWDsjD9AixgXBTIQZA8o7tFeQ+
-	Z6q/7wnpEnrqomI4VT+4YbDszNr1iUvlFfOKZRTDCWMYmp0k5RdoXa6lB0LQd3CPizoVikjJKwh
-	sX3YHRqhZETiY+I83LVjwpXt0Laq0LxTCtwfgE8/ZTAxZS6GlKMVdDlfya301uXRpyMug4nwGjj
-	+8ean/FxMy61a/MRU5ix1w1VnEDstzRkYxj0ZlsiJwYPWJPr9fuOLuWPUCCI7tOOLq9IHx9lxSy
-	RS8p/5X2/o407sfSVIqmeG6dRIPR6fx6KB5XD+liItYnzwcOHdIFOIgg==
-X-Received: by 2002:a05:6a00:f0b:b0:878:34d7:697c with SMTP id d2e1a72fcca58-87834d76ce7mr6581070b3a.42.1789979177544;
-        Mon, 21 Sep 2026 01:26:17 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877a95f916dsm2872054b3a.31.2026.09.21.01.26.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 01:26:17 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Mario Limonciello <mario.limonciello@amd.com>,
-	Perry Yuan <perry.yuan@amd.com>,
-	Hans de Goede <hansg@kernel.org>,
-	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
-	"Gautham R. Shenoy" <gautham.shenoy@amd.com>,
-	"Borislav Petkov (AMD)" <bp@alien8.de>,
-	platform-driver-x86@vger.kernel.org,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bSuy99SE"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 80F7A1F000FF;
+	Mon, 21 Sep 2026 08:27:31 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789979251;
+	bh=pkyPTuTH+YKoglPBpvQOIpWF3ngNlLjfGTpiCPkEPZQ=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=bSuy99SEHzRPu4717uVG/gx9vYsFT1M9CYXNrj64Q7b2+sf3EESpOgJzYlQAIS8FX
+	 i6NrPwq5nk9Hfl4ZGs4ISyHZRWF78WenSHzpLShOSOjyYI+Qs6H89UxTifTgE7YgxB
+	 2W+7Ltuv0V9vL1Rt06fNrQbsAP7F+vAdYobkMso45ud+a8pasqyQY8o+GkW3bI3UPu
+	 7jeFa8AKtMHHZmMAtZXPJOdMGciOVyxK+t9MUeYB9ovkBCPrnM/5d9oBVOA12770pr
+	 MSYs+j9kPOh1VlE5d7bEeZVtyng/+vV/E9ecY8VghvVxcMKgs5q/5EucT8b3r7g5Xc
+	 ELhTUFdXUsClw==
+Received: by finisterre.sirena.org.uk (Postfix, from userid 1000)
+	id 560191AC52F3; Mon, 21 Sep 2026 09:27:28 +0100 (BST)
+Date: Mon, 21 Sep 2026 10:27:28 +0200
+From: Mark Brown <broonie@kernel.org>
+To: Zimeng Li <me@lizi.moe>
+Cc: srini@kernel.org, lgirdwood@gmail.com, tiwai@suse.com,
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org,
 	stable@vger.kernel.org
-Subject: [PATCH] platform/x86/amd/hfi: fix platform device leak on init failure
-Date: Mon, 21 Sep 2026 16:26:09 +0800
-Message-ID: <20260921082609.244774-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+Subject: Re: [PATCH v2] ASoC: qcom: lpass-cpu: use DAI table index for
+ playback constraints
+Message-ID: <arDqcJ5AbDjGHd-b@sirena.co.uk>
+References: <20260920145848.44521-1-me@lizi.moe>
+ <20260920193830.53706-1-me@lizi.moe>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: multipart/signed; micalg=pgp-sha512;
+	protocol="application/pgp-signature"; boundary="nvsmE6McXcB+JTG+"
+Content-Disposition: inline
+In-Reply-To: <20260920193830.53706-1-me@lizi.moe>
+X-Cookie: Too clever is dumb.
 
-amd_hfi_init() registers the HFI platform device before registering
-the platform driver. If platform_driver_register() fails, the function
-returns the error without unregistering the already registered platform
-device.
 
-Since the failed init path does not run amd_hfi_exit(), the platform
-device remains registered and its reference is never dropped, preventing
-the associated platform object from being released.
+--nvsmE6McXcB+JTG+
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
 
-Unregister the platform device when platform driver registration fails
-to properly unwind the successful device registration.
+On Mon, Sep 21, 2026 at 03:38:30AM +0800, Zimeng Li wrote:
+> The DAI ID is a hardware port ID and is not necessarily the index of
+> the corresponding entry in variant->dai_driver.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+Please don't send new patches in reply to old patches or serieses, this
+makes it harder for both people and tools to understand what is going
+on - it can bury things in mailboxes and make it difficult to keep track
+of what current patches are, both for the new patches and the old ones.
 
-Fixes: 5d902ee5609a ("platform/x86: hfi: Introduce AMD Hardware Feedback Interface Driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- drivers/platform/x86/amd/hfi/hfi.c | 4 +++-
- 1 file changed, 3 insertions(+), 1 deletion(-)
+--nvsmE6McXcB+JTG+
+Content-Type: application/pgp-signature; name="signature.asc"
 
-diff --git a/drivers/platform/x86/amd/hfi/hfi.c b/drivers/platform/x86/amd/hfi/hfi.c
-index e0ebcb0c4acd..449aad914ad1 100644
---- a/drivers/platform/x86/amd/hfi/hfi.c
-+++ b/drivers/platform/x86/amd/hfi/hfi.c
-@@ -530,8 +530,10 @@ static int __init amd_hfi_init(void)
- 	}
- 
- 	ret = platform_driver_register(&amd_hfi_driver);
--	if (ret)
-+	if (ret) {
- 		pr_err("failed to register HFI driver\n");
-+		platform_device_unregister(device);
-+	}
- 
- 	return ret;
- }
--- 
-2.43.0
+-----BEGIN PGP SIGNATURE-----
 
+iQEzBAABCgAdFiEEreZoqmdXGLWf4p/qJNaLcl1Uh9AFAmqw6m8ACgkQJNaLcl1U
+h9CJ1wf/Ww94F+jwBTs/9sMxb/9ORNRKgONadzCcCAb8XI4ncPtsAoqFoppP1oHg
+8DJCzqqoMNJj1U52WtRGlcTZQAU1AFp5EvG0vmKk/1iUaPyDfDRopLBO5ftW+Ar1
+jR4xWmjg2s3qQTpTsv11I3eL/7SaQfZKXV3Zb15iezHajhc085MeFFner9nEIZZZ
+/bEDcWBopPAmAJYVi1yq4nouQHJtiOQIf3qi7eqPgHTScy57Jv2EaK6vgwTGjaHZ
+DnafNsFMQFBAzjlQUGdK7saKtVTUu1htBL67iTk+H+jtf+X54qCMPelcySIOtule
+JluIo0xD8AR6yfsc7Mq3CPB0/QpAIQ==
+=P1Rl
+-----END PGP SIGNATURE-----
+
+--nvsmE6McXcB+JTG+--
