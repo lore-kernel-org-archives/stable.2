@@ -1,116 +1,146 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-1.web.codeaurora.org [10.30.226.201])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 135CF4772A8
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 10:41:06 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E056347F79C;
+	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=10.30.226.201
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789987268; cv=none; b=Zej611vCATCjjwYcryewXezeEqHiXcGylvS1jVVbJzM4/LbXoMAJ8+GGf7tES6OO5ns78y1s2zJNJWO8fYx86CNkAxDhbhYdO7+udxNHk1baIi0TA9oF7+QjVjDSEB34wvJzyzM3VElOUJRIS6PrjHLFkVOMWCyOZiPGQLSVKJU=
+	t=1789987586; cv=none; b=SkTZsRQJ2cmOO9vhkmS/Imsnp1THYuBozZv62Pb1J0aw+wkTsQ2KvsZ4RbzNdE7SaS3OL4hNCUTEZR9hxztSVBChCw9XVYpwDLN/aAnrv4yl1r60r4yiVbyY19Y2njZ1doLoeDZ4uB4Y3ZKYcAjAY/uzmP3HS0zt1kXPyDwXHqI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789987268; c=relaxed/simple;
-	bh=jV3rXd+gLIZ1kbXj0TODJowVFnqZ1XVvvGYuSJ4XS/E=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=NGwloGCco9f6RZjntVoO6WNvNlGj9WB7cRK+bdQMZl8NjTnfEmPOeRt4Nf17UwAGY2imEDATw5v4aKwJUmC3CUwwOEJbS4ixG7vijBJrS821dJ7MfSqn7bgORfBOohJdeCpj9zXqsfcsQz6D+c5vRlwh0sQM9EGfvHi+aHUrPFI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qcTzRJ/s; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789987586; c=relaxed/simple;
+	bh=dswMCVWk69SqXPG+rhoT9B3P5QaoF6XoSY5Y1WH7cc0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=gOHw9w9ovDmQNaltpSw2v/roJ9a3nobsA5Sl9t5eSOFcp7g9uQkfqhQfoWkb9y8SYsDsCEI0u7fh0kfyEAG/ml3lVAKIbG/LAz6GYPhMVWzTxNUzCJBAstRI1KkeOnpi6G+8PK8YDdY2DHA6PFVTrX43YMe+t5ukZPz0ACGEsqw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=QtMqXf/2; arc=none smtp.client-ip=10.30.226.201
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qcTzRJ/s"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5256c2a4bso1848345a12.1
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 03:41:06 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789987266; x=1790592066; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=71o9YI6lTkfQsxMzDOfAZ9YQ4Htmj8t9P5fvi3r60mo=;
-        b=qcTzRJ/sG/fjZg3emICi7ZJQzBBdW7himeajs3KzKrcLVaX3jWO4JroIqxpcT18nEm
-         xWgHjKn0zK6DFL2quh6RCtlyOq1TwvykSO5av3z91A58AZiLNvif3XRijZtluoVsPz+O
-         8lMpuc0awKA7PzjU5IZSfGOwmCr+h3As30klyTOAnMyF3mlExWyIGkgaV1trrvkbrcu/
-         Z2p2ZgDt3FOhjiYJE1RmIj2vaA+kJnG5Cloi//RbkHMvhUBmigjmRaoVL0FUD0Q5NIib
-         +FzpN5PwAKBIwmXShjG7Dj3ahIumVMu692fJll7LQLh4fUnmnmd+mGXfxfJSa/7vqcRO
-         CYvg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789987266; x=1790592066;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=71o9YI6lTkfQsxMzDOfAZ9YQ4Htmj8t9P5fvi3r60mo=;
-        b=pOr6Q8tDHv9sZdMyPiCrIU7W3orO+rU4YzXzCKJkvt6BvToHN54Y2lG8R2Iw7RxJBn
-         +BH7HfNWyaC592atWyXkopYOwGR8byTW2MeZTsDdBs0gXUlrhf27VKtp4yy956NhrfIM
-         pW7u99RQdT0h8LIvL8gArmxIkItDuqFgZmi+NetujyJirTdgtYe9oKcmiHUbI7kXCND8
-         iPEkUfd3CG+ZN3QczwUP9buxpTyCzu74NLZWB4StEzO5XDZfcQNYA+HaqwK3vk6kxxa5
-         Lyu0dW7LOf/ntcf+0Lh/dbTAElxvGAz/gx4q9VIsAbOExna3jdNTjH9o66pM1zGdQ/dN
-         m1xg==
-X-Forwarded-Encrypted: i=1; AKwUvBwVLz0oRekxpW4kz/X5/zd237AKbiahyPe0vVnmoxhu97LvjZe10P6qCu9LsiiCpOmC07hBK8U=@vger.kernel.org
-X-Gm-Message-State: AFuF++nRkEALd3WGrERurQRg0PsaWoo/vgoFuOyjq9HuoFqDRddKbrFl
-	s5UBWEy+DS9AKKIBuqF3+e1Waa0+WYtruHMeW22jKD5JA7rWYyKsPUl9
-X-Gm-Gg: AYBFou0ksMEE0/bsr/JcZGLfsalIMd/TbOzP4GrHNn02P66aCwcKLsbtcAGadsRdmaL
-	+E+fWm9hztLmRhud2Y3/9cK83FRy/y5n0u58o6linX7cIgqvciwZjHfJOouuVy+DcHVkMpYs0pF
-	AfYa0f0Fgw/cxk1BaEZZVxtvMWaNBVDwYdaEBa5VHY7mhJsGIFiAbGxglFWqjxAL0pFyd4HKzE7
-	BhEZHAeAc30f/etivuEr0UG4slHRyoKQRZSTWAXwvfcK3/Pgjg/0Kw76gYKdctQSyJhf0sbLvKu
-	1hIXhUYZVRjLAfBTIf4wzWM0EddC1h06FTS3vQ0+nFt7vdvwDs8tRVYMWdq8u0gzRqlyiaQrU/q
-	jswX2Biwuq52+Qel7T/LgNrSyDgkZ4ZdV1bnB+JNIgaM8aIllTdAVAEGjQPdIaaOdfDm0s8juVA
-	EBvf+ZdkL4gBYWrxCqX0F6T6rV5WNCloPiBlfsID+wtYjhecdfYZNSN/3NAX5Jr8jK
-X-Received: by 2002:a17:90b:57d0:b0:39e:6c69:f479 with SMTP id 98e67ed59e1d1-39e6c69f5acmr10028531a91.56.1789987266133;
-        Mon, 21 Sep 2026 03:41:06 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-3a03ab822b6sm7600102a91.5.2026.09.21.03.41.02
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 03:41:05 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Lee Jones <lee@kernel.org>,
-	Mika Westerberg <mika.westerberg@linux.intel.com>,
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
-	mfd@lists.linux.dev,
-	linux-kernel@vger.kernel.org
-Cc: Guangshuo Li <lgs201920130244@gmail.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] mfd: intel-lpss: fix iDMA device leak on probe failure
-Date: Mon, 21 Sep 2026 18:40:58 +0800
-Message-ID: <20260921104058.353748-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="QtMqXf/2"
+Received: by smtp.kernel.org (Postfix) with ESMTPS id 7800FC2BCB3;
+	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=kernel.org;
+	s=k20201202; t=1789987585;
+	bh=dswMCVWk69SqXPG+rhoT9B3P5QaoF6XoSY5Y1WH7cc0=;
+	h=From:Subject:Date:To:Cc:Reply-To:From;
+	b=QtMqXf/2sMT8V5aRhAJoeRwqp86qhIVowYoIV6r70QdpURnKYsjFK6JM5YoqOT1lx
+	 we8wl2bs185Petkx3fko+2tsLF9JVekRjA+DJjLrWfDHEoUmhqSH1sgKpvSV90jmAf
+	 hFKx3pXp7na9HipxbRim4vtl8uiUJ+TkHErMFiowRR+qddkf5+s9fOAGL056RVxHCh
+	 QVgVzvwrm/5UkKGdo87fDwB/6mueysngSAI0lGoIAD3PjG8fAW1luvrS+/r4l165bl
+	 t3HWDQimbFvsjqYXCT6wwCLCpIimHmU/Jmmy/VoEEHJt+ySd/rd6ZnEPMW/6w94+a4
+	 m65voZpOeSbmg==
+Received: from aws-us-west-2-korg-lkml-1.web.codeaurora.org (localhost.localdomain [127.0.0.1])
+	by smtp.lore.kernel.org (Postfix) with ESMTP id 473B9C982EE;
+	Mon, 21 Sep 2026 10:46:25 +0000 (UTC)
+From: David Heidelberg via B4 Relay <devnull+david.ixit.cz@kernel.org>
+Subject: [PATCH v4 0/4] backlight: qcom-wled: Fix OVP IRQ imbalance and
+ start from the hardware state
+Date: Mon, 21 Sep 2026 12:46:21 +0200
+Message-Id: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/43Nyw6CMBQE0F8xXXtNXwJ15X8YF6W9yPWFUsRX+
+ HcLLtTEGJeTzJy5s4A1YWCz0Z3V2FKgah+DHo+YK+1+hUA+Zia5TLjhGRxdtYPzFj3k1m22tCo
+ bKLyZpprLVE0Vi8tDjQVdBnWxfOZwytfomp7qGyWFpqqvw20r+t7vh1aAAKe912hzb3k6pws1E
+ 3djvd/KN0Ho74IEDjb63kil0KhPQf0hqCj4xBRoMq0yLV5C13UPinWQCUoBAAA=
+X-Change-ID: 20260908-qcom-wled-backlight-fd9574027353
+To: Lee Jones <lee@kernel.org>, Daniel Thompson <danielt@kernel.org>, 
+ Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>, 
+ Kiran Gunda <quic_kgunda@quicinc.com>, 
+ Marco Mattiolo <marco.mattiolo@hotmail.it>, 
+ =?utf-8?q?Barnab=C3=A1s_Cz=C3=A9m=C3=A1n?= <barnabas.czeman@mainlining.org>
+Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org, 
+ linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ phone-devel@vger.kernel.org, Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>, 
+ Joel Selvaraj <foss@joelselvaraj.com>, David Heidelberg <david@ixit.cz>, 
+ stable@vger.kernel.org
+X-Mailer: b4 0.16.0
+X-Developer-Signature: v=1; a=openpgp-sha256; l=2942; i=david@ixit.cz;
+ h=from:subject:message-id;
+ bh=dswMCVWk69SqXPG+rhoT9B3P5QaoF6XoSY5Y1WH7cc0=;
+ b=owEBbQKS/ZANAwAIAWACP8TTSSByAcsmYgBqsQr++Qskohu/NoPUViM/Xnk4ZG3uJpJuUybj5
+ yyYXTm1AsOJAjMEAAEIAB0WIQTXegnP7twrvVOnBHRgAj/E00kgcgUCarEK/gAKCRBgAj/E00kg
+ cpH9EACra0QFYoHrS1Yjszh/axxwX/h6rI35LsVlMTojnr38RvSmntCUM3j4CeQJLiXp/2jFlyl
+ KsENmnXSftVWoCAvvrFrMu+zAG1W+/BeX9LsjDkToTqv6JL9TJ06IBMQA9Dep8jcf/DAdpf5S1u
+ bA+Xs/XRP4wsHoar3vZeFjlIrpNLJwStYokEcC6fjm5RM3xH3lOp5Lwo/MZJSjdsglMHJuvHwfH
+ NMgQA4eXKMR9nsVAYeOkSCBSna/DmJxYTIbOQ7TYABSN5dYYXphi++t49lRnWAix7uNA9seCbbh
+ 6u/EdmWUUQ1hZnTT3o3ezcR1c0UBd6Y1P+fANrRhTfEwD+Mp1cr9LvCWYwW4ZVQGiBpeBQsPpas
+ D7R/wmFqgFTmf03DM02XKvnseeZ00sk+wDM3Lb8ZUzBGqoOSFwU38g+NxSfiJQOS16qggWNIDPP
+ 468gVzzN9JKu3y0eD+nGVy5S4eG5WEujnasCrpqSGAS+6SDYXEW4gIPdUc5LzMDni/t6qxA4uMz
+ xaYdN/aVqngpUneD1F0MDGFsFDrKqI+iFcORfWK1r5TMHKvBRXXs+iomkxosx0xtDZfOZdaBzLg
+ xUX/j3y2i0z7tnO21jkrK84rJQ8e0/1Opu1xv0YoFdgoQqBXQ5kIWsjIfFcQ4GewGRr79eA60Ha
+ tfxlKl0In9XBo8Q==
+X-Developer-Key: i=david@ixit.cz; a=openpgp;
+ fpr=D77A09CFEEDC2BBD53A7047460023FC4D3492072
+X-Endpoint-Received: by B4 Relay for david@ixit.cz/default with auth_id=355
+X-Original-From: David Heidelberg <david@ixit.cz>
+Reply-To: david@ixit.cz
 
-intel_lpss_probe() may register an iDMA MFD child before registering
-the main controller cell. If the iDMA child is registered successfully
-but the subsequent mfd_add_devices() call for the main cell fails, the
-probe error path returns without removing the already registered iDMA
-device.
+The qcom-wled OVP interrupt is enabled at probe whenever the module is
+already on, but the driver still believes the backlight is off, so the
+first brightness update re-enables the interrupt and trips "Unbalanced
+enable for IRQ". sdm845-mainline has carried a workaround for years and
+Joel posted a flag-based version last October [1], which Konrad and
+Daniel asked to be replaced by something that does not track the IRQ
+state by hand.
 
-Since the normal remove callback is not called after a failed probe,
-the iDMA platform device remains registered and is never released.
+Patch 1 is the drvdata fix I said I would drop after v3. The objection
+was that it stored the wrong object, not that the fix was wrong, so it
+is back with the right one stored.
 
-Call mfd_remove_devices() on the probe error path to remove any MFD
-children that were successfully registered before the main cell
-registration failed.
+Patch 2 is unrelated too and fell out of writing the readback: the WLED3
+brightness register stride has been one byte instead of two since the
+2019 restructuring, so multi-string pm8941 boards only program one
+string correctly. Untested, I have no WLED3 board; it restores what
+pm8941-wled.c did and matches the downstream leds-qpnp.c layout.
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+[1] https://lore.kernel.org/all/20251021-qcom-wled-fix-unbalanced-ovp-irq-enable-v2-1-7ff115b4ffe7@joelselvaraj.com/
 
-Fixes: 4b45efe85263 ("mfd: Add support for Intel Sunrisepoint LPSS devices")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+Signed-off-by: David Heidelberg <david@ixit.cz>
 ---
- drivers/mfd/intel-lpss.c | 1 +
- 1 file changed, 1 insertion(+)
+Changes in v4:
+- I applied the 0x10 fix too late, now it's fixed in the right commit.
+  (Konrad)
+- Right object stored in the drvdata. (Konrad)
+- Set the drvdata next to the other wled fields instead  of next to the
+  backlight device registration.
+- Reworded the drvdata commit, the NULL dereference is in wled_remove(),
+  the driver has no PM callbacks.
+- Link to v3: https://patch.msgid.link/20260914-qcom-wled-backlight-v3-0-d69fe9843841@ixit.cz
 
-diff --git a/drivers/mfd/intel-lpss.c b/drivers/mfd/intel-lpss.c
-index 63d6694f7145..657b1e3fb896 100644
---- a/drivers/mfd/intel-lpss.c
-+++ b/drivers/mfd/intel-lpss.c
-@@ -455,6 +455,7 @@ int intel_lpss_probe(struct device *dev,
- 	return 0;
- 
- err_remove_ltr:
-+	mfd_remove_devices(dev);
- 	intel_lpss_debugfs_remove(lpss);
- 	intel_lpss_ltr_hide(lpss);
- 	intel_lpss_unregister_clock(lpss);
--- 
-2.43.0
+Changes in v3:
+- Fix typo 0x10 != 0b10. (Sashiko)
+- Added fix for a unrelated issue, but since reported as critical, let's
+  squeeze it:
+  Missing platform_set_drvdata() in wled_probe() leads to a guaranteed NULL pointer dereference in wled_remove().
+  (Sashiko)
+- Link to v2: https://patch.msgid.link/20260914-qcom-wled-backlight-v2-0-a908d9233e93@ixit.cz
+
+Changes in v2:
+- Add a fix for the WLED3 brightness register stride.
+- Add patch reading the programmed brightness back via
+  backlight_ops.get_brightness. (Konrad)
+- Note the brightness readback is done in the follow-up to the first
+  patch.
+- Link to v1: https://patch.msgid.link/20260908-qcom-wled-backlight-v1-1-c4dd4eabda07@ixit.cz
+
+---
+David Heidelberg (4):
+      backlight: qcom-wled: Fix NULL pointer dereference in wled_remove()
+      backlight: qcom-wled: Fix WLED3 brightness register stride
+      backlight: qcom-wled: Fix unbalanced OVP IRQ enable at probe
+      backlight: qcom-wled: Read back the programmed brightness at probe
+
+ drivers/video/backlight/qcom-wled.c | 89 +++++++++++++++++++++++++++++++------
+ 1 file changed, 76 insertions(+), 13 deletions(-)
+---
+base-commit: 944a035ecca915ae947905dcfb03f2b9dc6d032c
+change-id: 20260908-qcom-wled-backlight-fd9574027353
+
+Best regards,
+--  
+David Heidelberg <david@ixit.cz>
+
 
