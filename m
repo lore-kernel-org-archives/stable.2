@@ -1,155 +1,137 @@
-Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 324C02D9EFB
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 03:25:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BDA7E2D9484;
+	Mon, 21 Sep 2026 04:12:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789961161; cv=none; b=f5aLLkXn4uF7QQBiKf9abzu/7Fx+YIhPvTTjOxYscmU/QTsUN75PrC4K36Q8OJcNP9u47ne0GTyO13DxvOSMs+uMjVuA8eX9fnBP6KGP3ZWQlXLbYtcAueC/G/JKytkPjh4dUBCLR3cPSCQRHoNu4W1Vkdu9Krr4CbJBbjzjZtc=
+	t=1789963930; cv=none; b=coauPwwZ4/rZ4YzR0xN/7SOyE7baAUH0vdw6Hu0dFnx8+iSy2yrrOhoKjTwBJ3NbSvbUA9/iEmRA81O6llFmVna6VOX0J9RApzA/9G9S1T6HGTxHKJKpqECWDPvbcdkn85YeePboN/KDW6xbTBxVzq4P5151DrQ+iQiCkRVL2rM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789961161; c=relaxed/simple;
-	bh=g+A9hiqbjdRm1wxc94/jFX4bCS9hLPFOLeL9XnppuiA=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ofvV7rAFEXuB6A64lo7RCVicoZmmpJj4X3SQlwlfL6KxvX1eZBziM6Awlm1+O2i+BVwaUrzBAPflq+GkmK/xHK4RhA4RFc52/MPttZxDk9l2ZVQSvUqc4MFuedcI5wjG5eofcBjj/ne4frVX7s6wMw5WBEe2Hef2ZVqzCOWs7IU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=U6nx24SI; arc=none smtp.client-ip=74.125.227.171
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789963930; c=relaxed/simple;
+	bh=JQteEG8aEomBNPZ/3WuvISiRCdp0U1U8G8bw6F46X/c=;
+	h=Date:To:From:Subject:Message-Id; b=uKRnnl0M9+Niwuv1lt7zQQ9FzRlAHqkGISiYHpK837jBv4rP3VQEphVJE0bBR6x4fB8w6bpQPvjagGV0A7dIfVU3b9HDoYj3chtK3H6Yo+NntGkwj04ygfPSGwYW2RDKLix0uoMveYzGSSJz5gOviYduQgYjiyGLffCnkE4p99g=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ekcbdR9o; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="U6nx24SI"
-Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccda24a3so1855010a91.0
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 20:25:59 -0700 (PDT)
+	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ekcbdR9o"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 3EAB21F000FF;
+	Mon, 21 Sep 2026 04:12:09 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789961158; x=1790565958; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=ahFIIwQaTlAjng+rA2gaDe9OuP97cH36xpLgGOlzKso=;
-        b=U6nx24SIR7GarxQ2uXF/iDnqcW4ELWEfjlA0qUwrtqp91LHwJjMpxELtWhv+h8uvtx
-         U7pMM3l36kDlJo4My18hwSdZ/+Wgku3or0ZRrSFtdRo9hWuybN+aaZC0n164Wo5yKE0n
-         WF9TDtvGHNb37Lo3/hSLa4Pbw83FonqsExxZ0I3E8d98ANGS9+rJisLy/wWp42Tt6Kfa
-         NvW2rUVd6MsThAHvba5d4Z8ZYJeAi+MS01CAFFuzIStLL33y91cMWb6hvYuBK71KJyVD
-         ycQGs/sT/U+cxtAzHOBNFg9TElXx/dxSO1+ctNNiFEJKpilGjF5CMHA1FqMx8+3luyez
-         dHcA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789961158; x=1790565958;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=ahFIIwQaTlAjng+rA2gaDe9OuP97cH36xpLgGOlzKso=;
-        b=voJuNGOU5ImHbjeWsksd6TYUxd13WbUG8g2f5hXsQaKLTAvVwJYsSaJX2pFkJOa8fI
-         1mxSUr9Qu8q7zHsEDgBnxZbHAyG+caAmK66RRRJlY7ayxOiRBi0EIJ2DRp0NPgC3Q25g
-         ygc+w4R0+UCjUiAAMn/qQnLOPwgRfRj0+RFk0wGQ6oIA0OJRxOzbaCGw0qntSv93ohUk
-         QThR5Lq6Vz9s8KGLCSP+qWgWcakO9Cl/X4mzR4sJX+kvA1Rrbe4nEi0KCvEK1kmEMJrX
-         YUcolzCFnUY6QC+b3G970pZz9He81pCmrSc+uMz9+uNJQLUfSa+uB3Wb3skqCiGVhO0s
-         JLaA==
-X-Forwarded-Encrypted: i=1; AKwUvBwKXa5Bo4HdJt8jfBn6HFECBXJm9l/d35f9LRqE8bUVuGOAbcrO7eoXxd/sSushrVCv9Oo21L0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nWK3qacasWPASdZU/U/N8JhYvj4MsypjKMjVoeI0RSVRxpb2Gg
-	MSJcZKyOhFz+RhxeT2rIGpqMxDIBbF4UblbYYMDFGl+hlyjpfUP/bPFQ+rDsix7G
-X-Gm-Gg: AYBFou3kgDorFk8K8G1UyquaZwks8OusImueMXQZEu90RVN9TdiioBLzjwhpDwxnhCQ
-	OGZPDAyD9p3Uxbm38xv11mUXRtNjxpyy2iRMPqrAX/XvbEnwe0DigmAiTbLhW6Ci5v8d2cp9Xhx
-	k8Qbs+7CbKLftDYq/lqVtf19tP6SFw3psR0cuT/nVo/sywr7LTTnfhflPwgePfUeqnsTJUUppeb
-	mvnpjPPBaUG+BSSmtq9Xkzf3mCjhO0qxagnjnOx3Mu+OYIPcQ18Uhl4gw4CR5RYdqUEfAMTQPft
-	q7aufXyZ1PGIFGNRAnaFOMS6EJnyBwOJ5A7qGea45VJB6oIgoqD7hCEZTemvy2EDXlkz5R3kvqN
-	KBcqJRDzgdefTjQ/Uc6cU0wgENXIdIrS9r1K9/uow/XhJ6OwSZ5fymBeVMeldoEur2ln9PanqDe
-	QAgQ/cvQcyAHrWcjaSiqUFvRofZUrfmM3C1s9wq0sIe7bRvuSowfPg1TMHM6mBsI2JYAZdJhho+
-	9l0bwUk1KqK9a44zYA0QvK9zhJeFcUqfJU6rm2OLhAWWKJuKlSvO4O3tOF/3gZ0AoAj4zoKXWAL
-	Uyn27IVwzDI=
-X-Received: by 2002:a17:90b:3bcb:b0:38e:bbf1:de3f with SMTP id 98e67ed59e1d1-39e54eab3e6mr21858131a91.12.1789961158476;
-        Sun, 20 Sep 2026 20:25:58 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e5547a04dsm6298293a91.3.2026.09.20.20.25.57
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 20:25:58 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Damien Le Moal <dlemoal@kernel.org>,
-	Niklas Cassel <cassel@kernel.org>
-Cc: linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through commands when multi_count is 0
-Date: Mon, 21 Sep 2026 03:25:55 +0000
-Message-ID: <20260921032556.1160734-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
-References: <20260919222625.3797581-1-benquike@gmail.com> <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
+	d=linux-foundation.org; s=korg; t=1789963929;
+	bh=0fP/BttSWFVif+inM5k3TC5NNn6OzY5ZqIHsXFmdegE=;
+	h=Date:To:From:Subject;
+	b=ekcbdR9o4ke9VS5Cf6us9K5fIzaDACHZEbRoJaXcXwxZZJ0g3ssanRzSFKdS53Dhf
+	 1F6AFKOD+U8tQIQayU2UdlQNzwtt9Kzyc3ByTBSba+J1Z2NSZE9Qd47NJsBMtCxt9f
+	 3Wc15ln3/9hpKZfygEwoYu7ufQyPafeKqzqqoC4Y=
+Date: Sun, 20 Sep 2026 21:12:08 -0700
+To: mm-commits@vger.kernel.org,stable@vger.kernel.org,peterx@redhat.com,jhubbard@nvidia.com,jgg@ziepe.ca,david@kernel.org,gregkh@linuxfoundation.org,akpm@linux-foundation.org
+From: Andrew Morton <akpm@linux-foundation.org>
+Subject: [obsolete] mm-gup-honour-foll_pin-in-nommu-__get_user_pages_locked.patch removed from -mm tree
+Message-Id: <20260921041209.3EAB21F000FF@smtp.kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-When an ATA_12, ATA_16, or ATA_32 pass-through command with a
-multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
-ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
-ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
-multiple-sector mode is not configured (dev->multi_count == 0),
-ata_scsi_pass_thru() currently logs a warning and still dispatches the
-taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
-WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
-nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
-to transfer any sectors:
 
-  ata1.00: invalid multi_count 1 ignored
-  WARNING: drivers/ata/libata-sff.c:666 at ata_pio_sectors+0x27d/0x300
-  Call Trace:
-   <IRQ>
-   ata_sff_hsm_move+0x211/0x22e0
-   __ata_sff_port_intr+0x1c8/0x520
-   ata_bmdma_port_intr+0xa1/0x5b0
-   ata_bmdma_interrupt+0x1f5/0x550
+The quilt patch titled
+     Subject: mm/gup: honour FOLL_PIN in NOMMU __get_user_pages_locked()
+has been removed from the -mm tree.  Its filename was
+     mm-gup-honour-foll_pin-in-nommu-__get_user_pages_locked.patch
 
-Per ACS-3 section 7.12.7.21, if IDENTIFY DEVICE word 59 bit 8 is cleared
-to zero (multi_count == 0) and a READ MULTIPLE or WRITE MULTIPLE command
-is received without a preceding successful SET MULTIPLE MODE command, the
-device returns command aborted (ABRT). Per the SAT specification, an ABRT
-error translates to the ABORTED COMMAND sense key with NO ADDITIONAL SENSE
-INFORMATION (0x00, 0x00).
+This patch was dropped because it is obsolete
 
-Fail multi-sector taskfile commands in ata_scsi_pass_thru() with
-ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0) when
-dev->multi_count == 0.
+------------------------------------------------------
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Subject: mm/gup: honour FOLL_PIN in NOMMU __get_user_pages_locked()
+Date: Thu, 23 Apr 2026 16:28:04 +0200
 
-Tested in QEMU against Linux 7.3.0-rc3 (-device ide-cf, where
-dev->multi_count is 0) by issuing ATA_CMD_SET_MULTI (nsect=1) followed
-by an SG_IO ATA_16 ATA_CMD_READ_MULTI command: on the unfixed kernel
-this triggers WARNING: drivers/ata/libata-sff.c:666 in
-ata_pio_sectors(), whereas on the fixed kernel it immediately completes
-with sense key ABORTED_COMMAND (0x0b, 0x00, 0x00) and 0 warnings.
+The !CONFIG_MMU implementation of __get_user_pages_locked() takes a bare
+get_page() reference for each page regardless of foll_flags:
 
-Fixes: 1dce589c38c3 ("libata passthru: support PIO multi commands")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
+	if (pages[i])
+		get_page(pages[i]);
+
+This is reached from pin_user_pages*() with FOLL_PIN set. 
+unpin_user_page() is shared between MMU and NOMMU configurations and
+unconditionally calls gup_put_folio(..., FOLL_PIN), which subtracts
+GUP_PIN_COUNTING_BIAS (1024) from the folio refcount.
+
+This means that pin adds 1, and then unpin will subtract 1024.
+
+If a user maps a page (refcount 1), registers it 1023 times as an io_uring
+fixed buffer (1023 pin_user_pages calls -> refcount 1024), then
+unregisters: the first unpin_user_page subtracts 1024, refcount hits 0,
+the page is freed and returned to the buddy allocator.  The remaining 1022
+unpins write into whatever was reallocated, and the user's VMA still maps
+the freed page (NOMMU has no MMU to invalidate it).  Reallocating the page
+for an io_uring pbuf_ring then lets userspace corrupt the new owner's data
+through the stale mapping.
+
+Use try_grab_folio() which adds GUP_PIN_COUNTING_BIAS for FOLL_PIN and 1
+for FOLL_GET, mirroring the CONFIG_MMU path so pin and unpin are
+symmetric.
+
+While at it, don't return NULL pointers in the page array, as this is
+really not expected for GUP users; instead, just fail and return
+-EFAULT.
+
+[david@kernel.org: changelog update]
+  https://lore.kernel.org/e9c5cf89-fa4c-4b83-ae70-9d3c72542ee9@kernel.org
+Link: https://lore.kernel.org/2026042303-vendor-outright-b9d2@gregkh
+Signed-off-by: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
+Acked-by: David Hildenbrand (Arm) <david@kernel.org>
+Assisted-by: David Hildenbrand <david@kernel.org>
+Reported-by: Anthropic
+Assisted-by: gkh_clanker_t1000
+Cc: Jason Gunthorpe <jgg@ziepe.ca>
+Cc: John Hubbard <jhubbard@nvidia.com>
+Cc: Peter Xu <peterx@redhat.com>
+Cc: <stable@vger.kernel.org>
 ---
-Changes in v2:
-- Report sense key ABORTED_COMMAND (0x00, 0x00) via ata_scsi_set_sense()
-  per ACS-3 and SAT specifications instead of ILLEGAL_REQUEST /
-  invalid_fld, as pointed out by Damien Le Moal.
-- Update the commit description to accurately describe the
-  ata_pio_sectors() WARN_ON_ONCE(qc->dev->multi_count == 0) and 0-sector
-  transfer path and fix the Fixes: tag to 1dce589c38c3.
 
- drivers/ata/libata-scsi.c | 5 +++++
- 1 file changed, 5 insertions(+)
+ mm/gup.c |   13 ++++++++++---
+ 1 file changed, 10 insertions(+), 3 deletions(-)
 
-diff --git a/drivers/ata/libata-scsi.c b/drivers/ata/libata-scsi.c
-index b3666519b648..29fd6d8d97ce 100644
---- a/drivers/ata/libata-scsi.c
-+++ b/drivers/ata/libata-scsi.c
-@@ -3507,6 +3507,11 @@ static unsigned int ata_scsi_pass_thru(struct ata_queued_cmd *qc)
- 	if (is_multi_taskfile(tf)) {
- 		unsigned int multi_count = 1 << (cdb[1] >> 5);
+--- a/mm/gup.c~mm-gup-honour-foll_pin-in-nommu-__get_user_pages_locked
++++ a/mm/gup.c
+@@ -1987,6 +1987,7 @@ static long __get_user_pages_locked(stru
+ 	struct vm_area_struct *vma;
+ 	bool must_unlock = false;
+ 	vm_flags_t vm_flags;
++	int ret, err = -EFAULT;
+ 	long i;
  
-+		if (!dev->multi_count) {
-+			ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0);
-+			return 1;
-+		}
-+
- 		/* compare the passed through multi_count
- 		 * with the cached multi_count of libata
- 		 */
--- 
-2.49.0
+ 	if (!nr_pages)
+@@ -2022,8 +2023,14 @@ static long __get_user_pages_locked(stru
+ 
+ 		if (pages) {
+ 			pages[i] = virt_to_page((void *)start);
+-			if (pages[i])
+-				get_page(pages[i]);
++			if (!pages[i])
++				break;
++			ret = try_grab_folio(page_folio(pages[i]), 1, foll_flags);
++			if (unlikely(ret)) {
++				pages[i] = NULL;
++				err = ret;
++				break;
++			}
+ 		}
+ 
+ 		start = (start + PAGE_SIZE) & PAGE_MASK;
+@@ -2034,7 +2041,7 @@ static long __get_user_pages_locked(stru
+ 		*locked = 0;
+ 	}
+ 
+-	return i ? : -EFAULT;
++	return i ? : err;
+ }
+ #endif /* !CONFIG_MMU */
+ 
+_
+
+Patches currently in -mm which might be from gregkh@linuxfoundation.org are
+
+
