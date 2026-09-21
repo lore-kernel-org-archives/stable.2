@@ -1,62 +1,41 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4E34A3F34
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:26:24 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id BA4AB3BD24A
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:29:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000786; cv=none; b=LEaFbYOuCKjrjnryW9Mnh0G3KR3PgrBLnQnSrSTZSSpI6g3CqMQnYNUiQeLRfeKwS9YGk7lPZCAZn4rvqyzgbNl5nQ+3Bs57gtKMH66+PruYqROeKRdw8GASNLO5Xep9zeF/l32n0CFKVqfIT2eF8hyQmkBf4KEfO3smVknfRro=
+	t=1790000951; cv=none; b=V5xMScT+TT2NMHxVwJw5NiZGM+r5zQtvBUGBLVut2nGLL8LMCk/Y2g+2JofO9SCnyVw0J0mNEwks2v5POEUdY3iTXhRd13vJW0Ep1k0j8JW2+qB9qm755LRUU0+c7gcqOzX/I84POSalHKBwEX51TbvrpPO7Ww6kDy/u9rNv44E=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000786; c=relaxed/simple;
-	bh=MyEXqmotfUt4yA1+Hy68CC39XSg+h8EY6D6AQC+ntwk=;
+	s=arc-20240116; t=1790000951; c=relaxed/simple;
+	bh=VSabq/X1KSIGi03ub9aFzL2ULvmcIBEBYHFlcjWLyos=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=cUgaZjuXWbkDIwAHGQ5bh7RQwn3MwQWiOfWG42Dou0M/0npgBry3R6GWYDfuPtyMkdVpuIdvIKaG/1tqGPYi2IiGfuESBFrnvBl1R2DBJcaq0wvibR9qIQL7bRxMwtoTaAloxDnr7zHQh1l6yddl0+d3fZDoOzR80wU4gldNDHo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UIgEZylw; arc=none smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	 Content-Type:Content-Disposition:In-Reply-To; b=bruR4AYic3ok7JpAuNDc/CZxaGVpJcgP1awzrMfSYAvnhHhHNGce53whKbq9iSPFPWYaZuHN58iWinpieMJ095stvoG32yoJLUXja8i640EDc/3T2JtRiPLb25sbRpn8zdYyPlHISKDdOQATtOvaLmX79DVUDyviv+dJzF68puA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b=ULEx+z74; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UIgEZylw"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790000783;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 in-reply-to:in-reply-to:references:references;
-	bh=+pcLJlj5TIE0odij7lPFRE58kbHckgF1Zqih4BUaQQ8=;
-	b=UIgEZylwudvfLCjWM4qid+3+APf+RC8fybWBm+MzuhlMGPpmQS+SjGMRolz1i/J8MEZmhu
-	yrt6m1KK/Q5EV+sNyFwAnIxXP+VWvbutmYyarADMwJ6gVVemjPIuVDulVVgSS0RQ7cwMPr
-	0lxGNbEBlSYpThulXsB0DO8ANFL1apc=
-Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
- (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
- relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
- cipher=TLS_AES_256_GCM_SHA384) id us-mta-48-zIc0_6r3NoSA_cJqD0Vc_A-1; Mon,
- 21 Sep 2026 10:26:18 -0400
-X-MC-Unique: zIc0_6r3NoSA_cJqD0Vc_A-1
-X-Mimecast-MFC-AGG-ID: zIc0_6r3NoSA_cJqD0Vc_A_1790000776
-Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 422C11953994;
-	Mon, 21 Sep 2026 14:26:15 +0000 (UTC)
-Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
-	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 5D11B41D;
-	Mon, 21 Sep 2026 14:26:11 +0000 (UTC)
-Received: by fedora (nbSMTP-1.00) for uid 1000
-	oleg@redhat.com; Mon, 21 Sep 2026 16:26:14 +0200 (CEST)
-Date: Mon, 21 Sep 2026 16:26:09 +0200
-From: Oleg Nesterov <oleg@redhat.com>
-To: Christian Brauner <brauner@kernel.org>
-Cc: Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org,
-	Jens Axboe <axboe@kernel.dk>,
-	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
-	NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
-	Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
-	io-uring@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v3 14/17] fork: don't create io threads once
- PF_POSTCOREDUMP is set
-Message-ID: <arE-gZw53CqPTRXP@redhat.com>
-References: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
- <20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org>
+	dkim=pass (1024-bit key) header.d=linuxfoundation.org header.i=@linuxfoundation.org header.b="ULEx+z74"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id AF4C01F00898;
+	Mon, 21 Sep 2026 14:29:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=linuxfoundation.org;
+	s=korg; t=1790000950;
+	bh=3xbuSOfkEVZb3smL77G2xT77vDymlVm+Sg8C85PL77U=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=ULEx+z74egmEloOOSKVzLCM4s0UCD0dBghrBnvWXRVZVVbgTIYsGWjzOmIaPdeskC
+	 z9DWAWN3rbb3vy5m/KR9g5kf0H0YJgjAL8H3KGrKRYgXv+oIgYpFlF9qfv6ZHvQe2S
+	 xTrI6JChvpxmkO/k/TrS06pNMLM5g6OWSjFOEMvI=
+Date: Mon, 21 Sep 2026 16:29:07 +0200
+From: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
+To: Francesco Dolcini <francesco@dolcini.it>
+Cc: stable@vger.kernel.org, Sasha Levin <sashal@kernel.org>,
+	Kuniyuki Iwashima <kuniyu@google.com>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>
+Subject: Re: [linux-6.6.y] 6.6.158-rc1: stale ASSERT_RTNL() in
+ __ipv6_dev_mc_dec() WARNs on IPV6_LEAVE_GROUP
+Message-ID: <2026092146-although-snippet-ed33@gregkh>
+References: <20260921074348.GB13965@francesco-nb>
+ <2026092115-magnetism-breeching-5d92@gregkh>
+ <20260921142442.GA276016@francesco-nb>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -65,29 +44,49 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=us-ascii
 Content-Disposition: inline
-In-Reply-To: <20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org>
-X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
+In-Reply-To: <20260921142442.GA276016@francesco-nb>
 
-On 09/21, Christian Brauner wrote:
->
-> Refuse to create an io thread when the creator has PF_POSTCOREDUMP.
-> That costs nothing. io_uring_files_cancel() raises IO_WQ_BIT_EXIT
-> before it runs any task work, so a worker created from there only ever
-> gets to exit again, and io_should_retry_thread() doesn't retry -EINTR.
+On Mon, Sep 21, 2026 at 04:24:42PM +0200, Francesco Dolcini wrote:
+> On Mon, Sep 21, 2026 at 02:24:41PM +0200, Greg Kroah-Hartman wrote:
+> > On Mon, Sep 21, 2026 at 09:43:48AM +0200, Francesco Dolcini wrote:
+> > > Hello all,
+> > > 
+> > > Disclaimer: the commit/root-cause analysis below was produced with LLM
+> > > assistance. The failure itself is reproduced and verified by our CI/CD
+> > > (LAVA on-target test).
+> > > 
+> > > Our CI reproducibly hits this WARN on linux-6.6.y at 02cc578650be
+> > > (6.6.158-rc1), on i.MX6, when a process leaves an IPv6 multicast group
+> > > (e.g. avahi-daemon around a link flap):
+> > > 
+> > > WARNING: CPU: 0 PID: 418 at net/ipv6/mcast.c:1013 __ipv6_dev_mc_dec+0x180/0x184 [ipv6]
+> > > RTNL: assertion failed at net/ipv6/mcast.c (1013)
+> > >  __ipv6_dev_mc_dec [ipv6] from ipv6_sock_mc_drop+0x144/0x240 [ipv6]
+> > >  ipv6_sock_mc_drop [ipv6] from do_ipv6_setsockopt+0x92c/0x1a48 [ipv6]
+> > > 
+> > > Cause: 24e6c4f46cd4 ("ipv6: mcast: Don't hold RTNL for IPV6_DROP_MEMBERSHIP
+> > > and MCAST_LEAVE_GROUP.", upstream 2ceb71ce7d34) is in 6.6.y and drops RTNL
+> > > from ipv6_sock_mc_drop(), but its same-series sibling e01b193e0b50
+> > > ("ipv6: mcast: Use in6_dev_get() in ipv6_dev_mc_dec().", stable pick
+> > > 98363feee397), which removes the now-stale ASSERT_RTNL() in
+> > > __ipv6_dev_mc_dec(), was not backported alongside it.
+> > > 
+> > > Could 98363feee39760011bd2225558c0fef9487c449f be applied to linux-6.6.y?
+> > > Or the problematic commit should be dropped
+> > 
+> > There is no such commit id with that number in Linus's tree :(
+> > Did your LLM make it up?
+> 
+> For sure it did ... and this is the reason I was upfront that the
+> analysis is from an LLM :-(
+> 
+> What I know as a fact is this WARNING exist, the related folks and in Cc: and
+> they can provide better guidance on what we should do (drop the patch or
+> add some missing dependency).
 
-Thanks for this note in the changelog,
+You have the best way to test it, how about finding out what exact
+commit is needed to be backported here and submit it?
 
-> --- a/kernel/fork.c
-> +++ b/kernel/fork.c
-> @@ -2706,8 +2706,8 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
->  		.user_worker	= 1,
->  	};
->
-> -	/* A creator past its fatal signal gets no thread. */
-> -	if (current->flags & PF_SIGNALED)
-> +	/* A creator past its fatal signal or its coredump point gets no thread. */
-> +	if (current->flags & (PF_SIGNALED | PF_POSTCOREDUMP))
->  		return ERR_PTR(-EINTR);
+thanks,
 
-Acked-by: Oleg Nesterov <oleg@redhat.com>
-
+greg k-h
