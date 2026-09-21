@@ -1,191 +1,203 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C71644B3364;
-	Mon, 21 Sep 2026 17:34:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 94BDA4ED18C
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 17:39:46 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790012059; cv=none; b=HmPxFHGxigqAhw+Tk/fgC77C3EF78JJKYqqjaMe894cBTKCCfqeLHJKYqLo1DuhuFaURmi1HmVxzg++yvvDIlyOMwWZGNp7pHRdc2fWOscaBKB8fSRCiCCuSDiA5AOLTjH3Xb6+2DYPxdZSc78CHHn/RXKpg35sX2m1Qn7UY7h4=
+	t=1790012388; cv=none; b=bPi9EPzsfztgxxFt1jFuyYkn+x+dXenXiU/Im5FQyvf/sXRzbEWUoBhNtRfzsWFd4NIeYXw058V22MtHcO5EBzdngQddmzx5fGF3EO8/2ZxYkQT8Zy0qJyH/X7wonmBVvULxQTUpR/ESk3QkrsyS5Kdejr4gafScpqabro1MZyk=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790012059; c=relaxed/simple;
-	bh=NWPMLmKR5H+NciSlzSpaXKEQ9o8CFGTkrapK+qDVBsQ=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=ZGag79ZfFV75bbM04PZwD0eNdVI1clUEVa0PYwgrE/d1VOGvpZerPLYoghD8UAx536TZDKnhd9CTK6mJFecEnOZyjJcvFjvryVN2ylATqA4pdoCEl8zqSr0pwbYtd+T4Ql+f8F3fkk4pCG8aOeHoGBh9pnwRZLLvh55W+FVUjxQ=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ntfIleXt; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790012388; c=relaxed/simple;
+	bh=U5EKdWBIbiSJU1dP09Omb4q7Mq8wk1havQycrFwGi+s=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=N/vV9kD2Y8j1TTJnIhgXfG79pjIwhFrzBHa6YMDE7mV17Q1b0tSv44rStL7WgzVZuK3IrYDi+jOdXyxlZKHbf+KXfGMxq+v0/E/JnOUtWqKjC4q3s8INUQS0tmB0SAMewtlc8u/r/qq1/RTQ8Yb2w8xmGGEEYqmF6F75HJJQIfw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=jXTAaKPs; arc=none smtp.client-ip=74.125.228.42
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ntfIleXt"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6D4CF1F000FF;
-	Mon, 21 Sep 2026 17:34:16 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790012057;
-	bh=alPDCc/SUV227jYN2Mo1xAda//QTLk70i3b6IwDM7UI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ntfIleXtOngS9kgtd13aXHkN8riuMFwNMcUzajbCcBRQQBzBVoBr8ak1m1TfU92GE
-	 JI84svf3uFDwrccHoW+x64Ww2sS0QtdqhKvj91gutkuCzXF0exSukcQ5vInYuvLjpL
-	 PqqEDW5cX3eOn3T8ucVJx1OBRf0lJnMrk4oqUOOkZuD82IVo35bb8m7AR8LOvHuZF/
-	 s8Pkcvg2VNUxARnEhCpojVMdqOsKLjIjOR0E7/KE+VXw/t6Bakr0GKzvEf2mJKaQf4
-	 q4cb8gEn2UvgHB6qUTJXvV7QBgspz1ciY3EX+z/8AFZGYFDbMTXhrkAk/rctKHJp9Y
-	 vhn9X1eUgqahA==
-Subject: Re: [PATCH] net/smc: Fix socket use-after-free in smc_shutdown()
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: alibuda@linux.alibaba.com, davem@davemloft.net, dust.li@linux.alibaba.com,
- edumazet@google.com, guwen@linux.alibaba.com, horms@kernel.org,
- kgraul@linux.ibm.com, kuba@kernel.org, linux-kernel@vger.kernel.org,
- linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org,
- mjambigi@linux.ibm.com, netdev@vger.kernel.org, pabeni@redhat.com,
- sidraya@linux.ibm.com, tonylu@linux.alibaba.com, wenjia@linux.ibm.com,
- stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 17:34:15 +0000
-Message-ID: <179001205598.2160803.12068131189751847433@kernel.org>
-In-Reply-To: <20260917163956.2162779-1-vulab@iscas.ac.cn>
-References: <20260917163956.2162779-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="jXTAaKPs"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4c08393dfso2686587a12.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 10:39:46 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790012386; x=1790617186; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=w5FIqOvJ37TsMdMZxbiL8+8z7eHOaHEabZWsoVStaOQ=;
+        b=jXTAaKPs74N5povwGroOLXHnRCwicKLScjR/cOolkBqb0m1nMJUoAhXmrw/kUfxa8q
+         tEj+K80ADjNfAiv/6Yu/CO9K3RsiMflhgwZyy5iw0eQmxQBlKISNecdxLJdc2Rx8yW8c
+         86xKSWxWw37D0bOiMWTBqBWz+HedZZWEZBfxntJAzHmwKpMjJ10uKAXGsMxWrN5ISctA
+         nWW/GxMrlv9OsBAnBqliBj6HrwDtFfU9VnaIS59SIb0soR2lseF+wap1lDdjyuqWEBWa
+         Te45lDBiTH+veIaFvwaWEdI5Dr15KUqsedSC/q7laSnBcO2gs+vXnH3f72NF5SDdshgO
+         t32Q==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790012386; x=1790617186;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=w5FIqOvJ37TsMdMZxbiL8+8z7eHOaHEabZWsoVStaOQ=;
+        b=Hl3YaoX5k/xeM/ON/gpLvDUWvwidO0g5+r0Bvo8BPielW9GP6ybUhUGXRsgnTYAEuk
+         tkffUGEVS1K1gboEQjH+5HYr/xhJ3kG6DyxeWcBAMOGrH5fcQde90wdiHdsILwoXO2qP
+         neeOOxLUYBs8yKsJldNldeo/kJbRDFjPkETcNYbfdWZA2yy/BB3TqGSIrv1BLzh2gHA5
+         9itsmLhc7OHUZYs3M/5jwhSvLsuQyfaO34kclHMAfpYEgRND07SJ718kFVO99vvv11rq
+         rzhJEl8dnEKGNjbRCBjHJiIQjGCcTeIdat8XgQElZ8ScGHCnot4dX+G/LjLnPrLqxqdY
+         x+6A==
+X-Forwarded-Encrypted: i=1; AKwUvByOXBxThrBmFDZrN5wDz/2RO1LBujm4ElxH3PAjws25wnIR9wP301JztNYNe+TvZj6CxF4Wwss=@vger.kernel.org
+X-Gm-Message-State: AFuF++kym3Tzcn9GvfqvoShxJa8ODOJGbG5JLcQiDBc/h4eXro2+oD8g
+	2T7Ds7x1LqGETXAk703yQAW9imqxmBfNRUqm1U1XPvjfcxsIZZHIE+8X
+X-Gm-Gg: AYBFou2rOX8rXNyHwZ/DO548j7mAySXw0in0e68LMkfJdQovWswbxKXmEN8BKLbly5q
+	2B6RG+aTZCNO7BAdlIX5AT9N9Q4aKIRnrplkoG2hB7INpaLhAWvMUuS1jw7JjmOLOUo8OfcaUJE
+	p2LVv2NhyH/5Py284s0SzC5q4b27EXR11023k/G9u6IbOsJOno+dZH7WKIN11ga5mzbjH69T116
+	l1DI/izc0z6xA1xVD6qL1Or3F7vSuPQXaHqnQ0l98ExjGYyxP/BcjNNEjJh4E+tKl5wnM0k326H
+	FRwOk4n8G8Q3Zdh4gE8TLB0HFCSXoma4/ozbZKgJAWw/O4HE+1FGLiwKha4P86NzMHt7CbVB0L0
+	GnIlmDrs11oTrTp/v82oSxkC6H8Mq737ybEbk41PrpMu5kr1YPdpA6EZP5fu4297oCi43+GXIUp
+	ug2Cf1zviGuRYo6jip8JUVKJbfBX96SCPoBiXefSBVKDUzjRRaVlOxj8pi30pa3lGktYQGszfRu
+	ctYj1N3Izgywr1beoI8HmqiAE9yUGUX
+X-Received: by 2002:a05:6300:618d:b0:3dd:a196:69e4 with SMTP id adf61e73a8af0-3dda196784emr12197593637.63.1790012385816;
+        Mon, 21 Sep 2026 10:39:45 -0700 (PDT)
+Received: from 192.168.50.3 ([198.176.50.208])
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72af0955esm3986985a12.32.2026.09.21.10.39.31
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 10:39:45 -0700 (PDT)
+From: Weiming Shi <bestswngs@gmail.com>
+To: Alexei Starovoitov <ast@kernel.org>,
+	Daniel Borkmann <daniel@iogearbox.net>,
+	Andrii Nakryiko <andrii@kernel.org>,
+	Eduard Zingerman <eddyz87@gmail.com>,
+	Kumar Kartikeya Dwivedi <memxor@gmail.com>,
+	Martin KaFai Lau <martin.lau@linux.dev>,
+	Song Liu <song@kernel.org>,
+	Yonghong Song <yonghong.song@linux.dev>,
+	Jiri Olsa <jolsa@kernel.org>,
+	Emil Tsalapatis <emil@etsalapatis.com>,
+	Ihor Solodrai <ihor.solodrai@linux.dev>,
+	John Fastabend <john.fastabend@gmail.com>,
+	"David S . Miller" <davem@davemloft.net>,
+	Eric Dumazet <edumazet@google.com>,
+	Jakub Kicinski <kuba@kernel.org>,
+	Paolo Abeni <pabeni@redhat.com>,
+	Simon Horman <horms@kernel.org>,
+	Shuah Khan <shuah@kernel.org>
+Cc: bpf@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	netdev@vger.kernel.org,
+	linux-kselftest@vger.kernel.org,
+	Xiang Mei <xmei5@asu.edu>,
+	Weiming Shi <bestswngs@gmail.com>,
+	stable@vger.kernel.org,
+	Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Subject: [PATCH v4 1/2] bpf: clear stale IPv4 options after LWT encapsulation
+Date: Tue, 22 Sep 2026 01:39:09 +0800
+Message-ID: <20260921173910.90847-2-bestswngs@gmail.com>
+X-Mailer: git-send-email 2.55.0
+In-Reply-To: <20260921173910.90847-1-bestswngs@gmail.com>
+References: <20260921173910.90847-1-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+bpf_lwt_push_ip_encap() rebases the network header after prepending an IP
+header, but leaves IPCB(skb)->opt describing the inner IPv4 header. An
+ingress LWT route can consequently make an ICMP error use stale option
+offsets when constructing its reply.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+Mark completed LWT IP encapsulation in the run's BPF network context and
+clear stale metadata after bpf_prog_run_save_cb() restores the protocol
+control block. For same-family IPv4 encapsulation, clear only the cached
+options, as the IP tunnel transmit paths do. When the family changes,
+reset the destination family's control block and initialize its ingress
+interface, following seg6_do_srh_encap(). Save and restore the marker
+around nested LWT runs.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Cc: stable@vger.kernel.org
+Fixes: 52f278774e79 ("bpf: implement BPF_LWT_ENCAP_IP mode in bpf_lwt_push_encap")
+Reported-by: Xiang Mei <xmei5@asu.edu>
+Suggested-by: Daniel Borkmann <daniel@iogearbox.net>
+Suggested-by: Alexei Starovoitov <alexei.starovoitov@gmail.com>
+Assisted-by: LLM
+Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+---
+ include/linux/filter.h |  1 +
+ net/core/lwt_bpf.c     | 30 ++++++++++++++++++++++++++++++
+ 2 files changed, 31 insertions(+)
 
-- [High] net/smc/af_smc.c:smc_shutdown() — the commit claims to fix a
-  use-after-free where the passive-closing sock_put() frees sk before…
-
---
-
-net/smc: Fix socket use-after-free in smc_shutdown()
-
-This moves the passive-closing sock_put() in the smc->use_fallback branch
-of smc_shutdown() past release_sock(), using a new passive_close flag, on
-the grounds that the put could otherwise free sk before release_sock()
-runs.  It carries a Fixes: tag and Cc: stable.
-
-> diff --git a/net/smc/af_smc.c b/net/smc/af_smc.c
-> index e9f93b3ab435b..70d6da4c6267d 100644
-> --- a/net/smc/af_smc.c
-> +++ b/net/smc/af_smc.c
-> @@ -2946,6 +2946,7 @@ int smc_shutdown(struct socket *sock, int how)
->  {
->  	struct sock *sk = sock->sk;
->  	bool do_shutdown = true;
-> +	bool passive_close = false;
->  	struct smc_sock *smc;
->  	int rc = -EINVAL;
->  	int old_state;
-> @@ -2983,7 +2984,7 @@ int smc_shutdown(struct socket *sock, int how)
->  		if (sk->sk_shutdown == SHUTDOWN_MASK) {
->  			sk->sk_state = SMC_CLOSED;
->  			sk->sk_socket->state = SS_UNCONNECTED;
-> -			sock_put(sk);
-> +			passive_close = true;
->  		}
->  		goto out;
->  	}
-
-[Severity: High]
-Can the use-after-free described in the changelog actually happen here?
-
-smc_shutdown() is only installed as proto_ops->shutdown (af_smc.c and
-smc_inet.c), so it is entered from __sys_shutdown() or
-kernel_sock_shutdown() while a struct socket/file reference is alive.  The
-socket's own reference on sk is dropped only in smc_release():
-
-net/smc/af_smc.c:smc_release() {
-	...
-	sock_orphan(sk);
-	sock->sk = NULL;
-	release_sock(sk);
-
-	sock_put(sk); /* sock_hold above */
-	sock_put(sk); /* final sock_put */
-}
-
-and smc_release() cannot run while the shutdown syscall holds the fd.  With
-that reference plus the passive-closing reference, wouldn't sk_refcnt be at
-least 2 at the old sock_put(), making the release_sock()-on-freed-sk path
-unreachable?
-
-The commit message also states the reference may be gone because "the
-passive closing reference was already consumed by an abort of the active
-link group".  Can that state be reached in this branch?  This branch runs
-only for smc->use_fallback sockets, and the abort paths leave sk_state at
-SMC_CLOSED, SMC_PEERABORTWAIT or SMC_PROCESSABORT:
-
-net/smc/smc_close.c:smc_close_active_abort() {
-	case SMC_ACTIVE:
-	case SMC_APPCLOSEWAIT1:
-	case SMC_APPCLOSEWAIT2:
-		sk->sk_state = SMC_PEERABORTWAIT;
-		...
-		sk->sk_state = SMC_CLOSED;
-		sock_put(sk); /* (postponed) passive closing */
-}
-
-net/smc/smc_close.c:smc_close_passive_abort_received() {
-	case SMC_INIT:
-	case SMC_ACTIVE:
-	case SMC_APPCLOSEWAIT1:
-		sk->sk_state = SMC_PROCESSABORT;
-		sock_put(sk); /* passive closing */
-}
-
-All three of those states are rejected earlier in smc_shutdown() with
--ENOTCONN:
-
-	rc = -ENOTCONN;
-	if ((sk->sk_state != SMC_ACTIVE) &&
-	    (sk->sk_state != SMC_PEERCLOSEWAIT1) &&
-	    (sk->sk_state != SMC_PEERCLOSEWAIT2) &&
-	    (sk->sk_state != SMC_APPCLOSEWAIT1) &&
-	    (sk->sk_state != SMC_APPCLOSEWAIT2) &&
-	    (sk->sk_state != SMC_APPFINCLOSEWAIT))
-		goto out;
-
-so the fallback branch is never reached after such an abort.  Could a
-reachable path (ideally a KASAN splat) be added to the changelog?
-
-> @@ -3014,6 +3015,8 @@ int smc_shutdown(struct socket *sock, int how)
->  		sock->state = SS_DISCONNECTING;
->  out:
->  	release_sock(sk);
-> +	if (passive_close)
-> +		sock_put(sk); /* passive closing */
->  	return rc ? rc : rc1;
->  }
-
-[Severity: High]
-If the premise in the changelog did hold, does this reordering remove the
-problem or just move it?
-
-passive_close is derived solely from sk_shutdown == SHUTDOWN_MASK, which
-says nothing about whether this call still owns the passive-closing
-reference.  The same unconditional decrement therefore still runs, just
-later.
-
-If it drops the last reference, sk is freed while sock->sk still points at
-it for an open fd, and the next fd operation touches freed memory:
-
-net/smc/af_smc.c:smc_release() {
-	struct sock *sk = sock->sk;
-	...
-	sock_hold(sk); /* sock_put below */
-
-Wouldn't an ownership check (or bracketing the region with
-sock_hold()/sock_put() as smc_release() does) be needed instead of a
-reordering, if there really is a stray put to fix?
-
+diff --git a/include/linux/filter.h b/include/linux/filter.h
+index 39decde7fc73..195898af9528 100644
+--- a/include/linux/filter.h
++++ b/include/linux/filter.h
+@@ -848,6 +848,7 @@ struct bpf_nh_params {
+ #define BPF_RI_F_CPU_MAP_INIT	BIT(2)
+ #define BPF_RI_F_DEV_MAP_INIT	BIT(3)
+ #define BPF_RI_F_XSK_MAP_INIT	BIT(4)
++#define BPF_RI_F_LWT_IP_ENCAP	BIT(5)
+ 
+ struct bpf_redirect_info {
+ 	u64 tgt_index;
+diff --git a/net/core/lwt_bpf.c b/net/core/lwt_bpf.c
+index da49364ec63d..88664382ca44 100644
+--- a/net/core/lwt_bpf.c
++++ b/net/core/lwt_bpf.c
+@@ -36,10 +36,30 @@ static inline struct bpf_lwt *bpf_lwt_lwtunnel(struct lwtunnel_state *lwt)
+ #define NO_REDIRECT false
+ #define CAN_REDIRECT true
+ 
++static void bpf_lwt_reset_cb(struct sk_buff *skb, __be16 orig_proto)
++{
++	if (skb->protocol == orig_proto) {
++		if (skb->protocol == htons(ETH_P_IP))
++			memset(&IPCB(skb)->opt, 0, sizeof(IPCB(skb)->opt));
++		return;
++	}
++
++	if (skb->protocol == htons(ETH_P_IP)) {
++		memset(IPCB(skb), 0, sizeof(*IPCB(skb)));
++		IPCB(skb)->iif = skb->skb_iif;
++	} else if (skb->protocol == htons(ETH_P_IPV6)) {
++		memset(IP6CB(skb), 0, sizeof(*IP6CB(skb)));
++		IP6CB(skb)->iif = skb->skb_iif;
++	}
++}
++
+ static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
+ 		       struct dst_entry *dst, bool can_redirect)
+ {
+ 	struct bpf_net_context __bpf_net_ctx, *bpf_net_ctx;
++	struct bpf_redirect_info *ri;
++	bool lwt_ip_encap, saved_lwt_ip_encap;
++	__be16 orig_proto = skb->protocol;
+ 	int ret;
+ 
+ 	/* Disabling BH is needed to protect per-CPU bpf_redirect_info between
+@@ -47,8 +67,17 @@ static int run_lwt_bpf(struct sk_buff *skb, struct bpf_lwt_prog *lwt,
+ 	 */
+ 	local_bh_disable();
+ 	bpf_net_ctx = bpf_net_ctx_set(&__bpf_net_ctx);
++	ri = bpf_net_ctx_get_ri();
++	saved_lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
++	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
+ 	bpf_compute_data_pointers(skb);
+ 	ret = bpf_prog_run_save_cb(lwt->prog, skb);
++	lwt_ip_encap = ri->kern_flags & BPF_RI_F_LWT_IP_ENCAP;
++	ri->kern_flags &= ~BPF_RI_F_LWT_IP_ENCAP;
++	if (saved_lwt_ip_encap)
++		ri->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
++	if (lwt_ip_encap)
++		bpf_lwt_reset_cb(skb, orig_proto);
+ 
+ 	switch (ret) {
+ 	case BPF_OK:
+@@ -668,6 +697,7 @@ int bpf_lwt_push_ip_encap(struct sk_buff *skb, void *hdr, u32 len, bool ingress)
+ 	} else {
+ 		skb->protocol = htons(ETH_P_IPV6);
+ 	}
++	bpf_net_ctx_get_ri()->kern_flags |= BPF_RI_F_LWT_IP_ENCAP;
+ 
+ 	if (skb_is_gso(skb))
+ 		return handle_gso_encap(skb, ipv4, len);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917163956.2162779-1-vulab%40iscas.ac.cn
+2.55.0
+
