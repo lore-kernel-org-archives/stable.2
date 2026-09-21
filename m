@@ -1,45 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D3FE14A9D77;
-	Mon, 21 Sep 2026 15:24:49 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF0064B66C2;
+	Mon, 21 Sep 2026 15:24:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004291; cv=none; b=Q1ls4bPI+MsKavPYmVfh1lZygyhGgRrdHKrlIlAcAbJcphBJ2HjHOULwTLCP1mjhZn5k0kJ2zWw4l9LUuGPIKPMAaPMwJycdYqw0Z6GDx37dKFnLsqSF36xncd4g53jLFE661e8jmGGg8d8lLVo9P/GsOH4UJrE1mZpR5SvyCQ4=
+	t=1790004293; cv=none; b=gDtBjJ1Ytj0SSkaKMHH+kKZHX25OAuGonJ8sAKAZT7POp+wTB8gvnKwyvZCEH2e2MvhLlWLQUYGLzWAz9tvRf8kphwBpGJHn8RR1r0Z4P0oFH6y6hbbNoy1yleOV0TX27lqvgnNV4PpCgMlDHzpr7OuFjoqeUHgPUzcyZ23+qD0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004291; c=relaxed/simple;
-	bh=f6I4WeCmZX89GJdBEjger/KVPZXPw4NsJbEIF+v27P0=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=kPkrpqkBBg1bXoCxsN9Rm+Au61LyPfoJgpteqjqYTB6VR6F3D1T8dKG92YHNE3tlAW/ygD/kXwKNdeMl1wa9Y3gwyqofZmJjTxTe8Boxq6xtKPmT84W3rfn9zNpE7B7YFeLUY7QAMsxP4xp5Pf5hM4kwxdIYWTSKZnXf8VV0mf8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uit04d0B; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790004293; c=relaxed/simple;
+	bh=BoXoNj7iWXe4GhIAFX6wcc7SgGaQC7uegRD3ZFkwIyo=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=IVtD0y1t4JkCd6sfjz1N4UhiZoD17HRZD8kXCWFkqKLO0BI62kUA4NG1WNk1w6b+NwZd7raix2L+q5tA0sPishcllXPPet8gYdrXmt8eBle2s6PeKAH3CQjiBzcBTbHwgASL+2+tyoklnFarrATa2R4pTxYuTiO8VFqipUdzb90=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=SYuNaofm; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uit04d0B"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1FDD31F000FF;
-	Mon, 21 Sep 2026 15:24:46 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="SYuNaofm"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id DCD611F00893;
+	Mon, 21 Sep 2026 15:24:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790004289;
-	bh=rUSSPwGcAFQsl4uxClmz1BHLPOEerDOJfABfBbj2O6Q=;
-	h=From:To:Cc:Subject:Date;
-	b=Uit04d0BaHB0QLpCm5HJdlTak0t1YoY4/xH3Lzgvgynh6BUyis4NjWl5WTohjBs4P
-	 dCjww5Eqw4wnwWNvwkcXrJu7u3FBH5S028rYTy0+86Wmgg0PUE5bj2s1P2Ulo9jhRB
-	 NkWJjUa5sREFmplUXaboN9o5MnbxKueMAr20VKKttkRCgH91hPk8iYRI9ghyBoftSh
-	 kw8kxTB31IwKGUVQ9SkPBYmceZBNkkQjjRFyIwgXrshwmprapOuUaLfUnS/Q084lDG
-	 7OvVZkyhgXbrOPMAhJV9L5fo2XtJkqcQ+Mkt2XS5xFHOKtxIBsvS5RAuQQ+yOTDGyy
-	 CP+Po3RC75LBA==
+	s=k20260515; t=1790004291;
+	bh=lhYZozQNlJ+OrzQg2fSGExZ1q1RyH+RT/pmgwytGQEE=;
+	h=From:To:Cc:Subject:Date:In-Reply-To:References;
+	b=SYuNaofmP9J/SPxw18OqPmlkKyGRAXDtPJwkLz2ge4Zt4g73J1V+L8QQbBE3zxTl1
+	 mzN/DcuVT9m2uTdBhhMCTQYbc/oeYG41Qspbm2xjDNfvKbSmNpl3voMqE4Cl3pPSzq
+	 HivvICv7TDF/CgK3KyLQMlMj7U0V3JslI+Nb+lHh/qLfXSECHfRWbm0zxwI+BVwlKm
+	 PoHGxbQrKVRuvBLyHb2/r8gedFlZAfrBlfodvXLA/s0B/2wZu16UB2dJGtszWXHX9p
+	 JV/xiDbGnIjztmy6rl48urDy4DSDr9He/mw6iZAzoR2rrZQWL+J0/Bzdy3Mi5A4Knc
+	 mMbiQEXCszn8Q==
 From: SJ Park <sj@kernel.org>
 To: Andrew Morton <akpm@linux-foundation.org>
-Cc: SJ Park <sj@kernel.org>,
+Cc: Donggeun Yoo <donggeunyoo.kernel@gmail.com>,
 	stable@vger.kernel.org,
-	Brendan Higgins <brendan.higgins@linux.dev>,
-	David Gow <davidgow@davidgow.net>,
+	SJ Park <sj@kernel.org>,
 	damon@lists.linux.dev,
-	kunit-dev@googlegroups.com,
 	linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org,
 	linux-mm@kvack.org
-Subject: [PATCH v2 0/2] mm/damon/core: fix the size charged for a filter-trimmed region
-Date: Mon, 21 Sep 2026 08:24:40 -0700
-Message-ID: <20260921152443.80132-1-sj@kernel.org>
+Subject: [PATCH v2 1/2] mm/damon/core: charge only the part of a region the filter left
+Date: Mon, 21 Sep 2026 08:24:41 -0700
+Message-ID: <20260921152443.80132-2-sj@kernel.org>
 X-Mailer: git-send-email 2.47.3
+In-Reply-To: <20260921152443.80132-1-sj@kernel.org>
+References: <20260921152443.80132-1-sj@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -50,32 +50,44 @@ Content-Transfer-Encoding: 8bit
 
 From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
 
-An address range DAMOS filter that partially overlaps a monitoring region
-splits it, so the scheme action reaches only one side of the boundary.
-damos_apply_scheme() reads the region size before that split and never
-re-reads it, so the quota charge and schemes/<S>/stats/sz_tried account for
-the whole original region.
+An address range DAMOS filter that partially overlaps a monitoring
+region splits the region at the filter boundary, so the scheme action is
+applied to only one side of it.  damos_apply_scheme() reads the region
+size once on entry, before damos_core_filter_out() performs that split.
 
-Patch 1 re-reads the size after the core filters have run.  Patch 2 adds
-KUnit coverage for what the function charges and reports, for the trimmed
-cases and for the cases that must not change.
+The quota charge and the statistics update therefore account for the
+region as it was before the trim.  schemes/<S>/stats/sz_tried counts
+memory the filter excluded, which Documentation/mm/damon/design.rst says
+is not counted as tried, and with quotas/bytes set the excluded part is
+charged against the budget, throttling the scheme to a fraction of what
+was configured.
 
-Changes from v1
-- v1: https://lore.kernel.org/20260917003553.2465523-1-donggeunyoo.kernel@gmail.com
-- Add user impact clarification to patch 1.
-- Collec R-b: from SJ.
-- Rebase to the latest mm-new.
+User impact is that DAMOS could unexpectedly slowly run, due to
+over-charged quota.  DAMOS stat could also be confusing.  No critical
+events such as crashes or leask happen.
 
-Donggeun Yoo (2):
-  mm/damon/core: charge only the part of a region the filter left
-  mm/damon/tests/core-kunit: test the size charged for a filter-trimmed
-    region
+Re-read the region size after the core filters have run.
 
- mm/damon/core.c             |   1 +
- mm/damon/tests/core-kunit.h | 316 ++++++++++++++++++++++++++++++++++++
- 2 files changed, 317 insertions(+)
+Fixes: ab9bda001b68 ("mm/damon/core: introduce address range type damos filter")
+Cc: <stable@vger.kernel.org> # 6.6.x
+Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
+Reviewee-by: SJ Park <sj@kernel.org>
+Signed-off-by: SJ Park <sj@kernel.org>
+---
+ mm/damon/core.c | 1 +
+ 1 file changed, 1 insertion(+)
 
-
-base-commit: 99528f68cc4066167e5e7135c1172be1e6315102
+diff --git a/mm/damon/core.c b/mm/damon/core.c
+index 0aa5d0ea8ebc..4687b909d42c 100644
+--- a/mm/damon/core.c
++++ b/mm/damon/core.c
+@@ -2784,6 +2784,7 @@ static void damos_apply_scheme(struct damon_ctx *c, struct damon_target *t,
+ 		}
+ 		if (damos_core_filter_out(c, t, r, s))
+ 			return;
++		sz = damon_sz_region(r);
+ 		ktime_get_coarse_ts64(&begin);
+ 		trace_damos_before_apply(cidx, sidx, tidx, r, nr_accesses,
+ 				damon_nr_regions(t), do_trace);
 -- 
 2.47.3
