@@ -1,202 +1,130 @@
-Received: from m16.mail.126.com (m16.mail.126.com [117.135.210.8])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7E5AA3BB113;
-	Mon, 21 Sep 2026 13:35:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=117.135.210.8
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 806C749E5C3
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 13:35:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789997710; cv=none; b=sk6/g+76pCE3GUzvA4U8GLktzDq4L4Np0QEgEFc6UEBEUs7FQAdoKi5stgRbcUGhANyd8eysRKSD94fVMaWPvZEl951UXQP4MGsBhc6bbDmCPZHfTAdu/GAtH4TxHsKkizaUGkaE3rRLKnwvR1hvBC2Dcn8+6K/uwYHmdfbOvOA=
+	t=1789997719; cv=none; b=X/O17CMoGxKgzUFRoaJ1WIwsNega7cWqq9iGd2F04ajzDKY79w3b52PmPVWNFE6IrGwNRVNlQidG+GRT7sOMfcJQKtdK2X/Fsn7UUFajtXhrD772O3tjtBebsuEYs4twr+vowYXkvYbx0XYrpsDZdBCapI0I4lUZ8XkC0twxo30=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789997710; c=relaxed/simple;
-	bh=UWC88YrCSjuBEAYv6YmW2Vz2vGkRxAVkZItvmE4GaUI=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=H91PowNPO4WFj1603If/jH6GMiwpd0S2zF3RUWkE/3OmgxMGLy3fKSuqrDBa9af5jGqzbwXVKar3Ocl9qveQLJD5TaTjAMzZDnalp09wiXjonEqvZdOo00ushD3LMyuMZnWRQ60j89iXGVwx38kYNctvn0Wx7FHyBaHRM2JJe94=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com; spf=pass smtp.mailfrom=126.com; dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b=NaDMSG2A; arc=none smtp.client-ip=117.135.210.8
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=126.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=126.com
+	s=arc-20240116; t=1789997719; c=relaxed/simple;
+	bh=ipn9J1AKiN84NkJylbjZ9oiCnFcSJscw7ox8baA1whA=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=EEpB19wF9HyyyeaaC4MMw+2vrOe4YNPY9KEnERY/Tnx9cRlyV4Q/Yn5de5uo/obvTm/h8/+2JE/EskjbSt+hIQ7+cdLXDgWMOP1hidk9VmP0HqZE086yLR9Z/at2ERUGEYp1quSSmagDoueX5maNPlJTCHK8lGEhFEYEzNuJcfo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=h1pnj21b; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=126.com header.i=@126.com header.b="NaDMSG2A"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=126.com;
-	s=s110527; h=Message-ID:Date:MIME-Version:Subject:To:From:
-	Content-Type; bh=XEhYqIMshobqJ5nP45/is74QQI1p741fQ2FIDVZGPoY=;
-	b=NaDMSG2Ah0e/mu5fVfFCmB1PPXMamt0K5AvjyuxytV80IrdKdQxfCLh73J2dtS
-	ff4eHx5CkSICr1DosMBRsR8AQ+9UcmtREfQltqIk2tOtQ6Z/skzlw47RtlumAFaw
-	un/oJv6Qj5HA3ulhmRFwZLllgx5uKINrLFXXviUwvIjtI=
-Message-ID: <b6b2a6bb-e00c-4bcf-8359-525730c5ea33@126.com>
-Date: Mon, 21 Sep 2026 21:31:30 +0800
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="h1pnj21b"
+Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469e211a0so3288650b3a.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 06:35:17 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789997717; x=1790602517; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=6HMTTfwiTP+TLjbb68ILXXa62csqKyZR8DV98+2sV5Y=;
+        b=h1pnj21bcreIr9VSYa4z66X4eDF3NbUBhhuFD2txcUlSiqDUiaAuXJFwQoEyIQAms0
+         nMwDpR0BPSmYJu8EjOKkn/J6mt4bMoLdh9RFFeqk3IQJIBK0+B84K8tzy1kkdT6fSNfb
+         hrMI/oCt97BvbuuaKZyMRtcRbGKdkegmG1eaPEHT4OT5NrlAOSd0twkrZumWxbomuZT5
+         s6Qb8H/lFKQpDIxux82yHz7cn85PZQ9g2Jk+nQFaASYUViN/njy6GMV/CnK5xgmKIJ2W
+         7eutfF/2xhVaaLb80iUL3yVcpf8j0QhHZj7grwCPMzWq7v1giTawZGrFe5QDpfIgi2iO
+         mJtQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789997717; x=1790602517;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=6HMTTfwiTP+TLjbb68ILXXa62csqKyZR8DV98+2sV5Y=;
+        b=yr0r53IKXb97aRxJ1I5Fb00HceaStF9/88p9BZXGySau/xBMB+EIm9ZyQZMQ59TlIj
+         C2j8PHwnzEhqA332jh7oJxrGJcTjqF6dUpbhDQvejQXbCdUbsaJWqU6OoVN8dyykz1Ga
+         vSutD4N9GD1lgq1FVKZzxLQlAYj4q7f6OoOpSsQdzdxiQ810UTSm4mJpmDHk7FT2BIWQ
+         iVoCYZjI2R52XSmGVzbgvHdAj2Ze0DSfcnJPya1Nz7jYUKpK8/vhl/HjMuD2khC3NNa4
+         ixzrmCKS1hMmph14H6w0eKkNCIhsZNcvpZ2xr1AgLBSjZm85ew6Q1vpMDsyjr/XLxdaF
+         tvPQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzcRCiCv0AdJ+6hmYyvi8aLViwYR1yf67GKkcBhFdE3iiPPBSeRm8zewkbtYPgjcwrpo0AnJ4Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++n+g323EDPcYNGmO6lCt8aIB5M2kFxQTFIy0WMPV9H2c84Rq9g2
+	n4WDjIdHWo2efYY57W8AOVvNCbGU9z7niWQQkfbhdyGXfqHVudDeHuN0
+X-Gm-Gg: AYBFou11Zw251nw5PMLX+IrXVlyYgsab6vhNwo70NSrGiEnf9JsImOoLOnV5F3MACqe
+	M8yVs7HKWDBtJAWSBdDCutYYDBgv7F7ns8becMLyVW1x/GbXg+Npv0avFUzikAkUkGc9XTZZioR
+	W+LNhlOOkcsGyM8Y/AQaeiLUAdOpHK7Q6HNn1UyDP+Q4i88B/G9srviEbPHwmaYq5dW2hDc6Mxy
+	v21WBjenKRtFlR692OaMELmQf35yjpjefdDOPAqTEpRqaHqOuZamJFisrCgGk8p/0PM1cP8nepp
+	+JdFGz20ZenBRHd4uMIwWldmSwn537NL9flTnQIUALQHEnqIzQv5Oxi/DX7inqlIsqcG9B4R8hK
+	VlLn0V2wAQXRee3gW4sSK7hyR0Ddc3HBUzMPSocDI/ezCP6S9d4amxrxQV4tYm/lYTgMQ8d4lii
+	hp07nGDSgPkdpIU2UMJ94PyGA/UmXWcQSkDv5aAIPvVspX71neNkrUuwr1haNSpZ+/vJUjVVu8x
+	ksXwFy3XiGsdegKtA==
+X-Received: by 2002:a05:6a20:438c:b0:3dd:85a9:55b5 with SMTP id adf61e73a8af0-3dd8c5cba41mr18484822637.32.1789997716584;
+        Mon, 21 Sep 2026 06:35:16 -0700 (PDT)
+Received: from rigel (194-223-74-160.tpgi.com.au. [194.223.74.160])
+        by smtp.gmail.com with ESMTPSA id d2e1a72fcca58-877aa6fb40csm3318509b3a.58.2026.09.21.06.35.12
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 06:35:15 -0700 (PDT)
+Date: Mon, 21 Sep 2026 21:35:05 +0800
+From: Kent Gibson <warthog618@gmail.com>
+To: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>,
+	Linus Walleij <linusw@kernel.org>,
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>,
+	linux-gpio@vger.kernel.org, linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>
+Subject: Re: [PATCH v2] gpio: cdev: fix kernel stack leak to user-space in
+ error path
+Message-ID: <20260921133505.GA90171@rigel>
+References: <20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH net v2] net: stmmac: ethtool: validate TX coalesce before
- reprogramming RX
-To: netdev-bot+sashiko@kernel.org
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch,
- davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- xiaolinkui@kylinos.cn, stable@vger.kernel.org
-References: <20260920015647.1783574-1-xiaolinkui@126.com>
- <178995636352.2160803.2776927980309704252@kernel.org>
-Content-Language: en-US
-From: Linkui Xiao <xiaolinkui@126.com>
-In-Reply-To: <178995636352.2160803.2776927980309704252@kernel.org>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 8bit
-X-CM-TRANSID:_____wD3_+CzMbFqX1l4Bw--.17993S2
-X-Coremail-Antispam: 1Uf129KBjvJXoW3WF48ZFyfuF4rtFy5GF48Zwb_yoWxWF45pF
-	W5CFZrtw1ktrWFk3s7Ca18Wrya934fKFsxJw1rtr92k3W5uryYvr1fKr1jgFZ7Cr4kZw1j
-	kF4FqFZrCwn8A3DanT9S1TB71UUUUU7qnTZGkaVYY2UrUUUUjbIjqfuFe4nvWSU5nxnvy2
-	9KBjDUYxBIdaVFxhVjvjDU0xZFpf9x07UxDGOUUUUU=
-X-CM-SenderInfo: p0ld0z5lqn3xa6rslhhfrp/xtbBlRSAV2qxMbSNHQAA3Y
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com>
 
- > Thank you for your contribution! Sashiko AI review found 1 potential
- > issue(s) to consider.
- >
- > Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+On Mon, Sep 21, 2026 at 02:56:58PM +0200, Bartosz Golaszewski wrote:
+> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+> return immediately before zeroing the info struct we'll end up passing
+> to the user-space later in lineinfo_get_v1(). This may leak the kernel
+> stack contents. Make gpio_desc_to_lineinfo() return int so that the
+> -ENODEV returned on failure to acquire the guard can be propagated to
+> the callers.
+> 
+> While not strictly necessary: move the memset() before trying to acquire
+> the SRCU read lock too for good measure.
+> 
+> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+> Cc: stable@vger.kernel.org
+> Reported-by: Sashiko <sashiko-bot@kernel.org>
+> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
+> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+> ---
+> Changes in v2:
+> - Make gpio_desc_to_lineinfo() return an integer return value so that
+>   the error code returned in case of a failure to acquire the guard can
+>   be propagated down the stack
+> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
 
-Both issues are legitimate, thanks for the detailed analysis. v3 reworks
-the fix and adds a second patch; details inline.
+> @@ -2521,7 +2533,14 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
+>  
+>  	ctx->chg.event_type = action;
+>  	ctx->chg.timestamp_ns = ktime_get_ns();
+> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+> +
+> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+> +	if (ret) {
+> +		fput(fp);
+> +		pr_err("GPIO controller that generated the line info notification was removed\n");
+> +		return NOTIFY_DONE;
+> +	}
+> +
 
- > - [High] Incomplete fix: the TX validation relocated to the top of
- >   __stmmac_set_coalesce()...
- >
- > Does this reordering actually fix the per-queue case described in the
- > changelog? [...]
- > On a device with rx_queues_to_use > tx_queues_to_use (dwmac-intel
- > tgl_common_data sets 6 RX and 4 TX queues, so queues 4 and 5 are 
-RX-only),
- > does ethtool -Q ethX queue_mask 0x10 --coalesce rx-usecs N still return
- > -EINVAL here?
+Does resolving a race warrant an error?
 
-Yes, it still does. tgl_common_data() sets rx_queues_to_use = 6 and
-tx_queues_to_use = 4, __stmmac_get_coalesce() reports tx-usecs and
-tx-frames as 0 for index 4 and 5, ethtool feeds those zeros straight
-back into the setter and the relocated test rejects the request. v2
-changed when such a request fails, not whether it succeeds.
+Also, compared to the kzalloc_obj() error path earlier in the function, here
+you flip the order of the fput() and pr_err(). Is that significant?
 
- > If so, is the net effect for that queue not worse than before? 
-Previously
- > the RX watchdog and rx_riwt[]/rx_coal_frames[] were programmed and 
--EINVAL
- > was returned; now the early return means the RX part is never applied, so
- > per-queue RX coalescing on an RX-only queue index has no effect at all.
- >
- > There is a second consequence in the ethtool core. [...]
- > For an RX-only queue the saved backup necessarily carries 
-tx_coalesce_usecs
- > == 0 and tx_max_coalesced_frames == 0, so the new first check rejects the
- > replay before the RX block runs.  Can the RX watchdog and rx_riwt[] 
-of that
- > queue therefore stay at the values of the failed request after a 
-later queue
- > in the mask fails?
+Other than that, looks good to me.
 
-Correct on both counts, and the roll-back one is the more serious of the
-two: ethtool_set_per_queue_coalesce() discards the return code of the
-replay, so an early -EINVAL there silently leaves the RX watchdog of an
-already-applied queue at the value of the failed request.
-
- > Would making the validation direction-aware, so the TX checks only 
-apply when
- > all_queues || queue < tx_cnt and the rx_riwt check only when
- > all_queues || queue < rx_cnt (plus the getter reporting ~0 instead of 
-0 for
- > the inapplicable fields), address both directions rather than reordering
- > alone?
-
-That is what v3 patch 1/2 does, minus the getter change:
-
-	has_rx = all_queues || queue < rx_cnt;
-	has_tx = all_queues || queue < tx_cnt;
-
-	if (has_tx &&
-	    ec->tx_coalesce_usecs == 0 && ec->tx_max_coalesced_frames == 0)
-		return -EINVAL;
-
-	if (has_tx &&
-	    (ec->tx_coalesce_usecs > STMMAC_MAX_COAL_TX_TICK ||
-	     ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES))
-		return -EINVAL;
-
-	if (has_rx && priv->use_riwt) {
-
-has_rx also gates the application, so the "else if (queue < rx_cnt)"
-inside the RIWT block becomes a plain "else", and the TX store keeps its
-own has_tx test. All validation still runs before the first
-stmmac_rx_watchdog() call, so the property v2 was after is retained: a
-request is either applied completely or rejected without touching the
-device.
-
-The mirrored case is fixed by the same change. With use_riwt set and
-queue >= rx_cnt, has_rx is false, so stmmac_usec2riwt() is never asked
-to convert the rx-usecs 0 that the getter reported and the MIN_DMA_RIWT
-test no longer rejects per-queue TX requests for a TX-only index.
-tx_queues_to_use > rx_queues_to_use does not occur in the in-tree
-platform data - dwmac-intel is the other way round - but
-stmmac_probe_config_dt() parses snps,rx-queues-to-use and
-snps,tx-queues-to-use independently and clamps each one on its own, so
-DT can produce it.
-
-I left __stmmac_get_coalesce() reporting 0 rather than ~0. Once the
-setter ignores the inapplicable fields the read-modify-write round trip
-works either way, and ~0 would show up as 4294967295 in
-"ethtool --per-queue ... --show-coalesce" for the indices that print 0
-today. If the ~0 convention is wanted it should be a separate change,
-together with whatever displays it.
-
- > [Severity: High]
- > This isn't a bug introduced by this patch, but since the validation 
-is being
- > moved anyway, is the zero tx_max_coalesced_frames case worth handling 
-here
- > too? [...]
- > That is reached from stmmac_xdp_xmit_back() for XDP_TX and from
- > stmmac_xdp_xmit() for ndo_xdp_xmit, so does this divide by zero in 
-softirq
- > context on x86?
-
-The divide by zero is real and reachable. tx_coal_frames[] starts at
-STMMAC_TX_FRAMES in stmmac_init_coalesce() and can only become 0
-through ethtool, and dwmac-intel TGL/EHL is exactly the x86 platform
-where the modulo traps.
-
-The fix belongs in stmmac_xdp_xmit_xdpf() rather than in the setter,
-because tx-frames 0 is a supported request: it only stops the frame
-count from raising TX completion interrupts, while the coalescing timer
-that stmmac_xmit(), stmmac_tso_xmit(), stmmac_finalize_xdp_rx() and
-stmmac_xdp_xmit() arm through stmmac_tx_timer_arm() keeps reclaiming the
-descriptors. That is why those paths test the divisor - the test came
-with c2837423cb54 ("net: stmmac: Rework TX Coalesce logic") and was
-extended to the zero-copy path by 132c32ee5bc0 ("net: stmmac: Add TX via
-XDP zero-copy socket") - and why __stmmac_set_coalesce() rejects the
-request only when tx-usecs is zero as well, since then nothing would
-complete the transmissions. Rejecting tx-frames 0 outright would break
-that configuration.
-
-So v3 adds patch 2/2, giving stmmac_xdp_xmit_xdpf() the missing test,
-with be8b38a722e6 ("net: stmmac: Add support for XDP_TX action") as the
-Fixes tag.
-
- > The other TX sites do test for zero, but the guard and the divisor are
- > separate unannotated loads of the same plain u32 with no lock [...]
- > Can a concurrent ethtool store of 0 land between the guard and the modulo
- > reload?  Would a single READ_ONCE() snapshot per transmit path be
- > appropriate?
-
-In principle yes: nothing forces the two loads to observe the same
-value. They are adjacent in all four chains with no call or barrier in
-between, so compilers are likely to CSE them, but that is a favour and
-not a guarantee. Annotating it properly means one snapshot per transmit
-path plus WRITE_ONCE() on the stores in __stmmac_set_coalesce(), i.e. a
-conversion of all four sites at once, which does not belong in a stable
-fix. Patch 2/2 therefore uses the plain test that matches the existing
-three; I will send the READ_ONCE()/WRITE_ONCE() conversion separately if
-it is wanted.
-
-pw-bot: cr
-
+Cheers,
+Kent.
