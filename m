@@ -1,87 +1,46 @@
-Received: from www.nmnhosting.com (watt.d-silva.org [119.15.109.137])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 613D533E347;
-	Mon, 21 Sep 2026 09:18:08 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=119.15.109.137
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6FBF1342510;
+	Mon, 21 Sep 2026 09:18:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982292; cv=none; b=AhZrLUPTkaNLKsxrX57qekmxecpbDAEI55Tg66ZXBqvKQ5HjkTjYD7RpFceCc7eqvpuzSbSEdBT8fY5rVzBNoz8sU0LF/YTzs9pzsIxrP2+F2dAarwjgj8glSKHrD6/B98RybB5bg1J0/yCztDAC9g/VaeHPpJAfEHmS6DNyAAk=
+	t=1789982335; cv=none; b=BAf3Ww4dOZ4WXtI3pDQRGoJ+5AqCfAh02fhgPK1NJ9VYX+3yWuZZUx7bLB3cvkW4BUKlRlTHBuYWcb29uxZvmO7mM/RQUIXgMxXHjdmvvx9DfsviQGjDf5xVynY0EyCZBmCWU1GXQ4A35Nw4fH2mbtFL0ZkR5TUkvTb3W8TCtio=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982292; c=relaxed/simple;
-	bh=85y/0z1iTonA1/UenLD2541Ftfl31arO/GJG5ggZYf4=;
-	h=Message-ID:Subject:From:To:Cc:Date:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=U2tmgmaZGHrIC4shEbJjrB+LpF7frZ1azLcLymuMXaOueCh0meEQqmh0/hyzJZ6BHRmw84QBqgoY9Gj+zPhzgJerInVfazJZqEn/yRA5IkB8zGu62uxV+kawu+G7Sjze6nbYlsda2bl438pciD76BPulojP4kUIrhKO3M4VUynI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org; spf=pass smtp.mailfrom=d-silva.org; dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b=zYCJXt6c; arc=none smtp.client-ip=119.15.109.137
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=d-silva.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=d-silva.org
+	s=arc-20240116; t=1789982335; c=relaxed/simple;
+	bh=N+OY8rFnMbZOtOwYcFsNJ9QamJ09+L8WO+FMPL7VEcg=;
+	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
+	 Content-Type:MIME-Version; b=A7kbYR0IUIzi0OS9PcopS2d7gfUhsTByVYTU35rzkstzUjkE3RshOSJEmH+yAHK0tn9Q7xPHp3wefKCcAeXjVmLJyXjxsahP6FebTwdnjYeCnlxr1VEiZe5tibs0icvzFXCPyK+KXZ/bS5oDYe8txsz/326WWrXPyM4Ff2UPOsg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N3gh1nrC; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=d-silva.org header.i=@d-silva.org header.b="zYCJXt6c"
-Received: from hawking.lan (ntp.lan [10.0.1.1])
-	by www.nmnhosting.com (Postfix) with ESMTPSA id 9522B40168;
-	Mon, 21 Sep 2026 19:17:51 +1000 (AEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=d-silva.org; s=2025a;
-	t=1789982271;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references:autocrypt:autocrypt;
-	bh=D2GTRxbXMjywRSPQ1pkKGRQAf5vSn636H0p7D2nPk/I=;
-	b=zYCJXt6cRWyJTnrsNCYYpXcwxOUYpL6hmq5hxU4fPHz1ez4WwGF1VIYt/x61JYSHHIr2lR
-	KdfuL2n4RVGzLOvu7IPK2ZiOpqvj3Arcbe4xQ/2wmmzGH2U1htzW20NDLRU6+ZY+bqsDeg
-	4Kn6K+i830S98GxWyeXswCIQpit2xA0HnFVk9e40DESEkpNV3wI8PyOaWOv6lqlERSSpEK
-	VQZsjyYkeN43iUNlCJawksOy037NWLqEvFnkFsHNMr8wVlAqGB9cedISMC6PvHAJ6AGW3R
-	S8hMy06/JQIETlG3XTpNqCL2iC31nUuJNzoJ0LQO6uY+jgNJQKzJ/35JbQvJiQ==
-X-GPT-Reason: legitimate; This is a technical, professional email
-	regarding a Linux kernel driver patch ([PATCH] wifi: rtw88: sdio)
-	that aligns perfectly with the sender's identity (alastair@d-silva.org)
-	and the technical nature of the content; The message contains highly
-	specific engineering details about interrupt storms, register clearing
-	(w1c semantics), and hardware telemetry from a "mellow fly c5 board" which
-	is consistent with open-source kernel development; There are no
-	phishing indicators, no suspicious URLs, and the communication flow
-	appears to be a standard technical discussion between developers.
-Message-ID: <4662c1bbc73df10449a3925161979c130d94492b.camel@d-silva.org>
-Subject: Re: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
- storm
-From: Alastair D'Silva <alastair@d-silva.org>
-To: Ping-Ke Shih <pkshih@realtek.com>, Kalle Valo <kvalo@kernel.org>, Martin
- Blumenstingl <martin.blumenstingl@googlemail.com>
-Cc: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>, 
- "linux-kernel@vger.kernel.org"
-	 <linux-kernel@vger.kernel.org>, "stable@vger.kernel.org"
-	 <stable@vger.kernel.org>
-Date: Mon, 21 Sep 2026 19:17:51 +1000
-In-Reply-To: <5ff354336f4748b9bb45621dd899156a@realtek.com>
-References: <20260916040635.205094-1-alastair@d-silva.org>
-		 <ea3434d849b34a4286b0a193351a610e@realtek.com>
-		 <58a857e3b0614e2b9a520024b9932685@realtek.com>
-	 <919109e886399f09db41ef5800e7335440ed4971.camel@d-silva.org>
-	 <5ff354336f4748b9bb45621dd899156a@realtek.com>
-Autocrypt: addr=alastair@d-silva.org; prefer-encrypt=mutual;
- keydata=mQINBGactvoBEADBFM2HqfQUUM4j40ZQPyYzmnM8S6zrycO0ipDDPMs7nZMzyzGzOdqfS
- VB/tuYvZOOKVWzJuWJ5aT/YyHx54r3L+D5hTkEG0sXPVJky3yTS9sbHEMSLBHb8TVVuhPVPuieV4g
- Nkqg5POMTidk8xAw50WpV++tUlewXVSciehnuCQPXhXMP7FcCh4uO8LdN7E8m7ir1LafKTFfoWPah
- KVT8NGG9r+ucrFcN5F+VnHxTDaI68yRPkNdtUWmp22wIX1KwDCtKFrndYO4p5Hv2hlDKomsuIIHHn
- muQGRwuh0xpf0nVJNF8ETZHMzxQLfo3e/HvxBFOTkwY9w7CuuQFZchbhS0I3PfmGT0+jiNcdfqjDC
- fPPB5uhy+DkR6wO72vuwFYUrpU2mdliDSdKEtWBHulnXMJjpBOXetfIwhI8G2dTVg59lN5i9DvJZc
- 7y1Sp+qfZQ4P9qpYZyQEKR4GNDOdnm6F2LW2cZkcyAU/Ii765zdDMTQMIzZNSxT/FcDd0K1voTNRl
- QHbQw+kmIMhzSv2JefcC9oNbE0XYzcBDNP5T3O/4itOQ90GCKQEPAbIPeBjlQif7kkyvo/H6yv4s9
- duuK7zbJD9AID/+KGLkpU3p68VDB/C2ZSb9rQz3p1CJNSfsX/CPk7sPqA7RKZ4a2B0hSJ2pJCncNZ
- KXtMlkkm/FmewARAQABtCdBbGFzdGFpciBEJ1NpbHZhIDxhbGFzdGFpckBkLXNpbHZhLm9yZz6JAl
- EEEwEKADsWIQTQGemDFwqYyU/dBWv75AdnjVo60gUCZpy2+gIbAwULCQgHAgIiAgYVCgkICwIEFgI
- DAQIeBwIXgAAKCRD75AdnjVo60qHZEACJnLfpS71Hk8bX0CLCNJ5wgqdZD3pBHEdbv9Ux9kRlZp4a
- ZFwlg9ltwBjl2dZP3PLtD9xQdsdYKVippKd5a7ZZC2y81oDaHjeC9LnPYn8+ce3mGE/+gRyoNfToY
- N06DeUNJKSlZ9t11UIqZCgfp12u16/Yrigy8C4ihEeHXlLhNX6JkeJR5gsHXJnC7vSuMZY+Qz2R72
- ZidWg+cd2WDMGop5sbTvc+55q94A7vTMlWzaix5HdbEUA3sd2U0dMBju5QodRGGhDQMcCu64TydRD
- MtMzzOk9ThJ036ze3HASWGOppyQmaw58k+XNzbHlr9Sc1LsFUNF7zpWXac2rzlywbyRAdFIT/TC76
- hy9zOkwIo2nwA/tdIwLx1j0UZPpAMQmcDUvJqZh6sE+fv6HN0yMPr+sSYJmriMt8Z6leCEHQXOHVI
- SI5z5FvV3coMmHYRq6aXpfs/8SLiYgkV3B0HE/E18Y3j1OkeLYoqIH1VfzQZeCSL/S77NYvk60/MV
- 1HFSyqLdUR3uWZI4uZzoEcMoB0GX33uCTp2Ntc00+wSntwekCUQLCMLUb7dZrbpVuobHoWWtkiD2I
- uE5kAiaVwwwzM0BUwiM6VzVoKbeECz93rdsNtwoDqM0NtzoISC46H/BKVQ9mRNXDO4ThEBpJ4H2Tn
- mPNRYYcR0u2mNy1EJII04w==
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
-User-Agent: Evolution 3.56.2-9 
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N3gh1nrC"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7FC011F000FF;
+	Mon, 21 Sep 2026 09:18:53 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982334;
+	bh=4LTxXwJunFmJBawEuCWVJyl2m7VBlJtDjZw63HpFowk=;
+	h=Subject:From:To:Cc:Date:In-Reply-To:References;
+	b=N3gh1nrCxfv1UbY6Qdvz/HPiDSDf4H5HtjG14cJNtkFmtZ5Z2rdyMP/YBxNSWSNwH
+	 x80mnWnrIC5QHo0IJ5Pg2w+Dyy4GdpnQqkLXhztijOCCKYxF1W9BR1DgC9Ni6LzeOJ
+	 IEbO36dCsEzvGZqtNRxZP2cVxShcdrJrmm1vX/o0r1xVJdW3rfwkBGy3jVGO2lFSaW
+	 ofQyZY5p1b+8W8dmeoCg7EXVvyiztmbWnnYGxnP9nvUwRBRP8eMJisc488DSG8vEDd
+	 o1LxFcYJiBxDRpJhvSmKHB6E4bouUvbsk0FG5me0vT7OT3MKjbTV946rdDWtR43HZh
+	 YURT8DLMF5U9Q==
+Subject: Re: [PATCH net 1/2] net: ngbe: propagate resume errors to the PM core
+From: netdev-bot+sashiko@kernel.org
+To: zhangyunfei1@kylinos.cn
+Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com, mengyuanlou@net-swift.com,
+ andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+ kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com,
+ leitao@debian.org, weirongguang@kylinos.cn, u.kleine-koenig@baylibre.com,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Date: Mon, 21 Sep 2026 09:18:53 +0000
+Message-ID: <178998233302.2160803.12428550394082304742@kernel.org>
+In-Reply-To: <20260917090050.1927999-2-zhangyunfei1@kylinos.cn>
+References: <20260917090050.1927999-2-zhangyunfei1@kylinos.cn>
+X-sashiko-severity: High
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 8bit
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -89,274 +48,253 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 
-On Mon, 2026-09-21 at 02:44 +0000, Ping-Ke Shih wrote:
-> Alastair D'Silva <alastair@d-silva.org> wrote:
-> > On Thu, 2026-09-17 at 09:09 +0000, Ping-Ke Shih wrote:
-> > > Ping-Ke Shih wrote:
-> > > >=20
-> > > > Hi Martin,
-> > > >=20
-> > > > Alastair D'Silva <alastair@d-silva.org> wrote:
-> > > > > In rtw_sdio_handle_interrupt(), the HISR status register is
-> > > > > cleared using
-> > > > > Write-1-to-Clear (W1C) semantics. However, the driver masks out
-> > > > > the
-> > > > > REG_SDIO_HISR_RX_REQUEST bit in the local 'hisr' variable before
-> > > > > writing
-> > > > > it back, causing a 0 to be written to that bit.
-> > > >=20
-> > > > I feel this patch makes sense.
-> > > >=20
-> > > > Did you remember why you clear the bit locally? Can you share
-> > > > vendor
-> > > > driver you referenced?
-> > > >=20
-> > >=20
-> > > I asked internal expert who said this bit will be cleared
-> > > automatically
-> > > if all packets in RX buffer are received. If we clear this bit here,
-> > > the interrupt will not raise again if no newly incoming packet even
-> > > there are remaining packets in RX buffer.
-> > >=20
-> > > Checking rtw_sdio_rx_isr(), we can see it reads hisr for each
-> > > iteration,
-> > > which this is also the evidence that the bit will be cleared
-> > > automatically.
-> > >=20
-> > > Therefore, we need to dig further why the RX buffer can't be empty
-> > > and get stuck.
-> > >=20
-> > > Ping-Ke
-> > >=20
-> >=20
-> > Hi Ping-Ke and Martin,
-> >=20
-> > Thank you for following up and consulting with the internal hardware
-> > team. We have extensive test telemetry and logs from our bring-up of
-> > the Mellow Fly-C5 board in Armbian that provide full context on this
-> > issue.
-> >=20
-> > 1. Test Platform & Failure Telemetry:
-> > -------------------------------------
-> > - Hardware: Mellow Fly-C5 (Allwinner H618 SoC, sun50i-h618).
-> >=20
-> > - Wi-Fi Chip: Onboard Realtek RTL8821CS connected over SDIO (mmc1 /
-> > sunxi-mmc).
-> >=20
-> > - Kernels: Tested on mainline Linux 6.18 and 7.x branches using
-> > rtw88_8821cs.
-> >=20
-> > - Reproduction: On stock mainline kernels, immediately upon interface
-> > bring-up and association (wlan0: associated), the CPU core servicing
-> > the SDIO IRQ became 100% pegged in an interrupt storm, triggering RCU
-> > stalls:
-> > =C2=A0=C2=A0=C2=A0 rcu: INFO: rcu_preempt detected stalls on CPUs/tasks=
-:
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 0-..=
-.0: (1 GPs behind) idle=3D... softirq=3D...
-> > =C2=A0=C2=A0=C2=A0 rcu: rcu_preempt kthread starved for 5126 jiffies!
->=20
-> Does it mean even if RX buffer is empty, interrupt is still triggered?
->=20
-> >=20
-> > - Verification: With this patch applied (leaving
-> > REG_SDIO_HISR_RX_REQUEST set so W1C acknowledges it), the board
-> > completed 100/100 consecutive reboots under active network traffic
-> > (continuous ping, SSH, Moonraker HTTP) with zero RCU stalls and zero
-> > packet loss.
-> >=20
-> >=20
-> > 2. Why the bit was cleared locally (Vendor driver reference):
-> > -------------------------------------------------------------
-> >=20
-> > In Realtek's vendor drivers (such as rtl8822bs and rtl8723ds):
-> > - In hal/rtl8822b/sdio/rtl8822bs_io.c:
-> > =C2=A0=C2=A0=C2=A0 if (phal->sdio_hisr & BIT_RX_REQUEST_8822B) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* No need to write 1 clear =
-for RX_REQUEST */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 phal->sdio_hisr ^=3D BIT_RX_=
-REQUEST_8822B;
-> > - In include/hal_com_reg.h:
-> > =C2=A0=C2=A0=C2=A0 MASK_SDIO_HISR_CLEAR explicitly excludes SDIO_HISR_R=
-X_REQUEST.
-> >=20
-> > Martin appears to have ported this comment and software-clearing
-> > convention directly into rtw88_sdio_handle_interrupt().
->=20
-> Thanks for the info. It looks like every SDIO chip does the same thing.
->=20
-> >=20
-> >=20
-> > 3. Difference between 8051 and 3081 chips in rtw_sdio_rx_isr():
-> > ---------------------------------------------------------------
-> >=20
-> > Regarding the observation that rtw_sdio_rx_isr() re-reads HISR in each
-> > iteration:
-> >=20
-> > Notice that in rtw_sdio_rx_isr() (sdio.c:1057-1073):
-> > =C2=A0=C2=A0=C2=A0 if (rtw_chip_wcpu_8051(rtwdev)) {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hisr =3D rtw_read32(rtwdev, =
-REG_SDIO_HISR);
-> > =C2=A0=C2=A0=C2=A0 } else {
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 /* RTW_WCPU_3081 chips have =
-improved hardware or
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 * firmware and can use=
- rx_len unconditionally.
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 */
-> > =C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0=C2=A0 hisr =3D REG_SDIO_HISR_RX_RE=
-QUEST;
-> > =C2=A0=C2=A0=C2=A0 }
-> >=20
-> > RTL8821CS (and RTL8822C/B) has wlan_cpu =3D=3D RTW_WCPU_3081. For 3081
-> > chips, rtw_sdio_rx_isr() never actually reads REG_SDIO_HISR! It sets
-> > hisr to REG_SDIO_HISR_RX_REQUEST unconditionally and loops purely based
-> > on REG_SDIO_RX0_REQ_LEN.
->=20
-> Indeed. I also found that after sending previous mail...
->=20
-> >=20
-> >=20
-> > 4. The RX buffer IS empty when the storm occurs:
-> > ------------------------------------------------
-> >=20
-> > The buffer is not getting stuck with unread data. In our testing:
-> >=20
-> > - rtw_sdio_rx_isr() drains all available packets until
-> > REG_SDIO_RX0_REQ_LEN reads as 0, and then breaks out of the loop.
-> >=20
-> > - rtw_sdio_handle_interrupt() then writes back to REG_SDIO_HISR with
-> > =C2=A0 REG_SDIO_HISR_RX_REQUEST masked out (writing 0).
-> >=20
-> > - Because the bit was not cleared in hardware via W1C (and was not
-> > automatically de-asserted by hardware when rx_len reached 0), the SDIO
-> > host controller sees the IRQ line still asserted and immediately re-
-> > invokes the handler.
-> >=20
-> > - On re-entry, REG_SDIO_HISR_RX_REQUEST is still 1, but
-> > REG_SDIO_RX0_REQ_LEN is 0. rtw_sdio_rx_isr() immediately breaks out,
-> > hisr writes 0 again, and the CPU is trapped in a 100% spin loop.
->=20
-> This answers my question above.
->=20
-> >=20
-> >=20
-> > 5. Effect on future interrupts:
-> > -------------------------------
-> >=20
-> > Regarding the internal expert's concern that clearing the bit prevents
-> > future interrupts: in our testing, writing 1 to clear
-> > REG_SDIO_HISR_RX_REQUEST after the FIFO is drained did NOT prevent
-> > subsequent RX interrupts. When new packets arrived over the air, the
-> > hardware asserted REG_SDIO_HISR_RX_REQUEST again normally.
-> >=20
-> > If there is concern about edge cases (such as hitting the 64KB
-> > total_rx_bytes limit before the FIFO is completely empty), would it be
-> > acceptable to only clear REG_SDIO_HISR_RX_REQUEST if
-> > REG_SDIO_RX0_REQ_LEN reads 0, or re-read REG_SDIO_HISR at the end of
-> > rtw_sdio_rx_isr()?
->=20
-> I guess there is a racing between W1C REG_SDIO_HISR_RX_REQUEST and
-> REG_SDIO_RX0_REQ_LEN =3D=3D 0.
->=20
-> With a suggestion from internal, if we want to disable the RX request,
-> the better way is to disable/enable it by IMR. The corresponding=20
-> functions are:
->=20
-> =C2=A0=C2=A0 rtw_sdio_enable_interrupt()
-> =C2=A0=C2=A0 rtw_sdio_disable_interrupt()
->=20
-> To avoid interrupt storm, I personally suggest to combine NAPI, which
-> disable interrupt when it processes RX budget (I think we can W1C
-> REG_SDIO_HISR_RX_REQUEST by the way). If (RX) budget is full, it can
-> poll again by estimated time. Until budget is not full, it re-enable
-> interrupt.=20
->=20
-> Ping-Ke
+Thank you for your contribution! Sashiko AI review found 2 potential
+issue(s) to consider.
 
-Thanks for the feedback.
+Critical: 0 · High: 1 (1) · Medium: 1 (2) · Low: 0
 
-Regarding using NAPI and IMR: While NAPI and IMR masking is the standard ap=
-proach for PCIe,
-implementing true NAPI for the SDIO interface is problematic. napi_poll run=
-s in NET_RX_SOFTIRQ
-context (which cannot sleep), but reading from the SDIO bus requires sdio_c=
-laim_host(), which takes
-a mutex and must be able to sleep.
+If you believe none of the issues are legitimate, please reply to each
+issue of Medium severity or higher and explain why the AI is wrong.
+If any of them are legitimate and you plan to respin, please let patchwork
+know by including "pw-bot: cr" as a separate line at the end of your reply
+(one such reply per series is enough).
 
-Fortunately, the kernel's MMC core already runs sdio_irq_thread in process =
-context specifically to
-handle this. If we simply leave the REG_SDIO_HISR_RX_REQUEST bit asserted i=
-n hardware (by
-conditionally skipping the W1C), the sdio_irq_thread acts exactly like a NA=
-PI polling loop. It will
-immediately re-invoke our handler in the next cycle, yielding to the schedu=
-ler as needed, but safely
-in process context.
+- [High] ngbe_resume() still discards the return value of ngbe_reset_hw()
+  (drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:971:…
+- [Medium] Commit message overstates what the patch achieves: "A failed
+  resume then becomes visible to the PM core and the device can be re-…
 
-This achieves the budget-limited polling you suggested, but avoids the heav=
-y overhead of extra SDIO
-bus transactions to toggle the IMR on and off.
+Pre-existing issues:
+- [High] After a failed resume (either wx_init_interrupt_scheme() or
+  ngbe_open() failing in ngbe_resume(), ngbe_main.c:973-976) the netdev…
+- [Medium] The same 'swallowed resume error' defect exists in the shared
+  libwx VF resume helper wxvf_resume()…
+- [Medium] ngbe_open()'s error path — the path whose failure this patch
+  now surfaces from ngbe_resume() — frees the Rx/Tx descriptor rings,…
 
+--
 
-Before I spin a V2 and run through my testing, can you please confirm this =
-aligns with what you were
-expecting?
+net: ngbe: propagate resume errors to the PM core
 
-diff --git a/drivers/net/wireless/realtek/rtw88/sdio.c b/drivers/net/wirele=
-ss/realtek/rtw88/sdio.c
-index 5b40d74b16ee..933e51a980a8 100644
---- a/drivers/net/wireless/realtek/rtw88/sdio.c
-+++ b/drivers/net/wireless/realtek/rtw88/sdio.c
-@@ -1037,7 +1037,16 @@ static void rtw_sdio_rxfifo_recv(struct rtw_dev *rtw=
-dev, u32 rx_len)
- 	}
- }
-=20
--static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
-+/**
-+ * rtw_sdio_rx_isr() - Process RX packets from SDIO hardware buffer
-+ * @rtwdev: The rtw88 device context
-+ *
-+ * Reads packets from the hardware RX FIFO until the buffer is empty or th=
-e
-+ * 64K packet budget is reached.
-+ *
-+ * Return: true if packets are still pending (budget reached), false other=
-wise.
-+ */
-+static bool rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- {
- 	u32 rx_len, hisr, total_rx_bytes =3D 0;
-=20
-@@ -1072,6 +1081,8 @@ static void rtw_sdio_rx_isr(struct rtw_dev *rtwdev)
- 			hisr =3D REG_SDIO_HISR_RX_REQUEST;
- 		}
- 	} while (total_rx_bytes < SZ_64K && hisr & REG_SDIO_HISR_RX_REQUEST);
-+
-+	return rx_len > 0;
- }
-=20
- static void rtw_sdio_handle_interrupt(struct sdio_func *sdio_func)
-@@ -1091,8 +1102,14 @@ static void rtw_sdio_handle_interrupt(struct sdio_fu=
-nc *sdio_func)
- 	if (hisr & REG_SDIO_HISR_TXERR)
- 		rtw_sdio_tx_err_isr(rtwdev);
- 	if (hisr & REG_SDIO_HISR_RX_REQUEST) {
--		hisr &=3D ~REG_SDIO_HISR_RX_REQUEST;
--		rtw_sdio_rx_isr(rtwdev);
-+		bool rx_pending =3D rtw_sdio_rx_isr(rtwdev);
-+
-+		/* If budget was reached and packets are still pending, do not W1C
-+		 * the RX_REQUEST bit. This leaves the hardware IRQ asserted,
-+		 * causing sdio_irq_thread to poll again like a NAPI loop.
-+		 */
-+		if (rx_pending)
-+			hisr &=3D ~REG_SDIO_HISR_RX_REQUEST;
- 	}
-=20
- 	rtw_write32(rtwdev, REG_SDIO_HISR, hisr);
---=20
-2.53.0
+This changes err in ngbe_resume() from u32 to int and returns err instead
+of a hardcoded 0, so that failures from wx_init_interrupt_scheme() or
+ngbe_open() reach the PM core. The pci_enable_device_mem() failure path at
+the top of the function already propagated its error.
 
---=20
-Alastair D'Silva
+A few questions about the changelog and about what happens on the newly
+reachable failure return.
+
+The commit message says:
+
+> Fix the type to int and return err, making the tail of the resume
+> path consistent with the pci_enable_device_mem() failure path at
+> the top, which already propagates its error. A failed resume then
+> becomes visible to the PM core and the device can be re-probed.
+
+[Severity: Medium]
+Is the "the device can be re-probed" part accurate?  For the legacy PCI
+.resume hook, the return value ends up in device_resume():
+
+drivers/base/power/main.c:device_resume() {
+	...
+	if (error) {
+		WRITE_ONCE(async_error, error);
+		dpm_save_failed_dev(dev_name(dev));
+		pm_dev_err(dev, state, async ? " async" : "", error);
+	}
+	...
+}
+
+That records and logs the failure, but there is no unbind, no re-probe and
+no retry.  ngbe_resume() also does no rollback on the error return: no
+pci_disable_device(), no wx_clear_interrupt_scheme(), and the netdev stays
+detached while still IFF_UP.
+
+So the user-visible state described earlier in the changelog ("the netdev
+never appears in the networking stack again ... the device cannot
+self-heal") looks unchanged by this patch, with one extra dmesg line as the
+only difference.  Could the last sentence be reworded to claim only what
+the code does?
+
+> diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> index 855dc963c610c..6d8289e2532d0 100644
+> --- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> +++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
+> @@ -954,7 +954,7 @@ static int ngbe_resume(struct pci_dev *pdev)
+>  {
+>  	struct net_device *netdev;
+>  	struct wx *wx;
+> -	u32 err;
+> +	int err;
+>  
+>  	wx = pci_get_drvdata(pdev);
+>  	netdev = wx->netdev;
+
+[Severity: High]
+Does the same "silently swallowed" case still exist a few lines further
+down in this function?  ngbe_resume() calls ngbe_reset_hw() without
+capturing the result, and the next statement overwrites err:
+
+	ngbe_reset_hw(wx);
+	rtnl_lock();
+	err = wx_init_interrupt_scheme(wx);
+
+ngbe_reset_hw() in ngbe_hw.c has two real error exits:
+
+	ret = wx_stop_adapter(wx);
+	if (ret != 0)
+		return ret;
+	...
+		if (ret) {
+			wx_err(wx, "Lan reset exceed s maximum times.\n");
+			return ret;
+		}
+
+On those exits ngbe_reset_misc(), wx_clear_hw_cntrs(), wx_get_mac_addr(),
+wx_init_rx_addrs() and pci_set_master() are all skipped.  Execution in
+ngbe_resume() continues anyway, wx_init_interrupt_scheme() and ngbe_open()
+usually succeed (or ngbe_open() is skipped when the interface is
+administratively down), so err is 0, netif_device_attach() runs, and the
+new return err reports success even though the MAC never acknowledged the
+LAN reset and the MAC/Rx address state was not restored.
+
+ngbe_probe() treats the same call as fatal:
+
+	err = ngbe_reset_hw(wx);
+	if (err) {
+		dev_err(&pdev->dev, "HW Init failed: %d\n", err);
+		goto err_free_mac_table;
+	}
+
+Should the resume path check it too, so the bug class this patch targets is
+actually closed for the whole function?
+
+> @@ -977,7 +977,7 @@ static int ngbe_resume(struct pci_dev *pdev)
+>  		netif_device_attach(netdev);
+>  	rtnl_unlock();
+>  
+> -	return 0;
+> +	return err;
+>  }
+
+[Severity: High]
+This isn't a bug introduced by this patch (the pre-patch code reached the
+same state, just with err discarded), but what state is the device left in
+after this new failure return, and can a later ndo_stop oops?
+
+After wx_init_interrupt_scheme() or ngbe_open() fails here, ngbe_open() was
+called directly rather than through dev_open(), so __LINK_STATE_START stays
+set and netif_running() remains true, while the datapath resources are
+already released.  WX_STATE_RES_FREED, the only guard ngbe_close() has for
+"resources already released", is clear: it is set only by
+ngbe_down_suspend() and cleared by ngbe_up_complete().
+
+ngbe_close() {
+	if (test_bit(WX_STATE_RES_FREED, wx->state))
+		goto out;
+
+	wx_ptp_stop(wx);
+	ngbe_down(wx);
+	wx_free_irq(wx);
+	...
+}
+
+So the next ip link set dev X down, further suspend via
+ngbe_dev_shutdown(), or ngbe_remove() -> unregister_netdev() runs the full
+teardown a second time over released objects:
+
+ngbe_close() -> ngbe_down() -> wx_clean_all_rx_rings() -> wx_clean_rx_ring()
+	/* Zero out the descriptor ring */
+	memset(rx_ring->desc, 0, rx_ring->size);
+
+rx_ring->desc was set to NULL by wx_free_rx_resources() while
+rx_ring->size stays non-zero, so this is a write through NULL.
+
+When wx_init_interrupt_scheme() was the failing call, the ring loops also
+dereference NULL, since wx_set_num_queues() restored num_tx_queues while
+the suspend-time wx_clear_interrupt_scheme() left every ring pointer NULL:
+
+wx_clean_all_tx_rings() {
+	for (i = 0; i < wx->num_tx_queues; i++)
+		wx_clean_tx_ring(wx->tx_ring[i]);
+}
+
+And wx_free_irq() would call free_irq() for an IRQ that is not registered
+("Trying to free already-free IRQ" warning).  Would it make sense to unwind
+the resume failure here, or to set WX_STATE_RES_FREED on this path?
+
+[Severity: Medium]
+This is a pre-existing issue, but the failure that this patch now surfaces
+comes from ngbe_open(), whose error path frees the Rx/Tx descriptor rings,
+the page-pool pages and the ISB coherent buffer without stopping the
+hardware that wx_configure() just armed:
+
+ngbe_open() {
+	...
+	wx_configure(wx);
+
+	err = ngbe_request_irq(wx);
+	if (err)
+		goto err_free_resources;
+	...
+err_free_resources:
+	wx_free_isb_resources(wx);
+	wx_free_resources(wx);
+	...
+}
+
+wx_configure() -> wx_configure_rx_ring() programs the ring base addresses,
+enables the queue and posts buffers:
+
+	wr32(wx, WX_PX_RR_BAL(reg_idx), rdba & DMA_BIT_MASK(32));
+	wr32(wx, WX_PX_RR_BAH(reg_idx), upper_32_bits(rdba));
+	...
+	wr32m(wx, WX_PX_RR_CFG(reg_idx), WX_PX_RR_CFG_RR_EN, WX_PX_RR_CFG_RR_EN);
+	wx_enable_rx_queue(wx, ring);
+	wx_alloc_rx_buffers(ring, wx_desc_unused(ring));
+
+and wx_configure_isb() writes WX_PX_ISB_ADDR_L/H with wx->isb_dma.  The
+error labels only free memory: there is no ngbe_down(), wx_stop_adapter(),
+wx_disable_rx() or wx_disable_rx_queue(), and no re-reset, so RXEN, the
+per-queue enables and the stale descriptor/ISB base addresses stay
+programmed with bus mastering on while the memory is released.
+
+Can the Rx engine write into those released page-pool pages afterwards?  I
+could not confirm that frames arrive in this window, since phylink_start()
+is only reached from ngbe_up_complete(), so the link may still be down.
+Would a stop/reset in the ngbe_open() error path be worth adding while this
+path is being made reachable through a reported resume failure?
+
+>  
+>  static struct pci_driver ngbe_driver = {
+
+[Severity: Medium]
+This isn't a bug introduced by this patch, but was the sibling VF resume
+helper considered?  wxvf_resume() in libwx/wx_vf_common.c has the same
+pattern this patch removes from ngbe_resume():
+
+int wxvf_resume(struct device *dev_d)
+{
+	...
+	pci_set_master(pdev);
+	wx_init_interrupt_scheme(wx);
+	netif_device_attach(wx->netdev);
+
+	return 0;
+}
+
+The wx_init_interrupt_scheme() return value is dropped, the netdev is
+attached regardless, and 0 is returned.  That helper is the system-sleep
+resume callback for both ngbevf and txgbevf:
+
+	static DEFINE_SIMPLE_DEV_PM_OPS(ngbevf_pm_ops, wxvf_suspend, wxvf_resume);
+	static DEFINE_SIMPLE_DEV_PM_OPS(txgbevf_pm_ops, wxvf_suspend, wxvf_resume);
+
+The VF case looks worse than the PF one, because wxvf_suspend() calls
+wx_clear_interrupt_scheme() (rings NULLed, queue counts zeroed) and
+wxvf_resume() attaches the netdev even when the interrupt scheme was not
+re-established.  Should the two implementations of the same resume contract
+be fixed together, or is there a reason the VF path is left as is?
+
+-- 
+Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917090050.1927999-1-zhangyunfei1%40kylinos.cn
