@@ -1,44 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9D6654AC156;
-	Mon, 21 Sep 2026 15:10:15 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 32CAD4AC142;
+	Mon, 21 Sep 2026 15:10:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003416; cv=none; b=sMIfavJoa/YGNFvtvaMDW9uxrgsvSpw5j4AYv/3FlZan9OUpidJHroLlfMtEyASLMEkm/EZSl8YOdx21cMTXiThd/13b+aELzz0p0cxCAP3Q4gUfOvHYOcRQYH/7mBtxie9d19TSLTF+Fr3n2RjUd1Snv5AQSei1a9mKoGUW5lQ=
+	t=1790003427; cv=none; b=ClAIWfJ+D1icP9mxp5i54JskZoo9XzuUmMQ9+pMz9FHP/w1L9DGdr1tNehqlEZKF88zd0YfDiOqcdEz+FPLInojt34ZYek/+ZGG2T80SZzKux2Ysl6RMwIsIB3jadJJdHykxg+SqceZqlZFQojwQW8NoSY4AunVtxw6b+rzK9lE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003416; c=relaxed/simple;
-	bh=5P2r+m8kOxivxZ/Nim2W/Zh1JnqOL5mQoSfThrcpGzM=;
+	s=arc-20240116; t=1790003427; c=relaxed/simple;
+	bh=Ib+Qh8ORlDDCdZsS7BwH7LaX9Xj4VQLNze4+U/RZEx0=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=iOUVQVIg7VZ8aF2xu6cuLza7zn+aAR1M6MtAy/ufIS85hzZUhT/5b8Zrolf/xa4LP80xuih2fzkP1SAP6XVCQ8MFLpctXoH4QDxesYxsUzs+/EKEaB4VfncI6Yr3CyCKhgvxDVifvVguU0KEt8XYSHoIObAw+quRI/K7PnPkdFc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=N5MMX7Jk; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=GtWf/9reeLP7xrZCehNd+IKSFLVLoRwH3tcWzYSCfZxNFqjrvBSB0j7TubO+XvwkVJn5rRHYRmkx2IeWp6K8i35flPDL0R75IcMRAT+rOzrTN42s9oWSRHx2BfIWnKlC1hz9p+QhYLZ8aXOl7C5nfy9g8MURttkliUMHqtk4CCw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FzrK8ImN; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="N5MMX7Jk"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 9220E1F000FF;
-	Mon, 21 Sep 2026 15:10:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FzrK8ImN"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 566471F000FF;
+	Mon, 21 Sep 2026 15:10:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003415;
-	bh=lmzIA7sdnSc0PUXAahAHGXSbEM3vgCD2ilM41a4Tj98=;
+	s=k20260515; t=1790003426;
+	bh=7J60WjR8ZiZoP8MIhOK/ME0rM6FOmnZtVQtbJTUj+RM=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=N5MMX7JkLTXG2cJ7BLjw0I00zZ0YmChrV+NfFGebyzJj+A+OWN2V3KmqUbPj9FWpt
-	 CLKpwPIlGDBxO2ZKVIxCTkcx61ZRPIWibIMy1CK4BGLv0zgjmbhvgO7F6756Z5Gm6S
-	 PtkIze/Zz5HIb2E7l+hJ8LKQuURV8l6/5+caERhI2RBoaVhExAKgcyCk7OYokc9Cad
-	 fo7hGc9lrnwsmiwihqx54cVBQj8wK5DZ3hUP2wFJCMVSzbVjMd1QJuF3B3OfNwUFfy
-	 zX0x389yo2uD7q//HvdP6naAx/qsjfVdr4juXorqbYeBEr6fTM3OHoVDUTdkP6IEja
-	 jzfUuXASH8NMg==
-Date: Mon, 21 Sep 2026 17:10:11 +0200
+	b=FzrK8ImNHGUge0aBlL7OjNPSTGdqRpBjSME0gBLaksiN76AB+VtA+v+65Q3mPiRdh
+	 5dcyLrcCrEgaaqfmtGsfeahdd6hz9m7IflnN3tj5oxEhsKVVlrfy1jR6+WynW9QxBi
+	 9NQkuP7L3iMf6FplmPmkdBjT78Juz2gyoYgp8Ix2dFotmcceX2UXjyDNXeWoRPVXYx
+	 ZhgzJ+bKzwBTfMR+H2eOzHPjagDfzM72G2cKx7Qogt4xHMga0ubL+Lsccsx8Y96IZe
+	 ET+xMULfHudHUhvN0jRte7D5nVOnSSWyAN0gCcrN9KQ38bXYtxOodlAtiUNL/aQ4Zt
+	 ZtQ7J+WZfyMTw==
+Date: Mon, 21 Sep 2026 17:10:20 +0200
 From: krzk@kernel.org
 To: Hui Peng <benquike@gmail.com>
-Cc: Paolo Abeni <pabeni@redhat.com>, 
-	Matt Johnston <matt@codeconstruct.com.au>, Eric Dumazet <edumazet@google.com>, netdev@vger.kernel.org, 
-	"David S . Miller" <davem@davemloft.net>, Jakub Kicinski <kuba@kernel.org>, 
-	Simon Horman <horms@kernel.org>, Jeremy Kerr <jk@codeconstruct.com.au>, stable@vger.kernel.org, 
+Cc: Johan Hovold <johan@kernel.org>, 
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, stable@vger.kernel.org, linux-usb@vger.kernel.org, 
 	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH net v2] mctp: route: iterate socket tag list in
- mctp_lookup_prealloc_tag()
-Message-ID: <arFI0qPXFTdV52yI@quoll>
-References: <159f68ef9444f8b44a6d5764de8696f094fa889d.camel@codeconstruct.com.au>
- <20260921051002.1656692-1-benquike@gmail.com>
+Subject: Re: [PATCH v4] USB: serial: garmin_gps: validate packet data length
+ in nat_receive()
+Message-ID: <arFI23YXe84v95DK@quoll>
+References: <20260919112819.3885778-1-benquike@gmail.com>
+ <2026092059-hacking-coveting-c629@gregkh>
+ <20260921030236.1040858-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -47,41 +46,86 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921051002.1656692-1-benquike@gmail.com>
+In-Reply-To: <20260921030236.1040858-1-benquike@gmail.com>
 
 
-On Mon, 21 Sep 2026 05:10:01 +0000, Hui Peng wrote:
-> When a socket transmits a packet with MCTP_TAG_PREALLOC set,
-> mctp_lookup_prealloc_tag() iterates over the per-netns &mns->keys list
-> and matches netid, req_tag, peer_addr, and manual_alloc, without
-> checking whether tmp->sk == &msk->sk. This allows any MCTP socket in the
-> same network namespace to use and consume another socket's preallocated
-> tag.
+On Mon, 21 Sep 2026 03:02:36 +0000, Hui Peng wrote:
+> In nat_receive() (called from garmin_write() when userspace writes to
+> /dev/ttyUSBn in MODE_NATIVE mode), while garmin_data_p->insize is less
+> than GARMIN_PKTHDR_LENGTH (12), the loop copies up to 12 bytes into
+> garmin_data_p->inbuffer. Once garmin_data_p->insize reaches
+> GARMIN_PKTHDR_LENGTH, nat_receive() computes the total packet size as:
 > 
-> Iterate the socket's own tag list (&msk->keys via sklist) instead of the
-> namespace-wide &mns->keys list in mctp_lookup_prealloc_tag(), ensuring
-> that only tags allocated by msk are matched.
+>   len = GARMIN_PKTHDR_LENGTH + getDataLength(garmin_data_p->inbuffer);
 > 
-> Tested in QEMU against Linux 7.3.0-rc3 by allocating a manual tag
-> (0x18) on socket A via SIOCMCTPALLOCTAG for peer EID 9 and sending a
-> 4-byte message with MCTP_TAG_PREALLOC from socket B in the same network
-> namespace. On the unfixed kernel, sendto(sock_b) using socket A's
-> preallocated tag succeeds (ret = 4); with this patch applied,
-> sendto(sock_b) fails with -ENOENT (errno = 2) while sendto(sock_a)
-> succeeds (ret = 4).
+> Because getDataLength() returns a signed int from __le32_to_cpup(), a
+> 12-byte header with a negative 32-bit length field (such as 0xfffffff5,
+> i.e., -11) causes len to underflow to a small positive value (12 + (-11)
+> = 1) without any bounds check at that point. Then garmin_data_p->insize
+> >= len (12 >= 1) evaluates to true and nat_receive() calls
+> garmin_write_bulk(port, inbuffer, 1, 0), which allocates a 1-byte slab
+> buffer via kmemdup() and immediately reads 4 bytes from it in
+> getLayerId(buffer) (and again in garmin_write_bulk_callback() when the
+> URB completes):
 > 
-> Fixes: 63ed1aab3d40 ("mctp: Add SIOCMCTP{ALLOC,DROP}TAG ioctls for tag control")
-> Suggested-by: Jeremy Kerr <jk@codeconstruct.com.au>
+>   BUG: KASAN: slab-out-of-bounds in garmin_write_bulk.constprop.0+0x3eb/0x500
+>   Read of size 4 at addr ffff888002cc0ba0 by task init/1
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x70/0xa0
+>    print_report+0x153/0x4c6
+>    kasan_report+0xf1/0x120
+>    garmin_write_bulk.constprop.0+0x3eb/0x500
+>    garmin_write+0x60f/0x1450
+>    serial_write+0x123/0x200
+>    n_tty_write+0x8ea/0xeb0
+>    file_tty_write.isra.0+0x44f/0x7a0
+>    vfs_write+0x671/0xd20
+> 
+> Validate the unsigned 32-bit data length (dlen >= GPS_IN_BUFSIZ -
+> GARMIN_PKTHDR_LENGTH, matching the existing len >= GPS_IN_BUFSIZ bound)
+> in nat_receive() as soon as the 12-byte header is present, resetting
+> insize and returning -EINVPKT on invalid lengths so garmin_write_bulk()
+> is only ever called with a full valid packet header (12 <= len <
+> GPS_IN_BUFSIZ).
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 by emulating a Garmin USB GPS
+> device (091e:0003) via dummy_hcd + raw-gadget, switching /dev/ttyUSB0
+> to MODE_NATIVE via PRIV_PKTID_SET_MODE, and writing a 12-byte native
+> packet with data length 0xfffffff5: on the unfixed kernel this triggers
+> KASAN slab-out-of-bounds reads in garmin_write_bulk() and
+> garmin_write_bulk_callback(), whereas on the fixed kernel nat_receive()
+> rejects the packet with -EINVPKT and 0 KASAN faults.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
-> Changes in v2:
-> - Iterate &msk->keys via sklist instead of walking &mns->keys and checking
->   tmp->sk != &msk->sk, as suggested by Jeremy Kerr.
+> Changes in v4:
+> - Kept the fix strictly inside nat_receive() and dropped the other hunks
+>   from v3 (garmin_write_bulk_callback(), gsp_send(), and changing the
+>   return type of getDataLength() / getPacketId()) per Greg
+>   Kroah-Hartman:
+>   1. Assigning u32 dlen = getDataLength(garmin_data_p->inbuffer) locally
+>      in nat_receive() and rejecting dlen >= GPS_IN_BUFSIZ -
+>      GARMIN_PKTHDR_LENGTH (matching the existing len >= GPS_IN_BUFSIZ
+>      check at the top of the loop) prevents both negative/underflowed
+>      lengths (< 12 bytes) and oversized lengths without needing to touch
+>      getDataLength() across the file.
+>   2. The out-of-bounds read in garmin_write_bulk() and
+>      garmin_write_bulk_callback() was only reachable because
+>      nat_receive() allowed len to underflow below GARMIN_PKTHDR_LENGTH
+>      (12 bytes). All other callers of garmin_write_bulk() always pass at
+>      least GARMIN_PKTHDR_LENGTH bytes, making a separate length check in
+>      garmin_write_bulk_callback() redundant.
+>   3. In MODE_GARMIN_SERIAL, gsp_receive() already bounds insize to
+>      MAX_SERIAL_PKT_SIZ + 2 before calling gsp_send(), so the extra
+>      bounds check in gsp_send() was an unrelated defensive check.
+> - Added Cc: stable@vger.kernel.org and QEMU reproduction details.
 > 
->  net/mctp/route.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/usb/serial/garmin_gps.c | 10 ++++++++--
+>  1 file changed, 8 insertions(+), 2 deletions(-)
 > 
 
 
