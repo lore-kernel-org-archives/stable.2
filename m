@@ -1,154 +1,145 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pl1-f175.google.com (mail-pl1-f175.google.com [209.85.214.175])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20929469837;
-	Mon, 21 Sep 2026 09:19:39 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F14C745D924
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:21:37 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.214.175
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982380; cv=none; b=Vmp69MglP+gjRtMygtWyeWTYNkZHg8IiI0qVMBzCgfCLQHQrfkqddUFjyDXloJcEc7KxVd3FMSw0zM9Sq0A6qDGx7jOO4ckH3p27Fe72KIl1t4/eYHs30v1iCY2TkchGYlO5bPnJXPQwneAc8dXCWc2cjIrfV6Ex6/gyNoi69y8=
+	t=1789982499; cv=none; b=S+TGcXgaLoxR6fl+/U0Fa5yxwlecquZWxOV8aOHvpoGVhxuqrPVTQ3OtfnXeZVWYaeuzMd6EHYmcMc1A3dnspS/a+y6iJgY08VQJ/FQLEQAaP3keOew83VxLzvfPaPgyOjbo6xMKDXXcFql7pk5nnjJT/JGPnepdng9PBqVUOE4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982380; c=relaxed/simple;
-	bh=YxoAtJmtJoYp3R5q6jTWFwiDOAXdC+pGbzfKbAKrZrw=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nv6YutSmDwiZ+iromeRD4vKXbLsrF+u6sa3jWaO02qzAKqVoo+l3GfDQPqk4zV31F24x/sdl/F4DJ0B6egPnBZLccIs6teXtICneDrLYBNB7B4Nt6fYk2ASmAsdrznPWtWf2YIp2Mf013dYpVXMCP4VabIK0OzjsCagiGF9U2u4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDj5yjd6; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789982499; c=relaxed/simple;
+	bh=EVfwCsH4i0+Sw3TDZsdu4yC6TSzMm6fMy+HhAWEl9Zk=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=fDcMzVaCAkNe4TPaZ4+GsVwpE3UsT4jZaSlB/uctXxXEKgXK5cixR5012fqjUsweC7+6BKxhgeN8DvWbJw3RMLO8hYKi1p5WNouNzZWaiNpaLwqjxqc5IuT60hDo0fpm3J+2vX/aADO1g4L/ruVknjHch60WSGjJbNIubHOVgdc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=s8OHbrTH; arc=none smtp.client-ip=209.85.214.175
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDj5yjd6"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFFD91F000FF;
-	Mon, 21 Sep 2026 09:19:38 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789982379;
-	bh=MlsIXahdFvTNjjm1sP2TXecvRs5IS3of5WXLVkf2uP8=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=hDj5yjd6dvGXj1tKDvl1qz/ItJLGwMWPc3l1ZnkkZFYelM14woiMpeWSji2NjiunB
-	 eNFZbZMZtDSNqazOLI9ryVZgZ4W4Hia+3civ28gavWN0UnPZiU/Zk1C3tBhguzuxp9
-	 1/YFBAvK2jjrExP/cwcmdDdDgqCrnrElAN020aY+uysQ/X0wfF7DfDZTRS1C9FMRAl
-	 /aS4h2Id8UIh4n2tkDjnZCjz4Vmh8v5j+lealwGiuUA37KZ6Reqk5Xqlti2uvcEyxT
-	 g6eGQD7gHhQHwn0fDTVo9BvhuPb5kcTo7ItdQzg6OhYZ8i6UvqQaLyhQbJ/jQJ1q/y
-	 nD/FBZRMkxISQ==
-Date: Mon, 21 Sep 2026 02:19:38 -0700
-From: Kees Cook <kees@kernel.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>,
-	Shuah Khan <shuah@kernel.org>,
-	Bradley Morgan <brads@mainlining.org>,
-	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
-	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v4] seccomp: restore knotif->state when
- SECCOMP_ADDFD_FLAG_SEND is interrupted
-Message-ID: <202609210158.F3D96F157@keescook>
-References: <A3F8F45D-3B9B-4E52-B076-7924FF3AF360@mainlining.org>
- <20260920185910.3307638-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="s8OHbrTH"
+Received: by mail-pl1-f175.google.com with SMTP id d9443c01a7336-2db710396ffso28097205ad.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:21:37 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789982497; x=1790587297; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=Bs0kAyOUD2xFX0G95cOuQy2+oM0m4UkvlZ3Uv2YT+Us=;
+        b=s8OHbrTHKZa9aHKDHAxky1gbl6a3GPaPZ3AskQ60VPgHlauZTtDZJEDd030ArYEEEk
+         xUI9w9YtWlVnAs5sk5v72MhMsHFClIjA6O80ztR22RuPIcYzzq88C0MBMnmzZ2dhQX2m
+         J8JW5Vs1X9G8IhSFjkiQWlPTnqFBYw4dyQy8/E9BxSGev8gg4E8awukbyoYY8vMHPMdD
+         0V4GJ4WV1GFFzaU14nYRjGqCLpyh7eM9qRwYNIgOB25ZJA07STWx6JHWxl5Pfgh/EPWw
+         qa+WrFJgtbNFS7V0zfJ3ZvqFIPX0Qh4TlaHY9YfoiwZV+tIU74iN953NJRn4/Bn3VPew
+         ehkA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789982497; x=1790587297;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=Bs0kAyOUD2xFX0G95cOuQy2+oM0m4UkvlZ3Uv2YT+Us=;
+        b=nccc+e52vOoFAfB3Xf7chY6KAUrrzXTd9Ds3SYpt9x9yIPk4y/On/D/TbzEHjTimCK
+         SFeMwKih4hHZnqO5+w9tjMJzejmt7hdY+mfJmyMTaLDsxBX6a3Ijy5XwX2NgX8xyGkzC
+         hMNg24KxL2tl0grIqNVQyhGxN5O0sA4FKYE2vMctXmndLVQ4ZbBT47GyC9mwFgL8TWZ4
+         GYNKwc9DXHgJxIaV8xSR0knWLpZnEA8hcSrJG0lFX5jEokB7W8tuPOfJ/JWok71Jy3KQ
+         1ehS2ALjekgwjEsuPW1TOcliM3RWmAI7JqV6rh8bmAQJ22MVxgcz14XwPwgg6pQGI+Ky
+         jsuw==
+X-Gm-Message-State: AFuF++nhJgkKSQTJ0Cku2QVv0GqpLqp7p8IYqWPvr+k+5/3IdfkUCKkX
+	bwetUJxIeoa2PWdheGG2Pad4xazN0Nl63nznmeYtjJLQ4adwEEi8GXv6
+X-Gm-Gg: AYBFou03CO8iDo7MEZ8gu+q2/IfL3MiicsGDcgh3QbxPSAXfeANRe9X9FngoxkWu9oe
+	5h2cQG3unffwAy3ZsHW4NBTD6cmk95xZn9A+xg9NIXDJV+tXByjO6vEiiN7V6Fp2hAUzvupAka9
+	6vUGtGtg3z219MdeLqc9h7CDQcd2t9IlZ9YgQCPv+7HOLKk9I9p/fxyc9opHH1h+VgNA63w5B0z
+	+kbq5HCe6Lvz30Lk+pvPVEDT74w41j3I6x1PHA321tkzotgH8ycxzmcoHPSpiugQ6XC/UY8UplL
+	8hB4KUw05i9qnMwhS6LMJwsgKzStwD6J4+P/yBO1VSTjUbxVArK6gLE+VU9xikt+InKuXFNFxQg
+	ulQ1Jcag9MbLqiAfkkYHSJMX256V6f3Bo8EbaNLiXSRUiIJtokVpUyaSqzzqvreDj37hyMMZznB
+	xsdN/yurHt72QjItVWVxvspVsNdV7rMtmEeEyv+nxA1VUtXoj3/XRVCTH4Y1v6
+X-Received: by 2002:a17:90a:ec8c:b0:37f:e5b1:ec4b with SMTP id 98e67ed59e1d1-39e35da0512mr19230570a91.5.1789982497217;
+        Mon, 21 Sep 2026 02:21:37 -0700 (PDT)
+Received: from lgs.. ([47.82.67.168])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33c331d55cfsm22540309eec.30.2026.09.21.02.21.34
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:21:36 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Lee Jones <lee@kernel.org>,
+	Pavel Machek <pavel@kernel.org>,
+	Sakari Ailus <sakari.ailus@linux.intel.com>,
+	Jonathan Cameron <jic23@kernel.org>,
+	Laurent Pinchart <laurent.pinchart+renesas@ideasonboard.com>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Luca Weiss <luca@lucaweiss.eu>,
+	linux-leds@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] leds: flash: sgm3140: fix child node reference leak
+Date: Mon, 21 Sep 2026 17:21:28 +0800
+Message-ID: <20260921092128.346375-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260920185910.3307638-1-benquike@gmail.com>
+Content-Transfer-Encoding: 8bit
 
-On Sun, Sep 20, 2026 at 06:59:10PM +0000, Hui Peng wrote:
-> Fix this by restoring knotif->state back to SECCOMP_NOTIFY_SENT if
-> SECCOMP_ADDFD_FLAG_SEND was set and kaddfd was not consumed before the
-> interrupted wait. Also add a seccomp_bpf selftest
-> (user_notification_addfd_send_interrupted) covering this race.
+sgm3140_probe() obtains a reference to the LED child node with
+device_get_next_child_node(), but the reference is not released after a
+successful probe.
 
-Yeah, this fix is the same restoration logic as seccomp_notify_recv()
-uses (although that may actually need "if (state == SECCOMP_NOTIFY_SENT) ..."
-added). It does make it clear there is a missing state in the state
-machine. SECCOMP_NOTIFY_REPLIES means both "A reply is reserved" and
-"A reply has been delivered". But the hidden state is maintained:
-"REPLIED + queued ADDFD+SEND" == in flight, and "REPLIED + no queued
-addfd" == delivered.
+The child node is also passed to devm_led_classdev_flash_register_ext().
+The LED class device stores the fwnode without taking a reference of its
+own, so the reference obtained by sgm3140_probe() must remain valid until
+the LED class device is unregistered.
 
-Thank you for the selftest addition, the sched trick is nice!
+Manage the child node reference with a devm action registered before the
+LED class device. This ensures that the LED class device is unregistered
+before the child node reference is dropped, while also handling probe
+failure and device removal.
 
-> Tested in QEMU against Linux 7.3.0-rc3 by exercising kernel/seccomp.c
-> and verifying the fix with KASAN enabled.
+Fixes: cef8ec8cbd21 ("leds: add sgm3140 driver")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Keep the child node reference alive until the LED class device is
+    unregistered, as pointed out by Laurent Pinchart.
+  - Manage the reference with a devm action registered before the LED
+    class device registration.
 
-I've verified this now too. It's kind of a ugly problem because unlucky
-timing makes it look like the returned fd is fd 0. :(
+ drivers/leds/flash/leds-sgm3140.c | 10 +++++++++-
+ 1 file changed, 9 insertions(+), 1 deletion(-)
 
-> [...]
-> +	/*
-> +	 * Demote the tracee to SCHED_IDLE and promote the supervisor to
-> +	 * SCHED_FIFO(99) on the same CPU.
-> +	 */
-> +	sched_setscheduler(pid, SCHED_IDLE, &sp_tracee_idle);
-
-Unchecked return value?
-
-> +	if (sched_setscheduler(0, SCHED_FIFO, &sp_supervisor_fifo) != 0) {
-> +		close(listener);
-> +		close(memfd);
-> +		kill(pid, SIGKILL);
-> +		waitpid(pid, NULL, 0);
-> +		SKIP(return, "SCHED_FIFO requires CAP_SYS_NICE");
-> +	}
-
-Instead of this you may want to look at FIXTURE_TEARDOWN to clean up
-(though it's not strictly needed since the harness is run in a
-subprocess so all these go away on test exit). The one thing that might
-be worth doing is making sure sched_setscheduler(0, SCHED_OTHER, ...)
-happens ASAP or the test could block everything on a single CPU
-machine/VM/CI.
-
-> [...]
-> +	sig_pid = fork();
-> +	ASSERT_GE(sig_pid, 0);
-> +	if (sig_pid == 0) {
-> +		sched_setscheduler(0, SCHED_FIFO, &sp_sig_helper_fifo);
-
-Missed return value check here too.
-
-> +		kill(parent_pid, SIGUSR1);
-> +		_exit(0);
-> +	}
-> +
-> +	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), -1);
-> +	EXPECT_EQ(errno, EINTR);
-> +	EXPECT_EQ(waitpid(sig_pid, &status, 0), sig_pid);
-> +
-> +	/*
-> +	 * Restore normal scheduling and sleep briefly so the woken tracee
-> +	 * runs in do_user_notif(). With knotif->state restored to
-> +	 * SECCOMP_NOTIFY_SENT, the tracee must loop back to sleep waiting for
-> +	 * the notification reply rather than returning 0 from __NR_getppid.
-> +	 */
-> +	sched_setscheduler(0, SCHED_OTHER, &sp_tracee_idle);
-> +	sched_setscheduler(pid, SCHED_OTHER, &sp_tracee_idle);
-
-Need to check these too...
-
-> +	nanosleep(&delay, NULL);
-> +
-> +	/*
-> +	 * Retry SECCOMP_IOCTL_NOTIF_ADDFD. Because knotif->state is
-> +	 * SECCOMP_NOTIFY_SENT, the retry succeeds (returns 42) instead of
-> +	 * failing with -EINPROGRESS, installs FD 42 into the tracee, and wakes
-> +	 * the tracee to complete the syscall with return value 42.
-> +	 */
-> +	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), 42);
-> +
-> +	EXPECT_EQ(waitpid(pid, &status, 0), pid);
-> +	EXPECT_EQ(true, WIFEXITED(status));
-> +	EXPECT_EQ(0, WEXITSTATUS(status));
-> +
-> +	close(listener);
-> +	close(memfd);
-> +}
-> +
->  #ifndef SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
->  #define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)
->  #define SECCOMP_IOCTL_NOTIF_SET_FLAGS  SECCOMP_IOW(4, __u64)
-> -- 
-> 2.49.0
-
-Thank you for the test, it really helps see the shape of the issue.
-
--Kees
-
+diff --git a/drivers/leds/flash/leds-sgm3140.c b/drivers/leds/flash/leds-sgm3140.c
+index dc6840357370..973676b1dbb1 100644
+--- a/drivers/leds/flash/leds-sgm3140.c
++++ b/drivers/leds/flash/leds-sgm3140.c
+@@ -182,6 +182,11 @@ static void sgm3140_init_v4l2_flash_config(struct sgm3140 *priv,
+ }
+ #endif
+ 
++static void sgm3140_fwnode_put(void *data)
++{
++	fwnode_handle_put(data);
++}
++
+ static int sgm3140_probe(struct platform_device *pdev)
+ {
+ 	struct sgm3140 *priv;
+@@ -220,6 +225,10 @@ static int sgm3140_probe(struct platform_device *pdev)
+ 			"No fwnode child node found for connected LED.\n");
+ 		return -EINVAL;
+ 	}
++	ret = devm_add_action_or_reset(&pdev->dev, sgm3140_fwnode_put,
++				       child_node);
++	if (ret)
++		return ret;
+ 
+ 	ret = fwnode_property_read_u32(child_node, "flash-max-timeout-us",
+ 				       &priv->max_timeout);
+@@ -276,7 +285,6 @@ static int sgm3140_probe(struct platform_device *pdev)
+ 	return ret;
+ 
+ err:
+-	fwnode_handle_put(child_node);
+ 	return ret;
+ }
+ 
 -- 
-Kees Cook
+2.43.0
+
