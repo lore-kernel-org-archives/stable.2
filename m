@@ -1,41 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D0F4B5CA2;
-	Mon, 21 Sep 2026 15:17:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id ADF894AB1C2;
+	Mon, 21 Sep 2026 15:17:50 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003861; cv=none; b=D0gqQcvfrJDpPLzOsVq/3Cn8ang1RmNRW71q2AgEgyRrFY9e2iElf+JwigMzSphrG20qmn1kxOpiZooxtAlv/Pm9bi9dY4bBTLvObXm9+tQTYfUrWp9STsv5Q7+6P18nodA+tQVcoDpr6jryqmzgujmng2MHwgFV2mUonW0z+q0=
+	t=1790003872; cv=none; b=dFG+M92actC4rwKPcxUp05o/x1iccmlGTgdEC4Ob6iWOwku06d9y+/+s5TpGPP5GoQ/1nIi1zV8njNxfNRRnA3WQzZA9n1BDiWUIqJ6BxsnzzLbZHD+WfQyTIO6sqPk7PpgiCwlivnPYQNwma4U536e3elPaw8lA0Lj+nK5fMAc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003861; c=relaxed/simple;
-	bh=oO4Q4vKG+lsS0mYrQN/KPkiOEmGda5hzCFp19jIW3S8=;
+	s=arc-20240116; t=1790003872; c=relaxed/simple;
+	bh=XiIYsOrPmhTtSAq297RuJeu7Kh60ICy+5B0ekAL4U7k=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=maOFm97LinDEhUD9uwQjfrA8j2YjeFG5F7/7GhEb/T9S/PMfPb1KHd76MgUx6Q6VNDZp/QyKbJkFXyZjIYbm5az4cG5WDyOiJG5wxWeJVCxtXDK5tze/3iQe1a9noD1DPApDj1wWVgR5zX/7pymq8v5mnlR4Qvg72db7a/s7aIo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ByM/Cqvv; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=AUXuBLl01Pi/z1oC8L5qOvwT6tzIND4dh1D491V8pKK0DqEe7aMOXbK690n52MPKYMYlUoIYxULPykZ5AZEp6nrcBIRR0Pt72aytlZqT5jA7YncB4DNCpZfxFbrGsJBpzTR6RIe4swOHsGSLfbc94isEAc4FiZrAPrhtfUz2Nk4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FvsSq7bG; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ByM/Cqvv"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34DD1F000FF;
-	Mon, 21 Sep 2026 15:17:38 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FvsSq7bG"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 204551F000FF;
+	Mon, 21 Sep 2026 15:17:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003859;
-	bh=eFebAGvl97gWvUUihD7DJR70n3PAhvkIbV5S28OCT1c=;
+	s=k20260515; t=1790003870;
+	bh=FZeopfMMZGjaWtQq8rssdR4HwEQQbLQYNh1E8IOw0DI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ByM/Cqvv6ANjlZ7mKRhVKjWXseHhq+lPz458Z5tfopzRhtTsdKCRqYXzRPGOhLtoC
-	 8KiW3EQEOIaSj9MhiXqNL+0F6C9Ssi1WdaFWQJBnaWGr5qaMRp3eO2GkewN6zaHAFR
-	 w9LZhuh9u+LzmQyCqJ0t3EG1kmVh+Esmw8vucFx5l/1c6VDaSh0lFQm+cUfvUJ6o3G
-	 9noNaJi2GQNmm7DviW23MMsoeIetBkGs3dwKj3IGuai+8hDQb9QUmskIAPaSTrHana
-	 sJVp/fWuc2Lf4Bn87ISn4XaJPvQMKQZ9a6CcEZnoR+wnTDE6HLrb5y0OcnoHwhX37a
-	 YZZfCgu1YlEjA==
-Date: Mon, 21 Sep 2026 17:17:36 +0200
+	b=FvsSq7bGpr+WQkIRqKbIFqhznCehDavMsy+xrRUogym6mY3wQDOFmTHYiBDR5utUy
+	 xXnFOx0VI7OXvgUC4z2/HHL/SEm6ko7DVLbT+YWQ1jydr5XkbvhZI45RuAkLLNnxhd
+	 N+A0c7UsjQhvT2to6O5OzXKZDEmjTWodrS8LweVr6zuveCd+qWq2MyQqbecvRFnYtO
+	 jf06uhx5elUfYm7NkEy6yNp/gyfuP85YU6do3J+txWMitujkhsoByVbFO6oji5QpNk
+	 Z/OSu5MZCfcv0CKizE1chWr9RjK8uNUA4aBue93UMThW1qFJQDzxRsB34Of1JxSXYw
+	 ouyM6iHUmQJBw==
+Date: Mon, 21 Sep 2026 17:17:46 +0200
 From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
-	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, 
-	stable@vger.kernel.org, James Bottomley <James.Bottomley@steeleye.com>, 
-	Geert Uytterhoeven <geert@linux-m68k.org>
-Subject: Re: [PATCH] scsi: zorro7xx: put SCSI host on remove
-Message-ID: <arFKj506cRh4H_z6@quoll>
-References: <20260918180201.3624568-1-lgs201920130244@gmail.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: richard@nod.at, alexandre.belloni@bootlin.com, 
+	linux-mtd@lists.infradead.org, vigneshr@ti.com, bbrezillon@kernel.org, 
+	linux-kernel@vger.kernel.org, linux-arm-kernel@lists.infradead.org, 
+	nicolas.ferre@microchip.com, stable@vger.kernel.org, miquel.raynal@bootlin.com, 
+	claudiu.beznea@tuxon.dev
+Subject: Re: [PATCH] mtd: rawnand: atmel: Fix HSMC clock leak in legacy
+ controller init
+Message-ID: <arFKmdQULrC47WYe@quoll>
+References: <20260917102804.2146887-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,28 +46,27 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260918180201.3624568-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260917102804.2146887-1-vulab@iscas.ac.cn>
 
 
-On Sat, 19 Sep 2026 02:02:01 +0800, Guangshuo Li wrote:
-> zorro7xx_init_one() obtains a SCSI host through NCR_700_detect(). The
-> probe failure path drops the host reference with scsi_host_put(), but
-> the normal remove path does not perform the corresponding cleanup.
+On Thu, 17 Sep 2026 10:28:04 +0000, Wentao Liang wrote:
+> atmel_hsmc_nand_controller_legacy_init() takes a reference to the
+> HSMC clock with of_clk_get() and enables it, but the error paths
+> that follow only release the device node, so both the reference and
+> the enable are leaked whenever the controller cannot be fully
+> initialized.  The probe fails in that case and never reaches
+> atmel_hsmc_nand_controller_remove(), which is where the clock is
+> normally disabled and put.
 > 
-> As a result, the SCSI host reference remains allocated after the
-> device is removed.
+> Add an err_disable_clk path that disables and releases the clock
+> before jumping to the existing out path.
 > 
-> Call scsi_host_put() after all users of the SCSI host have been torn
-> down to release the reference acquired during probe.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 45804fbb00ee ("[SCSI] 53c700: Amiga Zorro NCR53c710 SCSI")
+> Fixes: f88fc122cc34 ("mtd: nand: Cleanup/rework the atmel_nand driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/scsi/zorro7xx.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/mtd/nand/raw/atmel/nand-controller.c | 25 +++++++++++++-------
+>  1 file changed, 16 insertions(+), 9 deletions(-)
 > 
 
 
