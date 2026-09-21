@@ -1,220 +1,166 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4F6FF238C1A;
-	Mon, 21 Sep 2026 02:06:05 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E0E2BE02C
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:20:22 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789956366; cv=none; b=DSly0CTqVzEjcA8NpfmMAf0pwbwXhxmOk0lB09/gd9oxucJhe/MXC9Ef0+fOhFX3U/VL6V9tE0wlB/mNeYWT4s+yv2dVtqSCrrQSwWWeSY9GHMg2HdqaJPQuZajERqo9be/6lhoOaTGrB4Azo7sH+ZcKjcW/9VL8OezxDYQ+rgI=
+	t=1789957224; cv=none; b=kt7LzM+PjBxraXsPtk6isQobJ6+HyD6T3DOC6l10+ObkBlXZzOYWotduiNz1ERA57nc3rFR6dMorrmeSdBkCFFqQo/BwW4+xDei9i11EdFhhH2qetAQpOPFzPsRYTa6W2jYDA1rbEc/Sr1RcJRbMdI5EngD2SftjDng7B0hPehA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789956366; c=relaxed/simple;
-	bh=I2pTEgl9UU+mwogpVvb9biyJlssMUpAugyWq9uXXeNs=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=DuTJ6RP+ZuZi2hL7w2DBw7JE/hz6MAtcva9AKiOUE7AxvGzGy4vcasMeKLQ1L0RjBzwh+vsTq2vQ1aKY5NaWH8EADXG1hw8GNC0Qd2Fu9x5JGdmc/bdK/QzsszMo9OORgebVBczp/gC/QcVle01dC93PYr7Q5PBVH16IvtYsmeM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Uv1HcJgd; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789957224; c=relaxed/simple;
+	bh=vUf7QAanQ5dKq7z/fJvehLlpKSca00cy1tgrEizeFrk=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=L88/Dn4D4vA1+lbKliIXcI2LcHIuNMFmVVPoiCvTrAa/qZ0hFhRWm9OquAToeEiPmCJVW8VqAJnR5L3bapW+V6Wmg4seZPe92CH9l5UlDIt88J1RDz/iY3n+MnW7IORXHjgWMBd05McIuZIZFMVbXxNrGVz7z8e32poC3KfPiJw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I0skpZ1p; arc=none smtp.client-ip=74.125.228.40
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Uv1HcJgd"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 12EF31F00893;
-	Mon, 21 Sep 2026 02:06:04 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789956365;
-	bh=l68p6y9NHhQ5pKgUx9BaN4JsbLotPe4iTlUtg3ojSsw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=Uv1HcJgdLofEzF9PavymWJvOADIi2uWTL3rwJxvEuadPjw7BKf9XTaOTofIZw/aQ6
-	 S4YZNL4A06aX4nPIebMxRmRalSsfvPEJnf3oJIWxAEGvYrHtKu6xOrxRrAA8MyMVcd
-	 ZRUO9XQ3Hi+1Pk9l2ia0fibEqqu2YD/hufzUDt3JkaBfopJlfRJ9xmCTVEF/3aJMYJ
-	 Lljb/43hNnfHqDJSO0Ft3o2i4Du6beXQOf1OGbgWWrzFWBuCp5LERjFyxlXENJSeeY
-	 Aa1izOTEyxO8fR3gXxPtlPiuDqnMTuK5KmZKSaRfbzeN+08f4jDTd0c3Nbq5pT+CTu
-	 IskVPZPAepJEg==
-Subject: Re: [PATCH net v2] net: stmmac: ethtool: validate TX coalesce before
- reprogramming RX
-From: netdev-bot+sashiko@kernel.org
-To: xiaolinkui@126.com
-Cc: maxime.chevallier@bootlin.com, andrew+netdev@lunn.ch, davem@davemloft.net,
- edumazet@google.com, kuba@kernel.org, pabeni@redhat.com,
- mcoquelin.stm32@gmail.com, alexandre.torgue@foss.st.com,
- netdev@vger.kernel.org, linux-stm32@st-md-mailman.stormreply.com,
- linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org,
- xiaolinkui@kylinos.cn, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 02:06:03 +0000
-Message-ID: <178995636352.2160803.2776927980309704252@kernel.org>
-In-Reply-To: <20260920015647.1783574-1-xiaolinkui@126.com>
-References: <20260920015647.1783574-1-xiaolinkui@126.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I0skpZ1p"
+Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5121bcf1aso2046278a12.1
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789957222; x=1790562022; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
+        b=I0skpZ1pJIiIOg5VKbG985MPt0AA6F0R5zFL3/qkDidr2Zbc/6z+2i3syYoSGooqP7
+         p+39zbfeUDa9iz0i0ew0Kk1XR2hBMrrTgtRy1A7mKbnADQ4ByThct2Yhkp0bNMBm9D7w
+         HcBiuSN/5qmdlnfE+f+mVmvUV0OzPqmi1yi8dv2TNaPdZGDdRnROfIPwRh6DCXGnehBy
+         9BqoCEL6cJSOP2k7RKEVzcnyuwvIf+DA9XN8HcNbgd04RvHUcYmp3Z0GnDxMYg6Nzpcy
+         3oeMrdHjMwncV8fwHlq9H05w00MkYxHt6NYP1uteM0ihvL11Mpv4FJDsRmCcc8ZQjIb/
+         xCag==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789957222; x=1790562022;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
+        b=1CU54S1FIsQ6OHibKemin0FWtTzbRaWXpJ7WGjatFQp7CdCVsp/tzQjDCpnC4Y5fpY
+         NK8xERHKi3eQKQeGj96t5yol+ikDy2Styv7Q8TQX6bb+hKz+nuXRQcRbJdcPOpiF/bly
+         04SkUyLlEQp9kuQJNMbSiHaGIP10GeC/skTic2lNa4L4C8EIZ3KH4zKXg23BsCHulZiy
+         +ml2ecBQATIhScPGRuf4tgfVNOUOC2dnhDvSyGiaw96GvazFMfc1UShb3gmsB1ctYFS8
+         ZFdGf02vRKqsPCx+0SHJccf6m9M19wwYzrp5TgsSM3yUko577gLZq2Xz0iyuiTNjCo4T
+         Y2bA==
+X-Forwarded-Encrypted: i=1; AKwUvByYoY21aoKQyDIyvCSRpsvwN+EtUfcNpb+hWSb6XPYj7XYeAf4/w5hEbkTPAfESnmda1AjM+5o=@vger.kernel.org
+X-Gm-Message-State: AFuF++kPImJrqlNp204mx6hB+IeyyWrtlYm6bdRSfQYDvf2i20zWjwXw
+	Mgiw40CabU/u8C4uH5Hl4kF4fACvG0d32YCpaEFot8tvoXW1ylpkCnu/
+X-Gm-Gg: AYBFou3xy2sbby/t1QvEkU2xrA92/giJQCu6HdBaQN04XsuVGeYgHqRppdBfo3d0A6/
+	K/mXqjSsoiMjhvE/3ZUyw85x//rbrLBLdXpRepxMCAKlVXgkTXeHGHxjKK4YoxbW/jEJUUvY975
+	KEhyafMPKjWchdzn8qER5aaA6/Nb8vMeIlNCdHcuh3gziLUTfXvJem8DxJe7Sc3wylSv9PQinib
+	6lHp5mzUWeCNbwb6h/LrVIZyF9kRFi8yn4xpC2nAOO1cx4mkRF2sJe9i1qcLsXyOU4qwY8bKPie
+	IKhoACfhEL55+9h6XTHpiBCA7fS8VcKPPB0xfp5uUWNQEOWlcXdPdxB1suOc0TF7u2zlaiyq/ig
+	9wUPln6SXipqkKn4kO0Z8zXzE3fmBl2HYJ0Llrm05dnX38R0/Ao4T/GmetmBZPoaPbT2tNtDFRJ
+	fJZnhYLNVmZJFIePhtz7crSAH21rRhmfih4/sgpR4sHwmE1CsBViypDfIfxpcVt4MINo2Lu1p/O
+	t8WAXPKlMisgjnwZgzXLFvZRNqpznxAXXQE83gLbhm5I4zPysQQZWnh9avqDlkXe20v6cU53A42
+	YUg5Zp2p3A==
+X-Received: by 2002:a17:90b:17ca:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39e54cb43c7mr14530866a91.6.1789957222045;
+        Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c5b3932sm11294882a91.13.2026.09.20.19.20.21
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Sun, 20 Sep 2026 19:20:21 -0700 (PDT)
+From: Hui Peng <benquike@gmail.com>
+To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Clemens Ladisch <clemens@ladisch.de>,
+	Arnd Bergmann <arnd@arndb.de>
+Cc: Hui Peng <benquike@gmail.com>,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org
+Subject: [PATCH v2] char: hpet: prevent hard-IRQ divide-by-zero in hpet_interrupt() via HPET_IRQFREQ
+Date: Mon, 21 Sep 2026 02:20:19 +0000
+Message-ID: <20260921022019.865442-1-benquike@gmail.com>
+X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
+In-Reply-To: <20260919203515.2581203-1-benquike@gmail.com>
+References: <20260919203515.2581203-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+In hpet_ioctl_common(), HPET_IRQFREQ computes the timer period as:
 
-Critical: 0 · High: 1 (1) · Medium: 0 · Low: 0
+  devp->hd_ireqfreq = hpet_time_div(hpetp, arg);
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+where hpet_time_div() returns div64_ul(hpetp->hp_tick_freq + (arg >> 1),
+arg). Whenever arg > 2 * hpetp->hp_tick_freq, integer division truncates
+to 0 and stores devp->hd_ireqfreq = 0.
 
-- [High] Incomplete fix: the TX validation relocated to the top of
-  __stmmac_set_coalesce()…
+Although hpet_ioctl_ieon() (HPET_IE_ON) checks if (!devp->hd_ireqfreq)
+before enabling the timer interrupt, HPET_IRQFREQ neither rejects
+updates while HPET_IE is already active nor checks whether
+hpet_time_div(hpetp, arg) evaluates to 0. As a result, arming the timer
+with a valid frequency (for example, HPET_IRQFREQ with 1000 Hz followed
+by HPET_IE_ON) and then calling HPET_IRQFREQ with a large frequency (such
+as 0xffffffffUL) overwrites devp->hd_ireqfreq with 0 while the timer
+interrupt is active. When the next interrupt fires, hpet_interrupt()
+reads t = devp->hd_ireqfreq (0) and computes base = mc % t, crashing the
+kernel in hard-IRQ context:
 
-Pre-existing issues:
-- [High] __stmmac_set_coalesce() accepts tx_max_coalesced_frames == 0 as
-  long as tx_coalesce_usecs != 0 (the check at stmmac_ethtool.c:855 only…
+  Oops: divide error: 0000 [#1] SMP KASAN PTI
+  CPU: 0 UID: 0 PID: 0 Comm: swapper/0
+  RIP: 0010:hpet_interrupt+0x20f/0x360
+  Call Trace:
+   <IRQ>
+   __handle_irq_event_percpu+0x102/0x400
+   handle_irq_event+0xa6/0x1c0
+   handle_level_irq+0x205/0x5e0
+   __common_interrupt+0x60/0x130
+   common_interrupt+0x7a/0x90
+   </IRQ>
+  Kernel panic - not syncing: Fatal exception in interrupt
 
---
+Reject HPET_IRQFREQ with -EBUSY when HPET_IE is set in devp->hd_flags,
+and return -EINVAL when hpet_time_div(hpetp, arg) evaluates to 0.
 
-net: stmmac: ethtool: validate TX coalesce before reprogramming RX
+Tested in QEMU (-global hpet.hpet-intcap=0x0c24 with noapic) by opening
+/dev/hpet and calling ioctl(fd, HPET_IRQFREQ, 1000), ioctl(fd,
+HPET_IE_ON, 0), and ioctl(fd, HPET_IRQFREQ, 0xffffffffUL): on the unfixed
+kernel this immediately triggers the divide error panic in
+hpet_interrupt(), whereas on the fixed kernel HPET_IRQFREQ returns -EBUSY
+while HPET_IE is enabled and -EINVAL when hpet_time_div(hpetp, arg) is 0.
 
-The two TX parameter checks in __stmmac_set_coalesce() are moved ahead of the
-RX block so that a request rejected because of its TX values no longer
-reprograms the RX watchdog and rx_riwt[]/rx_coal_frames[] first.  The
-changelog motivates this with the per-queue path, where ethtool reads the
-current values back and sends them straight in again.
+Fixes: ba3f213f8a31 ("[PATCH] HPET: make frequency calculations 32 bit safe")
+Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation for delayed interrupts")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM
+Signed-off-by: Hui Peng <benquike@gmail.com>
+---
+Changes in v2:
+- Add Cc: stable@vger.kernel.org and include the QEMU test procedure and
+  oops trace in the commit description per Greg Kroah-Hartman.
+- Add Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation
+  for delayed interrupts") for the mc % t division in hpet_interrupt().
 
-> diff --git a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> index 1be5310ca766..193b65f9650f 100644
-> --- a/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> +++ b/drivers/net/ethernet/stmicro/stmmac/stmmac_ethtool.c
-> @@ -850,6 +850,16 @@ static int __stmmac_set_coalesce(struct net_device *dev,
->  	else if (queue >= max_cnt)
->  		return -EINVAL;
->  
-> +	/* Check TX parameters before applying any RX setting */
-> +
-> +	if (ec->tx_coalesce_usecs == 0 &&
-> +	    ec->tx_max_coalesced_frames == 0)
-> +		return -EINVAL;
+ drivers/char/hpet.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
 
-[Severity: High]
-Does this reordering actually fix the per-queue case described in the
-changelog?  The relocated check runs for every queue index, but the TX apply
-block further down is gated on the queue having a TX ring:
-
-	} else if (queue < tx_cnt) {
-		priv->tx_coal_frames[queue] = ec->tx_max_coalesced_frames;
-		priv->tx_coal_timer[queue] = ec->tx_coalesce_usecs;
-	}
-
-and __stmmac_get_coalesce() deliberately reports zeros for an index that has
-no TX ring:
-
-	if (queue < tx_cnt) {
-		ec->tx_coalesce_usecs = priv->tx_coal_timer[queue];
-		ec->tx_max_coalesced_frames = priv->tx_coal_frames[queue];
-	} else {
-		ec->tx_coalesce_usecs = 0;
-		ec->tx_max_coalesced_frames = 0;
-	}
-
-On a device with rx_queues_to_use > tx_queues_to_use (dwmac-intel
-tgl_common_data sets 6 RX and 4 TX queues, so queues 4 and 5 are RX-only),
-does ethtool -Q ethX queue_mask 0x10 --coalesce rx-usecs N still return
--EINVAL here?
-
-If so, is the net effect for that queue not worse than before?  Previously
-the RX watchdog and rx_riwt[]/rx_coal_frames[] were programmed and -EINVAL
-was returned; now the early return means the RX part is never applied, so
-per-queue RX coalescing on an RX-only queue index has no effect at all.
-
-There is a second consequence in the ethtool core.
-ethtool_set_per_queue_coalesce() snapshots the getter output per queue and
-replays it on failure, discarding the return code:
-
-net/ethtool/ioctl.c:ethtool_set_per_queue_coalesce() {
-	...
-roll_back:
-	if (ret != 0) {
-		tmp = backup;
-		for_each_set_bit(i, queue_mask, bit) {
-			dev->ethtool_ops->set_per_queue_coalesce(dev, i, tmp);
-			tmp++;
-		}
-	}
-	...
-}
-
-For an RX-only queue the saved backup necessarily carries tx_coalesce_usecs
-== 0 and tx_max_coalesced_frames == 0, so the new first check rejects the
-replay before the RX block runs.  Can the RX watchdog and rx_riwt[] of that
-queue therefore stay at the values of the failed request after a later queue
-in the mask fails?
-
-> +
-> +	if (ec->tx_coalesce_usecs > STMMAC_MAX_COAL_TX_TICK ||
-> +	    ec->tx_max_coalesced_frames > STMMAC_TX_MAX_FRAMES)
-> +		return -EINVAL;
-> +
->  	if (priv->use_riwt) {
->  		rx_riwt = stmmac_usec2riwt(ec->rx_coalesce_usecs, priv);
->  
-> @@ -875,14 +885,6 @@ static int __stmmac_set_coalesce(struct net_device *dev,
-
-The mirror of the same problem is left in place for a TX-only index.  With
-priv->use_riwt set and queue >= rx_cnt, the getter reports
-rx_coalesce_usecs = 0, stmmac_usec2riwt() returns 0 and
-
-		if ((rx_riwt > MAX_DMA_RIWT) || (rx_riwt < MIN_DMA_RIWT))
-			return -EINVAL;
-
-rejects the request before any TX value is stored.
-
-include/linux/ethtool.h documents both halves of the contract:
-
- * @get_per_queue_coalesce: ... If only a RX queue or a TX
- *	queue has this number, set the inapplicable fields to ~0 and return 0.
- * @set_per_queue_coalesce: ... If only a RX queue or a TX
- *	queue has this number, ignore the inapplicable fields.
-
-Would making the validation direction-aware, so the TX checks only apply when
-all_queues || queue < tx_cnt and the rx_riwt check only when
-all_queues || queue < rx_cnt (plus the getter reporting ~0 instead of 0 for
-the inapplicable fields), address both directions rather than reordering
-alone?
-
-[Severity: High]
-This isn't a bug introduced by this patch, but since the validation is being
-moved anyway, is the zero tx_max_coalesced_frames case worth handling here
-too?  The check above only rejects both TX fields being zero, so
-ethtool -C ethX tx-usecs 10 tx-frames 0 stores priv->tx_coal_frames[queue]
-== 0, and stmmac_xdp_xmit_xdpf() divides by it with no zero test:
-
-drivers/net/ethernet/stmicro/stmmac/stmmac_main.c:stmmac_xdp_xmit_xdpf() {
-	...
-	if (tx_q->tx_count_frames % priv->tx_coal_frames[queue] == 0)
-		set_ic = true;
-	...
-}
-
-That is reached from stmmac_xdp_xmit_back() for XDP_TX and from
-stmmac_xdp_xmit() for ndo_xdp_xmit, so does this divide by zero in softirq
-context on x86?
-
-The other TX sites do test for zero, but the guard and the divisor are
-separate unannotated loads of the same plain u32 with no lock, for example in
-stmmac_xmit() and stmmac_tso_xmit():
-
-	else if (!priv->tx_coal_frames[queue])
-		set_ic = false;
-	...
-	else if ((tx_q->tx_count_frames %
-		  priv->tx_coal_frames[queue]) < tx_packets)
-
-and in stmmac_xdp_xmit_zc():
-
-		if (!priv->tx_coal_frames[queue])
-			set_ic = false;
-		else if (tx_q->tx_count_frames % priv->tx_coal_frames[queue] == 0)
-
-Can a concurrent ethtool store of 0 land between the guard and the modulo
-reload?  Would a single READ_ONCE() snapshot per transmit path be
-appropriate?
-
+diff --git a/drivers/char/hpet.c b/drivers/char/hpet.c
+index 285c6037417a..ada95872e148 100644
+--- a/drivers/char/hpet.c
++++ b/drivers/char/hpet.c
+@@ -625,13 +625,18 @@ hpet_ioctl_common(struct hpet_dev *devp, unsigned int cmd, unsigned long arg,
+ 		devp->hd_flags &= ~HPET_PERIODIC;
+ 		break;
+ 	case HPET_IRQFREQ:
++		if (devp->hd_flags & HPET_IE) {
++			err = -EBUSY;
++			break;
++		}
++
+ 		if ((arg > hpet_max_freq) &&
+ 		    !capable(CAP_SYS_RESOURCE)) {
+ 			err = -EACCES;
+ 			break;
+ 		}
+ 
+-		if (!arg) {
++		if (!arg || !hpet_time_div(hpetp, arg)) {
+ 			err = -EINVAL;
+ 			break;
+ 		}
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260920015647.1783574-1-xiaolinkui%40126.com
+2.49.0
