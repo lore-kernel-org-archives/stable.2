@@ -1,33 +1,36 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DF38B1A683D;
-	Mon, 21 Sep 2026 07:07:58 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0625B38E8A2
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:09:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974480; cv=none; b=hQuVghUm33CuZDHxokbKFMdn5oiJZEeO4MOhSa1GEBr2s8ByEM3ymZncx1XQaO+fT3cTI9ivonq3gibTkH0u/IziF2k85M3yjGdeKYnP/b9dfyjUqreymeYaLEGiwXV2Yg7lV8FPX6JCSkOomHTDl770ATSHupZITKIOTnCzez8=
+	t=1789974543; cv=none; b=WhYPbX3kaf8taUFtl4OpW2MvuQxkb0S9LvNrS+p+S9phXZxk8rM8A4clxjCTsoxNalHeTGkFIkGnSox5hxGOZ5qEZDHrCHkfLFTJrbD/0rsFANIChfcYx01e9noJFsEN9Z2nrIqmVULdQcVBJnp7lkg6i5tyTs1Uj+Phpc6vryM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974480; c=relaxed/simple;
-	bh=rSj8hBcd8ZndQAeqf9fyfCA0DXPFXxCH7MHPGTfWvWo=;
+	s=arc-20240116; t=1789974543; c=relaxed/simple;
+	bh=fP06fUHtBpp2cGAnDwmJQ/nY6+PkTalsUPKOuD9WtKM=;
 	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=sESe3eG8TpxLvXAb1aOs0dCZkcBrlGnCq8G4aHE9GA5+Jw4R7naFxq4SR5erT5XQmXAtm/WxH1qN0fII/aBV7E/sJX+yOWB1xMjwq9N2NbMB1v4ktvC/ZfoeEP33x1y32a3dfDr40/B7LE8i8yY02ZSF9D+8T9epKeVhFh/NA0s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=adbtzmn5; arc=none smtp.client-ip=100.103.45.18
+	 In-Reply-To:Content-Type; b=rI9oGWhl3riI60L593PDeu+l9wEcHwQQN+9mDejXQ1EmpCjL0VTbElNriRAux/V8OagIzVCfE5wS12f4oeKrwahsCG2XrQtBVA967GBSDmsIPEAwM1wjRrw9Lx6XSmmJE9jkH5xwz8SQm3M//I/hCWd2XqZnKfDFke10/dIaLVA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xhrRP/zv; arc=none smtp.client-ip=95.215.58.178
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="adbtzmn5"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 870E21F000FF;
-	Mon, 21 Sep 2026 07:07:57 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789974478;
-	bh=5IdEsVhx0lS/O2gGgfVa6jEzl0SVQ0tM8a9ZKJOim1A=;
-	h=Date:Subject:To:Cc:References:From:In-Reply-To;
-	b=adbtzmn57qosIzBsOA+jgSEsgbVxQv0jdxISB9HX7GsPwSaRk/IEoa/Zc5Xc+0UW7
-	 QKVjuCKdICWpTTHx/YUhC6rPwt1xXZm0qrbNLjHtwz2aFPk5ZOAfFAswYQv5YADZti
-	 2f2jep2RfpxrEekN5qq0nLIdq7eGsmj7spl5iu0BbNdvgxarCOFv2q9jGAiM0GnPww
-	 Oyp/eYESF3LAnQhUkV1hyJk4ZQ9BCSG2PfHt6MybC0/U9mvSkM8y5pu7rDLCBgpnik
-	 fxfZZIfj+slZdyJBn5t/bITzVvC64wpDOJhQQG5Qn9efsYdy+oOOsqGIwYx7SGEfMw
-	 NYB5/boW1IFww==
-Message-ID: <e8a11c49-a60f-4c08-8599-dadb6101872b@kernel.org>
-Date: Mon, 21 Sep 2026 16:07:55 +0900
+	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xhrRP/zv"
+X-Envelope-To: stable@vger.kernel.org
+DKIM-Signature: a=rsa-sha256; bh=fP06fUHtBpp2cGAnDwmJQ/nY6+PkTalsUPKOuD9WtKM=;
+ c=simple/simple; d=linux.dev;
+ h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
+ t=1789974539; v=1; x=1790579339;
+ b=xhrRP/zvxJyI/kzGlCRME/x2ufvzsIa6m5R16CX43gNscJV+T5eTFhoi2WljrN4AbN3QjqWv
+ O01wsimJUSY9+mbf6AsEQgsi3FsXWAzlUfIwUQi9nSHvYWIGZd+ZomSbqxkJSYwqGN6LSA9bt8n
+ oxKeCXE22h7tEe5lz8OZsI8s=
+X-Envelope-To: stable@vger.kernel.org
+Received: by smtp.migadu.com with ESMTPS id a688a47092d9ca8d;
+	Mon, 21 Sep 2026 07:08:59 +0000
+X-Mizu-Trace-ID: a688a47092d9ca8d
+X-Migadu-Flow: FLOW_OUT
+Message-ID: <a00dbaaa-99f1-4172-b337-911ff45ae71e@linux.dev>
+Date: Mon, 21 Sep 2026 15:08:55 +0800
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,69 +38,103 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through
- commands when multi_count is 0
-To: Hui Peng <benquike@gmail.com>, Niklas Cassel <cassel@kernel.org>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-References: <20260919222625.3797581-1-benquike@gmail.com>
- <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
- <20260921032556.1160734-1-benquike@gmail.com>
-Content-Language: en-US
-From: Damien Le Moal <dlemoal@kernel.org>
-Organization: Western Digital Research
-In-Reply-To: <20260921032556.1160734-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8
+Subject: Re: [PATCH v3 1/3] cgroup/cpuset: return PERR_NOCPUS in
+ remote_partition_enable()
+To: Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
+ Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
+ Waiman Long <longman@redhat.com>
+Cc: Michal Koutny <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
+ cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
+ linux-kernel@vger.kernel.org, stable@vger.kernel.org
+References: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
+ <20260920181449.3122336-1-benquike@gmail.com>
+From: Ridong Chen <ridong.chen@linux.dev>
+In-Reply-To: <20260920181449.3122336-1-benquike@gmail.com>
+Content-Type: text/plain; charset=UTF-8; format=flowed
 Content-Transfer-Encoding: 7bit
 
-On 9/21/26 12:25, Hui Peng wrote:
-> When an ATA_12, ATA_16, or ATA_32 pass-through command with a
-> multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
-> ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
-> ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
-> multiple-sector mode is not configured (dev->multi_count == 0),
-> ata_scsi_pass_thru() currently logs a warning and still dispatches the
-> taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
-> WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
-> nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
-> to transfer any sectors:
+
+
+On 9/21/2026 2:14 AM, Hui Peng wrote:
+> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
+> partition over a remote one") updated update_prstate() to prevent creating
+> a top-level local partition whose exclusive CPUs conflict with an existing
+> remote partition.
 > 
->   ata1.00: invalid multi_count 1 ignored
->   WARNING: drivers/ata/libata-sff.c:666 at ata_pio_sectors+0x27d/0x300
->   Call Trace:
->    <IRQ>
->    ata_sff_hsm_move+0x211/0x22e0
->    __ata_sff_port_intr+0x1c8/0x520
->    ata_bmdma_port_intr+0xa1/0x5b0
->    ata_bmdma_interrupt+0x1f5/0x550
+> However, if a top-level local partition A1 is created on CPUs 1-3, has a
+> non-partition member child A1/A2 with cpuset.cpus.exclusive = 1-3, and a
+> grandchild A1/A2/A3 is then enabled as a partition root on 1-3,
+> update_prstate() sees !is_partition_valid(parent) (since A1/A2 is a member)
+> and calls remote_partition_enable(). Because remote_partition_enable() does
+> not check whether tmp->new_cpus intersects subpartitions_cpus, A1/A2/A3 is
+> enabled as a remote partition on CPUs already owned by A1, triggering:
 > 
-> Per ACS-3 section 7.12.7.21, if IDENTIFY DEVICE word 59 bit 8 is cleared
-> to zero (multi_count == 0) and a READ MULTIPLE or WRITE MULTIPLE command
-> is received without a preceding successful SET MULTIPLE MODE command, the
-> device returns command aborted (ABRT). Per the SAT specification, an ABRT
-> error translates to the ABORTED COMMAND sense key with NO ADDITIONAL SENSE
-> INFORMATION (0x00, 0x00).
+>    WARNING: kernel/cgroup/cpuset.c:1594 at update_prstate+0xbef/0xd70
 > 
-> Fail multi-sector taskfile commands in ata_scsi_pass_thru() with
-> ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0) when
-> dev->multi_count == 0.
+> Return PERR_NOCPUS in remote_partition_enable() when tmp->new_cpus
+> intersects subpartitions_cpus, matching the error code used by
+> remote_cpus_update() for subpartitions_cpus conflicts, and add a
+> corresponding regression test case to
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
 > 
-> Tested in QEMU against Linux 7.3.0-rc3 (-device ide-cf, where
-> dev->multi_count is 0) by issuing ATA_CMD_SET_MULTI (nsect=1) followed
-> by an SG_IO ATA_16 ATA_CMD_READ_MULTI command: on the unfixed kernel
-> this triggers WARNING: drivers/ata/libata-sff.c:666 in
-> ata_pio_sectors(), whereas on the fixed kernel it immediately completes
-> with sense key ABORTED_COMMAND (0x0b, 0x00, 0x00) and 0 warnings.
+> Tested in QEMU on Linux 7.3.0-rc3 using
+> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
 > 
-> Fixes: 1dce589c38c3 ("libata passthru: support PIO multi commands")
+> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
+> Suggested-by: Guopeng Zhang <guopeng.zhang@linux.dev>
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v3:
+> - Split the series into 3 patches (one per logical change and Fixes: tag).
+> 
 
-Looks OK.
+What is going on here?
 
-Reviewed-by: Damien Le Moal <dlemoal@kernel.org>
+Please do not reply with a new series. And I think the changes should be listed 
+in the cover letter. Otherwise, it will get very confusing.
+
+
+>   kernel/cgroup/cpuset.c                        | 4 +++-
+>   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
+>   2 files changed, 5 insertions(+), 1 deletion(-)
+> 
+> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
+> index c8ab89cfbe3d..7381fa8502e7 100644
+> --- a/kernel/cgroup/cpuset.c
+> +++ b/kernel/cgroup/cpuset.c
+> @@ -1678,8 +1678,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
+>   	 * Callers must have validated that effective_xcpus is not empty.
+>   	 */
+>   	spin_lock_irq(&callback_lock);
+> -	if (cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus)) {
+> +	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus) ||
+> +	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus)) {
+>   		spin_unlock_irq(&callback_lock);
+> +		if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
+> +			return PERR_NOCPUS;
+>   		return PERR_HKEEPING;
+>   	}
+>   
+
+I cannot apply this patch. It seems quite different from v2.
+
+> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> index a1f42ef64bc1..b732078bf319 100755
+> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
+> @@ -298,6 +298,8 @@ TEST_MATRIX=(
+>   	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
+>   				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
+>   								       A1:P0|A2:P2|A3:P-1 2-4"
+> +	" CX1-3:P1 CX1-3  CX1-3    .      .      .      P1     .     0 A1:1-3|A2:1-3|A3:1-3 \
+> +								       A1:P1|A2:P0|A3:P-1"
+>   
+>   	# Remote partition offline tests
+>   	"   C0-3    C1-3  C2-3     .    X2-3   X2-3 X2-3:P2:O2=0 .   0 A1:0-1|A2:1|A3:3 A1:P0|A3:P2 2-3"
 
 -- 
-Damien Le Moal
-Western Digital Research
+Best regards
+Ridong
+
