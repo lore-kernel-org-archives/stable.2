@@ -1,274 +1,192 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6DB2746F4BB;
-	Mon, 21 Sep 2026 14:20:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AF39049F122
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:22:00 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000414; cv=none; b=XJSG89pVPnWoOn9eeTMVPk8sfU80/XX+3GNSNlLA6bcu98LZr+3hREcpIbybaR/YxEEYaQUvFGCRchVWRfQIM+gEl2m9zYvvMdIvkVk2Hv8a6qksIp27aZe/R4AD2OaPuTQB5Pc+5/T2ZCYVR10zM2HFxGqWBgP7hoZg6uSpzr4=
+	t=1790000522; cv=none; b=r1p1NpnPlNozPiqgJxzu0+aNK0re9qu9+7CS3GIdvuRg5WwbvRBYRW/eDLI2tLkFLpeLOkbG9CsqmJu2Tn4rwf5XCdvbTF2MaGmeSdIiylmMstJtUvM9CYu+SLoGADLdemuYwaybIm2LQQbhSMvuci0A+Cf3V2HiDSvgKqyEqwo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000414; c=relaxed/simple;
-	bh=FtKQKIebSLhQ1pvRZxKy2tSAVnHeMRVUgHf+F6/BDBg=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Vfx4dOdEhpum5GAJOnS6RPe2PUgXRu+yYZh4p2kXDcKWiD56akb5++ajJgYLllI3etTsNH1ossk+wQqDXMGRvj45ZcYdemJKa+F/kqTaWd+tlK9g+PIdGmXDBpx2dPJEdW9yBmEwPNvllVAqFBhwzHI8Q0zNNOv0sqK0YzfQe5I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=X1qlUZSL; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790000522; c=relaxed/simple;
+	bh=lyIz+1l5b3G3/JlMz/Ffg83kJuwv+dOtA5fodcHyDDI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=OEG4ZQpLBhWrtrTA/SyCQ2HLigbKs0RR7jPPfkAdHzUMYt2EAA4IthHkmJHqeWvu+YHxrkJS6evEtntnslYoWELKbo+lGJ7CseB3u3n8SygTQ9Hf1hKTeEUdIpo0toFqUFTqBe1VgFLNZHHuLbTnL72oFbbzPehs/+kQpsPFT8U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=NGpj+Uw2; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="X1qlUZSL"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id ACB931F000FF;
-	Mon, 21 Sep 2026 14:20:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790000413;
-	bh=rCx3Ged42YqopxfbC6N0eUsafreZfHrJEe1VG/QdqjI=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=X1qlUZSLjxWN2hrPf5R5ngE1lq/MkbRU1UntXx/EWSrm+M7oDP4SrrW1zIenV7Lgy
-	 AfipOE9qn06w3EspE8akL+/lVMgWiyAa/gVSW9qfEzPTO5nsmNxdMBqN2OlTHoRnpB
-	 gKVAtxwcZ7BYHQYuKN85NiuGKWzVNlonjCZ79lCoH+eEWK6pqVHD8lgBsl6CWjIJqX
-	 9eQ7r7qTlgO9q7c/Yhc9Rsw6OLfaL6TEyNROupDw2loFZCmMMlKpu8AGdneWKbMymL
-	 rS57w5P9xjSh0yzw48Uwh6swOsLfzZpzw+7cW6z7lvHAPLnD1tnjKVfIKCKREw0xCj
-	 v1T1qg55zwGlg==
-Subject: Re: [PATCH 2/2] net/sched: sch_cake: check negative transport offset
- in cake_overhead()
-From: netdev-bot+sashiko@kernel.org
-To: ndaugoing@gmail.com
-Cc: davem@davemloft.net, edumazet@google.com, kuba@kernel.org,
- pabeni@redhat.com, horms@kernel.org, toke@toke.dk, jhs@mojatatu.com,
- jiri@resnulli.us, netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
- stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 14:20:12 +0000
-Message-ID: <179000041222.2160803.11108326722307773525@kernel.org>
-In-Reply-To: <20260917122153.62722-3-ndaugoing@gmail.com>
-References: <20260917122153.62722-3-ndaugoing@gmail.com>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="NGpj+Uw2"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2db1ca06a25so20634615ad.2
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:22:00 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1790000520; x=1790605320; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=4qptzRTLzEX4ORnvKTYYJwd+9jdXwoH4m16aZtajA1I=;
+        b=NGpj+Uw2uMlKIAfFtyVX3rF35jjGJS+jT/ZC5VD29xJEW5OLs+7894zJeac/GJ8GNs
+         InpD5kSLqJVOaHwZ4iDBePUwO100C2uAhh72nR5RuVuyMf2YxIH54R8tqjyZJnIz+rn0
+         Tgw+qhPFcqS2yiC++khpSay+pcoDubw3F84OtJppeD+fF/vW8GL3EzQR5OkRZObjQQIr
+         77nS8kkOwEOIDXEbJFQsxTlVy4kk8oHGUA9xofxjf9BjvSx+4wE9SJtusI0EzUDsv1wJ
+         TwGYrPGXyy97OMLiK5WBj2nOjKEy6Rave7sOLsW7Q5fNwKXM4N4S0pNd7RbQ5iHCfquz
+         NpMQ==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790000520; x=1790605320;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=4qptzRTLzEX4ORnvKTYYJwd+9jdXwoH4m16aZtajA1I=;
+        b=hwccrtrU+CwFu6LvtKWkZZqzkl8dhA7WVgwGFwYj9qbl68Klh5ARxXEERdrZfi41kK
+         H0P2wBmNh24zexBLYMmJd+/tVmmrLrMwmEVPzq6w5CPf+qBo5+JcqHgCD6LTyj4+qYB1
+         OTs1Lb/9UZJiXVVz1k7PL/jHPNNIEAU1Nf4NI6A43aSjJJs4Tds72GuTAkyD7cDvTtO9
+         CiKPnFh2aKOYAolt+6suNPWOqtMuky32XYDlBzJwXTgTvGMoAORJJkdDQ9Oy6y3U1B6A
+         vwKM4zmcHWY14eFPtKb5NqRFKlkwurGlqlfW3Tzm0hcXO2FhiUjiphUKH3s6pNBd32yn
+         Np1g==
+X-Gm-Message-State: AFuF++kfkbTMiaA5O2mTo8i0OoDhFEROyIM8wZrff5nQV/Lsb+SArgkL
+	+9QuV/3Twc9KraCE9xQ4a1uBPYfwd0WxD4FY4iqMv0mc8BRHTsgcv7y7
+X-Gm-Gg: AYBFou2tCem6tpRhOa9mk3fej7GY+2jH9eCpqKhThel0u/nYqIEkRoli86u1NG/jy87
+	W0W8WZxooVb7D1M/VkuGpvu7a+yOpab6b5omC/2dTmDq9JC+0UdizysoAYsoBG+kE3T5FhfK93q
+	QaqlYiWcFZ6nnWvluqaitP7SqopQtcfxbDjp9dQKJabG7FLxjYC8YmmODgEhC48qSLqgUaH+/mY
+	IIKMLgxxeay8/bPkipdsULnjpd6Vb4QG3VJWY5qbntAD23lQBMbfdNTk6uckblce5bEe6DOnQtD
+	5k07HaIeIJPzFyfoC6Tk3+hKynuQEScjAqaUo+sfX0cf31ft3+5/6wfSEw9TPrxUTwYQn0FLUk5
+	KhCApO33WconYajNd/r6XsXQjhbcT2pOGAwaQ2Z0PYwghWNTIR1ExUPzR6uryAvgRXGtevEpCzF
+	DzjPgWSE31n9uOd9olU/TxI9AzFwZS8zH3ObnBrBxln7yaS8+AYGKXd/x1E9tzrnjw
+X-Received: by 2002:a17:903:13d0:b0:2dd:c100:80bd with SMTP id d9443c01a7336-2ddc10081cdmr113240275ad.56.1790000519755;
+        Mon, 21 Sep 2026 07:21:59 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc179dbd5sm35130485ad.39.2026.09.21.07.21.53
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 07:21:58 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Lorenzo Pieralisi <lpieralisi@kernel.org>,
+	=?UTF-8?q?Krzysztof=20Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
+	Manivannan Sadhasivam <mani@kernel.org>,
+	Rob Herring <robh@kernel.org>,
+	Bjorn Helgaas <bhelgaas@google.com>,
+	Jingoo Han <jingoohan1@gmail.com>,
+	Christian Bruel <christian.bruel@foss.st.com>,
+	Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+	Alexandre Torgue <alexandre.torgue@foss.st.com>,
+	Siddharth Vadapalli <s-vadapalli@ti.com>,
+	Frank Li <Frank.Li@nxp.com>,
+	Niklas Cassel <cassel@kernel.org>,
+	Guangshuo Li <lgs201920130244@gmail.com>,
+	Koichiro Den <den@valinux.co.jp>,
+	Yuho Choi <dbgh9129@gmail.com>,
+	Kishon Vijay Abraham I <kishon@kernel.org>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	linux-stm32@st-md-mailman.stormreply.com,
+	linux-arm-kernel@lists.infradead.org
+Cc: stable@vger.kernel.org
+Subject: [PATCH v2] PCI: keystone: fix endpoint teardown on remove
+Date: Mon, 21 Sep 2026 22:21:47 +0800
+Message-ID: <20260921142147.435953-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+ks_pcie_probe() initializes the DesignWare PCIe endpoint with
+dw_pcie_ep_init() and notifies the endpoint framework after the
+endpoint registers have been initialized. However, the remove path
+does not perform the corresponding endpoint teardown.
 
-Critical: 0 · High: 0 (1) · Medium: 2 · Low: 0
+This leaves the EPC initialization state and resources allocated by
+the DesignWare endpoint core active after the driver is removed.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Make dw_pcie_ep_deinit() notify the endpoint framework when endpoint
+initialization has completed, so controller drivers do not need to
+duplicate the notification before endpoint teardown. Keep the
+notification conditional since dw_pcie_ep_deinit() is also used on
+error paths before pci_epc_init_notify() has been called.
 
-- [Medium] Commit message asserts a memory-safety bug that the cited code
-  path cannot produce: "can lead to an out-of-bounds pointer (skb->data…
-- [Medium] cake_overhead() (net/sched/sch_cake.c:1427-1434) copies the
-  header-length computation from qdisc_pkt_len_segs_init() but imports…
+Remove the now redundant explicit notification from the STM32 endpoint
+driver.
 
-Pre-existing issues:
-- [High] cake_overhead() only special-cases `segs == 1`
-  (net/sched/sch_cake.c:1424); `segs == 0` falls into the multi-segment…
+Cache the controller mode in struct keystone_pcie and use it during
+removal to deinitialize the endpoint before runtime PM and the PHYs are
+disabled.
 
---
+Fixes: 23284ad677a9 ("PCI: keystone: Add support for PCIe EP in AM654x Platforms")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+v2:
+  - Cache the PCIe mode in struct keystone_pcie instead of looking up the
+    match data again during removal.
+  - Move pci_epc_deinit_notify() into dw_pcie_ep_deinit() to avoid
+    duplicating the notification in controller drivers.
+  - Remove the now redundant explicit deinit notification from the STM32
+    endpoint driver.
 
-net/sched: sch_cake: check negative transport offset in cake_overhead()
+ drivers/pci/controller/dwc/pci-keystone.c       | 6 ++++++
+ drivers/pci/controller/dwc/pcie-designware-ep.c | 3 +++
+ drivers/pci/controller/dwc/pcie-stm32-ep.c      | 1 -
+ 3 files changed, 9 insertions(+), 1 deletion(-)
 
-The patch changes hdr_len in cake_overhead() from unsigned int to int and
-returns the plain cake_calc_overhead() result when the computed transport
-offset is negative.  A couple of questions about the reasoning in the
-changelog and about the completeness of the new guard.
-
-Quoting from the changelog:
-
->     If an encapsulated or stripped packet has a negative transport offset,
->     hdr_len is converted to a huge positive integer near UINT_MAX. When
->     passed to skb_header_pointer(skb, hdr_len, ...), the signed offset argument
->     in skb_header_pointer() becomes negative, which can lead to an
->     out-of-bounds pointer (skb->data + negative_offset) and an OOB read.
-
-[Severity: Medium]
-Can this path really produce a read outside the allocation?
-
-The offset ends up in __skb_header_pointer(), whose offset parameter is
-already an int, so the unsigned conversion is undone:
-
-include/linux/skbuff.h:__skb_header_pointer() {
-	if (likely(hlen - offset >= len))
-		return (void *)data + offset;
-	...
-}
-
-The negative value comes from skb_transport_offset() /
-skb_inner_transport_offset(), which are head-relative:
-
-	return skb->head + skb->transport_header - skb->data;
-
-So skb->data + hdr_len == skb->head + skb->transport_header, which is at
-or after skb->head and still inside the skb head buffer.  The
-skb_copy_bits() fallback reads from the same allocation.  Is the actual
-pre-patch consequence garbage header-length accounting rather than an OOB
-read?
-
-Relatedly, could the changelog say how a negative offset reaches
-cake_overhead() at all?  __dev_queue_xmit() already rejects such GSO skbs
-before any ->enqueue() runs:
-
-net/core/dev.c:__dev_queue_xmit() {
-	reason = qdisc_pkt_len_segs_init(skb);
-	if (unlikely(reason)) {
-		dev_core_stats_tx_dropped_inc(dev);
-		kfree_skb_reason(skb, reason);
-		return -EINVAL;
-	}
-	...
-}
-
-which leaves header mangling done after that point (nf_hook_egress(),
-sch_handle_egress(), e.g. bpf_skb_adjust_room() ->
-bpf_skb_net_shrink()) as the remaining route.  With Fixes: and
-Cc: stable on the patch, spelling out the reachable trigger would help
-backporters decide whether this is a memory-safety fix or accounting
-hardening.
-
-> diff --git a/net/sched/sch_cake.c b/net/sched/sch_cake.c
-> index dc93267029e70..ce9e85f9571e6 100644
-> --- a/net/sched/sch_cake.c
-> +++ b/net/sched/sch_cake.c
-> @@ -1413,10 +1413,11 @@ static u32 cake_calc_overhead(struct cake_sched_data *qd, u32 len, u32 off)
->  static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
->  {
->  	const struct skb_shared_info *shinfo = skb_shinfo(skb);
-> -	unsigned int hdr_len, last_len = 0;
-> +	unsigned int last_len = 0;
->  	u32 off = skb_network_offset(skb);
->  	u16 segs = qdisc_pkt_segs(skb);
->  	u32 len = qdisc_pkt_len(skb);
-> +	int hdr_len;
->  
->  	WRITE_ONCE(q->avg_netoff, cake_ewma(q->avg_netoff, off << 16, 8));
->  
-> @@ -1429,6 +1430,9 @@ static u32 cake_overhead(struct cake_sched_data *q, const struct sk_buff *skb)
->  	else
->  		hdr_len = skb_inner_transport_offset(skb);
->  
-> +	if (unlikely(hdr_len < 0))
-> +		return cake_calc_overhead(q, len, off);
-> +
-
-[Severity: Medium]
-Should the companion guard from qdisc_pkt_len_segs_init() be imported as
-well?  That function has two tests, not one:
-
-net/core/dev.c:qdisc_pkt_len_segs_init() {
-	if (!skb->encapsulation) {
-		if (unlikely(!skb_transport_header_was_set(skb)))
-			return SKB_NOT_DROPPED_YET;
-		hdr_len = skb_transport_offset(skb);
-	} else {
-		hdr_len = skb_inner_transport_offset(skb);
-	}
-	if (unlikely(hdr_len < 0))
-		return SKB_DROP_REASON_SKB_BAD_GSO;
-	...
-}
-
-When the transport header was never set it holds the sentinel installed by
-__finalize_skb_around():
-
-	skb->transport_header = (typeof(skb->transport_header))~0U;
-
-so skb_transport_offset() returns 65535 - (skb->data - skb->head), a large
-positive number that the new hdr_len < 0 test does not catch.
-skb_header_pointer() then returns NULL for that offset, hdr_len stays at
-roughly 65471, and cake_overhead() computes len = shinfo->gso_size +
-hdr_len (about 66 KB) for each of segs - 1 segments.
-
-That value is stored by cake_enqueue():
-
-	get_cobalt_cb(skb)->adjusted_len = cake_overhead(q, skb);
-
-and later charged in cake_advance_shaper():
-
-	u32 len = get_cobalt_cb(skb)->adjusted_len;
-	...
-		u64 tin_dur = (len * b->tin_rate_ns) >> b->tin_rate_shft;
-
-so one GSO skb can be charged many times its real size, and the u16
-max_netlen/max_adjlen statistics are truncated.  On CONFIG_DEBUG_NET=y
-skb_transport_header() also has a DEBUG_NET_WARN_ON_ONCE() for the unset
-case.
-
-Is the sentinel state reachable at enqueue?  qdisc_pkt_len_segs_init()
-returns SKB_NOT_DROPPED_YET for it rather than dropping, after having
-already stored pkt_segs, and the rx path only papers it over when
-CONFIG_DEBUG_NET is unset:
-
-net/core/dev.c:__netif_receive_skb_core() {
-#if !defined(CONFIG_DEBUG_NET)
-	/* We plan to no longer reset the transport header here. */
-	if (!skb_transport_header_was_set(skb))
-		skb_reset_transport_header(skb);
-#endif
-	...
-}
-
-Producers of that state include gro_cells_receive(), which calls
-skb_unset_transport_header(skb), and the non-NEEDS_CSUM
-else if (gso_type) branch of __virtio_net_hdr_to_skb(), which sets
-gso_size without touching the transport header.  On a CONFIG_DEBUG_NET=n
-kernel the rx-path reset above closes the route that could be verified,
-so this may be limited to debug kernels.
-
-[Severity: High]
-This is a pre-existing issue and not something this patch introduces, but
-while adding a guard here, would a segs <= 1 test be worth folding in?
-cake_overhead() only special-cases one segment:
-
-	if (segs == 1)
-		return cake_calc_overhead(q, len, off);
-
-With segs == 0, execution falls into the multi-segment arithmetic where
-segs - 1 is the int -1:
-
-	last_len = skb->len - shinfo->gso_size * (segs - 1);
-
-	return (cake_calc_overhead(q, len, off) * (segs - 1) +
-		cake_calc_overhead(q, last_len, off));
-
-Does the u32 multiplication by -1 wrap to roughly 4.29e9 here, with
-last_len becoming skb->len + gso_size?  That value reaches
-cake_advance_shaper() through get_cobalt_cb(skb)->adjusted_len:
-
-		u64 tin_dur = (len * b->tin_rate_ns) >> b->tin_rate_shft;
-	...
-		q->time_next_packet = ktime_add_ns(q->time_next_packet, global_dur);
-
-which would push time_next_packet far into the future and stall dequeue
-for the whole qdisc.
-
-qdisc_pkt_segs() returns qdisc_skb_cb(skb)->pkt_segs verbatim, and
-qdisc_pkt_len_segs_init() stores it before any fixup:
-
-	qdisc_skb_cb(skb)->pkt_segs = gso_segs = shinfo->gso_segs;
-
-gso_segs == 0 is a legitimate DODGY state, for example:
-
-include/linux/virtio_net.h:__virtio_net_hdr_to_skb() {
-			shinfo->gso_type |= SKB_GSO_DODGY;
-			shinfo->gso_segs = 0;
-	...
-}
-
-and the DODGY recomputation at the end of qdisc_pkt_len_segs_init() is
-skipped by the unset-transport-header early return without dropping the
-skb.  Note that the same virtio branch that sets gso_segs = 0 is also the
-one that never sets the transport header, so both preconditions can arrive
-together; as above, the CONFIG_DEBUG_NET=n rx-path reset closes the route
-that could be verified, so reachability on non-debug kernels is not
-established.
-
->  	/* + transport layer */
->  	if (likely(shinfo->gso_type & (SKB_GSO_TCPV4 |
->  						SKB_GSO_TCPV6))) {
-
+diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
+index 602516239a57..59f7b2e152a2 100644
+--- a/drivers/pci/controller/dwc/pci-keystone.c
++++ b/drivers/pci/controller/dwc/pci-keystone.c
+@@ -121,6 +121,7 @@ struct ks_pcie_of_data {
+ 
+ struct keystone_pcie {
+ 	struct dw_pcie		*pci;
++	enum dw_pcie_device_mode mode;
+ 	/* PCI Device ID */
+ 	u32			device_id;
+ 	int			intx_host_irqs[PCI_NUM_INTX];
+@@ -1226,6 +1227,7 @@ static int ks_pcie_probe(struct platform_device *pdev)
+ 
+ 	ks_pcie->np = np;
+ 	ks_pcie->pci = pci;
++	ks_pcie->mode = mode;
+ 	ks_pcie->link = link;
+ 	ks_pcie->num_lanes = num_lanes;
+ 	ks_pcie->phy = phy;
+@@ -1349,9 +1351,13 @@ static void ks_pcie_remove(struct platform_device *pdev)
+ {
+ 	struct keystone_pcie *ks_pcie = platform_get_drvdata(pdev);
+ 	struct device_link **link = ks_pcie->link;
++	struct dw_pcie *pci = ks_pcie->pci;
+ 	int num_lanes = ks_pcie->num_lanes;
+ 	struct device *dev = &pdev->dev;
+ 
++	if (ks_pcie->mode == DW_PCIE_EP_TYPE)
++		dw_pcie_ep_deinit(&pci->ep);
++
+ 	pm_runtime_put(dev);
+ 	pm_runtime_disable(dev);
+ 	ks_pcie_disable_phy(ks_pcie);
+diff --git a/drivers/pci/controller/dwc/pcie-designware-ep.c b/drivers/pci/controller/dwc/pcie-designware-ep.c
+index de8ee3db4360..b785e098f759 100644
+--- a/drivers/pci/controller/dwc/pcie-designware-ep.c
++++ b/drivers/pci/controller/dwc/pcie-designware-ep.c
+@@ -1188,6 +1188,9 @@ void dw_pcie_ep_deinit(struct dw_pcie_ep *ep)
+ {
+ 	struct pci_epc *epc = ep->epc;
+ 
++	if (epc->init_complete)
++		pci_epc_deinit_notify(epc);
++
+ 	dw_pcie_ep_cleanup(ep);
+ 
+ 	pci_epc_mem_free_addr(epc, ep->msi_mem_phys, ep->msi_mem,
+diff --git a/drivers/pci/controller/dwc/pcie-stm32-ep.c b/drivers/pci/controller/dwc/pcie-stm32-ep.c
+index a7988dff1045..1cb31bd76da5 100644
+--- a/drivers/pci/controller/dwc/pcie-stm32-ep.c
++++ b/drivers/pci/controller/dwc/pcie-stm32-ep.c
+@@ -304,7 +304,6 @@ static void stm32_pcie_remove(struct platform_device *pdev)
+ 
+ 	dw_pcie_stop_link(pci);
+ 
+-	pci_epc_deinit_notify(ep->epc);
+ 	dw_pcie_ep_deinit(ep);
+ 
+ 	stm32_pcie_disable_resources(stm32_pcie);
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917122153.62722-1-ndaugoing%40gmail.com
+2.43.0
+
