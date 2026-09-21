@@ -1,138 +1,127 @@
-Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
+Received: from mgamail.intel.com (mgamail.intel.com [192.198.163.7])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 703D2314D1F;
-	Mon, 21 Sep 2026 12:09:00 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1A0F846EC84;
+	Mon, 21 Sep 2026 12:10:28 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=192.198.163.7
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789992544; cv=none; b=e9qARyTYf92uGpKK8TaZEDimFsosKaMmnX+8hva4VCPAK5MMYCKx9paGIhJ3sF5WFIsE8MruswSIbq5J1qwltb/tRBpk4xcZGKrHP8U3Tltyr7U+gdDj/eDx+++Cm8L+Diad6+AtyRMkiGkpVIYJIhbF7QUblQW9qwBcFVDm5kI=
+	t=1789992630; cv=none; b=cOA9DY/E4Mgd2T9tvOJhF86wlCjltu8mZ8O3+D2FKreaVcOMIiNKCrGmQj3mZoxvcCoC1BNsXnmftlaM9MK1xkOsAbOdwIo7ejYoqCIN5bO/Sa9AxAF8VdH0C3R66R0HHlfkag9z53+JQixxTiZHLY3+rdW+WT7CI/vKPSJIqzU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789992544; c=relaxed/simple;
-	bh=/qErVVwKhalJ2lwNOPfynyqL2Cb5IjjXJfMGfjh0ceo=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=Vlhr/QhcgLax6jbQf7Uc989rm97NHX1Vl0bCKtamt8tOF2Ip6rFKLu2JNdDGXDH5fgdBENnyAERq+YaCwdkFLRMC46s0M4kjj/Du0OdjLyCvjrkmBy3B240Ree0GS7tZGtSC1lt3WcXhnVwMdwR7tKPOE9R7bTl4CssjYB6w0yY=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=kkX5vbfW; arc=none smtp.client-ip=101.71.155.101
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1789992630; c=relaxed/simple;
+	bh=TQ6439819zM+jUQ38PGeQohKat1IgIG1YfPSTxBHGk4=;
+	h=From:Date:To:cc:Subject:In-Reply-To:Message-ID:References:
+	 MIME-Version:Content-Type; b=gF7TfUCOnUxbjuvbYaNCJLHM41nAcdzgTUJFetQQvKyE9W3RJ+gSNIDE5dPLu+U56Fv2SjX4Y9VYgMgcmfAK3420vKx/1ZA4I4vLFnV2fYv/6uUk1phjFQkbmJ3mF7jHMHa/btKaoGmjs30dMPd9IikQtuDQ8gDcMTq3jlPQ94U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com; spf=pass smtp.mailfrom=linux.intel.com; dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b=cPgjaEb/; arc=none smtp.client-ip=192.198.163.7
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.intel.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.intel.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="kkX5vbfW"
-Received: from PC-202605011814.localdomain (unknown [58.241.16.34])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e943032e;
-	Mon, 21 Sep 2026 20:08:55 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Marek Szyprowski <m.szyprowski@samsung.com>
-Cc: Joerg Roedel <joro@8bytes.org>,
-	Will Deacon <will@kernel.org>,
-	Robin Murphy <robin.murphy@arm.com>,
-	Krzysztof Kozlowski <krzk@kernel.org>,
-	Peter Griffin <peter.griffin@linaro.org>,
-	Alim Akhtar <alim.akhtar@samsung.com>,
-	KyongHo Cho <pullip.cho@samsung.com>,
-	Kukjin Kim <kgene.kim@samsung.com>,
-	iommu@lists.linux.dev,
-	linux-arm-kernel@lists.infradead.org,
-	linux-samsung-soc@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] iommu/exynos: quiesce SysMMU before requesting IRQ
-Date: Mon, 21 Sep 2026 20:08:48 +0800
-Message-Id: <20260921120848.96215-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=intel.com header.i=@intel.com header.b="cPgjaEb/"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple;
+  d=intel.com; i=@intel.com; q=dns/txt; s=Intel;
+  t=1789992629; x=1821528629;
+  h=from:date:to:cc:subject:in-reply-to:message-id:
+   references:mime-version;
+  bh=TQ6439819zM+jUQ38PGeQohKat1IgIG1YfPSTxBHGk4=;
+  b=cPgjaEb/RQCifiijnGzw/PJp86LmH+3TsQgB2+72bf00Kq855EeBlVrI
+   f0o5sy0QMSH/ig3clKh6BYmLB1sPLzaUznpRDsBx7tC/sksY6kbFC0Kpz
+   C+he1dELeocf6RB6pL/yaSfrLF5Hs9n64goFKV4j8FprHOQbn7ObAyggE
+   Bi/9y7v0/5IeLrFVxqbMTqtAMJnOxSadytGwKDPMyqc3uOZsdqU970B5G
+   /h83oLTOYqGbk0ZdixfudzVPxKNdTFDr5JurrYvaGwVWZGZ8fhp2/avRZ
+   JOUsFg5MYZgGjVMqNdoXohkmHYSIsiVyUaYgiFbIAmyS1qFtHAnyJYqfJ
+   A==;
+X-CSE-ConnectionGUID: kc+nkrEySReq/QkXpdjGOw==
+X-CSE-MsgGUID: BSfvpy0zRZqmr0/dDfyWIw==
+X-IronPort-AV: E=McAfee;i="6800,10657,11911"; a="116026871"
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="116026871"
+Received: from fmviesa013.fm.intel.com ([10.60.135.153])
+  by fmvoesa101.fm.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 05:10:28 -0700
+X-CSE-ConnectionGUID: U9r91DRiRJ+9y7x458bSgw==
+X-CSE-MsgGUID: aQai4rCETtu69sJKBgZGAA==
+X-ExtLoop1: 1
+X-IronPort-AV: E=Sophos;i="6.27,114,1787036400"; 
+   d="scan'208";a="3931158"
+Received: from ijarvine-mobl1.ger.corp.intel.com (HELO localhost) ([10.245.244.215])
+  by smtpauth.intel.com with ESMTP/TLS/ECDHE-RSA-AES256-GCM-SHA384; 21 Sep 2026 05:10:26 -0700
+From: =?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>
+Date: Mon, 21 Sep 2026 15:10:18 +0300 (EEST)
+To: Hui Peng <benquike@gmail.com>
+cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
+    Jiri Slaby <jirislaby@kernel.org>, John Ogness <john.ogness@linutronix.de>, 
+    Andy Shevchenko <andriy.shevchenko@linux.intel.com>, 
+    linux-serial <linux-serial@vger.kernel.org>, 
+    LKML <linux-kernel@vger.kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v2 3/3] serial: core: reject baud_base values that overflow
+ port->uartclk in uart_set_info()
+In-Reply-To: <20260921013027.659965-3-benquike@gmail.com>
+Message-ID: <6919bc88-ea25-3349-29ac-c50bffa03898@linux.intel.com>
+References: <20260919222627.3797854-1-benquike@gmail.com> <20260921013027.659965-3-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c3de84a303a1kunmd735d0fb4b6a8
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVlDTEpIVh5NSBgYSh5OS0kYHVYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlOQ1VJT0pVSk1VSE9ZV1kWGg8SFR0UWUFZT0tIVUpLSUhOQ0
-	NVSktLVUtZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=kkX5vbfWyv/gdMl7tC4ESPW32ilC7asfeLcN8S0K4dlX9J52PSfLUAZhNgD0iJ/2yJbIB9oEfHDb3kWslE2fMoAAz9gfICmC1gnOWetfT7Emq2GM89rBjfsd0eBhExmyYCSXliRpYgZPb/B8zbdKlOLH2FAPNMiY1vE2AvdSq/0=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=NyenvGwZgtQ1ti3SGghMMEphkksMnte6MvYyknQsOfs=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=US-ASCII
 
-exynos_sysmmu_probe() registers the IRQ before obtaining clocks and
-detecting the SysMMU variant. A pending IRQ during this window can enter
-exynos_sysmmu_irq(), which takes data->lock and then dereferences
-clk_master and variant before they are initialized.
+On Mon, 21 Sep 2026, Hui Peng wrote:
 
-Obtain the clock resources and initialize the software state before
-requesting the IRQ. Detect the variant and quiesce the hardware by
-disabling the SysMMU and clearing its configuration while the clocks are
-enabled. This leaves the block inactive when the handler is published.
+> In uart_set_info(), new_info->baud_base is multiplied by 16 and stored in
+> uport->uartclk (an unsigned int):
+> 
+>   uport->uartclk = new_info->baud_base * 16;
+> 
+> While uart_set_info() checks if (uartclk == 0) and
+> if (new_info->baud_base < 9600), when new_info->baud_base exceeds
+> UINT_MAX / 16 with low bits set (for example, 0x10000001), multiplying
+> by 16 wraps around in 32-bit unsigned arithmetic to a small non-zero value
+> (16), bypassing both uartclk == 0 and new_info->baud_base < 9600 and
+> setting uport->uartclk = 16 (baud_base = 1, well below the required
+> minimum of 9600 * 16).
+> 
+> Reject new_info->baud_base > UINT_MAX / 16 with -EINVAL in
+> uart_set_info().
+> 
+> Tested in QEMU against Linux 7.3.0-rc3 by calling ioctl(fd, TIOCSSERIAL,
+> &ss) with ss.baud_base = 0x10000001 on /dev/ttyS1: on the unfixed kernel
+> TIOCSSERIAL succeeds (ret = 0) and wraps uport->uartclk to 16
+> (TIOCGSERIAL reports baud_base = 1), whereas with the fix applied
+> TIOCSSERIAL returns -EINVAL and preserves the existing uport->uartclk.
+> 
+> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: 6eabce6608d6 ("serial: core: check uartclk for zero to avoid divide by zero")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v2:
+> - Split out into patch 3/3 of the series, add Cc: stable@vger.kernel.org,
+>   and document the QEMU test method, as requested by Greg Kroah-Hartman.
+> 
+>  drivers/tty/serial/serial_core.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/drivers/tty/serial/serial_core.c b/drivers/tty/serial/serial_core.c
+> index 128fc056f5c9..4cd4fb0f7ee3 100644
+> --- a/drivers/tty/serial/serial_core.c
+> +++ b/drivers/tty/serial/serial_core.c
+> @@ -965,7 +965,7 @@ static int uart_set_info(struct tty_struct *tty, struct tty_port *port,
+>  	}
+>  
+>  	if ((new_info->irq >= irq_get_nr_irqs()) || (new_info->irq < 0) ||
+> -	    (new_info->baud_base < 9600))
+> +	    (new_info->baud_base < 9600) || (new_info->baud_base > UINT_MAX / 16))
 
-Also ignore interrupts observed while the SysMMU is inactive, so a
-spurious interrupt cannot access inactive fault state.
+Include for UINT_MAX is missing.
 
-The race is theoretical; no runtime occurrence has been observed.
+But why is this checked here? I'd have thought the more logical place is 
+where the function checks if the resulting uartclk is zero?
 
-Fixes: 2a96536e77b4 ("iommu/exynos: Add iommu driver for EXYNOS Platforms")
-Cc: stable@vger.kernel.org
-Link: https://lore.kernel.org/all/20260901130527.3289245-1-runyu.xiao@seu.edu.cn/
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/iommu/exynos-iommu.c | 27 ++++++++++++++++++---------
- 1 file changed, 18 insertions(+), 9 deletions(-)
+>  		return -EINVAL;
+>  
+>  	if (change_port || change_irq) {
+> 
 
-diff --git a/drivers/iommu/exynos-iommu.c b/drivers/iommu/exynos-iommu.c
-index 874d05f4b3969..8081bd93c67cb 100644
---- a/drivers/iommu/exynos-iommu.c
-+++ b/drivers/iommu/exynos-iommu.c
-@@ -571,9 +571,12 @@ static irqreturn_t exynos_sysmmu_irq(int irq, void *dev_id)
- 	struct sysmmu_fault fault;
- 	int ret = -ENOSYS;
- 
--	WARN_ON(!data->active);
--
- 	spin_lock(&data->lock);
-+	if (!data->active) {
-+		spin_unlock(&data->lock);
-+		return IRQ_NONE;
-+	}
-+
- 	clk_enable(data->clk_master);
- 
- 	itype = __ffs(readl(SYSMMU_REG(data, int_status)));
-@@ -744,13 +747,6 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
- 	if (irq <= 0)
- 		return irq;
- 
--	ret = devm_request_irq(dev, irq, exynos_sysmmu_irq, 0,
--				dev_name(dev), data);
--	if (ret) {
--		dev_err(dev, "Unable to register handler of irq %d\n", irq);
--		return ret;
--	}
--
- 	data->clk = devm_clk_get_optional(dev, "sysmmu");
- 	if (IS_ERR(data->clk))
- 		return PTR_ERR(data->clk);
-@@ -777,6 +773,19 @@ static int exynos_sysmmu_probe(struct platform_device *pdev)
- 
- 	__sysmmu_get_version(data);
- 
-+	/* Keep the hardware quiesced before publishing the IRQ handler. */
-+	__sysmmu_enable_clocks(data);
-+	writel(CTRL_DISABLE, data->sfrbase + REG_MMU_CTRL);
-+	writel(0, data->sfrbase + REG_MMU_CFG);
-+	__sysmmu_disable_clocks(data);
-+
-+	ret = devm_request_irq(dev, irq, exynos_sysmmu_irq, 0,
-+			       dev_name(dev), data);
-+	if (ret) {
-+		dev_err(dev, "Unable to register handler of irq %d\n", irq);
-+		return ret;
-+	}
-+
- 	ret = iommu_device_sysfs_add(&data->iommu, &pdev->dev, NULL,
- 				     dev_name(data->sysmmu));
- 	if (ret)
 -- 
-2.34.1
+ i.
 
