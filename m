@@ -1,41 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D4FE4A7CB8;
-	Mon, 21 Sep 2026 15:15:16 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2C6303B8BB6;
+	Mon, 21 Sep 2026 15:15:25 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003717; cv=none; b=tcT7IrHHDGYR3UyaI2PGn1JgJlz1s02iw7qV7cyEc1Afg9P+QUklEM4Rly4lx7VLvuyVVGdTxyywS2aVHsPyE6EcFaEQKwz8Ytmxxz4qitGO7MmQnwaU4zOjg7keUIVekmBylJJltnvWG+aVHndt+rj2j+REdPoLEiUrl4w31gE=
+	t=1790003726; cv=none; b=fZ0MXZSCZNj4T9vZcZUGaxaK9AIYFeZRdwYHAFii0qMAVndBxXLQSWV3B8uGFozNrHMErZE5DhBAvh3RpYAbBSfufhdhQ6hPRquJRrDwWS+gPfKCbaKmtDR8gqcqf8pGnHa8rJYMDZ+CG6W5WwN5/T5H0nEOdPNzyNFuHex0AiQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003717; c=relaxed/simple;
-	bh=a9Wt/oes0p+RAweh2qYEw43OZH/bcvywwHT90Rwtbd0=;
+	s=arc-20240116; t=1790003726; c=relaxed/simple;
+	bh=P1C8Ui9zIvki6oGFNXKPoqdJt/ROpxpZEaMEXA8rt7I=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=jLgqiWe5lzmGAtmTzy4KR263/V9ghhr9+RogRiGkNf5eoRpXky4a3R+1tXCn8rk321Es2UsYlnyP6oI2r1oBYiACM33NJ1m2Iix+lyBwP6JvxdEdEhK9gi1Fu6wosREC5z2BAcsx5wMyCi/2yonYkTs6qdFhG8MszEgDMzp2Pfo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oUR9lesY; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=KC7amRjH0dG8OXfpSGm+xnOqx8r7eTDw3KyV8DAVyGz3k/PQb+RF4dZ197fUFSTAd1e76qMhqa4ySG7HDKY/oPZWiFHS5ITOIfEt0VPOePxEtc5/5RbPJ3c71//tq8c0hRWySiQEyaqXdbNTP+2sqK+aRW6tQkivLIVA2TF7oTs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=a8foQQ+V; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oUR9lesY"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 30F401F000FF;
-	Mon, 21 Sep 2026 15:15:14 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="a8foQQ+V"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 446661F00893;
+	Mon, 21 Sep 2026 15:15:24 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003715;
-	bh=smQ5fQPU8YD2azuLpmzclozF5EnygshKF6f3funf1Yg=;
+	s=k20260515; t=1790003725;
+	bh=6KxHVHlGXN7ASG0nPHwW95I26gCWvcT93+YSRvr9FAc=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=oUR9lesYlnrXV2TdU+VtLdNHkdG5mpf1iovLirdw1wQbYGBzau0/48iiEglfduMeZ
-	 XZLwkjt7Ygb6nW5Hgx/tAppYDgY2ndlAbFBCVN7Qd9mQL7McYdJe7epMuuj7kY/eX7
-	 czgKGgZnK/UsAhBLCvBaZCA9/ZGP8SmI8iifNQrvDHAmHpxxw284Ypzn3uWvrgIlhK
-	 mT2UkrnKKFkOI4yj33n40Wut+XJ8sdnTA1Jn/ReIlpBLGN6W63HoyRrAWocEdruKkr
-	 IJn0iLzxpYQ1jcY8R8F1Y3mSEo9/0T+V/n+J0g/w6x7hbwFxdrN7lGI+N4STwiTFj1
-	 /5SXLzzSFpmWQ==
-Date: Mon, 21 Sep 2026 17:15:12 +0200
+	b=a8foQQ+V1f28MYEdmzQl4UQq/uMYuC9TZvwvVjzd8IhZdMsepuVr8KoE5i0qIXmvE
+	 fB4wWiQRx1lQnkxUw/c11iZ52izTQLzmFzdnlBLyBYoYRlrH9OzAwHaPUMF6O6rzAi
+	 WjCZKwLvc2IxQhtY709vriOxvpWmEI1QQaUWrnYv9iChempoM9TbJ2qXoD9XsIDW3W
+	 PcxOyNLqSInwssJvZLwbHKwchCpujAZzU+0iWAXkDDJJhLNz3XHWU+QqDRRswYinux
+	 WW4dBIGyDFiPmIjRCP+VrVM/lnt2b2bVo1X11srzSuGaMmuQg1JGrL5T64D42fCBSh
+	 /D0bq8O6vA11w==
+Date: Mon, 21 Sep 2026 17:15:21 +0200
 From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: "David S. Miller" <davem@davemloft.net>, stable@vger.kernel.org, 
-	Eric Dumazet <edumazet@google.com>, linux-kernel@vger.kernel.org, 
-	Andrew Lunn <andrew+netdev@lunn.ch>, Kevin Curtis <kevin.curtis@farsite.co.uk>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, netdev@vger.kernel.org
-Subject: Re: [PATCH] net: wan: farsync: disable PCI device on removal
-Message-ID: <arFJ_2HfXWuWCsUO@quoll>
-References: <20260916063118.2924049-1-lgs201920130244@gmail.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: rafal@milecki.pl, stable@vger.kernel.org, gregkh@linuxfoundation.org, 
+	linux-kernel@vger.kernel.org, a.fatoum@pengutronix.de, srini@kernel.org
+Subject: Re: [PATCH] nvmem: u-boot-env: Fix mtd reference leak in
+ u_boot_env_probe()
+Message-ID: <arFKCfqF0ljpWjTC@quoll>
+References: <20260917123839.2151503-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,29 +43,22 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260916063118.2924049-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260917123839.2151503-1-vulab@iscas.ac.cn>
 
 
-On Wed, 16 Sep 2026 14:31:18 +0800, Guangshuo Li wrote:
-> fst_add_one() calls pci_enable_device() to enable the PCI device. The
-> probe failure paths call pci_disable_device() to release the matching
-> enable reference, but fst_remove_one() does not disable the device
-> after a successful probe.
+On Thu, 17 Sep 2026 12:38:39 +0000, Wentao Liang wrote:
+> of_get_mtd_device_by_node() takes a reference on the returned MTD device
+> that the caller has to drop with put_mtd_device(). The probe function
+> returns early when devm_nvmem_register() or u_boot_env_parse() fails
+> without releasing that reference, so add the missing put_mtd_device()
+> calls on both error paths.
 > 
-> As a result, the PCI device enable reference remains unbalanced after
-> the driver is removed.
-> 
-> Call pci_disable_device() after the existing interrupt, tasklet,
-> mapping, DMA and PCI region cleanup to release the enable reference.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+> Fixes: d5542923f200 ("nvmem: add driver handling U-Boot environment variables")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/net/wan/farsync.c | 1 +
->  1 file changed, 1 insertion(+)
+>  drivers/nvmem/u-boot-env.c | 11 +++++++++--
+>  1 file changed, 9 insertions(+), 2 deletions(-)
 > 
 
 
