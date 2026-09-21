@@ -1,43 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8152D4AEBC0;
-	Mon, 21 Sep 2026 15:04:44 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 91B773ED5DA;
+	Mon, 21 Sep 2026 15:05:32 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003092; cv=none; b=sZC2F+bD6/Ikd0LNKnprmxzGd2LAaXnkDOaJynOij5Uoalreed8H1D6VwCEsq5cbUR5RkLlX9YcoNjnB5/hdJbk9GjZ8nyArgMF4QXvCMCwnBTXUQkV7A2k7OpjxoS9cBX8KbkrgIIsOjRshF/ETmnFmAuN9unwQH1W94EyF6E0=
+	t=1790003143; cv=none; b=sVstznZ+G7X/J+wyIPxWjzr1BoPyoxzcq14K77XtcK3uolZOFm5ZMtQfCo8cwrshsZQilC0ztX59aWMeDVhUOK5UJJu7EXMeloKJaOYRrlSBUTW5UEdhTpOADBhRMCKnH6k7qk+ru1LYBZR2TuXZ2QBmaW95idzxW1Xu0HrclM4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003092; c=relaxed/simple;
-	bh=l/0uyKU0j3b0Hsy81D9q5ChbY1r6ifLPmD5MUXhvpTA=;
+	s=arc-20240116; t=1790003143; c=relaxed/simple;
+	bh=jSVQo5DDclGhv2d/2izRZByPafPsF9Fn20U+7ZJLgpk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=F6NiyUbPGhXAwBbtauMH7P0htgwEE9K0T/6REhnNh1I27EdWY4W3CLDwn86dsl7MKHFhXPMb1OP4ZepngPk4Ss0LZ7ozGqxgx0lrabXWjkY2Ro0oL0STkSR2Bt7Dzkwa1Rjoj5QABqTdXLEyOv4QvYfovfLvNYt/v28l7zpcabI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZX5i8G/; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=kOtmoU9E56eP5K0lcMHGAqoP6pmHKZ+MGv60+hvk8MYyDdsa5STHNQuUWg0hNKmOmjRibIhiAXftS/Bsb1P6vqr2qDcFBMqM89cq0S3vj2K9sXoJLrZ1ZA12WSvc24kc23EU3MBwP8hqA+XDlbv5i0eOXOrvUZuf3mQ0oiZdX7U=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=lHEqKpiI; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZX5i8G/"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76BD41F000FF;
-	Mon, 21 Sep 2026 15:04:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="lHEqKpiI"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E9BC51F000FF;
+	Mon, 21 Sep 2026 15:05:26 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003083;
-	bh=tAJAA4AFmdQlgFZh/bqseoiGcQUpdjeeINGyxieAAC4=;
+	s=k20260515; t=1790003127;
+	bh=+We2JHXqjpmgc9MfUSu76xwsivNV11yVUPFPYqsRgIo=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=bZX5i8G/jLPmpFFX18pebpYaJ+3hk2ULfAyNRSO9zNSsv7IwyXOKLqcTtQq7ED3IS
-	 IzyIO3tQhFARJ1KhrYGDz/T0cAbaNUNh3BVinvldQ2Mfh7Fri3ao3Y9WwOHUAeRvnh
-	 mz9KYlj6TCmkSS/D8ZgbabmEJtwOq+Vv4FbQnNWSdAuAvSwfjKe1Zd7lYSGEUgoV0M
-	 lPFa1pDpFOlvNF+2yKb03NjHgTVV+a0LjovuHE8Dgv72nA0lLw534i3aLd8rt9PifO
-	 xOj5EoPtKvlgbiCARdTZhpbYdXC729BdMy/HOYu9GRg3Gdc/4gyRvxLeWX9mN7I0MN
-	 rLYhG5jpApXtQ==
-Date: Mon, 21 Sep 2026 17:04:40 +0200
+	b=lHEqKpiINNhSk0wbTjApXgaWaU8HFg74k2pDkzx2KMg0S2wEWX7XOAjckfJCJkoMN
+	 wSKf6YASyRLhwZMEgIe2MvkmU6irQVRfD4DfjAen9nqg2tSrrqJz2Zr4hve5qxyFXw
+	 zkSD58a9Y4ptmamcR3Gf9pUB7Z9ck5JFLfILhK2ch8n9YQXvxthEoJERy5BMcE/49x
+	 hzQi+RU38OfVK+NxJmTuEBtyWcyB89x5h6ltRXLfexl8PdtRqEpV/k1Hb7Y/VBLmlE
+	 UFO//e9/vM8UgwMbeG9+HVPsG1efj55wWPSlIzUYNhWb22X8fKHApr5LYCce0bdrWa
+	 D5YFyhilT4G5w==
+Date: Mon, 21 Sep 2026 17:05:24 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: "Borislav Petkov (AMD)" <bp@alien8.de>, 
-	Perry Yuan <perry.yuan@amd.com>, platform-driver-x86@vger.kernel.org, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
-	stable@vger.kernel.org, "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>
-Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init
- failure
-Message-ID: <arFHhgygVBlggeA6@quoll>
-References: <20260921082609.244774-1-lgs201920130244@gmail.com>
+Cc: linux-kernel@vger.kernel.org, 
+	Mauro Carvalho Chehab <mchehab@kernel.org>, linux-media@vger.kernel.org, stable@vger.kernel.org, 
+	Antti Palosaari <crope@iki.fi>
+Subject: Re: [PATCH] media: rtl28xxu: fix SDR platform device leak
+Message-ID: <arFHsuGjlu1NnLkA@quoll>
+References: <20260921081542.210151-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,31 +43,32 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921082609.244774-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260921081542.210151-1-lgs201920130244@gmail.com>
 
 
-On Mon, 21 Sep 2026 16:26:09 +0800, Guangshuo Li wrote:
-> amd_hfi_init() registers the HFI platform device before registering
-> the platform driver. If platform_driver_register() fails, the function
-> returns the error without unregistering the already registered platform
-> device.
+On Mon, 21 Sep 2026 16:15:42 +0800, Guangshuo Li wrote:
+> rtl2832u_tuner_attach() registers an rtl2832_sdr platform device, but
+> if registration succeeds without a bound driver, it breaks out without
+> unregistering the device.
 > 
-> Since the failed init path does not run amd_hfi_exit(), the platform
-> device remains registered and its reference is never dropped, preventing
-> the associated platform object from being released.
+> dev->platform_device_sdr is assigned only after a driver is bound, so
+> rtl28xxu_tuner_detach() cannot unregister the unbound device later.
+> This leaves the registered platform device and its associated resources
+> allocated.
 > 
-> Unregister the platform device when platform driver registration fails
-> to properly unwind the successful device registration.
+> Split the registration failure and driver binding checks. Unregister
+> the successfully registered platform device when no driver is bound
+> before leaving the switch.
 > 
 > The issue was identified by a static analysis tool I developed and
 > confirmed by manual review.
 > 
-> Fixes: 5d902ee5609a ("platform/x86: hfi: Introduce AMD Hardware Feedback Interface Driver")
+> Fixes: a2f7f220df5e ("[media] rtl28xxu: switch SDR module to platform driver")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/platform/x86/amd/hfi/hfi.c | 4 +++-
->  1 file changed, 3 insertions(+), 1 deletion(-)
+>  drivers/media/usb/dvb-usb-v2/rtl28xxu.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
 
 
