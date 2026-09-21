@@ -1,166 +1,184 @@
-Received: from mail-pz2-f40.google.com (mail-pz2-f40.google.com [74.125.228.40])
+Received: from rtits2.realtek.com.tw (rtits2.realtek.com [211.75.126.72])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 07E0E2BE02C
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:20:22 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.40
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6D7A1146D5A;
+	Mon, 21 Sep 2026 02:45:10 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=211.75.126.72
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789957224; cv=none; b=kt7LzM+PjBxraXsPtk6isQobJ6+HyD6T3DOC6l10+ObkBlXZzOYWotduiNz1ERA57nc3rFR6dMorrmeSdBkCFFqQo/BwW4+xDei9i11EdFhhH2qetAQpOPFzPsRYTa6W2jYDA1rbEc/Sr1RcJRbMdI5EngD2SftjDng7B0hPehA=
+	t=1789958713; cv=none; b=JEaNi9KQ3wEF3O3u7yaA2on6uLi9JNq7SDzcCJeLOXpHtZSDS4gQ9cMorj6VHJfai4qJ4N5qrVblwNvS/KGBosHBVxEqpxC1Fbo95D0IFd8/gDVOkxomIgQ0sgaSo4zbhDpdKwjAuSo5V4l+0s4TBnMUKJiw5S86RH59Ikhob5Y=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789957224; c=relaxed/simple;
-	bh=vUf7QAanQ5dKq7z/fJvehLlpKSca00cy1tgrEizeFrk=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=L88/Dn4D4vA1+lbKliIXcI2LcHIuNMFmVVPoiCvTrAa/qZ0hFhRWm9OquAToeEiPmCJVW8VqAJnR5L3bapW+V6Wmg4seZPe92CH9l5UlDIt88J1RDz/iY3n+MnW7IORXHjgWMBd05McIuZIZFMVbXxNrGVz7z8e32poC3KfPiJw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=I0skpZ1p; arc=none smtp.client-ip=74.125.228.40
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789958713; c=relaxed/simple;
+	bh=1ASgwUiScVjHUTD0sj2wUFSkgDi9XeBt98fnkNkH4R0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:MIME-Version; b=ak6GNRq4U5UNvWrIjEIJNUlDgrNgXrsTAe0ob1H65ti/uH60nOZsudWzIYUgz3uWnrl54BV5VCvFrDpseVDLS4e/ZO/2QNJRPxNjD7qq/VQKLFmLKFBbQDUH2zJEjirj2fUh4SnpyR7yDXs05OVyRwrBJiVf4RC4Q3mK6ld5Vs4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com; spf=pass smtp.mailfrom=realtek.com; dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b=mFqCHVIb; arc=none smtp.client-ip=211.75.126.72
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=realtek.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=realtek.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="I0skpZ1p"
-Received: by mail-pz2-f40.google.com with SMTP id 41be03b00d2f7-cc5121bcf1aso2046278a12.1
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789957222; x=1790562022; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
-        b=I0skpZ1pJIiIOg5VKbG985MPt0AA6F0R5zFL3/qkDidr2Zbc/6z+2i3syYoSGooqP7
-         p+39zbfeUDa9iz0i0ew0Kk1XR2hBMrrTgtRy1A7mKbnADQ4ByThct2Yhkp0bNMBm9D7w
-         HcBiuSN/5qmdlnfE+f+mVmvUV0OzPqmi1yi8dv2TNaPdZGDdRnROfIPwRh6DCXGnehBy
-         9BqoCEL6cJSOP2k7RKEVzcnyuwvIf+DA9XN8HcNbgd04RvHUcYmp3Z0GnDxMYg6Nzpcy
-         3oeMrdHjMwncV8fwHlq9H05w00MkYxHt6NYP1uteM0ihvL11Mpv4FJDsRmCcc8ZQjIb/
-         xCag==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789957222; x=1790562022;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=FTEAVZypIz1LkNdblYydsxE0PH83Gg7fz01btoAhDQ8=;
-        b=1CU54S1FIsQ6OHibKemin0FWtTzbRaWXpJ7WGjatFQp7CdCVsp/tzQjDCpnC4Y5fpY
-         NK8xERHKi3eQKQeGj96t5yol+ikDy2Styv7Q8TQX6bb+hKz+nuXRQcRbJdcPOpiF/bly
-         04SkUyLlEQp9kuQJNMbSiHaGIP10GeC/skTic2lNa4L4C8EIZ3KH4zKXg23BsCHulZiy
-         +ml2ecBQATIhScPGRuf4tgfVNOUOC2dnhDvSyGiaw96GvazFMfc1UShb3gmsB1ctYFS8
-         ZFdGf02vRKqsPCx+0SHJccf6m9M19wwYzrp5TgsSM3yUko577gLZq2Xz0iyuiTNjCo4T
-         Y2bA==
-X-Forwarded-Encrypted: i=1; AKwUvByYoY21aoKQyDIyvCSRpsvwN+EtUfcNpb+hWSb6XPYj7XYeAf4/w5hEbkTPAfESnmda1AjM+5o=@vger.kernel.org
-X-Gm-Message-State: AFuF++kPImJrqlNp204mx6hB+IeyyWrtlYm6bdRSfQYDvf2i20zWjwXw
-	Mgiw40CabU/u8C4uH5Hl4kF4fACvG0d32YCpaEFot8tvoXW1ylpkCnu/
-X-Gm-Gg: AYBFou3xy2sbby/t1QvEkU2xrA92/giJQCu6HdBaQN04XsuVGeYgHqRppdBfo3d0A6/
-	K/mXqjSsoiMjhvE/3ZUyw85x//rbrLBLdXpRepxMCAKlVXgkTXeHGHxjKK4YoxbW/jEJUUvY975
-	KEhyafMPKjWchdzn8qER5aaA6/Nb8vMeIlNCdHcuh3gziLUTfXvJem8DxJe7Sc3wylSv9PQinib
-	6lHp5mzUWeCNbwb6h/LrVIZyF9kRFi8yn4xpC2nAOO1cx4mkRF2sJe9i1qcLsXyOU4qwY8bKPie
-	IKhoACfhEL55+9h6XTHpiBCA7fS8VcKPPB0xfp5uUWNQEOWlcXdPdxB1suOc0TF7u2zlaiyq/ig
-	9wUPln6SXipqkKn4kO0Z8zXzE3fmBl2HYJ0Llrm05dnX38R0/Ao4T/GmetmBZPoaPbT2tNtDFRJ
-	fJZnhYLNVmZJFIePhtz7crSAH21rRhmfih4/sgpR4sHwmE1CsBViypDfIfxpcVt4MINo2Lu1p/O
-	t8WAXPKlMisgjnwZgzXLFvZRNqpznxAXXQE83gLbhm5I4zPysQQZWnh9avqDlkXe20v6cU53A42
-	YUg5Zp2p3A==
-X-Received: by 2002:a17:90b:17ca:b0:393:19a3:4f1 with SMTP id 98e67ed59e1d1-39e54cb43c7mr14530866a91.6.1789957222045;
-        Sun, 20 Sep 2026 19:20:22 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c5b3932sm11294882a91.13.2026.09.20.19.20.21
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 19:20:21 -0700 (PDT)
-From: Hui Peng <benquike@gmail.com>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Clemens Ladisch <clemens@ladisch.de>,
-	Arnd Bergmann <arnd@arndb.de>
-Cc: Hui Peng <benquike@gmail.com>,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v2] char: hpet: prevent hard-IRQ divide-by-zero in hpet_interrupt() via HPET_IRQFREQ
-Date: Mon, 21 Sep 2026 02:20:19 +0000
-Message-ID: <20260921022019.865442-1-benquike@gmail.com>
-X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <20260919203515.2581203-1-benquike@gmail.com>
-References: <20260919203515.2581203-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=realtek.com header.i=@realtek.com header.b="mFqCHVIb"
+X-SpamFilter-By: ArmorX SpamTrap 5.80 with qID 68L2iddC72186854, This message is accepted by code: ctloc85258
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=realtek.com; s=dkim;
+	t=1789958680; bh=1ASgwUiScVjHUTD0sj2wUFSkgDi9XeBt98fnkNkH4R0=;
+	h=From:To:CC:Subject:Date:Message-ID:References:In-Reply-To:
+	 Content-Type:Content-Transfer-Encoding:MIME-Version;
+	b=mFqCHVIbVncJbtbJUvqBRjoDeZQQDC80MsstrQSPyi02cYUCCSFPu1LvFzxK+hWjO
+	 Pxx3Jf6Tx2yxwh2yjZ11j9A8JzrFGMhMgifZ7e9VET3D2bDZwInr53xb/8Honou7FQ
+	 MQpqey+7XlEy4CydtRN3dyvoBQFL2JTqaszaH9Y+IHKXhShxABxyQA3zdx0bRwKktC
+	 VKs1PdF2Svx3GPZDDq/ARxrFl/KebVAAAYoZ7GlKDRTUWY1k7O79jHI2i1nvny2wXO
+	 JOxwzJxHZADl3wNO/pcpcqrmh2t/dpqWSFxsqDDke9aK0IcJMcFGQMGPljkAdWKKVD
+	 OkU03HxHCgkUQ==
+Received: from mail.realtek.com (rtkexhmbs02.realtek.com.tw[172.21.6.41])
+	by rtits2.realtek.com.tw (8.15.2/3.29/5.94) with ESMTPS id 68L2iddC72186854
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=FAIL);
+	Mon, 21 Sep 2026 10:44:39 +0800
+Received: from RTKEXHMBS06.realtek.com.tw (10.21.1.56) by
+ RTKEXHMBS02.realtek.com.tw (172.21.6.41) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 21 Sep 2026 10:44:38 +0800
+Received: from RTKEXHMBS06.realtek.com.tw ([::1]) by
+ RTKEXHMBS06.realtek.com.tw ([fe80::b3cc:c263:b82d:e87c%10]) with mapi id
+ 15.02.2562.049; Mon, 21 Sep 2026 10:44:38 +0800
+From: Ping-Ke Shih <pkshih@realtek.com>
+To: Alastair D'Silva <alastair@d-silva.org>, Kalle Valo <kvalo@kernel.org>,
+	Martin Blumenstingl <martin.blumenstingl@googlemail.com>
+CC: "linux-wireless@vger.kernel.org" <linux-wireless@vger.kernel.org>,
+	"linux-kernel@vger.kernel.org" <linux-kernel@vger.kernel.org>,
+	"stable@vger.kernel.org" <stable@vger.kernel.org>
+Subject: RE: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
+ storm
+Thread-Topic: [PATCH] wifi: rtw88: sdio: Fix unhandled RX request interrupt
+ storm
+Thread-Index: AQHdRZjHlTD58hEpHEaBWkK5Af0sf7bSYOjAgAAXxcD//43kgIAGUHjw
+Date: Mon, 21 Sep 2026 02:44:36 +0000
+Message-ID: <5ff354336f4748b9bb45621dd899156a@realtek.com>
+References: <20260916040635.205094-1-alastair@d-silva.org>
+	 <ea3434d849b34a4286b0a193351a610e@realtek.com>
+	 <58a857e3b0614e2b9a520024b9932685@realtek.com>
+ <919109e886399f09db41ef5800e7335440ed4971.camel@d-silva.org>
+In-Reply-To: <919109e886399f09db41ef5800e7335440ed4971.camel@d-silva.org>
+Accept-Language: en-US, zh-TW
+Content-Language: zh-TW
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: base64
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
 
-In hpet_ioctl_common(), HPET_IRQFREQ computes the timer period as:
-
-  devp->hd_ireqfreq = hpet_time_div(hpetp, arg);
-
-where hpet_time_div() returns div64_ul(hpetp->hp_tick_freq + (arg >> 1),
-arg). Whenever arg > 2 * hpetp->hp_tick_freq, integer division truncates
-to 0 and stores devp->hd_ireqfreq = 0.
-
-Although hpet_ioctl_ieon() (HPET_IE_ON) checks if (!devp->hd_ireqfreq)
-before enabling the timer interrupt, HPET_IRQFREQ neither rejects
-updates while HPET_IE is already active nor checks whether
-hpet_time_div(hpetp, arg) evaluates to 0. As a result, arming the timer
-with a valid frequency (for example, HPET_IRQFREQ with 1000 Hz followed
-by HPET_IE_ON) and then calling HPET_IRQFREQ with a large frequency (such
-as 0xffffffffUL) overwrites devp->hd_ireqfreq with 0 while the timer
-interrupt is active. When the next interrupt fires, hpet_interrupt()
-reads t = devp->hd_ireqfreq (0) and computes base = mc % t, crashing the
-kernel in hard-IRQ context:
-
-  Oops: divide error: 0000 [#1] SMP KASAN PTI
-  CPU: 0 UID: 0 PID: 0 Comm: swapper/0
-  RIP: 0010:hpet_interrupt+0x20f/0x360
-  Call Trace:
-   <IRQ>
-   __handle_irq_event_percpu+0x102/0x400
-   handle_irq_event+0xa6/0x1c0
-   handle_level_irq+0x205/0x5e0
-   __common_interrupt+0x60/0x130
-   common_interrupt+0x7a/0x90
-   </IRQ>
-  Kernel panic - not syncing: Fatal exception in interrupt
-
-Reject HPET_IRQFREQ with -EBUSY when HPET_IE is set in devp->hd_flags,
-and return -EINVAL when hpet_time_div(hpetp, arg) evaluates to 0.
-
-Tested in QEMU (-global hpet.hpet-intcap=0x0c24 with noapic) by opening
-/dev/hpet and calling ioctl(fd, HPET_IRQFREQ, 1000), ioctl(fd,
-HPET_IE_ON, 0), and ioctl(fd, HPET_IRQFREQ, 0xffffffffUL): on the unfixed
-kernel this immediately triggers the divide error panic in
-hpet_interrupt(), whereas on the fixed kernel HPET_IRQFREQ returns -EBUSY
-while HPET_IE is enabled and -EINVAL when hpet_time_div(hpetp, arg) is 0.
-
-Fixes: ba3f213f8a31 ("[PATCH] HPET: make frequency calculations 32 bit safe")
-Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation for delayed interrupts")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Hui Peng <benquike@gmail.com>
----
-Changes in v2:
-- Add Cc: stable@vger.kernel.org and include the QEMU test procedure and
-  oops trace in the commit description per Greg Kroah-Hartman.
-- Add Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation
-  for delayed interrupts") for the mc % t division in hpet_interrupt().
-
- drivers/char/hpet.c | 7 ++++++-
- 1 file changed, 6 insertions(+), 1 deletion(-)
-
-diff --git a/drivers/char/hpet.c b/drivers/char/hpet.c
-index 285c6037417a..ada95872e148 100644
---- a/drivers/char/hpet.c
-+++ b/drivers/char/hpet.c
-@@ -625,13 +625,18 @@ hpet_ioctl_common(struct hpet_dev *devp, unsigned int cmd, unsigned long arg,
- 		devp->hd_flags &= ~HPET_PERIODIC;
- 		break;
- 	case HPET_IRQFREQ:
-+		if (devp->hd_flags & HPET_IE) {
-+			err = -EBUSY;
-+			break;
-+		}
-+
- 		if ((arg > hpet_max_freq) &&
- 		    !capable(CAP_SYS_RESOURCE)) {
- 			err = -EACCES;
- 			break;
- 		}
- 
--		if (!arg) {
-+		if (!arg || !hpet_time_div(hpetp, arg)) {
- 			err = -EINVAL;
- 			break;
- 		}
--- 
-2.49.0
+QWxhc3RhaXIgRCdTaWx2YSA8YWxhc3RhaXJAZC1zaWx2YS5vcmc+IHdyb3RlOg0KPiBPbiBUaHUs
+IDIwMjYtMDktMTcgYXQgMDk6MDkgKzAwMDAsIFBpbmctS2UgU2hpaCB3cm90ZToNCj4gPiBQaW5n
+LUtlIFNoaWggd3JvdGU6DQo+ID4gPg0KPiA+ID4gSGkgTWFydGluLA0KPiA+ID4NCj4gPiA+IEFs
+YXN0YWlyIEQnU2lsdmEgPGFsYXN0YWlyQGQtc2lsdmEub3JnPiB3cm90ZToNCj4gPiA+ID4gSW4g
+cnR3X3NkaW9faGFuZGxlX2ludGVycnVwdCgpLCB0aGUgSElTUiBzdGF0dXMgcmVnaXN0ZXIgaXMN
+Cj4gPiA+ID4gY2xlYXJlZCB1c2luZw0KPiA+ID4gPiBXcml0ZS0xLXRvLUNsZWFyIChXMUMpIHNl
+bWFudGljcy4gSG93ZXZlciwgdGhlIGRyaXZlciBtYXNrcyBvdXQNCj4gPiA+ID4gdGhlDQo+ID4g
+PiA+IFJFR19TRElPX0hJU1JfUlhfUkVRVUVTVCBiaXQgaW4gdGhlIGxvY2FsICdoaXNyJyB2YXJp
+YWJsZSBiZWZvcmUNCj4gPiA+ID4gd3JpdGluZw0KPiA+ID4gPiBpdCBiYWNrLCBjYXVzaW5nIGEg
+MCB0byBiZSB3cml0dGVuIHRvIHRoYXQgYml0Lg0KPiA+ID4NCj4gPiA+IEkgZmVlbCB0aGlzIHBh
+dGNoIG1ha2VzIHNlbnNlLg0KPiA+ID4NCj4gPiA+IERpZCB5b3UgcmVtZW1iZXIgd2h5IHlvdSBj
+bGVhciB0aGUgYml0IGxvY2FsbHk/IENhbiB5b3Ugc2hhcmUNCj4gPiA+IHZlbmRvcg0KPiA+ID4g
+ZHJpdmVyIHlvdSByZWZlcmVuY2VkPw0KPiA+ID4NCj4gPg0KPiA+IEkgYXNrZWQgaW50ZXJuYWwg
+ZXhwZXJ0IHdobyBzYWlkIHRoaXMgYml0IHdpbGwgYmUgY2xlYXJlZA0KPiA+IGF1dG9tYXRpY2Fs
+bHkNCj4gPiBpZiBhbGwgcGFja2V0cyBpbiBSWCBidWZmZXIgYXJlIHJlY2VpdmVkLiBJZiB3ZSBj
+bGVhciB0aGlzIGJpdCBoZXJlLA0KPiA+IHRoZSBpbnRlcnJ1cHQgd2lsbCBub3QgcmFpc2UgYWdh
+aW4gaWYgbm8gbmV3bHkgaW5jb21pbmcgcGFja2V0IGV2ZW4NCj4gPiB0aGVyZSBhcmUgcmVtYWlu
+aW5nIHBhY2tldHMgaW4gUlggYnVmZmVyLg0KPiA+DQo+ID4gQ2hlY2tpbmcgcnR3X3NkaW9fcnhf
+aXNyKCksIHdlIGNhbiBzZWUgaXQgcmVhZHMgaGlzciBmb3IgZWFjaA0KPiA+IGl0ZXJhdGlvbiwN
+Cj4gPiB3aGljaCB0aGlzIGlzIGFsc28gdGhlIGV2aWRlbmNlIHRoYXQgdGhlIGJpdCB3aWxsIGJl
+IGNsZWFyZWQNCj4gPiBhdXRvbWF0aWNhbGx5Lg0KPiA+DQo+ID4gVGhlcmVmb3JlLCB3ZSBuZWVk
+IHRvIGRpZyBmdXJ0aGVyIHdoeSB0aGUgUlggYnVmZmVyIGNhbid0IGJlIGVtcHR5DQo+ID4gYW5k
+IGdldCBzdHVjay4NCj4gPg0KPiA+IFBpbmctS2UNCj4gPg0KPiANCj4gSGkgUGluZy1LZSBhbmQg
+TWFydGluLA0KPiANCj4gVGhhbmsgeW91IGZvciBmb2xsb3dpbmcgdXAgYW5kIGNvbnN1bHRpbmcg
+d2l0aCB0aGUgaW50ZXJuYWwgaGFyZHdhcmUNCj4gdGVhbS4gV2UgaGF2ZSBleHRlbnNpdmUgdGVz
+dCB0ZWxlbWV0cnkgYW5kIGxvZ3MgZnJvbSBvdXIgYnJpbmctdXAgb2YNCj4gdGhlIE1lbGxvdyBG
+bHktQzUgYm9hcmQgaW4gQXJtYmlhbiB0aGF0IHByb3ZpZGUgZnVsbCBjb250ZXh0IG9uIHRoaXMN
+Cj4gaXNzdWUuDQo+IA0KPiAxLiBUZXN0IFBsYXRmb3JtICYgRmFpbHVyZSBUZWxlbWV0cnk6DQo+
+IC0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gLSBIYXJkd2FyZTogTWVs
+bG93IEZseS1DNSAoQWxsd2lubmVyIEg2MTggU29DLCBzdW41MGktaDYxOCkuDQo+IA0KPiAtIFdp
+LUZpIENoaXA6IE9uYm9hcmQgUmVhbHRlayBSVEw4ODIxQ1MgY29ubmVjdGVkIG92ZXIgU0RJTyAo
+bW1jMSAvDQo+IHN1bnhpLW1tYykuDQo+IA0KPiAtIEtlcm5lbHM6IFRlc3RlZCBvbiBtYWlubGlu
+ZSBMaW51eCA2LjE4IGFuZCA3LnggYnJhbmNoZXMgdXNpbmcNCj4gcnR3ODhfODgyMWNzLg0KPiAN
+Cj4gLSBSZXByb2R1Y3Rpb246IE9uIHN0b2NrIG1haW5saW5lIGtlcm5lbHMsIGltbWVkaWF0ZWx5
+IHVwb24gaW50ZXJmYWNlDQo+IGJyaW5nLXVwIGFuZCBhc3NvY2lhdGlvbiAod2xhbjA6IGFzc29j
+aWF0ZWQpLCB0aGUgQ1BVIGNvcmUgc2VydmljaW5nDQo+IHRoZSBTRElPIElSUSBiZWNhbWUgMTAw
+JSBwZWdnZWQgaW4gYW4gaW50ZXJydXB0IHN0b3JtLCB0cmlnZ2VyaW5nIFJDVQ0KPiBzdGFsbHM6
+DQo+ICAgICByY3U6IElORk86IHJjdV9wcmVlbXB0IGRldGVjdGVkIHN0YWxscyBvbiBDUFVzL3Rh
+c2tzOg0KPiAgICAgICAgICAgICAwLS4uLjA6ICgxIEdQcyBiZWhpbmQpIGlkbGU9Li4uIHNvZnRp
+cnE9Li4uDQo+ICAgICByY3U6IHJjdV9wcmVlbXB0IGt0aHJlYWQgc3RhcnZlZCBmb3IgNTEyNiBq
+aWZmaWVzIQ0KDQpEb2VzIGl0IG1lYW4gZXZlbiBpZiBSWCBidWZmZXIgaXMgZW1wdHksIGludGVy
+cnVwdCBpcyBzdGlsbCB0cmlnZ2VyZWQ/DQoNCj4gDQo+IC0gVmVyaWZpY2F0aW9uOiBXaXRoIHRo
+aXMgcGF0Y2ggYXBwbGllZCAobGVhdmluZw0KPiBSRUdfU0RJT19ISVNSX1JYX1JFUVVFU1Qgc2V0
+IHNvIFcxQyBhY2tub3dsZWRnZXMgaXQpLCB0aGUgYm9hcmQNCj4gY29tcGxldGVkIDEwMC8xMDAg
+Y29uc2VjdXRpdmUgcmVib290cyB1bmRlciBhY3RpdmUgbmV0d29yayB0cmFmZmljDQo+IChjb250
+aW51b3VzIHBpbmcsIFNTSCwgTW9vbnJha2VyIEhUVFApIHdpdGggemVybyBSQ1Ugc3RhbGxzIGFu
+ZCB6ZXJvDQo+IHBhY2tldCBsb3NzLg0KPiANCj4gDQo+IDIuIFdoeSB0aGUgYml0IHdhcyBjbGVh
+cmVkIGxvY2FsbHkgKFZlbmRvciBkcml2ZXIgcmVmZXJlbmNlKToNCj4gLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiANCj4gSW4g
+UmVhbHRlaydzIHZlbmRvciBkcml2ZXJzIChzdWNoIGFzIHJ0bDg4MjJicyBhbmQgcnRsODcyM2Rz
+KToNCj4gLSBJbiBoYWwvcnRsODgyMmIvc2Rpby9ydGw4ODIyYnNfaW8uYzoNCj4gICAgIGlmIChw
+aGFsLT5zZGlvX2hpc3IgJiBCSVRfUlhfUkVRVUVTVF84ODIyQikgew0KPiAgICAgICAgIC8qIE5v
+IG5lZWQgdG8gd3JpdGUgMSBjbGVhciBmb3IgUlhfUkVRVUVTVCAqLw0KPiAgICAgICAgIHBoYWwt
+PnNkaW9faGlzciBePSBCSVRfUlhfUkVRVUVTVF84ODIyQjsNCj4gLSBJbiBpbmNsdWRlL2hhbF9j
+b21fcmVnLmg6DQo+ICAgICBNQVNLX1NESU9fSElTUl9DTEVBUiBleHBsaWNpdGx5IGV4Y2x1ZGVz
+IFNESU9fSElTUl9SWF9SRVFVRVNULg0KPiANCj4gTWFydGluIGFwcGVhcnMgdG8gaGF2ZSBwb3J0
+ZWQgdGhpcyBjb21tZW50IGFuZCBzb2Z0d2FyZS1jbGVhcmluZw0KPiBjb252ZW50aW9uIGRpcmVj
+dGx5IGludG8gcnR3ODhfc2Rpb19oYW5kbGVfaW50ZXJydXB0KCkuDQoNClRoYW5rcyBmb3IgdGhl
+IGluZm8uIEl0IGxvb2tzIGxpa2UgZXZlcnkgU0RJTyBjaGlwIGRvZXMgdGhlIHNhbWUgdGhpbmcu
+DQoNCj4gDQo+IA0KPiAzLiBEaWZmZXJlbmNlIGJldHdlZW4gODA1MSBhbmQgMzA4MSBjaGlwcyBp
+biBydHdfc2Rpb19yeF9pc3IoKToNCj4gLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0t
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tDQo+IA0KPiBSZWdhcmRpbmcgdGhlIG9ic2Vy
+dmF0aW9uIHRoYXQgcnR3X3NkaW9fcnhfaXNyKCkgcmUtcmVhZHMgSElTUiBpbiBlYWNoDQo+IGl0
+ZXJhdGlvbjoNCj4gDQo+IE5vdGljZSB0aGF0IGluIHJ0d19zZGlvX3J4X2lzcigpIChzZGlvLmM6
+MTA1Ny0xMDczKToNCj4gICAgIGlmIChydHdfY2hpcF93Y3B1XzgwNTEocnR3ZGV2KSkgew0KPiAg
+ICAgICAgIGhpc3IgPSBydHdfcmVhZDMyKHJ0d2RldiwgUkVHX1NESU9fSElTUik7DQo+ICAgICB9
+IGVsc2Ugew0KPiAgICAgICAgIC8qIFJUV19XQ1BVXzMwODEgY2hpcHMgaGF2ZSBpbXByb3ZlZCBo
+YXJkd2FyZSBvcg0KPiAgICAgICAgICAqIGZpcm13YXJlIGFuZCBjYW4gdXNlIHJ4X2xlbiB1bmNv
+bmRpdGlvbmFsbHkuDQo+ICAgICAgICAgICovDQo+ICAgICAgICAgaGlzciA9IFJFR19TRElPX0hJ
+U1JfUlhfUkVRVUVTVDsNCj4gICAgIH0NCj4gDQo+IFJUTDg4MjFDUyAoYW5kIFJUTDg4MjJDL0Ip
+IGhhcyB3bGFuX2NwdSA9PSBSVFdfV0NQVV8zMDgxLiBGb3IgMzA4MQ0KPiBjaGlwcywgcnR3X3Nk
+aW9fcnhfaXNyKCkgbmV2ZXIgYWN0dWFsbHkgcmVhZHMgUkVHX1NESU9fSElTUiEgSXQgc2V0cw0K
+PiBoaXNyIHRvIFJFR19TRElPX0hJU1JfUlhfUkVRVUVTVCB1bmNvbmRpdGlvbmFsbHkgYW5kIGxv
+b3BzIHB1cmVseSBiYXNlZA0KPiBvbiBSRUdfU0RJT19SWDBfUkVRX0xFTi4NCg0KSW5kZWVkLiBJ
+IGFsc28gZm91bmQgdGhhdCBhZnRlciBzZW5kaW5nIHByZXZpb3VzIG1haWwuLi4NCg0KPiANCj4g
+DQo+IDQuIFRoZSBSWCBidWZmZXIgSVMgZW1wdHkgd2hlbiB0aGUgc3Rvcm0gb2NjdXJzOg0KPiAt
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0NCj4gDQo+IFRo
+ZSBidWZmZXIgaXMgbm90IGdldHRpbmcgc3R1Y2sgd2l0aCB1bnJlYWQgZGF0YS4gSW4gb3VyIHRl
+c3Rpbmc6DQo+IA0KPiAtIHJ0d19zZGlvX3J4X2lzcigpIGRyYWlucyBhbGwgYXZhaWxhYmxlIHBh
+Y2tldHMgdW50aWwNCj4gUkVHX1NESU9fUlgwX1JFUV9MRU4gcmVhZHMgYXMgMCwgYW5kIHRoZW4g
+YnJlYWtzIG91dCBvZiB0aGUgbG9vcC4NCj4gDQo+IC0gcnR3X3NkaW9faGFuZGxlX2ludGVycnVw
+dCgpIHRoZW4gd3JpdGVzIGJhY2sgdG8gUkVHX1NESU9fSElTUiB3aXRoDQo+ICAgUkVHX1NESU9f
+SElTUl9SWF9SRVFVRVNUIG1hc2tlZCBvdXQgKHdyaXRpbmcgMCkuDQo+IA0KPiAtIEJlY2F1c2Ug
+dGhlIGJpdCB3YXMgbm90IGNsZWFyZWQgaW4gaGFyZHdhcmUgdmlhIFcxQyAoYW5kIHdhcyBub3QN
+Cj4gYXV0b21hdGljYWxseSBkZS1hc3NlcnRlZCBieSBoYXJkd2FyZSB3aGVuIHJ4X2xlbiByZWFj
+aGVkIDApLCB0aGUgU0RJTw0KPiBob3N0IGNvbnRyb2xsZXIgc2VlcyB0aGUgSVJRIGxpbmUgc3Rp
+bGwgYXNzZXJ0ZWQgYW5kIGltbWVkaWF0ZWx5IHJlLQ0KPiBpbnZva2VzIHRoZSBoYW5kbGVyLg0K
+PiANCj4gLSBPbiByZS1lbnRyeSwgUkVHX1NESU9fSElTUl9SWF9SRVFVRVNUIGlzIHN0aWxsIDEs
+IGJ1dA0KPiBSRUdfU0RJT19SWDBfUkVRX0xFTiBpcyAwLiBydHdfc2Rpb19yeF9pc3IoKSBpbW1l
+ZGlhdGVseSBicmVha3Mgb3V0LA0KPiBoaXNyIHdyaXRlcyAwIGFnYWluLCBhbmQgdGhlIENQVSBp
+cyB0cmFwcGVkIGluIGEgMTAwJSBzcGluIGxvb3AuDQoNClRoaXMgYW5zd2VycyBteSBxdWVzdGlv
+biBhYm92ZS4NCg0KPiANCj4gDQo+IDUuIEVmZmVjdCBvbiBmdXR1cmUgaW50ZXJydXB0czoNCj4g
+LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLQ0KPiANCj4gUmVnYXJkaW5nIHRoZSBpbnRl
+cm5hbCBleHBlcnQncyBjb25jZXJuIHRoYXQgY2xlYXJpbmcgdGhlIGJpdCBwcmV2ZW50cw0KPiBm
+dXR1cmUgaW50ZXJydXB0czogaW4gb3VyIHRlc3RpbmcsIHdyaXRpbmcgMSB0byBjbGVhcg0KPiBS
+RUdfU0RJT19ISVNSX1JYX1JFUVVFU1QgYWZ0ZXIgdGhlIEZJRk8gaXMgZHJhaW5lZCBkaWQgTk9U
+IHByZXZlbnQNCj4gc3Vic2VxdWVudCBSWCBpbnRlcnJ1cHRzLiBXaGVuIG5ldyBwYWNrZXRzIGFy
+cml2ZWQgb3ZlciB0aGUgYWlyLCB0aGUNCj4gaGFyZHdhcmUgYXNzZXJ0ZWQgUkVHX1NESU9fSElT
+Ul9SWF9SRVFVRVNUIGFnYWluIG5vcm1hbGx5Lg0KPiANCj4gSWYgdGhlcmUgaXMgY29uY2VybiBh
+Ym91dCBlZGdlIGNhc2VzIChzdWNoIGFzIGhpdHRpbmcgdGhlIDY0S0INCj4gdG90YWxfcnhfYnl0
+ZXMgbGltaXQgYmVmb3JlIHRoZSBGSUZPIGlzIGNvbXBsZXRlbHkgZW1wdHkpLCB3b3VsZCBpdCBi
+ZQ0KPiBhY2NlcHRhYmxlIHRvIG9ubHkgY2xlYXIgUkVHX1NESU9fSElTUl9SWF9SRVFVRVNUIGlm
+DQo+IFJFR19TRElPX1JYMF9SRVFfTEVOIHJlYWRzIDAsIG9yIHJlLXJlYWQgUkVHX1NESU9fSElT
+UiBhdCB0aGUgZW5kIG9mDQo+IHJ0d19zZGlvX3J4X2lzcigpPw0KDQpJIGd1ZXNzIHRoZXJlIGlz
+IGEgcmFjaW5nIGJldHdlZW4gVzFDIFJFR19TRElPX0hJU1JfUlhfUkVRVUVTVCBhbmQNClJFR19T
+RElPX1JYMF9SRVFfTEVOID09IDAuDQoNCldpdGggYSBzdWdnZXN0aW9uIGZyb20gaW50ZXJuYWws
+IGlmIHdlIHdhbnQgdG8gZGlzYWJsZSB0aGUgUlggcmVxdWVzdCwNCnRoZSBiZXR0ZXIgd2F5IGlz
+IHRvIGRpc2FibGUvZW5hYmxlIGl0IGJ5IElNUi4gVGhlIGNvcnJlc3BvbmRpbmcgDQpmdW5jdGlv
+bnMgYXJlOg0KDQogICBydHdfc2Rpb19lbmFibGVfaW50ZXJydXB0KCkNCiAgIHJ0d19zZGlvX2Rp
+c2FibGVfaW50ZXJydXB0KCkNCg0KVG8gYXZvaWQgaW50ZXJydXB0IHN0b3JtLCBJIHBlcnNvbmFs
+bHkgc3VnZ2VzdCB0byBjb21iaW5lIE5BUEksIHdoaWNoDQpkaXNhYmxlIGludGVycnVwdCB3aGVu
+IGl0IHByb2Nlc3NlcyBSWCBidWRnZXQgKEkgdGhpbmsgd2UgY2FuIFcxQw0KUkVHX1NESU9fSElT
+Ul9SWF9SRVFVRVNUIGJ5IHRoZSB3YXkpLiBJZiAoUlgpIGJ1ZGdldCBpcyBmdWxsLCBpdCBjYW4N
+CnBvbGwgYWdhaW4gYnkgZXN0aW1hdGVkIHRpbWUuIFVudGlsIGJ1ZGdldCBpcyBub3QgZnVsbCwg
+aXQgcmUtZW5hYmxlDQppbnRlcnJ1cHQuIA0KDQpQaW5nLUtlDQoNCg==
