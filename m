@@ -1,173 +1,116 @@
-Received: from out28-73.mail.aliyun.com (out28-73.mail.aliyun.com [115.124.28.73])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.129.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20F05377010;
-	Mon, 21 Sep 2026 12:37:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=115.124.28.73
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5924D3C4B68
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:38:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.129.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789994272; cv=none; b=rpfLh1I57qCjuvC3VN7EXHWZoYxm1mKJw+PbRD/JL1QhyV76ffQqjdH/HRGmCG9QHBNGzbDOo7NzhjPJua7FLv/4OM0xbGZ6LPRK019EaLE7VXlhgbHTnHi9IBvgqq0Ssh2mNzO+xB/r4wqI9v8HOZMPhtzWh83sVlOGJcptIo0=
+	t=1789994282; cv=none; b=U+K2G+duo7slGlBjrdmrkZrKIWLof+sY4TPfsRIPeCwIhLMwr7wbjFx4LBxq3V2Eq2RbU7u3fjdwrmbCsmVtxcTIQpY07NXJSshP52gbB/ZE2cYTv0oRQ0UKGcrlwshzg+JBJnw2cHtFVcHCbvz3gxPzZWPtCGBx2DtNCE9x/Vg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789994272; c=relaxed/simple;
-	bh=pCHZ+0L3d15L4I8PvI9TPUsMshBFUyEfjm3U/5H6Bwo=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=hIwzTO9hYBEKobRVJv37+H2sHMlIbd2DolxRI1YbA+AsVswGGz1lRQBcFC6D1FfOrAgpXvlo5F2kYlw9Vc5+RolqLrSB+8xC671yUILFwABAwBeTHG68w1re7GS8X9gS/OJ9qdUySF4SKYy4Vfz388IUQoa6Gyyo9qvSvqpj/i8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com; spf=pass smtp.mailfrom=xiaopeng.com; dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b=Am+out3g; arc=none smtp.client-ip=115.124.28.73
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=xiaopeng.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=xiaopeng.com
+	s=arc-20240116; t=1789994282; c=relaxed/simple;
+	bh=aklumEa6XguIynReYEX+Y++SQ+69vSThlIRdZDlT/FY=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=PpdGffUerGM4WIsbWr01PG9QflQ+4lAFPbqFoWNa9OBjTvZm3QnjH/AcRBvtJiiPz87ynC3mOlqOv4BsQwlUHL/T2ml+IReeeUUCEvWjuHVm06bPNgJOMyyrg5JMbik4zGfVRne78K7i4RcAFm20Fn1/yxXrIHPLRnujVORiBAA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=Up9y+iX8; arc=none smtp.client-ip=170.10.129.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=xiaopeng.com header.i=@xiaopeng.com header.b="Am+out3g"
-DKIM-Signature:v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=xiaopeng.com; s=default;
-	t=1789994258; h=From:To:Subject:Date:Message-ID:MIME-Version;
-	bh=o/puxiRCVI7n2+/8fAiUbqwHg5A90Gb1J0aQN2rumXY=;
-	b=Am+out3g+ncW2MsqgfRqQ7UVB3ajJOVddUzwMkn+BuYAu/iZoRIP7oP3aB07MqFI60abKICVWS5EZiJXScORsVIZjafT2Ba9hssolVOa3O0bsKfeNTeQ2bL7T51UK6mRv5MAN9m6CCBFiQHKgbWg5e6dCpPjLA/DdZOMTHi1aio=
-X-Alimail-AntiSpam:AC=CONTINUE;BC=0.04436259|-1;CH=green;DM=|CONTINUE|false|;DS=CONTINUE|ham_system_inform|0.0350538-0.00187946-0.963067;FP=7471856784318729563|0|0|0|0|-1|-1|-1;HT=maildocker-contentspam033032053168;MF=fangxy@xiaopeng.com;NM=1;PH=DS;RN=11;RT=11;SR=0;TI=SMTPD_---.jJ2aCIS_1789994256;
-Received: from localhost.localdomain(mailfrom:fangxy@xiaopeng.com fp:SMTPD_---.jJ2aCIS_1789994256 cluster:ay29)
-          by smtp.aliyun-inc.com;
-          Mon, 21 Sep 2026 20:37:37 +0800
-From: Fang Xieyan <fangxy@xiaopeng.com>
-To: Bradley Morgan <brads@mainlining.org>,
-	Luis Chamberlain <mcgrof@kernel.org>,
-	Petr Pavlu <petr.pavlu@suse.com>,
-	Daniel Gomez <da.gomez@kernel.org>,
-	Sami Tolvanen <samitolvanen@google.com>,
-	Aaron Tomlin <atomlin@atomlin.com>
-Cc: Masahiro Yamada <masahiroy@kernel.org>,
-	Matthew Maurer <mmaurer@google.com>,
-	linux-modules@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH v4] module: Validate __version_ext_crcs and __version_ext_names section types
-Date: Mon, 21 Sep 2026 20:37:35 +0800
-Message-ID: <20260921123735.72202-1-fangxy@xiaopeng.com>
-X-Mailer: git-send-email 2.50.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="Up9y+iX8"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1789994280;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=aklumEa6XguIynReYEX+Y++SQ+69vSThlIRdZDlT/FY=;
+	b=Up9y+iX8RLigb/olOeOEoaSQbOZBpdloegmliGVXfSDxN8DlnkIuhedaTP0YWA7DsANSfp
+	3j5oQSwl9PIR0CScU5/DGUFWn79etTlXt55sKtq0rGXybFmURBiWhBTJbUCrwiPIC1SGCb
+	KFcgRLkBlFwywHXKEAXlhdcGLL7s4rk=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-411-AVyL1piRM16vpWdFLrfcLw-1; Mon,
+ 21 Sep 2026 08:37:54 -0400
+X-MC-Unique: AVyL1piRM16vpWdFLrfcLw-1
+X-Mimecast-MFC-AGG-ID: AVyL1piRM16vpWdFLrfcLw_1789994273
+Received: from mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.12])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id AC4651956055;
+	Mon, 21 Sep 2026 12:37:52 +0000 (UTC)
+Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id A9A5E1956041;
+	Mon, 21 Sep 2026 12:37:48 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Mon, 21 Sep 2026 14:37:52 +0200 (CEST)
+Date: Mon, 21 Sep 2026 14:37:47 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Jens Axboe <axboe@kernel.dk>, linux-fsdevel@vger.kernel.org,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
+	io-uring@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v2 1/7] fork: refuse new threads while a coredump or an
+ exec is in progress
+Message-ID: <arElG0TGxxLFn7Ul@redhat.com>
+References: <20260917-work-coredump-fixes-v2-0-f3787fcda051@kernel.org>
+ <20260917-work-coredump-fixes-v2-1-f3787fcda051@kernel.org>
+ <aq0VLTyxNatFmLOK@redhat.com>
+ <20260918-irrsinn-pickt-vermummen-d7167c397398@brauner>
+ <20260918-disput-maden-parkdeck-2bc22dd90398@brauner>
+ <aq0_lvHDViIpX_Mu@redhat.com>
+ <20260918-elstern-potenzieren-marotten-71ebd0744753@brauner>
+ <20260918-oliven-lebst-wohltat-c633868711f1@brauner>
+ <arEHxPFFrRtvUSPJ@redhat.com>
+ <20260921-aufwiegen-festwagen-ozonkonzentration-ffe78eafa8fa@brauner>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-aufwiegen-festwagen-ozonkonzentration-ffe78eafa8fa@brauner>
+X-Scanned-By: MIMEDefang 3.0 on 10.30.177.12
 
-elf_validity_cache_sechdrs() skips validate_section_offset() for
-SHT_NOBITS sections, which hold no data in the ELF file. However, the
-extended MODVERSIONS sections __version_ext_crcs and __version_ext_names
-are later read as file contents without re-checking their type.
+On 09/21, Christian Brauner wrote:
+>
+> On Mon, Sep 21, 2026 at 12:32:36PM +0200, Oleg Nesterov wrote:
+> > On 09/18, Christian Brauner wrote:
+> > >
+> > > zap_process() skips every thread that has PF_POSTCOREDUMP set.
+> > > do_exit() sets PF_POSTCOREDUMP in synchronize_group_exit() and calls
+> > > io_uring_files_cancel() right after that.
+> > >
+> > > That runs task work, create_worker_cb() runs and creates a new io-wq
+> > > worker. If a thread started a coredump rgith before that worker gets
+> > > created from a thread with PF_POSTCOREDUMP set which zap_processes()
+> > > doesn't see. So two ways of fixing this:
+> >
+> > Christian, I got lost ;)
+> >
+> > TBH, I don't understand why the new io worker is really bad in this case.
+>
+> zap_processes() only counts threads it sends SIGKILL too. But every
+> thread that later finds ->core_state decrements that count. An io-wq
+> worker created from the exiting thread isn't counted and exits right
+> away because the io-wq exit bit is already set. So it decrements without
+> having been counted.
 
-elf_validity_cache_index_versions() reads __version_ext_names directly
-from the module image using sh_offset:
+Aaah, I forgot that the new worker can exit too and notice
+signal->core_state != NULL in synchronize_group_exit(). Thanks.
 
-	if (vers_ext_crc) {
-		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
-		name = (void *)info->hdr +
-			info->sechdrs[vers_ext_name].sh_offset;
-		remaining_len = info->sechdrs[vers_ext_name].sh_size;
-		while (crc_count--) {
-			name_size = strnlen(name, remaining_len) + 1;
+> > But lets forget about coredump/zap_process. With the change below the
+> > io_uring_files_cancel() paths will no longer be able to create a new
+> > worker, even if coredump is not in progress.
+> >
+> > Is it correct?
+>
+> Yes.
 
-A SHT_NOBITS __version_ext_names therefore bypasses the generic offset
-validation and can carry an out-of-bounds sh_offset, so strnlen() reads
-past the end of the kernel's in-memory copy of the module:
+Great. Then I think your change is fine.
 
-  BUG: KASAN: vmalloc-out-of-bounds in strnlen+0x73/0x80
-  Read of size 1 at addr ffa00000005834ff by task insmod/79
-  CPU: 0 PID: 79 Comm: insmod Not tainted 7.3.0-rc3-g704340f1cd0d #1
-  Call Trace:
-   strnlen+0x73/0x80
-   load_module+0xef6/0x8600
-
-The CRC section is read the same way, only later. In early_mod_check(),
-rewrite_section_headers() sets each sh_addr to hdr + sh_offset, and the
-version sections are not copied into the final image, so
-check_modstruct_version() reads the CRC data from that temporary image.
-A SHT_NOBITS __version_ext_crcs then makes check_version() dereference
-past the end of the image:
-
-  BUG: KASAN: vmalloc-out-of-bounds in check_version+0x5c7/0x600
-  Read of size 4 at addr ffa0000000583509 by task insmod/78
-  Call Trace:
-   check_version+0x5c7/0x600
-   check_modstruct_version+0x101/0x140
-   load_module+0x1442/0x8600
-
-Both reads occur after module_sig_check() and before
-layout_and_allocate(), on the temporary copy made by kernel_read_file(),
-so an unvalidated sh_offset points outside that vmalloc region.
-
-An offset bound is not enough: an in-bounds SHT_NOBITS section still
-passes it, and the loader would read unrelated image data as extended
-MODVERSIONS. A real __version_ext_crcs and __version_ext_names are
-SHT_PROGBITS, so require that type before either is read.
-
-Fixes: 54ac1ac8edeb ("modules: Support extended MODVERSIONS info")
-Cc: stable@vger.kernel.org
-Suggested-by: Bradley Morgan <brads@mainlining.org>
-Link: https://lore.kernel.org/all/C04CC94F-26D0-4823-84F4-7AFEBCDCA9AE@mainlining.org/
-Assisted-by: Hawkeye:GLM-5.3-flash
-Assisted-by: Qoder:Qwen3.8-Max
-Signed-off-by: Fang Xieyan <fangxy@xiaopeng.com>
----
-
-Changes in v4:
-  - Extended the type check to __version_ext_crcs, not just
-    __version_ext_names (Bradley Morgan). The crc array is dereferenced
-    at hdr + sh_offset in check_version(), the same exposure as the name
-    walk, so a SHT_NOBITS __version_ext_crcs faults there too. Added a
-    second splat for it (check_version, Read of size 4).
-  - Shortened the in-code comment (Bradley Morgan).
-  - Reworked the changelog as defect / splat / fix and trimmed it. The
-    names walk in elf_validity_cache_index_versions() is inlined into
-    load_module(), so its splat has no frame for it.
-
-Standalone since v3 (20260919154139.52904-1-fangxy@xiaopeng.com). v1/v2 were
-patch 2/2 of a two-patch series, split off when the sibling SHT_NULL fix
-was withdrawn in favor of Liu Chao's fail-closed fix for the same bug. This
-patch does not depend on it.
-
-Reproducer: a .ko carrying __version_ext_crcs and __version_ext_names, in
-three variants. (1) names SHT_NOBITS with sh_offset past the end of the
-image: before, the name walk reads out of bounds (KASAN
-vmalloc-out-of-bounds in strnlen, Read of size 1). (2) names SHT_NOBITS
-with sh_offset in bounds, aimed at other file data: before, the walk
-silently consumes it as a version name and no splat fires. (3) crcs
-SHT_NOBITS with sh_offset past the end and names a valid SHT_PROGBITS
-"module_layout": before, check_version() reads the crc out of bounds
-(KASAN vmalloc-out-of-bounds, Read of size 4). On the patched kernel all
-three are rejected before the dereference and insmod fails with -ENOEXEC
-(rc=8); variant (3) prints "Invalid ELF __version_ext_* type: crc=8
-name=1".
-
-Tested on 704340f1cd0d (9 commits past v7.3-rc3), x86_64 defconfig plus
-CONFIG_KASAN_GENERIC and CONFIG_KASAN_VMALLOC, gcc 13.2.0, QEMU under TCG;
-the unpatched and patched kernels are built from byte-identical .config
-files and differ only by this patch. LOCALVERSION is pinned so the loader
-reaches the version walk instead of stopping at the vermagic check.
-
- kernel/module/main.c | 12 ++++++++++++
- 1 file changed, 12 insertions(+)
-
-diff --git a/kernel/module/main.c b/kernel/module/main.c
-index d0e1e0b..e46eba6 100644
---- a/kernel/module/main.c
-+++ b/kernel/module/main.c
-@@ -2287,6 +2287,18 @@ static int elf_validity_cache_index_versions(struct load_info *info, int flags)
- 	 * number of entries in every section.
- 	 */
- 	if (vers_ext_crc) {
-+		/*
-+		 * SHT_NOBITS skips offset validation; both sections
-+		 * contain file data.
-+		 */
-+		if (info->sechdrs[vers_ext_crc].sh_type != SHT_PROGBITS ||
-+		    info->sechdrs[vers_ext_name].sh_type != SHT_PROGBITS) {
-+			pr_err("Invalid ELF __version_ext_* type: crc=%u name=%u\n",
-+			       info->sechdrs[vers_ext_crc].sh_type,
-+			       info->sechdrs[vers_ext_name].sh_type);
-+			return -ENOEXEC;
-+		}
-+
- 		crc_count = info->sechdrs[vers_ext_crc].sh_size / sizeof(u32);
- 		name = (void *)info->hdr +
- 			info->sechdrs[vers_ext_name].sh_offset;
--- 
-2.50.1 (Apple Git-155)
+Oleg.
 
