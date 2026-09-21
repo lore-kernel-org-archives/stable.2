@@ -1,334 +1,276 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7721948489A;
-	Mon, 21 Sep 2026 12:58:31 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CC41949B5C2
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:58:34 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789995512; cv=none; b=a80wYGYnJ27XguWtWTq9rHuGlb546nM9v+y0PiZuW6reWdXmZXGnOrW93+gg0YX7cRnDPjWIudUQLY9lxvPdVzpcDXo/1Mp2MWqsJKl39IfDlmMBaVNFoF2p2X9JU8RL3RVpO9VHX47vl8ybISUtNqxH+0e9En5Q0i/3dHlG5j0=
+	t=1789995516; cv=none; b=FtkpIbmjaI1wRg2Qx4STAES0whtQ1WEahseQ0tco+DNfiiHEVs1afSP/SvoIxta63aYLP9yZPLkrfk/Z15ZUNiOio/djHrV502klrd2pjLzzqEe411bY603MKQxCwl+/zPi89ACYT9jVeL75mKdRSDQlajbZlflR5c2Tq7Qwuy8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789995512; c=relaxed/simple;
-	bh=sUhi2Ch9NoqqgkVvsuujv9VvZNPuX5qdTpLWx68YrFo=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=eW0Ur6N7k7QweCw2kLqjOfIxpb+2cI1/oUYaQoVzMzlTvEv4sDGbCWHBe0JwzyQx7O/Iqr5wHQM4HXAQCjWizlGSan/wVVcdZ7gWxgqqeESyOl9x+KGS2PIQdQPuIN+EpBtIGDsgOxEZTOqRDg/niEUZpOOYyUM0jKvoth5Nefc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=DaQos/5m; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789995516; c=relaxed/simple;
+	bh=4ckCKtue7afXVQydUT++m+321ajwNqqOnFRqUpdzDtg=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=mbYS5aL57CaHIve0lir7XiRCUBKZCfJSPVWV9n+09UDoUQ4lZ3ZbXAz69apXWN4CTPLiC6M/C4Bf1ZQ91MB1/coar29dxqFVAKkZiuz287xeH3PV4jW8DVIAQUcWPipbMOPOqCUmPnsi2k9JhMQ5sIlHEeipjKEqag+pkgXNz+k=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=o4dQJyGc; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=ZsZjZoi4; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="DaQos/5m"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 11F341F000FF;
-	Mon, 21 Sep 2026 12:58:28 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789995511;
-	bh=BKetCXM0e1QFwG/bJEslpS24s3ux7sl0isVvIPFjwTY=;
-	h=From:To:Cc:Subject:Date:In-Reply-To:References;
-	b=DaQos/5m1m9wR9jnlklzCZP7HPlxrG0ZEy9/fcMxPN1b+xDaLu3+xvCxSzBs29zdt
-	 bLyFaRVIh60RXL6isnYI226G3ZHdt4wZnI/PpSYzLWwpdZ49Gh7/z0f1O6RhcEMVE1
-	 795fEZg6NoHNZ30EUqXsrhQ5NoxNPOF2i+djVbfw8+4ARJF3AUW0kp+hqQLmo2G1rg
-	 v8GuQ+43Vm3xl+v4J9tzPnmZFv4gDlzjcKA2CTV/eTk8GLVwM7MDdtE+ryhcI3eRdq
-	 adxngh8mBc2n8+/wRf+t+QCuVCrPxohLMnZsveL7kislapq0Po3qiws2JLgoaZ1t/R
-	 9Q2NdDq+Sqo8w==
-From: Simon Horman <horms@kernel.org>
-To: ndaugoing@gmail.com
-Cc: Simon Horman <horms@kernel.org>,
-	david@ixit.cz,
-	davem@davemloft.net,
-	edumazet@google.com,
-	kuba@kernel.org,
-	pabeni@redhat.com,
-	oe-linux-nfc@lists.linux.dev,
-	netdev@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: Re: [PATCH 1/1] nfc: nci: ignore unexpected CORE_RESET_NTF
-Date: Mon, 21 Sep 2026 13:58:05 +0100
-Message-ID: <20260921125805.224979-1-horms@kernel.org>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260918013337.82214-2-ndaugoing@gmail.com>
-References: <20260918013337.82214-2-ndaugoing@gmail.com>
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="o4dQJyGc";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="ZsZjZoi4"
+Received: from pps.filterd (m0279864.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdvsa3818637
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:58:34 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-transfer-encoding:content-type:date:from:message-id
+	:mime-version:subject:to; s=qcppdkim1; bh=2BtxAAtC7hzWMVnPPwzGW2
+	ohbZJK+yghma5dKi8d/Fo=; b=o4dQJyGcUcU9icAH7gsWV5lBnXXiKNpGTg6Xdl
+	2jnpW8h+qGUrO+MRuS7y6awgGpN6xeCTLDXZf3Gok1kWRLKPAKy3Q+uBn6MdAeYT
+	vmhzd6trf0t2QuLVwsqouxR6Sp2slZq4OavFQnvTVQV29RMznPOcjKuPvldT2cdR
+	QhkXgrWRb3PIZIRyC+uoUBstTtsw1aCddZU1Lcc6zZ62mLNtDKnxH21xVgA1YvDR
+	Dyhxb5n61jL2zQ50RVVKiJZJiRpb1VSht5/wentyKx0Hlwu4Ih31ySrCfyDx0dem
+	ZhxyxPOxCPmsnPc7r7Z8YIPKVNFmlhKycBEl/SL3IpI7FQlg==
+Received: from mail-vs1-f69.google.com (mail-vs1-f69.google.com [209.85.217.69])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtq79aqt3-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:58:34 +0000 (GMT)
+Received: by mail-vs1-f69.google.com with SMTP id ada2fe7eead31-78580a6b2fbso771329137.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 05:58:33 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=oss.qualcomm.com; s=google; t=1789995513; x=1790600313; darn=vger.kernel.org;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:from:to:cc:subject:date:message-id
+         :reply-to:content-type;
+        bh=2BtxAAtC7hzWMVnPPwzGW2ohbZJK+yghma5dKi8d/Fo=;
+        b=ZsZjZoi4chp0W8bt44tqWGwRYiXzET1g/lkLaYTYAZw5DwsuHlo+eioYHoSVN8QNtz
+         cNwX5SHA0jtHsbZvE54KozvpUmcO33SpbB/PqYzN2qnxRjlKWEyrmZWNsFgE2dMeZFuq
+         7BkXNUv1gatmqwAQQOlOoN6tUV0FR6i9kTwMNMlQ29uptpHmgQbWF6ryCTyum9jACPJo
+         A5J9wNsAtZWCyi3M8R/FkjpDoSiG9UImc+4tfwCN3YE7x71tMscbkU5zh8YEiHB1ENBR
+         EEBFcVTfIytw+3KJ8o6NYCgUqVd16uyjKBeq7quYS2ChLX1yVC0e3yWFtQhTgHMw5/jC
+         F01w==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789995513; x=1790600313;
+        h=cc:to:content-transfer-encoding:content-type:mime-version
+         :message-id:date:subject:from:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=2BtxAAtC7hzWMVnPPwzGW2ohbZJK+yghma5dKi8d/Fo=;
+        b=CmluUUjlHFrfj+vbCq35LYEbnzEZuQ/rMxfp6wLE5TPDuTCyBM8akaAV9P5LDzkUxo
+         zYgSim4wKRVaT9DFm7LzyQpZBGzOlTKiqqTr6H92fIoqkyUlWKGkiY1ePzYetGQSHHya
+         bOeMBT+QDCdu4VL2E4NJoKZWVVWRtZz0MN71ZXmECoZNKgo4/pDUxxqJBKwlfpH22aPz
+         Pi+7/k/y5+1pVqxtVI+yHB1S4AFefqCWW6GDX6av0Pq3XoHYmlDicgstOhA9JD8oGEld
+         q3tr1G35LL56NTzDwzL0/wPr++88T5+cFdjjZLdnzimTPIL7WPmXJ3ZSIp66kFVFXtdH
+         4WOA==
+X-Forwarded-Encrypted: i=1; AKwUvByO6lsloIraZmVrF0ZKAxodoZTUqL4q64rei1gcSp6vL2trOf2vbTbqEVRqRwtyVGMiNv6Ai0k=@vger.kernel.org
+X-Gm-Message-State: AFuF++l83JIT5cdbiMQRD3fsxeeRB6GHhPCgoY/tp5gghsGccbZF0D2J
+	gvIhQEvnEUaeRsWndNLSKKLb/zRswyO6vj5QvqtAsc56NKOBnHWhtotlPZIK25mJ4qzfk1BUVXa
+	c1GoLxpy5R+FuyXLA7u53L+HbS4GQHGXfP8UevPx+np32K/9COkItR5riQ1YmmtymaNw=
+X-Gm-Gg: AYBFou0tLwjfeq8FvsIrlmnfFLji9bxQwYzAdXqTUY8DRAThx0/vOVfihycJZhe95KN
+	i+tRd8hGrip85eON6TssQRErFA8MwSeepPyn+noNpDhmdLHYDja/WMjIC7f12zi7LvyQ7Wyjrj/
+	w1n8IKjLMfuSzi2QQIoxk7c27v46yxrHvim7bual3iXGuAZt2qeNmSoG2D0h+2sAH1GZPwL9tQv
+	fB3/DWDgwl/bGhdUay9jacd39Co/dmwigvBNELG3M1S8QTQqQ2GkeGrA9ZvGEoSoe33y6U2cgwp
+	3zQnw9BdIEbOCa5USIwHY4vzEdklJCbpEdKl+1N+jXGrHbKkxn7e5+Bc4wGQljMeKPm+fHabrcD
+	Sr6nQiQVhPn2jX2h0vuJONdKIZEo=
+X-Received: by 2002:a05:6102:370d:b0:79c:99ea:2c9a with SMTP id ada2fe7eead31-7a55b940987mr4241076137.11.1789995512954;
+        Mon, 21 Sep 2026 05:58:32 -0700 (PDT)
+X-Received: by 2002:a05:6102:370d:b0:79c:99ea:2c9a with SMTP id ada2fe7eead31-7a55b940987mr4241069137.11.1789995512495;
+        Mon, 21 Sep 2026 05:58:32 -0700 (PDT)
+Received: from brgl-qcom.local ([2a01:cb1d:dc:7e00:d04:d483:faad:1e4e])
+        by smtp.gmail.com with ESMTPSA id a640c23a62f3a-c2a359037aasm320278766b.63.2026.09.21.05.58.29
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 05:58:31 -0700 (PDT)
+From: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Subject: [PATCH v8 00/14] crypto: qce - Fix crypto self-test failures
+Date: Mon, 21 Sep 2026 14:58:09 +0200
+Message-Id: <20260921-qce-fix-self-tests-v8-0-107537869a72@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset="utf-8"
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAOEpsWoC/3XRzW7DIAwH8FepOI8quHwkO+09ph0o2CtS26whQ
+ 5uqvPucSlNzgAvSH+GfbXEXGaeEWbzu7mLCknIarxz6l50IJ3/9RJkiZwEd2M6qTt4CSko/MuO
+ Z5Ix5zlIPQBQBaTBGcOHXhPzigb5/cD6lPI/T76NHgfX2nzM1roDsZAyDUqS8jxrexpz3t29/D
+ uPlsudDrGo5bCVXlQ4sYQhw1BFjoNiQ9EYCqEqaJU09L+qdssE2JPOUXGerkmGpt6StIlI9DA3
+ JbqTGdnadyRjnDKEhGxqSe0pD/QOLYynEYwSnek9KV6RlWf4A8dBPpy0CAAA=
+X-Change-ID: 20260610-qce-fix-self-tests-492ffd2ef955
+To: Thara Gopinath <thara.gopinath@gmail.com>,
+        Herbert Xu <herbert@gondor.apana.org.au>,
+        "David S. Miller" <davem@davemloft.net>,
+        Stanimir Varbanov <svarbanov@mm-sol.com>,
+        Eneas U de Queiroz <cotequeiroz@gmail.com>,
+        Kuldeep Singh <kuldeep.singh@oss.qualcomm.com>,
+        Eric Biggers <ebiggers@kernel.org>,
+        Demi Marie Obenour <demiobenour@gmail.com>,
+        Bjorn Andersson <andersson@kernel.org>,
+        Konrad Dybcio <konradybcio@kernel.org>,
+        Russell King <linux@armlinux.org.uk>, Abel Vesa <abelvesa@kernel.org>
+Cc: linux-crypto@vger.kernel.org, linux-arm-msm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, brgl@kernel.org,
+        linux-arm-kernel@lists.infradead.org,
+        Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>,
+        stable@vger.kernel.org
+X-Mailer: b4 0.14.2
+X-Developer-Signature: v=1; a=openpgp-sha256; l=5447;
+ i=bartosz.golaszewski@oss.qualcomm.com; h=from:subject:message-id;
+ bh=4ckCKtue7afXVQydUT++m+321ajwNqqOnFRqUpdzDtg=;
+ b=owEBbQKS/ZANAwAKAQWdLsv/NoTDAcsmYgBqsSnnUXMt/LWS8nXrb3hV45sSyKphl1RVONZCc
+ psdVWhx3MSJAjMEAAEKAB0WIQSR5RMt5bVGHXuiZfwFnS7L/zaEwwUCarEp5wAKCRAFnS7L/zaE
+ w9ebEAC1wkocPN+TnPJ03l+G/80kDpN4jMjUD04CWDsVPgSc0RJwdQ+UD1BAk0W/MFfNP/+R4w1
+ flhnwfAM8Tn7ft9Z5lkpmiebV8YPmETsTICiTuMvA0uWpEKOa0SVk7HJDrfP85PqCbRdPqe9e1r
+ IO2fV09igeIQ5pvTf8R9Jxq6mYNrdb0B3FWRU3UsCOvStS2vuHFMk7YVO+8orpY3NYJLFxU/pLH
+ s0Ghe7JF92ZdhC1jvU5gLKIA20w9yFnxbKoMza3go0FZ3qH9EQqRD/F+HEaos8IMvHJSVcgpOrU
+ vocdnCqIB9jYR8Q076VcW3feqoNZNKrY+OG2mNaPSOV3wFcyUQOgvbNm0OAJqkE1qMLZgeLtDDk
+ HRZCxz2e7epzr8SIj0Kzhb9trYNyzMmp68nkzsyla+tGn+xJU4+z55usBy7Zjps02oqVAIQSxDH
+ O0nPNJUECT4sHnXWQlQQmuMMDZgISDu7yjWz1VVzPyZu65uoBVqw8M3Ny/KwrwgeyDPAGUbEKGi
+ fxnycoO/SGAvZoIWOmu46erXm2DnWb4ptxI3ZU3aqJx7Xj2l2SUgYdPQytAX8evn9vKCSYPvz9z
+ CbLp37FM+m5CNEsFYj/KcAVdVLhOO5RcVzInrmfq6kdMxdbrGvChxldNdn89TN/UtIbbuWTXHZ2
+ SdmRZkUgvFY0RkQ==
+X-Developer-Key: i=bartosz.golaszewski@oss.qualcomm.com; a=openpgp;
+ fpr=169DEB6C0BC3C46013D2C79F11A72EA01471D772
+X-Authority-Analysis: v=2.4 cv=aJ9lOr9m c=1 sm=1 tr=0 ts=6ab129fa cx=c_pps
+ a=5HAIKLe1ejAbszaTRHs9Ug==:117 a=xqWC_Br6kY4A:10 a=IkcTkHD0fZMA:10
+ a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10 a=VkNPw1HP01LnGYTKEx00:22
+ a=u7WPNUs3qKkmUXheDGA7:22 a=DJpcGTmdVt4CTyJn9g5Z:22 a=bC-a23v3AAAA:8
+ a=EUspDBNiAAAA:8 a=9xMiekJfADYskRgvD40A:9 a=QEXdDO2ut3YA:10
+ a=gYDTvv6II1OnSo0itH1n:22 a=FO4_E8m0qiDe52t0p3_H:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE4NyBTYWx0ZWRfX7Vkz4585d8x/
+ YVm0b/+IweE9HribWWHlNt2pxpvpSzv/MIVZx6XDlDzF1WT/sSCg9eRJivHvc9KsyQbgK4y+6Vy
+ vDemijobz2nnQ8j4WCBJec7HjntW9yg=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE4NyBTYWx0ZWRfXyeCkFKknF73n
+ lNmIusYOXc+i84ar7iMJA0OKjwfvlSWFm+LCDqFf8kYYNiyn7iTIlbGI65ZRS9OvgDi091i9Tys
+ FgclS8fAjP+WAqvqiRZh/Xj1xihb78SEhyR2rPzaLBpO3V82Atw/+eXy8ZzcH54UlJO88izukeG
+ qogqMj8SoMrwq0BgyygqonDh+v9EGTX6CVAxccooXdnis4ndUUHzrIWaeCnCwU9DzzWLcyaBYno
+ AaY2krsGr7HsfWXTjsZC8+viXtSS3qRSVwjHd58U+dD2Pq8WSQr/3HGv5qrjxNKxidL1TkmMMNN
+ MgQA4JMI2okT64ZbekbreGfVHuFmq5t8NPDW2mvp9hMYoZWtcmi6Kk1q2YUHwMFnMnJRhKR0Qbo
+ UZGTNlPd/vvH2g2I1tqfdMq2Oy1e+6OwW9Od5To/6z74s77TlM3Aavw/iFweZwa5XMunzgFBoiN
+ VXfWLkTvVCzmOFshZ1Q==
+X-Proofpoint-ORIG-GUID: E3qCEr8P9CJCwB9BOyjXIUCXPuE7U6Rk
+X-Proofpoint-GUID: E3qCEr8P9CJCwB9BOyjXIUCXPuE7U6Rk
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 lowpriorityscore=0 phishscore=0 clxscore=1015 bulkscore=0
+ priorityscore=1501 suspectscore=0 adultscore=0 impostorscore=0 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210187
 
-This is an AI-generated review of your patch. The human sending this
-email has considered the AI review valid, or at least plausible.
-Full review at: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260918013337.82214-2-ndaugoing@gmail.com?part=1
+This iteration - in addition to the previous fixes - proposes to split
+the QCE driver into a core part necessary to bind to the QCE DT node and
+enable runtime power management in order to allow to drop the
+interconnect votes, and the crypto part registering the crypto
+algorithms. The core module is then enabled in arm64 defconfig while the
+crypto part stays disabled by default. In addition: the actual
+registration of crypto algos is gated with a module parameter that
+default to false.
+
+Note that remaining reported bugs will still be fixed in follow-up
+series. This series addresses self-tests and disables the algos by
+default.
+
+The QCE hardware crypto engine has several limitations that cause it to
+produce incorrect results or stall on certain inputs. This series fixes
+several bugs and adds workaround allowing the deiver to pass crypto
+self-tests.
+
+The failures addressed are:
+
+- HMAC self-test failures for empty messages
+- AES-XTS returning success on zero-length input (should be -EINVAL)
+- AES-CTR: partial final block causes the engine to stall, output IV
+  derivation was incorrect
+- AES-XTS with key1 == key2 is not supported by the CE
+- AES-CCM: partial final block and fragmented payload both stall the
+  engine
+
+All fixes were tested on an SM8650 QRD board with
+CONFIG_CRYPTO_SELFTESTS=y and CONFIG_CRYPTO_SELFTESTS_FULL=y.
+
+Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 ---
-nfc: nci: ignore unexpected CORE_RESET_NTF
+Changes in v8:
+- Add a patch making the crypto driver *not* register algos by default
+  but only if the user explicitly requests it with the provided module
+  parameter
+- Use the "offloader" name for the crypto IP instead of "accelerator"
+- Fix device module table issues
+- Make the core driver use a list (despite it only having a single
+  member now) of child auxiliary devices to register to make it clear we
+  have the intention of extending this once we start the work on secure
+  media playback
+- Link to v7: https://patch.msgid.link/20260910-qce-fix-self-tests-v7-0-cdbd2718af14@oss.qualcomm.com
 
-This adds an NCI_RESET_PENDING flag that is set when CORE_RESET_CMD is sent
-and cleared on request completion, so that CORE_RESET_NTF is only handled
-while a reset request is outstanding. Unexpected notifications are dropped
-with a ratelimited warning.
+Changes in v7:
+- Add follow-up changes converting the QCE crypto driver to auxiliary
+  bus, adding the core QCE driver under drivers/soc/ registering the
+  auxiliary device and removing the BROKEN Kconfig label
+- Link to v6: https://patch.msgid.link/20260717-qce-fix-self-tests-v6-0-455775fe5f6c@oss.qualcomm.com
 
-A few questions about the new gate below.
+Changes in v6:
+- Handle all zero-length HMAC finalizations (like imported state with
+  data already hashed), not only the genuinely empty message case
+- Add an additional patch addressing the fragmented skcipher payload
+  issue
+- Link to v5: https://patch.msgid.link/20260706-qce-fix-self-tests-v5-0-86f461ff1829@oss.qualcomm.com
 
-> diff --git a/net/nfc/nci/core.c b/net/nfc/nci/core.c
-> index 5f46c4b5720f6..5a90591cd9af7 100644
-> --- a/net/nfc/nci/core.c
-> +++ b/net/nfc/nci/core.c
-> @@ -134,6 +134,7 @@ static int __nci_request(struct nci_dev *ndev,
->  	}
->  
->  	ndev->req_status = ndev->req_result = 0;
-> +	clear_bit(NCI_RESET_PENDING, &ndev->flags);
->  
->  	return rc;
->  }
+Changes in v5:
+- Dropped patch 1/8 that's already queued
+- Use the pre-allocated fallback ahash for HMAC transforms (Herbert)
+- Link to v4: https://patch.msgid.link/20260622-qce-fix-self-tests-v4-0-4f82ffa716c6@oss.qualcomm.com
 
-[Severity: Medium]
-Since the flag carries no generation or sequence identity, can a
-CORE_RESET_NTF belonging to an abandoned reset be matched against a later
-reset attempt?
+Changes in v4:
+- Remove remaining ECB and DES3 bits
+- Pick up tags
+- Link to v3: https://patch.msgid.link/20260617-qce-fix-self-tests-v3-0-ecc2b4dedcfd@oss.qualcomm.com
 
-If reset attempt #1 times out here, the flag is cleared, but the
-notification may already be sitting in nci_rx_work. The failure path in
-nci_open_device() purges the queue but does not drain the worker:
+Changes in v3:
+- Remove even more algorithms and dead code in patch 1/8
+- Link to v2: https://patch.msgid.link/20260615-qce-fix-self-tests-v2-0-dc911f1aad42@oss.qualcomm.com
 
-	/* Init failed, cleanup */
-	skb_queue_purge(&ndev->cmd_q);
-	skb_queue_purge(&ndev->rx_q);
-	skb_queue_purge(&ndev->tx_q);
+Changes in v2:
+- Add fixes for the full suite of crypto self-tests
+- Add Fixes and Cc tags
+- Link to v1: https://patch.msgid.link/20260610-qce_selftest_fix-v1-0-1b0504783a46@oss.qualcomm.com/
 
-	ndev->ops->close(ndev);
+---
+Bartosz Golaszewski (12):
+      crypto: qce - Fix HMAC self-test failures for empty messages
+      crypto: qce - Reject empty messages for AES-XTS
+      crypto: qce - Use a fallback for AES-CTR with a partial final block
+      crypto: qce - Use fallback for fragmented skcipher payloads
+      crypto: qce - Use a fallback for CCM with a partial final block
+      crypto: qce - Use fallback for CCM with a fragmented payload
+      crypto: qce - Only register algos if the user really wants it
+      Revert "crypto: qce - Mark QCE as BROKEN"
+      crypto: qce - convert to auxiliary bus
+      soc: qcom: add core driver for the Qualcomm Crypto Engine
+      arm64: defconfig: enable the Qualcomm Crypto Engine core driver
+      arm: multi_v7_defconfig: enable the Qualcomm Crypto Engine core driver
 
-Only nci_close_device() flushes ndev->rx_wq, and it does that after dropping
-req_lock; the exported nci_core_reset() path purges nothing.
+Kuldeep Singh (2):
+      crypto: qce - Fix CTR-AES for partial block requests
+      crypto: qce - Fix xts-aes-qce for weak keys
 
-If userspace then retries NFC_CMD_DEV_UP (or a driver calls
-nci_core_reset()), nci_reset_req() sets the same bit again and the stale
-frame is accepted by test_and_clear_bit() in nci_core_reset_ntf_packet(),
-overwriting ndev->nci_ver / manufact_* from the old frame and completing
-reset #2 with NCI_STATUS_OK before its own CORE_RESET_RSP has been seen.
-The later real response can then complete the following CORE_INIT request.
+ arch/arm/configs/multi_v7_defconfig |   1 +
+ arch/arm64/configs/defconfig        |   1 +
+ drivers/crypto/Kconfig              |  18 ++++---
+ drivers/crypto/qce/aead.c           |  44 ++++++++++++---
+ drivers/crypto/qce/cipher.h         |   1 +
+ drivers/crypto/qce/common.h         |   1 -
+ drivers/crypto/qce/core.c           | 105 ++++++++++++++++++------------------
+ drivers/crypto/qce/core.h           |   5 +-
+ drivers/crypto/qce/sha.c            |  70 ++++++++++++++++--------
+ drivers/crypto/qce/skcipher.c       |  62 +++++++++++++++------
+ drivers/soc/qcom/Kconfig            |  11 ++++
+ drivers/soc/qcom/Makefile           |   1 +
+ drivers/soc/qcom/qce-core.c         |  92 +++++++++++++++++++++++++++++++
+ 13 files changed, 305 insertions(+), 107 deletions(-)
+---
+base-commit: 3fe766c979aa6145d9a72533ab32b9da30070767
+change-id: 20260610-qce-fix-self-tests-492ffd2ef955
 
-> @@ -163,6 +164,8 @@ static void nci_reset_req(struct nci_dev *ndev, const void *opt)
->  {
->  	struct nci_core_reset_cmd cmd;
->  
-> +	set_bit(NCI_RESET_PENDING, &ndev->flags);
-> +
->  	cmd.reset_type = NCI_RESET_TYPE_RESET_CONFIG;
->  	nci_send_cmd(ndev, NCI_OP_CORE_RESET_CMD, 1, &cmd);
->  }
+Best regards,
+-- 
+Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
 
-[Severity: Medium]
-Is a single bit enough synchronisation between the two contexts here?
-nci_reset_req()/__nci_request() run in process context under
-ndev->req_lock, while nci_core_reset_ntf_packet() runs from nci_rx_work on
-ndev->rx_wq, and the two share no lock.
-
-The check and the use are not atomic. After test_and_clear_bit() succeeds in
-nci_core_reset_ntf_packet(), the worker can be preempted before it reaches:
-
-	ndev->nci_ver = ntf->nci_ver;
-	...
-	nci_req_complete(ndev, NCI_STATUS_OK);
-
-If the reset it belonged to times out in that window, __nci_request() zeroes
-req_status and returns -ETIMEDOUT, and a new request can be armed
-(req_status = NCI_REQ_PEND). nci_req_complete() only looks at the global
-status:
-
-	if (ndev->req_status == NCI_REQ_PEND) {
-		ndev->req_result = result;
-		ndev->req_status = NCI_REQ_DONE;
-		complete(&ndev->req_completion);
-	}
-
-so the resumed worker completes the new request as successful, and writes
-ndev->nci_ver while nci_open_device() may be reading it:
-
-	if (ndev->nci_ver & NCI_VER_2_MASK)
-		opt = &nci_init_v2_cmd;
-
-Would tying the notification to a request generation, or serialising the
-flag test with request start/teardown, close this?
-
-> diff --git a/net/nfc/nci/ntf.c b/net/nfc/nci/ntf.c
-> index f5c9a8ab7ec10..b7fa8980804da 100644
-> --- a/net/nfc/nci/ntf.c
-> +++ b/net/nfc/nci/ntf.c
-> @@ -36,6 +36,11 @@ static int nci_core_reset_ntf_packet(struct nci_dev *ndev,
->  	if (skb->len < sizeof(struct nci_core_reset_ntf))
->  		return -EINVAL;
->  
-> +	if (!test_and_clear_bit(NCI_RESET_PENDING, &ndev->flags)) {
-> +		pr_warn_ratelimited("unexpected CORE_RESET_NTF\n");
-> +		return -EINVAL;
-> +	}
-> +
-
-[Severity: High]
-Does returning -EINVAL here break the fdp firmware update handshake?
-
-In nci_ntf_packet() a non-zero return skips the driver dispatch:
-
-	case NCI_OP_CORE_RESET_NTF:
-		if (nci_core_reset_ntf_packet(ndev, skb))
-			goto end;
-		break;
-	...
-	nci_core_ntf_packet(ndev, ntf_opcode, skb);
-end:
-	kfree_skb(skb);
-
-nci_core_ntf_packet() is the only dispatcher for driver core_ops handlers,
-and drivers/nfc/fdp registers one for exactly this notification:
-
-	static const struct nci_driver_ops fdp_core_ops[] = {
-		...
-		{
-			.opcode = NCI_OP_CORE_RESET_NTF,
-			.ntf = fdp_nci_core_reset_ntf_packet,
-		},
-	};
-
-That hook is what wakes the patch path:
-
-	static int fdp_nci_core_reset_ntf_packet(struct nci_dev *ndev,
-						  struct sk_buff *skb)
-	{
-		struct fdp_nci_info *info = nci_get_drvdata(ndev);
-
-		info->setup_reset_ntf = 1;
-		wake_up(&info->setup_wq);
-
-The notification it waits for is unsolicited, as the comment in
-fdp_nci_send_patch() describes:
-
-	 * command with NCI_PATCH_TYPE_EOT parameter. The device will send a
-	 * NFCC_PATCH_NTF packet and a NCI_OP_CORE_RESET_NTF packet.
-
-At that point the last request was nci_prop_cmd(NCI_OP_PROP_PATCH_OID),
-whose completion also clears NCI_RESET_PENDING in __nci_request(), so the
-flag is clear and the notification is dropped. Would
-fdp_nci_patch_otp()/fdp_nci_patch_ram() then block forever in
-
-	wait_event_interruptible(info->setup_wq, info->setup_reset_ntf);
-
-with no timeout? That wait runs inside ndev->ops->setup(), which
-nci_open_device() calls while holding ndev->req_lock, so a stalled task
-would also block nci_close_device()/nci_unregister_device() and keep the
-request_firmware() buffers pinned because fdp_nci_release_firmware() is
-never reached.
-
-Would it be enough to skip only the core-level bookkeeping (drop the state
-update and break) instead of aborting the whole notification pipeline?
-
-[Severity: Medium]
-Should the decision use ntf->reset_trigger rather than a host-side flag?
-
-The notification carries the discriminator itself:
-
-	struct nci_core_reset_ntf {
-		u8	reset_trigger;
-		u8	config_status;
-		...
-
-but the accept/reject decision is taken before the packet is even parsed,
-and reset_trigger is never read in the handler.
-
-That cuts both ways. A genuine NFCC-initiated reset arriving outside a reset
-request is discarded with only a warning, even though the controller has
-returned to its initial state (RF discovery stopped, logical connections and
-credits destroyed, routing table cleared), and the driver hook does not run
-either.
-
-Conversely, a spontaneous notification (reset_trigger not indicating
-CORE_RESET_CMD) that happens to land inside the reset window is still
-accepted, still overwrites ndev->nci_ver / manufact_id /
-manufact_specific_info, and still calls:
-
-	nci_req_complete(ndev, NCI_STATUS_OK);
-
-Is the intended bug class actually eliminated, or only narrowed by timing?
-
-> diff --git a/net/nfc/nci/rsp.c b/net/nfc/nci/rsp.c
-> index b0ab4f5acbce8..a4bfe14372a81 100644
-> --- a/net/nfc/nci/rsp.c
-> +++ b/net/nfc/nci/rsp.c
-> @@ -32,14 +32,19 @@ static void nci_core_reset_rsp_packet(struct nci_dev *ndev,
->  
->  	pr_debug("status 0x%x\n", rsp->status);
->  
-> +	if (rsp->status != NCI_STATUS_OK) {
-> +		clear_bit(NCI_RESET_PENDING, &ndev->flags);
-> +		nci_req_complete(ndev, rsp->status);
-> +		return;
-> +	}
-> +
-
-[Severity: Medium]
-Should the response handler test NCI_RESET_PENDING too, rather than only
-clearing it?
-
-nci_rsp_packet() dispatches purely by opcode with no correlation to the
-outstanding command:
-
-	switch (rsp_opcode) {
-	case NCI_OP_CORE_RESET_RSP:
-		nci_core_reset_rsp_packet(ndev, skb);
-		break;
-
-and nci_req_complete() only checks the global status, so a stray or delayed
-CORE_RESET_RSP still completes whatever unrelated request is in flight
-(CORE_INIT, RF_DISCOVER, CONN_CREATE) - the desynchronisation the commit
-message sets out to remove.
-
-This new block also widens that surface. Before the patch a 1-byte (NCI 2.x)
-response completed nothing at all; now the status test runs before any length
-discrimination, so a single 3-byte control frame (header plus a non-OK
-status, accepted by nci_valid_size() since the declared payload is non-zero)
-completes an unrelated request with a controller-chosen status.
-
-There is also a mirror case: because the flag is cleared here without being
-validated, a stray CORE_RESET_RSP during a genuine NCI 2.x reset disarms the
-new guard, and the real CORE_RESET_NTF is then rejected as unexpected, so
-the reset stalls until NCI_RESET_TIMEOUT.
-
->  	/* Handle NCI 1.x ver */
->  	if (skb->len != 1) {
-> -		if (rsp->status == NCI_STATUS_OK) {
-> -			ndev->nci_ver = rsp->nci_ver;
-> -			pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-> -				 rsp->nci_ver, rsp->config_status);
-> -		}
-> +		ndev->nci_ver = rsp->nci_ver;
-> +		pr_debug("nci_ver 0x%x, config_status 0x%x\n",
-> +			 rsp->nci_ver, rsp->config_status);
->  
-> +		clear_bit(NCI_RESET_PENDING, &ndev->flags);
->  		nci_req_complete(ndev, rsp->status);
->  	}
->  }
-
-[Severity: Low]
-This is a pre-existing issue and not introduced by this patch, but does
-"skb->len != 1" read rsp->config_status past the received payload?
-
-config_status is the third byte:
-
-	struct nci_core_reset_rsp {
-		__u8	status;
-		__u8	nci_ver;
-		__u8	config_status;
-	} __packed;
-
-and nci_valid_size() only requires the declared payload to be present and
-non-zero:
-
-	if (skb->len < hdr_size ||
-	    skb->len < hdr_size + nci_plen(skb->data)) {
-		return false;
-	}
-
-	if (!nci_plen(skb->data)) {
-
-so a CORE_RESET_RSP with plen == 2 and status == NCI_STATUS_OK reaches this
-block and the pr_debug() reads one byte beyond the payload. The patch keeps
-the same condition (status == OK and len != 1), so this is unchanged
-behaviour; would an explicit length check for the 3-byte form be worth
-adding while this function is being touched?
