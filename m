@@ -1,165 +1,274 @@
-Received: from mail-wm1-f100.google.com (mail-wm1-f100.google.com [209.85.128.100])
+Received: from mail-lf2-f13.google.com (mail-lf2-f13.google.com [74.125.229.205])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1808444F547
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 23:55:53 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=209.85.128.100
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790034955; cv=none; b=YoUcRqN5OuLrgMP4XcNyPHocAbhFWPwQ8A500z0F66osh4vK0ZfgChRrA2mAL28+eufWC11EvQdHTP3AzpEWMpA/wJBVvEFVhmyMyi0JaMZoB3+8iLmFhMzNsCOQLoU+8a9090HuOBW2IFGGgL/5TiZQNBGwSwzl02GGZ6ufK/I=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790034955; c=relaxed/simple;
-	bh=ZlZmmE0Ud4HtB8YhKVNsPgOQtYjW6bg/mZoU2cnlRYg=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=T/mmAGhE9WiUb0GNd53/521jeRi5jZ/tPopmf4QKxLMAcEcosGNoebeI1i+IigGSe78CM2koSB/hQ3Ni3+AISF/dC0VJACYakGn2zC0+SFnuIFaNwdChlleGO0/ofSXxCKbjeMnY+MPPEyxrQuDwmJhhUUnC8uAqEbguYb5V9Gg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com; spf=pass smtp.mailfrom=everpuredata.com; dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b=ER2Q7Ts5; arc=none smtp.client-ip=209.85.128.100
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=everpuredata.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=everpuredata.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 24CA03C10B3
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 23:56:07 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.229.205
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790034969; cv=pass; b=KFFMnkhVf+5Izdr99VzVaU389nnkb2CiQOMoH5jrQl661Btq+HRBzuWCBOCpRf6XC9SwMsrLHCLvwHwRsXVFgX/cRCsWwO5g4fOuA4Ykb0BQnsm2TOumDWVaE1+8/5pftarpnQcrcJpf768/6XEBeaeMdDcKwXiqTnhFOrhsJVc=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790034969; c=relaxed/simple;
+	bh=0FOwiB23N7sp8J9FkDTI6fUIIDALNkmeuPe/FB4M7xc=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ZoNF/H74sn1nX4GbmmQszJa0NZf/upnycNckVNgnep0TlI5ig3PTWMTU9XooXTgxM1QUVOvFYX4mmxFd/Upf32cG5lLMH7XA19+zixpRbRTwJG6FvXx2m/Ekoi4se3P4Uqjc2xfDUE1s2Ua6cMcgPB+QSQt6AL8xw9ArzNV8k9k=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qZpjTzS1; arc=pass smtp.client-ip=74.125.229.205
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=everpuredata.com header.i=@everpuredata.com header.b="ER2Q7Ts5"
-Received: by mail-wm1-f100.google.com with SMTP id 5b1f17b1804b1-49e651e83dfso9321465e9.0
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 16:55:53 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qZpjTzS1"
+Received: by mail-lf2-f13.google.com with SMTP id 2adb3069b0e04-5b8b402f4e3so3720476e87.2
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 16:56:07 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790034966; cv=none;
+        d=google.com; s=arc-20260327;
+        b=XLEpdlQ1P7VVucFf2DN9I3+PSqVgDm0GzEQAXiajeraZrGg1G0ns9O70y0JaEmQ6o+
+         i/1X+hNLrFgJ8kfwfgD9EBCDlgmPDmwyfJIoBABFoiBy02GoHRO2LBZZt/J3R+jG4P7h
+         bkUHg3DMStHseTFdgaKkbqt+JTXgD7lgVrXt/LXdER7Oaj5wiPQWJO6pFS1/21xpW4AY
+         byzeUdRuE+dHp4ObTqMiaMxw8TngJ26hg44rFwmYpEMQj8h7ZA0kFm1RLLb8pFY9wqVp
+         w8PQgG5mjYInHJmGU1kbTFDthAnOO8wKuEtRzng8bi90gJimUo3n3DiMkIqS1Um/972V
+         0lhA==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=Q4tuiiEeHxGLov+71dX9YW1/sj+iI64d799g+prJq00=;
+        fh=qlw7Hp0OqOO89C04ecqKmcDOiFKqeyyfqjgbES95+Yk=;
+        b=IsOK9N0PMUgMkrd8FbTqYaPPVbDmtdOEJomLo/yMY//mhOVbpkA5heXVPRLVLeMIwv
+         VXGdn10NRV8HZiV8uo2VNCSowLOahqxnEyGhURCSiSJhCKUEN9SH3JKFQ3J71boU84Qc
+         e6uBu3GJFDC3+tcMpY9Y2QkXu08qZPg3Smy3Fbs6kLYDu/dohQ3OH8rY1J8aGsl87lZi
+         y0gRMNEDVlYOUpxnTR+q633LS+QGsRXPtAKI91GsvrrCqC0UwKDPtGfVL3VKwOtivVnd
+         5jrdC0JwtOuMpbr9rcYByS5zWs0XIutgQ5OcKzxckC2io5IVDPZfmcsVLMDIk7vDQ6sc
+         mlxw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=everpuredata.com; s=google; t=1790034952; x=1790639752; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=DC4z4qLDl0mYRFHdnAjlB1ZKHEqGD7UBjetsY7bEK80=;
-        b=ER2Q7Ts5YbfRlmJ9MXUTJbYwo53bCwYEhkicRq3+tFf/MdyHXBv8cEJbxiWOnN7zs3
-         8nV8jJ24CKQmOKMlIT4kqpNoAdK6pwxW12+GfiafTmn4P5G/6qCSBai3S5R/F+h6nb/w
-         6t/a93CW8g4nRDzVcYH8n8dZbEk94ueYq3L9YQ1nCchZrt1X5lSJ6GLe+i6D4kw6hYm0
-         c3h97E1XvWzAGVyCVnAh3ANX+wmSJKxbN7d9rTsurNoZARNVthKqq1JNEIGvqt/empXr
-         2pB0CK3CRPV0TZBs0hAen0WWd2IHz/CodACJtGehWDrn26YB1BltdgvQd6sLPDzrztKD
-         ZsXg==
+        d=gmail.com; s=20251104; t=1790034966; x=1790639766; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=Q4tuiiEeHxGLov+71dX9YW1/sj+iI64d799g+prJq00=;
+        b=qZpjTzS1XveFoWCRA+3C/s2pOUT42WqYOk51/f3nbJV7xZsfVzq+csQr9CMA+CepFE
+         9DvGExJokeHOlKGJtJ5AVhjBCuBIZTy8mVtv68WlfUdTcLTgfSnqnE1KeZW6Y7m7lFp2
+         iGTAKE96CWYYEeNfSy9VR87BSDdhzuF1xmYI1DvVMRrl2iw5pyomMUqaO68PrWL1Jur8
+         kjcWvvaKsZFCA3maxELie15AxrxPdXfLrs+Pi3Z53XbGhaHajTfL4Oqx/fap5CAjBa7o
+         3pH4n7rBtwOqNrSpbIAYw+kuS/5m/cWQHkP0goY4VubQYd1gIHPEkb4DfmfAEluukTcF
+         SSxg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790034952; x=1790639752;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=DC4z4qLDl0mYRFHdnAjlB1ZKHEqGD7UBjetsY7bEK80=;
-        b=Snu/XibofglGiiacStWFGlbrjxMV9GVGZ4CgSG8b0s1MuAmJ7SwjpO86WDOl817Tru
-         eQi+3zITDL/QbIrIJKTnfP2ROjhXxswP8Q2M4810c8oWrumgVzh6U0W6mJUV4V3kZCWW
-         aRrdNtlKfSSWrXmXKXaChHoVKSplfU2y85E62kQntbl8+elLWw6JKpip9ut5IXYdlmNW
-         W65sQy4z9QXn4fiHcs0iBbrRrvwT5koOJmiOti+aZHKietiXYrHEiZNLFaT4BEVYzN+W
-         zNZyYSIekQm2Nt3+W0n8+DB6a9P8teqNDpSYvLBUpvqJ4SHcxUdeZNOK+DHmwJOQGYKD
-         IvLA==
-X-Forwarded-Encrypted: i=1; AKwUvBwwnr3wNdjLE3phUcC0NEEODlPJQzULGz0lsaQ4hQUIj3XznI6FzNboJvPraB4aIsSr4crZcbw=@vger.kernel.org
-X-Gm-Message-State: AFuF++nsOuRgl37m8wjM7Ge27521lPW5B0WRerpl1F4E9uJgThHw0tfP
-	gRu6je3LRpshpXdgjMNmD4gC+i7YsyWL1Z5W4lABKkcG6WkbY07GQFVfoH3AUO/Sc0kceXDKeR+
-	+R81Ws4s3qyHoNnBj2kKyc/8fBFpD+XOzBXqz
-X-Gm-Gg: AYBFou0aiypBMzjbsh4xBJ3EHoKAjwepK5DMiKpGo2YmwNUfTM4opae6qJnzihFzNu2
-	+8XEozEwNiQXUIicPsu8Dbx2O5C8xzgFdwuSv1YTGXu9clTksuzmZuYhPSjvFpSwOfEj6qv4HOi
-	XgHKWtiU0CYqcdfuRu5SZnWLc5ce7dqWU081wb+HpKKlE2QQhkVMQzJ/AHbJiJZbiN1G3uq00I+
-	CGxkpY97MIoUovRU+ry2niiqvWtw8YJ6Bj2ukQefofrUhqr4WUI1BqY+GYbfHHV3i8oH5P2n2/B
-	rCVXBy//Jl3O1QqBd2ULzoddUw6/LCWYPvGfoyPoGUmfvg9a3zMukREx+kJdeuHN1Aq53iY9knn
-	RByzC1ZACVT9+ILfdJ3QM0xXztX03BguAha116oM=
-X-Received: by 2002:a05:600c:1daa:b0:49c:fc6c:bdfc with SMTP id 5b1f17b1804b1-49fc574643bmr157725415e9.19.1790034952055;
-        Mon, 21 Sep 2026 16:55:52 -0700 (PDT)
-Received: from c14-smtp-2023.dev.purestorage.com ([208.88.158.129])
-        by smtp-relay.gmail.com with ESMTPS id 5b1f17b1804b1-49fdab8660esm1052625e9.0.2026.09.21.16.55.51
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 16:55:52 -0700 (PDT)
-X-Relaying-Domain: everpuredata.com
-Received: from irdv-tmenninger.dev.purestorage.com (irdv-tmenninger.dev.purestorage.com [10.32.149.15])
-	by c14-smtp-2023.dev.purestorage.com (Postfix) with ESMTPS id 6F2F73417EA;
-	Mon, 21 Sep 2026 16:55:20 -0700 (PDT)
-From: Tim Menninger <tmenninger@everpuredata.com>
-To: Trond Myklebust <trondmy@kernel.org>,
-	Anna Schumaker <anna@kernel.org>
-Cc: linux-nfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	Eric Badger <ebadger@everpuredata.com>,
-	Jon Curley <jcurley@everpuredata.com>,
-	stable@vger.kernel.org
-Subject: [PATCH] NFSv4/pNFS: Preserve layoutreturn seqid while lsegs drain
-Date: Mon, 21 Sep 2026 23:55:20 +0000
-Message-Id: <20260921235520.502987-1-tmenninger@everpuredata.com>
-X-Mailer: git-send-email 2.34.1
+        d=1e100.net; s=20260707; t=1790034966; x=1790639766;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=Q4tuiiEeHxGLov+71dX9YW1/sj+iI64d799g+prJq00=;
+        b=u3WC7UqeOI+KBaT1craWdzjYFvAjBzYGjmwFCpkRRCB1EmtqtSqxBkxmCfX3H0LBcU
+         7TuIodi1IRajpZ300FcYv5gjmoV9FZn4rHPoR6EY7x5EZ8+Asm8YHySTuYL41WpEZCPt
+         /AC+QoA1QLIWKPcRBooebdi6qoK+3PkaQft6qzI4277Gn+PYPLzSKoY1McFxa4zDrC4f
+         +kNx05AEtwBMEgXKDzKYmfqhSZRzbyWjSIDWPYIVZjEqnHJgaqEJfPckioCT+VyQQwEF
+         XDQgBrhGBOnGkYwSWMnysYmF8QWioGGZB92cLFoyLaKz6sRf1keQBb3YQnjZ/UMvsBkw
+         +9bA==
+X-Forwarded-Encrypted: i=1; AKwUvBxFvIbb9GKLf86wfRqf8muHxcXR9hup3gmp3qZGbRoc6U8G/Acx6xixEwhv0mDMcNaanOwyPgc=@vger.kernel.org
+X-Gm-Message-State: AFuF++mqBVc+pREOJ4a2t5CPn0Scv9+nZhMGzzAmU/tn7ZPjJWYTS+lc
+	YeWb+YX+7+jJXu8RgHdpzFxUPv1Kc5aGR5l/vTDyeJ7Rhrqo8VSrU+IE232WcqvbCdQx4Y8L05d
+	Mm27GI2rq65m3gFcjxXKKvbBIvOukVt8=
+X-Gm-Gg: AYBFou00ryRAUmLJ67UciLxbTiTkUOr0ETHm4jQfNDodPKg5TtzH1n43/YRfFndflei
+	7Wpy1LdwWPoZhX119vq9oJvlA8RHuqsEFioMTIWT3+iWEOZJ2TSfCtue5FKrHFvGz8WUf7Rr6vr
+	wCaIsv1ga/QBwTX+OV2zRhHZ8EndLgGDZ+xYg6HDvAchIizugQTdmaju+9N1ZlY2g3uPnmnBTt6
+	QHwe0uESDQrVilB7Yu3BEGAelK0uRe0+6MME3Tu7CUSXLSvmzNygIhkc5JFbMSrR6Kqn6I8yZiV
+	TA9+3HbGdiVo64PjsZXbA4Ms49dGkqU5jno3rT6V+XkFFGGW7lfndI2lOtvTfbkuTP4=
+X-Received: by 2002:a05:6512:3a85:b0:5b8:bc5e:d0ff with SMTP id
+ 2adb3069b0e04-5b8c195b308mr3897310e87.41.1790034965594; Mon, 21 Sep 2026
+ 16:56:05 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <CAKFNMonYVUbzjYm343Aw-=xjUk78x4EdUwGBfNRwE6zfmRVhvA@mail.gmail.com>
+ <20260921152144.3983736-1-qwe.aldo@gmail.com> <20260921152144.3983736-2-qwe.aldo@gmail.com>
+In-Reply-To: <20260921152144.3983736-2-qwe.aldo@gmail.com>
+From: Ryusuke Konishi <konishi.ryusuke@gmail.com>
+Date: Tue, 22 Sep 2026 08:55:49 +0900
+X-Gm-Features: AcwNN1UaR9uTQB0NxH5f0PhUk1VxxJS_liJ56SQxmvj-lEI1rWaSdPXfCqtP6lY
+Message-ID: <CAKFNMokXBG6C2gHfM+PnhjhJK7BbT84Oou3Gnr+4StR6XTb1Aw@mail.gmail.com>
+Subject: Re: [PATCH v4] nilfs2: fix checkpoint root lifetime on sysfs errors
+To: dubeyko@comp.asu.ru
+Cc: Aldo Ariel Panzardo <qwe.aldo@gmail.com>, linux-nilfs@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Commit e20772cbdf46 ("NFSv4/pNFS: Fix a layoutget livelock loop")
-changed pnfs_set_plh_return_info() so that a zero seq argument is
-replaced with the current layout stateid seqid. This ensures that a
-pending layout return has a nonzero plh_return_seq and does not
-continually invalidate newly acquired layout segments.
+On Tue, Sep 22, 2026 at 12:22=E2=80=AFAM Aldo Ariel Panzardo wrote:
+>
+> nilfs_find_or_create_root() links a new checkpoint root into the
+> checkpoint tree and drops ns_cptree_lock before creating the root's
+> sysfs group.  If nilfs_sysfs_create_snapshot_group() then fails, the
+> root is freed while it is still reachable from ns_cptree, so a
+> concurrent nilfs_lookup_root() can dereference freed memory.
+>
+> nilfs_sysfs_create_snapshot_group() allocates memory and creates sysfs
+> nodes and may sleep, so it cannot run under the ns_cptree_lock spinlock.
+> Reorder the creation path so that the sysfs group is set up before the
+> root is published: initialize the root, create its sysfs group outside
+> the lock, and only then take ns_cptree_lock to link it into the tree.
+> On sysfs failure the root was never visible and is freed directly; in
+> the unlikely case a root with the same checkpoint number is already
+> present, the sysfs group of the new root is removed before it is freed.
+> Concurrent insertions are already serialized by ns_snapshot_mount_mutex,
+> so only the race against nilfs_lookup_root() needs to be closed.
+>
+> Because kobject_put() does not guarantee that the embedded kobject's
+> release callback has run by the time it returns
+> (CONFIG_DEBUG_KOBJECT_RELEASE defers it), the container must not be
+> freed until the release completes.  Keep that wait_for_completion() of
+> snapshot_kobj_unregister inside the sysfs helpers, so both the creation
+> error path and nilfs_sysfs_delete_snapshot_group() wait for the release
+> before their callers free the root.
+>
+> Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
+> ---
+> Changes in v4:
+>   - Keep ns_cptree_lock as a spinlock instead of converting it to a
+>     mutex, and create the sysfs group before taking the lock, as
+>     suggested by Ryusuke Konishi. Concurrent insertions are already
+>     serialized by ns_snapshot_mount_mutex; only the race against
+>     nilfs_lookup_root() needs to be closed.
+>   - Move the wait_for_completion() of snapshot_kobj_unregister into the
+>     sysfs helpers (create error path and delete), so the checkpoint
+>     tree functions no longer manage the kobject completion state, as
+>     suggested by Ryusuke Konishi.
+>
+> Changes in v3:
+>   - Move wait_for_completion() out of the locked section in
+>     nilfs_put_root() (the mutex-based v2/v3 approach; dropped in v4).
+>
+> Changes in v2:
+>   - Serialize the sysfs registration against the tree instead of adding
+>     a second lock, as suggested by Viacheslav Dubeyko.
 
-pnfs_cache_lseg_for_layoutreturn() already passed zero to this helper.
-Before e20772cbdf46, that call updated the pending return iomode and
-NFS_LAYOUT_RETURN_REQUESTED state, but did not change plh_return_seq.
-After e20772cbdf46, it also snapshots the current layout stateid seqid.
+Acked-by: Ryusuke Konishi <konishi.ryusuke@gmail.com>
 
-This is problematic when an lseg that was already selected for return
-takes time to drain its outstanding references. For example, suppose a
-return is established with plh_return_seq S. While an lseg covered by
-that return is draining, successful LAYOUTGET operations can advance the
-layout stateid to T, where T is newer than S.
+Looks good to me.
 
-When the lseg's final reference is released, the path is:
+Viacheslav, could you please apply this v4 patch directly?
+(Please keep the 'Cc: stable' tag this time, since this fixes a
+Use-After-Free bug.)
 
-    pnfs_put_lseg()
-    -> pnfs_cache_lseg_for_layoutreturn()
-       -> pnfs_set_plh_return_info(seq=0) # advances plh_return_seq
-    -> pnfs_put_layout_hdr()
-       -> pnfs_layoutreturn_before_put_layout_hdr()
-          -> pnfs_layout_need_return()
-             -> pnfs_mark_layout_stateid_return(seq=lo->plh_return_seq)
-                -> pnfs_mark_matching_lsegs_return(seq)
+One note regarding this change: if a sysfs directory corresponding to
+the checkpoint already exists, nilfs_sysfs_create_snapshot_group()
+will not only return an error, but kobject_init_and_add() will also
+output an
+error message.
 
-The zero argument causes pnfs_cache_lseg_for_layoutreturn() to advance
-plh_return_seq from S to T. pnfs_layout_need_return() then uses T as the
-upper bound when selecting lsegs for return, so layout segments acquired
-after the original return was requested can also be invalidated and have
-their I/O cancelled.
+However, nilfs_find_or_create_root() checks for an existing entry at
+the beginning using nilfs_lookup_root(), and
+nilfs_attach_checkpoint(), which calls this function, is always
+invoked exclusively =E2=80=94 either under 'ns_snapshot_mount_mutex' or dur=
+ing
+the serialized initial mount path.
+Therefore, this side effect is avoided.
 
-Under sustained I/O, those cancellations cause more lsegs to drain,
-whose final puts can advance the return boundary again. This can form a
-positive feedback loop in which newly acquired layouts are repeatedly
-invalidated and cancelled.
+Thanks,
+Ryusuke Konishi
 
-This was observed on a one-client one-DS system under sustained
-direct-read I/O over pNFS/RDMA after restarting the nfs service on the
-DS, where the repeated layout invalidation and cancellation caused
-severe throughput collapse.
-
-When the draining lseg is already covered by plh_return_seq, pass the
-existing return seqid to pnfs_set_plh_return_info() instead of zero so
-that caching the lseg does not move the return boundary. If there is no
-return seqid yet, or the lseg is newer than the recorded boundary,
-retain the existing behavior and snapshot the current layout stateid.
-
-Fixes: e20772cbdf46 ("NFSv4/pNFS: Fix a layoutget livelock loop")
-Cc: stable@vger.kernel.org
-Signed-off-by: Tim Menninger <tmenninger@everpuredata.com>
----
- fs/nfs/pnfs.c | 10 +++++++++-
- 1 file changed, 9 insertions(+), 1 deletion(-)
-
-diff --git a/fs/nfs/pnfs.c b/fs/nfs/pnfs.c
-index 4f9c0f639014..69b085482921 100644
---- a/fs/nfs/pnfs.c
-+++ b/fs/nfs/pnfs.c
-@@ -596,9 +596,17 @@ static bool
- pnfs_cache_lseg_for_layoutreturn(struct pnfs_layout_hdr *lo,
- 		struct pnfs_layout_segment *lseg)
- {
-+	u32 seq = lo->plh_return_seq;
-+
- 	if (test_and_clear_bit(NFS_LSEG_LAYOUTRETURN, &lseg->pls_flags) &&
- 	    pnfs_layout_is_valid(lo)) {
--		pnfs_set_plh_return_info(lo, lseg->pls_range.iomode, 0);
-+		/*
-+		 * Avoid resnapshotting the current layout stateid for an lseg that
-+		 * is already covered by the pending return.
-+		 */
-+		if (!seq || pnfs_seqid_is_newer(lseg->pls_seq, seq))
-+			seq = 0;
-+		pnfs_set_plh_return_info(lo, lseg->pls_range.iomode, seq);
- 		list_move_tail(&lseg->pls_list, &lo->plh_return_segs);
- 		return true;
- 	}
--- 
-2.34.1
-
+>
+>  fs/nilfs2/sysfs.c     |  5 ++++-
+>  fs/nilfs2/the_nilfs.c | 34 +++++++++++++++++++++-------------
+>  2 files changed, 25 insertions(+), 14 deletions(-)
+>
+> diff --git a/fs/nilfs2/sysfs.c b/fs/nilfs2/sysfs.c
+> index bc52afbfc5c7..5bb74a45ad1e 100644
+> --- a/fs/nilfs2/sysfs.c
+> +++ b/fs/nilfs2/sysfs.c
+> @@ -195,8 +195,10 @@ int nilfs_sysfs_create_snapshot_group(struct nilfs_r=
+oot *root)
+>                                             "%llu", root->cno);
+>         }
+>
+> -       if (err)
+> +       if (err) {
+>                 kobject_put(&root->snapshot_kobj);
+> +               wait_for_completion(&root->snapshot_kobj_unregister);
+> +       }
+>
+>         return err;
+>  }
+> @@ -204,6 +206,7 @@ int nilfs_sysfs_create_snapshot_group(struct nilfs_ro=
+ot *root)
+>  void nilfs_sysfs_delete_snapshot_group(struct nilfs_root *root)
+>  {
+>         kobject_put(&root->snapshot_kobj);
+> +       wait_for_completion(&root->snapshot_kobj_unregister);
+>  }
+>
+>  /***********************************************************************=
+*
+> diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
+> index ecd71c190885..1d5d2293c9c7 100644
+> --- a/fs/nilfs2/the_nilfs.c
+> +++ b/fs/nilfs2/the_nilfs.c
+> @@ -869,6 +869,26 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, _=
+_u64 cno)
+>         if (!new)
+>                 return NULL;
+>
+> +       new->cno =3D cno;
+> +       new->ifile =3D NULL;
+> +       new->nilfs =3D nilfs;
+> +       refcount_set(&new->count, 1);
+> +       atomic64_set(&new->inodes_count, 0);
+> +       atomic64_set(&new->blocks_count, 0);
+> +
+> +       /*
+> +        * Register the sysfs group before publishing the root in the
+> +        * checkpoint tree.  nilfs_sysfs_create_snapshot_group() can slee=
+p,
+> +        * so it must run outside ns_cptree_lock; creating it first also
+> +        * ensures a concurrent nilfs_lookup_root() can never observe a r=
+oot
+> +        * whose sysfs registration later fails and gets freed.
+> +        */
+> +       err =3D nilfs_sysfs_create_snapshot_group(new);
+> +       if (err) {
+> +               kfree(new);
+> +               return NULL;
+> +       }
+> +
+>         spin_lock(&nilfs->ns_cptree_lock);
+>
+>         p =3D &nilfs->ns_cptree.rb_node;
+> @@ -885,29 +905,17 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, =
+__u64 cno)
+>                 } else {
+>                         refcount_inc(&root->count);
+>                         spin_unlock(&nilfs->ns_cptree_lock);
+> +                       nilfs_sysfs_delete_snapshot_group(new);
+>                         kfree(new);
+>                         return root;
+>                 }
+>         }
+>
+> -       new->cno =3D cno;
+> -       new->ifile =3D NULL;
+> -       new->nilfs =3D nilfs;
+> -       refcount_set(&new->count, 1);
+> -       atomic64_set(&new->inodes_count, 0);
+> -       atomic64_set(&new->blocks_count, 0);
+> -
+>         rb_link_node(&new->rb_node, parent, p);
+>         rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
+>
+>         spin_unlock(&nilfs->ns_cptree_lock);
+>
+> -       err =3D nilfs_sysfs_create_snapshot_group(new);
+> -       if (err) {
+> -               kfree(new);
+> -               new =3D NULL;
+> -       }
+> -
+>         return new;
+>  }
+>
+> --
+> 2.43.0
+>
