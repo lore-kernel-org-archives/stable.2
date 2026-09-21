@@ -1,151 +1,115 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-yx2-f1.google.com (mail-yx2-f1.google.com [74.125.224.129])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F0A647C11C
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983695; cv=none; b=Bk6Omi047Btc3HGv+KupUUl9uHpZmQE+W7G/lE2ZkdUO/teciTAXl0DAfz7FsrTAMFuJaqggANi/aXuhpnxrTx5KF38rGUnVyiZ0l9m+AcYOgQ790Wqyw19MayIX6/iw5jkH5mgdZ6RkQGnk5oqXEAxDE6NGpBqr6icA6cE5DNM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983695; c=relaxed/simple;
-	bh=ozu5/SZuYmOj7l/+TcTNUYCFkfrJn6H80xQ/szzuqj8=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=ceyKvOzpEEuch10YANmemBiuDbWnEMYlf283OAc55aGOAa1cm3U3VgeRPx+YLWra3adBe3qG86MFSflVQ14IW4d/X9Z0rJXAk/H1nm7rGUBoBXPobE7Cf5LXG9OZ1weIq07bMu1SFtzEMr6+x7+sGevhzLWyUi64wugVFy7+t8s=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cbZCAa+5; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8FCC5451990
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:46:51 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.129
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789984012; cv=pass; b=bpMG6i5cy23olmtgBJdiIs9m32/DK/Q9WaxwWwweFGKTGXrWMQAiIRLBxkWyARExN2OYWJGK+kUlJUZkLSXzb93a8oRO2tXT9bIQjYEXfH7R7OAVKdKgYk8vCIqraFJV6UVNVKP6NjUjBlqsX3XhYl0XxUxWhMA/pYD335z2Z84=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789984012; c=relaxed/simple;
+	bh=f+/Cm9YPfNPvvyTL/kLTG5mweG3JOW7IGzYX0bdp7V8=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=ajmHUf5tcqC7hX83YwwpiyR5ajylvH325ODdeaLHoFxEJUmwAtJQeCpWxUvbcjGp+SlRkSMqG6yow5a1aKt6zqwV+N3XdLpJK2yAGvOWD+5uJBVzFEf/QuXHqNfsQs1URkYFd8B4PkYCSEtAX2+UUp+Dkto6sy02VBTfJwi2CkA=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=ha3tZRKo; arc=pass smtp.client-ip=74.125.224.129
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cbZCAa+5"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fb334e72so24660695ad.1
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:41:33 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="ha3tZRKo"
+Received: by mail-yx2-f1.google.com with SMTP id 00721157ae682-85868e38a49so5438767b3.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:46:51 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1789984010; cv=none;
+        d=google.com; s=arc-20260327;
+        b=HR5Vv7JI9qrS5m0CqezLMbx5fx6oqHUl5RZAPTleiCXOpdN7nIm/E+3zvgQxcSNfpS
+         sDdGmQaqrMOhzwLdK8IFbEtnau9XouIb+luGqQ0gHSHC4plxY2nl+0QbyMicuxMj8dYN
+         /UMjnLCftpf6K5XHVcWO7VauIPaiMcExHvZdsDx6LwhW/gjHDj1OpKdECAPiE8tGsfP8
+         yolgZUAtsomkU0UBCreQbXG9Y9Romq5J7ZKC0JMNHPw5tfPmsi47EY4fvUFxAZjnpvqS
+         e+RTO5/NRdls7KhDXgHA0gNhypoYcqXyrlSRx2AvkTVdzfL3u/tRQc/cVxSgBXbTcqWX
+         mW8A==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=f+/Cm9YPfNPvvyTL/kLTG5mweG3JOW7IGzYX0bdp7V8=;
+        fh=WBuEKF093x5WsrmoNdkRYLEB/kgkR2y3etQbZaiwDQc=;
+        b=FvKx8jMS/rrsZXq/Qr1YVZbf+lWwAIPlvazRf+ZNbOEb2Ajgl7To5DDt2O4URevEmt
+         AeauJQUCPv4ECLiH6K/Rxik5NjsFcLCP+jLzIcpQIJnuXSLPxOwI8na/VleZJ1Kmw+Gu
+         bGsJ4MVnuRFMltSZKfwaQZj8y5Ufk2jHzC3bSGj0ZRZU3WrcOb9OtSqexEYBOHKLT8Zr
+         t9OfFOR6X2Cd/rgS2Q37d3W6/Cl+Nm1MiN8XEk0/SdIjn22rwsVqcOjjCAxkx+87LmlR
+         g+lj9q7IWiWbIWdZsL0VLUqPAaZv8YsYmDrxb2by1QTDq3AHdu4MmEWm22oJLY2tldk5
+         wrJQ==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789983692; x=1790588492; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=pJ8HiLAEu0EI7hAaBs+acvitqX1WjD8B529R9qokT7o=;
-        b=cbZCAa+5cVog9asM1kucgkDgEirPKJf2FWMUurtmxxfBMpWniHsQWfyNDa+wcPBYG2
-         nW3ZrKoCTcs1VPCDC1AYpSOBMW9SKUX2eRZ9Ru1BITSBMJctVM8NxRwe1SjmZyImwCXO
-         ufrmjkUinPi9UscH3XLZsnPP6pUazuzRr6+hWO+33QnhyBppGyxvK7bBj2LmbNbVnTZE
-         L2fvPXARJx2IHY67edo4wGBlnGasZXFga2i0086duAcP0E5tN9ZwPWRVpyQv3qXRB/rS
-         mc6KFejXmtCLykbNqJx4k/3xyu1bNn9Xzsh/kmdeZyYsG96m/1CoLS6OYcgTtqOpXNuT
-         T3oA==
+        d=gmail.com; s=20251104; t=1789984010; x=1790588810; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=f+/Cm9YPfNPvvyTL/kLTG5mweG3JOW7IGzYX0bdp7V8=;
+        b=ha3tZRKoxsQuUPyIefLtSnxddM8Vn7ccv48KC3UVcVaUXtRBxa+mGXgiCTQipp8nEi
+         Bki0CdZr0O+ygsgPk9H64zjptvGPNo8CZhXOVqKCkt7eujN9lvzE9Imr6jkNJCbikvU7
+         450UTJYFFbHrt0T+VluNzKdbu0JU4YRpvuOUHseK3zPqSROvZ/Hqhpk5BwnIVwWFaCE3
+         UnGuPZNHAzQjmosepqeRvHkPnOHmGerAZmtcqK8I8aN4DGwsPuLHhdnpHmLx74YA4UAp
+         MAlY+uesT6AveQMyebdVpWgDpnPOzVmgI3d8tXXTdzKo3CTHDqw6UlfdigrlC01AEpqL
+         QN6A==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789983692; x=1790588492;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=pJ8HiLAEu0EI7hAaBs+acvitqX1WjD8B529R9qokT7o=;
-        b=oblA5DMU5oav0/QX2+W3WOjFTZRtkRmIpZYAXJB1SM2W5ivGazPpJ5iGqKNs9U00fE
-         oEU/7fRjdqV4cQORSkGyVqoFAt/Cvwpv669rgVitA5c/2mM+Y6FTSzdpCRJyTuJAJfCA
-         UiA7Q6HDkE7n6qY4ple0XzOU3t0ve5SK3+32JqIwgX/B0rZGr0QnQLmYHvBs4fCGffih
-         HeOGpZCnfCfVG4H3Ps55yV+g4FDwKvXPcvhpHfztMHVROWsxxmxDO2/xg5vc49hZtdzG
-         PMc/Fz2GItjdv2hexf4Xf4RwyWOli1/RnO4XSUJQ+ay1T9h1riH7/p5SOMzZvrxvQDlb
-         GjQQ==
-X-Forwarded-Encrypted: i=1; AKwUvByqFkq35nq+EGXN8/p9muBe7SIPvS8X/FlfEGaCLxQ8fAgWq5774hAAckUQJMrT04pQS6FtWF8=@vger.kernel.org
-X-Gm-Message-State: AFuF++lX9l6vdmlXHI9kgAbAzWCLaOQVFdI9lodLel293xLXTFUuuyBE
-	nV2MYfN/efIQd8zSQ0htf4XRqfX+jnbMZviYSRdv+eJMkwlKcQDL1ENg
-X-Gm-Gg: AYBFou0ufZ4WT09Z53rTbd7gDiVGdOvungQT42/PHW1gO9d8qA/pYQRPrye31kliNUG
-	X2f/y4h3xCh1z6z4IyS+K+CdUXSBHU/H1vfAlu7hhjOVc6WBuvhW70RkJ4IIBF2P6MBnj7LS3wd
-	/cFf3iSXZIWFg5vwVu5x8V3BGVmTs8XMEoZK8LdV2bUIAfuZ7qE9UsTjbZaI1XxdRZ7ks1kXfTb
-	VF3q5fMFf+4Xsv+8nsEJp0lTdW4sO41QJfhf+Bww4PdD0jsEH/Njhl9ftMSTp3IU6pTRlas6yp/
-	8JTjVvYaLByHUu34NarNDzsrZu+e2uuzbDX0tCKswrsrSIO/VhE02/OFj7emZozwkbKJYpDnxPK
-	8+qcb5puZ7wsRsfaVy22cUuGc4pFTQkmBof9YbDDQghg8+Kv4DWJCnjeSIF6lXAma6qgDv0wAUG
-	ybb/HRniQ4OUUNnZ1RzjRqvdmMXmAbO7cJI6XezUkioEldL2Rf42VVBway/Uu9A8FvWdAlZVs7g
-	cJAw3nMIXflEeDwU4TSlaqFyI5/KrSXAKlFDyc0KUQwhjnuzPVrAa+lI+9Q5F8BT+PHLiDlO+f0
-	s9dt
-X-Received: by 2002:a17:903:2c0e:b0:2dd:c100:7cc3 with SMTP id d9443c01a7336-2ddc1007e21mr89901765ad.63.1789983692380;
-        Mon, 21 Sep 2026 02:41:32 -0700 (PDT)
-Received: from lenovo-thinkbook.lenovo.com (n112120123178.netvigator.com. [112.120.123.178])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17a04afsm31053665ad.42.2026.09.21.02.41.28
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:41:31 -0700 (PDT)
-From: Yuqi Xu <xuyuqiabc@gmail.com>
-To: netdev@vger.kernel.org,
-	Tung Quang Nguyen <tung.quang.nguyen@est.tech>
-Cc: Jon Maloy <jmaloy@redhat.com>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>,
-	Simon Horman <horms@kernel.org>,
-	Ying Xue <ying.xue@windriver.com>,
-	Parthasarathy Bhuvaragan <parthasarathy.bhuvaragan@ericsson.com>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	stable@vger.kernel.org,
-	Vega <vega@nebusec.ai>,
-	Ren Wei <weir@nebusec.ai>,
-	xuyq21@lenovo.com
-Subject: [PATCH net v2 2/2] tipc: make conn_idr teardown safe
-Date: Mon, 21 Sep 2026 17:41:15 +0800
-Message-ID: <91e85c3211fd31d24b231e8def5755c0f18b71f4.1789960909.git.xuyuqiabc@gmail.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <cover.1789960909.git.xuyuqiabc@gmail.com>
-References: <cover.1789960909.git.xuyuqiabc@gmail.com>
+        d=1e100.net; s=20260707; t=1789984010; x=1790588810;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=f+/Cm9YPfNPvvyTL/kLTG5mweG3JOW7IGzYX0bdp7V8=;
+        b=lpaXdJFwtecAfBfzqmMmc54lUC0mnJ7t5Cev+OY6da2++LLn1p1kBxYknTakzWdDkP
+         M7Trb+UqRjhBEaIlLSwRS0rhNqDsh4UI+3n+EpGljetwjvQrlm1uydFmytvttmMKJHKq
+         jcF2XbnmXk7czPcGgTnyWkHlwQwdKBl+f0VXMd7416tqIWa7FHGec53Jdl4Uz0XDCDlW
+         mxX7z4QCGiTMe8bWRWbmVizXtD5JCURJgyEFwAF8ROudO5zPeKfiOa5vUgtuRPmu4mWE
+         tpSlNRz5j4K/nVRkAS+v0EJ0VPl/pJUVH3Auorrtb0NKMGHSDBPxO8M0jKGhzF9JdbGq
+         WdCw==
+X-Forwarded-Encrypted: i=1; AKwUvByaw0zfl6SNSpD1OujVQAuvHFc1dNnnog5PMVHPVZL3WThJwAhmfTPKzFa2On62cicN3Op+oyg=@vger.kernel.org
+X-Gm-Message-State: AFuF++k/3//HyWCwnHfUngpBPEg2obdykS9zLekSCeTKzGDms4fh8NWp
+	lj5tvf6P3jaNMXH6xSCx5rATxZyv+ZN5TYAuPlLdY5a06F+4CGvy38ZC+V03gfcSIdA7Ktge5A/
+	hTkzYVYYrudagdqmUT8mGIAHg439oJus=
+X-Gm-Gg: AYBFou3PDOnQJlTqQguXmhfwfuv9cTtXxmJTxjzaMUEeFg4xNrELNJN6ofFgBOa2o+L
+	hDP0jyV5NBQlLGOCKDKti3p23RYlX3fGK7cjQGXdAOKpvETNYduSn0AqLvaj1oJh6HEjzLsJtBs
+	OJSIRAOKk4+WJCceanlkh2AyGkCLRWr7GURJK3o2QMF3OFShXY+STcRCDTVQHWHY0zKIuC19v/x
+	NV71LY5DdsSA1OmwWcq+srQmRr+KchUmjSHCMX9jgTFaPLRJuR+8K5zwx4xzPOsNBawaKtwl/UA
+	ZtBlDZLqcPyuLeEJZhbkqk7bNCUHLKBx92Ss0BfD00whyZz1+CV2yT69
+X-Received: by 2002:a05:690c:e649:10b0:89a:63da:fab4 with SMTP id
+ 00721157ae682-89a63db0408mr12439377b3.111.1789984010444; Mon, 21 Sep 2026
+ 02:46:50 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260920145848.44521-1-me@lizi.moe> <20260920193830.53706-1-me@lizi.moe>
+ <arDqcJ5AbDjGHd-b@sirena.co.uk>
+In-Reply-To: <arDqcJ5AbDjGHd-b@sirena.co.uk>
+From: Li Tadokoro <kokonata233@gmail.com>
+Date: Mon, 21 Sep 2026 17:46:39 +0800
+X-Gm-Features: AcwNN1Ud_FIYDoPOA9vd1A9iNgMPZfhlScfzx8a-KRd0K4u1ZBcEhynMGifCZ8w
+Message-ID: <CAGFxjK+1YVvFiZS7Geaxe=TMO_bvuYsYtsOjgpQ2MV876KNvwQ@mail.gmail.com>
+Subject: Re: [PATCH v2] ASoC: qcom: lpass-cpu: use DAI table index for
+ playback constraints
+To: Mark Brown <broonie@kernel.org>
+Cc: srini@kernel.org, lgirdwood@gmail.com, tiwai@suse.com, 
+	linux-sound@vger.kernel.org, linux-arm-msm@vger.kernel.org, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-The teardown walk iterated conn_idr by incrementing a numeric ID while
-holding idr_lock, so it could scan a large range of unused IDs without
-letting a connection's final reference release make progress. An entry
-whose last reference had already been dropped could also be resurrected
-by the unconditional conn_get() while its release callback was blocked
-on the same lock.
+Sorry about that. I'll send future revisions as new threads.
 
-Walk conn_idr with idr_get_next(), release the lock and reschedule when
-no entry can be taken, and use kref_get_unless_zero() so a connection
-that is already being released cannot be revived.
+Li
 
-Fixes: 35e22e49a5d6 ("tipc: fix cleanup at module unload")
-Fixes: 667eeab4999e ("tipc: Fix use-after-free in tipc_conn_close().")
-Cc: stable@vger.kernel.org
-Reported-by: Vega <vega@nebusec.ai>
-Assisted-by: LLM
-Signed-off-by: Yuqi Xu <xuyuqiabc@gmail.com>
-Reviewed-by: Ren Wei <weir@nebusec.ai>
----
-Changes in v2:
- - Rebased onto the current net/main tip; patch content unchanged.
-
- net/tipc/topsrv.c | 17 +++++++++++------
- 1 file changed, 11 insertions(+), 6 deletions(-)
-
-diff --git a/net/tipc/topsrv.c b/net/tipc/topsrv.c
-index 908622a3d0fc..9333e36a74de 100644
---- a/net/tipc/topsrv.c
-+++ b/net/tipc/topsrv.c
-@@ -710,15 +710,20 @@ static void tipc_topsrv_stop(struct net *net)
- 	cancel_work_sync(&srv->awork);
- 
- 	spin_lock_bh(&srv->idr_lock);
--	for (id = 0; srv->idr_in_use; id++) {
--		con = idr_find(&srv->conn_idr, id);
--		if (con) {
--			conn_get(con);
-+	for (id = 0; srv->idr_in_use;) {
-+		con = idr_get_next(&srv->conn_idr, &id);
-+		if (!con || !kref_get_unless_zero(&con->kref)) {
- 			spin_unlock_bh(&srv->idr_lock);
--			tipc_conn_close(con);
--			conn_put(con);
-+			cond_resched();
- 			spin_lock_bh(&srv->idr_lock);
-+			id = 0;
-+			continue;
- 		}
-+		id++;
-+		spin_unlock_bh(&srv->idr_lock);
-+		tipc_conn_close(con);
-+		conn_put(con);
-+		spin_lock_bh(&srv->idr_lock);
- 	}
- 	__module_get(lsock->ops->owner);
- 	__module_get(lsock->sk->sk_prot_creator->owner);
--- 
-2.55.0
-
+Mark Brown <broonie@kernel.org> =E4=BA=8E2026=E5=B9=B49=E6=9C=8821=E6=97=A5=
+=E5=91=A8=E4=B8=80 16:27=E5=86=99=E9=81=93=EF=BC=9A
+>
+> On Mon, Sep 21, 2026 at 03:38:30AM +0800, Zimeng Li wrote:
+> > The DAI ID is a hardware port ID and is not necessarily the index of
+> > the corresponding entry in variant->dai_driver.
+>
+> Please don't send new patches in reply to old patches or serieses, this
+> makes it harder for both people and tools to understand what is going
+> on - it can bury things in mailboxes and make it difficult to keep track
+> of what current patches are, both for the new patches and the old ones.
