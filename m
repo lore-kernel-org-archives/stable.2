@@ -1,42 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C89854B1CE0;
-	Mon, 21 Sep 2026 15:10:41 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F36054B44B9;
+	Mon, 21 Sep 2026 15:10:49 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003443; cv=none; b=ayEEvnGuU3FFvOM7JysfAVuu4oYqNJm3tW0hkGlaCsRpEfkuNpI/ph+H6xngwCpL43AShXYIpfpbuQFdna82ebbBh/B0+MqBnphbzi2e+Ks7eZnV8uTQG8MG/Idz43CU/BpRADPAhi9MctBTnmEzmosmsu3PgiKlMzAK/x6SvN4=
+	t=1790003451; cv=none; b=lrgpyb3wk8pCVwN/VJ/XwgvSEd2ZB5z2z+KwSuxpADDEdaSp7R2EqOREOjM/ExfHHvLn+xY8tJLjex7vMd86dCNWuZrEcXoVQ6A+kjN7y0Kc2HI4PvNUNPeZ8nW0I+PEVXpZntwBX4MW0xPmBjoB5E+Ea9AWeeGktjNAbIpumhY=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003443; c=relaxed/simple;
-	bh=36Esa7CcXgqX1AjuV1cW/7LdzyOcnho1SS+p1s7K+AM=;
+	s=arc-20240116; t=1790003451; c=relaxed/simple;
+	bh=VFVm3deGEZoOvkqNDfaTjIXJe/vQ5gsepPxoR8S/TAc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=W1kjWJRwB2iX0jOQHEhzfpq4m9v3FfAUvVBEJHQ8eDuRN8hREFWqbgMLKOfUt4enpIhkUbxoaNMsQ6hMZ97g1gIQ92REI6PAc772ll/MFtc+m7gkWMw5rPgOPlM2xPn/LYwaZYFFyEzHkYqNJBdRbtvus46aWQKWvlJXSY9nxGM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Q0fN6Fy+; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=soamZqmxwLhLdR3AnpbmPJjXONj2SXcqnCDXkY3OQQ67WFF8/+B4IxZrk89zaMy1FFabEyFmztnmlKtWPvYC1o8IFm2gxlIRyjSlOuhEuO81Wtd49jXdr3Nd86+ryktvGK3tQy0n745+xmpC4pSiRxo3/QsfaCJuy5HEc+EH2WU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=NFnl0p/v; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Q0fN6Fy+"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id B14E61F000FF;
-	Mon, 21 Sep 2026 15:10:40 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="NFnl0p/v"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id BF9801F000FF;
+	Mon, 21 Sep 2026 15:10:48 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003441;
-	bh=yspVN2Kwlp43G8wnBeHwzNPYUg7ni2wqOpiDE7XfVYk=;
+	s=k20260515; t=1790003449;
+	bh=8Z9pnwbujXH/q5I7qHSymHElSJLsHHgcLpqMH2sW6fk=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=Q0fN6Fy+z+tynKlrYvxj2KabvAl/ED48OvxuilaQMtIpmpex5rwSnqxDJnllNjxY5
-	 VzNY9eUPe2uWszTnrAMqbZgCQG53Ws1HhNNlwh8Gd1dOM+kdY+dG/uksnKD/9yNNFs
-	 tjsJcLN8WvgOF28mc78HIGIfqVpvYl/sE18sywz1yKIpZNn3RqJTI8e7PpYoKQVjYM
-	 nNkxh+PyaKJKVPOpuo9xCkAkgniN3facNyvn2/Z9X/pFXGaZ9iX8mO+pvQL/PSf6ff
-	 kgNAKDOO4OdVoDChvybC4Sy/h5W7HRo8PdJRClQa6VsWm7Km2yaJLN5xOHM5TzOx9R
-	 cjjBsiNoy8V7w==
-Date: Mon, 21 Sep 2026 17:10:36 +0200
+	b=NFnl0p/v3wEnFq5d6XhldrD1f+YoUwafizqFGKgNdyXeyI0iqb65QYMvIKYQ1mXJx
+	 mMNGyzuybQGSDs6pA7swtfStykL9+c3VwAST7lNNiUx367eZ2L64L68uUzwkaoKmfE
+	 JzRZDoHo2ZyJJhznAyXzQHWRJhoB/eSQFeLKF/ckjgNU4zow5DwvUwRlV3IXxrsNZd
+	 H/Ee9U1Qk4Mz5qcP90yj/952QbLO6i9thKaKcQgmSau3hfjeWcgJQ80dTerquddfHq
+	 gKioSThXUAKvEXjFOX7DqJwK/5OBx/Vg2Jwl3hcfYLSd5VN7AYVj4rsm1HyY8lytSo
+	 HvIZHWyUl3tMQ==
+Date: Mon, 21 Sep 2026 17:10:46 +0200
 From: krzk@kernel.org
 To: Hui Peng <benquike@gmail.com>
-Cc: Greg Kroah-Hartman <gregkh@linuxfoundation.org>, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org, Arnd Bergmann <arnd@arndb.de>, 
-	Clemens Ladisch <clemens@ladisch.de>
-Subject: Re: [PATCH v2] char: hpet: prevent hard-IRQ divide-by-zero in
- hpet_interrupt() via HPET_IRQFREQ
-Message-ID: <arFI5vCuzTrsurzm@quoll>
-References: <20260919203515.2581203-1-benquike@gmail.com>
- <20260921022019.865442-1-benquike@gmail.com>
+Cc: Jiri Olsa <jolsa@kernel.org>, Ian Rogers <irogers@google.com>, 
+	linux-kernel@vger.kernel.org, Namhyung Kim <namhyung@kernel.org>, 
+	Mark Rutland <mark.rutland@arm.com>, linux-perf-users@vger.kernel.org, 
+	James Clark <james.clark@linaro.org>, Ingo Molnar <mingo@redhat.com>, stable@vger.kernel.org, 
+	Arnaldo Carvalho de Melo <acme@kernel.org>, Peter Zijlstra <peterz@infradead.org>, 
+	Alexander Shishkin <alexander.shishkin@linux.intel.com>, Adrian Hunter <adrian.hunter@intel.com>
+Subject: Re: [PATCH v2] perf/core: fix user->locked_vm leak on secondary
+ mmap()
+Message-ID: <arFI9WBBz5YtLSXT@quoll>
+References: <20260919221728.3707189-1-benquike@gmail.com>
+ <20260921003306.426050-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,66 +48,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921022019.865442-1-benquike@gmail.com>
+In-Reply-To: <20260921003306.426050-1-benquike@gmail.com>
 
 
-On Mon, 21 Sep 2026 02:20:19 +0000, Hui Peng wrote:
-> In hpet_ioctl_common(), HPET_IRQFREQ computes the timer period as:
+On Mon, 21 Sep 2026 00:33:06 +0000, Hui Peng wrote:
+> Commit 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()") hoisted
+> `user_extra = nr_pages` ahead of the existing-buffer checks (`if
+> (event->rb)` and `if (rb_has_aux(rb))`), and subsequently
+> commit 5d299897f1e3 ("perf: Split out the RB allocation") and
+> commit 2aee37682391 ("perf: Split out the AUX buffer allocation")
+> carried `long extra = 0, user_extra = nr_pages` into perf_mmap_rb() and
+> perf_mmap_aux().
 > 
->   devp->hd_ireqfreq = hpet_time_div(hpetp, arg);
+> As a result, when an already-allocated ring buffer (`event->rb`) or AUX
+> buffer (`rb_has_aux(rb)`) is mapped again via mmap(), perf_mmap_account()
+> is called with `user_extra = nr_pages` instead of `0`, charging `nr_pages`
+> to `current_user()->locked_vm` on every additional mapping. However,
+> perf_mmap_unaccount() and perf_mmap_close() only subtract the ring buffer's
+> and AUX buffer's pages once when the final `rb->mmap_count` /
+> `rb->aux_mmap_count` reference drops to zero. Consequently, every secondary
+> mmap() + munmap() cycle on a perf event permanently leaks `nr_pages` in
+> `user->locked_vm`, eventually exhausting `perf_event_mlock_kb` and
+> `RLIMIT_MEMLOCK` (-EPERM) for that user.
 > 
-> where hpet_time_div() returns div64_ul(hpetp->hp_tick_freq + (arg >> 1),
-> arg). Whenever arg > 2 * hpetp->hp_tick_freq, integer division truncates
-> to 0 and stores devp->hd_ireqfreq = 0.
+> Fix this by only calling perf_mmap_account() when allocating a new ring
+> buffer in perf_mmap_rb() or a new AUX buffer in perf_mmap_aux().
 > 
-> Although hpet_ioctl_ieon() (HPET_IE_ON) checks if (!devp->hd_ireqfreq)
-> before enabling the timer interrupt, HPET_IRQFREQ neither rejects
-> updates while HPET_IE is already active nor checks whether
-> hpet_time_div(hpetp, arg) evaluates to 0. As a result, arming the timer
-> with a valid frequency (for example, HPET_IRQFREQ with 1000 Hz followed
-> by HPET_IE_ON) and then calling HPET_IRQFREQ with a large frequency (such
-> as 0xffffffffUL) overwrites devp->hd_ireqfreq with 0 while the timer
-> interrupt is active. When the next interrupt fires, hpet_interrupt()
-> reads t = devp->hd_ireqfreq (0) and computes base = mc % t, crashing the
-> kernel in hard-IRQ context:
+> Tested in QEMU against Linux 7.3.0-rc3 with a standalone C reproducer
+> running as an unprivileged user (UID 1000, RLIMIT_MEMLOCK=0,
+> perf_event_paranoid=1) that opens a software perf event, maps a 65-page
+> ring buffer, performs 10 secondary mmap() + munmap() cycles on the same
+> event fd, and then unmaps and closes the event. On the unfixed kernel,
+> subsequent perf_mmap() calls by UID 1000 permanently fail with -EPERM due
+> to the leaked `user->locked_vm` (650 pages leaked), whereas with the fix
+> applied `user->locked_vm` returns to 0 and subsequent perf_mmap() calls
+> succeed.
 > 
->   Oops: divide error: 0000 [#1] SMP KASAN PTI
->   CPU: 0 UID: 0 PID: 0 Comm: swapper/0
->   RIP: 0010:hpet_interrupt+0x20f/0x360
->   Call Trace:
->    <IRQ>
->    __handle_irq_event_percpu+0x102/0x400
->    handle_irq_event+0xa6/0x1c0
->    handle_level_irq+0x205/0x5e0
->    __common_interrupt+0x60/0x130
->    common_interrupt+0x7a/0x90
->    </IRQ>
->   Kernel panic - not syncing: Fatal exception in interrupt
-> 
-> Reject HPET_IRQFREQ with -EBUSY when HPET_IE is set in devp->hd_flags,
-> and return -EINVAL when hpet_time_div(hpetp, arg) evaluates to 0.
-> 
-> Tested in QEMU (-global hpet.hpet-intcap=0x0c24 with noapic) by opening
-> /dev/hpet and calling ioctl(fd, HPET_IRQFREQ, 1000), ioctl(fd,
-> HPET_IE_ON, 0), and ioctl(fd, HPET_IRQFREQ, 0xffffffffUL): on the unfixed
-> kernel this immediately triggers the divide error panic in
-> hpet_interrupt(), whereas on the fixed kernel HPET_IRQFREQ returns -EBUSY
-> while HPET_IE is enabled and -EINVAL when hpet_time_div(hpetp, arg) is 0.
-> 
-> Fixes: ba3f213f8a31 ("[PATCH] HPET: make frequency calculations 32 bit safe")
-> Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation for delayed interrupts")
+> Fixes: 0c8a4e4139ad ("perf/core: Further simplify perf_mmap()")
 > Cc: stable@vger.kernel.org
 > Assisted-by: LLM
 > Signed-off-by: Hui Peng <benquike@gmail.com>
 > ---
 > Changes in v2:
-> - Add Cc: stable@vger.kernel.org and include the QEMU test procedure and
->   oops trace in the commit description per Greg Kroah-Hartman.
-> - Add Fixes: 273ef9509b79 ("drivers/char/hpet.c: fix periodic-emulation
->   for delayed interrupts") for the mc % t division in hpet_interrupt().
+> - Dropped the cross-MM `pinned_vm` / `rb->mmap_mm` (`mmgrab`/`mmdrop`)
+>   changes (which caused an RCU softirq context violation in `rb_free_rcu()`
+>   in v1, flagged by sashiko-bot) to keep this patch focused on the
+>   `user->locked_vm` leak on secondary `mmap()`.
+> - Updated the `Fixes:` tag to `0c8a4e4139ad ("perf/core: Further simplify
+>   perf_mmap()")` and added QEMU reproducer test details to the commit
+>   message.
 > 
->  drivers/char/hpet.c | 7 ++++++-
->  1 file changed, 6 insertions(+), 1 deletion(-)
+>  kernel/events/core.c | 6 ++----
+>  1 file changed, 2 insertions(+), 4 deletions(-)
 > 
 
 
