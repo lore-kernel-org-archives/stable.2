@@ -1,157 +1,149 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx0a-0031df01.pphosted.com (mx0a-0031df01.pphosted.com [205.220.168.131])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8ADFE3B05BC
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:38:03 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 77BB73AC0E7
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:38:04 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.168.131
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790019485; cv=none; b=nFLR+9m70376Ii/QyV2l/vnFImjVzIOrp0UloWNVTYp3YkKG8OZ6j5gmA4fEFShNbQPMnRiBITjLrnr38A1u2MdIBMd4D+wj4L2u2/kc2O6tMfObnSHuRmnQZ6d1gQQnob0wheCGDklb/oiOZqwJAKZb7w+noHVBsZiT+4fDWVI=
+	t=1790019485; cv=none; b=G+031+lqX6KP84NWUx4Dtgfo+iqSp1pZOI01w4g5YW7QbnN3dKOgEDw/4A8iPGWO8riGEGhEckf2u9/85P23BqikKZ9dEq0d3HaLh2Bdqw5H9CP5kfHVwWCZicxXfTnQmE5VsYY/HCtXSOYgTR+MF0rAGmJvJ6AJWaZK6xazNEU=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
 	s=arc-20240116; t=1790019485; c=relaxed/simple;
-	bh=sd9V/QvVMf4cDvXMBa/UsWtjf2wjncnMpYTMCvePqXw=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=M4KA4596RsyzOdPsCLQjme2ypSTQEY1QRs8gXiUwkhjSECtIoWrBMDngMtq6IGgR4rSQOCZnznr9YY+g8hf3sAM7xyTZ0fwwgF99ay1Gw+vNtnUWW8nHthmTX0X6MLn8fFpJ+tVbuH4GGhHdQ6MWZoik1mmpego5TbgnjKa0EO4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=aHi7DrnP; arc=none smtp.client-ip=74.125.227.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
+	bh=oViEkXVK9OigDsmZPkXR5EFjP711e/j4sF5FEc2sAgk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KO9HWWCLsFXog5GceJhgkgrHFwfuUGGuy0oSluZCr5HOT7xt+4CeMqRS2LqPUD8SM2RgplusijPN7kBQh0xeyBM6Sexoh/mNVjtKcgrlPZk9Zz1rOxnQI/cpfHxFCBJbo95rfCSveIBNxhCGQYgTPaxDe9kRdpmhyRfHYZ1qajY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=nu5j5FI/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=T4cjDUa+; arc=none smtp.client-ip=205.220.168.131
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="aHi7DrnP"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2d8fbef5018so42004845ad.0
+	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="nu5j5FI/";
+	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="T4cjDUa+"
+Received: from pps.filterd (m0279867.ppops.net [127.0.0.1])
+	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LHIOTM2981115
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:38:03 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
+	cc:content-type:date:from:in-reply-to:message-id:mime-version
+	:references:subject:to; s=qcppdkim1; bh=yg8fqfhdOq1FGXzjyINIOF0z
+	qOC81zrYO3mOQgWrdMU=; b=nu5j5FI/gFomZKmxRIbuUvFXfm965h/KNeohaYIN
+	zV0cr+4EzrDG+2ZZj7wEB9dj01ndT4HStY7awYKvFMcQzwWJv3M4Zte1Mrl5vWLp
+	m+tGZiSN6chVCljzf2tmGQSMY5aN1Zjdzglsnq085By00yPC1r0o7H9VrKD+3c25
+	EJDwEt65h9QihfPMHQhCMDq5XLo0rexbZMNcO3m0nNmQZe+Rfp4IJ4DBM/Ec/LiU
+	Jr3RNDiLTmZZMVAgUqAolRlLOS4+TGRZimw6zL7K6DKMV5XtscV3nUch5OWtKp6D
+	/C1TNnW4EtLtcDgPin1RAwdDaS5InSTb/7DEmuU6JrpZ+w==
+Received: from mail-pl1-f197.google.com (mail-pl1-f197.google.com [209.85.214.197])
+	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu8v50jsm-1
+	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:38:03 +0000 (GMT)
+Received: by mail-pl1-f197.google.com with SMTP id d9443c01a7336-2cee1ec30f2so47407715ad.3
         for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:38:03 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=trailofbits.com; s=google; t=1790019483; x=1790624283; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=aowiel30ampr5Np1wAm1rSTNGQWP2GBWcWmQbn6pvmU=;
-        b=aHi7DrnPGBnSY4cGD1rFZgLaZXH2Hg+1X2YKW5zDx/CS4/wiF/TIBsJbBkNWyItfty
-         0wmrHcBr79wiBXX0Mz+ACFRZRCBM6p/vsa3h82OTxwaUwk0j+UID0+Xwlj/P4gDlZAC3
-         j74vHbn+jBTIxwz5L54s691wA7A5IpDjRB4xFuVJePRivE0ZlypdWzJevP9cFP0zthAA
-         2S9YmVO9FBpLv+ppdghZIXf34ZFRnM7g2XdqJ1igH8PA3CIGyoExZc8hD1ishjkv6maA
-         QPc9jLGAd5hBm1MfDsjb4zB8iNAsDs69S9BSugIxmOu0a04u2xyQAg8al9pu08cYqesR
-         eUlA==
+        d=oss.qualcomm.com; s=google; t=1790019482; x=1790624282; darn=vger.kernel.org;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=yg8fqfhdOq1FGXzjyINIOF0zqOC81zrYO3mOQgWrdMU=;
+        b=T4cjDUa+LC2D1Ec8lM6e7jEAlyhoRWwcYJKimcT+5qsSKpqIeXjYSRH7wt0sY40Bi6
+         YdMY7cxdppueZz7agcbRTx5DtS5i2gRzOkn59JHmsr73SHV1EGt/JHg4hBgJd/+et3zj
+         W1SzpnoMdi16+xwtKT+SrTrYtsTxZU3P004+aVpR2APoeh3KXbN3WcawwT59c12yNgZQ
+         uS+VdfM/I/PpZzKwzkzd764cfDgixjGJZcnvR4BDUexB6eveVK+BFoti2mkXK1ZgylVO
+         L0SavqJvoWyBHVanWPde1Shgt+ehrUShZnlicPUhvVj9Y/vU0HzA2NfxCq8m89m2Bhfe
+         KQHg==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790019483; x=1790624283;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=aowiel30ampr5Np1wAm1rSTNGQWP2GBWcWmQbn6pvmU=;
-        b=ocVg9+5AilqT/3ucxykmWy7sVkWi6RHi/yqdDDPoRm/dEeAPIK3JmQHh07/8yjwjfB
-         2PWcqZZpyEmIsYzPiiMli5moqFaX7pBiVAdKJ6rLHqgMBVD/4VOYiBrjn95AKooXLSIb
-         UGF5T/5akbIrYSk4UV3bYr3I6atU06cKrg4ziJ6HbEI/hmvlvJDWvAaAajJ39o3Aih3d
-         2pDurlt9aBXhe4YBqlrJAz0NXmIwYF5hSZW+mb1VRCHbL0M0VNoBMZp4HqYFGKwlRncS
-         zRhRFELpd9lzQ/rorwHhK+kcOk1hkrjciwOUcgA8eu6JSnWp7qua+F9voVeeCepSrJPO
-         WMAg==
-X-Gm-Message-State: AFuF++nfnfDxtFTvYvDFiO775zrEXEQK8rwbqUHm1cRy54u3/hjBOA3D
-	6i/e2COnIgUS0LV8y1w78SI9dHKfBVJ9DSxWjHf5Jr36iAQBvVEgp2UWBK7rWxYLG9uVMSsypJs
-	fL0SRd+4=
-X-Gm-Gg: AYBFou1Q6NKFmKDUStM8WgwkSH/ioAkB9oDnfOuCLJwNWZP1Fde+/SDPiCIjFhBiqKK
-	43CRtzm3FONQ2a3F7WSOu+ysdbzLol9yI92TxLEQ6ouMo6sCJS2AH3R+dl3VjgMi1/8BFrZLQV/
-	VjXOyND6/Az5vgrW7NmAPcV47EhdrdZqubvdp14tcJHfUB1UoSmR1mn+9NjqXsLmlxCj1JTcVGi
-	xHGJoqT6NfURruBMahuNHaE2gCJ32Xy2H/EgPdSvE8oM3gTtlHTfMcUsjT5PsDgIezpnKQYt0u5
-	HxRhlWeG02syb0qPtAu9YjtxdZ5LA8KVZKEQzto16+z3sz5dnzobk0SMgYTCZA7BwNWzLafI/Gx
-	ZG33iM++hMMRYEcQ4LNPUu2cbHsUrBAaV2s+BsbenyzyLpQhoFl2MLMnmKLMvCiXtXYr8Nzrvle
-	13ddFWR7Ezk0tO8zRDIIhFuzkpZVhan7kD5ggE4hBd9HdoCSFGFiqdSEFdMr1vjdD1TBFl6+mCo
-	VjMGYXtUgzp5zi+7OSjnWui4iYnOsXrWeY3USM+jkLkzhbwfJ90zt5NLvpQp9A6aNmtTRQiFHdz
-	muygXw==
-X-Received: by 2002:a17:903:bcf:b0:2dd:c100:3141 with SMTP id d9443c01a7336-2ddc100323cmr76353145ad.61.1790019483005;
-        Mon, 21 Sep 2026 12:38:03 -0700 (PDT)
-Received: from localhost.localdomain ([2603:8001:5f01:8bab:289a:f600:f11e:a45c])
-        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288500eec.16.2026.09.21.12.38.01
-        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        d=1e100.net; s=20260707; t=1790019482; x=1790624282;
+        h=in-reply-to:content-disposition:content-type:mime-version
+         :references:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=yg8fqfhdOq1FGXzjyINIOF0zqOC81zrYO3mOQgWrdMU=;
+        b=q3/T8NZRj0JWv05e7stw3RqSOvqVLivKzXPSfUB89cQIYvOBuSdMO+f9h4/MjqiaVq
+         4yqRP5loJcToCVl5ef1DUCen44QB6+KIMXCywoMbpB92NWvGMH8ibb4E0p1dHPHeTshH
+         1scARsDT5ERs5MKBymvxZdnZeD37zDfi3VR4WFNpjdJA0cAfmaU60FgxxTP5FmrhLBj0
+         SpvtzNuU/ERiOkRvy1jgWZWomGmWb6XOGmIR1E8/vk6jIWt2QpcympbJZC1GjYv3ebO4
+         WU0cgSC0xoiXENfHr7aWDBG9TCkDkDbSs15amsT5fzmNYrmz/u7opUGq4btSphaVtTIN
+         yWTA==
+X-Forwarded-Encrypted: i=1; AKwUvBwBiBXxif76+Cw2lRMLoT8098EH7w+upBi2N1iSV/clagaAbNFmzammUq3nIT9XTd34oLY2hvY=@vger.kernel.org
+X-Gm-Message-State: AFuF++llZWZ0FG/fSVMkfH1W9O//MAAJVz9chH1KVPFY6VcvDUvh8MjF
+	sdA127sqruScutKiy54lQy3GtinFCw37Cwnv9setWvRd22jhZYg5d/SjGuaH9gTdy+eRPTThc6l
+	wGSSJYVksFvcya87WVzd2NcopQ7G+x55+JwUCiVxgxNpDAXxZjJuvuxdmfE8=
+X-Gm-Gg: AYBFou2ghTnWsviWJz7WwXDREaXqVHaNqi5O2gkLCsQcWWshHVQcaOsmiD4vr+hesG9
+	BOj40v+WjI7BxWl19rj9WdKwdJMVs7nt87PusiFNOWnhKpxf1y0p4s9aAWjLopYJFw39Son9yUW
+	QZuJOOvgz+xBWhyGkvmVX/4gzk3JykjhzFNC+I6//4q7uhVfA+5Yj9kxezT6hoBXHb4tz0WrD+G
+	xtyjEBtNgQwY6hhbSvkcvjhV9nX89l89XnXU+maOMqevJrvWpXK+PZa5VPgZ7eNx8pS7hGQ+bAo
+	9Ti8Oxzf/eIuhlExZ+Itr2QRBW4l7Ov3T+X5Kh1yxlNNw8BTbsVJgY41b7c8tKQnjz8YJ2k7e7A
+	2yv7TZxgFJbhupyzC/KgEP2kmhw==
+X-Received: by 2002:a17:902:db0b:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2ddb16d5a08mr177252075ad.0.1790019482307;
         Mon, 21 Sep 2026 12:38:02 -0700 (PDT)
-From: Artem Dinaburg <artem@trailofbits.com>
-To: stable@vger.kernel.org
-Cc: Artem Dinaburg <artem@trailofbits.com>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-	Sasha Levin <sashal@kernel.org>,
-	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
-	Liam Girdwood <lgirdwood@gmail.com>,
-	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
-	Bard Liao <yung-chuan.liao@linux.intel.com>,
-	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
-	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
-	Daniel Baluta <daniel.baluta@nxp.com>,
-	Mark Brown <broonie@kernel.org>,
-	Jaroslav Kysela <perex@perex.cz>,
-	Takashi Iwai <tiwai@suse.com>,
-	sound-open-firmware@alsa-project.org,
-	alsa-devel@alsa-project.org,
-	linux-kernel@vger.kernel.org,
-	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
-	Dan Carpenter <error27@gmail.com>
-Subject: [PATCH 6.1.y 2/2] ASoC: SOF: ipc4-topology: Clarify bind failure caused by missing fw_module
-Date: Mon, 21 Sep 2026 15:37:48 -0400
-Message-ID: <20260921193750.82134-3-artem@trailofbits.com>
-X-Mailer: git-send-email 2.55.0
-In-Reply-To: <20260921193750.82134-1-artem@trailofbits.com>
-References: <20260921193750.82134-1-artem@trailofbits.com>
+X-Received: by 2002:a17:902:db0b:b0:2dd:3ddf:b87a with SMTP id d9443c01a7336-2ddb16d5a08mr177251815ad.0.1790019481787;
+        Mon, 21 Sep 2026 12:38:01 -0700 (PDT)
+Received: from hu-mojha-hyd.qualcomm.com ([202.46.23.25])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288669eec.16.2026.09.21.12.37.58
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 12:38:01 -0700 (PDT)
+Date: Tue, 22 Sep 2026 01:07:54 +0530
+From: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
+To: Bjorn Andersson <andersson@kernel.org>,
+        Mathieu Poirier <mathieu.poirier@linaro.org>,
+        Rishabh Bhatnagar <rishabhb@codeaurora.org>,
+        Siddharth Gupta <sidgup@codeaurora.org>
+Cc: linux-remoteproc@vger.kernel.org, linux-kernel@vger.kernel.org,
+        stable@vger.kernel.org
+Subject: Re: [PATCH 1/3] remoteproc: fix wakeup source leak when crash
+ handler sees RPROC_CRASHED
+Message-ID: <20260921193754.2ulkssymszoz66oi@hu-mojha-hyd.qualcomm.com>
+References: <20260730085437.1240215-1-mukesh.ojha@oss.qualcomm.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260730085437.1240215-1-mukesh.ojha@oss.qualcomm.com>
+X-Proofpoint-GUID: HFav_fYD66BHb2uOcRT4rg99emKiMo1T
+X-Authority-Analysis: v=2.4 cv=B+0sQ+tM c=1 sm=1 tr=0 ts=6ab1879b cx=c_pps
+ a=cmESyDAEBpBGqyK7t0alAg==:117 a=ZePRamnt/+rB5gQjfz0u9A==:17
+ a=kj9zAlcOel0A:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
+ a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=eoimf2acIAo5FJnRuUoq:22
+ a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=W9w1WEFyLmScbr2sSkQA:9 a=CjuIK1q_8ugA:10
+ a=1OuFwYUASf3TG4hYMiVC:22
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDI4NiBTYWx0ZWRfX86IXXDhAXx9L
+ NVxOItLBJZfTw786myiORXmndc77xcOHgbxD5rE3WGA91M2usDIgoYQrEkXzKTeBg/2sxx9CRGD
+ 8bjbPdKPKbYYj7wz2jodbr44AIxmN/A=
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDI4NiBTYWx0ZWRfX3uwmIcyiwU4h
+ DjGNttPiQICSfOj1JIDef2GFST+QOXbo9GlkanikZ9i/0JGch5qMqdG0z3ncWu2zdiZe1TDEckW
+ favjrGmk4qg0sS4MALuOVlMbOtkCev+q5Y+9HRfwbhxWsw1PB4zMc5PTlDvG+ug6q0/7/pUMxt1
+ FizO99CfJPyWt7WB1aUhr0BsgsqZVDISInqDCn0mzO9VWcgYwb8Ljo9t+MElFfq+uPegPF3LAiC
+ MhwN/nUFMHhuKYBlRKJjUiD45uufDYF5X4uWB4jEoq8FhfkKIO1wgG8edGS95KD9q0It0u3oNVt
+ FEWTfiqWHP1rmTRbmHRxoKGPgf4h5AEUnpKpp6v+fNs+fARNBi04DOfPoQ/7S9Kz8fxsAaYDeaG
+ +F+1exwl+AuQ5aSj08BssopaTr8zAHDDrjuGzKvonbJl1dYkrdCpL39cq275193Db2XMt8GSW//
+ hYV5bp8D06sWkksaNHw==
+X-Proofpoint-ORIG-GUID: HFav_fYD66BHb2uOcRT4rg99emKiMo1T
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_05,2026-09-21_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ priorityscore=1501 impostorscore=0 adultscore=0 bulkscore=0
+ lowpriorityscore=0 suspectscore=0 clxscore=1011 phishscore=0 spamscore=0
+ malwarescore=0 classifier=typeunknown authscore=0 authtc= authcc=
+ route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
+ definitions=main-2609210286
 
-From: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
+On Thu, Jul 30, 2026 at 02:24:35PM +0530, Mukesh Ojha wrote:
+> When rproc_crash_handler_work() finds the remoteproc is already in
+> RPROC_CRASHED state, it exits via a bare return, bypassing the out:
+> label and its pm_relax() call.  Since rproc_report_crash() always
+> calls pm_stay_awake() before queuing the work, every crash reported
+> after the first leaves the wakeup source permanently active, preventing
+> system suspend until the device is removed.
+> 
+> Change the bare return to goto out so pm_relax() is reached on all
+> exit paths.
+> 
+> Fixes: a781e5aa5911 ("remoteproc: core: Prevent system suspend during remoteproc recovery")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Mukesh Ojha <mukesh.ojha@oss.qualcomm.com>
 
-[ Upstream commit de6aa72b265b72bca2b1897d5000c8f0147d3157 ]
+Request for review, series still applies cleanly on linux-next.
 
-The original patch uses a feature in lib/vsprintf.c to handle the invalid
-address when tring to print *_fw_module->man4_module_entry.name when the
-*rc_fw_module is NULL.
-This case is handled by check_pointer_msg() internally and turns the
-invalid pointer to '(efault)' for printing but it is hiding useful
-information about the circumstances. Change the print to emmit the name
-of the widget and a note on which side's fw_module is missing.
-
-Fixes: e3720f92e023 ("ASoC: SOF: avoid a NULL dereference with unsupported widgets")
-Reported-by: Dan Carpenter <error27@gmail.com>
-Link: https://lore.kernel.org/alsa-devel/4826f662-42f0-4a82-ba32-8bf5f8a03256@kili.mountain/
-Signed-off-by: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>
-Rule: 'Cc: stable@vger.kernel.org' or 'commit <sha1> upstream.'
-Link: https://lore.kernel.org/r/20230403090909.18233-1-peter.ujfalusi@linux.intel.com
-Signed-off-by: Mark Brown <broonie@kernel.org>
-
-[ Backport to 6.1.y follow-up to e3720f92e023: replace its (efault)
-  pointer formatting with source/sink diagnostics; only hunk locations
-  differ. ]
-Assisted-by: LLM
-Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
----
-Stable submission note: patch 2/2 in the CVE-2023-54233 series for Linux
-6.1.y.
-
-CVE: CVE-2023-54233
-
-Build: This patch was included in the x86_64 allmodconfig and
-CONFIG_WERROR=y build.
-
- sound/soc/sof/ipc4-topology.c | 10 ++++++----
- 1 file changed, 6 insertions(+), 4 deletions(-)
-
-diff --git a/sound/soc/sof/ipc4-topology.c b/sound/soc/sof/ipc4-topology.c
-index 9540ba6ef659e6..ee6f6edec970c4 100644
---- a/sound/soc/sof/ipc4-topology.c
-+++ b/sound/soc/sof/ipc4-topology.c
-@@ -1601,10 +1601,12 @@ static int sof_ipc4_route_setup(struct snd_sof_dev *sdev, struct snd_sof_route *
- 	int ret;
- 
- 	if (!src_fw_module || !sink_fw_module) {
--		/* The NULL module will print as "(efault)" */
--		dev_err(sdev->dev, "source %s or sink %s widget weren't set up properly\n",
--			src_fw_module->man4_module_entry.name,
--			sink_fw_module->man4_module_entry.name);
-+		dev_err(sdev->dev,
-+			"cannot bind %s -> %s, no firmware module for: %s%s\n",
-+			src_widget->widget->name, sink_widget->widget->name,
-+			src_fw_module ? "" : " source",
-+			sink_fw_module ? "" : " sink");
-+
- 		return -ENODEV;
- 	}
- 
 -- 
-2.39.5
-
+-Mukesh Ojha
