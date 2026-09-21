@@ -1,33 +1,33 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 3FCD1517BCE;
-	Mon, 21 Sep 2026 22:03:39 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8BDB4513545;
+	Mon, 21 Sep 2026 22:05:41 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790028220; cv=none; b=IQ1k9aLi7wW2aHNJVjKLxp6qzPjFylhkYF632o101f4IYHJtORtMG8nXeGJTpZ329ZcO3lPbHqu5SDOTZJcLWRRm/IrbH5wdZzFaod/kTzuDyYqN2bT/apXUz4GWqXVVwyXsp+lZy9NcqI+3QNNFtOKtPgPfHT7YlKiyBuX30Y8=
+	t=1790028342; cv=none; b=SXbPqgcm0MC+P/ziqzUV8y2bbL5fCvruY8nyWTjLtS8Xsryt9HhzI+KvKcMYqTRloAhWgyKl1daUxovu43hurpUclGIGtBZS/rCEG4QoKegWU3fKrNE0RFKHIfLx5TT78I+BHejM2LT6OWzuT20JNBTDK4ltkbVCOIPlhK30BYE=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790028220; c=relaxed/simple;
-	bh=atZD9PYqUOfld+t9ZT0dYZjgsntJLtpo2bL+7HsEta8=;
-	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
-	 In-Reply-To:Content-Type; b=GFDJ0D3mpQcgIT2Ao0MfagbDnyRMc6THr+h+lOup31D5/jvaGaFHsujyLke1CuD/hiPswIUZ1FYcqXnd70ljsm80Hj5hUU0+irw+Keqj0SK6WLqLY7YPkctHeKyenoOMkpOF0QtLovnZRRUCi/jHY1WjVpVIE6vC0YYfttxi80M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=o2WKnIpl; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790028342; c=relaxed/simple;
+	bh=nL8MAV9lus3R+dnFWkeArhuWN/NqDab6kVokxgXGpoc=;
+	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
+	 In-Reply-To:Content-Type; b=ndY/7Wgr0keAw3yP83GK79o/PXDEtvMn/nViWzkIt9o9prGGAQ8MNcVJhBaL/LnQ4VBsIBYpcvUPfrndYVGvKkcRSgPUywoqX03e+fJ2X0phWn991SXKiE8aoBav3IrnJcwnhvycK+PM9eHTSQHFpRUZp7xxuvkOCGvAno4bOJY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=aJQYcaHr; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="o2WKnIpl"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C33C51F000FF;
-	Mon, 21 Sep 2026 22:03:36 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="aJQYcaHr"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 6F9F61F000FF;
+	Mon, 21 Sep 2026 22:05:39 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790028218;
-	bh=PxC2P1OHmJF7+liP5fu7bB0fbSApw0Vhthd3InucT+c=;
-	h=Date:Subject:From:To:Cc:References:In-Reply-To;
-	b=o2WKnIpl3LKnk0vO4Q8z175sDehrIaJGbVCRtob3l2v3J9bQt1PEMLHE4ETcC0Sf4
-	 ZSRsOSN0wd87jHxN/CZGHHojH3TAQe0cX1YmlgSZ/AYRHFIPrA9BjvuLt1UKLsYIel
-	 gqflpzVyA4DlS3r5DIy4dApDhmUc1+QJo6lFOwyLAVMpKtq+wUB4wz6tO9aYb3YSmk
-	 gmki6TLjqRSUmJe3eknVdh28RuX3SigbmwH5OXxG3Dd2fV9sVQWb595Fo/YTUkaUTW
-	 t7yBBcy2di98c4ck6JZaGfQsioRyZx3Sf7O+Jr6ZppLFV4pCkZiczCtlwy6xCbFnKh
-	 TV/kdnFYRG79A==
-Message-ID: <89bd2593-e0ef-4b9b-8c9b-833aff327a3e@kernel.org>
-Date: Tue, 22 Sep 2026 00:03:35 +0200
+	s=k20260515; t=1790028341;
+	bh=h1SL65QVbP99tWmparAZ+PmLL7Q7B/2nxgZoQ0x4LSw=;
+	h=Date:Subject:To:Cc:References:From:In-Reply-To;
+	b=aJQYcaHr/B8NN86a95JkLuFlFhsr4bWFkck8YgRO2ZhEY2OaS4iiv6oRbUMSQBcag
+	 ZkY3yGIBTbxbnTqMo8yahymGSrl9oSkYIYh5lYs4Jg4QNrIQtNQHum4dTeJ0Bhs3zQ
+	 yIiHXdUvlwCbg/xnrDu/mtKrPHzQYnlnW0k92LAL9vxvTuaaQKXHfrIqjlCiAZip8+
+	 WRs8TXsIMkPyGSXieqQVa1NhHVX0qUHbwjAqL63VAumrSfZlkokXfDkDya1A3BbhlU
+	 QM+YoAEYdyR7IvoGhqra4VjDC5fiMQ6ujUlNmeQX0V898aONPuEj+MWfRLg/Zv3GKl
+	 RUc1LlXIeQeUw==
+Message-ID: <57b3420f-da3c-4b75-8835-7a541d29191a@kernel.org>
+Date: Tue, 22 Sep 2026 00:05:37 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -35,18 +35,14 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init
- failure
+Subject: Re: [PATCH v2] dmaengine: fsl-dpaa2-qdma: fix ppriv memory leaks
+To: Guangshuo Li <lgs201920130244@gmail.com>, Vinod Koul <vkoul@kernel.org>,
+ Frank Li <Frank.Li@kernel.org>, Kees Cook <kees@kernel.org>,
+ Peng Ma <peng.ma@nxp.com>, dmaengine@vger.kernel.org,
+ linux-kernel@vger.kernel.org
+Cc: stable@vger.kernel.org
+References: <20260921111424.378477-1-lgs201920130244@gmail.com>
 From: Krzysztof Kozlowski <krzk@kernel.org>
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Perry Yuan <perry.yuan@amd.com>, linux-kernel@vger.kernel.org,
- "Gautham R. Shenoy" <gautham.shenoy@amd.com>,
- platform-driver-x86@vger.kernel.org,
- =?UTF-8?Q?Ilpo_J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
- stable@vger.kernel.org, Mario Limonciello <mario.limonciello@amd.com>,
- "Borislav Petkov (AMD)" <bp@alien8.de>, Hans de Goede <hansg@kernel.org>
-References: <20260921082609.244774-1-lgs201920130244@gmail.com>
- <arFKFmkpldopUIMI@quoll>
 Content-Language: en-US
 Autocrypt: addr=krzk@kernel.org; keydata=
  xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
@@ -91,65 +87,27 @@ Autocrypt: addr=krzk@kernel.org; keydata=
  K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
  n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
  qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
-In-Reply-To: <arFKFmkpldopUIMI@quoll>
+In-Reply-To: <20260921111424.378477-1-lgs201920130244@gmail.com>
 Content-Type: text/plain; charset=UTF-8
 Content-Transfer-Encoding: 7bit
 
-On 21/09/2026 17:15, krzk@kernel.org wrote:
+On 21/09/2026 13:14, Guangshuo Li wrote:
+> dpaa2_qdma_setup() allocates priv->ppriv, but failures after the
+> allocation can return from the function without releasing it. The
+> existing probe cleanup for priv->ppriv is only reached when a later
+> initialization step fails.
 > 
-> On Mon, 21 Sep 2026 16:26:09 +0800, Guangshuo Li wrote:
->> amd_hfi_init() registers the HFI platform device before registering
->> the platform driver. If platform_driver_register() fails, the function
->> returns the error without unregistering the already registered platform
->> device.
->>
->> Since the failed init path does not run amd_hfi_exit(), the platform
->> device remains registered and its reference is never dropped, preventing
->> the associated platform object from being released.
->>
->> Unregister the platform device when platform driver registration fails
->> to properly unwind the successful device registration.
->>
->> The issue was identified by a static analysis tool I developed and
->> confirmed by manual review.
->>
->> Fixes: 5d902ee5609a ("platform/x86: hfi: Introduce AMD Hardware Feedback Interface Driver")
->> Cc: stable@vger.kernel.org
->> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
->> ---
->>  drivers/platform/x86/amd/hfi/hfi.c | 4 +++-
->>  1 file changed, 3 insertions(+), 1 deletion(-)
->>
+> The normal remove path does not release priv->ppriv either, causing the
+> allocation to be leaked when the driver is unbound.
 > 
+> Since dpaa2_qdma_setup() is only called from probe, allocate priv->ppriv
+> with devm_kcalloc(). This automatically releases the memory on probe
+> failure and driver removal. Remove the now redundant manual cleanup from
+> the probe error path.
 > 
-> You sent multiple independent patches, to multiple independent
-> subsystems. The amount of these patches clearly suggest this was
-> AI generated and most likely not tested.
-> 
-> More importantly, you sent all this work without properly organizing
-> relevant patches into patchsets. This makes reviewing difficult
-> and might cause multiple reviewers to address the same issue.
-> Replying to the entire set is impossible and requires handling each
-> patch independently, instead of applying or discarding the set.
-> Maintainers also won't see the bigger picture of your work. Quite
-> worrying.
-> 
-> This is on the verge of hostile patch: bomb us with so many
-> contributions, we won't be able to handle them in efficient manner,
-> like responding ONCE to ask you to slow down.  Considering all this
-> is untested and LLM generated, I have even more doubts whether this
-> should be considered for review.
-> 
-> Please read kernel documentation BEFORE posting more work. It will
-> explain you how to identify subsystems, how to organize your work per
-> subsystem, how to document usage of LLM and how what you should not
-> do if this was posted in a good faith.
 
-
-Apologies for spamming here, mistake on my side.
-
-I guess the OpenClaw on the other side did not even notice...
-
+AI slop for OpenClaw agent ignoring previous comments. Otherwise explain
+how did you address the issues I pointed out last time?
 
 Best regards,
 Krzysztof
