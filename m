@@ -1,96 +1,157 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from smtpout-03.galae.net (smtpout-03.galae.net [185.246.85.4])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2F9BD45DF69;
-	Mon, 21 Sep 2026 09:54:57 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B9F85471D16;
+	Mon, 21 Sep 2026 09:54:59 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.85.4
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984499; cv=none; b=Eg+eLsYHpSzMRsGIKjx1jlYz/yr5xiszDRgInrZBxJot654upn2P/2rXcfh1QjeE0SuPyX8OurJi2TXTSPkhFM66zAKVb/6zEOQyUTeIf5jO8/SGOgQtkcG5lEgi4EFoYbQeldMk9bp3O3EQck/p+cxHhDX5qn5WhLu2b0h0Onk=
+	t=1789984502; cv=none; b=ky23voaae1FGRXu81Da0V50Y0D9t33nY7gwvAWtfXwtYRKFVKzZc2cmGwle68QuGKhYAoq+sli/2DVdol/wiNk/eIwNJRR7iHmOgz4y0KhAWrzmBqkDwAGu97CYS4PXDMg4sT39ariZ8U7gMkflvf/bPDGcf6IyocFA3ReO0p/8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984499; c=relaxed/simple;
-	bh=i/LWvwfMZCd6VMIKuugSxj1ahOW5AT4N5tbvVFl2o1E=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=p9jHFz1K8srM/Q9ns7NkUncFDBytu7030B+Jcgm2rbfVIYcX0hKDBNiF4SKa7SfW2vjUFBQXVUsZqVkHyKHFG0zKLpDypF/k53IYgVZI5S5EYRWxFRft0L/ia3liGFp5fAAyCMz9fLux0njuf7dPpoh2zWJR0rTFQgR/sEeSIsk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ch3MJQB2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789984502; c=relaxed/simple;
+	bh=7tFr5FjdokzetP5ldv/GI4zVZmpjqz3KsTqnTclTAL4=;
+	h=Mime-Version:Content-Type:Date:Message-Id:Cc:To:From:Subject:
+	 References:In-Reply-To; b=fVhTavapg2L6Q6a28XTVYNYqJUH+3BMGj3Q5AWrFGzn47nCGQSPcxbcqlXrfZ4XhuzqJb8G1fGeK3KduxpDyh89QXGGJv3K1yJUD0pBh4K1efGd3JzZdfhvc8v2PttdmLtf5HjwIRSyZqtAGKZRWWDSTt//2U8PwA5RHLUOiuDM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=Kv5DvEl3; arc=none smtp.client-ip=185.246.85.4
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ch3MJQB2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 28C141F000FF;
-	Mon, 21 Sep 2026 09:54:55 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789984497;
-	bh=OuZTqCCgMWgOdfCse2USkp44WqLuwSD8rdEVXSEp6ic=;
-	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=ch3MJQB2e2yUcSEytQhY91U85p3iRe/iyA1EAkHSDHfZSyl9j1Fot4ROoW+SdLhM/
-	 avW96+bH7GBbNmEB3xS5ZghOjPDGvNJRC6AGu1rz7f2JmZfJwLQfstYFw6sf3AHMb3
-	 w5uRRO9hpPI2IM4Y3mpnr+YsAgQL9YVj2OIxwWLBRYeymLvQQJ5fKJb1DrYJOMcQTW
-	 Wril2wjF4RhzVmfMnbJcgUK4iVsOt7Krt3HeOAwCNdHvJURG0a+r1RKCht6XPZIOyw
-	 HkBjL6+RsTcdwNCq2lvfkTvfT2JbXl/ITJkdHzB2KMPBsS95HOklvoZjcxNj87vMbY
-	 521qKwPqPlBig==
-Date: Mon, 21 Sep 2026 11:54:52 +0200
-From: Niklas Cassel <cassel@kernel.org>
-To: Hui Peng <benquike@gmail.com>
-Cc: Damien Le Moal <dlemoal@kernel.org>, linux-ide@vger.kernel.org,
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Subject: Re: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through
- commands when multi_count is 0
-Message-ID: <arD-7NGIwLaXFNEK@fedora>
-References: <20260919222625.3797581-1-benquike@gmail.com>
- <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
- <20260921032556.1160734-1-benquike@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="Kv5DvEl3"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-03.galae.net (Postfix) with ESMTPS id 02FC34E41021;
+	Mon, 21 Sep 2026 09:54:58 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id B937A60339;
+	Mon, 21 Sep 2026 09:54:57 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id C52C3103291A5;
+	Mon, 21 Sep 2026 11:54:46 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789984492; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding:in-reply-to:references;
+	bh=zX58uZu3w+zdG1XL39epL0OZBsWXhoPxyMcNgKxTruo=;
+	b=Kv5DvEl3ovOd0EiMggpPrHPaIqH8es1iZTqahh7epnNAz7prajpD4dmcgQJK5d1GcYLIwE
+	+LCY9ZtMRjAkyX+YscoyTdIidOZpyj6GSPwMv7MrdjbRtB3AUiJNc7llDRKm4B3g0y78KM
+	Q3rBwgyyUXK+nSZcsQWWJOwJOdlCOM+1wgSD7lsSxQ/Vj6GJCzbZ86TY0t6CbDFVXRYf1D
+	F90996gsFbkJfNdXdVYDqdKgiLLPxmye8LI75J7dUiZjKOwTXi6jlHWPZv50dGUmuBGhtk
+	X/dfJHj/9+NxyGBey91DywGV7C9+4xk+VJ+bOQrXAYEW0UB+q4rcVRBAhw8aVw==
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
-MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <20260921032556.1160734-1-benquike@gmail.com>
+Mime-Version: 1.0
+Content-Transfer-Encoding: quoted-printable
+Content-Type: text/plain; charset=UTF-8
+Date: Mon, 21 Sep 2026 11:54:45 +0200
+Message-Id: <DLKWJKREQ9YZ.307UELMFWUL0Q@bootlin.com>
+Cc: "Conor Dooley" <conor.dooley@microchip.com>, "Andrew Lunn"
+ <andrew+netdev@lunn.ch>, "David S. Miller" <davem@davemloft.net>, "Eric
+ Dumazet" <edumazet@google.com>, "Jakub Kicinski" <kuba@kernel.org>, "Paolo
+ Abeni" <pabeni@redhat.com>, "Simon Horman" <horms@kernel.org>, "Nicolas
+ Ferre" <nicolas.ferre@microchip.com>, "Sean Anderson"
+ <sean.anderson@linux.dev>, "Antoine Tenart" <atenart@kernel.org>, "Russell
+ King" <linux@armlinux.org.uk>, <netdev@vger.kernel.org>,
+ <linux-kernel@vger.kernel.org>, "Vladimir Kondratiev"
+ <vladimir.kondratiev@mobileye.com>, "Gregory CLEMENT"
+ <gregory.clement@bootlin.com>, "Tawfik Bayouk"
+ <tawfik.bayouk@mobileye.com>, "Thomas Petazzoni"
+ <thomas.petazzoni@bootlin.com>, "Maxime Chevallier"
+ <maxime.chevallier@bootlin.com>, <stable@vger.kernel.org>
+To: "Nicolai Buchwitz" <nb@tipi-net.de>
+From: =?utf-8?q?Th=C3=A9o_Lebrun?= <theo.lebrun@bootlin.com>
+Subject: Re: [PATCH 2/3] net: macb: propagate RX ring refill errors
+X-Mailer: aerc 0.21.0-0-g5549850facc2
+References: <20260918-macb-close-v1-0-221d916b7961@bootlin.com>
+ <20260918-macb-close-v1-2-221d916b7961@bootlin.com>
+ <0eeb123ad32558ac42762827eb509110@tipi-net.de>
+In-Reply-To: <0eeb123ad32558ac42762827eb509110@tipi-net.de>
+X-Last-TLS-Session-Version: TLSv1.3
 
-On Mon, Sep 21, 2026 at 03:25:55AM +0000, Hui Peng wrote:
-> When an ATA_12, ATA_16, or ATA_32 pass-through command with a
-> multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
-> ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
-> ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
-> multiple-sector mode is not configured (dev->multi_count == 0),
-> ata_scsi_pass_thru() currently logs a warning and still dispatches the
-> taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
-> WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
-> nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
-> to transfer any sectors:
-> 
->   ata1.00: invalid multi_count 1 ignored
->   WARNING: drivers/ata/libata-sff.c:666 at ata_pio_sectors+0x27d/0x300
->   Call Trace:
->    <IRQ>
->    ata_sff_hsm_move+0x211/0x22e0
->    __ata_sff_port_intr+0x1c8/0x520
->    ata_bmdma_port_intr+0xa1/0x5b0
->    ata_bmdma_interrupt+0x1f5/0x550
-> 
-> Per ACS-3 section 7.12.7.21, if IDENTIFY DEVICE word 59 bit 8 is cleared
-> to zero (multi_count == 0) and a READ MULTIPLE or WRITE MULTIPLE command
-> is received without a preceding successful SET MULTIPLE MODE command, the
-> device returns command aborted (ABRT). Per the SAT specification, an ABRT
-> error translates to the ABORTED COMMAND sense key with NO ADDITIONAL SENSE
-> INFORMATION (0x00, 0x00).
-> 
-> Fail multi-sector taskfile commands in ata_scsi_pass_thru() with
-> ata_scsi_set_sense(dev, scmd, ABORTED_COMMAND, 0, 0) when
-> dev->multi_count == 0.
-> 
-> Tested in QEMU against Linux 7.3.0-rc3 (-device ide-cf, where
-> dev->multi_count is 0) by issuing ATA_CMD_SET_MULTI (nsect=1) followed
-> by an SG_IO ATA_16 ATA_CMD_READ_MULTI command: on the unfixed kernel
-> this triggers WARNING: drivers/ata/libata-sff.c:666 in
-> ata_pio_sectors(), whereas on the fixed kernel it immediately completes
-> with sense key ABORTED_COMMAND (0x0b, 0x00, 0x00) and 0 warnings.
+Hello Nicolai,
 
-Testing information is usually placed after "---" so that it does not
-get included in the commit message when applied using git am.
+On Mon Sep 21, 2026 at 9:05 AM CEST, Nicolai Buchwitz wrote:
+> On 18.9.2026 22:32, Th=C3=A9o Lebrun wrote:
+>> gem_rx_refill() is responsible for Rx SKB allocation, including at=20
+>> open,
+>> but its prototype indicates a void return value.
+>>=20
+>> Therefore we change the code to propagate allocation and DMA mapping
+>> errors back up the stack, making sure the open fails if it occurs.
+>> Change all those to return errno-style ints:
+>>  - gem_rx_refill()
+>>  - its parent gem_init_rx_ring()
+>>  - its grand-parent gem_init_rings()
+>>  - the macbgem_ops.mog_init_rings function pointer
+>>  - its grand-uncle macb_init_rings()
+>>=20
+>> Theoretical bugfix, never encountered in practice. To reproduce,
+>> introduce memory pressure (less than 512 SKBs of free memory) and open
+>> the interface. I expect the last queue to be unuseable because it has
+>> zero usable rx buffers. Nothing will ever trigger a refill on that
+>> queue which only happens once a frame has been received.
+>>=20
+>> Note that other callers of refill (resume, HRESP error task, NAPI)
+>> cannot do anything useful with that error and keep their best-effort
+>> refill, hoping it will improve.
+>>=20
+>> Fixes: 4df95131ea80 ("net/macb: change RX path for GEM")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Th=C3=A9o Lebrun <theo.lebrun@bootlin.com>
+>> ---
+>
+>> [...]
+>
+>> diff --git a/drivers/net/ethernet/cadence/macb_main.c=20
+>> b/drivers/net/ethernet/cadence/macb_main.c
+>> index 751fa9e68099..c418f859cc34 100644
+>> --- a/drivers/net/ethernet/cadence/macb_main.c
+>> +++ b/drivers/net/ethernet/cadence/macb_main.c
+>
+>> [...]
+>
+>>  	for (q =3D 0, queue =3D bp->queues; q < bp->num_queues; ++q, ++queue) =
+{
+>> @@ -2813,11 +2820,15 @@ static void gem_init_rings(struct macb *bp)
+>>  		queue->tx_head =3D 0;
+>>  		queue->tx_tail =3D 0;
+>>=20
+>> -		gem_init_rx_ring(queue);
+>> +		err =3D gem_init_rx_ring(queue);
+>> +		if (err)
+>> +			last_err =3D err;
+>
+> A partly filled queue refills itself on the next gem_rx().  AFAIU only a
+> queue with zero buffers can get stuck. Fail the open just for that case?
 
-I can drop this when applying, no need to send a v3.
+Ah so gem_init_rx_ring()/gem_rx_refill() would check the total allocated
+slots count (not just count of slots allocated on this call). Then we
+fail only if that is zero. I agree it sounds better.
 
+>
+>> [...]
+>
+>>  static void macb_reset_hw(struct macb *bp)
+>> @@ -3162,7 +3175,9 @@ static int macb_open(struct net_device *netdev)
+>>  		goto pm_exit;
+>>  	}
+>>=20
+>> -	bp->macbgem_ops.mog_init_rings(bp);
+>> +	err =3D bp->macbgem_ops.mog_init_rings(bp);
+>> +	if (err)
+>> +		goto free_rings;
+>
+> macb_set_ringparam() ignores macb_open()'s error, so NAPI stays disabled
+> with netif_running() =3D=3D true and the next close will hang in=20
+> napi_disable().
+>
+> Should macb_set_ringparam() return the error?
 
-Kind regards,
-Niklas
+Yes. I ignored that codepath because I know context
+swapping will land soon. :-)
+
+Thanks,
+
+--
+Th=C3=A9o Lebrun, Bootlin
+Embedded Linux and Kernel engineering
+https://bootlin.com
+
