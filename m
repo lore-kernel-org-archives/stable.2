@@ -1,148 +1,149 @@
-Received: from mail-qk2-f13.google.com (mail-qk2-f13.google.com [74.125.230.205])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id CA842519922
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 22:41:33 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.205
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8F73351AFC1;
+	Mon, 21 Sep 2026 22:41:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790030495; cv=none; b=CJvYVr6uFKB545jCXnO24dZZGKNx0ZyrJ26BNzSyrPHKOh3d2mbMAIDK2i9RsfQ52vrVlvRcdyYHeSeRIaNeXA3uveufOBsnvu/16XIRe/eRCAYRtFPPEdhxly1UOZYzyVNL/bbYrsE7/Va12+8cZgSuy8oV1FNtjd0TD9r6VdY=
+	t=1790030511; cv=none; b=P385BNZFgCaoLaivCYY9f/9PRZOMVm2reQmyfrSEg044/iIsQpfG35+lvldhoVEm3PQVG4ebWGFQGX3vXI9jd513Cw1bMrnfRfkr4UF0ywUHYC9i1Lb7etSK22lf0mlORloZGdSkQabMm5oIDLQEHaIgrdvMgjO/4EPYdrOkOMo=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790030495; c=relaxed/simple;
-	bh=tTytPSqrvOxLJfdsT1YrS+2UKUddGzFBsIq7N39JHw4=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=MQ1V5R4G44NYqXv5H5yapHsFQVZvFDpSx19suIk1tnIvpxofygYbKkPnJFFnEzDxS0l7ve8d5WH8Lw6CGxNlTtQUNGPwPI0VzkyQpvEhGCV8our50tRD4bNcOZgSoKPH9bQejE+HmSrZrWaQ/l/t6GhpP1872VBoPSnVa7GAxhA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=cBLtS2bP; arc=none smtp.client-ip=74.125.230.205
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1790030511; c=relaxed/simple;
+	bh=OBX7XpNtC+yrBEvD6sPv+E9K03bWHgqVaHlrEWl+1PY=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=MGULqVant+5Wux78AKS+L6VAVM/zJSyttZ+aSyu+wH9Ac+evG2fE28s4xOQf3IScCqWndUue1EW5zSsMh/Pz+idZlSAXx4y8br1NXs0EYX4/A4IRcP2tZF7dQ15xxWr2tmEjny1Egb+km3d7GTHwWj48R+l1vnK5QPHzBTmn7FY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=GtldKd8/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="cBLtS2bP"
-Received: by mail-qk2-f13.google.com with SMTP id d75a77b69052e-52fb76ec504so20866751cf.3
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 15:41:33 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790030493; x=1790635293; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=a2UnjeezhHJ2PWvmnwldEhPxyIxvsTbf/269E/fdalA=;
-        b=cBLtS2bPPKVj8lYeipLSkc4ihplO/OEoBRuTH5ACfNStxh9nSuBNL6tvM74yvWsG87
-         jyE/kdZUGy02frhLOth2140zCJGYQ55xVBV5CuZvvOlS5U8K5oMbnC9b85Fwb9kjUkNs
-         ys3Q6v2K2oFcuJ0caaKyA/3+vrsvFlh7sSftcW7Ni0wtiit/wln/eKSFZHeY3WA7JGMj
-         3fXVGjLb4gKlP/sRqFXFwRW0PmvF8PfiGV/dTU0FuC1TgEEfVgTXXnxCwtJJ0GDR4qTU
-         iFDDlwVFJSlyjmUIhqiyljIDUpww9i9dmgFuZuKUtC6fk8WXN60V1pLvgzqm7mbHAY0m
-         x7Kw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790030493; x=1790635293;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=a2UnjeezhHJ2PWvmnwldEhPxyIxvsTbf/269E/fdalA=;
-        b=dt4zTWC88I2dcroGQx5/Q8gBq8jimrnN8uY5HD6v29Gnn48ekxWunK8v8INT8PowpI
-         tc4rZ1NnLt7/Z5qkeDfkbt1GBihUgLrGyMXHH7W/Sj7regCv0pFRoer7fQfMx8VegwBW
-         rhdaFk4GYwpJlEADm5rOMpLBaZ0xO+vzJInXuQoxKjDD5u7ygvGZKxwh7xjxWd7Z1Ofz
-         7dIKdoyzHfmQfiQw/rfvbdZtKtRPyr4yHbleXSxYc4UEbGIuK2Xfm3azKoTRVmHgoiyN
-         O9ze36BSLzv1r51RIiWdoegKuWHVc0zx5GpXJrmw/pEaPndWVTI6wzJcRWQsyJ1IpELG
-         iNgA==
-X-Forwarded-Encrypted: i=1; AKwUvByH3aGGTESWIXu2OlR+65gMILsVm3IbseersrLQQg1OQXrPTfy8p+4mz647PVQKfeJQly/RjOM=@vger.kernel.org
-X-Gm-Message-State: AFuF++naIxTotJjizkisn04csmJ4H0DEmnM1RrwQeKKtIrfqvdNFQibe
-	5oiSOG0eo8kpfj6DOi+kQggNCJM7cBdEImr8QiSg+J51NUJYXrgV8Yc=
-X-Gm-Gg: AYBFou32pXF5xXDIQ2lBtgwMDiDMuImZlo3I8mz2b1zzMxPw2eebquCt/ILdle4K4fj
-	9MY9QLbUrQH2mYRjU4CqSAwjTrDn5qiT7b3NCYt1uOyxlZtw2hjcEeVao5EbRDJDpQLEFPQa+ca
-	WW0l7QEBcKFhSOW29vWgvtl//yoQdF67iYukQVAdOoLQViHLWn9M1AMBxp9lrAmV6TsCcLS8Grt
-	YhU7+MyrQqRfNSk+Z3NTFr35804KoIK51zrrg4vfyingSeC/DehlUeewgWgvjGaW5NS1F1yL+P7
-	Jt7Qmw+3j9PAQiigDVpTcqQOy31PnTP4nb7au1s4TmBsaIYXa9DX8wQc+62HbP8U7/kIjfPP/hW
-	EJkUHuIh80wWpIq7hSpZ4KGjg6NwfRLfy/vhYHoiJr3rOx6YKgMTYYhzxjp5s0MpKH1JEugOsB/
-	ymkcj7gQlzp9SSxgzEZccG7htM1AeXQ/qD40BM7MohsC1oMsEewCyUIMwIPt+5ky/x5azkBSXH0
-	j2CXjSi2p2mo006zCJKJ6qBfnpZNQfwedkVlh6dbNuEC9n3TaYQM1r4m2vn12S0IqIiXtyGttFv
-	egPeo5n3i0WpXOgwRduEMhoQFxX8
-X-Received: by 2002:ac8:5a8b:0:b0:532:a5f4:df25 with SMTP id d75a77b69052e-532d8e4f628mr30628351cf.57.1790030492569;
-        Mon, 21 Sep 2026 15:41:32 -0700 (PDT)
-Received: from i4-gl-tmk5904-1.ad.psu.edu ([130.203.156.90])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-914024a1b21sm661856d6.15.2026.09.21.15.41.31
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 15:41:31 -0700 (PDT)
-From: Myeonghun Pak <mhun512@gmail.com>
-To: Valentina Manea <valentina.manea.m@gmail.com>,
-	Shuah Khan <shuah@kernel.org>,
-	Shuah Khan <skhan@linuxfoundation.org>,
-	Hongren Zheng <i@zenithal.me>,
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Ijae Kim <ae878000@gmail.com>,
-	Michael Bommarito <michael.bommarito@gmail.com>,
-	linux-usb@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org
-Subject: [PATCH] usbip: vudc: Prevent transfer timer rearm during teardown
-Date: Mon, 21 Sep 2026 18:41:30 -0400
-Message-ID: <20260921224130.492681-1-mhun512@gmail.com>
-X-Mailer: git-send-email 2.53.0
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="GtldKd8/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 882FB1F000FF;
+	Mon, 21 Sep 2026 22:41:48 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790030509;
+	bh=dDu/I/jl47PhoBil2/ZTm2tiiw/rtG0yrhZ/WCeLz5E=;
+	h=Date:From:To:Cc:Subject:In-Reply-To:References;
+	b=GtldKd8/h1XxhH/vDHRTecc1tObnZv9wXiSMh1EyiUfhQARiF0HxrNO8iNcSfAPz3
+	 SBB4RpXgvPaKAEAtjGfhSmYtiIxIIiloKFZ6LZdhPnqZbDgjwAgRstFqIbUAmZ7aW1
+	 mC8/Kmafpd15IpnvlHawqqV4S+1hDfKqFW4OEU7bLX8Qyo5v/UVIFLxr/fMWrH8M/1
+	 B1ujLSiQM864nxLQTlNg0WQqUfnkW00nzvXbsocQBv22O/ZqhlPn7UOu8uKO2/zdYI
+	 CbKO28k4/jArJ1pFG0JWtWxHH3xkSJtVEA53JR/hwPZ/1RtBlLeBvJ9FVRYCkny6og
+	 7gdKVNjtoAd7g==
+Date: Mon, 21 Sep 2026 15:41:47 -0700
+From: Jakub Kicinski <kuba@kernel.org>
+To: Weiming Shi <bestswngs@gmail.com>
+Cc: Andrew Lunn <andrew+netdev@lunn.ch>, "David S. Miller"
+ <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, Paolo Abeni
+ <pabeni@redhat.com>, Alexei Starovoitov <ast@kernel.org>, Daniel Borkmann
+ <daniel@iogearbox.net>, Jesper Dangaard Brouer <hawk@kernel.org>, John
+ Fastabend <john.fastabend@gmail.com>, Stanislav Fomichev <sdf@fomichev.me>,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org, bpf@vger.kernel.org,
+ co+65e5c76b187f08b2@bugs.sh, Xiang Mei <xmei5@asu.edu>,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net] veth: manage XDP program pointers during channel
+ resize
+Message-ID: <20260921154147.4e1e092d@kernel.org>
+In-Reply-To: <20260917153923.904124-3-bestswngs@gmail.com>
+References: <20260917153923.904124-3-bestswngs@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-Commit d96209626a29 ("usbip: vudc: Fix use after free bug in
-vudc_remove due to race condition") made v_stop_timer() delete the
-transfer timer synchronously before vudc_remove() frees its containing
-struct vudc.
+On Thu, 17 Sep 2026 23:39:25 +0800 Weiming Shi wrote:
+> veth_set_channels() tears down XDP resources for removed RX queues
+> without clearing rq->xdp_prog.  If the program is then detached or
+> replaced, those queues keep the old pointer after bpf_prog_put().  A
+> later channel increase can re-enable NAPI and run the freed program.
+> 
+> Clear the program pointer after taking an RX queue offline, and publish
+> the current program only after bringing the queue back online succeeds.
+> 
+>   BUG: unable to handle page fault for address: ffffc90000256048
+>   Oops: Oops: 0000 [#1] SMP KASAN NOPTI
+>   RIP: veth_xdp_rcv_skb (include/linux/filter.h:779
+>                          include/net/xdp.h:696 drivers/net/veth.c:820)
+>   Call Trace:
+>    veth_xdp_rcv (drivers/net/veth.c:941)
+>    veth_poll (drivers/net/veth.c:986)
+>    __napi_poll (net/core/dev.c:7787)
+>    net_rx_action (net/core/dev.c:7850 net/core/dev.c:8007)
+>    handle_softirqs (kernel/softirq.c:645)
+>   Kernel panic - not syncing: Fatal exception in interrupt
+> 
+> Cc: stable@vger.kernel.org
+> Fixes: 4752eeb3d891 ("veth: implement support for set_channel ethtool op")
+> Reported-by: <co+65e5c76b187f08b2@bugs.sh>
+> Assisted-by: LLM
+> Signed-off-by: Weiming Shi <bestswngs@gmail.com>
+> ---
+>  drivers/net/veth.c | 8 +++++++-
+>  1 file changed, 7 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+> index 6ed3ee81153fb..ef7624bc2c0ec 100644
+> --- a/drivers/net/veth.c
+> +++ b/drivers/net/veth.c
+> @@ -1247,12 +1247,15 @@ static int veth_napi_enable(struct net_device *dev)
+>  static void veth_disable_range_safe(struct net_device *dev, int start, int end)
+>  {
+>  	struct veth_priv *priv = netdev_priv(dev);
+> +	int i;
+>  
+>  	if (start >= end)
+>  		return;
+>  
+>  	if (priv->_xdp_prog) {
+>  		veth_napi_del_range(dev, start, end);
+> +		for (i = start; i < end; i++)
+> +			rcu_assign_pointer(priv->rq[i].xdp_prog, NULL);
+>  		veth_disable_xdp_range(dev, start, end, false);
+>  	} else if (veth_gro_requested(dev)) {
+>  		veth_napi_del_range(dev, start, end);
+> @@ -1262,7 +1265,7 @@ static void veth_disable_range_safe(struct net_device *dev, int start, int end)
+>  static int veth_enable_range_safe(struct net_device *dev, int start, int end)
+>  {
+>  	struct veth_priv *priv = netdev_priv(dev);
+> -	int err;
+> +	int err, i;
+>  
+>  	if (start >= end)
+>  		return 0;
+> @@ -1281,6 +1284,9 @@ static int veth_enable_range_safe(struct net_device *dev, int start, int end)
+>  			veth_disable_xdp_range(dev, start, end, true);
+>  			return err;
+>  		}
+> +		for (i = start; i < end; i++)
+> +			rcu_assign_pointer(priv->rq[i].xdp_prog,
+> +					   priv->_xdp_prog);
+>  	} else if (veth_gro_requested(dev)) {
+>  		return veth_napi_enable_range(dev, start, end);
+>  	}
 
-That does not close the race with the receive thread, which is stopped
-later through usb_del_gadget_udc() and vudc_shutdown().  The thread
-calls v_kick_timer() for CMD_SUBMIT and CMD_UNLINK packets, and
-v_kick_timer() deliberately calls mod_timer() when the transfer state is
-VUDC_TR_STOPPED.  A packet received after v_stop_timer() returns can
-therefore enqueue the timer again before the vudc is freed.
+This is pure slop, cramming loops into functions which have none.
+Shameful, really.
 
-timer_delete_sync() only drains the current timer instance and cannot
-prevent such a rearm.  Use timer_shutdown_sync(), which makes subsequent
-attempts to arm the timer no-ops.  The transfer state no longer needs to
-be updated, as it is freed along with the timer.
+Please test this and submit it if it passes the tests:
 
-On a KASAN and DEBUG_OBJECTS enabled x86_64 QEMU guest, repeatedly
-binding the device, submitting a request and unbinding it produced a
-"free active timer_list" warning followed by a slab-use-after-free in
-v_timer().  With this change the same harness completed 4000 iterations
-cleanly.
-
-This issue was identified during our ongoing static-analysis research
-while reviewing kernel code.
-
-Fixes: d96209626a29 ("usbip: vudc: Fix use after free bug in vudc_remove due to race condition")
-Link: https://lore.kernel.org/all/20230316180940.1601515-1-zyytlz.wz@163.com/
-Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Co-developed-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Ijae Kim <ae878000@gmail.com>
-Signed-off-by: Myeonghun Pak <mhun512@gmail.com>
----
- drivers/usb/usbip/vudc_transfer.c | 6 ++----
- 1 file changed, 2 insertions(+), 4 deletions(-)
-
-diff --git a/drivers/usb/usbip/vudc_transfer.c b/drivers/usb/usbip/vudc_transfer.c
-index d4ce85c4c6a2..4146b746a320 100644
---- a/drivers/usb/usbip/vudc_transfer.c
-+++ b/drivers/usb/usbip/vudc_transfer.c
-@@ -441,7 +441,7 @@ static void v_timer(struct timer_list *t)
- 	spin_unlock_irqrestore(&udc->lock, flags);
- }
+diff --git a/drivers/net/veth.c b/drivers/net/veth.c
+index 6ed3ee81153f..5d5e8ebce65a 100644
+--- a/drivers/net/veth.c
++++ b/drivers/net/veth.c
+@@ -1054,6 +1054,8 @@ static int __veth_napi_enable_range(struct net_device *dev, int start, int end)
+        for (i = start; i < end; i++) {
+                struct veth_rq *rq = &priv->rq[i];
  
--/* All timer functions are run with udc->lock held */
-+/* v_start_timer() and v_kick_timer() are called with udc->lock held. */
++               if (priv->_xdp_prog)
++                       rcu_assign_pointer(rq->xdp_prog, priv->_xdp_prog);
+                napi_enable(&rq->xdp_napi);
+                rcu_assign_pointer(priv->rq[i].napi, &priv->rq[i].xdp_napi);
+        }
+@@ -1088,6 +1090,7 @@ static void veth_napi_del_range(struct net_device *dev, int start, int end)
  
- void v_init_timer(struct vudc *udc)
- {
-@@ -490,8 +490,6 @@ void v_stop_timer(struct vudc *udc)
- {
- 	struct transfer_timer *t = &udc->tr_timer;
- 
--	/* Delete the timer synchronously before teardown frees udc. */
- 	dev_dbg(&udc->pdev->dev, "timer stop");
--	timer_delete_sync(&t->timer);
--	t->state = VUDC_TR_STOPPED;
-+	timer_shutdown_sync(&t->timer);
- }
-
-base-commit: 238650ef6c7c7cca08e032527329424c9fbd70e5
--- 
-2.53.0
-
+                rcu_assign_pointer(priv->rq[i].napi, NULL);
+                napi_disable(&rq->xdp_napi);
++               rcu_assign_pointer(rq->xdp_prog, NULL);
+                __netif_napi_del(&rq->xdp_napi);
+        }
+        synchronize_net();
