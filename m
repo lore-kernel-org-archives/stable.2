@@ -1,65 +1,65 @@
-Received: from mail-pz2-f12.google.com (mail-pz2-f12.google.com [74.125.228.12])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EC5B33515C0
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 04:25:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.12
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C93FC351C34
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 04:25:14 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789964715; cv=none; b=rlBH0HBjDLBKGofnzPnXJ2GGqnA2doyyMrasEuD7xJWjhCiAicxKYh0lCgRVaBy89TD4odQ1UL6p4l53Bk06hDSCWuI6a7iNdFJsPecUdd/mqg8LR2Hul0L3sIC1Lqo+KnEIAz09ihgHimWdqZpPzyifSqUkbFa0W4zDjNh8UA8=
+	t=1789964716; cv=none; b=Cr+hCA6uilzpt8YxljCe9xZxlXdXfVHqlZxr65nt2PEMiTlAbrsCIhVQCG9eXGLaSHMg4s5YucHJgNETyRlJmHtlTSy7Tdkgf5DqEvSQjqC/0IG0Jwgmpj1oWGqT87Sjdw7G8jQsB/uDOFZ/K8RuiMbxcEiU59obLABa5zJBMFM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789964715; c=relaxed/simple;
-	bh=qDg5vxfsG1Ujb0tlV/p+bz1qiSIh8MXo1JQEGI6gjcY=;
+	s=arc-20240116; t=1789964716; c=relaxed/simple;
+	bh=edPMpW5yt0f3Pp1wWdYZRCncoquv6QtazaRW2PBcM0s=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=SV0PcW37dkGGShqaGpzUjSWxAjX8HDpEMB+FymGMhcYHTCeVBt0QhMMjT1zYsokv/eKymGvSJzBchCwryOeCncffa9uxAp8cI6dxWoLoqmgSAIK0daxx5GnUDOgtiF+IfKj3sf/KH9uDue1o2TNq+8d37kbb7mA1Vr75zv+SZBo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Bn3qBOPe; arc=none smtp.client-ip=74.125.228.12
+	 MIME-Version; b=Wloy/iQY8vCVT/b7z596PZPZZXL4wCzL6wA4IuTyv1w0L9zVJ3ufQDOfwBL44mONG9Y2p+Y2YGEP9je2zX4XYAo/BDziEVOklltzjEWWJG8zfSvGwk49efXxV0+JG2ePn+2DxCe8UwTOCwhdgF1u5eaBIYxWGqDWNU3uzin8EPs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=IDHcmhjO; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Bn3qBOPe"
-Received: by mail-pz2-f12.google.com with SMTP id 41be03b00d2f7-cc1ceb47d53so398790a12.0
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 21:25:13 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="IDHcmhjO"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc4cdc0d663so1534570a12.3
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 21:25:14 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789964713; x=1790569513; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789964714; x=1790569514; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=AFedONfdsfWRRZrYGPfCHTniDDR5y58Jm72BIyX2Ebk=;
-        b=Bn3qBOPeAFzjniEAiNVlFiEY7WMtINXAY1epWMTuULYNLK80NTQ5k0INptyu6P/fu/
-         H+lLH5Ti3rIKeYrxZBcxRTYteb0R1c6ktQcz31uMI4iIoujQL2o5heidXBO+DgYSDtbH
-         m/t296KmeZ5Q68jAzo53q6bb2VKnZSdQWIpNLfewPMAETkc7z2IuRt9HCoRtfqbWAbOl
-         pzvE3DCIhXPlQC2bsBXa6gACxTM8kbjw1gVYYEKKP/WIIRTDWHNBdfCNwYCdWDbJrFDj
-         qVjbrMfnsZeajmXdlaZuRoJH4uLCis8461jApN1eU2W2ZDxVLjSNvHmticgM6aWpGe3h
-         WjPw==
+        bh=rvbp9qGSwfhr03W/yIMn0HJVEki14kXp792hr6doGSA=;
+        b=IDHcmhjOeqA9LKZxupt1+EHFaEQ4VPavHtcwvuONJb4v1W3DNbtYmOjFXqpY4lnqVK
+         lKaCktqKye179+5TAgi4/qSdl5dj88Oht4V4mWciYepytjmhDX5kz1c8kAYybjjMERxs
+         HboaE1zOgnNDH1ulHITGiXrUIVxV6XsUm/HnLFcdV1Po6GWaovIjmg81W+c4vpqAWdOS
+         NiSANm4Poyww0uGA87Gm5X8POg2ZY2wsRJ2Vn+ThMmRgmYtW9hM540M1MGTadjRWatry
+         YWc10Pqmg9JrjA1OV3gjQywwCTqgw36iK9PwpLZANHwXKattLKcA9fpdhNTou4jEFBFi
+         iPYQ==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789964713; x=1790569513;
+        d=1e100.net; s=20260707; t=1789964714; x=1790569514;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=AFedONfdsfWRRZrYGPfCHTniDDR5y58Jm72BIyX2Ebk=;
-        b=wr7lBy9DhsYA7vN39Lre65cdpoxL5VyFWBs5+T6M089wQSuvH0LspdO3lxPbjlH8EV
-         bqNxH5d4mBdFF0whlD4k3oacc83bKS4gyR5ZUnWsunvEAJiuNLJcEKVIBNvQgZfamOj7
-         DvDhZb1+APtmRKDxntg2scuZclMP2NLglHRRoolQes7qb2uJPu89n87t6jMY1i/TNiuX
-         o8J7mdS8RXjnxH2EuL9gU1gxoOPIOuj7/2sg6t6JMYW+9aEc0PIOk9mQ6M5pMWsZX3Xy
-         1/mJ5CTWU1SrU2cZPyEVjqUG4NbSi5R04VyGS9nsphRHxBrvQ90wgILINJqAeYRJvmBn
-         Hyjg==
-X-Forwarded-Encrypted: i=1; AKwUvBwbm2pVHXqFYN/FJzLYu1W9w0/zsT9BKeH1L0H+juqFXZ/6yiWUoSJ9B6B0cBhxrOQ8g17B618=@vger.kernel.org
-X-Gm-Message-State: AFuF++kjrwzo6VXKsoevx8AU6BK2V3T8yDxDMJQPeGCWgf2mHsHqO7/w
-	8LsgRtZmvg6pGhPSQiMscqPdcWZ/829CQ/akGoegtgFqPOveukCxSbUi
-X-Gm-Gg: AYBFou3+bGpzJtzkSiVMG8qGALKXwruTOmStv2Z7Uvg3yt9wHi1p6U/O9r7T85g/RTe
-	FM7UiEn3z2yAJERabP94x/1J8C1RnCr1+SAoIVkrxLJXzKyJAjqUmdc03SpekS2Lf+sJATFyvug
-	cejxKcGuMquTtEqicg7mDFDax16+6u7Hd6HoJrBm+ImR9LGDstyINz8Jgly0mNNgvtzCIwqUEqg
-	H31/yAn7c2dFmNaBu3O3X1WAZRnFrCXkdIURwC+xT5fhLoBzC3XkGEaj1ax/6n9zNl48TIASdjM
-	p5XPLXawdhKE8K2O56B0qCj21UEh6jb/gKzM/rotXB8hcBesFxjxPFRD4eUAGYmnN7R5Qay4WS0
-	2qStMsY7EBBvC+scdvQVp5lZtYml5j2yb/VWV4jjSCURm0KIhRgpAL42b7+TCDRiZenjmY0/l/I
-	R4OVHxYBqgC0B8ABWKwasQsgxYS2S9XYerEDvD2A7fvpLQ0YWoWTWfH6TkomhnJkMQ2rPwi5Z7Y
-	HVoqCL9Jrb1sKEJcB0hdSBusECQs0bC/e3dDNTm+wH+Lk7SK+slukJ1VkFfXTHi4aX3SvMnHPAE
-	KdMzmWyINg==
-X-Received: by 2002:a17:90b:184d:b0:39e:6a7f:6186 with SMTP id 98e67ed59e1d1-39e6a7f63ecmr5905503a91.23.1789964713209;
+        bh=rvbp9qGSwfhr03W/yIMn0HJVEki14kXp792hr6doGSA=;
+        b=GFboMuMuIq9dWFVicefIEZsg/6Vz0d552673OfIm9Trdg8ElOai9Kv8TApCHZMfKh+
+         tnV25jw4tAD9epqcHhb61BSOsbXbFXDj7cGMk/P9fD+swOUIy1hz64bdsrh4YDjUMaXp
+         XgZzZQYp/RSGPD18xUszngJtSgFq2N2r+pbR7UQTVQrW0PZ+rcEX6DWStXX3emUqi1rP
+         ZWglOvt2wLGjLsiMEwlomefRTJff6nc+YpQl5lHXHf9oziIf55yF582rIZhPFxLzpQix
+         uvVb/AJ25ZbLRXiJYEzMnI3bdfg6ag255DUxANGq3KmXjqVIzdbIplMalISHSppkoYYw
+         kzEw==
+X-Forwarded-Encrypted: i=1; AKwUvBwB7pAM3mVu28fvDYSrZSdFMjgDEVgyGLlVC7nPUxSW00lh2sMiSRBvD6NFDbMIVEMCdtTuH6E=@vger.kernel.org
+X-Gm-Message-State: AFuF++lygQ38QL1IAKZwiqNc2BI3AVj+hdHCL9Nhxt6oQexprwzi7aH1
+	OlH439yM4oE9ZJoJ+hRY88cK6i3zPqjn8iLDqCr2ozqAn+weEYB/QUuh
+X-Gm-Gg: AYBFou3cOwlXW1yC9GHPrSxxbM63OsZNG46pC2IvSfQKRM1nsNhrCGSrsi4PjehQZK+
+	Qo/a8vIPbH9tdQy0l6ASX3VgOBvJrMiyi//b0G6BAXrmI6EMjfkkXBy7s1B0Lq5+Jqq+fokdZpR
+	fOmeRev7zOT6bkuh7ee7KZb3HLXJ7PEN91QStl+82TBfgYxIn2DtgQsmzD1wYG5C1HzskyPMcCK
+	DcZWZzQZFT8C6JNXhCzqdhCJf6zzwEGcUuBP0aS56Du8ax1iDaJIn8EBq/s+E1NhvJ1WyFF/RAR
+	VFXHtV4YFk219Pct+tHllJ2NpQsJZCUwd0viKNEWak8UN+LRJLL4MAoRx0ZP1PKUxSZ3o6Appby
+	41azZllZ6NPmIKhPEykIM4re4LSh+lEPBJcHkKu4eF8WvL/O4jmV5wSrPSVAZiazT9exD6UtTVH
+	8NK6WERC0Yri6tyk2u7lME3aPE+CuiDRUcfbqAKsh/ym4ELo9hWXEB6mGm2rjL4TIZ7bzVjF/f1
+	AvqdbuG1ySRLV8G3SE45kg9ew/o+7HUKdM5KIM5/bg4YvSzGoswOxobmmz83seXc4zjXGhoAube
+	zsiUKQ0lsg==
+X-Received: by 2002:a17:90b:58ef:b0:39e:194b:fb2b with SMTP id 98e67ed59e1d1-39e54d11af8mr15982682a91.22.1789964713657;
         Sun, 20 Sep 2026 21:25:13 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c5b3932sm11742139a91.13.2026.09.20.21.25.12
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6c5b3932sm11742139a91.13.2026.09.20.21.25.13
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 21:25:12 -0700 (PDT)
+        Sun, 20 Sep 2026 21:25:13 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: Damien Le Moal <dlemoal@kernel.org>,
 	Christian Brauner <brauner@kernel.org>,
@@ -69,12 +69,13 @@ Cc: linux-fsdevel@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>
-Subject: [PATCH v2 1/6] qnx6: validate di_filelevels in qnx6_iget()
-Date: Mon, 21 Sep 2026 04:25:06 +0000
-Message-ID: <20260921042511.1473629-1-benquike@gmail.com>
+Subject: [PATCH v2 2/6] qnx6: release buffer_head on error in qnx6_block_map()
+Date: Mon, 21 Sep 2026 04:25:07 +0000
+Message-ID: <20260921042511.1473629-2-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <f68323da-e90f-46a4-b3ce-70d26de115e6@kernel.org>
+In-Reply-To: <20260921042511.1473629-1-benquike@gmail.com>
 References: <20260919222556.3792829-1-benquike@gmail.com> <f68323da-e90f-46a4-b3ce-70d26de115e6@kernel.org>
+ <20260921042511.1473629-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -83,29 +84,20 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In qnx6_iget(), raw_inode->di_filelevels is copied directly from the
-on-disk inode without checking whether it exceeds QNX6_PTR_MAX_LEVELS (5)
-(unlike sb1->Inode.levels and sb1->Longfile.levels, which qnx6_fill_super()
-explicitly checks against QNX6_PTR_MAX_LEVELS). When qnx6_block_map()
-later computes bitdelta = ptrbits * ei->di_filelevels, a crafted
-di_filelevels value (e.g. 20, giving bitdelta = 200) causes a
-shift-out-of-bounds in (no >> bitdelta) and out-of-bounds indirect block
-traversal:
+In qnx6_block_map(), when qnx6_check_blockptr(ptr) fails ("qnx6: hit
+unused blockpointer.") inside the indirect block traversal loop, the
+buffer_head bh read by sb_bread() is not released before returning 0,
+leaving bh->b_count elevated and pinning the backing blockdev folio in
+memory. Call brelse(bh) on that error path before returning 0.
 
-  qnx6: superblock #1 active
-  Buffer I/O error on dev loop0, logical block 4099, async page read
-  qnx6: Error reading block (4099)
-  qnx6: error reading root directory.
-
-Validate that ei->di_filelevels <= QNX6_PTR_MAX_LEVELS in qnx6_iget() and
-fail with -EIO if exceeded.
-
-Tested in QEMU against Linux 7.3.0-rc3 by mounting a crafted QNX6
-filesystem image with root inode di_filelevels = 20 on /dev/loop0: on the
-unfixed kernel qnx6_iget() accepts the inode and qnx6_block_map() walks
-invalid indirect blocks ("qnx6: Error reading block (4099)"), whereas on
-the fixed kernel qnx6_iget() logs "qnx6: invalid filelevels (20) in inode
-1" and fails immediately with -EIO.
+Tested in QEMU against Linux 7.3.0-rc3 by mounting a crafted QNX6 image on
+/dev/loop0 with a file (di_filelevels = 1) whose indirect block (block 5)
+contains an unused block pointer (~0U), reading the file to trigger
+"qnx6: hit unused blockpointer.", and then flushing per-CPU bh_lrus and
+pagecache via /proc/sys/vm/drop_caches and POSIX_FADV_DONTNEED: on the
+unfixed kernel indirect block 5 remains pinned in bd_mapping
+(indirect_page5_leaked = 1), whereas on the fixed kernel indirect block 5
+is released and evicted cleanly (indirect_page5_leaked = 0).
 
 Fixes: 5d026c724220 ("fs: initial qnx6fs addition")
 Cc: stable@vger.kernel.org
@@ -113,30 +105,28 @@ Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
 Changes in v2:
-- Split the v1 patch into a 6-patch series (one patch per issue fixed) and
-  remove Markdown formatting from the commit message, as requested by
+- Split the qnx6_block_map() buffer_head leak fix into its own patch (2/6)
+  and remove Markdown formatting from the commit message, as requested by
   Damien Le Moal.
 
- fs/qnx6/inode.c | 7 +++++++
- 1 file changed, 7 insertions(+)
+ fs/qnx6/inode.c | 4 +++-
+ 1 file changed, 3 insertions(+), 1 deletion(-)
 
 diff --git a/fs/qnx6/inode.c b/fs/qnx6/inode.c
-index 6de49333acad..13972c086673 100644
+index 13972c086673..9b624829520e 100644
 --- a/fs/qnx6/inode.c
 +++ b/fs/qnx6/inode.c
-@@ -560,6 +560,13 @@ struct inode *qnx6_iget(struct super_block *sb, unsigned ino)
- 	memcpy(&ei->di_block_ptr, &raw_inode->di_block_ptr,
- 				sizeof(raw_inode->di_block_ptr));
- 	ei->di_filelevels = raw_inode->di_filelevels;
-+	if (ei->di_filelevels > QNX6_PTR_MAX_LEVELS) {
-+		pr_err("invalid filelevels (%u) in inode %u\n",
-+		       ei->di_filelevels, ino);
-+		folio_release_kmap(folio, raw_inode);
-+		iget_failed(inode);
-+		return ERR_PTR(-EIO);
-+	}
+@@ -144,8 +144,10 @@ static unsigned qnx6_block_map(struct inode *inode, unsigned no)
+ 		levelptr = (no >> bitdelta) & mask;
+ 		ptr = ((__fs32 *)bh->b_data)[levelptr];
  
- 	if (S_ISREG(inode->i_mode)) {
- 		inode->i_fop = &generic_ro_fops;
+-		if (!qnx6_check_blockptr(ptr))
++		if (!qnx6_check_blockptr(ptr)) {
++			brelse(bh);
+ 			return 0;
++		}
+ 
+ 		block = qnx6_get_devblock(s, ptr);
+ 		brelse(bh);
 -- 
 2.49.0
