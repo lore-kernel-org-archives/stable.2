@@ -1,45 +1,44 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5ED247B408;
-	Mon, 21 Sep 2026 15:06:27 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C48EE49CF36;
+	Mon, 21 Sep 2026 15:06:48 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003191; cv=none; b=lVWD8pKtM4IeDq+CFYNR7Y2KuMmDBdWRz9R7NTCeouQxat+CBKWffPtlr8ymKAAtrvMEGlSoMNzCaDG8jKLnXbuOK5fYBYTn/k6Fd4ZUG2Zlg9rgcSaQdfwhesSJdnbee4K10c7VC4yH3hAEQv9GthfNb/GuBWqvbD3vy091o0s=
+	t=1790003213; cv=none; b=b9k0pgdXhDemBGHkjaZ1jn7PFx7FH+7qn8KrZ7DsF/UD4DOgFEmc2wkdEAL3IBW97K7d2thzp0AhCeVUUMCaR40lfp9/FwM032w9YB19HWTj+ZCkdLV964bKSfknWoGONxTtIg2+d2PWeCMaNrFgiUGTREbUgevfpSVSqfnDF+o=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003191; c=relaxed/simple;
-	bh=LAciJTKpRwJnWObq9nGHD5XkrGVwEpdzJh+RGirshCw=;
+	s=arc-20240116; t=1790003213; c=relaxed/simple;
+	bh=/fCqJ2qTxNm3snRd2x48+oh09EsMTsOzYCwCEmFu7/c=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZoSq9Mgz/qJRtGAT6zPB0guDmXjBwStAx+ZDfoeLWFP43Gc6CFmRw+nu4GahMi3LLxmo9NRF+7WJxOKBTpxjyc/2IbRVzhxJUAY917+DMsQM6zpm6d/Ygd38EjewyT916jIdiZm07RxOKo3GrNmyhZqG9IUtl7lXDwnrrpgHyhE=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8RDW8Wz; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=fkEWOlgm+XCmHgU4XMz7UwOqa9MtzFw25qFkMNe8vX9kU42SdnvuJY2rx6GQp2DSS8xl6aM4OBJT1VBZhc/Ag+10jN3PRSi2BOcQbuBK2X2DjJwtWiRw91qfUu7BkFTzBtpTXUb5J7z2TpyDiKVJ32fRO0aCNbchyoQEtN33jGg=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=YjXi4MWU; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8RDW8Wz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD66A1F00893;
-	Mon, 21 Sep 2026 15:06:23 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="YjXi4MWU"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1EA5F1F008A7;
+	Mon, 21 Sep 2026 15:06:44 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003184;
-	bh=o8UxhF58k+iaCX3wK6PvC//NB+h9K2uQAHX4G8biYo8=;
+	s=k20260515; t=1790003205;
+	bh=Pa7Ft/ijJMnGxUHvP/pkiFeMmDY5E8M9itOTKRJ8E0A=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=D8RDW8WzG4OpVxumPDO8TlLVwz9/nnxdk9cLCQtBcShI/0svLDkEkkC3Q9SuyjWk5
-	 H1HgCYakN/jK7CbTOk71TQT200FRwLh4E3PrLoqENo8w7DIRYWB3j3HETG/rAOGaxf
-	 2tuZFWe3gp+hP0PQ3BA+a/NfqPJG3mmLUpVzKM61aHJAY8yXqvIfJ2RjldBHL1Ix6s
-	 dd+D8UdnsBYMWepRkXQrJpDpqo+A7jiRU2UzhL8Q/Uh4mqLZYbubdxCHFkFo/9X9/E
-	 kyIA7fPxfetPDCl9SIT57j0tkv1oXYBnyEQdWWz879XpuhoeRbzR59iHuozn3I6IAP
-	 0K6UxKaYq3+hg==
-Date: Mon, 21 Sep 2026 17:06:21 +0200
+	b=YjXi4MWUska829Ripnk/wWccXf7whhoR+eq2q+djP79wgcJba+rnsOCOQPOx9fOXs
+	 cRTsbUhcx++BzmXSfae1jFqx3Ce9FGKiaOa6+6yZ6EZ4+dKF8pkkS23cTowheQpeld
+	 66qoS1RWGzcfH/8xg+mvPplB6HyloRd0nDwjV4FEtX53R8L1GmEc4E0kQ3uMCKLYYO
+	 oXv3ltRdzIPuNQZr5hXNrbxKWzce4hATU98WOq84J6Yk21CA1uotMb84mi+W7PrAV/
+	 CC3zkvKkt1T/eSop835tSWwCqhrLDoDGTZQ67IaDGudWeA3aKQQzdy/3W0Dt85jUCe
+	 p9YCc41A84n9A==
+Date: Mon, 21 Sep 2026 17:06:42 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
-	linux-sound@vger.kernel.org, stable@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>, 
-	Thorsten Blum <thorsten.blum@linux.dev>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
-	Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
-	Cezary Rojewski <cezary.rojewski@intel.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
-	Liam Girdwood <liam.r.girdwood@linux.intel.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
-	linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe
- failure
-Message-ID: <arFH7F944RO7TUqN@quoll>
-References: <20260921073847.63505-1-lgs201920130244@gmail.com>
+Cc: David Airlie <airlied@gmail.com>, dri-devel@lists.freedesktop.org, 
+	Rodrigo Vivi <rodrigo.vivi@intel.com>, Joonas Lahtinen <joonas.lahtinen@linux.intel.com>, 
+	Jani Nikula <jani.nikula@linux.intel.com>, stable@vger.kernel.org, Simona Vetter <simona@ffwll.ch>, 
+	Chris Wilson <chris@chris-wilson.co.uk>, linux-kernel@vger.kernel.org, 
+	Tvrtko Ursulin <tursulin@ursulin.net>, intel-gfx@lists.freedesktop.org, 
+	Matthew Auld <matthew.auld@intel.com>
+Subject: Re: [PATCH] drm/i915: fix mock ring memory leak on context
+ allocation failure
+Message-ID: <arFH__nd1-T-6kft@quoll>
+References: <20260919171710.3699710-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -48,36 +47,34 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921073847.63505-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260919171710.3699710-1-lgs201920130244@gmail.com>
 
 
-On Mon, 21 Sep 2026 15:38:47 +0800, Guangshuo Li wrote:
-> sst_acpi_probe() registers platform devices for the SST platform and
-> machine drivers using platform_device_register_data(), but does not
-> unregister them when later probe steps fail.
+On Sun, 20 Sep 2026 01:17:10 +0800, Guangshuo Li wrote:
+> mock_context_alloc() creates ce->ring before allocating and pinning the
+> context timeline. mock_ring() initializes the ring reference count and
+> returns the initial reference to the context.
 > 
-> If machine device registration fails, the already registered SST platform
-> device is left registered. The same leak happens when
-> sst_platform_get_resources() or sst_context_init() fails after both
-> platform devices have been successfully registered.
+> If intel_timeline_create() fails, mock_context_alloc() returns without
+> dropping the ring reference. The same leak occurs when
+> mock_timeline_pin() fails after the timeline has been created. Since
+> context allocation did not complete, CONTEXT_ALLOC_BIT is not set and
+> the later context teardown does not release the ring.
 > 
-> A registered platform device owns resources allocated by the platform
-> device core and must be released with platform_device_unregister() so
-> that the device reference is dropped and platform_device_release() can
-> free the backing platform_object.
-> 
-> Unregister the created platform devices on all failure paths to restore
-> the missing cleanup.
+> Drop the initial ring reference with kref_put() on both failure paths.
+> When the reference count reaches zero, intel_ring_free() releases the
+> ring VMA and frees the ring allocation. Clear ce->ring after dropping
+> the reference to avoid retaining a stale pointer.
 > 
 > The issue was identified by a static analysis tool I developed and
 > confirmed by manual review.
 > 
-> Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
+> Fixes: 75d0a7f31eec ("drm/i915: Lift timeline into intel_context")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
->  1 file changed, 10 insertions(+), 3 deletions(-)
+>  drivers/gpu/drm/i915/gt/mock_engine.c | 4 ++++
+>  1 file changed, 4 insertions(+)
 > 
 
 
