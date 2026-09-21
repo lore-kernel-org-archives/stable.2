@@ -1,258 +1,154 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4BDB4463B7C;
-	Mon, 21 Sep 2026 09:18:55 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97CB356770;
+	Mon, 21 Sep 2026 09:19:20 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982337; cv=none; b=EybYZh3YLe6JDnSsJKmF9DWbB6jng1L9FfHXFOEBddPfMAhwyaDnoUFD9i2j1qKgvBvWXV2K8VAEjzsDK+TsTIfbLCoYh67Vul5grJjWPdSNZg/FmDlo7o+0QMHaWK0Er6dq/YXcy2U2V7oSco4sMzv9+kyqhx6tQZLrsKXntZ0=
+	t=1789982363; cv=none; b=od+3IJxCOcgGhUuWDh5TL/PqZg/omvldqCtaHfRcSEi6iVgoPCbHmeQSVJiVvNpgXF/oSB6UYIic3ZeS2I3r1ZZefBeaNq5bN6lOBpX72TDPP+AFDvescfh9Qvk2LBCrdcvMh2oCOARvx11n7x2NimxBRxxxBvfFxzXLdoWf7as=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982337; c=relaxed/simple;
-	bh=u7bVl4hRiMTQsC3MKL8oRiGtWTLxJrLTyj0LgSzUTuY=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=UppawaCA5cFuygLDLotz98wrAJjxmlQLfU0815a6FLEmb1YHWAI5Vw5xWDytgckDAgTeXBwFiPr9wqFPWeOkstt6sSNlffVzA+wujZua/SyHiD+HUwuZwuThNcEFY+FFU59waMQF4xWp3kQa+rFwpap9/V5f2j9Ht1dMcC5RaNM=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h3haOI5f; arc=none smtp.client-ip=100.103.45.18
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h3haOI5f"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E69171F00893;
-	Mon, 21 Sep 2026 09:18:54 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789982335;
-	bh=XR2pN0h64X5a4n7ui1Qu+CJKcG5qEc6S/wW/aVVeHDw=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=h3haOI5fqPy++4hueGsG2UNf+CFultvgD5E2Z2JbdNOah26aL8RbHBDi08XcPT5uZ
-	 QBqtFeams38RMwMvV2sNukbYnb63RAqkIzefShAfbUajT44cafwNY1XE1Kgajzvpwc
-	 mxIRj178VVu4v1owdjalx52b9/rzj8mgFjghgmOmk9sEhSjpTEgCIY4IUy7D7rcuzp
-	 15Ui3fuxNH1mPsb18X1qK+FsQBk0B2Q4dpOlTcf1KEJfnxzPIg7NUiv+Z+EAvuf43r
-	 vbN+Bx5tGz+WNfWOjTm6A8HO1BYG28Xz63AxhHrzqwq7zdhDZgRpDBtWKhtb4ruF8e
-	 RbNAQVkgx01mw==
-Subject:
- Re: [PATCH net 2/2] net: ngbe: clear DRV_LOAD bit when ngbe_open() fails
-From: netdev-bot+sashiko@kernel.org
-To: zhangyunfei1@kylinos.cn
-Cc: netdev@vger.kernel.org, jiawenwu@trustnetic.com, mengyuanlou@net-swift.com,
- andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
- kuba@kernel.org, pabeni@redhat.com, aleksandr.loktionov@intel.com,
- leitao@debian.org, weirongguang@kylinos.cn, u.kleine-koenig@baylibre.com,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 09:18:54 +0000
-Message-ID: <178998233448.2160803.12090332415521537974@kernel.org>
-In-Reply-To: <20260917090050.1927999-3-zhangyunfei1@kylinos.cn>
-References: <20260917090050.1927999-3-zhangyunfei1@kylinos.cn>
-X-sashiko-severity: Medium
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	s=arc-20240116; t=1789982363; c=relaxed/simple;
+	bh=ctfvrvRjDpF89isT+CxLZERwvBw6D/dw41TbnIBBu7s=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e61lj44rjFspATf8UtXAB88vqe9IDeZPwDTxaS1IVYA+lvYVCbGRgSB3+eJeOwgf5/6Ok+8EtZliLNK8H2KPtBMQcldU5GlPfTZawvCZpSd6Nkyms5LHxQG9ievDZ6PiZe6QFvdQHUJ5zmljyYDgva7Srr+9ObVqjyLATiCo7Z8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
+X-UUID: 823dbe18b59d11f19a56ed5b684f684d-20260921
+X-CID-P-RULE: Release_Ham
+X-CID-O-INFO: VERSION:1.3.19,REQID:7b8cc3ee-ffd5-4894-bb14-804e282dd169,IP:0,U
+	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
+	release,TS:0
+X-CID-META: VersionHash:7db8b62,CLOUDID:c7d613d328ca9ba688807c2619c03747,BulkI
+	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
+	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
+	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
+X-CID-BVR: 2,SSN|SDN
+X-CID-BAS: 2,SSN|SDN,0,_
+X-CID-FACTOR: TF_CID_SPAM_SNR
+X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
+X-UUID: 823dbe18b59d11f19a56ed5b684f684d-20260921
+X-User: zenghongling@kylinos.cn
+Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
+	(envelope-from <zenghongling@kylinos.cn>)
+	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
+	with ESMTP id 1870055999; Mon, 21 Sep 2026 17:19:12 +0800
+From: Hongling Zeng <zenghongling@kylinos.cn>
+To: linkinjeon@kernel.org,
+	hyc.lee@gmail.com
+Cc: ntfs@lists.linux.dev,
+	linux-kernel@vger.kernel.org,
+	zhongling0719@126.com,
+	Hongling Zeng <zenghongling@kylinos.cn>,
+	stable@vger.kernel.org,
+	Baolin Liu <liubaolin@kylinos.cn>
+Subject: [PATCH v6] ntfs: mount hibernated volumes read-only regardless of errors=
+Date: Mon, 21 Sep 2026 17:19:07 +0800
+Message-Id: <20260921091907.1491879-1-zenghongling@kylinos.cn>
+X-Mailer: git-send-email 2.25.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+The hibernation check in load_system_files() only converts the
+superblock to read-only under errors=remount-ro.  With the default
+errors=continue (and with errors=panic), a hibernated volume is
+mounted read-write and the mount-time $LogFile emptying writes to it,
+although a hibernated volume must not be written to at all.
 
-Critical: 0 · High: 0 (2) · Medium: 1 · Low: 0 (1)
+Drop the on_errors term so that a hibernated volume, or a volume whose
+hibernation state cannot be determined, always mounts read-only.
+NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
+remounts to read-write, and the $LogFile emptying is skipped by its
+!sb_rdonly() check.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The check itself must not apply the errors= policy either: it runs
+before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
+call ntfs_error() internally on corruption or I/O errors, which under
+errors=panic would panic the machine before the read-only fallback has
+made its decision.  Temporarily substitute errors=remount-ro for
+errors=panic around the check: nested ntfs_error() calls then fall
+back to read-only, and any read-only transition they trigger is
+preserved even when the error is not propagated to the check's return
+value or recorded in NVolErrors().  This is safe during initial mount,
+before the super block is published.
 
-- [Medium] For all ngbe_open() failures that occur after wx_configure()
-  (i.e. ngbe_request_irq(), phylink_connect_phy(),…
+If the check reports hibernation or fails, set SB_RDONLY and record
+NVolErrors() unconditionally: hibernation safety takes precedence over
+the errors= policy.  A volume with errors recorded during the check or
+earlier in the mount, e.g. when loading the LogFile, also stays
+read-only, matching what ntfs_reconfigure() enforces for remounts.
 
-Pre-existing issues:
-- [High] ngbe_open()'s error unwind
-  (drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:522-531) frees the…
-- [High] ngbe_setup_tc()
-  (drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:630-647) discards the…
-- [Low] The new wx_control_hw(wx, false) at
-  drivers/net/ethernet/wangxun/ngbe/ngbe_main.c:530 performs an unlocked…
+Fixes: 6251f0b0de7d ("ntfs: update super block operations")
+Cc: stable@vger.kernel.org
+Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
+Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
+---
+Change in v6:
+ - Temporarily substitute errors=remount-ro for errors=panic during
+   the hibernation check.  ntfs_error() does not always set
+   NVolErrors(), so the v5 restore condition could re-enable write
+   access after a real error.
+---
+ fs/ntfs/super.c | 25 ++++++++++++++++++++-----
+ 1 file changed, 20 insertions(+), 5 deletions(-)
 
---
-
-net: ngbe: clear DRV_LOAD bit when ngbe_open() fails
-
-The patch makes every error path of ngbe_open() fall through a new
-err_control_hw label that calls wx_control_hw(wx, false), so the
-WX_CFG_PORT_CTL_DRV_LOAD handshake bit is rolled back when the open
-fails instead of being left asserted until the next successful ifup.
-
-A few questions about the resulting error unwind below.
-
-> diff --git a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> index 6d8289e2532d0..88f00b72a5123 100644
-> --- a/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> +++ b/drivers/net/ethernet/wangxun/ngbe/ngbe_main.c
-> @@ -494,7 +494,7 @@ static int ngbe_open(struct net_device *netdev)
->  
->  	err = wx_setup_resources(wx);
->  	if (err)
-> -		return err;
-> +		goto err_control_hw;
->  
->  	wx_configure(wx);
->  
-> @@ -526,6 +526,8 @@ static int ngbe_open(struct net_device *netdev)
->  err_free_resources:
->  	wx_free_isb_resources(wx);
->  	wx_free_resources(wx);
-> +err_control_hw:
-> +	wx_control_hw(wx, false);
->  	return err;
->  }
-
-[Severity: Medium]
-
-For the failures that happen after wx_configure() has run
-(ngbe_request_irq(), phylink_connect_phy(),
-netif_set_real_num_tx_queues(), netif_set_real_num_rx_queues()), does
-this unwind free DMA memory that the hardware is still programmed to
-use?
-
-wx_configure() arms the datapath before any of those calls can fail:
-
-  wx_configure()
-    wx_configure_tx()   /* enables Tx queues, TDM, MAC transmitter */
-    wx_configure_rx()
-      wx_configure_rx_ring()
-        wr32(wx, WX_PX_RR_BAL(reg_idx), rdba & DMA_BIT_MASK(32));
-        wr32(wx, WX_PX_RR_BAH(reg_idx), upper_32_bits(rdba));
-        wr32m(wx, WX_PX_RR_CFG(reg_idx), WX_PX_RR_CFG_RR_EN, WX_PX_RR_CFG_RR_EN);
-        wx_enable_rx_queue(wx, ring);
-        wx_alloc_rx_buffers(ring, wx_desc_unused(ring));
-      wx_enable_rx(wx);
-    wx_configure_isb()
-      wr32(wx, WX_PX_ISB_ADDR_L, wx->isb_dma & DMA_BIT_MASK(32));
-
-The error labels then release exactly that memory:
-
-  wx_free_isb_resources()  /* dma_free_coherent() of the ISB buffer */
-  wx_free_resources()
-    wx_free_all_rx_resources()
-      wx_free_rx_resources()
-        wx_clean_rx_ring(rx_ring);
-        dma_free_coherent(rx_ring->dev, rx_ring->size, rx_ring->desc,
-                          rx_ring->dma);
-        page_pool_destroy(rx_ring->page_pool);
-
-None of the quiesce steps that ngbe_disable_device() performs run here:
-
-  for (i = 0; i < wx->num_rx_queues; i++)
-          wx_disable_rx_queue(wx, wx->rx_ring[i]);
-  wx_disable_rx(wx);
-  ...
-  wx_irq_disable(wx);
-  for (i = 0; i < wx->num_tx_queues; i++)
-          wr32(wx, WX_PX_TR_CFG(reg_idx), WX_PX_TR_CFG_SWFLSH);
-
-Can a descriptor or buffer writeback in that window land in freed
-coherent memory or an unmapped IOVA?
-
-Related to that, the commit message says the rollback is "matching
-ngbe_close() and ngbe_dev_shutdown(), which already clear it".  Is the
-ordering the same though?  ngbe_close() quiesces first and only then
-releases the handshake:
-
-  wx_ptp_stop(wx);
-  ngbe_down(wx);
-  wx_free_irq(wx);
-  wx_free_isb_resources(wx);
-  wx_free_resources(wx);
-  phylink_disconnect_phy(wx->phylink);
-out:
-  wx_control_hw(wx, false);
-
-Here the new wx_control_hw(wx, false) hands the port back to the
-NCSI/OOB firmware while the Rx unit and RXEN are still enabled and the
-rings have already been freed.  Would routing the error paths through
-ngbe_down() (or at least the wx_disable_rx_queue()/wx_disable_rx()/
-wx_irq_disable() sequence) before freeing resources and clearing
-DRV_LOAD be closer to what ngbe_close() does?
-
-[Severity: High]
-
-This isn't a bug introduced by this patch, but while the unwind is
-being reworked: should this path also set WX_STATE_RES_FREED?
-
-ngbe_close() uses that bit as its only record of "resources already
-released":
-
-  if (test_bit(WX_STATE_RES_FREED, wx->state))
-          goto out;
-
-  wx_ptp_stop(wx);
-  ngbe_down(wx);
-  wx_free_irq(wx);
-  wx_free_isb_resources(wx);
-  wx_free_resources(wx);
-
-ngbe_open() is also called on netdevs whose __LINK_STATE_START is
-already set (ngbe_setup_tc(), ngbe_resume(), and wx_io_resume() in
-libwx/wx_err.c), so a failed open leaves netif_running() true with the
-IRQs, the ISB buffer and the rings freed while the bit is clear.
-
-The next ndo_stop then repeats the teardown.  wx_free_irq() calls
-free_irq() on vectors that were never requested, and
-ngbe_down() -> wx_clean_all_rx_rings() -> wx_clean_rx_ring() reaches:
-
-  /* Zero out the descriptor ring */
-  memset(rx_ring->desc, 0, rx_ring->size);
-
-with rx_ring->desc already NULL and rx_ring->size still non-zero, since
-wx_free_rx_resources() clears desc but not size.  Can that oops?
-
-[Severity: High]
-
-This is a pre-existing issue too, but this patch makes the error return
-of ngbe_open() more meaningful, so it seems worth asking: ngbe_setup_tc()
-throws it away.
-
-  wx_init_interrupt_scheme(wx);
-
-  if (netif_running(dev))
-          ngbe_open(dev);
-
-  return 0;
-
-wx_init_interrupt_scheme() can fail with -ENOMEM from
-wx_set_interrupt_capability()/wx_alloc_q_vectors(), and every failure
-exit of ngbe_open() now funnels through err_control_hw and returns a
-negative errno.  Both are dropped and 0 is returned unconditionally, so
-wx_set_channels() in libwx/wx_ethtool.c:
-
-  return wx->setup_tc(dev, netdev_get_num_tc(dev));
-
-reports success to user space while the interface stays administratively
-running with rings and the ISB buffer freed, no IRQs requested, the PHY
-disconnected, and now DRV_LOAD cleared with nothing re-asserting it
-until a later successful ndo_open.  Should ngbe_setup_tc() propagate
-these errors?
-
-[Severity: Low]
-
-This is a pre-existing pattern rather than something the patch
-introduces, noted only for completeness: wx_control_hw() does an
-unlocked read-modify-write of WX_CFG_PORT_CTL through wr32m():
-
-  val = rd32(wx, reg);
-  val = ((val & ~mask) | (field & mask));
-  wr32(wx, reg, val);
-
-__wx_enable_sriov() in libwx/wx_sriov.c updates the same register:
-
-  wr32m(wx, WX_CFG_PORT_CTL,
-        WX_CFG_PORT_CTL_NUM_VT_MASK,
-        value);
-
-and it runs from wx_pci_sriov_enable() under the PCI device_lock but
-before wx_sriov_reinit() takes RTNL, so RTNL does not serialize the two.
-The identical unlocked update already exists on every ifup via
-wx_control_hw(wx, true), in ngbe_close() and in ngbe_dev_shutdown(), so
-this line adds no new race class; serializing the WX_CFG_PORT_CTL
-updates would be a separate libwx cleanup.
-
+diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
+index f4a73e45773d..da2c8f310a7f 100644
+--- a/fs/ntfs/super.c
++++ b/fs/ntfs/super.c
+@@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	struct ntfs_attr_search_ctx *ctx;
+ 	struct restart_page_header *rp;
+ 	int err;
++	u8 saved_on_errors;
+ 
+ 	ntfs_debug("Entering.");
+ 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
+@@ -1572,8 +1573,19 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 	 * NVolErrors() without setting the dirty volume flag and mount
+ 	 * read-only.  This will prevent read-write remounting and it will also
+ 	 * prevent all writes.
++	 *
++	 * Nested lookup and inode-loading errors must not panic before the
++	 * read-only fallback has run.  Temporarily use errors=remount-ro
++	 * instead of errors=panic, preserving any read-only transition even
++	 * if an error is not propagated to the check's return value or
++	 * recorded in NVolErrors().  This is safe during initial mount,
++	 * before the super block is published.
+ 	 */
++	saved_on_errors = vol->on_errors;
++	if (saved_on_errors == ON_ERRORS_PANIC)
++		vol->on_errors = ON_ERRORS_REMOUNT_RO;
+ 	err = check_windows_hibernation_status(vol);
++	vol->on_errors = saved_on_errors;
+ 	if (unlikely(err)) {
+ 		static const char *es1a = "Failed to determine if Windows is hibernated";
+ 		static const char *es1b = "Windows is hibernated";
+@@ -1581,12 +1593,15 @@ static bool load_system_files(struct ntfs_volume *vol)
+ 		const char *es1;
+ 
+ 		es1 = err < 0 ? es1a : es1b;
+-		/* If a read-write mount, convert it to a read-only mount. */
+-		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
+-			sb->s_flags |= SB_RDONLY;
+-			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
+-		}
++		/* Hibernation safety takes precedence over the errors= policy. */
++		sb->s_flags |= SB_RDONLY;
+ 		NVolSetErrors(vol);
++		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
++	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
++		/* Match the read-write remount restriction for recorded errors. */
++		sb->s_flags |= SB_RDONLY;
++		ntfs_error(sb,
++			   "Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
+ 	}
+ 
+ 	/* If (still) a read-write mount, empty the logfile. */
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917090050.1927999-1-zhangyunfei1%40kylinos.cn
+2.25.1
+
