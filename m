@@ -1,42 +1,40 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 03F7F4AF169;
-	Mon, 21 Sep 2026 15:12:43 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2832A4B2055;
+	Mon, 21 Sep 2026 15:13:01 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003565; cv=none; b=ugnmTl1ugxhuEM2/NrFFoQ65cQyv2E2mForeSrMdsFcjBE4rWq2KmCD+lefDeSB3f0Oxe4FDeXNXrqlTnWfM40H7dwzL1ahox6kUeUdPc/t3tayN/G6jtPSLx2vmKCthKTTPSHDQ5Ij+vlqt+Pwt12Jm5dq3lz+niRxtTYaIvfo=
+	t=1790003583; cv=none; b=igfY67So8N76v2sXEMvdk1E1psPKNLDzagFSDjVVQAWFahl57s1nuclFaU/cDcz07/XvI1h5RTexZxY9+uHKMSHlm2meZaPcGhSLN1lhZv7kGp0yGNwr+x3VhACftzJPLDpyFgUvCW7Nh4KYTUADu9PGFQLPem7nbUeDJQUUZGI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003565; c=relaxed/simple;
-	bh=F723jUb4FX3wnPM8/1OM5X8MykUBmpaUpNENj61e5sc=;
+	s=arc-20240116; t=1790003583; c=relaxed/simple;
+	bh=JyC5SKc0mVJdeKRxQYzsllkALh44u8NaJMlLOF/8bqk=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=Cz+Av/EYGziY30i8lQdpxHg6VtEy23ka2MsNZsdIOPDbu0fqWxD+FvicHGYlGweGzFHCCl3pK+XuMLxWMRxuvn0RuIvPIh4Ude7FhGAI2nbBld7h3KoYKTizWlO5qYfnGmNS+U/GDcH9K15VIACv+K3AbCfsY9SvFiYJYNM9peA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=RZWRhl3p; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=uUb1s+V4t+zzKWI+cJrxZKURC6ZMqv29pZ0DBIt+GMY8oCIFn8NYWhcOuHyphV2w6NHZWrshz4DKMntY180Fn2i8h4fSBz2gN+54JdHDIXPSIL6URDkaZj0ZKr4zyOnsWGJGtuf2l9Dngl48LbOWg0CasglS4IJ5SZWfVNNgcj0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mObJGkpn; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="RZWRhl3p"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E82271F000FF;
-	Mon, 21 Sep 2026 15:12:42 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mObJGkpn"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0DC621F000FF;
+	Mon, 21 Sep 2026 15:13:00 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003563;
-	bh=/EGmor+rdd8V7CS1kyIpOAdpprLtqx5XjF9/vJmxcJI=;
+	s=k20260515; t=1790003581;
+	bh=dtteNIKoELjmMfexOABlmRFX07/QVUtrWRSjMp41NtA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=RZWRhl3pg8o59qzvTFx/lJ+XE1Qdrn5dXre5AL/yLwRFdIpscv9QB0esbtt/MnQnS
-	 VfD1cPA+CTdjjjK1rc6vgw8LrxAdYI77GSDZcyj/HNS5+RRcQV/wFgfPFHKdWlajHB
-	 ah1WepHkASgIFqUEdrhQtr+4RkbCP8A4FxwxkvQvWpCTcIcJ156AlIsybxnCHwOK7C
-	 PZE97TGL5AyRMw07TEhOaSZyB/JF3rRY2N3vYZyyR4MpCRbbTgFSOQN8epZBRKvpN/
-	 mxeoxdCs0NiUUb+E651qVTR9KL6JKb/4I9ru3tNmDZpLAscus1iYNUGMiacFnydlAZ
-	 ZAh5+5vhAknFw==
-Date: Mon, 21 Sep 2026 17:12:40 +0200
+	b=mObJGkpnxOSj67aBaUoHpyjEbC3nNkC/fmmjvGfrWhyU+Z9ZNcdscVeWHLuIdIcjL
+	 AIGd7b7Uo2hiOPy95zTqBCclgW9/ojaacxKhxjl87R3/OecMEH8OhyCBiO6eGOdo5E
+	 gFXv6yi0QySimQFtlvGlgyXZdlX3Xz/AubQ+MdIIgB8Efskju3AD2rt9MzqvgtKsI6
+	 ZkWWpGvaQ9XhRy1QYNYKeFjtIogFo5VdL/XAZuHiqPyeuxo+mJCDY4hvjic292r6rV
+	 gxwCCuI4+8PtEz5qnhQFJAXkTTyCDLhtbN2bjTj87uW/khPwma++HlpRzqrzkCe22C
+	 T+XJJn9fZYVIw==
+Date: Mon, 21 Sep 2026 17:12:58 +0200
 From: krzk@kernel.org
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: horms@kernel.org, netdev@vger.kernel.org, pabeni@redhat.com, 
-	edumazet@google.com, linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	david+nfc@ixit.cz, davem@davemloft.net, kuba@kernel.org, sameo@linux.intel.com, 
-	oe-linux-nfc@lists.linux.dev
-Subject: Re: [PATCH] nfc: llcp: Fix socket reference leak in
- nfc_llcp_recv_ui()
-Message-ID: <arFJYpnDIpY3VdAr@quoll>
-References: <20260916073424.1971784-1-vulab@iscas.ac.cn>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: stable@vger.kernel.org, Maciej Sosnowski <maciej.sosnowski@intel.com>, 
+	Dan Williams <djbw@kernel.org>, Kees Cook <kees@kernel.org>, linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] dca: fix provider device memory leak on domain
+ allocation failure
+Message-ID: <arFJeRFJdL-fwRmk@quoll>
+References: <20260919175925.3739806-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -45,23 +43,37 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260916073424.1971784-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260919175925.3739806-1-lgs201920130244@gmail.com>
 
 
-On Wed, 16 Sep 2026 07:34:24 +0000, Wentao Liang wrote:
-> In nfc_llcp_recv_ui(), nfc_llcp_sock_get() is called to find the bound
-> socket. If the socket type is not SOCK_DGRAM, the function returns
-> directly without releasing the socket reference via nfc_llcp_sock_put(),
-> resulting in a reference count leak.
+On Sun, 20 Sep 2026 01:59:24 +0800, Guangshuo Li wrote:
+> register_dca_provider() calls dca_sysfs_add_provider() before looking up
+> or allocating the DCA domain. A successful dca_sysfs_add_provider()
+> allocates an IDR entry and creates the dca%d class device.
 > 
-> Add nfc_llcp_sock_put() when the socket type is not SOCK_DGRAM.
+> If no domain exists and dca_allocate_domain() fails, the function
+> returns -ENODEV without calling dca_sysfs_remove_provider(). The class
+> device therefore remains registered and the IDR entry remains
+> allocated. The caller may subsequently free the dca_provider, leaving
+> the IDR entry pointing to freed memory.
 > 
-> Fixes: 968272bf0087 ("NFC: Handle LLCP UI frames")
+> Since the class device is never unregistered, its device reference is
+> not dropped and device_create_release() is never reached, leaking the
+> struct device allocation.
+> 
+> Call dca_sysfs_remove_provider() before returning when domain allocation
+> fails. This unregisters the class device and removes the corresponding
+> IDR entry.
+> 
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+> 
+> Fixes: 1a5aeeecd550 ("dca: registering requesters in multiple dca domains")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  net/nfc/llcp_core.c | 6 +++++-
->  1 file changed, 5 insertions(+), 1 deletion(-)
+>  drivers/dca/dca-core.c | 5 ++++-
+>  1 file changed, 4 insertions(+), 1 deletion(-)
 > 
 
 
