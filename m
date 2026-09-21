@@ -1,152 +1,221 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9A51F45DF49
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:36:27 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 85556453A3C
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:37:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789983389; cv=none; b=Pc0/HizjASu8G1WXAiAukyT9cMI3NvziuLRUu3AkWKKZJYyX4iKjht13hVqow40kXKARn8JMu+5+WWt8jU2Np5FCJnYOGPRvqzlgFvR8bS3qwdBAzQAyZ0dg1ORRzDrVG9F5o9SDDrwETuM1aePzvjHwwpw/raGaLqOr53K1su4=
+	t=1789983439; cv=none; b=dN3NMZzw5Wzb8IH3oHnTcKN0N8lYcKpqPIhW5MWVay5KkexNWD5Wg8nWuaYSxYkU2xiVLSgYV+48F3StY26UUmGFlMqcWXI4Pwcf/1UDiSQnOPLD27uOL6w9txPhGZkD7V6OAVzbOLBvVeC/VBBfYF2cXse1oDzJ2/ktRz+8bYI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789983389; c=relaxed/simple;
-	bh=GluV7HK5SQgSmRO4is6PpP6MTVEpkepOvyKtPfeMqwQ=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=Pw/mlXBPq26HnYkl8xhYdZigGnfM6TTA6ZZLR6NAsEHH3n7ZP5OdOGHDol6TjDsJ9zKOjWFu9ntYkGGvtvciQyhbrNPMaVw7q1cVdrdRKZbRvQr6AwhtRWWNafqG4m4k1Ykan5NQzoDbe0KhbKK5GZbU+a+jrgjRO5M0Ws/cilw=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=SVqAQ9a2; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=Ohzm9p5U; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	s=arc-20240116; t=1789983439; c=relaxed/simple;
+	bh=DjkeyF9FjUQU2PuvGj1DiBtxbzqamGHfh/avpU0E3Ag=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=pQyNhN6sH5gfFbRc8X1VF11uJNogHnM7RJX/2I7lvpMx67GwrR+ijr549Y5xty3/2FryMUCPmAqtCF76DgLLtQLdDeWRx/YXx98tuycWOVaj6dcRoITHbsCB4MEOgA6kTbGtZ6+YerxjKghuHMetI3JNW63Xp8KUZGOLcoJj6Hs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=K9P40Pi0; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="SVqAQ9a2";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="Ohzm9p5U"
-Received: from pps.filterd (m0279868.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68L7APBr371183
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:36:26 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	MjWi0f5HBUqKoCamo39fIuPiQh9wgKyBlAdXtwkyekY=; b=SVqAQ9a2ywFk47E/
-	fli1WmAaCtS7rb/0Not2n24hYbW6vR7IkuDvCAPCtASm/sL2e0OMz+dWSKqTUTX7
-	dwoMVMgx/aD0x1ThGHzekE6tdIlBtT4lIgAJCb/HYfvcxK0j23tXqdrzsCeGhRJp
-	yK31h+lu8LtRPUwk5BQc49iI2jQi75589EtK1NB+eq6ph5aVPapOOdQOJRHHbGK2
-	+iCXiJ9MIqvFhqHinaj8mETeMbbsgS6DE32rED9H+28N5j3KecvTguRfnKSFir7+
-	X3vOYR/lmJqBQ+bslra9rRu6otej98Z6dPwQGexOGS2wxjULHe7SAtj45Qi3m2h+
-	HRIumg==
-Received: from mail-qk1-f198.google.com (mail-qk1-f198.google.com [209.85.222.198])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gtwf5h52r-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:36:26 +0000 (GMT)
-Received: by mail-qk1-f198.google.com with SMTP id af79cd13be357-93821883e26so126740485a.2
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:36:26 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="K9P40Pi0"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747ed9866so25228305ad.2
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:37:17 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789983386; x=1790588186; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MjWi0f5HBUqKoCamo39fIuPiQh9wgKyBlAdXtwkyekY=;
-        b=Ohzm9p5U8ja+Kxg68C+ku/fBEvqJW7JXfxCpVK0IWr0l4seIZ53flOSj5Col8AHk7t
-         XaJNTc9nN9NF495M0W3SzJMPldAjkJFqpfGWiAjwZt9TCAPEEqyjKOljXECqIsF3alwk
-         DmE92o7Q3ZMT/42GQnu1lWe26gV436sTMVhZl1PH6uyVT7saCuPjYQ3yvAVMchjQUCTC
-         kb8vylS7YyTkLtU5TZBJxWK2Acy2ZRV4m5EIdU2MeXaCDm+DmsRqTR/BIwFYK20VdU2h
-         wZfrBRSSPZTf5qc5Prvw/R+RcMykieRSpSex6npwgAat3TKICfy2fPtaFrq7eiV2AUEK
-         8DtQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789983386; x=1790588186;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+        d=gmail.com; s=20251104; t=1789983437; x=1790588237; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=MjWi0f5HBUqKoCamo39fIuPiQh9wgKyBlAdXtwkyekY=;
-        b=Ph0RlkyTK6u8p9rMV00C+WOGgMLrvNiKUji1HERn4wsMd7bXvyzEwmAs4BUWtwRQ4u
-         uF+SEb7mYPOrT0cq+8paGV9KsJJdTZTgYssJLyyMyAXC4eyhapLbIzUWZ2CGrPpAaLqr
-         2ugF6zAfjShqe6jOyCLT2BLkgAc0EhilGjMvw2E/CSrvDSguv7Vw/xR1BkQqy0iA2swB
-         nxxkig9Rb69FaGuhT6CG4NfsmwL31nVQ+++3i4kmCH7YDDVrb+iQGSu0OMn6+2A8qYuR
-         SBokVS3lAhsL79+Cn2L0JYHsWywiiFGI6aa2vlZEtALx8mG0R6vZ0LT3nO1T/8GpdsbE
-         Abcg==
-X-Forwarded-Encrypted: i=1; AKwUvBx/ERo1N4EoqjBLQGIrALeg4+b9ZnLUSEXPzvnbg/MG1l/TFFKhs5I+5aSBY4m0WfnMXHuMdhI=@vger.kernel.org
-X-Gm-Message-State: AFuF++l5KM/jnpTK1LxtFdK7aT8GKZEa9kBmtWocw2hQQ8Elbl6bttqX
-	+jOZ6z4S44OcPjSg5p972IishGvXvBkyi1cW2S2VLnrx25iS+eWWXeUSaBF2K1DVANMK8YPc+nD
-	Wzjjpk1RE67sRGZ4TJapr7O4ZvvM09Hnbbdq+78h+OIygrnAeiQ0RkdfD6co=
-X-Gm-Gg: AYBFou0guA+Egi/GjWw8ta20SHrxoGuWjIggpo+snmDi0piMyQd+8vYSr7FYnFhb3GR
-	wGuuNnSyu8mAcTp6ktsiWQK04ooomgE1pEJ9kyhgsZZPmyL5KWg2V5KrPNK+Hw0t2y32tdMLdou
-	pxp9gVU7fsi37smXIKIx1nnKA9HpOZzMQmG/ss1q3rac98Digu/G1yEEdaWwcSQ78vexQvpWWPq
-	2XIoldBSvuha3mbTA8dnsHXsEQrAeagKOgo5oekxPxADbGHJUTbT2vENT/YA6jeQzAX23/r+m4d
-	bUXmPOjEOelL/G32L2UP+8BVsWNGpVqIDM5+PiEq8aoUCe3I69NdaEusKc/CluSUAIB3/FptYvj
-	ODuxYPFoExx86Z4PCgCzWXg==
-X-Received: by 2002:a05:620a:4592:b0:939:e9a3:3105 with SMTP id af79cd13be357-93bf58b5b11mr930987085a.6.1789983385865;
-        Mon, 21 Sep 2026 02:36:25 -0700 (PDT)
-X-Received: by 2002:a05:620a:4592:b0:939:e9a3:3105 with SMTP id af79cd13be357-93bf58b5b11mr930985185a.6.1789983385494;
-        Mon, 21 Sep 2026 02:36:25 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67c71c59sm3980947a12.1.2026.09.21.02.36.23
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 02:36:24 -0700 (PDT)
-Message-ID: <848e13a2-e80c-42cf-845c-0c04a4547975@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 11:36:22 +0200
+        bh=SZkGOV2v3EKiVxv0iFZpEgc+uW9SwmXctAKdDjSSr1c=;
+        b=K9P40Pi0eQ/fxU240CR6GvK9OZfm+UBn7nPK1p5ecpXez44DHlrfB1wqUPnozzGkVb
+         qjFKWsFFRRDDu/CUBUatVrxxb9gAXvPydoZGRJUxV10o/345G3FmJKMsjNyEW+lZw/WA
+         I02MIJ/jigjZH/4hLicIxt4JeN9tiJEqEdsIXQn8dl353F4FJGga9Vr7aaNwvy4xv+nZ
+         03yY4N8hktNN+krX9raT3L6gueLVJuF5xEc+j4qu3G7KoKkJjjGX0NbyoYmZWqP1sI8n
+         W1RYeek0BfxTPSr4PRn8iwpEV21IMuR1Tk/0ksX6MNnN9Bkm4xxJKBx1ZpOBFCf30dUw
+         J+rg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789983437; x=1790588237;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=SZkGOV2v3EKiVxv0iFZpEgc+uW9SwmXctAKdDjSSr1c=;
+        b=NYCYSwZwVb8gwIva2jWIF0gZCKci7+IrqN9J21lOSj1xaAJMlYvAhaRvnA+eOuYqCL
+         csqikFN7vS8Oq12kNrcpDnUAHpEq6q2TsMbU0Kiek/0ouTk2zhZpSQ0Moz3WrRdEu0HI
+         ErkNKm5322+3cVEEr4q9K+RSfQqFiqeF/Y50NHW9cYm8x1O8VTct3r8vN5yHYEjjrcdP
+         K2yJzZbZEFyR3KnI6cWgR6VlGsVvWNBgjem1N8CotY3H2JUj7IvO6h6StuSOQnE1+ndw
+         mj6comEzWCK9l9V7dz7eVD0BPFVY+HjYW8/dhd7Uuriv903cJEJSdIOxDfc62/5Or4L7
+         HDZQ==
+X-Forwarded-Encrypted: i=1; AKwUvBxVGRpcAeMovb0TXhro0Fe4Ny/fqxXVeZMcead1+FFH4ycrCzO3xArfkxGwiLFROc+QoyQFRIM=@vger.kernel.org
+X-Gm-Message-State: AFuF++kNiHTsLZ6Kskji9+ZtyK2pbGCR4OH4/pfNM1EMFw/+AVzcdSbE
+	zrlqMn0vaYPc/NliluB2A/WOcCS+EDqMTLm2kqUUjIwQVK2fPZOWaNhN
+X-Gm-Gg: AYBFou2Is2Ut0ouHw9LSnSG3u7pKI/ZGwJgMRaJV3e/bIsT9azJgTv7Y248LT+kuUDN
+	SqQc3YEt9IGo5/vIqVgxSV67jKpu1wj3Bc4u+xUu74zmIx0dw8PQvEu6xxKEZYRF92iLgpToxAh
+	khCsKDzlQ9bXjwThIztS/LeWUUyiPMk0/yeQtf87eXdnhHit9O3O0G5MNvM8GccSXNoV7mbZx3E
+	xBGbvTIAKKiTIa5Ho8bVcX48auqlMwdPAXjuM+YV89LfpPm1xQmdN2yiWUQ7sflRV2ZCcjXG4xW
+	/CDVG118ShK3AjGFP8w68NKhRJKv9VV010gBax1MK9vMHwoIb3egnRXiCDE282EbKc/EAqebgMN
+	IyOBmFWSqXOMaqgkjwla/x8az7q++d6cECEQytSnvVLg+OwayWEUt9Y16EetD0gPP6QK1ZeQ5ac
+	o29DOevW0d/nxK6X3L7+hK1UAMGwuqfb6OFZmUmmast22TaVxDQueS3gyqyNU8ueE/zep/MNr1g
+	efqGEQjUPPEedaWgkOj+jHMWPdOAmApcddE
+X-Received: by 2002:a17:903:2f4c:b0:2dd:c170:2d4d with SMTP id d9443c01a7336-2ddc17034demr99894695ad.24.1789983436470;
+        Mon, 21 Sep 2026 02:37:16 -0700 (PDT)
+Received: from localhost.localdomain ([117.88.121.70])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2df52383751sm3496445ad.9.2026.09.21.02.37.13
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 02:37:15 -0700 (PDT)
+From: Aohan Mei <ljp1205831794@gmail.com>
+To: netdev@vger.kernel.org
+Cc: linux-sctp@vger.kernel.org,
+	marcelo.leitner@gmail.com,
+	lucien.xin@gmail.com,
+	imv4bel@gmail.com,
+	Aohan Mei <henrymei@tencent.com>,
+	TencentOS Corvus AI <corvus@tencent.com>,
+	stable@vger.kernel.org
+Subject: [PATCH net v2] sctp: discard the rest of the packet on a stale-cookie error
+Date: Mon, 21 Sep 2026 17:37:04 +0800
+Message-ID: <20260921093707.1432184-1-ljp1205831794@gmail.com>
+X-Mailer: git-send-email 2.43.7
+In-Reply-To: <CADvbK_eQjfg_-HLT3zJ5Bt5LWbUTx_+fLG5ggLPNY1Ah+sF9GA@mail.gmail.com>
+References: <CADvbK_eQjfg_-HLT3zJ5Bt5LWbUTx_+fLG5ggLPNY1Ah+sF9GA@mail.gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH 6.12 0766/1376] arm64: dts: qcom: sc8180x: Fix the PCIe
- iommu-map entries
-To: Sasha Levin <sashal@kernel.org>,
-        Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
-        stable@vger.kernel.org
-Cc: patches@lists.linux.dev,
-        Manivannan Sadhasivam <manivannan.sadhasivam@oss.qualcomm.com>,
-        Dmitry Baryshkov <dmitry.baryshkov@oss.qualcomm.com>,
-        Bjorn Andersson <andersson@kernel.org>,
-        Vegard Nossum <vegard.nossum@oracle.com>,
-        Harshit Mogalapalli <harshit.m.mogalapalli@oracle.com>
-References: <cc43fb43-b6cd-4d60-b077-5fdf7918cf8a@oracle.com>
- <daily-reply-20260916-0006-re-qcom-pcie-iommu-map@kernel.org>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <daily-reply-20260916-0006-re-qcom-pcie-iommu-map@kernel.org>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Authority-Analysis: v=2.4 cv=SJLXx+vH c=1 sm=1 tr=0 ts=6ab0fa9a cx=c_pps
- a=qKBjSQ1v91RyAK45QCPf5w==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=ZpdpYltYx_vBUK5n70dp:22
- a=FNc6Hk1cw1V3EZpLb8AA:9 a=QEXdDO2ut3YA:10 a=NFOGd7dJGGMPyQGDc5-O:22
-X-Proofpoint-GUID: 1BVWL9Al11C-xwG7ldIrup9-ajizDOgr
-X-Proofpoint-ORIG-GUID: 1BVWL9Al11C-xwG7ldIrup9-ajizDOgr
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfXzEB+J5RPPDGV
- KCY8/zHHsbdUWJbWhw/dCRr5XxRoPiRFxdf4qgWdthuuPauu7Tt9FdW2aSKHrrP9MQhor5j8S1g
- 2ujcV+dmOEVhJoPOBkC5ZSf69/Bepks=
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDEzNiBTYWx0ZWRfXy4GSwfqimrSi
- E4XKIQCK77U7XwOEofzsc06j6WbK+AlGponL+69FU6qpXLmCvOai6ODg0xXx4gCJfMWaGWPaEjN
- /N/RH14yz1Xz0iSmxwR/gGhMdzmrEEN4gkK5d8eLKToaFHWycem7X78upExPbRaIhfzuj4/l0Gi
- 9gaYFhdfkIHJM/4bb5WZFToHEeh25FoSHVZvlh8v7HAE9L88BD2YNMHsWHHpubyKlXfypBMyw6y
- VrSo80cLYvxl/gJ8lMfYKRQkCOiNgGEig02FhrXTamyOFA2+bQzbDQorm6xsO7JgMpR32igE3tk
- 4hJVGcnNBr8Fo7TIfJcO874UlbLf3DwwZtfGefhISwt5jMZVjQrzzqbLQAN3ZJuttSPieVnon4z
- RMiYLRsfTBt4jCRbiyLRTuPRo8rCeAIw+5CBRjAbh4fOVzJX/CLdxvakHbOAoTIXGwrpRg+8QF9
- ++MnQ6atvQTrQZfJ/pw==
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_03,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- lowpriorityscore=0 priorityscore=1501 impostorscore=0 suspectscore=0
- malwarescore=0 adultscore=0 clxscore=1015 bulkscore=0 spamscore=0
- phishscore=0 classifier=typeunknown authscore=0 authtc= authcc=
- route=outbound adjust=0 reason=mlx scancount=1 engine=8.22.0-2609040000
- definitions=main-2609210136
+Content-Transfer-Encoding: 8bit
 
-On 9/16/26 9:27 PM, Sasha Levin wrote:
->> Upstream has the variable-cell parser and its API preparation series,
->> including ccb2fd725d411265df8f7ce12a66c226b16014e6. That broad series is
->> absent here.
-> 
-> Agreed, and Konrad asked for the whole family to come out of every tree that
-> lacks ccb2fd725d41 ("of: Respect #{iommu,msi}-cells in maps").
-> 
-> Reverted across 6.18, 6.12, 6.6 and 6.1, 35 commits in total. 7.2 has the
-> parser, so it keeps them. The msi-map siblings stay as they are.
+From: Aohan Mei <henrymei@tencent.com>
 
-I think the updated msi-maps parsing would be broken without that
-commit too, no?
+When an association is in COOKIE-ECHOED state and the peer sends a
+bundled [ERROR(Stale Cookie)][DATA] packet from one of its non-primary
+addresses, processing the ERROR chunk takes the non-fatal stale-cookie
+retry path sctp_sf_do_5_2_6_stale(), which queues
+SCTP_CMD_DEL_NON_PRIMARY while keeping the association alive.
+sctp_cmd_del_non_primary() removes every non-primary transport -
+including the very transport this packet arrived on, which is still
+referenced by the receive lookup and shared by all chunks of the
+packet via chunk->transport.
 
-Konrad
+sctp_assoc_rm_peer() does redirect asoc->peer.last_data_from away from
+the removed transport, but right afterwards the bundled DATA chunk
+makes sctp_assoc_bh_rcv() re-register
+asoc->peer.last_data_from = chunk->transport unconditionally, undoing
+the redirection with the just-removed transport.
+
+Once the packet is done, the receive reference is dropped and the
+transport is RCU-freed, while the surviving association keeps the
+dangling last_data_from.  A later FWD-TSN (or the delayed SACK timer)
+makes sctp_gen_sack() dereference it (->param_flags and friends), and
+sctp_make_sack()/sctp_outq_select_transport() may write to the freed
+object and link it into the live transport list.  This is a
+use-after-free triggerable by any malicious SCTP peer (or a local
+unprivileged user acting as one) with no capabilities required:
+
+  BUG: KASAN: slab-use-after-free in sctp_do_sm+0x498a/0x5660
+  Read of size 4 at addr ffff88800e1e356c by task poc/115
+  Call Trace: sctp_do_sm <- sctp_assoc_bh_rcv <- sctp_inq_push <-
+              sctp_rcv <- ip_protocol_deliver_rcu <- ip_rcv
+  Allocated: sctp_transport_new <- sctp_assoc_add_peer <-
+             sctp_process_init (INIT-ACK processing)
+  Freed: kfree <- sctp_transport_destroy_rcu <- rcu_core
+         (call_rcu queued by sctp_transport_put at end of sctp_rcv)
+  The buggy address is located 364 bytes inside of freed 1024-byte
+  region [ffff88800e1e3400, ffff88800e1e3800), cache kmalloc-1k
+
+Note that commit 03a9d10ecf71 ("sctp: drop a chunk if its transport
+was removed") only covers the window between the receive lookup and
+the chunk processing (e.g. an ASCONF DEL-IP racing the socket backlog);
+here the transport is removed *while* the packet is being processed,
+by an earlier chunk of the same packet, so the drop in sctp_inq_push()
+does not reach this path.  Verified with the bundled [ERROR(Stale
+Cookie)][DATA] + FWD-TSN reproducer: the KASAN report above still
+fires with that commit applied, and is gone with this patch on top.
+
+Fix it by discarding the rest of the packet on this path, as suggested
+by Xin.  After the stale-cookie ERROR has sent the association back to
+COOKIE-WAIT and removed the non-primary transports, the remaining
+chunks of the packet can only run against the restarted handshake
+while referencing the removed arrival transport through
+chunk->transport: besides the last_data_from registration above,
+sctp_cmd_setup_t2() and the sctp_make_*() reply builders would also
+copy that pointer into association-lifetime state that
+sctp_assoc_rm_peer() has already sanitized.  Let the peer retransmit
+them, in line with what sctp_inq_push() does for chunks whose
+transport was removed before processing.
+
+Fixes: 1da177e4c3f4 ("Linux-2.6.12-rc2")
+Suggested-by: Xin Long <lucien.xin@gmail.com>
+Reported-by: TencentOS Corvus AI <corvus@tencent.com>
+Cc: stable@vger.kernel.org
+Assisted-by: CodeBuddy:Kimi-K3
+Signed-off-by: Aohan Mei <henrymei@tencent.com>
+---
+
+Hi Xin,
+
+Thanks a lot for the review and the suggestion.  Implemented in v2:
+SCTP_CMD_DISCARD_PACKET queued at the end of the stale-cookie retry.
+
+Verified with the reproducer: the kprobe trace now shows the ERROR
+chunk still removing the transport (sctp_assoc_rm_peer/
+sctp_transport_free fire as before) but no further chunk of the packet
+being processed, and asoc->peer.last_data_from keeps the redirection
+done by sctp_assoc_rm_peer().  The KASAN use-after-free is gone and
+the association completes the retry handshake normally.
+
+This also takes care of the other same-packet sinks the sashiko review
+pointed out (sctp_cmd_setup_t2() and the sctp_make_*() reply chunks
+copying chunk->transport into association-lifetime state): the
+remaining chunks are now dropped before they can run, in line with
+what sctp_inq_push() does for chunks whose transport was removed
+before processing.
+
+Regarding the cookie-echo restart path the review mentioned
+(sctp_assoc_update() removing the arrival transport mid-packet, with a
+bundled [COOKIE ECHO][SHUTDOWN] reaching SCTP_CMD_SETUP_T2): discarding
+the packet does not look like an option there, as bundling DATA with
+COOKIE-ECHO is a legitimate fast path.  I can look into clearing the
+in-progress chunk's transport on removal, or a loop-level check, as a
+follow-up - please let me know if you'd rather have it handled here.
+
+On the bitfield concern: v2 no longer reads transport->dead at all.
+The race described (sctp_icmp_frag_needed() in softirq doing a
+non-atomic read-modify-write of pmtu_pending racing dead = 1) would
+also defeat the existing transport->dead check in sctp_inq_push() from
+03a9d10ecf71, so it might be worth moving that flag into its own word
+separately.
+
+As for the reproducer: it is a single static binary that plays both
+roles over a TUN device - the victim side is a plain SCTP client
+socket, while the peer side answers the INIT-ACK advertising a primary
+and a non-primary address plus FWD-TSN support, injects the bundled
+[ERROR(Stale Cookie)][DATA] from the non-primary address while the
+association is COOKIE-ECHOED, completes the retry handshake, and sends
+an FWD-TSN one second later to consume the dangling pointer.  It was
+verified on tlinux 6.6.119 and on mainline v7.2-rc6-343, where it
+still fires with 03a9d10ecf71f applied and is clean with this patch on
+top.
+
+Since it is a ready-to-run trigger for the bug, I'd prefer not to post
+it to the public list - would it be OK if I send it to you and Marcelo
+off-list instead?  Happy to share it in whatever way you prefer.
+
+Thanks again!
+
+ net/sctp/sm_statefuns.c | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/net/sctp/sm_statefuns.c b/net/sctp/sm_statefuns.c
+index 708fa07d5fffc..43ebceb5e15f5 100644
+--- a/net/sctp/sm_statefuns.c
++++ b/net/sctp/sm_statefuns.c
+@@ -2654,6 +2654,8 @@ static enum sctp_disposition sctp_sf_do_5_2_6_stale(
+ 
+ 	sctp_add_cmd_sf(commands, SCTP_CMD_REPLY, SCTP_CHUNK(reply));
+ 
++	sctp_add_cmd_sf(commands, SCTP_CMD_DISCARD_PACKET, SCTP_NULL());
++
+ 	return SCTP_DISPOSITION_CONSUME;
+ 
+ nomem:
+-- 
+2.43.7
+
