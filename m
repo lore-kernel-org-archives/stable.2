@@ -1,154 +1,154 @@
-Received: from mailgw.kylinos.cn (mailgw.kylinos.cn [124.126.103.232])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A97CB356770;
-	Mon, 21 Sep 2026 09:19:20 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=124.126.103.232
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 20929469837;
+	Mon, 21 Sep 2026 09:19:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789982363; cv=none; b=od+3IJxCOcgGhUuWDh5TL/PqZg/omvldqCtaHfRcSEi6iVgoPCbHmeQSVJiVvNpgXF/oSB6UYIic3ZeS2I3r1ZZefBeaNq5bN6lOBpX72TDPP+AFDvescfh9Qvk2LBCrdcvMh2oCOARvx11n7x2NimxBRxxxBvfFxzXLdoWf7as=
+	t=1789982380; cv=none; b=Vmp69MglP+gjRtMygtWyeWTYNkZHg8IiI0qVMBzCgfCLQHQrfkqddUFjyDXloJcEc7KxVd3FMSw0zM9Sq0A6qDGx7jOO4ckH3p27Fe72KIl1t4/eYHs30v1iCY2TkchGYlO5bPnJXPQwneAc8dXCWc2cjIrfV6Ex6/gyNoi69y8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789982363; c=relaxed/simple;
-	bh=ctfvrvRjDpF89isT+CxLZERwvBw6D/dw41TbnIBBu7s=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=e61lj44rjFspATf8UtXAB88vqe9IDeZPwDTxaS1IVYA+lvYVCbGRgSB3+eJeOwgf5/6Ok+8EtZliLNK8H2KPtBMQcldU5GlPfTZawvCZpSd6Nkyms5LHxQG9ievDZ6PiZe6QFvdQHUJ5zmljyYDgva7Srr+9ObVqjyLATiCo7Z8=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn; spf=pass smtp.mailfrom=kylinos.cn; arc=none smtp.client-ip=124.126.103.232
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=kylinos.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=kylinos.cn
-X-UUID: 823dbe18b59d11f19a56ed5b684f684d-20260921
-X-CID-P-RULE: Release_Ham
-X-CID-O-INFO: VERSION:1.3.19,REQID:7b8cc3ee-ffd5-4894-bb14-804e282dd169,IP:0,U
-	RL:0,TC:0,Content:0,EDM:0,RT:0,SF:0,FILE:0,BULK:0,RULE:Release_Ham,ACTION:
-	release,TS:0
-X-CID-META: VersionHash:7db8b62,CLOUDID:c7d613d328ca9ba688807c2619c03747,BulkI
-	D:nil,BulkQuantity:0,SF:102|136|850|865|898,TC:nil,Content:0|15|50|99,EDM:
-	-3|-100,IP:nil,URL:0,File:nil,RT:nil,Bulk:nil,QS:nil,BEC:nil,COL:0,OSI:0,O
-	SA:0,AV:0,LES:1,SPR:NO,DKR:0,DKP:0,BRR:0,BRE:0,ARC:0
-X-CID-BVR: 2,SSN|SDN
-X-CID-BAS: 2,SSN|SDN,0,_
-X-CID-FACTOR: TF_CID_SPAM_SNR
-X-CID-RHF: D41D8CD98F00B204E9800998ECF8427E
-X-UUID: 823dbe18b59d11f19a56ed5b684f684d-20260921
-X-User: zenghongling@kylinos.cn
-Received: from localhost.localdomain [(10.44.16.150)] by mailgw.kylinos.cn
-	(envelope-from <zenghongling@kylinos.cn>)
-	(Generic MTA with TLSv1.3 TLS_AES_256_GCM_SHA384 256/256)
-	with ESMTP id 1870055999; Mon, 21 Sep 2026 17:19:12 +0800
-From: Hongling Zeng <zenghongling@kylinos.cn>
-To: linkinjeon@kernel.org,
-	hyc.lee@gmail.com
-Cc: ntfs@lists.linux.dev,
-	linux-kernel@vger.kernel.org,
-	zhongling0719@126.com,
-	Hongling Zeng <zenghongling@kylinos.cn>,
-	stable@vger.kernel.org,
-	Baolin Liu <liubaolin@kylinos.cn>
-Subject: [PATCH v6] ntfs: mount hibernated volumes read-only regardless of errors=
-Date: Mon, 21 Sep 2026 17:19:07 +0800
-Message-Id: <20260921091907.1491879-1-zenghongling@kylinos.cn>
-X-Mailer: git-send-email 2.25.1
+	s=arc-20240116; t=1789982380; c=relaxed/simple;
+	bh=YxoAtJmtJoYp3R5q6jTWFwiDOAXdC+pGbzfKbAKrZrw=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=nv6YutSmDwiZ+iromeRD4vKXbLsrF+u6sa3jWaO02qzAKqVoo+l3GfDQPqk4zV31F24x/sdl/F4DJ0B6egPnBZLccIs6teXtICneDrLYBNB7B4Nt6fYk2ASmAsdrznPWtWf2YIp2Mf013dYpVXMCP4VabIK0OzjsCagiGF9U2u4=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=hDj5yjd6; arc=none smtp.client-ip=100.103.45.18
+Authentication-Results: smtp.subspace.kernel.org;
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="hDj5yjd6"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id EFFD91F000FF;
+	Mon, 21 Sep 2026 09:19:38 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1789982379;
+	bh=MlsIXahdFvTNjjm1sP2TXecvRs5IS3of5WXLVkf2uP8=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=hDj5yjd6dvGXj1tKDvl1qz/ItJLGwMWPc3l1ZnkkZFYelM14woiMpeWSji2NjiunB
+	 eNFZbZMZtDSNqazOLI9ryVZgZ4W4Hia+3civ28gavWN0UnPZiU/Zk1C3tBhguzuxp9
+	 1/YFBAvK2jjrExP/cwcmdDdDgqCrnrElAN020aY+uysQ/X0wfF7DfDZTRS1C9FMRAl
+	 /aS4h2Id8UIh4n2tkDjnZCjz4Vmh8v5j+lealwGiuUA37KZ6Reqk5Xqlti2uvcEyxT
+	 g6eGQD7gHhQHwn0fDTVo9BvhuPb5kcTo7ItdQzg6OhYZ8i6UvqQaLyhQbJ/jQJ1q/y
+	 nD/FBZRMkxISQ==
+Date: Mon, 21 Sep 2026 02:19:38 -0700
+From: Kees Cook <kees@kernel.org>
+To: Hui Peng <benquike@gmail.com>
+Cc: Andy Lutomirski <luto@amacapital.net>, Will Drewry <wad@chromium.org>,
+	Shuah Khan <shuah@kernel.org>,
+	Bradley Morgan <brads@mainlining.org>,
+	Lorenzo Stoakes <ljs@kernel.org>, linux-kernel@vger.kernel.org,
+	linux-kselftest@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v4] seccomp: restore knotif->state when
+ SECCOMP_ADDFD_FLAG_SEND is interrupted
+Message-ID: <202609210158.F3D96F157@keescook>
+References: <A3F8F45D-3B9B-4E52-B076-7924FF3AF360@mainlining.org>
+ <20260920185910.3307638-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260920185910.3307638-1-benquike@gmail.com>
 
-The hibernation check in load_system_files() only converts the
-superblock to read-only under errors=remount-ro.  With the default
-errors=continue (and with errors=panic), a hibernated volume is
-mounted read-write and the mount-time $LogFile emptying writes to it,
-although a hibernated volume must not be written to at all.
+On Sun, Sep 20, 2026 at 06:59:10PM +0000, Hui Peng wrote:
+> Fix this by restoring knotif->state back to SECCOMP_NOTIFY_SENT if
+> SECCOMP_ADDFD_FLAG_SEND was set and kaddfd was not consumed before the
+> interrupted wait. Also add a seccomp_bpf selftest
+> (user_notification_addfd_send_interrupted) covering this race.
 
-Drop the on_errors term so that a hibernated volume, or a volume whose
-hibernation state cannot be determined, always mounts read-only.
-NVolErrors() is still recorded, so ntfs_reconfigure() keeps refusing
-remounts to read-write, and the $LogFile emptying is skipped by its
-!sb_rdonly() check.
+Yeah, this fix is the same restoration logic as seccomp_notify_recv()
+uses (although that may actually need "if (state == SECCOMP_NOTIFY_SENT) ..."
+added). It does make it clear there is a missing state in the state
+machine. SECCOMP_NOTIFY_REPLIES means both "A reply is reserved" and
+"A reply has been delivered". But the hidden state is maintained:
+"REPLIED + queued ADDFD+SEND" == in flight, and "REPLIED + no queued
+addfd" == delivered.
 
-The check itself must not apply the errors= policy either: it runs
-before SB_RDONLY is set, and ntfs_lookup_inode_by_name() and ntfs_iget()
-call ntfs_error() internally on corruption or I/O errors, which under
-errors=panic would panic the machine before the read-only fallback has
-made its decision.  Temporarily substitute errors=remount-ro for
-errors=panic around the check: nested ntfs_error() calls then fall
-back to read-only, and any read-only transition they trigger is
-preserved even when the error is not propagated to the check's return
-value or recorded in NVolErrors().  This is safe during initial mount,
-before the super block is published.
+Thank you for the selftest addition, the sched trick is nice!
 
-If the check reports hibernation or fails, set SB_RDONLY and record
-NVolErrors() unconditionally: hibernation safety takes precedence over
-the errors= policy.  A volume with errors recorded during the check or
-earlier in the mount, e.g. when loading the LogFile, also stays
-read-only, matching what ntfs_reconfigure() enforces for remounts.
+> Tested in QEMU against Linux 7.3.0-rc3 by exercising kernel/seccomp.c
+> and verifying the fix with KASAN enabled.
 
-Fixes: 6251f0b0de7d ("ntfs: update super block operations")
-Cc: stable@vger.kernel.org
-Suggested-by: Baolin Liu <liubaolin@kylinos.cn>
-Signed-off-by: Hongling Zeng <zenghongling@kylinos.cn>
----
-Change in v6:
- - Temporarily substitute errors=remount-ro for errors=panic during
-   the hibernation check.  ntfs_error() does not always set
-   NVolErrors(), so the v5 restore condition could re-enable write
-   access after a real error.
----
- fs/ntfs/super.c | 25 ++++++++++++++++++++-----
- 1 file changed, 20 insertions(+), 5 deletions(-)
+I've verified this now too. It's kind of a ugly problem because unlucky
+timing makes it look like the returned fd is fd 0. :(
 
-diff --git a/fs/ntfs/super.c b/fs/ntfs/super.c
-index f4a73e45773d..da2c8f310a7f 100644
---- a/fs/ntfs/super.c
-+++ b/fs/ntfs/super.c
-@@ -1398,6 +1398,7 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	struct ntfs_attr_search_ctx *ctx;
- 	struct restart_page_header *rp;
- 	int err;
-+	u8 saved_on_errors;
- 
- 	ntfs_debug("Entering.");
- 	/* Get mft mirror inode compare the contents of $MFT and $MFTMirr. */
-@@ -1572,8 +1573,19 @@ static bool load_system_files(struct ntfs_volume *vol)
- 	 * NVolErrors() without setting the dirty volume flag and mount
- 	 * read-only.  This will prevent read-write remounting and it will also
- 	 * prevent all writes.
-+	 *
-+	 * Nested lookup and inode-loading errors must not panic before the
-+	 * read-only fallback has run.  Temporarily use errors=remount-ro
-+	 * instead of errors=panic, preserving any read-only transition even
-+	 * if an error is not propagated to the check's return value or
-+	 * recorded in NVolErrors().  This is safe during initial mount,
-+	 * before the super block is published.
- 	 */
-+	saved_on_errors = vol->on_errors;
-+	if (saved_on_errors == ON_ERRORS_PANIC)
-+		vol->on_errors = ON_ERRORS_REMOUNT_RO;
- 	err = check_windows_hibernation_status(vol);
-+	vol->on_errors = saved_on_errors;
- 	if (unlikely(err)) {
- 		static const char *es1a = "Failed to determine if Windows is hibernated";
- 		static const char *es1b = "Windows is hibernated";
-@@ -1581,12 +1593,15 @@ static bool load_system_files(struct ntfs_volume *vol)
- 		const char *es1;
- 
- 		es1 = err < 0 ? es1a : es1b;
--		/* If a read-write mount, convert it to a read-only mount. */
--		if (!sb_rdonly(sb) && vol->on_errors == ON_ERRORS_REMOUNT_RO) {
--			sb->s_flags |= SB_RDONLY;
--			ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
--		}
-+		/* Hibernation safety takes precedence over the errors= policy. */
-+		sb->s_flags |= SB_RDONLY;
- 		NVolSetErrors(vol);
-+		ntfs_error(sb, "%s.  Mounting read-only%s", es1, es2);
-+	} else if (!sb_rdonly(sb) && NVolErrors(vol)) {
-+		/* Match the read-write remount restriction for recorded errors. */
-+		sb->s_flags |= SB_RDONLY;
-+		ntfs_error(sb,
-+			   "Errors were recorded during mount.  Mounting read-only.  Run chkdsk.");
- 	}
- 
- 	/* If (still) a read-write mount, empty the logfile. */
+> [...]
+> +	/*
+> +	 * Demote the tracee to SCHED_IDLE and promote the supervisor to
+> +	 * SCHED_FIFO(99) on the same CPU.
+> +	 */
+> +	sched_setscheduler(pid, SCHED_IDLE, &sp_tracee_idle);
+
+Unchecked return value?
+
+> +	if (sched_setscheduler(0, SCHED_FIFO, &sp_supervisor_fifo) != 0) {
+> +		close(listener);
+> +		close(memfd);
+> +		kill(pid, SIGKILL);
+> +		waitpid(pid, NULL, 0);
+> +		SKIP(return, "SCHED_FIFO requires CAP_SYS_NICE");
+> +	}
+
+Instead of this you may want to look at FIXTURE_TEARDOWN to clean up
+(though it's not strictly needed since the harness is run in a
+subprocess so all these go away on test exit). The one thing that might
+be worth doing is making sure sched_setscheduler(0, SCHED_OTHER, ...)
+happens ASAP or the test could block everything on a single CPU
+machine/VM/CI.
+
+> [...]
+> +	sig_pid = fork();
+> +	ASSERT_GE(sig_pid, 0);
+> +	if (sig_pid == 0) {
+> +		sched_setscheduler(0, SCHED_FIFO, &sp_sig_helper_fifo);
+
+Missed return value check here too.
+
+> +		kill(parent_pid, SIGUSR1);
+> +		_exit(0);
+> +	}
+> +
+> +	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), -1);
+> +	EXPECT_EQ(errno, EINTR);
+> +	EXPECT_EQ(waitpid(sig_pid, &status, 0), sig_pid);
+> +
+> +	/*
+> +	 * Restore normal scheduling and sleep briefly so the woken tracee
+> +	 * runs in do_user_notif(). With knotif->state restored to
+> +	 * SECCOMP_NOTIFY_SENT, the tracee must loop back to sleep waiting for
+> +	 * the notification reply rather than returning 0 from __NR_getppid.
+> +	 */
+> +	sched_setscheduler(0, SCHED_OTHER, &sp_tracee_idle);
+> +	sched_setscheduler(pid, SCHED_OTHER, &sp_tracee_idle);
+
+Need to check these too...
+
+> +	nanosleep(&delay, NULL);
+> +
+> +	/*
+> +	 * Retry SECCOMP_IOCTL_NOTIF_ADDFD. Because knotif->state is
+> +	 * SECCOMP_NOTIFY_SENT, the retry succeeds (returns 42) instead of
+> +	 * failing with -EINPROGRESS, installs FD 42 into the tracee, and wakes
+> +	 * the tracee to complete the syscall with return value 42.
+> +	 */
+> +	EXPECT_EQ(ioctl(listener, SECCOMP_IOCTL_NOTIF_ADDFD, &addfd), 42);
+> +
+> +	EXPECT_EQ(waitpid(pid, &status, 0), pid);
+> +	EXPECT_EQ(true, WIFEXITED(status));
+> +	EXPECT_EQ(0, WEXITSTATUS(status));
+> +
+> +	close(listener);
+> +	close(memfd);
+> +}
+> +
+>  #ifndef SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP
+>  #define SECCOMP_USER_NOTIF_FD_SYNC_WAKE_UP (1UL << 0)
+>  #define SECCOMP_IOCTL_NOTIF_SET_FLAGS  SECCOMP_IOW(4, __u64)
+> -- 
+> 2.49.0
+
+Thank you for the test, it really helps see the shape of the issue.
+
+-Kees
+
 -- 
-2.25.1
-
+Kees Cook
