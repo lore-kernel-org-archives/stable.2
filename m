@@ -1,139 +1,154 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+Received: from mail-wm2-f13.google.com (mail-wm2-f13.google.com [74.125.225.141])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A756D45D5F5
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:08:21 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E4DB645D5F5
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 09:09:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.225.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789981702; cv=none; b=PHBE1YKG53xJ+Y2dbEmC/RuGacctt02fvjlnnXU3rzVr4LH70k5StdMjKWClvD86yajdzrl/9axYplJFI7MzuMjHF5k+L9XS4TOmHJALlHmlJwYUEGrhGvpQg6IFn/6w5dmN4XFtIIE5auf5czxxXH4Dpl+n00oKNt1nz96EbNc=
+	t=1789981745; cv=none; b=DwwAG4fWl+aKY12oGKrCA+nQ8pymfblm6KZxpAf7p5LKI37Xru9jll2Tgk7N0ewrwIwEMlitNW9NfWloqvCFjt1+n2oJOnGJ4O9FynBgQBm9dQ8/IXyLd745C2vADrJmJm6IEk5Mr2UU3cvcqEv6eIudHq2wc//UuvVQyPECOi8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789981702; c=relaxed/simple;
-	bh=N0b8EmSEWVJczB6H2qZwDcYiZkDK6GT7hkNKj4yRWHQ=;
-	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=AeAYh2YWnoXvSUEtDtHdpmRIiuWU5h3NWaGDk9gXfjHQervupeb2k1z+exuMBbafCt9sUu+0siIoZSp7qBpQ1gPnLIvHCsWzjiMy08SeLjHptnLnqKJPNbpWwrbqHebRXBS4Ya/PSVI+YKsKVPD2YbXTuBcYTlJCY4zlkdFpJvU=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=CVjPJbQH; arc=none smtp.client-ip=74.125.227.141
+	s=arc-20240116; t=1789981745; c=relaxed/simple;
+	bh=SBPNKt21pg+g6fDAxFgLSyTyhC1gJ7gWZdrt1RHNvd8=;
+	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=u4Z3bGTa8itzFZ+7pYjPHXuXxnxcGXUX1aJkvPsfY8chviqmjyTDTmrpALJQ3iFxEAofDD3xC1wBUi+r/ZCvEP4zb8OuAj9p+mnoJ1NIDmzfNMwxYwLSrD04m1CVjoOhrMvHrxw6HANur4YMOui4n6ugKk3v2mjDPRjLzMKIgmI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Jm+/X7EP; arc=none smtp.client-ip=74.125.225.141
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="CVjPJbQH"
-Received: by mail-pj2-f13.google.com with SMTP id 98e67ed59e1d1-39dacf053eeso1934592a91.2
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:08:21 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Jm+/X7EP"
+Received: by mail-wm2-f13.google.com with SMTP id 5b1f17b1804b1-49e6c0fce17so13612885e9.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 02:09:02 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789981701; x=1790586501; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
-        bh=kZfNRDAZYMOe8/raf1+kfme6bgo4XiPP5kMyL6mrkfE=;
-        b=CVjPJbQHI+RkMEXTuT5a+DoQVzH+g5w+QFeJmSjx/uyon15H6xcOm4xetV5ybkX97N
-         7mOt4IcCP8PthhpahSMIf5mtPacJtdPLqe5rHkQPMVmlUn+oST85xI83poRv5ARtTi0o
-         OeJ+X/Ij+1tUnW71s6a7EHjbhcIchBbwJJhA1btukNGs9PKt8KF/xQD2RnRLfOXodERK
-         y69g/8KPbeIJ3Ul8AA7gRptOnjy6XtsjzwKua6Ji4U1gGuFXWj6cmRWBwUeAz3RJwK0V
-         cg5Y3NPRow0MwUTX/7D+1Sio6M78anLw2ukQTNYZeHK30kA6dj87THPx/1WI/O3GU8Dl
-         Gi6Q==
+        d=gmail.com; s=20251104; t=1789981741; x=1790586541; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=if/RxwdeVH9lYKeVFMTHpGthhaeX73Ye43H7ksvDSZk=;
+        b=Jm+/X7EPpuQKERZwkozJ0RXF/AdVMyW9TIDomvzmypOcf64BruTvy0EpGBKreR1uMi
+         FT8+GFX5snXQv/wPb2KP0noHEWQWXiZ6PCM+jdg2zUHKfIefIPoyQWfuYqtzb9pHta6a
+         oakXI5zq9W/5nlWAz00/M7uKmmkcPq1VRqqWH6UZAdW959RVUwFFhSq4oVRvkFZxyrO1
+         ki/vWEa5qj/cpm8khvkZPmwK3IrzkQEFxV0X3zR+ApGoUY8KB1CCo4ghOsTHXF5L4xlv
+         KHki7VoteWH6MLDOV1C34TeOdvBS2gMrLLPtii/R/hLb3TzLnQp/a1/EH88WxtPCFoUz
+         N10g==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789981701; x=1790586501;
-        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
-         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=kZfNRDAZYMOe8/raf1+kfme6bgo4XiPP5kMyL6mrkfE=;
-        b=auhUyx3VaX9E8768z41wy7gZ7Ni0Ex3RDsLXO0IxDRaAMM4v2I2ig5jCSJ5p2Kkhaq
-         G0Mi2cL+OagA4fTi455XgqR2DU9RWJmccwTzU/xxprUwWkfvxbo4AbUOV5T3FqR/NUcl
-         oSfDKlCpW4aMw54lO9hwH5C+/km8otQE/XXQTJqcrPAk930D1qNK61RBt1qui+QfEApN
-         pxC8vEzmYb9a4/oHREP6uD0lF3JaAM4yVsA1Das/Rdh9ouEG1d2ZlnuATaiecf/P1gk4
-         Uj2LzT5u2Ejg3KDCUgRTnCgDD0eNHlat+XxR2BITuOOJY3s+GuolVD8TGVeskh+sVBtN
-         sI/g==
-X-Gm-Message-State: AFuF++kveuOCdZ2U7jAd+C4zZCZ6OVKOvR7BFP0eUdLAHhuLwL1wo+y5
-	LGkd3Oc1Mw34JQT+O1qN2MKpnZO9dGDuZp70K2XJJ3Uqz74MOh4oWbMN
-X-Gm-Gg: AYBFou3wQxBkyHHYceCL3019j12DLy85RlQvHtCmQMF2z9/JFfUZKl6xxvOLxCVUIPb
-	NBTNwOa2eigX6EM1aXeOL1behqPydcZn4vpVVxM10HPhvDeH0dCCsCxUlXUS4jmsUnS9az3wMRx
-	Gry3ms7ib+QvmQsys6FU9HG9hutUF4ea1ACjvdN5/0++oPJsCUqQN3of+VlcT7K/hdQTe8n11k+
-	4QIde2BI9cMe6f0f/n9Nq6xus7D1aU70g4xHPGSaxbNRlPkdFRNq5rBXk82gb+oq9Nsfc/iQnFY
-	Wk80Y+cwpvXWegZNfniIGt6dKd23EeKbFRRde/A4Zdg8mTDno0bhDK4XjVW7XXw4aH+9pQxXsYj
-	faWUzeOYMbgQlGbLew7VDGmvU3Mbn9X642c0H8gIuxEG4QY3mrN+QgczUdzHJS9Z6/ApPidFBfI
-	uvRutJonwKt6dY0iajK0uvvHs5SWzasa3GNJd27RjIyB7aKfBctu8txA==
-X-Received: by 2002:a17:90b:554b:b0:39e:6c6a:4b6c with SMTP id 98e67ed59e1d1-39e6c6a54f7mr7862823a91.54.1789981700866;
-        Mon, 21 Sep 2026 02:08:20 -0700 (PDT)
-Received: from lgs.. ([2001:250:5800:1002::de93])
-        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6f1835adsm13203772a91.6.2026.09.21.02.08.13
+        d=1e100.net; s=20260707; t=1789981741; x=1790586541;
+        h=content-transfer-encoding:content-type:mime-version:references
+         :in-reply-to:message-id:subject:cc:to:from:date:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=if/RxwdeVH9lYKeVFMTHpGthhaeX73Ye43H7ksvDSZk=;
+        b=zUlcd9xjWAQzRkt89tQl+9WsWveGEaNYqnALOg055U5c9K9yLJAtGeCEeiRZapXsuF
+         WSvVfacWKbQgeEbQtnAD5rXuiT37dceiRPgNe2rd9qHUK/8E3/z7M3yHD7hgrnRHlSEc
+         fE9VB29rXOEHVpGuCdEhTJADi2PiYeoj8SmXDuaQjNStarjUCF/jRGp+dfESQ2zkKlWd
+         0eBnPyB71rYbdYE0H4RHQiEthjfdOYzEfFmXeL5BxIbw4hksZEYgiTN6vsWPFSCno91x
+         j6fsUV+riWBFQ3DfCCTWIY9xxzRDZe4PpV7etKlww1zd72KvN1PCVydQ4l3hRbv+GBff
+         cK6A==
+X-Forwarded-Encrypted: i=1; AKwUvBzJK9zvnIuhluKnQADI9VTWVl0XzjtZpwDSD4F/1oGn+U6BApDc6h0Kl9/CaEPihytQ9tSd4hQ=@vger.kernel.org
+X-Gm-Message-State: AFuF++kf0H1/5IUSMqUjwymp+UfTEuce9VigwLcmgNCcma9p/vz1Qs+E
+	R5QSDQg8J8g3c6Ib/w1eoGFX9jG5ULTG36bWIJk19vhcJrNDirdqJ3jd
+X-Gm-Gg: AYBFou21uF+X9uNTaM3SJ+Yq+/4kdFFDZWk0gsjtqkPaSiwPB6JcnlsIUTzHXYBmv/l
+	3wlAxicfUQjuopLCnZHSwjfFXEL8jWZqzIOap4vKYG0axN50Yx3xvZ3pwte+UMmRAwH5IecipBy
+	5hF6bzWj4NmDiMY+VSuZG4AgWncMhGBMsq+Iv+NzuQZ+DswfRO4vsVRH4dlowJ0cviSmuC4WMFv
+	4tv3Hb6ppLJPzw3gtABI/Bui4nrHgRFF6+yZ0fg7weXKnIcQfNhipNcm3N0l0/0RL66ssL8s/56
+	aePnq4O6AluEnW7/p83RerYKi1JRJ4XjmtPdzGxmf27aacogBD/qs7gY3bD2V8fCj/NIDQKXqug
+	UU0Cgt4SA2yD+JPl6pV8F+OGQYYUBKXRxO/iOR/ReeHysiN3LW5Hc6MoHhlh5+iW99ZazB0kPS+
+	tNBTWv/LKuWo0rw+1KaQ67+3TYRxAwU6XeGxmfYJAxMaxjs/HbyP7QoRMrcTJWowDJ9yVPv/hgA
+	VxApcNBWAV/OD6O07EOc9QnHuFI/Fq26PM=
+X-Received: by 2002:a05:600c:1e24:b0:49c:fc6e:a3d2 with SMTP id 5b1f17b1804b1-49fc574f74bmr135450395e9.17.1789981740730;
+        Mon, 21 Sep 2026 02:09:00 -0700 (PDT)
+Received: from pumpkin (82-69-66-36.dsl.in-addr.zen.co.uk. [82.69.66.36])
+        by smtp.gmail.com with ESMTPSA id 5b1f17b1804b1-49fcd074336sm210758555e9.8.2026.09.21.02.09.00
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 02:08:20 -0700 (PDT)
-From: Guangshuo Li <lgs201920130244@gmail.com>
-To: Tiffany Lin <tiffany.lin@mediatek.com>,
-	Andrew-CT Chen <andrew-ct.chen@mediatek.com>,
-	Yunfei Dong <yunfei.dong@mediatek.com>,
-	Mauro Carvalho Chehab <mchehab@kernel.org>,
-	Matthias Brugger <matthias.bgg@gmail.com>,
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>,
-	Hans Verkuil <hverkuil+cisco@kernel.org>,
-	Kees Cook <kees@kernel.org>,
-	Nicolas Dufresne <nicolas.dufresne@collabora.com>,
-	Guangshuo Li <lgs201920130244@gmail.com>,
-	Tomasz Figa <tfiga@chromium.org>,
-	Chen-Yu Tsai <wenst@chromium.org>,
-	Steve Cho <stevecho@chromium.org>,
-	linux-media@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	linux-arm-kernel@lists.infradead.org,
-	linux-mediatek@lists.infradead.org
-Cc: stable@vger.kernel.org
-Subject: [PATCH] media: mediatek: vcodec: fix decoder child device leaks
-Date: Mon, 21 Sep 2026 17:08:08 +0800
-Message-ID: <20260921090808.336112-1-lgs201920130244@gmail.com>
-X-Mailer: git-send-email 2.43.0
+        Mon, 21 Sep 2026 02:09:00 -0700 (PDT)
+Date: Mon, 21 Sep 2026 10:08:59 +0100
+From: David Laight <david.laight.linux@gmail.com>
+To: Hui Peng <benquike@gmail.com>
+Cc: Harry Morris <h.morris@cascoda.com>, Alexander Aring
+ <alex.aring@gmail.com>, Miquel Raynal <miquel.raynal@bootlin.com>, Stefan
+ Schmidt <stefan@datenfreihafen.org>, linux-wpan@vger.kernel.org,
+ netdev@vger.kernel.org, linux-kernel@vger.kernel.org,
+ stable@vger.kernel.org
+Subject: Re: [PATCH net v2 1/3] ieee802154: ca8210: prevent stack buffer
+ overflow in ca8210_rx_done()
+Message-ID: <20260921100859.3869db3d@pumpkin>
+In-Reply-To: <20260921074205.2289211-1-benquike@gmail.com>
+References: <20260919213637.3316595-1-benquike@gmail.com>
+	<20260921074205.2289211-1-benquike@gmail.com>
+X-Mailer: Claws Mail 4.1.1 (GTK 3.24.38; arm-unknown-linux-gnueabihf)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+Content-Type: text/plain; charset=US-ASCII
+Content-Transfer-Encoding: 7bit
 
-mtk_vcodec_probe() populates decoder hardware child platform devices on
-platforms that support decoder subdevices. These children must be
-removed with of_platform_depopulate() when they are no longer needed.
+On Mon, 21 Sep 2026 07:42:03 +0000
+Hui Peng <benquike@gmail.com> wrote:
 
-If initialization fails after the children have been populated, the
-probe error path releases the parent decoder resources without
-depopulating the child devices. This leaves the child platform devices
-registered.
+> In ca8210_rx_done(), the packet length len = buf[1] + 2 is only checked
+> against CA8210_SPI_BUF_SIZE (256). When buf[0] & SPI_SYN is set and
+> priv->sync_command_response is non-NULL, memcpy() copies up to 256 bytes
+> into priv->sync_command_response, which points to a struct mac_message
+> object (sizeof(struct mac_message) = 250 bytes) on the synchronous
+> caller's stack, overflowing the stack buffer by up to 6 bytes:
+> 
+>   BUG: KASAN: stack-out-of-bounds in ca8210_rx_done+0xc4/0xe0
+>   Write of size 256 at addr ffff888001907660 by task init/1
+>   Call Trace:
+>    <TASK>
+>    dump_stack_lvl+0x70/0xa0
+>    print_report+0x153/0x4c6
+>    kasan_report+0xf1/0x120
+>    kasan_check_range+0x125/0x200
+>    __asan_memcpy+0x3c/0x60
+>    ca8210_rx_done+0xc4/0xe0
+>    ca8210_spi_exchange+0x12e/0x190
+>   ...
+>   The buggy address belongs to stack of task init/1
+>    and is located at offset 32 in frame:
+>    ca8210_spi_exchange+0x0/0x190
+>   This frame has 1 object:
+>    [32, 282) 'response'
+> 
+> Bound the synchronous response memcpy() length to
+> min_t(size_t, len, sizeof(struct mac_message)).
 
-The remove path has the same issue and leaves the child devices
-registered when the parent decoder driver is unbound.
+Why min_t() ?
+len is unsigned so min() is fine.
 
-Depopulate the child devices in the probe error path and in the remove
-path before tearing down the remaining parent resources.
+Shouldn't there also be some kind of indication the data was truncated?
 
-The issue was identified by a static analysis tool I developed and
-confirmed by manual review.
+David
 
-Fixes: c05bada35f01 ("media: mtk-vcodec: Add to support multi hardware decode")
-Cc: stable@vger.kernel.org
-Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
----
- .../platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c    | 5 +++++
- 1 file changed, 5 insertions(+)
-
-diff --git a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-index e936ed8dffba..592685ad522c 100644
---- a/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-+++ b/drivers/media/platform/mediatek/vcodec/decoder/mtk_vcodec_dec_drv.c
-@@ -517,6 +517,8 @@ static int mtk_vcodec_probe(struct platform_device *pdev)
- err_dec_mem_init:
- 	video_unregister_device(vfd_dec);
- err_reg_cont:
-+	if (dev->vdec_pdata->is_subdev_supported)
-+		of_platform_depopulate(&pdev->dev);
- 	if (dev->vdec_pdata->uses_stateless_api)
- 		media_device_cleanup(&dev->mdev_dec);
- 	destroy_workqueue(dev->decode_workqueue);
-@@ -569,6 +571,9 @@ static void mtk_vcodec_dec_remove(struct platform_device *pdev)
- {
- 	struct mtk_vcodec_dec_dev *dev = platform_get_drvdata(pdev);
- 
-+	if (dev->vdec_pdata->is_subdev_supported)
-+		of_platform_depopulate(&pdev->dev);
-+
- 	destroy_workqueue(dev->decode_workqueue);
- 
- 	if (media_devnode_is_registered(dev->mdev_dec.devnode)) {
--- 
-2.43.0
+> 
+> Tested in QEMU with KASAN enabled by passing a 256-byte SPI_SYN response
+> into ca8210_rx_done().
+> 
+> Fixes: ded845a781a5 ("ieee802154: Add CA8210 IEEE 802.15.4 device driver")
+> Cc: stable@vger.kernel.org
+> Assisted-by: LLM
+> Signed-off-by: Hui Peng <benquike@gmail.com>
+> ---
+> Changes in v2:
+> - Split the ca8210 fixes into three single-issue patches (1/3..3/3).
+> 
+>  drivers/net/ieee802154/ca8210.c | 3 ++-
+>  1 file changed, 2 insertions(+), 1 deletion(-)
+> 
+> diff --git a/drivers/net/ieee802154/ca8210.c b/drivers/net/ieee802154/ca8210.c
+> index 01af4f9..c009930 100644
+> --- a/drivers/net/ieee802154/ca8210.c
+> +++ b/drivers/net/ieee802154/ca8210.c
+> @@ -697,7 +697,8 @@ static void ca8210_rx_done(struct cas_control *cas_ctl)
+>  
+>  	if (buf[0] & SPI_SYN) {
+>  		if (priv->sync_command_response) {
+> -			memcpy(priv->sync_command_response, buf, len);
+> +			memcpy(priv->sync_command_response, buf,
+> +			       min_t(size_t, len, sizeof(struct mac_message)));
+>  			complete(&priv->sync_exchange_complete);
+>  		} else {
+>  			if (cascoda_api_upstream)
 
