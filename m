@@ -1,203 +1,224 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0D954E781F;
-	Mon, 21 Sep 2026 17:24:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C74604AC147
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 17:26:49 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790011489; cv=none; b=jAcn+GJ2okRNbaZzwePrVJ2ok1y7QwaETgc73sIaSk8EsG2vaCwZpnXih0ULDR4Lb+HUtY/4wNpmkOMSVxBG5la7GFen2gIEsAZ0D6F/0GgnPf1b5w325VIHmgA92yMLDwg1gwzOZx7n4qOBbt9CeUoljjmsU6t+505egw7mscw=
+	t=1790011611; cv=none; b=SX8ksz5pLM5+uzdmMuNtxSEO8roROdzoe5g0bjFto1dtdsodF/boo3FdSsBwKBcfGvJi0kpNCnKSeGWmS0/YoUmkaZR37rVLo4BPVmd/sJlRx11JcmC2DpLUTzjUi1gZNXWmT67pjU5PY9ghH6/cd9MSZzWmgtbvIZR/y6u9QSI=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790011489; c=relaxed/simple;
-	bh=j9KZ33MFe0YiEqyKSC1hK3OwkOrikm2nb6ce0fH0b84=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=krHfkCiKPJsIf8mFrhlXaIo3NdYlDNOIoYHDyv091HO81gxyGWAgnECxHff8O7FaJyBVE6LFHUZmtQF7H4UPf2NohUHqrNj9gCqY5oJg1AjWCLnGd6MWOx7CSQskzPgsSESdroPuXv5J0XOow9rZXmMzh+PyPZixh3fvY/v17k4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OlFwZU8w; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790011611; c=relaxed/simple;
+	bh=Jevq/Wl65/kZHuIgCDUpop7cUYeLSy07MYEatyY4gvE=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=cObuyQuJFpdnwv9Q8c+WQ/MQrvmk9m00MdAVTNnuIakcbzwrlWrX58qIXfGac+r4cWfZlVmfo1WCTcg89B6yr9ah1RUY04HIOgfo018yWv2YQBnEMpbMucHTkQvHBEvDQbB1v0+AWzNqD6VIs3gVcTDNTFcelKCGDfS/GzJKhAU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=gtaqyQde; arc=none smtp.client-ip=74.125.227.141
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OlFwZU8w"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 0D0971F00893;
-	Mon, 21 Sep 2026 17:24:47 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790011487;
-	bh=gjYOlwCRz4zxA3pIOX0hHh4x8YB0O8SP9gSX7XtSeLQ=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=OlFwZU8wp7YrD3ebzcRzzZUjV3rNm6to1xsAinHW9wRUsyDbYnqRv745aGqcBkptv
-	 j+iWcuvqHhVYfCjKGOktLA0ndz5wJ2o/sz/PE36q8GrXrZYHJcW33HjMqVAUucMrdh
-	 3vUnOkGpxo0xYeDkIcnKp1TBu95xOGCwaHxolmaamzHjsYwOidP6yfeS36rMtWKQxI
-	 DGcXLbqU3XlfzyZL2ZxACCcO/x9ObIFpn7ufS7A5fhyaR+1i+C0k7+QEe5xOPWrTCS
-	 Uo4cb72GmOYhvhWYJHn9WD0XyMeJGsZJp5N8RkHL5GSPkmM1/BD4XccUmXjiaUeQPR
-	 IMYh66PdvW7tw==
-Subject: Re: [PATCH] kcm: Fix socket use-after-free in kcm_unattach()
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: davem@davemloft.net, edumazet@google.com, horms@kernel.org,
- kuba@kernel.org, linux-kernel@vger.kernel.org, netdev@vger.kernel.org,
- pabeni@redhat.com, tom@herbertland.com, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 17:24:46 +0000
-Message-ID: <179001148656.2160803.18004232271699303811@kernel.org>
-In-Reply-To: <20260917163656.2162621-1-vulab@iscas.ac.cn>
-References: <20260917163656.2162621-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="gtaqyQde"
+Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2dd88a115ebso28489445ad.2
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 10:26:49 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=trailofbits.com; s=google; t=1790011609; x=1790616409; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=T/FXPvDnaWHJoB8L0Xa0vsn8KUukvNW6fJaWw1YDx+4=;
+        b=gtaqyQdeAiX00PcUGREApX5ErWw51DcGLmY/zqlRt8pQD+6qEKzIDFNQCY3P8yyu21
+         dahUpsVDYCFlFZwJoCPkgP6gA7HIHgiQQDli0cI+GoNup/bcKuS2wAGJf3JJa40TYgFI
+         fWymGSJd2bXIA3hk6r/aSZU9ojRcrzJLv5F9Q0CkLVCW7vxevhrfQkNn4VBEUTI1BctU
+         4HkhhXj3RDXvi5iqgySCEX7fr7BHKfRdJuN9J+m/M3EICfU3imuo0V2q34CZECbQY17q
+         yn5rbQu8c8DEVJ99NUytY0+7El1IYnVeY1du8CUhF+t9aKLI5mJwxjA+TlM6ivZCOps4
+         t5rA==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790011609; x=1790616409;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=T/FXPvDnaWHJoB8L0Xa0vsn8KUukvNW6fJaWw1YDx+4=;
+        b=S3EAn26E3xu2i+tl7HofM+lNPwalCCYNIjsOE/9RygOk21w4lRhrR+RaW95Y2Shs3T
+         gEBQf9ecJWepsJQz7B+GW5Mj2gKVTHlxIYYJK8V42BL9ni6iMQ/uzonMNsc+iVtffS1p
+         kqZWdHxtU/nyEO03ibbO8pDAl7dM9er4WrTX2xxn8G0HgYNdFP4h60KZtXN2zHRrp/+k
+         R+gWvjhhH3Kc0FcZXJNjO96hgP3loECD8lHf78+XOjqOd1NFtDDo62zh1J0yrWjFyt6Y
+         H5Qd68HKD0gZ1mtPacofwIOrJCnj/osQK710OjaTF1TArIr+nHiQj7PavMD0sqrEiSHY
+         C9rA==
+X-Gm-Message-State: AFuF++k7XMY2FWwsY6dYtNDJ/cqADxgeFRv9AYT37BFm+VMvaB7s5edQ
+	JTjoQj9tnzfGWYOcb0SNRoVwMyWZr9gSWv4/LEF4QoY34kyHo2LQtV7ak73Qh/nsA325vuGGbbs
+	pUyJG
+X-Gm-Gg: AYBFou3GRyIcQ7msI/QQMkgBnhIXrxi4CbvW8sqif8FCgS2bgosEVvzKZiG/y4rSdA5
+	Rhpj6+JLasNvzimctv2hafaqTLAaAq/UaJtTJYQsclWD5d07blVWy93hDI8UE/m9lQucHMfhrDj
+	UujUFrhrQBn6h3NMGq2tbJQ5J+IEbG1fBeZ2oyOmUv5pv1WHNs/plijmIDBLdy2qDRrw/iPTTPU
+	Bm9Z/ZoBALFeSmupfGyj7h1rrhW4kRl8eO0kwEol/irPR4GV5GkuaalBZZmOXwPmJT1mgBWxfk+
+	ILSHD9U5gDNG3qVQqtDTMSMoRnUUxjJXl8+j4VT2QluMmrMcVPSjkJ0mnISwiwHuSfDRAbrrmd9
+	VPXRM17xhPCP0iChts7KcZz/7ZO7y10g7YfvTMntbxPNZNso6oYQ0CXjWrfb/52MC3bgJYABwCX
+	7GBkszyPFo50M2omHQUSn8baJNnalJiascoO6YLe7nNXEKGKgU9X5s/0AMu0GMgCuPB2Om0eqUw
+	iI1YF41V1B7tRB3wruhSgK/0JSWTbfNXA2gqewCAnsHEHEaF7X2yj+8GlsZHbeENrrrN6U=
+X-Received: by 2002:a17:902:e751:b0:2dd:c100:4246 with SMTP id d9443c01a7336-2ddc10044edmr100676145ad.42.1790011608979;
+        Mon, 21 Sep 2026 10:26:48 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:289a:f600:f11e:a45c])
+        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17ff4d7sm38218495ad.74.2026.09.21.10.26.47
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 10:26:48 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Oded Gabbay <ogabbay@kernel.org>,
+	Arnd Bergmann <arnd@arndb.de>,
+	linux-kernel@vger.kernel.org,
+	Tomer Tayar <ttayar@habana.ai>
+Subject: [PATCH 6.1.y] accel/habanalabs: postpone mem_mgr IDR destruction to hpriv_release()
+Date: Mon, 21 Sep 2026 13:26:39 -0400
+Message-ID: <20260921172640.72798-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 2 potential
-issue(s) to consider.
+From: Tomer Tayar <ttayar@habana.ai>
 
-Critical: 0 · High: 1 · Medium: 1 · Low: 0 (1)
+[ Upstream commit 2e8e9a895c4589f124a37fc84d123b5114406e94 ]
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+The memory manager IDR is currently destroyed when user releases the
+file descriptor.
+However, at this point the user context might be still held, and memory
+buffers might be still in use.
+Later on, calls to release those buffers will fail due to not finding
+their handles in the IDR, leading to a memory leak.
+To avoid this leak, split the IDR destruction from the memory manager
+fini, and postpone it to hpriv_release() when there is no user context
+and no buffers are used.
 
-- [High] The patch fixes only one of the two sites that release the
-  psock's socket references, leaving the identical (and strictly worse)…
-- [Medium] The commit message's premise is not supported by the code, so
-  the `Fixes:`/`Cc: stable` tags are unjustified.
+Signed-off-by: Tomer Tayar <ttayar@habana.ai>
+Reviewed-by: Oded Gabbay <ogabbay@kernel.org>
+Signed-off-by: Oded Gabbay <ogabbay@kernel.org>
 
-Pre-existing issues:
-- [Low] Stale/incorrect comment at the call site of the function this
-  patch modifies: kcm_unattach_ioctl() has '/* Lower socket lock should…
+[ Backport to 6.1.y: this tree keeps Habanalabs under drivers/misc
+  rather than drivers/accel; the source change is otherwise unchanged. ]
+Assisted-by: LLM
+Signed-off-by: Artem Dinaburg <artem@trailofbits.com>
+---
+Hi Greg, Sasha, and Habanalabs maintainers,
 
---
+I am backporting smaller CVE backports still missing from 6.1.y.
+This fix is inherited by v6.6 and every later mainline release, but 6.1.y
+still has the affected code. The target-specific adjustment is described
+in the bracketed note above.
 
-kcm: Fix socket use-after-free in kcm_unattach()
+Could you please queue it for 6.1.y?
 
-This reorders the teardown in the unreserved (no_reserved) branch of
-kcm_unattach() so that fput(csk->sk_socket->file) and release_sock(csk)
-happen before the psock's sock_put(csk), and returns early from that
-branch.  It carries a Fixes: tag for the original KCM commit and
-Cc: stable.
+Thanks,
+Artem Dinaburg
 
-> diff --git a/net/kcm/kcmsock.c b/net/kcm/kcmsock.c
-> index 71af69d442f21..079b73af91559 100644
-> --- a/net/kcm/kcmsock.c
-> +++ b/net/kcm/kcmsock.c
-> @@ -1458,9 +1458,11 @@ static void kcm_unattach(struct kcm_psock *psock)
->  		mux->psocks_cnt--;
->  		spin_unlock_bh(&mux->lock);
->  
-> -		sock_put(csk);
->  		fput(csk->sk_socket->file);
->  		kmem_cache_free(kcm_psockp, psock);
-> +		release_sock(csk);
-> +		sock_put(csk);
-> +		return;
+CVE: CVE-2023-53353
 
-[Severity: Medium]
-The changelog says:
+Build: This patch was included in an x86_64 allmodconfig and
+CONFIG_WERROR=y build.
+It produced vmlinux and 9,075 modules; the same four baseline objtool
+notices appeared, with no new warnings or errors.
 
-    "the reference held by the psock on the underlying TCP socket is
-     dropped with sock_put() before the socket file is released with
-     fput(csk->sk_socket->file) and before release_sock() is called at
-     the end of the function.  If that was the last reference on the
-     socket, both uses access freed memory."
+AI assistance: An LLM helped find, adapt, and validate this
+backport; I reviewed the patch and test output.
 
-Can that sock_put() actually be the last reference?  kcm_attach() only
-accepts inet TCP sockets:
+ drivers/misc/habanalabs/common/device.c         |  9 +++++++++
+ drivers/misc/habanalabs/common/habanalabs.h     |  1 +
+ drivers/misc/habanalabs/common/habanalabs_drv.c |  1 +
+ drivers/misc/habanalabs/common/memory_mgr.c     | 13 ++++++++++++-
+ 4 files changed, 23 insertions(+), 1 deletion(-)
 
-    if ((csk->sk_family != AF_INET && csk->sk_family != AF_INET6) ||
-        csk->sk_protocol != IPPROTO_TCP) {
-
-and the psock keeps the socket file reference for its whole lifetime.
-kcm_attach_ioctl() returns success without sockfd_put(csock):
-
-    /* Keep reference on file also */
-
-    return 0;
-
-so while the psock still holds its sock_hold() reference, the struct
-socket also still owns the sk_refcnt reference taken in sock_init_data(),
-which is only dropped via inet_release() -> tcp_close() -> sock_put().
-That makes the refcount at this point >= 2.
-
-On top of that, does fput() ever free the socket synchronously here?  For
-an FMODE_OPENED file, fput() -> __fput_deferred() always defers:
-
-    if (likely(!in_interrupt() && !(task->flags & PF_KTHREAD))) {
-        init_task_work(&file->f_task_work, ____fput);
-        if (!task_work_add(task, &file->f_task_work, TWA_RESUME))
-            return;
-
-so the old trailing release_sock(csk) would not have touched freed memory
-either.  The new ordering looks fine on its own, but could the impact
-statement, the Fixes: tag and the Cc: stable be reconsidered if no
-use-after-free is reachable?
-
-[Severity: High]
-Should the second release site be changed too?  unreserve_psock() has the
-same pair in its deferred-free block, still in the order this patch calls
-unsafe:
-
-    if (unlikely(psock->tx_stopped)) {
-        if (psock->done) {
-            /* Deferred free */
-            list_del(&psock->psock_list);
-            mux->psocks_cnt--;
-            sock_put(psock->sk);
-            fput(psock->sk->sk_socket->file);
-            kmem_cache_free(kcm_psockp, psock);
-        }
-
-Here psock->sk is dereferenced twice (->sk_socket, ->file) after the
-reference has been dropped, and the whole block runs under
-spin_lock_bh(&mux->lock), so under the changelog's premise the final
-sock_put() would also run sk_free()/sk_destruct() with BH disabled.
-
-This is the continuation of the path this patch touches.  When the psock
-is reserved, kcm_unattach() does:
-
-        kcm_abort_tx_psock(psock, EPIPE, false);   /* sets tx_stopped */
-        ...
-        psock->done = 1;
-        smp_mb();
-        queue_work(kcm_wq, &psock->tx_kcm->tx_work);
-
-and the tx work reaches kcm_write_msgs():
-
-    if (unlikely(psock && psock->tx_stopped)) {
-        /* A reserved psock was aborted asynchronously. Unreserve
-         * it and we'll retry the message.
-         */
-        unreserve_psock(kcm);
-
-which takes the psock->done deferred-free branch above.  So for every
-psock unattached while reserved (SIOCKCMUNATTACH or release_mux()), the
-exact sequence declared unsafe still executes.
-
-Would it make sense to factor the release sequence into one helper used
-by both sites, so the intended ordering invariant is unambiguous?
-
->  	}
->  
->  	release_sock(csk);
-
-[Severity: Low]
-This is a pre-existing issue and not introduced by this patch, but while
-the exit paths of kcm_unattach() are being changed, is the comment at the
-kcm_unattach_ioctl() call site still accurate?
-
-    /* Lower socket lock should already be held */
-    kcm_unattach(psock);
-
-kcm_unattach() takes the lower socket lock itself on entry:
-
-    struct sock *csk = psock->sk;
-    struct kcm_mux *mux = psock->mux;
-
-    lock_sock(csk);
-
-and now releases it on all three exits, including the early return added
-here.  If the caller really held that lock, lock_sock() would deadlock;
-kcm_unattach_ioctl() only holds a sockfd_lookup() reference on csock.
-Could that comment be dropped or corrected?
-
+diff --git a/drivers/misc/habanalabs/common/device.c b/drivers/misc/habanalabs/common/device.c
+index 9ee1b6abd8a051..60a9fc65845bf0 100644
+--- a/drivers/misc/habanalabs/common/device.c
++++ b/drivers/misc/habanalabs/common/device.c
+@@ -375,6 +375,9 @@ static void hpriv_release(struct kref *ref)
+ 	mutex_destroy(&hpriv->ctx_lock);
+ 	mutex_destroy(&hpriv->restore_phase_mutex);
+ 
++	/* There should be no memory buffers at this point and handles IDR can be destroyed */
++	hl_mem_mgr_idr_destroy(&hpriv->mem_mgr);
++
+ 	if ((!hdev->pldm) && (hdev->pdev) &&
+ 			(!hdev->asic_funcs->is_device_idle(hdev,
+ 				idle_mask,
+@@ -464,6 +467,10 @@ static int hl_device_release(struct inode *inode, struct file *filp)
+ 	hl_release_pending_user_interrupts(hpriv->hdev);
+ 
+ 	hl_ctx_mgr_fini(hdev, &hpriv->ctx_mgr);
++
++	/* Memory buffers might be still in use at this point and thus the handles IDR destruction
++	 * is postponed to hpriv_release().
++	 */
+ 	hl_mem_mgr_fini(&hpriv->mem_mgr);
+ 
+ 	hdev->compute_ctx_in_release = 1;
+@@ -808,6 +815,7 @@ static int device_early_init(struct hl_device *hdev)
+ 
+ free_cb_mgr:
+ 	hl_mem_mgr_fini(&hdev->kernel_mem_mgr);
++	hl_mem_mgr_idr_destroy(&hdev->kernel_mem_mgr);
+ free_chip_info:
+ 	kfree(hdev->hl_chip_info);
+ free_pf_wq:
+@@ -851,6 +859,7 @@ static void device_early_fini(struct hl_device *hdev)
+ 	mutex_destroy(&hdev->clk_throttling.lock);
+ 
+ 	hl_mem_mgr_fini(&hdev->kernel_mem_mgr);
++	hl_mem_mgr_idr_destroy(&hdev->kernel_mem_mgr);
+ 
+ 	kfree(hdev->hl_chip_info);
+ 
+diff --git a/drivers/misc/habanalabs/common/habanalabs.h b/drivers/misc/habanalabs/common/habanalabs.h
+index 257b94cec6248b..e6eabcdda1c5c0 100644
+--- a/drivers/misc/habanalabs/common/habanalabs.h
++++ b/drivers/misc/habanalabs/common/habanalabs.h
+@@ -3789,6 +3789,7 @@ const char *hl_sync_engine_to_string(enum hl_sync_engine_type engine_type);
+ 
+ void hl_mem_mgr_init(struct device *dev, struct hl_mem_mgr *mmg);
+ void hl_mem_mgr_fini(struct hl_mem_mgr *mmg);
++void hl_mem_mgr_idr_destroy(struct hl_mem_mgr *mmg);
+ int hl_mem_mgr_mmap(struct hl_mem_mgr *mmg, struct vm_area_struct *vma,
+ 		    void *args);
+ struct hl_mmap_mem_buf *hl_mmap_mem_buf_get(struct hl_mem_mgr *mmg,
+diff --git a/drivers/misc/habanalabs/common/habanalabs_drv.c b/drivers/misc/habanalabs/common/habanalabs_drv.c
+index ae3cab3f4aa55a..3d4eaa7327e318 100644
+--- a/drivers/misc/habanalabs/common/habanalabs_drv.c
++++ b/drivers/misc/habanalabs/common/habanalabs_drv.c
+@@ -222,6 +222,7 @@ int hl_device_open(struct inode *inode, struct file *filp)
+ out_err:
+ 	mutex_unlock(&hdev->fpriv_list_lock);
+ 	hl_mem_mgr_fini(&hpriv->mem_mgr);
++	hl_mem_mgr_idr_destroy(&hpriv->mem_mgr);
+ 	hl_ctx_mgr_fini(hpriv->hdev, &hpriv->ctx_mgr);
+ 	filp->private_data = NULL;
+ 	mutex_destroy(&hpriv->ctx_lock);
+diff --git a/drivers/misc/habanalabs/common/memory_mgr.c b/drivers/misc/habanalabs/common/memory_mgr.c
+index 1936d653699ed0..93a2b9faf419fd 100644
+--- a/drivers/misc/habanalabs/common/memory_mgr.c
++++ b/drivers/misc/habanalabs/common/memory_mgr.c
+@@ -342,8 +342,19 @@ void hl_mem_mgr_fini(struct hl_mem_mgr *mmg)
+ 				"%s: Buff handle %u for CTX is still alive\n",
+ 				topic, id);
+ 	}
++}
+ 
+-	/* TODO: can it happen that some buffer is still in use at this point? */
++/**
++ * hl_mem_mgr_idr_destroy() - destroy memory manager IDR.
++ * @mmg: parent unified memory manager
++ *
++ * Destroy the memory manager IDR.
++ * Shall be called when IDR is empty and no memory buffers are in use.
++ */
++void hl_mem_mgr_idr_destroy(struct hl_mem_mgr *mmg)
++{
++	if (!idr_is_empty(&mmg->handles))
++		dev_crit(mmg->dev, "memory manager IDR is destroyed while it is not empty!\n");
+ 
+ 	idr_destroy(&mmg->handles);
+ }
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917163656.2162621-1-vulab%40iscas.ac.cn
+2.39.5
+
