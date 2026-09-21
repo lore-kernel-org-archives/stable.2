@@ -1,107 +1,93 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEB13BE631;
-	Mon, 21 Sep 2026 14:26:17 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EE4E34A3F34
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:26:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=170.10.133.124
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000781; cv=none; b=l9FCD2cGyXHfQuEBd5mKRJN8VS1au1H/xrn+/7kjqbGyE2Jqqdq7fROj53QEGmzb/DUhGt0OuxJSCp6a5ZMZLXO0irf5vof1KUqWMpBnX0HS2uRX2c96K7TmvadoRtos/jOAayZruDMOFoxghF0CZfObmqfJlEIZWY2XiSx4wtM=
+	t=1790000786; cv=none; b=LEaFbYOuCKjrjnryW9Mnh0G3KR3PgrBLnQnSrSTZSSpI6g3CqMQnYNUiQeLRfeKwS9YGk7lPZCAZn4rvqyzgbNl5nQ+3Bs57gtKMH66+PruYqROeKRdw8GASNLO5Xep9zeF/l32n0CFKVqfIT2eF8hyQmkBf4KEfO3smVknfRro=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000781; c=relaxed/simple;
-	bh=mp3SIzHgzjXTyT2ROhofVtctd6WZrfVD8Gqbw4AhVMI=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djHyxsRZTGGcNzC3cKgI+0UXoQnZ3Ndjav/d+bwJUxTXF4NK8bTSYk7F6HYS/qQ8DK3HSaflj3l1padWNjCohgW4E9CXAyqpD3Q/mEl8OaTrkL1Hz6Q+gB5UzQ2EfThhU6glA++oo55RuR4zTx/vTe3WnpZL4sbaY+93mZST6fk=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Rm6o13Rw; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	s=arc-20240116; t=1790000786; c=relaxed/simple;
+	bh=MyEXqmotfUt4yA1+Hy68CC39XSg+h8EY6D6AQC+ntwk=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=cUgaZjuXWbkDIwAHGQ5bh7RQwn3MwQWiOfWG42Dou0M/0npgBry3R6GWYDfuPtyMkdVpuIdvIKaG/1tqGPYi2IiGfuESBFrnvBl1R2DBJcaq0wvibR9qIQL7bRxMwtoTaAloxDnr7zHQh1l6yddl0+d3fZDoOzR80wU4gldNDHo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=UIgEZylw; arc=none smtp.client-ip=170.10.133.124
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Rm6o13Rw"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e975bb44;
-	Mon, 21 Sep 2026 22:26:14 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: Bjorn Helgaas <bhelgaas@google.com>
-Cc: Kristen Carlson Accardi <kristen.c.accardi@intel.com>,
-	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
-	Jesse Barnes <jbarnes@virtuousgeek.org>,
-	linux-pci@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] PCI: pciehp: Make poll mode parameter read-only
-Date: Mon, 21 Sep 2026 22:26:08 +0800
-Message-Id: <20260921142608.270312-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="UIgEZylw"
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
+	s=mimecast20190719; t=1790000783;
+	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
+	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
+	 in-reply-to:in-reply-to:references:references;
+	bh=+pcLJlj5TIE0odij7lPFRE58kbHckgF1Zqih4BUaQQ8=;
+	b=UIgEZylwudvfLCjWM4qid+3+APf+RC8fybWBm+MzuhlMGPpmQS+SjGMRolz1i/J8MEZmhu
+	yrt6m1KK/Q5EV+sNyFwAnIxXP+VWvbutmYyarADMwJ6gVVemjPIuVDulVVgSS0RQ7cwMPr
+	0lxGNbEBlSYpThulXsB0DO8ANFL1apc=
+Received: from mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com
+ (ec2-54-186-198-63.us-west-2.compute.amazonaws.com [54.186.198.63]) by
+ relay.mimecast.com with ESMTP with STARTTLS (version=TLSv1.3,
+ cipher=TLS_AES_256_GCM_SHA384) id us-mta-48-zIc0_6r3NoSA_cJqD0Vc_A-1; Mon,
+ 21 Sep 2026 10:26:18 -0400
+X-MC-Unique: zIc0_6r3NoSA_cJqD0Vc_A-1
+X-Mimecast-MFC-AGG-ID: zIc0_6r3NoSA_cJqD0Vc_A_1790000776
+Received: from mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com [10.30.177.95])
+	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
+	 key-exchange X25519 server-signature RSA-PSS (2048 bits) server-digest SHA256)
+	(No client certificate requested)
+	by mx-prod-mc-03.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with ESMTPS id 422C11953994;
+	Mon, 21 Sep 2026 14:26:15 +0000 (UTC)
+Received: from fedora (headnet03.pony-001.prod.iad2.dc.redhat.com [10.2.32.114])
+	by mx-prod-int-10.mail-002.prod.us-west-2.aws.redhat.com (Postfix) with SMTP id 5D11B41D;
+	Mon, 21 Sep 2026 14:26:11 +0000 (UTC)
+Received: by fedora (nbSMTP-1.00) for uid 1000
+	oleg@redhat.com; Mon, 21 Sep 2026 16:26:14 +0200 (CEST)
+Date: Mon, 21 Sep 2026 16:26:09 +0200
+From: Oleg Nesterov <oleg@redhat.com>
+To: Christian Brauner <brauner@kernel.org>
+Cc: Chris Mason <mason@kernel.org>, linux-fsdevel@vger.kernel.org,
+	Jens Axboe <axboe@kernel.dk>,
+	Alexander Viro <viro@zeniv.linux.org.uk>, Jan Kara <jack@suse.cz>,
+	NeilBrown <neil@brown.name>, Ingo Molnar <mingo@redhat.com>,
+	Peter Zijlstra <peterz@infradead.org>, linux-mm@kvack.org,
+	io-uring@vger.kernel.org, stable@vger.kernel.org
+Subject: Re: [PATCH v3 14/17] fork: don't create io threads once
+ PF_POSTCOREDUMP is set
+Message-ID: <arE-gZw53CqPTRXP@redhat.com>
+References: <20260921-work-coredump-fixes-v3-0-8e4adb1619e6@kernel.org>
+ <20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c45c3c0703a1kunm1f89033851d4c
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQxoaVkJLHR8fTkxKGh1CSlYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=Rm6o13RwsZf9tAms+rS6ujTjIIyt2GZXSpiTdPZPA8UBgYBTgLkBGabe1+FXkmcYPTRp7vuMlit5tiUEXgoUwuvqKfPLSiu3ZDfFZf+2myKjrcEmVr7ahMNyYXkWDDqbCKeSngvsQVjP7LKVdCwag/0UdBvZWFujmObVD17kAdU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=wGeHVqHuI581tDU0SIFx8MRzBjVOO5nbwQIbAHzuQq4=;
-	h=date:mime-version:subject:message-id:from;
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260921-work-coredump-fixes-v3-14-8e4adb1619e6@kernel.org>
+X-Scanned-By: MIMEDefang 3.6 on 10.30.177.95
 
-pciehp_request_irq() and pciehp_free_irq() select different resources
-based on the global pciehp_poll_mode parameter. The parameter is
-currently writable through sysfs, so changing it while a controller is
-active can make teardown stop a nonexistent polling thread or call
-free_irq() for an IRQ that was not requested.
+On 09/21, Christian Brauner wrote:
+>
+> Refuse to create an io thread when the creator has PF_POSTCOREDUMP.
+> That costs nothing. io_uring_files_cancel() raises IO_WQ_BIT_EXIT
+> before it runs any task work, so a worker created from there only ever
+> gets to exit again, and io_should_retry_thread() doesn't retry -EINTR.
 
-Keep the parameter available for boot and module configuration, but
-prevent runtime changes to the registration mode.
+Thanks for this note in the changelog,
 
-Reproducer:
-Boot an x86_64 guest in QEMU with a native PCIe hotplug root port and an
-e1000 device, using these device options:
+> --- a/kernel/fork.c
+> +++ b/kernel/fork.c
+> @@ -2706,8 +2706,8 @@ struct task_struct *create_io_thread(int (*fn)(void *), void *arg, int node)
+>  		.user_worker	= 1,
+>  	};
+>
+> -	/* A creator past its fatal signal gets no thread. */
+> -	if (current->flags & PF_SIGNALED)
+> +	/* A creator past its fatal signal or its coredump point gets no thread. */
+> +	if (current->flags & (PF_SIGNALED | PF_POSTCOREDUMP))
+>  		return ERR_PTR(-EINTR);
 
-    -device pcie-root-port,id=rp1,chassis=1,slot=1
-    -device e1000,bus=rp1
-
-Pass pcie_ports=native pciehp.pciehp_poll_mode=1 to the guest kernel.
-As root in the guest, replace the device name below with a bound pciehp
-service device and run:
-
-    dev=0000:00:1c.0:pcie004
-    driver=/sys/bus/pci_express/drivers/pciehp
-    echo 0 > /sys/module/pciehp/parameters/poll_mode
-    echo "$dev" > "$driver/unbind"
-    dmesg | grep 'Trying to free already-free IRQ'
-
-The unfixed kernel accepts the runtime mode change and reports the warning
-when the service device is removed. The fixed kernel rejects the write and
-removes the device without the warning. The mode change is a deliberate
-privileged test action and is not expected during ordinary operation.
-
-Fixes: 2aeeef119995 ("pciehp: Clean up pcie_init()")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/pci/hotplug/pciehp_core.c | 2 +-
- 1 file changed, 1 insertion(+), 1 deletion(-)
-
-diff --git a/drivers/pci/hotplug/pciehp_core.c b/drivers/pci/hotplug/pciehp_core.c
-index 2cafd3b26f344..5ce32dc7e178f 100644
---- a/drivers/pci/hotplug/pciehp_core.c
-+++ b/drivers/pci/hotplug/pciehp_core.c
-@@ -38,7 +38,7 @@ int pciehp_poll_time;
-  * not really modular, but the easiest way to keep compat with existing
-  * bootargs behaviour is to continue using module_param here.
-  */
--module_param(pciehp_poll_mode, bool, 0644);
-+module_param(pciehp_poll_mode, bool, 0444);
- module_param(pciehp_poll_time, int, 0644);
- MODULE_PARM_DESC(pciehp_poll_mode, "Using polling mechanism for hot-plug events or not");
- MODULE_PARM_DESC(pciehp_poll_time, "Polling mechanism frequency, in seconds");
--- 
-2.34.1
+Acked-by: Oleg Nesterov <oleg@redhat.com>
 
