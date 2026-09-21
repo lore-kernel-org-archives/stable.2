@@ -1,65 +1,65 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
+Received: from mail-pz2-f42.google.com (mail-pz2-f42.google.com [74.125.228.42])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8729C43E08D
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2236043F0B2
 	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:42:10 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.41
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.228.42
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789976532; cv=none; b=SCjshpDihG8DzKJtmPp8mDrtfEkBmL+t/pcEg5+5PLEAg0NxX7Yk/pCYnT272F0ucDx7PkulqcnkcckkBlVU+3oFCz/j/CTBodxVLCsN74Q8SSdZwEdhLfXgpYbTf5G+qVtZwDW+ABWsf8NDynPGRjEGmeTwxBhxzcZarjIQdaQ=
+	t=1789976533; cv=none; b=VKm78Lli/ORDCc56PalWYGRHS5I7GxZmmJPKM+5ba/NYM9LnliD0w62qR2qF5ZTKNlehfNsvdjDRu7VeyMs7T7AXNnXzxIBblFO3nO6sUihR+c1p/Om6GPUzotJYKA4G5Ph3SRhvwpnQ4c+0mbCnqpDCnii1+5f2GcPTooPlKoM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789976532; c=relaxed/simple;
-	bh=+PxWiJGd3qQeg3qY9tqhXy5GvpqL3o3G+lizbAofHcI=;
+	s=arc-20240116; t=1789976533; c=relaxed/simple;
+	bh=6q5OvduezYDttcoOa+Vp3n3pmhhO/TNjR5O4tftm/Rs=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=GgT8A3ttYMp4LrecqliVRkhb23V3YWaRCzeHA8fs6fH1V0LeP2vnloiiBO3UFUFpH+APVm+4uEK5YWesax24iWzfwd/NUMMO6gAYDwJNkl3nhblIq2dEOijSkKZZa8n7mEUtFbVpwXXK9yK5W9M8+aka+ewxahs9KeZ0WoXu+Qg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=qtIfeI5A; arc=none smtp.client-ip=74.125.228.41
+	 MIME-Version; b=AButRP+rBU1is/RDBbfGJxFUFiaM63thuTGV+IDriX1gJRr61F2+27ESakDu8R/Dlx2clAvALQNViuFAwuB12xodX6Gp62qusvucGEc+zOrIquZpRuW77IyAOSpThP8XsQUeN9/R62Y5q5M9pf5TV+mMOizGuI/sDBjrp0o4BLo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Ms5BoYqY; arc=none smtp.client-ip=74.125.228.42
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="qtIfeI5A"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-85469b355ffso1558769b3a.1
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Ms5BoYqY"
+Received: by mail-pz2-f42.google.com with SMTP id 41be03b00d2f7-cc1cea4ae2cso2188603a12.0
         for <stable@vger.kernel.org>; Mon, 21 Sep 2026 00:42:10 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789976529; x=1790581329; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789976530; x=1790581330; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=EHgcYtuYemojMdrCO9G6C1IAVKzr+T0NM2HjgpZp/nc=;
-        b=qtIfeI5An/RpD16yzxCT1Sak7grlDcQirLRhUl+uXA4hCdgX1i7mKrpnzOFy5GE9NJ
-         RktAx2RAXnQqqzMZCbNQ+T0yTTce9MmmGrp60VIcqKKflKepAHm3D3TiuvvAFhl+b9XN
-         /eNaY0ZfsR2aff/1vDG0Ylq3eEQ/5jnKdHH8LZ+vFuQoz4Q3pQetRAvL8AyBj09vS9VV
-         kCDtsbeO7ikh3JqnZ/i88YkrZzkVMDLMRGoMUw6eK2e70QjbKh54Mlg7XbPfbQQdoHPE
-         h/xkA7YDYNMe4MkuaONiJgKpXX+136teBj2PAcNbVkglT2TWilmFb4TSivmvVuAKPtnT
-         Jzkg==
+        bh=DDHdZIxZcbNH45d5axWRvE/ipmo1BiWw9gWA7FH3ihE=;
+        b=Ms5BoYqYr5teC5rECBj2VncEItGwRBZjcJIzSWBqb/CMQpwGP60/+zvTcBpqMdIF0H
+         /CkVjPSpRlNsUY62IdICXOnwrD/M5ldxhcLJqmnDXiXIVxrzL1BDZDOtlLVnSnDyhOq6
+         urIc2PALgiWt1+GkUSWasHn9dyTRUarEcerH8fJbEWN2wsHa1XIP3lOkmnGSx8/N24N7
+         E3/+rsc6YUEqnxLRg3bwIpmJaet+NB8au5hJ0u826lSIK7aMTRaDAZIx4XC8zdoqeVj9
+         8Z2c8ZNxXFoqJz0UXbeFULBHQX9cU8jS15S1g2sMKBge7L7A2/e3Zof5wQyRqoga4pMY
+         wXkw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789976529; x=1790581329;
+        d=1e100.net; s=20260707; t=1789976530; x=1790581330;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=EHgcYtuYemojMdrCO9G6C1IAVKzr+T0NM2HjgpZp/nc=;
-        b=sVcDA+AA6wcy61GAUVOSa4mjwlhuIL2GDmgDu7oXszOTkFa3FtNyVftga4aoypy0X2
-         6JaRK1NBXF9GaVst5dh12haUDxB+AbGIaYLI2tGKWAXOdrKmVjIlrxLklHCOvURO4dr1
-         iPcWP/SfOLmMJJVxx+JS62n7nyAUq3/QVHZ09jxM4+fDtDzaC/kRW1WWo6X2FN0JmA9s
-         dv2Lpcz4qIXld12lb5wiNXmBwtT17AubPRLd8FjZz2G3g0+Bb+yHg6iw6lZxJ9n9MmyN
-         DMqZoqbIJ303D4/oPoihwTdXk01popuckFPEZZ0+26aJxai64op4tNx1FK8sNbNTwjhd
-         X3sQ==
-X-Forwarded-Encrypted: i=1; AKwUvBywsPo6N6ySCwoM+CtxPlwm10FZz7X/wENQa3Ye0noeAkWTHqAciwvUcLGbWZltpJyxkJPlPwI=@vger.kernel.org
-X-Gm-Message-State: AFuF++mY0/yvBMn+r73Ma4jtquTnZbZ5IEIXOCLp0hNLREyO1PP1RUV/
-	QQTrT4mgfIarHrXn9cgwFqXaO5BbHLrYDCK1+ww5Rm8wAVCGD67NgIGD
-X-Gm-Gg: AYBFou1EXemgQxy817tXyAVO1+rBCtu++7ASOHTJoU9ceIxsuZ6BoJzUaO6GmUmHHzt
-	hbNcBaF7/LfnYgsnJF9vVMvKG69maAWJytCLuwdFFDfWGnFGzMRu8fwfBELReFh+zyiYAAqzASd
-	u/D8uPeum1J6lXUgfcrnkM+0edw76Iqz5dtK7dqCSSn8jL4q9BZXovhHG8kZS1/UlPNK+0VC5Ai
-	5tifzHSlBEFGYTSe2oRN4UcH5abT/WaD5Ycumoyo0goyC+1AE8j8QcOayHaigxUa6XCZwMqtueM
-	w/oQve68aA5yjeYtEhMThbj7ge9numXlSaT+JRQf1pLl61orGz/NjAy3eOyDXAy/kasJ37NLSQY
-	6IjSWt0CfoCM3vKwNQhLI+1LMEWgvUNs587gH9XWfNt/it86sENSPpu5udP8kJW+JNa2SQhuSGW
-	FshpZBrI1aeUMN8i15QijQxMwH3+uRAOuQlbB3kSS54CoYfilP0U6/2GDCH9XsqI9PPwGeOOasK
-	yEx2TIrWBgfeoIHanAGom18vDgR2GLk9s3pwT/50BZTRH/mypAnN2JCiYO+3FvL9+fTnq/p7n+K
-	ZPc5adIYIQ==
-X-Received: by 2002:a05:6a20:9c8c:b0:3dd:85a9:559d with SMTP id adf61e73a8af0-3dd8c57fe0emr17599249637.31.1789976529153;
+        bh=DDHdZIxZcbNH45d5axWRvE/ipmo1BiWw9gWA7FH3ihE=;
+        b=B2zme4QtLBCCh4Un4z1+spTNbdFc136AFCHuHX7AHzvx94rS3ymlYKQ1Y6ZP+FfQ1F
+         f4jGiBD6wnMksUUqcJKwulwl3AdO1dCiQKMz4s4ukJLeSgsXZFLk/h6slBUAXL7keWc/
+         gmyWx0Iia93DnC2Iab3XJCYgbaQc9tsNzLyXKCCTVRx9AYuYYTAn1BKfzA2TPtBN0Om2
+         0W/IAGKBLp10VnkTQWMk7+SFNOS2x2f2WAv85GKe4Xn7mgpvXNxTByd0R5b9k4Qt/tiJ
+         h0RocxdqpAANw/pl4hTXKcuRg91VMBt0RW/Nm3Z3ZMT19LtmW9/MVogDg21Y2vJEcWjZ
+         eXYA==
+X-Forwarded-Encrypted: i=1; AKwUvBwHYH0ZeOcyxVEEGeHV6jgwZSbJHG4GjWQxDzQ16RxCokQ3/v39knZmRABmUHScA4R41xS1szU=@vger.kernel.org
+X-Gm-Message-State: AFuF++kK2GhN7VJs6hhoLrFuPuIBqb2Ek6zjqA/DQ3ulJkPpcm3M/M6b
+	RGJE7y8ve1Sx+7Eb0Eb4PJ2dOT3bSDN23WQ2pLJU0aGcOaGjWe2kTEhX
+X-Gm-Gg: AYBFou0k5gdNWGoOsovUz8iLk8X2jr5oIceLizFar/RZAwI6Z1J3Q2DuKFT4POmizMp
+	ArjyAv3Sdjuuf7388HCl+PSrQL6OTDiuJX1/FGW5nuQrzsUNYqHiSl7s2wAiAUc+XXkz/YszGmD
+	WfKRcJnAlKW5rZwET10IKcuICZKTRJEcvp2KIwj2uNZhfZANHwO+YvXRr9ITbdnxfHCExqToffJ
+	W5/uJChQ7EyX7DvEW3Gd6h/XcRbp2eK17DRfFvS4mv39UtDtJuJYhxgL/xb1kaG1MuNWwaD7VQu
+	4HJTjsrfjvC3sgcgWbreQg5yHzxV9GV2gQd2nGmHOzjRdAKlvsrZIZOofYJdLnClBONRGdsf5Tb
+	Ixrc1ChWCNrTd1YI8e+oiVybpL21mLi+U0HzxXylCbsJ7E91kYdIjUi650OUwmr1dax33/xloM2
+	hgKDzDG4dbU2bD8ncz553O8++4r7pRcOQhMst5+xX5SUTDyTC/MqMu6vIwS5Oa41Hs9fwph6LP/
+	5/QZlbsdIYeuX0Pw22+0cqODfhiQrv00ldNGo3Ys86m5rvv5za01wCgl6c0YqYJRBNHgo4+8Q0h
+	ZVA+kQz1PA==
+X-Received: by 2002:a05:6a20:1605:b0:3cc:2552:ddd7 with SMTP id adf61e73a8af0-3dd8c2ddcb5mr17987536637.5.1789976529965;
         Mon, 21 Sep 2026 00:42:09 -0700 (PDT)
 Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae70637sm3048650a12.6.2026.09.21.00.42.08
+        by smtp.gmail.com with ESMTPSA id 41be03b00d2f7-cc72ae70637sm3048650a12.6.2026.09.21.00.42.09
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 00:42:08 -0700 (PDT)
+        Mon, 21 Sep 2026 00:42:09 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
 To: Alexander Aring <alex.aring@gmail.com>,
 	Miquel Raynal <miquel.raynal@bootlin.com>,
@@ -69,9 +69,9 @@ Cc: linux-wpan@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	Hui Peng <benquike@gmail.com>,
 	stable@vger.kernel.org
-Subject: [PATCH net v2 3/4] ieee802154: mcr20a: drop corrupted RX frames instead of reading 125 stale bytes
-Date: Mon, 21 Sep 2026 07:42:06 +0000
-Message-ID: <20260921074207.2289391-3-benquike@gmail.com>
+Subject: [PATCH net v2 4/4] ieee802154: mcr20a: fix 1-byte out-of-bounds read in mcr20a_handle_tx()
+Date: Mon, 21 Sep 2026 07:42:07 +0000
+Message-ID: <20260921074207.2289391-4-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
 In-Reply-To: <20260919213639.3316625-1-benquike@gmail.com>
 References: <20260919213639.3316625-1-benquike@gmail.com>
@@ -83,15 +83,14 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-In mcr20a_handle_rx_read_buf_complete(), when
-!ieee802154_is_valid_psdu_len(len) is true, the driver overwrites len
-with IEEE802154_MTU (127) and copies 125 bytes from lp->rx_buf into a new
-skb even though only the original len bytes were transferred over SPI,
-reading past the valid RX data and leaking up to 125 bytes of stale heap
-memory to the network stack:
+In mcr20a_handle_tx(), the 1-byte psduLength prefix (lp->tx_len[0]) is
+already sent in a separate SPI transfer (lp->tx_xfer_len), while
+lp->tx_xfer_buf transfers the payload from lp->tx_skb->data. Setting
+lp->tx_xfer_buf.len = lp->tx_skb->len + 1 causes the SPI transfer to read
+1 byte past the end of lp->tx_skb->data:
 
-  BUG: KASAN: slab-out-of-bounds in mcr20a_handle_rx_read_buf_complete.constprop.0+0x91/0xc0
-  Read of size 125 at addr ffff888002853f40 by task init/1
+  BUG: KASAN: slab-out-of-bounds in mcr20a_handle_tx+0xf5/0x150
+  Read of size 17 at addr ffff8880057f7500 by task init/1
   Call Trace:
    <TASK>
    dump_stack_lvl+0x70/0xa0
@@ -99,18 +98,17 @@ memory to the network stack:
    kasan_report+0xf1/0x120
    kasan_check_range+0x125/0x200
    __asan_memcpy+0x23/0x60
-   mcr20a_handle_rx_read_buf_complete.constprop.0+0x91/0xc0
+   mcr20a_handle_tx+0xf5/0x150
   ...
-  The buggy address belongs to the object at ffff888002853f40
-   which belongs to the cache kmalloc-8 of size 8
+  The buggy address belongs to the object at ffff8880057f7500
+   which belongs to the cache kmalloc-16 of size 16
   The buggy address is located 0 bytes inside of
-   allocated 4-byte region [ffff888002853f40, ffff888002853f44)
+   allocated 16-byte region [ffff8880057f7500, ffff8880057f7510)
 
-Drop the corrupted frame, re-arm reception via mcr20a_request_rx(lp), and
-return early.
+Set lp->tx_xfer_buf.len to lp->tx_skb->len.
 
-Tested in QEMU with KASAN enabled by passing a corrupted 4-byte RX frame
-length to mcr20a_handle_rx_read_buf_complete().
+Tested in QEMU with KASAN enabled by transferring a 16-byte tx_skb->data
+buffer in mcr20a_handle_tx().
 
 Fixes: 8c6ad9cc5157 ("ieee802154: Add NXP MCR20A IEEE 802.15.4 transceiver driver")
 Cc: stable@vger.kernel.org
@@ -118,25 +116,25 @@ Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
 Changes in v2:
-- Split out as patch 3/4 covering only the mcr20a RX corrupted frame
-  handling as requested by Miquel Raynal.
+- Split out as patch 4/4 covering only the mcr20a TX SPI transfer length
+  fix as requested by Miquel Raynal.
 
- drivers/net/ieee802154/mcr20a.c | 3 ++-
- 1 file changed, 2 insertions(+), 1 deletion(-)
+ drivers/net/ieee802154/mcr20a.c | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
 
 diff --git a/drivers/net/ieee802154/mcr20a.c b/drivers/net/ieee802154/mcr20a.c
-index 020d392a98b6..d01b277d33d2 100644
+index d01b277d33d2..d7e076397550 100644
 --- a/drivers/net/ieee802154/mcr20a.c
 +++ b/drivers/net/ieee802154/mcr20a.c
-@@ -790,7 +790,8 @@ mcr20a_handle_rx_read_buf_complete(void *context)
+@@ -867,8 +867,7 @@ mcr20a_handle_tx(struct mcr20a_local *lp)
+ 	/* add 2 bytes of FCS */
+ 	lp->tx_len[0]		= lp->tx_skb->len + 2;
+ 	lp->tx_xfer_buf.tx_buf	= lp->tx_skb->data;
+-	/* add 1 byte psduLength */
+-	lp->tx_xfer_buf.len	= lp->tx_skb->len + 1;
++	lp->tx_xfer_buf.len	= lp->tx_skb->len;
  
- 	if (!ieee802154_is_valid_psdu_len(len)) {
- 		dev_vdbg(&lp->spi->dev, "corrupted frame received\n");
--		len = IEEE802154_MTU;
-+		mcr20a_request_rx(lp);
-+		return;
- 	}
- 
- 	len = len - 2;  /* get rid of frame check field */
+ 	ret = spi_async(lp->spi, &lp->tx_buf_msg);
+ 	if (ret) {
 -- 
 2.47.3
