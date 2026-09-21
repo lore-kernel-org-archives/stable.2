@@ -1,76 +1,41 @@
-Received: from mail-pj2-f13.google.com (mail-pj2-f13.google.com [74.125.227.141])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtpout-02.galae.net (smtpout-02.galae.net [185.246.84.56])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F24D9377007
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 06:44:54 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.141
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E0042376A19;
+	Mon, 21 Sep 2026 06:44:56 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.246.84.56
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789973096; cv=none; b=OSOsZbwexKXE1mohYaZng7fYDDXl02bX/+dEkNuhXkDHOAwQuIpbjukfnP1CyeWPwsXxnqggRCSHXzjOxoFXsgKG63rwwq77OIKWqa94zdK+oSqds+ruERqKG2ydrJrpB4BiH/z+aoljyWut/4BQMjvXX7HcDUMKaCcZYTUUP20=
+	t=1789973098; cv=none; b=MsdwaNj7VxaAD16DxeFbI9LEvQzOcfFklOHcvSSxCKbjn+xypJ1JDvdcEWmJXyaQwlAtAAvPjkgB1lMHgW6VryGwLHDmd82EFaEuuA7M2qt9Vo7rbhx//i6rMM3nHx2RlqvxTgOc5FhjVfAfjPsUjjyJXWnICSR0AP/thgg6F+0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789973096; c=relaxed/simple;
-	bh=F/FiOldzB5FitQqxux427YwALA2lkJe7vkW5UsH8LCY=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Gkphj15A3GGi8Kt5XNHFMZgEEd2Iw5FU2dGkbfMBiit6JOPWZ4ml0FOrfmUpOkMZBcCimQLRema2VEk0UOnjnUNcc5X72BvufhWNN4cF68Un5JW6E3KRTiU7rQoGjg/RWvvK080+7N8/hwqUuBytUxqP4f3FsLjQEYcqodzFRY4=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=AMwm8jVy; arc=none smtp.client-ip=74.125.227.141
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	s=arc-20240116; t=1789973098; c=relaxed/simple;
+	bh=Z5Dxc4ZUwLw5FI7SOi1+ENgRdo5q+LxBgkmihu6xww0=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=ayUb+S4vWJo/RQWZMrOz/o6GyzW/9T6qSAzzdQvZk07oRjOr9ytb1r26dznKIFspqKc8cuaK7+CYI4wW0d1HtDBEodCZnryBk2GqJ3Rt6LUOAOUbSJA+K7+p5cb0MUmP1CiNndcT7eBUm/ySmFnPk03/8UkZmRYCLj7VLZvKEYA=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com; spf=pass smtp.mailfrom=bootlin.com; dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b=hhfkwpz9; arc=none smtp.client-ip=185.246.84.56
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=bootlin.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=bootlin.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="AMwm8jVy"
-Received: by mail-pj2-f13.google.com with SMTP id d9443c01a7336-2d747f0b25dso28490695ad.2
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 23:44:54 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789973094; x=1790577894; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=diuDiAt1MBoAIRvmG/WpgnaXlcTTHxbIkiMj5XGJGC4=;
-        b=AMwm8jVyyA9AwnqJW9BC7gTOyLNg3kQY55P7zrXMhxFuWD3rz3rGHeeI817dx070ah
-         SEHXKZKjKmx1xrZZyTpPUSiqTYJrnGfXwCexgggs1AlaohKhcSp1m2uuaBMAoiPdECdq
-         eoDyYQtI8/7n2Rny1G0Gbu/2fuCbGUuWWH3mZ/AzZXrkJkzxUKi02AEWw5xsh3J7jVdy
-         v7h7N4fSZuHfKlWj39Fw5kAr7gGG7T09ns3Nm5FsY00aMPQZUEtWOUnpTbkmZopcUZ1N
-         LzMzJcIiqkMcxI25catZWcUs1yVU+jEa0lX6yDFRYQGbh7CgZv/Rw0HwmIeREWdR2zzZ
-         xuhw==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789973094; x=1790577894;
-        h=content-transfer-encoding:content-type:mime-version:references
-         :in-reply-to:message-id:date:subject:cc:to:from:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=diuDiAt1MBoAIRvmG/WpgnaXlcTTHxbIkiMj5XGJGC4=;
-        b=kiOM9GMocDcQhEwnQXgerXz3rdeWL7j4J+Sm+fLK07Y2/YZ77PU4yCOAdPo8ugYJky
-         pNN70CDxZssGEKAq0GK/LIrcieoO5AMBVwUdL4E2GDXW6TJvzHi+ixBpMR6++Vq0Cxvt
-         kPpf5Uqabww9aCQPwNh+OO/L+B7RJton3nUOMNYDukckU8pv4xNHJya0UtMXfs0fGDYI
-         A84dkE7VAE9avCk8u34iJlFwc8rJFKUEm25vY5blyntlMGSo6WT8etNlU4Xf6R6E35y9
-         VxC4a19Svbg1Up8CP7ku3e3gUSm7mC2MVmJ0yY5N3g/bzJsFwgV2ywU+FM7Ic7F0PXQG
-         8eCg==
-X-Forwarded-Encrypted: i=1; AKwUvBxUVLUI+uzuxuZFJf/5YUxYCzlkupTGSZSBkxlSkZpdBw5/6rbvSrf6tlRnrlx28uvCoZ0x1iI=@vger.kernel.org
-X-Gm-Message-State: AFuF++lQwfKC06nSRDSKyYZ1622Yqd3LgUG3HkUyuhjLsIZObHc5nqTf
-	eNPorGJCZtwanYobMkgTEBYf3biRnsK6Nw7RoZGrD6he2wYmpV2rpunp
-X-Gm-Gg: AYBFou2JqCsr7IOmJj3VJxmBqHiZLo3AX7S2lSSQhkn4JeYAq0WNejEXTTj9iWSgR6F
-	5o/wq8TKEN+hs0Y4HaGpYK2Rsmvr7gKMfr9Jp3MhOfZ+Cwzm9kvhWepzB8/FgVTdwP3/0Nw9GUl
-	wUy0b4mA0cLQRkIsItHy9fAJrb7KIitWFr3IBscSXRl2NGUPH9rK1xShxId0eXM9VriO0iGxZ+w
-	Pq3+Ypsy0m5+4NFp2gUi2okJQihhpo3E6wjr+Uk/LVM4F+3hETk1OdUvvP73ENhrtszJcFFMpz1
-	r2rjMJGeGpiJQKTlB9Gh7gcniH/vCXlywIYXttXRoAwgBoHLjEXGs6Vf6f8YHleACEeqIdAwhjZ
-	5QlV9WugcSWZRIg/3cg11UgMOuOzNVCUziW8AJyfo8olcJCfORaJG3bWqu6b6kPuK4WkKpHLHss
-	gWQHTIqkUhM2hqfOqL9oUiO0Hxa+g3BpgZJvDT4/slnTmYVsO7ys2LjoNEiu26kVx1Tsm75dQlo
-	FGJTA==
-X-Received: by 2002:a17:902:fd88:b0:2dd:c100:313a with SMTP id d9443c01a7336-2ddc1003202mr91242235ad.54.1789973094191;
-        Sun, 20 Sep 2026 23:44:54 -0700 (PDT)
-Received: from hyunchul-PC02.lge.net ([27.122.242.71])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc180395fsm28097345ad.81.2026.09.20.23.44.52
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 23:44:53 -0700 (PDT)
-From: Hyunchul Lee <hyc.lee@gmail.com>
-To: Namjae Jeon <linkinjeon@kernel.org>
-Cc: Hyunchul Lee <hyc.lee@gmail.com>,
-	ntfs@lists.linux.dev,
-	stable@vger.kernel.org
-Subject: [PATCH v6 10/10] ntfs: wait for attribute folio writeback before update
-Date: Mon, 21 Sep 2026 15:44:12 +0900
-Message-ID: <20260921-topic-4kn-lkml-v6-10-75069f590b22@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921-topic-4kn-lkml-v6-0-75069f590b22@gmail.com>
-References: <20260921-topic-4kn-lkml-v6-0-75069f590b22@gmail.com>
+	dkim=pass (2048-bit key) header.d=bootlin.com header.i=@bootlin.com header.b="hhfkwpz9"
+Received: from smtpout-01.galae.net (smtpout-01.galae.net [212.83.139.233])
+	by smtpout-02.galae.net (Postfix) with ESMTPS id 689851A0DCC;
+	Mon, 21 Sep 2026 06:44:55 +0000 (UTC)
+Received: from mail.galae.net (mail.galae.net [212.83.136.155])
+	by smtpout-01.galae.net (Postfix) with ESMTPS id 3933F60339;
+	Mon, 21 Sep 2026 06:44:55 +0000 (UTC)
+Received: from [127.0.0.1] (localhost [127.0.0.1]) by localhost (Mailerdaemon) with ESMTPSA id 854A210328203;
+	Mon, 21 Sep 2026 08:44:48 +0200 (CEST)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=bootlin.com; s=dkim;
+	t=1789973093; h=from:subject:date:message-id:to:cc:mime-version:content-type:
+	 content-transfer-encoding; bh=1ky/EdIk6lo6ktUN94uOMEwEvf7fiSyNZIxxU9JsyMM=;
+	b=hhfkwpz9jViN/7ttym6UlD3h9ZCof9xotK88U/e98owTE64bvSfYiro3ocM3GF/frUPADe
+	W3MTY7xPYZNQ+jHCpk9aQ8U7KmpeSZjZSrEynxWu8SUl5+eaNoGKSEO7HvjGJYkv16DOzz
+	pSyqMjRfVIV6TrEU3KpdTH1VLTkLRWSx8aP4iHRP8yeBhfqQgYim7LcgR8XSHFWgU3dA4+
+	5zX4nyqrC5MNTE8YLA5f01czv/JgsZoNzVyRtZ5vhv7OgsM8n6cmKE+h5efNgpy1srE3NK
+	9Oubm51Y5Rw5UzsMfXk6/4CAeBAGGWeAhZ7xQHuRDZPurRCSsVP8TosOBKEebA==
+From: Miquel Raynal <miquel.raynal@bootlin.com>
+Subject: [PATCH v2 0/3] clk: nuvoton: ma35d1: Fix mux parenting and
+ peripheral clock rates
+Date: Mon, 21 Sep 2026 08:44:44 +0200
+Message-Id: <20260921-perso-ma35d1-upstream-clk-v2-0-209fd32a8b00@bootlin.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -78,50 +43,64 @@ List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset="utf-8"
-X-Mailer: b4 0.13.0
-X-Developer-Signature: v=1; a=openpgp-sha256; l=886; i=hyc.lee@gmail.com;
- h=from:subject:message-id; bh=F/FiOldzB5FitQqxux427YwALA2lkJe7vkW5UsH8LCY=;
- b=owEBbQKS/ZANAwAKATTyMPr3jkjTAcsmYgBqsNIMsIktW83shA1BmqQ5wSr1q6Jgo4/rrp6Td
- 1I8rTf8WFeJAjMEAAEKAB0WIQTVhSnMU3bjbW4eb2I08jD6945I0wUCarDSDAAKCRA08jD6945I
- 0795EACoeB1DABEFWtHguQdVNOkbWz6ctf494M+xWM7Ri6Lcyxpq7oGuJk7pQY3di6Ek5NRe9XM
- ikT7grHa10Luiub48kErBWcIemjoZ1n73p24pOWAqIP6/7dufRsXnH6s/kxm8U4VlJm5FKih5u2
- dz/GsdCBrlLPlDaaQvZQRxjzzH8Z3uOZnaWL+hmQhkZ4tey0OjnTGWS+qhui+rhtDCU8s2e99k+
- h64PssKyt7B4kxgJ5cAKMSiB52I9zposYPPrLJdJ+8PeC1pUNnGqDE1V/pAbOPPU8nbEC9iJbjG
- 5lZO9gvUtvXhZmAuy+4q4BowH8Z3lyRN4W13547uNUQ8CxwD8bCC11mxWE8UObEgR4bK5VPjM1T
- CDesYMY6Bp9pqKcVNrjM9Ph/dPujQzxuZxuwR2W6a5HoWKJKGO13X60CPpjLzjtVibEa9P6qzEP
- G524W6hxOe7TBkOUMfg+2ZAYlAJLfPcImpNn7pTofx3LMq1hnp1ZoJ5jzGD9jcm9BfwdNBgfEjG
- GcNWbVjqDVoIQrAoEoIF2u297UILphaOZwfYPfIWkSVFsfmSwc+Odw8DcNLq6u6o0UHGxlPojpP
- PPOdDYOfwtZzlOZ5vVJpYsON7Bfvl6E8xiWZ05w8+COc4MEbLroBVGxp+x5Uup7Y/Y+IgMuasku UJgm9ZGxp89C6yQ==
-X-Developer-Key: i=hyc.lee@gmail.com; a=openpgp; fpr=D58529CC5376E36D6E1E6F6234F230FAF78E48D3
-Content-Transfer-Encoding: 8bit
+Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAAAAAAAC/42NQQ6CMBBFr0Jm7RimhEJceQ/CopRBJgJtWiQaw
+ t2tnMDle8l/f4fIQTjCLdsh8CZR3JJAXTKwo1kejNInBpUrnddUoOcQHc6mKHvCl49rYDOjnZ6
+ oS2vsYMnUuoO094EHeZ/tpk08Slxd+JxXG/3sP9WNkJCrmkvWVCk29865dZLlat0M7XEcX8KHn
+ SjEAAAA
+X-Change-ID: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+To: Jacky Huang <ychuang3@nuvoton.com>, Shan-Chun Hung <schung@nuvoton.com>, 
+ Michael Turquette <mturquette@baylibre.com>, 
+ Stephen Boyd <sboyd@kernel.org>, Richard Cochran <richardcochran@gmail.com>, 
+ Arnd Bergmann <arnd@arndb.de>, Brian Masney <bmasney+clk@redhat.com>, 
+ Jerome Brunet <jbrunet+clk@baylibre.com>, Rob Herring <robh@kernel.org>, 
+ Krzysztof Kozlowski <krzk+dt@kernel.org>, 
+ Conor Dooley <conor+dt@kernel.org>
+Cc: Thomas Petazzoni <thomas.petazzoni@bootlin.com>, 
+ Steam Lin <STLin2@winbond.com>, linux-arm-kernel@lists.infradead.org, 
+ linux-clk@vger.kernel.org, linux-kernel@vger.kernel.org, 
+ Krzysztof Kozlowski <krzk@kernel.org>, devicetree@vger.kernel.org, 
+ Miquel Raynal <miquel.raynal@bootlin.com>, 
+ Jacky Huang <ychuang570808@gmail.com>, stable@vger.kernel.org
+X-Mailer: b4 0.14.3
+X-Last-TLS-Session-Version: TLSv1.3
 
-ntfs_inode_attr_pwrite() locks an attribute folio before copying a new
-attribute image into it, but taking the folio lock does not wait for an
-already-running writeback BIO to complete. The writeback path can unlock
-the folio while PG_writeback remains set and the BIO still references the
-folio memory.
+I am in possession of an MA35D1 NuMaker board. The SPI controller has
+been contributed, but at this stage it does not work with the current
+clock driver.
 
-Fixes: 115380f9a2f9 ("ntfs: update mft operations")
-Cc: stable@vger.kernel.org
-Signed-off-by: Hyunchul Lee <hyc.lee@gmail.com>
+The clock controller registers its muxes with .fw_name parent data,
+which requires every internal clock name to be declared in the DT. As
+the DT does not declare them, all parent lookups fail: muxes end up
+registered as root clocks and most peripherals read a zero rate.
+
+This conversion exposed an issue with the WDT/WWDT parents which were
+actually missing in the clock driver. I am not using these clocks myself
+but it is worth fixing.
+
+Signed-off-by: Miquel Raynal <miquel.raynal@bootlin.com>
 ---
- fs/ntfs/inode.c | 2 ++
- 1 file changed, 2 insertions(+)
+Changes in v2:
+- New patch 1/3: register the missing WDT/WWDT parent clocks
+- New patch 3/3: harden the code
+- Link to v1: https://lore.kernel.org/r/20260813-perso-ma35d1-upstream-clk-v1-1-e78e5e6172ea@bootlin.com
 
-diff --git a/fs/ntfs/inode.c b/fs/ntfs/inode.c
-index 4375ad477809..d5e526d3612a 100644
---- a/fs/ntfs/inode.c
-+++ b/fs/ntfs/inode.c
-@@ -3740,6 +3740,8 @@ static s64 __ntfs_inode_non_resident_attr_pwrite(struct inode *vi,
- 			folio_lock(folio);
- 		}
- 
-+		folio_wait_writeback(folio);
-+
- 		if (count == PAGE_SIZE) {
- 			offset = 0;
- 			attr_len = count;
+---
+Miquel Raynal (3):
+      clk: nuvoton: ma35d1: Add missing WDT/WWDT parent clocks
+      clk: nuvoton: ma35d1: Use clk_hw pointers as mux parents
+      clk: nuvoton: ma35d1: Avoid possible error pointer dereferencing
 
+ drivers/clk/nuvoton/clk-ma35d1-divider.c       |   3 +
+ drivers/clk/nuvoton/clk-ma35d1-pll.c           |   3 +
+ drivers/clk/nuvoton/clk-ma35d1.c               | 637 ++++++++-----------------
+ include/dt-bindings/clock/nuvoton,ma35d1-clk.h |   4 +-
+ 4 files changed, 197 insertions(+), 450 deletions(-)
+---
+base-commit: cee9395acd8043be0644b25c34bfa86623f2b935
+change-id: 20260813-perso-ma35d1-upstream-clk-65cacfc1a86b
+
+Best regards,
 -- 
-2.43.0
+Miquel Raynal <miquel.raynal@bootlin.com>
 
