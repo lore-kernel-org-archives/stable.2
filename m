@@ -1,40 +1,42 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 067C8499F17;
-	Mon, 21 Sep 2026 15:11:17 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 104654B4870;
+	Mon, 21 Sep 2026 15:11:26 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003484; cv=none; b=jYn+5NNbVzryG2qi7+2zZQC/kXY8am2tmryxVev7Dx9zzwYcm3WME3JUZrHQeFlNFTvEGvU+ofBxyZCC+60kTH4MOvVMbAyUAX+ySnO8V7sWuEl7PMo9288iFV7mYs3ybQeePYTQMDgoPn5tsJ7QdocsF9X0xx0Ds+oAHDYNcIk=
+	t=1790003489; cv=none; b=kiW34goYh7/Tqr/EpnrSEvjQrAT3qK+0SPK63CWUt+Pv9gkSNm7pK1ffs6j+yTXBxEPjDKzquTiPuSJYe68/seIsnn0mjnr+/zt48PKJqZMri1ReOjPOcmNy+lqbSi0ffnmRgGWXQ2Vm75Onlc2dgMk+MS8SiNdOBOcEiHwe/N0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003484; c=relaxed/simple;
-	bh=bqE1xEot6tiyL8ZmNNempke5NHtbffWU04ZTox5AuAs=;
+	s=arc-20240116; t=1790003489; c=relaxed/simple;
+	bh=F723jUb4FX3wnPM8/1OM5X8MykUBmpaUpNENj61e5sc=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=ZmTZwBfzb1jYydeXdyXrMXUcbviSva1vbCU4MhgybrD8Ge6QrpXVQF8cyK1GQydHpzouZl+ukgLOW5WiNJh7evENbD7jm9VUBPM9dSi0FygNDCjR10QkhKBzh5OIMeLx62z+0BiFlqMy4OS0pnjgVdnxtbLDYqrpqTR0SgtZUhg=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=L5gmCXeg; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=SWgxEfBa5hAa/B+OLviOHOIUxc0JpNDkzIPCJVl6PQCSKio0BGFvHoPLVk1KyIktOrJE+iCehuZm/kn1gXV6iTyDWvv0L2lZVc7XZbt8sxzcVCHdltUQTWvLJqWsfAl/+hN1IRcBvYRvMNgPCD4h5OyYIbdMqMcWau4E7GvKrLE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Nkt648Lc; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="L5gmCXeg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 048B71F000FF;
-	Mon, 21 Sep 2026 15:11:13 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Nkt648Lc"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id A0A601F00893;
+	Mon, 21 Sep 2026 15:11:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003474;
-	bh=ZDRQ8N++1ApttUwT3N9xaoQfi3XlqZ/LvnDqiBydZrQ=;
+	s=k20260515; t=1790003484;
+	bh=/EGmor+rdd8V7CS1kyIpOAdpprLtqx5XjF9/vJmxcJI=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=L5gmCXegQUbpWwF/iOX7v/aMDnaqKZK/MMBosvdkNVGreWB98Pw5TVQjXjCJt76TQ
-	 BxGbp4OV5E0MOYWajMj/Lc4LAyv6CKFGPQK470CRf+2PTEY16nCux2ZBXxf13oyaMB
-	 ppvHyB+ugBCaM3PGxX3yQ5bVcQ7OkbCHZkat+YBrE8296bZL4aj6sql/0/aUNB1V5k
-	 TOIiLp8Udn5BwbyPscjSEYmqdaGNC9mgsVc7efJhVeCSebcCur37ICYcO5rNpCmRPX
-	 elxckYSupWrqDy96pCRpL5eRAqE/wN3ADr5v98Wz7867oWk/kjv4rI2zmLzhzUWbyo
-	 hx6hVKU5Nbcjw==
-Date: Mon, 21 Sep 2026 17:11:11 +0200
+	b=Nkt648Lc3RXSNvhcwChJrvmz86eV+ITMS4OhUJypkqOk4LQkV60uAHKYPTHGop08u
+	 MIJ4QounFQNV+ZZEmBeZAIhiTkSDb6Oe9u19KhcFNMqkflJJoGVksTklZXYrodkyiW
+	 1WRvmDtrAFch5e1tv5a7+prJKyHjlnWbiD2rlzCLtx6//qA+RSSU62IaAOW5mq+Uy/
+	 paXL0iR+aZRLZYFsu8w7Pth1h+VGfjTTXZRKxkh+phcHXv+zt7cWQ3DRMg6XVVzOAB
+	 j0y2McmqsAeMlqV3ehkG+P89xUklD2RXaivQYaKEWg8CWvOPCeFPu+Kd1DEqX2e+cL
+	 gomGJw1O7xaFw==
+Date: Mon, 21 Sep 2026 17:11:21 +0200
 From: krzk@kernel.org
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Miquel Raynal <miquel.raynal@bootlin.com>, stable@vger.kernel.org, 
-	Vignesh Raghavendra <vigneshr@ti.com>, linux-mtd@lists.infradead.org, linux-kernel@vger.kernel.org, 
-	Martin Blumenstingl <martin.blumenstingl@googlemail.com>, Richard Weinberger <richard@nod.at>
-Subject: Re: [PATCH] mtd: rawnand: intel: fix OF node reference leak
-Message-ID: <arFJDKtpHSmxkhVG@quoll>
-References: <20260915163407.2487869-1-lgs201920130244@gmail.com>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: oe-linux-nfc@lists.linux.dev, davem@davemloft.net, kuba@kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, edumazet@google.com, 
+	netdev@vger.kernel.org, pabeni@redhat.com, horms@kernel.org, david+nfc@ixit.cz, 
+	sameo@linux.intel.com
+Subject: Re: [PATCH] nfc: llcp: Fix socket reference leak in
+ nfc_llcp_recv_ui()
+Message-ID: <arFJGDb6WiuBi0nE@quoll>
+References: <20260916073424.1971784-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -43,29 +45,23 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260915163407.2487869-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260916073424.1971784-1-vulab@iscas.ac.cn>
 
 
-On Wed, 16 Sep 2026 00:34:07 +0800, Guangshuo Li wrote:
-> ebu_nand_probe() gets a reference to the NAND chip node with
-> of_get_next_child(). The probe failure paths release the reference with
-> of_node_put(), but the successful probe path keeps it for the lifetime
-> of the device and ebu_nand_remove() never drops it.
+On Wed, 16 Sep 2026 07:34:24 +0000, Wentao Liang wrote:
+> In nfc_llcp_recv_ui(), nfc_llcp_sock_get() is called to find the bound
+> socket. If the socket type is not SOCK_DGRAM, the function returns
+> directly without releasing the socket reference via nfc_llcp_sock_put(),
+> resulting in a reference count leak.
 > 
-> As a result, each bind/unbind cycle leaks a reference to the NAND chip
-> device node.
+> Add nfc_llcp_sock_put() when the socket type is not SOCK_DGRAM.
 > 
-> Drop the reference in ebu_nand_remove() after the NAND teardown using
-> the flash node stored in the NAND chip.
-> 
-> This issue was found by manual code inspection.
-> 
-> Fixes: bfc618fcc3f1 ("mtd: rawnand: intel: Read the chip-select line from the correct OF node")
+> Fixes: 968272bf0087 ("NFC: Handle LLCP UI frames")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 > ---
->  drivers/mtd/nand/raw/intel-nand-controller.c | 2 ++
->  1 file changed, 2 insertions(+)
+>  net/nfc/llcp_core.c | 6 +++++-
+>  1 file changed, 5 insertions(+), 1 deletion(-)
 > 
 
 
