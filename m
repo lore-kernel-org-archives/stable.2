@@ -1,156 +1,182 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mx0a-001b2d01.pphosted.com (mx0a-001b2d01.pphosted.com [148.163.156.1])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1201E48489A;
-	Mon, 21 Sep 2026 11:09:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 132C1484880;
+	Mon, 21 Sep 2026 11:11:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=148.163.156.1
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988949; cv=none; b=Ei9N3jKOO2Bn1JKp1A2s22Fc5B2iUFzDiJTa+DHe/j/kHbN3vC1vk0e5FvIW+Oi3jwSLnxQxmqtJJzDCXAr9h3NfrGnD0vJ39+/E0pwiRP50chdPg89Dxn7Z3Zy0TVhAhf0zOnsnhNO13da8fK4Hv8t1CUKcbTWFPY3BnSM1qGo=
+	t=1789989071; cv=none; b=Qf5DIQQMZBjZPwh9vmofkbH9iTXsqHA1kQlYYoeJ1WJ5mqCPe0Q5liAJ+aWu0ef5gRyg7oAPr6oP5tVTvBWLj7K6mD4meSp5s9ee9V9pzJp6VsV1WBdOnVTHTfwseCb6sIx+QomZOqVqSnX53AZnDWHEgKKF2AoPdEUgWnI1ITg=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988949; c=relaxed/simple;
-	bh=XOJGD4DL8Hbs3UyGwmPcnrJLfVdnCt93POrbVDP8F9E=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=m0S9zTOYDbrWvXUGEex6EMeSEYVjOLSjt3yrTHCSNGMaUvKPYsXHsBJZVDiBBJ4Vr+VWDZ3czas1vUdzGx1qb/E77Lg5G8hoRHv52ql7/e3g/f3/Y+NcrNa8kTqx7qv2fjzsBzA3SiIEKFzN45HZhj6weooVtFoMAMa+9wbX+Uc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=mt/oH4nW; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789989071; c=relaxed/simple;
+	bh=PzXcXk1NdEq+6grOWKN1MdvfMZlqE+Yyj0tT0VhIjf0=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=s/6TL9x6g5GVzmAwX5dHGW7llAUoojRlfnkt0X02MQl89gk9SK+/g44t3Vldzu0iHaDDW2Sl8S/znAqFkbiNeWpFV5acBD+8Luv/c0aVveHlo7CEjJBPPJFKGmw36blKoSUM8+VQ2HhUX96klmAMq7+nuAVBV/KmR0botKQl/zU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com; spf=pass smtp.mailfrom=linux.ibm.com; dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b=bQm1VPSG; arc=none smtp.client-ip=148.163.156.1
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.ibm.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.ibm.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="mt/oH4nW"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 231AE1F000FF;
-	Mon, 21 Sep 2026 11:09:02 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789988942;
-	bh=U+4ki4AvYJsyBiciw5qYv2Bi6kejqav8LxCvURMHiqM=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=mt/oH4nWL8KMKMmB1OqIMjWjZ2OcfR3FCfq7pIh3jfA5AN/4w1xJebxZ6gD9kVL4v
-	 DavnaaEGtJjrmbJQhVJADjNOs3asfA06EvMGLgbYRokhhMCnhX2RM93PyU8s+PJB0o
-	 LpKtqS6NMZRyBqsxKouva7UgC0VbeHdoqgWaqHT199ia8V15MfHe59fhgi4IrTbA6k
-	 UBLAJbebRboLAsTg3lR65ymjiO+L02TOd3ymR1VwU7DZrii8gjGqKBwfWZ7Rv1moa0
-	 pqX2A/jxJLDxMk3oxLNPPd6Lu+0zTdDw9xfueLdfvMf7sX5aorm97QQTKgKDDY0zVk
-	 b8xK7Tbh3YkUQ==
-Subject: Re: [PATCH] net: dsa: vitesse-vsc73xx: Fix SPI device reference leak
- in vsc73xx_spi_probe()
-From: netdev-bot+sashiko@kernel.org
-To: vulab@iscas.ac.cn
-Cc: andrew@lunn.ch, davem@davemloft.net, edumazet@google.com,
- f.fainelli@gmail.com, kuba@kernel.org, linusw@kernel.org,
- linux-kernel@vger.kernel.org, netdev@vger.kernel.org, olteanv@gmail.com,
- pabeni@redhat.com, paweldembicki@gmail.com, stable@vger.kernel.org
-Date: Mon, 21 Sep 2026 11:09:01 +0000
-Message-ID: <178998894159.2160803.2533930909979691719@kernel.org>
-In-Reply-To: <20260917104920.2147568-1-vulab@iscas.ac.cn>
-References: <20260917104920.2147568-1-vulab@iscas.ac.cn>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=ibm.com header.i=@ibm.com header.b="bQm1VPSG"
+Received: from pps.filterd (m0360083.ppops.net [127.0.0.1])
+	by mx0a-001b2d01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LB5N5Z1316544;
+	Mon, 21 Sep 2026 11:10:54 GMT
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=ibm.com; h=cc
+	:content-transfer-encoding:date:from:message-id:mime-version
+	:subject:to; s=pp1; bh=spcUacc2GkEI6/pcjXq11vkjawtG1NHlSWBJ691pj
+	9M=; b=bQm1VPSGBxiIwsNzjNbZ7eIL4MBm333vCvbJyvUN8FlWb8d/AV/2dZS6q
+	fDdG0bRHA3VNExoePk2JA0TDyExzT4g2Ury+TQxNq+L0UbpQ9OiI0PuUQtXuWXcl
+	zJur30pMX8BUcRXNnsxLoF2lnzMbPpXfdNFQv7kARKsm/7Jh6nby7pCeZZwjg4lR
+	emxOZkA45AV9d/C4dXL6sZbZw+0XmqhDZV5KAeH2gsKgzZdt+68DNEwXLV3GHZo9
+	GhiZ8zpRSp37AnFC2n41Igt+XWPuMz63HPetVl/ReVPgDxMBJrL200DFZoKrrudl
+	42mCVO2Gc3QZ+gIlCUl2vSBiRc9ow==
+Received: from ppma22.wdc07v.mail.ibm.com (5c.69.3da9.ip4.static.sl-reverse.com [169.61.105.92])
+	by mx0a-001b2d01.pphosted.com (PPS) with ESMTPS id 4gskg2853j-1
+	(version=TLSv1.3 cipher=TLS_AES_256_GCM_SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 11:10:53 +0000 (GMT)
+Received: from pps.filterd (ppma22.wdc07v.mail.ibm.com [127.0.0.1])
+	by ppma22.wdc07v.mail.ibm.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAm3CC1096709;
+	Mon, 21 Sep 2026 11:10:52 GMT
+Received: from smtprelay04.fra02v.mail.ibm.com ([9.218.2.228])
+	by ppma22.wdc07v.mail.ibm.com (PPS) with ESMTPS id 4gt53vd35e-1
+	(version=TLSv1.2 cipher=ECDHE-RSA-AES256-GCM-SHA384 bits=256 verify=NOT);
+	Mon, 21 Sep 2026 11:10:52 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (smtpav02.fra02v.mail.ibm.com [10.20.54.101])
+	by smtprelay04.fra02v.mail.ibm.com (8.14.9/8.14.9/NCO v10.0) with ESMTP id 68LBAmta12058946
+	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-GCM-SHA384 bits=256 verify=OK);
+	Mon, 21 Sep 2026 11:10:48 GMT
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id AB6812004B;
+	Mon, 21 Sep 2026 11:10:48 +0000 (GMT)
+Received: from smtpav02.fra02v.mail.ibm.com (unknown [127.0.0.1])
+	by IMSVA (Postfix) with ESMTP id 20AA220040;
+	Mon, 21 Sep 2026 11:10:46 +0000 (GMT)
+Received: from li-fbf77acc-29ba-11b2-a85c-e8e934f50a46.bl1-in.ibm.com (unknown [9.123.6.5])
+	by smtpav02.fra02v.mail.ibm.com (Postfix) with ESMTP;
+	Mon, 21 Sep 2026 11:10:45 +0000 (GMT)
+From: Gautam Menghani <gautam@linux.ibm.com>
+To: maddy@linux.ibm.com, npiggin@gmail.com, mpe@ellerman.id.au,
+        chleroy@kernel.org, ritesh.list@gmail.com, sshegde@linux.ibm.com,
+        nnmlinux@linux.ibm.com, amachhiw@linux.ibm.com
+Cc: linuxppc-dev@lists.ozlabs.org, kvm@vger.kernel.org,
+        linux-kernel@vger.kernel.org, stable@vger.kernel.org,
+        Timothy Pearson <tpearson@raptorengineering.com>
+Subject: [PATCH v3] KVM: PPC: Book3S HV: Avoid spurious interrupts caused by LPCR_MER bit
+Date: Mon, 21 Sep 2026 16:40:42 +0530
+Message-ID: <20260921111043.49825-1-gautam@linux.ibm.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
+X-TM-AS-GCONF: 00
+X-Proofpoint-Reinject: loops=2 maxloops=12
+X-Proofpoint-ORIG-GUID: 7Js7S6Cc_0Lsr-IVK1KaZSIBUY5o6rkR
+X-Authority-Analysis: v=2.4 cv=I43w19gg c=1 sm=1 tr=0 ts=6ab110be cx=c_pps
+ a=5BHTudwdYE3Te8bg5FgnPg==:117 a=5BHTudwdYE3Te8bg5FgnPg==:17
+ a=VdqzKS8jKosA:10 a=VkNPw1HP01LnGYTKEx00:22 a=RnoormkPH1_aCDwRdu11:22
+ a=iQ6ETzBq9ecOQQE5vZCe:22 a=VwQbUJbxAAAA:8 a=yKAn6K1XAAAA:8 a=_AprYWD3AAAA:8
+ a=VnNF1IyMAAAA:8 a=lIyXSIJ_195hEhgqkI0A:9 a=6M1ixcW_PCWoKiWyFx5v:22
+ a=fKH2wJO7VO9AkD4yHysb:22
+X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE2MCBTYWx0ZWRfX59weTEn1vE/U
+ ZqVri69RqlN+KkQszLh32gFt4uB/vCACVg66nEQq1msFWL1aY0EKe+/4eNIgR38rgXCI0HNqXO/
+ AZogsDk3oj9esHXsCX5HovFmV1I4mwlX+80T9Cs2GEDN6x3fUaeAu70XVIoXYafSOHai0mES17Z
+ e12fcsXC2UZceb3EUTqSaphfXWQm1FoBZ2NvRZgAYWZZvcgi2dEWuakTnGAk5tQnr+D0Gz5V852
+ YJ+0kDrTO6Ig9U62RqOMTXL+0B6Z7NKWipRYWAez9iCkFAH94izWkvGiQvGYzA/Xs2rfki1j9n6
+ 19WqugHb8ODxu06/8PWAUfjkWd67KTs6uF8lFeQuTpaOR/myhRYxnrK8IdhW4SIFR/XrmDeOU67
+ 3nuMC/AdP+N9cU72zhOG8iX+erPGIgLAzK7gkxMoi6KMKxJ5QW8gm3ippWhTjyIM1eOEZkUV3Zw
+ oeKWz81ZhGk3mECsnQw==
+X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE2MCBTYWx0ZWRfX9zpJ33Pjjuyu
+ FcMI3h0CxwGISS8m+6Oz1FDrze9R1MLNDCP/sho/FXS7/4/TfmC3ChLh8ZPwbZkt0rK9Xq0wNQs
+ lM6bJSH/wV5/Bu0R+AYyKpcI19LVmdM=
+X-Proofpoint-GUID: KteZVDsxXEQHrfqAau4WzZlVGG2zIK21
+X-Proofpoint-Virus-Version: vendor=baseguard
+ engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
+ definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
+X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
+ spamscore=0 clxscore=1015 adultscore=0 suspectscore=0 impostorscore=0
+ lowpriorityscore=0 bulkscore=0 phishscore=0 priorityscore=1501 malwarescore=0
+ classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
+ reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210160
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+A huge number of spurious interrupts can be seen immediately after a KVM
+on PowerNV guest boots up in XIVE mode.
 
-Critical: 0 · High: 1 · Medium: 0 · Low: 0
+$ cat /proc/interrupts  | grep SPU
+SPU:     223705     192439     273526     147623   Spurious interrupts
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+This bug was introduced by commit ecd10702baae5 ("KVM: PPC: Book3S HV:
+Handle pending exceptions on guest entry with MSR_EE"). The root cause
+is that once LPCR_MER bit is set, it is supposed to be reset by
+software. But when a vCPU starts running with LPCR_MER set, the vCPU does
+not exit back to the host until the decrementer expires or there is an
+hcall, etc. This is because KVM on PowerNV guests have support for
+native XIVE, so they are not dependent on host for interrupt emulation.
+Due to this behaviour, a huge number of spurious interrupts are seen
+since LPCR_MER continues to be set and LPCR_MER cannot be reset until the
+vCPU exits to the host.
 
-- [High] Incomplete fix: the newly added spi_dev_put() calls do not cover
-  the shutdown()->remove() ordering, so the reference leak the commit…
+Fix this behaviour by not using the LPCR_MER bit whenever native XIVE is
+available (currently in case of KVM on PowerNV only), as the XIVE hardware
+can present interrupts to the KVM guest vCPU directly. So the LPCR_MER
+functionality is not required. This reduces the number of spurious
+interrupts drastically.
 
---
+Fixes: ecd10702baae5 ("KVM: PPC: Book3S HV: Handle pending exceptions on guest entry with MSR_EE")
+Cc: stable@vger.kernel.org # 6.8+
+Reported-by: Timothy Pearson <tpearson@raptorengineering.com>
+Closes: https://lore.kernel.org/linuxppc-dev/582904882.11159.1786719390349.JavaMail.zimbra@raptorengineeringinc.com
+Signed-off-by: Gautam Menghani <gautam@linux.ibm.com>
+---
+v3:
+1. Continue the use of LPCR_MER when kernel-irqchip=off (Sashiko)
 
-net: dsa: vitesse-vsc73xx: Fix SPI device reference leak in vsc73xx_spi_probe()
+v2:
+1. Handle the case where xive_interrupt_pending() is true and also the
+external exception bit is set. (Narayana)
 
-This adds spi_dev_put() calls to balance the spi_dev_get() done in
-vsc73xx_spi_probe(), covering the two probe error paths and
-vsc73xx_spi_remove().
+ arch/powerpc/include/asm/kvm_ppc.h | 7 +++++++
+ arch/powerpc/kvm/book3s_hv.c       | 2 +-
+ 2 files changed, 8 insertions(+), 1 deletion(-)
 
-> diff --git a/drivers/net/dsa/vitesse-vsc73xx-spi.c b/drivers/net/dsa/vitesse-vsc73xx-spi.c
-> index 85b9a0f51dd89..7b784320c41e7 100644
-> --- a/drivers/net/dsa/vitesse-vsc73xx-spi.c
-> +++ b/drivers/net/dsa/vitesse-vsc73xx-spi.c
-> @@ -153,10 +153,15 @@ static int vsc73xx_spi_probe(struct spi_device *spi)
->  	ret = spi_setup(spi);
->  	if (ret < 0) {
->  		dev_err(dev, "spi setup failed.\n");
-> +		spi_dev_put(vsc_spi->spi);
->  		return ret;
->  	}
->  
-> -	return vsc73xx_probe(&vsc_spi->vsc);
-> +	ret = vsc73xx_probe(&vsc_spi->vsc);
-> +	if (ret)
-> +		spi_dev_put(vsc_spi->spi);
-> +
-> +	return ret;
->  }
->  
->  static void vsc73xx_spi_remove(struct spi_device *spi)
-> @@ -167,6 +172,8 @@ static void vsc73xx_spi_remove(struct spi_device *spi)
->  		return;
->  
->  	vsc73xx_remove(&vsc_spi->vsc);
-> +
-> +	spi_dev_put(vsc_spi->spi);
->  }
->  
->  static void vsc73xx_spi_shutdown(struct spi_device *spi)
-
-[Severity: High]
-Does this still leak the spi_device reference when shutdown() runs before
-remove()?
-
-The new spi_dev_put() sits after the NULL drvdata guard in
-vsc73xx_spi_remove():
-
-	struct vsc73xx_spi *vsc_spi = spi_get_drvdata(spi);
-
-	if (!vsc_spi)
-		return;
-
-	vsc73xx_remove(&vsc_spi->vsc);
-
-	spi_dev_put(vsc_spi->spi);
-
-and vsc73xx_spi_shutdown() deliberately clears drvdata without dropping
-the reference:
-
-	vsc73xx_shutdown(&vsc_spi->vsc);
-
-	spi_set_drvdata(spi, NULL);
-
-Documentation/networking/dsa/dsa.rst describes this ordering as permitted:
-
-  to be called even if ``shutdown()`` was already called. Therefore, drivers are
-  expected to implement a mutual exclusion method between ``remove()`` and
-  ``shutdown()`` by setting their drvdata to NULL after any of these has run
-
-So on reboot followed by SPI controller teardown, for example
-dspi_shutdown() -> dspi_remove() -> spi_unregister_controller() ->
-spi_unregister_device() -> device_del() -> vsc73xx_spi_remove(), the
-remove callback returns early at the !vsc_spi check and the extra
-reference on the spi_device (and its per-CPU spi_statistics) is never
-dropped. The commit message does not mention the shutdown path.
-
-Would it be simpler to drop the reference entirely instead of adding
-matching puts, i.e. in vsc73xx_spi_probe():
-
-	vsc_spi->spi = spi;
-
-vsc_spi is devm_kzalloc()'d on &spi->dev, and vsc_spi->spi is only
-dereferenced from vsc73xx_spi_read()/vsc73xx_spi_write() while the driver
-is bound, a window in which the driver core already keeps the spi_device
-alive. This file is also the only user of spi_dev_get()/spi_dev_put()
-outside drivers/spi and drivers/platform/x86; peer DSA SPI drivers just
-store the pointer, see b53_spi_probe() in drivers/net/dsa/b53/b53_spi.c
-and ksz_spi_probe() in drivers/net/dsa/microchip/ksz_spi.c. That would
-make every path, including shutdown, symmetric without adding three call
-sites to keep in sync.
-
+diff --git a/arch/powerpc/include/asm/kvm_ppc.h b/arch/powerpc/include/asm/kvm_ppc.h
+index 169ea6a7fbad..580ad2548c2b 100644
+--- a/arch/powerpc/include/asm/kvm_ppc.h
++++ b/arch/powerpc/include/asm/kvm_ppc.h
+@@ -747,6 +747,11 @@ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+ 	return vcpu->arch.irq_type == KVMPPC_IRQ_XIVE;
+ }
+ 
++static inline bool kvmppc_xive_native_enabled(struct kvm *kvm)
++{
++	return kvm->arch.xive_devices.native;
++}
++
+ extern int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+ 					   struct kvm_vcpu *vcpu, u32 cpu);
+ extern void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu);
+@@ -782,6 +787,8 @@ static inline bool kvmppc_xive_rearm_escalation(struct kvm_vcpu *vcpu) { return
+ 
+ static inline int kvmppc_xive_enabled(struct kvm_vcpu *vcpu)
+ 	{ return 0; }
++static inline bool kvmppc_xive_native_enabled(struct kvm *kvm) { return false; }
++
+ static inline int kvmppc_xive_native_connect_vcpu(struct kvm_device *dev,
+ 			  struct kvm_vcpu *vcpu, u32 cpu) { return -EBUSY; }
+ static inline void kvmppc_xive_native_cleanup_vcpu(struct kvm_vcpu *vcpu) { }
+diff --git a/arch/powerpc/kvm/book3s_hv.c b/arch/powerpc/kvm/book3s_hv.c
+index dbac3573b2c8..cb2bb29451a7 100644
+--- a/arch/powerpc/kvm/book3s_hv.c
++++ b/arch/powerpc/kvm/book3s_hv.c
+@@ -4980,7 +4980,7 @@ int kvmhv_run_single_vcpu(struct kvm_vcpu *vcpu, u64 time_limit,
+ 			if (!kvmhv_on_pseries() && (__kvmppc_get_msr_hv(vcpu) & MSR_EE))
+ 				kvmppc_inject_interrupt_hv(vcpu,
+ 							   BOOK3S_INTERRUPT_EXTERNAL, 0);
+-			else
++			else if (!kvmppc_xive_native_enabled(vcpu->kvm))
+ 				lpcr |= LPCR_MER;
+ 		} else {
+ 			/*
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917104920.2147568-1-vulab%40iscas.ac.cn
+2.55.0
+
