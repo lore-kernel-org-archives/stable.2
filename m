@@ -1,159 +1,177 @@
-Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-qk2-f12.google.com (mail-qk2-f12.google.com [74.125.230.204])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1942B4A6881;
-	Mon, 21 Sep 2026 14:42:12 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001736; cv=none; b=kDZEQqlLeF86e0gxbKVLa96u8sHQOwW14XA8p1wXnXG/63oVloja+pLGOXdIqxPHxcdB4zxXxdvC8ZF3V33UWtPnu9AyHlA9KTKCKU03OYOMjcIIbQSO8FtFOD+ntRBEkhcNfgknZP6d1JKu4FRKLk6wj2YWa7Y16MbLqaHUOns=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001736; c=relaxed/simple;
-	bh=sGruuTORCOH7Md2a1q1vZDJ3XOsnCuOVCxA101Q3I20=;
-	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oilkgfomNO4o/u4/oU3f+GpnsDpHUFXPg77bzfvUcViIK2r+mozyxzCbuwamzLvZb3NdFMIQ1T4w8jyk7JzAHwQQpeTXq5ffWB2o4v8yi7Mw4Wo/CHrhMoQIIUM4p/G38Gf0xAm0TPBwGntUZNjk/umyWu5rb3lC7rdO8Ddh87M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=N2RN0ZfN; arc=none smtp.client-ip=45.254.49.198
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 953EB47886E
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:42:39 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.230.204
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790001761; cv=pass; b=Yk7uREUKquWXaYOHVQsceA/RkCGxoltY6P6gg0RAM73f88EFalLeaaSriRSEYXyr8HnrphLiWHPSuK39cP0MCL7MrzukjiB1bKiu0gKLFdUzYvYOmmKNHOGyQazGkO8Fvjq5b20QXC0vTAoruw5RERsWRxogqYKkVcWjPyUs93k=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790001761; c=relaxed/simple;
+	bh=kbZaopDYBVMx85fKsqs4rCEG1F3x+bxLKSSwopPsKYI=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=TQozifUeSsy/sccf/4x4/MoeT4EqCP4+HIxE7poJ9u6MQegMz0/4/3sEsV9jCQcB4oHRMxAdja57qd7uXwd2LI/91xJ+WLCmbvzzvUxcRwMhfgDbbLkrb3e06i0p+GRUZREAJNa60RLUZzvwX9hjYxGXu8HGqQ4XWm6YpzilsnY=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com; spf=pass smtp.mailfrom=google.com; dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b=PQlfERhl; arc=pass smtp.client-ip=74.125.230.204
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=google.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=google.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="N2RN0ZfN"
-Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
-	by smtp.qiye.163.com (Hmail) with ESMTP id 4e975bd86;
-	Mon, 21 Sep 2026 22:42:07 +0800 (GMT+08:00)
-From: Runyu Xiao <runyu.xiao@seu.edu.cn>
-To: William Hubbs <w.d.hubbs@gmail.com>
-Cc: Chris Brannon <chris@the-brannons.com>,
-	Kirk Reiser <kirk@reisers.ca>,
-	Samuel Thibault <samuel.thibault@ens-lyon.org>,
-	speakup@linux-speakup.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Runyu Xiao <runyu.xiao@seu.edu.cn>,
-	Jianhao Xu <jianhao.xu@seu.edu.cn>
-Subject: [PATCH] speakup: handle serial IRQ request failure
-Date: Mon, 21 Sep 2026 22:42:01 +0800
-Message-Id: <20260921144201.302823-1-runyu.xiao@seu.edu.cn>
-X-Mailer: git-send-email 2.34.1
+	dkim=pass (2048-bit key) header.d=google.com header.i=@google.com header.b="PQlfERhl"
+Received: by mail-qk2-f12.google.com with SMTP id d75a77b69052e-52fb767cc7fso25527481cf.0
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:42:39 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790001758; cv=none;
+        d=google.com; s=arc-20260327;
+        b=F1mlBRMXXKJWTQ3ZlxKnqBryVsSdkNogV12mcmbo7wzagleBS5La0Hr9IdN7AvWJKV
+         V5ZYagumjVObWLLGPR2AMx1R8VgRljoWJkYCqavOrPYuyv79IX4C8PRpmKri3udyc5fp
+         zT7GFaHBA+FDVxjEgaHtZQve7XYGAVBYIPQ3Wg5HuwKdHADPFHO/0KuxQZdAcqBp8zF1
+         +2rL8pm4/6mkLixsO4LXHO/AAPtzYPULypKmaamVWcMA2WeXCqT8c4SK0CnfGcaC/KH0
+         3/fT7uiD8lDtXoafHht93Znmu+bWHhh29jEM7pAZqmQ21aSCUtKYotA6rPUdsC43gqda
+         kEmQ==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=content-transfer-encoding:cc:to:subject:message-id:date:from
+         :in-reply-to:references:mime-version:dkim-signature;
+        bh=+yrdrELMZyL9v2+cXbL2/rgwUQ0W15U+RDCD6OYCG/k=;
+        fh=L/Z4cVEGZ80kfyDE6OhCYbCxO8e0NlE7p8JN+Y4XxJM=;
+        b=TFxbh6RctJTZFGqrf31VnJtDHYVBysUPb3KhgkwTTUH7vlMKV+164j96XovDK2ERML
+         nUBjMN4KJ4a+TzhpZKehr0mR0fB6dz4izZC4GEBgfX8IXqI9Qxr9k6gQcdvPghJmltmS
+         4kpDt4dYW/5I1nt5f0sgZSwprCxmQ6KhWDyTELUAXDTChRGvX8K0qDWeypi8oMYuHF29
+         YOoPXMvk3eGwevElRE8iczlip2V68TFH/CvcDMKVgCNRhWu8tsMGw6vKDt8mMW7DCLi3
+         U3JhFhWY7pCOrPZQ/2+OLbhLqP92qTQcZB0PDwoS9U3t9DKFcG52rxmjyoU4uQ0zNyuc
+         kl7g==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=google.com; s=20251104; t=1790001758; x=1790606558; darn=vger.kernel.org;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
+         :date:message-id:reply-to:content-type;
+        bh=+yrdrELMZyL9v2+cXbL2/rgwUQ0W15U+RDCD6OYCG/k=;
+        b=PQlfERhlNQf3oW28MUrjQRbCYdQ2JxnSsRRNOkAx35tryCDd9Ed7rHgN6s+OLCQDMb
+         CLe/lJNvfUb9+sD5bwK8Y5wpHYUHcil53nHxVvtUi+myinbUTBLf3POei+pF6oo9EUNh
+         8MhIEDGL/KrreH6DcKs3b+auU1gB/zWBtYeBRNeO1VD7mpHcWnbjkW8OwQ7f8lA1oWP5
+         QZn/YJNX3Ke4neO5r6hp8R2G+gKHpn6qhBwzuiCYdM8vzyTROjiT+Dng8ZhgtRYX3qDm
+         ZfDn7nhLCnNp+xe21V9nm9OArgQFQFZaYLy2k7NKAS51hvbekZXlR27EmPxdfpFJsm1d
+         YLKg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790001758; x=1790606558;
+        h=content-transfer-encoding:content-type:cc:to:subject:message-id
+         :date:from:in-reply-to:references:mime-version:x-gm-gg
+         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=+yrdrELMZyL9v2+cXbL2/rgwUQ0W15U+RDCD6OYCG/k=;
+        b=c7FoEWl+nV9HAMN8rEwpAkAkTg48jTDXsU9xlrS/FalpWvfUD0NJ2Svf1OkKjRguec
+         MHBeOGHSdZk5BZWbg/AciyfrCfoNddlJ4rOPsuqdRpiP1zINAPKoOyF4PQsG2lDpFaWN
+         ztA1nTZX032UsZ1f3w6uG5WM88Z7DAQzFm74F2bkUboZIp8ssBmeoJIZlFudqfpxSHWJ
+         jh2vzysfB/TmayXf5R5MDgAe/KsHqJqM/ZLzEyzWZI7YS89NQIjcUBcfWeAnd97aXcFc
+         p/g/bTpWmnKAiYfr70P4zHZmj8RAK6TvscGxAb1PNIHYWIMSuPx8hFo4tMyTrXuUplbc
+         hLVg==
+X-Forwarded-Encrypted: i=1; AKwUvBzLijrYXnf5z5Ar+2IDMWjdU44iqVJOpyHhRBwdQZm8+7fhx554W4WmyaYipA+wYM1/cLDOxhM=@vger.kernel.org
+X-Gm-Message-State: AFuF++lrOJU3zAbq4I1Ldw3zpKEGL7lHaenS2CF1mdo/3OqLOOswWb/4
+	QOczeM6kiGDQm1ObvRMTnfDD1sN+ty8cKgPUx0ZXTm4FmNc1SnXuCNK9pWWfpls6tdQKKEkhKEF
+	SCnlPKUIZUiKVQRdqHdYkT1v9sqHvFAnfYqPyGhpe
+X-Gm-Gg: AYBFou2jLJdmrHvcRtj6K1WlaYgt9M+d3y9eMqwXHyhsihZhblVGcwX7H9xY7zkfysj
+	zbvqlhygfosjtKPdYgZP18W3D0PXHUmU0Uc+mRi14jc7M/6yvnW5/e2c3bAKrePWZX1r3mtDhtW
+	PfmSlB21qiyzfOZ/gKCi+Be5WCTYShMUnkENWv/fWLH/bDx21dqLwbNkMkkeXZfoB16vegcIeS5
+	dHZYrZVS8cntbIIiogqY+h6mkW7TaNsgKjmfdZgnhDsUwVxdYofJN9SdO0MFoG7b3C5g8f/O51J
+	vZuTqjZP3eEplDMHBdzFhtYekTe5T3XhVsdcKh5YDYXflsg7XHOI9vdFotjep0h94UDmSmvqGJw
+	W1I+GIJWNPbZ0B4zij22wYDIMon+MszyvsLaPy9gEntwkxpHoY1g2q773ZBYpTBW8XVOGbg==
+X-Received: by 2002:ac8:5e0c:0:b0:51c:d1c:10e3 with SMTP id
+ d75a77b69052e-532d8e3854emr9389261cf.35.1790001757788; Mon, 21 Sep 2026
+ 07:42:37 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
-X-HM-Tid: 0aa0c46ac5dc03a1kunma0f451da52895
-X-HM-MType: 10
-X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
-	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTB1NVklPTEIeGE9MHU4dGFYeHw
-	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
-	pPSExVSktLVUpCS0tZBg++
-DKIM-Signature: a=rsa-sha256;
-	b=N2RN0ZfNQYf3rnlweQGuBtfuTiOfYuErv1fFwFfxxw8zUh44GOhRsmc+kdy1Q6ghfet+JAgmUAn9HtMrsQUx4UL/ybsbdBo3muJYZZ816flAmzFZZD1n8Wo2ILK8K+7mJASFgnGLGHsAxqDTbnz9NRlC3jlvejQc5YiyrKo7K/o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
-	bh=u2wIf+IGyx/+O0OgWCp4shQ0MgaWvz2EtUhSKy/AUig=;
-	h=date:mime-version:subject:message-id:from;
+References: <QDISC-9R8V.v1.20260921065103@mojatatu.com>
+In-Reply-To: <QDISC-9R8V.v1.20260921065103@mojatatu.com>
+From: Eric Dumazet <edumazet@google.com>
+Date: Mon, 21 Sep 2026 16:42:26 +0200
+X-Gm-Features: AcwNN1U98nW-4BMQAAQSJtgmzufGlXOEVZ058mnNWvJvlgkpIL02Q-3ZtJajOv4
+Message-ID: <CANn89iLwYx8nCVf0pCEk_MmEiyC6kQaMwCQT9WkQVeeNzNQHqQ@mail.gmail.com>
+Subject: Re: [PATCH net] net: cap skb->queue_mapping when the tx queue is picked
+To: Jamal Hadi Salim <jhs@mojatatu.com>
+Cc: netdev@vger.kernel.org, "David S. Miller" <davem@davemloft.net>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Jiri Pirko <jiri@resnulli.us>, 
+	Vinicius Costa Gomes <vinicius.gomes@intel.com>, Simon Horman <horms@kernel.org>, 
+	Victor Nogueira <victor@mojatatu.com>, Tonghao Zhang <xiangxia.m.yue@gmail.com>, 
+	Zero Day Initiative <zdi-disclosures@trendmicro.com>, hybris <hybris@mojatatu.ai>, 
+	stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-start_serial_interrupt() currently logs a failed request_irq() but
-continues enabling UART interrupts and reports a successful serial
-synthesizer probe. A later release then calls free_irq() without a
-matching registration.
+On Mon, Sep 21, 2026 at 4:02=E2=80=AFPM Jamal Hadi Salim <jhs@mojatatu.com>=
+ wrote:
+>
+> skbedit can set skb->queue_mapping and __dev_queue_xmit() honors it
+> through the skip_txqueue flag; netdev_tx_queue_mapping() clamps the
+> index it uses to select the netdev_queue but leaves the out-of-range
+> value in skb->queue_mapping.
+>
+> Every later consumer of skb_get_queue_mapping()/skb_get_tx_queue() on
+> that path then reads past the device's queues. Taprio's child array
+> q->qdiscs[] is sized to the device's queue count, so taprio_enqueue()
+> indexes past its allocation; qdisc_restart() likewise dereferences
+> dev->_tx[queue_mapping].
+>
+> A local user in a network namespace can redirect a packet from a device
+> with more TX queues to one with fewer (mirred action) after setting a
+> mapping valid only on the larger device. That reaches these reads and,
+> under KASAN, faults with "slab-out-of-bounds in taprio_enqueue".
+>
+> Store the clamped value back into skb->queue_mapping, as
+> netdev_core_pick_tx() already does for the mapping it picks, so the
+> whole egress path observes an in-range queue index.
+>
+> I have looked at other alternative places to put this "fix", none
+> appealing: an out-of-range queue_mapping is read by every consumer
+> on the xmit path, not just by taprio. For example, upon testing
+> an approach that only bounds-checked taprio_enqueue() I observed
+> the fault relocated to sch_direct_xmit()/qdisc_restart() instead
+> (because dev->_tx[queue_mapping] is still indexed with the raw value).
+> Another approach was to cap it in skbedit;  cannot work: the
+> redirect target, whose queue count bounds the mapping, is not known
+> when the action runs, and act_mirred sets skb->dev afterwards.
+> So the decision is to cap the value where it is first trusted and
+> result is it fixes all downstream readers at once.
+>
+> Conditions to recreate the bug: with CONFIG_NET_SCH_TAPRIO=3Dy,
+> CONFIG_NET_ACT_SKBEDIT=3Dy, CONFIG_NET_ACT_MIRRED=3Dy and KASAN enabled,
+> create a 3-queue dummy qa and a 2-queue dummy qb, put a taprio root on
+> qb, then on qa's clsact add matchall with "action skbedit queue_mapping
+> 2 pipe action mirred egress redirect dev qb" and send one packet out
+> qa. Mapping 2 is valid for qa but past qb's two-entry taprio child
+> array.
+>
+> Reproduction: reproducer ran on a KASAN build with panic_on_warn=3D1:
+> the unfixed control faults with "BUG: KASAN: slab-out-of-bounds in
+> taprio_enqueue", a read 0 bytes past a 16-byte taprio_init allocation,
+> and panics.
 
-Return the request error to spk_serial_init() and unwind the I/O region
-and serial state when registration fails. This keeps the UART disabled
-and prevents teardown from freeing an IRQ that was never requested.
+I do not think this reproducer works. mirred egress redirect re-enters
+__dev_queue_xmit() for qb, which does netdev_xmit_skip_txqueue(false)
+before sch_handle_egress(). qb has no egress filter here, so
+netdev_tx_queue_mapping() is not called for qb at all, and
+netdev_core_pick_tx() rewrites skb->queue_mapping in range before
+taprio_enqueue() runs.
 
-Reproducer:
+I suspect the real issue is that the per-cpu flag is cleared *before*
+sch_handle_egress(), so a nested dev_queue_xmit() (mirred mirror, or a
+drop after skbedit) can set it and have the *outer* __dev_queue_xmit()
+consume it, for an skb that never went through skbedit. For a forwarded
+packet, skb->queue_mapping is then still skb_record_rx_queue()'s
+rx_queue + 1 from the ingress NIC. That reaches taprio with a garbage
+index, and clamping it only hides the fact that an innocent packet got
+pinned to a random TX queue.
 
-  Build an x86_64 kernel with CONFIG_ACCESSIBILITY=y,
-  CONFIG_SPEAKUP=m, and CONFIG_SERIAL_8250=m. Disable ACPI, PNP, and
-  SERIAL_8250_CONSOLE so that QEMU's COM1 remains available at 0x3f8 on
-  IRQ4. Build an out-of-tree module that first claims IRQ4 with a
-  non-shared handler and then registers a Speakup serial synthesizer for
-  ttyS0. Boot the kernel in QEMU with its default COM1, for example:
+If that is confirmed, I would rather consume the flag where it is read:
 
-    qemu-system-x86_64 -machine pc -m 1024 -smp 2 -no-acpi \
-      -display none -monitor none -serial file:/dev/null \
-      -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
-      -append 'console=hvc0 rdinit=/init loglevel=7'
+    skip_txq =3D netdev_xmit_txqueue_skipped();
+    netdev_xmit_skip_txqueue(false);
 
-  In the guest, load the modules in this order:
+right after sch_handle_egress(), dropping the pre-clear. Same number of
+stores, and the request can no longer escape the xmit that set it.
 
-    insmod speakup.ko
-    insmod speakup_irq_failure_poc.ko
-
-  The second module keeps the non-shared IRQ4 owner installed, so the
-  Speakup request_irq(..., IRQF_SHARED, ...) fails with -EBUSY. On the
-  unfixed kernel, the probe still returns success and the harness removes
-  the published synthesizer, producing "Trying to free already-free IRQ
-  4". On the fixed kernel, the probe returns an error and no unmatched
-  free_irq() warning is emitted. The IRQ conflict is deliberately
-  injected to exercise the error path and is not expected during normal
-  operation.
-
-Fixes: c6e3fd22cd53 ("Staging: add speakup to the staging directory")
-Cc: stable@vger.kernel.org
-Assisted-by: LLM Codex
-Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
----
- drivers/accessibility/speakup/serialio.c | 19 ++++++++++++++-----
- 1 file changed, 14 insertions(+), 5 deletions(-)
-
-diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
-index 3418ea31d..56efc76a7 100644
---- a/drivers/accessibility/speakup/serialio.c
-+++ b/drivers/accessibility/speakup/serialio.c
-@@ -17,7 +17,7 @@
- #define SERIAL_PORT_DFNS
- #endif
- 
--static void start_serial_interrupt(int irq);
-+static int start_serial_interrupt(int irq);
- 
- static const struct old_serial_port rs_table[] = {
- 	SERIAL_PORT_DFNS
-@@ -106,7 +106,13 @@ const struct old_serial_port *spk_serial_init(int index)
- 	speakup_info.port_tts = ser->port;
- 	serstate = ser;
- 
--	start_serial_interrupt(ser->irq);
-+	err = start_serial_interrupt(ser->irq);
-+	if (err) {
-+		synth_release_region(ser->port, 8);
-+		speakup_info.port_tts = 0;
-+		serstate = NULL;
-+		return NULL;
-+	}
- 
- 	return ser;
- }
-@@ -125,18 +131,20 @@ static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
- 	return IRQ_HANDLED;
- }
- 
--static void start_serial_interrupt(int irq)
-+static int start_serial_interrupt(int irq)
- {
- 	int rv;
- 
- 	if (!synth->read_buff_add)
--		return;
-+		return 0;
- 
- 	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
- 			 "serial", (void *)synth_readbuf_handler);
- 
--	if (rv)
-+	if (rv) {
- 		pr_err("Unable to request Speakup serial I R Q\n");
-+		return rv;
-+	}
- 	/* Set MCR */
- 	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
- 	     speakup_info.port_tts + UART_MCR);
-@@ -148,6 +156,7 @@ static void start_serial_interrupt(int irq)
- 	inb(speakup_info.port_tts + UART_IIR);
- 	inb(speakup_info.port_tts + UART_MSR);
- 	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
-+	return 0;
- }
- 
- static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
--- 
-2.34.1
+Also, taprio_enqueue() is the only qdisc indexing a num_tx_queues sized
+array with skb->queue_mapping. A bounds check there is free and worth
+having regardless.
