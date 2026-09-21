@@ -1,72 +1,80 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B52362E1746;
-	Mon, 21 Sep 2026 10:03:18 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B51E524DFF9;
+	Mon, 21 Sep 2026 10:04:07 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789984999; cv=none; b=l0jN3Nv/Jki265OUY+zhfsm7DT1zAFg+VmTxUct9SO8m6rUWv7DJrPVf4mO59ef3+09nvMgemw3U0sm0SruMC1hkeLU9BqX+wde6wnaJcoBM5S3U2KBQtjv2ImCC51nuF0CutKIhelET4JMGVuALC7giTU5+wzsm2l3w2GK8Svg=
+	t=1789985048; cv=none; b=iOPTT89OhphR1R3Ord30fZkU4r5VNdZxswR31pR0jQfhed7rckLM2CIw4AVcQ3Zr0qcZOwlw51qIGfk1/W4SPm8WBH6F8Sgz2G8f0ZQa3biHvh9ayJnd0Gcm5TnV29DD9sR5bmEEMYi7MdKgzL5JUBrh69fx+kvuD6qmA2UFlX8=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789984999; c=relaxed/simple;
-	bh=CLClXsDVSZdWSZ+ZbqLqcjL6xZU67jKJmKuirQM6Jfw=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Message-Id:Date:
-	 MIME-Version:Content-Type; b=FDKkxEsHGXteCLvYAN8Voq9YrtTRsrun3dxShjFjD8GTv2uwRv05CQ0tQl8hATdcrlCGuSEg5qUDPGJPKohfdxloiHk6B5fO98AXJEaS4QJIeAJsIQY0wuU/2hy0Oos9BFUmtlE8JM6vA02tftFJFtTTlrmRTH74TD8xZ7NGtPo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=oyh6FW7l; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789985048; c=relaxed/simple;
+	bh=vqe1anqrH73ZYZJ8pspdjyri3NMOBeodwVDouCv57Ys=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=KLmpzi0sYVd3QbJbJgaRYNntibBdbs/xaJLZHni5DgvcEuBPThvlWgrTlWdbHtkcYdCpyRI8huYF6YkuE5PBG/dYaMVkehARdWqOtB7IUvGTmw56P4iZ++zgA3rzrYEI9ohPa2PPcBEnFwgWeLvjwIQqcFvt7RD2CYzgYIDPV4Q=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=OrM2UDI2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="oyh6FW7l"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 586971F000FF;
-	Mon, 21 Sep 2026 10:03:17 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="OrM2UDI2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 2B5A31F000FF;
+	Mon, 21 Sep 2026 10:04:05 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789984998;
-	bh=oVZBHT++EBLpm974p4QU/ut5BA2+uMVDbG/JtjHvgkg=;
-	h=From:To:Cc:In-Reply-To:References:Subject:Date;
-	b=oyh6FW7lupTBTUog7zx4gidxY+uG1fQBoiSF6o7PI9o5fOwsub9ApPgPaOkQuMZQV
-	 D64iXXdeaDA6mFZR0II4n1vvpLn2W1EVO9WKojkwOuqK7XDg7qlttg3ub/43LIvQat
-	 aVocXdVi48AzOpCL6Oq6Ye7KX9A/MLTYbk2BaGX2xwq6BSx+uWjffHCuIxxR83LjHN
-	 tJG4eTZNhs1qk2C7j0yttsY7WSTAwSSSnAA/vIKoS1aaDimu7qpmSWDe2ReasaafLI
-	 xHcSxHD6+J/P+d+X/9AE9khzFwVKvByCNKTE8elmRsPOV3sVMNQdyuv5P0BD4QrgLk
-	 5nMcAlUB/cPyg==
-From: Niklas Cassel <cassel@kernel.org>
-To: Damien Le Moal <dlemoal@kernel.org>, Hui Peng <benquike@gmail.com>
-Cc: linux-ide@vger.kernel.org, linux-kernel@vger.kernel.org, 
- stable@vger.kernel.org
-In-Reply-To: <20260921032556.1160734-1-benquike@gmail.com>
-References: <20260919222625.3797581-1-benquike@gmail.com>
- <11314f1d-ee6a-45d1-a7aa-3bc1cca0c82f@kernel.org>
- <20260921032556.1160734-1-benquike@gmail.com>
-Subject: Re: [PATCH v2] ata: libata-scsi: abort multi-sector pass-through
- commands when multi_count is 0
-Message-Id: <178998499708.2887554.8560091477968447397.b4-ty@kernel.org>
-Date: Mon, 21 Sep 2026 12:03:17 +0200
+	s=k20260515; t=1789985047;
+	bh=8ADuUsrRS3h/7DwUQhJ/VbGMEZuAgKj089MxrWSS3OA=;
+	h=Date:From:To:Cc:Subject:References:In-Reply-To;
+	b=OrM2UDI2mSfJoh1dXQFTTXc6T0VaqMmEYx9TgyK3b1HDVuF+1BrDagMT21LxvR29o
+	 qNm0asx4n198KhIpoK7eH7LfNAhrX2I/f8TgAJF3pn0JZMT1vn5fyTc8QDsQE6YENi
+	 hd8ScdpPDm+bOXCnbMejmP8GW6KViHJ8n61mdeqRV/7loigxKFJ7oWL5iHPt2o12E3
+	 3juyHfRwc5iYQIKKzaTHXz4Uq04Qs1+V341m/hbKr22Z7jBeR5S4fnHLpp1VquPHlP
+	 802F5/J71NQgA15BHGVV/UQ1yyvC1zmGGWE8C92MPZt3gEmuOSKl10JVg8qL0i8y4u
+	 aFX8Exk6Hn48w==
+Date: Mon, 21 Sep 2026 11:04:03 +0100
+From: Simon Horman <horms@kernel.org>
+To: Wentao Liang <vulab@iscas.ac.cn>
+Cc: andrew+netdev@lunn.ch, davem@davemloft.net, edumazet@google.com,
+	igal.liberman@freescale.com, kuba@kernel.org,
+	linux-kernel@vger.kernel.org, madalin.bucur@nxp.com,
+	netdev@vger.kernel.org, pabeni@redhat.com, sean.anderson@linux.dev,
+	stable@vger.kernel.org
+Subject: Re: [PATCH] fsl/fman: Fix clk reference leak in read_dts_node()
+Message-ID: <20260921100403.GD13925@horms.kernel.org>
+References: <20260917110135.2148068-1-vulab@iscas.ac.cn>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 7bit
-X-Mailer: b4 0.14.3
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260917110135.2148068-1-vulab@iscas.ac.cn>
 
-On Mon, 21 Sep 2026 03:25:55 +0000, Hui Peng wrote:
-> When an ATA_12, ATA_16, or ATA_32 pass-through command with a
-> multi-sector PIO command opcode (ATA_CMD_READ_MULTI,
-> ATA_CMD_WRITE_MULTI, ATA_CMD_READ_MULTI_EXT, ATA_CMD_WRITE_MULTI_EXT, or
-> ATA_CMD_WRITE_MULTI_FUA_EXT) is submitted via SG_IO on a device where
-> multiple-sector mode is not configured (dev->multi_count == 0),
-> ata_scsi_pass_thru() currently logs a warning and still dispatches the
-> taskfile. When the DRQ interrupt fires, ata_pio_sectors() triggers
-> WARN_ON_ONCE(qc->dev->multi_count == 0) and computes
-> nsect = min((qc->nbytes - qc->curbytes) / qc->sect_size, 0) = 0, failing
-> to transfer any sectors:
+On Thu, Sep 17, 2026 at 11:01:35AM +0000, Wentao Liang wrote:
+> of_clk_get() returns a clock with its reference count incremented, but
+> read_dts_node() only uses it to read the rate and never calls clk_put().
+> The clock is not stored anywhere, so the reference cannot be released
+> later either.
 > 
-> [...]
+> Release the clock once its rate has been read, which also covers the
+> error path taken when the rate is zero.
+> 
+> Fixes: 414fd46e7762 ("fsl/fman: Add FMan support")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
 
-Applied to libata/linux.git (for-7.4), thanks!
+As noted by Andrew Lunn elsewhere, fixes for bugs are present in net
+should be target at net like this:
 
-[1/1] ata: libata-scsi: abort multi-sector pass-through commands when multi_count is 0
-      https://git.kernel.org/libata/linux/c/3bab8c7e
+Subject: [PATCH net] ...
 
-Kind regards,
-Niklas
+Also, perhaps someone else has mentioned this, but please slow down a bit
+with your patches. I see 19 in Patchwork as of writing. But we encourage
+a maximum of 15, and I really would like to stress that is a maximum
+to be used sparingly, not a buffer to be refilled.
 
+Link: https://docs.kernel.org/process/maintainer-netdev.html#limit-patches-outstanding-on-mailing-list
+
+I don't think there is any need to repost because of this feedback,
+but please keep them in mind for the future.
+
+As for this code change, it looks good to me.
+
+Reviewed-by: Simon Horman <horms@kernel.org>
