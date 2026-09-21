@@ -1,93 +1,107 @@
-Received: from mail11.truemail.it (mail11.truemail.it [217.194.8.81])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D14A546C823
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:24:48 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=217.194.8.81
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 2EEB13BE631;
+	Mon, 21 Sep 2026 14:26:17 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000693; cv=none; b=h0ck7BzO1K44hopoz/SFf2vOwXHHKkMoEiAb9sVf8uIDNjXz0gZKGdgbRCXRYxwkksikuAmrjHM1ErVf9/RKLlLm82WyCj8IBOX3L3/emUat73K6i0TQMzTN/lnviTdgqswYubeoiUqRZidIk/7v0NJycy2aqtiKCCc7bTdlljI=
+	t=1790000781; cv=none; b=l9FCD2cGyXHfQuEBd5mKRJN8VS1au1H/xrn+/7kjqbGyE2Jqqdq7fROj53QEGmzb/DUhGt0OuxJSCp6a5ZMZLXO0irf5vof1KUqWMpBnX0HS2uRX2c96K7TmvadoRtos/jOAayZruDMOFoxghF0CZfObmqfJlEIZWY2XiSx4wtM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000693; c=relaxed/simple;
-	bh=Eb6W4jbJt5N+kv5pZWJnNwvHc5jlxdc8xtZJbQ1/f5o=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=eQ43Gl8tYH0ptxkT4fNtMIJ0UjsPQDlw0DMoW4c9Wu9WPOPS/pYaNMEsEyJTNfARw9iKt2o1asaXf1rgULSXrh5e9+E1qKLKL6gK1GotTUh5lgaGfg7PtWkHdKVkO4Wjd1vBCserSEIa8VWXgtOBsptHnBPShGOaHKv3mipxoog=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it; spf=pass smtp.mailfrom=dolcini.it; dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b=yLVtprH1; arc=none smtp.client-ip=217.194.8.81
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=dolcini.it
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=dolcini.it
+	s=arc-20240116; t=1790000781; c=relaxed/simple;
+	bh=mp3SIzHgzjXTyT2ROhofVtctd6WZrfVD8Gqbw4AhVMI=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=djHyxsRZTGGcNzC3cKgI+0UXoQnZ3Ndjav/d+bwJUxTXF4NK8bTSYk7F6HYS/qQ8DK3HSaflj3l1padWNjCohgW4E9CXAyqpD3Q/mEl8OaTrkL1Hz6Q+gB5UzQ2EfThhU6glA++oo55RuR4zTx/vTe3WnpZL4sbaY+93mZST6fk=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Rm6o13Rw; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=dolcini.it header.i=@dolcini.it header.b="yLVtprH1"
-Received: from francesco-nb (93-49-2-63.ip317.fastwebnet.it [93.49.2.63])
-	by mail11.truemail.it (Postfix) with ESMTPA id 3DF48227EF;
-	Mon, 21 Sep 2026 16:24:46 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=dolcini.it;
-	s=default; t=1790000686;
-	bh=A0/c/bnV6Dsl2x4jIVPXD36HIgM/E4zR6LvXyCcH9pw=; h=From:To:Subject;
-	b=yLVtprH1I8ggT0FKNC24K2Y45zkC6UcVL1vgb+fo9aRuIh9xiTqEDmmkfu+oUW5z2
-	 n3wvIjiTEq9N8a/pQ0E59ojQDsJ/l1+pd5ki+j40/9hA3tCV5ddIXlMrXvsazvIUNA
-	 jEQ30+fwIvO3mWCMXBS4F119KcXdotWxxJsMjAfjZV69YIP4Tp67ayM0FNJiHs3LYg
-	 2tGkxclzwsGX3CJTOagigLk0uf3EM8CFBxmirG35d/SV2t1oLMREetzNsSKDW4zyf7
-	 oszRPxTLaKF+a+QNojzEKpETfKCIWsM2ALnTtoJ4KGUKHuaiN855kenNp1v/7fd0j+
-	 zenpLGmR7lUWw==
-Date: Mon, 21 Sep 2026 16:24:42 +0200
-From: Francesco Dolcini <francesco@dolcini.it>
-To: Greg Kroah-Hartman <gregkh@linuxfoundation.org>
-Cc: Francesco Dolcini <francesco@dolcini.it>, stable@vger.kernel.org,
-	Sasha Levin <sashal@kernel.org>,
-	Kuniyuki Iwashima <kuniyu@google.com>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>
-Subject: Re: [linux-6.6.y] 6.6.158-rc1: stale ASSERT_RTNL() in
- __ipv6_dev_mc_dec() WARNs on IPV6_LEAVE_GROUP
-Message-ID: <20260921142442.GA276016@francesco-nb>
-References: <20260921074348.GB13965@francesco-nb>
- <2026092115-magnetism-breeching-5d92@gregkh>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Rm6o13Rw"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e975bb44;
+	Mon, 21 Sep 2026 22:26:14 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Bjorn Helgaas <bhelgaas@google.com>
+Cc: Kristen Carlson Accardi <kristen.c.accardi@intel.com>,
+	Kenji Kaneshige <kaneshige.kenji@jp.fujitsu.com>,
+	Jesse Barnes <jbarnes@virtuousgeek.org>,
+	linux-pci@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] PCI: pciehp: Make poll mode parameter read-only
+Date: Mon, 21 Sep 2026 22:26:08 +0800
+Message-Id: <20260921142608.270312-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <2026092115-magnetism-breeching-5d92@gregkh>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c45c3c0703a1kunm1f89033851d4c
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaQxoaVkJLHR8fTkxKGh1CSlYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Rm6o13RwsZf9tAms+rS6ujTjIIyt2GZXSpiTdPZPA8UBgYBTgLkBGabe1+FXkmcYPTRp7vuMlit5tiUEXgoUwuvqKfPLSiu3ZDfFZf+2myKjrcEmVr7ahMNyYXkWDDqbCKeSngvsQVjP7LKVdCwag/0UdBvZWFujmObVD17kAdU=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=wGeHVqHuI581tDU0SIFx8MRzBjVOO5nbwQIbAHzuQq4=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, Sep 21, 2026 at 02:24:41PM +0200, Greg Kroah-Hartman wrote:
-> On Mon, Sep 21, 2026 at 09:43:48AM +0200, Francesco Dolcini wrote:
-> > Hello all,
-> > 
-> > Disclaimer: the commit/root-cause analysis below was produced with LLM
-> > assistance. The failure itself is reproduced and verified by our CI/CD
-> > (LAVA on-target test).
-> > 
-> > Our CI reproducibly hits this WARN on linux-6.6.y at 02cc578650be
-> > (6.6.158-rc1), on i.MX6, when a process leaves an IPv6 multicast group
-> > (e.g. avahi-daemon around a link flap):
-> > 
-> > WARNING: CPU: 0 PID: 418 at net/ipv6/mcast.c:1013 __ipv6_dev_mc_dec+0x180/0x184 [ipv6]
-> > RTNL: assertion failed at net/ipv6/mcast.c (1013)
-> >  __ipv6_dev_mc_dec [ipv6] from ipv6_sock_mc_drop+0x144/0x240 [ipv6]
-> >  ipv6_sock_mc_drop [ipv6] from do_ipv6_setsockopt+0x92c/0x1a48 [ipv6]
-> > 
-> > Cause: 24e6c4f46cd4 ("ipv6: mcast: Don't hold RTNL for IPV6_DROP_MEMBERSHIP
-> > and MCAST_LEAVE_GROUP.", upstream 2ceb71ce7d34) is in 6.6.y and drops RTNL
-> > from ipv6_sock_mc_drop(), but its same-series sibling e01b193e0b50
-> > ("ipv6: mcast: Use in6_dev_get() in ipv6_dev_mc_dec().", stable pick
-> > 98363feee397), which removes the now-stale ASSERT_RTNL() in
-> > __ipv6_dev_mc_dec(), was not backported alongside it.
-> > 
-> > Could 98363feee39760011bd2225558c0fef9487c449f be applied to linux-6.6.y?
-> > Or the problematic commit should be dropped
-> 
-> There is no such commit id with that number in Linus's tree :(
-> Did your LLM make it up?
+pciehp_request_irq() and pciehp_free_irq() select different resources
+based on the global pciehp_poll_mode parameter. The parameter is
+currently writable through sysfs, so changing it while a controller is
+active can make teardown stop a nonexistent polling thread or call
+free_irq() for an IRQ that was not requested.
 
-For sure it did ... and this is the reason I was upfront that the
-analysis is from an LLM :-(
+Keep the parameter available for boot and module configuration, but
+prevent runtime changes to the registration mode.
 
-What I know as a fact is this WARNING exist, the related folks and in Cc: and
-they can provide better guidance on what we should do (drop the patch or
-add some missing dependency).
+Reproducer:
+Boot an x86_64 guest in QEMU with a native PCIe hotplug root port and an
+e1000 device, using these device options:
 
-Thanks,
-Francesco
+    -device pcie-root-port,id=rp1,chassis=1,slot=1
+    -device e1000,bus=rp1
+
+Pass pcie_ports=native pciehp.pciehp_poll_mode=1 to the guest kernel.
+As root in the guest, replace the device name below with a bound pciehp
+service device and run:
+
+    dev=0000:00:1c.0:pcie004
+    driver=/sys/bus/pci_express/drivers/pciehp
+    echo 0 > /sys/module/pciehp/parameters/poll_mode
+    echo "$dev" > "$driver/unbind"
+    dmesg | grep 'Trying to free already-free IRQ'
+
+The unfixed kernel accepts the runtime mode change and reports the warning
+when the service device is removed. The fixed kernel rejects the write and
+removes the device without the warning. The mode change is a deliberate
+privileged test action and is not expected during ordinary operation.
+
+Fixes: 2aeeef119995 ("pciehp: Clean up pcie_init()")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/pci/hotplug/pciehp_core.c | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/drivers/pci/hotplug/pciehp_core.c b/drivers/pci/hotplug/pciehp_core.c
+index 2cafd3b26f344..5ce32dc7e178f 100644
+--- a/drivers/pci/hotplug/pciehp_core.c
++++ b/drivers/pci/hotplug/pciehp_core.c
+@@ -38,7 +38,7 @@ int pciehp_poll_time;
+  * not really modular, but the easiest way to keep compat with existing
+  * bootargs behaviour is to continue using module_param here.
+  */
+-module_param(pciehp_poll_mode, bool, 0644);
++module_param(pciehp_poll_mode, bool, 0444);
+ module_param(pciehp_poll_time, int, 0644);
+ MODULE_PARM_DESC(pciehp_poll_mode, "Using polling mechanism for hot-plug events or not");
+ MODULE_PARM_DESC(pciehp_poll_time, "Polling mechanism frequency, in seconds");
+-- 
+2.34.1
 
