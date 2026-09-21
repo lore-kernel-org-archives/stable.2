@@ -1,48 +1,48 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5B3D0182D6;
-	Mon, 21 Sep 2026 00:14:50 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 56B4681ACD;
+	Mon, 21 Sep 2026 00:15:52 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789949691; cv=none; b=FbxSRqh4Xyu7NjOe0z5GREf8XiSrb+dt6NKe7PQM5IHcp6CAKQRUZUvjR7nw4if/Txl/mLT/JMhKk6+CuAU5htEGBWJydp1ap8RQDU8CKUw/nX6sLvazm1ppJHtMINDYQ49uM2RiPsKBkTVddJ0JMkgGSWxRnVF5LJWR5QQ4vtE=
+	t=1789949753; cv=none; b=HDAXzeUmjcDXr7dgUcvxH82+aUilgp7h/xljD36Xc4NnegZLs9s/UZb/fN+YSZm58B8eCf5UKITdYPRtWw9GAHV6O+GCp/gDy9k6dwdYql/E3cBV+YNsQqDWAefvKxPb+UB+/bHL4sYiDKyi2j8ahKFdwGVnru7w9etT3pC9wVA=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789949691; c=relaxed/simple;
-	bh=MF9MDvo0+v4jp0d+yKGWb2xCti+x5/t7U3PxG8gsFFA=;
+	s=arc-20240116; t=1789949753; c=relaxed/simple;
+	bh=Clo5Q7ZKpWjMNzquRlfNeVxxiwFXRrGGSsYi03MJ1Ww=;
 	h=Date:From:To:Cc:Subject:Message-ID:In-Reply-To:References:
-	 MIME-Version:Content-Type; b=Yk2Ue1h8c8wgJ4VBEvCe6Mvahin18SHbBhuAC9BgMzY5fdABX7owN2KEc1dgBRCVo+ZxPqBBBJdfUb8MtYVJOMuQshrT+5EISd+4dsXKz581xWr/nRxNMBvV8l6ItVWL61wSlFKO1Meyuyo8BKQ/MDICCKWZWaKH+LTi0XI9Vfs=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=h/BXwGpz; arc=none smtp.client-ip=100.103.45.18
+	 MIME-Version:Content-Type; b=NBT1ST2ZrPO3MxV6e7x1Totevwc3er4DtaFEBklpXkF4GunaEkHmcTKkiVBYxNuDlAU1TXMJBvRJiQ0iFG4jDnGQ4Z0/gXAM4HpBnl7ry/XzcdrBroksLhLKWjQ7qc21Af+coWe45+18wnjBXY5B54veoZQ/ZtxNufnn0nq0Mqc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=Ai59kb6j; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="h/BXwGpz"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id BC77A1F000FF;
-	Mon, 21 Sep 2026 00:14:47 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="Ai59kb6j"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 08B801F000FF;
+	Mon, 21 Sep 2026 00:15:49 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789949690;
-	bh=H9n14ecYroU7+DDO7NNn5gqPEvYih3tU4SI/4RTqUOg=;
+	s=k20260515; t=1789949751;
+	bh=Z0y0iKqkoDH4ID/1W9jrSb7Dm4EYVJh0udefr0qJ8Gw=;
 	h=Date:From:To:Cc:Subject:In-Reply-To:References;
-	b=h/BXwGpzwvMMl60jjUUC9Kl6ZHqrND4q9enkECK5ewsMOK6xiYfIdxihYg/EVNTB4
-	 jTu2+13wihO63GvQHNT1TmbIdBrYeCO+F+Nw3+JakUmgnUnkxNShbv3gLTsNdZpCYP
-	 LPyhoLfWO8VqUcYALZcgwyKmr/M+91PaekaiP5wqK9EGKa6QDzeR7JLqjEdSPW+05T
-	 ByzbN5Vob9DXwvDbpnIymLKdGbRl/U5uqJXFHepDu5bDQEsZMS+yolMN8yMBgUkofi
-	 x7U2r/jIk9WN4gow267HaZjjuJgKYk+UzadiROdp9dnFoGanZOyRY7rPbZYhpkR5go
-	 hFyoxdW1hWm2w==
-Date: Mon, 21 Sep 2026 01:14:42 +0100
+	b=Ai59kb6jTqkDSKs9I7Yq/ALk7AeqSUU8wxsHmwTwIlrcdvJCP9go5g98kxVIe2Fvd
+	 2MyIH8vy3lh5bqmXbO3zQWHzIrlmAHRKRHV9Yz0fj7fkypOzx1vVfL/aDCgbhC1xfr
+	 wj0jlnSTeArcyEVWK7iYejsUyMqNsVDEYZXEm95u+3e/PeRDY/eODxLHxzqijAEr5h
+	 D9a9QJf9zr1GtWdoUu/keNbgINRCt9iJNfwz2lzSnDo3QhYQ1EwCahQfD/rr9FfL9p
+	 r6We5e99qjPBjp9nfqaHyy/uwl55XOiilvXwFodUbdFj1vWM6Yb0qO6JV1hTigkcZ1
+	 7b3zxdufTDUBA==
+Date: Mon, 21 Sep 2026 01:15:45 +0100
 From: Jonathan Cameron <jic23@kernel.org>
-To: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
-Cc: David Lechner <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?=
- <nuno.sa@analog.com>, "Andy Shevchenko" <andy@kernel.org>, Maxime Coquelin
- <mcoquelin.stm32@gmail.com>, Alexandre Torgue
- <alexandre.torgue@foss.st.com>, Olivier Moysan
- <olivier.moysan@foss.st.com>, <linux-iio@vger.kernel.org>,
- <linux-stm32@st-md-mailman.stormreply.com>,
- <linux-arm-kernel@lists.infradead.org>, <linux-kernel@vger.kernel.org>,
- Sashiko <sashiko-bot@kernel.org>, <stable@vger.kernel.org>, Andy Shevchenko
- <andriy.shevchenko@intel.com>
-Subject: Re: [PATCH v3] iio: adc: stm32-adc: fix check on internal channel
- availability
-Message-ID: <20260921011442.1c5a8403@jic23-hlaptop>
-In-Reply-To: <20260916-adc-fix-intchan-v1-v3-1-b5f05b86bc60@foss.st.com>
-References: <20260916-adc-fix-intchan-v1-v3-1-b5f05b86bc60@foss.st.com>
+To: Andy Shevchenko <andriy.shevchenko@intel.com>
+Cc: Fabrice Gasnier <fabrice.gasnier@foss.st.com>, David Lechner
+ <dlechner@baylibre.com>, Nuno =?UTF-8?B?U8Oh?= <nuno.sa@analog.com>, Andy
+ Shevchenko <andy@kernel.org>, Maxime Coquelin <mcoquelin.stm32@gmail.com>,
+ Alexandre Torgue <alexandre.torgue@foss.st.com>, Olivier Moysan
+ <olivier.moysan@foss.st.com>, linux-iio@vger.kernel.org,
+ linux-stm32@st-md-mailman.stormreply.com,
+ linux-arm-kernel@lists.infradead.org, linux-kernel@vger.kernel.org, Sashiko
+ <sashiko-bot@kernel.org>, stable@vger.kernel.org
+Subject: Re: [PATCH v3] iio: adc: stm32-adc: fix possible division by zero
+ in processed channel
+Message-ID: <20260921011545.138903c5@jic23-hlaptop>
+In-Reply-To: <aquKpzrNNpX0gy1c@ashevche-desk.local>
+References: <20260916-adc-fix-div0-v3-1-bedf027a6e7e@foss.st.com>
+	<aquKpzrNNpX0gy1c@ashevche-desk.local>
 X-Mailer: Claws Mail 4.4.0 (GTK 3.24.52; x86_64-pc-linux-gnu)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
@@ -53,35 +53,23 @@ MIME-Version: 1.0
 Content-Type: text/plain; charset=US-ASCII
 Content-Transfer-Encoding: 7bit
 
-On Wed, 16 Sep 2026 19:18:38 +0200
-Fabrice Gasnier <fabrice.gasnier@foss.st.com> wrote:
+On Thu, 17 Sep 2026 09:37:27 +0300
+Andy Shevchenko <andriy.shevchenko@intel.com> wrote:
 
-> If an unsupported internal channel like vddgpu is requested, the driver
-> prints a warning but falls through and assigns it a valid int_ch below.
+> On Wed, Sep 16, 2026 at 07:15:04PM +0200, Fabrice Gasnier wrote:
+> > In case the conversion has failed or returned zero, processing *val
+> > can lead to a division by zero. Need to check for errors, or converted
+> > value is zero, before processing the data. In case the converted value
+> > is zero, e.g. the Vrefint channel, this should be considered as invalid
+> > in all cases.  
 > 
-> This causes a problem later during setup:
-> stm32_adc_int_ch_enable() {
->     ...
->     case STM32_ADC_INT_CH_VDDGPU:
->         stm32_adc_set_bits(adc, adc->cfg->regs->or_vddgpu.reg,
->                            adc->cfg->regs->or_vddgpu.mask);
->     ...
-> }
-> 
-> Because the register offset is uninitialized (0), this performs a
-> read-modify-write on offset 0, which corresponds to the ISR register.
-> 
-> Fix this by returning before a valid int_ch is assigned. Choice is
-> made to keep current driver behavior to warn about the channel name.
-> 
-> Fixes: cf0fb80ae167 ("iio: adc: stm32-adc: add stm32mp13 support")
-> Reported-by: Sashiko <sashiko-bot@kernel.org>
-> Closes: https://lore.kernel.org/all/20260911162602.D323F1F000FF@smtp.kernel.org/
-> Cc: stable@vger.kernel.org
 > Reviewed-by: Andy Shevchenko <andriy.shevchenko@intel.com>
-> Signed-off-by: Fabrice Gasnier <fabrice.gasnier@foss.st.com>
+> 
+
 Applied to the fixes-togreg branch of iio.git.
+Note this may well not go upstream until next merge window.
 
 Thanks,
 
 Jonathan
+
