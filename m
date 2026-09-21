@@ -1,43 +1,43 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 322E74A2056;
-	Mon, 21 Sep 2026 15:04:19 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 8152D4AEBC0;
+	Mon, 21 Sep 2026 15:04:44 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003062; cv=none; b=BCMJ5evGAbs1K/XhQZLkXK8e/iFvhZ0VMbdHH7yPsFuVAORvHxrCa2rBrGe8YMW8g3ztFuEA/P+1jzBejAT6wwSw0aqxgkKRhPE0cvGSooECHBuN2xxbv7eHMb+7VR3cKBk0eZKs42dc4nwamMd2gVNPYj0prdOXWIpqxtyVsoo=
+	t=1790003092; cv=none; b=sZC2F+bD6/Ikd0LNKnprmxzGd2LAaXnkDOaJynOij5Uoalreed8H1D6VwCEsq5cbUR5RkLlX9YcoNjnB5/hdJbk9GjZ8nyArgMF4QXvCMCwnBTXUQkV7A2k7OpjxoS9cBX8KbkrgIIsOjRshF/ETmnFmAuN9unwQH1W94EyF6E0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003062; c=relaxed/simple;
-	bh=ExRnd56sNxf0P8oZOH42TmlYkmFyGfOmxo03+yrD9Fc=;
+	s=arc-20240116; t=1790003092; c=relaxed/simple;
+	bh=l/0uyKU0j3b0Hsy81D9q5ChbY1r6ifLPmD5MUXhvpTA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=RCPmQ42EZSVBy1rPV0DInXe826rzZonF6QJmCkUAuBeEVrpKmRaIpWgVzO2cDKoG47niK86cDTD2dF7FAz3WCFVyO/qRazjZdTJTqQRXwzPiQxRcUukJWDyFI9CRfPE3tHMV1tYv8AjcXnrXwJjslGirsxcsR3mSBzWmMkJEHck=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=kvJ++in0; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=F6NiyUbPGhXAwBbtauMH7P0htgwEE9K0T/6REhnNh1I27EdWY4W3CLDwn86dsl7MKHFhXPMb1OP4ZepngPk4Ss0LZ7ozGqxgx0lrabXWjkY2Ro0oL0STkSR2Bt7Dzkwa1Rjoj5QABqTdXLEyOv4QvYfovfLvNYt/v28l7zpcabI=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=bZX5i8G/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="kvJ++in0"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id C3F5C1F000FF;
-	Mon, 21 Sep 2026 15:04:18 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="bZX5i8G/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 76BD41F000FF;
+	Mon, 21 Sep 2026 15:04:42 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003059;
-	bh=Ua26Wzk5+rXUBQI+pJktHm7l6PYOAq/1f9N3wosqQyQ=;
+	s=k20260515; t=1790003083;
+	bh=tAJAA4AFmdQlgFZh/bqseoiGcQUpdjeeINGyxieAAC4=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=kvJ++in0KDrWU0G0ZOUCd74u9fwfsmTRTsAl/5ufmB4ZWkbz7LtX2+K1saPGnnDej
-	 C/0bLBACOxTRrIRGcGkcbM0tfwt5xCR8ivvcR6pZpwDPc1Iy2UfLawTLgA0fgkIK13
-	 8VSdsbBvli+EN4CsyJnYIaNoGMcHRv2GzbSNzr2sHKNsULzEdO9RcRnVu/z3a7nO66
-	 p2CwJML89zUzwsXLzGqYywcElh1u82as0yqo0NbsZp3uCc9AQECaWPpVdcFSd7ac9q
-	 Tu992loiYgUoWDSMnj4KHDkbVeeVzLXb5+2TE/5wRqNynJDRgUSaUNsoIK2cJ+qkGw
-	 bhFB1gN3U0wlA==
-Date: Mon, 21 Sep 2026 17:04:16 +0200
+	b=bZX5i8G/jLPmpFFX18pebpYaJ+3hk2ULfAyNRSO9zNSsv7IwyXOKLqcTtQq7ED3IS
+	 IzyIO3tQhFARJ1KhrYGDz/T0cAbaNUNh3BVinvldQ2Mfh7Fri3ao3Y9WwOHUAeRvnh
+	 mz9KYlj6TCmkSS/D8ZgbabmEJtwOq+Vv4FbQnNWSdAuAvSwfjKe1Zd7lYSGEUgoV0M
+	 lPFa1pDpFOlvNF+2yKb03NjHgTVV+a0LjovuHE8Dgv72nA0lLw534i3aLd8rt9PifO
+	 xOj5EoPtKvlgbiCARdTZhpbYdXC729BdMy/HOYu9GRg3Gdc/4gyRvxLeWX9mN7I0MN
+	 rLYhG5jpApXtQ==
+Date: Mon, 21 Sep 2026 17:04:40 +0200
 From: krzk@kernel.org
-To: Wentao Liang <vulab@iscas.ac.cn>
-Cc: davem@davemloft.net, guwen@linux.alibaba.com, 
-	linux-rdma@vger.kernel.org, linux-s390@vger.kernel.org, mjambigi@linux.ibm.com, 
-	stable@vger.kernel.org, alibuda@linux.alibaba.com, kuba@kernel.org, 
-	linux-kernel@vger.kernel.org, pabeni@redhat.com, edumazet@google.com, horms@kernel.org, 
-	wenjia@linux.ibm.com, kgraul@linux.ibm.com, tonylu@linux.alibaba.com, 
-	netdev@vger.kernel.org, sidraya@linux.ibm.com, dust.li@linux.alibaba.com
-Subject: Re: [PATCH] net/smc: Fix socket use-after-free in smc_shutdown()
-Message-ID: <arFHbpIXTAxThWsd@quoll>
-References: <20260917163956.2162779-1-vulab@iscas.ac.cn>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: "Borislav Petkov (AMD)" <bp@alien8.de>, 
+	Perry Yuan <perry.yuan@amd.com>, platform-driver-x86@vger.kernel.org, 
+	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, linux-kernel@vger.kernel.org, Hans de Goede <hansg@kernel.org>, 
+	stable@vger.kernel.org, "Gautham R. Shenoy" <gautham.shenoy@amd.com>, 
+	Mario Limonciello <mario.limonciello@amd.com>
+Subject: Re: [PATCH] platform/x86/amd/hfi: fix platform device leak on init
+ failure
+Message-ID: <arFHhgygVBlggeA6@quoll>
+References: <20260921082609.244774-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,26 +46,31 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260917163956.2162779-1-vulab@iscas.ac.cn>
+In-Reply-To: <20260921082609.244774-1-lgs201920130244@gmail.com>
 
 
-On Thu, 17 Sep 2026 16:39:56 +0000, Wentao Liang wrote:
-> In the fallback path, smc_shutdown() drops the passive closing
-> reference on the socket with sock_put() and then still uses the socket
-> by calling release_sock() at the out label. If that reference is the
-> last one, for example because the passive closing reference was
-> already consumed by an abort of the active link group, the socket is
-> freed while it is still in use.
+On Mon, 21 Sep 2026 16:26:09 +0800, Guangshuo Li wrote:
+> amd_hfi_init() registers the HFI platform device before registering
+> the platform driver. If platform_driver_register() fails, the function
+> returns the error without unregistering the already registered platform
+> device.
 > 
-> Move the sock_put() after release_sock() so the socket is only dropped
-> once it is no longer used.
+> Since the failed init path does not run amd_hfi_exit(), the platform
+> device remains registered and its reference is never dropped, preventing
+> the associated platform object from being released.
 > 
-> Fixes: 1a74e9932374 ("net/smc: Fix sock leak when release after smc_shutdown()")
+> Unregister the platform device when platform driver registration fails
+> to properly unwind the successful device registration.
+> 
+> The issue was identified by a static analysis tool I developed and
+> confirmed by manual review.
+> 
+> Fixes: 5d902ee5609a ("platform/x86: hfi: Introduce AMD Hardware Feedback Interface Driver")
 > Cc: stable@vger.kernel.org
-> Signed-off-by: Wentao Liang <vulab@iscas.ac.cn>
+> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  net/smc/af_smc.c | 5 ++++-
->  1 file changed, 4 insertions(+), 1 deletion(-)
+>  drivers/platform/x86/amd/hfi/hfi.c | 4 +++-
+>  1 file changed, 3 insertions(+), 1 deletion(-)
 > 
 
 
