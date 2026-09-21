@@ -1,41 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6E5E54B3364;
-	Mon, 21 Sep 2026 15:17:21 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id E8D0F4B5CA2;
+	Mon, 21 Sep 2026 15:17:39 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003842; cv=none; b=VckbiUk4lnU4RTID551SJsKU8ydogTu2gBNCKldU0XlZie+79IAnF6L6WMLMR2UekLOi30279zbfm0egasx7EJ59dtKbXRJzl18I7FsLNYq8sfn2KJOEoJWSbyuPMrOkLKRgBPVGbcya4sWbgV9k79Y1m2msFV75xNUOUihCCFY=
+	t=1790003861; cv=none; b=D0gqQcvfrJDpPLzOsVq/3Cn8ang1RmNRW71q2AgEgyRrFY9e2iElf+JwigMzSphrG20qmn1kxOpiZooxtAlv/Pm9bi9dY4bBTLvObXm9+tQTYfUrWp9STsv5Q7+6P18nodA+tQVcoDpr6jryqmzgujmng2MHwgFV2mUonW0z+q0=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003842; c=relaxed/simple;
-	bh=JTFzjY4vgzT/AnxSG3N3xG5/wFSXqfIGgLm9CghDl5Q=;
+	s=arc-20240116; t=1790003861; c=relaxed/simple;
+	bh=oO4Q4vKG+lsS0mYrQN/KPkiOEmGda5hzCFp19jIW3S8=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=H6GFzKbCYHbhF6ev8NQwh4CsrTTmSn0l6SKj9J3UM0mXu0Z8PoXOzTFL7Ps9fOeqiLxDx6uiXOd3byl0x6tvNp6TQgC+x2CGi1NI7eVT4yuTM86EocYoRPR+6g71nW7UNd/nmlaURgW/eDxopRb+M9RxIPqrdp6RN+ZoirceD3U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TOV1zOe3; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=maOFm97LinDEhUD9uwQjfrA8j2YjeFG5F7/7GhEb/T9S/PMfPb1KHd76MgUx6Q6VNDZp/QyKbJkFXyZjIYbm5az4cG5WDyOiJG5wxWeJVCxtXDK5tze/3iQe1a9noD1DPApDj1wWVgR5zX/7pymq8v5mnlR4Qvg72db7a/s7aIo=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ByM/Cqvv; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TOV1zOe3"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A39D11F000FF;
-	Mon, 21 Sep 2026 15:17:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ByM/Cqvv"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id C34DD1F000FF;
+	Mon, 21 Sep 2026 15:17:38 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003841;
-	bh=08OdX+yksKIdesxlWgroB9wwvCpB2/2SsKbyedTQ3/w=;
+	s=k20260515; t=1790003859;
+	bh=eFebAGvl97gWvUUihD7DJR70n3PAhvkIbV5S28OCT1c=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=TOV1zOe3OkjEI9ot5xW3UGA1tGpZ3PJDdg+AlWZdMVpOCeq3dCZg2D77BAwrg5jIU
-	 cPlmU0FI8pYxCMNNav2AeICCyYmHsUrfi435wnv8y8zx+o6X79zEhTxesUOr+cdJpU
-	 iOXgfXOeFVLd/gPmEaZh+Fm1DOJB/xeZpbF+hT2ZA7d4lkPOeUA4ranX3vAPxdDDTg
-	 M/ckfSbDOtYkmTihM/wM3nIr5KEvVCAvppBfp/JcmL0XhKDcwPiolYxlZs+wHMwFGx
-	 R+xVovDgFgRFSLRvEz0VkxXEpgogtmN/1+DgjpUiJkxdynhmQYMW4CXarZ3ODg5tGt
-	 dBRDCWDoM5Ijg==
-Date: Mon, 21 Sep 2026 17:17:17 +0200
+	b=ByM/Cqvv6ANjlZ7mKRhVKjWXseHhq+lPz458Z5tfopzRhtTsdKCRqYXzRPGOhLtoC
+	 8KiW3EQEOIaSj9MhiXqNL+0F6C9Ssi1WdaFWQJBnaWGr5qaMRp3eO2GkewN6zaHAFR
+	 w9LZhuh9u+LzmQyCqJ0t3EG1kmVh+Esmw8vucFx5l/1c6VDaSh0lFQm+cUfvUJ6o3G
+	 9noNaJi2GQNmm7DviW23MMsoeIetBkGs3dwKj3IGuai+8hDQb9QUmskIAPaSTrHana
+	 sJVp/fWuc2Lf4Bn87ISn4XaJPvQMKQZ9a6CcEZnoR+wnTDE6HLrb5y0OcnoHwhX37a
+	 YZZfCgu1YlEjA==
+Date: Mon, 21 Sep 2026 17:17:36 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: linux-edac@vger.kernel.org, Borislav Petkov <bp@alien8.de>, 
-	Tony Luck <tony.luck@intel.com>, Shubhrajyoti Datta <shubhrajyoti.datta@amd.com>, 
-	stable@vger.kernel.org, linux-kernel@vger.kernel.org
-Subject: Re: [PATCH] EDAC/versalnet: fix memory leak on device registration
- failure
-Message-ID: <arFKfCLKbfAT2iZC@quoll>
-References: <20260920055519.3778269-1-lgs201920130244@gmail.com>
+Cc: linux-kernel@vger.kernel.org, linux-scsi@vger.kernel.org, 
+	"James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, "Martin K. Petersen" <martin.petersen@oracle.com>, 
+	stable@vger.kernel.org, James Bottomley <James.Bottomley@steeleye.com>, 
+	Geert Uytterhoeven <geert@linux-m68k.org>
+Subject: Re: [PATCH] scsi: zorro7xx: put SCSI host on remove
+Message-ID: <arFKj506cRh4H_z6@quoll>
+References: <20260918180201.3624568-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -44,35 +44,28 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260920055519.3778269-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260918180201.3624568-1-lgs201920130244@gmail.com>
 
 
-On Sun, 20 Sep 2026 13:55:19 +0800, Guangshuo Li wrote:
-> init_one_mc() allocates dev with kzalloc() and registers it with
-> device_register(). If device_register() fails, the device has already
-> been initialized and holds its initial device reference.
+On Sat, 19 Sep 2026 02:02:01 +0800, Guangshuo Li wrote:
+> zorro7xx_init_one() obtains a SCSI host through NCR_700_detect(). The
+> probe failure path drops the host reference with scsi_host_put(), but
+> the normal remove path does not perform the corresponding cleanup.
 > 
-> The current error path eventually frees dev directly with kfree().
-> This bypasses the device release path and can leak driver-core
-> resources associated with the initialized device. The existing
-> versal_edac_release() callback is responsible for freeing dev once the
-> device reference reaches zero.
+> As a result, the SCSI host reference remains allocated after the
+> device is removed.
 > 
-> Call put_device() when device_register() fails so the initialized
-> device reference is dropped and versal_edac_release() performs the
-> proper cleanup. Return after freeing mci to avoid falling through to
-> the direct kfree() path, which remains necessary for failures that
-> occur before device_register() is called.
+> Call scsi_host_put() after all users of the SCSI host have been torn
+> down to release the reference acquired during probe.
 > 
-> The issue was identified by a static analysis tool I developed and
-> confirmed by manual review.
+> This issue was found by manual code inspection.
 > 
-> Fixes: d5fe2fec6c40 ("EDAC: Add a driver for the AMD Versal NET DDR controller")
+> Fixes: 45804fbb00ee ("[SCSI] 53c700: Amiga Zorro NCR53c710 SCSI")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/edac/versalnet_edac.c | 6 ++++--
->  1 file changed, 4 insertions(+), 2 deletions(-)
+>  drivers/scsi/zorro7xx.c | 1 +
+>  1 file changed, 1 insertion(+)
 > 
 
 
