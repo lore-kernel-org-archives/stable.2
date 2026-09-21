@@ -1,155 +1,167 @@
-Received: from mx0b-0031df01.pphosted.com (mx0b-0031df01.pphosted.com [205.220.180.131])
+Received: from CH4PR04CU002.outbound.protection.outlook.com (mail-northcentralusazon11013063.outbound.protection.outlook.com [40.107.201.63])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 01C5648A2CC
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 11:06:37 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=205.220.180.131
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789988801; cv=none; b=k7AR2UGlnSzdbvEHCE+uVvWvW3nvwi3CGHaH1cQLo+ONQzBEfCHizRGzUFand+ksCMedWzZ/aNdGOX6rC+pnQuxM5g4MDVxqJ95vkmoXw0mZopHfY0N/+c+lk3O4MaRerzC3nICSkhFTy5Dj57xZz6eA1GtzlMbakY/nu7RpgDE=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789988801; c=relaxed/simple;
-	bh=APDQF13y/S2iTJC8bsCnwlXoIXm7Osc7h1xGKtGf/V8=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=GNf+PhdIfxOsRawSwMUgnNkriPOQXbsKKHd0tUdH41YJ/8+miey89ougpfj4xYO2exy8Vj/4Wa5dseq51SmF8JNgx+UiRKHwl3FqjOtym1lGsuVd9xaE86lUBGGTGz8MFexnAfsorhKsGV8icucRsnnjOo9FRb/X+3hswgbvL/U=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com; spf=pass smtp.mailfrom=oss.qualcomm.com; dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b=m8W0TYh/; dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b=alIogjgH; arc=none smtp.client-ip=205.220.180.131
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=oss.qualcomm.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=oss.qualcomm.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5ACCE3BED4F;
+	Mon, 21 Sep 2026 11:08:23 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=fail smtp.client-ip=40.107.201.63
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1789988908; cv=fail; b=lt6MuKwYhv5hdAFOLnZB/ZyUR8WaEA1+sw+9H7uBBhiTnyCAyEgDydaWMsOPSwMSd+1j0m8TPmPBQhkbA42xfQcMhfaaxo5yJBPIXwZsI67gXLWjPZQmSHOPeeYgFwhF3AYsmgrQws3rQW6sPjCkAiCLm196xx0rLplvLfEZFsY=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1789988908; c=relaxed/simple;
+	bh=50aFj8XyFq/Byv9DUFELkwMDaLpt9FicW/LoVolsY1k=;
+	h=From:To:CC:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version:Content-Type; b=WaxMvxHevTE03Z0fdG5UngHVJGynRxS18yu23X7ehCXoEI0qFgoxqdJj9sSLAYYHPmercJWq4EjFoEk5m1AfOAC3o+atchFVPDanGdBvefR1jxvJd4UBG8JFzlWAiYqQRFAHkIEbWHjWHNfMZFB8k0BixELAHSkfUyopUR0uwxg=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com; spf=fail smtp.mailfrom=amd.com; dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b=K57biAVq; arc=fail smtp.client-ip=40.107.201.63
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=amd.com
+Authentication-Results: smtp.subspace.kernel.org; spf=fail smtp.mailfrom=amd.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=qualcomm.com header.i=@qualcomm.com header.b="m8W0TYh/";
-	dkim=pass (2048-bit key) header.d=oss.qualcomm.com header.i=@oss.qualcomm.com header.b="alIogjgH"
-Received: from pps.filterd (m0279872.ppops.net [127.0.0.1])
-	by mx0a-0031df01.pphosted.com (8.18.1.11/8.18.1.11) with ESMTP id 68LAdsF2287263
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 11:06:33 GMT
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=qualcomm.com; h=
-	cc:content-transfer-encoding:content-type:date:from:in-reply-to
-	:message-id:mime-version:references:subject:to; s=qcppdkim1; bh=
-	fVGPjxP3QgcDv0E9g1JTcpUHcMxO88kzyAGTghYjz1g=; b=m8W0TYh/d0uyebaF
-	/H4rugJm9UHLtaks3QckssiAtyDNBN4VuiPevXR9Djr6KzlTqNqN94dM756RqGU2
-	NScRNU1R8rw6V6EHlfnol+na3tTdTl+izaV+EApchomVaHSztCRB2Gr/yfhGRdnX
-	Iz1Bxp3qr3rMUteI4SEwqtGKT37Qq1B4D4Fs+UTQiElzZQ3vjCBQAZXj5XYxb/3G
-	bkbPenBi2YQVunoAyv1n8iI4d+obL17oNt7c5GmCUW68PrvRGh0SxpJtsQVzKsjI
-	Qa7UIn7jbSnyIy5kiKVrb9zhBs1CubhRxIdm9WvcSkTT/EP958vHElgSm5C8lIy5
-	1aH33A==
-Received: from mail-vk1-f197.google.com (mail-vk1-f197.google.com [209.85.221.197])
-	by mx0a-0031df01.pphosted.com (PPS) with ESMTPS id 4gu0rj0qwn-1
-	(version=TLSv1.3 cipher=TLS_AES_128_GCM_SHA256 bits=128 verify=NOT)
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 11:06:33 +0000 (GMT)
-Received: by mail-vk1-f197.google.com with SMTP id 71dfb90a1353d-5c665139c92so102293e0c.1
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 04:06:32 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=oss.qualcomm.com; s=google; t=1789988792; x=1790593592; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=fVGPjxP3QgcDv0E9g1JTcpUHcMxO88kzyAGTghYjz1g=;
-        b=alIogjgHTnDYsZU3X4O9nwBJ/dcD/mfTtZsWrYULgjIsTsd6y2XdOAywFhYu1Q43rH
-         Ut4D/Xf2Uz7JJPv47oribEwHjtxtSOpi61ulaPFU8S/rWZLIUUWzMnRnCxy+2UlTu9tx
-         5Dnx3xEgcoxysDuQL4ewOQrY+I8aXbx3yhbZRe5IeyRX6M7fbaDjcpmT5WnZmuvNZWce
-         B2rMPo5AI7szT2fiB3/62MCQftpEjMdBedvjt+epF4IEwmVhy48mI0jFIiJ+B/dellcN
-         030Uj6eSPwlnzM3rg50KwlronZggMmFNus1K6OyrQoZJ7PoE0VjPRErcmMK3L/Y2uG6E
-         NgFg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789988792; x=1790593592;
-        h=content-transfer-encoding:content-type:in-reply-to:from
-         :content-language:references:cc:to:subject:user-agent:mime-version
-         :date:message-id:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=fVGPjxP3QgcDv0E9g1JTcpUHcMxO88kzyAGTghYjz1g=;
-        b=cVKKrjc3fhj99JvHKd2Qpy1GbfH+nK3sXephLT/7A85fvup6oX5LhWnYNQEfPQ7qp/
-         ifJF3ykb+CqJ/dvwRwYVmlp0UewjOzOoRxQImpNSd9L0eQR7RHYzvEjwpciv7s0XChaB
-         dEu9++xUqliz/DVHLQeRXyYV+Rko8gIG7w2igWoHimz/0pPji+h5LiqorwdXF/Lk4pcS
-         +7HTeNU4/bFhe4hfpD+znfuyxptknqGg44K57pNlGm2afMKRyXSs2S24xsTsYDm7V7DB
-         3ZkjBnvx9iDgq5GpHPx9DRLmRrjaErcPvKDCKUGrj5juRe8c3jimu0FOaL/8HN+h0jQY
-         rU8Q==
-X-Forwarded-Encrypted: i=1; AKwUvBy/ilNNQIo8RwXRIFYXsJNQlVTmjJAMS495nDI8eoB0OWNQQi/oOgnzlwMVfkM5BYqUGIta/wQ=@vger.kernel.org
-X-Gm-Message-State: AFuF++n2ZW+edQYs94AwSO/R7QLLAPemrkxaaIPAM1a9v4q2420PW53m
-	9LNskAx7wJaNQRjGh124P3kT+o3Gl84Y3Lv3gaio46GYJwEERmFuSyaAjxRNQtoUmQeIDEsBukO
-	Ux+OIU74kw3GjzgOuPJoHKjkupPK6HAShSTqC/TUtRRiFQcNMW15Z8Vhw3YQ=
-X-Gm-Gg: AYBFou2Ce6Pk839fkAHSr7gsWdR0oRPdlIfwU36tqI7/DuwERa/Ji515Vl10fjTM2Rh
-	gK1mj08YwLQIZ7wtH9RhZW0SpIDECQN8yDwlCFi1/4wKV3vkOD0jC8mnkr6J9YWvIjAPHn55Dbx
-	XlEzadAxfvM34/DD77pRC7nSKtPPPKXb9pEQjfcVF0ZQadR3wG32TbvonmUpKn9S8r5Jr4e3nvN
-	uzWMD9SZ+RSJSTmNHwUxedZe3kwJhs6r4HZ6Cu/9iCi/X/Cc6VyGxOkqTsQXcVnXfz0kPbVh890
-	ETV4nuckmMh7PDgYJh1HcuKFjNlWE+HMaIAWJ7wJl7q83Q5x1guKEq5dDIidbkohFA9agh9doNH
-	PxiNO/3APhrxbKmQFuq1cEQ==
-X-Received: by 2002:a05:6122:35c1:b0:5bf:b91f:3bb5 with SMTP id 71dfb90a1353d-5c9bc3b53e6mr3524538e0c.2.1789988792532;
-        Mon, 21 Sep 2026 04:06:32 -0700 (PDT)
-X-Received: by 2002:a05:6122:35c1:b0:5bf:b91f:3bb5 with SMTP id 71dfb90a1353d-5c9bc3b53e6mr3524484e0c.2.1789988792144;
-        Mon, 21 Sep 2026 04:06:32 -0700 (PDT)
-Received: from [192.168.202.12] ([178.235.128.140])
-        by smtp.gmail.com with ESMTPSA id 4fb4d7f45d1cf-6aa67e1b7e1sm3810951a12.26.2026.09.21.04.06.29
-        (version=TLS1_3 cipher=TLS_AES_128_GCM_SHA256 bits=128/128);
-        Mon, 21 Sep 2026 04:06:31 -0700 (PDT)
-Message-ID: <8204dd54-d282-4303-85fb-d5408cc0b4b2@oss.qualcomm.com>
-Date: Mon, 21 Sep 2026 13:06:28 +0200
+	dkim=pass (1024-bit key) header.d=amd.com header.i=@amd.com header.b="K57biAVq"
+ARC-Seal: i=1; a=rsa-sha256; s=arcselector10001; d=microsoft.com; cv=none;
+ b=sj/udurMRmITuesTZyMCR7bvR/yD+Kyx5SjboTqNM5qwbAJUAHP+4bUDlLPquev+YpcRC6DS+as7ILnZh69OyavpEAsoX2pNOl8UTYsGe1jWsSHlxh3tTVBFkJ1anWxEuZp71csPF3rw2WF9vkQaUUtYSezm3rqGeUzO5pfQSqu9hOVZ6mmhn1PqC033MWAsJIajz5zrv2MYUquZSKXYD2egWzIZG0E46rNPG6xviV6/NRL6iVPC6JrmQSlFkRACHbplpwN00Lp+Ae/Ulpm/sF2G7omPtBwk7eNT0115cVUkJIQgyz89Ne+u4imbx18A9QBFowe/P2Fmzp2q1EMHpg==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=microsoft.com;
+ s=arcselector10001;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-AntiSpam-MessageData-ChunkCount:X-MS-Exchange-AntiSpam-MessageData-0:X-MS-Exchange-AntiSpam-MessageData-1;
+ bh=Z8q2WyJAT9XhzwpEvy7Z+N2NqmdufuVCA1M62la48vI=;
+ b=ou6mG6gfSdzIMVSobPBjzeWEwhaPr8vGEEoWcdLvcG210DfXigiE4JfHPenXYzu6FFedeQHKZDoDxEtc4gylYKZMo5ntGKa9JtIKVWLWgX7jVF7siOC8W6tvopmA+tuS2MmKr6IgYWZbqVW9c8/aPlfvtkWloWxWk/zW0pF85hUVGdKqB/OBf+BmAbGFhARhpPgvx9Js/wq/wr+ySeKOG+XCM9T/Ygee2R4VZ+WY0BvIxv2JqVba8p9DaDGOOmJifRvcp9dU7j6aTThieV7hoU2oYYqT6k+Ajh31bbENUGILXY+u/Xum5jPkFCCpY9Ph1LzRW8Urd2pfB7PInk1PMQ==
+ARC-Authentication-Results: i=1; mx.microsoft.com 1; spf=pass (sender ip is
+ 165.204.84.17) smtp.rcpttodomain=google.com smtp.mailfrom=amd.com; dmarc=pass
+ (p=quarantine sp=quarantine pct=100) action=none header.from=amd.com;
+ dkim=none (message not signed); arc=none (0)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=amd.com; s=selector1;
+ h=From:Date:Subject:Message-ID:Content-Type:MIME-Version:X-MS-Exchange-SenderADCheck;
+ bh=Z8q2WyJAT9XhzwpEvy7Z+N2NqmdufuVCA1M62la48vI=;
+ b=K57biAVq1ImMzflbIBJKf4EN7D80PQW6v6mgi/BM1iqSwn9ZrVDqbFkTSy1OVqHQnyhu4Nw2LYMIRXmVF20CZhjMCZKXiv7HLfwYSo38B/WM27xYMqTs/2cw9irVNaFJ0QVB0XJ4xKObsU88mloKvw4s3y2UqLtvJMX+O4vBEvM=
+Received: from MW4PR04CA0148.namprd04.prod.outlook.com (2603:10b6:303:84::33)
+ by PHXPR12MB999258.namprd12.prod.outlook.com (2603:10b6:510:3ca::11) with
+ Microsoft SMTP Server (version=TLS1_2,
+ cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id 15.21.428.16; Mon, 21 Sep
+ 2026 11:08:18 +0000
+Received: from MW1PEPF00016160.namprd21.prod.outlook.com
+ (2603:10b6:303:84:cafe::1c) by MW4PR04CA0148.outlook.office365.com
+ (2603:10b6:303:84::33) with Microsoft SMTP Server (version=TLS1_3,
+ cipher=TLS_AES_256_GCM_SHA384) id 15.21.428.16 via Frontend Transport; Mon,
+ 21 Sep 2026 11:08:18 +0000
+X-MS-Exchange-Authentication-Results: mx.microsoft.com 1; spf=pass (sender IP
+ is 165.204.84.17) smtp.mailfrom=amd.com; dkim=none (message not signed)
+ header.d=none;dmarc=pass action=none header.from=amd.com;
+Received-SPF: Pass (protection.outlook.com: domain of amd.com designates
+ 165.204.84.17 as permitted sender) receiver=protection.outlook.com;
+ client-ip=165.204.84.17; helo=satlexmb07.amd.com; pr=C
+Received: from satlexmb07.amd.com (165.204.84.17) by
+ MW1PEPF00016160.mail.protection.outlook.com (10.167.249.91) with Microsoft
+ SMTP Server (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.21.451.0 via Frontend Transport; Mon, 21 Sep 2026 11:08:18 +0000
+Received: from sriov-SYS-7048GR-TR.xilinx.com (10.180.168.240) by
+ satlexmb07.amd.com (10.181.42.216) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.49; Mon, 21 Sep 2026 06:08:15 -0500
+From: Nikola Prica <nikprica@amd.com>
+To: <bhelgaas@google.com>
+CC: <linux-pci@vger.kernel.org>, <linux-kernel@vger.kernel.org>,
+	<stable@vger.kernel.org>, <jerry.jiang@amd.com>, <haijun.chang@amd.com>,
+	<andy.zhang@amd.com>, <christian.koenig@amd.com>, <jim.chow@broadcom.com>,
+	<matthew.mcclure@broadcom.com>, <gbayer@linux.ibm.com>,
+	<regressions@lists.linux.dev>, Nikola Prica <nikola.prica@amd.com>
+Subject: [PATCH v4] PCI: Accept AtomicOps already enabled by the hypervisor
+Date: Mon, 21 Sep 2026 13:19:03 +0200
+Message-ID: <20260921111903.978687-1-nikprica@amd.com>
+X-Mailer: git-send-email 2.43.0
+In-Reply-To: <3f5fb659-c7a8-41cd-91dd-565cb46c0165@amd.com>
+References: <3f5fb659-c7a8-41cd-91dd-565cb46c0165@amd.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v4 1/4] backlight: qcom-wled: Fix NULL pointer dereference
- in wled_remove()
-To: david@ixit.cz, Lee Jones <lee@kernel.org>,
-        Daniel Thompson <danielt@kernel.org>,
-        Jingoo Han <jingoohan1@gmail.com>, Helge Deller <deller@gmx.de>,
-        Kiran Gunda <quic_kgunda@quicinc.com>,
-        Marco Mattiolo <marco.mattiolo@hotmail.it>,
-        =?UTF-8?B?QmFybmFiw6FzIEN6w6ltw6Fu?= <barnabas.czeman@mainlining.org>
-Cc: linux-arm-msm@vger.kernel.org, dri-devel@lists.freedesktop.org,
-        linux-fbdev@vger.kernel.org, linux-kernel@vger.kernel.org,
-        phone-devel@vger.kernel.org, Joel Selvaraj <foss@joelselvaraj.com>,
-        stable@vger.kernel.org
-References: <20260921-qcom-wled-backlight-v4-0-bab8c7ef73cb@ixit.cz>
- <20260921-qcom-wled-backlight-v4-1-bab8c7ef73cb@ixit.cz>
-Content-Language: en-US
-From: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
-In-Reply-To: <20260921-qcom-wled-backlight-v4-1-bab8c7ef73cb@ixit.cz>
-Content-Type: text/plain; charset=UTF-8
-Content-Transfer-Encoding: 7bit
-X-Proofpoint-Spam-Info: AW1haW4tMjYwOTIxMDE2MCBTYWx0ZWRfX/0gZcrFxoi5j
- gheURbcoeLoXJ3XEedobR0aa/pFCnCRn29TnmgEhG1N9rkQxEIuktrWLv4j9MFIyh0+voLRTcc1
- 91I6SCvQMpGWFHP6hjsdb7VGAOovrpM=
-X-Authority-Analysis: v=2.4 cv=AsR7T+9P c=1 sm=1 tr=0 ts=6ab10fb9 cx=c_pps
- a=JIY1xp/sjQ9K5JH4t62bdg==:117 a=PRfkaYvzSr8QmIIGAkY2Sg==:17
- a=IkcTkHD0fZMA:10 a=VdqzKS8jKosA:10 a=s4-Qcg_JpJYA:10
- a=VkNPw1HP01LnGYTKEx00:22 a=u7WPNUs3qKkmUXheDGA7:22 a=yx91gb_oNiZeI1HMLzn7:22
- a=VwQbUJbxAAAA:8 a=EUspDBNiAAAA:8 a=z8QxmeLbveigHahU524A:9 a=QEXdDO2ut3YA:10
- a=tNoRWFLymzeba-QzToBc:22
-X-Proofpoint-GUID: kSAQgwAKQftRU9tWqBr63q0kAi0klAMo
-X-Proofpoint-Spam-Details-Enc: AW1haW4tMjYwOTIxMDE2MCBTYWx0ZWRfX8apzzZ6+tmsm
- iul8Qmqf8OtWubnzEZK2Fi+KP/fmeQA2aKl1m/pFL7AkBAGn0KFEEHmQZ5i8E5zjwjziP/yZ2UU
- pYk/s8DX6tUCflQY34u2CA7r4wYNOhPKZ4NXYsZQ3p0SMNJAmPzKS/LQMot17XAMBsCyiN6uRhT
- vlsO9ADBWfKaFJBk4MuNehfnVxG+M9VM+5XeC+6D87MgPJwTCsFFRdmTFKdxYB6x0TPJMmDJqRV
- YJUWxZBYGbaoNlJRNVzsYsimhz1Jweo7TAD9Cm1smvAxz+7V7rEgJ8hY2/jsyvuleFmVDbgTN5c
- Ns5RwbtyfCglWYCz0GkNFMT8GUzE8GjmSgQgaIddzRIL5fJcU7JbENMeIPbXo7XB2ULZ5BDJzp4
- +QP6raiU0WhP5tnGBY1O8pAocPuhlGX6Z5tL+qIU6ZDPW35quDwjSMKC7rtdTqk65bX2a02fw1t
- ij3c838gj7J9/0oWQcQ==
-X-Proofpoint-ORIG-GUID: kSAQgwAKQftRU9tWqBr63q0kAi0klAMo
-X-Proofpoint-Virus-Version: vendor=baseguard
- engine=ICAP:2.0.293,Aquarius:18.0.1176,Hydra:6.1.134,FMLib:17.12.100.49
- definitions=2026-09-21_04,2026-09-16_02,2025-10-01_01
-X-Proofpoint-Spam-Details: rule=outbound_notspam policy=outbound score=0
- priorityscore=1501 spamscore=0 malwarescore=0 suspectscore=0 clxscore=1015
- impostorscore=0 adultscore=0 lowpriorityscore=0 phishscore=0 bulkscore=0
- classifier=typeunknown authscore=0 authtc= authcc= route=outbound adjust=0
- reason=mlx scancount=1 engine=8.22.0-2609040000 definitions=main-2609210160
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-ClientProxiedBy: satlexmb08.amd.com (10.181.42.217) To satlexmb07.amd.com
+ (10.181.42.216)
+X-EOPAttributedMessage: 0
+X-MS-PublicTrafficType: Email
+X-MS-TrafficTypeDiagnostic: MW1PEPF00016160:EE_|PHXPR12MB999258:EE_
+X-MS-Office365-Filtering-Correlation-Id: 432a66c7-12c0-494f-2ccb-08df17d0a434
+X-MS-Exchange-SenderADCheck: 1
+X-MS-Exchange-AntiSpam-Relay: 0
+X-Microsoft-Antispam:
+	BCL:0;ARA:13230040|23010399003|36860700016|82310400026|1800799024|376014|10067099003|6133799003|18002099003|22082099003|56012099006|5023799004|11063799006;
+X-Microsoft-Antispam-Message-Info:
+	6qv6bj0fBPGD/Pv2k7c5zXvGcEM/h+9KJm6CA9w0pa4kaY+yjYhTephq56v4mVGpGZ60lnFjrgReN0DlYtGWmxoDhA6THuVgYxHQGChjgOreV5D9cW6vHAQ+7VH08+DGxY2P5t8oSg7qAaRxqXtpcy5sLqcLJeHPtE4SGNTS3SFw/DYOaCbVS0VakSlTwlOHuZ4SMXbqD6M35j3FJJ0TF+m1xsoWdtB4REQE7gRF1CRt1nsCTTBEbIIwuvISJKptFM5qrXgAJRk7VJrIoOvDIjcS3HfcHQYEkfz4Al7enbXmGeneX1BmmExFbMhrqHHUDfMcDbwuoNwzX41wmakcgDP4rectUEWKY7uFxOtNqAXJyra+ffiXvIctkg8xK1aybVPxjAJHx/+nc0mgKBQeuTn1fLQCHg6TfYTs4LuO11dQuU5qUwZ+6ON8qpsFvUGVAQygzXRt2fMowxyP55uuC+0VfSiwc7ifYk0mPduIgdUjb8oAeqQQ2yIOCG5cw8/ShMo0U3VfKzJQWZyOQS2kNwSKaE/ocwld1RIH72Qc/cRJr10Ed0o8ZtPWtI2YewFqFGaODdgiS7fjZfRoU5ZJ/ZeqF6MYJgAIM5HSvgMq4qcXMWUCsrxbBhzHJNdu/otggZMOqdwKuxTb/6t64bRyt60C6w9GD95flSIcCHvpIlMaBLli+OKkZFMZeMiNUDnQ1M7Hq6wiDebWLEs7IzqoWA==
+X-Forefront-Antispam-Report:
+	CIP:165.204.84.17;CTRY:US;LANG:en;SCL:1;SRV:;IPV:NLI;SFV:NSPM;H:satlexmb07.amd.com;PTR:InfoDomainNonexistent;CAT:NONE;SFS:(13230040)(23010399003)(36860700016)(82310400026)(1800799024)(376014)(10067099003)(6133799003)(18002099003)(22082099003)(56012099006)(5023799004)(11063799006);DIR:OUT;SFP:1101;
+X-MS-Exchange-AntiSpam-MessageData-ChunkCount: 1
+X-MS-Exchange-AntiSpam-MessageData-0:
+	PdE/6cXgCJN3jCIVKZ8sc4dyHpupFH+9v7ur5osCHfT7z+ND4KYajDdMLr0B9/Q7A1goSOOVdWrOiEgHOrsWlmPcsd4h7NwbU/9huj1W/3beYfgMGQbL+1P2vxYsHG1Y3xHKaw3dwXlH0ykvy7nZF+fdWxAiTiDDTjUcD+x2NAma7H/eRgI9p6vUuD94f1G2KmJTAOTXrg8IBlUgxu2NI6WWFRe3sPyFtmeRkCeIOC1J2wpWZzFMmZJF5aNRi5NeGK/GR7NGgkwmOWrxmOV4IzeiQmPz5x1GPXCtznFegupSkYsP37t9y4wFqRLuLQz673RDYxK8M/ge/vHsPv7dZ9wKzj1e8fcb5zya2HdMqgxpOPj1/W05Lr7ULXCYGwpSh4EhAVPPtyhjYPs3S5jGOVJGkVCqEj53ZKtEPH42T4eATd2O/SegmcQQ2E5ZZ0C1
+X-OriginatorOrg: amd.com
+X-MS-Exchange-CrossTenant-OriginalArrivalTime: 21 Sep 2026 11:08:18.4067
+ (UTC)
+X-MS-Exchange-CrossTenant-Network-Message-Id: 432a66c7-12c0-494f-2ccb-08df17d0a434
+X-MS-Exchange-CrossTenant-Id: 3dd8961f-e488-4e60-8e11-a82d994e183d
+X-MS-Exchange-CrossTenant-OriginalAttributedTenantConnectingIp: TenantId=3dd8961f-e488-4e60-8e11-a82d994e183d;Ip=[165.204.84.17];Helo=[satlexmb07.amd.com]
+X-MS-Exchange-CrossTenant-AuthSource:
+	MW1PEPF00016160.namprd21.prod.outlook.com
+X-MS-Exchange-CrossTenant-AuthAs: Anonymous
+X-MS-Exchange-CrossTenant-FromEntityHeader: HybridOnPrem
+X-MS-Exchange-Transport-CrossTenantHeadersStamped: PHXPR12MB999258
 
-On 9/21/26 12:46 PM, David Heidelberg via B4 Relay wrote:
-> From: David Heidelberg <david@ixit.cz>
-> 
-> wled_probe() doesn't set the driver data for the platform device.
-> As a result, platform_get_drvdata() in wled_remove() will return NULL,
-> and the first dereference of it crashes on unbind.
-> 
-> Set the platform device driver data in wled_probe().
-> 
-> Cc: stable@vger.kernel.org
-> Fixes: feeab87b3072 ("backlight: qcom-wled: Add support for short circuit handling")
-> Signed-off-by: David Heidelberg <david@ixit.cz>
-> ---
+From: Nikola Prica <nikola.prica@amd.com>
 
-Reviewed-by: Konrad Dybcio <konrad.dybcio@oss.qualcomm.com>
+pci_enable_atomic_ops_to_root() currently fails when no Root Port is
+visible. That is common in passthrough guests (ESXi, Hyper-V): the
+endpoint is assigned to the VM, but the guest topology has no Root
+Port above it.
 
-Konrad
+In those setups the hypervisor may already have enabled AtomicOp
+Requester Enable on the device. If PCI_EXP_DEVCTL2_ATOMIC_REQ is set,
+treat AtomicOps as already enabled and return success instead of
+failing the Root Port walk.
+
+After 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port
+supports them"), pci_enable_atomic_ops_to_root() always fails if the
+Root Port is not visible.  On systems where the Root Port is not
+visible but *does* support AtomicOps, this is a regression: prior to
+1ae8c4ce1570, it enabled AtomicOps in the endpoint and returned
+success.
+
+Fixes: 1ae8c4ce1570 ("PCI: Enable AtomicOps only if Root Port supports them")
+Reviewed-by: Christian König <christian.koenig@amd.com>
+Reviewed-by: Gerd Bayer <gbayer@linux.ibm.com>
+Tested-by: Gerd Bayer <gbayer@linux.ibm.com>
+Signed-off-by: Nikola Prica <nikola.prica@amd.com>
+
+---
+v4: Updates commit log to make regression point clear
+v3: Add Fixes tag
+v2: Be more strict and only apply logic in headless device case.
+---
+ drivers/pci/pci.c | 12 +++++++++++-
+ 1 file changed, 11 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/pci/pci.c b/drivers/pci/pci.c
+index b2879a6be5f8..62729ade496f 100644
+--- a/drivers/pci/pci.c
++++ b/drivers/pci/pci.c
+@@ -3769,8 +3769,18 @@ int pci_enable_atomic_ops_to_root(struct pci_dev *dev, u32 cap_mask)
+ 	}
+ 
+ 	root = pcie_find_root_port(dev);
+-	if (!root)
++	if (!root) {
++		/*
++		 * A hypervisor may expose a headless topology with no
++		 * visible root port.  If it has already set AtomicOp
++		 * Requester Enable, there is nothing more to do.
++		 */
++		pcie_capability_read_dword(dev, PCI_EXP_DEVCTL2, &ctl2);
++		if (ctl2 & PCI_EXP_DEVCTL2_ATOMIC_REQ)
++			return 0;
++
+ 		return -EINVAL;
++	}
+ 
+ 	pcie_capability_read_dword(root, PCI_EXP_DEVCAP2, &cap);
+ 	if ((cap & cap_mask) != cap_mask)
+-- 
+2.34.1
+
