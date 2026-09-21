@@ -1,83 +1,79 @@
-Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
+Received: from mail-pj2-f19.google.com (mail-pj2-f19.google.com [74.125.227.147])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7A85D356748
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 05:10:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.140
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id EBAD61A268
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 05:27:08 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.147
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789967406; cv=none; b=LLwN9itkcXVK5m7eYXUORfwdWkqqVoXITQ3QnmEO8CylURsCr/XgFDZ9NBDLU9Z7huOqeiImhIINn6y2UZoErl0oEV4/ynL5Olj4ysBYj0/PshVx1bK3Nl58+AKzkbNMbmVMhR8o1Njx6VNatuOKUb/9Tbyfwqf7WSCX/tMbu9E=
+	t=1789968431; cv=none; b=udtdNAYhkrTwDNk7FuQdlf9uVhkK+dIGjP6CwrnYe5MBgNp8zxRBx1prUIkcvuFX4iKv/9OlasHdvHMkmdxT/7boqRa38MeIDOodaiP6K5qdzKJmRM/J0IyT2en/xrem2es2kRNpGqj1e8HPLX55BU/97Lq32GQq/CxCbFaAX9Q=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789967406; c=relaxed/simple;
-	bh=AtyAw70H6JdQEtq7j/aBu5GNC1eYZrvXIK9N2K4CYtc=;
+	s=arc-20240116; t=1789968431; c=relaxed/simple;
+	bh=K4dXuFjdLrygWeliwvNV/H7rdoqVo5eXsrZKXIh50eQ=;
 	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=LLXPSjshAdlAn1+/RlUEavliW/bS+l+P6Mnoj3YFunVWAS+zegj6K6Gikrcqc98ESpKF7PYoyAhReRMqi1SeEOSSbMCW9WLi/1TS7DwYqK7j7fMzZ/Atab3a6+J34CvXRG8eIP/VgfLRAjG2MGhuPBWqQ6tm4AUvmmJdzW0ewYo=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=Rbd23Rzn; arc=none smtp.client-ip=74.125.227.140
+	 MIME-Version; b=Be/qnX/bqE505eL92Co/x86ccDLHLSNlIJiFHPyzPJWEIMXcAA4AXddoGN/PZn813H9aZpb941f0wtq4SnvMXXYTr7e13bzdobttJhwslqNQXUpidIFWy80CH5zyrphUyGwN3agZd+vU+71yTDo4Odwi+ZqQZNplbB4a6Tsi+w8=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=djF6GEmG; arc=none smtp.client-ip=74.125.227.147
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="Rbd23Rzn"
-Received: by mail-pj2-f12.google.com with SMTP id d9443c01a7336-2db1ca06a25so16791885ad.2
-        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 22:10:04 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="djF6GEmG"
+Received: by mail-pj2-f19.google.com with SMTP id d9443c01a7336-2db18fe433fso22214285ad.2
+        for <stable@vger.kernel.org>; Sun, 20 Sep 2026 22:27:07 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1789967404; x=1790572204; darn=vger.kernel.org;
+        d=gmail.com; s=20251104; t=1789968425; x=1790573225; darn=vger.kernel.org;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:from:to:cc:subject:date
          :message-id:reply-to:content-type;
-        bh=wLjGPjvI2QHlThE3TyfoKLHBso+1y45Env8GNkzTPB8=;
-        b=Rbd23RznPIJn5FkGDYtOKcSm5Tgkmq0Wmm6uaahejTVFkzQYy57C7darMphQ86Aqdn
-         nmLjCUNX4PYwwvC6bHqLwePL75GjdIYgKTptxENkvKzAaOarGTYyQSXH/AzzomxO92WU
-         DHXV+k9ggl3HrhU3M8pnlg1TfJH2E6p2tfFIoMPK8/juWoHdTh0m09wb/kXM5t2kLRdV
-         HhE6hNpE05cVCpaTxEtYa6R/oOnWBUBcs+lby9J74UQ5Xnnuyl6r0OQcHlurU6mJKXM/
-         Auq1R5dRerp8vl+aOWhFRO3khL21PUMu3RuWykr11GdQ7rcK45oIyBjLatf5HUWwfn8e
-         5ZtA==
+        bh=Xd8o2pAawE0z2eISzR2WyTi70wnc7/XhLNuD2B4d+0U=;
+        b=djF6GEmGU86IVo3BorEOrk4ox1l4b9E5ym/I0UaxOqeNzMMgIt1PA8F7reLvucP+kp
+         anhUqkgYs93cMXz6JrTDp1w0PamdLwVjZV6K/vTukPeMl3RzbW+ReJq96DjM9O6uU8/P
+         98/JaNPUQlXYuaeLVlHFRR4P/ON4W4q8tiE+XWQemfjaZuDuwXzF4U3pmvD0VBFRFv3N
+         2dDRvvdkoC3Nsak+iXNJ4pKysYc/ld7aUB4uq5uZ+FUiFtPYt+hJFzr+LpqilY54ev8g
+         NBGQVfalMZmEHIQqkRDOC5Jt3p18ksFtcVzgEI4m9u0xufTR2UotN0/t2kjqD1LkcI+1
+         /FLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1789967404; x=1790572204;
+        d=1e100.net; s=20260707; t=1789968425; x=1790573225;
         h=content-transfer-encoding:mime-version:references:in-reply-to
          :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
          :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=wLjGPjvI2QHlThE3TyfoKLHBso+1y45Env8GNkzTPB8=;
-        b=fShsX0PntmlSy2ShrDa/mBVvI5XeRjTwa+oMexQXWau4yQQUwietScn6IRDjHIh7tQ
-         Wpa37ZxvohFnWcJ03usB4ciRpOcL5CslEnN0+ubRYsZ78yh8RL3GL9XkJbwc0DR3O1BC
-         fEj6TEHxyU3D9odzk2G1kWs6NjEBQtNtKO9Xtg6IVOfvH+oYFUBs8xYOt3FlJy4/IGaE
-         rUp7YpIy07kqRJozKITk8JHPOvgw2q73gEoLL5J31t0odiymYw5K2ov85kiHOzFddWtG
-         DxR4Bxyw7XCSNCJMiheVXMD7xatXriasLYnqLlfJz4Mm9tAANL4ZoZPn8B64dkxviKLU
-         vXtg==
-X-Forwarded-Encrypted: i=1; AKwUvBy2OXJ7BYhdoAoHSIGOzHzO8jhcMXdqQvP7nM3uXm6LG2yLclkiV+6ZUyiqUOvrNcO9j5hsJOc=@vger.kernel.org
-X-Gm-Message-State: AFuF++la6vX13rYTL8m2ichl1MNDjPJ99aWJ7+FNUu49UY4eLqxEW/HY
-	v6wVZGxi0cUY5xIpX5PRtUnpgbDNcuiQxzFEEthG/+1nJ6dDAsJX16wL
-X-Gm-Gg: AYBFou3IGhRgK+UArLZuGih9UpSV6Krs6lH1OW0KuyjVEI0rr5ca02H9l3aL1DzXF/i
-	cXuN22UyVUciMFfSwgcPtfUpZcvJRVbZX5J11IOVnm0hfigR0VHwuD3miSlQ3lPOo2zh+uPRltB
-	fJXgUDPyj5PGUcWjysdedxlzrbGW/qB7D4q77SLRCAsz+CSn+VL1qg0rzRaXxzkptQsQWdSLk5X
-	W2W2qA2gm+ET3fwOxVBYrW7impggrYUD+iNO2veZIhavWdPxBk5isYmEjNfUqMx6hVovjAJp7xP
-	vhOjBov28/5m8UgWuzKEzalgrMgTqNmnE4ZEN2SjibK2NDnfJqoFlpDm3c2FzkOj7AG7JZ9LbQJ
-	xht7lH7Di7LVJLHgih3IEkYhqTwje4OZ0W0Pf95YR9vqsg3gLHLlJLtMs223Ar2tD/yN6LlK3te
-	6dT258mGe5I9gHTpDTLCx4NFS6le0uDm46qsdSh9xcyId3wfrALlD7eIXwURiiwo+SrqYoJRQdG
-	2Sk+toS0RuDNKrZRAtWq3BTa5JmXhKMInZ8qaEEKQnD5P96ktMBnx7UM7BFt/8PZafmd5zIYvuN
-	F+y9Foryfw==
-X-Received: by 2002:a17:902:e549:b0:2dd:c1a0:c7e0 with SMTP id d9443c01a7336-2ddc1a0c90emr82125145ad.15.1789967403745;
-        Sun, 20 Sep 2026 22:10:03 -0700 (PDT)
-Received: from phui-2.c.googlers.com.com (78.123.83.34.bc.googleusercontent.com. [34.83.123.78])
-        by smtp.gmail.com with ESMTPSA id d9443c01a7336-2ddc17e17e0sm27229695ad.70.2026.09.20.22.10.03
+        bh=Xd8o2pAawE0z2eISzR2WyTi70wnc7/XhLNuD2B4d+0U=;
+        b=KZ7tdXkvo+Cv1KkY2XF++yzzkOr+pR09GOlW/Rd06ql2NBluoWrycDQFgTE1VB+lFG
+         mohVWHFH7+0NmyeKfwamSyrqIJVp3NS1uAyz0eHhd7Bj3M8kFecO1MIdW/TP8is5E+1F
+         cJ638YXKM2vt55Y2JOiRr38ODvOTbGeA8RkCXnQlEAZ4DBqoq8zsWpHRnHmrCH95exOF
+         Vp6iCTAhjGW4vwYusm5SOrnjz8CKG5IrnHdtc9bLu6UV2pEFEfWrWmrQxmyPXUWjCve6
+         NiwuKgJ3V6N/T7CDmfehOs6hWookHOKsMJuO/o96lvQXVu6tXs9QRxXvytqii4sHpBba
+         L/DA==
+X-Forwarded-Encrypted: i=1; AKwUvBzTinIBqclnAj+H9PhMZnTNTo/Ole4eDjmLh8Yu7lnI4qqjvMGo3liOWwrA47GdGSFpopByX6Q=@vger.kernel.org
+X-Gm-Message-State: AFuF++mmE2xB03Wl+Il2jQYMAaB4cFj2KENSNeiEm6Mt9jeQXS6I6Yzw
+	BrxbvbpYiLZVobvv6mZP9oGrHh9mVPBZniMn55LiWBxuesCHZT2RioQb
+X-Gm-Gg: AYBFou24IMNvFjLHNhQdsg42rEKjYvSyNPTGH8CWWXIjcTuWub+C7i3DmD5s77MSCdH
+	n2xURE3plCbVGNChYUdA6jmnQJKWgib+Qvh9k896EaDLE1GHObrEQL1u+oAW+rxwQvp5jMnvoFL
+	WP/cCkFkHDx9Z7TrPDy/38at4UKgvD7u4uwreVSmfRZucc11+3uzoq2oIAt69GpPM3OvcOLDwpr
+	juAWthQTFu/Vvm3oDpJjnPsg5cBm+Oz8BHlMZovaCq9NWdwIwznKjU92GMq934Xq36NOdcnbRmP
+	fGNL69AIVgHtqeKq+GDSInkoQ2HVZUkJOAQtKRWfX+pmo+j67hNnTdq/nrQLK1KZZsno53SqkRW
+	8IW89mWX/gsmpE2m3qyyBjCCX4JmtFdATy/PmVXpkG/8lgMtFbEAaM51r6WDf17uaAmJQIza7Tv
+	mpyWNmDx4IoWJpAoXVmA1/+XWHgcGzZSmOBDNB4po0C/cP48wzF/QEQxawR/ebtHBKzK0cuH3kN
+	J+b+5iucEhBAs/JLktnNq76eR+O7fGgcdBwRGekOHqEaoyPhMw5AnBs/DjbT9qPWH73NlzpzX6F
+	uLM+1IoU5A==
+X-Received: by 2002:a17:90b:39ae:b0:39e:6c69:34d2 with SMTP id 98e67ed59e1d1-39e6c693659mr8697371a91.54.1789968424789;
+        Sun, 20 Sep 2026 22:27:04 -0700 (PDT)
+Received: from phui-2.c.googlers.com.com (67.51.127.34.bc.googleusercontent.com. [34.127.51.67])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e554e5529sm6677054a91.4.2026.09.20.22.27.04
         (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Sun, 20 Sep 2026 22:10:03 -0700 (PDT)
+        Sun, 20 Sep 2026 22:27:04 -0700 (PDT)
 From: Hui Peng <benquike@gmail.com>
-To: Jeremy Kerr <jk@codeconstruct.com.au>,
-	Matt Johnston <matt@codeconstruct.com.au>,
-	"David S . Miller" <davem@davemloft.net>,
-	Eric Dumazet <edumazet@google.com>,
-	Jakub Kicinski <kuba@kernel.org>,
-	Paolo Abeni <pabeni@redhat.com>
-Cc: Simon Horman <horms@kernel.org>,
-	netdev@vger.kernel.org,
+To: bhelgaas@google.com,
+	airlied@redhat.com
+Cc: benh@kernel.crashing.org,
+	linux-pci@vger.kernel.org,
 	linux-kernel@vger.kernel.org,
 	stable@vger.kernel.org,
-	Hui Peng <benquike@gmail.com>
-Subject: [PATCH net v2] mctp: route: iterate socket tag list in mctp_lookup_prealloc_tag()
-Date: Mon, 21 Sep 2026 05:10:01 +0000
-Message-ID: <20260921051002.1656692-1-benquike@gmail.com>
+	benquike@gmail.com
+Subject: [PATCH v2 1/2] PCI/VGA: fix inverted vga_tryget() return check in vga_arb_write()
+Date: Mon, 21 Sep 2026 05:27:01 +0000
+Message-ID: <20260921052702.1725696-1-benquike@gmail.com>
 X-Mailer: git-send-email 2.55.0.1082.g2b9226bbc0-goog
-In-Reply-To: <159f68ef9444f8b44a6d5764de8696f094fa889d.camel@codeconstruct.com.au>
-References: <159f68ef9444f8b44a6d5764de8696f094fa889d.camel@codeconstruct.com.au>
+In-Reply-To: <20260919222629.3798073-1-benquike@gmail.com>
+References: <20260919222629.3798073-1-benquike@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -86,50 +82,58 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Transfer-Encoding: 8bit
 
-When a socket transmits a packet with MCTP_TAG_PREALLOC set,
-mctp_lookup_prealloc_tag() iterates over the per-netns &mns->keys list
-and matches netid, req_tag, peer_addr, and manual_alloc, without
-checking whether tmp->sk == &msk->sk. This allows any MCTP socket in the
-same network namespace to use and consume another socket's preallocated
-tag.
+In vga_arb_write(), the "trylock" command handler calls
+vga_tryget(pdev, io_state) and checks:
 
-Iterate the socket's own tag list (&msk->keys via sklist) instead of the
-namespace-wide &mns->keys list in mctp_lookup_prealloc_tag(), ensuring
-that only tags allocated by msk are matched.
+  if (vga_tryget(pdev, io_state)) {
+      /* Update the client's locks lists... */
 
-Tested in QEMU against Linux 7.3.0-rc3 by allocating a manual tag
-(0x18) on socket A via SIOCMCTPALLOCTAG for peer EID 9 and sending a
-4-byte message with MCTP_TAG_PREALLOC from socket B in the same network
-namespace. On the unfixed kernel, sendto(sock_b) using socket A's
-preallocated tag succeeds (ret = 4); with this patch applied,
-sendto(sock_b) fails with -ENOENT (errno = 2) while sendto(sock_a)
-succeeds (ret = 4).
+However, vga_tryget() returns 0 on success and a negative errno (-EBUSY)
+when the VGA resources are already locked. Because the check tests for a
+non-zero return value, a successful vga_tryget() skips incrementing
+priv->cards[i].io_cnt / mem_cnt and skips reporting success, leaking the
+acquired VGA lock, whereas a failed vga_tryget() (-EBUSY) erroneously
+records the lock in priv->cards[i] so a subsequent "unlock" or file
+release decrements the lock count without holding the lock.
 
-Fixes: 63ed1aab3d40 ("mctp: Add SIOCMCTP{ALLOC,DROP}TAG ioctls for tag control")
-Suggested-by: Jeremy Kerr <jk@codeconstruct.com.au>
+Check if (vga_tryget(pdev, io_state) == 0) in vga_arb_write().
+
+Tested in QEMU against Linux 7.3.0-rc3 by opening /dev/vga_arbiter and
+writing "trylock io+mem" followed by closing the file descriptor. On the
+unfixed kernel, write("trylock io+mem") acquires the VGA lock
+(locks=io+mem(1:1)) but takes the error branch and returns -EBUSY (-16)
+without recording the lock in priv->cards[], permanently leaking the
+lock on close(); with this patch applied, write("trylock io+mem")
+succeeds (ret = 14) and close() cleanly releases the lock
+(locks=none(0:0)).
+
+Fixes: deb2d2ecd43d ("PCI/GPU: implement VGA arbitration on Linux")
 Cc: stable@vger.kernel.org
 Assisted-by: LLM
 Signed-off-by: Hui Peng <benquike@gmail.com>
 ---
 Changes in v2:
-- Iterate &msk->keys via sklist instead of walking &mns->keys and checking
-  tmp->sk != &msk->sk, as suggested by Jeremy Kerr.
+- Split the vga_tryget() return check fix in vga_arb_write() from the
+  PCI_INVALID_CARD hot-unplug cleanup fix into a 2-patch series, and fix
+  the commit message to reference vga_arb_write(), as noted by Sashiko.
+- Update Fixes: tag from the file-move commit 1d38fe6ee6a8 to
+  deb2d2ecd43d ("PCI/GPU: implement VGA arbitration on Linux").
 
- net/mctp/route.c | 2 +-
+ drivers/pci/vgaarb.c | 2 +-
  1 file changed, 1 insertion(+), 1 deletion(-)
 
-diff --git a/net/mctp/route.c b/net/mctp/route.c
-index 2ce0d9a39bd3..f2b0d8b21f0e 100644
---- a/net/mctp/route.c
-+++ b/net/mctp/route.c
-@@ -826,7 +826,7 @@ static struct mctp_sk_key *mctp_lookup_prealloc_tag(struct mctp_sock *msk,
+diff --git a/drivers/pci/vgaarb.c b/drivers/pci/vgaarb.c
+index 3de05aee7859..350ab9624eb9 100644
+--- a/drivers/pci/vgaarb.c
++++ b/drivers/pci/vgaarb.c
+@@ -1272,7 +1272,7 @@ static ssize_t vga_arb_write(struct file *file, const char __user *buf,
+ 			goto done;
+ 		}
  
- 	spin_lock_irqsave(&mns->keys_lock, flags);
- 
--	hlist_for_each_entry(tmp, &mns->keys, hlist) {
-+	hlist_for_each_entry(tmp, &msk->keys, sklist) {
- 		if (tmp->net != netid)
- 			continue;
- 
+-		if (vga_tryget(pdev, io_state)) {
++		if (vga_tryget(pdev, io_state) == 0) {
+ 			/* Update the client's locks lists... */
+ 			for (i = 0; i < MAX_USER_CARDS; i++) {
+ 				if (priv->cards[i].pdev == pdev) {
 -- 
 2.49.0
