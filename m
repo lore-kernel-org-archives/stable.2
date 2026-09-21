@@ -1,69 +1,110 @@
-Received: from mx1.manguebit.org (mx1.manguebit.org [143.255.12.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 511314C4F79;
-	Mon, 21 Sep 2026 16:48:28 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=143.255.12.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 39B284DF4DC;
+	Mon, 21 Sep 2026 16:52:09 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790009309; cv=none; b=n38eeL6amy4omSJVnaOx9DVLtuFQcf9KlPt/eXzzmquZ5sRCKyF2CRQVHnKQKPv9KprTpFI5y7jUISfRu0i00zF6W+/Ff82+4RuwmvUi4fzZyjrYmEe0h09NhFS/Ps7JNMq6v/qNlL7LLQ8yyvMRMsxPYND43EEI0aKOl6n3jGo=
+	t=1790009530; cv=none; b=PM1kvk/9PTFKS8An4TOsVNpyvIofdaHFyE1Fg+5DQ1KnlEnmRK87/DQulYWPnflMnPjDhq2YU28gDDjssWc71yByIpIIyCA2pflrmdyczDo064fNp1VlbN4R4NskNwj2E8NdeOgjOsy5imL/C+nTxPukzoZYMPSQdN9or6Z3VRc=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790009309; c=relaxed/simple;
-	bh=Ckar6c2jphMV2u1ijs4ljVmCmMJWzR0KP3P8wBSkQ9M=;
-	h=Message-ID:From:To:Cc:Subject:In-Reply-To:References:Date:
-	 MIME-Version:Content-Type; b=txbupGhXEu+2PSSKapAEzsn39y/5Ei30wRDsy7hzMI9pEZ/TgvQrBWTTDm2uCMK7r9dIb5qbKLCVWQjG8lfquKhYF4s8YxMV0XBCjX+R+9HxXQVkJfxUBUsSuhMTKQDOPeZBNSAywzIQA2ta6L1oXINhO8Zjvez4ZcY8h11wyM0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org; spf=pass smtp.mailfrom=manguebit.org; dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b=bRr3hMex; arc=none smtp.client-ip=143.255.12.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=manguebit.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=manguebit.org
+	s=arc-20240116; t=1790009530; c=relaxed/simple;
+	bh=AATHp7deUCWcwH5lHNkmFOR+IuafxS0XxzQYwEOHKyU=;
+	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
+	 Content-Type:Content-Disposition:In-Reply-To; b=fLb0CJZnKBeXWUuC2+f6YPqcb+oRVIqdbI7wVgjs0S8+wft2WDCtkllwtOr0KB/i1sP/9OeAW3+5jV5fbihGrYLlMmQkdqGOf+U1S8F5Wiv8a8UmqBzfYjILf53HYicIQFaoiet87IT94iXPLP/cZvR1Srcwg+peLN5bRlTXlA0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=jgypbrc/; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=manguebit.org header.i=@manguebit.org header.b="bRr3hMex"
-DKIM-Signature: v=1; a=rsa-sha256; q=dns/txt; c=relaxed/relaxed;
-	d=manguebit.org; s=dkim; h=Content-Type:MIME-Version:Date:References:
-	In-Reply-To:Subject:Cc:To:From:Message-ID:Sender:Reply-To:
-	Content-Transfer-Encoding:Content-ID:Content-Description;
-	bh=GvU6dxNGy7KWFeIFvxSEJIFe9lA3O138bl4GFsvtCig=; b=bRr3hMexSjTGkZBHZ+SER6CHdl
-	4ztSOKTgDyNUfy5bVaZar1lPBva8TIPbEGrXn/98R8gTjuuXH1XiHqpnA2IEVVxvaAOjKJDsdM7Wc
-	EDLDUNkopAUTF0vqKzuEXXUNeYjtG4A9r3JGEqpp1wCxAZQXhvud+m1Kh0sjEmz2RWJh2lV31sLoo
-	vnOxtTpaaWHBf8b2+eT2zD1385x2k+S54i3McA+++m4+h/2tyOc+kPAr/XmaQWxyjkosg5uFAcVU9
-	lVCNdRXFGqmfGcEbZAzxZoVLUOGIkpnzHym8IojiVTYz4xW1VH6NxSoWoIVclMaylLNjZGjGnXvPA
-	p+BtQPpQ==;
-Received: from pc by mx1.manguebit.org with local (Exim 4.99.5)
-	id 1x8hBq-00000001wQv-1e9d;
-	Mon, 21 Sep 2026 13:48:26 -0300
-Message-ID: <6e4432d117a597ae07c295c30164364a@manguebit.org>
-From: Paulo Alcantara <pc@manguebit.org>
-To: linux-cifs@vger.kernel.org, netfs@lists.linux.dev
-Cc: David Howells <dhowells@redhat.com>, Christian Brauner
- <brauner@kernel.org>, Namjae Jeon <linkinjeon@kernel.org>, Ronnie Sahlberg
- <ronniesahlberg@gmail.com>, Shyam Prasad N <sprasad@microsoft.com>, Tom
- Talpey <tom@talpey.com>, Bharath SM <bharathsm@microsoft.com>,
- stable@vger.kernel.org
-Subject: Re: [PATCH 2/5] smb: client: discard post-EOF pagecache when
- extending a file via truncate
-In-Reply-To: <20260921154957.903891-2-pc@manguebit.org>
-References: <20260921154957.903891-1-pc@manguebit.org>
- <20260921154957.903891-2-pc@manguebit.org>
-Date: Mon, 21 Sep 2026 13:48:26 -0300
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="jgypbrc/"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 00D881F000FF;
+	Mon, 21 Sep 2026 16:52:09 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790009529;
+	bh=CYjSYVRuUZeh6x6H9bY3TnL7LmKRvQQGc31KUTEZw1E=;
+	h=Date:From:To:Cc:Subject:Reply-To:References:In-Reply-To;
+	b=jgypbrc/AQ1B8n50Ksn199fxeyIqHkjVEtO/PLpwpExs8H60hRL6gIk9Asf6iaOHF
+	 g2W3CscjwY9/nLQjE5LniHBNpEYp6CTKz+d2odc3cwMFI9PN6B8+Cs7dmlLf/h9hPg
+	 1WYE5xa7sByNHh2TfrJL8Wh9d6V9kwWmVYBV4uiDgK8X+rDh9WZql5qD+YpZ/nREgq
+	 KMFkCsJH3C5p1OZoc4eIwBts8496Nmfw82T5Z//FSGjr+P11RiOxkh0jWCwZSIlX4m
+	 ld+EtxYRoaH///pPPJkATf2gDssI66lA7gpYRQg1NpDA6xuXidxkuXePh2u2fAt64b
+	 ssvy0eo+SPN0A==
+Received: by paulmck-ThinkPad-P17-Gen-1.home (Postfix, from userid 1000)
+	id C22C4CE0E8C; Mon, 21 Sep 2026 09:52:08 -0700 (PDT)
+Date: Mon, 21 Sep 2026 09:52:08 -0700
+From: "Paul E. McKenney" <paulmck@kernel.org>
+To: Breno Leitao <leitao@debian.org>
+Cc: Alexander Viro <viro@zeniv.linux.org.uk>,
+	Christian Brauner <brauner@kernel.org>, Jan Kara <jack@suse.cz>,
+	linux-fsdevel@vger.kernel.org, linux-kernel@vger.kernel.org,
+	kernel-team@meta.com, stable@vger.kernel.org
+Subject: Re: [PATCH] dcache: report a Tasks-RCU quiescent state in
+ dentry_kill()
+Message-ID: <a388f09f-153c-4175-a8cd-f54e70262da8@paulmck-laptop>
+Reply-To: paulmck@kernel.org
+References: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20260918-dcache-task-rcu-qa-v1-1-963ec83e6d0b@debian.org>
 
-Paulo Alcantara <pc@manguebit.org> writes:
+On Fri, Sep 18, 2026 at 04:01:57AM -0700, Breno Leitao wrote:
+> I am constantly seeing the following warning on Meta's fleet:
+> 
+>   INFO: rcu_tasks detected stalls on tasks:
+>     native_queued_spin_lock_slowpath
+>     locked_inode_to_wb_and_lock_list
+>     inode_io_list_del
+>     evict
+>     __dentry_kill
+>     shrink_dentry_list
+>     shrink_dcache_tree
+>     d_invalidate
+>     btrfs_delete_subvolume
+>     btrfs_ioctl_snap_destroy
+>     btrfs_ioctl
+>     do_syscall_64
+> 
+> dentry_kill() is the common funnel for dentry teardown: dput(),
+> shrink_dentry_list() and shrink_dcache_tree() all reach it, once per
+> dentry, and its cond_resched() is the only reschedule point on that path.
+> 
+> cond_resched() is not an RCU-tasks quiescent state.
+> 
+> Use cond_resched_tasks_rcu_qs() so the teardown reports an RCU-tasks
+> quiescent state as it proceeds.
+> 
+> Fixes: 9c5f1d30199d ("dcache: move cond_resched() into the end of __dentry_kill()")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Breno Leitao <leitao@debian.org>
 
-> cifs_setsize() relied on pagecache_isize_extended() to zero the tail of
-> the folio straddling the old EOF, but that helper is a no-op on CIFS
-> (i_blkbits is 14), so data dirtied past EOF through an mmap survived and
-> became visible once the file was extended.
->
-> Drop that call and lower the truncate_pagecache() boundary to the smaller
-> of the old and new sizes, which is block-size independent and reliably
-> discards the pagecache beyond the old EOF.
-> ...
+Reviewed-by: Paul E. McKenney <paulmck@kernel.org>
 
-I'll address Sashiko's comments [1] for this patch and 1/5.  Please
-ignore the whole series for now.
-
-[1] https://sashiko.dev/#/patchset/20260921154957.903891-1-pc%40manguebit.org
+> ---
+>  fs/dcache.c | 2 +-
+>  1 file changed, 1 insertion(+), 1 deletion(-)
+> 
+> diff --git a/fs/dcache.c b/fs/dcache.c
+> index 1b1a81f10da67..b89c8480b655b 100644
+> --- a/fs/dcache.c
+> +++ b/fs/dcache.c
+> @@ -830,7 +830,7 @@ static struct dentry *dentry_kill(struct dentry *dentry)
+>  	if (dentry->d_op && dentry->d_op->d_release)
+>  		dentry->d_op->d_release(dentry);
+>  
+> -	cond_resched();
+> +	cond_resched_tasks_rcu_qs();
+>  	/* now that it's negative, ->d_parent is stable */
+>  	if (!IS_ROOT(dentry)) {
+>  		parent = dentry->d_parent;
+> 
+> ---
+> base-commit: 5dd1818b15d98d4a20806cd00b1b40320b06004f
+> change-id: 20260918-dcache-task-rcu-qa-b4bcb13f1524
+> 
+> Best regards,
+> --  
+> Breno Leitao <leitao@debian.org>
+> 
