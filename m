@@ -1,164 +1,151 @@
-Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1501D518127
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 21:57:49 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.170
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790027872; cv=pass; b=k4wDIE31h1Uhfs0+gkUQdtMM5vTYau/8aZkb+tsToJEIuDKI5LabdfFs2B7ADSZRm365cLhcScgp/jRcR1gnyl5Ai5nTJH8uiaZVBTZn9DiOh/oDLVvnlbA7PZWI+lnoNgu2+cBbkkHWn07JyYpmnDfb37wgro0l8U+qt60kiCg=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790027872; c=relaxed/simple;
-	bh=z/GhqHnrayzMkq4XP/AAv5bpwGxws0vq/kqMqhVEtNc=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=OI8lAgMSsY9vm/ndLuIZUthxK34r8hQb8bfkrC2KeJxIsV4xS2e/PcGrhIlbFC6Ah2XiDex2zcdgK7X4i8h8AbRvlZK1AW/b7iclaKl4xIKluU0nCpJezRt0onFUIoP42nRj7CvGCzSdKg2595s1mZhss2SFPBE2/F3XcAF5s6w=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RsagRWjH; arc=pass smtp.client-ip=74.125.227.170
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7AF593AFD16;
+	Mon, 21 Sep 2026 21:59:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790027965; cv=none; b=Ju1dA7YNE0d3rDIxJqrouVAAsiDUD/3dGYmlUH3c4GHbBvRctgazJl6D66GAGtJaBYOU76VFbP+bJIQnk1js/wMNLC87WtXQFg+JI/zpDlkFXmVZVenN17pMqiHoZuAtvfrYHJjX9YqNvTCZN4RL5bt+/QpMxVVlIPHN2IgyZTQ=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790027965; c=relaxed/simple;
+	bh=ZZia4/09tBLy5j5vu3EkuaJn2LYEk4AZg2OSZoRslEk=;
+	h=Message-ID:Date:MIME-Version:Subject:From:To:Cc:References:
+	 In-Reply-To:Content-Type; b=aux3sGspCLAUh9LPfBIRlXZCrwP+p1Xh5LLIEXRJI1qhd559T44yyxq9Lu24c6+0OY/90AD7exHxumkdQ23QYOTw132GtqEEzISEcMllUoYpKQdKCoriMIOjRd2Wg9VRaODIL2jz3tEr/B5yQOeTsco4oPEDXzauTY5UfCMyDE0=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=AqxMcXnZ; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RsagRWjH"
-Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-39e6298aa19so475935a91.0
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:57:49 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790027868; cv=none;
-        d=google.com; s=arc-20260327;
-        b=r+/Woymie2twlzoCN1r1Ymjog6KL0/7H81ksgLgjekIF+9qocj8KCEOxBv8TxjbM67
-         v9ggGDmAn20T78H6p5tvLT/FVgPc4COb9EyLBeOwMigUFtyQkxjnA73amFzPKsPoHzm4
-         MFcS4SyLE4tOmZ+8lNE+gBF72DeD36uuhgN5oP0DLTdXTb/gNJj9p852lRG3TdRi9RRi
-         Luuqzr3hzsSSeRsvE26+8e1F0ZYoiWhwVd/OwwTAm9zp3i/9g/JfaAYJqLLBYLUfoMnq
-         1UubZX0a6+H+6xqlJf675CQI0fUQGv+oemuBST+3skP1JxKeJtosljub4zB/Is6RD9Co
-         yqjQ==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=RwYh6OjRPIh/KNj842KS6LrZRkmlRh26aRS3vty9X+g=;
-        fh=iVcrc4vu5kWr++ebZ2ni+c7GyktuztQ9JGue9H9IsKk=;
-        b=EG8GIRzr/h4jp3GK39ijEE2cUzu5UVlCNr/8KhLLK0G+OzXpXEfdIUAjV4wCjTihrk
-         aq3xrXjUwBhlnEn1BgihqrZ0VP032rcf04xtTDUfqVsmUxraDgZSsk1+jLdEmcz0gTXf
-         YygYjv4B7tY3WFg9bwrWazCp3iHPjx3MLDOI8Bv3+pT2/Vl0qMcCXcpNUT2738zQ66NA
-         1Jj6epydwJGbWljcRgfthN4mmofmB9yAHHlKzAfVk5bczXGRIdcerhJKx4/doJDo/6pJ
-         q9ee3YSrkaYKv+woFFYJqtRNHcXEJ06LrA9IHazq+0H+f5s9PKKGhF6lQJILwcQUtXOm
-         Cvrg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790027868; x=1790632668; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=RwYh6OjRPIh/KNj842KS6LrZRkmlRh26aRS3vty9X+g=;
-        b=RsagRWjH7XnJjLU/v5Zhta2QaJUJE3zowStUVKirz6SixA7y1I+ffgktVJ29JP8aza
-         JSeF5+dNLFnAknn5vHBDZkX3+0zIVPxW7AMfDc8HK1yTIRDf4SkAYwkX+fxI0ht8zq3A
-         8r470CQR/ZbMsHCbjkzigSZoZaCMkXudc4Q94lK1I9z9b366+arMvH1bdAwWAgs28Zp4
-         iRDiCfJPo6yq96yrxxM+EEvGcmqwjj5G9SDCYrI8al5HDpA4GNqm1dwxinMZwMxTvksE
-         wS0tVNcmJzwltzjf6Gv0eq+vxsiWawWTWfMt3FMAKAg5r5ATxr84hOTciY72SFcyzBGd
-         5WVg==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790027868; x=1790632668;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=RwYh6OjRPIh/KNj842KS6LrZRkmlRh26aRS3vty9X+g=;
-        b=PNtZBSZ6yCF5R9cAK5P6qXqtpmfBQ2FtUn1YDBKDMbC5Y5ktNunc5733siHRxhqOL+
-         ga1eCil6qe1mdcoKZr9Syff/I5HRYEVyUOBYVlnm6iSF03GmEU0R1BtudJMbGWKLvUAA
-         5bqULhPZCqwGhBQnToGwbYQY4CxzjRTtM4lxYr3fBpl1IU6Qjy9h+XV10KI3eXwmNkqr
-         /idY0iJSibmDY7yaZsDfjVPzUfFj409onlSvnZaN6Lu1dlkvhY1taJp6FJCm283qUhrH
-         FcDk61l4uzg8x855TUngYfOvyi+stNY3ogpSi67BtbkNfoHMqc3Y0D+F8Q8CagzUVh12
-         DuhA==
-X-Forwarded-Encrypted: i=1; AKwUvBz9cZs7bFediwlvMBbwqf8gm6EEBVBy8+w4/Zw8bqsXsMChlNxwkiv9snAwZb9yucWikBaoCJM=@vger.kernel.org
-X-Gm-Message-State: AFuF++nYRJLL682g/Nnd+K5CKXqj7U0rcNJ8zdoslCUDmSDJeKAd274z
-	owfmzfQNqZqkORHUZMIS60ATpEKVxVXvm0npEQ4aDlM64ktIDaClnAbj8RDEHuhqUOjf3NyhmpD
-	1Q8H/mI8GAo05awGo4YHRUpu/WwcH2D4=
-X-Gm-Gg: AYBFou0F6n8V9tffXWRJWzbn3oyil0OQJW2XWGNEhc469o/4v8SC5OLL3eAbx7AieYr
-	3Xr8eYE6sgjFXv7nq2EKpnA9zQnvXzjV4Qs7sIjdK3QsXtUIb/ED8NqoiYLVrqEhcyEg3+13k2H
-	qQLDNdJNpKWkpeFmTQGVPgI7fslvG4d1zkrF1jzIhD/Az1KlUBlnDtCm0i8xd2tSJoXWz1pihiL
-	eRrUNe1ByHzkbI0ETllRGxnZ4K21K3R93TP4cwNZ8uKr6qm2YKvAarv+3k1T2gB6Gf9Wp228bEg
-	Pyzd58t2iAcSj3DvCuT8pNJQghSXtMp8f1EaZjlRArOWxUoWDNdc1jU/avDHuiZtuM4IG8jhM/3
-	DhEbwASkpagD5A89UVEChmMDLzoEeypQuHBqtCK+gyA==
-X-Received: by 2002:a17:90b:50c6:b0:39d:e1f2:3400 with SMTP id
- 98e67ed59e1d1-39e599ff59cmr21734363a91.5.1790027868375; Mon, 21 Sep 2026
- 14:57:48 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="AqxMcXnZ"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 86CDA1F000FF;
+	Mon, 21 Sep 2026 21:59:22 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790027964;
+	bh=lQyc3RICrQq8DNfhj1lwzTRr6Y8biCMaaEc/+1ApkUE=;
+	h=Date:Subject:From:To:Cc:References:In-Reply-To;
+	b=AqxMcXnZAyKKRwVjBqdGfaUHwshXyfO2OOwsTeuNwDhz9uIlQqMdHPnU/t49GX0g7
+	 o8y08WJvH6KukkExsrOVFNRDMI/voZQnT+sm/3MVSRpgE1Qoadw5AYO6KlD6zBL6fY
+	 hrK6nHkzg8MLHmpytmkIk7QU6Su9IYZr0oY6ZjWIWqUHqs1Mu8BgtN+XnjEfuhl11O
+	 0J2SvWha/ZHRg8AI9f5ZY1oMp+5qizPjckiVTxVdOvQzorggm+qRGw3JUsKpN10htZ
+	 aX0Ooc+bEX8BtnTz5lzOnwEGFneyb2uEJvePd71FATd14NBbJ/qZV4u1ra5PaDFBpR
+	 eCytuE49FMaBw==
+Message-ID: <a531edad-2664-4a38-82d9-e0512665ded2@kernel.org>
+Date: Mon, 21 Sep 2026 23:59:20 +0200
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260919165511.3687822-1-lgs201920130244@gmail.com> <b483d12d-f34a-4740-929b-28423d9c9b17@amd.com>
-In-Reply-To: <b483d12d-f34a-4740-929b-28423d9c9b17@amd.com>
-From: Alex Deucher <alexdeucher@gmail.com>
-Date: Mon, 21 Sep 2026 17:57:35 -0400
-X-Gm-Features: AcwNN1UohLrK7gSjDi2UGC9O6aoP5YtKGJPc1vCQfKTwGIeZ-NrCeJY0S5T4r_c
-Message-ID: <CADnq5_MSwTURavbU8ryixhPdsUfgBf64brJpALhkCeLq12BhXg@mail.gmail.com>
-Subject: Re: [PATCH] drm/amdgpu: fix IP instance memory leak on kobject add failure
-To: "Lazar, Lijo" <lijo.lazar@amd.com>
-Cc: Guangshuo Li <lgs201920130244@gmail.com>, Alex Deucher <alexander.deucher@amd.com>, 
-	=?UTF-8?Q?Christian_K=C3=B6nig?= <christian.koenig@amd.com>, 
-	David Airlie <airlied@gmail.com>, Simona Vetter <simona@ffwll.ch>, 
-	Hawking Zhang <Hawking.Zhang@amd.com>, Likun Gao <Likun.Gao@amd.com>, 
-	Mario Limonciello <mario.limonciello@amd.com>, Pratik Vishwakarma <Pratik.Vishwakarma@amd.com>, 
-	Tim Huang <tim.huang@amd.com>, Luben Tuikov <luben.tuikov@amd.com>, amd-gfx@lists.freedesktop.org, 
-	dri-devel@lists.freedesktop.org, linux-kernel@vger.kernel.org, 
-	stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+User-Agent: Mozilla Thunderbird
+Subject: Re: [PATCH] media: rtl28xxu: fix SDR platform device leak
+From: Krzysztof Kozlowski <krzk@kernel.org>
+To: Guangshuo Li <lgs201920130244@gmail.com>
+Cc: Antti Palosaari <crope@iki.fi>, linux-media@vger.kernel.org,
+ stable@vger.kernel.org, Mauro Carvalho Chehab <mchehab@kernel.org>,
+ linux-kernel@vger.kernel.org
+References: <20260921081542.210151-1-lgs201920130244@gmail.com>
+ <arFKbVZ0E846MS-2@quoll>
+Content-Language: en-US
+Autocrypt: addr=krzk@kernel.org; keydata=
+ xsFNBFVDQq4BEAC6KeLOfFsAvFMBsrCrJ2bCalhPv5+KQF2PS2+iwZI8BpRZoV+Bd5kWvN79
+ cFgcqTTuNHjAvxtUG8pQgGTHAObYs6xeYJtjUH0ZX6ndJ33FJYf5V3yXqqjcZ30FgHzJCFUu
+ JMp7PSyMPzpUXfU12yfcRYVEMQrmplNZssmYhiTeVicuOOypWugZKVLGNm0IweVCaZ/DJDIH
+ gNbpvVwjcKYrx85m9cBVEBUGaQP6AT7qlVCkrf50v8bofSIyVa2xmubbAwwFA1oxoOusjPIE
+ J3iadrwpFvsZjF5uHAKS+7wHLoW9hVzOnLbX6ajk5Hf8Pb1m+VH/E8bPBNNYKkfTtypTDUCj
+ NYcd27tjnXfG+SDs/EXNUAIRefCyvaRG7oRYF3Ec+2RgQDRnmmjCjoQNbFrJvJkFHlPeHaeS
+ BosGY+XWKydnmsfY7SSnjAzLUGAFhLd/XDVpb1Een2XucPpKvt9ORF+48gy12FA5GduRLhQU
+ vK4tU7ojoem/G23PcowM1CwPurC8sAVsQb9KmwTGh7rVz3ks3w/zfGBy3+WmLg++C2Wct6nM
+ Pd8/6CBVjEWqD06/RjI2AnjIq5fSEH/BIfXXfC68nMp9BZoy3So4ZsbOlBmtAPvMYX6U8VwD
+ TNeBxJu5Ex0Izf1NV9CzC3nNaFUYOY8KfN01X5SExAoVTr09ewARAQABzSVLcnp5c3p0b2Yg
+ S296bG93c2tpIDxrcnprQGtlcm5lbC5vcmc+wsGPBBMBCgA5AhsDBgsJCAcDAgYVCAIJCgsE
+ FgIDAQIeAQIXgBYhBJvQfg4MUfjVlne3VBuTQ307QWKbBQJp2mE8AAoJEBuTQ307QWKbeaIP
+ /ihHTkTW4KsN/DQ945JJbyu5tI0J80Wue7QyyLPglyKfhgb5cLLNPpOC8cCIJsc7+W3i2P38
+ s2c1cOH6CYGE7E9ur3Vfme8NW2S2I/Z8VC7bZnzyS23wT17LrsdS/qCpx4o8U+pt/xdXDKph
+ EGRYrIEmMpUWvyYzyYKGIe25FtaayIIKpq8eZYyFcp2f/sG5IkOW5uZzHPMPdcm87jU7fyuQ
+ rAU2vx9r+ulUfQ/q9Z2roC/ode3l7t2pN7BCBCsUDp6JCrUyZrtT1e7EbA0ZRP3aOBNk2P2E
+ DQOgJGjGdO5Yx2Y9LFtltu6JbsBJHi1syGRX3AtQYOMc4Y1WGoeZJmMlvKj2ZqqXNkcWi2DS
+ IQEWB0uW6CqFsBBIMGDa+6OzdaVO/uAVXWDWml02Men3CILdI1MbVjoh8ECqYUY7OQ+JJvNN
+ vnliuq5WM3Ghd3jg/LZZrxXjdIginRHFQCjIJYLKpLZWm1/iDFedcfzqRNYmTtqscdCNHW41
+ oT3Z7BmO9xwdjuwBS6nmS6JJwkbf5Ot2QR4pB/DRU7ZwjT1qHe+9r9gF32wXVQatHNGK/VVu
+ sfwOnkdxCWkp/qb2gdQRmZh+SedStWshigH6sNfuHBloF/q+hjMRc8b2m326OZdrbSHwY1Sz
+ vti8Hn7n8NjdHO9LKB7BIdjkA9DA5WsqOuVCzsFNBFVDXDQBEADNkrQYSREUL4D3Gws46JEo
+ Z9HEQOKtkrwjrzlw/tCmqVzERRPvz2Xg8n7+HRCrgqnodIYoUh5WsU84N03KlLueMNsWLJBv
+ BaubYN4JuJIdRr4dS4oyF1/fQAQPHh8Thpiz0SAZFx6iWKB7Qrz3OrGCjTPcW6eiOMheesVS
+ 5hxietSmlin+SilmIAPZHx7n242u6kdHOh+/SyLImKn/dh9RzatVpUKbv34eP1wAGldWsRxb
+ f3WP9pFNObSzI/Bo3kA89Xx2rO2roC+Gq4LeHvo7ptzcLcrqaHUAcZ3CgFG88CnA6z6lBZn0
+ WyewEcPOPdcUB2Q7D/NiUY+HDiV99rAYPJztjeTrBSTnHeSBPb+qn5ZZGQwIdUW9YegxWKvX
+ XHTwB5eMzo/RB6vffwqcnHDoe0q7VgzRRZJwpi6aMIXLfeWZ5Wrwaw2zldFuO4Dt91pFzBSO
+ IpeMtfgb/Pfe/a1WJ/GgaIRIBE+NUqckM+3zJHGmVPqJP/h2Iwv6nw8U+7Yyl6gUBLHFTg2h
+ YnLFJI4Xjg+AX1hHFVKmvl3VBHIsBv0oDcsQWXqY+NaFahT0lRPjYtrTa1v3tem/JoFzZ4B0
+ p27K+qQCF2R96hVvuEyjzBmdq2esyE6zIqftdo4MOJho8uctOiWbwNNq2U9pPWmu4vXVFBYI
+ GmpyNPYzRm0QPwARAQABwsF2BBgBCgAgAhsMFiEEm9B+DgxR+NWWd7dUG5NDfTtBYpsFAmna
+ YUkACgkQG5NDfTtBYptX+BAApg32CkxwNucNEi8WfWA8oKkW0y8YDuY6ORMo9FWNGiT/OTy0
+ vyJrLocrpn86zwfjVp+eCrssPYh8eqJfnWqmYv6ACQtHPYzPZQ3mSo8H97Z01oUxITzCxpXm
+ ZkLgPIqtDPcC2E3dPM/fVxcyowM8XsaMA9wcsaUYrta8toOq2b9tKcjleKMfMrm0gQ9u7wUc
+ QbLkwj6TCLOwucb07GXzLTNF9PZmaDUpKAZjMjmrW+le+SFvQbhamx0rxLWPR0NWntXpbCn+
+ +ACch03p/JyTBVktxFsFyCt7pTPE1kEaeuXBTe/a2D9iQvRxRW19LvuO2e59/u1wYUiH/orz
+ wbIC2S4dBsPAPihL3ztOU1yE86GPyQtSE0kU+/7snnLt4QGi6PChf3t5gnNjAzjUUovO8rgI
+ c+5yN5heq5loYHgK6OQ9OlHzsPHO9e9MOQcKlFycs1pyijFGzDwdNUm/SchK8iWT2QApTx4A
+ K9bCVaboTA2T77QYkRcRJYSsO1alGX0ome/hMLD1daXlkrNUp1HWa3K4iytLRXjCSIorWiGs
+ n+q3krnpXu3TFkA8qtOFZMdnIiFuiq1yLT8hptsV5xh1TA2nsVvSYiaCr3q4s4BKjS/KrLDb
+ qoxzw8ISjdUp4pA85vb6YLCmb39NgidD+7PmAr65lBNveIFynTgsja1rRQ4=
+In-Reply-To: <arFKbVZ0E846MS-2@quoll>
+Content-Type: text/plain; charset=UTF-8
+Content-Transfer-Encoding: 7bit
 
-Applied.  Thanks!
+On 21/09/2026 17:17, krzk@kernel.org wrote:
+> 
+> On Mon, 21 Sep 2026 16:15:42 +0800, Guangshuo Li wrote:
+>> rtl2832u_tuner_attach() registers an rtl2832_sdr platform device, but
+>> if registration succeeds without a bound driver, it breaks out without
+>> unregistering the device.
+>>
+>> dev->platform_device_sdr is assigned only after a driver is bound, so
+>> rtl28xxu_tuner_detach() cannot unregister the unbound device later.
+>> This leaves the registered platform device and its associated resources
+>> allocated.
+>>
+>> Split the registration failure and driver binding checks. Unregister
+>> the successfully registered platform device when no driver is bound
+>> before leaving the switch.
+>>
+>> The issue was identified by a static analysis tool I developed and
+>> confirmed by manual review.
+>>
+>> Fixes: a2f7f220df5e ("[media] rtl28xxu: switch SDR module to platform driver")
+>> Cc: stable@vger.kernel.org
+>> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+>> ---
+>>  drivers/media/usb/dvb-usb-v2/rtl28xxu.c | 6 +++++-
+>>  1 file changed, 5 insertions(+), 1 deletion(-)
+>>
+> 
+> 
+> You sent multiple independent patches, to multiple independent
+> subsystems. The amount of these patches clearly suggest this was
+> AI generated and most likely not tested.
+> 
+> More importantly, you sent all this work without properly organizing
+> relevant patches into patchsets. This makes reviewing difficult
+> and might cause multiple reviewers to address the same issue.
+> Replying to the entire set is impossible and requires handling each
+> patch independently, instead of applying or discarding the set.
+> Maintainers also won't see the bigger picture of your work. Quite
+> worrying.
+> 
+> This is on the verge of hostile patch: bomb us with so many
+> contributions, we won't be able to handle them in efficient manner,
+> like responding ONCE to ask you to slow down.  Considering all this
+> is untested and LLM generated, I have even more doubts whether this
+> should be considered for review.
+> 
+> Please read kernel documentation BEFORE posting more work. It will
+> explain you how to identify subsystems, how to organize your work per
+> subsystem, how to document usage of LLM and how what you should not
+> do if this was posted in a good faith.
+> 
 
-On Mon, Sep 21, 2026 at 1:16=E2=80=AFAM Lazar, Lijo <lijo.lazar@amd.com> wr=
-ote:
->
->
->
-> On 19-Sep-26 10:25 PM, Guangshuo Li wrote:
-> > amdgpu_discovery_sysfs_ips() allocates ip_hw_instance with
-> > kzalloc_flex() and initializes its embedded kobject before calling
-> > kobject_add().
-> >
-> > If kobject_add() fails, the return value is ignored and execution
-> > continues without dropping the initial kobject reference. The failed
-> > kobject is not retained in the kset list, so the normal sysfs teardown
-> > path cannot find it. As a result, ip_hw_instance_release() is never
-> > called and the ip_hw_instance allocation is leaked.
-> >
-> > Call kobject_put() when kobject_add() fails so the initial reference is
-> > dropped and ip_hw_instance_release() can free the allocation. Keep the
-> > existing best-effort sysfs behavior by continuing with the remaining IP
-> > entries after the failed registration.
-> >
-> > The issue was identified by a static analysis tool I developed and
-> > confirmed by manual review.
-> >
-> > Fixes: a6c40b178092 ("drm/amdgpu: Show IP discovery in sysfs")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >   drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c | 2 ++
-> >   1 file changed, 2 insertions(+)
-> >
-> > diff --git a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c b/drivers/gp=
-u/drm/amd/amdgpu/amdgpu_discovery.c
-> > index a404d8aa13ee..4b1ad1c0a10b 100644
-> > --- a/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > +++ b/drivers/gpu/drm/amd/amdgpu/amdgpu_discovery.c
-> > @@ -1314,6 +1314,8 @@ static int amdgpu_discovery_sysfs_ips(struct amdg=
-pu_device *adev,
-> >                       ip_hw_instance->kobj.kset =3D &ip_hw_id->hw_id_ks=
-et;
-> >                       res =3D kobject_add(&ip_hw_instance->kobj, NULL,
-> >                                         "%d", ip_hw_instance->num_insta=
-nce);
-> > +                     if (res)
-> > +                             kobject_put(&ip_hw_instance->kobj);
->
-> Adding a message that this instance got skipped also will help.
->
-> Reviewed-by: Lijo Lazar <lijo.lazar@amd.com>
->
-> Thanks,
-> Lijo
->
-> >   next_ip:
-> >                       if (reg_base_64)
-> >                               ip_offset +=3D struct_size(ip, base_addre=
-ss_64,
->
+Apologies for spamming here, mistake on my side.
+
+I guess the OpenClaw on the other side did not even notice...
+
+Best regards,
+Krzysztof
