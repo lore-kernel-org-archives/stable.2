@@ -1,137 +1,125 @@
-Received: from us-smtp-delivery-124.mimecast.com (us-smtp-delivery-124.mimecast.com [170.10.133.124])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-oi2-f41.google.com (mail-oi2-f41.google.com [74.125.231.233])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A69E32DEA74
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 23:02:35 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=170.10.133.124
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790031757; cv=pass; b=NJCc97gQRzeEwFuIsWlbEIUw3vLXZl/Jq4pi3K+w0JeGNJV2P8XN0N8bQbr98KjcZsOFI9ZexGWnEE0svoNTFkhOTlYMCa6B5cGiv1UAFVqrskitfgehsBrqsxumu8vEDKHxVW4FYPwWn9lAtk/9Hmyqo2ryRlL+LANvrBZN7Pw=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790031757; c=relaxed/simple;
-	bh=8hnO3vaj19TugZkQX8EIHSZJpsMlJhW3HowugLastxo=;
-	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=uJ5GM1a7LB8p3My6rNJHHOq6apXyyozFrV4jb1MLgkzavzIIyRIn5rK5IK61Ob0/lEYFxWRCjq1nkMKgNY8gTbO0E1BFF/5MB0/2RJR+lUqWYD49PQk9aSnRqTHVtCeCFbL7CDNzTYlApBjAYWkeZBTEBRLHQGZH2pwz3PN7QLk=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com; spf=pass smtp.mailfrom=redhat.com; dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b=feEm7pH7; dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b=d4faWWJ+; arc=pass smtp.client-ip=170.10.133.124
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=quarantine dis=none) header.from=redhat.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=redhat.com
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 7D9963C1F36
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 23:03:54 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.233
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790031835; cv=none; b=qoAx8Qpa7+3drgo3DnkSCYbV8+XzrBSxngGuBd+TojZHUV1d6Pj0PXx7DGo+q7SYQa0ENHlTTGi7FYOlKpV8/oAP0M72KUZ51EpLq6AP/XxqxB3sZ5ox2nmFflXPIveov3wdkpRjgqP+mCtylUai0Dpf5qgIw1ioNvPApb2ipKY=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790031835; c=relaxed/simple;
+	bh=kh9puILIR9r20G3kwpzzv7NaVqtxLvbguKQW3SwMZ5M=;
+	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
+	 MIME-Version; b=j6WxNehbb38alkDevRn44acni7igpCXgq0E6+ttfpD7evAsmxVZS2Sgbv/bRie4IdfX6wvoBU0DHxHk1ayck7LYa3FGSmMVomUzC1RSPI8qUAUTqCtVDUtI2y0EVWedpB3E/WY6rKHSFeIJr/tBD0y0KE60wCuNB1MyPwaIDYjE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RJtiu6gf; arc=none smtp.client-ip=74.125.231.233
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=redhat.com header.i=@redhat.com header.b="feEm7pH7";
-	dkim=pass (2048-bit key) header.d=redhat.com header.i=@redhat.com header.b="d4faWWJ+"
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=redhat.com;
-	s=mimecast20190719; t=1790031754;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=YiEeb39VuHCSEip6FWcapchdU3R3BfbzPibDVrVefRo=;
-	b=feEm7pH7GpjoIBi9SvrCRR2+8LOZoT2Yf5OX8HagPAZ/sd5vvJoudxrW8eqnU+TNs3vr+P
-	N8Vww18shr8YQKNPaHnB50D++Wb3ul54EJad+xw/57yghUsWNqP034HKcHk9sE72AOoqqw
-	kKbQwYiSzickgjAkfQPZeYFa2c2UIJ0=
-Received: from mail-wm1-f72.google.com (mail-wm1-f72.google.com
- [209.85.128.72]) by relay.mimecast.com with ESMTP with STARTTLS
- (version=TLSv1.3, cipher=TLS_AES_256_GCM_SHA384) id
- us-mta-352-l9u3iAQuMRuABodJFpGjRA-1; Mon, 21 Sep 2026 19:02:33 -0400
-X-MC-Unique: l9u3iAQuMRuABodJFpGjRA-1
-X-Mimecast-MFC-AGG-ID: l9u3iAQuMRuABodJFpGjRA_1790031752
-Received: by mail-wm1-f72.google.com with SMTP id 5b1f17b1804b1-49ccfad90f1so22659245e9.0
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 16:02:32 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790031751; cv=none;
-        d=google.com; s=arc-20260327;
-        b=NR1BPDWM8PB4SLWbB8bt8wEbZMKGtEcKrQtilsyPf8vZGKE8FZBbTcjxa5kx5zeHYd
-         tdMXNPAuAVUuH5mrMqSsZPRNaNjmI0F/Eb9s6RRH3DzmQBv3Ru2x4dnJ8P2rPX38HOsa
-         w73G1Gl7a19BtLS19QJtBxRR1n4Qr+Txq5O5UZ5HpeufUMuNg3txvmgM5/T+YVP9WTtp
-         lgvo9OzCz/GTBh9xBGy7NRCSlRgEEn7H4aseo7mSOwZE0SBtImNrLhlw1zfiswIxrUdT
-         cqUkuYBFcvvW59rzX1Aftgf8eZo6p8W4psg0EDOTL6Ek8Cl6qn05vXYoJP5GTC0vfsnL
-         PrRw==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=YiEeb39VuHCSEip6FWcapchdU3R3BfbzPibDVrVefRo=;
-        fh=0IGhY+LJ3oFQ+la+/O7j4a9fE5NFqQglkV1cAlTJfIo=;
-        b=f54/98r0i+VXQ4C2HTEoHmmMqcICkG+dt+G0tMjYqssbil96aXdyLjyuxaSFVWxZJA
-         8ILzNthwLXpKWh/fWBlVH91OI+KBfeVjD+Zwl7PPptRgv697sZ8PDXXHGKZal2k4PaXU
-         GrdNScu5xcOO8ROSE1kgPlBBRM86GKNUAKnS0BvsHFahZW9a1O3vqxLNbrA/pN6k+YMZ
-         1Q2s6T84d8hzoG1BOdpa1h50DLK127xBfUHlg2PZKPYTet9ZGD1Ly56jswbj8xGDC/rF
-         p+IU5I86LTUZN84eDgdU2TKRvfsLXb9TlYz6S1/IXFoBWNbvgKDXfBYs34Gvx7Wjtf0H
-         MEjw==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RJtiu6gf"
+Received: by mail-oi2-f41.google.com with SMTP id 46e09a7af769-805cc8b4231so2079555a34.2
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 16:03:54 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=redhat.com; s=google; t=1790031751; x=1790636551; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=YiEeb39VuHCSEip6FWcapchdU3R3BfbzPibDVrVefRo=;
-        b=d4faWWJ+IYkCUpOjZib2NVmSEeakO+ZGprnHBUVPwJQakkOnPH4W/fg7/f//b6w6l9
-         SqKklAb57hNoHsFXL5PreeFxVY/AuyIq0dnQKfKy8Gh90N/gjPnZrlkw64TNkc4Va2is
-         be8C7P97aGYVMxnb9aqanJ5QLWn0b4gH1QQYNkDlo8MBE+iHvJ/6KHRIyKrULmpIRMuX
-         xnMNMacCT/x390gfZlsDEpLshQYM1IgTeP05tCigxGl4Mkb+Ubg5UqQTZQOz375kovUF
-         PZIhikVW06BSAnYtwmojUJR69d4Q7PbUEukxNnvIoms6CZ1VtR5+CoSpqGRcEEg3OLIT
-         UNSA==
+        d=gmail.com; s=20251104; t=1790031833; x=1790636633; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=OdbPBPyzaOM2wXlSY62pNAL0ZMKs+usFBD9FO5JbEdo=;
+        b=RJtiu6gf6NVWi16q+NFEmBHvIqrrqdw3bUrNst3yKEkzLY9nwfl3bJhtXM0mELCNkf
+         RCdbB4qA3RIBfyTipAR50KyF9Bjm2eDI16LGJVZ4mgd2hvKxiV1mSRFCTSQjBwbH4QO3
+         XT9Ax1UgRmZQpPeaCgltVBurOsXB5XhRy+ZtXsnSBAJcmv9PhC2WUblhPnZRthDQiH3e
+         xESxURzq1Zw7hdsSI+aaxIn2P7oUBm9sqcF6nNRLMDNErYnYpuYXFvjgyi9yDdaKDQnN
+         Y+lNKe7d0LBJq0f5yE6dlrQz+H8qs7InnnDgFCKNWNePWtNIpOymedxoGiTD4n7ifo61
+         WcLw==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790031751; x=1790636551;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=YiEeb39VuHCSEip6FWcapchdU3R3BfbzPibDVrVefRo=;
-        b=YfTsNjjuLPvu6m7eM1bgb5s9pfXJJWHgSHUG6NyY/vcuegA3RMv7yDwRYA/zpZpdZe
-         ABuEYfqSJfDKUIEGIwzsG4kKz5OLAFHTFLCUZ3RXOt+j+ZWXIaPNDw+do4t3HCRvbj2J
-         Bkg6QsTSIGFtafhwJs+xLW4NPS++HR/KNsuC2AUBSphkq17nCOJt+Uxbb+HeAV0J8cEP
-         w+7SumC5/bGPwGq8mIAhAaub96Jvv+Vh42ESslfvm6cwWLB9Bkr1rS1fzbouVDzUM9ic
-         dHq4vxXxYFaFoP0ObIdOLutah3K/jMyS6wT/Tkg+NGFywF8VKQaQr9A3Oc0tVN5UA6cy
-         t/5g==
-X-Forwarded-Encrypted: i=1; AKwUvByRDaaKfR8EFICkU9Jzc3U3ssExjZ/6iAH/+MMvhCd2K9foP+DnGs28Zpb0txYGMoiB46Y2tM0=@vger.kernel.org
-X-Gm-Message-State: AFuF++nli3TldjwAGuwQksH3OR7wyxFkcpmICX45bZTy0W02VD6TdkGy
-	g3TKdSC1Rek7T2kUdbbHI/6CCrh9EdQsicB1T5oqzoPeyx45aJuY+Cz4qv/EKvGsO4Mh0BlWYYZ
-	sqIPJsPE3ApU8IIh1UzQ/SyKpAAcuWal+CE+UnLuUxMSdvRbzDMy8Bmtv8ohz04CQkIouVcqZmj
-	3fcQ/qa1Uz3W1Cdnu1DfODh4rxaprSJ2jG
-X-Gm-Gg: AYBFou0BmcVekb31QEcIsXVZfHRVBblkeC1qOczKNdH+YcZnpm31+Dz7q56Mf3dFiB2
-	UZdhS7weD86X76pkuXYJB/X7VM92JS0lwzsMmI/zG2gOnrIpoCyGsXnWhod3Mn2W6zJXAhOII3T
-	n/s6t18suw3DZxWUlIm6PvGWDw6syaW0/q42usU7t3XuUn2a5a1BDrlAiSYgK5IuwFaEByZfQ3Y
-	xvpfdVCu7RXZ4dQ3TYZqF1YtklMTG6uZj8I78hlSxMxY91/CQR/q/P/Y8R7BQ==
-X-Received: by 2002:a05:600c:34d2:b0:49e:6838:c813 with SMTP id 5b1f17b1804b1-49fc5865314mr133493385e9.33.1790031751776;
-        Mon, 21 Sep 2026 16:02:31 -0700 (PDT)
-X-Received: by 2002:a05:600c:34d2:b0:49e:6838:c813 with SMTP id
- 5b1f17b1804b1-49fc5865314mr133493135e9.33.1790031751438; Mon, 21 Sep 2026
- 16:02:31 -0700 (PDT)
+        d=1e100.net; s=20260707; t=1790031833; x=1790636633;
+        h=content-transfer-encoding:mime-version:references:in-reply-to
+         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
+         :to:cc:subject:date:message-id:reply-to:content-type;
+        bh=OdbPBPyzaOM2wXlSY62pNAL0ZMKs+usFBD9FO5JbEdo=;
+        b=NZCn3asgwRGjCGkhsqwQA5IQRrH1/Be6HawFCBynoZfpEo7RdYf+tmdvOrykjEe7bV
+         fsWNObKufo6SnRX2pNIyBVSk4eXy+kABgPD4hmQLTF+l+rMgV6lpHfNnIwNzLIGK0V19
+         LbX1azMWQeWLKqhNw3cE7aS7NZ2tuGLGrIsH28z14ZcrKG0gWSLqqs1Vy/oEURkdrelM
+         +vIgusQ1dalwG54GFstQzFrUtzTVsOxvrr8GzEPleaHf2gMcsLhhxje7bgjQ3+Wt/DV9
+         S8yloAO6hXyvSwdzqsXC7NnKxTqeb3pfnpSAtg9RF2KOHmhmQBbUCX5geTm3qhfmXyOF
+         d7zQ==
+X-Forwarded-Encrypted: i=1; AKwUvBzFSzNeNmpvrdv7D1xbaZ1wfE/nWm+arAUWl+i5ebQwJW4UgqBbyIY2icdyHAAeykS/rQSvfdg=@vger.kernel.org
+X-Gm-Message-State: AFuF++kpwJBmSzkxbi8LjlnBCap0lSQ+HbA325ozPeFH8HWs+sDXSnT7
+	0qfUgnA7F9Jrh7lLwO/1sKjaYVd+uxy0e7se0y0qeQ74JfEcX+p2WnyW
+X-Gm-Gg: AYBFou3LYOu8dKeu0q0E0U9tccj+dbOJBvuwAVP37LH9Yv5o17udvzdKb/WhR6AmkKj
+	VcFJ3VnmQNEeg3WTRKMqv18+2d1kjXL5T0BitA2aEpU/VE1pWxuHi0usep0O5qBeoADfuYDx1c+
+	oi+sTWOhbJc3vs3dPmUfG8qjTat6UvmE+992f4ezilt70Zrhl11LcF+7nlXbxqIERqYs0GPPd3W
+	+/7xbuWspSkAaExMPG55X655Bfk/5jEA4mbBxGvvS+tmmajRvHTp5qT9aJtTpzAeLJ+ReFkt2UO
+	hn1pJU2blcNO5c8PsmrIBFLTSiVgXo5zqPw9+rGfO5I407LNQ0/2m2tZZfnl+J4vMhp0W+2sUib
+	sXfFEkl70/LzAWgLI2glSgQ4ZgbTEWOOWdaE+7t9+CeOQY9W4BHLVJxZmoMwC7B+4LVQvMTRXTn
+	kDiPd6KJukt7Jwp+rCG+Q20PHuVImDBwWy59OW7JsxvO4yI5VtsPVlEKggHY8pQSz8hx5OBFsG6
+	x3we2fcY2Req08iSg9e2dL5rX/G
+X-Received: by 2002:a05:6830:610f:b0:806:e047:cd7d with SMTP id 46e09a7af769-80de045b1d3mr12860708a34.7.1790031833370;
+        Mon, 21 Sep 2026 16:03:53 -0700 (PDT)
+Received: from localhost ([2a03:2880:10ff:f::])
+        by smtp.gmail.com with ESMTPSA id 46e09a7af769-814e648bd3asm184805a34.17.2026.09.21.16.03.51
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 16:03:52 -0700 (PDT)
+From: Joshua Hahn <joshua.hahnjy@gmail.com>
+To: Hongfu Li <hongfu.li@linux.dev>
+Cc: Muchun Song <muchun.song@linux.dev>,
+	Oscar Salvador <osalvador@suse.de>,
+	David Hildenbrand <david@kernel.org>,
+	Andrew Morton <akpm@linux-foundation.org>,
+	Shakeel Butt <shakeel.butt@linux.dev>,
+	Michal Hocko <mhocko@suse.com>,
+	Roman Gushchin <roman.gushchin@linux.dev>,
+	Nhat Pham <nphamcs@gmail.com>,
+	Chris Down <chris@chrisdown.name>,
+	Johannes Weiner <hannes@cmpxchg.org>,
+	Michal Hocko <mhocko@kernel.org>,
+	linux-mm@kvack.org,
+	linux-kernel@vger.kernel.org,
+	cgroups@vger.kernel.org,
+	Hongfu Li <lihongfu@kylinos.cn>,
+	stable@vger.kernel.org
+Subject: Re: [PATCH 2/2] mm/memcg: migrate per-node hugetlb lruvec stat together with hugetlb folio
+Date: Mon, 21 Sep 2026 16:03:49 -0700
+Message-ID: <20260921230350.3649114-1-joshua.hahnjy@gmail.com>
+X-Mailer: git-send-email 2.53.0
+In-Reply-To: <20260921-for-hugetlb_state-v1-2-8a6eec92661f@kylinos.cn>
+References: 
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260918094322.152817-1-pbonzini@redhat.com> <arG1Nh2yuMQyAdhV@google.com>
- <CABgObfatLAp3AsPktQVtVq0MgeJV1Bw+54i5LKye5KzjVPqbyQ@mail.gmail.com> <arG3L3TL5_xCBtc9@google.com>
-In-Reply-To: <arG3L3TL5_xCBtc9@google.com>
-From: Paolo Bonzini <pbonzini@redhat.com>
-Date: Tue, 22 Sep 2026 01:02:16 +0200
-X-Gm-Features: AcwNN1WSstdLw8s658Gdk9JRK-z4AglKofqztxWi96AE_NjSyXS6cZYk_BJ65RQ
-Message-ID: <CABgObfZTbj7cSUdGEcA2xgGkSgFqZ2NnNrHJ7+uYAHP3_9idqg@mail.gmail.com>
-Subject: Re: [PATCH] KVM: x86/hyperv: do not overwrite hc->ingpa for slow
- SIGNAL_EVENT hypercall
-To: Sean Christopherson <seanjc@google.com>
-Cc: linux-kernel@vger.kernel.org, kvm@vger.kernel.org, stable@vger.kernel.org
-Content-Type: text/plain; charset="UTF-8"
-Content-Transfer-Encoding: quoted-printable
+Content-Transfer-Encoding: 8bit
 
-On Tue, Sep 22, 2026 at 1:01=E2=80=AFAM Sean Christopherson <seanjc@google.=
-com> wrote:
->
-> +James
->
-> On Tue, Sep 22, 2026, Paolo Bonzini wrote:
-> > (BTW, I would like to talk about memory attributes and kvm-userfault
-> > next Wednesday... and whether those are two different things at all).
->
-> By "next" Wednesday, do you mean the 23rd or the 30th?  I want to make su=
-re James
-> is pulled into the discussion as he know a lot more than I do with respec=
-t to
-> Google's use cases for KVM Userfault.
+On Mon, 21 Sep 2026 17:12:35 +0800 Hongfu Li <hongfu.li@linux.dev> wrote:
 
-Either is fine, of course 23rd is better if there are no other topics plann=
-ed.
+> From: Hongfu Li <lihongfu@kylinos.cn>
+> 
+> memory.numa_stat exposes per-node hugetlb counters from per-node lruvec
+> stats. These stats are accounted against folio_nid(): incremented on
+> the folio's node when handed to a user, decremented when the folio is
+> returned to the pool.
+> 
+> During hugetlb folio migration, mem_cgroup_migrate() moves the charge
+> to the new folio and drops the memcg data of the old one, so the free
+> of the old folio right after the migration skips the memcg per-node
+> lruvec decrement. The hugetlb count stays attributed to the old node
+> for the rest of the life of the charge, while the target folio gets no
+> increment on the new node; its later free decrements a counter that
+> was never incremented.
+> 
+> Migrate the per-node lruvec accounting alongside migration. Global
+> memcg totals remain balanced because they track resource consumption,
+> not node placement.
 
-Paolo
+Hi Hongfu,
 
+This is another great catch, thank you for working on the fix!
+I was able to confirm that the issue exists and was fixed by this patch.
+
+Tested-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+Reviewed-by: Joshua Hahn <joshua.hahnjy@gmail.com>
+
+> Fixes: 05d4532b60e3 ("memcg/hugetlb: add hugeTLB counters to memcg")
+> Cc: stable@vger.kernel.org
+> Signed-off-by: Hongfu Li <lihongfu@kylinos.cn>
