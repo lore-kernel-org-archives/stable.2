@@ -1,208 +1,186 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f43.google.com (mail-pj2-f43.google.com [74.125.227.171])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id AE0CE442376;
-	Mon, 21 Sep 2026 07:52:13 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 414F53B4404
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:53:24 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.171
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789977135; cv=none; b=NeZEZUNIqTXp0GvE81UHE2E0OcKHV3yxq28TXY8mKXucC8zQswlFRnQZG/1BrYJ87T98tKlzavD6S5UqKRRYUDbuFy4NpNUq6LoNPPEzlP3XWHlCvrhQtYyq6SKwjoSQgxcoAP/DaYcNg6F+uY2yKmaF58qdaAwLhYXgXx9b2jE=
+	t=1789977205; cv=none; b=rOSSkLJ6Avcln1zXcMDkxzNQOcXJ9p7pY0N+eWBnXukE7BetRGb+RyoQsNRi6Inb0VIjGFqLQquQ8/QnOaMKovTpU4+PA40q+pdjArMJV3V4SWZ0uV4pOq2ALLPQ+ZkCZKDT9F8GIxU3gRs6BwM/86vU5RlOur7PqBUdhYO03sQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789977135; c=relaxed/simple;
-	bh=NMlgFTLxbCvq2LWyhTPvexRgP1j6mhv+TA3qcvvEjaA=;
-	h=Subject:From:To:Cc:Date:Message-ID:In-Reply-To:References:
-	 Content-Type:MIME-Version; b=Crb0sJdPQpUt0HtdUaegRlz6qgZXJDFhfAw+LUuXp3YdcatTpdrA8YnfSG8PCrCn2JyVdRmXmwvMQzUZCyKVl/JYEBaVKUZlaa7xr4CyhBeiXBMGMsxdA24jjS+HVein2QCCCnwigpKsarvCJUvS/iusN0mD5ONH5dRWEMyTx/M=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ofiqzLic; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1789977205; c=relaxed/simple;
+	bh=9jVvDTNMlifeWHalrehEJ9MSMBp7ROdLwpLKuSgTo60=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=QiVXul73U4Z/nYBs82lDJOv72dI0D7rvMdn32jCpnnWgwLPBGTNgsfAs+wepQ4+x9zfb47ydyxlzp55NXYhF61OKpdCe6wa7GDYRbriwtDaulhzySkkXmkLMMmzb2KTnKCacm0Kz910cydoN7DR85ooCAaDDXBVXhWrztbjOchw=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=adPkZDyu; arc=none smtp.client-ip=74.125.227.171
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ofiqzLic"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 8FAE21F000FF;
-	Mon, 21 Sep 2026 07:52:12 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1789977132;
-	bh=55c1QkG4fsfIs1XKlJIP6tOtu8CGAPjj2WVC5czzpN0=;
-	h=Subject:From:To:Cc:Date:In-Reply-To:References;
-	b=ofiqzLictosPQHRCfMccRuimEMRP8duMaFr9nKeXwsXGNKUFLCoOR0VeVnRxHGriy
-	 vTjkx7ZQv6979HpzZ8BNXV+ClQgEaWHvhFMqdDfU2Jlgoaml3aBeRYXA9w6gwlqMe8
-	 2CNaViBWz0RqQzISqzI569Rn+l/qxtxprVWK7ko1/P6f0kFVjjbNGXY1eTS+XbCxS4
-	 OJ9GWs/MAfJldIJwz5riKJPVFeQy1RKg8Z/siwO/MyZAq8UoAxN/a7qa5K1jkgSu6K
-	 ArwWDvjYbRQKYNACHhmp1hHYKRKgYlgaoX3rBit1hUuCXFeL3OjdhLx7mRyiCcHB7j
-	 Pkm1v4ywJmA+Q==
-Subject: Re: [PATCH] xfrm: validate ihl in xfrm4_transport_output()
-From: netdev-bot+sashiko@kernel.org
-To: q.h.hack.winter@gmail.com
-Cc: netdev@vger.kernel.org, steffen.klassert@secunet.com,
- herbert@gondor.apana.org.au, stable@vger.kernel.org, kuba@kernel.org
-Date: Mon, 21 Sep 2026 07:52:12 +0000
-Message-ID: <178997713210.2160803.14018605703606783403@kernel.org>
-In-Reply-To: <20260917072226.80788-1-q.h.hack.winter@gmail.com>
-References: <20260917072226.80788-1-q.h.hack.winter@gmail.com>
-X-sashiko-severity: High
-Content-Type: text/plain; charset="utf-8"
-Content-Transfer-Encoding: 8bit
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="adPkZDyu"
+Received: by mail-pj2-f43.google.com with SMTP id 98e67ed59e1d1-396ccafb751so2195252a91.2
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 00:53:24 -0700 (PDT)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=gmail.com; s=20251104; t=1789977203; x=1790582003; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=XL6pKrFrkkzHRuFW00rA0h4XTY4p2ooSEMR1SrVlXM0=;
+        b=adPkZDyuQBkAi9YeL/0AzuuADoZeEjtZUdrZwEoGF7xvzd0XyNwW2QJFX+ELYhEAzC
+         nqRUrRzFXjfmVGZYLobkL+5gqJ2zfhqzFLitlYPZIJlEMW00kS0JhFsOkVD6ZqSq+tO7
+         imS3jCLqoMAxRC3KqUe2OWzpZfNOmUC4bK2TxugfmHx9h3iFeTkkM7Qm09WqNcOwX2jV
+         Lh2rz0oqusL2jZ31VYeSuOOcgXG/mkrWdl6IanfcFi2Y6vsOleirwR16lXdxaQ34Y3KL
+         3/RZEtmUclPxOjZYAOnaHtCn8zsHJfIg7GrxHc64aNULi5VZTbFQUQ1hxvmK90nYktlB
+         Uo7g==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1789977203; x=1790582003;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=XL6pKrFrkkzHRuFW00rA0h4XTY4p2ooSEMR1SrVlXM0=;
+        b=D7GO324C2JA3m5r9pfrUvys1wbiLgtA65La+mbvS3VMm3qOqdNstbj6nPx5hqq8fvE
+         vWEC7mSIWt957UUyQjkQaTsBwjNQIlgn1s/OllUvQJLnj0Iqk0iqHri0cSc/CHzvND5r
+         mkdAezVtUh8ISqOw/gHidu03hC2IgxH4RV+iIj4LjAnArux3ZLV60CUtFYBqX6ByC89g
+         onSnukSnoYZrqlDehm3jGCt8fQFu8m4Oe21yHSssvD0mj7jLUKwRVR1gno9pz8zWVBAA
+         S5aOnCNEaDoEyZN8+eskcs0C9appxGH+/ALjeb68QAHE8qecIPa/+xLUeknbSLheKIxG
+         0xXA==
+X-Forwarded-Encrypted: i=1; AKwUvByMyUx64BhIDSFSpz2dw81VS0hBsBztxbjWjPLbQOjNPc7tTvjQ/q0qiVd3DqTagTx76f0UJug=@vger.kernel.org
+X-Gm-Message-State: AFuF++kv6ltoCM/D4dM05AED9lMc0uZZZc3Ff/rCeMnfHPzqPwOsp1Hf
+	EGmK6u4w2Qy9g119KEGxng7afBgSFtwVFDcUIo+WJjW3Yfwma8SgO+SY
+X-Gm-Gg: AYBFou06WMHKch1YmZz/+1IaP2e0cHUh/XEFjqSVR35xfEUiwQqLrd2usMAUDvy/nep
+	D5X95cR1fm8c8ip/cZRPopGePAzep4lpsagz9gLaSAXkqE+ENECLU3WZ4136+AK3PxJjvY2f/61
+	b7NJhVm4aNk2vjTauYE2JrdgEpSFT7xk9bB9tiFNolDC4b8pvf+R6lZQQTI03f+2cwY4uCDz4fE
+	GF1N/F2XZryp7VG2MCWWLIGr5NiyAOygvs4hvCeevV9sfNLDN/JBpNkE/CwfnpMeyWsFGW5bE66
+	F3gCS/1nhS+Ft73+bB0ScY6B1LpPw7YoCibQFgxPGrKh4Ipk7c725CatDcFeCZvktkAz3T5stYd
+	3NNnXNmm6kvTeHMgjRUwoa1YZfCCcEN6U9jvqBVSgWHKe6DYurcu1IbHzS0Iw6um8n/5GkW4m2l
+	u3fpgdl3YEQPNwYhRvj8+qlh5KIcuOsPL0g+XAE2GeB7miz4ZuJ7shMw==
+X-Received: by 2002:a17:90b:17c5:b0:39d:ecc8:73b1 with SMTP id 98e67ed59e1d1-39e54df9c06mr20858242a91.7.1789977203496;
+        Mon, 21 Sep 2026 00:53:23 -0700 (PDT)
+Received: from lgs.. ([2001:250:5800:1002::de93])
+        by smtp.gmail.com with ESMTPSA id 98e67ed59e1d1-39e6bd191aesm13132465a91.0.2026.09.21.00.53.20
+        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
+        Mon, 21 Sep 2026 00:53:23 -0700 (PDT)
+From: Guangshuo Li <lgs201920130244@gmail.com>
+To: Bao Cheng Su <baocheng.su@siemens.com>,
+	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>,
+	Tobias Schaffner <tobias.schaffner@siemens.com>,
+	Hans de Goede <hansg@kernel.org>,
+	=?UTF-8?q?Ilpo=20J=C3=A4rvinen?= <ilpo.jarvinen@linux.intel.com>,
+	Henning Schild <henning.schild@siemens.com>,
+	platform-driver-x86@vger.kernel.org,
+	linux-kernel@vger.kernel.org
+Cc: Guangshuo Li <lgs201920130244@gmail.com>,
+	stable@vger.kernel.org
+Subject: [PATCH] platform/x86: simatic-ipc: fix platform device leak on registration failure
+Date: Mon, 21 Sep 2026 15:53:12 +0800
+Message-ID: <20260921075312.120983-1-lgs201920130244@gmail.com>
+X-Mailer: git-send-email 2.43.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
-Thank you for your contribution! Sashiko AI review found 1 potential
-issue(s) to consider.
+register_platform_devices() creates multiple platform devices using
+platform_device_register_data(), but returns directly when a later
+platform device registration fails.
 
-Critical: 0 · High: 1 · Medium: 0 (1) · Low: 0
+If LED or watchdog platform device registration fails, previously
+registered platform devices are left registered. Since module init
+failure does not invoke the module exit cleanup path, these platform
+devices remain allocated and their backing platform_object memory is
+leaked.
 
-If you believe none of the issues are legitimate, please reply to each
-issue of Medium severity or higher and explain why the AI is wrong.
-If any of them are legitimate and you plan to respin, please let patchwork
-know by including "pw-bot: cr" as a separate line at the end of your reply
-(one such reply per series is enough).
+Unregister successfully created platform devices on registration failure
+paths to restore the missing cleanup.
 
-- [High] net/xfrm/xfrm_output.c:69-70, xfrm4_transport_output(): the new
-  guard validates the attacker-controlled IPv4 header length against…
+The issue was identified by a static analysis tool I developed and
+confirmed by manual review.
 
-Pre-existing issues:
-- [Medium] net/xfrm/xfrm_output.c:66-81, xfrm4_transport_output(): only
-  an upper bound on ihl is added, so iph->ihl values 0..4 (ihl = 0..16…
+Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+Cc: stable@vger.kernel.org
+Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
+---
+ drivers/platform/x86/siemens/simatic-ipc.c | 40 ++++++++++++++++++----
+ 1 file changed, 34 insertions(+), 6 deletions(-)
 
---
-
-xfrm: validate ihl in xfrm4_transport_output()
-
-This adds a bounds check on the IPv4 header length read from the packet in
-xfrm4_transport_output(), rejecting the packet with -EINVAL when ihl exceeds
-skb->len, before the header relocation done by __skb_pull() and memmove().
-The stated goal is to close a local denial of service reachable by injecting
-frames into an xfrm interface, for example with AF_PACKET on an xfrmi device.
-
-> diff --git a/net/xfrm/xfrm_output.c b/net/xfrm/xfrm_output.c
-> index e305ba32e356b..3abb21d113a45 100644
-> --- a/net/xfrm/xfrm_output.c
-> +++ b/net/xfrm/xfrm_output.c
-> @@ -66,6 +66,9 @@ static int xfrm4_transport_output(struct xfrm_state *x, struct sk_buff *skb)
->  	struct iphdr *iph = ip_hdr(skb);
->  	int ihl = iph->ihl * 4;
->  
-> +	if (ihl > skb->len)
-> +		return -EINVAL;
-> +
-
-[Severity: High]
-Is skb->len the right bound here?  skb->len covers the paged fragment data
-too, but the two operations further down in xfrm4_transport_output() need
-the linear head length:
-
-net/xfrm/xfrm_output.c:xfrm4_transport_output()
-	skb->transport_header = skb->network_header + ihl;
-	__skb_pull(skb, ihl);
-	memmove(skb_network_header(skb), iph, ihl);
-
-include/linux/skbuff.h:__skb_pull()
-	skb->len -= len;
-	if (unlikely(skb->len < skb->data_len)) {
-		...
-		BUG();
-	}
-
-So for any skb where skb_headlen(skb) < ihl <= skb->len, the new check
-passes and __skb_pull() still drives skb->len below skb->data_len and
-BUG()s, and the memmove() source range still runs past skb->tail.
-
-Can the injection vector named in the changelog produce exactly such an
-skb?  In packet_snd() the linear length is attacker controlled:
-
-net/packet/af_packet.c:packet_snd()
-	linear = __virtio16_to_cpu(vio_le(), vnet_hdr.hdr_len);
-	linear = max(linear, min_t(int, len, hard_header_len));
-
-xfrmi_dev_setup() never calls ether_setup(), so hard_header_len is 0 and
-linear stays at hdr_len, and packet_alloc_skb() keeps the rest paged:
-
-net/packet/af_packet.c:packet_alloc_skb()
-	if (prepad + len < PAGE_SIZE || !linear)
-		linear = len;
-	...
-	skb_put(skb, linear);
-	skb->data_len = len - linear;
-
-With hdr_len = 1 and len larger than PAGE_SIZE, skb_headlen(skb) is 1 and
-the single linear byte is the attacker's version/ihl byte.
-
-Does anything linearize the skb before the pull?  xfrmi_dev_init() sets
-NETIF_F_SG | NETIF_F_FRAGLIST, so skb_needs_linearize() is false, and
-xfrm_output_one() only calls xfrm_skb_check_space() (pskb_expand_head(),
-which does not linearize) before xfrm_outer_mode_output().
-
-Would using the linear bound instead work, i.e.
-
-	if (ihl > skb_headlen(skb))
-		return -EINVAL;
-
-or
-
-	if (!pskb_may_pull(skb, ihl))
-		return -EINVAL;
-
-which also makes the memmove() source in-bounds?
-
-[Severity: Medium]
-This isn't a bug introduced by this patch, but since the check being added
-here is the ihl validation, should it also enforce a lower bound?  Only the
-upper bound is checked, so iph->ihl values 0..4 (0..16 bytes, less than
-sizeof(struct iphdr)) are still accepted.
-
-The changelog points at the validation in ip_rcv_core(), which rejects both
-directions:
-
-net/ipv4/ip_input.c:ip_rcv_core()
-	if (iph->ihl < 5 || iph->version != 4)
-		goto inhdr_error;
-
-and sibling xfrm4 code already assumes ihl >= 5:
-
-net/xfrm/xfrm_inout.h:xfrm4_extract_header()
-	XFRM_MODE_SKB_CB(skb)->optlen = iph->ihl * 4 - sizeof(*iph);
-
-Can a short ihl leak uninitialized headroom?  In
-xfrm4_transport_output() mac_header is placed at a fixed offset while only
-ihl bytes are relocated:
-
-	skb->mac_header = skb->network_header +
-			  offsetof(struct iphdr, protocol);
-	...
-	memmove(skb_network_header(skb), iph, ihl);
-
-offsetof(struct iphdr, protocol) is 9, so for iph->ihl <= 2 the byte at
-skb_mac_header() is never written, and esp_output() reads it:
-
-net/ipv4/esp4.c:esp_output()
-	esp.proto = *skb_mac_header(skb);
-	*skb_mac_header(skb) = IPPROTO_ESP;
-
-esp_output_head() then puts that value on the wire:
-
-	esp_output_fill_trailer(tail, esp->tfclen, esp->plen, esp->proto);
-
-For iph->ihl == 2 the emitted outer header bytes covering check/saddr/daddr
-are similarly never-initialized headroom, apart from tot_len and check
-being rewritten by __ip_local_out()/ip_send_check().
-
-On reachability, the IP_HDRINCL raw path cannot deliver this because
-raw_send_hdrinc() rejects it:
-
-net/ipv4/raw.c:raw_send_hdrinc()
-	if (iphlen > length || iphlen < sizeof(*iph))
-		goto error_free;
-
-and for the AF_PACKET/xfrmi path the flow dissector bails out on short ihl:
-
-net/core/flow_dissector.c:__skb_flow_dissect()
-		if (!iph || iph->ihl < 5) {
-			fdret = FLOW_DISSECT_RET_OUT_BAD;
-
-which leaves decode_session4() with an all-zero flowi4, so a wildcard
-(0.0.0.0) transport-mode policy and SA would additionally have to be
-selected.  I could not establish that such a state cannot be installed, so
-would adding an ihl < sizeof(struct iphdr) rejection alongside the new
-check be worthwhile?
-
+diff --git a/drivers/platform/x86/siemens/simatic-ipc.c b/drivers/platform/x86/siemens/simatic-ipc.c
+index 7039874d8f11..9bf8b2d8248c 100644
+--- a/drivers/platform/x86/siemens/simatic-ipc.c
++++ b/drivers/platform/x86/siemens/simatic-ipc.c
+@@ -92,6 +92,7 @@ static int register_platform_devices(u32 station_id)
+ 	u8 wdtmode = SIMATIC_IPC_DEVICE_NONE;
+ 	u8 battmode = SIMATIC_IPC_DEVICE_NONE;
+ 	char *pdevname;
++	int ret;
+ 	int i;
+ 
+ 	for (i = 0; i < ARRAY_SIZE(device_modes); i++) {
+@@ -118,8 +119,11 @@ static int register_platform_devices(u32 station_id)
+ 			platform_device_register_data(NULL, pdevname,
+ 				PLATFORM_DEVID_NONE, &platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_batt_platform_device))
+-			return PTR_ERR(ipc_batt_platform_device);
++		if (IS_ERR(ipc_batt_platform_device)) {
++			ret = PTR_ERR(ipc_batt_platform_device);
++			ipc_batt_platform_device = NULL;
++			goto err_unregister;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_batt_platform_device->name);
+@@ -139,8 +143,11 @@ static int register_platform_devices(u32 station_id)
+ 				pdevname, PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_led_platform_device))
+-			return PTR_ERR(ipc_led_platform_device);
++		if (IS_ERR(ipc_led_platform_device)) {
++			ret = PTR_ERR(ipc_led_platform_device);
++			ipc_led_platform_device = NULL;
++			goto err_unregister;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_led_platform_device->name);
+@@ -153,8 +160,11 @@ static int register_platform_devices(u32 station_id)
+ 				KBUILD_MODNAME "_wdt", PLATFORM_DEVID_NONE,
+ 				&platform_data,
+ 				sizeof(struct simatic_ipc_platform));
+-		if (IS_ERR(ipc_wdt_platform_device))
+-			return PTR_ERR(ipc_wdt_platform_device);
++		if (IS_ERR(ipc_wdt_platform_device)) {
++			ret = PTR_ERR(ipc_wdt_platform_device);
++			ipc_wdt_platform_device = NULL;
++			goto err_unregister;
++		}
+ 
+ 		pr_debug("device=%s created\n",
+ 			 ipc_wdt_platform_device->name);
+@@ -169,6 +179,24 @@ static int register_platform_devices(u32 station_id)
+ 	}
+ 
+ 	return 0;
++
++err_unregister:
++	if (ipc_wdt_platform_device) {
++		platform_device_unregister(ipc_wdt_platform_device);
++		ipc_wdt_platform_device = NULL;
++	}
++
++	if (ipc_led_platform_device) {
++		platform_device_unregister(ipc_led_platform_device);
++		ipc_led_platform_device = NULL;
++	}
++
++	if (ipc_batt_platform_device) {
++		platform_device_unregister(ipc_batt_platform_device);
++		ipc_batt_platform_device = NULL;
++	}
++
++	return ret;
+ }
+ 
+ static void request_additional_modules(u32 station_id)
 -- 
-Sashiko AI review · https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260917072226.80788-1-q.h.hack.winter%40gmail.com
+2.43.0
+
