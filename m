@@ -1,255 +1,194 @@
-Received: from mail-pz2-f41.google.com (mail-pz2-f41.google.com [74.125.228.41])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id DB60C4EF134
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 17:58:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.228.41
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790013503; cv=pass; b=jBRa1ULamRjBCjEI2F1u/Hsqj8GkQUNcteNOh0r68JoV6uTHtW2GXP7XHLdG0/uOJM406LECkEsybG1cpOFpA+ZvABKFLh2IOIHes1o65trzF/UeZqw5HIdTiqtsSty14Aury8MkxIxpjGGrkKfPYzEhl5Wc5cKXwHl1+cEc5hk=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790013503; c=relaxed/simple;
-	bh=XVIYV9FVnMFewydRoY4sZQFy/bO7vE60jVchHBCjxBI=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C00A24EDCDF
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 18:05:02 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790013904; cv=none; b=kh13nXyMoA9knsXaZvjOM2ggLDuAC66INzFcLVi49xGbr79BB2RAdHkkkzsoy/FuSOF/9xoimWvIqN/Qc3hSFtofz4cq64GLUmRoxIXm5igczj3NsbWNzyDXnjF6/ZksVOCDdWQTGQxdB1z5247/Dq/r0dOPs3ogfpOzfD+vNyE=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790013904; c=relaxed/simple;
+	bh=xAz1Za0IGRvxTu1SLcrq0u25knNEFAxNJLC+t+BBsCM=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=rs9c7cl09hSYetb7XuBjLb1EM+g/FSBZwPgAepIkiFSO6TFKxd4hjbTyXXkLl+ukyc7ZJdyQgiHkdJXjY8zpxoF8C1Ll/mtGytNLm0M2wmRenqB3MJoUOTag/XGBRzBenE4Wzl/eeBz42y+FD7XOqyX2dLtgSvYyi3OWAkO1kDM=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com; spf=none smtp.mailfrom=mojatatu.com; dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b=dTc3kkeP; arc=pass smtp.client-ip=74.125.228.41
-Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=mojatatu.com
-Authentication-Results: smtp.subspace.kernel.org; spf=none smtp.mailfrom=mojatatu.com
+	 To:Cc:Content-Type; b=ovtVFeNayBjMnDWat89+2LRToCH5LKousZtLRYVv+Z7p4tpR8xZ0NQsETvYJuJdMibYl2WAk+GVx/gpD6U3cGI6kD9910Kvx3SzkExRUHkVrpHQyQm8855CLUbzXNDTXLBaot/wWTZUzEf1ND37hNgDCK1GZ5Da8Ll3q7aJiECU=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=FFXk9FkA; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=mojatatu.com header.i=@mojatatu.com header.b="dTc3kkeP"
-Received: by mail-pz2-f41.google.com with SMTP id d2e1a72fcca58-868cfc5c244so1741066b3a.3
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 10:58:19 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790013499; cv=none;
-        d=google.com; s=arc-20260327;
-        b=ez9hmIN1Eokds5LJCJzxXBDx9Cmtyd9slp9/tKaMAgbzHZLUKmSQsM99/sZmhRj/j1
-         0WyzvNE24ER4a8yDVzgTOdBnvWOnxS39Az+koJK7SRCOh7Wng5T71pYrmoJnXb16vTNm
-         /zR5K5bEhaYx6Fbq8g4j6IA4eLhIi7961LDSihXVE6EiHZo95aa5AEDw3kxWIACwqKIa
-         Sp2eos56LSvuXCPO9Rt3l3m7g7C6TaO9RvEv/noWOqNmfx+qY90oyKyeG6Bum/s0DXYM
-         EItXHAb+5/Ma5/Ly8nLpJik7Ktxt8mFnW6Cc48vtskoqthJH2sV+D8NuVIHmVrD+Ypi/
-         2N2A==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=content-transfer-encoding:cc:to:subject:message-id:date:from
-         :in-reply-to:references:mime-version:dkim-signature;
-        bh=MFClP2GWIVn7JBUWb2z+jSETSVb0ynsKzTcWUBX9Qes=;
-        fh=y2EwdWvGm9ZgCP2P0nlNAZWV3fe2vZUFuUAEuTHGheg=;
-        b=IUf+mWh318fMgeH1xdOcrWEB3GjcD6czYbZsIpbakSMaKhAT4NRNF5gVMbnmh8+gNs
-         FylmFPiSr0YE4o/O80WDm5iNrNCk9XwcQ7iIeYK9We7YJrqCZZ3t6eq0fqr6WkDH0/cp
-         qLpLKSHa3Ups6wDBGOTK+7u0wp3nlCRXKwuEtwcOsqZmYHGb6AzPDBXN1PJXuCyk5RXC
-         rjynCPZFlK5LPR1JtBrWZkIvMU/hHWEdO1ylWv7Srw/2XN5f7TEj2VGAMy3Wq1DCCecf
-         stcgwxLI02fls9Euo/d0nn105pEcoCubttXmS29ZMhb1QaOn8ZHFr6Ql1SludQtW2pF1
-         L4aQ==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=mojatatu.com; s=google; t=1790013499; x=1790618299; darn=vger.kernel.org;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=MFClP2GWIVn7JBUWb2z+jSETSVb0ynsKzTcWUBX9Qes=;
-        b=dTc3kkePc238S9WB+7dCv4pIamb/iA6uGrUIsLfMaFkLq23RMaAayNFmG/OUSaQtlp
-         QPw0bZNs2v43AKhxsU6UegHpe2dkLU4V3F9znzbC0M9VMsNJF3kmKhW5y4MTsMCBCUW+
-         LVoEECU4XO6GsWmDT+N19VswebrRNahQQ2i38=
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790013499; x=1790618299;
-        h=content-transfer-encoding:content-type:cc:to:subject:message-id
-         :date:from:in-reply-to:references:mime-version:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=MFClP2GWIVn7JBUWb2z+jSETSVb0ynsKzTcWUBX9Qes=;
-        b=S7+mKyqTBdPH5gAF/od/wRqHkqCmIJdnsweNAOzSg6PZn8V9CCEXAxSjKjkN8sWcMb
-         VJxG6caw3HhN1/SgNV6wbF0U5k5P5GPq+AZqpJEiCxsV0FpjjgUw1CvACeXpF991Xzbe
-         Plq5zKTrZb68MI8cjDhmf13PZvtWytdX6vT4DMvp2GClSkwGePYsHaWxyuZt2MLQPypN
-         tP974IFuVSb5omnu1R8OgtHcFLup8Hbo+u5J0T1e24xvDfssUL8nIQus3L3ZzSjdbMHq
-         uyPkFQ5q7QeQkSwBEEwudp2nAQag1eKs7mD2XnRoPZpJCyh5qpvEMLSDdkzAX90c+pmc
-         n9Ng==
-X-Forwarded-Encrypted: i=1; AKwUvByNvU0NtwJnk3xwQBBfQHTufxCs+SBzVm8ceDwkr+5Qs2yMDT/a/zLdlyYdSZ6Q4c0lKq/Npks=@vger.kernel.org
-X-Gm-Message-State: AFuF++kIRo0qP495dD9E51kix6bRb0NvN7ei0MVPy++++TgbxQNStREc
-	qFRUJGnDL3nAsvzW+MQqm6JvEk4kJr8ME5MqBgRrjzL2TuXNcJ937ImkK8MHgFcbQwAxfIsOhCa
-	gR3sVu5wpCYo3hORQ9boZ3WE7uR6O3XlLJbPxT17g
-X-Gm-Gg: AYBFou2j6nNnBp+W2a8Swu+aTb9OlTLSpvgpyoBsZxzAWBz2TXWRVA4XsA1t/1wmJiQ
-	Pb3Eru8BwiFmTWmO24KlFXaq4S0qgBMRd7nK7lnsEgR6YfkuQ2zu3OaeLFmiQd2APrOQQG/HuZl
-	3W9i8GbymzacNaP73sNe/+lpZZgDfPDU0v44RRT1xiA+AGpP/h+bCI4wZSjSV1cXqcvWiww39wY
-	5UgbJVfGg86ZzmBfUpqy94vBltcj9DkJQOf/nnuGTOe9pj8cPLw5NHc+oRAnKnqTuxijqB4Yd1+
-	qKE/+Knbr3ndaIUUcI4ybfPb8F3U08LKRlURazJQ/7Sn7q5IwoiJSzVRhMuXhnNXHmyzbf/L9UE
-	oWzX5B9Y4OcfhDOI4IkwvqcXKfdpfL5iW0gDGH9LzTBgXxBAA
-X-Received: by 2002:a05:6a00:1ca9:b0:874:705d:f640 with SMTP id
- d2e1a72fcca58-874de20a543mr13521909b3a.34.1790013498828; Mon, 21 Sep 2026
- 10:58:18 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="FFXk9FkA"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 7044D1F00899
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 18:05:02 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790013902;
+	bh=z+XbqSwIlygDp/k2jWmjBOZ00p46tZ3MqZOaYtXteAg=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=FFXk9FkAVeSJkZn2IAoXZobgrULqUsGgEK+GSFO8kHuCe/vAqr1KbzXEq5dAjhDRB
+	 AZ15mJ6dw4r6oBCKcL+x3+kCCD+ceJHbbt06Z/sWJWtWit2O3AOKCz7pyU/vxDOutQ
+	 MfzfRvx1FZATnhYHsNd1YXwgkdT6Y+HEr2VRhaezyYiJ5SPTJydrBrBDrF62HW+aY+
+	 bh7BrvPWfgIMgsSXXqfa0JHvRmjoB9RB0o/kMZ3b4B6PS5hCBC/Oe6WtlR/Z+j/3jA
+	 zIWHyLjsEuCd9rcjwnHZMndwHNw/ngfc2pDF/+/Xy8da/oUcjgxLrP7vZCV9xIvwYm
+	 GUsH9AXs4CEng==
+Received: by mail-lr2-f35.google.com with SMTP id 38308e7fff4ca-3a60e33d456so16412431fa.1
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 11:05:02 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBzinaSFzXR+Pbdl88eTeDCH4VhSBdCbfVzf6QMyKHVk08zc3hYN3FqAHgFcCkK8TecyYqYAoJs=@vger.kernel.org
+X-Gm-Message-State: AFuF++m5ENAYm/+3wWDeCPSeM5ldN14KG0HtWjrIf7nr32LeGqsO0CpH
+	uclDv3GiR5cKK4R975f9NKUdAE5Mt/sP19WBeyqbnk596STsVhaODuSVlVlfez8XfWpxsv8KgqA
+	vpcDV0F+P0o/jhnIeC5ekwmlz+3akAP0=
+X-Received: by 2002:a2e:be28:0:b0:39f:1b37:82bd with SMTP id
+ 38308e7fff4ca-3a5fbe6a277mr23646281fa.11.1790013900691; Mon, 21 Sep 2026
+ 11:05:00 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <QDISC-4CSL.v1.20260917072652@mojatatu.com> <CADvbK_e0-1JsCSMAQXGP3yxrvmtJDvG3TBShft=EfLKEGkBR=A@mail.gmail.com>
-In-Reply-To: <CADvbK_e0-1JsCSMAQXGP3yxrvmtJDvG3TBShft=EfLKEGkBR=A@mail.gmail.com>
-From: Jamal Hadi Salim <jhs@mojatatu.com>
-Date: Mon, 21 Sep 2026 13:58:07 -0400
-X-Gm-Features: AcwNN1VBdmzBlwDPWlbZg6XBeCj-MYlPDpLBOwS6X5iUNuIDd4zwM1zc1uZ0OBE
-Message-ID: <CAM0EoM=u3XqrGTxyTxCbbh4fobfPv+ZFKh1LESbjgsoPh4g0rw@mail.gmail.com>
-Subject: Re: [PATCH net] net/sched: cls_flower: exact-match ERSPAN key when no
- mask supplied
-To: Xin Long <lucien.xin@gmail.com>
-Cc: netdev@vger.kernel.org, Jiri Pirko <jiri@resnulli.us>, 
-	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
-	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, Simon Horman <horms@kernel.org>, 
-	stable@vger.kernel.org, Sashiko <sashiko-bot@kernel.org>, 
-	Victor Nogueira <victor@mojatatu.com>, hybris <hybris@mojatatu.ai>
+References: <905771062.272724286.1789919301858.JavaMail.zimbra@trinity-net.com>
+ <CAJZ5v0gg7kBtEhagR9SYKaPNstPC6aSyP7W4xBjP1r-kzbcH1A@mail.gmail.com> <arFe7-xa3HtCUOHs@mail-itl>
+In-Reply-To: <arFe7-xa3HtCUOHs@mail-itl>
+From: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>
+Date: Mon, 21 Sep 2026 20:03:28 +0200
+X-Gmail-Original-Message-ID: <CAJZ5v0h4giv53a2mPvJYT=fvBTj7vVXs=b7+qC2Q2L35qSTOSA@mail.gmail.com>
+X-Gm-Features: AcwNN1Vj0ZFSOOwh98D75XigHm-CPGlbbuwMjMKPEsP5Ta1JIqAFG3h-Yf_ZOC8
+Message-ID: <CAJZ5v0h4giv53a2mPvJYT=fvBTj7vVXs=b7+qC2Q2L35qSTOSA@mail.gmail.com>
+Subject: Re: [REGRESSION] ACPI processor/cpuidle change in 6.18.52 breaks
+ bare-metal Xen dom0 boot
+To: =?UTF-8?Q?Marek_Marczykowski=2DG=C3=B3recki?= <marmarek@invisiblethingslab.com>
+Cc: "Rafael J. Wysocki (Intel)" <rafael@kernel.org>, Support TRINITY <support@trinity-net.com>, 
+	regressions <regressions@lists.linux.dev>, linux-acpi <linux-acpi@vger.kernel.org>, 
+	linux-pm <linux-pm@vger.kernel.org>, xen-devel <xen-devel@lists.xenproject.org>, 
+	linux-kernel <linux-kernel@vger.kernel.org>, Huisong Li <lihuisong@huawei.com>, 
+	Stable <stable@vger.kernel.org>
 Content-Type: text/plain; charset="UTF-8"
 Content-Transfer-Encoding: quoted-printable
 
-On Sun, Sep 20, 2026 at 9:11=E2=80=AFPM Xin Long <lucien.xin@gmail.com> wro=
-te:
+On Mon, Sep 21, 2026 at 6:44=E2=80=AFPM Marek Marczykowski-G=C3=B3recki
+<marmarek@invisiblethingslab.com> wrote:
 >
-> On Sat, Sep 19, 2026 at 5:51=E2=80=AFAM Jamal Hadi Salim <jhs@mojatatu.co=
-m> wrote:
+> On Mon, Sep 21, 2026 at 05:26:55PM +0200, Rafael J. Wysocki (Intel) wrote=
+:
+> > On Sun, Sep 20, 2026 at 5:48=E2=80=AFPM Support TRINITY <support@trinit=
+y-net.com> wrote:
+> > >
+> > > Hello,
+> > >
+> > > I am reporting a bare-metal Xen dom0 boot regression seen with Linux =
+6.18.52.
+> > >
+> > > On affected systems, Linux 6.18.51 boots successfully as Xen dom0 on =
+bare metal, while Linux 6.18.52 consistently black-screens before dom0 user=
+space/networking comes up.
+> > >
+> > > #regzbot introduced: v6.18.51..v6.18.52
+> > > #regzbot title: ACPI processor/cpuidle lifecycle change breaks bare-m=
+etal Xen dom0 boot
+> > > #regzbot link: https://gitlab.alpinelinux.org/alpine/aports/-/work_it=
+ems/18447
+> > >
+> > > Tested results:
+> > >
+> > > Linux 6.18.51-r0, Xen dom0, bare metal: boots
+> > > Linux 6.18.52-r0, Xen dom0, bare metal: black screen before userspace=
+/network
 > >
-> > Commit 292207809486 ("net: sched: fix erspan_opt settings in cls_flower=
-")
-> > removed the unconditional memset of the erspan_metadata mask in
-> > fl_set_erspan_opt(). On the mask-parse pass, when userspace supplies th=
-e
-> > encap option key but no mask (TCA_FLOWER_KEY_ENC_OPTS without
-> > TCA_FLOWER_KEY_ENC_OPTS_MASK), the !depth early return leaves the mask
-> > zeroed -- a wildcard. A filter keyed on an ERSPAN index (v1), or dir/hw=
-id
-> > (v2), then matches every ERSPAN packet's values instead of exact-matchi=
-ng.
+> > I'm wondering what's special about Xen dom0 bare metal.
 > >
-> > Mirror the with-mask per-version defaults on the no-mask path, keyed of=
-f
-> > the key's own version: v1 index to 0xff, v2 dir and hwid to their
-> > exact-match masks. The mask cannot just memset the whole union -- that
-> > would re-mask the overlapping timestamp/sgt bytes of the v2 header that
-> > the fix (292207809486) deliberately left to 0 in erspan_opt.
-> >
-> > This is a follow-up to commit fee10655709c ("net/sched: cls_flower:
-> > validate mask pointer after nla_next()").
-> >
-> > Conditions to recreate the bug: add an ERSPAN encap-opts flower filter
-> > with a key but no mask (raw netlink, TCA_FLOWER_KEY_ENC_OPTS present,
-> > TCA_FLOWER_KEY_ENC_OPTS_MASK absent); dump the filter and observe the
-> > match mask is zero (wildcard) instead of exact for the supplied fields.
-> >
-> > Fixes: 292207809486 ("net: sched: fix erspan_opt settings in cls_flower=
-")
-> > Reported-by: Sashiko (gemini) <sashiko-bot@kernel.org>
-> > Closes: https://netdev-ai.bots.linux.dev/sashiko/#/patchset/20260826025=
-123.62758-1-ljp1205831794@gmail.com
-> > Link: https://lore.kernel.org/netdev/20260826025123.62758-1-ljp12058317=
-94@gmail.com/
-> > Reviewed-by: Victor Nogueira <victor@mojatatu.com>
-> > Tested-by: hybris <hybris@mojatatu.ai>
-> > Signed-off-by: Jamal Hadi Salim <jhs@mojatatu.com>
-> > ---
-> >  net/sched/cls_flower.c | 25 ++++++++++++++++++++-----
-> >  1 file changed, 20 insertions(+), 5 deletions(-)
-> >
-> > diff --git a/net/sched/cls_flower.c b/net/sched/cls_flower.c
-> > index 1cefea571efd..f5acdeb0e2a6 100644
-> > --- a/net/sched/cls_flower.c
-> > +++ b/net/sched/cls_flower.c
-> > @@ -1358,17 +1358,29 @@ static int fl_set_vxlan_opt(const struct nlattr=
- *nla, struct fl_flow_key *key,
-> >
-> >  static int fl_set_erspan_opt(const struct nlattr *nla, struct fl_flow_=
-key *key,
-> >                              int depth, int option_len,
-> > -                            struct netlink_ext_ack *extack)
-> > +                            struct netlink_ext_ack *extack, u8 key_ver=
-)
-> >  {
-> >         struct nlattr *tb[TCA_FLOWER_KEY_ENC_OPT_ERSPAN_MAX + 1];
-> >         struct erspan_metadata *md;
-> >         int err;
-> >
-> >         md =3D (struct erspan_metadata *)&key->enc_opts.data[key->enc_o=
-pts.len];
-> > -       md->version =3D 1;
-> > +       md->version =3D key_ver;
-> >
-> > -       if (!depth)
-> > +       if (!depth) {
-> > +               /* No mask attribute supplied: exact-match every field =
-the
-> > +                * key set, keyed off the key's own version so the v2 d=
-ir/hwid
-> > +                * bytes are masked without touching the overlapping
-> > +                * timestamp/sgt bytes of the union (see 292207809486).
-> > +                */
-> > +               if (md->version =3D=3D 1) {
-> > +                       memset(&md->u.index, 0xff, sizeof(md->u.index))=
-;
-> > +               } else if (md->version =3D=3D 2) {
-> > +                       md->u.md2.dir =3D 1;
-> > +                       set_hwid(&md->u.md2, 0xff);
-> > +               }
-> >                 return sizeof(*md);
-> > +       }
-> >
-> >         if (nla_type(nla) !=3D TCA_FLOWER_KEY_ENC_OPTS_ERSPAN) {
-> >                 NL_SET_ERR_MSG(extack, "Non-erspan option type for mask=
-");
-> > @@ -1509,6 +1521,7 @@ static int fl_set_enc_opt(struct nlattr **tb, str=
-uct fl_flow_key *key,
-> >  {
-> >         const struct nlattr *nla_enc_key, *nla_opt_key, *nla_opt_msk =
-=3D NULL;
-> >         int err, option_len, key_depth, msk_depth =3D 0;
-> > +       u8 key_ver =3D 1;
-> >
-> >         err =3D nla_validate_nested_deprecated(tb[TCA_FLOWER_KEY_ENC_OP=
-TS],
-> >                                              TCA_FLOWER_KEY_ENC_OPTS_MA=
-X,
-> > @@ -1607,9 +1620,11 @@ static int fl_set_enc_opt(struct nlattr **tb, st=
-ruct fl_flow_key *key,
-> >                         key->enc_opts.dst_opt_type =3D IP_TUNNEL_ERSPAN=
-_OPT_BIT;
-> >                         option_len =3D fl_set_erspan_opt(nla_opt_key, k=
-ey,
-> >                                                        key_depth, optio=
-n_len,
-> > -                                                      extack);
-> > +                                                      extack, 1);
-> >                         if (option_len < 0)
-> >                                 return option_len;
-> > +                       key_ver =3D ((struct erspan_metadata *)
-> > +                                 &key->enc_opts.data[key->enc_opts.len=
-])->version;
-> Do you think it would be better to pass &key_ver to fl_set_erspan_opt() a=
-nd
-> set it there, avoiding the dereference of erspan_metadata here?
+> > Does adding processor=3Dnocst to the kernel command line help, by any c=
+hance?
 >
-
-Sure - that will avoid some casting.
-I could change it if i have to resend. Let's wait to hear from
-sashiko-nipa. I have gotten sashiko-gemini feedback but it was spewing
-some new (meaningless) stuff about things it was claiming then
-dismissing ;-> So nothing useful there.
-
-cheers,
-jamal
-
-> Thanks.
+> It does not.
 >
+> > The patch is essentially a revert of commit 13ebeef6a1b9 ("ACPI:
+> > processor: idle: Optimize ACPI idle driver registration") which I'd
+> > rather not do without knowing what exactly is going on.
 > >
-> >                         key->enc_opts.len +=3D option_len;
-> >                         /* At the same time we need to parse through th=
-e mask
-> > @@ -1618,7 +1633,7 @@ static int fl_set_enc_opt(struct nlattr **tb, str=
-uct fl_flow_key *key,
-> >                         mask->enc_opts.dst_opt_type =3D IP_TUNNEL_ERSPA=
-N_OPT_BIT;
-> >                         option_len =3D fl_set_erspan_opt(nla_opt_msk, m=
-ask,
-> >                                                        msk_depth, optio=
-n_len,
-> > -                                                      extack);
-> > +                                                      extack, key_ver)=
-;
-> >                         if (option_len < 0)
-> >                                 return option_len;
-> >
-> > --
-> > 2.43.0
-> >
+> > At this point it looks like a missing check somewhere or similar, so
+> > it would be good to find out where exactly it crashes.
+>
+> I can reproduce the crash, I get this:
+>
+> [    3.525669] BUG: kernel NULL pointer dereference, address: 00000000000=
+00008
+> [    3.525677] #PF: supervisor read access in kernel mode
+> [    3.525681] #PF: error_code(0x0000) - not-present page
+> [    3.525685] PGD 0 P4D 0
+> [    3.525688] Oops: Oops: 0000 [#1] SMP NOPTI
+> [    3.525693] CPU: 0 UID: 0 PID: 21 Comm: cpuhp/0 Not tainted 6.18.52-1.=
+qubes.23.fc41.x86_64 #1 PREEMPT(full)
+> [    3.525700] Hardware name: Micro-Star International Co., Ltd. MS-7E06/=
+PRO Z790-P WIFI (MS-7E06), BIOS Dasharo (coreboot+UEFI) v0.9.1 01/17/2024
+> [    3.525706] RIP: e030:cpuidle_register_device+0xd2/0x350
+> [    3.525714] Code: 00 00 8b 55 04 49 89 c5 49 89 d4 81 fa ff 1f 00 00 0=
+f 87 68 02 00 00 48 8b 04 d5 c0 a0 19 82 48 83 3c 18 00 0f 85 ad 48 12 ff <=
+49> 8b 7d 08 48 89 14 24 e8 31 73 30 ff 84 c0 0f 84 72 01 00 00 41
+> [    3.525723] RSP: e02b:ffffc90040133db8 EFLAGS: 00010246
+> [    3.525727] RAX: ffff888235f5c000 RBX: ffffffff834d4d40 RCX: 000000000=
+0000000
+> [    3.525732] RDX: 0000000000000000 RSI: 0000000000000007 RDI: ffff88810=
+1c39c00
+> [    3.525736] RBP: ffff888101c39c00 R08: 4ec4ec4ec4ec4ec5 R09: ffff88810=
+1c39c00
+> [    3.525740] R10: ffffc90040133df8 R11: 0000000000000000 R12: 000000000=
+0000000
+> [    3.525744] R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff8=
+34d4d40
+> [    3.525752] FS:  0000000000000000(0000) GS:ffff888235f5c000(0000) knlG=
+S:0000000000000000
+> [    3.525757] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    3.525761] CR2: 0000000000000008 CR3: 000000000242c000 CR4: 000000000=
+0050660
+> [    3.525768] Call Trace:
+> [    3.525771]  <TASK>
+> [    3.525775]  acpi_processor_power_init+0xde/0x150
+> [    3.525782]  ? __pfx_acpi_soft_cpu_online+0x10/0x10
+> [    3.525787]  acpi_soft_cpu_online+0x123/0x170
+> [    3.525792]  cpuhp_invoke_callback+0x134/0x470
+> [    3.525797]  ? __pfx_smpboot_thread_fn+0x10/0x10
+> [    3.525802]  cpuhp_thread_fun+0xa2/0x170
+> [    3.525806]  smpboot_thread_fn+0xf3/0x220
+> [    3.525810]  kthread+0xfc/0x240
+> [    3.525814]  ? __pfx_kthread+0x10/0x10
+> [    3.525818]  ? __pfx_kthread+0x10/0x10
+> [    3.525822]  ret_from_fork+0x158/0x170
+> [    3.525827]  ? __pfx_kthread+0x10/0x10
+> [    3.525830]  ret_from_fork_asm+0x1a/0x30
+> [    3.525835]  </TASK>
+> [    3.525837] Modules linked in:
+> [    3.525842] CR2: 0000000000000008
+> [    3.525845] ---[ end trace 0000000000000000 ]---
+> [    3.525849] RIP: e030:cpuidle_register_device+0xd2/0x350
+> [    3.525854] Code: 00 00 8b 55 04 49 89 c5 49 89 d4 81 fa ff 1f 00 00 0=
+f 87 68 02 00 00 48 8b 04 d5 c0 a0 19 82 48 83 3c 18 00 0f 85 ad 48 12 ff <=
+49> 8b 7d 08 48 89 14 24 e8 31 73 30 ff 84 c0 0f 84 72 01 00 00 41
+> [    3.525862] RSP: e02b:ffffc90040133db8 EFLAGS: 00010246
+> [    3.525866] RAX: ffff888235f5c000 RBX: ffffffff834d4d40 RCX: 000000000=
+0000000
+> [    3.525870] RDX: 0000000000000000 RSI: 0000000000000007 RDI: ffff88810=
+1c39c00
+> [    3.525874] RBP: ffff888101c39c00 R08: 4ec4ec4ec4ec4ec5 R09: ffff88810=
+1c39c00
+> [    3.525878] R10: ffffc90040133df8 R11: 0000000000000000 R12: 000000000=
+0000000
+> [    3.525882] R13: 0000000000000000 R14: 0000000000000000 R15: ffffffff8=
+34d4d40
+> [    3.525889] FS:  0000000000000000(0000) GS:ffff888235f5c000(0000) knlG=
+S:0000000000000000
+> [    3.525894] CS:  e030 DS: 0000 ES: 0000 CR0: 0000000080050033
+> [    3.525898] CR2: 0000000000000008 CR3: 000000000242c000 CR4: 000000000=
+0050660
+> [    3.525904] Kernel panic - not syncing: Fatal exception
+> [    3.525931] Kernel Offset: disabled
+>
+> And I have also another data point: Linux 7.2.6 is _not_ affected. And
+> similarly, Linux 7.3-rc3 works fine (haven't tried -rc4 yet).
+
+So it is likely that the patch in question went into 6.18.y without a
+dependency.
+
+Let's see.  In 6.18.52, acpi_processor_power_init() is called in the
+!cpuidle_get_driver() case, which does not happen in the mainline.
+
+AFAICS, 6.18.y needs to pick up commit 0089ce1c056a ("ACPI: processor:
+Update cpuidle driver check in __acpi_processor_start()") whose Fixes:
+tag should really point to 13ebeef6a1b9 which is a re-introduction of
+7a8c994cbb2d originally fixed by 8a1b5d412cb4.
+
+Thanks!
