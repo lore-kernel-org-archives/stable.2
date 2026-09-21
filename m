@@ -1,168 +1,108 @@
-Received: from mail-yx2-f12.google.com (mail-yx2-f12.google.com [74.125.224.140])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086E54A0136
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:15:44 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.224.140
-ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790000147; cv=pass; b=JUD4XktaSSxLfhBkahmMxW5azQZ5Rjrp8mNEtDbj27cq2KGbvCNYa9Jx0W/SS20DJb2Gk9+Xs5DoIu9K6nUtUmOxjJVmprWtJmr21xPG9DzUzMDzluPnOmE31kp6wgyjlWpX92QtGTT3NHwQ769faKjHT2Ujou7etspKdf3gcek=
-ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790000147; c=relaxed/simple;
-	bh=QLsW3OZgiOoo2/OqYWoiGLDpHxDhmxkLwSkqyStuBVY=;
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 4ED004A8421
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:16:30 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790000192; cv=none; b=lZiV+cxA/w2/8V+OpmlvRTj/m6VoEOYsr2laWjj/71z46Yn+D80NkZlLH0C6SoJwPo0owmKMVNb1R1BuznfI+ZsqKCWuEHlzf5Whzmtk9wDu+5acbkECFJxsF51vkVk6F/aRJy0cDeEcub/zc0juc9T35f1B2Hlxjpn2yPZQoDo=
+ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790000192; c=relaxed/simple;
+	bh=XO/Iyvnz3qETNkeIWvlQee03cckRo7x8Wx3SnMguIOQ=;
 	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=Xans+VK6x6ut2L3/MVfXwqCHB4QmwX2DpFIF/ZeaOtCjosZy9WIdG1AXB5qlvaMkxxwfuA2/lSUSJdn9js4jU3JypWBLksfUZisQyc0TzBDrp9oYQWpuCccE5Uo2PWEp1YvlXGmWs4+jjvaTmL7VfrfwRJdL8SrjyTiMZ1S6kmU=
-ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=EEweTyfZ; arc=pass smtp.client-ip=74.125.224.140
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
+	 To:Cc:Content-Type; b=uMQhmL+ED2nT6lO58R5aTx24Hx914CiFxY+lCMw4B6diNOz28DHuWpLArnNLIjT4W9M3Kw27QJ507t4m3QggAp4oesN7SCWRpHDZ87ugZo9l+y37pkUYutJVkf5/NrghASsO9EG11SGeouauB0UO1hn8AuS42N4vgGlFA0ZTAcs=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=ZaTgBqbO; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="EEweTyfZ"
-Received: by mail-yx2-f12.google.com with SMTP id 956f58d0204a3-66e4ab19125so2910094d50.2
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:15:44 -0700 (PDT)
-ARC-Seal: i=1; a=rsa-sha256; t=1790000144; cv=none;
-        d=google.com; s=arc-20260327;
-        b=mpRgtRo2f+yMJn+EcxNX8vwsU0h4h7djwAzDSacyX7Z/mg9aON8LJMBvpO5tDCd61R
-         sIvlmOJAnxS+0KcHPjUyqx3mT8W7vRObXgTZ+qnBVL+fmq0kEk30c/XyRxN/kvi5Hmzs
-         9gB9CBlSRHPQwzgg+/eQVLplf1wYFAzoRjZEThdnwY3Lu7opwS7OM18X2cMoGJaIl0GH
-         9lE/lacGEr6tPFQc0A1bds7vz6w8BF1zIeNMudQej2n53nOFWqxh/UFbZgdEi9yMK1CE
-         g3Xhe9Gpc/JBGAI4KlMzupz4iSoWwci+H2daLapk32h2++nc/gqNuviHewnCKcLfNu3v
-         +EAg==
-ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
-        h=cc:to:subject:message-id:date:from:in-reply-to:references
-         :mime-version:dkim-signature;
-        bh=HvT37my9dta34DYQuaVV9y1xeoKj9pu6IBKBeJIjvCE=;
-        fh=O5nmydXOOTE7nVv/rG8qRjAx1QDfUe4Xt7pOHntEBRE=;
-        b=dVyRatFDeRDwr/OM5WKb/jeZYj3AMuwO8alrShOjrhlmg0NWVQFfSSPArVksmYFyp2
-         UR6LNgPdOTDklmdXgZziyVVQ9RscUVSbm9kt1EOG2Vk0xozi7BuH4nVOiAnqJE1jvBEy
-         noZAOTJsIP57U7vc9s39KLusrKHYy3ZKH8bHQqP9W8lPfVGQ8kY0yd0QCP4h46P1L0Mx
-         k5W2GrLKIMgiMFxxkGB2NxJS1y+ShJeIMl69iJhyd7GkuTJ3ZE9bqDb17JXula6xEMcl
-         0H/9A0bjifI67ufooECPaF0gdKz4YuAjTGiAAtfdVwuBwnKhgxjC9x9NvVjvOs6Sr0al
-         k3xg==;
-        darn=vger.kernel.org
-ARC-Authentication-Results: i=1; mx.google.com; arc=none
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790000144; x=1790604944; darn=vger.kernel.org;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=HvT37my9dta34DYQuaVV9y1xeoKj9pu6IBKBeJIjvCE=;
-        b=EEweTyfZQ32qQ9tfWdmJMOqOWI7AILIpu9vOY1QhgDM1z0jNsl3NaqD8BxMP76CV3X
-         vazogd2n7BGMx03d4WphSIthj8PbzJAmIFTHFE4q/9WXf/9Y0rv+6iIHvL+OoKkvZuTI
-         ATEZ1iaUDLohZfIlJ3IiB0X1RVYj5KYya/kNOLb7Hyz33z5HkR24bKpDwtlzHAusqxYa
-         X0J/xaQiFF/iZiyVNfutjwid+lJUzPYZLpAPj5TiBr4u1rrp8wVAiwFxhAk1mKTNj8hU
-         pTC/T6w+7+3QmE72IBEjgDd1i+kiwUdb2XevKQWnGuI+AA848mgtW5A44B7PXMWe1cua
-         15IA==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790000144; x=1790604944;
-        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
-         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
-         :subject:date:message-id:reply-to:content-type;
-        bh=HvT37my9dta34DYQuaVV9y1xeoKj9pu6IBKBeJIjvCE=;
-        b=KjiJqBU54+ZuK0kYFM49nE2DwJeuj4CPk0jZVS3QQDTt7dHec51VTjU/ziFcE4fsuo
-         Jtz0x2gHOpEAfwih1PX3736ed2HIeR4H0aQyfvubsG3p5FjRxig0lycFmD3v9K5LlHpy
-         07fsv4PBuWtifBbZL1pfSCkWf5FP07qSgMSBDukVlLWSnGepOX1yzIR4/KkUPfMi/0fd
-         vcfJnECpbmv9FO5IsbYe2nj60N/D57EW/1f2vT5IENlagimb05ExlaWzT9URmHnqm7h/
-         t35g2J0vjTQkFpEzBnDlOKCwdEZrn/qez3UGGTeXrIRkj2a7pqpBo+/5sAJYzlWojsvv
-         /oxQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxWE/ZOueKw1dm0Y5zeBIGxLyQzjIgbsz99Ws42HlcpdOzDNCeWE5PxluHOJ6N77koIqNdVR1I=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKVjeO0QvYvNXWQreijUAPs+fJyiuzT/AyIo6kpePMxfE4c2ol
-	QgR1ctg9JaJk8kfeA/iNiKuN10BRr0iIZ2uucVeupVc8he2JRW1Dgz3YAboYIREmeA5HCAM5m3s
-	6ffMwZT1IwJj4+sXVgFAi1Q7aYJX5HDE=
-X-Gm-Gg: AYBFou0sNTJ15g+2ds8tiC+0GvBCdl6KuzB/+eDo3Ojm7Qq4XiLChKsHQK1bEAqDpNg
-	r8jPSqLWXK0caSfTHA92y7SjQKsVPC+2oaj1YomU9wQSYJ0bH29JkCrn5hsQj5Tjwb7dtrJo7NO
-	/fxDKFB2/6ZfqlAFupFoyitc/RSlhX5qOUjuKBOiJwm+P/oHtiLKyU7vWQucsT1QQ8+5t/guT2Y
-	7yqySqEdl+yazB27iRUom1F9urd2x1W61t3PMIP1Bfuw01P5REOBMS5ayQE/cQmMcoEyw/vHe+Z
-	+4cHYHRW7efQ5mCFX4IeCFBsRr9RsZhdSX1QBiT8waPR24HijFwa0uoGJQ==
-X-Received: by 2002:a05:690e:e81:b0:66f:9564:7827 with SMTP id
- 956f58d0204a3-6717fc61321mr3128893d50.22.1790000142000; Mon, 21 Sep 2026
- 07:15:42 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="ZaTgBqbO"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6C621F000FF
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:16:29 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790000189;
+	bh=VNwpL4KwapgAM2FRhULX1UUMm7aiHSA+6ZAEI7tm5o4=;
+	h=References:In-Reply-To:From:Date:Subject:To:Cc;
+	b=ZaTgBqbOs/++NmaAKi8I8eqn7YVlii6TUTiSqSWVbsP+41WJK5Fe/b3gXJl+E+viL
+	 AzAYX20pz/wlR8DCSByhqrPnWZmxqeUnvWQTzRBnqxl05Y4ajM7JhvLetBVe7DNXEx
+	 nLmm9QYIuBF7nxOpndFjPhb6k/ms2fyk8YBDQSrXT3jiuS+wGECPpnxI2uSA2M0+Pl
+	 TGihj4BUOKqr3FE+jn7EQzx04Rh+PlCHLAzLg6oGqLudn5zSv8K2UUvVt1lOjTJWMZ
+	 9Y4g09xsa34Y6LMZQVU3fWqBWEnhDuy/HyMgzWYsYvC3bBr8UYg2V4t5R0UVnSIp8/
+	 +Srg+SyiYUHag==
+Received: by mail-ej2-f12.google.com with SMTP id a640c23a62f3a-c254f9f7db0so370069066b.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:16:29 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvBymXK72TtLk/wpT6RcL6DR++yXggleXTBZX71lJGHtKsTaBQjHI573GBh1Ts4ypsUVwR1aLPGs=@vger.kernel.org
+X-Gm-Message-State: AFuF++lUr3O37Ct0oZkSm0nap4TL+XCEV1MUG3PIDq18NfupTRsHCh0j
+	BE3KyTboKA3yBXNqcjzeRaoSTDlT4sNol2Qdqbi16+2OqRj+OvE341x3UwoHsPDbyFO1qROgEfi
+	6dOTeTKZE1422r8v37xxTX1qYH9wb1RY=
+X-Received: by 2002:a17:907:c0c:b0:c24:b11c:6c05 with SMTP id
+ a640c23a62f3a-c2a156d58bemr876967466b.14.1790000188573; Mon, 21 Sep 2026
+ 07:16:28 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260916080030.2960608-1-lgs201920130244@gmail.com> <736ff398-98fa-43bc-9771-1b0d4c2a591c@mailbox.org>
-In-Reply-To: <736ff398-98fa-43bc-9771-1b0d4c2a591c@mailbox.org>
-From: Guangshuo Li <lgs201920130244@gmail.com>
-Date: Mon, 21 Sep 2026 22:15:29 +0800
-X-Gm-Features: AcwNN1XP7xc4w6JUo1lwgUr1iIYbKG3Cq0l_NU90yLcFM11w-KyBFtXZVHMUFrQ
-Message-ID: <CANUHTR_AAKH13fRAwLY5wzMjhWuzwET=-359ZMNh0VU4tULrKg@mail.gmail.com>
-Subject: Re: [PATCH] PCI: keystone: deinitialize endpoint on remove
-To: Marek Vasut <marek.vasut@mailbox.org>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>, =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>, 
-	Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>, Bjorn Helgaas <bhelgaas@google.com>, 
-	Siddharth Vadapalli <s-vadapalli@ti.com>, Frank Li <Frank.Li@nxp.com>, Niklas Cassel <cassel@kernel.org>, 
-	Yuho Choi <dbgh9129@gmail.com>, Kishon Vijay Abraham I <kishon@kernel.org>, linux-pci@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, Koichiro Den <den@valinux.co.jp>, stable@vger.kernel.org
+References: <20260921-topic-4kn-lkml-v6-0-75069f590b22@gmail.com>
+In-Reply-To: <20260921-topic-4kn-lkml-v6-0-75069f590b22@gmail.com>
+From: Namjae Jeon <linkinjeon@kernel.org>
+Date: Mon, 21 Sep 2026 23:16:16 +0900
+X-Gmail-Original-Message-ID: <CAKYAXd-QufcTW7RRXASSeaoc_fhnKx8sv+m9Quf4Dnqh98RM1Q@mail.gmail.com>
+X-Gm-Features: AcwNN1XQ6ml5CtRpw3KH592HGx_gkmEpWnK_Q0XDHSzzi7fG6qv-Z6j9QYfPf6s
+Message-ID: <CAKYAXd-QufcTW7RRXASSeaoc_fhnKx8sv+m9Quf4Dnqh98RM1Q@mail.gmail.com>
+Subject: Re: [PATCH v6 00/10] ntfs: support 4K-native devices with smaller MFT records
+To: Hyunchul Lee <hyc.lee@gmail.com>
+Cc: ntfs@lists.linux.dev, stable@vger.kernel.org
 Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
 
-Hi Marek,
-
-Thanks for the review.
-
-On Thu, 17 Sept 2026 at 06:56, Marek Vasut <marek.vasut@mailbox.org> wrote:
+On Mon, Sep 21, 2026 at 3:44=E2=80=AFPM Hyunchul Lee <hyc.lee@gmail.com> wr=
+ote:
 >
-> On 9/16/26 10:00 AM, Guangshuo Li wrote:
-> > ks_pcie_probe() initializes the DesignWare PCIe endpoint with
-> > dw_pcie_ep_init(). The probe failure path calls dw_pcie_ep_deinit()
-> > when endpoint register initialization fails, but the remove path does
-> > not perform the corresponding endpoint teardown after a successful
-> > probe.
-> >
-> > The successful endpoint initialization also calls pci_epc_init_notify().
-> > Without the matching teardown on removal, the EPC initialization state
-> > and resources allocated by the DesignWare endpoint core are left
-> > active after the driver is removed.
-> >
-> > Notify the endpoint framework about deinitialization and call
-> > dw_pcie_ep_deinit() before disabling runtime PM and the PHYs.
-> >
-> > This issue was found by manual code inspection.
-> >
-> > Fixes: 23284ad677a9 ("PCI: keystone: Add support for PCIe EP in AM654x Platforms")
-> > Cc: stable@vger.kernel.org
-> > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
-> > ---
-> >   drivers/pci/controller/dwc/pci-keystone.c | 8 ++++++++
-> >   1 file changed, 8 insertions(+)
-> >
-> > diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
-> > index 602516239a57..35787e727c5c 100644
-> > --- a/drivers/pci/controller/dwc/pci-keystone.c
-> > +++ b/drivers/pci/controller/dwc/pci-keystone.c
-> > @@ -1349,9 +1349,17 @@ static void ks_pcie_remove(struct platform_device *pdev)
-> >   {
-> >       struct keystone_pcie *ks_pcie = platform_get_drvdata(pdev);
-> >       struct device_link **link = ks_pcie->link;
-> > +     struct dw_pcie *pci = ks_pcie->pci;
-> > +     const struct ks_pcie_of_data *data;
-> >       int num_lanes = ks_pcie->num_lanes;
-> >       struct device *dev = &pdev->dev;
-> >
-> > +     data = of_device_get_match_data(dev);
+> Make MFT writeback safe on native 4Kn devices when MFT records are
+> smaller than the device I/O unit.
 >
-> Could you maybe cache the mode in struct keystone_pcie {} instead ?
+> Validate MFT I/O geometry, map and submit containing I/O units, and
+> coordinate direct writes with generic folio writeback. When a write
+> covers multiple MFT records, preserve the unchanged contents of
+> neighboring records in the containing I/O unit. Keep the completion
+> behavior requested by each direct-write caller, while requiring
+> synchronous completion before releasing an MFT bitmap entry.
 >
-> > +     if (data->mode == DW_PCIE_EP_TYPE) {
-> > +             pci_epc_deinit_notify(pci->ep.epc);
-> > +             dw_pcie_ep_deinit(&pci->ep);
+> ---
+> Changes in v6:
+>   * Add Fixes and Cc tags to all patches.
+> Changes in v5:
+>   * Rebased onto ntfs-next from
+>     git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git.
+>   * Patch 6: Adapt allocations to the kmalloc_objs().
+> Changes in v4:
+>   * Patch 6: fix for the 32-bit ARM __aeabi_uldivmod link failure
+> Changes in v3:
+>   * Rebased onto ntfs-next from
+>     git://git.kernel.org/pub/scm/linux/kernel/git/linkinjeon/ntfs.git.
+> Changes in v2:
+>   * Fix compilation error in Patch 3.
+>   * Keep valid but unsupported MFT geometries read-only and reject
+>     read-write remounts.
+>   * Document the sync-dependent -ENOMEM return from write_mft_record().
+>   * Add Patch 9, which trigger page_mkwrite after native 4Kn partial-EOF
+>     size extensions.
+>   * Add Patch 10, which wait for attribute folio writeback before copying
+>     a new non-resident attribute.
 >
-> Would it make sense to make dw_pcie_ep_deinit() call
-> pci_epc_deinit_notify() , to avoid duplication in controller drivers ?
+> To: Namjae Jeon <linkinjeon@kernel.org>
+> Cc: ntfs@lists.linux.dev
 >
-> > +     }
-> > +
-> >       pm_runtime_put(dev);
-> >       pm_runtime_disable(dev);
-> >       ks_pcie_disable_phy(ks_pcie);
->
-> --
-> Best regards,
-> Marek Vasut
-
-Agreed. I'll cache the mode in struct keystone_pcie and move
-pci_epc_deinit_notify() into dw_pcie_ep_deinit() so controller drivers
-do not need to duplicate it. I'll send a v2 with those changes.
-
-Thanks,
-Guangshuo
+> ---
+> Hyunchul Lee (10):
+>       ntfs: read MFT writeback bounds under size_lock
+>       ntfs: validate the MFT I/O geometry
+>       ntfs: write MFT mirror data in mapped I/O units
+>       ntfs: serialize raw MFT updates against folio writeback
+>       ntfs: track direct MFT writes until BIO completion
+>       ntfs: write MFT folios through mapped I/O units
+>       ntfs: write MFT records through containing I/O units
+>       ntfs: use sync flag for direct MFT writes
+>       ntfs: trigger page_mkwrite for native 4Kn size extension
+>       ntfs: wait for attribute folio writeback before update
+Applied them to #ntfs-next.
+Thanks.
