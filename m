@@ -1,171 +1,159 @@
-Received: from mail-qk2-f43.google.com (mail-qk2-f43.google.com [74.125.230.235])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mail-m49198.qiye.163.com (mail-m49198.qiye.163.com [45.254.49.198])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 29E9C4A6885
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:39:47 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.230.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 1942B4A6881;
+	Mon, 21 Sep 2026 14:42:12 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=45.254.49.198
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790001589; cv=none; b=fe4QnOTB8gfGUhYyI+aMEhE2P38YxJj6Uqsvld21F4PFHtBgT5NMdqValvaMJfeeFVnTxBKH3lzpq1iOY8eD4/IuxcxYX8EKpff9T61W8tWwnR4ozELl+gYqsZL3ZdNUxzXoUlYDHLpUexaRDg8zdJpu8wUTMWbUgjjttkYt6Oc=
+	t=1790001736; cv=none; b=kDZEQqlLeF86e0gxbKVLa96u8sHQOwW14XA8p1wXnXG/63oVloja+pLGOXdIqxPHxcdB4zxXxdvC8ZF3V33UWtPnu9AyHlA9KTKCKU03OYOMjcIIbQSO8FtFOD+ntRBEkhcNfgknZP6d1JKu4FRKLk6wj2YWa7Y16MbLqaHUOns=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790001589; c=relaxed/simple;
-	bh=aAE5j6SrbqONZgGTPePo/gdUPdVE5UeJQ6LeV/17nq8=;
-	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=qdxyuRr22sTM95hXiDj4BCSxm/r+5RUTK7yR22B6yt+XnYIPTylecKJGr/BobU9r83Gp4EqR4hwdnaEiK1s21swvLk2zjzMtaBTUFm/Br59+7nfhXNXEUch+iu5VOKYwKI8TEEtNXIG8EsjO5E4N//ZD63OAMItaBCYdTWFvQDA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org; spf=pass smtp.mailfrom=cmpxchg.org; dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b=cmzQjMyL; arc=none smtp.client-ip=74.125.230.235
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=cmpxchg.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=cmpxchg.org
+	s=arc-20240116; t=1790001736; c=relaxed/simple;
+	bh=sGruuTORCOH7Md2a1q1vZDJ3XOsnCuOVCxA101Q3I20=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=oilkgfomNO4o/u4/oU3f+GpnsDpHUFXPg77bzfvUcViIK2r+mozyxzCbuwamzLvZb3NdFMIQ1T4w8jyk7JzAHwQQpeTXq5ffWB2o4v8yi7Mw4Wo/CHrhMoQIIUM4p/G38Gf0xAm0TPBwGntUZNjk/umyWu5rb3lC7rdO8Ddh87M=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=N2RN0ZfN; arc=none smtp.client-ip=45.254.49.198
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=cmpxchg.org header.i=@cmpxchg.org header.b="cmzQjMyL"
-Received: by mail-qk2-f43.google.com with SMTP id d75a77b69052e-52fb76906adso46351841cf.0
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:39:47 -0700 (PDT)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=cmpxchg.org; s=google; t=1790001586; x=1790606386; darn=vger.kernel.org;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:from:to:cc:subject
-         :date:message-id:reply-to:content-type;
-        bh=6JeVamdoCa9AA0LbUgrFt2azIreJSKrfNCLuX4lcnQY=;
-        b=cmzQjMyL8Mj+ja7qee/yD+Y9H+hZ2xp+Rf2fhsnpQC1AHpeXAyW12OXMBClUF+iIn5
-         FytH95byVR+5ovfjpunPkGVcuK10ZPlEvpJzHg3JgaPgfc+mi3WQiNrr+DY+qPcsIXpn
-         fO/DeNF+hMrIoIlA3b+N29jckrUZBXsusqFgdQBoAc4e0tj4FPEOPJIzp0oAUJkNrhOX
-         +Et8XHYI92zxIcJTsd2/gMfGMZRwRNXfSw132UlH67GuKADGul1HDiDT1vbVB9IymwND
-         7bRacuuXa1iIs+CSPOFF6eG41YnwI+Tvi/6axH/VHj6QVxSbc7JycHRvUenzbzf57/gI
-         NncQ==
-X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790001586; x=1790606386;
-        h=in-reply-to:content-disposition:content-type:mime-version
-         :references:message-id:subject:cc:to:from:date:x-gm-gg
-         :x-gm-message-state:from:to:cc:subject:date:message-id:reply-to
-         :content-type;
-        bh=6JeVamdoCa9AA0LbUgrFt2azIreJSKrfNCLuX4lcnQY=;
-        b=v5lVKu4mzpDUe8dRI9oe9BpjSYuppAZrwYvWO3tJ5kJm/nZpHsD4vme4ph3VfodETr
-         gPeaVExjtb1UmrHAuXjd9Oq5JMmPnfMj42kNtoTHYDQzmo22jXD9p0KY7mMke5iB2rw7
-         CQj3J+JIlD24Us7k5Ntj3LFyht+e4ijKljKiv6v9PL838DwXhNeqB4EDQmAOgTQCszzZ
-         D0JmFWDIm+KJGcj4Njqf2ZLuv40i91xXuJOgoinKR7CuX8Vp+7u3jYLYnz4eTDQZuJfs
-         pKFTq7sEXVYYFRQkprlysG2hsspmWkwiOQ73+9t9dMO8tnJOrI8XQjHlLjw+3eNF64VX
-         qsCQ==
-X-Forwarded-Encrypted: i=1; AKwUvBxW2nTKULooMh9KD2ecPs1/Bkp3VAOUgNNKjnq//qZz1my/1SeMYUXds79ot7AqisUgBieQDZA=@vger.kernel.org
-X-Gm-Message-State: AFuF++l9dnZ1N4gM5dy4ndpePGUWiFm+R7E+TZlrR77XErlxb6udfOvv
-	5sCfuNXiDEtiS0ZkCwBtuEja9/dXomS5OFwQMsJMLXAlKRZP9NL/vPsSkqSf7qJfpqM=
-X-Gm-Gg: AYBFou1HC8nGeNwBMQ8sokdFOKMWZE0BcXFCE4DQvu8gZ3Z6p4NIwQHirZb3YeESXAN
-	B6GAtJ5f43koSPFEltYu8/Dm6jOe1zl4iuR1a7o441qekSXnfPQbJKNAr7E3Jr+RwmW7vWLXvTd
-	SrGAQ2/yhmSO5dCK5On26uvU5dZlbcGWcFpHlNn7eHzFx9ruyHWy3z+6Cf1msrtVkeepyrQpOHw
-	6niF5PeaPvuNV5Wd1y6peokOEiNwKyqWIOaDPstpeBTJOZ5qfN1GGDA1fQiX72wcAzUFimgBa4q
-	t6dFrPlI3DntFCfL619prENiqhr9yKmFTKD8EjEhHvxsGXpdTmE97DlqrsKV8letW2pYHtu83vU
-	kneas0ii5aqgXAdd1oTmaV3QG2/IJD2xd+nWBghpkCLkFDeo5WefIMV/eTHqOpRPCCbQLbxOPfd
-	IK6SlWcfpkxAMfSK6Hna6TMLdsQl6PcmIwjPk9ISaWnHa/h/LhST2Py/ostR2/fvpiVcJ0
-X-Received: by 2002:a05:6214:2422:b0:90e:8cae:7fe9 with SMTP id 6a1803df08f44-913fc94a61emr8317866d6.24.1790001585748;
-        Mon, 21 Sep 2026 07:39:45 -0700 (PDT)
-Received: from localhost ([2603:7001:f100:500:365a:60ff:fe62:ff29])
-        by smtp.gmail.com with ESMTPSA id 6a1803df08f44-91260aa2065sm69381076d6.42.2026.09.21.07.39.43
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 07:39:45 -0700 (PDT)
-Date: Mon, 21 Sep 2026 10:39:43 -0400
-From: Johannes Weiner <hannes@cmpxchg.org>
-To: "Vlastimil Babka (SUSE)" <vbabka@kernel.org>
-Cc: Matt Fleming <matt@readmodwrite.com>,
-	Salvatore Dipietro <dipiets@amazon.it>, akpm@linux-foundation.org,
-	abuehaze@amazon.com, alisaidi@amazon.com, blakgeof@amazon.com,
-	brauner@kernel.org, brendan.jackman@linux.dev, david@redhat.com,
-	dgc@kernel.org, dipietro.salvatore@gmail.com, djwong@kernel.org,
-	hch@infradead.org, hch@lst.de, linux-fsdevel@vger.kernel.org,
-	linux-kernel@vger.kernel.org, linux-mm@kvack.org,
-	linux-xfs@vger.kernel.org, mhocko@suse.com, ritesh.list@gmail.com,
-	rvvandan@amazon.com, stable@vger.kernel.org, surenb@google.com,
-	willy@infradead.org, ziy@nvidia.com
-Subject: [PATCH 2/2] mm: page_alloc: remove ALLOC_NON_BLOCK from
- ALLOC_RESERVES
-Message-ID: <arFBr22V60BMmVpl@cmpxchg.org>
-References: <20260905174239.99e31515fabe220aa7d8e6fa@linux-foundation.org>
- <20260910114602.926944-1-dipiets@amazon.it>
- <aqQlUr-1h07G8JWM@cmpxchg.org>
- <8d6a8a63-4adc-458a-b548-a47bf5ff8eb7@kernel.org>
- <aqq8pWI0u1IZNWHT@cmpxchg.org>
- <9f415dc7-adad-4161-b20d-7c3173f50ff3@kernel.org>
- <arFBJdYaRx_iJNDA@cmpxchg.org>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="N2RN0ZfN"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e975bd86;
+	Mon, 21 Sep 2026 22:42:07 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: William Hubbs <w.d.hubbs@gmail.com>
+Cc: Chris Brannon <chris@the-brannons.com>,
+	Kirk Reiser <kirk@reisers.ca>,
+	Samuel Thibault <samuel.thibault@ens-lyon.org>,
+	speakup@linux-speakup.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] speakup: handle serial IRQ request failure
+Date: Mon, 21 Sep 2026 22:42:01 +0800
+Message-Id: <20260921144201.302823-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Type: text/plain; charset=us-ascii
-Content-Disposition: inline
-In-Reply-To: <arFBJdYaRx_iJNDA@cmpxchg.org>
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c46ac5dc03a1kunma0f451da52895
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkaTB1NVklPTEIeGE9MHU4dGFYeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=N2RN0ZfNQYf3rnlweQGuBtfuTiOfYuErv1fFwFfxxw8zUh44GOhRsmc+kdy1Q6ghfet+JAgmUAn9HtMrsQUx4UL/ybsbdBo3muJYZZ816flAmzFZZD1n8Wo2ILK8K+7mJASFgnGLGHsAxqDTbnz9NRlC3jlvejQc5YiyrKo7K/o=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=u2wIf+IGyx/+O0OgWCp4shQ0MgaWvz2EtUhSKy/AUig=;
+	h=date:mime-version:subject:message-id:from;
 
-1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH
-non-blocking allocations accesses reserves") stopped handing out
-reserve access for ALLOC_NON_BLOCK on its own: the extra 25% below the
-min watermark is now only granted on top of ALLOC_MIN_RESERVE. But the
-flag was left in ALLOC_RESERVES, which produces something odd:
+start_serial_interrupt() currently logs a failed request_irq() but
+continues enabling UART interrupts and reports a successful serial
+synthesizer probe. A later release then calls free_irq() without a
+matching registration.
 
-With the ALLOC_RESERVES match, __zone_watermark_unusable_free() doesn't
-subtract the free highatomic pages for them. So in the slowpath, they
-get to consume regular blocks below the min watermark by the number of
-free highatomic pages. The highatomic reserve is capped at 1% of the
-zone, which on any decently sized machine is a multiple of the min
-watermark: GFP_NOWAIT can drain regular memory to zero.
+Return the request error to spk_serial_init() and unwind the I/O region
+and serial state when registration fails. This keeps the UART disabled
+and prevents teardown from freeing an IRQ that was never requested.
 
-The user-visible result is brutal hiccups during bursts of GFP_NOWAIT
-allocations under memory pressure. On a 32G box with an anonymous
-working set, swap, and a filled 290M highatomic reserve, a GFP_NOWAIT
-burst drove regular free memory in the 28G Normal zone (min=60M) to
-28M, 0.8M and 0.6M in three runs. Swapout failed to allocate its swap
-table, reclaim scanned 13M pages to reclaim 200k, page faults stalled
-for tens to hundreds of milliseconds. The machine survives it, but not
-by design: direct reclaimers eventually fail and start unreserving
-highatomic blocks, until the allocation succeeds or the reserve is
-gone and the OOM killer runs. That reserve exists for high-order
-atomic allocations; here it is destroyed to bail out a GFP_NOWAIT
-consumer that was never entitled to the memory.
+Reproducer:
 
-Remove ALLOC_NON_BLOCK from ALLOC_RESERVES. With that, the GFP_NOWAIT
-burst is stopped short at the min watermark. No direct reclaim, no
-stalls, no failed allocations, and the highatomic reserve stays intact
-for the requests it exists for.
+  Build an x86_64 kernel with CONFIG_ACCESSIBILITY=y,
+  CONFIG_SPEAKUP=m, and CONFIG_SERIAL_8250=m. Disable ACPI, PNP, and
+  SERIAL_8250_CONSOLE so that QEMU's COM1 remains available at 0x3f8 on
+  IRQ4. Build an out-of-tree module that first claims IRQ4 with a
+  non-shared handler and then registers a Speakup serial synthesizer for
+  ttyS0. Boot the kernel in QEMU with its default COM1, for example:
 
-__zone_watermark_ok() is unaffected, since everything it keys on
-ALLOC_NON_BLOCK is already nested under ALLOC_MIN_RESERVE. Update the
-flag comments accordingly: ALLOC_NON_BLOCK just means the caller can't
-block; the reserve math belongs with ALLOC_MIN_RESERVE.
+    qemu-system-x86_64 -machine pc -m 1024 -smp 2 -no-acpi \
+      -display none -monitor none -serial file:/dev/null \
+      -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
+      -append 'console=hvc0 rdinit=/init loglevel=7'
 
-Fixes: 1ebbb21811b7 ("mm/page_alloc: explicitly define how __GFP_HIGH non-blocking allocations accesses reserves")
+  In the guest, load the modules in this order:
+
+    insmod speakup.ko
+    insmod speakup_irq_failure_poc.ko
+
+  The second module keeps the non-shared IRQ4 owner installed, so the
+  Speakup request_irq(..., IRQF_SHARED, ...) fails with -EBUSY. On the
+  unfixed kernel, the probe still returns success and the harness removes
+  the published synthesizer, producing "Trying to free already-free IRQ
+  4". On the fixed kernel, the probe returns an error and no unmatched
+  free_irq() warning is emitted. The IRQ conflict is deliberately
+  injected to exercise the error path and is not expected during normal
+  operation.
+
+Fixes: c6e3fd22cd53 ("Staging: add speakup to the staging directory")
 Cc: stable@vger.kernel.org
-Assisted-by: LLM
-Signed-off-by: Johannes Weiner <hannes@cmpxchg.org>
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
 ---
- mm/page_alloc.h | 11 +++++------
- 1 file changed, 5 insertions(+), 6 deletions(-)
+ drivers/accessibility/speakup/serialio.c | 19 ++++++++++++++-----
+ 1 file changed, 14 insertions(+), 5 deletions(-)
 
-diff --git a/mm/page_alloc.h b/mm/page_alloc.h
-index ad89f83d1dab..c8af79decbd0 100644
---- a/mm/page_alloc.h
-+++ b/mm/page_alloc.h
-@@ -32,12 +32,11 @@
- #define ALLOC_OOM		ALLOC_NO_WATERMARKS
+diff --git a/drivers/accessibility/speakup/serialio.c b/drivers/accessibility/speakup/serialio.c
+index 3418ea31d..56efc76a7 100644
+--- a/drivers/accessibility/speakup/serialio.c
++++ b/drivers/accessibility/speakup/serialio.c
+@@ -17,7 +17,7 @@
+ #define SERIAL_PORT_DFNS
  #endif
  
--#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. Allow access
--				       * to 25% of the min watermark or
--				       * 62.5% if __GFP_HIGH is set.
--				       */
-+#define ALLOC_NON_BLOCK		 0x10 /* Caller cannot block. */
- #define ALLOC_MIN_RESERVE	 0x20 /* __GFP_HIGH set. Allow access to 50%
--				       * of the min watermark.
-+				       * of the min watermark, or 62.5% if
-+				       * the caller cannot block either
-+				       * (ALLOC_NON_BLOCK).
- 				       */
- #define ALLOC_CPUSET		 0x40 /* check for correct cpuset */
- #define ALLOC_CMA		 0x80 /* allow allocations from CMA areas */
-@@ -58,7 +57,7 @@
- #define ALLOC_NO_CODETAG       0x1000
+-static void start_serial_interrupt(int irq);
++static int start_serial_interrupt(int irq);
  
- /* Flags that allow allocations below the min watermark. */
--#define ALLOC_RESERVES (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
-+#define ALLOC_RESERVES (ALLOC_MIN_RESERVE|ALLOC_HIGHATOMIC|ALLOC_OOM)
+ static const struct old_serial_port rs_table[] = {
+ 	SERIAL_PORT_DFNS
+@@ -106,7 +106,13 @@ const struct old_serial_port *spk_serial_init(int index)
+ 	speakup_info.port_tts = ser->port;
+ 	serstate = ser;
  
- /* Flags that mean GFP_ATOMIC */
- #define ALLOC_MASK_ATOMIC (ALLOC_NON_BLOCK|ALLOC_MIN_RESERVE)
+-	start_serial_interrupt(ser->irq);
++	err = start_serial_interrupt(ser->irq);
++	if (err) {
++		synth_release_region(ser->port, 8);
++		speakup_info.port_tts = 0;
++		serstate = NULL;
++		return NULL;
++	}
+ 
+ 	return ser;
+ }
+@@ -125,18 +131,20 @@ static irqreturn_t synth_readbuf_handler(int irq, void *dev_id)
+ 	return IRQ_HANDLED;
+ }
+ 
+-static void start_serial_interrupt(int irq)
++static int start_serial_interrupt(int irq)
+ {
+ 	int rv;
+ 
+ 	if (!synth->read_buff_add)
+-		return;
++		return 0;
+ 
+ 	rv = request_irq(irq, synth_readbuf_handler, IRQF_SHARED,
+ 			 "serial", (void *)synth_readbuf_handler);
+ 
+-	if (rv)
++	if (rv) {
+ 		pr_err("Unable to request Speakup serial I R Q\n");
++		return rv;
++	}
+ 	/* Set MCR */
+ 	outb(UART_MCR_DTR | UART_MCR_RTS | UART_MCR_OUT2,
+ 	     speakup_info.port_tts + UART_MCR);
+@@ -148,6 +156,7 @@ static void start_serial_interrupt(int irq)
+ 	inb(speakup_info.port_tts + UART_IIR);
+ 	inb(speakup_info.port_tts + UART_MSR);
+ 	outb(1, speakup_info.port_tts + UART_FCR);	/* Turn FIFO On */
++	return 0;
+ }
+ 
+ static void spk_serial_send_xchar(struct spk_synth *synth, char ch)
 -- 
-2.55.0
-
+2.34.1
