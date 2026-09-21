@@ -1,140 +1,91 @@
-Received: from mta1.migadu.com (out-178.mta1.migadu.com [95.215.58.178])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
+Received: from mx1.white.stw.pengutronix.de (mx1.white.stw.pengutronix.de [185.203.200.13])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0625B38E8A2
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:09:01 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=95.215.58.178
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 6F5D73AD506;
+	Mon, 21 Sep 2026 07:15:41 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=185.203.200.13
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1789974543; cv=none; b=WhYPbX3kaf8taUFtl4OpW2MvuQxkb0S9LvNrS+p+S9phXZxk8rM8A4clxjCTsoxNalHeTGkFIkGnSox5hxGOZ5qEZDHrCHkfLFTJrbD/0rsFANIChfcYx01e9noJFsEN9Z2nrIqmVULdQcVBJnp7lkg6i5tyTs1Uj+Phpc6vryM=
+	t=1789974943; cv=none; b=Wd8RFg3yp4zaiTOFgs1M6v75P6qZqv7Itj2PkQ5uNeWMr0SjK/4ejG98qknDAdggWGqEt8OS4JHIyLTHbzxchm4DmnCGazQNn8aSHxPyEkGWOjsrfRV66Hb5Ru+OUcusiAJG+IQ8rGf/rhuI5kcaaueB8PTml5mgvfuY7obwMCM=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1789974543; c=relaxed/simple;
-	bh=fP06fUHtBpp2cGAnDwmJQ/nY6+PkTalsUPKOuD9WtKM=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=rI9oGWhl3riI60L593PDeu+l9wEcHwQQN+9mDejXQ1EmpCjL0VTbElNriRAux/V8OagIzVCfE5wS12f4oeKrwahsCG2XrQtBVA967GBSDmsIPEAwM1wjRrw9Lx6XSmmJE9jkH5xwz8SQm3M//I/hCWd2XqZnKfDFke10/dIaLVA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev; spf=pass smtp.mailfrom=linux.dev; dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b=xhrRP/zv; arc=none smtp.client-ip=95.215.58.178
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=linux.dev
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=linux.dev
-Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux.dev header.i=@linux.dev header.b="xhrRP/zv"
-X-Envelope-To: stable@vger.kernel.org
-DKIM-Signature: a=rsa-sha256; bh=fP06fUHtBpp2cGAnDwmJQ/nY6+PkTalsUPKOuD9WtKM=;
- c=simple/simple; d=linux.dev;
- h=from:to:subject:date:message-id:mime-version:content-type; s=key1;
- t=1789974539; v=1; x=1790579339;
- b=xhrRP/zvxJyI/kzGlCRME/x2ufvzsIa6m5R16CX43gNscJV+T5eTFhoi2WljrN4AbN3QjqWv
- O01wsimJUSY9+mbf6AsEQgsi3FsXWAzlUfIwUQi9nSHvYWIGZd+ZomSbqxkJSYwqGN6LSA9bt8n
- oxKeCXE22h7tEe5lz8OZsI8s=
-X-Envelope-To: stable@vger.kernel.org
-Received: by smtp.migadu.com with ESMTPS id a688a47092d9ca8d;
-	Mon, 21 Sep 2026 07:08:59 +0000
-X-Mizu-Trace-ID: a688a47092d9ca8d
-X-Migadu-Flow: FLOW_OUT
-Message-ID: <a00dbaaa-99f1-4172-b337-911ff45ae71e@linux.dev>
-Date: Mon, 21 Sep 2026 15:08:55 +0800
+	s=arc-20240116; t=1789974943; c=relaxed/simple;
+	bh=Gw+JQl2NJaaT8WRtJMohAP4it7/gBPXPDcyZzvsaGYw=;
+	h=From:Subject:Date:Message-Id:MIME-Version:Content-Type:To:Cc; b=A16dOI11njZZbpNBlbLC3SYUwLeon7ez16IamgdaJE227NHZDeWv1autkP8mr8pcWWETKCMk5OD0CBw/FN75SW5TscfHnnqk3vaBxYcbvqUTD+VRsMBzfCZUdTmYBZEfLLoVg3LsP4jHqwUF8LfaeTBA0zTmLMFcfMhWCYSCBLc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de; spf=pass smtp.mailfrom=pengutronix.de; arc=none smtp.client-ip=185.203.200.13
+Authentication-Results: smtp.subspace.kernel.org; dmarc=none (p=none dis=none) header.from=pengutronix.de
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=pengutronix.de
+Received: from [127.0.1.1] (unknown [IPv6:2a02:560:5dd5:4b00:9ebf:dff:fe00:fdb5])
+	(Authenticated sender: sha@pengutronix.de)
+	by mx1.white.stw.pengutronix.de (Postfix) with ESMTPSA id 5506C200291;
+	Mon, 21 Sep 2026 09:15:39 +0200 (CEST)
+From: Sascha Hauer <s.hauer@pengutronix.de>
+Subject: [PATCH 0/3] media: synopsys: hdmirx: pixelclock fix and input
+ status reporting
+Date: Mon, 21 Sep 2026 09:15:32 +0200
+Message-Id: <20260921-hdmirx-fixes-v1-0-495be0beaf93@pengutronix.de>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-User-Agent: Mozilla Thunderbird
-Subject: Re: [PATCH v3 1/3] cgroup/cpuset: return PERR_NOCPUS in
- remote_partition_enable()
-To: Hui Peng <benquike@gmail.com>, Guopeng Zhang <guopeng.zhang@linux.dev>,
- Tejun Heo <tj@kernel.org>, Johannes Weiner <hannes@cmpxchg.org>,
- Waiman Long <longman@redhat.com>
-Cc: Michal Koutny <mkoutny@suse.com>, Shuah Khan <shuah@kernel.org>,
- cgroups@vger.kernel.org, linux-kselftest@vger.kernel.org,
- linux-kernel@vger.kernel.org, stable@vger.kernel.org
-References: <aa90bb73-c2af-4d13-8f2a-0435aa528058@linux.dev>
- <20260920181449.3122336-1-benquike@gmail.com>
-From: Ridong Chen <ridong.chen@linux.dev>
-In-Reply-To: <20260920181449.3122336-1-benquike@gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
+Content-Type: text/plain; charset="utf-8"
 Content-Transfer-Encoding: 7bit
+X-B4-Tracking: v=1; b=H4sIAJXZsGoC/x3LQQqAIBBA0avIrBNGqdCuEi1Cx5xFFgohSHdPW
+ j4+v0GhzFRgEQ0yPVz4Sh1qEODing6S7LtBo57R4iijPzlXGbhSkeQDOlLGBjNBX+5Mf+jHur3
+ vB1D6HO1eAAAA
+X-Change-ID: 20260904-hdmirx-fixes-edf0ce189f85
+To: Dmitry Osipenko <dmitry.osipenko@collabora.com>, 
+ Mauro Carvalho Chehab <mchehab@kernel.org>, 
+ Shreeya Patel <shreeya.patel@collabora.com>, 
+ Hans Verkuil <hverkuil@kernel.org>, Dingxian Wen <shawn.wen@rock-chips.com>
+Cc: linux-media@vger.kernel.org, kernel@collabora.com, 
+ linux-kernel@vger.kernel.org, Sascha Hauer <s.hauer@pengutronix.de>, 
+ Lucas Sinn <lucas.sinn@wolfvision.net>, stable@vger.kernel.org, 
+ Gerald Loacker <gerald.loacker@wolfvision.net>
+X-Mailer: b4 0.14.3
+X-Developer-Signature: v=1; a=ed25519-sha256; t=1789974939; l=1539;
+ i=s.hauer@pengutronix.de; s=20230412; h=from:subject:message-id;
+ bh=Gw+JQl2NJaaT8WRtJMohAP4it7/gBPXPDcyZzvsaGYw=;
+ b=ZfnTdRF+HxCgFpzw306csicebQXECA8N7pNULhsiG/Z7LR3sjryBH4ZQ/BmoClX0JpEdAUyJX
+ Tfy5+n4cyYKDu1G1np1LA44skOSyqqQvlKqhr6psaLsRz+BG2Gndpyt
+X-Developer-Key: i=s.hauer@pengutronix.de; a=ed25519;
+ pk=4kuc9ocmECiBJKWxYgqyhtZOHj5AWi7+d0n/UjhkwTg=
 
+Three changes to the Synopsys HDMI receiver, all found while bringing the
+driver up on an RK3588 board.
 
+The first is a fix. hdmirx_get_detected_timings() divides the TMDS clock
+by a colordepth that only the format change worker ever fills in, so a
+VIDIOC_QUERY_DV_TIMINGS issued in the window between the hardware
+reporting lock and that worker running divides by zero and reports a
+pixelclock of zero. It reads the colordepth from the hardware at the
+point of use now.
 
-On 9/21/2026 2:14 AM, Hui Peng wrote:
-> Commit 6da580ec656a ("cgroup/cpuset: Don't allow creation of local
-> partition over a remote one") updated update_prstate() to prevent creating
-> a top-level local partition whose exclusive CPUs conflict with an existing
-> remote partition.
-> 
-> However, if a top-level local partition A1 is created on CPUs 1-3, has a
-> non-partition member child A1/A2 with cpuset.cpus.exclusive = 1-3, and a
-> grandchild A1/A2/A3 is then enabled as a partition root on 1-3,
-> update_prstate() sees !is_partition_valid(parent) (since A1/A2 is a member)
-> and calls remote_partition_enable(). Because remote_partition_enable() does
-> not check whether tmp->new_cpus intersects subpartitions_cpus, A1/A2/A3 is
-> enabled as a remote partition on CPUs already owned by A1, triggering:
-> 
->    WARNING: kernel/cgroup/cpuset.c:1594 at update_prstate+0xbef/0xd70
-> 
-> Return PERR_NOCPUS in remote_partition_enable() when tmp->new_cpus
-> intersects subpartitions_cpus, matching the error code used by
-> remote_cpus_update() for subpartitions_cpus conflicts, and add a
-> corresponding regression test case to
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-> Tested in QEMU on Linux 7.3.0-rc3 using
-> tools/testing/selftests/cgroup/test_cpuset_prs.sh.
-> 
-> Fixes: 6da580ec656a ("cgroup/cpuset: Don't allow creation of local partition over a remote one")
-> Suggested-by: Guopeng Zhang <guopeng.zhang@linux.dev>
-> Cc: stable@vger.kernel.org
-> Assisted-by: LLM
-> Signed-off-by: Hui Peng <benquike@gmail.com>
-> ---
-> Changes in v3:
-> - Split the series into 3 patches (one per logical change and Fixes: tag).
-> 
+The other two belong together. So far the only way for userspace to learn
+the cable and lock state was the error code of VIDIOC_QUERY_DV_TIMINGS,
+and both of those paths log at v4l2_err level, so an application polling
+for a source fills the kernel log. Patch 2 reports the two states through
+VIDIOC_ENUMINPUT, where the V4L2 API puts them, and patch 3 then drops
+the prints to debug level.
 
-What is going on here?
+Signed-off-by: Sascha Hauer <s.hauer@pengutronix.de>
+---
+Gerald Loacker (1):
+      media: synopsys: hdmirx: add input status reporting to VIDIOC_ENUMINPUT
 
-Please do not reply with a new series. And I think the changes should be listed 
-in the cover letter. Otherwise, it will get very confusing.
+Lucas Sinn (1):
+      media: synopsys: hdmirx: fetch colordepth before calculating pixelclock
 
+Sascha Hauer (1):
+      media: synopsys: hdmirx: stop logging a missing signal at error level
 
->   kernel/cgroup/cpuset.c                        | 4 +++-
->   tools/testing/selftests/cgroup/test_cpuset_prs.sh | 2 ++
->   2 files changed, 5 insertions(+), 1 deletion(-)
-> 
-> diff --git a/kernel/cgroup/cpuset.c b/kernel/cgroup/cpuset.c
-> index c8ab89cfbe3d..7381fa8502e7 100644
-> --- a/kernel/cgroup/cpuset.c
-> +++ b/kernel/cgroup/cpuset.c
-> @@ -1678,8 +1678,10 @@ static int remote_partition_enable(struct cpuset *cs, int new_prs,
->   	 * Callers must have validated that effective_xcpus is not empty.
->   	 */
->   	spin_lock_irq(&callback_lock);
-> -	if (cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus)) {
-> +	if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus) ||
-> +	    cpumask_subset(top_cpuset.effective_cpus, tmp->new_cpus)) {
->   		spin_unlock_irq(&callback_lock);
-> +		if (cpumask_intersects(tmp->new_cpus, subpartitions_cpus))
-> +			return PERR_NOCPUS;
->   		return PERR_HKEEPING;
->   	}
->   
+ .../media/platform/synopsys/hdmirx/snps_hdmirx.c   | 84 ++++++++++++----------
+ 1 file changed, 47 insertions(+), 37 deletions(-)
+---
+base-commit: bc35965f6940a9bf834d54187b6088b8eb09206d
+change-id: 20260904-hdmirx-fixes-edf0ce189f85
 
-I cannot apply this patch. It seems quite different from v2.
-
-> diff --git a/tools/testing/selftests/cgroup/test_cpuset_prs.sh b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> index a1f42ef64bc1..b732078bf319 100755
-> --- a/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> +++ b/tools/testing/selftests/cgroup/test_cpuset_prs.sh
-> @@ -298,6 +298,8 @@ TEST_MATRIX=(
->   	" C0-4:X2-4 C1-4:X2-4:P2 C2-4:X4:P1 \
->   				   .      .      .      X1      .    0 A1:0-1|A2:2-4|A3:2-4 \
->   								       A1:P0|A2:P2|A3:P-1 2-4"
-> +	" CX1-3:P1 CX1-3  CX1-3    .      .      .      P1     .     0 A1:1-3|A2:1-3|A3:1-3 \
-> +								       A1:P1|A2:P0|A3:P-1"
->   
->   	# Remote partition offline tests
->   	"   C0-3    C1-3  C2-3     .    X2-3   X2-3 X2-3:P2:O2=0 .   0 A1:0-1|A2:1|A3:3 A1:P0|A3:P2 2-3"
-
+Best regards,
 -- 
-Best regards
-Ridong
+Sascha Hauer <s.hauer@pengutronix.de>
 
