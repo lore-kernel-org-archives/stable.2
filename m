@@ -1,442 +1,123 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
-	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+Received: from mail-pj2-f42.google.com (mail-pj2-f42.google.com [74.125.227.170])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id D5BF239B979;
-	Mon, 21 Sep 2026 19:29:04 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5946F3AE6E5
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 19:37:57 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.227.170
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790018946; cv=none; b=b67wVHgy9CMPgVG+HpYtK1E2wRO/HhzHvtyxHb9LMwhROeFJDWbrIyvpHmEtgcrk6bizXnodIOBve9FB5ckwgmiQnJHEOY7XA05xnVfATHOcVRhM2NCKyKjM+Mg5j7DfcW8Jj3/ERUy3qpMbyDdQDAPBIuizN0TFipxFTNv431U=
+	t=1790019478; cv=none; b=QZlgHL9pSubqjzM7EXmYKDmqTreJOmZsKfqMebQZDePFyQVog4rfgS8rdWuSQDV+ZdxVv1Mmx/z4ZSVrF8+sJ2cxavLRMmizGRvt2MgkoKd8Nw1Xn2iWad5Ckg4HU1Y8r0qZpBP23mN8ZelQH2pa/Qb1O632JSKjwny8SnCCh+4=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790018946; c=relaxed/simple;
-	bh=rfxa1NpZlTMER3KDd4gcbr/q2z/YgXuUROjaBRgSMWY=;
-	h=Date:To:From:Subject:Message-Id; b=f0ypzCy1d/Bp+hlP6oqSQ8GGqWzBLmJtd4+7QPgryz5VJxIsZ9Tb9kmVG5OwFQ/TnRWOflicrQt9svPnS+iAYBjLKSTgjHY53l/jVlO2qZPwmRwKTgHxskHRGXVb7c4DCxrwuOrr8e9XQES4HC9tavS1po5eSNsUUc9gfQTpDL0=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b=ytJy3eSg; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790019478; c=relaxed/simple;
+	bh=eHNgYE1BdIraErQxKLawRC+Z1VdbqupeZ4CgZlyhygI=;
+	h=From:To:Cc:Subject:Date:Message-ID:MIME-Version; b=nxpCNvpUMwmhAMHk3llW7yHYY4D91EK3GNsoyB6MSp+0+4502MXbae/JCgZbzJgObEtN31PZw2j1nPLRo+CdOUuFn1YZFgyTJouUx8G8bVk4IO4xpeaU69swcajOBiMSP7wWd+JZcEv9Su+JFM2eiTch0a9IRC2qEC1IbERV6iM=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com; spf=pass smtp.mailfrom=trailofbits.com; dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b=C7Nmjc0Q; arc=none smtp.client-ip=74.125.227.170
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=trailofbits.com
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=trailofbits.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (1024-bit key) header.d=linux-foundation.org header.i=@linux-foundation.org header.b="ytJy3eSg"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 65E441F00893;
-	Mon, 21 Sep 2026 19:29:04 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=trailofbits.com header.i=@trailofbits.com header.b="C7Nmjc0Q"
+Received: by mail-pj2-f42.google.com with SMTP id 98e67ed59e1d1-396ccda24afso2459715a91.3
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 12:37:57 -0700 (PDT)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-	d=linux-foundation.org; s=korg; t=1790018944;
-	bh=tykJGqfgjNh63epcvj5Q9gIQuTDAFJJ4UDOkuWG6XBQ=;
-	h=Date:To:From:Subject;
-	b=ytJy3eSgHt+/SVCCa9r1hduI6h3HUOAKNS38iPAE7zl+vr+5T9pZEWR7CdLgpvBrK
-	 NN8WqGVHyjpgaD8Y9TEj+EK9YSeMJPjguLPZKOw71pE+43KPrBDjdidvFUyfuHSzRy
-	 eqxICf/mOzp84wEsT/C5uwOaW149AuGkCv46w3/Y=
-Date: Mon, 21 Sep 2026 12:29:04 -0700
-To: mm-commits@vger.kernel.org,stable@vger.kernel.org,sj@kernel.org,david@davidgow.net,brendan.higgins@linux.dev,donggeunyoo.kernel@gmail.com,akpm@linux-foundation.org
-From: Andrew Morton <akpm@linux-foundation.org>
-Subject: + mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region.patch added to mm-new branch
-Message-Id: <20260921192904.65E441F00893@smtp.kernel.org>
+        d=trailofbits.com; s=google; t=1790019477; x=1790624277; darn=vger.kernel.org;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:from:to:cc:subject:date:message-id:reply-to:content-type;
+        bh=24oiYNmQVTuE9tYr8bmlTOafQfPGTBwHcSANDMCgTuY=;
+        b=C7Nmjc0QY8g4Vu/BpqzFyKr2Xy8mhSle7n2BvTkTs+zQU1adxgPgAdztx9xjGQ8Dkg
+         kAXV3+6uGJp/cdxD0vXZ1pZXcC9J29wWlFZJinvXOt7xA44X16s+HmcAaWJhPqkIryyr
+         Pf/ZnKeMy6ppYsAe/Py0Av35zo0Fy5rIpT3Yw5i3nre/hxM8fsGGObG8gktF0HtCI26e
+         63EJPs4cPhohy7qdwZSsXyaYz3PwGOCgi+WaiWtpaupTUwKQk9Ot8MboguweUz1X+1AS
+         eqvmEAjOZMMlILtK+v5CWiAESm8xz70sjs+sqD7huWzwjYM5Aj07QPIBM5T9dB8gaesl
+         uJOg==
+X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
+        d=1e100.net; s=20260707; t=1790019477; x=1790624277;
+        h=content-transfer-encoding:mime-version:message-id:date:subject:cc
+         :to:from:x-gm-gg:x-gm-message-state:from:to:cc:subject:date
+         :message-id:reply-to:content-type;
+        bh=24oiYNmQVTuE9tYr8bmlTOafQfPGTBwHcSANDMCgTuY=;
+        b=RE41a/+rsuJsJ9b0vo9rmuqDODy4QxlIqHkEvHaS8BWL01/MIFfkrP8JDrC8hTGhBX
+         9HG+nlkrltn1yS8rYKh4pAUJoc1l2DfDdha/sKuXmyOjnDp/e3/9K/l0/NahfkwJlGSj
+         cHjXpFVZtQE95rDpS3Czi2myohMawm8tQDKNBKQoSVyMILKX6Ik/LE3z+pg2KJspdmqI
+         8ullifo9FhVQD+JfcBV6Pt5+5WCCvrVDWuE3UzuSnx225VxyIIpCj73lwFFXKOloAfgq
+         0toyJ+hVfAL+2cr932G3L2Cnlg44j70tyio62gbTTUyS8Zv7txTLcyHIwhn12n1PhjKd
+         u8Ag==
+X-Gm-Message-State: AFuF++nRlIqn2FFITYipcf/CetsL6b/12jvrd6ipiAXeCjw6LqSOf1lx
+	ux+ElLmjyzRTJIKNinw+qVVh9TnC7zxdbUiiRoelFqNFm5OPTfLEs1f82BX5m81nNPVtT7yGGJK
+	45GGigz8=
+X-Gm-Gg: AYBFou2Cn7V6/sgZwTBrE0Gb7Lh4r5McLU5lcM+yWgOKO/cUvTqyUHOmmxfJ7LdE+t3
+	sbJDmKozhKpRxVwsmWerGRw3sjOWCEYaH/UYTro/9JH264j1mISiZrADiN9xnJm+9CwDtqxxF8d
+	Ky3d7FziaksfLwcYcoPC2LxKIS7FgNJEyWIgQGG+Sm0ClqnDun+cXlpHUdk/A8j7UpcmvuC7YxN
+	1qitS8SarQZwbi3fsTNlNOZdoh2z2Tw9BKP/Y1nHFRxy+eQpFhyxPgRbwrWrK6yuCX5zFWzOgZg
+	9qMTAvMl7ijm0hnANwI+4GV4cV6TNnSVf086iu4Jj3qjCt2PTy4u0aHyLQpjYBCEoz1Y/lIPOEn
+	uzHOfvZYJaSB5d7dvm3ZRL+BpJEg11Ohf3UQlKtNbEFNY7anwkptJoBMdYoBWiLCVIVqPwjdQW+
+	demEaNdq1GxtSrpfXP9oQTxpEN/46oUV/ZpADfnR/GIdAtQv3n4BsRcMbK7RGx8JY6GLROR3w/j
+	gvwRv5TVK4arDDEilSMNxVKP19uhpM1XxUnRc/s3XrrYMTr24RMghPDkg2ckFqo1k30oks5xpJ5
+	CItY5A==
+X-Received: by 2002:a17:90b:582b:b0:398:a486:81ec with SMTP id 98e67ed59e1d1-39e54e3c640mr24749161a91.11.1790019476637;
+        Mon, 21 Sep 2026 12:37:56 -0700 (PDT)
+Received: from localhost.localdomain ([2603:8001:5f01:8bab:289a:f600:f11e:a45c])
+        by smtp.gmail.com with ESMTPSA id 5a478bee46e88-33e5ebcdbd8sm288500eec.16.2026.09.21.12.37.55
+        (version=TLS1_3 cipher=TLS_CHACHA20_POLY1305_SHA256 bits=256/256);
+        Mon, 21 Sep 2026 12:37:56 -0700 (PDT)
+From: Artem Dinaburg <artem@trailofbits.com>
+To: stable@vger.kernel.org
+Cc: Artem Dinaburg <artem@trailofbits.com>,
+	Greg Kroah-Hartman <gregkh@linuxfoundation.org>,
+	Sasha Levin <sashal@kernel.org>,
+	Pierre-Louis Bossart <pierre-louis.bossart@linux.intel.com>,
+	Liam Girdwood <lgirdwood@gmail.com>,
+	Peter Ujfalusi <peter.ujfalusi@linux.intel.com>,
+	Bard Liao <yung-chuan.liao@linux.intel.com>,
+	Ranjani Sridharan <ranjani.sridharan@linux.intel.com>,
+	Kai Vehmanen <kai.vehmanen@linux.intel.com>,
+	Daniel Baluta <daniel.baluta@nxp.com>,
+	Mark Brown <broonie@kernel.org>,
+	Jaroslav Kysela <perex@perex.cz>,
+	Takashi Iwai <tiwai@suse.com>,
+	sound-open-firmware@alsa-project.org,
+	alsa-devel@alsa-project.org,
+	linux-kernel@vger.kernel.org,
+	Guennadi Liakhovetski <guennadi.liakhovetski@linux.intel.com>,
+	Dan Carpenter <error27@gmail.com>
+Subject: [PATCH 6.1.y 0/2] ASoC: SOF: backport CVE-2023-54233 to 6.1.y
+Date: Mon, 21 Sep 2026 15:37:46 -0400
+Message-ID: <20260921193750.82134-1-artem@trailofbits.com>
+X-Mailer: git-send-email 2.55.0
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
+MIME-Version: 1.0
+Content-Transfer-Encoding: 8bit
 
+Hi Greg, Sasha, and SOF maintainers,
 
-The patch titled
-     Subject: mm/damon/tests/core-kunit: test the size charged for a filter-trimmed region
-has been added to the -mm mm-new branch.  Its filename is
-     mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region.patch
+I am working through the smaller CVE backports that 6.1.y still needs.
+This series handles CVE-2023-54233. Patch 1 adds the missing module-info
+guards; patch 2 is its immediate diagnostic follow-up.
 
-This patch will shortly appear at
-     https://git.kernel.org/pub/scm/linux/kernel/git/akpm/25-new.git/tree/patches/mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region.patch
+The stable tag on patch 1 says 6.2+, but the same unsafe dereference is in
+6.1.y. I kept the pair together and did not bring in the later topology
+refactors.
 
-This patch will later appear in the mm-new branch at
-    git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
+Could you please queue this series for 6.1.y?
 
-Note, mm-new is a provisional staging ground for work-in-progress
-patches, and acceptance into mm-new is a notification for others take
-notice and to finish up reviews.  Please do not hesitate to respond to
-review feedback and post updated versions to replace or incrementally
-fixup patches in mm-new.
+Thanks,
+Artem Dinaburg
 
-The mm-new branch of mm.git is not included in linux-next
+AI assistance: An LLM helped find the missing CVE fix, adapt
+it, and prepare the draft; I reviewed the code and build output.
 
-If a few days of testing in mm-new is successful, the patch will me moved
-into mm.git's mm-unstable branch, which is included in linux-next
+Guennadi Liakhovetski (1):
+  ASoC: SOF: avoid a NULL dereference with unsupported widgets
 
-Before you just go and hit "reply", please:
-   a) Consider who else should be cc'ed
-   b) Prefer to cc a suitable mailing list as well
-   c) Ideally: find the original patch on the mailing list and do a
-      reply-to-all to that, adding suitable additional cc's
+Peter Ujfalusi (1):
+  ASoC: SOF: ipc4-topology: Clarify bind failure caused by missing
+    fw_module
 
-*** Remember to use Documentation/process/submit-checklist.rst when testing your code ***
+ sound/soc/sof/ipc4-topology.c | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
 
-The -mm tree is included into linux-next via various
-branches at git://git.kernel.org/pub/scm/linux/kernel/git/akpm/mm
-and is updated there most days
-
-------------------------------------------------------
-From: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Subject: mm/damon/tests/core-kunit: test the size charged for a filter-trimmed region
-Date: Mon, 21 Sep 2026 08:24:42 -0700
-
-damos_test_filter_out() checks that an address range filter splits a
-region at the filter boundary, and stops there.  Nothing checks what
-damos_apply_scheme() then charges to the quota and reports as tried.
-
-damos_test_apply_scheme_filtered_sz() covers the two ways such a filter
-trims a region: one that starts before the filter's range, and one that
-starts inside it.
-
-damos_test_apply_scheme_filter_sz_unchanged() and
-damos_test_apply_scheme_quota_sz() cover the cases whose accounting must
-not change: a region wholly inside a reject range, one wholly inside an
-allow range, two filters trimming in a single call, a filter type that
-never splits, no filter at all, a region the quota trims, and a quota
-remainder too small for one region.
-
-Link: https://lore.kernel.org/20260921152443.80132-3-sj@kernel.org
-Signed-off-by: Donggeun Yoo <donggeunyoo.kernel@gmail.com>
-Signed-off-by: SJ Park <sj@kernel.org>
-Signed-off-by: Andrew Morton <akpm@linux-foundation.org>
-Reviewed-by: SJ Park <sj@kernel.org>
-Cc: Brendan Higgins <brendan.higgins@linux.dev>
-Cc: David Gow <david@davidgow.net>
-Cc: <stable@vger.kernel.org>
----
-
- mm/damon/tests/core-kunit.h |  316 ++++++++++++++++++++++++++++++++++
- 1 file changed, 316 insertions(+)
-
---- a/mm/damon/tests/core-kunit.h~mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region
-+++ a/mm/damon/tests/core-kunit.h
-@@ -1706,6 +1706,319 @@ out:
- 	damos_free_filter(f);
- }
- 
-+static unsigned long damos_test_apply_scheme_stub(struct damon_ctx *c,
-+		struct damon_target *t, struct damon_region *r,
-+		struct damos *s, unsigned long *sz_filter_passed)
-+{
-+	return 0;
-+}
-+
-+static void damos_test_apply_scheme_filtered_sz(struct kunit *test)
-+{
-+	struct damos_access_pattern pattern = {
-+		.min_sz_region = 0,
-+		.max_sz_region = ULONG_MAX,
-+		.min_nr_accesses = 0,
-+		.max_nr_accesses = UINT_MAX,
-+		.min_age_region = 0,
-+		.max_age_region = UINT_MAX,
-+	};
-+	unsigned long min_sz = DAMON_MIN_REGION_SZ;
-+	struct damos_watermarks wmarks = {};
-+	struct damos_quota quota = {};
-+	struct damon_ctx *c;
-+	struct damon_target *t;
-+	struct damon_region *r;
-+	struct damos_filter *f;
-+	struct damos *s;
-+
-+	c = damon_new_ctx();
-+	if (!c)
-+		kunit_skip(test, "ctx alloc fail");
-+	c->ops.apply_scheme = damos_test_apply_scheme_stub;
-+
-+	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
-+			NUMA_NO_NODE);
-+	if (!s) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "scheme alloc fail");
-+	}
-+	damon_add_scheme(c, s);
-+
-+	t = damon_new_target();
-+	if (!t) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "target alloc fail");
-+	}
-+	damon_add_target(c, t);
-+
-+	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
-+	if (!f) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f->addr_range = (struct damon_addr_range){
-+		.start = 2 * min_sz,
-+		.end = 8 * min_sz
-+	};
-+	damos_add_filter(s, f);
-+	damos_set_filters_default_reject(s);
-+
-+	/* reject filter, region starting before the range */
-+	r = damon_new_region(0, 4 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	if (damon_nr_regions(t) != 2)
-+		goto out;
-+	damon_destroy_region(damon_next_region(r), t);
-+	damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+
-+	/* allow filter, region starting inside the range */
-+	f->allow = true;
-+	damos_set_filters_default_reject(s);
-+	r = damon_new_region(2 * min_sz, 10 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 2);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 8 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 6 * min_sz);
-+
-+out:
-+	damon_destroy_ctx(c);
-+}
-+
-+static void damos_test_apply_scheme_filter_sz_unchanged(struct kunit *test)
-+{
-+	struct damos_access_pattern pattern = {
-+		.min_sz_region = 0,
-+		.max_sz_region = ULONG_MAX,
-+		.min_nr_accesses = 0,
-+		.max_nr_accesses = UINT_MAX,
-+		.min_age_region = 0,
-+		.max_age_region = UINT_MAX,
-+	};
-+	unsigned long min_sz = DAMON_MIN_REGION_SZ;
-+	struct damos_watermarks wmarks = {};
-+	struct damos_quota quota = {};
-+	struct damos_filter *f, *f2;
-+	struct damon_ctx *c;
-+	struct damon_target *t;
-+	struct damon_region *r;
-+	struct damos *s;
-+
-+	c = damon_new_ctx();
-+	if (!c)
-+		kunit_skip(test, "ctx alloc fail");
-+	c->ops.apply_scheme = damos_test_apply_scheme_stub;
-+
-+	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
-+			NUMA_NO_NODE);
-+	if (!s) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "scheme alloc fail");
-+	}
-+	damon_add_scheme(c, s);
-+
-+	t = damon_new_target();
-+	if (!t) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "target alloc fail");
-+	}
-+	damon_add_target(c, t);
-+
-+	f = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
-+	if (!f) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f->addr_range = (struct damon_addr_range){
-+		.start = 2 * min_sz, .end = 8 * min_sz};
-+	damos_add_filter(s, f);
-+	damos_set_filters_default_reject(s);
-+
-+	/* wholly inside a reject range: not counted at all */
-+	r = damon_new_region(4 * min_sz, 6 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.nr_tried, 0);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 0);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* wholly inside an allow range: counted whole, not split */
-+	f->allow = true;
-+	damos_set_filters_default_reject(s);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* two filters, each trimming: the size left after both is counted */
-+	damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+	f->allow = false;
-+	f->addr_range = (struct damon_addr_range){
-+		.start = 4 * min_sz, .end = 12 * min_sz};
-+	f2 = damos_new_filter(DAMOS_FILTER_TYPE_ADDR, true, false);
-+	if (!f2) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f2->addr_range = (struct damon_addr_range){
-+		.start = 2 * min_sz, .end = 3 * min_sz};
-+	damos_add_filter(s, f2);
-+	damos_set_filters_default_reject(s);
-+
-+	r = damon_new_region(0, 8 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 3);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	/* a core filter that never splits: counted whole */
-+	damos_destroy_filter(f2);
-+	damos_destroy_filter(f);
-+	f = damos_new_filter(DAMOS_FILTER_TYPE_TARGET, true, true);
-+	if (!f) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "filter alloc fail");
-+	}
-+	f->target_idx = 0;
-+	damos_add_filter(s, f);
-+	damos_set_filters_default_reject(s);
-+	s->stat = (struct damos_stat){};
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 3);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	damon_destroy_ctx(c);
-+}
-+
-+static void damos_test_apply_scheme_quota_sz(struct kunit *test)
-+{
-+	struct damos_access_pattern pattern = {
-+		.min_sz_region = 0,
-+		.max_sz_region = ULONG_MAX,
-+		.min_nr_accesses = 0,
-+		.max_nr_accesses = UINT_MAX,
-+		.min_age_region = 0,
-+		.max_age_region = UINT_MAX,
-+	};
-+	unsigned long min_sz = DAMON_MIN_REGION_SZ;
-+	struct damos_watermarks wmarks = {};
-+	struct damos_quota quota = {};
-+	struct damon_region *r, *next;
-+	struct damon_ctx *c;
-+	struct damon_target *t;
-+	struct damos *s;
-+
-+	c = damon_new_ctx();
-+	if (!c)
-+		kunit_skip(test, "ctx alloc fail");
-+
-+	s = damon_new_scheme(&pattern, DAMOS_STAT, 0, &quota, &wmarks,
-+			NUMA_NO_NODE);
-+	if (!s) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "scheme alloc fail");
-+	}
-+	damon_add_scheme(c, s);
-+	damos_set_filters_default_reject(s);
-+
-+	t = damon_new_target();
-+	if (!t) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "target alloc fail");
-+	}
-+	damon_add_target(c, t);
-+
-+	/* no apply_scheme operation: the whole region is counted */
-+	r = damon_new_region(0, 4 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 4 * min_sz);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* no filter and no quota: the whole region is counted */
-+	c->ops.apply_scheme = damos_test_apply_scheme_stub;
-+	s->stat = (struct damos_stat){};
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 4 * min_sz);
-+	KUNIT_EXPECT_EQ(test, damon_nr_regions(t), 1);
-+
-+	/* the quota trims the region: the trimmed size is counted */
-+	damon_for_each_region_safe(r, next, t)
-+		damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+	s->quota.esz = 2 * min_sz;
-+	s->quota.charged_sz = 0;
-+
-+	r = damon_new_region(0, 8 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 2 * min_sz);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 2 * min_sz);
-+
-+	/* quota remainder below one region: tried, but nothing counted */
-+	damon_for_each_region_safe(r, next, t)
-+		damon_destroy_region(r, t);
-+	s->stat = (struct damos_stat){};
-+	s->quota.esz = 1;
-+	s->quota.charged_sz = 0;
-+
-+	r = damon_new_region(0, 4 * min_sz);
-+	if (!r) {
-+		damon_destroy_ctx(c);
-+		kunit_skip(test, "region alloc fail");
-+	}
-+	damon_add_region(r, t);
-+
-+	damos_apply_scheme(c, t, r, s);
-+	KUNIT_EXPECT_EQ(test, s->stat.nr_tried, 1);
-+	KUNIT_EXPECT_EQ(test, s->stat.sz_tried, 0);
-+	KUNIT_EXPECT_EQ(test, r->ar.end, 4 * min_sz);
-+
-+	damon_destroy_ctx(c);
-+}
-+
- static void damon_test_feed_loop_next_input(struct kunit *test)
- {
- 	unsigned long last_input = 900000, current_score = 200;
-@@ -1959,6 +2272,9 @@ static struct kunit_case damon_test_case
- 	KUNIT_CASE(damon_test_commit_ctx),
- 	KUNIT_CASE(damon_test_valid_probe_params),
- 	KUNIT_CASE(damos_test_filter_out),
-+	KUNIT_CASE(damos_test_apply_scheme_filtered_sz),
-+	KUNIT_CASE(damos_test_apply_scheme_filter_sz_unchanged),
-+	KUNIT_CASE(damos_test_apply_scheme_quota_sz),
- 	KUNIT_CASE(damon_test_feed_loop_next_input),
- 	KUNIT_CASE(damon_test_set_filters_default_reject),
- 	KUNIT_CASE(damon_test_apply_min_nr_regions),
-_
-
-Patches currently in -mm which might be from donggeunyoo.kernel@gmail.com are
-
-mm-damon-core-charge-only-the-part-of-a-region-the-filter-left.patch
-mm-damon-tests-core-kunit-test-the-size-charged-for-a-filter-trimmed-region.patch
+-- 
+2.39.5
 
