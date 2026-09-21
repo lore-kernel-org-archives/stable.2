@@ -1,122 +1,134 @@
-Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
+Received: from mail-m155101.qiye.163.com (mail-m155101.qiye.163.com [101.71.155.101])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D44E4A2E1A
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:51:45 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id F1B6249B5A4;
+	Mon, 21 Sep 2026 14:54:01 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=101.71.155.101
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002306; cv=none; b=ToqqqBnnIEDW1QhlbKYso2YvUDSh1kZOIr9LxYfegsFp790olJLc1PppVo5b2CTPagaW3FPZr8L8jXQwJDt6lvPPtDKkqknUOQp34/Mkc2Alh6RywYcwpGHl7MZLWBhY15eYvbxGpN+NN04USCcW+1MeVZjjIFrBP5ujkTV4HQs=
+	t=1790002451; cv=none; b=UR9xRDflFsZMJ98X4GP0RFsQoNImt51lPiN75epPh2+F11/rmBzX0cs7JDUg5AylWIBbPq1KXw2lzfo5I4WmAjn1P+Jlp0TrUFu64PtokbyAYe6nF0aOAdwbzZKaI+N57BYj/8p3zihzch4umzmcGEUL4D1RGH+SnDnLVc0z+ec=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002306; c=relaxed/simple;
-	bh=J/dVafMLo+higmRBi49yI0qBk9RLrQcNkd4edlOSrNE=;
-	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
-	 To:Cc:Content-Type; b=PJ6TBR2LBUmlbhh7rpCquFfRQrZJz7M6WQduz91H8VfALO43wQ9tIEesqd1yAFTJD8wEcr9vkYBRF7cNTmL3v42xFax8ObSYxTXvfhP4YKH6NbAIe/BDGF/y0h+EDO/suva+ysalYFkf1wzGk2LqxvSsNxgyzANlYFKzMgQ/2To=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOK/cou2; arc=none smtp.client-ip=100.103.45.18
+	s=arc-20240116; t=1790002451; c=relaxed/simple;
+	bh=4tljT0UkC55usKowBbdeFYcEaGePDIjXOwpNQ1L4Pcw=;
+	h=From:To:Cc:Subject:Date:Message-Id:MIME-Version; b=d+OE4zOnPHec6Q8R4TvHV8ge+1Mcdi9KF2PDWvPVwEcepIh3DEB7S+yX2bjYGmv2JXyJyZpO8CVRiXJItFTAkp7gY/qDHvPtAEYyG3XRsHTVKGIZal+Og+3twAl0hqocySZyRkulM97ZW7mL3POtiD359jlK4lbWoozfWspjJwY=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn; spf=pass smtp.mailfrom=seu.edu.cn; dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b=Z9gx2Fft; arc=none smtp.client-ip=101.71.155.101
+Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=seu.edu.cn
+Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=seu.edu.cn
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOK/cou2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6D221F00893
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:51:44 +0000 (UTC)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790002304;
-	bh=Ts7fPQfO6L1Xr5sR8XD5bM5e85VTo6NwQNgErntbsS0=;
-	h=From:In-Reply-To:References:Date:Subject:To:Cc;
-	b=gOK/cou21emnUAlAs6ztTC0yYGzZp8pyXoDxPOm3fnrrGeODiz/2weJ1q9qC2xBms
-	 GoN7x/Vi3hYVCHi+RilKLGjRolzhBf+yQwK8juX0sM111VwWO6fjzTCaO0l22rSvLe
-	 C5J+2O0l5hQHel93FQx8/9bcgZcHEhHDYsRXtz1dX6nbhqQV7yQLeCIVDNjAPN5RZW
-	 K2pUcA6vprARBJObmOxH8P58yMe2qPttSDoZBi3MhSrZd4xgany+z9wpCvKbJLTgLs
-	 eHI1hTzYUAQyS5FOVPKrC1bBDwRShOC8/urW/QZyJh4E927tftjfNKpvxpbrN0hcyi
-	 GhoXrfBwRWBZQ==
-Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so26416111fa.0
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:51:44 -0700 (PDT)
-X-Forwarded-Encrypted: i=1; AKwUvByn4Tr/v77WC8Xqz5/7JWHtsODRXKFqSMIx8Q5I9SgCAUC+ADNyaosOmyh3A2J3X+6buZ2vpJY=@vger.kernel.org
-X-Gm-Message-State: AFuF++lKtGvw342EvCGGXtirMQE+qD2q7opV62L7iJB6k4Ib5zH3rNYl
-	g6NqnjC+wQgjb7/D2Dxmu7sBHkQ2QJISIWeLh/0NPhlOsTS87dC4fod8OJwuwTG18BPK2nQEYVI
-	YowPGEfgdziCcRMyOTw7H7/nnaH2mfdK4JTCSKrCNsQ==
-X-Received: by 2002:a2e:be10:0:b0:3a5:b6af:2973 with SMTP id
- 38308e7fff4ca-3a5fbe86f32mr23860151fa.5.1790002303600; Mon, 21 Sep 2026
- 07:51:43 -0700 (PDT)
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 10:51:42 -0400
-Received: from 969154062570 named unknown by gmailapi.google.com with
- HTTPREST; Mon, 21 Sep 2026 10:51:42 -0400
-From: Bartosz Golaszewski <brgl@kernel.org>
-In-Reply-To: <20260921133505.GA90171@rigel>
+	dkim=pass (1024-bit key) header.d=seu.edu.cn header.i=@seu.edu.cn header.b="Z9gx2Fft"
+Received: from PC-202605011814.localdomain (unknown [222.191.246.242])
+	by smtp.qiye.163.com (Hmail) with ESMTP id 4e97fb598;
+	Mon, 21 Sep 2026 22:53:45 +0800 (GMT+08:00)
+From: Runyu Xiao <runyu.xiao@seu.edu.cn>
+To: Vishal Bhakta <vishal.bhakta@broadcom.com>
+Cc: Broadcom internal kernel review list <bcm-kernel-feedback-list@broadcom.com>,
+	"James E . J . Bottomley" <James.Bottomley@HansenPartnership.com>,
+	"Martin K . Petersen" <martin.petersen@oracle.com>,
+	Jim Gill <jgill@vmware.com>,
+	linux-scsi@vger.kernel.org,
+	linux-kernel@vger.kernel.org,
+	stable@vger.kernel.org,
+	Runyu Xiao <runyu.xiao@seu.edu.cn>,
+	Jianhao Xu <jianhao.xu@seu.edu.cn>
+Subject: [PATCH] scsi: vmw_pvscsi: only free a requested IRQ
+Date: Mon, 21 Sep 2026 22:53:39 +0800
+Message-Id: <20260921145339.307402-1-runyu.xiao@seu.edu.cn>
+X-Mailer: git-send-email 2.34.1
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-References: <20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com>
- <20260921133505.GA90171@rigel>
-Date: Mon, 21 Sep 2026 10:51:42 -0400
-X-Gmail-Original-Message-ID: <CAMRc=MeeVLALF6DU70DMwg7=F6d0kVdWEz=ugYJFt2dOR2T9YQ@mail.gmail.com>
-X-Gm-Features: AcwNN1WNwd2vGvSwTAltFFQ82w381AeNA2BKm3xzOM8thzpgNI5Tc8azTbhAE_Q
-Message-ID: <CAMRc=MeeVLALF6DU70DMwg7=F6d0kVdWEz=ugYJFt2dOR2T9YQ@mail.gmail.com>
-Subject: Re: [PATCH v2] gpio: cdev: fix kernel stack leak to user-space in
- error path
-To: Kent Gibson <warthog618@gmail.com>
-Cc: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
-	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
-	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
-	Sashiko <sashiko-bot@kernel.org>, 
-	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
-Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: 8bit
+X-HM-Tid: 0aa0c4756e0303a1kunmf1aca89053058
+X-HM-MType: 10
+X-HM-Spam-Status: e1kfGhgUHx5ZQUpXWQgPGg8OCBgUHx5ZQUlOS1dZFg8aDwILHllBWSg2Ly
+	tZV1koWUFITzdXWRgWCB1ZQUpXWS1ZQUlXWQ8JGhUIEh9ZQVkZSBhPVh5PTkhJTxlISEpMS1YeHw
+	5VEwETFhoSFyQUDg9ZV1kYEgtZQVlJSUlVSkJKVUlPTVVJT0lZV1kWGg8SFR0UWUFZT0tIVUpLSE
+	pPSExVSktLVUpCS0tZBg++
+DKIM-Signature: a=rsa-sha256;
+	b=Z9gx2FftTv9qEk9q4XrYnV3uVAudxN1o/mr9BgIFlWgrTdgUu7Di5lOumMwZCFXDkOxu8JZ6gcRFywuXc6xwhHFrWwxfo0mEh63KSt1mdpWQjJrfd7uRU8gvCFLgF/ZWQu6US3gXEiOtnz1mHEXuozqehtmwifAU7ed4uSX4JDc=; c=relaxed/relaxed; s=default; d=seu.edu.cn; v=1;
+	bh=KEuHVsjNPxiQYkvXDKOhWZsKO1tEFxl0yddp6YFoVPs=;
+	h=date:mime-version:subject:message-id:from;
 
-On Mon, 21 Sep 2026 15:35:05 +0200, Kent Gibson <warthog618@gmail.com> said:
-> On Mon, Sep 21, 2026 at 02:56:58PM +0200, Bartosz Golaszewski wrote:
->> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
->> return immediately before zeroing the info struct we'll end up passing
->> to the user-space later in lineinfo_get_v1(). This may leak the kernel
->> stack contents. Make gpio_desc_to_lineinfo() return int so that the
->> -ENODEV returned on failure to acquire the guard can be propagated to
->> the callers.
->>
->> While not strictly necessary: move the memset() before trying to acquire
->> the SRCU read lock too for good measure.
->>
->> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
->> Cc: stable@vger.kernel.org
->> Reported-by: Sashiko <sashiko-bot@kernel.org>
->> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
->> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
->> ---
->> Changes in v2:
->> - Make gpio_desc_to_lineinfo() return an integer return value so that
->>   the error code returned in case of a failure to acquire the guard can
->>   be propagated down the stack
->> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
->
->> @@ -2521,7 +2533,14 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
->>
->>  	ctx->chg.event_type = action;
->>  	ctx->chg.timestamp_ns = ktime_get_ns();
->> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
->> +
->> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
->> +	if (ret) {
->> +		fput(fp);
->> +		pr_err("GPIO controller that generated the line info notification was removed\n");
->> +		return NOTIFY_DONE;
->> +	}
->> +
->
-> Does resolving a race warrant an error?
->
+pvscsi_shutdown_intr() is used by both normal teardown and probe failure
+paths. It unconditionally calls free_irq(), even when probe fails before
+request_irq() or pci_alloc_irq_vectors() has succeeded. That passes an
+unregistered IRQ to free_irq(), which reports an already-free IRQ.
 
-I guess not, we can just not do anything in this case.
+Track successful request_irq() registration and only free the IRQ on that
+path. Clear the state after freeing so repeated shutdown paths remain safe.
 
-> Also, compared to the kzalloc_obj() error path earlier in the function, here
-> you flip the order of the fput() and pr_err(). Is that significant?
->
+Reproducer:
 
-No, if anything this version is more correct as we drop the no-longer-needed
-resource before printing a log. But with the above it's irrelevant anyway.
+  Build an x86_64 kernel with CONFIG_PCI=y, CONFIG_SCSI=y,
+  CONFIG_SCSI_LOWLEVEL=y, CONFIG_VMWARE_PVSCSI=m,
+  CONFIG_FUNCTION_ERROR_INJECTION=y, CONFIG_FAULT_INJECTION=y,
+  CONFIG_FAULT_INJECTION_DEBUG_FS=y, and CONFIG_FAIL_FUNCTION=y. For
+  testing, add ALLOW_ERROR_INJECTION(scsi_host_alloc, NULL) to
+  drivers/scsi/hosts.c, then boot QEMU with a PVSCSI device:
 
-Bart
+    qemu-system-x86_64 -machine pc -m 1G -smp 2 -nodefaults \
+      -no-reboot -display none -serial file:console.log \
+      -kernel arch/x86/boot/bzImage -initrd test.cpio.gz \
+      -append 'console=ttyS0 rdinit=/init loglevel=7 panic=1' \
+      -device pvscsi,id=scsi0
 
-> Other than that, looks good to me.
->
-> Cheers,
-> Kent.
->
+  In the guest, mount debugfs and inject one NULL return from
+  scsi_host_alloc() before loading vmw_pvscsi:
+
+    mount -t debugfs none /sys/kernel/debug
+    echo 100 > /sys/kernel/debug/fail_function/probability
+    echo 1 > /sys/kernel/debug/fail_function/times
+    echo scsi_host_alloc > /sys/kernel/debug/fail_function/inject
+    echo 0 > /sys/kernel/debug/fail_function/scsi_host_alloc/retval
+    insmod vmw_pvscsi.ko
+
+  On the unfixed kernel, the probe reaches pvscsi_shutdown_intr() before
+  request_irq() and prints "Trying to free already-free IRQ 10" followed
+  by a warning from __free_irq(). The fixed kernel reaches the same
+  failure path without the unmatched free_irq() warning. The injection
+  is deliberate and is not expected during ordinary probing.
+
+Fixes: 2e48e3491189 ("scsi: vmw_pvscsi: switch to pci_alloc_irq_vectors")
+Cc: stable@vger.kernel.org
+Assisted-by: LLM Codex
+Signed-off-by: Runyu Xiao <runyu.xiao@seu.edu.cn>
+---
+ drivers/scsi/vmw_pvscsi.c | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/drivers/scsi/vmw_pvscsi.c b/drivers/scsi/vmw_pvscsi.c
+index 151cac9f9..7babef882 100644
+--- a/drivers/scsi/vmw_pvscsi.c
++++ b/drivers/scsi/vmw_pvscsi.c
+@@ -69,6 +69,7 @@ struct pvscsi_adapter {
+ 	u8				rev;
+ 	bool				use_msg;
+ 	bool				use_req_threshold;
++	bool				irq_requested;
+ 
+ 	spinlock_t			hw_lock;
+ 
+@@ -1212,7 +1213,10 @@ static void pvscsi_free_sgls(const struct pvscsi_adapter *adapter)
+ 
+ static void pvscsi_shutdown_intr(struct pvscsi_adapter *adapter)
+ {
+-	free_irq(pci_irq_vector(adapter->dev, 0), adapter);
++	if (adapter->irq_requested) {
++		free_irq(pci_irq_vector(adapter->dev, 0), adapter);
++		adapter->irq_requested = false;
++	}
+ 	pci_free_irq_vectors(adapter->dev);
+ }
+ 
+@@ -1526,6 +1530,7 @@ static int pvscsi_probe(struct pci_dev *pdev, const struct pci_device_id *id)
+ 		       "vmw_pvscsi: unable to request IRQ: %d\n", error);
+ 		goto out_reset_adapter;
+ 	}
++	adapter->irq_requested = true;
+ 
+ 	error = scsi_add_host(host, &pdev->dev);
+ 	if (error) {
+-- 
+2.34.1
