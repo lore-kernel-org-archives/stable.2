@@ -1,43 +1,45 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id B47514AA562;
-	Mon, 21 Sep 2026 15:06:00 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id A5ED247B408;
+	Mon, 21 Sep 2026 15:06:27 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003163; cv=none; b=CuwaohR7lYjUd3kStEG8P6NxGOvMtvbdwOEtMRbWBshwsFiLc+k1ewF32c0gEJdgVOXlH3T6MPKfSWRPMgB+4eR41dj1G1qYURmfcMkdHjMLlyXWZjkCZwV7mbi6rKav5A819mEaZKkXkSjttGbbVycHU7mcx5iG2jBbsNZj7YY=
+	t=1790003191; cv=none; b=lVWD8pKtM4IeDq+CFYNR7Y2KuMmDBdWRz9R7NTCeouQxat+CBKWffPtlr8ymKAAtrvMEGlSoMNzCaDG8jKLnXbuOK5fYBYTn/k6Fd4ZUG2Zlg9rgcSaQdfwhesSJdnbee4K10c7VC4yH3hAEQv9GthfNb/GuBWqvbD3vy091o0s=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003163; c=relaxed/simple;
-	bh=urNJPy0UTiwY6bL4mBfRKDiGmQGCL83scOaImPYblkM=;
+	s=arc-20240116; t=1790003191; c=relaxed/simple;
+	bh=LAciJTKpRwJnWObq9nGHD5XkrGVwEpdzJh+RGirshCw=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=nrE5jYZFPNz9us1dPj7whCLQXY0Wv3Zpr0G8zYW3RSPIb+SxGRRWKrKjEmtJYWcmhE4PCduzK55bzhW5BK7PaL61bxZHU8IvfTyHx/3XO5MKxb/p+o0b9DtF65uyXeMmlyGu23s24sZ74NjTEIHvQkEJe0wOER2qv3tbaJehL7I=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=eJIrRtM2; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=ZoSq9Mgz/qJRtGAT6zPB0guDmXjBwStAx+ZDfoeLWFP43Gc6CFmRw+nu4GahMi3LLxmo9NRF+7WJxOKBTpxjyc/2IbRVzhxJUAY917+DMsQM6zpm6d/Ygd38EjewyT916jIdiZm07RxOKo3GrNmyhZqG9IUtl7lXDwnrrpgHyhE=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=D8RDW8Wz; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="eJIrRtM2"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id 1CD231F000FF;
-	Mon, 21 Sep 2026 15:05:57 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="D8RDW8Wz"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id CD66A1F00893;
+	Mon, 21 Sep 2026 15:06:23 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003158;
-	bh=PuIy5gioVOgHxn+crCfJ2O95acc9PlnVhjspjk1+bNY=;
+	s=k20260515; t=1790003184;
+	bh=o8UxhF58k+iaCX3wK6PvC//NB+h9K2uQAHX4G8biYo8=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=eJIrRtM2RcYy5/xRAkqJ/eADyhtLBYLes4VbfyPGj/cGaSfwA7lnxWq/2b8lEyfiy
-	 QsEqqN8XsSzggqYWQfRkGUpABG7sruGNx+/yC/4OfdioZFKzuiqsGPIDxBkEINuHXi
-	 /cxLfoRKn8bgwvVeemXu42FNgOicMhy2xkFeHzui7Px73KYn2RkDJEQX7amKMxMpG7
-	 fecQiDmhRbKfQXj9HCpOjTliOD+kL29LHyP62c2eyI5F6dJ3G/Hy+NXXvKwQhbkSBd
-	 j5KfoCtaHwIPAqJiJFAEvbzQfKIDXd3a+XtVyTRJ+Qhk7rM8eyxkI7vTbgRYEqrfUw
-	 He+YHiYhBKH9w==
-Date: Mon, 21 Sep 2026 17:05:55 +0200
+	b=D8RDW8WzG4OpVxumPDO8TlLVwz9/nnxdk9cLCQtBcShI/0svLDkEkkC3Q9SuyjWk5
+	 H1HgCYakN/jK7CbTOk71TQT200FRwLh4E3PrLoqENo8w7DIRYWB3j3HETG/rAOGaxf
+	 2tuZFWe3gp+hP0PQ3BA+a/NfqPJG3mmLUpVzKM61aHJAY8yXqvIfJ2RjldBHL1Ix6s
+	 dd+D8UdnsBYMWepRkXQrJpDpqo+A7jiRU2UzhL8Q/Uh4mqLZYbubdxCHFkFo/9X9/E
+	 kyIA7fPxfetPDCl9SIT57j0tkv1oXYBnyEQdWWz879XpuhoeRbzR59iHuozn3I6IAP
+	 0K6UxKaYq3+hg==
+Date: Mon, 21 Sep 2026 17:06:21 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: stable@vger.kernel.org, 
-	Benedikt Niedermayr <benedikt.niedermayr@siemens.com>, linux-kernel@vger.kernel.org, 
-	Tobias Schaffner <tobias.schaffner@siemens.com>, platform-driver-x86@vger.kernel.org, 
-	Ilpo =?utf-8?B?SsOkcnZpbmVu?= <ilpo.jarvinen@linux.intel.com>, Hans de Goede <hansg@kernel.org>, 
-	Bao Cheng Su <baocheng.su@siemens.com>, Henning Schild <henning.schild@siemens.com>
-Subject: Re: [PATCH] platform/x86: simatic-ipc: fix platform device leak on
- registration failure
-Message-ID: <arFH0ridHWo3Z_w9@quoll>
-References: <20260921075312.120983-1-lgs201920130244@gmail.com>
+Cc: Peter Ujfalusi <peter.ujfalusi@linux.intel.com>, 
+	linux-sound@vger.kernel.org, stable@vger.kernel.org, Jaroslav Kysela <perex@perex.cz>, 
+	Thorsten Blum <thorsten.blum@linux.dev>, Pierre-Louis Bossart <pierre-louis.bossart@linux.dev>, 
+	Mark Brown <broonie@kernel.org>, Takashi Iwai <tiwai@suse.com>, 
+	Cezary Rojewski <cezary.rojewski@intel.com>, Kai Vehmanen <kai.vehmanen@linux.intel.com>, 
+	Liam Girdwood <liam.r.girdwood@linux.intel.com>, Bard Liao <yung-chuan.liao@linux.intel.com>, 
+	linux-kernel@vger.kernel.org
+Subject: Re: [PATCH] ASoC: Intel: SST: fix platform device leak on probe
+ failure
+Message-ID: <arFH7F944RO7TUqN@quoll>
+References: <20260921073847.63505-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,32 +48,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921075312.120983-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260921073847.63505-1-lgs201920130244@gmail.com>
 
 
-On Mon, 21 Sep 2026 15:53:12 +0800, Guangshuo Li wrote:
-> register_platform_devices() creates multiple platform devices using
-> platform_device_register_data(), but returns directly when a later
-> platform device registration fails.
+On Mon, 21 Sep 2026 15:38:47 +0800, Guangshuo Li wrote:
+> sst_acpi_probe() registers platform devices for the SST platform and
+> machine drivers using platform_device_register_data(), but does not
+> unregister them when later probe steps fail.
 > 
-> If LED or watchdog platform device registration fails, previously
-> registered platform devices are left registered. Since module init
-> failure does not invoke the module exit cleanup path, these platform
-> devices remain allocated and their backing platform_object memory is
-> leaked.
+> If machine device registration fails, the already registered SST platform
+> device is left registered. The same leak happens when
+> sst_platform_get_resources() or sst_context_init() fails after both
+> platform devices have been successfully registered.
 > 
-> Unregister successfully created platform devices on registration failure
-> paths to restore the missing cleanup.
+> A registered platform device owns resources allocated by the platform
+> device core and must be released with platform_device_unregister() so
+> that the device reference is dropped and platform_device_release() can
+> free the backing platform_object.
+> 
+> Unregister the created platform devices on all failure paths to restore
+> the missing cleanup.
 > 
 > The issue was identified by a static analysis tool I developed and
 > confirmed by manual review.
 > 
-> Fixes: dd123e62bded ("platform/x86: simatic-ipc: add main driver for Siemens devices")
+> Fixes: caf94ed8629a ("ASoC: Intel: bytcr_rt5640: fixup DAI codec_name with HID")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/platform/x86/siemens/simatic-ipc.c | 40 ++++++++++++++++++----
->  1 file changed, 34 insertions(+), 6 deletions(-)
+>  sound/soc/intel/atom/sst/sst_acpi.c | 13 ++++++++++---
+>  1 file changed, 10 insertions(+), 3 deletions(-)
 > 
 
 
