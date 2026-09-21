@@ -1,43 +1,41 @@
 Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 086B747607A;
-	Mon, 21 Sep 2026 15:07:20 +0000 (UTC)
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 9C0E449B5BF;
+	Mon, 21 Sep 2026 15:07:51 +0000 (UTC)
 Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790003242; cv=none; b=aXjl0u4V8pjiPc393ivwLxB8hqE2Gt/BWgfI15uJB3OlnYwBh/kp32DSTX+a5qgskPcfWMlF1COJAqytHExjtWwszht04EYavV72Ric0PNAkXr0n6XQQduPkOvWLxarlqG0elgg8i01Kq4tJQXso3uq1ZH6rhwN0TGpT83C4XT8=
+	t=1790003272; cv=none; b=L3IJ+uleAMyIP5McSaNz3erYdBqttyjTAo3fwjCDcqbj17INLjDABb1uiwYgo/gVnKySvCBt49xdFeKimGV/mbZlw39aHlrQ14IRkdbimkjk1C8wtfwp/VvrIwQ67dEPyr8zVreBCKi9zpkYSyGBufiGlBQzbcNQMqOweyR/puQ=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790003242; c=relaxed/simple;
-	bh=feog7uodYBs+q4YbR1VpaCL2OMRtRJhnYK2voJL0USE=;
+	s=arc-20240116; t=1790003272; c=relaxed/simple;
+	bh=3h2Vf7MQ6gbPIAHlTb6Tf0jJ1oiG9fyeFNnXc+/BghA=;
 	h=Date:From:To:Cc:Subject:Message-ID:References:MIME-Version:
-	 Content-Type:Content-Disposition:In-Reply-To; b=X2RTxb8YRPo9OmdrNfAPXmHsYhj2ctVQObl5ruMc6oFJWZ8E9WYubsyrVGuQhRXgDaWaYbWLgSizIKap4L9543IKg8Wuu8WjsAJVNUuMXj+xgM1KV9JFyj9d9wvyNsXazroCKA06S95JWbXZExgqMzuiLh7j7yVg4w4l2GqKEvc=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=C/PKQEwy; arc=none smtp.client-ip=100.103.45.18
+	 Content-Type:Content-Disposition:In-Reply-To; b=G5Wa3KGKk0qKvbvsXOj7Nkjfk3fZV8hz/rNchYvTtHPHH0E0u6bocHksziyTWV/XPv9wnlViaiYc9cKHZGok7NERzR0FuPRUo5CnupPZQrmzghE1DWlyHIz3ezL2+2KuXIUvBA2HvD2z1fpBoehZD7RERYL8NKEsRlF+oJJ/Epc=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=TFm9+AdS; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="C/PKQEwy"
-Received: by smtp.kernel.org (Postfix) with ESMTPSA id A58001F000FF;
-	Mon, 21 Sep 2026 15:07:19 +0000 (UTC)
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="TFm9+AdS"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id 88C901F000FF;
+	Mon, 21 Sep 2026 15:07:50 +0000 (UTC)
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
-	s=k20260515; t=1790003240;
-	bh=C9OuFK8krYG5CFJQY5mJoDN0CmcjBiY8Df4psmo7f7k=;
+	s=k20260515; t=1790003271;
+	bh=q9yFLU7Unm1OdMVHZt4OUgFFo5ERQU/PMsBOuAHW9rA=;
 	h=Date:From:To:Cc:Subject:References:In-Reply-To;
-	b=C/PKQEwySgSwNGafp4Sed39F3rpKkgJQ9XIP0UYxKqxZvrMvYXyt6ySX5tsVuZxtC
-	 RSIe4qkmkI/8xo5pUSmj+b00/rzYZG/O/+NjmfTYri9F6GQCday5ZSCBk/dZ++SmHi
-	 yDJ5oVf3VsfjfgWRSliRTvrU2goNx1jIs2e+vTPfdHvqAW2uZzlbqr8YyDKiCwp5+K
-	 aODTlXJN+FNQIfmh7Wkcm690cvq4z+0SYEXJJD7z36I2Nre/4NAUYriP8EoES8qcu7
-	 2DmPWmMMg++gdD1uKvCsAj/LuqEtyNTKRF4EDKjEGvWx7mkbwWtXkUsooLBtCMTbQw
-	 6VM9txvXC8xOA==
-Date: Mon, 21 Sep 2026 17:07:17 +0200
+	b=TFm9+AdSAtN3mbnlYd4vgC9VRbh+5bmnO3N7kojWXSlHpCT3NZ1MCAGq9g8INFYhd
+	 cJEomEBvzicrLJYdvKXM8TPcHEOIGlTBkw/GHRGelyMkt6F9jeZgsXfJEkvMpP88fJ
+	 7UGx6LFRqxolT1wz7z0X9PdsvIw1V3u46B8ArkKFHRWO0jw/4vkyUAsexYkWQhzwfD
+	 HHDcKX0cKMfxxwsgGk9IwyXwuKMXPyM2fUy/DXpsbOfjuLBDEc0L7H/9mQFve8u+/S
+	 jU0enoDxTG0/bi//OGFfqy2XOABCpNPAisaw9LGTTx3V16ciE7oaBchTTKgOZrqUtF
+	 zmveSO419KXqQ==
+Date: Mon, 21 Sep 2026 17:07:48 +0200
 From: krzk@kernel.org
 To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Yonglong Wu <yonglong.wu@mediatek.com>, 
-	linux-arm-kernel@lists.infradead.org, linux-mediatek@lists.infradead.org, 
-	Greg Kroah-Hartman <gregkh@linuxfoundation.org>, linux-usb@vger.kernel.org, linux-kernel@vger.kernel.org, 
-	Matthias Brugger <matthias.bgg@gmail.com>, Min Guo <min.guo@mediatek.com>, stable@vger.kernel.org, 
-	Bin Liu <b-liu@ti.com>, 
-	AngeloGioacchino Del Regno <angelogioacchino.delregno@collabora.com>
-Subject: Re: [PATCH] usb: musb: mediatek: fix child device leak
-Message-ID: <arFIIXUAYO8OXa_5@quoll>
-References: <20260921085119.308981-1-lgs201920130244@gmail.com>
+Cc: linux-kernel@vger.kernel.org, Robert Love <robert.w.love@intel.com>, 
+	linux-scsi@vger.kernel.org, "James E.J. Bottomley" <James.Bottomley@hansenpartnership.com>, 
+	"Martin K. Petersen" <martin.petersen@oracle.com>, Joe Eykholt <jeykholt@cisco.com>, Hannes Reinecke <hare@suse.de>, 
+	stable@vger.kernel.org, James Bottomley <James.Bottomley@suse.de>
+Subject: Re: [PATCH] scsi: libfc: fix directory server rport memory leak
+Message-ID: <arFIQcyQWxDnA_X9@quoll>
+References: <20260919173405.3718408-1-lgs201920130244@gmail.com>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
@@ -46,31 +44,36 @@ List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
 Content-Type: text/plain; charset=utf-8
 Content-Disposition: inline
-In-Reply-To: <20260921085119.308981-1-lgs201920130244@gmail.com>
+In-Reply-To: <20260919173405.3718408-1-lgs201920130244@gmail.com>
 
 
-On Mon, 21 Sep 2026 16:51:19 +0800, Guangshuo Li wrote:
-> mtk_musb_probe() populates child platform devices using
-> of_platform_populate(), but neither the probe error paths nor the
-> driver remove path depopulate them.
+On Sun, 20 Sep 2026 01:34:05 +0800, Guangshuo Li wrote:
+> fc_rport_recv_plogi_req() creates an rport before allocating the frame
+> used for the PLOGI LS_ACC response.
 > 
-> If any initialization step after of_platform_populate() fails, the
-> probe returns without unregistering the populated child devices.
-> Likewise, the children remain registered when the driver is later
-> unbound.
+> fc_rport_create() does not add FC_FID_DIR_SERV rports to the discovery
+> rport list. If fc_frame_alloc() fails while handling a PLOGI from the
+> directory server, the function returns without starting the rport state
+> machine or dropping the initial rport reference.
 > 
-> Use devm_of_platform_populate() so the populated child devices are
-> automatically depopulated when probe fails or the driver is unbound.
+> Since the directory server rport is not present in the discovery list,
+> there is no later teardown path that can find the object and release
+> that reference. The allocated fc_rport_priv is therefore leaked.
+> 
+> Record when the failed frame allocation leaves an unlisted directory
+> server rport behind and drop its initial reference after releasing the
+> rport mutex. Keep the existing lifetime unchanged for ordinary rports,
+> which remain owned by the discovery list.
 > 
 > The issue was identified by a static analysis tool I developed and
 > confirmed by manual review.
 > 
-> Fixes: 0990366bab3c ("usb: musb: Add support for MediaTek musb controller")
+> Fixes: 3ac6f98f4113 ("[SCSI] libfc: correctly handle incoming PLOGI request.")
 > Cc: stable@vger.kernel.org
 > Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
 > ---
->  drivers/usb/musb/mediatek.c | 2 +-
->  1 file changed, 1 insertion(+), 1 deletion(-)
+>  drivers/scsi/libfc/fc_rport.c | 7 ++++++-
+>  1 file changed, 6 insertions(+), 1 deletion(-)
 > 
 
 
