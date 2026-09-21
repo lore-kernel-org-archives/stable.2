@@ -1,135 +1,122 @@
-Received: from mout-p-202.mailbox.org (mout-p-202.mailbox.org [80.241.56.172])
+Received: from smtp.kernel.org (aws-us-west-2-korg-mail-alma10-1.taild15c8.ts.net [100.103.45.18])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id C336E478E20;
-	Mon, 21 Sep 2026 14:46:59 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=80.241.56.172
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0D44E4A2E1A
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:51:45 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=100.103.45.18
 ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790002024; cv=none; b=rKA5o/7PU1pzjAXZ69jSyVYj2KTBBPKi6XgVnsAwZdgkzWnLKlEZqwtkm2uKQVWKv7c1HPyPZbHj7EALd+JuU8fAE/Be/EnkaYva7X1ntsolK8/9j64YWnmEgqAhn27dspk46ERHuEUY1ca89cqX0N7ZeRYRTT8+GOt08iTzbUI=
+	t=1790002306; cv=none; b=ToqqqBnnIEDW1QhlbKYso2YvUDSh1kZOIr9LxYfegsFp790olJLc1PppVo5b2CTPagaW3FPZr8L8jXQwJDt6lvPPtDKkqknUOQp34/Mkc2Alh6RywYcwpGHl7MZLWBhY15eYvbxGpN+NN04USCcW+1MeVZjjIFrBP5ujkTV4HQs=
 ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790002024; c=relaxed/simple;
-	bh=XfmWMsNyU4Xs7fZq4urf6ghCDU85y2X+vPQbSZlaygU=;
-	h=Message-ID:Date:MIME-Version:Subject:To:Cc:References:From:
-	 In-Reply-To:Content-Type; b=VuOb/BXAKmjTTnTE8XcXx4MQYJBeKQvGUkNa7Q/OTmGo+Lf0E1en4kgHDT4uJItDTcGFrQfiaicFJOCBc59tUBZ62iJts/DUS+sSImQxrzDhl7YasxCcMoKZzBNkTamKMsBKBAzm9KfIWSDAbeO0sha6OcsEZ04/TgiJSEmp6KI=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org; spf=pass smtp.mailfrom=mailbox.org; dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b=E5wnfoAg; arc=none smtp.client-ip=80.241.56.172
-Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=reject dis=none) header.from=mailbox.org
-Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=mailbox.org
+	s=arc-20240116; t=1790002306; c=relaxed/simple;
+	bh=J/dVafMLo+higmRBi49yI0qBk9RLrQcNkd4edlOSrNE=;
+	h=From:In-Reply-To:MIME-Version:References:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=PJ6TBR2LBUmlbhh7rpCquFfRQrZJz7M6WQduz91H8VfALO43wQ9tIEesqd1yAFTJD8wEcr9vkYBRF7cNTmL3v42xFax8ObSYxTXvfhP4YKH6NbAIe/BDGF/y0h+EDO/suva+ysalYFkf1wzGk2LqxvSsNxgyzANlYFKzMgQ/2To=
+ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b=gOK/cou2; arc=none smtp.client-ip=100.103.45.18
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=mailbox.org header.i=@mailbox.org header.b="E5wnfoAg"
-Received: from smtp102.mailbox.org (smtp102.mailbox.org [IPv6:2001:67c:2050:b231:465::102])
-	(using TLSv1.3 with cipher TLS_AES_256_GCM_SHA384 (256/256 bits)
-	 key-exchange x25519 server-signature RSA-PSS (4096 bits) server-digest SHA256)
-	(No client certificate requested)
-	by mout-p-202.mailbox.org (Postfix) with ESMTPS id 4hpQzY1QSPzMlDv;
-	Mon, 21 Sep 2026 16:46:49 +0200 (CEST)
-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=mailbox.org; s=mail20150812;
-	t=1790002009;
-	h=from:from:reply-to:subject:subject:date:date:message-id:message-id:
-	 to:to:cc:cc:mime-version:mime-version:content-type:content-type:
-	 content-transfer-encoding:content-transfer-encoding:
-	 in-reply-to:in-reply-to:references:references;
-	bh=3enihJHYZmOm2PLsVe1+ufKeMP1zdXy551QL6AebGT8=;
-	b=E5wnfoAg79Pyi0OIOhN96jFYpOcGk8E58PDv5uNz01h+axmAQ7zEvhH39xsvft5frqb2hF
-	2QX/3S9IF+2maSXynV8gkycKF+VeUvr0JiK/BAvBkuYl/V7dZPOFCN89IyI78FGMLLdsKQ
-	nEUQ79dKUv3K9jjRD2xvb2z5FAK41RD47azM8Ha6+STsivnKwKAxfYsneNj9OdSlLjy+SK
-	uTXlvZdY4BUbp0LPPgrf31nUtqZGmG95IFWeIv2vz7rxCv6sBtW9uNumfHOqVPD49g3C/l
-	1vJj4ij31SEO1Ux8ZE7oEjMohSOYanwJNhAxlLJgKWQWWA4Ym2VdMCFqXQujQg==
-Message-ID: <a3db8ebd-0a99-4436-821a-f12d353ea6fc@mailbox.org>
-Date: Mon, 21 Sep 2026 16:46:44 +0200
+	dkim=pass (2048-bit key) header.d=kernel.org header.i=@kernel.org header.b="gOK/cou2"
+Received: by smtp.kernel.org (Postfix) with ESMTPSA id E6D221F00893
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 14:51:44 +0000 (UTC)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed; d=kernel.org;
+	s=k20260515; t=1790002304;
+	bh=Ts7fPQfO6L1Xr5sR8XD5bM5e85VTo6NwQNgErntbsS0=;
+	h=From:In-Reply-To:References:Date:Subject:To:Cc;
+	b=gOK/cou21emnUAlAs6ztTC0yYGzZp8pyXoDxPOm3fnrrGeODiz/2weJ1q9qC2xBms
+	 GoN7x/Vi3hYVCHi+RilKLGjRolzhBf+yQwK8juX0sM111VwWO6fjzTCaO0l22rSvLe
+	 C5J+2O0l5hQHel93FQx8/9bcgZcHEhHDYsRXtz1dX6nbhqQV7yQLeCIVDNjAPN5RZW
+	 K2pUcA6vprARBJObmOxH8P58yMe2qPttSDoZBi3MhSrZd4xgany+z9wpCvKbJLTgLs
+	 eHI1hTzYUAQyS5FOVPKrC1bBDwRShOC8/urW/QZyJh4E927tftjfNKpvxpbrN0hcyi
+	 GhoXrfBwRWBZQ==
+Received: by mail-lr2-f12.google.com with SMTP id 38308e7fff4ca-3a59bc470d6so26416111fa.0
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 07:51:44 -0700 (PDT)
+X-Forwarded-Encrypted: i=1; AKwUvByn4Tr/v77WC8Xqz5/7JWHtsODRXKFqSMIx8Q5I9SgCAUC+ADNyaosOmyh3A2J3X+6buZ2vpJY=@vger.kernel.org
+X-Gm-Message-State: AFuF++lKtGvw342EvCGGXtirMQE+qD2q7opV62L7iJB6k4Ib5zH3rNYl
+	g6NqnjC+wQgjb7/D2Dxmu7sBHkQ2QJISIWeLh/0NPhlOsTS87dC4fod8OJwuwTG18BPK2nQEYVI
+	YowPGEfgdziCcRMyOTw7H7/nnaH2mfdK4JTCSKrCNsQ==
+X-Received: by 2002:a2e:be10:0:b0:3a5:b6af:2973 with SMTP id
+ 38308e7fff4ca-3a5fbe86f32mr23860151fa.5.1790002303600; Mon, 21 Sep 2026
+ 07:51:43 -0700 (PDT)
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 10:51:42 -0400
+Received: from 969154062570 named unknown by gmailapi.google.com with
+ HTTPREST; Mon, 21 Sep 2026 10:51:42 -0400
+From: Bartosz Golaszewski <brgl@kernel.org>
+In-Reply-To: <20260921133505.GA90171@rigel>
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Subject: Re: [PATCH] PCI: keystone: deinitialize endpoint on remove
-To: Guangshuo Li <lgs201920130244@gmail.com>
-Cc: Lorenzo Pieralisi <lpieralisi@kernel.org>,
- =?UTF-8?Q?Krzysztof_Wilczy=C5=84ski?= <kwilczynski@kernel.org>,
- Manivannan Sadhasivam <mani@kernel.org>, Rob Herring <robh@kernel.org>,
- Bjorn Helgaas <bhelgaas@google.com>, Siddharth Vadapalli
- <s-vadapalli@ti.com>, Frank Li <Frank.Li@nxp.com>,
- Niklas Cassel <cassel@kernel.org>, Yuho Choi <dbgh9129@gmail.com>,
- Kishon Vijay Abraham I <kishon@kernel.org>, linux-pci@vger.kernel.org,
- linux-kernel@vger.kernel.org, Koichiro Den <den@valinux.co.jp>,
- stable@vger.kernel.org, Nishanth Menon <nm@ti.com>
-References: <20260916080030.2960608-1-lgs201920130244@gmail.com>
- <736ff398-98fa-43bc-9771-1b0d4c2a591c@mailbox.org>
- <CANUHTR_AAKH13fRAwLY5wzMjhWuzwET=-359ZMNh0VU4tULrKg@mail.gmail.com>
-Content-Language: en-US
-From: Marek Vasut <marek.vasut@mailbox.org>
-In-Reply-To: <CANUHTR_AAKH13fRAwLY5wzMjhWuzwET=-359ZMNh0VU4tULrKg@mail.gmail.com>
-Content-Type: text/plain; charset=UTF-8; format=flowed
-Content-Transfer-Encoding: 7bit
-X-MBO-RS-ID: 5b282cc8359349ccb17
-X-MBO-RS-META: 4ziniwh9xinf443pgfj1sjqcpie9y49p
+References: <20260921-gpio-cdev-stack-leak-fixes-v2-1-3307c4320352@oss.qualcomm.com>
+ <20260921133505.GA90171@rigel>
+Date: Mon, 21 Sep 2026 10:51:42 -0400
+X-Gmail-Original-Message-ID: <CAMRc=MeeVLALF6DU70DMwg7=F6d0kVdWEz=ugYJFt2dOR2T9YQ@mail.gmail.com>
+X-Gm-Features: AcwNN1WNwd2vGvSwTAltFFQ82w381AeNA2BKm3xzOM8thzpgNI5Tc8azTbhAE_Q
+Message-ID: <CAMRc=MeeVLALF6DU70DMwg7=F6d0kVdWEz=ugYJFt2dOR2T9YQ@mail.gmail.com>
+Subject: Re: [PATCH v2] gpio: cdev: fix kernel stack leak to user-space in
+ error path
+To: Kent Gibson <warthog618@gmail.com>
+Cc: Bartosz Golaszewski <brgl@kernel.org>, Linus Walleij <linusw@kernel.org>, 
+	Andy Shevchenko <andriy.shevchenko@linux.intel.com>, linux-gpio@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org, 
+	Sashiko <sashiko-bot@kernel.org>, 
+	Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+Content-Type: text/plain; charset="UTF-8"
 
-On 9/21/26 4:15 PM, Guangshuo Li wrote:
-> Hi Marek,
-> 
-> Thanks for the review.
-> 
-> On Thu, 17 Sept 2026 at 06:56, Marek Vasut <marek.vasut@mailbox.org> wrote:
+On Mon, 21 Sep 2026 15:35:05 +0200, Kent Gibson <warthog618@gmail.com> said:
+> On Mon, Sep 21, 2026 at 02:56:58PM +0200, Bartosz Golaszewski wrote:
+>> If we fail to acquire the GPIO chip guard in gpio_desc_to_lineinfo(), we
+>> return immediately before zeroing the info struct we'll end up passing
+>> to the user-space later in lineinfo_get_v1(). This may leak the kernel
+>> stack contents. Make gpio_desc_to_lineinfo() return int so that the
+>> -ENODEV returned on failure to acquire the guard can be propagated to
+>> the callers.
 >>
->> On 9/16/26 10:00 AM, Guangshuo Li wrote:
->>> ks_pcie_probe() initializes the DesignWare PCIe endpoint with
->>> dw_pcie_ep_init(). The probe failure path calls dw_pcie_ep_deinit()
->>> when endpoint register initialization fails, but the remove path does
->>> not perform the corresponding endpoint teardown after a successful
->>> probe.
->>>
->>> The successful endpoint initialization also calls pci_epc_init_notify().
->>> Without the matching teardown on removal, the EPC initialization state
->>> and resources allocated by the DesignWare endpoint core are left
->>> active after the driver is removed.
->>>
->>> Notify the endpoint framework about deinitialization and call
->>> dw_pcie_ep_deinit() before disabling runtime PM and the PHYs.
->>>
->>> This issue was found by manual code inspection.
->>>
->>> Fixes: 23284ad677a9 ("PCI: keystone: Add support for PCIe EP in AM654x Platforms")
->>> Cc: stable@vger.kernel.org
->>> Signed-off-by: Guangshuo Li <lgs201920130244@gmail.com>
->>> ---
->>>    drivers/pci/controller/dwc/pci-keystone.c | 8 ++++++++
->>>    1 file changed, 8 insertions(+)
->>>
->>> diff --git a/drivers/pci/controller/dwc/pci-keystone.c b/drivers/pci/controller/dwc/pci-keystone.c
->>> index 602516239a57..35787e727c5c 100644
->>> --- a/drivers/pci/controller/dwc/pci-keystone.c
->>> +++ b/drivers/pci/controller/dwc/pci-keystone.c
->>> @@ -1349,9 +1349,17 @@ static void ks_pcie_remove(struct platform_device *pdev)
->>>    {
->>>        struct keystone_pcie *ks_pcie = platform_get_drvdata(pdev);
->>>        struct device_link **link = ks_pcie->link;
->>> +     struct dw_pcie *pci = ks_pcie->pci;
->>> +     const struct ks_pcie_of_data *data;
->>>        int num_lanes = ks_pcie->num_lanes;
->>>        struct device *dev = &pdev->dev;
->>>
->>> +     data = of_device_get_match_data(dev);
+>> While not strictly necessary: move the memset() before trying to acquire
+>> the SRCU read lock too for good measure.
 >>
->> Could you maybe cache the mode in struct keystone_pcie {} instead ?
+>> Fixes: d83cee3d2bb1 ("gpio: protect the pointer to gpio_chip in gpio_device with SRCU")
+>> Cc: stable@vger.kernel.org
+>> Reported-by: Sashiko <sashiko-bot@kernel.org>
+>> Closes: https://sashiko.dev/#/patchset/20260912123529.7951-1-tzungbi%40kernel.org?part=3
+>> Signed-off-by: Bartosz Golaszewski <bartosz.golaszewski@oss.qualcomm.com>
+>> ---
+>> Changes in v2:
+>> - Make gpio_desc_to_lineinfo() return an integer return value so that
+>>   the error code returned in case of a failure to acquire the guard can
+>>   be propagated down the stack
+>> - Link to v1: https://patch.msgid.link/20260917-gpio-cdev-stack-leak-fixes-v1-1-2bb52879e49c@oss.qualcomm.com
+>
+>> @@ -2521,7 +2533,14 @@ static int lineinfo_changed_notify(struct notifier_block *nb,
 >>
->>> +     if (data->mode == DW_PCIE_EP_TYPE) {
->>> +             pci_epc_deinit_notify(pci->ep.epc);
->>> +             dw_pcie_ep_deinit(&pci->ep);
->>
->> Would it make sense to make dw_pcie_ep_deinit() call
->> pci_epc_deinit_notify() , to avoid duplication in controller drivers ?
->>
->>> +     }
->>> +
->>>        pm_runtime_put(dev);
->>>        pm_runtime_disable(dev);
->>>        ks_pcie_disable_phy(ks_pcie);
->>
->> --
->> Best regards,
->> Marek Vasut
-> 
-> Agreed. I'll cache the mode in struct keystone_pcie and move
-> pci_epc_deinit_notify() into dw_pcie_ep_deinit() so controller drivers
-> do not need to duplicate it. I'll send a v2 with those changes.
-Thank you
+>>  	ctx->chg.event_type = action;
+>>  	ctx->chg.timestamp_ns = ktime_get_ns();
+>> -	gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+>> +
+>> +	ret = gpio_desc_to_lineinfo(desc, &ctx->chg.info, true);
+>> +	if (ret) {
+>> +		fput(fp);
+>> +		pr_err("GPIO controller that generated the line info notification was removed\n");
+>> +		return NOTIFY_DONE;
+>> +	}
+>> +
+>
+> Does resolving a race warrant an error?
+>
+
+I guess not, we can just not do anything in this case.
+
+> Also, compared to the kzalloc_obj() error path earlier in the function, here
+> you flip the order of the fput() and pr_err(). Is that significant?
+>
+
+No, if anything this version is more correct as we drop the no-longer-needed
+resource before printing a log. But with the above it's irrelevant anyway.
+
+Bart
+
+> Other than that, looks good to me.
+>
+> Cheers,
+> Kent.
+>
