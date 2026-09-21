@@ -1,223 +1,135 @@
-Received: from mail-oi2-f43.google.com (mail-oi2-f43.google.com [74.125.231.235])
+Received: from mail-pj2-f12.google.com (mail-pj2-f12.google.com [74.125.227.140])
 	(using TLSv1.2 with cipher ECDHE-RSA-AES128-GCM-SHA256 (128/128 bits))
 	(No client certificate requested)
-	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 0114D4A7CA7
-	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 15:22:19 +0000 (UTC)
-Authentication-Results: smtp.subspace.kernel.org; arc=none smtp.client-ip=74.125.231.235
-ARC-Seal:i=1; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
-	t=1790004141; cv=none; b=PxgnhmS+frnbHUiMuqLFptHssF//4yzWQeRVCi0Z7leWVQqg6yUOk1TcK+JAZ4NaQsiSZ2mALtky5sxQ8LgZRtHJrkc5GVH9oNahvc5ZwC0S1Pmvlpcym54wbT+fMhu+5wZdl7PaaD6fDPi4k6U/+tHjZ9+MPjplcmuPD3y4UBM=
-ARC-Message-Signature:i=1; a=rsa-sha256; d=subspace.kernel.org;
-	s=arc-20240116; t=1790004141; c=relaxed/simple;
-	bh=Qrjq3GF8zqqRi7eBe4TO5ATX4Z027sHFlu3vrKg/1+E=;
-	h=From:To:Cc:Subject:Date:Message-ID:In-Reply-To:References:
-	 MIME-Version; b=fAPHiwxzyr+4gUd/CyzVnGBahaE2CY9NwewOfFlEzL8zkrNfZepotYQe8L3qKkjShY21NbRSqIUczKvFrbjK23fZg01u9fDMOqswafabDlhYY4FxVcGj3aEGI5e9Y6lUZ6P/C0iOpRayNlWiv6ZcjvqPPJdjD5JAr82YV8VYShA=
-ARC-Authentication-Results:i=1; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=VC1JhXnz; arc=none smtp.client-ip=74.125.231.235
+	by smtp.subspace.kernel.org (Postfix) with ESMTPS id 5EE874B488E
+	for <stable@vger.kernel.org>; Mon, 21 Sep 2026 15:23:31 +0000 (UTC)
+Authentication-Results: smtp.subspace.kernel.org; arc=pass smtp.client-ip=74.125.227.140
+ARC-Seal:i=2; a=rsa-sha256; d=subspace.kernel.org; s=arc-20240116;
+	t=1790004212; cv=pass; b=lyK4irCQn2GeiQSUWzOojI14H66rsxZ8Lg03lhuVgEVhkIXq76SFs4ajrbekxh5EMazwF9tFr79qxzYHompHniaWBoJRqzEzyTgRljIgtZjaD+NlCmEXfBV3G57Xrr8Ow1dAecOI3OGu4SD1ArWuf7/b0oDyaUfqBwGT9cAgKuo=
+ARC-Message-Signature:i=2; a=rsa-sha256; d=subspace.kernel.org;
+	s=arc-20240116; t=1790004212; c=relaxed/simple;
+	bh=Qvro5yCQlNCOhITq/IgfziBeqn/uBwkhHPkGycI5TvQ=;
+	h=MIME-Version:References:In-Reply-To:From:Date:Message-ID:Subject:
+	 To:Cc:Content-Type; b=e1Ix7rpkcFrW4/3E1OVKyXGfB70xwgq84USubEqhvsRpA12kmdHki0QRRwJWQbyiRT1diBKGRSnr1r8o27aX4abyFK3XmR1LHBvmcat/kBlJO2GdhztF1A4gXV0Ur267Vi3YABB8W1WTi5DqssLhhJwoeCULvLe4e2Q1d1OuBAQ=
+ARC-Authentication-Results:i=2; smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com; spf=pass smtp.mailfrom=gmail.com; dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b=RMIjwpvC; arc=pass smtp.client-ip=74.125.227.140
 Authentication-Results: smtp.subspace.kernel.org; dmarc=pass (p=none dis=none) header.from=gmail.com
 Authentication-Results: smtp.subspace.kernel.org; spf=pass smtp.mailfrom=gmail.com
 Authentication-Results: smtp.subspace.kernel.org;
-	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="VC1JhXnz"
-Received: by mail-oi2-f43.google.com with SMTP id 46e09a7af769-811424a645bso869592a34.1
-        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 08:22:19 -0700 (PDT)
+	dkim=pass (2048-bit key) header.d=gmail.com header.i=@gmail.com header.b="RMIjwpvC"
+Received: by mail-pj2-f12.google.com with SMTP id 98e67ed59e1d1-39b31b4281eso3070776a91.2
+        for <stable@vger.kernel.org>; Mon, 21 Sep 2026 08:23:31 -0700 (PDT)
+ARC-Seal: i=1; a=rsa-sha256; t=1790004210; cv=none;
+        d=google.com; s=arc-20260327;
+        b=YaNX4jo06KswOBK482U7VtA8Jo1xF3QV2BTvv6zfdsugTrufJdCfdnggaHdAxZp1s/
+         eKp39+QTSkNfgzmCVqoJrSwDBxM+Xq3YN0YYRKklDvHbJcwAX9XLF8DepeaJSS8NOPF7
+         vWACrwMC5yVx8Mu31NSH3TMe/yvO5CqAYI6KGvX0BiK4K1QB9YILEfTj6+bhRRbPeNKv
+         H5gs0iLBrpdYu9BKbtkrXP52JhEHaTnKJZR5npL2bomq0qzNQpvlOENUUzvYbcA1wOnB
+         ttTNiNFK0BpGaxQPQ9PvKB9p7tGyYFL5N/4iaImKH9OUlpFdtoQ/B79riKD/JSGh/vhy
+         Rv6g==
+ARC-Message-Signature: i=1; a=rsa-sha256; c=relaxed/relaxed; d=google.com; s=arc-20260327;
+        h=cc:to:subject:message-id:date:from:in-reply-to:references
+         :mime-version:dkim-signature;
+        bh=INq7XmDF4W6s4uqXjWWhutx+bhm3j3Ixyq53lQ+50kg=;
+        fh=pvk47kJ0Z39TxREUDGxWuZ2hSvU7+cbh9gro835LK3w=;
+        b=pYPtGC8erzTHd+Z3Wv0LiUGeUaXys2w0Nr/2jTuBiS9S6upMH2JOXwi2laetv0l0PG
+         J39qg06y8RK8ug0dVDJ84s1gTMxfv/NgBZdhHAnBs8ynsfh8JxAtjF1nRLSxVpS8qRFB
+         AOwhRhrU9jy15C/lP7l7l0TGa77f3CNMx2PrJsOaIygUVgEzOFIgDQA/vjqVw9c9XfJL
+         a5f/SKZ/YM9n7UZmMHX0oOOMoO90y86psL7I+paW5AoCAWoOCn1RGLeCbD77RX7OZNSu
+         TxI1K5igaw6rFfTQ4bmRowyhJLxzDWayel8hTTtioIYjr2paXmy74U62IacW/gk7d6uD
+         mBFw==;
+        darn=vger.kernel.org
+ARC-Authentication-Results: i=1; mx.google.com; arc=none
 DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=gmail.com; s=20251104; t=1790004139; x=1790608939; darn=vger.kernel.org;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:from:to:cc:subject:date
-         :message-id:reply-to:content-type;
-        bh=u4xU0nqrQ8g7FJSumFsB8Q8qsMur42hfNo4/mC2b2KQ=;
-        b=VC1JhXnza1ZnssGdnWU9+m9aTdnKqyokPWpd2newizc23JQZb7a1CLrXg6SQtDKigc
-         fzEJeh/QnwpDTYwZ5+Z62ZCswwcO63K6ahOcXBtDoBP+dT0pUdgDL+hn32eKZ100UVF7
-         +m1O4UYTR/icJn66mrYtVDtLnZ5vbpGR8al7H37gOzAeQZ+gilesRsYDJoK4QUzU+2Oz
-         W7nQtxJVHJYldbJuviAXDRG/uhBhMkrRGZVNK8YoSNTHs7hiwecarMwYLZFkbNUVz3xg
-         ZylTuHq0tSj4b56FOEECCZum6RYSZE8PBsXoHSm0t37Rdr25GEpKKP2nAPx0iBUNmzcU
-         gDcA==
+        d=gmail.com; s=20251104; t=1790004210; x=1790609010; darn=vger.kernel.org;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:from:to:cc:subject:date:message-id:reply-to
+         :content-type;
+        bh=INq7XmDF4W6s4uqXjWWhutx+bhm3j3Ixyq53lQ+50kg=;
+        b=RMIjwpvCSnEId6iLqqzpVweOuPEhmX1L+Tyr4Zz8O4OoKvZsfMUg9mCUiJbpa+uXBj
+         N+gFFQ2TQIjV5LoHWXs+7fstuuvcCxCLBXFh7cnKrt5NfNsv3Ha4Fb8l5Id0PvqH/J4m
+         ch761hTNk4r/QmVt+ht2v+JxUB3/GQftp52qqqMJnV+GyREll5VMIF+AMySfJuKaofbv
+         NXQxD4VkvwCtzzUwCQoB0+In7Rhl8vJv9wKf85Lqash/c+SotgbIHx7KFaiIP9Ph8Jxv
+         FrBPPYYNgsc4bVkj1pbGWtk2LzBoBd0B6xlMISvgZoq9NMcnR+FeTEbcHs6AG1rQROBv
+         TXiA==
 X-Google-DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/relaxed;
-        d=1e100.net; s=20260707; t=1790004139; x=1790608939;
-        h=content-transfer-encoding:mime-version:references:in-reply-to
-         :message-id:date:subject:cc:to:from:x-gm-gg:x-gm-message-state:from
-         :to:cc:subject:date:message-id:reply-to:content-type;
-        bh=u4xU0nqrQ8g7FJSumFsB8Q8qsMur42hfNo4/mC2b2KQ=;
-        b=qynf44bFwlA6tfAiaXF9miVA49WwnjnG+E3J3bGy0XIlbFHEV/aDfh7Civq/Ds/2HF
-         8O6Un/ZiKm3P10R2vFzlslZCNqMkqTS82QSDEkDuEJ6BXTKmEqmCyn3a256f0w5zkIXH
-         g5Tusr13Pv4dCS8yum0n4vOxm4WikEwTyt+SEso8UOxJ+TcUHQLxb3Ie8cQuTSnS6yK5
-         wkdllI/dpqoTDMAxzu70xUBQRjAGUmM9YZHFfKNGQ0tWfNVrbVioIfAvJXnyzvw6zE0N
-         A8QWwInFRLnQLzwNR5iikZMQsV60vP3h4Zi5mhbyMWqjA+XM/SF5FVQm0Kw8nfBFPMkV
-         rg7Q==
-X-Forwarded-Encrypted: i=1; AKwUvBysqrwuBhpjh8t/oBEgqzpzmBgp1A4g83MsgtyBUryz8ujd2tuQB60hzz274LKAfyIiQIRgo4M=@vger.kernel.org
-X-Gm-Message-State: AFuF++noYiHymJIE4UDFftD+XWJPo0nDTq2cbgYTYGALO4ZwOh/hzdv9
-	MTGEd5Zhtt7V9t8KXEsvS5sQJ4WcsoOwkAw3fX7IiwSc7qK/FvqdjAve
-X-Gm-Gg: AYBFou1+rZUZxFAv+epbRdVQIqbLCFFlbVBK88lrYAaVbpZNO50JUQlJB4o79vdKqIa
-	USKL1qbZQwBT+SH9hdJf9EGGzscgfQTq4OmeUC9c+AG/3JwsT224uDV3LvndaPsIaFZmLzS6FhN
-	WU97k9ypxa3DS6AQ2bZLrgtaPl5PY9gEDjkaL+m2H4QrV4VKY8jTA+qiOPaS76qR4ZN0hL117St
-	EAW5N7LWsB8yprrINILRy1uJzcYmy7hX/wv57edjnzr5rdhpqagUoqKSkd7qd/S7UzdwpL/3Qol
-	e7Sndbp9peKxOxXq+c27KcnEcLT9vkGvtXC1/2N6e0Hx405L34Hi/v+4Lxf7b0fj1oAeRPkOub8
-	hS/Pa8nfolW3hSzVZ1hqIqqnvdYY420mLTaySe3JyHIPek9HGP2yqNZ5xe6fp7xmPmDyqaHIYCI
-	dSwgbZnthLIIDFWK7+/HMEQngLKhAx0CHlRirivAq4evKns8WnZo+3geyAJLwqtW4=
-X-Received: by 2002:a05:6820:4cc8:b0:6b7:83c5:fdef with SMTP id 006d021491bc7-6ca9c45b8cdmr10810453eaf.48.1790004137290;
-        Mon, 21 Sep 2026 08:22:17 -0700 (PDT)
-Received: from beelink.. ([187.13.30.172])
-        by smtp.gmail.com with ESMTPSA id 006d021491bc7-6d1476b906asm185690eaf.14.2026.09.21.08.22.14
-        (version=TLS1_3 cipher=TLS_AES_256_GCM_SHA384 bits=256/256);
-        Mon, 21 Sep 2026 08:22:16 -0700 (PDT)
-From: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-To: konishi.ryusuke@gmail.com
-Cc: dubeyko@comp.asu.ru,
-	linux-nilfs@vger.kernel.org,
-	linux-kernel@vger.kernel.org,
-	stable@vger.kernel.org,
-	Aldo Ariel Panzardo <qwe.aldo@gmail.com>
-Subject: [PATCH v4] nilfs2: fix checkpoint root lifetime on sysfs errors
-Date: Mon, 21 Sep 2026 12:19:39 -0300
-Message-ID: <20260921152144.3983736-2-qwe.aldo@gmail.com>
-X-Mailer: git-send-email 2.43.0
-In-Reply-To: <20260921152144.3983736-1-qwe.aldo@gmail.com>
-References: <CAKFNMonYVUbzjYm343Aw-=xjUk78x4EdUwGBfNRwE6zfmRVhvA@mail.gmail.com>
- <20260921152144.3983736-1-qwe.aldo@gmail.com>
+        d=1e100.net; s=20260707; t=1790004210; x=1790609010;
+        h=content-type:cc:to:subject:message-id:date:from:in-reply-to
+         :references:mime-version:x-gm-gg:x-gm-message-state:from:to:cc
+         :subject:date:message-id:reply-to:content-type;
+        bh=INq7XmDF4W6s4uqXjWWhutx+bhm3j3Ixyq53lQ+50kg=;
+        b=mlHX/bSwubvxFngsVpT11HkYg+ScTaMgHahcliLMnyI+2Q0grWPH85Nz18vcHmAPIi
+         D5XQ+CdzlDz2TBXWUWeQcsVGnIwuw/Pt+47gAb2hEoDVN4uOjrpF/SrjY/GRt+Li2fSo
+         SiEPUQmzUp9Bm5MEzZ5RqR+3AbBH2zMyCZoFOlH75h4SnkruRkM8A431iUyggPKoCHCj
+         aXlzYN+xJs9pc7D5MhNORRt0wUPAyLpmiAcwqVIDQcMoIBWrqZ8Boa1uaaKEHF8ha8tZ
+         Hq3rxilnyt4o01sYv/68HzDjW3xoC4fFTfoQBz0Bn4rHCMq1mfXZEbc4CasCx8Xd9C8d
+         SGjA==
+X-Forwarded-Encrypted: i=1; AKwUvBwrQteqaLfDUzUITKUTXdXcwIeSpz7NLlDhrpjMQWeCPndcVyNLKy22UPJiF1kKuPJFGOLtW90=@vger.kernel.org
+X-Gm-Message-State: AFuF++nwad44b83nfmVWdePiZIgbdOyT3kw3GsBN4a/E37z7a/r4ZApP
+	2J+CAecSm7xnHBrCZH2tOnYdXRMnbZXTQRASb1Q2K+yzqC+YGeWP+/r/G98EINsndV4TXsDhYKO
+	/3O8zInitszAbOwi60pXib0FgtAq3Qqk=
+X-Gm-Gg: AYBFou2oOyj3/LmMUAbo6DXPBz0QbGnyyNpCiT7CO7TBj5VlZ5n990lHqVAXhLpuaLt
+	6xpg0x4WhGhjRJgk9ErY6Tyg2mPFdw7YzJsAKLu/yvupRurKTiklGhrIEuCR8A1m5i/Wsttgm2Q
+	AR6QYESykYgWXnzPkO0Cby21DMg+M7UiJN75rckh8EYNTevjVDynu6MVmO1LM+3K3R5XRiuL7Vs
+	by7Au3NdZYNUVtvqwyNxKJjFAiC+zbP6fJDIRTNv4aopQvIPWHa68dHtqt5J+2Q+iS9IUGRHBFI
+	rUUrSKvMWPUv+dQHvmn2wI1YaVbnrHZUD/iSdGk3Je5+FBA7fiMcoZ9C+A==
+X-Received: by 2002:a17:90a:d445:b0:3a0:2817:1fcf with SMTP id
+ 98e67ed59e1d1-3a0281720f7mr8496428a91.11.1790004210586; Mon, 21 Sep 2026
+ 08:23:30 -0700 (PDT)
 Precedence: bulk
 X-Mailing-List: stable@vger.kernel.org
 List-Id: <stable.vger.kernel.org>
 List-Subscribe: <mailto:stable+subscribe@vger.kernel.org>
 List-Unsubscribe: <mailto:stable+unsubscribe@vger.kernel.org>
 MIME-Version: 1.0
-Content-Transfer-Encoding: 8bit
+References: <20260916022954.2690322-1-lgs201920130244@gmail.com> <178953744017.13037.8123570146284827976.b4-review@b4>
+In-Reply-To: <178953744017.13037.8123570146284827976.b4-review@b4>
+From: Guangshuo Li <lgs201920130244@gmail.com>
+Date: Mon, 21 Sep 2026 23:23:16 +0800
+X-Gm-Features: AcwNN1VTUBM-S9HR0eeeidh2kablCG-BVFJX7Z6YN2-YKoW6ujal7wVJmjF5B58
+Message-ID: <CANUHTR_pjrYXHkMZH_QheAUr86=dJ4WFC+DNMgzUYsm+MsEXPg@mail.gmail.com>
+Subject: Re: [PATCH] net: ena: fix PHC cleanup on probe failure
+To: Arthur Kiyanovski <akiyano@amazon.com>
+Cc: David Arinzon <darinzon@amazon.com>, Andrew Lunn <andrew+netdev@lunn.ch>, 
+	"David S. Miller" <davem@davemloft.net>, Eric Dumazet <edumazet@google.com>, 
+	Jakub Kicinski <kuba@kernel.org>, Paolo Abeni <pabeni@redhat.com>, 
+	Sang-Heon Jeon <ekffu200098@gmail.com>, 
+	=?UTF-8?Q?Niklas_S=C3=B6derlund?= <niklas.soderlund+renesas@ragnatech.se>, 
+	Dawei Feng <dawei.feng@seu.edu.cn>, Amit Bernstein <amitbern@amazon.com>, netdev@vger.kernel.org, 
+	linux-kernel@vger.kernel.org, stable@vger.kernel.org
+Content-Type: text/plain; charset="UTF-8"
 
-nilfs_find_or_create_root() links a new checkpoint root into the
-checkpoint tree and drops ns_cptree_lock before creating the root's
-sysfs group.  If nilfs_sysfs_create_snapshot_group() then fails, the
-root is freed while it is still reachable from ns_cptree, so a
-concurrent nilfs_lookup_root() can dereference freed memory.
+Hi Arthur,
 
-nilfs_sysfs_create_snapshot_group() allocates memory and creates sysfs
-nodes and may sleep, so it cannot run under the ns_cptree_lock spinlock.
-Reorder the creation path so that the sysfs group is set up before the
-root is published: initialize the root, create its sysfs group outside
-the lock, and only then take ns_cptree_lock to link it into the tree.
-On sysfs failure the root was never visible and is freed directly; in
-the unlikely case a root with the same checkpoint number is already
-present, the sysfs group of the new root is removed before it is freed.
-Concurrent insertions are already serialized by ns_snapshot_mount_mutex,
-so only the race against nilfs_lookup_root() needs to be closed.
+Thanks for the review.
 
-Because kobject_put() does not guarantee that the embedded kobject's
-release callback has run by the time it returns
-(CONFIG_DEBUG_KOBJECT_RELEASE defers it), the container must not be
-freed until the release completes.  Keep that wait_for_completion() of
-snapshot_kobj_unregister inside the sysfs helpers, so both the creation
-error path and nilfs_sysfs_delete_snapshot_group() wait for the release
-before their callers free the root.
+On Wed, 16 Sept 2026 at 13:44, Arthur Kiyanovski <akiyano@amazon.com> wrote:
+>
+> On Wed, 16 Sep 2026 10:29:54 +0800, Guangshuo Li <lgs201920130244@gmail.com> wrote:
+> > diff --git a/drivers/net/ethernet/amazon/ena/ena_netdev.c b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> > index ea89619039d8..5f0864d16dd3 100644
+> > --- a/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> > +++ b/drivers/net/ethernet/amazon/ena/ena_netdev.c
+> > @@ -4122,6 +4122,7 @@ static int ena_probe(struct pci_dev *pdev, const struct pci_device_id *ent)
+> >  err_device_destroy:
+> >       ena_com_delete_host_info(ena_dev);
+> >       ena_com_admin_destroy(ena_dev);
+> > +     ena_phc_destroy(adapter);
+> >  ena_devlink_destroy:
+> >       ena_devlink_free(devlink);
+> >  err_metrics_destroy:
+>
+> Thank you for the patch.
+> It looks correct.
+>
+> Please resend this together with "net: ena: fix MMIO read buffer leak on
+> probe failure" as one two-patch series - both insert a line into the same
+> hunk, so they conflict with each other.
+>
+> --
+> Arthur Kiyanovski <akiyano@amazon.com>
 
-Fixes: dd70edbde262 ("nilfs2: integrate sysfs support into driver")
-Cc: stable@vger.kernel.org
-Signed-off-by: Aldo Ariel Panzardo <qwe.aldo@gmail.com>
----
-Changes in v4:
-  - Keep ns_cptree_lock as a spinlock instead of converting it to a
-    mutex, and create the sysfs group before taking the lock, as
-    suggested by Ryusuke Konishi. Concurrent insertions are already
-    serialized by ns_snapshot_mount_mutex; only the race against
-    nilfs_lookup_root() needs to be closed.
-  - Move the wait_for_completion() of snapshot_kobj_unregister into the
-    sysfs helpers (create error path and delete), so the checkpoint
-    tree functions no longer manage the kobject completion state, as
-    suggested by Ryusuke Konishi.
+Sure, I'll resend both fixes as a two-patch series, with the PHC cleanup
+as 1/2 and the MMIO read buffer cleanup as 2/2.
 
-Changes in v3:
-  - Move wait_for_completion() out of the locked section in
-    nilfs_put_root() (the mutex-based v2/v3 approach; dropped in v4).
-
-Changes in v2:
-  - Serialize the sysfs registration against the tree instead of adding
-    a second lock, as suggested by Viacheslav Dubeyko.
-
- fs/nilfs2/sysfs.c     |  5 ++++-
- fs/nilfs2/the_nilfs.c | 34 +++++++++++++++++++++-------------
- 2 files changed, 25 insertions(+), 14 deletions(-)
-
-diff --git a/fs/nilfs2/sysfs.c b/fs/nilfs2/sysfs.c
-index bc52afbfc5c7..5bb74a45ad1e 100644
---- a/fs/nilfs2/sysfs.c
-+++ b/fs/nilfs2/sysfs.c
-@@ -195,8 +195,10 @@ int nilfs_sysfs_create_snapshot_group(struct nilfs_root *root)
- 					    "%llu", root->cno);
- 	}
- 
--	if (err)
-+	if (err) {
- 		kobject_put(&root->snapshot_kobj);
-+		wait_for_completion(&root->snapshot_kobj_unregister);
-+	}
- 
- 	return err;
- }
-@@ -204,6 +206,7 @@ int nilfs_sysfs_create_snapshot_group(struct nilfs_root *root)
- void nilfs_sysfs_delete_snapshot_group(struct nilfs_root *root)
- {
- 	kobject_put(&root->snapshot_kobj);
-+	wait_for_completion(&root->snapshot_kobj_unregister);
- }
- 
- /************************************************************************
-diff --git a/fs/nilfs2/the_nilfs.c b/fs/nilfs2/the_nilfs.c
-index ecd71c190885..1d5d2293c9c7 100644
---- a/fs/nilfs2/the_nilfs.c
-+++ b/fs/nilfs2/the_nilfs.c
-@@ -869,6 +869,26 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
- 	if (!new)
- 		return NULL;
- 
-+	new->cno = cno;
-+	new->ifile = NULL;
-+	new->nilfs = nilfs;
-+	refcount_set(&new->count, 1);
-+	atomic64_set(&new->inodes_count, 0);
-+	atomic64_set(&new->blocks_count, 0);
-+
-+	/*
-+	 * Register the sysfs group before publishing the root in the
-+	 * checkpoint tree.  nilfs_sysfs_create_snapshot_group() can sleep,
-+	 * so it must run outside ns_cptree_lock; creating it first also
-+	 * ensures a concurrent nilfs_lookup_root() can never observe a root
-+	 * whose sysfs registration later fails and gets freed.
-+	 */
-+	err = nilfs_sysfs_create_snapshot_group(new);
-+	if (err) {
-+		kfree(new);
-+		return NULL;
-+	}
-+
- 	spin_lock(&nilfs->ns_cptree_lock);
- 
- 	p = &nilfs->ns_cptree.rb_node;
-@@ -885,29 +905,17 @@ nilfs_find_or_create_root(struct the_nilfs *nilfs, __u64 cno)
- 		} else {
- 			refcount_inc(&root->count);
- 			spin_unlock(&nilfs->ns_cptree_lock);
-+			nilfs_sysfs_delete_snapshot_group(new);
- 			kfree(new);
- 			return root;
- 		}
- 	}
- 
--	new->cno = cno;
--	new->ifile = NULL;
--	new->nilfs = nilfs;
--	refcount_set(&new->count, 1);
--	atomic64_set(&new->inodes_count, 0);
--	atomic64_set(&new->blocks_count, 0);
--
- 	rb_link_node(&new->rb_node, parent, p);
- 	rb_insert_color(&new->rb_node, &nilfs->ns_cptree);
- 
- 	spin_unlock(&nilfs->ns_cptree_lock);
- 
--	err = nilfs_sysfs_create_snapshot_group(new);
--	if (err) {
--		kfree(new);
--		new = NULL;
--	}
--
- 	return new;
- }
- 
--- 
-2.43.0
-
+Thanks,
+Guangshuo
